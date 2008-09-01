@@ -1,0 +1,45 @@
+HKCR
+{
+	ForceRemove PeerProject.SkinInfoExtractor.1 = s 'PeerProject Skin Metadata Extractor'
+	{
+		CLSID = s '{A4F1E383-B493-4580-8DB6-5CC89CBAAC53}'
+	}
+	ForceRemove PeerProject.SkinInfoExtractor = s 'PeerProject Skin Metadata Extractor'
+	{
+		CLSID = s '{A4F1E383-B493-4580-8DB6-5CC89CBAAC53}'
+		CurVer = s 'PeerProject.SkinInfoExtractor.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {A4F1E383-B493-4580-8DB6-5CC89CBAAC53} = s 'PeerProject Skin Metadata Extractor'
+		{
+			ProgID = s 'PeerProject.SkinInfoExtractor.1'
+			VersionIndependentProgID = s 'PeerProject.SkinInfoExtractor'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Both'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{251F45EE-7C3D-4D89-ADB8-974568419DBD}'
+		}
+	}
+}
+HKLM
+{
+	NoRemove Software
+	{
+		NoRemove PeerProject
+		{
+			NoRemove PeerProject
+			{
+				NoRemove Plugins
+				{
+					NoRemove LibraryBuilder
+					{
+						ForceRemove val '.sks' = s '{A4F1E383-B493-4580-8DB6-5CC89CBAAC53}'
+					}
+				}
+			}
+		}
+	}
+}

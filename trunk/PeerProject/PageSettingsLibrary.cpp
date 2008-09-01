@@ -1,0 +1,275 @@
+//
+// PageSettingsLibrary.cpp
+//
+// This file is part of PeerProject (peerproject.org) © 2008
+// Portions Copyright Shareaza Development Team, 2002-2008.
+//
+// PeerProject is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 3
+// of the License, or later version (at your option).
+//
+// PeerProject is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License 3.0
+// along with PeerProject; if not, write to Free Software Foundation, Inc.
+// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+//
+
+#include "StdAfx.h"
+#include "PeerProject.h"
+#include "Settings.h"
+#include "Library.h"
+#include "LibraryHistory.h"
+#include "LibraryBuilder.h"
+#include "PageSettingsLibrary.h"
+
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+
+IMPLEMENT_DYNCREATE(CLibrarySettingsPage, CSettingsPage)
+
+BEGIN_MESSAGE_MAP(CLibrarySettingsPage, CSettingsPage)
+	//{{AFX_MSG_MAP(CLibrarySettingsPage)
+	ON_CBN_SELCHANGE(IDC_SAFE_TYPES, OnSelChangeSafeTypes)
+	ON_CBN_EDITCHANGE(IDC_SAFE_TYPES, OnEditChangeSafeTypes)
+	ON_BN_CLICKED(IDC_SAFE_ADD, OnSafeAdd)
+	ON_BN_CLICKED(IDC_SAFE_REMOVE, OnSafeRemove)
+	ON_CBN_SELCHANGE(IDC_PRIVATE_TYPES, OnSelChangePrivateTypes)
+	ON_CBN_EDITCHANGE(IDC_PRIVATE_TYPES, OnEditChangePrivateTypes)
+	ON_BN_CLICKED(IDC_PRIVATE_ADD, OnPrivateAdd)
+	ON_BN_CLICKED(IDC_PRIVATE_REMOVE, OnPrivateRemove)
+	ON_BN_CLICKED(IDC_RECENT_CLEAR, OnRecentClear)
+	ON_BN_CLICKED(IDC_COLLECTIONS_BROWSE, OnCollectionsBrowse)
+	//}}AFX_MSG_MAP
+END_MESSAGE_MAP()
+
+
+/////////////////////////////////////////////////////////////////////////////
+// CLibrarySettingsPage property page
+
+CLibrarySettingsPage::CLibrarySettingsPage() : CSettingsPage(CLibrarySettingsPage::IDD)
+, m_bMakeGhosts(FALSE)
+{
+	//{{AFX_DATA_INIT(CLibrarySettingsPage)
+	m_bWatchFolders = FALSE;
+	m_nRecentDays = 0;
+	m_nRecentTotal = 0;
+	m_bStoreViews = FALSE;
+	m_bBrowseFiles = FALSE;
+	m_bHighPriorityHash = FALSE;
+	m_bSmartSeries = FALSE;
+	m_sCollectionPath = _T("");
+	//}}AFX_DATA_INIT
+}
+
+CLibrarySettingsPage::~CLibrarySettingsPage()
+{
+}
+
+void CLibrarySettingsPage::DoDataExchange(CDataExchange* pDX)
+{
+	CSettingsPage::DoDataExchange(pDX);
+	//{{AFX_DATA_MAP(CLibrarySettingsPage)
+	DDX_Control(pDX, IDC_RECENT_TOTAL_SPIN, m_wndRecentTotal);
+	DDX_Control(pDX, IDC_RECENT_DAYS_SPIN, m_wndRecentDays);
+	DDX_Control(pDX, IDC_SAFE_REMOVE, m_wndSafeRemove);
+	DDX_Control(pDX, IDC_SAFE_ADD, m_wndSafeAdd);
+	DDX_Control(pDX, IDC_SAFE_TYPES, m_wndSafeList);
+	DDX_Control(pDX, IDC_PRIVATE_REMOVE, m_wndPrivateRemove);
+	DDX_Control(pDX, IDC_PRIVATE_ADD, m_wndPrivateAdd);
+	DDX_Control(pDX, IDC_PRIVATE_TYPES, m_wndPrivateList);
+	DDX_Check(pDX, IDC_WATCH_FOLDERS, m_bWatchFolders);
+	DDX_Text(pDX, IDC_RECENT_DAYS, m_nRecentDays);
+	DDX_Text(pDX, IDC_RECENT_TOTAL, m_nRecentTotal);
+	DDX_Check(pDX, IDC_STORE_VIEWS, m_bStoreViews);
+	DDX_Check(pDX, IDC_BROWSE_FILES, m_bBrowseFiles);
+	DDX_Check(pDX, IDC_HIGH_HASH, m_bHighPriorityHash);
+	DDX_Control(pDX, IDC_COLLECTIONS_BROWSE, m_wndCollectionPath);
+	DDX_Text(pDX, IDC_COLLECTIONS_FOLDER, m_sCollectionPath);
+	DDX_Check(pDX, IDC_MAKE_GHOSTS, m_bMakeGhosts);
+	//}}AFX_DATA_MAP
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// CLibrarySettingsPage message handlers
+
+BOOL CLibrarySettingsPage::OnInitDialog()
+{
+	CSettingsPage::OnInitDialog();
+
+	m_bStoreViews		= Settings.Library.StoreViews;
+	m_bWatchFolders		= Settings.Library.WatchFolders;
+	m_bBrowseFiles		= Settings.Community.ServeFiles;
+	m_bHighPriorityHash = Settings.Library.HighPriorityHash;
+	m_bMakeGhosts		= Settings.Library.CreateGhosts;
+	m_bSmartSeries		= Settings.Library.SmartSeriesDetection;
+
+	m_nRecentTotal		= Settings.Library.HistoryTotal;
+	m_nRecentDays		= Settings.Library.HistoryDays;
+
+	m_sCollectionPath	= Settings.Downloads.CollectionPath;
+
+	for ( string_set::const_iterator i = Settings.Library.SafeExecute.begin() ;
+		i != Settings.Library.SafeExecute.end(); i++ )
+	{
+		m_wndSafeList.AddString( *i );
+	}
+
+	for ( string_set::const_iterator i = Settings.Library.PrivateTypes.begin() ;
+		i != Settings.Library.PrivateTypes.end(); i++ )
+	{
+		m_wndPrivateList.AddString( *i );
+	}
+
+	m_wndCollectionPath.SetIcon( IDI_BROWSE );
+
+	UpdateData( FALSE );
+
+	Settings.SetRange( &Settings.Library.HistoryTotal, m_wndRecentTotal );
+	Settings.SetRange( &Settings.Library.HistoryDays, m_wndRecentDays );
+
+	m_wndSafeAdd.EnableWindow( m_wndSafeList.GetWindowTextLength() > 0 );
+	m_wndSafeRemove.EnableWindow( m_wndSafeList.GetCurSel() >= 0 );
+	m_wndPrivateAdd.EnableWindow( m_wndPrivateList.GetWindowTextLength() > 0 );
+	m_wndPrivateRemove.EnableWindow( m_wndPrivateList.GetCurSel() >= 0 );
+
+	return TRUE;
+}
+
+void CLibrarySettingsPage::OnSelChangeSafeTypes()
+{
+	m_wndSafeRemove.EnableWindow( m_wndSafeList.GetCurSel() >= 0 );
+}
+
+void CLibrarySettingsPage::OnEditChangeSafeTypes()
+{
+	m_wndSafeAdd.EnableWindow( m_wndSafeList.GetWindowTextLength() > 0 );
+}
+
+void CLibrarySettingsPage::OnSafeAdd()
+{
+	CString strType;
+	m_wndSafeList.GetWindowText( strType );
+
+	ToLower( strType );
+
+	strType.Trim();
+	if ( strType.IsEmpty() ) return;
+
+	if ( m_wndSafeList.FindStringExact( -1, strType ) >= 0 ) return;
+
+	m_wndSafeList.AddString( strType );
+	m_wndSafeList.SetWindowText( _T("") );
+}
+
+void CLibrarySettingsPage::OnSafeRemove()
+{
+	int nItem = m_wndSafeList.GetCurSel();
+	if ( nItem >= 0 ) m_wndSafeList.DeleteString( nItem );
+	m_wndSafeRemove.EnableWindow( FALSE );
+}
+
+void CLibrarySettingsPage::OnSelChangePrivateTypes()
+{
+	m_wndPrivateRemove.EnableWindow( m_wndPrivateList.GetCurSel() >= 0 );
+}
+
+void CLibrarySettingsPage::OnEditChangePrivateTypes()
+{
+	m_wndPrivateAdd.EnableWindow( m_wndPrivateList.GetWindowTextLength() > 0 );
+}
+
+void CLibrarySettingsPage::OnPrivateAdd()
+{
+	CString strType;
+	m_wndPrivateList.GetWindowText( strType );
+
+	ToLower( strType );
+
+	strType.Trim();
+	if ( strType.IsEmpty() ) return;
+
+	if ( m_wndPrivateList.FindStringExact( -1, strType ) >= 0 ) return;
+
+	m_wndPrivateList.AddString( strType );
+	m_wndPrivateList.SetWindowText( _T("") );
+}
+
+void CLibrarySettingsPage::OnPrivateRemove()
+{
+	int nItem = m_wndPrivateList.GetCurSel();
+	if ( nItem >= 0 ) m_wndPrivateList.DeleteString( nItem );
+	m_wndPrivateRemove.EnableWindow( FALSE );
+}
+
+void CLibrarySettingsPage::OnRecentClear()
+{
+	CQuickLock oLock( Library.m_pSection );
+	LibraryHistory.Clear();
+	Library.Update();
+}
+
+void CLibrarySettingsPage::OnCollectionsBrowse()
+{
+	CString strPath( BrowseForFolder( _T("Select folder for collections:"),
+		m_sCollectionPath ) );
+	if ( strPath.IsEmpty() )
+		return;
+
+	UpdateData( TRUE );
+	m_sCollectionPath = strPath;
+	//m_bCollectionsChanged = TRUE;
+	UpdateData( FALSE );
+}
+
+void CLibrarySettingsPage::OnOK()
+{
+	UpdateData();
+
+	Settings.Library.StoreViews			= m_bStoreViews != FALSE;
+	Settings.Library.WatchFolders		= m_bWatchFolders != FALSE;
+	Settings.Community.ServeFiles		= m_bBrowseFiles != FALSE;
+	Settings.Library.HighPriorityHash	= m_bHighPriorityHash != FALSE;
+	Settings.Library.CreateGhosts		= m_bMakeGhosts != FALSE;
+	Settings.Library.SmartSeriesDetection = m_bSmartSeries != FALSE;
+	Settings.Library.HistoryTotal		= m_nRecentTotal;
+	Settings.Library.HistoryDays		= m_nRecentDays;
+
+	Settings.Downloads.CollectionPath = m_sCollectionPath;
+
+	//Set current hashing speed to requested
+	LibraryBuilder.BoostPriority( m_bHighPriorityHash != FALSE );
+
+	Settings.Library.SafeExecute.clear();
+
+	for ( int nItem = 0 ; nItem < m_wndSafeList.GetCount() ; nItem++ )
+	{
+		CString str;
+		m_wndSafeList.GetLBText( nItem, str );
+		if ( str.GetLength() )
+		{
+			Settings.Library.SafeExecute.insert( str );
+		}
+	}
+
+	Settings.Library.PrivateTypes.clear();
+
+	for ( int nItem = 0 ; nItem < m_wndPrivateList.GetCount() ; nItem++ )
+	{
+		CString str;
+		m_wndPrivateList.GetLBText( nItem, str );
+		if ( str.GetLength() )
+		{
+			Settings.Library.PrivateTypes.insert( str );
+		}
+	}
+
+	CSettingsPage::OnOK();
+}

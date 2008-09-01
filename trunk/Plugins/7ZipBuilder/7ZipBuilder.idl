@@ -1,0 +1,41 @@
+//
+// 7ZipBuilder.idl : IDL source for 7ZipBuilder
+//
+// Portions Copyright Shareaza Development Team, 2007.
+// This file is part of PeerProject (peerproject.org) © 2008
+//
+// PeerProject is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 3
+// of the License, or later version (at your option).
+//
+// PeerProject is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License 3.0
+// along with PeerProject; if not, write to Free Software Foundation, Inc.
+// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+//
+
+import "oaidl.idl";
+import "ocidl.idl";
+import "PeerProject.idl";
+
+[
+	uuid(2975FA55-CDD5-41AE-8120-EB82E1BF9826),
+	version(1.0),
+	helpstring("7ZipBuilder 1.0 Type Library")
+]
+library SevenZipBuilderLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(B69F80CD-FB15-45E8-B359-92A41CC571A7)
+	]
+	coclass SevenZipBuilder
+	{
+		[default] interface ILibraryBuilderPlugin;
+	};
+};
