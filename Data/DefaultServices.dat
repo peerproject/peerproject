@@ -1,0 +1,68 @@
+M http://gwc.frodoslair.net/skulls/skulls
+M http://gwc.eod.cc/skulls.php
+M http://gwc.cluephone.com/skulls.php
+M http://gwc.movingpages.org/skulls.php
+M http://gweb.4octets.co.uk/skulls.php
+M http://aniraws.com/bootstrap/skulls.php
+M http://gwc.mitigated.net/gwc.php
+M http://grantgalitz.com/Beacon/gwc.php
+M http://silvers.servehttp.com/Beacon/gwc.php
+
+2 http://cache.trillinux.org/g2/bazooka.php
+2 http://midian.jayl.de/g2/bazooka.php
+2 http://gwc.guufshop.com/skulls/skulls.php
+2 http://gwc2.wodi.org/skulls.php
+2 http://gwc.dyndns.info:28960/gwc.php
+2 http://dogma.cloud.bishopston.net:33559/
+2 http://karma.cloud.bishopston.net:33559/
+2 http://bbs.robertwoolley.co.uk/GWebCache/skulls.php
+
+1 http://gwc.glucolene.com:8080/
+1 http://gwc.dietpac.com:8080/
+
+U uhc:uhc2.limewire.com:20181
+U uhc:uhc.udp-host-cache.com:9999
+U uhc:yin.cloud.bishopston.net:33558
+U uhc:yang.cloud.bishopston.net:33558
+U uhc:ein.gtkg.net:60666
+U uhc:drei.gtkg.net:62666
+U uhc:sissy.gtkg.org:51557
+
+D http://peerates.net/servers.php
+D http://www.gruk.org/server.met
+D http://ocbmaurice.dyndns.org/pl/slist.pl/server.met?download/server-best.met
+D http://www.emule-server.de/server.met/max/server.met
+D http://www.esel-paradies.de/server/server.met
+D http://elboiler.p2pforum.it/server.met
+
+X http://gwebcache.spearforensics.com/
+X http://geocities.com/prae2rian/GNUTELLA.net
+X http://bbs.robertwoolley.co.uk/gwebcache/gcache.php
+X http://bbs.robertwoolley.co.uk/GWebCache/gcache.php
+X http://gwc.frodoslair.net.nyud.net/skulls/skulls.php
+X http://gwc.eod.cc.nyud.net/skulls.php
+X http://gwc.nickstallman.net.nyud.net/
+X http://gwc.nickstallman.net/beta.php
+X http://gwc.nickstallman.net/
+X http://gwebcache.ns1.net/index.php
+X http://gwc.iblinx.com:2108/gwc/cgi-bin/fc
+X http://fischaleck.net/cache/mcache.php
+X http://reukiodo.dyndns.org/gwebcache/gwcii.php
+X http://portal.homeunix.org/Beacon/gwc.php
+X http://www.lo7.wroc.pl/~stash/g2-moved/bazooka.php
+
+#
+# Last updated September 2008
+#
+# Keep at least one link to a .met file and four gwebcache links
+# or they'll keep getting added every time they're removed
+#
+# A letter and space must precede each link to indicate the type of service:
+# D = eDonkey server.met file, M = multinetwork gwebcache,
+# 2 = Gnutella 2 gwebcache, 1 = Gnutella gwebcache (obsolete)
+# X = banned, U = BootStrap(uhc, ukhl, gnutella1 host, gnutella2 host)
+#
+# Delete this file and PeerProject will use internal defaults.
+#
+# Live Status at http://gcachescan.jonatkins.com and http://kevogod.trillinux.org
+# Get latest version at http://PeerProject.svn.sourceforge.net/viewvc/*checkout*/PeerProject/trunk/Data/DefaultServices.dat

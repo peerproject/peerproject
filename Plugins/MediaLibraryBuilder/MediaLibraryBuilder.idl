@@ -1,0 +1,41 @@
+//
+// MediaLibraryBuilder.idl : IDL source for MediaLibraryBuilder
+//
+// Copyright (c) Nikolay Raspopov, 2005.
+// This file is part of PeerProject (peerproject.org) © 2008
+//
+// PeerProject is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 3
+// of the License, or later version (at your option).
+//
+// PeerProject is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License 3.0
+// along with PeerProject; if not, write to Free Software Foundation, Inc.
+// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+//
+
+import "oaidl.idl";
+import "ocidl.idl";
+import "PeerProject.idl";
+
+[
+	uuid(6B3F5CE8-238C-4285-BE4B-EF7A9F71D1C2),
+	version(1.0),
+	helpstring("MediaLibraryBuilder 1.0 Type Library")
+]
+library MediaLibraryBuilderLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(570C197C-FE9C-4D1F-B6E0-EFA44D36399F)
+	]
+	coclass Builder
+	{
+		[default] interface ILibraryBuilderPlugin;
+	};
+};

@@ -1,0 +1,131 @@
+GPLv3 NOTICE:
+	All Original PeerProject CODE and PROJECTS Are Released Under
+	GNU GENERAL PUBLIC LICENSE VERSION 3.
+	(With All Permissable Additional Requirements)
+
+CREATIVE COMMONS BY-NC-SA NOTICE:
+	All Original PeerProject VISUAL RESOURCES Are Released Under
+	CREATIVE COMMMONS ATTRIBUTION-NONCOMMERICAL-SHAREALIKE
+
+
+ALL MATERIALS CONTAINED IN THIS REPOSITORY ARE COPYRIGHTED,
+EXCEPT ONLY WHERE CLEARLY MARKED AS PUBLIC DOMAIN (IF ANY).
+
+ANY USE OF THE SOURCE OR BINARIES IS SUBJECT TO THE ABOVE LICENSES.
+
+NOTE NO ORIGINAL ARTWORK HEREIN MAY BE USED FOR COMMERCIAL APPLICATIONS.
+
+'PEERPROJECT' AND ITS LOGO REMAIN PROTECTED TRADEMARKS. 
+
+
+______________________________________________________________________
+
+
+
+
+This is a lay summary to assist in reading the licensing in full.
+
+
+You are not required to agree with the applicable licenses, however
+they are the only means allowing you to use this copyrighted material.
+
+No terms abridge fair-use rights or redistribution as-is free of charge.
+
+If you do not accept all terms, you may not reuse PeerProject in any way.
+
+
+
+
+______________________________________________________________________
+
+
+The spirit of open-source is encouraged, and the primary intent is compliance.
+However, perceived abuses will be vigorously pursued.
+
+
+
+COMMERICIAL/RE-USE REMINDERS:
+
+While the GPL allows for commercial use, CC-BY-NC-SA clearly does not.
+Therefore no original artwork may be used in any commercial applications of this source.
+
+Furthermore, all (extended) conditions of the GPL v3 License must be met.
+
+
+
+Conspicuously and appropriately publish on each copy an appropriate PeerProject copyright notice.
+
+Carry prominent notices stating that it is released under this License (GPL 3.0).
+
+You must license entire new work, as a whole, under this License (GPL 3.0 or later)
+to anyone who comes into possession of a copy.
+
+New work must carry prominent notices stating that you modified it, 
+and giving a relevant date (and/or accurate version number).
+
+"You may charge any price or no price for each copy that you convey,"
+however you effectively MUST charge nothing if Non-commercial artwork remains included.
+
+
+Futhermore:
+
+Prohibited misrepresentation of the origin of the material.
+
+Required preservation of legal notices and 'PeerProject' author attribution.
+
+Required modified versions to be marked as to be differentiated from the original source.
+
+Limited use for publicity purposes of names of licensors or authors of the material.
+
+Declining to grant rights under trademark law for use of trade names and trademarks.
+
+Disclaiming warranty or limiting liability differently (additionally).
+
+And, Requiring indemnification of licensors and authors of this material,
+with contractual assumptions of liability to the recipient.
+
+(End users and redistributers are liable as to their own conduct,
+and for any hardships brought upon the authors by their conduct.)
+
+
+Lastly, The 'Affero Clause' is in effect:
+
+Any publicly accessible modifications or derivative works require 
+the modified source must be made publicly available (via webserver) as well. 
+This includes all instances where 'evidence' thereof is publicly produced.
+
+
+Questions should be addressed to PeerProject.org prior to making any assumptions.
+
+
+PeerProject is primarily a general internet client/server ("web browser") with no control over networks.
+
+PeerProject is also wholely dependent upon the contributions of disassociated volunteers worldwide.
+
+Any party with a dispute MUST submit an appropriate bugfix -or technically detailed
+and actionable complaint- PRIOR to taking any actions against PeerProject, 
+technical or otherwise. Due to Open Source, there can be no guarantees of any kind.
+
+
+
+
+
+_____________________________________________________________________
+
+
+This file is part of PeerProject (peerproject.org) © 2008
+Portions Copyright Shareaza Development Team, 2002-2008.
+
+PeerProject is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 3
+of the License, or later version (at your option).
+
+PeerProject is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License 3.0
+along with PeerProject; if not, write to Free Software Foundation, Inc.
+51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)

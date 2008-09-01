@@ -1,0 +1,41 @@
+//
+// GFLImageServices.idl : IDL source for GFLImageServices
+//
+// Copyright (c) Nikolay Raspopov, 2005.
+// This file is part of PeerProject (peerproject.org) © 2008
+//
+// PeerProject is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 3
+// of the License, or later version (at your option).
+//
+// PeerProject is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License 3.0
+// along with PeerProject; if not, write to Free Software Foundation, Inc.
+// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+//
+
+import "oaidl.idl";
+import "ocidl.idl";
+import "PeerProject.idl";
+
+[
+	uuid(FCCC9C8C-45EF-4EB4-8AB1-5235585A631D),
+	version(1.0),
+	helpstring("GFLImageServices 1.0 Type Library")
+]
+library GFLImageServicesLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(FF5FCD00-2C20-49D8-84F6-888D2E2C95DA)
+	]
+	coclass GFLReader
+	{
+		[default] interface IImageServicePlugin;
+	};
+};
