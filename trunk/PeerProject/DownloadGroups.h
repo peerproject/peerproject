@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_DOWNLOADGROUPS_H__3B37C337_3DD2_4335_BEF1_EA98F348286E__INCLUDED_)
-#define AFX_DOWNLOADGROUPS_H__3B37C337_3DD2_4335_BEF1_EA98F348286E__INCLUDED_
-
 #pragma once
 
 class CDownload;
@@ -48,7 +45,7 @@ protected:
 // Operations
 public:
 	CDownloadGroup*		GetSuperGroup();
-	CDownloadGroup*		Add(const LPCTSTR pszName = NULL, const BOOL bTemporary = FALSE);
+	CDownloadGroup*		Add(LPCTSTR pszName = NULL, BOOL bTemporary = FALSE, BOOL bUseExisting = FALSE);
 	void				Remove(CDownloadGroup* pGroup);
 	void				Link(CDownload* pDownload);
 	void				Unlink(CDownload* pDownload, BOOL bAndSuper = TRUE);
@@ -96,5 +93,3 @@ public:
 };
 
 extern CDownloadGroups DownloadGroups;
-
-#endif // !defined(AFX_DOWNLOADGROUPS_H__3B37C337_3DD2_4335_BEF1_EA98F348286E__INCLUDED_)

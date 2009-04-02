@@ -32,9 +32,6 @@
 #include "Uploads.h"
 
 #include "ID3.h"
-#include "SHA.h"
-#include "TigerTree.h"
-#include "ED2K.h"
 #include "XML.h"
 #include "SchemaCache.h"
 #include "LibraryBuilder.h"
@@ -58,7 +55,11 @@ CDownloadWithFile::CDownloadWithFile() :
 
 CDownloadWithFile::~CDownloadWithFile()
 {
-	if ( m_pFile != NULL ) delete m_pFile;
+	if ( m_pFile )
+	{
+		m_pFile->Release();
+		m_pFile = NULL;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -73,7 +74,7 @@ BOOL CDownloadWithFile::OpenFile()
 
 	if ( m_pFile->IsValid() )
 	{
-		if ( m_pFile->Open( m_sPath ) ) return TRUE;
+		if ( m_pFile->Open( m_sPath, 0, m_nSize, TRUE, FALSE ) ) return TRUE;
 		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILE_OPEN_ERROR, (LPCTSTR)m_sPath );
 	}
 	else if ( m_nSize != SIZE_UNKNOWN && !Downloads.IsSpaceAvailable( m_nSize, Downloads.dlPathIncomplete ) )
@@ -96,20 +97,20 @@ BOOL CDownloadWithFile::OpenFile()
 			if ( nTry == 0 )
 				strName = m_sPath;
 			else
-				strName.Format( _T("%s.x%i"), (LPCTSTR)m_sPath, GetRandomNum( 0, 127 ) );
+				strName.Format( _T("%s.%i.partial"), (LPCTSTR)m_sPath.Left( m_sPath.GetLength() - 8 ), GetRandomNum( 0, 100000 ) );
 
-			theApp.Message( MSG_INFO, IDS_DOWNLOAD_FILE_CREATE, (LPCTSTR)strName );
-
-			if ( m_pFile->Create( strName, m_nSize ) )
+			if ( m_pFile->Open( strName, 0, m_nSize, TRUE, TRUE ) )
 			{
+				theApp.Message( MSG_INFO, IDS_DOWNLOAD_FILE_CREATE, (LPCTSTR)strName );
+
 				theApp.WriteProfileString( _T("Delete"), strName, NULL );
 				MoveFile( strLocalName + _T(".sd"), strName + _T(".sd") );
 				m_sPath = strName;
 				return TRUE;
 			}
-
-			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILE_CREATE_ERROR, (LPCTSTR)strName );
 		}
+
+		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILE_CREATE_ERROR, (LPCTSTR)m_sPath );
 
 		m_sPath = strLocalName;
 	}
@@ -149,8 +150,7 @@ void CDownloadWithFile::DeleteFile(bool bForce)
 	{
 		if ( GetVolumeComplete() == 0 || ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 )
 		{
-			if ( !::DeleteFile( m_sPath ) )
-				theApp.WriteProfileString( _T("Delete"), m_sPath, _T("") );
+			DeleteFileEx( m_sPath, TRUE, FALSE, TRUE );
 		}
 		else
 		{
@@ -159,11 +159,15 @@ void CDownloadWithFile::DeleteFile(bool bForce)
 	}
 	else if ( bForce ) // be careful, do not delete completed BT seeding file
 	{
-		if ( !::DeleteFile( m_sPath ) )
-			theApp.WriteProfileString( _T("Delete"), m_sPath, _T("") );
+		DeleteFileEx( m_sPath, TRUE, FALSE, TRUE );
 	}
 
 	SetModified();
+}
+
+QWORD CDownloadWithFile::InvalidateFileRange(QWORD nOffset, QWORD nLength)
+{
+	return m_pFile && m_pFile->InvalidateRange( nOffset, nLength );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -232,15 +236,6 @@ CString CDownloadWithFile::GetDisplayName() const
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownloadWithFile get the first empty fragment
-
-const Fragments::List& CDownloadWithFile::GetEmptyFragmentList() const
-{
-	static const Fragments::List dummy( 0 );
-	return m_pFile ? m_pFile->GetEmptyFragmentList() : dummy;
-}
-
-//////////////////////////////////////////////////////////////////////
 // CDownloadWithFile get a list of possible download fragments
 
 Fragments::List CDownloadWithFile::GetPossibleFragments(
@@ -251,11 +246,11 @@ Fragments::List CDownloadWithFile::GetPossibleFragments(
 
 	if ( oAvailable.empty() )
 	{
-		oPossible = m_pFile->GetEmptyFragmentList();
+		oPossible = GetEmptyFragmentList();
 	}
 	else
 	{
-		Fragments::List tmp( inverse( m_pFile->GetEmptyFragmentList() ) );
+		Fragments::List tmp( inverse( GetEmptyFragmentList() ) );
 		oPossible.erase( tmp.begin(), tmp.end() );
 	}
 
@@ -305,6 +300,8 @@ BOOL CDownloadWithFile::GetFragment(CDownloadTransfer* pTransfer)
 		Fragments::List::const_iterator pRandom = oPossible.begin()->begin() == 0
 			? oPossible.begin()
 			: oPossible.random_range();
+		//ToDo: Streaming Download and Rarest Piece Selection
+		//	: (Settings.Downloads.NoRandomFragments ? oPossible.begin() : oPossible.random_range());
 
 		pTransfer->m_nOffset = pRandom->begin();
 		pTransfer->m_nLength = pRandom->size();
@@ -391,7 +388,7 @@ BOOL CDownloadWithFile::AreRangesUseful(const Fragments::List& oAvailable)
 	if ( m_pFile == NULL || !m_pFile->IsValid() )
 		return FALSE;
 
-	return m_pFile->GetEmptyFragmentList().overlaps( oAvailable );
+	return GetEmptyFragmentList().overlaps( oAvailable );
 }
 
 BOOL CDownloadWithFile::IsRangeUseful(QWORD nOffset, QWORD nLength)
@@ -399,26 +396,24 @@ BOOL CDownloadWithFile::IsRangeUseful(QWORD nOffset, QWORD nLength)
 	if ( m_pFile == NULL || !m_pFile->IsValid() )
 		return FALSE;
 
-	return m_pFile->GetEmptyFragmentList().overlaps( Fragments::Fragment( nOffset, nOffset + nLength ) );
+	return GetEmptyFragmentList().overlaps( Fragments::Fragment( nOffset, nOffset + nLength ) );
 }
 
-// like IsRangeUseful( ) but take the amount of useful ranges relative to the amount of garbage
-// and source speed into account
+// Like IsRangeUseful( ) but takes the amount of useful ranges
+// relative to the amount of garbage and source speed into account
 BOOL CDownloadWithFile::IsRangeUsefulEnough(CDownloadTransfer* pTransfer, QWORD nOffset, QWORD nLength)
 {
 	if ( m_pFile == NULL || !m_pFile->IsValid() )
 		return FALSE;
 
-	// range is useful if at least byte within the next amount of data transferable within the next 5 seconds
-	// is useful
+	// range is useful if at least byte within the next amount of data transferable within the next 5 seconds is useful
 	DWORD nLength2 = 5 * pTransfer->GetAverageSpeed();
 	if ( nLength2 < nLength )
 	{
 		if ( !pTransfer->m_bRecvBackwards ) nOffset += nLength - nLength2;
 		nLength = nLength2;
 	}
-	return m_pFile->GetEmptyFragmentList().overlaps(
-		Fragments::Fragment( nOffset, nOffset + nLength ) );
+	return GetEmptyFragmentList().overlaps( Fragments::Fragment( nOffset, nOffset + nLength ) );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -431,7 +426,7 @@ CString CDownloadWithFile::GetAvailableRanges() const
 	if ( m_pFile == NULL || !m_pFile->IsValid() )
 		return strRanges;
 
-	const Fragments::List oAvailable = inverse( m_pFile->GetEmptyFragmentList() );
+	Fragments::List oAvailable( inverse( GetEmptyFragmentList() ) );
 
 	for ( Fragments::List::const_iterator pFragment = oAvailable.begin();
 		pFragment != oAvailable.end(); ++pFragment )
@@ -460,20 +455,25 @@ BOOL CDownloadWithFile::ClipUploadRange(QWORD nOffset, QWORD& nLength) const
 	if ( m_pFile == NULL || !m_pFile->IsValid() )
 		return FALSE;
 
-	if ( nOffset >= m_nSize ) return FALSE;
+	if ( nOffset >= m_nSize )
+		return FALSE;
 
-	if ( m_pFile->IsPositionRemaining( nOffset ) ) return FALSE;
+	if ( m_pFile->IsPositionRemaining( nOffset ) )
+		return FALSE;
 
-	if ( nOffset + nLength > m_nSize ) nLength = m_nSize - nOffset;
+	if ( nOffset + nLength > m_nSize )
+		nLength = m_nSize - nOffset;
 
-	Fragments::List::const_iterator_pair match( m_pFile->GetEmptyFragmentList().equal_range(
-		Fragments::Fragment( nOffset, nOffset + nLength ) ) );
+	Fragments::Fragment oMatch( nOffset, nOffset + nLength );
+	Fragments::List oList( GetEmptyFragmentList() );
+	Fragments::List::const_iterator_pair pMatches = oList.equal_range( oMatch );
 
-	if ( match.first != match.second )
+	if ( pMatches.first != pMatches.second )
 	{
-		if ( match.first->begin() <= nOffset ) return ( nLength = 0 ) > 0;
-		nLength = match.first->end() - nOffset;
-		return TRUE;
+		if ( pMatches.first->begin() <= nOffset )
+			nLength = 0;
+		else
+			nLength = pMatches.first->end() - nOffset;
 	}
 
 	return nLength > 0;
@@ -487,9 +487,9 @@ BOOL CDownloadWithFile::GetRandomRange(QWORD& nOffset, QWORD& nLength) const
 	if ( m_pFile == NULL || !m_pFile->IsValid() )
 		return FALSE;
 
-	if ( m_pFile->GetEmptyFragmentList().missing() == 0 ) return FALSE;
+	if ( m_pFile->GetCompleted() == 0 ) return FALSE;
 
-	Fragments::List oFilled = inverse( m_pFile->GetEmptyFragmentList() );
+	Fragments::List oFilled = inverse( GetEmptyFragmentList() );
 	Fragments::List::const_iterator pRandom = oFilled.random_range();
 
 	nOffset = pRandom->begin();
@@ -510,11 +510,12 @@ BOOL CDownloadWithFile::SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength)
 	{
 		for ( CDownloadTransfer* pTransfer = GetFirstTransfer() ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
 		{
-			if ( pTransfer->m_nProtocol == PROTOCOL_BT ) pTransfer->UnrequestRange( nOffset, nLength );
+			if ( pTransfer->m_nProtocol == PROTOCOL_BT )
+				pTransfer->UnrequestRange( nOffset, nLength );
 		}
 	}
 
-	return m_pFile != NULL && m_pFile->WriteRange( nOffset, pData, nLength );
+	return ( m_pFile && m_pFile->Write( nOffset, pData, nLength ) );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -533,12 +534,7 @@ QWORD CDownloadWithFile::EraseRange(QWORD nOffset, QWORD nLength)
 
 BOOL CDownloadWithFile::MakeComplete()
 {
-	if ( m_sPath.IsEmpty() ) return FALSE;
-
-	if ( !PrepareFile() )
-		return FALSE;
-
-	return m_pFile->MakeComplete();
+	return PrepareFile() && m_pFile->MakeComplete();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -681,7 +677,7 @@ void CDownloadWithFile::Serialize(CArchive& ar, int nVersion)
 		}
 		else
 		{
-			delete m_pFile;
+			m_pFile->Release();
 			m_pFile = NULL;
 		}
 	}

@@ -96,15 +96,16 @@ protected:
 
 class CIRCFrame : public CWnd
 {
+// IRC Window Dimensions
 protected:
-	static const int PANEL_WIDTH	    = 200;
-	static const int IRCHEADER_HEIGHT   = 70;
-	static const int TOOLBAR_HEIGHT	    = 28;
+	static const int IRCHEADER_HEIGHT   = 64;
+	static const int SMALLHEADER_HEIGHT = 22;
+	static const int SEPERATOR_HEIGHT	= 3;
 	static const int EDITBOX_HEIGHT		= 20;
 	static const int TABBAR_HEIGHT	    = 24;
-	static const int SMALLHEADER_HEIGHT = 24;
-	static const int SEPERATOR_HEIGHT	= 3;
+	//Predefined int TOOLBAR_HEIGHT	    = 28;
 	static const int STATUSBOX_WIDTH	= 330;
+
 // Construction
 public:
 	CIRCFrame();

@@ -18,7 +18,7 @@
 // along with PeerProject; if not, write to Free Software Foundation, Inc.
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
- 
+
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
@@ -56,6 +56,7 @@ CDownload::CDownload() :
 ,	m_nRunCookie	( 0 )
 ,	m_nSaveCookie	( 0 )
 ,	m_nGroupCookie	( 0 )
+
 ,	m_bPaused		( FALSE )
 ,	m_bBoosted		( FALSE )
 ,	m_bShared		( Settings.Uploads.SharePartials )
@@ -72,31 +73,26 @@ CDownload::~CDownload()
 {
 	if ( m_pTask != NULL ) m_pTask->Abort();
 	DownloadGroups.Unlink( this );
-	
-	if ( m_pTorrent.m_nFiles > 1 && m_bComplete )
+
+	if ( m_pTorrent.GetCount() > 1 && m_bComplete )
 	{
 		CloseTransfers();
 		CloseTorrentUploads();
 
-		// Close the file handle
-		while( !Uploads.OnRename( m_sPath, NULL ) );
-
 		if ( m_bSeeding )
 		{
 			// Auto-clear activated or we don't want to seed
-			if ( Settings.BitTorrent.AutoClear && 
+			if ( Settings.BitTorrent.AutoClear &&
 				 Settings.BitTorrent.ClearRatio <= GetRatio() ||
-				 !Settings.BitTorrent.AutoClear && 
+				 !Settings.BitTorrent.AutoClear &&
 				 !Settings.BitTorrent.AutoSeed )
 			{
-				if ( ! ::DeleteFile( m_sPath ) )
-					theApp.WriteProfileString( L"Delete", m_sPath, L"" );
-				if ( ! ::DeleteFile( m_sPath + ".sd" ) )
-					theApp.WriteProfileString( L"Delete", m_sPath + L".sd", L"" );
+				DeleteFileEx( m_sPath, TRUE, FALSE, TRUE );
+				DeleteFileEx( m_sPath + _T(".sd"), FALSE, TRUE, TRUE );
 			}
 		}
-		else if ( ! ::DeleteFile( m_sPath ) )
-			theApp.WriteProfileString( L"Delete", m_sPath, L"" );
+		else
+			DeleteFileEx( m_sPath, TRUE, FALSE, TRUE );
 	}
 }
 
@@ -108,7 +104,7 @@ void CDownload::Pause(BOOL bRealPause)
 	if ( m_bComplete || m_bPaused ) return;
 
 	theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_PAUSED, (LPCTSTR)GetDisplayName() );
-	if ( !bRealPause ) 
+	if ( !bRealPause )
 	{
 		StopTrying();
 		m_bTempPaused = TRUE;
@@ -129,16 +125,16 @@ void CDownload::Resume()
 {
 	if ( m_bComplete ) return;
 	if ( !Network.IsConnected() && !Network.Connect( TRUE ) ) return;
-	if ( ! m_bTempPaused ) 
+	if ( ! m_bTempPaused )
 	{
-		if ( ( m_tBegan == 0 ) && ( GetEffectiveSourceCount() < Settings.Downloads.MinSources ) ) 
+		if ( ( m_tBegan == 0 ) && ( GetEffectiveSourceCount() < Settings.Downloads.MinSources ) )
 			FindMoreSources();
 		SetStartTimer();
 		return;
 	}
-	
+
 	theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_RESUMED, (LPCTSTR)GetDisplayName() );
-	
+
 	if ( m_pFile != NULL )
 	{
 		for ( CDownloadSource* pSource = GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
@@ -146,7 +142,7 @@ void CDownload::Resume()
 			pSource->OnResume();
 		}
 	}
-	
+
 	m_bPaused				= FALSE;
 	m_bTempPaused			= FALSE;
 	m_bDiskFull				= FALSE;
@@ -155,7 +151,7 @@ void CDownload::Resume()
 
 	if ( IsTorrent() )
 	{
-		if ( Downloads.GetTryingCount( TRUE ) < Settings.BitTorrent.DownloadTorrents ) 
+		if ( Downloads.GetTryingCount( TRUE ) < Settings.BitTorrent.DownloadTorrents )
 			SetStartTimer();
 	}
 	else
@@ -181,27 +177,30 @@ void CDownload::Remove(bool bDelete)
 		m_pTask->Abort();
 		ASSERT( m_pTask == NULL );
 	}
-	
+
 	if ( bDelete || ! IsCompleted() )
 	{
 		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_REMOVE, (LPCTSTR)GetDisplayName() );
 	}
-	
-	DeleteFile( bDelete );
+
 	DeletePreviews();
-	
+
 	if ( m_bSeeding )
 	{
-		::DeleteFile( Settings.Downloads.IncompletePath + L"\\" + m_sSafeName + L".sd" );
+		DeleteFileEx( Settings.Downloads.IncompletePath + L"\\" + m_sSafeName + L".sd", FALSE, FALSE, TRUE );
 		int nBackSlash = m_sPath.ReverseFind( '\\' );
 		CString strTempFileName = m_sPath.Mid( nBackSlash + 1 );
 		if ( m_oBTH.toString< Hashes::base16Encoding >() == strTempFileName )
-			::DeleteFile( m_sPath );
+			DeleteFileEx( m_sPath, TRUE, FALSE, TRUE );
 	}
 	else
-		::DeleteFile( m_sPath + _T(".sd") );
-	::DeleteFile( m_sPath + _T(".png") );
-	
+	{
+		DeleteFile( bDelete );
+		DeleteFileEx( m_sPath + _T(".sd"), FALSE, FALSE, TRUE );
+	}
+
+	DeleteFileEx( m_sPath + _T(".png"), FALSE, FALSE, TRUE );
+
 	Downloads.Remove( this );
 }
 
@@ -211,14 +210,14 @@ void CDownload::Remove(bool bDelete)
 void CDownload::Boost()
 {
 	if ( m_pFile == NULL || m_bBoosted ) return;
-	
+
 	theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_BOOST, (LPCTSTR)GetDisplayName() );
-	
+
 	for ( CDownloadTransfer* pTransfer = GetFirstTransfer() ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
 	{
 		pTransfer->Boost();
 	}
-	
+
 	m_bBoosted = TRUE;
 	SetModified();
 }
@@ -345,13 +344,13 @@ void CDownload::OnRun()
 		{	//This download is trying to download
 
 			//'Dead download' check- if download appears dead, give up and allow another to start.
-			if ( ( ! m_bComplete ) && ( tNow - GetStartTimer() ) > ( 3 * 60 * 60 * 1000 )  )	
+			if ( ( ! m_bComplete ) && ( tNow - GetStartTimer() ) > ( 3 * 60 * 60 * 1000 )  )
 			{	//If it's not complete, and we've been trying for at least 3 hours
 
 				DWORD tHoursToTry = min( ( GetEffectiveSourceCount() + 49u ) / 50u, 9lu ) + Settings.Downloads.StarveGiveUp;
 
 				if (  ( tNow - m_tReceived ) > ( tHoursToTry * 60 * 60 * 1000 ) )
-				{	//And have had no new data for 5-14 hours	
+				{	//And have no new data for 5-14 hours
 
 					if ( IsTorrent() )	//If it's a torrent
 					{
@@ -376,14 +375,14 @@ void CDownload::OnRun()
 			if ( RunTorrent( tNow ) )
 			{
 				RunSearch( tNow );
-				
+
 				if ( m_bSeeding )
 				{
 					// Mark as collapsed to get correct heights when dragging files
 					if ( !Settings.General.DebugBTSources && m_bExpanded )
 						m_bExpanded = FALSE;
 
-					RunValidation( TRUE );
+					RunValidation();
 					if ( Settings.BitTorrent.AutoSeed )
 					{
 						if ( m_tBegan == 0 )
@@ -398,8 +397,8 @@ void CDownload::OnRun()
 				}
 				else if ( m_pFile != NULL )
 				{
-					RunValidation( FALSE );
-					
+					RunValidation();
+
 					if ( RunFile( tNow ) )
 					{
 						if ( ValidationCanFinish() ) OnDownloaded();
@@ -419,7 +418,7 @@ void CDownload::OnRun()
 			}
 
 			// Calculate the currently downloading state
-			if( HasActiveTransfers() ) 
+			if( HasActiveTransfers() )
 				bDownloading = TRUE;
 		}
 		else if ( ! m_bComplete && m_bVerify != TRI_TRUE )
@@ -436,8 +435,8 @@ void CDownload::OnRun()
 						SetStartTimer();
 				}
 				else
-				{	//We have extra regular downloads 'trying' so when a new slot is ready, a download
-					//has sources and is ready to go.	
+				{	//We have extra regular downloads 'trying' so when a new slot is ready,
+					//a download has sources and is ready to go.
 					if ( Downloads.GetTryingCount( FALSE ) < ( Settings.Downloads.MaxFiles + Settings.Downloads.MaxFileSearches ) )
 						SetStartTimer();
 				}
@@ -446,10 +445,10 @@ void CDownload::OnRun()
 				m_tBegan = 0;
 		}
 	}
-	
+
 	// Set the currently downloading state (Used to optimize display in Ctrl/Wnd functions)
 	m_bDownloading = bDownloading;
-	
+
 	// Don't save Downloads with many sources too often, since it's slow
 	if ( tNow - m_tSaved >=
 		( GetCount() > 20 ? 5 * Settings.Downloads.SaveInterval : Settings.Downloads.SaveInterval ) )
@@ -458,7 +457,7 @@ void CDownload::OnRun()
 		{
 			m_tSaved = tNow;
 		}
-		
+
 		if ( m_nCookie != m_nSaveCookie )
 		{
 			Save();
@@ -473,21 +472,20 @@ void CDownload::OnRun()
 void CDownload::OnDownloaded()
 {
 	ASSERT( m_bComplete == FALSE );
-	
+
 	theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_COMPLETED, (LPCTSTR)GetDisplayName() );
 	m_tCompleted = GetTickCount();
 	m_bDownloading = FALSE;
-	
+
 	CloseTransfers();
-	
+
 	if ( m_pFile != NULL )
 	{
-		m_pFile->Close();
-		delete m_pFile;
+		m_pFile->Release();
 		m_pFile = NULL;
 		AppendMetadata();
 	}
-	
+
 	if ( m_pTask && ( m_pTask->m_nTask == CDownloadTask::dtaskPreviewRequest ||
 		m_pTask->m_nTask == CDownloadTask::dtaskMergeFile ) )
 	{
@@ -495,7 +493,7 @@ void CDownload::OnDownloaded()
 	}
 	ASSERT( m_pTask == NULL );
 	m_pTask = new CDownloadTask( this, CDownloadTask::dtaskCopySimple );
-	
+
 	SetModified();
 }
 
@@ -506,9 +504,9 @@ void CDownload::OnTaskComplete(CDownloadTask* pTask)
 {
 	ASSERT( m_pTask == pTask );
 	m_pTask = NULL;
-	
+
 	if ( pTask->WasAborted() ) return;
-	
+
 	if ( pTask->m_nTask == CDownloadTask::dtaskAllocate )
 	{
 		// allocate complete
@@ -520,11 +518,6 @@ void CDownload::OnTaskComplete(CDownloadTask* pTask)
 	else if ( pTask->m_nTask == CDownloadTask::dtaskMergeFile )
 	{
 		// Merge Complete.
-	}
-	else if ( pTask->m_nTask == CDownloadTask::dtaskCreateBatch )
-	{
-		MakeComplete();
-		SetModified();
 	}
 	else
 	{
@@ -540,11 +533,11 @@ void CDownload::OnMoved(CDownloadTask* pTask)
 	CString strDiskFileName = m_sPath;
 	// File is moved
 	ASSERT( m_pFile == NULL );
-	
+
 	if ( pTask->m_bSuccess )
 	{
 		m_sPath = pTask->m_sFilename;
-		
+
 		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_MOVED,
 			(LPCTSTR)GetDisplayName(), (LPCTSTR)m_sPath );
 	}
@@ -555,11 +548,11 @@ void CDownload::OnMoved(CDownloadTask* pTask)
 			(LPCTSTR)GetDisplayName(), (LPCTSTR)pTask->m_sPath );
 		theApp.Message( MSG_ERROR, _T("%s %s"),
 			strMessage, (LPCTSTR)GetErrorString( pTask->m_dwFileError ) );
-		
+
 		m_bDiskFull = ( pTask->m_dwFileError == ERROR_HANDLE_DISK_FULL );
-			return;
+		return;
 	}
-	
+
 	// We just completed torrent
 	if ( m_nTorrentBlock > 0 && m_nTorrentSuccess >= m_nTorrentBlock )
 	{
@@ -585,18 +578,35 @@ void CDownload::OnMoved(CDownloadTask* pTask)
 	// Download finalized, tracker notified, set flags that we completed
 	m_bComplete		= TRUE;
 	m_tCompleted	= GetTickCount();
-	
+
 
 	// Delete the SD file
-	::DeleteFile( strDiskFileName + _T(".sd") );
+	DeleteFileEx( strDiskFileName + _T(".sd"), FALSE, FALSE, TRUE );
 
 	{
 		CQuickLock oLibraryLock( Library.m_pSection );
 
 		LibraryBuilder.RequestPriority( m_sPath );
 
-		VERIFY( LibraryHistory.Add( m_sPath, m_oSHA1, m_oED2K, m_oBTH, m_oMD5,
-			GetSourceURLs( NULL, 0, PROTOCOL_NULL, NULL ) ) );
+		{
+			Hashes::Sha1ManagedHash oSHA1( m_oSHA1 );
+			if ( m_bSHA1Trusted )
+				oSHA1.signalTrusted();
+			Hashes::TigerManagedHash oTiger( m_oTiger );
+			if ( m_bTigerTrusted )
+				oTiger.signalTrusted();
+			Hashes::Ed2kManagedHash oED2K( m_oED2K );
+			if ( m_bED2KTrusted )
+				oED2K.signalTrusted();
+			Hashes::BtManagedHash oBTH( m_oBTH );
+			if ( m_bBTHTrusted )
+				oBTH.signalTrusted();
+			Hashes::Md5ManagedHash oMD5( m_oMD5 );
+			if ( m_bMD5Trusted )
+				oMD5.signalTrusted();
+			LibraryHistory.Add( m_sPath, oSHA1, oTiger, oED2K, oBTH, oMD5,
+				GetSourceURLs( NULL, 0, PROTOCOL_NULL, NULL ) );
+		}
 
 		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( m_sPath ) )
 			pFile->UpdateMetadata( this );
@@ -614,13 +624,13 @@ BOOL CDownload::OnVerify(LPCTSTR pszPath, BOOL bVerified)
 {
 	if ( m_bVerify != TRI_UNKNOWN ) return FALSE;
 	if ( m_pFile != NULL ) return FALSE;
-	
+
 	if ( pszPath != (LPCTSTR)m_sPath &&
 		 m_sPath.CompareNoCase( pszPath ) != 0 ) return FALSE;
-	
+
 	m_bVerify = bVerified ? TRI_TRUE : TRI_FALSE;
 	SetModified();
-	
+
 	return TRUE;
 }
 
@@ -631,10 +641,10 @@ BOOL CDownload::Load(LPCTSTR pszName)
 {
 	BOOL bSuccess = FALSE;
 	CFile pFile;
-	
+
 	m_sPath = pszName;
 	m_sPath = m_sPath.Left( m_sPath.GetLength() - 3 );
-	
+
 	if ( pFile.Open( m_sPath + _T(".sd"), CFile::modeRead ) )
 	{
 		try
@@ -647,10 +657,10 @@ BOOL CDownload::Load(LPCTSTR pszName)
 		{
 			pException->Delete();
 		}
-		
+
 		pFile.Close();
 	}
-	
+
 	if ( ! bSuccess && pFile.Open( m_sPath + _T(".sd.sav"), CFile::modeRead ) )
 	{
 		try
@@ -663,30 +673,30 @@ BOOL CDownload::Load(LPCTSTR pszName)
 		{
 			pException->Delete();
 		}
-		
+
 		pFile.Close();
 		if ( bSuccess ) Save();
 	}
-	
+
 	if ( m_bSeeding )
 		m_sPath = m_sServingFileName;
 
 	m_bGotPreview = GetFileAttributes( m_sPath + L".png" ) != INVALID_FILE_ATTRIBUTES;
 	m_nSaveCookie = m_nCookie;
-	
+
 	return bSuccess;
 }
 
 BOOL CDownload::Save(BOOL bFlush)
 {
 	CFile pFile;
-	
+
 	m_nSaveCookie = m_nCookie;
 	m_tSaved = GetTickCount();
-	
+
 	if ( m_bComplete && !m_bSeeding ) return TRUE;
 	if ( m_bSeeding && !Settings.BitTorrent.AutoSeed ) return TRUE;
-	
+
 	if ( m_bSeeding )
 	{
 		m_sSafeName.Empty();
@@ -703,12 +713,12 @@ BOOL CDownload::Save(BOOL bFlush)
 		if ( m_sSafeName.IsEmpty() )
 			m_sSafeName = CDownloadTask::SafeFilename( m_sName.Right( 64 ) );
 	}
-	
-	::DeleteFile( m_sPath + _T(".sd.sav") );
-	
+
+	DeleteFileEx( m_sPath + _T(".sd.sav"), FALSE, FALSE, TRUE );
+
 	if ( ! pFile.Open( m_sPath + _T(".sd.sav"),
 		CFile::modeReadWrite|CFile::modeCreate|CFile::osWriteThrough ) ) return FALSE;
-	
+
 	{
 		const int nBufferLength = 65536;
 
@@ -724,29 +734,25 @@ BOOL CDownload::Save(BOOL bFlush)
 			ar.Abort();
 			pFile.Abort();
 			theApp.Message( MSG_ERROR, _T("Serialize Error: %s"), pException->m_strFileName );
-//			pException->ReportError(); // Currently causes deadlock in GUI with Transfers mutex
 			pException->Delete();
 			return FALSE;
 		}
 	}
-	
+
 	if ( Settings.Downloads.FlushSD || bFlush ) pFile.Flush();
 	pFile.SeekToBegin();
 	CHAR szID[3] = { 0, 0, 0 };
 	pFile.Read( szID, 3 );
 	pFile.Close();
-	
-	BOOL bResult = TRUE;
+
+	BOOL bResult = FALSE;
 	if ( szID[0] == 'S' && szID[1] == 'D' && szID[2] == 'L' )
 	{
-		::DeleteFile( m_sPath + _T(".sd") );
-		MoveFile( m_sPath + _T(".sd.sav"), m_sPath + _T(".sd") );
+		if ( DeleteFileEx( m_sPath + _T(".sd"), FALSE, FALSE, FALSE ) )
+			bResult = MoveFile( m_sPath + _T(".sd.sav"), m_sPath + _T(".sd") );
 	}
 	else
-	{
-		::DeleteFile( m_sPath + _T(".sd.sav") );
-		bResult = FALSE;
-	}
+		DeleteFileEx( m_sPath + _T(".sd.sav"), FALSE, FALSE, FALSE );
 
 	if ( m_bSeeding )
 	{
@@ -762,14 +768,14 @@ BOOL CDownload::Save(BOOL bFlush)
 void CDownload::Serialize(CArchive& ar, int nVersion)
 {
 	ASSERT( ! m_bComplete || m_bSeeding );
-	
+
 	if ( !Settings.BitTorrent.AutoSeed && m_bSeeding )
 		return;
 
 	if ( nVersion == 0 )
 	{
 		nVersion = DOWNLOAD_SER_VERSION;
-		
+
 		if ( ar.IsStoring() )
 		{
 			ar.Write( "SDL", 3 );
@@ -789,16 +795,16 @@ void CDownload::Serialize(CArchive& ar, int nVersion)
 		SerializeOld( ar, nVersion );
 		return;
 	}
-			
+
 	CDownloadWithExtras::Serialize( ar, nVersion );
-	
+
 	if ( ar.IsStoring() )
 	{
 		ar << m_bExpanded;
 		ar << m_bPaused;
 		ar << m_bBoosted;
 		ar << m_bShared;
-		
+
 		ar << m_nSerID;
 	}
 	else
@@ -809,7 +815,7 @@ void CDownload::Serialize(CArchive& ar, int nVersion)
 		ar >> m_bBoosted;
 		if ( nVersion >= 14 ) ar >> m_bShared;
 		if ( nVersion >= 26 ) ar >> m_nSerID;
-		
+
 		DownloadGroups.Link( this );
 
 		if ( nVersion == 32 )
@@ -825,33 +831,33 @@ void CDownload::Serialize(CArchive& ar, int nVersion)
 void CDownload::SerializeOld(CArchive& ar, int nVersion)
 {
 	ASSERT( ar.IsLoading() );
-	
+
 	ar >> m_sPath;
 	ar >> m_sName;
-	
+
 	DWORD nSize;
 	ar >> nSize;
 	m_nSize = nSize;
-	
-    Hashes::Sha1Hash oSHA1;
-    SerializeIn( ar, oSHA1, nVersion );
-    m_oSHA1 = oSHA1;
-    m_bSHA1Trusted = true;
-	
+
+	Hashes::Sha1Hash oSHA1;
+	SerializeIn( ar, oSHA1, nVersion );
+	m_oSHA1 = oSHA1;
+	m_bSHA1Trusted = true;
+
 	ar >> m_bPaused;
 	ar >> m_bExpanded;
 	if ( nVersion >= 6 ) ar >> m_bBoosted;
-	
+
 	m_pFile->Serialize( ar, nVersion );
 	GenerateDiskName();
-	
+
 	for ( DWORD_PTR nSources = ar.ReadCount() ; nSources ; nSources-- )
 	{
 		CDownloadSource* pSource = new CDownloadSource( this );
 		pSource->Serialize( ar, nVersion );
 		AddSourceInternal( pSource );
 	}
-	
+
 	if ( nVersion >= 3 && ar.ReadCount() )
 	{
 		auto_ptr< CXMLElement > pXML( new CXMLElement() );

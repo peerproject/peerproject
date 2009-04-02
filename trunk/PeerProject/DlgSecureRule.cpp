@@ -33,10 +33,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 BEGIN_MESSAGE_MAP(CSecureRuleDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CSecureRuleDlg)
 	ON_CBN_SELCHANGE(IDC_RULE_EXPIRE, OnSelChangeRuleExpire)
 	ON_CBN_SELCHANGE(IDC_RULE_TYPE, OnSelChangeRuleType)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -45,7 +43,6 @@ END_MESSAGE_MAP()
 
 CSecureRuleDlg::CSecureRuleDlg(CWnd* pParent, CSecureRule* pRule) : CSkinDialog(CSecureRuleDlg::IDD, pParent)
 {
-	//{{AFX_DATA_INIT(CSecureRuleDlg)
 	m_nExpireD = 0;
 	m_nExpireH = 0;
 	m_nExpireM = 0;
@@ -55,7 +52,6 @@ CSecureRuleDlg::CSecureRuleDlg(CWnd* pParent, CSecureRule* pRule) : CSkinDialog(
 	m_nType = -1;
 	m_sContent = _T("");
 	m_nMatch = -1;
-	//}}AFX_DATA_INIT
 	m_pRule	= pRule;
 	m_bNew	= FALSE;
 }
@@ -109,21 +105,17 @@ BOOL CSecureRuleDlg::OnInitDialog()
 		m_bNew = TRUE;
 		m_pRule = new CSecureRule();
 	}
-	m_nType		= m_pRule->m_nType;
-	m_sComment	= m_pRule->m_sComment;
-	m_nAction	= m_pRule->m_nAction;
-	m_nExpire	= min( m_pRule->m_nExpire, 2ul );
-	m_nMatch	= 0;
-
-	if ( m_pRule->m_nType == CSecureRule::srAddress )
+	
+	CEdit* pwIP[4]		= { &m_wndIP1, &m_wndIP2, &m_wndIP3, &m_wndIP4 };
+	CEdit* pwMask[4]	= { &m_wndMask1, &m_wndMask2, &m_wndMask3, &m_wndMask4 };
+	switch ( m_pRule->m_nType ) 
 	{
-		CEdit* pwIP[4]		= { &m_wndIP1, &m_wndIP2, &m_wndIP3, &m_wndIP4 };
-		CEdit* pwMask[4]	= { &m_wndMask1, &m_wndMask2, &m_wndMask3, &m_wndMask4 };
-
+	case CSecureRule::srAddress:
+		m_nType = 0;
+		m_nMatch = 0;
 		for ( int nByte = 0 ; nByte < 4 ; nByte++ )
 		{
 			CString strItem;
-
 			strItem.Format( _T("%lu"), m_pRule->m_nMask[ nByte ] );
 			pwMask[ nByte ]->SetWindowText( strItem );
 
@@ -137,12 +129,26 @@ BOOL CSecureRuleDlg::OnInitDialog()
 				pwIP[ nByte ]->SetWindowText( strItem );
 			}
 		}
-	}
-	else if ( m_pRule->m_nType == CSecureRule::srContent )
-	{
+		break;
+	case CSecureRule::srContentAny:
+		m_nType = 1;
+		m_nMatch = 0;
 		m_sContent = m_pRule->GetContentWords();
-		m_nMatch = (int)m_pRule->m_nIP[0];
+		break;
+	case CSecureRule::srContentAll:
+		m_nType = 1;
+		m_nMatch = 1;
+		m_sContent = m_pRule->GetContentWords();
+		break;
+	case CSecureRule::srContentRegExp:
+		m_nType = 1;
+		m_nMatch = 2;
+		m_sContent = m_pRule->GetContentWords();
+		break;
 	}
+	m_sComment	= m_pRule->m_sComment;
+	m_nAction	= m_pRule->m_nAction;
+	m_nExpire	= min( m_pRule->m_nExpire, 2ul );
 
 	if ( m_nExpire == 2 )
 	{
@@ -178,18 +184,17 @@ void CSecureRuleDlg::OnSelChangeRuleType()
 {
 	UpdateData();
 
-	ShowGroup( &m_wndGroupNetwork, m_nType == CSecureRule::srAddress );
-	ShowGroup( &m_wndGroupContent, m_nType == CSecureRule::srContent );
+	ShowGroup( &m_wndGroupNetwork, m_nType == 0 );
+	ShowGroup( &m_wndGroupContent, m_nType == 1 );
 
-	switch ( m_nType )
+	if ( m_nType == 0 )
 	{
-	case CSecureRule::srAddress:
 		m_wndIP1.SetFocus();
 		m_wndIP1.SetSel( 0, -1 );
-		break;
-	case CSecureRule::srContent:
+	}
+	else
+	{
 		m_wndContent.SetFocus();
-		break;
 	}
 }
 
@@ -256,22 +261,11 @@ void CSecureRuleDlg::OnOK()
 {
 	UpdateData( TRUE );
 
-	m_pRule->m_nType	= m_nType;
-	m_pRule->m_sComment	= m_sComment;
-	m_pRule->m_nAction	= BYTE( m_nAction );
-	m_pRule->m_nExpire	= m_nExpire;
-
-	if ( m_nExpire == 2 )
+	if ( m_nType == 0 )
 	{
-		m_pRule->m_nExpire	= static_cast< DWORD >( time( NULL ) ) + m_nExpireD * 86400
-							+ m_nExpireH * 3600 + m_nExpireM * 60;
-	}
-
-	if ( m_pRule->m_nType == CSecureRule::srAddress )
-	{
+		m_pRule->m_nType = CSecureRule::srAddress;
 		CEdit* pwIP[4]		= { &m_wndIP1, &m_wndIP2, &m_wndIP3, &m_wndIP4 };
 		CEdit* pwMask[4]	= { &m_wndMask1, &m_wndMask2, &m_wndMask3, &m_wndMask4 };
-
 		for ( int nByte = 0 ; nByte < 4 ; nByte++ )
 		{
 			CString strItem;
@@ -286,10 +280,32 @@ void CSecureRuleDlg::OnOK()
 			m_pRule->m_nMask[ nByte ] = (BYTE)min( 255ul, nValue );
 		}
 	}
-	else if ( m_pRule->m_nType == CSecureRule::srContent )
+	else if ( m_nType == 1 )
 	{
-		m_pRule->m_nIP[0] = BYTE( m_nMatch );
-		m_pRule->SetContentWords( m_sContent );
+		switch ( m_nMatch )
+		{
+		case 0:
+			m_pRule->m_nType = CSecureRule::srContentAny;
+			m_pRule->SetContentWords( m_sContent );
+			break;
+		case 1:
+			m_pRule->m_nType = CSecureRule::srContentAll;
+			m_pRule->SetContentWords( m_sContent );
+			break;
+		case 2:
+			m_pRule->m_nType = CSecureRule::srContentRegExp;
+			m_pRule->SetContentWords( m_sContent );
+			break;
+		}
+	}
+	m_pRule->m_sComment	= m_sComment;
+	m_pRule->m_nAction	= BYTE( m_nAction );
+	m_pRule->m_nExpire	= m_nExpire;
+
+	if ( m_nExpire == 2 )
+	{
+		m_pRule->m_nExpire	= static_cast< DWORD >( time( NULL ) ) + m_nExpireD * 86400
+							+ m_nExpireH * 3600 + m_nExpireM * 60;
 	}
 
 	Security.Add( m_pRule );

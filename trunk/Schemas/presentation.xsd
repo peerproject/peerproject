@@ -11,8 +11,8 @@
 		<complexType>
 			<element name="presentation" type="presentationType" minOccurs="1" maxOccurs="unbounded"/>
 		</complexType>
-	</element>     
-	
+	</element>
+
 	<complexType name="presentationType">
 		<all>
 			<attribute name="title" type="string"/>
@@ -57,7 +57,7 @@
 	
 			<attribute name="formatVersion" type="string"/>
 			<attribute name="slides" type="int"/>
-		        <attribute name="link" type="uriReference"/>
+			<attribute name="link" type="uriReference"/>
 			<attribute name="comments">
 				<simpleType base="string">
 					<maxInclusive value="100"/>

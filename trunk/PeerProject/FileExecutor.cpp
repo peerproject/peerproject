@@ -31,10 +31,6 @@
 #include "SchemaCache.h"
 #include "Library.h"
 #include "SharedFile.h"
-#include "SHA.h"
-#include "TigerTree.h"
-#include "ED2K.h"
-#include "MD5.h"
 #include "Connection.h"
 #include "WindowManager.h"
 #include "WndMain.h"
@@ -50,7 +46,7 @@ static char THIS_FILE[]=__FILE__;
 
 CMediaWnd* CFileExecutor::GetMediaWindow(BOOL bFocus)
 {
-	CMainWnd* pMainWnd = (CMainWnd*)theApp.m_pSafeWnd;
+	CMainWnd* pMainWnd = theApp.SafeMainWnd();
 	if ( pMainWnd == NULL ) return NULL;
 	if ( pMainWnd->IsKindOf( RUNTIME_CLASS(CMainWnd) ) == FALSE ) return NULL;
 	return (CMediaWnd*)pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CMediaWnd), FALSE, bFocus );
@@ -58,7 +54,7 @@ CMediaWnd* CFileExecutor::GetMediaWindow(BOOL bFocus)
 
 CLibraryWnd* CFileExecutor::GetLibraryWindow()
 {
-	CMainWnd* pMainWnd = (CMainWnd*)theApp.m_pSafeWnd;
+	CMainWnd* pMainWnd = theApp.SafeMainWnd();
 	if ( pMainWnd == NULL ) return NULL;
 	if ( pMainWnd->IsKindOf( RUNTIME_CLASS(CMainWnd) ) == FALSE ) return NULL;
 	return (CLibraryWnd*)pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd), FALSE, TRUE );
@@ -122,6 +118,25 @@ void CFileExecutor::DetectFileType(LPCTSTR pszFile, LPCTSTR szType, bool& bVideo
 	}
 }
 
+TRISTATE CFileExecutor::IsSafeExecute(LPCTSTR szExt, LPCTSTR szFile)
+{
+	BOOL bSafe = ! szExt || IsIn( Settings.Library.SafeExecute, szExt + 1 ) ||
+		( theApp.m_pfnAssocIsDangerous && ! theApp.m_pfnAssocIsDangerous( szExt ) );
+
+	if ( ! bSafe && szFile )
+	{
+		CString strFormat, strPrompt;
+		Skin.LoadString( strFormat, IDS_LIBRARY_CONFIRM_EXECUTE );
+		strPrompt.Format( strFormat, szFile );
+		if ( AfxMessageBox( strPrompt,
+			MB_ICONQUESTION | MB_YESNOCANCEL | MB_DEFBUTTON2 )  == IDCANCEL )
+			// Cancel file operation
+			return TRI_UNKNOWN;
+	}
+
+	return bSafe ? TRI_TRUE : TRI_FALSE;
+}
+
 BOOL CFileExecutor::Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck, LPCTSTR pszExt)
 {
 	CWaitCursor pCursor;
@@ -155,7 +170,8 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck, LPCTSTR ps
 	if ( strType == _T(".partial") && pszExt )
 	{
 		bPartial = true;
-		strType = ( CString( _T('.') ) + pszExt ).MakeLower();
+		strType = pszExt;
+		strType.MakeLower();
 	}
 
 	// Detect type
@@ -164,40 +180,14 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck, LPCTSTR ps
 	bool bImage = false;
 	DetectFileType( pszFile, strType, bVideo, bAudio, bImage );
 
-	// Detect dangerous files by internal safe list
-	bool bDangerous = false;
-	if ( ! ( bAudio || bVideo || bImage ) &&
-		( strType.GetLength() < 2 ||
-		! IsIn( Settings.Library.SafeExecute, (LPCTSTR)strType + 1 ) ) )
+	// Detect dangerous files
+	if ( ! ( bAudio || bVideo || bImage ) && ! bSkipSecurityCheck )
 	{
-		bDangerous = true;
-	}
-
-	// TODO: Should check Zone.Identifier stream for safety
-
-	// Detect dangerous files by system (requires Internet Explorer 6)
-	if ( ! bSkipSecurityCheck && ! bDangerous && theApp.m_pfnAssocIsDangerous &&
-		theApp.m_pfnAssocIsDangerous( (LPCTSTR)strType ) )
-	{
-		bDangerous = true;
-	}
-
-	// Ask user
-	if ( ! bSkipSecurityCheck && bDangerous )
-	{
-		CString strFormat, strPrompt;
-		Skin.LoadString( strFormat, IDS_LIBRARY_CONFIRM_EXECUTE );
-		strPrompt.Format( strFormat, pszFile );
-		switch( AfxMessageBox( strPrompt,
-			MB_ICONQUESTION | MB_YESNOCANCEL | MB_DEFBUTTON2 ) )
-		{
-		case IDCANCEL:
-			// Cancel file operation
+		TRISTATE bSafe = IsSafeExecute( strType, pszFile );
+		if ( bSafe == TRI_UNKNOWN )
 			return FALSE;
-		case IDNO:
-			// Skip file
+		else if ( bSafe == TRI_FALSE )
 			return TRUE;
-		}
 	}
 
 	// Handle video and audio files by internal player
@@ -218,7 +208,7 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck, LPCTSTR ps
 	if ( Settings.MediaPlayer.ShortPaths )
 	{
 		TCHAR pszShortPath[ MAX_PATH ];
-		if ( GetShortPathName( pszFile, pszShortPath, MAX_PATH ) ) 
+		if ( GetShortPathName( pszFile, pszShortPath, MAX_PATH ) )
 			strFile = pszShortPath;
 	}
 
@@ -235,7 +225,7 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck, LPCTSTR ps
 	// Handle all by plugins
 	if ( ! bShiftKey )
 	{
-		if ( Plugins.OnExecuteFile( pszFile, bImage || bPartial ) )
+		if ( Plugins.OnExecuteFile( pszFile, bImage ) )
 			return TRUE;
 	}
 
@@ -264,7 +254,10 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, BOOL /*bSkipSecurityCheck*/, LPCTST
 
 	// Prepare partials
 	if ( strType == _T(".partial") && pszExt )
-		strType = ( CString( _T('.') ) + pszExt ).MakeLower();
+	{
+		strType = pszExt;
+		strType.MakeLower();
+	}
 
 	// Detect type
 	bool bVideo = false;
@@ -290,12 +283,12 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, BOOL /*bSkipSecurityCheck*/, LPCTST
 	if ( Settings.MediaPlayer.ShortPaths )
 	{
 		TCHAR pszShortPath[ MAX_PATH ];
-		if ( GetShortPathName( pszFile, pszShortPath, MAX_PATH ) ) 
+		if ( GetShortPathName( pszFile, pszShortPath, MAX_PATH ) )
 			strFile = pszShortPath;
 	}
 
 	// Handle video and audio files by external player
-	if ( ! bShiftKey && ( bVideo || bAudio ) && 
+	if ( ! bShiftKey && ( bVideo || bAudio ) &&
 		 ! Settings.MediaPlayer.ServicePath.IsEmpty() )
 	{
 		CString strServiceLC = Settings.MediaPlayer.ServicePath;
@@ -305,9 +298,9 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, BOOL /*bSkipSecurityCheck*/, LPCTST
 		CString strCommand;
 		DWORD nBufferSize = MAX_PATH;
 		HRESULT hr = AssocQueryString( ASSOCF_OPEN_BYEXENAME, ASSOCSTR_COMMAND,
-			Settings.MediaPlayer.ServicePath, _T("Enqueue"), 
+			Settings.MediaPlayer.ServicePath, _T("Enqueue"),
 			strCommand.GetBuffer( MAX_PATH ), &nBufferSize );
-			strCommand.ReleaseBuffer();
+		strCommand.ReleaseBuffer();
 
 		if ( SUCCEEDED( hr ) )
 		{
@@ -321,13 +314,15 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, BOOL /*bSkipSecurityCheck*/, LPCTST
 				// Cut service filename from start of string
 				nFind = strCommand.Find( strServiceLC );
 				strCommand = strCommand.Mid( strServiceLC.GetLength() + nFind );
-				if ( strCommand.GetAt( 0 ) == _T('\"') ) 
+				if ( strCommand.GetAt( 0 ) == _T('\"') )
 					strCommand = strCommand.Mid( 1 ).Trim();
 
 				if ( ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), NULL,
 					Settings.MediaPlayer.ServicePath, strCommand, NULL,
 					SW_SHOWNORMAL ) > (HINSTANCE)SE_ERR_DLLNOTFOUND )
+				{
 					return TRUE;
+				}
 			}
 		}
 
@@ -341,7 +336,7 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, BOOL /*bSkipSecurityCheck*/, LPCTST
 		if ( strExecutable == _T("mplayerc.exe") )
 		{
 			strParam.Format( _T("\"%s\" /add"), strFile );
-		} 
+		}
 		else if ( strExecutable == _T("wmplayer.exe") )
 		{
 			strParam.Format( _T("/SHELLHLP_V9 Enqueue \"%s\""), strFile );
@@ -386,7 +381,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 
 	CLibraryFile* pFile = Library.LookupFile( nIndex );
 	if ( pFile == NULL ) return FALSE;
-	
+
 	if ( !pFile->m_oSHA1 || !pFile->m_oTiger || !pFile->m_oED2K )
 	{
 		CString strFormat;
@@ -420,7 +415,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 
 			strURL.Replace( _T("(FIRST20)"), str );
 		}
-		else 
+		else
 			strURL.Replace( _T("(FIRST20)"), _T("0") );
 	}
 	else

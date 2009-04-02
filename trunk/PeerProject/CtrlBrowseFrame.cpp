@@ -514,7 +514,7 @@ void CBrowseFrameCtrl::SelectTree(CBrowseTreeItem* pItem, CQueryHit* pHit)
 void CBrowseFrameCtrl::OnSelChangeMatches()
 {
 	CSingleLock pLock( &m_wndList->m_pMatches->m_pSection, TRUE );
-	m_wndDetails.Update( m_wndList->m_pMatches->GetSelectedFile( TRUE ) );
+	m_wndDetails.SetFile( m_wndList->m_pMatches->GetSelectedFile( TRUE ) );
 	pLock.Unlock();
 
 	if ( m_bPanelEnable == FALSE )

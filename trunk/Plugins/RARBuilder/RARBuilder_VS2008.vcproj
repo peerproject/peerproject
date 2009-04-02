@@ -83,7 +83,6 @@
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				BaseAddress="0x1aea0000"
-				ImportLibrary=""
 				TargetMachine="1"
 			/>
 			<Tool
@@ -174,8 +173,6 @@
 				ModuleDefinitionFile="$(ProjectName).def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				BaseAddress="0x1aea0000"
-				ImportLibrary=""
 				TargetMachine="17"
 			/>
 			<Tool
@@ -200,7 +197,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;unrar.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;unrar64.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -274,7 +271,6 @@
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
 				BaseAddress="0x1aea0000"
-				ImportLibrary=""
 				TargetMachine="1"
 			/>
 			<Tool
@@ -373,8 +369,6 @@
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
-				BaseAddress="0x1aea0000"
-				ImportLibrary=""
 				TargetMachine="17"
 			/>
 			<Tool
@@ -399,7 +393,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;unrar.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;unrar64.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

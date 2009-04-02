@@ -575,7 +575,7 @@ void CDownloadMonitorDlg::OnDownloadStop()
 		strPrompt.Format( strFormat, (LPCTSTR)m_pDownload->m_sName );
 
 		pLock.Unlock();
-		if ( MessageBox( strPrompt, NULL, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return;
+		if ( AfxMessageBox( strPrompt, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return;
 		pLock.Lock();
 	}
 
@@ -680,9 +680,11 @@ void CDownloadMonitorDlg::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	MENUITEMINFO pInfo;
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= MIIM_STATE;
-	GetMenuItemInfo( pPopup->GetSafeHmenu(), ID_DOWNLOADS_LAUNCH, FALSE, &pInfo );
+	GetMenuItemInfo( pPopup->GetSafeHmenu(), m_pDownload->IsCompleted() ?
+		ID_DOWNLOADS_LAUNCH_COMPLETE : ID_DOWNLOADS_LAUNCH_COPY, FALSE, &pInfo );
 	pInfo.fState	|= MFS_DEFAULT;
-	SetMenuItemInfo( pPopup->GetSafeHmenu(), ID_DOWNLOADS_LAUNCH, FALSE, &pInfo );
+	SetMenuItemInfo( pPopup->GetSafeHmenu(), m_pDownload->IsCompleted() ?
+		ID_DOWNLOADS_LAUNCH_COMPLETE : ID_DOWNLOADS_LAUNCH_COPY, FALSE, &pInfo );
 
 	CoolMenu.AddMenu( pPopup, TRUE );
 

@@ -107,7 +107,7 @@ int CPacketWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pSizer.Attach( &m_wndList );
 	
 	m_wndList.SetExtendedStyle(
-		LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
+		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
 
 	m_pFont.CreateFontW( -(theApp.m_nDefaultFontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
@@ -393,9 +393,9 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		CStringA tmp;
 		tmp.Append( (LPCSTR)&m_nG2[ nType ], G2_TYPE_LEN( m_nG2[ nType ] ) );
 		if ( m_bTypeG2[ nType ] )
-			pTypes2.AppendMenu( MF_STRING|MF_CHECKED, 3100 + nType, CA2CT( tmp ) );
+			pTypes2.AppendMenu( MF_STRING|MF_CHECKED, 3100 + nType, (LPCTSTR)CA2T( tmp ) );
 		else
-			pTypes2.AppendMenu( MF_STRING, 3100 + nType, CA2CT( tmp ) );
+			pTypes2.AppendMenu( MF_STRING, 3100 + nType, (LPCTSTR)CA2T( tmp ) );
 	}
 
 	pTypes3.CreatePopupMenu();

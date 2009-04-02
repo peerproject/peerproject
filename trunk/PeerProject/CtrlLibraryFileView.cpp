@@ -31,8 +31,6 @@
 #include "FileExecutor.h"
 #include "CoolInterface.h"
 #include "Skin.h"
-#include "SHA.h"
-#include "ED2K.h"
 #include "CtrlLibraryFrame.h"
 #include "CtrlLibraryFileView.h"
 #include "CtrlLibraryTip.h"
@@ -49,6 +47,7 @@
 #include "Schema.h"
 #include "XML.h"
 #include "ShareMonkeyData.h"
+#include "Transfers.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -241,8 +240,10 @@ void CLibraryFileView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	Skin.TrackPopupMenu( strName, point, ID_LIBRARY_LAUNCH, 0, oFiles );
 }
 
-void CLibraryFileView::OnMouseMove(UINT /*nFlags*/, CPoint point) 
+void CLibraryFileView::OnMouseMove(UINT nFlags, CPoint point) 
 {
+	CLibraryView::OnMouseMove( nFlags, point );
+
 	if ( DWORD_PTR nFile = HitTestIndex( point ) )
 	{
 		GetToolTip()->Show( (void*)nFile );
@@ -288,13 +289,13 @@ void CLibraryFileView::OnUpdateLibraryLaunch(CCmdUI* pCmdUI)
 void CLibraryFileView::OnLibraryLaunch() 
 {
 	CMap< CString, const CString&, bool, bool > oFileList;
-	
+
 	{
 		CQuickLock pLock( Library.m_pSection );
-	StartSelectedFileLoop();
-	for ( CLibraryFile* pFile = GetNextSelectedFile(); pFile; pFile = GetNextSelectedFile() )
-	{
-		CString strPath = pFile->GetPath();
+		StartSelectedFileLoop();
+		for ( CLibraryFile* pFile = GetNextSelectedFile(); pFile; pFile = GetNextSelectedFile() )
+		{
+			CString strPath = pFile->GetPath();
 			oFileList.SetAt( strPath, ( pFile->m_bVerify == TRI_FALSE ) && 
 				( ! Settings.Search.AdultFilter || ! AdultFilter.IsChildPornography( strPath ) ) );
 		}
@@ -309,7 +310,7 @@ void CLibraryFileView::OnLibraryLaunch()
 		if ( bSecurity )
 		{
 			CString strFormat, strMessage;
-			
+
 			LoadString( strFormat, IDS_LIBRARY_VERIFY_FAIL );
 			strMessage.Format( strFormat, (LPCTSTR)strPath );
 			UINT nResponse = AfxMessageBox( strMessage, MB_ICONEXCLAMATION|MB_YESNOCANCEL|MB_DEFBUTTON2 );
@@ -325,10 +326,10 @@ void CLibraryFileView::OnLibraryLaunch()
 				CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strPath );
 				if ( pFile )
 				{
-				pFile->m_bVerify = TRI_UNKNOWN;
-				Library.Update();
+					pFile->m_bVerify = TRI_UNKNOWN;
+					Library.Update();
+				}
 			}
-		}
 		}
 		if ( ! CFileExecutor::Execute( strPath, FALSE ) )
 			break;
@@ -481,7 +482,8 @@ void CLibraryFileView::OnUpdateLibraryDelete(CCmdUI* pCmdUI)
 
 void CLibraryFileView::OnLibraryDelete() 
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
+	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE ); // Can clear uploads and downloads
+	CSingleLock pLibraryLock( &Library.m_pSection, TRUE );
 	CLibraryList pList;
 	
 	StartSelectedFileLoop();
@@ -520,9 +522,13 @@ void CLibraryFileView::OnLibraryDelete()
 			dlg.m_nRateValue = pFile->m_nRating;
 			dlg.m_bAll	= pList.GetCount() > 1;
 			
-			pLock.Unlock();
+			pLibraryLock.Unlock();
+			pTransfersLock.Unlock();
+
 			if ( dlg.DoModal() != IDOK ) break;
-			pLock.Lock();
+
+			pTransfersLock.Lock();
+			pLibraryLock.Lock();
 			
 			for ( INT_PTR nProcess = dlg.m_bAll ? pList.GetCount() : 1 ; nProcess > 0 && pList.GetCount() > 0 ; nProcess-- )
 			{

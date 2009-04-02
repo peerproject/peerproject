@@ -26,6 +26,7 @@
 #include "Downloads.h"
 #include "DownloadWithTiger.h"
 #include "FragmentedFile.h"
+#include "HashDatabase.h"
 
 #include "Neighbours.h"
 #include "Transfers.h"
@@ -203,7 +204,8 @@ BOOL CDownloadWithTiger::SetTigerTree(BYTE* pTiger, DWORD nTiger)
 	}
 	
 	Hashes::TigerHash oRoot;
-	m_pTigerTree.GetRoot( oRoot );
+	m_pTigerTree.GetRoot( &oRoot[ 0 ] );
+	oRoot.validate();
 
 	if ( validAndUnequal( m_oTiger, oRoot ) )
 	{
@@ -258,12 +260,13 @@ BOOL CDownloadWithTiger::SetHashset(BYTE* pSource, DWORD nSource)
 	
 	if ( nSource == 0 && m_oED2K )
 	{
-		m_pHashset.FromRoot( m_oED2K );
+		m_pHashset.FromRoot( &m_oED2K[ 0 ] );
 	}
 	else if ( m_pHashset.FromBytes( pSource, nSource, m_nSize ) )
 	{
 		Hashes::Ed2kHash oRoot;
-		m_pHashset.GetRoot( oRoot );
+		m_pHashset.GetRoot( &oRoot[ 0 ] );
+		oRoot.validate();
 		
 		if ( validAndUnequal( m_oED2K, oRoot ) )
 		{
@@ -343,17 +346,15 @@ BOOL CDownloadWithTiger::ValidationCanFinish() const
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithTiger run validation
 
-void CDownloadWithTiger::RunValidation(BOOL bSeeding)
+void CDownloadWithTiger::RunValidation()
 {
 	CQuickLock oLock( m_pTigerSection );
 
-	if ( m_pTigerBlock == NULL && m_pHashsetBlock == NULL && m_pTorrentBlock == NULL ) return;
-	if ( m_sPath.IsEmpty() ) return;
+	if ( m_pTigerBlock == NULL && m_pHashsetBlock == NULL && m_pTorrentBlock == NULL )
+		return;
 
-	if ( ! bSeeding )
-	{
-		if ( m_pFile == NULL || ! OpenFile() ) return;
-	}
+	if ( ! OpenFile() )
+		return;
 
 	if ( m_nVerifyHash > HASH_NULL && m_nVerifyBlock < 0xFFFFFFFF )
 	{
@@ -439,9 +440,9 @@ BOOL CDownloadWithTiger::FindNewValidationBlock(int nHash)
 		DWORD nRetry = 0xFFFFFFFF;
 		QWORD nPrevious = 0;
 		
-		Fragments::List::const_iterator pEnd = m_pFile->GetEmptyFragmentList().end();
-		for ( Fragments::List::const_iterator pFragment = m_pFile->GetEmptyFragmentList().begin();
-			pFragment != pEnd; ++pFragment )
+		Fragments::List oList( GetEmptyFragmentList() );
+		for ( Fragments::List::const_iterator pFragment = oList.begin();
+			pFragment != oList.end(); ++pFragment )
 		{
 			if ( pFragment->begin() - nPrevious >= nBlockSize )
 			{
@@ -543,7 +544,8 @@ void CDownloadWithTiger::ContinueValidation()
 
 		if ( m_pFile != NULL )
 		{
-			m_pFile->ReadRange( m_nVerifyOffset, pChunk.get(), nChunk );
+			if ( ! m_pFile->Read( m_nVerifyOffset, pChunk.get(), nChunk ) )
+				break;
 		}
 		else
 		{
@@ -764,7 +766,7 @@ void CDownloadWithTiger::Serialize(CArchive& ar, int nVersion)
 
 	CDownloadWithTorrent::Serialize( ar, nVersion );
 
-	m_pTigerTree.Serialize( ar );
+	CHashDatabase::Serialize( ar, &m_pTigerTree );
 
 	if ( m_pTigerTree.IsAvailable() )
 	{
@@ -790,7 +792,7 @@ void CDownloadWithTiger::Serialize(CArchive& ar, int nVersion)
 
 	if ( nVersion >= 19 )
 	{
-		m_pHashset.Serialize( ar );
+		CHashDatabase::Serialize( ar, &m_pHashset );
 
 		if ( m_pHashset.IsAvailable() )
 		{

@@ -47,17 +47,18 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CSettingsSheet construction
 
-CSettingsSheet::CSettingsSheet(CWnd* /*pParent*/, UINT nCaptionID)
+CSettingsSheet::CSettingsSheet(CWnd* pParent, UINT nCaptionID) :
+	CSkinDialog( 0, pParent, FALSE )
+	, m_pPage			( NULL )
+	, m_pFirst			( NULL )
+	, m_pTemplate		( NULL )
+	, m_bModified		( FALSE )
+	, m_nLeftMargin		( 0 )
+	, m_nTopMargin		( 0 )
+	, m_nListWidth		( 120 )
+	, m_nListMargin		( 6 )
+	, m_nButtonHeight	( 20 )
 {
-	m_pPage			= NULL;
-	m_pFirst		= NULL;
-	m_pTemplate		= NULL;
-	m_bModified		= FALSE;
-	m_nLeftMargin	= 0;
-	m_nTopMargin	= 0;
-	m_nListWidth	= 120;
-	m_nListMargin	= 6;
-	m_nButtonHeight	= 20;
 
 	if ( nCaptionID ) m_sCaption.LoadString( nCaptionID );
 }
@@ -209,12 +210,10 @@ void CSettingsSheet::SetModified(BOOL bChanged)
 
 INT_PTR CSettingsSheet::DoModal()
 {
-	m_pTemplate = (DLGTEMPLATE *)malloc( sizeof(DLGTEMPLATE) + 6 );
+	m_pTemplate = (DLGTEMPLATE *)new char[ sizeof(DLGTEMPLATE) + 6 ];
 	if ( ! m_pTemplate )
-	{
-		theApp.Message( MSG_ERROR, _T("Memory allocation error in CSettingsSheet::DoModal()") );
 		return IDCANCEL;
-	}
+
 	ZeroMemory( m_pTemplate, sizeof(DLGTEMPLATE) + 6 );
 
 	DWORD dwExStyle = Settings.General.LanguageRTL ? WS_EX_RTLREADING|WS_EX_RIGHT|WS_EX_LEFTSCROLLBAR|WS_EX_LAYOUTRTL : 
@@ -236,7 +235,7 @@ INT_PTR CSettingsSheet::DoModal()
 
 	INT_PTR nResult = CSkinDialog::DoModal();
 
-	free( m_pTemplate );
+	delete [] m_pTemplate;
 
 	m_pTemplate		= NULL;
 	m_pParentWnd	= NULL;
@@ -254,7 +253,8 @@ BOOL CSettingsSheet::OnInitDialog()
 
 	CRect rect;
 	m_wndTree.Create( WS_CHILD|WS_TABSTOP|WS_VISIBLE|/*TVS_PRIVATEIMAGELISTS|*/
-		TVS_HASLINES|TVS_SHOWSELALWAYS|TVS_TRACKSELECT|TVS_NOHSCROLL, rect, this, IDC_SETTINGS_TREE );
+		TVS_HASLINES|TVS_SHOWSELALWAYS|TVS_TRACKSELECT|TVS_NOSCROLL, rect, this, IDC_SETTINGS_TREE );
+		// ToDo: Use TVS_NOHSCROLL instead to add vertical scrollbar to Settings Tree
 
 	m_wndOK.Create( _T("OK"), WS_CHILD|WS_TABSTOP|WS_VISIBLE|BS_DEFPUSHBUTTON, rect, this, IDOK );
 	m_wndOK.SetFont( &theApp.m_gdiFont );

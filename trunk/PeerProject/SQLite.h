@@ -37,7 +37,7 @@
 
 namespace SQLite {
 
-#include "../SQLite/sqlite3.h"
+#include "../Services/SQLite/sqlite3.h"
 
 class CStatement;
 class CDatabase;
@@ -110,7 +110,7 @@ public:
 protected:
 	typedef std::map< std::wstring, int > CRaw;
 
-	CDatabase::CSQLiteSharedPtr	m_db;			// Handle to database
+	CDatabase::CSQLiteSharedPtr		m_db;			// Handle to database
 	std::wstring				m_query;		// SQL query (UTF16)
 	sqlite3_stmt*				m_st;			// SQL statement handle
 	bool						m_prepared;		// Prepare was called successfully

@@ -1,7 +1,7 @@
 //
 // PeerProject.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2009
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,48 +21,48 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "Settings.h"
-#include "Registry.h"
-#include "CoolInterface.h"
-#include "Network.h"
-#include "Firewall.h"
-#include "UPnPFinder.h"
-#include "Security.h"
-#include "HostCache.h"
-#include "DiscoveryServices.h"
-#include "VersionChecker.h"
-#include "SchemaCache.h"
-#include "VendorCache.h"
-#include "EDClients.h"
 #include "BTClients.h"
-#include "Library.h"
-#include "LibraryBuilder.h"
-#include "Transfers.h"
+#include "BTInfo.h"
+#include "CoolInterface.h"
+#include "DDEServer.h"
+#include "DiscoveryServices.h"
+#include "DlgHelp.h"
+#include "DlgSplash.h"
 #include "DownloadGroups.h"
 #include "Downloads.h"
-#include "Uploads.h"
-#include "UploadQueues.h"
-#include "QueryHashMaster.h"
-#include "DDEServer.h"
-#include "IEProtocol.h"
-#include "PeerProjectURL.h"
-#include "GProfile.h"
-#include "SharedFile.h"
+#include "EDClients.h"
 #include "Emoticons.h"
+#include "FileExecutor.h"
+#include "Firewall.h"
 #include "Flags.h"
+#include "FontManager.h"
+#include "GProfile.h"
+#include "HostCache.h"
+#include "IEProtocol.h"
+#include "ImageServices.h"
+#include "Library.h"
+#include "LibraryBuilder.h"
+#include "Network.h"
+#include "Plugins.h"
+#include "PeerProjectURL.h"
+#include "QueryHashMaster.h"
+#include "Registry.h"
+#include "Scheduler.h"
+#include "SchemaCache.h"
+#include "Security.h"
+#include "Settings.h"
+#include "SharedFile.h"
 #include "ShellIcons.h"
 #include "Skin.h"
-#include "Scheduler.h"
-#include "FileExecutor.h"
 #include "ThumbCache.h"
-#include "BTInfo.h"
-#include "Plugins.h"
-#include "ImageServices.h"
+#include "Transfers.h"
+#include "UPnPFinder.h"
+#include "UploadQueues.h"
+#include "Uploads.h"
+#include "VendorCache.h"
+#include "VersionChecker.h"
 #include "WndMain.h"
 #include "WndSystem.h"
-#include "DlgSplash.h"
-#include "DlgHelp.h"
-#include "FontManager.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -153,8 +153,10 @@ CPeerProjectApp theApp;
 CPeerProjectApp::CPeerProjectApp() :
 	m_pMutex				( NULL )
 ,	m_pSafeWnd				( NULL )
+,	m_bBusy					( 0 )
+,	m_bClosing				( false )
 ,	m_bLive					( false )
-,	m_bInteractive			( FALSE )
+,	m_bInteractive			( false )
 ,	m_bIsServer				( false )
 ,	m_bIsWin2000			( false )
 ,	m_bIsVistaOrNewer		( false )
@@ -171,17 +173,41 @@ CPeerProjectApp::CPeerProjectApp() :
 ,	m_nLastInput			( 0ul )
 ,	m_hHookKbd				( NULL )
 ,	m_hHookMouse			( NULL )
+
+,	m_hCryptProv			( NULL )
+,	m_pRegisterApplicationRestart( NULL )
+
+,	m_dlgSplash				( NULL )
 ,	m_hTheme				( NULL )
+,	m_pfnSetWindowTheme		( NULL )
+,	m_pfnIsThemeActive		( NULL )
+,	m_pfnOpenThemeData		( NULL )
+,	m_pfnCloseThemeData		( NULL )
+,	m_pfnDrawThemeBackground( NULL )
+
 ,	m_hShlWapi				( NULL )
+,	m_pfnAssocIsDangerous	( NULL )
+
+,	m_hLibGFL				( NULL )
 ,	m_hGeoIP				( NULL )
 ,	m_pGeoIP				( NULL )
-,	m_hLibGFL				( NULL )
-,	m_dlgSplash				( NULL )
-//, m_pFontManager			( NULL )
-,	m_hCryptProv			( 0 )
+,	m_pfnGeoIP_country_code_by_ipnum( NULL )
+,	m_pfnGeoIP_country_name_by_ipnum( NULL )
+
 {
 	ZeroMemory( m_nVersion, sizeof( m_nVersion ) );
 	ZeroMemory( m_pBTVersion, sizeof( m_pBTVersion ) );
+
+// BugTrap (www.intellesoft.net)
+#ifdef _DEBUG
+	BT_InstallSehFilter();
+	BT_SetTerminate();
+	BT_SetFlags( BTF_INTERCEPTSUEF | BTF_SHOWADVANCEDUI | BTF_DESCRIBEERROR | BTF_DETAILEDMODE );
+	BT_SetSupportURL( _T("http://support.peerproject.org") );
+	//BT_SetSupportEMail( _T("support@peerproject.org") );
+	//BT_SetSupportServer( _T("http://peerproject.org/BugTrapServer/RequestHandler.aspx"), 80 );
+	BT_AddRegFile( _T("settings.reg"), _T("HKEY_CURRENT_USER\\Software\\PeerProject\\PeerProject") );
+#endif
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -189,9 +215,12 @@ CPeerProjectApp::CPeerProjectApp() :
 
 BOOL CPeerProjectApp::InitInstance()
 {
-	CWinApp::InitInstance();
+	// Set Build Date
+	COleDateTime tCompileTime;
+	tCompileTime.ParseDateTime( _T(__DATE__), LOCALE_NOUSEROVERRIDE, 1033 );
+	m_sBuildDate = tCompileTime.Format( _T("%Y%m%d") );
 
-	CWaitCursor pCursor;
+	CWinApp::InitInstance();
 
 	SetRegistryKey( _T("PeerProject") );
 	GetVersionNumber();
@@ -220,7 +249,7 @@ BOOL CPeerProjectApp::InitInstance()
 			_T("-windowed\tStart application in Windowed interface mode\n")
 			_T("-regserver\tRegister application internal components\n")
 			_T("-unregserver\tUn-register application internal components\n"),
-			MB_SYSTEMMODAL | MB_ICONINFORMATION | MB_OK );
+			MB_ICONINFORMATION | MB_OK );
 		return FALSE;
 	}
 	if ( m_ocmdInfo.m_nShellCommand == CCommandLineInfo::AppUnregister )
@@ -278,15 +307,15 @@ BOOL CPeerProjectApp::InitInstance()
 		return FALSE;
 	}
 
-	m_bInteractive = TRUE;
+	m_bInteractive = true;
+
+	if ( m_pRegisterApplicationRestart )
+		m_pRegisterApplicationRestart( NULL, 0 );
+
+	ShowStartupText();
 
 	DDEServer.Create();
 	IEProtocol.Create();
-
-	// Set Build Date
-	COleDateTime tCompileTime;
-	tCompileTime.ParseDateTime( _T(__DATE__), LOCALE_NOUSEROVERRIDE, 1033 );
-	m_sBuildDate = tCompileTime.Format( _T("%Y%m%d") );
 
 	// ***********
 	//*
@@ -294,12 +323,12 @@ BOOL CPeerProjectApp::InitInstance()
 	// and remove this section for final releases and public betas.
 	COleDateTime tCurrent = COleDateTime::GetCurrentTime();
 	//COleDateTimeSpan tTimeOut( 31 * 2, 0, 0, 0);	// Betas that aren't on sourceforge
-	COleDateTimeSpan tTimeOut( 14, 0, 0, 0);			// Daily builds
+	COleDateTimeSpan tTimeOut( 14, 0, 0, 0);		// Daily debug builds
 	if ( ( tCompileTime + tTimeOut )  < tCurrent )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_BETA_EXPIRED);
-		AfxMessageBox( strMessage, MB_SYSTEMMODAL|MB_ICONQUESTION|MB_OK );
+		AfxMessageBox( strMessage, MB_ICONQUESTION|MB_OK );
 		//return FALSE;
 	}
 	//*/
@@ -308,14 +337,14 @@ BOOL CPeerProjectApp::InitInstance()
 	// ALPHA WARNING. Remember to remove this section for final releases and public betas.
 	if ( ! m_ocmdInfo.m_bNoAlphaWarning && m_ocmdInfo.m_bShowSplash )
 	if ( AfxMessageBox(
-		L"WARNING: This is an ALPHA TEST version of PeerProject.\n\n"
-		L"NOT FOR GENERAL USE,  it is intended for pre-release testing in controlled environments.  "
-		L"It can frequently stop running or display debug information to assist testing.\n\n"
-		L"If you wish to actually use this software, you should download the "
-		L"current stable release from  http://downloads.peerproject.org/\n"
-		L"If you continue past this point,  you may experience system instability  or lose files.  "
-		L"Be aware of recent development before using, \neffects may not be recoverable.  "
-		L"Do you wish to continue?", MB_SYSTEMMODAL|MB_ICONEXCLAMATION|MB_YESNO ) == IDNO )
+		L"\nWARNING: This is an ALPHA TEST version of PeerProject p2p.\n\n"
+		L"NOT FOR GENERAL USE, it is intended for pre-release testing in controlled environments.  "
+		L"It may stop running or display debug info to assist testing.\n\n"
+		L"If you wish to simply use this software, then download the current\n"
+		L"stable release from PeerProject.org.  If you continue past this point,\n"
+		L"you may experience system instability or lose files.  Be aware of\n"
+		L"recent development before using, effects might not be recoverable.\n\n"
+		L"Do you wish to continue?", MB_ICONEXCLAMATION|MB_YESNO ) == IDNO )
 		return FALSE;
 	//*/
 	// ***********
@@ -334,6 +363,8 @@ BOOL CPeerProjectApp::InitInstance()
 			WSACleanup();
 		}
 
+	CryptAcquireContext( &m_hCryptProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT );
+
 	if ( m_ocmdInfo.m_nGUIMode != -1 )
 		Settings.General.GUIMode = m_ocmdInfo.m_nGUIMode;
 
@@ -341,6 +372,7 @@ BOOL CPeerProjectApp::InitInstance()
 		Settings.General.GUIMode = GUI_BASIC;
 
 	SplashStep( L"PeerProject Database" );
+		PurgeDeletes();
 		CThumbCache::InitDatabase();
 	SplashStep( L"P2P URIs" );
 		CPeerProjectURL::Register( TRUE );
@@ -421,13 +453,13 @@ BOOL CPeerProjectApp::InitInstance()
 	SplashStep( L"Upgrade Manager" );
 		VersionChecker.Start();
 
-	pCursor.Restore();
-
 	SplashStep();
 
-	m_bLive = TRUE;
+	m_bLive = true;
 
 	ProcessShellCommand( m_ocmdInfo );
+
+//	afxMemDF = allocMemDF | delayFreeMemDF | checkAlwaysMemDF;
 
 	return TRUE;
 }
@@ -532,6 +564,12 @@ int CPeerProjectApp::ExitInstance()
 	if ( m_pMutex != NULL )
 		CloseHandle( m_pMutex );
 
+	{
+		CQuickLock pLock( m_csMessage );
+		while ( ! m_oMessages.IsEmpty() )
+			delete m_oMessages.RemoveHead();
+	}
+
 	return CWinApp::ExitInstance();
 }
 
@@ -546,9 +584,11 @@ void CPeerProjectApp::SplashStep(LPCTSTR pszMessage, int nMax, bool bClosing)
 		}
 	}
 	else if ( ! m_dlgSplash && nMax )
+	{
 		m_dlgSplash = new CSplashDlg( nMax, bClosing );
-
-	if ( m_dlgSplash )
+		m_dlgSplash->Step( pszMessage );
+	}
+	else if ( m_dlgSplash && ! nMax )
 		m_dlgSplash->Step( pszMessage );
 
 	TRACE( _T("Step: %s\n"), pszMessage ? pszMessage : _T("Done") );
@@ -774,6 +814,12 @@ void CPeerProjectApp::GetVersionNumber()
 
 void CPeerProjectApp::InitResources()
 {
+	// Get pointers to some functions that require Windows Vista or greater
+	if ( HMODULE hKernel32 = GetModuleHandle( _T("kernel32.dll") ) )
+	{
+		(FARPROC&)m_pRegisterApplicationRestart = GetProcAddress( hKernel32, "RegisterApplicationRestart" );
+	}
+
 	// Get pointers to some functions that require Windows XP or greater
 	if ( ( m_hTheme = LoadLibrary( _T("UxTheme.dll") ) ) != NULL )
 	{
@@ -788,45 +834,25 @@ void CPeerProjectApp::InitResources()
 	//	(FARPROC&)m_pfnGetThemeSysFont = GetProcAddress( m_hTheme, "GetThemeSysFont" );
 	//	(FARPROC&)m_pfnDrawThemeText = GetProcAddress( m_hTheme, "DrawThemeText" );
 	}
-	else
-	{
-		m_pfnSetWindowTheme = NULL;
-		m_pfnIsThemeActive = NULL;
-		m_pfnOpenThemeData = NULL;
-		m_pfnCloseThemeData = NULL;
-	}
 
 	// Get pointers to some functions that require Internet Explorer 6 or greater
 	if ( ( m_hShlWapi = LoadLibrary( _T("shlwapi.dll") ) ) != NULL )
 	{
 		(FARPROC&)m_pfnAssocIsDangerous = GetProcAddress( m_hShlWapi, "AssocIsDangerous" );
 	}
-	else
-	{
-		m_pfnAssocIsDangerous = NULL;
-	}
 
 	// Load the GeoIP library for mapping IPs to countries
-	m_hGeoIP = CustomLoadLibrary( _T("geoip.dll") );
-	if ( m_hGeoIP )
+	if ( ( m_hGeoIP = CustomLoadLibrary( _T("GeoIP.dll") ) ) != NULL )
 	{
 		GeoIP_newFunc pfnGeoIP_new = (GeoIP_newFunc)GetProcAddress( m_hGeoIP, "GeoIP_new" );
-		m_pfnGeoIP_country_code_by_addr = (GeoIP_country_code_by_addrFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_code_by_addr" );
-		m_pfnGeoIP_country_name_by_addr = (GeoIP_country_name_by_addrFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_name_by_addr" );
-
-		m_pGeoIP = pfnGeoIP_new( GEOIP_MEMORY_CACHE );
-	}
-	else
-	{
-		m_pfnGeoIP_country_code_by_addr = NULL;
-		m_pfnGeoIP_country_name_by_addr = NULL;
+		m_pfnGeoIP_country_code_by_ipnum = (GeoIP_country_code_by_ipnumFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_code_by_ipnum" );
+		m_pfnGeoIP_country_name_by_ipnum = (GeoIP_country_name_by_ipnumFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_name_by_ipnum" );
+		if ( pfnGeoIP_new ) 
+			m_pGeoIP = pfnGeoIP_new( GEOIP_MEMORY_CACHE );
 	}
 
 	// We load it in a custom way, so PeerProject plugins can use this library also when it isn't in its search path but loaded by CustomLoadLibrary (very useful when running PeerProject inside Visual Studio)
-	m_hLibGFL = CustomLoadLibrary( _T("libgfl280.dll") );
-
-	// Get the amount of installed memory.
-	m_nPhysicalMemory = 0;
+	m_hLibGFL = CustomLoadLibrary( _T("LibGFL290.dll") );
 
 	// Use GlobalMemoryStatusEx if possible (WinXP)
 	MEMORYSTATUSEX pMemory = {};
@@ -898,10 +924,9 @@ HINSTANCE CPeerProjectApp::CustomLoadLibrary(LPCTSTR pszFileName)
 
 CMainWnd* CPeerProjectApp::SafeMainWnd() const
 {
-	CMainWnd* pMainWnd = (CMainWnd*)theApp.m_pSafeWnd;
-	if ( pMainWnd == NULL ) return NULL;
-	ASSERT_KINDOF( CMainWnd, pMainWnd );
-	return IsWindow( pMainWnd->m_hWnd ) ? pMainWnd : NULL;
+	if ( m_pSafeWnd == NULL ) return NULL;
+	ASSERT_KINDOF( CMainWnd, m_pSafeWnd );
+	return static_cast< CMainWnd* >( IsWindow( m_pSafeWnd->m_hWnd ) ? m_pSafeWnd : NULL );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -916,7 +941,32 @@ bool CPeerProjectApp::IsLogDisabled(WORD nType) const
 		( ( nType & MSG_FACILITY_MASK ) == MSG_FACILITY_SEARCH && ! Settings.General.SearchLog );
 }
 
-void CPeerProjectApp::Message(WORD nType, UINT nID, ...) const
+void CPeerProjectApp::ShowStartupText()
+{
+	CString strBody;
+	LoadString( strBody, IDS_SYSTEM_MESSAGE );
+
+	strBody.Replace( _T("(version)"), (LPCTSTR)(theApp.m_sVersion + _T(" (") + theApp.m_sBuildDate + _T(")")) );
+
+	for ( strBody += '\n' ; strBody.GetLength() ; )
+	{
+		CString strLine = strBody.SpanExcluding( _T("\r\n") );
+		strBody = strBody.Mid( strLine.GetLength() + 1 );
+
+		strLine.TrimLeft();
+		strLine.TrimRight();
+		if ( strLine.IsEmpty() ) continue;
+
+		if ( strLine == _T(".") ) strLine.Empty();
+
+		if ( _tcsnicmp( strLine, _T("!"), 1 ) == 0 )
+			PrintMessage( MSG_NOTICE, (LPCTSTR)strLine + 1 );
+		else
+			PrintMessage( MSG_INFO, strLine );
+	}
+}
+
+void CPeerProjectApp::Message(WORD nType, UINT nID, ...)
 {
 	// Check if logging this type of message is enabled
 	if ( IsLogDisabled( nType ) )
@@ -924,7 +974,7 @@ void CPeerProjectApp::Message(WORD nType, UINT nID, ...) const
 
 	// Load the format string from the resource file
 	CString strFormat;
-	strFormat.LoadString( nID );
+	LoadString( strFormat, nID );
 
 	// Initialize variable arguments list
 	va_list pArgs;
@@ -947,7 +997,7 @@ void CPeerProjectApp::Message(WORD nType, UINT nID, ...) const
 	return;
 }
 
-void CPeerProjectApp::Message(WORD nType, LPCTSTR pszFormat, ...) const
+void CPeerProjectApp::Message(WORD nType, LPCTSTR pszFormat, ...)
 {
 	// Check if logging this type of message is enabled
 	if ( IsLogDisabled( nType ) )
@@ -971,70 +1021,47 @@ void CPeerProjectApp::Message(WORD nType, LPCTSTR pszFormat, ...) const
 	return;
 }
 
-void CPeerProjectApp::PrintMessage(WORD nType, const CString& strLog) const
+void CPeerProjectApp::PrintMessage(WORD nType, const CString& strLog)
 {
-	// Check if there is a valid pointer to the main window
-	// and we are not shutting down
-	if ( m_pMainWnd && IsWindow( m_pMainWnd->m_hWnd )
-		&& !static_cast< CMainWnd* >( m_pMainWnd )->m_pWindows.m_bClosing )
-	{
-		// Allocate a new character array on the heap (including null terminator)
-		LPTSTR pszLog = new TCHAR[ strLog.GetLength() + 1 ];	// Released by CMainWnd::OnLog()
+	if ( Settings.General.DebugLog )
+		LogMessage( strLog );
 
-		if ( pszLog )
-		{
-			// Make a copy of the log message into the heap array
-			_tcscpy( pszLog, strLog );
+	CQuickLock pLock( m_csMessage );
 
-			// Try to send to the message pump for processing
-			if( !m_pMainWnd->PostMessage( WM_LOG, nType, (LPARAM)pszLog ) )
-			{
-				// Sometimes a 10,000 item message queue just isn't enough
-				// Release memory from the heap
-				delete [] pszLog;
-				pszLog = NULL;
+	// Max 1000 lines
+	if ( m_oMessages.GetCount() >= 1000 )
+		delete m_oMessages.RemoveHead();
 
-				// Add log message to log file if required
-				if ( Settings.General.DebugLog )
-					LogMessage( _T("Overflow: ") + strLog );
-			}
-		}
-	}
-	else if ( Settings.General.DebugLog )
-	{
-		// We are shutting down and logging to file
-		LogMessage( _T("ShutDown: ") + strLog );
-	}
-
-	return;
+	m_oMessages.AddTail( new CLogMessage( nType, strLog ) );
 }
 
-void CPeerProjectApp::LogMessage(LPCTSTR pszLog) const
+void CPeerProjectApp::LogMessage(const CString& strLog)
 {
 	CQuickLock pLock( m_csMessage );
 
 	CFile pFile;
 	if ( pFile.Open( Settings.General.UserPath + _T("\\Data\\PeerProject.log"), CFile::modeReadWrite ) )
 	{
+		pFile.Seek( 0, CFile::end ); // go to the end of the file to add entires.
+
 		if ( ( Settings.General.MaxDebugLogSize ) &&					// If log rotation is on
 			( pFile.GetLength() > Settings.General.MaxDebugLogSize ) )	// and file is too long...
 		{
 			// Close the file
 			pFile.Close();
+			
 			// Rotate the logs
-			DeleteFile( Settings.General.UserPath + _T("\\Data\\PeerProject.old.log") );
-			MoveFile( Settings.General.UserPath + _T("\\Data\\PeerProject.log"),
-				Settings.General.UserPath + _T("\\Data\\PeerProject.old.log") );
-			// Start a new log
-			if ( ! pFile.Open( Settings.General.UserPath + _T("\\Data\\PeerProject.log"),
-				CFile::modeWrite|CFile::modeCreate ) ) return;
-			// Unicode marker
-			WORD nByteOrder = 0xFEFF;
-			pFile.Write( &nByteOrder, 2 );
-		}
-		else
-		{
-			pFile.Seek( 0, CFile::end ); // Otherwise, go to the end of the file to add entires.
+			if ( DeleteFileEx( Settings.General.UserPath + _T("\\Data\\PeerProject.old.log"), FALSE, FALSE, FALSE ) )
+			{
+				MoveFile( Settings.General.UserPath + _T("\\Data\\PeerProject.log"),
+					Settings.General.UserPath + _T("\\Data\\PeerProject.old.log") );
+				// Start a new log
+				if ( ! pFile.Open( Settings.General.UserPath + _T("\\Data\\PeerProject.log"),
+					CFile::modeWrite|CFile::modeCreate ) ) return;
+				// Unicode marker
+				WORD nByteOrder = 0xFEFF;
+				pFile.Write( &nByteOrder, 2 );
+			}
 		}
 	}
 	else
@@ -1055,7 +1082,7 @@ void CPeerProjectApp::LogMessage(LPCTSTR pszLog) const
 		pFile.Write( (LPCTSTR)strLine, sizeof(TCHAR) * strLine.GetLength() );
 	}
 
-	pFile.Write( pszLog, static_cast< UINT >( sizeof(TCHAR) * _tcslen(pszLog) ) );
+	pFile.Write( (LPCTSTR)strLog, static_cast< UINT >( sizeof(TCHAR) * strLog.GetLength() ) );
 	pFile.Write( _T("\r\n"), sizeof(TCHAR) * 2 );
 
 	pFile.Close();
@@ -1111,15 +1138,15 @@ CString GetErrorString(DWORD dwError)
 
 CString CPeerProjectApp::GetCountryCode(IN_ADDR pAddress) const
 {
-	if ( m_pfnGeoIP_country_code_by_addr && m_pGeoIP )
-		return CString( m_pfnGeoIP_country_code_by_addr( m_pGeoIP, inet_ntoa( pAddress ) ) );
+	if ( m_pfnGeoIP_country_code_by_ipnum && m_pGeoIP )
+		return CString( m_pfnGeoIP_country_code_by_ipnum( m_pGeoIP, htonl( pAddress.s_addr ) ) );
 	return _T("");
 }
 
 CString CPeerProjectApp::GetCountryName(IN_ADDR pAddress) const
 {
-	if ( m_pfnGeoIP_country_name_by_addr && m_pGeoIP )
-		return CString( m_pfnGeoIP_country_name_by_addr( m_pGeoIP, inet_ntoa( pAddress ) ) );
+	if ( m_pfnGeoIP_country_name_by_ipnum && m_pGeoIP )
+		return CString( m_pfnGeoIP_country_name_by_ipnum( m_pGeoIP, htonl( pAddress.s_addr ) ) );
 	return _T("");
 }
 
@@ -1303,6 +1330,13 @@ void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOO
 BOOL LoadString(CString& str, UINT nID)
 {
 	return Skin.LoadString( str, nID );
+}
+
+CString LoadString(UINT nID)
+{
+	CString str;
+	LoadString( str, nID );
+	return str;
 }
 
 BOOL LoadSourcesString(CString& str, DWORD num, bool bFraction)
@@ -1869,26 +1903,120 @@ CString GetLocalAppDataFolder()
 
 BOOL CreateDirectory(LPCTSTR szPath)
 {
-	DWORD dwAttr = GetFileAttributes( szPath );
+	DWORD dwAttr = GetFileAttributes( CString( _T("\\\\?\\") ) + szPath );
 	if ( ( dwAttr != INVALID_FILE_ATTRIBUTES ) &&
 		( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) )
 		return TRUE;
 
 	CString strDir( szPath );
-	for ( int nStart = 2; ; )
+	for ( int nStart = 3; ; )
 	{
 		int nSlash = strDir.Find( _T('\\'), nStart );
 		if ( ( nSlash == -1 ) || ( nSlash == strDir.GetLength() - 1 ) )
 			break;
-		CString strSubDir( strDir.Left( nSlash ) );
-		dwAttr = GetFileAttributes( strSubDir );
+		CString strSubDir( strDir.Left( nSlash + 1 ) );
+		dwAttr = GetFileAttributes( CString( _T("\\\\?\\") ) + strSubDir );
 		if ( ( dwAttr == INVALID_FILE_ATTRIBUTES ) ||
 			! ( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) )
-			if ( ! CreateDirectory( strSubDir, NULL ) )
+			if ( ! CreateDirectory( CString( _T("\\\\?\\") ) + strSubDir, NULL ) )
 				return FALSE;
 		nStart = nSlash + 1;
 	}
-	return CreateDirectory( szPath, NULL );
+	return CreateDirectory( CString( _T("\\\\?\\") ) + szPath, NULL );
+}
+
+BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEnableDelayed)
+{
+	// Should be double zeroed long path
+	DWORD len = GetLongPathName( szFileName, NULL, 0 );
+	if ( len )
+	{
+		auto_array< TCHAR > szPath( new TCHAR[ len + 1 ] );
+		GetLongPathName( szFileName, szPath.get(), len );
+		szPath[ len ] = 0;
+
+		DWORD dwAttr = GetFileAttributes( szPath.get() );
+		if ( ( dwAttr != INVALID_FILE_ATTRIBUTES ) &&		// Filename exists
+			( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) == 0 )	// Not a folder
+		{
+			if ( bShared )
+			{
+				// Stop builder
+				LibraryBuilder.Remove( szPath.get() );
+
+				// Stop uploads
+				while( ! Uploads.OnRename( szPath.get(), NULL, true ) );
+			}
+
+			if ( bToRecycleBin )
+			{
+				SHFILEOPSTRUCT sfo = {};
+				sfo.hwnd = GetDesktopWindow();
+				sfo.wFunc = FO_DELETE;
+				sfo.pFrom = szPath.get();
+				sfo.fFlags = FOF_ALLOWUNDO | FOF_FILESONLY | FOF_NORECURSION | FOF_NO_UI;
+				SHFileOperation( &sfo );
+			}
+			else
+				DeleteFile( szPath.get() );
+
+			dwAttr = GetFileAttributes( szPath.get() );
+			if ( dwAttr != INVALID_FILE_ATTRIBUTES )
+			{
+				// File still exists
+				if ( bEnableDelayed )
+				{
+					// Set delayed deletion
+					CString sJob;
+					sJob.Format( _T("%d%d"), bShared, bToRecycleBin );
+					theApp.WriteProfileString( _T("Delete"), szPath.get(), sJob );
+				}
+				return FALSE;
+			}
+		}
+
+		// Cancel delayed deletion (if any)
+		theApp.WriteProfileString( _T("Delete"), szPath.get(), NULL );
+	}
+
+	return TRUE;
+}
+
+void PurgeDeletes()
+{
+	HKEY hKey = NULL;
+	LSTATUS nResult = RegOpenKeyEx( HKEY_CURRENT_USER,
+		_T("Software\\PeerProject\\PeerProject\\Delete"), 0, KEY_ALL_ACCESS, &hKey );
+	if ( ERROR_SUCCESS == nResult )
+	{
+		CList< CString > pRemove;
+		for ( DWORD nIndex = 0 ; ; ++nIndex )
+		{
+			DWORD nPath = MAX_PATH * 2;
+			TCHAR szPath[ MAX_PATH * 2 ] = {};
+			DWORD nType;
+			DWORD nMode = 8;
+			TCHAR szMode[ 8 ] = {};
+			nResult = RegEnumValue( hKey, nIndex, szPath, &nPath, 0,
+				&nType, (LPBYTE)szMode, &nMode );
+			if ( ERROR_SUCCESS != nResult )
+				break;
+
+			BOOL bShared = ( nType == REG_SZ ) && ( szMode[ 0 ] == '1' );
+			BOOL bToRecycleBin = ( nType == REG_SZ ) && ( szMode[ 1 ] == '1' );
+			if ( DeleteFileEx( szPath, bShared, bToRecycleBin, TRUE ) )
+			{
+				pRemove.AddTail( szPath );
+			}
+		}
+
+		while ( ! pRemove.IsEmpty() )
+		{
+			nResult = RegDeleteValue( hKey, pRemove.RemoveHead() );
+		}
+
+		nResult = RegCloseKey( hKey );
+	}
 }
 
 CString LoadHTML(HINSTANCE hInstance, UINT nResourceID)
@@ -2054,8 +2182,7 @@ bool MarkFileAsDownload(const CString& sFilename)
 		// TODO: pFile->m_bVerify and IDS_LIBRARY_VERIFY_FIX warning features could be merged
 		// with this function, because they resemble the security warning.
 		// Should raza unblock files from the application without forcing user to do that manually?
-		if ( IsIn( Settings.Library.SafeExecute, pszExt + 1 ) &&
-			( !theApp.m_pfnAssocIsDangerous || !theApp.m_pfnAssocIsDangerous( pszExt ) ) )
+		if ( CFileExecutor::IsSafeExecute( pszExt ) )
 			return false;
 
 		// Temporary clear R/O attribute
@@ -2169,10 +2296,10 @@ static int CALLBACK BrowseCallbackProc(HWND hWnd, UINT uMsg, LPARAM lParam, LPAR
 	case BFFM_INITIALIZED:
 		{
 			// Remove context help button from dialog caption
-			SetWindowLong( hWnd, GWL_STYLE,
-				GetWindowLong( hWnd, GWL_STYLE ) & ~DS_CONTEXTHELP );
-			SetWindowLong( hWnd, GWL_EXSTYLE,
-				GetWindowLong( hWnd, GWL_EXSTYLE ) & ~WS_EX_CONTEXTHELP );
+			SetWindowLongPtr( hWnd, GWL_STYLE,
+				GetWindowLongPtr( hWnd, GWL_STYLE ) & ~DS_CONTEXTHELP );
+			SetWindowLongPtr( hWnd, GWL_EXSTYLE,
+				GetWindowLongPtr( hWnd, GWL_EXSTYLE ) & ~WS_EX_CONTEXTHELP );
 
 			// Set initial directory
 			SendMessage( hWnd, BFFM_SETSELECTION, TRUE, lpData );
@@ -2258,4 +2385,29 @@ BOOL PostMainWndMessage(UINT Msg, WPARAM wParam, LPARAM lParam)
 		return pWnd->PostMessage( Msg, wParam, lParam );
 	else
 		return FALSE;
+}
+
+void SafeMessageLoop()
+{
+	InterlockedIncrement( &theApp.m_bBusy );
+	__try
+	{
+		MSG msg;
+		while ( PeekMessage( &msg, NULL, NULL, NULL, PM_REMOVE ) )
+		{
+			TranslateMessage( &msg );
+			DispatchMessage( &msg );
+		}
+
+		if ( GetWindowThreadProcessId( AfxGetMainWnd()->GetSafeHwnd(), NULL ) ==
+			GetCurrentThreadId() )
+		{
+			LONG lIdle = 0;
+			while ( AfxGetApp()->OnIdle( lIdle++ ) );
+		}
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+	}
+	InterlockedDecrement( &theApp.m_bBusy );
 }

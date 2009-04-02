@@ -88,8 +88,8 @@ BOOL CChildWnd::Create(UINT nID, BOOL bVisible)
 	LoadString( strCaption, m_nResID );
 
 	return CMDIChildWnd::Create( NULL, strCaption, WS_CHILD |
-		 WS_OVERLAPPEDWINDOW | ( bVisible ? WS_VISIBLE : 0 ) |
-		 WS_CLIPCHILDREN | WS_CLIPSIBLINGS );
+		WS_OVERLAPPEDWINDOW | ( bVisible ? WS_VISIBLE : 0 ) |
+		WS_CLIPCHILDREN | WS_CLIPSIBLINGS );
 }
 
 CMainWnd* CChildWnd::GetMainWnd()
@@ -305,10 +305,10 @@ void CChildWnd::SizeListAndBar(CWnd* pList, CWnd* pBar)
 	CRect rc;
 	GetClientRect( &rc );
 
-	rc.bottom -= 28;
+	rc.bottom -= TOOLBAR_HEIGHT;
 	HDWP hPos = BeginDeferWindowPos( 2 );
 	DeferWindowPos( hPos, pBar->GetSafeHwnd(), NULL,
-		rc.left, rc.bottom, rc.Width(), 28,
+		rc.left, rc.bottom, rc.Width(), TOOLBAR_HEIGHT,
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 	DeferWindowPos( hPos, pList->GetSafeHwnd(), NULL,
 		rc.left, rc.top, rc.Width(), rc.Height(),
@@ -479,6 +479,9 @@ void CChildWnd::OnSkinChange()
 {
 	m_pSkin = Skin.GetWindowSkin( this );
 
+	CoolInterface.EnableTheme( this, ( m_pSkin == NULL ) &&
+		( Settings.General.GUIMode == GUI_WINDOWED ) ); 	//ToDo: Remove this mode?
+
 	if ( m_nResID )
 	{
 		CoolInterface.SetIcon( m_nResID, Settings.General.LanguageRTL, FALSE, this );
@@ -503,7 +506,7 @@ void CChildWnd::OnQuerySearch(CQuerySearch* /*pSearch*/)
 {
 }
 
-BOOL CChildWnd::OnQueryHits(CQueryHit* /*pHits*/)
+BOOL CChildWnd::OnQueryHits(const CQueryHit* /*pHits*/)
 {
 	return FALSE;
 }
@@ -537,7 +540,7 @@ BOOL CChildWnd::PreTranslateMessage(MSG* pMsg)
 		( pMsg->wParam == VK_UP ||
 		  pMsg->wParam == VK_DOWN ||
 		  pMsg->wParam == VK_LEFT ||
-		  pMsg->wParam == VK_RIGHT || 
+		  pMsg->wParam == VK_RIGHT ||
 		  pMsg->wParam == VK_TAB ) )
 	{
 		if ( IsDialogMessage( pMsg ) )

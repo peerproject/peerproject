@@ -52,12 +52,10 @@ public:
 	CQueryKeys*		QueryKeys;
 
 	CMutex			m_pSection;
-	SOCKADDR_IN		m_pHost;				// Structure (Windows Sockets) which holds address of local machine
+	SOCKADDR_IN		m_pHost;				// Structure (Windows Sockets) which holds address of the local machine
 	BOOL			m_bAutoConnect;
-	BOOL			m_bTCPListeningReady;
-	BOOL			m_bUDPListeningReady;
 	DWORD			m_tStartedConnecting;	// Time PeerProject started trying to connect
-	DWORD			m_tLastConnect;			// Last time neighbour connection attempt was made
+	DWORD			m_tLastConnect;			// Last time a neighbor connection attempt was made
 	DWORD			m_tLastED2KServerHop;	// Last time ed2k server was changed
 protected:
 	CStringA		m_sHostName;
@@ -77,7 +75,9 @@ protected:
 	};
 	CMap< HANDLE, HANDLE, ResolveStruct*, ResolveStruct* > m_pLookups;
 
+	BOOL		PreRun();
 	void		OnRun();
+	void		PostRun();
 
 // Operations
 public:
@@ -109,7 +109,7 @@ public:
 	BOOL		RouteHits(CQueryHit* pHits, CPacket* pPacket);
 	void		OnWinsock(WPARAM wParam, LPARAM lParam);
 	void		OnQuerySearch(CQuerySearch* pSearch);
-	void		OnQueryHits(CQueryHit* pHits);
+	void		OnQueryHits(CQueryHit* pHits);	// Handle and destroy query hits
 public:
 	void		UDPHostCache(IN_ADDR* pAddress, WORD nPort);
 	void		UDPKnownHubCache(IN_ADDR* pAddress, WORD nPort);

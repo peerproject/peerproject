@@ -151,7 +151,8 @@ void CDownloadWithSearch::StartAutomaticSearch()
 
 BOOL CDownloadWithSearch::CanSearch() const
 {
-	if ( !m_pFile ) return FALSE;
+	if ( IsMoving() || IsCompleted() )
+		return FALSE;
 	if ( ( m_oSHA1 || m_oTiger ) && ( Settings.Gnutella1.EnableToday || Settings.Gnutella2.EnableToday ) )
 		return TRUE;
 	if ( m_oED2K && ( Settings.Gnutella2.EnableToday || Settings.eDonkey.EnableToday ) )
@@ -172,11 +173,11 @@ void CDownloadWithSearch::PrepareSearch()
 	
 	pSearch->m_bAndG1 = Settings.Gnutella1.EnableToday;
 
-		if ( pSearch->m_sSearch != m_sName )
-		{
-			pSearch->m_sKeywords.Empty();
-			pSearch->m_sSearch = m_sName;
-			pSearch->BuildWordList( false );
+	if ( pSearch->m_sSearch != m_sName )
+	{
+		pSearch->m_sKeywords.Empty();
+		pSearch->m_sSearch = m_sName;
+		pSearch->BuildWordList( false );
 	}
 
 	if ( m_oSHA1 )

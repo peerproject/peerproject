@@ -66,7 +66,7 @@ const CString& CLowerCaseTable::operator()(CString& strSource) const
 	const LPTSTR str = strSource.GetBuffer() + nLength;
 
 	bool bSigma = false;
-	for ( int i = -nLength; i; ++i ) 
+	for ( int i = -nLength; i; ++i )
 	{
 		if ( str[ i ] == 0x3a3 )
 		{
@@ -78,7 +78,7 @@ const CString& CLowerCaseTable::operator()(CString& strSource) const
 	if ( bSigma )
 	{
 		// Lowercase greek final sigmas first (word endings)
-		const regex::rpattern regExpPattern( _T("(\\w+)\x3a3(\\W|$)"), _T("$1\x3c2$2"), 
+		const regex::rpattern regExpPattern( _T("(\\w+)\x3a3(\\W|$)"), _T("$1\x3c2$2"),
 		regex::GLOBAL|regex::MULTILINE|regex::NOBACKREFS, regex::MODE_SAFE );
 		regex::subst_results results;
 		std::wstring strTemp( strSource, nLength );
@@ -125,8 +125,9 @@ public:
 
 InitGetMicroCount initGetMicroCount;
 
-static const UINT primes[] = 
+static const UINT primes[] =
 {
+	11,			13,			17,			19,			23,			29,
 	31,			61,			127,		251,		347,		509,
 	631,		761,		887,		1021,		1531,		2039,
 	3067,		4093,		5119,		6143,		7159,		8191,
@@ -140,6 +141,30 @@ UINT GetBestHashTableSize(UINT nCount)
 	return * std::lower_bound( primes,
 		primes + ( sizeof( primes ) / sizeof( primes[ 0 ] ) - 1 ),
 		( nCount + nCount / 5 ), std::less< UINT >() );	// + 20%
+}
+
+CStringA UTF8Encode(__in_bcount(nInput) LPCWSTR szInput, __in int nInput)
+{
+	int nUTF8 = WideCharToMultiByte( CP_UTF8, 0, szInput, nInput, NULL, 0, NULL, NULL );
+	CStringA sUTF8;
+	if ( nUTF8 > 0 )
+	{
+		WideCharToMultiByte( CP_UTF8, 0, szInput, nInput, sUTF8.GetBuffer( nUTF8 ), nUTF8, NULL, NULL );
+		sUTF8.ReleaseBuffer( nUTF8 );
+	}
+	return sUTF8;
+}
+
+CStringW UTF8Decode(__in_bcount(nInput) LPCSTR szInput, __in int nInput)
+{
+	int nWide = MultiByteToWideChar( CP_UTF8, 0, szInput, nInput, NULL, 0 );
+	CStringW sWide;
+	if ( nWide > 0 )
+	{
+		MultiByteToWideChar( CP_UTF8, 0, szInput, nInput, sWide.GetBuffer( nWide ), nWide );
+		sWide.ReleaseBuffer( nWide );
+	}
+	return sWide;
 }
 
 // Encodes unsafe characters in a string, turning "hello world" into "hello%20world", for instance
@@ -240,13 +265,13 @@ CString URLDecodeANSI(LPCTSTR pszInput)
 	TCHAR szHex[3] = { 0, 0, 0 };	// A 3 character long array filled with 3 null terminators
 	CString strOutput;				// The output string, which starts out blank
 	int nHex;						// The hex code of the character we found
-	
+
 	// Allocate a new CHAR array big enough to hold the input characters and a null terminator
 	LPSTR pszBytes = new CHAR[ _tcslen( pszInput ) + 1 ];
 
 	// Point the output string pointer at this array
 	LPSTR pszOutput = pszBytes;
-	
+
 	// Loop for each character of input text
 	for ( ; *pszInput ; pszInput++ )
 	{
@@ -305,13 +330,13 @@ CString URLDecodeUnicode(LPCTSTR pszInput)
 	TCHAR szHex[3] = { 0, 0, 0 };	// A 3 character long array filled with 3 null terminators
 	CString strOutput;				// The output string, which starts out blank
 	int nHex;						// The hex code of the character we found
-	
+
 	// Allocate a new CHAR array big enough to hold the input characters and a null terminator
 	LPTSTR pszBytes = strOutput.GetBuffer( static_cast< int >( _tcslen( pszInput ) ) );
 
 	// Point the output string pointer at this array
 	LPTSTR pszOutput = pszBytes;
-	
+
 	// Loop for each character of input text
 	for ( ; *pszInput ; pszInput++ )
 	{

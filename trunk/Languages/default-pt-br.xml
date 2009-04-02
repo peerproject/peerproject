@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
-<!-- This translation is based on default-en.xml Shareaza SVN rev.7300 -->
+<!-- This translation is based on default-en.xml Shareaza SVN rev.7800 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -19,34 +19,34 @@
 		description="Arquivo de Skin Padrão para o Português Brasileiro do PeerProject"
 		link="http://PeerProject.org/"
 		email="Contact(at)PeerProject.org"
-		version="2.4.0.0"
+		version="1.0.0.0"
 		type="Language"
 		language="pt-br"
 		prompt="Clique aqui para traduzir o PeerProject para o português do Brasil."
 
 />
 
-  <!-- Toolbar Definitions -->
-  <toolbars>
+<!-- Toolbar Definitions -->
+<toolbars>
 	<!-- MAIN WINDOW -->
 	<toolbar name="CMainWnd.Basic">
 		<button id="ID_NETWORK_CONNECT" text="Conectar"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Lar"/>
-		<button id="ID_TAB_LIBRARY" text="Biblioteca"/>
-		<button id="ID_TAB_MEDIA" text="Mídia"/>
 		<button id="ID_TAB_SEARCH" text="Procurar"/>
 		<button id="ID_TAB_TRANSFERS" text="Downloads"/>
+		<button id="ID_TAB_LIBRARY" text="Biblioteca"/>
+		<button id="ID_TAB_MEDIA" text="Mídia"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Conectar"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Lar"/>
-		<button id="ID_TAB_LIBRARY" text="Biblioteca"/>
-		<button id="ID_TAB_MEDIA" text="Mídia"/>
 		<button id="ID_TAB_SEARCH" text="Procurar"/>
 		<button id="ID_TAB_TRANSFERS" text="Transferências"/>
 		<button id="ID_TAB_NETWORK" text="Rede"/>
+		<button id="ID_TAB_LIBRARY" text="Biblioteca"/>
+		<button id="ID_TAB_MEDIA" text="Mídia"/>
 		<button id="ID_TAB_IRC" text="Chat"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -81,7 +81,7 @@
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar"/>
-		<button id="ID_BROWSE_LAUNCH" text="Navegar Usuário"/>
+		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
 		<separator/>
 		<button id="ID_SEARCH_PANEL" text="Mostrar Busca"/>
 		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
@@ -92,7 +92,7 @@
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar"/>
-		<button id="ID_BROWSE_LAUNCH" text="Navegar Usuário"/>
+		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
 		<separator/>
 		<button id="ID_SEARCH_PANEL" text="Mostrar Busca"/>
 		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
@@ -106,7 +106,7 @@
 		<button id="ID_SEARCH_STOP" text="Parar"/>
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar"/>
-		<button id="ID_BROWSE_LAUNCH" text="Navegar Usuário"/>
+		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
 		<separator/>
 		<button id="ID_SEARCH_PANEL" text="Mostrar Busca"/>
 		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
@@ -126,7 +126,7 @@
 	</toolbar>
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar Arquivo"/>
-		<button id="ID_SEARCH_CHAT" text="Conversar com Usuário"/>
+		<button id="ID_SEARCH_CHAT" text="Conversar"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
 		<rightAlign/>
@@ -136,7 +136,7 @@
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar Arquivo"/>
-		<button id="ID_SEARCH_CHAT" text="Conversar com Usuário"/>
+		<button id="ID_SEARCH_CHAT" text="Conversar"/>
 		<separator/>
 		<button id="ID_BROWSE_STOP" text="Parar"/>
 		<button id="ID_BROWSE_REFRESH" text="Atualizar"/>
@@ -153,40 +153,40 @@
 		<button id="ID_DOWNLOADS_LAUNCH" text="Prever Arquivo"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Apagar Arquivo"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_RESUME" text="Resumir Download"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pausar Download"/>
-		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancelar Download"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Resumir"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pausar"/>
+		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancelar"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Limpar Download"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostrar Monitor"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Adicionar Download/Torrent..."/>
-		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Limpar Completados"/>
+		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Limpar"/>
+		<button id="ID_DOWNLOADS_FILTER_MENU" text="Filtrar"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Abrir/Tocar"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Apagar Arquivo"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="Prever Arquivo"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_RESUME" text="Resumir Download"/>
-		<button id="ID_DOWNLOADS_PAUSE" text="Pausar Download"/>
-		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancelar Download"/>
+		<button id="ID_DOWNLOADS_RESUME" text="Resumir"/>
+		<button id="ID_DOWNLOADS_PAUSE" text="Pausar"/>
+		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancelar"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Limpar Download"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostrar Monitor"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Propriedades"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Adicionar Download/Torrent..."/>
-		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Limpar Completados"/>
+		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Limpar"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILTER_MENU" text="Filtrar"/>
 	</toolbar>
 	<!-- UPLOADS WINDOW -->
 	<toolbar name="CUploadsWnd.Basic">
-		<button id="ID_BROWSE_LAUNCH" text="Navegar Usuário"/>
-		<button id="ID_UPLOADS_CHAT" text="Conversar com Usuário"/>
+		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
+		<button id="ID_UPLOADS_CHAT" text="Conversar"/>
 		<rightAlign/>
-		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Limpar Completados"/>
+		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Limpar"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
 		<button id="ID_UPLOADS_LAUNCH" text="Abrir/Tocar"/>
@@ -194,11 +194,11 @@
 		<button id="ID_UPLOADS_START" text="Iniciar Agora"/>
 		<button id="ID_UPLOADS_CLEAR" text="Limpar Upload"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Navegar Usuário"/>
-		<button id="ID_UPLOADS_CHAT" text="Conversar com Usuário"/>
+		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
+		<button id="ID_UPLOADS_CHAT" text="Conversar"/>
 		<button id="ID_SECURITY_BAN" text="Banir Usuário"/>
 		<rightAlign/>
-		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Limpar Completados"/>
+		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Limpar"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Filtrar"/>
 	</toolbar>
@@ -246,7 +246,7 @@
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Abrir/Tocar"/>
-		<button id="ID_LIBRARY_ENQUEUE" text="Adicionar a Lista de Execuções"/>
+		<button id="ID_LIBRARY_ENQUEUE" text="Adicionar a Lista"/>
 		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Serviços da Web"/>
 		<rightAlign/>
@@ -256,7 +256,7 @@
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Abrir/Tocar"/>
-		<button id="ID_LIBRARY_ENQUEUE" text="Adicionar a Lista de Execuções"/>
+		<button id="ID_LIBRARY_ENQUEUE" text="Adicionar a Lista"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Propriedades"/>
 		<separator/>
@@ -272,7 +272,7 @@
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Abrir/Tocar"/>
-		<button id="ID_LIBRARY_ENQUEUE" text="Adicionar a Lista de Execuções"/>
+		<button id="ID_LIBRARY_ENQUEUE" text="Adicionar a Lista"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Tocar Álbum"/>
 		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Serviços da Web"/>
@@ -283,7 +283,7 @@
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Abrir/Tocar"/>
-		<button id="ID_LIBRARY_ENQUEUE" text="Adicionar a Lista de Execuções"/>
+		<button id="ID_LIBRARY_ENQUEUE" text="Adicionar a Lista"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Tocar Álbum"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Propriedades"/>
@@ -360,8 +360,8 @@
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
-		<button id="ID_BROWSE_LAUNCH" text="Navegar Usuário"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Conversar com Usuário"/>
+		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
+		<button id="ID_NEIGHBOURS_CHAT" text="Conversar"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella 2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella 1"/>
@@ -373,8 +373,8 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Conectar na"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Desconectar"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Navegar Usuário"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Conversar com Usuário"/>
+		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
+		<button id="ID_NEIGHBOURS_CHAT" text="Conversar"/>
 		<button id="ID_SECURITY_BAN" text="Banir Host"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
@@ -382,6 +382,20 @@
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurações"/>
+	</toolbar>
+	<!-- SECURITY WINDOW -->
+	<toolbar name="CSecurityWnd">
+		<button id="ID_SECURITY_EDIT" text="Editar a Regra"/>
+		<separator/>
+		<button id="ID_SECURITY_ADD" text="Adicionar a Regra"/>
+		<button id="ID_SECURITY_REMOVE" text="Remover a Regra"/>
+		<separator/>
+		<button id="ID_SECURITY_MOVE_UP" text="Mover pra Cima"/>
+		<button id="ID_SECURITY_MOVE_DOWN" text="Mover pra Baixo"/>
+		<rightAlign/>
+		<button id="ID_SECURITY_RESET" text="Resetar a Hits"/>
+		<button id="ID_SECURITY_IMPORT" text="Importar a Lista"/>
+		<button id="ID_SECURITY_EXPORT" text="Exportar a Lista"/>
 	</toolbar>
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
@@ -413,17 +427,17 @@
 		<button id="ID_HOSTCACHE_BT_CACHE" text="Cache do BitTorrent"/>
 		<button id="ID_HOSTCACHE_KAD_CACHE" text="Cache do Kademlia"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="N"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="S"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/> <!--N-->
+		<button id="ID_CHAT_ITALIC"/> <!--I-->
+		<button id="ID_CHAT_UNDERLINE"/> <!--S-->
+		<button id="ID_CHAT_COLOR"/> <!--C-->
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Navegar Usuário"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Enviar Arquivo"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Garantir Prioridade"/>
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Enviar Arquivo"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Conectar" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Desconectar"/>
@@ -456,13 +470,13 @@
 		<button id="ID_MUSICBRAINZ_ALBUMS" text="Visualizar Todos os Álbuns"/>
 		<separator/>
 	</toolbar>
-	<!-- IMAGE VIEWER WINDOW -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_ActualSize" text="Tamanho Verdadeiro"/>
 		<button id="ImageViewer_BestFit" text="Melhor Encaixe"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="Atualizar"/>
-		<separator/>
+		<rightAlign/>
 		<button id="ImageViewer_Close" text="Fechar"/>
 	</toolbar>
 </toolbars>
@@ -480,6 +494,23 @@
 		<item id="ID_CHILD_MINIMISE" text="_Minimizar"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Fechar Janela"/>
+	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+		<item id="ID_TRAY_OPEN" text="Abrir o PeerProject"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Abrir o Remoto"/>
+		<item id="ID_TOOLS_SETTINGS" text="Abrir o Configurações..."/>
+		<item id="ID_NETWORK_SEARCH" text="Nova Busca..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Baixar Arquivo..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Tocar Mídia"/>
+		<item id="ID_MEDIA_PAUSE" text="Pausar Mídia"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Faixa Anterior"/>
+		<item id="ID_MEDIA_NEXT" text="Próxima Faixa"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Sair Após as Transferências"/>
+		<item id="ID_NETWORK_EXIT" text="Sair"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
@@ -509,7 +540,7 @@
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="Se_gurança"/>
-			<item id="ID_VIEW_HOSTS" text="C_ache dos Hosts"/>
+			<item id="ID_VIEW_HOSTS" text="_Cache dos Hosts"/>
 			<item id="ID_VIEW_DISCOVERY" text="Desco_brimento"/>
 		</menu>
 		<separator/>
@@ -552,7 +583,7 @@
 		  <item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/>
 		<separator/> -->
 		<item id="ID_HELP_ABOUT" text="_Sobre o PeerProject..."/>
-	 </menu>
+	  </menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
 	  <menu text="_Rede">
@@ -578,7 +609,7 @@
 		  <item id="ID_TAB_NETWORK" text="_Rede"/>
 		  <item id="ID_TAB_LIBRARY" text="_Biblioteca"/>
 		  <item id="ID_TAB_MEDIA" text="_Media Player"/>
-		  <item id="ID_TAB_IRC" text="_Chat"/>
+		  <item id="ID_TAB_IRC" text="_IRC"/>
 		<separator/>
 		  <item id="ID_VIEW_SECURITY" text="Se_gurança"/>
 		  <item id="ID_VIEW_HOSTS" text="C_ache dos Hosts"/>
@@ -639,7 +670,7 @@
 		</menu>
 		<separator/>
 		<menu text="_Sites da Rede">
-			<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
+			<item id="ID_HELP_HOMEPAGE" text="Site do PeerProject"/>
 			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
 			<!-- <separator/> 
 			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
@@ -648,7 +679,7 @@
 		</menu>
 		<separator/> <!--
 		  <item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
-		  <item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/>
+		  <item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject"/>
 		<separator/> -->
 		<item id="ID_HELP_ABOUT" text="_Sobre o PeerProject..."/>
 	  </menu>
@@ -731,7 +762,7 @@
 		</menu>
 		<separator/>
 		<menu text="_Sites da Rede">
-			<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
+			<item id="ID_HELP_HOMEPAGE" text="Site do PeerProject"/>
 			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
 			<!-- <separator/> 
 			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
@@ -740,7 +771,7 @@
 		</menu>
 		<separator/> <!--
 		  <item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
-		  <item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/>
+		  <item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject"/>
 		<separator/> -->
 		<item id="ID_HELP_ABOUT" text="_Sobre o PeerProject..."/>
 	  </menu>
@@ -796,40 +827,6 @@
 		<item id="ID_VIEW_PACKETS" text="_Pacotes Perdidos"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Mo_nitor das Buscas"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="M_onitor de Acertos"/>
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_Abrir o PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="No_va Busca..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Baixar Arquivo..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Tocar Mídia"/>
-		<item id="ID_MEDIA_PAUSE" text="Pa_usar Mídia"/>
-		<item id="ID_MEDIA_STOP" text="_Parar Mídia"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="F_aixa Anterior"/>
-		<item id="ID_MEDIA_NEXT" text="_Próxima Faixa"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Sair Após as _Transferências"/>
-		<item id="ID_NETWORK_EXIT" text="S_air"/>
-	</menu>
-	<!-- REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_Abrir o PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="No_va Busca..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Baixar Arquivo..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Tocar Mídia"/>
-		<item id="ID_MEDIA_PAUSE" text="Pa_usar Mídia"/>
-		<item id="ID_MEDIA_STOP" text="_Parar Mídia"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="F_aixa Anterior"/>
-		<item id="ID_MEDIA_NEXT" text="_Próxima Faixa"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Sair Após as _Transferências"/>
-		<item id="ID_NETWORK_EXIT" text="S_air"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -960,7 +957,7 @@
 		<menu text="_Procurar Por">
 		  <item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
 		  <item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
-		<separator/>
+		  <separator/>
 		  <item id="ID_SEARCH_FOR_ARTIST" text="_Músicas do mesmo Artista"/>
 		  <item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
 		  <item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
@@ -985,7 +982,7 @@
 		<menu text="_Procurar Por">
 		  <item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
 		  <item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
-		<separator/>
+		  <separator/>
 		  <item id="ID_SEARCH_FOR_ARTIST" text="_Músicas do mesmo Artista"/>
 		  <item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
 		  <item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
@@ -1088,10 +1085,12 @@
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ajuda..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="L_impar Completado"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="L_impar os Completados"/>
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Aut_o Limpar"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Resumir Todos"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_ausar Todos"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Limpar Todos"/>
@@ -1129,12 +1128,12 @@
 	</menu>
 	<menu name="CUploadsWnd.Queue">
 		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Configurações da Fila"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="L_impar Completado"/>
+		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="L_impar os Completados"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Limpar"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
 		<item id="ID_UPLOADS_HELP" text="_Ajuda..."/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="L_impar Completado"/>
+		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="L_impar os Completados"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Limpar"/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
@@ -2346,7 +2345,6 @@
 	<tip id="ID_DOWNLOADS_SHARE" message="Compartilhar este arquivo parcialmente baixado com outros usuários."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Exibir fontes que não estão sendo usadas atualmente."/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="Procurar por mais fontes para o(s) download(s) selecionado(s)."/>
-	<tip id="ID_DOWNLOADS_TORRENT_INFO" message="Ver informação sobre o download BitTorrent selecionado..."/>
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Adicionar uma fonte URL ao download selecionado..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Ver comentários sobre o download selecionado"/>
 	<tip id="ID_HELP_ABOUT" message="Exibir o diálogo  &quot;sobre&quot; do PeerProject..."/>
@@ -2366,6 +2364,7 @@
 	<tip id="ID_HELP_WEB_5" message="Visite este site"/>
 	<tip id="ID_HELP_WEB_6" message="Visite este site"/>
 	<tip id="ID_HELP_DONATE" message="Se você quiser, você pode doar para o nosso fundo legal e mostrar a sua apreciação."/>
+	<tip id="ID_HELP_FAKESHAREAZA" message="Traduzir o FakeShareaza.com para aprender mais sobre os eventos recentes."/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Limpar o buffer do monitor de acerto."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Pausar a monitoração de acerto."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Procurar na rede o termo selecionado."/>
@@ -2516,7 +2515,6 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Registra um horário para cada linha."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Exibir um log de atividade do sistema detalhado."/>
 	<tip id="ID_TAB_CONNECT" message="Conectar ou desconectar da rede."/>
-	<tip id="ID_TAB_HELP" message="Obtenha ajuda pra usar o PeerProject."/>
 	<tip id="ID_TAB_HOME" message="Retornar a Home page do PeerProject"/>
 	<tip id="ID_TAB_IRC" message="Mostrar a janela do Chat do IRC."/>
 	<tip id="ID_TAB_LIBRARY" message="Ver e gerenciar a sua biblioteca de conteúdo local."/>
@@ -2560,7 +2558,6 @@
 	<tip id="ID_VIEW_BASIC" message="Usar PeerProject no modo Normal."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Mostrar ou esconder a janela dos SERVIÇOS DE DESCOBRIMENTO."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Mostrar ou esconder a janela de DOWNLOADS."/>
-	<tip id="ID_VIEW_HELP" message="Mostrar ou esconder a janela de AJUDA."/>
 	<tip id="ID_VIEW_HOSTS" message="Mostrar ou esconder a janela de CACHE DOS HOSTS."/>
 	<tip id="ID_VIEW_LIBRARY" message="Mostrar ou esconder a janela da BIBLIOTECA."/>
 	<tip id="ID_VIEW_MEDIA" message="Mostrar ou esconder a janela do MEDIA PLAYER."/>
@@ -2641,6 +2638,7 @@
 	<string id="8010" value="Esta é uma versão de pré-lançamento do PeerProject e o período de testes beta acabou. Por favor baixar a versão completa oficial de http://peerproject.sourceforge.net/."/>
 	<string id="8011" value="Mudar a visualização fechará quaisquer janelas que estejam abertas. Você gostaria de mudar agora?"/>
 	<string id="8012" value="Informação do Torrent"/>
+	<string id="8013" value="Nenhuma versão nova do shareaza detectada."/>
 	<string id="8014" value="Propriedades do Download"/>
 	<string id="8060" value="Modo Hub/Ultrapeer com %lu vizinho(s). %s na sua bilioteca local."/>
 	<string id="8061" value="Modo Ultrapeer com %lu vizinho(s). %s na sua biblioteca Local."/>
@@ -2678,8 +2676,8 @@
 	<string id="8141" value="Mostrar o Painel da Busca"/>
 	<string id="8142" value="Esconder o Painel da Busca"/>
 	<string id="8143" value="Procurando"/>
-	<string id="8144" value="Iniciar Busca"/>
-	<string id="8145" value="Procurar Mais"/>
+	<string id="8144" value="Procurar"/>
+	<string id="8145" value="Mais"/>
 	<string id="8146" value="Parar"/>
 	<string id="8147" value="Qualquer Tipo de Arquivo"/>
 	<string id="8148" value="Digite sua busca aqui:"/>
@@ -2882,7 +2880,7 @@
 	<string id="16294" value="Incapaz de resolver &quot;%s&quot;."/>
 	<string id="16295" value="Acelerando o download &quot;%s&quot; removendo o limite de banda."/>
 	<string id="16296" value="Download verificado com sucesso &quot;%s&quot;."/>
-	<string id="16297" value="ATENÇÃO: O Download &quot;%s&quot; falhou na verificação, e pode não ser o arquivo que você pretendia baixar!"/>
+	<string id="16297" value="ATENÇÃO: O Download &quot;%s&quot; falhou na verificação, ele pode não ser o arquivo que você pretendia baixar!"/>
 	<string id="16298" value="O host de download %s está ocupado, esperando na posição #%i de %i da fila de espera (&quot;%s&quot;)."/>
 	<string id="16299" value="Você tem certeza que você quer limpar todos os downloads pausados? Uma vez que um download for limpo da janela de Downloads, ele não pode ser resumido."/>
 	<string id="16300" value="Você tem certeza que você quer apagar o download &quot;%s&quot;?"/>
@@ -3099,9 +3097,9 @@
 	<string id="16997" value="Não há arquivo tocando. Clique duas vezes num arquivo de mídia na sua biblioteca para tocá-lo."/>
 	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M"/>
 	<string id="16999" value="LISTA	 DE	 EXECUÇÕES"/>
-	<string id="17017" value="Chat!"/>
-	<string id="17018" value="Bem-Vindo ao Chat do PeerProject!"/>
-	<string id="17019" value="Por favor respeite os outros enquanto usa este serviço"/>
+	<string id="17017" value="Chat:"/>
+	<string id="17018" value="Bem-Vindo ao Chat do PeerProject."/>
+	<string id="17019" value="Por favor respeite os outros enquanto usar este serviço"/>
 	<string id="17020" value="Adicionar"/>
 	<string id="17021" value="Remover"/>
 	<string id="17022" value="Usuários"/>
@@ -3248,7 +3246,6 @@
 	<string id="20001" value="Fechar"/>
 	<string id="20002" value="de"/> <!-- "1 of 10" -->
 	<string id="20003" value="Mudar a direção da interface requer reiniciar. \nVocê precisará iniciar o PeerProject manualmente. Sair agora?"/>
-	<string id="20004" value="Idiomas da direita-pra-esquerda não são suportados pelo seu OS."/>
 	<string id="20005" value="Não"/>
 	<string id="20006" value="Sim"/>
 	<string id="20007" value="Auto"/>
@@ -3256,7 +3253,7 @@
 	<string id="20009" value="Customizar"/>
 	<string id="20010" value="&amp;Voltar"/>
 	<string id="20011" value="&amp;Próximo"/>
-	<string id="20012" value="Terminar"/>
+	<string id="20012" value="Concluir"/>
 	<string id="20013" value="Todos"/>
 	<string id="20100" value="Conectando"/>
 	<string id="20101" value="Pedindo"/>
@@ -3319,6 +3316,14 @@
 	<string id="20234" value="Álbum"/>
 	<string id="20235" value="Artista"/>
 	<string id="20236" value="Classificação"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="Cancelar"/>
+	<string id="20239" value="Abortar"/>
+	<string id="20240" value="Tentar de Novo"/>
+	<string id="20241" value="Ignorar"/>
+	<string id="20242" value="Tentar de Novo"/>
+	<string id="20243" value="Continuar"/>
+	<string id="20244" value="&amp;Lembrar da minha seleção da próxima vez"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3370,7 +3375,7 @@
 		<control/>
 		<control/>
 		<control caption="arquivos"/>
-		<control caption="Para até:"/>
+		<control caption="Por até:"/>
 		<control/>
 		<control/>
 		<control caption="dias"/>
@@ -3387,7 +3392,7 @@
 		<control/>
 		<control/>
 		<control caption="Criar arquivos ghost quando apagar"/>
-		<control caption="Detecção da série de vídeos inteligentes"/>
+		<control caption="Detecção das séries de vídeos"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Media Player">
 		<control caption="_Opções:"/>
@@ -3402,7 +3407,7 @@
 		<control caption="_Selecionar Plugin..."/>
 		<control caption="_Gerenciamento de Mídia"/>
 		<control caption="Escolha o Gerenciador de Mídia:"/>
-		<control caption="Aviso: Escolher um Gerenciador de Mídia externo desativará automaticamente todos os Plugins de Visualização e Mídia!"/>
+		<control caption="Aviso: Escolher um Gerenciador de Mídia externo desativará automaticamente todos os Plugins de Mídia e Visualização."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Comunidade">
 		<control caption="Meu _Perfil:"/>
@@ -3552,7 +3557,7 @@
 		<control caption="Ativar o Acesso Remoto do PeerProject:"/>
 		<control caption="URL"/>
 		<control caption="_Credenciais:"/>
-		<control caption="Escolha um Nome de Usuário:"/>
+		<control caption="Escolha um Nome:"/>
 		<control/>
 		<control caption="Escolha uma Senha:"/>
 		<control/>
@@ -3577,7 +3582,7 @@
 		<control caption="% da _banda sob o limite"/>
 		<control/>
 		<control caption="Ajuda"/>
-		<control caption="O agendador é designado para permitir a você definir os horários quando o PeerProject conectará e baixará arquivos. {n}{n}{n}Nota: Se você tem o PeerProject aberto enquanto o agendador está ativo, você pode vê-lo mudando as configurações- Isto é normal!"/>
+		<control caption="A agenda é designada para permitir a você definir os horários quando o PeerProject conectará e baixará arquivos. {n}{n}{n}Nota: Se você tem o PeerProject aberto enquanto o agendador está ativo, você pode vê-lo mudando as configurações- Isto é normal!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Redes">
 		<control caption="PeerProject é uma aplicação de compartilhamento de arquivos de propósito geral que pode acessar várias redes P2P ao mesmo tempo. Nesta página você seleciona quais redes P2P você quer conectar, e ajustar opções específicas pra cada rede."/>
@@ -3585,14 +3590,14 @@
 		<control caption="A rede Gnutella 2 é a rede premiére do PeerProject, oferecendo mais funções e performance do que qualquer outra rede P2P. Altamente Recomendada."/>
 		<control caption="Conectar a Gnutella 2 (G2)"/>
 		<control caption="Configurar a Gnutella 2"/>
-		<control caption="Rede eDonkey:"/>
-		<control caption="A rede eDonkey é uma rede baseada em servidores. Enqto não tão rica em funções como Gnutella 2, ed2k tem uma grande coleção de arquivos."/>
-		<control caption="Conectar no eDonkey"/>
-		<control caption="Configurar o eDonkey"/>
 		<control caption="Rede Gnutella original:"/>
 		<control caption="Embora a rede Gnutella original é menos rica em funções que a Gnutella 2 e tenha menos arquivos que a eDonkey, ela é um recurso valioso."/>
-		<control caption="Conectar na Gnutella Original"/>
+		<control caption="Conectar na Gnutella Original (G1)"/>
 		<control caption="Configurar a Gnutella 1"/>
+		<control caption="Rede eDonkey:"/>
+		<control caption="A rede eDonkey é uma rede baseada em servidores. Enqto não tão rica em funções como Gnutella 2, ed2k tem uma grande coleção de arquivos."/>
+		<control caption="Conectar no eDonkey2000 (ED2K)"/>
+		<control caption="Configurar o eDonkey"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Rede Gnutella2:"/>
@@ -3662,17 +3667,17 @@
 		<control caption="Conexões com clientes"/>
 		<control caption="&#160;Limpar torrents baixados&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Qdo compartilharmento alcançar"/>
 		<control/>
-		  <control/>
+		<control/>
 		<control caption="%"/>
 		<control caption="Preferir fontes torrent"/>
 		<control caption="_EndGame:"/>
 		<control caption="Ativar o modo EndGame quando completar os torrents"/>
 		<control caption="_Armazenar Torrents Aqui:"/>
-		  <control/>
-		  <control/>
+		<control/>
+		<control/>
 		<control caption="_Criador de Torrents:"/>
 		<control/>
-		  <control/>
+		<control/>
 		<control caption="Tracker Padrão: "/>
 		<control/>
 	</dialog>
@@ -3720,13 +3725,13 @@
 		<control caption="Só arquivos parcialmente baixados"/>
 		<control caption="Só arquivos da biblioteca compartilhados"/>
 		<control caption="Ambos os arquivos parciais e da biblioteca"/>
-		<control caption="Tamanho mínimo do arquivo da fonte:"/>
+		<control caption="Tamanho mín do arquivo da fonte:"/>
 		<control/>
-		<control caption="Tamanho máximo do arquivo da fonte:"/>
+		<control caption="Tamanho máx do arquivo da fonte:"/>
 		<control/>
 		<control caption="Arquivos marcados:"/>
 		<control caption="Popular|Lançamento"/>
-		<control caption="Combinação do nome do arq:"/>
+		<control caption="Combinação nome arq:"/>
 		<control/>
 		<control caption="Protocolos:"/>
 		<control/>
@@ -3760,7 +3765,7 @@
 		<control caption="Se você é um usuário mais avançado, você pode acessar o alcance completo das configurações do PeerProject via o menu Ferramentas. Clique em Sair para fechar o assitente a qualquer hora."/>
 		<control caption="Este Assistente vai ajudá-lo a:"/>
 		<control/>
-		<control caption="Falar pro PeerProject a respeito da sua conexão com a Internet"/>
+		<control caption="Dizer ao PeerProject sobre a sua conexão com a Internet"/>
 		<control/>
 		<control caption="Escolher quais arquivos compartilhar"/>
 		<control/>
@@ -3772,9 +3777,9 @@
 		<control caption="Para ótima performance, PeerProject precisa saber um pouco sobre sua conexão com a Internet."/>
 		<control caption="Escolha o tipo da sua conexão com a Internet:"/>
 		<control caption="Modem Dial up|ISDN|ADSL (256K)|ADSL (512K)|ADSL (768K)|ADSL (1.5M)|ADSL (4.0M)|ADSL2 (8.0M)|ADSL2 (12.0M)|ADSL2+ (24.0M)|Modem a Cabo/SDSL|T1|T3|LAN|OC3"/>
-		<control caption="Ou escolha a velocidade de download:"/>
+		<control caption="Ou escolha a velocidade do download:"/>
 		<control/>
-		<control caption="e a velocidade de upload:"/>
+		<control caption="e a velocidade do upload:"/>
 		<control/>
 		<control caption="Você quer automaticamente configurar o port-forwarding usando o UPnP?"/>
 		<control/>
@@ -3818,16 +3823,16 @@
 		<control caption="Menus e botões simples, fáceis de usar.{n}Familiar aos usuários de outros programas de compartilhamento de arquivos."/>
 		<control caption="O modo Power oferece aos usuários expert muitos comandos extras, janelas, etc.{n}Pode ser um pouco confuso para novos usuários!"/>
 		<control caption="Exibir barras de progresso do download simplificadas. (Reduz o uso da CPU)"/>
-		<control caption="Manejar links torrent."/>
+		<control caption="Gerenciar os links torrent."/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Bem-Vindo ao PeerProject (5/6)">
 		<control caption="O PeerProject é um aplicativo de compartilhamento de arquivos de propósito geral que pode acessar muitas redes P2p ao mesmo tempo.  Aqui você pode selecionar quais redes você gostaria de acessar.  Note que você pode sempre selecionar diferentes redes mais tarde."/>
 		<control caption="Conectar a Gnutella2 (Altamente Recomendado)"/>
 		<control caption="A rede Gnutella2 é a rede premiere do PeerProject, oferecendo mais funções e performance do que qualquer outra rede P2P."/>
-		<control caption="Conectar ao eDonkey"/>
-		<control caption="A rede eDonkey é uma rede popular baseada em servidores. Enquanto não tão rica em funções como Gnutella2, eDonkey tem uma impressionante coleção de arquivos."/>
 		<control caption="Conectar a Gnutella Original"/>
 		<control caption="Embora a rede Gnutella original é menos rica em funções do que a Gnutella2, e tenha menos arquivos do que o eDonkey, ela permanece um recurso valioso."/>
+		<control caption="Conectar ao eDonkey"/>
+		<control caption="A rede eDonkey é uma rede popular baseada em servidores. Enquanto não tão rica em funções como Gnutella2, eDonkey tem uma impressionante coleção de arquivos."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importar Downloads do eDonkey">
 		<control/>
@@ -3840,7 +3845,7 @@
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Bem Vindo ao PeerProject (6/6)">
 		<control caption="Pronto! O PeerProject foi configurado para trabalhar com o seu computador."/>
 		<control caption="Se você precisar mudar as suas configurações, você pode re-executar este assistente de configuração selecionando-o no menu Ferramentas."/>
-	  <control caption="After closing this wizard by clicking Finish, you can connect to the networks you selected and start searching and downloading content."/>
+		<control caption="Após fechar este assistente clicando em Concluir, você pode conectar as redes que você selecionou e iniciar a busca e download de conteúdo."/>
 		<control caption="Conectar a rede quando eu fechar este assistente"/>
 		<control caption="Conectar a rede toda vez que eu iniciar o PeerProject"/>
 		<control caption="Iniciar o PeerProject toda vez que o Windows iniciar"/>
@@ -3974,14 +3979,14 @@
 		<control/>
 		<control caption="Máximo:"/>
 		<control/>
-		<control caption="Com pelo menos:"/>
+		<control caption="Com ao menos:"/>
 		<control/>
 		<control/>
 		<control caption="fontes."/>
 		<control caption="_Esconder:"/>
 		<control caption="Hosts ocupados"/>
 		<control caption="Arquivos que não combinam"/>
-		<control caption="Hosts atrás de Firewall/push"/>
+		<control caption="Hosts com Firewall/push"/>
 		<control caption="Arqs que você já tem"/>
 		<control caption="Hosts instáveis"/>
 		<control caption="Resultados falsos"/>
@@ -4006,7 +4011,7 @@
 		<control caption="Endereço do _Serviço:"/>
 		<control/>
 		<control caption="Tipo de Serviço de Descobrimento:"/>
-		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL|Bloqueada"/>
+		<control caption="Gnutella Bootstrap|G1 GWebCache|G2 GWebCache|G1/G2 GWebCache|Server.met URL|Bloqueado"/>
 		<control caption="OK"/>
 		<control caption="Cancelar"/>
 		<control/>
@@ -4017,7 +4022,7 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Velocidade de transferência:"/>
+		<control caption="Velocidade total da transferência:"/>
 		<control caption="..."/>
 		<control caption="Tempo restante estimado:"/>
 		<control caption="..."/>
@@ -4025,7 +4030,7 @@
 		<control caption="..."/>
 		<control caption="Número de fontes:"/>
 		<control caption="..."/>
-		<control caption="Fechar esta janela quando o download terminar"/>
+		<control caption="Fechar esta janela quando o download completar"/>
 		<control caption="Abrir Arquivo"/>
 		<control caption="Ver Biblioteca"/>
 		<control caption="Cancelar Download"/>
@@ -4327,37 +4332,46 @@
 		<control caption="_Próximo|_Exportar..."/>
 		<control caption="_Cancelar"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Propriedades do Download">
-		<control caption="AVISO: Este diálogo provém funções de edição avançada de download para usuários power, se usadas incorretamente podem e talvez causarão corrupção."/>
-		<control caption="Nome do Arquivo e Ta_manho:"/>
-		<control caption="Arquivo:"/>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Propriedades dos Downloads">
 		<control/>
-		  <control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="AVISO: Este diálogo fornece funções de edição avançada dos downloads para usuário power a qual se usada incorretamente pode e provavelmente causará corrupção."/>
+		<control caption="Nome do Arquivo de Ta_manho:"/>
+		<control caption="Nome do Arquivo:"/>
 		<control caption="Tamanho do arquivo (Byte):"/>
-		<control/>
 		<control caption="_URNs:"/>
 		<control caption="Confia"/>
 		<control caption="SHA1:"/>
-		<control/>
-		<control/>
 		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
 		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStEdEdBuBuBuStStSt" caption="Ações">
+		<control caption="Esquecer a verificação atual e reverificar"/>
+		<control caption="Assumir que o arquivo está 100% completo e reverificar"/>
+		<control caption="Esquecer todas as fontes conhecidas"/>
+		<control caption="Unir com o arquivo local e reverificar"/>
+		<control caption="Cancelar o download mas salvar o(s) arquivo(s) incompleto(s)"/>
 		<control/>
-		<control/>
-		<control caption="_Ações"/>
-		<control caption="Esquecer a verificação atual e re-verificar"/>
-		<control caption="Assumir que o arq está 100% completo e reverificar"/>
-		<control caption="Esquecer todas fontes conhecidas"/>
-		<control caption="Unir com o arquivo local e verificar"/>
-		<control caption="Cancelar o download mas salvar arquivo(s) incompleto(s)"/>
-		<control caption="Apagar dos _Dados:"/>
-		<control caption="Alcance dos bytes:"/>
-		<control/>
-		<control caption="até"/>
 		<control/>
 		<control caption="Apagar"/>
+		<control caption="_Ações:"/>
+		<control caption="Apagador dos _Dados:"/>
+		<control caption="Byte range:"/>
+		<control caption="até"/>
+		<control caption="AVISO: Este diálogo fornece funções de edição avançada dos downloads para os usuários power a qual se usada incorretamente pode e provavelmente causará corrupção."/>
 	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Abrir Arquivo Torrent">
 		<control/>
@@ -4368,88 +4382,84 @@
 		<control caption="Para compartilhar arquivos completados usando BitTorrent, eles devem primeiro virar seeds. Uma vez que este processo está completo,o Torrent aparecerá como um novo item na sua lista de downloads."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Geral">
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption=" As needed| When ratio over 100%| Only when requested| Never"/>
+		<control/>
 		<control caption="Informação do _Torrent:"/>
 		<control caption="Nome:"/>
-		<control/>
-		<control caption="Criado em:"/>
-		<control/>
+		<control caption="Criado:"/>
 		<control caption="Por:"/>
-		<control/>
 		<control caption="Comentários:"/>
-		<control/>
 		<control caption="Transferências:"/>
-		<control caption="Iniciar novas transferências de download:"/>
-		<control caption="_Quando necessário| Qdo o ratio maior do que 100%| Só quando pedido| Nunca"/>
-		<control/>
+		<control caption="Iniciar as novas transferências de download:"/>
 		<control caption="Total Enviado:"/>
 		<control caption="Notas:"/>
+	</dialog>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Arquivos">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Arquivos">
-		<control caption="Informação do _Torrent:"/>
-		<control caption="Nome:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdCoBuSyStBuStStSt" caption="Trackers">
 		<control/>
-		<control caption="_Arquivos:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="Informação do _Torrent:"/>
-		<control caption="Nome:"/>
+		<control/>
+		<control caption="Desativado|Tracker Único|Multi-tracker|Multi-tracker (trancado)"/>
+		<control caption="_Atualizar"/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="_Tracker Atual:"/>
 		<control caption="Completados (Seeds):"/>
-		<control/>
 		<control caption="Incompletos:"/>
-		<control/>
-		<control caption="_Atualizar"/>
-		<control caption="_Trackers:"/>
-		<control/>
 		<control caption="Modo Tracker:"/>
-		<control caption="Desativado|Modificado|Tracker Único|Multi-tracker|Multi-tracker (trancado)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Propriedades dos Grupos de Download">
-		<control caption="_Nome:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Propriedades dos Grupos de Download">
+		<control caption="OK"/>
+		<control caption="Cancelar"/>
 		<control/>
 		<control/>
-		<control caption="_Filtros:"/>
+		<control caption="_Downloads do BitTorrent"/>
 		<control/>
 		<control caption="_Adicionar"/>
 		<control caption="_Remover"/>
-		<control caption="OK"/>
-		  <control caption="Cancelar"/>
-		<control caption="Pasta do _Arquivo Completado:"/>
-		  <control/>
 		<control/>
+		<control/>
+		<control/>
+		<control caption="_Nome do Grupo:"/>
+		<control caption="_Filtros:"/>
+		<control caption="_Pasta dos Arquivos Completados:"/>
+		<control caption="_Tipo de arquivo:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Selecionar Visualisação">
 		<control/>
 		<control caption="Selecionar uma visualização de áudio da lista:"/>
 		<control/>
-		<control caption="Exibir no Rodapé|Exibir no Tamanho Completo|Exibir Grande|Exibir Médio|Exibir Pequeno"/>
+		<control caption="Exibir no Rodapé|Exibir com Tamanho Completo|Exibir Grande|Exibir Médio|Exibir Pequeno"/>
 		<control caption="_Configurar..."/>
 		<control caption="OK"/>
 		<control caption="Cancelar"/>
 	</dialog>
 	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Alerta sobre Atualização">
 		<control/>
-		<control caption="Uma nova versão do PeerProject está agora disponível. Você gostaria de atualizar?"/>
+		<control caption="Uma nova versão do PeerProject está disponível agora. Você gostaria de atualizar?"/>
 		<control caption="Se você selecionar Atualizar Agora, o PeerProject adicionará a atualização a sua fila de download e automaticamente começa a baixá-la."/>
 		<control caption="_Atualizar Agora"/>
 		<control caption="Não procurar novas versões"/>
 		<control caption="Não atualizar"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Análise sobre Downloads">
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Análise dos Downloads">
 		<control/>
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Localização do Metadata">
-		<control caption="Por favor selecione o método de re-codificação:"/>
-		<control caption="Árabe|Báltico|Europeu Central|Chinês simplificado|Chinês tradicional|Cirílico|Grego|Hebreu|Japonês|Coreano|Tai|Turco|Vietnamita"/>
+		<control caption="Por favor selecione o método de reencodificação:"/>
+		<control caption="Árabe|Báltico|Europeu Central|Chinês simplificado|Chinês tradicional|Cirílico|Grego|Hebreu|Japonês|Coreano|Tailandês|Turco|Vietnamita"/>
 		<control caption="Prévia:"/>
 		<control/>
 		<control/>

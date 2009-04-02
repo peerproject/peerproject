@@ -31,11 +31,6 @@
 #include "LiveList.h"
 #include "CoolInterface.h"
 
-#include "SHA.h"
-#include "MD5.h"
-#include "ED2K.h"
-#include "TigerTree.h"
-
 #include "DlgCollectionExport.h"
 
 #ifdef _DEBUG
@@ -382,15 +377,10 @@ void CCollectionExportDlg::OnOK()
 
 		if ( pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
 		{
-			int nBytes = WideCharToMultiByte( CP_UTF8, 0, strXML, strXML.GetLength(), 
-				NULL, 0, NULL, NULL );
-			LPSTR pszXML = new CHAR[ nBytes ];
-			WideCharToMultiByte( CP_UTF8, 0, strXML, strXML.GetLength(), pszXML, 
-				nBytes, NULL, NULL );
+			CStringA strXMLUTF8 = UTF8Encode( strXML );
 
-			pFile.Write( pszXML, nBytes );
+			pFile.Write( (LPCSTR)strXMLUTF8, strXMLUTF8.GetLength() );
 			pFile.Close();
-			delete [] pszXML;
 					
 			int nPosTpl = 0;
 			while ( nPosTpl < m_wndWizard.m_pTemplatePaths.GetSize() )
@@ -536,17 +526,12 @@ void CCollectionExportDlg::OnOK()
 				CFile pFile;
 				if ( pFile.Open( strNewFilePath , CFile::modeWrite|CFile::modeCreate ) )
 				{
-					int nBytes = WideCharToMultiByte( CP_UTF8, 0, strSource, strSource.GetLength(), 
-						NULL, 0, NULL, NULL );
-					LPSTR pszBytes = new CHAR[ nBytes ];
-					WideCharToMultiByte( CP_UTF8, 0, strSource, strSource.GetLength(), pszBytes, 
-						nBytes, NULL, NULL );
+					CStringA strSourceUTF8 = UTF8Encode( strSource );
 
-					pFile.Write( pszBytes, nBytes );
+					pFile.Write( (LPCSTR)strSourceUTF8, strSourceUTF8.GetLength() );
 					pFile.Close();
 
 					// clean-up;
-					delete [] pszBytes;
 					strSource.Empty();
 					strSource.ReleaseBuffer();
 				}
@@ -727,7 +712,7 @@ void CCollectionExportDlg::OnTemplatesDeleteOrBack()
 			strPath.Format( _T("%s\\Templates\\%s"),
 				(LPCTSTR)Settings.General.Path, (LPCTSTR)strBase );
 
-			DeleteFile( strPath );
+			DeleteFileEx( strPath, FALSE, TRUE, TRUE );
 
 			int nSlash = strPath.ReverseFind( '\\' );
 			strPath = strPath.Left( nSlash ) + _T("\\*.xml");
@@ -751,7 +736,7 @@ void CCollectionExportDlg::OnTemplatesDeleteOrBack()
 					do
 					{
 						if ( pFind.cFileName[0] == '.' ) continue;
-						DeleteFile( strPath + pFind.cFileName );
+						DeleteFileEx( strPath + pFind.cFileName, FALSE, TRUE, TRUE );
 					}
 					while ( FindNextFile( hSearch, &pFind ) );
 

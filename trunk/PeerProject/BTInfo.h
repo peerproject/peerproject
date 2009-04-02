@@ -19,16 +19,9 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_BTINFO_H__AA44CA36_464F_4FB8_9D79_884D8092ADA0__INCLUDED_)
-#define AFX_BTINFO_H__AA44CA36_464F_4FB8_9D79_884D8092ADA0__INCLUDED_
-
 #pragma once
 
-#include "SHA.h"
-#include "ED2K.h"
-#include "MD5.h"
 #include "Buffer.h"
-#include "TigerTree.h"
 #include "PeerProjectFile.h"
 
 class CBuffer;
@@ -40,19 +33,59 @@ class CBTInfo : public CPeerProjectFile
 // Construction
 public:
 	CBTInfo();
+	CBTInfo(const CBTInfo& oSource);
 	virtual ~CBTInfo();
-	
+
+	// Tracker status/types
+	enum
+	{
+		tNull,			// No tracker
+		tSingle,		// User locked tracker or single tracker
+		tMultiFinding,	// Multi-tracker searching
+		tMultiFound		// Multi-tracker that's found a tracker
+	};
+
+	// When to initiate new torrent transfers
+	enum
+	{
+		dtAlways,			// Whenever wanted
+		dtWhenRatio,		// When download ratio > 100%
+		dtWhenRequested,	// Only when another client requests
+		dtNever				// Never
+	};
+
 // Subclass
 public:
 	class CBTFile : public CPeerProjectFile
 	{
 	public:
-		CBTFile();
-		CBTFile(CBTInfo* pInfo);
-		void		Copy(CBTFile* pSource);
-		void		Serialize(CArchive& ar, int nVersion);
-		int			nFilePriority;
-		CBTInfo*	m_pInfo;
+		// Returns file download progress ( < 0 - unknown or 0..100% )
+		float GetProgress() const;
+
+		// Returns file download priority
+		inline int GetPriority() const
+		{
+			return m_nFilePriority;
+		}
+
+		// Set file download priority
+		inline void	SetPriority(int nFilePriority)
+		{
+			m_nFilePriority = nFilePriority; 
+		}
+
+		// Find file on disk
+		CString	FindFile();
+
+	private:
+		const CBTInfo*	m_pInfo;			// Parent torrent handler
+		int				m_nFilePriority;	// Download priority (NotWanted, Low, Normal or High)
+		QWORD			m_nOffset;			// File offset inside torrent (cached)
+
+		CBTFile(const CBTInfo* pInfo, const CBTFile* pFile = NULL);
+		void Serialize(CArchive& ar, int nVersion);
+
+		friend class CBTInfo;
 	};
 	enum { prNotWanted, prLow, prNormal, prHigh };
 
@@ -62,10 +95,8 @@ public:
 	{
 	public:
 		CBTTracker();
-		virtual ~CBTTracker();
-		void		Copy(CBTTracker* pSource);
-		void		Serialize(CArchive& ar, int nVersion);
-	public:
+		CBTTracker(const CBTTracker& oSource);	
+
 		CString		m_sAddress;
 		DWORD		m_tLastAccess;
 		DWORD		m_tLastSuccess;
@@ -73,84 +104,110 @@ public:
 		DWORD		m_nFailures;
 		INT			m_nTier;
 		INT			m_nType;
+
+	private:
+		void Serialize(CArchive& ar, int nVersion);
+
+		friend class CBTInfo;
 	};
 	
 // Attributes
 public:
-	CList< CString >	m_sURLs;	// Add sources from torrents - DWK
+	CList< CString > m_sURLs;			// Add sources from torrents - DWK
 	QWORD		m_nTotalSize;
 	DWORD		m_nBlockSize;
 	DWORD		m_nBlockCount;
     Hashes::BtPureHash* m_pBlockBTH;
-	QWORD		m_nTotalUpload;					// Total amount uploaded
-	QWORD		m_nTotalDownload;				// Total amount downloaded
-	int			m_nFiles;						// Number of files
-	CBTFile*	m_pFiles;						// List of files
-	CString		m_sTracker;						// Address of tracker we are using
-	CBTTracker*	m_pAnnounceTracker;				// Tracker in the announce key
-	CArray< CBTTracker* > m_pTrackerList;		// Multi-tracker list
-	int			m_nTrackerIndex;				// The tracker we are currently using
-	int			m_nTrackerMode;					// The current tracker situation
+	QWORD		m_nTotalUpload;			// Total amount uploaded
+	QWORD		m_nTotalDownload;		// Total amount downloaded
+	CList< CBTFile* > m_pFiles;			// List of files
 	UINT		m_nEncoding;
 	CString		m_sComment;
 	DWORD		m_tCreationDate;
 	CString		m_sCreatedBy;
 	BOOL		m_bPrivate;
-	int			m_nStartDownloads;				// When do we start downloads for this torrent
+	int			m_nStartDownloads;		// When do we start downloads for this torrent
 
 private:
-	bool		m_bEncodingError;
+	CArray< CBTTracker > m_oTrackers;	// Tracker list
+	int			m_nTrackerIndex;		// The tracker we are currently using
+	int			m_nTrackerMode;			// The current tracker situation
+	bool		m_bEncodingError;		// Torrent has encoding errors
 	CSHA		m_pTestSHA1;
 	DWORD		m_nTestByte;
 	CBuffer		m_pSource;
 	
+	BOOL		CheckFiles();
+	int			AddTracker(const CBTTracker& oTracker);
+
 // Operations
 public:
 	void		Clear();
-	void		Copy(CBTInfo* pSource);
+	CBTInfo&	Copy(const CBTInfo& oSource);
 	void		Serialize(CArchive& ar);
-public:
+
 	BOOL		LoadTorrentFile(LPCTSTR pszFile);
 	BOOL		LoadTorrentBuffer(CBuffer* pBuffer);
 	BOOL		LoadTorrentTree(CBENode* pRoot);
-	BOOL		SaveTorrentFile(LPCTSTR pszPath);
-public:
+	BOOL		SaveTorrentFile(LPCTSTR pszPath) const;
+
 	void		BeginBlockTest();
 	void		AddToTest(LPCVOID pInput, DWORD nLength);
 	BOOL		FinishBlockTest(DWORD nBlock);
-public:
+
 	void		SetTrackerAccess(DWORD tNow);
 	void		SetTrackerSucceeded(DWORD tNow);
 	void		SetTrackerRetry(DWORD tTime);
 	void		SetTrackerNext(DWORD tTime = 0);
 	DWORD		GetTrackerFailures() const;
-protected:
-	BOOL		CheckFiles();
+	CString		GetTrackerAddress(int nTrackerIndex = -1) const;
+	TRISTATE	GetTrackerStatus(int nTrackerIndex = -1) const;
+	int			GetTrackerTier(int nTrackerIndex = -1) const;
+	DWORD		GetTrackerNextTry() const;
+	void		OnTrackerFailure();
 
-// Inlines
-public:
-	bool	IsAvailable() const { return m_oBTH; }
-	bool	HasEncodingError() const { return m_bEncodingError; }
-
-	// Check if a string is a valid path/file name.
-	bool	IsValid(LPCTSTR psz) const
+	// Count of files
+	inline INT_PTR GetCount() const
 	{
-		if ( _tcsclen( psz ) == 0 ) return FALSE;
-		if ( _tcschr( psz, '?' ) != NULL ) return FALSE;
-		if ( _tcsicmp( psz , _T("#ERROR#") ) == 0 ) return FALSE;
-		
-		return TRUE;
+		return m_pFiles.GetCount();
 	}
 
-	bool	IsMultiTracker() const { return m_pTrackerList.GetCount() > 0; }
+	inline bool IsAvailable() const
+	{
+		return m_oBTH;
+	}
+
+	inline bool HasEncodingError() const
+	{
+		return m_bEncodingError;
+	}
+
+	inline bool IsMultiTracker() const
+	{
+		return ( m_nTrackerMode > tSingle ) && m_oTrackers.GetCount() > 1;
+	}
+
+	inline bool HasTracker() const
+	{
+		return ( m_nTrackerMode != tNull ) && ! m_oTrackers.IsEmpty();
+	}
+
+	inline int GetTrackerIndex() const
+	{
+		return m_nTrackerIndex;
+	}
+
+	void SetTracker(const CString& sTracker);
+
+	inline int GetTrackerMode() const
+	{
+		return m_nTrackerMode;
+	}
+
+	void SetTrackerMode(int nTrackerMode);
+
+	inline int GetTrackerCount() const
+	{
+		return (int)m_oTrackers.GetCount();
+	}
 };
-
-// Tracker status/types
-enum { tNull, tCustom, tSingle, tMultiFinding, tMultiFound };
-// No tracker, User set tracker, normal torrent, multitracker searching, multitracker that's found a tracker
-
-// When to initiate new torrent transfers
-enum { dtAlways, dtWhenRatio, dtWhenRequested, dtNever };
-// Whenever wanted, when download ratio > 100%, only when another client requests, never
-
-#endif // !defined(AFX_BTINFO_H__AA44CA36_464F_4FB8_9D79_884D8092ADA0__INCLUDED_)

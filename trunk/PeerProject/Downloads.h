@@ -68,7 +68,7 @@ public:
 	CDownload*	Add();
 	CDownload*	Add(CQueryHit* pHit, BOOL bAddToHead = FALSE);
 	CDownload*	Add(CMatchFile* pFile, BOOL bAddToHead = FALSE);
-	CDownload*	Add(CPeerProjectURL* pURL);
+	CDownload*	Add(const CPeerProjectURL& oURL);
 	void		PauseAll();
 	void		ClearCompleted();
 	void		ClearPaused();
@@ -103,7 +103,7 @@ public:
 	void		OnRun();
 	BOOL		OnPush(const Hashes::Guid& oGUID, CConnection* pConnection);
 	BOOL		OnDonkeyCallback(CEDClient* pClient, CDownloadSource* pExcept = NULL);
-	void		OnQueryHits(CQueryHit* pHits);
+	void		OnQueryHits(const CQueryHit* pHits);
 	void		OnVerify(LPCTSTR pszPath, BOOL bVerified);
 	void		SetPerHostLimit(IN_ADDR* pAddress, DWORD nLimit);
 	BOOL		IsSpaceAvailable(QWORD nVolume, int nPath = dlPathNull);
@@ -116,7 +116,6 @@ protected:
 	BOOL		LoadFromCompoundFile(LPCTSTR pszFile);
 	BOOL		LoadFromTimePair();
 	void		SerializeCompound(CArchive& ar);
-	void		PurgeDeletes();
 	void		PurgePreviews();
 
 // Inlines

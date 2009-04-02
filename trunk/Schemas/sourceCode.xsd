@@ -11,8 +11,8 @@
 		<complexType>
 			<element name="sourcecode" type="sourcecodeType" minOccurs="1" maxOccurs="unbounded"/>
 		</complexType>
-	</element>     
-	
+	</element>
+
 	<complexType name="sourcecodeType">
 		<all>
 			<attribute name="title" type="string"/>
@@ -104,7 +104,7 @@
 			<attribute name="languageVersion" type="string"/>
 			<attribute name="license" type="string"/>
 			<attribute name="OS" type="string"/>
-		        <attribute name="link" type="uriReference"/>
+			<attribute name="link" type="uriReference"/>
 			<attribute name="comments">
 				<simpleType base="string">
 					<maxInclusive value="100"/>

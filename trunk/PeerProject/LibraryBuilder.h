@@ -28,6 +28,21 @@
 class CLibraryFile;
 class CXMLElement;
 
+class CFileHash
+{
+public:
+	CFileHash(QWORD nFileSize);
+
+	void Add(const void* pBuffer, DWORD nBlock);
+	void Finish();
+	void CopyTo(CLibraryFile* pFile) const;
+
+protected:
+	CTigerTree	m_pTiger;
+	CED2K		m_pED2K;
+	CSHA		m_pSHA1;
+	CMD5		m_pMD5;
+};
 
 class CLibraryBuilder :
 	public CLibraryBuilderInternals
@@ -90,12 +105,13 @@ private:
 	LARGE_INTEGER				m_nFreq;			// (Hz)
 	QWORD						m_nReaded;			// (bytes)
 	__int64						m_nElapsed;			// (mks)
+	volatile bool				m_bSkip;			// Request to skip hashing file
 
 	// Get next file from list doing all possible tests
 	// Returns 0 if no file available, sets m_bThread = false if no files left.
 	DWORD		GetNextFileToHash(CString& sPath);
 	void		OnRun();
-	bool		HashFile(LPCTSTR szPath, HANDLE hFile, DWORD nIndex);
+	bool		HashFile(LPCTSTR szPath, HANDLE hFile);
 	bool		DetectVirtualFile(LPCTSTR szPath, HANDLE hFile, QWORD& nOffset, QWORD& nLength);
 	bool		DetectVirtualID3v1(HANDLE hFile, QWORD& nOffset, QWORD& nLength);
 	bool		DetectVirtualID3v2(HANDLE hFile, QWORD& nOffset, QWORD& nLength);

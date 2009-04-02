@@ -189,7 +189,7 @@ void CMainTabBarCtrl::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL /*bDisableIfNoHndle
 CSize CMainTabBarCtrl::CalcFixedLayout(BOOL bStretch, BOOL /*bHorz*/)
 {
 	CRect rcBackground;
-	CSize size( 0, 28 );
+	CSize size( 0, TOOLBAR_HEIGHT );	//ToDo: Use Unique Size
 
 	if ( m_pSkin != NULL && m_pSkin->GetAnchor( _T("Background"), rcBackground ) )
 	{

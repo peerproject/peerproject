@@ -30,7 +30,6 @@
 #include "EDPacket.h"
 #include "GProfile.h"
 #include "HostCache.h"
-#include "ED2K.h"
 
 #include "Library.h"
 #include "SharedFile.h"
@@ -88,8 +87,6 @@ CEDClient::CEDClient()
 	
 	// Misc stuff
 	m_bLogin		= FALSE;
-//	m_bUpMD4		= FALSE;
-	
 	m_pDownload		= NULL;
 	m_pUpload		= NULL;
 	m_bSeeking		= FALSE;
@@ -961,7 +958,7 @@ void CEDClient::SendEmuleInfo(BYTE nType)
 {
 	CEDPacket* pPacket = CEDPacket::New( nType, ED2K_PROTOCOL_EMULE );
 	
-	pPacket->WriteByte( 0x40 );		// eMule version, 40=Shareaza, 44=PeerProject? TODO.
+	pPacket->WriteByte( 0x40 );		// eMule version, 40=Shareaza, 44=PeerProject? ToDo:
 	pPacket->WriteByte( 0x01 );		// eMule protocol
 	
 	// Write number of tags

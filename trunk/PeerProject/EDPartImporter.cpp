@@ -24,7 +24,6 @@
 #include "Settings.h"
 #include "EDPartImporter.h"
 #include "EDPacket.h"
-#include "ED2K.h"
 #include "Transfers.h"
 #include "Downloads.h"
 #include "Download.h"
@@ -197,18 +196,19 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 
 	if ( nParts == 0 )
 	{
-		pED2K.FromRoot( oED2K );
+		pED2K.FromRoot( &oED2K[ 0 ] );
 	}
 	else if ( nParts > 0 )
 	{
-		CMD4::MD4Digest* pHashset = new CMD4::MD4Digest[ nParts ];
-		pFile.Read( pHashset, sizeof( CMD4::MD4Digest ) * nParts );
-		BOOL bSuccess = pED2K.FromBytes( (BYTE*)pHashset, sizeof(  CMD4::MD4Digest ) * nParts );
+		CMD4::Digest* pHashset = new CMD4::Digest[ nParts ];
+		pFile.Read( pHashset, sizeof( CMD4::Digest ) * nParts );
+		BOOL bSuccess = pED2K.FromBytes( (BYTE*)pHashset, sizeof(  CMD4::Digest ) * nParts );
 		delete [] pHashset;
 		if ( ! bSuccess ) return FALSE;
 
 		Hashes::Ed2kHash pCheck;
-		pED2K.GetRoot( pCheck );
+		pED2K.GetRoot( &pCheck[ 0 ] );
+		pCheck.validate();
 		if ( validAndUnequal( pCheck, oED2K ) ) return FALSE;
 	}
 	else
@@ -296,7 +296,8 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 	if ( ! pData.Open( strPath, CFile::modeRead ) ) return FALSE;
 	pData.GetStatus( pStatus );
 	pData.Close();
-	if ( nDate > mktime( pStatus.m_mtime.GetLocalTm( NULL ) ) )
+	struct tm ptmTemp = {};
+	if ( nDate > mktime( pStatus.m_mtime.GetLocalTm( &ptmTemp ) ) )
 	{
 		Message( IDS_ED2K_EPI_FILE_OLD );
 		return FALSE;
@@ -320,16 +321,12 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 	CDownload* pDownload = Downloads.Add();
 	
 	pDownload->m_oED2K			= oED2K;
-	pDownload->m_bED2KTrusted = true; // .part use trusted hashes
-
+	pDownload->m_bED2KTrusted	= true; // .part use trusted hashes
 	pDownload->m_nSize			= nSize;
 	pDownload->m_sName			= strName;
 	pDownload->m_sPath			= strTarget;
-	
-	{
-		Fragments::List oNewList( nSize );
-		pDownload->m_pFile->m_oFList.swap( oNewList );
-	}
+	pDownload->Pause();
+	pDownload->Save();
 
 	for ( int nGap = 0 ; nGap < pGapIndex.GetSize() ; nGap++ )
 	{
@@ -339,26 +336,26 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 		pGapStart.Lookup( nPart, nStart );
 		pGapStop.Lookup( nPart, nStop );
 		
-		pDownload->m_pFile->m_oFList.insert( Fragments::Fragment( nStart, nStop ) );
+		pDownload->InvalidateFileRange( nStart, nStop - nStart );
 	}
 
 	if ( pED2K.IsAvailable() )
 	{
 		BYTE* pHashset = NULL;
 		DWORD nHashset = 0;
-		pED2K.ToBytes( &pHashset, &nHashset );
-		pDownload->SetHashset( pHashset, nHashset );
-		delete [] pHashset;
+		if ( pED2K.ToBytes( &pHashset, &nHashset ) )
+		{
+			pDownload->SetHashset( pHashset, nHashset );
+			GlobalFree( pHashset );
+		}
 	}
 
-	if ( bPaused ) pDownload->Pause();
-
-	pDownload->Save();
+	if ( ! bPaused ) pDownload->Resume();
 
 	Transfers.m_pSection.Unlock();
 
 	Message( IDS_ED2K_EPI_FILE_CREATED,
-		Settings.SmartVolume( pDownload->m_pFile->m_oFList.length_sum() ) );
+		Settings.SmartVolume( pDownload->GetVolumeRemaining() ) );
 	
 	return TRUE;
 }

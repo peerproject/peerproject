@@ -39,20 +39,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Ühenda"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Kodu"/>
-		<button id="ID_TAB_LIBRARY" text="Raamatukogu"/>
-		<button id="ID_TAB_MEDIA" text="Meedia"/>
 		<button id="ID_TAB_SEARCH" text="Otsing"/>
 		<button id="ID_TAB_TRANSFERS" text="Ülekanded"/>
+		<button id="ID_TAB_LIBRARY" text="Raamatukogu"/>
+		<button id="ID_TAB_MEDIA" text="Meedia"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Ühenda"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Kodu"/>
-		<button id="ID_TAB_LIBRARY" text="Raamatukogu"/>
-		<button id="ID_TAB_MEDIA" text="Meedia"/>
 		<button id="ID_TAB_SEARCH" text="Otsing"/>
 		<button id="ID_TAB_TRANSFERS" text="Ülekanded"/>
 		<button id="ID_TAB_NETWORK" text="Võrk"/>
+		<button id="ID_TAB_LIBRARY" text="Raamatukogu"/>
+		<button id="ID_TAB_MEDIA" text="Meedia"/>
+		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Ühenda"/>
@@ -353,8 +354,8 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Vestle kasutajaga"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Seaded"/>
 	</toolbar>
@@ -367,8 +368,8 @@
 		<button id="ID_SECURITY_BAN" text="Keela omanik"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Seaded"/>
 	</toolbar>
@@ -400,25 +401,24 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Cache"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Cache"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Sirvi kasutajat"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Sea esmaseks"/>
+		<!--<button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Ühenda" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Katkesta ühendus"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER? -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 </toolbars>
-
 <!-- Menu Definitions -->
 <menus>
 	<!-- SIMPLE POPUP MENU -->
@@ -434,6 +434,23 @@
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">
+		<item id="ID_TRAY_OPEN" text="Ava PeerProject"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Ava Pulti"/>
+		<item id="ID_TOOLS_SETTINGS" text="Ava Seaded..."/>
+		<item id="ID_NETWORK_SEARCH" text="Uus Otsing..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Tõmba Fail..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Mängi"/>
+		<item id="ID_MEDIA_PAUSE" text="Paus"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Eelmine"/>
+		<item id="ID_MEDIA_NEXT" text="Järgmine"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Välju Peale Ülekannet"/>
+		<item id="ID_NETWORK_EXIT" text="Välju"/>
+	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="_Võrk">
@@ -441,8 +458,8 @@
 			<separator/>
 			<menu text="Vali _Võrk">
 				<item id="ID_NETWORK_G2" text="Ühenda _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Ühenda Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Välju _Ülekande lõpus"/>
@@ -509,8 +526,8 @@
 			<separator/>
 			<menu text="Vali _Võrk">
 				<item id="ID_NETWORK_G2" text="Ühenda _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Ühenda Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Ühenda _Aadressil..." shortcut="Ctrl+T"/>
@@ -605,8 +622,8 @@
 			<separator/>
 			<menu text="Vali _Võrgud">
 				<item id="ID_NETWORK_G2" text="Ühenda _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Ühenda Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Ühenda _eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Välju _Ülekande Lõpus"/>
@@ -728,40 +745,6 @@
 		<item id="ID_VIEW_PACKETS" text="_Pakettide Liikuvus"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Otsin_gud"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="T_õmbamised"/>
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_Ava PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="U_us Otsing..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Tõmba Fail..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Mängi"/>
-		<item id="ID_MEDIA_PAUSE" text="Pa_us"/>
-		<item id="ID_MEDIA_STOP" text="_Stop"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="E_elmine"/>
-		<item id="ID_MEDIA_NEXT" text="_Järgmine"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="V_älju Peale Ülekannet"/>
-		<item id="ID_NETWORK_EXIT" text="_Välju"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_Ava PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="_Uus Otsing..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Tõmba Fail..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Mängi"/>
-		<item id="ID_MEDIA_PAUSE" text="Pa_us"/>
-		<item id="ID_MEDIA_STOP" text="_Stop"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="E_elmine"/>
-		<item id="ID_MEDIA_NEXT" text="_Järgmine"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="V_älju Peale Ülekannet"/>
-		<item id="ID_NETWORK_EXIT" text="_Välju"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -1019,6 +1002,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Aut_o Puhastus"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Jätka Kõiki"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_ausi Kõik"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Puhasta Kõik"/>
@@ -1386,8 +1371,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Katkesta Ühendus"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 		</menu>
 		<menu text="_Vaatleja">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Vaata _Kogu Liiklust"/>
@@ -3064,7 +3049,6 @@
 	<string id="20001" value="Sule"/>
 	<string id="20002" value="of"/><!-- e.g. 1 of 10 -->
 	<string id="20003" value="Kasutajaliidese suundade muutmine nõuab taaskäivitust. \nSa pead PeerProject käsits taaskäivitama . Välju nüüd?"/>
-	<string id="20004" value="Sinu OS ei toeta paremalt-vasakule kirjastiili."/>
 	<string id="20005" value="Ei"/>
 	<string id="20006" value="Jah"/>
 	<string id="20007" value="Auto"/>
@@ -3122,6 +3106,8 @@
 	<string id="20214" value="Hea"/>
 	<string id="20215" value="Väga Hea"/>
 	<string id="20216" value="Suurepärane"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="Tühista"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3351,14 +3337,14 @@
 		<control caption="Gnutella2 võrk on PeerProject peamine töövõrk, pakkudes rohkem kohandamis võimalusi, kui ükski teine P2P programm.  Väga soovituslik."/>
 		<control caption="Ühenda Gnutella2 -te(G2)"/>
 		<control caption="Seadista Gnutella2"/>
-		<control caption="eDonkey2000 Võrgustik:"/>
-		<control caption="eDonkey2000 on populaarne serveritel baseeruv võrgustik.  Kuigi, mitte nii võimaluste rohke kui Gnutella2 on eDonkey2000-l muljetavaldav failide valik."/>
-		<control caption="Ühenda eDonkey2000 -e"/>
-		<control caption="Seadista eDonkey2000"/>
 		<control caption="Algupärane Gnutella Võrgustik:"/>
 		<control caption="Algupärane Gnutella võrk ei ole nii võimaluste rohke kui     Gnutella2 ja omab vähem faile kui eDonkey2000 on see siiski arvestatav allikas failijagamiseks."/>
-		<control caption="Ühenda Gnutella"/>
+		<control caption="Ühenda Gnutella (G1)"/>
 		<control caption="Seadista Gnutella1 -te"/>
+		<control caption="eDonkey Võrgustik:"/>
+		<control caption="eDonkey on populaarne serveritel baseeruv võrgustik.  Kuigi, mitte nii võimaluste rohke kui Gnutella2 on eDonkey-l muljetavaldav failide valik."/>
+		<control caption="Ühenda eDonkey2000 -e (ED2K)"/>
+		<control caption="Seadista eDonkey"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Võrgustik:"/>
@@ -3587,11 +3573,11 @@
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Teretulemast PeerProject (5/6)">
 		<control caption="PeerProject on üldptstarbeline failijagamisprogramm, mis suudab ühenduda paljudesse P2P võrkudesse samaegselt.  Siin saad sa valida, millistesse võrkudesse sa tahad ühendada.  Sa saad ka hiljem valida erinevadi võrke."/>
 		<control caption="Ühenda Gnutella2 (Soovituslik)"/>
-		<control caption="Gnutella2 võrk on PeerProject's peamine töö võrk, pakkudes rohkem võimalusi ja paremat esitust, kui mõni teine P2P võrk."/>
-		<control caption="Ühenda eDonkey2000"/>
-		<control caption="eDonkey2000 on levinud srerveritel baseeruv võrk.  Küll mitte nii võimaluste rohke, kui Gnutella2, on eDonkey2000-l muljetavaldav kogus faile ringluses."/>
+		<control caption="Gnutella2 võrk (G2) on PeerProject's peamine töö võrk, pakkudes rohkem võimalusi ja paremat esitust, kui mõni teine P2P võrk."/>
 		<control caption="Ühenda Algupärasesse Gnutella võrkku"/>
-		<control caption="Samuti algne Gnutella võrk, ei ole küll nii võimaluste rohke kui Gnutella2 ja on vähem faile kui eDonkey2000-l, aga on siiski väärtuslik failijagamise allikas."/>
+		<control caption="Samuti algne Gnutella võrk (G1), ei ole küll nii võimaluste rohke kui Gnutella2 ja on vähem faile kui eDonkey-l, aga on siiski väärtuslik failijagamise allikas."/>
+		<control caption="Ühenda eDonkey2000"/>
+		<control caption="eDonkey (ED2K) on levinud srerveritel baseeruv võrk.  Küll mitte nii võimaluste rohke, kui Gnutella2, on eDonkey-l muljetavaldav kogus faile ringluses."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Impordi eDonkey2000 Allalaadimised">
 		<control/>
@@ -4170,18 +4156,23 @@
 		<control caption="Jälitus Rešiim:"/>
 		<control caption="Väljas|Vaba|Üks Jälitaja|Mitu Jälitajat|Mitu Jälitajat (lukustatud)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Allalaadimisgrupi Omadused">
-		<control caption="_Nimi:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Allalaadimisgrupi Omadused">
+		<control caption="OK"/>
+		<control caption="Tühista"/>
 		<control/>
 		<control/>
-		<control caption="_Filtrid:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="_Lisa"/>
 		<control caption="_Eemalda"/>
-		<control caption="OK"/>
-		<control caption="Tühista"/>
-		<control caption="Valmis Failide _Kaust:"/>
 		<control/>
+		<control/>
+		<control/>
+		<control caption="Grupi _Nimi:"/>
+		<control caption="_Filtrid:"/>
+		<control caption="Valmis Failide _Kaust:"/>
+		<control caption="Faili _tüüp:" />
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Vali Visualisation">
 		<control/>

@@ -48,7 +48,6 @@ BEGIN_MESSAGE_MAP(CPanelWnd, CChildWnd)
 	ON_MESSAGE(WM_SETTEXT, OnSetText)
 END_MESSAGE_MAP()
 
-#define CAPTION_HEIGHT	20
 #define CLOSEBOX		10
 
 
@@ -73,7 +72,7 @@ CPanelWnd::CPanelWnd(BOOL bTabMode, BOOL bGroupMode)
 
 void CPanelWnd::OnSize(UINT nType, int cx, int cy)
 {
-	if ( m_bPanelMode && ! m_pSkin && CCoolInterface::IsNewWindows() && ! IsIconic() )
+	if ( m_bPanelMode && ! m_pSkin && ! theApp.m_bIsWin2000 && ! IsIconic() )
 	{
 		CRect rc;
 		GetWindowRect( &rc );
@@ -90,8 +89,12 @@ void CPanelWnd::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp
 	if ( m_bPanelMode && m_pSkin == NULL )
 	{
 		NCCALCSIZE_PARAMS* pSize = (NCCALCSIZE_PARAMS*)lpncsp;
-		pSize->rgrc[0].top += CAPTION_HEIGHT;
-		return; // ( bCalcValidRects ) ? WVR_REDRAW|WVR_ALIGNTOP|WVR_ALIGNLEFT : 0;
+
+		BITMAP info = {};
+		if ( Skin.m_bmPanelMark.m_hObject) Skin.m_bmPanelMark.GetBitmap( &info );
+
+		pSize->rgrc[0].top += info.bmHeight;
+		return;
 	}
 
 	CChildWnd::OnNcCalcSize( bCalcValidRects, lpncsp );
@@ -101,9 +104,13 @@ ONNCHITTESTRESULT CPanelWnd::OnNcHitTest(CPoint point)
 {
 	if ( m_bPanelMode && ! m_pSkin )
 	{
+		BITMAP info = {};
+		if ( Skin.m_bmPanelMark.m_hObject) Skin.m_bmPanelMark.GetBitmap( &info );
+
 		CRect rc;
 		GetWindowRect( &rc );
-		rc.bottom = rc.top + CAPTION_HEIGHT;
+		rc.bottom = rc.top + info.bmHeight;
+
 		return rc.PtInRect( point ) ? HTCAPTION : HTCLIENT;
 	}
 
@@ -171,8 +178,11 @@ void CPanelWnd::PaintCaption(CDC& dc)
 	CString strCaption;
 	CRect rc, rcWnd;
 
+	BITMAP info = {};
+	if ( Skin.m_bmPanelMark.m_hObject) Skin.m_bmPanelMark.GetBitmap( &info );
+
 	GetWindowRect( &rcWnd );
-	rc.SetRect( 0, 0, rcWnd.Width(), CAPTION_HEIGHT );
+	rc.SetRect( 0, 0, rcWnd.Width(), info.bmHeight );
 	GetWindowText( strCaption );
 
 	CSize size = rc.Size();
@@ -225,6 +235,8 @@ void CPanelWnd::PaintCaption(CDC& dc)
 	pBuffer->SelectObject( pOldFont );
 
 	dc.BitBlt( rc.left, rc.top, rc.Width(), rc.Height(), pBuffer, 0, 0, SRCCOPY );
+
+	dc.SelectStockObject( SYSTEM_FONT ); // GDI font leak fix
 }
 
 BOOL CPanelWnd::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)

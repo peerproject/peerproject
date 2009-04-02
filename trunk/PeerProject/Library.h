@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include "ComObject.h"
 #include "ThreadImpl.h"
 
 class CQuerySearch;
@@ -74,7 +75,6 @@ public:
 	CAlbumFolder*	GetAlbumRoot();
 	void			AddFile(CLibraryFile* pFile);
 	void			RemoveFile(CLibraryFile* pFile);
-	void			OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost = FALSE);
 
 protected:
 	void			CheckDuplicates(CLibraryFile* pFile, bool bForce = false);

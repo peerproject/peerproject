@@ -101,9 +101,9 @@ CUploadsCtrl::CUploadsCtrl() :
 
 BOOL CUploadsCtrl::Create(CWnd* pParentWnd, UINT nID)
 {
-	CRect rect( 0, 0, 0, 0 );
-	return CWnd::CreateEx( 0, NULL, _T("CUploadsCtrl"), WS_CHILD | WS_CLIPSIBLINGS |
-		WS_TABSTOP | WS_GROUP, rect, pParentWnd, nID );
+	CRect rc( 0, 0, 0, 0 );
+	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, _T("CUploadsCtrl"),
+		WS_CHILD | WS_CLIPSIBLINGS | WS_TABSTOP | WS_GROUP, rc, pParentWnd, nID );
 }
 
 BOOL CUploadsCtrl::Update()
@@ -132,7 +132,7 @@ int CUploadsCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	InsertColumn( UPLOAD_COLUMN_SPEED, _T("Speed"), LVCFMT_CENTER, 80 );
 	InsertColumn( UPLOAD_COLUMN_CLIENT, _T("Client"), LVCFMT_CENTER, 100 );
 	InsertColumn( UPLOAD_COLUMN_RATING, _T("Rating"), LVCFMT_CENTER, 0 );
-	InsertColumn( UPLOAD_COLUMN_COUNTRY, _T("Country"), LVCFMT_LEFT, 50 );
+	InsertColumn( UPLOAD_COLUMN_COUNTRY, _T("Country"), LVCFMT_LEFT, 56 );
 	
 	
 	LoadColumnState();
@@ -670,7 +670,9 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 	int nScroll = GetScrollPos( SB_HORZ );
 	m_wndHeader.SetWindowPos( NULL, -nScroll, 0, rcClient.right + nScroll, HEADER_HEIGHT, SWP_SHOWWINDOW );
 	
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) )
+		return;
 	
 	for ( POSITION posQueue = GetQueueIterator() ; posQueue ; )
 	{
@@ -1390,7 +1392,7 @@ void CUploadsCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 		else if ( pQueue != NULL )
 		{
 			GetOwner()->PostMessage( WM_TIMER, 5 );
-			// GetOwner()->PostMessage( WM_COMMAND, ID_UPLOADS_QUEUE_PROPERTIES );
+			GetOwner()->PostMessage( WM_COMMAND, ID_UPLOADS_EDIT_QUEUE );
 		}
 		else if ( pFile != NULL )
 		{

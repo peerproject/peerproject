@@ -10,8 +10,8 @@
 		<complexType>
 			<element name="image" type="imageType" minOccurs="1" maxOccurs="unbounded"/>
 		</complexType>
-	</element>     
-	
+	</element>
+
 	<complexType name="imageType">
 		<all>
 			<attribute name="title" type="string"/>
@@ -61,7 +61,7 @@
 			<attribute name="releasegroup" type="string"/>
 			<attribute name="releasegroupLink" type="uriReference"/>
 			<attribute name="keywords" type="string"/>
-	        	<attribute name="link" type="uriReference"/>
+		 	<attribute name="link" type="uriReference"/>
 		</all>
 	</complexType>
 

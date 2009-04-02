@@ -36,8 +36,10 @@ static char THIS_FILE[] = __FILE__;
 // CPropertyPageAdv dialog
 
 IMPLEMENT_DYNAMIC(CPropertyPageAdv, CPropertyPage)
-CPropertyPageAdv::CPropertyPageAdv(UINT nIDD)
-	: CPropertyPage(nIDD), m_nIcon(-1)
+
+CPropertyPageAdv::CPropertyPageAdv(UINT nIDD) :
+	CPropertyPage( nIDD ),
+	m_nIcon( -1 )
 {
 	m_psp.dwFlags |= PSP_USETITLE;
 }
@@ -54,45 +56,19 @@ void CPropertyPageAdv::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CPropertyPageAdv, CPropertyPage)
 	ON_WM_CTLCOLOR()
 	ON_WM_PAINT()
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 // CPropertyPageAdv message handlers
 
 BOOL CPropertyPageAdv::OnInitDialog()
 {
-	CPropertyPage::OnInitDialog();
+	if ( ! CPropertyPage::OnInitDialog() )
+		return FALSE;
 
-	m_wndToolTip.Create( this );
-	m_wndToolTip.Activate( TRUE );
-	m_wndToolTip.SetMaxTipWidth( 200 );
-	// Show the tooltip for 20 seconds
-	m_wndToolTip.SetDelayTime( TTDT_AUTOPOP, 20 * 1000 );
-
-	Skin.Apply( NULL, this, 0, &m_wndToolTip );
+	Skin.Apply( NULL, this );
 
 	return TRUE;
-}
-
-BOOL CPropertyPageAdv::PreTranslateMessage(MSG* pMsg)
-{
-	if ( pMsg->message >= WM_MOUSEFIRST && pMsg->message <= WM_MOUSELAST )
-	{
-		MSG msg;
-		CopyMemory( &msg, pMsg, sizeof(MSG) );
-		HWND hWndParent = ::GetParent( msg.hwnd );
-
-		while ( hWndParent && hWndParent != m_hWnd )
-		{
-			msg.hwnd = hWndParent;
-			hWndParent = ::GetParent( hWndParent );
-		}
-
-		if ( msg.hwnd )
-		{
-			m_wndToolTip.RelayEvent( &msg );
-		}
-	}
-	return CPropertyPage::PreTranslateMessage(pMsg);
 }
 
 void CPropertyPageAdv::OnPaint()
@@ -125,7 +101,7 @@ void CPropertyPageAdv::OnPaint()
 			PaintStaticHeader( &dc, &rc, str );
 	}
 
-	dc.SetBkColor( CCoolInterface::GetDialogBkColor() );
+	dc.SetBkColor( Skin.m_crDialog );
 }
 
 void CPropertyPageAdv::PaintStaticHeader(CDC* pDC, CRect* prc, LPCTSTR psz)
@@ -149,6 +125,16 @@ void CPropertyPageAdv::PaintStaticHeader(CDC* pDC, CRect* prc, LPCTSTR psz)
 
 	pDC->SelectObject( pOldFont );
 }
+
+BOOL CPropertyPageAdv::OnEraseBkgnd(CDC* pDC)
+{
+	CRect rc;
+	GetClientRect( &rc );
+	pDC->FillSolidRect( &rc, Skin.m_crDialog );
+
+	return TRUE;
+}
+
 
 HBRUSH CPropertyPageAdv::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {

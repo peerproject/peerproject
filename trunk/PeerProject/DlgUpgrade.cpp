@@ -26,8 +26,6 @@
 #include "Network.h"
 #include "Downloads.h"
 #include "PeerProjectURL.h"
-#include "SHA.h"
-#include "TigerTree.h"
 #include "DlgUpgrade.h"
 #include "WndMain.h"
 #include "WndDownloads.h"
@@ -103,7 +101,7 @@ void CUpgradeDlg::OnOK()
 		}
 	}
 
-	Downloads.Add( &pURL );
+	Downloads.Add( pURL );
 
 	if ( ! Network.IsWellConnected() ) Network.Connect( TRUE );
 

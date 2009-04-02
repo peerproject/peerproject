@@ -241,7 +241,8 @@ Source: "Setup\Filter\Catalan.dat"; DestDir: "{app}\Data"; DestName: "AdultFilte
 [CustomMessages]
 ; This section specifies phrazes and words not specified in the ISL files
 ; Avoid customizing the ISL files since they will change with each version of Inno Setup.
-; English
+
+; English Default
 components_plugins=Plugins
 components_skins=Skins
 tasks_languages=Multi-Language
@@ -265,9 +266,9 @@ icons_windowedmode=Windowed Mode
 dialog_shutdown=%1 is currently running. Would you like %1 to be shutdown so the installation can continue?
 dialog_firewall=Setup failed to add PeerProject to the Windows Firewall.%nPlease add PeerProject to the exception list manually.
 dialog_malwaredetected=Malware has been detected on your system at %1, please remove it with a virus/malware scanner before installing PeerProject. Do you want to exit now?
-page_viruswarning_text=When using the internet, you should always ensure you have an up-to-date virus scanner to protect you from trojans, worms, and other malicious programs. You can find list of good virus scanners and other security tips to protect your computer by following this link:
-page_viruswarning_title=Virus Warning
-page_viruswarning_subtitle=Do you have an AntiVirus program installed?
+page_viruswarning_title=Virus Awareness
+page_viruswarning_subtitle=Do you have an AntiVirus program running?
+page_viruswarning_text=Be aware that anti-P2P companies will return fake results to searches, but can be banned from the right-click menu. When using the internet, you should always have an up-to-date virus scanner to protect you from trojans and other malicious files. You can find good virus scanner lists and other security tips to protect your computer online.
 CreateDesktopIcon=Display a &desktop icon
 CreateQuickLaunchIcon=Display a &Quick Launch icon
 PathNotExist=Error, the path of the %1 folder doesn't exist
@@ -518,8 +519,8 @@ fr.tasks_selectusers=Installer %1 pour:
 fr.tasks_currentuser=%1 seulement
 fr.tasks_multisetup=Activer le support multi-utilisateurs
 fr.tasks_firewall=Ajouter une exception au Pare-feu Windows
-fr.tasks_upnp=Activer UPnP pour essayer decouvrir les pare-feu/routeurs.
-fr.tasks_deleteoldsetup=Voulez-vous supprimer les anciens programs d'installation PeerProject?
+fr.tasks_upnp=Activer UPnP pour essayer de découvrir les pare-feux/routeurs.
+fr.tasks_deleteoldsetup=Voulez-vous supprimer les anciens fichiers d'installation de PeerProject ?
 fr.tasks_resetdiscoveryhostcache=Remettre à zéro les services de découverte et le tampon pour les hôtes
 fr.run_skinexe=Installation de la skin en cours...
 fr.reg_incomingchat=Réception d'un message chat
@@ -527,17 +528,17 @@ fr.reg_apptitle=PeerProject P2P Filesharing
 fr.icons_license=Licence
 fr.icons_uninstall=Désinstaller
 fr.icons_downloads=Téléchargements
-fr.icons_basicmode=Mode basic
+fr.icons_basicmode=Mode simple
 fr.icons_tabbedmode=Mode tabulé
 fr.icons_windowedmode=Mode fenêtré
 fr.dialog_shutdown=%1 est en cours d'exécution. Voulez-vous quitter %1 pour que l'installation puisse se poursuivre?
 fr.dialog_firewall=L'installation n'a pas pu ajouter PeerProject au Pare-feu Windows.%nVeuillez ajouter PeerProject manuellement à la liste des exceptions.
-fr.dialog_malwaredetected=Malware has been detected on your system at %1, please remove it with a virus/malware scanner before installing PeerProject. Do you want to exit now?
-fr.page_viruswarning_text=Lorsque vous utilisez internet, vous devriez toujours vous assurer que vous avez un scanner de virus à jour pour vous protéger des troyens (trojans), vers (worms), et autres programmes malveillants. Vous pouvez trouver une liste de bons antivirus et conseils de sécurité pour protéger votre ordinateur en suivant ce lien:
+fr.dialog_malwaredetected=Un logiciel malveillant a été détecté sur votre système à %1, veuillez l'enlever avec un antivirus avant d'installer PeerProject. Voulez-vous quitter maintenant ?
+fr.page_viruswarning_text=Lorsque vous utilisez internet, vous devriez toujours vous assurer que vous avez un antivirus à jour pour vous protéger des troyens (trojans), vers (worms), et autres programmes malveillants. Vous pouvez trouver une liste de bons antivirus et des conseils de sécurité pour protéger votre ordinateur en suivant ce lien :
 fr.page_viruswarning_title=Avertissement sur les virus
 fr.page_viruswarning_subtitle=Avez-vous un antivirus installé?
 fr.CreateDesktopIcon=Afficher un raccourci sur le &Bureau
-fr.CreateQuickLaunchIcon=Afficher un raccouri dans la barre de &Lancement rapide
+fr.CreateQuickLaunchIcon=Afficher un raccourci dans la barre de &Lancement rapide
 ; Finnish
 fi.components_plugins=Laajennukset
 fi.components_skins=Ulkoasut
@@ -1018,7 +1019,7 @@ tr.tasks_selectusers=%1 Kuruldu:
 tr.tasks_currentuser=Sadece %1
 tr.tasks_multisetup=Çoklu kullanýcý desteðini etkinleþtir
 tr.tasks_firewall=Windows Güvenlik Duvarýna bir deðiþiklik ekle
-tr.tasks_upnp=Enable discovery of Plug'n'Play network devices
+tr.tasks_upnp=Plug'n'Play cihazlarin kesfini etkinlestir
 tr.tasks_deleteoldsetup=Eski kurulumlarý sil
 tr.tasks_resetdiscoveryhostcache=Kesif servisleri ile host bellegini sifirla
 tr.run_skinexe=Arayüz kurulumu çalýþýyor...
@@ -1027,12 +1028,12 @@ tr.reg_apptitle=PeerProject En iyi Dosya Paylaþýmý
 tr.icons_license=Lisans
 tr.icons_uninstall=Kurulumu Kaldýr
 tr.icons_downloads=Ýndirmeler
-tr.icons_basicmode=Basic Mod
+tr.icons_basicmode=Temel Mod
 tr.icons_tabbedmode=Sekmeli Mod
 tr.icons_windowedmode=Pencereli Mode
 tr.dialog_shutdown=Þuan %1 çalýþýyor.Kurulumun devam edebilmesi için %1'in kapalý olmasýný istiyor musunuz?
 tr.dialog_firewall=Windows güvenlik duvarýna PeerProject kurulumunu eklemek baþarýsýz oldu.%n Lütfen PeerProject'yý el ile istisna listesine ekle
-tr.dialog_malwaredetected=Malware has been detected on your system at %1, please remove it with a virus/malware scanner before installing PeerProject. Do you want to exit now?
+tr.dialog_malwaredetected=Kötücül bir yazilim %1'de tespit edilmistir, PeerProject'nin kurulumundan önce sözü geçen kötücül yazilimi bir antivirus programi kullanarak sisteminizden silmeniz gerekmektedir. Simdi terk etmek ister misiniz?
 tr.page_viruswarning_text=Ýnternet kullanýyorken, trojanlardan, wormlardan ve diðer kötü niyetli programlardan sizi koruyan güncel bir virüs tarayýcýsýna sahip olduðunuzdan emin olmalýsýnýz. Bu baðlantýyý izleyerek bilgisayarýnýzý koruyan iyi virüs tarayýcýlarýnýn ve diðer güvenlik tiplerinin listesini bulacaksýnýz:
 tr.page_viruswarning_title=Virüs Uyarýsý
 tr.page_viruswarning_subtitle=Bir AntiVirus programý yüklediniz mi?

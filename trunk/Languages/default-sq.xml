@@ -32,20 +32,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Lidhu"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Shtëpi"/>
-		<button id="ID_TAB_LIBRARY" text="Librari"/>
-		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_SEARCH" text="Kërko"/>
 		<button id="ID_TAB_TRANSFERS" text="Shkarkimi"/>
+		<button id="ID_TAB_LIBRARY" text="Librari"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Lidhu"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Shtëpi"/>
-		<button id="ID_TAB_LIBRARY" text="Librari"/>
-		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_SEARCH" text="Kërko"/>
 		<button id="ID_TAB_TRANSFERS" text="Transferimi"/>
 		<button id="ID_TAB_NETWORK" text="Rrjeti"/>
+		<button id="ID_TAB_LIBRARY" text="Librari"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
+		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Lidhu"/>
@@ -346,8 +347,8 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Bisedo"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Kuadro"/>
 	</toolbar>
@@ -360,8 +361,8 @@
 		<button id="ID_SECURITY_BAN" text="Dëboje"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Kuadro"/>
 	</toolbar>
@@ -393,29 +394,29 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Depo G1"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Depo eDonkey"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Shfleto"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Dërgo një Skedë"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Përparësia e Dhënies"/>
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Dërgo një Skedë"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Lidhu" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Shkëputu"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER WINDOW -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_BestFit" text="Përmasa Perfekte"/>
 		<button id="ImageViewer_ActualSize" text="Përmasa Akuale"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="Rifresko"/>
-		<separator/>
+		<rightAlign/>
 		<button id="ImageViewer_Close" text="Mbylle"/>
 	</toolbar>
 </toolbars>
@@ -434,6 +435,23 @@
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Mbylle Dritaren"/>
 	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+		<item id="ID_TRAY_OPEN" text="Hape PeerProject-n"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Hape Pulti"/>
+		<item id="ID_TOOLS_SETTINGS" text="Hape Kuadrot..."/>
+		<item id="ID_NETWORK_SEARCH" text="Kërko..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Shkarko një Skedë..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Lexo"/>
+		<item id="ID_MEDIA_PAUSE" text="Pusho"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Kolona Prapa"/>
+		<item id="ID_MEDIA_NEXT" text="Kolona Para"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Dil Kur Përfundon"/>
+		<item id="ID_NETWORK_EXIT" text="Dil"/>
+	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="_Rrjeti">
@@ -441,8 +459,8 @@
 			<separator/>
 			<menu text="Zgjidhe _Rrjetin">
 				<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Dil _Kur Përfundon"/>
@@ -510,8 +528,8 @@
 			<separator/>
 			<menu text="Zgjidhe _Rrjetin">
 				<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Lidhu _Te..." shortcut="Ctrl+T"/>
@@ -610,8 +628,8 @@
 			<separator/>
 			<menu text="Zgjidhe _Rrjetin">
 				<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Mbylle _Kur Përfundon"/>
@@ -737,40 +755,6 @@
 		<item id="ID_VIEW_PACKETS" text="_Paketat"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Monitori i Kë_rkimeve"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="Monitori i H_iteve"/>
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_Hape PeerProject-n"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Kër_ko..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Shkarko një Skedë..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Lexo"/>
-		<item id="ID_MEDIA_PAUSE" text="Pu_sho"/>
-		<item id="ID_MEDIA_STOP" text="_Ndale"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="Kolona P_rapa"/>
-		<item id="ID_MEDIA_NEXT" text="Kolona _Para"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Dil Kur _Përfundon"/>
-		<item id="ID_NETWORK_EXIT" text="D_il"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_Hape PeerProject-n"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Kër_ko..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Shkarko një Skedë..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Lexo"/>
-		<item id="ID_MEDIA_PAUSE" text="Pu_sho"/>
-		<item id="ID_MEDIA_STOP" text="_Ndale"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="Kolona P_rapa"/>
-		<item id="ID_MEDIA_NEXT" text="Kolona _Para"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Dil Kur _Përfundon"/>
-		<item id="ID_NETWORK_EXIT" text="D_il"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -1030,6 +1014,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Auto_pastro"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Rimerre Gjithçka"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_usho Gjithçka"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Pastro Gjithçka"/>
@@ -1401,8 +1387,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Shkëputu"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 		</menu>
 		<menu text="_Monitori">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Shiko _Gjithë Trafikun"/>
@@ -3108,7 +3094,6 @@
 	<string id="20001" value="Mbylle"/>
 	<string id="20002" value="nga"/> <!-- "1 of 10" -->
 	<string id="20003" value="Ndryshimi i drejtimit të ndërfaqes kërkon rinisje. \nPeerProject-n duhet ta nisni vetë. A doni të dilni?"/>
-	<string id="20004" value="Gjuhët nga e djathta në të majtë nuk përkrahen në OS-në tuaj."/>
 	<string id="20005" value="Jo"/>
 	<string id="20006" value="Po"/>
 	<string id="20007" value="Auto"/>
@@ -3117,6 +3102,7 @@
 	<string id="20010" value="&amp;Pas"/>
 	<string id="20011" value="&amp;Vijo"/>
 	<string id="20012" value="Përfundo"/>
+	<string id="20013" value="Gjithçka"/>
 	<string id="20100" value="po Lidhem"/>
 	<string id="20101" value="po Kërkoj"/>
 	<string id="20102" value="Përgjigje"/>
@@ -3178,6 +3164,8 @@
 	<string id="20234" value="Albumi"/>
 	<string id="20235" value="Artisti"/>
 	<string id="20236" value="Vlerësimi"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="Anulo"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3408,14 +3396,14 @@
 		<control caption="Rrjeti Gnutella2 është rrjeti parësor i PeerProject-s, i cili ofron shumë më tepër veçori dhe rendiment se çdo rrjet tjetër P2P (Rekomandohet fort)"/>
 		<control caption="Lidhu tek Gnutella2 (G2)"/>
 		<control caption="Konfiguro Gnutella2"/>
-		<control caption="Rrjeti eDonkey:"/>
-		<control caption="Rrjeti eDonkey është rrjeti i famshëm me bazë një server. Ndonëse nuk ka aq veçori sa Gnutella2, eDonkey ka një koleksion mahnitës me skeda."/>
-		<control caption="Lidhu tek eDonkey"/>
-		<control caption="Konfiguro eDonkey"/>
 		<control caption="Rrjeti Origjinal Gnutella:"/>
 		<control caption="Ndonëse rrjeti origjinal Gnutella ka më pak veçori se Gnutella2, dhe ka më pak skeda se eDonkey, ai mbetet një burim me vlerë."/>
-		<control caption="Lidhu tek Gnutella Origjinal"/>
+		<control caption="Lidhu tek Gnutella Origjinal (G1)"/>
 		<control caption="Konfiguro Gnutella1"/>
+		<control caption="Rrjeti eDonkey:"/>
+		<control caption="Rrjeti eDonkey është rrjeti i famshëm me bazë një server. Ndonëse nuk ka aq veçori sa Gnutella2, eDonkey ka një koleksion mahnitës me skeda."/>
+		<control caption="Lidhu tek eDonkey2000 (ED2K)"/>
+		<control caption="Konfiguro eDonkey"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Rrjeti Gnutella2:"/>
@@ -3647,10 +3635,10 @@
 		<control caption="PeerProject është një aplikim skedë-shpërndarës me synim të përgjithshëm hyrjen në sa shumë rrjete P2P në të njëjtën kohë. Këtu mund të zgjidhni në cilat rrjete doni të hyni. Vëreni se gjithmonë mund të zgjidhni rrjete të ndryshme, edhe më vonë."/>
 		<control caption="Lidhu tek Gnutella2 (Rekomandohet Fort)"/>
 		<control caption="Rrjeti Gnutella2 është rrjeti parësor i PeerProject-s, i cili ofron më tepër veçori dhe efektshmëri se çdo rrjet P2P."/>
-		<control caption="Lidhu tek eDonkey"/>
-		<control caption="Rrjeti eDonkey është një rrjet i famshëm me bazë serverin. Ndonëse nuk ka aq veçori sa Gnutella2, eDonkey ka një koleksion skedash mahnitës."/>
 		<control caption="Lidhu tek Gnutella Origjinal"/>
 		<control caption="Edhe pse rrjeti origjinal Gnutella ka më pak veçori se Gnutella2, dhe ka më pak skeda se eDonkey, ai mbetet një burim me vlerë."/>
+		<control caption="Lidhu tek eDonkey"/>
+		<control caption="Rrjeti eDonkey është një rrjet i famshëm me bazë serverin. Ndonëse nuk ka aq veçori sa Gnutella2, eDonkey ka një koleksion skedash mahnitës."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importoni Shkarkesa nga eDonkey">
 		<control/>
@@ -4233,19 +4221,23 @@
 		<control caption="Mënyra e Gjurmuesit:"/>
 		<control caption="E çaktivizuar|Me porosi|Gjurmues i vetëm|Multi-gjurmues|Multi-gjurmues (i kyçur)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Vetitë e Grupit në Shkarkim">
-		<control caption="_Emri:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Vetitë e Grupit në Shkarkim">
+		<control caption="OK"/>
+		<control caption="Anulo"/>
 		<control/>
 		<control/>
-		<control caption="_Filtrat:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="_Shto"/>
 		<control caption="_Fshije"/>
-		<control caption="OK"/>
-		<control caption="Anulo"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Grupit _Emri:"/>
+		<control caption="_Filtrat:"/>
 		<control caption="_Dosja e Skedave të Përfunduara:"/>
-		<control/>
-		<control/>
+		<control caption="_Tip Skede:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Zgjidhni Vegimin">
 		<control/>

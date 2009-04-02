@@ -48,10 +48,10 @@ END_MESSAGE_MAP()
 
 CMonitorBarCtrl::CMonitorBarCtrl()
 {
+	m_pRxItem		= new CGraphItem( GRC_TOTAL_BANDWIDTH_IN, 1.0f, CoolInterface.m_crMonitorDownloadBar );
+	m_pTxItem		= new CGraphItem( GRC_TOTAL_BANDWIDTH_OUT, 2.0f, CoolInterface.m_crMonitorUploadBar );	//ToDo: Adjust Multiplier
 	m_pSnapBar[0]	= NULL;
 	m_pSnapBar[1]	= NULL;
-	m_pTxItem		= new CGraphItem( GRC_TOTAL_BANDWIDTH_OUT, 1.0f, CoolInterface.m_crMonitorUploadBar );
-	m_pRxItem		= new CGraphItem( GRC_TOTAL_BANDWIDTH_IN, 1.0f, CoolInterface.m_crMonitorDownloadBar );
 	m_nMaximum		= 0;
 	m_nCount		= 0;
 	m_bTab			= FALSE;
@@ -147,8 +147,9 @@ void CMonitorBarCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
 		m_nMaximum = max( m_nMaximum, nSecond );
 	}
 
-	m_nMaximum = max( m_nMaximum, Settings.Connection.InSpeed  * 1024 );
-	m_nMaximum = max( m_nMaximum, Settings.Connection.OutSpeed * 1024 );
+	// ToDo: Adjust This?
+	// m_nMaximum = max( m_nMaximum, Settings.Connection.OutSpeed * 1024 );
+	m_nMaximum = max( m_nMaximum, Settings.Connection.InSpeed  * 1000 );
 
 	if ( IsWindowVisible() ) Invalidate();
 }
@@ -161,7 +162,7 @@ void CMonitorBarCtrl::OnSkinChange()
 	HBITMAP hWatermark = Skin.GetWatermark( _T("CMonitorBar") );
 	if ( m_bmWatermark.m_hObject != NULL ) m_bmWatermark.DeleteObject();
 	if ( hWatermark != NULL ) m_bmWatermark.Attach( hWatermark );
-	
+
 	if ( m_hTab ) DestroyIcon( m_hTab );
 	m_hTab    = CoolInterface.ExtractIcon( IDI_POINTER_ARROW, Settings.General.LanguageRTL );
 	if ( m_hUpDown ) DestroyIcon( m_hUpDown );
@@ -201,8 +202,6 @@ void CMonitorBarCtrl::DoPaint(CDC* pDC)
 			CoolInterface.m_crDisabled, CoolInterface.m_crDisabled );
 	}
 
-	DrawIconEx( pMemDC->GetSafeHdc(), rcClient.right - 16, rcClient.bottom - 16, m_hUpDown, 16, 16, 0, NULL, DI_NORMAL );
-
 	m_pTxItem->SetHistory( rcClient.Width(), TRUE );
 	m_pRxItem->SetHistory( rcClient.Width(), TRUE );
 
@@ -210,9 +209,11 @@ void CMonitorBarCtrl::DoPaint(CDC* pDC)
 	PaintHistory( pMemDC, &rcHistory );
 
 	CRect rcCurrent( rcClient.right - 7, rcClient.top + 2, rcClient.right - 2, rcClient.bottom - 6 );
-	PaintCurrent( pMemDC, &rcCurrent, m_pRxItem );
+	PaintCurrent( pMemDC, &rcCurrent, m_pTxItem );	//Upload Graph Right
 	rcCurrent.OffsetRect( -6, 0 );
-	PaintCurrent( pMemDC, &rcCurrent, m_pTxItem );
+	PaintCurrent( pMemDC, &rcCurrent, m_pRxItem );	//Download Graph Left
+
+	DrawIconEx( pMemDC->GetSafeHdc(), rcClient.right - 16, rcClient.bottom - 16, m_hUpDown, 16, 16, 0, NULL, DI_NORMAL );
 
 	m_rcTrack.SetRect( rcClient.left + 6, rcClient.bottom - 8, rcClient.right, rcClient.bottom - 2 );
 	PaintTab( pMemDC );
@@ -313,8 +314,11 @@ void CMonitorBarCtrl::PaintCurrent(CDC* pDC, CRect* prc, CGraphItem* pItem)
 	if ( m_nMaximum == 0 || pItem->m_nLength < 1 ) return;
 
 	DWORD nValue = (DWORD)pItem->GetValue( pItem->m_nCode );
-	nValue = nValue * rc.Height() / m_nMaximum;
+	nValue = nValue * rc.Height() / m_nMaximum ;
 	pDC->FillSolidRect( rc.left, rc.bottom - nValue, rc.Width(), nValue, pItem->m_nColor );
+
+	//Icon Hover Bug Workaround  (ToDo: Also Fix in Proper Place)
+	pDC->SetBkColor( CoolInterface.m_crMidtone );
 }
 
 void CMonitorBarCtrl::PaintTab(CDC* pDC)

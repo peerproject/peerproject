@@ -29,7 +29,6 @@
 #include "G1Packet.h"
 #include "Network.h"
 #include "Buffer.h"
-#include "SHA.h"
 #include "HostCache.h"
 #include "VendorCache.h"
 
@@ -184,7 +183,8 @@ BOOL CG1Packet::GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength) const
 	pSHA.Add( &m_nType, sizeof(m_nType) ); // Then throw in the type byte
 	pSHA.Add( m_pBuffer, nLength );        // After that, hash the bytes of the packet
 	pSHA.Finish();                         // Tell the object that is all
-	pSHA.GetHash( oHash );                 // Have the object write the hash under pHash
+	pSHA.GetHash( &oHash[ 0 ] );           // Have the object write the hash under pHash
+	oHash.validate();
 	return TRUE;                           // Report success
 }
 
@@ -253,7 +253,7 @@ void CG1Packet::Debug(LPCTSTR pszReason) const
 	strOutput.Format( L"[G1] %s Type: %s [%i/%i]", pszReason, GetType(), m_nTTL, m_nHops );
 	CPacket::Debug( strOutput );
 #else
-	pszReason;
+	UNUSED_ALWAYS(pszReason);
 // Go back to including all the lines in the program
 #endif
 

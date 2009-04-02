@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
-<!-- Translation based on default-en.xml SVN rev.xxxx -->
+<!-- Translation based on default-en.xml Shareaza SVN rev.xxxx -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -40,20 +40,20 @@
 		<button id="ID_NETWORK_CONNECT" text="連線"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="主頁"/>
-		<button id="ID_TAB_LIBRARY" text="收藏"/>
-		<button id="ID_TAB_MEDIA" text="多媒體"/>
 		<button id="ID_TAB_SEARCH" text="搜尋"/>
 		<button id="ID_TAB_TRANSFERS" text="下載"/>
+		<button id="ID_TAB_LIBRARY" text="收藏"/>
+		<button id="ID_TAB_MEDIA" text="多媒體"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="連線"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="主頁"/>
-		<button id="ID_TAB_LIBRARY" text="收藏"/>
-		<button id="ID_TAB_MEDIA" text="多媒體"/>
 		<button id="ID_TAB_SEARCH" text="搜尋"/>
 		<button id="ID_TAB_TRANSFERS" text="傳輸"/>
 		<button id="ID_TAB_NETWORK" text="網路"/>
+		<button id="ID_TAB_LIBRARY" text="收藏"/>
+		<button id="ID_TAB_MEDIA" text="多媒體"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -370,8 +370,8 @@
 		<button id="ID_SECURITY_BAN" text="封鎖主機"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="設定"/>
 	</toolbar>
@@ -403,29 +403,29 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 快取"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey 快取"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
 		<button id="ID_CHAT_BOLD" text="粗"/>
 		<button id="ID_CHAT_ITALIC" text="斜"/>
 		<button id="ID_CHAT_UNDERLINE" text="底"/>
 		<button id="ID_CHAT_COLOR" text="顏"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="瀏覽使用者"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
 		<button id="ID_CHAT_PRIORITY" text="准予優先權"/>
+		<!--<button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="連線" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="中斷連線"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER ? -->
-		<toolbar name="ImageViewer_Toolbar">
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
+		<toolbar name="ImageViewerWnd">
 			<button id="ImageViewer_BestFit" text="最佳适合"/>
 			<button id="ImageViewer_ActualSize" text="实际大小"/>
 			<separator/>
 			<button id="ImageViewer_Refresh" text="刷新"/>
-			<separator/>
+				<rightAlign/>
 			<button id="ImageViewer_Close" text="关闭"/>
 		</toolbar>
 </toolbars>
@@ -445,6 +445,23 @@
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">
+		<item id="ID_TRAY_OPEN" text="開啟 PeerProject"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="開啟 Remote"/>
+		<item id="ID_TOOLS_SETTINGS" text="開啟 設定..."/>
+		<item id="ID_NETWORK_SEARCH" text="新的搜尋..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="下載檔案..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="播放多媒體檔"/>
+		<item id="ID_MEDIA_PAUSE" text="暫停多媒體檔"/>
+		<item id="ID_MEDIA_PREVIOUS" text="上一首"/>
+		<item id="ID_MEDIA_NEXT" text="下一首"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="傳輸後離開"/>
+		<item id="ID_NETWORK_EXIT" text="離開"/>
+	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="網路">
@@ -452,8 +469,8 @@
 			<separator/>
 			<menu text="選擇網路">
 				<item id="ID_NETWORK_G2" text="連線至 Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="連線至 Gnutella 1"/>
+				<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="傳輸後離開"/>
@@ -520,8 +537,8 @@
 			<separator/>
 			<menu text="選擇網路">
 				<item id="ID_NETWORK_G2" text="連線至 Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="連線至 Gnutella 1"/>
+				<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="連線至..." shortcut="Ctrl+T"/>
@@ -616,8 +633,8 @@
 			<separator/>
 			<menu text="選擇網路">
 				<item id="ID_NETWORK_G2" text="連線至 Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="連線至 Gnutella 1"/>
+				<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="傳輸後關閉"/>
@@ -739,40 +756,6 @@
 		<item id="ID_VIEW_PACKETS" text="封包傾印"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Search Monitor"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="搜尋回應監視器"/>
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="開啟 PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="新的搜尋..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="下載檔案..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="播放多媒體檔"/>
-		<item id="ID_MEDIA_PAUSE" text="暫停多媒體檔"/>
-		<item id="ID_MEDIA_STOP" text="停止多媒體檔"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="上一首"/>
-		<item id="ID_MEDIA_NEXT" text="下一首"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="傳輸後離開"/>
-		<item id="ID_NETWORK_EXIT" text="離開"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="開啟 PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="新的搜尋..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="下載檔案..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="播放多媒體檔"/>
-		<item id="ID_MEDIA_PAUSE" text="暫停多媒體檔"/>
-		<item id="ID_MEDIA_STOP" text="停止多媒體檔"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="上一首"/>
-		<item id="ID_MEDIA_NEXT" text="下一首"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="傳輸後離開"/>
-		<item id="ID_NETWORK_EXIT" text="離開"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -1031,6 +1014,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="自動清除"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全部繼續"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全部暫停"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全部清除"/>
@@ -3075,7 +3060,6 @@
 	<string id="20001" value="關閉"/>
 	<string id="20002" value="之"/> <!-- "1 of 10" -->
 	<string id="20003" value="改變介面顯示方向需要重新啟動 PeerProject. \n您必須要手動啟動. 現在要離開嗎?"/>
-	<string id="20004" value="您的作業系統不支援由右向左顯示的語言."/>
 	<string id="20005" value="不行"/>
 	<string id="20006" value="可以"/>
 	<string id="20007" value="自動"/>
@@ -3134,6 +3118,8 @@
 	<string id="20214" value="不錯(3)"/>
 	<string id="20215" value="很好(4)"/>
 	<string id="20216" value="極佳(5)"/>
+	<string id="20237" value="確定"/>
+	<string id="20238" value="取消"/>
 </strings>
 
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
@@ -3378,14 +3364,14 @@
 		<control caption="Gnutella2 網路是 PeerProject 初次推出的網路, 提供比其他 P2P 網路更多的功能與更佳的效能.強烈推薦使用!!"/>
 		<control caption="連線至 Gnutella2 (G2)"/>
 		<control caption="規劃 Gnutella2"/>
-		<control caption="eDonkey2000 網路:"/>
-		<control caption="The eDonkey2000 網路是一個十分熱門, 以伺服器構成的網路.  功能的多樣性不如 Gnutella2, 但是 eDonkey2000 擁有十分龐大的檔案數量."/>
-		<control caption="連線至 eDonkey2000"/>
-		<control caption="規劃 eDonkey2000"/>
 		<control caption="原始 Gnutella 網路:"/>
-		<control caption="雖然原始的 Gnutella 網路的功能不如 Gnutella2, 而且擁有的檔案數又少於 eDonkey2000, 它仍舊是寶貴的資源."/>
+		<control caption="雖然原始的 Gnutella 網路的功能不如 Gnutella2, 而且擁有的檔案數又少於 eDonkey, 它仍舊是寶貴的資源."/>
 		<control caption="連線至原始的 Gnutella"/>
 		<control caption="規劃 Gnutella1"/>
+		<control caption="eDonkey 網路:"/>
+		<control caption="The eDonkey 網路是一個十分熱門, 以伺服器構成的網路.  功能的多樣性不如 Gnutella2, 但是 eDonkey 擁有十分龐大的檔案數量."/>
+		<control caption="連線至 eDonkey2000 (ED2K)"/>
+		<control caption="規劃 eDonkey"/>
 	</dialog>
 
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
@@ -3632,10 +3618,10 @@
 		<control caption="PeerProject 為萬用型檔案交換程式, 可同時連線至多種 P2P 網路.  您可在這邊選擇要連線的網路. 您可稍後任意調整這些設定."/>
 		<control caption="連線至 Gnutella2 (強烈建議)"/>
 		<control caption=" Gnutella2 網路是 PeerProject 首次推出的網路, 比其他P2P 網路提供更多的功能與更佳的效能."/>
-		<control caption="連線至 eDonkey2000"/>
-		<control caption="eDonkey2000 網路依賴伺服器運作. 盡管功能比 Gnutella2 少, 但是 eDonkey2000 流通的檔案數量卻十分驚人."/>
 		<control caption="連線至原始的 Gnutella"/>
 		<control caption="雖然原始的 Gnutella 網路比 Gnutella2 網路的功能還少, 以及比起eDonkey2000 有更少的檔案, 它仍是寶貴的資源."/>
+		<control caption="連線至 eDonkey2000"/>
+		<control caption="eDonkey2000 網路依賴伺服器運作. 盡管功能比 Gnutella2 少, 但是 eDonkey2000 流通的檔案數量卻十分驚人."/>
 	</dialog>
 
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="匯入eDonkey2000 下載檔">
@@ -4267,18 +4253,23 @@
 		<control caption="停用|自訂|單一伺服器|多部伺服器|多部伺服器 (已鎖定)"/>
 	</dialog>
 
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="下載群組的屬性">
-		<control caption="名稱:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="下載群組的屬性">
+		<control caption="確定"/>
+		<control caption="取消"/>
 		<control/>
 		<control/>
-		<control caption="過濾:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="新增"/>
 		<control caption="移除"/>
-		<control caption="確定"/>
-		<control caption="取消"/>
-		<control caption="完成的檔案的資料夾:"/>
 		<control/>
+		<control/>
+		<control/>
+		<control caption="名稱:"/>
+		<control caption="過濾:"/>
+		<control caption="完成的檔案的資料夾:"/>
+		<control caption="任何檔案類型:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="選擇視覺效果">
@@ -4363,7 +4354,7 @@
 	<list name="CNeighboursWnd">
   <column from="Address" to="位址" />
   <column from="Port" to="連接埠" />
-  <column from="Time" to="" />
+  <column from="Time" to="时间" />
   <column from="Packets" to="封包" />
   <column from="Bandwidth" to="頻寬" />
   <column from="Total" to="總計" />
@@ -4379,7 +4370,7 @@
   <column from="Action" to="動作" />
   <column from="Expires" to="有效期限" />
   <column from="Precedence" to="優先順序" />
-  <column from="Hits" to="" />
+  <column from="Hits" to="命中" />
   <column from="Comment" to="備註" />
   </list>
 	<list name="CHostCacheWnd">
@@ -4395,7 +4386,7 @@
   <column from="Country" to="地區"/>
   </list>
 	<list name="CDiscoveryWnd">
-  <column from="Address" to="" />
+  <column from="Address" to="位址" />
   <column from="Type" to="類型" />
   <column from="Last Access" to="最後存取" />
   <column from="Hosts" to="主機" />
@@ -4442,10 +4433,10 @@
   </list>
 	<list name="CFavouritesProfileList">
   <column from="Name" to="名稱" />
-  <column from="URL" to="URL" />
+  <column from="URL" to="链接" />
   </list>
 	<list name="CFileSourcesPageList">
-  <column from="URL" to="URL" />
+  <column from="URL" to="链接" />
   <column from="Expires" to="有效期限" />
   </list>
 	<list name="CTorrentFileList">

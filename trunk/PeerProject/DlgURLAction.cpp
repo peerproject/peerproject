@@ -38,11 +38,6 @@
 #include "WndDownloads.h"
 #include "WndBrowseHost.h"
 
-#include "TigerTree.h"
-#include "SHA.h"
-#include "MD5.h"
-#include "ED2K.h"
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -369,14 +364,14 @@ void CURLActionDlg::OnUrlDownload()
 				}
 			}
 
-			CDownload* pDownload = Downloads.Add( pURL );
+			CDownload* pDownload = Downloads.Add( *pURL );
 
 			if ( pDownload == NULL ) continue;
 
 			if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 )
 			{
-//				if ( pURL->m_bED2K && HostCache.eDonkey.GetNewest() != NULL )
-//					Settings.eDonkey.EnableToday = TRUE;
+			//	if ( pURL->m_bED2K && HostCache.eDonkey.GetNewest() != NULL )
+			//		Settings.eDonkey.EnableToday = TRUE;
 
 				if ( ! Network.IsWellConnected() ) Network.Connect( TRUE );
 			}

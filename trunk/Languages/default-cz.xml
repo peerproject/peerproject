@@ -32,20 +32,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Připojit"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Hlavní"/>
-		<button id="ID_TAB_LIBRARY" text="Knihovna"/>
-		<button id="ID_TAB_MEDIA" text="Přehrávač"/>
 		<button id="ID_TAB_SEARCH" text="Hledat"/>
 		<button id="ID_TAB_TRANSFERS" text="Stahování"/>
+		<button id="ID_TAB_LIBRARY" text="Knihovna"/>
+		<button id="ID_TAB_MEDIA" text="Přehrávač"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Připojit"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Hlavní"/>
-		<button id="ID_TAB_LIBRARY" text="Knihovna"/>
-		<button id="ID_TAB_MEDIA" text="Přehrávač"/>
 		<button id="ID_TAB_SEARCH" text="Hledat"/>
 		<button id="ID_TAB_TRANSFERS" text="Přenos"/>
 		<button id="ID_TAB_NETWORK" text="Síť"/>
+		<button id="ID_TAB_LIBRARY" text="Knihovna"/>
+		<button id="ID_TAB_MEDIA" text="Přehrávač"/>
+		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Připojit"/>
@@ -393,29 +394,29 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Cache"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Cache"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Prohlédnout uživatele"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Udělit přednost"/>
+		<!--<button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Připojit" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Odpojit"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER WINDOW -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_BestFit" text="Přizpůsobit"/>
 		<button id="ImageViewer_ActualSize" text="Originál"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="Obnovit"/>
-		<separator/>
+			<rightAlign/>
 		<button id="ImageViewer_Close" text="Zavřít"/>
 	</toolbar>
 </toolbars>
@@ -433,6 +434,23 @@
 		<item id="ID_CHILD_MINIMISE" text="_Minimise"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
+	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+		<item id="ID_TRAY_OPEN" text="Otevřít PeerProject"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Otevřít Remote"/>
+		<item id="ID_TOOLS_SETTINGS" text="Otevřít Nastavení..."/>
+		<item id="ID_NETWORK_SEARCH" text="Nové hledání..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Stažení souboru..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Přehrát soubor"/>
+		<item id="ID_MEDIA_PAUSE" text="Pozastavit přehrávání"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Předchozí stopa"/>
+		<item id="ID_MEDIA_NEXT" text="Další stopa"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Ukončit po stažení"/>
+		<item id="ID_NETWORK_EXIT" text="Konec"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
@@ -738,40 +756,6 @@
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Monitor hled_ání"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="Spust_it monitorování"/>
 	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_Otevřít PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="No_vé hledání..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Stažení souboru..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Přehrát soubor"/>
-		<item id="ID_MEDIA_PAUSE" text="Po_zastavit přehrávání"/>
-		<item id="ID_MEDIA_STOP" text="_Stop"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="P_ředchozí stopa"/>
-		<item id="ID_MEDIA_NEXT" text="_Další stopa"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Ukončit po _stažení"/>
-		<item id="ID_NETWORK_EXIT" text="K_onec"/>
-	</menu>
-	<!-- REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_Otevřít PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="No_vé hledání..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Stáhnout soubor..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Přehrát soubor"/>
-		<item id="ID_MEDIA_PAUSE" text="Po_zastavit přehrávání"/>
-		<item id="ID_MEDIA_STOP" text="_Stop"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="P_ředchozí stopa"/>
-		<item id="ID_MEDIA_NEXT" text="_Další stopa"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Ukončit po _stažení"/>
-		<item id="ID_NETWORK_EXIT" text="K_onec"/>
-	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
 		<item id="ID_TAB_HOME" text="_Hlavní"/>
@@ -1032,6 +1016,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Aut_o vymazání"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Obnovit vše"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_ozastavit vše"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Smazat vše"/>
@@ -3111,7 +3097,6 @@
 	<string id="20001" value="Zavřít"/>
 	<string id="20002" value="z"/><!-- e.g. 1 of 10 -->
 	<string id="20003" value="Změna směru vyžaduje restart. \nBudete muset spustit PeerProject ručně. Ukončit?"/>
-	<string id="20004" value="Váš OS nepodporuje jazyky se směrem psaní zprava doleva."/>
 	<string id="20005" value="Ne"/>
 	<string id="20006" value="Ano"/>
 	<string id="20007" value="Auto"/>
@@ -3120,6 +3105,7 @@
 	<string id="20010" value="&amp;Zpět"/>
 	<string id="20011" value="&amp;Vpřed"/>
 	<string id="20012" value="Ukončit"/>
+	<string id="20013" value="All"/>
 	<string id="20100" value="Připojuji"/>
 	<string id="20101" value="Žádám"/>
 	<string id="20102" value="Odezva"/>
@@ -3181,6 +3167,8 @@
 	<string id="20234" value="Album"/>
 	<string id="20235" value="Autor"/>
 	<string id="20236" value="Hodnocení"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="Zrušit"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3411,14 +3399,14 @@
 		<control caption="Gnutella2 síť je PeerProject hlavní síť, nabízející více možností než jakákoli jiná síť P2P. Velmi ji doporučujeme."/>
 		<control caption="Připojit ke Gnutella2 (G2)"/>
 		<control caption="Konfigurovat Gnutella2"/>
-		<control caption="Síť eDonkey:"/>
-		<control caption="eDonkey je také oblíbená síť. Zatím nemá tak bohaté možnosti jako Gnutella2, eDonkey má ale impozantní sbírku souborů."/>
-		<control caption="Připojit k eDonkey"/>
-		<control caption="Konfigurovat eDonkey"/>
 		<control caption="Původní síť Gnutella:"/>
 		<control caption="Ačkoli původní síť Gnutella má méně možností než Gnutella2, a má méně souborů než eDonkey, zůstává cenným rezervním zdrojem."/>
-		<control caption="Připojit k původní síti Gnutella"/>
+		<control caption="Připojit k původní síti Gnutella (G1)"/>
 		<control caption="Konfigurovat Gnutella1"/>
+		<control caption="Síť eDonkey:"/>
+		<control caption="eDonkey je také oblíbená síť. Zatím nemá tak bohaté možnosti jako Gnutella2, eDonkey má ale impozantní sbírku souborů."/>
+		<control caption="Připojit k eDonkey2000 (ED2K)"/>
+		<control caption="Konfigurovat eDonkey"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Síť Gnutella2:"/>
@@ -3650,10 +3638,10 @@
 		<control caption="PeerProject je univerzální aplikace ke sdílení souborů která může zpřístupnit souběžně více sítí P2P. Zde si můžete vybrat které sítě chcete zpřístupnit. Ovšem můžete si také vybrat a nastavit různé sítě později."/>
 		<control caption="Připojit ke Gnutelle2 (velmi doporučeno)"/>
 		<control caption="Síť Gnutella2 je hlavní síť PeerProject, nabízí více možností a výkonu než kterákoli jiná síť P2P."/>
-		<control caption="Připojit k eDonkey"/>
-		<control caption="eDonkey je také oblíbená síť. Zatím nemá tak bohaté možnosti jako Gnutella2, eDonkey má ale impozantní sbírku souborů."/>
 		<control caption="Připojit k původní síti Gnutella"/>
 		<control caption="Ačkoli původní síť Gnutella má méně možností než Gnutella2, a má méně souborů než eDonkey, zůstává cenným rezervním zdrojem."/>
+		<control caption="Připojit k eDonkey"/>
+		<control caption="eDonkey je také oblíbená síť. Zatím nemá tak bohaté možnosti jako Gnutella2, eDonkey má ale impozantní sbírku souborů."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Import stahování eDonkey">
 		<control/>
@@ -4236,18 +4224,23 @@
 		<control caption="Tracker Mód:"/>
 		<control caption="zakázano|vlastní|Single Tracker|Multi-tracker|Multi-tracker (zamčeno)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Stažení vlastností skupiny">
-		<control caption="_Jméno:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Stažení vlastností skupiny">
+		<control caption="OK"/>
+		<control caption="Zrušit"/>
 		<control/>
 		<control/>
-		<control caption="_Filtry:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="Přid_at"/>
 		<control caption="Odst_ranit"/>
-		<control caption="OK"/>
-		<control caption="Zrušit"/>
-		<control caption="Dokončený soubor _Složka:"/>
 		<control/>
+		<control/>
+		<control/>
+		<control caption="_Jméno:"/>
+		<control caption="_Filtry:"/>
+		<control caption="Dokončený soubor _Složka:"/>
+		<control caption="_Typ souboru:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Zvolte zobrazení">
 		<control/>

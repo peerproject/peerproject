@@ -40,13 +40,11 @@ typedef struct {
 const LPCTSTR CONNECT_SECTION = _T("ConnectTo");
 
 BEGIN_MESSAGE_MAP(CConnectToDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CConnectToDlg)
 	ON_WM_MEASUREITEM()
 	ON_WM_DRAWITEM()
 	ON_WM_DESTROY()
 	ON_CBN_SELCHANGE(IDC_CONNECT_HOST, OnCbnSelchangeConnectHost)
 	ON_CBN_SELCHANGE(IDC_CONNECT_PROTOCOL, OnCbnSelchangeConnectProtocol)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -65,7 +63,6 @@ CConnectToDlg::CConnectToDlg(CWnd* pParent, BOOL bBrowseHost) :
 void CConnectToDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CConnectToDlg)
 	DDX_Control(pDX, IDC_CONNECT_ADVANCED, m_wndAdvanced);
 	DDX_Control(pDX, IDC_CONNECT_PROTOCOL, m_wndProtocol);
 	DDX_Control(pDX, IDC_CONNECT_ULTRAPEER, m_wndUltrapeer);
@@ -76,7 +73,6 @@ void CConnectToDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CONNECT_ULTRAPEER, m_bNoUltraPeer);
 	DDX_Text(pDX, IDC_CONNECT_PORT, m_nPort);
 	DDX_CBIndex(pDX, IDC_CONNECT_PROTOCOL, m_nProtocol);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -94,7 +90,7 @@ BOOL CConnectToDlg::OnInitDialog()
 	// Load default images
 	CBitmap bmImages;
 	bmImages.LoadBitmap( IDB_PROTOCOLS );
-	if ( Settings.General.LanguageRTL ) 
+	if ( Settings.General.LanguageRTL )
 		bmImages.m_hObject = CreateMirroredBitmap( (HBITMAP)bmImages.m_hObject );
 
 	m_pImages.Create( 16, 16, ILC_COLOR32|ILC_MASK, 7, 1 ) ||
@@ -133,7 +129,7 @@ BOOL CConnectToDlg::OnInitDialog()
 
 			strItem.Format( _T("%.3Ii.Port"), nItem + 1 );
 			pData->nPort = theApp.GetProfileInt( CONNECT_SECTION, strItem, GNUTELLA_DEFAULT_PORT );
-			
+
 			strItem.Format( _T("%.3Ii.Protocol"), nItem + 1 );
 			pData->nProtocol = (PROTOCOLID)theApp.GetProfileInt( CONNECT_SECTION, strItem, PROTOCOL_G2 );
 
@@ -236,7 +232,7 @@ void CConnectToDlg::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct
 
 	int nImage = (int)lpDrawItemStruct->itemID;
 
-	if ( Settings.General.LanguageRTL ) 
+	if ( Settings.General.LanguageRTL )
 		nImage = m_pImages.GetImageCount() - nImage - 2;
 	else
 		nImage += 1;
@@ -268,8 +264,7 @@ BOOL CConnectToDlg::UpdateItems()
 	if ( ! UpdateData() )
 		return FALSE;
 
-	m_sHost.Trim( _T(" \t\r\n:\"") );
-	ToLower( m_sHost );
+	m_sHost.Trim( _T(" \t\r\n:\"\'\\") ).MakeLower();
 	int n = m_sHost.Find( _T(':') );
 	if ( n != -1 )
 	{

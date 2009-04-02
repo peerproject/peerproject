@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Lithuanian Skin File -->
-<!-- Translation based on default-en.xml SVN rev.xxxx -->
+<!-- Translation based on default-en.xml Shareaza SVN rev.7800 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -19,7 +19,7 @@
 		description="PeerProject Default Lithuanian Skin File"
 		link="http://PeerProject.org/"
 		email="rrol2002(at)hotmail.com"
-		version="2.4.0.0"
+		version="1.0.0.0"
 		type="Language"
 		language="lt"
 		prompt="Paspauskite čia, jei Jūsų gimtoji kalba lietuvių."
@@ -32,20 +32,20 @@
 		<button id="ID_NETWORK_CONNECT" text="Jungtis"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Pradžia"/>
-		<button id="ID_TAB_LIBRARY" text="Kolekcija"/>
-		<button id="ID_TAB_MEDIA" text="Grotuvas"/>
 		<button id="ID_TAB_SEARCH" text="Paieška"/>
 		<button id="ID_TAB_TRANSFERS" text="Atsisiuntimai"/>
+		<button id="ID_TAB_LIBRARY" text="Kolekcija"/>
+		<button id="ID_TAB_MEDIA" text="Grotuvas"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Jungtis"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Pradžia"/>
-		<button id="ID_TAB_LIBRARY" text="Kolekcija"/>
-		<button id="ID_TAB_MEDIA" text="Grotuvas"/>
 		<button id="ID_TAB_SEARCH" text="Paieška"/>
 		<button id="ID_TAB_TRANSFERS" text="Siuntimai"/>
 		<button id="ID_TAB_NETWORK" text="Tinklas"/>
+		<button id="ID_TAB_LIBRARY" text="Kolekcija"/>
+		<button id="ID_TAB_MEDIA" text="Grotuvas"/>
 		<button id="ID_TAB_IRC" text="Pokalbiai"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -412,17 +412,17 @@
 		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent talpykla"/>
 		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia talpykla"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Rodyti naudotojo duomenis"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Siųsti failą"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Suteikti prioritetą"/>
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Siųsti failą"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Susijungti" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Atsijungti"/>
@@ -455,13 +455,13 @@
 		<button id="ID_MUSICBRAINZ_ALBUMS" text="Peržiūrėti visus albumus"/>
 		<separator/>
 	</toolbar>
-	<!-- IMAGE VIEWER WINDOW -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_BestFit" text="Geriausias dydis"/>
 		<button id="ImageViewer_ActualSize" text="Tikras dydis"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="Atnaujinti"/>
-		<separator/>
+		<rightAlign/>
 		<button id="ImageViewer_Close" text="Užverti"/>
 	</toolbar>
 </toolbars>
@@ -479,6 +479,23 @@
 		<item id="ID_CHILD_MINIMISE" text="_Suskleisti"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Užverti langą"/>
+	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+		<item id="ID_TRAY_OPEN" text="Atverti „PeerProject“"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Atverti pultelis"/>
+		<item id="ID_TOOLS_SETTINGS" text="Atverti nuostatos..."/>
+		<item id="ID_NETWORK_SEARCH" text="Nauja paieška..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Atsisiųsti failą..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Groti failą"/>
+		<item id="ID_MEDIA_PAUSE" text="Pristabdyti"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Ankstesnis takelis"/>
+		<item id="ID_MEDIA_NEXT" text="Tolesnis takelis"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Išeiti baigus siųsti"/>
+		<item id="ID_NETWORK_EXIT" text="Išeiti"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
@@ -796,40 +813,6 @@
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Paieškos užklausų _monitorius"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="K_reipinių monitorius"/>
 	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_Atverti PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nauja pai_eška..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="Atsisiųsti failą..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Groti failą"/>
-		<item id="ID_MEDIA_PAUSE" text="_Pristabdyti"/>
-		<item id="ID_MEDIA_STOP" text="_Stabdyti"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="An_kstesnis takelis"/>
-		<item id="ID_MEDIA_NEXT" text="Toles_nis takelis"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Išeiti _baigus siųsti"/>
-		<item id="ID_NETWORK_EXIT" text="Išeiti"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_Atverti PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nauja pai_eška..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="Atsisiųsti failą..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Groti failą"/>
-		<item id="ID_MEDIA_PAUSE" text="_Pristabdyti"/>
-		<item id="ID_MEDIA_STOP" text="_Stabdyti"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="An_kstesnis takelis"/>
-		<item id="ID_MEDIA_NEXT" text="Toles_nis takelis"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Išeiti _baigus siųsti"/>
-		<item id="ID_NETWORK_EXIT" text="Išeiti"/>
-	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
 		<item id="ID_TAB_HOME" text="_Pradžia"/>
@@ -1091,6 +1074,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Savai_minis valymas"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Tęsti visus"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Stabdyti visus"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Valyti visus"/>
@@ -3240,7 +3225,6 @@
 	<string id="20001" value="Užverti"/>
 	<string id="20002" value="iš"/> <!-- "1 of 10" -->
 	<string id="20003" value="Sąsajos krypties pakeitimui reikalinga startuoti iš naujo. \nJums reikės paleisti „PeerProject“ programą rankiniu būdu. Ar baigti darbą dabar?"/>
-	<string id="20004" value="Jūsų operacinė sistema nepalaiko kalbų su rašmenimis iš dešinės į kairę."/>
 	<string id="20005" value="Ne"/>
 	<string id="20006" value="Taip"/>
 	<string id="20007" value="Auto"/>
@@ -3311,6 +3295,8 @@
 	<string id="20234" value="Albumas"/>
 	<string id="20235" value="Atlikėjas"/>
 	<string id="20236" value="Įvertinimas"/>
+	<string id="20237" value="Gerai"/>
+	<string id="20238" value="Atšaukti"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3577,14 +3563,14 @@
 		<control caption="Gnutella2 tinklas - tai pagrindinis „PeerProject“ tinklas, siūlantis daugiau galimybių ir našumo nei kiti P2P tinklai. Ypač rekomenduojama."/>
 		<control caption="Jungtis prie Gnutella2 (G2)"/>
 		<control caption="Konfigūruoti Gnutella2"/>
-		<control caption="eDonkey tinklas:"/>
-		<control caption="eDonkey tinklas - tai populiarus tinklas su serveriais. Nors neturi tiek galimybių kaip Gnutella2, eDonkey tinkle yra įspūdinga failų kolekcija."/>
-		<control caption="Jungtis prie eDonkey"/>
-		<control caption="Konfigūruoti eDonkey"/>
 		<control caption="Pirminis Gnutella tinklas:"/>
 		<control caption="Nors pirminis Gnutella tinklas turi mažiau galimybių, nei Gnutella2, ir mažiau failų, nei eDonkey, šis tinklas pasilieka vertingu ištekliumi."/>
-		<control caption="Jungtis prie Gnutella"/>
+		<control caption="Jungtis prie Gnutella (G1)"/>
 		<control caption="Konfigūruoti Gnutella1"/>
+		<control caption="eDonkey2000 tinklas:"/>
+		<control caption="eDonkey tinklas - tai populiarus tinklas su serveriais. Nors neturi tiek galimybių kaip Gnutella2, eDonkey tinkle yra įspūdinga failų kolekcija."/>
+		<control caption="Jungtis prie eDonkey2000 (ED2K)"/>
+		<control caption="Konfigūruoti eDonkey"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 tinklas:"/>
@@ -3816,10 +3802,10 @@
 		<control caption="„PeerProject“ - tai bendros paskirties failų apsikeitimo programa, kuri gali prisijungti prie kelių lygiaverčio tarptinklinio susijungimo (P2P) tinklų vienu metu. Pasirinkite, prie kurių P2P tinklų norite jungtis, o po to derinkite kiekvieną tinklą atskirai."/>
 		<control caption="Jungtis prie Gnutella2 (Labai rekomenduojama)"/>
 		<control caption="Gnutella2 tinklas - tai pagrindinis „PeerProject“ tinklas, siūlantis daugiau galimybių ir našumo nei kiti P2P tinklai. Ypač rekomenduojama."/>
-		<control caption="Jungtis prie eDonkey"/>
-		<control caption="eDonkey tinklas - tai populiarus tinklas su serveriais. Nors neturi tiek galimybių kaip Gnutella2, eDonkey tinkle yra įspūdinga failų kolekcija."/>
 		<control caption="Jungtis prie pirminio Gnutella"/>
 		<control caption="Nors pirminis Gnutella tinklas turi mažiau galimybių, nei Gnutella2, ir mažiau failų, nei eDonkey, šis tinklas pasilieka vertingu ištekliumi."/>
+		<control caption="Jungtis prie eDonkey"/>
+		<control caption="eDonkey tinklas - tai populiarus tinklas su serveriais. Nors neturi tiek galimybių kaip Gnutella2, eDonkey tinkle yra įspūdinga failų kolekcija."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey dalinių failų importas">
 		<control/>
@@ -4402,19 +4388,23 @@
 		<control caption="Seklio veiksena:"/>
 		<control caption="Neįgalinta|Pasirinktinė|Vienas seklys|Daug seklių|Daug seklių (užrakinta)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Atsisiuntimų grupės ypatybės">
-		<control caption="Pa_vadinimas:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Atsisiuntimų grupės ypatybės">
+		<control caption="Gerai"/>
+		<control caption="Atšaukti"/>
 		<control/>
 		<control/>
-		<control caption="_Filtrai:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="_Pridėti"/>
 		<control caption="Š_alinti"/>
-		<control caption="Gerai"/>
-		<control caption="Atšaukti"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Pa_vadinimas:"/>
+		<control caption="_Filtrai:"/>
 		<control caption="_Aplankas, į kurį išsaugoti atsisiuntus"/>
-		<control/>
-		<control/>
+		<control caption="_Failo plėtinys:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Pasirinkite muzikos vaizdą">
 		<control/>

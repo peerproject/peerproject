@@ -1116,18 +1116,15 @@ void CBrowseTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) c
 	if ( crBack == CLR_NONE ) crBack = CoolInterface.m_crWindow;
 	dc.FillSolidRect( rc.left, rc.top, 32, 17, crBack );
 
-	if ( m_nCount )
+	if ( m_bExpanded )
 	{
-		if ( m_bExpanded )
-		{
-			CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
-				16, rc.left, rc.top, crBack );
-		}
-		else
-		{
-			CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_OPENTICK_HOVER : IDI_OPENTICK,
-				16, rc.left, rc.top, crBack );
-		}
+		CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
+			16, rc.left, rc.top, crBack );
+	}
+	else if ( m_nCount )
+	{
+		CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_OPENTICK_HOVER : IDI_OPENTICK,
+			16, rc.left, rc.top, crBack );
 	}
 
 	if ( m_nIcon16 >= 0 )

@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include "CtrlLibraryPanel.h"
+#include "CtrlPanelClass.h"
 #include "MetaPanel.h"
 
 class CSchema;
@@ -29,21 +29,24 @@ class CLibraryFile;
 
 
 class CLibraryMetaPanel :
-	public CLibraryPanel,
+	public CPanelCtrl,
 	public CThreadImpl
 {
-// Construction
+	DECLARE_DYNCREATE(CLibraryMetaPanel)
+
 public:
 	CLibraryMetaPanel();
 	virtual ~CLibraryMetaPanel();
 
-	DECLARE_DYNCREATE(CLibraryMetaPanel)
+	virtual void Update();
 
-// Attributes
+	BOOL		SetServicePanel(CMetaPanel* pPanel);
+	CMetaPanel*	GetServicePanel();
+
 protected:
 	int				m_nSelected;
 	DWORD			m_nIndex;
-	BOOL			m_bNewFile;  // flag used to switch off thread if thumbnail can not be extracted
+	BOOL			m_bNewFile; 	// Flag used to switch off thread if thumbnail cannot be extracted
 	CString			m_sName;
 	CString			m_sPath;
 	CString			m_sFolder;
@@ -57,8 +60,7 @@ protected:
 	CMetaPanel*		m_pServiceData;
 	CRect			m_rcFolder;
 	CRect			m_rcRating;
-	int				m_nScrollWheelLines;
-protected:
+
 	CCriticalSection	m_pSection;
 	BOOL				m_bExternalData;
 	BOOL				m_bDownloadingImage;
@@ -69,32 +71,20 @@ protected:
 	int					m_nThumbSize;
 	CString				m_sThumb;
 
-// Operations
-public:
-	virtual BOOL CheckAvailable(CLibraryTreeItem* pFolders, CLibraryList* pObjects);
-	virtual void Update();
+	CLibraryList*	GetViewSelection();
 
-	BOOL		SetServicePanel(CMetaPanel* pPanel);
-	CMetaPanel*	GetServicePanel();
-
-protected:
 	void	DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, RECT* pRect = NULL, int nMaxWidth = -1);
 	void	DrawThumbnail(CDC* pDC, CRect& rcClient, CRect& rcWork);
 	void	DrawThumbnail(CDC* pDC, CRect& rcThumb);
-protected:
-	void		OnRun();
 
-// Implementation
-protected:
+	void	OnRun();
+
 	afx_msg void OnPaint();
-	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
-	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 
 	DECLARE_MESSAGE_MAP()
 };

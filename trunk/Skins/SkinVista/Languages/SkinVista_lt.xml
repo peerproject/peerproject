@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<manifest	name="SkinVista.Lietuviškai" 
+		author="SkinVista" 
+		modified="Rolandas"
+		description="Lietuviškai (Lithuanian Menu Fix)"
+		link="http://PeerProject.org" 
+		email="Contact(at)PeerProject.org" 
+		language="lt" 
+		version="2.0" 
+		type="Skin"
+/>
+<menus>
+	<menu name="CMainWnd.Tabbed" type="bar">
+		<menu text="- . . ..-. . .">
+		<item id="ID_TOOLS_SETTINGS" text="Nuostatos..."/>
+		<menu text="_Tinklas">
+			<item id="ID_NETWORK_CONNECT" text="Jungtis" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="Atsijungti"/>
+			<separator/>
+			<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella2"/>
+			<item id="ID_NETWORK_G1" text="Jungtis prie Gnutella1"/>
+			<item id="ID_NETWORK_ED2K" text="Jungtis prie eDonkey"/>
+			<separator/>
+			<item id="ID_NETWORK_CONNECT_TO" text="Jungtis prie..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="Naršyti adresatą..."/>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Išeiti baigus siųsti"/>
+			<item id="ID_NETWORK_EXIT" text="Išeiti tuoj pat"/>
+		</menu>
+		<menu text="Į_rankiai">
+			<item id="ID_LIBRARY_FOLDERS" text="Bendrinti failus..."/>
+			<item id="ID_OPEN_DOWNLOADS_FOLDER"	text="_Open Downloads Folder"/>
+			<separator/>
+			<item id="ID_TOOLS_DOWNLOAD" text="Atsisiųsti failą/Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" text="Skleisti torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+			<item id="IDC_IMPORT_DOWNLOADS" text="Importuoti eMule dalinius failus..."/>
+			<separator/>
+			<item id="ID_TOOLS_LANGUAGE" text="Pasirinkti kalbą..."/>
+			<item id="ID_TOOLS_SKIN" text="Pasirinkti apvalkalą..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Taisyti savo profilį..."/>
+			<item id="ID_TOOLS_WIZARD" text="Nuostatų vedlys..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="„PeerProject“ nuostatos..."/>
+		</menu>
+		<menu text="_Kita">
+			<item id="ID_TAB_HOME" text="Pradžia" shortcut="Ctrl+H"/>
+			<item id="ID_TAB_SEARCH" text="Paieška" shortcut="Ctrl+S"/>
+			<item id="ID_VIEW_DOWNLOADS" text="Atsisiuntimai" shortcut="F3"/>
+			<item id="ID_VIEW_UPLOADS" text="Išsiuntimai" shortcut="F4"/>
+			<item id="ID_VIEW_LIBRARY" text="Kolekcija" shortcut="F5"/>
+			<item id="ID_VIEW_MEDIA" text="Grotuvas" shortcut="F6"/>
+			<separator/>
+			<item id="ID_VIEW_SECURITY" text="Apsauga" shortcut="F7"/>
+			<item id="ID_VIEW_HOSTS" text="Adresatų talpykla" shortcut="F8"/>
+			<item id="ID_VIEW_DISCOVERY" text="Paslaugų radimo tarnybos" shortcut="F9"/>
+			<item id="ID_VIEW_TRAFFIC" text="Grafikai" shortcut="F10"/>
+			<item id="ID_VIEW_SYSTEM" text="Sistema" shortcut="F11"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="Kaimynai" shortcut="Crtl+F11"/>
+			<separator/>
+			<item id="ID_VIEW_PACKETS" text="Paketų išvestis" shortcut="Ctrl+F1"/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Paieškos užklausų monitorius" shortcut="Ctrl+F2"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="Kreipinių monitorius" shortcut="Ctrl+F3"/>
+		</menu>
+		<menu text="_Langas">
+			<item id="ID_VIEW_TABBED" text="Kortelių veiksena" shortcut="būtina"/>
+			<item id="ID_VIEW_WINDOWED" text="Langų veiksena" shortcut="nepalaiko"/>
+			<separator/>
+			<item id="ID_WINDOW_NAVBAR" text="Rodyti naršymo juostą" shortcut="būtina"/>
+			<item id="ID_WINDOW_TABBAR" text="Rodyti kortelių juostą" shortcut="būtina"/>
+			<item id="ID_WINDOW_MONITOR" text="Rodyti monitorių"/>
+			<item id="ID_WINDOW_REMOTE" text="Rodyti grotuvo pultelį"/>
+		</menu>
+		<menu text="Ži_nynas">
+			<item id="ID_HELP_GUIDE" text="„PeerProject“ naudotojo vadovas"/>
+			<item id="ID_HELP_FORUMS" text="„PeerProject“ forumai"/>
+			<item id="ID_HELP_FAQ" text="„PeerProject“ DUK" shortcut="F1"/>
+			<menu text="SkinVista žinynas">
+				<menu text="Jei meniu juosta rodoma neteisingai --"/>
+				<menu text="Pasirinkite meniu: Langas: Rodyti naršymo juostą"/>
+				<menu text="Tada sujunkite naršymo juosta su meniu juosta-"/>
+				<menu text="(Nutempkite į šalį prieš padedant į viršų)"/>
+				<menu text="Perkraukite sąsają, jei reikia pašalinti defektus: Ctrl+Shift+Z"/>
+			</menu>
+			<separator/>
+			<menu text="Tinkl_alapiai">
+				<item id="ID_HELP_WEB_3" text="Slyck.com"/>
+				<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				<item id="ID_HELP_WEB_6" text="DeviantArt.com Skins"/>
+			</menu>
+			<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="Apie „PeerProject“..."/>
+		</menu>
+		<item id="ID_NETWORK_EXIT" text="Išeiti"/>
+                </menu>
+	</menu>
+
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="- . . ..-. . .">
+		<item id="ID_TOOLS_SETTINGS" text="Nuostatos..."/>
+		<menu text="_Tinklas">
+			<item id="ID_NETWORK_CONNECT" text="Jungtis" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="Atsijungti"/>
+			<separator/>
+			<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella2"/>
+			<item id="ID_NETWORK_G1" text="Jungtis prie Gnutella1"/>
+			<item id="ID_NETWORK_ED2K" text="Jungtis prie eDonkey"/>
+			<separator/>
+			<item id="ID_NETWORK_CONNECT_TO" text="Jungtis prie..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="Naršyti adresatą..."/>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Išeiti baigus siųsti"/>
+			<item id="ID_NETWORK_EXIT" text="Išeiti tuoj pat"/>
+		</menu>
+		<menu text="Į_rankiai">
+			<item id="ID_LIBRARY_FOLDERS" text="Bendrinti failus..."/>
+			<item id="ID_OPEN_DOWNLOADS_FOLDER"	text="_Open Downloads Folder"/>
+			<separator/>
+			<item id="ID_TOOLS_DOWNLOAD" text="Atsisiųsti failą/Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" text="Skleisti torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+			<item id="IDC_IMPORT_DOWNLOADS" text="Importuoti eMule dalinius failus..."/>
+			<separator/>
+			<item id="ID_TOOLS_LANGUAGE" text="Pasirinkti kalbą..."/>
+			<item id="ID_TOOLS_SKIN" text="Pasirinkti apvalkalą..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Taisyti savo profilį..."/>
+			<item id="ID_TOOLS_WIZARD" text="Nuostatų vedlys..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="„PeerProject“ nuostatos..."/>
+		</menu>
+		<menu text="_Kita">
+			<item id="ID_TAB_HOME" text="Pradžia" shortcut="Ctrl+H"/>
+			<item id="ID_TAB_SEARCH" text="Paieška" shortcut="Ctrl+S"/>
+			<item id="ID_VIEW_DOWNLOADS" text="Atsisiuntimai" shortcut="F3"/>
+			<item id="ID_VIEW_UPLOADS" text="Išsiuntimai" shortcut="F4"/>
+			<item id="ID_VIEW_LIBRARY" text="Kolekcija" shortcut="F5"/>
+			<item id="ID_VIEW_MEDIA" text="Grotuvas" shortcut="F6"/>
+			<separator/>
+			<item id="ID_VIEW_SECURITY" text="Apsauga" shortcut="F7"/>
+			<item id="ID_VIEW_HOSTS" text="Adresatų talpykla" shortcut="F8"/>
+			<item id="ID_VIEW_DISCOVERY" text="Paslaugų radimo tarnybos" shortcut="F9"/>
+			<item id="ID_VIEW_TRAFFIC" text="Grafikai" shortcut="F10"/>
+			<item id="ID_VIEW_SYSTEM" text="Sistema" shortcut="F11"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="Kaimynai" shortcut="Crtl+F11"/>
+			<separator/>
+			<item id="ID_VIEW_PACKETS" text="Paketų išvestis" shortcut="Ctrl+F1"/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Paieškos užklausų monitorius" shortcut="Ctrl+F2"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="Kreipinių monitorius" shortcut="Ctrl+F3"/>
+		</menu>
+		<menu text="_Langas">
+			<item id="ID_VIEW_TABBED" text="Kortelių veiksena" shortcut="būtina"/>
+			<item id="ID_VIEW_WINDOWED" text="Langų veiksena" shortcut="nepalaiko"/>
+			<separator/>
+			<item id="ID_WINDOW_NAVBAR" text="Rodyti naršymo juostą" shortcut="būtina"/>
+			<item id="ID_WINDOW_TABBAR" text="Rodyti kortelių juostą" shortcut="būtina"/>
+			<item id="ID_WINDOW_MONITOR" text="Rodyti monitorių"/>
+			<item id="ID_WINDOW_REMOTE" text="Rodyti grotuvo pultelį"/>
+		</menu>
+		<menu text="Ži_nynas">
+			<item id="ID_HELP_GUIDE" text="„PeerProject“ naudotojo vadovas"/>
+			<item id="ID_HELP_FORUMS" text="„PeerProject“ forumai"/>
+			<item id="ID_HELP_FAQ" text="„PeerProject“ DUK" shortcut="F1"/>
+			<menu text="SkinVista žinynas">
+				<menu text="Perkraukite sąsają, jei reikia pašalinti defektus: Ctrl+Shift+Z"/>
+			</menu>
+			<separator/>
+			<menu text="Tinkl_alapiai">
+				<item id="ID_HELP_WEB_3" text="Slyck.com"/>
+				<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				<item id="ID_HELP_WEB_6" text="DeviantArt.com Skins"/>
+			</menu>
+			<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="Apie „PeerProject“..."/>
+		</menu>
+		<item id="ID_NETWORK_EXIT" text="Išeiti"/>
+                </menu>
+	</menu>
+
+	<menu name="CMainWnd.Tabbed" type="bar">
+		<menu text="- . . ..-. . .">
+		<item id="ID_TOOLS_SETTINGS" text="Nuostatos..."/>
+		<menu text="_Tinklas">
+			<item id="ID_NETWORK_CONNECT" text="Jungtis" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="Atsijungti"/>
+			<separator/>
+			<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella2"/>
+			<item id="ID_NETWORK_G1" text="Jungtis prie Gnutella1"/>
+			<item id="ID_NETWORK_ED2K" text="Jungtis prie eDonkey"/>
+			<separator/>
+			<item id="ID_NETWORK_CONNECT_TO" text="Jungtis prie..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="Naršyti adresatą..."/>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Išeiti baigus siųsti"/>
+			<item id="ID_NETWORK_EXIT" text="Išeiti tuoj pat"/>
+		</menu>
+		<menu text="Į_rankiai">
+			<item id="ID_LIBRARY_FOLDERS" text="Bendrinti failus..."/>
+			<item id="ID_OPEN_DOWNLOADS_FOLDER"	text="_Open Downloads Folder"/>
+			<separator/>
+			<item id="ID_TOOLS_DOWNLOAD" text="Atsisiųsti failą/Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" text="Skleisti torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+			<item id="IDC_IMPORT_DOWNLOADS" text="Importuoti eMule dalinius failus..."/>
+			<separator/>
+			<item id="ID_TOOLS_LANGUAGE" text="Pasirinkti kalbą..."/>
+			<item id="ID_TOOLS_SKIN" text="Pasirinkti apvalkalą..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Taisyti savo profilį..."/>
+			<item id="ID_TOOLS_WIZARD" text="Nuostatų vedlys..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="„PeerProject“ nuostatos..."/>
+		</menu>
+		<menu text="_Kita">
+			<item id="ID_TAB_HOME" text="Pradžia" shortcut="Ctrl+H"/>
+			<item id="ID_TAB_SEARCH" text="Paieška" shortcut="Ctrl+S"/>
+			<item id="ID_VIEW_DOWNLOADS" text="Atsisiuntimai" shortcut="F3"/>
+			<item id="ID_VIEW_UPLOADS" text="Išsiuntimai" shortcut="F4"/>
+			<item id="ID_VIEW_LIBRARY" text="Kolekcija" shortcut="F5"/>
+			<item id="ID_VIEW_MEDIA" text="Grotuvas" shortcut="F6"/>
+			<separator/>
+			<item id="ID_VIEW_SECURITY" text="Apsauga" shortcut="F7"/>
+			<item id="ID_VIEW_HOSTS" text="Adresatų talpykla" shortcut="F8"/>
+			<item id="ID_VIEW_DISCOVERY" text="Paslaugų radimo tarnybos" shortcut="F9"/>
+			<item id="ID_VIEW_TRAFFIC" text="Grafikai" shortcut="F10"/>
+			<item id="ID_VIEW_SYSTEM" text="Sistema" shortcut="F11"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="Kaimynai" shortcut="Crtl+F11"/>
+			<separator/>
+			<item id="ID_VIEW_PACKETS" text="Paketų išvestis" shortcut="Ctrl+F1"/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Paieškos užklausų monitorius" shortcut="Ctrl+F2"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="Kreipinių monitorius" shortcut="Ctrl+F3"/>
+		</menu>
+		<menu text="_Langas">
+			<item id="ID_VIEW_TABBED" text="Kortelių veiksena" shortcut="būtina"/>
+			<item id="ID_VIEW_WINDOWED" text="Langų veiksena" shortcut="nepalaiko"/>
+			<separator/>
+			<item id="ID_WINDOW_NAVBAR" text="Rodyti naršymo juostą" shortcut="būtina"/>
+			<item id="ID_WINDOW_TABBAR" text="Rodyti kortelių juostą" shortcut="būtina"/>
+			<item id="ID_WINDOW_MONITOR" text="Rodyti monitorių"/>
+			<item id="ID_WINDOW_REMOTE" text="Rodyti grotuvo pultelį"/>
+		</menu>
+		<menu text="Ži_nynas">
+			<item id="ID_HELP_GUIDE" text="„PeerProject“ naudotojo vadovas"/>
+			<item id="ID_HELP_FORUMS" text="„PeerProject“ forumai"/>
+			<item id="ID_HELP_FAQ" text="„PeerProject“ DUK" shortcut="F1"/>
+			<menu text="SkinVista žinynas">
+				<menu text="Perkraukite sąsają, jei reikia pašalinti defektus: Ctrl+Shift+Z"/>
+			</menu>
+			<separator/>
+			<menu text="Tinkl_alapiai">
+				<item id="ID_HELP_WEB_3" text="Slyck.com"/>
+				<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				<item id="ID_HELP_WEB_6" text="DeviantArt.com Skins"/>
+			</menu>
+			<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="Apie „PeerProject“..."/>
+		</menu>
+		<item id="ID_NETWORK_EXIT" text="Išeiti"/>
+                </menu>
+	</menu>
+
+	</menus>
+
+        <!-- TOOLBARS -->
+        <toolbars>
+                <toolbar name="CMainWnd.Tabbed">
+			<button id="ID_NETWORK_CONNECT" text="Jungtis"/>
+			<separator/>
+			<button id="ID_WINDOW_NAVBAR" text="Rodyti naršymo juostą"/>
+                </toolbar>
+                <toolbar name="CMainWnd.Basic">
+			<button id="ID_NETWORK_CONNECT" text="Jungtis"/>
+			<separator/>
+			<button id="ID_VIEW_TABBED" text="Eksperto veiksena"/>
+                </toolbar>
+        </toolbars>
+</skin>

@@ -32,20 +32,20 @@
 		<button id="ID_NETWORK_CONNECT" text="Kapcsolódás"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Kezdőlap"/>
-		<button id="ID_TAB_LIBRARY" text="Könyvtár"/>
-		<button id="ID_TAB_MEDIA" text="Médialejátszó"/>
 		<button id="ID_TAB_SEARCH" text="Keresés"/>
 		<button id="ID_TAB_TRANSFERS" text="Letöltések"/>
+		<button id="ID_TAB_LIBRARY" text="Könyvtár"/>
+		<button id="ID_TAB_MEDIA" text="Médialejátszó"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Kapcsolódás"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Kezdőlap"/>
-		<button id="ID_TAB_LIBRARY" text="Könyvtár"/>
-		<button id="ID_TAB_MEDIA" text="Médialejátszó"/>
 		<button id="ID_TAB_SEARCH" text="Keresés"/>
 		<button id="ID_TAB_TRANSFERS" text="Forgalom"/>
 		<button id="ID_TAB_NETWORK" text="Hálózat"/>
+		<button id="ID_TAB_LIBRARY" text="Könyvtár"/>
+		<button id="ID_TAB_MEDIA" text="Médialejátszó"/>
 		<button id="ID_TAB_IRC" text="Csevegés"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -412,17 +412,17 @@
 		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent Cache"/>
 		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia Cache"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="F"/>
-		<button id="ID_CHAT_ITALIC" text="D"/>
-		<button id="ID_CHAT_UNDERLINE" text="A"/>
-		<button id="ID_CHAT_COLOR" text="Sz"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/> <!--F-->
+		<button id="ID_CHAT_ITALIC"/> <!--D-->
+		<button id="ID_CHAT_UNDERLINE"/> <!--A-->
+		<button id="ID_CHAT_COLOR"/> <!--Sz-->
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Fájllista és adatlap"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Fájl küldése"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Elsőbbséget ad"/>
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Fájl küldése"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Kapcsolódás" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Lekapcsolódás"/>
@@ -454,13 +454,13 @@
 		<button id="ID_MUSICBRAINZ_ALBUMS" text="Minden album megtekintése"/>
 		<separator/>
 	</toolbar>
-	<!-- IMAGE VIEWER WINDOW - DELETE? -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_ActualSize" text="Eredeti méret"/>
 		<button id="ImageViewer_BestFit" text="Ablakhoz igazít"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="Frissít"/>
-		<separator/>
+		<rightAlign/>
 		<button id="ImageViewer_Close" text="Bezárás"/>
 	</toolbar>
 </toolbars>
@@ -478,6 +478,23 @@
 		<item id="ID_CHILD_MINIMISE" text="_Kis méret"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Bezárás"/>
+	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">
+		<item id="ID_TRAY_OPEN" text="PeerProject Megnyitása"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Távirányító"/>
+		<item id="ID_TOOLS_SETTINGS" text="Beállítások..."/>
+		<item id="ID_NETWORK_SEARCH" text="Új keresés..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Fájl letöltése..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Lejátszás"/>
+		<item id="ID_MEDIA_PAUSE" text="Szünet"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Előző szám"/>
+		<item id="ID_MEDIA_NEXT" text="Következő szám"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Forgalom után kilépés"/>
+		<item id="ID_NETWORK_EXIT" text="Kilépés"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
@@ -795,40 +812,6 @@
 		<item id="ID_VIEW_SEARCH_MONITOR" text="_Keresések figyelése"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="_Találatok figyelése"/>
 	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="PeerProject _megnyitása"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Ú_j keresés..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="Fájl _letöltése..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Lejátszás"/>
-		<item id="ID_MEDIA_PAUSE" text="S_zünet"/>
-		<item id="ID_MEDIA_STOP" text="_Stop"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="_Előző szám"/>
-		<item id="ID_MEDIA_NEXT" text="_Következő szám"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="_Forgalom után kilépés"/>
-		<item id="ID_NETWORK_EXIT" text="K_ilépés"/>
-	</menu>
-	<!--  REMOTE MENU -->
-  <menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="PeerProject _megnyitása"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Ú_j keresés..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Fájl letöltése..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Lejátszás"/>
-		<item id="ID_MEDIA_PAUSE" text="S_zünet"/>
-		<item id="ID_MEDIA_STOP" text="_Stop"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="_Előző szám"/>
-		<item id="ID_MEDIA_NEXT" text="_Következő szám"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="_Forgalom után kilépés"/>
-		<item id="ID_NETWORK_EXIT" text="K_ilépés"/>
-	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
 		<item id="ID_TAB_HOME" text="_Kezdőlap"/>
@@ -1090,6 +1073,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Automata törlés"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Mindet _folytat"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Mindet _szünetelteti"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Mindet _törli"/>
@@ -3192,7 +3177,6 @@
 	<string id="20001" value="Bezárás"/>
 	<string id="20002" value="/"/> <!-- "1 of 10" -->
 	<string id="20003" value="A szövegirány megváltoztatásához újra kell indítani a programot. \nEzt kézzel kell megtennie. Be akarja most zárni a PeerProject?"/>
-	<string id="20004" value="Az ön operációs rendszere nem támogatja a jobbról balra való írásmódot."/>
 	<string id="20005" value="Nem"/>
 	<string id="20006" value="Igen"/>
 	<string id="20007" value="Auto"/>
@@ -3263,6 +3247,8 @@
 	<string id="20234" value="Album"/>
 	<string id="20235" value="Előadó"/>
 	<string id="20236" value="Osztályzat"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="Mégse"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3529,13 +3515,13 @@
 		<control caption="A Gnutella2 a PeerProject fő hálózata, p2p rendszerű. Rengeteg szolgáltatás és nagy sebesség jellemzi. Erősen ajánlott!"/>
 		<control caption="Kapcsolódás a Gnutella2-höz (G2)"/>
 		<control caption="Részletes beállítás"/>
-		<control caption="eDonkey"/>
-		<control caption="Az eDonkey egy népszerű kliens-szerver rendszerű hálózat. Nincs annyi szolgáltatása, mint a G2-nek, de gyakorlatilag minden megtalálható rajta."/>
-		<control caption="Kapcsolódás az eDonkey-hoz"/>
-		<control caption="Részletes beállítás"/>
 		<control caption="Gnutella1"/>
 		<control caption="A G2 elődje. Kevesebb fájlt tartalmaz, mint az eD2k, de azért sokminden megtalálható rajta."/>
 		<control caption="Kapcsolódás a Gnutella1-hez (G1)"/>
+		<control caption="Részletes beállítás"/>
+		<control caption="eDonkey"/>
+		<control caption="Az eDonkey egy népszerű kliens-szerver rendszerű hálózat. Nincs annyi szolgáltatása, mint a G2-nek, de gyakorlatilag minden megtalálható rajta."/>
+		<control caption="Kapcsolódás az eDonkey-hoz"/>
 		<control caption="Részletes beállítás"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
@@ -3768,10 +3754,10 @@
 		<control caption="A PeerProject egy fájlmegosztó program, ami egyszerre több p2p hálózathoz is tud csatlakozni. Ezen az oldalon beállíthatja, hogy melyik hálózathoz akar kapcsolódni."/>
 		<control caption="Kapcsolódás a Gnutella2-höz (erősen ajánlott)"/>
 		<control caption="A Gnutella2 a PeerProject fő hálózata, p2p rendszerű. Rengeteg szolgáltatás és nagy sebesség jellemzi."/>
+		<control caption="Kapcsolódás a Gnutella1-hez"/>
+		<control caption="A Gnutella elődje. Kevesebb fájlt tartalmaz, mint az eD2k, de azért sokminden megtalálható rajta."/>
 		<control caption="Kapcsolódás az eDonkey-hoz"/>
 		<control caption="Az eDonkey egy népszerű kliens-szerver rendszerű hálózat. Nincs annyi szolgáltatása, mint a G2-nek, de gyakorlatilag minden megtalálható rajta."/>
-		<control caption="Kapcsolódás a Gnutella1-hez"/>
-		<control caption="A G2 elődje. Kevesebb fájlt tartalmaz, mint az eD2k, de azért sokminden megtalálható rajta."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey letöltések importálása">
 		<control/>
@@ -4354,19 +4340,23 @@
 		<control caption="Trackermód:"/>
 		<control caption="Letiltva|Saját|Egy tracker|Multi-tracker|Multi-tracker (zárt)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Letöltési csoportok tulajdonságai">
-		<control caption="Név"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Letöltési csoportok tulajdonságai">
+		<control caption="OK"/>
+		<control caption="Mégse"/>
 		<control/>
 		<control/>
-		<control caption="_Szűrők"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="_Hozzáad"/>
 		<control caption="_Eltávolít"/>
-		<control caption="OK"/>
-		<control caption="Mégse"/>
-		<control caption="E_lkészült letöltések"/>
 		<control/>
 		<control/>
+		<control/>
+		<control caption="Név:"/>
+		<control caption="_Szűrők:"/>
+		<control caption="E_lkészült letöltések:"/>
+		<control caption="_Fájltípus:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Képi megjelenítések">
 		<control/>

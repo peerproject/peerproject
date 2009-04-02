@@ -72,12 +72,12 @@ BOOL CCoolMenu::IsModernVersion()
 	pVersion.dwOSVersionInfoSize = sizeof(pVersion);
 	GetVersionEx( &pVersion );
 
-	return theApp.GetProfileInt( _T(""), _T("CoolMenuEnable"), TRUE ) &&
+	return Settings.General.CoolMenuEnable &&
 		( pVersion.dwMajorVersion >= 5 ||
 		( pVersion.dwMajorVersion == 4 && pVersion.dwMinorVersion >= 10 ) );
 }
 
-void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu) 
+void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 {
 	if ( bSysMenu )
 		return;
@@ -89,8 +89,22 @@ void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 		mii.fMask = MIIM_ID;
 		for ( UINT i = 0; i < pPopupMenu->GetMenuItemCount(); i++ )
 		{
-			pPopupMenu->GetMenuItemInfo( i, &mii, TRUE );
-			if ( mii.wID == ID_SEPARATOR || mii.wID == -1 )
+			if ( pPopupMenu->GetMenuItemInfo( i, &mii, TRUE ) &&
+				mii.wID >= ID_SHELL_MENU_MIN && mii.wID <= ID_SHELL_MENU_MAX )
+			{
+				// Its shell menu
+				CString strHelp;
+				HRESULT hr = m_pContextMenu2->GetCommandString( mii.wID - ID_SHELL_MENU_MIN,
+					GCS_HELPTEXTW, NULL, (LPSTR)strHelp.GetBuffer( 256 ), 256 );
+				strHelp.ReleaseBuffer();
+				if ( SUCCEEDED( hr ) )
+					Skin.AddString( strHelp, mii.wID );
+			}
+		}
+		for ( UINT i = 0; i < pPopupMenu->GetMenuItemCount(); i++ )
+		{
+			if ( ! pPopupMenu->GetMenuItemInfo( i, &mii, TRUE ) ||
+				mii.wID == ID_SEPARATOR || mii.wID == -1 )
 				continue;
 			if ( mii.wID >= ID_SHELL_MENU_MIN && mii.wID <= ID_SHELL_MENU_MAX )
 			{
@@ -122,7 +136,7 @@ BOOL CCoolMenu::AddMenu(CMenu* pMenu, BOOL bChild)
 
 		MENUITEMINFO mii = {};
 		mii.cbSize		= sizeof(mii);
-			mii.fMask	= MIIM_DATA|MIIM_ID|MIIM_FTYPE|MIIM_STRING|MIIM_SUBMENU;
+		mii.fMask		= MIIM_DATA|MIIM_ID|MIIM_FTYPE|MIIM_STRING|MIIM_SUBMENU;
 		mii.dwTypeData	= szBuffer;
 		mii.cch			= sizeof(szBuffer) / sizeof(TCHAR) - 1;
 
@@ -132,60 +146,60 @@ BOOL CCoolMenu::AddMenu(CMenu* pMenu, BOOL bChild)
 			// Bypass shell menu items
 			break;
 
-			// Non-XML parsed menu items
-			int nItemID = pMenu->GetMenuItemID( i );
-			if ( nItemID == ID_SEARCH_FILTER || 
-				nItemID == -1 && !m_sFilterString.IsEmpty() && m_sFilterString == szBuffer )
+		// Non-XML parsed menu items
+		int nItemID = pMenu->GetMenuItemID( i );
+		if ( nItemID == ID_SEARCH_FILTER ||
+			nItemID == -1 && !m_sFilterString.IsEmpty() && m_sFilterString == szBuffer )
+		{
+			CResultFilters* pResultFilters = new CResultFilters;
+			pResultFilters->Load();
+
+			if ( nItemID > 0 )
 			{
-				CResultFilters* pResultFilters = new CResultFilters;
-				pResultFilters->Load();
-
-				if ( nItemID > 0 )
-				{
-					m_sOldFilterString = szBuffer;
-					m_sFilterString = szBuffer;
-					m_sFilterString.TrimRight( L".\x2026" );
-				}
-				else if ( pResultFilters->m_nFilters == 0 )
-				{
-					CMenu* pSubMenu = pMenu->GetSubMenu( i );
-					if ( pSubMenu )
-						pSubMenu->DestroyMenu();
-					
-					mii.hSubMenu = NULL;
-					mii.wID = ID_SEARCH_FILTER;
-
-					m_sFilterString = m_sOldFilterString;
-					SetMenuItemInfo( pMenu->GetSafeHmenu(), i, TRUE, &mii );
-				}
-
-				if ( pResultFilters->m_nFilters )
-				{
-					HMENU pFilters = CreatePopupMenu();
-					DWORD nDefaultFilter = pResultFilters->m_nDefault;
-
-					for ( DWORD nFilter = 0 ; nFilter < pResultFilters->m_nFilters ; nFilter++ )
-					{
-						AppendMenu( pFilters, MF_STRING|( nFilter == nDefaultFilter ? MF_CHECKED : 0 ), 
-							3000 + nFilter, pResultFilters->m_pFilters[ nFilter ]->m_sName );
-					}
-					ReplaceMenuText( pMenu, i, &mii, m_sFilterString.GetBuffer() );
-
-					mii.hSubMenu = pFilters;
-					mii.fMask |= MIIM_SUBMENU;
-					strText = m_sFilterString;
-				}
-				else
-				{
-					ReplaceMenuText( pMenu, i, &mii, m_sOldFilterString.GetBuffer() );
-
-					mii.hSubMenu = NULL;
-					mii.fMask ^= MIIM_SUBMENU;
-					strText = m_sOldFilterString;
-				}
-				
-				delete pResultFilters;
+				m_sOldFilterString = szBuffer;
+				m_sFilterString = szBuffer;
+				m_sFilterString.TrimRight( L".\x2026" );
 			}
+			else if ( pResultFilters->m_nFilters == 0 )
+			{
+				CMenu* pSubMenu = pMenu->GetSubMenu( i );
+				if ( pSubMenu )
+					pSubMenu->DestroyMenu();
+
+				mii.hSubMenu = NULL;
+				mii.wID = ID_SEARCH_FILTER;
+
+				m_sFilterString = m_sOldFilterString;
+				SetMenuItemInfo( pMenu->GetSafeHmenu(), i, TRUE, &mii );
+			}
+
+			if ( pResultFilters->m_nFilters )
+			{
+				HMENU pFilters = CreatePopupMenu();
+				DWORD nDefaultFilter = pResultFilters->m_nDefault;
+
+				for ( DWORD nFilter = 0 ; nFilter < pResultFilters->m_nFilters ; nFilter++ )
+				{
+					AppendMenu( pFilters, MF_STRING|( nFilter == nDefaultFilter ? MF_CHECKED : 0 ),
+						3000 + nFilter, pResultFilters->m_pFilters[ nFilter ]->m_sName );
+				}
+				ReplaceMenuText( pMenu, i, &mii, m_sFilterString.GetBuffer() );
+
+				mii.hSubMenu = pFilters;
+				mii.fMask |= MIIM_SUBMENU;
+				strText = m_sFilterString;
+			}
+			else
+			{
+				ReplaceMenuText( pMenu, i, &mii, m_sOldFilterString.GetBuffer() );
+
+				mii.hSubMenu = NULL;
+				mii.fMask ^= MIIM_SUBMENU;
+				strText = m_sOldFilterString;
+			}
+
+			delete pResultFilters;
+		}
 
 		if ( mii.fType & (MF_OWNERDRAW|MF_SEPARATOR) )
 		{
@@ -198,14 +212,14 @@ BOOL CCoolMenu::AddMenu(CMenu* pMenu, BOOL bChild)
 		mii.fType		|= MF_OWNERDRAW;
 		mii.dwItemData	= ( (DWORD_PTR)pMenu->GetSafeHmenu() << 16 ) | ( mii.wID & 0xFFFF );
 
-		if ( strText.IsEmpty() ) 
+		if ( strText.IsEmpty() )
 			strText = szBuffer;
 
 		m_pStrings.SetAt( mii.dwItemData, strText );
 
 		if ( bChild ) SetMenuItemInfo( pMenu->GetSafeHmenu(), i, TRUE, &mii );
 
-		if ( mii.hSubMenu != NULL ) 
+		if ( mii.hSubMenu != NULL )
 			AddMenu( pMenu->GetSubMenu( i ), TRUE );
 	}
 
@@ -219,8 +233,8 @@ BOOL CCoolMenu::ReplaceMenuText(CMenu* pMenu, int nPosition, MENUITEMINFO FAR* m
 	ASSERT( mii->dwTypeData );
 
 	int nItemID = pMenu->GetMenuItemID( nPosition );
-	
-	if ( ! ModifyMenu( pMenu->GetSafeHmenu(), nPosition, MF_BYPOSITION|MF_STRING, 
+
+	if ( ! ModifyMenu( pMenu->GetSafeHmenu(), nPosition, MF_BYPOSITION|MF_STRING,
 					 nItemID, pszText ) )
 		return FALSE;
 
@@ -275,7 +289,7 @@ void CCoolMenu::SetWatermark(HBITMAP hBitmap)
 void CCoolMenu::SetSelectmark(HBITMAP hBitmap)
 {
 	m_bSelectTest = FALSE;
-	if ( hBitmap != NULL ) 
+	if ( hBitmap != NULL )
 	{
 		if ( m_bmSelectmark.m_hObject )
 			m_bmSelectmark.DeleteObject();
@@ -470,7 +484,7 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 		if ( bDisabled )
 		{
-			CoolInterface.DrawEx( pDC, nIcon, 
+			CoolInterface.DrawEx( pDC, nIcon,
 				pt, CSize( 0, 0 ), CLR_NONE, CoolInterface.m_crDisabled, ILD_BLEND50 );
 		}
 		else if ( bChecked )
@@ -652,8 +666,8 @@ UINT_PTR CCoolMenu::DoExplorerMenu(HWND hwnd, const CStringList& oFiles, POINT p
 		CComPtr< IContextMenu > pContextMenuCache;
 		pContextMenuCache = m_pContextMenuCache;
 		m_pContextMenuCache = pContextMenu1;
-		
-		// TODO: Find why sometimes raza crashes inside Windows Shell SetSite() function
+
+		// TODO: Findout why crashes sometimes inside Windows Shell SetSite() function
 		SafeRelease( pContextMenuCache );
 	}
 
@@ -686,7 +700,7 @@ LRESULT CALLBACK CCoolMenu::MsgHook(int nCode, WPARAM wParam, LPARAM lParam)
 
 		if ( ! SetProp( pCWP->hwnd, wpnOldProc, pWndProc ) ) break;
 
-		if ( ! SetWindowLongPtr( pCWP->hwnd, GWLP_WNDPROC, (DWORD)(DWORD_PTR)MenuProc ) )
+		if ( ! SetWindowLongPtr( pCWP->hwnd, GWLP_WNDPROC, (LONG_PTR)MenuProc ) )
 		{
 			::RemoveProp( pCWP->hwnd, wpnOldProc );
 			break;

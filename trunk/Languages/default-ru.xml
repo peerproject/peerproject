@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Russian Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.7300 -->
+<!-- Translation based on default-en.xml Shareaza SVN rev.7800 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -19,7 +19,7 @@
 		description="PeerProject Default Russian Skin File"
 		link="http://PeerProject.org/"
 		email="Contact(at)PeerProject.org"
-		version="2.4.0.0"
+		version="1.0.0.0"
 		type="Language"
 		language="ru"
 		prompt="Щелкните здесь для смены языка на Русский (от dAbserver)"
@@ -33,20 +33,20 @@
 		<button id="ID_NETWORK_CONNECT" text="Подключиться"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Домой"/>
-		<button id="ID_TAB_LIBRARY" text="Хранилище"/>
-		<button id="ID_TAB_MEDIA" text="Проигрыватель"/>
 		<button id="ID_TAB_SEARCH" text="Поиск"/>
 		<button id="ID_TAB_TRANSFERS" text="Загрузки"/>
+		<button id="ID_TAB_LIBRARY" text="Хранилище"/>
+		<button id="ID_TAB_MEDIA" text="Проигрыватель"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Подключиться"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Домой"/>
-		<button id="ID_TAB_LIBRARY" text="Хранилище"/>
-		<button id="ID_TAB_MEDIA" text="Проигрыватель"/>
 		<button id="ID_TAB_SEARCH" text="Поиск"/>
 		<button id="ID_TAB_TRANSFERS" text="Пересылки"/>
 		<button id="ID_TAB_NETWORK" text="Сети"/>
+		<button id="ID_TAB_LIBRARY" text="Хранилище"/>
+		<button id="ID_TAB_MEDIA" text="Проигрыватель"/>
 		<button id="ID_TAB_IRC" text="Чат"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -413,17 +413,17 @@
 		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent кэш"/>
 		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia кэш"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Просмотр хоста"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Послать файл"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Предоставить приоритет"/>
+		<!--<button id="ID_CHAT_SEND_FILE" text="Послать файл"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Подключиться" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Отключиться"/>
@@ -456,13 +456,13 @@
 		<button id="ID_MUSICBRAINZ_ALBUMS" text="Все альбомы"/>
 		<separator/>
 	</toolbar>
-	<!-- IMAGE VIEWER WINDOW -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_BestFit" text="Лучший размер"/>
 		<button id="ImageViewer_ActualSize" text="Оригинальный размер"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="Обновить"/>
-		<separator/>
+		<rightAlign/>
 		<button id="ImageViewer_Close" text="Закрыть"/>
 	</toolbar>
 </toolbars>
@@ -480,6 +480,23 @@
 		<item id="ID_CHILD_MINIMISE" text="_Минимизировать"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Закрыть"/>
+	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+		<item id="ID_TRAY_OPEN" text="Открыть PeerProject"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Пульт управления"/>
+		<item id="ID_TOOLS_SETTINGS" text="Открыть Установки..."/>
+		<item id="ID_NETWORK_SEARCH" text="Новый поиск..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Загрузить файл..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Воспроизводить"/>
+		<item id="ID_MEDIA_PAUSE" text="Приостановить"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Предыдущий трэк"/>
+		<item id="ID_MEDIA_NEXT" text="Следующий трэк"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Выйти после пересылок"/>
+		<item id="ID_NETWORK_EXIT" text="Выход"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
@@ -549,9 +566,10 @@
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Проверить новую _версию"/>
+			<item id="ID_HELP_DONATE" text="_Пожертвования"/>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_О PeerProject..."/>
-			<item id="ID_HELP_DONATE" text="_Пожертвования"/>
+
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
@@ -648,9 +666,10 @@
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Проверить новую _версию"/>
+			<item id="ID_HELP_DONATE" text="_Пожертвования"/>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_О PeerProject..."/>
-			<item id="ID_HELP_DONATE" text="_Пожертвования"/>
+
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Windowed" type="bar">
@@ -665,8 +684,8 @@
 			<separator/>
 			<menu text="_Выбор сетей">
 				<item id="ID_NETWORK_G2" text="Подключиться к _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Подключиться кс _eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Подключиться к Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Подключиться кс _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="_Закрыть после пересылок"/>
@@ -740,9 +759,10 @@
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Проверить новую _версию"/>
+			<item id="ID_HELP_DONATE" text="_Пожертвования"/>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_О PeerProject..."/>
-			<item id="ID_HELP_DONATE" text="_Пожертвования"/>
+
 		</menu>
 	</menu>
 	<!-- VIEW POPUP -->
@@ -796,40 +816,6 @@
 		<item id="ID_VIEW_PACKETS" text="Дамп _пакетов"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="_Монитор по_иска"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="Монитор хи_тов"/>
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_Открыть PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Новый _поиск..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Загрузить файл..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Воспроизводить"/>
-		<item id="ID_MEDIA_PAUSE" text="Приоста_новить"/>
-		<item id="ID_MEDIA_STOP" text="Ос_тановить"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="Пре_дыдущий трэк"/>
-		<item id="ID_MEDIA_NEXT" text="_Следующий трэк"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="В_ыйти после пересылок"/>
-		<item id="ID_NETWORK_EXIT" text="Вы_ход"/>
-	</menu>
-	<!-- REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_Открыть PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Новый _поиск..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Загрузить файл..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Воспроизводить"/>
-		<item id="ID_MEDIA_PAUSE" text="Приоста_новить"/>
-		<item id="ID_MEDIA_STOP" text="Ос_тановить"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="Пре_дыдущий трэк"/>
-		<item id="ID_MEDIA_NEXT" text="_Следующий трэк"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="В_ыйти после пересылок"/>
-		<item id="ID_NETWORK_EXIT" text="Вы_ход"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -1092,6 +1078,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Авто-очистка"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Продолжить все"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="При_остановить все"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Убрать все"/>
@@ -1488,6 +1476,9 @@
 	<menu name="CSearchMonitorWnd">
 		<item id="ID_HITMONITOR_SEARCH" text="_Искать это"/>
 		<separator/>
+		<item id="ID_BROWSE_LAUNCH" text="Просмотр _хоста"/>
+		<item id="ID_SECURITY_BAN" text="_Блокировать"/>
+		<separator/>
 		<item id="ID_SEARCHMONITOR_PAUSE" text="Монитор на _паузу"/>
 		<item id="ID_SEARCHMONITOR_CLEAR" text="_Очистить буфер"/>
 	</menu>
@@ -1711,7 +1702,7 @@
 		</styles>
 		<para align="center">
 			<group id="1">
-				<text>Вы еще не загрузили никаких файлов.</text>
+				<text>Нет активных загрузок</text>
 				<newline gap="4"/>
 			</group>
 			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Перейти к загрузкам</link>
@@ -1760,9 +1751,9 @@
 		</styles>
 		<group id="1">
 			<para align="center">
-				<text format="b">Не подключены</text>
+				<text format="b">Нет подключения</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Щелкните здесь, чтобы подключиться</link>
+				<link target="peer:command:ID_NETWORK_CONNECT">Подключиться!</link>
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
@@ -1808,9 +1799,9 @@
 			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 раздача активна</link>
 			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i раздача(и) активна(ы)</link>
 			<newline gap="4"/>
-			<text id="UploadedNone">Вы ничего сегодня не раздавали</text>
-			<text id="UploadedOne">Вы раздали 1 файл (%s)</text>
-			<text id="UploadedMany">Вы раздали %i файла(ов) (%s)</text>
+			<text id="UploadedNone">Cегодня раздач не было</text>
+			<text id="UploadedOne">Всего 1 файл (%s)</text>
+			<text id="UploadedMany">Всего %i файла(ов) (%s)</text>
 		</para>
 	</document>
 	<document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
@@ -1827,10 +1818,10 @@
 			<link id="ReseedTorrent" format="bu" target="peer:command:ID_TOOLS_RESEEDTORRENT">Раздавать %s</link>
 			<newline gap="4"/>
 			<group id="1">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Раздавать другой торрент</link>
+			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Начать раздачу</link>
 			</group>
 			<group id="2">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Раздавать торрент</link>
+			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Начать раздачу</link>
 			</group>
 		</para>
 	</document>
@@ -1909,7 +1900,7 @@
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
 		<heading id="Nick"/>
-		<heading> &nbsp;Профиль</heading>
+		<heading> &#160;Профиль</heading>
 		<newline gap="8"/>
 		<group id="1">
 			<newline gap="8" indent="0"/>
@@ -2317,7 +2308,6 @@
 	<tip id="ID_DOWNLOADS_SHARE" message="Открыть доступ к частично загруженному файлу другим пользователями."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Показывать источники, которые в данный момент не используются."/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="Искать большего кол-ва источников для помеченной загрузки(ок)."/>
-	<tip id="ID_DOWNLOADS_TORRENT_INFO" message="Просмотр информации о помеченной BitTorrent загрузке..."/>
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Добавить ссылку источника к помеченной загрузке..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Просмотр оценок о помеченной загрузке."/>
 	<tip id="ID_HELP_ABOUT" message="Показать диалог «О PeerProject...»"/>
@@ -2337,6 +2327,7 @@
 	<tip id="ID_HELP_WEB_5" message="Посетить этот сайт"/>
 	<tip id="ID_HELP_WEB_6" message="Посетить этот сайт"/>
 	<tip id="ID_HELP_DONATE" message="Вы можете пожертвовать немного средств для развития этой  программы."/>
+	<tip id="ID_HELP_FAKESHAREAZA" message="Translate FakeShareaza.com to learn more about recent events."/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Очистить буфер монитора хитов."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Приостановить вывод в монитор хитов."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Искать в сети указанную фразу."/>
@@ -2487,13 +2478,13 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Добавлять штамп времени в каждую строчку."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Показывать подробный журнал активности системы."/>
 	<tip id="ID_TAB_CONNECT" message="Соединиться или отключиться от сети."/>
-	<tip id="ID_TAB_HELP" message="Получить помощь о использовании PeerProject."/>
 	<tip id="ID_TAB_HOME" message="Вернутся на начальную страницу PeerProject"/>
-	<tip id="ID_TAB_LIBRARY" message="Просмотр и управление содержимым Вашего хранилища."/>
-	<tip id="ID_TAB_MEDIA" message="Воспроизводить аудио и видео медиа файлы из Вашего хранилища."/>
-	<tip id="ID_TAB_NETWORK" message="Посмотреть как хорошо Вы подсоединены к сети."/>
 	<tip id="ID_TAB_SEARCH" message="Искать файлов в сети для загрузки"/>
 	<tip id="ID_TAB_TRANSFERS" message="Контроль раздач и выполняемых Вами загрузок."/>
+	<tip id="ID_TAB_NETWORK" message="Посмотреть как хорошо Вы подсоединены к сети."/>
+	<tip id="ID_TAB_LIBRARY" message="Просмотр и управление содержимым Вашего хранилища."/>
+	<tip id="ID_TAB_MEDIA" message="Воспроизводить аудио и видео медиа файлы из Вашего хранилища."/>
+	<tip id="ID_TAB_IRC" message="Показать окно IRC чата."/>
 	<tip id="ID_TOOLS_DOWNLOAD" message="Начать загрузку нового файла или BitTorrent торрента..."/>
 	<tip id="ID_TOOLS_LANGUAGE" message="Выбрать язык PeerProject (Select the language of PeerProject)"/>
 	<tip id="ID_TOOLS_PROFILE" message="Правка своего профиля пользователя..."/>
@@ -2530,7 +2521,6 @@
 	<tip id="ID_VIEW_BASIC" message="Использовать программу PeerProject в обычном режиме."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Показать или скрыть окно Ресурсов Соединений."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Показать или скрыть окно Загрузок."/>
-	<tip id="ID_VIEW_HELP" message="Показать или скрыть окно Помощи."/>
 	<tip id="ID_VIEW_HOSTS" message="Показать или скрыть окно Кэша Хостов."/>
 	<tip id="ID_VIEW_LIBRARY" message="Показать или скрыть окно Хранилища."/>
 	<tip id="ID_VIEW_MEDIA" message="Показать или скрыть окно Проигрывателя."/>
@@ -2588,6 +2578,7 @@
 	<string id="WINDOW_MEDIA" value="Проигрыватель"/>
 	<string id="WINDOW_SEARCHPAD" value="Поиск"/>
 	<string id="WINDOW_HELP" value="PeerProject помощь"/>
+	<string id="WINDOW_IRC" value="Чат Shareaza"/>
 	<string id="7000" value="Вы уверены, что хотите удалить этот фильтр?"/>
 	<string id="7001" value="&amp;Схемы"/>
 	<string id="7002" value="Разные значения"/>
@@ -2600,7 +2591,7 @@
 	<string id="8000" value="Установки PeerProject"/>
 	<string id="8001" value="Добро пожаловать в PeerProject"/>
 	<string id="8002" value="Свойства файла"/>
-	<string id="8003" value="Редактировать профиль"/>
+	<string id="8003" value="Профиль"/>
 	<string id="8004" value="!Добро пожаловать в PeerProject (version) !\n.\nPeerProject полностью бесплатная программа.\nПожалуйста используйте её с уважением к законам интеллектуальной собственности.\n."/>
 	<string id="8005" value="(закрытие после загрузок)"/>
 	<string id="8006" value="Вы не подключены.  Щелкните кнопку «Подключиться», чтобы начать работу."/>
@@ -2610,6 +2601,7 @@
 	<string id="8010" value="Это предвыпускная версия PeerProject, и период бета тестирования закончился.  Пожалуйста загрузите полную, официальную версию с http://PeerProject.org."/>
 	<string id="8011" value="При смене вида все открытые Вами окна будут закрыты.  Хотите ли переключить сейчас?"/>
 	<string id="8012" value="Информация о торренте"/>
+	<string id="8013" value="Нет новых PeerProject версия обнаружено."/>
 	<string id="8014" value="Свойства загрузки"/>
 	<string id="8060" value="Узел/режим Ведущего с %lu хостом(ами).  %s в собсвенном хранилище."/>
 	<string id="8061" value="Режим Ведущего с %lu хостом(ами).  %s в собсвенном хранилище."/>
@@ -2632,12 +2624,12 @@
 	<string id="8101" value="%s пишет:"/>
 	<string id="8102" value="%s оценивает этот файл:"/>
 	<string id="8103" value="&#160;&#160;Щелкните для&#160; просмотра"/>
-	<string id="8104" value="Предпросматриваю..."/>
+	<string id="8104" value="Ждите..."/>
 	<string id="8105" value="Невозможно загрузить содержимое просмотра с «%s»."/>
 	<string id="8128" value="Щелкните здесь для поиска снова"/>
-	<string id="8129" value="Поиск еще не был запущен в этом окне."/>
+	<string id="8129" value="Поиск ещё не был запущен в этом окне."/>
 	<string id="8130" value="PeerProject ищет файлы в сети ..."/>
-	<string id="8131" value="Сеть все еще не возвратила никаких результатов."/>
+	<string id="8131" value="Сеть все ещё не возвратила никаких результатов."/>
 	<string id="8132" value="Некоторые результаты доступны, но были отфильтрованы."/>
 	<string id="8133" value="PeerProject активно ищет файлы в сети ..."/>
 	<string id="8134" value="Вы собираетесь начать новый поиск. Хотите ли Вы очистить результаты предыдущего поиска?"/>
@@ -2688,7 +2680,7 @@
 	<string id="8230" value="PeerProject ищет источники для:"/>
 	<string id="8231" value="Нет источников"/>
 	<string id="8232" value="Открыть"/>
-	<string id="8233" value="Предпросмотр"/>
+	<string id="8233" value="Просмотр"/>
 	<string id="8235" value="Скорость передачи:"/>
 	<string id="8236" value="Примерно осталось:"/>
 	<string id="8237" value="Загрузили|Всего|%:"/>
@@ -3068,6 +3060,13 @@
 	<string id="16997" value="Нет воспроизводимых файлов.  Щелкните дважды на медиа файле в Вашем хранилище для его проигрывания."/>
 	<string id="16998" value="М    Е    Д    И   А        С   И   С   Т   Е   М   А        P    E    E    R    P    R    O    J    E    C    T"/>
 	<string id="16999" value="Список   Воспроизведения"/>
+	<string id="17017" value="Послать:"/>
+	<string id="17018" value="Добро пожаловать в чат PeerProject"/>
+	<string id="17019" value="Пожалуйста уважайте других, когда пользуетесь этим сервисом"/>
+	<string id="17020" value="Добавить"/>
+	<string id="17021" value="Удалить"/>
+	<string id="17022" value="Юзера"/>
+	<string id="17023" value="Каналы"/>
 	<string id="17024" value="Инициализация соединения с %s..."/>
 	<string id="17025" value="Невозможно установить связь с %s."/>
 	<string id="17026" value="Запрашивается соединение активной доставки через брандмауэр у %s..."/>
@@ -3210,7 +3209,6 @@
 	<string id="20001" value="Закрыть"/>
 	<string id="20002" value="из"/> <!-- "1 of 10" -->
 	<string id="20003" value="Для смены направления интерфейса Вы должны вручную перезапустить PeerProject.\?Выйти сейчас?"/>
-	<string id="20004" value="Ваша ОС не поддеживает языки с направлением текста справа налево."/>
 	<string id="20005" value="Нет"/>
 	<string id="20006" value="Да"/>
 	<string id="20007" value="Авто"/>
@@ -3281,10 +3279,18 @@
 	<string id="20234" value="Альбом"/>
 	<string id="20235" value="Артист"/>
 	<string id="20236" value="Оценка"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="Отмена"/>
+	<string id="20239" value="Прервать"/>
+	<string id="20240" value="Повторить"/>
+	<string id="20241" value="Игнорировать"/>
+	<string id="20242" value="Повторить снова"/>
+	<string id="20243" value="Продолжить"/>
+	<string id="20244" value="&amp;Запомнить мой выбор на будущее"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="Основное">
+	<dialog name="CGeneralSettingsGroup" cookie="" caption="Главное">
 	</dialog>
 	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="Установки PeerProject">
 		<control/>
@@ -3547,14 +3553,14 @@
 		<control caption="Gnutella2 - основная сеть PeerProject, она предлагает больше особенностей и опций работы чем любая другая P2P сеть."/>
 		<control caption="Соединяться с Gnutella2(G2)"/>
 		<control caption="Настроить Gnutella2"/>
-		<control caption="Сеть eDonkey:"/>
-		<control caption="eDonkey популярная сеть с использованием серверов.  Не столь богата возможностями как Gnutella2, но содержит больше файлов."/>
-		<control caption="Соединяться с eDonkey"/>
-		<control caption="Настроить eDonkey"/>
 		<control caption="Сеть оригинальной Gnutella:"/>
 		<control caption="Хотя оригинальная Gnutella менее богата возможностями чем Gnutella2, и имеет меньше файлов чем eDonkey, всё равно это ценный ресурс."/>
-		<control caption="Соединяться с оригинальной Gnutella"/>
+		<control caption="Соединяться с оригинальной Gnutella (G1)"/>
 		<control caption="Настроить Gnutella1"/>
+		<control caption="Сеть eDonkey:"/>
+		<control caption="eDonkey популярная сеть с использованием серверов.  Не столь богата возможностями как Gnutella2, но содержит больше файлов."/>
+		<control caption="Соединяться с eDonkey2000 (ED2K)"/>
+		<control caption="Настроить eDonkey"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Сеть Gnutella2:"/>
@@ -3785,11 +3791,11 @@
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Добро пожаловать в PeerProject (5/6)">
 		<control caption="PeerProject - многоцелевая программа обмена файлами, с доступом ко многим P2P сетям одновременно. Здесь Вы можете выбрать, какие P2P сети Вы хотите использовать. Отметьте, что Вы можете выбрать их позже."/>
 		<control caption="Соединяться с Gnutella2 (рекомендуется)"/>
-		<control caption="Gnutella2 - основная сеть PeerProject, она предлагает больше особенностей и опций работы чем любая другая P2P сеть."/>
-		<control caption="Соединяться с eDonkey"/>
-		<control caption="eDonkey популярная сеть с использованием серверов.  Не столь богата возможностями как Gnutella2, но содержит больше файлов."/>
+		<control caption="Gnutella2 (G2) - основная сеть PeerProject, она предлагает больше особенностей и опций работы чем любая другая P2P сеть."/>
 		<control caption="Соединяться с оригинальной Gnutella"/>
-		<control caption="Хотя оригинальная Gnutella менее богата возможностями чем Gnutella2, и имеет меньше файлов чем eDonkey, всё равно это ценный ресурс."/>
+		<control caption="Хотя оригинальная Gnutella (G1) менее богата возможностями чем Gnutella2, и имеет меньше файлов чем eDonkey, всё равно это ценный ресурс."/>
+		<control caption="Соединяться с eDonkey"/>
+		<control caption="eDonkey (ED2K) популярная сеть с использованием серверов.  Не столь богата возможностями как Gnutella2, но содержит больше файлов."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Импорт eDonkey Загрузок">
 		<control/>
@@ -4197,7 +4203,7 @@
 	</dialog>
 	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Просмотр копии загрузки...">
 		<control/>
-		<control caption="PeerProject готовит предпросмотр загрузки:"/>
+		<control caption="PeerProject готовит просмотр загрузки:"/>
 		<control/>
 		<control/>
 		<control caption="(копируются загруженные части в новый файл)"/>
@@ -4289,37 +4295,46 @@
 		<control caption="_Далее|Экспорт..."/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Загрузка">
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Загрузка">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
 		<control caption="ВНИМАНИЕ: Этот диалог для ОПЫТНЫХ пользователей и дает опции, которые при неправильном использовании могут разрушить загрузку."/>
 		<control caption="Имя и размер файла:"/>
 		<control caption="Имя файла:"/>
-		<control/>
-		<control/>
 		<control caption="Размер (байты):"/>
-		<control/>
 		<control caption="_URNs:"/>
 		<control caption="Верим"/>
 		<control caption="SHA1:"/>
-		<control/>
-		<control/>
 		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
 		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Действия:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStEdEdBuBuBuStStSt" caption="Действия">
 		<control caption="Забыть текущий статус проверки и перепроверить"/>
 		<control caption="Считать, что файл загружен на 100% и перепроверить"/>
 		<control caption="Забыть все известные источники"/>
 		<control caption="Слить с локальным файлом и перепроверить"/>
 		<control caption="Отменить загрузку с сохранением неполных файлов"/>
-		<control caption="Стиратель:"/>
-		<control caption="Сотри с:"/>
 		<control/>
-		<control caption="по"/>
 		<control/>
 		<control caption="Стереть"/>
+		<control caption="_Действия:"/>
+		<control caption="_Стиратель:"/>
+		<control caption="Сотри с:"/>
+		<control caption="по"/>
+		<control caption="ВНИМАНИЕ: Этот диалог для ОПЫТНЫХ пользователей и дает опции, которые при неправильном использовании могут разрушить загрузку."/>
 	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Открыть торрент">
 		<control/>
@@ -4330,61 +4345,57 @@
 		<control caption="Чтобы обмениваться файлами в BitTorrent, их нужно сперва раздать. Когда процесс завершится, торрент появится в Вашем списке загрузок."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Торрент">
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Торрент">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption=" Когда необходимо| Когда соотношение выше 100%| Только когда запрашивают| Никогда"/>
+		<control/>
 		<control caption="_Информация о торренте:"/>
 		<control caption="Файл:"/>
-		<control/>
 		<control caption="Создан:"/>
-		<control/>
 		<control caption="Чем:"/>
-		<control/>
 		<control caption="Примечания:"/>
-		<control/>
 		<control caption="Пересылки:"/>
 		<control caption="Начать новые загрузки:"/>
-		<control caption="Когда необходимо|Когда соотношение выше 100%|Только когда запрашивают|Никогда"/>
-		<control/>
 		<control caption="Всего роздано:"/>
 		<control caption="Заметки:"/>
+	</dialog>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Файлы">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Файлы">
-		<control caption="_Информация о торренте:"/>
-		<control caption="Файл:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdCoBuSyStBuStStSt" caption="Трекеры">
 		<control/>
-		<control caption="_Файлы:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Трекеры">
-		<control caption="_Информация о торренте:"/>
-		<control caption="Файл:"/>
+		<control/>
+		<control caption="Отключен|Один трекер|Мульти-трекер|Мульти-трекер (заблокир.)"/>
+		<control caption="_Обновить"/>
 		<control/>
 		<control caption="Трекер:"/>
-		<control/>
 		<control caption="_Активный трекер:"/>
 		<control caption="_Сидеры (раздача):"/>
-		<control/>
 		<control caption="_Личеры (загрузка):"/>
-		<control/>
-		<control caption="_Обновить"/>
-		<control caption="_Трекеры:"/>
-		<control/>
 		<control caption="Режим трекера:"/>
-		<control caption="Отключен|Настраиваемый|Один трекер|Мультитрекер|Мультитрекер (заблокир.)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Свойства группы загрузки">
-		<control caption="_Название:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Свойства группы загрузки">
+		<control caption="OK"/>
+		<control caption="Отмена"/>
 		<control/>
 		<control/>
-		<control caption="_Фильтры:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="_Добавить"/>
 		<control caption="_Удалить"/>
-		<control caption="OK"/>
-		<control caption="Отмена"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="_Название:"/>
+		<control caption="_Фильтры:"/>
 		<control caption="_Папка завершенных файлов:"/>
-		<control/>
-		<control/>
+		<control caption="_тип файла:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Выбор визуализации">
 		<control/>
@@ -4436,7 +4447,7 @@
 		<column from="Folder" to="Папка"/>
 		<column from="Hits" to="Обращений"/>
 		<column from="Uploads" to="Раздач"/>
-	<column from="Modified" to="Изменено"/>
+		<column from="Modified" to="Изменено"/>
 	</list>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Загружаемый файл"/>

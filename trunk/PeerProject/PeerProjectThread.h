@@ -23,6 +23,7 @@
 
 
 #ifdef _DEBUG
+	#define MS_VC_EXCEPTION	0x406D1388
 	#define ALMOST_INFINITE	INFINITE
 #else
 	#define ALMOST_INFINITE	20000
@@ -59,7 +60,6 @@ protected:
 
 	static CCriticalSection	m_ThreadMapSection;	// Guarding of m_ThreadMap
 	static CThreadMap		m_ThreadMap;		// Map of running threads
-	BOOL					m_bCOM;				// OLE initialized
 	AFX_THREADPROC			m_pfnThreadProcExt;
 };
 

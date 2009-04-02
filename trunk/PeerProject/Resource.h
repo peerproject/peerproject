@@ -48,12 +48,18 @@
 #define IDC_HAND                    	147
 #define IDR_HELPFRAME               	147
 #define IDD_ABOUT                   	148
+#define IDS_PRIORITY_OFF                148
 #define IDD_FILTER_SAVE_AS          	149
+#define IDS_PRIORITY_LOW                149
 #define IDD_GRAPH_LIST              	150
+#define IDS_PRIORITY_NORMAL             150
 #define IDD_GRAPH_ITEM              	151
 #define IDB_COLORDOT                	151
+#define IDS_PRIORITY_HIGH               151
 #define IDD_WIZARD_WELCOME          	152
+#define IDS_SKIN_ERROR                  152
 #define IDD_WIZARD_CONNECTION       	153
+#define IDS_SKIN_LOAD                   153
 #define IDB_WIZARD                  	154
 #define IDD_WIZARD_SHARING          	154
 #define IDD_WIZARD_FINISHED         	155
@@ -206,12 +212,15 @@
 #define IDI_RATING_AVERAGE          	323
 #define IDI_RATING_GOOD             	324
 #define IDR_CHANSFRAME              	991
+#define IDD_DOWNLOAD_ACTIONS            993
 #define IDR_IRCFRAME                	994
 #define IDR_USERSFRAME              	995
 #define IDB_FONT_SYMBOLS            	996
 #define IDD_SETTINGS_IRC            	997
 #define IDD_IRC_INPUTBOX            	998
 #define IDB_IRCICONS                	999
+#define IDD_SELECT                  	999
+#define IDD_MESSAGE                     1000
 #define IDC_CONNECT_HOST            	1000
 #define IDC_CONNECT_PORT            	1001
 #define IDC_SCHEMAS                 	1002
@@ -577,6 +586,7 @@
 #define IDC_URN_SHA1                	1362
 #define IDC_URN_TIGER               	1363
 #define IDC_URN_ED2K                	1364
+#define IDC_URN_MD5                     1365
 #define IDC_TRAY_MINIMISE           	1366
 #define IDC_FORGET_VERIFY           	1367
 #define IDC_FORGET_SOURCES          	1368
@@ -776,6 +786,18 @@
 #define IDC_CANCEL_DOWNLOAD         	1562
 #define IDC_SMART_SERIES_DETECTION  	1563
 #define IDC_FAIRUSE_MODE            	1565
+#define IDC_DOWNLOADS_DEFAULT       	1566
+#define IDC_DOWNLOADS_TORRENT       	1567
+#define IDC_URN_BTH                 	1568
+#define IDC_TRUST_MD5               	1569
+#define IDC_TRUST_BTH               	1570
+#define IDC_INFO_TEXT               	1571
+#define IDC_INFO_ICON               	1572
+#define IDC_INFO_BUTTON1            	1573
+#define IDC_INFO_BUTTON2            	1574
+#define IDC_INFO_BUTTON3            	1575
+#define IDC_INFO_SPLIT              	1576
+#define IDC_INFO_REMEMBER           	1577
 #define IDS_FILTER_DELETE_CONFIRM   	7000
 #define IDS_SCHEMAS                 	7001
 #define IDS_MULTIPLE_VALUES         	7002
@@ -847,6 +869,7 @@
 #define IDS_SEARCH_PANEL_RESULTS_INACTIVE 8153
 #define IDS_SEARCH_PANEL_RESULTS_NONE   8154
 #define IDS_SEARCH_PANEL_RESULTS_FORMAT 8155
+#define IDS_SEARCH_PANEL_FILTERED       8168
 #define IDS_SEARCH_PANEL_INPUT_CAPTION  8156
 #define IDS_SEARCH_PANEL_RESULTS_CAPTION 8157
 #define IDS_SEARCH_PANEL_CLEAR      	8158
@@ -1408,8 +1431,10 @@
 #define IDS_DOWNLOAD_QUEUE_HUGE     	18508
 #define IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH 18509
 #define IDS_DOWNLOAD_EDIT_COMPLETE_VERIFY 18510
-#define IDS_DOWNLOAD_EDIT_CHANGE_SIZE   18511
+#define IDS_DOWNLOAD_EDIT_CHANGE_SIZE     18511
 #define IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD 18512
+#define IDS_DOWNLOAD_EDIT_BAD_HASH      18513
+#define IDS_DOWNLOAD_EDIT_CHANGE_HASH   18514
 #define IDS_REMOTE_DISABLED         	19000
 #define IDS_REMOTE_ENABLED          	19001
 #define IDS_REMOTE_UNAVAILABLE      	19002
@@ -1422,7 +1447,6 @@
 #define IDS_GENERAL_CLOSE           	20001
 #define IDS_GENERAL_OF              	20002
 #define IDS_GENERAL_RTL_WARNING     	20003
-#define IDS_GENERAL_RTL_NOTSUPPORTED	20004
 #define IDS_GENERAL_NO              	20005
 #define IDS_GENERAL_YES             	20006
 #define IDS_GENERAL_AUTO            	20007
@@ -1494,6 +1518,14 @@
 #define IDS_LIBRARY_ALBUM_ALBUM     	20234
 #define IDS_LIBRARY_ALBUM_ARTIST    	20235
 #define IDS_LIBRARY_ALBUM_RATING    	20236
+#define IDS_GENERAL_OK              	20237
+#define IDS_GENERAL_CANCEL          	20238
+#define IDS_GENERAL_ABORT           	20239
+#define IDS_GENERAL_RETRY           	20240
+#define IDS_GENERAL_IGNORE          	20241
+#define IDS_GENERAL_TRYAGAIN        	20242
+#define IDS_GENERAL_CONTINUE        	20243
+#define IDS_INFO_REMEMBER           	20244
 #define ID_HELP_ABOUT               	32772
 #define ID_HELP_VERSION_CHECK       	32773
 #define ID_CHECKMARK                	32774
@@ -1530,7 +1562,7 @@
 #define ID_SEARCHMONITOR_PAUSE      	32814
 #define ID_HITMONITOR_PAUSE         	32815
 #define ID_SEARCHMONITOR_CLEAR      	32816
-#define ID_SEARCH_URI              	32817
+#define ID_SEARCH_URI              		32817
 #define ID_HITMONITOR_SEARCH        	32819
 #define ID_HOSTCACHE_G2_HORIZON     	32820
 #define ID_HOSTCACHE_G2_CACHE       	32821
@@ -1595,7 +1627,7 @@
 #define ID_NEIGHBOURS_CHAT          	32885
 #define ID_SEARCH_STOP              	32889
 #define ID_TOOLS_DOWNLOAD           	32890
-#define ID_DOWNLOADS_ADD_SOURCE            	32891
+#define ID_DOWNLOADS_ADD_SOURCE     	32891
 #define ID_LIBRARY_BITZI_WEB        	32892
 #define ID_LIBRARY_BITZI_DOWNLOAD   	32893
 #define ID_LIBRARY_REFRESH_METADATA 	32894
@@ -1650,7 +1682,7 @@
 #define ID_SEARCH_PANEL             	32954
 #define ID_SYSTEM_TIMESTAMP         	32956
 #define ID_LIBRARY_LAUNCH           	32957
-#define ID_NEIGHBOURS_URI          	32958
+#define ID_NEIGHBOURS_URI          		32958
 #define ID_TOOLS_RESKIN             	32959
 #define ID_MONITOR_CLOSE            	32960
 #define ID_WINDOW_TOOLBAR           	32961
@@ -1748,7 +1780,7 @@
 #define ID_LIBRARY_REBUILD          	33057
 #define ID_NETWORK_NULL             	33058
 #define ID_SHELL_MENU               	33059
-#define ID_DOWNLOADS_URI           	33060
+#define ID_DOWNLOADS_URI            	33060
 #define ID_LIBRARY_VIEW_ALBUM       	33061
 #define ID_SEARCH_DETAILS           	33062
 #define ID_HELP_WARNINGS            	33063
@@ -1783,6 +1815,7 @@
 #define ID_DOWNLOAD_GROUP_PAUSE     	33092
 #define ID_DOWNLOAD_GROUP_RESUME    	33093
 #define ID_DOWNLOAD_GROUP_CLEAR     	33094
+#define ID_DOWNLOAD_GROUP_OPEN      	33095
 #define ID_DOWNLOAD_GROUP_SHOW      	33096
 #define ID_DOWNLOADS_HELP           	33097
 #define ID_DOWNLOADS_FILTER_MENU    	33098
@@ -1804,6 +1837,7 @@
 #define ID_UPLOADS_FILTER_TORRENT   	33115
 #define ID_TOOLS_SEEDTORRENT        	33117
 #define ID_TOOLS_RESEEDTORRENT      	33118
+#define ID_TOOLS_CREATETORRENT      	33119
 #define ID_HELP_FORUMS              	33120
 #define ID_HELP_UPDATE              	33121
 #define ID_HELP_ROUTER              	33124
@@ -1815,6 +1849,7 @@
 #define ID_HELP_DISKWRITEFAIL       	33131
 #define ID_HELP_CONNECTIONFAIL      	33132
 #define ID_HELP_DONKEYSERVERS       	33133
+#define ID_HELP_FAKESHAREAZA            33134
 #define ID_MEDIA_PROPERTIES         	33137
 #define ID_MEDIA_RATE               	33138
 #define ID_MEDIA_STATE_STOP         	33200
@@ -1865,6 +1900,10 @@
 #define ID_SYSTEM_VERBOSE_INFO      	33315
 #define ID_SYSTEM_VERBOSE_DEBUG     	33316
 #define ID_SHAREMONKEY_SAVE_OPTION  	33317
+#define ImageViewer_BestFit             33318
+#define ImageViewer_ActualSize          33319
+#define ImageViewer_Refresh             33320
+#define ImageViewer_Close               33321
 
 // Next default values for new objects
 // 
@@ -1872,8 +1911,8 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS            	1
 #define _APS_NEXT_RESOURCE_VALUE    	325
-#define _APS_NEXT_COMMAND_VALUE     	33318
-#define _APS_NEXT_CONTROL_VALUE     	1566
+#define _APS_NEXT_COMMAND_VALUE         33322
+#define _APS_NEXT_CONTROL_VALUE     	1578
 #define _APS_NEXT_SYMED_VALUE       	104
 #endif
 #endif

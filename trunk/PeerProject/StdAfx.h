@@ -112,6 +112,7 @@
 
 #define VC_EXTRALEAN
 #define _ATL_NO_COM_SUPPORT
+#define BOOST_USE_WINDOWS_H
 
 #pragma warning( push, 0 )			// Suppress Microsoft warnings
 
@@ -119,8 +120,8 @@
 // MFC
 //
 
-#include <afxwin.h>         // MFC core and standard components
-#include <afxext.h>         // MFC extensions
+#include <afxwin.h>			// MFC core and standard components
+#include <afxext.h>			// MFC extensions
 #include <afxcmn.h>			// MFC support for Windows Common Controls
 #include <afxtempl.h>		// MFC templates
 #include <afxmt.h>			// MFC threads
@@ -136,6 +137,7 @@
 
 #include <winsock2.h>		// Windows sockets V2
 #include <wininet.h>		// Internet
+#include <wincrypt.h>		// Cryptographic API
 #include <ddeml.h>			// DDE
 #include <math.h>			// Math
 #include <winsvc.h>			// Services (excluded by VC_EXTRALEAN)
@@ -223,7 +225,46 @@ using augment::auto_array;
 using augment::com_ptr;
 using augment::IUnknownImplementation;
 
-#include "Utility.hpp"
+#include "../HashLib/HashLib.h"
+
+// GeoIP (geolite.maxmind.com)
+// #include "../Services/GeoIP/GeoIP.h"
+
+// BugTrap (www.intellesoft.net)
+#ifdef _DEBUG
+	#include "../Services/BugTrap/BugTrap.h"
+#endif
+
+typedef CString StringType;
+
+//! \brief Hash function needed for CMap with const CString& as ARG_KEY.
+template<> AFX_INLINE UINT AFXAPI HashKey(const CString& key)
+{
+	UINT nHash = 0;
+	LPCTSTR pKey = key.GetString();
+	while ( *pKey )
+		nHash = ( nHash << 5 ) + nHash + *pKey++;
+	return nHash;
+}
+//! \brief Hash function needed for CMap with CString& as ARG_KEY.
+template<> AFX_INLINE UINT AFXAPI HashKey(CString& key)
+{
+	return HashKey< const CString& >( key );
+}
+//! \brief Hash function needed for CMap with CString as ARG_KEY.
+template<> AFX_INLINE UINT AFXAPI HashKey(CString key)
+{
+	return HashKey< const CString& >( key );
+}
+//! \brief Hash function needed for CMap with DWORD_PTR as ARG_KEY.
+//!
+//! While the default hash function could be used, this one does not generate
+//! (false) 64 bit warnings.
+template<> AFX_INLINE UINT AFXAPI HashKey(DWORD_PTR key)
+{
+	return static_cast< UINT >( key >> 4 );
+}
+
 #include "Hashes.hpp"
 
 #undef IDC_HAND		// Defined in Windows.h->WinUser.h and in Resource.h
@@ -320,6 +361,8 @@ typedef struct _ICONDIR
 
 #pragma pack( pop )
 
+
+// OBSOLETE
 // Copied from GeoIP.h
 typedef struct GeoIPTag {
   FILE *GeoIPDatabase;
@@ -344,6 +387,7 @@ typedef enum {
 typedef GeoIP* (*GeoIP_newFunc)(int);
 typedef const char * (*GeoIP_country_code_by_addrFunc) (GeoIP*, const char *);
 typedef const char * (*GeoIP_country_name_by_addrFunc) (GeoIP*, const char *);
+
 
 const uint64 SIZE_UNKNOWN = ~0ull;
 
@@ -524,6 +568,20 @@ __int64 GetMicroCount();
 // Produces the best hash table size for CMap::InitHashTable use
 UINT GetBestHashTableSize(UINT nCount);
 
+// Encode Unicode text to UTF-8 text
+CStringA UTF8Encode(__in_bcount(nInput) LPCWSTR szInput, __in int nInput);
+inline CStringA UTF8Encode(__in const CStringW& strInput)
+{
+	return UTF8Encode( strInput, strInput.GetLength() );
+}
+
+// Decode UTF-8 text to Unicode text
+CStringW UTF8Decode(__in_bcount(nInput) LPCSTR szInput, __in int nInput);
+inline CStringW UTF8Decode(__in const CStringA& strInput)
+{
+	return UTF8Decode( strInput, strInput.GetLength() );
+}
+
 // Encode and decode URL text, and see if a string starts with a tag
 CString URLEncode(LPCTSTR pszInput);                   // Encode "hello world" into "hello%20world"
 CString URLDecode(LPCTSTR pszInput);                   // Decode "hello%20world" back to "hello world"
@@ -559,7 +617,7 @@ public:
 		T sum = 0;
 		for ( CAverageList::const_iterator i = m_Data.begin(); i != m_Data.end(); ++i )
 			sum += (*i).first;
-		return sum / m_Data.size();
+		return sum / (T)m_Data.size();
 	}
 
 protected:
@@ -597,3 +655,26 @@ inline bool IsFileNewerThan(LPCTSTR pszFile, const QWORD nMilliseconds)
 
 	return true;
 }
+
+inline QWORD GetFileSize(LPCTSTR pszFile)
+{
+	WIN32_FILE_ATTRIBUTE_DATA fd = {};
+	if ( GetFileAttributesEx( pszFile, GetFileExInfoStandard, &fd ) )
+		return MAKEQWORD( fd.nFileSizeLow, fd.nFileSizeHigh );
+	else
+		return SIZE_UNKNOWN;
+}
+
+// Powered version of AfxMessageBox()
+// nType				| *pnDefault
+// MB_OK				| 0 - ask, 1 - IDOK
+// MB_OKCANCEL			| 0 - ask, 1 - IDOK, 2 - IDCANCEL
+// MB_ABORTRETRYIGNORE	| 0 - ask, 1 - IDABORT, 2 - IDRETRY, 3 - IDIGNORE
+// MB_YESNOCANCEL		| 0 - ask, 1 - IDNO, 2 - IDYES, 3 - IDCANCEL
+// MB_YESNO				| 0 - ask, 1 - IDNO, 2 - IDYES
+// MB_RETRYCANCEL		| 0 - ask, 1 - IDRETRY, 2 - IDCANCEL
+// MB_CANCELTRYCONTINUE	| 0 - ask, 1 - IDCANCEL, 2 - IDTRYAGAIN, 3 - IDCONTINUE
+int MsgBox(LPCTSTR lpszText, UINT nType = MB_OK, UINT nIDHelp = 0, DWORD* pnDefault = NULL);
+int MsgBox(UINT nIDPrompt, UINT nType = MB_OK, UINT nIDHelp = 0, DWORD* pnDefault = NULL);
+#undef AfxMessageBox
+#define AfxMessageBox MsgBox

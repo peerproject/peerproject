@@ -121,7 +121,7 @@ void CSchema::Clear()
 }
 
 //////////////////////////////////////////////////////////////////////
-// CSchema load
+// CSchema Load
 
 BOOL CSchema::Load(LPCTSTR pszFile)
 {
@@ -136,15 +136,12 @@ BOOL CSchema::Load(LPCTSTR pszFile)
 
 	LoadDescriptor( strFile + _T(".xml") );
 
-	m_sIcon = m_sIcon.Left( m_sIcon.GetLength() - 4 );
-	m_sIcon += _T("XP.ico");
-
 	//LoadIcon() causes bad registry reads
-	//CCoolInterface::IsNewWindows() causes several reapeat ones.
-	if ( ! CCoolInterface::IsNewWindows() || ! LoadIcon() )
+	//CCoolInterface::IsNewWindows() caused several reapeat ones.(?)
+	if ( theApp.m_bIsWin2000 || ! LoadIcon() )
 	{
-		m_sIcon = m_sIcon.Left( m_sIcon.GetLength() - 6 );
-		m_sIcon += _T(".ico");
+		m_sIcon = m_sIcon.Left( m_sIcon.GetLength() - 4 );
+		m_sIcon += _T("Safe.ico");
 		LoadIcon();
 	}
 
@@ -158,7 +155,7 @@ BOOL CSchema::Load(LPCTSTR pszFile)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CSchema load schema
+// CSchema Load Schema
 
 BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 {
@@ -289,7 +286,7 @@ CXMLElement* CSchema::GetType(CXMLElement* pRoot, LPCTSTR pszName)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CSchema load descriptor
+// CSchema Load Descriptor
 
 BOOL CSchema::LoadDescriptor(LPCTSTR pszFile)
 {
@@ -364,7 +361,8 @@ BOOL CSchema::LoadDescriptor(LPCTSTR pszFile)
 		else if ( pElement->IsNamed( _T("viewContent") ) )
 		{
 			LoadDescriptorViewContent( pElement );
-		}/* // ToDo: Add this to schemas
+		}
+		/* // ToDo: Add this to schemas
 		else if ( pElement->IsNamed( _T("donkeyType") ) )
 		{
 			LoadDescriptorDonkeyType( pElement );
@@ -757,7 +755,7 @@ CString CSchema::GetVisibleWords(CXMLElement* pXML) const
 }
 
 //////////////////////////////////////////////////////////////////////
-// CSchema member resolution
+// CSchema Member Resolution
 
 void CSchema::ResolveTokens(CString& str, CXMLElement* pXML) const
 {
@@ -783,7 +781,7 @@ void CSchema::ResolveTokens(CString& str, CXMLElement* pXML) const
 }
 
 //////////////////////////////////////////////////////////////////////
-// CSchemaBitzi Bitzi map
+// CSchemaBitzi Bitzi Map
 
 BOOL CSchemaBitzi::Load(CXMLElement* pXML)
 {
@@ -799,18 +797,19 @@ BOOL CSchemaBitzi::Load(CXMLElement* pXML)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CSchema common schema URIs
+// CSchema Common Schema URIs
 
-LPCTSTR	CSchema::uriApplication	= _T("http://www.shareaza.com/schemas/application.xsd");
-LPCTSTR	CSchema::uriAudio		= _T("http://www.limewire.com/schemas/audio.xsd");
-LPCTSTR CSchema::uriArchive		= _T("http://www.shareaza.com/schemas/archive.xsd");
-LPCTSTR	CSchema::uriBook		= _T("http://www.limewire.com/schemas/book.xsd");
-LPCTSTR	CSchema::uriImage		= _T("http://www.shareaza.com/schemas/image.xsd");
-LPCTSTR	CSchema::uriVideo		= _T("http://www.limewire.com/schemas/video.xsd");
-LPCTSTR	CSchema::uriROM			= _T("http://www.shareaza.com/schemas/rom.xsd");
-LPCTSTR	CSchema::uriDocument	 = _T("http://www.shareaza.com/schemas/wordProcessing.xsd");
-LPCTSTR	CSchema::uriSpreadsheet	 = _T("http://www.shareaza.com/schemas/spreadsheet.xsd");
-LPCTSTR CSchema::uriPresentation = _T("http://www.shareaza.com/schemas/presentation.xsd");
+LPCTSTR	CSchema::uriApplication 			= _T("http://www.shareaza.com/schemas/application.xsd");
+LPCTSTR	CSchema::uriAudio					= _T("http://www.limewire.com/schemas/audio.xsd");
+LPCTSTR CSchema::uriArchive					= _T("http://www.shareaza.com/schemas/archive.xsd");
+LPCTSTR	CSchema::uriBook					= _T("http://www.limewire.com/schemas/book.xsd");
+LPCTSTR	CSchema::uriImage					= _T("http://www.shareaza.com/schemas/image.xsd");
+LPCTSTR	CSchema::uriVideo					= _T("http://www.limewire.com/schemas/video.xsd");
+LPCTSTR	CSchema::uriROM 					= _T("http://www.shareaza.com/schemas/rom.xsd");
+LPCTSTR	CSchema::uriDocument				= _T("http://www.shareaza.com/schemas/wordProcessing.xsd");
+LPCTSTR	CSchema::uriSpreadsheet				= _T("http://www.shareaza.com/schemas/spreadsheet.xsd");
+LPCTSTR CSchema::uriPresentation			= _T("http://www.shareaza.com/schemas/presentation.xsd");
+LPCTSTR CSchema::uriCollection				= _T("http://www.shareaza.com/schemas/collection.xsd");
 
 LPCTSTR CSchema::uriLibrary					= _T("http://www.shareaza.com/schemas/libraryRoot.xsd");
 
@@ -822,6 +821,9 @@ LPCTSTR CSchema::uriAllFiles				= _T("http://www.shareaza.com/schemas/allFiles.x
 
 LPCTSTR	CSchema::uriApplicationRoot			= _T("http://www.shareaza.com/schemas/applicationRoot.xsd");
 LPCTSTR	CSchema::uriApplicationAll			= _T("http://www.shareaza.com/schemas/applicationAll.xsd");
+
+LPCTSTR	CSchema::uriArchiveRoot 			= _T("http://www.shareaza.com/schemas/archiveRoot.xsd");
+LPCTSTR	CSchema::uriArchiveAll				= _T("http://www.shareaza.com/schemas/archiveAll.xsd");
 
 LPCTSTR	CSchema::uriBookRoot				= _T("http://www.shareaza.com/schemas/bookRoot.xsd");
 LPCTSTR	CSchema::uriBookAll					= _T("http://www.shareaza.com/schemas/bookAll.xsd");

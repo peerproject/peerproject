@@ -28,10 +28,6 @@
 #include "Skin.h"
 #include "DlgNewSearch.h"
 
-#include "SHA.h"
-#include "ED2K.h"
-#include "TigerTree.h"
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -39,13 +35,11 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 BEGIN_MESSAGE_MAP(CNewSearchDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CNewSearchDlg)
 	ON_WM_SIZE()
 	ON_WM_GETMINMAXINFO()
 	ON_CBN_SELCHANGE(IDC_SCHEMAS, OnSelChangeSchemas)
 	ON_CBN_CLOSEUP(IDC_SCHEMAS, OnCloseUpSchemas)
 	ON_EN_CHANGE(IDC_SEARCH, OnChangeSearch)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -53,11 +47,9 @@ END_MESSAGE_MAP()
 // CNewSearchDlg dialog
 
 CNewSearchDlg::CNewSearchDlg(CWnd* pParent, auto_ptr< CQuerySearch > pSearch, BOOL bLocal, BOOL bAgain)
-: CSkinDialog( CNewSearchDlg::IDD, pParent ),
+: CSkinDialog( CNewSearchDlg::IDD, pParent ), //ToDo: Fix Banner Resize Display
   m_pSearch( pSearch )
 {
-	//{{AFX_DATA_INIT(CNewSearchDlg)
-	//}}AFX_DATA_INIT
 	m_bLocal	= bLocal;
 	m_bAgain	= bAgain;
 }

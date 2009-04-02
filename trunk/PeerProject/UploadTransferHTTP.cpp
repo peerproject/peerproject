@@ -54,10 +54,6 @@
 #include "GProfile.h"
 #include "Security.h"
 
-#include "SHA.h"
-#include "ED2K.h"
-#include "TigerTree.h"
-
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -166,7 +162,7 @@ BOOL CUploadTransferHTTP::ReadRequest()
 	m_bBackwards	= FALSE;
 	m_bRange		= FALSE;
 	m_bQueueMe		= FALSE;
-	m_bNotPeerProject  = FALSE;
+	m_bNotPeerProject = FALSE;
 
 	m_bMetadata		= FALSE;
 	m_bTigerTree	= FALSE;
@@ -266,7 +262,6 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	{
 		// Dead alt-sources
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 13;
-		CSingleLock oLock( &Library.m_pSection );
 
 		if ( CDownload* pDownload = Downloads.FindByURN( pszURN ) )
 		{
@@ -288,7 +283,7 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	{
 		m_bQueueMe = TRUE;
 		m_nGnutella |= 1;
-		if ( strValue == _T("1.0") ) m_bNotPeerProject = TRUE;			// PeerProject doesn't send this value
+		if ( strValue == _T("1.0") ) m_bNotPeerProject = TRUE;			// PeerProject doesn't send this value ?
 	}
 	else if (	strHeader.CompareNoCase( _T("X-Nick") ) == 0 ||
 				strHeader.CompareNoCase( _T("X-Name") ) == 0 ||
@@ -349,8 +344,8 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		// Check for clients spoofing a G2 header
 		if ( _tcsistr( m_sUserAgent, _T("phex") ) != NULL )
 		{
-			// This is actually a G1-only client sending a fake header, so they can download 
-			// from (but not upload to) clients that are only connected to G2. 
+			// This is actually a G1-only client sending a fake header,
+			// so they can download from (but not upload to) clients connected to G2. 
 			m_nGnutella = 1;
 			
 			if ( ! Settings.Gnutella1.EnableToday )
@@ -434,10 +429,9 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		if ( ::StartsWith( m_sRequest, _PT("/uri-res/N2R?urn:") ) )
 		{
 			LPCTSTR pszURN = (LPCTSTR)m_sRequest + 13;
-		
-			CSingleLock oLock( &Library.m_pSection );
 
-			if ( oLock.Lock( 50 ) )
+			CSingleLock oLock( &Library.m_pSection );
+			if ( oLock.Lock( 1000 ) )
 			{
 				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
 				{
@@ -453,9 +447,13 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 						return FALSE;
 					}
 				}
+				// Network is disabled, but we don't have the file anyway.
+				SendResponse( IDR_HTML_FILENOTFOUND );
 			}
-			// Network is disabled, but we don't have the file anyway.
-			SendResponse( IDR_HTML_FILENOTFOUND );
+			else
+			{
+				SendResponse( IDR_HTML_BUSY );
+			}
 		}
 		else
 		{
@@ -469,47 +467,65 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	else if ( ::StartsWith( m_sRequest, _PT("/gnutella/metadata/v1?urn:") ) && Settings.Uploads.ShareMetadata )
 	{
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 22;
-		CXMLElement* pMetadata = NULL;
-		
-		CSingleLock oLock( &Library.m_pSection, TRUE );
-		if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
+
 		{
-			if ( pShared->m_pMetadata != NULL )
+			CSingleLock oLock( &Library.m_pSection );
+			if ( oLock.Lock( 1000 ) )
 			{
-				m_sFileName	= pShared->m_sName;
-				pMetadata	= pShared->m_pSchema->Instantiate( TRUE );
-				pMetadata->AddElement( pShared->m_pMetadata->Clone() );
-			}
-			oLock.Unlock();
-		}
-		else
-		{
-			oLock.Unlock();
-			if ( CDownload* pDownload = Downloads.FindByURN( pszURN ) )
-			{
-				if ( pDownload->GetMetadata() )
+				if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
 				{
-					m_sFileName	= pDownload->m_sName;
-					pMetadata	= pDownload->GetMetadata()->Clone();
+					if ( pShared->m_pMetadata != NULL )
+					{
+						m_sFileName	= pShared->m_sName;
+						if ( CXMLElement* pMetadata	= pShared->m_pSchema->Instantiate( TRUE ) )
+						{
+							pMetadata->AddElement( pShared->m_pMetadata->Clone() );
+							return RequestMetadata( pMetadata );
+						}
+					}
 				}
 			}
+			else
+			{
+				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+				SendResponse( IDR_HTML_BUSY );
+				return TRUE;
+			}
 		}
-		
-		if ( pMetadata != NULL ) return RequestMetadata( pMetadata );
+
+		if ( CDownload* pDownload = Downloads.FindByURN( pszURN ) )
+		{
+			if ( pDownload->GetMetadata() )
+			{
+				m_sFileName	= pDownload->m_sName;
+				if ( CXMLElement* pMetadata	= pDownload->GetMetadata()->Clone() )
+					return RequestMetadata( pMetadata );
+			}
+		}
 	}
 	else if ( ::StartsWith( m_sRequest, _PT("/gnutella/tigertree/v3?urn:") ) && Settings.Uploads.ShareTiger )
 	{
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 23;
-		
+
 		{
-			CQuickLock oLock( Library.m_pSection );
-			if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
+			CSingleLock oLock( &Library.m_pSection );
+			if ( oLock.Lock( 1000 ) )
 			{
-				CTigerTree* pTigerTree = pShared->GetTigerTree();
-				m_sFileName = pShared->m_sName;
-				return RequestTigerTreeRaw( pTigerTree, TRUE );
+				if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
+				{
+					CTigerTree* pTigerTree = pShared->GetTigerTree();
+					m_sFileName = pShared->m_sName;
+					return RequestTigerTreeRaw( pTigerTree, TRUE );
+				}
+			}
+			else
+			{
+				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+				SendResponse( IDR_HTML_BUSY );
+				return TRUE;
 			}
 		}
+
 		if ( CDownload* pDownload = Downloads.FindByURN( pszURN ) )
 		{
 			if ( pDownload->GetTigerTree() != NULL )
@@ -523,25 +539,35 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	{
 		LPCTSTR pszURN	= (LPCTSTR)m_sRequest + 18;
 		DWORD nDepth	= 0;
-		
+
 		if ( LPCTSTR pszDepth = _tcsistr( m_sRequest, _T("depth=") ) )
 		{
 			_stscanf( pszDepth + 6, _T("%i"), &nDepth );
 		}
-		
+
 		BOOL bHashset = ( _tcsistr( m_sRequest, _T("ed2k=1") ) != NULL );
-		
+
 		{
-			CQuickLock oLock( Library.m_pSection );
-			if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
+			CSingleLock oLock( &Library.m_pSection );
+			if ( oLock.Lock( 1000 ) )
 			{
-				CTigerTree* pTigerTree	= pShared->GetTigerTree();
-				CED2K* pHashset			= bHashset ? pShared->GetED2K() : NULL;
-				m_sFileName = pShared->m_sName;
-				m_nFileSize = pShared->GetSize();
-				return RequestTigerTreeDIME( pTigerTree, nDepth, pHashset, TRUE );
+				if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
+				{
+					CTigerTree* pTigerTree	= pShared->GetTigerTree();
+					CED2K* pHashset			= bHashset ? pShared->GetED2K() : NULL;
+					m_sFileName = pShared->m_sName;
+					m_nFileSize = pShared->GetSize();
+					return RequestTigerTreeDIME( pTigerTree, nDepth, pHashset, TRUE );
+				}
+			}
+			else
+			{
+				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+				SendResponse( IDR_HTML_BUSY );
+				return TRUE;
 			}
 		}
+
 		if ( CDownload* pDownload = Downloads.FindByURN( pszURN ) )
 		{
 			if ( pDownload->GetTigerTree() != NULL )
@@ -556,43 +582,54 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	else if ( ::StartsWith( m_sRequest, _PT("/gnutella/preview/v1?urn:") ) && Settings.Uploads.SharePreviews )
 	{
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 21;
-		CSingleLock oLock( &Library.m_pSection, TRUE );
-		CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE );
-		if ( pShared != NULL ) return RequestPreview( pShared, oLock );
+
+		CSingleLock oLock( &Library.m_pSection );
+		if ( oLock.Lock( 1000 ) )
+		{
+			if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
+				return RequestPreview( pShared, oLock );
+		}
+		else
+		{
+			theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+			SendResponse( IDR_HTML_BUSY );
+			return TRUE;
+		}
 	}
 	else if ( ::StartsWith( m_sRequest, _PT("/uri-res/N2R?urn:") ) )
 	{
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 13;
-		
+
 		{
-			CSingleLock oLock( &Library.m_pSection, FALSE );
-			if ( oLock.Lock( 250 ) )
+			CSingleLock oLock( &Library.m_pSection );
+			if ( oLock.Lock( 1000 ) )
 			{
 				if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
-				{
 					return RequestSharedFile( pShared, oLock );
-				}
+			}
+			else
+			{
+				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+				SendResponse( IDR_HTML_BUSY );
+				return TRUE;
 			}
 		}
 
 		CDownload* pDownload = Downloads.FindByURN( pszURN );
 		if ( pDownload != NULL && pDownload->IsShared() && pDownload->IsStarted() )
-		{
 			return RequestPartialFile( pDownload );
-		}
 	}
 	else if ( ::StartsWith( m_sRequest, _PT("/get/") ) )
 	{
 		DWORD nIndex = 0;
-		
 		CString strFile	= m_sRequest.Mid( 5 );
 		int nChar = strFile.Find( '/' );
 		bool bByIndex = ( _stscanf( strFile, _T("%lu/"), &nIndex ) == 1 &&
 			nChar > 0 && nChar < strFile.GetLength() - 1 );
 		strFile = strFile.Mid( nChar + 1 );
 
-		CSingleLock oLock( &Library.m_pSection, FALSE );
-		if ( oLock.Lock( 250 ) )
+		CSingleLock oLock( &Library.m_pSection );
+		if ( oLock.Lock( 1000 ) )
 		{
 			CLibraryFile* pFile = NULL;
 			if ( bByIndex )
@@ -606,24 +643,42 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			if ( pFile )
 				return RequestSharedFile( pFile, oLock );
 		}
+		else
+		{
+			theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+			SendResponse( IDR_HTML_BUSY );
+			return TRUE;
+		}
 	}
 	else
 	{
 		CString strFile = m_sRequest.Mid( 1 );
-		CSingleLock oLock( &Library.m_pSection, TRUE );
-		CLibraryFile* pFile = LibraryMaps.LookupFileByName( strFile, TRUE, TRUE );
-		if ( pFile != NULL ) return RequestSharedFile( pFile, oLock );
+
+		CSingleLock oLock( &Library.m_pSection );
+		if ( oLock.Lock( 1000 ) )
+		{
+			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByName( strFile, TRUE, TRUE ) )
+				return RequestSharedFile( pFile, oLock );
+		}
+		else
+		{
+			theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+			SendResponse( IDR_HTML_BUSY );
+			return TRUE;
+		}
 	}
-	
+
 	if ( m_sFileName.IsEmpty() )
 	{
-		if ( m_oSHA1 ) m_sFileName = m_oSHA1.toUrn();
-		else m_sFileName = m_sRequest;
+		if ( m_oSHA1 )
+			m_sFileName = m_oSHA1.toUrn();
+		else
+			m_sFileName = m_sRequest;
 	}
-	
+
 	SendResponse( IDR_HTML_FILENOTFOUND );
 	theApp.Message( MSG_ERROR, IDS_UPLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)m_sFileName );
-	
+
 	return TRUE;
 }
 
@@ -907,12 +962,12 @@ BOOL CUploadTransferHTTP::QueueRequest()
 	}
 	else
 	{
+		theApp.Message( MSG_ERROR, ( nError ? nError : ( m_bQueueMe ?
+			IDS_UPLOAD_BUSY_QUEUE : IDS_UPLOAD_BUSY_OLD ) ),
+			(LPCTSTR)m_sFileName, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
 		SendResponse( IDR_HTML_BUSY, TRUE );
-		
-		if ( ! nError ) nError = m_bQueueMe ? IDS_UPLOAD_BUSY_QUEUE : IDS_UPLOAD_BUSY_OLD;
-		theApp.Message( MSG_ERROR, nError, (LPCTSTR)m_sFileName, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
 	}
-	
+
 	return TRUE;
 }
 
@@ -1039,7 +1094,6 @@ void CUploadTransferHTTP::SendFileHeaders()
 	if ( m_nGnutella < 2 )
 	{
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 13;
-		CSingleLock oLock( &Library.m_pSection );
 
 		// Send X-NAlt for partial transfers only
 		if ( CDownload* pDownload = Downloads.FindByURN( pszURN ) )
@@ -1056,13 +1110,11 @@ void CUploadTransferHTTP::SendFileHeaders()
 
 BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 {
-	ASSERT( m_pDiskFile == NULL );
-	
-	m_pDiskFile = TransferFiles.Open( m_sFilePath, FALSE, FALSE );
-	
-	// If there's an error reading the file from disk
-	if ( m_pDiskFile == NULL )
+	ASSERT( ! IsFileOpen() );
+
+	if ( ! OpenFile( m_sFilePath, FALSE, FALSE ) )
 	{
+		// If there's an error reading the file from disk
 		SendResponse( IDR_HTML_FILENOTFOUND );
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_CANTOPEN, (LPCTSTR)m_sFileName, (LPCTSTR)m_sAddress );
 		return TRUE;
@@ -1122,9 +1174,8 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 	
 	if ( m_bHead )
 	{
-		m_pDiskFile->Release( FALSE );
-		m_pDiskFile = NULL;
-		
+		CloseFile();
+
 		theApp.Message( MSG_INFO, IDS_UPLOAD_HEADERS, (LPCTSTR)m_sFileName,
 			(LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
 		
@@ -1137,12 +1188,7 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 			theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE,
 				(LPCTSTR)m_sFileName, (LPCTSTR)m_sAddress );
 			
-			CQuickLock oLock( Library.m_pSection );
-			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( m_sFilePath, TRUE, TRUE ) )
-			{
-				pFile->m_nUploadsToday++;
-				pFile->m_nUploadsTotal++;
-			}
+			PostMainWndMessage( WM_NOWUPLOADING, 0, (LPARAM)new CString( m_sFilePath ) );
 		}
 		
 		theApp.Message( MSG_INFO,
@@ -1172,7 +1218,7 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 
 BOOL CUploadTransferHTTP::OnWrite()
 {
-	if ( m_nState == upsUploading && m_pDiskFile != NULL && GetOutputLength() == 0 )
+	if ( m_nState == upsUploading && IsFileOpen() && GetOutputLength() == 0 )
 	{
 		if ( m_nPosition >= m_nLength )
 		{
@@ -1187,14 +1233,18 @@ BOOL CUploadTransferHTTP::OnWrite()
 		if ( m_bBackwards )
 		{
 			QWORD nRead = 0;
-			m_pDiskFile->Read( m_nFileBase + m_nOffset + m_nLength - m_nPosition - nPacket, pBuffer.get(), nPacket, &nRead );
-			if ( nRead != nPacket ) return TRUE;
+			if ( ! ReadFile( m_nFileBase + m_nOffset + m_nLength -
+				m_nPosition - nPacket, pBuffer.get(), nPacket, &nRead ) ||
+				nRead != nPacket )
+				return TRUE;
 			WriteReversed( pBuffer.get(), (DWORD)nPacket );
 		}
 		else
 		{
-			m_pDiskFile->Read( m_nFileBase + m_nOffset + m_nPosition, pBuffer.get(), nPacket, &nPacket );
-			if ( nPacket == 0 ) return TRUE;
+			if ( ! ReadFile( m_nFileBase + m_nOffset + m_nPosition,
+				pBuffer.get(), nPacket, &nPacket ) ||
+				nPacket == 0 )
+				return TRUE;
 			Write( pBuffer.get(), (DWORD)nPacket );
 		}
 		
@@ -1219,8 +1269,8 @@ void CUploadTransferHTTP::OnCompleted()
 {
 	Uploads.SetStable( GetAverageSpeed() );
 	
-	m_pDiskFile->Release( FALSE );
-	m_pDiskFile	= NULL;
+	CloseFile();
+
 	m_nState	= upsRequest;
 	m_tRequest	= GetTickCount();
 	
@@ -1317,24 +1367,19 @@ void CUploadTransferHTTP::OnDropped()
 BOOL CUploadTransferHTTP::RequestMetadata(CXMLElement* pMetadata)
 {
 	ASSERT( pMetadata != NULL );
-	CString strXML = pMetadata->ToString( TRUE, TRUE );
+	CStringA strXML = UTF8Encode( pMetadata->ToString( TRUE, TRUE ) );
 	delete pMetadata;
-	
-	int nXML = WideCharToMultiByte( CP_UTF8, 0, strXML, strXML.GetLength(), NULL, 0, NULL, NULL );
-	LPSTR pszXML = new CHAR[ nXML ];
-	WideCharToMultiByte( CP_UTF8, 0, strXML, strXML.GetLength(), pszXML, nXML, NULL, NULL );
 	
 	Write( _P("HTTP/1.1 200 OK\r\n") );
 	SendDefaultHeaders();
 	Write( _P("Content-Type: text/xml\r\n") );
 	
 	CString strHeader;
-	strHeader.Format( _T("Content-Length: %lu\r\n"), nXML );
+	strHeader.Format( _T("Content-Length: %lu\r\n"), strXML.GetLength() );
 	Write( strHeader );
 	Write( _P("\r\n") );
 	
-	if ( ! m_bHead ) Write( pszXML, nXML );
-	delete [] pszXML;
+	if ( ! m_bHead ) Write( (LPCSTR)strXML, strXML.GetLength() );
 	
 	StartSending( upsMetadata );
 	
@@ -1349,7 +1394,10 @@ BOOL CUploadTransferHTTP::RequestMetadata(CXMLElement* pMetadata)
 
 BOOL CUploadTransferHTTP::RequestTigerTreeRaw(CTigerTree* pTigerTree, BOOL bDelete)
 {
-	if ( pTigerTree == NULL )
+	BYTE* pSerialTree = NULL;
+	DWORD nSerialTree = 0;
+
+	if ( ! pTigerTree || ! pTigerTree->ToBytes( &pSerialTree, &nSerialTree ) )
 	{
 		ClearHashes();
 		m_sLocations.Empty();
@@ -1359,13 +1407,10 @@ BOOL CUploadTransferHTTP::RequestTigerTreeRaw(CTigerTree* pTigerTree, BOOL bDele
 		
 		return TRUE;
 	}
-	
-	BYTE* pSerialTree;
-	DWORD nSerialTree;
-	
-	pTigerTree->ToBytes( &pSerialTree, &nSerialTree );
-	if ( bDelete ) delete pTigerTree;
-	
+
+	if ( bDelete )
+		delete pTigerTree;
+
 	if ( m_bRange )
 	{
 		if ( m_nOffset >= nSerialTree ) m_nLength = SIZE_UNKNOWN;
@@ -1417,7 +1462,7 @@ BOOL CUploadTransferHTTP::RequestTigerTreeRaw(CTigerTree* pTigerTree, BOOL bDele
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_BAD_RANGE, (LPCTSTR)m_sAddress, (LPCTSTR)m_sFileName );
 	}
 	
-	delete [] pSerialTree;
+	GlobalFree( pSerialTree );
 	
 	return TRUE;
 }
@@ -1427,7 +1472,13 @@ BOOL CUploadTransferHTTP::RequestTigerTreeRaw(CTigerTree* pTigerTree, BOOL bDele
 
 BOOL CUploadTransferHTTP::RequestTigerTreeDIME(CTigerTree* pTigerTree, int nDepth, CED2K* pHashset, BOOL bDelete)
 {
-	if ( pTigerTree == NULL )
+	DWORD nSerialTree = 0;
+	BYTE* pSerialTree = NULL;
+	
+	if ( pTigerTree && ( nDepth < 1 || nDepth > (int)pTigerTree->GetHeight() ) )
+		nDepth = pTigerTree->GetHeight();
+
+	if ( ! pTigerTree || ! pTigerTree->ToBytes( &pSerialTree, &nSerialTree, nDepth ) )
 	{
 		ClearHashes();
 		m_sLocations.Empty();
@@ -1440,20 +1491,11 @@ BOOL CUploadTransferHTTP::RequestTigerTreeDIME(CTigerTree* pTigerTree, int nDept
 		return TRUE;
 	}
 	
-	DWORD nSerialTree;
-	BYTE* pSerialTree;
-	CBuffer pDIME;
-	
-	if ( nDepth < 1 ) nDepth = pTigerTree->GetHeight();
-	else if ( nDepth > (int)pTigerTree->GetHeight() ) nDepth = pTigerTree->GetHeight();
-	
-	pTigerTree->ToBytes( &pSerialTree, &nSerialTree, nDepth );
-	if ( bDelete ) delete pTigerTree;
+	if ( bDelete )
+		delete pTigerTree;
 	
 	CString strUUID, strXML;
-
 	Hashes::Guid oGUID;
-	
 	Network.CreateID( oGUID );
 	GUID pUUID;
 	std::memcpy( &pUUID, &oGUID[ 0 ], sizeof( pUUID ) );
@@ -1471,30 +1513,29 @@ BOOL CUploadTransferHTTP::RequestTigerTreeDIME(CTigerTree* pTigerTree, int nDept
 					_T("</hashtree>"),
 					m_nFileSize, nDepth, (LPCTSTR)strUUID );
 	
-	int nXML = WideCharToMultiByte( CP_UTF8, 0, strXML, -1, NULL, 0, NULL, NULL );
-	LPSTR pszXML = new CHAR[ nXML ];
-	WideCharToMultiByte( CP_UTF8, 0, strXML, -1, pszXML, nXML, NULL, NULL );
+	CStringA strXMLUTF8 = UTF8Encode( strXML );
+
 	int nUUID = WideCharToMultiByte( CP_ACP, 0, strUUID, -1, NULL, 0, NULL, NULL );
 	LPSTR pszUUID = new CHAR[ nUUID ];
 	WideCharToMultiByte( CP_ACP, 0, strUUID, -1, pszUUID, nUUID, NULL, NULL );
 	
-	pDIME.WriteDIME( 1, _P(""), _P("text/xml"), pszXML, nXML - 1 );
+	CBuffer pDIME;
+	pDIME.WriteDIME( 1, _P(""), _P("text/xml"), strXMLUTF8, strXMLUTF8.GetLength() );
 	pDIME.WriteDIME( pHashset ? 0 : 2, pszUUID, nUUID - 1,
 		_P("http://open-content.net/spec/thex/breadthfirst"), pSerialTree, nSerialTree );
-	delete [] pSerialTree;
+	GlobalFree( pSerialTree );
 	
 	delete [] pszUUID;
-	delete [] pszXML;
 	
-	if ( pHashset != NULL )
+	if ( pHashset && pHashset->ToBytes( &pSerialTree, &nSerialTree ) )
 	{
-		pHashset->ToBytes( &pSerialTree, &nSerialTree );
-		if ( bDelete ) delete pHashset;
-		
 		pDIME.WriteDIME( 2, _P(""),
 			_P("http://edonkey2000.com/spec/md4-hashset"), pSerialTree, nSerialTree );
-		delete [] pSerialTree;
+		GlobalFree( pSerialTree );
 	}
+
+	if ( bDelete )
+		delete pHashset;
 	
 	if ( m_bRange )
 	{
@@ -1575,9 +1616,7 @@ BOOL CUploadTransferHTTP::RequestPreview(CLibraryFile* pFile, CSingleLock& oLibr
 	if ( nExisting >= Settings.Uploads.PreviewTransfers )
 	{
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_PREVIEW_BUSY, (LPCTSTR)m_sFileName, (LPCTSTR)m_sAddress );
-		Write( _P("HTTP/1.1 503 Busy\r\n") );
-		SendDefaultHeaders();
-		StartSending( upsResponse );
+		SendResponse( IDR_HTML_BUSY );
 		return TRUE;
 	}
 	
@@ -1668,9 +1707,7 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 	if ( nExisting >= Settings.Uploads.PreviewTransfers )
 	{
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_BROWSE_BUSY, (LPCTSTR)m_sAddress );
-		Write( _P("HTTP/1.1 503 Busy\r\n") );
-		SendDefaultHeaders();
-		StartSending( upsResponse );
+		SendResponse( IDR_HTML_BUSY );
 		return TRUE;
 	}
 	
@@ -1796,22 +1833,25 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 		
 		strBody = strBody.Left( nStart ) + strReplace + strBody.Mid( nEnd + 2 );
 	}
-	
+
 	Write( _T("HTTP/1.1 ") + strResponse );
+
 	SendDefaultHeaders();
-	if ( bFileHeaders ) SendFileHeaders();
+
+	if ( bFileHeaders )
+		SendFileHeaders();
+
+	if ( nResourceID == IDR_HTML_BUSY )
+		Write( _P("Retry-After: 30\r\n") );
+
 	Write( _P("Content-Type: text/html\r\n") );
+
+	CStringA strBodyUTF8 = UTF8Encode( strBody );
 	
-	int nBody = WideCharToMultiByte( CP_UTF8, 0, strBody, strBody.GetLength(), NULL, 0, NULL, NULL );
-	LPSTR pszBody = new CHAR[ nBody ];
-	WideCharToMultiByte( CP_UTF8, 0, strBody, strBody.GetLength(), pszBody, nBody, NULL, NULL );
-	
-	strResponse.Format( _T("Content-Length: %lu\r\n\r\n"), nBody );
+	strResponse.Format( _T("Content-Length: %lu\r\n\r\n"), strBodyUTF8.GetLength() );
 	Write( strResponse );
 	
-	if ( ! m_bHead ) Write( pszBody, nBody );
-	
-	delete [] pszBody;
+	if ( ! m_bHead ) Write( (LPCSTR)strBodyUTF8, strBodyUTF8.GetLength() );
 	
 	StartSending( upsResponse );
 }

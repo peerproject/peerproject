@@ -6,7 +6,7 @@
 	<complexType>
 		<element name="allFiles" type="allType" minOccurs="1" maxOccurs="unbounded"/>
 	</complexType>
-  </element>     
+  </element>
   <complexType name="allType">
 	<all>
 		<attribute name="title" type="string"/>

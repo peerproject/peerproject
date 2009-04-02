@@ -161,7 +161,7 @@ void CSchemaCtrl::SetSchema(CSchema* pSchema, BOOL bPromptOnly)
 		m_pCaptions.Add( strCaption );
 		m_pControls.Add( pControl );
 
-		SetWindowLongPtr( pControl->GetSafeHwnd(), GWLP_USERDATA, (LONG_PTR_ARG)(LONG_PTR)pMember );
+		SetWindowLongPtr( pControl->GetSafeHwnd(), GWLP_USERDATA, (LONG_PTR)pMember );
 		pControl->SetFont( &theApp.m_gdiFont );
 	}
 	

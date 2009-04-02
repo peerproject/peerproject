@@ -29,8 +29,6 @@
 #include "FragmentedFile.h"
 #include "Network.h"
 #include "Buffer.h"
-#include "SHA.h"
-#include "ED2K.h"
 #include "XML.h"
 #include "DownloadTransferBT.h"
 
@@ -319,6 +317,8 @@ void CDownloadTransfer::ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, QWORD 
 		QWORD nCount = *pnLength / nChunk;
 		if ( *pnLength % nChunk ) nCount++;
 		nCount = GetRandomNum( 0ui64, nCount - 1 );
+	//ToDo: Streaming Download and Rarest Piece Selection
+	//	nCount = (Settings.Downloads.NoRandomFragments ? 0ui64 : GetRandomNum( 0ui64, nCount - 1 ));
 
 		QWORD nStart = *pnOffset + nChunk * nCount;
 		*pnLength = min( nChunk, *pnOffset + *pnLength - nStart );

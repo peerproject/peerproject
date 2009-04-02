@@ -1,4 +1,4 @@
-http://www.maxmind.com/download/geoip/database/GeoIP.dat.gz
+http://maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
 
 
 There are two licenses, one for the C library software, and one for the database.

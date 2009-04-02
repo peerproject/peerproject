@@ -147,7 +147,9 @@ void CHomePanel::OnSkinChange()
 	m_boxUploads.OnSkinChange();
 	m_boxConnection.OnSkinChange();
 	m_boxLibrary.OnSkinChange();
+#ifndef LAN_MODE
 	m_boxTorrents.OnSkinChange();
+#endif //LAN_MOD
 	
 	Update();
 	Invalidate();
@@ -159,7 +161,9 @@ void CHomePanel::Update()
 	m_boxUploads.Update();
 	m_boxConnection.Update();
 	m_boxLibrary.Update();
+#ifndef LAN_MODE
 	m_boxTorrents.Update();
+#endif //LAN_MOD
 }
 
 
@@ -1397,8 +1401,8 @@ void CHomeTorrentsBox::Update()
 	}
 
 	// Seed torrent
-	m_pDocument->ShowGroup( 1, FALSE );
-	m_pDocument->ShowGroup( 2, TRUE );
+	m_pDocument->ShowGroup( 1, TRUE );
+	m_pDocument->ShowGroup( 2, FALSE );
 
 	// Re-seed last torrent option
 	if ( m_pdReseedTorrent )
@@ -1418,8 +1422,8 @@ void CHomeTorrentsBox::Update()
 			m_pdReseedTorrent->SetText( str );
 			m_pdReseedTorrent->Show( TRUE );
 			// Change 'seed' to 'seed another'
-			m_pDocument->ShowGroup( 1, TRUE );
-			m_pDocument->ShowGroup( 2, FALSE );
+			m_pDocument->ShowGroup( 1, FALSE );
+			m_pDocument->ShowGroup( 2, TRUE );
 		}
 	}
 	

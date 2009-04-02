@@ -38,20 +38,20 @@
 		<button id="ID_NETWORK_CONNECT" text="连接"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="首页"/>
-		<button id="ID_TAB_LIBRARY" text="收藏"/>
-		<button id="ID_TAB_MEDIA" text="媒体"/>
 		<button id="ID_TAB_SEARCH" text="搜索"/>
 		<button id="ID_TAB_TRANSFERS" text="传送"/>
+		<button id="ID_TAB_LIBRARY" text="收藏"/>
+		<button id="ID_TAB_MEDIA" text="媒体"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="连接"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="首页"/>
-		<button id="ID_TAB_LIBRARY" text="收藏"/>
-		<button id="ID_TAB_MEDIA" text="媒体"/>
 		<button id="ID_TAB_SEARCH" text="搜索"/>
 		<button id="ID_TAB_TRANSFERS" text="传送"/>
 		<button id="ID_TAB_NETWORK" text="网络"/>
+		<button id="ID_TAB_LIBRARY" text="收藏"/>
+		<button id="ID_TAB_MEDIA" text="媒体"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -368,8 +368,8 @@
 		<button id="ID_SECURITY_BAN" text="禁止用户"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="设置"/>
 	</toolbar>
@@ -401,29 +401,29 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 缓存"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey 缓存"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="浏览用户"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="发送文件"/> -->
 		<button id="ID_CHAT_PRIORITY" text="准予优先权"/>
+		<!--<button id="ID_CHAT_SEND_FILE" text="发送文件"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="连接" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="断开"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER WINDOW -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 		<toolbar name="ImageViewerWnd">
 			<button id="ImageViewer_BestFit" text="最佳适合"/>
 			<button id="ImageViewer_ActualSize" text="实际大小"/>
 			<separator/>
 			<button id="ImageViewer_Refresh" text="刷新"/>
-			<separator/>
+				<rightAlign/>
 			<button id="ImageViewer_Close" text="关闭"/>
 		</toolbar>
 </toolbars>
@@ -443,6 +443,23 @@
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="关闭窗口(_C)"/>
 	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">
+		<item id="ID_TRAY_OPEN" text="恢复窗口"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="恢复窗口 Remote"/>
+		<item id="ID_TOOLS_SETTINGS" text="恢复窗口 设置..."/>
+		<item id="ID_NETWORK_SEARCH" text="新建搜索..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="下载文件..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="播放媒体"/>
+		<item id="ID_MEDIA_PAUSE" text="暂停媒体"/>
+		<item id="ID_MEDIA_PREVIOUS" text="上一曲目"/>
+		<item id="ID_MEDIA_NEXT" text="下一曲目"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="传送后退出"/>
+		<item id="ID_NETWORK_EXIT" text="退出"/>
+	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="网络(_N)">
@@ -450,8 +467,8 @@
 			<separator/>
 			<menu text="选择网络(_N)">
 				<item id="ID_NETWORK_G2" text="连接到 Gnutella2(_G)"/>
-				<item id="ID_NETWORK_ED2K" text="连接到 edonkey(_E)"/>
 				<item id="ID_NETWORK_G1" text="连接到 Gnutella1(_1)"/>
+				<item id="ID_NETWORK_ED2K" text="连接到 edonkey(_E)"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="传送后退出(_A)"/>
@@ -518,8 +535,8 @@
 			<separator/>
 			<menu text="选择网络(_N)">
 				<item id="ID_NETWORK_G2" text="连接到 Gnutella2(_G)"/>
-				<item id="ID_NETWORK_ED2K" text="连接到 edonkey(_E)"/>
 				<item id="ID_NETWORK_G1" text="连接到 Gnutella1(_1)"/>
+				<item id="ID_NETWORK_ED2K" text="连接到 edonkey(_E)"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="连接到(_T)..." shortcut="Ctrl+T"/>
@@ -614,8 +631,8 @@
 			<separator/>
 			<menu text="选择网络(_N)">
 				<item id="ID_NETWORK_G2" text="连接到 Gnutella2(_G)"/>
-				<item id="ID_NETWORK_ED2K" text="连接到 edonkey(_E)"/>
 				<item id="ID_NETWORK_G1" text="连接到 Gnutella1(_1)"/>
+				<item id="ID_NETWORK_ED2K" text="连接到 edonkey(_E)"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="传送后关闭(_A)"/>
@@ -737,40 +754,6 @@
 		<item id="ID_VIEW_PACKETS" text="数据包转储(_P)"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="搜索监视器(_A)"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="命中监视器(_I)"/>
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="恢复窗口(_O)"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="新建搜索(_W)..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="下载文件(_D)..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="播放媒体(_P)"/>
-		<item id="ID_MEDIA_PAUSE" text="暂停媒体(_U)"/>
-		<item id="ID_MEDIA_STOP" text="停止媒体(_S)"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="上一曲目(_R)"/>
-		<item id="ID_MEDIA_NEXT" text="下一曲目(_N)"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="传送后退出(_T)"/>
-		<item id="ID_NETWORK_EXIT" text="退出(_X)"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="打开 PeerProject(_O)"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="新建搜索(_W)..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="下载文件(_D)..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="播放媒体(_P)"/>
-		<item id="ID_MEDIA_PAUSE" text="暂停媒体(_U)"/>
-		<item id="ID_MEDIA_STOP" text="停止媒体(_S)"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="上一曲目(_R)"/>
-		<item id="ID_MEDIA_NEXT" text="下一曲目(_N)"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="传送后退出(_T)"/>
-		<item id="ID_NETWORK_EXIT" text="退出(_X)"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -1029,6 +1012,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="自动清除(_O)"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全部续传(_R)"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全部暂停(_A)"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全部清除(_C)"/>
@@ -3037,7 +3022,6 @@
 	<string id="20001" value="关闭"/>
 	<string id="20002" value="于"/><!-- 例如: 1 于 10 -->
 	<string id="20003" value="变更界面方向需要重新启动。\n您需要手动启动 PeerProject。立即退出？"/>
-	<string id="20004" value="您的操作系统不支持从右向左方向的语言。"/>
 	<string id="20005" value="否"/>
 	<string id="20006" value="是"/>
 	<string id="20007" value="自动"/>
@@ -3096,6 +3080,9 @@
 	<string id="20214" value="较好"/>
 	<string id="20215" value="很好"/>
 	<string id="20216" value="极棒"/>
+
+	<string id="20237" value="确定"/>
+	<string id="20238" value="取消"/>
 </strings>
 
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
@@ -3327,14 +3314,14 @@
 		<control caption="Gnutella2 网络是 PeerProject 的主网络，相对其他 P2P 网提供了更多的特性和更具优点。强烈推荐。"/>
 		<control caption="连接到 Gnutella2(G2)"/>
 		<control caption="配置 Gnutella2"/>
-		<control caption="edonkey 网络:"/>
-		<control caption="edonkey 网络是广泛使用的基于服务器的网络。虽不像 Gnutella2 特性极多，edonkey 的文件搜集方式令人印象深刻。"/>
-		<control caption="连接到 edonkey"/>
-		<control caption="配置 edonkey"/>
 		<control caption="原始的 Gnutella 网络:"/>
 		<control caption="尽管原始 Gnutella 网络比 Gnutella2 特性少，但依旧保留了可观的资源。"/>
 		<control caption="连接到原始 Gnutella"/>
 		<control caption="配置 Gnutella1"/>
+		<control caption="edonkey2000 网络:"/>
+		<control caption="edonkey 网络是广泛使用的基于服务器的网络。虽不像 Gnutella2 特性极多，edonkey 的文件搜集方式令人印象深刻。"/>
+		<control caption="连接到 edonkey"/>
+		<control caption="配置 edonkey"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 网络:"/>
@@ -3566,10 +3553,10 @@
 		<control caption="PeerProject 是能够同时连接多个 P2P 网络的多用途的文件共享软件。在此您可以选择想要连接的网络。您总是可以在以后选择不同的网络。"/>
 		<control caption="连接到 Gnutella2(强烈推荐)"/>
 		<control caption="Gnutella2 网络是 PeerProject 的主网络，相对其他 P2P 网提供了更多的特性和更具优点。强烈推荐。"/>
-		<control caption="连接到 eDonkey"/>
-		<control caption="eDonkey 网络是广泛使用的基于服务器的网络。虽不像 Gnutella2 特性极多，eDonkey 的文件搜集方式令人印象深刻。"/>
 		<control caption="连接到原始的 Gnutella"/>
 		<control caption="尽管原始 Gnutella 网络比 Gnutella2 特性少，文件比 edonkey 要少，但依旧保留了可观的资源。"/>
+		<control caption="连接到 eDonkey"/>
+		<control caption="eDonkey 网络是广泛使用的基于服务器的网络。虽不像 Gnutella2 特性极多，eDonkey 的文件搜集方式令人印象深刻。"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="导入 edonkey 下载">
 		<control/>
@@ -4151,18 +4138,23 @@
 		<control caption="Tracker 模式:"/>
 		<control caption="已禁用|自定义|单一 Tracker|多重 Tracker|多重 Tracker(已锁定)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="下载组属性">
-		<control caption="名称(_N):"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="下载组属性">
+		<control caption="确定"/>
+		<control caption="取消"/>
 		<control/>
 		<control/>
-		<control caption="过滤_F):"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="添加(_A)"/>
 		<control caption="移除(_R)"/>
-		<control caption="确定"/>
-		<control caption="取消"/>
-		<control caption="已完成文件文件夹(_F):"/>
 		<control/>
+		<control/>
+		<control/>
+		<control caption="名称(_N):"/>
+		<control caption="过滤_F):"/>
+		<control caption="已完成文件文件夹(_F):"/>
+		<control caption="文件类型:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="选择可视化效果">
 		<control/>
@@ -4330,7 +4322,7 @@
 		<column from="Size" to="大小"/>
 	</list>
 	<list name="CTorrentTrackerList">
-		<column from="Tracker" to="Tracker"/>
+		<column from="Tracker" to="伺服器"/>
 		<column from="Status" to="状态"/>
 		<column from="Type" to="类型"/>
 	</list>

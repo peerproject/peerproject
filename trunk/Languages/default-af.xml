@@ -33,20 +33,20 @@
 		<button id="ID_NETWORK_CONNECT" text="Konnekteer"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Tuisblad"/>
-		<button id="ID_TAB_LIBRARY" text="Biblioteek"/>
-		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_SEARCH" text="Soek"/>
 		<button id="ID_TAB_TRANSFERS" text="Aflaaie"/>
+		<button id="ID_TAB_LIBRARY" text="Biblioteek"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Konnekteer"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Tuisblad"/>
-		<button id="ID_TAB_LIBRARY" text="Biblioteek"/>
-		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_SEARCH" text="Soek"/>
 		<button id="ID_TAB_TRANSFERS" text="Oordragte"/>
 		<button id="ID_TAB_NETWORK" text="Netwerk"/>
+		<button id="ID_TAB_LIBRARY" text="Biblioteek"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="Chat"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -400,6 +400,10 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Konnekteer Aan"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Diskonnekteer"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Verwyder"/>
+			<rightAlign/>
+		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
 	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Konnekteer Aan"/>
@@ -413,17 +417,17 @@
 		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent Cache"/>
 		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia Cache"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Blaai deur Gebruikersinligting"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Stuur Lêer"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Gee Prioriteit"/>
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Stuur Lêer"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Konnekteer" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Diskonnekteer"/>
@@ -480,6 +484,23 @@
 		<item id="ID_CHILD_MINIMISE" text="_Minimise"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
+	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+		<item id="ID_TRAY_OPEN" text="Open PeerProject"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Show Remote"/>
+		<item id="ID_TOOLS_SETTINGS" text="Show Verstellings..."/>
+		<item id="ID_NETWORK_SEARCH" text="Nuwe Soektog..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Laai Lêer Af..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Speel Media"/>
+		<item id="ID_MEDIA_PAUSE" text="Vries Media"/>
+		<item id="ID_MEDIA_NEXT" text="Volgende Snit"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Vorige Snit"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Verlaat Na Oordragte"/>
+		<item id="ID_NETWORK_EXIT" text="Verlaat PeerProject"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
@@ -542,6 +563,8 @@
 			<menu text="_Webtuistes">
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
+				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 				<separator/> <!--
 				<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
 				<item id="ID_HELP_DONATE" text="_Donate to PeerProject"/>
@@ -732,10 +755,9 @@
 			<menu text="_Webtuistes">
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<separator/> <!--
-				<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
-				<item id="ID_HELP_DONATE" text="_Donate to PeerProject"/>
-				<separator/> -->
+				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!-- 
+				<item id="ID_HELP_UPDATE" text="Jongste nuus"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
@@ -794,40 +816,6 @@
 		<item id="ID_VIEW_PACKETS" text="_Pakkie Storting"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="S_oekmonitor"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="T_refmonitor"/>
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_Open PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nuwe _Soektog..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Laai Lêer Af..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Speel Media"/>
-		<item id="ID_MEDIA_PAUSE" text="_Vries Media"/>
-		<item id="ID_MEDIA_STOP" text="_Stop Media"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="V_orige Snit"/>
-		<item id="ID_MEDIA_NEXT" text="_Volgende Snit"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Verlaat PeerProject _Na Oordragte"/>
-		<item id="ID_NETWORK_EXIT" text="V_erlaat PeerProject"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_Open PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nuwe _Soektog..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Laai Lêer Af..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Speel Media"/>
-		<item id="ID_MEDIA_PAUSE" text="_Vries Media"/>
-		<item id="ID_MEDIA_STOP" text="_Stop Media"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="V_orige Snit"/>
-		<item id="ID_MEDIA_NEXT" text="_Volgende Snit"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Verlaat PeerProject _Na Oordragte"/>
-		<item id="ID_NETWORK_EXIT" text="V_erlaat PeerProject"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -1089,6 +1077,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Maak _Outomaties Skoon"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Hervat Alle Aflaaie"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Vries Alle Aflaaie"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="V_erwyder Alle Aflaaie"/>
@@ -1590,6 +1580,7 @@
 		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
 	</menu>
 </menus>
+
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
@@ -2613,6 +2604,8 @@
 	<string id="8010" value="Hierdie is 'n voorvrysteluitgawe van PeerProject en die beta toetsingsperiode het ge-ëindig. Laai asseblief die volle, offisiële weergawe af vanaf http://PeerProject.org/."/>
 	<string id="8011" value="Verandering van die aansig sal enige oop vensters toemaak.  Wil jy nou verander?"/>
 	<string id="8012" value="Torrent Information"/>
+	<string id="8013" value="Geen nuwe PeerProject uitgawe ontdek."/>
+	<string id="8014" value="Download Properties"/>
 	<string id="8060" value="Hub/Ultrapeer modus met %lu kliënt(e).  %s in lokale biblioteek."/>
 	<string id="8061" value="Ultrapeer modus met %lu kliënt(e).  %s in lokale biblioteek."/>
 	<string id="8062" value="Hub modus met %lu kliënt(e).  %s in lokale biblioteek."/>
@@ -3207,7 +3200,6 @@
 	<string id="20001" value="Sluit"/>
 	<string id="20002" value="van"/>	<!-- "1 of 10" -->
 	<string id="20003" value="Verandering van die koppelvlak rigting vereis die oorbegin van PeerProject. \nJy sal weer PeerProject met die hand moet begin. Verlaat PeerProject nou?"/>
-	<string id="20004" value="Regs-na-links tale word nie ondersteun deur jou bedryfstelsel nie."/>
 	<string id="20005" value="Nee"/>
 	<string id="20006" value="Ja"/>
 	<string id="20007" value="Auto"/>
@@ -3278,6 +3270,8 @@
 	<string id="20234" value="Album"/>
 	<string id="20235" value="Artist"/>
 	<string id="20236" value="Rating"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="Kanselleer"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3544,14 +3538,14 @@
 		<control caption="Die Gnutella2 Netwerk is PeerProject se primêre netwerk en bied meer funksies en beter werkverrigting as enige ander P2P netwerk.  Word sterk aanbeveel."/>
 		<control caption="Konnekteer aan Gnutella2 (G2)"/>
 		<control caption="Konfigureer Gnutella2"/>
-		<control caption="eDonkey2000 Netwerk:"/>
-		<control caption="Die eDonkey2000 netwerk is 'n populêre bediener-gebaseerde netwerk.  Nie so funksieryk soos Gnutella2 nie, maar dit het 'n groot hoeveelheid lêers."/>
-		<control caption="Konnekteer aan eDonkey2000"/>
-		<control caption="Konfigureer eDonkey2000"/>
 		<control caption="Oorspronklike Gnutella Netwerk:"/>
 		<control caption="Alhoewel die oorspronklike Gnutella netwerk minder funksieryk as Gnutella2 is en ook minder lêers het as eDonkey2000, bly dit 'n waardevolle hulpbron."/>
 		<control caption="Konnekteer aan Oorspronklike Gnutella"/>
 		<control caption="Konfigureer Gnutella1"/>
+		<control caption="eDonkey Netwerk:"/>
+		<control caption="Die eDonkey netwerk is 'n populêre bediener-gebaseerde netwerk.  Nie so funksieryk soos Gnutella2 nie, maar dit het 'n groot hoeveelheid lêers."/>
+		<control caption="Konnekteer aan eDonkey2000 (ED2K)"/>
+		<control caption="Konfigureer eDonkey"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Netwerk:"/>
@@ -3783,10 +3777,10 @@
 		<control caption="PeerProject is 'n algemeendoelige lêerdelingsprogram wat toegang tot verskeie P2P netwerke gelyktydig bied.  Op hierdie bladsy kan jy kies aan watter P2P netwerke jy wil koppel. Let wel dat jy altyd later ander netwerke kan selekteer."/>
 		<control caption="Koppel aan Gnutella2 (Sterk Aanbeveel)"/>
 		<control caption="Die Gnutella2 Netwerk is PeerProject se primêre netwerk en bied meer funksies en beter werkverrigting as enige ander P2P netwerk.  Word sterk aanbeveel."/>
-		<control caption="Koppel aan eDonkey2000"/>
-		<control caption="Die eDonkey2000 netwerk is 'n populêre bediener-gebaseerde netwerk.  Nie so funksieryk soos Gnutella2 nie, maar dit het 'n groot hoeveelheid lêers."/>
-		<control caption="Koppel aan Gnutella1"/>
+		<control caption="Koppel aan Gnutella"/>
 		<control caption="Alhoewel die oorspronklike Gnutella netwerk minder funksieryk as Gnutella2 is en ook minder lêers het as eDonkey2000, bly dit 'n waardevolle hulpbron."/>
+		<control caption="Koppel aan eDonkey2000"/>
+		<control caption="Die eDonkey netwerk (ED2K) is 'n populêre bediener-gebaseerde netwerk.  Nie so funksieryk soos Gnutella2 nie, maar dit het 'n groot hoeveelheid lêers."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Trek eDonkey2000 Aflaaie In">
 		<control/>
@@ -4370,19 +4364,23 @@
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Aflaaigroep Eienskappe">
-		<control caption="_Naam:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Aflaaigroep Eienskappe">
+		<control caption="OK"/>
+		<control caption="Kanselleer"/>
 		<control/>
 		<control/>
-		<control caption="_Filters:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="Voeg _By"/>
 		<control caption="_Verwyder"/>
-		<control caption="OK"/>
-		<control caption="Kanselleer"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Groep_Naam:"/>
+		<control caption="_Filters:"/>
 		<control caption="Gids vir _Voltooide Lêers:"/>
-		<control/>
-		<control/>
+		<control caption="Lêer_Tipe:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Selekteer Visualisering">
 		<control/>

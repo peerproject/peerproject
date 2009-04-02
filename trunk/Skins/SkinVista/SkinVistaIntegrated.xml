@@ -4,10 +4,11 @@
 <manifest
  name="SkinVista.Integrated"
  author="SkinVista"
- description="Windows Vista Theme, with Default System Frames"
+ description="Windows Vista Theme, with System Default Frames"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
- version="2.0.0"
+ path="SkinVista"
+ version="2.0"
  type="Skin"
 />
 
@@ -18,132 +19,129 @@
 </fonts>
 
 <colorScheme>
-  <color name="System.Base.Window"		value="FEFEFE"/>
-  <color name="System.Base.Midtone"		value="FCFBFA"/>
-  <color name="System.Base.Text" 		value="1A100A"/>
-  <color name="System.Base.HiText" 		value="000000"/>
-  <color name="System.Base.HiBorder"	  	value="D8F0FD"/>
-  <color name="System.Base.Highlight"    	value="F0FBFE"/>
-  <color name="System.Back.Checked"		value="F8F6F4"/>
-  <color name="System.Back.Selected"		value="F8F6F4"/>
-  <color name="System.Back.Checked.Selected"	value="F8F6F4"/>
-  <color name="System.Border"			value="F8F6F4"/>
-  <color name="System.Margin"			value="F8F6F4"/>
-  <color name="System.Shadow"			value="E4E2E0"/>
-  <color name="System.Disabled" 		value="DDDEDE"/>
-  <color name="System.Text"			value="4A4440"/>
-  <color name="System.Text.Selected"		value="303030"/>
-  <color name="System.TextLink" 		value="3880E0"/>
-  <color name="System.TextLink.Selected"	value="0660CC"/>
-  <color name="System.TextAlert"		value="EA4A60"/>
-  <color name="System.TextStatus"		value="109000"/>
-  <color name="Panel.Caption.Text"		value="DEDEDE"/>
-  <color name="Panel.Caption.Back"		value="FFFFFF"/>
-  <color name="TaskPanel.Back"			value="FFFFFF"/>
-  <color name="TaskBox.Primary.Back"		value="F4F2F0"/>
-  <color name="TaskBox.Primary.Text"		value="F8F8FF"/>
-  <color name="TaskBox.Caption.Back"		value="4080C0"/>
-  <color name="TaskBox.Caption.Text"		value="FFFFFF"/>
-  <color name="TaskBox.Caption.Hover"		value="F0F0FF"/>
-  <color name="TaskBox.Client"			value="FDFDFD"/>
-  <color name="ToolTip.Back"			value="FCFBFA"/>
-  <color name="ToolTip.Text"			value="A0A0A0"/>
-  <color name="Dialog.Back"			value="F8F7F6"/>
-  <color name="Banner.Text"			value="FFFFFF"/>
-  <color name="Banner.Back"			value="C4D6FE"/>
+  <color name="System.Base.Window"			value="FEFEFE"/>   <!--whitespace-->
+  <color name="System.Base.Midtone"			value="FCFBFA"/>   <!--toolbars-->
+  <color name="System.Base.Text" 			value="1A100A"/>
+  <color name="System.Base.HiText" 			value="000000"/>
+  <color name="System.Base.HiBorder"	  		value="D8F0FD"/>
+  <color name="System.Base.Highlight"    		value="F0FBFE"/>
+  <color name="System.Back.Checked"			value="F8F6F4"/>
+  <color name="System.Back.Selected"			value="F8F6F4"/>   <!--button hover-->
+  <color name="System.Back.Checked.Selected"		value="F8F6F4"/>
+  <color name="System.Border"				value="F8F6F4"/>
+  <color name="System.Margin"				value="F8F6F4"/>
+  <color name="System.Shadow"				value="E4E2E0"/>   <!--icon alpha blend-->
+  <color name="System.Disabled" 			value="DDDEDE"/>
+  <color name="System.Text"				value="4A4440"/>
+  <color name="System.Text.Selected"			value="303030"/>
+  <color name="System.TextLink" 			value="3880E0"/>
+  <color name="System.TextLink.Selected"		value="0660CC"/>
+  <color name="System.TextAlert"			value="EA4A60"/>
+  <color name="System.TextStatus"			value="109000"/>
+  <color name="Panel.Caption.Text"			value="DEDEDE"/>
+  <color name="Panel.Caption.Back"			value="FFFFFF"/>
+  <color name="TaskPanel.Back"				value="FFFFFF"/>
+  <color name="TaskBox.Primary.Back"			value="F4F2F0"/>
+  <color name="TaskBox.Primary.Text"			value="F8F8FF"/>
+  <color name="TaskBox.Caption.Back"			value="4080C0"/>
+  <color name="TaskBox.Caption.Text"			value="FFFFFF"/>
+  <color name="TaskBox.Caption.Hover"			value="F0F0FF"/>
+  <color name="TaskBox.Client"				value="FDFDFD"/>
+  <color name="ToolTip.Back"				value="FCFBFA"/>
+  <color name="ToolTip.Text"				value="A0A0A0"/>
+  <color name="Dialog.Back"				value="F8F7F6"/>   <!--settings window-->
+  <color name="Banner.Text"				value="FFFFFF"/>
+  <color name="Banner.Back"				value="C4D6FE"/>   <!--library/profile headers-->
 
-  <color name="Media.Window"			value="0A0A0A"/>
-  <color name="Media.Window.Text"		value="DDDDDD"/>
-  <color name="Media.Status"			value="1B1D20"/>
-  <color name="Media.Status.Text"		value="FFFFFF"/>
-  <color name="Media.Panel"			value="1A1816"/>
-  <color name="Media.Panel.Text"		value="68625A"/>
-  <color name="Media.Panel.Active"		value="1C1B1A"/>
-  <color name="Media.Panel.Active.Text" 	value="FFFFFF"/>
-  <color name="Media.Panel.Caption"		value="343232"/>
-  <color name="Media.Panel.Caption.Text"	value="FDFCFA"/>
-  <color name="Traffic.Window.Back"	 	value="1A1816"/>
-  <color name="Traffic.Window.Text"	 	value="68625A"/>
-  <color name="Traffic.Window.Grid"	 	value="343232"/>
-  <color name="Monitor.History.Text" 		value="7A726A"/>
-  <color name="Monitor.History.Back" 		value="000000"/>
-  <color name="Monitor.History.Back.Max" 	value="444240"/>
-  <!--color name="Monitor.Download.Line"	value="FFFFFF"-->
-  <!--color name="Monitor.Download.Bar" 	value="FFFFFF"-->
-  <color name="Monitor.Upload.Line" 		value="809AC0"/>
-  <color name="Monitor.Upload.Bar" 		value="809AC0"/>
+  <color name="Media.Window"				value="0A0A0A"/>
+  <color name="Media.Window.Text"			value="DDDDDD"/>
+  <color name="Media.Status"				value="1B1D20"/>
+  <color name="Media.Status.Text"			value="FFFFFF"/>
+  <color name="Media.Panel"				value="1A1816"/>
+  <color name="Media.Panel.Text"			value="68625A"/>
+  <color name="Media.Panel.Active"			value="1C1B1A"/>
+  <color name="Media.Panel.Active.Text" 		value="FFFFFF"/>
+  <color name="Media.Panel.Caption"			value="343232"/>
+  <color name="Media.Panel.Caption.Text"		value="FDFCFA"/>
+  <color name="Traffic.Window.Back"	 		value="1A1816"/>
+  <color name="Traffic.Window.Text"	 		value="68625A"/>
+  <color name="Traffic.Window.Grid"	 		value="343232"/>
+  <color name="Monitor.History.Text" 			value="7A726A"/>
+  <color name="Monitor.History.Back" 			value="000000"/>
+  <color name="Monitor.History.Back.Max" 		value="444240"/>
+  <color name="Monitor.Upload.Line" 			value="809AC0"/>
+  <color name="Monitor.Upload.Bar" 			value="809AC0"/>
+  <color name="Schema.Row1"				value="F4F2F0"/> 
+  <color name="Schema.Row2"				value="EAE8E4"/> 
+  <color name="Schema.Rating"				value="4A4440"/>
+  <color name="Schema.Rating0"				value="EA4A60"/>
+  <color name="Schema.Rating1"				value="CAC4C0"/>
+  <color name="Schema.Rating2"				value="B4B2B0"/>
+  <color name="Schema.Rating3"				value="848280"/>
+  <color name="Schema.Rating4"				value="605A55"/>
+  <color name="Schema.Rating5"				value="000000"/>
+  <color name="Richdoc.Back"				value="FFFFFF"/>
+  <color name="Richdoc.Text"				value="4A4840"/>
+  <color name="Richdoc.Heading" 			value="B03020"/>
 
-  <color name="Schema.Row1"			value="F4F2F0"/> 
-  <color name="Schema.Row2"			value="EAE8E4"/> 
-  <color name="Schema.Rating"			value="4A4440"/>
-  <color name="Schema.Rating0"			value="EA4A60"/>
-  <color name="Schema.Rating1"			value="CAC4C0"/>
-  <color name="Schema.Rating2"			value="B4B2B0"/>
-  <color name="Schema.Rating3"			value="848280"/>
-  <color name="Schema.Rating4"			value="605A55"/>
-  <color name="Schema.Rating5"			value="000000"/>
-  <color name="Richdoc.Back"			value="FFFFFF"/>
-  <color name="Richdoc.Text"			value="4A4840"/>
-  <color name="Richdoc.Heading" 		value="B03020"/>
+  <color name="System.Base.Chat.In"	 		value="0660CC"/>
+  <color name="System.Base.Chat.Out"	 		value="EA4A60"/>
+  <color name="System.Base.Chat.Null"	 		value="D0CDCB"/>
+  <color name="System.Base.Network.Null" 		value="D0CDCB"/>
+  <color name="System.Base.Network.G1"			value="888888"/>
+  <color name="System.Base.Network.G2"			value="2000D0"/>
+  <color name="System.Base.Network.ED2K" 		value="AABA40"/>
+  <color name="System.Base.Network.Up"			value="FF2000"/>
+  <color name="System.Base.Network.Down" 		value="20D010"/>
+  <color name="System.Base.Security.Deny" 		value="FF2000"/>
+  <color name="System.Base.Security.Allow" 		value="20D010"/>
+  <color name="System.Base.Search.Queued" 		value="20508A"/>
+  <color name="System.Base.Search.Queued.Selected" 	value="2050A0"/>
+  <color name="System.Base.Search.Exists" 		value="60B020"/>
+  <color name="System.Base.Search.Exists.Selected" 	value="60C510"/>
+  <color name="System.Base.Transfer.Completed"  	value="60C000"/>
+  <color name="System.Base.Transfer.Seeding"		value="205080"/>
+  <color name="System.Base.Transfer.Failed"		value="EA4A60"/>
+  <color name="System.Base.Transfer.Completed.Selected"	value="60C000"/>
+  <color name="System.Base.Transfer.Seeding.Selected" 	value="205080"/>
+  <color name="System.Base.Transfer.Failed.Selected" 	value="EA4A60"/>
+  <color name="System.Base.Transfer.Ranges" 		value="FFFFFF"/>
+  <color name="System.Base.Transfer.Source" 		value="202020"/>
 
-  <color name="System.Base.Chat.In"	 	value="0660CC"/>
-  <color name="System.Base.Chat.Out"	 	value="EA4A60"/>
-  <color name="System.Base.Chat.Null"	 	value="D0CDCB"/>
-  <color name="System.Base.Network.Null" 	value="D0CDCB"/>
-  <color name="System.Base.Network.G1"		value="888888"/>
-  <color name="System.Base.Network.G2"		value="2000D0"/>
-  <color name="System.Base.Network.ED2K" 	value="AABA40"/>
-  <color name="System.Base.Network.Up"		value="FF2000"/>
-  <color name="System.Base.Network.Down" 	value="20D010"/>
-  <color name="System.Base.Security.Deny" 	value="FF2000"/>
-  <color name="System.Base.Security.Allow" 	value="20D010"/>
-  <color name="System.Base.Search.Queued" 	value="20508A"/>
-  <color name="System.Base.Search.Queued.Selected" value="2050A0"/>
-  <color name="System.Base.Search.Exists" 	value="60B020"/>
-  <color name="System.Base.Search.Exists.Selected" value="60C510"/>
-  <color name="System.Base.Transfer.Completed" value="60C000"/>
-  <color name="System.Base.Transfer.Seeding"	value="205080"/>
-  <color name="System.Base.Transfer.Failed"	value="EA4A60"/>
-  <color name="System.Base.Transfer.Completed.Selected" value="60C000"/>
-  <color name="System.Base.Transfer.Seeding.Selected" value="205080"/>
-  <color name="System.Base.Transfer.Failed.Selected" value="EA4A60"/>
-  <color name="System.Base.Transfer.Ranges" 	value="FFFFFF"/>
-  <color name="System.Base.Transfer.Source" 	value="202020"/>
-
-  <color name="FragmentBar.Shaded" 		value="F6F4F2"/>
-  <color name="FragmentBar.Complete"	 	value="D4F8B4"/>
-  <color name="FragmentBar.Pass"	 	value="40F020"/>
-  <color name="FragmentBar.Fail"		value="F01000"/>
-  <color name="FragmentBar.Request"		value="F0FF20"/>
-  <color name="FragmentBar.Border"	 	value="888888"/>
-  <color name="FragmentBar.Border.Selected" 	value="808080"/>
-  <color name="FragmentBar.Border.Simplebar" 	value="888888"/>
-  <color name="FragmentBar.Border.Simplebar.Selected" value="808080"/>
-  <color name="DropdownBox.Back"		value="FFFFFF"/>
-  <color name="DropdownBox.Text"		value="403A38"/> 
-  <color name="ResizeBar.Edge"			value="E8E7E6"/>
-  <color name="ResizeBar.Face"			value="F8F7F6"/>
-  <color name="ResizeBar.Shadow" 		value="E0DFDD"/>
-  <color name="ResizeBar.Highlight"		value="FDFCFB"/>
-  <color name="System.Environment.3DShadow" 	value="D8D7D6"/>
-  <color name="System.Environment.3DHighlight"	value="FFFFFF"/>
-  <color name="System.Environment.Borders" 	value=" "/>
+  <color name="FragmentBar.Shaded" 			value="F6F4F2"/>
+  <color name="FragmentBar.Complete"	 		value="D4F8B4"/>
+  <color name="FragmentBar.Pass"	 		value="40F020"/>
+  <color name="FragmentBar.Fail"			value="F01000"/>
+  <color name="FragmentBar.Request"			value="F0FF20"/>
+  <color name="FragmentBar.Border"	 		value="888888"/>
+  <color name="FragmentBar.Border.Selected" 		value="808080"/>
+  <color name="FragmentBar.Border.Simplebar" 		value="888888"/>
+  <color name="FragmentBar.Border.Simplebar.Selected" 	value="808080"/>
+  <color name="DropdownBox.Back"			value="FFFFFF"/>
+  <color name="DropdownBox.Text"			value="403A38"/> 
+  <color name="ResizeBar.Edge"				value="E8E7E6"/>
+  <color name="ResizeBar.Face"				value="F8F7F6"/>
+  <color name="ResizeBar.Shadow" 			value="E0DFDD"/>
+  <color name="ResizeBar.Highlight"			value="FDFCFB"/>
+  <color name="System.Environment.3DShadow" 		value="D8D7D6"/>
+  <color name="System.Environment.3DHighlight"		value="FFFFFF"/>
+  <color name="System.Environment.Borders" 		value=" "/>
 </colorScheme>
 
 <watermarks>
-  <watermark target="CWndTabBar"		path="RibbonBaseline.png"/>
-  <watermark target="CCoolMenuBar"		path="RibbonMenubar.png"/>
-  <watermark target="CCoolMenu" 		path="MenuBkg.png"/>
-  <watermark target="CCoolMenu.Hover"		path="MenuHover.png"/>
-  <watermark target="CMonitorBar"		path="RibbonMonitorBkg.png"/>
-  <watermark target="CMainWnd.Toolbar"		path="RibbonBkg.bmp"/>
-  <watermark target="CMediaFrame.Toolbar"	path="Mediabar.png"/>
-  <watermark target="CDownloadTabBar"		path="DownloadgroupsToolbar.png"/>
-  <watermark target="CDownloadsWnd.Toolbar"	path="ToolbarLt.png"/>
-  <watermark target="CUploadsWnd.Toolbar"	path="Toolbar.png"/>
-  <watermark target="CPrivateChatFrame.Toolbar"	path="ToolbarLt.png"/>
-  <watermark target="CBrowseHostWnd.Toolbar"	path="Toolbar.png"/>
-  <watermark target="CBrowseTree.Top.Toolbar"	path="Toolbar.png"/>
+  <watermark target="CWndTabBar"			path="RibbonBaseline.png"/>
+  <watermark target="CCoolMenuBar"			path="RibbonMenubar.png"/>
+  <watermark target="CCoolMenu" 			path="MenuBkg.png"/>
+  <watermark target="CCoolMenu.Hover"			path="MenuHover.png"/>
+  <watermark target="CMonitorBar"			path="RibbonMonitorBkg.png"/>
+  <watermark target="CMainWnd.Toolbar"			path="RibbonBkg.bmp"/>
+  <watermark target="CMediaFrame.Toolbar"		path="Mediabar.png"/>
+  <watermark target="CDownloadTabBar"			path="DownloadgroupsToolbar.png"/>
+  <watermark target="CDownloadsWnd.Toolbar"		path="ToolbarLt.png"/>
+  <watermark target="CUploadsWnd.Toolbar"		path="Toolbar.png"/>
+  <watermark target="CPrivateChatFrame.Toolbar"		path="ToolbarLt.png"/>
+  <watermark target="CBrowseHostWnd.Toolbar"		path="Toolbar.png"/>
+  <watermark target="CBrowseTree.Top.Toolbar"		path="Toolbar.png"/>
   <watermark target="CLibraryTree.Top.Toolbar"		path="Toolbar.png"/>
   <watermark target="CLibraryTree.Virtual.Toolbar"	path="Toolbar.png"/>
   <watermark target="CLibraryHeaderBar.Virtual.Toolbar" path="Toolbar.png"/>
@@ -155,52 +153,55 @@
   <watermark target="CLibraryTileView.Physical.Toolbar"	path="Toolbar.png"/>
   <watermark target="CLibraryTileView.Virtual.Toolbar"	path="Toolbar.png"/>
   <watermark target="CLibraryCollectionView.Virtual.Toolbar" path="Toolbar.png"/>
-  <watermark target="ImageViewerWnd.Toolbar"	path="Toolbar.png"/>
-  <watermark target="CIRCFrame.Toolbar"	 	path="Toolbar.png"/>
-  <watermark target="CNeighboursWnd.Toolbar"	path="ToolbarLt.png"/>
-  <watermark target="CHostCacheWnd.Toolbar"  	path="Toolbar.png"/>
-  <watermark target="CHitMonitorWnd.Toolbar"  	path="Toolbar.png"/>
-  <watermark target="CSearchWnd.Full.Toolbar"	path="ToolbarLt.png"/>
-  <watermark target="CSearchWnd.Panel.Toolbar"	path="Toolbar.png"/>
-  <watermark target="CSearchPanel"		path="SidebarHeader.png"/>
-  <watermark target="CSearchPanel.Footer"	path="SidebarFooter.png"/>
-  <watermark target="CHomePanel"		path="SidebarHeader.png"/>
-  <watermark target="CHomePanel.Footer" 	path="SidebarFooter.png"/>
-  <watermark target="CIRCPanel"			path="SidebarHeader.png"/>
-  <watermark target="CIRCPanel.Footer" 		path="SidebarFooter.png"/>
-  <watermark target="CIRCWaterMarkPanel"	path="MenuBkg.png"/>
-  <watermark target="CIRCHeaderPanel"		path="BrowseBanner.png"/>
-  <watermark target="CLibraryHeaderPanel"	path="BrowseBanner.png"/> 
-  <watermark target="CBrowseHeaderCtrl.Toolbar" path="BrowseBanner.png"/>
-  <watermark target="CIRCUsersBox.Caption"	path="SidebarCaption.png"/>
-  <watermark target="CIRCChannelsBox.Caption"	path="SidebarCaptionAlt.png"/>
-  <watermark target="CHomeConnectionBox.Caption" path="SidebarCaptionAlt.png"/>
-  <watermark target="CHomeLibraryBox.Caption"	path="SidebarCaption.png"/>
-  <watermark target="CHomeDownloadsBox.Caption" path="SidebarCaption.png"/>
-  <watermark target="CHomeUploadsBox.Caption"	path="SidebarCaption.png"/>
-  <watermark target="CHomeTorrentsBox.Caption"	path="SidebarCaption.png"/>
-  <watermark target="CSearchInputBox.Caption"	path="SidebarCaptionAlt.png"/>
-  <watermark target="CSearchResultsBox.Caption" path="SidebarCaption.png"/>
-  <watermark target="CSearchSchemaBox.Caption"  path="SidebarCaption.png"/>
-  <watermark target="CSearchAdvancedBox.Caption" path="SidebarCaption.png"/>
+  <watermark target="ImageViewerWnd.Toolbar"		path="Toolbar.png"/>
+  <watermark target="CIRCFrame.Toolbar"	 		path="Toolbar.png"/>
+  <watermark target="CNeighboursWnd.Toolbar"		path="ToolbarLt.png"/>
+  <watermark target="CHostCacheWnd.Toolbar"  		path="Toolbar.png"/>
+  <watermark target="CHitMonitorWnd.Toolbar"  		path="Toolbar.png"/>
+  <watermark target="CSecurityWnd.Toolbar"  		path="Toolbar.png"/>
+  <watermark target="CSearchWnd.Full.Toolbar"		path="ToolbarLt.png"/>
+  <watermark target="CSearchWnd.Panel.Toolbar"		path="Toolbar.png"/>
+  <watermark target="CSearchPanel"			path="SidebarHeader.png"/>
+  <watermark target="CSearchPanel.Footer"		path="SidebarFooter.png"/>
+  <watermark target="CHomePanel"			path="SidebarHeader.png"/>
+  <watermark target="CHomePanel.Footer" 		path="SidebarFooter.png"/>
+  <watermark target="CIRCPanel"				path="SidebarHeader.png"/>
+  <watermark target="CIRCPanel.Footer" 			path="SidebarFooter.png"/>
+  <watermark target="CIRCWaterMarkPanel"		path="MenuBkg.png"/>
+  <watermark target="CIRCHeaderPanel"			path="BrowseBanner.png"/>
+  <watermark target="CLibraryHeaderPanel"		path="BrowseBanner.png"/> 
+  <watermark target="CBrowseHeaderCtrl.Toolbar" 	path="BrowseBanner.png"/>
+  <watermark target="CIRCUsersBox.Caption"		path="SidebarCaption.png"/>
+  <watermark target="CIRCChannelsBox.Caption"		path="SidebarCaptionAlt.png"/>
+  <watermark target="CHomeConnectionBox.Caption" 	path="SidebarCaptionAlt.png"/>
+  <watermark target="CHomeLibraryBox.Caption"		path="SidebarCaption.png"/>
+  <watermark target="CHomeDownloadsBox.Caption" 	path="SidebarCaption.png"/>
+  <watermark target="CHomeUploadsBox.Caption"		path="SidebarCaption.png"/>
+  <watermark target="CHomeTorrentsBox.Caption"		path="SidebarCaption.png"/>
+  <watermark target="CSearchInputBox.Caption"		path="SidebarCaptionAlt.png"/>
+  <watermark target="CSearchResultsBox.Caption" 	path="SidebarCaption.png"/>
+  <watermark target="CSearchSchemaBox.Caption"  	path="SidebarCaption.png"/>
+  <watermark target="CSearchAdvancedBox.Caption" 	path="SidebarCaption.png"/>
 
-  <watermark target="CWndTabBar.Active" 	path="RibbonBaselineTabActive.png"/>
-  <watermark target="CWndTabBar.Hover"  	path="RibbonBaselineTabActive.png"/>
-  <watermark target="CWndTabBar.Active.Hover"  	path="RibbonBaselineTabAlt.png"/>
-  <watermark target="CDownloadTabBar.Active" 	path="DownloadgroupsTab.png"/>
-  <watermark target="CDownloadTabBar.Hover" 	path="DownloadgroupsHover.png"/>
-  <watermark target="CDownloadTabBar.Active.Hover" path="DownloadgroupsHover.png"/>
-  <watermark target="CCoolMenuBar.Hover" 	path="CoolMenuBarHover.png"/>
-  <watermark target="CCoolMenuBar.Down" 	path="CoolMenuBarDown.png"/>
-  <watermark target="CCoolbar.Down" 		path="ToolbarButtonDown.png"/>
-  <watermark target="CCoolbar.Hover" 		path="ToolbarButtonHover.png"/>
-  <watermark target="CCoolbar.Checked" 		path="ToolbarButtonDown.png"/>
-  <watermark target="CCoolbar.Separator"	path="ToolbarSeparator.png"/>
+  <watermark target="CWndTabBar.Active" 		path="RibbonBaselineTabActive.png"/>
+  <watermark target="CWndTabBar.Hover"  		path="RibbonBaselineTabActive.png"/>
+  <watermark target="CWndTabBar.Active.Hover"  		path="RibbonBaselineTabAlt.png"/>
+  <watermark target="CDownloadTabBar.Active" 		path="DownloadgroupsTab.png"/>
+  <watermark target="CDownloadTabBar.Hover" 		path="DownloadgroupsHover.png"/>
+  <watermark target="CDownloadTabBar.Active.Hover" 	path="DownloadgroupsHover.png"/>
+  <watermark target="CCoolMenuBar.Hover" 		path="CoolMenuBarHover.png"/>
+  <watermark target="CCoolMenuBar.Down" 		path="CoolMenuBarDown.png"/>
+  <watermark target="CCoolbar.Down" 			path="ToolbarButtonDown.png"/>
+  <watermark target="CCoolbar.Hover" 			path="ToolbarButtonHover.png"/>
+  <watermark target="CCoolbar.Checked" 			path="ToolbarButtonDown.png"/>
+  <watermark target="CCoolbar.Separator"		path="ToolbarSeparator.png"/>
 </watermarks>
 
 <windowSkins>
 
 <!-- No Main Window -->
+
+
 
 
 <!-- PANEL HEADERS -->
@@ -401,15 +402,15 @@
 <menu name="CMainWnd.Tabbed" type="bar">
 <menu text="- . . ..-. . .">
      
- <item id="ID_TOOLS_SETTINGS" text="_PeerProject Settings"/>
+ <item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 
  <menu text="_Network">
   <item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>
   <item id="ID_NETWORK_DISCONNECT" text="_Disconnect"/>
   <separator/>
-  <item id="ID_NETWORK_ED2K" text="Connect to _eDonkey2000"/>
-  <item id="ID_NETWORK_G1" text="Connect to G_nutella1"/>
   <item id="ID_NETWORK_G2" text="Connect to _Gnutella2"/>
+  <item id="ID_NETWORK_G1" text="Connect to G_nutella1"/>
+  <item id="ID_NETWORK_ED2K" text="Connect to _eDonkey2000"/>
   <separator/>
   <item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
   <item id="ID_NETWORK_BROWSE_TO" text="_Browse Host..."/>
@@ -420,12 +421,15 @@
 
  <menu text="_Tools">
   <item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
-  <item id="ID_TOOLS_DOWNLOAD"  text="_Download File/Torrent..."/>
-  <item id="ID_TOOLS_SEEDTORRENT"  text="_Seed New Torrent..."/>
-  <item id="IDC_IMPORT_DOWNLOADS" text="Import eDonkey Partials..."/>
+  <item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads folder"/>
   <separator/>
-  <item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
+  <item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
+  <item id="ID_TOOLS_SEEDTORRENT" text="_Seed a .Torrent..."/>
+  <item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+  <item id="IDC_IMPORT_DOWNLOADS" text="_Import eMule Partials..."/>
+  <separator/>
   <item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
+  <item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
   <separator/>
   <item id="ID_TOOLS_PROFILE" text="Edit My _Profile..."/>
   <item id="ID_TOOLS_WIZARD"  text="QuickStart _Wizard..."/>
@@ -433,25 +437,25 @@
   <item id="ID_TOOLS_SETTINGS" text="_PeerProject Settings..."/>
  </menu>
 
- <menu text="A_dvanced View">
-  <item id="ID_TAB_HOME" text="_Home" shortcut="Ctrl-H"/>
-  <item id="ID_TAB_SEARCH" text="_Search" shortcut="Ctrl-S"/>
-  <item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
-  <item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
-  <item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
-  <item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
-  <item id="ID_TAB_IRC" text="_IRC" shortcut="F12"/>
+ <menu text="Advanced _View">
+  <item id="ID_TAB_HOME"		text="_Home" shortcut="Ctrl-H"/>
+  <item id="ID_TAB_SEARCH"		text="_Search" shortcut="Ctrl-S"/>
+  <item id="ID_VIEW_DOWNLOADS"		text="_Downloads" shortcut="F3"/>
+  <item id="ID_VIEW_UPLOADS"		text="_Uploads" shortcut="F4"/>
+  <item id="ID_VIEW_LIBRARY"		text="_Library" shortcut="F5"/>
+  <item id="ID_VIEW_MEDIA"		text="_Media" shortcut="F6"/>
+  <item id="ID_TAB_IRC" 		text="_IRC" shortcut="F12"/>
   <separator/>
-  <item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
-  <item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
-  <item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
-  <item id="ID_VIEW_TRAFFIC" text="_Graph" shortcut="F10"/>
-  <item id="ID_VIEW_SYSTEM" text="S_ystem" shortcut="F11"/>
-  <item id="ID_VIEW_NEIGHBOURS" text="N_eighbours" shortcut="Crtl+F11"/>
+  <item id="ID_VIEW_SECURITY"		text="Se_curity" shortcut="F7"/>
+  <item id="ID_VIEW_HOSTS"		text="H_ost Cache" shortcut="F8"/>
+  <item id="ID_VIEW_DISCOVERY"		text="Disco_very" shortcut="F9"/>
+  <item id="ID_VIEW_TRAFFIC"		text="_Graph" shortcut="F10"/>
+  <item id="ID_VIEW_SYSTEM"		text="S_ystem" shortcut="F11"/>
+  <item id="ID_VIEW_NEIGHBOURS"		text="N_eighbours" shortcut="Crtl+F11"/>
   <separator/>
-  <item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
-  <item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
-  <item id="ID_VIEW_RESULTS_MONITOR" text="H_it Monitor" shortcut="Ctrl+F3"/>
+  <item id="ID_VIEW_PACKETS"		text="_Packet Dump" shortcut="Ctrl+F1"/>
+  <item id="ID_VIEW_SEARCH_MONITOR"	text="Se_arch Monitor" shortcut="Ctrl+F2"/>
+  <item id="ID_VIEW_RESULTS_MONITOR"	text="H_it Monitor" shortcut="Ctrl+F3"/>
  </menu>
 
  <menu text="_Window">
@@ -469,12 +473,6 @@
   <item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
   <item id="ID_HELP_FAQ" text="PeerProject FAQ" shortcut="F1"/>
   <menu text="SkinVista Help">
-    <menu text="★ http://hypewise.deviantart.com ★"> </menu>
-    <menu text="If Menubar Displays Improperly --"> </menu>
-    <menu text="Check Menu: Window: Show Nav Bar"> </menu>
-    <menu text="Then Float Nav Bar and Menu Bar Parts-"> </menu>
-    <menu text="(Drag+Drop Outside Before Positioning at Top)"> </menu>
-    <menu text="Reload GUI to Clear Defects: Cntrl+Shift+Z"> </menu>
   </menu>
   <separator/>
   <menu text="_Websites">
@@ -492,17 +490,11 @@
  </menu>
 </menu>
 
-<menu name="CMainWnd.Basic" type="bar">
-<menu text=" . . . . .. . .">
 
- <menu text="Warning :"> 
- </menu>
- <menu text="Basic Mode Unsupported."> 
-  <item id="ID_VIEW_TABBED" text="Restore Full Tabbed Mode"/>
- </menu>
- <separator/>
-
- <item id="ID_TOOLS_SETTINGS" text="_PeerProject Settings"/>
+<menu name="CMainWnd.Windowed" type="bar">
+<menu text="- . . ..-. . .">
+     
+ <item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 
  <menu text="_Network">
   <item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>
@@ -521,10 +513,15 @@
 
  <menu text="_Tools">
   <item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
-  <item id="ID_TOOLS_DOWNLOAD"  text="_Download File/Torrent..."/>
+  <item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads folder"/>
   <separator/>
-  <item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
+  <item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
+  <item id="ID_TOOLS_SEEDTORRENT" text="_Seed a .Torrent..."/>
+  <item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+  <item id="IDC_IMPORT_DOWNLOADS" text="_Import eMule Partials..."/>
+  <separator/>
   <item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
+  <item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
   <separator/>
   <item id="ID_TOOLS_PROFILE" text="Edit My _Profile..."/>
   <item id="ID_TOOLS_WIZARD"  text="QuickStart _Wizard..."/>
@@ -532,7 +529,101 @@
   <item id="ID_TOOLS_SETTINGS" text="_PeerProject Settings..."/>
  </menu>
 
- <menu text="A_dvanced View">
+ <menu text="Advanced _View">
+  <item id="ID_TAB_HOME"		text="_Home" shortcut="Ctrl-H"/>
+  <item id="ID_TAB_SEARCH"		text="_Search" shortcut="Ctrl-S"/>
+  <item id="ID_VIEW_DOWNLOADS"		text="_Downloads" shortcut="F3"/>
+  <item id="ID_VIEW_UPLOADS"		text="_Uploads" shortcut="F4"/>
+  <item id="ID_VIEW_LIBRARY"		text="_Library" shortcut="F5"/>
+  <item id="ID_VIEW_MEDIA"		text="_Media" shortcut="F6"/>
+  <item id="ID_TAB_IRC" 		text="_IRC" shortcut="F12"/>
+  <separator/>
+  <item id="ID_VIEW_SECURITY"		text="Se_curity" shortcut="F7"/>
+  <item id="ID_VIEW_HOSTS"		text="H_ost Cache" shortcut="F8"/>
+  <item id="ID_VIEW_DISCOVERY"		text="Disco_very" shortcut="F9"/>
+  <item id="ID_VIEW_TRAFFIC"		text="_Graph" shortcut="F10"/>
+  <item id="ID_VIEW_SYSTEM"		text="S_ystem" shortcut="F11"/>
+  <item id="ID_VIEW_NEIGHBOURS"		text="N_eighbours" shortcut="Crtl+F11"/>
+  <separator/>
+  <item id="ID_VIEW_PACKETS"		text="_Packet Dump" shortcut="Ctrl+F1"/>
+  <item id="ID_VIEW_SEARCH_MONITOR"	text="Se_arch Monitor" shortcut="Ctrl+F2"/>
+  <item id="ID_VIEW_RESULTS_MONITOR"	text="H_it Monitor" shortcut="Ctrl+F3"/>
+ </menu>
+
+ <menu text="_Window">
+  <item id="ID_VIEW_TABBED" text="T_abbed Mode" shortcut="required"/>
+  <item id="ID_VIEW_WINDOWED" text="_Windowed Mode" shortcut="unsupported"/>
+  <separator/>
+  <item id="ID_WINDOW_NAVBAR"  text="Show _Nav Bar" shortcut="required"/>
+  <item id="ID_WINDOW_TABBAR"  text="Show _Tab Bar" shortcut="required"/>
+  <item id="ID_WINDOW_MONITOR" text="Show _Monitor Widget"/>
+  <item id="ID_WINDOW_REMOTE"  text="Show Media _Remote"/>
+ </menu>
+
+ <menu text="_Help">
+  <item id="ID_HELP_GUIDE" text="PeerProject _User Guide"/>
+  <item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
+  <item id="ID_HELP_FAQ" text="PeerProject FAQ" shortcut="F1"/>
+  <menu text="SkinVista Help">
+  </menu>
+  <separator/>
+  <menu text="_Websites">
+    <item id="ID_HELP_WEB_3" text="Slyck.com"/>
+    <item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+    <item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+    <item id="ID_HELP_WEB_6" text="Hypewise.DeviantArt.com"/>
+  </menu>
+  <item id="ID_HELP_HOMEPAGE" text="_PeerProject.org"/>
+  <separator/>
+  <item id="ID_HELP_ABOUT" text="_About PeerProject..."/>
+ </menu>
+
+ <item id="ID_NETWORK_EXIT" text="E_xit"/>
+ </menu>
+</menu>
+
+
+<menu name="CMainWnd.Basic" type="bar">
+<menu text=" . . . . .. . .">
+
+ <menu text="Warning :"> 
+ </menu>
+ <menu text="Basic Mode Unsupported."> 
+  <item id="ID_VIEW_TABBED" text="Restore Full Tabbed Mode"/>
+ </menu>
+ <separator/>
+
+ <item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
+
+ <menu text="_Network">
+  <item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>
+  <item id="ID_NETWORK_DISCONNECT" text="_Disconnect"/>
+  <separator/>
+  <item id="ID_NETWORK_G2" text="Connect to _Gnutella2"/>
+  <item id="ID_NETWORK_G1" text="Connect to G_nutella1"/>
+  <item id="ID_NETWORK_ED2K" text="Connect to _eDonkey2000"/>
+  <separator/>
+  <item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
+  <item id="ID_NETWORK_BROWSE_TO" text="_Browse Host..."/>
+  <separator/>
+  <item id="ID_NETWORK_AUTO_CLOSE" text="Exit _After Transfers"/>
+  <item id="ID_NETWORK_EXIT" text="E_xit Immediately"/>
+ </menu>
+
+ <menu text="_Tools">
+  <item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
+  <item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads Folder"/>
+  <separator/>
+  <item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
+  <item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
+  <separator/>
+  <item id="ID_TOOLS_PROFILE" text="Edit My _Profile..."/>
+  <item id="ID_TOOLS_WIZARD"  text="QuickStart _Wizard..."/>
+  <separator/>
+  <item id="ID_TOOLS_SETTINGS" text="_PeerProject Settings..."/>
+ </menu>
+
+ <menu text="Advanced _View">
   <item id="ID_TAB_HOME" text="_Home" shortcut="Ctrl-H"/>
   <item id="ID_TAB_SEARCH" text="_Search" shortcut="Ctrl-S"/>
   <item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
@@ -568,13 +659,6 @@
   <item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
   <item id="ID_HELP_FAQ" text="PeerProject FAQ" shortcut="F1"/>
   <menu text="SkinVista Help">
-    <menu text="★ http://hypewise.deviantart.com ★"> </menu>
-    <menu text="If Menubar Displays Improperly --"> </menu>
-    <menu text="Check Menu: Window: Show Nav Bar"> </menu>
-    <menu text="Then Float Nav Bar and Menu Bar Parts-"> </menu>
-    <menu text="(Drag+Drop Outside Before Positioning at Top)"> </menu>
-    <menu text="Reload GUI to Clear Defects: Cntrl+Shift+Z"> </menu>
-    <menu text="Gracefully Supports English Tabbed Mode Only"> </menu>
   </menu>
   <separator/>
   <menu text="_Websites">
@@ -607,7 +691,9 @@
 <toolbar name="CMainWnd.Basic">
  <button id="ID_NETWORK_CONNECT" text="Connect"/>
  <separator/>
- <button id="ID_VIEW_TABBED"  text="Activate Full Tabbed Mode"/>
+ <button id="ID_WINDOW_NAVBAR" text="Show Navigation Tabs" color="000000"/>
+ <separator/>
+ <button id="ID_VIEW_TABBED" text="Use Full Tabbed Mode"/>
 </toolbar>
 
 <!-- MEDIA PLAYER -->
@@ -645,151 +731,22 @@
 
 <commandImages>
 
- <icon id="TORRENT_ICON" path="IconBittorrent.ico"/>
- <icon id="IDR_BITTORRENT_ICON" path="IconBittorrent.ico"/>
- <icon id="WINDOW_DOWNLOADS" path="IconDownloads.ico"/>
- <icon id="WINDOW_UPLOADS" path="IconUploads.ico"/>
- <icon id="WINDOW_LIBRARY" path="IconLibrary.ico"/>
- <icon id="WINDOW_NEIGHBOURS" path="IconConnection.ico"/>
- <icon id="WINDOW_CHAT" path="IconChat.ico"/>
- <icon id="WINDOW_BROWSEHOST" path="IconBrowse.ico"/>
- <icon id="WINDOW_SEARCH" path="IconSearch.ico"/>
- <icon id="WINDOW_SEARCHPAD" path="IconSearch.ico"/>
- <icon id="WINDOW_SEARCHMONITOR" path="IconSearch.ico"/>
- <icon id="WINDOW_SECURITY" path="IconSecurity.ico"/>
- <icon id="WINDOW_HITMONITOR" path="IconSearch.ico"/>
- <icon id="IDI_DOWNLOAD_MONITOR" path="IconMonitor.ico"/>
- <icon id="IDI_POINTER_ARROW" path="PointerArrow.ico"/>
- <icon id="IDI_UPDOWN_ARROW" path="UpDownArrow.ico"/>
+ <icon id="IDI_UPDOWN_ARROW" path="UpDownArrow.ico" types="16" rtf="0"/>
+ <icon id="WINDOW_NEIGHBOURS" path="IconConnection.ico" types="16" rtf="0"/>
+ <icon id="WINDOW_CHAT" path="IconChat.ico" types="16" rtf="0"/>
 
- <!--icon id="244" path="CollectionVista.ico" types="16,32,48" rtl="0"-->
- <!--icon id="236" path="ClipboardVista.ico"  types="16,32" rtl="0"-->
- <!--icon id="237" path="PaintbrushesVista.ico" types="16,32" rtl="0"/>
- <!--icon id="147" path="HelpVista.ico" types="16,32" rtl="0"-->
- <!--icon id="134" path="SearchVista.ico" types="32" rtl="0"-->
- <!--icon id="136" path="DownloadsVista.ico" types="32" rtl="0"-->
- <!--icon id="252" path="FirewalledVista.ico" types="16,32" rtl="0"-->
-
-<bitmap path="IconsMedia.png" mask="00FF00">
+<bitmap path="IconsVista.png" mask="00FF00">
  <image id="ID_MEDIA_PLAY"/>
  <image id="ID_MEDIA_PAUSE"/>
  <image id="ID_MEDIA_STOP"/>
  <image id="ID_MEDIA_PREVIOUS"/>
  <image id="ID_MEDIA_NEXT"/>
- <image id="ID_MEDIA_STATE_STOP"/>
- <image id="ID_MEDIA_STATE_PAUSE"/>
- <image id="ID_MEDIA_STATE_PLAY"/>
- <image id="ID_MEDIA_OPEN"/>
- <image id="ID_MEDIA_FULLSCREEN"/>
- <image id="ID_MEDIA_PLAYLIST"/>
- <image id="ID_MEDIA_SAVE"/>
- <image id="ID_MEDIA_CLEAR" id1="ID_SEARCH_CLEAR"/>
- <image id="ID_MEDIA_ADD"/>
- <image id="ID_MEDIA_REMOVE" id1="ID_DOWNLOADS_MOVE_DOWN" id2="ID_VIEW_MEDIA" id3="ID_TAB_MEDIA"/>
- <image id="ID_MEDIA_ZOOM"/>
- <image id="ID_MEDIA_VIS"/>
- <image id="ID_MEDIA_RANDOM"/>
- <image id="ID_MEDIA_REPEAT"/>
-</bitmap>
-
-<bitmap path="IconsMain.png" mask="00FF00">
- <image id="ID_LIBRARY_PARENT"/>
- <image id="ID_SEARCH_DOWNLOAD" id1="ID_DOWNLOADS_RESUME" id2="ID_DOWNLOAD_GROUP_RESUME" id3="ID_UPLOADS_START" id4="ID_CHAT_PRIORITY" 
-        id5="ID_HOSTCACHE_CONNECT" id6="ID_NETWORK_CONNECT" id7="ID_NETWORK_CONNECT_TO" id8="ID_TRANSFERS_CONNECT" id9="ID_TOOLS_SETTINGS"/>
- <image id="ID_CHAT_CONNECT" id1="ID_SEARCH_DOWNLOADNOW" id2="ID_DOWNLOADS_BOOST" id3="ID_IRC_CONNECT"/>
- <image id="ID_DOWNLOADS_LAUNCH" id1="ID_UPLOADS_LAUNCH" id2="ID_DOWNLOADS_LAUNCH_COMPLETE" id3="ID_LIBRARY_LAUNCH" id4="ID_MEDIA_SELECT"/>
- <image id="ID_DOWNLOADS_PAUSE" id1="ID_DOWNLOAD_GROUP_PAUSE" id2="ID_HITMONITOR_PAUSE"/>
- <image id="ID_DOWNLOADS_CLEAR_COMPLETE" id1="ID_DOWNLOADS_CLEAR_COMPLETED" id2="ID_UPLOADS_CLEAR_COMPLETED"/>
- <image id="ID_DOWNLOADS_CLEAR_INCOMPLETE" id1="ID_UPLOADS_CLEAR" id2="ID_DOWNLOADS_FILE_DELETE" 
-	id3="ID_NEIGHBOURS_DISCONNECT" id4="ID_NETWORK_DISCONNECT" id5="ID_TRANSFERS_DISCONNECT"  
-	id6="ID_LIBRARY_DELETE" id7="ID_LIBRARY_ALBUM_DELETE" id8="ID_LIBRARY_FOLDER_DELETE"/>
- <image id="ID_DOWNLOADS_MOVE_UP" id1="ID_TOOLS_DOWNLOAD" id2="ID_DOWNLOADS_ENQUEUE" id3="ID_LIBRARY_ENQUEUE" id4="ID_IRC_ADD"/>
- <image id="ID_DOWNLOADS_MOVE_DOWN" id1="ID_VIEW_MEDIA" id2="ID_TAB_MEDIA" id3="ID_IRC_REMOVE"/>
- <image id="ID_UPLOADS_CHAT" id1="ID_SEARCH_CHAT" id2="ID_NEIGHBOURS_CHAT" id3="ID_TRANSFERS_CHAT" id4="ID_TAB_IRC"/>
- <image id="ID_SECURITY_BAN" id1="ID_TRANSFERS_FORGET" id2="ID_DOWNLOAD_GROUP_REMOVE"/>
- <image id="ID_DOWNLOADS_FILTER_MENU" id1="ID_UPLOADS_FILTER_MENU"/>
- <image id="ID_BROWSE_LAUNCH" id1="ID_CHAT_BROWSE" id2="ID_NETWORK_BROWSE_TO" id3="ID_BROWSE_FILES"/>
- <image id="ID_LIBRARY_FOLDERS"/>
- <image id="ID_TOOLS_WIZARD" id1="ID_DOWNLOADS_RATE" id2="ID_MEDIA_RATE"/>
- <image id="ID_TAB_LIBRARY" id1="ID_VIEW_LIBRARY" id2="ID_MEDIA_PROPERTIES"/>
- <image id="ID_TOOLS_PROFILE" id1="ID_BROWSE_PROFILE"/>
- <image id="ID_TOOLS_LANGUAGE" id1="ID_LIBRARY_REBUILD_ANSI"/>
- <image id="ID_VIEW_DOWNLOADS" id1="ID_TAB_TRANSFERS"/>
- <image id="ID_VIEW_UPLOADS"/>
- <image id="ID_HELP_ABOUT" id1="ID_DOWNLOADS_HELP" id2="ID_UPLOADS_HELP"/>
- <image id="ID_TAB_HOME"/>
- <image id="ID_SEARCH_PANEL"/>
- <image id="ID_SEARCH_DETAILS" id1="ID_LIBRARY_PANEL" id2="ID_WINDOW_REMOTE"/>
- <image id="ID_DOWNLOADS_MONITOR"/>
- <image id="ID_HELP_WEB_1" id1="ID_HELP_WEB_2"	id2="ID_HELP_WEB_3" id3="ID_HELP_WEB_4" id4="ID_HELP_WEB_5" id5="ID_HELP_WEB_6"/>
- <image id="ID_HELP_FORUMS" id1="ID_HELP_GUIDE" id2="ID_HELP_FAQ" 
-	id3="ID_DISCOVERY_BROWSE" id4="ID_LIBRARY_URI" id5="ID_DOWNLOADS_ADD_SOURCE" id6="ID_NEIGHBOURS_URI"/>
- <image id="ID_NEIGHBOURS_SETTINGS" id1="ID_MEDIA_SETTINGS" id2="ID_IRC_SETTINGS"/>
- <image id="ID_SEARCH_SEARCH" id1="ID_TAB_SEARCH" id2="ID_NETWORK_SEARCH" id3="ID_LIBRARY_SEARCH_QUICK"
-	id4="ID_VIEW_SEARCH_MONITOR" id5="ID_HITMONITOR_SEARCH" id6="ID_VIEW_RESULTS_MONITOR" id7="ID_DOWNLOADS_SOURCES" id8="IDR_SEARCHFRAME"/>
  <image id="ID_CHILD_CLOSE" id1="ID_NETWORK_EXIT"/>
+ <image id="ID_SEARCH_SEARCH" id1="ID_TAB_SEARCH" id2="ID_NETWORK_SEARCH" id3="ID_LIBRARY_SEARCH_QUICK" id4="IDR_SEARCHFRAME"
+	id5="ID_VIEW_SEARCH_MONITOR" id6="ID_HITMONITOR_SEARCH" id7="ID_VIEW_RESULTS_MONITOR" id8="ID_DOWNLOADS_SOURCES"/>
  <image id="ID_SEARCH_FILTER_RAW"/>
+ <image id="ID_TAB_HOME"/>
 </bitmap>
-
-<bitmap path="IconsLib.png" mask="00FF00">
- <image id="ID_CHECKMARK" id1="ID_VIEW_TABBED" id2="ID_WINDOW_NAVBAR"/>
- <image id="ID_LIBRARY_TREE_PHYSICAL"/>
- <image />
- <image id="ID_LIBRARY_TREE_VIRTUAL"/>
- <image id="SHI_FOLDER_CLOSED"/>
- <image id="SHI_FOLDER_OPEN"/>
- <image id="ID_LIBRARY_VIEW_TILE" id1="ID_MEDIA_ADD_FOLDER"/>
- <image id="ID_VIEW_SECURITY" id1="ID_SECURITY_ADD"/>
- <image />
- <image id="ID_LIBRARY_FOLDER_NEW" id1="ID_DOWNLOAD_GROUP_NEW"/>
-</bitmap>
-
-<bitmap path="IconsConnect.png" mask="00FF00">
- <image id="ID_NETWORK_G2" id1="ID_HOSTCACHE_G2_CACHE" id2="ID_HOSTCACHE_G2_HORIZON"/>
- <image id="ID_NETWORK_G1" id1="ID_HOSTCACHE_G1_CACHE"/>
- <image id="ID_NETWORK_ED2K" id1="ID_HOSTCACHE_ED2K_CACHE" id2="IDC_IMPORT_DOWNLOADS"/>
- <image id="ID_NETWORK_HTTP"/>
- <image id="ID_NETWORK_FTP"/>
- <image id="ID_NETWORK_NULL"/>
- <image id="ID_CHAT_EMOTICONS"/>
- <image id="ID_SEARCH_STOP" id1="ID_NETWORK_DISCONNECT" id2="ID_CHAT_DISCONNECT" id3="ID_BROWSE_STOP" id4="ID_HOSTCACHE_DISCONNECT" id5="ID_IRC_DISCONNECT"/>
- <image id="ID_NETWORK_BT" id1="ID_DOWNLOADS_TORRENT_INFO" id2="ID_UPLOADS_FILTER_TORRENT" id3="ID_TOOLS_SEEDTORRENT"/>
-</bitmap>
-
-<bitmap path="IconsViewer.png" mask="00FF00">
- <image id="ImageViewer_BestFit" id1="ID_MEDIA_SIZE_ONE"/>
- <image id="ImageViewer_ActualSize" id1="ID_MEDIA_SIZE_FILL"/>
- <image id="ImageViewer_Refresh" id1="ID_BROWSE_REFRESH"/>
- <image id="ImageViewer_Close"/>
- <image id="ID_CHAT_BOLD"/>
- <image id="ID_CHAT_ITALIC"/>
- <image id="ID_CHAT_UNDERLINE"/>
- <image id="ID_CHAT_COLOR"/>
-</bitmap>
-
-<bitmap path="IconsShellBase.png" mask="00FF00">
- <image id="IDI_FILE"/>
- <image />
- <image />
- <image id="IDI_TICK"/>
- <image id="IDI_BUSY"/>
- <image />
- <image id="IDI_UNSTABLE"/>
- <image id="IDI_EXECUTABLE"/>
- <image id="IDI_COMPUTER"/>
- <image id="IDI_BROWSE"/>
- <image id="IDI_FOLDER_CLOSED"/>
- <image id="IDI_FOLDER_OPEN"/>
- <image id="IDI_LOCKED"/>
- <image id="IDI_PREVIEW"/>
- <image id="IDI_STAR"/>
- <image id="IDI_COLLECTION_MASK"/>
- <image id="IDI_FAKE"/>
- <image id="IDI_RATING_FAKE"/>
- <image id="IDI_RATING_AVERAGE"/>
- <image id="IDI_RATING_GOOD"/>
-</bitmap>
-
 
 </commandImages>
 
@@ -797,93 +754,9 @@
 <!-- END INTERFACE -->
 
 
-<!-- REMOTE SKINNING -->
-
-<windowSkins>
-
-<windowSkin>
-<image path="RemoteVista.bmp"/>
-<target window="CRemoteWnd"/>
-
-<caption fontFace="Segoe UI" fontSize="11" fontWeight="Normal" color="EDF2F6" outlineColor="5A5856" />
-
-<anchors> 
- <anchor name="StatusText"		rect="98,8,232,11"/>
- <anchor name="MediaSeekTrack"  	rect="16,28,396,5"/>
- <anchor name="MediaVolTrack"   	rect="330,52,70,13"/>
- <!--anchor name="MediaStatePlaying"	rect=""-->
- <!--anchor name="MediaStatePaused"	rect=""-->
- <!--anchor name="MediaStateStopped"	rect=""-->
- <!--anchor name="ScalerTrack"		rect=""--> 
- <!--anchor name="History"		rect=""--> 
-
- <anchor name="_ID_MONITOR_CLOSE"	rect="370,2,52,22"/>
- <anchor name="_ID_MEDIA_PLAY"		rect="190,34,46,48"/>
- <anchor name="_ID_MEDIA_PAUSE" 	rect="190,34,46,48"/>
- <anchor name="_ID_MEDIA_STOP"		rect="107,46,25,25"/>
- <anchor name="_ID_MEDIA_PREVIOUS"	rect="141,46,49,25"/>
- <anchor name="_ID_MEDIA_NEXT"		rect="236,46,49,25"/>
- <anchor name="_ID_MEDIA_MUTE"		rect="300,51,20,15"/>
- <anchor name="_ID_MEDIA_RANDOM"	rect="36,50,17,17"/>
- <anchor name="_ID_MEDIA_REPEAT"	rect="66,50,17,17"/>
- <anchor name="_ID_MEDIA_ADD"		rect="4,4,98,18"/>
-</anchors>
-
-<parts> 
- <part name="Background"		rect="0,0,426,90"/>
- <part name="MediaSeekBar"		rect="17,118,396,5"/>
- <part name="MediaSeekTab"		rect="402,118,10,5"/>
- <part name="MediaVolBar"		rect="330,142,70,13"/>
- <part name="MediaVolTab"		rect="389,142,12,13"/>
- <!--part name="MediaStatePlaying"	rect=""-->
- <!--part name="MediaStatePaused"	rect=""-->
- <!--part name="MediaStateStopped"	rect=""-->
- <!--part name="HistoryTx1"		rect=""-->
- <!--part name="HistoryRx1"		rect=""-->
- <!--part name="ScalerTab"		rect=""-->
-
- <part name="_ID_MONITOR_CLOSE.Hover"	rect="370,92,52,22"/>
- <part name="_ID_MONITOR_CLOSE.Down"	rect="318,92,52,22"/>
- <part name="_ID_MEDIA_PLAY.Up"	rect="190,34,46,48"/>
- <part name="_ID_MEDIA_PLAY.Hover"	rect="190,124,46,48"/>
- <part name="_ID_MEDIA_PLAY.Down"	rect="380,158,46,48"/>
- <part name="_ID_MEDIA_PAUSE.Up"	rect="44,158,46,48"/>
- <part name="_ID_MEDIA_PAUSE.Hover"	rect="0,158,46,48"/>
- <part name="_ID_MEDIA_PAUSE.Down"	rect="334,158,46,48"/>
- <part name="_ID_MEDIA_STOP.Hover"	rect="116,136,25,25"/>
- <part name="_ID_MEDIA_STOP.Down"	rect="200,181,25,25"/>
- <part name="_ID_MEDIA_STOP.Disabled"	rect="91,136,25,25"/>
- <part name="_ID_MEDIA_PREVIOUS.Hover"	rect="144,181,49,25"/>
- <part name="_ID_MEDIA_PREVIOUS.Down"	rect="92,181,49,25"/>
- <part name="_ID_MEDIA_PREVIOUS.Disabled" rect="141,136,49,25"/>
- <part name="_ID_MEDIA_NEXT.Hover"	rect="233,181,49,25"/>
- <part name="_ID_MEDIA_NEXT.Down"	rect="285,181,49,25"/>
- <part name="_ID_MEDIA_NEXT.Disabled"	rect="236,136,49,25"/>
- <part name="_ID_MEDIA_MUTE.Checked"	rect="300,141,20,15"/>
- <part name="_ID_MEDIA_RANDOM.Checked"	rect="36,140,17,17"/>
- <part name="_ID_MEDIA_REPEAT.Checked"	rect="66,140,17,17"/>
- <part name="_ID_MEDIA_ADD.Hover"	rect="4,94,98,18"/>
-
-</parts>
-
-<region>
- <shape type="roundRect" rect="2,2,426,91" size="12,12"/>
- <shape type="rectangle" rect="0,0,9,3" combine="or"/>
- <shape type="rectangle" rect="9,1,11,3" combine="or"/>
- <shape type="rectangle" rect="1,2,5,14" combine="or"/>
- <shape type="rectangle" rect="0,14,3,17" combine="or"/>
- <shape type="rectangle" rect="39,0,48,2" combine="or"/>
- <shape type="rectangle" rect="48,1,50,2" combine="or"/>
- <shape type="rectangle" rect="70,1,73,2" combine="or"/>
-</region>
-
-</windowSkin>
-
-
-
 <!-- MULTILINGUAL NAVBARS -->
 
-
+<windowSkins>
 
 <!-- Afrikaans -->
 
@@ -2057,5 +1930,3 @@
 
 </windowSkins>
 </skin>
-
-<!-- http://www.deviantart.com/view/56722985/ -->

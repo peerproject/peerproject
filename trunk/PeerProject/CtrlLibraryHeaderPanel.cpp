@@ -123,16 +123,13 @@ int CLibraryHeaderPanel::Update()
 
 	if (m_hWnd) Invalidate();
 
+	//Set Header Height 64px
+	//ToDo: Add Skin-Defined Option
 	int nHeight = static_cast< int >( m_pMetadata.GetCount() * 12 + 8 );
+	nHeight = max( 64, nHeight );
 
-	if ( pFolder->m_pParent != NULL )
-	{
-		nHeight = max( 64, nHeight );
-	}
-	else
-	{
-		nHeight = max( 56, nHeight );
-	}
+	//Set Home View Header Differently
+	//if ( pFolder->m_pParent != NULL ) nHeight = 56;
 
 	return min( 80, nHeight );
 }

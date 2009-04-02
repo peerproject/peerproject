@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <schema targetNamespace="http://www.shareaza.com/schemas/imageAlbum.xsd" xmlns="http://www.w3.org/2001/XMLSchema">
-	
+
 	<element name="imageAlbums">
 		<complexType>
 			<element name="imageAlbum" type="imageAlbumType" minOccurs="1" maxOccurs="unbounded"/>
 		</complexType>
-	</element>     
+	</element>
 	<complexType name="imageAlbumType">
 		<all>
 			<attribute name="title" type="string"/>
@@ -23,7 +23,7 @@
 					<enumeration value="Adult"/>
 				</simpleType>
 			</attribute>
-	
+
 			<attribute name="rating">
 				<simpleType base="string">
 					<enumeration value="G"/>
@@ -43,5 +43,5 @@
 			<attribute name="keywords" type="string"/>
 		</all>
 	</complexType>
-	
+
 </schema>

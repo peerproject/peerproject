@@ -33,20 +33,20 @@
 		<button id="ID_NETWORK_CONNECT" text="Bağlan"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Ana Sayfa"/>
-		<button id="ID_TAB_LIBRARY" text="Kütüphane"/>
-		<button id="ID_TAB_MEDIA" text="Ortam"/>
 		<button id="ID_TAB_SEARCH" text="Arama"/>
 		<button id="ID_TAB_TRANSFERS" text="İndirmeler"/>
+		<button id="ID_TAB_LIBRARY" text="Kütüphane"/>
+		<button id="ID_TAB_MEDIA" text="Ortam"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Bağlan"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Ana Sayfa"/>
-		<button id="ID_TAB_LIBRARY" text="Kütüphane"/>
-		<button id="ID_TAB_MEDIA" text="Ortam"/>
 		<button id="ID_TAB_SEARCH" text="Arama"/>
 		<button id="ID_TAB_TRANSFERS" text="Transferler"/>
 		<button id="ID_TAB_NETWORK" text="Ağ"/>
+		<button id="ID_TAB_LIBRARY" text="Kütüphane"/>
+		<button id="ID_TAB_MEDIA" text="Ortam"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -411,17 +411,17 @@
 		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent Bellek"/>
 		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia Bellek"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="K"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="A"/>
-		<button id="ID_CHAT_COLOR" text="R"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/> <!--K-->
+		<button id="ID_CHAT_ITALIC"/> <!--I-->
+		<button id="ID_CHAT_UNDERLINE"/> <!--A-->
+		<button id="ID_CHAT_COLOR"/> <!--R-->
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Kullanıcı Ara"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Dosya Gönder"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Öncelik Ver"/>
+		<!--<button id="ID_CHAT_SEND_FILE" text="Dosya Gönder"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Bağlan" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Bağlantıyı Kes"/>
@@ -454,13 +454,13 @@
 		<button id="ID_MUSICBRAINZ_ALBUMS" text="Tüm Albümlere Bak"/>
 		<separator/>
 	</toolbar>
-	<!-- IMAGE VIEWER WINDOW - DELETE? -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_ActualSize" text="Gerçek Boyut"/>
 		<button id="ImageViewer_BestFit" text="Ekrana Uy"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="Tazele"/>
-		<separator/>
+		<rightAlign/>
 		<button id="ImageViewer_Close" text="Kapat"/>
 	</toolbar>
 </toolbars>
@@ -478,6 +478,23 @@
 		<item id="ID_CHILD_MINIMISE" text="_Küçült"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Pencereyi Kapat"/>
+	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+		<item id="ID_TRAY_OPEN" text="PeerProject'yı Aç"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Sanal Uzaktan Kumanda"/>
+		<item id="ID_TOOLS_SETTINGS" text="Sanal Ayarları..."/>
+		<item id="ID_NETWORK_SEARCH" text="Yeni Arama..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Dosya İndir..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Ortam Oynat"/>
+		<item id="ID_MEDIA_PAUSE" text="Ortam Duraklat"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Önceki Kayıt"/>
+		<item id="ID_MEDIA_NEXT" text="Sonraki Kayıt"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Transferden sonra Çıkış"/>
+		<item id="ID_NETWORK_EXIT" text="Çıkış"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
@@ -795,40 +812,6 @@
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Aramalar _Monitörü"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="Ula_şımlar Monitörü"/>
 	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_PeerProject'yı Aç"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="_Yeni Arama..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Dosya İndir..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Ortam Oynat"/>
-		<item id="ID_MEDIA_PAUSE" text="O_rtam Duraklat"/>
-		<item id="ID_MEDIA_STOP" text="Orta_m Durdur"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="Ö_nceki Kayıt"/>
-		<item id="ID_MEDIA_NEXT" text="Sonr_aki Kayıt"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Transferden sonra _Çıkış"/>
-		<item id="ID_NETWORK_EXIT" text="Çı_kış"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_PeerProject'yı Aç"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="_Yeni Arama..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Dosya İndir..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Ortam Oynat"/>
-		<item id="ID_MEDIA_PAUSE" text="O_rtam Duraklat"/>
-		<item id="ID_MEDIA_STOP" text="Orta_m Durdur"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="Ö_nceki Kayt"/>
-		<item id="ID_MEDIA_NEXT" text="Sonr_aki Kayt"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Transferden sonra _Çıkış"/>
-		<item id="ID_NETWORK_EXIT" text="Çı_kış"/>
-	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
 		<item id="ID_TAB_HOME" text="Ana _Sayfa"/>
@@ -1090,6 +1073,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Otomatik Temizle"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Tümünü Sürdür"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Tü_münü Duraklat"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Tümü_nü Temizle"/>
@@ -3210,7 +3195,6 @@
 	<string id="20001" value="Kapat"/>
 	<string id="20002" value="den"/> <!-- "1 of 10" -->
 	<string id="20003" value="Arayüz yönetimi değiştirildiğinde yeniden başlama gerekir. \n PeerProject elle başlatmanız gerekecek. Şimdi çık?"/>
-	<string id="20004" value="İşletim sisteminizde sağdan sola diller desteklenmiyor."/>
 	<string id="20005" value="Hayır"/>
 	<string id="20006" value="Evet"/>
 	<string id="20007" value="Otomatik"/>
@@ -3281,6 +3265,8 @@
 	<string id="20234" value="Albüm"/>
 	<string id="20235" value="Sanatçı"/>
 	<string id="20236" value="Reyting"/>
+	<string id="20237" value="Tamam"/>
+	<string id="20238" value="İptal"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3547,14 +3533,14 @@
 		<control caption="Gnutella2 ağı PeerProject'nın ana ağıdır, diğer P2P netlerden daha fazla performans ve özellik sunmaktadır. Israrla tavsiye edilir."/>
 		<control caption="Gnutella2 (G2) Bağlan"/>
 		<control caption="Gnutella2 Yapılandır"/>
-		<control caption="eDonkey2000 Ağı:"/>
-		<control caption="eDonkey2000 ağı popüler bir sunucu-tabanlı ağdır. Gnutella2 kadar zengin özellikte olmasa da, eDonkey2000 etkileyici bir dosya kolleksiyonuna sahiptir."/>
-		<control caption="eDonkey2000 Bağlan"/>
-		<control caption="eDonkey2000 Yapılandır"/>
 		<control caption="Orijinal Gnutella Ağı:"/>
-		<control caption="Orijinal Gnutella ağı, Gnutella2 daha az özelliğe ve eDonkey2000'dan daha az dosyaya sahip olmasına rağmen değerli bir kaynaktır."/>
-		<control caption="Orijinal Gnutella Bağlan"/>
+		<control caption="Orijinal Gnutella ağı, Gnutella2 daha az özelliğe ve eDonkey'dan daha az dosyaya sahip olmasına rağmen değerli bir kaynaktır."/>
+		<control caption="Orijinal Gnutella (G1) Bağlan"/>
 		<control caption="Gnutella1 Yapılandır"/>
+		<control caption="eDonkey Ağı:"/>
+		<control caption="eDonkey ağı popüler bir sunucu-tabanlı ağdır. Gnutella2 kadar zengin özellikte olmasa da, eDonkey etkileyici bir dosya kolleksiyonuna sahiptir."/>
+		<control caption="eDonkey2000 (ED2K) Bağlan"/>
+		<control caption="eDonkey Yapılandır"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Ağı:"/>
@@ -3786,10 +3772,10 @@
 		<control caption="PeerProject aynı zamanda birçok P2P ağa erişebilen genel bir dosya paylaşımı programıdır. Bu sayfada bağlamayı istediğiniz P2P ağları seçebilirsiniz, ve sonra her ağ için belirli ayarları ayarlayabilirsiniz."/>
 		<control caption="Gnutella2'ya Bağlan (hararetle önerilir)"/>
 		<control caption="Gnutella2 ağı PeerProject'nın ana ağıdır, diğer P2P netlerden daha fazla performans ve özellik sunmaktadır."/>
-		<control caption="eDonkey2000'ye Bağlan"/>
-		<control caption="eDonkey2000 ağı popüler bir sunucu tabanlı ağdır.	Gnutella2 kadar zengin özellikte olmasa da, eDonkey2000 etkileyici dosya kolleksiyonuna sahiptir."/>
 		<control caption="Orijinal Gnutella'ya Bağlan"/>
-		<control caption="Orijinal Gnutella ağı Gnutella2 den daha zengin özellikleri olmasına ve eDonkey2000'den daha az dosya olmasına karşın değerli bir kaynak olarak kalacaktır."/>
+		<control caption="Orijinal Gnutella ağı Gnutella2 den daha zengin özellikleri olmasına ve eDonkey'den daha az dosya olmasına karşın değerli bir kaynak olarak kalacaktır."/>
+		<control caption="eDonkey2000'ye Bağlan"/>
+		<control caption="eDonkey ağı popüler bir sunucu tabanlı ağdır.	Gnutella2 kadar zengin özellikte olmasa da, eDonkey etkileyici dosya kolleksiyonuna sahiptir."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey2000 İndirimlerini Gönder">
 		<control/>
@@ -4372,19 +4358,23 @@
 		<control caption="Tracker Modu:"/>
 		<control caption="Etkisiz|Kişisel değer|Tek Tracker|Birçok tracker|Birçok tracker (kilitli)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="İndirme Grup Özellikleri">
-		<control caption="_İsim:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="İndirme Grup Özellikleri">
+		<control caption="Tamam"/>
+		<control caption="İptal"/>
 		<control/>
 		<control/>
-		<control caption="_Filtreler:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="_Ekle"/>
 		<control caption="_Kaldır"/>
-		<control caption="Tamam"/>
-		<control caption="İptal"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="_İsim:"/>
+		<control caption="_Filtreler:"/>
 		<control caption="_Dosya klasörleri tamamlandı:"/>
-		<control/>
-		<control/>
+		<control caption="Dosya _türlerini:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Biçim Seçimi">
 		<control/>

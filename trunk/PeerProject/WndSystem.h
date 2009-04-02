@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_WNDSYSTEM_H__15622BB7_9266_465C_8902_0F494E1DCAA0__INCLUDED_)
-#define AFX_WNDSYSTEM_H__15622BB7_9266_465C_8902_0F494E1DCAA0__INCLUDED_
-
 #pragma once
 
 #include "WndPanel.h"
@@ -30,34 +27,18 @@
 
 class CSystemWnd : public CPanelWnd
 {
-// Construction
 public:
 	CSystemWnd();
 
 	DECLARE_SERIAL(CSystemWnd)
 
-// Attributes
 protected:
 	CTextCtrl	m_wndText;
 
-// Operations
-public:
-	void		Add(int nType, const CString& strText);
-	void		Clear();
-	void		ShowStartupText();
-	void		OnSkinChange();
-
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CSystemWnd)
-	public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	//}}AFX_VIRTUAL
 
-// Implementation
-protected:
-	//{{AFX_MSG(CSystemWnd)
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnSystemClear();
@@ -76,11 +57,6 @@ protected:
 	afx_msg void OnUpdateSystemTimestamp(CCmdUI* pCmdUI);
 	afx_msg void OnSystemTimestamp();
 	afx_msg void OnSystemTest();
-	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
-
 };
-
-//{{AFX_INSERT_LOCATION}}
-
-#endif // !defined(AFX_WNDSYSTEM_H__15622BB7_9266_465C_8902_0F494E1DCAA0__INCLUDED_)

@@ -110,9 +110,9 @@ CDownloadsCtrl::CDownloadsCtrl() :
 
 BOOL CDownloadsCtrl::Create(CWnd* pParentWnd, UINT nID)
 {
-	CRect rect( 0, 0, 0, 0 );
-	return CWnd::CreateEx( 0, NULL, _T("CDownloadsCtrl"), WS_CHILD | WS_CLIPSIBLINGS |
-		 WS_TABSTOP | WS_GROUP, rect, pParentWnd, nID );
+	CRect rc( 0, 0, 0, 0 );
+	return CWnd::CreateEx( 0, NULL, _T("CDownloadsCtrl"),
+		WS_CHILD | WS_CLIPSIBLINGS | WS_TABSTOP, rc, pParentWnd, nID );
 }
 
 BOOL CDownloadsCtrl::Update()
@@ -772,7 +772,9 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 	int nScroll = GetScrollPos( SB_HORZ );
 	m_wndHeader.SetWindowPos( NULL, -nScroll, 0, rcClient.right + nScroll, HEADER_HEIGHT, SWP_SHOWWINDOW );
 
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) )
+		return;
 
 	for ( POSITION posDownload = Downloads.GetIterator() ; posDownload ; )
 	{
@@ -1773,27 +1775,38 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	CDownload* pDownload;
 	
 	m_wndTip.Hide();
-	
+
+	bool bControl = ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) != 0;
+	bool bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
+
 	switch ( nChar )
 	{
 	case VK_HOME:
+		if ( bControl )
+		{
+			GetAt( m_nFocus, &pDownload, &pSource );
+			Downloads.Move( pDownload, -2 );
+		}
 		SelectTo( 0 );
 		return;
 	case VK_END:
+		if ( bControl )
 		{
-			INT nMin, nMax;
-			GetScrollRange( SB_VERT, &nMin, &nMax );
-			SelectTo( max( 0, nMax - 1 ) );
+			GetAt( m_nFocus, &pDownload, &pSource );
+			Downloads.Move( pDownload, 2 );
 		}
+		INT nMin, nMax;
+		GetScrollRange( SB_VERT, &nMin, &nMax );
+		SelectTo( max( 0, nMax - 1 ) );
 		return;
 	case VK_UP:
-		if ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
+		if ( bControl )
 			MoveSelected( -1 );
 		else
 			SelectTo( m_nFocus - 1 );
 		return;
 	case VK_DOWN:
-		if ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
+		if ( bControl )
 			MoveSelected( 1 );
 		else
 			SelectTo( m_nFocus + 1 );
@@ -1825,18 +1838,32 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		}
 		return;
 	case 'A':
-		if ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
+		if ( bControl )
 			SelectAll();
 		return;
+	case 'C':
+		if ( bControl )
+			GetOwner()->PostMessage( WM_COMMAND, ID_DOWNLOADS_URI );
+		return;
+	case 'V':
+		if ( bControl )
+			GetOwner()->PostMessage( WM_COMMAND, ID_TOOLS_DOWNLOAD );
+		return;
+	case VK_INSERT:
+		if ( bControl )
+			GetOwner()->PostMessage( WM_COMMAND, ID_DOWNLOADS_URI );
+		else if ( bShift )
+			GetOwner()->PostMessage( WM_COMMAND, ID_TOOLS_DOWNLOAD );
+		return;
 	case 'E':
-		if ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
+		if ( bControl )
 		{
 			GetOwner()->PostMessage( WM_TIMER, 5 );
 			GetOwner()->PostMessage( WM_COMMAND, ID_DOWNLOADS_ENQUEUE );	// Add the current file to playlist
 		}
 		return;
 	case 'R':
-		if ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
+		if ( bControl )
 			GetOwner()->PostMessage( WM_COMMAND, ID_DOWNLOADS_VIEW_REVIEWS );
 		return;
 	case VK_DELETE:
@@ -1861,7 +1888,8 @@ void CDownloadsCtrl::OnEnterKey()
 			if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 )						// And the control key is pressed...
 			{
 				GetOwner()->PostMessage( WM_TIMER, 5 );
-				GetOwner()->PostMessage( WM_COMMAND, ID_DOWNLOADS_LAUNCH );		// Launch the current file
+				GetOwner()->PostMessage( WM_COMMAND, pDownload->IsCompleted() ?
+					ID_DOWNLOADS_LAUNCH_COMPLETE : ID_DOWNLOADS_LAUNCH_COPY );	// Launch the current file
 			}
 		}
 		else if ( pSource != NULL )												// If the selected object is a download source...
@@ -1974,7 +2002,8 @@ void CDownloadsCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 		else if ( pDownload != NULL )
 		{
 			GetOwner()->PostMessage( WM_TIMER, 5 );
-			GetOwner()->PostMessage( WM_COMMAND, ID_DOWNLOADS_LAUNCH );
+			GetOwner()->PostMessage( WM_COMMAND, pDownload->IsCompleted() ?
+				ID_DOWNLOADS_LAUNCH_COMPLETE : ID_DOWNLOADS_LAUNCH_COPY );
 		}
 		else if ( pSource != NULL )
 		{
@@ -2224,5 +2253,5 @@ int CDownloadsCtrl::GetExpandableColumnX() const
 
 UINT CDownloadsCtrl::OnGetDlgCode()
 {
-	return DLGC_WANTALLKEYS;
+	return DLGC_WANTARROWS;
 }

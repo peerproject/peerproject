@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_WINDOWMANAGER_H__5598C2BE_CE10_4AEC_A807_B8157C41F12C__INCLUDED_)
-#define AFX_WINDOWMANAGER_H__5598C2BE_CE10_4AEC_A807_B8157C41F12C__INCLUDED_
-
 #pragma once
 
 #include "WndChild.h"
@@ -29,21 +26,17 @@
 
 class CWindowManager : public CWnd
 {
-// Construction
+	DECLARE_DYNCREATE(CWindowManager)
+
 public:
 	CWindowManager(CMDIFrameWnd* pParent = NULL);
 	virtual ~CWindowManager();
 
-// Attributes
-public:
 	CMDIFrameWnd*		m_pParent;
 	CList< CChildWnd* >	m_pWindows;
 	CRect				m_rcSize;
 	BOOL				m_bIgnoreActivate;
-	BOOL				m_bClosing;
 
-// Operations
-public:
 	void		SetOwner(CMDIFrameWnd* pParent);
 	CChildWnd*	GetActive() const;
 	POSITION	GetIterator() const;
@@ -52,12 +45,10 @@ public:
 	CChildWnd*	Find(CRuntimeClass* pClass, CChildWnd* pAfter = NULL, CChildWnd* pExcept = NULL);
 	CChildWnd*	Open(CRuntimeClass* pClass, BOOL bToggle = FALSE, BOOL bFocus = TRUE);
 	CChildWnd*	FindFromPoint(const CPoint& point) const;
-public:
 	void		Close();
 	void		AutoResize();
 	void		Cascade(BOOL bActiveOnly = FALSE);
 	void		SetGUIMode(int nMode, BOOL bSaveState = TRUE);
-public:
 	void		LoadWindowStates();
 	void		SaveWindowStates();
 	BOOL		LoadSearchWindows();
@@ -67,24 +58,19 @@ public:
 	void		OpenNewSearchWindow();
 	void		PostSkinChange();
 	void		PostSkinRemove();
+
 protected:
 	void		Add(CChildWnd* pChild);
 	void		Remove(CChildWnd* pChild);
 	void		ActivateGrouped(CChildWnd* pExcept);
 	void		CreateTabbedWindows();
 
-// Message Map
-protected:
-	//{{AFX_MSG(CWindowManager)
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnPaint();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 
 	friend class CChildWnd;
 	friend class CPluginWnd;
 };
-
-#endif // !defined(AFX_WINDOWMANAGER_H__5598C2BE_CE10_4AEC_A807_B8157C41F12C__INCLUDED_)

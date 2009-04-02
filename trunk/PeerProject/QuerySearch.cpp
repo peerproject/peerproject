@@ -34,10 +34,6 @@
 #include "QueryHashTable.h"
 #include "GGEP.h"
 #include "XML.h"
-#include "SHA.h"
-#include "MD5.h"
-#include "ED2K.h"
-#include "TigerTree.h"
 
 #include "WndSearch.h"
 #include "DlgHelp.h"
@@ -71,9 +67,16 @@ CQuerySearch::CQuerySearch(BOOL bGUID) :
 	m_nTTL		( 0 ),
 	m_bUDP		( FALSE ),
 	m_nKey		( 0 ),
-	m_bFirewall	( FALSE ),
-	m_bOOBv3	( FALSE ),
+	m_bFirewall	( false ),
+	m_bDynamic	( false ),
+	m_bBinHash	( false ),
+	m_bOOB		( false ),
+	m_bOOBv3	( false ),
 	m_nMeta		( 0 ),
+	m_bPartial	( false ),
+	m_bNoProxy	( false ),
+	m_bExtQuery	( false ),
+	m_bWarning	( false ),
 	m_oWords	(),
 	m_oNegWords	()
 {
@@ -106,8 +109,15 @@ CQuerySearch::CQuerySearch(const CQuerySearch* pOrigin) :
 	m_pEndpoint( pOrigin->m_pEndpoint ),
 	m_nKey( pOrigin->m_nKey ),
 	m_bFirewall( pOrigin->m_bFirewall ),
+	m_bDynamic( pOrigin->m_bDynamic ),
+	m_bBinHash( pOrigin->m_bBinHash ),
+	m_bOOB( pOrigin->m_bOOB ),
 	m_bOOBv3( pOrigin->m_bOOBv3 ),
 	m_nMeta( pOrigin->m_nMeta ),
+	m_bPartial( pOrigin->m_bPartial ),
+	m_bNoProxy( pOrigin->m_bNoProxy ),
+	m_bExtQuery( pOrigin->m_bExtQuery ),
+	m_bWarning( pOrigin->m_bWarning ),
 	m_oURNs( pOrigin->m_oURNs ),
 	m_oKeywordHashList( pOrigin->m_oKeywordHashList )
 	//m_oWords()                //! \todo comment this - we copy the search string but not the word list
@@ -138,15 +148,17 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL)
 	CG1Packet* pPacket = CG1Packet::New( G1_PACKET_QUERY,
 		( nTTL ? min( nTTL, Settings.Gnutella1.SearchTTL ) : Settings.Gnutella1.SearchTTL ),
 		m_oGUID );
-	
-	WORD nFlags = G1_QF_TAG | G1_QF_BIN_HASH | G1_QF_DYNAMIC;
-	if ( ! Network.IsListening() ) nFlags |= G1_QF_FIREWALLED;
-	if ( m_bWantXML ) nFlags |= G1_QF_XML;
-	pPacket->WriteShortLE( nFlags );
-	
-	CString strExtra;
 
-	if ( !m_sPosKeywords.IsEmpty() )
+	WORD nFlags = G1_QF_TAG | G1_QF_BIN_HASH | G1_QF_DYNAMIC;
+	if ( Network.IsFirewalled( CHECK_TCP ) )
+		nFlags |= G1_QF_FIREWALLED;
+	if ( ! Network.IsFirewalled( CHECK_UDP ) )
+		nFlags |= G1_QF_OOB;
+	if ( m_bWantXML )
+		nFlags |= G1_QF_XML;
+	pPacket->WriteShortLE( nFlags );
+
+	if ( ! m_sPosKeywords.IsEmpty() )
 	{
 		if ( Settings.Gnutella1.QuerySearchUTF8 ) //Support UTF-8 Query
 		{
@@ -159,17 +171,20 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL)
 	}
 	else if ( m_pSchema != NULL && m_pXML != NULL )
 	{
-		strExtra = m_pSchema->GetIndexedWords( m_pXML->GetFirstElement() );
-		MakeKeywords( strExtra, false );
-		pPacket->WriteString( strExtra );
-		strExtra.Empty();
+		CString strWords = m_pSchema->GetIndexedWords( m_pXML->GetFirstElement() );
+		MakeKeywords( strWords, false );
+		pPacket->WriteString( strWords );
 	}
 	else
 	{
 		pPacket->WriteByte( 0 );
 	}
-	
-	// Some Gnutella Node does not like forwarding Query containing URN
+
+	bool bSep = false;
+
+	// HUGE extension
+
+	// Some Gnutella Nodes do not like forwarding Query containing URN with "HUGE" extension.
 	/* if ( m_oSHA1 )
 	{
 		strExtra = m_oSHA1.toUrn();
@@ -182,27 +197,78 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL)
 	{
 		strExtra = m_oED2K.toUrn();
 	}
-	else if ( m_oBTH )
-	{
-		strExtra = m_oBTH.toUrn();
-	}
 	else if ( m_oMD5 )
 	{
 		strExtra = m_oMD5.toUrn();
 	}
+	else if ( m_oBTH )
+	{
+		strExtra = m_oBTH.toUrn();
+	}
 	else
-	{ 
+	{
 		strExtra = _T("urn:");
 	}*/
-	
+
+	// XML extension
+
 	if ( m_pXML )
 	{
-		//if ( strExtra.GetLength() ) strExtra += '\x1C';
-		pPacket->WriteString( m_pXML->ToString( TRUE ) );
+		if ( bSep )
+			pPacket->WriteByte( G1_PACKET_HIT_SEP );
+		else
+			bSep = true;
+
+		pPacket->WriteString( m_pXML->ToString( TRUE ), ! IsHashed() );
 	}
-	
-	pPacket->WriteByte( 0 );
-		
+
+	// GGEP extension (last)
+
+	// Use this for instead of Real URN to be added as HUGE.
+	// It looks like LimeWire ignores Query packet with URNs specified.
+	if ( IsHashed() )
+	{
+		if ( bSep )
+			pPacket->WriteByte( G1_PACKET_HIT_SEP );
+
+		CGGEPBlock pBlock;
+		CGGEPItem* pItem;
+		if ( m_oSHA1.isValid() )
+		{
+			if (  m_oTiger.isValid() )
+			{
+				CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_HASH );
+				pItem->WriteByte( GGEP_H_BITPRINT );
+				pItem->Write( &m_oSHA1[ 0 ], 20 );
+				pItem->Write( &m_oTiger[ 0 ], 24 );
+			}
+			else
+			{
+				CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_HASH );
+				pItem->WriteByte( GGEP_H_SHA1 );
+				pItem->Write( &m_oSHA1[ 0 ], 20 );
+			}
+		}
+		else if ( m_oMD5.isValid() )
+		{
+			CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_HASH );
+			pItem->WriteByte( GGEP_H_MD5 );
+			pItem->Write( &m_oMD5[ 0 ], 16 );
+		}
+		else if ( m_oED2K.isValid() )
+		{
+			pItem = pBlock.Add( GGEP_HEADER_URN );
+			pItem->WriteUTF8( CString( _T("ed2k:") ) + m_oED2K.toString() );
+		}
+		else if ( m_oBTH.isValid() )
+		{
+			pItem = pBlock.Add( GGEP_HEADER_URN );
+			pItem->WriteUTF8( CString( _T("btih:") ) + m_oBTH.toString() );
+		}
+
+		pBlock.Write( pPacket );
+	}
+
 	return pPacket;
 }
 
@@ -212,7 +278,7 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL)
 CG2Packet* CQuerySearch::ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey)
 {
 	CG2Packet* pPacket = CG2Packet::New( G2_PACKET_QUERY, TRUE );
-	
+
 	if ( pUDP )
 	{
 		pPacket->WritePacket( G2_PACKET_UDP, nKey ? 10 : 6 );
@@ -245,19 +311,13 @@ CG2Packet* CQuerySearch::ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey)
 		pPacket->WriteString( "ttr" );
 		pPacket->Write( m_oTiger );
 	}
+
 	// If the target source has only ed2k hash (w/o SHA1) it will allow to find such files
 	if ( m_oED2K )
 	{
         pPacket->WritePacket( G2_PACKET_URN, Hashes::Ed2kHash::byteCount + 5 );
 		pPacket->WriteString( "ed2k" );
 		pPacket->Write( m_oED2K );
-	}
-	
-	if ( m_oBTH )
-	{
-		pPacket->WritePacket( G2_PACKET_URN, Hashes::BtHash::byteCount + 5 );
-		pPacket->WriteString( "btih" );
-		pPacket->Write( m_oBTH );
 	}
 
 	if ( m_oMD5 )
@@ -266,7 +326,14 @@ CG2Packet* CQuerySearch::ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey)
 		pPacket->WriteString( "md5" );
 		pPacket->Write( m_oMD5 );
 	}
-	
+
+	if ( m_oBTH )
+	{
+		pPacket->WritePacket( G2_PACKET_URN, Hashes::BtHash::byteCount + 5 );
+		pPacket->WriteString( "btih" );
+		pPacket->Write( m_oBTH );
+	}
+
 	if ( ! IsHashed() && ! m_sG2Keywords.IsEmpty() )
 	{
 		short bValue = (short)( 2 * rand() / ( RAND_MAX + 1.0 ) );
@@ -281,7 +348,7 @@ CG2Packet* CQuerySearch::ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey)
 			pPacket->WriteString( m_sSearch, FALSE );
 		}
 	}
-	
+
 	if ( m_pXML != NULL )
 	{
 		CString strXML;
@@ -290,41 +357,65 @@ CG2Packet* CQuerySearch::ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey)
 		pPacket->WritePacket( G2_PACKET_METADATA, pPacket->GetStringLen( strXML ) );
 		pPacket->WriteString( strXML, FALSE );
 	}
-	
+
 	if ( m_nMinSize != 0 || m_nMaxSize != SIZE_UNKNOWN )
 	{
-		if ( m_nMinSize < 0xFFFFFFFF && ( m_nMaxSize < 0xFFFFFFFF || m_nMaxSize == SIZE_UNKNOWN ) )
+		if ( m_nMinSize == m_nMaxSize )
 		{
-			pPacket->WritePacket( G2_PACKET_SIZE_RESTRICTION, 8 );
-			pPacket->WriteLongBE( (DWORD)m_nMinSize );
-			pPacket->WriteLongBE( m_nMaxSize == SIZE_UNKNOWN ? 0xFFFFFFFF : (DWORD)m_nMaxSize );
+			// Security patch for Anti-p2p/spammer protection faking QueryHit
+			// for query both hash & filesize specified gives 1MB size frame in query  gives 1MB size frame in query 
+			// so anti-p2p/spammer hosts based on replying /QH2 packet generated on the info stored in Query packet,
+			// can not determine actual size of file which searcher is really looking for.
+
+			if ( m_nMinSize < 0xFFFFFFFF && ( m_nMaxSize < 0xFFFFFFFF || m_nMaxSize == SIZE_UNKNOWN ) )
+			{
+				pPacket->WritePacket( G2_PACKET_SIZE_RESTRICTION, 8 );
+				pPacket->WriteLongBE( DWORD( m_nMinSize & 0xfffffffffff00000 ) );
+				pPacket->WriteLongBE( m_nMaxSize == SIZE_UNKNOWN ? 0xFFFFFFFF : DWORD( m_nMaxSize | 0x00000000000fffff ) );
+			}
+			else
+			{
+				pPacket->WritePacket( G2_PACKET_SIZE_RESTRICTION, 16 );
+				pPacket->WriteInt64( m_nMinSize & 0xfffffffffff00000 );
+				pPacket->WriteInt64( m_nMaxSize | 0x00000000000fffff );
+			}
 		}
 		else
 		{
-			pPacket->WritePacket( G2_PACKET_SIZE_RESTRICTION, 16 );
-			pPacket->WriteInt64( m_nMinSize );
-			pPacket->WriteInt64( m_nMaxSize );
+			if ( m_nMinSize < 0xFFFFFFFF && ( m_nMaxSize < 0xFFFFFFFF || m_nMaxSize == SIZE_UNKNOWN ) )
+			{
+				pPacket->WritePacket( G2_PACKET_SIZE_RESTRICTION, 8 );
+				pPacket->WriteLongBE( (DWORD)m_nMinSize );
+				pPacket->WriteLongBE( m_nMaxSize == SIZE_UNKNOWN ? 0xFFFFFFFF : (DWORD)m_nMaxSize );
+			}
+			else
+			{
+				pPacket->WritePacket( G2_PACKET_SIZE_RESTRICTION, 16 );
+				pPacket->WriteInt64( m_nMinSize );
+				pPacket->WriteInt64( m_nMaxSize );
+			}
 		}
 	}
-	
-	if ( ! m_bWantURL || ! m_bWantDN || ! m_bWantXML || ! m_bWantCOM || ! m_bWantPFS )
+
+	if ( m_bWantURL || m_bWantDN || m_bWantXML || m_bWantCOM || m_bWantPFS )
 	{
 		pPacket->WritePacket( G2_PACKET_INTEREST,
 			( m_bWantURL ? 4 : 0 ) + ( m_bWantDN ? 3 : 0 ) + ( m_bWantXML ? 3 : 0 ) +
 			( m_bWantCOM ? 4 : 0 ) + ( m_bWantPFS ? 4 : 0 ) );
-		
+
 		if ( m_bWantURL ) pPacket->WriteString( "URL" );
 		if ( m_bWantDN ) pPacket->WriteString( "DN" );
 		if ( m_bWantXML ) pPacket->WriteString( "MD" );
 		if ( m_bWantCOM ) pPacket->WriteString( "COM" );
 		if ( m_bWantPFS ) pPacket->WriteString( "PFS" );
 	}
-	
+
+	if ( m_bFirewall ) pPacket->WritePacket( G2_PACKET_NAT_DESC, 0 );
 	//if ( m_bAndG1 ) pPacket->WritePacket( G2_PACKET_G1, 0 );
-	
+
 	pPacket->WriteByte( 0 );
 	pPacket->Write( m_oGUID );
-	
+
 	return pPacket;
 }
 
@@ -512,22 +603,32 @@ BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP)
 CQuerySearch* CQuerySearch::FromPacket(CPacket* pPacket, SOCKADDR_IN* pEndpoint)
 {
 	CQuerySearch* pSearch = new CQuerySearch( FALSE );
-	
-	if ( pPacket->m_nProtocol == PROTOCOL_G1 )
+
+	try
 	{
-		if ( pSearch->ReadG1Packet( (CG1Packet*)pPacket ) ) return pSearch;
+		if ( pPacket->m_nProtocol == PROTOCOL_G1 )
+		{
+			if ( pSearch->ReadG1Packet( (CG1Packet*)pPacket ) )
+				return pSearch;
+		}
+		else if ( pPacket->m_nProtocol == PROTOCOL_G2 )
+		{
+			if ( ((CG2Packet*)pPacket)->IsType( G2_PACKET_QUERY_WRAP ) )
+			{
+				//if ( pSearch->ReadG1Packet( (CG1Packet*)pPacket ) )
+				//	return pSearch;
+				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("CQuerySearch::FromPacket dropping obsolete wrapped packet") );
+			}
+			else
+			{
+				if ( pSearch->ReadG2Packet( (CG2Packet*)pPacket, pEndpoint ) )
+					return pSearch;
+			}
+		}
 	}
-	else if ( pPacket->m_nProtocol == PROTOCOL_G2 )
+	catch ( CException* pException )
 	{
-		if ( ((CG2Packet*)pPacket)->IsType( G2_PACKET_QUERY_WRAP ) )
-		{
-			//if ( pSearch->ReadG1Packet( (CG1Packet*)pPacket ) ) return pSearch;
-			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("CQuerySearch::FromPacket dropping obsolete wrapped packet") );
-		}
-		else
-		{
-			if ( pSearch->ReadG2Packet( (CG2Packet*)pPacket, pEndpoint ) ) return pSearch;
-		}
+		pException->Delete();
 	}
 	
 	delete pSearch;
@@ -540,19 +641,13 @@ CQuerySearch* CQuerySearch::FromPacket(CPacket* pPacket, SOCKADDR_IN* pEndpoint)
 
 BOOL CQuerySearch::ReadG1Packet(CG1Packet* pPacket)
 {
-	Hashes::Sha1Hash	oSHA1;
-	Hashes::TigerHash	oTiger;
-	Hashes::Ed2kHash	oED2K;
-	Hashes::BtHash		oBTH;
-	Hashes::Md5Hash		oMD5;
-
 	m_nTTL = pPacket->m_nHops + 2;
-	if ( m_nTTL > 7 ) m_nTTL = 7;
 
 	if ( pPacket->m_nProtocol == PROTOCOL_G2 )
 	{
 		GNUTELLAPACKET pG1;
-		if ( ! ((CG2Packet*)pPacket)->SeekToWrapped() ) return NULL;
+		if ( ! ((CG2Packet*)pPacket)->SeekToWrapped() )
+			return NULL;
 		pPacket->Read( &pG1, sizeof(pG1) );
 		m_oGUID = pG1.m_oGUID;
 	}
@@ -560,141 +655,176 @@ BOOL CQuerySearch::ReadG1Packet(CG1Packet* pPacket)
 	{
 		m_oGUID = pPacket->m_oGUID;
 	}
-	
-	if ( pPacket->GetRemaining() < 4 ) return FALSE;
-	
-	WORD nFlags = pPacket->ReadShortLE();
-	
-	if ( nFlags & G1_QF_TAG )
+	m_oGUID.validate();
+
+	if ( pPacket->GetRemaining() < 4 )
 	{
-		m_bFirewall	= 0 != ( nFlags & G1_QF_FIREWALLED );
-		m_bWantXML	= 0 != ( nFlags & G1_QF_XML );
+		// Too short
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got too short query packet (%d bytes)"), pPacket->GetRemaining() );
+		return FALSE;
 	}
+
+	WORD nFlags = pPacket->ReadShortLE();
+	m_bFirewall	= ( nFlags & G1_QF_TAG ) && ( nFlags & G1_QF_FIREWALLED );
+	m_bWantXML	= ( nFlags & G1_QF_TAG ) && ( nFlags & G1_QF_XML );
+	m_bDynamic	= ( nFlags & G1_QF_TAG ) && ( nFlags & G1_QF_DYNAMIC );
+	m_bBinHash	= ( nFlags & G1_QF_TAG ) && ( nFlags & G1_QF_BIN_HASH );
+	m_bOOB		= ( nFlags & G1_QF_TAG ) && ( nFlags & G1_QF_OOB );
 	
-	m_sKeywords = m_sSearch = Settings.Gnutella1.QuerySearchUTF8 ?
-		pPacket->ReadStringUTF8() : pPacket->ReadStringASCII();
-
-	if ( pPacket->GetRemaining() > 1 )
+	if ( Settings.Gnutella1.QueryHitUTF8 )
 	{
-		char* pszData = (char*)pPacket->m_pBuffer + pPacket->m_nPosition;
-		for ( int nDataLength = pPacket->GetRemaining() - 1; nDataLength > 0; )
-		{
-			char* pszSep = (char*)memchr( pszData, G1_PACKET_HIT_SEP, nDataLength );
-			int nLength = ( pszSep && *pszSep == G1_PACKET_HIT_SEP ) ?
-				(int)( pszSep - pszData ) : nDataLength;
+		m_sKeywords = m_sSearch	= pPacket->ReadStringUTF8();	
+	}
+	else
+	{
+		m_sKeywords = m_sSearch	= pPacket->ReadStringASCII();
+	}
 
-			if ( nLength == 0 )
-				theApp.Message( MSG_DEBUG, _T("Got Gnutella query packet with empty part") );
-			else if ( nLength >= 4 && memcmp( pszData, "urn:", 4 ) == 0 )
+	while ( pPacket->GetRemaining() )
+	{
+		BYTE nPeek = pPacket->PeekByte();
+		
+		if ( nPeek == GGEP_MAGIC )
+		{
+			// GGEP extension
+			ReadGGEP( pPacket );
+
+			// Must be last ...
+			if ( DWORD nLength = pPacket->GetRemaining() )
+				// ... but skip one extra null byte
+				if ( nLength != 1 || pPacket->PeekByte() != 0 )
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with extra bytes after GGEP (%d bytes)"), pPacket->GetRemaining() );
+
+			break;
+		}
+		else if ( nPeek == 0 || nPeek == G1_PACKET_HIT_SEP )
+		{
+			// Skip extra null or separate byte
+			pPacket->ReadByte();
+		}
+		else
+		{
+			// HUGE, XML extensions
+			ReadExtension( pPacket );
+		}
+	}
+
+	m_bAndG1 = TRUE;
+
+	if ( ! CheckValid( false ) )
+	{
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got invalid query packet") );
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+void CQuerySearch::ReadGGEP(CG1Packet* pPacket)
+{
+	CGGEPBlock pGGEP;
+	if ( pGGEP.ReadFromPacket( pPacket ) )
+	{
+		if ( ! Settings.Gnutella1.EnableGGEP )
+			return;
+
+		Hashes::Sha1Hash	oSHA1;
+		Hashes::TigerHash	oTiger;
+		Hashes::Ed2kHash	oED2K;
+		Hashes::BtHash		oBTH;
+		Hashes::Md5Hash		oMD5;
+
+		CGGEPItem* pItemPos = pGGEP.GetFirst();
+		for ( BYTE nItemCount = 0; pItemPos && nItemCount < pGGEP.GetCount();
+			nItemCount++, pItemPos = pItemPos->m_pNext )
+		{
+			if ( pItemPos->IsNamed( GGEP_HEADER_HASH ) )
 			{
-				CString strURN( pszData, nLength );
-				if ( nLength == 4 );					// Got empty urn
-				else if ( oSHA1.fromUrn(  strURN ) );	// Got SHA1
+				switch ( pItemPos->m_pBuffer[0] )
+				{
+				case GGEP_H_SHA1:
+					if ( pItemPos->m_nLength == 20 + 1 )
+					{
+						oSHA1 = reinterpret_cast< Hashes::Sha1Hash::RawStorage& >(
+							pItemPos->m_pBuffer[ 1 ] );
+					}
+					else
+						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with GGEP \"H\" type SH1 unknown size (%d bytes)"), pItemPos->m_nLength );
+					break;
+
+				case GGEP_H_BITPRINT:
+					if ( pItemPos->m_nLength == 24 + 20 + 1 )
+					{
+						oSHA1 = reinterpret_cast< Hashes::Sha1Hash::RawStorage& >(
+							pItemPos->m_pBuffer[ 1 ] );
+						oTiger = reinterpret_cast< Hashes::TigerHash::RawStorage& >(
+							pItemPos->m_pBuffer[ 21 ] );
+					}
+					else
+						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with GGEP \"H\" type SH1+TTR unknown size (%d bytes)"), pItemPos->m_nLength );
+					break;
+
+				case GGEP_H_MD5:
+					if ( pItemPos->m_nLength == 16 + 1 )
+					{
+						oMD5 = reinterpret_cast< Hashes::Md5Hash::RawStorage& >(
+							pItemPos->m_pBuffer[ 1 ] );
+					}
+					else
+						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with GGEP \"H\" type MD5 unknown size (%d bytes)"), pItemPos->m_nLength );
+					break;
+
+				case GGEP_H_MD4:
+					if ( pItemPos->m_nLength == 16 + 1 )
+					{
+						oED2K = reinterpret_cast< Hashes::Ed2kHash::RawStorage& >(
+							pItemPos->m_pBuffer[ 1 ] );
+					}
+					else
+						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with GGEP \"H\" type MD4 unknown size (%d bytes)"), pItemPos->m_nLength );
+					break;
+
+				case GGEP_H_UUID:
+					// Unsupported
+					break;
+
+				default:
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with GGEP \"H\" unknown type %d (%d bytes)"), pItemPos->m_pBuffer[0], pItemPos->m_nLength );
+				}
+			}
+			else if ( pItemPos->IsNamed( GGEP_HEADER_URN ) )
+			{
+				CString strURN( "urn:" + pItemPos->ToString() );
+				if (      oSHA1.fromUrn(  strURN ) );	// Got SHA1
 				else if ( oTiger.fromUrn( strURN ) );	// Got Tiger
 				else if ( oED2K.fromUrn(  strURN ) );	// Got ED2K
 				else if ( oBTH.fromUrn(   strURN ) );	// Got BTH
 				else if ( oMD5.fromUrn(   strURN ) );	// Got MD5
 				else
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got Gnutella query packet with unknown URN: \"%s\""), strURN );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with GGEP \"u\" unknown URN: \"%s\" (%d bytes)"), strURN, pItemPos->m_nLength );
 			}
-			else if ( nLength >= 4 && *pszData == '<' )
+			else if ( pItemPos->IsNamed( GGEP_HEADER_SECURE_OOB ) )
 			{
-				// HACK: Fix embedded zeros
-				char* p = pszData;
-				for ( int i = 0; i < nLength - 2; ++i, ++p )
-					// Fix <tag attribute="valueZ/> -> <tag attribute="value"/>
-					if ( *p == _T('\0') && *(p + 1) == _T('/') && *(p + 2) == _T('>') )
-						*p = _T('"');
-
-				CString strXML( pszData, nLength );
-
-				ASSERT( m_pXML == NULL );
-				m_pXML = CXMLElement::FromString( strXML, FALSE );
-				if ( m_pXML == NULL )
-				{
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got Gnutella query packet with bad XML: \"%s\""), strXML );
-				}
-				else
-				{
-					ASSERT( m_pSchema == NULL );
-					m_pSchema = SchemaCache.Get(
-						m_pXML->GetAttributeValue( CXMLAttribute::schemaName, NULL ) );
-					if ( m_pSchema == NULL )
-					{
-						// Schemas do not match by URN, get first element to compare
-						// with names map of schemas (which are singulars)
-						bool bFound = false;
-						if ( CXMLElement* pElement = m_pXML->GetFirstElement() )
-						{
-							m_pSchema = SchemaCache.Guess( pElement->GetName() );
-							if ( m_pSchema ) bFound = true;
-						}
-						else // has no plural envelope
-						{
-							m_pSchema = SchemaCache.Guess( m_pXML->GetName() );
-							if ( m_pSchema ) bFound = true;
-						}
-						
-						if ( !bFound )
-							theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got Gnutella query packet with unknown XML schema: \"%s\""), strXML );
-					}
-				}
+				m_bOOBv3 = true;
 			}
-			else if ( *pszData == GGEP_MAGIC )
+			else if ( pItemPos->IsNamed( GGEP_HEADER_META ) )
 			{
-				if ( Settings.Gnutella1.EnableGGEP )
-				{
-					CGGEPBlock pGGEP;
-					pGGEP.ReadFromBuffer( (LPVOID)pszData, nLength );
-
-					// TODO: Add multiple GGEP items handling
-
-					if ( CGGEPItem* pItem = pGGEP.Find( GGEP_HEADER_SECURE_OOB ) )
-					{
-						m_bOOBv3 = TRUE;
-					}
-					if ( CGGEPItem* pItem = pGGEP.Find( GGEP_HEADER_META, 1 ) )
-					{
-						m_nMeta = pItem->m_pBuffer[0];
-					}
-					if ( CGGEPItem* pItem = pGGEP.Find( GGEP_HEADER_HASH, 21 ) )
-					{
-						if ( pItem->m_pBuffer[0] == GGEP_H_SHA1 ||
-							pItem->m_pBuffer[0] == GGEP_H_BITPRINT )
-						{
-							m_oSHA1 = reinterpret_cast< Hashes::Sha1Hash::RawStorage& >(
-								pItem->m_pBuffer[ 1 ] );
-						}
-						if ( pItem->m_pBuffer[0] == GGEP_H_BITPRINT &&
-							pItem->m_nLength >= 24 + 20 + 1 )
-						{
-							m_oTiger = reinterpret_cast< Hashes::TigerHash::RawStorage& >(
-								pItem->m_pBuffer[ 21 ] );
-						}
-
-						// TODO: Add GGEP_H_MD5, GGEP_H_UUID, GGEP_H_MD4 handling
-
-					}
-					if ( CGGEPItem* pItem = pGGEP.Find( GGEP_HEADER_URN ) )
-					{
-						CString strURN( pItem->ToString() );
-						if (      oSHA1.fromUrn(  strURN ) );	// Got SHA1
-						else if ( oTiger.fromUrn( strURN ) );	// Got Tiger
-						else if ( oED2K.fromUrn(  strURN ) );	// Got ED2K
-						else if ( oBTH.fromUrn(   strURN ) );	// Got BTH
-						else if ( oMD5.fromUrn(   strURN ) );	// Got MD5
-						else
-							theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got Gnutella query packet with unknown GGEP URN: \"%s\""), strURN );
-					}
-				}
-				else
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got GGEP Gnutella query packet, but GGEP disabled") );
+				m_nMeta = pItemPos->m_pBuffer[0];
+			}
+			else if ( pItemPos->IsNamed( GGEP_HEADER_PARTIAL_RESULT_PREFIX ) )
+			{
+				m_bPartial = true;
+			}
+			else if ( pItemPos->IsNamed( GGEP_HEADER_NO_PROXY ) )
+			{
+				m_bNoProxy = true;
+			}
+			else if ( pItemPos->IsNamed( GGEP_HEADER_EXTENDED_QUERY ) )
+			{
+				m_bExtQuery = true;
 			}
 			else
-				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got Gnutella query packet with unknown part: \"%hs\""), CString( pszData, nLength ) );
-
-			pszData += nLength + 1;
-			nDataLength -= nLength;
+				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with unknown GGEP \"%s\" (%d bytes)"), pItemPos->m_sID, pItemPos->m_nLength );
 		}
 
 		if ( oSHA1  && ! m_oSHA1 )  m_oSHA1  = oSHA1;
@@ -702,14 +832,66 @@ BOOL CQuerySearch::ReadG1Packet(CG1Packet* pPacket)
 		if ( oED2K  && ! m_oED2K )  m_oED2K  = oED2K;
 		if ( oBTH   && ! m_oBTH )   m_oBTH   = oBTH;
 		if ( oMD5   && ! m_oMD5 )   m_oMD5   = oMD5;
-
-		// "Read all"
-		pPacket->m_nPosition = pPacket->m_nLength;
 	}
+	else 
+	{
+		m_bWarning = true;
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with malformed GGEP") );
+	}
+}
 
-	m_bAndG1 = TRUE;
+void CQuerySearch::ReadExtension(CG1Packet* pPacket)
+{
+	// Find length of extension (till packet end or G1_PACKET_HIT_SEP byte)
+	DWORD nLength = 0;
+	DWORD nRemaining = pPacket->GetRemaining();
+	const BYTE* pData = pPacket->GetCurrent();
+	for ( ; *pData != G1_PACKET_HIT_SEP &&
+		nLength < nRemaining; pData++, nLength++ );
 
-	return CheckValid( false );
+	// Read extension
+	auto_array< BYTE > pszData( new BYTE[ nLength + 1] );
+	pPacket->Read( pszData.get(), nLength );
+	pszData[ nLength ] = 0;
+
+	// Skip G1_PACKET_HIT_SEP byte
+	if ( nLength != nRemaining )
+		pPacket->ReadByte();
+
+	if ( nLength >= 4 && _strnicmp( (LPCSTR)pszData.get(), "urn:", 4 ) == 0 )
+	{
+		CString strURN( pszData.get() );
+
+		Hashes::Sha1Hash	oSHA1;
+		Hashes::TigerHash	oTiger;
+		Hashes::Ed2kHash	oED2K;
+		Hashes::BtHash		oBTH;
+		Hashes::Md5Hash		oMD5;
+
+		if ( strURN.GetLength() == 4 );			// Got empty urn
+		else if ( oSHA1.fromUrn(  strURN ) );	// Got SHA1
+		else if ( oTiger.fromUrn( strURN ) );	// Got Tiger
+		else if ( oED2K.fromUrn(  strURN ) );	// Got ED2K
+		else if ( oBTH.fromUrn(   strURN ) );	// Got BTH
+		else if ( oMD5.fromUrn(   strURN ) );	// Got MD5
+		else
+			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with unknown URN \"%s\" (%d bytes)"), strURN, nLength );
+
+		if ( oSHA1  && ! m_oSHA1 )  m_oSHA1  = oSHA1;
+		if ( oTiger && ! m_oTiger ) m_oTiger = oTiger;
+		if ( oED2K  && ! m_oED2K )  m_oED2K  = oED2K;
+		if ( oBTH   && ! m_oBTH )   m_oBTH   = oBTH;
+		if ( oMD5   && ! m_oMD5 )   m_oMD5   = oMD5;
+	}
+	else if ( nLength && ! m_pXML )
+	{
+		m_pSchema = NULL;
+		m_pXML = SchemaCache.Decode( pszData.get(), nLength, m_pSchema );
+		if ( ! m_pXML )
+			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with malformed XML \"%hs\" (%d bytes)"), pszData.get(), nLength );
+	}
+	else
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got query packet with unknown part \"%hs\" (%d bytes)"), pszData.get(), nLength );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -717,7 +899,8 @@ BOOL CQuerySearch::ReadG1Packet(CG1Packet* pPacket)
 
 BOOL CQuerySearch::ReadG2Packet(CG2Packet* pPacket, SOCKADDR_IN* pEndpoint)
 {
-	if ( ! pPacket->m_bCompound ) return FALSE;
+	if ( ! pPacket->m_bCompound )
+		return FALSE;
 	
 	G2_PACKET nType;
 	DWORD nLength;
@@ -808,8 +991,7 @@ BOOL CQuerySearch::ReadG2Packet(CG2Packet* pPacket, SOCKADDR_IN* pEndpoint)
 		{
 			m_sSearch = pPacket->ReadString( nLength );
 			m_sKeywords = m_sSearch;
-			// Commenting out below 2 lines. they are called from CheckValid at the end of this function thus
-			// no need to call it here.
+			// Following 2 lines called from CheckValid at the end of this function:
 			//ToLower( m_sKeywords );
 			//MakeKeywords( m_sKeywords, false );
 		}
@@ -853,14 +1035,18 @@ BOOL CQuerySearch::ReadG2Packet(CG2Packet* pPacket, SOCKADDR_IN* pEndpoint)
 		{
 			m_bAndG1 = TRUE;
 		}
-		
+		else if ( nType == G2_PACKET_NAT_DESC )
+		{
+			m_bFirewall = TRUE;
+		}
+
 		pPacket->m_nPosition = nOffset;
 	}
 	
 	if ( pPacket->GetRemaining() < 16 ) return FALSE;
 	
 	pPacket->Read( m_oGUID );
-	
+
 	return CheckValid( true );
 }
 
@@ -869,9 +1055,10 @@ BOOL CQuerySearch::ReadG2Packet(CG2Packet* pPacket, SOCKADDR_IN* pEndpoint)
 
 BOOL CQuerySearch::CheckValid(bool bExpression)
 {
-	bool bHashOk = false;
+	BuildWordList( bExpression );
 
 	// Searches by hash are ok
+	bool bHashOk = false;
 	if ( IsHashed() )
 	{
 		if ( m_oURNs.empty() )
@@ -910,8 +1097,6 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 		bHashOk = true;
 	}
 
-	BuildWordList( bExpression );
-
 	if ( m_oKeywordHashList.size() )
 	{
 		return TRUE;
@@ -922,7 +1107,7 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 		static const LPCTSTR common[] =
 		{
 			L"mp3", L"ogg", L"ac3",
-			L"jpg", L"gif", L"png", L"bmp",
+			L"jpg", L"gif", L"png", L"bmp", L"pdf",
 			L"mpg", L"avi", L"mkv", L"wmv", L"mov", L"ogm", L"mpa", L"mpv", L"m2v", L"mp2",
 			L"exe", L"zip", L"rar", L"iso", L"bin", L"cue", L"img", L"lzh", L"bz2", L"rpm", L"deb",
 			L"dvd", L"mpeg", L"divx", L"xvid", L"mp4",
@@ -945,16 +1130,15 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 			szChar = *(pWord->first);
 			nLength = int(pWord->second);
 
-			bExtendChar = false;	//  clear the flag used for extended char
-			// NOTE: because of how oWord act, each keywords in oWords gets sorted in ascending order with HEX code of char,
-			//		thus Extended chars are always located at end of oWords. Which means it is not necessary to Clear the flag
-			//		inside the loop.
+			bExtendChar = false;	// Clear the flag used for extended char
+			// NOTE: Because of how oWord acts, each keyword in oWords gets sorted in ascending order with HEX code of char,
+			// thus Extended chars are always located at end of oWords. Which means it is not necessary to Clear the flag inside the loop.
 
 			if ( !IsCharacter( szChar ) ) // check if the char is valid
 			{
-				// do nothing here
+				// Do nothing here
 				continue;
-			} //after the char inspection
+			} // After the char inspection
 			else if ( nLength > 3 )	// any char string longer than 3 byte are counted.
 			{
 				nValidCharacters = nLength;
@@ -1389,7 +1573,7 @@ void CQuerySearch::BuildWordList(bool bExpression, bool /* bLocal */ )
 	// Split search string to keywords
 	if ( m_sKeywords.IsEmpty() )
 		m_sKeywords = m_sSearch;
-		MakeKeywords( m_sKeywords, bExpression );
+	MakeKeywords( m_sKeywords, bExpression );
 
 	// Split metadata to keywords
 	if ( m_pXML )
@@ -1449,7 +1633,7 @@ void CQuerySearch::BuildWordList(bool bExpression, bool /* bLocal */ )
 	// Build m_sPosKeywords/m_sG2Keywords from m_oWords/m_oNegWords
 	BuildG2PosKeywords();
 }
-	
+
 void CQuerySearch::BuildG2PosKeywords()
 {
 	// clear QueryStrings.
@@ -1506,7 +1690,7 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sHiragana);
 		if ( IsCharacter( *pszPtr ) )
 			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sRegular);
-		// for now, disable Numeric Detection in order not to split string like "peerproject2" to "peerproject 2"
+		// For now, disable Numeric Detection in order not to split strings like "peerproject2" to "peerproject 2"
 		//if ( _istdigit( *pszPtr ) )
 		//	boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sNumeric);
 
@@ -1517,7 +1701,7 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 
 		bool bCharacter = ( boundary[ 1 ] & sRegular )||
 			bExpression && ( *pszPtr == '-' || *pszPtr == '"' );
-		if ( *pszPtr == '-' ) bNegative = TRUE;
+		if ( !( boundary[ 0 ] & sRegular ) && *pszPtr == '-' ) bNegative = TRUE;
 		else if ( *pszPtr == ' ' ) bNegative = FALSE;
 
 		int nDistance = !bCharacter ? 1 : 0;
@@ -1560,7 +1744,11 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 				{
 					str += strPhrase.Mid( nPrevWord, nPos - nPrevWord );
 					if ( boundary[ 1 ] == sNone && !bCharacter || *pszPtr == ' ' || !bExpression ||
-						 ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) && !bNegative ) )
+						( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) && !bNegative ) )
+						str.Append( L" " );
+					else if ( !bNegative && ( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ||
+						( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) !=
+						( boundary[ 1 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
 						str.Append( L" " );
 				}
 			}
@@ -1639,7 +1827,7 @@ void CQuerySearch::BuildWordTable()
 	BOOL bQuote		= FALSE;
 	BOOL bNegate	= FALSE;
 	BOOL bSpace		= TRUE;
-	
+
 	for ( ; *pszPtr ; pszPtr++ )
 	{
 		if ( IsCharacter( *pszPtr ) )
@@ -1662,9 +1850,9 @@ void CQuerySearch::BuildWordTable()
 						m_oWords.insert( std::make_pair( pszWord, pszPtr - pszWord ) );
 				}
 			}
-			
+
 			pszWord = pszPtr + 1;
-			
+
 			if ( *pszPtr == '\"' )
 			{
 				bQuote = ! bQuote;
@@ -1679,7 +1867,7 @@ void CQuerySearch::BuildWordTable()
 			{
 				bSpace = ( *pszPtr == ' ' );
 			}
-			
+
 			if ( bNegate && ! bQuote && *pszPtr != '-' ) bNegate = FALSE;
 		}
 	}

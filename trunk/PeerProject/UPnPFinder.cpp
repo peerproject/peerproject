@@ -93,44 +93,44 @@ bool CUPnPFinder::AreServicesHealthy()
 
 	bool bResult = false;
 
-		SC_HANDLE schSCManager;
-		SC_HANDLE schService;
+	SC_HANDLE schSCManager;
+	SC_HANDLE schService;
 
-		// Open a handle to the Service Control Manager database
+	// Open a handle to the Service Control Manager database
 	schSCManager = OpenSCManager(
-			NULL,				// local machine 
-			NULL,				// ServicesActive database 
-			GENERIC_READ );		// for enumeration and status lookup 
+		NULL,				// local machine
+		NULL,				// ServicesActive database
+		GENERIC_READ );		// for enumeration and status lookup
 
-		if ( schSCManager == NULL )
-			return false;
+	if ( schSCManager == NULL )
+		return false;
 
 	schService = OpenService( schSCManager, _T("upnphost"), GENERIC_READ );
-		if ( schService == NULL )
-		{
+	if ( schService == NULL )
+	{
 		CloseServiceHandle( schSCManager );
-			return false;
-		}
+		return false;
+	}
 
-		SERVICE_STATUS_PROCESS ssStatus; 
-		DWORD nBytesNeeded;
+	SERVICE_STATUS_PROCESS ssStatus;
+	DWORD nBytesNeeded;
 
 	if ( QueryServiceStatusEx( schService, SC_STATUS_PROCESS_INFO,
-			(LPBYTE)&ssStatus, sizeof(SERVICE_STATUS_PROCESS), &nBytesNeeded ) )
-		{
-			if ( ssStatus.dwCurrentState == SERVICE_RUNNING )
-				bResult = true;
-		}
+		(LPBYTE)&ssStatus, sizeof(SERVICE_STATUS_PROCESS), &nBytesNeeded ) )
+	{
+		if ( ssStatus.dwCurrentState == SERVICE_RUNNING )
+			bResult = true;
+	}
 	CloseServiceHandle( schService );
 
-		if ( !bResult )
-		{
+	if ( !bResult )
+	{
 		schService = OpenService( schSCManager, _T("upnphost"), SERVICE_START );
-			if ( schService )
-			{
-				// Power users have only right to start service, thus try to start it here
+		if ( schService )
+		{
+			// Power users have only right to start service, thus try to start it here
 			if ( StartService( schService, 0, NULL ) )
-					bResult = true;
+				bResult = true;
 			CloseServiceHandle( schService );
 		}
 	}
@@ -163,30 +163,30 @@ void CUPnPFinder::ProcessAsyncFind(CComBSTR bsSearchType)
 	{
 		if ( FAILED( m_pDeviceFinder->CancelAsyncFind( m_nAsyncFindHandle ) ) )
 			theApp.Message( MSG_ERROR, L"CancelAsyncFind failed in UPnP finder." );
-		
+
 		m_bAsyncFindRunning = false;
 		return;
-	} 
+	}
 }
 
 // Helper function for stopping the async find if proceeding
 void CUPnPFinder::StopAsyncFind()
 {
 	// This will stop the async find if it is in progress
-	// ToDo: Locks up in WinME, cancelling is required <- critical
+	// ToDo: Locked up in WinME, cancelling was required (UPDATE?)
 
 	if ( m_bInited && IsAsyncFindRunning() )
 	{
 		if ( FAILED( m_pDeviceFinder->CancelAsyncFind( m_nAsyncFindHandle ) ) )
 			theApp.Message( MSG_ERROR, L"Cancel AsyncFind failed in UPnP finder." );
 	}
-	
+
 	if ( m_bSecondTry )
 		m_bAsyncFindRunning = false;
 }
 
 // Start the discovery of the UPnP gateway devices
-void CUPnPFinder::StartDiscovery(bool bSecondTry) 
+void CUPnPFinder::StartDiscovery(bool bSecondTry)
 {
 	if ( bSecondTry && m_bSecondTry ) // already did 2 tries
 		return;
@@ -200,10 +200,10 @@ void CUPnPFinder::StartDiscovery(bool bSecondTry)
 	// showed up the UPnP root Device which contained the WANConnectionDevice as a child. I'm not sure if there are cases
 	// where search for InternetGatewayDevice only would have similar bad effects, but to be sure we do "normal" search first
 	// and one for InternetGateWayDevice as fallback
-    static const CString strDeviceType1( L"urn:schemas-upnp-org:device:WANConnectionDevice:1");
+	static const CString strDeviceType1( L"urn:schemas-upnp-org:device:WANConnectionDevice:1");
 	static const CString strDeviceType2( L"urn:schemas-upnp-org:device:InternetGatewayDevice:1");
 
-    StopAsyncFind();		// If AsyncFind is in progress, stop it
+	StopAsyncFind();		// If AsyncFind is in progress, stop it
 	m_bSecondTry = bSecondTry;
 
 	m_bPortIsFree = true;
@@ -226,7 +226,7 @@ void CUPnPFinder::AddDevice(DevicePointer device, bool bAddChilds, int nLevel)
 		return;
 	}
 
-	//We are going to add a device 
+	//We are going to add a device
 	CComBSTR bsFriendlyName, bsUniqueName;
 
 	m_tLastEvent = GetTickCount();
@@ -263,7 +263,7 @@ void CUPnPFinder::AddDevice(DevicePointer device, bool bAddChilds, int nLevel)
 
 		IUnknown* pEnumVar_;
 		HRESULT hr = S_OK;
-		
+
 		if ( FAILED( hr = pChildDevices->get__NewEnum( &pEnumVar_ ) ) )
 			return (void)UPnPMessage( hr );
 
@@ -282,11 +282,11 @@ void CUPnPFinder::AddDevice(DevicePointer device, bool bAddChilds, int nLevel)
 			{
 				pDisp = V_DISPATCH(&var);
 				DevicePointer pChildDevice( pDisp );
-				if ( SUCCEEDED(pChildDevice->get_FriendlyName( &bsFriendlyName )) && 
+				if ( SUCCEEDED(pChildDevice->get_FriendlyName( &bsFriendlyName )) &&
 					 SUCCEEDED(pChildDevice->get_UniqueDeviceName( &bsUniqueName )) )
 					AddDevice( pChildDevice, true, nLevel + 1 );
 			}
-			
+
 			hr = pEnumVar->Next( 1, &var, &lFetch );
 		};
 	}
@@ -310,10 +310,10 @@ void CUPnPFinder::RemoveDevice(CComBSTR bsUDN)
 
 bool CUPnPFinder::OnSearchComplete()
 {
-    ATLTRACE2( atlTraceCOM, 1, L"CUPnPFinder(%p)->OnSearchComplete\n", this );
-	
+	ATLTRACE2( atlTraceCOM, 1, L"CUPnPFinder(%p)->OnSearchComplete\n", this );
+
 	if ( m_pDevices.empty() )
-	{	
+	{
 		if ( m_bSecondTry )
 		{
 			theApp.Message( MSG_INFO, L"Found no UPnP gateway devices" );
@@ -325,7 +325,7 @@ bool CUPnPFinder::OnSearchComplete()
 			theApp.Message( MSG_INFO, L"Found no UPnP gateway devices - will retry with different parameters" );
 		return false; // no devices found
 	}
-	
+
 	for ( std::size_t pos = 0; pos < m_pDevices.size(); pos++ )
 	{
 		GetDeviceServices( m_pDevices[ pos ] );
@@ -378,7 +378,7 @@ HRESULT	CUPnPFinder::GetDeviceServices(DevicePointer pDevice)
 		return hr;
 
 	hr = SaveServices( pEU, nCount );
-	
+
 	return hr;
 }
 
@@ -418,7 +418,7 @@ HRESULT CUPnPFinder::SaveServices(com_ptr< IEnumUnknown > pEU, const LONG nTotal
 HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 {
 	CComBSTR bsServiceId;
-	
+
 	HRESULT hr = service->get_Id( &bsServiceId );
 	if ( FAILED( hr ) )
 		return UPnPMessage( hr );
@@ -442,7 +442,7 @@ HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 			Settings.Connection.SkipWANPPPSetup = FALSE;
 		}
 	}
-	
+
 	// ADSL routers have WANEthernetLinkConfig and WANPPPConnection services.
 	// They may have WANIPConnection service too. Seems the right way to forward
 	// ports is to use WANPPPConnection. If we hadn't skipped WANIPConnection,
@@ -450,9 +450,9 @@ HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 	// and WANPPPConnection are mutually exclusive.
 	// The problem is that it's unclear if the order of services is always the same...
 	// But looks like it is.
-	// WANEthernetLinkConfig is not a good criterion to detect an ADSL device. Thus,
-	// we first skip WANIPConnection service and if we fail afterwards, we would try
-	// to use it as a last resort.
+	// WANEthernetLinkConfig is not a good criterion to detect an ADSL device.
+	// Thus, we first skip WANIPConnection service and if we fail afterwards,
+	// we try to use it as a last resort.
 	if ( !m_bADSL )
 	{
 		m_bADSL = !( strServiceId.Find( L"urn:upnp-org:serviceId:WANEthLinkC" ) == -1 ) ||
@@ -471,7 +471,7 @@ HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 
 	// For ICS we can query variables, for router devices we need to use
 	// actions to get the ConnectionStatus state variable; recommended to use actions
-	// "GetStatusInfo" returns state variables: 
+	// "GetStatusInfo" returns state variables:
 	//		|ConnectionStatus|LastConnectionError|Uptime|
 
 	CString strResult;
@@ -490,7 +490,7 @@ HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 		hr = service->AddCallback( m_pServiceCallback.get() );
 		// Marshaller adds a ref here, so we should release it
 		// m_pServiceCallback->Release();
-		if ( FAILED( hr ) ) 
+		if ( FAILED( hr ) )
 			UPnPMessage( hr );
 		else
 			theApp.Message( MSG_DEBUG, L"Callback added for the service %s",
@@ -554,14 +554,13 @@ CString CUPnPFinder::GetLocalRoutableIP(ServicePointer pService)
 	if ( FAILED( hr ) || strExternalIP.IsEmpty() )
 		return CString();
 
-	CT2A pszExternalIP( (LPCTSTR)strExternalIP );
 	DWORD nInterfaceIndex = 0;
-	DWORD ip = inet_addr( pszExternalIP );
+	DWORD ip = inet_addr( (LPCSTR)CT2A( (LPCTSTR)strExternalIP ) );
 
 	// Get the interface through which the UPnP device has a route
 	HRESULT hrRes = GetBestInterface( ip, &nInterfaceIndex );
 
-	if ( ip == INADDR_NONE || hrRes != NO_ERROR ) 
+	if ( ip == INADDR_NONE || hrRes != NO_ERROR )
 		return CString();
 
 	MIB_IFROW ifRow = {};
@@ -593,8 +592,8 @@ CString CUPnPFinder::GetLocalRoutableIP(ServicePointer pService)
 		{
 			nSearchIP = ipAddr->table[ nIf ].dwAddr;
 			strLocalIP.Format( L"%d.%d.%d.%d", ( nSearchIP & 0x0000ff ),
-                ( ( nSearchIP & 0x00ff00 ) >> 8 ), ( ( nSearchIP & 0xff0000 ) >> 16 ),
-                ( nSearchIP >> 24 ) );
+				( ( nSearchIP & 0x00ff00 ) >> 8 ), ( ( nSearchIP & 0xff0000 ) >> 16 ),
+				( nSearchIP >> 24 ) );
 
 			theApp.m_nUPnPExternalAddress = ip;
 			break;
@@ -608,8 +607,8 @@ CString CUPnPFinder::GetLocalRoutableIP(ServicePointer pService)
 }
 
 // Walks through all port mappings and searches for "PeerProject" string.
-// Deletes when it has the same IP as local, otherwise quits and sets 
-// m_bPortIsFree to false after 10 attempts to use a random port; 
+// Deletes when it has the same IP as local, otherwise quits and sets
+// m_bPortIsFree to false after 10 attempts to use a random port;
 // this member will be used to determine if we have to create new port maps.
 void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 {
@@ -622,7 +621,7 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 
 	HRESULT hr = S_OK;
 	int nAttempts = 10;
-					
+
 	// ICS returns computer name instead of IP, thus we need to compare not IPs
 	CString strComputerName;
 	DWORD nMaxLen = MAX_COMPUTERNAME_LENGTH + 1;
@@ -634,9 +633,9 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 	{
 		HRESULT hrDel = E_FAIL;
 		strInArgs.Format( _T("|VT_UI2=%hu|"), nEntry );
-		hr = InvokeAction( pService, 
+		hr = InvokeAction( pService,
 			 L"GetGenericPortMappingEntry", strInArgs, strActionResult );
-		
+
 		if ( SUCCEEDED( hr ) && ! strActionResult.IsEmpty() )
 		{
 			// It returned in the following format and order:
@@ -649,8 +648,8 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 			// VT_BOOL	PortMappingEnabled = True
 			// VT_BSTR	PortMappingDescription = "PeerProject TCP"
 			// VT_UI4	PortMappingLeaseDuration = 0 (i.e. any)
-			
-			// DeletePortMapping action takes 3 arguments: 
+
+			// DeletePortMapping action takes 3 arguments:
 			//		RemoteHost, ExternalPort and PortMappingProtocol
 
 			CString strHost, strPort, strProtocol, strLocalIP;
@@ -674,17 +673,17 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 						|| _tcsistr( strProtocol, L"VT_BSTR" ) == NULL )
 					break;
 
-				if ( _tcsstr( oTokens[ 4 ], m_sLocalIP ) != NULL || 
+				if ( _tcsstr( oTokens[ 4 ], m_sLocalIP ) != NULL ||
 					 _tcsistr( oTokens[ 4 ], (LPCTSTR)strComputerName ) != NULL )
 				{
 					CString str;
-					hrDel = InvokeAction( pService, L"DeletePortMapping", 
+					hrDel = InvokeAction( pService, L"DeletePortMapping",
 						strHost + strPort + strProtocol, str );
-					if ( FAILED( hrDel ) ) 
+					if ( FAILED( hrDel ) )
 						UPnPMessage( hrDel );
 					else
 					{
-						theApp.Message( MSG_DEBUG, L"Old port mapping deleted: %s", 
+						theApp.Message( MSG_DEBUG, L"Old port mapping deleted: %s",
 							strPort + strProtocol );
 					}
 				}
@@ -731,7 +730,7 @@ void CUPnPFinder::CreatePortMappings(ServicePointer pService)
 		return;
 
 	CString strPort, strInArgs, strFormatString, strResult;
-	
+
 	strFormatString = L"|VT_BSTR=|VT_UI2=%s|VT_BSTR=%s|VT_UI2=%s|VT_BSTR=%s|"
 		L"VT_BOOL=True|VT_BSTR=PeerProject %s|VT_UI4=0|";
 
@@ -754,17 +753,17 @@ void CUPnPFinder::CreatePortMappings(ServicePointer pService)
 
 	theApp.m_bUPnPPortsForwarded = TRI_TRUE;
 	theApp.Message( MSG_INFO, L"Ports successfully forwarded using UPnP service." );
-	
+
 	// Leave the message loop, since events may take more time.
 	// Assuming that the user doesn't use several devices
-	
+
 	m_bAsyncFindRunning = false;
 }
 
 // Invoke the action for the selected service.
 // OUT arguments or return value is packed in strResult.
-HRESULT CUPnPFinder::InvokeAction(ServicePointer pService, 
-	CComBSTR action, LPCTSTR pszInArgString, CString& strResult) 
+HRESULT CUPnPFinder::InvokeAction(ServicePointer pService,
+	CComBSTR action, LPCTSTR pszInArgString, CString& strResult)
 {
 	if ( !pService || !action )
 		return E_POINTER;
@@ -805,7 +804,7 @@ HRESULT CUPnPFinder::InvokeAction(ServicePointer pService,
 
 	if ( SUCCEEDED( hr ) )
 	{
-		// In connection services return value is empty 
+		// In connection services return value is empty
 		// when OUT arguments are returned
 		if ( vaRet.vt != VT_EMPTY )
 		{
@@ -838,7 +837,7 @@ HRESULT CUPnPFinder::InvokeAction(ServicePointer pService,
 			GetStringFromOutArgs( &vaOutArgs, strResult );
 	}
 
-	if ( ppVars != NULL ) DestroyVars( nArgs, &ppVars ); 
+	if ( ppVars != NULL ) DestroyVars( nArgs, &ppVars );
 	if ( psaArgs != NULL ) SafeArrayDestroy( psaArgs );
 
 	return hr;
@@ -850,23 +849,23 @@ HRESULT CUPnPFinder::InvokeAction(ServicePointer pService,
 // ppsa--Created safearray
 HRESULT CUPnPFinder::CreateSafeArray(const VARTYPE vt, const ULONG nArgs, SAFEARRAY** ppsa)
 {
-    SAFEARRAYBOUND aDim[ 1 ]; 
+	SAFEARRAYBOUND aDim[ 1 ];
 
 	if ( nArgs == 0 )
 	{
-        aDim[ 0 ].lLbound = 0; 
-        aDim[ 0 ].cElements = 0; 
-    }
-    else
+		aDim[ 0 ].lLbound = 0;
+		aDim[ 0 ].cElements = 0;
+	}
+	else
 	{
-        aDim[ 0 ].lLbound = 1; 
-        aDim[ 0 ].cElements = nArgs; 
-    }
-    
-    *ppsa = SafeArrayCreate( vt, 1, aDim );
-   
+		aDim[ 0 ].lLbound = 1;
+		aDim[ 0 ].cElements = nArgs;
+	}
+
+	*ppsa = SafeArrayCreate( vt, 1, aDim );
+
 	if( NULL == *ppsa ) return E_OUTOFMEMORY;
-    return S_OK;
+	return S_OK;
 }
 
 // Creates argument variants from the string
@@ -882,7 +881,7 @@ INT_PTR CUPnPFinder::CreateVarFromString(const CString& strArgs, VARIANT*** pppV
 		*pppVars = NULL;
 		return 0;
 	}
-	
+
 	CStringArray oTokens;
 	CString strToken, strType, strValue;
 	BOOL bInvalid = FALSE;
@@ -896,7 +895,7 @@ INT_PTR CUPnPFinder::CreateVarFromString(const CString& strArgs, VARIANT*** pppV
 	{
 		strToken = oTokens.GetAt( nArg );
 		int nEqualPos = strToken.Find( '=' );
-		
+
 		// Malformatted string test
 		if ( nEqualPos == -1 ) { bInvalid = TRUE; break; }
 
@@ -942,7 +941,7 @@ INT_PTR CUPnPFinder::CreateVarFromString(const CString& strArgs, VARIANT*** pppV
 			if ( bInvalid ) break;
 
 			(*pppVars)[ nArg ]->vt = VT_BOOL;
-			(*pppVars)[ nArg ]->boolVal = va;	
+			(*pppVars)[ nArg ]->boolVal = va;
 		}
 		else
 		{
@@ -979,7 +978,7 @@ INT_PTR	CUPnPFinder::GetStringFromOutArgs(const VARIANT* pvaOutArgs, CString& st
 		{
 			vaOutElement.Clear();
 			hr = GetVariantElement( pvaOutArgs->parray, nIndex, &vaOutElement );
-			
+
 			if ( SUCCEEDED( hr ) )
 			{
 				if ( vaOutElement.vt == VT_BSTR )
@@ -996,7 +995,7 @@ INT_PTR	CUPnPFinder::GetStringFromOutArgs(const VARIANT* pvaOutArgs, CString& st
 					break;
 				}
 
-				hr = VariantChangeType( &vaOutElement, &vaOutElement, 
+				hr = VariantChangeType( &vaOutElement, &vaOutElement,
 							VARIANT_ALPHABOOL, VT_BSTR );
 				if ( SUCCEEDED( hr ) )
 				{
@@ -1011,7 +1010,7 @@ INT_PTR	CUPnPFinder::GetStringFromOutArgs(const VARIANT* pvaOutArgs, CString& st
 				bInvalid = true;
 		} // For loop
 	}
-	
+
 	if ( bInvalid || nLBound > nUBound ) return -1;
 
 	strArgs = strResult;
@@ -1107,7 +1106,7 @@ HRESULT CDeviceFinderCallback::SearchComplete(LONG /*nFindData*/)
 //! \arg pus             COM interface pointer of the service;
 //! \arg pszStateVarName State Variable Name;
 //! \arg varValue        State Variable Value
-HRESULT CServiceCallback::StateVariableChanged(IUPnPService* pService, 
+HRESULT CServiceCallback::StateVariableChanged(IUPnPService* pService,
 			LPCWSTR pszStateVarName, VARIANT varValue)
 {
 	CComBSTR bsServiceId;

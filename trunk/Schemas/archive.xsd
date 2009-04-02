@@ -7,7 +7,6 @@
 			<element name="archive" type="archiveType" minOccurs="1" maxOccurs="unbounded"/>
 		</complexType>
 	</element>
-  
 	<complexType name="archiveType">
 		<all>
 			<attribute name="title" type="string"/>

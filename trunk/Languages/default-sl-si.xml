@@ -32,20 +32,20 @@
 		<button id="ID_NETWORK_CONNECT" text="Povezava"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Domov"/>
-		<button id="ID_TAB_LIBRARY" text="Knjižnica"/>
-		<button id="ID_TAB_MEDIA" text="Mediji"/>
 		<button id="ID_TAB_SEARCH" text="Iskalnik"/>
 		<button id="ID_TAB_TRANSFERS" text="Prenosi"/>
+		<button id="ID_TAB_LIBRARY" text="Knjižnica"/>
+		<button id="ID_TAB_MEDIA" text="Mediji"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Povezava"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Domov"/>
-		<button id="ID_TAB_LIBRARY" text="Knjižnica"/>
-		<button id="ID_TAB_MEDIA" text="Mediji"/>
 		<button id="ID_TAB_SEARCH" text="Iskalnik"/>
 		<button id="ID_TAB_TRANSFERS" text="Prenosi"/>
 		<button id="ID_TAB_NETWORK" text="Omrežje"/>
+		<button id="ID_TAB_LIBRARY" text="Knjižnica"/>
+		<button id="ID_TAB_MEDIA" text="Mediji"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -348,8 +348,8 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Kramljanje z uporabnikom"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Nastavitve"/>
 	</toolbar>
@@ -362,8 +362,8 @@
 		<button id="ID_SECURITY_BAN" text="Izobči uporabnika (ban)"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Nastavitve"/>
 	</toolbar>
@@ -395,17 +395,17 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Predpomnilnik G1"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Predpomnilnik eDonkey"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Brskanje po uporabniku"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Pošlji datoteko"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Dodeli prednost"/>
+		<!--<button id="ID_CHAT_SEND_FILE" text="Pošlji datoteko"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Poveži se" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Prekinitev povezave"/>
@@ -429,6 +429,23 @@
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">
+		<item id="ID_TRAY_OPEN" text="Odpri PeerProject"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Pokaži oddaljen dostop"/>
+		<item id="ID_TOOLS_SETTINGS" text="Pokaži Nastavitve..."/>
+		<item id="ID_NETWORK_SEARCH" text="Novo iskanje..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Prenesi datoteko..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Predvajaj"/>
+		<item id="ID_MEDIA_PAUSE" text="Premor"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Prejšnja sled"/>
+		<item id="ID_MEDIA_NEXT" text="Naslednja sled"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Izhod po prenosih"/>
+		<item id="ID_NETWORK_EXIT" text="Izhod"/>
+	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="_Omrežje">
@@ -436,8 +453,8 @@
 			<separator/>
 			<menu text="Izbira _omrežja">
 				<item id="ID_NETWORK_G2" text="Poveži se z _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Poveži se z Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Izhod po p_renosih"/>
@@ -504,8 +521,8 @@
 			<separator/>
 			<menu text="Izbira _omrežja">
 				<item id="ID_NETWORK_G2" text="Poveži se z _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Poveži se z Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="_Poveži se z..." shortcut="Ctrl+T"/>
@@ -600,8 +617,8 @@
 			<separator/>
 			<menu text="Izbira _omrežja">
 				<item id="ID_NETWORK_G2" text="Poveži se z _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Poveži se z Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Poveži se z _eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Zapri po p_renosih"/>
@@ -723,40 +740,6 @@
 		<item id="ID_VIEW_PACKETS" text="_Izmet (dump) paketov"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Nadzornik i_skanj"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="Nadzornik _zadetkov"/>
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_Odpri PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Novo _iskanje..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Prenesi datoteko..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Predvajaj"/>
-		<item id="ID_MEDIA_PAUSE" text="P_remor"/>
-		<item id="ID_MEDIA_STOP" text="_Ustavi"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="_Prejšnja sled (track)"/>
-		<item id="ID_MEDIA_NEXT" text="_Naslednja sled (track)"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Izhod po p_renosih"/>
-		<item id="ID_NETWORK_EXIT" text="_Izhod"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_Odpri PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Novo _iskanje..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Prenesi datoteko..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Predvajaj"/>
-		<item id="ID_MEDIA_PAUSE" text="P_remor"/>
-		<item id="ID_MEDIA_STOP" text="_Ustavi"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="_Prejšnja sled (track)"/>
-		<item id="ID_MEDIA_NEXT" text="_Naslednja sled (track)"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Izhod po p_renosih"/>
-		<item id="ID_NETWORK_EXIT" text="_Izhod"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -1015,6 +998,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Samodejno počisti"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Nadaljuj vse"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_remor vsega"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Počisti vse"/>
@@ -1382,8 +1367,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Prekini povezavo"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 		</menu>
 		<menu text="_Nadzornik">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Poglej _ves promet"/>
@@ -3109,7 +3094,6 @@
 	<string id="20001" value="Zapri"/>
 	<string id="20002" value="od"/> <!-- "1 of 10" -->
 	<string id="20003" value="Sprememba smeri vmesnika zahteva ponovni zagon. \nProgram PeerProject boste morali zagnati ročno. Želite končati program?"/>
-	<string id="20004" value="Pisave, ki se pišejo z desne proti levi, niso podprte na vašem operacijskem sistemu."/>
 	<string id="20005" value="Ne"/>
 	<string id="20006" value="Da"/>
 	<string id="20007" value="samodejno"/>
@@ -3166,6 +3150,8 @@
 	<string id="20214" value="Dobra"/>
 	<string id="20215" value="Zelo dobra"/>
 	<string id="20216" value="Odlična"/>
+	<string id="20237" value="V redu"/>
+	<string id="20238" value="Prekliči"/>
 </strings>
 
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
@@ -3407,14 +3393,14 @@
 		<control caption="Gnutella2 omrežje je glavno PeerProject omrežje. Omogoča več funkcij in boljše delovanje, kot katerokoli drugo P2P omrežje. Močno priporočamo!"/>
 		<control caption="Samodejna povezava v Gnutella2 (G2)"/>
 		<control caption="Nastavitve Gnutella2"/>
-		<control caption="eDonkey2000 omrežje:"/>
-		<control caption="eDonkey2000 omrežje je zelo priljubljeno strežniško orientirano omrežje. Čeprav ne tako bogato, kot Gnutella2, ima eDonkey2000 velik izbor datotek."/>
-		<control caption="Samodejna povezava v eDonkey2000"/>
-		<control caption="Nastavitve eDonkey2000"/>
 		<control caption="Izvorno Gnutella omrežje:"/>
-		<control caption="Čeprav je izvorno Gnutella omrežje manj bogato s funkcijami, kot Gnutella2, in ima manj datotek od omrežja eDonkey2000, je pomemben datotečni vir."/>
-		<control caption="Samodejna povezava v izvorno Gnutello"/>
+		<control caption="Čeprav je izvorno Gnutella omrežje manj bogato s funkcijami, kot Gnutella2, in ima manj datotek od omrežja eDonkey, je pomemben datotečni vir."/>
+		<control caption="Samodejna povezava v izvorno Gnutello (G1)"/>
 		<control caption="Nastavitve Gnutella1"/>
+		<control caption="eDonkey omrežje:"/>
+		<control caption="eDonkey omrežje je zelo priljubljeno strežniško orientirano omrežje. Čeprav ne tako bogato, kot Gnutella2, ima eDonkey velik izbor datotek."/>
+		<control caption="Samodejna povezava v eDonkey2000 (ED2K)"/>
+		<control caption="Nastavitve eDonkey"/>
 	</dialog>
 
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
@@ -3660,10 +3646,10 @@
 		<control caption="PeerProject je večnamenski program za deljenje datotek, ki lahko hkrati dostopa do več P2P omrežij naenkrat. Tu lahko določite omrežja do katerih želite dostopati. Te nastavitve lahko kadarkoli kasneje tudi poljubno spremenite."/>
 		<control caption="Poveži se z Gnutello2 (Zelo priporočljivo)"/>
 		<control caption="Omrežje Gnutella2 je osrednje PeerProject omrežje, ki ponuja več storitev in boljše zmogljivosti, kot katerokoli drugo P2P omrežje."/>
-		<control caption="Poveži se z eDonkey2000"/>
-		<control caption="Omrežje eDonkey2000 je zelo priljubljeno omrežje, ki sloni na osrednjih strežnikih. Čeprav nima na voljo toliko storitev, kot Gnutella2, ima to omrežje velik nabor vsebin v skupni rabi."/>
 		<control caption="Poveži se z izvorno Gnutello"/>
 		<control caption="Čeprav ima izvorno Gnutella omrežje manj storitev od Gnutelle2 in ima tudi manj datotek v skupni rabi od eDonkey2000, ostaja še vedno pomemben vir vsebin."/>
+		<control caption="Poveži se z eDonkey2000"/>
+		<control caption="Omrežje eDonkey je zelo priljubljeno omrežje, ki sloni na osrednjih strežnikih. Čeprav nima na voljo toliko storitev, kot Gnutella2, ima to omrežje velik nabor vsebin v skupni rabi."/>
 	</dialog>
 
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Uvozi eDonkey2000 prenose">
@@ -4295,18 +4281,23 @@
 		<control caption="Onemogočen|Prilagojen|Sledilnik|Sledilniki|Sledilniki (zaklenjeno)"/>
 	</dialog>
 
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Lastnosti prenosne skupine">
-		<control caption="_Ime:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Lastnosti prenosne skupine">
+		<control caption="V redu"/>
+		<control caption="Prekliči"/>
 		<control/>
 		<control/>
-		<control caption="_Filtri:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="_Dodaj"/>
 		<control caption="_Odstrani"/>
-		<control caption="V redu"/>
-		<control caption="Prekliči"/>
-		<control caption="_Mapa z dokončanimi datotekami:"/>
 		<control/>
+		<control/>
+		<control/>
+		<control caption="_Ime:"/>
+		<control caption="_Filtri:"/>
+		<control caption="_Mapa z dokončanimi datotekami:"/>
+		<control caption="_Datotečnih tipov:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Izberi vizualizacijo">

@@ -35,11 +35,6 @@
 #include "PeerProjectURL.h"
 #include "SharedFile.h"
 
-#include "SHA.h"
-#include "MD5.h"
-#include "ED2K.h"
-#include "TigerTree.h"
-
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -493,7 +488,7 @@ BOOL CCollectionFile::File::Parse(CXMLElement* pRoot)
 		{
 			if ( CXMLElement* pSource = pXML->GetElementByName( _T("source") ) )
 			{
-				/* m_sSource = */ pSource->GetValue();
+				/* m_sSource =*/ pSource->GetValue();
 			}
 		}
 	}
@@ -608,7 +603,7 @@ BOOL CCollectionFile::File::Download()
 	pURL.m_bSize	= ( m_nSize != SIZE_UNKNOWN );
 	pURL.m_nSize	= m_nSize;
 
-	return Downloads.Add( &pURL ) != NULL;
+	return Downloads.Add( pURL ) != NULL;
 }
 
 /////////////////////////////////////////////////////////////////////////////

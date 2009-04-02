@@ -213,6 +213,10 @@ HICON CCoolInterface::ExtractIcon(UINT nID, BOOL bMirrored, int nImageListType)
 			MAKEINTRESOURCE( nID ), IMAGE_ICON, cx, cx, 0 );
 		if ( hIcon )
 			AddIcon( nID, hIcon, nImageListType );
+#ifdef _DEBUG
+		else
+			theApp.Message( MSG_ERROR, _T("Failed to load icon %d (%dx%d)."), nID, cx, cx );
+#endif // _DEBUG
 	}
 	if ( hIcon )
 	{
@@ -264,14 +268,14 @@ void CCoolInterface::SetIcon(HICON hIcon, BOOL bMirrored, BOOL bBigIcon, CWnd* p
 /*BOOL CCoolInterface::AddImagesFromToolbar(UINT nIDToolBar, COLORREF crBack)
 {
 	VERIFY( ConfirmImageList() );
-	
+
 	CBitmap pBmp;
 	if ( ! pBmp.LoadBitmap( nIDToolBar ) ) return FALSE;
 	int nBase = m_pImages.Add( &pBmp, crBack );
 	pBmp.DeleteObject();
-	
+
 	if ( nBase < 0 ) return FALSE;
-	
+
 	BOOL bRet = FALSE;
 	HRSRC hRsrc = FindResource( AfxGetResourceHandle(), MAKEINTRESOURCE(nIDToolBar), RT_TOOLBAR );
 	if ( hRsrc )
@@ -291,7 +295,7 @@ void CCoolInterface::SetIcon(HICON hIcon, BOOL bMirrored, BOOL bBigIcon, CWnd* p
 					}
 				}
 				bRet = TRUE;
-			}			
+			}
 			FreeResource( hGlobal );
 		}
 	}
@@ -325,20 +329,20 @@ CDC* CCoolInterface::GetBuffer(CDC& dcScreen, CSize& szItem)
 		m_dcBuffer.SelectClipRgn( NULL );
 		return &m_dcBuffer;
 	}
-	
+
 	if ( m_bmBuffer.m_hObject )
 	{
 		m_dcBuffer.SelectObject( CGdiObject::FromHandle( m_bmOldBuffer ) );
 		m_bmBuffer.DeleteObject();
 	}
-	
+
 	m_czBuffer.cx = max( m_czBuffer.cx, szItem.cx );
 	m_czBuffer.cy = max( m_czBuffer.cy, szItem.cy );
-	
+
 	if ( m_dcBuffer.m_hDC == NULL ) m_dcBuffer.CreateCompatibleDC( &dcScreen );
 	m_bmBuffer.CreateCompatibleBitmap( &dcScreen, m_czBuffer.cx, m_czBuffer.cy );
 	m_bmOldBuffer = (HBITMAP)m_dcBuffer.SelectObject( &m_bmBuffer )->GetSafeHandle();
-	
+
 	return &m_dcBuffer;
 }
 
@@ -350,31 +354,31 @@ BOOL CCoolInterface::DrawWatermark(CDC* pDC, CRect* pRect, CBitmap* pMark, int n
 	BITMAP pWatermark;
 	CBitmap* pOldMark;
 	CDC dcMark;
-	
+
 	if ( pDC == NULL || pRect == NULL || pMark == NULL || pMark->m_hObject == NULL )
 		return FALSE;
-	
+
 	dcMark.CreateCompatibleDC( pDC );
 	if ( Settings.General.LanguageRTL )
 		SetLayout( dcMark.m_hDC, LAYOUT_BITMAPORIENTATIONPRESERVED );
 	pOldMark = (CBitmap*)dcMark.SelectObject( pMark );
 	pMark->GetBitmap( &pWatermark );
-	
+
 	for ( int nY = pRect->top - nOffY ; nY < pRect->bottom ; nY += pWatermark.bmHeight )
 	{
 		if ( nY + pWatermark.bmHeight < pRect->top ) continue;
-		
+
 		for ( int nX = pRect->left - nOffX ; nX < pRect->right ; nX += pWatermark.bmWidth )
 		{
 			if ( nX + pWatermark.bmWidth < pRect->left ) continue;
-			
+
 			pDC->BitBlt( nX, nY, pWatermark.bmWidth, pWatermark.bmHeight, &dcMark, 0, 0, SRCCOPY );
 		}
 	}
-	
+
 	dcMark.SelectObject( pOldMark );
 	dcMark.DeleteDC();
-	
+
 	return TRUE;
 }
 
@@ -385,7 +389,7 @@ void CCoolInterface::CreateFonts(LPCTSTR pszFace, int nSize)
 {
 	if ( ! pszFace ) pszFace = theApp.m_sDefaultFont;
 	if ( ! nSize ) nSize = theApp.m_nDefaultFontSize;
-	
+
 	if ( m_fntNormal.m_hObject ) m_fntNormal.DeleteObject();
 	if ( m_fntBold.m_hObject ) m_fntBold.DeleteObject();
 	if ( m_fntUnder.m_hObject ) m_fntUnder.DeleteObject();
@@ -399,15 +403,15 @@ void CCoolInterface::CreateFonts(LPCTSTR pszFace, int nSize)
 	m_fntNormal.CreateFontW( -nSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, nQuality,
 		DEFAULT_PITCH|FF_DONTCARE, pszFace );
-	
+
 	m_fntBold.CreateFontW( -nSize, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, nQuality,
 		DEFAULT_PITCH|FF_DONTCARE, pszFace );
-	
+
 	m_fntUnder.CreateFontW( -nSize, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, nQuality,
 		DEFAULT_PITCH|FF_DONTCARE, pszFace );
-	
+
 	m_fntCaption.CreateFontW( -nSize - 2, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, nQuality,
 		DEFAULT_PITCH|FF_DONTCARE, pszFace );
@@ -426,7 +430,7 @@ void CCoolInterface::CreateFonts(LPCTSTR pszFace, int nSize)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CCoolInterface colors
+// CCoolInterface Colors
 
 void CCoolInterface::CalculateColors(BOOL bCustom)
 {
@@ -455,7 +459,7 @@ void CCoolInterface::CalculateColors(BOOL bCustom)
 	m_crTipText				= GetSysColor( COLOR_INFOTEXT );
 	m_crTipBorder			= CalculateColor( m_crTipBack, (COLORREF)0, 100 );
 	m_crTipWarnings			= RGB( 64, 64, 64 ); // Color of warning messages (Grey)
-	
+
 	m_crTaskPanelBack		= RGB( 122, 161, 230 );
 	m_crTaskBoxCaptionBack	= RGB( 250, 250, 255 );
 	m_crTaskBoxPrimaryBack	= RGB( 30, 87, 199 );
@@ -488,7 +492,7 @@ void CCoolInterface::CalculateColors(BOOL bCustom)
 	m_crMonitorUploadBar	= RGB( 0xBB, 0xBB, 0 );
 
 	m_crRatingNull			= RGB( 0x4A, 0x44, 0x40 );
- 	m_crRating0				= RGB( 0xEA, 0x4A, 0x60 );
+	m_crRating0				= RGB( 0xEA, 0x4A, 0x60 );
 	m_crRating1	 			= RGB( 0xC8, 0xC4, 0xC0 );
 	m_crRating2				= RGB( 0xB4, 0xB2, 0xB0 );
 	m_crRating3				= RGB( 0x84, 0x82, 0x80 );
@@ -503,17 +507,17 @@ void CCoolInterface::CalculateColors(BOOL bCustom)
 	m_crTextLink  			= RGB( 0, 0, 255 );
 	m_crTextLinkHot			= RGB( 255, 0, 0 );
 
- 	m_crChatIn				= RGB( 0, 0, 255 );
+	m_crChatIn				= RGB( 0, 0, 255 );
 	m_crChatOut				= RGB( 255, 0, 0 );
 	m_crChatNull	  		= RGB( 128, 128, 128 );
 	m_crSearchExists  		= RGB( 0, 127, 0 );
-	m_crSearchExistsHit		= RGB( 0, 64, 0 ); 
+	m_crSearchExistsHit		= RGB( 0, 64, 0 );
 	m_crSearchExistsSelected	= RGB( 0, 255, 0 );
-	m_crSearchQueued 		= RGB( 0, 0, 160 ); 
+	m_crSearchQueued 		= RGB( 0, 0, 160 );
 	m_crSearchQueuedHit		= RGB( 0, 0, 100 );
 	m_crSearchQueuedSelected	= GetSysColor( COLOR_HIGHLIGHTTEXT );
 	m_crSearchGhostrated	= RGB( 200, 90, 0 );
-	m_crSearchNull  		= GetSysColor( COLOR_3DSHADOW ); 
+	m_crSearchNull  		= GetSysColor( COLOR_3DSHADOW );
 	m_crTransferSource		= RGB( 30, 30, 30 );
 	m_crTransferRanges		= RGB( 220, 240, 220 );
 	m_crTransferCompleted	= RGB( 0, 127, 0 );
@@ -575,25 +579,9 @@ COLORREF CCoolInterface::CalculateColor(COLORREF crFore, COLORREF crBack, int nA
 	return RGB( nRed, nGreen, nBlue );
 }
 
-COLORREF CCoolInterface::GetDialogBkColor()
-{
-	return CalculateColor( GetSysColor( COLOR_BTNFACE ), GetSysColor( COLOR_WINDOW ), 200 );
-}
 
 //////////////////////////////////////////////////////////////////////
-// CCoolInterface windows version check
-
-BOOL CCoolInterface::IsNewWindows()
-{
-	OSVERSIONINFO pVersion;
-	pVersion.dwOSVersionInfoSize = sizeof(pVersion);
-	GetVersionEx( &pVersion );
-
-	return pVersion.dwMajorVersion > 5 || ( pVersion.dwMajorVersion == 5 && pVersion.dwMinorVersion >= 1 );
-}
-
-//////////////////////////////////////////////////////////////////////
-// CCoolInterface windows XP+ themes
+// CCoolInterface Windows XP+ themes
 
 BOOL CCoolInterface::EnableTheme(CWnd* pWnd, BOOL bEnable)
 {
@@ -680,7 +668,7 @@ BOOL CCoolInterface::Add(CSkin* pSkin, CXMLElement* pBase, HBITMAP hbmImage, COL
 		for ( int nName = 0 ; pszNames[ nName ] ; nName++ )
 		{
 			UINT nID = pSkin->LookupCommandID( pXML, pszNames[ nName ] );
-			if ( nID ) 
+			if ( nID )
 			{
 				switch ( nImageListType )
 				{
@@ -697,7 +685,7 @@ BOOL CCoolInterface::Add(CSkin* pSkin, CXMLElement* pBase, HBITMAP hbmImage, COL
 			}
 			if ( nName && ! nID ) break;
 		}
-		nIndexRev--;	
+		nIndexRev--;
 		nIndex -= nBase;
 		nIndex ++;
 	}

@@ -38,11 +38,10 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+IMPLEMENT_DYNCREATE(CHomeViewCtrl, CRichViewCtrl)
+
 BEGIN_MESSAGE_MAP(CHomeViewCtrl, CRichViewCtrl)
 	ON_WM_CREATE()
-	ON_WM_SETFOCUS()
-	ON_WM_VSCROLL()
-	ON_WM_MOUSEWHEEL()
 END_MESSAGE_MAP()
 
 #define GROUP_DISCONNECTED		1
@@ -114,6 +113,12 @@ void CHomeViewCtrl::OnSkinChange()
 	Update();
 }
 
+void CHomeViewCtrl::Activate()
+{
+	if ( m_wndSearch.IsWindowVisible() )
+		m_wndSearch.Activate();
+}
+
 void CHomeViewCtrl::Update()
 {
 	BOOL bConnected = Network.IsConnected();
@@ -128,9 +133,10 @@ void CHomeViewCtrl::Update()
 	m_pDocument.ShowGroup( GROUP_FIREWALLED_TCP, FALSE );
 	m_pDocument.ShowGroup( GROUP_FIREWALLED_UDP, FALSE );
 
-	/*m_pDocument.ShowGroup( GROUP_FIREWALLED, bOnG2 && bTCPFirewalled && bUDPFirewalled );
-	m_pDocument.ShowGroup( GROUP_FIREWALLED_TCP, bOnG2 && bTCPFirewalled && !bUDPFirewalled );
-	m_pDocument.ShowGroup( GROUP_FIREWALLED_UDP, bOnG2 && !bTCPFirewalled && bUDPFirewalled );*/	// Temp disabled?
+	// TODO Temp Disabled:
+	//m_pDocument.ShowGroup( GROUP_FIREWALLED, bOnG2 && bTCPFirewalled && bUDPFirewalled );
+	//m_pDocument.ShowGroup( GROUP_FIREWALLED_TCP, bOnG2 && bTCPFirewalled && !bUDPFirewalled );
+	//m_pDocument.ShowGroup( GROUP_FIREWALLED_UDP, bOnG2 && !bTCPFirewalled && bUDPFirewalled );
 
 	if ( VersionChecker.IsUpgradeAvailable() )
 	{
@@ -204,7 +210,7 @@ void CHomeViewCtrl::OnLayoutComplete()
 }
 
 ///////////////////////////////////////////////////////////////////////////
-// CHomeViewCtrl Scrolling (Non-Functional?)
+// CHomeViewCtrl Scrolling (Non-Functional)
 //
 //void CHomeViewCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 //{
@@ -313,8 +319,3 @@ void CHomeViewCtrl::OnVScrolled()
 	OnLayoutComplete();
 }
 
-void CHomeViewCtrl::OnSetFocus(CWnd* pOldWnd)
-{
-	CRichViewCtrl::OnSetFocus( pOldWnd );
-	if ( m_wndSearch.IsWindowVisible() ) m_wndSearch.SetFocus();
-}

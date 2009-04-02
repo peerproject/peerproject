@@ -33,20 +33,20 @@
 		<button id="ID_NETWORK_CONNECT" text="_Anslut" />
 		<separator/>
 		<button id="ID_TAB_HOME" text="Hem" />
-		<button id="ID_TAB_LIBRARY" text="Bibliotek" />
-		<button id="ID_TAB_MEDIA" text="Media" />
 		<button id="ID_TAB_SEARCH" text="Sök" />
 		<button id="ID_TAB_TRANSFERS" text="Nedladdningar" />
+		<button id="ID_TAB_LIBRARY" text="Bibliotek" />
+		<button id="ID_TAB_MEDIA" text="Media" />
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Anslut" />
 		<separator/>
 		<button id="ID_TAB_HOME" text="Hem" />
-		<button id="ID_TAB_LIBRARY" text="Bibliotek" />
-		<button id="ID_TAB_MEDIA" text="Media" />
 		<button id="ID_TAB_SEARCH" text="Sök" />
 		<button id="ID_TAB_TRANSFERS" text="Överföringar" />
 		<button id="ID_TAB_NETWORK" text="Nätverk" />
+		<button id="ID_TAB_LIBRARY" text="Bibliotek" />
+		<button id="ID_TAB_MEDIA" text="Media" />
 		<button id="ID_TAB_IRC" text="Chat"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -364,8 +364,8 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Chatta med användaren" />
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Inställningar" />
 	</toolbar>
@@ -378,8 +378,8 @@
 		<button id="ID_SECURITY_BAN" text="Utestäng värd" />
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Inställningar" />
 	</toolbar>
@@ -411,29 +411,29 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Cache"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Cache"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="F" />
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="Ä" />
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/> <!--F-->
+		<button id="ID_CHAT_ITALIC"/> <!--I-->
+		<button id="ID_CHAT_UNDERLINE"/> <!--U-->
+		<button id="ID_CHAT_COLOR"/> <!--Ä-->
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Visa användarens filer" />
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Skicka fil"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Ge prioritet" />
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Skicka fil"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Anslut" visible="false" />
 		<button id="ID_CHAT_DISCONNECT" text="Koppla ifrån" />
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER WINDOW -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_BestFit" text="Anpassa efter skrmen"/>
 		<button id="ImageViewer_ActualSize" text="Verklig storlek"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="Uppdatera"/>
-		<separator/>
+		<rightAlign/>
 		<button id="ImageViewer_Close" text="Stäng"/>
 	</toolbar>
 </toolbars>
@@ -452,6 +452,23 @@
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="Stäng _fönster"/>
 	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+		<item id="ID_TRAY_OPEN" text="Öppna PeerProject" />
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Fjärrkontroll"/>
+		<item id="ID_TOOLS_SETTINGS" text="Inställningar…"/>
+		<item id="ID_NETWORK_SEARCH" text="Ny sökning…" />
+		<item id="ID_TOOLS_DOWNLOAD" text="Ladda ned fil…" />
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Spela upp media" />
+		<item id="ID_MEDIA_PAUSE" text="Gör paus i uppspelning" />
+		<item id="ID_MEDIA_PREVIOUS" text="Föregående spår" />
+		<item id="ID_MEDIA_NEXT" text="Nästa spår" />
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Avsluta efter överföringar" />
+		<item id="ID_NETWORK_EXIT" text="Avsluta" />
+	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="_Nätverk">
@@ -459,8 +476,8 @@
 			<separator/>
 			<menu text="Välj _Nätverk">
 				<item id="ID_NETWORK_G2" text="Anslut till _Gnutella2" />
-				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey" />
 				<item id="ID_NETWORK_G1" text="Anslut till Gnutella_1" />
+				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey" />
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Avsluta _efter överföringar" />
@@ -532,8 +549,8 @@
 			<separator/>
 			<menu text="Välj _Nätverk">
 				<item id="ID_NETWORK_G2" text="Anslut till _Gnutella2" />
-				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey" />
 				<item id="ID_NETWORK_G1" text="Anslut till Gnutella_1" />
+				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey" />
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Anslut _till…" shortcut="Ctrl+T" />
@@ -636,8 +653,8 @@
 			<separator/>
 			<menu text="Välj _Nätverk">
 				<item id="ID_NETWORK_G2" text="Anslut till _Gnutella2" />
-				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey" />
 				<item id="ID_NETWORK_G1" text="Anslut till Gnutella_1" />
+				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey" />
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Stäng _efter överföringar" />
@@ -767,40 +784,6 @@
 		<item id="ID_VIEW_PACKETS" text="_Paketdump" />
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Sök_monitor" />
 		<item id="ID_VIEW_RESULTS_MONITOR" text="_Träffmonitor" />
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_Öppna PeerProject" />
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="_Ny sökning…" />
-		<item id="ID_TOOLS_DOWNLOAD" text="_Ladda ned fil…" />
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Spela upp media" />
-		<item id="ID_MEDIA_PAUSE" text="Gör _paus i uppspelning" />
-		<item id="ID_MEDIA_STOP" text="_Avbryt uppspelning" />
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="_Föregående spår" />
-		<item id="ID_MEDIA_NEXT" text="_Nästa spår" />
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Avsluta efter _överföringar" />
-		<item id="ID_NETWORK_EXIT" text="A_vsluta" />
-	</menu>
-	<!-- REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_Öppna PeerProject" />
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="_Ny sökning…" />
-		<item id="ID_TOOLS_DOWNLOAD" text="_Ladda ned fil…" />
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Spela upp media" />
-		<item id="ID_MEDIA_PAUSE" text="Gör _paus i uppspeling" />
-		<item id="ID_MEDIA_STOP" text="_Stoppa uppspelning" />
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="_Föregående spår" />
-		<item id="ID_MEDIA_NEXT" text="_Nästa spår" />
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Avsluta efter _överföringar" />
-		<item id="ID_NETWORK_EXIT" text="A_vsluta" />
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -1061,6 +1044,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Rensa _automatiskt"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Återuppta alla nedladdningar" />
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Gör _paus i alla nedladdningar" />
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Rensa alla nedladdningar" />
@@ -3168,7 +3153,6 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 	<string id="20001" value="Stng"/>
 	<string id="20002" value="av"/> <!-- "1 of 10" -->
 	<string id="20003" value="Att ändra gränssnittets riktning kräver omstart. \nDu måste starta om PeerProject manuellt. Avsluta nu?"/>
-	<string id="20004" value="Höger-till-vänster språk stöds inte av ditt operativsystem."/>
 	<string id="20005" value="Nej"/>
 	<string id="20006" value="Ja"/>
 	<string id="20007" value="Auto"/>
@@ -3239,6 +3223,8 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 	<string id="20234" value="Album"/>
 	<string id="20235" value="Artist"/>
 	<string id="20236" value="Betyg"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="Avbryt"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3505,14 +3491,14 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="Gnutella2 är PeerProjects främsta nätverk, som erbjuder fler funktioner och prestanda än något annat fildelningsnätverk hittils. Mycket rekommenderad." />
 		<control caption="Anslut till Gnutella2 (G2)" />
 		<control caption="Anpassa Gnutella2" />
-		<control caption="eDonkey-nätverk" />
-		<control caption="eDonkey-nätverk är ett populärt serverbaserat nätverk, med en imponerande stor filsamling, men utan alla funktioner som Gnutella2 har." />
-		<control caption="Anslut till eDonkey" />
-		<control caption="Anpassa eDonkey" />
 		<control caption="Gnutellas ursprungsnätverk:" />
 		<control caption="Fastän Gnutellas ursprungsnätverk erbjuder färre funktioner än Gnutella2 och färre filer än eDonkey är det ändå en värdefull resurs." />
-		<control caption="Anslut till Gnutellas ursprungsnätverk" />
+		<control caption="Anslut till Gnutellas ursprungsnätverk (G1)" />
 		<control caption="Anpassa Gnutella1" />
+		<control caption="eDonkey-nätverk" />
+		<control caption="eDonkey-nätverk är ett populärt serverbaserat nätverk, med en imponerande stor filsamling, men utan alla funktioner som Gnutella2 har." />
+		<control caption="Anslut till eDonkey2000 (ED2K)" />
+		<control caption="Anpassa eDonkey" />
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2-nätverk:" />
@@ -3744,10 +3730,10 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="PeerProject är ett en mångsidig fildelningsapplikation som kan komma åt många fildelningsnätverk på samma gång. På denna sida kan du välja vilka fildelningsnätverk du vill ansluta till och justera specifika inställningar för varje nätverk." />
 		<control caption="Anslut till Gnutella2 (mycket rekommenderat)" />
 		<control caption="Gnutella2 är PeerProjects främsta nätverk, som erbjuder fler funktioner och prestanda än något annat fildelningsnätverk hittils. Mycket rekommenderad." />
-		<control caption="Anslut till eDonkey" />
-		<control caption="eDonkey-nätverk är ett populärt serverbaserat nätverk, med en imponerande stor filsamling, men utan alla funktioner som Gnutella2 har." />
 		<control caption="Anslut till Gnutellas ursprungsnätverk" />
 		<control caption="Fastän Gnutellas ursprungsnätverk erbjuder färre funktioner än Gnutella2 och färre filer än eDonkey är det ändå en värdefull resurs." />
+		<control caption="Anslut till eDonkey" />
+		<control caption="eDonkey-nätverk är ett populärt serverbaserat nätverk, med en imponerande stor filsamling, men utan alla funktioner som Gnutella2 har." />
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importera Donkey2000-nedladdningar">
 		<control/>
@@ -4330,19 +4316,23 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="Trackerläge:"/>
 		<control caption="Avstängd|Anpassad|Enkel tracker|Multi-tracker|Multi-tracker (låst)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Egenskaper för nedladdningsgruppen">
-		<control caption="_Namn:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Egenskaper för nedladdningsgruppen">
+		<control caption="OK"/>
+		<control caption="Avbryt" />
 		<control/>
 		<control/>
-		<control caption="_Filter:" />
+		<control caption="_BitTorrent" />
 		<control/>
 		<control caption="_Lägg till" />
 		<control caption="_Readera" />
-		<control caption="OK"/>
-		<control caption="Avbryt" />
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Gruppen _Namn:" />
+		<control caption="_Filter:" />
 		<control caption="Färdiga _filmappar:" />
-		<control/>
-		<control/>
+		<control caption="Fil_typ:" />
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Välj visualisering">
 		<control/>

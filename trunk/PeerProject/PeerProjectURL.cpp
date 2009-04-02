@@ -28,10 +28,6 @@
 #include "QuerySearch.h"
 #include "DiscoveryServices.h"
 #include "Network.h"
-#include "TigerTree.h"
-#include "SHA.h"
-#include "MD5.h"
-#include "ED2K.h"
 #include "BTInfo.h"
 #include "Skin.h"
 
@@ -201,7 +197,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 		return TRUE;
 	}
 	else if ( ParseFTP( pszURL, bResolve ) )		// ftp://
-	{	
+	{
 		return TRUE;
 	}
 	else if ( ParseED2KFTP( pszURL, bResolve ) )	// ed2kftp://
@@ -209,7 +205,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 		return TRUE;
 	}
 	else if ( ParseBTC( pszURL, bResolve ) )		// btc://
-	{	
+	{
 		return TRUE;
 	}
 	else if ( _tcsnicmp( pszURL, _T("magnet:?"), 8 ) == 0 )
@@ -231,9 +227,9 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 			return ParseMagnet( pszURL );
 		}
 	}
-	else if (	_tcsnicmp( pszURL, _T("peerproject:"), 9 ) == 0 ||
-			_tcsnicmp( pszURL, _T("shareaza:"), 9 ) == 0 ||
-			_tcsnicmp( pszURL, _T("gnutella:"), 9 ) == 0 )
+	else if (	_tcsnicmp( pszURL, _T("peerproject:"), 12 ) == 0 ||
+				_tcsnicmp( pszURL, _T("shareaza:"), 9 ) == 0 ||
+				_tcsnicmp( pszURL, _T("gnutella:"), 9 ) == 0 )
 	{
 		SkipSlashes( pszURL, 9 );
 		return ParsePeerProject( pszURL );
@@ -329,7 +325,7 @@ BOOL CPeerProjectURL::ParseHTTP(LPCTSTR pszURL, BOOL bResolve)
 			{
 				m_sName = sName;
 			}
-		}		 
+		}
 	}
 
 	SOCKADDR_IN saHost;
@@ -381,8 +377,8 @@ BOOL CPeerProjectURL::ParseFTP(LPCTSTR pszURL, BOOL bResolve)
 		int nColon = m_sLogin.Find( _T(':') );
 		if ( nColon >= 0 )
 		{
-			m_sPassword = m_sLogin.Mid( nColon + 1 );			
-			m_sLogin = m_sLogin.Left( nColon );			
+			m_sPassword = m_sLogin.Mid( nColon + 1 );
+			m_sLogin = m_sLogin.Left( nColon );
 		}
 	}
 	else
@@ -533,23 +529,23 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 	Clear();
 
 	CString strURL( pszURL );
-	
+
 	for ( strURL += '&' ; strURL.GetLength() ; )
 	{
 		CString strPart = strURL.SpanExcluding( _T("&") );
 		strURL = strURL.Mid( strPart.GetLength() + 1 );
-		
+
 		int nEquals = strPart.Find( '=' );
 		if ( nEquals < 0 ) continue;
-		
+
 		CString strKey		= URLDecode( strPart.Left( nEquals ) );
 		CString strValue	= URLDecode( strPart.Mid( nEquals + 1 ) );
-		
+
 		SafeString( strKey );
 		SafeString( strValue );
-		
+
 		if ( strKey.IsEmpty() || strValue.IsEmpty() ) continue;
-		
+
 		if ( _tcsicmp( strKey, _T("xt") ) == 0 ||
 			 _tcsicmp( strKey, _T("xs") ) == 0 ||
 			 _tcsicmp( strKey, _T("as") ) == 0 )
@@ -566,7 +562,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 			{
 				if ( !m_oSHA1 ) m_oSHA1.fromUrn( strValue );
 				if ( !m_oTiger ) m_oTiger.fromUrn( strValue );
-                if ( !m_oMD5 ) m_oMD5.fromUrn( strValue );
+				if ( !m_oMD5 ) m_oMD5.fromUrn( strValue );
 				if ( !m_oED2K ) m_oED2K.fromUrn( strValue );
 				if ( !m_oBTH ) m_oBTH.fromUrn( strValue );
 			}
@@ -577,11 +573,11 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 			{
 				strValue.Replace( _T(" "), _T("%20") );
 				strValue.Replace( _T("p%3A//"), _T("p://") );
-				
+
 				if ( _tcsicmp( strKey, _T("xt") ) == 0 )
 				{
 					CString strURL = _T("@") + strValue;
-					
+
 					if ( m_sURL.GetLength() )
 						m_sURL = strURL + _T(", ") + m_sURL;
 					else
@@ -608,7 +604,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 			m_oBTH.clear();
 		}
 		else if ( _tcsicmp( strKey, _T("xl") ) == 0 ||
-//			_tcsicmp( strKey, _T("sz") ) == 0 ||	// TODO: Uncomment this if/when 'sz' is officially added		
+//			_tcsicmp( strKey, _T("sz") ) == 0 ||	// TODO: Uncomment this if/when 'sz' is officially added
 			_tcsicmp( strKey, _T("fs") ) == 0 )		// Foxy
 		{
 			QWORD nSize;
@@ -619,8 +615,8 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 			}
 		}
 	}
-	
-    if ( IsHashed() || m_sURL.GetLength() )
+
+	if ( IsHashed() || m_sURL.GetLength() )
 	{
 		m_nAction = uriDownload;
 		return TRUE;
@@ -630,7 +626,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 		m_nAction = uriSearch;
 		return TRUE;
 	}
-	
+
 	return FALSE;
 }
 
@@ -642,12 +638,12 @@ BOOL CPeerProjectURL::ParsePeerProject(LPCTSTR pszURL)
 	Clear();
 
 	int nIP[4];
-	
+
 	if ( _stscanf( pszURL, _T("%i.%i.%i.%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3] ) == 4 )
 	{
 		return ParsePeerProjectHost( pszURL, FALSE );
 	}
-	
+
 	if ( _tcsnicmp( pszURL, _T("host:"), 5 ) == 0 ||
 		 _tcsnicmp( pszURL, _T("node:"), 5 ) == 0 )
 	{
@@ -680,6 +676,10 @@ BOOL CPeerProjectURL::ParsePeerProject(LPCTSTR pszURL)
 	{
 		return ParseDiscovery( pszURL, CDiscoveryService::dsGnutella );
 	}
+	else if ( _tcsnicmp( pszURL, _T("url:"), 4 ) == 0 )
+	{
+		return Parse( pszURL + 4 );
+	}
 	else
 	{
 		return ParsePeerProjectFile( pszURL );
@@ -693,20 +693,20 @@ BOOL CPeerProjectURL::ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrowse)
 {
 	m_sName = pszURL;
 	m_sName = m_sName.SpanExcluding( _T("/\\") );
-	
+
 	int nPos = m_sName.Find( ':' );
-	
+
 	if ( nPos >= 0 )
 	{
 		_stscanf( m_sName.Mid( nPos + 1 ), _T("%i"), &m_nPort );
 		m_sName = m_sName.Left( nPos );
 	}
-	
+
 	m_sName.TrimLeft();
 	m_sName.TrimRight();
-	
+
 	m_nAction = bBrowse ? uriBrowse : uriHost;
-	
+
 	return m_sName.GetLength();
 }
 
@@ -716,7 +716,7 @@ BOOL CPeerProjectURL::ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrowse)
 BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 {
 	CString strURL( pszURL );
-	
+
 	for ( strURL += '/' ; strURL.GetLength() ; )
 	{
 		CString strPart = strURL.SpanExcluding( _T("/|") );
@@ -739,7 +739,7 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 		{
 			if ( !m_oSHA1 ) m_oSHA1.fromUrn( strPart );
 			if ( !m_oTiger ) m_oTiger.fromUrn( strPart );
-            if ( !m_oMD5 ) m_oMD5.fromUrn( strPart );
+			if ( !m_oMD5 ) m_oMD5.fromUrn( strPart );
 			if ( !m_oED2K ) m_oED2K.fromUrn( strPart );
 			if ( !m_oBTH ) m_oBTH.fromUrn( strPart );
 		}
@@ -765,7 +765,7 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 			SafeString( m_sName );
 		}
 	}
-	
+
 	if ( m_sURL.GetLength() )
 	{
 		if ( m_sName.GetLength() )
@@ -778,8 +778,8 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 			m_sURL.Empty();
 		}
 	}
-	
-    if ( IsHashed() || m_sURL.GetLength() )
+
+	if ( IsHashed() || m_sURL.GetLength() )
 	{
 		m_nAction = uriDownload;
 		return TRUE;
@@ -789,7 +789,7 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 		m_nAction = uriSearch;
 		return TRUE;
 	}
-	
+
 	return FALSE;
 }
 
@@ -824,39 +824,41 @@ BOOL CPeerProjectURL::ParseDonkey(LPCTSTR pszURL)
 
 //////////////////////////////////////////////////////////////////////
 // CPeerProjectURL parse eDonkey2000 file URL
+//
+// ed2k://|file|Shareaza_2.1.0.0.exe|3304944|A63D221505E99043B7E7308C67F81986|h=XY5VGKFVGJFYWMOAR5XS44YCEPXSL2JZ|/|sources,1.2.3.4:5555|/
 
 BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 {
 	CString strURL( pszURL ), strPart;
 	int nSep;
-	
+
 	// Name
 	nSep = strURL.Find( '|' );
 	if ( nSep < 0 ) return FALSE;
 	strPart	= strURL.Left( nSep );
 	strURL	= strURL.Mid( nSep + 1 );
-	
+
 	m_sName = URLDecode( strPart );
 	SafeString( m_sName );
 	if ( m_sName.IsEmpty() ) return FALSE;
-	
+
 	// Size
 	nSep = strURL.Find( '|' );
 	if ( nSep < 0 ) return FALSE;
 	strPart	= strURL.Left( nSep );
 	strURL	= strURL.Mid( nSep + 1 );
-	
+
 	if ( _stscanf( strPart, _T("%I64i"), &m_nSize ) != 1 ) return FALSE;
 	m_bSize = TRUE;
-	
+
 	// Hash
 	nSep = strURL.Find( '|' );
 	if ( nSep < 0 ) return FALSE;
 	strPart	= strURL.Left( nSep );
 	strURL	= strURL.Mid( nSep + 1 );
-	
+
 	m_oED2K.fromString( strPart );
-	
+
 	// URL is valid
 	m_nAction = uriDownload;
 
@@ -921,36 +923,33 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 		if ( m_sURL.GetLength() ) m_sURL += _T(", ");
 		m_sURL += strEDFTP;
 	}
-	
+
 	return TRUE;
 }
 
-// ed2k://|file|PeerProject1600.exe|789544|3fb626ed1a9f4cb9921107f510148370|/
-// ed2k://|file|PeerProject_2.1.0.0.exe|3304944|A63D221505E99043B7E7308C67F81986|h=XY5VGKFVGJFYWMOAR5XS44YCEPXSL2JZ|/|sources,1.2.3.4:5555|/
-
 //////////////////////////////////////////////////////////////////////
 // CPeerProjectURL parse eDonkey2000 server URL
+//
+// ed2k://|server|1.2.3.4|4661|/
 
 BOOL CPeerProjectURL::ParseDonkeyServer(LPCTSTR pszURL)
 {
 	LPCTSTR pszPort = _tcschr( pszURL, '|' );
 	if ( pszPort == NULL ) return FALSE;
-	
+
 	if ( _stscanf( pszPort + 1, _T("%i"), &m_nPort ) != 1 ) return FALSE;
-	
+
 	m_sName = pszURL;
 	m_sName = m_sName.Left( static_cast< int >( pszPort - pszURL ) );
-	
+
 	m_sName.TrimLeft();
 	m_sName.TrimRight();
 	if ( m_sName.IsEmpty() ) return FALSE;
-	
+
 	m_nAction	= uriDonkeyServer;
-	
+
 	return TRUE;
 }
-
-// ed2k://|server|1.2.3.4|4661|/
 
 //////////////////////////////////////////////////////////////////////
 // CPeerProjectURL parse "mp2p:" URLs
@@ -975,38 +974,39 @@ BOOL CPeerProjectURL::ParsePiolet(LPCTSTR pszURL)
 
 //////////////////////////////////////////////////////////////////////
 // CPeerProjectURL parse Piolet file URL
+//
+// mp2p://file|Shareaza1600.exe|789544|3fb626ed1a9f4cb9921107f510148370/
+
 
 BOOL CPeerProjectURL::ParsePioletFile(LPCTSTR pszURL)
 {
 	CString strURL( pszURL ), strPart;
 	int nSep;
-	
+
 	nSep = strURL.Find( '|' );
 	if ( nSep < 0 ) return FALSE;
 	strPart	= strURL.Left( nSep );
 	strURL	= strURL.Mid( nSep + 1 );
-	
+
 	m_sName = URLDecode( strPart );
 	SafeString( m_sName );
 	if ( m_sName.IsEmpty() ) return FALSE;
-	
+
 	nSep = strURL.Find( '|' );
 	if ( nSep < 0 ) return FALSE;
 	strPart	= strURL.Left( nSep );
 	strURL	= strURL.Mid( nSep + 1 );
-	
+
 	if ( _stscanf( strPart, _T("%I64i"), &m_nSize ) != 1 ) return FALSE;
 	m_bSize = TRUE;
-	
+
 	strPart = strURL.SpanExcluding( _T(" |/") );
 	m_oSHA1.fromString( strPart );
-	
+
 	m_nAction = uriDownload;
-	
+
 	return TRUE;
 }
-
-// mp2p://file|PeerProject1600.exe|789544|3fb626ed1a9f4cb9921107f510148370/
 
 //////////////////////////////////////////////////////////////////////
 // CPeerProjectURL parse discovery service URL
@@ -1088,7 +1088,7 @@ void CPeerProjectURL::SafeString(CString& strInput)
 {
 	strInput.TrimLeft();
 	strInput.TrimRight();
-	
+
 	for ( int nIndex = 0 ; nIndex < strInput.GetLength() ; nIndex++ )
 	{
 		TCHAR nChar = strInput.GetAt( nIndex );
@@ -1103,14 +1103,14 @@ auto_ptr< CQuerySearch > CPeerProjectURL::ToQuery()
 {
 	if ( m_nAction != uriDownload && m_nAction != uriSearch )
 		return auto_ptr< CQuerySearch >();
-	
+
 	auto_ptr< CQuerySearch > pSearch( new CQuerySearch() );
-	
+
 	if ( m_sName.GetLength() )
 	{
 		pSearch->m_sSearch = m_sName;
 	}
-	
+
 	if ( m_oSHA1 )
 	{
 		pSearch->m_oSHA1 = m_oSHA1;
@@ -1120,7 +1120,7 @@ auto_ptr< CQuerySearch > CPeerProjectURL::ToQuery()
 	{
 		pSearch->m_oTiger = m_oTiger;
 	}
-	
+
 	if ( m_oED2K )
 	{
 		pSearch->m_oED2K = m_oED2K;
@@ -1146,7 +1146,7 @@ void CPeerProjectURL::Register(BOOL bOnStartup)
 {
 	RegisterShellType( _T("Classes"), _T("peerproject"), _T("URL:PeerProject P2P"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
  // RegisterShellType( _T("Classes"), _T("shareaza"), _T("URL:PeerProject P2P"), NULL, _T("PeerProject"), _T("URL"), IDR_MAINFRAME );
-	RegisterMagnetHandler( _T("PeerProject"), _T("PeerProject Peer to Peer"), _T("PeerProject can automatically search and download the selected content on its peer-to-peer networks."), _T("PeerProject"), IDR_MAINFRAME );
+	RegisterMagnetHandler( _T("PeerProject"), _T("PeerProject P2P"), _T("PeerProject can automatically search and download the selected content on its peer-to-peer networks."), _T("PeerProject"), IDR_MAINFRAME );
 
 	if ( Settings.Web.Magnet )
 	{
@@ -1242,8 +1242,8 @@ void CPeerProjectURL::Register(BOOL bOnStartup)
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectURL shell registration helper
 
-BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LPCTSTR pszName, 
-									 LPCTSTR pszType, LPCTSTR pszApplication, LPCTSTR pszTopic, 
+BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LPCTSTR pszName,
+									 LPCTSTR pszType, LPCTSTR pszApplication, LPCTSTR pszTopic,
 									 UINT nIDIcon, BOOL bOverwrite)
 {
 	HKEY hMainKey, hKey, hSub1, hSub2, hSub3, hSub4;
@@ -1275,18 +1275,18 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 
 	if ( _tcscmp( pszRoot, _T("Classes\\Applications\\PeerProject.exe") ) != 0 )
 	{
-		RegSetValueEx( hKey, NULL, 0, REG_SZ, (LPBYTE)pszName, 
+		RegSetValueEx( hKey, NULL, 0, REG_SZ, (LPBYTE)pszName,
 			static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszName ) + 1 ) ) );
 
 		if ( bProtocol )
 		{
 			RegSetValueEx( hKey, _T("URL Protocol"), 0, REG_SZ, (LPBYTE)(LPCTSTR)strValue, sizeof(TCHAR) );
 		}
-		
+
 		if ( ! RegCreateKey( hKey, _T("DefaultIcon"), &hSub1 ) )
 		{
 			strValue = Skin.GetImagePath( nIDIcon );
-			RegSetValueEx( hSub1, NULL, 0, REG_SZ, 
+			RegSetValueEx( hSub1, NULL, 0, REG_SZ,
 				(LPBYTE)(LPCTSTR)strValue, sizeof(TCHAR) * ( strValue.GetLength() + 1 ) );
 			RegCloseKey( hSub1 );
 		}
@@ -1294,7 +1294,7 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 	else if ( pszType != NULL )
 	{
 		HKEY hKeySupported;
-		if ( ! RegCreateKey( hKey, _T("SupportedTypes"), &hKeySupported ) ) 
+		if ( ! RegCreateKey( hKey, _T("SupportedTypes"), &hKeySupported ) )
 		{
 			RegSetValueEx( hKeySupported, pszType, 0, REG_SZ, NULL, 0 );
 			RegCloseKey( hKeySupported );
@@ -1311,42 +1311,42 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 				RegSetValueEx( hSub3, NULL, 0, REG_SZ, (LPBYTE)(LPCTSTR)strValue, sizeof(TCHAR) * ( strValue.GetLength() + 1 ) );
 				RegCloseKey( hSub3 );
 			}
-			
+
 			if ( ! RegCreateKey( hSub2, _T("ddeexec"), &hSub3 ) )
 			{
 				RegSetValueEx( hSub3, NULL, 0, REG_SZ, (LPBYTE)_T("%1"), sizeof(TCHAR) * 3 );
-				
+
 				if ( ! RegCreateKey( hSub3, _T("Application"), &hSub4 ) )
 				{
 					RegSetValueEx( hSub4, NULL, 0, REG_SZ, (LPBYTE)pszApplication,
 						static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszApplication ) + 1 ) ) );
 					RegCloseKey( hSub4 );
 				}
-				
+
 				if ( ! RegCreateKey( hSub3, _T("Topic"), &hSub4 ) )
 				{
 					RegSetValueEx( hSub4, NULL, 0, REG_SZ, (LPBYTE)pszTopic,
 						static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszTopic ) + 1 ) ) );
 					RegCloseKey( hSub4 );
 				}
-				
+
 				RegCloseKey( hSub3 );
 			}
-			
+
 			RegCloseKey( hSub2 );
 		}
-		
+
 		RegCloseKey( hSub1 );
 	}
-	
+
 	if ( pszType != NULL && _tcsncmp( pszType, _T("."), 1 ) == 0 )
 	{
 		BYTE pData[4] = { 0x00, 0x11, 0x21, 0x00 };
 		RegSetValueEx( hKey, _T("EditFlags"), 0, REG_BINARY, pData, 4 );
 	}
-	
+
 	RegCloseKey( hKey );
-	
+
 	if ( pszType != NULL && pszProtocol != NULL )
 	{
 		strSubKey.Format( _T("Software\\%s\\%s"), pszRoot, pszType );
@@ -1405,27 +1405,27 @@ void CPeerProjectURL::DeleteKey(HKEY hParent, LPCTSTR pszKey)
 {
 	CArray< CString > pList;
 	HKEY hKey;
-	
+
 	if ( RegOpenKeyEx( hParent, pszKey, 0, KEY_ALL_ACCESS, &hKey ) ) return;
-	
+
 	for ( DWORD dwIndex = 0 ; ; dwIndex++ )
 	{
 		DWORD dwName = 64; // Input parameter in TCHARs
 		TCHAR szName[64];
-		
+
 		LRESULT lResult = RegEnumKeyEx( hKey, dwIndex, szName, &dwName, NULL, NULL, 0, NULL );
 		if ( lResult != ERROR_SUCCESS ) break;
-		
+
 		szName[ dwName ] = 0;
 		pList.Add( szName );
 		DeleteKey( hKey, szName );
 	}
-	
+
 	for ( int nItem = 0 ; nItem < pList.GetSize() ; nItem++ )
 	{
 		RegDeleteKey( hKey, pList.GetAt( nItem ) );
 	}
-	
+
 	RegCloseKey( hKey );
 }
 
@@ -1437,34 +1437,34 @@ BOOL CPeerProjectURL::RegisterMagnetHandler(LPCTSTR pszID, LPCTSTR pszName, LPCT
 	HKEY hSoftware, hMagnetRoot, hHandlers, hHandler;
 	DWORD dwDisposition;
 	LONG lResult;
-	
+
 	lResult = RegOpenKeyEx( HKEY_LOCAL_MACHINE, _T("Software"), 0, KEY_ALL_ACCESS,
 		&hSoftware );
-	
+
 	if ( lResult != ERROR_SUCCESS ) return FALSE;
-	
+
 	lResult = RegCreateKeyEx( hSoftware, _T("Magnet"), 0, NULL, 0, KEY_ALL_ACCESS,
 		NULL, &hMagnetRoot, &dwDisposition );
-	
+
 	if ( lResult != ERROR_SUCCESS )
 	{
 		RegCloseKey( hSoftware );
 		return FALSE;
 	}
-	
+
 	lResult = RegCreateKeyEx( hMagnetRoot, _T("Handlers"), 0, NULL, 0, KEY_ALL_ACCESS,
 		NULL, &hHandlers, &dwDisposition );
-	
+
 	if ( lResult != ERROR_SUCCESS )
 	{
 		RegCloseKey( hMagnetRoot );
 		RegCloseKey( hSoftware );
 		return FALSE;
 	}
-	
+
 	lResult = RegCreateKeyEx( hHandlers, pszID, 0, NULL, 0, KEY_ALL_ACCESS,
 		NULL, &hHandler, &dwDisposition );
-	
+
 	if ( lResult != ERROR_SUCCESS )
 	{
 		RegCloseKey( hHandler );
@@ -1472,31 +1472,31 @@ BOOL CPeerProjectURL::RegisterMagnetHandler(LPCTSTR pszID, LPCTSTR pszName, LPCT
 		RegCloseKey( hSoftware );
 		return FALSE;
 	}
-	
+
 	CString strIcon, strCommand;
-	
+
 	strIcon = Skin.GetImagePath( nIDIcon );
 	strCommand.Format( _T("\"%s\" \"%%URL\""), theApp.m_strBinaryPath );
-	
+
 	RegSetValueEx( hHandler, _T(""), 0, REG_SZ, (LPBYTE)pszName, static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszName ) + 1 ) ) );
 	RegSetValueEx( hHandler, _T("Description"), 0, REG_SZ,
 		(LPBYTE)pszDescription, static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszDescription ) + 1 ) ) );
-	
+
 	RegSetValueEx( hHandler, _T("DefaultIcon"), 0, REG_SZ,
 		(LPBYTE)(LPCTSTR)strIcon, sizeof(TCHAR) * ( strIcon.GetLength() + 1 ) );
-	
+
 	RegSetValueEx( hHandler, _T("ShellExecute"), 0, REG_SZ,
 		(LPBYTE)(LPCTSTR)strCommand, sizeof(TCHAR) * ( strCommand.GetLength() + 1 ) );
-	
+
 	RegSetValueEx( hHandler, _T("DdeApplication"), 0, REG_SZ,
 		(LPBYTE)pszApplication, static_cast< DWORD >( sizeof(TCHAR) * ( _tcslen( pszApplication ) + 1 ) ) );
-	
+
 	RegSetValueEx( hHandler, _T("DdeTopic"), 0, REG_SZ, (LPBYTE)_T("URL"), sizeof(TCHAR) * 4 );
-	
+
 	RegCloseKey( hHandler );
 	RegCloseKey( hHandlers );
 	RegCloseKey( hMagnetRoot );
 	RegCloseKey( hSoftware );
-	
+
 	return TRUE;
 }

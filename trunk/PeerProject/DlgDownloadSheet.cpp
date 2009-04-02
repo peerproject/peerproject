@@ -25,6 +25,7 @@
 #include "DlgDownloadSheet.h"
 
 #include "PageDownloadEdit.h"
+#include "PageDownloadActions.h"
 #include "PageTorrentGeneral.h"
 #include "PageTorrentFiles.h"
 #include "PageTorrentTrackers.h"
@@ -65,6 +66,7 @@ CDownloadSheet::CDownloadSheet(CDownload* pDownload) :
 	CPropertySheet( L"" ),
 	m_pDownload( pDownload ),
 	m_sDownloadTitle( L"General" ),
+	m_sActionsTitle( L"Actions" ),
 	m_sGeneralTitle( L"Torrent" ),
 	m_sFilesTitle( L"Files" ),
 	m_sTrackersTitle( L"Trackers" ),
@@ -83,14 +85,17 @@ CDownloadSheet::~CDownloadSheet()
 INT_PTR CDownloadSheet::DoModal(int nPage)
 {
 	CDownloadEditPage		pDownload;
+	CDownloadActionsPage	pActions;
 	CTorrentGeneralPage		pGeneral;
 	CTorrentFilesPage		pFiles;
 	CTorrentTrackersPage	pTrackers;
 
-	if ( ! m_pDownload->IsMoving() )
+	if ( ! m_pDownload->IsMoving() && ! m_pDownload->IsCompleted() )
 	{
 		SetTabTitle( &pDownload, m_sDownloadTitle );
 		AddPage( &pDownload );
+		SetTabTitle( &pActions, m_sActionsTitle );
+		AddPage( &pActions );
 	}
 
 	if ( m_pDownload->IsTorrent() )

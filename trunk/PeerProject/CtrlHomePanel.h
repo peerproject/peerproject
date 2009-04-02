@@ -265,7 +265,9 @@ public:
 	CHomeUploadsBox		m_boxUploads;
 	CHomeConnectionBox	m_boxConnection;
 	CHomeLibraryBox		m_boxLibrary;
+#ifndef LAN_MODE
 	CHomeTorrentsBox	m_boxTorrents;
+#endif //LAN_MOD
 
 // Operations
 public:

@@ -106,7 +106,7 @@ namespace Hashes
 			typedef uint64 WordType;
 			static const size_t wordCount = 3;
 			static const size_t byteCount = wordCount * sizeof( WordType );
-			static const size_t numUrns = 6;
+			static const size_t numUrns = 7;
 			static const UrnString urns[ numUrns ];
 			static const Encoding encoding = base32Encoding;
 			typedef boost::array< uchar, byteCount > RawStorage;
@@ -156,15 +156,14 @@ namespace Hashes
 		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for
 		//!         Bittorrent info hashes.
 		//!
-		//! The Bittorrent info hash is a compound hash based on SHA1. Similar to
-		//! Ed2k the input stream is divided into blocks od equal size of which the
-		//! SHA1 is taken. The info hash is then computed as the SHA1 of all
-		//! individual SHA1 digests. The exact block length may vary from torrent to
-		//! torrent. Although this info hash has the same properties as a SHA1 hash
+		//! The Bittorrent info hash is a compound hash based on SHA1.
+		//! Similar to Ed2k the input stream is divided into blocks of equal size
+		//! from which the SHA1 is taken. The info hash is then computed as the SHA1 of
+		//! all individual SHA1 digests. Exact block length may vary from torrent to torrent.
+		//! Although this info hash has the same properties as a SHA1 hash
 		//! it does not have the same semantics and comparing or assigning between
 		//! info hashes and plain SHA1 is not meaningful. In this template system,
-		//! both are distinct types, thus such meaningless operations cannot take
-		//! place.
+		//! both are distinct types, thus such meaningless operations cannot take place.
 		struct BthDescriptor
 		{
 			typedef uint32 WordType;
@@ -180,12 +179,11 @@ namespace Hashes
 
 		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for Guids.
 		//!
-		//! A Guid is a placeholder used to identify varous kinds of resources, such
-		//! as components and peers. It is usually unspecified, how a Guid is
-		//! generated - often it is not reproducible. This makes it suitable to
-		//! serve as temporary ids which become obsolete once the identified
-		//! resource no longer recognizes them. There is no urn form known for this
-		//! type of hash.
+		//! A Guid is a placeholder used to identify varous kinds of resources,
+		//! such as components and peers. It is usually unspecified, how a Guid is generated-
+		//! often it is not reproducible. This makes it suitable to serve as temporary ids
+		//! which become obsolete once the identified resource no longer recognizes them.
+		//! There is no urn form known for this type of hash.
 		struct GuidDescriptor
 		{
 			typedef uint32 WordType;
@@ -198,14 +196,12 @@ namespace Hashes
 			static std::vector< AlignedStorage > blackList;
 		};
 
-		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for
-		//!         Bittorent Guids.
+		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for Bittorent Guids.
 		//!
-		//! A Bittorrent Guid is similar to a plain Guid, except that it uses 160
-		//! instead of 128 bit. PeerProject uses a special transformation signature to
-		//! convert its local Guid into a Bittorrent Guid. This signature is
-		//! recognized by other PeerProject clients. There is no urn form known for
-		//! this type of hash.
+		//! A Bittorrent Guid is similar to a plain Guid, except that it uses 160 instead of 128 bit.
+		//! PeerProject uses a special transformation signature to convert its local Guid
+		//! into a Bittorrent Guid. This signature is recognized by other PeerProject/Shareaza clients.
+		//! There is no urn form known for this type of hash.
 		struct BtGuidDescriptor
 		{
 			typedef uint32 WordType;

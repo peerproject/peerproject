@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_DLGSKINDIALOG_H__A87746E3_AE87_49DA_A466_3F8C64364750__INCLUDED_)
-#define AFX_DLGSKINDIALOG_H__A87746E3_AE87_49DA_A466_3F8C64364750__INCLUDED_
-
 #pragma once
 
 class CSkinWindow;
@@ -29,37 +26,22 @@ class CSkinWindow;
 
 class CSkinDialog : public CDialog
 {
-// Construction
-public:
-	CSkinDialog(UINT nResID = 0, CWnd* pParent = NULL);
-
 	DECLARE_DYNAMIC(CSkinDialog)
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CSkinDialog)
-	//}}AFX_DATA
+	CSkinDialog(UINT nResID = 0, CWnd* pParent = NULL, BOOL bAutoBanner = TRUE);
 
-// Skin Support
-public:
 	BOOL	SkinMe(LPCTSTR pszSkin = NULL, UINT nIcon = 0, BOOL bLanguage = TRUE);
 	BOOL	SelectCaption(CWnd* pWnd, int nIndex);
-	CToolTipCtrl m_wndToolTip;
+
 protected:
 	CSkinWindow*	m_pSkin;
+	BOOL			m_bAutoBanner;	// Add banner to top of dialog (default = yes)
+	CStatic			m_oBanner;		// Banner to add (id=IDC_BANNER, bitmap=IDB_WIZARD)
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CSkinDialog)
-	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	//}}AFX_VIRTUAL
 
-// Implementation
-protected:
-	//{{AFX_MSG(CSkinDialog)
 	afx_msg void OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
 	afx_msg ONNCHITTESTRESULT OnNcHitTest(CPoint point);
 	afx_msg BOOL OnNcActivate(BOOL bActive);
@@ -75,11 +57,6 @@ protected:
 	afx_msg void OnWindowPosChanging(WINDOWPOS* lpwndpos);
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg BOOL OnHelpInfo(HELPINFO* pHelpInfo);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };
-
-//{{AFX_INSERT_LOCATION}}
-
-#endif // !defined(AFX_DLGSKINDIALOG_H__A87746E3_AE87_49DA_A466_3F8C64364750__INCLUDED_)

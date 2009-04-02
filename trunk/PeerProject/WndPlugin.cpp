@@ -130,11 +130,11 @@ void CPluginWnd::OnSize(UINT nType, int cx, int cy)
 
 		if ( m_nToolbar == 1 )
 		{
-			m_pToolbar->SetWindowPos( NULL, 0, 0, rc.right, 28, SWP_NOZORDER );
+			m_pToolbar->SetWindowPos( NULL, 0, 0, rc.right, TOOLBAR_HEIGHT, SWP_NOZORDER );
 		}
 		else if ( m_nToolbar == 2 )
 		{
-			m_pToolbar->SetWindowPos( NULL, 0, rc.bottom - 28, rc.Width(), 28, SWP_NOZORDER );
+			m_pToolbar->SetWindowPos( NULL, 0, rc.bottom - TOOLBAR_HEIGHT, rc.Width(), TOOLBAR_HEIGHT, SWP_NOZORDER );
 		}
 	}
 }

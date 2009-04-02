@@ -27,9 +27,9 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying LibGFL280 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\libgfl280.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)libgfl280.dll"
+				Description="Copying LibGFL290 dll..."
+				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
@@ -121,9 +121,9 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying LibGFL280 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\libgfl280.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)libgfl280.dll"
+				Description="Copying LibGFL290 dll..."
+				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
@@ -216,9 +216,9 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying LibGFL280 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\libgfl280.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)libgfl280.dll"
+				Description="Copying LibGFL290 dll..."
+				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
@@ -309,9 +309,9 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying LibGFL280 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\libgfl280.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)libgfl280.dll"
+				Description="Copying LibGFL290 dll..."
+				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
@@ -521,15 +521,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Plugins\LibGFL\libgfle.h"
-				>
-			</File>
-			<File
-				RelativePath="..\Plugins\GFLLibraryBuilder\resource.h"
-				>
-			</File>
-			<File
 				RelativePath="..\Plugins\GFLLibraryBuilder\PeerProject.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Plugins\GFLLibraryBuilder\Resource.h"
 				>
 			</File>
 			<File
@@ -540,42 +536,6 @@
 		<Filter
 			Name="Generated Files"
 			>
-			<File
-				RelativePath=".\ReleaseWin32\Plugins\GFLLibraryBuilder\GFLLibraryBuilder_i.c"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
 			<File
 				RelativePath=".\Releasex64\Plugins\GFLLibraryBuilder\GFLLibraryBuilder_i.c"
 				>
@@ -684,10 +644,74 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\ReleaseWin32\Plugins\GFLLibraryBuilder\GFLLibraryBuilder_i.c"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
 		</Filter>
 		<Filter
 			Name="Library Files"
 			>
+			<File
+				RelativePath="..\Plugins\LibGFL\DebugWin32\libgfl.lib"
+				>
+				<FileConfiguration
+					Name="Debug|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
 			<File
 				RelativePath="..\Plugins\LibGFL\Debugx64\libgfl.lib"
 				>
@@ -745,34 +769,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Plugins\LibGFL\DebugWin32\libgfl.lib"
-				>
-				<FileConfiguration
-					Name="Debug|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\Plugins\LibGFL\Releasex64\libgfl.lib"
 				>
 				<FileConfiguration
@@ -800,6 +796,7 @@
 					/>
 				</FileConfiguration>
 			</File>
+
 		</Filter>
 	</Files>
 	<Globals>

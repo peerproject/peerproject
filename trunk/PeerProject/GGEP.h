@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_GGEP_H__7081FCAC_A207_412A_BD18_A72F09F89F05__INCLUDED_)
-#define AFX_GGEP_H__7081FCAC_A207_412A_BD18_A72F09F89F05__INCLUDED_
-
 #pragma once
 
 #define GGEP_MAGIC			0xC3 // GGEP extension prefix
@@ -29,6 +26,7 @@
 #define GGEP_HDR_LAST		0x80 // Last extension in GGEP block
 #define GGEP_HDR_COBS		0x40 // Whether COBS was used on payload
 #define GGEP_HDR_DEFLATE	0x20 // Whether payload was deflated
+#define GGEP_HDR_RESERVE	0x10 // Reserved. Must be set to 0.
 #define GGEP_HDR_IDLEN		0x0F // Where ID length is stored
 
 #define GGEP_LEN_MORE		0x80 // Continuation present
@@ -74,6 +72,8 @@ const LPCTSTR GGEP_HEADER_MULTICAST_RESPONSE	= _T("MCAST");
 const LPCTSTR GGEP_HEADER_PUSH_PROXY			= _T("PUSH");
 // AlternateLocation support
 const LPCTSTR GGEP_HEADER_ALTS					= _T("ALT");
+// AlternateLocations that support TLS
+const LPCTSTR GGEP_HEADER_ALTS_TLS				= _T("ALT_TLS");
 // IpPort request
 const LPCTSTR GGEP_HEADER_IPPORT				= _T("IP");
 // UDP HostCache pongs
@@ -86,6 +86,8 @@ const LPCTSTR GGEP_HEADER_PACKED_IPPORTS		= _T("IPP");
 const LPCTSTR GGEP_HEADER_PACKED_HOSTCACHES		= _T("PHC");
 // SHA1 URNs
 const LPCTSTR GGEP_HEADER_SHA1					= _T("S1");
+// Tiger Tree Root URNs (24 bytes)
+const LPCTSTR GGEP_HEADER_TTROOT				= _T("TT");
 // Determine if a SHA1 is valid
 const LPCTSTR GGEP_HEADER_SHA1_VALID			= _T("SV");
 // TLS support
@@ -123,7 +125,12 @@ const LPCTSTR GGEP_HEADER_GDNA_PACKED_IPPORTS	= _T("DIPP");
 const LPCTSTR GGEP_HEADER_HASH					= _T("H");
 // URN but without "urn:" prefix
 const LPCTSTR GGEP_HEADER_URN					= _T("u");
-
+// up to 64-bit file size
+const LPCTSTR GGEP_HEADER_LARGE_FILE			= _T("LF");
+// The prefix of the extension header indicating support for partial results
+const LPCTSTR GGEP_HEADER_PARTIAL_RESULT_PREFIX	= _T("PR");
+// To support queries longer than previous length limit on query string fields
+const LPCTSTR GGEP_HEADER_EXTENDED_QUERY		= _T("XQ");
 
 class CGGEPBlock;
 class CGGEPItem;
@@ -132,102 +139,74 @@ class CPacket;
 
 class CGGEPBlock
 {
-// Construction
 public:
 	CGGEPBlock();
 	virtual ~CGGEPBlock();
 
-// Attributes
-public:
-	CGGEPItem*	m_pFirst;
-	CGGEPItem*	m_pLast;
-	BYTE*		m_pInput;
-	DWORD		m_nInput;
-	BYTE		m_nItemCount;
-
-// Operations
-public:
-	void		Clear();
 	CGGEPItem*	Add(LPCTSTR pszID);
 	CGGEPItem*	Find(LPCTSTR pszID, DWORD nMinLength = 0) const;
-public:
 	BOOL		ReadFromPacket(CPacket* pPacket);
-	BOOL		ReadFromString(LPCTSTR pszData);
-	BOOL		ReadFromBuffer(LPVOID pszData, DWORD nLength);
 	void		Write(CPacket* pPacket);
-	void		Write(CString& str);
-	static		CGGEPBlock* FromPacket(CPacket* pPacket);
-protected:
-	BOOL		ReadInternal();
-	BYTE		ReadByte();
-public:
+
 	inline BOOL	IsEmpty() const
 	{
 		return ( m_nItemCount == 0 );
 	}
 
-	friend class CGGEPItem;
+	inline DWORD GetCount() const
+	{
+		return m_nItemCount;
+	}
+
+	inline CGGEPItem* GetFirst() const
+	{
+		return m_pFirst;
+	}
+
+protected:
+	CGGEPItem*	m_pFirst;
+	CGGEPItem*	m_pLast;
+	BYTE		m_nItemCount;
+	const BYTE*	m_pInput;		// Current read position
+	DWORD		m_nInput;		// Remaining size available for reading
+
+	void		Clear();
+	BOOL		ReadInternal();
+	BYTE		ReadByte();
+	CGGEPItem*	ReadItem(BYTE nFlags);
 };
 
 
 class CGGEPItem
 {
-// Construction
 public:
 	CGGEPItem(LPCTSTR pszID = NULL);
 	virtual ~CGGEPItem();
 
-// Attributes
-public:
 	CGGEPItem*	m_pNext;
 	CString		m_sID;
 	BYTE*		m_pBuffer;
 	DWORD		m_nLength;
 	DWORD		m_nPosition;
-	bool		m_bCOBS;
-	bool		m_bSmall;
 
-// Operations
-public:
-	BOOL		IsNamed(LPCTSTR pszID) const;
+	inline BOOL	IsNamed(LPCTSTR pszID) const
+	{
+		return ( m_sID == pszID );
+	}
+
 	void		Read(LPVOID pData, int nLength);
 	BYTE		ReadByte();
 	void		Write(LPCVOID pData, int nLength);
 	void		WriteByte(BYTE nValue);
 	CString		ToString() const;
-	void		WriteUTF8( LPCWSTR pszText);
+	void		WriteUTF8(const CString& strText);
 
 protected:
-	BOOL		ReadFrom(CGGEPBlock* pBlock, BYTE nFlags);
-	void		WriteTo(CPacket* pPacket, bool bSmall, bool bNeedCOBS);
-	void		WriteTo(CString& str, bool bSmall, bool bNeedCOBS);
-protected:
-	BOOL		Encode(BOOL bIfZeros = FALSE);
+	void		WriteTo(CPacket* pPacket);
+	BOOL		Encode();
 	BOOL		Decode();
-	BOOL		Deflate(BOOL bIfSmaller = FALSE);
+	BOOL		Deflate();
 	BOOL		Inflate();
-public:
-	inline void	SetCOBS(void)
-	{
-		m_bCOBS = true;
-	}
 
-	inline void	UnsetCOBS(void)
-	{
-		m_bCOBS = false;
-	}
-
-	inline void	SetSmall(void)
-	{
-		m_bSmall = true;
-	}
-
-	inline void	UnsetSmall(void)
-	{
-		m_bSmall = false;
-	}
-
-	friend class CGGEPBlock;
+friend class CGGEPBlock;
 };
-
-#endif // !defined(AFX_GGEP_H__7081FCAC_A207_412A_BD18_A72F09F89F05__INCLUDED_)

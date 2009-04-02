@@ -120,6 +120,7 @@ protected:
 	afx_msg void OnDownloadGroupPause();
 	afx_msg void OnUpdateDownloadGroupClear(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadGroupClear();
+	afx_msg void OnDownloadGroupOpen();
 
 	friend class TabItem;
 };

@@ -1,7 +1,5 @@
 //
-// stdafx.h : include file for standard system include files,
-// or project specific include files that are used frequently,
-// but are changed infrequently
+// stdafx.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008
 // Copyright (c) Nikolay Raspopov, 2005.
@@ -24,6 +22,10 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
+// stdafx.h : include file for standard system include files,
+// or project specific include files that are used frequently,
+// but are changed infrequently
+
 #pragma once
 
 #define STRICT
@@ -40,12 +42,12 @@
 
 #pragma warning( push, 0 )
 
-#include "resource.h"
+#include "LibGFL.h"
+#include "Resource.h"
 #include <atlbase.h>
 #include <atlcom.h>
 #include <atlstr.h>
 #include <atlcoll.h>
-#include "libgfl.h"
 
 HRESULT SAFEgflLoadBitmap (const char * filename, GFL_BITMAP **bitmap, const GFL_LOAD_PARAMS *params, GFL_FILE_INFORMATION *info) throw ();
 HRESULT SAFEgflLoadBitmapFromMemory (const GFL_UINT8 * data, GFL_UINT32 data_length, GFL_BITMAP **bitmap, const GFL_LOAD_PARAMS *params, GFL_FILE_INFORMATION *info) throw ();
