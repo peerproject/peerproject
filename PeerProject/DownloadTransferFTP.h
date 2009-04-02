@@ -23,9 +23,9 @@
 
 #include "Handshakes.h"
 
-// Note: ftp active mode code was commented out
+// Note: FTP active mode code commented out
 
-#define FTP_RETRY_DELAY		30	// 30s
+#define FTP_RETRY_DELAY		30 //Seconds
 
 class CDownloadTransferFTP : public CDownloadTransfer
 {
@@ -76,7 +76,7 @@ protected:
 				CLockedBuffer pInput( GetInput() );
 				if ( pInput->m_nLength > 0 )
 				{
-					m_sData.Append( CA2CT( (char*) pInput->m_pBuffer ),
+					m_sData.Append( (LPCTSTR)CA2T( (char*) pInput->m_pBuffer ),
 						pInput->m_nLength );
 					pInput->Clear();
 				}

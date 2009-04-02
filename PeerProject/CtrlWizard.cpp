@@ -31,10 +31,6 @@
 #include "CoolInterface.h"
 #include "CtrlIconButton.h"
 
-#include "SHA.h"
-#include "MD5.h"
-#include "ED2K.h"
-#include "TigerTree.h"
 #include "Transfer.h" 
 #include "CtrlWizard.h"
 
@@ -130,10 +126,7 @@ CString CWizardCtrl::ReadFile(LPCTSTR pszPath)
 			pByte += 3; nByte -= 3;
 		}
 		
-		DWORD nWide = MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)pByte, nByte, NULL, 0 );
-		
-		MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)pByte, nByte, strXML.GetBuffer( nWide ), nWide );
-		strXML.ReleaseBuffer( nWide );
+		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
 	}
 	
 	delete [] pSource;
@@ -514,7 +507,7 @@ BOOL CWizardCtrl::MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > 
 									strText += 's';
 								m_pItems.SetAt( strUINT, strText );
 								// is it correct?
-								SetWindowLongPtr( pControl->GetSafeHwnd(), GWLP_USERDATA, (LONG_PTR_ARG)(LONG_PTR)pItem );
+								SetWindowLongPtr( pControl->GetSafeHwnd(), GWLP_USERDATA, (LONG_PTR)pItem );
 								pControl->SetFont( &theApp.m_gdiFont );
 								nItemCount++;
 
@@ -538,7 +531,7 @@ BOOL CWizardCtrl::MakeControls(CXMLElement* pBase, std::vector< CLibraryFile* > 
 									m_pControls.Add( pControl );
 									nItemCount++;
 									// is it correct?
-									SetWindowLongPtr( pControl->GetSafeHwnd(), GWLP_USERDATA, (LONG_PTR_ARG)(LONG_PTR)pItem );
+									SetWindowLongPtr( pControl->GetSafeHwnd(), GWLP_USERDATA, (LONG_PTR)pItem );
 								}
 								nFileCount++;
 								if ( strType == "multi-filepicker" ) 

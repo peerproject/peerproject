@@ -42,7 +42,6 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CFolderPropertiesDlg, CSkinDialog)
 
 BEGIN_MESSAGE_MAP(CFolderPropertiesDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CFolderPropertiesDlg)
 	ON_WM_DESTROY()
 	ON_WM_GETMINMAXINFO()
 	ON_WM_SIZE()
@@ -55,17 +54,14 @@ BEGIN_MESSAGE_MAP(CFolderPropertiesDlg, CSkinDialog)
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
 	ON_EN_CHANGE(IDC_METADATA, OnChangeData)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////
 // CFolderPropertiesDlg dialog
 
-CFolderPropertiesDlg::CFolderPropertiesDlg(CWnd* pParent, CAlbumFolder* pFolder) : CSkinDialog( CFolderPropertiesDlg::IDD, pParent )
+CFolderPropertiesDlg::CFolderPropertiesDlg(CWnd* pParent, CAlbumFolder* pFolder) : CSkinDialog( CFolderPropertiesDlg::IDD, pParent, FALSE ) //ToDo: Fix TRUE Banner Display
 {
-	//{{AFX_DATA_INIT(CFolderPropertiesDlg)
-	//}}AFX_DATA_INIT
 	m_pFolder	= pFolder;
 	m_nWidth	= 0;
 	m_bUpdating	= FALSE;
@@ -74,13 +70,11 @@ CFolderPropertiesDlg::CFolderPropertiesDlg(CWnd* pParent, CAlbumFolder* pFolder)
 void CFolderPropertiesDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CFolderPropertiesDlg)
 	DDX_Control(pDX, IDC_APPLY_METADATA, m_wndApply);
 	DDX_Control(pDX, IDCANCEL, m_wndCancel);
 	DDX_Control(pDX, IDOK, m_wndOK);
 	DDX_Control(pDX, IDC_TITLE, m_wndTitle);
 	DDX_Control(pDX, IDC_SCHEMAS, m_wndSchemas);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -96,7 +90,7 @@ BOOL CFolderPropertiesDlg::OnInitDialog()
 	GetWindowRect( &rc );
 	m_nWidth = rc.Width();
 
-	m_wndData.Create( WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP, rc, this, IDC_METADATA );
+	m_wndData.Create( WS_CHILD|WS_VISIBLE|WS_TABSTOP, rc, this, IDC_METADATA );
 
 	if ( ! Settings.LoadWindow( _T("CFolderPropertiesDlg"), this ) )
 	{

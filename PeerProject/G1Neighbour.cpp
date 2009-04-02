@@ -49,7 +49,6 @@
 #include "Downloads.h"
 #include "Uploads.h"
 #include "Library.h"
-#include "SHA.h"
 #include "WndMain.h"
 #include "WndChild.h"
 #include "WndSearchMonitor.h"
@@ -268,7 +267,7 @@ BOOL CG1Neighbour::ProcessPackets()
 	CBuffer* pInput = m_pZInput ? m_pZInput : pInputLocked;
 
 	// Start out with bSuccess true and loop until it gets set to false
-    BOOL bSuccess = TRUE;
+	BOOL bSuccess = TRUE;
 	for ( ; bSuccess ; ) // This is the same thing as while ( bSuccess )
 	{
 		// Look at the input buffer as a Gnutella packet
@@ -388,7 +387,7 @@ BOOL CG1Neighbour::SendPing(DWORD dwNow, const Hashes::Guid& oGUID)
 	m_tLastOutPing = dwNow;
 
 	// Send the remote computer a new Gnutella ping packet
-	CG1Packet* pPacket = CG1Packet::New( G1_PACKET_PING, 
+	CG1Packet* pPacket = CG1Packet::New( G1_PACKET_PING,
 		( bool( oGUID ) || bNeedPeers ) ? 0 : 1, oGUID );
 
 	// Send "Supports Cached Pongs" extension along with a packet, to receive G1 hosts for cache
@@ -402,7 +401,7 @@ BOOL CG1Neighbour::SendPing(DWORD dwNow, const Hashes::Guid& oGUID)
 		}
 		pBlock.Write( pPacket );
 	}
-	
+
 	Send( pPacket, TRUE, TRUE );
 	Statistics.Current.Gnutella1.PingsSent++;
 	return TRUE;
@@ -478,7 +477,7 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 			{
 				// Broadcast the packet to the computers we are connected to
 				int nCount = Neighbours.Broadcast( pPacket, this, TRUE );
-				if ( nCount ) 
+				if ( nCount )
 				{
 					Statistics.Current.Gnutella1.Routed++; // Record we routed one more packet
 					Statistics.Current.Gnutella1.PingsSent += nCount;
@@ -599,7 +598,7 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 	CList< CPongItem* > pIgnore;
 
 	// Zero the 32 bytes of the m_nPongNeeded buffer
-	ZeroMemory( m_nPongNeeded, PONG_NEEDED_BUFFER ); 
+	ZeroMemory( m_nPongNeeded, PONG_NEEDED_BUFFER );
 
 	// Loop nHops from 1 through the packet's TTL
 	for ( BYTE nHops = 1 ; nHops <= pPacket->m_nTTL ; nHops++ )
@@ -758,7 +757,7 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 			m_nFileVolume = nVolume;
 
 			// Add the IP address and port number to the Gnutella host cache of computers we can try to connect to
-			HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort, 0, 
+			HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort, 0,
 				( ( m_bPeerProject && strVendorCode.IsEmpty() ) ? PEERPROJECT_VENDOR_T :
 					(LPCTSTR)strVendorCode ), nUptime );
 
@@ -1016,7 +1015,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 		// Hops Flow (do)
 		case 0x0004:
 
-			if ( nVersion <= 1 && pPacket->GetRemaining() >= 1 ) 
+			if ( nVersion <= 1 && pPacket->GetRemaining() >= 1 )
 			{
 				m_nHopsFlow = pPacket->ReadByte();
 			}
@@ -1092,7 +1091,7 @@ void CG1Neighbour::SendClusterAdvisor()
 	{
 		CQuickLock oLock( HostCache.Gnutella1.m_pSection );
 
-		// Loop through the Gnutella host cache, 
+		// Loop through the Gnutella host cache,
 		for ( CHostCacheIterator i = HostCache.Gnutella1.Begin() ;
 			i != HostCache.Gnutella1.End() && nCount < 20;
 			++i )
@@ -1310,22 +1309,13 @@ void CG1Neighbour::SendG2Push(const Hashes::Guid& oGUID, CPacket* pPacket)
 //////////////////////////////////////////////////////////////////////
 // CG1Neighbour QUERY packet handlers
 
-// Takes a Gnutella query packet
-// Sees if we have a file like that, and forwards the packet to the computers we are connected to
+// Takes a Gnutella query packet to see if we have a file like that,
+// and forwards the packet to the computers we are connected to.
 // Returns false if the remote computer sent a malformed packet and we should disconnect from it, true otherwise
 BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 {
-	// If the packet payload is too short
-	if ( pPacket->m_nLength < 4 )
-	{
-		// Record it and drop it
-		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_QUERY, (LPCTSTR)m_sAddress );
-		Statistics.Current.Gnutella1.Dropped++;
-		m_nDropCount++;
-		return TRUE; // Stay connected to the remote computer, though
-
-	} // Or, if the packet payload is too long
-	else if ( pPacket->m_nLength > Settings.Gnutella1.MaximumQuery )
+	// If packet payload is too long
+	if ( pPacket->m_nLength > Settings.Gnutella1.MaximumQuery )
 	{
 		// Record it and drop it
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_TOO_LARGE, (LPCTSTR)m_sAddress );
@@ -1355,11 +1345,12 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 
 	// Have the CQuerySearch class turn the query search packet into a CQuerySearch object (do)
 	CQuerySearch* pSearch = CQuerySearch::FromPacket( pPacket );
+	if ( pSearch == NULL || pSearch->m_bWarning )
+		pPacket->Debug( _T("Malformed query.") );
 	if ( pSearch == NULL )
 	{
 		// The CQuerySearch class rejected the search, drop the packet
-		// pPacket->Debug( _T("BadQuery") );
-		// theApp.Message( MSG_DEBUG, IDS_PROTOCOL_BAD_QUERY, (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
 		return TRUE; // Stay connected to the remote computer

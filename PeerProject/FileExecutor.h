@@ -28,6 +28,9 @@ class CLibraryWnd;
 class CFileExecutor
 {
 public:
+	// Is file extension safe to execute?
+	// Returns: TRI_TRUE - safe, TRI_FALSE - dangerous, TRI_UNKNOWN - dangerous and cancel
+	static TRISTATE IsSafeExecute(LPCTSTR szExt, LPCTSTR szFile = NULL);
 	static BOOL		Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck = FALSE, LPCTSTR pszExt = NULL);
 	static BOOL		Enqueue(LPCTSTR pszFiles, BOOL bSkipSecurityCheck = FALSE, LPCTSTR pszExt = NULL);
 	static BOOL		ShowBitziTicket(DWORD nFile);

@@ -32,20 +32,20 @@
 		<button id="ID_NETWORK_CONNECT" text="Verbinden"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Startpagina"/>
-		<button id="ID_TAB_LIBRARY" text="Bibliotheek"/>
-		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_SEARCH" text="Zoeken"/>
 		<button id="ID_TAB_TRANSFERS" text="Downloads"/>
+		<button id="ID_TAB_LIBRARY" text="Bibliotheek"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Verbinden"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Startpagina"/>
-		<button id="ID_TAB_LIBRARY" text="Bibliotheek"/>
-		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_SEARCH" text="Zoeken"/>
 		<button id="ID_TAB_TRANSFERS" text="Verkeer"/>
 		<button id="ID_TAB_NETWORK" text="Netwerk"/>
+		<button id="ID_TAB_LIBRARY" text="Bibliotheek"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="Chat"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -408,29 +408,29 @@
 		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent Cache"/>
 		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia Cache"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Gebruiker bekijken"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Bestand verzenden"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Voorrang geven"/>
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Bestand verzenden"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Verbinden" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Verbinding verbreken"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER WINDOW -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_BestFit" text="Passende grootte"/>
 		<button id="ImageViewer_ActualSize" text="Echte grootte"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="Vernieuwen"/>
-		<separator/>
+		<rightAlign/>
 		<button id="ImageViewer_Close" text="Sluiten"/>
 	</toolbar>
 </toolbars>
@@ -449,6 +449,23 @@
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Venster sluiten"/>
 	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">
+		<item id="ID_TRAY_OPEN" text="PeerProject openen"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Afstandsbediening"/>
+		<item id="ID_TOOLS_SETTINGS" text="Instellingen openen..."/>
+		<item id="ID_NETWORK_SEARCH" text="Nieuwe zoekopdracht..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Bestand downloaden..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="_Media afspelen"/>
+		<item id="ID_MEDIA_PAUSE" text="Media pauzeren"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Vorig nummer"/>
+		<item id="ID_MEDIA_NEXT" text="Volgend nummer"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Afsluiten na verkeer"/>
+		<item id="ID_NETWORK_EXIT" text="Afsluiten"/>
+	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="_Netwerk">
@@ -456,8 +473,8 @@
 			<separator/>
 			<menu text="_Netwerken Kiezen">
 				<item id="ID_NETWORK_G2" text="Verbinden met _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Verbinden met Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Afsluiten na ver_keer"/>
@@ -528,8 +545,8 @@
 			<separator/>
 			<menu text="Net_werken kiezen">
 				<item id="ID_NETWORK_G2" text="Verbinden met _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Verbinden met Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Verbinden _met..." shortcut="Ctrl+T"/>
@@ -631,8 +648,8 @@
 			<separator/>
 			<menu text="Net_werken kiezen">
 				<item id="ID_NETWORK_G2" text="Verbinden met _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Verbinden met Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Afsluiten na ver_keer"/>
@@ -761,40 +778,6 @@
 		<item id="ID_VIEW_PACKETS" text="_Pakket dump"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Zoekmonito_r"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="_Hitmonitor"/>
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="PeerProject _openen"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nieuwe _zoekopdracht..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="Bestand _downloaden..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Media afspelen"/>
-		<item id="ID_MEDIA_PAUSE" text="Media _pauzeren"/>
-		<item id="ID_MEDIA_STOP" text="Media _stoppen"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="_Vorig nummer"/>
-		<item id="ID_MEDIA_NEXT" text="Vol_gend nummer"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Afsluiten na ver_keer"/>
-		<item id="ID_NETWORK_EXIT" text="_Afsluiten"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="PeerProject _openen"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nieuwe _zoekopdracht..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="Bestand _downloaden..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Media afspelen"/>
-		<item id="ID_MEDIA_PAUSE" text="Media _pauzeren"/>
-		<item id="ID_MEDIA_STOP" text="Media _stoppen"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="_Vorig nummer"/>
-		<item id="ID_MEDIA_NEXT" text="Vol_gend nummer"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Afsluiten na ver_keer"/>
-		<item id="ID_NETWORK_EXIT" text="_Afsluiten"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -1054,6 +1037,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Automatisch wissen"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Alles _hervatten"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Alles _pauzeren"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Alles _wissen"/>
@@ -3152,7 +3137,6 @@
 	<string id="20001" value="Sluiten"/>
 	<string id="20002" value="van"/> <!-- "1 of 10" -->
 	<string id="20003" value="Veranderen van leesrichting vereist het heropstarten van PeerProject.\nJe zal PeerProject zelf opnieuw moeten starten. Nu afsluiten?"/>
-	<string id="20004" value="Rechts-naar links talen worden niet ondersteund door dit besturingssysteem."/>
 	<string id="20005" value="Nee"/>
 	<string id="20006" value="Ja"/>
 	<string id="20007" value="Auto"/>
@@ -3223,6 +3207,8 @@
 	<string id="20234" value="Album"/>
 	<string id="20235" value="Artiest"/>
 	<string id="20236" value="Beoordeling"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="Annuleren"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3489,14 +3475,14 @@
 		<control caption="Het Gnutella2 netwerk is PeerProject's belangrijkste netwerk, het biedt meer eigenschappen en vermogen dan enig ander P2P-netwerk. Aanbevolen."/>
 		<control caption="Verbinden met Gnutella2 (G2)"/>
 		<control caption="Gnutella2 instellingen"/>
-		<control caption="eDonkey netwerk:"/>
-		<control caption="eDonkey is een populair, op servers gebaseerd netwerk. Het heeft minder opties dan Gnutella2, maar een indrukwekkende bestandencollectie."/>
-		<control caption="Verbinden met eDonkey"/>
-		<control caption="eDonkey instellingen"/>
 		<control caption="Originele Gnutella netwerk:"/>
 		<control caption="Is minder rijk aan eigenschappen dan Gnutella2 en heeft minder bestanden dan eDonkey, maar toch blijft dit een waardevolle bron."/>
 		<control caption="Verbinden met het originele Gnutella"/>
 		<control caption="Gnutella1 instellingen"/>
+		<control caption="eDonkey netwerk:"/>
+		<control caption="eDonkey is een populair, op servers gebaseerd netwerk. Het heeft minder opties dan Gnutella2, maar een indrukwekkende bestandencollectie."/>
+		<control caption="Verbinden met eDonkey2000"/>
+		<control caption="eDonkey instellingen"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 netwerk:"/>
@@ -3727,11 +3713,11 @@
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Welkom bij PeerProject (5/6)">
 		<control caption="PeerProject is een programma voor algemeen gebruik om bestanden uit te wisselen. Het kan meerdere P2P netwerken tegelijkertijd bereiken. Hier kun je selecteren welke netwerken je wilt gebruiken. Je kunt later altijd nog je keuze veranderen."/>
 		<control caption="Verbinden met Gnutella2 (zeer aanbevolen)"/>
-		<control caption="Het Gnutella2 netwerk is PeerProject's voornaamste netwerk. Het biedt meer opties en prestatie dan enig ander P2P netwerk."/>
-		<control caption="Verbinden met eDonkey"/>
-		<control caption="Het eDonkey netwerk is een populair netwerk, op servers gebaseerd. Hoewel met minder rijk aan opties als Gnutella2, heeft eDonkey een omvangrijke bestandsverzameling."/>
+		<control caption="Het Gnutella2 netwerk (G2) is PeerProject's voornaamste netwerk. Het biedt meer opties en prestatie dan enig ander P2P netwerk."/>
 		<control caption="Verbinden met het originele Gnutella netwerk"/>
-		<control caption="Hoewel het originele Gnutella netwerk minder opties heeft dan Gnutella2, en minder bestanden dan eDonkey, blijft het toch een waardevolle bron."/>
+		<control caption="Hoewel het originele Gnutella netwerk (G1) minder opties heeft dan Gnutella2, en minder bestanden dan eDonkey, blijft het toch een waardevolle bron."/>
+		<control caption="Verbinden met eDonkey2000"/>
+		<control caption="Het eDonkey netwerk (ED2K) is een populair netwerk, op servers gebaseerd. Hoewel met minder rijk aan opties als G2, heeft ED2K een omvangrijke bestandsverzameling."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey downloads importeren">
 		<control/>
@@ -4314,19 +4300,23 @@
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Downloadgroep eigenschappen">
-		<control caption="_Naam:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Downloadgroep eigenschappen">
+		<control caption="OK"/>
+		<control caption="Annuleren"/>
 		<control/>
 		<control/>
-		<control caption="_Filter:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="_Toevoegen"/>
 		<control caption="_Verwijder"/>
-		<control caption="OK"/>
-		<control caption="Annuleren"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Groep _Naam:"/>
+		<control caption="_Filter:"/>
 		<control caption="_Map voor de voltooide bestanden:"/>
-		<control/>
-		<control/>
+		<control caption="_Bestandstype (schema):"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Visualisatie selecteren">
 		<control/>

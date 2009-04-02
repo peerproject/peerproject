@@ -348,8 +348,8 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Rozmowa z użytkownikiem"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ustawienia"/>
 	</toolbar>
@@ -362,8 +362,8 @@
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ustawienia"/>
 	</toolbar>
@@ -395,23 +395,23 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache G1"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache eDonkey"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
 		<button id="ID_CHAT_BOLD"/>
 		<button id="ID_CHAT_ITALIC"/>
 		<button id="ID_CHAT_UNDERLINE"/>
 		<button id="ID_CHAT_COLOR"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Przeglądaj użytkownika"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Wyślij plik"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Nadaj priorytet"/>
+		<!--<button id="ID_CHAT_SEND_FILE" text="Wyślij plik"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Połącz" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Rozłącz"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER ? -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 </toolbars>
 
 <!-- Menu Definitions -->
@@ -429,6 +429,23 @@
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">
+		<item id="ID_TRAY_OPEN" text="Otwórz PeerProject"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Pokaż Remote"/>
+		<item id="ID_TOOLS_SETTINGS" text="Pokaż Ustawienia..."/>
+		<item id="ID_NETWORK_SEARCH" text="Nowe szukanie..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Pobierz plik..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Odtwarzaj pliki multimedialne"/>
+		<item id="ID_MEDIA_PAUSE" text="Pauza"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Poprzedni utwór"/>
+		<item id="ID_MEDIA_NEXT" text="Następny utwór"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Zakończ po pobieraniu"/>
+		<item id="ID_NETWORK_EXIT" text="Zakończ"/>
+	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="Sieć">
@@ -436,8 +453,8 @@
 			<separator/>
 			<menu text="Wybierz sieci">
 				<item id="ID_NETWORK_G2" text="Połącz z Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Połącz z eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Połącz z Gnutella1"/>
+				<item id="ID_NETWORK_ED2K" text="Połącz z eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Zakończ po pobieraniu"/>
@@ -724,40 +741,6 @@
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Monitor szukania"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="Monitor trafień"/>
 	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="Otwórz PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nowe szukanie..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="Pobierz plik..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="Odtwarzaj pliki multimedialne"/>
-		<item id="ID_MEDIA_PAUSE" text="Pauza"/>
-		<item id="ID_MEDIA_STOP" text="Stop"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="Poprzedni utwór"/>
-		<item id="ID_MEDIA_NEXT" text="Następny utwór"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Zakończ po pobieraniu"/>
-		<item id="ID_NETWORK_EXIT" text="Zakończ"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="Otwórz PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nowe szukanie..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="Pobierz plik..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="Odtwarzaj pliki multimedialne"/>
-		<item id="ID_MEDIA_PAUSE" text="Pauza"/>
-		<item id="ID_MEDIA_STOP" text="Stop"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="Poprzedni utwór"/>
-		<item id="ID_MEDIA_NEXT" text="Następny utwór"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Zakończ po pobieraniu"/>
-		<item id="ID_NETWORK_EXIT" text="Zakończ"/>
-	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
 		<item id="ID_TAB_HOME" text="Home"/>
@@ -1015,6 +998,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Autoczyszczenie"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Wznów wszystkie"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Wstrzymaj wszystkie"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Wyczyść wszystkie"/>
@@ -1381,8 +1366,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="Rozłącz"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Gnutella2"/>
-			<item id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 			<item id="ID_NETWORK_G1" text="Gnutella1"/>
+			<item id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		</menu>
 		<menu text="Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Pokaż wszystkie pakiety"/>
@@ -1488,7 +1473,6 @@
 			<link target="peer:command:ID_NETWORK_CONNECT">Kliknij tutaj aby rozpocząć!</link>
 			<newline gap="18" indent="0"/>
 		</group>
-
 		<group id="2">
 			<icon res="134" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">SZUKAJ</heading>
@@ -1496,7 +1480,6 @@
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
 		</group>
-
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">INFORMACJA O AKTUALIZACJI</heading>
@@ -1506,7 +1489,6 @@
 			<link target="peer:upgrade">Kliknij tutaj, aby zacząć aktualizację</link>
 			<newline gap="18" indent="0"/>
 		</group>
-
 		<group id="4">
 			<icon res="252" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">UWAGA: JESTEŚ ZABLOKOWANY FIREWALLEM</heading>
@@ -1518,29 +1500,24 @@
 			<link target="peer:command:ID_HELP_ROUTER">Kliknij tutaj, aby dowiedzieć się jak skonfigurować Twój router lub firewall</link>
 			<newline gap="18" indent="0"/>
 		</group>
-
 		<icon res="236" width="32" height="32"/><gap size="8"/>
 		<heading align="middle">DOSTOSUJ PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-
 		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
 		<gap size="8"/>
 		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Skórki</link>
 		<text align="middle">&#160;- Zmień wygląd PeerProject</text>
 		<newline gap="8"/>
-
 		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
 		<gap size="8"/>
 		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Kreator ustawień</link>
 		<text align="middle">&#160;- Zmień ustawienia PeerProject</text>
 		<newline gap="8"/>
-
 		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
 		<gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Szybka pomoc</link>
 		<text align="middle">&#160;- Podstawowa pomoc dotycząca używania PeerProject</text>
 		<newline gap="18" indent="0"/>
-
 		<icon res="136" width="32" height="32" target="peer:shell:downloads"/>
 		<gap size="8"/>
 		<heading align="middle">MOJE POBIERANIA</heading>
@@ -1548,7 +1525,6 @@
 		<text>To open the folder with your downloads </text>
 		<link target="peer:shell:downloads">click here</link>
 		<newline gap="18" indent="0"/>
-
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">ZDALNY DOSTĘP JEST WŁĄCZONY</heading>
@@ -1560,9 +1536,7 @@
 			<link id="RemoteAccessURL2"/>
 			<newline gap="16" indent="0"/>
 		</group>
-
 	</document>
-
 	<document name="CHomeDownloadsBox" title="Moje Pobierania" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
@@ -1579,7 +1553,6 @@
 			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Idź do Pobierań (%i)</link>
 		</para>
 	</document>
-
 	<document name="CHomeLibraryBox" title="Moje Zasoby" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
@@ -1611,7 +1584,6 @@
 			</group>
 		</para>
 	</document>
-
 	<document name="CHomeConnectionBox" title="Połączenie" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
@@ -1625,7 +1597,6 @@
 				<link target="peer:command:ID_NETWORK_CONNECT">Kliknij tutaj, aby się połączyć</link>
 			</para>
 		</group>
-
 		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
 		<text group="20" align="middle" format="b">Gnutella2: </text>
 		<text group="21" align="middle">Rozłączony</text>
@@ -1657,7 +1628,6 @@
 			</para>
 		</group>
 	</document>
-
 	<document name="CHomeUploadsBox" title="Wysyłania" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
@@ -1668,15 +1638,12 @@
 			<text id="UploadsNone" format="b">Brak pobierających</text>
 			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 aktywny pobierający</link>
 			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i aktywnych pobierających</link>
-
 			<newline gap="4"/>
-
 			<text id="UploadedNone">Nie wysłałeś dziś żadnych plików.</text>
 			<text id="UploadedOne">Wysłałeś 1 plik.</text>
 			<text id="UploadedMany">Wysłałeś %i plików.</text>
 		</para>
 	</document>
-
 	<document name="CHomeTorrentsBox" title="Torrent" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
@@ -1697,18 +1664,14 @@
 			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Seeduj torrent</link>
 			</group>
 		</para>
-
 	</document>
-
 	<!-- Settings Pages -->
-
 	<document name="CGeneralSettingsGroup" title="Ogólne" leftMargin="8" topMargin="8">
 		<styles>
 			<style name="default">
 				<colors link="000080"/>
 			</style>
 		</styles>
-
 		<text format="b">Witaj w Menedżerze ustawień PeerProject</text>
 		<newline gap="16"/>
 		<text>Menedżer ustawień PeerProject pozwala zaawansowanym użytkownikom w pełni dostosować
@@ -1740,14 +1703,12 @@
 		<gap size="4"/>
 		<text>Integracja PeerProject z Twoją przeglądarką, aby akceptować odnośniki peer-to-peer.</text>
 	</document>
-
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
 		<styles>
 			<style name="default">
 				<colors link="000080"/>
 			</style>
 		</styles>
-
 		<text format="b">Witaj w Menedżerze ustawień PeerProject</text>
 		<newline gap="16"/>
 		<text>Menedżer ustawień PeerProject pozwala zaawansowanym użytkownikom w pełni dostosować
@@ -1775,29 +1736,23 @@
 		<gap size="4"/>
 		<text>Limit download connections based on a periodic schedule.</text>
 	</document>
-
 	<!-- Browse User Profile -->
-
 	<document name="CBrowseHostProfile.1">
-
 		<heading>Profil: </heading>
 		<heading id="Nick"/>
 		<newline gap="8"/>
-
 		<group id="1">
 			<newline gap="8" indent="0"/>
 			<text format="b">Imię</text>
 			<newline gap="2" indent="8"/>
 			<text id="FullName"/>
 		</group>
-
 		<group id="2">
 			<newline gap="8" indent="0"/>
 			<text format="b">Lokalizacja</text>
 			<newline gap="2" indent="8"/>
 			<text id="FullLocation"/>
 		</group>
-
 		<group id="3">
 			<newline gap="8" indent="0"/>
 			<text format="b">Demograficzne</text>
@@ -1807,7 +1762,6 @@
 			<text>, wiek: </text>
 			<text id="Age"/>
 		</group>
-
 		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Informacje kontaktowe</text>
@@ -1843,31 +1797,25 @@
 			<icon res="207"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-
 		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Zainteresowania</text>
 			<newline gap="2" indent="8"/>
 			<text id="Interests"/>
 		</group>
-
 		<group id="6">
 			<newline gap="8" indent="0"/>
 			<text format="b">Biografia</text>
 			<newline gap="2" indent="8"/>
 			<text id="BioText"/>
 		</group>
-
 	</document>
-
 	<document name="CBrowseHostProfile.2">
-
 		<newline gap="40" indent="0"/>
 		<text format="b">Udostępnione pliki</text>
 		<newline gap="4" indent="8"/>
 		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
 		<link target="peer:command:ID_BROWSE_FILES" align="middle">Przeglądaj udostępnione pliki</link>
-
 		<group id="2">
 			<newline gap="16" indent="0"/>
 			<text format="b">Społeczność</text>
@@ -1876,19 +1824,14 @@
 			<gap size="5"/>
 			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Rozmowa z użytkownikiem</link>
 		</group>
-
 		<group id="3">
 			<newline gap="16" indent="0"/>
 			<text format="b">Ulubione strony w Sieci</text>
 			<newline gap="4" indent="8" id="Bookmarks"/>
 		</group>
-
 		<newline gap="16" indent="0"/>
-
 	</document>
-
 	<!-- Download help documents -->
-
 	<document name="DownloadHelp.Select">
 		<text format="b">Miejsce pobierań</text>
 		<newline gap="8"/>
@@ -1898,28 +1841,24 @@
 		<text>Możesz też użyć tego polecenia, aby uzyskać pomoc na temat konkretnego pobierania.
 		Po prostu zaznacz pobieranie i ponownie wybierz tą komendę.</text>
 	</document>
-
 	<document name="DownloadHelp.Completed">
 		<text format="b">To pobieranie zostało zakończone</text>
 		<newline gap="8"/>
 		<text>PeerProject skończyła pobieranie tego pliku i zweryfikowała, że jest w 100% poprawny.
 		Przeniosła także ten plik do twojego folderu pobierań.</text>
 	</document>
-
 	<document name="DownloadHelp.Moving">
 		<text format="b">To pobieranie jest przenoszone</text>
 		<newline gap="8"/>
 		<text>PeerProject skończyła pobieranie tego pliku i zweryfikowała, że jest w 100% poprawny.
 		Ten plik jest obecnie przenoszony i/lub rozpakowywany do twojego folderu pobierań.</text>
 	</document>
-
 	<document name="DownloadHelp.Paused">
 		<text format="b">To pobieranie jest wstrzymane</text>
 		<newline gap="8"/>
 		<text>Wstrzymałeś to pobieranie. Jeżeli chcesz wznowić pobieranie,
 		Możesz wybrać polecenie</text><text format="b"> Wznów pobieranie</text><text>.</text>
 	</document>
-
 	<document name="DownloadHelp.DiskFull">
 		<text format="b">Dysk jest pełny</text>
 		<newline gap="8"/>
@@ -1928,7 +1867,6 @@
 		chcesz kontynuować pobieranie, zwolnij trochę miejsca na dysku i/lub upewnij się
 		że folder tymczasowy jest dostępny i wtedy wznów pobieranie.</text>
 	</document>
-
 	<document name="DownloadHelp.Verifying">
 		<text format="b">To pobieranie jest weryfikowane</text>
 		<newline gap="8"/>
@@ -1936,7 +1874,6 @@
 		aby upewnić się, że jest identyczne z oryginalnym plikiem.
 		Jeżeli zostały znalezione jakieś uszkodzone części, to PeerProject automatycznie je naprawi.</text>
 	</document>
-
 	<document name="DownloadHelp.Downloading">
 		<text format="b">To pobieranie jest aktywne!</text>
 		<newline gap="8"/>
@@ -1945,7 +1882,6 @@
 		<text format="b"> Szukaj źródła</text><text>. Jeżeli prędkość się nie poprawiła, przyczyną może być limit na wysyłanie
 		użytkownika, od którego pobierasz. Prędkość pobierania najczęściej zwiększa się w miarę upływu czasu.</text>
 	</document>
-
 	<document name="DownloadHelp.Pending">
 		<text format="b">To pobieranie jest oczekujące</text>
 		<newline gap="8"/>
@@ -1955,7 +1891,6 @@
 		Możesz przeanalizować indywidualne źródła, aby zobaczyć wszystkie kolejki w których czekasz.
 		Jeżeli sam udostępniasz jakieś pliki, to może to poprawić szansę na szybkie rozpoczęcie pobierania.</text>
 	</document>
-
 	<document name="DownloadHelp.Queued">
 		<text format="b">To pobieranie jest zakolejkowane</text>
 		<newline gap="8"/>
@@ -1965,7 +1900,6 @@
 		Możesz zmienić te ustawienie przez Narzędzia, Ustawienia PeerProject.
 		Alternatywnie, możesz ręcznie rozpocząć to pobieranie za pomocą komendy wznów.</text>
 	</document>
-
 	<document name="DownloadHelp.Searching">
 		<text format="b">To pobieranie nie ma źródeł</text>
 		<newline gap="8"/>
@@ -1978,31 +1912,25 @@
 		<text>Niestety w wielu przypadkach może nie być użytkowników, którzy mają ten plik.
 		Jedynym wyściem jest czekać na kogoś, kto go będzie miał, lub spróbować znaleźć podobny plik, który będzie miał więcej źródeł.</text>
 	</document>
-
 	<document name="DownloadHelp.Creating">
 		<text format="b">To pobieranie jest tworzone</text>
 		<newline gap="8"/>
 		<text>PeerProject alokuje plik w którym będzie przechowywane to pobieranie, aby zaoszczędzić czas później.</text>
 	</document>
-
 	<document name="DownloadHelp.Tracker">
 		<text format="b">Tracker BitTorrent jest niedostępny</text>
 		<newline gap="8"/>
 		<text>Tracker BitTorrent dla tego pobierania jest niedostępny.
 		PeerProject nie może się połączyć ani odebrać listy źródeł.</text>
 	</document>
-
 	<!-- Upload help documents -->
-
 	<document name="UploadHelp">
 		<text format="b">Miejsce wysyłań</text>
 		<newline gap="8"/>
 		<text>To jest miejsce, gdzie są wyświetlone wysyłania i kolejki. Możesz rozszerzyć każdą kolejkę małym plusikiem po lewej
 		i filtrować co jest wyświetlane przyciskiem w prawym dolnym rogu okna.</text>
 	</document>
-
 	<!-- General help documents -->
-
 	<document name="GeneralHelp.DiskSpace">
 		<text format="b">Mało miejsca na dysku</text>
 		<newline gap="8"/>
@@ -2011,7 +1939,6 @@
 		<text>Zawsze powinieneś starać się utrzymywać rozsądną ilość wolnego miejsca na dysku. Gdy dysk będzie pełny, programy mogą być niestabilne,
 		a pliki tymczasowe utracone. Powinieneś usuwać niechciane pliki oraz programy których nie używasz.</text>
 	</document>
-
 	<document name="GeneralHelp.DiskWriteFail">
 		<text format="b">Potrzebny folder jest niezapisywalny</text>
 		<newline gap="8"/>
@@ -2020,7 +1947,6 @@
 		<text>Dysk sieciowy mógł zostać odłączony, lub nie masz prawa do zapisu
 		we wskazanym folderze. Sprawdź foldery i pozwolenia lub zmień folder plików tymczasowych.</text>
 	</document>
-
 	<document name="GeneralHelp.ConnectionFail">
 		<text format="b">Połączenie z Internetem zostało utracone</text>
 		<newline gap="8"/>
@@ -2031,7 +1957,6 @@
 		<newline gap="8"/>
 		<text>PeerProject przerwała próby połączenia, aby zapobiec utracie wszystkich hosatów z cache'u.</text>
 	</document>
-
 	<document name="GeneralHelp.AdultFilter">
 		<text format="b">Filtr treści dla dorosłych włączony</text>
 		<newline gap="8"/>
@@ -2040,7 +1965,6 @@
 		<newline gap="8"/>
 		<text>Użytkowanie Internetu przez dzieci (włączając w to wymianę plików) powinno być zawsze pod kontrolą rodziców.</text>
 	</document>
-
 	<document name="GeneralHelp.BadTorrentEncoding">
 		<text format="b">Ten torrent ma błąd kodowania</text>
 		<newline gap="8"/>
@@ -2053,8 +1977,7 @@
 		<newline gap="8"/>
 		<link target="http://peerproject.org/help/?torrentencoding">Kliknij tutaj po dodatkową pomoc</link>
 		<text>, lub aby pobrać program do naprawy torrentów.</text>
-</document>
-
+	</document>
 	<document name="GeneralHelp.DonkeyServerList">
 		<text format="b">Twoja lista serwerów eDonkey jest pusta</text>
 		<newline gap="8"/>
@@ -2064,7 +1987,6 @@
 		<text>Możesz pobrać listę serwerów na stronie ustawień ed2k,
 		lub w oknie serwisów discovery.</text>
 	</document>
-
 	<document name="GeneralHelp.UploadWarning">
 		<text format="b">Limitowanie prędkości wysyłań może spowolnić pobierania</text>
 		<newline gap="8"/>
@@ -2081,9 +2003,7 @@
 		podczas gdy pobierania są nieograniczone. Ta konfiguracja powinna zapewnić ci
 		najszybsze możliwe prędkości pobierań.</text>
 	</document>
-
 	<!-- Search help documents -->
-
 	<document name="SearchHelp.BadSearch1">
 		<text format="b">Wpisz ponownie frazę do wyszukania</text>
 		<newline gap="8"/>
@@ -2095,7 +2015,6 @@
 		<text>Większość klientów w sieci będzie ignorować wyszukiwania dla wszystkich plików MP3,
 		Ponieważ są zbyt ogólne i generują za dużo wyników.</text>
 	</document>
-
 	<document name="SearchHelp.BadSearch2">
 		<text format="b">Wpisz ponownie frazę do wyszukania</text>
 		<newline gap="8"/>
@@ -2106,7 +2025,6 @@
 		<text>Jeżeli chcesz wyszukiwać pliki z popularnymi rozszerzeniami (i liczbami) musisz
 		umieścić także inne frazy podczas tworzenia wyszukiwania.</text>
 	</document>
-
 	<document name="SearchHelp.BadSearch3">
 		<text format="b">Wpisz ponownie frazę do wyszukania</text>
 		<newline gap="8"/>
@@ -2120,7 +2038,6 @@
 		<newline gap="8"/>
 		<text>Dalszą pomoc można uzyskać na stronie PeerProject.</text>
 	</document>
-
 	<document name="SearchHelp.AdultSearch">
 		<text format="b">To wyszukiwanie nie może zostać rozpoczęte</text>
 		<newline gap="8"/>
@@ -2130,9 +2047,7 @@
 		<text>Aby wyłączyć filtr,
 		wejdź do Narzędzia &gt; Ustawienia &gt; Ogólne i odznacz "Filtruj zawartość dla dorosłych z wyszukiwań".</text>
 	</document>
-
 	<!-- Share help documents -->
-
 	<document name="ShareHelp.AlreadyShared">
 		<text format="b">Już udostępnione</text>
 		<newline gap="8"/>
@@ -2141,7 +2056,6 @@
 		<newline gap="8"/>
 		<text>%s</text>
 	</document>
-
 	<document name="ShareHelp.BadShare">
 		<text format="b">Ten folder nie powinien być udostępniony</text>
 		<newline gap="8"/>
@@ -2157,9 +2071,7 @@
 		<text>Folder plików tymczasowych PeerProject też nie powinien być udostępniany przez zasoby,
 		ponieważ próba hashowania postępujących pobierań może mieć swój odcisk na wydajności całego komputera.</text>
 	</document>
-
 </documents>
-
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
 <commandTips>
 	<tip id="ID_BROWSE_FILES" message="Przeglądaj pliki udostępnione przez tego użytkownika."/>
@@ -2462,9 +2374,21 @@
 	<tip id="ID_WINDOW_TILE_HORZ" message="Arrange open windows as horizontal, non-overlapping tiles."/>
 	<tip id="ID_WINDOW_TILE_VERT" message="Arrange open windows as vertical, non-overlapping tiles."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Pokaż lub ukryj pasek narzędzi."/>
+	<tip id="ID_WEBSERVICES_LIST" message="Wybierz usługę web aby uzyskać więcej informacji o zaznaczonym pliku."/>
+	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Szukaj informacji o pliku używając usługi ShareMonkey."/>
+	<!-- PLUGIN TIPS -->
+	<tip id="ImageViewer_BestFit" message="Dopasuj rozmiar obrazka (image) aby był odpowiedni do okna."/>
+	<tip id="ImageViewer_ActualSize" message="Pokaż obrazek w jego naturalnej wielkości."/>
+	<tip id="ImageViewer_Refresh" message="Odśwież obrazek."/>
+	<tip id="ImageViewer_Close" message="Zamknij okno przeglądarki obrazków."/>
 </commandTips>
-
-<!-- Localized Strings -->
+<!-- Tips displayed when mouse is moved over controls in the dialogs -->
+<controlTips>
+	<tip id="IDC_THROTTLE_MODE" message="W trybie maksymalnie szerokość pasma nie przekroczy podanej wartości. W trybie średnio będzie wahać się w obie strony wokół zadanej wartości."/>
+	<tip id="IDC_REGEXP" message="Wprowadź regularne wyrażenie w składni perl (perl syntax).{n}Słowa kluczowe mogą być doprecyzowane w formie &lt;n&gt;, gdzie n jest liczbą pomiędzy 1 i 9. Jeśli chcesz to put wszystkie słowa kluczowe each after other, użyj znacznika (narkup) &lt;_&gt; ."/>
+	<tip id="IDC_SHARE_PARTIALS" message="To ustawienie nie ma wpływu na uprzednio uruchomione pobierania, jak również to ustawienie jest ignorowane jeśli plik ma hash eDonkeya i sieć eDonkey jest włączona albo jeśli to jest torrent.{n}Jednakże to ustawienie nie jest ignorowane jeśli pobieranie jest wstrzymane (paused).{n}{n}UWAGA: Używać tej opcji tylko w razie prawdziwej konieczności, jeśli będziesz nadużywać tej opcji możesz zostać zabanowany."/>
+</controlTips>
+<!-- Localised Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
 	<string id="WINDOW_SYSTEM" value="System"/>
@@ -2475,40 +2399,46 @@
 	<string id="WINDOW_SEARCH" value="Szukaj"/>
 	<string id="WINDOW_HITMONITOR" value="Monitor trafień"/>
 	<string id="WINDOW_DOWNLOADS" value="Pobierania"/>
-	<string id="WINDOW_LIBRARY" value="Zasoby"/>
+	<string id="WINDOW_LIBRARY" value="Biblioteka(Zasoby)"/>
 	<string id="WINDOW_UPLOADS" value="Wysyłania"/>
 	<string id="WINDOW_TRAFFIC" value="Wykres"/>
-	<string id="WINDOW_CHAT" value="Rozmowa"/>
+	<string id="WINDOW_CHAT" value="Czat"/>
 	<string id="WINDOW_SECURITY" value="Bezpieczeństwo"/>
 	<string id="WINDOW_DISCOVERY" value="Serwisy Discovery"/>
 	<string id="WINDOW_BROWSEHOST" value="Przeglądaj"/>
 	<string id="WINDOW_HOME" value="PeerProject Home"/>
 	<string id="WINDOW_MEDIA" value="Odtwarzacz"/>
 	<string id="WINDOW_SEARCHPAD" value="Szukaj"/>
-	<string id="WINDOW_HELP" value="Pomoc"/>
+	<string id="WINDOW_HELP" value="Pomoc PeerProject"/>
+	<string id="WINDOW_IRC" value="Czat PeerProject"/>
 	<string id="7000" value="Jesteś pewny, że chcesz usunąć ten filtr?"/>
-	<string id="7001" value="&amp;Schema"/>
+	<string id="7001" value="&amp;Schema"/> <!-- wzorce? wyszukiwania? Schema - schematy? -->
 	<string id="7002" value="Wiele wartości"/>
 	<string id="7003" value="Wiele"/>
-	<string id="7004" value="Jest już filtr nazwany &quot;%s&quot;, czy chcesz go zamienić?"/>
-	<string id="7005" value="Please give your filter a name."/>
+	<string id="7004" value="Jest już filtr nazwany &quot;%s&quot;, czy chcesz go zastąpić?"/>
+	<string id="7005" value="Proszę nadaj swojemu filtrowi nazwę."/>
+	<string id="7100" value="This template is invalid."/>
+	<string id="7101" value="This template does not have any customizations."/>
+	<string id="7102" value="Czy jesteś pewien, że chcesz usunąć szablon &quot;%s&quot; ?\nTo działanie nie może być cofnięte."/>
 	<string id="8000" value="Ustawienia PeerProject"/>
-	<string id="8001" value="Witaj w PeerProject"/>
+	<string id="8001" value="Witaj w PeerProjecte"/>
 	<string id="8002" value="Właściwości pliku"/>
 	<string id="8003" value="Edytuj mój profil"/>
-	<string id="8004" value="!Witaj w PeerProject (version) !\n.\nPeerProject jest całkowicie wolnym oprogramowaniem.\nUżywaj jej rozsądnie i respektuj prawa własności intelektualnej.\n."/>
+	<string id="8004" value="!Witaj w PeerProjecte (version) !\n.\nPeerProject jest całkowicie wolnym oprogramowaniem.\nProszę używaj jej odpowiedzialnie i szanuj prawo własności intelektualnej.\n."/>
 	<string id="8005" value="(zamykanie po zakończeniu transferów)"/>
-	<string id="8006" value="Nie jesteś połączony. Kliknij przycisk połącz aby zacząć."/>
+	<string id="8006" value="Nie jesteś połączony. Kliknij przycisk Połącz aby uruchomić."/>
 	<string id="8007" value="Brak aktywnych wyszukiwań. Kliknij tutaj, aby wyszukać pliki."/>
-	<string id="8008" value="PeerProject zakończyła pobieranie nowej wersji programu (%s).  Czy chciałbyś upgradeować teraz?\n\nJeżeli wybierzesz tak, PeerProject zamknie się na czas instalacji aktualizacji."/>
-	<string id="8009" value="Czy jesteś pewien że chcesz usunąć skórę ? &quot;%s&quot;  Ta operacja jest nieodwracalna."/>
-	<string id="8010" value="To jest wersja beta PeerProject wydana tylko na czas testów.  Proszę ściągnąć pełną oficjalną wersje ze strony http://peerproject.org/."/>
-	<string id="8011" value="Zmiana widoku spowoduje zamknięcie wszystkich okien .  Czy chciałbyś zrobić to teraz?"/>
+	<string id="8008" value="PeerProject zakończyła pobieranie następnej wersji programu (%s).  Czy chciałbyś upgradeować teraz?\n\nJeżeli wybierzesz tak, PeerProject chwilowo zamknie się na czas instalacji aktualizacji."/>
+	<string id="8009" value="Czy jesteś pewien że chcesz usunąć skórę &quot;%s&quot; ? Ta operacja jest nieodwracalna."/>
+	<string id="8010" value="To jest wersja pre-release (beta) PeerProject, a okres beta testowania dobiegł końca. Proszę ściągnąć pełną, bezpłatną, nie wymagającą żadnej rejestracji, oficjalną wersję ze strony http://PeerProject.org/."/>
+	<string id="8011" value="Zmiana widoku spowoduje zamknięcie wszystkich okien. Czy chciałbyś zrobić to teraz?"/>
+	<string id="8012" value="Informacje Torrentu"/>
+	<string id="8014" value="Pobierz Włąściwości"/>
 	<string id="8060" value="Tryb Hub/Ultrapeer z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."/>
 	<string id="8061" value="Tryb Ultrapeer z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."/>
 	<string id="8062" value="Tryb Hub z %lu Sąsiadem(ami).  %s w lokalnej bibliotece."/>
-	<string id="8063" value="Połączony. %s w lokalnych zasobach."/>
-	<string id="8064" value="Połączony do %lu host(ów).  %s w lokalnych zasobach."/>
+	<string id="8063" value="Połączony. %s w lokalnej bibliotece (zasobów)."/>
+	<string id="8064" value="Połączony do %lu host(ów). %s w lokalnej bibliotece (zasobów)."/>
 	<string id="8065" value="Łączenie do sieci..."/>
 	<string id="8066" value="Nie połączony do sieci."/>
 	<string id="8067" value="%s do : %s z [Pob:%I64i/Wys:%I64i]"/>
@@ -2517,7 +2447,7 @@
 	<string id="8070" value="Łączenie..."/>
 	<string id="8071" value="Połączony"/>
 	<string id="8072" value="Rozłącz"/>
-	<string id="8096" value="To miejsce pokazuje dokładniejsze informacje o pliku."/>
+	<string id="8096" value="To miejsce pokazuje dokładniejsze informacje o plikach, które zaznaczyłeś."/>
 	<string id="8097" value="Dostępne jest jedno zródło (%s)."/>
 	<string id="8098" value="%i żródeł jest dostępnych (%s)."/>
 	<string id="8099" value="Jest jeden komentarz."/>
@@ -2530,14 +2460,15 @@
 	<string id="8128" value="Kliknij tutaj, aby wyszukać ponownie"/>
 	<string id="8129" value="Nie rozpoczęto jeszcze żadnego wyszukiwania w tym oknie."/>
 	<string id="8130" value="PeerProject przeszukuje sieć..."/>
-	<string id="8131" value="Sieć nie zwróciła jeszcze żadnych wyników."/>
+	<string id="8131" value="Sieć nie zwróciła jeszcze żadnych odpowiadających zapytaniu wyników."/>
 	<string id="8132" value="Jakieś wyniki są dostępne, lecz zostały odfiltrowane."/>
 	<string id="8133" value="PeerProject aktywnie przeszukuje sieć..."/>
 	<string id="8134" value="Chcesz uruchomić nowe wyszukiwanie. Czy chcesz wyczyścić wyniki z poprzedniego wyszukiwania?"/>
 	<string id="8135" value="Bez Metadanych"/>
 	<string id="8136" value="Wyszukiwanie czystego tekstu"/>
+	<string id="8137" value="Kolumny bez schematu (wzorca)"/>
 	<string id="8141" value="Pokaż panel wyszukiwania"/>
-	<string id="8142" value="Ukryj panel szukania"/>
+	<string id="8142" value="Ukryj panel wyszukiwania"/>
 	<string id="8143" value="Szukanie..."/>
 	<string id="8144" value="Szukaj"/>
 	<string id="8145" value="Więcej"/>
@@ -2562,55 +2493,57 @@
 	<string id="8164" value="Nie można się połączyć do zdalnego hosta, aby przeglądać użytkownika. "/>
 	<string id="8165" value="Nie można pobrać listy plików.  Ten Serwer może nie obsługiwać przeglądania."/>
 	<string id="8166" value="Szukaj w tej sieci:"/>
-	<string id="8167" value="Wszystkie sieci"/>
+	<string id="8167" value="Wszystkie sieci"/> <!-- string id="8176" value="Search PeerProject"/ ? Co tutaj znaczy PeerProject?? -->
 	<string id="8176" value="Szukaj"/>
-	<string id="8177" value="Wpisz słowa kluczowe:"/>
+	<string id="8177" value="Wpisz szukane słowa kluczowe:"/>
 	<string id="8178" value="Jaki jest typ pliku?"/>
-	<string id="8179" value="(Usuń historię wyszukiwania)"/>
+	<string id="8179" value="(Wyczyść historię wyszukiwania)"/>
 	<string id="8180" value="Rozmiar pliku musi być"/>
-	<string id="8181" value="&#160;do"/><!-- size from xx TO xx-->
+	<string id="8181" value="&#160;do"/> <!-- size from xx TO xx-->
 	<string id="8208" value="PeerProject oblicza hash'e dla %Iu plik(ów):"/>
 	<string id="8223" value="%i dni i %i godzin"/>
 	<string id="8224" value="PeerProject pobiera:"/>
 	<string id="8225" value="To pobieranie zostało wstrzymane:"/>
 	<string id="8226" value="PeerProject pobrała w całości:"/>
 	<string id="8227" value="%i godzin(y) i %i minut(y)"/>
-	<string id="8228" value="%i minut and %i sekund"/>
+	<string id="8228" value="%i minut i %i sekund"/>
 	<string id="8229" value="%i sekund(y)"/>
-	<string id="8230" value="PeerProject szuka źródła dla:"/>
+	<string id="8230" value="PeerProject szuka źródeł dla:"/>
 	<string id="8231" value="Brak źródeł"/>
 	<string id="8232" value="Otwórz"/>
 	<string id="8233" value="Podgląd"/>
 	<string id="8235" value="Prędkość transferu:"/>
 	<string id="8236" value="Przewidywany czas:"/>
 	<string id="8237" value="Pobrano:"/>
-	<string id="8238" value="Ilość źródeł:"/>
+	<string id="8238" value="Liczba źródeł:"/>
 	<string id="8239" value="Zakończono"/>
 	<string id="8240" value="PeerProject przenosi ten plik:"/>
 	<string id="8241" value="PeerProject sprawdza pobieranie na obecność błędów:"/>
 	<string id="8243" value="Wysłano:"/>
-	<string id="8288" value="Przeglądanie twojej biblioteki PeerProject"/>
+	<string id="8244" value="Liczba recenzji:"/>
+	<string id="8288" value="Przeglądanie Twojej biblioteki PeerProject"/>
 	<string id="8289" value="Przeglądanie "/>
 	<string id="8290" value="Przeglądanie zawartości %i folderów"/>
 	<string id="8291" value="Kilka folderów"/>
 	<string id="8292" value="Wybrano %i plików"/>
 	<string id="8293" value="Nie wybrano żadnego pliku"/>
-	<string id="8294" value="Częste dodatki"/>
+	<string id="8294" value="Ostatnie dodatki"/>
 	<string id="8295" value="Oceń ten plik"/>
 	<string id="8304" value="Niedostępne"/>
 	<string id="8306" value="Lokalizacja"/>
 	<string id="8307" value="Typ"/>
-	<string id="8308" value="Rozmiar"/>
+	<string id="8308" value="Wielkość"/>
 	<string id="8309" value="Częściowe źródło (%.2f%% dostępne)"/>
 	<string id="8310" value="%i upload slotów, %i czekających w kolejce"/>
-	<string id="8311" value="Masz już ten plik w lokalnej bibliotece."/>
-	<string id="8312" value="Masz już ten plik na liście ściągania."/>
+	<string id="8311" value="Masz już ten plik w swojej lokalnej bibliotece."/>
+	<string id="8312" value="Masz już ten plik na liście pobierania."/>
 	<string id="8313" value="Ten plik wygląda na spam."/>
-	<string id="8314" value="Ten plik już był ściągany ale został usunięty."/>
+	<string id="8314" value="Ten plik już był ściągnięty ale został usunięty."/>
 	<string id="8315" value="Na Czarnej liście:"/>
 	<string id="8316" value="Trafienia"/>
-	<string id="8317" value="Uploads"/>
+	<string id="8317" value="Wysyłania"/>
 	<string id="8318" value="%lu Dzisiaj, %lu Wszystkie"/>
+	<string id="8319" value="Brak Hashset'u"/> <!-- ? A co to jest?sprawdzić! ?? -->
 	<string id="8320" value="Status:"/>
 	<string id="8321" value="Prędkość:"/>
 	<string id="8322" value="URL:"/>
@@ -2619,8 +2552,8 @@
 	<string id="8325" value="Aktywne"/>
 	<string id="8326" value="Następny w kolejce"/>
 	<string id="8327" value="Wszystkie pliki:"/>
-	<string id="8328" value="Total volume:"/>
-	<string id="8329" value="twojej biblioteki"/>
+	<string id="8328" value="Total volume:"/> <!-- ? A co to jest?sprawdzić! ?? -->
+	<string id="8329" value="Twojej biblioteki"/>
 	<string id="8330" value="Folder"/>
 	<string id="8331" value="To żródło jest w tej chwili zajęte"/>
 	<string id="8332" value="To żródło jest za firewallem"/>
@@ -2628,32 +2561,37 @@
 	<string id="8334" value="Źródła dla tego pliku są zajęte"/>
 	<string id="8335" value="Źródła dla tego pliku są za firewalllem"/>
 	<string id="8336" value="Źródła dla tego pliku moga być niestabilne"/>
-	<string id="16064" value="Startuje jądro PeerProject..."/>
+	<string id="8337" value="Untrusted, nie zaufany"/>
+	<string id="13000" value="Czy jesteś pewny, że chcesz usunąć zaznaczone reguły bezpieczeństwa? To jest nieodwracalne."/>
+	<string id="13001" value="Files shared over the Internet"/>
+	<string id="16063" value="Po 10 próbach mapowanie UPnP portu nie powiodło się."/>
+	<string id="16064" value="Startuje jądro shareazy..."/>
 	<string id="16065" value="Nie można przydzielić portu %s %i dla połączeń przychodzących. Połączenia przychodzące nie będą aktywne"/>
 	<string id="16066" value="Wyłączanie jądra PeerProject..."/>
 	<string id="16067" value="Rozłączono z sieci."/>
 	<string id="16068" value="Akceptacja połaćzeń przychodzących na porcie %s %i."/>
 	<string id="16069" value="Połączenie wychodzące będą działać na porcie %s %i."/>
 	<string id="16070" value="Nie można przekierować połączeń wychodzących na  %s.  Połączenia wychodzące będą wykonywane na domyślnych ustawieniach."/>
-	<string id="16071" value="Za Firewallem, bez nasłuchu na połączenia wychodzące."/>
-	<string id="16072" value="Listening for UDP datagrams on %s port %i."/>
+	<string id="16071" value="Za Firewallem, bez nasłuchu połączeń przychodzacych."/>
+	<string id="16072" value="Nasłuchiwanie datagramów UDP na %s porcie %i."/>
 	<string id="16073" value="Resolving host &quot;%s&quot;..."/>
 	<string id="16074" value="Unable to resolve host &quot;%s&quot;."/>
 	<string id="16075" value="Menadżer Zabezpieczeń zabronił połączenia z %s."/>
 	<string id="16076" value="Security manager barred a connection to %s."/>
-	<string id="16077" value="Ten adres %s jest już zablokowany przez twoje ustawienia zabezbieczeń."/>
-	<string id="16078" value="Dodana zasada bezpieczeństwa która blokuje %s."/>
+	<string id="16077" value="Ten adres %s jest już zablokowany przez twoje reguły zabezbieczeń."/>
+	<string id="16078" value="Dodano regułę bezpieczeństwa, która blokuje %s."/>
 	<string id="16079" value="Napewno chcesz rozłączyć?"/>
+	<string id="16080" value="Używasz narzędzia Scheduler w trybie 'tylko G2' mode. Czy chciałbyś wyłączyć ten tryb, żeby wszystkie aktywne sieci pozostały połączone?"/>
 	<string id="16081" value="Wyśli sprostowanie &quot;%s&quot; do %s."/>
-	<string id="16083" value="Zmuszając komputer do pracy w trybie hub moż wpłynąć na wydajność sieci P2P.  Generalnie lepiej zezwolić PeerProject czy używać trybu hub lub nie. Tryb \n\nHub nie powoduje uzyskania lepszych rezultatów szukania ani innych korzyści.\n\nDo czy napewno chcesz to zrobić?"/>
-	<string id="16084" value="Wyłączając wsparcie dla protokołów Gnutelli-1 może zmniejszyć rezultaty szukania, a jeżeli funkcjonujesz jako hub to zmiana wpłynie także na innych użytkowników sieci .  Jesteś pewien, że chcesz to zrobić?"/>
-	<string id="16085" value="Gnutella 2 jest podstawową siecią PeerProject.  Wyłączając wsparcie dla niej może radykalnie zmniejszyć rezultaty szukania.  Czy jseteś pewien że chcesz to zrobić?"/>
-	<string id="16087" value="Twoje pasmo połączenia jest za małe aby podłączyć się do tej sieci"/>
-	<string id="16128" value="Zakceptowano połączenie od %s port %i."/>
+	<string id="16083" value="Zmuszanie Twojego komputera do pracy w trybie hub może mieć szkodliwy wpływ na wydajność sieci P2P. Generalnie lepiej pozwolić PeerProjecte zdecydować czy używać trybu hub lub nie. Tryb \n\nHub NIE powoduje uzyskania lepszych rezultatów szukania ani żadnych innych korzyści dla Ciebie.\n\nDo czy napewno chcesz to zrobić, pomimo tych niekorzyści?"/>
+	<string id="16084" value="Wyłączając wsparcie dla protokołów Gnutelli-1 może zmniejszyć wyniki szukania, a jeżeli funkcjonujesz jako hub to zmiana wpłynie także na innych użytkowników sieci. Jesteś pewien, że chcesz to zrobić?"/>
+	<string id="16085" value="Gnutella 2 jest podstawową siecią PeerProject. Wyłączenie wsparcia dla niej może dotkliwie ograniczyć zarówno liczbę jak jakość Twoich wyników wyszukiwania. Czy jseteś PEWIEN że chcesz to zrobić?"/>
+	<string id="16087" value="Szerokość Twojego pasma połączenia wychodzacego jest za mała aby umożliwić połączyć się z tą siecią."/>
+	<string id="16128" value="Zakceptowano przychodzące połączenie od %s port %i."/>
 	<string id="16129" value="Inicjalizacja połączenia z sąsiadem %s port %i..."/>
 	<string id="16130" value="Nie można zainicjować połączenia z sąsiadem %s."/>
 	<string id="16131" value="Przekroczono czas łączenia z %s."/>
-	<string id="16132" value="Closing connection to neighbour %s due to lack of traffic."/>
+	<string id="16132" value="Zamykanie połączenia z sąsiadem %s z powodu braku ruchu sieciowego (lack of traffic)."/>
 	<string id="16133" value="Established a connection with neighbour %s, handshaking..."/>
 	<string id="16134" value="Closed connection with neighbour %s."/>
 	<string id="16135" value="Unable to initiate a neighbour connection with %s (refused)."/>
@@ -2661,14 +2599,14 @@
 	<string id="16137" value="Refusing duplicate connection from %s."/>
 	<string id="16138" value="Already connected to %s, will not establish a second connection."/>
 	<string id="16139" value="Neighbour %s closed connection (%i : %s)."/>
-	<string id="16140" value="Neighbour %s is crawling connections."/>
+	<!-- String not present in English version: <string id="16140" value="Neighbour %s is crawling connections."/> -->
 	<string id="16141" value="Closed connection with neighbour %s because it is not a hub."/>
 	<string id="16144" value="Timed out handshaking with %s."/>
 	<string id="16145" value="Gnutella connection with neighbour %s established successfully (G%i.%i : %s)."/>
 	<string id="16146" value="Handshake with %s failed due to invalid data on the wire."/>
 	<string id="16147" value="Closing surplus connection from %s with host hint (%s port %i)."/>
 	<string id="16148" value="Connection to %s rejected (%s)."/>
-	<string id="16149" value="Gnutella 0.6 handshake with %s failed, retrying with 0.4."/>
+	<!-- String not present in English version: <string id="16149" value="Gnutella 0.6 handshake with %s failed, retrying with 0.4."/> -->
 	<string id="16150" value="Closing surplus connection from %s."/>
 	<string id="16151" value="Refusing connection from %s because this is a shielded leaf node."/>
 	<string id="16152" value="Hub neighbour %s won't accept us as a hub, closing connection."/>
@@ -2708,7 +2646,7 @@
 	<string id="16264" value="Initiating a connection to %s port %i to download &quot;%s&quot;..."/>
 	<string id="16265" value="Unable to connect to download host %s."/>
 	<string id="16266" value="Download connection to %s established."/>
-	<string id="16267" value="Requesting download fragment (%I64i-%I64i) of &quot;%s&quot; from %s."/>
+	<string id="16267" value="Żądanie pobrania fragmentu (%I64i-%I64i) z &quot;%s&quot; od %s."/>
 	<string id="16268" value="No more download fragments, closing connection to %s."/>
 	<string id="16269" value="Fragment shortened, closing connection to %s."/>
 	<string id="16270" value="Download request to %s timed out, closing connection."/>
@@ -2752,12 +2690,12 @@
 	<string id="16308" value="Download host %s sent unsolicited data, closing connection."/>
 	<string id="16309" value="Requesting metadata for &quot;%s&quot; from %s..."/>
 	<string id="16310" value="Receiving tiger-tree data from %s (%s)..."/>
-	<string id="16311" value="Requesting eDonkey2000 hashset for &quot;%s&quot; from %s..."/>
-	<string id="16312" value="Received an invalid eDonkey2000 hashset from %s, dropping source."/>
-	<string id="16313" value="Received eDonkey2000 hashset for &quot;%s&quot;, minimum verifiable chunk %s."/>
-	<string id="16314" value="Download host's eDonkey2000 hashset is corrupt or internally inconsistent, dropping source."/>
+	<string id="16311" value="Requesting eDonkey hashset for &quot;%s&quot; from %s..."/>
+	<string id="16312" value="Received an invalid eDonkey hashset from %s, dropping source."/>
+	<string id="16313" value="Received eDonkey hashset for &quot;%s&quot;, minimum verifiable chunk %s."/>
+	<string id="16314" value="Download host's eDonkey hashset is corrupt or internally inconsistent, dropping source."/>
 	<string id="16315" value="Unable to initialize inflate for download &quot;%s&quot;."/>
-	<string id="16316" value="Timed out waiting for queue update from eDonkey2000 download host %s for file &quot;%s&quot;."/>
+	<string id="16316" value="Timed out waiting for queue update from eDonkey download host %s for file &quot;%s&quot;."/>
 	<string id="16317" value="Staying in queue for &quot;%s&quot;."/>
 	<string id="16318" value="Insufficient disk space to download &quot;%s&quot; (%s)."/>
 	<string id="16319" value="Dropping source %s (%s) for sending corrupted parts of &quot;%s&quot; (%I64i-%I64i)."/>
@@ -2803,10 +2741,10 @@
 	<string id="16359" value="Offline queued upload host %s expired, removing."/>
 	<string id="16360" value="Refusing upload of &quot;%s&quot; to %s (%s), all matching queues are full."/>
 	<string id="16361" value="Refusing upload to %s (%s), network disabled."/>
-	<string id="16362" value="eDonkey2000 uploads should not be cancelled.  Are you sure you want to cancel this upload?"/>
+	<string id="16362" value="Wysyłania eDonkey nie powinny być anulowane. Czy jesteś pewien, że chcesz anulować to wysyłanie?"/>
 	<string id="16363" value="Wysyłania Torrent"/>
 	<string id="16364" value="Zakończone wysyłania"/>
-	<string id="16365" value="Are you sure you want to cancel/abort every download in this group?"/>
+	<string id="16365" value="Czy jesteś pewien(a), że chcesz anulować/abort wszystkie pobierania w tej grupie?"/>
 	<string id="16366" value="Kolejka"/>
 	<string id="16367" value="eDonkey Core"/>
 	<string id="16368" value="eDonkey Partials"/>
@@ -2819,6 +2757,7 @@
 	<string id="16375" value="Częściowe"/>
 	<string id="16376" value="Wszystkie pliki"/>
 	<string id="16377" value="HTTP Guard"/>
+	<string id="16379" value="Pliki biblioteki"/>
 	<string id="16384" value="Are you sure you want to launch the file &quot;%s&quot; ?\n\nSome files can be harmful to your computer.  Ensure you know what the file is before launching it."/>
 	<string id="16385" value="You are about to modify the metadata of %i files, are you sure you want to continue?"/>
 	<string id="16386" value="Editing metadata of %i files."/>
@@ -2847,6 +2786,8 @@
 	<string id="16409" value="Eksportuj &amp;URI..."/>
 	<string id="16410" value="A subfolder of the selected folder &quot;%s&quot; is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"/>
 	<string id="16411" value="Unable to move the file %s. The file may be in use by another application.\n\nDo you wish to try to copy this file instead?"/>
+	<string id="16412" value="Ghost File"/>
+	<string id="16413" value="Nowa grupa"/>
 	<string id="16448" value="Połączony z %s, handshaking..."/>
 	<string id="16449" value="Rozmawiasz z %s (%s)."/>
 	<string id="16450" value="Połączenie do %s zostało zamknięte."/>
@@ -2880,6 +2821,9 @@
 	<string id="16533" value="Total TCP Transmit Bandwidth"/>
 	<string id="16534" value="Total UDP Receive Bandwidth"/>
 	<string id="16535" value="Total UDP Transmit Bandwidth"/>
+	<string id="16536" value="Gnutella, współczynnik Pingów odebranych/wysłanych"/>
+	<string id="16537" value="Gnutella, współczynnik Pongów odebranych/wysłanych"/>
+	<string id="16538" value="Błędy połączenia (%)"/>
 	<string id="16768" value="Received URL &quot;%s&quot;"/>
 	<string id="16769" value="Unable to parse URL: PeerProject does not understand this URL."/>
 	<string id="16770" value="Unable to display URL action dialog because PeerProject is busy."/>
@@ -2899,19 +2843,23 @@
 	<string id="16784" value="&amp;Zamknij"/>
 	<string id="16785" value="(Bez wizualizacji)"/>
 	<string id="16800" value="You have not yet specified a connection speed.  Before continuing, please either choose your Internet connection type, or type in a connection speed."/>
-	<string id="16801" value="Please choose the type of Internet connection you are using before continuing."/>
+	<string id="16801" value="Proszę najpierw wybrać jakiego rodzaju połączenia Internetowego używasz zanim będziesz kontynuować."/><!-- this string is NOT present in 2.4.0.0. file!! ?? -->
 	<string id="16802" value="You have not specified any folders to share.  Are you sure?"/>
 	<string id="16803" value="The folder you are sharing is already shared as part of another shared folder:\n\n%s"/>
 	<string id="16804" value="You haven't entered a screen name in your user profile."/>
 	<string id="16805" value="You haven't entered your location in your user profile.\n\nIt's a good idea to enter your location so that other users can see which country you are from.  Note that entering a location does not reveal any compromising information.\n\nAre you sure you want to continue without entering your location?"/>
-	<string id="16806" value="You have indicated that you want to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP and UDP ports %i to your local PC."/>
+	<string id="16806" value="PeerProject nie była w stanie ustawić forewardowania portu na Twoim routerze NAT lub firewallu. \n\nProszę skonfiguruj swoją sieć aby przeforewardować porty %i , TCP i UDP, do Twojego lokalnego PC."/>
 	<string id="16807" value="Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
 	<string id="16808" value="You have not selected your age and gender.  Are you sure you want to continue without doing this?"/>
 	<string id="16809" value="W&amp;yjście"/>
 	<string id="16810" value="lat"/>
 	<string id="16811" value="Automatycznie"/>
+	<string id="16812" value="Proszę czekać: Szukanie urządzeń UPnP i ustawianie ich..."/>
+	<string id="16813" value="Proszę czekać: Aktualizowanie usług discovery..."/>
+	<string id="16814" value="Proszę czekać: Aktualizowanie listy serwera eDonkey..."/>
+	<string id="16815" value="Usługa UPnP Device Host nie funkcjonuje. Ta usługa jest konieczna do wykonania ustawień.\nTrzeba ustawić sposób uruchomienia usługi na automatyczny."/>
 	<string id="16816" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"/>
-	<string id="16817" value="Windows doesn't support filepaths longer than 256 characters.\nPlease select a folder with a shorter path."/>
+	<string id="16817" value="Windows nie obsługuje nazw plików i scieżek dostępu dłuższych niż 256 znaków.\nProszę wybrać folder, który bedzie miał krótszą ilość znaków w ścieżce dostepu."/>
 	<string id="16818" value="The complete and incomplete folders should not be the same"/>
 	<string id="16819" value="The incomplete files folder should not be in the library, as it would reduce performance. Incomplete files may be shared directly from the transfers window."/>
 	<string id="16864" value="Querying host discovery services..."/>
@@ -2937,6 +2885,7 @@
 	<string id="16942" value="Closing browse user connection to %s."/>
 	<string id="16943" value="Przeglądanie %s"/>
 	<string id="16944" value="Found %i shared files in %s's library."/>
+	<string id="16991" value="Odtwarzacz Multimedialny PeerProject"/>
 	<string id="16992" value="PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="16993" value="All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
 	<string id="16994" value="Unable to load media file &quot;%s&quot;"/>
@@ -2945,18 +2894,25 @@
 	<string id="16997" value="There is no file playing.  Double-click a media file in your library to play it."/>
 	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M"/>
 	<string id="16999" value="L I S T A   O D T W A R Z A N I A"/>
-	<string id="17024" value="Łączenie z %s..."/>
-	<string id="17025" value="Nie można było utworzyć połączenia do %s."/>
+	<string id="17017" value="Czat!"/>
+	<string id="17018" value="Witamy w Czacie PeerProject!"/>
+	<string id="17019" value="Proszę szanować innych podczas korzystania z tej usługi"/>
+	<string id="17020" value="Dodaj"/>
+	<string id="17021" value="Usuń"/>
+	<string id="17022" value="Użytkownicy"/>
+	<string id="17023" value="Kanały"/>
+	<string id="17024" value="Inicjalizacja połączenia z %s..."/>
+	<string id="17025" value="Nie można było utworzyć połączenia z %s."/>
 	<string id="17026" value="Requesting a firewalled push connection from %s..."/>
-	<string id="17027" value="Accepted push connection from %s, witanie..."/>
+	<string id="17027" value="Zaakceptowano połącznie typu push od %s, witanie..."/><!-- Jak powiedzieć ładnie push? Accepted push connection? -->
 	<string id="17028" value="Połącznie nawiązane, witanie..."/>
 	<string id="17029" value="Handshake failed, host may not support chatting."/>
 	<string id="17030" value="Handshake complete, chat protocol version %s."/>
 	<string id="17031" value="Wymiana informacji o profilu..."/>
-	<string id="17032" value="Autoryzowany użytkownik"/>
+	<string id="17032" value="Autentykacja użytkownika potwierdzona"/>
 	<string id="17033" value="Żądanie prywatnej rozmowy z użytkownikiem..."/>
-	<string id="17034" value="Prywatna rozmowa zaakceptowana, rozmawiasz teraz z %s."/>
-	<string id="17035" value="%s nie akceptuje prywatnych rozmów, przykro mi."/>
+	<string id="17034" value="Prywatna rozmowa zaakceptowana, rozmawiasz (czatujesz) teraz z %s."/>
+	<string id="17035" value="%s nie przyjmuje prywatnych rozmów, przykro mi."/>
 	<string id="17036" value="%s jest nieobecny: %s"/>
 	<string id="17037" value="Połączenie zostało utracone."/>
 	<string id="17038" value="Połączenie zamknięte."/>
@@ -2972,14 +2928,14 @@
 	<string id="17104" value="Gnutella II: Leaf-to-Hub Connection"/>
 	<string id="17105" value="Gnutella II: Hub-to-Leaf Connection"/>
 	<string id="17106" value="eDonkey Server Connection (LOWID: %lu)"/>
-	<string id="17107" value="eDonkey2000 Server Connection"/>
+	<string id="17107" value="Połączenie serwera eDonkey"/>
 	<string id="17108" value="Witanie"/>
 	<string id="17109" value="Przychodzące"/>
 	<string id="17110" value="Wychodzące"/>
 	<string id="17111" value="Aktualnie:"/>
 	<string id="17112" value="Łącznie:"/>
 	<string id="17113" value="Kompresja:"/>
-	<string id="17114" value="Ratio:"/>
+	<string id="17114" value="Współczynnik:"/>
 	<string id="17115" value="Deflate"/>
 	<string id="17116" value="Żadna"/>
 	<string id="17117" value="Łączenie"/>
@@ -2993,29 +2949,29 @@
 	<string id="17125" value="Peer G2"/>
 	<string id="17126" value="Hub G2"/>
 	<string id="17127" value="Liść G2"/>
-	<string id="17128" value="eDonkey2000 Serwer"/>
-	<string id="17129" value="eDonkey2000 (LowID)"/>
-	<string id="17130" value="eDonkey2000 (HighID)"/>
-	<string id="17216" value="Nawiązywanie połączenia z serwerem edonkey2000 %s..."/>
-	<string id="17217" value="Podłączony do serwera %s, witanie..."/>
+	<string id="17128" value="Serwer eDonkey"/>
+	<string id="17129" value="eDonkey (LowID)"/>
+	<string id="17130" value="eDonkey (HighID)"/>
+	<string id="17216" value="Nawiązywanie połączenia z serwerem edonkey w %s..."/>
+	<string id="17217" value="Podłączony do serwera eDonkey %s, witanie..."/>
 	<string id="17218" value="ED2K[%s] %s"/>
-	<string id="17219" value="eDonkey2000 server %s refused connection."/>
-	<string id="17220" value="eDonkey2000 server %s online, client ID is %lu."/>
-	<string id="17221" value="eDonkey2000 server %s changed our client ID from %lu to %lu."/>
-	<string id="17222" value="eDonkey2000 server %s identified itself as &quot;%s&quot;."/>
-	<string id="17223" value="eDonkey2000 server %s rejected the connection."/>
-	<string id="17224" value="Error exchanging handshake with eDonkey2000 client %s."/>
-	<string id="17225" value="eDonkey2000 client connection to %s was closed."/>
-	<string id="17226" value="Received a malformatted eDonkey2000 packet from %s (id=%x)."/>
-	<string id="17227" value="Incoming connection from %s is an eDonkey2000 client link."/>
-	<string id="17228" value="Sending eDonkey2000 hashset for &quot;%s&quot; to %s..."/>
-	<string id="17229" value="eDonkey2000 client connection to %s was idle, closed."/>
-	<string id="17230" value="Initiating eDonkey2000 client connection to %s..."/>
-	<string id="17231" value="eDonkey2000 client %s has the wrong GUID, aborting handshake."/>
-	<string id="17232" value="Timed out connecting to eDonkey2000 client %s."/>
-	<string id="17233" value="Timed out handshaking with eDonkey2000 client %s."/>
-	<string id="17234" value="Refusing eDonkey2000 client link from %s because eDonkey2000 is disabled."/>
-	<string id="17248" value="Starting eDonkey2000 partial download import process..."/>
+	<string id="17219" value="Serwer eDonkey %s odmówił połączenia."/>
+	<string id="17220" value="Serwer eDonkey %s online, ID klineta to %lu."/>
+	<string id="17221" value="Serwer eDonkey %s zmienił nasz ID klienta z %lu na %lu."/>
+	<string id="17222" value="Serwer eDonkey %s zidentyfikował się jako &quot;%s&quot;."/>
+	<string id="17223" value="Serwer eDonkey %s odrzucił połączenie."/>
+	<string id="17224" value="Błąd podczas wymiany powitań z klientem eDonkey %s."/>
+	<string id="17225" value="Połączenie klienta eDonkey do %s zostało zamkniete."/>
+	<string id="17226" value="Received a malformatted eDonkey packet from %s (id=%x)."/>
+	<string id="17227" value="Incoming connection from %s is an eDonkey client link."/>
+	<string id="17228" value="Sending eDonkey hashset for &quot;%s&quot; to %s..."/>
+	<string id="17229" value="eDonkey client connection to %s was idle, closed."/>
+	<string id="17230" value="Initiating eDonkey client connection to %s..."/>
+	<string id="17231" value="eDonkey client %s has the wrong GUID, aborting handshake."/>
+	<string id="17232" value="Timed out connecting to eDonkey client %s."/>
+	<string id="17233" value="Timed out handshaking with eDonkey client %s."/>
+	<string id="17234" value="Refusing eDonkey client link from %s because eDonkey is disabled."/>
+	<string id="17248" value="Starting eDonkey partial download import process..."/>
 	<string id="17249" value="Process complete, %i partial downloads imported successfully."/>
 	<string id="17250" value="Scanning folder: &quot;%s&quot;..."/>
 	<string id="17251" value="Unable to import file."/>
@@ -3027,12 +2983,12 @@
 	<string id="17257" value="Finished copying file."/>
 	<string id="17258" value="Created PeerProject partial download, %s remaining."/>
 	<string id="17259" value="This file is already in the PeerProject download list."/>
-	<string id="17260" value="Za mało miejsca na dysku, aby skopiować pobrany plik."/>
+	<string id="17260" value="Zbyt mało miejsca na dysku, aby skopiować pobrany plik."/>
 	<string id="17472" value="Incoming connection from %s is a BitTorrent coupling, negotiating..."/>
 	<string id="17473" value="Timed out connecting to BitTorrent client %s."/>
 	<string id="17474" value="Timed out handshaking with BitTorrent client %s."/>
 	<string id="17475" value="Closing BitTorrent coupling with %s due to lack of traffic."/>
-	<string id="17476" value="BitTorrent coupling with %s failed because the remote client has a different GUID."/>
+	<string id="17476" value="BitCoupling (sparowanie?) torrentu z %s nie powiodło się ponieważ zdalny klient ma inny Peer ID (identyfikator Peer'a)."/>
 	<string id="17477" value="BitTorrent coupling with %s responded with the wrong file."/>
 	<string id="17478" value="BitTorrent coupling with %s requested an unknown file."/>
 	<string id="17479" value="BitTorrent coupling with %s established for &quot;%s&quot;."/>
@@ -3056,13 +3012,21 @@
 	<string id="17498" value="An error was detected in the file &quot;%s&quot;."/>
 	<string id="17500" value="Tracker did not respond- Retrying announce (%i of %i)"/>
 	<string id="17501" value="Unable to communicate with tracker"/>
+	<string id="17503" value="Tracker zawiódł - Próbowanie następnego trackera (%i z %i)"/>
+	<string id="17505" value="Połączenie BitTorrent z %s zosatało porzucone."/>
+	<string id="17506" value="Powitanie BitTorrentowe z %s zostało porzucone."/>
+	<string id="17507" value="BitTorrentowe sparowanie z %s zostało porzucone."/>
+	<string id="17510" value="BitTorrent coupling z %s nie zaakceptowane, połączenie do tego klienta już istnieje."/>
+	<string id="17511" value="BitTorrent coupling z %s nie zaakceptowane, osiągnięte zostało maksimum połączeń."/>
+	<string id="17512" value="Prywatny torrent"/>
+	<string id="17513" value="Błąd (za)kodowania"/>
 	<string id="18496" value="You have made changes to the name field.  Are you sure you want to rename this download?"/>
 	<string id="18497" value="You have typed a SHA1 value, however it is invalid.  Please check it and try again."/>
 	<string id="18498" value="You have typed a root tiger-tree value, however it is invalid.  Please check it and try again."/>
-	<string id="18499" value="You have typed an eDonkey2000 hash value, however it is invalid.  Please check it and try again."/>
+	<string id="18499" value="Wpisałeś wartośc hasha eDonkey, jednakże jest on nieprawidłowa. Proszę sprawdzić i spróbować ponownie."/>
 	<string id="18500" value="You have provided a SHA1 hash value which is different to the one currently associated with this download.  Are you sure you want to change the SHA1 hash now?"/>
 	<string id="18501" value="You have provided a root tiger-tree hash value which is different to the one currently associated with this download.  Are you sure you want to change the tiger-tree root hash now?"/>
-	<string id="18502" value="You have provided an eDonkey2000 hash value which is different to the one currently associated with this download.  Are you sure you want to change the eDonkey2000 hash now?"/>
+	<string id="18502" value="You have provided an eDonkey hash value which is different to the one currently associated with this download.  Are you sure you want to change the eDonkey hash now?"/>
 	<string id="18503" value="Are you sure you want to forget the current verification status?  All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."/>
 	<string id="18504" value="Are you sure you want to forget all sources for the selected download?"/>
 	<string id="18505" value="Please enter a valid range to erase.  The &quot;from&quot; field is the first byte to erase, the &quot;last&quot; field is the last byte to erase."/>
@@ -3071,17 +3035,24 @@
 	<string id="18508" value="Dropping download source %s for &quot;%s&quot; because queue position %i is too high."/>
 	<string id="18509" value="You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset.  Without verification information the download cannot be reverified."/>
 	<string id="18510" value="Are you sure you want to assume this download is complete and reverify it?  The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."/>
-	<string id="19000" value="Dostęp zdalny jest wyłączony."/>
+	<string id="18511" value="Zmieniłeś wielkośc pliku. Czy jesteś pewny(a), że chcesz zmienić wielkość pliku dla tego pobrania?"/>
+	<string id="19000" value="Zdalny dostęp jest wyłączony."/>
 	<string id="19001" value="Musisz wybrać nazwę użytkownika i hasło."/>
 	<string id="19002" value="Unable to accept connections, URL unavailable."/>
 	<string id="20000" value="No URN available"/>
-	<string id="20002" value="z"/><!-- e.g. 1 of 10 -->
+	<string id="20001" value="Zamknij"/>
+	<string id="20002" value="z"/> <!-- 1 of 10 -->
 	<string id="20003" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"/>
-	<string id="20004" value="Right-to-left languages are not supported in your OS."/>
 	<string id="20005" value="Nie"/>
 	<string id="20006" value="Tak"/>
 	<string id="20007" value="Auto"/>
-	<string id="20100" value="Łączenie"/>
+	<string id="20008" value="Domyślnie"/>
+	<string id="20009" value="do potrzeb"/> <!-- oryg.: "Custom" ? -->
+	<string id="20010" value="&amp;Wstecz"/>
+	<string id="20011" value="&amp;Następny"/>
+	<string id="20012" value="Finisz"/> <!-- oryg.: "Finish" ? -->
+	<string id="20013" value="Wszystko"/>
+	<string id="20100" value="Łąćzenie"/>
 	<string id="20101" value="Żądanie"/>
 	<string id="20102" value="Odpowiedź"/>
 	<string id="20103" value="Pobieranie"/>
@@ -3098,26 +3069,27 @@
 	<string id="20114" value="Wstrzymano"/>
 	<string id="20115" value="Błąd pliku"/>
 	<string id="20116" value="Nie można przenieść"/>
-	<string id="20117" value="Weryfikacja"/>
+	<string id="20117" value="Weryfikowanie"/>
 	<string id="20118" value="Aktywne"/>
 	<string id="20119" value="Oczekuje"/>
 	<string id="20120" value="Szukanie"/>
 	<string id="20121" value="Tworzenie"/>
 	<string id="20122" value="Torrent"/>
-	<string id="20123" value="Tracker Down"/>
+	<string id="20123" value="Tracker wyłączony"/>
 	<string id="20124" value="(Brak źródeł)"/>
 	<string id="20125" value="Zweryfikowano"/>
 	<string id="20126" value="Nie zweryfikowano"/>
 	<string id="20127" value="źródło"/>
-	<string id="20128" value="źródeł"/><!-- numbers 21, 31, ... -->
-	<string id="20129" value="źródeł"/><!-- tens -->
-	<string id="20130" value="źródeł"/><!-- from 11 to 19 -->
-	<string id="20131" value="źródła"/><!-- from 2 to 4 -->
-	<string id="20132" value="źródeł"/><!-- from 5 to 9 -->
+	<string id="20128" value="źródeł"/> <!-- numbers 21,31,... -->
+	<string id="20129" value="źródeł"/> <!-- tens -->
+	<string id="20130" value="źródeł"/> <!-- from 11 to 19 -->
+	<string id="20131" value="źródła"/> <!-- from 2 to 4 -->
+	<string id="20132" value="źródeł"/> <!-- from 5 to 9 -->
 	<string id="20133" value="Niezainteresowany"/>
-	<string id="20134" value="Ograniczony"/>
+	<string id="20134" value="Zdławiony"/>
 	<string id="20135" value="Następny"/>
-	<string id="20136" value="Kolejka"/>
+	<string id="20136" value="Kolejka"/><!-- ?? "Q" to kolejka? -->
+	<string id="20137" value="źródeł"/> <!-- 3/10 sources -->
 	<string id="20200" value="Niedziela"/>
 	<string id="20201" value="Poniedziałek"/>
 	<string id="20202" value="Wtorek"/>
@@ -3132,35 +3104,43 @@
 	<string id="20214" value="Dobry"/>
 	<string id="20215" value="Bardzo dobry"/>
 	<string id="20216" value="Wyśmienity"/>
+	<string id="20217" value="Wybierz folder temp dla eDonkey/eMule: "/>
+	<!-- Column headers in Library Album View -->
+	<string id="20230" value="#"/><!-- Track number -->
+	<string id="20231" value="Tytuł"/>
+	<string id="20232" value="Długość"/>
+	<string id="20233" value="Bitrate"/>
+	<string id="20234" value="Album"/>
+	<string id="20235" value="Wykonawca"/>
+	<string id="20236" value="Ocena"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="Anuluj"/>
 </strings>
-
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="Ogólne"/>
+	<dialog name="CGeneralSettingsGroup" cookie="" caption="Ogólne">
 	</dialog>
-
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="Ustawienia Shareazy">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="Ustawienia PeerProject">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 		<control caption="Zastosuj"/>
 		<control/>
 	</dialog>
-
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Ogólne">
 		<control caption="Ogólne:"/>
 		<control caption="Połącz automatycznie przy starcie PeerProject"/>
 		<control caption="Uruchom PeerProject razem z Windowsem"/>
-		<control caption="Pokaż a podpowieź przed otwarciem URI"/>
-		<control caption="Pokaż prędkości w:"/>
+		<control caption="Pokaż a podpowieź przed otwarciem URI-ów"/>
+		<control caption="Pokaż prędkości w:"/><!-- rates to są predkości?? -->
 		<control caption="bity/sekundę|bajty/sekundę|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="Pobierania:"/>
-		<control caption="Standardowo rozszerz nowe pobierania"/>
+		<control caption="Domyślnie rozszerz nowe pobierania"/>
 		<control caption="Pokaż prosty pasek postępu"/>
 		<control caption="Szukanie:"/>
-		<control caption="Standardowo rozszerz wieloźródłowe pliki"/>
-		<control caption="Przejdź do widoku Transferów po rozpoczęciu pobierania"/>
-		<control caption="Schowaj side bar kiedy zacznę wyszukiwanie"/>
+		<control caption="Domyślnie rozszerz wieloźródłowe pliki"/>
+		<control caption="Przełącz do widoku Transferów po rozpoczęciu pobierania"/>
+		<control caption="Schowaj boczny pasek kiedy zacznę wyszukiwanie"/>
 		<control caption="Filtruj zawartość dla dorosłych z wyszukiwań"/>
 		<control caption="Podpowiedzi:"/>
 		<control/>
@@ -3175,11 +3155,10 @@
 		<control caption="Kiedy kliknę minimalizuj:"/>
 		<control caption="Normalnie|Minimalizuj do zasobnika"/>
 	</dialog>
-
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Zasoby">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Biblioteka (Zasobów)">
 		<control caption="Opcje:"/>
 		<control caption="Zapamiętaj widok folderów"/>
-		<control caption="Pilnuj folderów zasobów"/>
+		<control caption="Pilnuj folderów biblioteki (zasobów)"/>
 		<control caption="Szybkie hashowanie (używa więcej CPU)"/>
 		<control caption="Pozwól innym na przeglądanie udostępnionych"/>
 		<control caption="Ostatnie pliki:"/>
@@ -3206,7 +3185,6 @@
 		<control caption="Create ghost files when deleting"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-
 	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Media Player">
 		<control caption="Opcje:"/>
 		<control/>
@@ -3219,24 +3197,58 @@
 		<control caption="Wtyczka wizualizacji:"/>
 		<control caption="Wybierz wtyczkę..."/>
 		<control caption="_Media Handling"/>
-		<control caption="Wtyczka mediów:"/>
-		<control caption="Warning: Choosing an external Media Handler will automatically disable all Media and Visualisation Plugins!"/>
+		<control caption="Wybierz wtyczkę mediów:"/>
+		<control caption="Ostrzeżenie: Wybranie zewnętrzngo Media Handler (wtyczki mediów) spowoduje automatycznie wyłączenie wszystkich wtyczek mediów i wizualizacji!"/>
 	</dialog>
-
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Społeczność">
 		<control caption="Mój profil:"/>
-		<control caption="Możesz użyć profilu użytkownika Gnutelli aby udostępnić informacje o sobie, swoich zainteresowaniach, rekomendowanych plikach i stronach innym."/>
+		<control caption="Możesz użyć profilu użytkownika Gnutelli aby udostępnić innym informacje o sobie, swoich zainteresowaniach, rekomendowanych plikach i stronach internetowych."/>
 		<control caption="Edytuj mój profil"/>
 		<control caption="Rozmowy:"/>
 		<control caption="Włącz rozmowy peer to peer z kompatybilnymi klientami"/>
-		<control caption="Włącz rozmowy we wszystkich sieciach"/>
+		<control caption="Włącz rozmowy we wszystkich sieciach (gdzie to jest możliwe)"/>
 		<control caption="Filtruj wiadomości ze spamu"/>
 		<control caption="Cenzuruj wulgaryzmy w rozmowie"/>
 	</dialog>
-
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Czat">
+		<control caption="Opcje klienta:"/>
+		<control caption="Pokaż integrację czata"/>
+		<control caption="Ochrona przed floodem:"/>
+		<control/>
+		<control caption="wierszy na sekundę"/>
+		<control caption="Pokaż znacznik czasu"/>
+		<control caption="Czcionka ekranowa:"/>
+		<control/>
+		<control caption="Kolory:"/>
+		<control/>
+		<control caption="Server komunikatów"/>
+		<control/>
+		<control caption="Tematy"/>
+		<control/>
+		<control caption="Akcje kanału"/>
+		<control/>
+		<control caption="Powiadomienia"/>
+		<control/>
+		<control caption="Tło czata"/>
+		<control/>
+		<control caption="Tekst"/>
+		<control caption="Ustawienia połączenia:"/>
+		<control caption="Nick:"/>
+		<control/>
+		<control caption="Nazwa użtkownika:"/>
+		<control/>
+		<control caption="Zamiana nick'a:"/>
+		<control/>
+		<control caption="Prawdziwe imię:"/>
+		<control/>
+		<control caption="Serwer:"/>
+		<control/>
+		<control caption="Port:"/>
+		<control/>
+	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="WWW">
-		<control caption="Obsługa linków peer to peer:"/>
-		<control caption="Użyj PeerProject do otwierania tych typów linków:"/>
+		<control caption="Obsługa linków_Peer to Peer:"/>
+		<control caption="Używaj PeerProject aby otwierała te rodzaje linków:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey2000 ( ed2k: )"/>
@@ -3247,71 +3259,68 @@
 		<control/>
 		<control caption="Dodaj"/>
 		<control caption="Usuń"/>
-		<control caption="Wtyczka menadżera pobierań będzie zarządzała pobieraniem tylko typów plików wymienionych tutaj. Inne typy plików będą obsługiwane przez twoją przeglądarkę. PeerProject musi być uruchomina, aby zarządzać pobieraniami."/>
+		<control caption="Wtyczka menadżera pobierań będzie podejmować próbę pobrania pliku jedynie z rozszerzeniem wymienionymi tutaj. Inne rodzaje plików będą obsługiwane przez Twoją przeglądarkę internetową. PeerProject musi być uruchomina, aby mogła zarządzać pobieraniem."/>
 	</dialog>
-
-	<dialog name="CInternetSettingsGroup" caption="Internet"/>
-
+	<dialog name="CInternetSettingsGroup" cookie="" caption="Internet">
+	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Połączenie">
-		<control caption="Adres wejściowy:"/>
+		<control caption="Adres wejściowy (przychodzący):"/>
 		<control caption="Adres:"/>
 		<control caption="Automatycznie"/>
 		<control caption="Prędkość:"/>
 		<control/>
 		<control caption="Port:"/>
 		<control/>
-		<control caption="Losowy"/>
-		<control caption="Zmuś połączenia do tego adresu"/>
-		<control caption="Adres wyjściowy:"/>
+		<control caption="Losowo"/>
+		<control caption="Wymuś połączenia do tego adresu"/>
+		<control caption="Adres wyjściowy (wychodzący):"/>
 		<control caption="Adres:"/>
 		<control caption="Automatycznie"/>
 		<control caption="Prędkość:"/>
 		<control/>
 		<control caption="Opcje:"/>
-		<control caption="Akceptuje połączenia przychodzące"/>
+		<control caption="Mogę przyjmować połączenia przychodzące"/>
 		<control/>
 		<control caption="Ignoruj prywatne/lokalne adresy IP"/>
-		<control caption="Enable UPnP connection devices setup"/>
+		<control caption="Włącz UPnP connection devices setup"/>
 		<control caption="Czas oczekiwania:"/>
-		<control caption="Łączenie:"/>
+		<control caption="Połączenie:"/>
 		<control/>
 		<control/>
 		<control caption="Witanie:"/>
 		<control/>
 		<control/>
 	</dialog>
-
 	<dialog name="CDownloadsSettingsPage" cookie="BuEdBuBuEdBuBuStEdmsStEdmsStEdmsBuStCoStCoBuBu" caption="Pobierania">
 		<control caption="Zapisuj zakończone pliki tutaj:"/>
 		<control/>
 		<control/>
-		<control caption="Przechowuj pliki tymczasowe tutaj:"/>
+		<control caption="Przechowuj pliki tymczasowe (jeszcze niekompletne) tutaj:"/>
 		<control/>
 		<control/>
-		<control caption="Liczba pobierań:"/>
-		<control caption="Maksymalna liczba plików:"/>
+		<control caption="Maks. liczby jednocześnie  pobier./wyk.:"/><!-- ta część jest najbardziej nie zrozumała i powoduje najwięcej kłopotów przy ustawianiu - dlatego zmieniłem --> 
+		<control caption="plików (maksymalnie):"/>
 		<control/>
 		<control/>
-		<control caption="Maksymalna liczba transferów:"/>
+		<control caption="wszystkich transferów (maksymalnie):"/>
 		<control/>
 		<control/>
-		<control caption="Transferów na plik:"/>
+		<control caption="transf. do 1-go pliku:"/>
 		<control/>
 		<control/>
-		<control caption="Limit:"/>
-		<control caption="Łączna przepustowość pobierania:"/>
+		<control caption="Limity przy pobieraniu:"/>
+		<control caption="Szerokość pasma pobier. razem:"/>
 		<control/>
-		<control caption="Maksymalna długość kolejki:"/>
+		<control caption="Maks. długość kolejki do pobr.:"/>
 		<control/>
 		<control/>
 		<control caption="Pobieraj i wysyłaj tylko do sieci z którymi jesteś połączony."/>
 	</dialog>
-
 	<dialog name="CUploadsSettingsPage" cookie="BuBuBuBuBuStEdmsBuCoBuBuBuStCoStCoBuSyBuBuBuSt" caption="Wysyłania">
 		<control caption="Opcje:"/>
-		<control caption="Ogranicz udostępnianie w trybie huba"/>
+		<control caption="Ogranicz udostępnianie w trybie hub"/>
 		<control caption="Udostępniaj nowe częściowe pobierania"/>
-		<control caption="Udostępniaj pliki preview"/>
+		<control caption="Udostępniaj pliki preview (podglądu/podsłuchu)"/>
 		<control caption="Fair-Use mode (10% media limit)"/>
 		<control caption="Limit na unikalnego hosta:"/>
 		<control/>
@@ -3330,14 +3339,13 @@
 		<control caption="Nowa..."/>
 		<control caption="Edytuj..."/>
 		<control caption="Usuń"/>
-		<control caption="(zmiany są natychmiastowe)"/>
+		<control caption="(zmiany dają efekt natychmiastowy)"/>
 	</dialog>
-
 	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Zdalny dostęp">
 		<control caption="Objaśnienie:"/>
-		<control caption="Zdalny dostęp PeerProject pozwala ci na pozostawienie włączonej PeerProject na twoim komputerze i kontrolowanie jej zdalnie używając przeglądarki internetowej. Musisz mieć możliwość akceptowania połączeń przychodzących, aby użyć tej funkcji."/>
+		<control caption="Zdalny dostęp do Shareazy pozwala ci na zostawienie włączonej Shareazy na Twoim komputerze i zdalne sterowanie nią za pomocą przeglądarki internetowej. Aby używać tej funkcji musisz być w stanie przyjmować połączenia przychodzące (np. właściwie skonfigurowany router, itp.)."/>
 		<control caption="Włącz:"/>
-		<control caption="Włącz zdalny dostęp PeerProject:"/>
+		<control caption="Włącz zdalny dostęp do Shareazy:"/>
 		<control caption="URL"/>
 		<control caption="Szczegóły:"/>
 		<control caption="Wybierz nazwę użytkownika:"/>
@@ -3345,13 +3353,12 @@
 		<control caption="Wybierz hasło:"/>
 		<control/>
 	</dialog>
-
 	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Kalendarz">
-		<control caption="Opcje:"/>
+		<control caption="_Opcje:"/>
 		<control caption="Włącz kalendarz"/>
 		<control/>
 		<control/>
-		<control caption="Podłącz tylko do G2 w czasie z limitem"/>
+		<control caption="Połącz tylko do G2 w czasie z limitem"/>
 		<control caption="Legenda:"/>
 		<control caption="Ndz"/>
 		<control caption="Pon"/>
@@ -3363,35 +3370,33 @@
 		<control caption="Nie podłączaj"/>
 		<control caption="Limitowane połączenie"/>
 		<control caption="Połączenie z pełną prędkością"/>
-		<control caption="% przepustowości w limicie"/>
+		<control caption="% szerokości pasma łącza gdy jest limitowana"/>
 		<control/>
 		<control caption="Pomoc"/>
-		<control caption="Kalendarz został stworzony, abyś mógł określić czas, kiedy PeerProject się połączy i kiedy będzie pobierać pliki. {n}{n}{n}Zauważ: Jeżeli masz PeerProject otwartą gdy kalendarz jest aktywny, możesz zobaczyć, jak zmieniają się ustawienia - TO JEST NORMALNE!"/>
+		<control caption="Kalendarz został zaprojektowany, abyś mógł ustawić pory, kiedy PeerProject się połączy i będzie pobierać pliki. {n}{n}{n}Zauważ: Jeżeli masz PeerProject otwartą gdy kalendarz jest aktywny, możesz zobaczyć, jak zmieniają się ustawienia - TO JEST NORMALNE!"/>
 	</dialog>
-
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Sieci">
-		<control caption="PeerProject jest programem p2p, który może się podłączyć do wielu sieci jednocześnie. W tej sekcji wybierzesz, do jakich sieci chcesz się podłączyć i dostosujesz specyficzne ustawienia dla każdej z nich."/>
+		<control caption="PeerProject jest aplikacją współdzielącą (udostępniajacą) pliki do ogólnego użytku, która może się połączyć jednocześnie z wieloma sieciami P2P. W tej sekcji wybierasz, do jakich sieci chcesz się włączyć i dostosujesz ustawienia charakterystyczne dla każdej z nich."/>
 		<control caption="Sieć Gnutella2:"/>
-		<control caption="Sieć Gnutella2 jest główną siecią PeerProject, oferującą więcej funkcji i większą wydajność niż jakakolwiek inna sieć. Zaleca się podłączenie do niej."/>
+		<control caption="Sieć Gnutella2 jest główną siecią Shareazy, oferującą więcej funkcji i większą wydajność niż jakakolwiek inna sieć. Gorąco zalecamy włączanie się do niej."/>
 		<control caption="Połącz z Gnutella2 (G2)"/>
 		<control caption="Skonfiguruj Gnutella2"/>
-		<control caption="Sieć eDonkey2000:"/>
-		<control caption="Sieć eDonkey2000 jest popularną siecią bazowaną na serwerach. Nie posiada tylu funkcji co Gnutella2, eDonkey2000 ma ogromny zbiór plików."/>
-		<control caption="Połącz z eDonkey2000"/>
-		<control caption="Skonfiguruj eDonkey2000"/>
 		<control caption="Oryginalna sieć Gnutella:"/>
-		<control caption="Mimo, że Gnutella nie ma tylu funkcji co Gnutella2 ani tylu plików co eDonkey2000, nadal pozostaje wartościowym źródłem plików."/>
-		<control caption="Połącz z Oryginalną Gnutellą"/>
+		<control caption="Pomimo, że Gnutella nie ma tylu funkcjonalności co Gnutella2, ani tylu plików co eDonkey, to nadal pozostaje wartościowym źródłem plików/zasobów."/>
+		<control caption="Połącz z Oryginalną Gnutellą (G1)"/>
 		<control caption="Skonfiguruj Gnutella1"/>
+		<control caption="Sieć eDonkey:"/>
+		<control caption="Sieć eDonkey jest popularną siecią opartą na serwerach. Nie posiada tylu funkcjonalności co Gnutella2, natomiast eDonkey ma imponujący zbiór plików."/>
+		<control caption="Połącz z eDonkey2000 (ED2K)"/>
+		<control caption="Skonfiguruj eDonkey"/>
 	</dialog>
-
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Sieć Gnutella2:"/>
-		<control caption="Zawsze łącz Gnutella2"/>
-		<control caption="Połącz z Gnutella2 teraz"/>
+		<control caption="Zawsze włączaj się do Gnutella2"/>
+		<control caption="Włącz się do Gnutella2 teraz"/>
 		<control caption="Tryb:"/>
 		<control caption="Optymalny|Liść|Hub"/>
-		<control caption="Połączenia G2:"/>
+		<control caption="Połączenia G_2:"/>
 		<control caption="Liść z Hubami:"/>
 		<control/>
 		<control/>
@@ -3402,11 +3407,11 @@
 		<control/>
 		<control/>
 		<control caption="Sieć Gnutella1:"/>
-		<control caption="Zawsze łącz z Gnutella1"/>
-		<control caption="Połącz z Gnutella1 teraz"/>
+		<control caption="Zawsze włączaj się do Gnutella1"/>
+		<control caption="Włącz się do Gnutella1 teraz"/>
 		<control caption="Tryb:"/>
 		<control caption="Optymalny|Liść|Ultrapeer"/>
-		<control caption="Połączenia G1:"/>
+		<control caption="Połączenia G_1:"/>
 		<control caption="Liść z Ultrapeer'ami:"/>
 		<control/>
 		<control/>
@@ -3421,42 +3426,41 @@
 		<control caption="Liść z Hubem"/>
 		<control caption="Hub z Hubem"/>
 	</dialog>
-
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey2000">
-		<control caption="Sieć eDonkey2000:"/>
-		<control caption="Połącz z eDonkey2000 teraz"/>
-		<control caption="Zawsze łącz z eDonkey2000"/>
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+		<control caption="Sieć eDonkey:"/>
+		<control caption="Zawsze włączaj się do eDonkey"/>
+		<control caption="Włącz się do eDonkey dzisiaj"/>
 		<control caption="Globalne Wyszukiwanie:"/>
-		<control caption="Przeszukaj znane serwery z cache'u serwerów:"/>
+		<control caption="Przeszukaj znane zdalne serwery w cache'u serwera:"/>
 		<control caption="Zatrzymaj wyszukiwanie po:"/>
 		<control/>
 		<control/>
 		<control caption="wynikach."/>
 		<control caption="Połączenia z innymi klientami:"/>
+		<control caption="Połączenia łącza klienta:"/><!--_w orygunale: "_Client Link Connections:"/>" -->
 		<control caption="Nie łącz z więcej niż:"/>
 		<control/>
 		<control/>
 		<control caption="innymi klientami eDonkey."/>
-		<control caption="Narzędzia eDonkey2000:"/>
-		<control caption="Pobierz listę serwerów eDonkey2000 z sieci:"/>
+		<control caption="Narzędzia eDonkey:"/>
+		<control caption="Pobierz listę serwerów eDonkey z sieci:"/>
 		<control caption="Pobierz..."/>
 	</dialog>
-
 	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Interfejs"/>
 		<control caption="Pokaż dodatkowe elementy interfejsu BitTorrent"/>
-		<control caption="Połączenia:"/>
+		<control caption="Połączenia pobierające:"/>
 		<control/>
 		<control/>
 		<control caption="Torrentów równocześnie"/>
 		<control/>
 		<control/>
 		<control caption="Połączeń z innymi klientami"/>
-		<control caption="Czyść pobrane torrenty&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Kiedy share ratio osiągnie"/>
+		<control caption="Wyczyść pobrane torrenty&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Kiedy share ratio osiągnie"/>
 		<control/>
 		<control/>
 		<control caption="%"/>
-		<control caption="&#160;Prefer torrent sources"/>
+		<control caption="Preferuj źródła torrentu"/>
 		<control caption="GraKońcowa:"/>
 		<control caption="Włącz tryb GryKońcowej, gdy PeerProject kończy pobierać torrenty"/>
 		<control caption="Przechowuj Torrenty tutaj:"/>
@@ -3468,15 +3472,13 @@
 		<control caption="Domyślny Tracker:"/>
 		<control/>
 	</dialog>
-
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoły">
-		<control caption="Przeglądarka architektur protokołów PeerProject:"/>
+		<control caption="Przeglądarka Protokołu Wspólnej Architektury Shareazy:"/>
 		<control/>
 	</dialog>
-
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skórki">
 		<control/>
-		<control caption="Informacja o skórce:"/>
+		<control caption="Informacje o skórce:"/>
 		<control caption="Nazwa:"/>
 		<control caption="..."/>
 		<control caption="Autor:"/>
@@ -3484,13 +3486,12 @@
 		<control caption="Opis:"/>
 		<control/>
 		<control caption="Usuń"/>
-		<control caption="Instaluj..."/>
+		<control caption="Zainstaluj..."/>
 		<control caption="Zdobądź więcej"/>
 	</dialog>
-
 	<dialog name="CPluginsSettingsPage" cookie="SyBuStStStEdBuBu" caption="Wtyczki">
 		<control/>
-		<control caption="Informacja o wtyczce:"/>
+		<control caption="Informacje o wtyczce:"/>
 		<control caption="Nazwa:"/>
 		<control caption="..."/>
 		<control caption="Opis:"/>
@@ -3498,98 +3499,98 @@
 		<control caption="Ustaw..."/>
 		<control caption="Zdobądź więcej"/>
 	</dialog>
-
 	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Zaawansowane">
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Set Default"/>
+		<control caption="Ustaw domyślne"/>
 		<control caption="Właściwości ustawienia:"/>
 		<control caption="Wartość:"/>
 		<control caption="Opis:"/>
 		<control/>
 	</dialog>
-
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Właściwości kolejki wysyłań">
 		<control caption="Nazwa:"/>
 		<control/>
 		<control caption="Kryteria umieszczania w kolejce:"/>
 		<control caption="Tylko częściowo pobrane pliki"/>
-		<control caption="Shared Library files only"/>
-		<control caption="Both partial and library files"/>
-		<control caption="Minimalny rozmiar pliku:"/>
+		<control caption="Tylko udostepnione pliki biblioteki"/>
+		<control caption="Zarówno pliki częściowe jak i pliki biblioteki"/>
+		<control caption="Minimalny rozmiar pliku źródłowego:"/>
 		<control/>
-		<control caption="Maksymalny rozmiar pliku:"/>
+		<control caption="Maksymalny rozmiar pliku źródłowego:"/>
 		<control/>
 		<control caption="Pliki oznaczone:"/>
-		<control/>
-		<control caption="Nazwa pliku:"/>
+		<control caption="Popular|Release"/>
+		<control caption="Dopasuj nazwę pliku:"/><!-- ?? "Filename match:" -->
 		<control/>
 		<control caption="Protokoły:"/>
 		<control/>
 		<control caption="Pojemność:"/>
-		<control caption="Włącz tą kolejkę"/>
+		<control caption="Włącz tę kolejkę"/>
 		<control caption="Minimalna liczba transferów:"/>
 		<control/>
 		<control/>
 		<control caption="Maksymalna liczba transferów:"/>
 		<control/>
 		<control/>
-		<control caption="Maksymalna liczba oczekujących:"/>
+		<control caption="Maksymalna liczba oczekujących w kolejce:"/>
 		<control/>
 		<control/>
 		<control caption="Parametry usługi:"/>
-		<control caption="Procent nasycenia przepustowości:"/>
+		<control caption="Procent nasycenia przepustowości (szerokości pasma):"/>
 		<control/>
-		<control caption="Przepustowość dla tej kolejki:"/>
+		<control caption="Przepustowość wysyłań dla tej kolejki:"/>
 		<control/>
 		<control/>
-		<control caption="Zmień po N sekundach:"/>
+		<control caption="Zmień (rotacja) po N sekundach:"/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 		<control caption="Nagradzaj wysyłających"/>
 	</dialog>
-
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Witaj w PeerProject">
-		<control caption="Witaj w PeerProject"/>
-		<control caption="Jeśli wcześniej nie używałeś PeerProject lub innych klientów P2P, ten Kreator SzybkiegoStartu pomoże ci skonfigurować twoją kopię w kilku prostych krokach."/>
-		<control caption="Jeśli jesteś bardziej zaawansowanym użytkownikiem, możesz uzyskać dostęp do wszystkich opcji PeerProject używając menu Narzędzia. Kliknij Wyjście, aby zamknąć tego kreatora w dowolnym momencie."/>
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Witaj w PeerProjecte">
+		<control caption="Witaj w PeerProjecte!"/>
+		<control caption="Jeśli wcześniej nie używałeś Shareazy lub innych klientów P2P, ten Kreator SzybkiegoStartu pomoże ci skonfigurować Twoją kopię w kilku prostych krokach."/>
+		<control caption="Jeśli jesteś bardziej zaawansowanym użytkownikiem, możesz uzyskać dostęp do wszystkich opcji Shareazy używając menu Narzędzia. Kliknij Wyjście, aby zamknąć w każdej chwili niniejszego kreatora."/>
 		<control caption="Ten kreator pomoże ci:"/>
 		<control/>
-		<control caption="Ustawić parametry twojego połaczenia z Internetem"/>
+		<control caption="Przekazać PeerProjecte parametry Twojego połaczenia z Internetem"/>
 		<control/>
-		<control caption="Wybrać pliki do udostępnienia"/>
+		<control caption="Wybrać, które pliki będą udostępniane (współdzielone)"/>
 		<control/>
-		<control caption="Połączyć się z wybranymi przez ciebie sieciami P2P, i"/>
+		<control caption="Włączyć się do wybranych przez Ciebie sieci P2P, "/>
 		<control/>
-		<control caption="Zacząć używać PeerProject."/>
+		<control caption="... i rozpocząć używanie Shareazy."/>
 	</dialog>
-
-	<dialog name="CWizardConnectionPage" cookie="StCoStCoStCoStCoStCo" caption="Witaj w PeerProject (1/6)">
-		<control caption="Dla optymalnej efektywności, PeerProject potrzebuje wiedzieć nieco o twoim połączeniu z Internetem."/>
-		<control caption="&#160;( proszę wybrać )| Używam Internetu w domu.| Używam Internetu w sieci akademickiej.| Używam Internetu w sieci biurowej.| Używam Internetu w hotelu lub na lotnisku."/>
+	<dialog name="CWizardConnectionPage" cookie="StCoStCoStCoStCoStCo" caption="Witaj w PeerProjecte (1/6)">
+		<control caption="Do optymalnego działania, PeerProject potrzebuje trochę wiadomości o Twoim połączeniu z Internetem."/>
+		<control caption="Wybierz rodzaj Twojego łącza Internetowego:"/>
 		<control caption="Czy twoja sieć jest chroniona przez firewall lub router NAT?"/>
 		<control caption="&#160;Nie, MOGĘ przyjmować wszystkie przychodzące połączenia.| Tak, więc NIE MOGĘ akceptować połączeń przychodzących z Internetu.| Nie mam pojęcia, proszę WYKRYĆ to dla mnie"/>
 		<control caption="Czy masz firewall lub router NAT na twoim domowym łączu z Internetem?"/>
-		<control caption="&#160;Nie, mam PEŁNY DOSTĘP do Internetu| Tak, ale ustawię przekierowanie portu dla PeerProject| Tak, NIE MOGĘ przyjmować połączeń przychodzących z Internetu.| Nie mam pojęcia, proszę WYKRYĆ to dla mnie"/>
+		<control caption="&#160;Nie, mam PEŁNY DOSTĘP do Internetu| Tak, ale ustawię przekierowanie portu dla Shareazy| Tak, NIE MOGĘ przyjmować połączeń przychodzących z Internetu.| Nie mam pojęcia, proszę WYKRYĆ to dla mnie"/>
 		<control caption="Jeśli wiesz jak szybkie jest twoje łącze, wybierz najlepszą opcję z poniższej listy:"/>
-		<control caption="| Modem 56k| ISDN| ADSL (256K)| ADSL (512K)| ADSL (768K)| ADSL (1.5M)| ADSL (4.0M)| ADSL2 (8.0M)| ADSL2 (12.0M)| ADSL2+ (24.0M)| Cable Modem/SDSL| T1| T3| LAN| OC3"/>
-		<control caption="LUB, wybierz:"/>
+		<control caption="| Modem wdzwaniany | ISDN| ADSL (256K)| ADSL (512K)| ADSL (768K)| ADSL (1.5M)| ADSL (4.0M)| ADSL2 (8.0M)| ADSL2 (12.0M)| ADSL2+ (24.0M)| Modem kablowy/SDSL| T1| T3| LAN| OC3"/>
+		<control caption="LUB, wybierz prędkość pobierania:"/>
+		<control/>
+		<control caption="i prędkość wysyłania:"/>
+		<control/>
+		<control caption="Czy chcesz automatycznie ustawić forwardowanie portu przy pomocy UPnP?"/>
+		<control/>
+		<control caption="Status:"/>
 		<control/>
 	</dialog>
-
-	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Witaj w PeerProject (2/6)">
-		<control caption="Sieci P2P są tylko tak dobre, jak ludzie, którzy z nich korzystają. Cała dostępna do pobrania zawartość jest udostępniona przez innego użytkownika."/>
-		<control caption="Nie musisz udostępniać żadnej zawartości, aby używać PeerProject, jednak niektóre programy zachowują się inaczej dla użytkowników, którzy nic nie udostępniają."/>
-		<control caption="Proszę wybierz, które foldery (jeśli są) chcesz udostępnić.  Po prostu kliknij przycisk Dodaj, aby dodać nowy folder."/>
+	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Witaj w PeerProjecte (2/6)">
+		<control caption="Sieci P2P są tylko tak dobre, jak ludzie, którzy ich używają. Cała możliwa do pobrania zawartość (tzw. kontent) jest udostępniana (współdzielona) przez innych użytkowników."/>
+		<control caption="Nie musisz udostępniać żadnej zawartości (tzw. kontentu), aby używać Shareazy, jednak niektóre programy zachowują się inaczej dla użytkowników, którzy nic nie udostępniają."/>
+		<control caption="Proszę wybierz, które foldery (jeśli są takie) chcesz udostępnić. Po prostu kliknij przycisk Dodaj, aby dodać nowy folder."/>
 		<control/>
 		<control caption="Dodaj..."/>
 		<control caption="Usuń"/>
 		<control caption="OSTRZEŻENIE: Rozpowszechnianie nielegalnych zawartości jest niedozwolone."/>
 	</dialog>
-
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Skanowanie Folderu...">
 		<control/>
 		<control caption="..."/>
@@ -3599,8 +3600,7 @@
 		<control caption="0"/>
 		<control caption="Zamknij"/>
 	</dialog>
-
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Witaj w PeerProject (3/6)">
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Witaj w PeerProjecte (3/6)">
 		<control caption="PeerProject jest bardziej przyjaznym miejscem, gdy każdy poda kilka podstawowych szczegółów o sobie."/>
 		<control caption="Nazywam się:"/>
 		<control/>
@@ -3611,48 +3611,42 @@
 		<control/>
 		<control/>
 	</dialog>
-
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBuBu" caption="Witaj w PeerProject (4/6)">
-		<control caption="PeerProject posiada dwa różne interfejsy użytkownika. Możesz wybrać ten, który jest dla ciebie najwygodniejszy."/>
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBuBu" caption="Witaj w PeerProjecte (4/6)">
+		<control caption="PeerProject posiada elastyczny interfejs użytkownika, zatem możesz wybrać co jest dla Ciebie najwygodniejsze. Możesz zmienić te opcje w dowolnym momencie."/>
 		<control caption="Proszę wybrać jeden z poniższych interfejsów:"/>
-		<control caption="Tryb Basicny"/>
-		<control caption="Tryb Zaawansowany"/>
-		<control caption="Prosty i przyjazny w użyciu. Znajomy dla użytkowników innych programów do wymiany plików."/>
-		<control caption="Tryb Zaawansowany oferuje ekspertom dużo dodatkowych poleceń, okien, etc."/>
-		<control caption="Pokaż prosty pasek postępu."/>
-		<control caption="Pokaż dodatkowe elementy interfejsu BitTorrent."/>
-		<control caption="Handle torrent links."/>
+		<control caption="Tryb Podstawowy (Uproszczony, ang. Basic Mode)"/>
+		<control caption="Tryb Zawansowany (Rozszerzony, ang. Power Mode)"/>
+		<control caption="Proste, łatwe do użycia menu i przyciski.{n}Znajomy dla użytkowników innych programów do wymiany plików."/>
+		<control caption="Tryb Zaawansowany oferuje użytkownikom z zacięciem eksperckim masę dodatkowych poleceń, okien, etc.{n}Może być nieco mylący dla nowych użytkowników"/>
+		<control caption="Pokaż uproszczone paseki postępu pobierania. (Redukuje wykorzystanie mocy CPU)"/>
+		<control caption="Obsługuj linki torrentowe."/>
 	</dialog>
-
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Witaj w PeerProject (5/6)">
-		<control caption="PeerProject uniwersalną aplikacją do udostępniania plików, która może łączyć się do kilku sieci P2P jednocześnie. Tutaj możesz wybrać do których sieci PeerProject ma się połączyć. Notka: Możesz wybrać później inne sieci."/>
-		<control caption="Połącz z Gnutella2 (Bardzo Zalecane)"/>
-		<control caption="Gnutella2 jest sztandarową siecią PeerProject, oferuje duże możliwości i efektywność niż inne sieci P2P."/>
-		<control caption="Połącz z eDonkey2000"/>
-		<control caption="Sieć eDonkey2000 jest popularną siecią opartą na serwerach. Nie takich możliwości jak Gnutella2, jednak eDonkey2000 ma pokaźną kolekcję plików."/>
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Witaj w PeerProjecte (5/6)">
+		<control caption="PeerProject uniwersalną aplikacją do wymiany plików, która może jednocześnie łączyć się z wieloma sieciami P2P. Tutaj możesz wybrać do których sieci PeerProject ma włączyć. Zauważ, że zawsze możesz później wybrać inne sieci."/>
+		<control caption="Połącz z Gnutella2 (Gorąco Zalecane)"/>
+		<control caption="Gnutella2 jest sztandarową siecią Shareazy, oferuje więcej możliwości i lepsze działanie niż jakakolwiek inna sieć P2P."/>
 		<control caption="Połącz z Oryginalną Gnutellą"/>
-		<control caption="Oryginalna Gnutella nie ma takich możliwości jak Gnutella2 i ma mniej plików niż eDonkey2000, jednak pozostaje cennym zasobem."/>
+		<control caption="Oryginalna Gnutella ma mniej możliwości niż Gnutella2 i ma mniej plików niż eDonkey, jednak pozostaje cennym zasobem."/>
+		<control caption="Połącz z eDonkey"/>
+		<control caption="Sieć eDonkey jest popularną siecią opartą na serwerach. Nie ma takich możliwości jak Gnutella2, jednak eDonkey ma pokaźną kolekcję plików."/>
 	</dialog>
-
-	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Import pobierań z eDonkey2000">
+	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importuj pobierania z eDonkey">
 		<control/>
-		<control caption="PeerProject wykryła, że posiadasz inny program korzystający z sieci eDonkey2000. Czy chcesz zaimportować nieskończone pobierania do PeerProject?"/>
+		<control caption="PeerProject wykryła, że masz zainstalowany na swoim komputerze inny program korzystający z sieci eDonkey. Czy chciałbyś zaimportować niedokończone pobierania do Shareazy?"/>
 		<control caption="Tak"/>
 		<control caption="Nie|Anuluj"/>
 		<control/>
 		<control caption="Zamknij"/>
 	</dialog>
-
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Witaj w PeerProject (6/6)">
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Witaj w PeerProjecte (6/6)">
 		<control caption="To wszystko! PeerProject została skonfigurowana do pracy na twoim komputerze."/>
-		<control caption="Jeśli kiedyś będziesz chciał zmienić twoje ustawienia, możesz uruchomić ponownie tego kreatora wybierając go z menu Narzędzia."/>
+		<control caption="Jeśli kiedykolwiek będziesz chciał zmienić Twoje ustawienia, możesz ponownie uruchomić niniejszego kreatora wybierając go z menu Narzędzia."/>
 		<control caption="Po zamknięciu tego kreatora poprzez kliknięcie na Zakończ, możesz się połączyć do sieci, które wybrałeś i zacząć szukać i pobierać pliki."/>
-		<control caption="Połącz do sieci kiedy zamknę tego kreatora"/>
+		<control caption="Połącz do sieci kiedy zamknę kreatora"/>
 		<control caption="Połącz do sieci za każdym razem, gdy uruchomię PeerProject"/>
-		<control caption="Uruchom PeerProject razem z Windowsem"/>
-		<control caption="Miłej zabawy z PeerProject!"/>
+		<control caption="Uruchom PeerProject razem z uruchomieniem Windows"/>
+		<control caption="Miłej zabawy z Shareazą!"/>
 	</dialog>
-
 	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Edycja Profilu">
 		<control/>
 		<control caption="OK"/>
@@ -3660,10 +3654,9 @@
 		<control caption="Zastosuj"/>
 		<control/>
 	</dialog>
-
 	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Tożsamość">
 		<control caption="Imię:"/>
-		<control caption="Nick:"/>
+		<control caption="Imię ekranowe (Nick):"/>
 		<control/>
 		<control caption="Prawdziwe imię:"/>
 		<control/>
@@ -3675,7 +3668,6 @@
 		<control caption="Wiek:"/>
 		<control caption="Pozwól innym na przeglądanie mojego profilu"/>
 	</dialog>
-
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
 		<control caption="Adresy Email:"/>
 		<control caption="Główny:"/>
@@ -3692,7 +3684,6 @@
 		<control caption="Jabber ID:"/>
 		<control/>
 	</dialog>
-
 	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profil">
 		<control caption="Położenie:"/>
 		<control caption="Kraj:"/>
@@ -3710,20 +3701,17 @@
 		<control caption="Usuń &gt;"/>
 		<control/>
 	</dialog>
-
 	<dialog name="CBioProfilePage" cookie="Ed" caption="O tobie">
 		<control/>
 	</dialog>
-
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Awatar">
 		<control caption="Podgląd:"/>
 		<control/>
 		<control caption="Wybierz:"/>
-		<control caption="Inni użytkownicy Gnutelli przeglądający twój profil i udostępnione pliki zobaczą twój awatar. Awatary powinny mieć rozmiar 128x128 pikseli i mogą być zapisane w każdym obsługiwanym formacie na twoim komputerze."/>
+		<control caption="Inni użytkownicy Gnutelli przeglądający Twój profil i udostępnione pliki zobaczą Twój awatar. Awatary powinny mieć rozmiar 128x128 pikseli i mogą być zapisane w każdym formacie obsługiwanym przez Twój komputer."/>
 		<control caption="Przeglądaj..."/>
 		<control caption="Usuń"/>
 	</dialog>
-
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Ulubione">
 		<control/>
 		<control caption="Edytuj:"/>
@@ -3734,15 +3722,13 @@
 		<control caption="Nowy"/>
 		<control caption="Usuń"/>
 	</dialog>
-
 	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Pliki">
 		<control caption="Ulubione pliki:"/>
-		<control caption="Ulubione pliki są rekomendowane użytkownikom przeglądającym twój profil. Możesz stworzyć ulubione pliki przez dodanie ich do folderu zasobów &quot;Ulubione&quot;."/>
+		<control caption="Ulubione pliki są rekomendowane użytkownikom przeglądającym Twój profil. Możesz stworzyć ulubione pliki przez dodanie ich do folderu zasobów &quot;Ulubione&quot;."/>
 		<control/>
 	</dialog>
-
 	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certyfikat">
-		<control caption="Użytkownicy Gnutelli są identyfikowanie przez unikatowy identyfikator i odpowiadającą sobie parę kluczy publicznego i prywatnego. Normalnie nie trzeba generować nowego identyfikatora, jednak PeerProject dostarcza tą możliwość dla zaawansowanych użytkowników."/>
+		<control caption="Użytkownicy Gnutelli są identyfikowani przez unikatowy identyfikator i odpowiadającą sobie parę kluczy publicznego i prywatnego. Normalnie nie trzeba generować nowego identyfikatora, jednak PeerProject zapewnia taką możliwość dla zaawansowanych użytkowników."/>
 		<control caption="Globalnie Unikatowy Identyfikujący Certyfikat Gnutelli:"/>
 		<control caption="GUID:"/>
 		<control/>
@@ -3750,12 +3736,10 @@
 		<control/>
 		<control caption="Generuj nowy"/>
 	</dialog>
-
 	<dialog name="CLanguageDlg" cookie="" caption="Wybierz Język">
 	</dialog>
-
 	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Połącz z|Przeglądaj Hosta">
-		<control caption="Inicjuj nowe połączenie do hosta lub serwera:|Przeglądaj tego hosta:"/>
+		<control caption="Inicjuj nowe połączenie z hostem lub serwerem:|Przeglądaj tego hosta:"/>
 		<control/>
 		<control/>
 		<control caption="Protokół sieciowy:"/>
@@ -3764,31 +3748,28 @@
 		<control caption="Połącz"/>
 		<control caption="Anuluj"/>
 	</dialog>
-
 	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Pobierz plik lub torrent">
 		<control/>
 		<control/>
-		<control caption="Pobieranie plików z PeerProject jest proste. Po prostu wpisz lub wklej URL lub URI opisujące plik w miejsce poniżej i wciśnij Enter."/>
+		<control caption="Pobieranie dowolnego pliku Shareazą jest łatwe. Po prostu wpisz lub wklej URL lub URI opisujące ten plik w miejsce poniżej i wciśnij Enter."/>
 		<control/>
 		<control caption="Pobierz"/>
 		<control caption="Anuluj"/>
-		<control caption="PeerProject może pobierać pliki z Internetu (HTTP) i automatycznie szukać i pobierać linki P2P (Magnet, Gnutella, eDonkey2000, mP2P)."/>
-		<control caption="PeerProject może także pobierać pliki BitTorrent. Torrent może być opisany jak jakiś plik xyz.torrent, lub jako link HTTP do pliku .torrent. Aby pobrać link HTTP do torrenta, wkej go do miejsca powyżej. Jeżeli już masz plik .torrent, kliknij Otwórz torrenta:"/>
+		<control caption="PeerProject może pobierać pliki z Internetu (HTTP) oraz automatycznie szukać i pobierać linki P2P (Magnet, Gnutella, eDonkey, mP2P)."/>
+		<control caption="PeerProject może także pobierać pliki BitTorrentowe. Torrent może być opisany jak jakiś plik .torrent, lub jako link HTTP do pliku .torrent. Aby pobrać link HTTP do torrentu, wklej go do miejsca powyżej. Jeżeli już masz plik .torrent, kliknij Otwórz Torrent:"/>
 		<control caption="Otwórz Torrent..."/>
 	</dialog>
-
-	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Nowe wyszukiwanie|Szukaj ponownie|Znajdź w zasobach">
+	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Nowe wyszukiwanie|Szukaj ponownie|Znajdź w Bibliotece (zasobach)">
 		<control/>
 		<control/>
 		<control caption="Szukaj"/>
 		<control caption="Anuluj"/>
 	</dialog>
-
-	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtruj wyniki">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtruj pasujące wyniki">
 		<control caption="Pokaż tylko te wyniki, które zawierają słowa:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="( możesz także wykluczać wyrazy za pomocą -wyraz )"/>
+		<control caption="( możesz także wykluczyć wyrazy za pomocą -wyraz )"/>
 		<control caption="I mają rozmiar:"/>
 		<control caption="Minimum:"/>
 		<control/>
@@ -3800,14 +3781,14 @@
 		<control caption="źródłami."/>
 		<control caption="Ukryj:"/>
 		<control caption="Zajęte hosty"/>
-		<control caption="Hosty za firewall'em"/>
-		<control caption="Niestabilne hosty"/>
 		<control caption="Nie pasujące pliki"/>
-		<control caption="Pliki które już masz"/>
+		<control caption="Hosty za firew./push"/> 
+		<control caption="Pliki, które już masz"/>
+		<control caption="Nie stabilne hosty"/>
 		<control caption="Fałszywe wyniki"/>
 		<control caption="DRM files"/>
-		<control caption="Adult results"/>
-		<control caption="Suspicious files"/>
+		<control caption="Wyniki dla dorosłych"/>
+		<control caption="Podejrzane pliki"/>
 		<control caption="Filtry:"/>
 		<control/>
 		<control caption="Ustaw jako domyślne"/>
@@ -3816,24 +3797,21 @@
 		<control caption="Filtruj"/>
 		<control caption="Anuluj"/>
 	</dialog>
-
 	<dialog name="CSaveFilterAsDlg" cookie="EdBuBuSt" caption="Zapisz filtr jako">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 		<control caption="Zapisz obecny filtr jako"/>
 	</dialog>
-
 	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Serwis Discovery">
 		<control caption="Adres serwisu:"/>
 		<control/>
 		<control caption="Typ serwisu Discovery:"/>
-		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL"/>
+		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL|Zablokowany"/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 		<control/>
 	</dialog>
-
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Pobieranie : PeerProject">
 		<control caption="PeerProject pobiera:"/>
 		<control caption="..."/>
@@ -3842,7 +3820,7 @@
 		<control/>
 		<control caption="Łączna prędkośc transferu:"/>
 		<control caption="..."/>
-		<control caption="Przewidywany czas:"/>
+		<control caption="Przewidywany pozostały czas:"/>
 		<control caption="..."/>
 		<control caption="Pobrana ilość:"/>
 		<control caption="..."/>
@@ -3850,13 +3828,12 @@
 		<control caption="..."/>
 		<control caption="Zamknij to okno kiedy pobieranie się zakończy"/>
 		<control caption="Otwórz plik"/>
-		<control caption="Pokaż zasoby"/>
+		<control caption="Pokaż Bibliotekę (zasoby)"/>
 		<control caption="Anuluj pobieranie"/>
-		<control caption="Schowaj"/>
+		<control caption="Ukryj"/>
 	</dialog>
-
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Ogólne">
-		<control caption="Universal Resource Names (URN)"/>
+		<control caption="Universalne Nazwy Zasobu (URN-y)"/>
 		<control/>
 		<control/>
 		<control/>
@@ -3873,25 +3850,22 @@
 		<control/>
 		<control/>
 	</dialog>
-
 	<dialog name="CFileMetadanePage" cookie="CoEd" caption="Metadane">
 		<control/>
 		<control/>
 	</dialog>
-
 	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Moja recenzja">
 		<control caption="Moja ocena"/>
 		<control caption="Oceniam ten plik:"/>
-		<control caption="(Bez oceny)|Fake/Uszkodzony/Błędny|Kiepski|Średni|Dobry|Bardzo dobry|Wyśmienity"/>
+		<control caption="(Bez oceny)|Fake/Uszkodzony/Wprowadza w błąd|Kiepski|Średni|Dobry|Bardzo dobry|Wyśmienity"/>
 		<control caption="Moja recenzja i komentarze"/>
 		<control/>
 		<control/>
 	</dialog>
-
 	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Udostępnianie">
 		<control caption="Proste udostępnianie"/>
-		<control caption="Udostępnij plik jeśli folder zawierający jest udostępniony"/>
-		<control caption="Zmień ustawienie udostępniania dla tego pliku:"/>
+		<control caption="Udostępnij ten plik jeśli zawierajacy go folder jest udostępniony"/>
+		<control caption="Unieważnij ustawienie udostępniania dla tego pliku:"/>
 		<control caption="Udostępnij ten plik innym użytkownikom"/>
 		<control caption="Tag(i) wyboru kolejki wysyłania"/>
 		<control/>
@@ -3899,7 +3873,6 @@
 		<control/>
 		<control/>
 	</dialog>
-
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Źrodła">
 		<control caption="Znane źródła"/>
 		<control caption="dodaj nowe źródło"/>
@@ -3909,7 +3882,6 @@
 		<control caption="Usuń"/>
 		<control/>
 	</dialog>
-
 	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Kopiuj pliki|Przenieś pliki">
 		<control caption="Wybrałeś %i plik(ów) do skopiowania do następującego folderu:"/>
 		<control/>
@@ -3920,7 +3892,6 @@
 		<control caption="Gotowy..."/>
 		<control caption="Wybrałeś %i plik(ów) do przeniesienia do następującego folderu:"/>
 	</dialog>
-
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Właściwości folderu albumu">
 		<control caption="Tytuł folderu albumu:"/>
 		<control/>
@@ -3931,7 +3902,6 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-
 	<dialog name="CGraphListDlg" cookie="SyBuBuBuBuBuBuBuBuStEdmsStBuEdBuBu" caption="Wykres ruchu">
 		<control/>
 		<control caption="Dodaj..."/>
@@ -3939,10 +3909,10 @@
 		<control caption="Usuń"/>
 		<control caption="Pokaż:"/>
 		<control caption="Linie siatki"/>
-		<control caption="Pionowa oś"/>
+		<control caption="Oś pionowa"/>
 		<control caption="Legenda"/>
 		<control caption="Częstotliwość próbkowania:"/>
-		<control caption="Okres czasu między prubkami:"/>
+		<control caption="Okres czasu między próbkami:"/>
 		<control/>
 		<control/>
 		<control caption="ms"/>
@@ -3951,13 +3921,12 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-
-	<dialog name="CGraphItemDlg" cookie="BuBuBuCoStEdStEdBuBuStBu" caption="Właściwość przedmiotu Wykresu">
+	<dialog name="CGraphItemDlg" cookie="BuBuBuCoStEdStEdBuBuStBu" caption="Właściwość punktu Wykresu">
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 		<control caption="Źródło:"/>
 		<control/>
-		<control caption="Parametr:"/>
+		<control caption="Parametr (mnożnik):"/>
 		<control/>
 		<control caption="Jednostki:"/>
 		<control/>
@@ -3966,15 +3935,13 @@
 		<control/>
 		<control caption="Usuń"/>
 	</dialog>
-
-	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Wybierz kolumny ze Schemy">
+	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Wybierz kolumny ze Schemy (schematu wzorca)">
 		<control/>
 		<control/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
-		<control caption="Wybierz scheme z listy, potem wybierz pola do wyświetlenia jako kolumny."/>
+		<control caption="Wybierz scheme (schemat wzorca) z listy, potem wybierz pola do wyświetlenia jako kolumny."/>
 	</dialog>
-
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Reguła bezpieczeństwa">
 		<control caption="Reguła:"/>
 		<control caption="Typ:"/>
@@ -3987,7 +3954,7 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Maska:"/>
+		<control caption="Maska sieci:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4001,56 +3968,52 @@
 		<control caption="Akcja:"/>
 		<control caption="Żadna|Akceptuj|Odmawiaj"/>
 		<control caption="Wygasa:"/>
-		<control caption="Nigdy|Pod koniec sesji|Po:"/>
+		<control caption="Nigdy (Nieokreślone)|Pod koniec sesji|Po:"/>
 		<control/>
 		<control caption="d"/>
 		<control/>
-		<control caption="g"/>
+		<control caption="h"/>
 		<control/>
 		<control caption="m"/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-
 	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Menadżer udostępnionych folderów">
 		<control/>
-		<control caption="To jest lista folderów w twoich zasobach. Możesz dodawać i usuwać foldery używając przycisków po lewej. Gdy dodasz nowy folder początkowo jest on udostępniany innym użytkownikom, jednak możesz przestać go udostępniać z zasobów PeerProject jeśli chcesz."/>
+		<control caption="To jest lista folderów w Twojej bibliotece (zasobach). Możesz dodawać i usuwać foldery używając przycisków po lewej. Gdy dodasz nowy folder początkowo jest on udostępniany innym użytkownikom, jednak możesz przestać go udostępniać z biblioteki zasobów Shareazy jeśli zechcesz."/>
 		<control/>
 		<control caption="Dodaj..."/>
 		<control caption="Usuń"/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-
 	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopiuj URI">
 		<control/>
-		<control caption="Możesz skopiować URI zaznaczonego pliku w różnych formatach. Wybierz format który chcesz użyć klikając na jedno URI poniżej:"/>
+		<control caption="Możesz skopiować URI zaznaczonego pliku w wielu różnych formatach. Proszę, wybierz format który chcesz użyć klikając na jedno URI-ów poniżej:"/>
 		<control/>
 		<control/>
 		<control/>
 		<control caption="Umieść mnie jako stałe źródło w URL"/>
 		<control caption="Anuluj"/>
 	</dialog>
-
-	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Exportuj URI">
+	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Exportuj URI-e">
 		<control/>
-		<control caption="Wybrałeś %lu plików do wyeksportowania jako odsyłacz PeerProject-powered URI. Proszę wybrać format dla URI i kliknąć Zapisz:"/>
+		<control caption="Wybrałeś %lu plików do wyeksportowania jako odsyłacz PeerProject-powered URI. Proszę wybrać format dla URI-ów i kliknąć Zapisz:"/>
 		<control/>
-		<control caption="Umieść Token:"/>
-		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|Nazwa pliku|Nazwa pliku (URI)|Bazowa nazwa pliku|Rozszerzenie pliku|Rozmiar pliku|Rozmiar pliku (w bajtach)|Ścieżka folderu|Local Host|Local Port"/>
+		<control caption="Wstaw Token:"/>
+		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|BitTorrent|Nazwa pliku|Nazwa pliku (URI)|Bazowa nazwa pliku|Rozszerzenie pliku|Rozmiar pliku|Rozmiar pliku (w bajtach)|Ścieżka folderu|Lokalny Host|Lokalny Port|Link|Link (URI)"/>
 		<control caption="Wybierz preset:"/>
-		<control/>
-		<control caption="_Kopiuj"/>
+		<control caption="Magnet|eDonkey|Magnet HTML|eDonkey HTML"/>
+		<control caption="Kopiuj"/>
 		<control caption="Zapisz..."/>
 		<control/>
 		<control caption="Anuluj"/>
 	</dialog>
-
-	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="PeerProject URI Menadżer">
+	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="Menedżer URI Shareazy">
 		<control/>
-		<control caption="Kliknąłeś na PeerProject-powered URI które wskazuje na następującą zawartość w sieci:"/>
-		<control caption="Kliknąłeś na PeerProject-powered URI które połączy cię z następującym hostem lub serwerem:"/>
-		<control caption="Kliknąłeś na PeerProject-powered URI które pozwoli ci na przeglądanie udostępninych plików na następującym hoście:"/>
+		<control caption="Kliknąłeś na PeerProject-powered URI, który wskazuje (linkuje) następującą zawartość (kontent) w sieci:"/>
+		<control caption="Kliknąłeś na PeerProject-powered URL, który połączy Cię z następującym hostem or serverem:"/>
+		<control caption="Kliknąłeś na PeerProject-powered URI, który umożliwi Ci przeglądanie udostepnionych plików znajdujących się na następującym hoście:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4061,9 +4024,8 @@
 		<control caption="Anuluj"/>
 		<control caption="Zapamiętaj mój wybór"/>
 		<control caption="Otwórz okno monitora pobierań"/>
-		<control caption="Kliknąłeś na PeerProject-powered URI które doda następujący serwis Discovery do twojego cache'a serwisów Discovery."/>
+		<control caption="Kliknąłeś na PeerProject-powered URI które doda następujący serwis Discovery do twojego cache'u serwisów Discovery."/>
 	</dialog>
-
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Pobieranie Metadanych...">
 		<control/>
 		<control caption="PeerProject próbuje pobrać metadane z Bitzi(TM)..."/>
@@ -4072,39 +4034,35 @@
 		<control/>
 		<control caption="www.bitzi.com"/>
 	</dialog>
-
-	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="InteligentnyPodgląd Pobierania...">
+	<dialog name="CFilePreviewDlg" cookie="StStStmsStBu" caption="Inteligentny Podgląd Pobierania...">
 		<control/>
-		<control caption="PeerProject tworzy podgląd:"/>
+		<control caption="PeerProject generuje podgląd:"/>
 		<control/>
 		<control/>
 		<control caption="(kopiowanie pobranych części do nowego pliku podglądu)"/>
 		<control caption="Anuluj"/>
 	</dialog>
-
-	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject Respects its Users">
+	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject szanuje swoich Użytkowników">
 		<control/>
-		<control caption="Did you know PeerProject is a 100% free product?"/>
-		<control caption="PeerProject does NOT contain ANY &quot;spyware&quot;, &quot;adware&quot; or other bundled software. It does NOT display any advertisements or &quot;popups&quot;, ever.{n}{n}If you ever see advertising or &quot;popups&quot; while using PeerProject, be assured that they are NOT coming from this program."/>
-		<control caption="Unfortunately a lot of other software does come with undesirable adware or spyware, so if you see something suspicious you may wish to check your PC with an advertising or spyware removal program."/>
-		<control caption="You should not have had to pay any money to obtain PeerProject.  PeerProject can be freely downloaded by anyone from http://peerproject.org/.  If you paid someone money for PeerProject, you should demand a full refund immediately."/>
-		<control caption="PeerProject respects its users!"/>
-		<control caption="http://PeerProject.org"/>
+		<control caption="Czy wiesz, że PeerProject jest w 100% DARMOWTM produktem?"/>
+		<control caption="PeerProject NIE zawiera ŻADNEGO &quot;spyware'u&quot;, &quot;adware'u&quot; ani innego wmuszanego software'u. PeerProject NIE wyświetla ŻADNYCH reklam ani &quot;wyskakujących okieniek popup'ów&quot;, nigdy.{n}{n}Jeśli kiedykolwiek widziałeś reklamę lub &quot;wyskakujace okienka - popupy&quot; podczas używania Shareazy, bądź pewien, że one NIE pochodzą z tego programu tj. Shareazy."/>
+		<control caption="Niestety wiele innych programów przychodzi z nieporządanym adwarem or spywarem, zatem jeśli widzisz coś podejrzanego you may wish to sprawdzić swój komputer oprogramowaniem likwidującym reklamy i szpiegów."/>
+		<control caption="Nie wolno zmuszać Cię do płacenia jakichkolwiek pieniędzy za otrzymanie Shareazy. Kazdy zawsze może darmowowo pobrać PeerProject ze strony http://PeerProject.org/. Jeśli zapłaciłeś komuś pieniądze za PeerProject, powinieneś żądać natychmiastowego zwrotu tych nienależnych temu komuś pieniędzy, aż do skutku."/>
+		<control caption="PeerProject szanuje swoich użytkowników!"/>
+		<control caption="http://PeerProject.org/"/>
 		<control caption="Zamknij"/>
 	</dialog>
-
 	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Spread the Word">
 		<control/>
-		<control caption="Help Us Spread the Word"/>
-		<control caption="We hope you have enjoyed using PeerProject so far.  We believe it is the best file sharing application around."/>
-		<control caption="Unfortunately, a lot of file sharers don't know what they're missing!"/>
-		<control caption="If you know someone who would like PeerProject, whether they're a new user or someone still putting up with an inferior product, why not let them know there is a better alternative?"/>
-		<control caption="Chances are they'll be grateful you rescued them!"/>
-		<control caption="http://PeerProject.org"/>
+		<control caption="Pomóż nam Spread the Word"/>
+		<control caption="Mamy nadzieję, żę jak dotąd jesteś zadowolony z używania Shareazy. Wierzymy, że jest to najlepsza aplikacja do wymiany plików na rynku."/>
+		<control caption="Niestety, wielu wymieniających pliki nie wie co traci!"/>
+		<control caption="Jeśli znasz kogoś kto chciałby PeerProject, whether they're a new user or someone still putting up with an inferior product, dlaczego by nie powiadomić ich, że jest lepsza alternatywa?"/>
+		<control caption="Są szanse, że będą Ci wdzięczni za poratowanie!"/>
+		<control caption="http://PeerProject.org/"/>
 		<control caption="OK"/>
 	</dialog>
-
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Existing File">
+	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Plik istnieje">
 		<control/>
 		<control/>
 		<control/>
@@ -4118,7 +4076,6 @@
 		<control caption="Już sciągnąłeś ten plik ale go usunąłeś.  co chciałbyś zrobić?"/>
 		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
-
 	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Close Button">
 		<control/>
 		<control caption="To jest pierwszy raz kiedy kliknąłeś przycisk zamykania PeerProject.  Wybierz co PeerProject ma zrobic gdy będziesz klikać na ten przycisk:"/>
@@ -4128,64 +4085,59 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-
 	<dialog name="CDonkeyServersDlg" cookie="StStEdmsBuBu" caption="Download Server.met File">
 		<control/>
-		<control caption="Możesz pobrać plik server.met z sieci web aby odświeżyć lokalną liste serwerów ed2k."/>
+		<control caption="Możesz pobrać plik server.met eDonkeya z sieci web aby odświeżyć swoją lokalną liste serwerów eD2k."/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Help">
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="Pomoc Shareazy">
 		<control/>
 		<control caption="Zamknij"/>
 		<control/>
 	</dialog>
-
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Delete File">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Usuń plik">
 		<control caption="Czy napewno chcesz usunąć ten plik:"/>
 		<control/>
 		<control caption="Usuń"/>
-		<control caption="Usuń wszystko"/>
+		<control caption="Usuń wszystkie"/>
 		<control caption="Anuluj"/>
 		<control/>
-		<control caption="PeerProject może zapamiętać ten plik i ostrzec cię jeżeli będziesz go chciał pobrać ponownie. Co chcesz zrobić :"/>
-		<control caption="Nie chcę tego komentować."/>
-		<control caption="Plik jest nazwany niepoprawnie."/>
-		<control caption="Ten plik to fake, jestuszkodzony lub niestabilny."/>
-		<control caption="File rating:"/>
-		<control caption="(No Rating)|Fake/Corrupt/Misleading|Poor|Average|Good|Very Good|Excellent"/>
+		<control caption="PeerProject może zapamiętać ten plik i ostrzec Cię jeżeli natrafisz na niego ponownie w innym wyszukiwaniu (będziesz go chciał pobrać ponownie). Zostanie utworzony plik ghost file z Twoim komentarzem i oceną."/>
+		<control caption="Utwórz plik ghost file"/>
+		<control caption="Powód usunięcia:"/>
+		<control caption="Zwykłe usunięcie, zachowaj moje komentarze|Ten plik jest nieprawidłowo nazwany i może wprowadzć w błąd|Ten plik jest bardzo kiepskiej jakości|Ten plik to fake, lub jest uszkodzony albo niestabilny|Zastąp moje komentarze nowymi."/>
+		<control caption="Ocena pliku:"/>
+		<control caption="(Bez oceny)|Fake/Uszkodzony/Wprowadza w błąd|Kiepski|Średni|Dobry|Bardzo dobry|Wyśmienity"/>
 		<control caption="Możesz napisać krótki komentarz dlaczego ten plik jest zły:"/>
 		<control/>
 	</dialog>
-
-	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Export Folder">
-		<control caption="This feature is used to export the contents of an album folder as a rich collection file."/>
+	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Eksportuj kolekcję">
+		<control caption="Ta funkcjonalność jest używana do eksportowania zawartości foldera albumu jako plik kolekcji (as a rich collection file)."/>
 		<control/>
-		<control caption="Template Information:"/>
-		<control caption="Name:"/>
+		<control caption="Szablon informacji:"/>
+		<control caption="Nazwa:"/>
 		<control caption="..."/>
-		<control caption="Author:"/>
+		<control caption="Wykonawca:"/>
 		<control caption="..."/>
-		<control caption="Description:"/>
+		<control caption="Opis:"/>
 		<control/>
-		<control caption="Delete|_Back"/>
-		<control caption="_Next|_Export..."/>
+		<control caption=" Usuń| Wróć"/>
+		<control caption="_Następny|_Eksportuj..."/>
 		<control caption="Anuluj"/>
 	</dialog>
-
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Zaawansowana edycja pobierania">
-		<control caption="UWAGA: To okno umożliwia zaawansowaną edycję pobierania. Jeśli zostanie nieprawidłowo użyte może i prawdopodobnie uszkodzi pobierany plik."/>
-		<control caption="_Nazwa pliku & Rozmiar"/>
+	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Włąściwości i Zaawansowana edycja pobierania">
+		<control caption="UWAGA: To okno umożliwia zaawansowaną edycję pobierania. Jeśli zostanie nieprawidłowo użyta może i prawdopodobnie spowoduje uszkodzenie pobieranego pliku."/>
+		<control caption="_Nazwa i wielkość pliku"/>
 		<control caption="_Nazwa pliku:"/>
 		<control/>
 		<control/>
-		<control caption="File rozmiar (Byte):"/>
+		<control caption="Wielkosć pliku (Byte):"/>
 		<control/>
-		<control caption="URN:"/>
-		<control caption="Trusted"/>
+		<control caption="URNy:"/>
+		<control caption="Zaufany"/>
 		<control caption="SHA1:"/>
 		<control/>
 		<control/>
@@ -4197,29 +4149,27 @@
 		<control/>
 		<control caption="Akcje:"/>
 		<control caption="Zapomnij aktualny stan weryfikacji (i zweryfikuj ponownie)"/>
-		<control caption="Przyjmij, że plik jest w 100% kompletny i zweryfikuj ponownie"/>
+		<control caption="Przyjmij, że plik jest kompletny w 100%-ach i ponownie zweryfikuj"/>
 		<control caption="Zapomnij wszystkie znane źródła"/>
-		<control caption="Merge with local file and verify"/>
-		<control caption="Anuluj (keep incomplete file)"/>
+		<control caption="Scal z lokalnym plikiem i zweryfikuj"/>
+		<control caption="Anuluj pobieranie, ale zapisz niezakończone tymczasowe plik(i) tzw. incomplete "/>
 		<control caption="Wymazywanie danych:"/>
-		<control caption="Wymaż bajty:"/>
+		<control caption="Wymaż bajty (od bajtu):"/>
 		<control/>
 		<control caption="do"/>
 		<control/>
 		<control caption="Wymaż"/>
 	</dialog>
-
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Otwórz plik Torrent">
 		<control/>
-		<control caption="Otwarłeś plik torrent. Chciałbyś pobrać jego zawartość, czy seedować go?"/>
+		<control caption="Otwarłeś BitTorentowy plik torrent. Czy chciałbyś pobrać jego zawartość, czy też re-seedować go?"/>
 		<control caption="Pobierz"/>
 		<control caption="Seeduj"/>
 		<control caption="Anuluj"/>
-		<control caption="Aby udostępniać kompletne pliki przez BitTorrenta musisz je seedować. Gdy ten proces zostanie zakończony, Torrent pojawi się jako nowa pozycja w twojej liście pobierań."/>
+		<control caption="Aby udostępniać kompletne pliki poprzez BitTorrent musisz je najpierw seedować (zasadzić). Gdy ten proces zostanie zakończony, Torrent pojawi się jako nowa pozycja w Twojej liście pobierań."/>
 		<control/>
 	</dialog>
-
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="BitTorrent - Zaawansowane Informacje">
+	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="BitTorrent - Zaawansowane Informacje (Ogólnie)">
 		<control caption="Informacje o Torrencie:"/>
 		<control caption="Nazwa:"/>
 		<control/>
@@ -4230,85 +4180,82 @@
 		<control caption="Komentarze:"/>
 		<control/>
 		<control caption="Transfery:"/>
-		<control caption="Rozpocznij nowe pobierania:"/>
-		<control caption="Jeśli potrzeba|Kiedy ratio jest ponad 100%|Tylko kiedy żądane|Nigdy"/>
+		<control caption="Rozpocznij nowe transfery-pobierania:"/>
+		<control caption="Według potrzeb|Kiedy współczynnik jest ponad 100%|Tylko kiedy żądane|Nigdy"/>
 		<control/>
-		<control caption="Total Uploaded:"/>
-		<control caption="Notes:"/>
+		<control caption="Łącznie wysłane:"/>
+		<control caption="Uwagi:"/>
 		<control/>
 	</dialog>
-
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Files">
-		<control caption="Torrent _Information:"/>
+	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Pliki">
+		<control caption="Informacje o Torrencie:"/>
 		<control caption="Nazwa:"/>
 		<control/>
-		<control caption="_Files:"/>
+		<control caption="Pliki:"/>
 		<control/>
 	</dialog>
-
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="Torrent _Information:"/>
+	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackery">
+		<control caption="Informacje o Torrencie:"/>
 		<control caption="Nazwa:"/>
 		<control/>
 		<control caption="Tracker:"/>
 		<control/>
-		<control caption="_Current Tracker:"/>
-		<control caption="Kompletne (Seeds):"/>
+		<control caption="Obecny Tracker:"/>
+		<control caption="Ukończne (Seedowane):"/>
 		<control/>
 		<control caption="Niekompletne:"/>
 		<control/>
-		<control caption="_Refresh"/>
-		<control caption="_Trackers:"/>
+		<control caption="Odśwież"/>
+		<control caption="Trakery:"/>
 		<control/>
-		<control caption="Tracker Mode:"/>
-		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
+		<control caption="Tryb Trackera:"/>
+		<control caption="Wyłącz|Custom|Pojedynczy Tracker|Multi-tracker|Multi-tracker (locked)"/>
 	</dialog>
-
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Właściwości grupy pobierań">
-		<control caption="Nazwa:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Właściwości grupy pobierań">
+		<control caption="OK"/>
+		<control caption="Anuluj"/>
 		<control/>
 		<control/>
-		<control caption="Filtry:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="Dodaj"/>
 		<control caption="Usuń"/>
-		<control caption="OK"/>
-		<control caption="Anuluj"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Nazwa:"/>
+		<control caption="Filtry:"/>
 		<control caption="Folder ukończonych plików:"/>
-		<control/>
-		<control/>
+		<control caption="Rodzaj pliku:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
-
-	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Select Visualisation">
+	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Wybierz wizualizację">
 		<control/>
-		<control caption="Select an audio visualisation from the list:"/>
+		<control caption="Wybierz z listy wizualizację audio:"/>
 		<control/>
 		<control caption="Footer Display|Full Size Display|Large Display|Medium Display|Small Display"/>
 		<control caption="Setup..."/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-
-	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Upgrade Alert">
+	<dialog name="CUpgradeDlg" cookie="StStStBuBuBu" caption="Alert aktualizacji">
 		<control/>
-		<control caption="Nowa wersj PeerProject jest dostępna.  czy chciałbyś aktualizować?"/>
+		<control caption="Nowa wersj PeerProject jest dostępna.  Czy chciałbyś aktualizować?"/>
 		<control caption="Jeśli wybierzesz aktualizuj teraz to PeerProject doda aktualizacje do twojej kolejki pobierania."/>
 		<control caption="Aktualizuj teraz"/>
 		<control caption="Nie sprawdzaj czy są nowe wersje"/>
 		<control caption="Nie aktualizuj"/>
 	</dialog>
-
 	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Recenzje">
 		<control/>
 		<control caption="OK"/>
 		<control/>
 		<control/>
 	</dialog>
-
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Lokalizacja Metadanych">
 		<control caption="Proszę wybrać metodę kodowania"/>
 		<control caption="Arabski|Bałtycki|Europa Środkowa|Chiński uproszczony|Chiński tradycyjny|Cyrylica|Grecki|Hebrajski|Japoński|Koreański|Tajlandzki|Turecki|Wietnamski"/>
-		<control caption="Preview:"/>
+		<control caption="Podgląd:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4316,22 +4263,19 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Nazwa kanału|Jaki powód (Why reason)">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
-		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+		<control caption="Wprowadź nazwę kanału, który chcesz dodać:|Wprowadź powód kick'a/bana:"/>
 	</dialog>
-
 </dialogs>
-
 <!-- Columns Definitions -->
 <listColumns>
 	<list name="CLibraryWnd">
 		<column from="File" to="Plik"/>
 		<column from="Extension" to="Rozszerzenie"/>
-		<column from="Size" to="Rozmiar"/>
+		<column from="Size" to="Wielkość"/>
 		<column from="Folder" to="Folder"/>
 		<column from="Hits" to="Trafienia"/>
 		<column from="Uploads" to="Wysyłki"/>
@@ -4385,12 +4329,12 @@
 		<column from="Port" to="Port"/>
 		<column from="Client" to="Klient"/>
 		<column from="Last Seen" to="Ostatnio widziany"/>
-		<column from="Daily Uptime" to=""/>
+		<column from="Daily Uptime" to="Dzienny Uptime"/>
 		<column from="Name" to="Nazwa"/>
 		<column from="Description" to="Opis"/>
 		<column from="CurUsers" to="Akt Użytkowników"/>
 		<column from="MaxUsers" to="Max użytkowników"/>
-		<column from="Failures" to=""/>
+		<column from="Failures" to="Niepowodzeń"/>
 		<column from="Country" to="Kraj"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4419,13 +4363,13 @@
 	<list name="CMatchCtrl">
 		<column from="File" to="Plik"/>
 		<column from="Extension" to="Rozszerzenie"/>
-		<column from="Size" to="Rozmiar"/>
+		<column from="Size" to="Wielkość"/>
 		<column from="Rating" to="Ocena"/>
 		<column from="Status" to="Status"/>
 		<column from="Host/Count" to="Host/Ilość"/>
-		<column from="Speed" to="Prędkość"/>
+		<column from="Speed" to="Szybkość"/>
 		<column from="Client" to="Klient"/>
-		<column from="Time" to=""/>
+		<column from="Time" to="Czas"/>
 		<column from="Country" to="Kraj"/>
 	</list>
 	<list name="CUploadQueueList">
@@ -4433,7 +4377,7 @@
 		<column from="Criteria" to="Kryteria"/>
 		<column from="Bandwidth" to="Szerokość pasma"/>
 		<column from="Transfers" to="Transfery"/>
-		<column from="Order" to="Porządek"/>
+		<column from="Order" to="Kolejność"/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to="Ustawienie"/>
@@ -4452,15 +4396,15 @@
 		<column from="Size" to="Rozmiar"/>
 	</list>
 	<list name="CTorrentTrackerList">
-		<column from="Filename" to="Nazwa pliku"/>
-		<column from="Size" to="Rozmiar"/>
-		<column from="Type" to=""/>
+		<column from="Nazwa pliku" to=""/>
+		<column from="Size" to="Wielkość"/>
+		<column from="Type" to="Typ"/>
 	</list>
 	<list name="CReviewList">
 		<column from="User" to="Użytkownik"/>
 		<column from="Rating" to="Ocena"/>
 		<column from="Comments" to="Komentarze"/>
-		<column from="Order" to="Porządek"/>
+		<column from="Order" to="Kolejność"/>
 	</list>
 </listColumns>
 </skin>

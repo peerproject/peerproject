@@ -28,11 +28,6 @@
 #include "Application.h"
 #include "QuerySearch.h"
 
-#include "SHA.h"
-#include "MD5.h"
-#include "ED2K.h"
-#include "TigerTree.h"
-
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -234,14 +229,10 @@ CLibraryFile* CLibraryMaps::LookupFileByHash(const Hashes::Sha1Hash& oSHA1, cons
 		{
 			for ( ; pFile ; pFile = pFile->m_pNextSHA1 )
 			{
-				if ( ( ( pFile->m_oSHA1 && oSHA1) ||
-					( pFile->m_oTiger && oTiger) ||
-					( pFile->m_oED2K && oED2K) ||
-					( pFile->m_oMD5 && oMD5) ) &&
-					( !validAndUnequal( pFile->m_oSHA1, oSHA1 ) ) &&
-					( !validAndUnequal( pFile->m_oTiger, oTiger ) ) &&
-					( !validAndUnequal( pFile->m_oED2K, oED2K ) ) &&
-					( !validAndUnequal( pFile->m_oMD5, oMD5 ) ) )
+				if ( validAndEqual( pFile->m_oSHA1, oSHA1 ) &&
+					! (	validAndUnequal( pFile->m_oTiger, oTiger ) ||
+						validAndUnequal( pFile->m_oED2K,  oED2K  ) ||
+						validAndUnequal( pFile->m_oMD5,   oMD5   ) ) )
 				{
 					if ( CheckFileAttributes( pFile, bMinSize, bMaxSize, nMinSize, nMaxSize, bSharedOnly, bAvailableOnly ) )
 						return pFile;
@@ -249,6 +240,7 @@ CLibraryFile* CLibraryMaps::LookupFileByHash(const Hashes::Sha1Hash& oSHA1, cons
 			}
 		}
 	}
+
 	if ( oED2K.isValid() )
 	{
 		pFile = m_pED2KMap[ oED2K[ 0 ] & HASH_MASK ];
@@ -256,12 +248,10 @@ CLibraryFile* CLibraryMaps::LookupFileByHash(const Hashes::Sha1Hash& oSHA1, cons
 		{
 			for ( ; pFile ; pFile = pFile->m_pNextED2K )
 			{
-				if ( ( ( pFile->m_oED2K && oED2K) ||
-					( pFile->m_oTiger && oTiger) ||
-					( pFile->m_oMD5 && oMD5) ) &&
-					( !validAndUnequal( pFile->m_oED2K, oED2K ) ) &&
-					( !validAndUnequal( pFile->m_oTiger, oTiger ) ) &&
-					( !validAndUnequal( pFile->m_oMD5, oMD5 ) ) )
+				if ( validAndEqual( pFile->m_oED2K, oED2K ) &&
+					! ( validAndUnequal( pFile->m_oSHA1,  oSHA1  ) ||
+						validAndUnequal( pFile->m_oTiger, oTiger ) ||
+						validAndUnequal( pFile->m_oMD5,   oMD5   ) ) )
 				{
 					if ( CheckFileAttributes( pFile, bMinSize, bMaxSize, nMinSize, nMaxSize, bSharedOnly, bAvailableOnly ) )
 						return pFile;
@@ -269,6 +259,7 @@ CLibraryFile* CLibraryMaps::LookupFileByHash(const Hashes::Sha1Hash& oSHA1, cons
 			}
 		}
 	}
+
 	if ( oTiger.isValid() )
 	{
 		pFile = m_pTigerMap[ oTiger[ 0 ] & HASH_MASK ];
@@ -276,10 +267,10 @@ CLibraryFile* CLibraryMaps::LookupFileByHash(const Hashes::Sha1Hash& oSHA1, cons
 		{
 			for ( ; pFile ; pFile = pFile->m_pNextTiger )
 			{
-				if ( ( ( pFile->m_oTiger && oTiger) ||
-					( pFile->m_oMD5 && oMD5) ) &&
-					( !validAndUnequal( pFile->m_oTiger, oTiger ) ) &&
-					( !validAndUnequal( pFile->m_oMD5, oMD5 ) ) )
+				if ( validAndEqual( pFile->m_oTiger, oTiger ) &&
+					! ( validAndUnequal( pFile->m_oSHA1,  oSHA1  ) ||
+						validAndUnequal( pFile->m_oED2K,  oED2K  ) ||
+						validAndUnequal( pFile->m_oMD5,   oMD5   ) ) )
 				{
 					if ( CheckFileAttributes( pFile, bMinSize, bMaxSize, nMinSize, nMaxSize, bSharedOnly, bAvailableOnly ) )
 						return pFile;
@@ -287,6 +278,7 @@ CLibraryFile* CLibraryMaps::LookupFileByHash(const Hashes::Sha1Hash& oSHA1, cons
 			}
 		}
 	}
+
 	if ( oMD5.isValid() )
 	{
 		pFile = m_pMD5Map[ oMD5[ 0 ] & HASH_MASK ];
@@ -294,7 +286,10 @@ CLibraryFile* CLibraryMaps::LookupFileByHash(const Hashes::Sha1Hash& oSHA1, cons
 		{
 			for ( ; pFile ; pFile = pFile->m_pNextMD5 )
 			{
-				if ( validAndEqual( pFile->m_oMD5, oMD5 ) )
+				if ( validAndEqual( pFile->m_oMD5, oMD5 ) &&
+					! ( validAndUnequal( pFile->m_oSHA1,  oSHA1  ) ||
+						validAndUnequal( pFile->m_oTiger, oTiger ) ||
+						validAndUnequal( pFile->m_oED2K,  oED2K  ) ) )
 				{
 					if ( CheckFileAttributes( pFile, bMinSize, bMaxSize, nMinSize, nMaxSize, bSharedOnly, bAvailableOnly ) )
 						return pFile;

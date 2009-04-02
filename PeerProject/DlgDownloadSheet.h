@@ -43,6 +43,7 @@ protected:
 	CSkinWindow*	m_pSkin;
 	CBrush			m_brDialog;
 	CString			m_sDownloadTitle;
+	CString			m_sActionsTitle;
 	CString			m_sGeneralTitle;
 	CString			m_sFilesTitle;
 	CString			m_sTrackersTitle;

@@ -67,7 +67,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="comctl32.lib"
-				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\zlib"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -148,7 +147,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="comctl32.lib"
-				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\zlib"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"

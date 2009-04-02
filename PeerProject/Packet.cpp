@@ -29,7 +29,6 @@
 #include "Network.h"
 #include "Packet.h"
 #include "ZLib.h"
-#include "SHA.h"
 #include "Buffer.h"
 #include "WndMain.h"
 #include "WndPacket.h"
@@ -447,7 +446,7 @@ void CPacket::SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, 
 	if ( pLock.Lock( 50 ) ) // If we wait more than 1/20th of a second for access, Lock will return false so we can just give up
 	{
 		// Get a pointer to the main PeerProject window
-		if ( CMainWnd* pMainWnd = (CMainWnd*)theApp.m_pSafeWnd )
+		if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
 		{
 			// Get pointers to the window manager, and null a pointer to a packet window
 			CWindowManager* pWindows = &pMainWnd->m_pWindows;
@@ -481,7 +480,8 @@ BOOL CPacket::GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength) const
 	CSHA pSHA;
 	pSHA.Add( m_pBuffer, nLength ); // Add the bytes of the packet to those it needs to hash
 	pSHA.Finish();                  // Tell it that's all we have
-	pSHA.GetHash( oHash );          // Ask it to write the hash under the pHash pointer
+	pSHA.GetHash( &oHash[ 0 ] );    // Ask it to write the hash under the pHash pointer
+	oHash.validate();
 	return TRUE;                    // Report success
 }
 

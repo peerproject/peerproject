@@ -122,13 +122,18 @@ public:
 public:
 
 	// Compute the SHA hash of the bytes of the packet
-    virtual BOOL	GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength = 0xFFFFFFFF) const;
+	virtual BOOL	GetRazaHash(Hashes::Sha1Hash& oHash, DWORD nLength = 0xFFFFFFFF) const;
 
 	// Does nothing (do)
 	void			RazaSign();
 	BOOL			RazaVerify() const;
 
 public:
+	// Get current position
+	inline const BYTE* GetCurrent() const
+	{
+		return m_pBuffer + m_nPosition;
+	}
 
 	// Get the length beyond our position in the packet
 	inline DWORD GetRemaining() const
@@ -140,7 +145,7 @@ public:
 
 	// Takes a pointer to a buffer, and the number of bytes we want written there
 	// Copies this number of bytes from the packet, and moves the packet's position beyond them
-    inline void Read(LPVOID pData, int nLength)
+	inline void Read(LPVOID pData, int nLength)
 	{
 		// Make sure the requested length doesn't poke beyond the end of the packet
 		if ( m_nPosition + nLength > m_nLength ) AfxThrowUserException();
@@ -165,7 +170,7 @@ public:
 		// Read one byte, return it, and move our position in this packet beyond it
 		return m_pBuffer[ m_nPosition++ ];
 	}
-	
+
 	// Read any Hash directly from a packet
 	template
 	<
@@ -317,7 +322,7 @@ public:
 		}
 		return TRUE;
 	}
-	
+
 	// Write any Hash directly into a packet ( just the raw data )
 	template
 	<
@@ -338,7 +343,7 @@ public:
 	inline void WriteByte(BYTE nValue)
 	{
 		// Make sure there is room for the byte
-		if ( m_nLength + sizeof( nValue ) > m_nBuffer ) 
+		if ( m_nLength + sizeof( nValue ) > m_nBuffer )
 		{
 			if ( ! Ensure( sizeof( nValue ) ) ) return;
 		}
@@ -352,7 +357,7 @@ public:
 	inline void WriteShortLE(WORD nValue)
 	{
 		// Make sure there is room for the 2 bytes
-		if ( m_nLength + sizeof(nValue) > m_nBuffer ) 		
+		if ( m_nLength + sizeof(nValue) > m_nBuffer )
 		{
 			if ( ! Ensure( sizeof( nValue ) ) ) return;
 		}
@@ -367,7 +372,7 @@ public:
 	inline void WriteShortBE(WORD nValue)
 	{
 		// Make sure there is room for the 2 bytes
-		if ( m_nLength + sizeof(nValue) > m_nBuffer ) 
+		if ( m_nLength + sizeof(nValue) > m_nBuffer )
 		{
 			if ( ! Ensure( sizeof( nValue ) ) ) return;
 		}
@@ -382,7 +387,7 @@ public:
 	inline void WriteLongLE(DWORD nValue)
 	{
 		// Make sure there is room for the 4 bytes
-		if ( m_nLength + sizeof(nValue) > m_nBuffer ) 
+		if ( m_nLength + sizeof(nValue) > m_nBuffer )
 		{
 			if ( ! Ensure( sizeof( nValue ) ) ) return;
 		}
@@ -397,7 +402,7 @@ public:
 	inline void WriteLongBE(DWORD nValue)
 	{
 		// Make sure there is room for the 4 bytes
-		if ( m_nLength + sizeof(nValue) > m_nBuffer ) 
+		if ( m_nLength + sizeof(nValue) > m_nBuffer )
 		{
 			if ( ! Ensure( sizeof( nValue ) ) ) return;
 		}

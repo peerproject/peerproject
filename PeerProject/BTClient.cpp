@@ -27,7 +27,6 @@
 #include "BTPacket.h"
 #include "BENode.h"
 #include "Buffer.h"
-#include "SHA.h"
 
 #include "Download.h"
 #include "Downloads.h"
@@ -486,7 +485,7 @@ BOOL CBTClient::OnHandshake2()
 			ASSERT( m_pDownloadTransfer == NULL );
 
 			// Download from uploaders, unless the user has turned off downloading for this torrent
-			if ( m_pDownload->m_pTorrent.m_nStartDownloads != dtNever )
+			if ( m_pDownload->m_pTorrent.m_nStartDownloads != CBTInfo::dtNever )
 			{
 				// This seems to be set to null sometimes... DownloadwithTorrent: if ( pSource->m_pTransfer != NULL )
 				// May just be clients sending duplicate connection requests, though...
@@ -560,6 +559,7 @@ CString CBTClient::GetAzureusStyleUserAgent(LPBYTE pVendor, size_t nVendor)
 		{ 'L', 'P', L"Lphant" },
 		{ 'L', 'T', L"libtorrent" },
 		{ 'l', 't', L"rTorrent" },
+		{ 'L', 'W', L"LimeWire" },
 		{ 'M', 'O', L"Mono Torrent" },
 		{ 'M', 'P', L"MooPolice" },
 		{ 'M', 'T', L"MoonlightTorrent" },

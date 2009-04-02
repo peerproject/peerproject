@@ -56,17 +56,14 @@ END_MESSAGE_MAP()
 
 CLibrarySettingsPage::CLibrarySettingsPage() : CSettingsPage(CLibrarySettingsPage::IDD)
 , m_bMakeGhosts(FALSE)
+, m_bWatchFolders(FALSE)
+, m_nRecentDays(0)
+, m_nRecentTotal(0)
+, m_bStoreViews(FALSE)
+, m_bBrowseFiles(FALSE)
+, m_bHighPriorityHash(FALSE)
+, m_bSmartSeries(FALSE)
 {
-	//{{AFX_DATA_INIT(CLibrarySettingsPage)
-	m_bWatchFolders = FALSE;
-	m_nRecentDays = 0;
-	m_nRecentTotal = 0;
-	m_bStoreViews = FALSE;
-	m_bBrowseFiles = FALSE;
-	m_bHighPriorityHash = FALSE;
-	m_bSmartSeries = FALSE;
-	m_sCollectionPath = _T("");
-	//}}AFX_DATA_INIT
 }
 
 CLibrarySettingsPage::~CLibrarySettingsPage()
@@ -94,6 +91,7 @@ void CLibrarySettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COLLECTIONS_BROWSE, m_wndCollectionPath);
 	DDX_Text(pDX, IDC_COLLECTIONS_FOLDER, m_sCollectionPath);
 	DDX_Check(pDX, IDC_MAKE_GHOSTS, m_bMakeGhosts);
+	DDX_Check(pDX, IDC_SMART_SERIES_DETECTION, m_bSmartSeries);
 	//}}AFX_DATA_MAP
 }
 

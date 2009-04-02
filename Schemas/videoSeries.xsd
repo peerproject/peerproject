@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <schema targetNamespace="http://www.shareaza.com/schemas/videoSeries.xsd" xmlns="http://www.w3.org/2001/XMLSchema">
-  
+
   <element name="videoSerieses">
 	<complexType>
 		<element name="videoSeries" type="seriesType" minOccurs="1" maxOccurs="unbounded"/>
 	</complexType>
-  </element>     
+  </element>
   <complexType name="seriesType">
 	<all>
 		<attribute name="name" type="string"/>
@@ -83,11 +83,13 @@
 		</attribute>
 		<attribute name="source">
 			<simpleType base="string">
+				<enumeration value="Bluray"/>
 				<enumeration value="Cam"/>
 				<enumeration value="DVD Screener"/>
 				<enumeration value="VHS Screener"/>
 				<enumeration value="DVD"/>
 				<enumeration value="VHS"/>
+				<enumeration value="HDTV"/>
 				<enumeration value="TV Rip"/>
 				<enumeration value="Telesync"/>
 				<enumeration value="Telesine"/>
@@ -116,5 +118,5 @@
 		<attribute name="comments" type="string"/>
 	</all>
   </complexType>
-  
+
 </schema>

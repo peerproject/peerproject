@@ -113,7 +113,7 @@ BOOL CFileCopyDlg::OnInitDialog()
 		}
 	}
 
-	if ( Settings.General.LanguageRTL ) 
+	if ( Settings.General.LanguageRTL )
 	{
 		m_wndProgress.ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
 		m_wndFileProg.ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
@@ -255,7 +255,7 @@ void CFileCopyDlg::OnRun()
 				strName		= pFile->m_sName;
 				strPath		= pFile->m_pFolder->m_sPath;
 				pSchema		= pFile->m_pSchema;
-				pMetadata	= pFile->m_pMetadata->Clone();
+				pMetadata	= pFile->m_pMetadata ? pFile->m_pMetadata->Clone() : NULL;
 				bMetadataAuto = pFile->m_bMetadataAuto;
 				nRating		= pFile->m_nRating;
 				sComments	= pFile->m_sComments;
@@ -276,18 +276,8 @@ void CFileCopyDlg::OnRun()
 			CLibraryFolder* pTargetFolder = LibraryFolders.GetFolder( m_sTarget );
 			if ( pTargetFolder )
 			{
-				bool bNew = false;
-				CLibraryFile* pTargetFile = pTargetFolder->GetFile( strName );
-				if ( pTargetFile == NULL )
-				{
-					pTargetFile = new CLibraryFile( pTargetFolder, strName );
-					pTargetFolder->m_pFiles.SetAt(
-						pTargetFile->GetNameLC(), pTargetFile );
-					pTargetFolder->m_nFiles++;
-					pTargetFolder->m_nUpdateCookie++;
-					bNew = true;
-				}
-				
+				BOOL bNew;
+				CLibraryFile* pTargetFile = pTargetFolder->AddFile( strName, bNew );
 				if ( pSchema )
 				{
 					pTargetFile->m_pSchema = pSchema;
@@ -330,14 +320,12 @@ void CFileCopyDlg::OnRun()
 
 			LoadString ( sCurrent, IDS_STATUS_FILEERROR );
 			m_wndFileName.SetWindowText( sCurrent );
-			
 		}
 		else
 		{
 			m_wndFileName.SetWindowText( strName );
 			ProcessFile( strName, strPath, bMetaData );
 		}
-		//
 */
 	}
 }
@@ -419,7 +407,7 @@ bool CFileCopyDlg::CheckTarget(const CString& strTarget)
 		return false;
 	}
 
-	if ( DeleteFile( strTarget ) )
+	if ( DeleteFileEx( strTarget, TRUE, FALSE, FALSE ) )
 		return true;
 
 	CString strError = GetErrorString();
@@ -454,7 +442,7 @@ bool CFileCopyDlg::ProcessMove(const CString& strSource, const CString& strTarge
 	{
 		// Success. Tell the file to use its new name
 		while( !Uploads.OnRename( strSource, strTarget ) );
-		return DeleteFile( strSource ) != 0;
+		return DeleteFileEx( strSource, TRUE, FALSE, FALSE ) != 0;
 	}
 
 	// Failure. Continue using its old name
@@ -475,7 +463,7 @@ bool CFileCopyDlg::ProcessCopy(const CString& strSource, const CString& strTarge
 		&m_bCancel, COPY_FILE_FAIL_IF_EXISTS ) != 0;
 
 	if ( !bResult && !IsThreadAlive() )
-		DeleteFile( strTarget );
+		DeleteFileEx( strTarget, TRUE, FALSE, FALSE );
 
 	return bResult;
 }

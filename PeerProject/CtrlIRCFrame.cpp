@@ -228,29 +228,28 @@ void CIRCFrame::FillChanList()
 	m_pChanList.AddChannel( _T("-PeerProject Help"), _T("#PeerProject-Support") );
 	m_pChanList.AddChannel( _T("-PeerProject Chat"), _T("#PeerProject-Chat") );
 	m_pChanList.AddChannel( _T("-PeerProject Multilingual"), _T("#PeerProject-Multilingual") );
-	m_pChanList.AddChannel( _T("-Shareaza Main"), _T("#shareaza") );
-	m_pChanList.AddChannel( _T("-Shareaza Chat"), _T("#shareaza-chat") );
- 	m_pChanList.AddChannel( _T("Afrikaans"), _T("#PeerProject-Afrikaans") );
-	m_pChanList.AddChannel( _T("Arabic"), _T("#PeerProject-Arabic") );
- 	m_pChanList.AddChannel( _T("Chinese"), _T("#PeerProject-Chinese") );
-	m_pChanList.AddChannel( _T("Croatian"), _T("#PeerProject-Croatian") );
- 	m_pChanList.AddChannel( _T("Czech"), _T("#PeerProject-Czech") );
-	m_pChanList.AddChannel( _T("Dutch"), _T("#PeerProject-Dutch") );
-	m_pChanList.AddChannel( _T("Finish"), _T("#PeerProject-Finish") );
-	m_pChanList.AddChannel( _T("French"), _T("#PeerProject-French") );
- 	m_pChanList.AddChannel( _T("German"), _T("#PeerProject-German") );
-	m_pChanList.AddChannel( _T("Greek"), _T("#PeerProject-Greek") );
- 	m_pChanList.AddChannel( _T("Hebrew"), _T("#PeerProject-Hebrew") );
-	m_pChanList.AddChannel( _T("Hungarian"), _T("#PeerProject-Hungarian") );
- 	m_pChanList.AddChannel( _T("Italian"), _T("#PeerProject-Italian") );
- 	m_pChanList.AddChannel( _T("Japanese"), _T("#PeerProject-Japanese") );
-	m_pChanList.AddChannel( _T("Lithuanian"), _T("#PeerProject-Lithuanian") );
- 	m_pChanList.AddChannel( _T("Norwegian"), _T("#PeerProject-Norwegian") );
-	m_pChanList.AddChannel( _T("Polish"), _T("#PeerProject-Polish") );
- 	m_pChanList.AddChannel( _T("Portuguese"), _T("#SPeerProject-Portuguese") );
-	m_pChanList.AddChannel( _T("Russian"), _T("PeerProject-Russian") );
- 	m_pChanList.AddChannel( _T("Spanish"), _T("#PeerProject-Spanish") );
- 	m_pChanList.AddChannel( _T("Swedish"), _T("#PeerProject-Swedish") );
+	m_pChanList.AddChannel( _T("Shareaza"), _T("#shareaza") );
+ 	m_pChanList.AddChannel( _T("Afrikaans"), _T("#PeerProject-af") );
+	m_pChanList.AddChannel( _T("Arabic"), _T("#PeerProject-ar") );
+ 	m_pChanList.AddChannel( _T("Chinese"), _T("#PeerProject-chs") );
+	m_pChanList.AddChannel( _T("Croatian"), _T("#PeerProject-cr") );
+ 	m_pChanList.AddChannel( _T("Czech"), _T("#PeerProject-cz") );
+	m_pChanList.AddChannel( _T("Dutch"), _T("#PeerProject-nl") );
+	m_pChanList.AddChannel( _T("Finish"), _T("#PeerProject-fi") );
+	m_pChanList.AddChannel( _T("French"), _T("#PeerProject-fr") );
+ 	m_pChanList.AddChannel( _T("German"), _T("#PeerProject-de") );
+	m_pChanList.AddChannel( _T("Greek"), _T("#PeerProject-gr") );
+ 	m_pChanList.AddChannel( _T("Hebrew"), _T("#PeerProject-he") );
+	m_pChanList.AddChannel( _T("Hungarian"), _T("#PeerProject-hu") );
+ 	m_pChanList.AddChannel( _T("Italian"), _T("#PeerProject-it") );
+ 	m_pChanList.AddChannel( _T("Japanese"), _T("#PeerProject-ja") );
+	m_pChanList.AddChannel( _T("Lithuanian"), _T("#PeerProject-lt") );
+ 	m_pChanList.AddChannel( _T("Norwegian"), _T("#PeerProject-no") );
+	m_pChanList.AddChannel( _T("Polish"), _T("#PeerProject-po") );
+ 	m_pChanList.AddChannel( _T("Portuguese"), _T("#PeerProject-pt") );
+	m_pChanList.AddChannel( _T("Russian"), _T("#PeerProject-ru") );
+ 	m_pChanList.AddChannel( _T("Spanish"), _T("#PeerProject-es") );
+ 	m_pChanList.AddChannel( _T("Swedish"), _T("#PeerProject-sw") );
  	m_pChanList.AddChannel( _T("Shareaza Afrikaans"), _T("#Shareaza-Afrikaans") );
 	m_pChanList.AddChannel( _T("Shareaza Arabic"), _T("#Shareaza-Arabic") );
  	m_pChanList.AddChannel( _T("Shareaza Chinese"), _T("#Shareazat-Chinese") );
@@ -545,10 +544,10 @@ void CIRCFrame::OnIrcConnect()
 	m_sWsaBuffer.Empty();
 	if ( WSAStartup( MAKEWORD( 1, 1 ), &WsaData ) != 0 ) return;
 
-	struct sockaddr_in dest_addr;   // will hold the destination addr
-	dest_addr.sin_family = AF_INET;          // host byte order
+	struct sockaddr_in dest_addr;		// Will hold the destination addr
+	dest_addr.sin_family = AF_INET;		// Host byte order
 	dest_addr.sin_port	= (u_short)ntohs( nPort ); // Copy the port number into the m_pHost structure
-	m_nSocket = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP ) ; // do some error checking!
+	m_nSocket = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP ) ; // Do some error checking!
 
 	if ( m_nSocket == INVALID_SOCKET )
 	{
@@ -566,11 +565,11 @@ void CIRCFrame::OnIrcConnect()
 	if ( host == NULL ) return;
 
 	memcpy( &( dest_addr.sin_addr.s_addr ), host->h_addr, sizeof(int) );
-	memset( &( dest_addr.sin_zero ), '\0', 8 );	// zero the rest of the struct
+	memset( &( dest_addr.sin_zero ), '\0', 8 );  // zero the rest of the struct
 
 	int RetVal = WSAConnect(
-		m_nSocket,				// Our socket
-		(struct sockaddr *)&dest_addr,		// The remote IP address and port number
+		m_nSocket,						// Our socket
+		(struct sockaddr *)&dest_addr,	// The remote IP address and port number
 		sizeof(struct sockaddr),		// How many bytes the function can read
 		NULL, NULL, NULL, NULL );		// No advanced features
 
@@ -1076,11 +1075,10 @@ void CIRCFrame::OnTimer(UINT_PTR nIDEvent)
 			if ( nRetVal > 0 ) pszData[ nRetVal + 1 ] = '\0';
 			CString strTmp = pszData;
 			strTmp = m_sWsaBuffer + strTmp;
-				strTmp = TrimString( strTmp );
+			strTmp = TrimString( strTmp );
 			delete[] pszData;
 			m_sWsaBuffer.Empty();
 
-			// ToDo: convert UTF-8 strings to CP_ACP here
 			if ( nRetVal == 0 )
 			{
 				OnStatusMessage( strTmp, ID_COLOR_NOTICE );
@@ -1092,11 +1090,11 @@ void CIRCFrame::OnTimer(UINT_PTR nIDEvent)
 					int nError = WSAGetLastError();
 					KillTimer( 9 );
 					if ( nError == WSAETIMEDOUT )
-					OnStatusMessage( _T("QUIT: Connection Reset By PEER." ), ID_COLOR_NOTICE );
+						OnStatusMessage( _T("QUIT: Connection Reset By PEER." ), ID_COLOR_NOTICE );
 					else if ( nError == WSAENOTCONN )
 						OnStatusMessage( _T("QUIT: Connection Dropped."), ID_COLOR_NOTICE );
 					else 
-						OnStatusMessage( _T("QUIT: Server is busy, please try again in a minute."), ID_COLOR_NOTICE );
+						OnStatusMessage( _T("QUIT: Server is busy, please try again later."), ID_COLOR_NOTICE );
 					OnIrcDisconnect();
 					return;
 				}
@@ -1113,7 +1111,7 @@ void CIRCFrame::OnTimer(UINT_PTR nIDEvent)
 						strMessage = strTmp.Left( nIndex + 1 );
 						strMessage = TrimString( strMessage );
 						if ( strMessage.Find( ' ' ) != -1 && !strMessage.IsEmpty() )
-							OnNewMessage( strMessage );
+							OnNewMessage( UTF8Decode( CStringA( strMessage ) ) );
 						strTmp = strTmp.Mid( nIndex + 1 );
 						nIndex = strTmp.Find( _T("\x000D\x000A") );
 					}
@@ -1134,15 +1132,8 @@ void CIRCFrame::SendString(CString strMessage)
 {
 	strMessage = strMessage.Trim();
 	strMessage = strMessage + _T("\x000D\x000A");
-	// ToDo: convert to UTF-8 depending on the settings
-	int nBytes = WideCharToMultiByte( CP_UTF8, 0, strMessage, strMessage.GetLength(), NULL, 0, NULL, NULL );
-	LPSTR pBytes = new CHAR[ nBytes + 1 ];
-	WideCharToMultiByte( CP_UTF8, 0, strMessage, strMessage.GetLength(), pBytes, nBytes, NULL, NULL );
-	pBytes[nBytes] = '\0';
- 	int nLength, nBytesSent;
-	nLength = int( strlen( pBytes ) );
-	nBytesSent = int( send( m_nSocket, pBytes, nLength, 0 ) );
-	delete [] pBytes;
+	CStringA strEncoded = UTF8Encode( strMessage );
+	send( m_nSocket, (LPCSTR)strEncoded, strEncoded.GetLength(), 0 );
 }
 
 void CIRCFrame::OnStatusMessage(LPCTSTR pszText, int nFlags)
@@ -1313,14 +1304,14 @@ BOOL CIRCFrame::PreTranslateMessage(MSG* pMsg)
 		{
 			if ( m_wndEdit.GetLineCount() > m_nLocalLinesLimit ) 
 			{
-				MessageBox( _T("You excedded the Max number of lines allowed!") );
+				AfxMessageBox( _T("You excedded the Max number of lines allowed!") );
 				return TRUE;
 			}
     		m_wndEdit.GetWindowText( m_sCurrent );
 			if ( m_sCurrent.IsEmpty() ) return TRUE;
 			if ( m_sCurrent.GetLength() > m_nLocalTextLimit ) 
 			{
-				MessageBox( _T("You excedded the Max legnth of text allowed!") );
+				AfxMessageBox( _T("You excedded the Max legnth of text allowed!") );
 				return TRUE;
 			}
 			int nTab = m_wndTab.GetCurSel();
@@ -1804,6 +1795,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 		{
 			CString strChannelName( m_pWords.GetAt( 7 ) );
 			int nTab = 	AddTab( strChannelName, ID_KIND_CHANNEL );
+			if (nTab==-1) return;
 			m_wndTab.SetCurSel( nTab );
 			m_wndPanel.m_boxUsers.m_wndUserList.ResetContent();
 			m_pIrcUsersBuffer[ nTab ].RemoveAll();
@@ -2282,7 +2274,7 @@ int CIRCFrame::AddTab(CString strTabName, int nKindOfTab)
 {
 	if ( m_wndTab.GetItemCount() + 1 == MAX_CHANNELS )
 	{
-		OnLocalText( _T("You have exceeded the maximum number of opened channels") );
+		OnStatusMessage( _T("Maximum number of open channels exceeded"), ID_COLOR_NOTICE );
 		return -1;
 	}
 	int m_nTab = IsTabExist( strTabName );

@@ -76,12 +76,21 @@ void CHashProgressBar::Run()
 
 		if ( m_hWnd == NULL )
 		{
-			CreateEx( WS_EX_TOPMOST | WS_EX_TOOLWINDOW,
-				AfxRegisterWndClass( CS_SAVEBITS | CS_DROPSHADOW ),
-				_T("PeerProject Hashing..."), WS_POPUP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
-				NULL, 0 );
+			try
+			{
+				CreateEx( WS_EX_TOPMOST | WS_EX_TOOLWINDOW,
+					AfxRegisterWndClass( CS_SAVEBITS |
+					// Use CS_DROPSHADOW on Windows XP and above
+					( ( theApp.m_bIsWin2000 == true || theApp.m_nWindowsVersion < 5 ) ? 0 : CS_DROPSHADOW ) ),
+					_T("PeerProject Hashing..."), WS_POPUP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
+					NULL, 0 );
+			}
+			catch (CResourceException* pEx)
+			{
+				pEx->Delete();
+			}
 		}
-		if ( m_hWnd != NULL ) 
+		if ( m_hWnd != NULL )
 		{
 			Update();
 		}

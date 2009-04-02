@@ -79,6 +79,9 @@ BOOL CTransfers::IsConnectedTo(const IN_ADDR* pAddress) const
 
 BOOL CTransfers::StartThread()
 {
+	if ( theApp.m_bClosing )
+		return FALSE;
+
 	CQuickLock oLock( m_pSection );
 
 	if ( m_pList.GetCount() == 0 && Downloads.GetCount() == 0 )
@@ -151,11 +154,9 @@ void CTransfers::OnRun()
 		if ( !IsThreadEnabled() )
 			break;
 
-		{
-			CQuickLock oLock( m_pSection );
 			Uploads.OnRun();
+		
 			OnCheckExit();
-		}
 
 		TransferFiles.CommitDeferred();
 	}
@@ -166,7 +167,9 @@ void CTransfers::OnRun()
 
 void CTransfers::OnRunTransfers()
 {
-	CQuickLock oLock( m_pSection );
+	CSingleLock oLock( &m_pSection );
+	if ( ! oLock.Lock( 250 ) )
+		return;
 
 	++m_nRunCookie;
 
@@ -181,6 +184,10 @@ void CTransfers::OnRunTransfers()
 
 void CTransfers::OnCheckExit()
 {
+	CSingleLock oLock( &m_pSection );
+	if ( ! oLock.Lock( 250 ) )
+		return;
+
 	if ( m_pList.GetCount() == 0 && Downloads.GetCount() == 0 )
 		Exit();
 

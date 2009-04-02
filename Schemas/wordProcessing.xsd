@@ -12,8 +12,8 @@
 		<complexType>
 			<element name="wordprocessing" type="wordprocessingType" minOccurs="1" maxOccurs="unbounded"/>
 		</complexType>
-	</element>     
-	
+	</element>
+
 	<complexType name="wordprocessingType">
 		<all>
 			<attribute name="title" type="string"/>
@@ -53,6 +53,7 @@
 					<enumeration value="Journal"/>
 					<enumeration value="Manual"/>
 					<enumeration value="Music"/>
+					<enumeration value="Notes"/>
 					<enumeration value="Novel"/>
 					<enumeration value="Poetry"/>
 					<enumeration value="Quote"/>
@@ -153,9 +154,9 @@
 				</simpleType>
 			</attribute>
 
-		        <attribute name="formatVersion" type="string"/>
+			<attribute name="formatVersion" type="string"/>
 			<attribute name="pages" type="int"/>
-		        <attribute name="link" type="uriReference"/>
+			<attribute name="link" type="uriReference"/>
 			<attribute name="comments">
 				<simpleType base="string">
 					<maxInclusive value="100"/>
@@ -165,8 +166,3 @@
 	</complexType>
 
 </schema>
-
-
-
-
-

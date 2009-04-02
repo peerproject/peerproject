@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include "PeerProject.h"
 #include "PeerProjectThread.h"
 
 
@@ -89,12 +90,7 @@ public:
 	{
 		do
 		{
-			MSG msg;
-			while ( PeekMessage( &msg, NULL, NULL, NULL, PM_REMOVE ) )
-			{
-				TranslateMessage( &msg );
-				DispatchMessage( &msg );
-			}
+			SafeMessageLoop();
 		}
 		while( MsgWaitForMultipleObjects( 1, &m_pWakeup.m_hObject, FALSE, dwTimeout,
 			QS_ALLINPUT | QS_ALLPOSTMESSAGE ) == WAIT_OBJECT_0 + 1 );

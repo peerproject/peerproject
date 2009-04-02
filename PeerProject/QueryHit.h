@@ -36,6 +36,7 @@ class CQueryHit : public CPeerProjectFile
 // Construction
 public:
 	CQueryHit(PROTOCOLID nProtocol, const Hashes::Guid& oSearchID = Hashes::Guid());
+	CQueryHit(const CQueryHit& pHit);
 	virtual ~CQueryHit();
 
 // Attributes
@@ -63,7 +64,6 @@ public:
 	int				m_nGroup;
 	DWORD			m_nIndex;
 	BOOL			m_bSize;
-	DWORD			m_nSources;
 	DWORD			m_nPartial;
 	BOOL			m_bPreview;
 	CString			m_sPreview;
@@ -86,33 +86,36 @@ public:
 	BOOL			m_bSelected;
 protected:
 	BOOL			m_bResolveURL;
+	DWORD			m_nHitSources;
 
 // Static Decode Operations
 public:
 	static CQueryHit*	FromG1Packet(CG1Packet* pPacket, int* pnHops = NULL);
 	static CQueryHit*	FromG2Packet(CG2Packet* pPacket, int* pnHops = NULL);
-	static CQueryHit*	FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, DWORD m_nServerFlags, const Hashes::Guid& pSearchID = Hashes::Guid());
+	static CQueryHit*	FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, DWORD m_nServerFlags, const Hashes::Guid& pSearchID = Hashes::Guid()) throw();
 protected:
 	static BOOL			CheckBogus(CQueryHit* pFirstHit);
 	static CXMLElement*	ReadXML(CG1Packet* pPacket, int nSize);
-	static BOOL			ReadGGEP(CG1Packet* pPacket, BOOL* pbBrowseHost, BOOL* pbChat);
 
 // Operations
 public:
-	void		Copy(CQueryHit* pOther);
+	CQueryHit&	operator=(const CQueryHit& pOther);
 	void		Delete();
 	int			GetRating();
 	void		Serialize(CArchive& ar, int nVersion);
 	void		Ban(int nBanLength);	// Ban by host IP only
+	void		Resolve();
 protected:
 	void		ParseAttributes(const Hashes::Guid& pClientID, CVendor* pVendor, BYTE* nFlags, BOOL bChat, BOOL bBrowseHost);
 	void		ReadG1Packet(CG1Packet* pPacket);
+	void		ReadGGEP(CG1Packet* pPacket);
+	void		ReadExtension(CG1Packet* pPacket);
+	BOOL		CheckValid() const;
 	bool		ReadG2Packet(CG2Packet* pPacket, DWORD nLength);
-	BOOL		ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, DWORD m_nServerFlags = 0);
-	void		ReadEDAddress(CEDPacket* pPacket, SOCKADDR_IN* pServer);
+	void		ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, DWORD m_nServerFlags = 0) throw(...);
+	void		ReadEDAddress(CEDPacket* pPacket, SOCKADDR_IN* pServer) throw(...);
 	BOOL		ParseXML(CXMLElement* pXML, DWORD nRealIndex);
 	BOOL		HasBogusMetadata();
-	void		Resolve();
 	BOOL		AutoDetectSchema(LPCTSTR pszInfo);
 	BOOL		AutoDetectAudio(LPCTSTR pszInfo);
 
@@ -120,8 +123,7 @@ protected:
 public:
 	inline int GetSources() const
 	{
-		return ( m_nProtocol == PROTOCOL_ED2K )
-			? m_nSources : ( m_nSources ? 1 : 0 );
+		return m_nHitSources;
 	}
 	inline BOOL IsRated() const
 	{

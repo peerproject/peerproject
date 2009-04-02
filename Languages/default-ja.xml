@@ -38,20 +38,20 @@
 		<button id="ID_NETWORK_CONNECT" text="接続"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="ホーム"/>
-		<button id="ID_TAB_LIBRARY" text="ライブラリ"/>
-		<button id="ID_TAB_MEDIA" text="メディア"/>
 		<button id="ID_TAB_SEARCH" text="検索"/>
 		<button id="ID_TAB_TRANSFERS" text="転送"/>
+		<button id="ID_TAB_LIBRARY" text="ライブラリ"/>
+		<button id="ID_TAB_MEDIA" text="メディア"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="接続"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="ホーム"/>
-		<button id="ID_TAB_LIBRARY" text="ライブラリ"/>
-		<button id="ID_TAB_MEDIA" text="メディア"/>
 		<button id="ID_TAB_SEARCH" text="検索"/>
 		<button id="ID_TAB_TRANSFERS" text="転送"/>
 		<button id="ID_TAB_NETWORK" text="ネットワーク"/>
+		<button id="ID_TAB_LIBRARY" text="ライブラリ"/>
+		<button id="ID_TAB_MEDIA" text="メディア"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -354,8 +354,8 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="チャット"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="設定"/>
 	</toolbar>
@@ -368,8 +368,8 @@
 		<button id="ID_SECURITY_BAN" text="ホストをBAN"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="設定"/>
 	</toolbar>
@@ -401,29 +401,29 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 キャッシュ"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey キャッシュ"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="参照"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
 		<button id="ID_CHAT_PRIORITY" text="転送順位を優先"/>
+		<!--<button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="接続" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="切断"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER WINDOW -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_BestFit" text="自動拡大/縮小"/>
 		<button id="ImageViewer_ActualSize" text="原寸大"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="更新"/>
-		<separator/>
+		<rightAlign/>
 		<button id="ImageViewer_Close" text="閉じる"/>
 	</toolbar>
 </toolbars>
@@ -442,6 +442,23 @@
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="ウィンドウを閉じる(_C)"/>
 	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+		<item id="ID_TRAY_OPEN" text="PeerProjectを表示"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="リモートを表示"/>
+		<item id="ID_TOOLS_SETTINGS" text="設定を表示..."/>
+		<item id="ID_NETWORK_SEARCH" text="新規検索..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="ダウンロード..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="メディアを再生"/>
+		<item id="ID_MEDIA_PAUSE" text="一時停止"/>
+		<item id="ID_MEDIA_PREVIOUS" text="前のトラック"/>
+		<item id="ID_MEDIA_NEXT" text="次のトラック"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終"/>
+		<item id="ID_NETWORK_EXIT" text="終了(X)"/>
+	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="ネットワーク(_N)">
@@ -449,8 +466,8 @@
 			<separator/>
 			<menu text="ネットワーク選択(_N)">
 				<item id="ID_NETWORK_G2" text="Gnutella2へ接続(_G)"/>
-				<item id="ID_NETWORK_ED2K" text="eDonkey2000へ接続(_E)"/>
 				<item id="ID_NETWORK_G1" text="Gnutella1へ接続(_1)"/>
+				<item id="ID_NETWORK_ED2K" text="eDonkey2000へ接続(_E)"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終了(_A)"/>
@@ -518,8 +535,8 @@
 			<separator/>
 			<menu text="ネットワーク選択(_N)">
 				<item id="ID_NETWORK_G2" text="Gnutella2へ接続(_G)"/>
-				<item id="ID_NETWORK_ED2K" text="eDonkey2000へ接続(_E)"/>
 				<item id="ID_NETWORK_G1" text="Gnutella1へ接続(_1)"/>
+				<item id="ID_NETWORK_ED2K" text="eDonkey2000へ接続(_E)"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="接続先(_T)..." shortcut="Ctrl+T"/>
@@ -614,8 +631,8 @@
 			<separator/>
 			<menu text="ネットワーク選択(_N)">
 				<item id="ID_NETWORK_G2" text="Gnutella2へ接続(_G)"/>
-				<item id="ID_NETWORK_ED2K" text="eDonkey2000へ接続(_E)"/>
 				<item id="ID_NETWORK_G1" text="Gnutella1へ接続(_1)"/>
+				<item id="ID_NETWORK_ED2K" text="eDonkey2000へ接続(_E)"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終了(_A)"/>
@@ -741,40 +758,6 @@
 		<item id="ID_VIEW_PACKETS" text="パケットダンプ(_P)"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ(_A)"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ(_I)"/>
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="PeerProjectを表示(_O)"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="新規検索(_W)..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="ダウンロード(_D)..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="メディアを再生(_P)"/>
-		<item id="ID_MEDIA_PAUSE" text="一時停止(_U)"/>
-		<item id="ID_MEDIA_STOP" text="停止(_S)"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="前のトラック(_R)"/>
-		<item id="ID_MEDIA_NEXT" text="次のトラック(_N)"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終了(_T)"/>
-		<item id="ID_NETWORK_EXIT" text="終了(_X)"/>
-	</menu>
-	<!-- REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="PeerProjectを表示(_O)"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="新規検索(_W)..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="ダウンロード(_D)..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="メディアを再生(_P)"/>
-		<item id="ID_MEDIA_PAUSE" text="一時停止(_U)"/>
-		<item id="ID_MEDIA_STOP" text="停止(_S)"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="前のトラック(_R)"/>
-		<item id="ID_MEDIA_NEXT" text="次のトラック(_N)"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終了(_T)"/>
-		<item id="ID_NETWORK_EXIT" text="終了(_X)"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -1034,6 +1017,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="自動クリア処理(_O)"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全て再開(_R)"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全て一時停止(_A)"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全てクリア(_C)"/>
@@ -1405,8 +1390,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="切断(_D)"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Gnutella2(_G)"/>
-			<item id="ID_NETWORK_ED2K" text="eDonkey2000(_E)"/>
 			<item id="ID_NETWORK_G1" text="Gnutella1(_1)"/>
+			<item id="ID_NETWORK_ED2K" text="eDonkey2000(_E)"/>
 		</menu>
 		<menu text="モニタ(_M)">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="全ての転送を表示(_A)"/>
@@ -3100,7 +3085,6 @@
 	<string id="20001" value="閉じる"/>
 	<string id="20002" value="/"/> <!-- "1 of 10" -->
 	<string id="20003" value="インターフェースの変更を適用するにはPeerProjectの再起動が必要になります。\nあなたはPeerProjectを手動で再起動しなければなりません。今すぐPeerProjectを終了しますか?"/>
-	<string id="20004" value="あなたのOSは右から左へ記述する言語をサポートしていません。"/>
 	<string id="20005" value="いいえ"/>
 	<string id="20006" value="はい"/>
 	<string id="20007" value="自動"/>
@@ -3160,6 +3144,8 @@
 	<string id="20214" value="良い"/>
 	<string id="20215" value="とても良い"/>
 	<string id="20216" value="素薔薇しい"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="キャンセル"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3390,14 +3376,14 @@
 		<control caption="Gnutella2ネットワークは他のどんなP2Pネットワークよりも機能・処理能力があり、PeerProjectの推奨ネットワークとなっています。"/>
 		<control caption="Gnutella2(G2)に接続"/>
 		<control caption="Gnutella2設定"/>
-		<control caption="eDonkey2000ネットワーク:"/>
-		<control caption="eDonkey2000ネットワークは典型的なサーバーベースのネットワークです。 機能的にはGnutella2ほど豊富ではありませんが、興味深いファイルの共有があります。"/>
-		<control caption="eDonkey2000に接続"/>
-		<control caption="eDonkey2000設定"/>
 		<control caption="オリジナルGnutellaネットワーク:"/>
-		<control caption="オリジナルGnutellaネットワークはGnutella程機能もなく、eDonkey2000より共有量も少ないですが、それでもまだ貴重なリソースを得ることができます。"/>
+		<control caption="オリジナルGnutellaネットワークはGnutella程機能もなく、eDonkeyより共有量も少ないですが、それでもまだ貴重なリソースを得ることができます。"/>
 		<control caption="オリジナルGnutellaに接続"/>
 		<control caption="Gnutella1設定"/>
+		<control caption="eDonkey2000ネットワーク:"/>
+		<control caption="eDonkeyネットワークは典型的なサーバーベースのネットワークです。 機能的にはGnutella2ほど豊富ではありませんが、興味深いファイルの共有があります。"/>
+		<control caption="eDonkeyに接続"/>
+		<control caption="eDonkey設定"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2ネットワーク:"/>
@@ -3629,10 +3615,10 @@
 		<control caption="PeerProjectは複数のP2Pネットワークへ同時にアクセスできる汎用ファイル共有アプリケーションです。 このページではあなたがどのP2Pネットワークに接続するかを選択することができます。 ここで選択しなかったとしても、後でいつでも別のネットワークを選択できることを覚えておいて下さい。"/>
 		<control caption="Gnutella2に接続 (推奨)"/>
 		<control caption="Gnutella2ネットワークは他のどんなP2Pネットワークよりも機能・処理能力があり、PeerProjectの主力ネットワークとなっています"/>
-		<control caption="eDonkey2000に接続"/>
-		<control caption="eDonkey2000ネットワークは典型的なサーバーベースのネットワークです。 機能的にはGnutella2ほど豊富ではありませんが、興味深いファイルの共有があります。"/>
 		<control caption="オリジナルGnutellaに接続"/>
 		<control caption="オリジナルGnutellaネットワークはGnutella程機能もなく、eDonkey2000より共有量も少ないですが、それでもまだ貴重なリソースを得ることができます。"/>
+		<control caption="eDonkey2000に接続"/>
+		<control caption="eDonkeyネットワークは典型的なサーバーベースのネットワークです。 機能的にはGnutella2ほど豊富ではありませんが、興味深いファイルの共有があります。"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey2000ダウンロードのインポート">
 		<control/>
@@ -4214,19 +4200,23 @@
 		<control caption="トラッカー形態:"/>
 		<control caption="無効|カスタム|単一トラッカー|複数トラッカー|複数トラッカー (固定)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="ダウンロードグループプロパティ">
-		<control caption="名前(_N):"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="ダウンロードグループプロパティ">
+		<control caption="OK"/>
+		<control caption="キャンセル"/>
 		<control/>
 		<control/>
-		<control caption="フィルタ(_F):"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="追加(_A)"/>
 		<control caption="削除(_R)"/>
-		<control caption="OK"/>
-		<control caption="キャンセル"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="名前(_N):"/>
+		<control caption="フィルタ(_F):"/>
 		<control caption="完了フォルダ(_F):"/>
-		<control/>
-		<control/>
+		<control caption="全てのファイルタイプ(_T):"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="視覚効果を選択">
 		<control/>

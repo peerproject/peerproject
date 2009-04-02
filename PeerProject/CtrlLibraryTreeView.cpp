@@ -612,9 +612,14 @@ void CLibraryTreeView::OnMouseMove(UINT nFlags, CPoint point)
 	CWnd::OnMouseMove( nFlags, point );
 
 	// Tick Hoverstate
-	if ( point.x < 20 )
+	if ( point.x < 16 )
 	{
 		CRect rcRefresh( 1, point.y - 48, 18, point.y + 48 );
+		RedrawWindow(rcRefresh);
+	}
+	else if ( point.x < 32 )
+	{
+		CRect rcRefresh( 4, point.y - 42, 30, point.y + 42 );
 		RedrawWindow(rcRefresh);
 	}
 }
@@ -1351,12 +1356,9 @@ BOOL CLibraryTreeView::Update(CLibraryFolder* pFolder, CLibraryTreeItem* pItem, 
 	{
 		if ( bRecurse || pItem->m_bSelected )
 		{
-			CLibraryFile* pFile;
-			CString strTemp;
-
-			for ( POSITION pos = pFolder->m_pFiles.GetStartPosition() ; pos ; )
+			for ( POSITION pos = pFolder->GetFileIterator() ; pos ; )
 			{
-				pFolder->m_pFiles.GetNextAssoc( pos, strTemp, pFile );
+				CLibraryFile* pFile = pFolder->GetNextFile( pos );
 				pFile->m_nSelectCookie = nSelectCookie;
 			}
 

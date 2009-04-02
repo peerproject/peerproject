@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_CTRLLIBRARYVIEW_H__9FA28C5B_A6A3_4616_9407_4661EA1C7B8A__INCLUDED_)
-#define AFX_CTRLLIBRARYVIEW_H__9FA28C5B_A6A3_4616_9407_4661EA1C7B8A__INCLUDED_
-
 #pragma once
 
 #include "PeerProjectDataSource.h"
@@ -85,17 +82,13 @@ public:
 
 // Implementation
 protected:
-	//{{AFX_MSG(CLibraryView)
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
-	//}}AFX_MSG
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 
 	DECLARE_MESSAGE_MAP()
+
 	DECLARE_DROP()
 };
 
-//{{AFX_INSERT_LOCATION}}
-
 #define IDC_LIBRARY_VIEW	132
-
-#endif // !defined(AFX_CTRLLIBRARYVIEW_H__9FA28C5B_A6A3_4616_9407_4661EA1C7B8A__INCLUDED_)

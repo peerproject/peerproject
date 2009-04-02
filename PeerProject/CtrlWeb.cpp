@@ -224,7 +224,7 @@ void CWebCtrl::EnterMenu(POINT* pPoint)
 {
 	if ( m_pThis != NULL )
 	{
-		SetWindowLongPtr( m_pThis->m_hWndThis, GWLP_WNDPROC, (LONG_PTR_ARG)(LONG_PTR)m_pThis->m_pWndProc );
+		SetWindowLongPtr( m_pThis->m_hWndThis, GWLP_WNDPROC, (LONG_PTR)m_pThis->m_pWndProc );
 		m_pThis = NULL;
 	}
 
@@ -250,7 +250,7 @@ void CWebCtrl::EnterMenu(POINT* pPoint)
 	m_pThis = this;
 	m_hWndThis = pChild->GetSafeHwnd();
 	m_pWndProc = (WNDPROC)(LONG_PTR)GetWindowLongPtr( m_hWndThis, GWLP_WNDPROC );
-	SetWindowLongPtr( m_hWndThis, GWLP_WNDPROC, (LONG_PTR_ARG)(LONG_PTR)&WebWndProc );
+	SetWindowLongPtr( m_hWndThis, GWLP_WNDPROC, (LONG_PTR)&WebWndProc );
 }
 
 LRESULT PASCAL CWebCtrl::WebWndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
@@ -263,7 +263,7 @@ LRESULT PASCAL CWebCtrl::WebWndProc(HWND hWnd, UINT nMsg, WPARAM wParam, LPARAM 
 	{
 	case WM_DESTROY:
 	case WM_EXITMENULOOP:
-		SetWindowLongPtr( hWnd, GWLP_WNDPROC, (LONG_PTR_ARG)(LONG_PTR)pWndProc );
+		SetWindowLongPtr( hWnd, GWLP_WNDPROC, (LONG_PTR)pWndProc );
 		m_pThis = NULL;
 		break;
 	case WM_INITMENUPOPUP:

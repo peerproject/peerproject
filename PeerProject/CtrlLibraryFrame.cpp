@@ -34,6 +34,7 @@
 #include "DlgNewSearch.h"
 #include "CoolInterface.h"
 #include "Skin.h"
+#include "SchemaCache.h"
 
 #include "CtrlLibraryView.h"
 #include "CtrlLibraryCollectionView.h"
@@ -41,10 +42,6 @@
 #include "CtrlLibraryThumbView.h"
 #include "CtrlLibraryAlbumView.h"
 #include "CtrlLibraryTileView.h"
-
-#include "CtrlLibraryPanel.h"
-#include "CtrlLibraryMetaPanel.h"
-#include "CtrlLibraryHistoryPanel.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -82,9 +79,8 @@ BEGIN_MESSAGE_MAP(CLibraryFrame, CWnd)
 	ON_WM_SETFOCUS()
 END_MESSAGE_MAP()
 
-#define BAR_HEIGHT		28
 #define SPLIT_SIZE		6
-
+//define TOOLBAR_HEIGHT 28
 
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryFrame construction
@@ -107,9 +103,6 @@ CLibraryFrame::CLibraryFrame()
 	m_pViews.AddTail( new CLibraryAlbumView() );
 	m_pViews.AddTail( new CLibraryCollectionView() );
 	m_pViews.AddTail( new CLibraryTileView() );
-
-	m_pPanels.AddTail( new CLibraryMetaPanel() );
-	m_pPanels.AddTail( new CLibraryHistoryPanel() );
 }
 
 CLibraryFrame::~CLibraryFrame()
@@ -118,11 +111,6 @@ CLibraryFrame::~CLibraryFrame()
 	{
 		delete m_pViews.GetNext( pos );
 	}
-
-	for ( POSITION pos = m_pPanels.GetHeadPosition() ; pos ; )
-	{
-		delete m_pPanels.GetNext( pos );
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -130,9 +118,10 @@ CLibraryFrame::~CLibraryFrame()
 
 BOOL CLibraryFrame::Create(CWnd* pParentWnd)
 {
-	CRect rect;
+	CRect rect( 0, 0, 0, 0 );
 	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, _T("CLibraryFrame"),
-		WS_CHILD|WS_VISIBLE, rect, pParentWnd, 0, NULL );
+		WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
+		rect, pParentWnd, 0, NULL );
 }
 
 int CLibraryFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -140,35 +129,36 @@ int CLibraryFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
 	m_wndTreeTop.EnableDrop();
-	if ( ! m_wndTreeTop.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
+	if ( ! m_wndTreeTop.Create( this, WS_CHILD|WS_CLIPSIBLINGS|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndTreeTop.SetBarStyle( m_wndTreeTop.GetBarStyle() | CBRS_TOOLTIPS|CBRS_BORDER_BOTTOM );
 	m_wndTreeTop.SetOwner( GetOwner() );
 
-	if ( ! m_wndTreeBottom.Create( this, WS_CHILD|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
+	if ( ! m_wndTreeBottom.Create( this, WS_CHILD|WS_CLIPSIBLINGS|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndTreeBottom.SetBarStyle( m_wndTreeBottom.GetBarStyle() | CBRS_TOOLTIPS|CBRS_BORDER_TOP );
 	m_wndTreeBottom.SetOwner( GetOwner() );
 
-	CRect rcTypes( 0, 0, 128, BAR_HEIGHT );
-	if ( ! m_wndTreeTypes.Create( WS_CHILD, rcTypes, this, AFX_IDW_TOOLBAR ) ) return -1;
+	CRect rcTypes( 0, 0, 128, TOOLBAR_HEIGHT );
+	if ( ! m_wndTreeTypes.Create( WS_CHILD|WS_CLIPSIBLINGS, rcTypes, this, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndTreeTypes.GetWindowRect( &rcTypes );
 	m_nTreeTypesHeight = rcTypes.Height();
 
-	if ( ! m_wndViewTop.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
+	if ( ! m_wndViewTop.Create( this, WS_CHILD|WS_CLIPSIBLINGS|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndViewTop.SetBarStyle( m_wndViewTop.GetBarStyle() | CBRS_TOOLTIPS );
 	m_wndViewTop.SetOwner( GetOwner() );
 
-	if ( ! m_wndViewBottom.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
+	if ( ! m_wndViewBottom.Create( this, WS_CHILD|WS_CLIPSIBLINGS|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndViewBottom.SetBarStyle( m_wndViewBottom.GetBarStyle() | CBRS_TOOLTIPS|CBRS_BORDER_TOP );
 	m_wndViewBottom.SetOwner( GetOwner() );
 
-	if ( ! m_wndBottomDynamic.Create( this, WS_CHILD|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
+	if ( ! m_wndBottomDynamic.Create( this, WS_CHILD|WS_CLIPSIBLINGS|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndBottomDynamic.SetBarStyle( m_wndBottomDynamic.GetBarStyle() | CBRS_TOOLTIPS|CBRS_BORDER_TOP );
 	m_wndBottomDynamic.SetOwner( GetOwner() );
 
-	if ( ! m_wndSearch.Create( WS_CHILD|WS_TABSTOP|ES_AUTOHSCROLL, rcTypes, &m_wndViewBottom, IDC_SEARCH_BOX ) ) return -1;
+	if ( ! m_wndSearch.Create( WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|ES_AUTOHSCROLL, rcTypes, &m_wndViewBottom, IDC_SEARCH_BOX ) ) return -1;
 	m_wndSearch.SetFont( &theApp.m_gdiFont );
+	m_wndSearch.SetRegistryKey( _T("Search"), _T("Search.%.2i") );
 
-	if ( ! m_wndSaveOption.Create( NULL, WS_CHILD|WS_TABSTOP|BS_AUTOCHECKBOX, rcTypes, &m_wndBottomDynamic, 
+	if ( ! m_wndSaveOption.Create( NULL, WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|BS_AUTOCHECKBOX, rcTypes, &m_wndBottomDynamic, 
 		ID_SHAREMONKEY_SAVE_OPTION ) ) return -1;
 	m_wndSaveOption.EnableWindow( FALSE );
 	m_wndSaveOption.SetCheck( Settings.WebServices.ShareMonkeySaveThumbnail );
@@ -220,7 +210,7 @@ void CLibraryFrame::OnSkinChange()
 	m_wndHeader.OnSkinChange();
 
 	CLibraryView* pView		= m_pView;
-	CLibraryPanel* pPanel	= m_pPanel;
+	CPanelCtrl* pPanel		= m_pPanel;
 
 	SetView( NULL, TRUE, FALSE );
 	SetView( pView, TRUE, FALSE );
@@ -283,41 +273,41 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 	{
 		m_nTreeSize = max( 0, rc.Width() - SPLIT_SIZE );
 	}
-	if ( rc.Height() - BAR_HEIGHT * 2 - m_nHeaderSize < m_nPanelSize + SPLIT_SIZE )
+	if ( rc.Height() - TOOLBAR_HEIGHT * 2 - m_nHeaderSize < m_nPanelSize + SPLIT_SIZE )
 	{
-		m_nPanelSize = max( 0, rc.Height() - BAR_HEIGHT * 2 - m_nHeaderSize - SPLIT_SIZE );
+		m_nPanelSize = max( 0, rc.Height() - TOOLBAR_HEIGHT * 2 - m_nHeaderSize - SPLIT_SIZE );
 	}
 
 	HDWP hDWP = BeginDeferWindowPos(
 		7 + ( m_pView != NULL ) + ( m_pPanel != NULL ) + ( m_nHeaderSize > 0 ) );
 
 	DeferWindowPos( hDWP, m_wndTreeTop.GetSafeHwnd(), NULL,
-		rc.left, rc.top, m_nTreeSize, BAR_HEIGHT, SWP_NOZORDER );
+		rc.left, rc.top, m_nTreeSize, TOOLBAR_HEIGHT, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndTreeBottom.GetSafeHwnd(), NULL,
-		rc.left, rc.bottom - BAR_HEIGHT, m_nTreeSize, BAR_HEIGHT, SWP_NOZORDER );
+		rc.left, rc.bottom - TOOLBAR_HEIGHT, m_nTreeSize, TOOLBAR_HEIGHT, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndTreeTypes.GetSafeHwnd(), NULL,
 		rc.left, rc.bottom - m_nTreeTypesHeight, m_nTreeSize, 256, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndViewTop.GetSafeHwnd(), NULL,
 		rc.left + m_nTreeSize + SPLIT_SIZE, rc.top,
-		rc.Width() - m_nTreeSize - SPLIT_SIZE, BAR_HEIGHT - 1, SWP_NOZORDER );
+		rc.Width() - m_nTreeSize - SPLIT_SIZE, TOOLBAR_HEIGHT - 1, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndViewBottom.GetSafeHwnd(), NULL,
-		rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - BAR_HEIGHT,
-		rc.Width() - m_nTreeSize - SPLIT_SIZE, BAR_HEIGHT, SWP_NOZORDER );
+		rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - TOOLBAR_HEIGHT,
+		rc.Width() - m_nTreeSize - SPLIT_SIZE, TOOLBAR_HEIGHT, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndBottomDynamic.GetSafeHwnd(), NULL,
-		rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - BAR_HEIGHT * 2,
-		rc.Width() - m_nTreeSize - SPLIT_SIZE, BAR_HEIGHT, SWP_NOZORDER );
+		rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - TOOLBAR_HEIGHT * 2,
+		rc.Width() - m_nTreeSize - SPLIT_SIZE, TOOLBAR_HEIGHT, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndTree.GetSafeHwnd(), NULL,
-		rc.left, rc.top + BAR_HEIGHT, m_nTreeSize, rc.Height() - BAR_HEIGHT * 2, SWP_NOZORDER );
+		rc.left, rc.top + TOOLBAR_HEIGHT, m_nTreeSize, rc.Height() - TOOLBAR_HEIGHT * 2, SWP_NOZORDER );
 
 	if ( m_pView != NULL )
 	{
-		int nTop = rc.top + BAR_HEIGHT - 1;
+		int nTop = rc.top + TOOLBAR_HEIGHT - 1;
 
 		if ( m_nHeaderSize > 0 )
 		{
@@ -328,7 +318,7 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 			nTop += m_nHeaderSize + 1;
 		}
 
-		int nHeight = rc.bottom - BAR_HEIGHT - nTop;
+		int nHeight = rc.bottom - TOOLBAR_HEIGHT - nTop;
 		if ( m_pPanel ) nHeight -= m_nPanelSize + SPLIT_SIZE;
 
 		DeferWindowPos( hDWP, m_pView->GetSafeHwnd(), NULL,
@@ -339,7 +329,7 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 	if ( m_pPanel != NULL )
 	{
 		DeferWindowPos( hDWP, m_pPanel->GetSafeHwnd(), NULL,
-			rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - BAR_HEIGHT - m_nPanelSize,
+			rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - TOOLBAR_HEIGHT - m_nPanelSize,
 			rc.Width() - m_nTreeSize - SPLIT_SIZE, m_nPanelSize, SWP_NOZORDER|SWP_SHOWWINDOW );
 	}
 
@@ -365,13 +355,13 @@ void CLibraryFrame::OnPaint()
 
 	if ( m_nHeaderSize > 0 )
 	{
-		dc.FillSolidRect( rc.right, rcClient.top + BAR_HEIGHT - 1 + m_nHeaderSize,
+		dc.FillSolidRect( rc.right, rcClient.top + TOOLBAR_HEIGHT - 1 + m_nHeaderSize,
 			rcClient.right - rc.right, 1, CoolInterface.m_crSys3DHighlight );
 	}
 
 	if ( Settings.Library.ShowVirtual == FALSE )
 	{
-		rc.SetRect( rcClient.left, rcClient.bottom - BAR_HEIGHT,
+		rc.SetRect( rcClient.left, rcClient.bottom - TOOLBAR_HEIGHT,
 			rcClient.left + m_nTreeSize, rcClient.bottom - m_nTreeTypesHeight );
 		dc.FillSolidRect( rc.left, rc.top, rc.Width(), 1, CoolInterface.m_crSys3DShadow );
 		dc.FillSolidRect( rc.left, rc.top + 1, rc.Width(), 1, CoolInterface.m_crSys3DHighlight );
@@ -381,9 +371,9 @@ void CLibraryFrame::OnPaint()
 	if ( m_pPanel != NULL )
 	{
 		rc.SetRect(	rcClient.left + m_nTreeSize + SPLIT_SIZE,
-					rcClient.bottom - BAR_HEIGHT - m_nPanelSize - SPLIT_SIZE,
+					rcClient.bottom - TOOLBAR_HEIGHT - m_nPanelSize - SPLIT_SIZE,
 					rcClient.right,
-					rcClient.bottom - BAR_HEIGHT - m_nPanelSize );
+					rcClient.bottom - TOOLBAR_HEIGHT - m_nPanelSize );
 
 		dc.FillSolidRect( rc.left, rc.top, rc.Width(), 1, CoolInterface.m_crResizebarEdge );
 		dc.FillSolidRect( rc.left, rc.top + 1, rc.Width(), 1, CoolInterface.m_crResizebarHighlight );
@@ -403,7 +393,7 @@ void CLibraryFrame::OnMeasureItem(int /*nIDCtl*/, LPMEASUREITEMSTRUCT lpMeasureI
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CLibraryFrame resizing behaviour
+// CLibraryFrame resizing behavior
 
 BOOL CLibraryFrame::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
@@ -432,9 +422,9 @@ BOOL CLibraryFrame::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	{
 		rc.SetRect(	Settings.General.LanguageRTL ? rcClient.left :
 					rcClient.left + m_nTreeSize + SPLIT_SIZE,
-					rcClient.bottom - BAR_HEIGHT - m_nPanelSize - SPLIT_SIZE,
+					rcClient.bottom - TOOLBAR_HEIGHT - m_nPanelSize - SPLIT_SIZE,
 					Settings.General.LanguageRTL ? rcClient.right - m_nTreeSize : rcClient.right,
-					rcClient.bottom - BAR_HEIGHT - m_nPanelSize );
+					rcClient.bottom - TOOLBAR_HEIGHT - m_nPanelSize );
 
 		if ( rc.PtInRect( point ) )
 		{
@@ -466,9 +456,9 @@ void CLibraryFrame::OnLButtonDown(UINT nFlags, CPoint point)
 	if ( m_pPanel != NULL )
 	{
 		rc.SetRect(	rcClient.left + m_nTreeSize + SPLIT_SIZE,
-					rcClient.bottom - BAR_HEIGHT - m_nPanelSize - SPLIT_SIZE,
+					rcClient.bottom - TOOLBAR_HEIGHT - m_nPanelSize - SPLIT_SIZE,
 					rcClient.right,
-					rcClient.bottom - BAR_HEIGHT - m_nPanelSize );
+					rcClient.bottom - TOOLBAR_HEIGHT - m_nPanelSize );
 
 		if ( rc.PtInRect( point ) )
 		{
@@ -543,8 +533,8 @@ BOOL CLibraryFrame::DoSizePanel()
 
 	GetClientRect( &rcClient );
 	rcClient.left += m_nTreeSize + SPLIT_SIZE;
-	rcClient.top += BAR_HEIGHT + m_nHeaderSize;
-	rcClient.bottom -= BAR_HEIGHT;
+	rcClient.top += TOOLBAR_HEIGHT + m_nHeaderSize;
+	rcClient.bottom -= TOOLBAR_HEIGHT;
 	ClientToScreen( &rcClient );
 	ClipCursor( &rcClient );
 	SetCapture();
@@ -599,6 +589,12 @@ void CLibraryFrame::SetView(CLibraryView* pView, BOOL bUpdate, BOOL bUser)
 
 	CLibraryTreeItem* pFolderSelection	= m_wndTree.GetFirstSelected();
 
+	if ( pView && pFolderSelection && pFolderSelection->m_pPhysical )
+	{
+		Settings.Library.LastUsedView = pView->GetRuntimeClass()->m_lpszClassName;
+		Settings.Save();
+	}
+
 	if ( bUser && pView != NULL )
 	{
 		for (	CLibraryTreeItem* pItem = pFolderSelection; pItem ;
@@ -611,16 +607,15 @@ void CLibraryFrame::SetView(CLibraryView* pView, BOOL bUpdate, BOOL bUser)
 		}
 	}
 
-	if ( pFolderSelection && pFolderSelection->m_pVirtual && pView )
+	if ( pView )
 	{
-		ASSERT_VALID( pFolderSelection );
-		ASSERT_VALID( pView );
-
-		if ( Settings.Library.ShowVirtual && m_pView &&
-			 pFolderSelection->m_pVirtual->m_pSchema )
-			pView->m_bGhostFolder = 
-				( pFolderSelection->m_pVirtual->m_pSchema->CheckURI( CSchema::uriGhostFolder ) );
-		else 
+		if ( Settings.Library.ShowVirtual &&
+			pFolderSelection &&
+			pFolderSelection->m_pVirtual &&
+			pFolderSelection->m_pVirtual->m_pSchema &&
+			pFolderSelection->m_pVirtual->m_pSchema->CheckURI( CSchema::uriGhostFolder ) )
+			pView->m_bGhostFolder = TRUE;
+		else
 			pView->m_bGhostFolder = FALSE;
 	}
 
@@ -676,7 +671,7 @@ void CLibraryFrame::SetView(CLibraryView* pView, BOOL bUpdate, BOOL bUser)
 	Invalidate();
 }
 
-void CLibraryFrame::SetPanel(CLibraryPanel* pPanel)
+void CLibraryFrame::SetPanel(CPanelCtrl* pPanel)
 {
 	if ( pPanel == m_pPanel )
 	{
@@ -688,7 +683,7 @@ void CLibraryFrame::SetPanel(CLibraryPanel* pPanel)
 		return;
 	}
 
-	CLibraryPanel* pOld = m_pPanel;
+	CPanelCtrl* pOld = m_pPanel;
 	m_pPanel = pPanel;
 
 	if ( m_pPanel ) 
@@ -767,8 +762,14 @@ BOOL CLibraryFrame::Update(BOOL bForce, BOOL bBestView)
 
 		if ( pView->CheckAvailable( m_wndTree.GetFirstSelected() ) )
 		{
-			if ( pFirstView == NULL ) pFirstView = pView;
-			if ( strBest.CompareNoCase( CString( pView->GetRuntimeClass()->m_lpszClassName ) ) == 0 )
+			CString sViewName( pView->GetRuntimeClass()->m_lpszClassName );
+
+			if ( pFirstView == NULL ||
+				( pFolderSelection && pFolderSelection->m_pPhysical &&
+				sViewName.CompareNoCase( Settings.Library.LastUsedView ) == 0 ) )
+				pFirstView = pView;
+
+			if ( sViewName.CompareNoCase( strBest ) == 0 )
 				pBestView = pView;
 		}
 	}
@@ -822,21 +823,26 @@ void CLibraryFrame::UpdatePanel(BOOL bForce)
 	m_bViewSelection = FALSE;
 
 	m_pViewSelection			= m_pView ? &m_pView->m_pSelection : &m_pViewEmpty;
-	CLibraryPanel* pFirstPanel	= NULL;
-
-	for ( POSITION pos = m_pPanels.GetHeadPosition() ; pos ; )
-	{
-		CLibraryPanel* pPanel = m_pPanels.GetNext( pos );
-
-		if ( pPanel->CheckAvailable( m_wndTree.GetFirstSelected(), m_pViewSelection )
-			&& pFirstPanel == NULL ) pFirstPanel = pPanel;
-	}
+	
+	CLibraryTreeItem* pFolders = m_wndTree.GetFirstSelected();
+	BOOL bMetaPanelAvailable = pFolders &&
+		( pFolders->m_pSelNext == NULL ) &&
+		( pFolders->m_pVirtual == NULL ||
+		// Do not display meta panel for Collection folder
+		( ! ( pFolders->m_pVirtual->m_oCollSHA1 &&
+		  pFolders->m_pVirtual->GetBestView().Find( _T("Collection") ) > 0 ||
+		  CheckURI( pFolders->m_pVirtual->m_sSchemaURI, CSchema::uriCollectionsFolder ) ) &&
+		  pFolders->m_pVirtual->GetFileCount() != 0 ) );
+	BOOL bHistoryPanelAvailable = ( pFolders == NULL );
 
 	if ( m_bPanelShow )
 	{
-		if ( m_pPanel == NULL || m_pPanel->m_bAvailable == FALSE )
+		if ( m_pPanel == NULL ||
+			( m_pPanel == &m_pMetaPanel    && ! bMetaPanelAvailable ) ||
+			( m_pPanel == &m_pHistoryPanel && ! bHistoryPanelAvailable ) )
 		{
-			SetPanel( pFirstPanel );
+			SetPanel( bMetaPanelAvailable ? static_cast< CPanelCtrl* >( &m_pMetaPanel ) :
+				( bHistoryPanelAvailable ? static_cast< CPanelCtrl* >( &m_pHistoryPanel ) : NULL ) );
 		}
 		else
 		{

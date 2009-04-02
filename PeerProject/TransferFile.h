@@ -19,34 +19,30 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_TRANSFERFILE_H__FF7BC368_5878_4BCF_A2AD_055B0355AC3A__INCLUDED_)
-#define AFX_TRANSFERFILE_H__FF7BC368_5878_4BCF_A2AD_055B0355AC3A__INCLUDED_
-
 #pragma once
 
 class CTransferFile;
 
 class CTransferFiles
 {
-// Construction
 public:
 	CTransferFiles();
 	virtual ~CTransferFiles();
 
-// Attributes
-public:
-	CCriticalSection	m_pSection;
-	CMap< CString, const CString&, CTransferFile*, CTransferFile* > m_pMap;
-	CList< CTransferFile* > m_pDeferred;
+	typedef CMap< CString, const CString&, CTransferFile*, CTransferFile* > CTransferFileMap;
+	typedef CList< CTransferFile* > CTransferFileList;
 
-// Operations
-public:
-	CTransferFile*	Open(LPCTSTR pszFile, BOOL bWrite, BOOL bCreate);
-	void			Close();
-	void			CommitDeferred();
+	CTransferFile*		Open(LPCTSTR pszFile, BOOL bWrite, BOOL bCreate);
+	void				CommitDeferred();
+
 protected:
-	void			QueueDeferred(CTransferFile* pFile);
-	void			Remove(CTransferFile* pFile);
+	CCriticalSection	m_pSection;
+	CTransferFileMap	m_pMap;
+	CTransferFileList	m_pDeferred;
+
+	void				Close();
+	void				QueueDeferred(CTransferFile* pFile);
+	void				Remove(CTransferFile* pFile);
 
 	friend class CTransferFile;
 };
@@ -55,13 +51,31 @@ protected:
 
 class CTransferFile
 {
-// Construction
 public:
 	CTransferFile(LPCTSTR pszPath);
+
+	ULONG		AddRef();
+	ULONG		Release();
+	HANDLE		GetHandle(BOOL bWrite = FALSE);
+	QWORD		GetSize() const;
+	BOOL		Read(QWORD nOffset, LPVOID pBuffer, QWORD nBuffer, QWORD* pnRead);
+	BOOL		Write(QWORD nOffset, LPCVOID pBuffer, QWORD nBuffer, QWORD* pnWritten);
+	BOOL		EnsureWrite();
+
+	inline BOOL	IsOpen() const
+	{
+		return ( m_hFile != INVALID_HANDLE_VALUE );
+	}
+
+	inline BOOL	IsExists() const
+	{
+		return m_bExists;
+	}
+
+protected:
 	virtual ~CTransferFile();
 
-// Deferred Write Structure
-protected:
+	// Deferred Write Structure
 	class DefWrite
 	{
 	public:
@@ -70,35 +84,19 @@ protected:
 		BYTE*	m_pBuffer;
 	};
 
-// Attributes
-protected:
 	CString		m_sPath;
 	HANDLE		m_hFile;
-	BOOL		m_bWrite;
-	DWORD		m_nReference;
-protected:
+	BOOL		m_bExists;			// File exists before open
+	BOOL		m_bWrite;			// File opened for write operations
+	volatile LONG m_nRefCount;
 	DefWrite	m_pDeferred[DEFERRED_MAX];
 	int			m_nDeferred;
 
-// Operations
-public:
-	void		AddRef();
-	void		Release(BOOL bWrite);
-	HANDLE		GetHandle(BOOL bWrite = FALSE);
-	BOOL		IsOpen();
-	BOOL		Read(QWORD nOffset, LPVOID pBuffer, QWORD nBuffer, QWORD* pnRead);
-	BOOL		Write(QWORD nOffset, LPCVOID pBuffer, QWORD nBuffer, QWORD* pnWritten);
-protected:
 	BOOL		Open(BOOL bWrite, BOOL bCreate);
-	BOOL		EnsureWrite();
 	BOOL		CloseWrite();
 	void		DeferredWrite(BOOL bOffline = FALSE);
 
 	friend class CTransferFiles;
-
 };
 
-
 extern CTransferFiles TransferFiles;
-
-#endif // !defined(AFX_TRANSFERFILE_H__FF7BC368_5878_4BCF_A2AD_055B0355AC3A__INCLUDED_)

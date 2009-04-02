@@ -56,10 +56,6 @@
 #include "Schema.h"
 #include "SchemaCache.h"
 
-#include "SHA.h"
-#include "TigerTree.h"
-#include "ED2K.h"
-
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -484,7 +480,7 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 			}
 		}
 
-		if ( pFile->IsAvailable() && ( m_pSearch == NULL || m_pSearch->m_bWantURL ) )
+		if ( m_pSearch == NULL || m_pSearch->m_bWantURL )
 		{
 			if ( bCalculate )
 				nGroup += G2_PACKET_LEN( G2_PACKET_URL, 0 );
@@ -980,7 +976,9 @@ void CLocalSearch::WriteTrailer()
 
 void CLocalSearch::WriteTrailerG1()
 {
-	m_pPacket->WriteString( PEERPROJECT_VENDOR_T, FALSE );
+	CG1Packet* pPacket = static_cast< CG1Packet* >( m_pPacket );
+
+	pPacket->WriteString( PEERPROJECT_VENDOR_T, FALSE );
 
 	BYTE nFlags[2] = { 0, 0 };
 
@@ -1002,9 +1000,9 @@ void CLocalSearch::WriteTrailerG1()
 	DWORD nCompressed	= 0;
 	auto_array< BYTE > pCompressed;
 
-	m_pPacket->WriteByte( strXML.IsEmpty() ? 2 : 4 );
-	m_pPacket->WriteByte( nFlags[0] );
-	m_pPacket->WriteByte( nFlags[1] );
+	pPacket->WriteByte( strXML.IsEmpty() ? 2 : 4 );
+	pPacket->WriteByte( nFlags[0] );
+	pPacket->WriteByte( nFlags[1] );
 
 	LPSTR pszXML = NULL;
 	int nXML = 0;
@@ -1021,41 +1019,52 @@ void CLocalSearch::WriteTrailerG1()
 		// 9 = "{deflate}", 11 = "{plaintext}"
 		if ( nCompressed + 9 < (DWORD)nXML + 11 && pCompressed.get() != NULL )
 		{
-			m_pPacket->WriteShortLE( (WORD)( nCompressed + 9 + 1 ) );
+			pPacket->WriteShortLE( (WORD)( nCompressed + 9 + 1 ) );
 		}
 		else
 		{
-			m_pPacket->WriteShortLE( WORD( nXML + 11 + 1 ) );
+			pPacket->WriteShortLE( WORD( nXML + 11 + 1 ) );
 			pCompressed.reset();
 		}
 	}
 
-	m_pPacket->WriteByte( Settings.Community.ChatEnable ? 1 : 0 );
+	pPacket->WriteByte( Settings.Community.ChatEnable ? 1 : 0 );
 
 	if ( Settings.Community.ServeFiles && Settings.Gnutella1.EnableGGEP )
 	{
-		m_pPacket->WriteByte( GGEP_MAGIC );
-		m_pPacket->WriteByte( GGEP_HDR_LAST | 2 );
-		m_pPacket->WriteByte( 'B' );
-		m_pPacket->WriteByte( 'H' );
-		m_pPacket->WriteByte( GGEP_LEN_LAST );
+		pPacket->WriteByte( GGEP_MAGIC );
+		pPacket->WriteByte( GGEP_HDR_LAST | 2 );
+		pPacket->WriteByte( 'B' );
+		pPacket->WriteByte( 'H' );
+		pPacket->WriteByte( GGEP_LEN_LAST );
 	}
 
 	if ( pCompressed.get() != NULL )
 	{
-		m_pPacket->Write( "{deflate}", 9 );
-		m_pPacket->Write( pCompressed.get(), nCompressed );
-		m_pPacket->WriteByte( 0 );
+		pPacket->Write( "{deflate}", 9 );
+		pPacket->Write( pCompressed.get(), nCompressed );
+		pPacket->WriteByte( 0 );
 	}
 	else if ( pszXML != NULL )
 	{
-		m_pPacket->Write( "{plaintext}", 11 );
-		m_pPacket->Write( pszXML, nXML );
+		pPacket->Write( "{plaintext}", 11 );
+		pPacket->Write( pszXML, nXML );
 	}
 
 	if ( pszXML != NULL ) delete [] pszXML;
 
-	m_pPacket->Write( Hashes::Guid( MyProfile.oGUID ) );
+	pPacket->Write( Hashes::Guid( MyProfile.oGUID ) );
+
+#ifdef _DEBUG
+	// Test created hit
+	if ( CQueryHit* pDebugHit = CQueryHit::FromG1Packet( pPacket ) )
+	{
+		pDebugHit->Delete();
+		m_pPacket->m_nPosition = 0;
+	}
+	else
+		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH, _T("[G1] PeerProject produced search packet above but cannot parse it back.") );
+#endif // _DEBUG
 }
 
 void CLocalSearch::WriteTrailerG2()
@@ -1068,13 +1077,13 @@ void CLocalSearch::WriteTrailerG2()
 
 #ifdef _DEBUG
 	// Test created hit
-	CQueryHit* pDebugHit = CQueryHit::FromG2Packet( pPacket );
-	ASSERT( pDebugHit );
-	if ( pDebugHit )
+	if ( CQueryHit* pDebugHit = CQueryHit::FromG2Packet( pPacket ) )
 	{
 		pDebugHit->Delete();
 		m_pPacket->m_nPosition = 0;
 	}
+	else
+		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH, _T("[G2] PeerProject produced search packet above but cannot parse it back.") );
 #endif // _DEBUG
 }
 

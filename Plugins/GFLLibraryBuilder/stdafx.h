@@ -1,3 +1,4 @@
+//
 // stdafx.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008
@@ -41,12 +42,12 @@
 
 #pragma warning( push, 0 )
 
-#include "resource.h"
+#include "LibGFL.h"
+#include "Resource.h"
 #include <atlbase.h>
 #include <atlcom.h>
 #include <atlstr.h>
 #include <atlcoll.h>
-#include "libgfl.h"
 
 using namespace ATL;
 

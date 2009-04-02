@@ -3,9 +3,9 @@
 /* this ALWAYS GENERATED file contains the definitions for the interfaces */
 
 
- /* File created by MIDL compiler version 7.00.0500 */
-/* at Sat Sep 13 10:26:22 2008
- */
+/* File created by MIDL compiler version 7.00.0500 */
+/* at Fri Sep 12 10:00:01 2008
+*/
 /* Compiler settings for .\ImageViewer.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
     protocol : dce , ms_ext, c_ext, robust

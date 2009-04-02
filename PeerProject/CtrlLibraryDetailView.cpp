@@ -28,7 +28,6 @@
 #include "AlbumFolder.h"
 #include "LiveList.h"
 #include "XML.h"
-#include "SHA.h"
 #include "Schema.h"
 #include "SchemaCache.h"
 
@@ -52,7 +51,6 @@ IMPLEMENT_DYNCREATE(CLibraryListView, CLibraryDetailView)
 IMPLEMENT_DYNCREATE(CLibraryIconView, CLibraryDetailView)
 
 BEGIN_MESSAGE_MAP(CLibraryDetailView, CLibraryFileView)
-	//{{AFX_MSG_MAP(CLibraryDetailView)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_CONTEXTMENU()
@@ -62,7 +60,6 @@ BEGIN_MESSAGE_MAP(CLibraryDetailView, CLibraryFileView)
 	ON_COMMAND(ID_LIBRARY_RENAME, OnLibraryRename)
 	ON_COMMAND(ID_LIBRARY_COLUMNS, OnLibraryColumns)
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_COLUMNS, OnUpdateLibraryColumns)
-	//}}AFX_MSG_MAP
 	ON_NOTIFY_REFLECT(LVN_ODCACHEHINT, OnCacheHint)
 	ON_NOTIFY_REFLECT(LVN_GETDISPINFOW, OnGetDispInfoW)
 	ON_NOTIFY_REFLECT(LVN_GETDISPINFOA, OnGetDispInfoA)
@@ -89,12 +86,19 @@ END_MESSAGE_MAP()
 // CLibraryDetailView construction
 
 CLibraryDetailView::CLibraryDetailView(UINT nCommandID)
+	: m_nStyle( LVS_REPORT )
+	, m_pSchema( NULL )
+	, m_pCoolMenu( NULL )
+	, m_bCreateDragImage( FALSE )
+	, m_pList( NULL )
+	, m_nList( 0 )
+	, m_nBuffer( 0 )
+	, m_nListCookie( 0 )
+	, m_nSortColumn( 0 )
+	, m_bSortFlip( FALSE )
 {
 	switch ( m_nCommandID = nCommandID )
 	{
-	case ID_LIBRARY_VIEW_DETAIL:
-		m_nStyle = LVS_REPORT;
-		break;
 	case ID_LIBRARY_VIEW_LIST:
 		m_nStyle = LVS_LIST;
 		break;
@@ -102,13 +106,6 @@ CLibraryDetailView::CLibraryDetailView(UINT nCommandID)
 		m_nStyle = LVS_ICON;
 		break;
 	}
-	
-	m_pCoolMenu	= NULL;
-	m_pSchema	= NULL;
-}
-
-CLibraryDetailView::~CLibraryDetailView()
-{
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -118,8 +115,9 @@ BOOL CLibraryDetailView::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, 0, 0 );
 	SelClear( FALSE );
-	return CWnd::CreateEx( ( Settings.General.LanguageRTL ? WS_EX_RTLREADING : 0 ), WC_LISTVIEW,
-		_T("CLibraryDetailView"), m_nStyle | WS_CHILD | WS_TABSTOP | WS_GROUP | LVS_ICON |
+	return CWnd::CreateEx( ( Settings.General.LanguageRTL ? WS_EX_RTLREADING : 0 ),
+		WC_LISTVIEW, _T("CLibraryDetailView"), m_nStyle | WS_CHILD | WS_TABSTOP |
+		WS_GROUP | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | LVS_ICON |
 		LVS_AUTOARRANGE | LVS_SHOWSELALWAYS | LVS_SHAREIMAGELISTS | LVS_EDITLABELS |
 		LVS_OWNERDATA, rect, pParentWnd, IDC_LIBRARY_VIEW );
 }
@@ -129,8 +127,8 @@ int CLibraryDetailView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( CLibraryFileView::OnCreate( lpCreateStruct ) == -1 ) return -1;
 	
 	SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP,
-		LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP );
+		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP,
+		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP );
 	
 	GET_LIST();
 	
@@ -317,6 +315,7 @@ void CLibraryDetailView::Update()
 			pItem[ m_nList - nCount ].pText = pSaved;
 			m_nList--;
 		}
+		CRazaThread::YieldProc();
 	}
 
 	for ( POSITION pos = LibraryMaps.GetFileIterator() ; pos ; )
@@ -345,6 +344,7 @@ void CLibraryDetailView::Update()
 			
 			pFile->m_nListCookie = nCookie;
 		}
+		CRazaThread::YieldProc();
 	}
 	
 	m_nListCookie++;
@@ -567,7 +567,7 @@ void CLibraryDetailView::OnGetDispInfoA(NMHDR* pNotify, LRESULT* pResult)
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryDetailView sorting
 
-CLibraryDetailView* CLibraryDetailView::m_pThis;
+CLibraryDetailView* CLibraryDetailView::m_pThis = NULL;
 
 void CLibraryDetailView::SortItems(int nColumn)
 {
@@ -603,79 +603,79 @@ int CLibraryDetailView::ListCompare(LPCVOID pA, LPCVOID pB)
 	for (;;)
 	{
 		switch ( nSortColumn )
-	{
-	case 0:
-		nTest = _tcsicoll( pfA->m_sName, pfB->m_sName );
-		break;
-	case 1:
 		{
-			LPCTSTR pszA = _tcsrchr( pfA->m_sName, '.' );
-			LPCTSTR pszB = _tcsrchr( pfB->m_sName, '.' );
-			nTest = ( pszA && pszB ) ?
-				_tcsicoll( pszA, pszB ) : ( pszA ? 1 : ( pszB ? -1 : 0 ) );
+		case 0:
+			nTest = _tcsicoll( pfA->m_sName, pfB->m_sName );
 			break;
-		}
-	case 2:
-		if ( pfA->GetSize() == pfB->GetSize() )
-			nTest = 0;
-		else if ( pfA->GetSize() < pfB->GetSize() )
-			nTest = -1;
-		else
-			nTest = 1;
-		break;
-	case 3:
+		case 1:
+			{
+				LPCTSTR pszA = _tcsrchr( pfA->m_sName, '.' );
+				LPCTSTR pszB = _tcsrchr( pfB->m_sName, '.' );
+				nTest = ( pszA && pszB ) ?
+					_tcsicoll( pszA, pszB ) : ( pszA ? 1 : ( pszB ? -1 : 0 ) );
+				break;
+			}
+		case 2:
+			if ( pfA->GetSize() == pfB->GetSize() )
+				nTest = 0;
+			else if ( pfA->GetSize() < pfB->GetSize() )
+				nTest = -1;
+			else
+				nTest = 1;
+			break;
+		case 3:
 			if ( pfA->m_pFolder && pfB->m_pFolder )
-		nTest = _tcsicoll( pfA->m_pFolder->m_sPath, pfB->m_pFolder->m_sPath );
+				nTest = _tcsicoll( pfA->m_pFolder->m_sPath, pfB->m_pFolder->m_sPath );
 			else if ( pfB->m_pFolder )
 				nTest = -1;
 			else
 				nTest = 1;
-		break;
-	case 4:
-		if ( pfA->m_nHitsTotal == pfB->m_nHitsTotal )
-			nTest = 0;
-		else if ( pfA->m_nHitsTotal < pfB->m_nHitsTotal )
-			nTest = -1;
-		else
-			nTest = 1;
-		break;
-	case 5:
-		if ( pfA->m_nUploadsTotal == pfB->m_nUploadsTotal )
-			nTest = 0;
-		else if ( pfA->m_nUploadsTotal < pfB->m_nUploadsTotal )
-			nTest = -1;
-		else
-			nTest = 1;
-		break;
-	case 6:
-		nTest = CompareFileTime( &pfA->m_pTime, &pfB->m_pTime );
-		break;
-	default:
-		{
-			int nColumn = m_pThis->m_nSortColumn - DETAIL_COLUMNS;
-			if ( nColumn >= m_pThis->m_pColumns.GetCount() ) return 0;
-			POSITION pos = m_pThis->m_pColumns.FindIndex( nColumn );
-			if ( pos == NULL ) return 0;
-			CSchemaMember* pMember = m_pThis->m_pColumns.GetAt( pos );
-
-			CString strA, strB;
-			if ( pfA->m_pMetadata ) strA = pMember->GetValueFrom( pfA->m_pMetadata, NULL, TRUE );
-			if ( pfB->m_pMetadata ) strB = pMember->GetValueFrom( pfB->m_pMetadata, NULL, TRUE );
-
-			if ( *(LPCTSTR)strA && *(LPCTSTR)strB &&
-				( ((LPCTSTR)strA)[ _tcslen( strA ) - 1 ] == 'k' || ((LPCTSTR)strA)[ _tcslen( strA ) - 1 ] == '~' )
-				&&
-				( ((LPCTSTR)strB)[ _tcslen( strB ) - 1 ] == 'k' || ((LPCTSTR)strB)[ _tcslen( strB ) - 1 ] == '~' ) )
-			{
-				nTest = CLiveList::SortProc( strA, strB, TRUE );
-			}
+			break;
+		case 4:
+			if ( pfA->m_nHitsTotal == pfB->m_nHitsTotal )
+				nTest = 0;
+			else if ( pfA->m_nHitsTotal < pfB->m_nHitsTotal )
+				nTest = -1;
 			else
+				nTest = 1;
+			break;
+		case 5:
+			if ( pfA->m_nUploadsTotal == pfB->m_nUploadsTotal )
+				nTest = 0;
+			else if ( pfA->m_nUploadsTotal < pfB->m_nUploadsTotal )
+				nTest = -1;
+			else
+				nTest = 1;
+			break;
+		case 6:
+			nTest = CompareFileTime( &pfA->m_pTime, &pfB->m_pTime );
+			break;
+		default:
 			{
-				nTest = _tcsicoll( strA, strB );
+				int nColumn = m_pThis->m_nSortColumn - DETAIL_COLUMNS;
+				if ( nColumn >= m_pThis->m_pColumns.GetCount() ) return 0;
+				POSITION pos = m_pThis->m_pColumns.FindIndex( nColumn );
+				if ( pos == NULL ) return 0;
+				CSchemaMember* pMember = m_pThis->m_pColumns.GetAt( pos );
+
+				CString strA, strB;
+				if ( pfA->m_pMetadata ) strA = pMember->GetValueFrom( pfA->m_pMetadata, NULL, TRUE );
+				if ( pfB->m_pMetadata ) strB = pMember->GetValueFrom( pfB->m_pMetadata, NULL, TRUE );
+
+				if ( *(LPCTSTR)strA && *(LPCTSTR)strB &&
+					( ((LPCTSTR)strA)[ _tcslen( strA ) - 1 ] == 'k' || ((LPCTSTR)strA)[ _tcslen( strA ) - 1 ] == '~' )
+					&&
+					( ((LPCTSTR)strB)[ _tcslen( strB ) - 1 ] == 'k' || ((LPCTSTR)strB)[ _tcslen( strB ) - 1 ] == '~' ) )
+				{
+					nTest = CLiveList::SortProc( strA, strB, TRUE );
+				}
+				else
+				{
+					nTest = _tcsicoll( strA, strB );
+				}
 			}
 		}
-	}
-
+	
 		if ( nTest != 0 )
 			break;
 
@@ -864,7 +864,7 @@ void CLibraryDetailView::OnFindItemW(NMHDR* pNotify, LRESULT* pResult)
 			{
 				if ( ((NMLVFINDITEM*) pNotify)->lvfi.flags & LVFI_STRING )
 				{
-					if ( _tcsnicmp( pszFind, pFile->m_sName, _tcslen( pszFind ) ) == 0 )
+					if ( _tcsnicmp( (LPCTSTR)pszFind, pFile->m_sName, _tcslen( (LPCTSTR)pszFind ) ) == 0 )
 					{
 						*pResult = nItem;
 						return;
@@ -893,7 +893,7 @@ void CLibraryDetailView::OnFindItemA(NMHDR* pNotify, LRESULT* pResult)
 			{
 				if ( ((NMLVFINDITEM*) pNotify)->lvfi.flags & LVFI_STRING )
 				{
-					if ( _tcsnicmp( pszFind, pFile->m_sName, _tcslen( pszFind ) ) == 0 )
+					if ( _tcsnicmp( (LPCTSTR)pszFind, pFile->m_sName, _tcslen( (LPCTSTR)pszFind ) ) == 0 )
 					{
 						*pResult = nItem;
 						return;

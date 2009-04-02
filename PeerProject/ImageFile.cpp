@@ -127,10 +127,12 @@ BOOL CImageFile::LoadFromURL(LPCTSTR pszURL)
 {
 	CHttpRequest pImageFetcher;
 
-	pImageFetcher.SetURL( pszURL );
+	if ( !pImageFetcher.SetURL( pszURL ) )
+		return FALSE;
 	pImageFetcher.LimitContentLength( Settings.Search.MaxPreviewLength * 100 );
 
-	pImageFetcher.Execute( TRUE );
+	if ( !pImageFetcher.Execute( TRUE ) )
+		return FALSE;
 	while ( pImageFetcher.IsPending() )
 		Sleep( 50 );
 
@@ -270,9 +272,16 @@ HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 	// pV5Header.bV5AlphaMask =  0xFF000000;
 
 	HDC hDC = hUseDC ? hUseDC : GetDC( 0 );
-
-	void* pBits;
-	HBITMAP hBitmap = CreateDIBSection( hDC, (BITMAPINFO*)&pV5Header, DIB_RGB_COLORS, (void**)&pBits, NULL, 0ul );
+	HBITMAP hBitmap;
+	__try
+	{
+		void* pBits = NULL;
+		hBitmap = CreateDIBSection( hDC, (BITMAPINFO*)&pV5Header, DIB_RGB_COLORS, (void**)&pBits, NULL, 0ul );
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		hBitmap = NULL;
+	}
 
 	if ( hBitmap )
 	{

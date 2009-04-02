@@ -115,7 +115,6 @@ END_MESSAGE_MAP()
 
 #define SIZE_INTERNAL	1982
 #define SIZE_BARSLIDE	1983
-#define TOOLBAR_HEIGHT	28
 #define TOOLBAR_STICK	3000
 #define TOOLBAR_ANIMATE	1000
 #define HEADER_HEIGHT	16
@@ -489,17 +488,31 @@ void CMediaFrame::OnPaint()
 
 	if ( m_bmLogo.m_hObject == NULL)
 	{
-		if ( CImageServices::LoadBitmap( &m_bmLogo, IDR_LARGE_LOGO, RT_JPEG ) )
+		if ( CImageServices::LoadBitmap( &m_bmLogo, IDR_LARGE_LOGO, RT_PNG ) )
 		{
-			if ( m_pPlayer ) m_pPlayer->SetLogoBitmap( (HBITMAP)m_bmLogo.m_hObject );
+			if ( m_pPlayer )
+				m_pPlayer->SetLogoBitmap( (HBITMAP)m_bmLogo.m_hObject );
 		}
 	}
-	
-	if ( m_pFontDefault.m_hObject == NULL )
+
+	if ( theApp.m_bIsVistaOrNewer && m_pFontDefault.m_hObject == NULL )
 	{
-		LOGFONT pFont = { 80, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
-			OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-			DEFAULT_PITCH|FF_DONTCARE, _T("Tahoma") };
+		LOGFONT pFont = { 80, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+			DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+			DEFAULT_QUALITY, DEFAULT_PITCH|FF_DONTCARE, _T( "Segoe UI" ) };
+
+		m_pFontDefault.CreatePointFontIndirect( &pFont );
+		
+		pFont.lfHeight = 80;
+		m_pFontValue.CreatePointFontIndirect( &pFont );
+		pFont.lfWeight = FW_BLACK;
+		m_pFontKey.CreatePointFontIndirect( &pFont );
+	}
+	else if ( m_pFontDefault.m_hObject == NULL )
+	{
+		LOGFONT pFont = { 80, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+			DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+			ANTIALIASED_QUALITY, DEFAULT_PITCH|FF_DONTCARE, _T("Tahoma") };
 		
 		m_pFontDefault.CreatePointFontIndirect( &pFont );
 		

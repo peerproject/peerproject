@@ -119,7 +119,6 @@ protected:
 	afx_msg LRESULT OnOpenSearch(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnTray(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnChangeAlpha(WPARAM wParam, LPARAM lParam);
-	afx_msg LRESULT OnLog(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnSkinChanged(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnSetMessageString(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnSetText(WPARAM wParam, LPARAM lParam);
@@ -174,6 +173,7 @@ protected:
 	afx_msg void OnHelpSecurity();
 	afx_msg void OnHelpCodec();
 	afx_msg void OnHelpDonate();
+	afx_msg void OnHelpFakeShareaza();
 	afx_msg void OnUpdateViewTraffic(CCmdUI* pCmdUI);
 	afx_msg void OnViewTraffic();
 	afx_msg void OnWindowCascade();
@@ -206,7 +206,6 @@ protected:
 	afx_msg void OnViewWindowed();
 	afx_msg void OnUpdateViewDiscovery(CCmdUI* pCmdUI);
 	afx_msg void OnViewDiscovery();
-	afx_msg void OnActivateApp(BOOL bActive, DWORD dwThreadID);
 	afx_msg void OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized);
 	afx_msg void OnUpdateTabHome(CCmdUI* pCmdUI);
 	afx_msg void OnTabHome();
@@ -219,11 +218,12 @@ protected:
 	afx_msg void OnWindowMonitor();
 	afx_msg void OnNetworkBrowseTo();
 	afx_msg void OnNcLButtonDblClk(UINT nHitTest, CPoint point);
-	afx_msg void OnToolsSkin();
 	afx_msg void OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI);
 	afx_msg void OnToolsLanguage();
+	afx_msg void OnToolsSkin();
 	afx_msg void OnToolsSeedTorrent();
 	afx_msg void OnToolsReseedTorrent();
+	afx_msg void OnToolsCreateTorrent();
 	afx_msg void OnDiskSpace();
 	afx_msg void OnDiskWriteFail();
 	afx_msg void OnConnectionFail();
@@ -260,6 +260,8 @@ protected:
 	afx_msg void OnUpdateShell(CCmdUI* pCmdUI);
 	afx_msg LRESULT OnMenuChar(UINT nChar, UINT nFlags, CMenu* pMenu);
 	afx_msg LRESULT OnSanityCheck(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnQueryHits(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnNowUploading(WPARAM wParam, LPARAM lParam);
 
 	DECLARE_MESSAGE_MAP()
 	DECLARE_DROP()

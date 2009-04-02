@@ -20,6 +20,7 @@
 //
 
 #include "StdAfx.h"
+#include "PeerProject.h"
 #include "ZIPFile.h"
 #include "Buffer.h"
 
@@ -156,11 +157,11 @@ CZIPFile::File* CZIPFile::GetFile(LPCTSTR pszFile, BOOL bSmartSearch) const
 		return pFile;
 	else if ( !bSmartSearch )
 		return NULL;
-		else
+	else
 		pFile = m_pFile;
 
 	for ( int nFile = m_nFile ; nFile ; nFile--, pFile++ )
-		{
+	{
 		LPCTSTR pszName = _tcsrchr( pFile->m_sName, '/' );
 		pszName = pszName ? pszName + 1 : (LPCTSTR)pFile->m_sName;
 		if ( _tcsicoll( pszName, pszFile ) == 0 ) return pFile;
@@ -501,7 +502,8 @@ BOOL CZIPFile::File::Extract(LPCTSTR pszFile)
 
 	if ( nUncompressed >= m_nSize ) return TRUE;
 
-	DeleteFile( pszFile );
+	DeleteFileEx( pszFile, FALSE, FALSE, TRUE );
+
 	return FALSE;
 }
 

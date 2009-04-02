@@ -37,9 +37,6 @@
 #include "Library.h"
 #include "SharedFile.h"
 #include "XML.h"
-#include "SHA.h"
-#include "MD4.h"
-#include "TigerTree.h"
 #include "QueryHashMaster.h"
 #include "VendorCache.h"
 #include "Transfers.h"
@@ -183,8 +180,6 @@ BOOL CDownloadWithSources::CheckSource(CDownloadSource* pCheck) const
 
 void CDownloadWithSources::ClearSources()
 {
-	CQuickLock pLock( Transfers.m_pSection );
-
 	for ( CDownloadSource* pSource = m_pSourceFirst ; pSource ; )
 	{
 		CDownloadSource* pNext = pSource->m_pNext;
@@ -202,7 +197,7 @@ void CDownloadWithSources::ClearSources()
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithSources add a query-hit source
 
-BOOL CDownloadWithSources::AddSourceHit(CQueryHit* pHit, BOOL bForce)
+BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 {
 	CQuickLock pLock( Transfers.m_pSection );
 
@@ -216,9 +211,9 @@ BOOL CDownloadWithSources::AddSourceHit(CQueryHit* pHit, BOOL bForce)
 			if ( m_oSHA1 != pHit->m_oSHA1 ) return FALSE;
 			bHash = TRUE;
 		}
-		// We should check Tiger as well as others. This is because
-		// there exist some hash combinations, even for PeerProject 2.2.0.0 
-		// installer file, i.e. with the same SHA1 but different Tiger (CyberBob).
+		// We should check Tiger as well as others.
+		// There exist some hash combinations, (Shareaza 2.2.0.0 installer file) 
+		// i.e. with the same SHA1 but different Tiger (CyberBob).
 
 		if ( m_oTiger && pHit->m_oTiger )
 		{
@@ -805,11 +800,12 @@ CString	CDownloadWithSources::GetTopFailedSources(int nMaximum, PROTOCOLID nProt
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithSources query hit handler
 
-BOOL CDownloadWithSources::OnQueryHits(CQueryHit* pHits)
+BOOL CDownloadWithSources::OnQueryHits(const CQueryHit* pHits)
 {
-	for ( ; pHits ; pHits = pHits->m_pNext )
+	for ( const CQueryHit* pHit = pHits; pHit ; pHit = pHit->m_pNext )
 	{
-		if ( pHits->m_sURL.GetLength() ) AddSourceHit( pHits );
+		if ( pHit->m_sURL.GetLength() )
+			AddSourceHit( pHit );
 	}
 
 	return TRUE;
@@ -1147,7 +1143,7 @@ int CDownloadWithSources::GetSourceColor()
 void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)
 {
 	CDownloadBase::Serialize( ar, nVersion );
-	
+
 	CQuickLock pLock( Transfers.m_pSection );
 	
 	if ( ar.IsStoring() )

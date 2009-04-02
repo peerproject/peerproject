@@ -49,6 +49,7 @@
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
 				RuntimeLibrary="1"
+				RuntimeTypeInfo="false"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
 				WarningLevel="3"
 				DebugInformationFormat="4"
@@ -127,6 +128,7 @@
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
 				RuntimeLibrary="1"
+				RuntimeTypeInfo="false"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -204,6 +206,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;DLL;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				RuntimeLibrary="2"
+				RuntimeTypeInfo="false"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -280,6 +283,8 @@
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN64;WIN32;NDEBUG;_WINDOWS;_USRDLL;DLL;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="false"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -338,7 +343,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\Plugins\LibGeoIP\GeoIP.c"
+				RelativePath="..\Services\GeoIP\GeoIP.c"
 				>
 			</File>
 		</Filter>
@@ -348,7 +353,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\Plugins\LibGeoIP\GeoIP.h"
+				RelativePath="..\Services\GeoIP\GeoIP.h"
 				>
 			</File>
 		</Filter>

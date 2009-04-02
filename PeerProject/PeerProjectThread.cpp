@@ -31,21 +31,12 @@ CRazaThread::CThreadMap	CRazaThread::m_ThreadMap;
 
 CRazaThread::CRazaThread(AFX_THREADPROC pfnThreadProc /*= NULL*/, LPVOID pParam /*= NULL*/) :
 	CWinThread( NULL, pParam ),
-	m_bCOM( FALSE ),
 	m_pfnThreadProcExt( pfnThreadProc )
 {
 }
 
 CRazaThread::~CRazaThread()
 {
-	if ( m_bCOM && m_nThreadID == GetCurrentThreadId() ) // Inside thread itself only
-	{
-		m_bCOM = FALSE;
-		OleUninitialize();
-	}
-
-	ASSERT( m_bCOM == FALSE );
-
 	Remove( m_hThread );
 }
 
@@ -75,20 +66,23 @@ BOOL CRazaThread::InitInstance()
 {
 	CWinThread::InitInstance();
 
-	ASSERT( m_nThreadID == GetCurrentThreadId() );
-	ASSERT( m_bCOM == FALSE );
-	m_bCOM = SUCCEEDED( OleInitialize( NULL ) );
-	ASSERT( m_bCOM == TRUE );
-
-	return m_bCOM;
+	return TRUE;
 }
 
 int CRazaThread::Run()
 {
+	BOOL bCOM = SUCCEEDED( OleInitialize( NULL ) );
+
+	int ret;
 	if ( m_pfnThreadProcExt )
-		return ( *m_pfnThreadProcExt )( m_pThreadParams );
+		ret = ( *m_pfnThreadProcExt )( m_pThreadParams );
 	else
-		return CWinThread::Run();
+		ret = CWinThread::Run();
+
+	if ( bCOM )
+		OleUninitialize();
+
+	return ret;
 }
 
 void CRazaThread::Add(CRazaThread* pThread, LPCSTR pszName)
@@ -162,7 +156,7 @@ void CRazaThread::YieldProc()
 
 void SetThreadName(DWORD dwThreadID, LPCSTR szThreadName)
 {
-#ifndef NDEBUG
+#ifdef _DEBUG
 	struct
 	{
 		DWORD dwType;		// Must be 0x1000
@@ -178,14 +172,15 @@ void SetThreadName(DWORD dwThreadID, LPCSTR szThreadName)
 	};
 	__try
 	{
-		RaiseException( 0x406D1388, 0, sizeof info / sizeof( DWORD ), (ULONG_PTR*)&info );
+		RaiseException( MS_VC_EXCEPTION, 0,
+			sizeof( info ) / sizeof( ULONG_PTR ), (ULONG_PTR*)&info );
 	}
 	__except( EXCEPTION_CONTINUE_EXECUTION )
 	{
 	}
 #endif
-	UNUSED_ALWAYS(dwThreadID);
-	UNUSED_ALWAYS(szThreadName);
+	UNUSED(dwThreadID);
+	UNUSED(szThreadName);
 }
 
 HANDLE BeginThread(LPCSTR pszName, AFX_THREADPROC pfnThreadProc,
@@ -212,12 +207,8 @@ void CloseThread(HANDLE* phThread, DWORD dwTimeout)
 
 			while( *phThread )
 			{
-				MSG msg;
-				while ( PeekMessage( &msg, NULL, NULL, NULL, PM_REMOVE ) )
-				{
-					TranslateMessage( &msg );
-					DispatchMessage( &msg );
-				}
+				SafeMessageLoop();
+
 				DWORD res = MsgWaitForMultipleObjects( 1, phThread,
 					FALSE, dwTimeout, QS_ALLINPUT | QS_ALLPOSTMESSAGE );
 				if ( res == WAIT_OBJECT_0 + 1 )

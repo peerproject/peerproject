@@ -11,8 +11,8 @@
 		<complexType>
 			<element name="spreadsheet" type="spreadsheetType" minOccurs="1" maxOccurs="unbounded"/>
 		</complexType>
-	</element>     
-	
+	</element>
+
 	<complexType name="spreadsheetType">
 		<all>
 			<attribute name="title" type="string"/>
@@ -74,7 +74,7 @@
 
 			<attribute name="formatVersion" type="string"/>
 			<attribute name="records" type="long"/>
-		        <attribute name="link" type="uriReference"/>
+			<attribute name="link" type="uriReference"/>
 			<attribute name="comments">
 				<simpleType base="string">
 					<maxInclusive value="100"/>

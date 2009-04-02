@@ -203,10 +203,7 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 			pByte += 3; nByte -= 3;
 		}
 
-		DWORD nWide = MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)pByte, nByte, NULL, 0 );
-
-		MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)pByte, nByte, strXML.GetBuffer( nWide ), nWide );
-		strXML.ReleaseBuffer( nWide );
+		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
 	}
 
 	delete [] pSource;
@@ -236,8 +233,17 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 
 	CXMLElement* pManifest = pXML->GetElementByName( _T("manifest") );
 
+	// Hide Non-Skins
 	if ( ! pXML->IsNamed( _T("skin") ) || pManifest == NULL ||
 		 ! pManifest->GetAttributeValue( _T("type") ).CompareNoCase( _T("language") ) )
+	{
+		delete pXML;
+		return FALSE;
+	}
+
+	// Hide Wrong-Language Skins
+	if ( pManifest->GetAttributeValue( _T("language") ).GetLength() &&
+		 pManifest->GetAttributeValue( _T("language") ).CompareNoCase( Settings.General.Language.Left(2) ) )
 	{
 		delete pXML;
 		return FALSE;
@@ -514,7 +520,7 @@ void CSkinsSettingsPage::OnSkinsDelete()
 	strPath.Format( _T("%s\\Skins\\%s"),
 		(LPCTSTR)Settings.General.Path, (LPCTSTR)strBase );
 
-	DeleteFile( strPath );
+	DeleteFileEx( strPath, FALSE, TRUE, TRUE );
 
 	int nSlash = strPath.ReverseFind( '\\' );
 	strPath = strPath.Left( nSlash ) + _T("\\*.xml");
@@ -538,7 +544,7 @@ void CSkinsSettingsPage::OnSkinsDelete()
 			do
 			{
 				if ( pFind.cFileName[0] == '.' ) continue;
-				DeleteFile( strPath + pFind.cFileName );
+				DeleteFileEx( strPath + pFind.cFileName, FALSE, TRUE, TRUE );
 			}
 			while ( FindNextFile( hSearch, &pFind ) );
 

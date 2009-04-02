@@ -15,9 +15,6 @@
 		/>
 	</Platforms>
 	<ToolFiles>
-		<DefaultToolFile
-			FileName="masm.rules"
-		/>
 	</ToolFiles>
 	<Configurations>
 		<Configuration
@@ -31,17 +28,13 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying LibGFL280 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\libgfl280.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)libgfl280.dll"
+				Description="Copying LibGFL290 dll..."
+				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
 				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="MASM"
-				WarningLevel="2"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -65,7 +58,6 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;ZLIB_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				SmallerTypeCheck="true"
 				RuntimeLibrary="1"
 				DefaultCharIsUnsigned="true"
 				RuntimeTypeInfo="false"
@@ -132,16 +124,13 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying LibGFL280 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\libgfl280.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)libgfl280.dll"
+				Description="Copying LibGFL290 dll..."
+				CommandLine="xcopy &quot;..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
 				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="MASM"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -166,7 +155,6 @@
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;ZLIB_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				SmallerTypeCheck="true"
 				RuntimeLibrary="1"
 				DefaultCharIsUnsigned="true"
 				RuntimeTypeInfo="false"
@@ -234,17 +222,13 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying LibGFL280 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\libgfl280.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)libgfl280.dll"
+				Description="Copying LibGFL290 dll..."
+				CommandLine="xcopy &quot;..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
 				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="MASM"
-				WarningLevel="2"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -335,16 +319,13 @@
 			>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying LibGFL280 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\libgfl280.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)libgfl280.dll"
+				Description="Copying LibGFL290 dll..."
+				CommandLine="xcopy &quot;..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
 			<Tool
 				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="MASM"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -442,6 +423,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\PeerProject\AutocompleteEdit.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\PeerProject\BENode.cpp"
 				>
 			</File>
@@ -487,6 +472,10 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\CollectionFile.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\ComboListCtrl.cpp"
 				>
 			</File>
 			<File
@@ -615,10 +604,6 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\DownloadWithTransfers.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\ED2K.cpp"
 				>
 			</File>
 			<File
@@ -862,6 +847,66 @@
 				>
 			</File>
 			<File
+				RelativePath="..\PeerProject\PeerProject.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\PeerProject.idl"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						HeaderFileName="$(IntDir)\PeerProjectOM.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						HeaderFileName="$(IntDir)\PeerProjectOM.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						HeaderFileName="$(IntDir)\PeerProjectOM.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						HeaderFileName="$(IntDir)\PeerProjectOM.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\PeerProject\PeerProject.rc"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\PeerProjectDataSource.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\PeerProjectFile.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\PeerProjectThread.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\PeerProjectURL.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\PeerProject\Plugins.cpp"
 				>
 			</File>
@@ -963,66 +1008,6 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\ShakeNeighbour.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\PeerProject.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\PeerProject.idl"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCMIDLTool"
-						HeaderFileName="$(IntDir)\PeerProjectOM.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCMIDLTool"
-						HeaderFileName="$(IntDir)\PeerProjectOM.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCMIDLTool"
-						HeaderFileName="$(IntDir)\PeerProjectOM.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCMIDLTool"
-						HeaderFileName="$(IntDir)\PeerProjectOM.h"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\PeerProject\PeerProject.rc"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\PeerProjectDataSource.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\PeerProjectFile.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\PeerProjectThread.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\PeerProjectURL.cpp"
 				>
 			</File>
 			<File
@@ -1353,6 +1338,11 @@
 					>
 				</File>
 				<File
+					RelativePath="CtrlPanelClass.cpp"
+					DeploymentContent="true"
+					>
+				</File>
+				<File
 					RelativePath="..\PeerProject\CtrlPrivateChatFrame.cpp"
 					>
 				</File>
@@ -1549,6 +1539,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\PeerProject\DlgMessage.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\PeerProject\DlgNewSearch.cpp"
 					>
 				</File>
@@ -1574,6 +1568,10 @@
 				</File>
 				<File
 					RelativePath="..\PeerProject\DlgSecureRule.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\PeerProject\DlgSelectClass.cpp"
 					>
 				</File>
 				<File
@@ -1766,184 +1764,88 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Hash algorithms"
+				Name="Hashes"
 				>
 				<File
-					RelativePath="..\PeerProject\MD4.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\PeerProject\asm\MD4_asm.asm"
+					RelativePath="..\PeerProject\Hashes\HashDescriptors.cpp"
 					>
 					<FileConfiguration
-						Name="Debug|x64"
-						ExcludedFromBuild="true"
+						Name="Debug|Win32"
 						>
 						<Tool
-							Name="MASM"
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderThrough="..\StdAfx.h"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderThrough="..\StdAfx.h"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderThrough="..\StdAfx.h"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|x64"
-						ExcludedFromBuild="true"
 						>
 						<Tool
-							Name="MASM"
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderThrough="..\StdAfx.h"
 						/>
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\PeerProject\MD5.cpp"
+					RelativePath="..\PeerProject\Hashes\HashStringConversion.cpp"
 					>
-				</File>
-				<File
-					RelativePath="..\PeerProject\asm\MD5_asm.asm"
-					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderThrough="..\StdAfx.h"
+						/>
+					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug|x64"
-						ExcludedFromBuild="true"
 						>
 						<Tool
-							Name="MASM"
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderThrough="..\StdAfx.h"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release|x64"
-						ExcludedFromBuild="true"
+						Name="Release|Win32"
 						>
 						<Tool
-							Name="MASM"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\PeerProject\SHA.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\PeerProject\asm\SHA_asm.asm"
-					>
-					<FileConfiguration
-						Name="Debug|x64"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="MASM"
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderThrough="..\StdAfx.h"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|x64"
-						ExcludedFromBuild="true"
 						>
 						<Tool
-							Name="MASM"
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderThrough="..\StdAfx.h"
 						/>
 					</FileConfiguration>
 				</File>
-				<File
-					RelativePath="..\PeerProject\asm\Tiger_asm.asm"
-					>
-					<FileConfiguration
-						Name="Debug|x64"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="MASM"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|x64"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="MASM"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\PeerProject\TigerTree.cpp"
-					>
-				</File>
-				<Filter
-					Name="Policies"
-					>
-					<File
-						RelativePath="..\PeerProject\Hashes\HashDescriptors.cpp"
-						>
-						<FileConfiguration
-							Name="Debug|Win32"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderThrough="..\StdAfx.h"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|x64"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderThrough="..\StdAfx.h"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderThrough="..\StdAfx.h"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|x64"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderThrough="..\StdAfx.h"
-							/>
-						</FileConfiguration>
-					</File>
-					<File
-						RelativePath="..\PeerProject\Hashes\HashStringConversion.cpp"
-						>
-						<FileConfiguration
-							Name="Debug|Win32"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderThrough="..\StdAfx.h"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|x64"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderThrough="..\StdAfx.h"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderThrough="..\StdAfx.h"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|x64"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderThrough="..\StdAfx.h"
-							/>
-						</FileConfiguration>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="Pages"
 				>
+				<File
+					RelativePath="..\PeerProject\PageDownloadActions.cpp"
+					>
+				</File>
 				<File
 					RelativePath="..\PeerProject\PageDownloadEdit.cpp"
 					>
@@ -2002,10 +1904,6 @@
 				</File>
 				<File
 					RelativePath="..\PeerProject\PagePropertyAdv.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\PeerProject\PageSettingsBandwidth.cpp"
 					>
 				</File>
 				<File
@@ -2128,6 +2026,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\PeerProject\AutocompleteEdit.h"
+				>
+			</File>
+			<File
 				RelativePath="..\PeerProject\BENode.h"
 				>
 			</File>
@@ -2173,6 +2075,10 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\CollectionFile.h"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\ComboListCtrl.h"
 				>
 			</File>
 			<File
@@ -2305,10 +2211,6 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\DownloadWithTransfers.h"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\ED2K.h"
 				>
 			</File>
 			<File
@@ -2564,6 +2466,26 @@
 				>
 			</File>
 			<File
+				RelativePath="..\PeerProject\PeerProject.h"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\PeerProjectDataSource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\PeerProjectFile.h"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\PeerProjectThread.h"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\PeerProjectURL.h"
+				>
+			</File>
+			<File
 				RelativePath="..\PeerProject\Plugins.h"
 				>
 			</File>
@@ -2676,26 +2598,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\PeerProject.h"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\PeerProjectDataSource.h"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\PeerProjectFile.h"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\PeerProjectThread.h"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\PeerProjectURL.h"
-				>
-			</File>
-			<File
 				RelativePath="..\PeerProject\SharedFile.h"
 				>
 			</File>
@@ -2797,10 +2699,6 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\UPnPFinder.h"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\Utility.hpp"
 				>
 			</File>
 			<File
@@ -2955,10 +2853,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\CtrlLibraryPanel.h"
-					>
-				</File>
-				<File
 					RelativePath="..\PeerProject\CtrlLibraryThumbView.h"
 					>
 				</File>
@@ -3008,6 +2902,10 @@
 				</File>
 				<File
 					RelativePath="..\PeerProject\CtrlNetworkCombo.h"
+					>
+				</File>
+				<File
+					RelativePath="..\PeerProject\CtrlPanelClass.h"
 					>
 				</File>
 				<File
@@ -3319,6 +3217,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\PeerProject\DlgMessage.h"
+					>
+				</File>
+				<File
 					RelativePath="..\PeerProject\DlgNewSearch.h"
 					>
 				</File>
@@ -3346,6 +3248,9 @@
 					RelativePath="..\PeerProject\DlgSecureRule.h"
 					>
 				</File>
+				<File
+					RelativePath="..\PeerProject\DlgSelectClass.h"
+					>
 				<File
 					RelativePath="..\PeerProject\DlgSettingsManager.h"
 					>
@@ -3424,57 +3329,33 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Hash algorithms"
+				Name="Hashes"
 				>
 				<File
-					RelativePath="..\PeerProject\Hashes\Hashes.dox"
+					RelativePath="..\PeerProject\Hashes\Compatibility.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\PeerProject\Hashes\HashDescriptors.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\PeerProject\Hashes\HashStringConversion.hpp"
 					>
 				</File>
 				<File
 					RelativePath="..\PeerProject\Hashes.hpp"
 					>
 				</File>
-				<File
-					RelativePath="..\PeerProject\MD4.h"
-					>
-				</File>
-				<File
-					RelativePath="..\PeerProject\MD5.h"
-					>
-				</File>
-				<File
-					RelativePath="..\PeerProject\SHA.h"
-					>
-				</File>
-				<File
-					RelativePath="..\PeerProject\TigerBoxes.h"
-					>
-				</File>
-				<File
-					RelativePath="..\PeerProject\TigerTree.h"
-					>
-				</File>
 				<Filter
 					Name="Policies"
 					>
-					<File
-						RelativePath="..\PeerProject\Hashes\CheckingPolicies.hpp"
-						>
-					</File>
-					<File
-						RelativePath="..\PeerProject\Hashes\Compatibility.hpp"
-						>
-					</File>
 					<File
 						RelativePath="..\PeerProject\Hashes\Hash.hpp"
 						>
 					</File>
 					<File
-						RelativePath="..\PeerProject\Hashes\HashDescriptors.hpp"
-						>
-					</File>
-					<File
-						RelativePath="..\PeerProject\Hashes\HashStringConversion.hpp"
+						RelativePath="..\PeerProject\Hashes\CheckingPolicies.hpp"
 						>
 					</File>
 					<File
@@ -3490,6 +3371,10 @@
 			<Filter
 				Name="Pages"
 				>
+				<File
+					RelativePath="..\PeerProject\PageDownloadActions.h"
+					>
+				</File>
 				<File
 					RelativePath="..\PeerProject\PageDownloadEdit.h"
 					>
@@ -3548,10 +3433,6 @@
 				</File>
 				<File
 					RelativePath="..\PeerProject\PagePropertyAdv.h"
-					>
-				</File>
-				<File
-					RelativePath="..\PeerProject\PageSettingsBandwidth.h"
 					>
 				</File>
 				<File
@@ -3882,15 +3763,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\Res\colors.ico"
-				>
-			</File>
-			<File
 				RelativePath="..\PeerProject\Res\ColorDot.bmp"
 				>
 			</File>
 			<File
 				RelativePath="..\PeerProject\Res\ColorDot.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Res\Colors.ico"
 				>
 			</File>
 			<File
@@ -4185,11 +4066,23 @@
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\Res\Skinning.ico"
+				RelativePath="..\PeerProject\Res\PanelMark.bmp"
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\Res\PanelMark.bmp"
+				RelativePath="..\PeerProject\Res\PeerProject.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Res\PeerProject.rc2"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Res\PeerProjectIcon.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Res\PeerProjectSmall.ico"
 				>
 			</File>
 			<File
@@ -4293,22 +4186,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\Res\PeerProject.ico"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\Res\PeerProject.rc2"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\Res\PeerProjectIcon.ico"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\Res\PeerProjectSmall.ico"
-				>
-			</File>
-			<File
 				RelativePath="..\PeerProject\Res\ShellBase.bmp"
 				>
 			</File>
@@ -4318,6 +4195,10 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\Res\Skin.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Res\Skinning.ico"
 				>
 			</File>
 			<File
@@ -4349,11 +4230,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\Res\TickOpened.ico"
+				RelativePath="..\PeerProject\Res\TickClosedHover.ico"
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\Res\TickClosedHover.ico"
+				RelativePath="..\PeerProject\Res\TickOpened.ico"
 				>
 			</File>
 			<File
@@ -4419,6 +4300,80 @@
 			<File
 				RelativePath="..\PeerProject\Res\SchemaMappings.xml.gz"
 				>
+			</File>
+			<File
+				RelativePath="DebugWin32\PeerProject\PeerProject_i.c"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+						DisableSpecificWarnings="4255;4619;4668;4820;4826"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="Debugx64\PeerProject\PeerProject_i.c"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+						DisableSpecificWarnings="4255;4619;4668;4820;4826"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="ReleaseWin32\PeerProject\PeerProject_i.c"
@@ -4494,24 +4449,19 @@
 					/>
 				</FileConfiguration>
 			</File>
+		</Filter>
+		<Filter
+			Name="Library Files"
+			>
 			<File
-				RelativePath="Debugx64\PeerProject\PeerProject_i.c"
+				RelativePath="..\Services\BugTrap\BugTrapU.lib"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
+					Name="Debug|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						DisableSpecificWarnings="4255;4619;4668;4820;4826"
+						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4519,7 +4469,7 @@
 					ExcludedFromBuild="true"
 					>
 					<Tool
-						Name="VCCLCompilerTool"
+						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4527,28 +4477,19 @@
 					ExcludedFromBuild="true"
 					>
 					<Tool
-						Name="VCCLCompilerTool"
+						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="DebugWin32\PeerProject\PeerProject_i.c"
+				RelativePath="..\Services\BugTrap\BugTrapU-x64.lib"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						DisableSpecificWarnings="4255;4619;4668;4820;4826"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
-						Name="VCCLCompilerTool"
+						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4556,7 +4497,7 @@
 					ExcludedFromBuild="true"
 					>
 					<Tool
-						Name="VCCLCompilerTool"
+						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4564,7 +4505,7 @@
 					ExcludedFromBuild="true"
 					>
 					<Tool
-						Name="VCCLCompilerTool"
+						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
 			</File>

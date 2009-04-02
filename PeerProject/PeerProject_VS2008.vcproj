@@ -30,6 +30,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copy zlib DLL, HashLib DLL, SQLite DLL..."
+				CommandLine="copy /b /y &quot;..zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -48,6 +50,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Wall"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\zlib"
 				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
@@ -82,7 +85,6 @@
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -120,6 +122,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copy zlib DLL, HashLib DLL, SQLite DLL..."
+				CommandLine="copy /b /y &quot;..zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -139,6 +143,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Wall"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\zlib"
 				PreprocessorDefinitions="_DEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
@@ -172,7 +177,6 @@
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				DataExecutionPrevention="0"
 				TargetMachine="17"
 				KeyFile=""
 			/>
@@ -212,6 +216,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copy zlib DLL, HashLib DLL, SQLite DLL..."
+				CommandLine="copy /b /y &quot;..zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -241,7 +247,6 @@
 				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				RuntimeLibrary="0"
-				EnableEnhancedInstructionSet="0"
 				DefaultCharIsUnsigned="true"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
@@ -270,7 +275,6 @@
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 				KeyFile=""
 			/>
@@ -310,6 +314,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copy zlib DLL, HashLib DLL, SQLite DLL..."
+				CommandLine="copy /b /y &quot;..zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -365,7 +371,6 @@
 				GenerateManifest="false"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="2"
-				DataExecutionPrevention="0"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
@@ -410,6 +415,10 @@
 			</File>
 			<File
 				RelativePath="Application.cpp"
+				>
+			</File>
+			<File
+				RelativePath="AutocompleteEdit.cpp"
 				>
 			</File>
 			<File
@@ -458,6 +467,10 @@
 			</File>
 			<File
 				RelativePath="CollectionFile.cpp"
+				>
+			</File>
+			<File
+				RelativePath="ComboListCtrl.cpp"
 				>
 			</File>
 			<File
@@ -586,10 +599,6 @@
 			</File>
 			<File
 				RelativePath="DownloadWithTransfers.cpp"
-				>
-			</File>
-			<File
-				RelativePath="ED2K.cpp"
 				>
 			</File>
 			<File
@@ -1844,7 +1853,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\CtrlFontCombo.cpp"
+					RelativePath="CtrlFontCombo.cpp"
 					>
 				</File>
 				<File
@@ -1864,11 +1873,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\CtrlIRCFrame.cpp"
+					RelativePath="CtrlIRCFrame.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\CtrlIRCPanel.cpp"
+					RelativePath="CtrlIRCPanel.cpp"
 					>
 				</File>
 				<File
@@ -1905,10 +1914,6 @@
 				</File>
 				<File
 					RelativePath="CtrlLibraryMetaPanel.cpp"
-					>
-				</File>
-				<File
-					RelativePath="CtrlLibraryPanel.cpp"
 					>
 				</File>
 				<File
@@ -1961,6 +1966,11 @@
 				</File>
 				<File
 					RelativePath="CtrlNetworkCombo.cpp"
+					>
+				</File>
+				<File
+					RelativePath="CtrlPanelClass.cpp"
+					DeploymentContent="true"
 					>
 				</File>
 				<File
@@ -2148,7 +2158,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\DlgIrcInput.cpp"
+					RelativePath="DlgIrcInput.cpp"
 					>
 				</File>
 				<File
@@ -2157,6 +2167,10 @@
 				</File>
 				<File
 					RelativePath="DlgMediaVis.cpp"
+					>
+				</File>
+				<File
+					RelativePath="DlgMessage.cpp"
 					>
 				</File>
 				<File
@@ -2185,6 +2199,10 @@
 				</File>
 				<File
 					RelativePath="DlgSecureRule.cpp"
+					>
+				</File>
+				<File
+					RelativePath="DlgSelectClass.cpp"
 					>
 				</File>
 				<File
@@ -2272,7 +2290,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\WndIRC.cpp"
+					RelativePath="WndIRC.cpp"
 					>
 				</File>
 				<File
@@ -2379,190 +2397,6 @@
 			<Filter
 				Name="Hash algorithms"
 				>
-				<File
-					RelativePath="MD4.cpp"
-					>
-				</File>
-				<File
-					RelativePath="asm\MD4_asm.asm"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|x64"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|x64"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="MD5.cpp"
-					>
-				</File>
-				<File
-					RelativePath="asm\MD5_asm.asm"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|x64"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|x64"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="SHA.cpp"
-					>
-				</File>
-				<File
-					RelativePath="asm\SHA_asm.asm"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|x64"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|x64"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="asm\Tiger_asm.asm"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|x64"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|x64"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-							Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="TigerTree.cpp"
-					>
-				</File>
 				<Filter
 					Name="Policies"
 					>
@@ -2652,6 +2486,10 @@
 				Name="Pages"
 				>
 				<File
+					RelativePath="PageDownloadActions.cpp"
+					>
+				</File>
+				<File
 					RelativePath="PageDownloadEdit.cpp"
 					>
 				</File>
@@ -2712,10 +2550,6 @@
 					>
 				</File>
 				<File
-					RelativePath="PageSettingsBandwidth.cpp"
-					>
-				</File>
-				<File
 					RelativePath="PageSettingsBitTorrent.cpp"
 					>
 				</File>
@@ -2744,7 +2578,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\PageSettingsIRC.cpp"
+					RelativePath="PageSettingsIRC.cpp"
 					>
 				</File>
 				<File
@@ -2834,6 +2668,10 @@
 				>
 			</File>
 			<File
+				RelativePath="AutocompleteEdit.h"
+				>
+			</File>
+			<File
 				RelativePath="BENode.h"
 				>
 			</File>
@@ -2879,6 +2717,10 @@
 			</File>
 			<File
 				RelativePath="CollectionFile.h"
+				>
+			</File>
+			<File
+				RelativePath="ComboListCtrl.h"
 				>
 			</File>
 			<File
@@ -3007,10 +2849,6 @@
 			</File>
 			<File
 				RelativePath="DownloadWithTransfers.h"
-				>
-			</File>
-			<File
-				RelativePath="ED2K.h"
 				>
 			</File>
 			<File
@@ -3502,10 +3340,6 @@
 				>
 			</File>
 			<File
-				RelativePath="Utility.hpp"
-				>
-			</File>
-			<File
 				RelativePath="VendorCache.h"
 				>
 			</File>
@@ -3637,7 +3471,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\CtrlFontCombo.h"
+					RelativePath="CtrlFontCombo.h"
 					>
 				</File>
 				<File
@@ -3657,11 +3491,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\CtrlIRCFrame.h"
+					RelativePath="CtrlIRCFrame.h"
 					>
 				</File>
 				<File
-					RelativePath=".\CtrlIRCPanel.h"
+					RelativePath="CtrlIRCPanel.h"
 					>
 				</File>
 				<File
@@ -3698,10 +3532,6 @@
 				</File>
 				<File
 					RelativePath="CtrlLibraryMetaPanel.h"
-					>
-				</File>
-				<File
-					RelativePath="CtrlLibraryPanel.h"
 					>
 				</File>
 				<File
@@ -3754,6 +3584,10 @@
 				</File>
 				<File
 					RelativePath="CtrlNetworkCombo.h"
+					>
+				</File>
+				<File
+					RelativePath="CtrlPanelClass.h"
 					>
 				</File>
 				<File
@@ -3869,7 +3703,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\WndIRC.h"
+					RelativePath="WndIRC.h"
 					>
 				</File>
 				<File
@@ -4065,6 +3899,10 @@
 					>
 				</File>
 				<File
+					RelativePath="DlgMessage.h"
+					>
+				</File>
+				<File
 					RelativePath="DlgNewSearch.h"
 					>
 				</File>
@@ -4090,6 +3928,10 @@
 				</File>
 				<File
 					RelativePath="DlgSecureRule.h"
+					>
+				</File>
+				<File
+					RelativePath="DlgSelectClass.h"
 					>
 				</File>
 				<File
@@ -4176,26 +4018,6 @@
 					RelativePath="Hashes.hpp"
 					>
 				</File>
-				<File
-					RelativePath="MD4.h"
-					>
-				</File>
-				<File
-					RelativePath="MD5.h"
-					>
-				</File>
-				<File
-					RelativePath="SHA.h"
-					>
-				</File>
-				<File
-					RelativePath="TigerBoxes.h"
-					>
-				</File>
-				<File
-					RelativePath="TigerTree.h"
-					>
-				</File>
 				<Filter
 					Name="Policies"
 					>
@@ -4232,6 +4054,10 @@
 			<Filter
 				Name="Pages"
 				>
+				<File
+					RelativePath="PageDownloadActions.h"
+					>
+				</File>
 				<File
 					RelativePath="PageDownloadEdit.h"
 					>
@@ -4293,10 +4119,6 @@
 					>
 				</File>
 				<File
-					RelativePath="PageSettingsBandwidth.h"
-					>
-				</File>
-				<File
 					RelativePath="PageSettingsBitTorrent.h"
 					>
 				</File>
@@ -4325,7 +4147,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\PageSettingsIRC.h"
+					RelativePath="PageSettingsIRC.h"
 					>
 				</File>
 				<File
@@ -5047,6 +4869,10 @@
 				>
 			</File>
 			<File
+				RelativePath="Res\Security.bmp"
+				>
+			</File>
+			<File
 				RelativePath="Res\Security.ico"
 				>
 			</File>
@@ -5149,6 +4975,66 @@
 			<File
 				RelativePath="..\Data\Splash.png"
 				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Library Files"
+			>
+			<File
+				RelativePath="..\Services\BugTrap\BugTrapU.lib"
+				>
+				<FileConfiguration
+					Name="Debug|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\Services\BugTrap\BugTrapU-x64.lib"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 	</Files>

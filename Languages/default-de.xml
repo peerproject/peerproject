@@ -32,20 +32,20 @@
 		<button id="ID_NETWORK_CONNECT" text="Verbinden"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Home"/>
-		<button id="ID_TAB_LIBRARY" text="Bibliothek"/>
-		<button id="ID_TAB_MEDIA" text="Medienwiedergabe"/>
 		<button id="ID_TAB_SEARCH" text="Suchen"/>
 		<button id="ID_TAB_TRANSFERS" text="Downloads"/>
+		<button id="ID_TAB_LIBRARY" text="Bibliothek"/>
+		<button id="ID_TAB_MEDIA" text="Medienwiedergabe"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Verbinden"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Home"/>
-		<button id="ID_TAB_LIBRARY" text="Bibliothek"/>
-		<button id="ID_TAB_MEDIA" text="Medienwiedergabe"/>
 		<button id="ID_TAB_SEARCH" text="Suchen"/>
 		<button id="ID_TAB_TRANSFERS" text="Transfer"/>
 		<button id="ID_TAB_NETWORK" text="Netzwerk"/>
+		<button id="ID_TAB_LIBRARY" text="Bibliothek"/>
+		<button id="ID_TAB_MEDIA" text="Medienwiedergabe"/>
 		<button id="ID_TAB_IRC" text="Chat"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -412,17 +412,17 @@
 		<button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent-Cache"/>
 		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia-Cache"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="F"/>
-		<button id="ID_CHAT_ITALIC" text="K"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/> <!--F-->
+		<button id="ID_CHAT_ITALIC"/> <!--K-->
+		<button id="ID_CHAT_UNDERLINE"/> <!--U-->
+		<button id="ID_CHAT_COLOR"/> <!--C-->
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Benutzer durchsuchen"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Priorität erhöhen"/>
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Verbinden" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Verbindung trennen"/>
@@ -455,13 +455,13 @@
 		<button id="ID_MUSICBRAINZ_ALBUMS" text="Alle Alben ansehen" /> 
 		<separator /> 
 	</toolbar>
-	<!-- IMAGE VIEWER WINDOW -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_ActualSize" text="Originalgröße"/>
 		<button id="ImageViewer_BestFit" text="Fenstergröße"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="Aktualisieren"/>
-		<separator/>
+			<rightAlign/>
 		<button id="ImageViewer_Close" text="Schließen"/>
 	</toolbar>
 </toolbars>
@@ -479,6 +479,23 @@
 		<item id="ID_CHILD_MINIMISE" text="_Minimieren"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="Fenster s_chließen"/>
+	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">
+		<item id="ID_TRAY_OPEN" text="PeerProjekt Öffnen"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Öffnen Fernbedienung"/>
+		<item id="ID_TOOLS_SETTINGS" text="Öffnen Einstellungen..."/>
+		<item id="ID_NETWORK_SEARCH" text="Neue Suche..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Datei/Torrent Herunterladen..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Wiedergabe"/>
+		<item id="ID_MEDIA_PAUSE" text="Pause"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Vorheriger Titel"/>
+		<item id="ID_MEDIA_NEXT" text="Nächster Titel"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Nach Transfers Beenden"/>
+		<item id="ID_NETWORK_EXIT" text="Sofort Beenden"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
@@ -793,40 +810,6 @@
 		<item id="ID_VIEW_SEARCH_MONITOR" text="S_uchmonitor"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="_Treffermonitor"/>
 	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="PeerProjekt _Öffnen"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="N_eue Suche..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Datei / Torrent herunterladen..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Wiedergabe"/>
-		<item id="ID_MEDIA_PAUSE" text="Pa_use"/>
-		<item id="ID_MEDIA_STOP" text="_Stopp"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="_Vorheriger Titel"/>
-		<item id="ID_MEDIA_NEXT" text="_Nächster Titel"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Nach _Transfers beenden"/>
-		<item id="ID_NETWORK_EXIT" text="Sofort _beenden"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="PeerProjekt _Anzeigen"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="N_eue Suche..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="Download hinz_ufügen..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Wiedergabe"/>
-		<item id="ID_MEDIA_PAUSE" text="Pa_use"/>
-		<item id="ID_MEDIA_STOP" text="_Stopp"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="_Vorheriger Titel"/>
-		<item id="ID_MEDIA_NEXT" text="_Nächster Titel"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Nach _Transfers beenden"/>
-		<item id="ID_NETWORK_EXIT" text="Sofort _beenden"/>
-	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
 		<item id="ID_TAB_HOME" text="_Home"/>
@@ -1088,6 +1071,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Automatisch entfernen"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Alle _starten"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Alle _anhalten"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Alle _entfernen"/>
@@ -3211,14 +3196,13 @@
 	<string id="18509" value="Sie können diesen Download nicht als komplett annehemen und verifizieren, weil Sie keine Verifizierungsdaten (tiger-tree-Volumen, eD2k-Hashset oder BitTorrent-Hashset) haben. Ohne Verifizierungsinformationen kann der Download nicht erneut verifiziert werden."/>
 	<string id="18510" value="Sind Sie sicher, dass Sie diesen Download als komplett annehmen und neu verifizieren wollen?  Die ganze Datei wird untersucht und PeerProjekt wird die Teile akzeptieren, die die Verifizierung bestehen und die, die sie nicht bestehen neu herunterladen."/>
 	<string id="18511" value="Sie wollen Änderungen an der Dateigröße vornehmen. Sind Sie sicher, dass Sie die Dateigröße dieses Downloads ändern wollen?"/>
-	<string id="19000" value="Remote-Access ist deaktiviert."/>
+	<string id="19000" value="Remote-Zugriff ist deaktiviert."/>
 	<string id="19001" value="Sie müssen Benutzername und Passwort angeben."/>
 	<string id="19002" value="Kann keine eingehenden Verbindungen akzeptieren, URL nicht verfügbar."/>
 	<string id="20000" value="Keine URN verfügbar."/>
 	<string id="20001" value="Schließen"/>
 	<string id="20002" value="von"/>
 	<string id="20003" value="Der Wechsel der Schreibrichtung erfordert einen Neustart. \nJetzt beenden?"/>
-	<string id="20004" value="Rechts-nach-links Schreibrichtung wird von Ihrem Betriebssystem nicht unterstützt."/>
 	<string id="20005" value="Nein"/>
 	<string id="20006" value="Ja"/>
 	<string id="20007" value="Auto"/>
@@ -3289,6 +3273,8 @@
 	<string id="20234" value="Album"/>
 	<string id="20235" value="Interpret"/>
 	<string id="20236" value="Bewertung"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="Abbrechen"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3555,14 +3541,14 @@
 		<control caption="Gnutella2 ist das Hauptnetzwerk von PeerProjekt. Empfohlen."/>
 		<control caption="Gnutella2 (G2) verwenden"/>
 		<control caption="Gnutella2 konfigurieren"/>
-		<control caption="eDonkey-Netzwerk:"/>
-		<control caption="Das eDonkey-Netzwerk ist ein beliebtes serverbasiertes Netzwerk. Obwohl es nicht so viele Funktionen wie Gnutella2 bietet, findet man viele Dateien."/>
-		<control caption="eDonkey verwenden"/>
-		<control caption="eDonkey konfigurieren"/>
 		<control caption="Gnutella1-Netzwerk:"/>
 		<control caption="Obwohl das ursprüngliche Gnutella-Netzwerk weniger Funktionen als Gnutella2 und weniger Dateien als eDonkey hat, bleibt es eine wertvolle Resource."/>
-		<control caption="Gnutella1 verwenden"/>
+		<control caption="Gnutella1 (G1) verwenden"/>
 		<control caption="Gnutella1 konfigurieren"/>
+		<control caption="eDonkey-Netzwerk:"/>
+		<control caption="Das eDonkey-Netzwerk ist ein beliebtes serverbasiertes Netzwerk. Obwohl es nicht so viele Funktionen wie Gnutella2 bietet, findet man viele Dateien."/>
+		<control caption="eDonkey2000 (ED2K) verwenden"/>
+		<control caption="eDonkey konfigurieren"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2-Netzwerk:"/>
@@ -3794,10 +3780,10 @@
 		<control caption="PeerProjekt ist ein Allround-File-Sharing-Programm, das auf mehrere P2P-Netzwerke gleichzeitig zugreifen kann. Hier können Sie einstellen, welche Netzwerke Sie verwenden möchten. Sie können später jederzeit andere Netzwerke auswählen."/>
 		<control caption="Zu Gnutella2 verbinden (Empfohlen)"/>
 		<control caption="Das Gnutella2-Netzwerk ist das Hauptnetzwerk von PeerProjekt."/>
-		<control caption="Zu eDonkey verbinden"/>
-		<control caption="Das eDonkey-Netzwerk ist ein beliebtes serverbasiertes Netzwerk. Obwohl es nicht so viele Funktionen wie Gnutella2 bietet, findet man viele Dateien."/>
 		<control caption="Zu Gnutella1 verbinden"/>
 		<control caption="Obwohl das ursprüngliche Gnutella-Netzwerk weniger Funktionen als Gnutella2 und weniger Dateien als eDonkey hat, bleibt es eine wertvolle Ressource."/>
+		<control caption="Zu eDonkey verbinden"/>
+		<control caption="Das eDonkey-Netzwerk ist ein beliebtes serverbasiertes Netzwerk. Obwohl es nicht so viele Funktionen wie Gnutella2 bietet, findet man viele Dateien."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey-Downloads importieren">
 		<control/>
@@ -4380,19 +4366,23 @@
 		<control caption="Tracker-Modus:"/>
 		<control caption="Deaktiviert|Benutzerdefiniert|Einzel-Tracker|Multi-Tracker|Multi-Tracker (locked)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Downloadgruppen-Eigenschaften">
-		<control caption="_Name:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Downloadgruppen-Eigenschaften">
+		<control caption="OK"/>
+		<control caption="Abbrechen"/>
 		<control/>
 		<control/>
-		<control caption="_Filter:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="_Hinzufügen"/>
 		<control caption="_Entfernen"/>
-		<control caption="OK"/>
-		<control caption="Abbrechen"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Gruppen _Name:"/>
+		<control caption="_Filter:"/>
 		<control caption="Ziel_ordner:"/>
-		<control/>
-		<control/>
+		<control caption="_Dateityp:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Visualisierung wählen">
 		<control/>

@@ -171,10 +171,10 @@ void CBrowseHostWnd::OnSize(UINT nType, int cx, int cy)
 	GetClientRect( &rc );
 
 	rc.top += 64;
-	rc.bottom -= 28;
+	rc.bottom -= TOOLBAR_HEIGHT;
 
 	m_wndHeader.SetWindowPos( NULL, rc.left, 0, rc.Width(), rc.top, SWP_NOZORDER );
-	m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom, rc.Width(), 28, SWP_NOZORDER );
+	m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom, rc.Width(), TOOLBAR_HEIGHT, SWP_NOZORDER );
 	m_wndProfile.SetWindowPos( NULL, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOZORDER );
 	m_wndFrame.SetWindowPos( NULL, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOZORDER );
 }
@@ -345,7 +345,7 @@ void CBrowseHostWnd::OnProfileReceived()
 	}
 }
 
-void CBrowseHostWnd::OnBrowseHits(CQueryHit* pHits)
+void CBrowseHostWnd::OnBrowseHits(const CQueryHit* pHits)
 {
 	if ( m_bPaused || m_hWnd == NULL ) return;
 

@@ -31,22 +31,17 @@ public:
 	CPropertyPageAdv(UINT nIDD);
 	virtual ~CPropertyPageAdv();
 
-// Members
 protected:
-	CToolTipCtrl m_wndToolTip;
-
-public:
 	int	m_nIcon;
 
-// Implementation
-private:
 	void	PaintStaticHeader(CDC* pDC, CRect* prc, LPCTSTR psz);
 
-protected:
 	virtual BOOL OnInitDialog();
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg void OnPaint();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+
 	DECLARE_MESSAGE_MAP()
 };

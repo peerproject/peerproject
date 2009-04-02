@@ -32,20 +32,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Connecta"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Inici"/>
-		<button id="ID_TAB_LIBRARY" text="La meva col·lecció"/>
-		<button id="ID_TAB_MEDIA" text="Reproductor"/>
 		<button id="ID_TAB_SEARCH" text="Cerca"/>
 		<button id="ID_TAB_TRANSFERS" text="Descàrregues"/>
+		<button id="ID_TAB_LIBRARY" text="La meva col·lecció"/>
+		<button id="ID_TAB_MEDIA" text="Reproductor"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Connecta"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Inici"/>
-		<button id="ID_TAB_LIBRARY" text="La meva col·lecció"/>
-		<button id="ID_TAB_MEDIA" text="Reproductor"/>
 		<button id="ID_TAB_SEARCH" text="Cerca"/>
 		<button id="ID_TAB_TRANSFERS" text="Transferències"/>
 		<button id="ID_TAB_NETWORK" text="Xarxa"/>
+		<button id="ID_TAB_LIBRARY" text="La meva col·lecció"/>
+		<button id="ID_TAB_MEDIA" text="Reproductor"/>
+		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Connecta"/>
@@ -393,29 +394,29 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Caxè de G1"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Caxè eDonkey"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Explora l'usuari"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Envia arxiu"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Dóna prioritat"/>
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Envia arxiu"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Connecta" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Desconnecta"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER WINDOW -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_BestFit" text="Millor ajust"/>
 		<button id="ImageViewer_ActualSize" text="Mida actual"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="Actualitza"/>
-		<separator/>
+			<rightAlign/>
 		<button id="ImageViewer_Close" text="Tanca"/>
 	</toolbar>
 </toolbars>
@@ -433,6 +434,23 @@
 		<item id="ID_CHILD_MINIMISE" text="_Minimitza"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Tanca la finestra"/>
+	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">
+		<item id="ID_TRAY_OPEN" text="Obre el PeerProject"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Obre el Remote"/>
+		<item id="ID_TOOLS_SETTINGS" text="Obre el Configuració..."/>
+		<item id="ID_NETWORK_SEARCH" text="Nova Cerca..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Descarrega Arxiu..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Reprodueix"/>
+		<item id="ID_MEDIA_PAUSE" text="Pausa"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Anterior"/>
+		<item id="ID_MEDIA_NEXT" text="Següent"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Surt després de les transferències"/>
+		<item id="ID_NETWORK_EXIT" text="Surt"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
@@ -738,40 +756,6 @@
 		<item id="ID_VIEW_SEARCH_MONITOR" text="_Monitor de cerca"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="Monitor de resultats"/>
 	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_Obre el PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nova _cerca..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Descarrega arxiu..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Reprodueix"/>
-		<item id="ID_MEDIA_PAUSE" text="Pa_usa"/>
-		<item id="ID_MEDIA_STOP" text="_Atura"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="A_nterior"/>
-		<item id="ID_MEDIA_NEXT" text="_Següent"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Surt _després de les transferències"/>
-		<item id="ID_NETWORK_EXIT" text="urt"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_Obre el PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nova cerca..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Descarrega arxiu..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Reprodueix multimèdia"/>
-		<item id="ID_MEDIA_PAUSE" text="Pa_usa"/>
-		<item id="ID_MEDIA_STOP" text="_Atura"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="P_ista anterior"/>
-		<item id="ID_MEDIA_NEXT" text="_Pista següent"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Surt després _de les transferències"/>
-		<item id="ID_NETWORK_EXIT" text="S_urt"/>
-	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
 		<item id="ID_TAB_HOME" text="_Inici"/>
@@ -1030,6 +1014,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Neteja aut_omàtica"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Inicia totes"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Atura totes"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Cancel·la totes"/>
@@ -3113,7 +3099,6 @@
 	<string id="20001" value="Tanca"/>
 	<string id="20002" value="de"/><!-- e.g. 1 of 10 -->
 	<string id="20003" value="El canvi de direcció de la interfície requereix un reinici de l'aplicació. \nVols sortir ara? (Necessitaràs tornar a inciar PeerProject manualment)"/>
-	<string id="20004" value="Els llenguatges amb lectura de dreta a esquerra no estan suportats al seu sistema operatiu."/>
 	<string id="20005" value="No"/>
 	<string id="20006" value="Sí"/>
 	<string id="20007" value="Automàtic"/>
@@ -3122,6 +3107,7 @@
 	<string id="20010" value="&amp;Torna enrere"/>
 	<string id="20011" value="&amp;Següent"/>
 	<string id="20012" value="Finalitza"/>
+	<string id="20013" value="Todo"/>
 	<string id="20100" value="Connectant"/>
 	<string id="20101" value="Demanant"/>
 	<string id="20102" value="Resposta"/>
@@ -3183,6 +3169,8 @@
 	<string id="20234" value="Àlbum"/>
 	<string id="20235" value="Artista"/>
 	<string id="20236" value="Valoració"/>
+	<string id="20237" value="Accepta"/>
+	<string id="20238" value="Cancel·la"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3412,14 +3400,14 @@
 		<control caption="Gnutella2 és la Xarxa principal de PeerProject, aquesta ofereix el millor rendiment i funcions. Altament recomanada."/>
 		<control caption="Connecta a Gnutella2 (G2)"/>
 		<control caption="Configura Gnutella2"/>
-		<control caption="Xarxa eDonkey:"/>
-		<control caption="La Xarxa de eDonkey és popular, i basada en servidors. No té tantes funcions com Gnutella2, però sí té una gran quantitat d'usuaris."/>
-		<control caption="Connecta a eDonkey"/>
-		<control caption="Configura eDonkey"/>
 		<control caption="Xarxa original de Gnutella:"/>
 		<control caption="Aquesta xarxa té menys funcions i menys arxius que eDonkey, però pot seguir essent un recurs valuós."/>
 		<control caption="Connecta a Gnutella1"/>
 		<control caption="Configura Gnutella"/>
+		<control caption="Xarxa eDonkey:"/>
+		<control caption="La Xarxa de eDonkey és popular, i basada en servidors. No té tantes funcions com Gnutella2, però sí té una gran quantitat d'usuaris."/>
+		<control caption="Connecta a eDonkey2000 (ED2K)"/>
+		<control caption="Configura eDonkey"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Xarxa Gnutella2:"/>
@@ -3651,10 +3639,10 @@
 		<control caption="PeerProject és una aplicació per a compartir arxius de forma general que pot accedir a diverses xarxes P2P al mateix temps.  Aquí pots seleccionar a quines xarxes et vols connectar. Recorda que després pots seleccionar altres xarxes."/>
 		<control caption="Connecta a Gnutella2 (altament recomanat)"/>
 		<control caption="La xarxa Gnutella2 és la xarxa preferida per PeerProject, ofrerint més característiques i rendiment que lees altres."/>
-		<control caption="Connecta a eDonkey"/>
-		<control caption="La xarxa eDonkey és una xarxa molt popular basada en servidors. No és tan rica en característiques com Gnutella2, però eDonkey té una gran quantitat d'arxius disponibles."/>
 		<control caption="Connecta a Gnutella original"/>
 		<control caption="Tot i que la xarxa Gnutella original (Gnutella1) no té tantes característiques com Gnutella2 ni tants arxius com eDonkey, continua essent un recurs valuós."/>
+		<control caption="Connecta a eDonkey"/>
+		<control caption="La xarxa eDonkey és una xarxa molt popular basada en servidors. No és tan rica en característiques com Gnutella2, però eDonkey té una gran quantitat d'arxius disponibles."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importa transferències d'eDonkey o eMule">
 		<control/>
@@ -4237,18 +4225,23 @@
 		<control caption="Mode del rastrejador:"/>
 		<control caption="Deshabilitat|Personalitzat|Tracker únic|Multi-tracker|Multi-tracker (blocat)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Propietats del grup de descàrrega">
-		<control caption="_Nom:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Propietats del grup de descàrrega">
+		<control caption="Sí"/>
+		<control caption="Cancel·la"/>
 		<control/>
 		<control/>
-		<control caption="_Filtres:"/>
+		<control caption="_BitTorrent descàrrega"/>
 		<control/>
 		<control caption="_Afegeix"/>
 		<control caption="_Esborra"/>
-		<control caption="Sí"/>
-		<control caption="Cancel·la"/>
-		<control caption="Carpeta d'_arxius completats:"/>
 		<control/>
+		<control/>
+		<control/>
+		<control caption="_Nom de Grup:"/>
+		<control caption="_Filtres:"/>
+		<control caption="Carpeta d'_arxius completats:"/>
+		<control caption="_Tipus d'arxiu:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Selecciona una visualització">
 		<control/>

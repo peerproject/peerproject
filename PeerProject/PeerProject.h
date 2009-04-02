@@ -24,7 +24,6 @@
 #include "Resource.h"
 #include "ComObject.h"
 #include "Buffer.h"
-#include <wincrypt.h>
 
 class CUPnPFinder;
 class CMainWnd;
@@ -49,6 +48,20 @@ private:
 	CPeerProjectCommandLineInfo& operator=(const CPeerProjectCommandLineInfo&);
 };
 
+class __declspec(novtable) CLogMessage
+{
+public:
+	inline CLogMessage(WORD nType, const CString& strLog) :
+		m_strLog( strLog ),
+		m_nType( nType )
+	{
+	}
+	CString m_strLog;
+	WORD	m_nType;
+};
+
+typedef CList< CLogMessage* > CLogMessageList;
+
 class CPeerProjectApp : public CWinApp
 {
 public:
@@ -66,8 +79,10 @@ public:
 	CFont				m_gdiFontBold;
 	CFont				m_gdiFontLine;
 	CWnd*				m_pSafeWnd;
-	volatile bool		m_bLive;
-	BOOL				m_bInteractive;
+	volatile LONG		m_bBusy;					// PeerProject is busy
+	volatile bool		m_bInteractive;				// PeerProject begins initialization
+	volatile bool		m_bLive;					// PeerProject fully initialized
+	volatile bool		m_bClosing;					// PeerProject begins closing
 	bool				m_bIsServer;				// Is OS a Server version
 	bool				m_bIsWin2000;				// Is OS Windows 2000
 	bool				m_bIsVistaOrNewer;			// Is OS Vista or newer
@@ -92,6 +107,9 @@ public:
 	// Cryptography Context handle
 	HCRYPTPROV			m_hCryptProv;
 
+	// Kernel functions
+	HRESULT		(WINAPI *m_pRegisterApplicationRestart)( __in_opt PCWSTR pwzCommandline, __in DWORD dwFlags );
+
 	// For themes functions
 	HINSTANCE	m_hTheme;
 	HRESULT		(WINAPI *m_pfnSetWindowTheme)(HWND, LPCWSTR, LPCWSTR);
@@ -106,31 +124,39 @@ public:
 //	HRESULT		(WINAPI *m_pfnDrawThemeText)(HANDLE, HDC, int, int, LPCWSTR, int, DWORD, DWORD, const RECT*);
 
 	// Shell functions
-	HINSTANCE	m_hShlWapi;
 	BOOL		(WINAPI *m_pfnAssocIsDangerous)(LPCWSTR);
+	HINSTANCE	m_hShlWapi;
 
 	// GeoIP - IP to Country lookup
 	HINSTANCE	m_hGeoIP;
 	GeoIP*		m_pGeoIP;
-	GeoIP_country_code_by_addrFunc	m_pfnGeoIP_country_code_by_addr;
-	GeoIP_country_name_by_addrFunc	m_pfnGeoIP_country_name_by_addr;
+	typedef GeoIP* (*GeoIP_newFunc)(int);
+	typedef const char * (*GeoIP_country_code_by_ipnumFunc) (GeoIP* gi, unsigned long ipnum);
+	typedef const char * (*GeoIP_country_name_by_ipnumFunc) (GeoIP* gi, unsigned long ipnum);
+	GeoIP_country_code_by_ipnumFunc	m_pfnGeoIP_country_code_by_ipnum;
+	GeoIP_country_name_by_ipnumFunc	m_pfnGeoIP_country_name_by_ipnum;
 
-	HINSTANCE	m_hLibGFL;
+	HINSTANCE			m_hLibGFL;
 
 	HINSTANCE			CustomLoadLibrary(LPCTSTR);
 	CMainWnd*			SafeMainWnd() const;
-	bool				IsLogDisabled(WORD nType) const;
-	void				Message(WORD nType, UINT nID, ...) const;
-	void				Message(WORD nType, LPCTSTR pszFormat, ...) const;
 	BOOL				InternalURI(LPCTSTR pszURI);
-	void				PrintMessage(WORD nType, const CString& strLog) const;
-	void				LogMessage(LPCTSTR pszLog) const;
+
+	// Logging functions
+	CLogMessageList		m_oMessages;	// Log temporary storage
+	CCriticalSection	m_csMessage;	// m_oMessages guard
+	bool				IsLogDisabled(WORD nType) const;
+	void				Message(WORD nType, UINT nID, ...);
+	void				Message(WORD nType, LPCTSTR pszFormat, ...);
+	void				PrintMessage(WORD nType, const CString& strLog);
+	void				LogMessage(const CString& strLog);
 	void				SplashStep(LPCTSTR pszMessage = NULL, int nMax = 0, bool bClosing = false);
+	void				ShowStartupText();
 
-	CString				GetCountryCode(IN_ADDR pAddress) const;
-	CString				GetCountryName(IN_ADDR pAddress) const;
+	CString 			GetCountryCode(IN_ADDR pAddress) const;
+	CString 			GetCountryName(IN_ADDR pAddress) const;
 
-//	CFontManager*		m_pFontManager;
+	//	CFontManager*	m_pFontManager;
 
 	// Open file or url. Returns NULL always.
 	virtual CDocument*	OpenDocumentFile(LPCTSTR lpszFileName);
@@ -149,7 +175,6 @@ public:
 
 protected:
 	CSplashDlg*					m_dlgSplash;
-	mutable CCriticalSection	m_csMessage;
 	CPeerProjectCommandLineInfo	m_ocmdInfo;
 
 	virtual BOOL		InitInstance();
@@ -174,6 +199,7 @@ BOOL PostMainWndMessage(UINT Msg, WPARAM wParam = NULL, LPARAM lParam = NULL);
 CRuntimeClass* AfxClassForName(LPCTSTR pszClass);
 
 BOOL LoadString(CString& str, UINT nID);
+CString LoadString(UINT nID);
 LPCTSTR _tcsistr(LPCTSTR pszString, LPCTSTR pszSubString);
 LPCTSTR _tcsnistr(LPCTSTR pszString, LPCTSTR pszPattern, size_t plen);
 void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOOL bAddFirstEmpty = FALSE);
@@ -209,6 +235,10 @@ CString GetLocalAppDataFolder();
 // Create directory. If one or more of the intermediate folders do not exist, they are created as well.
 BOOL CreateDirectory(LPCTSTR szPath);
 
+// Delete file to Recycle Bin, etc.
+BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEnableDelayed);
+void PurgeDeletes();
+
 // Loads RT_HTML or RT_GZIP resource as string
 CString LoadHTML(HINSTANCE hInstance, UINT nResourceID);
 
@@ -233,6 +263,9 @@ CString GetErrorString(DWORD dwError = GetLastError());
 // Displays a dialog box enabling the user to select a Shell folder
 CString BrowseForFolder(UINT nTitle, LPCTSTR szInitialPath = NULL, HWND hWnd = NULL);
 CString BrowseForFolder(LPCTSTR szTitle, LPCTSTR szInitialPath = NULL, HWND hWnd = NULL);
+
+// Do message loop
+void SafeMessageLoop();
 
 typedef enum
 {
@@ -394,31 +427,31 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 #define MSG_FACILITY_INCOMING	0x0200
 #define MSG_FACILITY_OUTGOING	0x0300
 
-#define WM_WINSOCK		(WM_APP+101)
-#define WM_VERSIONCHECK	(WM_APP+102)
-#define WM_OPENCHAT		(WM_APP+103)
-#define WM_TRAY			(WM_APP+104)
-#define WM_URL			(WM_APP+105)
-#define WM_SKINCHANGED	(WM_APP+106)
-#define WM_COLLECTION	(WM_APP+107)
-#define WM_OPENSEARCH	(WM_APP+108)
-#define WM_LOG			(WM_APP+109)
-#define WM_LIBRARYSEARCH (WM_APP+110)
-#define WM_PLAYFILE		(WM_APP+111)
-#define WM_ENQUEUEFILE	(WM_APP+112)
-#define WM_SETALPHA		(WM_APP+113)
-#define WM_METADATA		(WM_APP+114)
-#define WM_SANITY_CHECK	(WM_APP+115)	// Run allsystem check against banned hosts
-
-#define WM_AFX_SETMESSAGESTRING 0x0362
-#define WM_AFX_POPMESSAGESTRING 0x0375
-#define WM_IDLEUPDATECMDUI		0x0363
+#define WM_WINSOCK			(WM_APP+101)	// Winsock messages proxy to Network object (Used by WSAAsyncGetHostByName() function)
+#define WM_VERSIONCHECK		(WM_APP+102)	// Version check (WAPARM: VERSION_CHECK nCode, LPARAM: unused)
+#define WM_OPENCHAT			(WM_APP+103)	// Open chat window (WAPARM: CChatSession* pChat, LPARAM: unused)
+#define WM_TRAY				(WM_APP+104)	// Tray icon notification (WPARAM: unused, LPARAM: uMouseMessage)
+#define WM_URL				(WM_APP+105)	// Open URL (WPARAM: CShareazaURL* pURL, LPARAM: unused)
+#define WM_SKINCHANGED		(WM_APP+106)	// Skin change (WPARAM: unused, LPARAM: unused)
+#define WM_COLLECTION		(WM_APP+107)	// Open collection file (WPARAM: unused, LPARAM: LPTSTR szFilename)
+#define WM_OPENSEARCH		(WM_APP+108)	// Open new search (WPARAM: CQuerySearch* pSearch, LPARAM: unused)
+#define WM_LIBRARYSEARCH	(WM_APP+110)	// Start file library search (WPARAM: LPTSTR pszSearch, LPARAM: unused)
+#define WM_PLAYFILE			(WM_APP+111)	// Play file by media system (WPARAM: unused, LPARAM: CString* pFilename)
+#define WM_ENQUEUEFILE		(WM_APP+112)	// Enqueue file to media system (WPARAM: unused, LPARAM: CString* pFilename)
+#define WM_SETALPHA			(WM_APP+113)	// Increase/decrease main window transparency (WPARAM: 0 - to decrease or 1 - to increase, LPARAM: unused)
+#define WM_METADATA			(WM_APP+114)	// Set/clear library metapanel data & status message (WPARAM: CMetaPanel* pPanelData, LPARAM: LPCTSTR pszMessage)
+#define WM_SANITY_CHECK		(WM_APP+115)	// Run allsystem check against banned hosts (WPARAM: unused, LPARAM: unused)
+#define WM_QUERYHITS		(WM_APP+116)	// Route query hits over windows (WPARAM: unused, LPARAM: CQueryHit* pHits)
+#define WM_NOWUPLOADING		(WM_APP+117)	// New upload notification (WPARAM: unused, LPARAM: CString* pFilename)
 
 #define ID_PLUGIN_FIRST	27000
 #define ID_PLUGIN_LAST	27999
 
 
+// Set Default Sizes in Pixels			// ToDo: Make Skinnable Options
+#define PANEL_WIDTH			200 		// Left Sidebar (Home/Search/IRC tabs)
 #define THUMB_STORE_SIZE	128
+#define TOOLBAR_HEIGHT		28
 
 
 // Client's name
@@ -427,14 +460,14 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 
 // Network ID stuff
 
-// 4 Character vendor code (used on G1, G2)
+// 4 Character vendor code (G1,G2)
 // BEAR, LIME, RAZA, RAZB, RZCB, etc
 #define VENDOR_CODE			"PEER"
 
 // ed2k client ID number.
 // 0x2c (44) = Proposed PeerProject ID
 // 0 = eMule, 1 = cDonkey, 4 = old Shareaza alpha/beta/mod/fork, 0x28 (40) = Shareaza, 0xcb (203) = ShareazaPlus RazaCB, etc
-#define ED2K_CLIENT_ID			40
+#define ED2K_CLIENT_ID		40
 
 // 2 Character BT peer-id code
 // PE = PeerProject, SZ = Shareaza, S~ = old Shareaza alpha/beta , CB = ShareazaPlus-RazaCB, AZ = Azureus, etc.

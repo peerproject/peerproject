@@ -137,8 +137,8 @@ int CMatchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	InsertColumn( MATCH_COL_COUNT, _T("Host/Count"), HDF_CENTER, 120 );
 	InsertColumn( MATCH_COL_SPEED, _T("Speed"), HDF_CENTER, 60 );
 	InsertColumn( MATCH_COL_CLIENT, _T("Client"), HDF_CENTER, 80 );
+	InsertColumn( MATCH_COL_COUNTRY, _T("Country"), HDF_LEFT, 56 );
 	InsertColumn( MATCH_COL_TIME, _T("Time"), HDF_CENTER, 120 );
-	InsertColumn( MATCH_COL_COUNTRY, _T("Country"), HDF_LEFT, 60 );
 
 	CBitmap bmStar;
 	bmStar.LoadBitmap( IDB_SMALL_STAR );
@@ -704,14 +704,14 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	COLORREF crLeftAligned = crBack ;
 
 	if ( pFile->m_bCollection )
-	{	// Pale blue background for collections
+	{	// Pale red background for collections
 		if ( CoolInterface.m_crSearchCollection ) crWnd = crBack = CoolInterface.m_crSearchCollection ;
-		else crWnd = crBack = CCoolInterface::CalculateColor( crBack, RGB( 0, 0, 255 ), 25 );
+		else crWnd = crBack = CCoolInterface::CalculateColor( crBack, RGB( 254, 120, 10 ), 25 );
 	}
 	else if ( Settings.BitTorrent.AdvancedInterface && pFile->m_bTorrent )
-	{	// Pale red background for torrents, if the extra torrent options are enabled
+	{	// Pale blue background for torrents, if the extra torrent options are enabled
 		if ( CoolInterface.m_crSearchTorrent ) crWnd = crBack = CoolInterface.m_crSearchTorrent ;
-		else crWnd = crBack = CCoolInterface::CalculateColor( crBack, RGB( 255, 0, 0 ), 10 );
+		else crWnd = crBack = CCoolInterface::CalculateColor( crBack, RGB( 10, 40, 254 ), 10 );
 	}/*
 	else if ( pFile->m_bDRM )
 	{	// Pale gree background if DRM
@@ -720,7 +720,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	else if ( ( pFile->m_nRated > 1 ) && ( ( pFile->m_nRating / pFile->m_nRated ) >= 5 ) )
 	{	// Gold highlight for highly rated files
 		if ( CoolInterface.m_crSearchHighrated ) crWnd = crBack = CoolInterface.m_crSearchHighrated ;
-		else crWnd = crBack = CCoolInterface::CalculateColor( crBack, RGB( 255, 255, 0 ), 20 );
+		else crWnd = crBack = CCoolInterface::CalculateColor( crBack, RGB( 255, 250, 50 ), 20 );
 	}
 
 	if ( pFile->GetLibraryStatus() == TRI_FALSE )
@@ -795,6 +795,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 
 			if ( ! pHit && nHits > 1 )
 			{
+				// Draw Open/Close Tick
 				if ( pFile->m_bExpanded )
 				{
 					CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
@@ -908,8 +909,8 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				{
 					strTemp = ppHit->m_sNick;
 
-					if ( ppHit->m_nSources > 1 )
-						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"), strTemp, ppHit->m_nSources - 1 );
+					if ( ppHit->GetSources() > 1 )
+						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"), strTemp, ppHit->GetSources() - 1 );
 					else
 						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s"), strTemp );
 					szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
@@ -917,21 +918,21 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				else if ( ( ppHit->m_nProtocol == PROTOCOL_ED2K ) && ( ppHit->m_bPush == TRI_TRUE ) )
 				{
 					/* strText.Format( _T("%lu@%s"), ppHit->m_oClientID.begin()[2], (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) ); */
-					strTemp.Format( _T("(%s)"), (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) );
+					strTemp.Format( _T("%s"), (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) );
 
-					if ( ppHit->m_nSources > 1 )
-						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"), strTemp, ppHit->m_nSources - 1 );
+					if ( ppHit->GetSources() > 1 )
+						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"), strTemp, ppHit->GetSources() - 1 );
 					else
 						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s"), strTemp );
 					szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 				}
 				else if ( ppHit->m_pAddress.S_un.S_addr )
 				{
-					if ( ppHit->m_nSources > 1 )
+					if ( ppHit->GetSources() > 1 )
 					{
 						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"),
 							(LPCTSTR)CString( inet_ntoa( ppHit->m_pAddress ) ),
-							ppHit->m_nSources - 1 );
+							ppHit->GetSources() - 1 );
 						szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 					}
 					else
@@ -941,12 +942,23 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				}
 				else
 				{
-					if ( ppHit->m_nSources )
+					if ( ppHit->GetSources() )
 					{
 						CString strSource, strText;
-						LoadSourcesString( strSource, pFile->m_nSources );
-						strText.Format( _T("(%u %s)"), pFile->m_nSources, strSource );
-						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), strText, pFile->m_nSources );
+						LoadSourcesString( strSource,  pFile->m_nFiltered );
+						if ( pFile->m_nFiltered < 5 && pFile->m_nSources > 2400 )
+							strText.Format( _T("%u fakes"), pFile->m_nFiltered );
+						else if ( pFile->m_nFiltered > 99 && pFile->m_nSources > pFile->m_nFiltered )
+							strText.Format( _T("%u %s +%u"), pFile->m_nFiltered, strSource, pFile->m_nSources - pFile->m_nFiltered );
+						else if ( pFile->m_nSources > pFile->m_nFiltered )
+							strText.Format( _T("     %u %s +%u"), pFile->m_nFiltered, strSource, pFile->m_nSources - pFile->m_nFiltered );
+						else if ( pFile->m_nFiltered > 9 )
+							strText.Format( _T("%u %s "), pFile->m_nFiltered, strSource );
+						else
+							strText.Format( _T("%u %s"), pFile->m_nFiltered, strSource );
+						//ToDo: Translate "fakes"
+
+						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), strText, pFile->m_nFiltered );
 						szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 					}
 					else
@@ -960,9 +972,20 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			else
 			{
 				CString strSource, strText;
-				LoadSourcesString( strSource, pFile->m_nSources );
-				strText.Format( _T("(%u %s)"), pFile->m_nSources, strSource );
-				_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), strText, pFile->m_nSources );
+				LoadSourcesString( strSource, pFile->m_nFiltered );
+				if ( pFile->m_nFiltered < 5 && pFile->m_nSources > 2400 )
+					strText.Format( _T("%u fakes"), pFile->m_nFiltered );
+				else if ( pFile->m_nFiltered > 99 && pFile->m_nSources > pFile->m_nFiltered )
+					strText.Format( _T("%u %s +%u"), pFile->m_nFiltered, strSource, pFile->m_nSources - pFile->m_nFiltered );
+				else if ( pFile->m_nSources > pFile->m_nFiltered )
+					strText.Format( _T("     %u %s +%u"), pFile->m_nFiltered, strSource, pFile->m_nSources - pFile->m_nFiltered );
+				else if ( pFile->m_nFiltered > 9 )
+					strText.Format( _T("%u %s "), pFile->m_nFiltered, strSource );
+				else
+					strText.Format( _T("%u %s"), pFile->m_nFiltered, strSource );
+				//ToDo: Translate "fakes"
+
+				_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), strText, pFile->m_nFiltered );
 				szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 			}
 			pszText = szBuffer;
@@ -1553,8 +1576,13 @@ void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 	Update();
 }
 
-void CMatchCtrl::OnMouseMove(UINT /*nFlags*/, CPoint point) 
+void CMatchCtrl::OnMouseMove(UINT nFlags, CPoint point) 
 {
+	CWnd::OnMouseMove( nFlags, point );
+
+	if ( GetFocus() != this )
+		SetFocus();
+
 	CRect rcCol;
 	
 	GetClientRect( &rcCol );
@@ -1649,7 +1677,7 @@ void CMatchCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 		
 		if ( HitTest( point, &pFile, &pHit, NULL, &rcItem ) )
 		{
-			// TODO: Check if its on an action icon and take the appropriate action
+			// ToDo: Check if its on an action icon and take the appropriate action
 		}
 		
 		GetOwner()->PostMessage( WM_COMMAND, ID_SEARCH_DOWNLOAD );

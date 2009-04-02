@@ -22,6 +22,7 @@
 #pragma once
 
 #include "PagePropertyAdv.h"
+#include "ComboListCtrl.h"
 
 
 class CTorrentFilesPage : public CPropertyPageAdv
@@ -35,12 +36,17 @@ public:
 	enum { IDD = IDD_TORRENT_FILES };
 
 protected:
-	CString			m_sName;
-	CListCtrl		m_wndFiles;
+	CComboListCtrl	m_wndFiles;
+
+	// Update interface
+	void Update();
 
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual BOOL OnInitDialog();
-	virtual void OnOK();
+	virtual BOOL OnApply();
+
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnDestroy();
 
 	DECLARE_MESSAGE_MAP()
 };

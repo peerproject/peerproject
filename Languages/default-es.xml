@@ -32,20 +32,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Conectar"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Inicio"/>
-		<button id="ID_TAB_LIBRARY" text="Mi Colección"/>
-		<button id="ID_TAB_MEDIA" text="Reproductor"/>
 		<button id="ID_TAB_SEARCH" text="Buscar"/>
 		<button id="ID_TAB_TRANSFERS" text="Descargas"/>
+		<button id="ID_TAB_LIBRARY" text="Colección"/>
+		<button id="ID_TAB_MEDIA" text="Reproductor"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Conectar"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Inicio"/>
-		<button id="ID_TAB_LIBRARY" text="Mi Colección"/>
-		<button id="ID_TAB_MEDIA" text="Reproductor"/>
 		<button id="ID_TAB_SEARCH" text="Buscar"/>
 		<button id="ID_TAB_TRANSFERS" text="Transferencias"/>
 		<button id="ID_TAB_NETWORK" text="Red"/>
+		<button id="ID_TAB_LIBRARY" text="Colección"/>
+		<button id="ID_TAB_MEDIA" text="Reproductor"/>
+		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Conectar"/>
@@ -346,8 +347,8 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Chatear con Usuario"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurar..."/>
 	</toolbar>
@@ -360,8 +361,8 @@
 		<button id="ID_SECURITY_BAN" text="Bloquear"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurar..."/>
 	</toolbar>
@@ -393,29 +394,29 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Caché"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Caché"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Explorar Usuario"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Enviar Archivo"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Dar Prioridad"/>
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Enviar Archivo"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Conectar" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Desconectar"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER WINDOW -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_BestFit" text="Mejor ajuste"/>
 		<button id="ImageViewer_ActualSize" text="Tamaño actual"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="Refrescar"/>
-		<separator/>
+			<rightAlign/>
 		<button id="ImageViewer_Close" text="Cerrar"/>
 	</toolbar>
 </toolbars>
@@ -434,6 +435,23 @@
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+		<item id="ID_TRAY_OPEN" text="Abrir PeerProject"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Mostrar Control Remoto"/>
+		<item id="ID_TOOLS_SETTINGS" text="Mostrar Configuración..."/>
+		<item id="ID_NETWORK_SEARCH" text="Nueva Búsqueda..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Descargar Archivo.."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Reproducir"/>
+		<item id="ID_MEDIA_PAUSE" text="Pausa"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Anterior"/>
+		<item id="ID_MEDIA_NEXT" text="Siguiente"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Salir Después de Descargas"/>
+		<item id="ID_NETWORK_EXIT" text="Salir"/>
+	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="_Red">
@@ -441,8 +459,8 @@
 			<separator/>
 			<menu text="Seleccionar _Redes">
 				<item id="ID_NETWORK_G2" text="Conectar a_Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Conectar a _Gnutella 1"/>
+				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="_Salir Después de Transferencias"/>
@@ -482,7 +500,7 @@
 		</menu>
 		<menu text="_Ayuda">
 			<item id="ID_HELP_FAQ" text="Guía de Usuarios PeerProject"/>
-						<item id="ID_HELP_TEST" text="_Test de Conexión"/>
+			<item id="ID_HELP_TEST" text="_Test de Conexión"/>
 			<separator/>
 			<menu text="_Guías">
 				<item id="ID_HELP_GUIDE" text="_Guía de Usuarios PeerProject "/>
@@ -510,8 +528,8 @@
 			<separator/>
 			<menu text="Seleccionar Redes">
 				<item id="ID_NETWORK_G2" text="Conectar a _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Conectar a _Gnutella 1"/>
+				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Conectar _A..." shortcut="Ctrl+T"/>
@@ -527,6 +545,7 @@
 			<item id="ID_TAB_SEARCH" text="_Búsqueda"/>
 			<item id="ID_TAB_TRANSFERS" text="_Transferencias"/>
 			<item id="ID_TAB_NETWORK" text="_Red"/>
+			<item id="ID_TAB_IRC" text="_IRC"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="_Seguridad"/>
 			<item id="ID_VIEW_HOSTS" text="_Caché de Hosts"/>
@@ -610,8 +629,8 @@
 			<separator/>
 			<menu text="Conectar _A">
 				<item id="ID_NETWORK_G2" text="Conectar a _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Conectar a _Gnutella1"/>
+				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="_Salir Después de Transferencias"/>
@@ -738,40 +757,6 @@
 		<item id="ID_VIEW_SEARCH_MONITOR" text="_Monitor de Búsqueda" shortcut="Ctrl+F2"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="Monitor de Resultados" shortcut="Ctrl+F3"/>
 	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_Abrir PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nueva _Búsqueda..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Descargar Archivo"/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Reproducir"/>
-		<item id="ID_MEDIA_PAUSE" text="Pa_usa"/>
-		<item id="ID_MEDIA_STOP" text="_Detener"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="A_nterior"/>
-		<item id="ID_MEDIA_NEXT" text="_Siguiente"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Salir _Después de Transferencias"/>
-		<item id="ID_NETWORK_EXIT" text="S_alir"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_Abrir PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nu_eva Búsqueda..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Descargar Archivo"/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Reproducir Media"/>
-		<item id="ID_MEDIA_PAUSE" text="Pa_usa"/>
-		<item id="ID_MEDIA_STOP" text="_Detener"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="P_ista Anterior"/>
-		<item id="ID_MEDIA_NEXT" text="_Pista Siguiente"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="_Salir Después de Transferencias"/>
-		<item id="ID_NETWORK_EXIT" text="S_alir"/>
-	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
 		<item id="ID_TAB_HOME" text="_Inicio"/>
@@ -808,7 +793,7 @@
 	<menu name="CHostCacheWnd">
 		<item id="ID_HOSTCACHE_CONNECT" text="_Conectar Ahora"/>
 		<item id="ID_HOSTCACHE_DISCONNECT" text="_Desconectar"/>
-		<item id="ID_NEIGHBOURS_URI" text="Copiar _URI"/>
+		<item id="ID_NEIGHBOURS_URI" text="Copiar P2P Link (_URI)"/>
 		<item id="ID_HOSTCACHE_PRIORITY" text="_Servidor con Prioridad"/>
 		<separator/>
 		<item id="ID_HOSTCACHE_REMOVE" text="_Eliminar IP"/>
@@ -991,7 +976,7 @@
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Explorar Usuario"/>
 		<item id="ID_TRANSFERS_CHAT" text="_Chat con Usuario"/>
-		<item id="ID_DOWNLOADS_URI" text="Copiar _URI"/>
+		<item id="ID_DOWNLOADS_URI" text="Copiar P2P Link (_URI)"/>
 		<separator/>
 		<item id="ID_TRANSFERS_DISCONNECT" text="_Desconectar"/>
 		<item id="ID_TRANSFERS_FORGET" text="_Olvidar"/>
@@ -1030,6 +1015,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Aut_o Limpiar"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Iniciar todas"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Pausar todas"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Cancelar/Eliminar todas"/>
@@ -1401,8 +1388,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Desconectar"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Ver _Todo el Tráfico"/>
@@ -1471,8 +1458,8 @@
 		<item id="ID_CHAT_DISCONNECT" text="_Desconectar"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Explorar"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="E_nviar Archivo..."/> -->
 		<item id="ID_CHAT_PRIORITY" text="_Prioridad"/>
+		<!-- <item id="ID_CHAT_SEND_FILE" text="E_nviar Archivo..."/> -->
 		<separator/>
 		<menu text="_Formato">
 			<item id="ID_CHAT_BOLD" text="_Negrita"/>
@@ -3105,7 +3092,6 @@ Puede comenzar a transferir en cualquier momento.</text>
 	<string id="20001" value="Cerrar"/>
 	<string id="20002" value="de"/> <!-- e.g. 1 of 10 -->
 	<string id="20003" value="Cambiando la dirección de interface requiere reiniciar. \nVas a necesitar reiniciar PeerProject manualmente. Salir ahora?"/>
-	<string id="20004" value="Lenguajes de Derecha-Izquierda no se soportan en tu SO."/>
 	<string id="20005" value="No"/>
 	<string id="20006" value="Sì"/>
 	<string id="20007" value="Auto"/>
@@ -3113,7 +3099,8 @@ Puede comenzar a transferir en cualquier momento.</text>
 	<string id="20009" value="Custom (Cliente)"/>
 	<string id="20010" value="&amp;Atrás"/>
 	<string id="20011" value="&amp;Siguiente"/>
-	<string id="20012" value="Finalizar"/>	
+	<string id="20012" value="Finalizar"/>
+	<string id="20013" value="Todo"/>
 	<string id="20100" value="Conectando"/>
 	<string id="20101" value="Pidiendo"/>
 	<string id="20102" value="Respuesta"/>
@@ -3175,6 +3162,8 @@ Puede comenzar a transferir en cualquier momento.</text>
 	<string id="20234" value="Album"/>
 	<string id="20235" value="Artista"/>
 	<string id="20236" value="Ratio"/>
+	<string id="20237" value="Aceptar"/>
+	<string id="20238" value="Cancelar"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3406,14 +3395,14 @@ Puede comenzar a transferir en cualquier momento.</text>
 		<control caption="Gnutella2 es la red principal de PeerProject, esta ofrece el mejor rendimiento y funciones. Altamente recomendada."/>
 		<control caption="Conectar a Gnutella2 (G2)"/>
 		<control caption="Configurar Gnutella2"/>
-		<control caption="Red eDonkey:"/>
-		<control caption="La red de eDonkey es popular, y basada en servidores. No tiene tantas funciones como Gnutella2, pero si tiene una gran cantidad de usuarios."/>
-		<control caption="Conectar a eDonkey"/>
-		<control caption="Configurar eDonkey"/>
 		<control caption="Red original de Gnutella:"/>
 		<control caption="Esta red tiene menos funciones y menos archivos que eDonkey, pero puede seguir siendo un recurso valioso."/>
-		<control caption="Conectar a Gnutella1"/>
+		<control caption="Conectar a Gnutella (G1)"/>
 		<control caption="Configurar Gnutella"/>
+		<control caption="Red eDonkey:"/>
+		<control caption="La red de eDonkey es popular, y basada en servidores. No tiene tantas funciones como Gnutella2, pero si tiene una gran cantidad de usuarios."/>
+		<control caption="Conectar a eDonkey2000 (ED2K)"/>
+		<control caption="Configurar eDonkey"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption=" Red Gnutella2:"/>
@@ -3644,15 +3633,15 @@ Puede comenzar a transferir en cualquier momento.</text>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Bienvenido a PeerProject (5/6)">
 		<control caption="PeerProject es una aplicacion para compartir archivos de proposito en general y puede acceder a varias redes P2P al mismo tiempo. Aquí puedes seleccionar a que redes te quieres conectar.  Pero recuerda que luego puedes seleccionar otras redes."/>
 		<control caption="Conectar a Gnutella2 (Altamente Recomendado)"/>
-		<control caption="La Red Gnutella2 es la red principal de PeerProject, ofreciendo más características y rendimiento que otra red P2P."/>
-		<control caption="Conectar a eDonkey"/>
-		<control caption="La red eDonkey es una red popular basada en servidores.  No es tan rico en características como Gnutella2, eDonkey tiene una colección muy grande de archivos."/>
-		<control caption="Conectar al Gnutella Original"/>
-		<control caption="Aunque la red Gnutella Original no tiene tantas características como Gnutella2, y no tiene tantos archivos como eDonkey, continua siendo un recurso válido."/>
+		<control caption="La Red Gnutella2 (G2) es la red principal de PeerProject, ofreciendo más características y rendimiento que otra red P2P."/>
+		<control caption="Conectar al Gnutella"/>
+		<control caption="Aunque la red Gnutella Original (G1) no tiene tantas características como G2, y no tiene tantos archivos como ED2K, continua siendo un recurso válido."/>
+		<control caption="Conectar a eDonkey2000"/>
+		<control caption="La red eDonkey (ED2K) es una red popular basada en servidores.  No es tan rico en características como G2, eDonkey tiene una colección muy grande de archivos."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importar Transferencias de eDonkey o eMule">
 		<control/>
-		<control caption="PeerProject ha detectado otro programa eDonkey o eMule instalado. ¿Quieres importar las transferencias a PeerProject?"/>
+		<control caption="PeerProject ha detectado eMule o otro programa eDonkey instalado. ¿Quieres importar las transferencias a PeerProject?"/>
 		<control caption="Si"/>
 		<control caption="No|Cancelar"/>
 		<control/>
@@ -4231,19 +4220,23 @@ Puede comenzar a transferir en cualquier momento.</text>
 		<control caption="Tracker Mode:"/>
 		<control caption="Deshabilitado|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Propiedades del Grupo de Descarga">
-		<control caption="_Nombre:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Propiedades del Grupo de Descarga">
+		<control caption="OK"/>
+		<control caption="Cancelar"/>
 		<control/>
 		<control/>
-		<control caption="_Filtros:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="_Agregar"/>
 		<control caption="_Eliminar"/>
-		<control caption="OK"/>
-		<control caption="Cancelar"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="_Nombre del Grupo:"/>
+		<control caption="_Filtros:"/>
 		<control caption="Carpeta de_Archivos Completados:"/>
-		<control/>
-		<control/>
+		<control caption="_Tipo de archivo:"/>
+		<control caption="_*Drag&apos;n&apos;drop algun descarga."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Selecciona Visualización">
 		<control/>

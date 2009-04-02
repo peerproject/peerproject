@@ -42,10 +42,6 @@
 #include "Schema.h"
 #include "SchemaCache.h"
 
-#include "SHA.h"
-#include "ED2K.h"
-#include "TigerTree.h"
-
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -104,13 +100,13 @@ void CLibrary::AddFile(CLibraryFile* pFile)
 
 	if ( pFile->IsAvailable() )
 	{
-        if ( pFile->m_oSHA1 || pFile->m_oTiger || pFile->m_oMD5 || pFile->m_oED2K || pFile->m_oBTH )
+		if ( pFile->m_oSHA1 || pFile->m_oTiger || pFile->m_oMD5 || pFile->m_oED2K || pFile->m_oBTH )
 		{
 			LibraryHistory.Submit( pFile );
 			GetAlbumRoot()->OrganiseFile( pFile );
 		}
 
-        if ( ! pFile->IsHashed() )
+		if ( ! pFile->IsHashed() )
 		{
 			LibraryBuilder.Add( pFile ); // hash the file and add it again
 		}
@@ -138,15 +134,6 @@ void CLibrary::RemoveFile(CLibraryFile* pFile)
 	}
 }
 
-void CLibrary::OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost)
-{
-	ASSERT( pFile != NULL );
-	
-	LibraryFolders.OnFileDelete( pFile, bDeleteGhost );
-	LibraryHistory.OnFileDelete( pFile );
-	LibraryHashDB.DeleteAll( pFile->m_nIndex );
-}
-
 void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce)
 {
 	long nCount = 0;
@@ -157,18 +144,18 @@ void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce)
 	int nDot = pFile->m_sName.ReverseFind( '.' );
 
 	if ( nDot == -1 ) return;
-	if ( _tcsistr( _T("|exe|com|zip|rar|ace|7z|cab|lzh|tar|tgz|bz2|wmv|"), 
+	if ( _tcsistr( _T("|exe|com|zip|rar|ace|7z|cab|lzh|tar|tgz|bz2|wmv|"),
 		pFile->m_sName.Mid( nDot + 1 ) ) == NULL ) return;
 
 	for ( POSITION pos = LibraryMaps.GetFileIterator() ; pos ; )
 	{
 		CLibraryFile* pExisting = LibraryMaps.GetNextFile( pos );
-		
+
 		if ( validAndEqual( pFile->m_oMD5, pExisting->m_oMD5 ) )
 			nCount++;
 	}
 
-	if ( nCount >= 5 ) // if more than 4 the same files, it's suspicious
+	if ( nCount >= 5 ) // if more than 4 same files, it's suspicious
 	{
 		if ( Settings.Live.LastDuplicateHash == pFile->m_oMD5.toString() && !bForce )
 		{
@@ -424,7 +411,7 @@ BOOL CLibrary::Save()
 		pFile.Write( &pFileTime, sizeof(FILETIME) );
 
 		pFile.Close();
-		
+
 		theApp.Message( MSG_DEBUG, _T("Library successfully saved to: %s"), strFile );
 		return TRUE;
 	}
@@ -468,6 +455,7 @@ void CLibrary::OnRun()
 	while ( IsThreadEnabled() )
 	{
 		ThreadScan();
+		CRazaThread::YieldProc();
 		Doze( 1000 );
 	}
 }
@@ -478,7 +466,7 @@ void CLibrary::OnRun()
 BOOL CLibrary::ThreadScan()
 {
 	// Do not start scanning until app is loaded
-	if ( ! theApp.m_bLive ) return FALSE;
+	if ( ! theApp.m_bLive || theApp.m_bClosing ) return FALSE;
 
 	CSingleLock pLock( &m_pSection );
 	if ( ! pLock.Lock( 100 ) )
@@ -551,6 +539,8 @@ BOOL CLibrary::IsBadFile(LPCTSTR pszFilenameOnly, LPCTSTR pszPathOnly, DWORD dwF
 		if ( _tcsicmp( pszFilenameOnly, _T("dxva_sig.txt") ) == 0 ) return TRUE;
 		// uTorrent part files
 		if ( _tcsnicmp( pszFilenameOnly, _T("~uTorrentPartFile_"), 18 ) == 0 ) return TRUE;
+		// Ares Galaxy partials
+		if ( _tcsnicmp( pszFilenameOnly, _T("___ARESTRA___"), 13 ) == 0 ) return TRUE;
 
 		LPCTSTR pszExt = _tcsrchr( pszFilenameOnly, _T('.') );
 		if ( pszExt++ )

@@ -71,6 +71,8 @@ CSettings::CSettings()
 	Add( _T(""), _T("LogLevel"), &General.LogLevel, MSG_INFO, 1, MSG_ERROR, MSG_DEBUG, _T(" level") );
 	Add( _T(""), _T("SearchLog"), &General.SearchLog, true );
 	Add( _T(""), _T("UserPath"), &General.UserPath );
+	Add( _T(""), _T("CoolMenuEnable"), &General.CoolMenuEnable, true );
+	Add( _T(""), _T("DialogScan"), &General.DialogScan, false );
 
 	Add( _T("Settings"), _T("AlwaysOpenURLs"), &General.AlwaysOpenURLs, false );
 	Add( _T("Settings"), _T("CloseMode"), &General.CloseMode, 0, 1, 0, 3 );
@@ -116,15 +118,16 @@ CSettings::CSettings()
 	Add( _T("Library"), _T("HighPriorityHashing"), &Library.HighPriorityHashing, 20, 1, 1, 100, _T(" MB/s") );
 	Add( _T("Library"), _T("HistoryDays"), &Library.HistoryDays, 3, 1, 0, 365, _T(" days") );
 	Add( _T("Library"), _T("HistoryTotal"), &Library.HistoryTotal, 32, 1, 0, 100, _T(" files") );
+	Add( _T("Library"), _T("LastUsedView"), &Library.LastUsedView );
 	Add( _T("Library"), _T("LowPriorityHashing"), &Library.LowPriorityHashing, 2, 1, 1, 100, _T(" MB/s") );
 	Add( _T("Library"), _T("MarkFileAsDownload"), &Library.MarkFileAsDownload, true );
 	Add( _T("Library"), _T("MaxMaliciousFileSize"), &Library.MaxMaliciousFileSize, 1024, 1, 1024, 1024*5, _T(" B") );
 	Add( _T("Library"), _T("PanelSize"), &Library.PanelSize, 120, 1, 0, 1024, _T(" px") );
 	Add( _T("Library"), _T("PartialMatch"), &Library.PartialMatch, true );
 	Add( _T("Library"), _T("PreferAPETags"), &Library.PreferAPETags, true );
-	Add( _T("Library"), _T("PrivateTypes"), &Library.PrivateTypes, _T("|vbs|js|jc!|fb!|bc!|!ut|dbx|part|partial|pst|reget|getright|pif|lnk|sd|url|wab|m4p|infodb|racestats|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|") );
+	Add( _T("Library"), _T("PrivateTypes"), &Library.PrivateTypes, _T("|vbs|js|jc!|fb!|bc!|!ut|dbx|part|partial|pst|reget|getright|pif|lnk|sd|url|wab|m4p|infodb|racestats|svn|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|") );
 	Add( _T("Library"), _T("QueryRouteSize"), &Library.QueryRouteSize, 20, 1, 8, 24 );
-	Add( _T("Library"), _T("SafeExecute"), &Library.SafeExecute, _T("|3gp|aac|ace|ape|avi|bmp|flv|gif|iso|jpg|jpeg|mid|mov|m1v|m2v|m3u|m4a|mkv|mp2|mp3|mp4|mpa|mpe|mpg|mpeg|ogg|ogm|pdf|png|qt|rar|rm|sks|tar|tgz|torrent|txt|wav|wma|wmv|zip|co|collection|lit|") );
+	Add( _T("Library"), _T("SafeExecute"), &Library.SafeExecute, _T("|3gp|7z|aac|ace|ape|asf|avi|bmp|cbr|cbz|co|collection|flv|gif|iso|jpg|jpeg|lit|mid|mov|m1v|m2v|m3u|m4a|mkv|mp2|mp3|mp4|mpa|mpe|mpg|mpeg|ogg|ogm|pdf|png|psk|qt|rar|rm|sks|swf|rtf|tar|tgz|torrent|txt|wav|zip|") );
 	Add( _T("Library"), _T("ScanAPE"), &Library.ScanAPE, true );
 	Add( _T("Library"), _T("ScanASF"), &Library.ScanASF, true );
 	Add( _T("Library"), _T("ScanAVI"), &Library.ScanAVI, true );
@@ -144,7 +147,7 @@ CSettings::CSettings()
 	Add( _T("Library"), _T("SourceExpire"), &Library.SourceExpire, 24*60*60, 60, 60, 7*24*60*60, _T(" m") );
 	Add( _T("Library"), _T("SourceMesh"), &Library.SourceMesh, true );
 	Add( _T("Library"), _T("StoreViews"), &Library.StoreViews, true );
-	Add( _T("Library"), _T("ThumbSize"), &Library.ThumbSize, 96, 1, 16, 256, _T(" px") );
+	Add( _T("Library"), _T("ThumbSize"), &Library.ThumbSize, 128, 1, 16, 256, _T(" px") );
 	Add( _T("Library"), _T("TigerHeight"), &Library.TigerHeight, 9, 1, 1, 64 );
 	Add( _T("Library"), _T("TreeSize"), &Library.TreeSize, 200, 1, 0, 1024, _T(" px") );
 	Add( _T("Library"), _T("UseCustomFolders"), &Library.UseCustomFolders, true );
@@ -162,7 +165,7 @@ CSettings::CSettings()
 	Add( _T("WebServices"), _T("ShareMonkeyCid"), &WebServices.ShareMonkeyCid );
 	Add( _T("WebServices"), _T("ShareMonkeyOkay"), &WebServices.ShareMonkeyOkay, false, true );
 	Add( _T("WebServices"), _T("ShareMonkeySaveThumbnail"), &WebServices.ShareMonkeySaveThumbnail, false, true );
-	
+
 	Add( _T("Search"), _T("AdultFilter"), &Search.AdultFilter, false );
 	Add( _T("Search"), _T("AdvancedPanel"), &Search.AdvancedPanel, true );
 	Add( _T("Search"), _T("BlankSchemaURI"), &Search.BlankSchemaURI, CSchema::uriAudio );
@@ -334,18 +337,19 @@ CSettings::CSettings()
 	Add( _T("Gnutella2"), _T("LNIPeriod"), &Gnutella2.LNIPeriod, 60000, 1000, 1, 60*60, _T(" s") );
 #ifdef LAN_MODE
 	Add( _T("Gnutella2"), _T("NumHubs"), &Gnutella2.NumHubs, 1, 1, 1, 3 );
-	Add( _T("Gnutella2"), _T("NumLeafs"), &Gnutella2.NumLeafs, 300, 1, 50, 1024 );
+	Add( _T("Gnutella2"), _T("NumLeafs"), &Gnutella2.NumLeafs, 1024, 1, 50, 1024 );
 	Add( _T("Gnutella2"), _T("NumPeers"), &Gnutella2.NumPeers, 1, 1, 0, 64 );
+	Add( _T("Gnutella2"), _T("QueryHostThrottle"), &Gnutella2.QueryHostThrottle, 0, 1, 0, 10*60, _T(" s") );
 #else // LAN_MODE
 	Add( _T("Gnutella2"), _T("NumHubs"), &Gnutella2.NumHubs, 2, 1, 1, 3 );
 	Add( _T("Gnutella2"), _T("NumLeafs"), &Gnutella2.NumLeafs, 300, 1, 50, 1024 );
 	Add( _T("Gnutella2"), _T("NumPeers"), &Gnutella2.NumPeers, 6, 1, 4, 64 );
+	Add( _T("Gnutella2"), _T("QueryHostThrottle"), &Gnutella2.QueryHostThrottle, 120, 1, 10, 10*60, _T(" s") );
 #endif // LAN_MODE
 	Add( _T("Gnutella2"), _T("PingRate"), &Gnutella2.PingRate, 15000, 1000, 5, 180, _T(" s") );
 	Add( _T("Gnutella2"), _T("PingRelayLimit"), &Gnutella2.PingRelayLimit, 10, 1, 10, 30 );
 	Add( _T("Gnutella2"), _T("QueryGlobalThrottle"), &Gnutella2.QueryGlobalThrottle, 125, 1, 1, 60*1000, _T(" ms") );
 	Add( _T("Gnutella2"), _T("QueryHostDeadline"), &Gnutella2.QueryHostDeadline, 10*60, 1, 1, 120*60, _T(" s") );
-	Add( _T("Gnutella2"), _T("QueryHostThrottle"), &Gnutella2.QueryHostThrottle, 120, 1, 10, 10*60, _T(" s") );
 	Add( _T("Gnutella2"), _T("QueryLimit"), &Gnutella2.QueryLimit, 2400, 1, 0, 10000 );
 	Add( _T("Gnutella2"), _T("RequeryDelay"), &Gnutella2.RequeryDelay, 4*60*60, 60*60, 1, 24, _T(" h") );
 	Add( _T("Gnutella2"), _T("UdpBuffers"), &Gnutella2.UdpBuffers, 512, 1, 16, 2048 );
@@ -367,12 +371,12 @@ CSettings::CSettings()
 	Add( _T("eDonkey"), _T("FrameSize"), &eDonkey.FrameSize, 10240, 1024, 1, 500, _T(" KB") );
 	Add( _T("eDonkey"), _T("GetSourcesThrottle"), &eDonkey.GetSourcesThrottle, 8*60*60*1000, 60*60*1000, 1, 24, _T(" h") );
 	Add( _T("eDonkey"), _T("LargeFileSupport"), &eDonkey.LargeFileSupport, false );
-	Add( _T("eDonkey"), _T("LearnNewServers"), &eDonkey.LearnNewServers, true );
+	Add( _T("eDonkey"), _T("LearnNewServers"), &eDonkey.LearnNewServers, false );
 	Add( _T("eDonkey"), _T("LearnNewServersClient"), &eDonkey.LearnNewServersClient, false );
 	Add( _T("eDonkey"), _T("MagnetSearch"), &eDonkey.MagnetSearch, true );
-	Add( _T("eDonkey"), _T("MaxLinks"), &eDonkey.MaxLinks, 200 );
-	Add( _T("eDonkey"), _T("MaxResults"), &eDonkey.MaxResults, 100 );
-	Add( _T("eDonkey"), _T("MaxShareCount"), &eDonkey.MaxShareCount, 1000, 1, 0, 20000 );
+	Add( _T("eDonkey"), _T("MaxLinks"), &eDonkey.MaxLinks, 200, 1, 1, 2048 );
+	Add( _T("eDonkey"), _T("MaxResults"), &eDonkey.MaxResults, 100, 1, 1, 400 );
+	Add( _T("eDonkey"), _T("MaxShareCount"), &eDonkey.MaxShareCount, 1000, 1, 25, 20000 );
 	Add( _T("eDonkey"), _T("MetAutoQuery"), &eDonkey.MetAutoQuery, true );
 	Add( _T("eDonkey"), _T("MinServerFileSize"), &eDonkey.MinServerFileSize, 0, 1, 0, 50, _T(" MB") );
 	Add( _T("eDonkey"), _T("NumServers"), &eDonkey.NumServers, 1, 1, 0, 1 );
@@ -465,6 +469,9 @@ CSettings::CSettings()
 	Add( _T("Downloads"), _T("VerifyED2K"), &Downloads.VerifyED2K, true );
 	Add( _T("Downloads"), _T("VerifyFiles"), &Downloads.VerifyFiles, true );
 	Add( _T("Downloads"), _T("VerifyTiger"), &Downloads.VerifyTiger, true );
+	Add( _T("Downloads"), _T("NoRandomFragments"), &Downloads.NoRandomFragments, false ); //ToDo: Streaming Download and Rarest Piece Selection
+	Add( _T("Downloads"), _T("WebHookEnable"), &Downloads.WebHookEnable, true );
+	Add( _T("Downloads"), _T("WebHookExtensions"), &Downloads.WebHookExtensions, _T("|zip|7z|gz|rar|r0|tgz|ace|z|tar|arj|lzh|sit|hqx|fml|grs|mp3|iso|msi|exe|bin|") );
 
 	Add( _T("Uploads"), _T("AllowBackwards"), &Uploads.AllowBackwards, true );
 	Add( _T("Uploads"), _T("AutoClear"), &Uploads.AutoClear, false );
@@ -605,7 +612,7 @@ void CSettings::Load()
 	SmartUpgrade();
 
 	//if ( General.Running )
-	// TODO: PeerProject is restarted after a crash
+	// ToDo: PeerProject is restarted after a crash
 
 	// Set current networks
 	Gnutella1.EnableToday		= Gnutella1.EnableAlways;
@@ -638,7 +645,7 @@ void CSettings::Load()
 
 	// Enforce a few sensible values to avoid being banned/dropped/etc (in case of registry fiddling)
 	Downloads.ConnectThrottle	= max( Downloads.ConnectThrottle, Connection.ConnectThrottle + 50u );
-	
+
 	// Make sure download/incomplete folders aren't the same
 	if ( _tcsicmp( Downloads.IncompletePath, Downloads.CompletePath ) == 0 )
 	{
@@ -876,12 +883,12 @@ void CSettings::SmartUpgrade()
 		}
 
 		if ( General.SmartVersion < 43 )
-		{	
+		{
 			eDonkey.MetAutoQuery = true;
 		}
 
 		if ( General.SmartVersion < 44 )
-		{	
+		{
 			BitTorrent.AutoSeed = true;
 		}
 
@@ -1021,12 +1028,12 @@ void CSettings::SmartUpgrade()
 			if ( ! IsIn( Library.PrivateTypes, _T("!ut") ) )
 				Library.PrivateTypes.insert( _T("!ut") );
 		}
-		
+
 		if ( General.SmartVersion < 55 ) // Migrate values to other section
 		{
 			WebServices.BitziOkay		= theApp.GetProfileInt( L"Library", L"BitziOkay", false ) != 0;
 			WebServices.ShareMonkeyCid	= theApp.GetProfileString( L"", L"ShareMonkeyCid", L"" );
-			
+
 			// Delete old values
 			theApp.WriteProfileString( L"Library", L"BitziAgent", NULL );
 			theApp.WriteProfileString( L"Library", L"BitziWebSubmit", NULL );
@@ -1034,14 +1041,14 @@ void CSettings::SmartUpgrade()
 			theApp.WriteProfileString( L"Library", L"BitziXML", NULL );
 			theApp.WriteProfileString( L"", L"ShareMonkeyCid", NULL );
 			theApp.WriteProfileString( L"Library", L"BitziWebView", NULL );
-			
+
 			HKEY hKey;
 
 			if ( RegOpenKeyEx( HKEY_CURRENT_USER,
 				_T("SOFTWARE\\PeerProject\\PeerProject\\Library"), 0, KEY_ALL_ACCESS, &hKey )
 				!= ERROR_SUCCESS ) return;
 			RegDeleteValue( hKey, _T("BitziOkay") );
-			RegCloseKey( hKey );			
+			RegCloseKey( hKey );
 		}
 	}
 
@@ -1050,6 +1057,7 @@ void CSettings::SmartUpgrade()
 
 void CSettings::OnChangeConnectionSpeed()
 {
+#ifndef LAN_MODE
 	bool bLimited = theApp.m_bLimitedConnections && !General.IgnoreXPsp2;
 
 	if ( Connection.InSpeed <= 80 )
@@ -1119,13 +1127,13 @@ void CSettings::OnChangeConnectionSpeed()
 	}
 	else
 	{
-		Downloads.MaxFiles			= 50;
+		Downloads.MaxFiles				= 100;
 		Downloads.MaxTransfers			= 250;
-		Downloads.MaxFileTransfers		= 40;
+		Downloads.MaxFileTransfers		= 50;
 		Downloads.MaxConnectingSources	= 40;
 		Downloads.MaxFileSearches		= 5;
-		Downloads.SourcesWanted			= 500;
-		Search.GeneralThrottle			= 200;
+		Downloads.SourcesWanted			= 600;
+		Search.GeneralThrottle			= 250;
 
 		if ( Connection.InSpeed <= 10000 )
 		{
@@ -1161,6 +1169,7 @@ void CSettings::OnChangeConnectionSpeed()
 
 		General.ItWasLimited			= false;
 	}
+#endif // LAN_MODE
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1234,7 +1243,7 @@ BOOL CSettings::LoadList(LPCTSTR pszName, CListCtrl* pCtrl, int nSort)
 	LV_COLUMN pColumn;
 
 	pColumn.mask = LVCF_FMT;
-    int nColumns = 0;
+	int nColumns = 0;
 	for ( ; pCtrl->GetColumn( nColumns, &pColumn ) ; nColumns++ );
 
 	CString strOrdering, strWidths, strItem;
@@ -1277,7 +1286,7 @@ void CSettings::SaveList(LPCTSTR pszName, CListCtrl* pCtrl)
 	LV_COLUMN pColumn;
 
 	pColumn.mask = LVCF_FMT;
-    int nColumns = 0;
+	int nColumns = 0;
 	for ( ; pCtrl->GetColumn( nColumns, &pColumn ) ; nColumns++ );
 
 	UINT* pOrdering = new UINT[ nColumns ];
@@ -1393,7 +1402,7 @@ const CString CSettings::SmartSpeed(QWORD nVolume, int nVolumeUnits, bool bTrunc
 		TRACE( _T("Unknown RatesUnit - %i"), General.RatesUnit );
 		break;
 	}
-	
+
 	// Add Unicode RTL marker if required
 	return Settings.General.LanguageRTL ? _T("\x200E") + strVolume : strVolume;
 }
@@ -1528,7 +1537,7 @@ bool CSettings::GetValue(LPCTSTR pszPath, VARIANT* value)
 	{
 		value->vt = VT_BOOL;
 		value->boolVal = *pItem->m_pBool ? VARIANT_TRUE : VARIANT_FALSE;
-	} 
+	}
 	else if ( pItem->m_pDword )
 	{
 		value->vt = VT_I4;

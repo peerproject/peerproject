@@ -2,7 +2,7 @@
 // StdAfx.h
 //
 // This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
-// Portions Copyright Shareaza Development Team, 2007.
+// Portions Copyright Shareaza Development Team, 2007-2008.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
 // modify it under the terms of the GNU General Public License
@@ -26,15 +26,25 @@
 #define _WIN32_WINNT 0x0400
 #define _WIN32_WINDOWS 0x0410
 #define _WIN32_IE 0x0400
+#define BOOST_USE_WINDOWS_H
 
 #include <afxwin.h>         // MFC core and standard components
 #include <afxext.h>         // MFC extensions
 #include <afxcmn.h>			// MFC support for Windows Common Controls
 #include <afxmt.h>			// MFC multithreading
-
 #include <shlobj.h>			// Shell objects
+#include <shlwapi.h>
+
+#include <boost\type_traits\is_same.hpp>
+#include <boost\checked_delete.hpp>
+#include "..\PeerProject\Augment\auto_ptr.hpp"
+#include "..\PeerProject\Augment\auto_array.hpp"
+
+#include "..\HashLib\HashLib.h"
 
 typedef unsigned __int64 QWORD;
 
 #define BIF_NEWDIALOGSTYLE	0x0040
 #define OFN_ENABLESIZING	0x00800000
+
+using namespace augment;

@@ -77,8 +77,8 @@
 	</vendor>
 	
 	<vendor code="ED2K">
-		<title>eDonkey2000</title>
-		<link>http://www.edonkey2000.com/</link>
+		<title>eMule</title>
+		<link>http://emule-project.net/</link>
 		<capability name="edonkey2000"/>
 		<capability name="chatFlag"/>
 	</vendor>

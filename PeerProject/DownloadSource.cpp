@@ -39,7 +39,6 @@
 #include "EDClient.h"
 #include "EDPacket.h"
 #include "PeerProjectURL.h"
-#include "SHA.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -112,7 +111,7 @@ CDownloadSource::~CDownloadSource()
 //////////////////////////////////////////////////////////////////////
 // CDownloadSource construction from a query hit
 
-CDownloadSource::CDownloadSource(const CDownload* pDownload, CQueryHit* pHit)
+CDownloadSource::CDownloadSource(const CDownload* pDownload, const CQueryHit* pHit)
 : m_oAvailable( pDownload->m_nSize ), m_oPastFragments( pDownload->m_nSize )
 {
 	Construct( pDownload );

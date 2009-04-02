@@ -85,22 +85,22 @@ public:
 	void				ClearSources();
 	void				ClearFailedSources();
 	void				MergeMetadata(const CXMLElement* pXML);
-	BOOL				AddSourceHit(CQueryHit* pHit, BOOL bForce = FALSE);
+	BOOL				AddSourceHit(const CQueryHit* pHit, BOOL bForce = FALSE);
 	BOOL				AddSourceED2K(DWORD nClientID, WORD nClientPort, DWORD nServerIP, WORD nServerPort, const Hashes::Guid& oGUID);
     BOOL				AddSourceBT(const Hashes::BtGuid& oGUID, IN_ADDR* pAddress, WORD nPort);
 	BOOL				AddSourceURL(LPCTSTR pszURL, BOOL bURN = FALSE, FILETIME* pLastSeen = NULL, int nRedirectionCount = 0, BOOL bFailed = FALSE);
 	int					AddSourceURLs(LPCTSTR pszURLs, BOOL bURN = FALSE, BOOL bFailed = FALSE);
 	void				RemoveSource(CDownloadSource* pSource, BOOL bBan);
-	virtual BOOL		OnQueryHits(CQueryHit* pHits);
+	virtual BOOL		OnQueryHits(const CQueryHit* pHits);
 	virtual void		Serialize(CArchive& ar, int nVersion);
 	int					GetSourceColor();
 
 // Implementation
 protected:
-	void            RemoveOverlappingSources(QWORD nOffset, QWORD nLength);
-	BOOL		    AddSourceInternal(CDownloadSource* pSource);
-	void		    SortSource(CDownloadSource* pSource, BOOL bTop);
-	void		    SortSource(CDownloadSource* pSource);
+	void				RemoveOverlappingSources(QWORD nOffset, QWORD nLength);
+	BOOL				AddSourceInternal(CDownloadSource* pSource);
+	void				SortSource(CDownloadSource* pSource, BOOL bTop);
+	void				SortSource(CDownloadSource* pSource);
 
 private:
 	void				VoteSource(LPCTSTR pszUrl, bool bPositively);

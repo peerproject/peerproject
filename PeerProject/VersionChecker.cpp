@@ -29,7 +29,6 @@
 #include "Network.h"
 #include "GProfile.h"
 #include "DiscoveryServices.h"
-#include "SHA.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -144,11 +143,11 @@ BOOL CVersionChecker::ExecuteRequest()
 {
 	m_pRequest.SetURL( Settings.VersionCheck.UpdateCheckURL
 		+ _T("?Version=") + theApp.m_sVersion
-#ifdef WIN64
+#ifdef _WIN64
 		+ _T("&Platform=Win64")
-#else	// WIN64
+#else
 		+ _T("&Platform=Win32")
-#endif	// WIN64
+#endif	//WIN64
 	);
 
 	if ( ! m_pRequest.Execute( FALSE ) ) return FALSE;

@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+
+<manifest
+ name="SkinVista.Magyar"
+ author="SkinVista"
+ description="Magyar (Hungarian Menu Support)"
+ link="http://PeerProject.org"
+ email="Contact(at)PeerProject.org"
+ language="hu"
+ version="2.0"
+ type="Skin"
+/>
+
+<menus>
+<menu name="CMainWnd.Tabbed" type="bar">
+<menu text="- . . ..-. . .">
+
+<item id="ID_TOOLS_SETTINGS"		text="Beállítások..."/>
+
+ <menu text="_Hálózat">
+  <item id="ID_NETWORK_CONNECT" 	text="Kapcsolódás" shortcut="Ctrl+G"/>
+  <item id="ID_NETWORK_DISCONNECT" 	text="Lekapcsolódás"/>
+  <separator/>
+  <item id="ID_NETWORK_G2"		text="Kapcsolódás a Gnutella2-höz"/>
+  <item id="ID_NETWORK_G1"		text="Kapcsolódás a Gnutella1-hez"/>
+  <item id="ID_NETWORK_ED2K"		text="Kapcsolódás az eDonkey-hoz"/>
+  <separator/>
+  <item id="ID_NETWORK_CONNECT_TO" 	text="Manuális kapcsolódás..." shortcut="Ctrl+T"/>
+  <item id="ID_NETWORK_BROWSE_TO" 	text="Fájllista és adatlap..."/>
+  <separator/>
+  <item id="ID_NETWORK_AUTO_CLOSE"	text="Forgalom után kilépés"/>
+  <item id="ID_NETWORK_EXIT"		text="Kilépés"/>
+ </menu>
+
+ <menu text="_Eszközök">
+  <item id="ID_LIBRARY_FOLDERS" 	text="Fájlok megosztása..."/>
+  <item id="ID_OPEN_DOWNLOADS_FOLDER"	text="_Open Downloads Folder"/>
+  <separator/>
+  <item id="ID_TOOLS_DOWNLOAD"  	text="Torrent/Fájl letöltése..."/>
+  <item id="ID_TOOLS_SEEDTORRENT" 	text="Újabb torrent seedelése..."/>
+  <item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+  <item id="IDC_IMPORT_DOWNLOADS"	text="eDonkey félkész letöltések importálása..."/>
+  <separator/>
+  <item id="ID_TOOLS_LANGUAGE"  	text="Nyelv kiválasztása..."/>
+  <item id="ID_TOOLS_SKIN"		text="Kinézet kiválasztása..."/>
+  <separator/>
+  <item id="ID_TOOLS_PROFILE"		text="Saját adatlap szerkesztése..."/>
+  <item id="ID_TOOLS_WIZARD"		text="Gyors beállítás..."/>
+  <separator/>
+  <item id="ID_TOOLS_SETTINGS"  	text="PeerProject Beállítások..."/>
+ </menu>
+
+ <menu text="_Fejlett">
+  <item id="ID_TAB_HOME" 		text="Kezdőlap" shortcut="Ctrl+H"/>
+  <item id="ID_TAB_SEARCH" 		text="Keresés" shortcut="Ctrl+S"/>
+  <item id="ID_VIEW_DOWNLOADS" 		text="Letöltések" shortcut="F3"/>
+  <item id="ID_VIEW_UPLOADS"		text="Feltöltések" shortcut="F4"/>
+  <item id="ID_VIEW_LIBRARY"		text="Könyvtár" shortcut="F5"/>
+  <item id="ID_VIEW_MEDIA"		text="Médialejátszó" shortcut="F6"/>
+  <item id="ID_TAB_IRC" 		text="_IRC" shortcut="F12"/>
+  <separator/>
+  <item id="ID_VIEW_SECURITY"		text="Biztonság" shortcut="F7"/>
+  <item id="ID_VIEW_HOSTS"		text="Kiszolgálók listája" shortcut="F8"/>
+  <item id="ID_VIEW_DISCOVERY"		text="Szerverkereső" shortcut="F9"/>
+  <item id="ID_VIEW_TRAFFIC"		text="Grafikon" shortcut="F10"/>
+  <item id="ID_VIEW_SYSTEM"		text="Rendszer" shortcut="F11"/>
+  <item id="ID_VIEW_NEIGHBOURS" 	text="Hálózat" shortcut="Crtl+F11"/>
+  <separator/>
+  <item id="ID_VIEW_PACKETS"		text="Csomagforgalom" shortcut="Ctrl+F1"/>
+  <item id="ID_VIEW_SEARCH_MONITOR"	text="Keresések figyelése" shortcut="Ctrl+F2"/>
+  <item id="ID_VIEW_RESULTS_MONITOR"	text="Találatok figyelése" shortcut="Ctrl+F3"/>
+ </menu>
+
+ <menu text="_Ablak">
+  <item id="ID_VIEW_TABBED" 		text="Összetett nézet"   shortcut="required"/>
+  <item id="ID_VIEW_WINDOWED"		text="Ablakos nézet" shortcut="unsupported"/>
+  <separator/>
+  <item id="ID_WINDOW_NAVBAR"		text="Navigációs gombok megjelenítése" shortcut="required"/>
+  <item id="ID_WINDOW_TABBAR"		text="Megnyitott megjelenítése" shortcut="required"/>
+  <item id="ID_WINDOW_MONITOR"		text="Monitor megjelenítése"/>
+  <item id="ID_WINDOW_REMOTE"		text="Távirányító megjelenítése"/>
+ </menu>
+
+ <menu text="_Súgó">
+  <item id="ID_HELP_GUIDE"		text="PeerProject használati utasítás"/>
+  <item id="ID_HELP_FORUMS"		text="PeerProject hivatalos fórum"/>
+  <item id="ID_HELP_FAQ"		text="PeerProject GYIK" shortcut="F1"/>
+  <menu text="SkinVista súgó">
+    <menu text="Ha a menüsor helytelenül jelenne meg:"> </menu>
+    <menu text="Kattintson a Menü: Ablak: Navigációs gombok megjelenítése parancsra."> </menu>
+    <menu text="Majd válassza le a Navigációs sort és a Menüsort a főablakról."> </menu>
+    <menu text="(Helyezze őket a főablakon kívülre.)"> </menu>
+    <menu text="Frissítse a grafikus felületet: Ctrl+Shift+Z"> </menu>
+  </menu>
+  <separator/>
+  <menu text="_Weboldalak">
+    <item id="ID_HELP_WEB_3" text="Slyck.com"/>
+    <item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+    <item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+    <item id="ID_HELP_WEB_6" text="Hypewise.DeviantArt.com"/>
+  </menu>
+  <item id="ID_HELP_HOMEPAGE"		text="PeerProject.org"/>
+  <separator/>
+  <item id="ID_HELP_ABOUT"		text="Névjegy..."/>
+ </menu>
+
+ <item id="ID_NETWORK_EXIT" 		text="Kilépés"/>
+ </menu>
+</menu>
+
+
+<menu name="CMainWnd.Basic" type="bar">
+<menu text="- . . ..-. . .">
+
+<item id="ID_TOOLS_SETTINGS"		text="Beállítások..."/>
+
+ <menu text="_Hálózat">
+  <item id="ID_NETWORK_CONNECT" 	text="Kapcsolódás" shortcut="Ctrl+G"/>
+  <item id="ID_NETWORK_DISCONNECT" 	text="Lekapcsolódás"/>
+  <separator/>
+  <item id="ID_NETWORK_G2"		text="Kapcsolódás a Gnutella2-höz"/>
+  <item id="ID_NETWORK_G1"		text="Kapcsolódás a Gnutella1-hez"/>
+  <item id="ID_NETWORK_ED2K"		text="Kapcsolódás az eDonkey-hoz"/>
+  <separator/>
+  <item id="ID_NETWORK_CONNECT_TO" 	text="Manuális kapcsolódás..." shortcut="Ctrl+T"/>
+  <item id="ID_NETWORK_BROWSE_TO" 	text="Fájllista és adatlap..."/>
+  <separator/>
+  <item id="ID_NETWORK_AUTO_CLOSE"	text="Forgalom után kilépés"/>
+  <item id="ID_NETWORK_EXIT"		text="Kilépés"/>
+ </menu>
+
+ <menu text="_Eszközök">
+  <item id="ID_LIBRARY_FOLDERS" 	text="Fájlok megosztása..."/>
+  <item id="ID_OPEN_DOWNLOADS_FOLDER"	text="_Open Downloads Folder"/>
+  <separator/>
+  <item id="ID_TOOLS_DOWNLOAD"  	text="Torrent/Fájl letöltése..."/>
+  <item id="ID_TOOLS_SEEDTORRENT" 	text="Újabb torrent seedelése..."/>
+  <item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+  <item id="IDC_IMPORT_DOWNLOADS"	text="eDonkey félkész letöltések importálása..."/>
+  <separator/>
+  <item id="ID_TOOLS_LANGUAGE"  	text="Nyelv kiválasztása..."/>
+  <item id="ID_TOOLS_SKIN"		text="Kinézet kiválasztása..."/>
+  <separator/>
+  <item id="ID_TOOLS_PROFILE"		text="Saját adatlap szerkesztése..."/>
+  <item id="ID_TOOLS_WIZARD"		text="Gyors beállítás..."/>
+  <separator/>
+  <item id="ID_TOOLS_SETTINGS"  	text="PeerProject Beállítások..."/>
+ </menu>
+
+ <menu text="_Fejlett">
+  <item id="ID_TAB_HOME" 		text="Kezdőlap" shortcut="Ctrl+H"/>
+  <item id="ID_TAB_SEARCH" 		text="Keresés" shortcut="Ctrl+S"/>
+  <item id="ID_VIEW_DOWNLOADS" 		text="Letöltések" shortcut="F3"/>
+  <item id="ID_VIEW_UPLOADS"		text="Feltöltések" shortcut="F4"/>
+  <item id="ID_VIEW_LIBRARY"		text="Könyvtár" shortcut="F5"/>
+  <item id="ID_VIEW_MEDIA"		text="Médialejátszó" shortcut="F6"/>
+  <item id="ID_TAB_IRC" 		text="_IRC" shortcut="F12"/>
+  <separator/>
+  <item id="ID_VIEW_SECURITY"		text="Biztonság" shortcut="F7"/>
+  <item id="ID_VIEW_HOSTS"		text="Kiszolgálók listája" shortcut="F8"/>
+  <item id="ID_VIEW_DISCOVERY"		text="Szerverkereső" shortcut="F9"/>
+  <item id="ID_VIEW_TRAFFIC"		text="Grafikon" shortcut="F10"/>
+  <item id="ID_VIEW_SYSTEM"		text="Rendszer" shortcut="F11"/>
+  <item id="ID_VIEW_NEIGHBOURS" 	text="Hálózat" shortcut="Crtl+F11"/>
+  <separator/>
+  <item id="ID_VIEW_PACKETS"		text="Csomagforgalom" shortcut="Ctrl+F1"/>
+  <item id="ID_VIEW_SEARCH_MONITOR"	text="Keresések figyelése" shortcut="Ctrl+F2"/>
+  <item id="ID_VIEW_RESULTS_MONITOR"	text="Találatok figyelése" shortcut="Ctrl+F3"/>
+ </menu>
+
+ <menu text="_Ablak">
+  <item id="ID_VIEW_TABBED" 		text="Összetett nézet"   shortcut="required"/>
+  <item id="ID_VIEW_WINDOWED"		text="Ablakos nézet" shortcut="unsupported"/>
+  <separator/>
+  <item id="ID_WINDOW_NAVBAR"		text="Navigációs gombok megjelenítése" shortcut="required"/>
+  <item id="ID_WINDOW_TABBAR"		text="Megnyitott megjelenítése" shortcut="required"/>
+  <item id="ID_WINDOW_MONITOR"		text="Monitor megjelenítése"/>
+  <item id="ID_WINDOW_REMOTE"		text="Távirányító megjelenítése"/>
+ </menu>
+
+ <menu text="_Súgó">
+  <item id="ID_HELP_GUIDE"		text="PeerProject használati utasítás"/>
+  <item id="ID_HELP_FORUMS"		text="PeerProject hivatalos fórum"/>
+  <item id="ID_HELP_FAQ"		text="PeerProject GYIK" shortcut="F1"/>
+  <menu text="SkinVista súgó">
+    <menu text="Frissítse a grafikus felületet: Ctrl+Shift+Z"> </menu>
+  </menu>
+  <separator/>
+  <menu text="_Weboldalak">
+    <item id="ID_HELP_WEB_3" text="Slyck.com"/>
+    <item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+    <item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+    <item id="ID_HELP_WEB_6" text="Hypewise.DeviantArt.com"/>
+  </menu>
+  <item id="ID_HELP_HOMEPAGE"		text="PeerProject.org"/>
+  <separator/>
+  <item id="ID_HELP_ABOUT"		text="Névjegy..."/>
+ </menu>
+
+ <item id="ID_NETWORK_EXIT" 		text="Kilépés"/>
+ </menu>
+</menu>
+
+
+<menu name="CMainWnd.Windowed" type="bar">
+<menu text="- . . ..-. . .">
+
+<item id="ID_TOOLS_SETTINGS"		text="Beállítások..."/>
+
+ <menu text="_Hálózat">
+  <item id="ID_NETWORK_CONNECT" 	text="Kapcsolódás" shortcut="Ctrl+G"/>
+  <item id="ID_NETWORK_DISCONNECT" 	text="Lekapcsolódás"/>
+  <separator/>
+  <item id="ID_NETWORK_G2"		text="Kapcsolódás a Gnutella2-höz"/>
+  <item id="ID_NETWORK_G1"		text="Kapcsolódás a Gnutella1-hez"/>
+  <item id="ID_NETWORK_ED2K"		text="Kapcsolódás az eDonkey-hoz"/>
+  <separator/>
+  <item id="ID_NETWORK_CONNECT_TO" 	text="Manuális kapcsolódás..." shortcut="Ctrl+T"/>
+  <item id="ID_NETWORK_BROWSE_TO" 	text="Fájllista és adatlap..."/>
+  <separator/>
+  <item id="ID_NETWORK_AUTO_CLOSE"	text="Forgalom után kilépés"/>
+  <item id="ID_NETWORK_EXIT"		text="Kilépés"/>
+ </menu>
+
+ <menu text="_Eszközök">
+  <item id="ID_LIBRARY_FOLDERS" 	text="Fájlok megosztása..."/>
+  <item id="ID_OPEN_DOWNLOADS_FOLDER"	text="_Open Downloads Folder"/>
+  <separator/>
+  <item id="ID_TOOLS_DOWNLOAD"  	text="Torrent/Fájl letöltése..."/>
+  <item id="ID_TOOLS_SEEDTORRENT" 	text="Újabb torrent seedelése..."/>
+  <item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+  <item id="IDC_IMPORT_DOWNLOADS"	text="eDonkey félkész letöltések importálása..."/>
+  <separator/>
+  <item id="ID_TOOLS_LANGUAGE"  	text="Nyelv kiválasztása..."/>
+  <item id="ID_TOOLS_SKIN"		text="Kinézet kiválasztása..."/>
+  <separator/>
+  <item id="ID_TOOLS_PROFILE"		text="Saját adatlap szerkesztése..."/>
+  <item id="ID_TOOLS_WIZARD"		text="Gyors beállítás..."/>
+  <separator/>
+  <item id="ID_TOOLS_SETTINGS"  	text="PeerProject Beállítások..."/>
+ </menu>
+
+ <menu text="_Fejlett">
+  <item id="ID_TAB_HOME" 		text="Kezdőlap" shortcut="Ctrl+H"/>
+  <item id="ID_TAB_SEARCH" 		text="Keresés" shortcut="Ctrl+S"/>
+  <item id="ID_VIEW_DOWNLOADS" 		text="Letöltések" shortcut="F3"/>
+  <item id="ID_VIEW_UPLOADS"		text="Feltöltések" shortcut="F4"/>
+  <item id="ID_VIEW_LIBRARY"		text="Könyvtár" shortcut="F5"/>
+  <item id="ID_VIEW_MEDIA"		text="Médialejátszó" shortcut="F6"/>
+  <item id="ID_TAB_IRC" 		text="_IRC" shortcut="F12"/>
+  <separator/>
+  <item id="ID_VIEW_SECURITY"		text="Biztonság" shortcut="F7"/>
+  <item id="ID_VIEW_HOSTS"		text="Kiszolgálók listája" shortcut="F8"/>
+  <item id="ID_VIEW_DISCOVERY"		text="Szerverkereső" shortcut="F9"/>
+  <item id="ID_VIEW_TRAFFIC"		text="Grafikon" shortcut="F10"/>
+  <item id="ID_VIEW_SYSTEM"		text="Rendszer" shortcut="F11"/>
+  <item id="ID_VIEW_NEIGHBOURS" 	text="Hálózat" shortcut="Crtl+F11"/>
+  <separator/>
+  <item id="ID_VIEW_PACKETS"		text="Csomagforgalom" shortcut="Ctrl+F1"/>
+  <item id="ID_VIEW_SEARCH_MONITOR"	text="Keresések figyelése" shortcut="Ctrl+F2"/>
+  <item id="ID_VIEW_RESULTS_MONITOR"	text="Találatok figyelése" shortcut="Ctrl+F3"/>
+ </menu>
+
+ <menu text="_Ablak">
+  <item id="ID_VIEW_TABBED" 		text="Összetett nézet"   shortcut="required"/>
+  <item id="ID_VIEW_WINDOWED"		text="Ablakos nézet" shortcut="unsupported"/>
+  <separator/>
+  <item id="ID_WINDOW_NAVBAR"		text="Navigációs gombok megjelenítése" shortcut="required"/>
+  <item id="ID_WINDOW_TABBAR"		text="Megnyitott megjelenítése" shortcut="required"/>
+  <item id="ID_WINDOW_MONITOR"		text="Monitor megjelenítése"/>
+  <item id="ID_WINDOW_REMOTE"		text="Távirányító megjelenítése"/>
+ </menu>
+
+ <menu text="_Súgó">
+  <item id="ID_HELP_GUIDE"		text="PeerProject használati utasítás"/>
+  <item id="ID_HELP_FORUMS"		text="PeerProject hivatalos fórum"/>
+  <item id="ID_HELP_FAQ"		text="PeerProject GYIK" shortcut="F1"/>
+  <menu text="SkinVista súgó">
+    <menu text="Frissítse a grafikus felületet: Ctrl+Shift+Z"> </menu>
+  </menu>
+  <separator/>
+  <menu text="_Weboldalak">
+    <item id="ID_HELP_WEB_3" text="Slyck.com"/>
+    <item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+    <item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+    <item id="ID_HELP_WEB_6" text="Hypewise.DeviantArt.com"/>
+  </menu>
+  <item id="ID_HELP_HOMEPAGE"		text="PeerProject.org"/>
+  <separator/>
+  <item id="ID_HELP_ABOUT"		text="Névjegy..."/>
+ </menu>
+
+ <item id="ID_NETWORK_EXIT" 		text="Kilépés"/>
+ </menu>
+</menu>
+
+</menus>
+
+
+<!-- TOOLBARS -->
+
+<toolbars>
+
+<toolbar name="CMainWnd.Tabbed">
+ <button id="ID_NETWORK_CONNECT"	text="Kapcsolódás"/>
+ <separator/>
+ <button id="ID_WINDOW_NAVBAR"		text="Navigációs gombok megjelenítése"/>
+</toolbar>
+
+<toolbar name="CMainWnd.Basic">
+ <button id="ID_NETWORK_CONNECT"	text="Kapcsolódás"/>
+ <separator/>
+ <button id="ID_VIEW_TABBED"		text="Összetett nézet"/>
+</toolbar>
+
+</toolbars>
+
+</skin>

@@ -76,9 +76,21 @@ CDownloadGroup* CDownloadGroups::GetSuperGroup()
 //////////////////////////////////////////////////////////////////////
 // CDownloadGroups add group
 
-CDownloadGroup* CDownloadGroups::Add(const LPCTSTR pszName, const BOOL bTemporary)
+CDownloadGroup* CDownloadGroups::Add(LPCTSTR pszName, BOOL bTemporary, BOOL bUseExisting)
 {
 	CQuickLock pLock( m_pSection );
+
+	if ( bUseExisting )
+	{
+		for ( POSITION pos = m_pList.GetHeadPosition(); pos; )
+		{
+			CDownloadGroup* pGroup = m_pList.GetNext( pos );
+			if ( ! pGroup->m_sName.CompareNoCase( pszName ) )
+			{
+				return pGroup;
+			}
+		}
+	}
 
 	CDownloadGroup* pGroup = new CDownloadGroup( pszName, bTemporary );
 	m_pList.AddTail( pGroup );
@@ -146,20 +158,33 @@ void CDownloadGroups::CreateDefault()
 
 	CDownloadGroup* pGroup	= GetSuperGroup();
 
-	pGroup = Add( _T("Audio") );
+	pGroup = Add( _T("Music") );
 	pGroup->SetSchema( CSchema::uriAudio );
+	pGroup->SetDefaultFilters();
+	pGroup->SetFolder( Settings.Downloads.CompletePath + "\\Music" );
 
 	pGroup = Add( _T("Video") );
 	pGroup->SetSchema( CSchema::uriVideo );
+	pGroup->SetDefaultFilters();
+	pGroup->SetFolder( Settings.Downloads.CompletePath + "\\Video" );
 
-	pGroup = Add( _T("Image") );
-	pGroup->SetSchema( CSchema::uriImage );
+//	pGroup = Add( _T("Images") );
+//	pGroup->SetSchema( CSchema::uriImage );
+//	pGroup->SetDefaultFilters();
+//	pGroup->SetFolder( Settings.Downloads.CompletePath + "\\Images" );
 
 	pGroup = Add( _T("BitTorrent") );
+	pGroup->m_bTorrent = TRUE;
 	pGroup->SetSchema( CSchema::uriBitTorrent );
+	pGroup->SetFolder( Settings.Downloads.CompletePath + "\\BitTorrent" );
 
-	pGroup = Add( _T("Collection") );
-	pGroup->SetSchema( CSchema::uriCollectionsFolder );
+//	pGroup = Add( _T("Collection") );
+//	pGroup->SetSchema( CSchema::uriCollection );
+//	pGroup->SetDefaultFilters();
+//	pGroup->SetFolder( Settings.Downloads.CollectionPath );
+
+	pGroup = Add( _T("Custom") );
+	pGroup->SetFolder( Settings.Downloads.CompletePath + "\\Custom" );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -189,7 +214,8 @@ void CDownloadGroups::Clear()
 {
 	CQuickLock pLock( m_pSection );
 
-	for ( POSITION pos = GetIterator() ; pos ; ) delete GetNext( pos );
+	for ( POSITION pos = GetIterator() ; pos ; )
+		delete GetNext( pos );
 	m_pList.RemoveAll();
 
 	m_pSuper = NULL;
@@ -232,7 +258,7 @@ BOOL CDownloadGroups::Save(BOOL bForce)
 	m_nSaveCookie = m_nBaseCookie;
 
 	CString strPath = Settings.General.UserPath + _T("\\Data\\DownloadGroups.dat");
-	DeleteFile( strPath + _T(".tmp") );
+	DeleteFileEx( strPath + _T(".tmp"), FALSE, FALSE, FALSE );
 
 	CFile pFile;
 	if ( ! pFile.Open( strPath + _T(".tmp"), CFile::modeWrite | CFile::modeCreate ) ) return FALSE;
@@ -255,7 +281,7 @@ BOOL CDownloadGroups::Save(BOOL bForce)
 
 	pFile.Close();
 
-	DeleteFile( strPath );
+	DeleteFileEx( strPath, FALSE, FALSE, FALSE );
 	MoveFile( strPath + _T(".tmp"), strPath );
 
 	return TRUE;
@@ -264,10 +290,12 @@ BOOL CDownloadGroups::Save(BOOL bForce)
 //////////////////////////////////////////////////////////////////////
 // CDownloadGroups serialize
 
-#define GROUPS_SER_VERSION	6
+#define GROUPS_SER_VERSION	7
 // History:
 // 4 - Added m_bTemporary (ryo-oh-ki)
-// 5 - New download groups added
+// 5 - New download groups added (Image, Collection, etc.)
+// 6 - ???
+// 7 - Added m_bTorrent (ryo-oh-ki), fixed collection schema
 
 void CDownloadGroups::Serialize(CArchive& ar)
 {
@@ -330,9 +358,11 @@ void CDownloadGroups::Serialize(CArchive& ar)
 		{
 			CDownloadGroup* pGroup = Add( _T("Image") );
 			pGroup->SetSchema( CSchema::uriImage );
+			pGroup->SetDefaultFilters();
 
 			pGroup = Add( _T("Collection") );
-			pGroup->SetSchema( CSchema::uriCollectionsFolder );
+			pGroup->SetSchema( CSchema::uriCollection );
+			pGroup->SetDefaultFilters();
 		}
 
 		GetSuperGroup();

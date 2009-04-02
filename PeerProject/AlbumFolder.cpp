@@ -29,7 +29,6 @@
 #include "SchemaChild.h"
 #include "SchemaCache.h"
 #include "XML.h"
-#include "SHA.h"
 #include "Settings.h"
 
 #ifdef _DEBUG
@@ -257,6 +256,7 @@ void CAlbumFolder::AddFile(CLibraryFile* pFile)
 			m_oCollSHA1.clear();
 		}
 	}
+	CRazaThread::YieldProc();
 
 	m_nUpdateCookie++;
 	Library.m_nUpdateCookie++;
@@ -865,17 +865,17 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 				std::vector<std::wstring> results = splitResults.strings();
 				if ( nCount >= 6 && 
 					 _tcsicmp( _tcsistr( L"season", results[2].c_str() ), L"season" ) == 0 && 
-								 _tcsicmp( _tcsistr( L"episode", results[4].c_str() ), L"episode" ) == 0 )
-							{
-								std::vector<std::wstring>::iterator it = 
-									std::find( results.begin(), results.end(), results[2] );
-								results.erase( it );
-								it = std::find( results.begin(), results.end(), results[3] );
-								results.erase( it );
-								nCount -= 2;
-							}
-							else 
-								nCount = 0;
+					 _tcsicmp( _tcsistr( L"episode", results[4].c_str() ), L"episode" ) == 0 )
+				{
+					std::vector<std::wstring>::iterator it = 
+						std::find( results.begin(), results.end(), results[2] );
+					results.erase( it );
+					it = std::find( results.begin(), results.end(), results[3] );
+					results.erase( it );
+					nCount -= 2;
+				}
+				else 
+					nCount = 0;
 
 				if ( nCount < 4 && Settings.Library.SmartSeriesDetection )
 				{
@@ -1031,6 +1031,18 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 		AddFile( pFile );
 		return TRUE;
 	}
+
+	else if ( CheckURI( m_sSchemaURI, CSchema::uriArchiveRoot ) )
+	{
+		if ( ! pFile->IsSchemaURI( CSchema::uriArchive ) ) return FALSE;
+	}
+	else if ( CheckURI( m_sSchemaURI, CSchema::uriArchiveAll ) )
+	{
+		if ( ! pFile->IsSchemaURI( CSchema::uriArchive ) ) return FALSE;
+		AddFile( pFile );
+		return TRUE;
+	}
+
 	else if ( CheckURI( m_sSchemaURI, CSchema::uriBookRoot ) )
 	{
 		if ( ! pFile->IsSchemaURI( CSchema::uriBook ) ) return FALSE;
@@ -1128,15 +1140,16 @@ void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 		{
             SerializeIn( ar, m_oCollSHA1, nVersion );
             pCollection = LibraryMaps.LookupFileBySHA1( m_oCollSHA1, FALSE, TRUE );
-			// Needs better validation. Some collections are bount to URIs which assign the whole
-			// library as one big collection.
+			// ToDo: Needs better validation.
+			// Some collections are bount to URIs which assign the whole library as one big collection.
 			if ( pCollection == NULL || 
 				 m_pSchema && ( m_pSchema->CheckURI( CSchema::uriAllFiles ) || 
 								m_pSchema->CheckURI( CSchema::uriGhostFolder ) ||
 								m_pSchema->CheckURI( CSchema::uriApplicationRoot ) ||
-								m_pSchema->CheckURI( CSchema::uriImageRoot ) ||
+								m_pSchema->CheckURI( CSchema::uriArchiveRoot ) ||
 								m_pSchema->CheckURI( CSchema::uriBookRoot ) ||
 								m_pSchema->CheckURI( CSchema::uriDocumentRoot ) ||
+								m_pSchema->CheckURI( CSchema::uriImageRoot ) ||
 								m_pSchema->CheckURI( CSchema::uriMusicRoot ) ||
 								m_pSchema->CheckURI( CSchema::uriVideoRoot ) ||
 								m_pSchema->CheckURI( CSchema::uriLibrary )

@@ -154,6 +154,7 @@ public:
 	static LPCTSTR	uriDocument;
 	static LPCTSTR	uriSpreadsheet;
 	static LPCTSTR	uriPresentation;
+	static LPCTSTR	uriCollection;
 	static LPCTSTR	uriLibrary;
 	static LPCTSTR	uriFolder;
 	static LPCTSTR	uriCollectionsFolder;
@@ -162,6 +163,8 @@ public:
 	static LPCTSTR	uriAllFiles;
 	static LPCTSTR	uriApplicationRoot;
 	static LPCTSTR	uriApplicationAll;
+	static LPCTSTR	uriArchiveRoot;
+	static LPCTSTR	uriArchiveAll;
 	static LPCTSTR	uriBookRoot;
 	static LPCTSTR	uriBookAll;
 	static LPCTSTR	uriImageRoot;

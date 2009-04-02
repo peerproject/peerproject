@@ -32,20 +32,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Yhdistä"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Koti"/>
-		<button id="ID_TAB_LIBRARY" text="Kirjasto"/>
-		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_SEARCH" text="Hae"/>
 		<button id="ID_TAB_TRANSFERS" text="Lataukset"/>
+		<button id="ID_TAB_LIBRARY" text="Kirjasto"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Yhdistä"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Koti"/>
-		<button id="ID_TAB_LIBRARY" text="Kirjasto"/>
-		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_SEARCH" text="Hae"/>
 		<button id="ID_TAB_TRANSFERS" text="Siirrot"/>
 		<button id="ID_TAB_NETWORK" text="Verkko"/>
+		<button id="ID_TAB_LIBRARY" text="Kirjasto"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
+		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Yhdistä"/>
@@ -394,23 +395,23 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Välimuisti"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Välimuisti"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Selaa Käyttäjää"/>
-		<!--<button id="ID_CHAT_SEND_FILE" text="Lähetä Tiedosto"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Anna Prioriteetti"/>
+		<!--<button id="ID_CHAT_SEND_FILE" text="Lähetä Tiedosto"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Yhdistä" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Katkaise Yhteys"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER ? -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 </toolbars>
 <!-- Menu Definitions -->
 <menus>
@@ -427,6 +428,23 @@
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+		<item id="ID_TRAY_OPEN" text="Avaa PeerProject"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Näytä Kauko-ohjain"/>
+		<item id="ID_TOOLS_SETTINGS" text="Näytä Asetukset..."/>
+		<item id="ID_NETWORK_SEARCH" text="Uusi Haku.."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Lataa Tiedosto..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Toista Media"/>
+		<item id="ID_MEDIA_PAUSE" text="Keskeytä Media"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Edellinen Raita"/>
+		<item id="ID_MEDIA_NEXT" text="Seuraava Raita"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Poistu Siirtojen Jälkeen"/>
+		<item id="ID_NETWORK_EXIT" text="Poistu"/>
+	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="_Verkko">
@@ -434,8 +452,8 @@
 			<separator/>
 			<menu text="Valitse _Verkot">
 				<item id="ID_NETWORK_G2" text="Yhdistä _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Yhdistä Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Poistu Siirtojen Jälkeen"/>
@@ -502,8 +520,8 @@
 			<separator/>
 			<menu text="Valitse _Verkot">
 				<item id="ID_NETWORK_G2" text="Yhdistä _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Yhdistä Gnutella1"/>
+				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Yhdistä..." shortcut="Ctrl+T"/>
@@ -598,8 +616,8 @@
 			<separator/>
 			<menu text="Valitse _Verkot">
 				<item id="ID_NETWORK_G2" text="Yhdistä _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Yhdistä Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Sulje _Siirtojen Jälkeen"/>
@@ -721,40 +739,6 @@
 		<item id="ID_VIEW_PACKETS" text="_Paketti Tuloste"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Ha_ku Monitori"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="O_suma Monitori"/>
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_Avaa PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Uu_si Haku"/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Lataa Tiedosto"/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Toista Media"/>
-		<item id="ID_MEDIA_PAUSE" text="Ke_skeytä Media"/>
-		<item id="ID_MEDIA_STOP" text="_Pysäytä Media"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="E_dellinen Raita"/>
-		<item id="ID_MEDIA_NEXT" text="_Seuraava Raita"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Poistu Siirtojen _Jälkeen"/>
-		<item id="ID_NETWORK_EXIT" text="P_oistu"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_Avaa PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Uu_si Haku"/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Lataa Tiedosto"/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Toista Media"/>
-		<item id="ID_MEDIA_PAUSE" text="Ke_skeytä Media"/>
-		<item id="ID_MEDIA_STOP" text="_Pysäytä Media"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="E_dellinen Raita"/>
-		<item id="ID_MEDIA_NEXT" text="_Seuraava Raita"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Poistu Siirtojen _Jälkeen"/>
-		<item id="ID_NETWORK_EXIT" text="P_oistu"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -1171,8 +1155,11 @@
 			<item id="ID_LIBRARY_COPY" text="_Kopioi Tiedostoja..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Paikallista Metadata"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Valitse _Kolumnit..."/>
+		<separator/>
+		<item id="ID_SHELL_MENU" text="S_hell menu"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Ominaisuudet"/>
 	</menu>
@@ -1379,8 +1366,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Katkaise Yhteys"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 		</menu>
 		<menu text="_Monitori">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Näytä _Kaikki Liikenne"/>
@@ -1633,8 +1620,9 @@
 		<newline group="30" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
+				<newline gap="4"/>
 				<text>Olet ollut yhteydessä </text>
+				<newline gap="0"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>tuntia ja </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
@@ -2049,8 +2037,8 @@
 		hauissa joten vain se teksti mink annat.</text>
 	</document>
 
-	<!-- Untranslated Documents -->
-<!--<document name="SearchHelp.BadSearch3">
+	<!-- Untranslated Documents:
+	<document name="SearchHelp.BadSearch3">
 		<text format="b">Please re-phrase the search</text>
 		<newline gap="8"/>
 		<text>This search seems to contain only common file extentions, or no searchable
@@ -2064,8 +2052,8 @@
 		search performance, as well as high bandwidth use during searches.</text>
 		<newline gap="8"/>
 		<text>Further help is available on the PeerProject web site.</text>
-	</document>-->
-<!--<document name="SearchHelp.AdultSearch">
+	</document>
+	<document name="SearchHelp.AdultSearch">
 		<text format="b">This search cannot be started</text>
 		<newline gap="8"/>
 		<text>The specified search would probably return a large number of results with adult
@@ -2075,15 +2063,15 @@
 		<text>To disable the filter, go into Tools &gt; Settings &gt; General and un-check the
 		adult content filter.</text>
 	</document>
-	<!-- Share help documents -->
-<!--<document name="ShareHelp.AlreadyShared">
+
+	<document name="ShareHelp.AlreadyShared">
 		<text format="b">Already Shared</text>
 		<newline gap="8"/>
 		<text>The folder you have selected is already being shared as part of an existing share.</text>
 		<newline gap="8"/>
 		<text> %s</text>
-	</document>-->
-<!--<document name="ShareHelp.BadShare">
+	</document>
+	<document name="ShareHelp.BadShare">
 		<text format="b">This folder should not be shared</text>
 		<newline gap="8"/>
 		<text>This folder is (or contains) a system folder. Sharing this folder is not
@@ -2096,8 +2084,8 @@
 		<newline gap="8"/>
 		<text>The PeerProject 'incomplete' folder should also not be shared through the
 		library, since attempting to hash downloads in progress may impact on performance.</text>
-	</document>-->
--->
+	</document>
+	-->
 </documents>
 
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->

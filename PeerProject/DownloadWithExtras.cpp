@@ -123,11 +123,8 @@ void CDownloadWithExtras::DeletePreviews()
 		POSITION posRemove = pos;
 		CString strPath = m_pPreviews.GetNext( pos );
 		
-		if ( ::DeleteFile( strPath ) )
-		{
+		if ( DeleteFileEx( strPath, FALSE, FALSE, TRUE ) )
 			m_pPreviews.RemoveAt( posRemove );
-			theApp.WriteProfileString( _T("Delete"), strPath, NULL );
-		}
 	}
 	
 	SetModified();
@@ -430,6 +427,9 @@ void CDownloadWithExtras::OnPreviewRequestComplete(CDownloadTask* pTask)
 {
 	m_bWaitingPreview = FALSE;
 
+	if ( m_sPath.IsEmpty() )
+		return;
+
 	CBuffer* pBuffer = NULL;
 
 	if ( ( pBuffer = pTask->IsPreviewAnswerValid() ) == NULL )
@@ -457,7 +457,7 @@ void CDownloadWithExtras::OnPreviewRequestComplete(CDownloadTask* pTask)
 	}
 
 	CFile pFile;
-	CString strPath = m_sPath + L".png";
+	CString strPath = m_sPath + _T(".png");
 	if ( pFile.Open( strPath, CFile::modeCreate|CFile::modeWrite ) )
 	{
 		pFile.Write( pBuffer2, nImageSize );

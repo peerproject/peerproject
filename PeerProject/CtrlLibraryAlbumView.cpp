@@ -777,7 +777,7 @@ void CLibraryAlbumView::OnMouseMove(UINT nFlags, CPoint point)
 	else
 		m_bDrag = FALSE;
 	
-	// CLibraryFileView::OnMouseMove( nFlags, point );	Overridden below!
+	CLibraryView::OnMouseMove( nFlags, point );
 	
 	CLibraryTipCtrl* pTip = ((CLibraryFrame*)GetOwner())->GetToolTip();
 	CRect rcTrack;

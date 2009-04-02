@@ -56,6 +56,10 @@ CSkin::CSkin()
 	m_pWatermarks.InitHashTable( 31 );
 	m_pLists.InitHashTable( 31 );
 	m_pDialogs.InitHashTable( 127 );
+
+	CreateDefaultColors();
+
+	m_brDialog.CreateSolidBrush( m_crDialog );
 }
 
 CSkin::~CSkin()
@@ -68,10 +72,30 @@ CSkin::~CSkin()
 
 void CSkin::Apply()
 {
+	Clear();
+
+	Settings.General.Language = _T("en");
+
 	CreateDefault();
+
 	ApplyRecursive( L"Languages\\" );
 	ApplyRecursive( NULL );
-	Finalise();
+
+	m_brDialog.CreateSolidBrush( m_crDialog );
+
+	if ( HBITMAP hPanelMark = GetWatermark( _T("CPanelWnd.Caption") ) )
+	{
+		m_bmPanelMark.Attach( hPanelMark );
+	}
+	else if ( m_crPanelBack == RGB( 60, 60, 60 ) )
+	{
+		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );
+	}
+
+	CoolMenu.SetWatermark( GetWatermark( _T("CCoolMenu") ) );
+
+	// Disable Menubar 3D Borders
+	m_bBordersEnabled = CoolInterface.m_crSysBorders != CLR_NONE ? TRUE : FALSE ;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -81,45 +105,45 @@ void CSkin::Clear()
 {
 	CString strName;
 	POSITION pos;
-	
+
 	for ( pos = m_pMenus.GetStartPosition() ; pos ; )
 	{
 		CMenu* pMenu;
 		m_pMenus.GetNextAssoc( pos, strName, pMenu );
 		delete pMenu;
 	}
-	
+
 	for ( pos = m_pToolbars.GetStartPosition() ; pos ; )
 	{
 		CCoolBarCtrl* pBar;
 		m_pToolbars.GetNextAssoc( pos, strName, pBar );
 		delete pBar;
 	}
-	
+
 	for ( pos = m_pDialogs.GetStartPosition() ; pos ; )
 	{
 		CXMLElement* pXML;
 		m_pDialogs.GetNextAssoc( pos, strName, pXML );
 		delete pXML;
 	}
-	
+
 	for ( pos = m_pDocuments.GetStartPosition() ; pos ; )
 	{
 		CXMLElement* pXML;
 		m_pDocuments.GetNextAssoc( pos, strName, pXML );
 		delete pXML;
 	}
-	
+
 	for ( pos = m_pSkins.GetHeadPosition() ; pos ; )
 	{
 		delete m_pSkins.GetNext( pos );
 	}
-	
+
 	for ( pos = m_pFontPaths.GetHeadPosition() ; pos ; )
 	{
 		RemoveFontResourceEx( m_pFontPaths.GetNext( pos ), FR_PRIVATE, NULL );
 	}
-	
+
 	m_pStrings.RemoveAll();
 	m_pControlTips.RemoveAll();
 	m_pMenus.RemoveAll();
@@ -131,9 +155,11 @@ void CSkin::Clear()
 	m_pSkins.RemoveAll();
 	m_pFontPaths.RemoveAll();
 	m_pImages.RemoveAll();
-	
+
 	if ( m_brDialog.m_hObject != NULL ) m_brDialog.DeleteObject();
 	if ( m_bmPanelMark.m_hObject != NULL ) m_bmPanelMark.DeleteObject();
+
+	CoolInterface.Clear();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -143,13 +169,13 @@ BOOL CSkin::SelectCaption(CWnd* pWnd, int nIndex)
 {
 	CString strCaption;
 	pWnd->GetWindowText( strCaption );
-	
+
 	if ( SelectCaption( strCaption, nIndex ) )
 	{
 		pWnd->SetWindowText( strCaption );
 		return TRUE;
 	}
-	
+
 	return FALSE;
 }
 
@@ -167,7 +193,7 @@ BOOL CSkin::SelectCaption(CString& strCaption, int nIndex)
 			return TRUE;
 		}
 	}
-	
+
 	return FALSE;
 }
 
@@ -184,7 +210,7 @@ void CSkin::ApplyRecursive(LPCTSTR pszPath)
 		pszPath ? pszPath : _T("") );
 
 	hSearch = FindFirstFile( strPath, &pFind );
-	
+
 	if ( hSearch != INVALID_HANDLE_VALUE )
 	{
 		do
@@ -224,15 +250,15 @@ BOOL CSkin::LoadFromFile(LPCTSTR pszFile)
 {
 	CXMLElement* pXML = CXMLElement::FromFile( pszFile );
 	if ( pXML == NULL ) return FALSE;
-	
+
 	CString strPath = pszFile;
 	int nSlash = strPath.ReverseFind( '\\' );
 	if ( nSlash >= 0 ) strPath = strPath.Left( nSlash + 1 );
-	
+
 	BOOL bResult = LoadFromXML( pXML, strPath );
-	
+
 	delete pXML;
-	
+
 	return bResult;
 }
 
@@ -241,7 +267,7 @@ BOOL CSkin::LoadFromResource(HINSTANCE hInstance, UINT nResourceID)
 	HMODULE hModule = ( hInstance != NULL ) ? hInstance : GetModuleHandle( NULL );
 	CString strBody( ::LoadHTML( hModule, nResourceID ) );
 	CString strPath;
-	strPath.Format( _T("%Iu$"), reinterpret_cast< HANDLE_PTR >( hModule ) );
+	strPath.Format( _T("%p$"), hModule );
 	return LoadFromString( strBody, strPath );
 }
 
@@ -258,15 +284,19 @@ BOOL CSkin::LoadFromString(const CString& strXML, const CString& strPath)
 
 BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 {
-	if ( ! pXML->IsNamed( _T("skin") ) ) return FALSE;
-	
+	if ( ! pXML->IsNamed( _T("skin") ) )
+	{
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [skin] element"), pXML->ToString() );
+		return FALSE;
+	}
+
 	BOOL bSuccess = FALSE;
-	
+
 	for ( POSITION pos = pXML->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pSub = pXML->GetNextElement( pos );
 		bSuccess = FALSE;
-		
+
 		if ( pSub->IsNamed( _T("commandImages") ) )
 		{
 			if ( ! LoadCommandImages( pSub, strPath ) ) break;
@@ -315,7 +345,7 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 		{
 			if ( ! LoadListColumns( pSub ) ) break;
 		}
-		else if ( pSub->IsNamed( _T("commandMap") ) || pSub->IsNamed( _T("tipMap") ) || 
+		else if ( pSub->IsNamed( _T("commandMap") ) || pSub->IsNamed( _T("tipMap") ) ||
 				  pSub->IsNamed( _T("resourceMap") ) )
 		{
 			if ( ! LoadResourceMap( pSub ) ) break;
@@ -339,30 +369,42 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 			else if ( strType == _T("skin") )
 			{
 				CString strSkinName = pSub->GetAttributeValue( _T("name"), _T("") );
-
-				TRACE( _T("Loading skin: %s\r\n"), strSkinName );
+				theApp.Message( MSG_NOTICE, IDS_SKIN_LOAD, strSkinName );
 			}
 			else
-				ASSERT( FALSE );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [type] attribute in [manifest] element"), pSub->ToString() );
 		}
 		else
-			ASSERT( FALSE );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [skin] element"), pSub->ToString() );
 
 		bSuccess = TRUE;
 	}
 
-	ASSERT( bSuccess );
 	return bSuccess;
 }
 
 //////////////////////////////////////////////////////////////////////
 // CSkin strings
 
-BOOL CSkin::LoadString(CString& str, UINT nStringID)
+void CSkin::AddString(const CString& strString, UINT nStringID)
 {
+	m_pStrings.SetAt( nStringID, strString );
+}
+
+BOOL CSkin::LoadString(CString& str, UINT nStringID) const
+{
+	if ( nStringID < 10 )
+		// Popup menus
+		return FALSE;
+
 	if ( m_pStrings.Lookup( nStringID, str ) ||
 		( IS_INTRESOURCE( nStringID ) && str.LoadString( nStringID ) ) )
 		return TRUE;
+
+#ifdef _DEBUG
+	theApp.Message( MSG_ERROR, _T("Failed to load string %d."), nStringID );
+#endif // _DEBUG
+
 	str.Empty();
 	return FALSE;
 }
@@ -372,34 +414,33 @@ BOOL CSkin::LoadStrings(CXMLElement* pBase)
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
-		
+
 		if ( pXML->IsNamed( _T("string") ) )
 		{
 			if ( UINT nID = LookupCommandID( pXML ) )
 			{
 				CString strValue = pXML->GetAttributeValue( _T("value") );
-				
+
 				for (;;)
 				{
 					int nPos = strValue.Find( _T("\\n") );
 					if ( nPos < 0 ) break;
 					strValue = strValue.Left( nPos ) + _T("\n") + strValue.Mid( nPos + 2 );
 				}
-				
+
 				// Hack for I64 compliance
-				
+
 				if ( nID == IDS_DOWNLOAD_FRAGMENT_REQUEST || nID == IDS_DOWNLOAD_USEFUL_RANGE ||
 					 nID == IDS_UPLOAD_CONTENT || nID == IDS_UPLOAD_PARTIAL_CONTENT ||
 					 nID == IDS_DOWNLOAD_VERIFY_DROP )
 				{
 					strValue.Replace( _T("%lu"), _T("%I64i") );
 				}
-				
+
 				m_pStrings.SetAt( nID, strValue );
 			}
 			else
-				TRACE( _T("LookupCommandID failed in CSkin::LoadStrings for string \"%s\"\r\n"),
-					pXML->GetAttributeValue( _T("id") ) );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [string] element"), pXML->ToString() );
 		}
 		else if ( pXML->IsNamed( _T("tip") ) )
 		{
@@ -411,11 +452,10 @@ BOOL CSkin::LoadStrings(CXMLElement* pBase)
 				m_pStrings.SetAt( nID, strMessage );
 			}
 			else
-				TRACE( _T("LookupCommandID failed in CSkin::LoadStrings for tip \"%s\"\r\n"),
-					pXML->GetAttributeValue( _T("id") ) );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [tip] element"), pXML->ToString() );
 		}
 		else
-			ASSERT( FALSE );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [strings] element"), pXML->ToString() );
 	}
 
 	return TRUE;
@@ -456,10 +496,10 @@ BOOL CSkin::LoadControlTips(CXMLElement* pBase)
 
 CMenu* CSkin::GetMenu(LPCTSTR pszName) const
 {
-	ASSERT( Settings.General.GUIMode == GUI_WINDOWED || 
+	ASSERT( Settings.General.GUIMode == GUI_WINDOWED ||
 		Settings.General.GUIMode == GUI_TABBED ||
 		Settings.General.GUIMode == GUI_BASIC );
-	ASSERT( pszName != NULL ); 
+	ASSERT( pszName != NULL );
 	CString strName( pszName );
 	CMenu* pMenu = NULL;
 	for ( int nModeTry = 0 ;
@@ -468,10 +508,11 @@ CMenu* CSkin::GetMenu(LPCTSTR pszName) const
 		if ( m_pMenus.Lookup( strName +
 			m_pszModeSuffix[ Settings.General.GUIMode ][ nModeTry ], pMenu ) )
 		{
-			ASSERT( pMenu != NULL && ::IsMenu( pMenu->m_hMenu ) );
 			break;
 		}
 	}
+	ASSERT_VALID( pMenu );
+	ASSERT( pMenu->GetMenuItemCount() > 0 );
 	return pMenu;
 }
 
@@ -480,46 +521,63 @@ BOOL CSkin::LoadMenus(CXMLElement* pBase)
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
-		if ( pXML->IsNamed( _T("menu") ) && ! LoadMenu( pXML ) ) return FALSE;
+		if ( pXML->IsNamed( _T("menu") ) )
+		{
+			if ( ! LoadMenu( pXML ) )
+				return FALSE;
+		}
+		else
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [menu] element"), pXML->ToString() );
 	}
-	
+
 	return TRUE;
 }
 
 BOOL CSkin::LoadMenu(CXMLElement* pXML)
 {
 	CString strName = pXML->GetAttributeValue( _T("name") );
-	if ( strName.IsEmpty() ) return FALSE;
-	
-	CMenu* pMenu = NULL;
-	
-	if ( m_pMenus.Lookup( strName, pMenu ) )
+	if ( strName.IsEmpty() )
 	{
-		delete pMenu;
-		m_pMenus.RemoveKey( strName );
-	}
-	
-	pMenu = new CMenu();
-	
-	if ( pXML->GetAttributeValue( _T("type"), _T("popup") ).CompareNoCase( _T("bar") ) == 0 )
-	{
-		pMenu->CreateMenu();
-	}
-	else
-	{
-		pMenu->CreatePopupMenu();
-	}
-	
-	if ( CreateMenu( pXML, pMenu->GetSafeHmenu() ) )
-	{
-		m_pMenus.SetAt( strName, pMenu );
-		return TRUE;
-	}
-	else
-	{
-		delete pMenu;
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("No [name] attribute in [menu] element"), pXML->ToString() );
 		return FALSE;
 	}
+
+	CMenu* pOldMenu = NULL;
+	if ( m_pMenus.Lookup( strName, pOldMenu ) )
+	{
+		ASSERT_VALID( pOldMenu );
+		delete pOldMenu;
+		m_pMenus.RemoveKey( strName );
+	}
+
+	auto_ptr< CMenu > pMenu( new CMenu() );
+	ASSERT_VALID( pMenu.get() );
+	if ( ! pMenu.get() )
+		return FALSE;
+
+	if ( pXML->GetAttributeValue( _T("type"), _T("popup") ).CompareNoCase( _T("bar") ) == 0 )
+	{
+		if( ! pMenu->CreateMenu() )
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Cannot create menu"), pXML->ToString() );
+			return FALSE;
+		}
+	}
+	else
+	{
+		if( ! pMenu->CreatePopupMenu() )
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Cannot create popup menu"), pXML->ToString() );
+			return FALSE;
+		}
+	}
+
+	if ( ! CreateMenu( pXML, pMenu->GetSafeHmenu() ) )
+		return FALSE;
+		
+	m_pMenus.SetAt( strName, pMenu.release() );
+
+	return TRUE;
 }
 
 CMenu* CSkin::CreatePopupMenu(LPCTSTR pszName)
@@ -543,37 +601,41 @@ BOOL CSkin::CreateMenu(CXMLElement* pRoot, HMENU hMenu)
 	{
 		CXMLElement* pXML	= pRoot->GetNextElement( pos );
 		CString strText		= pXML->GetAttributeValue( _T("text") );
-		
+
 		int nAmp = strText.Find( '_' );
 		if ( nAmp >= 0 ) strText.SetAt( nAmp, '&' );
-		
+
 		if ( pXML->IsNamed( _T("item") ) )
 		{
 			if ( UINT nID = LookupCommandID( pXML ) )
 			{
 				CString strKeys = pXML->GetAttributeValue( _T("shortcut") );
-				
+
 				if ( strKeys.GetLength() ) strText += '\t' + strKeys;
-				
+
 				VERIFY( AppendMenu( hMenu, MF_STRING, nID, strText ) );
 			}
+			else
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in menu [item] element"), pXML->ToString() );
 		}
 		else if ( pXML->IsNamed( _T("menu") ) )
 		{
 			HMENU hSubMenu = ::CreatePopupMenu();
-			
+			ASSERT( hSubMenu );
 			if ( ! CreateMenu( pXML, hSubMenu ) )
 			{
 				DestroyMenu( hSubMenu );
 				return FALSE;
 			}
-			
+
 			VERIFY( AppendMenu( hMenu, MF_STRING|MF_POPUP, (UINT_PTR)hSubMenu, strText ) );
 		}
 		else if ( pXML->IsNamed( _T("separator") ) )
 		{
 			VERIFY( AppendMenu( hMenu, MF_SEPARATOR, ID_SEPARATOR, NULL ) );
 		}
+		else
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [menu] element"), pXML->ToString() );
 	}
 
 	return TRUE;
@@ -611,16 +673,16 @@ BOOL CSkin::LoadNavBar(CXMLElement* pBase)
 BOOL CSkin::CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar)
 {
 	if ( pszName == NULL ) return FALSE;
-	
+
 	if (pBar->m_hWnd)
 	for ( CWnd* pChild = pBar->GetWindow( GW_CHILD ) ; pChild ; pChild = pChild->GetNextWindow() )
 	{
 		pChild->ShowWindow( SW_HIDE );
 	}
-	
+
 	CString strPath = pszName;
 	strPath += _T(".Toolbar");
-	
+
 	if ( m_pWatermarks.Lookup( strPath, strPath ) )
 	{
 		HBITMAP hBitmap = LoadBitmap( strPath );
@@ -630,21 +692,21 @@ BOOL CSkin::CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar)
 	{
 		pBar->SetWatermark( NULL );
 	}
-	
+
 	pBar->Clear();
-	
-	ASSERT( Settings.General.GUIMode == GUI_WINDOWED || 
+
+	ASSERT( Settings.General.GUIMode == GUI_WINDOWED ||
 		Settings.General.GUIMode == GUI_TABBED ||
 		Settings.General.GUIMode == GUI_BASIC );
 	LPCTSTR* pszModeSuffix = m_pszModeSuffix[ Settings.General.GUIMode ];
 	CCoolBarCtrl* pBase = NULL;
 	CString strName( pszName );
-	
+
 	for ( int nModeTry = 0 ; nModeTry < 3 && pszModeSuffix[ nModeTry ] ; nModeTry++ )
 	{
 		if ( m_pToolbars.Lookup( strName + pszModeSuffix[ nModeTry ], pBase ) ) break;
 	}
-	
+
 	if ( pBase != NULL )
 	{
 		pBar->Copy( pBase );
@@ -658,7 +720,7 @@ BOOL CSkin::CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar)
 
 CCoolBarCtrl* CSkin::GetToolBar(LPCTSTR pszName) const
 {
-	ASSERT( Settings.General.GUIMode == GUI_WINDOWED || 
+	ASSERT( Settings.General.GUIMode == GUI_WINDOWED ||
 		Settings.General.GUIMode == GUI_TABBED ||
 		Settings.General.GUIMode == GUI_BASIC );
 
@@ -680,10 +742,14 @@ BOOL CSkin::LoadToolbars(CXMLElement* pBase)
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
-		BOOL bToolbar = pXML->IsNamed( _T("toolbar") );
 
-		ASSERT( bToolbar );
-		if ( bToolbar && ! CreateToolBar( pXML ) ) return FALSE;
+		if ( pXML->IsNamed( _T("toolbar") ) )
+		{
+			if ( ! CreateToolBar( pXML ) )
+				return FALSE;
+		}
+		else
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [toolbars] element"), pXML->ToString() );
 	}
 
 	return TRUE;
@@ -703,11 +769,11 @@ CCoolBarCtrl* CSkin::CreateToolBar(LPCTSTR pszName)
 BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 {
 	CCoolBarCtrl* pBar = new CCoolBarCtrl();
-	
+
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
-		
+
 		if ( pXML->IsNamed( _T("button") ) )
 		{
 			if ( UINT nID = LookupCommandID( pXML ) )
@@ -716,7 +782,7 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 				CString strTemp = pXML->GetAttributeValue( _T("color") );
 				if ( ! strTemp )
 					strTemp = pXML->GetAttributeValue( _T("colour") );
-				
+
 				if ( strTemp.GetLength() == 6 )
 				{
 					int nRed, nGreen, nBlue;
@@ -725,15 +791,17 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 					_stscanf( strTemp.Mid( 4, 2 ), _T("%x"), &nBlue );
 					pItem->m_crText = RGB( nRed, nGreen, nBlue );
 				}
-				
+
 				strTemp = pXML->GetAttributeValue( L"tip" );
-				if ( strTemp.GetLength() ) 
+				if ( strTemp.GetLength() )
 					pItem->SetTip( strTemp );
-				
+
 				strTemp = pXML->GetAttributeValue( L"visible", L"true" );
-				if ( strTemp.CompareNoCase( L"false" ) == 0 ) 
+				if ( strTemp.CompareNoCase( L"false" ) == 0 )
 					pItem->Show( FALSE );
 			}
+			else
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [button] element"), pXML->ToString() );
 		}
 		else if ( pXML->IsNamed( _T("separator") ) )
 		{
@@ -747,7 +815,7 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 		{
 			UINT nWidth, nHeight = 0;
 			CString strTemp;
-			
+
 			UINT nID = LookupCommandID( pXML );
 			if ( nID )
 			{
@@ -760,7 +828,7 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 					_stscanf( strTemp, _T("%lu"), &nHeight );
 					pItem = pBar->Add( nID, nWidth, nHeight );
 				}
-				
+
 				if ( pItem )
 				{
 					strTemp = pXML->GetAttributeValue( L"checked", L"false" );
@@ -775,6 +843,9 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 					pItem->SetText( strTemp );
 				}
 			}
+			else
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [control] element"), pXML->ToString() );
+
 		}
 		else if ( pXML->IsNamed( _T("label") ) )
 		{
@@ -782,15 +853,17 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 			pItem->m_crText = 0;
 			pItem->SetTip( pXML->GetAttributeValue( _T("tip") ) );
 		}
+		else
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [toolbar] element"), pXML->ToString() );
 	}
-	
+
 	CString strName = pBase->GetAttributeValue( _T("name") );
-	
+
 	CCoolBarCtrl* pOld = NULL;
 	if ( m_pToolbars.Lookup( strName, pOld ) && pOld ) delete pOld;
-	
+
 	m_pToolbars.SetAt( strName, pBar );
-	
+
 	return TRUE;
 }
 
@@ -802,16 +875,20 @@ BOOL CSkin::LoadDocuments(CXMLElement* pBase)
 	for ( POSITION posDoc = pBase->GetElementIterator() ; posDoc ; )
 	{
 		CXMLElement* pDoc = pBase->GetNextElement( posDoc );
-		if ( ! pDoc->IsNamed( _T("document") ) ) continue;
-		
-		CString strName = pDoc->GetAttributeValue( _T("name") );
-		
-		CXMLElement* pOld = NULL;
-		if ( m_pDocuments.Lookup( strName, pOld ) ) delete pOld;
-		
-		m_pDocuments.SetAt( strName, pDoc->Detach() );
+
+		if ( pDoc->IsNamed( _T("document") ) )
+		{
+			CString strName = pDoc->GetAttributeValue( _T("name") );
+
+			CXMLElement* pOld = NULL;
+			if ( m_pDocuments.Lookup( strName, pOld ) ) delete pOld;
+
+			m_pDocuments.SetAt( strName, pDoc->Detach() );
+		}
+		else
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [documents] element"), pDoc->ToString() );
 	}
-	
+
 	return TRUE;
 }
 
@@ -820,7 +897,7 @@ CXMLElement* CSkin::GetDocument(LPCTSTR pszName)
 	CXMLElement* pXML = NULL;
 
 	if ( m_pDocuments.Lookup( pszName, pXML ) ) return pXML;
-	
+
 	return NULL;
 }
 
@@ -848,18 +925,22 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 	for ( POSITION posMark = pSub->GetElementIterator() ; posMark ; )
 	{
 		CXMLElement* pMark = pSub->GetNextElement( posMark );
-	
+
 		if ( pMark->IsNamed( _T("watermark") ) )
 		{
 			CString strName	= pMark->GetAttributeValue( _T("target") );
 			CString strFile	= pMark->GetAttributeValue( _T("path") );
-			
+
 			if ( strName.GetLength() && strFile.GetLength() )
 			{
 				strFile = strPath + strFile;
 				m_pWatermarks.SetAt( strName, strFile );
 			}
+			else
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Missed [target] and/or [path] attributes in [watermark] element"), pMark->ToString() );
 		}
+		else
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [watermarks] element"), pMark->ToString() );
 	}
 
 	return TRUE;
@@ -876,8 +957,8 @@ BOOL CSkin::Translate(LPCTSTR pszName, CHeaderCtrl* pCtrl)
 
 	TCHAR szColumn[128] = {};
 	HD_ITEM pColumn = {};
-	
-	if ( Settings.General.LanguageRTL ) 
+
+	if ( Settings.General.LanguageRTL )
 		pCtrl->ModifyStyleEx( 0, WS_EX_LAYOUTRTL, 0 );
 	pColumn.mask		= HDI_TEXT;
 	pColumn.pszText		= szColumn;
@@ -910,7 +991,7 @@ BOOL CSkin::Translate(LPCTSTR pszName, CHeaderCtrl* pCtrl)
 CString CSkin::GetHeaderTranslation(LPCTSTR pszClassName, LPCTSTR pszHeaderName)
 {
 	CString strEdit;
-	if ( ! m_pLists.Lookup( pszClassName, strEdit ) ) 
+	if ( ! m_pLists.Lookup( pszClassName, strEdit ) )
 		return CString( pszHeaderName );
 
 	CString strOriginal( pszHeaderName );
@@ -932,30 +1013,36 @@ BOOL CSkin::LoadListColumns(CXMLElement* pBase)
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
-		if ( ! pXML->IsNamed( _T("list") ) ) continue;
 
-		CString strName = pXML->GetAttributeValue( _T("name") );
-		if ( strName.IsEmpty() ) continue;
-
-		CString strEdit;
-
-		for ( POSITION posCol = pXML->GetElementIterator() ; posCol ; )
+		if ( pXML->IsNamed( _T("list") ) )
 		{
-			CXMLElement* pCol = pXML->GetNextElement( posCol );
-			if ( ! pCol->IsNamed( _T("column") ) ) continue;
-			
-			CString strFrom	= pCol->GetAttributeValue( _T("from") );
-			CString strTo	= pCol->GetAttributeValue( _T("to") );
+			CString strName = pXML->GetAttributeValue( _T("name") );
+			if ( strName.IsEmpty() ) continue;
 
-			if ( strFrom.IsEmpty() || strTo.IsEmpty() ) continue;
-			
-			if ( strEdit.GetLength() ) strEdit += '|';
-			strEdit += strFrom;
-			strEdit += '=';
-			strEdit += strTo;
+			CString strEdit;
+			for ( POSITION posCol = pXML->GetElementIterator() ; posCol ; )
+			{
+				CXMLElement* pCol = pXML->GetNextElement( posCol );
+				if ( pCol->IsNamed( _T("column") ) )
+				{
+					CString strFrom	= pCol->GetAttributeValue( _T("from") );
+					CString strTo	= pCol->GetAttributeValue( _T("to") );
+
+					if ( strFrom.IsEmpty() || strTo.IsEmpty() ) continue;
+
+					if ( strEdit.GetLength() ) strEdit += '|';
+					strEdit += strFrom;
+					strEdit += '=';
+					strEdit += strTo;
+				}
+				else
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [list] element"), pCol->ToString() );
+			}
+
+			m_pLists.SetAt( strName, strEdit );
 		}
-
-		m_pLists.SetAt( strName, strEdit );
+		else
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [listColumns] element"), pXML->ToString() );
 	}
 
 	return TRUE;
@@ -970,18 +1057,17 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 	{
 		CoolInterface.SetIcon( nIconID, FALSE, FALSE, pDialog );
 	}
-	
+
 	CString strName;
 
 	if ( pszName == NULL )
 		strName = pDialog->GetRuntimeClass()->m_lpszClassName;
 	else
 		strName = pszName;
-	
-	CWnd* pWnd = pDialog->GetWindow( GW_CHILD );
+
 	CString strCaption, strTip;
-	
-	for ( int nCount = 0 ; pWnd ; nCount++, pWnd = pWnd->GetNextWindow() )
+
+	for ( CWnd* pWnd = pDialog->GetWindow( GW_CHILD ) ; pWnd ; pWnd = pWnd->GetNextWindow() )
 	{
 		TCHAR szClass[3] = { 0, 0, 0 };
 		LoadControlTip( strTip, pWnd->GetDlgCtrlID() );
@@ -992,13 +1078,20 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 		}
 
 		GetClassName( pWnd->GetSafeHwnd(), szClass, 3 );
+		
+		// Skip added banner
+		if ( _tcsnicmp( szClass, _T("St"), 3 ) == 0 &&
+			IDC_BANNER == pWnd->GetDlgCtrlID() &&
+			pWnd->GetNextWindow() == NULL )
+			break;
+
 		strCaption += szClass;
 	}
-	
-	if ( theApp.GetProfileInt( _T(""), _T("DialogScan"), FALSE ) )
+
+	if ( Settings.General.DialogScan )
 	{
 		CFile pFile;
-		
+
 		if ( pFile.Open( _T("\\Dialog.xml"), CFile::modeReadWrite ) )
 		{
 			pFile.Seek( 0, CFile::end );
@@ -1040,13 +1133,19 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 
 		pFile.Write( "\">\r\n", 4 );
 
-		for ( pWnd = pDialog->GetWindow( GW_CHILD ) ; pWnd ; pWnd = pWnd->GetNextWindow() )
+		for ( CWnd* pWnd = pDialog->GetWindow( GW_CHILD ) ; pWnd ; pWnd = pWnd->GetNextWindow() )
 		{
 			TCHAR szClass[64];
-			
+
 			GetClassName( pWnd->GetSafeHwnd(), szClass, 64 );
 			strCaption.Empty();
-			
+
+			// Skip added banner- Todo: Remove this
+			if ( _tcsnicmp( szClass, _T("St"), 3 ) == 0 &&
+				IDC_BANNER == pWnd->GetDlgCtrlID() &&
+				pWnd->GetNextWindow() == NULL )
+				break;
+
 			if ( _tcsistr( szClass, _T("Static") ) ||
 				 _tcsistr( szClass, _T("Button") ) )
 			{
@@ -1076,7 +1175,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 					strCaption += strTemp;
 				}
 			}
-			
+
 			if ( strCaption.GetLength() )
 			{
 				strCaption.Replace( _T("\n"), _T("{n}") );
@@ -1092,30 +1191,36 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 				pFile.Write( pBytes, nBytes );
 				delete [] pBytes;
 
-        		pFile.Write( "\"/>\r\n", 5 );
+				pFile.Write( "\"/>\r\n", 5 );
 			}
 			else
 			{
 				pFile.Write( "\t\t<control/>\r\n", 10+4 );
 			}
 		}
-		
+
 		pFile.Write( "\t</dialog>\r\n", 12 );
 		pFile.Close();
-		
+
 		return TRUE;
 	}
-	
+
 	CXMLElement* pBase = NULL;
-	if ( ! m_pDialogs.Lookup( strName, pBase ) ) return FALSE;
-	
-	if ( strCaption != pBase->GetAttributeValue( _T("cookie") ) ) return FALSE;
-	
+	if ( ! m_pDialogs.Lookup( strName, pBase ) )
+		// Naked dialog
+		return FALSE;
+
+	if ( strCaption != pBase->GetAttributeValue( _T("cookie") ) )
+	{
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Invalid [cookie] attribute in [dialog] element"), pBase->ToString() );
+		return FALSE;
+	}
+
 	strCaption = pBase->GetAttributeValue( _T("caption") );
 	if ( strCaption.GetLength() ) pDialog->SetWindowText( strCaption );
-	
-	pWnd = pDialog->GetWindow( GW_CHILD );
-	
+
+	CWnd* pWnd = pDialog->GetWindow( GW_CHILD );
+
 	for ( POSITION pos = pBase->GetElementIterator() ; pos && pWnd ; )
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
@@ -1124,7 +1229,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 		GetClassName( pWnd->GetSafeHwnd(), szClass, 3 );
 
 		// Needed for some controls like Schema combo box
-		if ( Settings.General.LanguageRTL && (CString)szClass != "Ed" ) 
+		if ( Settings.General.LanguageRTL && (CString)szClass != "Ed" )
 			pWnd->ModifyStyleEx( 0, WS_EX_LAYOUTRTL|WS_EX_RTLREADING, 0 );
 
 		if ( pXML->IsNamed( _T("control") ) )
@@ -1137,9 +1242,9 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 			}
 
 			strCaption.Replace( _T("{n}"), _T("\r\n") );
-			
+
 			if ( strCaption.GetLength() )
-			{	
+			{
 				if ( (CString) szClass != "Co" )
 				{
 					int nPos = strCaption.Find( '_' );
@@ -1155,7 +1260,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 					Split( strCaption, _T('|'), pItems, TRUE );
 					CComboBox* pCombo = (CComboBox*) pWnd;
 					nNum = pCombo->GetCount();
-					if ( nNum == pItems.GetSize() ) 
+					if ( nNum == pItems.GetSize() )
 					{
 						for ( int nCount = 0; nCount < nNum; nCount++ )
 						{
@@ -1166,11 +1271,11 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 					}
 				}
 			}
-			
+
 			pWnd = pWnd->GetNextWindow();
 		}
 	}
-	
+
 	return TRUE;
 }
 
@@ -1178,12 +1283,12 @@ CString CSkin::GetDialogCaption(LPCTSTR pszName)
 {
 	CXMLElement* pBase = NULL;
 	CString strCaption;
-	
+
 	if ( m_pDialogs.Lookup( pszName, pBase ) )
 	{
 		strCaption = pBase->GetAttributeValue( _T("caption") );
 	}
-	
+
 	return strCaption;
 }
 
@@ -1203,6 +1308,8 @@ BOOL CSkin::LoadDialogs(CXMLElement* pBase)
 			pXML->Detach();
 			m_pDialogs.SetAt( strName, pXML );
 		}
+		else
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [dialogs] element"), pXML->ToString() );
 	}
 
 	return TRUE;
@@ -1215,24 +1322,24 @@ CSkinWindow* CSkin::GetWindowSkin(LPCTSTR pszWindow, LPCTSTR pszAppend)
 {
 	CString strWindow;
 	strWindow.Format( _T("|%s%s|"), pszWindow, pszAppend ? pszAppend : _T("") );
-	
+
 	for ( POSITION pos = m_pSkins.GetHeadPosition() ; pos ; )
 	{
 		CSkinWindow* pSkin = m_pSkins.GetNext( pos );
 		if ( pSkin->m_sTargets.Find( strWindow ) >= 0 ) return pSkin;
 	}
-	
+
 	return NULL;
 }
 
 CSkinWindow* CSkin::GetWindowSkin(CWnd* pWnd)
 {
-	ASSERT( Settings.General.GUIMode == GUI_WINDOWED || 
+	ASSERT( Settings.General.GUIMode == GUI_WINDOWED ||
 		Settings.General.GUIMode == GUI_TABBED ||
 		Settings.General.GUIMode == GUI_BASIC );
 	LPCTSTR* pszModeSuffix = m_pszModeSuffix[ Settings.General.GUIMode ];
 	BOOL bPanel = FALSE;
-	
+
 	ASSERT(pWnd != NULL);
 
 	if ( pWnd->IsKindOf( RUNTIME_CLASS(CChildWnd) ) )
@@ -1251,7 +1358,7 @@ CSkinWindow* CSkin::GetWindowSkin(CWnd* pWnd)
 			CSkinWindow* pSkin = GetWindowSkin( CString( pClass->m_lpszClassName ), _T(".Panel") );
 			if ( pSkin != NULL ) return pSkin;
 		}
-		
+
 		for ( int nSuffix = 0 ; nSuffix < 3 && pszModeSuffix[ nSuffix ] != NULL ; nSuffix ++ )
 		{
 			if ( pszModeSuffix[ nSuffix ][0] != 0 || ! bPanel )
@@ -1262,7 +1369,7 @@ CSkinWindow* CSkin::GetWindowSkin(CWnd* pWnd)
 			}
 		}
 	}
-	
+
 	return NULL;
 }
 
@@ -1271,11 +1378,11 @@ BOOL CSkin::LoadWindowSkins(CXMLElement* pSub, const CString& strPath)
 	for ( POSITION posSkin = pSub->GetElementIterator() ; posSkin ; )
 	{
 		CXMLElement* pSkinElement = pSub->GetNextElement( posSkin );
-		
+
 		if ( pSkinElement->IsNamed( _T("windowSkin") ) )
 		{
 			CSkinWindow* pSkin = new CSkinWindow();
-			
+
 			if ( pSkin->Parse( pSkinElement, strPath ) )
 			{
 				m_pSkins.AddHead( pSkin );
@@ -1285,8 +1392,10 @@ BOOL CSkin::LoadWindowSkins(CXMLElement* pSub, const CString& strPath)
 				delete pSkin;
 			}
 		}
+		else
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [windowSkins] element"), pSkinElement->ToString() );
 	}
-	
+
 	return TRUE;
 }
 
@@ -1318,7 +1427,7 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("tooltip.text"), &CoolInterface.m_crTipText );
 	pColors.SetAt( _T("tooltip.border"), &CoolInterface.m_crTipBorder );
 	pColors.SetAt( _T("tooltip.warnings"), &CoolInterface.m_crTipWarnings );
-	
+
 	pColors.SetAt( _T("taskpanel.back"), &CoolInterface.m_crTaskPanelBack );
 	pColors.SetAt( _T("taskbox.caption.back"), &CoolInterface.m_crTaskBoxCaptionBack );
 	pColors.SetAt( _T("taskbox.caption.text"), &CoolInterface.m_crTaskBoxCaptionText );
@@ -1326,7 +1435,7 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("taskbox.primary.text"), &CoolInterface.m_crTaskBoxPrimaryText );
 	pColors.SetAt( _T("taskbox.caption.hover"), &CoolInterface.m_crTaskBoxCaptionHover );
 	pColors.SetAt( _T("taskbox.client"), &CoolInterface.m_crTaskBoxClient );
-	
+
 	pColors.SetAt( _T("dialog.back"), &m_crDialog );
 	pColors.SetAt( _T("panel.caption.back"), &m_crPanelBack );
 	pColors.SetAt( _T("panel.caption.text"), &m_crPanelText );
@@ -1459,46 +1568,52 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("navbar.outline.checked"), &m_crNavBarOutlineChecked );
 
 	BOOL bSystem = FALSE, bNonBase = FALSE;
-	
+
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
-		if ( ! pXML->IsNamed( _T("color") ) && ! pXML->IsNamed( _T("colour") ) ) continue;
-
-		CString strName		= pXML->GetAttributeValue( _T("name") );
-		CString strValue	= pXML->GetAttributeValue( _T("value") );
-		ToLower( strName );
-
-		COLORREF* pColor;
-
-		if ( pColors.Lookup( strName, (void*&)pColor ) )
+		if ( pXML->IsNamed( _T("color") ) ||
+			 pXML->IsNamed( _T("colour") ) )
 		{
-			if ( strValue.GetLength() == 6 )
+			CString strName		= pXML->GetAttributeValue( _T("name") );
+			CString strValue	= pXML->GetAttributeValue( _T("value") );
+			ToLower( strName );
+
+			COLORREF* pColor;
+
+			if ( pColors.Lookup( strName, (void*&)pColor ) )
 			{
-				int nRed, nGreen, nBlue;
-
-				_stscanf( strValue.Mid( 0, 2 ), _T("%x"), &nRed );
-				_stscanf( strValue.Mid( 2, 2 ), _T("%x"), &nGreen );
-				_stscanf( strValue.Mid( 4, 2 ), _T("%x"), &nBlue );
-
-				if ( strName.Find( _T("system.") ) >= 0 )
+				if ( strValue.GetLength() == 6 )
 				{
-					bSystem = TRUE;
+					int nRed, nGreen, nBlue;
 
-					if ( ! bNonBase && strName.Find( _T(".base.") ) < 0 )
+					_stscanf( strValue.Mid( 0, 2 ), _T("%x"), &nRed );
+					_stscanf( strValue.Mid( 2, 2 ), _T("%x"), &nGreen );
+					_stscanf( strValue.Mid( 4, 2 ), _T("%x"), &nBlue );
+
+					if ( strName.Find( _T("system.") ) >= 0 )
 					{
-						bNonBase = TRUE;
-						CoolInterface.CalculateColors( TRUE );
-					}
-				}
+						bSystem = TRUE;
 
-				*pColor = RGB( nRed, nGreen, nBlue );
+						if ( ! bNonBase && strName.Find( _T(".base.") ) < 0 )
+						{
+							bNonBase = TRUE;
+							CoolInterface.CalculateColors( TRUE );
+						}
+					}
+
+					*pColor = RGB( nRed, nGreen, nBlue );
+				}
+				else if ( strValue.GetLength() == 0 )
+				{
+					*pColor = CLR_NONE;
+				}
 			}
-			else if ( strValue.GetLength() == 0 )
-			{
-				*pColor = CLR_NONE;
-			}
+			else
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [name] attribute in [colorScheme] element"), pXML->ToString() );
 		}
+		else
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [colorScheme] element"), pXML->ToString() );
 	}
 
 	if ( bSystem && ! bNonBase ) CoolInterface.CalculateColors( TRUE );
@@ -1523,7 +1638,9 @@ BOOL CSkin::LoadResourceMap(CXMLElement* pBase)
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
 
-		if ( pXML->IsNamed( L"command" ) || pXML->IsNamed( L"control" ) || pXML->IsNamed( L"resource" ) )
+		if ( pXML->IsNamed( L"command" ) ||
+			 pXML->IsNamed( L"control" ) ||
+			 pXML->IsNamed( L"resource" ) )
 		{
 			CString strTemp = pXML->GetAttributeValue( _T("code") );
 			UINT nID;
@@ -1533,6 +1650,8 @@ BOOL CSkin::LoadResourceMap(CXMLElement* pBase)
 
 			CoolInterface.NameCommand( nID, pXML->GetAttributeValue( _T("id") ) );
 		}
+		else
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [...Map] element"), pXML->ToString() );
 	}
 
 	return TRUE;
@@ -1546,7 +1665,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
-		
+
 		if ( pXML->IsNamed( _T("font") ) )
 		{
 			CString strName		= pXML->GetAttributeValue( _T("name") );
@@ -1554,7 +1673,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 			CString strFace		= pXML->GetAttributeValue( _T("face") );
 			CString strSize		= pXML->GetAttributeValue( _T("size") );
 			CString strWeight	= pXML->GetAttributeValue( _T("weight") );
-			
+
 			if ( ( Settings.General.Language.CompareNoCase( strLanguage ) == 0 ) ||
 				 strLanguage.IsEmpty() )
 			{
@@ -1580,7 +1699,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				{
 					continue;
 				}
-				
+
 				if ( pFont->m_hObject ) pFont->DeleteObject();
 
 				if ( strWeight.CompareNoCase( _T("bold") ) == 0 )
@@ -1594,7 +1713,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				_stscanf( strWeight, _T("%i"), &nFontWeight );
 
 				pFont->CreateFontW( -nFontSize, 0, 0, 0, nFontWeight, FALSE, FALSE, FALSE,
-					DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, 
+					DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
 					theApp.m_bIsVistaOrNewer ? DEFAULT_QUALITY : ANTIALIASED_QUALITY,
 					DEFAULT_PITCH|FF_DONTCARE, strFace );
 
@@ -1604,7 +1723,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 					if ( pFont->m_hObject ) pFont->DeleteObject();
 
 					pFont->CreateFontW( -nFontSize, 0, 0, 0, nFontWeight, FALSE, TRUE, FALSE,
-							DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, 
+							DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
 							theApp.m_bIsVistaOrNewer ? DEFAULT_QUALITY : ANTIALIASED_QUALITY,
 							DEFAULT_PITCH|FF_DONTCARE, strFace );
 
@@ -1612,7 +1731,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 					if ( pFont->m_hObject ) pFont->DeleteObject();
 
 					pFont->CreateFontW( -nFontSize, 0, 0, 0, nFontWeight, TRUE, FALSE, FALSE,
-							DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, 
+							DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
 							theApp.m_bIsVistaOrNewer ? DEFAULT_QUALITY : ANTIALIASED_QUALITY,
 							DEFAULT_PITCH|FF_DONTCARE, strFace );
 				}
@@ -1622,7 +1741,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 					if ( pFont->m_hObject ) pFont->DeleteObject();
 
 					pFont->CreateFontW( -nFontSize, 0, 0, 0, nFontWeight, TRUE, FALSE, FALSE,
-							DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, 
+							DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
 							theApp.m_bIsVistaOrNewer ? DEFAULT_QUALITY : ANTIALIASED_QUALITY,
 							DEFAULT_PITCH|FF_DONTCARE, strFace );
 				}
@@ -1631,14 +1750,18 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 		else if ( pXML->IsNamed( _T("import") ) )
 		{
 			CString strFile = strPath + pXML->GetAttributeValue( _T("path") );
-			
+
 			BOOL bSuccess = AddFontResourceEx( strFile, FR_PRIVATE, NULL );
-			
+
 			if ( bSuccess )
 				m_pFontPaths.AddTail( strFile );
+			else
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed to import font"), pXML->ToString() );
 		}
+		else
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [fonts] element"), pXML->ToString() );
 	}
-	
+
 	return TRUE;
 }
 
@@ -1658,20 +1781,21 @@ BOOL CSkin::LoadCommandImages(CXMLElement* pBase, const CString& strPath)
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
-		
+
 		if ( pXML->IsNamed( _T("icon") ) )
 		{
-			LoadCommandIcon( pXML, strPath );
+			if ( ! LoadCommandIcon( pXML, strPath ) )
+				return FALSE;
 		}
 		else if ( pXML->IsNamed( _T("bitmap") ) )
 		{
-			LoadCommandBitmap( pXML, strPath );
+			if ( ! LoadCommandBitmap( pXML, strPath ) )
+				return FALSE;
 		}
 		else
-			TRACE( _T("Unknown tag \"%s\" inside \"%s\" in CSkin::LoadCommandImages\r\n"),
-				pXML->GetName(), pBase->GetName() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [commandImages] element"), pXML->ToString() );
 	}
-	
+
 	return TRUE;
 }
 
@@ -1686,13 +1810,14 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 		pXML->GetAttributeValue( _T("path") );
 
 	UINT nIconID = LookupCommandID( pXML, _T("res") );
-	HINSTANCE hInstance = (HINSTANCE)(__int64)( nIconID ? _tstol( strPath ) : NULL );
+	HINSTANCE hInstance( NULL );
+	if ( nIconID )
+		_stscanf( strPath, _T("%p"), &hInstance );
 
 	UINT nID = LookupCommandID( pXML );
 	if ( nID == 0 )
 	{
-		TRACE( _T("Icon \"%s\" has unknown ID \"%s\" in CSkin::LoadCommandIcon\r\n"),
-			strFile, pXML->GetAttributeValue( _T("id") ) );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [icon] element"), pXML->ToString() );
 		return FALSE;
 	}
 
@@ -1702,7 +1827,7 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 	// Icon types (default: "16" - 16x16 icon only)
 	CString strTypes = pXML->GetAttributeValue( _T("types"), _T("16") );
 	int curPos = 0;
-	CString strSize; 
+	CString strSize;
 	while ( ( strSize = strTypes.Tokenize( _T(","), curPos ) ).GetLength() )
 	{
 		int cx = _tstoi( strSize );
@@ -1719,8 +1844,7 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 			nType = LVSIL_BIG;
 			break;
 		default:
-			TRACE( _T("Icon \"%s\" has invalid size \"%s\" in CSkin::LoadCommandIcon\r\n"),
-				strFile, strSize );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Icon has invalid size"), pXML->ToString() );
 			return FALSE;
 		}
 
@@ -1749,8 +1873,7 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 		}
 		else
 		{
-			TRACE( _T("Icon \"%s\" (%dx%d) failed to load in CSkin::LoadCommandIcon\r\n"),
-				strFile, cx, cx );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed to load icon"), pXML->ToString() );
 			return FALSE;
 		}
 	}
@@ -1781,16 +1904,14 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 	}
 	else
 	{
-		TRACE( _T("Bitmap \"%s\" has invalid mask \"%s\" in CSkin::LoadCommandBitmap\r\n"),
-			strFile, strMask );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Image has invalid mask"), pBase->ToString() );
 		return FALSE;
 	}
 
 	HBITMAP hBitmap = LoadBitmap( strFile );
 	if ( hBitmap == NULL )
 	{
-		TRACE( _T("Bitmap \"%s\" failed to load in CSkin::LoadCommandBitmap\r\n"),
-			strFile );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed to load image"), pBase->ToString() );
 		return FALSE;
 	}
 	if ( Settings.General.LanguageRTL )
@@ -1800,8 +1921,7 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 	DeleteObject( hBitmap );
 	if ( ! bResult )
 	{
-		TRACE( _T("Bitmap \"%s\" failed to add in CSkin::LoadCommandBitmap\r\n"),
-			strFile );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed to add image"), pBase->ToString() );
 		return FALSE;
 	}
 
@@ -1813,26 +1933,59 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 
 void CSkin::CreateDefault()
 {
-	// Clear
-	
-	Clear();
-	
-	Settings.General.Language = _T("en");
-	
-	// Base UI
-	
-	CoolInterface.Clear();
+	CreateDefaultColors();
+
 	CoolInterface.CreateFonts();
+
+	m_rcNavBarOffset = CRect( 0, 0, 0, 0 );
+
+	// Command Icons
+
+	HICON hIcon = theApp.LoadIcon( IDI_CHECKMARK );
+	if ( hIcon )
+	{
+		if ( Settings.General.LanguageRTL ) hIcon = CreateMirroredIcon( hIcon );
+		CoolInterface.AddIcon( ID_CHECKMARK, hIcon );
+		VERIFY( DestroyIcon( hIcon ) );
+	}
+
+	// Load Definitions
+
+	LoadFromResource( NULL, IDR_XML_DEFINITIONS );
+	LoadFromResource( NULL, IDR_XML_DEFAULT );
+
+	// Copying
+	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_GUIDE );
+	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_UPDATE );
+
+	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_1 );
+	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_2 );
+	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_3 );
+	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_4 );
+	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_5 );
+	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_6 );
+
+	// Plugins
+	Plugins.RegisterCommands();
+	Plugins.OnSkinChanged();
+}
+
+void CSkin::CreateDefaultColors()
+{
 	CoolInterface.CalculateColors( FALSE );
-	
-	// Color Scheme
-	
-	m_crDialog					= CoolInterface.GetDialogBkColor();
+
+	// Colour Scheme
+
+	m_crDialog					= CoolInterface.CalculateColor(
+		GetSysColor( COLOR_BTNFACE ), GetSysColor( COLOR_WINDOW ), 200 );
+
 	m_crPanelBack				= RGB( 60, 60, 60 );
 	m_crPanelText				= RGB( 255, 255, 255 );
 	m_crPanelBorder				= RGB( 0, 0, 0 );
+
 	m_crBannerBack				= RGB( 122, 161, 230 );
 	m_crBannerText				= RGB( 250, 250, 255 );
+
 	m_crSchemaRow[0]			= RGB( 245, 245, 255 );
 	m_crSchemaRow[1]			= RGB( 214, 223, 247 );
 
@@ -1853,62 +2006,6 @@ void CSkin::CreateDefault()
 	m_crNavBarOutlineDown		= m_crNavBarOutline;
 	m_crNavBarOutlineHover		= m_crNavBarOutline;
 	m_crNavBarOutlineChecked	= m_crNavBarOutline;
-	m_rcNavBarOffset			= CRect( 0, 0, 0, 0 );
-
-	// Command Icons
-	
-	HICON hIcon = theApp.LoadIcon( IDI_CHECKMARK );
-	if ( hIcon )
-	{
-		if ( Settings.General.LanguageRTL ) hIcon = CreateMirroredIcon( hIcon );
-		CoolInterface.AddIcon( ID_CHECKMARK, hIcon );
-		VERIFY( DestroyIcon( hIcon ) );
-	}
-	
-	// Default Menu
-	
-	CMenu* pMenuBar = new CMenu();
-	pMenuBar->LoadMenu( IDR_MAINFRAME );
-	m_pMenus.SetAt( _T("CMainWnd"), pMenuBar );
-	
-	// Load Definitions
-	
-	LoadFromResource( NULL, IDR_XML_DEFINITIONS );
-	LoadFromResource( NULL, IDR_XML_DEFAULT );
-	
-	// Copying
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_GUIDE );
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_UPDATE );
-	
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_1 );
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_2 );
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_3 );
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_4 );
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_5 );
-	CoolInterface.CopyIcon( ID_HELP_FAQ, ID_HELP_WEB_6 );
-	
-	// Plugins
-	Plugins.RegisterCommands();
-	Plugins.OnSkinChanged();
-}
-
-void CSkin::Finalise()
-{
-	m_brDialog.CreateSolidBrush( m_crDialog );
-	
-	if ( HBITMAP hPanelMark = GetWatermark( _T("CPanelWnd.Caption") ) )
-	{
-		m_bmPanelMark.Attach( hPanelMark );
-	}
-	else if ( m_crPanelBack == RGB( 60, 60, 60 ) )
-	{
-		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );
-	}
-	
-	CoolMenu.SetWatermark( GetWatermark( _T("CCoolMenu") ) );
-
-	// Disable Menubar 3D Borders
-	m_bBordersEnabled = CoolInterface.m_crSysBorders != CLR_NONE ? TRUE : FALSE ;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1918,7 +2015,8 @@ UINT_PTR CSkin::TrackPopupMenu(LPCTSTR pszMenu, const CPoint& point,
 	UINT nDefaultID, UINT nFlags, const CStringList& oFiles, CWnd* pWnd) const
 {
 	CMenu* pPopup = GetMenu( pszMenu );
-	if ( pPopup == NULL ) return 0;
+	if ( pPopup == NULL )
+		return 0;
 
 	if ( nDefaultID != 0 )
 	{
@@ -2064,7 +2162,7 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 				str = str + _T(" ");
 				str = str.Right( nTestStart );
 			}
-			else if ( pszSource[ nTestStart - 1 ] == ' ' || 
+			else if ( pszSource[ nTestStart - 1 ] == ' ' ||
 					  (unsigned short)pszSource[ nTestStart - 1 ] == 160 )
 			{
 				str = _T(" ") + str;
@@ -2075,13 +2173,13 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 		nLenFull = static_cast< unsigned short >( nTestStart );
 		pszText += nTestStart;
 	}
-	else 
+	else
 		pszSource = (TCHAR*)pszText;
 
 	pszWord = pszSource;
 	pszScan = pszSource;
 
-	if ( !bNormalFlow ) 
+	if ( !bNormalFlow )
 	{
 		if ( ( bIsRTLStart != FALSE ) != Settings.General.LanguageRTL )
 			pDC->SetTextAlign( nAlignOptionsOld ^ TA_RTLREADING );
@@ -2107,11 +2205,11 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 				// Add extra point in x-axis; it cuts off the 1st word character otherwise
 				const short nExtraPoint = ( Settings.General.LanguageRTL ) ? 1 : 0;
 				CRect rc( ptStart.x, ptStart.y, ptStart.x + sz.cx + nExtraPoint, ptStart.y + sz.cy );
-				
+
 				pDC->ExtTextOut( ptStart.x, ptStart.y, nFlags, &rc,
 					pszScan, nLen, NULL );
 				if ( bExclude ) pDC->ExcludeClipRect( &rc );
-				
+
 				ptStart.x += sz.cx + nExtraPoint;
 				pBox->top = ptStart.y + sz.cy;
 			}
@@ -2124,7 +2222,7 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 		{
 			if ( *pszScan != NULL && (unsigned short)*pszScan > 32 &&
 				 (unsigned short)*pszScan != 160 ) continue;
-			
+
 			if ( pszWord <= pszScan )
 			{
 				int nLen = static_cast< int >( pszScan - pszWord + ( *pszScan ? 1 : 0 ) );
@@ -2144,7 +2242,7 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 				pDC->ExtTextOut( ptStart.x, ptStart.y, nFlags, &rc,
 					pszWord, nLen, NULL );
 				if ( bExclude ) pDC->ExcludeClipRect( &rc );
-				
+
 				ptStart.x += sz.cx + nExtraPoint;
 				pBox->top = ptStart.y + sz.cy;
 			}
@@ -2166,19 +2264,22 @@ HBITMAP CSkin::LoadBitmap(CString& strName)
 {
 	CImageFile pFile;
 	int nPos = strName.Find( '$' );
-	
+
 	if ( nPos < 0 )
 	{
 		pFile.LoadFromFile( strName );
 	}
 	else
 	{
-		HINSTANCE hInstance = NULL;
-		UINT nID = 0;
-		
-		if ( _stscanf( strName.Left( nPos ), _T("%lu"), &hInstance ) != 1 ) return NULL;
-		if ( _stscanf( strName.Mid( nPos + 1 ), _T("%lu"), &nID ) != 1 ) return NULL;
-		
+		HINSTANCE hInstance( NULL );
+		UINT nID( 0u );
+
+		if ( _stscanf( strName, _T("%p"), &hInstance ) != 1 )
+			return NULL;
+
+		if ( _stscanf( strName.Mid( nPos + 1 ), _T("%lu"), &nID ) != 1 )
+			return NULL;
+
 		if ( LPCTSTR pszType = _tcsrchr( strName, '.' ) )
 		{
 			pszType ++;
@@ -2189,7 +2290,7 @@ HBITMAP CSkin::LoadBitmap(CString& strName)
 			return (HBITMAP)LoadImage( hInstance, MAKEINTRESOURCE(nID), IMAGE_BITMAP, 0, 0, 0 );
 		}
 	}
-	
+
 	return pFile.EnsureRGB() ? pFile.CreateBitmap() : NULL;
 }
 

@@ -36,12 +36,13 @@
 #include "WndSearch.h"
 #include "WndBrowseHost.h"
 
-
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
+
+IMPLEMENT_DYNCREATE(CWindowManager, CWnd)
 
 BEGIN_MESSAGE_MAP(CWindowManager, CWnd)
 	//{{AFX_MSG_MAP(CWindowManager)
@@ -58,7 +59,6 @@ END_MESSAGE_MAP()
 CWindowManager::CWindowManager(CMDIFrameWnd* pParent)
 {
 	m_bIgnoreActivate	= FALSE;
-	m_bClosing			= FALSE;
 
 	if ( pParent ) SetOwner( pParent );
 }
@@ -506,7 +506,8 @@ void CWindowManager::SaveSearchWindows()
 
 	theApp.Message( MSG_DEBUG, _T("Searches successfully saved to: %s"), strFile );
 
-	if ( ! nCount ) DeleteFile( strFile );
+	if ( ! nCount )
+		DeleteFileEx( strFile, FALSE, FALSE, FALSE );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -570,11 +571,13 @@ void CWindowManager::SaveBrowseHostWindows()
 
 	theApp.Message( MSG_DEBUG, _T("Browses successfully saved to: %s"), strFile );
 
-	if ( ! nCount ) DeleteFile( strFile );
+	if ( ! nCount )
+		DeleteFileEx( strFile, FALSE, FALSE, FALSE );
 }
 
 //////////////////////////////////////////////////////////////////////
 // CWindowManager new blank search window
+// ToDo: Toggle between existing searches after new search
 
 void CWindowManager::OpenNewSearchWindow()
 {
@@ -621,7 +624,9 @@ void CWindowManager::PostSkinRemove()
 
 void CWindowManager::OnSize(UINT nType, int cx, int cy)
 {
-	if ( nType != 1982 ) CWnd::OnSize( nType, cx, cy );
+	if ( nType != 1982 )
+		CWnd::OnSize( nType, cx, cy );
+
 	AutoResize();
 }
 
@@ -629,8 +634,8 @@ BOOL CWindowManager::OnEraseBkgnd(CDC* pDC)
 {
 	CRect rc;
 	GetClientRect( &rc );
-	pDC->FillSolidRect( &rc, ( Settings.General.GUIMode != GUI_WINDOWED && ! m_bClosing ) ?
-		RGB( 0xBE, 0, 0 ) : GetSysColor( COLOR_APPWORKSPACE ) );
+	pDC->FillSolidRect( &rc, Skin.m_crPanelBack );
+
 	return TRUE;
 }
 
@@ -638,4 +643,3 @@ void CWindowManager::OnPaint()
 {
 	CPaintDC dc( this );
 }
-

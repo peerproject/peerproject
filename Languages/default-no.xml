@@ -32,20 +32,20 @@
 		<button id="ID_NETWORK_CONNECT" text="Koble til"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Hjem"/>
-		<button id="ID_TAB_LIBRARY" text="Mine filer"/>
-		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_SEARCH" text="Søk"/>
 		<button id="ID_TAB_TRANSFERS" text="Nedlasting"/>
+		<button id="ID_TAB_LIBRARY" text="Mine filer"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Koble til"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Hjem"/>
-		<button id="ID_TAB_LIBRARY" text="Mine filer"/>
-		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_SEARCH" text="Søk"/>
 		<button id="ID_TAB_TRANSFERS" text="Overføringer"/>
 		<button id="ID_TAB_NETWORK" text="Nettverk"/>
+		<button id="ID_TAB_LIBRARY" text="Filer"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -348,8 +348,8 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Chat med bruker"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Innstillinger"/>
 	</toolbar>
@@ -362,8 +362,8 @@
 		<button id="ID_SECURITY_BAN" text="Blokker vert"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Innstillinger"/>
 	</toolbar>
@@ -395,23 +395,23 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 cache"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey cache"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Utforsk bruker"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Send fil"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Gi prioritet"/>
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Send fil"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Koble til" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Koble fra"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER ? -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 </toolbars>
 
 <!-- Menu Definitions -->
@@ -429,6 +429,23 @@
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">
+		<item id="ID_TRAY_OPEN" text="Åpne PeerProject"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Vis fjernkontroll"/>
+		<item id="ID_TOOLS_SETTINGS" text="Vis  innstillinger..."/>
+		<item id="ID_NETWORK_SEARCH" text="Nytt søk..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Last ned fil..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Spill av media"/>
+		<item id="ID_MEDIA_PAUSE" text="Sett media på pause"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Tilbake"/>
+		<item id="ID_MEDIA_NEXT" text="Neste"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Avslutt etter overføringer"/>
+		<item id="ID_NETWORK_EXIT" text="Avslutt"/>
+	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="Nettverk">
@@ -436,8 +453,8 @@
 			<separator/>
 			<menu text="Velg nettverk">
 				<item id="ID_NETWORK_G2" text="Koble til Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Koble til Gnutella1"/>
+				<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Avslutt etter overføringer"/>
@@ -504,8 +521,8 @@
 			<separator/>
 			<menu text="Velg nettverk">
 				<item id="ID_NETWORK_G2" text="Koble til Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Koble til Gnutella1"/>
+				<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Koble til..." shortcut="Ctrl+T"/>
@@ -600,8 +617,8 @@
 			<separator/>
 			<menu text="Velg nettverk">
 				<item id="ID_NETWORK_G2" text="Koble til Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Koble til Gnutella1"/>
+				<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Avslutt etter overføringer"/>
@@ -723,40 +740,6 @@
 		<item id="ID_VIEW_PACKETS" text="Pakkedump"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Søkemonitor"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="Treffmonitor"/>
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="Åpne PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nytt søk..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="Last ned fil..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="Spill av media"/>
-		<item id="ID_MEDIA_PAUSE" text="Sett media på pause"/>
-		<item id="ID_MEDIA_STOP" text="Stopp Media"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="Tilbake"/>
-		<item id="ID_MEDIA_NEXT" text="Neste"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Avslutt etter overføringer"/>
-		<item id="ID_NETWORK_EXIT" text="Avslutt"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="Åpne PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nytt søk..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Last ned fil"/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Spill"/>
-		<item id="ID_MEDIA_PAUSE" text="Pause"/>
-		<item id="ID_MEDIA_STOP" text="_Stopp"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="Tilbake"/>
-		<item id="ID_MEDIA_NEXT" text="_Frem"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Avslutt etter overføringer"/>
-		<item id="ID_NETWORK_EXIT" text="Avslutt"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -1015,6 +998,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Fjern ferdige automatisk"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Fortsett alle"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Pause alle"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Fjern alle"/>
@@ -1381,8 +1366,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="Koble fra"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Gnutella2"/>
-			<item id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Vis all trafikk"/>
@@ -3014,7 +2999,6 @@
 	<string id="20000" value="URN ikke tilgjengelig"/>
 	<string id="20002" value="av"/> <!-- "1 of 10" -->
 	<string id="20003" value="Forandring av grensesnittets retning krever omstart. \nDu må starte PeerProject på nytt manuelt. Avslutte nå?"/>
-	<string id="20004" value="Høyre-mot-venstre-språk støttes ikke av ditt OS."/>
 	<string id="20005" value="Nei"/>
 	<string id="20006" value="Ja"/>
 	<string id="20007" value="Auto"/>
@@ -3069,6 +3053,8 @@
 	<string id="20214" value="God"/>
 	<string id="20215" value="Veldig god"/>
 	<string id="20216" value="Utmerket"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="Avbryt"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3109,7 +3095,7 @@
 		<control caption="Når jeg trykker minimer:"/>
 		<control caption="Normal|Minimer til systemfeltet"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBu" caption="Bibliotek">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Bibliotek">
 		<control caption="_Egenskaper:"/>
 		<control caption="Husk mappevisning"/>
 		<control caption="Overvåk mapper i biblioteket"/>
@@ -3137,9 +3123,11 @@
 		<control/>
 		<control/>
 		<control caption="Create ghost files when deleting"/>
+		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuBuBuBuCoBuBuBuBuBuCo" caption="Mediaspiller">
+	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Mediaspiller">
 		<control caption="_Valg:"/>
+		<control/>
 		<control caption="Bruk PeerProject mediaspiller til å spille av disse filtypene"/>
 		<control caption="Bruk PeerProject mediaspiller til å sette i kø disse filtypene"/>
 		<control caption="Fil-typer:"/>
@@ -3148,8 +3136,9 @@
 		<control caption="_Fjern"/>
 		<control caption="Legg til visuell plugin:"/>
 		<control caption="_Velg plugin..."/>
+		<control caption="_Media Handling"/>
 		<control caption="Mediatjeneste-_plugin:"/>
-		<control/>
+		<control caption="Warning: Choosing an external Media Handler will automatically disable all Media and Visualisation Plugins."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Min profil">
 		<control caption="Min profil:"/>
@@ -3178,7 +3167,7 @@
 	</dialog>
 	<dialog name="CInternetSettingsGroup" caption="Internett">
 	</dialog>
-	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuStEdmsStEdms" caption="Forbindelse">
+	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Forbindelse">
 		<control caption="_Inngående adresse:"/>
 		<control caption="Adresse:"/>
 		<control caption="Automatisk"/>
@@ -3197,6 +3186,7 @@
 		<control caption="Jeg kan motta innkommende tilkoblinger"/>
 		<control/>
 		<control caption="Ignorer private/lokale IP-adresser"/>
+		<control caption="Enable UPnP connection devices setup"/>
 		<control caption="_Tidsavbrudd:"/>
 		<control caption="Tilkobling:"/>
 		<control/>
@@ -3295,14 +3285,14 @@
 		<control caption="Gnutella2-nettverket er PeerProjects hovednettverk, det har flere egenskaper og gir mer enn andre P2P-nett. Høyst anbefalt."/>
 		<control caption="Koble til Gnutella2 (G2)"/>
 		<control caption="Gnutella2 innstillinger"/>
-		<control caption="eDonkey2000-nettverket:"/>
-		<control caption="eDonkey2000 er et tjener-basert nettverk. Det har ikke like mange egenskaper som Gnutella2, men inneholder enorme mengder filer."/>
-		<control caption="Koble til eDonkey2000"/>
-		<control caption="eDonkey2000 innstillinger"/>
 		<control caption="Gnutella1-nettverket:"/>
-		<control caption="Gnutella har færre egenskaper enn Gnutella2, færre filer enn eDonkey2000, men er likevel en verdifull resurs."/>
+		<control caption="Gnutella har færre egenskaper enn Gnutella2, færre filer enn eDonkey, men er likevel en verdifull resurs."/>
 		<control caption="Koble til Gnutella1"/>
 		<control caption="Gnutella1 innstillinger"/>
+		<control caption="eDonkey-nettverket:"/>
+		<control caption="eDonkey er et tjener-basert nettverk. Det har ikke like mange egenskaper som Gnutella2, men inneholder enorme mengder filer."/>
+		<control caption="Koble til eDonkey2000"/>
+		<control caption="eDonkey innstillinger"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2-nettverket:"/>
@@ -3340,7 +3330,7 @@
 		<control caption="Leaf til Hub"/>
 		<control caption="Hub til Hub"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuStEdmsStBuStBuStBu" caption="eDonkey2000">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey2000">
 		<control caption="eDonkey2000 nettverket:"/>
 		<control caption="Koble til eDonkey2000 i dag"/>
 		<control caption="Koble til automatisk hver gang"/>
@@ -3350,14 +3340,13 @@
 		<control/>
 		<control/>
 		<control caption="søkeresultater"/>
+		<control caption="Receive and update server list from the connected server"/>
 		<control caption="_Klientkoblinger:"/>
-		<control caption="Koble til maksimalt"/>
+		<control caption="Koble til maksimalt:"/>
 		<control/>
 		<control/>
 		<control caption="andre eDonkey-klienter."/>
 		<control caption="eDonkey2000 _verktøy:"/>
-		<control caption="Importer uferdige nedlastinger fra eDonkey/eMule (.part):"/>
-		<control caption="Importer..."/>
 		<control caption="Last ned eDonkey2000 serverliste fra nettet:"/>
 		<control caption="Last ned..."/>
 	</dialog>
@@ -3374,7 +3363,7 @@
 		<control caption="&#160;Fjern nedlastede torrenter&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Når delingsraten når"/>
 		<control/>
 		<control/>
-		<control/>
+		<control caption="%"/>
 		<control caption="&#160;Foretrekk torrent-kilder"/>
 		<control caption="_EndGame:"/>
 		<control caption="Skru på EndGame-modus når torrenter blir ferdige"/>
@@ -3414,26 +3403,29 @@
 		<control caption="_Innstaller..."/>
 		<control caption="Flere..."/>
 	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyBuStEdmsStEd" caption="Avansert">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Avansert">
 		<control/>
+		<control/>
+		<control/>
+		<control caption="Set Default"/>
 		<control caption="Egenskaper:"/>
 		<control caption="Verdi:"/>
-		<control/>
-		<control/>
 		<control caption="Beskrivelse:"/>
 		<control/>
 	</dialog>
-	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Egenskaper opplastings kø">
+	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Egenskaper opplastings kø">
 		<control caption="_Navn:"/>
 		<control/>
 		<control caption="_Kriterier:"/>
 		<control caption="Kun ufullstendige filer"/>
+		<control caption="Shared Library files only"/>
+		<control caption="Both partial and library files"/>
 		<control caption="Minimum kildefil-størrelse:"/>
 		<control/>
 		<control caption="Maks kildefil-størrelse:"/>
 		<control/>
 		<control caption="Merkede filer:"/>
-		<control/>
+		<control caption="Popular|Release"/>
 		<control caption="Filnavn-likhet:"/>
 		<control/>
 		<control caption="Protokoller:"/>
@@ -3476,16 +3468,17 @@
 		<control/>
 		<control caption="Hvordan du vil starte PeerProject"/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StCoStCoStCoStCoStCo" caption="Velkommen til PeerProject (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Velkommen til PeerProject (1/6)">
 		<control caption="For optimal utnyttelse, trenger PeerProject å vite litt om tilkoblingen din."/>
-		<control caption="&#160;( vennligst velg )| Jeg bruker internett hjemme| Jeg bruker internett på et skolenettverk| Jeg bruker internett på en firmanettverk| Jeg bruker internett på et hotell eller flyplass"/>
-		<control caption="Er nettverket på skolen beskyttet av brannmur eller NAT-router?"/>
-		<control caption="&#160;Nei, Jeg KAN akseptere alle innkommende koblinger| Ja, så jeg KAN IKKE akseptere innkommende koblinger fra internett| Jeg vet ikke, vennligst AUTO-OPPDAG en evt brannmurs status"/>
-		<control caption="Har du brannmur eller NAT-router på tilkoblingen din"/>
-		<control caption="&#160;Nei, jeg har FULL TILGANG til internett| Ja, men jeg vil sette opp videresending av port for PeerProject| Ja, så jeg KAN IKKE akseptere innkommende koblinger fra internett| Jeg vet ikke, vennligst AUTO-OPPDAG en evt brannmurs status"/>
 		<control caption="Hvis du kjenner hastigheten på tilkoblingen din, velg den som passer best nedenfor."/>
 		<control caption="| Oppringt modem| ISDN| ADSL (256K)| ADSL (512K)| ADSL (768K)| ADSL (1.5M)| ADSL (4.0M)| ADSL2 (8.0M)| ADSL2 (12.0M)| ADSL2+ (24.0M)| Kabelmodem/SDSL| T1| T3| LAN| OC3"/>
-		<control caption="Eller, velg:"/>
+		<control caption="Or choose the download speed:"/>
+		<control/>
+		<control caption="and the upload speed:"/>
+		<control/>
+		<control caption="Do you want to automatically setup port-forwarding by using UPnP?"/>
+		<control/>
+		<control caption="Status:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Velkommen til PeerProject (2/6)">
@@ -3517,7 +3510,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBuBu" caption="Velkommen til PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Velkommen til PeerProject (4/6)">
 		<control caption="PeerProject støtter to forskjellige brukergrensesnitt, så du selv kan velge det du liker best"/>
 		<control caption="Vennligst velg et av disse grensesnittene:"/>
 		<control caption="Normalmodus"/>
@@ -3525,17 +3518,16 @@
 		<control caption="Enkle menyer og store knapper. Liknende andre fildelingsprogrammer."/>
 		<control caption="Powermodus gir ekspertene mange ekstra kommandoer og vinduer o.l."/>
 		<control caption="Vis enkel fremgangsindikator for nedlasninger. (Reduserer bruk av CPU)"/>
-		<control caption="Vis utvidede torrent elementer."/>
 		<control caption="Åpne torrent linker."/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Velkommen til PeerProject (5/6)">
 		<control caption="PeerProject er et avansert fildelingsprogram som kan koble seg til flere P2P nettverk på en gang.  Her kan du velge hvilke nettverk du vil koble til. Husk at du kan endre dette senere også."/>
 		<control caption="Koble til Gnutella2 (høyst anbefalt)"/>
 		<control caption="Gnutella2 nettverket er hovednettverket til PeerProject, et nettverk som har flere egenskaper og høyere utnyttelse en noen andre P2P nett."/>
-		<control caption="Koble til eDonkey2000"/>
-		<control caption="eDonkey2000 er et tjener-basert nettverk. Selv om det ikke har like mange egenskaper som Gnutella2 inneholder det enorme mengder filer."/>
 		<control caption="Koble til Gnutella"/>
 		<control caption="Gnutella har færre egenskaper enn Gnutella2, færre filer enn eDonkey2000, men er likevel en verdifull resurs."/>
+		<control caption="Koble til eDonkey2000"/>
+		<control caption="eDonkey er et tjener-basert nettverk. Selv om det ikke har like mange egenskaper som Gnutella2 inneholder det enorme mengder filer."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importer eDonkey2000 nedlastinger">
 		<control/>
@@ -3672,9 +3664,10 @@
 		<control caption="Søk"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CFilterSearchDlg" cookie="BuEdStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuCoBuBuBuBuBuBuBu" caption="Filtrertreff">
+	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtrertreff">
 		<control caption="Vis bare treff som inneholder _ordene:"/>
 		<control/>
+		<control caption="Reg. Exp."/>
 		<control caption="( du kan også fjerne ord, med -ord )"/>
 		<control caption="Og har _størrelse (KB):"/>
 		<control caption="Minimum:"/>
@@ -3692,16 +3685,16 @@
 		<control caption="Ikke liknende filer"/>
 		<control caption="Filer du allerede har"/>
 		<control caption="Falske resultat"/>
-		<control caption="Filtrer"/>
-		<control caption="Avbryt"/>
+		<control caption="DRM files"/>
+		<control caption="Adult results"/>
+		<control caption="Suspicious files"/>
+		<control caption="Filtere:"/>
 		<control/>
 		<control caption="Bruk som standard"/>
 		<control caption="Lagre som"/>
 		<control caption="Slett"/>
-		<control caption="Filtere:"/>
-		<control caption="DRM files"/>
-		<control caption="Suspicious files"/>
-		<control caption="Adult results"/>
+		<control caption="Filtrer"/>
+		<control caption="Avbryt"/>
 	</dialog>
 	<dialog name="CSaveFilterAsDlg" cookie="EdBuBuSt" caption="Lagre filter som">
 		<control/>
@@ -3709,13 +3702,14 @@
 		<control caption="Avbryt"/>
 		<control caption="Lagre nåværende filter som"/>
 	</dialog>
-	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="Oppdagelsestjeneste">
+	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Oppdagelsestjeneste">
 		<control caption="Tjenesteadresse:"/>
 		<control/>
 		<control caption="Oppdagelsestjeneste-type:"/>
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met URL"/>
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Nedlasting : PeerProject">
 		<control caption="PeerProject laster ned:"/>
@@ -3826,13 +3820,13 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CGraphItemDlg" cookie="BuBuBuCoCoStStEdBuBuStBu" caption="Egenskaper">
+	<dialog name="CGraphItemDlg" cookie="BuBuBuCoStEdStEdBuBuStBu" caption="Egenskaper">
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 		<control caption="_Kilde:"/>
 		<control/>
-		<control/>
 		<control caption="Parameter:"/>
+		<control/>
 		<control caption="Enheter:"/>
 		<control/>
 		<control caption="_Visning:"/>
@@ -3847,7 +3841,7 @@
 		<control caption="Avbryt"/>
 		<control caption="Velgt et skjema fra listen, deretter velg felt som skal vises som kolonner."/>
 	</dialog>
-	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Sikkerhetsregel">
+	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Sikkerhetsregel">
 		<control caption="_Regel:"/>
 		<control caption="Type:"/>
 		<control caption="Nettverksadresse (IP)|Innholdsfilter"/>
@@ -3873,6 +3867,7 @@
 		<control caption="Ingen|Aksepter|Nekt"/>
 		<control caption="Går ut:"/>
 		<control caption="Aldri (ubestemt)|Ved avslutning av økten|Etter:"/>
+		<control caption=""/>
 		<control/>
 		<control caption="d"/>
 		<control/>
@@ -3907,7 +3902,7 @@
 		<control caption="Sett inn merke:"/>
 		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|Filnavn|Filnavn (URI)|Base filnavn|Filetternavn|Filstørrelse|Filstørrelse (byte)|Katalog|Lokal vert|Lokal port"/>
 		<control caption="Velg forhåndsinstilling:"/>
-		<control/>
+		<control caption="Magnet|eDonkey|Magnet HTML|eDonkey HTML"/>
 		<control caption="_Kopier"/>
 		<control caption="Lagre..."/>
 		<control/>
@@ -3966,7 +3961,7 @@
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
-	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuSt" caption="Laste ned fil på nytt">
+	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Laste ned fil på nytt">
 		<control/>
 		<control/>
 		<control/>
@@ -3978,6 +3973,7 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 		<control caption="Du har lastet ned og slettet denne filen før. Hva vil du gjøre?"/>
+		<control caption=""/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Lukkeknapp">
 		<control/>
@@ -4001,7 +3997,7 @@
 		<control caption="Lukk"/>
 		<control/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuBuBuBuStEd" caption="Slett fil">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Slett fil">
 		<control caption="Er du sikker på at du vil slette:"/>
 		<control/>
 		<control caption="Slett"/>
@@ -4014,37 +4010,54 @@
 		<control caption="Denne filen har veldig lav kvalitet."/>
 		<control caption="Denne filen er falsk, ødelagt eller ubrukelig."/>
 		<control caption="Du kan skrive en kort melding for å beskrive hvorfor denne filen er feil:"/>
+		<control caption=""/>
 		<control/>
 	</dialog>
-	<dialog name="CCollectionExportDlg" cookie="StBuBu" caption="Eksporter mappe">
+	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Eksporter mappe">
 		<control caption="Dette verktøyet kan eksportere hele album mapper som en collection-fil."/>
-		<control caption="Eksporter.."/>
+		<control/>
+		<control caption="Template Information:"/>
+		<control caption="Navn:"/>
+		<control caption="..."/>
+		<control caption="Author:"/>
+		<control caption="..."/>
+		<control caption="Description:"/>
+		<control/>
+		<control caption="Delete|_Back"/>
+		<control caption="_Next|_Eksporter:..."/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuEdBuStEdStEdStEdBuStStStBuStEdStEdBuBuBuBu" caption="Endre nedlasting (Avansert)">
+	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Endre nedlasting (Avansert)">
 		<control caption="OBS: Avansert redigering er for erfarne brukere, filene kan bli ødelagt hvis du gjør noe galt."/>
+		<control caption="Fil_navn and Si_ze:"/>
 		<control caption="Fil_navn:"/>
 		<control/>
+		<control/>
+		<control caption="File size (Byte):"/>
+		<control/>
 		<control caption="_URNs:"/>
+		<control caption="Trusted:"/>
 		<control caption="SHA1:"/>
+		<control/>
 		<control/>
 		<control caption="Tiger-Root:"/>
 		<control/>
+		<control/>
 		<control caption="ED2K:"/>
+		<control/>
 		<control/>
 		<control caption="_Funksjon:"/>
 		<control caption="Glem verifikasjonsstatus og reverifiser"/>
 		<control caption="Anta at filen er 100% og reverifiser"/>
 		<control caption="Glem alle kjente kilder"/>
+		<control caption="Merge with local file and verify"/>
+		<control caption="Avbryt (save incomplete files)"/>
 		<control caption="Slett _data:"/>
 		<control caption="Slett bytes:"/>
 		<control/>
 		<control caption="til"/>
 		<control/>
 		<control caption="Slett"/>
-		<control caption="_Torrent info..."/>
-		<control caption="OK"/>
-		<control caption="Avbryt"/>
 	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Åpne torrent-fil">
 		<control/>
@@ -4055,7 +4068,7 @@
 		<control caption="For å dele ferdige filer med BitTorrent må man spre. Når denne prosessen er ferdig vil filen bli lagt til i nedlastings-listen."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdStEdBuStEdStEdBuStCoBuSyBuCoBu" caption="Avansert BitTorrent-informason">
+	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Avansert BitTorrent-informason">
 		<control caption="Torrent _informasjon:"/>
 		<control caption="Navn:"/>
 		<control/>
@@ -4065,34 +4078,55 @@
 		<control/>
 		<control caption="Kommentar:"/>
 		<control/>
-		<control caption="Tracker:"/>
-		<control/>
-		<control caption="_Nedlastinger:"/>
-		<control caption="Komplette (delere):"/>
-		<control/>
-		<control caption="Uferdige:"/>
-		<control/>
 		<control caption="Overføringer:"/>
 		<control caption="Start nye nedlastinger:"/>
 		<control caption="Etter behov|Når delingsrate er over 100%|Kun ved forespørsel|Aldri"/>
-		<control caption="Filer:"/>
 		<control/>
 		<control caption="Oppdater"/>
+		<control caption="Notes:"/>
 		<control/>
-		<control caption="Lukk"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Gruppeegenskaper">
+	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Files">
+		<control caption="Torrent _informasjon:"/>
 		<control caption="Navn:"/>
 		<control/>
+		<control caption="_Fils:"/>
 		<control/>
-		<control caption="Filter:"/>
+	</dialog>
+	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
+		<control caption="Torrent _informasjon:"/>
+		<control caption="Navn:"/>
+		<control/>
+		<control caption="Tracker:"/>
+		<control/>
+		<control caption="_Current Tracker:"/>
+		<control caption="Komplette (delere):"/>
+		<control/>
+		<control caption="Incomplete:"/>
+		<control/>
+		<control caption="_Refresh"/>
+		<control caption="_Trackers:"/>
+		<control/>
+		<control caption="Tracker Mode:"/>
+		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
+	</dialog>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Gruppeegenskaper">
+		<control caption="OK"/>
+		<control caption="Avbryt"/>
+		<control/>
+		<control/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="Legg til"/>
 		<control caption="Fjern"/>
-		<control caption="OK"/>
-		<control caption="Avbryt"/>
-		<control caption="Ferdige filer i mappe:"/>
 		<control/>
+		<control/>
+		<control/>
+		<control caption="_Navn:"/>
+		<control caption="_Filter:"/>
+		<control caption="Ferdige filer i mappe:"/>
+		<control caption="_Filtype (schema):"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Velg effekter">
 		<control/>
@@ -4194,6 +4228,7 @@
 		<column from="Port" to="Port"/>
 		<column from="Client" to="Klient"/>
 		<column from="Last Seen" to="Sist sett"/>
+		<column from="Daily Uptime" to=""/>
 		<column from="Name" to="Navn"/>
 		<column from="Description" to="Beskrivelse"/>
 		<column from="CurUsers" to="Brukere"/>

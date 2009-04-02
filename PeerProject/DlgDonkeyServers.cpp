@@ -73,7 +73,7 @@ BOOL CDonkeyServersDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CDonkeyServersDlg") );
+	SkinMe( _T("CDonkeyServersDlg"), IDR_MAINFRAME );
 
 	m_sURL = Settings.eDonkey.ServerListURL;
 	UpdateData( FALSE );

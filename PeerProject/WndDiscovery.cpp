@@ -94,8 +94,8 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pSizer.Attach( &m_wndList );
 	
 	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP,
-		LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
+		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP,
+		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
 	
 	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 4, 1 );
 	AddIcon( IDR_HOSTCACHEFRAME, m_gdiImageList );
@@ -300,7 +300,8 @@ void CDiscoveryWnd::OnDiscoveryQuery()
 		
 		if ( pService != NULL )
 		{
-			pService->Execute( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) ?
+			DiscoveryServices.Execute( pService,
+				( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) ?
 				CDiscoveryServices::wcmCaches : CDiscoveryServices::wcmHosts );
 			break;
 		}
@@ -330,7 +331,7 @@ void CDiscoveryWnd::OnDiscoveryAdvertise()
 
 	if ( pService )
 	{
-		pService->Execute( CDiscoveryServices::wcmSubmit );
+		DiscoveryServices.Execute( pService, CDiscoveryServices::wcmSubmit );
 	}
 }
 

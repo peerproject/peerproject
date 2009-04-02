@@ -501,7 +501,8 @@ void CRemote::PageLogin()
 		pSHA1.Add( (LPCTSTR)strPassword, strPassword.GetLength() * sizeof(TCHAR) );
 		pSHA1.Finish();
         Hashes::Sha1Hash tmp;
-        pSHA1.GetHash( tmp );
+        pSHA1.GetHash( &tmp[ 0 ] );
+		tmp.validate();
         strPassword = tmp.toString();
 	}
 	
@@ -1153,7 +1154,7 @@ void CRemote::PageNewDownload()
 	if ( CheckCookie() ) return;
 	
 	CPeerProjectURL pURI;
-	if ( pURI.Parse( GetKey( _T("uri") ) ) ) Downloads.Add( &pURI );
+	if ( pURI.Parse( GetKey( _T("uri") ) ) ) Downloads.Add( pURI );
 	
 	m_sRedirect = _T("downloads?group_reveal=all");
 }

@@ -60,7 +60,7 @@ CCoolMenuBarCtrl::CCoolMenuBarCtrl()
 	m_bGripper	= TRUE;
 
 	m_bStretch	= theApp.GetProfileInt( _T(""), _T("MenuStretch"), TRUE );
-	if ( theApp.GetProfileInt( _T(""), _T("MenuHalfHeight"), TRUE ) ) m_nHeight = 28;
+	if ( theApp.GetProfileInt( _T(""), _T("MenuHalfHeight"), TRUE ) ) m_nHeight = TOOLBAR_HEIGHT;
 
 	m_hMenu		= NULL;
 }

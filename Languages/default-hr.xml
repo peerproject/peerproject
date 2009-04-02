@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Croatian Skin File -->
-<!-- This translation is based on default-en.xml SVN rev.xxxx -->
+<!-- This translation is based on default-en.xml (Shareaza 2.2.0.2) -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -32,20 +32,21 @@
 		<button id="ID_NETWORK_CONNECT" text="Spoji"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Početak"/>
-		<button id="ID_TAB_LIBRARY" text="Sadržaj"/>
-		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_SEARCH" text="Traži"/>
 		<button id="ID_TAB_TRANSFERS" text="Razmjena"/>
+		<button id="ID_TAB_LIBRARY" text="Sadržaj"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Spoji"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="Početak"/>
-		<button id="ID_TAB_LIBRARY" text="Sadržaj"/>
-		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_SEARCH" text="Traži"/>
 		<button id="ID_TAB_TRANSFERS" text="Razmjena"/>
 		<button id="ID_TAB_NETWORK" text="Mreža"/>
+		<button id="ID_TAB_LIBRARY" text="Sadržaj"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
+		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Spoji"/>
@@ -346,8 +347,8 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Popričaj sa Osobom"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Postavke"/>
 	</toolbar>
@@ -360,8 +361,8 @@
 		<button id="ID_SECURITY_BAN" text="Blokiraj ga"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Postavke"/>
 	</toolbar>
@@ -393,23 +394,23 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 Cache"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="eDonkey Cache"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="B"/>
-		<button id="ID_CHAT_ITALIC" text="I"/>
-		<button id="ID_CHAT_UNDERLINE" text="U"/>
-		<button id="ID_CHAT_COLOR" text="C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Pogledaj Što Ima"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Pošalji"/> -->
 		<button id="ID_CHAT_PRIORITY" text="Daj Prioritet"/>
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Pošalji"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="Spoji" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Isključi"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER ? -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 </toolbars>
 
 <!-- Menu Definitions -->
@@ -427,6 +428,23 @@
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+		<item id="ID_TRAY_OPEN" text="Otvori PeerProject"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="Pokaži Remote"/>
+		<item id="ID_TOOLS_SETTINGS" text="Pokaži Postavke..."/>
+		<item id="ID_NETWORK_SEARCH" text="Nova Potraga..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Skini Datoteku..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="Pokreni"/>
+		<item id="ID_MEDIA_PAUSE" text="Pauziraj"/>
+		<item id="ID_MEDIA_PREVIOUS" text="Prethodna Stvar"/>
+		<item id="ID_MEDIA_NEXT" text="Slijedeća Stvar"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Izađi Nakon Prijenosa"/>
+		<item id="ID_NETWORK_EXIT" text="Izlaz"/>
+	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="_Mreža">
@@ -434,8 +452,8 @@
 			<separator/>
 			<menu text="Odaberi _Mrežu">
 				<item id="ID_NETWORK_G2" text="Spoji se na _Gnutellu2"/>
-				<item id="ID_NETWORK_ED2K" text="Spoji se na _eDonkey2000"/>
 				<item id="ID_NETWORK_G1" text="Spoji se na Gnutellu_1"/>
+				<item id="ID_NETWORK_ED2K" text="Spoji se na _eDonkey2000"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Izađi po završetku razmjene"/>
@@ -721,40 +739,6 @@
 		<item id="ID_VIEW_PACKETS" text="_Packet Dump"/>
 		<item id="ID_VIEW_SEARCH_MONITOR" text="Pr_aćenje Traženja"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="Praćenje Pogodaka"/>
-	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="_Otvori PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nova Potraga..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="Skini _Datoteku..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Pokreni"/>
-		<item id="ID_MEDIA_PAUSE" text="Pa_uziraj"/>
-		<item id="ID_MEDIA_STOP" text="_Stani"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="P_rethodna Stvar"/>
-		<item id="ID_MEDIA_NEXT" text="Slijedeća Stvar"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Izađi Nakon Prijenosa"/>
-		<item id="ID_NETWORK_EXIT" text="Izlaz"/>
-	</menu>
-	<!--REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="_Otvori PeerProject"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="Nova Potraga..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="Skini _Datoteku..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="_Pokreni"/>
-		<item id="ID_MEDIA_PAUSE" text="Pa_uziraj"/>
-		<item id="ID_MEDIA_STOP" text="_Stani"/>
-		<separator/>
-		<item id="ID_MEDIA_PREVIOUS" text="P_rethodna Stvar"/>
-		<item id="ID_MEDIA_NEXT" text="Slijedeća Stvar"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Izađi Nakon Prijenosa"/>
-		<item id="ID_NETWORK_EXIT" text="Izlaz"/>
 	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
@@ -1379,8 +1363,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Isključi"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_ED2K" text="_eDonkey2000"/>
 		</menu>
 		<menu text="Praćenje">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Pok_aži Sav Promet"/>
@@ -3013,7 +2997,6 @@
 	<string id="20001" value="Zatvori"/>
 	<string id="20002" value="od"/> <!-- "1 of 10" -->
 	<string id="20003" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"/>
-	<string id="20004" value="Right-to-left languages are not supported in your OS."/>
 	<string id="20005" value="Ne"/>
 	<string id="20006" value="Da"/>
 	<string id="20007" value="Auto"/>
@@ -3068,6 +3051,8 @@
 	<string id="20214" value="Dobro"/>
 	<string id="20215" value="Vrlo Dobro"/>
 	<string id="20216" value="Odlično"/>
+	<string id="20237" value="OK"/>
+	<string id="20238" value="Odustani"/>
 </strings>
 
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
@@ -3296,14 +3281,14 @@
 		<control caption="Gnutella2 mreža je PeerProject osnovna mreža, nudi najviše opcija i najbrža je od svih ostalih P2P mreža. Preporučamo"/>
 		<control caption="Spoji se na Gnutellu2 (G2)"/>
 		<control caption="Podesi Gnutellu2"/>
-		<control caption="eDonkey2000 Mreža:"/>
-		<control caption="eDonkey2000 mreža je popularna server-bazirana mreža.Iako nema mogučnosti kao Gnutella2, posjeduje impresivnu zbirku datoteka."/>
-		<control caption="Spoji se na eDonkey2000"/>
-		<control caption="Podesi eDonkey2000"/>
 		<control caption="Originalna Gnutella Mreža:"/>
-		<control caption="Iako originalna Gnutellina mreža ima manje mogučnosti od Gnutelle2,manje datoteka od eDonkey2000, i dalje je vrijedan izvor datoteka."/>
+		<control caption="Iako originalna Gnutellina mreža ima manje mogučnosti od Gnutelle2, manje datoteka od eDonkey, i dalje je vrijedan izvor datoteka."/>
 		<control caption="Spoji se na Originalnu Gnutellu"/>
 		<control caption="Podesi Gnutellu1"/>
+		<control caption="eDonkey2000 Mreža:"/>
+		<control caption="eDonkey mreža je popularna server-bazirana mreža. Iako nema mogučnosti kao Gnutella2, posjeduje impresivnu zbirku datoteka."/>
+		<control caption="Spoji se na eDonkey"/>
+		<control caption="Podesi eDonkey"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Mreža:"/>
@@ -3533,11 +3518,11 @@
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Dobrodošli u PeerProject (5/6)">
 		<control caption="PeerProject je program za djeljenje i skidanje datoteka opčenitog sadržaja, i može se istovremeno spojiti na više P2P mreža.Ovdje možete odabrati kojim mrežama želite pristupiti.Poslije možete promjeniti odabrane mreže."/>
 		<control caption="Spoji se na Gnutellu2 (Preporučeno)"/>
-		<control caption="Gnutella2 mreža je PeerProject osnovna mreža, nudi najviše opcija i najbrža je od svih ostalih P2P mreža."/>
-		<control caption="Spoji se na eDonkey2000"/>
-		<control caption="eDonkey2000 mreža je popularna server-bazirana mreža.Iako nema mogučnosti kao Gnutella2, posjeduje impresivnu zbirku datoteka."/>
+		<control caption="Gnutella2 mreža (G2) je PeerProject osnovna mreža, nudi najviše opcija i najbrža je od svih ostalih P2P mreža."/>
 		<control caption="Spoji se na Originalnu Gnutellu"/>
-		<control caption="Iako originalna Gnutellina mreža ima manje mogučnosti od Gnutelle2,manje datoteka od eDonkey2000, i dalje je vrijedan izvor datoteka."/>
+		<control caption="Iako originalna Gnutellina mreža (G1) ima manje mogučnosti od Gnutelle2, manje datoteka od ED2K, i dalje je vrijedan izvor datoteka."/>
+		<control caption="Spoji se na eDonkey2000"/>
+		<control caption="eDonkey mreža (ED2K) je popularna server-bazirana mreža. Iako nema mogučnosti kao G2, posjeduje impresivnu zbirku datoteka."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Ubaci eDonkey2000 Skidanje">
 		<control/>
@@ -4035,7 +4020,7 @@
 	</dialog>
 	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Edit Download (Napredno)">
 		<control caption="UPOZORENJE: Ove opcije omogučuju napredno podešavanje skidanja, ako se pogrešno koriste vjerovatno će uzrokovati GREŠKU u skinutoj datoteci"/>
-		<control caption="Ime datoteke & Veličina:"/>
+		<control caption="Ime datoteke &amp; Veličina:"/>
 		<control caption="Ime datoteke:"/>
 		<control/>
 		<control/>
@@ -4116,19 +4101,23 @@
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="Download Group Postavke">
-		<control caption="Ime:"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Download Group Postavke">
+		<control caption="OK"/>
+		<control caption="Odustani"/>
 		<control/>
 		<control/>
-		<control caption="_Filteri:"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="Dod_aj"/>
 		<control caption="Makni"/>
-		<control caption="OK"/>
-		<control caption="Odustani"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Ime:"/>
+		<control caption="_Filteri:"/>
 		<control caption="Mapa sa Skinutim Datotekama:"/>
-		<control/>
-		<control/>
+		<control caption="_Datoteka:"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Odaberite Vizualizaciju">
 		<control/>

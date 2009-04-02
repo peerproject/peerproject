@@ -53,26 +53,30 @@ CTransferFiles::~CTransferFiles()
 CTransferFile* CTransferFiles::Open(LPCTSTR pszFile, BOOL bWrite, BOOL bCreate)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
-	CTransferFile* pFile = NULL;
 
+	CTransferFile* pFile = NULL;
 	if ( m_pMap.Lookup( pszFile, pFile ) )
 	{
-		if ( bWrite && ! pFile->EnsureWrite() ) return NULL;
+		if ( bWrite && ! pFile->EnsureWrite() )
+			return NULL;
+	
+		pFile->AddRef();
 	}
 	else
 	{
 		pFile = new CTransferFile( pszFile );
-
 		if ( ! pFile->Open( bWrite, bCreate ) )
 		{
-			delete pFile;
+			DWORD dwError = GetLastError();
+			pFile->Release();
+			SetLastError( dwError );
 			return NULL;
 		}
 
 		m_pMap.SetAt( pFile->m_sPath, pFile );
-	}
 
-	pFile->AddRef();
+		TRACE( _T("Transfer Files : Opened \"%s\" [%d]\n"), pszFile, bWrite );
+	}
 
 	return pFile;
 }
@@ -88,9 +92,11 @@ void CTransferFiles::Close()
 	{
 		CTransferFile* pFile;
 		CString strPath;
-
 		m_pMap.GetNextAssoc( pos, strPath, pFile );
-		delete pFile;
+
+		TRACE( _T("Transfer Files : Closed \"%s\"\n"), (LPCTSTR)strPath );
+
+		pFile->Release();
 	}
 
 	m_pMap.RemoveAll();
@@ -118,7 +124,10 @@ void CTransferFiles::CommitDeferred()
 
 void CTransferFiles::QueueDeferred(CTransferFile* pFile)
 {
-	if ( NULL == m_pDeferred.Find( pFile ) ) m_pDeferred.AddTail( pFile );
+	CSingleLock pLock( &m_pSection, TRUE );
+
+	if ( NULL == m_pDeferred.Find( pFile ) )
+		m_pDeferred.AddTail( pFile );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -126,53 +135,61 @@ void CTransferFiles::QueueDeferred(CTransferFile* pFile)
 
 void CTransferFiles::Remove(CTransferFile* pFile)
 {
-	m_pMap.RemoveKey( pFile->m_sPath );
-	if ( POSITION pos = m_pDeferred.Find( pFile ) ) m_pDeferred.RemoveAt( pos );
-}
+	CSingleLock pLock( &m_pSection, TRUE );
 
+	TRACE( _T("Transfer Files : Closed \"%s\"\n"), (LPCTSTR)pFile->m_sPath );
+
+	m_pMap.RemoveKey( pFile->m_sPath );
+
+	if ( POSITION pos = m_pDeferred.Find( pFile ) )
+		m_pDeferred.RemoveAt( pos );
+}
 
 //////////////////////////////////////////////////////////////////////
 // CTransferFile construction
 
-CTransferFile::CTransferFile(LPCTSTR pszPath)
+CTransferFile::CTransferFile(LPCTSTR pszPath) :
+	m_sPath( pszPath )
+,	m_hFile( INVALID_HANDLE_VALUE )
+,	m_bExists( FALSE )
+,	m_bWrite( FALSE )
+,	m_nRefCount( 1 )
+,	m_nDeferred( 0 )
 {
-	m_sPath				= pszPath;
-	m_hFile				= INVALID_HANDLE_VALUE;
-	m_nReference		= 0;
-	m_bWrite			= FALSE;
-	m_nDeferred			= 0;
+	ZeroMemory( m_pDeferred, sizeof( m_pDeferred ) );
 }
 
 CTransferFile::~CTransferFile()
 {
+	ASSERT( m_nRefCount == 0 );
+
+	DeferredWrite();
+
 	if ( m_hFile != INVALID_HANDLE_VALUE )
 	{
-		DeferredWrite();
 		CloseHandle( m_hFile );
+		m_hFile = INVALID_HANDLE_VALUE;
 	}
 }
 
 //////////////////////////////////////////////////////////////////////
 // CTransferFile reference counts
 
-void CTransferFile::AddRef()
+ULONG CTransferFile::AddRef()
 {
-	CSingleLock pLock( &TransferFiles.m_pSection, TRUE );
-	m_nReference++;
+	return (ULONG)InterlockedIncrement( &m_nRefCount );
 }
 
-void CTransferFile::Release(BOOL bWrite)
+ULONG CTransferFile::Release()
 {
+	ULONG ref_count = (ULONG)InterlockedDecrement( &m_nRefCount );
+	if ( ref_count )
+		return ref_count;
+
 	CSingleLock pLock( &TransferFiles.m_pSection, TRUE );
-
-	if ( ! --m_nReference )
-	{
-		TransferFiles.Remove( this );
-		delete this;
-		return;
-	}
-
-	if ( m_bWrite && bWrite ) CloseWrite();
+	TransferFiles.Remove( this );
+	delete this;
+	return 0;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -186,11 +203,6 @@ HANDLE CTransferFile::GetHandle(BOOL bWrite)
 	if ( m_nDeferred > 0 ) DeferredWrite();
 
 	return m_hFile;
-}
-
-BOOL CTransferFile::IsOpen()
-{
-	return m_hFile != INVALID_HANDLE_VALUE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -208,13 +220,29 @@ BOOL CTransferFile::Open(BOOL bWrite, BOOL bCreate)
 				return FALSE;
 	}
 
+	ASSERT( ! bCreate || bWrite );
+
+	m_bExists = ! bCreate && ( GetFileAttributes( m_sPath ) != INVALID_FILE_ATTRIBUTES );
 	m_hFile = CreateFile( m_sPath, GENERIC_READ | ( bWrite ? GENERIC_WRITE : 0 ),
 		FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
-		NULL, ( bCreate ? CREATE_ALWAYS : OPEN_EXISTING ), FILE_ATTRIBUTE_NORMAL, NULL );
+		NULL, ( bCreate ? OPEN_ALWAYS : OPEN_EXISTING ), FILE_ATTRIBUTE_NORMAL, NULL );
 	VERIFY_FILE_ACCESS( m_hFile, m_sPath )
-	if ( m_hFile != INVALID_HANDLE_VALUE ) m_bWrite = bWrite;
+	if ( m_hFile != INVALID_HANDLE_VALUE )
+	{
+		m_bWrite = bWrite;
+		return TRUE;
+	}
+	else
+		return FALSE;
+}
 
-	return m_hFile != INVALID_HANDLE_VALUE;
+QWORD CTransferFile::GetSize() const
+{
+	LARGE_INTEGER nSize;
+	if ( m_hFile != INVALID_HANDLE_VALUE && GetFileSizeEx( m_hFile, &nSize ) )
+		return nSize.QuadPart;
+	else
+		return SIZE_UNKNOWN;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -263,7 +291,13 @@ BOOL CTransferFile::Read(QWORD nOffset, LPVOID pBuffer, QWORD nBuffer, QWORD* pn
 	DWORD nOffsetHigh	= (DWORD)( ( nOffset & 0xFFFFFFFF00000000 ) >> 32 );
 	SetFilePointer( m_hFile, nOffsetLow, (PLONG)&nOffsetHigh, FILE_BEGIN );
 
-	return ReadFile( m_hFile, pBuffer, (DWORD)nBuffer, (DWORD*)pnRead, NULL );
+	if ( ! ReadFile( m_hFile, pBuffer, (DWORD)nBuffer, (DWORD*)pnRead, NULL ) )
+	{
+		theApp.Message( MSG_ERROR, _T("Can't read from file \"%s\". %s"), m_sPath, GetErrorString() );
+		return FALSE;
+	}
+
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -307,7 +341,13 @@ BOOL CTransferFile::Write(QWORD nOffset, LPCVOID pBuffer, QWORD nBuffer, QWORD* 
 	DWORD nOffsetHigh	= (DWORD)( ( nOffset & 0xFFFFFFFF00000000 ) >> 32 );
 	SetFilePointer( m_hFile, nOffsetLow, (PLONG)&nOffsetHigh, FILE_BEGIN );
 
-	return WriteFile( m_hFile, pBuffer, (DWORD)nBuffer, (LPDWORD)pnWritten, NULL );
+	if ( ! WriteFile( m_hFile, pBuffer, (DWORD)nBuffer, (LPDWORD)pnWritten, NULL ) )
+	{
+		theApp.Message( MSG_ERROR, _T("Can't write to file \"%s\". %s"), m_sPath, GetErrorString() );
+		return FALSE;
+	}
+
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////

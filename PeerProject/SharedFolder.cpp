@@ -180,13 +180,13 @@ INT_PTR CLibraryFolder::GetFileCount() const
 int CLibraryFolder::GetFileList(CLibraryList* pList, BOOL bRecursive) const
 {
 	int nCount = 0;
-	
+
 	for ( POSITION pos = GetFileIterator() ; pos ; )
 	{
 		pList->CheckAndAdd( GetNextFile( pos ) );
 		nCount++;
 	}
-	
+
 	if ( bRecursive )
 	{
 		for ( POSITION pos = GetFolderIterator() ; pos ; )
@@ -194,25 +194,25 @@ int CLibraryFolder::GetFileList(CLibraryList* pList, BOOL bRecursive) const
 			GetNextFolder( pos )->GetFileList( pList, bRecursive );
 		}
 	}
-	
+
 	return nCount;
 }
 
 int CLibraryFolder::GetSharedCount() const
 {
 	int nCount = 0;
-	
+
 	for ( POSITION pos = GetFileIterator() ; pos ; )
 	{
 		CLibraryFile* pFile = GetNextFile( pos );
 		if ( pFile->IsShared() ) nCount++;
 	}
-	
+
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
 		nCount += GetNextFolder( pos )->GetSharedCount();
 	}
-	
+
 	return nCount;
 }
 
@@ -227,15 +227,15 @@ void CLibraryFolder::Clear()
 	{
 		delete GetNextFolder( pos );
 	}
-	
+
 	for ( POSITION pos = GetFileIterator() ; pos ; )
 	{
 		delete GetNextFile( pos );
 	}
-	
+
 	m_pFolders.RemoveAll();
 	m_pFiles.RemoveAll();
-	
+
 	m_nFiles	= 0;
 	m_nVolume	= 0;
 }
@@ -259,7 +259,7 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 		{
 			GetNextFolder( pos )->Serialize( ar, nVersion );
 		}
-		
+
 		ar.WriteCount( GetFileCount() );
 
 		for ( POSITION pos = GetFileIterator() ; pos ; )
@@ -285,14 +285,15 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 			ar >> bShared;
 			m_bShared = bShared ? TRI_UNKNOWN : TRI_FALSE;
 		}
-		
-		if ( nVersion >= 3 ) ar >> m_bExpanded;
+
+		if ( nVersion >= 3 )
+			ar >> m_bExpanded;
 
 		PathToName();
 
 		DWORD_PTR nCount = ar.ReadCount();
 
-		m_pFolders.InitHashTable( GetBestHashTableSize( nCount ) );
+		m_pFolders.InitHashTable( GetBestHashTableSize( nCount ), FALSE );
 
 		for ( ; nCount > 0 ; nCount-- )
 		{
@@ -309,9 +310,9 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 			m_nFiles	+= pFolder->m_nFiles;
 			m_nVolume	+= pFolder->m_nVolume;
 		}
-	
+
 		nCount = ar.ReadCount();
-		m_pFiles.InitHashTable( GetBestHashTableSize( nCount ) );
+		m_pFiles.InitHashTable( GetBestHashTableSize( nCount ), FALSE );
 
 		for ( ; nCount > 0 ; nCount-- )
 		{
@@ -335,7 +336,8 @@ void CLibraryFolder::PathToName()
 {
 	m_sName = m_sPath;
 	int nPos = m_sName.ReverseFind( '\\' );
-	if ( nPos >= 0 && nPos < m_sName.GetLength() - 1 ) m_sName = m_sName.Mid( nPos + 1 );
+	if ( nPos >= 0 && nPos < m_sName.GetLength() - 1 )
+		m_sName = m_sName.Mid( nPos + 1 );
 	m_sNameLC = m_sName;
 	ToLower( m_sNameLC );
 }
@@ -348,18 +350,18 @@ BOOL CLibraryFolder::ThreadScan(DWORD nScanCookie)
 	CSingleLock pLock( &Library.m_pSection );
 	WIN32_FIND_DATA pFind;
 	HANDLE hSearch;
-	
+
 	if ( m_sPath.CompareNoCase( Settings.Downloads.IncompletePath ) == 0 ) return FALSE;
 
 	hSearch = FindFirstFile( m_sPath + _T("\\*.*"), &pFind );
-	
+
 	pLock.Lock();
 	m_nScanCookie	= nScanCookie;
 	nScanCookie		= ++Library.m_nScanCookie;
 	pLock.Unlock();
-	
+
 	BOOL bChanged = FALSE;
-	
+
 	if ( hSearch != INVALID_HANDLE_VALUE )
 	{
 		do
@@ -374,14 +376,11 @@ BOOL CLibraryFolder::ThreadScan(DWORD nScanCookie)
 				{
 					m_nFiles	-= pFolder->m_nFiles;
 					m_nVolume	-= pFolder->m_nVolume;
-					
-					if ( pFolder->m_sName != pFind.cFileName )
-					{
-						CString strNameLC( pFolder->m_sName );
-						ToLower( strNameLC );
 
+					if ( pFolder->m_sName.CompareNoCase( pFind.cFileName ) )
+					{
 						pLock.Lock();
-						m_pFolders.RemoveKey( strNameLC );
+						m_pFolders.RemoveKey( pFolder->m_sNameLC );
 						pFolder->OnDelete();
 						pFolder = new CLibraryFolder( this, m_sPath + _T("\\") + pFind.cFileName );
 						m_pFolders.SetAt( pFolder->m_sNameLC, pFolder );
@@ -399,39 +398,34 @@ BOOL CLibraryFolder::ThreadScan(DWORD nScanCookie)
 					m_nUpdateCookie++;
 					pLock.Unlock();
 				}
-				
+
 				if ( pFolder->ThreadScan( nScanCookie ) )
 					bChanged = TRUE;
-				
+
 				m_nFiles	+= pFolder->m_nFiles;
 				m_nVolume	+= pFolder->m_nVolume;
 			}
 			else
 			{
-				CLibraryFile* pFile = GetFile( pFind.cFileName );
-				if ( pFile != NULL )
+				pLock.Lock();
+
+				BOOL bNew;
+				CLibraryFile* pFile = AddFile( pFind.cFileName, bNew );
+				if ( ! bNew )
 				{
 					m_nVolume -= pFile->m_nSize;
-					
-					if ( pFile->m_sName != pFind.cFileName )
+					if ( pFile->m_sName.CompareNoCase( pFind.cFileName ) )
 					{
-						pLock.Lock();
 						Library.RemoveFile( pFile );
 						pFile->m_sName = pFind.cFileName;
 						Library.AddFile( pFile );
 						bChanged = TRUE;
-						pLock.Unlock();
 					}
 				}
 				else
-				{
-					pFile = new CLibraryFile( this, pFind.cFileName );
-					pLock.Lock();
-					m_pFiles.SetAt( pFile->GetNameLC(), pFile );
-					m_nFiles++;
 					bChanged = TRUE;
-					pLock.Unlock();
-				}
+
+				pLock.Unlock();
 
 				QWORD nLongSize = (QWORD)pFind.nFileSizeLow |
 					( (QWORD)pFind.nFileSizeHigh << 32 );
@@ -444,56 +438,65 @@ BOOL CLibraryFolder::ThreadScan(DWORD nScanCookie)
 			}
 		}
 		while ( Library.IsThreadEnabled() && FindNextFile( hSearch, &pFind ) );
-		
+
 		FindClose( hSearch );
 	}
-	
+
 	if ( ! Library.IsThreadEnabled() ) return FALSE;
-	
+
+	pLock.Lock();
+
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
 		CLibraryFolder* pFolder = GetNextFolder( pos );
-		
+
 		if ( pFolder->m_nScanCookie != nScanCookie )
 		{
-			CString strNameLC( pFolder->m_sName );
-			ToLower( strNameLC );
-			
 			m_nFiles	-= pFolder->m_nFiles;
 			m_nVolume	-= pFolder->m_nVolume;
-			
-			if ( ! pLock.IsLocked() ) pLock.Lock();
-			
-			m_pFolders.RemoveKey( strNameLC );
+
+			m_pFolders.RemoveKey( pFolder->m_sNameLC );
 			pFolder->OnDelete();
-			
+
 			bChanged = TRUE;
 			m_nUpdateCookie++;
 		}
 	}
-	
+
 	for ( POSITION pos = GetFileIterator() ; pos ; )
 	{
 		CLibraryFile* pFile = GetNextFile( pos );
-		
+
 		if ( pFile->m_nScanCookie != nScanCookie )
 		{
-			CString strNameLC( pFile->m_sName );
-			ToLower( strNameLC );
-			
-			m_nFiles	--;
-			m_nVolume	-= pFile->m_nSize;
-			
-			if ( ! pLock.IsLocked() ) pLock.Lock();
-			
 			pFile->OnDelete();
-			m_pFiles.RemoveKey( strNameLC );
-			
 			bChanged = TRUE;
 		}
 	}
-	
+
+	pLock.Unlock();
+
 	return bChanged;
+}
+
+CLibraryFile* CLibraryFolder::AddFile(LPCTSTR szName, BOOL& bNew)
+{
+	CQuickLock oLock( Library.m_pSection );
+
+	CLibraryFile* pFile = GetFile( szName );
+	if ( pFile == NULL )
+	{
+		pFile = new CLibraryFile( this, szName );
+		m_pFiles.SetAt( pFile->GetNameLC(), pFile );
+		m_nFiles++;
+		m_nUpdateCookie++;
+		bNew = TRUE;
+	}
+	else
+	{
+		bNew = FALSE;
+	}
+	return pFile;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -554,7 +557,7 @@ BOOL CLibraryFolder::IsChanged()
 
 void CLibraryFolder::Scan()
 {
-    CLibraryFolder* pFolder = this;
+	CLibraryFolder* pFolder = this;
 	for ( ; pFolder->m_pParent ; pFolder = pFolder->m_pParent );
 	if ( pFolder ) pFolder->m_bForceScan = TRUE;
 	Library.Wakeup();
@@ -643,20 +646,48 @@ BOOL CLibraryFolder::SetOnline()
 
 void CLibraryFolder::OnDelete(TRISTATE bCreateGhost)
 {
-	for ( POSITION pos = GetFolderIterator() ; pos ; )
+	while ( ! m_pFiles.IsEmpty() )
 	{
-		GetNextFolder( pos )->OnDelete();
+		POSITION pos = m_pFiles.GetStartPosition();
+		CLibraryFile* pFile = GetNextFile( pos );
+		m_pFiles.RemoveKey( pFile->GetNameLC() );
+		pFile->OnDelete( FALSE, bCreateGhost );
 	}
-	
+
+	while ( ! m_pFolders.IsEmpty() )
+	{
+		POSITION pos = m_pFolders.GetStartPosition();
+		CLibraryFolder* pFolder = GetNextFolder( pos );
+		m_pFolders.RemoveKey( pFolder->m_sNameLC );
+		pFolder->OnDelete( bCreateGhost );
+	}
+
+	delete this;
+}
+
+BOOL CLibraryFolder::OnFileDelete(CLibraryFile* pRemovingFile)
+{
 	for ( POSITION pos = GetFileIterator() ; pos ; )
 	{
-		GetNextFile( pos )->OnDelete( FALSE, bCreateGhost );
+		CLibraryFile* pFile = GetNextFile( pos );
+		if ( pFile == pRemovingFile )
+		{
+			m_nFiles --;
+			m_nVolume -= pFile->m_nSize;
+			m_pFiles.RemoveKey( pFile->GetNameLC() );
+			m_nUpdateCookie++;
+			return TRUE;
+		}
 	}
-	
-	m_pFolders.RemoveAll();
-	m_pFiles.RemoveAll();
-	
-	delete this;
+
+	for ( POSITION pos = GetFolderIterator() ; pos ; )
+	{
+		CLibraryFolder* pFolder = GetNextFolder( pos );
+		if ( pFolder->OnFileDelete( pRemovingFile ) )
+			return TRUE;
+	}
+
+	return FALSE;
 }
 
 void CLibraryFolder::OnFileRename(CLibraryFile* pFile)
@@ -700,11 +731,12 @@ void CLibraryFolder::Maintain(BOOL bAdd)
 
 	if ( bAdd && ( bOur || dwDesktopINIAttr == INVALID_FILE_ATTRIBUTES ) )
 	{
-		if ( dwDesktopINIAttr != INVALID_FILE_ATTRIBUTES )
-		{
-			SetFileAttributes( sDesktopINI, dwDesktopINIAttr &
+		// Remove Hidden and System attributes
+		BOOL bChanged = FALSE;
+		if ( ( dwDesktopINIAttr != INVALID_FILE_ATTRIBUTES ) &&
+			 ( dwDesktopINIAttr & ( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM ) ) )
+			bChanged = SetFileAttributes( sDesktopINI, dwDesktopINIAttr &
 				~( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM ) );
-		}
 
 		CString sIconFile = Skin.GetImagePath( IDI_COLLECTION );
 		CString sIconIndex( _T("0") );
@@ -722,14 +754,11 @@ void CLibraryFolder::Maintain(BOOL bAdd)
 		WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconIndex"), sIconIndex, sDesktopINI );
 		WritePrivateProfileString( _T(".ShellClassInfo"), _T("InfoTip"), sTip, sDesktopINI );
 
-		dwDesktopINIAttr = GetFileAttributes( sDesktopINI );
-		if ( dwDesktopINIAttr != INVALID_FILE_ATTRIBUTES )
-		{
+		if ( bChanged )
 			SetFileAttributes( sDesktopINI, dwDesktopINIAttr |
 				( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM ) );
 
-			PathMakeSystemFolder( m_sPath );
-		}
+		PathMakeSystemFolder( m_sPath );
 	}
 	else if ( bOur )
 	{
@@ -740,7 +769,7 @@ void CLibraryFolder::Maintain(BOOL bAdd)
 			SetFileAttributes( sDesktopINI, dwDesktopINIAttr &
 				~( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM ) );
 
-			DeleteFile( sDesktopINI );
+			DeleteFileEx( sDesktopINI, FALSE, FALSE, FALSE );
 		}
 	}
 }
@@ -852,7 +881,7 @@ STDMETHODIMP CLibraryFolder::XLibraryFolders::get_Item(VARIANT vIndex, ILibraryF
 
 	CLibraryFolder* pFolder = NULL;
 	*ppFolder = NULL;
-	
+
 	if ( vIndex.vt == VT_BSTR )
 	{
 		CString strName( vIndex.bstrVal );
@@ -870,7 +899,7 @@ STDMETHODIMP CLibraryFolder::XLibraryFolders::get_Item(VARIANT vIndex, ILibraryF
 			return E_INVALIDARG;
 		if ( va.lVal < 0 || va.lVal >= pThis->GetFolderCount() )
 			return E_INVALIDARG;
-		
+
 		for ( POSITION pos = pThis->GetFolderIterator() ; pos ; )
 		{
 			pFolder = pThis->GetNextFolder( pos );
@@ -878,9 +907,9 @@ STDMETHODIMP CLibraryFolder::XLibraryFolders::get_Item(VARIANT vIndex, ILibraryF
 			pFolder = NULL;
 		}
 	}
-	
+
 	*ppFolder = pFolder ? (ILibraryFolder*)pFolder->GetInterface( IID_ILibraryFolder, TRUE ) : NULL;
-	
+
 	return S_OK;
 }
 
@@ -921,7 +950,7 @@ STDMETHODIMP CLibraryFolder::XLibraryFiles::get_Item(VARIANT vIndex, ILibraryFil
 
 	CLibraryFile* pFile = NULL;
 	*ppFile = NULL;
-	
+
 	if ( vIndex.vt == VT_BSTR )
 	{
 		CString strName( vIndex.bstrVal );
@@ -936,7 +965,7 @@ STDMETHODIMP CLibraryFolder::XLibraryFiles::get_Item(VARIANT vIndex, ILibraryFil
 			return E_INVALIDARG;
 		if ( va.lVal < 0 || va.lVal >= pThis->GetFileCount() )
 			return E_INVALIDARG;
-		
+
 		for ( POSITION pos = pThis->GetFileIterator() ; pos ; )
 		{
 			pFile = pThis->GetNextFile( pos );
@@ -944,9 +973,9 @@ STDMETHODIMP CLibraryFolder::XLibraryFiles::get_Item(VARIANT vIndex, ILibraryFil
 			pFile = NULL;
 		}
 	}
-	
+
 	*ppFile = pFile ? (ILibraryFile*)pFile->GetInterface( IID_ILibraryFile, TRUE ) : NULL;
-	
+
 	return S_OK;
 }
 

@@ -61,7 +61,7 @@ BOOL CCloseModeDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CCloseModeDlg") );
+	SkinMe( _T("CCloseModeDlg"), IDR_MAINFRAME );
 
 	switch ( Settings.General.CloseMode )
 	{

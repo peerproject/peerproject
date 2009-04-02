@@ -87,15 +87,18 @@ CSecurityWnd::~CSecurityWnd()
 int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct) 
 {
 	if ( CPanelWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
-	
+
+	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
+	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
+
 	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
 		rectDefault, this, IDC_RULES );
 
 	m_pSizer.Attach( &m_wndList );
 	
 	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP,
-		LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
+		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP,
+		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
 	
 	CBitmap bmBase;
 	bmBase.LoadBitmap( IDB_SECURITY );
@@ -179,7 +182,7 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 					unsigned( pRule->m_nMask[2] ), unsigned( pRule->m_nMask[3] ) );
 			}
 		}
-		else if ( pRule->m_nType == CSecureRule::srContent )
+		else
 		{
 			pItem->Set( 0, pRule->GetContentWords() );
 		}
@@ -244,8 +247,8 @@ CSecureRule* CSecurityWnd::GetItem(int nItem)
 void CSecurityWnd::OnSize(UINT nType, int cx, int cy) 
 {
 	CPanelWnd::OnSize( nType, cx, cy );
-	m_pSizer.Resize( cx );
-	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy, SWP_NOZORDER );
+	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy - TOOLBAR_HEIGHT, SWP_NOZORDER );
+	SizeListAndBar( &m_wndList, &m_wndToolBar );
 }
 
 void CSecurityWnd::OnTimer(UINT_PTR nIDEvent) 
@@ -253,7 +256,7 @@ void CSecurityWnd::OnTimer(UINT_PTR nIDEvent)
 	if ( ( nIDEvent == 1 ) && ( IsPartiallyVisible() ) )
 	{
 		DWORD tTicks = GetTickCount();
-		DWORD tDelay = max( ( 2 * (DWORD)Security.GetCount() ), 1000ul );// Delay based on size of list
+		DWORD tDelay = max( ( 2 * (DWORD)Security.GetCount() ), 1000ul ); // Delay based on size of list
 
 		if ( ( tTicks - tLastUpdate ) > tDelay )
 		{
@@ -534,7 +537,7 @@ void CSecurityWnd::OnSecurityImport()
 	}
 	else
 	{
-		// TODO: Error message, unable to import rules
+		// ToDo: Error message, unable to import rules
 		AfxMessageBox( _T("Error") );
 	}
 }
@@ -543,6 +546,7 @@ void CSecurityWnd::OnSkinChange()
 {
 	CPanelWnd::OnSkinChange();
 	Settings.LoadList( _T("CSecurityWnd"), &m_wndList, -4 );
+	Skin.CreateToolBar( _T("CSecurityWnd"), &m_wndToolBar );
 }
 
 void CSecurityWnd::OnUpdateSecurityPolicyAccept(CCmdUI* pCmdUI) 

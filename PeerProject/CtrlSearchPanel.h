@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include "AutocompleteEdit.h"
 #include "CtrlTaskPanel.h"
 #include "CtrlSchemaCombo.h"
 #include "CtrlNetworkCombo.h"
@@ -41,7 +42,7 @@ public:
 
 // Attributes
 public:
-	CEdit			m_wndSearch;
+	CAutocompleteEdit	m_wndSearch;
 	CSchemaCombo	m_wndSchemas;
 	CIconButtonCtrl	m_wndStart;
 	CIconButtonCtrl	m_wndStop;
@@ -161,14 +162,16 @@ public:
 // Attributes
 public:
 	BOOL	m_bActive;
-	DWORD	m_nFiles;
-	DWORD	m_nHits;
 	DWORD	m_nHubs;
 	DWORD	m_nLeaves;
+	DWORD	m_nFiles;
+	DWORD	m_nHits;
+	DWORD	m_nBadHits;
+
 
 // Operations
 public:
-	void	Update(BOOL bSearching, DWORD nFiles, DWORD nHits, DWORD nHubs, DWORD nLeaves);
+	void	Update(BOOL bSearching, DWORD nHubs, DWORD nLeaves, DWORD nFiles, DWORD nHits, DWORD nBadHits);
 protected:
 	static void DrawText(CDC* pDC, int nX, int nY, UINT nFlags, LPCTSTR pszText);
 
@@ -209,7 +212,7 @@ public:
 public:
 	void			SetSearchFocus();
 	void			ShowSearch(CManagedSearch* pSearch);
-	void			ShowStatus(BOOL bStarted, BOOL bSearching, DWORD nFiles, DWORD nHits, DWORD nHubs, DWORD nLeaves);
+	void			ShowStatus(BOOL bStarted, BOOL bSearching, DWORD nHubs, DWORD nLeaves, DWORD nFiles, DWORD nHits, DWORD nBadHits);
 	void			OnSchemaChange();
 	void			ExecuteSearch();
 	auto_ptr< CManagedSearch > GetSearch();

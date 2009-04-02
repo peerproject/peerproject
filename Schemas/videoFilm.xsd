@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <schema targetNamespace="http://www.shareaza.com/schemas/videoFilm.xsd" xmlns="http://www.w3.org/2001/XMLSchema">
-  
+
   <element name="videoFilms">
 	<complexType>
 		<element name="videoFilm" type="filmType" minOccurs="1" maxOccurs="unbounded"/>
 	</complexType>
-  </element>     
+  </element>
   <complexType name="filmType">
 	<all>
 		<attribute name="title" type="string"/>
@@ -34,6 +34,7 @@
 			<enumeration value="Action"/>
 			<enumeration value="Adventure"/>
 			<enumeration value="Animation"/>
+			<enumeration value="Anime"/>
 			<enumeration value="Comedy"/>
 			<enumeration value="Crime"/>
 			<enumeration value="Documentary"/>
@@ -73,11 +74,13 @@
 		</attribute>
 		<attribute name="source">
 			<simpleType base="string">
+				<enumeration value="Bluray"/>
 				<enumeration value="Cam"/>
 				<enumeration value="DVD Screener"/>
 				<enumeration value="VHS Screener"/>
 				<enumeration value="DVD"/>
 				<enumeration value="VHS"/>
+				<enumeration value="HDTV"/>
 				<enumeration value="TV Rip"/>
 				<enumeration value="Telesync"/>
 				<enumeration value="Telesine"/>
@@ -100,5 +103,5 @@
 		<attribute name="collector" type="string"/>
 	</all>
   </complexType>
-  
+
 </schema>

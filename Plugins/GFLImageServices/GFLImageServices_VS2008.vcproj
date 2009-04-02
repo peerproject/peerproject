@@ -79,15 +79,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="libgfl.lib"
+				AdditionalDependencies="LibGFL.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\LibGFL\$(ConfigurationName)$(PlatformName)"
+				AdditionalLibraryDirectories="..\..\Services\LibGFL\$(PlatformName)"
 				ModuleDefinitionFile="GFLImageServices.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				SetChecksum="false"
 				BaseAddress="0x1af40000"
-				ImportLibrary="$(OutDir)/GFLImageServices.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -112,7 +110,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="xcopy &quot;..\LibGFL\$(ConfigurationName)$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="xcopy &quot;..\..\Services\LibGFL\$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -149,7 +147,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(InputDir);..\LibGFL"
+				AdditionalIncludeDirectories="$(InputDir);..\..\Services\LibGFL"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL"
 				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
@@ -174,15 +172,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="libgfl.lib"
+				AdditionalDependencies="LibGFL.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\LibGFL\$(ConfigurationName)$(PlatformName)"
+				AdditionalLibraryDirectories="..\..\Services\LibGFL\$(PlatformName)"
 				ModuleDefinitionFile="GFLImageServices.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				SetChecksum="false"
-				BaseAddress="0x1af40000"
-				ImportLibrary="$(OutDir)/GFLImageServices.lib"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -207,7 +202,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="xcopy &quot;..\LibGFL\$(ConfigurationName)$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="xcopy &quot;..\..\Services\LibGFL\$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -250,7 +245,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="$(InputDir);..\LibGFL"
+				AdditionalIncludeDirectories="$(InputDir);..\..\Services\LibGFL"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL"
 				StringPooling="true"
 				ExceptionHandling="0"
@@ -276,9 +271,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="libgfl.lib"
+				AdditionalDependencies="LibGFL.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\LibGFL\$(ConfigurationName)$(PlatformName)"
+				AdditionalLibraryDirectories="..\..\Services\LibGFL\$(PlatformName)"
 				ModuleDefinitionFile="GFLImageServices.def"
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -286,7 +281,6 @@
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
 				BaseAddress="0x1af40000"
-				ImportLibrary=""
 				TargetMachine="1"
 			/>
 			<Tool
@@ -311,7 +305,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="xcopy &quot;..\LibGFL\$(ConfigurationName)$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="xcopy &quot;..\..\Services\LibGFL\$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -354,7 +348,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="$(InputDir);..\LibGFL"
+				AdditionalIncludeDirectories="$(InputDir);..\..\Services\LibGFL"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL"
 				StringPooling="true"
 				ExceptionHandling="0"
@@ -380,17 +374,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="libgfl.lib"
+				AdditionalDependencies="LibGFL.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\LibGFL\$(ConfigurationName)$(PlatformName)"
+				AdditionalLibraryDirectories="..\..\Services\LibGFL\$(PlatformName)"
 				ModuleDefinitionFile="GFLImageServices.def"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				SetChecksum="true"
-				BaseAddress="0x1af40000"
-				ImportLibrary=""
 				TargetMachine="17"
 			/>
 			<Tool
@@ -415,7 +407,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="xcopy &quot;..\LibGFL\$(ConfigurationName)$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="xcopy &quot;..\..\Services\LibGFL\$(PlatformName)\*.dll&quot; &quot;$(TargetDir)&quot; /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

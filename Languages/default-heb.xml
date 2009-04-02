@@ -29,7 +29,7 @@ PDF
 		description="PeerProject Default Hebrew Skin File"
 		link="http://PeerProject.sourceforge.net/"
 		email="peer_l_(at)hotmail, omega09(at)sourceforge.net"
-		version="2.4.0.0"
+		version="1.0.0.0"
 		type="Language"
 		language="heb"
 		prompt="לחץ כאן לקביעת עברית כשפת ברירת המחדל"		
@@ -43,20 +43,20 @@ PDF
 		<button id="ID_NETWORK_CONNECT" text="‪‪התחבר"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="ראשי"/>
-		<button id="ID_TAB_LIBRARY" text="‪‪ספרייה"/>
-		<button id="ID_TAB_MEDIA" text="‪‪נגן מדיה"/>
 		<button id="ID_TAB_SEARCH" text="‪חיפוש"/>
 		<button id="ID_TAB_TRANSFERS" text="‪הורדות"/>
+		<button id="ID_TAB_LIBRARY" text="‪‪ספרייה"/>
+		<button id="ID_TAB_MEDIA" text="‪‪נגן מדיה"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="‪התחבר"/>
 		<separator/>
 		<button id="ID_TAB_HOME" text="‪ראשי"/>
-		<button id="ID_TAB_LIBRARY" text="‪ספרייה"/>
-		<button id="ID_TAB_MEDIA" text="‪נגן מדיה"/>
 		<button id="ID_TAB_SEARCH" text="‪חיפוש"/>
 		<button id="ID_TAB_TRANSFERS" text="‪העברות"/>
 		<button id="ID_TAB_NETWORK" text="‪רשת"/>
+		<button id="ID_TAB_LIBRARY" text="‪ספרייה"/>
+		<button id="ID_TAB_MEDIA" text="‪נגן מדיה"/>
 		<button id="ID_TAB_IRC" text="חדר שיחה"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
@@ -423,17 +423,17 @@ PDF
 		<button id="ID_HOSTCACHE_BT_CACHE" text="מטמון ביטורנט"/>
 		<button id="ID_HOSTCACHE_KAD_CACHE" text="מטמון קדמילה"/>
 	</toolbar>
-	<!-- PRIVATE CHAT FRAME -->
+	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
-		<button id="ID_CHAT_BOLD" text="‪B"/>
-		<button id="ID_CHAT_ITALIC" text="‪I"/>
-		<button id="ID_CHAT_UNDERLINE" text="‪U"/>
-		<button id="ID_CHAT_COLOR" text="‪C"/>
-		<button id="ID_CHAT_EMOTICONS"/>
+		<button id="ID_CHAT_BOLD"/>
+		<button id="ID_CHAT_ITALIC"/>
+		<button id="ID_CHAT_UNDERLINE"/>
+		<button id="ID_CHAT_COLOR"/>
+		<button id="ID_CHAT_EMOTICONS" text=" &#160; "/>
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="עיין במשתמש"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
 		<button id="ID_CHAT_PRIORITY" text="הענק עדיפות"/>
+		<!-- <button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
 		<separator/>
 		<button id="ID_CHAT_CONNECT" text="התחבר" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="התנתק"/>
@@ -465,13 +465,13 @@ PDF
 		<button id="ID_MUSICBRAINZ_ALBUMS" text="הצג את כל האלבומים"/>
 		<separator/>
 	</toolbar>
-	<!-- IMAGE VIEWER WINDOW -->
+	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_BestFit" text="התאמה מיטבית"/>
 		<button id="ImageViewer_ActualSize" text="גודל מקורי"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="רענן"/>
-		<separator/>
+		<rightAlign/>
 		<button id="ImageViewer_Close" text="סגור"/>
 	</toolbar>
 </toolbars>
@@ -489,6 +489,23 @@ PDF
 		<item id="ID_CHILD_MINIMISE" text="מ_זער"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="סגור חלון_"/>
+	</menu>
+	<!-- TRAY MENU -->
+	<menu name="CMainWnd.Tray">
+		<item id="ID_TRAY_OPEN" text="‪פתח את שרזה"/>
+		<separator/>
+		<item id="ID_WINDOW_REMOTE" text="הצג לוח שליטה"/>
+		<item id="ID_TOOLS_SETTINGS" text="הגדרות שרזה..."/>
+		<item id="ID_NETWORK_SEARCH" text="‪חיפוש חדש..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="‪הורד קובץ..."/>
+		<separator/>
+		<item id="ID_MEDIA_PLAY" text="‪נגן מדיה"/>
+		<item id="ID_MEDIA_PAUSE" text="ה_שהה מדיה"/>
+		<item id="ID_MEDIA_NEXT" text="‪רצועה באה"/>
+		<item id="ID_MEDIA_PREVIOUS" text="‪רצועה קודמת"/>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="‪צא לאחר העברות"/>
+		<item id="ID_NETWORK_EXIT" text="‪יציאה"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.Basic" type="bar">
@@ -806,40 +823,6 @@ PDF
 		<item id="ID_VIEW_SEARCH_MONITOR" text="משגוח (מוניטור) ה_חיפוש"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="משגוח (מוניטור) ה_תוצאות"/>
 	</menu>
-	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">
-		<item id="ID_TRAY_OPEN" text="‪_פתח את שרזה"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="‪_חיפוש חדש..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="‪_הורד קובץ..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="‪_נגן מדיה"/>
-		<item id="ID_MEDIA_PAUSE" text="ה_שהה מדיה"/>
-		<item id="ID_MEDIA_STOP" text="‪_עצור מדיה"/>
-		<separator/>
-		<item id="ID_MEDIA_NEXT" text="‪רצועה _באה"/>
-		<item id="ID_MEDIA_PREVIOUS" text="‪רצועה _קודמת"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="‪_צא לאחר העברות"/>
-		<item id="ID_NETWORK_EXIT" text="‪_יציאה"/>
-	</menu>
-	<!--  REMOTE MENU -->
-	<menu name="CRemoteWnd">
-		<item id="ID_TRAY_OPEN" text="‪_פתח את שרזה"/>
-		<separator/>
-		<item id="ID_NETWORK_SEARCH" text="‪_חיפוש חדש..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_הורד קובץ..."/>
-		<separator/>
-		<item id="ID_MEDIA_PLAY" text="‪_נגן מדיה"/>
-		<item id="ID_MEDIA_PAUSE" text="‪ה_שהה מדיה"/>
-		<item id="ID_MEDIA_STOP" text="‪_עצור מדיה"/>
-		<separator/>
-		<item id="ID_MEDIA_NEXT" text="‪רצועה _באה"/>
-		<item id="ID_MEDIA_PREVIOUS" text="‪רצועה _קודמת"/>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="‪_צא לאחר העברות"/>
-		<item id="ID_NETWORK_EXIT" text="_‪יציאה"/>
-	</menu>
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
 		<item id="ID_TAB_HOME" text="_ראשי"/>
@@ -1101,6 +1084,8 @@ PDF
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="‪נקה אוטומטית הורדות שהסתיימו"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="‪המשך את כל ההור_דות"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="‪ה_שהה את כל ההורדות"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="‪_נקה את כל ההורדות"/>
@@ -2035,7 +2020,7 @@ PDF
 		<text format="b">הורדה זו הושלמה</text>
 		<newline gap="8"/>
 		<text>שרזה סיים להוריד את קובץ זה ווידא שהוא
-	  	.</text>
+		.</text>
 	</document>
 	<document name="DownloadHelp.Moving">
 		<text format="b">הורדה זו מועברת</text>
@@ -2178,7 +2163,7 @@ PDF
 		<newline gap="8"/>
 		<link target="http://PeerProject.sourceforge.net/help/?torrentencoding">Click here for additional help</link>
 		<text>, or to download software to repair the torrent.</text>
-   </document>
+	</document>
 	<document name="GeneralHelp.DonkeyServerList">
 		<text format="b">Your eDonkey server list is empty</text>
 		<newline gap="8"/>
@@ -2356,7 +2341,7 @@ PDF
 	<tip id="ID_HELP_SECURITY" message="עזרה בהגנה על קבצי המערכת שלך מתוכניות זדוניות"/>
 	<tip id="ID_HELP_UPDATE" message="בדוק אם יש חדשות ועדכונים"/>
 	<tip id="ID_HELP_TEST" message="הרץ את בדיקת החיבור."/>
-    <tip id="ID_HELP_WEB_1" message="בקר את אתר זה"/>
+	<tip id="ID_HELP_WEB_1" message="בקר את אתר זה"/>
 	<tip id="ID_HELP_WEB_2" message="בקר את אתר זה"/>
 	<tip id="ID_HELP_WEB_3" message="בקר את אתר זה"/>
 	<tip id="ID_HELP_WEB_4" message="בקר את אתר זה"/>
@@ -2435,7 +2420,7 @@ PDF
 	<tip id="ID_MEDIA_CLEAR" message="נקה את רשימת ההשמעה"/>
 	<tip id="ID_MEDIA_CLOSE" message="סגור את קובץ המדיה, לפינוי הזיכרון"/>
 	<tip id="ID_MEDIA_EXPORT_COLLECTION" message="שמור את רשימת ההשמעה כקובץ אוסף..."/>
-    <tip id="ID_MEDIA_FULLSCREEN" message="עבור למצב תצוגת וידאו במסך מלא"/>
+	<tip id="ID_MEDIA_FULLSCREEN" message="עבור למצב תצוגת וידאו במסך מלא"/>
 	<tip id="ID_MEDIA_MUTE" message="השתק את הקול"/>
 	<tip id="ID_MEDIA_NEXT" message="דלג לקובץ הבא ברשימת ההשמעה הנוכחית" tip="הקובץ הבא"/>
 	<tip id="ID_MEDIA_OPEN" message="פתח ונגן את קובץ המדיה או את רשימת ההשמעה"/>
@@ -2444,9 +2429,9 @@ PDF
 	<tip id="ID_MEDIA_PLAYLIST" message="הצג או הסתר את עורך רשימת ההשמעה"/>
 	<tip id="ID_MEDIA_PREVIOUS" message="דלג לקובץ הקודם ברשימת ההשמעה הנוכחית" tip="הקובץ הקודם"/>
 	<tip id="ID_MEDIA_PROPERTIES" message="הצג וערוך את המאפיינים של הקבצים שנבחרו."/>
-    <tip id="ID_MEDIA_RANDOM" message="קבע מצב בחירה רנדומלית ברשימת ההשמעה הנוכחית"/>
+	<tip id="ID_MEDIA_RANDOM" message="קבע מצב בחירה רנדומלית ברשימת ההשמעה הנוכחית"/>
 	<tip id="ID_MEDIA_RATE" message="דרג את הקבצים שנבחרו."/>
-    <tip id="ID_MEDIA_REMOVE" message="הסר את קובץ המדיה הנבחר מרשימת ההשמעה"/>
+	<tip id="ID_MEDIA_REMOVE" message="הסר את קובץ המדיה הנבחר מרשימת ההשמעה"/>
 	<tip id="ID_MEDIA_REPEAT" message="נגן שנית את קובץ המדיה הנוכחי"/>
 	<tip id="ID_MEDIA_SAVE" message="שמור את רשימת ההשמעה הנוכחית"/>
 	<tip id="ID_MEDIA_SELECT" message="בחר ונגן את קובץ המדיה"/>
@@ -2623,7 +2608,7 @@ PDF
 	<string id="7100" value="This template is invalid."/>
 	<string id="7101" value="This template does not have any customizations."/>
 	<string id="7102" value="Are you sure you want to delete the &quot;%s&quot; template?\nThis cannot be undone."/>
-    <string id="8000" value="‪‪הגדרות שרזה"/>
+	<string id="8000" value="‪‪הגדרות שרזה"/>
 	<string id="8001" value="‪ברוכים הבאים לשרזה"/>
 	<string id="8002" value="‪מאפייני קובץ"/>
 	<string id="8003" value="‪ערוך את הפרופיל שלי"/>
@@ -2636,7 +2621,7 @@ PDF
 	<string id="8010" value="‪&#8234;‏הסתיימה‎ ‏הנסיון‎ תקופת‎ ‏שרזה‎ ‏של‎ ‏נסיונית‎ ‏גרסה‎ ‏&#13;&#10;זוהי http://PeerProject.sourceforge.net/ ‏מהאתר‎ ‏והרשמית‎ ‏המלאה‎ ‏הגרסא‎ ‏את‎ ‏הורד‎ ‏אנא‎"/>
 	<string id="8011" value="‪שינוי התצוגה יסגור את כל החלונות הפתוחים, אתה רוצה לשנות את התצוגה כעת?"/>
 	<string id="8012" value="Torrent Information"/>
-    <string id="8060" value="‪‏&#8234;‏מצב‎ ULTRAPEER/‏מוקד‎ ‏עם‎ %lu ‏שכנים‎: , %s ‏מקומית‎ ‏בספריה"/>
+	<string id="8060" value="‪‏&#8234;‏מצב‎ ULTRAPEER/‏מוקד‎ ‏עם‎ %lu ‏שכנים‎: , %s ‏מקומית‎ ‏בספריה"/>
 	<string id="8061" value="‪‏&#8234;ULTRAPEER ‏עם‎ %lu ‏שכנים‎: , %s ‏מקומית‎ ‏בספריה"/>
 	<string id="8062" value="‪&#8234;%lu ‏מצב‎: ‏מוקד‎ ‏עם‎ ‏שכנים‎ , %s ‏מקומית‎ ‏בספריה"/>
 	<string id="8063" value="‪&#8234;‏מחובר‎ , %s ‏מקומית‎ ‏בספריה"/>
@@ -2669,7 +2654,7 @@ PDF
 	<string id="8135" value="‪Metadata ללא"/>
 	<string id="8136" value="‪חיפוש טקסט פשוט"/>
 	<string id="8137" value="No Schema Columns"/>
-    <string id="8141" value="‪הצג את לוח החיפוש"/>
+	<string id="8141" value="‪הצג את לוח החיפוש"/>
 	<string id="8142" value="‪הסתר את לוח החיפוש"/>
 	<string id="8143" value="‪...מחפש"/>
 	<string id="8144" value="‪החל חיפוש"/>
@@ -2723,7 +2708,7 @@ PDF
 	<string id="8241" value="‪:שרזה בודקת אם יש שגיאות בהורדה"/>
 	<string id="8243" value="‪:העותק התעדכן"/>
 	<string id="8244" value="Number of reviews:"/>
-    <string id="8288" value="‪סייר בספריית השיתוף שלך בשרזה"/>
+	<string id="8288" value="‪סייר בספריית השיתוף שלך בשרזה"/>
 	<string id="8289" value="‪סיור"/>
 	<string id="8290" value="תיקיות ‪%i סייר בתכנים של"/>
 	<string id="8291" value="‪מספר ספריות"/>
@@ -2746,7 +2731,7 @@ PDF
 	<string id="8317" value="‪‫העלאות"/>
 	<string id="8318" value="‪.היום %lu , בסך הכל %lu"/>
 	<string id="8319" value="No Hashset"/>
-    <string id="8320" value="‪‪:מצב"/>
+	<string id="8320" value="‪‪:מצב"/>
 	<string id="8321" value="‪‪:מהירות"/>
 	<string id="8322" value="‪‪:URL כתובת"/>
 	<string id="8323" value="‪‪:‪סוכן משתמש"/>
@@ -2957,7 +2942,7 @@ PDF
 	<string id="16375" value="‪חלקי"/>
 	<string id="16376" value="‪כל הקבצים"/>
 	<string id="16377" value="‪HTTP שומר"/>
-  	<string id="16379" value="Library Files"/>
+	<string id="16379" value="Library Files"/>
 	<string id="16384" value="‪? &quot;%s&quot; הם הינך בטוח/ה שברצונך להפעיל את הקובץ\n\n.קבצים מסויימים יכולים לפגוע במחשב שלך, אנא וודא איזה קובץ אתה מפעיל"/>
 	<string id="16385" value="‪?קבצים, האם הינך מעוניינ/ת להמשיך %i-ל Meta את/ה עומד/ת לשנות את המידע"/>
 	<string id="16386" value="‪.ל- %i קבצים Meta עורך מידע "/>
@@ -2988,7 +2973,7 @@ PDF
 	<string id="16411" value="Unable to move the file %s. The file may be in use by another application.\n\nDo you wish to try to copy this file instead?"/>
 	<string id="16412" value="Ghost File"/>
 	<string id="16413" value="New Group"/>
-    <string id="16448" value="‪...לוחץ ידיים ,%s מחובר אל"/>
+	<string id="16448" value="‪...לוחץ ידיים ,%s מחובר אל"/>
 	<string id="16449" value="‪Now chatting with %s (%s)."/>
 	<string id="16450" value="‪נסגר %s החיבור אל"/>
 	<string id="16451" value="‪אבד %s החיבור אל"/>
@@ -3085,7 +3070,7 @@ PDF
 	<string id="16943" value="‪מסייר אצל %s"/>
 	<string id="16944" value=".קבצים משותפים %i נמצאו %s בספרייה של"/>
 	<string id="16991" value="PeerProject Media Player"/>
-    <string id="16992" value="‪PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
+	<string id="16992" value="‪PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="16993" value="‪All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
 	<string id="16994" value="‪Unable to load media file &quot;%s&quot;"/>
 	<string id="16995" value="‪The file may be damaged, or you may not have the necessary codecs to play it."/>
@@ -3205,14 +3190,14 @@ PDF
 	<string id="17500" value="Tracker did not respond- Retrying announce (%i of %i)"/>
 	<string id="17501" value="Unable to communicate with tracker"/>
 	<string id="17503" value="Tracker failed- Trying next tracker (%i of %i)"/>
-    <string id="17505" value="BitTorrent connection to %s was dropped."/>
+	<string id="17505" value="BitTorrent connection to %s was dropped."/>
 	<string id="17506" value="BitTorrent handshake with %s was dropped."/>
 	<string id="17507" value="BitTorrent coupling with %s was dropped."/>
 	<string id="17510" value="BitTorrent coupling with %s not accepted, a connection to this client already exists."/>
 	<string id="17511" value="BitTorrent coupling with %s not accepted, maximum connections reached."/>
 	<string id="17512" value="Private torrent"/>
 	<string id="17513" value="Encoding error"/>
-    <string id="18496" value="‪You have made changes to the name field.  Are you sure you want to rename this download?"/>
+	<string id="18496" value="‪You have made changes to the name field.  Are you sure you want to rename this download?"/>
 	<string id="18497" value="‪You have typed a SHA1 value, however it is invalid.  Please check it and try again."/>
 	<string id="18498" value="‪You have typed a root tiger-tree value, however it is invalid.  Please check it and try again."/>
 	<string id="18499" value="‪You have typed an eDonkey2000 hash value, however it is invalid.  Please check it and try again."/>
@@ -3233,19 +3218,18 @@ PDF
 	<string id="19002" value="‪לא מצליח לקבל התקשרויות, כתובת האינטרנט לא זמינה"/>
 	<string id="20000" value="‪זמין URN אין"/>
 	<string id="20001" value="Close"/>
-    <string id="20002" value="מתוך"/><!-- e.g. 1 of 10 -->
+	<string id="20002" value="מתוך"/><!-- e.g. 1 of 10 -->
 	<string id="20003" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"/>
-	<string id="20004" value="Right-to-left languages are not supported in your OS."/>
 	<string id="20005" value="לא"/>
 	<string id="20006" value="כן"/>
 	<string id="20007" value="אוטומטי"/>
 	<string id="20008" value="Default"/>
 	<string id="20009" value="Custom"/>
-  	<string id="20010" value="&amp;Back"/>
+	<string id="20010" value="&amp;Back"/>
 	<string id="20011" value="&amp;Next"/>
 	<string id="20012" value="Finish"/>
 	<string id="20013" value="All"/>
-    <string id="20100" value="‪מתחבר"/>
+	<string id="20100" value="‪מתחבר"/>
 	<string id="20101" value="‪מבקש"/>
 	<string id="20102" value="‪תגובה"/>
 	<string id="20103" value="‪מוריד"/>
@@ -3306,6 +3290,8 @@ PDF
 	<string id="20234" value="אלבום"/>
 	<string id="20235" value="אמן"/>
 	<string id="20236" value="דרוג"/>
+	<string id="20237" value="אישור"/>
+	<string id="20238" value="ביטול"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3572,14 +3558,14 @@ PDF
 		<control caption="רשת גנוטלה2 היא הרשת הראשית של שרזה, המציעה יותר אופציות וביצועים מכל רשת שיתוף אחרת - מאוד מומלץ"/>
 		<control caption="התחבר לגנוטלה2 (G2)"/>
 		<control caption="קבע הגדרות לגנוטלה2"/>
-		<control caption=":רשת אידונקי2000"/>
-		<control caption="רשת אידונקי היא רשת מבוססת שרת פופלרית. יש בה פחות אופציות מגונטלה2 אבל עם כמות קבצים מרשימה"/>
-		<control caption="התחבר לאידונקי2000"/>
-		<control caption="קבע הגדרות לאידונקי 2000"/>
 		<control caption=":רשת גנוטלה המקורית"/>
 		<control caption="למרוח שרשת גנוטלה המקורית היא עם פחות אופציות מגנוטלה2 ועם פחות קבצים מאידונקי היא עדיין מקור בעל ערך"/>
 		<control caption="התחבר לגנוטה המקורית"/>
 		<control caption="קבע הגדרות לגנוטלה1"/>
+		<control caption=":רשת אידונקי2000"/>
+		<control caption="רשת אידונקי היא רשת מבוססת שרת פופלרית. יש בה פחות אופציות מגונטלה2 אבל עם כמות קבצים מרשימה"/>
+		<control caption="התחבר לאידונקי2000"/>
+		<control caption="קבע הגדרות לאידונקי 2000"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="גונטלה">
 		<control caption=":רשת גנוטלה2"/>
@@ -4394,21 +4380,26 @@ PDF
 		<control caption="רענן"/> 
 		<control caption="_Trackers:"/>
 		<control/>
-        <control caption="Tracker Mode:"/>
+		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuEdSyBuCoBuBuBuBuBuEdBu" caption="הורד מאפייני קבוצה">
-		<control caption=":שם"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="הורד מאפייני קבוצה">
+		<control caption="אישור"/>
+		<control caption="ביטול"/>
 		<control/>
 		<control/>
-		<control caption=":מסננים"/>
+		<control caption="_BitTorrent"/>
 		<control/>
 		<control caption="הוסף"/>
 		<control caption="הסר"/>
-		<control caption="אישור"/>
-		<control caption="ביטול"/>
-		<control caption=":התיקייה לשמירת קבצים כשמסתיימת ההורדה"/>
 		<control/>
+		<control/>
+		<control/>
+		<control caption=":שם"/>
+		<control caption=":מסננים"/>
+		<control caption=":התיקייה לשמירת קבצים כשמסתיימת ההורדה"/>
+		<control caption=":כל סוג קובץ"/>
+		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="בחר אפקט ויזואלי">
 		<control/>

@@ -54,7 +54,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CProfileManagerDlg construction
 
-CProfileManagerDlg::CProfileManagerDlg() : CSettingsSheet( 0, IDS_USER_PROFILE )
+CProfileManagerDlg::CProfileManagerDlg(CWnd* pParent) : CSettingsSheet( pParent, IDS_USER_PROFILE )
 {
 	m_nTopMargin = 52;
 }
@@ -130,7 +130,7 @@ BOOL CProfileManagerDlg::OnInitDialog()
 
 	m_bmHeader.LoadBitmap( IDB_WIZARD );
 
-	SkinMe( NULL, IDR_MAINFRAME, TRUE );
+	SkinMe( NULL, IDR_MAINFRAME );
 
 	return TRUE;
 }

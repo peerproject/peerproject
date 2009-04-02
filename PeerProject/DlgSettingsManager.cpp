@@ -30,6 +30,7 @@
 #include "PageSettingsLibrary.h"
 #include "PageSettingsMedia.h"
 #include "PageSettingsCommunity.h"
+#include "PageSettingsIRC.h"
 #include "PageSettingsWeb.h"
 #include "PageSettingsConnection.h"
 #include "PageSettingsDownloads.h"
@@ -40,11 +41,10 @@
 #include "PageSettingsGnutella.h"
 #include "PageSettingsDonkey.h"
 #include "PageSettingsBitTorrent.h"
-#include "PageSettingsSkins.h"
-#include "PageSettingsPlugins.h"
-#include "PageSettingsTraffic.h"
 #include "PageSettingsProtocols.h"
-#include "PageSettingsIRC.h"
+#include "PageSettingsPlugins.h"
+#include "PageSettingsSkins.h"
+#include "PageSettingsTraffic.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -93,7 +93,7 @@ void CSettingsManagerDlg::OnSkinChange(BOOL bSet)
 
 	if ( bSet )
 	{
-		m_pThis->SkinMe( _T("CSettingSheet"), IDR_MAINFRAME, TRUE );
+		m_pThis->SkinMe( _T("CSettingSheet"), IDR_MAINFRAME );
 		m_pThis->Invalidate();
 	}
 	else
@@ -148,13 +148,15 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 #ifndef LAN_MODE
 		AddPage( &pDonkey );
 		AddPage( &pTorrent );
-#endif
-		AddPage( &pProtocols );
+#endif //LAN_MOD
 	}
 	AddGroup( &pSkins );
 	AddGroup( &pPlugins );
-	if ( bAdvanced ) AddGroup( &pAdvanced );
-
+	if ( bAdvanced )
+	{
+		AddGroup( &pAdvanced );
+		AddPage( &pProtocols ); //ToDo: Remove or Improve
+	}
 	if ( pszWindow != NULL )
 	{
 		SetActivePage( GetPage( pszWindow ) );
@@ -225,7 +227,7 @@ void CSettingsManagerDlg::DoPaint(CDC& dc)
 	mdc.SelectObject( pOldBitmap );
 	mdc.DeleteDC();
 
-	/*
+	/* //ToDo: Remove This?
 	dc.FillSolidRect( 438, 0, rc.right - 438, 48, RGB( 0xBE, 0, 0 ) );
 
 	dc.Draw3dRect( 438, 48, rc.right - 437, 2,

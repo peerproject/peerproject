@@ -1,6 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
-#include "resource.h"
+#include "Resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // English (United States) resources
 
-#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENA)
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
@@ -45,12 +45,11 @@ BEGIN
     "#define _AFX_NO_TRACKER_RESOURCES\r\n"
     "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
     "#define _AFX_NO_NEWTYPEDLG_RESOURCES\r\n"
+    "#define _AFX_NO_MOUSE_RESOURCES\r\n"
     "\r\n"
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
-    "#ifdef _WIN32\r\n"
     "LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US\r\n"
     "#pragma code_page(1252)\r\n"
-    "#endif\r\n"
     "#include ""Res\\PeerProject.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
     "#include ""afxres.rc""         // Standard components\r\n"
     "#endif\r\n"
@@ -84,13 +83,14 @@ BEGIN
     BEGIN
         BLOCK "000004b0"
         BEGIN
+            VALUE "Title", "PeerProject"
             VALUE "Comments", "PeerProject P2P Filesharing"
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "PeerProject P2P Filesharing"
             VALUE "FileVersion", "1, 0, 0, 0"
-            VALUE "InternalName", "PeerProject"
-            VALUE "LegalCopyright", "Copyright © PeerProject Development Team, 2002-2008. All rights reserved."
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2009"
             VALUE "OriginalFilename", "PeerProject.exe"
+            VALUE "InternalName", "PeerProject"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"
         END
@@ -108,40 +108,39 @@ END
 //
 
 IDB_MENUBAR             BITMAP			"Res\\CommandImages.bmp"
+IDB_IRCICONS            BITMAP			"Res\\CommandIRC.bmp"
+IDB_PROTOCOLS           BITMAP			"Res\\Protocols.bmp"
+IDB_CHILDFRAME          BITMAP			"Res\\ChildFrame.bmp"
+IDB_MEDIA_STATES        BITMAP			"Res\\MediaStates.bmp"
+IDB_SECURITY            BITMAP			"Res\\SecurityImages.bmp"
+IDB_SMALL_STAR          BITMAP			"Res\\SmallStar.bmp"
 IDB_SORT_ASC            BITMAP			"Res\\SortAsc.bmp"
 IDB_SORT_DESC           BITMAP			"Res\\SortDesc.bmp"
 IDB_COLORDOT            BITMAP			"Res\\ColorDot.bmp"
 IDB_WIZARD              BITMAP			"Res\\Wizard.bmp"
 IDB_WIZARD_DOT          BITMAP			"Res\\WizardDot.bmp"
-IDB_SECURITY            BITMAP			"Res\\SecurityImages.bmp"
-IDB_SMALL_STAR          BITMAP			"Res\\SmallStar.bmp"
 IDB_BANNER_MARK         BITMAP			"Res\\BannerMark.bmp"
-IDB_MEDIA_STATES        BITMAP			"Res\\MediaStates.bmp"
 IDB_TASKPANEL_FOOTER    BITMAP			"Res\\TaskPanelFooter.bmp"
 IDB_TASKBOX_CAPTION     BITMAP			"Res\\TaskBoxCaption.bmp"
-IDB_PROTOCOLS           BITMAP			"Res\\Protocols.bmp"
 IDB_NAVBAR_IMAGE        BITMAP			"Res\\Navbar.bmp"
 IDB_NAVBAR_ALPHA        BITMAP			"Res\\NavbarAlpha.bmp"
 IDB_NAVBAR_IMAGE_RTL    BITMAP			"Res\\NavbarRTL.bmp"
 IDB_NAVBAR_ALPHA_RTL    BITMAP			"Res\\NavbarAlphaRTL.bmp"
-IDB_REMOTE_SKIN         BITMAP			"Res\\RemoteWnd.bmp"
 IDB_PANEL_MARK          BITMAP			"Res\\PanelMark.bmp"
 IDB_SCHEDULER_HEADER    BITMAP			"Res\\Scheduler.bmp"
 IDB_SCHEDULER_TIMESLICES BITMAP			"Res\\TimeSlices.bmp"
 IDB_MUSICBRAINZ_LOGO    BITMAP			"Res\\MusicBrainz.bmp"
-IDB_CHILDFRAME          BITMAP			"Res\\ChildFrame.bmp"
-IDB_IRCICONS            BITMAP			"Res\\IRCImages.bmp"
 IDB_FONT_SYMBOLS        BITMAP			"Res\\FontSymbols.bmp"
 IDB_BOX_MARK            BITMAP			"Res\\BoxMark.bmp"
-
+IDB_REMOTE_SKIN         BITMAP			"Res\\RemoteWnd.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Icon
 //
 
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
+// Icon with lowest ID value placed first to ensure
+// application icon remains consistent on all systems.
 IDR_MAINFRAME           ICON			"Res\\PeerProject.ico"
 IDR_SYSTEMFRAME     	ICON			"Res\\System.ico"
 IDI_HOST_OUTGOING   	ICON			"Res\\HostOut.ico"
@@ -149,22 +148,26 @@ IDI_HOST_INCOMING   	ICON			"Res\\HostIn.ico"
 IDR_NEIGHBOURSFRAME 	ICON			"Res\\Network.ico"
 IDR_PACKETFRAME     	ICON			"Res\\Packets.ico"
 IDR_HOSTCACHEFRAME  	ICON			"Res\\HostCache.ico"
-IDR_SEARCHMONITORFRAME	ICON			"Res\\Search.ico"
 IDR_SEARCHFRAME     	ICON			"Res\\Search.ico"
+IDR_SEARCHMONITORFRAME	ICON			"Res\\HitMonitor.ico"
 IDR_HITMONITORFRAME 	ICON			"Res\\HitMonitor.ico"
 IDR_DOWNLOADSFRAME  	ICON			"Res\\Downloads.ico"
 IDR_LIBRARYFRAME    	ICON			"Res\\Library.ico"
 IDR_UPLOADSFRAME    	ICON			"Res\\Uploads.ico"
 IDI_BROWSE          	ICON			"Res\\Browse.ico"
+IDR_BROWSEHOSTFRAME 	ICON			"Res\\Browse.ico"
+IDR_HOMEFRAME       	ICON			"Res\\Home.ico"
 IDR_TRAFFICFRAME    	ICON			"Res\\Traffic.ico"
 IDR_CHATFRAME       	ICON			"Res\\Chat.ico"
 IDI_PROPERTIES      	ICON			"Res\\Properties.ico"
 IDR_SECURITYFRAME   	ICON			"Res\\Security.ico"
 IDR_DISCOVERYFRAME  	ICON			"Res\\Discovery.ico"
-IDI_WEB_URL         	ICON			"Res\\WebURL.ico"
-IDR_BROWSEHOSTFRAME 	ICON			"Res\\Browse.ico"
-IDR_HOMEFRAME       	ICON			"Res\\Home.ico"
+IDI_DISCOVERY_GRAY  	ICON			"Res\\DiscoveryGray.ico"
+IDI_DISCOVERY_BLUE  	ICON			"Res\\DiscoveryBlue.ico"
 IDI_DOWNLOAD_MONITOR	ICON			"Res\\DownloadMonitor.ico"
+IDR_SEARCHPADFRAME  	ICON			"Res\\Search.ico"
+IDR_MEDIAFRAME      	ICON			"Res\\Media.ico"
+IDI_WEB_URL         	ICON			"Res\\WebURL.ico"
 IDI_SKIN            	ICON			"Res\\Skin.ico"
 IDI_POINTER_ARROW   	ICON			"Res\\PointerArrow.ico"
 IDI_COMPUTER        	ICON			"Res\\Computer.ico"
@@ -173,16 +176,12 @@ IDI_FLAG_ENGLISH    	ICON			"Res\\FlagEnglish.ICO"
 IDI_CHECKMARK       	ICON			"Res\\Checkmark.ico"
 IDI_EXECUTABLE      	ICON			"Res\\Executable.ico"
 IDI_FILE            	ICON			"Res\\File.ico"
-IDR_MEDIAFRAME      	ICON			"Res\\Media.ico"
-IDR_SEARCHPADFRAME  	ICON			"Res\\Search.ico"
 IDI_MAIL            	ICON			"Res\\Mail.ico"
 IDI_CONTACT_YAHOO   	ICON			"Res\\ContactYahoo.ico"
 IDI_CONTACT_AOL     	ICON			"Res\\ContactAOL.ico"
 IDI_CONTACT_ICQ     	ICON			"Res\\ContactICQ.ico"
-IDI_COMPUTER_GRAY   	ICON			"Res\\ComputerGray.ICO"
-IDI_DISCOVERY_GRAY  	ICON			"Res\\DiscoveryGray.ico"
-IDI_DISCOVERY_BLUE  	ICON			"Res\\DiscoveryBlue.ico"
 IDI_CONTACT_MSN     	ICON			"Res\\ContactMSN.ico"
+IDI_COMPUTER_GRAY   	ICON			"Res\\ComputerGray.ICO"
 IDR_HELPFRAME       	ICON			"Res\\Help.ico"
 IDI_SEARCH_FOLDER   	ICON			"Res\\SearchFolder.ico"
 IDI_CLIPBOARD       	ICON			"Res\\Clipboard.ico"
@@ -216,6 +215,57 @@ IDI_COMMERCIAL      	ICON			"Res\\Commercial.ico"
 IDI_RATING_FAKE     	ICON			"Res\\RatingFake.ico"
 IDI_RATING_AVERAGE  	ICON			"Res\\RatingAverage.ico"
 IDI_RATING_GOOD     	ICON			"Res\\RatingGood.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_HAND                CURSOR          "Res\\Hand.cur"
+IDC_COPY                CURSOR          "Res\\CopyXP.cur"
+IDC_MOVE                CURSOR          "Res\\MoveXP.cur"
+IDC_COPY_VISTA          CURSOR          "Res\\CopyVista.cur"
+IDC_MOVE_VISTA          CURSOR          "Res\\MoveVista.cur"
+IDC_DOWN                CURSOR          "Res\\SchedulerDown.cur"
+IDC_RIGHT               CURSOR          "Res\\SchedulerRight.cur"
+IDC_LEFT                CURSOR          "Res\\SchedulerLeft.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// PNG
+//
+
+IDR_HOME_HEADER_1       PNG 			"Res\\HomeHeader.png"
+IDR_HOME_HEADER_2       PNG 			"Res\\HomeHeaderRepeat.png"
+IDR_LARGE_LOGO          PNG 			"Res\\LargeLogo.png"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// JPEG
+//
+// IDR_LARGE_LOGO       JPEG			"Res\\LargeLogo.jpg"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// HTML
+//
+
+IDR_HTML_FILENOTFOUND   HTML			"Res\\FileNotFound.htm"
+IDR_HTML_HASHMISMATCH   HTML			"Res\\HashMismatch.htm"
+IDR_HTML_BUSY           HTML			"Res\\Busy.htm"
+IDR_HTML_BADRANGE       HTML			"Res\\BadRange.htm"
+IDR_HTML_DISABLED       HTML			"Res\\Disabled.htm"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// GZIP
+//
+
+IDR_HTML_ABOUT          GZIP			"Res\\About.htm.gz"
+IDR_HTML_BROWSER        GZIP			"Res\\Browser.htm.gz"
+IDR_XML_DEFINITIONS     GZIP			"Res\\Definitions.xml.gz"
+IDR_XML_DEFAULT         GZIP			"Res\\Default.xml.gz"
+IDR_XML_SCHEMA_MAPS     GZIP			"Res\\SchemaMappings.xml.gz"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -394,7 +444,7 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Downloads"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "Save &Completed Files Here:",IDC_STATIC,5,5,270,35,WS_GROUP
+    GROUPBOX        "Save Default &Completed Files Here:",IDC_STATIC,5,5,270,35,WS_GROUP
     EDITTEXT        IDC_DOWNLOADS_FOLDER,15,19,225,12,ES_AUTOHSCROLL | ES_READONLY
     PUSHBUTTON      "",IDC_DOWNLOADS_BROWSE,245,15,23,20
     GROUPBOX        "Store Temporary &Incomplete Files Here:",IDC_STATIC,5,45,270,35,WS_GROUP
@@ -467,13 +517,13 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About PeerProject"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    CONTROL         154,IDC_STATIC,"Static",SS_BITMAP,0,0,367,31
+    CONTROL         154,IDC_BANNER,"Static",SS_BITMAP,0,0,367,31
     LTEXT           "PeerProject File Sharing Client ",IDC_TITLE,20,45,262,10,SS_CENTERIMAGE
     LTEXT           "Copyright © PeerProject Development Team, 2002-",IDC_COPYRIGHT,20,60,262,12
     LTEXT           "PeerProject is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or later version (at your option).",IDC_STATIC,20,75,262,24
-    LTEXT           "CreativeCommons BY-NC-SA covers orginal artwork.",IDC_STATIC,20,105,262,12
+    LTEXT           "CreativeCommons BY-NC-SA covers original artwork.",IDC_STATIC,20,105,262,12
+    LTEXT           "Please be aware of local laws and norms.",IDC_STATIC,20,120,262,18
     LTEXT           "http://PeerProject.org/",IDC_WEB,20,142,125,10
-    LTEXT           "This product includes GeoLite data created by MaxMind (http://maxmind.com/)",IDC_STATIC,20,120,262,18
     DEFPUSHBUTTON   "OK",IDOK,235,141,50,14
 END
 
@@ -563,12 +613,12 @@ CAPTION "Welcome to PeerProject (2/6)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
     LTEXT           "P2P networks are only as good as the people who use them.  All of the content available for download is being shared by another user.",IDC_STATIC,10,10,265,20
-    LTEXT           "You do not have to share content to use PeerProject, however some software will behave differently to users who are not sharing anything.",IDC_STATIC,10,35,265,20
-    LTEXT           "Please indicate which folders, if any, you wish to share.  Simply click the Add button to include a new folder.",IDC_STATIC,10,60,265,20
+    LTEXT           "You do not have to share content to use PeerProject, however some software will restrict users who are not sharing anything.",IDC_STATIC,10,35,265,20
+    LTEXT           "Please indicate which folders, if any, you wish to share.  Click the Add button to include a new folder, files can be unshared later.",IDC_STATIC,10,60,265,20
     CONTROL         "List1",IDC_SHARE_FOLDERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,15,85,190,55
     PUSHBUTTON      "&Add...",IDC_SHARE_ADD,215,90,45,15
     PUSHBUTTON      "&Remove",IDC_SHARE_REMOVE,215,118,45,15,WS_DISABLED
-    LTEXT           "CAUTION: Distributing copyrighted works is an offense in most countries.",IDC_STATIC,10,140,265,15,SS_CENTERIMAGE
+    LTEXT           "CAUTION: Uploading unauthorized copyright works is liable in most countries.",IDC_STATIC,10,140,272,15,SS_CENTERIMAGE
 END
 
 IDD_WIZARD_PROFILE DIALOGEX 0, 0, 277, 174
@@ -596,11 +646,11 @@ BEGIN
     GROUPBOX        "Please select user interface:",IDC_STATIC,7,27,269,83
     CONTROL         "Basic Mode",IDC_INTERFACE_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,14,39,250,10
     CONTROL         "Power Mode",IDC_INTERFACE_1,"Button",BS_AUTORADIOBUTTON,14,75,250,10
-    LTEXT           "Simple, easy to use menus and buttons.\nFamiliar to users of other file sharing programs.",IDC_DESCRIPTION_0,27,51,243,21
-    LTEXT           "Power mode offers expert users lots of extra commands, windows, etc.\nIt may be a little confusing for new users!",IDC_DESCRIPTION_1,27,87,243,21
-    CONTROL         "Display simplified download progress bars. (Reduces CPU use)",IDC_DOWNLOADS_SIMPLEBAR,
+    LTEXT           "Simple, easy to use menus with fewer options.\nHelpful for new users of file sharing.",IDC_DESCRIPTION_0,27,51,243,21
+    LTEXT           "Standard mode offers expert users all extra commands, windows, etc.\nMight be more confusing for new users.",IDC_DESCRIPTION_1,27,87,243,21
+    CONTROL         "Display simplified download progress bars. (May reduce CPU use)",IDC_DOWNLOADS_SIMPLEBAR,
 					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,114,256,10
-    CONTROL         "Handle torrent links.",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,127,256,10
+    CONTROL         "Handle BitTorrent links. (Associate .torrent files)",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,128,256,10
 END
 
 IDD_WIZARD_NETWORKS DIALOGEX 0, 0, 277, 174
@@ -609,13 +659,12 @@ CAPTION "Welcome to PeerProject (5/6)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
     LTEXT           "PeerProject is a general-purpose file-sharing application that can access many P2P networks at the same time.  Here you can select which networks you'd like to access.  Note that you can always select different networks later.",IDC_STATIC,10,10,265,30
-    CONTROL         "Connect to Gnutella2 (Highly Recommended)",IDC_G2_ENABLE,
-					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,45,260,10
-    LTEXT           "The Gnutella2 network is PeerProject's premiere network, offering more features and performance than any other P2P net.",IDC_STATIC,25,57,250,18
-    CONTROL         "Connect to eDonkey",IDC_ED2K_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,79,260,10
-    LTEXT           "The eDonkey network is a popular server-based network.  While not as feature-rich as Gnutella2, eDonkey has an impressive file collection.",IDC_STATIC,25,91,250,18
-    CONTROL         "Connect to Gnutella",IDC_G1_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,113,260,10
-    LTEXT           "The original Gnutella network is less feature-rich than Gnutella2, and has fewer files than eDonkey, yet remains a valuable resource.",IDC_STATIC,25,126,250,18
+    CONTROL         "Connect to Gnutella2 (Default)",IDC_G2_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,45,260,10
+    LTEXT           "The Gnutella2 network (G2) is PeerProject's premiere network, offering more features and performance than any other P2P net. (Shareaza)",IDC_STATIC,25,57,252,18
+    CONTROL         "Connect to Gnutella",IDC_G1_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,79,260,10
+    LTEXT           "The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source. (LimeWire)",IDC_STATIC,25,91,252,18
+    CONTROL         "Connect to eDonkey2000",IDC_ED2K_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,113,260,10
+    LTEXT           "The eDonkey network (ED2K) is a popular server-based system.  While not as feature-rich or fast as G2, ED2K has a vast file collection. (eMule)",IDC_STATIC,25,126,252,18
 END
 
 IDD_WIZARD_FINISHED DIALOGEX 0, 0, 277, 174
@@ -632,7 +681,7 @@ BEGIN
 					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,95,225,10
     CONTROL         "Start PeerProject every time Windows starts",IDC_WIZARD_STARTUP,
 					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,110,225,10
-    LTEXT           "Enjoy using PeerProject- Ask for help anytime.",IDC_STATIC,10,130,265,10
+    LTEXT           "Enjoy using PeerProject P2P!",IDC_STATIC,10,130,265,10
 END
 
 IDD_FOLDER_SCAN DIALOGEX 0, 0, 237, 49
@@ -784,13 +833,13 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Discovery Service"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
+    CONTROL         154,IDC_BANNER,"Static",SS_BITMAP,0,0,400,31
     GROUPBOX        "Service &Address:",IDC_STATIC,7,39,278,60
     EDITTEXT        IDC_ADDRESS,14,55,264,12,ES_AUTOHSCROLL
     RTEXT           "Discovery Service Type:",IDC_STATIC,14,74,129,12,SS_CENTERIMAGE
     COMBOBOX        IDC_SERVICE_TYPE,148,74,130,70,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,179,124,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,235,124,50,14
-    CONTROL         154,IDC_STATIC,"Static",SS_BITMAP,0,0,400,31
 END
 
 IDD_SETTINGS_BANDWIDTH DIALOG  0, 0, 282, 220
@@ -1113,7 +1162,7 @@ END
 
 IDD_SETTINGS_WEB DIALOGEX 0, 0, 282, 220
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Web"
+CAPTION "Web Links"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
     GROUPBOX        "&Peer to Peer Link Handling:",IDC_STATIC,5,5,270,85,WS_GROUP
@@ -1149,7 +1198,7 @@ BEGIN
     COMBOBOX        IDC_PROFILE_AGE,55,105,45,45,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Age:",IDC_STATIC,15,105,35,12,SS_CENTERIMAGE
     CONTROL         "Allow others to browse my user profile",IDC_BROWSE_USER,
-			"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,140,260,12
+					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,140,260,12
 END
 
 IDD_PROFILE_FAVOURITES DIALOG  0, 0, 282, 159
@@ -1381,11 +1430,11 @@ CAPTION "Close Button"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
     CONTROL         154,IDC_BANNER,"Static",SS_BITMAP | WS_GROUP,0,0,292,31
-    LTEXT           "This is the first time you have clicked PeerProject's close button.  Please choose what action you would like PeerProject to take when clicking the close button from now on:",IDC_STATIC,15,40,260,30
+    LTEXT           "This is the first time you have clicked PeerProject's close button.\nPlease choose what action you would like to take when clicking the close button from now on:",IDC_STATIC,15,40,260,30
     CONTROL         "Minimise to the tray area",IDC_CLOSE_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,30,75,245,10
     CONTROL         "Shut down PeerProject immediately",IDC_CLOSE_1,"Button",BS_AUTORADIOBUTTON,30,90,245,10
     CONTROL         "Shut down PeerProject after any downloads and uploads finish",IDC_CLOSE_2,
-			"Button",BS_AUTORADIOBUTTON,30,105,245,10
+					"Button",BS_AUTORADIOBUTTON,30,105,245,10
     DEFPUSHBUTTON   "OK",IDOK,179,124,50,14,WS_GROUP
     PUSHBUTTON      "Cancel",IDCANCEL,235,124,50,14
 END
@@ -1427,14 +1476,14 @@ BEGIN
     LTEXT           "The Gnutella2 network is PeerProject's premiere network, offering more features and performance than any other P2P net.  Highly recommended.",IDC_STATIC,15,50,250,18
     CONTROL         "Connect to Gnutella2 (G2)",IDC_G2_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,73,145,10
     RTEXT           "Configure Gnutella2",IDC_G2_SETUP,165,73,100,10
-    GROUPBOX        "eDonkey Network:",IDC_STATIC,5,95,270,55,WS_GROUP
-    LTEXT           "The eDonkey network is a popular server-based network.  While not as feature-rich as Gnutella2, eDonkey has an impressive file collection.",IDC_STATIC,15,110,250,18
-    CONTROL         "Connect to eDonkey",IDC_ED2K_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,132,145,10
-    RTEXT           "Configure eDonkey",IDC_ED2K_SETUP,165,132,100,10
-    GROUPBOX        "Gnutella Network:",IDC_STATIC,5,155,270,55,WS_GROUP
-    LTEXT           "The original Gnutella network is less feature-rich than Gnutella2, and has fewer files than eDonkey, yet remains a valuable resource.",IDC_STATIC,15,170,250,18
-    CONTROL         "Connect to Original Gnutella",IDC_G1_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,193,145,10
-    RTEXT           "Configure Gnutella1",IDC_G1_SETUP,165,193,100,10
+    GROUPBOX        "Gnutella Network:",IDC_STATIC,5,95,270,55,WS_GROUP
+    LTEXT           "The original Gnutella network is less feature-rich than Gnutella2, and has fewer files than eDonkey, yet remains a valuable resource.",IDC_STATIC,15,110,250,18
+    CONTROL         "Connect to Original Gnutella (G1)",IDC_G1_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,132,145,10
+    RTEXT           "Configure Gnutella1",IDC_G1_SETUP,165,132,100,10
+    GROUPBOX        "eDonkey Network:",IDC_STATIC,5,155,270,55,WS_GROUP
+    LTEXT           "The eDonkey network is a popular server-based network.  While not as feature-rich or fast as G2, eMule has an impressive file collection.",IDC_STATIC,15,170,250,18
+    CONTROL         "Connect to eDonkey2000 (ED2K)",IDC_ED2K_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,193,145,10
+    RTEXT           "Configure eDonkey",IDC_ED2K_SETUP,165,193,100,10
 END
 
 IDD_SETTINGS_PROTOCOLS DIALOG  0, 0, 282, 220
@@ -1538,23 +1587,27 @@ BEGIN
     PUSHBUTTON      "Close",IDC_CLOSE,225,75,50,14,NOT WS_VISIBLE
 END
 
-IDD_DOWNLOAD_GROUP DIALOGEX 0, 0, 327, 185
+IDD_DOWNLOAD_GROUP DIALOGEX 0, 0, 280, 220
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Download Group Properties"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "&Name:",IDC_STATIC,5,5,180,111,WS_GROUP
-    EDITTEXT        IDC_NAME,15,20,160,12,ES_AUTOHSCROLL
-    CONTROL         "List1",IDC_ICON_LIST,"SysListView32",LVS_LIST | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_SHAREIMAGELISTS | LVS_AUTOARRANGE | WS_BORDER | WS_TABSTOP,15,40,160,65
-    GROUPBOX        "&Filters:",IDC_STATIC,195,5,125,156,WS_GROUP
-    COMBOBOX        IDC_FILTER_LIST,205,20,60,131,CBS_SIMPLE | CBS_AUTOHSCROLL | CBS_SORT | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "&Add",IDC_FILTER_ADD,271,20,40,15
-    PUSHBUTTON      "&Remove",IDC_FILTER_REMOVE,271,39,40,15
-    DEFPUSHBUTTON   "OK",IDOK,216,165,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,271,165,50,14
-    GROUPBOX        "Completed File &Folder:",IDC_STATIC,5,121,180,40,WS_GROUP
-    EDITTEXT        IDC_FOLDER,15,137,135,12,ES_AUTOHSCROLL | ES_READONLY
-    PUSHBUTTON      "",IDC_DOWNLOADS_BROWSE,155,133,23,20
+    DEFPUSHBUTTON   "OK",IDOK,168,202,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,223,202,50,14
+    EDITTEXT        IDC_NAME,16,20,248,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_SCHEMAS,149,106,115,139,CBS_DROPDOWNLIST | CBS_OWNERDRAWVARIABLE | CBS_SORT | CBS_HASSTRINGS | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "&BitTorrent downloads+seeds",IDC_DOWNLOADS_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,128,112,13
+    COMBOBOX        IDC_FILTER_LIST,16,106,110,65,CBS_SIMPLE | CBS_AUTOHSCROLL | CBS_SORT | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Add",IDC_FILTER_ADD,16,174,53,15
+    PUSHBUTTON      "&Remove",IDC_FILTER_REMOVE,73,174,53,15
+    EDITTEXT        IDC_FOLDER,16,63,192,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "",IDC_DOWNLOADS_BROWSE,215,59,23,20
+    PUSHBUTTON      "",IDC_DOWNLOADS_DEFAULT,241,59,23,20
+    GROUPBOX        "&Group Name:",IDC_STATIC,7,7,266,36,WS_GROUP
+    GROUPBOX        "&Auto-Filters:",IDC_STATIC,7,91,127,105,WS_GROUP
+    GROUPBOX        "&Completed File Folder:",IDC_STATIC,7,49,266,36,WS_GROUP
+    GROUPBOX        "&Type of Files:",IDC_STATIC,141,91,132,105,WS_GROUP
+    LTEXT           "&*Drag'n'drop any download later.",IDC_STATIC,150,177,116,16
 END
 
 IDD_HELP DIALOG  0, 0, 292, 159
@@ -1620,41 +1673,35 @@ BEGIN
     CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,109,276,11
 END
 
-IDD_DOWNLOAD_EDIT DIALOGEX 0, 0, 292, 294
-STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_DOWNLOAD_EDIT DIALOGEX 0, 0, 300, 220
+STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    LTEXT           "WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption.",IDC_STATIC,7,7,278,18
-    GROUPBOX        "Filename and Si&ze:",IDC_STATIC,7,28,278,50,WS_GROUP
-    LTEXT           "Filename:",IDC_STATIC,15,42,50,10
-    EDITTEXT        IDC_NAME,71,40,206,12,ES_AUTOHSCROLL
-    EDITTEXT        IDC_DISKNAME,15,58,131,12,ES_AUTOHSCROLL | ES_READONLY
-    RTEXT           "File size (Byte):",IDC_STATIC,148,59,60,11
-    EDITTEXT        IDC_FILESIZE,213,58,64,12,ES_RIGHT | ES_AUTOHSCROLL
-    GROUPBOX        "&URNs:",IDC_STATIC,7,80,278,74,WS_GROUP
-    RTEXT           "Trusted",IDC_STATIC,183,85,97,11
-    LTEXT           "SHA1:",IDC_STATIC,15,96,42,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_URN_SHA1,61,96,198,12,ES_AUTOHSCROLL
-    CONTROL         "",IDC_TRUST_SHA1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,267,98,16,8
-    LTEXT           "Tiger-Root:",IDC_STATIC,15,114,42,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_URN_TIGER,61,114,198,12,ES_AUTOHSCROLL
-    CONTROL         "",IDC_TRUST_TIGER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,267,116,16,8
-    LTEXT           "ED2K:",IDC_STATIC,15,132,42,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_URN_ED2K,61,132,198,12,ES_AUTOHSCROLL
-    CONTROL         "",IDC_TRUST_ED2K,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,267,135,16,8
-    GROUPBOX        "&Actions:",IDC_STATIC,7,156,278,90,WS_GROUP
-    LTEXT           "Forget current verification status and reverify",IDC_FORGET_VERIFY,15,171,236,8
-    LTEXT           "Assume file is 100% complete and reverify",IDC_COMPLETE_AND_VERIFY,15,185,236,8
-    LTEXT           "Forget all known sources",IDC_FORGET_SOURCES,15,199,236,8
-    LTEXT           "Merge with local file and verify",IDC_MERGE_AND_VERIFY,15,213,236,8
-    LTEXT           "Cancel download but save incomplete file(s)",IDC_CANCEL_DOWNLOAD,15,227,236,8
-    GROUPBOX        "Data &Eraser:",IDC_STATIC,7,249,278,38,WS_GROUP
-    LTEXT           "Byte range:",IDC_STATIC,15,264,42,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_ERASE_FROM,61,264,65,12,ES_AUTOHSCROLL
-    CTEXT           "to",IDC_STATIC,134,264,12,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_ERASE_TO,151,264,65,12,ES_AUTOHSCROLL
-    PUSHBUTTON      "Erase",IDC_ERASE,227,263,50,15
+    EDITTEXT        IDC_NAME,80,40,206,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_FILESIZE,222,59,64,12,ES_RIGHT | ES_AUTOHSCROLL
+    EDITTEXT        IDC_DISKNAME,14,78,272,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_URN_SHA1,61,122,207,12,ES_AUTOHSCROLL
+    CONTROL         "",IDC_TRUST_SHA1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,124,10,8
+    EDITTEXT        IDC_URN_TIGER,61,140,207,12,ES_AUTOHSCROLL
+    CONTROL         "",IDC_TRUST_TIGER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,142,10,8
+    EDITTEXT        IDC_URN_ED2K,61,158,207,12,ES_AUTOHSCROLL
+    CONTROL         "",IDC_TRUST_ED2K,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,160,10,8
+    EDITTEXT        IDC_URN_MD5,61,176,207,12,ES_AUTOHSCROLL
+    CONTROL         "",IDC_TRUST_MD5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,178,10,8
+    EDITTEXT        IDC_URN_BTH,61,194,207,12,ES_AUTOHSCROLL
+    CONTROL         "",IDC_TRUST_BTH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,195,10,8
+    LTEXT           "WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption.",IDC_STATIC,7,7,286,18
+    GROUPBOX        "Filename and Si&ze:",IDC_STATIC,7,28,286,69
+    LTEXT           "Filename:",IDC_STATIC,14,41,64,10
+    RTEXT           "File size (Byte):",IDC_STATIC,14,60,206,11
+    GROUPBOX        "&URNs:",IDC_STATIC,7,100,286,113
+    RTEXT           "Trusted",IDC_STATIC,14,109,272,11
+    LTEXT           "SHA1:",IDC_STATIC,14,122,45,12,SS_CENTERIMAGE
+    LTEXT           "Tiger-Root:",IDC_STATIC,14,140,45,12,SS_CENTERIMAGE
+    LTEXT           "ED2K:",IDC_STATIC,14,158,45,12,SS_CENTERIMAGE
+    LTEXT           "MD5:",IDC_STATIC,14,176,45,12,SS_CENTERIMAGE
+    LTEXT           "BitTorrent:",IDC_STATIC,14,194,45,12,SS_CENTERIMAGE
 END
 
 IDD_SETTINGS_REMOTE DIALOGEX 0, 0, 282, 220
@@ -1777,7 +1824,7 @@ END
 
 IDD_SETTINGS_IRC DIALOGEX 0, 0, 282, 220
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Chat"
+CAPTION "IRC Chat"
 FONT 8, "Tahoma", 0, 0, 0x0
 BEGIN
     GROUPBOX        "Client &Options:",IDC_STATIC,7,6,145,100
@@ -1827,61 +1874,53 @@ BEGIN
     LTEXT           "Enter channel you want to add:|Enter kick/ban reason:",IDC_IRC_PROMPT,7,7,129,8
 END
 
-IDD_TORRENT_GENERAL DIALOGEX 0, 0, 292, 294
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_TORRENT_GENERAL DIALOGEX 0, 0, 300, 220
+STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "Torrent &Information:",-1,7,3,278,173
-    LTEXT           "Name:",-1,14,13,44,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_TORRENT_NAME,60,13,218,12,ES_AUTOHSCROLL | ES_READONLY
-    LTEXT           "Created:",-1,14,27,44,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_TORRENT_CREATIONDATE,60,27,74,12,ES_AUTOHSCROLL | ES_READONLY
-    LTEXT           "By:",-1,136,27,35,12,SS_CENTERIMAGE,WS_EX_RIGHT
-    EDITTEXT        IDC_TORRENT_CREATEDBY,173,27,105,12,ES_AUTOHSCROLL | ES_READONLY
-    LTEXT           "Comments:",-1,14,42,44,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_TORRENT_COMMENTS,60,41,218,113,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL
-    GROUPBOX        "Transfers:",-1,7,180,278,43
-    RTEXT           "Start new download transfers:",-1,14,192,141,9
-    COMBOBOX        IDC_TORRENT_STARTDOWNLOADS,163,190,115,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    EDITTEXT        IDC_TORRENT_UPLOADTOTAL,163,204,115,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-    RTEXT           "Total Uploaded:",-1,14,206,141,9,SS_CENTERIMAGE
-    LTEXT           "Notes:",-1,14,156,46,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_TORRENT_OTHER,60,156,218,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_TORRENT_NAME,60,14,226,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_TORRENT_CREATIONDATE,60,34,74,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_TORRENT_CREATEDBY,173,34,113,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_TORRENT_COMMENTS,60,53,226,77,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL
+    EDITTEXT        IDC_TORRENT_OTHER,60,137,226,12,ES_AUTOHSCROLL | ES_READONLY
+    COMBOBOX        IDC_TORRENT_STARTDOWNLOADS,173,174,113,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TORRENT_UPLOADTOTAL,173,194,113,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
+    GROUPBOX        "Torrent &Information:",-1,7,3,286,153
+    LTEXT           "Name:",-1,14,14,44,12,SS_CENTERIMAGE
+    LTEXT           "Created:",-1,14,34,44,12,SS_CENTERIMAGE
+    LTEXT           "By:",-1,136,34,32,12,SS_CENTERIMAGE,WS_EX_RIGHT
+    LTEXT           "Comments:",-1,14,54,44,12,SS_CENTERIMAGE
+    GROUPBOX        "Transfers:",-1,7,161,286,52
+    RTEXT           "Start new download transfers:",-1,14,175,154,9
+    RTEXT           "Total Uploaded:",-1,14,195,154,9,SS_CENTERIMAGE
+    LTEXT           "Notes:",-1,14,137,46,12,SS_CENTERIMAGE
 END
 
-IDD_TORRENT_TRACKERS DIALOGEX 0, 0, 292, 294
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_TORRENT_TRACKERS DIALOGEX 0, 0, 300, 220
+STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "Torrent &Information:",IDC_STATIC,7,3,278,28
-    LTEXT           "Name:",IDC_STATIC,14,13,44,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_TORRENT_NAME,60,13,218,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-    LTEXT           "Tracker:",IDC_STATIC,14,50,44,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_TORRENT_TRACKER,60,49,218,12,ES_AUTOHSCROLL
-    GROUPBOX        "&Current Tracker:",IDC_STATIC,7,33,278,66
-    LTEXT           "Completed (Seeds):",IDC_STATIC,14,65,78,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_TORRENT_COMPLETED,100,65,50,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-    RTEXT           "Incomplete:",IDC_STATIC,157,65,64,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_TORRENT_INCOMPLETE,228,65,50,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-    PUSHBUTTON      "&Refresh",IDC_TORRENT_REFRESH,228,81,50,14
-    GROUPBOX        "&Trackers:",IDC_STATIC,7,101,278,185
-    CONTROL         "",IDC_TORRENT_TRACKERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,14,112,264,166
-    LTEXT           "Tracker Mode:",IDC_STATIC,14,83,78,9
-    COMBOBOX        IDC_TORRENT_TRACKERMODE,100,81,97,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TORRENT_TRACKER,100,14,186,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TORRENT_COMPLETED,100,34,58,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
+    EDITTEXT        IDC_TORRENT_INCOMPLETE,228,34,58,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
+    COMBOBOX        IDC_TORRENT_TRACKERMODE,100,53,120,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Refresh",IDC_TORRENT_REFRESH,228,53,58,14
+    CONTROL         "",IDC_TORRENT_TRACKERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,7,82,286,131
+    LTEXT           "Tracker:",IDC_STATIC,14,14,84,12,SS_CENTERIMAGE
+    GROUPBOX        "&Current Tracker:",IDC_STATIC,7,3,286,71
+    LTEXT           "Completed (Seeds):",IDC_STATIC,14,34,84,12,SS_CENTERIMAGE
+    RTEXT           "Incomplete:",IDC_STATIC,159,34,67,12,SS_CENTERIMAGE
+    LTEXT           "Tracker Mode:",IDC_STATIC,14,54,78,9
 END
 
-IDD_TORRENT_FILES DIALOGEX 0, 0, 292, 294
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_TORRENT_FILES DIALOGEX 0, 0, 300, 220
+STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "Torrent &Information:",IDC_STATIC,7,3,278,28
-    LTEXT           "Name:",IDC_STATIC,14,13,44,12,SS_CENTERIMAGE
-    EDITTEXT        IDC_TORRENT_NAME,60,13,218,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-    GROUPBOX        "&Files:",IDC_STATIC,7,33,278,254
-    CONTROL         "",IDC_TORRENT_FILES,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,14,50,264,230
+    CONTROL         "",IDC_TORRENT_FILES,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,7,7,286,206
 END
 
 IDD_PLUGIN_EXT_SETUP DIALOGEX 0, 0, 100, 147
@@ -1891,6 +1930,52 @@ FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,25,125,50,14
     CONTROL         "",IDC_ASSOCIATIONS,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SORTASCENDING | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,19,7,60,112,WS_EX_CLIENTEDGE
+END
+
+IDD_DOWNLOAD_ACTIONS DIALOGEX 0, 0, 300, 222
+STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Download Properties"
+FONT 8, "Tahoma", 0, 0, 0x1
+BEGIN
+    LTEXT           "Forget current verification status and reverify",IDC_FORGET_VERIFY,14,41,272,8
+    LTEXT           "Assume file is 100% complete and reverify",IDC_COMPLETE_AND_VERIFY,14,55,272,8
+    LTEXT           "Forget all known sources",IDC_FORGET_SOURCES,14,69,272,8
+    LTEXT           "Merge with local file and verify",IDC_MERGE_AND_VERIFY,14,83,272,8
+    LTEXT           "Cancel download but save incomplete file(s)",IDC_CANCEL_DOWNLOAD,14,97,272,8
+    EDITTEXT        IDC_ERASE_FROM,74,194,65,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ERASE_TO,164,194,65,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Erase",IDC_ERASE,236,193,50,14
+    GROUPBOX        "&Actions:",IDC_STATIC,7,28,286,147
+    GROUPBOX        "Data &Eraser:",IDC_STATIC,7,182,286,33
+    LTEXT           "Byte range:",IDC_STATIC,14,194,57,12,SS_CENTERIMAGE
+    CTEXT           "to",IDC_STATIC,141,192,21,12,SS_CENTERIMAGE
+    LTEXT           "WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption.",IDC_STATIC,7,7,286,18
+END
+
+IDD_SELECT DIALOGEX 0, 0, 257, 70
+STYLE DS_SETFONT | DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Select"
+FONT 8, "Tahoma", 0, 0, 0x1
+BEGIN
+    LTEXT           "Please select:",IDC_STATIC,7,7,243,10
+    PUSHBUTTON      "OK",IDOK,143,49,50,14
+    COMBOBOX        IDC_FILE_LIST,7,22,243,150,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Cancel",IDCANCEL,200,49,50,14
+END
+
+IDD_MESSAGE DIALOGEX 0, 0, 300, 112
+STYLE DS_SETFONT | DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_CAPTION | WS_SYSMENU
+CAPTION "PeerProject"
+FONT 8, "Tahoma", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "1",IDC_INFO_BUTTON1,243,65,50,14
+    PUSHBUTTON      "2",IDC_INFO_BUTTON2,188,65,50,14
+    PUSHBUTTON      "3",IDC_INFO_BUTTON3,132,65,50,14
+    CONTROL         "&Remember my selection next time",IDC_INFO_REMEMBER,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,95,286,10
+    LTEXT           "",IDC_INFO_TEXT,38,7,255,58
+    ICON            IDR_MAINFRAME,IDC_INFO_ICON,7,7,20,20
+    CONTROL         "",IDC_INFO_SPLIT,"Static",SS_ETCHEDFRAME,0,87,299,1
 END
 
 
@@ -2026,6 +2111,30 @@ BEGIN
         BOTTOMMARGIN, 167
     END
 
+    IDD_WIZARD_PROFILE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 270
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 167
+    END
+
+    IDD_WIZARD_INTERFACE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 270
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 166
+    END
+
+    IDD_WIZARD_NETWORKS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 270
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 167
+    END
+
     IDD_WIZARD_FINISHED, DIALOG
     BEGIN
         LEFTMARGIN, 7
@@ -2080,14 +2189,6 @@ BEGIN
         RIGHTMARGIN, 285
         TOPMARGIN, 7
         BOTTOMMARGIN, 147
-    END
-
-    IDD_WIZARD_INTERFACE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 270
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 166
     END
 
     IDD_URL_COPY, DIALOG
@@ -2334,14 +2435,6 @@ BEGIN
         BOTTOMMARGIN, 192
     END
 
-    IDD_WIZARD_PROFILE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 270
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 167
-    END
-
     IDD_SETTINGS_UPLOADS, DIALOG
     BEGIN
         LEFTMARGIN, 7
@@ -2430,14 +2523,6 @@ BEGIN
         BOTTOMMARGIN, 117
     END
 
-    IDD_WIZARD_NETWORKS, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 270
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 167
-    END
-
     IDD_FILE_SHARING, DIALOG
     BEGIN
         LEFTMARGIN, 7
@@ -2457,9 +2542,14 @@ BEGIN
     IDD_DOWNLOAD_GROUP, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 320
+        RIGHTMARGIN, 272
         TOPMARGIN, 7
-        BOTTOMMARGIN, 178
+        BOTTOMMARGIN, 214
+        HORZGUIDE, 196
+        VERTGUIDE, 16
+        VERTGUIDE, 135
+        VERTGUIDE, 140
+        VERTGUIDE, 264
     END
 
     IDD_HELP, DIALOG
@@ -2492,20 +2582,6 @@ BEGIN
         RIGHTMARGIN, 285
         TOPMARGIN, 7
         BOTTOMMARGIN, 122
-    END
-
-    IDD_DOWNLOAD_EDIT, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 285
-        VERTGUIDE, 15
-        VERTGUIDE, 57
-        VERTGUIDE, 61
-        VERTGUIDE, 259
-        VERTGUIDE, 267
-        VERTGUIDE, 277
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 287
     END
 
     IDD_SETTINGS_REMOTE, DIALOG
@@ -2556,48 +2632,72 @@ BEGIN
         BOTTOMMARGIN, 180
     END
 
+    IDD_DOWNLOAD_EDIT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 292
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 213
+        HORZGUIDE, 206
+        VERTGUIDE, 14
+        VERTGUIDE, 61
+        VERTGUIDE, 268
+        VERTGUIDE, 276
+        VERTGUIDE, 286
+    END
+
+    IDD_DOWNLOAD_ACTIONS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 292
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 215
+        HORZGUIDE, 14
+        HORZGUIDE, 206
+        VERTGUIDE, 14
+        VERTGUIDE, 286
+    END
+
     IDD_TORRENT_GENERAL, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 285
+        RIGHTMARGIN, 292
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 213
+        HORZGUIDE, 14
+        HORZGUIDE, 206
         VERTGUIDE, 14
         VERTGUIDE, 60
         VERTGUIDE, 134
-        VERTGUIDE, 155
-        VERTGUIDE, 163
+        VERTGUIDE, 168
         VERTGUIDE, 173
-        VERTGUIDE, 278
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 287
+        VERTGUIDE, 286
     END
 
     IDD_TORRENT_TRACKERS, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 285
-        VERTGUIDE, 14
-        VERTGUIDE, 60
-        VERTGUIDE, 92
-        VERTGUIDE, 100
-        VERTGUIDE, 150
-        VERTGUIDE, 157
-        VERTGUIDE, 221
-        VERTGUIDE, 228
-        VERTGUIDE, 278
+        RIGHTMARGIN, 292
         TOPMARGIN, 7
-        BOTTOMMARGIN, 286
-        BOTTOMMARGIN, 230
+        BOTTOMMARGIN, 213
+        BOTTOMMARGIN, 212
+        HORZGUIDE, 14
+        VERTGUIDE, 14
+        VERTGUIDE, 100
+        VERTGUIDE, 228
+        VERTGUIDE, 286
     END
 
     IDD_TORRENT_FILES, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 285
-        VERTGUIDE, 14
-        VERTGUIDE, 278
+        RIGHTMARGIN, 292
         TOPMARGIN, 7
-        BOTTOMMARGIN, 287
-        HORZGUIDE, 280
+        BOTTOMMARGIN, 213
+        HORZGUIDE, 14
+        HORZGUIDE, 206
+        VERTGUIDE, 14
+        VERTGUIDE, 286
     END
 
     IDD_PLUGIN_EXT_SETUP, DIALOG
@@ -2606,6 +2706,22 @@ BEGIN
         RIGHTMARGIN, 93
         TOPMARGIN, 7
         BOTTOMMARGIN, 139
+    END
+
+    IDD_SELECT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 250
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 63
+    END
+
+    IDD_MESSAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 292
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 105
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -2644,28 +2760,6 @@ BEGIN
     "Z",            ID_TOOLS_RESKIN,        VIRTKEY, SHIFT, CONTROL, NOINVERT
 END
 
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// HTML
-//
-
-IDR_HTML_FILENOTFOUND   HTML			"Res\\FileNotFound.htm"
-IDR_HTML_HASHMISMATCH   HTML			"Res\\HashMismatch.htm"
-IDR_HTML_BUSY           HTML			"Res\\Busy.htm"
-IDR_HTML_BADRANGE       HTML			"Res\\BadRange.htm"
-IDR_HTML_DISABLED       HTML			"Res\\Disabled.htm"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// GZIP
-//
-
-IDR_HTML_ABOUT          GZIP			"Res\\About.htm.gz"
-IDR_HTML_BROWSER        GZIP			"Res\\Browser.htm.gz"
-IDR_XML_DEFINITIONS     GZIP			"Res\\Definitions.xml.gz"
-IDR_XML_DEFAULT         GZIP			"Res\\Default.xml.gz"
-IDR_XML_SCHEMA_MAPS     GZIP			"Res\\SchemaMappings.xml.gz"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -2745,8 +2839,12 @@ BEGIN
     IDC_SERVICE_TYPE, 0x403, 19, 0
 0x6e47, 0x7475, 0x6c65, 0x616c, 0x4220, 0x6f6f, 0x7374, 0x7274, 0x7061, 
 "\000" 
-    IDC_SERVICE_TYPE, 0x403, 10, 0
-0x5747, 0x6265, 0x6143, 0x6863, 0x0065, 
+    IDC_SERVICE_TYPE, 0x403, 13, 0
+0x3147, 0x4720, 0x6557, 0x4362, 0x6361, 0x6568, "\000" 
+    IDC_SERVICE_TYPE, 0x403, 13, 0
+0x3247, 0x4720, 0x6557, 0x4362, 0x6361, 0x6568, "\000" 
+    IDC_SERVICE_TYPE, 0x403, 16, 0
+0x3147, 0x472f, 0x2032, 0x5747, 0x6265, 0x6143, 0x6863, 0x0065, 
     IDC_SERVICE_TYPE, 0x403, 15, 0
 0x6553, 0x7672, 0x7265, 0x6d2e, 0x7465, 0x5520, 0x4c52, "\000" 
     IDC_SERVICE_TYPE, 0x403, 8, 0
@@ -3001,8 +3099,6 @@ IDD_TORRENT_TRACKERS DLGINIT
 BEGIN
     IDC_TORRENT_TRACKERMODE, 0x403, 9, 0
 0x6944, 0x6173, 0x6c62, 0x6465, "\000" 
-    IDC_TORRENT_TRACKERMODE, 0x403, 7, 0
-0x7543, 0x7473, 0x6d6f, "\000" 
     IDC_TORRENT_TRACKERMODE, 0x403, 15, 0
 0x6953, 0x676e, 0x656c, 0x5420, 0x6172, 0x6b63, 0x7265, "\000" 
     IDC_TORRENT_TRACKERMODE, 0x403, 14, 0
@@ -3056,35 +3152,6 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// Cursor
-//
-
-IDC_HAND                CURSOR                  "Res\\Hand.cur"
-IDC_COPY                CURSOR                  "Res\\CopyXP.cur"
-IDC_MOVE                CURSOR                  "Res\\MoveXP.cur"
-IDC_COPY_VISTA          CURSOR                  "Res\\CopyVista.cur"
-IDC_MOVE_VISTA          CURSOR                  "Res\\MoveVista.cur"
-IDC_DOWN                CURSOR                  "Res\\SchedulerDown.cur"
-IDC_RIGHT               CURSOR                  "Res\\SchedulerRight.cur"
-IDC_LEFT                CURSOR                  "Res\\SchedulerLeft.cur"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// JPEG
-//
-
-IDR_LARGE_LOGO          JPEG			"Res\\LargeLogo.jpg"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// PNG
-//
-
-IDR_HOME_HEADER_1       PNG 			"Res\\HomeHeader.png"
-IDR_HOME_HEADER_2       PNG 			"Res\\HomeHeaderRepeat.png"
-
-/////////////////////////////////////////////////////////////////////////////
-//
 // String Table
 //
 
@@ -3115,12 +3182,29 @@ BEGIN
     IDR_SEARCHPADFRAME      "Search"
     IDR_HELPFRAME           "PeerProject Help"
     IDR_IRCFRAME            "PeerProject Chat"
+    IDS_SKIN_ERROR          "Skin load error: %s. Element: %s"
+    IDS_SKIN_LOAD           "Loading skin: %s"
+    IDS_GENERAL_OK          "OK"
+    IDS_GENERAL_CANCEL      "Cancel"
+    IDS_GENERAL_ABORT       "Abort"
+    IDS_GENERAL_RETRY       "Retry"
+    IDS_GENERAL_IGNORE      "Ignore"
+    IDS_GENERAL_TRYAGAIN    "Try Again"
+	IDS_GENERAL_CONTINUE    "Continue"
+	IDS_INFO_REMEMBER       "&Remember my selection next time"
 END
 
 STRINGTABLE 
 BEGIN
-    IDS_SECURITY_REMOVE_CONFIRM 
-                            "Are you sure you want to delete the selected security rules?  This cannot be undone."
+    IDS_PRIORITY_HIGH       "High"
+    IDS_PRIORITY_NORMAL     "Normal"
+    IDS_PRIORITY_LOW        "Low"
+    IDS_PRIORITY_OFF        "Skip"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_SECURITY_REMOVE_CONFIRM "Are you sure you want to delete the selected security rules?  This cannot be undone."
     IDS_FOLDER_TIP          "Files shared over the Internet"
 END
 
@@ -3214,9 +3298,10 @@ BEGIN
     IDS_SEARCH_PANEL_RESULTS_STATUS "Searching:"
     IDS_SEARCH_PANEL_RESULTS_FOUND "Found:"
     IDS_SEARCH_PANEL_RESULTS_ACTIVE "%lu hubs, %lu leaves"
-    IDS_SEARCH_PANEL_RESULTS_INACTIVE "Not currently searching"
+    IDS_SEARCH_PANEL_RESULTS_INACTIVE "No active search"
     IDS_SEARCH_PANEL_RESULTS_NONE "No files found"
     IDS_SEARCH_PANEL_RESULTS_FORMAT "%lu file in %lu hit|%lu file in %lu hits|%lu files in %lu hits"
+	IDS_SEARCH_PANEL_FILTERED "%lu filtered"
     IDS_SEARCH_PANEL_INPUT_CAPTION "Search"
     IDS_SEARCH_PANEL_RESULTS_CAPTION "Results"
     IDS_SEARCH_PANEL_CLEAR  "Clear"
@@ -3241,8 +3326,8 @@ BEGIN
     IDS_SEARCH_PAD_WORDS    "Type some keywords to search for:"
     IDS_SEARCH_PAD_TYPE     "What type of file is it?"
     IDS_SEARCH_PAD_CLEAR_HISTORY "(Clear Search History)"
-    IDS_SEARCH_PANEL_INPUT_4 "File size must be"
-    IDS_SEARCH_PANEL_INPUT_5 " to"
+    IDS_SEARCH_PANEL_INPUT_4 "File size must be:"
+    IDS_SEARCH_PANEL_INPUT_5 "to"
 END
 
 STRINGTABLE 
@@ -3593,7 +3678,7 @@ BEGIN
     IDS_UPLOAD_QUEUE_TIMEOUT	"Offline queued upload host %s expired, removing."
     IDS_UPLOAD_BUSY_QUEUE	"Refusing upload of ""%s"" to %s (%s), all matching queues are full."
     IDS_UPLOAD_DISABLED 	"Refusing upload to %s (%s), network disabled."
-    IDS_UPLOAD_CANCEL_ED2K	"eDonkey uploads should not be cancelled.  Are you sure you want to cancel this upload?"
+    IDS_UPLOAD_CANCEL_ED2K	"eDonkey uploads should not be cancelled.\nAre you sure you want to cancel this upload?"
     IDS_UPLOAD_QUEUE_TORRENT	"Torrent Uploads"
     IDS_UPLOAD_QUEUE_HISTORY	"Completed Uploads"
     IDS_DOWNLOAD_CLEAR_GROUP	"Are you sure you want to cancel/abort every download in this group?"
@@ -3781,7 +3866,7 @@ BEGIN
     IDS_MEDIA_PARTIAL_RENDER "Part of this file could not be played, you may need to download additional codecs."
     IDS_MEDIA_EMPTY         "There is no file playing.  Double-click a media file in your library to play it."
     IDS_MEDIA_TITLE         "P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M"
-    IDS_MEDIA_PLAYLIST      "P L A Y L I S T"
+    IDS_MEDIA_PLAYLIST      "Playlist:"
 END
 
 STRINGTABLE 
@@ -3966,22 +4051,18 @@ END
 STRINGTABLE 
 BEGIN
     IDS_DOWNLOAD_EDIT_RENAME "You have made changes to the name field.  Are you sure you want to rename this download?"
-    IDS_DOWNLOAD_EDIT_BAD_SHA1 "You have typed a SHA1 value, however it is invalid.  Please check it and try again."
-    IDS_DOWNLOAD_EDIT_BAD_TIGER "You have typed a root tiger-tree value, however it is invalid.  Please check it and try again."
-    IDS_DOWNLOAD_EDIT_BAD_ED2K "You have typed an eDonkey hash value, however it is invalid.  Please check it and try again."
-    IDS_DOWNLOAD_EDIT_CHANGE_SHA1 "You have provided a SHA1 hash value which is different to the one currently associated with this download.  Are you sure you want to change the SHA1 hash now?"
-    IDS_DOWNLOAD_EDIT_CHANGE_TIGER "You have provided a root tiger-tree hash value which is different to the one currently associated with this download.  Are you sure you want to change the tiger-tree root hash now?"
-    IDS_DOWNLOAD_EDIT_CHANGE_ED2K "You have provided an eDonkey hash value which is different to the one currently associated with this download.  Are you sure you want to change the eDonkey hash now?"
     IDS_DOWNLOAD_EDIT_FORGET_VERIFY "Are you sure you want to forget the current verification status?  All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."
     IDS_DOWNLOAD_EDIT_FORGET_SOURCES "Are you sure you want to forget all sources for the selected download?"
     IDS_DOWNLOAD_EDIT_BAD_RANGE "Please enter a valid range to erase.  The ""from"" field is the first byte to erase, the ""last"" field is the last byte to erase."
     IDS_DOWNLOAD_EDIT_CANT_ERASE "Unable to erase the selected range from the download because no part of the range is present."
     IDS_DOWNLOAD_EDIT_ERASED "Erased %I64i bytes from the download."
-    IDS_DOWNLOAD_QUEUE_HUGE "Dropping download source %s for ""%s"" because queue position %i is too high."
     IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH "You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset.  Without verification information the download cannot be reverified."
     IDS_DOWNLOAD_EDIT_COMPLETE_VERIFY "Are you sure you want to assume this download is complete and reverify it?  The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."
     IDS_DOWNLOAD_EDIT_CHANGE_SIZE "You have made changes to the file size.  Are you sure you want to change the file size for this download?"
-    IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD "Do you wish to cancel this download and save the incomplete file(s)?"
+    IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD "Do you wish to cancel this download but save the incomplete file(s)?"
+    IDS_DOWNLOAD_EDIT_BAD_HASH "You have typed an %s hash value, however it is invalid.  Please check it and try again."
+    IDS_DOWNLOAD_EDIT_CHANGE_HASH "You have provided an %s hash value which is different to the one currently associated with this download.  Are you sure you want to change the %s hash now?"
+    IDS_DOWNLOAD_QUEUE_HUGE "Dropping download source %s for ""%s"" because queue position %i is too high."
 END
 
 STRINGTABLE 
@@ -3997,7 +4078,6 @@ BEGIN
     IDS_GENERAL_CLOSE       "Close"
     IDS_GENERAL_OF          "of"
     IDS_GENERAL_RTL_WARNING "Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"
-    IDS_GENERAL_RTL_NOTSUPPORTED "Right-to-left languages are not supported in your OS."
     IDS_GENERAL_NO          "No"
     IDS_GENERAL_YES         "Yes"
     IDS_GENERAL_AUTO        "Auto"
@@ -4087,6 +4167,7 @@ END
 STRINGTABLE 
 BEGIN
     ID_HELP_ABOUT           "Display the PeerProject about dialog..."
+    ID_HELP_VERSION_CHECK   "Check for new version"
     ID_NETWORK_EXIT         "Exit PeerProject"
     ID_NETWORK_CONNECT      "Connect to selected networks."
     ID_NETWORK_DISCONNECT   "Disconnect from all networks, this will also stop all downloads and uploads."
@@ -4260,16 +4341,20 @@ BEGIN
     ID_TRANSFERS_CONNECT    "Access the selected download source(s) and attempt to download."
     ID_DOWNLOADS_SHOW_SOURCES "Display sources which are not currently being used."
     ID_SYSTEM_VERBOSE       "Display a detailed system activity log."
-    ID_SYSTEM_VERBOSE_ERROR "Display errors only."
-    ID_SYSTEM_VERBOSE_WARNING "Display warnings and above."
-    ID_SYSTEM_VERBOSE_NOTICE "Display notices and above."
-    ID_SYSTEM_VERBOSE_INFO  "Display infos and above."
-    ID_SYSTEM_VERBOSE_DEBUG "Display all."
     ID_DISCOVERY_ADVERTISE  "Advertise the selected GWebCache service to a random existing GWebCache."
     ID_DISCOVERY_BROWSE     "Browse statistics for the selected GWebCache service on the Web."
     ID_BROWSE_STOP          "Stop browsing files on this host."
     ID_BROWSE_REFRESH       "Refresh the list of files available on this host."
     ID_BROWSE_LAUNCH        "Browse the selected user's profile and shared files."
+END
+
+STRINGTABLE 
+BEGIN
+    ID_SYSTEM_VERBOSE_ERROR "Display errors only."
+    ID_SYSTEM_VERBOSE_WARNING "Display warnings and above."
+    ID_SYSTEM_VERBOSE_NOTICE "Display notices and above."
+    ID_SYSTEM_VERBOSE_INFO  "Display info and above."
+    ID_SYSTEM_VERBOSE_DEBUG "Display all."
 END
 
 STRINGTABLE 
@@ -4285,7 +4370,7 @@ BEGIN
     ID_SEARCH_PANEL         "Display the quick search panel on the left of the Search window."
     ID_SYSTEM_TIMESTAMP     "Record a timestamp for each line."
     ID_LIBRARY_LAUNCH       "Open or play the selected file(s)."
-    ID_NEIGHBOURS_URI      "Copy a URI to access the selected host."
+    ID_NEIGHBOURS_URI       "Copy a URI Link to access the selected host."
     ID_TOOLS_RESKIN         "Reload and apply your current skin selection."
 END
 
@@ -4391,7 +4476,7 @@ BEGIN
     ID_CHAT_CONNECT         "Connect to the chat session."
     ID_CHAT_DISCONNECT      "Disconnect the chat session."
     ID_CHAT_BROWSE          "Browse the user's profile and shared files."
-    ID_CHAT_COLOR          "Select a text color (Ctrl+K)"
+    ID_CHAT_COLOR           "Select a text color (Ctrl+K)"
     ID_CHAT_BOLD            "Apply bold formatting (Ctrl+B)"
     ID_CHAT_ITALIC          "Apply italic formatting (Ctrl+I)"
     ID_CHAT_UNDERLINE       "Apply underline formatting (Ctrl+U)"
@@ -4408,7 +4493,7 @@ BEGIN
     ID_LIBRARY_FOLDER_FILE_PROPERTIES 
                             "View and edit the properties of all files in the selected folder(s)..."
     ID_LIBRARY_REBUILD      "Rebuild metadata and hashes for the selected folders or files."
-    ID_DOWNLOADS_URI       "Copy the P2P Link of the selected file. (URI)"
+    ID_DOWNLOADS_URI        "Copy the P2P Link of the selected file. (URI)"
     ID_LIBRARY_VIEW_ALBUM   "Show an album view\nAlbum View"
     ID_SEARCH_DETAILS       "Display detailed information on the selected file."
     ID_UPLOADS_FILTER_ALL   "Show all uploads."
@@ -4479,7 +4564,8 @@ BEGIN
     ID_HELP_SECURITY        "Help protecting your system from hostile programs."
     ID_HELP_CODEC           "All about codecs and video problems."
     ID_HELP_TEST            "Run the connection test."
-    ID_HELP_DONATE          "If you want, you can donate to our legal fund and show your appreciation."
+    ID_HELP_DONATE          "You can donate to our legal fund and show your appreciation."
+    ID_HELP_FAKESHAREAZA    "Visit FakeShareaza.com to learn more."
 END
 
 STRINGTABLE 
@@ -4490,6 +4576,7 @@ END
 
 STRINGTABLE 
 BEGIN
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
     ID_WINDOW_CASCADE       "Expand all open windows to fill the screen."
     ID_WINDOW_TILE_HORZ     "Arrange open windows as horizontal, non-overlapping tiles."
     ID_WINDOW_TILE_VERT     "Arrange open windows as vertical, non-overlapping tiles."
@@ -4518,7 +4605,7 @@ BEGIN
     IDS_LIBRARY_ALBUM_TITLE "Title"
     IDS_LIBRARY_ALBUM_LENGTH "Length"
     IDS_LIBRARY_ALBUM_BITRATE "Bitrate"
-    IDS_LIBRARY_ALBUM_ALBUM "Album"
+    IDS_LIBRARY_ALBUM_ALBUM  "Album"
     IDS_LIBRARY_ALBUM_ARTIST "Artist"
     IDS_LIBRARY_ALBUM_RATING "Rating"
 END
@@ -4544,6 +4631,40 @@ BEGIN
     ID_MUSICBRAINZ_ALBUMS   "Look at all albums for this artist."
 END
 
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+    AFX_IDS_MDICHILD        "Activate this window"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_PREVIEW_CLOSE   "Close print preview mode\nCancel Preview"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE 
+BEGIN
+    IDC_IMPORT_DOWNLOADS    "Import eMule partial downloads..."
+END
+
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -4559,14 +4680,13 @@ END
 #define _AFX_NO_TRACKER_RESOURCES
 #define _AFX_NO_PROPERTY_RESOURCES
 #define _AFX_NO_NEWTYPEDLG_RESOURCES
+#define _AFX_NO_MOUSE_RESOURCES
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif
-#include "Res\PeerProject.rc2"  // non-Microsoft Visual C++ edited resources
-#include "afxres.rc"         // Standard components
+#include "Res\PeerProject.rc2" // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"           // Standard components
 #endif
 
 1 TYPELIB "PeerProject.tlb"

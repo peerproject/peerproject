@@ -23,7 +23,7 @@
 //
 
 #include "stdafx.h"
-#include "resource.h"
+#include "Resource.h"
 #include "GFLImageServices.h"
 
 #define REG_IMAGESERVICE_KEY _T("Software\\PeerProject\\PeerProject\\Plugins\\ImageService")

@@ -106,7 +106,8 @@ int CLibraryTileView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CLibraryView::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	m_szBlock.cx	= 252;
+	//Set Icon Grid
+	m_szBlock.cx	= 222;
 	m_szBlock.cy	= 56;
 	m_nColumns		= 1;
 	m_nRows			= 0;

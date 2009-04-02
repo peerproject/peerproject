@@ -21,6 +21,9 @@
 
 #pragma once
 
+#include "PeerProject.h"
+
+
 enum
 {
 	bits = 1, Bytes = 8, Kilobits = 1024, KiloBytes = 8192
@@ -34,7 +37,7 @@ class CSettings : private boost::noncopyable
 public:
 	CSettings();
 	virtual ~CSettings();
-	
+
 // Attributes
 public:
 
@@ -60,13 +63,15 @@ public:
 		DWORD		RatesUnit;					// Units that the rates are to be displayed in
 		bool		AlwaysOpenURLs;
 		CString		Language;
-		bool		LanguageRTL;				// Right-to-Left GUI (2000, XP only)
+		bool		LanguageRTL;				// Right-to-Left GUI
 		bool		IgnoreXPsp2;				// Ignore the presence of Windows XPsp2 limits
 		bool		DebugBTSources;				// Display received sources for BT download when seeding
-		bool		ItWasLimited;				// If the user path the half-open connection limit we change the settings back to gain full speed
+		bool		ItWasLimited;				// If user patches half-open connection limit change settings back to full speed
 		bool		FirstRun;
 		DWORD		SmartVersion;				// Settings version
 		bool		Running;
+		bool		CoolMenuEnable;				// Use skinned menus
+		bool		DialogScan;					// Set Skin engine to "dialog scan" mode, producing "C:\Dialog.xml" translation template.
 	} General;
 
 	struct sVersionCheck
@@ -96,7 +101,7 @@ public:
 		bool		TipMedia;
 		bool		LowResMode;
 	} Interface;
-	
+
 	struct sLibrary
 	{
 		bool		WatchFolders;
@@ -143,6 +148,7 @@ public:
 		bool		ScanOGG;					// Enable .ogg metadata extraction by internals
 		bool		ScanPDF;					// Enable .pdf metadata extraction by internals
 		bool		SmartSeriesDetection;		// Organize video files in Library by using predefined patterns
+		CString		LastUsedView;				// Name of last folder view used
 	} Library;
 
 	struct sWebServices
@@ -152,9 +158,9 @@ public:
 		CString		BitziWebSubmit;
 		CString		BitziXML;
 		bool		BitziOkay;
-		CString		ShareMonkeyCid;				// Affiliate ID
-		bool		ShareMonkeySaveThumbnail;
 		bool		ShareMonkeyOkay;
+		bool		ShareMonkeySaveThumbnail;
+		CString		ShareMonkeyCid;				// Affiliate ID
 	} WebServices;
 
 	struct sSearch
@@ -179,12 +185,12 @@ public:
 		bool		AdultFilter;
 		bool		AdvancedPanel;
 		DWORD		SpamFilterThreshold;		// Percentage of spam hits which triggers file sources to be treated as a spam
-		DWORD		GeneralThrottle;			// A general throttle for how often each individual search may run. Low values may cause source finding to get overlooked. 
+		DWORD		GeneralThrottle;			// A general throttle for how often each individual search may run. Low values may cause source finding to get overlooked.
 		CString		ShareMonkeyBaseURL;
 		DWORD		ClearPrevious;				// Clear previous search results? 0 - ask user; 1 - no; 2 - yes.
 		bool		SanityCheck;				// Drop hits of banned hosts
 	} Search;
-	
+
 	struct sMediaPlayer
 	{
 		bool		EnablePlay;
@@ -210,7 +216,7 @@ public:
 		CString		ServicePath;
 		bool		ShortPaths;					// Some players differently handle unicode paths but they can launch files using 8.3 paths
 	} MediaPlayer;
-	
+
 	struct sWeb
 	{
 		bool		Magnet;
@@ -220,7 +226,7 @@ public:
 		bool		Piolet;
 		bool		Torrent;
 	} Web;
-	
+
 	struct sConnection
 	{
 		bool		AutoConnect;
@@ -309,7 +315,7 @@ public:
 		DWORD		ConnectThrottle;			// Delay between connection attempts (seconds)
 		bool		SpecifyProtocol;			// Specify G1 or G2 when initiating a connection
 	} Gnutella;
-	
+
 	struct sGnutella1
 	{
 		DWORD		ClientMode;					// Desired mode of operation: MODE_AUTO, MODE_LEAF, MODE_ULTRAPEER
@@ -376,7 +382,7 @@ public:
 		DWORD		HubHorizonSize;
 		DWORD		QueryLimit;
 	} Gnutella2;
-	
+
 	struct seDonkey
 	{
 		bool		EnableToday;
@@ -414,7 +420,7 @@ public:
 		bool		Endgame;					// Allow endgame mode when completing downloads. (Download same chunk from multiple sources)
 		bool		LargeFileSupport;			// Allow 64 bit file sizes
 	} eDonkey;
-	
+
 	struct sBitTorrent
 	{
 		bool		AdvancedInterface;			// Display BT 'extras' (Seed Torrent box, etc)
@@ -493,9 +499,12 @@ public:
 		bool		SortSources;				// Automatically sort sources (Status, protocol, queue)
 		DWORD		SourcesWanted;				// Number of sources PeerProject 'wants'. (Will not request more than this number of sources from ed2k)
 		DWORD		MaxReviews;					// Maximum number of reviews to store per download
-		DWORD		StartDroppingFailedSourcesNumber;	// The number of sources where PeerProject start dropping failed sources after only one attempt
+		DWORD		StartDroppingFailedSourcesNumber;	// Number of sources where PeerProject starts dropping failed sources after only one attempt
+		bool		NoRandomFragments;			//ToDo: Streaming Download and Rarest Piece Selection
+		bool		WebHookEnable;
+		string_set	WebHookExtensions;
 	} Downloads;
-	
+
 	struct sUploads
 	{
 		DWORD		MaxPerHost;					// Simultaneous uploads to one remote client
@@ -524,7 +533,7 @@ public:
 		DWORD		FilterMask;
 		DWORD		RewardQueuePercentage;		// The percentage of each reward queue reserved for uploaders
 	} Uploads;
-	
+
 	struct sRemote
 	{
 		bool		Enable;
@@ -539,7 +548,7 @@ public:
 		bool		LimitedNetworks;			// Only connect to G2/BT when limited
 		bool		AllowHub;					// Allow hub mode while scheduler is active
 	} Scheduler;
-	
+
 	struct sIRC
 	{
 		COLORREF		Colors[11];
@@ -556,7 +565,7 @@ public:
 		bool			Updated;
 		CString			ScreenFont;
 	} IRC;
-	
+
 	struct sLive
 	{
 		bool		DiskSpaceWarning;			// Has the user been warned of low disk space?
@@ -720,7 +729,7 @@ public:
 		const DWORD			m_nMin;
 		const DWORD			m_nMax;
 		const LPCTSTR		m_szSuffix;
-		
+
 		const bool			m_bHidden;
 	};
 

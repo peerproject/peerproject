@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTabBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2009
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -60,6 +60,7 @@ BEGIN_MESSAGE_MAP(CDownloadTabBar, CControlBar)
 	ON_COMMAND(ID_DOWNLOAD_GROUP_PAUSE, OnDownloadGroupPause)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOAD_GROUP_CLEAR, OnUpdateDownloadGroupClear)
 	ON_COMMAND(ID_DOWNLOAD_GROUP_CLEAR, OnDownloadGroupClear)
+	ON_COMMAND(ID_DOWNLOAD_GROUP_OPEN, OnDownloadGroupOpen)
 END_MESSAGE_MAP()
 
 
@@ -91,9 +92,9 @@ CDownloadTabBar::~CDownloadTabBar()
 
 BOOL CDownloadTabBar::Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID)
 {
-	CRect rc;
-	dwStyle |= WS_CHILD;
-	return CWnd::Create( NULL, NULL, dwStyle, rc, pParentWnd, nID, NULL );
+	CRect rc( 0, 0, 0, 0 );
+	return CWnd::CreateEx( 0, NULL, _T("CDownloadTabBar"),
+		dwStyle | WS_CHILD | WS_CLIPSIBLINGS | WS_TABSTOP, rc, pParentWnd, nID, NULL );
 }
 
 void CDownloadTabBar::SetWatermark(HBITMAP hBitmap)
@@ -636,6 +637,17 @@ void CDownloadTabBar::OnDownloadGroupClear()
 		if ( Downloads.Check( pDownload ) ) pDownload->Remove();
 	}
 }
+
+void CDownloadTabBar::OnDownloadGroupOpen()
+{
+	CDownloadGroup* pGroup = GetSelectedGroup();
+	CString strPath = pGroup->m_sFolder;
+	if ( strPath.IsEmpty() || ! PathIsDirectory( strPath ) )
+		strPath = Settings.Downloads.CompletePath;
+
+	ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadTabBar drag and drop

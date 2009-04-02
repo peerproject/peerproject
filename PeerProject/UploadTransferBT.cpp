@@ -25,6 +25,7 @@
 #include "BTClient.h"
 #include "BTPacket.h"
 #include "Download.h"
+#include "Downloads.h"
 #include "DownloadTransferBT.h"
 #include "Uploads.h"
 #include "UploadFile.h"
@@ -115,7 +116,7 @@ void CUploadTransferBT::Close(BOOL bMessage)
 		m_pClient = NULL;
 	}
 	
-	if ( m_pDiskFile != NULL ) CloseFile();
+	CloseFile();
 	
 	if ( m_pDownload != NULL ) m_pDownload->RemoveUpload( this );
 	m_pDownload = NULL;
@@ -256,14 +257,36 @@ BOOL CUploadTransferBT::OpenFile()
 {
 	ASSERT( m_nState == upsRequest || m_nState == upsUploading );
 	ASSERT( m_pBaseFile != NULL );
-	
-	if ( m_pDiskFile != NULL ) return TRUE;
-	m_pDiskFile = TransferFiles.Open( m_sFilePath, FALSE, FALSE );
-	if ( m_pDiskFile != NULL ) return TRUE;
-	
+
+	if ( IsFileOpen() )
+		// File already open
+		return TRUE;
+
+	if ( m_pClient && Downloads.Check( m_pClient->m_pDownload ) )
+	{
+		// Try to get existing file object from download
+		if ( m_pClient->m_pDownload->m_pFile )
+		{
+			AttachFile( m_pClient->m_pDownload->m_pFile );
+			return TRUE;
+		}
+
+		// HACK: Open from disk (replace this with SeedTorrent in OnDownloadComplete)
+		if ( m_pClient->m_pDownload->IsSeeding() )
+		{
+			if ( CUploadTransfer::OpenFile(
+				m_pClient->m_pDownload->m_pTorrent, FALSE, FALSE ) )
+			{
+				return TRUE;
+			}
+		}
+	}
+	// else Something wrong...
+
 	theApp.Message( MSG_ERROR, IDS_UPLOAD_CANTOPEN, (LPCTSTR)m_sFileName , (LPCTSTR)m_sAddress);
-	
+
 	Close();
+
 	return FALSE;
 }
 
@@ -274,7 +297,6 @@ BOOL CUploadTransferBT::ServeRequests()
 {
 	ASSERT( m_nState == upsRequest || m_nState == upsUploading );
 	ASSERT( m_pBaseFile != NULL );
-	ASSERT( m_nLength == SIZE_UNKNOWN );
 	
 	if ( m_bChoked ) return TRUE;
 	if ( m_pClient->GetOutputLength() > Settings.BitTorrent.RequestSize / 3 ) return TRUE;
@@ -306,7 +328,8 @@ BOOL CUploadTransferBT::ServeRequests()
 		
 		BT_PIECE_HEADER* pHeader = (BT_PIECE_HEADER*)( pBuffer.m_pBuffer + pBuffer.m_nLength );
 		
-		if ( ! m_pDiskFile->Read( m_nOffset + m_nPosition, &pHeader[1], m_nLength, &m_nLength ) ) return FALSE;
+		if ( ! ReadFile( m_nOffset + m_nPosition, &pHeader[1], m_nLength, &m_nLength ) )
+			return FALSE;
 
 		pHeader->nLength	= swapEndianess( 1 + 8 + (DWORD)m_nLength );
 		pHeader->nType		= BT_PACKET_PIECE;

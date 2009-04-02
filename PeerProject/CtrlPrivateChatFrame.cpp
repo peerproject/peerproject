@@ -53,7 +53,7 @@ BEGIN_MESSAGE_MAP(CPrivateChatFrame, CChatFrame)
 END_MESSAGE_MAP()
 
 #define EDIT_HEIGHT		32
-#define TOOLBAR_HEIGHT	30
+//define TOOLBAR_HEIGHT	30
 
 
 /////////////////////////////////////////////////////////////////////////////

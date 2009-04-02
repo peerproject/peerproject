@@ -33,6 +33,9 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+#define BANNER_CX		600
+#define BANNER_CY		50
+
 IMPLEMENT_DYNAMIC(CSkinDialog, CDialog)
 
 BEGIN_MESSAGE_MAP(CSkinDialog, CDialog)
@@ -59,18 +62,16 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CSkinDialog dialog
 
-CSkinDialog::CSkinDialog(UINT nResID, CWnd* pParent) : CDialog( nResID, pParent )
+CSkinDialog::CSkinDialog(UINT nResID, CWnd* pParent, BOOL bAutoBanner) :
+	CDialog( nResID, pParent ),
+	m_pSkin( NULL ),
+	m_bAutoBanner( bAutoBanner )
 {
-	//{{AFX_DATA_INIT(CSkinDialog)
-	//}}AFX_DATA_INIT
-	m_pSkin = NULL;
 }
 
 void CSkinDialog::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CSkinDialog)
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -94,7 +95,7 @@ BOOL CSkinDialog::SkinMe(LPCTSTR pszSkin, UINT nIcon, BOOL bLanguage)
 
 	if ( bLanguage )
 	{
-		bSuccess = ::Skin.Apply( strSkin, this, nIcon, &m_wndToolTip );
+		bSuccess = ::Skin.Apply( strSkin, this, nIcon );
 	}
 	if ( nIcon )
 	{
@@ -256,14 +257,14 @@ void CSkinDialog::OnWindowPosChanging(WINDOWPOS* lpwndpos)
 	oMonitor.cbSize = sizeof( MONITORINFO );
 	GetMonitorInfo( hMonitor, &oMonitor );
 
-		if ( abs( lpwndpos->x - oMonitor.rcWork.left ) < SNAP_SIZE )
-			lpwndpos->x = oMonitor.rcWork.left;
-		if ( abs( lpwndpos->y - oMonitor.rcWork.top ) < SNAP_SIZE )
-			lpwndpos->y = oMonitor.rcWork.top;
-		if ( abs( lpwndpos->x + lpwndpos->cx - oMonitor.rcWork.right ) < SNAP_SIZE )
-			lpwndpos->x = oMonitor.rcWork.right - lpwndpos->cx;
-		if ( abs( lpwndpos->y + lpwndpos->cy - oMonitor.rcWork.bottom ) < SNAP_SIZE )
-			lpwndpos->y = oMonitor.rcWork.bottom - lpwndpos->cy;
+	if ( abs( lpwndpos->x - oMonitor.rcWork.left ) < SNAP_SIZE )
+		lpwndpos->x = oMonitor.rcWork.left;
+	if ( abs( lpwndpos->y - oMonitor.rcWork.top ) < SNAP_SIZE )
+		lpwndpos->y = oMonitor.rcWork.top;
+	if ( abs( lpwndpos->x + lpwndpos->cx - oMonitor.rcWork.right ) < SNAP_SIZE )
+		lpwndpos->x = oMonitor.rcWork.right - lpwndpos->cx;
+	if ( abs( lpwndpos->y + lpwndpos->cy - oMonitor.rcWork.bottom ) < SNAP_SIZE )
+		lpwndpos->y = oMonitor.rcWork.bottom - lpwndpos->cy;
 }
 
 int CSkinDialog::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -271,7 +272,9 @@ int CSkinDialog::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CDialog::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	if ( Settings.General.LanguageRTL ) ModifyStyleEx( 0, WS_EX_LAYOUTRTL|WS_EX_RTLREADING, 0 );
+	if ( Settings.General.LanguageRTL )
+		ModifyStyleEx( 0, WS_EX_LAYOUTRTL | WS_EX_RTLREADING, 0 );
+
 	return 0;
 }
 
@@ -279,54 +282,56 @@ BOOL CSkinDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	m_wndToolTip.Create( this );
-	m_wndToolTip.Activate( TRUE );
-	m_wndToolTip.SetMaxTipWidth( 200 );
-	// Show the tooltip for 20 seconds
-	m_wndToolTip.SetDelayTime( TTDT_AUTOPOP, 20 * 1000 );
+	CStatic* pBanner = (CStatic*)GetDlgItem( IDC_BANNER );
 
-	if ( Settings.General.LanguageRTL )
+	if ( ! pBanner && m_bAutoBanner )
 	{
-		CStatic* pBanner = (CStatic*)GetDlgItem( IDC_BANNER );
-		if ( pBanner )
-		{
-			if ( pBanner->GetBitmap() == NULL ) return TRUE;
-			CRect rcClient, rc;
-			pBanner->GetWindowRect( &rc );
+		// Resize window
+		CRect rcWindow;
+		GetWindowRect( &rcWindow );
+		SetWindowPos( NULL, 0, 0, rcWindow.Width(), rcWindow.Height() + BANNER_CY,
+			SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER );
 
-			GetWindowRect( &rcClient );
-			ScreenToClient( &rcClient );
-			pBanner->SetWindowPos( NULL, rcClient.left + rcClient.Width() - rc.Width(), 
-				0, 0, 0, SWP_NOSIZE|SWP_NOZORDER );
+		// Move all controls down
+		for ( CWnd* pChild = GetWindow( GW_CHILD ); pChild;
+			pChild = pChild->GetNextWindow() )
+		{
+			CRect rc;
+			pChild->GetWindowRect( &rc );
+			ScreenToClient( &rc );
+			rc.MoveToY( rc.top + BANNER_CY );
+			pChild->MoveWindow( &rc );
 		}
+
+		// Add banner
+		CRect rcBanner;
+		GetClientRect( &rcBanner );
+		rcBanner.right = rcBanner.left + BANNER_CX;
+		rcBanner.bottom = rcBanner.top + BANNER_CY;
+		VERIFY( m_oBanner.Create( NULL, WS_CHILD | WS_VISIBLE | SS_BITMAP |
+			SS_REALSIZEIMAGE, rcBanner, this, IDC_BANNER ) );
+		m_oBanner.SetBitmap( (HBITMAP)LoadImage( AfxGetResourceHandle(),
+			MAKEINTRESOURCE( IDB_WIZARD ), IMAGE_BITMAP, BANNER_CX, BANNER_CY, 0 ) );
+
+		pBanner = &m_oBanner;
 	}
-	return TRUE; 
+	
+	if ( pBanner && Settings.General.LanguageRTL )
+	{
+		// Adjust banner width
+		CRect rcBanner;
+		GetClientRect( &rcBanner );
+		rcBanner.left -= BANNER_CX - rcBanner.Width();
+		rcBanner.right = rcBanner.left + BANNER_CX;
+		rcBanner.bottom = rcBanner.top + BANNER_CY;
+		pBanner->MoveWindow( &rcBanner );
+		pBanner->ModifyStyle( SS_CENTERIMAGE, SS_REALSIZEIMAGE );
+	}
+
+	return TRUE;
 }
 
 BOOL CSkinDialog::OnHelpInfo(HELPINFO* /*pHelpInfo*/)
 {
 	return FALSE;
-}
-
-BOOL CSkinDialog::PreTranslateMessage(MSG* pMsg)
-{
-	if ( pMsg->message >= WM_MOUSEFIRST && pMsg->message <= WM_MOUSELAST )
-	{
-		MSG msg;
-		CopyMemory( &msg, pMsg, sizeof(MSG) );
-		HWND hWndParent = ::GetParent( msg.hwnd );
-
-		while ( hWndParent && hWndParent != m_hWnd )
-		{
-			msg.hwnd = hWndParent;
-			hWndParent = ::GetParent( hWndParent );
-		}
-
-		if ( msg.hwnd )
-		{
-			m_wndToolTip.RelayEvent( &msg );
-		}
-	}
-
-	return CDialog::PreTranslateMessage(pMsg);
 }

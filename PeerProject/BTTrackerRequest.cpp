@@ -28,7 +28,6 @@
 #include "Transfers.h"
 #include "Downloads.h"
 #include "Download.h"
-#include "SHA.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -49,8 +48,10 @@ CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR ps
 		
 	CString strURL;
 	// Create the basic URL
-	strURL.Format( _T("%s?info_hash=%s&peer_id=%s&port=%i&uploaded=%I64i&downloaded=%I64i&left=%I64i&compact=1"),
-		pDownload->m_pTorrent.m_sTracker,
+	CString strAddress = pDownload->m_pTorrent.GetTrackerAddress();
+	strURL.Format( _T("%s%cinfo_hash=%s&peer_id=%s&port=%i&uploaded=%I64i&downloaded=%I64i&left=%I64i&compact=1"),
+		strAddress.TrimRight( _T('&') ),
+		( ( strAddress.Find( _T('?') ) != -1 ) ? _T('&') : _T('?') ),
 		Escape( pDownload->m_oBTH ),
 		Escape( m_pDownload->m_pPeerID ),
 		Network.m_pHost.sin_port ? (int)htons( Network.m_pHost.sin_port ) : (int)Settings.Connection.InPort,
@@ -201,8 +202,15 @@ void CBTTrackerRequest::Process(bool bRequest)
 {
 	CString strError;
 
-	// Abort if the download has been paused after the request was sent but
-	// before a reply was received
+	CSingleLock oLock( &Transfers.m_pSection, FALSE );
+	if ( ! oLock.Lock( 500 ) )
+	{
+		theApp.Message( MSG_DEBUG, _T("[BT] Transfers overloaded.") );
+		return;
+	}
+
+	// Abort if the download has been paused after the request was sent
+	// but before a reply was received
 	if ( !m_pDownload->m_bTorrentRequested )
 		return;
 
@@ -292,14 +300,10 @@ void CBTTrackerRequest::Process(CBENode* pRoot)
 	nInterval = max( nInterval, 60ull * 2ull );
 	nInterval = min( nInterval, 60ull * 60ull );
 
-	{
-		CQuickLock oLock( Transfers.m_pSection );
-
-		// nInterval is now between 120 - 3600 so this cast is safe
-		m_pDownload->m_tTorrentTracker = static_cast< DWORD >( nInterval ) * 1000ul;
-		m_pDownload->m_tTorrentTracker += GetTickCount();
-		m_pDownload->m_bTorrentStarted = TRUE;
-	}
+	// nInterval is now between 120 - 3600 so this cast is safe
+	m_pDownload->m_tTorrentTracker = static_cast< DWORD >( nInterval ) * 1000ul;
+	m_pDownload->m_tTorrentTracker += GetTickCount();
+	m_pDownload->m_bTorrentStarted = TRUE;
 
 	// Get list of peers
 	CBENode* pPeers = pRoot->GetNode( "peers" );
