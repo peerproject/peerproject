@@ -2993,8 +2993,8 @@
 	<string id="16995" value="Het bestand is misschien beschadigd, of je hebt de noodzakelijke codecs niet om het af te spelen."/>
 	<string id="16996" value="Een deel van dit bestand kon niet worden afgespeeld, je moet misschien extra codecs downloaden."/>
 	<string id="16997" value="Er is geen bestand aan het afspelen. Dubbelklik op een mediabestand uit je bibliotheek om het af te spelen."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    E    M"/>
-	<string id="16999" value="A F S P E E L L I J S T"/>
+	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="AFSPEELLIJST:"/>
 	<string id="17024" value="Verbinding met %s wordt aangemaakt..."/>
 	<string id="17025" value="Niet mogelijk om verbinding te maken met %s."/>
 	<string id="17026" value="Een gefirewallde pushverbinding is aangevraagd aan %s..."/>

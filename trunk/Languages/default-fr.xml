@@ -19,7 +19,7 @@
 		description="PeerProject Default French Skin File"
 		link="http://PeerProject.org/"
 		email="shareaza.fr(at)gmail.com"
-		version="2.4.0.0"
+		version="1.0.0.0"
 		type="Language"
 		language="fr"
 		prompt="Cliquez ici pour utiliser PeerProject en Français."
@@ -3070,7 +3070,7 @@
 	<string id="16995" value="Le fichier est endommagé, ou vous n'avez pas les bons codecs pour le lire."/>
 	<string id="16996" value="Une partie de ce fichier ne peut être jouée, vous devriez télécharger des codecs additionnels."/>
 	<string id="16997" value="Aucun fichier en lecture. Double-cliquez un fichier média dans votre bibliothèque pour le lire."/>
-	<string id="16998" value="L  E  C  T  E  U  R    M  U  L  T  I  M  E  D  I  A    P  E  E  R  P  R  O  J  E  C  T"/><!-- on one line -->
+	<string id="16998" value="L &#160; E &#160; C &#160; T &#160; E &#160; U &#160; R &#160; &#160; M &#160; U &#160; L &#160; T &#160; I &#160; M &#160; E &#160; D &#160; I &#160; A &#160; &#160; P &#160; E &#160; E &#160; R &#160; P &#160; R &#160; O &#160; J &#160; E &#160; C &#160; T"/>
 	<string id="16999" value="Liste de Lecture"/>
 	<string id="17017" value="C'est parti&#160;:"/>
 	<string id="17018" value="Bienvenue au salon IRC de PeerProject&#160;!"/>

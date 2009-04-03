@@ -2865,7 +2865,7 @@
 	<string id="16995" value="Denne filen kan være ødelagt, eller så kan det være at du ikke har rett codec til å spille den av med."/>
 	<string id="16996" value="Deler av denne filen kunne ikke spilles av, du bør kanskje laste ned ekstra codec."/>
 	<string id="16997" value="Det er ingen filer som spilles av. Dobbelt-klikk på en av dine filer for å spille av."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M"/>
+	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Spilleliste"/>
 	<string id="17024" value="Starter kobling til %s..."/>
 	<string id="17025" value="Klarte ikke å starte kobling til %s."/>

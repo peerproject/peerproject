@@ -3075,10 +3075,10 @@
 	<string id="16995" value="Failas turbūt sugadintas arba Jūs galbūt neturite reikiamo šio failui grojimui kodeko."/>
 	<string id="16996" value="Dalies šio failo neįmanoma atlikti. Jums reikėtų parsisiųsti papildomų kodekų."/>
 	<string id="16997" value="Joks failas negrojamas. Grojimui spragtelkite grotuvo failą savo kolekcijoje."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    J    A        S    I    S    T    E    M    A"/>
-	<string id="16999" value="G R O J A R A Š T I S"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; J &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; I &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M &#160;&#160; A"/>
+	<string id="16999" value="GROJARAŠTIS:"/>
 	<string id="17017" value="Kalbėk:"/>
-	<string id="17018" value="Sveiki! Čia PeerProject pokalbiai!"/>
+	<string id="17018" value="Sveiki. Čia PeerProject pokalbiai."/>
 	<string id="17019" value="Gerbkite kitus naudodamiesi šia paslauga"/>
 	<string id="17020" value="Pridėti"/>
 	<string id="17021" value="Šalinti"/>

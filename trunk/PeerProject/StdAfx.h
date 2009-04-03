@@ -196,7 +196,7 @@
 #include <boost/bind.hpp>
 #include <boost/bind/placeholders.hpp>
 #include <boost/type_traits.hpp>
-#include <boost/smart_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/utility.hpp>
 #include <boost/array.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
@@ -222,7 +222,6 @@
 using augment::implicit_cast;
 using augment::auto_ptr;
 using augment::auto_array;
-using augment::com_ptr;
 using augment::IUnknownImplementation;
 
 #include "../HashLib/HashLib.h"

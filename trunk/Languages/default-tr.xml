@@ -3044,8 +3044,8 @@
 	<string id="16995" value="Bu dosya zarar görmüş olabilir ya da bunu oynatmak için gerekli codec'e sahip olmayabilirsiniz."/>
 	<string id="16996" value="Dosyanın bir parçası oynatılamadı, indirim için ek codec'e ihtiyacınız olabilir."/>
 	<string id="16997" value="Oynayacak dosya yok. Kütüphanenizdeki bir ortam dosyasını oynatmak için çift-tıklın."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        O    R    T    A    M        S    İ    S    T    E    M    İ"/>
-	<string id="16999" value="O Y N A T M A  L İ S T E S İ"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; O &#160;&#160; R &#160;&#160; T &#160;&#160; A &#160;&#160; M &#160;&#160; &#160;&#160; S &#160;&#160; İ &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M &#160;&#160; İ"/>
+	<string id="16999" value="OYNATMA  LİSTESİ"/>
 	<string id="17017" value="Sohbet:"/>
 	<string id="17018" value="PeerProject Sohbetine Hoşgeldiniz!"/>
 	<string id="17019" value="Bu servisi kullanırken diğer kullanıcılara saygı göstermeniz gerektiğini unutmayın"/>

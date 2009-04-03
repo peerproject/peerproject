@@ -63,7 +63,7 @@
 #define IDB_WIZARD                  	154
 #define IDD_WIZARD_SHARING          	154
 #define IDD_WIZARD_FINISHED         	155
-#define IDB_WIZARD_DOT              	158
+#define IDI_WIZARD_DOT              	158
 #define IDB_CHILDFRAME              	159
 #define IDD_FOLDER_SCAN             	160
 #define IDB_SECURITY                	160
@@ -555,7 +555,6 @@
 #define IDC_FILTER_LIST             	1331
 #define IDC_FILTER_ADD              	1332
 #define IDC_FILTER_REMOVE           	1333
-#define IDC_ICON_LIST               	1334
 #define IDC_TORRENT_NAME            	1335
 #define IDC_TORRENT_UPLOADTOTAL     	1336
 #define IDC_TORRENT_FILES           	1337
@@ -1281,6 +1280,7 @@
 #define IDS_BROWSE_CLOSED           	16942
 #define IDS_BROWSE_TITLE_FORMAT     	16943
 #define IDS_BROWSE_INTRO_FORMAT     	16944
+#define IDS_MEDIA_TIMESPLIT          	16990
 #define IDS_MEDIA_SMPLAYER          	16991
 #define IDS_MEDIA_PLUGIN_CREATE     	16992
 #define IDS_MEDIA_FILTER            	16993

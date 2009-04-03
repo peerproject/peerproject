@@ -3033,8 +3033,8 @@
 	<string id="16995" value="A fájl vagy hibás vagy nincsenek feltelepítve a megfelelő kodekek."/>
 	<string id="16996" value="A fájl részletét nem lehet lejátszani, nincsenek feltelepítve a megfelelő kodekek."/>
 	<string id="16997" value="Nincs semmilyen lejátszás folyamatban. Kattintson duplán egy médiafájlra a lejátszáshoz."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    É    D    I    A    L    E    J    Á    T    S    Z    Ó"/>
-	<string id="16999" value="L E J Á T S Z Ó L I S T A"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; É &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; L &#160;&#160; E &#160;&#160; J &#160;&#160; Á &#160;&#160; T &#160;&#160; S &#160;&#160; Z &#160;&#160; Ó"/>
+	<string id="16999" value="LEJÁTSZÓLISTA:"/>
 	<string id="17024" value="Kapcsolódás inicializálása: %s..."/>
 	<string id="17025" value="Nem lehet kapcsolatot létrehozni: %s."/>
 	<string id="17026" value="Tűzfalas push kapcsolat kérése: %s..."/>

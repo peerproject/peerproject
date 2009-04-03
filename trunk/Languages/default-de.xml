@@ -664,7 +664,7 @@
 			<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
 			<item id="ID_HELP_DONATE" text="_An das PeerProjekt spenden!"/>
 			<separator/> -->
-			<item id="ID_HELP_ABOUT" text="_Über Shareaza..."/>
+			<item id="ID_HELP_ABOUT" text="_Über PeerProjekt..."/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Windowed" type="bar">
@@ -3059,8 +3059,8 @@
 	<string id="16995" value="Die Datei ist möglicherweise beschädigt, oder die Datei benutzt einen Codec, den Sie nicht installiert haben."/>
 	<string id="16996" value="Ein Teil dieser Datei kann nicht abgespielt werden. Möglicherweise mûssen Sie zusätzliche Decoder herunterladen."/>
 	<string id="16997" value="Es wird keine Datei wiedergegeben. Doppelklicken Sie eine Datei in Ihrer Bibliothek an, um sie abzuspielen."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    K    T        M    E    D    I    A        S    Y    S    T    E    M"/>
-	<string id="16999" value="P L A Y L I S T"/>
+	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="Playlist:"/>
 	<string id="17024" value="Verbindung herstellen mit %s..."/>
 	<string id="17025" value="Verbindungsversuch mit %s fehlgeschlagen."/>
 	<string id="17026" value="Push-Verbindung von %s anfordern..."/>
@@ -3201,7 +3201,7 @@
 	<string id="19002" value="Kann keine eingehenden Verbindungen akzeptieren, URL nicht verfügbar."/>
 	<string id="20000" value="Keine URN verfügbar."/>
 	<string id="20001" value="Schließen"/>
-	<string id="20002" value="von"/>
+	<string id="20002" value="von"/> <!--"1 of 10"-->
 	<string id="20003" value="Der Wechsel der Schreibrichtung erfordert einen Neustart. \nJetzt beenden?"/>
 	<string id="20005" value="Nein"/>
 	<string id="20006" value="Ja"/>

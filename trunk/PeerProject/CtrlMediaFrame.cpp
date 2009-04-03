@@ -682,8 +682,8 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 	if ( m_nState >= smsOpen )
 	{
 		CString strFormat;
-		LoadString( strFormat, IDS_GENERAL_OF );
-		strFormat = _T("%.2i:%.2i ") + strFormat + _T(" %.2i:%.2i");
+		LoadString( strFormat, IDS_MEDIA_TIMESPLIT );
+		strFormat = _T("%.2i:%.2i") + strFormat + _T("%.2i:%.2i");
 		if ( Settings.General.LanguageRTL ) strFormat = _T("\x200F") + strFormat;
 
 		str.Format( strFormat,
@@ -719,8 +719,8 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 	if ( m_nState >= smsOpen )
 	{
 		CString strFormat;
-		LoadString( strFormat, IDS_GENERAL_OF );
-		strFormat = _T("%.2i:%.2i ") + strFormat + _T(" %.2i:%.2i");
+		LoadString( strFormat, IDS_MEDIA_TIMESPLIT );
+		strFormat = _T("%.2i:%.2i") + strFormat + _T("%.2i:%.2i");
 		if ( Settings.General.LanguageRTL ) strFormat = _T("\x200F") + strFormat;
 
 		str.Format( strFormat,
