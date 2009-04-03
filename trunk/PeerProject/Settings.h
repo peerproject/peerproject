@@ -167,6 +167,9 @@ public:
 	{
 		CString		LastSchemaURI;
 		CString		BlankSchemaURI;
+		bool		AutoPreview;				// Auto thumb-previewing selected hit
+		bool		AdultFilter;
+		bool		AdvancedPanel;
 		bool		HideSearchPanel;
 		bool		SearchPanel;
 		bool		ExpandMatches;
@@ -182,8 +185,6 @@ public:
 		bool		DetailPanelVisible;
 		DWORD		DetailPanelSize;
 		DWORD		MaxPreviewLength;
-		bool		AdultFilter;
-		bool		AdvancedPanel;
 		DWORD		SpamFilterThreshold;		// Percentage of spam hits which triggers file sources to be treated as a spam
 		DWORD		GeneralThrottle;			// A general throttle for how often each individual search may run. Low values may cause source finding to get overlooked.
 		CString		ShareMonkeyBaseURL;
