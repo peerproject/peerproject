@@ -2950,8 +2950,8 @@
 	<string id="16995" value="Il file potrebbe essere danneggiato, o potresti aver bisogno dei codec necessari per eseguirlo."/>
 	<string id="16996" value="Parte di questo file potrebbe non essere riproducibile, potresti aver bisogno di scaricare codec aggiuntivi."/>
 	<string id="16997" value="Nessun file in riproduzione. Fai doppio click su un file multimediale della tua libreria per riprodurlo."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M"/>
-	<string id="16999" value="P L A Y L I S T"/>
+	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="Playlist:"/>
 	<string id="17024" value="Avvio di una connessione con %s in corso..."/>
 	<string id="17025" value="Impossibile avviare una connessione con %s."/>
 	<string id="17026" value="Richiesta di una connessione push con firewall da %s in corso..."/>

@@ -1717,7 +1717,7 @@
       </para>
     </group>
     <icon group="20" command="ID_NETWORK_G2"/>
-    <gap group="20" size="4"/>
+    <gap  group="20" size="4"/>
     <text group="20" align="middle" format="b">Gnutella2: </text>
     <text group="21" align="middle">Disconnected</text>
     <text group="22" align="middle">Connecting...</text>
@@ -1726,14 +1726,14 @@
     <text group="25" align="middle" id="G2Leaves">%i leaves</text>
     <newline group="20" gap="2"/>
     <icon group="10" command="ID_NETWORK_G1"/>
-    <gap group="10" size="4"/>
+    <gap  group="10" size="4"/>
     <text group="10" align="middle" format="b">Gnutella1: </text>
     <text group="11" align="middle">Disconnected</text>
     <text group="12" align="middle">Connecting...</text>
     <text group="13" align="middle">Connected</text>
     <newline group="10" gap="2"/>
     <icon group="30" command="ID_NETWORK_ED2K"/>
-    <gap group="30" size="4"/>
+    <gap  group="30" size="4"/>
     <text group="30" align="middle" format="b">eDonkey: </text>
     <text group="31" align="middle">Disconnected</text>
     <text group="32" align="middle">Connecting...</text>
@@ -3079,6 +3079,7 @@
 	<string id="16942" value="Closing browse user connection to %s."/>
 	<string id="16943" value="Browsing %s"/>
 	<string id="16944" value="Found %i shared files in %s's library."/>
+	<string id="16990" value="&#160;/ "/> <!--Track Time-->
 	<string id="16991" value="PeerProject Media Player"/>
 	<string id="16992" value="PeerProject could not instantiate its MediaServices plugin. Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="16993" value="All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
@@ -3086,7 +3087,7 @@
 	<string id="16995" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
 	<string id="16996" value="Part of this file could not be played, you may need to download additional codecs."/>
 	<string id="16997" value="There is no file playing. Double-click a media file in your library to play it."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M"/>
+	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Playlist:"/>
 	<string id="17017" value="Chat:"/>
 	<string id="17018" value="Welcome to the PeerProject IRC Chatrooms"/>
@@ -3235,7 +3236,7 @@
 	<string id="19002" value="Unable to accept connections, URL unavailable."/>
 	<string id="20000" value="No URN available"/>
 	<string id="20001" value="Close"/>
-	<string id="20002" value="of"/><!-- e.g. 1 of 10 -->
+	<string id="20002" value="of"/> <!--"1 of 10"-->
 	<string id="20003" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"/>
 	<string id="20005" value="No"/>
 	<string id="20006" value="Yes"/>

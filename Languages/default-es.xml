@@ -659,16 +659,19 @@
 		</menu>
 		<menu text="_Herramientas">
 			<item id="ID_LIBRARY_FOLDERS" text="Compartir _Archivos..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="_Descargar Archivo/Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importar descargas parciales de eMule..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir mi carpeta de Descargas completadas"/>			
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Seleccionar _Skin..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Descargar Archivo/Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" 	text="_Seed New Torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+			<item id="IDC_IMPORT_DOWNLOADS" text="_Importar descargas parciales de eMule..."/>
+			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Seleccionar un _Idioma..."/>
+			<item id="ID_TOOLS_SKIN" text="Seleccionar _Skin..."/>
 			<separator/>
 			<item id="ID_TOOLS_PROFILE" text="Editar Mi _Perfil..."/>
-			<separator/>
 			<item id="ID_TOOLS_WIZARD" text="Configuración _Rápida..."/>
+			<separator/>
 			<item id="ID_TOOLS_SETTINGS" text="_Configuración PeerProject..."/>
 		</menu>
 		<menu text="_Window">
@@ -1605,6 +1608,8 @@
 			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Ir a Descargas</link>
 			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Ir a Descargar (1)</link>
 			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Ir a Descargas (%i)</link>
+			<newline gap="4"/>
+			<link format="bu" target="peer:shell:downloads">Abre mi Carpeta de Descargas</link>
 		</para>
 	</document>
 	<document name="CHomeLibraryBox" title="Colección" leftMargin="6" topMargin="6">
@@ -1623,8 +1628,6 @@
 			<text id="LibraryVolume" format="b">%s</text>
 			<newline gap="4"/>
 			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Ir a Mi Colección</link>
-			<newline gap="4"/>
-			<link format="bu" target="peer:shell:downloads">Abre mi Carpeta de Descargas</link>
 			<group id="1">
 				<newline gap="8"/>
 				<text>PeerProject esta escaneando y procesando </text>
@@ -1653,7 +1656,8 @@
 				<link target="peer:command:ID_NETWORK_CONNECT">Haz click aquí para conectarte</link>
 			</para>
 		</group>
-		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
+		<icon group="20" command="ID_NETWORK_G2"/>
+		<gap  group="20" size="4"/>
 		<text group="20" align="middle" format="b">Gnutella2: </text>
 		<text group="21" align="middle">Desconectado</text>
 		<text group="22" align="middle">Conectando...</text>
@@ -1662,12 +1666,14 @@
 		<text group="25" align="middle" id="G2Leaves">%i leaves</text>
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
+		<gap  group="10" size="4"/>
 		<text group="10" align="middle" format="b">Gnutella1: </text>
 		<text group="11" align="middle">Desconectado</text>
 		<text group="12" align="middle">Conectando...</text>
 		<text group="13" align="middle">Conectado</text>
 		<newline group="10" gap="2"/>
-		<icon group="30" command="ID_NETWORK_ED2K"/><gap group="30" size="4"/>
+		<icon group="30" command="ID_NETWORK_ED2K"/>
+		<gap  group="30" size="4"/>
 		<text group="30" align="middle" format="b">eDonkey: </text>
 		<text group="31" align="middle">Desconectado</text>
 		<text group="32" align="middle">Conectando...</text>
@@ -1945,8 +1951,8 @@
 		aquellas que estén arriba de esta.
 		El número de transferencias activas en cualquier momento es limitado por la opción
 		que se encuentra en la parte de descargas de la configuración, esto es para asegurar
-		el buen uso del ancho de banda.  Esto se puede cambiar en Herramientas, Configurar PeerProject. Probablemente estás esperando en las colas de otros usuarios, y la descarga
-Puede comenzar a transferir en cualquier momento.</text>
+		el buen uso del ancho de banda.  Esto se puede cambiar en Herramientas, Configurar PeerProject. Probablemente estás esperando en las colas de otros usuarios,
+		y la descarga Puede comenzar a transferir en cualquier momento.</text>
 	</document>
 	<document name="DownloadHelp.Queued">
 		<text format="b">Esta descarga esta en cola</text>
@@ -2581,7 +2587,7 @@ Puede comenzar a transferir en cualquier momento.</text>
 	<string id="8240" value="PeerProject esta moviendo el archivo descargado:"/>
 	<string id="8241" value="PeerProject esta verificando el archivo descargado:"/>
 	<string id="8243" value="Volumen Subido:"/>
-	<string id="8244" value="Nmero de análisis (reviews):"/>
+	<string id="8244" value="Nmero de análisis:"/>
 	<string id="8288" value="Explorando Mi Colección de PeerProject"/>
 	<string id="8289" value="Explorando "/>
 	<string id="8290" value="Explorando los contenidos de las carpetas %i "/>
@@ -2948,7 +2954,7 @@ Puede comenzar a transferir en cualquier momento.</text>
 	<string id="16995" value="Puede estar corrupto, o usted no tiene los Codecs necesarios para su reproducción."/>
 	<string id="16996" value="Parte de este archivo no pudo ser reproducido. Usted puede necesitar Codecs adicionales."/>
 	<string id="16997" value="No hay ningún archivo reproduciendose.  Haz doble click a un archivo de media en tu librería para reproducirlo."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M"/>
+	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="LISTA DE REPRODUCCIÓN"/>
 	<string id="17024" value="Iniciando conexión a %s..."/>
 	<string id="17025" value="Fué imposible conectar con %s."/>
@@ -3407,7 +3413,7 @@ Puede comenzar a transferir en cualquier momento.</text>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption=" Red Gnutella2:"/>
 		<control caption="Siempre conectar a Gnutella2"/>
-		<control caption="Conectar a Gnutella2 en esta sesión"/>
+		<control caption="Conectar a Gnutella 2 en esta sesión"/>
 		<control caption="Modo:"/>
 		<control caption="Optimo|Leaf|Hub"/>
 		<control caption="Conexiones G_2:"/>
@@ -3484,7 +3490,7 @@ Puede comenzar a transferir en cualquier momento.</text>
 		<control/>
 		<control/>
 		<control caption="_Tracker por defecto:"/>
-	<control/>
+		<control/>
 	</dialog>
 	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocolos">
 		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
@@ -3565,7 +3571,7 @@ Puede comenzar a transferir en cualquier momento.</text>
 		<control caption="Dar premio a usuarios que suben"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Bienvenido(a) a PeerProject">
-		<control caption="Bienvenido(a) a PeerProject! ('PeerProyecto')"/>
+		<control caption="Bienvenido(a) a PeerProject! ('Proyecto de Peers')"/>
 		<control caption="Este asistente te va a ayudar a configurar de forma rápida las opciones básicas de PeerProject."/>
 		<control caption="Si eres un usuario avanzado, las opciones se pueden cambiar usando el menú de herramientas. Esta guía puede ser cerrada en cualquier momento, haciendole click en Cerrar."/>
 		<control caption="Este asistente te ayudará a:"/>
@@ -4405,7 +4411,7 @@ Puede comenzar a transferir en cualquier momento.</text>
 		<column from="Size" to="Tamaño"/>
 	</list>
 	<list name="CTorrentTrackerList">
-		<column from="Tracker" to="Rastreador(Tracker)"/>
+		<column from="Tracker" to="Rastreador"/>
 		<column from="Status" to="Estado"/>
 		<column from="Type" to="Tipo"/>
 	</list>

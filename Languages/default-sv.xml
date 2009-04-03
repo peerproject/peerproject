@@ -3009,8 +3009,8 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 	<string id="16995" value="Filen kan vara skadad eller du kanske inte har nödvändig codec för att spela upp den." />
 	<string id="16996" value="Delar av filen kan inte spelas upp. Du kanske måste ladda ned ytterligare codecs." />
 	<string id="16997" value="Ingen fil spelas. Dubbelklicka på en mediafil i ditt bibliotek för att spela den." />
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M" />
-	<string id="16999" value="S P E L L I S T A"/>
+	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="SPELLISTA:"/>
 	<string id="17024" value="Initierar en anslutning till %s…" />
 	<string id="17025" value="Kan inte skapa en anslutning till %s." />
 	<string id="17026" value="Begär en anslutningsbegäran från %s…" />
@@ -3569,7 +3569,7 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="&#160;Radera frdiga torrents&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;När delningsproportionen uppnår"/>
 		<control/>
 		<control/>
-		<control/>
+		<control caption="%"/>
 		<control caption="&#160;Föredra torrentkällor"/>
 		<control caption="_Slutspel:" />
 		<control caption="Aktivera slutspelsläge när nedladdning av torrents slutförs" />
@@ -4434,7 +4434,7 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<column from="Port" to="Port" />
 		<column from="Client" to="Klient" />
 		<column from="Last Seen" to="Sist sedd" />
-    <column from="Daily Uptime" to="Daglig drifttid"/>
+		<column from="Daily Uptime" to="Daglig drifttid"/>
 		<column from="Name" to="Namn" />
 		<column from="Description" to="Beskrivning" />
 		<column from="CurUsers" to="Anslutna användare" />
@@ -4467,7 +4467,7 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Fil" />
-    <column from="Extension" to="Filändelse"/>
+		<column from="Extension" to="Filändelse"/>
 		<column from="Size" to="Storlek" />
 		<column from="Rating" to="Betyg" />
 		<column from="Status" to="Status" />

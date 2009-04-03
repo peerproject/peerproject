@@ -70,7 +70,7 @@ CWizardConnectionPage::~CWizardConnectionPage()
 
 void CWizardConnectionPage::DoDataExchange(CDataExchange* pDX)
 {
-	CPropertyPage::DoDataExchange(pDX);
+	CWizardPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CWizardConnectionPage)
 	DDX_Control(pDX, IDC_CONNECTION_TYPE, m_wndType);
 	DDX_Control(pDX, IDC_WIZARD_DOWNLOAD_SPEED, m_wndDownloadSpeed);
@@ -84,9 +84,9 @@ void CWizardConnectionPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CWizardConnectionPage message handlers
 
-BOOL CWizardConnectionPage::OnInitDialog() 
+BOOL CWizardConnectionPage::OnInitDialog()
 {
-	CPropertyPage::OnInitDialog();
+	CWizardPage::OnInitDialog();
 
 	Skin.Apply( _T("CWizardConnectionPage"), this );
 
@@ -139,7 +139,7 @@ BOOL CWizardConnectionPage::OnInitDialog()
 	return TRUE;
 }
 
-BOOL CWizardConnectionPage::OnSetActive() 
+BOOL CWizardConnectionPage::OnSetActive()
 {
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
 	m_wndProgress.SetPos( 0 );
@@ -147,7 +147,7 @@ BOOL CWizardConnectionPage::OnSetActive()
 	return CWizardPage::OnSetActive();
 }
 
-void CWizardConnectionPage::OnSelChangeConnectionType() 
+void CWizardConnectionPage::OnSelChangeConnectionType()
 {
 	m_wndDownloadSpeed.SetWindowText( _T("") );
 	m_wndUploadSpeed.SetWindowText( _T("") );
@@ -168,7 +168,7 @@ void CWizardConnectionPage::OnSelChangeUPnP()
 			m_bUPnPForward = FALSE;
 }
 
-LRESULT CWizardConnectionPage::OnWizardNext() 
+LRESULT CWizardConnectionPage::OnWizardNext()
 {
 	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) return 0;
 
@@ -260,7 +260,7 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 		try
 		{
 			if ( !theApp.m_pUPnPFinder )
-				theApp.m_pUPnPFinder.reset( new CUPnPFinder );
+				theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
 			if ( theApp.m_pUPnPFinder->AreServicesHealthy() )
 				theApp.m_pUPnPFinder->StartDiscovery();
 		}
@@ -296,7 +296,7 @@ void CWizardConnectionPage::OnRun()
 		LoadString( strMessage, IDS_WIZARD_UPNP_SETUP );
 		m_wndStatus.SetWindowText( strMessage );
 
-		while ( theApp.m_pUPnPFinder && 
+		while ( theApp.m_pUPnPFinder &&
 				theApp.m_pUPnPFinder->IsAsyncFindRunning() )
 		{
 			Sleep( 1000 );

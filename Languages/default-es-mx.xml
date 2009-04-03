@@ -348,7 +348,7 @@
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurar..."/>
 	</toolbar>
@@ -362,7 +362,7 @@
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurar..."/>
 	</toolbar>
@@ -420,7 +420,6 @@
 		<button id="ImageViewer_Close" text="Cerrar"/>
 	</toolbar>
 </toolbars>
-
 <!-- Menu Definitions -->
 <menus>
 	<!-- SIMPLE POPUP MENU -->
@@ -461,7 +460,7 @@
 			<menu text="Seleccionar _Redes">
 				<item id="ID_NETWORK_G2" text="Conectar a_Gnutella2"/>
 				<item id="ID_NETWORK_G1" text="Conectar a _Gnutella 1"/>
-				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey2000"/>
+				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="_Salir Después de Transferencias"/>
@@ -501,12 +500,13 @@
 		</menu>
 		<menu text="_Ayuda">
 			<item id="ID_HELP_FAQ" text="Guía de Usuarios PeerProject"/>
+			<item id="ID_HELP_TEST" text="_Test de Conexión"/>
 			<separator/>
 			<menu text="_Guías">
-			<item id="ID_HELP_GUIDE" text="_Guía de Usuarios PeerProject "/>
-			<item id="ID_HELP_ROUTER" text="_Ayuda de Router"/>
-			<item id="ID_HELP_SECURITY" text="_Ayuda de Seguridad"/>
-			<item id="ID_HELP_CODEC" text="_Ayuda con Codec"/>
+				<item id="ID_HELP_GUIDE" text="_Guía de Usuarios PeerProject "/>
+				<item id="ID_HELP_ROUTER" text="_Ayuda de Router"/>
+				<item id="ID_HELP_SECURITY" text="_Ayuda de Seguridad"/>
+				<item id="ID_HELP_CODEC" text="_Ayuda con Codec"/>
 			</menu>
 			<separator/>
 			<menu text="_Sitios">
@@ -529,7 +529,7 @@
 			<menu text="Seleccionar Redes">
 				<item id="ID_NETWORK_G2" text="Conectar a _Gnutella2"/>
 				<item id="ID_NETWORK_G1" text="Conectar a _Gnutella 1"/>
-				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey2000"/>
+				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Conectar _A..." shortcut="Ctrl+T"/>
@@ -545,6 +545,7 @@
 			<item id="ID_TAB_SEARCH" text="_Búsqueda"/>
 			<item id="ID_TAB_TRANSFERS" text="_Transferencias"/>
 			<item id="ID_TAB_NETWORK" text="_Red"/>
+			<item id="ID_TAB_IRC" text="_IRC"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="_Seguridad"/>
 			<item id="ID_VIEW_HOSTS" text="_Caché de Hosts"/>
@@ -588,20 +589,20 @@
 		<menu text="_Ventana">
 			<item id="ID_WINDOW_NAVBAR" text="Mostrar _Barra de Navegación"/>
 			<item id="ID_WINDOW_TOOLBAR" text="Mostrar _Barra de Herramientas"/>
+			<separator/>
 			<item id="ID_WINDOW_TABBAR" text="Mostrar _Barra de Lengüetas"/>
 			<item id="ID_WINDOW_MONITOR" text="Mostrar _Monitor"/>
 			<item id="ID_WINDOW_REMOTE" text="Mostrar Control Remoto"/>
 		</menu>
-
 		<menu text="_Ayuda">
 			<item id="ID_HELP_FAQ" text="Guía de Usuarios PeerProject"/>
-
+			<item id="ID_HELP_TEST" text="_Test de Conexión"/>
 			<separator/>
 			<menu text="_Guías">
-			<item id="ID_HELP_GUIDE" text="_Guía de Usuarios PeerProject "/>
-			<item id="ID_HELP_ROUTER" text="_Ayuda de Router"/>
-			<item id="ID_HELP_SECURITY" text="_Ayuda de Seguridad"/>
-			<item id="ID_HELP_CODEC" text="_Ayuda con Codecs"/>
+				<item id="ID_HELP_GUIDE" text="_Guía de Usuarios PeerProject "/>
+				<item id="ID_HELP_ROUTER" text="_Ayuda de Router"/>
+				<item id="ID_HELP_SECURITY" text="_Ayuda de Seguridad"/>
+				<item id="ID_HELP_CODEC" text="_Ayuda con Codecs"/>
 			</menu>
 			<separator/>
 			<menu text="_Sitios">
@@ -658,16 +659,19 @@
 		</menu>
 		<menu text="_Herramientas">
 			<item id="ID_LIBRARY_FOLDERS" text="Compartir _Archivos..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="_Descargar Archivo/Torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importar descargas parciales de eMule..."/>
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir mi carpeta de Descargas completadas"/>			
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Seleccionar _Skin..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Descargar Archivo/Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" 	text="_Seed New Torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+			<item id="IDC_IMPORT_DOWNLOADS" text="_Importar descargas parciales de eMule..."/>
+			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Seleccionar un _Idioma..."/>
+			<item id="ID_TOOLS_SKIN" text="Seleccionar _Skin..."/>
 			<separator/>
 			<item id="ID_TOOLS_PROFILE" text="Editar Mi _Perfil..."/>
-			<separator/>
 			<item id="ID_TOOLS_WIZARD" text="Configuración _Rápida..."/>
+			<separator/>
 			<item id="ID_TOOLS_SETTINGS" text="_Configuración PeerProject..."/>
 		</menu>
 		<menu text="_Window">
@@ -677,6 +681,7 @@
 			<separator/>
 			<item id="ID_WINDOW_NAVBAR" text="Mostrar _Barra de Navegación"/>
 			<item id="ID_WINDOW_TOOLBAR" text="Mostrar _Barra de Herramientas"/>
+			<separator/>
 			<item id="ID_WINDOW_TABBAR" text="Mostrar _Barra de Lengüetas "/>
 			<item id="ID_WINDOW_MONITOR" text="Show _Monitor"/>
 			<item id="ID_WINDOW_REMOTE" text="Mostrar Control Remoto"/>
@@ -703,7 +708,7 @@
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Acerca de PeerProject..."/>
 		</menu>
-		</menu>
+	</menu>
 	<!-- VIEW POPUP -->
 	<menu name="CMainWnd.View.Basic">
 		<item id="ID_TAB_HOME" text="_Inicio"/>
@@ -1602,9 +1607,11 @@
 			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Ir a descarga</link>
 			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Ir a descargar (1)</link>
 			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Ir a descargas (%i)</link>
+			<newline gap="4"/>
+			<link format="bu" target="peer:shell:downloads">Abre mi Carpeta de Descargas</link>
 		</para>
 	</document>
-	<document name="CHomeLibraryBox" title="Library" leftMargin="6" topMargin="6">
+	<document name="CHomeLibraryBox" title="Colección" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font face="Verdana" size="9"/>
@@ -1618,8 +1625,8 @@
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>files, </text>
 			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="0"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Ir a Mi Colección </link>
+			<newline gap="4"/>
+			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Ir a Mi Colección</link>
 			<group id="1">
 				<newline gap="8"/>
 				<text>PeerProject esta escaneando y procesando </text>
@@ -1648,7 +1655,8 @@
 				<link target="peer:command:ID_NETWORK_CONNECT">Haz click aquí para conectarte</link>
 			</para>
 		</group>
-		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
+		<icon group="20" command="ID_NETWORK_G2"/>
+		<gap  group="20" size="4"/>
 		<text group="20" align="middle" format="b">Gnutella2: </text>
 		<text group="21" align="middle">Desconectado</text>
 		<text group="22" align="middle">Conectando...</text>
@@ -1657,12 +1665,14 @@
 		<text group="25" align="middle" id="G2Leaves">%i leaves</text>
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
+		<gap  group="10" size="4"/>
 		<text group="10" align="middle" format="b">Gnutella1: </text>
 		<text group="11" align="middle">Desconectado</text>
 		<text group="12" align="middle">Conectando...</text>
 		<text group="13" align="middle">Conectado</text>
 		<newline group="10" gap="2"/>
-		<icon group="30" command="ID_NETWORK_ED2K"/><gap group="30" size="4"/>
+		<icon group="30" command="ID_NETWORK_ED2K"/>
+		<gap  group="30" size="4"/>
 		<text group="30" align="middle" format="b">eDonkey: </text>
 		<text group="31" align="middle">Desconectado</text>
 		<text group="32" align="middle">Conectando...</text>
@@ -2614,6 +2624,9 @@
 	<string id="8335" value="Las fuentes estan firewalled"/>
 	<string id="8336" value="Las fuentes pueden ser inestables"/>
 	<string id="8337" value="No confiado"/>
+	<string id="13000" value="Estas seguro que quieres borrar las reglas de seguridad seleccionadas? Esto no se puede deshacer."/>
+	<string id="13001" value="Archivos compartidos a través de Internet"/>
+	<string id="16063" value="Mapeo del puerto UPnP falló después de 10 intentos."/>
 	<string id="16064" value="Iniciando el nucleo de la red..."/>
 	<string id="16065" value="Imposible asociar %s con el puerto %i para conexiones entrantes.  Conexiones entrantes no van a ser soportadas."/>
 	<string id="16066" value="Cerrando el nucleo de la red..."/>
@@ -2831,6 +2844,8 @@
 	<string id="16408" value="Copiar &amp;URI"/>
 	<string id="16409" value="Exportar &amp;URIs..."/>
 	<string id="16410" value="Las carpetas Completas e Incompletas deben de no ser las mismas"/>
+	<string id="16411" value="Incapaz de mover el archivo %s. El archivo puede estar en uso por otra aplicación. n\n ¿En lugar de esto, deseas intentar copiar este archivo?"/>
+	<string id="16412" value="Huella del archivo (Ghost File)"/>
 	<string id="16448" value="Conectando a %s, handshaking..."/>
 	<string id="16449" value="Chateando con %s (%s)."/>
 	<string id="16450" value="La conexión con %s fué cerrada."/>
@@ -2935,8 +2950,8 @@
 	<string id="16995" value="Puede estar corrupto, o usted no tiene los Codecs necesarios para su reproducción."/>
 	<string id="16996" value="Parte de este archivo no pudo ser reproducido. Usted puede necesitar Codecs adicionales."/>
 	<string id="16997" value="No hay ningún archivo reproduciendose.  Haz doble click a un archivo de media en tu librería para reproducirlo."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M"/>
-	<string id="16999" value="P L A Y L I S T"/>
+	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="LISTA DE REPRODUCCIÓN"/>
 	<string id="17024" value="Iniciando conexión a %s..."/>
 	<string id="17025" value="Fué imposible conectar con %s."/>
 	<string id="17026" value="Pidiendo un push de %s..."/>
@@ -3183,7 +3198,7 @@
 		<control caption="Retraso (ms):"/>
 		<control/>
 		<control/>
-		<control caption="Opacity:"/>
+		<control caption="Opacidad:"/>
 		<control/>
 		<control caption="_Barra de tareas:"/>
 		<control caption="Cuando hago click a cerrar:"/>
@@ -3507,7 +3522,7 @@
 		<control caption="Set Default"/>
 		<control caption="Configuración:"/>
 		<control caption="Valor:"/>
-		<control caption="Description:"/>
+		<control caption="Descripción:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Propiedades de Cola de Subida">
@@ -3552,7 +3567,7 @@
 		<control caption="Dar premio a usuarios que suben"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Bienvenido(a) a PeerProject">
-		<control caption="Bienvenido(a) a PeerProject! ('Peer Proyecto')"/>
+		<control caption="Bienvenido(a) a PeerProject! ('Proyecto de Peers')"/>
 		<control caption="Este asistente te va a ayudar a configurar de forma rápida las opciones básicas de PeerProject."/>
 		<control caption="Si eres un usuario avanzado, las opciones se pueden cambiar usando el menú de herramientas. Esta guía puede ser cerrada en cualquier momento, haciendole click en Cerrar."/>
 		<control caption="Esto te va a asistir a:"/>
@@ -3740,7 +3755,7 @@
 		<control/>
 		<control caption="Protocolo de red."/>
 		<control caption="Gnutella1 (automatico)|Gnutella2 (automatico)|eDonkey2000"/>
-		<control caption="_Suppress Ultrapeer"/>
+		<control caption="_Suprimir Ultrapeer"/>
 		<control caption="Conectar"/>
 		<control caption="Cancelar"/>
 	</dialog>
@@ -3917,7 +3932,7 @@
 		<control caption="Aceptar"/>
 		<control caption="Cancelar"/>
 	</dialog>
-	<dialog name="CGraphItemDlg" cookie="BuBuBuCoCoStStEdBuBuStBu" caption="Propiedades">
+	<dialog name="CGraphItemDlg" cookie="BuBuBuCoStEdStEdBuBuStBu" caption="Propiedades">
 		<control caption="Aceptar"/>
 		<control caption="Cancelar"/>
 		<control caption="Fuente:"/>

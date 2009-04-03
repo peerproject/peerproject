@@ -2950,120 +2950,12 @@
 	<string id="16995" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
 	<string id="16996" value="Part of this file could not be played, you may need to download additional codecs."/>
 	<string id="16997" value="There is no file playing.  Double-click a media file in your library to play it."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M"/>
-	<string id="16999" value="L I S T A"/>
-	<string id="17024" value="Initiating a connection to %s..."/>
-	<string id="17025" value="Unable to create a connection to %s."/>
-	<string id="17026" value="Requesting a firewalled push connection from %s..."/>
-	<string id="17027" value="Accepted push connection from %s, handshaking..."/>
-	<string id="17028" value="Connection established, handshaking..."/>
-	<string id="17029" value="Handshake failed, host may not support chatting."/>
-	<string id="17030" value="Handshake complete, chat protocol version %s."/>
-	<string id="17031" value="Exchanging profile information..."/>
-	<string id="17032" value="Authenticated user "/>
-	<string id="17033" value="Requesting private conversation with user..."/>
-	<string id="17034" value="Private conversation granted, you are now chatting with %s."/>
-	<string id="17035" value="%s is not accepting private conversations, sorry."/>
-	<string id="17036" value="%s is away: %s"/>
-	<string id="17037" value="The chat connection was lost."/>
+	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="LISTA:"/>
+	<!--MISSING STRINGS-->
 	<string id="17038" value="Lidhja u mbyll."/>
-	<string id="17039" value="Unable to request a push connection from %s, no route available."/>
-	<string id="17040" value="Cannot send message, you are not connected.  PeerProject is trying to connect..."/>
-	<string id="17041" value="Cannot send message, a connection has not been established yet."/>
-	<string id="17042" value="You have not yet filled in your user profile.  You must provide a profile before you can chat with other users.\n\nWould you like to fill in your profile now?"/>
-	<string id="17043" value="Granted upload priority to host %s."/>
-	<string id="17100" value="Gnutella: Peer-to-Peer Connection"/>
-	<string id="17101" value="Gnutella: Leaf-to-Ultrapeer Connection"/>
-	<string id="17102" value="Gnutella: Ultrapeer-to-Leaf Connection"/>
-	<string id="17103" value="Gnutella II: Hub-to-Hub Connection"/>
-	<string id="17104" value="Gnutella II: Leaf-to-Hub Connection"/>
-	<string id="17105" value="Gnutella II: Hub-to-Leaf Connection"/>
-	<string id="17106" value="eDonkey Server Connection (LOWID: %lu)"/>
-	<string id="17107" value="eDonkey Server Connection"/>
-	<string id="17108" value="Handshake"/>
-	<string id="17109" value="Inbound"/>
-	<string id="17110" value="Outbound"/>
-	<string id="17111" value="Current:"/>
-	<string id="17112" value="Total:"/>
-	<string id="17113" value="Compression:"/>
-	<string id="17114" value="Ratio:"/>
-	<string id="17115" value="Deflate"/>
-	<string id="17116" value="None"/>
-	<string id="17117" value="Connecting"/>
-	<string id="17118" value="Handshaking"/>
-	<string id="17119" value="Rejected"/>
-	<string id="17120" value="Closing"/>
-	<string id="17121" value="Unknown"/>
-	<string id="17122" value="G1 Peer"/>
-	<string id="17123" value="G1 Ultrapeer"/>
-	<string id="17124" value="G1 Leaf"/>
-	<string id="17125" value="G2 Peer"/>
-	<string id="17126" value="G2 Hub"/>
-	<string id="17127" value="G2 Leaf"/>
-	<string id="17128" value="eDonkey Server"/>
-	<string id="17129" value="eDonkey (LowID)"/>
-	<string id="17130" value="eDonkey (HighID)"/>
-	<string id="17216" value="Initiating connection to eDonkey server at %s..."/>
-	<string id="17217" value="Connected to eDonkey server %s, handshaking..."/>
-	<string id="17218" value="ED2K[%s] %s"/>
-	<string id="17219" value="eDonkey server %s refused connection."/>
-	<string id="17220" value="eDonkey server %s online, client ID is %lu."/>
-	<string id="17221" value="eDonkey server %s changed our client ID from %lu to %lu."/>
-	<string id="17222" value="eDonkey server %s identified itself as &quot;%s&quot;."/>
-	<string id="17223" value="eDonkey server %s rejected the connection."/>
-	<string id="17224" value="Error exchanging handshake with eDonkey client %s."/>
-	<string id="17225" value="eDonkey client connection to %s was closed."/>
-	<string id="17226" value="Received a malformatted eDonkey packet from %s (id=%x)."/>
-	<string id="17227" value="Incoming connection from %s is an eDonkey client link."/>
-	<string id="17228" value="Sending eDonkey hashset for &quot;%s&quot; to %s..."/>
-	<string id="17229" value="eDonkey client connection to %s was idle, closed."/>
-	<string id="17230" value="Initiating eDonkey client connection to %s..."/>
-	<string id="17231" value="eDonkey client %s has the wrong GUID, aborting handshake."/>
-	<string id="17232" value="Timed out connecting to eDonkey client %s."/>
-	<string id="17233" value="Timed out handshaking with eDonkey client %s."/>
-	<string id="17234" value="Refusing eDonkey client link from %s because eDonkey is disabled."/>
-	<string id="17248" value="Starting eDonkey partial download import process..."/>
-	<string id="17249" value="Process complete, %i partial downloads imported successfully."/>
-	<string id="17250" value="Scanning folder: &quot;%s&quot;..."/>
-	<string id="17251" value="Unable to import file."/>
-	<string id="17252" value="Found partial file &quot;%s&quot;, importing..."/>
-	<string id="17253" value="Unable to open part file &quot;%s&quot;."/>
-	<string id="17254" value="Found download &quot;%s&quot;, size %s."/>
-	<string id="17255" value="Download data file is newer than .part file, aborting."/>
-	<string id="17256" value="Copying &quot;%s&quot; to &quot;%s&quot;..."/>
-	<string id="17257" value="Finished copying file."/>
-	<string id="17258" value="Created PeerProject partial download, %s remaining."/>
-	<string id="17259" value="This file is already in the PeerProject download list."/>
-	<string id="17260" value="Insufficient disk space to copy download file."/>
-	<string id="17472" value="Incoming connection from %s is a BitTorrent coupling, negotiating..."/>
-	<string id="17473" value="Timed out connecting to BitTorrent client %s."/>
-	<string id="17474" value="Timed out handshaking with BitTorrent client %s."/>
-	<string id="17475" value="Closing BitTorrent coupling with %s due to lack of traffic."/>
-	<string id="17476" value="BitTorrent coupling with %s failed because the remote client has a different Peer ID."/>
-	<string id="17477" value="BitTorrent coupling with %s responded with the wrong file."/>
-	<string id="17478" value="BitTorrent coupling with %s requested an unknown file."/>
-	<string id="17479" value="BitTorrent coupling with %s established for &quot;%s&quot;."/>
-	<string id="17481" value="Received BitTorrent descriptor file: &quot;%s&quot;"/>
-	<string id="17482" value="Unable to parse prefetched BitTorrent file &quot;%s&quot;."/>
-	<string id="17483" value="Error from BitTorrent tracker for &quot;%s&quot; : &quot;%s&quot;."/>
-	<string id="17484" value="Error parsing BitTorrent tracker response."/>
-	<string id="17485" value="Received BitTorrent tracker response for &quot;%s&quot;, %i new sources."/>
-	<string id="17486" value="Initiating BitTorrent client coupling with %s..."/>
-	<string id="17487" value="Established BitTorrent coupling with %s, handshaking..."/>
-	<string id="17488" value="You have changed the tracker URL for this torrent.  Are you sure you want to save this change?\n\nAn invalid tracker URL may prevent further downloading."/>
-	<string id="17489" value="BitTorrent coupling with %s is extended protocol, identified &quot;%s&quot;."/>
-	<string id="17490" value="Received %i new BitTorrent sources from %s."/>
-	<string id="17491" value="The torrent &quot;%s&quot; is already on your download list, and cannot be seeded."/>
-	<string id="17492" value="Error loading the torrent file &quot;%s&quot;.  This may not be a valid torrent."/>
-	<string id="17493" value="Unable to create BitTorrent share file &quot;%s&quot;."/>
 	<string id="17494" value="Ky torrent përfshin skedën &quot;%s&quot;, të cilën PeerProject nuk e gjen dot në librarinë tuaj.  Nëse mundeni, lëvizeni skedën në të njëjtën dosje me torrentin dhe provoni përsëri."/>
-	<string id="17495" value="This torrent includes the file &quot;%s&quot; which should be %s, however your version of the file is %s."/>
-	<string id="17496" value="An error occurred while copying from &quot;%s&quot; to a BitTorrent share file."/>
-	<string id="17497" value="An unknown error occurred while trying to seed &quot;%s&quot;."/>
-	<string id="17498" value="An error was detected in the file &quot;%s&quot;."/>
-	<string id="17500" value="Tracker did not respond- Retrying announce (%i of %i)"/>
-	<string id="17501" value="Unable to communicate with tracker"/>
-	<string id="17503" value="Tracker failed- Trying next tracker (%i of %i)"/>
+	<!--MISSING STRINGS-->
 	<string id="17505" value="Lidhja BitTorrent me %s u këput."/>
 	<string id="17506" value="Takimi i dorës BitTorrent me %s u këput."/>
 	<string id="17507" value="BitTorrent coupling with %s u këput."/>

@@ -118,7 +118,6 @@ IDB_SORT_ASC            BITMAP			"Res\\SortAsc.bmp"
 IDB_SORT_DESC           BITMAP			"Res\\SortDesc.bmp"
 IDB_COLORDOT            BITMAP			"Res\\ColorDot.bmp"
 IDB_WIZARD              BITMAP			"Res\\Wizard.bmp"
-IDB_WIZARD_DOT          BITMAP			"Res\\WizardDot.bmp"
 IDB_BANNER_MARK         BITMAP			"Res\\BannerMark.bmp"
 IDB_TASKPANEL_FOOTER    BITMAP			"Res\\TaskPanelFooter.bmp"
 IDB_TASKBOX_CAPTION     BITMAP			"Res\\TaskBoxCaption.bmp"
@@ -215,6 +214,7 @@ IDI_COMMERCIAL      	ICON			"Res\\Commercial.ico"
 IDI_RATING_FAKE     	ICON			"Res\\RatingFake.ico"
 IDI_RATING_AVERAGE  	ICON			"Res\\RatingAverage.ico"
 IDI_RATING_GOOD     	ICON			"Res\\RatingGood.ico"
+IDI_WIZARD_DOT          ICON			"Res\\WizardDot.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -575,18 +575,18 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Welcome to PeerProject"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    LTEXT           "Welcome to PeerProject.",IDC_STATIC,10,10,265,10
+    LTEXT           "Welcome to PeerProject file sharing.",IDC_STATIC,10,10,265,10
     LTEXT           "This QuickStart wizard can help you configure your software in a few simple steps, even if you haven't used PeerProject or other P2P client before.",IDC_STATIC,10,25,265,20
     LTEXT           "More advanced users can access the full range of PeerProject's options via the Tools menu.  Click Exit to close the wizard at any time.",IDC_STATIC,10,50,265,25
     LTEXT           "This wizard will assist you to:",IDC_STATIC,10,80,265,10
-    CONTROL         158,IDC_STATIC,"Static",SS_BITMAP,15,96,11,10
+    ICON            IDI_WIZARD_DOT,IDC_STATIC,15,96,16,16,SS_REALSIZEIMAGE
     LTEXT           "Tell PeerProject about your Internet connection",IDC_STATIC,30,96,245,10,SS_CENTERIMAGE
-    CONTROL         158,IDC_STATIC,"Static",SS_BITMAP,15,111,11,10
-    LTEXT           "Choose which files to share",IDC_STATIC,30,111,245,10,SS_CENTERIMAGE
-    CONTROL         158,IDC_STATIC,"Static",SS_BITMAP,15,126,11,10
-    LTEXT           "Connect to your choice of P2P networks, and",IDC_STATIC,30,126,245,10,SS_CENTERIMAGE
-    CONTROL         158,IDC_STATIC,"Static",SS_BITMAP,15,140,11,10
-    LTEXT           "Get started using PeerProject.",IDC_STATIC,30,140,245,10,SS_CENTERIMAGE
+    ICON            IDI_WIZARD_DOT,IDC_STATIC,15,110,16,16,SS_REALSIZEIMAGE
+    LTEXT           "Choose which files to share",IDC_STATIC,30,110,245,10,SS_CENTERIMAGE
+    ICON            IDI_WIZARD_DOT,IDC_STATIC,15,124,16,16,SS_REALSIZEIMAGE
+    LTEXT           "Connect to your choice of P2P networks, and",IDC_STATIC,30,124,245,10,SS_CENTERIMAGE
+    ICON            IDI_WIZARD_DOT,IDC_STATIC,15,138,16,16,SS_REALSIZEIMAGE
+    LTEXT           "Get started using PeerProject.",IDC_STATIC,30,138,245,10,SS_CENTERIMAGE
 END
 
 IDD_WIZARD_CONNECTION DIALOGEX 0, 0, 277, 174
@@ -3849,16 +3849,14 @@ BEGIN
     IDS_BROWSE_DROPPED      "Browse user connection to %s was dropped."
     IDS_BROWSE_TIMEOUT      "Closing browse user connection %s due to lack of traffic."
     IDS_BROWSE_CLOSED       "Closing browse user connection to %s."
+    IDS_BROWSE_INTRO_FORMAT "Found %i shared files in %s's library."
     IDS_BROWSE_TITLE_FORMAT "Browsing %s"
 END
 
 STRINGTABLE 
 BEGIN
-    IDS_BROWSE_INTRO_FORMAT "Found %i shared files in %s's library."
-END
-
-STRINGTABLE 
-BEGIN
+    IDS_MEDIA_TIMESPLIT     " / "
+    IDS_MEDIA_SMPLAYER      "PeerProject Media Player"
     IDS_MEDIA_PLUGIN_CREATE "PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."
     IDS_MEDIA_FILTER        "All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"
     IDS_MEDIA_LOAD_FAIL     "Unable to load media file ""%s"""
@@ -3867,11 +3865,6 @@ BEGIN
     IDS_MEDIA_EMPTY         "There is no file playing.  Double-click a media file in your library to play it."
     IDS_MEDIA_TITLE         "P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M"
     IDS_MEDIA_PLAYLIST      "Playlist:"
-END
-
-STRINGTABLE 
-BEGIN
-    IDS_MEDIA_SMPLAYER      "PeerProject Media Player"
 END
 
 STRINGTABLE 

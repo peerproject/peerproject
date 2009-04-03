@@ -3026,7 +3026,7 @@
 	<string id="16995" value="The file may be damaged, or you may not have the necessary codecs to play it." />
 	<string id="16996" value="Part of this file could not be played, you may need to download additional codecs." />
 	<string id="16997" value="There is no file playing.  Double-click a media file in your library to play it." />
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M"/>
+	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="P L A Y L I S T" />
 	<string id="17024" value="Initiating a connection to %s..." />
 	<string id="17025" value="Unable to create a connection to %s." />

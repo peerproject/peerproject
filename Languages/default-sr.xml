@@ -2887,8 +2887,8 @@
 	<string id="16995" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
 	<string id="16996" value="Part of this file could not be played, you may need to download additional codecs."/>
 	<string id="16997" value="There is no file playing.Double-click a media file in your library to play it."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    I    S    T    E    M"/>
-	<string id="16999" value="P L A Y L I S T A"/>
+	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="Playlista:"/>
 	<string id="17024" value="Započinjem spajanje na %s..."/>
 	<string id="17025" value="Ne mogu se spojiti sa %s."/>
 	<string id="17026" value="Tražim spajanje preko vatrozida na %s..."/>
@@ -2972,34 +2972,10 @@
 	<string id="17258" value="Stvoreno PeerProject delimično skidanje, %s do završetka."/>
 	<string id="17259" value="Ova datoteka je već na PeerProject listi za skidanje."/>
 	<string id="17260" value="Nedovoljno prostora na disku za kopiranje skinute datoteke."/>
-	<string id="17472" value="Incoming connection from %s is a BitTorrent coupling, negotiating..."/>
-	<string id="17473" value="Timed out connecting to BitTorrent client %s."/>
-	<string id="17474" value="Timed out handshaking with BitTorrent client %s."/>
-	<string id="17475" value="Closing BitTorrent coupling with %s due to lack of traffic."/>
-	<string id="17476" value="BitTorrent coupling with %s failed because the remote client has a different Peer ID."/>
-	<string id="17477" value="BitTorrent coupling with %s responded with the wrong file."/>
-	<string id="17478" value="BitTorrent coupling with %s requested an unknown file."/>
-	<string id="17479" value="BitTorrent coupling with %s established for &quot;%s&quot;."/>
-	<string id="17481" value="Received BitTorrent descriptor file: &quot;%s&quot;"/>
-	<string id="17482" value="Unable to parse prefetched BitTorrent file &quot;%s&quot;."/>
-	<string id="17483" value="Error from BitTorrent tracker for &quot;%s&quot; : &quot;%s&quot;."/>
-	<string id="17484" value="Error parsing BitTorrent tracker response."/>
-	<string id="17485" value="Received BitTorrent tracker response for &quot;%s&quot;, %i new sources."/>
-	<string id="17486" value="Initiating BitTorrent client coupling with %s..."/>
-	<string id="17487" value="Established BitTorrent coupling with %s, handshaking..."/>
-	<string id="17488" value="You have changed the tracker URL for this torrent.Are you sure you want to save this change?\n\nAn invalid tracker URL may prevent further downloading."/>
-	<string id="17489" value="BitTorrent coupling with %s is extended protocol, identified &quot;%s&quot;."/>
-	<string id="17490" value="Received %i new BitTorrent sources from %s."/>
-	<string id="17491" value="The torrent &quot;%s&quot; is already on your download list, and cannot be seeded."/>
-	<string id="17492" value="Error loading the torrent file &quot;%s&quot;.This may not be a valid torrent."/>
-	<string id="17493" value="Unable to create BitTorrent share file &quot;%s&quot;."/>
+	<!--MISSING STRINGS-->
 	<string id="17494" value="Ovaj torrent uklučuje &quot;%s&quot;, ali PeerProject ne može da nadje ovu datoteku u Vašoj kolekciji. Ako možete, premestite datoteku u istu fasciklu sa torrentom i pojušajte ponovo."/>
-	<string id="17495" value="This torrent includes the file &quot;%s&quot; which should be %s, however your version of the file is %s."/>
-	<string id="17496" value="An error occurred while copying from &quot;%s&quot; to a BitTorrent share file."/>
-	<string id="17497" value="An unknown error occurred while trying to seed &quot;%s&quot;."/>
 	<string id="17498" value="Otkrivena je greška u datoteci &quot;%s&quot;."/>
-	<string id="17500" value="Tracker did not respond- Retrying announce (%i of %i)"/>
-	<string id="17501" value="Unable to communicate with tracker"/>
+	<!--MISSING STRINGS-->
 	<string id="18496" value="Napravili ste promenu u polju imena.Jeste li sigurni da želite preimenovati ovo skidanje?"/>
 	<string id="18497" value="You have typed a SHA1 value, however it is invalid.Please check it and try again."/>
 	<string id="18498" value="You have typed a root tiger-tree value, however it is invalid.Please check it and try again."/>

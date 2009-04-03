@@ -2950,8 +2950,8 @@
 	<string id="16995" value="Datoteka je morda okvarjena ali pa morda nimate ustreznih kodekov za njeno predvajanje."/>
 	<string id="16996" value="Dela te datoteke ni bilo mogoče predvajati. Morda boste morali prenesti dodatne kodeke."/>
 	<string id="16997" value="Trenutno se ne predvaja nobena datoteka. Dvokliknite na datoteko v svoji knjižnici za njeno predvajanje."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    J    S    K    I        S    I    S    T    E    M"/>
-	<string id="16999" value="S E Z N A M    P R E D V A J A N J A"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; J &#160;&#160; S &#160;&#160; K &#160;&#160; I &#160;&#160; &#160;&#160; S &#160;&#160; I &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="SEZNAM PREDVAJANJA:"/>
 	<string id="17024" value="Začenjam povezavo z %s..."/>
 	<string id="17025" value="Povezave z %s ni uspelo ustvariti."/>
 	<string id="17026" value="Naprošam po potisni povezavi za požarnim zidom od %s..."/>

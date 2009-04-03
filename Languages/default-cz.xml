@@ -2953,8 +2953,8 @@
 	<string id="16995" value="Soubor může být poškozený, nebo nemáte potřebný kodetek pro přehrávání."/>
 	<string id="16996" value="Část tohoto souboru nemohla být přehraná, možná bude třeba stáhnout další kodetek."/>
 	<string id="16997" value="Nepřehrává se žádný soubor. Dvojitým kliknutím soubor ve vaší knihovně přehrajete."/>
-	<string id="16998" value="P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M"/>
-	<string id="16999" value="P L A Y L I S T"/>
+	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="Playlist:"/>
 	<string id="17024" value="Připojuji se k %s..."/>
 	<string id="17025" value="Nemohu navázat spojení do %s."/>
 	<string id="17026" value="Žádám firewall o povolení k připojení do %s..."/>
