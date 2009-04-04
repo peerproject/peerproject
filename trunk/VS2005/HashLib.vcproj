@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="7ZipBuilder"
-	ProjectGUID="{B69F80CD-FB15-45E8-B359-92A41CC571A7}"
-	RootNamespace="7ZipBuilder"
+	Name="HashLib"
+	ProjectGUID="{196C99FC-9A4E-421F-B44C-8E3FD177122F}"
+	RootNamespace="HashLib"
 	>
 	<Platforms>
 		<Platform
@@ -15,28 +15,27 @@
 		/>
 	</Platforms>
 	<ToolFiles>
+		<DefaultToolFile
+			FileName="masm.rules"
+		/>
 	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)\Plugins\"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)\"
 			IntermediateDirectory="$(OutDir)$(ProjectName)"
 			ConfigurationType="2"
-			UseOfATL="1"
 			CharacterSet="1"
 			>
-			<Tool
-				Name="VCCustomBuildTool"
-				Description="Copying 7zxr dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\$(ProjectName)\7zxr.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
-				Outputs="$(OutDir)7zxr.dll"
-				ExecutionBucket="1"
-			/>
 			<Tool
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="MASM"
+				WarningLevel="2"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -46,20 +45,12 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				AdditionalIncludeDirectories="$(SolutionDir)..\PeerProject"
-				HeaderFileName="$(IntDir)\$(InputName).h"
-				DLLDataFileName="$(IntDir)\$(InputName)_c.c"
-				InterfaceIdentifierFileName="$(IntDir)\$(InputName)_i.c"
-				ProxyFileName="$(IntDir)\$(InputName)_p.c"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(IntDir)"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_SCL_SECURE_NO_WARNINGS;HASHLIB_EXPORTS;HASHLIB_USE_ASM"
 				MinimalRebuild="true"
-				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
 				RuntimeLibrary="1"
@@ -83,11 +74,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
 				OutputFile="$(OutDir)$(ProjectName).dll"
 				GenerateManifest="false"
-				ModuleDefinitionFile="&quot;$(SolutionDir)..\Plugins\$(ProjectName)\$(ProjectName).def&quot;"
 				GenerateDebugInformation="true"
+				BaseAddress="0x29100000"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -100,7 +90,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				OutputFile=""
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -117,21 +106,19 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)\Plugins\"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)\"
 			IntermediateDirectory="$(OutDir)$(ProjectName)"
 			ConfigurationType="2"
-			UseOfATL="1"
 			CharacterSet="1"
 			>
 			<Tool
-				Name="VCCustomBuildTool"
-				Description="Copying 7zxr dll..."
-				CommandLine="if not exist &quot;$(OutDir)7zxr.dll&quot; (&#x0D;&#x0A;	xcopy &quot;$(SolutionDir)..\Plugins\$(ProjectName)\7zxr.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;)"
-				Outputs="$(OutDir)7zxr.dll"
-				ExecutionBucket="1"
+				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="VCPreBuildEventTool"
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="MASM"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -141,21 +128,13 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				AdditionalIncludeDirectories="$(SolutionDir)..\PeerProject"
 				TargetEnvironment="3"
-				HeaderFileName="$(IntDir)\$(InputName).h"
-				DLLDataFileName="$(IntDir)\$(InputName)_c.c"
-				InterfaceIdentifierFileName="$(IntDir)\$(InputName)_i.c"
-				ProxyFileName="$(IntDir)\$(InputName)_p.c"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(IntDir)"
-				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_USRDLL"
+				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_USRDLL;_SCL_SECURE_NO_WARNINGS;HASHLIB_EXPORTS"
 				MinimalRebuild="true"
-				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
 				RuntimeLibrary="1"
@@ -180,8 +159,8 @@
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)$(ProjectName).dll"
 				GenerateManifest="false"
-				ModuleDefinitionFile="&quot;$(SolutionDir)..\Plugins\$(ProjectName)\$(ProjectName).def&quot;"
 				GenerateDebugInformation="true"
+				BaseAddress="0x29100000"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -195,7 +174,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				OutputFile=""
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -212,22 +190,22 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)\Plugins\"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)\"
 			IntermediateDirectory="$(OutDir)$(ProjectName)"
 			ConfigurationType="2"
-			UseOfATL="2"
-			CharacterSet="2"
+			UseOfMFC="2"
+			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
 			<Tool
-				Name="VCCustomBuildTool"
-				Description="Copying 7zxr dll..."
-				CommandLine="if not exist &quot;$(OutDir)7zxr.dll&quot; (&#x0D;&#x0A;	xcopy &quot;$(SolutionDir)..\Plugins\$(ProjectName)\7zxr.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;)"
-				Outputs="$(OutDir)7zxr.dll"
-				ExecutionBucket="1"
+				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="VCPreBuildEventTool"
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="MASM"
+				WarningLevel="2"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -237,19 +215,11 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				AdditionalIncludeDirectories="$(SolutionDir)..\PeerProject"
-				HeaderFileName="$(IntDir)\$(InputName).h"
-				DLLDataFileName="$(IntDir)\$(InputName)_c.c"
-				InterfaceIdentifierFileName="$(IntDir)\$(InputName)_i.c"
-				ProxyFileName="$(IntDir)\$(InputName)_p.c"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(IntDir)"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_SCL_SECURE_NO_WARNINGS;HASHLIB_EXPORTS;HASHLIB_USE_ASM"
 				MinimalRebuild="true"
-				ExceptionHandling="0"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
@@ -271,12 +241,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
 				OutputFile="$(OutDir)$(ProjectName).dll"
-				ModuleDefinitionFile="&quot;$(SolutionDir)..\Plugins\$(ProjectName)\$(ProjectName).def&quot;"
+				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				OptimizeForWindows98="1"
+				BaseAddress="0x29100000"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -289,7 +259,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				OutputFile=""
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -306,22 +275,21 @@
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)\Plugins\"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)\"
 			IntermediateDirectory="$(OutDir)$(ProjectName)"
 			ConfigurationType="2"
-			UseOfATL="2"
-			CharacterSet="2"
+			UseOfMFC="2"
+			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
 			<Tool
-				Name="VCCustomBuildTool"
-				Description="Copying 7zxr dll..."
-				CommandLine="if not exist &quot;$(OutDir)7zxr.dll&quot; (&#x0D;&#x0A;	xcopy &quot;$(SolutionDir)..\Plugins\$(ProjectName)\7zxr.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;)"
-				Outputs="$(OutDir)7zxr.dll"
-				ExecutionBucket="1"
+				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="VCPreBuildEventTool"
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="MASM"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -331,20 +299,12 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				AdditionalIncludeDirectories="$(SolutionDir)..\PeerProject"
 				TargetEnvironment="3"
-				HeaderFileName="$(IntDir)\$(InputName).h"
-				DLLDataFileName="$(IntDir)\$(InputName)_c.c"
-				InterfaceIdentifierFileName="$(IntDir)\$(InputName)_i.c"
-				ProxyFileName="$(IntDir)\$(InputName)_p.c"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(IntDir)"
-				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_USRDLL"
+				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_USRDLL;_SCL_SECURE_NO_WARNINGS;HASHLIB_EXPORTS"
 				MinimalRebuild="true"
-				ExceptionHandling="0"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
@@ -366,10 +326,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)$(ProjectName).dll"
-				ModuleDefinitionFile="&quot;$(SolutionDir)..\Plugins\$(ProjectName)\$(ProjectName).def&quot;"
+				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				OptimizeForWindows98="1"
+				BaseAddress="0x29100000"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -383,7 +344,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				OutputFile=""
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -404,96 +364,148 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\Plugins\7ZipBuilder\7ZipBuilder.cpp"
+				RelativePath="..\HashLib\ED2K.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Plugins\7ZipBuilder\7ZipBuilder.def"
+				RelativePath="..\HashLib\HashLib.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Plugins\7ZipBuilder\7ZipBuilder.idl"
+				RelativePath="..\HashLib\MD4.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\Plugins\7ZipBuilder\Class.cpp"
+				RelativePath="..\HashLib\MD4_asm.asm"
+				>
+				<FileConfiguration
+					Name="Debug|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="MASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="MASM"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\HashLib\MD5.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\PeerProject.idl"
+				RelativePath="..\HashLib\MD5_asm.asm"
+				>
+				<FileConfiguration
+					Name="Debug|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="MASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="MASM"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\HashLib\SHA.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\HashLib\SHA_asm.asm"
+				>
+				<FileConfiguration
+					Name="Debug|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="MASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="MASM"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\HashLib\stdafx.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
-						Name="VCMIDLTool"
-						HeaderFileName="$(IntDir)\PeerProjectOM.h"
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|x64"
 					>
 					<Tool
-						Name="VCMIDLTool"
-						HeaderFileName="$(IntDir)\PeerProjectOM.h"
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
-						Name="VCMIDLTool"
-						HeaderFileName="$(IntDir)\PeerProjectOM.h"
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|x64"
 					>
 					<Tool
-						Name="VCMIDLTool"
-						HeaderFileName="$(IntDir)\PeerProjectOM.h"
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Plugins\7ZipBuilder\StdAfx.cpp"
+				RelativePath="..\HashLib\Tiger_asm.asm"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Debug|x64"
+					ExcludedFromBuild="true"
 					>
 					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
+						Name="MASM"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|x64"
+					ExcludedFromBuild="true"
 					>
 					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
+						Name="MASM"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\HashLib\TigerTree.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
@@ -502,186 +514,50 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\Plugins\7ZipBuilder\Class.h"
+				RelativePath="..\HashLib\ED2K.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Plugins\7ZipBuilder\PeerProject.h"
+				RelativePath="..\HashLib\HashLib.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Plugins\7ZipBuilder\Resource.h"
+				RelativePath="..\HashLib\MD4.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Plugins\7ZipBuilder\StdAfx.h"
+				RelativePath="..\HashLib\MD5.h"
+				>
+			</File>
+			<File
+				RelativePath="..\HashLib\Resource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\HashLib\SHA.h"
+				>
+			</File>
+			<File
+				RelativePath="..\HashLib\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath="..\HashLib\TigerTree.h"
+				>
+			</File>
+			<File
+				RelativePath="..\HashLib\Utility.hpp"
 				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
+			Filter="ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe;htm;xml;png"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath="..\Plugins\7ZipBuilder\7ZipBuilder.rc"
+				RelativePath="..\HashLib\HashLib.rc"
 				>
-			</File>
-			<File
-				RelativePath="..\Plugins\7ZipBuilder\7ZipBuilder.rgs"
-				>
-			</File>
-			<File
-				RelativePath="..\Plugins\7ZipBuilder\Class.rgs"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Generated Files"
-			>
-			<File
-				RelativePath=".\DebugWin32\Plugins\7ZipBuilder\7ZipBuilder_i.c"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Debugx64\Plugins\7ZipBuilder\7ZipBuilder_i.c"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\ReleaseWin32\Plugins\7ZipBuilder\7ZipBuilder_i.c"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Releasex64\Plugins\7ZipBuilder\7ZipBuilder_i.c"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 	</Files>

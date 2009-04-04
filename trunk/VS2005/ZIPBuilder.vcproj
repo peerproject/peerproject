@@ -507,11 +507,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Plugins\ZIPBuilder\StdAfx.h"
+				RelativePath="..\Plugins\ZIPBuilder\Resource.h"
 				>
 			</File>
 			<File
-				RelativePath="..\Plugins\ZIPBuilder\ZIPBuilder.h"
+				RelativePath="..\Plugins\ZIPBuilder\StdAfx.h"
 				>
 			</File>
 		</Filter>
@@ -536,42 +536,6 @@
 		<Filter
 			Name="Generated Files"
 			>
-			<File
-				RelativePath=".\ReleaseWin32\Plugins\ZIPBuilder\ZIPBuilder_i.c"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
 			<File
 				RelativePath=".\DebugWin32\Plugins\ZIPBuilder\ZIPBuilder_i.c"
 				>
@@ -633,6 +597,42 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\ReleaseWin32\Plugins\ZIPBuilder\ZIPBuilder_i.c"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
 				<FileConfiguration

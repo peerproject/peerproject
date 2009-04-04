@@ -1002,4 +1002,4 @@ End;
 { Pull in custom wizard pages }
 #include "Pages.iss"
 
-#expr SaveToFile("Builds\Preprocessed.iss")
+#expr SaveToFile("Scripts\Preprocessed.iss")

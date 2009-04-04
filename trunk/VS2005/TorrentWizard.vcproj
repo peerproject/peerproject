@@ -23,7 +23,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)\"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)/$(ProjectName)"
+			IntermediateDirectory="$(OutDir)$(ProjectName)"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			UseOfATL="1"
@@ -51,7 +51,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
@@ -108,7 +108,7 @@
 		<Configuration
 			Name="Debug|x64"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)\"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)/$(ProjectName)"
+			IntermediateDirectory="$(OutDir)$(ProjectName)"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			UseOfATL="1"
@@ -136,7 +136,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE"
+				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
@@ -194,7 +194,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)\"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)/$(ProjectName)"
+			IntermediateDirectory="$(OutDir)$(ProjectName)"
 			ConfigurationType="1"
 			UseOfMFC="2"
 			UseOfATL="2"
@@ -222,7 +222,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
@@ -246,6 +246,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="version.lib"
 				OutputFile="$(OutDir)$(ProjectName).exe"
+				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				OptimizeForWindows98="1"
@@ -279,7 +280,7 @@
 		<Configuration
 			Name="Release|x64"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)\"
-			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)$(PlatformName)/$(ProjectName)"
+			IntermediateDirectory="$(OutDir)$(ProjectName)"
 			ConfigurationType="1"
 			UseOfMFC="2"
 			UseOfATL="2"
@@ -307,7 +308,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE"
+				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
@@ -330,6 +331,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="version.lib"
 				OutputFile="$(OutDir)$(ProjectName).exe"
+				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				OptimizeForWindows98="1"
@@ -383,36 +385,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\TorrentWizard\ED2K.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\TorrentWizard\MD4.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\TorrentWizard\MD4_asm.asm"
-				>
-				<FileConfiguration
-					Name="Debug|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-							Name="MASM"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-						ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-						Outputs="&quot;$(IntDir)\$(InputName).obj&quot;"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\TorrentWizard\PageCommandline.cpp"
 				>
 			</File>
@@ -443,30 +415,6 @@
 			<File
 				RelativePath="..\TorrentWizard\PageWelcome.cpp"
 				>
-			</File>
-			<File
-				RelativePath="..\TorrentWizard\SHA1.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\TorrentWizard\SHA_asm.asm"
-				>
-				<FileConfiguration
-					Name="Debug|x64"
-						ExcludedFromBuild="true"
-					>
-					<Tool
-							Name="MASM"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-						ExcludedFromBuild="true"
-					>
-					<Tool
-							Name="MASM"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\TorrentWizard\StdAfx.cpp"
@@ -535,14 +483,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\TorrentWizard\ED2K.h"
-				>
-			</File>
-			<File
-				RelativePath="..\TorrentWizard\MD4.h"
-				>
-			</File>
-			<File
 				RelativePath="..\TorrentWizard\PageCommandline.h"
 				>
 			</File>
@@ -575,11 +515,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\TorrentWizard\resource.h"
-				>
-			</File>
-			<File
-				RelativePath="..\TorrentWizard\SHA1.h"
+				RelativePath="..\TorrentWizard\Resource.h"
 				>
 			</File>
 			<File
@@ -621,7 +557,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\TorrentWizard\Res\Uninstall.ICO"
+				RelativePath="..\TorrentWizard\Res\Uninstall.ico"
 				>
 			</File>
 			<File
