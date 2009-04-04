@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Afrikaans Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.7300 (Structure Only) -->
+<!-- Translation based on default-en.xml Shareaza SVN rev.7300 -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
@@ -20,7 +20,7 @@
 		description="PeerProject Default Afrikaans Skin File"
 		link="http://PeerProject.org/"
 		email="jvdwalt(at)tuks.co.za"
-		version="2.3.2.0"
+		version="1.0.0.0"
 		type="Language"
 		language="af"
 		prompt="Kliek hier om Afrikaans as jou taal te kies."
@@ -173,8 +173,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Kanselleer Aflaai"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Verwyder Aflaai"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Vertoon Monitor"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Properties"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Vertoon Monitor"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Voeg Aflaai/Torrent By..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Verwyder Voltooide Aflaaie"/>
@@ -211,75 +211,67 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Deel Lêers..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Vertoon"/>
-		<button id="ID_LIBRARY_PANEL" text="Wys Detail"/>
 		<button id="ID_LIBRARY_PARENT" text="Op"/>
+		<button id="ID_LIBRARY_VIEW" text="Vertoon"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Vertoon"/>
-		<button id="ID_LIBRARY_PANEL" text="Wys Detail"/>
 		<button id="ID_LIBRARY_PARENT" text="Op"/>
+		<button id="ID_LIBRARY_VIEW" text="Vertoon"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Deel Lêers..."/>
-		<rightAlign/>
+			<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Skep Album..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Verwyder Album"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek"/>
+		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Skep Album..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Verwyder Album"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek"/>
+		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Open of Speel"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Voeg by Medialys"/>
 		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek"/>
+		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Open of Speel"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Voeg by Medialys"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Properties"/>
-		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
 		<separator/>
 		<button id="ID_LIBRARY_MOVE" text="Skuif"/>
 		<button id="ID_LIBRARY_COPY" text="Kopieer"/>
 		<button id="ID_LIBRARY_DELETE" text="Skrap"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek"/>
+		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Open of Speel"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Voeg by Medialys"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Speel Album"/>
 		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek"/>
+		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Open of Speel"/>
@@ -287,21 +279,22 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Speel Album"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Properties"/>
-		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek"/>
+		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Speel Volledige Album"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Laai Alle Lêers Af"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek"/>
+		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

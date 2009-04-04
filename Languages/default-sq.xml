@@ -19,7 +19,7 @@
 		description="PeerProject Default Albanian Skin File"
 		link="http://PeerProject.org/"
 		email="bgodole(at)gmail.com"
-		version="2.3.0.0"
+		version="1.0.0.0"
 		type="Language"
 		language="sq"
 		prompt="Zgjidhni Shqipen si gjuhë tipike."
@@ -171,8 +171,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Anulo"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Pastro"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Monitoro"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Monitoro"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Shto një Shkarkesë/Torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Pastro të Përfunduarit"/>
@@ -209,46 +209,39 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Shpërnda skedat..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Shiko"/>
-		<button id="ID_LIBRARY_PANEL" text="Me Detaje"/>
 		<button id="ID_LIBRARY_PARENT" text="Sipër"/>
+		<button id="ID_LIBRARY_VIEW" text="Shiko"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Shiko"/>
-		<button id="ID_LIBRARY_PANEL" text="Me Detaje"/>
 		<button id="ID_LIBRARY_PARENT" text="Sipër"/>
+		<button id="ID_LIBRARY_VIEW" text="Shiko"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Shpërnda skedat..."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Krijo një Album..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Fshije"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej"/>
+		<button id="ID_LIBRARY_PANEL" text="Me Detaje"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Krijo një Album..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Fshije"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej"/>
+		<button id="ID_LIBRARY_PANEL" text="Me Detaje"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Hape/Lexo"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Shtoje në Listë"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej"/>
+		<button id="ID_LIBRARY_PANEL" text="Me Detaje"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Hape/Lexo"/>
@@ -260,18 +253,20 @@
 		<button id="ID_LIBRARY_COPY" text="Kopjo"/>
 		<button id="ID_LIBRARY_DELETE" text="Fshije"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej"/>
+		<button id="ID_LIBRARY_PANEL" text="Me Detaje"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Hape/Lexo"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Shtoje në Listë"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Lexo Albumin"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej"/>
+		<button id="ID_LIBRARY_PANEL" text="Me Detaje"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Hape/Lexo"/>
@@ -280,18 +275,20 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Veti"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej"/>
+		<button id="ID_LIBRARY_PANEL" text="Me Detaje"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Lexo Tërë Albumin"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Shkarko Gjithë Skedat"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Gjej"/>
+		<button id="ID_LIBRARY_PANEL" text="Me Detaje"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

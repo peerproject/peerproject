@@ -19,7 +19,7 @@
 		description="PeerProject Default Turkish Skin File"
 		link="http://PeerProject.org/"
 		email="Contact(at)PeerProject.org"
-		version="2.4.0.0"
+		version="1.0.0.0"
 		type="Language"
 		language="tr"
 		prompt="Türkçe için buraya tıklayınız."
@@ -173,8 +173,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="İndirmeden Vazgeç"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="İndirmeyi Temizle"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Ekranı Göster"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Torrent Bilgisi"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Ekranı Göster"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="İndir/Torrent Ekle..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Temizleme Tamamlandı"/>
@@ -211,95 +211,89 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Dosya Paylaşımı..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Görünüm"/>
-		<button id="ID_LIBRARY_PANEL" text="Ayrıntıları Göster"/>
 		<button id="ID_LIBRARY_PARENT" text="Yukarı"/>
+		<button id="ID_LIBRARY_VIEW" text="Görünüm"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Görünüm"/>
-		<button id="ID_LIBRARY_PANEL" text="Ayrıntıları Göster"/>
 		<button id="ID_LIBRARY_PARENT" text="Yukarı"/>
+		<button id="ID_LIBRARY_VIEW" text="Görünüm"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Dosya Paylaşımı..."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Albüm Yarat..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Albüm Sil"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul"/>
+		<button id="ID_LIBRARY_PANEL" text="Ayrıntıları Göster"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Albüm Oluştur..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Albüm Sil"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul"/>
+		<button id="ID_LIBRARY_PANEL" text="Ayrıntıları Göster"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Aç/Oynat"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Oynatma Listesine Ekle"/>
 		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="Web Servisleri"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul"/>
+		<button id="ID_LIBRARY_PANEL" text="Ayrıntıları Göster"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Aç/Oynat"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Oynatma Listesine Ekle"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Özellikler"/>
-		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Web Servisleri"/>
 		<separator/>
 		<button id="ID_LIBRARY_MOVE" text="Taşı"/>
 		<button id="ID_LIBRARY_COPY" text="Kopyala"/>
 		<button id="ID_LIBRARY_DELETE" text="Sil"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul"/>
+		<button id="ID_LIBRARY_PANEL" text="Ayrıntıları Göster"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Aç/Oynat"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Oynatma Listesine Ekle"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Albüm Oynat"/>
 		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="Web Servisleri"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul"/>
+		<button id="ID_LIBRARY_PANEL" text="Ayrıntıları Göster"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Aç/Oynat"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Oynatma Listesine Ekle"/>
-		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Albüm Oynat"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Özellikler"/>
+		<button id="ID_WEBSERVICES_LIST" text="Web Servisleri"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul"/>
+		<button id="ID_LIBRARY_PANEL" text="Ayrıntıları Göster"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Tüm Albümü Oynat"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Tüm Dosyaları İndir"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul"/>
+		<button id="ID_LIBRARY_PANEL" text="Ayrıntıları Göster"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

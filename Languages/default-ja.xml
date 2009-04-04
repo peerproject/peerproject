@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Japanese Skin File -->
-<!-- Translation based on default-en.xml SVN rev.xxxx -->
+<!-- Translation based on default-en.xml Shareaza 2.2.0.2 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -25,7 +25,7 @@
 		description="PeerProject Default Japanese Skin File"
 		link="http://www.dukedog.flnet.org/"
 		email="countnyan(at)hotmail.com"
-		version="2.2.4.0"
+		version="1.0.0.0"
 		type="Language"
 		language="ja"
 		prompt="アプリケーションで日本語を使用したい場合はここをクリックして下さい"
@@ -178,8 +178,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="キャンセル"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="完了済みをクリア"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="モニターを表示"/>
 		<button id="ID_DOWNLOADS_EDIT" text="情報"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="モニターを表示"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="ダウンロード/Torrent追加..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="完了済みをクリア"/>
@@ -216,46 +216,39 @@
 		<button id="ID_LIBRARY_FOLDERS" text="共有ファイル..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="表示"/>
-		<button id="ID_LIBRARY_PANEL" text="詳細を表示"/>
 		<button id="ID_LIBRARY_PARENT" text="上へ"/>
+		<button id="ID_LIBRARY_VIEW" text="表示"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="表示"/>
-		<button id="ID_LIBRARY_PANEL" text="詳細を表示"/>
 		<button id="ID_LIBRARY_PARENT" text="上へ"/>
+		<button id="ID_LIBRARY_VIEW" text="表示"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="共有ファイル..."/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="検索"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="アルバムを作成..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="アルバムを削除"/>
-		<rightAlign/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="検索"/>
+		<button id="ID_LIBRARY_PANEL" text="詳細を表示"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="アルバムを作成..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="アルバムを削除"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="検索"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="詳細を表示"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="開く・再生"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="再生リストに追加"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="検索"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="詳細を表示"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="開く・再生"/>
@@ -267,18 +260,20 @@
 		<button id="ID_LIBRARY_COPY" text="コピー"/>
 		<button id="ID_LIBRARY_DELETE" text="削除"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="検索"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="詳細を表示"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="開く・再生"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="再生リストに追加"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="アルバムを再生"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="検索"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="詳細を表示"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="開く・再生"/>
@@ -287,18 +282,20 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="プロパティ"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="検索"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="詳細を表示"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="アルバムを完全再生"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="全てのファイルをダウンロード"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="検索"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="詳細を表示"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

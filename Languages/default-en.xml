@@ -225,7 +225,7 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Share Files..."/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
-		<control id="108" width="90"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
@@ -234,7 +234,7 @@
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Delete Group"/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
-		<control id="108" width="90"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
@@ -244,7 +244,7 @@
 		<separator/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
-		<control id="108" width="90"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
@@ -260,7 +260,7 @@
 		<button id="ID_LIBRARY_DELETE"/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
-		<control id="108" width="90"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
@@ -271,7 +271,7 @@
 		<separator/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
-		<control id="108" width="90"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
@@ -283,7 +283,7 @@
 		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
-		<control id="108" width="90"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
@@ -292,9 +292,10 @@
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Download All Files"/>
 			<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find"/>
+		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

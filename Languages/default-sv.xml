@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Swedish Skin File -->
-<!-- Translation based on default-en.xml SVN rev.xxxx -->
+<!-- Translation based on default-en.xml Shareaza 2.3.2.0 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -19,7 +19,7 @@
 		description="PeerProject Default Swedish Skin File"
 		link="http://PeerProject.org/"
 		email="swey1(at)hotmail.com"
-		version="2.3.1.1"
+		version="1.0.0.0"
 		type="Language"
 		language="sv"
 		prompt="Klicka här för att välja svenska som ditt språk."
@@ -173,8 +173,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Avbryt nedladdning" />
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Rensa nedladdning" />
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Visa monitor" />
 		<button id="ID_DOWNLOADS_EDIT" text="Information" />
+		<button id="ID_DOWNLOADS_MONITOR" text="Visa monitor" />
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Lägg till nedladdning/Torrent…" />
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Rensa färdiga" />
@@ -211,75 +211,65 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Dela ut filer…" />
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Visa" />
-		<button id="ID_LIBRARY_PANEL" text="Visa detaljer" />
 		<button id="ID_LIBRARY_PARENT" text="Upp" />
+		<button id="ID_LIBRARY_VIEW" text="Visa" />
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Visa" />
-		<button id="ID_LIBRARY_PANEL" text="Visa detaljer" />
 		<button id="ID_LIBRARY_PARENT" text="Upp" />
+		<button id="ID_LIBRARY_VIEW" text="Visa" />
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Dela ut filer…" />
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:" />
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök" />
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Skapa album…" />
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Radera album" />
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök" />
+		<button id="ID_LIBRARY_PANEL" text="Visa detaljer" />
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Skapa album…" />
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Radera album" />
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:" />
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök" />
+		<button id="ID_LIBRARY_PANEL" text="Visa detaljer" />
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Öppna eller spela upp" />
 		<button id="ID_LIBRARY_ENQUEUE" text="Lägg till i spellista" />
-		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="Webbtjnster"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:" />
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök" />
+		<button id="ID_LIBRARY_PANEL" text="Visa detaljer" />
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Öppna eller spela upp" />
 		<button id="ID_LIBRARY_ENQUEUE" text="Lägg till i spellista" />
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Egenskaper" />
-		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Webbtjnster"/>
 		<separator/>
 		<button id="ID_LIBRARY_MOVE" text="Flytta" />
 		<button id="ID_LIBRARY_COPY" text="Kopiera" />
 		<button id="ID_LIBRARY_DELETE" text="Radera" />
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:" />
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök" />
+		<button id="ID_LIBRARY_PANEL" text="Visa detaljer" />
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Öppna eller spela upp" />
 		<button id="ID_LIBRARY_ENQUEUE" text="Lägg till i spellista" />
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Spela upp album" />
-		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="Webbtjnster"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:" />
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök" />
+		<button id="ID_LIBRARY_PANEL" text="Visa detaljer" />
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Öppna eller spela upp" />
@@ -287,21 +277,22 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Spela upp album" />
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Egenskaper" />
-		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Webbtjnster"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:" />
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök" />
+		<button id="ID_LIBRARY_PANEL" text="Visa detaljer" />
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Spela upp hela albumet" />
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Ladda ned alla filer" />
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:" />
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök" />
+		<button id="ID_LIBRARY_PANEL" text="Visa detaljer" />
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

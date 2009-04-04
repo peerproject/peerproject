@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.xxxx -->
+<!-- Translation based on default-en.xml Shareaza 2.2.2.12 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -19,7 +19,7 @@
 		description="PeerProject Default Chinese (Traditional) Skin File"
 		link="http://PeerProject.org/"
 		email="Contact(at)PeerProject.org"
-		version="2.2.2.12"
+		version="1.0.0.0"
 		type="Language"
 		language="tw"
 		prompt="設定繁體中文為預設語言"
@@ -218,46 +218,39 @@
 		<button id="ID_LIBRARY_FOLDERS" text="分享檔案..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="檢視"/>
-		<button id="ID_LIBRARY_PANEL" text="顯示詳細內容"/>
 		<button id="ID_LIBRARY_PARENT" text="'上移"/>
+		<button id="ID_LIBRARY_VIEW" text="檢視"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
+		<button id="ID_LIBRARY_PARENT" text="'上移"/>
 		<button id="ID_LIBRARY_VIEW" text="檢視"/>
-		<button id="ID_LIBRARY_PANEL" text="顯示詳細內容"/>
-		<button id="ID_LIBRARY_PARENT" text="上移"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="分享檔案..."/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
+			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="新增專輯..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="刪除專輯"/>
-		<rightAlign/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
+		<button id="ID_LIBRARY_PANEL" text="顯示詳細內容"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="新增專輯..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="刪除專輯"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="顯示詳細內容"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="開啟或播放"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="新增至播放清單"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="顯示詳細內容"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="開啟或播放"/>
@@ -269,18 +262,20 @@
 		<button id="ID_LIBRARY_COPY" text="複製"/>
 		<button id="ID_LIBRARY_DELETE" text="刪除"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="顯示詳細內容"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="開啟或播放"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="新增至播放清單"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="播放專輯"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="顯示詳細內容"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="開啟或播放"/>
@@ -289,18 +284,20 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="屬性"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="顯示詳細內容"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="播放整個專輯"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="下載所有檔案"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="搜尋"/>
+		<button id="ID_LIBRARY_PANEL" text="顯示詳細內容"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

@@ -19,7 +19,7 @@
 		description="PeerProject Default Hungarian Skin File"
 		link="http://totenkopf.uw.hu"
 		email="yurielvtars(at)gmail.com"
-		version="2.4.0.0"
+		version="1.0.0.0"
 		type="Language"
 		language="hu"
 		prompt="Kattintson ide a magyar nyelvhez."
@@ -172,8 +172,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Letöltés leállítása"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Letöltés törlése"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Monitor megjelenítése"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Infó"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Monitor megjelenítése"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Torrent/Link hozzáadása..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Kész törlése"/>
@@ -210,48 +210,39 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Fájlok megosztása..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Megnéz"/>
-		<button id="ID_LIBRARY_PANEL" text="Részletek"/>
 		<button id="ID_LIBRARY_PARENT" text="Fel"/>
+		<button id="ID_LIBRARY_VIEW" text="Megnéz"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Megnéz"/>
-		<button id="ID_LIBRARY_PANEL" text="Részletek"/>
 		<button id="ID_LIBRARY_PARENT" text="Fel"/>
+		<button id="ID_LIBRARY_VIEW" text="Megnéz"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Fájlok megosztása..."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Album létrehozása..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Album törlése"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres"/>
+		<button id="ID_LIBRARY_PANEL" text="Részletek"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Album létrehozása..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Album törlése"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres"/>
+		<button id="ID_LIBRARY_PANEL" text="Részletek"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Megnyitás-Lejátszás"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Listához ad"/>
-		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="Webszolgáltatások"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres"/>
+		<button id="ID_LIBRARY_PANEL" text="Részletek"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Megnyitás-Lejátszás"/>
@@ -265,9 +256,10 @@
 		<button id="ID_LIBRARY_COPY" text="Másolás"/>
 		<button id="ID_LIBRARY_DELETE" text="Törlés"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres"/>
+		<button id="ID_LIBRARY_PANEL" text="Részletek"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Megnyitás-Lejátszás"/>
@@ -276,9 +268,10 @@
 		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Webszolgáltatások"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres"/>
+		<button id="ID_LIBRARY_PANEL" text="Részletek"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Megnyitás-Lejátszás"/>
@@ -286,21 +279,22 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Album lejátszása"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Tulajdonságok"/>
-		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Webszolgáltatások"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres"/>
+		<button id="ID_LIBRARY_PANEL" text="Részletek"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Teljes album lejátszása"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Minden fájl letöltése"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Keres"/>
+		<button id="ID_LIBRARY_PANEL" text="Részletek"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

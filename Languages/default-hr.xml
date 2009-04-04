@@ -19,7 +19,7 @@
 		description="PeerProject Default Croatian Skin File"
 		link="http://PeerProject.org/"
 		email=""
-		version="2.2.0.2"
+		version="1.0.0.0"
 		type="Language"
 		language="hr"
 		prompt="Ovdje odaberi PeerProject na hrvatskom jeziku..."
@@ -171,8 +171,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Prekini Skidanje"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Obriši Skinuto"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Pokaži Praćenje Prometa"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Pokaži Praćenje Prometa"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Dodaj za Skinuti/Torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Makni Gotove"/>
@@ -209,46 +209,39 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Podjeli ...."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Pogled"/>
-		<button id="ID_LIBRARY_PANEL" text="Pokaži Detalje"/>
 		<button id="ID_LIBRARY_PARENT" text="Gore"/>
+		<button id="ID_LIBRARY_VIEW" text="Pogled"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Pogled"/>
-		<button id="ID_LIBRARY_PANEL" text="Pokaži Detalje"/>
 		<button id="ID_LIBRARY_PARENT" text="Gore"/>
+		<button id="ID_LIBRARY_VIEW" text="Pogled"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Podjeli ...."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Traži:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Traži"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Napravi Album..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Obriši Album"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Nađi"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaži Detalje"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Napravi Album..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Obriši Album"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Traži:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Traži"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaži Detalje"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Pokreni"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Ubaci u Playlistu"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Traži:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Nađi"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaži Detalje"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Pokreni"/>
@@ -260,18 +253,20 @@
 		<button id="ID_LIBRARY_COPY" text="Zapamti"/>
 		<button id="ID_LIBRARY_DELETE" text="Obriši"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Traži:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Nađi"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaži Detalje"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Pokreni"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Ubaci u Playlistu"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Pokreni Album"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Traži:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Nađi"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaži Detalje"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Pokreni"/>
@@ -280,18 +275,20 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Svojstva"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Traži:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Nađi"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaži Detalje"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Pokreni Cijeli Album"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Skini Sve"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Traži:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Nađi"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaži Detalje"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

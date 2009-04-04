@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Finnish Skin File -->
-<!-- Translation based on default-en.xml SVN rev.xxxx -->
+<!-- Translation based on default-en.xml Shareaza 2.1.3.7 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -19,7 +19,7 @@
 		description="PeerProject Default Finnish Skin File"
 		link="http://www.gamerfactory.co.nr/"
 		email=""
-		version="2.1.3.7"
+		version="1.0.0.0"
 		type="Language"
 		language="fi"
 		prompt="Klikkaa tähän valitaksesi Suomen käyttökieleksi."
@@ -171,8 +171,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Peruuta Lataus"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Poista Latauslistalta"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Näytä Monitori"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Torrentin Tiedot"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Näytä Monitori"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Lisää Lataus/Torrentti..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Poista Valmiit listalta"/>
@@ -209,69 +209,67 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Jaa tiedostoja..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Näytä"/>
-		<button id="ID_LIBRARY_PANEL" text="Näytä Tiedot"/>
 		<button id="ID_LIBRARY_PARENT" text="Ylös"/>
+		<button id="ID_LIBRARY_VIEW" text="Näytä"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Näytä"/>
-		<button id="ID_LIBRARY_PANEL" text="Näytä Tiedot"/>
 		<button id="ID_LIBRARY_PARENT" text="Ylös"/>
+		<button id="ID_LIBRARY_VIEW" text="Näytä"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Jaa tiedostoja..."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Luo Albumi"/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Poista Albumi"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi"/>
+		<button id="ID_LIBRARY_PANEL" text="Näytä Tiedot"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Luo Albumi"/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Poista Albumi"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi"/>
+		<button id="ID_LIBRARY_PANEL" text="Näytä Tiedot"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Avaa tai Toista"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Lisää Soittolistaan"/>
-		<rightAlign/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi"/>
+		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="Näytä Tiedot"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Avaa tai Toista"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Lisää Soittolistaan"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Ominaisuudet"/>
+		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
 		<separator/>
 		<button id="ID_LIBRARY_MOVE" text="Siirrä"/>
 		<button id="ID_LIBRARY_COPY" text="Kopioi"/>
 		<button id="ID_LIBRARY_DELETE" text="Poista"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi"/>
+		<button id="ID_LIBRARY_PANEL" text="Näytä Tiedot"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Avaa tai Toista"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Lisää Soittolistaan"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Toista Albumi"/>
-		<rightAlign/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi"/>
+		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="Näytä Tiedot"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Avaa tai Toista"/>
@@ -280,18 +278,20 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Ominaisuudet"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi"/>
+		<button id="ID_LIBRARY_PANEL" text="Näytä Tiedot"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Toista Koko Albumi"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Lataa Kaikki Tiedostot"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Etsi"/>
+		<button id="ID_LIBRARY_PANEL" text="Näytä Tiedot"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

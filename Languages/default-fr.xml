@@ -172,8 +172,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Supprimer"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Nettoyer"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Afficher le moniteur"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info du torrent"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Afficher le moniteur"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Ajouter un télécharg./torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Nettoyer terminés"/>
@@ -210,37 +210,30 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Partager des fichiers..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Affichage"/>
-		<button id="ID_LIBRARY_PANEL" text="Afficher les détails"/>
 		<button id="ID_LIBRARY_PARENT" text="Parent"/>
+		<button id="ID_LIBRARY_VIEW" text="Affichage"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Affichage"/>
-		<button id="ID_LIBRARY_PANEL" text="Afficher les détails"/>
 		<button id="ID_LIBRARY_PARENT" text="Parent"/>
+		<button id="ID_LIBRARY_VIEW" text="Affichage"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Partager des fichiers..."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Créer un album..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Supprimer l'album"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver"/>
+		<button id="ID_LIBRARY_PANEL" text="Afficher les détails"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Créer un album..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Supprimer l'album"/>
 		<rightAlign/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver"/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="Afficher les détails"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Ouvrir ou lire"/>
@@ -248,9 +241,10 @@
 		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Services Web"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver"/>
+		<button id="ID_LIBRARY_PANEL" text="Afficher les détails"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Ouvrir ou lire"/>
@@ -264,9 +258,10 @@
 		<button id="ID_LIBRARY_COPY" text="Copier"/>
 		<button id="ID_LIBRARY_DELETE" text="Supprimer"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver"/>
+		<button id="ID_LIBRARY_PANEL" text="Afficher les détails"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Ouvrir ou lire"/>
@@ -275,9 +270,10 @@
 		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Services Web"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver"/>
+		<button id="ID_LIBRARY_PANEL" text="Afficher les détails"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Ouvrir ou lire"/>
@@ -288,18 +284,20 @@
 		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Services Web"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver"/>
+		<button id="ID_LIBRARY_PANEL" text="Afficher les détails"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Lire l'album complet"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Téléch. tous les fichiers"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver"/>
+		<button id="ID_LIBRARY_PANEL" text="Afficher les détails"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

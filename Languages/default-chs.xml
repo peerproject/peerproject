@@ -19,7 +19,7 @@
 		description="PeerProject Chinese (Simplified) Skin File"
 		link="http://www.p2pnet.cn/shareaza"
 		email="ShareazaSTC(at)gmail.com"
-		version="2.3.0.0"
+		version="1.0.0.0"
 		type="Language"
 		language="chs"
 		prompt="单击这里显示简体中文"
@@ -216,46 +216,39 @@
 		<button id="ID_LIBRARY_FOLDERS" text="共享文件..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="视图"/>
-		<button id="ID_LIBRARY_PANEL" text="详细信息"/>
 		<button id="ID_LIBRARY_PARENT" text="向上"/>
+		<button id="ID_LIBRARY_VIEW" text="视图"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="视图"/>
-		<button id="ID_LIBRARY_PANEL" text="详细信息"/>
 		<button id="ID_LIBRARY_PARENT" text="向上"/>
+		<button id="ID_LIBRARY_VIEW" text="视图"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="共享文件..."/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
+			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="查找"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="创建专辑..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="删除专辑"/>
-		<rightAlign/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="查找"/>
+		<button id="ID_LIBRARY_PANEL" text="详细信息"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="创建专辑..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="删除专辑"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="查找"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="详细信息"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="打开或播放"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="加入播放列表"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="查找"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="详细信息"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="打开或播放"/>
@@ -267,18 +260,20 @@
 		<button id="ID_LIBRARY_COPY" text="复制"/>
 		<button id="ID_LIBRARY_DELETE" text="删除"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="查找"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="详细信息"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="打开或播放"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="加入播放列表"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="播放专辑"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="查找"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="详细信息"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="打开或播放"/>
@@ -287,18 +282,20 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="属性"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="查找"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="详细信息"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="播放整个专辑"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="下载所有文件"/>
 		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="查找"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
+		<separator/>
+		<button id="ID_LIBRARY_PANEL" text="详细信息"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

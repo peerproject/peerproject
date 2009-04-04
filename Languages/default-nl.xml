@@ -19,7 +19,7 @@
 		description="PeerProject Default Dutch Skin File"
 		link="http://PeerProject.org/"
 		email="Neglacio@live.nl"
-		version="2.3.1.1"
+		version="1.0.0.0"
 		type="Language"
 		language="nl"
 		prompt="Klik hier om Nederlands als taal te kiezen."
@@ -172,8 +172,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Beëindigen"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Wissen"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Monitor tonen"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Informatie"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Monitor tonen"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Downloadlink invoegen"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Wis voltooide bestanden"/>
@@ -210,73 +210,65 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Bestanden delen..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Bekijken"/>
-		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
 		<button id="ID_LIBRARY_PARENT" text="Naar boven"/>
+		<button id="ID_LIBRARY_VIEW" text="Bekijken"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Bekijken"/>
-		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
 		<button id="ID_LIBRARY_PARENT" text="Naar boven"/>
+		<button id="ID_LIBRARY_VIEW" text="Bekijken"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Bestanden delen..."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Album maken..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Album verwijderen"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Album maken..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Album verwijderen"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Openen of afspelen"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Toevoegen aan afspeellijst"/>
-		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Openen of afspelen"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Toevoegen aan afspeellijst"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Eigenschappen"/>
+		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
 		<separator/>
 		<button id="ID_LIBRARY_MOVE" text="Verplaatsen"/>
 		<button id="ID_LIBRARY_COPY" text="Kopiëren"/>
 		<button id="ID_LIBRARY_DELETE" text="Verwijderen"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Openen of afspelen"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Toevoegen aan afspeellijst"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Album afspelen"/>
-		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Openen of afspelen"/>
@@ -284,19 +276,22 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Album afspelen"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Eigenschappen"/>
+		<button id="ID_WEBSERVICES_LIST" text="Paslaugos Internete"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Volledig album afspelen"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Alle bestanden downloaden"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

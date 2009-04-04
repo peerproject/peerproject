@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Serbian Skin File -->
-<!-- Translation based on default-en.xml SVN rev.xxxx -->
+<!-- Translation based on default-en.xml Shareaza 2.3.2.0 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -19,7 +19,7 @@
 		description="PeerProject Default Serbian Skin File"
 		link="http://PeerProject.org"
 		email=""
-		version="2.3.2.0"
+		version="1.0.0.0"
 		type="Language"
 		language="sr"
 		prompt="Кликните овде да би сте изабрали Српски као свој језик."
@@ -172,8 +172,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Прекини преузимање"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Очисти завршено"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Прикажи преузимање"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Информације"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Прикажи преузимање"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Додај за преузимање / Torrent ..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Очисти завршено"/>
@@ -210,46 +210,39 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Дели фајлове ..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Поглед"/>
-		<button id="ID_LIBRARY_PANEL" text="Прикажи детаље"/>
 		<button id="ID_LIBRARY_PARENT" text="Горе"/>
+		<button id="ID_LIBRARY_VIEW" text="Поглед"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Поглед"/>
-		<button id="ID_LIBRARY_PANEL" text="Прикажи детаље"/>
 		<button id="ID_LIBRARY_PARENT" text="Горе"/>
+		<button id="ID_LIBRARY_VIEW" text="Поглед"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Дели фајлове..."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Направи албум ..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Обриши албум"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи"/>
+		<button id="ID_LIBRARY_PANEL" text="Прикажи детаље"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Направи албум ..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Обриши албум"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи"/>
+		<button id="ID_LIBRARY_PANEL" text="Прикажи детаље"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Отвори или пусти"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Додај у плејлисту"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи"/>
+		<button id="ID_LIBRARY_PANEL" text="Прикажи детаље"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Отвори или пусти"/>
@@ -261,18 +254,20 @@
 		<button id="ID_LIBRARY_COPY" text="Копирај"/>
 		<button id="ID_LIBRARY_DELETE" text="Обриши"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи"/>
+		<button id="ID_LIBRARY_PANEL" text="Прикажи детаље"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="OОтвори или пусти"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Додај у плејлисту"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Пусти албум"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи"/>
+		<button id="ID_LIBRARY_PANEL" text="Прикажи детаље"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Отвори или пусти"/>
@@ -281,18 +276,20 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Својства"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи"/>
+		<button id="ID_LIBRARY_PANEL" text="Прикажи детаље"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Пусти албум"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Преузми све фајлове"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Нађи"/>
+		<button id="ID_LIBRARY_PANEL" text="Прикажи детаље"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

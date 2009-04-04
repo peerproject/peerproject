@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <!-- PeerProject Arabic Language Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.6238 -->
+<!-- Translation based on default-en.xml Shareaza SVN rev.7300 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -19,7 +19,7 @@
 	description="PeerProject Default Arabic Skin File"
 	link="http://PeerProject.org/"
 	email="awadh_al_ghaamdi@hotmail.com"
-	version="2.4.0.0"
+	version="1.0.0.0"
 	type="Language"
 	language="ar"
 	prompt="أنقر هنا لإختيار اللغة العربية كلغة طبيعية بالنسبة لك"
@@ -211,48 +211,32 @@
 		<button id="ID_LIBRARY_FOLDERS" text="مشاركة الملفات..." />
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="عرض" />
-		<button id="ID_LIBRARY_PANEL" text="إظهار التفاصيل" />
 		<button id="ID_LIBRARY_PARENT" text="الاعلى" />
+		<button id="ID_LIBRARY_VIEW" text="عرض" />
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="عرض" />
-		<button id="ID_LIBRARY_PANEL" text="إظهار التفاصيل" />
 		<button id="ID_LIBRARY_PARENT" text="الاعلى" />
+		<button id="ID_LIBRARY_VIEW" text="عرض" />
 	</toolbar>
 	<!--عرض المكتبة-->
-	<toolbar name="CLibraryHomeView.Physical">
-		<button id="ID_LIBRARY_FOLDERS" text="مشاركة الملفات..." />
-		<rightAlign />
-		<separator />
-		<control id="IDC_SEARCH_BOX" width="120" />
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="إنشاء الألبوم..." />
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="حذف الألبوم" />
-		<rightAlign />
-		<separator />
-		<control id="IDC_SEARCH_BOX" width="120" />
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
-	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="إنشاء الألبوم..." />
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="حذف الألبوم" />
 		<rightAlign />
-		<separator />
-		<control id="IDC_SEARCH_BOX" width="120" />
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
+		<control id="IDC_SEARCH_BOX" width="90" />
+		<separator />
+		<button id="ID_LIBRARY_PANEL" text="إظهار التفاصيل" />
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="فتح او تشغيل" />
 		<button id="ID_LIBRARY_ENQUEUE" text="اضافه الى قائمة التشغيل" />
 		<separator />
-		<button id="ID_WEBSERVICES_LIST" text="خدمات ويب" />
 		<rightAlign />
-		<separator />
-		<control id="IDC_SEARCH_BOX" width="120" />
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
+		<control id="IDC_SEARCH_BOX" width="90" />
+		<separator />
+		<button id="ID_LIBRARY_PANEL" text="إظهار التفاصيل" />
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="فتح او تشغيل" />
@@ -266,20 +250,21 @@
 		<button id="ID_LIBRARY_COPY" text="نسخ" />
 		<button id="ID_LIBRARY_DELETE" text="حذف" />
 		<rightAlign />
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
+		<control id="IDC_SEARCH_BOX" width="90" />
 		<separator />
-		<control id="IDC_SEARCH_BOX" width="120" />
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="إيجاد" />
+		<button id="ID_LIBRARY_PANEL" text="إظهار التفاصيل" />
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="فتح او تشغيل" />
 		<button id="ID_LIBRARY_ENQUEUE" text="اضافه الى قائمة التشغيل" />
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="تشغيل الألبوم" />
 		<separator />
-		<button id="ID_WEBSERVICES_LIST" text="خدمات ويب" />
 		<rightAlign />
-		<separator />
-		<control id="IDC_SEARCH_BOX" width="120" />
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
+		<control id="IDC_SEARCH_BOX" width="90" />
+		<separator />
+		<button id="ID_LIBRARY_PANEL" text="إظهار التفاصيل" />
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="فتح او تشغيل" />
@@ -287,21 +272,22 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="تشغيل الألبوم" />
 		<separator />
 		<button id="ID_LIBRARY_PROPERTIES" text="خصائص" />
-		<separator />
 		<button id="ID_WEBSERVICES_LIST" text="خدمات ويب" />
 		<rightAlign />
-		<separator />
-		<control id="IDC_SEARCH_BOX" width="120" />
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
+		<control id="IDC_SEARCH_BOX" width="90" />
+		<separator />
+		<button id="ID_LIBRARY_PANEL" text="إظهار التفاصيل" />
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="تشغيل الألبوم كاملاً" />
 		<separator />
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="تحميل كافة الملفات" />
 		<rightAlign />
-		<separator />
-		<control id="IDC_SEARCH_BOX" width="120" />
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
+		<control id="IDC_SEARCH_BOX" width="90" />
+		<separator />
+		<button id="ID_LIBRARY_PANEL" text="إظهار التفاصيل" />
 	</toolbar>
 	<!--نافذة الوسائط-->
 	<toolbar name="CMediaFrame.Basic">
@@ -3171,7 +3157,6 @@
 	<string id="20002" value="of" />	<!-- "1 of 10" >
 	<string id="20003" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?" />
 	<string id="20005" value="No" />
-	<string id="20006" value="حسنا" />
 	<string id="20007" value="Auto" />
 	<string id="20008" value="Default" />
 	<string id="20009" value="Custom" />
@@ -3186,7 +3171,8 @@
 	<string id="20104" value="TigerTree" />
 	<string id="20105" value="Hashset" />
 	<string id="20106" value="Metadata" />
---> <string id="20107" value="مشغول" />
+-->	<string id="20006" value="حسنا" />
+	<string id="20107" value="مشغول" />
 	<string id="20108" value="Enqueue" />
 	<string id="20109" value="Queued" />
 	<string id="20110" value="مجهول" />

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Norwegian Skin File -->
-<!-- Translation based on default-en.xml SVN rev.xxxx --> <!-- Based on English CVS v1.76 -->
+<!-- Translation based on default-en.xml Shareaza 2.2.0.2 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -19,7 +19,7 @@
 		description="PeerProject Default Norwegian Skin File"
 		link="http://PeerProject.org/"
 		email="Contact(at)PeerProject.org"
-		version="2.2.0.2"
+		version="1.0.0.0"
 		type="Language"
 		language="no"
 		prompt="Klikk her for å velge norsk som språk"
@@ -172,8 +172,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Avbryt nedlasting"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Fjern nedlasting"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Vis monitor"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Vis monitor"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Legg til nedlasting/torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Fjern ferdige"/>
@@ -210,46 +210,39 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Del filer..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Vis"/>
-		<button id="ID_LIBRARY_PANEL" text="Vis detaljer"/>
 		<button id="ID_LIBRARY_PARENT" text="Opp"/>
+		<button id="ID_LIBRARY_VIEW" text="Vis"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Vis"/>
-		<button id="ID_LIBRARY_PANEL" text="Vis detaljer"/>
 		<button id="ID_LIBRARY_PARENT" text="Opp"/>
+		<button id="ID_LIBRARY_VIEW" text="Vis"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Del filer..."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Ny mappe"/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Slett mappe"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk"/>
+		<button id="ID_LIBRARY_PANEL" text="Vis detaljer"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Ny mappe"/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Slett mappe"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk"/>
+		<button id="ID_LIBRARY_PANEL" text="Vis detaljer"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Åpne / spill av"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Legg til spilleliste"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk"/>
+		<button id="ID_LIBRARY_PANEL" text="Vis detaljer"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Åpne / spill av"/>
@@ -261,18 +254,20 @@
 		<button id="ID_LIBRARY_COPY" text="Kopier"/>
 		<button id="ID_LIBRARY_DELETE" text="Slett"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk"/>
+		<button id="ID_LIBRARY_PANEL" text="Vis detaljer"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Åpne / spill av"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Legg til spilleliste"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Spill av..."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk"/>
+		<button id="ID_LIBRARY_PANEL" text="Vis detaljer"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Åpne / spill av"/>
@@ -281,18 +276,20 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Egenskaper"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk"/>
+		<button id="ID_LIBRARY_PANEL" text="Vis detaljer"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Spill av..."/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Last ned alle filene"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk"/>
+		<button id="ID_LIBRARY_PANEL" text="Vis detaljer"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">
