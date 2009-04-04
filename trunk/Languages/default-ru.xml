@@ -173,8 +173,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Отменить"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Убрать"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Монитор"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Свойства"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Монитор"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Начать загрузку..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Очистить от завершенных"/>
@@ -212,47 +212,38 @@
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
 		<button id="ID_LIBRARY_VIEW" text="Вид"/>
-		<button id="ID_LIBRARY_PANEL" text="Подробности"/>
 		<button id="ID_LIBRARY_PARENT" text="Вверх"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
 		<button id="ID_LIBRARY_VIEW" text="Вид"/>
-		<button id="ID_LIBRARY_PANEL" text="Подробности"/>
 		<button id="ID_LIBRARY_PARENT" text="Вверх"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Общий доступ..."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Создать альбом..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Удалить альбом"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти"/>
+		<button id="ID_LIBRARY_PANEL" text="Подробности"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Создать альбом..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Удалить альбом"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти"/>
+		<button id="ID_LIBRARY_PANEL" text="Подробности"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Открыть"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Добавить в список"/>
-		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="Сервис"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти"/>
+		<button id="ID_LIBRARY_PANEL" text="Подробности"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Открыть"/>
@@ -266,20 +257,20 @@
 		<button id="ID_LIBRARY_COPY" text="Копировать"/>
 		<button id="ID_LIBRARY_DELETE" text="Удалить"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти"/>
+		<button id="ID_LIBRARY_PANEL" text="Подробности"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Открыть"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Добавить в список"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Добавить альбом в список"/>
-		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="Сервис"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти"/>
+		<button id="ID_LIBRARY_PANEL" text="Подробности"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Открыть"/>
@@ -287,21 +278,22 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Добавить альбом в список"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Свойства"/>
-		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Сервис"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти"/>
+		<button id="ID_LIBRARY_PANEL" text="Подробности"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Добавить альбом в список"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Загрузить все файлы"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти"/>
+		<button id="ID_LIBRARY_PANEL" text="Подробности"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Italian Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.6092 --> <!-- Revisione 60 -->
+<!-- Translation based on default-en.xml Shareaza SVN rev.6092 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -19,7 +19,7 @@
 		description="PeerProject Default Italian Skin File"
 		link="http://PeerProject.org/"
 		email=""
-		version="2.3.0.0"
+		version="1.0.0.0"
 		type="Language"
 		language="it"
 		prompt="Clicca qui per selezionare l'Italiano come lingua predefinita."
@@ -171,8 +171,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Annulla"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Rimuovi download"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Mostra monitor"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Informazioni"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Mostra monitor"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Aggiungi download..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Rimuovi file completati"/>
@@ -209,46 +209,39 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Condividi file..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Visualizza"/>
-		<button id="ID_LIBRARY_PANEL" text="Mostra dettagli"/>
 		<button id="ID_LIBRARY_PARENT" text="Su"/>
+		<button id="ID_LIBRARY_VIEW" text="Visualizza"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Visualizza"/>
-		<button id="ID_LIBRARY_PANEL" text="Mostra dettagli"/>
 		<button id="ID_LIBRARY_PARENT" text="Su"/>
+		<button id="ID_LIBRARY_VIEW" text="Visualizza"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Condividi file..."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Crea album..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Elimina album"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca"/>
+		<button id="ID_LIBRARY_PANEL" text="Mostra dettagli"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Crea album..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Elimina album"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca"/>
+		<button id="ID_LIBRARY_PANEL" text="Mostra dettagli"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Apri/Play"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Aggiungi alla playlist"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca"/>
+		<button id="ID_LIBRARY_PANEL" text="Mostra dettagli"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Apri/Play"/>
@@ -260,18 +253,20 @@
 		<button id="ID_LIBRARY_COPY" text="Copia"/>
 		<button id="ID_LIBRARY_DELETE" text="Elimina"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca"/>
+		<button id="ID_LIBRARY_PANEL" text="Mostra dettagli"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Apri/Play"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Aggiungi alla playlist"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Esegui album"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca"/>
+		<button id="ID_LIBRARY_PANEL" text="Mostra dettagli"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Apri/Play"/>
@@ -280,18 +275,20 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Proprietà"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca"/>
+		<button id="ID_LIBRARY_PANEL" text="Mostra dettagli"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Esegui album intero"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Scarica tutti i file"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca"/>
+		<button id="ID_LIBRARY_PANEL" text="Mostra dettagli"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Czech Skin File -->
-<!-- Translation based on default-en.xml SVN rev.xxxx -->
+<!-- Translation based on default-en.xml Shareaza 2.2.5.7 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -19,7 +19,7 @@
 		description="PeerProject Default Czech Skin File"
 		link="http://PeerProject.org/"
 		email="odinuv(at)users.sourceforge.net"
-		version="2.2.5.7"
+		version="1.0.0.0"
 		type="Language"
 		language="cz"
 		prompt="Kliknutím si zvolíte&#160;&#269;eštinu."
@@ -171,8 +171,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Zrušit stahování"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Vymazat stažené"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Zobrazit monitorování"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Vlastnosti"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Zobrazit monitorování"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Přidat stahování/Torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Vymazat dokončené"/>
@@ -209,46 +209,39 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Sdílené soubory..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Zobrazit"/>
-		<button id="ID_LIBRARY_PANEL" text="Ukázat detaily"/>
 		<button id="ID_LIBRARY_PARENT" text="Nahoru"/>
+		<button id="ID_LIBRARY_VIEW" text="Zobrazit"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Zobrazit"/>
-		<button id="ID_LIBRARY_PANEL" text="Ukázat detaily"/>
 		<button id="ID_LIBRARY_PARENT" text="Nahoru"/>
+		<button id="ID_LIBRARY_VIEW" text="Zobrazit"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Sdílené soubory..."/>
-		<rightAlign/>
+			<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Vytvořit album..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Vymazat album"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít"/>
+		<button id="ID_LIBRARY_PANEL" text="Ukázat detaily"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Vytvořit album..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Vymazat album"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít"/>
+		<button id="ID_LIBRARY_PANEL" text="Ukázat detaily"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Otevřít nebo přehrát"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Přidat do Playlistu"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít"/>
+		<button id="ID_LIBRARY_PANEL" text="Ukázat detaily"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Otevřít nebo přehrát"/>
@@ -260,18 +253,20 @@
 		<button id="ID_LIBRARY_COPY" text="Kopírovat"/>
 		<button id="ID_LIBRARY_DELETE" text="Vymazat"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít"/>
+		<button id="ID_LIBRARY_PANEL" text="Ukázat detaily"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Otevřít nebo přehrát"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Přidat do Playlistu"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Přehrát album"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít"/>
+		<button id="ID_LIBRARY_PANEL" text="Ukázat detaily"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Otevřít nebo přehrát"/>
@@ -280,18 +275,20 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Vlastnosti"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít"/>
+		<button id="ID_LIBRARY_PANEL" text="Ukázat detaily"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Přehrát celé album"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Stáhnout všechny soubory"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít"/>
+		<button id="ID_LIBRARY_PANEL" text="Ukázat detaily"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">
@@ -3095,7 +3092,7 @@
 	<string id="19002" value="Nelze přijmout spojení, URL je nedostupné."/>
 	<string id="20000" value="Žadné URN není dostupné"/>
 	<string id="20001" value="Zavřít"/>
-	<string id="20002" value="z"/><!-- e.g. 1 of 10 -->
+	<string id="20002" value="z"/> <!-- "1 of 10" -->
 	<string id="20003" value="Změna směru vyžaduje restart. \nBudete muset spustit PeerProject ručně. Ukončit?"/>
 	<string id="20005" value="Ne"/>
 	<string id="20006" value="Ano"/>

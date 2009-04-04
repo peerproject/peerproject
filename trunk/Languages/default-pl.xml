@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Polish Skin File -->
-<!-- Translation based on default-en.xml SVN rev.xxxx -->
+<!-- Translation based on default-en.xml Shareaza 2.1.2.7 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -19,7 +19,7 @@
 		description="PeerProject Default Polish Skin File"
 		link="http://www.myservice.pl/"
 		email="Xzbeat(at)gmail.com"
-		version="2.1.2.7"
+		version="1.0.0.0"
 		type="Language"
 		language="pl"
 		prompt="Kliknij, aby wybrać język polski."
@@ -172,8 +172,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Anuluj pobieranie"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Wyczyść pobieranie"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Pokaż monitor pobierania"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Pokaż monitor pobierania"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Dodaj plik/Torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Wyczyść zakończone"/>
@@ -210,46 +210,39 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Udostępnij pliki..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Widok"/>
-		<button id="ID_LIBRARY_PANEL" text="Pokaż szczegóły"/>
 		<button id="ID_LIBRARY_PARENT" text="Do góry"/>
+		<button id="ID_LIBRARY_VIEW" text="Widok"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
-		<button id="ID_LIBRARY_VIEW" text="Widok"/>
-		<button id="ID_LIBRARY_PANEL" text="Pokaż szczegóły"/>
 		<button id="ID_LIBRARY_PARENT" text="Do góry"/>
+		<button id="ID_LIBRARY_VIEW" text="Widok"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Udostępnij pliki..."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Stwórz album..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Usuń album"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaż szczegóły"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Stwórz album..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Usuń album"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaż szczegóły"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Otwórz lub odtwarzaj"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Dodaj do listy odtwarzania"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaż szczegóły"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Otwórz lub odtwarzaj"/>
@@ -261,18 +254,20 @@
 		<button id="ID_LIBRARY_COPY" text="Skopiuj"/>
 		<button id="ID_LIBRARY_DELETE" text="Usuń"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaż szczegóły"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Otwórz lub odtwarzaj"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Dodaj do listy odtwarzania"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Odtwórz album"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaż szczegóły"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Otwórz lub odtwarzaj"/>
@@ -281,18 +276,20 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Właściwości"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaż szczegóły"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Odtwórz cały album"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Pobierz wszystkie pliki"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Znajdź"/>
+		<button id="ID_LIBRARY_PANEL" text="Pokaż szczegóły"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">

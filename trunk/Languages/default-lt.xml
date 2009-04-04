@@ -172,8 +172,8 @@
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Šalinti"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Valyti"/>
 		<separator/>
-		<button id="ID_DOWNLOADS_MONITOR" text="Rodyti monitorių"/>
 		<button id="ID_DOWNLOADS_EDIT" text="Savybės"/>
+		<button id="ID_DOWNLOADS_MONITOR" text="Rodyti monitorių"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Pridėti failą/Torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Valyti sąrašą"/>
@@ -210,75 +210,65 @@
 		<button id="ID_LIBRARY_FOLDERS" text="Bendrinti failus..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
-		<button id="ID_LIBRARY_VIEW" text="Rodyti"/>
-		<button id="ID_LIBRARY_PANEL" text="Išsamiau"/>
 		<button id="ID_LIBRARY_PARENT" text="Aukštyn"/>
+		<button id="ID_LIBRARY_VIEW" text="Rodyti"/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Virtual">
+		<button id="ID_LIBRARY_PARENT" text="Aukštyn"/>
 		<button id="ID_LIBRARY_VIEW" text="Rodyti"/>
-		<button id="ID_LIBRARY_PANEL" text="Išsamiau"/>
-		<button id="ID_LIBRARY_PARENT" text="Aukšyn"/>
 	</toolbar>
 	<!-- LIBRARY VIEWS -->
-	<toolbar name="CLibraryHomeView.Physical">
+	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Bendrinti failus..."/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti"/>
-	</toolbar>
-	<toolbar name="CLibraryHomeView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_NEW" text="Sukurti albumą..."/>
-		<button id="ID_LIBRARY_ALBUM_DELETE" text="Šalinti albumą"/>
-		<rightAlign/>
-		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti"/>
+		<button id="ID_LIBRARY_PANEL" text="Išsamiau"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Sukurti albumą..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Šalinti albumą"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti"/>
+		<button id="ID_LIBRARY_PANEL" text="Išsamiau"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Atverti ar vykdyti"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Įtraukti į grojaraštį"/>
-		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="Paslaugos internete"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti"/>
+		<button id="ID_LIBRARY_PANEL" text="Išsamiau"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Atverti ar vykdyti"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Pridėti į grojaraštį"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Failo aprašas"/>
-		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Paslaugos Internete"/>
 		<separator/>
 		<button id="ID_LIBRARY_MOVE" text="Perkelti"/>
 		<button id="ID_LIBRARY_COPY" text="Kopijuoti"/>
 		<button id="ID_LIBRARY_DELETE" text="Trinti"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti"/>
+		<button id="ID_LIBRARY_PANEL" text="Išsamiau"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Atverti ar vykdyti"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Pridėti į grojaraštį"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Atverti albumą"/>
-		<separator/>
-		<button id="ID_WEBSERVICES_LIST" text="Paslaugos Internete"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti"/>
+		<button id="ID_LIBRARY_PANEL" text="Išsamiau"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Atverti ar vykdyti"/>
@@ -286,21 +276,22 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Atverti albumą"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Failo aprašas..."/>
-		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Paslaugos Internete"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti"/>
+		<button id="ID_LIBRARY_PANEL" text="Išsamiau"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Groti visą albumą"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Parsisiųsti visus failus"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Ieškoti"/>
+		<button id="ID_LIBRARY_PANEL" text="Išsamiau"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">
