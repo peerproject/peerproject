@@ -2,7 +2,6 @@
 // Class.cpp : Implementation of CClass
 //
 // This file is part of PeerProject (peerproject.org) © 2008
-
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -268,7 +267,7 @@ STDMETHODIMP C7ZipBuilder::Process (
 
 		// Get folder/file flag (VT_BOOL)
 		CComPropVariant propIsFolder;
-		hr = pIInArchive->GetProperty( i, kpidIsFolder, &propIsFolder );
+		hr = pIInArchive->GetProperty( i, kpidIsDir, &propIsFolder );
 		if ( FAILED( hr ) || propIsFolder.vt != VT_BOOL )
 			// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 			return E_UNEXPECTED;
