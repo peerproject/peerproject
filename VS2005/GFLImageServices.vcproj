@@ -28,7 +28,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying LibGFL290 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				CommandLine="xcopy &quot;(SolutionDir)..\Services\LibGFL\$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
 				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
@@ -53,7 +53,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(IntDir);$(SolutionDir)..\Plugins\LibGFL"
+				AdditionalIncludeDirectories="$(IntDir);$(SolutionDir)..\Services\LibGFL"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL"
 				MinimalRebuild="true"
 				ExceptionHandling="0"
@@ -122,7 +122,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying LibGFL290 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				CommandLine="xcopy &quot;$(SolutionDir)..\Services\LibGFL\$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
 				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
@@ -148,7 +148,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(IntDir);$(SolutionDir)..\Plugins\LibGFL"
+				AdditionalIncludeDirectories="$(IntDir);$(SolutionDir)..\Services\LibGFL"
 				PreprocessorDefinitions="WIN64;_WINDOWS;_DEBUG;_USRDLL"
 				MinimalRebuild="true"
 				ExceptionHandling="0"
@@ -217,7 +217,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying LibGFL290 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				CommandLine="xcopy &quot;$(SolutionDir)..\Services\LibGFL\$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
 				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
@@ -241,7 +241,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(IntDir);$(SolutionDir)..\Plugins\LibGFL"
+				AdditionalIncludeDirectories="$(IntDir);$(SolutionDir)..\Services\LibGFL"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL"
 				MinimalRebuild="true"
 				ExceptionHandling="0"
@@ -310,7 +310,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying LibGFL290 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				CommandLine="xcopy &quot;$(SolutionDir)..\Services\LibGFL\$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
 				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
@@ -335,7 +335,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(IntDir);$(SolutionDir)..\Plugins\LibGFL"
+				AdditionalIncludeDirectories="$(IntDir);$(SolutionDir)..\Services\LibGFL"
 				PreprocessorDefinitions="WIN64;_WINDOWS;NDEBUG;_USRDLL"
 				MinimalRebuild="true"
 				ExceptionHandling="0"
@@ -499,7 +499,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Plugins\LibGFL\libgfl.h"
+				RelativePath="..\Serivices\LibGFL\LibGFL.h"
 				>
 			</File>
 			<File
@@ -685,7 +685,7 @@
 			Name="Library Files"
 			>
 			<File
-				RelativePath="..\Plugins\LibGFL\DebugWin32\libgfl.lib"
+				RelativePath="..\Services\LibGFL\Win32\LibGFL.lib"
 				>
 				<FileConfiguration
 					Name="Debug|x64"
@@ -713,7 +713,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Plugins\LibGFL\Debugx64\libgfl.lib"
+				RelativePath="..\Services\LibGFL\x64\LibGFL.lib"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -741,7 +741,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Plugins\LibGFL\ReleaseWin32\libgfl.lib"
+				RelativePath="..\Services\LibGFL\Win32\LibGFL.lib"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -769,7 +769,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Plugins\LibGFL\Releasex64\libgfl.lib"
+				RelativePath="..\Services\LibGFL\x64\LibGFL.lib"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"

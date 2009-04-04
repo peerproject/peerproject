@@ -29,7 +29,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying LibGFL290 dll..."
-				CommandLine="xcopy &quot;$(SolutionDir)..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				CommandLine="xcopy &quot;$(SolutionDir)..\Services\LibGFL\$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
 				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
@@ -58,6 +58,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;ZLIB_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
+				SmallerTypeCheck="true"
 				RuntimeLibrary="1"
 				DefaultCharIsUnsigned="true"
 				RuntimeTypeInfo="false"
@@ -125,7 +126,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying LibGFL290 dll..."
-				CommandLine="xcopy &quot;..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				CommandLine="xcopy &quot;..\Services\LibGFL\$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
 				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
@@ -155,6 +156,7 @@
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;ZLIB_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
+				SmallerTypeCheck="true"
 				RuntimeLibrary="1"
 				DefaultCharIsUnsigned="true"
 				RuntimeTypeInfo="false"
@@ -223,7 +225,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying LibGFL290 dll..."
-				CommandLine="xcopy &quot;..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				CommandLine="xcopy &quot;..\Services\LibGFL\$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
 				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
@@ -274,6 +276,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="wininet.lib msi.lib iphlpapi.lib version.lib winmm.lib powrprof.lib"
 				OutputFile="$(OutDir)$(ProjectName).exe"
+				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				OptimizeForWindows98="1"
@@ -320,7 +323,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying LibGFL290 dll..."
-				CommandLine="xcopy &quot;..\Plugins\libGFL\$(ConfigurationName)$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
+				CommandLine="xcopy &quot;..\Services\LibGFL\$(PlatformName)\LibGFL290.dll&quot; &quot;$(OutDir)&quot; /y /q&#x0D;&#x0A;"
 				Outputs="$(OutDir)LibGFL290.dll"
 				ExecutionBucket="1"
 			/>
@@ -371,6 +374,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="wininet.lib msi.lib iphlpapi.lib version.lib winmm.lib powrprof.lib"
 				OutputFile="$(OutDir)$(ProjectName).exe"
+				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				OptimizeForWindows98="1"
@@ -1282,7 +1286,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\CtrlLibraryPanel.cpp"
+					RelativePath="..\PeerProject\CtrlPanelClass.cpp"
 					>
 				</File>
 				<File
