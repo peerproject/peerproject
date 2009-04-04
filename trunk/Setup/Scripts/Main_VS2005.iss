@@ -127,7 +127,7 @@ Source: "Services\zlibwapi-x64.dll"; DestDir: "{app}\Plugins"; DestName: "zlibwa
 #endif
 
 ; Plugins
-Source: "{#root}\Plugins\*.dll";   DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver; Excludes: "libgfl*.dll,zlibwapi.dll,unrar.dll,7zxr.dll"
+Source: "{#root}\Plugins\*.dll";   DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver; Excludes: "LibGFL*.dll,zlibwapi.dll,Unrar.dll,7zxr.dll"
 Source: "{#root}\Plugins\*.dll";   DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension;           Excludes: "libgfl*.dll,zlibwapi.dll"
 Source: "Services\MediaPlayer.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 

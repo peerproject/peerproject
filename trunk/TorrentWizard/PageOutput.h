@@ -19,19 +19,15 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(PAGEOUTPUT_H)
-#define PAGEOUTPUT_H
-
 #pragma once
+
 #include "WizardSheet.h"
-#include "afxwin.h"
 
 class COutputPage : public CWizardPage
 {
 // Construction
 public:
 	COutputPage();
-	virtual ~COutputPage();
 
 	DECLARE_DYNCREATE(COutputPage)
 
@@ -45,6 +41,9 @@ public:
 	BOOL m_bAutoPieces;
 	CComboBox m_wndPieceSize;
 	int m_nPieceIndex;
+	BOOL		m_bSHA1;
+	BOOL		m_bED2K;
+	BOOL		m_bMD5;
 
 // Overrides
 protected:
@@ -64,5 +63,3 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 };
-
-#endif // !defined(PAGEOUTPUT_H)

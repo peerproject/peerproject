@@ -140,8 +140,8 @@ Source: "Plugins\MediaImageServices\{#PlatformName} {#ConfigurationName}\MediaIm
 Source: "Plugins\MediaLibraryBuilder\{#PlatformName} {#ConfigurationName}\MediaLibraryBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
 Source: "Plugins\RARBuilder\{#PlatformName} {#ConfigurationName}\RARBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
-Source: "Plugins\RARBuilder\{#PlatformName} {#ConfigurationName}\unrar.dll"; DestDir: "{app}";         Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-Source: "Plugins\RARBuilder\{#PlatformName} {#ConfigurationName}\unrar.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
+Source: "Plugins\RARBuilder\{#PlatformName} {#ConfigurationName}\Unrar.dll"; DestDir: "{app}";         Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Plugins\RARBuilder\{#PlatformName} {#ConfigurationName}\Unrar.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
 
 Source: "Plugins\RatDVDPlugin\{#PlatformName} {#ConfigurationName}\RatDVDReader.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 

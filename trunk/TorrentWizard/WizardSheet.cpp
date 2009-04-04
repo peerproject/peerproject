@@ -190,12 +190,12 @@ BOOL CWizardSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRE
 
 		GetClassName( pWnd->GetSafeHwnd(), szName, 32 );
 
-		if ( 0 == _tcscmp( szName, _T("Static") ) )
+		if ( !_tcscmp( szName, _T("Static") ) )
 		{
 			pWnd->SetFont( &theApp.m_fntNormal, FALSE );
 			
 		}
-		else if ( 0 != _tcscmp( szName, _T("RICHEDIT") ) )
+		else if ( _tcscmp( szName, _T("RICHEDIT") ) )
 		{
 			pWnd->SetFont( &theApp.m_fntNormal, TRUE );
 		}
@@ -282,7 +282,7 @@ void CWizardSheet::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 {
 	if ( point.y <= 50 )
 	{
-		ShellExecute( NULL, NULL, _T("http://peerproject.org/TorrentAid/"), NULL, NULL, SW_SHOWNORMAL );
+		ShellExecute( NULL, NULL, _T("http://PeerProject.org/TorrentAid/"), NULL, NULL, SW_SHOWNORMAL );
 	}
 }
 
@@ -323,7 +323,6 @@ HBRUSH CWizardPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT /*nCtlColor*/)
 	}
 
 	pDC->SetBkColor( m_crWhite );
-	
 	return (HBRUSH)m_brWhite.GetSafeHandle();
 }
 
@@ -369,12 +368,12 @@ void CWizardPage::StaticReplace(LPCTSTR pszSearch, LPCTSTR pszReplace)
 		CString strText;
 		pChild->GetWindowText( strText );
 		
-		while ( TRUE )
+		for (;;)
 		{
 			int nPos = strText.Find( pszSearch );
 			if ( nPos < 0 ) break;
 			strText	= strText.Left( nPos ) + CString( pszReplace )
-					+ strText.Mid( nPos + (int)_tcslen( pszSearch ) );
+					+ strText.Mid( nPos + static_cast< int >( _tcslen( pszSearch ) ) );
 		}
 		
 		pChild->SetWindowText( strText );

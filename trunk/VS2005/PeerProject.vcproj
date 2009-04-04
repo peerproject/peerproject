@@ -1338,7 +1338,7 @@
 					>
 				</File>
 				<File
-					RelativePath="CtrlPanelClass.cpp"
+					RelativePath="..\PeerProject\CtrlPanelClass.cpp"
 					DeploymentContent="true"
 					>
 				</File>
@@ -3251,6 +3251,7 @@
 				<File
 					RelativePath="..\PeerProject\DlgSelectClass.h"
 					>
+				</File>
 				<File
 					RelativePath="..\PeerProject\DlgSettingsManager.h"
 					>
