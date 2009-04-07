@@ -343,4 +343,19 @@
 
 </toolbars>
 
+
+<!-- HOME HEADER -->
+<windowSkins>
+<windowSkin>
+<image path="Header.png"/>
+<target window="CHomeWnd.Panel"/>
+<parts>
+ <part name="TopLeft"	rect="56,0,110,28"/>
+ <part name="Top"	rect="101,0,1430,28"/>
+ <part name="TopRight"	rect="1530,0,28,28"/>
+</parts>
+<caption rect="12,0,500,28" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="4080E0" outlinecolor="FFFFFF"/>
+</windowSkin>
+</windowSkins>
+
 </skin>

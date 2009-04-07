@@ -15,7 +15,7 @@
 
 <fonts>
   <font name="System.Plain"  face="Segoe UI" size="11" weight="Normal"/>
-  <font name="System.Bold"   face="Segoe UI" size="11" weight="Normal"/>
+  <font name="System.Bold"   face="Segoe UI" size="11" weight="Bold"/>
   <font name="Panel.Caption" face="Segoe UI" size="12" weight="Normal"/>
 </fonts>
 
@@ -137,7 +137,7 @@
   <watermark target="CCoolMenu" 			path="MenuBkg.png"/>
   <watermark target="CCoolMenu.Hover"			path="MenuHover.png"/>
   <watermark target="CMonitorBar"			path="RibbonMonitorBkg.png"/>
-  <watermark target="CMainWnd.Toolbar"			path="RibbonBkg.bmp"/>
+  <watermark target="CMainWnd.Toolbar"			path="RibbonBkg.png"/>
   <watermark target="CMediaFrame.Toolbar"		path="Mediabar.png"/>
   <!--watermark target="CMediaList.Toolbar"		path="ToolbarLt.png"-->
   <watermark target="CDownloadTabBar"			path="DownloadgroupsToolbar.png"/>
@@ -169,7 +169,7 @@
   <watermark target="CSearchPanel.Footer"		path="SidebarFooter.png"/>
   <watermark target="CHomePanel"			path="SidebarHeader.png"/>
   <watermark target="CHomePanel.Footer" 		path="SidebarFooter.png"/>
-  <!--watermark target="CHomeBox"			path="RibbonBkg.bmp"-->
+  <!--watermark target="CHomeBox"			path="RibbonBkg.png"-->
   <watermark target="CIRCPanel"				path="SidebarHeader.png"/>
   <watermark target="CIRCPanel.Footer" 			path="SidebarFooter.png"/>
   <watermark target="CIRCWaterMarkPanel"		path="MenuBkg.png"/>
@@ -216,7 +216,7 @@
 <!-- Main Window -->
 
 <windowSkin> 
-<image 	path="FrameVista.bmp"/>
+<image 	path="FrameVista.png"/>
 <target window="CMainWnd"/>
 <parts>
  <part name="TopLeftIA" 	rect="1,0,380,32"/>
@@ -261,7 +261,7 @@
 <!-- Settings Window -->
 
 <windowSkin>
-<image path="FrameVista.bmp"/>
+<image path="FrameVista.png"/>
 <target window="CDialog"/>
 <parts>
  <part name="TopLeft"		rect="9,104,380,27"/>
@@ -292,7 +292,7 @@
 <!-- Download Monitor Window -->
 
 <windowSkin>
-<image path="FrameVista.bmp"/>
+<image path="FrameVista.png"/>
 <target window="CDownloadMonitorDlg"/>
 <parts>
  <part name="TopLeft"		rect="9,104,110,28"/>
@@ -325,7 +325,7 @@
 <!-- floating windows -->
 
 <windowSkin>
-<image path="FrameVista.bmp"/>
+<image path="FrameVista.png"/>
 <target window="CChildWnd"/>
 <parts> 
  <part name="TopLeft"		rect="9,76,220,27"/>
@@ -360,11 +360,12 @@
 <!-- HOME HEADER -->
 
 <windowSkin>
-<image path="Header.bmp"/>
+<image path="Header.png"/>
 <target window="CHomeWnd.Panel"/>
+<target window="CIRCWnd.Panel"/>
 <parts>
- <part name="TopLeft"		rect="0,0,112,28"/>
- <part name="Top"		rect="102,0,1430,28"/>
+ <part name="TopLeft"		rect="0,0,100,28"/>
+ <part name="Top"		rect="90,0,1430,28"/>
  <part name="TopRight"		rect="1530,0,28,28"/>
 </parts>
 <caption align="left" rect="12,0,500,28" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="4080E0" outlinecolor="FFFFFF" inactivecolor="A0BACC"/>
@@ -373,11 +374,11 @@
 <!-- SEARCH HEADER -->
 
 <windowSkin>
-<image path="Header.bmp"/>
+<image path="Header.png"/>
 <target window="CSearchWnd.Panel"/>
 <parts>
- <part name="TopLeft"		rect="42,0,109,28"/>
- <part name="Top"		rect="100,0,1430,28"/>
+ <part name="TopLeft"		rect="42,0,110,28"/>
+ <part name="Top"		rect="101,0,1430,28"/>
  <part name="TopRight"		rect="1572,0,28,28"/>
  <part name="Close"		rect="1582,10,14,14"/>
  <part name="CloseDown" 	rect="1582,10,14,14"/>
@@ -392,11 +393,11 @@
 <!-- TRANSFER DOWNLOADS HEADER -->
 
 <windowSkin>
-<image path="Header.bmp"/>
+<image path="Header.png"/>
 <target window="CDownloadsWnd.Panel"/>
 <parts>
- <part name="TopLeft"		rect="24,0,110,27"/>
- <part name="Top"		rect="100,0,1430,27"/>
+ <part name="TopLeft"		rect="26,0,110,27"/>
+ <part name="Top"		rect="101,0,1430,27"/>
  <part name="TopRight"		rect="1530,0,28,27"/>
 </parts>
 <caption align="left" rect="12,-0,500,28" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="4080E0" outlinecolor="FFFFFF" inactivecolor="4080E0"/>
@@ -405,11 +406,11 @@
 <!-- TRANSFER UPLOADS HEADER -->
 
 <windowSkin>
-<image path="Header.bmp"/>
+<image path="Header.png"/>
 <target window="CUploadsWnd.Panel"/>
 <parts>
- <part name="TopLeft"		rect="40,0,110,27"/>
- <part name="Top"		rect="100,0,1430,27"/>
+ <part name="TopLeft"		rect="42,0,110,27"/>
+ <part name="Top"		rect="101,0,1430,27"/>
  <part name="TopRight"		rect="1530,0,28,27"/>
 </parts>
 <caption align="left" rect="12,-0,500,28" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="4080E0" outlinecolor="FFFFFF" inactivecolor="4080E0"/>
@@ -418,11 +419,11 @@
 <!-- NETWORK NEIGHBOURS HEADER -->
 
 <windowSkin>
-<image path="Header.bmp"/>
+<image path="Header.png"/>
 <target window="CNeighboursWnd.Panel"/>
 <parts>
  <part name="TopLeft"		rect="20,0,110,27"/>
- <part name="Top"		rect="100,0,1430,27"/>
+ <part name="Top"		rect="101,0,1430,27"/>
  <part name="TopRight"		rect="1530,0,28,27"/>
 </parts>
 <caption align="left" rect="12,-0,500,28" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="4080E0" outlinecolor="FFFFFF" inactivecolor="B6CCDD"/>
@@ -431,11 +432,11 @@
 <!-- NETOWRK SYSTEM HEADER -->
 
 <windowSkin>
-<image path="Header.bmp"/>
+<image path="Header.png"/>
 <target window="CSystemWnd.Panel"/>
 <parts>
  <part name="TopLeft"		rect="44,0,110,27"/>
- <part name="Top"		rect="100,0,1430,27"/>
+ <part name="Top"		rect="101,0,1430,27"/>
  <part name="TopRight"		rect="1530,0,28,27"/>
 </parts>
 <caption align="left" rect="12,-0,500,28" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="4080E0" outlinecolor="FFFFFF" inactivecolor="4080E0"/>
@@ -444,12 +445,11 @@
 <!-- LIBRARY HEADER -->
 
 <windowSkin>
-<image path="Header.bmp"/>
+<image path="Header.png"/>
 <target window="CLibraryWnd.Panel"/>
-<target window="CIRCWnd.Panel"/>
 <parts>
- <part name="TopLeft"		rect="46,0,110,27"/>
- <part name="Top"		rect="100,0,1430,27"/>
+ <part name="TopLeft"		rect="49,0,116,27"/>
+ <part name="Top"		rect="101,0,1430,27"/>
  <part name="TopRight"		rect="1530,0,28,27"/>
 </parts>
 <caption align="left" rect="12,-0,500,28" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="4080E0" outlinecolor="FFFFFF" inactivecolor="A0BACC"/>
@@ -458,10 +458,10 @@
 <!-- MEDIA PLAYER HEADER -->
 
 <windowSkin>
-<image path="Header.bmp"/>
+<image path="Header.png"/>
 <target window="CMediaWnd.Panel"/>
 <parts>
- <part name="TopLeft"		rect="14,0,110,27"/>
+ <part name="TopLeft"		rect="18,0,112,27"/>
  <part name="Top"		rect="102,0,1430,27"/>
  <part name="TopRight"		rect="1572,0,28,27"/>
  <part name="Close"		rect="1582,10,14,14"/>
@@ -477,7 +477,7 @@
 <!-- Other Panel Headers -->
 
 <windowSkin>
-<image path="Header.bmp"/>
+<image path="Header.png"/>
 <target window="CSecurityWnd.Panel"/>
 <target window="CHostCacheWnd.Panel"/>
 <target window="CDiscoveryWnd.Panel"/>
@@ -487,7 +487,7 @@
 <target window="CBrowseHostWnd.Panel"/>
 <parts>
  <part name="TopLeft"		rect="20,0,110,27"/>
- <part name="Top"		rect="100,0,1430,27"/>
+ <part name="Top"		rect="101,0,1430,27"/>
  <part name="TopRight"		rect="1572,0,28,27"/>
  <part name="Close"		rect="1582,10,14,14"/>
  <part name="CloseDown" 	rect="1582,10,14,14"/>
@@ -502,8 +502,8 @@
 <!-- NAVBAR -->
 
 <windowSkin>
-<image type="image" path="RibbonTabs.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" path="RibbonTabs.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/> 
@@ -886,7 +886,6 @@
 
  <icon id="IDI_UPDOWN_ARROW" path="UpDownArrow.ico" types="16" rtf="0"/>
  <icon id="WINDOW_NEIGHBOURS" path="IconConnection.ico" types="16" rtf="0"/>
- <icon id="WINDOW_CHAT" path="IconChat.ico" types="16" rtf="0"/>
 
 <bitmap path="IconsVista.png" mask="00FF00">
  <image id="ID_MEDIA_PLAY"/>
@@ -914,8 +913,8 @@
 <!-- Afrikaans -->
 
 <windowSkin>
-<image type="image" language="af" path="RibbonTabs_af.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="af" path="RibbonTabs_af.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -959,8 +958,8 @@
 <!-- Catalan -->
 
 <windowSkin>
-<image type="image" language="ca" path="RibbonTabs_ca.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="ca" path="RibbonTabs_ca.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1004,8 +1003,8 @@
 <!-- Czech -->
 
 <windowSkin>
-<image type="image" language="cz" path="RibbonTabs_cz.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="cz" path="RibbonTabs_cz.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1049,8 +1048,8 @@
 <!-- German -->
 
 <windowSkin>
-<image type="image" language="de" path="RibbonTabs_de.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="de" path="RibbonTabs_de.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1094,8 +1093,8 @@
 <!-- Estonian -->
 
 <windowSkin>
-<image type="image" language="ee" path="RibbonTabs_ee.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="ee" path="RibbonTabs_ee.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1139,8 +1138,8 @@
 <!-- Spanish -->
 
 <windowSkin>
-<image type="image" language="es" path="RibbonTabs_es.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="es" path="RibbonTabs_es.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1184,8 +1183,8 @@
 <!-- Spanish-Mexican -->
 
 <windowSkin>
-<image type="image" language="es-MX" path="RibbonTabs_es.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="es-MX" path="RibbonTabs_es.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1229,8 +1228,8 @@
 <!-- Finnish -->
 
 <windowSkin>
-<image type="image" language="fi" path="RibbonTabs_fi.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="fi" path="RibbonTabs_fi.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1274,8 +1273,8 @@
 <!-- French -->
 
 <windowSkin>
-<image type="image" language="fr" path="RibbonTabs_fr.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="fr" path="RibbonTabs_fr.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1319,8 +1318,8 @@
 <!-- Croatian -->
 
 <windowSkin>
-<image type="image" language="hr" path="RibbonTabs_hr.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="hr" path="RibbonTabs_hr.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1364,8 +1363,8 @@
 <!-- Hungarian -->
 
 <windowSkin>
-<image type="image" language="hu" path="RibbonTabs_hu.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="hu" path="RibbonTabs_hu.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1409,8 +1408,8 @@
 <!-- Italian -->
 
 <windowSkin>
-<image type="image" language="it" path="RibbonTabs_it.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="it" path="RibbonTabs_it.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1454,8 +1453,8 @@
 <!-- Lithuanian -->
 
 <windowSkin>
-<image type="image" language="lt" path="RibbonTabs_lt.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="lt" path="RibbonTabs_lt.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1499,8 +1498,8 @@
 <!-- Dutch -->
 
 <windowSkin>
-<image type="image" language="nl" path="RibbonTabs_nl.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="nl" path="RibbonTabs_nl.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1544,8 +1543,8 @@
 <!-- Norwegian -->
 
 <windowSkin>
-<image type="image" language="no" path="RibbonTabs_no.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="no" path="RibbonTabs_no.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1589,8 +1588,8 @@
 <!-- Polish -->
 
 <windowSkin>
-<image type="image" language="pl" path="RibbonTabs_pl.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="pl" path="RibbonTabs_pl.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1634,8 +1633,8 @@
 <!-- Portuguese -->
 
 <windowSkin>
-<image type="image" language="pt-br" path="RibbonTabs_pt-br.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="pt-br" path="RibbonTabs_pt.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1679,8 +1678,8 @@
 <!-- Russian -->
 
 <windowSkin>
-<image type="image" language="ru" path="RibbonTabs_ru.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="ru" path="RibbonTabs_ru.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1724,8 +1723,8 @@
 <!-- Slovenian -->
 
 <windowSkin>
-<image type="image" language="sl-SI" path="RibbonTabs_sl-si.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="sl-SI" path="RibbonTabs_sl.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1769,8 +1768,8 @@
 <!-- Serbian -->
 
 <windowSkin>
-<image type="image" language="sr" path="RibbonTabs_sr.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="sr" path="RibbonTabs_sr.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1814,8 +1813,8 @@
 <!-- Albanian -->
 
 <windowSkin>
-<image type="image" language="sq" path="RibbonTabs_sr.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="sq" path="RibbonTabs_sr.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1859,8 +1858,8 @@
 <!-- Turkish -->
 
 <windowSkin>
-<image type="image" language="tr" path="RibbonTabs_tr.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="tr" path="RibbonTabs_tr.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1904,8 +1903,8 @@
 <!-- Greek -->
 
 <windowSkin>
-<image type="image" language="gr" path="RibbonTabs_gr.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="gr" path="RibbonTabs_gr.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1949,8 +1948,8 @@
 <!-- Japanese -->
 
 <windowSkin>
-<image type="image" language="ja" path="RibbonTabs_ja.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="ja" path="RibbonTabs_ja.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1994,8 +1993,8 @@
 <!-- Chinese Simple -->
 
 <windowSkin>
-<image type="image" language="chs" path="RibbonTabs_chs.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="chs" path="RibbonTabs_chs.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -2039,8 +2038,8 @@
 <!-- Chinese Traditional -->
 
 <windowSkin>
-<image type="image" language="tw" path="RibbonTabs_tw.bmp"/>
-<image type="watermark" path="RibbonBkg.bmp"/>
+<image type="image" language="tw" path="RibbonTabs_tw.png"/>
+<image type="watermark" path="RibbonBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <target window="CMainTabBarCtrl.Basic"/>
