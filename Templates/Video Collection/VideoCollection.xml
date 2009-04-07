@@ -16,11 +16,11 @@
 <images>
 	<image path="Images\bar_on.gif"/>
 	<image path="Images\bar_off.gif"/>
-	<image path="Images\Screenshot_Part.png"/>
+	<image path="Images\ScreenshotArea.png"/>
+	<image path="Images\TopRepeat.png"/>
 	<image path="Images\Top.png"/>
 	<image path="Images\res.gif"/>
 	<image path="Images\bg.png"/>
-	<image path="Images\top-tile.jpg"/>
 </images>
 <wizardText>
 	<text language="lt">
@@ -34,7 +34,7 @@
 		<item id="6" type="colorpicker" value="Lyginių eilučių spalva" default="#FFFFFF"/>
 		<item id="7" type="colorpicker" value="Nelyginių eilučių spalva" default="#E9EDEF"/>
 		<item id="8" type="textbox" value="Apie leidėjų grupę"/>
-		<item id="9" type="multi-filepicker" value="Paveikslėlis prie failo" default="Images/Screenshot_Part.png"/>
+		<item id="9" type="multi-filepicker" value="Paveikslėlis prie failo" default="Images/ScreenshotArea.png"/>
 	</text>
 	<text language="ja">
 		<item id="1" type="textbox" value="”開く”の表示" default="開く"/>
@@ -47,7 +47,7 @@
 		<item id="6" type="colorpicker" value="遇数行の色" default="#FFFFFF"/>
 		<item id="7" type="colorpicker" value="奇数行の色" default="#E9EDEF"/>
 		<item id="8" type="textbox" value="リリースグループ詳細"/>
-		<item id="9" type="multi-filepicker" value="スクリーンショット" default="Images/Screenshot_Part.png"/>
+		<item id="9" type="multi-filepicker" value="スクリーンショット" default="Images/ScreenshotArea.png"/>
 	</text>
 	<text language="pt-br">
 		<item id="1" type="textbox" value="Ação ao abrir arquivo" default="Abrir Arquivo"/>
@@ -60,7 +60,7 @@
 		<item id="6" type="colorpicker" value="Colorir fileiras pares" default="#FFFFFF"/>
 		<item id="7" type="colorpicker" value="Colorir fileiras ímpares" default="#E9EDEF"/>
 		<item id="8" type="textbox" value="Sobre o grupo de lançamento"/>
-		<item id="9" type="multi-filepicker" value="Imagem para o arquivo" default="Images/Screenshot_Part.png"/>
+		<item id="9" type="multi-filepicker" value="Imagem para o arquivo" default="Images/ScreenshotArea.png"/>
 	</text>
 	<text language="it">
 		<item id="1" type="textbox" value="Azione di apertura file" default="Apri file"/>
@@ -73,7 +73,7 @@
 		<item id="6" type="colorpicker" value="Colore per le righe pari" default="#FFFFFF"/>
 		<item id="7" type="colorpicker" value="Colore per le righe dispari" default="#E9EDEF"/>
 		<item id="8" type="textbox" value="Gruppo di rilascio"/>
-		<item id="9" type="multi-filepicker" value="Immagine per il file" default="Images/Screenshot_Part.png"/>
+		<item id="9" type="multi-filepicker" value="Immagine per il file" default="Images/ScreenshotArea.png"/>
 	</text>
 	<!-- It's better to place english translation at the end to exit data collection immediately when language specific data already loaded -->
 	<text language="en">
@@ -87,7 +87,7 @@
 		<item id="6" type="colorpicker" value="Color for even rows" default="#FFFFFF"/>
 		<item id="7" type="colorpicker" value="Color for odd rows" default="#E9EDEF"/>
 		<item id="8" type="textbox" value="About the release group"/>
-		<item id="9" type="multi-filepicker" value="Image for the file" default="Images/Screenshot_Part.png"/>
+		<item id="9" type="multi-filepicker" value="Image for the file" default="Images/ScreenshotArea.png"/>
 	</text>
 </wizardText>
 </template>

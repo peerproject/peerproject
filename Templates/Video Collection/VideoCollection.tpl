@@ -98,8 +98,8 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tbody>
 		<tr>
-			<td style="background-image: url('images/bg.png');" align="left" valign="top"><a href="http://peerproject.org/?id=download"><img src="images/Top.png" width="650" height="84" border="0" alt="PeerProject P2P"/></a></td>
-			<td style="background: url('images/top-tile.jpg') repeat-x;" width="100%">&nbsp;</td>
+			<td style="background-image: url('images/bg.png');" align="left" valign="top"><a href="http://peerproject.org/?id=download"><img src="images/Top.png" width="601" height="50" border="0" alt="PeerProject P2P"/></a></td>
+			<td style="background: url('images/TopRepeat.png') repeat-x;" width="100%">&nbsp;</td>
 		</tr>
 		<tr>
 			<td align="left" valign="top" bgcolor="#EEEEEE" colspan="2">
@@ -229,7 +229,7 @@ $data$
 		{
 			resetVars();
 
-			setUpdateTimer();							// Resume the auto-update of the page
+			setUpdateTimer();				// Resume the auto-update of the page
 		}
 	}
 

@@ -23,8 +23,11 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "CoolInterface.h"
+#include "ImageServices.h"
+#include "ImageFile.h"
 #include "SkinWindow.h"
 #include "XML.h"
+
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -361,8 +364,20 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			if ( strFile.GetLength() > 0 )
 			{
 				strFile = strPath + strFile;
-				hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(), strFile,
-					IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE );
+
+				if ( strFile.Right( 4 ) == ".bmp" )
+				{
+					hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(), strFile,
+								IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE );
+				}
+				else //.png
+				{
+					CImageFile pFile;
+
+					pFile.LoadFromFile( strFile );
+					pFile.EnsureRGB();	// Remove Alpha
+					hBitmap = pFile.CreateBitmap();
+				}				
 			}
 			else if ( strRes.GetLength() > 0 )
 			{
@@ -373,13 +388,17 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 					return FALSE;
 				}
 				if ( nResID == IDB_NAVBAR_IMAGE && Settings.General.LanguageRTL )
-					 nResID = IDB_NAVBAR_IMAGE_RTL;
+					nResID = IDB_NAVBAR_IMAGE_RTL;
 				else if ( nResID == IDB_NAVBAR_ALPHA && Settings.General.LanguageRTL )
-					 nResID = IDB_NAVBAR_ALPHA_RTL;
-				hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(),
-					MAKEINTRESOURCE(nResID), IMAGE_BITMAP, 0, 0, 0 );
-			}
+					nResID = IDB_NAVBAR_ALPHA_RTL;
 
+					hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(),
+								MAKEINTRESOURCE(nResID), IMAGE_BITMAP, 0, 0, 0 );
+				// ToDo: Convert Resources to .PNG ?
+				//	pFile.LoadFromResource( AfxGetInstanceHandle(), nResID, RT_PNG );
+				//	hBitmap = pFile.CreateBitmap();
+				}
+			
 			if ( hBitmap == NULL )
 			{
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Cannot load image"), pGroup->ToString() );
@@ -389,7 +408,9 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			str = pGroup->GetAttributeValue( _T("type") );
 			ToLower( str );
 
-			if ( str == _T("watermark") || str == _T("water") )
+			//ToDo: Add PNG Transparency Support
+
+			if ( str == _T("watermark") )
 			{
 				if ( m_bmWatermark.m_hObject != NULL ) m_bmWatermark.DeleteObject();
 				m_bmWatermark.Attach( hBitmap );
@@ -399,7 +420,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				if ( m_bmAlpha.m_hObject != NULL ) m_bmAlpha.DeleteObject();
 				m_bmAlpha.Attach( hBitmap );
 			}
-			else
+			else	// type="image"
 			{
 				if ( m_bmSkin.m_hObject != NULL ) m_bmSkin.DeleteObject();
 				m_bmSkin.Attach( hBitmap );

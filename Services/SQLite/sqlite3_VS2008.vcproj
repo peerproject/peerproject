@@ -91,8 +91,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy SQLite to PeerProject folder..."
-				CommandLine="copy /b /y &quot;$(TargetPath)&quot; &quot;..\PeerProject\$(PlatformName) $(ConfigurationName)\&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -167,8 +165,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy SQLite to PeerProject folder..."
-				CommandLine="copy /b /y &quot;$(TargetPath)&quot; &quot;..\PeerProject\$(PlatformName) $(ConfigurationName)\&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -248,8 +244,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy SQLite to PeerProject folder..."
-				CommandLine="copy /b /y &quot;$(TargetPath)&quot; &quot;..\PeerProject\$(PlatformName) $(ConfigurationName)\&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -330,8 +324,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy SQLite to PeerProject folder..."
-				CommandLine="copy /b /y &quot;$(TargetPath)&quot; &quot;..\PeerProject\$(PlatformName) $(ConfigurationName)\&quot;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -344,7 +336,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\sqlite3.c"
+				RelativePath="sqlite3.c"
 				>
 			</File>
 		</Filter>
@@ -354,7 +346,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\sqlite3.h"
+				RelativePath="sqlite3.h"
 				>
 			</File>
 		</Filter>

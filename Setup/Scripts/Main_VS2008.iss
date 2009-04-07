@@ -179,7 +179,7 @@ Source: "Services\BugTrap\dbghelp-x64.dll"; DestDir: "{sys}"; DestName: "dbghelp
 
 ;--== Include Files ==--
 ; Main Data Files
-Source: "Data\*.*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.url,GeoIP.*"
+Source: "Data\*.*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.url,GPL*,GeoIP.*"
 
 ; Icon files
 Source: "Setup\Res\Uninstall.ico"; DestDir: "{app}\Uninstall"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
@@ -188,7 +188,7 @@ Source: "Setup\Res\Uninstall.ico"; DestDir: "{app}\Uninstall"; Flags: ignorevers
 Source: "Schemas\*"; DestDir: "{app}\Schemas"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"
 
 ; Skins
-Source: "Skins\*"; DestDir: "{app}\Skins"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn,\Arcadia's Call\*,\Green Moon\*,\LiquidMetal*\*,\NucleoX\*,\Raza-Ablaze\*"
+Source: "Skins\*"; DestDir: "{app}\Skins"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn,.bak,\TestSkin\*"
 
 ; Templates
 Source: "Templates\*"; DestDir: "{app}\Templates"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn"
