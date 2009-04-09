@@ -356,16 +356,18 @@ BOOL CHostCacheList::Add(LPCTSTR pszHost, DWORD tSeen, LPCTSTR pszVendor, DWORD 
 	if ( nPos < 0 ) return FALSE;
 	
 	int nPort = GNUTELLA_DEFAULT_PORT;
-	if ( _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort ) != 1 ) return FALSE;
+	if ( _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort ) != 1 ||
+		nPort <= 0 || nPort >= 65536 ) return FALSE;
 	strHost = strHost.Left( nPos );
 	
 	DWORD nAddress = inet_addr( CT2CA( (LPCTSTR)strHost ) );
+	if ( nAddress == INADDR_NONE ) return FALSE;
 
 	return ( Add( (IN_ADDR*)&nAddress, (WORD)nPort, tSeen, pszVendor, nUptime ) != NULL );
 }
 
-// This function actually add the remote client to the host cache. Private, but used by the public 
-// functions. No security checking, etc.
+// This function actually adds the remote client to the host cache. Private,
+// but used by the public functions. No security checking, etc.
 CHostCacheHostPtr CHostCacheList::AddInternal(const IN_ADDR* pAddress, WORD nPort, 
 											DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime)
 {
@@ -842,7 +844,7 @@ bool CHostCache::CheckMinimumED2KServers()
 
 		return false;
 	}
-#endif // LAN_MODE
+#endif // LAN_MOD
 	return true;
 }
 
@@ -1292,29 +1294,10 @@ BOOL CHostCacheHost::CanQuote(DWORD tNow) const
 //////////////////////////////////////////////////////////////////////
 // CHostCacheHost query test
 
-// Can we UDP query this host? (G2/ed2k)
+// Can we UDP query this host? (G2/ED2k/BT)
 BOOL CHostCacheHost::CanQuery(DWORD tNow) const
 {
-	// eDonkey2000 server
-	if ( m_nProtocol == PROTOCOL_ED2K )
-	{
-		// Must support ED2K
-		if ( !Network.IsConnected() || !Settings.eDonkey.EnableToday ) return FALSE;
-		if ( !Settings.eDonkey.ServerWalk ) return FALSE;
-		
-		// Get the time if not supplied
-		if ( 0 == tNow ) tNow = static_cast< DWORD >( time( NULL ) );
-		
-		// Retry After
-		if ( 0 != m_tRetryAfter && tNow < m_tRetryAfter ) return FALSE;
-		
-		// If haven't queried yet, its ok
-		if ( 0 == m_tQuery ) return TRUE;
-		
-		// Don't query too fast
-		return ( tNow - m_tQuery ) >= Settings.eDonkey.QueryServerThrottle;
-	}
-	else if ( m_nProtocol == PROTOCOL_G2 )
+	if ( m_nProtocol == PROTOCOL_G2 )
 	{
 		// Must support G2
 		if ( !Network.IsConnected() || !Settings.Gnutella2.EnableToday ) return FALSE;
@@ -1337,6 +1320,25 @@ BOOL CHostCacheHost::CanQuery(DWORD tNow) const
 		// Don't query too fast
 		return ( tNow - m_tQuery ) >= Settings.Gnutella2.QueryHostThrottle;
 	}
+	// eDonkey2000 server
+	else if ( m_nProtocol == PROTOCOL_ED2K )
+	{
+		// Must support ED2K
+		if ( !Network.IsConnected() || !Settings.eDonkey.EnableToday ) return FALSE;
+		if ( !Settings.eDonkey.ServerWalk ) return FALSE;
+		
+		// Get the time if not supplied
+		if ( 0 == tNow ) tNow = static_cast< DWORD >( time( NULL ) );
+		
+		// Retry After
+		if ( 0 != m_tRetryAfter && tNow < m_tRetryAfter ) return FALSE;
+		
+		// If haven't queried yet, its ok
+		if ( 0 == m_tQuery ) return TRUE;
+		
+		// Don't query too fast
+		return ( tNow - m_tQuery ) >= Settings.eDonkey.QueryServerThrottle;
+	}
 	else if ( m_nProtocol == PROTOCOL_BT )
 	{
 		// Must not be waiting for an ack
@@ -1356,7 +1358,7 @@ BOOL CHostCacheHost::CanQuery(DWORD tNow) const
 	}	
 	else if ( m_nProtocol == PROTOCOL_KAD )
 	{
-		return TRUE; // TODO: Fix it
+		return TRUE; // ToDo: Fix it
 	}
 	return FALSE;
 }

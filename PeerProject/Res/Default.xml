@@ -269,9 +269,10 @@
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Download All Files"/>
 			<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
+		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<control id="IDC_SEARCH_BOX" width="120"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find"/>
+		<button id="ID_LIBRARY_PANEL" text="Hide Details"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">
@@ -578,8 +579,7 @@
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 			<separator/>
 			<menu text="A_dvanced">
-				<item id="ID_VIEW_SYSTEM" text="S_ystem" shortcut="F11"/>
-				<item id="ID_VIEW_NEIGHBOURS" text="N_eighbours" shortcut="Ctrl+F11"/>
+				<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 				<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
 				<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 				<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
@@ -589,6 +589,8 @@
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
 				<item id="ID_VIEW_TRAFFIC" text="_Graph" shortcut="F10"/>
+				<item id="ID_VIEW_SYSTEM" text="S_ystem" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="N_eighbours" shortcut="Ctrl+F11"/>
 				<separator/>
 				<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
 				<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
@@ -679,6 +681,7 @@
 			<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 			<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
 			<item id="ID_VIEW_MEDIA" text="_Media Player" shortcut="F6"/>
+			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
@@ -1687,7 +1690,7 @@
       </para>
     </group>
     <icon group="20" command="ID_NETWORK_G2"/>
-    <gap group="20" size="4"/>
+    <gap  group="20" size="4"/>
     <text group="20" align="middle" format="b">Gnutella2: </text>
     <text group="21" align="middle">Disconnected</text>
     <text group="22" align="middle">Connecting...</text>
@@ -1696,14 +1699,14 @@
     <text group="25" align="middle" id="G2Leaves">%i leaves</text>
     <newline group="20" gap="2"/>
     <icon group="10" command="ID_NETWORK_G1"/>
-    <gap group="10" size="4"/>
+    <gap  group="10" size="4"/>
     <text group="10" align="middle" format="b">Gnutella1: </text>
     <text group="11" align="middle">Disconnected</text>
     <text group="12" align="middle">Connecting...</text>
     <text group="13" align="middle">Connected</text>
     <newline group="10" gap="2"/>
     <icon group="30" command="ID_NETWORK_ED2K"/>
-    <gap group="30" size="4"/>
+    <gap  group="30" size="4"/>
     <text group="30" align="middle" format="b">eDonkey: </text>
     <text group="31" align="middle">Disconnected</text>
     <text group="32" align="middle">Connecting...</text>
@@ -2266,13 +2269,13 @@
 		<image type="alpha" language="en" res="246"/>
 		<target window="CMainTabBarCtrl.Basic"/>
 		<anchors>
-			<anchor name="Background"			rect="0,0,576,44"/>
-			<anchor name="_ID_TAB_HOME"			rect="4,1,90,38"/>
+			<anchor name="Background"				rect="0,0,576,44"/>
+			<anchor name="_ID_TAB_HOME" 			rect="4,1,90,38"/>
 			<anchor name="_ID_TAB_SEARCH"			rect="95,1,90,38"/>
 			<anchor name="_ID_TAB_TRANSFERS"		rect="186,1,112,38"/>
 			<anchor name="_ID_TAB_LIBRARY"			rect="299,1,94,38"/>
 			<anchor name="_ID_TAB_MEDIA"			rect="394,1,90,38"/>
-			<anchor name="_ID_TAB_IRC"			rect="485,1,80,38"/>
+			<anchor name="_ID_TAB_IRC"				rect="485,1,80,38"/>
 		</anchors>
 		<parts>
 			<part name="_ID_TAB_HOME.Up"			rect="0,0,90,38"/>
@@ -2284,18 +2287,18 @@
 			<part name="_ID_TAB_SEARCH.Hover"		rect="90,38,90,38"/>
 			<part name="_ID_TAB_SEARCH.Down"		rect="90,76,90,38"/>
 			<part name="_ID_TAB_TRANSFERS.Up"		rect="180,0,112,38"/>
-			<part name="_ID_TAB_TRANSFERS.Checked"  	rect="180,38,112,38"/>
-			<part name="_ID_TAB_TRANSFERS.Hover"		rect="180,38,112,38"/>
+			<part name="_ID_TAB_TRANSFERS.Checked" 	rect="180,38,112,38"/>
+			<part name="_ID_TAB_TRANSFERS.Hover"	rect="180,38,112,38"/>
 			<part name="_ID_TAB_TRANSFERS.Down"		rect="180,76,112,38"/>
 			<part name="_ID_TAB_LIBRARY.Up"			rect="400,0,94,38"/>
-			<part name="_ID_TAB_LIBRARY.Checked"		rect="400,38,94,38"/>
+			<part name="_ID_TAB_LIBRARY.Checked"	rect="400,38,94,38"/>
 			<part name="_ID_TAB_LIBRARY.Hover"		rect="400,38,94,38"/>
 			<part name="_ID_TAB_LIBRARY.Down"		rect="400,76,94,38"/>
 			<part name="_ID_TAB_MEDIA.Up"			rect="494,0,90,38"/>
 			<part name="_ID_TAB_MEDIA.Checked"		rect="494,38,90,38"/>
 			<part name="_ID_TAB_MEDIA.Hover"		rect="494,38,90,38"/>
 			<part name="_ID_TAB_MEDIA.Down"			rect="494,76,90,38"/>
-			<part name="_ID_TAB_IRC.Up"			rect="584,0,80,38"/>
+			<part name="_ID_TAB_IRC.Up" 			rect="584,0,80,38"/>
 			<part name="_ID_TAB_IRC.Checked"		rect="584,38,80,38"/>
 			<part name="_ID_TAB_IRC.Hover"			rect="584,38,80,38"/>
 			<part name="_ID_TAB_IRC.Down"			rect="584,76,80,38"/>
@@ -2306,14 +2309,14 @@
 		<image type="alpha" language="en" res="246"/>
 		<target window="CMainTabBarCtrl"/>
 		<anchors>
-			<anchor name="Background"			rect="0,0,684,44"/>
-			<anchor name="_ID_TAB_HOME"			rect="6,1,90,38"/>
+			<anchor name="Background"				rect="0,0,684,44"/>
+			<anchor name="_ID_TAB_HOME" 			rect="6,1,90,38"/>
 			<anchor name="_ID_TAB_SEARCH"			rect="97,1,90,38"/>
 			<anchor name="_ID_TAB_TRANSFERS"		rect="188,1,112,38"/>
 			<anchor name="_ID_TAB_NETWORK"			rect="301,1,108,38"/>
 			<anchor name="_ID_TAB_LIBRARY"			rect="410,1,94,38"/>
 			<anchor name="_ID_TAB_MEDIA"			rect="505,1,90,38"/>
-			<anchor name="_ID_TAB_IRC"			rect="596,1,80,38"/>
+			<anchor name="_ID_TAB_IRC"				rect="596,1,80,38"/>
 		</anchors>
 		<parts>
 			<part name="_ID_TAB_HOME.Up"			rect="0,0,90,38"/>
@@ -2325,22 +2328,22 @@
 			<part name="_ID_TAB_SEARCH.Hover"		rect="90,38,90,38"/>
 			<part name="_ID_TAB_SEARCH.Down"		rect="90,76,90,38"/>
 			<part name="_ID_TAB_TRANSFERS.Up"		rect="180,0,112,38"/>
-			<part name="_ID_TAB_TRANSFERS.Checked"  	rect="180,38,112,38"/>
+			<part name="_ID_TAB_TRANSFERS.Checked"	rect="180,38,112,38"/>
 			<part name="_ID_TAB_TRANSFERS.Hover"		rect="180,38,112,38"/>
 			<part name="_ID_TAB_TRANSFERS.Down"		rect="180,76,112,38"/>
 			<part name="_ID_TAB_NETWORK.Up"			rect="292,0,108,38"/>
-			<part name="_ID_TAB_NETWORK.Checked"		rect="292,38,108,38"/>
+			<part name="_ID_TAB_NETWORK.Checked"	rect="292,38,108,38"/>
 			<part name="_ID_TAB_NETWORK.Hover"		rect="292,38,108,38"/>
 			<part name="_ID_TAB_NETWORK.Down"		rect="292,76,108,38"/>
 			<part name="_ID_TAB_LIBRARY.Up"			rect="400,0,94,38"/>
-			<part name="_ID_TAB_LIBRARY.Checked"		rect="400,38,94,38"/>
+			<part name="_ID_TAB_LIBRARY.Checked"	rect="400,38,94,38"/>
 			<part name="_ID_TAB_LIBRARY.Hover"		rect="400,38,94,38"/>
 			<part name="_ID_TAB_LIBRARY.Down"		rect="400,76,94,38"/>
 			<part name="_ID_TAB_MEDIA.Up"			rect="494,0,90,38"/>
 			<part name="_ID_TAB_MEDIA.Checked"		rect="494,38,90,38"/>
 			<part name="_ID_TAB_MEDIA.Hover"		rect="494,38,90,38"/>
 			<part name="_ID_TAB_MEDIA.Down"			rect="494,76,90,38"/>
-			<part name="_ID_TAB_IRC.Up"			rect="584,0,80,38"/>
+			<part name="_ID_TAB_IRC.Up" 			rect="584,0,80,38"/>
 			<part name="_ID_TAB_IRC.Checked"		rect="584,38,80,38"/>
 			<part name="_ID_TAB_IRC.Hover"			rect="584,38,80,38"/>
 			<part name="_ID_TAB_IRC.Down"			rect="584,76,80,38"/>
@@ -2365,14 +2368,14 @@
 		<shape type="rectangle" combine="or"	rect="70,1,73,2"/>
 	</region>
 	<anchors> 
-		<anchor name="StatusText"		rect="100,8,232,11"/>
+		<anchor name="StatusText"			rect="100,8,232,11"/>
 		<anchor name="MediaSeekTrack"		rect="16,28,396,5"/>
 		<anchor name="MediaVolTrack"		rect="330,52,70,13"/>
 		<!--anchor name="MediaStatePlaying"	rect=""-->
 		<!--anchor name="MediaStatePaused"	rect=""-->
 		<!--anchor name="MediaStateStopped"	rect=""-->
 		<!--anchor name="ScalerTrack"		rect=""--> 
-		<!--anchor name="History"		rect=""--> 
+		<!--anchor name="History"			rect=""--> 
 		<anchor name="_ID_MONITOR_CLOSE"	rect="370,2,52,22"/>
 		<anchor name="_ID_MEDIA_PLAY"		rect="190,34,46,48"/>
 		<anchor name="_ID_MEDIA_PAUSE"		rect="190,34,46,48"/>
@@ -2385,38 +2388,38 @@
 		<anchor name="_ID_MEDIA_ADD"		rect="4,4,96,18"/>
 	</anchors>
 	<parts> 
-		<part name="Background" 		rect="0,0,426,90"/>
-		<part name="MediaSeekBar"		rect="17,118,396,5"/>
-		<part name="MediaSeekTab"		rect="402,118,10,5"/>
-		<part name="MediaVolBar"		rect="330,142,70,13"/>
-		<part name="MediaVolTab"		rect="389,142,12,13"/>
+		<part name="Background" 			rect="0,0,426,90"/>
+		<part name="MediaSeekBar"			rect="17,118,396,5"/>
+		<part name="MediaSeekTab"			rect="402,118,10,5"/>
+		<part name="MediaVolBar"			rect="330,142,70,13"/>
+		<part name="MediaVolTab"			rect="389,142,12,13"/>
 		<!--part name="MediaStatePlaying"	rect=""-->
 		<!--part name="MediaStatePaused"	rect=""-->
 		<!--part name="MediaStateStopped"	rect=""-->
-		<!--part name="HistoryTx1"		rect=""-->
-		<!--part name="HistoryRx1"		rect=""-->
-		<!--part name="ScalerTab"		rect=""-->
+		<!--part name="HistoryTx1"			rect=""-->
+		<!--part name="HistoryRx1"			rect=""-->
+		<!--part name="ScalerTab"			rect=""-->
 		<part name="_ID_MONITOR_CLOSE.Hover"	rect="370,92,52,22"/>
-		<part name="_ID_MONITOR_CLOSE.Down"	rect="318,92,52,22"/>
-		<part name="_ID_MEDIA_PLAY.Up"		rect="190,34,46,48"/>
-		<part name="_ID_MEDIA_PLAY.Hover"	rect="190,124,46,48"/>
-		<part name="_ID_MEDIA_PLAY.Down"	rect="380,158,46,48"/>
-		<part name="_ID_MEDIA_PAUSE.Up" 	rect="46,158,45,48"/>
-		<part name="_ID_MEDIA_PAUSE.Hover"	rect="0,158,46,48"/>
-		<part name="_ID_MEDIA_PAUSE.Down"	rect="334,158,46,48"/>
-		<part name="_ID_MEDIA_STOP.Hover"	rect="116,136,25,25"/>
-		<part name="_ID_MEDIA_STOP.Down"	rect="200,181,25,25"/>
+		<part name="_ID_MONITOR_CLOSE.Down" 	rect="318,92,52,22"/>
+		<part name="_ID_MEDIA_PLAY.Up"			rect="190,34,46,48"/>
+		<part name="_ID_MEDIA_PLAY.Hover"		rect="190,124,46,48"/>
+		<part name="_ID_MEDIA_PLAY.Down"		rect="380,158,46,48"/>
+		<part name="_ID_MEDIA_PAUSE.Up" 		rect="46,158,45,48"/>
+		<part name="_ID_MEDIA_PAUSE.Hover"		rect="0,158,46,48"/>
+		<part name="_ID_MEDIA_PAUSE.Down"		rect="334,158,46,48"/>
+		<part name="_ID_MEDIA_STOP.Hover"		rect="116,136,25,25"/>
+		<part name="_ID_MEDIA_STOP.Down"		rect="200,181,25,25"/>
 		<part name="_ID_MEDIA_STOP.Disabled"	rect="91,136,25,25"/>
 		<part name="_ID_MEDIA_PREVIOUS.Hover"	rect="144,181,49,25"/>
 		<part name="_ID_MEDIA_PREVIOUS.Down"	rect="92,181,49,25"/>
 		<part name="_ID_MEDIA_PREVIOUS.Disabled" rect="141,136,49,25"/>
-		<part name="_ID_MEDIA_NEXT.Hover"	rect="233,181,49,25"/>
-		<part name="_ID_MEDIA_NEXT.Down"	rect="285,181,49,25"/>
+		<part name="_ID_MEDIA_NEXT.Hover"		rect="233,181,49,25"/>
+		<part name="_ID_MEDIA_NEXT.Down"		rect="285,181,49,25"/>
 		<part name="_ID_MEDIA_NEXT.Disabled"	rect="236,136,49,25"/>
-		<part name="_ID_MEDIA_MUTE.Checked"	rect="300,141,20,15"/>
+		<part name="_ID_MEDIA_MUTE.Checked" 	rect="300,141,20,15"/>
 		<part name="_ID_MEDIA_RANDOM.Checked"	rect="36,140,17,17"/>
 		<part name="_ID_MEDIA_REPEAT.Checked"	rect="66,140,17,17"/>
-		<part name="_ID_MEDIA_ADD.Hover"	rect="4,94,96,18"/>
+		<part name="_ID_MEDIA_ADD.Hover"		rect="4,94,96,18"/>
 	</parts>
 	</windowSkin>
 </windowSkins>
