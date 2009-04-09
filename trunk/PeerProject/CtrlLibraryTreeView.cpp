@@ -773,8 +773,13 @@ void CLibraryTreeView::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollB
 	}
 }
 
-BOOL CLibraryTreeView::OnMouseWheel(UINT /*nFlags*/, short zDelta, CPoint /*pt*/)
+BOOL CLibraryTreeView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
+	// Scroll window under cursor
+	if ( CWnd* pWnd = WindowFromPoint( pt ) )
+		if ( pWnd != this )
+			return pWnd->SendMessage( WM_MOUSEWHEEL, MAKEWPARAM( nFlags, zDelta ), MAKELPARAM( pt.x, pt.y ) );
+
 	ScrollBy( zDelta * 3 * -ITEM_HEIGHT / WHEEL_DELTA );
 	return TRUE;
 }
@@ -1273,6 +1278,7 @@ void CLibraryTreeView::UpdatePhysical(DWORD nSelectCookie)
 
 			if ( pOld == pFolder )
 			{
+				CRazaThread::YieldProc();
 				bChanged |= Update( pFolder, &*pChild, m_pRoot, TRUE, TRUE,
 					nCleanCookie, nSelectCookie, FALSE );
 				break;
@@ -1281,6 +1287,7 @@ void CLibraryTreeView::UpdatePhysical(DWORD nSelectCookie)
 
 		if ( pChild == m_pRoot->end() )
 		{
+			CRazaThread::YieldProc();
 			bChanged |= Update( pFolder, NULL, m_pRoot, TRUE, TRUE,
 				nCleanCookie, nSelectCookie, FALSE );
 		}
@@ -1381,6 +1388,7 @@ BOOL CLibraryTreeView::Update(CLibraryFolder* pFolder, CLibraryTreeItem* pItem, 
 
 			if ( pOld == pSub )
 			{
+				CRazaThread::YieldProc();
 				bChanged |= Update( pSub, &*pChild, pItem, bVisible, bShared,
 					nCleanCookie, nSelectCookie, bRecurse );
 				break;
@@ -1389,6 +1397,7 @@ BOOL CLibraryTreeView::Update(CLibraryFolder* pFolder, CLibraryTreeItem* pItem, 
 
 		if ( pChild == pItem->end() )
 		{
+			CRazaThread::YieldProc();
 			bChanged |= Update( pSub, NULL, pItem, bVisible, bShared,
 				nCleanCookie, nSelectCookie, bRecurse );
 		}
@@ -1482,6 +1491,7 @@ BOOL CLibraryTreeView::Update(CAlbumFolder* pFolder, CLibraryTreeItem* pItem, CL
 
 			if ( pOld == pSub )
 			{
+				CRazaThread::YieldProc();
 				bChanged |= Update( pSub, &*pChild, pItem, bVisible,
 					nCleanCookie, nSelectCookie );
 				break;
@@ -1490,6 +1500,7 @@ BOOL CLibraryTreeView::Update(CAlbumFolder* pFolder, CLibraryTreeItem* pItem, CL
 
 		if ( pChild == pItem->end() )
 		{
+			CRazaThread::YieldProc();
 			bChanged |= Update( pSub, NULL, pItem, bVisible,
 				nCleanCookie, nSelectCookie );
 		}

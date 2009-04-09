@@ -497,8 +497,13 @@ void CLibraryTileView::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollB
 	}
 }
 
-BOOL CLibraryTileView::OnMouseWheel(UINT /*nFlags*/, short zDelta, CPoint /*pt*/)
+BOOL CLibraryTileView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
+	// Scroll window under cursor
+	if ( CWnd* pWnd = WindowFromPoint( pt ) )
+		if ( pWnd != this )
+			return pWnd->SendMessage( WM_MOUSEWHEEL, MAKEWPARAM( nFlags, zDelta ), MAKELPARAM( pt.x, pt.y ) );
+
 	CSingleLock oLock( &m_pSection, TRUE );
 
 	ScrollBy( zDelta * -m_szBlock.cy / WHEEL_DELTA / 2 );

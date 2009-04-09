@@ -490,7 +490,7 @@
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
 	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+	<menu name="CMainWnd.Tray"> <!--"CRemoteWnd"-->
 		<item id="ID_TRAY_OPEN" text="Open PeerProject"/>
 		<separator/>
 		<item id="ID_WINDOW_REMOTE" text="Show Remote"/>
@@ -611,8 +611,7 @@
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 			<separator/>
 			<menu text="A_dvanced">
-				<item id="ID_VIEW_SYSTEM" text="S_ystem" shortcut="F11"/>
-				<item id="ID_VIEW_NEIGHBOURS" text="N_eighbours" shortcut="Ctrl+F11"/>
+				<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 				<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
 				<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 				<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
@@ -622,6 +621,8 @@
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
 				<item id="ID_VIEW_TRAFFIC" text="_Graph" shortcut="F10"/>
+				<item id="ID_VIEW_SYSTEM" text="S_ystem" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="N_eighbours" shortcut="Ctrl+F11"/>
 				<separator/>
 				<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
 				<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
@@ -711,6 +712,7 @@
 			<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 			<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
 			<item id="ID_VIEW_MEDIA" text="_Media Player" shortcut="F6"/>
+			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>

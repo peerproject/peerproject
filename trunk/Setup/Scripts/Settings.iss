@@ -132,4 +132,4 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\eDonkey";  ValueType: dwor
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Gnutella1"; ValueType: dword; ValueName: "EnableAlways"; ValueData: 1 ;				Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: dword; ValueName: "AdvancedInterface"; ValueData: 1 ;			Flags: uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: string; ValueName: "TorrentCreatorPath"; ValueData: "TorrentWizard.exe" ; Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: string; ValueName: "DefaultTracker"; ValueData: "http://inferno.demonoid.com:3419/announce" ; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: string; ValueName: "DefaultTracker"; ValueData: "http://tracker.thepiratebay.org/announce" ; Flags: createvalueifdoesntexist uninsdeletekey

@@ -19,7 +19,7 @@
 		description="PeerProject Default International Spanish Skin File"
 		link="http://PeerProject.org/"
 		email="ramdomcrazy(at)users.sourceforge.net"
-		version="2.3.0.0"
+		version="1.0.0.0"
 		type="Language"
 		language="es"
 		prompt="Seleccione aquí para usar PeerProject en Español Internacional"
@@ -229,8 +229,8 @@
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Crear Album..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Borrar Album"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Buscar:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Buscar"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Detalles"/>
 	</toolbar>
@@ -255,8 +255,8 @@
 		<button id="ID_LIBRARY_COPY" text="Copiar"/>
 		<button id="ID_LIBRARY_DELETE" text="Eliminar"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Buscar:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Buscar"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Detalles"/>
 	</toolbar>
@@ -469,7 +469,7 @@
 		</menu>
 		<menu text="_Ver">
 			<item id="ID_TAB_HOME" text="_Inicio"/>
-			<item id="ID_TAB_LIBRARY" text="_Mi Colección"/>
+			<item id="ID_TAB_LIBRARY" text="_Colección"/>
 			<item id="ID_TAB_MEDIA" text="_Reproductor"/>
 			<item id="ID_TAB_SEARCH" text="_Búsqueda"/>
 			<item id="ID_TAB_TRANSFERS" text="_Descargas"/>
@@ -541,7 +541,7 @@
 		</menu>
 		<menu text="_Ver">
 			<item id="ID_TAB_HOME" text="_Inicio"/>
-			<item id="ID_TAB_LIBRARY" text="_Mi Colección"/>
+			<item id="ID_TAB_LIBRARY" text="_Colección"/>
 			<item id="ID_TAB_MEDIA" text="_Media Player"/>
 			<item id="ID_TAB_SEARCH" text="_Búsqueda"/>
 			<item id="ID_TAB_TRANSFERS" text="_Transferencias"/>
@@ -642,7 +642,7 @@
 			<item id="ID_VIEW_NEIGHBOURS" text="_Red" shortcut="Ctrl+F11"/>
 			<item id="ID_VIEW_DOWNLOADS" text="_Descargas" shortcut="F3"/>
 			<item id="ID_VIEW_UPLOADS" text="_Subidas" shortcut="F4"/>
-			<item id="ID_VIEW_LIBRARY" text="_Mi Colección" shortcut="F5"/>
+			<item id="ID_VIEW_LIBRARY" text="_Colección" shortcut="F5"/>
 			<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="_Seguridad" shortcut="F7"/>
@@ -713,7 +713,7 @@
 	<!-- VIEW POPUP -->
 	<menu name="CMainWnd.View.Basic">
 		<item id="ID_TAB_HOME" text="_Inicio"/>
-		<item id="ID_TAB_LIBRARY" text="_Mi Colección"/>
+		<item id="ID_TAB_LIBRARY" text="_Colección"/>
 		<item id="ID_TAB_MEDIA" text="_Media"/>
 		<item id="ID_TAB_SEARCH" text="_Busqueda"/>
 		<item id="ID_TAB_TRANSFERS" text="_Descargas"/>
@@ -727,7 +727,7 @@
 	</menu>
 	<menu name="CMainWnd.View.Tabbed">
 		<item id="ID_TAB_HOME" text="_Inicio"/>
-		<item id="ID_TAB_LIBRARY" text="_Mi Colección"/>
+		<item id="ID_TAB_LIBRARY" text="_Colección"/>
 		<item id="ID_TAB_MEDIA" text="_Reproductor"/>
 		<item id="ID_TAB_SEARCH" text="_Buscar"/>
 		<item id="ID_TAB_TRANSFERS" text="_Transferencias"/>
@@ -749,7 +749,7 @@
 		<item id="ID_VIEW_NEIGHBOURS" text="R_ed"/>
 		<item id="ID_VIEW_DOWNLOADS" text="_Descargas"/>
 		<item id="ID_VIEW_UPLOADS" text="_Subidas"/>
-		<item id="ID_VIEW_LIBRARY" text="_Mi Colección"/>
+		<item id="ID_VIEW_LIBRARY" text="_Colección"/>
 		<item id="ID_VIEW_MEDIA" text="_Reproductor de Media"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_guridad" shortcut="F7"/>
@@ -764,7 +764,7 @@
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
 		<item id="ID_TAB_HOME" text="_Inicio"/>
-		<item id="ID_TAB_LIBRARY" text="Mi Colección"/>
+		<item id="ID_TAB_LIBRARY" text="Colección"/>
 		<item id="ID_TAB_MEDIA" text="_Reproductor"/>
 		<item id="ID_TAB_SEARCH" text="B_uscar"/>
 		<item id="ID_TAB_TRANSFERS" text="_Descargas"/>
@@ -778,7 +778,7 @@
 	</menu>
 	<menu name="CHomeWnd.Tabbed">
 		<item id="ID_TAB_HOME" text="_Inicio"/>
-		<item id="ID_TAB_LIBRARY" text="_Mi Colección"/>
+		<item id="ID_TAB_LIBRARY" text="_Colección"/>
 		<item id="ID_TAB_MEDIA" text="_Media"/>
 		<item id="ID_TAB_SEARCH" text="_Busqueda"/>
 		<item id="ID_TAB_TRANSFERS" text="_Transferencias"/>
@@ -1504,7 +1504,7 @@
 			<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">EMPEZARA CONECTARTE</heading>
 			<newline gap="8" indent="42"/>
-			<text>Bienvenido a PeerProject!</text>
+			<text>Bienvenido a PeerProject.</text>
 			<newline gap="8" indent="42"/>
 			<text>No has seleccionado ninguna Red Peer to Peer. &#160;</text>
 			<link target="peer:command:ID_NETWORK_CONNECT">¡Haz Click Aquí Para Empezar!</link>
@@ -1595,7 +1595,7 @@
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
-	<document name="CHomeDownloadsBox" title="Mis Descargas" leftMargin="6" topMargin="6">
+	<document name="CHomeDownloadsBox" title="Descargas" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font face="Verdana" size="9"/>
@@ -1746,7 +1746,7 @@
 		<gap size="4"/>
 		<text>Configuración general como mensajes emergentes (tooltips), acción del botón minimizar, formatos, etc.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CLibrarySettingsPage" format="b">Mi Colección:</link>
+		<link target="peer:page:CLibrarySettingsPage" format="b">Colección:</link>
 		<gap size="4"/>
 		<text>Presentación y manejo de la Colección, y apertura de archivos.</text>
 		<newline gap="10"/>
@@ -2138,7 +2138,7 @@
 		sub-carpeta localizada</text><text format="i"> adentro </text>
 		<text> estas carpetas. Por favor comparte estos en vez de los otros.</text>
 		<newline gap="8"/>
-		<text>Los archivos de PeerProject de la carpeta 'incomplete' no deben ser compartidos en Mi Colección,
+		<text>Los archivos de PeerProject de la carpeta 'incomplete' no deben ser compartidos en mi Colección,
 		porque cuando trates de hacer el hashing process vas a tener problemás en el rendimiento.</text>
 	</document>
 </documents>
@@ -2245,14 +2245,14 @@
 	<tip id="ID_HOSTCACHE_IMPORT" message="Importa una lista de servidores conocidos de un archivo &quot;server.met&quot; archivo..."/>
 	<tip id="ID_HOSTCACHE_PRIORITY" message="Conectar primero a este servidor."/>
 	<tip id="ID_HOSTCACHE_REMOVE" message="Elimina los usuarios seleccionados del cache."/>
-	<tip id="ID_LIBRARY_ADD" message="Agregar una nueva carpeta a Mi Colección..."/>
+	<tip id="ID_LIBRARY_ADD" message="Agregar una nueva carpeta a mi Colección..."/>
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Borrar la carpeta virtual o album."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Abrir la carpeta o album seleccionado."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="Ver o editar propiedades..."/>
 	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Adquirir la metadata de Bitzi(TM)..."/>
 	<tip id="ID_LIBRARY_BITZI_WEB" message="Ver el reporte de Bitzi(TM) en la web."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Seleccionar las columnas de metadata a mostrar..."/>
-	<tip id="ID_LIBRARY_COPY" message="Copiar archivos seleccionados a otra carpeta de Mi Colección..."/>
+	<tip id="ID_LIBRARY_COPY" message="Copiar archivos seleccionados a otra carpeta de Colección..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Crear un .torrent para este archivo y subirlo a una web."/>
 	<tip id="ID_LIBRARY_DELETE" message="Borrar de forma permanente."/>
 	<tip id="ID_LIBRARY_ENQUEUE" message="Agregar al reproductor de media."/>
@@ -2264,34 +2264,34 @@
 	<tip id="ID_LIBRARY_FOLDER_METADATA" message="Aplicar metadata de la carpeta a todos los archivos."/>
 	<tip id="ID_LIBRARY_FOLDER_NEW" message="Crear nuevo album/carpeta virtual..."/>
 	<tip id="ID_LIBRARY_FOLDER_PROPERTIES" message="Ver y editar propiedades del album/carpeta virtual..."/>
-	<tip id="ID_LIBRARY_FOLDERS" message="Manejar las carpetas físicas de Mi Colección..."/>
+	<tip id="ID_LIBRARY_FOLDERS" message="Manejar las carpetas físicas de mi Colección..."/>
 	<tip id="ID_LIBRARY_HASH_PRIORITY" message="Acelerar el proceso de escaneo."/>
 	<tip id="ID_LIBRARY_LAUNCH" message="Abrir o reproducir el archivo."/>
 	<tip id="ID_LIBRARY_MOVE" message="Mover archivos a otra carpeta..."/>
 	<tip id="ID_LIBRARY_PANEL" message="Mostrar u ocultar detalles."/>
 	<tip id="ID_LIBRARY_PARENT" message="Mover a la carpeta anterior."/>
 	<tip id="ID_LIBRARY_PROPERTIES" message="Ver y editar las propiedades del archivo..."/>
-	<tip id="ID_LIBRARY_REBUILD" message="Reconstruir Mi Colección, escaneandolo, y adquiriendo la metadata de nuevo."/>
+	<tip id="ID_LIBRARY_REBUILD" message="Reconstruir mi Colección, escaneandolo, y adquiriendo la metadata de nuevo."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Reconstrir metadata utilizando otro lenguaje."/>
-	<tip id="ID_LIBRARY_REFRESH" message="Actualizar la vista de Mi Colección."/>
-	<tip id="ID_LIBRARY_REMOVE" message="Eliminar esta carpeta de Mi Colección."/>
+	<tip id="ID_LIBRARY_REFRESH" message="Actualizar la vista de mi Colección."/>
+	<tip id="ID_LIBRARY_REMOVE" message="Eliminar esta carpeta de mi Colección."/>
 	<tip id="ID_LIBRARY_RENAME" message="Renombrar el archivo."/>
 	<tip id="ID_LIBRARY_SCAN" message="Escanear los cambios en los archivos/carpetas."/>
-	<tip id="ID_LIBRARY_SEARCH" message="Buscar en Mi Colección..."/>
-	<tip id="ID_LIBRARY_SEARCH_QUICK" message="Buscar archivos en Mi Colección..."/>
+	<tip id="ID_LIBRARY_SEARCH" message="Buscar en mi Colección..."/>
+	<tip id="ID_LIBRARY_SEARCH_QUICK" message="Buscar archivos en mi Colección..."/>
 	<tip id="ID_LIBRARY_SEED_TORRENT" message="Compartir torrent seleccionado en BitTorrent."/>
 	<tip id="ID_LIBRARY_SELECT_ALL" message="Seleccionar todas las carpetas."/>
 	<tip id="ID_LIBRARY_SHARED_FILE" message="Compartir o no compartir los archivos seleccionados."/>
 	<tip id="ID_LIBRARY_SHARED_FOLDER" message="Compartir o no compartir la carpeta seleccionada."/>
 	<tip id="ID_LIBRARY_TREE_PHYSICAL" message="Ver las carpetas físicas."/>
-	<tip id="ID_LIBRARY_TREE_VIRTUAL" message="Organizar Mi Colección con carpetas virtuales."/>
-	<tip id="ID_LIBRARY_UNLINK" message="Quita el album/carpeta de Mi Colección virtual, esto no borra los archivos."/>
+	<tip id="ID_LIBRARY_TREE_VIRTUAL" message="Organizar mi Colección con carpetas virtuales."/>
+	<tip id="ID_LIBRARY_UNLINK" message="Quita el album/carpeta de mi Colección virtual, esto no borra los archivos."/>
 	<tip id="ID_LIBRARY_URI" message="Copiar enlace(URI)..."/>
-	<tip id="ID_LIBRARY_VIEW" message="Vista de Mi Colección..."/>
+	<tip id="ID_LIBRARY_VIEW" message="Vista de Colección..."/>
 	<tip id="ID_LIBRARY_VIEW_ALBUM" message="Vista de album" tip="Vista de album"/>
 	<tip id="ID_LIBRARY_VIEW_COLLECTION" message="Mostrar en forma de colección." tip="Mostrar en forma de Colección"/>
 	<tip id="ID_LIBRARY_VIEW_DETAIL" message="Mostrar detalles" tip="Mostrar detalles"/>
-	<tip id="ID_LIBRARY_VIEW_HOME" message="Vista principal de Mi Colección" tip="Vista inicial de Mi Colección"/>
+	<tip id="ID_LIBRARY_VIEW_HOME" message="Vista principal de mi Colección" tip="Vista inicial de mi Colección"/>
 	<tip id="ID_LIBRARY_VIEW_ICON" message="Mostrar ficheros como iconos" tip="Ver en iconos"/>
 	<tip id="ID_LIBRARY_VIEW_LIST" message="Lista horizontal" tip="Ver en lista"/>
 	<tip id="ID_LIBRARY_VIEW_THUMBNAIL" message="Ver vistas previas pequeñas" tip="Vistas previas pequeñas"/>
@@ -2384,7 +2384,7 @@
 	<tip id="ID_TAB_CONNECT" message="Conectar o desconectar."/>
 	<tip id="ID_TAB_HELP" message="Ayuda sobre el uso de PeerProject."/>
 	<tip id="ID_TAB_HOME" message="Ir a la página de inicio"/>
-	<tip id="ID_TAB_LIBRARY" message="Ver Mi Colección Local."/>
+	<tip id="ID_TAB_LIBRARY" message="Ver Colección Local."/>
 	<tip id="ID_TAB_MEDIA" message="Ejecutar archivos de media."/>
 	<tip id="ID_TAB_NETWORK" message="Ver detalles de conexión."/>
 	<tip id="ID_TAB_SEARCH" message="Buscar archivos en la red."/>
@@ -2427,7 +2427,7 @@
 	<tip id="ID_VIEW_DOWNLOADS" message="Muestra u oculta la ventana de DESCARGAS."/>
 	<tip id="ID_VIEW_HELP" message="Mostrar u ocultar ventana de AYUDA."/>
 	<tip id="ID_VIEW_HOSTS" message="Muestra u oculta la memoria de usuarios (HOST CACHE)."/>
-	<tip id="ID_VIEW_LIBRARY" message="Muestra u oculta MI COLECCIÓN."/>
+	<tip id="ID_VIEW_LIBRARY" message="Muestra u oculta COLECCIÓN."/>
 	<tip id="ID_VIEW_MEDIA" message="Mostrar u ocultar el REPRODUCTOR."/>
 	<tip id="ID_VIEW_NEIGHBOURS" message="Mostrar u ocultar la pantalla de VECINOS."/>
 	<tip id="ID_VIEW_PACKETS" message="Muestra u oculta la HISTORIAL DE PAQUETES."/>
@@ -2469,7 +2469,7 @@
 	<string id="WINDOW_SEARCH" value="Buscar"/>
 	<string id="WINDOW_HITMONITOR" value="Monitor de resultados"/>
 	<string id="WINDOW_DOWNLOADS" value="Archivos descargando"/>
-	<string id="WINDOW_LIBRARY" value="Mi Colección"/>
+	<string id="WINDOW_LIBRARY" value="Colección"/>
 	<string id="WINDOW_UPLOADS" value="Archivos subiendo"/>
 	<string id="WINDOW_TRAFFIC" value="Gráfico"/>
 	<string id="WINDOW_CHAT" value="Chat"/>
@@ -2502,11 +2502,11 @@
 	<string id="8010" value="Esta es una versión pre-release de PeerProject, y el periodo de Beta Testing ha terminado.  Por favor descarga la versión completa de http://peerproject.org/."/>
 	<string id="8011" value="Cambiado de vista va a cerrar todas las ventanas que tienes abiertas.  ¿Deseas cambiar ahora?"/>
 	<string id="8012" value="Información Torrent"/>
-	<string id="8060" value="Modo Hub/Ultrapeer %lu en red(s).  %s en Mi Colección."/>
-	<string id="8061" value="Modo Ultrapeer en %lu vecino(s) .  %s en Mi Colección."/>
-	<string id="8062" value="Modo Hub %lu en red(s).  %s en Mi Colección."/>
-	<string id="8063" value="Conectado. %s en Mi Colección."/>
-	<string id="8064" value="Conectado a %lu vecino(s).  Tienes %s en Mi Colección."/>
+	<string id="8060" value="Modo Hub/Ultrapeer %lu en red(s).  %s en Colección."/>
+	<string id="8061" value="Modo Ultrapeer en %lu vecino(s) .  %s en Colección."/>
+	<string id="8062" value="Modo Hub %lu en red(s).  %s en Colección."/>
+	<string id="8063" value="Conectado. %s en Colección."/>
+	<string id="8064" value="Conectado a %lu vecino(s).  Tienes %s en Colección."/>
 	<string id="8065" value="Conectando a la red..."/>
 	<string id="8066" value="PeerProject no esta conectado a la red."/>
 	<string id="8067" value="%s entra : %s sale [D:%I64i/U:%I64i]"/>
@@ -2589,7 +2589,7 @@
 	<string id="8241" value="PeerProject esta verificando el archivo descargado:"/>
 	<string id="8243" value="Volumen Subido:"/>
 	<string id="8244" value="Nmero de análisis:"/>
-	<string id="8288" value="Explorando Mi Colección de PeerProject"/>
+	<string id="8288" value="Explorando Colección de PeerProject"/>
 	<string id="8289" value="Explorando "/>
 	<string id="8290" value="Explorando los contenidos de las carpetas %i "/>
 	<string id="8291" value="Carpetas Multiples"/>
@@ -2603,7 +2603,7 @@
 	<string id="8308" value="Tamaño"/>
 	<string id="8309" value="Fuente Parcial (%.2f%% disponible)"/>
 	<string id="8310" value="%i slots de subida, %i esperando en cola"/>
-	<string id="8311" value="Tu ya tienes este archivo en Mi Colección."/>
+	<string id="8311" value="Tu ya tienes este archivo en Colección."/>
 	<string id="8312" value="Tu ya tienes este archivo en tu lista de descarga."/>
 	<string id="8313" value="Este archivo parece spam."/>
 	<string id="8314" value="Tu has descargado y borrado este archivo."/>
@@ -2834,9 +2834,9 @@
 	<string id="16392" value="Haz click en Conectar, para empezar."/>
 	<string id="16393" value="El archivo &quot;%s&quot; falló la verificación, y puede no ser el correcto.  ¿Estás seguro(a) de abrirlo?"/>
 	<string id="16394" value="¿Quieres quitar el atributo de &quot;potencialmente inseguro&quot; de este archivo?"/>
-	<string id="16395" value="Tu carpeta de archivos descargados &quot;%s&quot; todavia no se encuentra en Mi Colección.\n\nIncluyendo tu carpeta de archivos descargados en Mi Colección hace más fácil ver y organizar tus nuevas descargas, y permite tomar las ventajas de las características avanzadas de PeerProject.orgo verificación de descarga y actualización automatica.  Poniendo los archivos descargados en Mi Colección no necesariamente requiere que los compartas: puedes Seleccionar si deseas o no compartir los archivos independientemente.\n\n¿Deseas agregar tu carpeta de descargas a Mi Colección ahora?"/>
-	<string id="16396" value="La carpeta de archivos descargados fué agregada a Mi Colección.  ¿Quieres compartirla también?"/>
-	<string id="16397" value="¿Estás seguro(a) de eliminar %i carpetas(s) virtuales con información sobre albums?\n\nEsto no elimina los archivos fisicamente del disco duro, solo elimina la carpeta seleccionada de Mi Colección."/>
+	<string id="16395" value="Tu carpeta de archivos descargados &quot;%s&quot; todavia no se encuentra en Colección.\n\nIncluyendo tu carpeta de archivos descargados en Colección hace más fácil ver y organizar tus nuevas descargas, y permite tomar las ventajas de las características avanzadas de PeerProject.orgo verificación de descarga y actualización automatica.  Poniendo los archivos descargados en Colección no necesariamente requiere que los compartas: puedes Seleccionar si deseas o no compartir los archivos independientemente.\n\n¿Deseas agregar tu carpeta de descargas a Colección ahora?"/>
+	<string id="16396" value="La carpeta de archivos descargados fué agregada a Colección.  ¿Quieres compartirla también?"/>
+	<string id="16397" value="¿Estás seguro(a) de eliminar %i carpetas(s) virtuales con información sobre albums?\n\nEsto no elimina los archivos fisicamente del disco duro, solo elimina la carpeta seleccionada de Colección."/>
 	<string id="16398" value="PeerProject no pudo renombrar:\n\n%s\nto\n%s"/>
 	<string id="16399" value="PeerProject no pudo eliminar:\n\n%s"/>
 	<string id="16400" value="El archivo:n%s Existe\n\¿Deseas reescribirlo?"/>
@@ -2849,7 +2849,7 @@
 	<string id="16407" value="¿Deseas prevenir que esta colección te pregunte si deseas descargar otra cosa de esta?"/>
 	<string id="16408" value="Copiar &amp;URI"/>
 	<string id="16409" value="Exportar &amp;URIs..."/>
-	<string id="16410" value="Una subcarpeta de la carpeta seleccionada &quot;%s&quot; forma parte de Mi Colección. \nAñadir esta carpeta causará la refusión de algunos ficheros. \n\n¿Quieres continuar?"/>
+	<string id="16410" value="Una subcarpeta de la carpeta seleccionada &quot;%s&quot; forma parte de Colección. \nAñadir esta carpeta causará la refusión de algunos ficheros. \n\n¿Quieres continuar?"/>
 	<string id="16411" value="Incapaz de mover el archivo %s. El archivo puede estar en uso por otra aplicación. n\n ¿En lugar de esto, deseas intentar copiar este archivo?"/>
 	<string id="16412" value="Huella del archivo (Ghost File)"/>
 	<string id="16448" value="Conectando a %s, negociando sesión(handshaking)..."/>
@@ -2891,7 +2891,7 @@
 	<string id="16768" value="URL &quot;%s&quot; recibida"/>
 	<string id="16769" value="PeerProject no entendió el URL."/>
 	<string id="16770" value="La ventana de URL no pudo ser mostrada, PeerProject está ocupado."/>
-	<string id="16771" value="El archivo &quot;%s&quot; ya está en Mi Colección.  ¿Quieres descagarlo de todos modos?"/>
+	<string id="16771" value="El archivo &quot;%s&quot; ya está en Colección.  ¿Quieres descagarlo de todos modos?"/>
 	<string id="16772" value="Host:"/>
 	<string id="16773" value="Puerto:"/>
 	<string id="16774" value="&amp;Conectar"/>
@@ -2923,8 +2923,8 @@
 	<string id="16815" value="El servicio de red para Dispositivo UPnP no está ejecutado. Este servicio es requerido completar la configuración.\nNecesitas completar el inicio del servicio como automático."/>
 	<string id="16816" value="La red eDonkey utiliza largas colas con tiempos largos de espera. Limitando la posición máxima de cola de espera,puede que te de problemas para iniciar las descargas.\nEstas seguro que deseas limitar las posiciones de cola que vas a aceptar?"/>
 	<string id="16817" value="Windows no soporta nombres más grandes que 256 caracteres.\nPor favor, selecciona un nombre con un tamaño más pequeño."/>
-	<string id="16818" value="La carpeta de archivos incompletos no debe de estar en Mi Colección, porque reduce velocidad. Archivos incompletos pueden ser compartidos directamente de la ventana de transferencias."/>
-	<string id="16819" value="Una subcarpeta de la carpeta seleccionada &quot;%s&quot; ya es parte de Mi Colección. \n\nDeseas agregar la carpeta seleccionada a Mi colección?\n\n La carpeta existente va a ser una subcarpeta de la nueva carpeta. Esto va a causar refusión de todos los archivos en esta carpeta."/>
+	<string id="16818" value="La carpeta de archivos incompletos no debe de estar en Colección, porque reduce velocidad. Archivos incompletos pueden ser compartidos directamente de la ventana de transferencias."/>
+	<string id="16819" value="Una subcarpeta de la carpeta seleccionada &quot;%s&quot; ya es parte de Colección. \n\nDeseas agregar la carpeta seleccionada a Colección?\n\n La carpeta existente va a ser una subcarpeta de la nueva carpeta. Esto va a causar refusión de todos los archivos en esta carpeta."/>
 	<string id="16864" value="Accesando servicios de descubrimiento..."/>
 	<string id="16865" value="Accesando el servicio de descubrimiento en &quot;%s&quot;..."/>
 	<string id="16866" value="Transacción con el GWebCache (&quot;%s&quot;) fué completada."/>
@@ -2947,7 +2947,7 @@
 	<string id="16941" value="Cerrando exploración del usuario %s por falta de tráfico."/>
 	<string id="16942" value="Cerrando exploración del usuario %s."/>
 	<string id="16943" value="Explorando usuario %s"/>
-	<string id="16944" value="Encontrados %i archivos compartidos en Mi Colección de %s."/>
+	<string id="16944" value="Encontrados %i archivos compartidos en Colección de %s."/>
 	<string id="16991" value="Reproductor de PeerProject"/>
 	<string id="16992" value="PeerProject no pudo iniciar los servicios de reproducción. Por favor reinstale PeerProject, y confirme que tiene todos los codecs, filtros y controladores necesarios.."/>
 	<string id="16993" value="Todos los archivos de Media|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
@@ -3061,7 +3061,7 @@
 	<string id="17491" value="El torrent &quot;%s&quot; ya está en la lista de descargas, y no puede ser agregado de nuevo como Compartido."/>
 	<string id="17492" value="Error cargando el torrent &quot;%s&quot;.  Puede que no sea un torrent válido."/>
 	<string id="17493" value="No se pudo crear el archivo para compartir el torrent &quot;%s&quot;."/>
-	<string id="17494" value="Este torrent incluye el archivo &quot;%s&quot;, pero PeerProject no lo pudo encontrar en Mi Colección. Mueva todos los archivos correspondientes al torrent a la misma carpeta compartida e intentalo de nuevo."/>
+	<string id="17494" value="Este torrent incluye el archivo &quot;%s&quot;, pero PeerProject no lo pudo encontrar en Colección. Mueva todos los archivos correspondientes al torrent a la misma carpeta compartida e intentalo de nuevo."/>
 	<string id="17495" value="Este torrent incluye el archivo &quot;%s&quot; que debería ser %s, pero tu versión del archivo es %s."/>
 	<string id="17496" value="Hubo un error copiando de &quot;%s&quot; al archivo de compartir torrents."/>
 	<string id="17497" value="Hubo un error inesperado compartiendo el archivo &quot;%s&quot;."/>
@@ -3211,10 +3211,10 @@
 		<control caption="Cuando hago click minimizar:"/>
 		<control caption="Normal|Minimizar barra de tareas"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Mi Colección">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Colección">
 		<control caption="_Opciones:"/>
 		<control caption="Recordar vistas de carpetas"/>
-		<control caption="Ver carpetas de Mi Colección"/>
+		<control caption="Ver carpetas de Colección"/>
 		<control caption="Hashing rápido (Utiliza más CPU)"/>
 		<control caption="Permitir exploración de usuario"/>
 		<control caption="Archivos _Recientes:"/>
@@ -3740,7 +3740,7 @@
 	</dialog>
 	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Archivos">
 		<control caption="Archivos _favoritos:"/>
-		<control caption="Estos son recomendados, cuando los usuarios exploran Mi Colección.  Los puedes crear agregandolos a la carpeta de &quot;Favoritos&quot; en Mi Colección."/>
+		<control caption="Estos son recomendados, cuando los usuarios exploran Colección.  Los puedes crear agregandolos a la carpeta de &quot;Favoritos&quot; en Colección."/>
 		<control/>
 	</dialog>
 	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certificado">
@@ -3775,7 +3775,7 @@
 		<control caption="PeerProject también puede descargar y compartir archivos de BitTorrent. Los torrent pueden ser un archivo o un URL(link HTTP). Para decargarlo de un enlace, póngalo en el recuadro anterior. Si ya tienes el archivo del torrent, haz click en Abrir Torrent:"/>
 		<control caption="Abrir _Torrent..."/>
 	</dialog>
-	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Buscar|Buscar de nuevo|Buscar en Mi Colección">
+	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Buscar|Buscar de nuevo|Buscar en Colección">
 		<control/>
 		<control/>
 		<control caption="Buscar"/>
@@ -3844,7 +3844,7 @@
 		<control caption="..."/>
 		<control caption="Cerrar esta ventana al finalizar"/>
 		<control caption="Abrir archivo"/>
-		<control caption="Ver Mi Colección"/>
+		<control caption="Ver mi Colección"/>
 		<control caption="Cancelar transferencia"/>
 		<control caption="Ocultar"/>
 	</dialog>
@@ -3994,9 +3994,9 @@
 		<control caption="Aceptar"/>
 		<control caption="Cancelar"/>
 	</dialog>
-	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Manejador de carpetas en Mi Colección">
+	<dialog name="CShareManagerDlg" cookie="StStSyBuBuBuBu" caption="Manejador de carpetas en Colección">
 		<control/>
-		<control caption="Esta es la lista de carpetas en Mi Colección.  Puedes agregar o quitar carpetas usando los botones en la derecha. Cuando añadas una nueva carpeta va a ser inicialmente compartida con los usuarios, puedes descompartirla desde Mis Colecciones"/>
+		<control caption="Esta es la lista de carpetas en Colección.  Puedes agregar o quitar carpetas usando los botones en la derecha. Cuando añadas una nueva carpeta va a ser inicialmente compartida con los usuarios, puedes descompartirla desde Mis Colecciones"/>
 		<control/>
 		<control caption="_Agregar..."/>
 		<control caption="_Quitar"/>
@@ -4083,8 +4083,8 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Este archivo ya está en Mi Colección.  ¿Qué quiere hacer?"/>
-		<control caption="Ubicarlo en Mi Colección"/>
+		<control caption="Este archivo ya está en Colección.  ¿Qué quiere hacer?"/>
+		<control caption="Ubicarlo en Colección"/>
 		<control caption="Descargarlo de nuevo"/>
 		<control caption="Nada, dejar el archivo original"/>
 		<control caption="Continuar"/>

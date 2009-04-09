@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Mexican Spanish Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.xxxx -->
+<!-- Translation based on default-en.xml Shareaza 2.2.3.3 -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -19,7 +19,7 @@
 		description="PeerProject Default Mexican Spanish Skin File"
 		link="http://PeerProject.org/"
 		email="luis.help(at)gmail.com"
-		version="2.2.3.3"
+		version="1.0.0.0"
 		type="Language"
 		language="es-mx"
 		prompt="Seleccione aquí para usar PeerProject en Español Mexicano"
@@ -229,8 +229,8 @@
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Crear Album..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Borrar Album"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Buscar:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Buscar"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Detalles"/>
 	</toolbar>
@@ -255,8 +255,8 @@
 		<button id="ID_LIBRARY_COPY" text="Copiar"/>
 		<button id="ID_LIBRARY_DELETE" text="Eliminar"/>
 		<rightAlign/>
+		<button id="ID_LIBRARY_SEARCH_QUICK" text="Buscar:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
-		<button id="ID_LIBRARY_SEARCH_QUICK" text="Buscar"/>
 		<separator/>
 		<button id="ID_LIBRARY_PANEL" text="Detalles"/>
 	</toolbar>
@@ -469,7 +469,7 @@
 		</menu>
 		<menu text="_Ver">
 			<item id="ID_TAB_HOME" text="_Inicio"/>
-			<item id="ID_TAB_LIBRARY" text="_Mi Colección"/>
+			<item id="ID_TAB_LIBRARY" text="_Colección"/>
 			<item id="ID_TAB_MEDIA" text="_Reproductor"/>
 			<item id="ID_TAB_SEARCH" text="_Búsqueda"/>
 			<item id="ID_TAB_TRANSFERS" text="_Descargas"/>
@@ -541,7 +541,7 @@
 		</menu>
 		<menu text="_Ver">
 			<item id="ID_TAB_HOME" text="_Inicio"/>
-			<item id="ID_TAB_LIBRARY" text="_Mi Colección"/>
+			<item id="ID_TAB_LIBRARY" text="_Colección"/>
 			<item id="ID_TAB_MEDIA" text="_Media Player"/>
 			<item id="ID_TAB_SEARCH" text="_Búsqueda"/>
 			<item id="ID_TAB_TRANSFERS" text="_Transferencias"/>
@@ -642,7 +642,7 @@
 			<item id="ID_VIEW_NEIGHBOURS" text="_Red" shortcut="Ctrl+F11"/>
 			<item id="ID_VIEW_DOWNLOADS" text="_Descargas" shortcut="F3"/>
 			<item id="ID_VIEW_UPLOADS" text="_Subidas" shortcut="F4"/>
-			<item id="ID_VIEW_LIBRARY" text="_Mi Colección" shortcut="F5"/>
+			<item id="ID_VIEW_LIBRARY" text="_Colección" shortcut="F5"/>
 			<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="_Seguridad" shortcut="F7"/>
@@ -713,7 +713,7 @@
 	<!-- VIEW POPUP -->
 	<menu name="CMainWnd.View.Basic">
 		<item id="ID_TAB_HOME" text="_Inicio"/>
-		<item id="ID_TAB_LIBRARY" text="_Mi Colección"/>
+		<item id="ID_TAB_LIBRARY" text="_Colección"/>
 		<item id="ID_TAB_MEDIA" text="_Media"/>
 		<item id="ID_TAB_SEARCH" text="_Busqueda"/>
 		<item id="ID_TAB_TRANSFERS" text="_Descargas"/>
@@ -727,7 +727,7 @@
 	</menu>
 	<menu name="CMainWnd.View.Tabbed">
 		<item id="ID_TAB_HOME" text="_Inicio"/>
-		<item id="ID_TAB_LIBRARY" text="_Mi Colección"/>
+		<item id="ID_TAB_LIBRARY" text="_Colección"/>
 		<item id="ID_TAB_MEDIA" text="_Reproductor"/>
 		<item id="ID_TAB_SEARCH" text="_Buscar"/>
 		<item id="ID_TAB_TRANSFERS" text="_Transferencias"/>
@@ -749,7 +749,7 @@
 		<item id="ID_VIEW_NEIGHBOURS" text="R_ed"/>
 		<item id="ID_VIEW_DOWNLOADS" text="_Descargas"/>
 		<item id="ID_VIEW_UPLOADS" text="_Subidas"/>
-		<item id="ID_VIEW_LIBRARY" text="_Mi Colección"/>
+		<item id="ID_VIEW_LIBRARY" text="_Colección"/>
 		<item id="ID_VIEW_MEDIA" text="_Reproductor de Media"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_guridad" shortcut="F7"/>
@@ -764,7 +764,7 @@
 	<!-- HOME MENU -->
 	<menu name="CHomeWnd.Basic">
 		<item id="ID_TAB_HOME" text="_Inicio"/>
-		<item id="ID_TAB_LIBRARY" text="Mi Colección"/>
+		<item id="ID_TAB_LIBRARY" text="Colección"/>
 		<item id="ID_TAB_MEDIA" text="_Reproductor"/>
 		<item id="ID_TAB_SEARCH" text="B_uscar"/>
 		<item id="ID_TAB_TRANSFERS" text="_Descargas"/>
@@ -778,7 +778,7 @@
 	</menu>
 	<menu name="CHomeWnd.Tabbed">
 		<item id="ID_TAB_HOME" text="_Inicio"/>
-		<item id="ID_TAB_LIBRARY" text="_Mi Colección"/>
+		<item id="ID_TAB_LIBRARY" text="_Colección"/>
 		<item id="ID_TAB_MEDIA" text="_Media"/>
 		<item id="ID_TAB_SEARCH" text="_Busqueda"/>
 		<item id="ID_TAB_TRANSFERS" text="_Transferencias"/>
@@ -806,7 +806,7 @@
 			<item id="ID_HOSTCACHE_G2_HORIZON" text="Gnutella2 Cl_uster"/>
 			<item id="ID_HOSTCACHE_G2_CACHE" text="Gnutella_2 Cache"/>
 			<item id="ID_HOSTCACHE_G1_CACHE" text="Gnutella_1 Cache"/>
-			<item id="ID_HOSTCACHE_ED2K_CACHE" text="_Servidores eDonkey2000"/>
+			<item id="ID_HOSTCACHE_ED2K_CACHE" text="_Servidores eDonkey"/>
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Importar Archivo MET..."/>
@@ -1504,13 +1504,19 @@
 			<icon res="130" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">CONECTATE</heading>
 			<newline gap="8" indent="42"/>
-			<text>Bienvenido a PeerProject! &#160;No has seleccionado ninguna Red Peer to Peer. &#160;</text>
+			<text>Bienvenido a PeerProject. &#160;No has seleccionado ninguna Red Peer to Peer. &#160;</text>
 			<link target="peer:command:ID_NETWORK_CONNECT">¡Haz Click Aquí Para Empezar!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="134" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">BUSCAR EN PEERPROJECT</heading>
+			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<heading align="middle">INICIAR DESCARGA</heading>
+			<newline gap="8" indent="42"/>
+			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Pincha aquí para empezar</link>
+			<text align="middle">&#160; descargando un nuevo archivo o torrent.</text>
+			<newline gap="24" indent="0"/>
+			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<heading align="middle">BUSCAR UN FICHERO</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
@@ -2119,7 +2125,7 @@
 	</document>
 	<!-- Share help documents -->
 	<document name="ShareHelp.AlreadyShared">
-		<text format="b">Already Shared</text>
+		<text format="b">Esta siendo compartida</text>
 		<newline gap="8"/>
 		<text>Esta carpeta que has seleccionaste ya esta compartido.</text>
 		<newline gap="8"/>
@@ -3840,7 +3846,7 @@
 		<control caption="..."/>
 		<control caption="Cerrar esta ventana al finalizar"/>
 		<control caption="Abrir archivo"/>
-		<control caption="Ver Mi Colección"/>
+		<control caption="Ver mi Colección"/>
 		<control caption="Cancelar transferencia"/>
 		<control caption="Ocultar"/>
 	</dialog>
@@ -4207,7 +4213,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="_Informacin de Torrent:"/>
+		<control caption="_Información de Torrent:"/>
 		<control caption="Nombre:"/>
 		<control/>
 		<control caption="Tracker:"/>
