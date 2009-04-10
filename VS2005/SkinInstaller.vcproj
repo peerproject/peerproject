@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(SolutionDir)..\zlib"
+				AdditionalIncludeDirectories="$(SolutionDir)..\Services\zlib"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;ZLIB_WINAPI;ZLIB_DLL;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -128,7 +128,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(SolutionDir)..\zlib"
+				AdditionalIncludeDirectories="$(SolutionDir)..\Services\zlib"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;ZLIB_WINAPI;ZLIB_DLL;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -212,7 +212,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(SolutionDir)..\zlib"
+				AdditionalIncludeDirectories="$(SolutionDir)..\Services\zlib"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;ZLIB_WINAPI;ZLIB_DLL;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				RuntimeLibrary="2"
@@ -298,7 +298,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(SolutionDir)..\zlib"
+				AdditionalIncludeDirectories="$(SolutionDir)..\Services\zlib"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;ZLIB_WINAPI;ZLIB_DLL;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				RuntimeLibrary="2"

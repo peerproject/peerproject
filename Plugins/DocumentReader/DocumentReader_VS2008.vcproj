@@ -51,7 +51,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(InputDir);../../zlib"
+				AdditionalIncludeDirectories="$(InputDir);../../Services/zlib"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;ZLIB_DLL;ZLIB_WINAPI"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -76,7 +76,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\zlib"
+				AdditionalLibraryDirectories="..\..\Services\zlib"
 				ModuleDefinitionFile="DocumentReader.def"
 				GenerateDebugInformation="true"
 				BaseAddress="0x22000000"
@@ -104,7 +104,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\..\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -140,7 +140,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(InputDir);../../zlib"
+				AdditionalIncludeDirectories="$(InputDir);../../Services/zlib"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_USRDLL;ZLIB_DLL;ZLIB_WINAPI"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -164,7 +164,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\zlib"
+				AdditionalLibraryDirectories="..\..\Services\zlib"
 				ModuleDefinitionFile="DocumentReader.def"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
@@ -191,7 +191,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\..\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -233,7 +233,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="$(InputDir);../../zlib"
+				AdditionalIncludeDirectories="$(InputDir);../../Services/zlib"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;ZLIB_DLL;ZLIB_WINAPI"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -257,7 +257,7 @@
 				IgnoreImportLibrary="true"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\zlib"
+				AdditionalLibraryDirectories="..\..\Services\zlib"
 				IgnoreDefaultLibraryNames=""
 				ModuleDefinitionFile="DocumentReader.def"
 				SubSystem="2"
@@ -289,7 +289,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\..\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -332,7 +332,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="$(InputDir);../../zlib"
+				AdditionalIncludeDirectories="$(InputDir);../../Services/zlib"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_USRDLL;ZLIB_DLL;ZLIB_WINAPI"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -356,7 +356,7 @@
 				IgnoreImportLibrary="true"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\zlib"
+				AdditionalLibraryDirectories="..\..\Services\zlib"
 				IgnoreDefaultLibraryNames=""
 				ModuleDefinitionFile="DocumentReader.def"
 				SubSystem="2"
@@ -387,7 +387,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\..\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -400,31 +400,31 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\ClassFactory.cpp"
+				RelativePath="ClassFactory.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\CoreUtils.cpp"
+				RelativePath="CoreUtils.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DocReader.cpp"
+				RelativePath="DocReader.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DocumentReader.cpp"
+				RelativePath="DocumentReader.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DocumentReader.def"
+				RelativePath="DocumentReader.def"
 				>
 			</File>
 			<File
-				RelativePath=".\DocumentReader.idl"
+				RelativePath="DocumentReader.idl"
 				>
 			</File>
 			<File
-				RelativePath=".\PropItem.cpp"
+				RelativePath="PropItem.cpp"
 				>
 			</File>
 			<File
@@ -468,7 +468,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\stdafx.cpp"
+				RelativePath="stdafx.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -510,23 +510,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\DocReader.h"
+				RelativePath="DocReader.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Globals.h"
+				RelativePath="Globals.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Palette.h"
+				RelativePath="Palette.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Resource.h"
+				RelativePath="Resource.h"
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.h"
+				RelativePath="stdafx.h"
 				>
 			</File>
 		</Filter>
@@ -536,15 +536,15 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\DocReader.rgs"
+				RelativePath="DocReader.rgs"
 				>
 			</File>
 			<File
-				RelativePath=".\DocumentReader.rc"
+				RelativePath="DocumentReader.rc"
 				>
 			</File>
 			<File
-				RelativePath=".\DocumentReader.rgs"
+				RelativePath="DocumentReader.rgs"
 				>
 			</File>
 		</Filter>
@@ -552,7 +552,7 @@
 			Name="Generated Files"
 			>
 			<File
-				RelativePath=".\DocumentReader_i.c"
+				RelativePath="DocumentReader_i.c"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"

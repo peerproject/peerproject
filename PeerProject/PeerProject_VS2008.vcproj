@@ -31,7 +31,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Copy zlib DLL, HashLib DLL, SQLite DLL..."
-				CommandLine="copy /b /y &quot;..zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -52,7 +52,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Wall"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\zlib"
+				AdditionalIncludeDirectories="..\Services;..\zlib"
 				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -123,7 +123,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Copy zlib DLL, HashLib DLL, SQLite DLL..."
-				CommandLine="copy /b /y &quot;..zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -145,7 +145,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Wall"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\zlib"
+				AdditionalIncludeDirectories="..\Services;..\zlib"
 				PreprocessorDefinitions="_DEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -217,7 +217,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Copy zlib DLL, HashLib DLL, SQLite DLL..."
-				CommandLine="copy /b /y &quot;..zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -243,7 +243,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="..\zlib"
+				AdditionalIncludeDirectories="..\Services;..\zlib"
 				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_PEERPROJECT;PEERPROJECT_USE_ASM;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -315,7 +315,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Copy zlib DLL, HashLib DLL, SQLite DLL..."
-				CommandLine="copy /b /y &quot;..zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -342,7 +342,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="..\zlib"
+				AdditionalIncludeDirectories="..\Services;..\zlib"
 				PreprocessorDefinitions="NDEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -1185,7 +1185,7 @@
 				Name="zlib"
 				>
 				<File
-					RelativePath="..\zlib\adler32.c"
+					RelativePath="..\Services\zlib\adler32.c"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -1241,7 +1241,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\zlib\compress.c"
+					RelativePath="..\Services\zlib\compress.c"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -1297,7 +1297,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\zlib\crc32.c"
+					RelativePath="..\Services\zlib\crc32.c"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -1353,7 +1353,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\zlib\deflate.c"
+					RelativePath="..\Services\zlib\deflate.c"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -1409,7 +1409,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\zlib\infback.c"
+					RelativePath="..\Services\zlib\infback.c"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -1465,7 +1465,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\zlib\inffast.c"
+					RelativePath="..\Services\zlib\inffast.c"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -1521,7 +1521,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\zlib\inflate.c"
+					RelativePath="..\Services\zlib\inflate.c"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -1577,7 +1577,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\zlib\inftrees.c"
+					RelativePath="..\Services\zlib\inftrees.c"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -1633,7 +1633,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\zlib\trees.c"
+					RelativePath="..\Services\zlib\trees.c"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -1689,7 +1689,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\zlib\uncompr.c"
+					RelativePath="..\Services\zlib\uncompr.c"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -1745,7 +1745,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\zlib\zutil.c"
+					RelativePath="..\Services\zlib\zutil.c"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -3379,43 +3379,43 @@
 				Name="zlib"
 				>
 				<File
-					RelativePath="..\zlib\crc32.h"
+					RelativePath="..\Services\zlib\crc32.h"
 					>
 				</File>
 				<File
-					RelativePath="..\zlib\deflate.h"
+					RelativePath="..\Services\zlib\deflate.h"
 					>
 				</File>
 				<File
-					RelativePath="..\zlib\inffast.h"
+					RelativePath="..\Services\zlib\inffast.h"
 					>
 				</File>
 				<File
-					RelativePath="..\zlib\inffixed.h"
+					RelativePath="..\Services\zlib\inffixed.h"
 					>
 				</File>
 				<File
-					RelativePath="..\zlib\inflate.h"
+					RelativePath="..\Services\zlib\inflate.h"
 					>
 				</File>
 				<File
-					RelativePath="..\zlib\inftrees.h"
+					RelativePath="..\Services\zlib\inftrees.h"
 					>
 				</File>
 				<File
-					RelativePath="..\zlib\trees.h"
+					RelativePath="..\Services\zlib\trees.h"
 					>
 				</File>
 				<File
-					RelativePath="..\zlib\zconf.h"
+					RelativePath="..\Services\zlib\zconf.h"
 					>
 				</File>
 				<File
-					RelativePath="..\zlib\zlib.h"
+					RelativePath="..\Services\zlib\zlib.h"
 					>
 				</File>
 				<File
-					RelativePath="..\zlib\zutil.h"
+					RelativePath="..\Services\zlib\zutil.h"
 					>
 				</File>
 			</Filter>

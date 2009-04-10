@@ -49,6 +49,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="$(SolutionDir)..\Services"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_SCL_SECURE_NO_WARNINGS;HASHLIB_EXPORTS;HASHLIB_USE_ASM"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -133,6 +134,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="$(SolutionDir)..\Services"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_USRDLL;_SCL_SECURE_NO_WARNINGS;HASHLIB_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -218,6 +220,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="$(SolutionDir)..\Services"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_SCL_SECURE_NO_WARNINGS;HASHLIB_EXPORTS;HASHLIB_USE_ASM"
 				MinimalRebuild="true"
 				RuntimeLibrary="2"
@@ -303,6 +306,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="$(SolutionDir)..\Services"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_USRDLL;_SCL_SECURE_NO_WARNINGS;HASHLIB_EXPORTS"
 				MinimalRebuild="true"
 				RuntimeLibrary="2"

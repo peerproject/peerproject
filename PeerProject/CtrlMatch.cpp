@@ -1672,15 +1672,15 @@ void CMatchCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 	}
 	else
 	{
-		CMatchFile* pFile	= NULL;
+	/*	CMatchFile* pFile	= NULL;
 		CQueryHit* pHit		= NULL;
 		CRect rcItem;
 		
-	//	if ( HitTest( point, &pFile, &pHit, NULL, &rcItem ) )
-	//	{
-	//		// ToDo: Check if its on an action icon and take the appropriate action
-	//	}
-		
+		if ( HitTest( point, &pFile, &pHit, NULL, &rcItem ) )
+		{
+			// ToDo: Check if its on an action icon and take the appropriate action
+		}
+	*/		
 		GetOwner()->PostMessage( WM_COMMAND, ID_SEARCH_DOWNLOAD );
 	}
 }

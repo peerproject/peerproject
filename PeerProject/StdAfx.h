@@ -192,33 +192,33 @@
 	#define BOOST_MEM_FN_ENABLE_STDCALL 1
 #endif
 
-#include <boost/cstdint.hpp>
-#include <boost/bind.hpp>
-#include <boost/bind/placeholders.hpp>
-#include <boost/type_traits.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/utility.hpp>
-#include <boost/array.hpp>
-#include <boost/ptr_container/ptr_list.hpp>
-#include <boost/checked_delete.hpp>
+#include <Boost/cstdint.hpp>
+#include <Boost/bind.hpp>
+#include <Boost/bind/placeholders.hpp>
+#include <Boost/type_traits.hpp>
+#include <Boost/shared_ptr.hpp>
+#include <Boost/utility.hpp>
+#include <Boost/array.hpp>
+#include <Boost/ptr_container/ptr_list.hpp>
+#include <Boost/checked_delete.hpp>
 
 //
 // Standard headers
 //
 
-#include "../zlib/zlib.h"
+#include <zlib/zlib.h>
 
 #include "RegExp/regexpr2.h"
 
 #include "MinMax.hpp"
 
-#if _MSC_VER >= 1500				// Work-around for VC9 where a (pop) is
-	#pragma warning( pop )			// ifdef'd out in stdio.h
+#if _MSC_VER >= 1500				// Work-around for VC9 where
+	#pragma warning( pop )			// a (pop) is ifdef'd out in stdio.h
 #endif
 
 #pragma warning( pop )				// Restore warnings
 
-#include "augment/augment.hpp"
+#include "Augment/augment.hpp"
 using augment::implicit_cast;
 using augment::auto_ptr;
 using augment::auto_array;
