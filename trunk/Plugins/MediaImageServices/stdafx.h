@@ -39,13 +39,20 @@
 
 #pragma warning( push, 0 )
 
-#include "resource.h"
+#include "Resource.h"
 #include <atlbase.h>
 #include <atlcom.h>
 #include <atlstr.h>
 #include <dshow.h>
-#include <qedit.h>
 #include <amvideo.h>
+
+//qedit.h workaround for missing dxtrans.h  
+#pragma include_alias( "dxtrans.h", "qedit.h" )
+#define __IDxtCompositor_INTERFACE_DEFINED__
+#define __IDxtAlphaSetter_INTERFACE_DEFINED__
+#define __IDxtJpeg_INTERFACE_DEFINED__
+#define __IDxtKey_INTERFACE_DEFINED__
+#include <qedit.h>
 
 using namespace ATL;
 

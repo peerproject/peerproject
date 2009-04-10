@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../zlib"
+				AdditionalIncludeDirectories="../Services/zlib"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;NOCRYPT;ZLIB_DLL;ZLIB_WINAPI;_CRT_SECURE_NO_DEPRECATE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -67,7 +67,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="comctl32.lib"
-				AdditionalLibraryDirectories="..\zlib"
+				AdditionalLibraryDirectories="..\Services\zlib"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				TargetMachine="1"
@@ -95,7 +95,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -125,7 +125,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../zlib"
+				AdditionalIncludeDirectories="../Services/zlib"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;NOCRYPT;ZLIB_DLL;ZLIB_WINAPI;_CRT_SECURE_NO_DEPRECATE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -147,7 +147,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="comctl32.lib"
-				AdditionalLibraryDirectories="..\zlib"
+				AdditionalLibraryDirectories="..\Services\zlib"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				TargetMachine="17"
@@ -174,7 +174,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -209,7 +209,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="../zlib"
+				AdditionalIncludeDirectories="../Services/zlib"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;NOCRYPT;ZLIB_DLL;ZLIB_WINAPI;_CRT_SECURE_NO_DEPRECATE"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -230,7 +230,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="comctl32.lib"
-				AdditionalLibraryDirectories="..\zlib"
+				AdditionalLibraryDirectories="..\Services\zlib"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -261,7 +261,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -297,7 +297,7 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
-				AdditionalIncludeDirectories="../zlib"
+				AdditionalIncludeDirectories="../Services/zlib"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;NOCRYPT;ZLIB_DLL;ZLIB_WINAPI;_CRT_SECURE_NO_DEPRECATE"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -318,7 +318,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="comctl32.lib"
-				AdditionalLibraryDirectories="..\zlib"
+				AdditionalLibraryDirectories="..\Services\zlib"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -348,7 +348,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -361,23 +361,23 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\SkinInstaller\Extract.c"
+				RelativePath="Extract.c"
 				>
 			</File>
 			<File
-				RelativePath="..\SkinInstaller\Registry.c"
+				RelativePath="Registry.c"
 				>
 			</File>
 			<File
-				RelativePath="..\SkinInstaller\Skin.c"
+				RelativePath="Skin.c"
 				>
 			</File>
 			<File
-				RelativePath="..\SkinInstaller\Utils.c"
+				RelativePath="Utils.c"
 				>
 			</File>
 			<File
-				RelativePath="..\SkinInstaller\Window.c"
+				RelativePath="Window.c"
 				>
 			</File>
 		</Filter>
@@ -387,15 +387,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\SkinInstaller\Resource.h"
+				RelativePath="Resource.h"
 				>
 			</File>
 			<File
-				RelativePath="..\SkinInstaller\Resrc1.h"
+				RelativePath="Resrc1.h"
 				>
 			</File>
 			<File
-				RelativePath="..\SkinInstaller\Skin.h"
+				RelativePath="Skin.h"
 				>
 			</File>
 		</Filter>
@@ -405,24 +405,24 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath="..\SkinInstaller\Resource.rc"
+				RelativePath="Resource.rc"
 				>
 			</File>
 			<File
-				RelativePath="..\SkinInstaller\Res\PeerProject.ico"
+				RelativePath="Res\PeerProject.ico"
 				>
 			</File>
 			<File
-				RelativePath="..\SkinInstaller\Res\Skin.ico"
+				RelativePath="Res\Skin.ico"
 				>
 			</File>
 			<File
-				RelativePath="..\SkinInstaller\Res\Wizard.bmp"
+				RelativePath="Res\Wizard.bmp"
 				>
 			</File>
 		</Filter>
 		<File
-			RelativePath="..\SkinInstaller\Readme.txt"
+			RelativePath="Readme.txt"
 			>
 		</File>
 	</Files>

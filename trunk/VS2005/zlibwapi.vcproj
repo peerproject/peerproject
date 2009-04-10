@@ -71,7 +71,7 @@
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)$(ProjectName).dll"
 				GenerateManifest="false"
-				ModuleDefinitionFile="&quot;$(SolutionDir)..\zlib\zlib.def&quot;"
+				ModuleDefinitionFile="&quot;$(SolutionDir)..\Services\zlib\zlib.def&quot;"
 				GenerateDebugInformation="true"
 			/>
 			<Tool
@@ -151,7 +151,7 @@
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)$(ProjectName).dll"
 				GenerateManifest="false"
-				ModuleDefinitionFile="&quot;$(SolutionDir)..\zlib\zlib.def&quot;"
+				ModuleDefinitionFile="&quot;$(SolutionDir)..\Services\zlib\zlib.def&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
 			/>
@@ -230,7 +230,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)$(ProjectName).dll"
-				ModuleDefinitionFile="&quot;$(SolutionDir)..\zlib\zlib.def&quot;"
+				ModuleDefinitionFile="&quot;$(SolutionDir)..\Services\zlib\zlib.def&quot;"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				OptimizeForWindows98="1"
@@ -310,7 +310,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)$(ProjectName).dll"
-				ModuleDefinitionFile="&quot;$(SolutionDir)..\zlib\zlib.def&quot;"
+				ModuleDefinitionFile="&quot;$(SolutionDir)..\Services\zlib\zlib.def&quot;"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				OptimizeForWindows98="1"
@@ -352,23 +352,23 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\zlib\adler32.c"
+				RelativePath="..\Services\zlib\adler32.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\compress.c"
+				RelativePath="..\Services\zlib\compress.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\crc32.c"
+				RelativePath="..\Services\zlib\crc32.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\deflate.c"
+				RelativePath="..\Services\zlib\deflate.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\gvmat32.asm"
+				RelativePath="..\Services\zlib\gvmat32.asm"
 				>
 				<FileConfiguration
 					Name="Debug|x64"
@@ -388,7 +388,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\zlib\gvmat32c.c"
+				RelativePath="..\Services\zlib\gvmat32c.c"
 				>
 				<FileConfiguration
 					Name="Debug|x64"
@@ -408,7 +408,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\zlib\gvmat64.asm"
+				RelativePath="..\Services\zlib\gvmat64.asm"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -448,15 +448,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\zlib\gzio.c"
+				RelativePath="..\Services\zlib\gzio.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\infback.c"
+				RelativePath="..\Services\zlib\infback.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\inffas32.asm"
+				RelativePath="..\Services\zlib\inffas32.asm"
 				>
 				<FileConfiguration
 					Name="Debug|x64"
@@ -476,7 +476,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\zlib\inffas8664.c"
+				RelativePath="..\Services\zlib\inffas8664.c"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -496,7 +496,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\zlib\inffast.c"
+				RelativePath="..\Services\zlib\inffast.c"
 				>
 				<FileConfiguration
 					Name="Debug|x64"
@@ -516,7 +516,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\zlib\inffasx64.asm"
+				RelativePath="..\Services\zlib\inffasx64.asm"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -556,43 +556,43 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\zlib\inflate.c"
+				RelativePath="..\Services\zlib\inflate.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\inftrees.c"
+				RelativePath="..\Services\zlib\inftrees.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\ioapi.c"
+				RelativePath="..\Services\zlib\ioapi.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\iowin32.c"
+				RelativePath="..\Services\zlib\iowin32.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\trees.c"
+				RelativePath="..\Services\zlib\trees.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\uncompr.c"
+				RelativePath="..\Services\zlib\uncompr.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\unzip.c"
+				RelativePath="..\Services\zlib\unzip.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\zip.c"
+				RelativePath="..\Services\zlib\zip.c"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\zlib.def"
+				RelativePath="..\Services\zlib\zlib.def"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\zutil.c"
+				RelativePath="..\Services\zlib\zutil.c"
 				>
 			</File>
 		</Filter>
@@ -602,59 +602,59 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\zlib\crc32.h"
+				RelativePath="..\Services\zlib\crc32.h"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\crypt.h"
+				RelativePath="..\Services\zlib\crypt.h"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\deflate.h"
+				RelativePath="..\Services\zlib\deflate.h"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\inffast.h"
+				RelativePath="..\Services\zlib\inffast.h"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\inflate.h"
+				RelativePath="..\Services\zlib\inflate.h"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\inftrees.h"
+				RelativePath="..\Services\zlib\inftrees.h"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\ioapi.h"
+				RelativePath="..\Services\zlib\ioapi.h"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\iowin32.h"
+				RelativePath="..\Services\zlib\iowin32.h"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\trees.h"
+				RelativePath="..\Services\zlib\trees.h"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\unzip.h"
+				RelativePath="..\Services\zlib\unzip.h"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\zconf.h"
+				RelativePath="..\Services\zlib\zconf.h"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\zip.h"
+				RelativePath="..\Services\zlib\zip.h"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\zlib.h"
+				RelativePath="..\Services\zlib\zlib.h"
 				>
 			</File>
 			<File
-				RelativePath="..\zlib\zutil.h"
+				RelativePath="..\Services\zlib\zutil.h"
 				>
 			</File>
 		</Filter>
@@ -664,7 +664,7 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath="..\zlib\zlib.rc"
+				RelativePath="..\Services\zlib\zlib.rc"
 				>
 			</File>
 		</Filter>
