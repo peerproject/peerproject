@@ -33,7 +33,6 @@ public:
 	virtual ~CImageServices();
 
 	void		Clear();
-	static BOOL	LoadBitmap(CBitmap* pBitmap, UINT nResourceID, LPCTSTR pszType);
 	static BOOL	IsFileViewable(LPCTSTR pszPath);
 	BOOL		LoadFromMemory(CImageFile* pFile, LPCTSTR pszType, LPCVOID pData, DWORD nLength, BOOL bScanOnly = FALSE, BOOL bPartialOk = FALSE);
 	BOOL		LoadFromFile(CImageFile* pFile, LPCTSTR szFilename, BOOL bScanOnly = FALSE, BOOL bPartialOk = FALSE);

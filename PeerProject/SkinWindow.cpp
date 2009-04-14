@@ -23,11 +23,9 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "CoolInterface.h"
-#include "ImageServices.h"
-#include "ImageFile.h"
 #include "SkinWindow.h"
+#include "ImageFile.h"
 #include "XML.h"
-
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -364,20 +362,22 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			if ( strFile.GetLength() > 0 )
 			{
 				strFile = strPath + strFile;
+				hBitmap = CImageFile::LoadBitmapFromFile( strFile );
 
-				if ( strFile.Right( 4 ) == ".bmp" )
-				{
-					hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(), strFile,
-								IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE );
-				}
-				else //.png
-				{
-					CImageFile pFile;
-
-					pFile.LoadFromFile( strFile );
-					pFile.EnsureRGB();	// Remove Alpha
-					hBitmap = pFile.CreateBitmap();
-				}				
+			// ToDo: Alternate Alpha Handling
+			//	if ( strFile.Right( 4 ) == ".bmp" )
+			//	{
+			//		hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(), strFile,
+			//					IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE );
+			//	}
+			//	else //.png
+			//	{
+			//		CImageFile pFile;
+			//
+			//		pFile.LoadFromFile( strFile );
+			//		pFile.EnsureRGB();	// Removes Alpha, do reverse
+			//		hBitmap = pFile.CreateBitmap();
+			//	}
 			}
 			else if ( strRes.GetLength() > 0 )
 			{
@@ -387,18 +387,21 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [res] attribute in [image] element"), pGroup->ToString() );
 					return FALSE;
 				}
-				if ( nResID == IDB_NAVBAR_IMAGE && Settings.General.LanguageRTL )
-					nResID = IDB_NAVBAR_IMAGE_RTL;
-				else if ( nResID == IDB_NAVBAR_ALPHA && Settings.General.LanguageRTL )
-					nResID = IDB_NAVBAR_ALPHA_RTL;
 
-					hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(),
-								MAKEINTRESOURCE(nResID), IMAGE_BITMAP, 0, 0, 0 );
-				// ToDo: Convert Resources to .PNG ?
-				//	pFile.LoadFromResource( AfxGetInstanceHandle(), nResID, RT_PNG );
-				//	hBitmap = pFile.CreateBitmap();
+				if ( Settings.General.LanguageRTL )
+				{
+					if ( nResID == IDB_NAVBAR_IMAGE )
+						nResID = IDB_NAVBAR_IMAGE_RTL;
+					else if ( nResID == IDB_NAVBAR_ALPHA )
+						nResID = IDB_NAVBAR_ALPHA_RTL;
 				}
-			
+
+				hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(),
+					MAKEINTRESOURCE(nResID), IMAGE_BITMAP, 0, 0, 0 );
+				//	ToDo: Convert Resources to .PNG ?
+				//	hBitmap = CImageFile::LoadBitmapFromFile( nResID, RT_PNG );
+				}
+
 			if ( hBitmap == NULL )
 			{
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Cannot load image"), pGroup->ToString() );

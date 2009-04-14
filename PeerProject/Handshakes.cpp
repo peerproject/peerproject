@@ -20,7 +20,7 @@
 //
 
 // CHandshakes listens for remote computers that want to connect to us
-// http://shareazasecurity.be/wiki/index.php?title=Developers.Code.CHandshakes
+// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CHandshakes
 
 #include "StdAfx.h"
 #include "PeerProject.h"

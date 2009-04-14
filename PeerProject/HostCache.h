@@ -33,45 +33,45 @@ public:
 
 	// Attributes: Host Information
 	PROTOCOLID	m_nProtocol;		// Host protocol (PROTOCOL_*)
-	IN_ADDR		m_pAddress;		// Host IP address
-	WORD		m_nPort;		// Host TCP port number
-	WORD		m_nUDPPort;		// Host UDP port number
-	CVendor*	m_pVendor;		// Vendor handler from VendorCache
+	IN_ADDR		m_pAddress; 		// Host IP address
+	WORD		m_nPort;			// Host TCP port number
+	WORD		m_nUDPPort; 		// Host UDP port number
+	CVendor*	m_pVendor;			// Vendor handler from VendorCache
 	BOOL		m_bPriority;		// Host cannot be removed on failure
 	DWORD		m_nUserCount;		// G2 leaf count / ED2K user count
 	DWORD		m_nUserLimit;		// G2 leaf limit / ED2K user limit
 	DWORD		m_nFileLimit;		// ED2K-server file limit
-	CString		m_sName;		// Host name
+	CString		m_sName;			// Host name
 	CString		m_sDescription;		// Host description
 	DWORD		m_nTCPFlags;		// ED2K TCP flags (ED2K_SERVER_TCP_*)
 	DWORD		m_nUDPFlags;		// ED2K UDP flags (ED2K_SERVER_UDP_*)
 	BOOL		m_bCheckedLocally;	// Host was successfully accessed via TCP or UDP
-	CString		m_sCountry;		// Country code
+	CString		m_sCountry; 		// Country code
 
 	// Attributes: Contact Times
-	DWORD		m_tAdded;		// Time when host was constructed (in ticks)
+	DWORD		m_tAdded;			// Time when host was constructed (in ticks)
 	DWORD		m_tRetryAfter;		// G2 retry time according G2_PACKET_RETRY_AFTER packet (in seconds)
-	DWORD		m_tConnect;		// TCP connect time (in seconds)
-	DWORD		m_tQuery;		// G2 / ED2K query time (in seconds)
-	DWORD		m_tAck;			// Time when we sent something requires acknowledgment (0 - not required)
-	DWORD		m_tStats;		// ED2K stats UDP request
-	DWORD		m_tFailure;		// Last failure time
+	DWORD		m_tConnect; 		// TCP connect time (in seconds)
+	DWORD		m_tQuery;			// G2 / ED2K query time (in seconds)
+	DWORD		m_tAck; 			// Time when we sent something requires acknowledgment (0 - not required)
+	DWORD		m_tStats;			// ED2K stats UDP request
+	DWORD		m_tFailure; 		// Last failure time
 	DWORD		m_nFailures;		// Failures counter
 	DWORD		m_nDailyUptime;		// Daily uptime
 
 	// Attributes: Query Keys
-	DWORD		m_tKeyTime;		// G2 time when query key was received
+	DWORD		m_tKeyTime; 		// G2 time when query key was received
 	DWORD		m_nKeyValue;		// G2 query key
-	DWORD		m_nKeyHost;		// G2 query key host
+	DWORD		m_nKeyHost; 		// G2 query key host
 
 	// Attributes: DHT
-	BOOL		m_bDHT;			// Host is DHT capable
+	BOOL		m_bDHT; 			// Host is DHT capable
 	Hashes::BtGuid	m_oBtGUID;		// Host GUID (160 bit)
 	CArray< BYTE >	m_Token;		// Host access token
 
 	// Attributes: Kademlia
 	Hashes::Guid	m_oGUID;		// Host GUID (128 bit)
-	BYTE		m_nKADVersion;		// Kademlia version
+	BYTE			m_nKADVersion;	// Kademlia version
 
 	CNeighbour*	ConnectTo(BOOL bAutomatic = FALSE);
 	CString		ToString(bool bLong = true) const;	// "10.0.0.1:6346 2002-04-30T08:30Z"
@@ -91,7 +91,7 @@ protected:
 	DWORD		m_tSeen;
 
 	// Return: true - if tSeen cnaged, false - otherwise.
-	bool		Update(WORD nPort, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0);
+	bool		Update(WORD nPort, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0);
 	void		Serialize(CArchive& ar, int nVersion);
 
 	inline bool	IsValid() const throw()
@@ -151,12 +151,12 @@ public:
 
 	PROTOCOLID			m_nProtocol;
 	DWORD				m_nCookie;
-	mutable CMutex			m_pSection;
+	mutable CMutex		m_pSection;
 
-	CHostCacheHostPtr	Add(IN_ADDR* pAddress, WORD nPort, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0);
+	CHostCacheHostPtr	Add(IN_ADDR* pAddress, WORD nPort, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0);
 	// Add host in form "IP:Port SeenTime"
-	BOOL				Add(LPCTSTR pszHost, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0);
-	void				Update(CHostCacheHostPtr pHost, WORD nPort = 0, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0);
+	BOOL				Add(LPCTSTR pszHost, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0);
+	void				Update(CHostCacheHostPtr pHost, WORD nPort = 0, DWORD tSeen = 0, LPCTSTR pszVendor = NULL, DWORD nUptime = 0, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0);
 	bool				Remove(CHostCacheHostPtr pHost);
 	bool				Remove(const IN_ADDR* pAddress);
 	void				SanityCheck();
@@ -253,11 +253,11 @@ public:
 	}
 
 protected:
-	CHostCacheMap				m_Hosts;	// Hosts map (sorted by IP)
-	CHostCacheIndex				m_HostsTime;	// Host index (sorted from newer to older)
+	CHostCacheMap		m_Hosts;		// Hosts map (sorted by IP)
+	CHostCacheIndex		m_HostsTime;	// Host index (sorted from newer to older)
 
-	CHostCacheHostPtr	AddInternal(const IN_ADDR* pAddress, WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime);
-	void			PruneHosts();
+	CHostCacheHostPtr	AddInternal(const IN_ADDR* pAddress, WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves = 0, DWORD nLeafLimit = 0);
+	void				PruneHosts();
 };
 
 
@@ -321,10 +321,10 @@ public:
 protected:
 	CList< CHostCacheList* >	m_pList;
 	mutable CCriticalSection	m_pSection;
-	DWORD				m_tLastPruneTime;
+	DWORD			m_tLastPruneTime;
 
-	void				Serialize(CArchive& ar);
-	void				Clear();
+	void			Serialize(CArchive& ar);
+	void			Clear();
 	int				LoadDefaultED2KServers();
 };
 

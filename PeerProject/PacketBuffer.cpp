@@ -20,7 +20,7 @@
 //
 
 // CG1PacketBuffer holds arrays of packets to send, organized by their type
-// http://shareazasecurity.be/wiki/index.php?title=Developers.Code.CG1PacketBuffer
+// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CG1PacketBuffer
 
 // Copy in the contents of these files here before compiling
 #include "StdAfx.h"

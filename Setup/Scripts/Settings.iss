@@ -1,12 +1,12 @@
 ; This sub-script lists all PeerProject settings that have to be written at installation time
 
 [Registry]
-; Turn on SkinVista skin
+; Turn on SkinVista Theme
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Skins"; ValueType: dword; ValueName: "SkinVista\SkinVista.xml"; ValueData: "{ini:{param:SETTINGS|},Skins,SkinVista|1}"; Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Skins"; ValueType: dword; ValueName: "SkinVista\SkinVista_{language}.xml"; ValueData: "{ini:{param:SETTINGS|},Skins,SkinVista|1}"; Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer\"; ValueType: dword; ValueName: "ListSize"; ValueData: 139 ;				Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "ListSize"; ValueData: 139 ;					Flags: createvalueifdoesntexist uninsdeletekey
 
-; Set Menubar
+; Set SkinVista Menubar
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Summary"; ValueType: dword; ValueName: "Bars";  ValueData: 7 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar0"; ValueType: dword; ValueName: "BarID";  ValueData: $0000E801 ;		Flags: createvalueifdoesntexist uninsdeletekey
 
@@ -123,7 +123,7 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; V
 ; Disable extensions for plugins which make trouble
 ; Since it is image services plugin we need to add extensions required for the first run
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; ValueType: string; ValueName: "{{FF5FCD00-2C20-49D8-84F6-888D2E2C95DA}"; ValueData: "|-.pdf||.bmp||.png||.jpg|"; Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "EnablePlay"; ValueData: 0 ;				Flags: createvalueifdoesntexist uninsdeletekey
+; Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "EnablePlay"; ValueData: 0 ;				Flags: createvalueifdoesntexist uninsdeletekey
 ; Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "EnableEnqueue"; ValueData: 0 ;			Flags: createvalueifdoesntexist uninsdeletekey
 
 ; Set Wizard Defaults
