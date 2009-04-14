@@ -20,9 +20,8 @@
 //
 
 // CG1Packet represents a Gnutella packet, and CG1PacketPool keeps lists of them
-// http://shareazasecurity.be/wiki/index.php?title=Developers.Code.CG1Packet
+// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CG1Packet
 
-// Copy in the contents of these files here before compiling
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
@@ -396,4 +395,14 @@ int CG1Packet::GGEPWriteRandomCache(CGGEPItem* pItem)
 		}
 	}
 	return Settings.Gnutella1.MaxHostsInPongs - nCount;
+}
+
+bool CG1Packet::IsOOBEnabled()
+{
+	return ( Network.IsFirewalled( CHECK_UDP ) == FALSE && Settings.Gnutella1.EnableOOB );
+}
+
+bool CG1Packet::IsFirewalled()
+{
+	return ( Network.IsFirewalled( CHECK_TCP ) != FALSE );
 }

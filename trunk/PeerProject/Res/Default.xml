@@ -513,8 +513,8 @@
 			<item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
+			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
 			<separator/>
 			<item id="ID_TOOLS_PROFILE" text="Edit My _Profile..."/>
 			<item id="ID_TOOLS_WIZARD" text="QuickStart _Wizard..."/>

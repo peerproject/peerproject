@@ -545,8 +545,8 @@
 			<item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
+			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
 			<separator/>
 			<item id="ID_TOOLS_PROFILE" text="Edit My _Profile..."/>
 			<item id="ID_TOOLS_WIZARD" text="QuickStart _Wizard..."/>
@@ -3277,17 +3277,17 @@
 	<string id="20124" value="(No Sources)"/>
 	<string id="20125" value="Verified"/>
 	<string id="20126" value="Unverified"/>
-	<string id="20127" value="source"/>
-	<string id="20128" value="sources"/><!-- numbers 21, 31, ... -->
-	<string id="20129" value="sources"/><!-- tens -->
-	<string id="20130" value="sources"/><!-- from 11 to 19 -->
-	<string id="20131" value="sources"/><!-- from 2 to 4 -->
-	<string id="20132" value="sources"/><!-- from 5 to 9 -->
+	<string id="20127" value="source"/>  <!-- one -->
+	<string id="20128" value="sources"/> <!-- numbers 21,31,... -->
+	<string id="20129" value="sources"/> <!-- tens -->
+	<string id="20130" value="sources"/> <!-- from 11 to 19 -->
+	<string id="20131" value="sources"/> <!-- from 2 to 4 -->
+	<string id="20132" value="sources"/> <!-- from 5 to 9 -->
 	<string id="20133" value="Uninterested"/>
 	<string id="20134" value="Choked"/>
 	<string id="20135" value="Next"/>
 	<string id="20136" value="Q"/>
-	<string id="20137" value="sources"/><!-- 3/10 sources, for e.g. -->
+	<string id="20137" value="sources"/> <!-- "3/10 sources" -->
 	<string id="20200" value="Sunday"/>
 	<string id="20201" value="Monday"/>
 	<string id="20202" value="Tuesday"/>
@@ -3304,7 +3304,7 @@
 	<string id="20216" value="Excellent"/>
 	<string id="20217" value="Select the eDonkey/eMule temp folder:"/>
 	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/><!-- Track number -->
+	<string id="20230" value="#"/> <!-- Track number -->
 	<string id="20231" value="Title"/>
 	<string id="20232" value="Length"/>
 	<string id="20233" value="Bitrate"/>

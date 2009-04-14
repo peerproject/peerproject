@@ -20,7 +20,7 @@
 //
 
 // CBuffer holds some memory, and takes care of allocating and freeing it itself
-// http://shareazasecurity.be/wiki/index.php?title=Developers.Code.CBuffer
+// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CBuffer
 
 // Only include the lines beneath this one once
 #pragma once

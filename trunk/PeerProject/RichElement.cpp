@@ -208,24 +208,17 @@ void CRichElement::PrePaintBitmap(CDC* /*pDC*/)
 	if ( _tcsnicmp( m_sText, _T("res:"), 4 ) == 0 )
 	{
 		LPCTSTR pszDot = _tcschr( m_sText, '.' );
-		CBitmap pBitmap;
 		UINT nID;
 
 		if ( pszDot == NULL || _stscanf( (LPCTSTR)m_sText + 4, _T("%lu"), &nID ) != 1 ) return;
 
-		if ( CImageServices::LoadBitmap( &pBitmap, nID, pszDot + 1 ) )
-		{
-			m_hImage = pBitmap.Detach();
-		}
+		m_hImage = CImageFile::LoadBitmapFromResource( nID, pszDot + 1 );
 	}
 	else
 	{
-		CImageFile pFile;
-
 		CString strFile = Settings.General.Path + '\\' + m_sText;
-		if ( ! pFile.LoadFromFile( strFile ) ) return;
-		if ( ! pFile.EnsureRGB() ) return;
-		m_hImage = pFile.CreateBitmap();
+
+		m_hImage = CImageFile::LoadBitmapFromFile( strFile );
 	}
 }
 

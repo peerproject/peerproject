@@ -113,6 +113,10 @@ DWORD CDiscoveryServices::GetCount(int nType, PROTOCOLID nProtocol) const
 
 BOOL CDiscoveryServices::Add(LPCTSTR pszAddress, int nType, PROTOCOLID nProtocol)
 {
+	CSingleLock pLock( &Network.m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) )
+		return FALSE;
+
 	CString strAddress( pszAddress );
 
 	// Trim any excess whitespace.
@@ -126,11 +130,6 @@ BOOL CDiscoveryServices::Add(LPCTSTR pszAddress, int nType, PROTOCOLID nProtocol
 
 	if ( strAddress.GetLength() < 8 )
 		// Reject impossibly short services
-		return FALSE;
-
-	CSingleLock pNetworkLock( &Network.m_pSection );
-	if ( ! pNetworkLock.Lock( 250 ) )
-		// Too busy
 		return FALSE;
 
 	if ( GetByAddress( strAddress ) != NULL )
@@ -407,7 +406,10 @@ void CDiscoveryServices::Stop()
 
 BOOL CDiscoveryServices::Load()
 {
-	CSingleLock pLock( &Network.m_pSection, TRUE );
+	CSingleLock pLock( &Network.m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) )
+		return FALSE;
+
 	CFile pFile;
 
 	CString strFile = Settings.General.UserPath + _T("\\Data\\Discovery.dat");
@@ -450,7 +452,10 @@ BOOL CDiscoveryServices::Load()
 
 BOOL CDiscoveryServices::Save()
 {
-	CSingleLock pLock( &Network.m_pSection, TRUE );
+	CSingleLock pLock( &Network.m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) )
+		return FALSE;
+
 	CFile pFile;
 
 	CString strFile = Settings.General.UserPath + _T("\\Data\\Discovery.dat");
@@ -469,7 +474,10 @@ BOOL CDiscoveryServices::Save()
 
 void CDiscoveryServices::Serialize(CArchive& ar)
 {
-	int nVersion = 6;
+	int nVersion = 7;
+	// History:
+	// 7 - Added m_nTotalHosts, m_nURLs, m_nTotalURLs and m_sPong (BeaconCache)
+
 
 	if ( ar.IsStoring() )
 	{
@@ -788,7 +796,8 @@ BOOL CDiscoveryServices::Update()
 	DWORD tNow = static_cast< DWORD >( time( NULL ) );
 
 	// Don't update too frequently
-	if ( tNow - m_tUpdated < Settings.Discovery.UpdatePeriod ) return FALSE;
+	if ( tNow - m_tUpdated < Settings.Discovery.UpdatePeriod )
+		return FALSE;
 
 	if ( m_hInternet )
 		// Don't run concurrent request
@@ -796,8 +805,9 @@ BOOL CDiscoveryServices::Update()
 
 	StopWebRequest();
 
-	CSingleLock pLock( &Network.m_pSection );
-	if ( ! pLock.Lock( 250 ) ) return FALSE;
+	CSingleLock pLock( &Network.m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) )
+		return FALSE;
 
 	// Must be up for 1.5 hours
 	if ( Network.GetStableTime() < 5400 ) return FALSE;
@@ -860,22 +870,44 @@ BOOL CDiscoveryServices::Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT n
 			2 - Unlimited discovery. No time limit but there is the check if it is needed ( Only from QuickStart Wizard )
 	*/
 
-	CSingleLock pLock( &Network.m_pSection );
-	if ( ! pLock.Lock( 250 ) ) return FALSE;
-
-	DWORD tNow = static_cast< DWORD >( time( NULL ) );	// The time (in seconds)
+	CSingleLock pLock( &Network.m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) )
+		return FALSE;
 
 	if ( bDiscovery ) // If this is a user-initiated manual query, or AutoStart with Cache empty
 	{
 		if ( m_hInternet ) return FALSE;
+
+		DWORD tNow = static_cast< DWORD >( time( NULL ) );
 		if ( m_tExecute != 0 && tNow - m_tExecute < 5 && nForceDiscovery < 2 ) return FALSE;
 		if ( m_tQueried != 0 && tNow - m_tQueried < 60 && nForceDiscovery == 0 ) return FALSE;
 		if ( nForceDiscovery > 0 && nProtocol == PROTOCOL_NULL ) return FALSE;
 
 		m_tExecute = tNow;
-		BOOL	bG1Required = Settings.Gnutella1.EnableToday && ( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G1) && ( nForceDiscovery == 1 || HostCache.Gnutella1.CountHosts(TRUE) < 20 );
-		BOOL	bG2Required = Settings.Gnutella2.EnableToday && ( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G2) && ( nForceDiscovery == 1 || HostCache.Gnutella2.CountHosts(TRUE) < 25 );
-		BOOL	bEdRequired = Settings.eDonkey.EnableToday && ( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_ED2K ) && Settings.eDonkey.MetAutoQuery && ( m_tMetQueried == 0 || tNow - m_tMetQueried >= 60 * 60 ) && ( nForceDiscovery == 1 || !HostCache.EnoughED2KServers() );
+
+#ifdef LAN_MODE
+		BOOL	bG1Required = FALSE;
+
+		BOOL	bG2Required =
+			( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G2) &&
+			( nForceDiscovery == 1 || HostCache.Gnutella2.CountHosts(TRUE) < 1 );
+
+		BOOL	bEdRequired = FALSE;
+#else // No LAN_MOD
+		BOOL	bG1Required = Settings.Gnutella1.EnableToday &&
+			( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G1) &&
+			( nForceDiscovery == 1 || HostCache.Gnutella1.CountHosts(TRUE) < 20 );
+
+		BOOL	bG2Required = Settings.Gnutella2.EnableToday &&
+			( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G2) &&
+			( nForceDiscovery == 1 || HostCache.Gnutella2.CountHosts(TRUE) < 25 );
+
+		BOOL	bEdRequired = Settings.eDonkey.EnableToday &&
+			( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_ED2K ) &&
+			Settings.eDonkey.MetAutoQuery &&
+			( m_tMetQueried == 0 || tNow - m_tMetQueried >= 60 * 60 ) &&
+			( nForceDiscovery == 1 || !HostCache.EnoughED2KServers() );
+#endif // LAN_MOD
 
 		// Broadcast discovery
 		if ( bG2Required && Neighbours.NeedMoreHubs( PROTOCOL_G2 ) )
@@ -1133,8 +1165,9 @@ BOOL CDiscoveryServices::RequestWebCache(CDiscoveryService* pService, Mode nMode
 {
 	StopWebRequest();
 
-	CSingleLock pLock( &Network.m_pSection );
-	if ( ! pLock.Lock( 250 ) ) return FALSE;
+	CSingleLock pLock( &Network.m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) )
+		return FALSE;
 
 	DWORD tNow = (DWORD)time( NULL );
 	DWORD nHosts = 0;
@@ -1253,15 +1286,19 @@ void CDiscoveryServices::OnRun()
 	{
 		bSuccess = RunWebCacheGet( FALSE );
 
-		if ( bSuccess && m_hInternet )
+		CSingleLock pLock( &Network.m_pSection, FALSE );
+		if ( pLock.Lock( 250 ) )
 		{
-			CSingleLock pLock( &Network.m_pSection, TRUE );
-
-			if ( m_bFirstTime || ( GetCount( CDiscoveryService::dsWebCache ) < (int)Settings.Discovery.Lowpoint ) )
+			if ( bSuccess && m_hInternet )
 			{
-				m_bFirstTime = FALSE;
-				pLock.Unlock();
-				bSuccess = RunWebCacheGet( TRUE );
+				if ( m_bFirstTime || ( GetCount( CDiscoveryService::dsWebCache ) <
+					(int)Settings.Discovery.Lowpoint ) )
+				{
+					m_bFirstTime = FALSE;
+					pLock.Unlock();
+
+					bSuccess = RunWebCacheGet( TRUE );
+				}
 			}
 		}
 	}
@@ -1292,7 +1329,8 @@ void CDiscoveryServices::OnRun()
 		}
 
 		CSingleLock pLock( &Network.m_pSection );
-		if ( pLock.Lock( 250 ) && Check( m_pWebCache ) ) m_pWebCache->OnFailure();
+		if ( pLock.Lock( 250 ) && Check( m_pWebCache ) )
+			m_pWebCache->OnFailure();
 	}
 
 	if ( m_hInternet != NULL )
@@ -1309,19 +1347,24 @@ void CDiscoveryServices::OnRun()
 
 BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 {
-	CSingleLock pLock( &Network.m_pSection, TRUE );
-	CString strURL, strOutput;
+	CSingleLock pLock( &Network.m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) )
+		return FALSE;
 
-	if ( ! Check( m_pWebCache ) ) return FALSE;
+	if ( ! Check( m_pWebCache ) )
+		return FALSE;
+
 	m_pWebCache->OnAccess();
+	m_pWebCache->OnGivenHosts();
 
+	CString strURL;
 	if ( bCaches )
 		strURL = m_pWebCache->m_sAddress + _T("?get=1&urlfile=1");
 	else
 		strURL = m_pWebCache->m_sAddress + _T("?get=1&hostfile=1");
 
-	// strURL += _T("&support=1");				// GWC network and status - ToDo : Use this parameter's output to check GWCs for self-network support relay.
-	// strURL += _T("&info=1");					// Maintainer Info - ToDo : Use this parameter's output to add info (about maintainer etc.) into new Discovery window columns.
+	//	strURL += _T("&support=1");				// GWC network and status - ToDo : Use this parameter's output to check GWCs for self-network support relay.
+	//	strURL += _T("&info=1");				// Maintainer Info - ToDo : Use this parameter's output to add info (about maintainer etc.) into new Discovery window columns.
 
 	if ( m_nLastQueryProtocol == PROTOCOL_G2 )
 	{
@@ -1337,14 +1380,19 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 		strURL += theApp.m_sVersion;
 	}
 
-	strURL += _T("&getleaves=1&getnetworks=1&getclusters=1&getvendors=1&getuptime=1");	//Specification 2.1 additions...
+	strURL += _T("&getleaves=1&getnetworks=1&getclusters=0&getvendors=1&getuptime=1");	//Specification 2.1 additions... (cluster output disabled, as clustering concept was vague)
 
 	pLock.Unlock();
 
-	if ( ! SendWebCacheRequest( strURL, strOutput ) ) return FALSE;
-	pLock.Lock();
+	CString strOutput;
+	if ( ! SendWebCacheRequest( strURL, strOutput ) )
+		return FALSE;
 
-	if ( ! Check( m_pWebCache ) ) return FALSE;
+	if ( ! pLock.Lock( 250 ) )
+		return FALSE;
+
+	if ( ! Check( m_pWebCache ) )
+		return FALSE;
 
 	int nHosts = 0, nCaches = 0;
 	
@@ -1362,19 +1410,19 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 
 		// Split line to parts
 		CArray< CString > oParts;
-		for ( int i = 0 ; ; )
+		for ( CString strTmp = strLine; ! strTmp.IsEmpty(); )
 		{
-			CString sPart = strLine.Tokenize( _T("|"), i ).MakeLower();
-			if ( i == -1 )
-				break;
+			CString sPart = strTmp.SpanExcluding( _T("|") );
+			strTmp = strTmp.Mid( sPart.GetLength() + 1 );
 			oParts.Add( sPart );
 		}
 
-		if ( oParts[ 0 ] == _T("h") )
+		if ( ! oParts[ 0 ].CompareNoCase( _T("h") ) )
 		{
-			// Hosts: "h|Host:Port|Age[|Vendor|Uptime]"
+			// Hosts: "h|Host:Port|Age|Cluster|CurrentLeaves|VendorCode|Uptime|LeafLimit"
 			if ( oParts.GetCount() >= 3 )
 			{
+				// Get host and age fields
 				DWORD nAddress = INADDR_NONE;
 				int nPort = 0, nSeconds = 0;
 				int nPos = oParts[ 1 ].Find( _T(':') );
@@ -1383,33 +1431,71 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 					_stscanf( oParts[ 1 ].Mid( nPos + 1 ), _T("%i"), &nPort ) == 1 &&
 					nPort > 0 && nPort < 65536 &&
 					_stscanf( oParts[ 2 ], _T("%i"), &nSeconds ) == 1 &&
-					nSeconds >= 0 && nSeconds < 60 * 60 * 24 * 3 ) // 3 days
+					nSeconds >= 0 && nSeconds < 60 * 60 * 24 * 300 ) // Under 1 Year Old (?)
 				{
 					DWORD tSeen	= static_cast< DWORD >( time( NULL ) ) - nSeconds;
-					CVendor* pVendor = NULL;
-					DWORD tUptime = 0;
-					if ( oParts.GetCount() >= 4 )
+
+					// Skip cluster field
+					
+					// Get current leaves field
+					DWORD nCurrentLeaves = 0;
+					if ( oParts.GetCount() >= 5 )
 					{
-						pVendor = VendorCache.Lookup( oParts[ 3 ].Left( 4 ) );
-						if ( oParts.GetCount() >= 5 )
+						int nCurrentLeavesTmp;
+						if ( _stscanf( oParts[ 4 ], _T("%i"), &nCurrentLeavesTmp ) == 1 &&
+							nCurrentLeavesTmp >= 0 && nCurrentLeavesTmp < 2048 )
 						{
-							int tUptimeTmp;
-							if ( _stscanf( oParts[ 4 ], _T("%i"), &tUptimeTmp ) == 1 &&
-								tUptimeTmp > 60 && tUptimeTmp < 60 * 60 * 24 * 365 )
-							{
-								tUptime = tUptimeTmp;
-							}
-							else
-								// Bad uptime format
-								return FALSE;
+							nCurrentLeaves = nCurrentLeavesTmp;
 						}
+						else
+							// Bad current leaves format
+							return FALSE;
+					}
+
+					// Get vendor field
+					CVendor* pVendor = NULL;
+					if ( oParts.GetCount() >= 6 )
+					{
+						pVendor = VendorCache.Lookup( oParts[ 5 ].Left( 4 ) );
+					}
+
+					// Get uptime field
+					DWORD tUptime = 0;
+					if ( oParts.GetCount() >= 7 )
+					{
+						int tUptimeTmp;
+						if ( _stscanf( oParts[ 6 ], _T("%i"), &tUptimeTmp ) == 1 &&
+							tUptimeTmp > 60 && tUptimeTmp < 60 * 60 * 24 * 365 )
+						{
+							tUptime = tUptimeTmp;
+						}
+						else
+							// Bad uptime format
+							return FALSE;
+					}
+
+					// Get leaf limit field
+					DWORD nLeafLimit = 0;
+					if ( oParts.GetCount() >= 8 )
+					{
+						int nLeafLimitTmp;
+						if ( _stscanf( oParts[ 7 ], _T("%i"), &nLeafLimitTmp ) == 1 &&
+							nLeafLimitTmp >= 0 && nLeafLimitTmp < 2048 )
+						{
+							nLeafLimit = nLeafLimitTmp;
+						}
+						else
+							// Bad leaf limit format
+							return FALSE;
 					}
 
 					if ( ( m_nLastQueryProtocol == PROTOCOL_G2 ) ? 
 						HostCache.Gnutella2.Add( (IN_ADDR*)&nAddress, (WORD)nPort,
-							tSeen, ( pVendor ? (LPCTSTR)pVendor->m_sCode : NULL ), tUptime ) :
+							tSeen, ( pVendor ? (LPCTSTR)pVendor->m_sCode : NULL ),
+							tUptime, nCurrentLeaves, nLeafLimit ) :
 						HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, (WORD)nPort,
-							tSeen, ( pVendor ? (LPCTSTR)pVendor->m_sCode : NULL ), tUptime ) )
+							tSeen, ( pVendor ? (LPCTSTR)pVendor->m_sCode : NULL ),
+							tUptime,nCurrentLeaves, nLeafLimit ) )
 					{
 						m_pWebCache->OnHostAdd();
 						nHosts++;
@@ -1423,7 +1509,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 				// Empty
 				return FALSE;
 		}
-		else if ( oParts[ 0 ] == _T("u") )
+		else if ( ! oParts[ 0 ].CompareNoCase( _T("u") ) )
 		{
 			// URLs: "u|URL|Age"
 			if ( oParts.GetCount() >= 2 )
@@ -1432,6 +1518,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 				{
 					if ( Add( oParts[ 1 ], CDiscoveryService::dsWebCache, m_nLastQueryProtocol ) )
 					{
+						m_pWebCache->OnURLAdd();
 						nCaches++;
 					}
 				}
@@ -1440,6 +1527,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 				{
 					if ( Add( oParts[ 1 ], CDiscoveryService::dsGnutella, m_nLastQueryProtocol ) )
 					{
+						m_pWebCache->OnURLAdd();
 						nCaches++;
 					}
 				}
@@ -1448,7 +1536,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 				// Empty
 				return FALSE;
 		}
-		else if ( oParts[ 0 ] == _T("UHC") )
+		else if ( ! oParts[ 0 ].CompareNoCase( _T("UHC") ) )
 		{
 			// UDP Host Cache URL (For Gnutella1 ONLY)
 			if ( oParts.GetCount() >= 2 )
@@ -1457,6 +1545,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 				{
 					if ( Add( oParts[ 1 ], CDiscoveryService::dsGnutella, m_nLastQueryProtocol ) )
 					{
+						m_pWebCache->OnURLAdd();
 						nCaches++;
 					}
 				}
@@ -1465,7 +1554,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 				// Empty
 				return FALSE;
 		}
-		else if ( oParts[ 0 ] == _T("UKHL") )
+		else if ( ! oParts[ 0 ].CompareNoCase( _T("UKHL") ) )
 		{
 			// UDP Known Hub List URL (For Gnutella2 ONLY)
 			if ( oParts.GetCount() >= 2 )
@@ -1474,6 +1563,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 				{
 					if ( Add( oParts[ 1 ], CDiscoveryService::dsGnutella, m_nLastQueryProtocol ) )
 					{
+						m_pWebCache->OnURLAdd();
 						nCaches++;
 					}
 				}
@@ -1482,15 +1572,50 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 				// Empty
 				return FALSE;
 		}
-		else if ( oParts[ 0 ] == _T("i") )
+		else if ( ! oParts[ 0 ].CompareNoCase( _T("i") ) )
 		{
 			// Informational Response: "i|command|...."
 			if ( oParts.GetCount() >= 2 )
 			{
-				if ( oParts[ 1 ] == _T("access") )
+				if ( ! oParts[ 1 ].CompareNoCase( _T("pong") ) )
+				{
+					// "i|pong|vendor x.x.x|networks"
+					// pong v2 (Skulls-type PONG network extension usage)
+					// Usage here: Used to check if cache supports requested network.
+					if ( m_nLastQueryProtocol != PROTOCOL_G2 )
+					{
+						//Mystery pong received - possibly a hosted static webpage.
+						theApp.Message( MSG_ERROR, _T("GWebCache %s : PONG received when no ping was given"), (LPCTSTR)m_pWebCache->m_sAddress );
+						return FALSE;
+					}
+					if ( oParts.GetCount() >= 3 )
+					{
+						m_pWebCache->m_sPong = oParts[ 2 ];
+
+						if ( oParts.GetCount() >= 4 )
+						{
+							BOOL IsNetwork = FALSE;
+							for ( int i = 0 ; ; )
+							{
+								CString sNetwork = oParts[ 3 ].Tokenize( _T("-"), i );
+								if ( i == -1 )
+									break;
+								if ( ( ! sNetwork.CompareNoCase( _T("gnutella2") ) && m_nLastQueryProtocol == PROTOCOL_G2 ) ||
+									 ( ! sNetwork.CompareNoCase( _T("gnutella") ) && m_nLastQueryProtocol != PROTOCOL_G2 ) )
+								{
+									IsNetwork = TRUE;
+								}
+							}
+							if ( ! IsNetwork )
+								return FALSE;
+						}
+					}
+				}
+				else if ( ! oParts[ 1 ].CompareNoCase( _T("access") ) )
 				{
 					// "i|access|..."
-					if ( oParts.GetCount() >= 4 && oParts[ 2 ] == _T("period") )
+					if ( oParts.GetCount() >= 4 &&
+						! oParts[ 2 ].CompareNoCase( _T("period") ) )
 					{
 						// "i|access|period|access period"
 						DWORD nAccessPeriod;
@@ -1500,56 +1625,30 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 						}
 					}
 				}
-				else if ( oParts[ 1 ] == _T("force") )
+				else if ( ! oParts[ 1 ].CompareNoCase( _T("force") ) )
 				{
 					// "i|force|..."
-					if ( oParts.GetCount() >= 3 && oParts[ 2 ] == _T("remove") )
+					if ( oParts.GetCount() >= 3 &&
+						! oParts[ 2 ].CompareNoCase( _T("remove") ) )
 					{
 						// "i|force|remove"
 						m_pWebCache->Remove();
 						return FALSE;
 					}
 				}
-				else if ( oParts[ 1 ] == _T("update") )
+				else if ( ! oParts[ 1 ].CompareNoCase( _T("update") ) )
 				{
 					// "i|update|..."
-					if ( oParts.GetCount() >= 4 && oParts[ 2 ] == _T("warning") && oParts[ 3 ] == _T("bad url") )
+					if ( oParts.GetCount() >= 4 &&
+						! oParts[ 2 ].CompareNoCase( _T("warning") ) &&
+						! oParts[ 3 ].CompareNoCase( _T("bad url") ) )
 					{
 						// "i|update|warning|bad url"
 						m_pWebCache->Remove();
 						return FALSE;
 					}
 				}
-				else if ( oParts[ 1 ] == _T("pong") )
-				{
-					// "i|pong|vendor x.x.x[|networks]"
-					// pong v2 (Skulls-type PONG network extension usage)
-					// Usage here: Used to check if cache supports requested network.
-					if ( m_nLastQueryProtocol != PROTOCOL_G2 )
-					{
-						//Mystery pong received - possibly a hosted static webpage.
-						theApp.Message( MSG_ERROR, _T("GWebCache %s : PONG received when no ping was given"), (LPCTSTR)m_pWebCache->m_sAddress );
-						return FALSE;
-					}
-					if ( oParts.GetCount() >= 4 )
-					{
-						BOOL IsNetwork = FALSE;
-						for ( int i = 0 ; ; )
-						{
-							CString sNetwork = oParts[ 3 ].Tokenize( _T("-"), i );
-							if ( i == -1 )
-								break;
-							if ( ( sNetwork == _T("gnutella2") && m_nLastQueryProtocol == PROTOCOL_G2 ) ||
-								 ( sNetwork == _T("gnutella")  && m_nLastQueryProtocol != PROTOCOL_G2 ) )
-							{
-								IsNetwork = TRUE;
-							}
-						}
-						if ( ! IsNetwork )
-							return FALSE;
-					}
-				}
-				else if ( oParts[ 1 ] == _T("networks") )
+				else if ( ! oParts[ 1 ].CompareNoCase( _T("networks") ) )
 				{
 					// Beacon Cache type output
 					// Used to check if cache supports requested network.
@@ -1558,8 +1657,8 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 						BOOL IsNetwork = FALSE;
 						for ( int i = 2 ; i < oParts.GetCount(); i++ )
 						{
-							if ( ( oParts[ i ] == _T("gnutella2") && m_nLastQueryProtocol == PROTOCOL_G2 ) ||
-								 ( oParts[ i ] == _T("gnutella")  && m_nLastQueryProtocol != PROTOCOL_G2 ) )
+							if ( ( ! oParts[ i ].CompareNoCase( _T("gnutella2") ) && m_nLastQueryProtocol == PROTOCOL_G2 ) ||
+								 ( ! oParts[ i ].CompareNoCase( _T("gnutella") )  && m_nLastQueryProtocol != PROTOCOL_G2 ) )
 							{
 								IsNetwork = TRUE;
 							}
@@ -1568,7 +1667,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 							return FALSE;
 					}
 				}
-				else if ( oParts[ 1 ] == _T("nets") )
+				else if ( ! oParts[ 1 ].CompareNoCase( _T("nets") ) )
 				{
 					// Skulls type output
 					// Used to check if cache supports requested network.
@@ -1580,8 +1679,8 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 							if ( i == -1 )
 								break;
 							CString sNetwork = oParts[ 2 ].Tokenize( _T("-"), i );
-							if ( ( sNetwork == _T("gnutella2") && m_nLastQueryProtocol == PROTOCOL_G2 ) ||
-								 ( sNetwork == _T("gnutella")  && m_nLastQueryProtocol != PROTOCOL_G2 ) )
+							if ( ( ! sNetwork.CompareNoCase( _T("gnutella2") ) && m_nLastQueryProtocol == PROTOCOL_G2 ) ||
+								 ( ! sNetwork.CompareNoCase( _T("gnutella") )  && m_nLastQueryProtocol != PROTOCOL_G2 ) )
 							{
 								IsNetwork = TRUE;
 							}
@@ -1598,7 +1697,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 			if ( m_nLastQueryProtocol != PROTOCOL_G2 )
 			{
 				//Mystery pong received - possibly a hosted static webpage.
-				theApp.Message( MSG_ERROR, _T("GWebCache %s : PONG received when no ping was given"), (LPCTSTR)m_pWebCache->m_sAddress );
+				theApp.Message( MSG_ERROR, _T("GWebCache %s : Mystery PONG received"), (LPCTSTR)m_pWebCache->m_sAddress );
 				return FALSE;
 			}
 		}
@@ -1625,6 +1724,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 		else if ( Add( strLine.SpanExcluding( _T(" ") ), CDiscoveryService::dsWebCache, PROTOCOL_G1 ) )
 		{
 			// Plain URL, G1
+			m_pWebCache->OnURLAdd();
 			nCaches++;
 			m_pWebCache->m_bGnutella2 = FALSE;
 			m_pWebCache->m_bGnutella1 = TRUE;
@@ -1650,22 +1750,27 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 
 BOOL CDiscoveryServices::RunWebCacheUpdate()
 {
-	CSingleLock pLock( &Network.m_pSection, TRUE );
-	CString strURL, strOutput;
+	CSingleLock pLock( &Network.m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) )
+		return FALSE;
 
-	if ( ! Check( m_pWebCache, CDiscoveryService::dsWebCache ) ) return FALSE;
+	if ( ! Check( m_pWebCache, CDiscoveryService::dsWebCache ) )
+		return FALSE;
+
 	m_pWebCache->OnAccess();
 
+	CString strURL;
 	if ( m_nWebCache == wcmUpdate )
 	{
 		if ( ! Network.IsListening() ) return TRUE;
 
-		strURL.Format( _T("%s?ip=%s:%hu&x.leaves=%i&uptime=%i"),
+		strURL.Format( _T("%s?ip=%s:%hu&x.leaves=%i&uptime=%i&x.max=%i"),
 			(LPCTSTR)m_pWebCache->m_sAddress,
 			(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
 			htons( Network.m_pHost.sin_port ),
 			Neighbours.GetCount( PROTOCOL_ANY, -1, ntLeaf ),
-			Network.GetStableTime() );		//ToDo: Check this
+			Network.GetStableTime(),
+			(m_nLastUpdateProtocol == PROTOCOL_G2) ? Settings.Gnutella2.NumLeafs : Settings.Gnutella1.NumLeafs );
 	}
 
 	if ( m_pSubmit != NULL && Check( m_pSubmit, CDiscoveryService::dsWebCache ) )
@@ -1710,12 +1815,18 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 
 	pLock.Unlock();
 
-	if ( strURL.IsEmpty() ) return FALSE;
+	if ( strURL.IsEmpty() )
+		return FALSE;
 
-	if ( ! SendWebCacheRequest( strURL, strOutput ) ) return FALSE;
+	CString strOutput;
+	if ( ! SendWebCacheRequest( strURL, strOutput ) )
+		return FALSE;
 
-	pLock.Lock();
-	if ( ! Check( m_pWebCache, CDiscoveryService::dsWebCache ) ) return FALSE;
+	if ( ! pLock.Lock( 250 ) )
+		return FALSE;
+
+	if ( ! Check( m_pWebCache, CDiscoveryService::dsWebCache ) )
+		return FALSE;
 
 	// Split answer to lines
 	while ( strOutput.GetLength() )
@@ -1837,13 +1948,17 @@ BOOL CDiscoveryServices::SendWebCacheRequest(CString strURL, CString& strOutput)
 
 BOOL CDiscoveryServices::RunServerMet()
 {
-	CSingleLock pLock( &Network.m_pSection, TRUE );
-	CString strURL;
+	CSingleLock pLock( &Network.m_pSection, FALSE );
+	if ( ! pLock.Lock( 250 ) )
+		return FALSE;
 
-	if ( ! Check( m_pWebCache, CDiscoveryService::dsServerMet ) ) return FALSE;
+	if ( ! Check( m_pWebCache, CDiscoveryService::dsServerMet ) )
+		return FALSE;
 
 	m_pWebCache->OnAccess();
-	strURL = m_pWebCache->m_sAddress;
+	m_pWebCache->OnGivenHosts();
+
+	CString strURL = m_pWebCache->m_sAddress;
 
 	pLock.Unlock();
 
@@ -1871,9 +1986,11 @@ BOOL CDiscoveryServices::RunServerMet()
 
 	pFile.Seek( 0, CFile::begin );
 
-	pLock.Lock();
+	if ( ! pLock.Lock( 250 ) )
+		return FALSE;
 
-	if ( ! Check( m_pWebCache, CDiscoveryService::dsServerMet ) ) return FALSE;
+	if ( ! Check( m_pWebCache, CDiscoveryService::dsServerMet ) )
+		return FALSE;
 
 	int nCount = HostCache.ImportMET( &pFile );
 
@@ -1925,6 +2042,9 @@ CDiscoveryService::CDiscoveryService(Type nType, LPCTSTR pszAddress) :
 	m_tUpdated		( 0 ),
 	m_nUpdates		( 0 ),
 	m_nHosts		( 0 ),
+	m_nTotalHosts	( 0 ),
+	m_nURLs			( 0 ),
+	m_nTotalURLs	( 0 ),
 	m_nFailures		( 0 ),
 	m_nAccessPeriod	( max( Settings.Discovery.UpdatePeriod, 1800ul ) ),
 	m_nUpdatePeriod	( Settings.Discovery.DefaultUpdate ),
@@ -1949,7 +2069,7 @@ void CDiscoveryService::Remove(BOOL bCheck)
 //////////////////////////////////////////////////////////////////////
 // CDiscoveryService serialize
 
-void CDiscoveryService::Serialize(CArchive& ar, int /*nVersion*/)
+void CDiscoveryService::Serialize(CArchive& ar, int nVersion)
 {
 
 	if ( ar.IsStoring() )
@@ -1965,8 +2085,12 @@ void CDiscoveryService::Serialize(CArchive& ar, int /*nVersion*/)
 		ar << m_nUpdates;
 		ar << m_nFailures;
 		ar << m_nHosts;
+		ar << m_nTotalHosts;
+		ar << m_nURLs;
+		ar << m_nTotalURLs;
 		ar << m_nAccessPeriod;
 		ar << m_nUpdatePeriod;
+		ar << m_sPong;
 	}
 	else
 	{
@@ -1981,8 +2105,18 @@ void CDiscoveryService::Serialize(CArchive& ar, int /*nVersion*/)
 		ar >> m_nUpdates;
 		ar >> m_nFailures;
 		ar >> m_nHosts;
+		if ( nVersion > 6 )
+		{
+			ar >> m_nTotalHosts;
+			ar >> m_nURLs;
+			ar >> m_nTotalURLs;
+		}
 		ar >> m_nAccessPeriod;
 		ar >> m_nUpdatePeriod;
+		if ( nVersion > 6 )
+		{
+			ar >> m_sPong;
+		}
 
 		// Check it has a valid protocol
 		if ( _tcsnicmp( m_sAddress, _T("gnutella1:host:"),  15 ) == 0 )
@@ -2026,7 +2160,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 	CString strHost	= m_sAddress;
 	int nSkip = 0;
 	int nPort = 0;
-	m_nHosts = 0;
+	OnGivenHosts();
 
 	// Check it has a valid protocol
 	if ( _tcsnicmp( strHost, _T("gnutella1:host:"),  15 ) == 0 )
@@ -2141,10 +2275,32 @@ void CDiscoveryService::OnAccess()
 	m_nAccesses ++;
 }
 
+void CDiscoveryService::OnGivenHosts()
+{
+	//Resetting Per-Request Statistics
+	m_nHosts = 0;	//Shareaza should reset host count stats every time a cache is called.
+	m_nURLs = 0;	//Shareaza should reset URL count stats every time a cache is called.
+}
+
 void CDiscoveryService::OnHostAdd(int nCount)
 {
+	//Host count tracking
 	m_nHosts += nCount;
+	m_nTotalHosts += nCount;
 	m_nFailures = 0;
+}
+
+void CDiscoveryService::OnCopyGiven()
+{
+	//Used for UDP bootstrap host count
+	m_nTotalHosts += m_nHosts;
+}
+
+void CDiscoveryService::OnURLAdd(int nCount)
+{
+	//URL count tracking
+	m_nURLs += nCount;
+	m_nTotalURLs += nCount;
 }
 
 void CDiscoveryService::OnSuccess()

@@ -54,11 +54,11 @@
   <color name="Banner.Text"				value="FFFFFF"/>
   <color name="Banner.Back"				value="C4D6FE"/>   <!--library/profile headers-->
 
-  <color name="Media.Window"				value="0A0A0A"/>
-  <color name="Media.Window.Text"			value="DDDDDD"/>
-  <color name="Media.Status"				value="1B1D20"/>
+  <color name="Media.Window.Back"			value="080400"/>
+  <color name="Media.Window.Text"			value="DDDDDB"/>
+  <color name="Media.Status.Back"			value="1B1D20"/>
   <color name="Media.Status.Text"			value="FFFFFF"/>
-  <color name="Media.Panel"				value="1A1816"/>
+  <color name="Media.Panel.Back"			value="181410"/>
   <color name="Media.Panel.Text"			value="68625A"/>
   <color name="Media.Panel.Active"			value="1C1B1A"/>
   <color name="Media.Panel.Active.Text" 		value="FFFFFF"/>

@@ -20,7 +20,7 @@
 //
 
 // CHandshake figures out what the remote computer wants from the first 7 bytes it sends us
-// http://shareazasecurity.be/wiki/index.php?title=Developers.Code.CHandshake
+// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CHandshake
 
 // Copy in the contents of these files here before compiling
 #include "StdAfx.h"

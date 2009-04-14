@@ -20,7 +20,7 @@
 //
 
 // CPacket represents a packet on a peer-to-peer network, and CPacketPool keeps lists of them
-// http://www.shareazasecurity.be/wiki/index.php?title=Developers.Code.CPacket
+// http://www.pantheraproject.net/wiki/index.php?title=Developers.Code.CPacket
 
 // Only include the lines beneath this one once
 #pragma once

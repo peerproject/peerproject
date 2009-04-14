@@ -20,7 +20,7 @@
 //
 
 // CPacket represents a packet on a peer-to-peer network, and CPacketPool keeps lists of them
-// http://shareazasecurity.be/wiki/index.php?title=Developers.Code.CPacket
+// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CPacket
 
 // Copy in the contents of these files here before compiling
 #include "StdAfx.h"

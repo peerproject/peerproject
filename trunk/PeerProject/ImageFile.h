@@ -56,6 +56,27 @@ public:
 	BOOL	EnsureRGB(COLORREF crBack = 0xFFFFFFFF);
 	BOOL	SwapRGB();
 
+	static HBITMAP LoadBitmapFromFile(LPCTSTR pszFile)
+	{
+		if ( _tcsicmp( PathFindExtension( pszFile ), _T(".bmp") ) == 0 )
+			return (HBITMAP)LoadImage( NULL, pszFile, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE );
+
+		CImageFile pFile;
+		return ( pFile.LoadFromFile( pszFile, FALSE, FALSE ) && pFile.EnsureRGB() ) ?
+			pFile.CreateBitmap() : NULL;
+	}
+
+	static HBITMAP LoadBitmapFromResource(UINT nResourceID, LPCTSTR pszType, HINSTANCE hInstance = AfxGetResourceHandle())
+	{
+		if ( pszType == RT_BITMAP || _tcscmp( pszType, RT_BMP ) == 0 )
+			return (HBITMAP)LoadImage( hInstance,
+				MAKEINTRESOURCE( nResourceID ), IMAGE_BITMAP, 0, 0, 0 );
+
+		CImageFile pFile;
+		return ( pFile.LoadFromResource( hInstance, nResourceID, pszType ) &&
+			pFile.EnsureRGB() ) ? pFile.CreateBitmap() : NULL;
+	}
+
 	enum ImageFlags
 	{
 		idRemote = 0x1

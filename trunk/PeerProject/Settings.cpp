@@ -32,7 +32,7 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-#define SMART_VERSION	55
+#define SMART_VERSION	56
 
 CSettings Settings;
 
@@ -196,7 +196,7 @@ CSettings::CSettings()
 	Add( _T("MediaPlayer"), _T("AviPreviewCLSID"), &MediaPlayer.AviPreviewCLSID, _T("{394011F0-6D5C-42a3-96C6-24B9AD6B010C}") );
 	Add( _T("MediaPlayer"), _T("EnableEnqueue"), &MediaPlayer.EnableEnqueue, true );
 	Add( _T("MediaPlayer"), _T("EnablePlay"), &MediaPlayer.EnablePlay, true );
-	Add( _T("MediaPlayer"), _T("FileTypes"), &MediaPlayer.FileTypes, _T("|asx|wax|m3u|wvx|wmx|asf|wav|snd|au|aif|aifc|aiff|wma|mp3|cda|mid|rmi|midi|avi|mpeg|mpg|m1v|mp2|mpa|mpe|wmv|") );
+	Add( _T("MediaPlayer"), _T("FileTypes"), &MediaPlayer.FileTypes, _T("|aac|asx|wax|m3u|wvx|wmx|asf|wav|snd|au|aif|aifc|aiff|flac|mp3|wma|cda|mid|rmi|midi|avi|flv|mkv|mpeg|mpg|m1v|mp2|mpa|mpe|wmv|") );
 	Add( _T("MediaPlayer"), _T("ListSize"), &MediaPlayer.ListSize, 240 );
 	Add( _T("MediaPlayer"), _T("ListVisible"), &MediaPlayer.ListVisible, true );
 	Add( _T("MediaPlayer"), _T("MediaServicesCLSID"), &MediaPlayer.MediaServicesCLSID, _T("{3DC28AA6-A597-4E03-96DF-ADA19155B0BE}") );
@@ -300,6 +300,7 @@ CSettings::CSettings()
 	Add( _T("Gnutella1"), _T("DefaultTTL"), &Gnutella1.DefaultTTL, 3, 1, 1, 3 );
 	Add( _T("Gnutella1"), _T("EnableAlways"), &Gnutella1.EnableAlways, false );
 	Add( _T("Gnutella1"), _T("EnableGGEP"), &Gnutella1.EnableGGEP, true );
+	Add( _T("Gnutella1"), _T("EnableOOB"), &Gnutella1.EnableOOB, false );	// TODO: Change this to "true" after OOB fully implemented.
 	Add( _T("Gnutella1"), _T("HostCount"), &Gnutella1.HostCount, 15, 1, 1, 50 );
 	Add( _T("Gnutella1"), _T("HostExpire"), &Gnutella1.HostExpire, 2*24*60*60, 24*60*60, 1, 100, _T(" d") );
 	Add( _T("Gnutella1"), _T("MaxHostsInPongs"), &Gnutella1.MaxHostsInPongs, 10, 1, 5, 30 );
@@ -481,6 +482,7 @@ CSettings::CSettings()
 	Add( _T("Uploads"), _T("ClampdownFloor"), &Uploads.ClampdownFloor, 8*128, 128, 0, 4096, _T(" Kb/s") );
 	Add( _T("Uploads"), _T("ClearDelay"), &Uploads.ClearDelay, 60*1000, 1000, 1, 1800, _T(" s") );
 	Add( _T("Uploads"), _T("DynamicPreviews"), &Uploads.DynamicPreviews, true );
+	Add( _T("Uploads"), _T("FairUseMode"), &Uploads.FairUseMode, false );
 	Add( _T("Uploads"), _T("FilterMask"), &Uploads.FilterMask, 0xFFFFFFFD );
 	Add( _T("Uploads"), _T("FreeBandwidthFactor"), &Uploads.FreeBandwidthFactor, 15, 1, 0, 100, _T("%") );
 	Add( _T("Uploads"), _T("FreeBandwidthValue"), &Uploads.FreeBandwidthValue, 20*128, 128, 0, 4096, _T(" Kb/s") );
@@ -498,7 +500,6 @@ CSettings::CSettings()
 	Add( _T("Uploads"), _T("SharePreviews"), &Uploads.SharePreviews, true );
 	Add( _T("Uploads"), _T("ShareTiger"), &Uploads.ShareTiger, true );
 	Add( _T("Uploads"), _T("ThrottleMode"), &Uploads.ThrottleMode, true );
-	Add( _T("Uploads"), _T("FairUseMode"), &Uploads.FairUseMode, false );
 
 	Add( _T("Remote"), _T("Enable"), &Remote.Enable, false );
 	Add( _T("Remote"), _T("Password"), &Remote.Password );
