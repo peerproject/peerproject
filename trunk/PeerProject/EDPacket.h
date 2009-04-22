@@ -183,10 +183,6 @@ inline void CEDPacket::CEDPacketPool::NewPoolImpl(int nSize, CPacket*& pPool, in
 {
 	nPitch	= sizeof(CEDPacket);
 	pPool	= new CEDPacket[ nSize ];
-	if ( pPool == NULL )
-	{
-		theApp.Message( MSG_ERROR, _T("Memory allocation error in CEDPacket::CEDPacketPool::NewPoolImpl()") );
-	}
 }
 
 inline void CEDPacket::CEDPacketPool::FreePoolImpl(CPacket* pPacket)
@@ -302,13 +298,13 @@ public:
 
 // Attributes
 public:
-	BYTE	m_nType;
-	CString	m_sKey;
-	BYTE	m_nKey;
+	BYTE				m_nType;
+	CString				m_sKey;
+	BYTE				m_nKey;
 	CString				m_sValue;	// ED2K_TAG_STRING
 	QWORD				m_nValue;	// ED2K_TAG_INT
 	Hashes::Ed2kHash	m_oValue;	// ED2K_TAG_HASH
-	
+
 // Operations
 public:
 	void	Clear();

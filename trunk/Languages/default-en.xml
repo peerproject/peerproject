@@ -123,7 +123,7 @@
 	</toolbar>
 	<toolbar name="CBrowseTree.Top">
 		<button id="ID_LIBRARY_TREE_PHYSICAL" text="Folders"/>
-		<button id="ID_LIBRARY_TREE_VIRTUAL" text="Organiser"/>
+		<button id="ID_LIBRARY_TREE_VIRTUAL" text="Organizer"/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Download File"/>
@@ -485,7 +485,7 @@
 		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
 		<separator/>
 		<item id="ID_CHILD_RESTORE" text="_Restore"/>
-		<item id="ID_CHILD_MINIMISE" text="_Minimise"/>
+		<item id="ID_CHILD_MINIMISE" text="_Minimize"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
@@ -530,7 +530,7 @@
 			<item id="ID_WINDOW_REMOTE" text="Media _Remote"/>
 			<separator/>
 			<menu text="_Advanced">
-				<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 				<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity"/>
@@ -622,7 +622,7 @@
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
 				<item id="ID_VIEW_TRAFFIC" text="_Graph" shortcut="F10"/>
 				<item id="ID_VIEW_SYSTEM" text="S_ystem" shortcut="F11"/>
-				<item id="ID_VIEW_NEIGHBOURS" text="N_eighbours" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="N_eighbors" shortcut="Ctrl+F11"/>
 				<separator/>
 				<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
 				<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
@@ -707,7 +707,7 @@
 		</menu>
 		<menu text="_View">
 			<item id="ID_VIEW_SYSTEM" text="_System" shortcut="F11"/>
-			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours" shortcut="Ctrl+F11"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors" shortcut="Ctrl+F11"/>
 			<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 			<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
@@ -794,7 +794,7 @@
 		<item id="ID_TAB_IRC" text="_Chatrooms"/>
 		<separator/>
 		<menu text="_Advanced">
-			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
 			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
@@ -822,7 +822,7 @@
 		<item id="ID_NETWORK_SEARCH" text="New _Search..."/>
 		<separator/>
 		<item id="ID_VIEW_SYSTEM" text="S_ystem"/>
-		<item id="ID_VIEW_NEIGHBOURS" text="N_eighbours"/>
+		<item id="ID_VIEW_NEIGHBOURS" text="N_eighbors"/>
 		<item id="ID_VIEW_DOWNLOADS" text="_Downloads"/>
 		<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 		<item id="ID_VIEW_LIBRARY" text="_Library"/>
@@ -846,7 +846,7 @@
 		<item id="ID_TAB_TRANSFERS" text="_Downloads"/>
 		<separator/>
 		<menu text="_Advanced">
-			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
 			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
@@ -1251,7 +1251,7 @@
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localize Metadata"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Choose _Columns..."/>
@@ -1295,7 +1295,7 @@
 		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
 		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
-		<menu text="O_rganise">
+		<menu text="O_rganize">
 			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
@@ -1318,7 +1318,7 @@
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localize Metadata"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Choose _Columns..."/>
@@ -1344,9 +1344,9 @@
 		<menu text="Video Si_ze">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Triple Size"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="_Largest"/>
-			<item id="ID_MEDIA_SIZE_DISTORT" text="_Fill Window"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="Fi_ll Window"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
@@ -1382,9 +1382,9 @@
 		<menu text="Video Si_ze">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Triple Size"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="_Largest"/>
-			<item id="ID_MEDIA_SIZE_DISTORT" text="_Fill Window"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="Fi_ll Window"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
@@ -1404,9 +1404,9 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="_Triple Size"/>
-		<item id="ID_MEDIA_SIZE_FILL" text="_Largest"/>
-		<item id="ID_MEDIA_SIZE_DISTORT" text="_Fill Window"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
+		<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
+		<item id="ID_MEDIA_SIZE_DISTORT" text="Fi_ll Window"/>
 		<separator/>
 		<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
 		<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
@@ -1417,14 +1417,14 @@
 		<item id="ID_MEDIA_PROPERTIES" text="_Properties..."/>
 		<item id="ID_MEDIA_RATE" text="Ra_te File..."/>
 		<separator/>
-		<item id="ID_MEDIA_ADD" text="_Add File(s)..."/>
-		<item id="ID_MEDIA_REMOVE" text="_Remove Files(s)"/>
+		<item id="ID_MEDIA_ADD" text="_Add Files..."/>
+		<item id="ID_MEDIA_REMOVE" text="_Remove File(s)"/>
+		<item id="ID_MEDIA_CLEAR" text="_Clear Playlist"/>
 		<separator/>
 		<item id="ID_MEDIA_ADD_FOLDER" text="Add _Folder..."/>
 		<item id="ID_MEDIA_OPEN" text="_Open Playlist..."/>
 		<item id="ID_MEDIA_SAVE" text="_Save Playlist..."/>
 		<item id="ID_MEDIA_EXPORT_COLLECTION" text="E_xport Collection..."/>
-		<item id="ID_MEDIA_CLEAR" text="_Clear Playlist"/>
 		<separator/>
 		<item id="ID_MEDIA_RANDOM" text="Ra_ndom Mode"/>
 		<item id="ID_MEDIA_REPEAT" text="Rep_eat Mode"/>
@@ -2063,7 +2063,7 @@
 		found, PeerProject will repair them automatically.</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
-		<text format="b">This Download is Active!</text>
+		<text format="b">This Download is Active</text>
 		<newline gap="8"/>
 		<text>This download is currently in progress. If it is downloading too slowly,
 		you could try searching the network for more sources with the '</text>
@@ -2264,8 +2264,8 @@
 		sub-folders located</text><text format="i"> inside</text>
 		<text> these folders. Please share those instead.</text>
 		<newline gap="8"/>
-		<text>The PeerProject 'incomplete' folder should also not be shared through the
-		library, since attempting to hash downloads in progress may impact on performance.</text>
+		<text>The PeerProject 'incomplete' folder should also not be shared through the library,
+		as attempting to hash downloads in progress may impact performance.</text>
 	</document>
 </documents>
 <!-- Localized Command Tip Text."Message" displayed in status bar, "Tip" shown in tooltip -->
@@ -2288,8 +2288,8 @@
 	<tip id="ID_CHAT_TIMESTAMP" message="Show the time when each message was received."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Apply underline formatting (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Close the active window."/>
-	<tip id="ID_CHILD_MAXIMISE" message="Enlarge the active window to fill the window."/>
-	<tip id="ID_CHILD_MINIMISE" message="Minimise the selected window to the tab bar."/>
+	<tip id="ID_CHILD_MAXIMISE" message="Enlarge the active window to fill available area."/>
+	<tip id="ID_CHILD_MINIMISE" message="Minimize the selected window to the tab bar."/>
 	<tip id="ID_CHILD_RESTORE" message="Open the selected window."/>
 	<tip id="ID_DISCOVERY_ADD" message="Add a new discovery service..."/>
 	<tip id="ID_DISCOVERY_ADVERTISE" message="Advertise the selected GWebCache service to a random existing GWebCache."/>
@@ -2309,14 +2309,14 @@
 	<tip id="ID_DOWNLOAD_GROUP_SHOW" message="Show or hide the download group bar."/>
 	<tip id="ID_DOWNLOADS_AUTO_CLEAR" message="Automatically clear downloads which have been completed."/>
 	<tip id="ID_DOWNLOADS_BOOST" message="Boost the performance of the selected download by removing bandwidth limits."/>
-	<tip id="ID_DOWNLOADS_CLEAR" message="Clear/remove the selected download(s)."/>
+	<tip id="ID_DOWNLOADS_CLEAR" message="Clear/Remove selected downloads."/>
 	<tip id="ID_DOWNLOADS_CLEAR_COMPLETE" message="Remove the selected download(s) from the list."/>
 	<tip id="ID_DOWNLOADS_CLEAR_COMPLETED" message="Clear downloads which have been completed."/>
 	<tip id="ID_DOWNLOADS_CLEAR_INCOMPLETE" message="Cancel the selected incomplete download(s)."/>
 	<tip id="ID_DOWNLOADS_CLEAR_PAUSED" message="Clear downloads which have been paused."/>
 	<tip id="ID_DOWNLOADS_URI" message="Copy the URI of the selected file. (P2P hyperlink)"/>
 	<tip id="ID_DOWNLOADS_EDIT" message="Show the advanced edit download interface..."/>
-	<tip id="ID_DOWNLOADS_ENQUEUE" message="Add the selected download(s) to your media playlist."/>
+	<tip id="ID_DOWNLOADS_ENQUEUE" message="Add selected downloads to your media playlist."/>
 	<tip id="ID_DOWNLOADS_FILE_DELETE" message="Delete the selected completed file(s)."/>
 	<tip id="ID_DOWNLOADS_FILTER_ACTIVE" message="Show downloads which are active."/>
 	<tip id="ID_DOWNLOADS_FILTER_ALL" message="Show all downloads."/>
@@ -2334,7 +2334,7 @@
 	<tip id="ID_DOWNLOADS_PAUSE" message="Pause the selected download(s)."/>
 	<tip id="ID_DOWNLOADS_RATE" message="Rate the selected download."/>
 	<tip id="ID_DOWNLOADS_REMOTE_PREVIEW" message="Download preview image for the selected download."/>
-	<tip id="ID_DOWNLOADS_RESUME" message="Resume the selected download(s)."/>
+	<tip id="ID_DOWNLOADS_RESUME" message="Resume selected downloads."/>
 	<tip id="ID_DOWNLOADS_SETTINGS" message="Configure download settings..."/>
 	<tip id="ID_DOWNLOADS_SHARE" message="Share this partially downloaded file with other users."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Display sources which are not currently being used."/>
@@ -2362,8 +2362,8 @@
 	<tip id="ID_HITMONITOR_CLEAR" message="Clear the hit monitor buffer."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Pause hit monitoring."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Search the network for the selected term."/>
-	<tip id="ID_HOSTCACHE_CONNECT" message="Connect to the selected host(s)."/>
-	<tip id="ID_HOSTCACHE_DISCONNECT" message="Disconnect from the selected neighbour(s)."/>
+	<tip id="ID_HOSTCACHE_CONNECT" message="Connect to selected hosts."/>
+	<tip id="ID_HOSTCACHE_DISCONNECT" message="Disconnect from the selected neighbor."/>
 	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Show eDonkey servers."/>
 	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Download an eDonkey &quot;server.met&quot; file..."/>
 	<tip id="ID_HOSTCACHE_G1_CACHE" message="Show Gnutella1 cached hosts."/>
@@ -2382,8 +2382,8 @@
 	<tip id="ID_LIBRARY_COPY" message="Copy the selected files to another library folder..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Create a .torrent for this file to upload to a website."/>
 	<tip id="ID_LIBRARY_DELETE" message="Delete the selected files permanently."/>
-	<tip id="ID_LIBRARY_ENQUEUE" message="Add the selected file(s) to your media playlist."/>
-	<tip id="ID_LIBRARY_EXPLORE" message="Open the selected folder(s)."/>
+	<tip id="ID_LIBRARY_ENQUEUE" message="Add selected files to your media playlist."/>
+	<tip id="ID_LIBRARY_EXPLORE" message="Open selected folders."/>
 	<tip id="ID_LIBRARY_EXPORT_COLLECTION" message="Export the selected album folder to collection files..."/>
 	<tip id="ID_LIBRARY_FOLDER_DOWNLOAD" message="Download all files in the selected collection."/>
 	<tip id="ID_LIBRARY_FOLDER_ENQUEUE" message="Add every file in the selected album folder(s) to your playlist."/>
@@ -2393,7 +2393,7 @@
 	<tip id="ID_LIBRARY_FOLDER_PROPERTIES" message="View and edit the properties of the selected album folder..."/>
 	<tip id="ID_LIBRARY_FOLDERS" message="Manage the physical folders in your library..."/>
 	<tip id="ID_LIBRARY_HASH_PRIORITY" message="Boost the speed of file scanning and hashing."/>
-	<tip id="ID_LIBRARY_LAUNCH" message="Open or play the selected file(s)."/>
+	<tip id="ID_LIBRARY_LAUNCH" message="Open or play selected files."/>
 	<tip id="ID_LIBRARY_MOVE" message="Move the selected files to another library folder..."/>
 	<tip id="ID_LIBRARY_PANEL" message="Show or hide the library detail panel."/>
 	<tip id="ID_LIBRARY_PARENT" message="Move up to the parent folder."/>
@@ -2411,9 +2411,9 @@
 	<tip id="ID_LIBRARY_SHARED_FILE" message="Share or unshare the selected files."/>
 	<tip id="ID_LIBRARY_SHARED_FOLDER" message="Share or unshare the selected folder(s)."/>
 	<tip id="ID_LIBRARY_TREE_PHYSICAL" message="View the physical folders in your library."/>
-	<tip id="ID_LIBRARY_TREE_VIRTUAL" message="Organise your library."/>
+	<tip id="ID_LIBRARY_TREE_VIRTUAL" message="Organize your library."/>
 	<tip id="ID_LIBRARY_UNLINK" message="Remove the select files from the current album folder."/>
-	<tip id="ID_LIBRARY_URI" message="Copy the URI of the selected file."/>
+	<tip id="ID_LIBRARY_URI" message="Copy the URI (P2P Link) of the selected file."/>
 	<tip id="ID_LIBRARY_VIEW" message="Select a library view..."/>
 	<tip id="ID_LIBRARY_VIEW_ALBUM" message="Show an album view" tip="Album View"/>
 	<tip id="ID_LIBRARY_VIEW_COLLECTION" message="Show the rich collection view" tip="Collection View"/>
@@ -2458,12 +2458,12 @@
 	<tip id="ID_MEDIA_ZOOM" message="Adjust video zoom and aspect ratio settings."/>
 	<tip id="ID_MONITOR_CLOSE" message="Close the monitor window."/>
 	<tip id="ID_NEIGHBOURS_CHAT" message="Open a chat session with the selected user."/>
-	<tip id="ID_NEIGHBOURS_URI" message="Copy a URI to access the selected host."/>
-	<tip id="ID_NEIGHBOURS_DISCONNECT" message="Disconnect the selected neighbour(s)."/>
+	<tip id="ID_NEIGHBOURS_URI" message="Copy URI (P2P Link) to access the selected host."/>
+	<tip id="ID_NEIGHBOURS_DISCONNECT" message="Disconnect the selected neighbor."/>
 	<tip id="ID_NEIGHBOURS_SETTINGS" message="Configure network settings..."/>
-	<tip id="ID_NEIGHBOURS_VIEW_ALL" message="Open a new Packet Dump window monitoring this neighbour."/>
-	<tip id="ID_NEIGHBOURS_VIEW_INCOMING" message="Open a new Packet Dump window monitoring incoming traffic from this neighbour."/>
-	<tip id="ID_NEIGHBOURS_VIEW_OUTGOING" message="Open a new Packet Dump window monitoring outgoing traffic to this neighbour."/>
+	<tip id="ID_NEIGHBOURS_VIEW_ALL" message="Open a new Packet Dump window monitoring this neighbor."/>
+	<tip id="ID_NEIGHBOURS_VIEW_INCOMING" message="Open a new Packet Dump window monitoring incoming traffic from this neighbor."/>
+	<tip id="ID_NEIGHBOURS_VIEW_OUTGOING" message="Open a new Packet Dump window monitoring outgoing traffic to this neighbor."/>
 	<tip id="ID_NETWORK_AUTO_CLOSE" message="Automatically close PeerProject when transfers have completed."/>
 	<tip id="ID_NETWORK_BROWSE_TO" message="Browse a user, showing their profile and shared files..."/>
 	<tip id="ID_NETWORK_CONNECT" message="Connect to selected networks."/>
@@ -2555,7 +2555,7 @@
 	<tip id="ID_VIEW_HOSTS" message="Show or hide the HOST CACHE window."/>
 	<tip id="ID_VIEW_LIBRARY" message="Show or hide the LIBRARY window."/>
 	<tip id="ID_VIEW_MEDIA" message="Show or hide the MEDIA PLAYER window."/>
-	<tip id="ID_VIEW_NEIGHBOURS" message="Show or hide the NEIGHBOURS window."/>
+	<tip id="ID_VIEW_NEIGHBOURS" message="Show or hide the NEIGHBORS window."/>
 	<tip id="ID_VIEW_PACKETS" message="Show or hide the PACKET DUMP window."/>
 	<tip id="ID_VIEW_RESULTS_MONITOR" message="Show or hide the HIT MONITOR window."/>
 	<tip id="ID_VIEW_SEARCH_MONITOR" message="Show or hide the SEARCH MONITOR window."/>
@@ -2591,7 +2591,7 @@
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
 	<string id="WINDOW_SYSTEM" value="System"/>
-	<string id="WINDOW_NEIGHBOURS" value="Neighbours"/>
+	<string id="WINDOW_NEIGHBOURS" value="Neighbors"/>
 	<string id="WINDOW_PACKET" value="Packet Dump"/>
 	<string id="WINDOW_HOSTCACHE" value="Host Cache"/>
 	<string id="WINDOW_SEARCHMONITOR" value="Search Monitor"/>
@@ -2624,7 +2624,7 @@
 	<string id="8002" value="File Properties"/>
 	<string id="8003" value="Edit My Profile"/>
 	<string id="8004" value="!Welcome to PeerProject (version) !\n.\nPeerProject is completely free software.\nPlease use it responsibly and respect intellectual property law.\n."/>
-	<string id="8005" value="(closing after transfers)"/>
+	<string id="8005" value="(Closing after transfers)"/>
 	<string id="8006" value="You're not connected. Click the Connect button to get started."/>
 	<string id="8007" value="There are no active searches. Click here to search for files."/>
 	<string id="8008" value="PeerProject has finished downloading the next PeerProject version (%s). Would you like to upgrade now?\n\nIf you select Yes, PeerProject will close temporarily while the upgrade is installed."/>
@@ -2634,11 +2634,11 @@
 	<string id="8012" value="Torrent Information"/>
 	<string id="8013" value="No new PeerProject version detected."/>
 	<string id="8014" value="Download Properties"/>
-	<string id="8060" value="Hub/Ultrapeer mode with %lu neighbour(s). %s in local library."/>
-	<string id="8061" value="Ultrapeer mode with %lu neighbour(s). %s in local library."/>
-	<string id="8062" value="Hub mode with %lu neighbour(s). %s in local library."/>
+	<string id="8060" value="Hub/Ultrapeer mode with %lu neighbors. %s in local library."/>
+	<string id="8061" value="Ultrapeer mode with %lu neighbors. %s in local library."/>
+	<string id="8062" value="Hub mode with %lu neighbors. %s in local library."/>
 	<string id="8063" value="Connected. %s in local library."/>
-	<string id="8064" value="Connected to %lu neighbour(s). %s in local library."/>
+	<string id="8064" value="Connected to %lu neighbors. %s in local library."/>
 	<string id="8065" value="Connecting to the network..."/>
 	<string id="8066" value="Not connected to the network."/>
 	<string id="8067" value="%s in : %s out [D:%I64i/U:%I64i]"/>
@@ -2788,51 +2788,51 @@
 	<string id="16085" value="Gnutella2 is PeerProject's premiere network. Disabling support for it may severely limit both the number and quality of your search results. Are you SURE you want to do this?"/>
 	<string id="16087" value="Your outgoing bandwidth is too low to enable this network"/>
 	<string id="16128" value="Accepted an incoming connection from %s port %i."/>
-	<string id="16129" value="Initiating a neighbour connection to %s port %i..."/>
-	<string id="16130" value="Unable to initiate a neighbour connection with %s."/>
+	<string id="16129" value="Initiating a neighbor connection to %s port %i..."/>
+	<string id="16130" value="Unable to initiate a neighbor connection with %s."/>
 	<string id="16131" value="Timed out connecting to %s."/>
-	<string id="16132" value="Closing connection to neighbour %s due to lack of traffic."/>
-	<string id="16133" value="Established a connection with neighbour %s, handshaking..."/>
-	<string id="16134" value="Closed connection with neighbour %s."/>
-	<string id="16135" value="Unable to initiate a neighbour connection with %s (refused)."/>
-	<string id="16136" value="Neighbour %s dropped the connection unexpectedly."/>
+	<string id="16132" value="Closing connection to neighbor %s due to lack of traffic."/>
+	<string id="16133" value="Established a connection with neighbor %s, handshaking..."/>
+	<string id="16134" value="Closed connection with neighbor %s."/>
+	<string id="16135" value="Unable to initiate a neighbor connection with %s (refused)."/>
+	<string id="16136" value="Neighbor %s dropped the connection unexpectedly."/>
 	<string id="16137" value="Refusing duplicate connection from %s."/>
 	<string id="16138" value="Already connected to %s, will not establish a second connection."/>
-	<string id="16139" value="Neighbour %s closed connection (%i : %s)."/>
-	<string id="16141" value="Closed connection with neighbour %s because it is not a hub."/>
+	<string id="16139" value="Neighbor %s closed connection (%i : %s)."/>
+	<string id="16141" value="Closed connection with neighbor %s because it is not a hub."/>
 	<string id="16144" value="Timed out handshaking with %s."/>
-	<string id="16145" value="Gnutella connection with neighbour %s established successfully (G%i.%i : %s)."/>
+	<string id="16145" value="Gnutella connection with neighbor %s established successfully (G%i.%i : %s)."/>
 	<string id="16146" value="Handshake with %s failed due to invalid data on the wire."/>
 	<string id="16147" value="Closing surplus connection from %s with host hint (%s port %i)."/>
 	<string id="16148" value="Connection to %s rejected (%s)."/>
 	<string id="16150" value="Closing surplus connection from %s."/>
 	<string id="16151" value="Refusing connection from %s because this is a shielded leaf node."/>
-	<string id="16152" value="Hub neighbour %s won't accept us as a hub, closing connection."/>
-	<string id="16153" value="Connecting neighbour %s falling back to shielded leaf mode."/>
+	<string id="16152" value="Hub neighbor %s won't accept us as a hub, closing connection."/>
+	<string id="16153" value="Connecting neighbor %s falling back to shielded leaf mode."/>
 	<string id="16154" value="Hub connection established, closing peer connections."/>
-	<string id="16155" value="Acting as a hub for leaf neighbour %s."/>
-	<string id="16156" value="Neighbour %s wants to be a hub, closing connection."/>
-	<string id="16157" value="Neighbour %s is not a hub, closing connection."/>
-	<string id="16158" value="Gnutella2 connection with neighbour %s established successfully (%s)."/>
-	<string id="16159" value="Closing connection to non-Gnutella2 neighbour %s."/>
-	<string id="16192" value="Neighbour %s forwarded a packet of excessive size, dropping connection."/>
-	<string id="16193" value="Neighbour %s forwarded a packet with zero TTL, ignoring."/>
-	<string id="16194" value="Neighbour %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."/>
-	<string id="16195" value="Neighbour %s forwarded a ping packet with invalid length, ignoring."/>
-	<string id="16196" value="Neighbour %s forwarded a pong packet with invalid length, ignoring."/>
+	<string id="16155" value="Acting as a hub for leaf neighbor %s."/>
+	<string id="16156" value="Neighbor %s wants to be a hub, closing connection."/>
+	<string id="16157" value="Neighbor %s is not a hub, closing connection."/>
+	<string id="16158" value="Gnutella2 connection with neighbor %s established successfully (%s)."/>
+	<string id="16159" value="Closing connection to non-Gnutella2 neighbor %s."/>
+	<string id="16192" value="Neighbor %s forwarded a packet of excessive size, dropping connection."/>
+	<string id="16193" value="Neighbor %s forwarded a packet with zero TTL, ignoring."/>
+	<string id="16194" value="Neighbor %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."/>
+	<string id="16195" value="Neighbor %s forwarded a ping packet with invalid length, ignoring."/>
+	<string id="16196" value="Neighbor %s forwarded a pong packet with invalid length, ignoring."/>
 	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
-	<string id="16198" value="Leaf neighbour %s is forwarding queries, dropping connection."/>
-	<string id="16199" value="Neighbour %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
-	<string id="16200" value="Neighbour %s forwarded a pong with invalid address data, ignoring."/>
+	<string id="16198" value="Leaf neighbor %s is forwarding queries, dropping connection."/>
+	<string id="16199" value="Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
+	<string id="16200" value="Neighbor %s forwarded a pong with invalid address data, ignoring."/>
 	<string id="16201" value="Received a malformatted query packet from %s, ignoring."/>
 	<string id="16202" value="Received a malformatted query hit packet from %s, ignoring."/>
-	<string id="16203" value="Neighbour %s forwarded a push packet with invalid length, ignoring."/>
-	<string id="16208" value="Receiving an unexpected query routing table update from neighbour %s."/>
-	<string id="16209" value="Neighbour %s sent an invalid query routing table update, dropping connection."/>
-	<string id="16210" value="Neighbour %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
-	<string id="16211" value="Neighbour %s forwarded a push request to a firewalled address, ignoring."/>
-	<string id="16212" value="Neighbour %s forwarded an extended packet that is not GGEP encoded."/>
-	<string id="16213" value="Sending query routing table to neighbour %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16203" value="Neighbor %s forwarded a push packet with invalid length, ignoring."/>
+	<string id="16208" value="Receiving an unexpected query routing table update from neighbor %s."/>
+	<string id="16209" value="Neighbor %s sent an invalid query routing table update, dropping connection."/>
+	<string id="16210" value="Neighbor %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
+	<string id="16211" value="Neighbor %s forwarded a push request to a firewalled address, ignoring."/>
+	<string id="16212" value="Neighbor %s forwarded an extended packet that is not GGEP encoded."/>
+	<string id="16213" value="Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"/>
 	<string id="16256" value="Added &quot;%s&quot; to download queue with %i source(s)."/>
 	<string id="16257" value="Completed download of &quot;%s&quot;."/>
 	<string id="16258" value="Pausing download of &quot;%s&quot;."/>
@@ -2967,7 +2967,7 @@
 	<string id="16392" value="Click the Connect button to get started."/>
 	<string id="16393" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download. Are you sure you want to open it?"/>
 	<string id="16394" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
-	<string id="16395" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
+	<string id="16395" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organize new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
 	<string id="16396" value="Your downloads folder has been added to your library. Would you like to share it too?"/>
 	<string id="16397" value="Are you sure you want to delete the %i selected album folder(s) ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
 	<string id="16398" value="PeerProject could not rename:\n\n%s\nto\n%s"/>
@@ -3356,9 +3356,9 @@
 		<control/>
 		<control caption="_Tray:"/>
 		<control caption="When I click close:"/>
-		<control caption="Ask Me|Close Immediately|Minimise to Tray|Close After Transfers"/>
-		<control caption="When I click minimise:"/>
-		<control caption="Normal|Minimise to Tray"/>
+		<control caption="Ask Me|Close Immediately|Minimize to Tray|Close After Transfers"/>
+		<control caption="When I click minimize:"/>
+		<control caption="Normal|Minimize to Tray"/>
 	</dialog>
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Library">
 		<control caption="_Options:"/>
@@ -3399,7 +3399,7 @@
 		<control/>
 		<control caption="_Add"/>
 		<control caption="_Remove"/>
-		<control caption="Audio _Visualisation Plugin:"/>
+		<control caption="Audio _Visualization Plugin:"/>
 		<control caption="_Select Plugin..."/>
 		<control caption="_Media Handling"/>
 		<control caption="Choose Media Handler:"/>
@@ -3789,7 +3789,7 @@
 		<control/>
 		<control caption="_Add..."/>
 		<control caption="_Remove"/>
-		<control caption="WARNING: Distributing copyrighted works is an offence in most countries."/>
+		<control caption="WARNING: Uploading unlicensed works is liable in most countries."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Scanning Folder...">
 		<control/>
@@ -3912,7 +3912,7 @@
 		<control caption="_Browse..."/>
 		<control caption="_Remove"/>
 	</dialog>
-	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favourites">
+	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favorites">
 		<control/>
 		<control caption="_Edit:"/>
 		<control caption="Title:"/>
@@ -3923,8 +3923,8 @@
 		<control caption="Remove"/>
 	</dialog>
 	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Files">
-		<control caption="_Favourite Files:"/>
-		<control caption="Favourite files are recommended to users who browse your profile. You can create favourite files by adding them to the &quot;Favourites&quot; library folder."/>
+		<control caption="_Favorite Files:"/>
+		<control caption="Favorite files are recommended to users who browse your profile. You can create favorite files by adding them to the &quot;Favorites&quot; library folder."/>
 		<control/>
 	</dialog>
 	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certificate">
@@ -3969,7 +3969,7 @@
 		<control caption="Only show matches which include the _words:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="( you can also exclude words with -word )"/>
+		<control caption="( Exclude words with -word )"/>
 		<control caption="And are of _size:"/>
 		<control caption="Minimum:"/>
 		<control/>
@@ -4239,7 +4239,7 @@
 		<control caption="PeerProject is creating a preview of the download:"/>
 		<control/>
 		<control/>
-		<control caption="(copying downloaded chunks to a new preview file)"/>
+		<control caption="(Copying downloaded chunks to a new preview file)"/>
 		<control caption="Cancel"/>
 	</dialog>
 	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject Respects its Users">
@@ -4248,17 +4248,17 @@
 		<control caption="PeerProject does NOT contain ANY &quot;spyware&quot;, &quot;adware&quot; or other bundled software. It does NOT display any advertisements or &quot;popups&quot;, ever.{n}{n}If you ever see advertising or &quot;popups&quot; while using PeerProject, be assured that they are NOT coming from this program."/>
 		<control caption="Unfortunately a lot of other software does come with undesirable adware or spyware, so if you see something suspicious you may wish to check your PC with an advertising or spyware removal program."/>
 		<control caption="You should not have had to pay any money to obtain PeerProject. PeerProject can be freely downloaded by anyone from http://PeerProject.org/. If you paid someone money for PeerProject, you should demand a full refund immediately."/>
-		<control caption="PeerProject respects its users!"/>
+		<control caption="PeerProject respects its users."/>
 		<control caption="http://PeerProject.org/"/>
 		<control caption="Close"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Spread the Word">
 		<control/>
 		<control caption="Help Us Spread the Word"/>
-		<control caption="We hope you have enjoyed using PeerProject so far. We believe it is the best file sharing application around."/>
-		<control caption="Unfortunately, a lot of file sharers don't know what they're missing!"/>
-		<control caption="If you know someone who would like PeerProject, whether they're a new user or someone still putting up with an inferior product, why not let them know there is a better alternative?"/>
-		<control caption="Chances are they'll be grateful you rescued them!"/>
+		<control caption="We hope you've enjoyed using PeerProject so far. We believe it's the best true file sharing application available."/>
+		<control caption="Unfortunately, a lot of file sharers don't know what they're missing-"/>
+		<control caption="If you know someone who would like PeerProject, whether they're a new user or someone still using older software, why not let them know there is a better alternative?"/>
+		<control caption="Chances are they'll be grateful you did."/>
 		<control caption="http://PeerProject.org/"/>
 		<control caption="OK"/>
 	</dialog>
@@ -4274,12 +4274,12 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 		<control caption="You have downloaded and deleted this file before. What would you like to do?"/>
-		<control caption="Warning!!! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
+		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Close Button">
 		<control/>
 		<control caption="This is the first time you have clicked PeerProject's close button. Please choose what action you would like PeerProject to take when clicking the close button from now on:"/>
-		<control caption="Minimise to the tray area"/>
+		<control caption="Minimize to the tray area"/>
 		<control caption="Shut down PeerProject immediately"/>
 		<control caption="Shut down PeerProject after any downloads and uploads finish"/>
 		<control caption="OK"/>
@@ -4431,7 +4431,7 @@
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Select Visualisation">
 		<control/>
-		<control caption="Select an audio visualisation from the list:"/>
+		<control caption="Select an audio visualization from the list:"/>
 		<control/>
 		<control caption="Footer Display|Full Size Display|Large Display|Medium Display|Small Display"/>
 		<control caption="_Setup..."/>
@@ -4452,7 +4452,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata Localisation">
+	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata Localization">
 		<control caption="Please select the method of re-encoding:"/>
 		<control caption="Arabic|Baltic|Central European|Chinese Simplified|Chinese Traditional|Cyrillic|Greek|Hebrew|Japanese|Korean|Thai|Turkish|Vietnamese"/>
 		<control caption="Preview:"/>

@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Generelt: mine filer</title>
 		<title language="pt-br">Geral: Biblioteca do PeerProject</title>
 		<title language="ru">&#160;Основное: хранилище</title>
-		<title language="sl-SI">Splošno:PeerProject knjižnica</title>
+		<title language="sl">Splošno:PeerProject knjižnica</title>
 		<title language="sq">Përgjithësi:Libraria Juaj në PeerProject</title>
 		<title language="sr">Opšte:Kolekcija</title>
 		<title language="sv">Generellt: PeerProjectbibliotek</title>
@@ -86,7 +86,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -115,7 +115,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Eier</title>
 			<title language="pt-br">Proprietário</title>
 			<title language="ru">Владелец</title>
-			<title language="sl-SI">Lastnik</title>
+			<title language="sl">Lastnik</title>
 			<title language="sq">Zotëruesi</title>
 			<title language="sr">Vlasnik</title>
 			<title language="sv">Ägare</title>
@@ -144,7 +144,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Kommentar</title>
 			<title language="pt-br">Comentários</title>
 			<title language="ru">Коментарии</title>
-			<title language="sl-SI">Komentarji</title>
+			<title language="sl">Komentarji</title>
 			<title language="sq">Komente</title>
 			<title language="sr">Komentari</title>
 			<title language="sv">Kommentarer</title>
@@ -177,7 +177,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Velkommen til mine filer.</title>
 		<title language="pt-br">Bem-vindo a sua Biblioteca.</title>
 		<title language="ru">Добро пожаловать в Ваше хранилище.</title>
-		<title language="sl-SI">Dobrodošli v vaši knjižnici.</title>
+		<title language="sl">Dobrodošli v vaši knjižnici.</title>
 		<title language="sq">Mirë se erdhët në Librarinë Tuaj.</title>
 		<title language="sr">Dobrodošli U Vašu Kolekciju.</title>
 		<title language="sv">Välkommen till ditt bibliotek.</title>
@@ -204,7 +204,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Du har {totalFiles} filer totalt {totalVolume} i mine filer.</subtitle>
 		<subtitle language="pt-br">Você tem {totalFiles} arquivos totalizando {totalVolume} na sua biblioteca.</subtitle>
 		<subtitle language="ru">У Вас файлов {totalFiles} занимающих {totalVolume} в Вашем хранилище.</subtitle>
-		<subtitle language="sl-SI">V vaši knjižnici imate {totalFiles} datotek, v skupni velikosti {totalVolume}.</subtitle>
+		<subtitle language="sl">V vaši knjižnici imate {totalFiles} datotek, v skupni velikosti {totalVolume}.</subtitle>
 		<subtitle language="sq">Në librari gjenden {totalFiles} skeda, me përmasë {totalVolume}.</subtitle>
 		<subtitle language="sr">Imate {totalFiles} datoteka Tj {totalVolume} koje delite sa svetom.</subtitle>
 		<subtitle language="sv">Du har {totalFiles} filer som upptar {totalVolume} i ditt bibliotek.</subtitle>

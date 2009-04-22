@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Generelt:alle filer</title>
 		<title language="pt-br">Geral:Todos os Arquivos</title>
 		<title language="ru">&#160;Основное:Все файлы</title>
-		<title language="sl-SI">Splošno:Vse datoteke</title>
+		<title language="sl">Splošno:Vse datoteke</title>
 		<title language="sq">Përgjithësi:Gjithë Skedat</title>
 		<title language="sr">Opšte:Sve Datoteke</title>
 		<title language="sv">Generellt:Alla filer</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -119,7 +119,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Alle filer</title>
 		<title language="pt-br">Todos os Arquivos</title>
 		<title language="ru">Все файлы</title>
-		<title language="sl-SI">Vse datoteke</title>
+		<title language="sl">Vse datoteke</title>
 		<title language="sq">Gjithë Skedat</title>
 		<title language="sr">Sve Datoteke</title>
 		<title language="sv">Alla filer</title>
@@ -146,7 +146,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Denne mappen inneholder alle filene i mine filer</subtitle>
 		<subtitle language="pt-br">Esta pasta contém todos os arquivos na sua biblioteca.</subtitle>
 		<subtitle language="ru">Эта папка отображает каждый файл в Вашем хранилище.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje vse datoteke v vaši knjižnici.</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje vse datoteke v vaši knjižnici.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban skedat në librarinë tuaj.</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži sve datoteke u vašoj kolekciji.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller alla filer som du har i ditt bibliotek.</subtitle>

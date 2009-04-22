@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Video: TV-show</title>
 		<title language="pt-br">Vídeo: Shows de TV</title>
 		<title language="ru">&#160;Видео: Видео шоу</title>
-		<title language="sl-SI">Video:TV oddaje</title>
+		<title language="sl">Video:TV oddaje</title>
 		<title language="sq">Video:Shfaqje TV</title>
 		<title language="sr">Film:TV Emisije</title>
 		<title language="sv">Video: TV-program</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -122,7 +122,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">TV-show</title>
 		<title language="pt-br">Shows de TV</title>
 		<title language="ru">ТВ шоу</title>
-		<title language="sl-SI">TV oddaje</title>
+		<title language="sl">TV oddaje</title>
 		<title language="sq">Shfaqje TV</title>
 		<title language="sr">TV Emisija</title>
 		<title language="sv">TV-program</title>
@@ -149,7 +149,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Denne mappen inneholder en liste over TV-serier i mine filer</subtitle>
 		<subtitle language="pt-br">Esta pasta contém uma lista dos seriados de TV presentes na sua biblioteca.</subtitle>
 		<subtitle language="ru">Эта папка отображает список ТВ шоу и/или серий в Вашем хранилище.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje seznam TV oddaj v vaši knjižnici.</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje seznam TV oddaj v vaši knjižnici.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban një listë me seritë TV që janë në librarinë tuaj.</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži popis Tv serija koje imate u kolekciji.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller en lista över TV-serier som du har i ditt bibliotek.</subtitle>

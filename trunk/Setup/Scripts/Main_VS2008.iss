@@ -151,6 +151,8 @@ Source: "Plugins\SWFPlugin\{#PlatformName} {#ConfigurationName}\SWFPlugin.dll"; 
 
 Source: "Plugins\ZIPBuilder\{#PlatformName} {#ConfigurationName}\ZIPBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
+Source: "Plugins\VirusTotal\{#PlatformName} {#ConfigurationName}\VirusTotal.dll";   DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+
 Source: "Plugins\MediaPlayer\{#PlatformName} {#ConfigurationName}\MediaPlayer.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
 ; Don't register RazaWebHook.dll since it will setup PeerProject as download manager
@@ -875,8 +877,6 @@ Begin
 
   if ( LangCode = 'pt' ) then
     Result := 'Languages\default-pt-br.xml'
-  else if ( LangCode = 'sl' ) then
-    Result := 'Languages\default-sl-si.xml'
   else
     Result := 'Languages\default-' + LangCode + '.xml';
 End;

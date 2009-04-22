@@ -449,7 +449,7 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags)
 		if ( m_bWantDN && Settings.eDonkey.MagnetSearch )
 		{			
 			// We need the size- do a search by magnet (hash)
-			pPacket = CEDPacket::New( bUDP ? ED2K_C2SG_SEARCHREQUEST : ED2K_C2S_SEARCHREQUEST );
+			pPacket = CEDPacket::New( bUDP ? ED2K_C2SG_SEARCHREQUEST2 : ED2K_C2S_SEARCHREQUEST );
 			pPacket->WriteByte( 1 );
 			pPacket->WriteEDString( _T("magnet:?xt=ed2k:") + m_oED2K.toString(), bUTF8 );
 		}
@@ -481,7 +481,7 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags)
 	}
 	else if ( !m_sKeywords.IsEmpty() && !m_sSearch.IsEmpty() || strWords.GetLength() > 0 )
 	{
-		pPacket = CEDPacket::New( bUDP ? ED2K_C2SG_SEARCHREQUEST : ED2K_C2S_SEARCHREQUEST );
+		pPacket = CEDPacket::New( bUDP ? ED2K_C2SG_SEARCHREQUEST2 : ED2K_C2S_SEARCHREQUEST );
 		
 		if ( m_nMinSize > 0 || m_nMaxSize < 0xFFFFFFFF )
 		{

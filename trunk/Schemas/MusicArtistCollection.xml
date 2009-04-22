@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Musikk: per artist</title>
 		<title language="pt-br">Música: Por Artista</title>
 		<title language="ru">&#160;Музыка: По артистам</title>
-		<title language="sl-SI">Glasba:Po izvajalcu</title>
+		<title language="sl">Glasba:Po izvajalcu</title>
 		<title language="sq">Muzikë:Sipas Artistit</title>
 		<title language="sr">Muzika:Po Izvođaču</title>
 		<title language="sv">Musik: Efter artist</title>
@@ -86,7 +86,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -122,7 +122,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Musikk per artist</title>
 		<title language="pt-br">Música por Artista</title>
 		<title language="ru">Музыка по артистам</title>
-		<title language="sl-SI">Glasba Po izvajalcu</title>
+		<title language="sl">Glasba Po izvajalcu</title>
 		<title language="sq">Musikë Sipas Artistit</title>
 		<title language="sr">Muzika Po Izvođaču</title>
 		<title language="sv">Musik efter artist</title>
@@ -149,7 +149,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Denne mappen inneholder en liste over artister i mine filer</subtitle>
 		<subtitle language="pt-br">Esta pasta contém uma lista dos artistas na sua biblioteca.</subtitle>
 		<subtitle language="ru">Эта папка отображает список артистов найденных в музыкальных файлах Вашего хранилища.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje seznam izvajalcev v vaši glasbeni knjižnici.</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje seznam izvajalcev v vaši glasbeni knjižnici.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban një listë me artistët në librarinë tuaj me muzikë.</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži popis izvođača koje imate u muzičkoj kolekciji.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller en lista över artister som du har i ditt bibliotek.</subtitle>

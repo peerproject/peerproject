@@ -37,12 +37,12 @@
 #endif
 
 #define COMMA ,
-#if !defined(_MSC_VER) | 1200 < _MSC_VER
-# define REGEX_VC6(x)
-# define REGEX_NVC6(x) x
-#else
-# define REGEX_VC6(x) x
-# define REGEX_NVC6(x)
+#ifdef _MSC_VER
+ #define REGEX_VC6(x) x
+ #define REGEX_NVC6(x)
+#else !defined(_MSC_VER)
+ #define REGEX_VC6(x)
+ #define REGEX_NVC6(x) x
 #endif
 
 namespace regex
@@ -51,8 +51,7 @@ namespace regex
 namespace detail
 {
 
-// For compile-time assertions that generate
-// no run-time overhead.
+// For compile-time assertions that generate no run-time overhead.
 template< bool f > struct static_assert;
 template<>         struct static_assert<true> { static_assert() {} };
 

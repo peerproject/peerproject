@@ -54,7 +54,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Audio</title>
 		<title language="pt-br">Áudio</title>
 		<title language="ru">Аудио</title>
-		<title language="sl-SI">Zvok</title>
+		<title language="sl">Zvok</title>
 		<title language="sq">Audio</title>
 		<title language="sr">Zvuk</title>
 		<title language="sv">Ljud</title>
@@ -85,7 +85,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -116,7 +116,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Artist</title>
 			<title language="pt-br">Artista</title>
 			<title language="ru">Артист</title>
-			<title language="sl-SI">Izvajalec</title>
+			<title language="sl">Izvajalec</title>
 			<title language="sq">Artisti</title>
 			<title language="sr">Izvođač</title>
 			<title language="sv">Artist</title>
@@ -145,7 +145,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Original Artist</title>
 			<title language="pt-br">Artista Original</title>
 			<title language="ru">Первоначальный артист</title>
-			<title language="sl-SI">Izvorni izvajalec</title>
+			<title language="sl">Izvorni izvajalec</title>
 			<title language="sq">Artisti Origjinal</title>
 			<title language="sr">Originalni izvođač</title>
 			<title language="sv">Originalartist</title>
@@ -174,7 +174,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Album Artist</title>
 			<title language="pt-br">Artista do Álbum</title>
 			<title language="ru">Album Artist</title>
-			<title language="sl-SI">Album Artist</title>
+			<title language="sl">Album Artist</title>
 			<title language="sq">Artisti i Albumit</title>
 			<title language="sr">Album Artist</title>
 			<title language="sv">Albumartist</title>
@@ -205,7 +205,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Album</title>
 			<title language="pt-br">Álbum</title>
 			<title language="ru">Альбом</title>
-			<title language="sl-SI">Album</title>
+			<title language="sl">Album</title>
 			<title language="sq">Albumi</title>
 			<title language="sr">Album</title>
 			<title language="sv">Album</title>
@@ -234,7 +234,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Original Album</title>
 			<title language="pt-br">Álbum Original</title>
 			<title language="ru">Альбом-источник</title>
-			<title language="sl-SI">Izvorni album</title>
+			<title language="sl">Izvorni album</title>
 			<title language="sq">Albumi Origjinal</title>
 			<title language="sr">Originalni Album</title>
 			<title language="sv">Originalalbum</title>
@@ -264,7 +264,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Composer</title>
 			<title language="pt-br">Compositor</title>
 			<title language="ru">Композитор</title>
-			<title language="sl-SI">Skladatelj</title>
+			<title language="sl">Skladatelj</title>
 			<title language="sq">Kompozitori</title>
 			<title language="sr">Kompozitor</title>
 			<title language="sv">Kompositör</title>
@@ -293,7 +293,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Type</title>
 			<title language="pt-br">Tipo</title>
 			<title language="ru">Тип</title>
-			<title language="sl-SI">Tip</title>
+			<title language="sl">Tip</title>
 			<title language="sq">Lloji</title>
 			<title language="sr">Vrsta</title>
 			<title language="sv">Typ</title>
@@ -322,7 +322,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Album Status</title>
 			<title language="pt-br">Status do Álbum</title>
 			<title language="ru">Album Status</title>
-			<title language="sl-SI">Album Status</title>
+			<title language="sl">Album Status</title>
 			<title language="sq">Statusi i Albumit</title>
 			<title language="sr">Album Status</title>
 			<title language="sv">Albumstatus</title>
@@ -353,7 +353,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Sjanger</title>
 			<title language="pt-br">Gênero</title>
 			<title language="ru">Жанр</title>
-			<title language="sl-SI">Žanr</title>
+			<title language="sl">Žanr</title>
 			<title language="sq">Gjini</title>
 			<title language="sr">Žanr</title>
 			<title language="sv">Genre</title>
@@ -382,7 +382,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Spor</title>
 			<title language="pt-br">Faixa</title>
 			<title language="ru">Трек</title>
-			<title language="sl-SI">Steza</title>
+			<title language="sl">Steza</title>
 			<title language="sq">Kolona</title>
 			<title language="sr">Pesma</title>
 			<title language="sv">Spår</title>
@@ -411,7 +411,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Disk</title>
 			<title language="pt-br">Disco</title>
 			<title language="ru">Диск</title>
-			<title language="sl-SI">Zgoščenka</title>
+			<title language="sl">Zgoščenka</title>
 			<title language="sq">Disku</title>
 			<title language="sr">Disk</title>
 			<title language="sv">Disk</title>
@@ -440,7 +440,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">År</title>
 			<title language="pt-br">Ano</title>
 			<title language="ru">Год</title>
-			<title language="sl-SI">Leto</title>
+			<title language="sl">Leto</title>
 			<title language="sq">Viti</title>
 			<title language="sr">Godina</title>
 			<title language="sv">År</title>
@@ -469,7 +469,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Original Year</title>
 			<title language="pt-br">Ano Original</title>
 			<title language="ru">Original Year</title>
-			<title language="sl-SI">Original Year</title>
+			<title language="sl">Original Year</title>
 			<title language="sq">Viti Origjinal</title>
 			<title language="sr">Original Year</title>
 			<title language="sv">Originalår</title>
@@ -499,7 +499,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Lengde</title>
 			<title language="pt-br">Duração</title>
 			<title language="ru">Время</title>
-			<title language="sl-SI">Dolžina</title>
+			<title language="sl">Dolžina</title>
 			<title language="sq">Kohëzgjatja</title>
 			<title language="sr">Trajanje</title>
 			<title language="sv">Varaktighet</title>
@@ -529,7 +529,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Bitrate</title>
 			<title language="pt-br">Bitrate</title>
 			<title language="ru">Битрейт</title>
-			<title language="sl-SI">Bitna hitrost</title>
+			<title language="sl">Bitna hitrost</title>
 			<title language="sq">Bitrate</title>
 			<title language="sr">Gustina Zapisa</title>
 			<title language="sv">Bithastighet</title>
@@ -559,7 +559,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Sample rate</title>
 			<title language="pt-br">Taxa de Sample</title>
 			<title language="ru">Ср. битрейт</title>
-			<title language="sl-SI">Vzorčna hitrost</title>
+			<title language="sl">Vzorčna hitrost</title>
 			<title language="sq">Raporti Modelues</title>
 			<title language="sr">Sample Rate</title>
 			<title language="sv">Samplingsfrekvens</title>
@@ -589,7 +589,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Channels</title>
 			<title language="pt-br">Canais</title>
 			<title language="ru">Каналы</title>
-			<title language="sl-SI">Kanali</title>
+			<title language="sl">Kanali</title>
 			<title language="sq">Kanalet</title>
 			<title language="sr">Kanali</title>
 			<title language="sv">Kanaler</title>
@@ -618,7 +618,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Sound Type</title>
 			<title language="pt-br">Tipo de Som</title>
 			<title language="ru">Тип звука</title>
-			<title language="sl-SI">Zvokovni tip</title>
+			<title language="sl">Zvokovni tip</title>
 			<title language="sq">Lloji i Tingullit</title>
 			<title language="sr">Vrsta Zvuka</title>
 			<title language="sv">Ljudtyp</title>
@@ -648,7 +648,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Språk</title>
 			<title language="pt-br">Idioma</title>
 			<title language="ru">Язык</title>
-			<title language="sl-SI">Jezik</title>
+			<title language="sl">Jezik</title>
 			<title language="sq">Gjuhë</title>
 			<title language="sr">Jezik</title>
 			<title language="sv">Språk</title>
@@ -677,7 +677,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Kilde</title>
 			<title language="pt-br">Fonte</title>
 			<title language="ru">Источник</title>
-			<title language="sl-SI">Vir</title>
+			<title language="sl">Vir</title>
 			<title language="sq">Burimi</title>
 			<title language="sr">Izvor</title>
 			<title language="sv">Källor</title>
@@ -706,7 +706,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Forlag</title>
 			<title language="pt-br">Editor</title>
 			<title language="ru">Издатель</title>
-			<title language="sl-SI">Založnik</title>
+			<title language="sl">Založnik</title>
 			<title language="sq">Publikuesi</title>
 			<title language="sr">Izdavač</title>
 			<title language="sv">Utgivare</title>
@@ -735,7 +735,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Produsent</title>
 			<title language="pt-br">Produtor</title>
 			<title language="ru">Продюсер</title>
-			<title language="sl-SI">Producent</title>
+			<title language="sl">Producent</title>
 			<title language="sq">Producenti</title>
 			<title language="sr">Producent</title>
 			<title language="sv">Producent</title>
@@ -764,7 +764,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Lyricist</title>
 			<title language="pt-br">Compositor</title>
 			<title language="ru">Lyricist</title>
-			<title language="sl-SI">Lyricist</title>
+			<title language="sl">Lyricist</title>
 			<title language="sq">Shkruesi i Tekstit</title>
 			<title language="sr">Lyricist</title>
 			<title language="sv">Textförfattare</title>
@@ -793,7 +793,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Original Lyricist</title>
 			<title language="pt-br">Compositor Original</title>
 			<title language="ru">Original Lyricist</title>
-			<title language="sl-SI">Original Lyricist</title>
+			<title language="sl">Original Lyricist</title>
 			<title language="sq">Shkruesi Origjinal i Tekstit</title>
 			<title language="sr">Original Lyricist</title>
 			<title language="sv">Originaltextförfattare</title>
@@ -822,7 +822,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Arranger</title>
 			<title language="pt-br">Organizador</title>
 			<title language="ru">Arranger</title>
-			<title language="sl-SI">Arranger</title>
+			<title language="sl">Arranger</title>
 			<title language="sq">Radhitësi</title>
 			<title language="sr">Arranger</title>
 			<title language="sv">Arrangemang</title>
@@ -851,7 +851,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Performer</title>
 			<title language="pt-br">Músico(s)</title>
 			<title language="ru">Performer</title>
-			<title language="sl-SI">Performer</title>
+			<title language="sl">Performer</title>
 			<title language="sq">Interpretuesi</title>
 			<title language="sr">Performer</title>
 			<title language="sv">Artist</title>
@@ -880,7 +880,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Conductor</title>
 			<title language="pt-br">Condutor</title>
 			<title language="ru">Conductor</title>
-			<title language="sl-SI">Conductor</title>
+			<title language="sl">Conductor</title>
 			<title language="sq">Dirigjenti</title>
 			<title language="sr">Conductor</title>
 			<title language="sv">Dirigent</title>
@@ -909,7 +909,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Kopibeskyttelse</title>
 			<title language="pt-br">Direitos de Cópia</title>
 			<title language="ru">Автор. права</title>
-			<title language="sl-SI">Avtorska pravica</title>
+			<title language="sl">Avtorska pravica</title>
 			<title language="sq">Copyright</title>
 			<title language="sr">Prava</title>
 			<title language="sv">Upphovsrätt</title>
@@ -938,7 +938,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Beskrivelse</title>
 			<title language="pt-br">Descrição</title>
 			<title language="ru">Описание</title>
-			<title language="sl-SI">Opis</title>
+			<title language="sl">Opis</title>
 			<title language="sq">Përshkrimi</title>
 			<title language="sr">Opis</title>
 			<title language="sv">Beskrivning</title>
@@ -967,7 +967,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Kvalitetsnotat</title>
 			<title language="pt-br">Notas de Qualidade</title>
 			<title language="ru">Прим. о качестве</title>
-			<title language="sl-SI">Opomba kakovosti</title>
+			<title language="sl">Opomba kakovosti</title>
 			<title language="sq">Shënimet mbi Cilësinë</title>
 			<title language="sr">O Kvalitetu</title>
 			<title language="sv">Kvalitetsanteckningar</title>
@@ -996,7 +996,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Nøkkelord</title>
 			<title language="pt-br">Palavras-chave</title>
 			<title language="ru">Ключ. слова</title>
-			<title language="sl-SI">Ključne besede</title>
+			<title language="sl">Ključne besede</title>
 			<title language="sq">Fjalët Kyçe</title>
 			<title language="sr">Ključne Reči</title>
 			<title language="sv">Nyckelord</title>
@@ -1025,7 +1025,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">P2P releasedato</title>
 			<title language="pt-br">Lançamento no P2P</title>
 			<title language="ru">P2P релиз дата</title>
-			<title language="sl-SI">P2P datum izdaje</title>
+			<title language="sl">P2P datum izdaje</title>
 			<title language="sq">Data e Lëshimit në P2P</title>
 			<title language="sr">Datum Objave na P2P</title>
 			<title language="sv">Fildelningslanseringsdatum</title>
@@ -1054,7 +1054,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Distributør</title>
 			<title language="pt-br">Distribuidor</title>
 			<title language="ru">Дистрибьютер</title>
-			<title language="sl-SI">Distributer</title>
+			<title language="sl">Distributer</title>
 			<title language="sq">Distributori</title>
 			<title language="sr">Distributer</title>
 			<title language="sv">Distributör</title>
@@ -1083,7 +1083,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Distributørlink</title>
 			<title language="pt-br">Link do Distribuidor</title>
 			<title language="ru">Ссылка агента</title>
-			<title language="sl-SI">Povezava distributerja</title>
+			<title language="sl">Povezava distributerja</title>
 			<title language="sq">Linku i Distributorit</title>
 			<title language="sr">Link na Distributera</title>
 			<title language="sv">Distributionslänk</title>
@@ -1112,7 +1112,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Releasegruppe</title>
 			<title language="pt-br">Grupo de Lançamento</title>
 			<title language="ru">Релиз группа</title>
-			<title language="sl-SI">Skupina izdaje</title>
+			<title language="sl">Skupina izdaje</title>
 			<title language="sq">Grupi Lëshues</title>
 			<title language="sr">Grupa Objavljivača</title>
 			<title language="sv">Lanseringsgrupp</title>
@@ -1141,7 +1141,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Releasegruppe-link</title>
 			<title language="pt-br">Link do Grupo</title>
 			<title language="ru">Ссылка группы</title>
-			<title language="sl-SI">Povezava skupine izdaje</title>
+			<title language="sl">Povezava skupine izdaje</title>
 			<title language="sq">Linku i Grupit Lëshues</title>
 			<title language="sr">Link na Grupu Objavljivača</title>
 			<title language="sv">Lanseringsgrupplänk</title>
@@ -1170,7 +1170,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Link</title>
 			<title language="pt-br">Link</title>
 			<title language="ru">Ссылка</title>
-			<title language="sl-SI">Povezava</title>
+			<title language="sl">Povezava</title>
 			<title language="sq">Linku</title>
 			<title language="sr">Link</title>
 			<title language="sv">Länk</title>
@@ -1199,7 +1199,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Brukt omkoder</title>
 			<title language="pt-br">Codificador Usado</title>
 			<title language="ru">Перекодировщик</title>
-			<title language="sl-SI">Uporabljen enkoder</title>
+			<title language="sl">Uporabljen enkoder</title>
 			<title language="sq">Koduesi i Përdorur</title>
 			<title language="sr">Korišteni Encoder</title>
 			<title language="sv">Omkodare använd</title>
@@ -1228,7 +1228,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Encoded By</title>
 			<title language="pt-br">Codificado Por</title>
 			<title language="ru">Encoded By</title>
-			<title language="sl-SI">Encoded By</title>
+			<title language="sl">Encoded By</title>
 			<title language="sq">Koduar Nga</title>
 			<title language="sr">Encoded By</title>
 			<title language="sv">Omkodat av</title>
@@ -1258,7 +1258,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">MB AlbumID</title>
 			<title language="pt-br">MB AlbumID</title>
 			<title language="ru">MB AlbumID</title>
-			<title language="sl-SI">MB AlbumID</title>
+			<title language="sl">MB AlbumID</title>
 			<title language="sq">MB AlbumID</title>
 			<title language="sr">MB AlbumID</title>
 			<title language="sv">MB AlbumID</title>
@@ -1288,7 +1288,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">MB AlbumArtistID</title>
 			<title language="pt-br">MB AlbumArtistID</title>
 			<title language="ru">MB AlbumArtistID</title>
-			<title language="sl-SI">MB AlbumArtistID</title>
+			<title language="sl">MB AlbumArtistID</title>
 			<title language="sq">MB AlbumArtistID</title>
 			<title language="sr">MB AlbumArtistID</title>
 			<title language="sv">MB AlbumArtistID</title>
@@ -1318,7 +1318,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">MB ArtistID</title>
 			<title language="pt-br">MB ArtistID</title>
 			<title language="ru">MB ArtistID</title>
-			<title language="sl-SI">MB ArtistID</title>
+			<title language="sl">MB ArtistID</title>
 			<title language="sq">MB ArtistID</title>
 			<title language="sr">MB ArtistID</title>
 			<title language="sv">MB ArtistID</title>
@@ -1348,7 +1348,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">MB PUID</title>
 			<title language="pt-br">MB PUID</title>
 			<title language="ru">MB PUID</title>
-			<title language="sl-SI">MB PUID</title>
+			<title language="sl">MB PUID</title>
 			<title language="sq">MB PUID</title>
 			<title language="sr">MB PUID</title>
 			<title language="sv">MB PUID</title>
@@ -1378,7 +1378,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">MB TRM ID</title>
 			<title language="pt-br">MB TRM ID</title>
 			<title language="ru">MB TRM ID</title>
-			<title language="sl-SI">MB TRM ID</title>
+			<title language="sl">MB TRM ID</title>
 			<title language="sq">MB TRM ID</title>
 			<title language="sr">MB TRM ID</title>
 			<title language="sv">MB TRM ID</title>
@@ -1408,7 +1408,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">MB FileID</title>
 			<title language="pt-br">MB FileID</title>
 			<title language="ru">MB FileID</title>
-			<title language="sl-SI">MB FileID</title>
+			<title language="sl">MB FileID</title>
 			<title language="sq">MB FileID</title>
 			<title language="sr">MB FileID</title>
 			<title language="sv">MB FileID</title>
@@ -1438,7 +1438,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">CDDB Disc ID</title>
 			<title language="pt-br">ID do Disco no CDDB</title>
 			<title language="ru">CDDB Disc ID</title>
-			<title language="sl-SI">CDDB Disc ID</title>
+			<title language="sl">CDDB Disc ID</title>
 			<title language="sq">CDDB Disc ID</title>
 			<title language="sr">CDDB Disc ID</title>
 			<title language="sv">CDDB Disk ID</title>

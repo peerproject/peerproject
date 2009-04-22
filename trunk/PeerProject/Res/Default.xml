@@ -100,7 +100,7 @@
 	</toolbar>
 	<toolbar name="CBrowseTree.Top">
 		<button id="ID_LIBRARY_TREE_PHYSICAL" text="Folders"/>
-		<button id="ID_LIBRARY_TREE_VIRTUAL" text="Organiser"/>
+		<button id="ID_LIBRARY_TREE_VIRTUAL" text="Organizer"/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Download File"/>
@@ -453,7 +453,7 @@
 		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
 		<separator/>
 		<item id="ID_CHILD_RESTORE" text="_Restore"/>
-		<item id="ID_CHILD_MINIMISE" text="_Minimise"/>
+		<item id="ID_CHILD_MINIMISE" text="_Minimize"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
@@ -498,7 +498,7 @@
 			<item id="ID_WINDOW_REMOTE" text="Media _Remote"/>
 			<separator/>
 			<menu text="_Advanced">
-				<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 				<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity"/>
@@ -590,7 +590,7 @@
 				<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
 				<item id="ID_VIEW_TRAFFIC" text="_Graph" shortcut="F10"/>
 				<item id="ID_VIEW_SYSTEM" text="S_ystem" shortcut="F11"/>
-				<item id="ID_VIEW_NEIGHBOURS" text="N_eighbours" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="N_eighbors" shortcut="Ctrl+F11"/>
 				<separator/>
 				<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
 				<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
@@ -676,7 +676,7 @@
 		</menu>
 		<menu text="_View">
 			<item id="ID_VIEW_SYSTEM" text="_System" shortcut="F11"/>
-			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours" shortcut="Ctrl+F11"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors" shortcut="Ctrl+F11"/>
 			<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 			<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
@@ -764,7 +764,7 @@
 		<item id="ID_TAB_IRC" text="_Chatrooms"/>
 		<separator/>
 		<menu text="_Advanced">
-			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
 			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
@@ -792,7 +792,7 @@
 		<item id="ID_NETWORK_SEARCH" text="New _Search..."/>
 		<separator/>
 		<item id="ID_VIEW_SYSTEM" text="S_ystem"/>
-		<item id="ID_VIEW_NEIGHBOURS" text="N_eighbours"/>
+		<item id="ID_VIEW_NEIGHBOURS" text="N_eighbors"/>
 		<item id="ID_VIEW_DOWNLOADS" text="_Downloads"/>
 		<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 		<item id="ID_VIEW_LIBRARY" text="_Library"/>
@@ -816,7 +816,7 @@
 		<item id="ID_TAB_TRANSFERS" text="_Downloads"/>
 		<separator/>
 		<menu text="_Advanced">
-			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
 			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
@@ -1221,7 +1221,7 @@
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localize Metadata"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Choose _Columns..."/>
@@ -1265,7 +1265,7 @@
 		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
 		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
-		<menu text="O_rganise">
+		<menu text="O_rganize">
 			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
@@ -1288,7 +1288,7 @@
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
-			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localize Metadata"/>
 		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Choose _Columns..."/>
@@ -1314,9 +1314,9 @@
 		<menu text="Video Si_ze">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Triple Size"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="_Largest"/>
-			<item id="ID_MEDIA_SIZE_DISTORT" text="_Fill Window"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="Fi_ll Window"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
@@ -1352,9 +1352,9 @@
 		<menu text="Video Si_ze">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Triple Size"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="_Largest"/>
-			<item id="ID_MEDIA_SIZE_DISTORT" text="_Fill Window"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="Fi_ll Window"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
@@ -1374,9 +1374,9 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="_Triple Size"/>
-		<item id="ID_MEDIA_SIZE_FILL" text="_Largest"/>
-		<item id="ID_MEDIA_SIZE_DISTORT" text="_Fill Window"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
+		<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
+		<item id="ID_MEDIA_SIZE_DISTORT" text="Fi_ll Window"/>
 		<separator/>
 		<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
 		<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
@@ -1387,14 +1387,14 @@
 		<item id="ID_MEDIA_PROPERTIES" text="_Properties..."/>
 		<item id="ID_MEDIA_RATE" text="Ra_te File..."/>
 		<separator/>
-		<item id="ID_MEDIA_ADD" text="_Add File(s)..."/>
-		<item id="ID_MEDIA_REMOVE" text="_Remove Files(s)"/>
+		<item id="ID_MEDIA_ADD" text="_Add Files..."/>
+		<item id="ID_MEDIA_REMOVE" text="_Remove File(s)"/>
+		<item id="ID_MEDIA_CLEAR" text="_Clear Playlist"/>
 		<separator/>
 		<item id="ID_MEDIA_ADD_FOLDER" text="Add _Folder..."/>
 		<item id="ID_MEDIA_OPEN" text="_Open Playlist..."/>
 		<item id="ID_MEDIA_SAVE" text="_Save Playlist..."/>
 		<item id="ID_MEDIA_EXPORT_COLLECTION" text="E_xport Collection..."/>
-		<item id="ID_MEDIA_CLEAR" text="_Clear Playlist"/>
 		<separator/>
 		<item id="ID_MEDIA_RANDOM" text="Ra_ndom Mode"/>
 		<item id="ID_MEDIA_REPEAT" text="Rep_eat Mode"/>
@@ -2050,7 +2050,7 @@
 		found, PeerProject will repair them automatically.</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
-		<text format="b">This Download is Active!</text>
+		<text format="b">This Download is Active</text>
 		<newline gap="8"/>
 		<text>This download is currently in progress. If it is downloading too slowly,
 		you could try searching the network for more sources with the '</text>
@@ -2251,8 +2251,8 @@
 		sub-folders located</text><text format="i"> inside</text>
 		<text> these folders. Please share those instead.</text>
 		<newline gap="8"/>
-		<text>The PeerProject 'incomplete' folder should also not be shared through the
-		library, since attempting to hash downloads in progress may impact on performance.</text>
+		<text>The PeerProject 'incomplete' folder should also not be shared through the library,
+		as attempting to hash downloads in progress may impact performance.</text>
 	</document>
 </documents>
 

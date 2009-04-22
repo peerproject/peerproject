@@ -35,13 +35,9 @@
 #pragma warning( disable : 4640 )
 
 # define REGEX_SEH_STACK_OVERFLOW 0xC00000FDL
-# if 1200 < _MSC_VER
 # include <malloc.h> // for _resetstkoflw
-# else
-  extern "C" int __cdecl _resetstkoflw(void);
-# endif
-  extern "C" unsigned long __cdecl _exception_code(void);
-#endif
+extern "C" unsigned long __cdecl _exception_code(void);
+#endif	//_MSC_VER
 
 #include <list>
 #include <iosfwd>
@@ -515,12 +511,12 @@ struct basic_split_results : private split_results_base<CharT, TraitsT, AllocT>:
     {
     }
 
-#if !defined(_MSC_VER) | 1200 < _MSC_VER
-    typedef typename allocator_type::pointer            pointer;
-    typedef typename allocator_type::const_pointer      const_pointer;
-#else
+#ifdef _MSC_VER
     typedef string_type *                               pointer;
     typedef string_type const *                         const_pointer;
+#else
+    typedef typename allocator_type::pointer            pointer;
+    typedef typename allocator_type::const_pointer      const_pointer;
 #endif
 
     // shortcuts to the most basic read-only container operations
@@ -1197,7 +1193,7 @@ typedef basic_match_results<lpctstr_t>                match_results_c;
 typedef basic_subst_results<rechar_t>                 subst_results;
 typedef basic_split_results<rechar_t>                 split_results;
 
-#if defined(_MSC_VER) & 1200 < _MSC_VER
+#ifdef _MSC_VER
 // These are no longer useful, and will go away in a future release
 // You should be using the version without the _c
 # pragma deprecated( basic_rpattern_c )
@@ -1213,7 +1209,7 @@ typedef basic_split_results<rechar_t>                 split_results;
 #define STATIC_RPATTERN_C( var, params ) \
     STATIC_RPATTERN_EX( regex::rpattern_c, var, params )
 
-#if defined(_MSC_VER) & 1200 < _MSC_VER
+#ifdef _MSC_VER
 #pragma deprecated(STATIC_RPATTERN_EX)
 #endif
 

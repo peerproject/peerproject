@@ -53,15 +53,9 @@
 # define REGEX_SEH_TRY          __try
 # define REGEX_SEH_EXCEPT(x)    __except( x )
 # define REGEX_RESET_STK_OFLW() _resetstkoflw()
-# if 1200 < _MSC_VER
 # define REGEX_NOINLINE         __declspec(noinline)
 # define REGEX_DEPRECATED       __declspec(deprecated)
 # define REGEX_DEPENDENT_TYPENAME typename
-# else
-# define REGEX_NOINLINE
-# define REGEX_DEPRECATED
-# define REGEX_DEPENDENT_TYPENAME
-# endif
 #else
 # include <cassert>
 # define REGEX_ASSERT(x)        assert(x)
@@ -176,7 +170,7 @@ inline REGEX_FLAGS & operator&=( REGEX_FLAGS & f1, REGEX_FLAGS f2 )
 {
     return f1 = ( f1 & f2 );
 }
-#if !defined(_MSC_VER) | 1200 < _MSC_VER
+#ifndef _MSC_VER
 inline REGEX_FLAGS operator~( REGEX_FLAGS f )
 {
     return ( REGEX_FLAGS ) ~( unsigned )f;

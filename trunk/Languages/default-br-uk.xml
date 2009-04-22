@@ -1,0 +1,884 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- PeerProject Default English Skin File -->
+<!-- Translation based on default-en.xml Shareaza SVN rev.7800 -->
+
+<!-- This skin template represents the current PeerProject defaults.  -->
+<!-- You can use this file as a basis for creating new skins, however -->
+<!-- in a new skin be sure to ONLY include the sections which you changed! -->
+<!-- Including sections you did not edit will reduce performance and  -->
+<!-- limit compatibility with future versions or other skins.  -->
+
+<!-- Body element, don't touch -->
+<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+
+<!-- Manifest -->
+<manifest	name="English (UK)"
+		author="PeerProject Development Team"
+		description="PeerProject Alt English Skin File"
+		link="http://PeerProject.org/"
+		email="Contact(at)PeerProject.org"
+		version="1.0.0.0"
+		type="Language"
+		language="en-uk"
+		prompt="Click here to select Brittish English as your natural language."
+		dir="ltr"
+/>
+
+<!-- Toolbar Definitions -->
+<toolbars>
+	<!-- BROWSE HOST WINDOW -->
+	<toolbar name="CBrowseTree.Top">
+		<button id="ID_LIBRARY_TREE_PHYSICAL" text="Folders"/>
+		<button id="ID_LIBRARY_TREE_VIRTUAL" text="Organiser"/>
+	</toolbar>
+	<!-- LIBRARY FRAME -->
+	<toolbar name="CLibraryTree.Top">
+		<button id="ID_LIBRARY_TREE_PHYSICAL" text="Folders"/>
+		<button id="ID_LIBRARY_TREE_VIRTUAL" text="Organiser"/>
+	</toolbar>
+</toolbars>
+<!-- Menu Definitions -->
+<menus>
+	<!-- CHILD POPUP MENU -->
+	<menu name="Child">
+		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
+		<separator/>
+		<item id="ID_CHILD_RESTORE" text="_Restore"/>
+		<item id="ID_CHILD_MINIMISE" text="_Minimise"/>
+		<separator/>
+		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
+	</menu>
+	<!-- MAIN WINDOW MENU BAR -->
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="_Network">
+			<item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>
+			<separator/>
+			<menu text="Choose _Networks">
+				<item id="ID_NETWORK_G2" text="Connect to _Gnutella2"/>
+				<item id="ID_NETWORK_G1" text="Connect to Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Exit _After Transfers"/>
+			<item id="ID_NETWORK_EXIT" text="E_xit"/>
+		</menu>
+		<menu text="_View">
+			<item id="ID_TAB_HOME" text="_Home"/>
+			<item id="ID_TAB_SEARCH" text="_Search"/>
+			<item id="ID_TAB_TRANSFERS" text="_Downloads"/>
+			<item id="ID_TAB_LIBRARY" text="_Library"/>
+			<item id="ID_TAB_MEDIA" text="_Media Player"/>
+			<item id="ID_TAB_IRC" text="IRC _Chat"/>
+			<item id="ID_WINDOW_REMOTE" text="Media _Remote"/>
+			<separator/>
+			<menu text="_Advanced">
+				<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours"/>
+				<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+				<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
+				<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="_Basic Mode"/>
+			<item id="ID_VIEW_TABBED" text="_Power Mode"/>
+		</menu>
+		<menu text="_Tools">
+			<item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
+			<separator/>
+			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
+			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Edit My _Profile..."/>
+			<item id="ID_TOOLS_WIZARD" text="QuickStart _Wizard..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="_PeerProject Settings..."/>
+		</menu>
+		<menu text="_Help">
+			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
+			<item id="ID_HELP_TEST" text="_Connection Test"/>
+			<separator/>
+			<menu text="_Guides">
+				<item id="ID_HELP_GUIDE" text="PeerProject _Users Guide"/>
+				<item id="ID_HELP_ROUTER" text="_Router Help"/>
+				<item id="ID_HELP_SECURITY" text="_Security Help"/>
+				<item id="ID_HELP_CODEC" text="_Codec Help"/>
+			</menu>
+			<separator/>
+			<menu text="_Websites">
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject Site"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
+				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!-- 
+				<item id="ID_HELP_UPDATE" text="Latest news"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+			</menu>
+			<separator/> <!--
+			<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
+			<item id="ID_HELP_DONATE" text="_Donate to PeerProject"/>
+			<separator/> -->
+			<item id="ID_HELP_ABOUT" text="_About PeerProject..."/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Tabbed" type="bar">
+		<menu text="_Network">
+			<item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="_Disconnect"/>
+			<separator/>
+			<menu text="Choose _Networks">
+				<item id="ID_NETWORK_G2" text="Connect to _Gnutella2"/>
+				<item id="ID_NETWORK_G1" text="Connect to Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="_Browse Host..."/>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Exit _After Transfers"/>
+			<item id="ID_NETWORK_EXIT" text="E_xit"/>
+		</menu>
+		<menu text="_View">
+			<item id="ID_TAB_HOME" text="_Home"/>
+			<item id="ID_TAB_SEARCH" text="_Search"/>
+			<item id="ID_TAB_TRANSFERS" text="_Transfers"/>
+			<item id="ID_TAB_NETWORK" text="_Network"/>
+			<item id="ID_TAB_LIBRARY" text="_Library"/>
+			<item id="ID_TAB_MEDIA" text="_Media Player"/>
+			<item id="ID_TAB_IRC" text="IRC _Chat"/>
+			<separator/>
+			<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+			<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
+			<separator/>
+			<menu text="A_dvanced">
+				<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
+				<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="_Media Player" shortcut="F6"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="_Graph" shortcut="F10"/>
+				<item id="ID_VIEW_SYSTEM" text="S_ystem" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="N_eighbours" shortcut="Ctrl+F11"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="H_it Monitor" shortcut="Ctrl+F3"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="_Basic Mode"/>
+			<item id="ID_VIEW_TABBED" text="T_abbed Mode"/>
+			<item id="ID_VIEW_WINDOWED" text="_Windowed Mode"/>
+		</menu>
+		<menu text="_Tools">
+			<item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
+			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open completed download folder"/>
+			<separator/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" 	text="_Seed New Torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+			<item id="IDC_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
+			<separator/>
+			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
+			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Edit My _Profile..."/>
+			<item id="ID_TOOLS_WIZARD" text="QuickStart _Wizard..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="_PeerProject Settings..."/>
+		</menu>
+		<menu text="_Window">
+			<item id="ID_WINDOW_NAVBAR" text="Show _Navigation Bar"/>
+			<item id="ID_WINDOW_TOOLBAR" text="Show _Tool Bar"/>
+			<separator/>
+			<item id="ID_WINDOW_TABBAR" text="Show Tab _Bar"/>
+			<item id="ID_WINDOW_MONITOR" text="Show _Monitor"/>
+			<item id="ID_WINDOW_REMOTE" text="Show _Remote"/>
+		</menu>
+		<menu text="_Help">
+			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
+			<item id="ID_HELP_TEST" text="_Connection Test"/>
+			<separator/>
+			<menu text="_Guides">
+				<item id="ID_HELP_GUIDE" text="PeerProject _Users Guide"/>
+				<item id="ID_HELP_ROUTER" text="_Router Help"/>
+				<item id="ID_HELP_SECURITY" text="_Security Help"/>
+				<item id="ID_HELP_CODEC" text="_Codec Help"/>
+			</menu>
+			<separator/>
+			<menu text="_Websites">
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
+				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!-- 
+				<item id="ID_HELP_UPDATE" text="Latest news"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+			</menu>
+			<separator/> <!--
+			<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
+			<item id="ID_HELP_DONATE" text="_Donate to PeerProject"/>
+			<separator/> -->
+			<item id="ID_HELP_ABOUT" text="_About PeerProject..."/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Windowed" type="bar">
+		<menu text="_Network">
+			<item id="ID_NETWORK_SEARCH" text="New _Search..." shortcut="Ctrl+S"/>
+			<separator/>
+			<item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="_Disconnect"/>
+			<separator/>
+			<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="_Browse Host..."/>
+			<separator/>
+			<menu text="Choose _Networks">
+				<item id="ID_NETWORK_G2" text="Connect to _Gnutella2"/>
+				<item id="ID_NETWORK_G1" text="Connect to Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Close _After Transfers"/>
+			<item id="ID_NETWORK_EXIT" text="E_xit"/>
+		</menu>
+		<menu text="_View">
+			<item id="ID_VIEW_SYSTEM" text="_System" shortcut="F11"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours" shortcut="Ctrl+F11"/>
+			<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
+			<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
+			<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
+			<item id="ID_VIEW_MEDIA" text="_Media Player" shortcut="F6"/>
+			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
+			<separator/>
+			<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
+			<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
+			<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
+			<item id="ID_VIEW_TRAFFIC" text="_Graph" shortcut="F10"/>
+			<separator/>
+			<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="H_it Monitor" shortcut="Ctrl+F3"/>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="Basic Mode"/>
+			<item id="ID_VIEW_TABBED" text="Tabbed Mode"/>
+			<item id="ID_VIEW_WINDOWED" text="Windowed Mode"/>
+		</menu>
+		<menu text="_Tools">
+			<item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
+			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads Folder"/>
+			<separator/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" 	text="_Seed New Torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+			<item id="IDC_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
+			<separator/>
+			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
+			<item id="ID_TOOLS_SKIN" text="Choose a S_kin..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Edit _Profile..."/>
+			<item id="ID_TOOLS_WIZARD" text="QuickStart _Wizard..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="_PeerProject Settings..."/>
+		</menu>
+		<menu text="_Window">
+			<item id="ID_WINDOW_CASCADE" text="_Full Screen"/>
+			<item id="ID_WINDOW_TILE_HORZ" text="Tile _Horizontal"/>
+			<item id="ID_WINDOW_TILE_VERT" text="Tile _Vertical"/>
+			<separator/>
+			<item id="ID_WINDOW_NAVBAR" text="Show _Navigation Bar"/>
+			<item id="ID_WINDOW_TOOLBAR" text="Show _Tool Bar"/>
+			<separator/>
+			<item id="ID_WINDOW_TABBAR" text="Show Tab _Bar"/>
+			<item id="ID_WINDOW_MONITOR" text="Show _Monitor"/>
+			<item id="ID_WINDOW_REMOTE" text="Show _Remote"/>
+		</menu>
+		<menu text="_Help">
+			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
+			<item id="ID_HELP_TEST" text="_Connection Test"/>
+			<separator/>
+			<menu text="_Guides">
+				<item id="ID_HELP_GUIDE" text="PeerProject _Users Guide"/>
+				<item id="ID_HELP_ROUTER" text="_Router Help"/>
+				<item id="ID_HELP_SECURITY" text="_Security Help"/>
+				<item id="ID_HELP_CODEC" text="_Codec Help"/>
+			</menu>
+			<separator/>
+			<menu text="_Websites">
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
+				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!-- 
+				<item id="ID_HELP_UPDATE" text="Latest news"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+			</menu>
+			<separator/> <!--
+			<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
+			<item id="ID_HELP_DONATE" text="_Donate to PeerProject"/>
+			<separator/> -->
+			<item id="ID_HELP_ABOUT" text="_About PeerProject..."/>
+		</menu>
+	</menu>
+	<!-- VIEW POPUP -->
+	<menu name="CMainWnd.View.Basic">
+		<item id="ID_TAB_HOME" text="_Home"/>
+		<item id="ID_TAB_SEARCH" text="_Search"/>
+		<item id="ID_TAB_TRANSFERS" text="_Downloads"/>
+		<item id="ID_TAB_LIBRARY" text="_Library"/>
+		<item id="ID_TAB_MEDIA" text="_Media Player"/>
+		<item id="ID_TAB_IRC" text="_Chatrooms"/>
+		<separator/>
+		<menu text="_Advanced">
+			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours"/>
+			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
+			<item id="ID_VIEW_SECURITY" text="_Security"/>
+			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.View.Windowed">
+		<item id="ID_NETWORK_SEARCH" text="New _Search..."/>
+		<separator/>
+		<item id="ID_VIEW_SYSTEM" text="S_ystem"/>
+		<item id="ID_VIEW_NEIGHBOURS" text="N_eighbours"/>
+		<item id="ID_VIEW_DOWNLOADS" text="_Downloads"/>
+		<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
+		<item id="ID_VIEW_LIBRARY" text="_Library"/>
+		<item id="ID_VIEW_MEDIA" text="_Media Player"/>
+		<separator/>
+		<item id="ID_VIEW_SECURITY" text="Se_curity"/>
+		<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
+		<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
+		<item id="ID_VIEW_TRAFFIC" text="_Graph"/>
+		<separator/>
+		<item id="ID_VIEW_PACKETS" text="_Packet Dump"/>
+		<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor"/>
+		<item id="ID_VIEW_RESULTS_MONITOR" text="H_it Monitor"/>
+	</menu>
+	<!-- HOME MENU -->
+	<menu name="CHomeWnd.Basic">
+		<item id="ID_TAB_HOME" text="_Home"/>
+		<item id="ID_TAB_LIBRARY" text="_Library"/>
+		<item id="ID_TAB_MEDIA" text="_Media Player"/>
+		<item id="ID_TAB_SEARCH" text="_Search"/>
+		<item id="ID_TAB_TRANSFERS" text="_Downloads"/>
+		<separator/>
+		<menu text="_Advanced">
+			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours"/>
+			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
+			<item id="ID_VIEW_SECURITY" text="_Security"/>
+			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
+		</menu>
+	</menu>
+	<menu name="CLibraryFileView.Physical">
+		<item id="ID_LIBRARY_LAUNCH" text="_Open or Play"/>
+		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
+		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
+		<separator/>
+		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
+		<separator/>
+		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
+		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
+		<menu text="O_rganise">
+			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
+			<item id="ID_LIBRARY_COPY" text="_Copy Files..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
+		</menu>
+		<separator/>
+		<menu text="S_earch For">
+			<item id="ID_SEARCH_FOR_THIS" text="_This File"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="_Similar Files"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="_Music by the same Artist"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
+		</menu>
+		<menu text="_Web Services">
+			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Download Metadata"/>
+		</menu>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
+		</menu>
+		<separator/>
+		<item id="ID_LIBRARY_COLUMNS" text="Choose _Columns..."/>
+		<separator/>
+		<item id="ID_SHELL_MENU" text="S_hell menu"/>
+	</menu>
+	<menu name="CLibraryFileView.Virtual">
+		<item id="ID_LIBRARY_LAUNCH" text="_Open or Play"/>
+		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
+		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
+		<separator/>
+		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
+		<separator/>
+		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
+		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
+		<menu text="O_rganise">
+			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
+			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
+			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
+			<item id="ID_LIBRARY_COPY" text="_Copy Files..."/>
+		</menu>
+		<separator/>
+		<menu text="S_earch For">
+			<item id="ID_SEARCH_FOR_THIS" text="_This File"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="_Similar Files"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="_Music by the same Artist"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
+		</menu>
+		<menu text="_Web Services">
+			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Download Metadata"/>
+			<separator/>
+		</menu>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localise Metadata"/>
+		</menu>
+		<separator/>
+		<item id="ID_LIBRARY_COLUMNS" text="Choose _Columns..."/>
+		<separator/>
+		<item id="ID_SHELL_MENU" text="S_hell menu"/>
+	</menu>
+	<!-- PRIVATE CHAT FRAME -->
+	<menu name="CPrivateChatFrame">
+		<item id="ID_CHAT_CONNECT" text="_Connect"/>
+		<item id="ID_CHAT_DISCONNECT" text="_Disconnect"/>
+		<separator/>
+		<item id="ID_CHAT_BROWSE" text="_Browse User"/>
+		<item id="ID_CHAT_PRIORITY" text="Grant _Priority"/>
+		<separator/>
+		<menu text="_Format">
+			<item id="ID_CHAT_BOLD" text="Set _Bold"/>
+			<item id="ID_CHAT_ITALIC" text="Set _Italic"/>
+			<item id="ID_CHAT_UNDERLINE" text="Set _Underline"/>
+			<item id="ID_CHAT_COLOR" text="Set _Colour"/>
+			<item id="ID_CHAT_EMOTICONS" text="_Emoticons"/>
+		</menu>
+		<separator/>
+		<item id="ID_CHAT_TIMESTAMP" text="Toggle _Timestamp"/>
+		<item id="ID_CHAT_CLEAR" text="C_lear Window"/>
+	</menu>
+</menus>
+
+<!-- Documents -->
+<documents>
+	<!-- Home View -->
+	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
+		<styles>
+			<style name="default">
+				<font face="Verdana" size="12"/>
+			</style>
+			<style name="heading">
+				<font face="Trebuchet MS" size="16" weight="800"/>
+			</style>
+		</styles>
+		<anchor id="Header" width="32" height="152"/>
+		<newline gap="0"/>
+		<group id="1">
+			<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<heading align="middle">GET CONNECTED</heading>
+			<newline gap="8" indent="42"/>
+			<text>Welcome to PeerProject.</text>
+			<newline gap="8" indent="42"/>
+			<text>You are not currently connected to any peer-to-peer networks. &#160;</text>
+			<link target="peer:command:ID_NETWORK_CONNECT">Click here to start!</link>
+			<newline gap="18" indent="0"/>
+		</group>
+		<group id="2">
+			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<heading align="middle">START DOWNLOAD</heading>
+			<newline gap="8" indent="42"/>
+			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
+			<text align="middle">&#160; downloading a new file or torrent.</text>
+			<newline gap="24" indent="0"/>
+			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<heading align="middle">SEARCH FOR A FILE</heading>
+			<newline gap="4" indent="42"/>
+			<anchor id="SearchBox" width="256" height="80"/>
+			<newline gap="12" indent="0"/>
+		</group>
+		<group id="3">
+			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<heading align="middle">UPGRADE NOTICE</heading>
+			<newline gap="8" indent="42"/>
+			<text id="Upgrade"/>
+			<newline gap="6"/>
+			<link target="peer:upgrade">Click here to upgrade</link>
+			<newline gap="18" indent="0"/>
+		</group>
+		<group id="4">
+			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<heading align="middle">WARNING: YOU ARE FIREWALLED</heading>
+			<newline gap="8" indent="42"/>
+			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
+			and are unable to receive connections from the Internet. &#160;</text>
+			<text color="FF0000" format="b">This may cause poor download and search performance.</text>
+			<newline gap="6"/>
+			<link target="peer:command:ID_HELP_ROUTER">Click here to learn how to configure your router or firewall</link>
+			<newline gap="18" indent="0"/>
+		</group>
+		<group id="6">
+			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<heading align="middle">WARNING: YOUR TCP PORT IS FIREWALLED</heading>
+			<newline gap="8" indent="42"/>
+			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
+			and are unable to receive TCP connections from the Internet. &#160;</text>
+			<text color="FF0000" format="b">This may cause poor download performance.</text>
+			<newline gap="6"/>
+			<link target="peer:command:ID_HELP_ROUTER">Click here to learn how to configure your router or firewall</link>
+			<newline gap="18" indent="0"/>
+		</group>
+		<group id="7">
+			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<heading align="middle">WARNING: YOUR UDP PORT IS FIREWALLED</heading>
+			<newline gap="8" indent="42"/>
+			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
+			and are unable to receive UDP messages from the Internet. &#160;</text>
+			<text color="FF0000" format="b">This may cause poor search performance.</text>
+			<newline gap="6"/>
+			<link target="peer:command:ID_HELP_ROUTER">Click here to learn how to configure your router or firewall</link>
+			<newline gap="18" indent="0"/>
+		</group>
+		<icon res="236" width="32" height="32"/><gap size="8"/>
+		<heading align="middle">CUSTOMISE PEERPROJECT</heading>
+		<newline gap="12" indent="42"/>
+		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
+		<gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Skins</link>
+		<text align="middle">&#160;- Change PeerProject's look &amp; feel</text>
+		<newline gap="8"/>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
+		<gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Settings Wizard</link>
+		<text align="middle">&#160;- Quick edit PeerProject's basic settings</text>
+		<newline gap="8"/>
+		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/>
+		<gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Fake file awareness: Add rules to improve search results</text>
+		<newline gap="8"/>
+		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
+		<gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Quick Help</link>
+		<text align="middle">&#160;- Get online support using PeerProject</text>
+		<newline gap="18" indent="0"/>
+		<group id="5">
+			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<heading align="middle">REMOTE ACCESS ENABLED</heading>
+			<newline gap="8" indent="42"/>
+			<text>PeerProject Remote Access is enabled. Control PeerProject using your web browser at:</text>
+			<newline gap="6"/>
+			<link id="RemoteAccessURL1"/>
+			<text>&#160;- or -&#160;</text>
+			<link id="RemoteAccessURL2"/>
+			<newline gap="16" indent="0"/>
+		</group>
+	</document>
+	<!-- Settings Pages -->
+	<document name="CGeneralSettingsGroup" title="General" leftMargin="8" topMargin="8">
+		<styles>
+			<style name="default">
+				<colors link="000080"/>
+			</style>
+		</styles>
+		<text format="b">Welcome to PeerProject's Settings Manager</text>
+		<newline gap="16"/>
+		<text>The PeerProject Settings Manager allows advanced users to completely customise how
+			PeerProject works. The settings in the </text>
+		<text format="b">General </text>
+		<text>section relate to the user experience.</text>
+		<newline gap="16" indent="16"/>
+		<link target="peer:page:CGeneralSettingsPage" format="b">General:</link>
+		<gap size="4"/>
+		<text>Common user interface settings like tooltips, minimize behavior, number formats, prompts, etc.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CLibrarySettingsPage" format="b">Library:</link>
+		<gap size="4"/>
+		<text>Presentation, file access, and management of the file library.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
+		<gap size="4"/>
+		<text>Set when to use the internal PeerProject Media Center.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CCommunitySettingsPage" format="b">Community:</link>
+		<gap size="4"/>
+		<text>Your profile and direct chat settings.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link>
+		<gap size="4"/>
+		<text>IRC chatroom visual appearance and connection settings.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
+		<gap size="4"/>
+		<text>Integrate PeerProject with your web browser to accept peer-to-peer links and download content.</text>
+	</document>
+	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
+		<styles>
+			<style name="default">
+				<colors link="000080"/>
+			</style>
+		</styles>
+		<text format="b">Welcome to PeerProject's Settings Manager</text>
+		<newline gap="16"/>
+		<text>The PeerProject Settings Manager allows advanced users to completely customise how
+			PeerProject works. The settings in the </text>
+		<text format="b">Internet </text>
+		<text>section control how PeerProject interacts with other nodes in distributed peer-to-peer networks.</text>
+		<newline gap="16" indent="16"/>
+		<link target="peer:page:CConnectionSettingsPage" format="b">Connection:</link>
+		<gap size="4"/>
+		<text>The speeds and capabilities of your Internet connection.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CDownloadsSettingsPage" format="b">Downloads:</link>
+		<gap size="4"/>
+		<text>Download throughput, scheduling, verification, timeouts and management.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads:</link>
+		<gap size="4"/>
+		<text>Upload capacity, queuing, banning, timeouts and special requests.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CRemoteSettingsPage" format="b">Remote:</link>
+		<gap size="4"/>
+		<text>Set up the ability to control PeerProject remotely through a web browser.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
+		<gap size="4"/>
+		<text>Limit download connections based on a periodic schedule.</text>
+	</document>
+	<document name="CBrowseHostProfile.2">
+		<newline gap="40" indent="0"/>
+		<text format="b">Shared Files</text>
+		<newline gap="4" indent="8"/>
+		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
+		<link target="peer:command:ID_BROWSE_FILES" align="middle">View Shared Files</link>
+		<group id="2">
+			<newline gap="16" indent="0"/>
+			<text format="b">Community</text>
+			<newline gap="4" indent="8"/>
+			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
+			<gap size="5"/>
+			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
+		</group>
+		<group id="3">
+			<newline gap="16" indent="0"/>
+			<text format="b">Favourite Web Links</text>
+			<newline gap="4" indent="8" id="Bookmarks"/>
+		</group>
+		<newline gap="16" indent="0"/>
+	</document>
+</documents>
+<!-- Localised Command Tip Text."Message" displayed in status bar, "Tip" shown in tooltip -->
+<commandTips>
+	<tip id="ID_CHAT_COLOR" message="Select a text colour (Ctrl+K)"/>
+	<tip id="ID_CHILD_MINIMISE" message="Minimise the selected window to the tab bar."/>
+	<tip id="ID_HOSTCACHE_DISCONNECT" message="Disconnect from the selected neighbour(s)."/>
+	<tip id="ID_LIBRARY_TREE_VIRTUAL" message="Organise your library."/>
+	<tip id="ID_NEIGHBOURS_DISCONNECT" message="Disconnect the selected neighbour(s)."/>
+	<tip id="ID_NEIGHBOURS_VIEW_ALL" message="Open a new Packet Dump window monitoring this neighbour."/>
+	<tip id="ID_NEIGHBOURS_VIEW_INCOMING" message="Open a new Packet Dump window monitoring incoming traffic from this neighbour."/>
+	<tip id="ID_NEIGHBOURS_VIEW_OUTGOING" message="Open a new Packet Dump window monitoring outgoing traffic to this neighbour."/>
+	<tip id="ID_VIEW_NEIGHBOURS" message="Show or hide the NEIGHBOURS window."/>
+</commandTips>
+<!-- Localised Strings -->
+<strings>
+	<string id="WINDOW_NEIGHBOURS" value="Neighbours"/>
+	<string id="8060" value="Hub/Ultrapeer mode with %lu neighbour(s). %s in local library."/>
+	<string id="8061" value="Ultrapeer mode with %lu neighbour(s). %s in local library."/>
+	<string id="8062" value="Hub mode with %lu neighbour(s). %s in local library."/>
+	<string id="8064" value="Connected to %lu neighbour(s). %s in local library."/>
+	<string id="16129" value="Initiating a neighbour connection to %s port %i..."/>
+	<string id="16130" value="Unable to initiate a neighbour connection with %s."/>
+	<string id="16132" value="Closing connection to neighbour %s due to lack of traffic."/>
+	<string id="16133" value="Established a connection with neighbour %s, handshaking..."/>
+	<string id="16134" value="Closed connection with neighbour %s."/>
+	<string id="16135" value="Unable to initiate a neighbour connection with %s (refused)."/>
+	<string id="16136" value="Neighbour %s dropped the connection unexpectedly."/>
+	<string id="16139" value="Neighbour %s closed connection (%i : %s)."/>
+	<string id="16141" value="Closed connection with neighbour %s because it is not a hub."/>
+	<string id="16145" value="Gnutella connection with neighbour %s established successfully (G%i.%i : %s)."/>
+	<string id="16152" value="Hub neighbour %s won't accept us as a hub, closing connection."/>
+	<string id="16153" value="Connecting neighbour %s falling back to shielded leaf mode."/>
+	<string id="16155" value="Acting as a hub for leaf neighbour %s."/>
+	<string id="16156" value="Neighbour %s wants to be a hub, closing connection."/>
+	<string id="16157" value="Neighbour %s is not a hub, closing connection."/>
+	<string id="16158" value="Gnutella2 connection with neighbour %s established successfully (%s)."/>
+	<string id="16159" value="Closing connection to non-Gnutella2 neighbour %s."/>
+	<string id="16192" value="Neighbour %s forwarded a packet of excessive size, dropping connection."/>
+	<string id="16193" value="Neighbour %s forwarded a packet with zero TTL, ignoring."/>
+	<string id="16194" value="Neighbour %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."/>
+	<string id="16195" value="Neighbour %s forwarded a ping packet with invalid length, ignoring."/>
+	<string id="16196" value="Neighbour %s forwarded a pong packet with invalid length, ignoring."/>
+	<string id="16198" value="Leaf neighbour %s is forwarding queries, dropping connection."/>
+	<string id="16199" value="Neighbour %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
+	<string id="16200" value="Neighbour %s forwarded a pong with invalid address data, ignoring."/>
+	<string id="16203" value="Neighbour %s forwarded a push packet with invalid length, ignoring."/>
+	<string id="16208" value="Receiving an unexpected query routing table update from neighbour %s."/>
+	<string id="16209" value="Neighbour %s sent an invalid query routing table update, dropping connection."/>
+	<string id="16210" value="Neighbour %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
+	<string id="16211" value="Neighbour %s forwarded a push request to a firewalled address, ignoring."/>
+	<string id="16212" value="Neighbour %s forwarded an extended packet that is not GGEP encoded."/>
+	<string id="16213" value="Sending query routing table to neighbour %s (%i bit = %lu[%i], %i%% full)"/>
+</strings>
+<!-- Localised Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- DialogScan: C:\Dialog.xml -HKEY_CURRENT_USER\Software\PeerProject\PeerProject DWORD DialogScan = 1 -->
+<dialogs>
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="General">
+		<control caption="_General:"/>
+		<control caption="Auto-connect on PeerProject startup"/>
+		<control caption="Start PeerProject at Windows startup"/>
+		<control caption="Show a prompt before opening URIs"/>
+		<control caption="Show rates in:"/>
+		<control caption="bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="_Downloads:"/>
+		<control caption="Expand new downloads by default"/>
+		<control caption="Display simple progress bar"/>
+		<control caption="_Search:"/>
+		<control caption="Expand multi-source files by default"/>
+		<control caption="Switch to Transfers view on download"/>
+		<control caption="Hide side bar when starting search"/>
+		<control caption="Filter adult content from searches"/>
+		<control caption="_Tooltips:"/>
+		<control/>
+		<control caption="Delay (ms):"/>
+		<control/>
+		<control/>
+		<control caption="Opacity:"/>
+		<control/>
+		<control caption="_Tray:"/>
+		<control caption="When I click close:"/>
+		<control caption="Ask Me|Close Immediately|Minimise to Tray|Close After Transfers"/>
+		<control caption="When I click minimize:"/>
+		<control caption="Normal|Minimise to Tray"/>
+	</dialog>
+	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Media Player">
+		<control caption="_Options:"/>
+		<control/>
+		<control caption="Use the PeerProject Media Player to PLAY the file types listed below"/>
+		<control caption="Use the PeerProject Media Player to ENQUEUE the file types listed below"/>
+		<control caption="File _Types:"/>
+		<control/>
+		<control caption="_Add"/>
+		<control caption="_Remove"/>
+		<control caption="Audio _Visualisation Plugin:"/>
+		<control caption="_Select Plugin..."/>
+		<control caption="_Media Handling"/>
+		<control caption="Choose Media Handler:"/>
+		<control caption="Warning: Choosing an external Media Handler will automatically disable all Media and Visualisation Plugins!"/>
+	</dialog>
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
+		<control caption="Client _Options:"/>
+		<control caption="Show chat integration"/>
+		<control caption="Flood protection:"/>
+		<control/>
+		<control caption="lines per second"/>
+		<control caption="Show timestamp"/>
+		<control caption="Screen Font:"/>
+		<control/>
+		<control caption="_Colours:"/>
+		<control/>
+		<control caption="Server messages"/>
+		<control/>
+		<control caption="Topics"/>
+		<control/>
+		<control caption="Channel Actions"/>
+		<control/>
+		<control caption="Notices"/>
+		<control/>
+		<control caption="Chat background"/>
+		<control/>
+		<control caption="Text"/>
+		<control caption="Connection _Settings:"/>
+		<control caption="Nickname:"/>
+		<control/>
+		<control caption="User name:"/>
+		<control/>
+		<control caption="Alternate Nickname:"/>
+		<control/>
+		<control caption="Real name:"/>
+		<control/>
+		<control caption="Server:"/>
+		<control/>
+		<control caption="Port:"/>
+		<control/>
+	</dialog>
+	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favourites">
+		<control/>
+		<control caption="_Edit:"/>
+		<control caption="Title:"/>
+		<control/>
+		<control caption="URL:"/>
+		<control/>
+		<control caption="New"/>
+		<control caption="Remove"/>
+	</dialog>
+	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Files">
+		<control caption="_Favourite Files:"/>
+		<control caption="Favourite files are recommended to users who browse your profile. You can create favourite files by adding them to the &quot;Favourites&quot; library folder."/>
+		<control/>
+	</dialog>
+	<dialog name="CGraphItemDlg" cookie="BuBuBuCoStEdStEdBuBuStBu" caption="Graph Item Properties">
+		<control caption="OK"/>
+		<control caption="Cancel"/>
+		<control caption="_Source:"/>
+		<control/>
+		<control caption="Multiplier:"/>
+		<control/>
+		<control caption="Units:"/>
+		<control/>
+		<control caption="_Display:"/>
+		<control caption="Select Colour..."/>
+		<control/>
+		<control caption="_Remove"/>
+	</dialog>
+	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Collection Export">
+		<control caption="This feature is used to export the contents of a folder or playlist as a rich collection file. Please select a template and press Next to continue.|Customise your collection by entering data below."/>
+		<control/>
+		<control caption="Template Information:"/>
+		<control caption="Name:"/>
+		<control caption="..."/>
+		<control caption="Author:"/>
+		<control caption="..."/>
+		<control caption="Description:"/>
+		<control/>
+		<control caption="Delete|_Back"/>
+		<control caption="_Next|_Export..."/>
+		<control caption="_Cancel"/>
+	</dialog>
+	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Select Visualisation">
+		<control/>
+		<control caption="Select an audio visualisation from the list:"/>
+		<control/>
+		<control caption="Footer Display|Full Size Display|Large Display|Medium Display|Small Display"/>
+		<control caption="_Setup..."/>
+		<control caption="OK"/>
+		<control caption="Cancel"/>
+	</dialog>
+	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata Localisation">
+		<control caption="Please select the method of re-encoding:"/>
+		<control caption="Arabic|Baltic|Central European|Chinese Simplified|Chinese Traditional|Cyrillic|Greek|Hebrew|Japanese|Korean|Thai|Turkish|Vietnamese"/>
+		<control caption="Preview:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Cancel"/>
+	</dialog>
+</dialogs>
+<!-- No Columns Definitions -->
+</skin>

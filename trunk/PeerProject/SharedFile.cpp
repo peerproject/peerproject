@@ -55,9 +55,9 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-IMPLEMENT_DYNAMIC(CLibraryFile, CComObject)
+IMPLEMENT_DYNAMIC(CLibraryFile, CPeerProjectFile)
 
-BEGIN_INTERFACE_MAP(CLibraryFile, CComObject)
+BEGIN_INTERFACE_MAP(CLibraryFile, CPeerProjectFile)
 	INTERFACE_PART(CLibraryFile, IID_ILibraryFile, LibraryFile)
 END_INTERFACE_MAP()
 
@@ -371,24 +371,48 @@ void CLibraryFile::UpdateMetadata(const CDownload* pDownload)
 	}
 }
 
-BOOL CLibraryFile::SetMetadata(CXMLElement* pXML)
+BOOL CLibraryFile::SetMetadata(CXMLElement*& pXML, BOOL bMerge, BOOL bOverwrite)
 {
 	if ( m_pMetadata == NULL && pXML == NULL )
+		// No need
 		return TRUE;
 
 	CSchema* pSchema = NULL;
 
 	if ( pXML != NULL )
 	{
+		// Try fully specified XML first, for example <videos ...><video ... /></videos>
 		pSchema = SchemaCache.Get( pXML->GetAttributeValue( CXMLAttribute::schemaName ) );
+		if ( pSchema == NULL )
+		{
+			// Then try short version, for example <video ... />
+			pSchema = SchemaCache.Guess( pXML->GetName() );
+			if ( pSchema )
+			{
+				// Recreate full XML
+				if ( CXMLElement* pFullXML = pSchema->Instantiate( TRUE ) )
+				{
+					if ( pFullXML->AddElement( pXML ) )
+						pXML = pFullXML;
+					else
+						delete pFullXML;
+				}
+			}
+		}
+
 		if ( pSchema == NULL || ! pSchema->Validate( pXML, TRUE ) )
+			// Invalid XML
 			return FALSE;
 
-		if ( m_pMetadata != NULL && m_pSchema == pSchema )
+		if ( m_pMetadata && bMerge )
 		{
-			if ( m_pMetadata->Equals( pXML->GetFirstElement() ) )
-				return TRUE;
+			pXML->GetFirstElement()->Merge( m_pMetadata, ! bOverwrite );
 		}
+
+		if ( m_pMetadata && m_pSchema == pSchema &&
+			m_pMetadata->Equals( pXML->GetFirstElement() ) )
+			// No need
+			return TRUE;
 	}
 
 	Library.RemoveFile( this );
@@ -399,11 +423,25 @@ BOOL CLibraryFile::SetMetadata(CXMLElement* pXML)
 	m_pMetadata		= pXML ? pXML->GetFirstElement()->Detach() : NULL;
 	m_bMetadataAuto	= FALSE;
 
+	delete pXML;
+	pXML = NULL;
+
 	ModifyMetadata();
 
 	Library.AddFile( this );
 
 	return TRUE;
+}
+
+BOOL CLibraryFile::MergeMetadata(CXMLElement*& pXML, BOOL bOverwrite)
+{
+	return SetMetadata( pXML, TRUE, bOverwrite );
+}
+
+void CLibraryFile::ClearMetadata()
+{
+	CXMLElement* pXML = NULL;
+	SetMetadata( pXML );
 }
 
 void CLibraryFile::ModifyMetadata()
@@ -511,6 +549,7 @@ CSharedSource* CLibraryFile::AddAlternateSource(LPCTSTR pszURL, FILETIME* tSeen)
 
 	CString strURL( pszURL );
 	CPeerProjectURL pURL;
+
 	BOOL bSeen;
 	FILETIME tSeenLocal = { 0, 0 };
 	if ( tSeen && tSeen->dwLowDateTime && tSeen->dwHighDateTime )
@@ -814,6 +853,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 			m_oED2K.clear();
 		}
 
+		CRazaThread::YieldProc();
 		Library.AddFile( this );
 	}
 }
@@ -1095,6 +1135,18 @@ BOOL CSharedSource::IsExpired(FILETIME& tNow)
 
 IMPLEMENT_DISPATCH(CLibraryFile, LibraryFile)
 
+STDMETHODIMP CLibraryFile::XLibraryFile::get_Hash(URN_TYPE nType, ENCODING nEncoding, BSTR FAR* psURN)
+{
+	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
+	return pThis->m_xPeerProjectFile.get_Hash( nType, nEncoding, psURN );
+}
+
+STDMETHODIMP CLibraryFile::XLibraryFile::get_URL(BSTR FAR* psURL)
+{
+	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
+	return pThis->m_xPeerProjectFile.get_URL( psURL );
+}
+
 STDMETHODIMP CLibraryFile::XLibraryFile::get_Application(IApplication FAR* FAR* ppApplication)
 {
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
@@ -1125,11 +1177,10 @@ STDMETHODIMP CLibraryFile::XLibraryFile::get_Path(BSTR FAR* psPath)
 	return S_OK;
 }
 
-STDMETHODIMP CLibraryFile::XLibraryFile::get_Name(BSTR FAR* psPath)
+STDMETHODIMP CLibraryFile::XLibraryFile::get_Name(BSTR FAR* psName)
 {
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
-	pThis->m_sName.SetSysString( psPath );
-	return S_OK;
+	return pThis->m_xPeerProjectFile.get_Name( psName );
 }
 
 STDMETHODIMP CLibraryFile::XLibraryFile::get_Shared(TRISTATE FAR* pnValue)
@@ -1153,10 +1204,10 @@ STDMETHODIMP CLibraryFile::XLibraryFile::get_EffectiveShared(VARIANT_BOOL FAR* p
 	return S_OK;
 }
 
-STDMETHODIMP CLibraryFile::XLibraryFile::get_Size(LONG FAR* pnSize)
+STDMETHODIMP CLibraryFile::XLibraryFile::get_Size(ULONGLONG FAR* pnSize)
 {
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
-	*pnSize = (LONG)pThis->GetSize();
+	*pnSize = pThis->GetSize();
 	return S_OK;
 }
 
@@ -1170,60 +1221,7 @@ STDMETHODIMP CLibraryFile::XLibraryFile::get_Index(LONG FAR* pnIndex)
 STDMETHODIMP CLibraryFile::XLibraryFile::get_URN(BSTR sURN, BSTR FAR* psURN)
 {
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
-	CString strURN( sURN );
-
-	if ( strURN.IsEmpty() )
-	{
-		if ( pThis->m_oTiger && pThis->m_oSHA1 )
-			strURN = _T("urn:bitprint");
-		else if ( pThis->m_oTiger )
-			strURN = _T("urn:tree:tiger/");
-		else if ( pThis->m_oSHA1 )
-			strURN = _T("urn:sha1");
-		else
-			return E_FAIL;
-	}
-
-	if ( strURN.CompareNoCase( _T("urn:bitprint") ) == 0 )
-	{
-		if ( !pThis->m_oSHA1 || ! pThis->m_oTiger ) return E_FAIL;
-		strURN	= _T("urn:bitprint:")
-				+ pThis->m_oSHA1.toString() + '.'
-				+ pThis->m_oTiger.toString();
-	}
-	else if ( strURN.CompareNoCase( _T("urn:sha1") ) == 0 )
-	{
-		if ( !pThis->m_oSHA1 ) return E_FAIL;
-		strURN = pThis->m_oSHA1.toUrn();
-	}
-	else if ( strURN.CompareNoCase( _T("urn:tree:tiger/") ) == 0 )
-	{
-		if ( ! pThis->m_oTiger ) return E_FAIL;
-		strURN = pThis->m_oTiger.toUrn();
-	}
-	else if ( strURN.CompareNoCase( _T("urn:md5") ) == 0 )
-	{
-		if ( ! pThis->m_oMD5 ) return E_FAIL;
-		strURN = pThis->m_oMD5.toUrn();
-	}
-	else if ( strURN.CompareNoCase( _T("urn:ed2k") ) == 0 )
-	{
-		if ( ! pThis->m_oED2K ) return E_FAIL;
-		strURN = pThis->m_oED2K.toUrn();
-	}
-	else if ( strURN.CompareNoCase( _T("urn:btih") ) == 0 )
-	{
-		if ( ! pThis->m_oBTH ) return E_FAIL;
-		strURN = pThis->m_oBTH.toUrn();
-	}
-	else
-	{
-		return E_FAIL;
-	}
-
-	strURN.SetSysString( psURN );
-
-	return S_OK;
+	return pThis->m_xPeerProjectFile.get_URN( sURN, psURN );
 }
 
 STDMETHODIMP CLibraryFile::XLibraryFile::get_MetadataAuto(VARIANT_BOOL FAR* pbValue)
@@ -1258,7 +1256,7 @@ STDMETHODIMP CLibraryFile::XLibraryFile::put_Metadata(ISXMLElement FAR* pXML)
 	}
 	else
 	{
-		pThis->SetMetadata( NULL );
+		pThis->ClearMetadata();
 		return S_OK;
 	}
 }
@@ -1297,4 +1295,22 @@ STDMETHODIMP CLibraryFile::XLibraryFile::Move(BSTR /*sNewPath*/)
 {
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
 	return E_NOTIMPL;
+}
+
+STDMETHODIMP CLibraryFile::XLibraryFile::MergeMetadata(ISXMLElement* pXML, VARIANT_BOOL bOverwrite, VARIANT_BOOL* pbValue)
+{
+	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
+
+	if ( ! pbValue )
+		return E_POINTER;
+
+	if ( CXMLElement* pReal = CXMLCOM::Unwrap( pXML ) )
+	{
+		*pbValue = pThis->MergeMetadata( pReal, bOverwrite ) ?
+			VARIANT_TRUE : VARIANT_FALSE;
+	}
+	else
+		*pbValue = VARIANT_FALSE;
+
+	return S_OK;
 }

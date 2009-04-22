@@ -42,6 +42,7 @@ public:
 	BOOL		LookupEnable(REFCLSID pCLSID, BOOL bDefault, LPCTSTR pszExt = NULL) const;
 	CPlugin*	Find(REFCLSID pCLSID) const;
 	void		OnSkinChanged();
+	void		InsertCommands();
 	void		RegisterCommands();
 	UINT		GetCommandID();
 	BOOL		OnUpdate(CChildWnd* pActiveWnd, CCmdUI* pCmdUI);

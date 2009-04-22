@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Musikk: all musikk</title>
 		<title language="pt-br">Música: Todas as Músicas</title>
 		<title language="ru">&#160;Музыка: Вся музыка</title>
-		<title language="sl-SI">Glasba:Vsa glasba</title>
+		<title language="sl">Glasba:Vsa glasba</title>
 		<title language="sq">Muzikë:Gjithë Muzika</title>
 		<title language="sr">Muzika:Sva Muzika</title>
 		<title language="sv">Musik: All musik</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -122,7 +122,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">All musikk</title>
 		<title language="pt-br">Todas as Músicas</title>
 		<title language="ru">Вся музыка</title>
-		<title language="sl-SI">Vsa glasba</title>
+		<title language="sl">Vsa glasba</title>
 		<title language="sq">Gjithë Muzika</title>
 		<title language="sr">Sva Muzika</title>
 		<title language="sv">All musik</title>
@@ -149,7 +149,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Denne mappen inneholder alle musikkfilene i mine filer</subtitle>
 		<subtitle language="pt-br">Esta pasta contém cada arquivo de música na sua biblioteca.</subtitle>
 		<subtitle language="ru">Эта папка отображает каждый музыкальный файл в Вашем хранилище.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje vsako glasbeno datoteko v vaši knjižnici.</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje vsako glasbeno datoteko v vaši knjižnici.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban skedat muzikore në librarinë tuaj.</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži sve pesme u vašoj kolekciji.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller alla musikfiler som du har i ditt bibliotek.</subtitle>

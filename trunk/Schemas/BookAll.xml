@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Bok: alle bøker</title>
 		<title language="pt-br">Livro: Todos os Livros</title>
 		<title language="ru">&#160;Книга: Все книги</title>
-		<title language="sl-SI">Knjiga:Vse knjige</title>
+		<title language="sl">Knjiga:Vse knjige</title>
 		<title language="sq">Libri:Gjithë Librat</title>
 		<title language="sr">Knjiga:Sve Knjige</title>
 		<title language="sv">Bok: Alla böcker</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -122,7 +122,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Alle bøker</title>
 		<title language="pt-br">Todos os Livros</title>
 		<title language="ru">Все книги</title>
-		<title language="sl-SI">Vse knjige</title>
+		<title language="sl">Vse knjige</title>
 		<title language="sq">Gjithë Librat</title>
 		<title language="sr">Sve Knjige</title>
 		<title language="sv">Alla böcker</title>
@@ -149,7 +149,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Denne mappen inneholder alle bøkene i mine filer</subtitle>
 		<subtitle language="pt-br">Esta pasta contém todos os livros na sua biblioteca.</subtitle>
 		<subtitle language="ru">Эта папка отображает каждую книгу в Вашем хранилище.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje vse knjige v vaši knjižnici.</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje vse knjige v vaši knjižnici.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban librat në librarinë tuaj.</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži sve vaše knjige u kolekciji.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller alla böcker som du har i ditt bibliotek.</subtitle>

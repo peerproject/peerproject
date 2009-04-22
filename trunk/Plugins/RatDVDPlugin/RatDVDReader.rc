@@ -18,7 +18,7 @@
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
 #ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
-#pragma code_page(1257)
+#pragma code_page(1251)
 #endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
@@ -97,16 +97,26 @@ IDR_RATDVDPLUGIN        REGISTRY                "RatDVDPlugin.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure
+// application icon remains consistent on all systems.
+IDI_ICON                ICON                    "RatDVD.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
 STRINGTABLE 
 BEGIN
-    IDS_PROJNAME            "RatDVDReader"
+    IDS_PROJNAME        "RatDVDReader"
 END
 
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
+
 
 #ifndef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////

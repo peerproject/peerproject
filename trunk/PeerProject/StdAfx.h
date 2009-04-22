@@ -32,8 +32,6 @@
 
 #if 1
 
-#if _MSC_VER >= 1400	// VS 2005 & VS 2008
-
 // Warnings that are normally ON by default
 #pragma warning ( disable : 4350 )	// (Level 1)	behavior change: 'member1' called instead of 'member2'
 #pragma warning ( disable : 4351 )	// (Level 1)	new behavior: elements of array 'array' will be default initialized
@@ -73,24 +71,7 @@
 #define _CRTDBG_MAP_ALLOC
 #endif
 
-#else	// VS 2003
-
-// 64bit related - need to be fixed
-#pragma warning ( disable : 4302 4311 4312 )
-// general - fix where feasable then move to useless
-#pragma warning ( disable : 4061 4127 4191 4244 4263 4264 4265 4296 4529 4548 4555 4640 4668 4686 4946 )
-// copy/asignment-related
-#pragma warning ( disable : 4511 4512 4625 4626 )
-// behaviour change - check for regression
-#pragma warning ( disable : 4347 )
-// padding
-#pragma warning ( disable : 4820 )
-// useless
-#pragma warning ( disable : 4217 4514 4619 4702 4710 4711 )
-
-#endif
-
-#endif
+#endif	//1
 
 // Target features available from Windows XP onwards.
 //	To show features that need guards for Windows 2000 compatability use:
@@ -148,7 +129,7 @@
 #include <atltime.h>		// Time classes
 #include <atlenc.h>			// Base64Encode, UUEncode etc.
 
-// If this header is not found, you'll need to install the Windows XP SP2 Platform SDK (or later)
+// If this header is not found, you'll need to install the Windows XP SP2 Platform SDK or later.
 // from http://www.microsoft.com/msdownload/platformsdk/sdkupdate/
 
 #include <netfw.h>
@@ -159,9 +140,12 @@
 #include <MsiDefs.h>
 #include <Powrprof.h>		// Power policy applicator
 
-#if _MSC_VER < 1400 || _MSC_VER >= 1500
+// Intrinsics (Workaround for Microsoft double declaration with Visual Studio 2005)
+#define _interlockedbittestandset _ms_set
+#define _interlockedbittestandreset _ms_reset
 #include <intrin.h>
-#endif
+#undef _interlockedbittestandset
+#undef _interlockedbittestandreset
 
 //
 // STL
@@ -292,14 +276,6 @@ template<> AFX_INLINE UINT AFXAPI HashKey(DWORD_PTR key)
 #define BIF_NEWDIALOGSTYLE	0x0040
 #define OFN_ENABLESIZING	0x00800000
 
-// MFC changed resulttype of CWnd::OnNcHitTest method
-#if _MSC_VER <= 1310
-typedef UINT ONNCHITTESTRESULT;
-// broken standard auto_ptr fix
-#pragma warning ( disable : 4239 )
-#else
-typedef LRESULT ONNCHITTESTRESULT;
-#endif
 
 //
 // 64-bit type

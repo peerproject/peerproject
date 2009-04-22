@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Dokument: Alle dokumenter</title>
 		<title language="pt-br">Documento: Todos os Documentos</title>
 		<title language="ru">&#160;Документ:&#160;Все документы</title>
-		<title language="sl-SI">Dokument:Vsi dokumenti</title>
+		<title language="sl">Dokument:Vsi dokumenti</title>
 		<title language="sq">Dokumenti:Gjithë Dokumentet</title>
 		<title language="sr">Dokument:Svi Dokumenti</title>
 		<title language="sv">Dokument: Alla dokument</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -124,7 +124,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Alle dokumenter</title>
 		<title language="pt-br">Todos os Documentos</title>
 		<title language="ru">Все документы</title>
-		<title language="sl-SI">Vsi dokumenti</title>
+		<title language="sl">Vsi dokumenti</title>
 		<title language="sq">Gjithë Dokumentet</title>
 		<title language="sr">Svi Dokumenti</title>
 		<title language="sv">Alla dokument</title>
@@ -151,7 +151,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Denne mappen inneholder alle dokumentene i biblioteket ditt.</subtitle>
 		<subtitle language="pt-br">Esta pasta contém todos os documentos da sua biblioteca.</subtitle>
 		<subtitle language="ru">Эта папка отображает каждый документ в Вашем хранилище.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje vse dokumente v vaši knjižnici.</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje vse dokumente v vaši knjižnici.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban dokumentet në librarinë tuaj.</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži sve vaše dokumente u kolekciji.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller alla dokument i biblioteket.</subtitle>

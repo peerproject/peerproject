@@ -323,7 +323,7 @@ void CXMLNode::UniformString(CString& str)
 		else if ( ! _istalnum( TCHAR( nChar ) ) && nChar < 0xC0 && _tcschr( pszOK, TCHAR( nChar ) ) == NULL )
 		{
 			if ( nPos == 0 || str.GetAt( nPos - 1 ) == ' ' )
-			str = str.Left( nPos ) + str.Mid( nPos + 1 );
+				str = str.Left( nPos ) + str.Mid( nPos + 1 );
 			else
 			{
 				LPTSTR pszTemp = _tcsninc( str, nPos );
@@ -765,7 +765,7 @@ BOOL CXMLElement::Equals(CXMLElement* pXML) const
 //////////////////////////////////////////////////////////////////////
 // CXMLElement Metadata merge
 
-BOOL CXMLElement::Merge(const CXMLElement* pInput)
+BOOL CXMLElement::Merge(const CXMLElement* pInput, BOOL bOverwrite)
 {
 	if ( ! this || ! pInput ) return FALSE;
 	if ( this == pInput ) return TRUE;
@@ -786,7 +786,7 @@ BOOL CXMLElement::Merge(const CXMLElement* pInput)
 			AddElement( pElement->Clone() );
 			bChanged = TRUE;
 		}
-		else if ( pTarget->Merge( pElement ) )
+		else if ( pTarget->Merge( pElement, bOverwrite ) )
 		{
 			bChanged = TRUE;
 		}
@@ -800,6 +800,11 @@ BOOL CXMLElement::Merge(const CXMLElement* pInput)
 		if ( pTarget == NULL )
 		{
 			AddAttribute( pAttribute->Clone() );
+			bChanged = TRUE;
+		}
+		else if ( bOverwrite && ! pTarget->Equals( pAttribute ) )
+		{
+			pTarget->SetValue( pAttribute->GetValue() );
 			bChanged = TRUE;
 		}
 	}
@@ -834,7 +839,7 @@ void CXMLElement::AddRecursiveWords(CString& strWords) const
 		CString strText = pAttribute->GetName();
 
 		if ( strText.Find( ':' ) >= 0 ) continue;
-		if ( strText.CompareNoCase( _T("SHA1") ) == 0 ) continue;	// NOTE: PeerProject Specific
+		if ( strText.CompareNoCase( _T("SHA1") ) == 0 ) continue;	// NOTE: PeerProject/Shareaza Specific
 
 		if ( strWords.GetLength() ) strWords += ' ';
 		strWords += pAttribute->GetValue();

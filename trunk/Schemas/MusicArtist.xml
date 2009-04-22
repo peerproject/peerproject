@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Artist</title>
 		<title language="pt-br">Artista</title>
 		<title language="ru">&#160;Музыкальный артист</title>
-		<title language="sl-SI">Glasbeni izvajalec</title>
+		<title language="sl">Glasbeni izvajalec</title>
 		<title language="sq">Artisti i Muzikës</title>
 		<title language="sr">Muzika Izvođač</title>
 		<title language="sv">Musikartist</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Navn</title>
 			<title language="pt-br">Nome</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Ime</title>
+			<title language="sl">Ime</title>
 			<title language="sq">Emri</title>
 			<title language="sr">Ime</title>
 			<title language="sv">Namn</title>
@@ -118,7 +118,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Beskrivelse</title>
 			<title language="pt-br">Descrição</title>
 			<title language="ru">Описание</title>
-			<title language="sl-SI">Opis</title>
+			<title language="sl">Opis</title>
 			<title language="sq">Përshkrimi</title>
 			<title language="sr">Opis</title>
 			<title language="sv">Beskrivning</title>
@@ -147,7 +147,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Samler</title>
 			<title language="pt-br">Colecionador</title>
 			<title language="ru">Коллекционер</title>
-			<title language="sl-SI">Kolektor</title>
+			<title language="sl">Kolektor</title>
 			<title language="sq">Koleksionuesi</title>
 			<title language="sr">Sakupio</title>
 			<title language="sv">Samlare</title>
@@ -176,7 +176,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Kommentar</title>
 			<title language="pt-br">Comentários</title>
 			<title language="ru">Коментарии</title>
-			<title language="sl-SI">Komentarji</title>
+			<title language="sl">Komentarji</title>
 			<title language="sq">Komente</title>
 			<title language="sr">Komentari</title>
 			<title language="sv">Kommentarer</title>
@@ -220,7 +220,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Diskografi av {name}</title>
 		<title language="pt-br">{name} - Discografia</title>
 		<title language="ru">Дискография {name}</title>
-		<title language="sl-SI">{name} - Diskografija</title>
+		<title language="sl">{name} - Diskografija</title>
 		<title language="sq">{name} - Diskografi</title>
 		<title language="sr">{name} - Diskografija</title>
 		<title language="sv">{name} - Diskografi</title>
@@ -247,7 +247,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Denne mappen inneholder all musikk sortert etter {name}.</subtitle>
 		<subtitle language="pt-br">Esta pastas contém todas as músicas de {name}.</subtitle>
 		<subtitle language="ru">Эта папка отображает всю музыку {name}.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje vso vašo glasbo po {name}.</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje vso vašo glasbo po {name}.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban gjithë muzikën e {name}.</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži popis vaših pesama od {name}.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller all musik av {name}.</subtitle>

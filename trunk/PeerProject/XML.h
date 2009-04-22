@@ -105,8 +105,8 @@ public:
 	void			ToString(CString& strXML, BOOL bNewline = FALSE) const;
 	BOOL			ParseString(LPCTSTR& strXML);
 	BOOL			Equals(CXMLElement* pXML) const;
-	// Add missing elements and attributes from pInput, preserve existing
-	BOOL			Merge(const CXMLElement* pInput);
+	// Add missing elements and attributes from pInput, preserve or overwrite existing
+	BOOL			Merge(const CXMLElement* pInput, BOOL bOverwrite = FALSE);
 	CString			GetRecursiveWords() const;
 	void			Serialize(CArchive& ar);
 

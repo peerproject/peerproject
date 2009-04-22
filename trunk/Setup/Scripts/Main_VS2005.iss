@@ -857,8 +857,6 @@ Begin
 
   if ( LangCode = 'pt' ) then
     Result := 'Languages\default-pt-br.xml'
-  else if ( LangCode = 'sl' ) then
-    Result := 'Languages\default-sl-si.xml'
   else
     Result := 'Languages\default-' + LangCode + '.xml';
 End;

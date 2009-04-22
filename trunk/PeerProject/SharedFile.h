@@ -34,7 +34,7 @@ class CED2K;
 class CDownload;
 
 
-class CLibraryFile : public CComObject, public CPeerProjectFile
+class CLibraryFile : public CPeerProjectFile
 {
 // Construction
 public:
@@ -106,7 +106,9 @@ public:
 	BOOL			Rename(LPCTSTR pszName);
 	BOOL			Delete(BOOL bDeleteGhost = FALSE);
 	void			UpdateMetadata(const CDownload* pDownload);
-	BOOL			SetMetadata(CXMLElement* pXML);
+	BOOL			SetMetadata(CXMLElement*& pXML, BOOL bMerge = FALSE, BOOL bOverwrite = FALSE);
+	BOOL			MergeMetadata(CXMLElement*& pXML, BOOL bOverwrite);
+	void			ClearMetadata();
 	CString			GetMetadataWords() const;
 	void			ModifyMetadata();		// Mark metadata as modified
 	CTigerTree*		GetTigerTree();
@@ -154,17 +156,19 @@ public:
 protected:
 	BEGIN_INTERFACE_PART(LibraryFile, ILibraryFile)
 		DECLARE_DISPATCH()
+		STDMETHOD(get_Path)(BSTR FAR* psPath);
+		STDMETHOD(get_Name)(BSTR FAR* psName);
+		STDMETHOD(get_Size)(ULONGLONG FAR* pnSize);
+		STDMETHOD(get_URN)(BSTR sURN, BSTR FAR* psURN);
+		STDMETHOD(get_Hash)(URN_TYPE nType, ENCODING nBase, BSTR FAR* psURN);
+		STDMETHOD(get_URL)(BSTR FAR* psURL);
 		STDMETHOD(get_Application)(IApplication FAR* FAR* ppApplication);
 		STDMETHOD(get_Library)(ILibrary FAR* FAR* ppLibrary);
 		STDMETHOD(get_Folder)(ILibraryFolder FAR* FAR* ppFolder);
-		STDMETHOD(get_Path)(BSTR FAR* psPath);
-		STDMETHOD(get_Name)(BSTR FAR* psPath);
 		STDMETHOD(get_Shared)(TRISTATE FAR* pnValue);
 		STDMETHOD(put_Shared)(TRISTATE nValue);
 		STDMETHOD(get_EffectiveShared)(VARIANT_BOOL FAR* pbValue);
-		STDMETHOD(get_Size)(LONG FAR* pnSize);
 		STDMETHOD(get_Index)(LONG FAR* pnIndex);
-		STDMETHOD(get_URN)(BSTR sURN, BSTR FAR* psURN);
 		STDMETHOD(get_MetadataAuto)(VARIANT_BOOL FAR* pbValue);
 		STDMETHOD(get_Metadata)(ISXMLElement FAR* FAR* ppXML);
 		STDMETHOD(put_Metadata)(ISXMLElement FAR* pXML);
@@ -174,6 +178,7 @@ protected:
 		STDMETHOD(Rename)(BSTR sNewName);
 		STDMETHOD(Copy)(BSTR sNewPath);
 		STDMETHOD(Move)(BSTR sNewPath);
+		STDMETHOD(MergeMetadata)(ISXMLElement* pXML, VARIANT_BOOL bOverwrite, VARIANT_BOOL* pbValue);
 	END_INTERFACE_PART(LibraryFile)
 	
 	DECLARE_INTERFACE_MAP()
@@ -189,8 +194,8 @@ public:
 
 // Attributes
 public:
-	CString		m_sURL;									// The URL
-	FILETIME	m_pTime;								// Time last seen
+	CString		m_sURL;							// The URL
+	FILETIME	m_pTime;						// Time last seen
 
 // Operations
 public:

@@ -3159,7 +3159,7 @@ STRINGTABLE
 BEGIN
     IDR_MAINFRAME           "PeerProject"
     IDR_SYSTEMFRAME         "System"
-    IDR_NEIGHBOURSFRAME     "Neighbours"
+    IDR_NEIGHBOURSFRAME     "Neighbors"
     IDR_PACKETFRAME         "Packet Dump"
     IDR_HOSTCACHEFRAME      "Host Cache"
     IDR_SEARCHMONITORFRAME  "Search Monitor"
@@ -3245,7 +3245,7 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_STATUS_BAR_CONNECTED "Connected to %lu neighbour(s).  %s in local library."
+    IDS_STATUS_BAR_CONNECTED "Connected to %lu neighbors.  %s in local library."
     IDS_STATUS_BAR_CONNECTING "Connecting to the network..."
     IDS_STATUS_BAR_DISCONNECTED "Not connected to the network."
     IDS_STATUS_BAR_BANDWIDTH "%s in : %s out [D:%I64i/U:%I64i]"
@@ -3422,9 +3422,9 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_STATUS_BAR_CONNECTED_HUB_UP "Hub/Ultrapeer mode with %lu neighbour(s).  %s in local library."
-    IDS_STATUS_BAR_CONNECTED_UP "Ultrapeer mode with %lu neighbour(s).  %s in local library."
-    IDS_STATUS_BAR_CONNECTED_HUB "Hub mode with %lu neighbour(s).  %s in local library."
+    IDS_STATUS_BAR_CONNECTED_HUB_UP "Hub/Ultrapeer mode with %lu neighbors.  %s in local library."
+    IDS_STATUS_BAR_CONNECTED_UP "Ultrapeer mode with %lu neighbors.  %s in local library."
+    IDS_STATUS_BAR_CONNECTED_HUB "Hub mode with %lu neighbors.  %s in local library."
     IDS_STATUS_BAR_CONNECTED_SIMPLE "Connected. %s in local library."
 END
 
@@ -3466,53 +3466,53 @@ END
 STRINGTABLE 
 BEGIN
     IDS_CONNECTION_ACCEPTED "Accepted an incoming connection from %s port %i."
-    IDS_CONNECTION_ATTEMPTING "Initiating a neighbour connection to %s port %i..."
-    IDS_CONNECTION_CONNECT_FAIL "Unable to initiate a neighbour connection with %s."
+    IDS_CONNECTION_ATTEMPTING "Initiating a neighbor connection to %s port %i..."
+    IDS_CONNECTION_CONNECT_FAIL "Unable to initiate a neighbor connection with %s."
     IDS_CONNECTION_TIMEOUT_CONNECT "Timed out connecting to %s."
-    IDS_CONNECTION_TIMEOUT_TRAFFIC "Closing connection to neighbour %s due to lack of traffic."
-    IDS_CONNECTION_CONNECTED "Established a connection with neighbour %s, handshaking..."
-    IDS_CONNECTION_CLOSED   "Closed connection with neighbour %s."
-    IDS_CONNECTION_REFUSED  "Unable to initiate a neighbour connection with %s (refused)."
-    IDS_CONNECTION_DROPPED  "Neighbour %s dropped the connection unexpectedly."
+    IDS_CONNECTION_TIMEOUT_TRAFFIC "Closing connection to neighbor %s due to lack of traffic."
+    IDS_CONNECTION_CONNECTED "Established a connection with neighbor %s, handshaking..."
+    IDS_CONNECTION_CLOSED   "Closed connection with neighbor %s."
+    IDS_CONNECTION_REFUSED  "Unable to initiate a neighbor connection with %s (refused)."
+    IDS_CONNECTION_DROPPED  "Neighbor %s dropped the connection unexpectedly."
     IDS_CONNECTION_ALREADY_REFUSE "Refusing duplicate connection from %s."
     IDS_CONNECTION_ALREADY_ABORT "Already connected to %s, will not establish a second connection."
-    IDS_CONNECTION_BYE      "Neighbour %s closed connection (%i : %s)."
-    IDS_CONNECTION_PEERPRUNE "Closed connection with neighbour %s because it is not a hub."
+    IDS_CONNECTION_BYE      "Neighbor %s closed connection (%i : %s)."
+    IDS_CONNECTION_PEERPRUNE "Closed connection with neighbor %s because it is not a hub."
 END
 
 STRINGTABLE 
 BEGIN
     IDS_HANDSHAKE_TIMEOUT   "Timed out handshaking with %s."
-    IDS_HANDSHAKE_ONLINE    "Gnutella connection with neighbour %s established successfully (G%i.%i : %s)."
+    IDS_HANDSHAKE_ONLINE    "Gnutella connection with neighbor %s established successfully (G%i.%i : %s)."
     IDS_HANDSHAKE_FAIL      "Handshake with %s failed due to invalid data on the wire."
     IDS_HANDSHAKE_BOOTSTRAP "Closing surplus connection from %s with host hint (%s port %i)."
     IDS_HANDSHAKE_REJECTED  "Connection to %s rejected (%s)."
     IDS_HANDSHAKE_SURPLUS   "Closing surplus connection from %s."
     IDS_HANDSHAKE_IAMLEAF   "Refusing connection from %s because this is a shielded leaf node."
-    IDS_HANDSHAKE_CANTBEPEER "Hub neighbour %s won't accept us as a hub, closing connection."
-    IDS_HANDSHAKE_BACK2LEAF "Connecting neighbour %s falling back to shielded leaf mode."
+    IDS_HANDSHAKE_CANTBEPEER "Hub neighbor %s won't accept us as a hub, closing connection."
+    IDS_HANDSHAKE_BACK2LEAF "Connecting neighbor %s falling back to shielded leaf mode."
     IDS_HANDSHAKE_GOTPEER   "Hub connection established, closing peer connections."
-    IDS_HANDSHAKE_GOTLEAF   "Acting as a hub for leaf neighbour %s."
-    IDS_HANDSHAKE_NOULTRAPEER "Neighbour %s wants to be a hub, closing connection."
-    IDS_HANDSHAKE_NEEDAPEER "Neighbour %s is not a hub, closing connection."
-    IDS_HANDSHAKE_ONLINE_G2 "Gnutella][ connection with neighbour %s established successfully (%s)."
-    IDS_HANDSHAKE_NOTG2     "Closing connection to non-Gnutella2 neighbour %s."
+    IDS_HANDSHAKE_GOTLEAF   "Acting as a hub for leaf neighbor %s."
+    IDS_HANDSHAKE_NOULTRAPEER "Neighbor %s wants to be a hub, closing connection."
+    IDS_HANDSHAKE_NEEDAPEER "Neighbor %s is not a hub, closing connection."
+    IDS_HANDSHAKE_ONLINE_G2 "Gnutella][ connection with neighbor %s established successfully (%s)."
+    IDS_HANDSHAKE_NOTG2     "Closing connection to non-Gnutella2 neighbor %s."
 END
 
 STRINGTABLE 
 BEGIN
-    IDS_PROTOCOL_TOO_LARGE  "Neighbour %s forwarded a packet of excessive size, dropping connection."
-    IDS_PROTOCOL_NO_TTL     "Neighbour %s forwarded a packet with zero TTL, ignoring."
-    IDS_PROTOCOL_HIGH_TTL   "Neighbour %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."
-    IDS_PROTOCOL_SIZE_PING  "Neighbour %s forwarded a ping packet with invalid length, ignoring."
-    IDS_PROTOCOL_SIZE_PONG  "Neighbour %s forwarded a pong packet with invalid length, ignoring."
+    IDS_PROTOCOL_TOO_LARGE  "Neighbor %s forwarded a packet of excessive size, dropping connection."
+    IDS_PROTOCOL_NO_TTL     "Neighbor %s forwarded a packet with zero TTL, ignoring."
+    IDS_PROTOCOL_HIGH_TTL   "Neighbor %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."
+    IDS_PROTOCOL_SIZE_PING  "Neighbor %s forwarded a ping packet with invalid length, ignoring."
+    IDS_PROTOCOL_SIZE_PONG  "Neighbor %s forwarded a pong packet with invalid length, ignoring."
     IDS_PROTOCOL_PACKET_DUMP "%s -> %s [%i/%i] %s %s"
-    IDS_PROTOCOL_LEAF_FORWARD "Leaf neighbour %s is forwarding queries, dropping connection."
-    IDS_PROTOCOL_UNKNOWN    "Neighbour %s forwarded an unrecognised packet (0x%.2x), ignoring."
-    IDS_PROTOCOL_ZERO_PONG  "Neighbour %s forwarded a pong with invalid address data, ignoring."
+    IDS_PROTOCOL_LEAF_FORWARD "Leaf neighbor %s is forwarding queries, dropping connection."
+    IDS_PROTOCOL_UNKNOWN    "Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."
+    IDS_PROTOCOL_ZERO_PONG  "Neighbor %s forwarded a pong with invalid address data, ignoring."
     IDS_PROTOCOL_BAD_QUERY  "Received a malformatted query packet from %s, ignoring."
     IDS_PROTOCOL_BAD_HIT    "Received a malformatted query hit packet from %s, ignoring."
-    IDS_PROTOCOL_SIZE_PUSH  "Neighbour %s forwarded a push packet with invalid length, ignoring."
+    IDS_PROTOCOL_SIZE_PUSH  "Neighbor %s forwarded a push packet with invalid length, ignoring."
 END
 
 STRINGTABLE 
@@ -3578,12 +3578,12 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_PROTOCOL_QRP_UNEXPECTED "Receiving an unexpected query routing table update from neighbour %s."
-    IDS_PROTOCOL_QRP_FAILED "Neighbour %s sent an invalid query routing table update, dropping connection."
-    IDS_PROTOCOL_QRP_UPDATED "Neighbour %s updated its query routing table (%i bit = %lu[%i], %i%% full)."
-    IDS_PROTOCOL_ZERO_PUSH  "Neighbour %s forwarded a push request to a firewalled address, ignoring."
-    IDS_PROTOCOL_GGEP_REQUIRED "Neighbour %s forwarded an extended packet that is not GGEP encoded."
-    IDS_PROTOCOL_QRP_SENT   "Sending query routing table to neighbour %s (%i bit = %lu[%i], %i%% full)"
+    IDS_PROTOCOL_QRP_UNEXPECTED "Receiving an unexpected query routing table update from neighbor %s."
+    IDS_PROTOCOL_QRP_FAILED "Neighbor %s sent an invalid query routing table update, dropping connection."
+    IDS_PROTOCOL_QRP_UPDATED "Neighbor %s updated its query routing table (%i bit = %lu[%i], %i%% full)."
+    IDS_PROTOCOL_ZERO_PUSH  "Neighbor %s forwarded a push request to a firewalled address, ignoring."
+    IDS_PROTOCOL_GGEP_REQUIRED "Neighbor %s forwarded an extended packet that is not GGEP encoded."
+    IDS_PROTOCOL_QRP_SENT   "Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"
 END
 
 STRINGTABLE 
@@ -3858,10 +3858,10 @@ BEGIN
     IDS_MEDIA_TIMESPLIT     " / "
     IDS_MEDIA_SMPLAYER      "PeerProject Media Player"
     IDS_MEDIA_PLUGIN_CREATE "PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."
-    IDS_MEDIA_FILTER        "All Media Files|*.aac;*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.flv;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.aac;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.flv;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"
+    IDS_MEDIA_FILTER        "All Media Files|*.aac;*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.flv;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Video Files|*.avi;*.asf;*.flv;*.ogm;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Audio Files|*.aac;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm|MIDI Files|*.mid;*.rmi;*.midi|CD Audio Tracks|*.cda|Image Files|*.bmp;*.gif;*.jpeg;*.jpg;*.png;|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|All Files|*.*||"
     IDS_MEDIA_LOAD_FAIL     "Unable to load media file ""%s"""
     IDS_MEDIA_LOAD_FAIL_HELP "The file may be damaged, or you may not have the necessary codecs to play it."
-    IDS_MEDIA_PARTIAL_RENDER "Part of the file could not be played, you may need to install additional decoders.\n(Try a codec pack from www.codecs.com)"
+    IDS_MEDIA_PARTIAL_RENDER "Part of the file could not be played, you may need to install additional codecs.\n(Try a codec pack from www.codecs.com)"
     IDS_MEDIA_EMPTY         "There is no file playing.  Double-click a media file in your library to play it."
     IDS_MEDIA_TITLE         "P    E    E    R    P    R    O    J    E    C    T        M    E    D    I    A        S    Y    S    T    E    M"
     IDS_MEDIA_PLAYLIST      "Playlist:"
@@ -4166,7 +4166,7 @@ BEGIN
     ID_NETWORK_DISCONNECT   "Disconnect from all networks, this will also stop all downloads and uploads."
     ID_TOOLS_SETTINGS       "Configure PeerProject settings..."
     ID_VIEW_SYSTEM          "Show or hide the SYSTEM window."
-    ID_VIEW_NEIGHBOURS      "Show or hide the NEIGHBOURS window."
+    ID_VIEW_NEIGHBOURS      "Show or hide the NEIGHBORS window."
 END
 
 STRINGTABLE 
@@ -4177,16 +4177,16 @@ BEGIN
     ID_VIEW_UPLOADS         "Show or hide the UPLOADS window."
     ID_VIEW_HOSTS           "Show or hide the HOST CACHE window."
     ID_VIEW_PACKETS         "Show or hide the PACKET DUMP window."
-    ID_NEIGHBOURS_DISCONNECT "Disconnect the selected neighbour(s)."
+    ID_NEIGHBOURS_DISCONNECT "Disconnect selected neighbors."
     ID_SYSTEM_CLEAR         "Clear the status log."
-    ID_SYSTEM_COPY          "Copy selected line(s) of status log."
-    ID_NEIGHBOURS_VIEW_ALL  "Open a new Packet Dump window monitoring this neighbour."
-    ID_NEIGHBOURS_VIEW_INCOMING "Open a new Packet Dump window monitoring incoming traffic from this neighbour."
-    ID_NEIGHBOURS_VIEW_OUTGOING "Open a new Packet Dump window monitoring outgoing traffic to this neighbour."
+    ID_SYSTEM_COPY          "Copy selected lines of status log."
+    ID_NEIGHBOURS_VIEW_ALL  "Open a new Packet Dump window monitoring this neighbor."
+    ID_NEIGHBOURS_VIEW_INCOMING "Open a new Packet Dump window monitoring incoming traffic from this neighbor."
+    ID_NEIGHBOURS_VIEW_OUTGOING "Open a new Packet Dump window monitoring outgoing traffic to this neighbor."
     ID_VIEW_SEARCH_MONITOR  "Show or hide the SEARCH MONITOR window."
     ID_VIEW_RESULTS_MONITOR "Show or hide the HIT MONITOR window."
-    ID_HOSTCACHE_CONNECT    "Connect to the selected host(s)."
-    ID_HOSTCACHE_DISCONNECT "Disconnect from the selected neighbour(s)."
+    ID_HOSTCACHE_CONNECT    "Connect to the selected host."
+    ID_HOSTCACHE_DISCONNECT "Disconnect from selected neighbors."
 END
 
 STRINGTABLE 
@@ -4421,16 +4421,16 @@ BEGIN
     ID_MEDIA_STOP           "Stop playing the media file.\nStop"
     ID_MEDIA_PREVIOUS       "Skip back to the previous file in the current playlist.\nPrevious File"
     ID_MEDIA_NEXT           "Skip ahead to the next file in the current playlist.\nNext File"
-    ID_MEDIA_SIZE_FILL      "Choose the best size for the video based on its aspect ratio."
+    ID_MEDIA_FULLSCREEN     "Toggle full-screen video mode."
 END
 
 STRINGTABLE 
 BEGIN
     ID_MEDIA_SIZE_DISTORT   "Stretch the video to fill the window, potentially distorting it."
-    ID_MEDIA_SIZE_ONE       "Show the video at its original (natural) size."
-    ID_MEDIA_SIZE_TWO       "Show the video at double its original (natural) size."
-    ID_MEDIA_SIZE_THREE     "Show the video at triple its original (natural) size."
-    ID_MEDIA_FULLSCREEN     "Toggle full-screen video mode."
+    ID_MEDIA_SIZE_FILL      "Choose the best size for the video based on its aspect ratio."
+    ID_MEDIA_SIZE_ONE       "Show the video at its original default size."
+    ID_MEDIA_SIZE_TWO       "Show the video at double its original default size."
+    ID_MEDIA_SIZE_HALF      "Show the video at half of its original default size."
     ID_MEDIA_RANDOM         "Toggle random (shuffle) mode in the current playlist."
     ID_MEDIA_REPEAT         "Repeat the current media file."
     ID_MEDIA_SETTINGS       "Display the media settings page..."

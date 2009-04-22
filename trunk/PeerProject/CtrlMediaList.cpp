@@ -371,8 +371,8 @@ int CMediaListCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	InsertColumn( 0, _T("Name"), LVCFMT_LEFT, 100, -1 );
 	InsertColumn( 1, _T("Path"), LVCFMT_LEFT, 0, 0 );
 
-	// SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE, LVS_EX_LABELTIP, LVS_EX_LABELTIP );
-	
+	SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_LABELTIP );
+
 	m_wndTip.Create( this, &Settings.Interface.TipMedia );
 
 	return 0;
@@ -387,7 +387,7 @@ void CMediaListCtrl::OnSize(UINT nType, int cx, int cy)
 	
 	LV_COLUMN pColumn;
 	pColumn.mask	= LVCF_WIDTH;
-	pColumn.cx		= rc.Width() - GetSystemMetrics( SM_CXVSCROLL ) - 8;
+	pColumn.cx		= rc.Width() - GetSystemMetrics( SM_CXVSCROLL );
 	SetColumn( 0, &pColumn );
 }
 

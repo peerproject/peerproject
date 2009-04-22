@@ -54,7 +54,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">BitTorrent</title>
 		<title language="pt-br">BitTorrent</title>
 		<title language="ru">BitTorrent</title>
-		<title language="sl-SI">BitTorrent</title>
+		<title language="sl">BitTorrent</title>
 		<title language="sq">BitTorrent</title>
 		<title language="sr">BitTorrent</title>
 		<title language="sv">BitTorrent</title>
@@ -85,7 +85,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Info Hash</title>
 			<title language="pt-br">Info Hash</title>
 			<title language="ru">Инфохеш</title>
-			<title language="sl-SI">Info Hash</title>
+			<title language="sl">Info Hash</title>
 			<title language="sq">Hashi Informues</title>
 			<title language="sr">Info Hash</title>
 			<title language="sv">Checksumma</title>
@@ -115,7 +115,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tracker</title>
 			<title language="pt-br">Tracker</title>
 			<title language="ru">Трекер</title>
-			<title language="sl-SI">Tracker</title>
+			<title language="sl">Tracker</title>
 			<title language="sq">Gjurmuesi</title>
 			<title language="sr">Tracker</title>
 			<title language="sv">Tracker</title>
@@ -145,7 +145,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Encoding</title>
 			<title language="pt-br">Codificação</title>
 			<title language="ru">Кодировка</title>
-			<title language="sl-SI">Encoding</title>
+			<title language="sl">Encoding</title>
 			<title language="sq">Kodimi</title>
 			<title language="sr">Encoding</title>
 			<title language="sv">Kodning</title>
@@ -175,7 +175,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Creation Date</title>
 			<title language="pt-br">Data de Criação</title>
 			<title language="ru">Дата создания</title>
-			<title language="sl-SI">Creation Date</title>
+			<title language="sl">Creation Date</title>
 			<title language="sq">Datëkrijimi</title>
 			<title language="sr">Creation Date</title>
 			<title language="sv">Skapad datum</title>
@@ -205,7 +205,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Created By</title>
 			<title language="pt-br">Criado(a) por</title>
 			<title language="ru">Программа</title>
-			<title language="sl-SI">Created By</title>
+			<title language="sl">Created By</title>
 			<title language="sq">Krijuar Nga</title>
 			<title language="sr">Created By</title>
 			<title language="sv">Skapad av</title>
@@ -234,7 +234,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Kommentar</title>
 			<title language="pt-br">Comentários</title>
 			<title language="ru">Коментарии</title>
-			<title language="sl-SI">Komentarji</title>
+			<title language="sl">Komentarji</title>
 			<title language="sq">Komente</title>
 			<title language="sr">Komentari</title>
 			<title language="sv">Kommentarer</title>

@@ -21,38 +21,41 @@
 
 #pragma once
 
+#include "PeerProjectOM.h"
+
 typedef CMap< CString, CString&, FILETIME, FILETIME& > CMapStringToFILETIME;
 
-class CPeerProjectFile : boost::noncopyable
+class CPeerProjectFile : public CComObject
 {
+	DECLARE_DYNAMIC(CPeerProjectFile)
+
 public:
-	CPeerProjectFile() :
-		m_nSize( SIZE_UNKNOWN )
-	{
-	}
+	CPeerProjectFile();
+	CPeerProjectFile(const CPeerProjectFile& pFile);
+	CPeerProjectFile& operator=(const CPeerProjectFile& pFile);
 
 	CString				m_sName;	// Filename only
-	QWORD				m_nSize;	/*
-									Size if any
-									 (there is no size if it equal to 0 or SIZE_UNKNOWN)
-									*/
+	QWORD				m_nSize;	// Size if any:
+									// (there is no size if it equal to 0 or SIZE_UNKNOWN)
 	Hashes::Sha1Hash	m_oSHA1;	// SHA1 (Base32)
 	Hashes::TigerHash	m_oTiger;	// TigerTree Root Hash (Base32)
 	Hashes::Ed2kHash	m_oED2K;	// ED2K (MD4, Base16)
 	Hashes::BtHash		m_oBTH;		// BitTorrent Info Hash (Base32)
 	Hashes::Md5Hash		m_oMD5;		// MD5 (Base16)
-	CString				m_sPath;	/*
-									Use:
-									 CDownloadBase : Full local path (.partial)
-									 CPeerProjectURL  : Path part of URL
-									 CLibraryFile  : Local path without filename
-									 CBTFile       : Relative path inside .torrent
-									 CUploadFile   : Full local path
+	CString				m_sPath;	/* Use:
+									 CPeerProjectURL : Path part of URL
+									 CLibraryFile : Local path without filename
+									 CBTFile      : Relative path inside .torrent
+									 CDownload    : Path of .sd-file
+									 CUploadFile  : Path of requested file
 									*/
 	CString				m_sURL;		// Host if any
 
 	// Returns "urn:bitprint:SHA1.TIGER" or "urn:sha1:SHA1" or "urn:tree:tiger/:TIGER"
 	CString GetBitprint() const;
+
+	// Returns "sha1_SHA1", "ttr_TIGER" etc.
+	CString GetFilename() const;
 
 	// Returns "http://nAddress:nPort/uri-res/N2R?{SHA1|TIGER|ED2K|MD5|BTH}"
 	CString GetURL(const IN_ADDR& nAddress, WORD nPort) const;
@@ -71,4 +74,18 @@ public:
 	{
 		return ( ( m_nSize == SIZE_UNKNOWN ) ? 0 : m_nSize );
 	}
+
+// Automation
+protected:
+	BEGIN_INTERFACE_PART(PeerProjectFile, IPeerProjectFile)
+		DECLARE_DISPATCH()
+		STDMETHOD(get_Path)(BSTR FAR* psPath);
+		STDMETHOD(get_Name)(BSTR FAR* psName);
+		STDMETHOD(get_Size)(ULONGLONG FAR* pnSize);
+		STDMETHOD(get_URN)(BSTR sURN, BSTR FAR* psURN);
+		STDMETHOD(get_Hash)(URN_TYPE nType, ENCODING nBase, BSTR FAR* psURN);
+		STDMETHOD(get_URL)(BSTR FAR* psURL);
+	END_INTERFACE_PART(PeerProjectFile)
+
+	DECLARE_INTERFACE_MAP()
 };
