@@ -177,23 +177,7 @@ struct pool_impl
         mem_block * m_pnext;
         unsigned char m_data[ 1 ];
     };
-#if !defined(_MSC_VER) | 1200 < _MSC_VER
-    struct pool_data : char_allocator_type
-    {
-        pool_data( size_t default_size, char_allocator_type const & alloc )
-            : char_allocator_type( alloc )
-            , m_pfirst( 0 )
-            , m_default_size( default_size )
-        {
-        }
-        mem_block * m_pfirst;
-        size_t      m_default_size;
-        char_allocator_type & get_allocator()
-        {
-            return *this;
-        }
-    } m_data;
-#else
+#ifdef _MSC_VER
     struct pool_data
     {
         pool_data( size_t default_size, char_allocator_type const & alloc )
@@ -208,6 +192,22 @@ struct pool_impl
         char_allocator_type & get_allocator()
         {
             return m_alloc;
+        }
+    } m_data;
+#else	// !defined(_MSC_VER)
+    struct pool_data : char_allocator_type
+    {
+        pool_data( size_t default_size, char_allocator_type const & alloc )
+            : char_allocator_type( alloc )
+            , m_pfirst( 0 )
+            , m_default_size( default_size )
+        {
+        }
+        mem_block * m_pfirst;
+        size_t      m_default_size;
+        char_allocator_type & get_allocator()
+        {
+            return *this;
         }
     } m_data;
 #endif
@@ -246,7 +246,7 @@ public:
         m_pool = pool_alloc.allocate( 1, 0 );
         pool_alloc.construct( m_pool, pool_impl_t( default_size, char_alloc ) ); // can't throw
     }
-#if !defined(_MSC_VER) | 1200 < _MSC_VER
+#if !defined(_MSC_VER)
     arena_allocator( arena_allocator const & that )
         : m_pool( that.m_pool )
     {
@@ -275,7 +275,7 @@ public:
     {
         regex::detail::destroy( p );
     }
-#if !defined(_MSC_VER) | 1200 < _MSC_VER
+#ifndef _MSC_VER
     template< typename U > struct rebind
     {
         typedef arena_allocator<U> other;

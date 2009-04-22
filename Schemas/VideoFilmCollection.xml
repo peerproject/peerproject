@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Video: filmer</title>
 		<title language="pt-br">Vídeo: Filmes</title>
 		<title language="ru">&#160;Видео: Фильмы</title>
-		<title language="sl-SI">Video:Filmi</title>
+		<title language="sl">Video:Filmi</title>
 		<title language="sq">Video:Filmat</title>
 		<title language="sr">Film:Dugometražni</title>
 		<title language="sv">Video: Filmer</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -122,7 +122,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Filmer</title>
 		<title language="pt-br">Filmes</title>
 		<title language="ru">Фильмы</title>
-		<title language="sl-SI">Filmi</title>
+		<title language="sl">Filmi</title>
 		<title language="sq">Filmat</title>
 		<title language="sr">Film</title>
 		<title language="sv">Filmer</title>
@@ -149,7 +149,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Disse mappene inneholder alle dine filmer</subtitle>
 		<subtitle language="pt-br">Esta pasta contém todos os filmes presentes na sua biblioteca.</subtitle>
 		<subtitle language="ru">Эта папка отображает список фильмов в Вашем хранилище.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje seznam filmov v vaši knjižnici.</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje seznam filmov v vaši knjižnici.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban një listë me filmat që janë në librarinë tuaj.</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži popis filmova koje imate u kolekciji.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller en lista över filmer som du har i ditt bibliotek.</subtitle>

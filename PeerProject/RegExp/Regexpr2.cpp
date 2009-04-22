@@ -161,7 +161,7 @@ REGEX_DECL_CTYPE(upper)
 REGEX_DECL_CTYPE(xdigit)
 regex_ctype_t const wct_zero    = 0;
 
-#if defined(_MSC_VER) & ( _MSC_VER==1200 | defined(_CPPLIB_VER) )
+#ifdef _CPPLIB_VER
 inline regex_ctype_t const wct_blank() { return _BLANK; } // work around for bug in VC++
 inline int REGEX_CDECL regex_isctype( int ch, regex_ctype_t desc )
 {

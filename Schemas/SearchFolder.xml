@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Søk: søkeresultat</title>
 		<title language="pt-br">Procurar: Resultados da Busca</title>
 		<title language="ru">&#160;Поиск: Результаты поиска</title>
-		<title language="sl-SI">Iskanje:Rezultati iskanja</title>
+		<title language="sl">Iskanje:Rezultati iskanja</title>
 		<title language="sq">Kërkimi:Rezultatet e Kërkimit</title>
 		<title language="sr">Traži:Rezultati Potrage</title>
 		<title language="sv">Sök: Sökresultat</title>
@@ -85,7 +85,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -114,7 +114,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tid</title>
 			<title language="pt-br">Tempo</title>
 			<title language="ru">Время</title>
-			<title language="sl-SI">Čas</title>
+			<title language="sl">Čas</title>
 			<title language="sq">Ora</title>
 			<title language="sr">Vreme</title>
 			<title language="sv">Tid</title>
@@ -143,7 +143,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Dato</title>
 			<title language="pt-br">Data</title>
 			<title language="ru">Дата</title>
-			<title language="sl-SI">Datum</title>
+			<title language="sl">Datum</title>
 			<title language="sq">Të dhënat</title>
 			<title language="sr">Datum</title>
 			<title language="sv">Datum</title>
@@ -172,7 +172,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Innhold</title>
 			<title language="pt-br">Conteúdo</title>
 			<title language="ru">Содержание</title>
-			<title language="sl-SI">Vsebina</title>
+			<title language="sl">Vsebina</title>
 			<title language="sq">Përmbajtja</title>
 			<title language="sr">Sadržaj</title>
 			<title language="sv">Innehåll</title>
@@ -205,7 +205,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Søk etter "{content}"</title>
 		<title language="pt-br">Procurar por "{content}"</title>
 		<title language="ru">Поиск для "{content}"</title>
-		<title language="sl-SI">Išči po "{content}"</title>
+		<title language="sl">Išči po "{content}"</title>
 		<title language="sq">Kërko për "{content}"</title>
 		<title language="sr">Traži "{content}"</title>
 		<title language="sv">Sök efter "{content}"</title>
@@ -232,7 +232,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Denne mappen inneholder resultat som matcher søk etter "{content}"</subtitle>
 		<subtitle language="pt-br">Esta pasta contém os arquivos que combinaram na sua busca por "{content}".</subtitle>
 		<subtitle language="ru">Эта папка отображает результаты поиска для {content}.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje datoteke, ki so se ujemale vašemu iskanju po "{content}"</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje datoteke, ki so se ujemale vašemu iskanju po "{content}"</subtitle>
 		<subtitle language="sq">Kjo dosje përmban skedat që i ngjajnë kërkimit tuaj, "{content}"</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži nađene datoteke po izrazu "{content}"</subtitle>
 		<subtitle language="sv">Denna mapp innehåller filer som matchar din sökning efter "{content}".</subtitle>

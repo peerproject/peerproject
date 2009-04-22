@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Video: alle videoer</title>
 		<title language="pt-br">Vídeo: Todos os Vídeos</title>
 		<title language="ru">&#160;Видео: Все видео</title>
-		<title language="sl-SI">Video:Vsi videji</title>
+		<title language="sl">Video:Vsi videji</title>
 		<title language="sq">Video:Gjithë Videot</title>
 		<title language="sr">Film:Svi Filmovi</title>
 		<title language="sv">Video: All video</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -122,7 +122,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">All video</title>
 		<title language="pt-br">Todos os Vídeos</title>
 		<title language="ru">Все видео</title>
-		<title language="sl-SI">Vsi videji</title>
+		<title language="sl">Vsi videji</title>
 		<title language="sq">Gjithë Videot</title>
 		<title language="sr">Svi Filmovi</title>
 		<title language="sv">All video</title>
@@ -149,7 +149,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Denne mappen inneholder alle videofilene i mine filer</subtitle>
 		<subtitle language="pt-br">Esta pasta contém cada arquivo de vídeo na sua biblioteca.</subtitle>
 		<subtitle language="ru">Эта папка отображает каждый видео файл в Вашем хранилище.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje vsako video datoteko v vaši knjižnici.</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje vsako video datoteko v vaši knjižnici.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban skedat filmike në librarinë tuaj.</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži sve video snimke u vašoj kolekciji.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller alla videofiler som du har i ditt bibliotek.</subtitle>

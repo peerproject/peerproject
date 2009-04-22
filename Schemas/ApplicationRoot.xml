@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Program: programmer</title>
 		<title language="pt-br">Aplicativo: Aplicativos</title>
 		<title language="ru">&#160;Приложение: приложения</title>
-		<title language="sl-SI">Program:Programi</title>
+		<title language="sl">Program:Programi</title>
 		<title language="sq">Aplikm:Aplikimet</title>
 		<title language="sr">Program:Programi</title>
 		<title language="sv">Applikation: Applikationer</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -122,7 +122,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Velkommen til programmer.</title>
 		<title language="pt-br">Bem-vindo aos Aplicativos.</title>
 		<title language="ru">Добро пожаловать в Ваши приложения.</title>
-		<title language="sl-SI">Dobrodošli v mojih programih.</title>
+		<title language="sl">Dobrodošli v mojih programih.</title>
 		<title language="sq">Mirë se erdhët në Aplikimet Tuaja.</title>
 		<title language="sr">Dobrodošli Među Vaše Programe.</title>
 		<title language="sv">Välkommen till program.</title>
@@ -149,7 +149,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Disse mappene inneholder alle dine programmer</subtitle>
 		<subtitle language="pt-br">Estas pastas contém todos os arquivos dos seus aplicativos.</subtitle>
 		<subtitle language="ru">Эти папки отображают все Ваши приложения.</subtitle>
-		<subtitle language="sl-SI">Te mape vsebujejo vse programske datoteke.</subtitle>
+		<subtitle language="sl">Te mape vsebujejo vse programske datoteke.</subtitle>
 		<subtitle language="sq">Këto dosje përmbajnë gjithë skedat tuaja aplikuese.</subtitle>
 		<subtitle language="sr">Ove fascikle sadrže sve vaše programe.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller alla applikationsfiler.</subtitle>

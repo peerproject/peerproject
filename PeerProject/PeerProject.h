@@ -170,6 +170,8 @@ public:
 	static BOOL			OpenTorrent(LPCTSTR lpszFileName, BOOL bDoIt);
 	// Open .co, .collection, or .emulecollection file
 	static BOOL			OpenCollection(LPCTSTR lpszFileName, BOOL bDoIt);
+	// Open .met or .dat file
+	static BOOL			OpenMET(LPCTSTR lpszFileName, BOOL bDoIt);
 	// Open url
 	static BOOL			OpenURL(LPCTSTR lpszFileName, BOOL bDoIt, BOOL bSilent = FALSE);
 
@@ -443,6 +445,7 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 #define WM_SANITY_CHECK		(WM_APP+115)	// Run allsystem check against banned hosts (WPARAM: unused, LPARAM: unused)
 #define WM_QUERYHITS		(WM_APP+116)	// Route query hits over windows (WPARAM: unused, LPARAM: CQueryHit* pHits)
 #define WM_NOWUPLOADING		(WM_APP+117)	// New upload notification (WPARAM: unused, LPARAM: CString* pFilename)
+#define WM_TORRENT			(WM_APP+118)	// Open torrent file ( WPARAM: LPTSTR szFilename, LPARAM: unused )
 
 #define ID_PLUGIN_FIRST	27000
 #define ID_PLUGIN_LAST	27999

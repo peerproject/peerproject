@@ -1089,7 +1089,14 @@ HRESULT CDeviceFinderCallback::SearchComplete(LONG /*nFindData*/)
 	bool bRetry = !m_instance.OnSearchComplete();
 	m_instance.StopAsyncFind();
 	if ( bRetry )
-		m_instance.StartDiscovery( true );
+	{
+		try
+		{
+			m_instance.StartDiscovery( true );
+		}
+		catch ( CUPnPFinder::UPnPError& ) {}
+		catch ( CException* e ) { e->Delete(); }
+	}
 	return S_OK;
 }
 

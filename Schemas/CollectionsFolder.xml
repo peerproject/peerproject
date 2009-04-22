@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Samlinger: samlinger</title>
 		<title language="pt-br">Coleções: MColeções</title>
 		<title language="ru">&#160;Коллекции: коллекции</title>
-		<title language="sl-SI">Kolekcije:Kolekcije</title>
+		<title language="sl">Kolekcije:Kolekcije</title>
 		<title language="sq">Koleksione:Koleksionet</title>
 		<title language="sr">Kolekcija:Kolekcija</title>
 		<title language="sv">Samlingar: Samlingar</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -119,7 +119,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Mine samlinger</title>
 		<title language="pt-br">Minhas Coleções</title>
 		<title language="ru">Мои коллекции</title>
-		<title language="sl-SI">Moje kolekcije</title>
+		<title language="sl">Moje kolekcije</title>
 		<title language="sq">Koleksioni Im</title>
 		<title language="sr">Moja Kolekcija</title>
 		<title language="sv">Mina samlingar</title>
@@ -146,7 +146,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Denne mappen inneholde en hvilken som helst filsamling i mine filer.</subtitle>
 		<subtitle language="pt-br">Esta pasta contém todas as coleções da sua biblioteca.</subtitle>
 		<subtitle language="ru">Эта папка отображает все файлы коллекций (.collection) в Вашем хранилище.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje katerokoli kolekcijo bogatih (rich) datotek v vaši knjižnici.</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje katerokoli kolekcijo bogatih (rich) datotek v vaši knjižnici.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban skedat me Koleksionet në librarinë tuaj.</subtitle>
 		<subtitle language="sr">Ove fascikla sadrži sve vaše rich File datoteke u vašoj kolekciji.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller alla filsamlingar som du har i ditt bibliotek.</subtitle>

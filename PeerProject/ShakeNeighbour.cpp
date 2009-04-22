@@ -230,8 +230,8 @@ BOOL CShakeNeighbour::OnConnected()
 	SendPublicHeaders();					 // User agent, ip addresses, Gnutella2 and deflate, advanced Gnutella features
 
 	// POSSIBLE POLLUTION ALERT:
-	// This SendHostHeaders() should not be here. because remote node is not known either G1 or G2.
-	// calling this function here sends Cached G1 address to remote host, but since RAZA tells the remote that 
+	// This SendHostHeaders() should not be here, because remote node is not known either G1 or G2.
+	// Calling this function here sends Cached G1 address to remote host, but since RAZA tells the remote that 
 	// it is G2 capable and if the remote host is PEER/RAZA, it will store GNUTELLA1 nodes into GNUTELLA2 cache.
 	// SendHostHeaders();					 // Try ultrapeers
 
@@ -610,7 +610,7 @@ void CShakeNeighbour::SendHostHeaders(LPCSTR pszMessage, size_t nLength)
 	{
 		// The remote computer accepts Gnutella2 packets, sends them, or is PeerProject too
 
-		int nCount = Settings.Gnutella2.HostCount;		// Set max length of list
+		int nCount = Settings.Gnutella2.HostCount;					// Set max length of list
 
 		CQuickLock oLock( HostCache.Gnutella2.m_pSection );
 
@@ -621,7 +621,7 @@ void CShakeNeighbour::SendHostHeaders(LPCSTR pszMessage, size_t nLength)
 		{
 			CHostCacheHost* pHost = (*i);
 
-			if ( pHost->CanQuote( nTime ) )		// if host is still recent enough
+			if ( pHost->CanQuote( nTime ) )							// If host is still recent enough
 			{
 				if ( strHosts.GetLength() ) strHosts += _T(",");	// Separate each computer's info with a comma
 				strHosts += pHost->ToString();						// Add this computer's info to the string
@@ -641,7 +641,7 @@ void CShakeNeighbour::SendHostHeaders(LPCSTR pszMessage, size_t nLength)
 	{
 		// This computer is running Gnutella
 
-		int nCount = Settings.Gnutella1.HostCount;		// Set max length of list
+		int nCount = Settings.Gnutella1.HostCount;					// Set max length of list
 
 		CQuickLock oLock( HostCache.Gnutella1.m_pSection );
 
@@ -656,7 +656,7 @@ void CShakeNeighbour::SendHostHeaders(LPCSTR pszMessage, size_t nLength)
 			if ( pHost->CanQuote( nTime ) )
 			{
 				if ( strHosts.GetLength() ) strHosts += _T(",");	// Separate each computer's info with a comma
-				strHosts += pHost->ToString( m_bPeerProject );			// Add this computer's info to the string
+				strHosts += pHost->ToString( m_bPeerProject );		// Add this computer's info to the string
 				nCount--;											// Decrement counter
 			}
 		}
@@ -948,13 +948,13 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 	}
 	else if ( m_bBadClient )
 	{
-		// We don't want to accept Hubs or UltraPeers from clients that have bugs that pollute 
-		// the host cache, so stop here.
+		// We don't want to accept Hubs or UltraPeers from clients that have bugs 
+		// that pollute the host cache, so stop here.
 	}
 	else if ( !m_bInitiated )
 	{
-		// if we accept connection from remote and is header for first request, any of "X-Try" headers should not be
-		// processed, because no guarantee the given list of nodes are not old.
+		// If we accept connection from remote and is header for first request, any of "X-Try" headers
+		// should not be processed, because no guarantee the given list of nodes are not old.
 	}
 	else if ( strHeader.CompareNoCase( _T("X-Try-DNA-Hubs") ) == 0 )
 	{	// The remote computer is giving us a list GnucDNA G2 hubs
@@ -965,9 +965,8 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 		m_sTryHubs = strValue;
 	} 
 	else if (	strHeader.CompareNoCase( _T("X-Try-Ultrapeers") ) == 0 )
-	{	// This header has been used for several things. In general, it's giving us a list of
-		// Gnutella Ultrapeers, however some old versions of Shareaza can send G2 hubs in it,
-		// if the client advertises G2 capability
+	{	// This header has been used for several things. In general, it's giving us a list of Gnutella Ultrapeers,
+		// however some old versions of Shareaza can send G2 hubs in it, if the client advertises G2 capability.
 		// However this should not be used for G2 because Shareaza 2.2.1.0 and earlier may give
 		// G1 host list with "accept: application/x-gnutella2" specified, if the node has Gnutella1 enabled
 		m_sTryUltrapeers = strValue;

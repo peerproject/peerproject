@@ -56,7 +56,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">ROM image</title>
 		<title language="pt-br">Imagem de ROM</title>
 		<title language="ru">Образ ROM</title>
-		<title language="sl-SI">ROM slika</title>
+		<title language="sl">ROM slika</title>
 		<title language="sq">Imazh ROM</title>
 		<title language="sr">ROM Image</title>
 		<title language="sv">ROM-avbild</title>
@@ -87,7 +87,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -117,7 +117,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Firma</title>
 			<title language="pt-br">Companhia</title>
 			<title language="ru">Компания</title>
-			<title language="sl-SI">Tvrdka</title>
+			<title language="sl">Tvrdka</title>
 			<title language="sq">Kompania</title>
 			<title language="sr">Proizvođač</title>
 			<title language="sv">Företag</title>
@@ -147,7 +147,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">System</title>
 			<title language="pt-br">Sistema</title>
 			<title language="ru">Система</title>
-			<title language="sl-SI">Sistem</title>
+			<title language="sl">Sistem</title>
 			<title language="sq">Sistemi</title>
 			<title language="sr">Sistem</title>
 			<title language="sv">System</title>
@@ -176,7 +176,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">År</title>
 			<title language="pt-br">Ano</title>
 			<title language="ru">Год</title>
-			<title language="sl-SI">Leto</title>
+			<title language="sl">Leto</title>
 			<title language="sq">Viti</title>
 			<title language="sr">Godina</title>
 			<title language="sv">År</title>
@@ -205,7 +205,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Type</title>
 			<title language="pt-br">Tipo</title>
 			<title language="ru">Тип</title>
-			<title language="sl-SI">Tip</title>
+			<title language="sl">Tip</title>
 			<title language="sq">Lloji</title>
 			<title language="sr">Vrsta</title>
 			<title language="sv">Typ</title>
@@ -235,7 +235,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Språk</title>
 			<title language="pt-br">Idioma</title>
 			<title language="ru">Язык</title>
-			<title language="sl-SI">Jezik</title>
+			<title language="sl">Jezik</title>
 			<title language="sq">Gjuhë</title>
 			<title language="sr">Jezik</title>
 			<title language="sv">Språk</title>
@@ -264,7 +264,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Vurdering</title>
 			<title language="pt-br">Classificação</title>
 			<title language="ru">Райтинг</title>
-			<title language="sl-SI">Ocena</title>
+			<title language="sl">Ocena</title>
 			<title language="sq">Vlerësimi</title>
 			<title language="sr">Ocena</title>
 			<title language="sv">Betyg</title>
@@ -293,7 +293,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Pris</title>
 			<title language="pt-br">Preço</title>
 			<title language="ru">Цена</title>
-			<title language="sl-SI">Cena</title>
+			<title language="sl">Cena</title>
 			<title language="sq">Çmimi</title>
 			<title language="sr">Cena</title>
 			<title language="sv">Pris</title>
@@ -322,7 +322,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Link</title>
 			<title language="pt-br">Link</title>
 			<title language="ru">Ссылка</title>
-			<title language="sl-SI">Povezava</title>
+			<title language="sl">Povezava</title>
 			<title language="sq">Linku</title>
 			<title language="sr">Link</title>
 			<title language="sv">Länk</title>
@@ -351,7 +351,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Kommentar</title>
 			<title language="pt-br">Comentários</title>
 			<title language="ru">Коментарии</title>
-			<title language="sl-SI">Komentarji</title>
+			<title language="sl">Komentarji</title>
 			<title language="sq">Komente</title>
 			<title language="sr">Komentari</title>
 			<title language="sv">Kommentarer</title>

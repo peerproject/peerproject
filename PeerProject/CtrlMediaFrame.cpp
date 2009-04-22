@@ -89,8 +89,8 @@ BEGIN_MESSAGE_MAP(CMediaFrame, CWnd)
 	ON_COMMAND(ID_MEDIA_SIZE_ONE, OnMediaSizeOne)
 	ON_UPDATE_COMMAND_UI(ID_MEDIA_SIZE_TWO, OnUpdateMediaSizeTwo)
 	ON_COMMAND(ID_MEDIA_SIZE_TWO, OnMediaSizeTwo)
-	ON_UPDATE_COMMAND_UI(ID_MEDIA_SIZE_THREE, OnUpdateMediaSizeThree)
-	ON_COMMAND(ID_MEDIA_SIZE_THREE, OnMediaSizeThree)
+	ON_UPDATE_COMMAND_UI(ID_MEDIA_SIZE_HALF, OnUpdateMediaSizeHalf)
+	ON_COMMAND(ID_MEDIA_SIZE_HALF, OnMediaSizeHalf)
 	ON_UPDATE_COMMAND_UI(ID_MEDIA_ASPECT_DEFAULT, OnUpdateMediaAspectDefault)
 	ON_COMMAND(ID_MEDIA_ASPECT_DEFAULT, OnMediaAspectDefault)
 	ON_UPDATE_COMMAND_UI(ID_MEDIA_ASPECT_4_3, OnUpdateMediaAspect43)
@@ -581,27 +581,25 @@ void CMediaFrame::PaintSplash(CDC& dc, CRect& /*rcBar*/)
 	CBitmap* pOldBmp = (CBitmap*)dcMem.SelectObject( &m_bmLogo );
 	dc.BitBlt( pt.x, pt.y, pInfo.bmWidth, pInfo.bmHeight, &dcMem,
 		0, 0, SRCCOPY );
-	dc.ExcludeClipRect( pt.x, pt.y, pt.x + pInfo.bmWidth, pt.y + pInfo.bmHeight );
 	dcMem.SelectObject( pOldBmp );
 
-	// Splash Sub-Text Display
-//	if ( m_pPlayer == NULL ) // ToDo: Remove this redundant check
-//	{
-		CRect rcText( m_rcVideo.left, pt.y + pInfo.bmHeight, m_rcVideo.right, pt.y + pInfo.bmHeight + 32 );
-
-		CString strText;
-		LoadString( strText, IDS_MEDIA_TITLE );
-
-		pt.x = ( m_rcVideo.left + m_rcVideo.right ) / 2 - dc.GetTextExtent( strText ).cx / 2;
-		pt.y = rcText.top + 8;
-
-		dc.SetBkColor( CoolInterface.m_crMediaWindowBack );
-		dc.SetTextColor( CoolInterface.m_crMediaWindowText );
-		dc.ExtTextOut( pt.x, pt.y, ETO_OPAQUE, &m_rcVideo, strText, NULL );
-		dc.ExcludeClipRect( &rcText );
-//	}
-
+	dc.ExcludeClipRect( pt.x, pt.y, pt.x + pInfo.bmWidth, pt.y + pInfo.bmHeight );
 	dc.FillSolidRect( &m_rcVideo, CoolInterface.m_crMediaWindowBack );
+
+	// Splash Sub-Text Display
+
+	CRect rcText( m_rcVideo.left, pt.y + pInfo.bmHeight, m_rcVideo.right, pt.y + pInfo.bmHeight + 32 );
+
+	CString strText;
+	LoadString( strText, IDS_MEDIA_TITLE );
+
+	pt.x = ( m_rcVideo.left + m_rcVideo.right ) / 2 - dc.GetTextExtent( strText ).cx / 2;
+	pt.y = rcText.top + 8;
+
+	dc.SetBkColor( CoolInterface.m_crMediaWindowBack );
+	dc.SetTextColor( CoolInterface.m_crMediaWindowText );
+	dc.ExtTextOut( pt.x, pt.y, ETO_OPAQUE, &m_rcVideo, strText, NULL );
+	// dc.ExcludeClipRect( &rcText );
 }
 
 void CMediaFrame::PaintListHeader(CDC& dc, CRect& rcBar)
@@ -1313,14 +1311,14 @@ void CMediaFrame::OnMediaSizeTwo()
 	ZoomTo( (MediaZoom)2 );
 }
 
-void CMediaFrame::OnUpdateMediaSizeThree(CCmdUI* pCmdUI)
+void CMediaFrame::OnUpdateMediaSizeHalf(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( Settings.MediaPlayer.Zoom == 3 );
+	pCmdUI->SetCheck( Settings.MediaPlayer.Zoom == 4 );
 }
 
-void CMediaFrame::OnMediaSizeThree()
+void CMediaFrame::OnMediaSizeHalf()
 {
-	ZoomTo( (MediaZoom)3 );
+	ZoomTo( (MediaZoom)4 );
 }
 
 void CMediaFrame::OnUpdateMediaAspectDefault(CCmdUI* pCmdUI)
@@ -1809,7 +1807,7 @@ void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
 	}
 
 	//	Prior-track-cleanup workaround.  ToDo: Fix Mediaplayer plugin instead
-	int nVolume = m_wndVolume.GetPos(); 	// Current volume restored below
+	double nVolume = Settings.MediaPlayer.Volume; 	// Current volume restored below
 	if ( m_pPlayer )
 	{
 		m_pPlayer->Close();
@@ -1817,7 +1815,7 @@ void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
 		m_pPlayer = NULL;
 	}
 
-	if ( nCurrent >= 0 ) // Not last in the list
+	if ( nCurrent >= 0 ) // Not last in list
 	{
 		BOOL bPlayIt;
 		BOOL bCorrupted = FALSE;
@@ -1855,8 +1853,8 @@ void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
 			UpdateState();
 
 			// Prior-track-cleanup workaround fix.  ToDo: Remove these.
-			Settings.MediaPlayer.Volume = (double)nVolume / 100.0f;
-			m_pPlayer->SetVolume( m_bMute ? 0 : Settings.MediaPlayer.Volume );
+			Settings.MediaPlayer.Volume = nVolume;
+			m_pPlayer->SetVolume( m_bMute ? 0 : nVolume );
 		}
 		else if ( bCorrupted ) // File was corrupted, move to the next file
 		{
@@ -1864,7 +1862,7 @@ void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
 			if ( m_wndList.GetItemCount() != 1 )
 			m_wndList.SetCurrent( nCurrent );
 			else if ( m_pPlayer )
-				Cleanup(); // Cleanup when no exception happened but the file couldn't be opened (png files)
+				Cleanup(); // Cleanup when no exception happened but file couldn't be opened
 		}
 		else
 		{

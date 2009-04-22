@@ -54,7 +54,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Bilde</title>
 		<title language="pt-br">Imagem</title>
 		<title language="ru">Картинка</title>
-		<title language="sl-SI">Slika</title>
+		<title language="sl">Slika</title>
 		<title language="sq">Figurë</title>
 		<title language="sr">Slika</title>
 		<title language="sv">Bild</title>
@@ -85,7 +85,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -114,7 +114,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Forfatter</title>
 			<title language="pt-br">Autor</title>
 			<title language="ru">Автор</title>
-			<title language="sl-SI">Avtor</title>
+			<title language="sl">Avtor</title>
 			<title language="sq">Autori</title>
 			<title language="sr">Autor</title>
 			<title language="sv">Författare</title>
@@ -144,7 +144,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tema</title>
 			<title language="pt-br">Assunto</title>
 			<title language="ru">Тема</title>
-			<title language="sl-SI">Zadeva</title>
+			<title language="sl">Zadeva</title>
 			<title language="sq">Tema</title>
 			<title language="sr">Tema</title>
 			<title language="sv">Ämne</title>
@@ -173,7 +173,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Kopibeskyttelse</title>
 			<title language="pt-br">Direitos de Cópia</title>
 			<title language="ru">Автор. права</title>
-			<title language="sl-SI">Avtorska pravica</title>
+			<title language="sl">Avtorska pravica</title>
 			<title language="sq">Copyright</title>
 			<title language="sr">Prava</title>
 			<title language="sv">Upphovsrätt</title>
@@ -203,7 +203,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Beskrivelse</title>
 			<title language="pt-br">Descrição</title>
 			<title language="ru">Описание</title>
-			<title language="sl-SI">Opis</title>
+			<title language="sl">Opis</title>
 			<title language="sq">Përshkrimi</title>
 			<title language="sr">Opis</title>
 			<title language="sv">Beskrivning</title>
@@ -233,7 +233,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Bredde</title>
 			<title language="pt-br">Largura</title>
 			<title language="ru">Ширина</title>
-			<title language="sl-SI">Širina</title>
+			<title language="sl">Širina</title>
 			<title language="sq">Gjerësia</title>
 			<title language="sr">Širina</title>
 			<title language="sv">Bredd</title>
@@ -263,7 +263,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Høyde</title>
 			<title language="pt-br">Altura</title>
 			<title language="ru">Высота</title>
-			<title language="sl-SI">Višina</title>
+			<title language="sl">Višina</title>
 			<title language="sq">Lartësia</title>
 			<title language="sr">Visina</title>
 			<title language="sv">Höjd</title>
@@ -292,7 +292,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Farger</title>
 			<title language="pt-br">Cores</title>
 			<title language="ru">Цвета</title>
-			<title language="sl-SI">Barve</title>
+			<title language="sl">Barve</title>
 			<title language="sq">Ngjyrat</title>
 			<title language="sr">Boje</title>
 			<title language="sv">Färger</title>
@@ -322,7 +322,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Type</title>
 			<title language="pt-br">Tipo</title>
 			<title language="ru">Тип</title>
-			<title language="sl-SI">Tip</title>
+			<title language="sl">Tip</title>
 			<title language="sq">Lloji</title>
 			<title language="sr">Vrsta</title>
 			<title language="sv">Typ</title>
@@ -351,7 +351,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Vurdering</title>
 			<title language="pt-br">Classificação</title>
 			<title language="ru">Райтинг</title>
-			<title language="sl-SI">Ocena</title>
+			<title language="sl">Ocena</title>
 			<title language="sq">Vlerësimi</title>
 			<title language="sr">Ocena</title>
 			<title language="sv">Betyg</title>
@@ -380,7 +380,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Distributør</title>
 			<title language="pt-br">Distribuidor</title>
 			<title language="ru">Дистрибьютер</title>
-			<title language="sl-SI">Distributer</title>
+			<title language="sl">Distributer</title>
 			<title language="sq">Distributori</title>
 			<title language="sr">Distributer</title>
 			<title language="sv">Distributör</title>
@@ -409,7 +409,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Distributørlink</title>
 			<title language="pt-br">Link do Distribuidor</title>
 			<title language="ru">Ссылка агента</title>
-			<title language="sl-SI">Povezava distributerja</title>
+			<title language="sl">Povezava distributerja</title>
 			<title language="sq">Linku i Distributorit</title>
 			<title language="sr">Link na Distributera</title>
 			<title language="sv">Distributionslänk</title>
@@ -438,7 +438,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Releasegruppe</title>
 			<title language="pt-br">Grupo de Lançamento</title>
 			<title language="ru">Релиз группа</title>
-			<title language="sl-SI">Skupina izdaje</title>
+			<title language="sl">Skupina izdaje</title>
 			<title language="sq">Grupi Lëshues</title>
 			<title language="sr">Grupa Objavljivača</title>
 			<title language="sv">Lanseringsgrupp</title>
@@ -467,7 +467,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Releasegruppe-link</title>
 			<title language="pt-br">Link do Grupo</title>
 			<title language="ru">Ссылка группы</title>
-			<title language="sl-SI">Povezava skupine izdaje</title>
+			<title language="sl">Povezava skupine izdaje</title>
 			<title language="sq">Linku i Grupit Lëshues</title>
 			<title language="sr">Link na Grupu Objavljivača</title>
 			<title language="sv">Lanseringsgrupplänk</title>
@@ -496,7 +496,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Nøkkelord</title>
 			<title language="pt-br">Palavras-chave</title>
 			<title language="ru">Ключ. слова</title>
-			<title language="sl-SI">Ključne besede</title>
+			<title language="sl">Ključne besede</title>
 			<title language="sq">Fjalët Kyçe</title>
 			<title language="sr">Ključne Reči</title>
 			<title language="sv">Nyckelord</title>
@@ -525,7 +525,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Link</title>
 			<title language="pt-br">Link</title>
 			<title language="ru">Ссылка</title>
-			<title language="sl-SI">Povezava</title>
+			<title language="sl">Povezava</title>
 			<title language="sq">Linku</title>
 			<title language="sr">Link</title>
 			<title language="sv">Länk</title>

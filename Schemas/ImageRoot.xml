@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Bilde: Bilder</title>
 		<title language="pt-br">Imagem: Minhas Imagens</title>
 		<title language="ru">&#160;Картинка: картинки</title>
-		<title language="sl-SI">Podoba:Podobe</title>
+		<title language="sl">Podoba:Podobe</title>
 		<title language="sq">Figurë:Figura</title>
 		<title language="sr">Slike:Slike</title>
 		<title language="sv">Bild: Bilder</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -122,7 +122,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Velkommen til mine bilder.</title>
 		<title language="pt-br">Bem-vindo as Minhas Imagens.</title>
 		<title language="ru">Добро пожаловать в Ваши картинки.</title>
-		<title language="sl-SI">Dobrodošli v mojih podobah.</title>
+		<title language="sl">Dobrodošli v mojih podobah.</title>
 		<title language="sq">Mirë se erdhët në Figurat Tuaja.</title>
 		<title language="sr">Dobrodošli Među Vaše Slike.</title>
 		<title language="sv">Välkommen till mina bilder.</title>
@@ -149,7 +149,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Disse mappene inneholde alle bildene i mine filer, organisert i album. Åpne en mappe for å fortsette.</subtitle>
 		<subtitle language="pt-br">Estas pastas contém todas as imagens da sua biblioteca, organizadas por álbum. Abra uma pasta abaixo para continuar.</subtitle>
 		<subtitle language="ru">Эти папки отображают все картинки в Вашем хранилище организовнные по альбомам.</subtitle>
-		<subtitle language="sl-SI">Te mape vsebujejo vse podobe v vaši knjižnici, urejene po albumu. Odprite mapo spodaj za nadaljevanje.</subtitle>
+		<subtitle language="sl">Te mape vsebujejo vse podobe v vaši knjižnici, urejene po albumu. Odprite mapo spodaj za nadaljevanje.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban gjithë figurat në librarinë tuaj, organizuar sipas albumeve. Që të vijoni, hapni një dosje më poshtë.</subtitle>
 		<subtitle language="sr">Ove fascikle sadrže sve slike iz vaše kolekcije složene u albume. Otvorite željenu fasciklu.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller alla bilder i ditt bibliotek, organiserade efter album. Öppna en mapp nedanför för att fortsätta.</subtitle>

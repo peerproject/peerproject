@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Program: alle programmer</title>
 		<title language="pt-br">Aplicativo: Todos os Aplicativos</title>
 		<title language="ru">&#160;Приложение: Все приложения</title>
-		<title language="sl-SI">Program:Vsi programi</title>
+		<title language="sl">Program:Vsi programi</title>
 		<title language="sq">Aplikim:Gjithë Aplikimet</title>
 		<title language="sr">Program:Svi Programi</title>
 		<title language="sv">Applikation: Alla applikationer</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -122,7 +122,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Alle programmer</title>
 		<title language="pt-br">Todos os Aplicativos</title>
 		<title language="ru">Все приложения</title>
-		<title language="sl-SI">Vsi programi</title>
+		<title language="sl">Vsi programi</title>
 		<title language="sq">Gjithë Aplikimet</title>
 		<title language="sr">Svi Programi</title>
 		<title language="sv">Alla applikationer</title>
@@ -149,7 +149,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Denne mappen inneholder alle programmene i mine filer</subtitle>
 		<subtitle language="pt-br">Esta pasta contém todos os aplicativos na sua biblioteca.</subtitle>
 		<subtitle language="ru">Эта папка отображает каждое приложение в Вашем хранилище.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje vse programske datoteke v vaši knjižnici.</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje vse programske datoteke v vaši knjižnici.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban skedat aplikuese në librarinë tuaj.</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži sve programe u vašoj kolekciji.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller alla applikationsfiler som du har i ditt bibliotek.</subtitle>

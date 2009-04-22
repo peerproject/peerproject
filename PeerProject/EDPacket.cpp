@@ -699,7 +699,7 @@ ED2K_PACKET_DESC CEDPacket::m_pszTypes[] =
 
 	{ ED2K_C2SG_SERVERSTATUSREQUEST,_T("GetStatus") },
 	{ ED2K_S2CG_SERVERSTATUS,		_T("Status") },
-	{ ED2K_C2SG_SEARCHREQUEST,		_T("Search") },
+	{ ED2K_C2SG_SEARCHREQUEST2,		_T("Search") },
 	{ ED2K_S2CG_SEARCHRESULT,		_T("Result") },
 	{ ED2K_C2SG_GETSOURCES,			_T("FindSource") },
 	{ ED2K_S2CG_FOUNDSOURCES,		_T("Sources") },

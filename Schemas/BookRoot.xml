@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Bok: bøker</title>
 		<title language="pt-br">Livro: Livros</title>
 		<title language="ru">&#160;Книга: Мои книги</title>
-		<title language="sl-SI">Knjiga:Knjige</title>
+		<title language="sl">Knjiga:Knjige</title>
 		<title language="sq">Libri:Libri</title>
 		<title language="sr">Knjiga:Knjige</title>
 		<title language="sv">Bok: Böcker</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -122,7 +122,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Velkommen til mine bøker</title>
 		<title language="pt-br">Bem-vindo aos Meus Livros.</title>
 		<title language="ru">Добро пожаловать в Ваши книги.</title>
-		<title language="sl-SI">Dobrodošli v mojih knjigah.</title>
+		<title language="sl">Dobrodošli v mojih knjigah.</title>
 		<title language="sq">Mirë se erdhët në Librat Tuaj.</title>
 		<title language="sr">Dobrodošli Među Vaše Knjige.</title>
 		<title language="sv">Välkommen till mina böcker.</title>
@@ -149,7 +149,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Disse mappene inneholder alle dine bøker</subtitle>
 		<subtitle language="pt-br">Estas pastas contém todos os seus livros.</subtitle>
 		<subtitle language="ru">Эти папки отображают все Ваши книги.</subtitle>
-		<subtitle language="sl-SI">Te mape vsebujejo vse knjige.</subtitle>
+		<subtitle language="sl">Te mape vsebujejo vse knjige.</subtitle>
 		<subtitle language="sq">Këto dosje përmbajnë gjithë librat tuaj.</subtitle>
 		<subtitle language="sr">Ove fascikle sadrže sve vaše knjige.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller alla böcker.</subtitle>

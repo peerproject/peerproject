@@ -54,7 +54,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Archive:Alle Archives</title>
 		<title language="pt-br">Arquivo:Todos os Arquivos</title>
 		<title language="ru">Архив:Все Архив</title>
-		<title language="sl-SI">Archive:Vsi Archives</title>
+		<title language="sl">Archive:Vsi Archives</title>
 		<title language="sq">Archive:Gjithë Archives</title>
 		<title language="sr">Archive:Svi Archives</title>
 		<title language="sv">Arkiv:Alla Arkivs</title>
@@ -88,7 +88,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -121,7 +121,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Alle Archives</title>
 		<title language="pt-br">Todos os Archives</title>
 		<title language="ru">Все Архив</title>
-		<title language="sl-SI">Vsi Archives</title>
+		<title language="sl">Vsi Archives</title>
 		<title language="sq">Gjithë Archives</title>
 		<title language="sr">Svi Archives</title>
 		<title language="sv">Alla Archives</title>
@@ -148,7 +148,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">Denne mappen inneholder alle dokumentene i biblioteket ditt.</subtitle>
 		<subtitle language="pt-br">Esta pasta contém todos os documentos da sua biblioteca.</subtitle>
 		<subtitle language="ru">Эта папка отображает каждый документ в Вашем хранилище.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje vse dokumente v vaši knjižnici.</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje vse dokumente v vaši knjižnici.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban dokumentet në librarinë tuaj.</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži sve vaše dokumente u kolekciji.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller alla dokument i biblioteket.</subtitle>

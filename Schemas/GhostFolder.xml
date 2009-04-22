@@ -55,7 +55,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">General:Ghost Files</title>
 		<title language="pt-br">Geral: Arquivos Ghost</title>
 		<title language="ru">&#160;Основное: Теневые файлы</title>
-		<title language="sl-SI">Splošno:Navidezne datoteke</title>
+		<title language="sl">Splošno:Navidezne datoteke</title>
 		<title language="sq">Përgjithësi:Skedat Fantazmë</title>
 		<title language="sr">General:Ghost Files</title>
 		<title language="sv">Generellt: skuggfiler</title>
@@ -89,7 +89,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="no">Tittel</title>
 			<title language="pt-br">Título</title>
 			<title language="ru">Название</title>
-			<title language="sl-SI">Naslov</title>
+			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
@@ -119,7 +119,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="no">Ghost Files</title>
 		<title language="pt-br">Arquivos Ghost</title>
 		<title language="ru">Теневые файлы</title>
-		<title language="sl-SI">Navidezne datoteke</title>
+		<title language="sl">Navidezne datoteke</title>
 		<title language="sq">Skedat Fantazmë</title>
 		<title language="sr">Ghost Files</title>
 		<title language="sv">Skuggfiler</title>
@@ -146,7 +146,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="no">This folder contains every file which you've deleted from the Library.</subtitle>
 		<subtitle language="pt-br">Esta pasta contém cada arquivo o qual você apagou da Biblioteca.</subtitle>
 		<subtitle language="ru">Эта папка отображает каждый файл, который Вы удалили с хранилища.</subtitle>
-		<subtitle language="sl-SI">Ta mapa vsebuje vse datoteke, ki ste jih brisali iz vaše knjižnice.</subtitle>
+		<subtitle language="sl">Ta mapa vsebuje vse datoteke, ki ste jih brisali iz vaše knjižnice.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban skedat që janë fshirë nga Libraria.</subtitle>
 		<subtitle language="sr">This folder contains every file which you've deleted from the Library.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller varje fil som du har raderat från din samling.</subtitle>

@@ -123,7 +123,8 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; V
 ; Disable extensions for plugins which make trouble
 ; Since it is image services plugin we need to add extensions required for the first run
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; ValueType: string; ValueName: "{{FF5FCD00-2C20-49D8-84F6-888D2E2C95DA}"; ValueData: "|-.pdf||.bmp||.png||.jpg|"; Flags: createvalueifdoesntexist uninsdeletekey
-; Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "EnablePlay"; ValueData: 0 ;				Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Library"; ValueType: dword; ValueName: "HighPriorityHash"; ValueData: 1 ; 			Flags: createvalueifdoesntexist uninsdeletekey
+; Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "EnablePlay"; ValueData: 0 ; 			Flags: createvalueifdoesntexist uninsdeletekey
 ; Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "EnableEnqueue"; ValueData: 0 ;			Flags: createvalueifdoesntexist uninsdeletekey
 
 ; Set Wizard Defaults

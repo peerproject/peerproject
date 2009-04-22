@@ -279,7 +279,7 @@
 	<resource code="33008" id="ID_MEDIA_SIZE_DISTORT"/>
 	<resource code="33009" id="ID_MEDIA_SIZE_ONE"/>
 	<resource code="33010" id="ID_MEDIA_SIZE_TWO"/>
-	<resource code="33011" id="ID_MEDIA_SIZE_THREE"/>
+	<resource code="33011" id="ID_MEDIA_SIZE_HALF"/>
 	<resource code="33012" id="ID_MEDIA_FULLSCREEN"/>
 	<resource code="33013" id="ID_MEDIA_RANDOM"/>
 	<resource code="33014" id="ID_MEDIA_REPEAT"/>

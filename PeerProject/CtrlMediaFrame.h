@@ -164,8 +164,8 @@ protected:
 	afx_msg void OnMediaSizeOne();
 	afx_msg void OnUpdateMediaSizeTwo(CCmdUI* pCmdUI);
 	afx_msg void OnMediaSizeTwo();
-	afx_msg void OnUpdateMediaSizeThree(CCmdUI* pCmdUI);
-	afx_msg void OnMediaSizeThree();
+	afx_msg void OnUpdateMediaSizeHalf(CCmdUI* pCmdUI);
+	afx_msg void OnMediaSizeHalf();
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 	afx_msg void OnUpdateMediaAspectDefault(CCmdUI* pCmdUI);
 	afx_msg void OnMediaAspectDefault();

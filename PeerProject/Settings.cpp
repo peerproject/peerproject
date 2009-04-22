@@ -1052,6 +1052,11 @@ void CSettings::SmartUpgrade()
 			RegDeleteValue( hKey, _T("BitziOkay") );
 			RegCloseKey( hKey );
 		}
+
+		if ( General.SmartVersion < 56 )
+		{
+			WebServices.BitziXML = _T("http://bitzi.com/rdf/(SHA1)");
+		}
 	}
 
 	General.SmartVersion = SMART_VERSION;

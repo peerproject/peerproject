@@ -158,11 +158,13 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck, LPCTSTR ps
 		return TRUE;
 	}
 
-	// Handle torrents
-	if ( strType == _T(".torrent") )
+	// Open known file types
+	if ( theApp.Open( pszFile, FALSE ) )
 	{
-		CTorrentSeedDlg dlg( pszFile );
-		return ( dlg.DoModal() == IDOK );
+		theApp.Open( pszFile, TRUE );
+
+		// Skip file
+		return TRUE;
 	}
 
 	// Prepare partials

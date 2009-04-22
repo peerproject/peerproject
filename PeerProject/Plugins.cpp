@@ -206,8 +206,17 @@ void CPlugins::OnSkinChanged()
 	{
 		CPlugin* pPlugin = GetNext( pos );
 
-		if ( pPlugin->m_pCommand ) pPlugin->m_pCommand->InsertCommands();
 		if ( pPlugin->m_pPlugin ) pPlugin->m_pPlugin->OnSkinChanged();
+	}
+}
+
+void CPlugins::InsertCommands()
+{
+	for ( POSITION pos = GetIterator() ; pos ; )
+	{
+		CPlugin* pPlugin = GetNext( pos );
+
+		if ( pPlugin->m_pCommand ) pPlugin->m_pCommand->InsertCommands();
 	}
 }
 

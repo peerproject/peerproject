@@ -123,6 +123,7 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_WM_WINDOWPOSCHANGING()
 	ON_MESSAGE(WM_WINSOCK, OnWinsock)
 	ON_MESSAGE(WM_URL, OnHandleURL)
+	ON_MESSAGE(WM_TORRENT, OnHandleTorrent)
 	ON_MESSAGE(WM_COLLECTION, OnHandleCollection)
 	ON_MESSAGE(WM_VERSIONCHECK, OnVersionCheck)
 	ON_MESSAGE(WM_OPENCHAT, OnOpenChat)
@@ -1198,6 +1199,18 @@ LRESULT CMainWnd::OnHandleCollection(WPARAM wParam, LPARAM /*lParam*/)
 	{
 		pLibrary->OnCollection( strPath );
 	}
+
+	return 0;
+}
+
+LRESULT CMainWnd::OnHandleTorrent(WPARAM wParam, LPARAM /*lParam*/)
+{
+	LPTSTR pszPath = (LPTSTR)wParam;
+	CString strPath( pszPath );
+	delete [] pszPath;
+
+	CTorrentSeedDlg dlg( strPath );
+	dlg.DoModal();
 
 	return 0;
 }
@@ -2704,7 +2717,7 @@ void CMainWnd::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp)
 		CMDIFrameWnd::OnNcCalcSize( bCalcValidRects, lpncsp );
 }
 
-ONNCHITTESTRESULT CMainWnd::OnNcHitTest(CPoint point)
+LRESULT CMainWnd::OnNcHitTest(CPoint point)
 {
 	if ( m_pSkin )
 		return m_pSkin->OnNcHitTest( this, point, TRUE );

@@ -1723,7 +1723,7 @@
 <!-- Slovenian -->
 
 <windowSkin>
-<image type="image" language="sl-SI" path="RibbonTabs_sl.png"/>
+<image type="image" language="sl" path="RibbonTabs_sl.png"/>
 <image type="watermark" path="RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>

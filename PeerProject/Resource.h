@@ -1733,7 +1733,7 @@
 #define ID_MEDIA_SIZE_DISTORT       	33008
 #define ID_MEDIA_SIZE_ONE           	33009
 #define ID_MEDIA_SIZE_TWO           	33010
-#define ID_MEDIA_SIZE_THREE         	33011
+#define ID_MEDIA_SIZE_HALF          	33011
 #define ID_MEDIA_FULLSCREEN         	33012
 #define ID_MEDIA_RANDOM             	33013
 #define ID_MEDIA_REPEAT             	33014
