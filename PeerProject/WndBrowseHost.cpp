@@ -63,21 +63,21 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CBrowseHostWnd construction
 
-CBrowseHostWnd::CBrowseHostWnd(SOCKADDR_IN* pAddress, const Hashes::Guid& oClientID) :
+CBrowseHostWnd::CBrowseHostWnd(PROTOCOLID nProtocol, SOCKADDR_IN* pAddress, const Hashes::Guid& oClientID) :
 	m_pBrowser( NULL ),
 	m_bOnFiles( FALSE ),
 	m_bAutoBrowse( TRUE )
 {
-	m_pBrowser = new CHostBrowser( this, &pAddress->sin_addr, htons( pAddress->sin_port ), FALSE, oClientID );
+	m_pBrowser = new CHostBrowser( this, nProtocol, &pAddress->sin_addr, htons( pAddress->sin_port ), FALSE, oClientID );
 	Create( IDR_BROWSEHOSTFRAME );
 }
 
-CBrowseHostWnd::CBrowseHostWnd(IN_ADDR* pAddress, WORD nPort, BOOL bMustPush, const Hashes::Guid& oClientID) :
+CBrowseHostWnd::CBrowseHostWnd(PROTOCOLID nProtocol, IN_ADDR* pAddress, WORD nPort, BOOL bMustPush, const Hashes::Guid& oClientID) :
 	m_pBrowser( NULL ),
 	m_bOnFiles( FALSE ),
 	m_bAutoBrowse( pAddress != NULL )
 {
-	m_pBrowser = new CHostBrowser( this, pAddress, nPort, bMustPush, oClientID );
+	m_pBrowser = new CHostBrowser( this, nProtocol, pAddress, nPort, bMustPush, oClientID );
 	Create( IDR_BROWSEHOSTFRAME );
 }
 
@@ -345,9 +345,9 @@ void CBrowseHostWnd::OnProfileReceived()
 	}
 }
 
-void CBrowseHostWnd::OnBrowseHits(const CQueryHit* pHits)
+BOOL CBrowseHostWnd::OnQueryHits(const CQueryHit* pHits)
 {
-	if ( m_bPaused || m_hWnd == NULL ) return;
+	if ( m_bPaused || m_hWnd == NULL ) return FALSE;
 
 	CSingleLock pLock( &m_pMatches->m_pSection );
 
@@ -357,7 +357,10 @@ void CBrowseHostWnd::OnBrowseHits(const CQueryHit* pHits)
 		m_bUpdate = TRUE;
 
 		SetModified();
+		return TRUE;
 	}
+
+	return FALSE;
 }
 
 void CBrowseHostWnd::OnHeadPacket(CG2Packet* pPacket)

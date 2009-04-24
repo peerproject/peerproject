@@ -137,6 +137,11 @@ public:
 		CString str( m_sName );
 		return ToLower( str );
 	}
+
+	inline QWORD GetBase() const
+	{
+		return ( m_nVirtualSize ) ? m_nVirtualBase : 0;
+	}
 	
 	inline QWORD GetSize() const
 	{
@@ -194,8 +199,8 @@ public:
 
 // Attributes
 public:
-	CString		m_sURL;							// The URL
-	FILETIME	m_pTime;						// Time last seen
+	CString		m_sURL;						// The URL
+	FILETIME	m_pTime;					// Time last seen
 
 // Operations
 public:

@@ -62,14 +62,16 @@ public:
 		bool		RatesInBytes;				// Show speeds in Bytes/second
 		DWORD		RatesUnit;					// Units that the rates are to be displayed in
 		bool		AlwaysOpenURLs;
+		CString		LastSettingsPage;			// Last selected Settings dialog page
+		DWORD		LastSettingsIndex;			// Top item index of Advanced Settings list
 		CString		Language;
 		bool		LanguageRTL;				// Right-to-Left GUI
 		bool		IgnoreXPsp2;				// Ignore the presence of Windows XPsp2 limits
-		bool		DebugBTSources;				// Display received sources for BT download when seeding
 		bool		ItWasLimited;				// If user patches half-open connection limit change settings back to full speed
+		bool		DebugBTSources;				// Display received sources for BT download when seeding
 		bool		FirstRun;
+		bool		Running;					// ToDo: detect abnormal shutdown on startup
 		DWORD		SmartVersion;				// Settings version
-		bool		Running;
 		bool		CoolMenuEnable;				// Use skinned menus
 		bool		DialogScan;					// Set Skin engine to "dialog scan" mode, producing "C:\Dialog.xml" translation template.
 	} General;
@@ -101,6 +103,27 @@ public:
 		bool		TipMedia;
 		bool		LowResMode;
 	} Interface;
+
+	struct sWindows
+	{
+		bool		RunWizard;
+		bool		RunWarnings;
+		bool		RunPromote;
+	} Windows;
+
+	struct sToolbars
+	{
+		bool		ShowRemote;
+		bool		ShowMonitor;
+	} Toolbars;
+
+	struct sFonts
+	{
+		CString		DefaultFont;				// Main font
+		CString		PacketDumpFont;				// Packet Window font
+		CString		SystemLogFont;				// System Window font
+		DWORD		DefaultSize;				// The basic font size
+	} Fonts;
 
 	struct sLibrary
 	{
@@ -148,6 +171,7 @@ public:
 		bool		ScanOGG;					// Enable .ogg metadata extraction by internals
 		bool		ScanPDF;					// Enable .pdf metadata extraction by internals
 		bool		SmartSeriesDetection;		// Organize video files in Library by using predefined patterns
+		CString		URLExportFormat;			// Template for URL export
 		CString		LastUsedView;				// Name of last folder view used
 	} Library;
 

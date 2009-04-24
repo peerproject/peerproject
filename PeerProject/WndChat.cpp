@@ -31,9 +31,9 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-IMPLEMENT_DYNAMIC(CChatWnd, CChildWnd)
+IMPLEMENT_DYNAMIC(CChatWnd, CChildWnd)	//CPanelWnd
 
-BEGIN_MESSAGE_MAP(CChatWnd, CChildWnd)
+BEGIN_MESSAGE_MAP(CChatWnd, CChildWnd)	//CPanelWnd
 	//{{AFX_MSG_MAP(CChatWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()

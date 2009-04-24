@@ -1,8 +1,8 @@
 //
 // PageWelcome.h
 //
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
 // Portions Copyright Shareaza Development Team, 2007.
-// This file is part of PeerProject Torrent Wizard (peerproject.org).
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
 // modify it under the terms of the GNU General Public License

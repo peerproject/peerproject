@@ -25,6 +25,12 @@
 #include "EDPacket.h"
 #include "Buffer.h"
 #include "ZLib.h"
+#include "Schema.h"
+#include "XML.h"
+#include "Network.h"
+#include "SharedFile.h"
+#include "EDClient.h"
+#include "EDNeighbour.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -49,36 +55,9 @@ CEDPacket::~CEDPacket()
 //////////////////////////////////////////////////////////////////////
 // CEDPacket length prefixed strings
 
-CString CEDPacket::ReadEDString(DWORD ServerFlags)
-{
-	int nLen = ReadShortLE();
-	if ( ServerFlags & ED2K_SERVER_TCP_UNICODE )
-		return ReadStringUTF8( nLen );
-	else
-		return ReadStringASCII( nLen );
-}
-
-void CEDPacket::WriteEDString(LPCTSTR psz, DWORD ServerFlags)
-{
-	int nLen;
-	if ( ServerFlags & ED2K_SERVER_TCP_UNICODE )
-	{
-		nLen = GetStringLenUTF8( psz );
-		WriteShortLE( WORD( nLen ) );
-		WriteStringUTF8( psz, FALSE );
-	}
-	else
-	{
-		nLen = GetStringLen( psz );
-		WriteShortLE( WORD( nLen ) );
-		WriteString( psz, FALSE );
-	}
-	ASSERT( nLen <= 0xFFFF );
-}
-
 CString CEDPacket::ReadEDString(BOOL bUnicode)
 {
-	int nLen = ReadShortLE();
+	WORD nLen = ReadShortLE();
 	if ( bUnicode )
 		return ReadStringUTF8( nLen );
 	else
@@ -87,22 +66,19 @@ CString CEDPacket::ReadEDString(BOOL bUnicode)
 
 void CEDPacket::WriteEDString(LPCTSTR psz, BOOL bUnicode)
 {
-	int nLen;
 	if ( bUnicode )
 	{
-		nLen = GetStringLenUTF8( psz );
-		WriteShortLE( WORD( nLen ) );
+		WORD nLen = (WORD)GetStringLenUTF8( psz );
+		WriteShortLE( nLen );
 		WriteStringUTF8( psz, FALSE );
 	}
 	else
 	{
-		nLen = GetStringLen( psz );
-		WriteShortLE( WORD( nLen ) );
+		WORD nLen = (WORD)GetStringLen( psz );
+		WriteShortLE( nLen );
 		WriteString( psz, FALSE );
 	}
-	ASSERT( nLen <= 0xFFFF );
 }
-
 
 CString CEDPacket::ReadLongEDString(BOOL bUnicode)
 {
@@ -115,20 +91,195 @@ CString CEDPacket::ReadLongEDString(BOOL bUnicode)
 
 void CEDPacket::WriteLongEDString(LPCTSTR psz, BOOL bUnicode)
 {
-	DWORD nLen;
 	if ( bUnicode )
 	{
-		nLen = GetStringLenUTF8( psz );
+		DWORD nLen = GetStringLenUTF8( psz );
 		WriteLongLE( nLen );
 		WriteStringUTF8( psz, FALSE );
 	}
 	else
 	{
-		nLen = GetStringLen( psz );
+		DWORD nLen = GetStringLen( psz );
 		WriteLongLE( nLen );
 		WriteString( psz, FALSE );
 	}
-	ASSERT( nLen <= 0xFFFF );
+}
+
+void CEDPacket::WriteFile(const CPeerProjectFile* pPeerProjectFile, QWORD nSize,
+	const CEDClient* pClient, const CEDNeighbour* pServer, bool bPartial)
+{
+	ASSERT( pPeerProjectFile );
+	ASSERT( ( pClient && ! pServer ) || ( ! pClient && pServer ) );
+
+	const CLibraryFile* pFile = bPartial ?
+		NULL : static_cast< const CLibraryFile* >( pPeerProjectFile );
+
+	bool bDeflate = ( pServer && ( pServer->m_nTCPFlags & ED2K_SERVER_TCP_DEFLATE ) != 0 );
+	bool bUnicode = ( pServer && ( pServer->m_nTCPFlags & ED2K_SERVER_TCP_UNICODE ) != 0 ) ||
+		( pClient && pClient->m_bEmUnicode );
+	bool bSmlTags = ( pServer && ( pServer->m_nTCPFlags & ED2K_SERVER_TCP_SMALLTAGS ) != 0 ) ||
+		( pClient != NULL );
+
+	// Send the file hash
+	Write( pPeerProjectFile->m_oED2K );
+
+	// Send client ID + port
+	DWORD nClientID = 0;
+	WORD nClientPort = 0;
+	if ( pServer )
+	{
+		// If we have a 'new' ed2k server
+		if ( bDeflate )
+		{
+			if ( bPartial )
+			{
+				// Partial file
+				nClientID = 0xFCFCFCFC;
+				nClientPort = 0xFCFC;
+			}
+			else
+			{
+				// Complete file
+				nClientID = 0xFBFBFBFB;
+				nClientPort = 0xFBFB;
+			}
+		}
+		else
+		{
+			nClientID = pServer->GetID();
+			nClientPort = ntohs( Network.m_pHost.sin_port );
+		}
+	}
+	else
+	{
+		nClientID = pClient->GetID();
+		nClientPort = ntohs( Network.m_pHost.sin_port );
+	}
+	WriteLongLE( nClientID );
+	WriteShortLE( nClientPort );
+
+	// Load metadata
+	CString strType, strTitle, strArtist, strAlbum, strCodec;
+	DWORD nBitrate = 0, nLength = 0;
+	BYTE nRating = 0;
+	if ( bSmlTags && pFile )
+	{
+		if ( pFile->m_pSchema && pFile->m_pSchema->m_sDonkeyType.GetLength() )
+		{
+			// File type
+			strType = pFile->m_pSchema->m_sDonkeyType;
+
+			if ( pFile->m_pMetadata )
+			{
+				// Title
+				if ( pFile->m_pMetadata->GetAttributeValue( _T("title") ).GetLength() )
+					strTitle = pFile->m_pMetadata->GetAttributeValue( _T("title") );
+
+				if ( pFile->IsSchemaURI( CSchema::uriAudio ) )
+				{
+					// Artist
+					if ( pFile->m_pMetadata->GetAttributeValue( _T("artist") ).GetLength() )
+						strArtist = pFile->m_pMetadata->GetAttributeValue( _T("artist") );
+
+					// Album
+					if ( pFile->m_pMetadata->GetAttributeValue( _T("album") ).GetLength() )
+						strAlbum = pFile->m_pMetadata->GetAttributeValue( _T("album") );
+
+					// Bitrate
+					if ( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ).GetLength() )
+						_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ), _T("%i"), &nBitrate );
+
+					// Length
+					if ( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ).GetLength() )
+						_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ), _T("%i"), &nLength );
+				}
+				else if ( pFile->IsSchemaURI( CSchema::uriVideo ) )
+				{
+					// Codec
+					if ( pFile->m_pMetadata->GetAttributeValue( _T("codec") ).GetLength() )
+						strCodec = pFile->m_pMetadata->GetAttributeValue( _T("codec") );
+
+					// Length
+					if ( pFile->m_pMetadata->GetAttributeValue( _T("minutes") ).GetLength() )
+					{
+						double nMins = 0.0;
+						_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("minutes") ), _T("%lf"), &nMins );
+						nLength = (DWORD)( nMins * (double)60 );	// Convert to seconds
+					}
+				}
+			}
+		}
+
+		// File rating
+		if ( pFile->m_nRating )
+			nRating = (BYTE)min( pFile->m_nRating, 5 );
+	}
+
+	// Set the number of tags present
+	DWORD nTags = 2; // File name and size are always present
+	if ( nSize > MAX_SIZE_32BIT ) nTags++;
+	if ( pClient ) nTags += 2; //3;
+	if ( strType.GetLength() ) nTags++;
+	if ( strTitle.GetLength() ) nTags++;
+	if ( strArtist.GetLength() ) nTags++;
+	if ( strAlbum.GetLength() ) nTags++;
+	if ( nBitrate )	 nTags++;
+	if ( nLength ) nTags++;
+	if ( strCodec.GetLength() )  nTags++;
+	if ( nRating )  nTags++;
+	WriteLongLE( nTags );
+
+	// Filename
+	CEDTag( ED2K_FT_FILENAME, pPeerProjectFile->m_sName ).Write( this, bUnicode, bSmlTags );
+
+	// File size
+	CEDTag( ED2K_FT_FILESIZE, (DWORD)nSize ).Write( this, bUnicode, bSmlTags );
+	if ( nSize > MAX_SIZE_32BIT )
+		CEDTag( ED2K_FT_FILESIZE_HI,(DWORD)( nSize >> 32 ) ).Write( this, bUnicode, bSmlTags );
+
+	// Sources
+	//if ( pClient )
+	//	CEDTag( ED2K_FT_SOURCES, 1ull ).Write( this, bUnicode, bSmlTags );
+
+	// Complete sources
+	if ( pClient )
+		CEDTag( ED2K_FT_COMPLETE_SOURCES, 1ull ).Write( this, bUnicode, bSmlTags );
+
+	// Last seen
+	if ( pClient )
+		CEDTag( ED2K_FT_LASTSEENCOMPLETE, 0ull ).Write( this, bUnicode, bSmlTags );
+
+	// File type
+	if ( strType.GetLength() )
+		CEDTag( ED2K_FT_FILETYPE, strType ).Write( this, bUnicode, bSmlTags );
+
+	// Title
+	if ( strTitle.GetLength() )
+		CEDTag( ED2K_FT_TITLE, strTitle ).Write( this, bUnicode, bSmlTags );
+	
+	// Artist
+	if ( strArtist.GetLength() )
+		CEDTag( ED2K_FT_ARTIST, strArtist ).Write( this, bUnicode, bSmlTags );
+
+	// Album
+	if ( strAlbum.GetLength() )
+		CEDTag( ED2K_FT_ALBUM, strAlbum ).Write( this, bUnicode, bSmlTags );
+
+	// Bitrate
+	if ( nBitrate )
+		CEDTag( ED2K_FT_BITRATE, nBitrate ).Write( this, bUnicode, bSmlTags );
+	
+	// Length
+	if ( nLength )
+		CEDTag( ED2K_FT_LENGTH, nLength ).Write( this, bUnicode, bSmlTags );
+	
+	// Codec
+	if ( strCodec.GetLength() )
+		CEDTag( ED2K_FT_CODEC, strCodec ).Write( this, bUnicode, bSmlTags );
+
+	// File rating
+	if ( nRating )
+		CEDTag( ED2K_FT_FILERATING, nRating ).Write( this, bUnicode, bSmlTags );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -332,17 +483,15 @@ void CEDTag::Clear()
 //////////////////////////////////////////////////////////////////////
 // CEDTag write to packet
 
-void CEDTag::Write(CEDPacket* pPacket, DWORD ServerFlags)
+void CEDTag::Write(CEDPacket* pPacket, BOOL bUnicode, BOOL bSmallTags)
 {
-	BOOL bSmallTags = ServerFlags & ED2K_SERVER_TCP_SMALLTAGS;
-	BOOL bUnicode = ServerFlags & ED2K_SERVER_TCP_UNICODE;
 	DWORD nPos = pPacket->m_nLength;
 
 	pPacket->WriteByte( m_nType );
 
 	if ( int nKeyLen = m_sKey.GetLength() )
 	{
-		pPacket->WriteEDString( m_sKey, ServerFlags );
+		pPacket->WriteEDString( m_sKey, bUnicode );
 	}
 	else
 	{
@@ -367,8 +516,10 @@ void CEDTag::Write(CEDPacket* pPacket, DWORD ServerFlags)
 				pPacket->m_pBuffer[nPos] = BYTE( 0x80 | ( ( ED2K_TAG_SHORTSTRING - 1 ) + nLength ) );
 
 				// Write the string
-				if ( bUnicode ) pPacket->WriteStringUTF8( m_sValue, FALSE );
-				else pPacket->WriteString( m_sValue, FALSE );
+				if ( bUnicode )
+					pPacket->WriteStringUTF8( m_sValue, FALSE );
+				else
+					pPacket->WriteString( m_sValue, FALSE );
 			}
 			else
 			{	// We should use a normal string tag
@@ -376,13 +527,13 @@ void CEDTag::Write(CEDPacket* pPacket, DWORD ServerFlags)
 				pPacket->m_pBuffer[nPos] = 0x80 | ED2K_TAG_STRING ;
 
 				// Write the string
-				pPacket->WriteEDString( m_sValue, ServerFlags );
+				pPacket->WriteEDString( m_sValue, bUnicode );
 			}
 		}
 		else
 		{
 			// Write the string
-			pPacket->WriteEDString( m_sValue, ServerFlags );
+			pPacket->WriteEDString( m_sValue, bUnicode );
 		}
 	}
 	else if ( m_nType == ED2K_TAG_INT )
@@ -420,7 +571,7 @@ void CEDTag::Write(CEDPacket* pPacket, DWORD ServerFlags)
 			// Write a DWORD
 			pPacket->WriteLongLE( (DWORD)m_nValue );
 		}
-		}
+	}
 	else
 	{
 		ASSERT( FALSE ); // Unsupported tag
@@ -430,7 +581,7 @@ void CEDTag::Write(CEDPacket* pPacket, DWORD ServerFlags)
 //////////////////////////////////////////////////////////////////////
 // CEDTag read from packet
 
-BOOL CEDTag::Read(CEDPacket* pPacket, DWORD ServerFlags)
+BOOL CEDTag::Read(CEDPacket* pPacket, BOOL bUnicode)
 {
 	WORD nLen;
 
@@ -458,7 +609,7 @@ BOOL CEDTag::Read(CEDPacket* pPacket, DWORD ServerFlags)
 	}
 	else if ( nLen > 1 )
 	{
-		if ( ServerFlags & ED2K_SERVER_TCP_UNICODE )
+		if ( bUnicode )
 			m_sKey = pPacket->ReadStringUTF8( nLen );
 		else
 			m_sKey = pPacket->ReadStringASCII( nLen );
@@ -476,7 +627,7 @@ BOOL CEDTag::Read(CEDPacket* pPacket, DWORD ServerFlags)
 		if ( pPacket->GetRemaining() < 2 ) return FALSE;
 		nLen = pPacket->ReadShortLE();
 		if ( pPacket->GetRemaining() < nLen ) return FALSE;
-		if ( ServerFlags & ED2K_SERVER_TCP_UNICODE )
+		if ( bUnicode )
 			m_sValue = pPacket->ReadStringUTF8( nLen );
 		else
 			m_sValue = pPacket->ReadStringASCII( nLen );
@@ -484,7 +635,7 @@ BOOL CEDTag::Read(CEDPacket* pPacket, DWORD ServerFlags)
 
 	case ED2K_TAG_BLOB:
 		if ( pPacket->GetRemaining() < 4 ) return FALSE;
-	{
+		{
 			DWORD nLenBlob = pPacket->ReadLongLE();
 			if ( pPacket->GetRemaining() < nLenBlob ) return FALSE;
 			m_sValue = pPacket->ReadStringASCII( nLenBlob );
@@ -525,13 +676,13 @@ BOOL CEDTag::Read(CEDPacket* pPacket, DWORD ServerFlags)
 			nLen = m_nType - ( ED2K_TAG_SHORTSTRING - 1 );
 			m_nType = ED2K_TAG_STRING;
 			if ( pPacket->GetRemaining() < nLen ) return FALSE;
-		if ( ServerFlags & ED2K_SERVER_TCP_UNICODE )
-			m_sValue = pPacket->ReadStringUTF8( nLen );
+			if ( bUnicode )
+				m_sValue = pPacket->ReadStringUTF8( nLen );
+			else
+				m_sValue = pPacket->ReadStringASCII( nLen );
+		}
 		else
-			m_sValue = pPacket->ReadStringASCII( nLen );
-	}
-	else
-	{
+		{
 			theApp.Message( MSG_DEBUG, _T("Unrecognised ED2K tag type 0x%02x"), m_nType );
 			return FALSE;
 		}
@@ -580,7 +731,7 @@ BOOL CEDTag::Read(CFile* pFile)
 	}
 
 	switch ( m_nType )
-		{
+	{
 	case ED2K_TAG_HASH:
 		if ( pFile->Read( &m_oValue[ 0 ], Hashes::Ed2kHash::byteCount ) != Hashes::Ed2kHash::byteCount )
 			return FALSE;
@@ -604,7 +755,7 @@ BOOL CEDTag::Read(CFile* pFile)
 		{
 			DWORD nBlolbLen;
 			if ( pFile->Read( &nBlolbLen, sizeof(nBlolbLen) ) != sizeof(nBlolbLen) )
-			return FALSE;
+				return FALSE;
 			auto_array< CHAR > psz( new CHAR[ nBlolbLen ] );
 			if ( ! psz.get() )
 				return FALSE;
@@ -617,7 +768,7 @@ BOOL CEDTag::Read(CFile* pFile)
 
 	case ED2K_TAG_INT:
 	case ED2K_TAG_FLOAT:
-	{
+		{
 			DWORD nValue;
 			if ( pFile->Read( &nValue, sizeof(nValue) ) != sizeof(nValue) )
 				return FALSE;
@@ -639,7 +790,7 @@ BOOL CEDTag::Read(CFile* pFile)
 		{
 			BYTE nValue;
 			if ( pFile->Read( &nValue, sizeof(nValue) ) != sizeof(nValue) )
-			return FALSE;
+				return FALSE;
 			m_nValue = nValue;
 			m_nType = ED2K_TAG_INT;
 		}
@@ -699,7 +850,7 @@ ED2K_PACKET_DESC CEDPacket::m_pszTypes[] =
 
 	{ ED2K_C2SG_SERVERSTATUSREQUEST,_T("GetStatus") },
 	{ ED2K_S2CG_SERVERSTATUS,		_T("Status") },
-	{ ED2K_C2SG_SEARCHREQUEST2,		_T("Search") },
+	{ ED2K_C2SG_SEARCHREQUEST,		_T("Search") },
 	{ ED2K_S2CG_SEARCHRESULT,		_T("Result") },
 	{ ED2K_C2SG_GETSOURCES,			_T("FindSource") },
 	{ ED2K_S2CG_FOUNDSOURCES,		_T("Sources") },

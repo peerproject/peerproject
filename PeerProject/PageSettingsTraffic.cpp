@@ -87,6 +87,10 @@ BOOL CAdvancedSettingsPage::OnInitDialog()
 
 	UpdateInputArea();
 
+	m_wndList.EnsureVisible( Settings.General.LastSettingsIndex, FALSE );
+	m_wndList.EnsureVisible( Settings.General.LastSettingsIndex +
+		m_wndList.GetCountPerPage() - 1, FALSE );
+
 	return TRUE;
 }
 
@@ -266,6 +270,8 @@ void CAdvancedSettingsPage::OnOK()
 
 void CAdvancedSettingsPage::OnDestroy() 
 {
+	Settings.General.LastSettingsIndex = m_wndList.GetTopIndex();
+
 	for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
 	{
 		delete (EditItem*)m_wndList.GetItemData( nItem );
@@ -307,7 +313,7 @@ CAdvancedSettingsPage::EditItem::EditItem(CSettings::Item* pItem) :
 	m_bValue( pItem->m_pBool ? *pItem->m_pBool : false ),
 	m_nOriginalValue( pItem->m_pDword ? *pItem->m_pDword : 0 ),
 	m_bOriginalValue( pItem->m_pBool ? *pItem->m_pBool : false ),
-	m_sName(  ( ! *pItem->m_szSection ||					// Settings.Name -> General.Name
+	m_sName(  ( ! *pItem->m_szSection ||				// Settings.Name -> General.Name
 		! lstrcmp( pItem->m_szSection, L"Settings" ) )	// .Name -> General.Name
 		? L"General" : pItem->m_szSection )
 {

@@ -244,7 +244,8 @@ void CPrivateChatFrame::OnChatBrowse()
 {
 	if ( m_pSession != NULL )
 	{
-		new CBrowseHostWnd( &m_pSession->m_pHost, m_pSession->m_oGUID );
+		new CBrowseHostWnd( m_pSession->m_nProtocol,
+			&m_pSession->m_pHost, m_pSession->m_oGUID );
 	}
 }
 

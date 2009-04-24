@@ -485,9 +485,9 @@ BOOL CSkin::LoadString(CString& str, UINT nStringID) const
 		( IS_INTRESOURCE( nStringID ) && str.LoadString( nStringID ) ) )
 		return TRUE;
 
-	if ( IsWindow( (HWND)nStringID ) )
+	if ( IsWindow( (HWND)(INT_PTR)nStringID ) )
 	{
-		CWnd::FromHandle( (HWND)nStringID )->GetWindowText( str );
+		CWnd::FromHandle( (HWND)(INT_PTR)nStringID )->GetWindowText( str );
 		return TRUE;
 	}
 
@@ -1797,7 +1797,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				else if ( strWeight.IsEmpty() )
 					strWeight = _T("400");
 
-				int nFontSize = theApp.m_nDefaultFontSize, nFontWeight = FW_NORMAL;
+				int nFontSize = Settings.Fonts.DefaultSize, nFontWeight = FW_NORMAL;
 
 				_stscanf( strSize, _T("%i"), &nFontSize );
 				_stscanf( strWeight, _T("%i"), &nFontWeight );

@@ -87,16 +87,16 @@ void CFontCombo::Initialize()
 
 	ResetContent();
 	DeleteAllFonts();
-	EnumFontFamiliesEx( dc.m_hDC, NULL, (FONTENUMPROC)EnumFontProc, (LPARAM)this, 0 ); 
+	EnumFontFamiliesEx( dc.m_hDC, NULL, (FONTENUMPROC)EnumFontProc, (LPARAM)this, 0 );
 
-    SetCurSel( 0 );
+	SetCurSel( 0 );
 }
 
-BOOL CALLBACK CFontCombo::EnumFontProc(LPENUMLOGFONTEX lplf, NEWTEXTMETRICEX* lpntm, 
-									   DWORD dwFontType, LPVOID lpData) 
-{ 
-	CFontCombo *pThis = reinterpret_cast<CFontCombo*>(lpData); 
- 
+BOOL CALLBACK CFontCombo::EnumFontProc(LPENUMLOGFONTEX lplf, NEWTEXTMETRICEX* lpntm,
+									   DWORD dwFontType, LPVOID lpData)
+{
+	CFontCombo *pThis = reinterpret_cast<CFontCombo*>(lpData);
+
 	if ( lpntm->ntmTm.tmCharSet != OEM_CHARSET && lpntm->ntmTm.tmCharSet != SYMBOL_CHARSET &&
 		 dwFontType != DEVICE_FONTTYPE && _tcsicmp( lplf->elfLogFont.lfFaceName, _T("Small Fonts") ) != 0 )
 	{
@@ -113,7 +113,7 @@ BOOL CALLBACK CFontCombo::EnumFontProc(LPENUMLOGFONTEX lplf, NEWTEXTMETRICEX* lp
 			}
 		}
 	}
- 
+
 	return TRUE;
 }
 
@@ -126,30 +126,30 @@ void CFontCombo::OnDestroy()
 	CComboBox::OnDestroy();
 }
 
-void CFontCombo::OnDropdown() 
+void CFontCombo::OnDropdown()
 {
-    int nNumEntries = GetCount();
-    int nWidth = 0;
-    CString str;
+	int nNumEntries = GetCount();
+	int nWidth = 0;
+	CString str;
 
-    CClientDC dc( this );
-    int nSave = dc.SaveDC();
-    dc.SelectObject( GetFont() );
+	CClientDC dc( this );
+	int nSave = dc.SaveDC();
+	dc.SelectObject( GetFont() );
 
-    int nScrollWidth = GetSystemMetrics( SM_CXVSCROLL );
-    for ( int nEntry = 0 ; nEntry < nNumEntries ; nEntry++ )
-    {
-        GetLBText( nEntry, str );
-        int nLength = dc.GetTextExtent( str ).cx + nScrollWidth + SYMBOL_WIDTH;
-        nWidth = max( nWidth, nLength );
-    }
-	
-	nWidth += SYMBOL_WIDTH;    
-    // Add margin space to the calculations
-    nWidth += dc.GetTextExtent( _T("0") ).cx;
-	
+	int nScrollWidth = GetSystemMetrics( SM_CXVSCROLL );
+	for ( int nEntry = 0 ; nEntry < nNumEntries ; nEntry++ )
+	{
+		GetLBText( nEntry, str );
+		int nLength = dc.GetTextExtent( str ).cx + nScrollWidth + SYMBOL_WIDTH;
+		nWidth = max( nWidth, nLength );
+	}
+
+	nWidth += SYMBOL_WIDTH;
+	// Add margin space to the calculations
+	nWidth += dc.GetTextExtent( _T("0") ).cx;
+
 	dc.RestoreDC( nSave );
-    SetDroppedWidth( nWidth );
+	SetDroppedWidth( nWidth );
 }
 
 LRESULT CFontCombo::OnOcmDrawItem(WPARAM /*wParam*/, LPARAM lParam)
@@ -165,14 +165,14 @@ void CFontCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	if ( ( lpDrawItemStruct->itemAction & ODA_SELECT ) == 0 &&
 		 ( lpDrawItemStruct->itemAction & ODA_DRAWENTIRE ) == 0 ) return;
 
-	if ( lpDrawItemStruct->CtlType != ODT_COMBOBOX ) return; 
+	if ( lpDrawItemStruct->CtlType != ODT_COMBOBOX ) return;
 
 	CDC* pDC = CDC::FromHandle( lpDrawItemStruct->hDC );
 	CRect rcItem( &lpDrawItemStruct->rcItem );
 	CPoint pt( rcItem.left + 1, rcItem.top + 1 );
 
 	int nOldDC = pDC->SaveDC();
-	
+
 	if ( Settings.General.LanguageRTL )
 		SetLayout( pDC->m_hDC, LAYOUT_RTL );
 
@@ -195,15 +195,15 @@ void CFontCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	}
 	else
 		pDC->FillSolidRect( &rcItem, GetBkColor( lpDrawItemStruct->hDC ) );
-	
+
 	pDC->SetBkMode( TRANSPARENT );
 
 	DWORD dwData = GetItemData( lpDrawItemStruct->itemID );
 	if ( dwData & TRUETYPE_FONTTYPE )
-		m_pImages.Draw( pDC, 0, CPoint( rcItem.left + 5, rcItem.top + 4 ), 
+		m_pImages.Draw( pDC, 0, CPoint( rcItem.left + 5, rcItem.top + 4 ),
 		( lpDrawItemStruct->itemState & ODS_SELECTED ) ? ILD_SELECTED : ILD_NORMAL );
 	else
-		m_pImages.Draw( pDC, 1, CPoint( rcItem.left + 5, rcItem.top + 4 ), 
+		m_pImages.Draw( pDC, 1, CPoint( rcItem.left + 5, rcItem.top + 4 ),
 		( lpDrawItemStruct->itemState & ODS_SELECTED ) ? ILD_SELECTED : ILD_NORMAL );
 
 	rcItem.left += SYMBOL_WIDTH;
@@ -215,7 +215,7 @@ void CFontCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	CSize sz = pDC->GetTextExtent( strCurrentFont );
 	int nPosY = ( rcItem.Height() - sz.cy ) / 2;
 	pDC->TextOut( rcItem.left + nOffsetX, rcItem.top + nPosY, strCurrentFont );
-	
+
 	pDC->SelectObject( pFont );
 	pDC->RestoreDC( nOldDC );
 }
@@ -231,8 +231,8 @@ BOOL CFontCombo::AddFont(const CString& strFontName)
 	{
 		pFont = new CFont;
 
-		if ( pFont->CreateFont( m_nFontHeight, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, 
-			DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, 
+		if ( pFont->CreateFont( m_nFontHeight, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+			DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH,
 			strFontName ) )
 		{
 			m_pFonts.SetAt( strFontName, pFont );
@@ -275,8 +275,8 @@ void PASCAL DDX_FontCombo(CDataExchange* pDX, int nIDC, CString& strFontName)
 {
 	HWND hWndCtrl = pDX->PrepareCtrl( nIDC );
 	_ASSERTE( hWndCtrl != NULL );
-	
-	CFontCombo* pCombo = static_cast<CFontCombo*>(CWnd::FromHandle( hWndCtrl ));	
+
+	CFontCombo* pCombo = static_cast<CFontCombo*>(CWnd::FromHandle( hWndCtrl ));
 	// data from control
 
 	if ( pDX->m_bSaveAndValidate )
@@ -288,7 +288,7 @@ void PASCAL DDX_FontCombo(CDataExchange* pDX, int nIDC, CString& strFontName)
 			pCombo->m_sSelectedFont = strFontName;
 		}
 		else
-			strFontName = theApp.m_sDefaultFont;
+			strFontName = Settings.Fonts.DefaultFont;
 	}
 	else //data to control
 	{
@@ -303,13 +303,13 @@ void PASCAL DDX_FontCombo(CDataExchange* pDX, int nIDC, CString& strFontName)
 		}
 		else
 		{
-			nIndex = pCombo->FindString( -1, theApp.m_sDefaultFont );
+			nIndex = pCombo->FindString( -1, Settings.Fonts.DefaultFont );
 			if ( nIndex != CB_ERR )
 			{
 				pCombo->SetCurSel( nIndex );
 				if ( pCombo->m_sSelectedFont.IsEmpty() )
 				{
-					pCombo->m_sSelectedFont = theApp.m_sDefaultFont;
+					pCombo->m_sSelectedFont = Settings.Fonts.DefaultFont;
 				}
 			}
 			else

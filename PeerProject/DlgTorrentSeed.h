@@ -33,6 +33,7 @@ class CTorrentSeedDlg :
 
 public:
 	CTorrentSeedDlg(LPCTSTR pszTorrent, BOOL bForceSeed = FALSE, CWnd* pParent = NULL);
+	BOOL			LoadTorrent(CString strPath);
 
 	enum { IDD = IDD_TORRENT_SEED };
 

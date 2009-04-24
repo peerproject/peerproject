@@ -82,7 +82,7 @@ BOOL CURLExportDlg::OnInitDialog()
 	strMessage.Format( strFormat, m_pFiles.GetCount() );
 	m_wndMessage.SetWindowText( strMessage );
 
-	m_sFormat = theApp.GetProfileString( _T("Library"), _T("URLExportFormat"), _T("") );
+	m_sFormat = Settings.Library.URLExportFormat;
 
 	if ( m_sFormat.IsEmpty() )
 		m_sFormat = _T("<a href=\"magnet:?xt=urn:bitprint:[SHA1].[TIGER]&amp;xt=urn:ed2khash:[ED2K]&amp;xt=urn:md5:[MD5]&amp;xl=[ByteSize]&amp;dn=[NameURI]\">[Name]</a><br>");
@@ -192,7 +192,7 @@ void CURLExportDlg::OnCopy()
 
 	if ( m_sFormat.IsEmpty() ) return;
 
-	theApp.WriteProfileString( _T("Library"), _T("URLExportFormat"), m_sFormat );
+	Settings.Library.URLExportFormat = m_sFormat;
 
 	CWaitCursor pCursor;
 	CString strOutput;

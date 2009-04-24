@@ -164,7 +164,7 @@ CLibraryFile* CLibraryMaps::LookupFileByPath(LPCTSTR pszPath, BOOL bSharedOnly, 
 }
 
 //////////////////////////////////////////////////////////////////////
-// CLibraryMaps lookup file by URN
+// CLibraryMaps lookup file by URN or Hash
 
 CLibraryFile* CLibraryMaps::LookupFileByURN(LPCTSTR pszURN, BOOL bSharedOnly, BOOL bAvailableOnly)
 {
@@ -219,9 +219,8 @@ CLibraryFile* CLibraryMaps::LookupFileByHash(const Hashes::Sha1Hash& oSHA1, cons
 	bMinSize = !(nMinSize == SIZE_UNKNOWN) && !(nMinSize == 0);
 	bMaxSize = !(nMaxSize == SIZE_UNKNOWN) && !(nMaxSize == 0);
 
-	// Do not make conditions below with "if/else". There is no guarantee that a
-	// Ghost rated file has all the hashes thus look up should go through all the
-	// maps individually.
+	// Do not make conditions below with "if/else".  Go through all maps individually,
+	// as there is no guarantee that a Ghost rated file has all the hashes.
 	if ( oSHA1.isValid() )
 	{
 		pFile = m_pSHA1Map[ oSHA1[ 0 ] & HASH_MASK ];

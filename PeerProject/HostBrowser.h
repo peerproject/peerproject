@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_HOSTBROWSER_H__062DB5F6_EAE7_484D_BA12_28B4BCD99599__INCLUDED_)
-#define AFX_HOSTBROWSER_H__062DB5F6_EAE7_484D_BA12_28B4BCD99599__INCLUDED_
-
 #pragma once
 
 #include "Transfer.h"
@@ -29,26 +26,23 @@
 
 class CG1Packet;
 class CG2Packet;
+class CEDPacket;
+class CQueryHit;
 class CGProfile;
 class CBuffer;
 class CVendor;
 class CBrowseHostWnd;
 
-
 class CHostBrowser : public CTransfer
 {
-// Construction
 public:
-	CHostBrowser(CBrowseHostWnd* pNotify = NULL, IN_ADDR* pAddress = NULL, WORD nPort = 0,
+	CHostBrowser(CBrowseHostWnd* pNotify = NULL, PROTOCOLID nProtocol = PROTOCOL_ANY, IN_ADDR* pAddress = NULL, WORD nPort = 0,
 		BOOL bMustPush = FALSE, const Hashes::Guid& pClientID = Hashes::Guid());
 	virtual ~CHostBrowser();
 
-// Attributes
 public:
 	int				m_nState;
-	CBrowseHostWnd*	m_pNotify;
 	CGProfile*		m_pProfile;
-public:
 	BOOL			m_bNewBrowse;
 	IN_ADDR			m_pAddress;
 	WORD			m_nPort;
@@ -61,7 +55,6 @@ public:
 	int				m_nHits;
 	CVendor*		m_pVendor;
 	BOOL			m_bCanChat;
-public:
 	CString			m_sServer;
 	BOOL			m_bDeflate;
 	DWORD			m_nLength;
@@ -78,7 +71,16 @@ public:
 	void		Stop(BOOL bCompleted = FALSE);
 	BOOL		IsBrowsing() const;
 	float		GetProgress() const;
+	void		OnQueryHits(CQueryHit* pHits);
+
+	virtual BOOL	OnConnected();
+	virtual void	OnDropped();
+	virtual BOOL	OnHeadersComplete();
+	virtual BOOL	OnPush(const Hashes::Guid& oClientID, CConnection* pConnection);
+
 protected:
+	CBrowseHostWnd*	m_pNotify;
+
 	BOOL		SendPush(BOOL bMessage);
 	void		SendRequest();
 	BOOL		ReadResponseLine();
@@ -90,16 +92,8 @@ protected:
 	BOOL		OnPacket(CG1Packet* pPacket);
 	BOOL		OnPacket(CG2Packet* pPacket);
 	void		OnProfilePacket(CG2Packet* pPacket);
-protected:
-	virtual BOOL	OnConnected();
+
 	virtual BOOL	OnRead();
-	virtual void	OnDropped();
 	virtual BOOL	OnHeaderLine(CString& strHeader, CString& strValue);
-	virtual BOOL	OnHeadersComplete();
 	virtual BOOL	OnRun();
-public:
-	virtual BOOL	OnPush(const Hashes::Guid& oClientID, CConnection* pConnection);
-
 };
-
-#endif // !defined(AFX_HOSTBROWSER_H__062DB5F6_EAE7_484D_BA12_28B4BCD99599__INCLUDED_)
