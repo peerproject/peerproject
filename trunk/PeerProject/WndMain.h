@@ -268,8 +268,8 @@ protected:
 	DECLARE_DROP()
 };
 
-#define IDW_MENU_BAR		0xE810
 #define IDW_TOOL_BAR		AFX_IDW_TOOLBAR
+#define IDW_MENU_BAR		0xE810
 #define IDW_NAV_BAR			0xE811
 #define IDW_TAB_BAR			0xE812
 #define IDW_MONITOR_BAR		0xE813

@@ -53,7 +53,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(InputDir);..\LibGFL"
+				AdditionalIncludeDirectories="$(InputDir);..\..\Services\LibGFL"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL"
 				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
@@ -420,15 +420,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\GFLImageServices.cpp"
+				RelativePath="GFLImageServices.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\GFLImageServices.def"
+				RelativePath="GFLImageServices.def"
 				>
 			</File>
 			<File
-				RelativePath=".\GFLImageServices.idl"
+				RelativePath="GFLImageServices.idl"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -464,7 +464,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GFLReader.cpp"
+				RelativePath="GFLReader.cpp"
 				>
 			</File>
 			<File
@@ -508,7 +508,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\stdafx.cpp"
+				RelativePath="stdafx.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -550,19 +550,19 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\GFLReader.h"
+				RelativePath="GFLReader.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Resource.h"
+				RelativePath="Resource.h"
 				>
 			</File>
 			<File
-				RelativePath=".\PeerProject.h"
+				RelativePath="PeerProject.h"
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.h"
+				RelativePath="stdafx.h"
 				>
 			</File>
 		</Filter>
@@ -572,15 +572,15 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\GFLImageServices.rc"
+				RelativePath="GFLImageServices.rc"
 				>
 			</File>
 			<File
-				RelativePath=".\GFLImageServices.rgs"
+				RelativePath="GFLImageServices.rgs"
 				>
 			</File>
 			<File
-				RelativePath=".\GFLReader.rgs"
+				RelativePath="GFLReader.rgs"
 				>
 			</File>
 		</Filter>
@@ -589,7 +589,7 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath=".\GFLImageServices_i.c"
+				RelativePath="GFLImageServices_i.c"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"

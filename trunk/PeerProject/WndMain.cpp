@@ -330,9 +330,8 @@ void CMainWnd::SaveState()
 	if ( ! IsIconic() )
 		SaveBarState( _T("Toolbars\\CoolBar") );
 
-	theApp.WriteProfileInt( _T("Toolbars"), _T("CRemoteWnd"),  m_wndRemoteWnd.IsVisible() );
-
-	theApp.WriteProfileInt( _T("Toolbars"), _T("ShowMonitor"), m_wndMonitorBar.IsVisible() );
+	Settings.Toolbars.ShowRemote = ( m_wndRemoteWnd.IsVisible() != FALSE );
+	Settings.Toolbars.ShowMonitor = ( m_wndMonitorBar.IsVisible() != FALSE );
 
 	Settings.SaveWindow( _T("CMainWnd"), this );
 
@@ -394,15 +393,15 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndMenuBar.SetWindowText( _T("Menubar") );
 	m_wndMenuBar.EnableDocking( CBRS_ALIGN_TOP | CBRS_ALIGN_BOTTOM );
 	DockControlBar( &m_wndMenuBar, AFX_IDW_DOCKBAR_TOP );
-	
+
 	// Tab Bar
-	
+
 	if ( ! m_wndTabBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_BOTTOM, IDW_TAB_BAR ) ) return -1;
 	m_wndTabBar.SetWindowText( _T("Windows") );
 	m_wndTabBar.EnableDocking( CBRS_ALIGN_TOP | CBRS_ALIGN_BOTTOM );
 	m_wndTabBar.SetBarStyle( m_wndTabBar.GetBarStyle() | CBRS_TOOLTIPS );
 	DockControlBar( &m_wndTabBar, AFX_IDW_DOCKBAR_TOP );
-	
+
 	// Nav Bar
 
 	if ( ! m_wndNavBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_TOP, IDW_NAV_BAR ) ) return -1;
@@ -422,7 +421,7 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndToolBar.SetGripper( TRUE );
 	DockControlBar( &m_wndToolBar, AFX_IDW_DOCKBAR_TOP );
 	ShowControlBar( &m_wndToolBar, FALSE, FALSE );
-	
+
 	// Monitor Bar
 
 	if ( ! m_wndMonitorBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_BOTTOM, IDW_MONITOR_BAR ) ) return -1;
@@ -434,16 +433,14 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// Default Size
 	int iXSize, iYSize;
-	/*
 	//Creates problems in dualview mode
-	if ( GetSystemMetrics( SM_CMONITORS ) > 1 )
-	{	// Multi Monitor
-		iXSize = GetSystemMetrics( SM_CXVIRTUALSCREEN );
-		iYSize = GetSystemMetrics( SM_CYVIRTUALSCREEN );
-	}
-	else // Single Monitor
-	*/
-	{	
+	//if ( GetSystemMetrics( SM_CMONITORS ) > 1 )
+	//{	// Multi Monitor
+	//	iXSize = GetSystemMetrics( SM_CXVIRTUALSCREEN );
+	//	iYSize = GetSystemMetrics( SM_CYVIRTUALSCREEN );
+	//}
+	//else // Single Monitor
+	{
 		iXSize = GetSystemMetrics( SM_CXSCREEN );
 		iYSize = GetSystemMetrics( SM_CYSCREEN );
 	}
@@ -485,7 +482,7 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 	if ( ! m_wndTabBar.IsVisible() ) ShowControlBar( &m_wndTabBar, TRUE, FALSE );
 
-	if ( theApp.GetProfileInt( _T("Toolbars"), _T("CRemoteWnd"), TRUE ) )
+	if ( Settings.Toolbars.ShowRemote )
 		m_wndRemoteWnd.Create( &m_wndMonitorBar );
 
 	m_pWindows.SetOwner( this );
@@ -493,15 +490,15 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// Boot
 
-	if ( theApp.GetProfileInt( _T("Windows"), _T("RunWizard"), FALSE ) == FALSE )
+	if ( ! Settings.Windows.RunWizard )
 	{
 		PostMessage( WM_COMMAND, ID_TOOLS_WIZARD );
 	}
-	else if ( theApp.GetProfileInt( _T("Windows"), _T("RunWarnings"), FALSE ) == FALSE )
+	else if ( ! Settings.Windows.RunWarnings )
 	{
 		PostMessage( WM_COMMAND, ID_HELP_WARNINGS );
 	}
-	else if ( theApp.GetProfileInt( _T("Windows"), _T("RunPromote"), FALSE ) == FALSE )
+	else if ( ! Settings.Windows.RunPromote )
 	{
 		PostMessage( WM_COMMAND, ID_HELP_PROMOTE );
 	}
@@ -1122,7 +1119,7 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 	m_wndRemoteWnd.OnSkinChange();
 	m_wndMonitorBar.OnSkinChange();
-	if ( theApp.GetProfileInt( L"Toolbars", L"ShowMonitor", TRUE ) )
+	if ( Settings.Toolbars.ShowMonitor )
 	{
 		// A quick workaround to show a monitor bar when skin or GUI mode is changed
 		if ( !m_wndMonitorBar.IsVisible() && Settings.General.GUIMode != GUI_WINDOWED )
@@ -1210,7 +1207,8 @@ LRESULT CMainWnd::OnHandleTorrent(WPARAM wParam, LPARAM /*lParam*/)
 	delete [] pszPath;
 
 	CTorrentSeedDlg dlg( strPath );
-	dlg.DoModal();
+	if ( ! dlg.LoadTorrent( strPath ) )
+		dlg.DoModal();	// Try again manually
 
 	return 0;
 }
@@ -1674,7 +1672,7 @@ void CMainWnd::OnNetworkBrowseTo()
 
 	if ( Network.Resolve( dlg.m_sHost, dlg.m_nPort, &pAddress ) )
 	{
-		new CBrowseHostWnd( &pAddress );
+		new CBrowseHostWnd( PROTOCOLID( dlg.m_nProtocol + 1 ), &pAddress );
 	}
 }
 
@@ -2375,7 +2373,9 @@ void CMainWnd::OnLibraryFolders()
 void CMainWnd::OnToolsWizard()
 {
 	if ( ! IsWindowEnabled() ) return;
-	theApp.WriteProfileInt( _T("Windows"), _T("RunWizard"), TRUE );
+
+	Settings.Windows.RunWizard = true;
+
 	CWizardSheet::RunWizard( this );
 }
 
@@ -2477,8 +2477,8 @@ void CMainWnd::OnUpdateWindowMonitor(CCmdUI* pCmdUI)
 
 void CMainWnd::OnWindowMonitor()
 {
-	BOOL bVisible = !m_wndMonitorBar.IsVisible();
-	theApp.WriteProfileInt( L"Toolbars", L"ShowMonitor", bVisible );
+	BOOL bVisible = ! m_wndMonitorBar.IsVisible();
+	Settings.Toolbars.ShowMonitor = ( bVisible != FALSE );
 	ShowControlBar( &m_wndMonitorBar, bVisible, TRUE );
 }
 
@@ -2669,7 +2669,7 @@ void CMainWnd::OnHelpWarnings()
 {
 	if ( IsWindowEnabled() && IsWindowVisible() && ! IsIconic() )
 	{
-		theApp.WriteProfileInt( _T("Windows"), _T("RunWarnings"), TRUE );
+		Settings.Windows.RunWarnings = true;
 		CWarningsDlg dlg;
 		dlg.DoModal();
 	}
@@ -2679,7 +2679,7 @@ void CMainWnd::OnHelpPromote()
 {
 	if ( IsWindowEnabled() && IsWindowVisible() && ! IsIconic() )
 	{
-		theApp.WriteProfileInt( _T("Windows"), _T("RunPromote"), TRUE );
+		Settings.Windows.RunPromote = true;
 		CPromoteDlg dlg;
 		dlg.DoModal();
 	}
@@ -2843,21 +2843,24 @@ LRESULT CMainWnd::OnQueryHits(WPARAM /*wParam*/, LPARAM lParam)
 	}
 
 	// Update search window(s)
+	BOOL bHandled = FALSE;
 	CChildWnd* pMonitorWnd		= NULL;
-	CRuntimeClass* pMonitorType	= RUNTIME_CLASS(CHitMonitorWnd);
 	CChildWnd* pChildWnd		= NULL;
 	while ( ( pChildWnd = m_pWindows.Find( NULL, pChildWnd ) ) != NULL )
 	{
-		if ( pChildWnd->GetRuntimeClass() == pMonitorType )
+		if ( pChildWnd->IsKindOf( RUNTIME_CLASS( CSearchWnd ) ) )
+		{
+			if ( pChildWnd->OnQueryHits( pHits ) )
+				bHandled = TRUE;
+		}
+		else if ( pChildWnd->IsKindOf( RUNTIME_CLASS( CHitMonitorWnd ) ) )
 		{
 			pMonitorWnd = pChildWnd;
 		}
-		else if ( pChildWnd->OnQueryHits( pHits ) )
-			pMonitorWnd = NULL;
 	}
 
 	// Drop rest to hit window
-	if ( pMonitorWnd != NULL )
+	if ( ! bHandled && pMonitorWnd )
 		pMonitorWnd->OnQueryHits( pHits );
 
 	pHits->Delete();

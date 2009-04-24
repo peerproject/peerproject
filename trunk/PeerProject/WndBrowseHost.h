@@ -34,11 +34,13 @@ class CBrowseHostWnd : public CBaseMatchWnd
 {
 // Construction
 public:
-	CBrowseHostWnd(SOCKADDR_IN* pHost, const Hashes::Guid& pClientID = Hashes::Guid());
-	CBrowseHostWnd(IN_ADDR* pAddress = NULL, WORD nPort = 0, BOOL bMustPush = FALSE, const Hashes::Guid& pClientID = Hashes::Guid());
+	CBrowseHostWnd(PROTOCOLID nProtocol, SOCKADDR_IN* pHost, const Hashes::Guid& pClientID = Hashes::Guid());
+	CBrowseHostWnd(PROTOCOLID nProtocol = PROTOCOL_ANY, IN_ADDR* pAddress = NULL, WORD nPort = 0, BOOL bMustPush = FALSE, const Hashes::Guid& pClientID = Hashes::Guid());
 	virtual ~CBrowseHostWnd();
 
 	DECLARE_DYNCREATE(CBrowseHostWnd)
+
+	inline CHostBrowser* GetBrowser() const { return m_pBrowser; }
 
 // Attributes
 protected:
@@ -54,7 +56,7 @@ public:
 	void			Serialize(CArchive& ar);
 	virtual void	OnSkinChange();
 	virtual void	OnProfileReceived();
-	virtual void	OnBrowseHits(const CQueryHit* pHits);
+	virtual BOOL	OnQueryHits(const CQueryHit* pHits);
 	virtual void	OnHeadPacket(CG2Packet* pPacket);
 	virtual void	OnPhysicalTree(CG2Packet* pPacket);
 	virtual void	OnVirtualTree(CG2Packet* pPacket);

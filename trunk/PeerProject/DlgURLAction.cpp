@@ -358,15 +358,18 @@ void CURLActionDlg::OnUrlDownload()
 					strMessage.Format( strFormat, (LPCTSTR)pFile->m_sName );
 					oLock.Unlock();
 
-					UINT nMBOX = AfxMessageBox( strMessage, MB_ICONINFORMATION|MB_YESNOCANCEL|MB_DEFBUTTON2 );
-					if ( nMBOX == IDCANCEL ) return;
-					if ( nMBOX == IDNO ) continue;
+					INT_PTR nMBOX = AfxMessageBox( strMessage, MB_ICONINFORMATION|MB_YESNOCANCEL|MB_DEFBUTTON2 );
+					if ( nMBOX == IDCANCEL )
+						return;
+					if ( nMBOX == IDNO )
+						continue;
 				}
 			}
 
 			CDownload* pDownload = Downloads.Add( *pURL );
 
-			if ( pDownload == NULL ) continue;
+			if ( pDownload == NULL )
+				continue;
 
 			if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 )
 			{
@@ -402,7 +405,7 @@ void CURLActionDlg::OnUrlDownload()
 
 			if ( Network.Resolve( pURL->m_sName, pURL->m_nPort, &pAddress ) )
 			{
-				new CBrowseHostWnd( &pAddress );
+				new CBrowseHostWnd( pURL->m_nProtocol, &pAddress );
 			}
 		}
 		else if ( pURL->m_nAction == CPeerProjectURL::uriDiscovery )
@@ -428,7 +431,7 @@ void CURLActionDlg::OnUrlSearch()
 
 			if ( Network.Resolve( pURL->m_sName, pURL->m_nPort, &pAddress ) )
 			{
-				new CBrowseHostWnd( &pAddress );
+				new CBrowseHostWnd( pURL->m_nProtocol, &pAddress );
 			}
 		}
 		else if ( pURL->m_nAction == CPeerProjectURL::uriBrowse )

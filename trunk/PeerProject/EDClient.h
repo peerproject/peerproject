@@ -22,6 +22,7 @@
 #pragma once
 
 #include "Transfer.h"
+#include "HostBrowser.h"
 
 class CEDPacket;
 class CDownload;
@@ -36,7 +37,7 @@ class CEDClient : public CTransfer
 public:
 	CEDClient();
 	virtual ~CEDClient();
-	
+
 // Attributes
 public:
 	CEDClient*	m_pEdPrev;
@@ -64,13 +65,13 @@ public:	//Client capabilities
 	BOOL		m_bEmRequest;
 	BOOL		m_bEmComments;
 	BOOL		m_bEmPeerCache;		// Not supported
-	BOOL		m_bEmBrowse;		// "View shared files" supported
+	BOOL		m_bEmBrowse;		// Browse supported
 	BOOL		m_bEmMultiPacket;	// Not supported
 	BOOL		m_bEmPreview;		// Preview support
 	BOOL		m_bEmLargeFile;		// Large file support
 public:
 	BOOL		m_bLogin;
-    Hashes::Ed2kHash m_oUpED2K;
+	Hashes::Ed2kHash m_oUpED2K;
 	QWORD		m_nUpSize;
 public:
 	CDownloadTransferED2K*	m_pDownload;
@@ -81,6 +82,8 @@ public:
 
 	BOOL		m_bOpenChat;
 	BOOL		m_bCommentSent;
+
+	DWORD		m_nDirsWaiting;
 
 // Operations
 public:
@@ -109,6 +112,8 @@ protected:
 	void	DetachDownload();
 	void	DetachUpload();
 	void	NotifyDropped();
+	CHostBrowser*	GetBrowser() const;
+
 public:
 	virtual void	AttachTo(CConnection* pConnection);
 	virtual void	Close();
@@ -132,12 +137,23 @@ protected:
 	BOOL	OnSourceAnswer(CEDPacket* pPacket);
 	BOOL	OnRequestPreview(CEDPacket* pPacket);
 	BOOL	OnPreviewAnswer(CEDPacket* pPacket);
+// Chat
 	BOOL	OnMessage(CEDPacket* pPacket);
+// Browse us
+	BOOL	OnAskSharedDirs(CEDPacket* pPacket);
+	BOOL	OnViewSharedDir(CEDPacket* pPacket);
+// Browse remote host
+	BOOL	OnAskSharedDirsAnswer(CEDPacket* pPacket);
+	BOOL	OnViewSharedDirAnswer(CEDPacket* pPacket);
+	BOOL	OnAskSharedDirsDenied(CEDPacket* pPacket);
+
 public:
 	BOOL	OnUdpReask(CEDPacket* pPacket);
 	BOOL	OnUdpReaskAck(CEDPacket* pPacket);
 	BOOL	OnUdpQueueFull(CEDPacket* pPacket);
 	BOOL	OnUdpFileNotFound(CEDPacket* pPacket);
-	
+
 	inline BOOL IsOnline() const { return m_bConnected && m_bLogin; }
+
+	DWORD GetID() const;
 };

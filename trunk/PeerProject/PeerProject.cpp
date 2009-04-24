@@ -165,14 +165,13 @@ CPeerProjectApp::CPeerProjectApp() :
 ,	m_nWindowsVersionMinor	( 0ul )
 ,	m_nPhysicalMemory		( 0ull )
 ,	m_nLogicalProcessors	( -1 )
-,	m_bMenuWasVisible		( FALSE )
-,	m_nDefaultFontSize		( 0 )
 ,	m_bUPnPPortsForwarded	( TRI_UNKNOWN )
 ,	m_bUPnPDeviceConnected	( TRI_UNKNOWN )
 ,	m_nUPnPExternalAddress	( 0ul )
 ,	m_nLastInput			( 0ul )
 ,	m_hHookKbd				( NULL )
 ,	m_hHookMouse			( NULL )
+,	m_bMenuWasVisible		( FALSE )
 
 ,	m_hCryptProv			( NULL )
 ,	m_pRegisterApplicationRestart( NULL )
@@ -202,11 +201,13 @@ CPeerProjectApp::CPeerProjectApp() :
 #ifdef _DEBUG
 	BT_InstallSehFilter();
 	BT_SetTerminate();
-	BT_SetFlags( BTF_INTERCEPTSUEF | BTF_SHOWADVANCEDUI | BTF_DESCRIBEERROR | BTF_DETAILEDMODE );
-	BT_SetSupportURL( _T("http://support.peerproject.org") );
-	//BT_SetSupportEMail( _T("support@peerproject.org") );
+	BT_SetAppName( _T( CLIENT_NAME ) );
+	BT_SetFlags( BTF_INTERCEPTSUEF | BTF_SHOWADVANCEDUI | BTF_DESCRIBEERROR |
+		BTF_DETAILEDMODE | BTF_ATTACHREPORT | BTF_EDITMAIL );
+	BT_SetSupportEMail( _T("peerprojectbugs@lists.sourceforge.net") );
 	//BT_SetSupportServer( _T("http://peerproject.org/BugTrapServer/RequestHandler.aspx"), 80 );
-	BT_AddRegFile( _T("settings.reg"), _T("HKEY_CURRENT_USER\\Software\\PeerProject\\PeerProject") );
+	BT_SetSupportURL( _T("http://peerproject.org/") );
+	BT_AddRegFile( _T("Settings.reg"), _T("HKEY_CURRENT_USER\\Software\\PeerProject\\PeerProject") );
 #endif
 }
 
@@ -889,24 +890,24 @@ void CPeerProjectApp::InitResources()
 //	ReleaseDC( 0, screen );
 
 	// Get the fonts from the registry
-	CString strFont = m_bIsVistaOrNewer ? _T( "Segoe UI" ) : _T( "Tahoma" ) ;
-	theApp.m_sDefaultFont		= theApp.GetProfileString( _T("Fonts"), _T("DefaultFont"), strFont );
-	theApp.m_sPacketDumpFont	= theApp.GetProfileString( _T("Fonts"), _T("PacketDumpFont"), _T("Lucida Console") );
-	theApp.m_sSystemLogFont		= theApp.GetProfileString( _T("Fonts"), _T("SystemLogFont"), strFont );
-	theApp.m_nDefaultFontSize	= theApp.GetProfileInt( _T("Fonts"), _T("FontSize"), 11 );
+	//CString strFont = m_bIsVistaOrNewer ? _T( "Segoe UI" ) : _T( "Tahoma" ) ;
+	//theApp.m_sDefaultFont		= theApp.GetProfileString( _T("Fonts"), _T("DefaultFont"), strFont );
+	//theApp.m_sPacketDumpFont	= theApp.GetProfileString( _T("Fonts"), _T("PacketDumpFont"), _T("Lucida Console") );
+	//theApp.m_sSystemLogFont	= theApp.GetProfileString( _T("Fonts"), _T("SystemLogFont"), strFont );
+	//theApp.m_nDefaultFontSize	= theApp.GetProfileInt( _T("Fonts"), _T("FontSize"), 11 );
 
-	// Set up the default font
-	m_gdiFont.CreateFontW( -theApp.m_nDefaultFontSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+	// Setup the default font
+	m_gdiFont.CreateFontW( -(int)Settings.Fonts.DefaultSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, theApp.m_sDefaultFont );
+		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
-	m_gdiFontBold.CreateFontW( -theApp.m_nDefaultFontSize, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+	m_gdiFontBold.CreateFontW( -(int)Settings.Fonts.DefaultSize, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, theApp.m_sDefaultFont );
+		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
-	m_gdiFontLine.CreateFontW( -theApp.m_nDefaultFontSize, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
+	m_gdiFontLine.CreateFontW( -(int)Settings.Fonts.DefaultSize, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, theApp.m_sDefaultFont );
+		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
 	srand( GetTickCount() );
 

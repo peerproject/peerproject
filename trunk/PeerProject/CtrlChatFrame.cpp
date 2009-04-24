@@ -92,46 +92,46 @@ CChatFrame::~CChatFrame()
 int CChatFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
-	
+
 	CRect rc;
 	GetClientRect( &rc );
-	
+
 	m_wndView.Create( WS_CHILD|WS_VISIBLE, rc, this, IDC_CHAT_TEXT );
 	m_wndView.SetDocument( &m_pContent );
 	m_wndView.SetSelectable( TRUE );
 	m_wndView.SetFollowBottom( TRUE );
-	
+
 	m_pContent.m_szMargin = CSize( 8, 4 );
-	
+
 	m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE );
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP | CBRS_BORDER_BOTTOM );
-	
+
 	m_wndEdit.Create( WS_CHILD|WS_VISIBLE|ES_MULTILINE|ES_AUTOVSCROLL, rc, this, IDC_CHAT_EDIT );
 	m_wndEdit.SetFont( &theApp.m_gdiFont );
-	
+
 	m_nHistory = 0;
-	
+
 	SetDesktopMode( FALSE );
-	
+
 	ChatWindows.Add( this );
-	
+
 	return 0;
 }
 
-void CChatFrame::OnDestroy() 
+void CChatFrame::OnDestroy()
 {
 	CSingleLock pLock( &ChatCore.m_pSection, TRUE );
-	
+
 	if ( m_pSession != NULL )
 	{
 		m_pSession->OnCloseWindow();
 		m_pSession = NULL;
 	}
-	
+
 	ChatWindows.Remove( this );
-	
+
 	pLock.Unlock();
-	
+
 	CWnd::OnDestroy();
 }
 
@@ -146,27 +146,27 @@ void CChatFrame::SetDesktopMode(BOOL bDesktop)
 {
 	if ( bDesktop && m_pDesktopWnd != NULL ) return;
 	if ( ! bDesktop && m_pChildWnd != NULL ) return;
-	
+
 	ShowWindow( SW_HIDE );
 	SetParent( NULL );
-	
+
 	if ( m_pDesktopWnd != NULL )
 	{
 		// m_pDesktopWnd->m_pFrame = NULL;
 		m_pDesktopWnd->DestroyWindow();
 		m_pDesktopWnd = NULL;
 	}
-	
+
 	if ( m_pChildWnd != NULL )
 	{
 		m_pChildWnd->m_pFrame = NULL;
 		m_pChildWnd->DestroyWindow();
 		m_pChildWnd = NULL;
 	}
-	
+
 	if ( bDesktop )
 	{
-		// TODO: m_pDesktopWnd = new CChatDesktopWnd( this );
+		// ToDo: m_pDesktopWnd = new CChatDesktopWnd( this );
 	}
 	else
 	{
@@ -182,7 +182,7 @@ void CChatFrame::SetAlert(BOOL /*bAlert*/)
 /////////////////////////////////////////////////////////////////////////////
 // CChatFrame text input controller
 
-BOOL CChatFrame::PreTranslateMessage(MSG* pMsg) 
+BOOL CChatFrame::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_KEYDOWN )
 	{
@@ -192,14 +192,14 @@ BOOL CChatFrame::PreTranslateMessage(MSG* pMsg)
 		{
 			m_wndEdit.GetWindowText( m_sCurrent );
 			if ( m_sCurrent.IsEmpty() ) return TRUE;
-			
+
 			m_sCurrent = m_sCurrent.SpanExcluding( _T("\r\n") );
 			OnLocalText( m_sCurrent );
-			
+
 			m_pHistory.Add( m_sCurrent );
 			if ( m_pHistory.GetSize() > EDIT_HISTORY ) m_pHistory.RemoveAt( 0 );
 			m_nHistory = static_cast< int >( m_pHistory.GetSize() );
-			
+
 			m_sCurrent.Empty();
 			m_wndEdit.SetWindowText( m_sCurrent );
 			return TRUE;
@@ -262,7 +262,7 @@ BOOL CChatFrame::PreTranslateMessage(MSG* pMsg)
 			return TRUE;
 		}
 	}
-	
+
 	return CWnd::PreTranslateMessage( pMsg );
 }
 
@@ -272,10 +272,10 @@ void CChatFrame::MoveHistory(int nDelta)
 	{
 		m_wndEdit.GetWindowText( m_sCurrent );
 	}
-	
+
 	m_nHistory += nDelta;
 	m_nHistory = max( 0, min( m_pHistory.GetSize(), m_nHistory ) );
-	
+
 	if ( m_nHistory == m_pHistory.GetSize() )
 	{
 		m_wndEdit.SetWindowText( m_sCurrent );
@@ -284,7 +284,7 @@ void CChatFrame::MoveHistory(int nDelta)
 	{
 		m_wndEdit.SetWindowText( m_pHistory.GetAt( m_nHistory ) );
 	}
-	
+
 	int nLen = m_wndEdit.GetWindowTextLength();
 	m_wndEdit.SetSel( nLen, nLen );
 }
@@ -293,24 +293,24 @@ BOOL CChatFrame::IsInRange(LPCTSTR pszToken)
 {
 	CString strRange, strToken;
 	int nStart, nEnd;
-	
+
 	m_wndEdit.GetSel( nStart, nEnd );
 	if ( nStart != nEnd ) return FALSE;
-	
+
 	m_wndEdit.GetWindowText( strRange );
 	if ( nStart <= 0 ) return FALSE;
 	if ( nStart < strRange.GetLength() ) strRange = strRange.Left( nStart );
-	
+
 	ToLower( strRange );
 	strRange.MakeReverse();
 	strToken.Format( _T("]%s["), pszToken );
 	nStart = strRange.Find( strToken );
 	strToken.Format( _T("]%s/["), pszToken );
 	nEnd = strRange.Find( strToken );
-	
+
 	if ( nStart < 0 ) return FALSE;
 	if ( nEnd < 0 ) return TRUE;
-	
+
 	return ( nEnd > nStart );
 }
 
@@ -318,7 +318,7 @@ void CChatFrame::InsertText(LPCTSTR pszToken)
 {
 	int nStart, nEnd;
 	m_wndEdit.GetSel( nStart, nEnd );
-	
+
 	if ( nStart == nEnd )
 	{
 		m_wndEdit.ReplaceSel( pszToken );
@@ -332,7 +332,7 @@ void CChatFrame::InsertText(LPCTSTR pszToken)
 			(LPCTSTR)strIn.Mid( nStart, nEnd - nStart ), pszToken[1] );
 		m_wndEdit.ReplaceSel( strOut );
 	}
-	
+
 	m_wndEdit.SetFocus();
 }
 
@@ -349,7 +349,7 @@ void CChatFrame::AddText(LPCTSTR pszText)
 void CChatFrame::AddText(BOOL bSelf, BOOL bAction, LPCTSTR pszNick, LPCTSTR pszBody)
 {
 	CString str;
-	
+
 	if ( Settings.Community.Timestamp )
 	{
 		CTime tNow = CTime::GetCurrentTime();
@@ -358,13 +358,13 @@ void CChatFrame::AddText(BOOL bSelf, BOOL bAction, LPCTSTR pszNick, LPCTSTR pszB
 			tNow.GetHour(), tNow.GetMinute() );
 		m_pContent.Add( retText, str, NULL, retfColor )->m_cColor = CoolInterface.m_crChatNull;
 	}
-	
+
 	str.Format( bAction ? _T("* %s ") : _T("%s: "), pszNick );
 	m_pContent.Add( retText, str, NULL, retfBold | retfColor )->m_cColor
 		= ( bSelf ? CoolInterface.m_crChatOut : CoolInterface.m_crChatIn );
-	
+
 	Emoticons.FormatText( &m_pContent, pszBody );
-	
+
 	m_pContent.Add( retNewline, NEWLINE_FORMAT );
 	m_wndView.InvalidateIfModified();
 }
@@ -383,12 +383,12 @@ void CChatFrame::OnStatusMessage(int nFlags, LPCTSTR pszText)
 void CChatFrame::OnLocalText(LPCTSTR pszText)
 {
 	if ( pszText == NULL || *pszText == 0 || ! m_pSession ) return;
-	
+
 	if ( *pszText == '/' )
 	{
 		CString strCommand = CString( pszText ).SpanExcluding( _T(" \t") );
 		ToLower( strCommand );
-		
+
 		if ( strCommand == _T("/me") )
 		{
 			OnLocalMessage( true, pszText + 4 );
@@ -435,12 +435,12 @@ void CChatFrame::OnLocalCommand(LPCTSTR pszCommand, LPCTSTR /*pszArgs*/)
 /////////////////////////////////////////////////////////////////////////////
 // CChatFrame command handlers
 
-void CChatFrame::OnUpdateChatBold(CCmdUI* pCmdUI) 
+void CChatFrame::OnUpdateChatBold(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck( IsInRange( _T("b") ) );
 }
 
-void CChatFrame::OnChatBold() 
+void CChatFrame::OnChatBold()
 {
 	if ( ! m_pSession ) return;
 
@@ -450,12 +450,12 @@ void CChatFrame::OnChatBold()
 		InsertText( _T("[b]") );
 }
 
-void CChatFrame::OnUpdateChatItalic(CCmdUI* pCmdUI) 
+void CChatFrame::OnUpdateChatItalic(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck( IsInRange( _T("i") ) );
 }
 
-void CChatFrame::OnChatItalic() 
+void CChatFrame::OnChatItalic()
 {
 	if ( ! m_pSession ) return;
 
@@ -465,12 +465,12 @@ void CChatFrame::OnChatItalic()
 		InsertText( _T("[i]") );
 }
 
-void CChatFrame::OnUpdateChatUnderline(CCmdUI* pCmdUI) 
+void CChatFrame::OnUpdateChatUnderline(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck( IsInRange( _T("u") ) );
 }
 
-void CChatFrame::OnChatUnderline() 
+void CChatFrame::OnChatUnderline()
 {
 	if ( ! m_pSession ) return;
 
@@ -486,57 +486,56 @@ void CChatFrame::OnChatColor()
 
 	CColorDialog dlg( 0, CC_ANYCOLOR | CC_FULLOPEN );
 	if ( dlg.DoModal() != IDOK ) return;
-	
+
 	COLORREF cr = dlg.GetColor();
 	CString str;
-	
+
 	str.Format( _T("[c:#%.2x%.2x%.2x]"), GetRValue( cr ), GetGValue( cr ), GetBValue( cr ) );
 	InsertText( str );
 }
 
-void CChatFrame::OnChatEmoticons() 
+void CChatFrame::OnChatEmoticons()
 {
 	if ( ! m_pSession ) return;
 
 	m_pIconMenu = Emoticons.CreateMenu();
-	
+
 	UINT nID = m_wndToolBar.ThrowMenu( ID_CHAT_EMOTICONS, m_pIconMenu, this, TRUE );
-	
+
 	delete m_pIconMenu;
 	m_pIconMenu = NULL;
-	
+
 	if ( nID == 0 ) return;
-	
+
 	LPCTSTR pszToken = Emoticons.GetText( nID - 1 );
 	if ( pszToken != NULL ) InsertText( pszToken );
 }
 
-void CChatFrame::OnChatClear() 
+void CChatFrame::OnChatClear()
 {
 	m_pContent.Clear();
 	m_wndView.InvalidateIfModified();
 }
 
-void CChatFrame::OnUpdateChatTimestamp(CCmdUI* pCmdUI) 
+void CChatFrame::OnUpdateChatTimestamp(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck( Settings.Community.Timestamp );
 }
 
-void CChatFrame::OnChatTimestamp() 
+void CChatFrame::OnChatTimestamp()
 {
 	Settings.Community.Timestamp = ! Settings.Community.Timestamp;
 }
 
-void CChatFrame::OnUpdateChatConnect(CCmdUI* pCmdUI) 
+void CChatFrame::OnUpdateChatConnect(CCmdUI* pCmdUI)
 {
-	BOOL bState = ( ( m_pSession != NULL ) && 
-					( m_pSession->GetConnectedState() == TRI_FALSE )  &&
-					( m_pSession->m_nProtocol != PROTOCOL_ED2K ) );
+	BOOL bState = ( m_pSession != NULL ) &&
+				  ( m_pSession->GetConnectedState() == TRI_FALSE );
 	if ( CCoolBarItem* pItem = CCoolBarItem::FromCmdUI( pCmdUI ) ) pItem->Show( bState );
 	pCmdUI->Enable( bState );
 }
 
-void CChatFrame::OnChatConnect() 
+void CChatFrame::OnChatConnect()
 {
 	if ( m_pSession != NULL && m_pSession->GetConnectedState() == TRI_FALSE )
 	{
@@ -548,16 +547,15 @@ void CChatFrame::OnChatConnect()
 	}
 }
 
-void CChatFrame::OnUpdateChatDisconnect(CCmdUI* pCmdUI) 
+void CChatFrame::OnUpdateChatDisconnect(CCmdUI* pCmdUI)
 {
-	BOOL bState = ( m_pSession != NULL ) && 
-				  ( m_pSession->GetConnectedState() != TRI_FALSE ) &&
-				  ( m_pSession->m_nProtocol != PROTOCOL_ED2K );
+	BOOL bState = ( m_pSession != NULL ) &&
+				  ( m_pSession->GetConnectedState() != TRI_FALSE );
 	if ( CCoolBarItem* pItem = CCoolBarItem::FromCmdUI( pCmdUI ) ) pItem->Show( bState );
 	pCmdUI->Enable( bState );
 }
 
-void CChatFrame::OnChatDisconnect() 
+void CChatFrame::OnChatDisconnect()
 {
 	if ( m_pSession != NULL ) m_pSession->Close();
 }
@@ -565,7 +563,7 @@ void CChatFrame::OnChatDisconnect()
 /////////////////////////////////////////////////////////////////////////////
 // CChatFrame message handlers
 
-void CChatFrame::OnTimer(UINT_PTR nIDEvent) 
+void CChatFrame::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( nIDEvent == 1 )
 	{
@@ -578,38 +576,38 @@ void CChatFrame::OnTimer(UINT_PTR nIDEvent)
 		{
 			CWnd* pParentWnd = GetTopLevelParent();
 
-					FLASHWINFO pFWX;
-					
-					pFWX.cbSize		= sizeof(pFWX);
-					pFWX.dwFlags	= FLASHW_ALL | FLASHW_TIMERNOFG;
-					pFWX.uCount		= 3;
-					pFWX.dwTimeout	= 0;
-					pFWX.hwnd		= pParentWnd->GetSafeHwnd();
-					
+			FLASHWINFO pFWX;
+
+			pFWX.cbSize		= sizeof(pFWX);
+			pFWX.dwFlags	= FLASHW_ALL | FLASHW_TIMERNOFG;
+			pFWX.uCount		= 3;
+			pFWX.dwTimeout	= 0;
+			pFWX.hwnd		= pParentWnd->GetSafeHwnd();
+
 			::FlashWindowEx( &pFWX );
 		}
 	}
 }
 
-void CChatFrame::OnSetFocus(CWnd* pOldWnd) 
+void CChatFrame::OnSetFocus(CWnd* pOldWnd)
 {
 	CWnd::OnSetFocus( pOldWnd );
 	m_wndEdit.SetFocus();
 }
 
-void CChatFrame::OnMeasureItem(int /*nIDCtl*/, LPMEASUREITEMSTRUCT lpMeasureItemStruct) 
+void CChatFrame::OnMeasureItem(int /*nIDCtl*/, LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 {
 	lpMeasureItemStruct->itemWidth	= 20;
 	lpMeasureItemStruct->itemHeight	= 22;
 }
 
-void CChatFrame::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct) 
+void CChatFrame::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	CDC* pDC = CDC::FromHandle( lpDrawItemStruct->hDC );
 	CRect rc( &lpDrawItemStruct->rcItem );
-	
+
 	Emoticons.Draw( pDC, lpDrawItemStruct->itemID - 1, rc.left + 8, rc.top + 3 );
-	
+
 	if ( lpDrawItemStruct->itemState & ODS_SELECTED )
 	{
 		pDC->Draw3dRect( &rc, CoolInterface.m_crHighlight, CoolInterface.m_crHighlight );

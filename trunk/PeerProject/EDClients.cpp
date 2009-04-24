@@ -75,10 +75,10 @@ void CEDClients::Add(CEDClient* pClient)
 
 	ASSERT( pClient->m_pEdPrev == NULL );
 	ASSERT( pClient->m_pEdNext == NULL );
-	
+
 	pClient->m_pEdPrev = m_pLast;
 	pClient->m_pEdNext = NULL;
-	
+
 	if ( m_pLast != NULL )
 	{
 		m_pLast->m_pEdNext = pClient;
@@ -88,7 +88,7 @@ void CEDClients::Add(CEDClient* pClient)
 	{
 		m_pFirst = m_pLast = pClient;
 	}
-	
+
 	++m_nCount;
 }
 
@@ -97,17 +97,17 @@ void CEDClients::Remove(CEDClient* pClient)
 	CQuickLock oLock( m_pSection );
 
 	ASSERT( m_nCount > 0 );
-	
+
 	if ( pClient->m_pEdPrev != NULL )
 		pClient->m_pEdPrev->m_pEdNext = pClient->m_pEdNext;
 	else
 		m_pFirst = pClient->m_pEdNext;
-	
+
 	if ( pClient->m_pEdNext != NULL )
 		pClient->m_pEdNext->m_pEdPrev = pClient->m_pEdPrev;
 	else
 		m_pLast = pClient->m_pEdPrev;
-	
+
 	--m_nCount;
 }
 
@@ -124,7 +124,7 @@ void CEDClients::Clear()
 		pClient->Remove();
 		pClient = pNext;
 	}
-	
+
 	ASSERT( m_pFirst == NULL );
 	ASSERT( m_pLast == NULL );
 	ASSERT( m_nCount == 0 );
@@ -216,7 +216,7 @@ CEDClient* CEDClients::GetByIP(IN_ADDR* pAddress) const
 		if ( pClient->m_pHost.sin_addr.S_un.S_addr == pAddress->S_un.S_addr )
 			return pClient;
 	}
-	
+
 	return NULL;
 }
 
@@ -226,14 +226,14 @@ CEDClient* CEDClients::GetByID(DWORD nClientID, IN_ADDR* pServer, const Hashes::
 	{
 		if ( pServer && pClient->m_pServer.sin_addr.S_un.S_addr != pServer->S_un.S_addr )
 			continue;
-		
+
 		if ( pClient->m_nClientID == nClientID )
 		{
 			if ( !oGUID || validAndEqual( pClient->m_oGUID, oGUID ) )
 				return pClient;
 		}
 	}
-	
+
 	return NULL;
 }
 
@@ -243,7 +243,7 @@ CEDClient* CEDClients::GetByGUID(const Hashes::Guid& oGUID) const
 	{
 		if ( validAndEqual( pClient->m_oGUID, oGUID ) ) return pClient;
 	}
-	
+
 	return NULL;
 }
 
@@ -265,7 +265,7 @@ BOOL CEDClients::Merge(CEDClient* pClient)
 			return TRUE;
 		}
 	}
-	
+
 	return FALSE;
 }
 
@@ -298,7 +298,7 @@ bool CEDClients::IsFull(const CEDClient* pCheckThis)
 	// If we're checking a client that's already connected, say we aren't full. (don't drop it)
 	if ( pCheckThis && pCheckThis->IsValid() )
 		return false;
-	
+
 	// We're too full to start new connections
 	return true;
 }
@@ -313,7 +313,7 @@ BOOL CEDClients::IsOverloaded() const
 	{
 		if ( pClient->IsValid() ) nCount++;
 	}
-	
+
 	return ( nCount >= ( Settings.eDonkey.MaxLinks + 25 ) );
 }
 
@@ -353,7 +353,7 @@ void CEDClients::OnRun()
 		 Network.IsConnected() &&
 		 Settings.eDonkey.EnableToday )
 		RunGlobalStatsRequests( tNow );
-	
+
 	for ( CEDClient* pClient = m_pFirst ; pClient ; )
 	{
 		CEDClient* pNext = pClient->m_pEdNext;
@@ -370,7 +370,7 @@ void CEDClients::OnRun()
 BOOL CEDClients::OnAccept(CConnection* pConnection)
 {
 	ASSERT( pConnection != NULL );
-	
+
 	if ( !Network.IsConnected() || ( Settings.Connection.RequireForTransfers && !Settings.eDonkey.EnableToday ) )
 	{
 		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_DISABLED,
@@ -397,7 +397,7 @@ BOOL CEDClients::OnAccept(CConnection* pConnection)
 				(LPCTSTR)pConnection->m_sAddress );
 			return FALSE;
 		}
-		else 
+		else
 		{
 			theApp.Message( MSG_DEBUG, _T("Accepting ed2k connection from %s despite client connection limit."),
 				(LPCTSTR)pConnection->m_sAddress );
@@ -406,7 +406,7 @@ BOOL CEDClients::OnAccept(CConnection* pConnection)
 
 	CEDClient* pClient = new CEDClient();
 	pClient->AttachTo( pConnection );
-	
+
 	return TRUE;
 }
 
@@ -433,7 +433,7 @@ BOOL CEDClients::OnPacket(SOCKADDR_IN* pHost, CEDPacket* pPacket)
 		if ( CEDClient* pClient = GetByIP( &pHost->sin_addr ) )
 		{
 			pClient->m_nUDP = ntohs( pHost->sin_port );
-			
+
 			if ( ! pClient->OnUdpReask( pPacket ) )
 			{
 				Datagrams.Send( pHost, CEDPacket::New( ED2K_C2C_UDP_FILENOTFOUND, ED2K_PROTOCOL_EMULE ) );
@@ -500,7 +500,7 @@ BOOL CEDClients::OnPacket(SOCKADDR_IN* pHost, CEDPacket* pPacket)
 	default:
 		pPacket->Debug( _T("Unknown ED2K UDP opcode.") );
 	}
-	
+
 	return TRUE;
 }
 
@@ -532,36 +532,36 @@ void CEDClients::OnServerStatus(SOCKADDR_IN* /*pHost*/, CEDPacket* pPacket)
 		theApp.Message( MSG_INFO, _T("Server status received from %s"), pServer->m_sName );
 	else
 		theApp.Message( MSG_INFO, _T("Server status received from %s"),
-            (LPCTSTR)CString( inet_ntoa( m_pLastServer ) ) );
+			(LPCTSTR)CString( inet_ntoa( m_pLastServer ) ) );
 
 	// Read in the status packet
 	nLen = pPacket->GetRemaining();
 
-	if ( nLen >= 8 ) 
+	if ( nLen >= 8 )
 	{
 		// Current users and files indexed
 		nUsers = pPacket->ReadLongLE();
 		nFiles = pPacket->ReadLongLE();
 	}
-	if ( nLen >= 12 ) 
+	if ( nLen >= 12 )
 	{
 		// Maximum users allowed
 		nMaxUsers = pPacket->ReadLongLE();
 	}
-	if ( nLen >= 20 ) 
+	if ( nLen >= 20 )
 	{
 		// Client file limit. (Maximum files you can send to the server)
 		nFileLimit = pPacket->ReadLongLE();	// Soft limit. (Files over this are ignored)
 		pPacket->ReadLongLE();				// 'Hard' limit. (Obey previous, it saves bandwidth)
 	}
-	if ( nLen >= 24 ) 
+	if ( nLen >= 24 )
 	{
 		// UDP Flags. (This is important, it determines search types, etc)
 		nUDPFlags = pPacket->ReadLongLE();
 	}
-	if ( nLen >= 28 ) 
+	if ( nLen >= 28 )
 	{
-		// Low ID users. 
+		// Low ID users.
 		pPacket->ReadLongLE(); // We don't use this
 	}
 
@@ -575,14 +575,24 @@ void CEDClients::OnServerStatus(SOCKADDR_IN* /*pHost*/, CEDPacket* pPacket)
 
 	if ( pServer->Seen() < pServer->m_tStats )
 		HostCache.eDonkey.Update( pServer, 0, pServer->m_tStats );
-	if ( nUDPFlags & ED2K_SERVER_UDP_UNICODE ) 
+	if ( nUDPFlags & ED2K_SERVER_UDP_UNICODE )
 		pServer->m_nTCPFlags |= ED2K_SERVER_TCP_UNICODE;
-	if ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES2 ) 
+	if ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES2 )
 		pServer->m_nTCPFlags |= ED2K_SERVER_TCP_GETSOURCES2;
 
-	//CString strT;
-	//strT.Format( _T("Users:%d Files:%d Max Users:%d File limit:%d UDP flags:%08X"), nUsers, nFiles, nMaxUsers, nFileLimit, nUDPFlags );
-	//theApp.Message( MSG_INFO, strT );
+	CString strServerFlags;
+	strServerFlags.Format(
+		_T( "Server Flags 0x%08x -> GetSources1: %s, GetFiles: %s, Short Tags: %s, Unicode: %s, GetSources2: %s, 64 bit size: %s, UDP obfscation: %s, TCP obfscation: %s" ),
+		nUDPFlags,
+		( ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES ) ? _T("Yes") : _T("No") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_GETFILES ) ? _T("Yes") : _T("No") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_NEWTAGS ) ? _T("Yes") : _T("No") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_UNICODE ) ? _T("Yes") : _T("No") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES2 ) ? _T("Yes") : _T("No") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_64BITSIZE ) ? _T("Yes") : _T("No") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_UDPOBFUSCATION ) ? _T("Yes") : _T("No") ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_TCPOBFUSCATION ) ? _T("Yes") : _T("No") ) );
+	theApp.Message( MSG_DEBUG, strServerFlags );
 }
 
 // Send a server status request
@@ -622,11 +632,11 @@ void CEDClients::RunGlobalStatsRequests(DWORD tNow)
 				pHost->m_nFailures ++;
 				// If we've had multiple failures, remove the host
 				if ( pHost->m_nFailures > 3 )
-				{		
+				{
 					theApp.Message( MSG_INFO, _T("Removing ed2k server %s"), pHost->m_sName );
 					HostCache.eDonkey.Remove( pHost );
 				}
-			}	
+			}
 			// Reset the timer so we query another server right away
 			// m_tLastServerStats = 0;
 		}
@@ -644,16 +654,16 @@ void CEDClients::RunGlobalStatsRequests(DWORD tNow)
 		{
 			CHostCacheHost* pHost = (*i);
 
-			/*CString strT;
-			strT.Format( _T("  -Name:%s Last Stats:%d UDP flags:%08X"), pHost->m_sName, pHost->m_tStats, pHost->m_nUDPFlags );
-			theApp.Message( MSG_INFO, strT );*/
+			//CString strT;
+			//strT.Format( _T("  -Name:%s Last Stats:%d UDP flags:%08X"), pHost->m_sName, pHost->m_tStats, pHost->m_nUDPFlags );
+			//theApp.Message( MSG_INFO, strT );
 
 			// Check if this server could be asked for stats
-			if ( ( pHost->CanQuery( tSecs ) ) &&												// If it hasn't been searched recently	
-				 ( ( tSecs > pHost->m_tStats + Settings.eDonkey.StatsServerThrottle  ) ||		// AND we have not checked this host in a week OR
-				   ( ( pHost->m_nFailures > 0 ) && ( tSecs > pHost->m_tStats + 8*60*60  ) ) ) &&	// -last check failed, have not checked in 8 hours
-				 ( ( pHost->m_nUDPFlags == 0 ) ||												// AND it has no flags set OR
-				   ( m_bAllServersDone ) ) )														// -we have checked all servers		
+			if ( ( pHost->CanQuery( tSecs ) ) &&												// If it hasn't been searched recently
+				 ( ( tSecs > pHost->m_tStats + Settings.eDonkey.StatsServerThrottle  ) ||		// AND we have not checked this host in a week
+				   ( ( pHost->m_nFailures > 0 ) && ( tSecs > pHost->m_tStats + 8*60*60  ) ) ) && // OR last check failed, have not checked in 8 hours
+				 ( ( pHost->m_nUDPFlags == 0 ) ||												// AND it has no flags set
+				   ( m_bAllServersDone ) ) )													//  OR we have checked all servers
 			{
 				// Don't ask current neighbours for stats
 				if ( ! Neighbours.Get( &pHost->m_pAddress ) )

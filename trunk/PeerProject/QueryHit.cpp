@@ -676,7 +676,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 //////////////////////////////////////////////////////////////////////
 // CQueryHit from ED2K packet
 
-CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, DWORD m_nServerFlags, const Hashes::Guid& oSearchID )
+CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUnicode, const Hashes::Guid& oSearchID )
 {
 	CQueryHit* pFirstHit	= NULL;
 	CQueryHit* pLastHit		= NULL;
@@ -701,11 +701,12 @@ CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, DWO
 				auto_ptr< CQueryHit >pHit( new CQueryHit( PROTOCOL_ED2K, oSearchID ) );
 
 				// Enable chat for ed2k hits
+				pHit->m_bBrowseHost = TRUE;
 				pHit->m_bChat = TRUE;
 				
 				pHit->m_pVendor = VendorCache.Lookup( _T("ED2K") );
 				if ( ! pHit->m_pVendor ) pHit->m_pVendor = VendorCache.m_pNull;
-				pHit->ReadEDPacket( pPacket, pServer, m_nServerFlags );
+				pHit->ReadEDPacket( pPacket, pServer, bUnicode );
 				pHit->Resolve();
 
 				if ( pHit->m_bPush == TRI_TRUE )
@@ -735,6 +736,7 @@ CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, DWO
 				auto_ptr< CQueryHit >pHit( new CQueryHit( PROTOCOL_ED2K, oSearchID ) );
 				
 				// Enable chat for ed2k hits
+				pHit->m_bBrowseHost = TRUE;
 				pHit->m_bChat = TRUE;
 
 				pHit->m_oED2K = oHash;
@@ -751,7 +753,7 @@ CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, DWO
 			}
 		}
 
-		//Enable chat for ed2k hits
+		// Enable chat for ed2k hits
 		//pFirstHit->m_bChat = TRUE;
 		
 		//CheckBogus( pFirstHit );
@@ -1549,8 +1551,7 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 //////////////////////////////////////////////////////////////////////
 // CQueryHit ED2K result entry reader
 
-void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer,
-							 DWORD m_nServerFlags ) throw(...)
+void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUnicode)
 {
 	CString strLength(_T("")), strBitrate(_T("")), strCodec(_T(""));
 	DWORD nLength = 0;
@@ -1569,7 +1570,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer,
 			AfxThrowUserException();
 
 		CEDTag pTag;
-		if ( ! pTag.Read( pPacket, m_nServerFlags ) ) 
+		if ( ! pTag.Read( pPacket, bUnicode ) ) 
 			AfxThrowUserException();
 
 		if ( pTag.m_nKey == ED2K_FT_FILENAME )
@@ -1586,7 +1587,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer,
 				nSize.HighPart = (DWORD)( ( pTag.m_nValue & 0xFFFFFFFF00000000 ) >> 32 );
 			}
 		}
-		else if ( pTag.m_nKey == ED2K_FT_FILESIZEUPPER )
+		else if ( pTag.m_nKey == ED2K_FT_FILESIZE_HI )
 		{
 			nSize.HighPart = (DWORD)pTag.m_nValue;
 		}
@@ -1602,7 +1603,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer,
 			else
 				m_nHitSources--;
 		}
-		else if ( pTag.m_nKey == ED2K_FT_COMPLETESOURCES )
+		else if ( pTag.m_nKey == ED2K_FT_COMPLETE_SOURCES )
 		{
 			if ( ! pTag.m_nValue && m_bSize ) //If there are no complete sources
 			{
@@ -1831,12 +1832,10 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer,
 	}
 }
 
-void CQueryHit::ReadEDAddress(CEDPacket* pPacket, SOCKADDR_IN* pServer) throw(...)
+void CQueryHit::ReadEDAddress(CEDPacket* pPacket, SOCKADDR_IN* pServer)
 {
 	DWORD nAddress = m_pAddress.S_un.S_addr = pPacket->ReadLongLE();
-	if ( ! CEDPacket::IsLowID( nAddress ) && (
-		Network.IsReserved( (IN_ADDR*)&nAddress, false ) ||
-		Security.IsDenied( (IN_ADDR*)&nAddress ) ) )
+	if ( ! CEDPacket::IsLowID( nAddress ) && Security.IsDenied( (IN_ADDR*)&nAddress ) )
 		AfxThrowUserException();
 
 	m_nPort = pPacket->ReadShortLE();

@@ -125,7 +125,7 @@ CPrivateChatFrame* CChatWindows::FindED2KFrame(SOCKADDR_IN* pAddress)
 	// For High ID clients
 	CString strHighID;
 
-	strHighID.Format( _T("%s:%hu"), (LPCTSTR)CString( inet_ntoa( pAddress->sin_addr ) ), pAddress->sin_port );
+	strHighID.Format( _T("%s:%hu"), (LPCTSTR)CString( inet_ntoa( pAddress->sin_addr ) ), ntohs( pAddress->sin_port ) );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -174,7 +174,7 @@ CPrivateChatFrame* CChatWindows::FindED2KFrame(DWORD nClientID, SOCKADDR_IN* pSe
 
 CPrivateChatFrame* CChatWindows::OpenPrivate(const Hashes::Guid& oGUID, IN_ADDR* pAddress, WORD nPort, BOOL bMustPush, PROTOCOLID nProtocol, IN_ADDR* pServerAddress, WORD nServerPort)
 {
-	SOCKADDR_IN pHost;
+	SOCKADDR_IN pHost = {};
 	
 	pHost.sin_family	= PF_INET;
 	pHost.sin_addr		= *pAddress;
@@ -183,7 +183,7 @@ CPrivateChatFrame* CChatWindows::OpenPrivate(const Hashes::Guid& oGUID, IN_ADDR*
 	if ( pServerAddress == NULL )
 		return OpenPrivate( oGUID, &pHost, bMustPush, nProtocol, NULL );
 
-	SOCKADDR_IN pServer;
+	SOCKADDR_IN pServer = {};
 
 	pServer.sin_family	= PF_INET;
 	pServer.sin_addr	= *pServerAddress;
@@ -235,9 +235,9 @@ CPrivateChatFrame* CChatWindows::OpenPrivate(const Hashes::Guid& oGUID, SOCKADDR
 
 		// We need to connect to them, so either find or create an EDClient
 		if ( pServer )
-			pClient = EDClients.Connect(pHost->sin_addr.S_un.S_addr, pHost->sin_port, &pServer->sin_addr, pServer->sin_port, oGUID );
+			pClient = EDClients.Connect(pHost->sin_addr.S_un.S_addr, ntohs( pHost->sin_port ), &pServer->sin_addr, ntohs( pServer->sin_port ), oGUID );
 		else
-			pClient = EDClients.Connect(pHost->sin_addr.S_un.S_addr, pHost->sin_port, NULL, 0, oGUID );
+			pClient = EDClients.Connect(pHost->sin_addr.S_un.S_addr, ntohs( pHost->sin_port ), NULL, 0, oGUID );
 		// If we weren't able to create a client (Low-id and no server), then exit.
 		if ( ! pClient ) return NULL;
 		// Have it connect (if it isn't)
@@ -273,11 +273,11 @@ CPrivateChatFrame* CChatWindows::OpenPrivate(const Hashes::Guid& oGUID, SOCKADDR
 			pFrame->m_sNick.Format( _T("%lu@%s:%hu"),
 			pHost->sin_addr.S_un.S_addr,
 			(LPCTSTR)CString( inet_ntoa( pServer->sin_addr ) ),
-			pServer->sin_port );
+			ntohs( pServer->sin_port ) );
 		}
 		else	// Regular user (High ID)
 		{
-			pFrame->m_sNick.Format( _T("%s:%hu"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), pHost->sin_port );
+			pFrame->m_sNick.Format( _T("%s:%hu"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
 		}
 
 		// Open window

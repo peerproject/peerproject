@@ -32,7 +32,7 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-#define SMART_VERSION	56
+#define SMART_VERSION	58
 
 CSettings Settings;
 
@@ -56,7 +56,21 @@ CSettings::CSettings()
 	Live.FirstRun					= false;
 	Live.LastDuplicateHash			= L"";
 	Live.MaliciousWarning			= false;
+}
 
+CSettings::~CSettings()
+{
+	for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
+	{
+		delete m_pItems.GetNext( pos );
+	}
+}
+
+//////////////////////////////////////////////////////////////////////
+// CSettings load
+
+void CSettings::Load()
+{
 	// Add all settings
 	Add( _T(""), _T("DebugBTSources"), &General.DebugBTSources, false );
 	Add( _T(""), _T("DebugLog"), &General.DebugLog, false );
@@ -81,6 +95,8 @@ CSettings::CSettings()
 	Add( _T("Settings"), _T("IgnoreXPsp2"), &General.IgnoreXPsp2, false );
 	Add( _T("Settings"), _T("Language"), &General.Language, _T("en") );
 	Add( _T("Settings"), _T("LanguageRTL"), &General.LanguageRTL, false );
+	Add( _T("Settings"), _T("LastSettingsPage"), &General.LastSettingsPage );
+	Add( _T("Settings"), _T("LastSettingsIndex"), &General.LastSettingsIndex, 0 );
 	Add( _T("Settings"), _T("RatesInBytes"), &General.RatesInBytes, true );
 	Add( _T("Settings"), _T("RatesUnit"), &General.RatesUnit, 0 );
 	Add( _T("Settings"), _T("Running"), &General.Running, false, true );
@@ -110,6 +126,18 @@ CSettings::CSettings()
 	Add( _T("Interface"), _T("TipNeighbours"), &Interface.TipNeighbours, true );
 	Add( _T("Interface"), _T("TipSearch"), &Interface.TipSearch, true );
 	Add( _T("Interface"), _T("TipUploads"), &Interface.TipUploads, true );
+
+	Add( _T("Windows"), _T("RunWizard"), &Windows.RunWizard, false );
+	Add( _T("Windows"), _T("RunWarnings"), &Windows.RunWarnings, false );
+	Add( _T("Windows"), _T("RunPromote"), &Windows.RunPromote, false );
+
+	Add( _T("Toolbars"), _T("ShowRemote"), &Toolbars.ShowRemote, true );
+	Add( _T("Toolbars"), _T("ShowMonitor"), &Toolbars.ShowMonitor, true );
+
+	Add( _T("Fonts"), _T("DefaultFont"), &Fonts.DefaultFont, theApp.m_bIsVistaOrNewer ? _T( "Segoe UI" ) : _T( "Tahoma" ) );
+	Add( _T("Fonts"), _T("PacketDumpFont"), &Fonts.PacketDumpFont, _T("Lucida Console") );
+	Add( _T("Fonts"), _T("SystemLogFont"), &Fonts.SystemLogFont, theApp.m_bIsVistaOrNewer ? _T( "Segoe UI" ) : _T( "Tahoma" ) );
+	Add( _T("Fonts"), _T("DefaultSize"), &Fonts.DefaultSize, 11 );
 
 	Add( _T("Library"), _T("CreateGhosts"), &Library.CreateGhosts, true );
 	Add( _T("Library"), _T("FilterURI"), &Library.FilterURI );
@@ -150,6 +178,7 @@ CSettings::CSettings()
 	Add( _T("Library"), _T("ThumbSize"), &Library.ThumbSize, 128, 1, 16, 256, _T(" px") );
 	Add( _T("Library"), _T("TigerHeight"), &Library.TigerHeight, 9, 1, 1, 64 );
 	Add( _T("Library"), _T("TreeSize"), &Library.TreeSize, 200, 1, 0, 1024, _T(" px") );
+	Add( _T("Library"), _T("URLExportFormat"), &Library.URLExportFormat, _T("<a href=\"magnet:?xt=urn:bitprint:[SHA1].[TIGER]&amp;xt=urn:ed2khash:[ED2K]&amp;xt=urn:md5:[MD5]&amp;xl=[ByteSize]&amp;dn=[NameURI]\">[Name]</a><br>") );
 	Add( _T("Library"), _T("UseCustomFolders"), &Library.UseCustomFolders, true );
 	Add( _T("Library"), _T("UseFolderGUID"), &Library.UseFolderGUID, true );
 	Add( _T("Library"), _T("VirtualFiles"), &Library.VirtualFiles, false );
@@ -161,7 +190,7 @@ CSettings::CSettings()
 	Add( _T("WebServices"), _T("BitziOkay"), &WebServices.BitziOkay, false, true );
 	Add( _T("WebServices"), _T("BitziWebSubmit"), &WebServices.BitziWebSubmit, _T("http://bitzi.com/lookup/(SHA1).(TTH)?fl=(SIZE)&ff=(FIRST20)&fn=(NAME)&tag.ed2k.ed2khash=(ED2K)&(INFO)&a=(AGENT)&v=Q0.4&ref=peerproject") );
 	Add( _T("WebServices"), _T("BitziWebView"), &WebServices.BitziWebView, _T("http://bitzi.com/lookup/(URN)?v=detail&ref=peerproject") );
-	Add( _T("WebServices"), _T("BitziXML"), &WebServices.BitziXML, _T("http://ticket.bitzi.com/rdf/(SHA1).(TTH)") );
+	Add( _T("WebServices"), _T("BitziXML"), &WebServices.BitziXML, _T("http://ticket.bitzi.com/rdf/(SHA1)") );
 	Add( _T("WebServices"), _T("ShareMonkeyCid"), &WebServices.ShareMonkeyCid );
 	Add( _T("WebServices"), _T("ShareMonkeyOkay"), &WebServices.ShareMonkeyOkay, false, true );
 	Add( _T("WebServices"), _T("ShareMonkeySaveThumbnail"), &WebServices.ShareMonkeySaveThumbnail, false, true );
@@ -372,7 +401,7 @@ CSettings::CSettings()
 	Add( _T("eDonkey"), _T("ForceHighID"), &eDonkey.ForceHighID, true );
 	Add( _T("eDonkey"), _T("FrameSize"), &eDonkey.FrameSize, 10240, 1024, 1, 500, _T(" KB") );
 	Add( _T("eDonkey"), _T("GetSourcesThrottle"), &eDonkey.GetSourcesThrottle, 8*60*60*1000, 60*60*1000, 1, 24, _T(" h") );
-	Add( _T("eDonkey"), _T("LargeFileSupport"), &eDonkey.LargeFileSupport, false );
+	Add( _T("eDonkey"), _T("LargeFileSupport"), &eDonkey.LargeFileSupport, true );
 	Add( _T("eDonkey"), _T("LearnNewServers"), &eDonkey.LearnNewServers, false );
 	Add( _T("eDonkey"), _T("LearnNewServersClient"), &eDonkey.LearnNewServersClient, false );
 	Add( _T("eDonkey"), _T("MagnetSearch"), &eDonkey.MagnetSearch, true );
@@ -538,21 +567,8 @@ CSettings::CSettings()
 	Add( _T("IRC"), _T("RealName"), &IRC.RealName, _T("PeerIRC") );
 	Add( _T("IRC"), _T("ScreenFont"), &IRC.ScreenFont );
 	Add( _T("IRC"), _T("Updated"), &IRC.Updated, FALSE );
-}
 
-CSettings::~CSettings()
-{
-	for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
-	{
-		delete m_pItems.GetNext( pos );
-	}
-}
 
-//////////////////////////////////////////////////////////////////////
-// CSettings load
-
-void CSettings::Load()
-{
 	// Load settings
 	for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
 	{
@@ -1043,19 +1059,25 @@ void CSettings::SmartUpgrade()
 			theApp.WriteProfileString( L"Library", L"BitziXML", NULL );
 			theApp.WriteProfileString( L"", L"ShareMonkeyCid", NULL );
 			theApp.WriteProfileString( L"Library", L"BitziWebView", NULL );
-
-			HKEY hKey;
-
-			if ( RegOpenKeyEx( HKEY_CURRENT_USER,
-				_T("SOFTWARE\\PeerProject\\PeerProject\\Library"), 0, KEY_ALL_ACCESS, &hKey )
-				!= ERROR_SUCCESS ) return;
-			RegDeleteValue( hKey, _T("BitziOkay") );
-			RegCloseKey( hKey );
+			SHDeleteValue( HKEY_CURRENT_USER,
+				_T("SOFTWARE\\PeerProject\\PeerProject\\Library"), _T("BitziOkay") );
 		}
 
 		if ( General.SmartVersion < 56 )
 		{
 			WebServices.BitziXML = _T("http://bitzi.com/rdf/(SHA1)");
+		}
+
+		if ( General.SmartVersion < 57 )
+		{
+			// Delete old values
+			SHDeleteValue( HKEY_CURRENT_USER,
+				_T("SOFTWARE\\Shareaza\\Shareaza\\Toolbars"), _T("CRemoteWnd") );
+		}
+
+		if ( General.SmartVersion < 58 )
+		{
+			eDonkey.LargeFileSupport = true;
 		}
 	}
 

@@ -114,9 +114,9 @@ void CTorrentSeedDlg::OnDownload()
 		CLibraryFile* pFile = NULL;
 
 		CSingleLock oLibraryLock( &Library.m_pSection, TRUE );
-		if ( ( pFile = LibraryMaps.LookupFileBySHA1( oURL.m_oSHA1 ) ) != NULL
+		if ( ( pFile = LibraryMaps.LookupFileByBTH( oURL.m_oBTH ) ) != NULL
+			|| ( pFile = LibraryMaps.LookupFileBySHA1( oURL.m_oSHA1 ) ) != NULL
 			|| ( pFile = LibraryMaps.LookupFileByED2K( oURL.m_oED2K ) ) != NULL
-			|| ( pFile = LibraryMaps.LookupFileByBTH( oURL.m_oBTH ) ) != NULL
 			|| ( pFile = LibraryMaps.LookupFileByMD5( oURL.m_oMD5 ) ) != NULL )
 		{
 			CString strFormat, strMessage;
@@ -269,6 +269,74 @@ void CTorrentSeedDlg::OnTimer(UINT_PTR nIDEvent)
 		OnSeed();
 	}
 }
+
+
+/////////////////////////////////////////////////////////////////////////////
+// CTorrentSeedDlg Torrent Handling
+
+BOOL CTorrentSeedDlg::LoadTorrent(CString strPath)
+{
+	if ( ! m_pInfo.LoadTorrentFile( strPath ) )
+		return FALSE;	// Try again with manual Dialog
+
+	if ( Downloads.FindByBTH( m_pInfo.m_oBTH ) == NULL )	// Not already listed
+	{
+		CPeerProjectURL oURL( new CBTInfo( m_pInfo ) );
+		CDownload* pDownload = Downloads.Add( oURL );
+
+		if ( pDownload == NULL ) 			
+			return FALSE;
+
+		if ( ! Network.IsConnected() )
+			Network.Connect();
+
+		// ToDo: Fix existing fragment detection instead.
+
+		// Try Seeding First.
+		pDownload->SeedTorrent( m_sMessage );
+
+		if ( pDownload->GetVolumeRemaining() == 0 )
+		{
+			// Update last seeded torrent
+			CSingleLock pLock( &Library.m_pSection );
+			if ( pLock.Lock( 250 ) )
+			{
+				LibraryHistory.LastSeededTorrent.m_sName = m_pInfo.m_sName.Left( 40 );
+				LibraryHistory.LastSeededTorrent.m_sPath = strPath;
+				LibraryHistory.LastSeededTorrent.m_tLastSeeded = static_cast< DWORD >( time( NULL ) );
+
+				// If 'new' torrent, reset the counters
+				if ( !validAndEqual( LibraryHistory.LastSeededTorrent.m_oBTH, m_pInfo.m_oBTH ) )
+				{
+					LibraryHistory.LastSeededTorrent.m_nUploaded	= 0;
+					LibraryHistory.LastSeededTorrent.m_nDownloaded	= 0;
+					LibraryHistory.LastSeededTorrent.m_oBTH 		= m_pInfo.m_oBTH;
+				}
+			}
+		}
+		else // Cannot fully seed, so just download
+		{
+			pDownload->Remove();
+			pDownload = Downloads.Add( oURL );
+
+			if ( Settings.Downloads.ShowMonitorURLs )
+			{
+				CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
+				if ( Downloads.Check( pDownload ) )
+					pDownload->ShowMonitor( &pTransfersLock );
+			}
+		}
+	}
+
+	CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
+	pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CDownloadsWnd) );
+
+	if ( m_pInfo.HasEncodingError() )	// Check torrent is valid
+		CHelpDlg::Show( _T("GeneralHelp.BadTorrentEncoding") );
+
+	return TRUE;
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CTorrentSeedDlg thread run

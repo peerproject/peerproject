@@ -381,8 +381,7 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 		}
 		else
 		{
-			// Record the time that source counts checked even if no update
-			// was sent
+			// Record the time that source counts checked even if no update was sent
 			m_tTorrentSources = tNow;
 		}
 	}

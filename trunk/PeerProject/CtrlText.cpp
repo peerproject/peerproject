@@ -73,9 +73,9 @@ CTextCtrl::CTextCtrl() :
 	m_crBackground[2] = RGB( 224, 255, 224 );	// light green	- MSG_FACILITY_INCOMING
 	m_crBackground[3] = RGB( 224, 240, 255 );	// light blue	- MSG_FACILITY_OUTGOING
 
-	m_pFont.CreateFontW( -theApp.m_nDefaultFontSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+	m_pFont.CreateFontW( -(int)Settings.Fonts.DefaultSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, theApp.m_sSystemLogFont );
+		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.SystemLogFont );
 	m_cCharacter = CSize( 0, 0 );
 
 	// Try to get the number of lines to scroll when the mouse wheel is rotated
@@ -90,7 +90,7 @@ CTextCtrl::~CTextCtrl()
 /////////////////////////////////////////////////////////////////////////////
 // CTextCtrl operations
 
-BOOL CTextCtrl::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID) 
+BOOL CTextCtrl::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID)
 {
 	dwStyle |= WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_CHILD | WS_VSCROLL;
 	return CWnd::Create( NULL, NULL, dwStyle, rect, pParentWnd, nID, NULL );
@@ -159,7 +159,7 @@ void CTextCtrl::Clear(BOOL bInvalidate)
 		delete m_pLines.GetAt( nLine );
 	}
 	m_pLines.RemoveAll();
-	
+
 	m_nPosition = m_nTotal = 0;
 
 	m_nLastClicked = -1;
@@ -193,7 +193,7 @@ void CTextCtrl::UpdateScroll(BOOL bFull)
 		si.fMask	= SIF_POS;
 		si.nPos		= m_nPosition;
 	}
-	
+
 	SetScrollInfo( SB_VERT, &si );
 }
 
@@ -205,7 +205,7 @@ CFont* CTextCtrl::GetFont()
 /////////////////////////////////////////////////////////////////////////////
 // CTextCtrl message handlers
 
-void CTextCtrl::OnVScroll(UINT nSBCode, UINT /*nPos*/, CScrollBar* /*pScrollBar*/) 
+void CTextCtrl::OnVScroll(UINT nSBCode, UINT /*nPos*/, CScrollBar* /*pScrollBar*/)
 {
 	CQuickLock pLock( m_pSection );
 	SCROLLINFO si = {};
@@ -247,28 +247,28 @@ void CTextCtrl::OnVScroll(UINT nSBCode, UINT /*nPos*/, CScrollBar* /*pScrollBar*
 	Invalidate();
 }
 
-BOOL CTextCtrl::OnEraseBkgnd(CDC* /*pDC*/) 
+BOOL CTextCtrl::OnEraseBkgnd(CDC* /*pDC*/)
 {
 	return TRUE;
 }
 
-void CTextCtrl::OnPaint() 
+void CTextCtrl::OnPaint()
 {
 	CQuickLock pLock( m_pSection );
 	CRect rcClient;
 	CPaintDC dc( this );
-	
+
 	GetClientRect( &rcClient );
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &m_pFont );
-	
+
 	if ( m_cCharacter.cx == 0 ) m_cCharacter = dc.GetTextExtent( _T("X") );
 
 	BOOL bBottom	= ( m_nPosition >= m_nTotal );
 	BOOL bModified	= m_bProcess;
 
 	if ( m_bProcess ) m_nTotal = 0;
-	
+
 	int nWidth = ( rcClient.right - 4 ) / m_cCharacter.cx;
 
 	for ( int nLine = 0 ; nLine < m_pLines.GetSize() ; nLine++ )
@@ -376,7 +376,7 @@ void CTextCtrl::CopyText() const
 	}
 }
 
-void CTextCtrl::OnSize(UINT nType, int cx, int cy) 
+void CTextCtrl::OnSize(UINT nType, int cx, int cy)
 {
 	CWnd::OnSize( nType, cx, cy );
 	m_bProcess = TRUE;
@@ -409,7 +409,7 @@ void CTextCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 			for ( int i = 0; i < m_pLines.GetCount(); i++ )
 			{
 				CTextLine* pLineTemp = m_pLines.GetAt( i );
-				pLineTemp->m_bSelected = ( m_nLastClicked < nLine ) ? 
+				pLineTemp->m_bSelected = ( m_nLastClicked < nLine ) ?
 					( i >= m_nLastClicked && i <= nLine ) :
 					( i <= m_nLastClicked && i >= nLine );
 			}
@@ -535,7 +535,7 @@ int CTextLine::Process(int nWidth)
 	if ( m_pLine ) delete [] m_pLine;
 	m_pLine = NULL;
 	m_nLine = 0;
-	
+
 	int nLength = 0;
 	int nLast = 0;
 

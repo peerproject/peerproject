@@ -195,9 +195,9 @@ int CHomeDownloadsBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CRichTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
 	
-	m_pFont.CreateFontW( -(theApp.m_nDefaultFontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
+	m_pFont.CreateFontW( -(int)(Settings.Fonts.DefaultSize - 1), 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, theApp.m_sDefaultFont );
+		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 	
 	m_hHand = theApp.LoadCursor( IDC_HAND );
 	
@@ -565,8 +565,9 @@ BOOL CHomeDownloadsBox::ExecuteDownload(CDownload* pDownload)
 			strMessage.Format( strFormat, (LPCTSTR)strName );
 			
 			pLock.Unlock();
-			UINT nResponse = AfxMessageBox( strMessage, MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 );
-			if ( nResponse != IDYES ) return FALSE;
+			INT_PTR nResponse( AfxMessageBox( strMessage, MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 ) );
+			if ( nResponse != IDYES )
+				return FALSE;
 			pLock.Lock();
 		}
 		
@@ -594,8 +595,9 @@ BOOL CHomeDownloadsBox::ExecuteDownload(CDownload* pDownload)
 			strPrompt.Format( strFormat, (LPCTSTR)pDownload->m_sSafeName );
 			
 			pLock.Unlock();
-			int nResult = AfxMessageBox( strPrompt, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 );
-			if ( nResult != IDYES ) return FALSE;
+			INT_PTR nResult( AfxMessageBox( strPrompt, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) );
+			if ( nResult != IDYES )
+				return FALSE;
 			pLock.Lock();
 		}
 		
@@ -637,9 +639,9 @@ int CHomeLibraryBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CRichTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
 	
-	m_pFont.CreateFontW( -(theApp.m_nDefaultFontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
+	m_pFont.CreateFontW( -(int)(Settings.Fonts.DefaultSize - 1), 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, theApp.m_sDefaultFont );
+		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 	
 	m_hHand = theApp.LoadCursor( IDC_HAND );
 	

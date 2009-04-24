@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_CHATWINDOWS_H__F756916C_1CDF_460A_B1F2_8EC53E72B6C2__INCLUDED_)
-#define AFX_CHATWINDOWS_H__F756916C_1CDF_460A_B1F2_8EC53E72B6C2__INCLUDED_
-
 #pragma once
 
 class CChatFrame;
@@ -30,7 +27,6 @@ class CPrivateChatFrame;
 
 class CChatWindows
 {
-// Construction
 public:
 	CChatWindows();
 	virtual ~CChatWindows();
@@ -60,5 +56,3 @@ protected:
 };
 
 extern CChatWindows ChatWindows;
-
-#endif // !defined(AFX_CHATWINDOWS_H__F756916C_1CDF_460A_B1F2_8EC53E72B6C2__INCLUDED_)

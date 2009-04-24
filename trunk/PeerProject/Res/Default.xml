@@ -2151,14 +2151,14 @@
 		<text>Children's Internet use (including P2P file sharing) should always be under parental supervision.</text>
 	</document>
 	<document name="GeneralHelp.BadTorrentEncoding">
-		<text format="b">This torrent appears to have an encoding error</text>
+		<text format="b">Torrent encoding error detected</text>
 		<newline gap="8"/>
-		<text>Windows has reported a translation fault while decoding text in this torrent. It is
-		possible that the torrent is corrupt, or just incorrectly encoded. The torrent may
-		still download properly, although some file names could be incorrect.</text>
+		<text>Windows has reported a 'translation fault' while decoding text in this torrent. 
+    The torrent file may be corrupt, or just incorrectly encoded (often mixed Linux data). 
+    The target file itself can most likely still be downloaded.</text>
 		<newline gap="8"/>
-		<text>Most torrent creation programs should allow you to repair this torrent, which
-		will ensure it works properly in all BitTorrent applications.</text>
+		<text>Many torrent creation programs should allow you to repair this torrent, 
+    which will ensure it works properly in all BitTorrent applications.</text>
 		<newline gap="8"/>
 		<link target="http://peerproject.org/help/?torrentencoding">Click here for additional help</link>
 		<text>, or to download software to repair the torrent.</text>

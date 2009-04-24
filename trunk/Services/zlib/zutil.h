@@ -1,14 +1,12 @@
-/* zutil.h -- internal interface and configuration of the compression library
- * Copyright (C) 1995-2005 Jean-loup Gailly.
- * For conditions of distribution and use, see copyright notice in zlib.h
- */
+// zutil.h -- internal interface and configuration of the compression library
+// Copyright (C) 1995-2005 Jean-loup Gailly.
+// For conditions of distribution and use, see copyright notice in zlib.h
 
-/* WARNING: this file should *not* be used by applications. It is
-   part of the implementation of the compression library and is
-   subject to change. Applications should only use zlib.h.
- */
+// WARNING: this file should *not* be used by applications.
+// It is part of the implementation of the compression library
+// and is subject to change. Applications should only use zlib.h.
 
-/* @(#) $Id: zutil.h,v 1.4 2005/11/17 21:34:56 thetruecamper Exp $ */
+// @(#) $Id: zutil.h,v 1.4 2005/11/17 21:34:56 thetruecamper Exp $
 
 #ifndef ZUTIL_H
 #define ZUTIL_H
@@ -151,8 +149,8 @@ extern const char * const z_errmsg[10]; /* indexed by 2-zlib_error */
 #  define fdopen(fd,mode) NULL /* No fdopen() */
 #endif
 
-#if (defined(_MSC_VER) && (_MSC_VER > 600))
-#  if defined(_WIN32_WCE)
+#ifdef _MSC_VER
+#  ifdef _WIN32_WCE
 #    define fdopen(fd,mode) NULL /* No fdopen() */
 #    ifndef _PTRDIFF_T_DEFINED
        typedef int ptrdiff_t;

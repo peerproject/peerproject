@@ -554,12 +554,13 @@ void CNeighboursWnd::OnBrowseLaunch()
 	{
 		if ( pNeighbour->m_nProtocol != PROTOCOL_ED2K )
 		{
+			PROTOCOLID nProtocol = pNeighbour->m_nProtocol;
 			SOCKADDR_IN pAddress = pNeighbour->m_pHost;
 			Hashes::Guid oGUID = pNeighbour->m_oGUID;
 
 			pLock.Unlock();
 
-			new CBrowseHostWnd( &pAddress, oGUID );
+			new CBrowseHostWnd( nProtocol, &pAddress, oGUID );
 		}
 	}
 }
