@@ -6,13 +6,14 @@
 		description="Lietuviškai (Lithuanian Menu Fix)"
 		link="http://PeerProject.org" 
 		email="Contact(at)PeerProject.org" 
+		path="SkinVista"
 		language="lt" 
 		version="2.0" 
 		type="Skin"
 />
 <menus>
 	<menu name="CMainWnd.Tabbed" type="bar">
-		<menu text="- . . ..-. . .">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 		<item id="ID_TOOLS_SETTINGS" text="Nuostatos..."/>
 		<menu text="_Tinklas">
 			<item id="ID_NETWORK_CONNECT" text="Jungtis" shortcut="Ctrl+G"/>
@@ -100,7 +101,7 @@
 	</menu>
 
 	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="- . . ..-. . .">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 		<item id="ID_TOOLS_SETTINGS" text="Nuostatos..."/>
 		<menu text="_Tinklas">
 			<item id="ID_NETWORK_CONNECT" text="Jungtis" shortcut="Ctrl+G"/>
@@ -184,7 +185,7 @@
 	</menu>
 
 	<menu name="CMainWnd.Tabbed" type="bar">
-		<menu text="- . . ..-. . .">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 		<item id="ID_TOOLS_SETTINGS" text="Nuostatos..."/>
 		<menu text="_Tinklas">
 			<item id="ID_NETWORK_CONNECT" text="Jungtis" shortcut="Ctrl+G"/>

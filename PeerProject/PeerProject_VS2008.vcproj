@@ -30,8 +30,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copy zlib DLL, HashLib DLL, SQLite DLL..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
+				Description="Copying DLL Services and SVN Revision..."
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -122,8 +122,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copy zlib DLL, HashLib DLL, SQLite DLL..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
+				Description="Copying DLL Services and SVN Revision..."
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -216,8 +216,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copy zlib DLL, HashLib DLL, SQLite DLL..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
+				Description="Copying DLL Services and SVN Revision..."
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -314,8 +314,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copy zlib DLL, HashLib DLL, SQLite DLL..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
+				Description="Copying DLL Services and SVN Revision..."
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -967,6 +967,10 @@
 			</File>
 			<File
 				RelativePath="ResultFilters.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Revision.js"
 				>
 			</File>
 			<File
@@ -3153,6 +3157,10 @@
 			</File>
 			<File
 				RelativePath="ResultFilters.h"
+				>
+			</File>
+			<File
+				RelativePath="Revision.h"
 				>
 			</File>
 			<File

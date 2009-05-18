@@ -119,11 +119,12 @@ int CSearchPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( CTaskPanel::OnCreate( lpCreateStruct ) == -1 )return -1;
 	
 	m_bAdvanced = ( Settings.General.GUIMode != GUI_BASIC ) &&  ( Settings.Search.AdvancedPanel );
-	
+
+	// Set Box Heights & Caption Icons
 	m_boxSearch.Create( this, 136, _T("Search"), IDR_SEARCHFRAME );
-	m_boxAdvanced.Create( this, 110, _T("Advanced"), IDR_SEARCHFRAME );
+	m_boxAdvanced.Create( this, 92, _T("Options"), IDR_SEARCHFRAME );
 	m_boxSchema.Create( this, 0, _T("Schema"), IDR_SEARCHFRAME );
-	m_boxResults.Create( this, 86, _T("Results"), IDR_HOSTCACHEFRAME );
+	m_boxResults.Create( this, 86, _T("Results"), IDR_SEARCHFRAME );
 	
 	// Basic search box
 	AddBox( &m_boxSearch );
@@ -601,12 +602,12 @@ void CSearchInputBox::OnPaint()
 	
 	pDC->SetTextColor( 0 );
 	
-	LoadString( str, IDS_SEARCH_PANEL_INPUT_1 );
+	LoadString( str, IDS_SEARCH_PANEL_INPUT_1 );	// "Type Search Here"
 	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN, rc.right - BOX_MARGIN - 8, BOX_MARGIN + 16 );
 	pDC->ExtTextOut( rct.left, rct.top, nFlags, &rct, str, NULL );
 	pDC->ExcludeClipRect( &rct );
 
-	LoadString( str, IDS_SEARCH_PANEL_INPUT_2 );
+	LoadString( str, IDS_SEARCH_PANEL_INPUT_2 );	// "Type of File"
 	rct.OffsetRect( 0, 44 );
 	pDC->ExtTextOut( rct.left, rct.top, nFlags, &rct, str, NULL );
 	pDC->ExcludeClipRect( &rct );
@@ -788,30 +789,6 @@ int CSearchAdvancedBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CRect rc( 0, 0, 0, 0 );
 	CString strCaption;
 
-	if ( ! m_wndCheckBoxG2.Create( L"G2", WS_CHILD | WS_VISIBLE | WS_TABSTOP |
-		BS_CHECKBOX, rc, this, IDC_SEARCH_GNUTELLA2 ) ) return -1;
-	if ( ! m_wndCheckBoxG1.Create( L"G1", WS_CHILD | WS_VISIBLE | WS_TABSTOP |
-		BS_CHECKBOX, rc, this, IDC_SEARCH_GNUTELLA1 ) ) return -1;
-	if ( ! m_wndCheckBoxED2K.Create( L"ED2K", WS_CHILD | WS_VISIBLE | WS_TABSTOP |
-		BS_CHECKBOX, rc, this, IDC_SEARCH_EDONKEY ) ) return -1;
-	
-	m_wndCheckBoxG2.SetFont( &theApp.m_gdiFontBold );
-	m_wndCheckBoxG2.SetCheck( BST_CHECKED );
-	m_wndCheckBoxG1.SetFont( &theApp.m_gdiFontBold );
-	m_wndCheckBoxG1.SetCheck( BST_CHECKED );
-	m_wndCheckBoxED2K.SetFont( &theApp.m_gdiFontBold );
-	m_wndCheckBoxED2K.SetCheck( BST_CHECKED );
-
-	CBitmap bmProtocols;
-	bmProtocols.LoadBitmap( IDB_PROTOCOLS );
-	if ( Settings.General.LanguageRTL )
-		bmProtocols.m_hObject = CreateMirroredBitmap( (HBITMAP)bmProtocols.m_hObject );
-
-	m_gdiImageList.Create( 16, 16, ILC_COLOR32|ILC_MASK, 6, 1 ) ||
-	m_gdiImageList.Create( 16, 16, ILC_COLOR24|ILC_MASK, 6, 1 ) ||
-	m_gdiImageList.Create( 16, 16, ILC_COLOR16|ILC_MASK, 6, 1 );
-	m_gdiImageList.Add( &bmProtocols, RGB( 0, 255, 0 ) );
-
 	// Min combo
 	if ( ! m_wndSizeMin.Create( WS_CHILD|WS_VISIBLE|WS_TABSTOP|CBS_AUTOHSCROLL|CBS_DROPDOWN,
 		rc, this, IDC_SEARCH_SIZEMIN ) ) return -1;
@@ -848,6 +825,31 @@ int CSearchAdvancedBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		rc, this ) ) return -1;
 	m_wndSizeMinMax.SetFont( &theApp.m_gdiFont );
 
+	// Network checkboxes
+	if ( ! m_wndCheckBoxG2.Create( L"G2", WS_CHILD | WS_VISIBLE | WS_TABSTOP |
+		BS_CHECKBOX, rc, this, IDC_SEARCH_GNUTELLA2 ) ) return -1;
+	if ( ! m_wndCheckBoxG1.Create( L"G1", WS_CHILD | WS_VISIBLE | WS_TABSTOP |
+		BS_CHECKBOX, rc, this, IDC_SEARCH_GNUTELLA1 ) ) return -1;
+	if ( ! m_wndCheckBoxED2K.Create( L"ED2K", WS_CHILD | WS_VISIBLE | WS_TABSTOP |
+		BS_CHECKBOX, rc, this, IDC_SEARCH_EDONKEY ) ) return -1;
+	
+	m_wndCheckBoxG2.SetFont( &theApp.m_gdiFontBold );
+	m_wndCheckBoxG2.SetCheck( BST_CHECKED );
+	m_wndCheckBoxG1.SetFont( &theApp.m_gdiFontBold );
+	m_wndCheckBoxG1.SetCheck( BST_CHECKED );
+	m_wndCheckBoxED2K.SetFont( &theApp.m_gdiFontBold );
+	m_wndCheckBoxED2K.SetCheck( BST_CHECKED );
+
+	CBitmap bmProtocols;
+	bmProtocols.LoadBitmap( IDB_PROTOCOLS );
+	if ( Settings.General.LanguageRTL )
+		bmProtocols.m_hObject = CreateMirroredBitmap( (HBITMAP)bmProtocols.m_hObject );
+
+	m_gdiImageList.Create( 16, 16, ILC_COLOR32|ILC_MASK, 6, 1 ) ||
+	m_gdiImageList.Create( 16, 16, ILC_COLOR24|ILC_MASK, 6, 1 ) ||
+	m_gdiImageList.Create( 16, 16, ILC_COLOR16|ILC_MASK, 6, 1 );
+	m_gdiImageList.Add( &bmProtocols, RGB( 0, 255, 0 ) );
+
 	return 0;
 }
 
@@ -863,10 +865,6 @@ void CSearchAdvancedBox::OnSkinChange()
 			DestroyIcon( hIcon );
 		}
 	}
-
-	CString strControlTitle;
-	LoadString( strControlTitle, IDS_SEARCH_PANEL_INPUT_5 );
-	m_wndSizeMinMax.SetWindowText( strControlTitle );
 }
 
 void CSearchAdvancedBox::OnSize(UINT nType, int cx, int cy) 
@@ -875,31 +873,28 @@ void CSearchAdvancedBox::OnSize(UINT nType, int cx, int cy)
 	
 	HDWP hDWP = BeginDeferWindowPos( 3 );
 
+	if ( m_wndSizeMin.m_hWnd != NULL )
+	{
+		int width = ( cx - BOX_MARGIN * 3 ) / 2;
+		DeferWindowPos( hDWP, m_wndSizeMin, NULL,
+			BOX_MARGIN, 22, width, 219,										// Min Box
+			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
+		DeferWindowPos( hDWP, m_wndSizeMax, NULL,
+			BOX_MARGIN, 61, width, 219,										// Max Box
+			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
+	}
 	if ( m_wndCheckBoxG2.m_hWnd != NULL )
 		DeferWindowPos( hDWP, m_wndCheckBoxG2, NULL,
-			BOX_MARGIN + 22, 25, ( cx - BOX_MARGIN * 3 ) / 2 - 20, 14,		// G2 Checkbox
+			( cx / 2 ) + BOX_MARGIN + 25, 26, ( cx - BOX_MARGIN * 3 ) / 2 - 20, 14,	// G2 Checkbox
 			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 	if ( m_wndCheckBoxG1.m_hWnd != NULL )
 		DeferWindowPos( hDWP, m_wndCheckBoxG1, NULL,
-			BOX_MARGIN + 22, 45, ( cx - BOX_MARGIN * 3 ) / 2 - 20, 14,		// G1 Checkbox
+			( cx / 2 ) + BOX_MARGIN + 25, 46, ( cx - BOX_MARGIN * 3 ) / 2 - 20, 14,	// G1 Checkbox
 			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 	if ( m_wndCheckBoxED2K.m_hWnd != NULL )
 		DeferWindowPos( hDWP, m_wndCheckBoxED2K, NULL,
-			( cx / 2 ) + BOX_MARGIN + 26, 25, ( cx - BOX_MARGIN * 3 ) / 2 - 20, 14,	// ED2K Box
+			( cx / 2 ) + BOX_MARGIN + 25, 66, ( cx - BOX_MARGIN * 3 ) / 2 - 20, 14,	// ED2K Checkbox
 			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-	if ( m_wndSizeMin.m_hWnd != NULL )
-	{
-		int width = ( cx - BOX_MARGIN * 6 ) / 2;
-		DeferWindowPos( hDWP, m_wndSizeMin, NULL,
-			BOX_MARGIN, 81, width, 219,										// Min Box
-			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-		DeferWindowPos( hDWP, m_wndSizeMax, NULL,
-			cx - BOX_MARGIN - width, 81, width, 219,						// Max Box
-			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-		DeferWindowPos( hDWP, m_wndSizeMinMax, NULL,
-			BOX_MARGIN + width, 81 + 4, BOX_MARGIN * 4, 18, 				// " to "
-			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-	}
 	
 	EndDeferWindowPos( hDWP );
 }
@@ -934,15 +929,18 @@ void CSearchAdvancedBox::OnPaint()
 	
 	pDC->SetTextColor( 0 );
 
-	// Text of "Search on this Network" check boxes
-	LoadString( strControlTitle, IDS_SEARCH_PANEL_INPUT_3 );
-	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN, rc.right - BOX_MARGIN, BOX_MARGIN + 16 );
+	LoadString( strControlTitle, IDS_SEARCH_PANEL_INPUT_3 );		// "Network:"
+	rct.SetRect(  rc.right / 2 + BOX_MARGIN, BOX_MARGIN, rc.right - BOX_MARGIN, BOX_MARGIN + 16 );
 	pDC->ExtTextOut( rct.left, rct.top, nFlags, &rct, strControlTitle, NULL );
 	pDC->ExcludeClipRect( &rct );
 
-	// Text of "File size must be" above drop down boxes
-	LoadString( strControlTitle, IDS_SEARCH_PANEL_INPUT_4 );
-	rct.OffsetRect( 0, 64 - rct.top );
+	LoadString( strControlTitle, IDS_SEARCH_PANEL_INPUT_4 );		// "Min Filesize:"
+	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN, rc.right / 2, BOX_MARGIN + 16  );
+	pDC->ExtTextOut( rct.left, rct.top, nFlags, &rct, strControlTitle, NULL );
+	pDC->ExcludeClipRect( &rct );
+
+	LoadString( strControlTitle, IDS_SEARCH_PANEL_INPUT_5 );		// "Max Filesize:"
+	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN + 39,  rc.right / 2, BOX_MARGIN + 55  );
 	pDC->ExtTextOut( rct.left, rct.top, nFlags, &rct, strControlTitle, NULL );
 	pDC->ExcludeClipRect( &rct );
 	
@@ -960,9 +958,9 @@ void CSearchAdvancedBox::OnPaint()
 	}
 
 	int nStartPos = Settings.General.LanguageRTL ? -m_gdiImageList.GetImageCount() + 1 : 0;
-	m_gdiImageList.Draw( pDC, abs( nStartPos + 2 ), CPoint( BOX_MARGIN + 1, 23 ), ILD_NORMAL );		//G2 Icon
-	m_gdiImageList.Draw( pDC, abs( nStartPos + 1 ), CPoint( BOX_MARGIN + 1, 43 ), ILD_NORMAL );		//G1 Icon
-	m_gdiImageList.Draw( pDC, abs( nStartPos + 3 ), CPoint( PANEL_WIDTH / 2 - 2, 23 ), ILD_NORMAL ); //ED2K Icon
+	m_gdiImageList.Draw( pDC, abs( nStartPos + 2 ), CPoint( rc.right / 2 + BOX_MARGIN + 1, 24 ), ILD_NORMAL );	//G2 Icon
+	m_gdiImageList.Draw( pDC, abs( nStartPos + 1 ), CPoint( rc.right / 2 + BOX_MARGIN + 1, 44 ), ILD_NORMAL );	//G1 Icon
+	m_gdiImageList.Draw( pDC, abs( nStartPos + 3 ), CPoint( rc.right / 2 + BOX_MARGIN + 1, 64 ), ILD_NORMAL );	//ED2K Icon
 }
 
 LRESULT CSearchAdvancedBox::OnCtlColorStatic(WPARAM wParam, LPARAM /*lParam*/)

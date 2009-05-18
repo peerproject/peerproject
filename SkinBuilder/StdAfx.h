@@ -4,9 +4,10 @@
 #pragma once
 
 // Change these values to use different versions
-#define WINVER			0x0600 // 0x0501 /* Use Vista; 0x0501 is for Windows XP */
-#define _WIN32_WINNT	0x0600 // 0x0501
-#define _WIN32_IE		0x0700 // 0x0501 /* Use IE7; 0x0501 is for Internet Explorer 5.01 */
+#define WINVER			0x0600 // 0x0501 Use Vista; 0x0501 is for Windows XP
+#define _WIN32_WINDOWS	0x0600 // 0x0501 for XP
+#define _WIN32_WINNT	0x0600 // 0x0500 for 2000
+#define _WIN32_IE		0x0501 // 0x0700 for IE7; 0x0501 is for Internet Explorer 5.01
 #define _RICHEDIT_VER	0x0300 // 0x0100
 
 #define _WTL_NO_WTYPES      // WTL shouldn't define CRect/CPoint/CSize
@@ -45,12 +46,10 @@ extern CAppModule _Module;
 #include <gdiplus.h>
 using namespace Gdiplus;
 
-#if defined _M_IX86
-  #pragma comment(linker, "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
-#elif defined _M_IA64
-  #pragma comment(linker, "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='ia64' publicKeyToken='6595b64144ccf1df' language='*'\"")
-#elif defined _M_X64
+#ifdef WIN64
   #pragma comment(linker, "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='amd64' publicKeyToken='6595b64144ccf1df' language='*'\"")
+#elif defined _M_IX86
+  #pragma comment(linker, "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #else
   #pragma comment(linker, "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #endif

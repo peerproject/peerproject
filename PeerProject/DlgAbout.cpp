@@ -21,8 +21,9 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "DlgAbout.h"
 #include "CoolInterface.h"
+#include "DlgAbout.h"
+#include "Revision.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -68,16 +69,27 @@ BOOL CAboutDlg::OnInitDialog()
 	CString strCaption;
 
 	GetWindowText( strCaption );
-	strCaption += _T(" v");
+	strCaption += _T(" ");
 	strCaption += theApp.m_sVersion;
 	SetWindowText( strCaption );
 
 	m_wndTitle.GetWindowText( strCaption );
 	strCaption += theApp.m_sVersion;
-#ifndef _WIN64
-	strCaption += _T(" (") + theApp.m_sBuildDate + _T(")");
+#ifdef _WIN64
+	strCaption += _T(" 64-bit  (") + theApp.m_sBuildDate;
 #else
-	strCaption += L" x64 Edition (" + theApp.m_sBuildDate + _T(")");
+	strCaption += _T(" 32-bit  (") + theApp.m_sBuildDate;
+#endif
+#ifdef __REVISION__
+	strCaption += _T(" r") _T(__REVISION__) _T(")");
+#else
+	strCaption += _T(")");
+#endif
+#ifdef __MODAUTHOR__
+	strCaption += _T(" ") _T(__MODAUTHOR__);	// YOUR NAME (Edit in Revision.h)
+#endif
+#ifdef LAN_MODE
+	strCaption += _T(" LAN Mod");
 #endif
 	m_wndTitle.SetWindowText( strCaption );
 

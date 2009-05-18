@@ -7,6 +7,7 @@
  description="Français (French Menu Support)"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
+ path="SkinVista"
  language="fr"
  version="2.0"
  type="Skin"
@@ -14,7 +15,7 @@
 
 <menus>
 <menu name="CMainWnd.Tabbed" type="bar">
-<menu text="- . . ..-. . .">
+<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 
 <item id="ID_TOOLS_SETTINGS"		text="Réglages..."/>
 
@@ -110,7 +111,7 @@
 
 
 <menu name="CMainWnd.Basic" type="bar">
-<menu text="- . . ..-. . .">
+<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 
 <item id="ID_TOOLS_SETTINGS"		text="Réglages..."/>
 
@@ -202,7 +203,7 @@
 
 
 <menu name="CMainWnd.Windowed" type="bar">
-<menu text="- . . ..-. . .">
+<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 
 <item id="ID_TOOLS_SETTINGS"		text="Réglages..."/>
 

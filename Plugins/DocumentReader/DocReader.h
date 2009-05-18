@@ -1,10 +1,9 @@
 //
 // DocReader.h
 //
-//	Created by:		Rolandas Rudomanskis
-//
 // This file is part of PeerProject (peerproject.org) © 2008
 // Portions Copyright Shareaza Development Team, 2002-2005.
+// Originally Created by:	Rolandas Rudomanskis
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -22,8 +21,8 @@
 //
 
 #pragma once
-#include "resource.h"       // main symbols
-#include "globals.h"
+#include "Resource.h"       // Main symbols
+#include "Globals.h"
 #include "DocumentReader.h"
 
 using namespace std;

@@ -17,12 +17,15 @@
 #define Publisher     "PeerProject Development Team"
 #define Description   internal_name + " Filesharing System"
 #define date          GetDateTimeString('yyyy/mm/dd', '-', '')
-#ifdef Debug
+
+#if ConfigurationName == "Debug"
   #define output_name internal_name + "_" + version + "_" + date + "_" + PlatformName + "_" + ConfigurationName
-#elif ConfigurationName == "Debug"
-  #define output_name internal_name + "_" + version + "_" + date + "_" + ConfigurationName
 #elif alpha == "Yes"
-  #define output_name internal_name + "_" + version + "_" + date
+  #if PlatformName == "x64"
+    #define output_name internal_name + "_" + version + "_" + date + "_" + PlatformName
+  #else
+    #define output_name internal_name + "_" + version + "_" + date
+  #endif
 #elif PlatformName == "x64"
   #define output_name internal_name + "_" + version + "_" + PlatformName
 #else
@@ -123,14 +126,14 @@ Source: "Data\GeoIP.dat";  DestDir: "{app}"; Flags: overwritereadonly replacesam
 
 ; Plugins
 Source: "Plugins\7ZipBuilder\{#PlatformName} {#ConfigurationName}\7ZipBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
-Source: "Plugins\7ZipBuilder\{#PlatformName} {#ConfigurationName}\7zxr.dll"; DestDir: "{app}";         Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 Source: "Plugins\7ZipBuilder\{#PlatformName} {#ConfigurationName}\7zxr.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
+;Source: "Plugins\7ZipBuilder\{#PlatformName} {#ConfigurationName}\7zxr.dll"; DestDir: "{app}";        Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 Source: "Plugins\DocumentReader\{#PlatformName} {#ConfigurationName}\DocumentReader.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
 Source: "Plugins\GFLImageServices\{#PlatformName} {#ConfigurationName}\GFLImageServices.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
-Source: "Services\LibGFL\{#PlatformName}\LibGFL290.dll"; DestDir: "{app}";         Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 Source: "Services\LibGFL\{#PlatformName}\LibGFL290.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
+Source: "Services\LibGFL\{#PlatformName}\LibGFL290.dll"; DestDir: "{app}";         Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 Source: "Plugins\GFLLibraryBuilder\{#PlatformName} {#ConfigurationName}\GFLLibraryBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
@@ -141,8 +144,14 @@ Source: "Plugins\MediaImageServices\{#PlatformName} {#ConfigurationName}\MediaIm
 Source: "Plugins\MediaLibraryBuilder\{#PlatformName} {#ConfigurationName}\MediaLibraryBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
 Source: "Plugins\RARBuilder\{#PlatformName} {#ConfigurationName}\RARBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
-Source: "Plugins\RARBuilder\{#PlatformName} {#ConfigurationName}\Unrar.dll"; DestDir: "{app}";         Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-Source: "Plugins\RARBuilder\{#PlatformName} {#ConfigurationName}\Unrar.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
+#if PlatformName == "Win32"
+Source: "Plugins\RARBuilder\Unrar.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+;Source: "Plugins\RARBuilder\Unrar.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+#elif PlatformName == "x64"
+Source: "Plugins\RARBuilder\Unrar64.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+;Source: "Plugins\RARBuilder\Unrar64.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+#endif
+
 
 Source: "Plugins\RatDVDPlugin\{#PlatformName} {#ConfigurationName}\RatDVDReader.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
@@ -152,12 +161,12 @@ Source: "Plugins\SWFPlugin\{#PlatformName} {#ConfigurationName}\SWFPlugin.dll"; 
 
 Source: "Plugins\ZIPBuilder\{#PlatformName} {#ConfigurationName}\ZIPBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Plugins\VirusTotal\{#PlatformName} {#ConfigurationName}\VirusTotal.dll";   DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\VirusTotal\{#PlatformName} {#ConfigurationName}\VirusTotal.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
 Source: "Plugins\MediaPlayer\{#PlatformName} {#ConfigurationName}\MediaPlayer.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-; Don't register RazaWebHook.dll since it will setup PeerProject as download manager
-Source: "Services\RazaWebHook.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+; Don't register WebHook.dll since it will setup PeerProject as download manager
+Source: "Plugins\WebHook.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 
 ;--== Debug Databases ==--
