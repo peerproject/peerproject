@@ -1,10 +1,9 @@
 //
 // DocReader.cpp
 //
-// Originally Created by:	Rolandas Rudomanskis
-//
 // This file is part of PeerProject (peerproject.org) © 2008
 // Portions Copyright Shareaza Development Team, 2002-2007.
+// Originally Created by:	Rolandas Rudomanskis
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -25,7 +24,7 @@
 #include "DocReader.h"
 #include "Palette.h"
 
-LPCWSTR	CDocReader::uriBook			= L"http://www.limewire.com/schemas/book.xsd";
+LPCWSTR	CDocReader::uriBook 		= L"http://www.limewire.com/schemas/book.xsd";
 LPCWSTR	CDocReader::uriDocument		= L"http://www.shareaza.com/schemas/wordProcessing.xsd";
 LPCWSTR	CDocReader::uriSpreadsheet	= L"http://www.shareaza.com/schemas/spreadsheet.xsd";
 LPCWSTR CDocReader::uriPresentation	= L"http://www.shareaza.com/schemas/presentation.xsd";
@@ -177,12 +176,15 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	if ( SUCCEEDED(hr) )
 		pAttributes->Add( L"keywords", bsValue );
 
+	wchar_t buffer[40];
+
 	if ( pszSchema == CDocReader::uriPresentation )
 	{
 		hr = m_pDocProps->m_pSummProps->get_SlideCount( &nCount );
 		if ( SUCCEEDED(hr) )
 		{
-			_ltow( nCount, bsValue, 10 );
+			_ltow( nCount, buffer, 10 );
+			bsValue = CComBSTR(buffer);
 			pAttributes->Add( L"slides", bsValue );
 		}
 	}
@@ -196,7 +198,8 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 
 		if ( SUCCEEDED(hr) && nCount > 1 )
 		{
-			_ltow( nCount, bsValue, 10 );
+			_ltow( nCount, buffer, 10 );
+			bsValue = CComBSTR(buffer);
 			pAttributes->Add( L"pages", bsValue );
 		}
 	}

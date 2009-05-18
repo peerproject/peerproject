@@ -270,7 +270,7 @@ void CDownloadTabBar::DoPaint(CDC* pDC)
 	if ( !m_pItems.IsEmpty() )
 	{
 		CRect rcItem( rc.left + 3, rc.top + 1, 0, rc.bottom - 1 );
-		rcItem.right = static_cast< LONG >( ( rc.Width() - 3 * m_pItems.GetCount() ) / m_pItems.GetCount() + 3 );
+		rcItem.right = static_cast< LONG >( rc.Width() / m_pItems.GetCount() );
 		rcItem.right = min( rcItem.right, m_nMaximumWidth );
 
 		for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )

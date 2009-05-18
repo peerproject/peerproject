@@ -1,13 +1,9 @@
 //
 // ClassFactory.cpp
 //
-//	Date:			"$Date: $"
-//	Revision:		"$Revision: 1.0 $"
-//  Last change by:	"$Author: rolandas $"
-//	Created by:		Rolandas Rudomanskis
-//
 // This file is part of PeerProject (peerproject.org) © 2008
 // Portions Copyright Shareaza Development Team, 2002-2006.
+// Originally Created by:	Rolandas Rudomanskis
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -33,8 +29,8 @@
 // CRatDVDClassFactory - IClassFactory Implementation
 //
 //  This is a fairly simple CF. We don't provide support for licensing
-//  in this sample, nor aggregation. We just create and return a new 
-//  CRatDVDPlugin object.
+//  in this sample, nor aggregation. We just create and return
+//  a new CRatDVDPlugin object.
 //
 
 ////////////////////////////////////////////////////////////////////////
@@ -112,7 +108,7 @@ STDMETHODIMP CRatDVDClassFactory::CreateInstance(LPUNKNOWN punk, REFIID riid, vo
 	}
 	else return E_NOINTERFACE;
 
-	LockServer(TRUE); // on success, bump up the lock count
+	LockServer(TRUE);	// on success, bump up lock count
 
 	return hr;
 }
@@ -125,4 +121,3 @@ STDMETHODIMP CRatDVDClassFactory::LockServer(BOOL fLock)
 	if (fLock) DllAddRef();	else DllRelease();
 	return S_OK;
 }
-

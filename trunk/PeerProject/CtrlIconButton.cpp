@@ -218,7 +218,7 @@ void CIconButtonCtrl::OnPaint()
 
 	if ( strText.GetLength() )
 	{
-		ptIcon.x = rc.left + 3;
+		ptIcon.x = rc.left + 5;
 	}
 	else
 	{

@@ -108,39 +108,36 @@ void CDownloadGroup::CopyList(CList< CDownload* >& pList)
 
 BOOL CDownloadGroup::Link(CDownload* pDownload)
 {
-	// Filter by BitTorrent flag
-	if ( m_bTorrent && pDownload->IsTorrent() )
+	if ( ! m_pFilters.IsEmpty() )
 	{
-		Add( pDownload );
-		return TRUE;
-	}
-
-	if ( m_pFilters.IsEmpty() )
-		return FALSE;
-
-	for ( POSITION pos = m_pFilters.GetHeadPosition() ; pos ; )
-	{
-		CString strFilter = m_pFilters.GetNext( pos );
-		
-		if ( strFilter.GetAt( 0 ) == _T('.') )
+		for ( POSITION pos = m_pFilters.GetHeadPosition() ; pos ; )
 		{
-			// Filter by extension
-			int nPos( pDownload->m_sName.ReverseFind( _T('.') ) );
-			if ( nPos != -1 && ! strFilter.CompareNoCase( pDownload->m_sName.Mid( nPos ) ) )
+			CString strFilter = m_pFilters.GetNext( pos );
+			
+			if ( strFilter.GetAt( 0 ) == _T('.') )
 			{
+				int nPos( pDownload->m_sName.ReverseFind( _T('.') ) );
+				if ( nPos != -1 && ! strFilter.CompareNoCase( pDownload->m_sName.Mid( nPos ) ) )
+				{
+					// Filter by extension
+					Add( pDownload );
+					return TRUE;
+				}
+			}
+			else if ( CQuerySearch::WordMatch( pDownload->m_sName, strFilter ) )
+			{
+				// Filter by keywords
 				Add( pDownload );
 				return TRUE;
 			}
 		}
-		else
-		{
-			// Filter by keywords
-		if ( CQuerySearch::WordMatch( pDownload->m_sName, strFilter ) )
-		{
-			Add( pDownload );
-			return TRUE;
-		}
 	}
+
+	if ( m_bTorrent && pDownload->IsTorrent() )
+	{
+		// Filter by BitTorrent flag last
+		Add( pDownload );
+		return TRUE;
 	}
 
 	return FALSE;

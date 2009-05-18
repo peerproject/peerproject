@@ -146,17 +146,17 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	bmImages.DeleteObject();
 
 	m_wndList.InsertColumn( 0, _T("Address"), LVCFMT_LEFT, 110, -1 );
-	m_wndList.InsertColumn( 1, _T("Port"), LVCFMT_CENTER, 45, 0 );
-	m_wndList.InsertColumn( 2, _T("Time"), LVCFMT_CENTER, 60, 1 );
-	m_wndList.InsertColumn( 3, _T("Packets"), LVCFMT_CENTER, 74, 2 );
-	m_wndList.InsertColumn( 4, _T("Bandwidth"), LVCFMT_CENTER, 80, 3 );
-	m_wndList.InsertColumn( 5, _T("Total"), LVCFMT_CENTER, 90, 4 );
+	m_wndList.InsertColumn( 1, _T("Port"), LVCFMT_CENTER, 44, 0 );
+	m_wndList.InsertColumn( 2, _T("Time"), LVCFMT_CENTER, 56, 1 );
+	m_wndList.InsertColumn( 3, _T("Packets"), LVCFMT_CENTER, 70, 2 );
+	m_wndList.InsertColumn( 4, _T("Bandwidth"), LVCFMT_CENTER, 84, 3 );
+	m_wndList.InsertColumn( 5, _T("Total"), LVCFMT_CENTER, 96, 4 );
 	m_wndList.InsertColumn( 6, _T("Flow"), LVCFMT_CENTER, 0, 5 );
-	m_wndList.InsertColumn( 7, _T("Leaves"), LVCFMT_CENTER, 45, 6 );
+	m_wndList.InsertColumn( 7, _T("Leaves"), LVCFMT_CENTER, 52, 6 );
 	m_wndList.InsertColumn( 8, _T("Mode"), LVCFMT_CENTER, 60, 7 );
 	m_wndList.InsertColumn( 9, _T("Client"), LVCFMT_LEFT, 100, 8 );
 	m_wndList.InsertColumn( 10, _T("Name"), LVCFMT_LEFT, 100, 9 );
-	m_wndList.InsertColumn( 11, _T("Country"), LVCFMT_LEFT, 38, 10 );
+	m_wndList.InsertColumn( 11, _T("Country"), LVCFMT_LEFT, 44, 10 );
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
 

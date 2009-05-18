@@ -2692,15 +2692,15 @@
 	<string id="8163" value="Downloading browse response (%2.f%%)..."/>
 	<string id="8164" value="Unable to connect to host to browse user."/>
 	<string id="8165" value="Unable to download file listing. This host may not support browsing."/>
-	<string id="8166" value="Search on this network:"/>
+	<string id="8166" value="Network:"/>
 	<string id="8167" value="All Networks"/>
 	<string id="8176" value="Search PeerProject"/>
 	<string id="8177" value="Type some keywords to search for:"/>
 	<string id="8178" value="What type of file is it?"/>
 	<string id="8179" value="(Clear Search History)"/>
-	<string id="8180" value="File size must be"/>
-	<string id="8181" value="&#160;to"/><!-- size from xx TO xx-->
-	<string id="8208" value="PeerProject is creating hashes for %Iu file(s):"/>
+	<string id="8180" value="Min Filesize:"/>
+	<string id="8181" value="Max Filesize:"/>
+	<string id="8208" value="PeerProject is creating hashes for %Iu files:"/>
 	<string id="8223" value="%i days and %i hours"/>
 	<string id="8224" value="PeerProject is downloading:"/>
 	<string id="8225" value="This download is paused:"/>

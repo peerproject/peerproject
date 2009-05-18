@@ -12,7 +12,7 @@
 		<button id="ID_TAB_SEARCH" text="Search"/>
 		<button id="ID_TAB_TRANSFERS" text="Downloads"/>
 		<button id="ID_TAB_LIBRARY" text="Library"/>
-		<button id="ID_TAB_MEDIA" text="Media Player"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="Chatrooms"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
@@ -23,8 +23,8 @@
 		<button id="ID_TAB_TRANSFERS" text="Transfers"/>
 		<button id="ID_TAB_NETWORK" text="Network"/>
 		<button id="ID_TAB_LIBRARY" text="Library"/>
-		<button id="ID_TAB_MEDIA" text="Media Player"/>
-		<button id="ID_TAB_IRC" text="IRC Chat"/>
+		<button id="ID_TAB_MEDIA" text="Media"/>
+		<button id="ID_TAB_IRC" text="Chat"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Connect"/>
@@ -2154,11 +2154,11 @@
 		<text format="b">Torrent encoding error detected</text>
 		<newline gap="8"/>
 		<text>Windows has reported a 'translation fault' while decoding text in this torrent. 
-    The torrent file may be corrupt, or just incorrectly encoded (often mixed Linux data). 
-    The target file itself can most likely still be downloaded.</text>
+		The torrent file may be corrupt, or just incorrectly encoded (often mixed Linux data). 
+		The target file itself can most likely still be downloaded.</text>
 		<newline gap="8"/>
 		<text>Many torrent creation programs should allow you to repair this torrent, 
-    which will ensure it works properly in all BitTorrent applications.</text>
+		which will ensure it works properly in all BitTorrent applications.</text>
 		<newline gap="8"/>
 		<link target="http://peerproject.org/help/?torrentencoding">Click here for additional help</link>
 		<text>, or to download software to repair the torrent.</text>

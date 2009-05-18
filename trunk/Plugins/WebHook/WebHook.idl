@@ -1,0 +1,59 @@
+//
+// WebHook.idl : IDL source for WebHook
+//
+// This file is part of PeerProject (peerproject.org) © 2009
+// Portions Copyright Shareaza Development Team, 2009.
+//
+// PeerProject is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 3
+// of the License, or later version (at your option).
+//
+// PeerProject is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License 3.0
+// along with PeerProject; if not, write to Free Software Foundation, Inc.
+// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+//
+
+import "oaidl.idl";
+import "ocidl.idl";
+import "objsafe.idl";	// CATID_SafeForScripting, CATID_SafeForInitializing
+import "exdisp.idl";	// DWebBrowserEvents2
+
+[
+	uuid(6B207D90-4C7A-43C5-863C-AC110209D745),
+	version(1.0),
+	helpstring("PeerProject Web Link Handler Library")
+]
+library WebHookLib
+{
+	importlib("stdole2.tlb");
+
+	[
+		object,
+		dual,
+		oleautomation,
+		uuid(974BFF32-401C-45CD-B60D-764E6E34540D),
+		nonextensible,
+		helpstring("PeerProject Web Link Handler Interface")
+	]
+	interface IWebHook : IDispatch
+	{
+		[id(1), helpstring("Send URL to PeerProject.")] HRESULT AddLink([in] VARIANT oLink);
+	};
+
+	[
+		uuid(0EEDB912-C5FA-486F-8334-57288578C627),
+		helpstring("PeerProject Downloads Web Hook")
+	]
+	coclass WebHook
+	{
+		[default] interface IWebHook;
+		interface DWebBrowserEvents2;
+		interface IObjectWithSite;
+	};
+};

@@ -1,13 +1,9 @@
 //
-// CRatDVDPlugin.h
-//
-//	Date:			"$Date: $"
-//	Revision:		"$Revision: 1.0 $"
-//  Last change by:	"$Author: rolandas $"
-//	Created by:		Rolandas Rudomanskis
+// RatDVDPlugin.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008
 // Portions Copyright Shareaza Development Team, 2002-2006.
+// Originally Created by:	Rolandas Rudomanskis
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License

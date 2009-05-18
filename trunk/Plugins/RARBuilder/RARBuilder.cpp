@@ -53,9 +53,9 @@ CModule::~CModule()
 bool CModule::LoadUnrar()
 {
 #ifdef _WIN64
-	LPCTSTR szUnRAR = _T("unrar64.dll");
+	LPCTSTR szUnRAR = _T("Unrar64.dll");
 #else
-	LPCTSTR szUnRAR = _T("unrar.dll");
+	LPCTSTR szUnRAR = _T("Unrar.dll");
 #endif
 	m_hUnrar = LoadLibrary( szUnRAR );
 	if ( ! m_hUnrar )

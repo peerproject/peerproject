@@ -1,10 +1,9 @@
 //
 // Palette.h
 //
-//	Created by:		Rolandas Rudomanskis
-//
 // This file is part of PeerProject (peerproject.org) © 2008
 // Portions Copyright Shareaza Development Team, 2002-2005.
+// Originally Created by:	Rolandas Rudomanskis
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -87,7 +86,7 @@ void SetStdPalette(LPVOID pDestinationPalette, WORD wBitsPerSample)
 void SetGrayPalette(RGBQUAD* pal, WORD wBitsPerSample)
 {
 	if ( wBitsPerSample == NULL ) return;
-	
+
 	DWORD biClrUsed = ( 1 << wBitsPerSample );
 	for ( ULONG i = 0 ; i < biClrUsed ; i++ )
 		pal[ i ].rgbBlue = pal[ i ].rgbGreen = pal[ i ].rgbRed = 

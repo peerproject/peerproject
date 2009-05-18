@@ -518,9 +518,9 @@ CAPTION "About PeerProject"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
     CONTROL         154,IDC_BANNER,"Static",SS_BITMAP,0,0,367,31
-    LTEXT           "PeerProject File Sharing Client ",IDC_TITLE,20,45,262,10,SS_CENTERIMAGE
-    LTEXT           "Copyright © PeerProject Development Team, 2002-",IDC_COPYRIGHT,20,60,262,12
-    LTEXT           "PeerProject is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or later version (at your option).",IDC_STATIC,20,75,262,24
+    LTEXT           "PeerProject Filesharing Client ",IDC_TITLE,20,45,262,10,SS_CENTERIMAGE
+    LTEXT           "© PeerProject Development Team, 2002-",IDC_COPYRIGHT,20,60,262,12
+    LTEXT           "GPL v3:  PeerProject is free software; you can redistribute and modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or later version at your option.",IDC_STATIC,20,75,262,24
     LTEXT           "CreativeCommons BY-NC-SA covers original artwork.",IDC_STATIC,20,105,262,12
     LTEXT           "Please be aware of local laws and norms.",IDC_STATIC,20,120,262,18
     LTEXT           "http://PeerProject.org/",IDC_WEB,20,142,125,10
@@ -1941,7 +1941,7 @@ BEGIN
     LTEXT           "Assume file is 100% complete and reverify",IDC_COMPLETE_AND_VERIFY,14,55,272,8
     LTEXT           "Forget all known sources",IDC_FORGET_SOURCES,14,69,272,8
     LTEXT           "Merge with local file and verify",IDC_MERGE_AND_VERIFY,14,83,272,8
-    LTEXT           "Cancel download but save incomplete file(s)",IDC_CANCEL_DOWNLOAD,14,97,272,8
+    LTEXT           "Cancel download but save incomplete files",IDC_CANCEL_DOWNLOAD,14,97,272,8
     EDITTEXT        IDC_ERASE_FROM,74,194,65,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_ERASE_TO,164,194,65,12,ES_AUTOHSCROLL
     PUSHBUTTON      "Erase",IDC_ERASE,236,193,50,14
@@ -3190,8 +3190,8 @@ BEGIN
     IDS_GENERAL_RETRY       "Retry"
     IDS_GENERAL_IGNORE      "Ignore"
     IDS_GENERAL_TRYAGAIN    "Try Again"
-	IDS_GENERAL_CONTINUE    "Continue"
-	IDS_INFO_REMEMBER       "&Remember my selection next time"
+    IDS_GENERAL_CONTINUE    "Continue"
+    IDS_INFO_REMEMBER       "&Remember my selection next time"
 END
 
 STRINGTABLE 
@@ -3301,7 +3301,7 @@ BEGIN
     IDS_SEARCH_PANEL_RESULTS_INACTIVE "No active search"
     IDS_SEARCH_PANEL_RESULTS_NONE "No files found"
     IDS_SEARCH_PANEL_RESULTS_FORMAT "%lu file in %lu hit|%lu file in %lu hits|%lu files in %lu hits"
-	IDS_SEARCH_PANEL_FILTERED "%lu filtered"
+    IDS_SEARCH_PANEL_FILTERED "%lu filtered"
     IDS_SEARCH_PANEL_INPUT_CAPTION "Search"
     IDS_SEARCH_PANEL_RESULTS_CAPTION "Results"
     IDS_SEARCH_PANEL_CLEAR  "Clear"
@@ -3316,8 +3316,8 @@ BEGIN
     IDS_BROWSE_DOWNLOADING  "Downloading browse response (%2.f%%)..."
     IDS_BROWSE_CANT_CONNECT "Unable to connect to host to browse user."
     IDS_BROWSE_NOT_SUPPORTED "Unable to download file listing.  This host may not support browsing."
-    IDS_SEARCH_PANEL_INPUT_3 "Search on this network:"
     IDS_SEARCH_ALL_NETWORKS "All Networks"
+    IDS_SEARCH_PANEL_INPUT_3 "Network:"
 END
 
 STRINGTABLE 
@@ -3326,13 +3326,13 @@ BEGIN
     IDS_SEARCH_PAD_WORDS    "Type some keywords to search for:"
     IDS_SEARCH_PAD_TYPE     "What type of file is it?"
     IDS_SEARCH_PAD_CLEAR_HISTORY "(Clear Search History)"
-    IDS_SEARCH_PANEL_INPUT_4 "File size must be:"
-    IDS_SEARCH_PANEL_INPUT_5 "to"
+    IDS_SEARCH_PANEL_INPUT_4 "Min Filesize:"
+	IDS_SEARCH_PANEL_INPUT_5 "Max Filesize:"
 END
 
 STRINGTABLE 
 BEGIN
-    IDS_HASH_MESSAGE        "PeerProject is creating hashes for %Iu file(s):"
+    IDS_HASH_MESSAGE        "PeerProject is creating hashes for %Iu files:"
     IDS_DLM_TIME_DAH        "%i days and %i hours"
 END
 
@@ -4052,7 +4052,7 @@ BEGIN
     IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH "You cannot assume this download is complete and reverify it because you do not yet have any partial verification data, such as tiger-tree volume, eDonkey hashset or BitTorrent hashset.  Without verification information the download cannot be reverified."
     IDS_DOWNLOAD_EDIT_COMPLETE_VERIFY "Are you sure you want to assume this download is complete and reverify it?  The whole file will be considered, and PeerProject will accept parts which pass verification and redownload parts which fail verification."
     IDS_DOWNLOAD_EDIT_CHANGE_SIZE "You have made changes to the file size.  Are you sure you want to change the file size for this download?"
-    IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD "Do you wish to cancel this download but save the incomplete file(s)?"
+    IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD "Do you wish to cancel this download but save the incomplete files?"
     IDS_DOWNLOAD_EDIT_BAD_HASH "You have typed an %s hash value, however it is invalid.  Please check it and try again."
     IDS_DOWNLOAD_EDIT_CHANGE_HASH "You have provided an %s hash value which is different to the one currently associated with this download.  Are you sure you want to change the %s hash now?"
     IDS_DOWNLOAD_QUEUE_HUGE "Dropping download source %s for ""%s"" because queue position %i is too high."
@@ -4253,7 +4253,7 @@ BEGIN
     ID_LIBRARY_COLUMNS      "Select metadata columns to be displayed..."
     ID_DOWNLOADS_REMOTE_PREVIEW "Download preview image for the selected download."
     ID_DOWNLOADS_CLEAR_PAUSED "Clear downloads which have been paused."
-    ID_UPLOADS_LAUNCH       "Launch the selected shared file(s)."
+    ID_UPLOADS_LAUNCH       "Launch the selected shared file."
     ID_UPLOADS_DISCONNECT   "Disconnect the selected upload transfer(s)."
     ID_UPLOADS_CLEAR_COMPLETED "Clear uploads which have been completed."
     ID_UPLOADS_CLEAR        "Clear the selected upload(s) from the list."
@@ -4465,7 +4465,7 @@ END
 STRINGTABLE 
 BEGIN
     ID_MEDIA_VIS            "Select an audio visualisation plugin..."
-    ID_DOWNLOADS_LAUNCH_COMPLETE "Open or play the selected file(s)."
+    ID_DOWNLOADS_LAUNCH_COMPLETE "Open or play the selected file."
     ID_CHAT_CONNECT         "Connect to the chat session."
     ID_CHAT_DISCONNECT      "Disconnect the chat session."
     ID_CHAT_BROWSE          "Browse the user's profile and shared files."

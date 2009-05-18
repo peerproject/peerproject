@@ -1,7 +1,7 @@
 //
 // CoreUtils.cpp
 //
-//	Created by:		Rolandas Rudomanskis
+//	Created by:	Rolandas Rudomanskis
 //  Last change by:	thetruecamper
 //
 // This file is part of PeerProject (peerproject.org) © 2008

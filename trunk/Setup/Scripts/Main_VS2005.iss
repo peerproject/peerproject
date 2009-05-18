@@ -127,12 +127,12 @@ Source: "Services\zlibwapi-x64.dll"; DestDir: "{app}\Plugins"; DestName: "zlibwa
 #endif
 
 ; Plugins
-Source: "{#root}\Plugins\*.dll";   DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver; Excludes: "LibGFL*.dll,zlibwapi.dll,Unrar.dll,7zxr.dll"
+Source: "{#root}\Plugins\*.dll";   DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver; Excludes: "LibGFL*.dll,zlibwapi.dll,Unrar.dll,Unrar64.dll,7zxr.dll"
 Source: "{#root}\Plugins\*.dll";   DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension;           Excludes: "libgfl*.dll,zlibwapi.dll"
-Source: "Services\MediaPlayer.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\MediaPlayer.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-; Don't register RazaWebHook.dll since it will setup PeerProject as download manager
-Source: "Services\RazaWebHook.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+; Don't register WebHook.dll since it will setup PeerProject as download manager
+Source: "Plugins\WebHook.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 
 ;--== Debug Databases ==--
