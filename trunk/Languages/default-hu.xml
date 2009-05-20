@@ -2636,8 +2636,8 @@
 	<string id="8177" value="Írja ide a keresendő szót vagy szavakat:"/>
 	<string id="8178" value="Fájltípus:"/>
 	<string id="8179" value="(előzmények törlése)"/>
-	<string id="8180" value="Fájlméret"/>
-	<string id="8181" value="&#160;-"/><!-- size from xx TO xx-->
+	<string id="8180" value="Fájlméret Min:"/>
+	<string id="8181" value="Fájlméret Max:"/>
 	<string id="8208" value="%Iu fájl hashelése:"/>
 	<string id="8223" value="%i nap %i óra"/>
 	<string id="8224" value="Letöltés folyamatban:"/>

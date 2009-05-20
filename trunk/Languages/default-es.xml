@@ -2560,14 +2560,14 @@
 	<string id="8163" value="Descargando listado de archivos (%2.f%%)..."/>
 	<string id="8164" value="Fué imposible establecer la conexión."/>
 	<string id="8165" value="Este usuario no soporta la exploración de usuario."/>
-	<string id="8166" value="Buscar en esta red:"/>
+	<string id="8166" value="Redes:"/>
 	<string id="8167" value="Todas las redes"/>
 	<string id="8176" value="Buscar en PeerProject"/>
 	<string id="8177" value="Teclea algunas palabras claves para buscar:"/>
 	<string id="8178" value="¿Qué tipo de archivo deseas buscar?"/>
 	<string id="8179" value="(Limpiar Historía de Búsqueda)"/>
-	<string id="8180" value="El tamaño debe ser"/>
-	<string id="8181" value="&#160;a"/><!-- size from xx TO xx-->
+	<string id="8180" value="Tamaño Min:"/>
+	<string id="8181" value="Tamaño Max:"/>
 	<string id="8208" value="PeerProject esta creando hashes para %Iu archivo(s):"/>
 	<string id="8223" value="%i dias y %i horas"/>
 	<string id="8224" value="PeerProject esta descargando:"/>

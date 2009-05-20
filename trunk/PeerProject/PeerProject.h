@@ -122,6 +122,9 @@ public:
 	// Shell functions
 	BOOL		(WINAPI *m_pfnAssocIsDangerous)(LPCWSTR);
 	HINSTANCE	m_hShlWapi;
+	HINSTANCE	m_hShell32;
+	HRESULT		(WINAPI *m_pfnSHGetFolderPathW)(HWND hwnd, int csidl, HANDLE hToken, DWORD dwFlags, LPWSTR pszPath);
+	HRESULT		(WINAPI *m_pfnSHGetKnownFolderPath)(REFKNOWNFOLDERID rfid, DWORD dwFlags, HANDLE hToken, PWSTR *ppszPath);
 
 	// GeoIP - IP to Country lookup
 	HINSTANCE	m_hGeoIP;
@@ -170,6 +173,13 @@ public:
 	static BOOL			OpenMET(LPCTSTR lpszFileName, BOOL bDoIt);
 	// Open url
 	static BOOL			OpenURL(LPCTSTR lpszFileName, BOOL bDoIt, BOOL bSilent = FALSE);
+
+	CString				GetWindowsFolder() const;
+	CString				GetProgramFilesFolder() const;
+	CString				GetDocumentsFolder() const;
+	CString				GetDownloadsFolder() const;
+	CString				GetAppDataFolder() const;
+	CString				GetLocalAppDataFolder() const;
 
 protected:
 	CSplashDlg*					m_dlgSplash;
@@ -222,13 +232,6 @@ HBITMAP	CreateMirroredBitmap(HBITMAP hbmOrig);
 
 LRESULT CALLBACK KbdHook(int nCode, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam);
-
-CString GetFolderPath( int nFolder );
-CString GetWindowsFolder();
-CString GetProgramFilesFolder();
-CString GetDocumentsFolder();
-CString GetAppDataFolder();
-CString GetLocalAppDataFolder();
 
 // Create directory. If one or more of the intermediate folders do not exist, they are created as well.
 BOOL CreateDirectory(LPCTSTR szPath);

@@ -2489,15 +2489,15 @@
 	<string id="8163" value="Pobieranie listy plików (%2.f%%)..."/>
 	<string id="8164" value="Nie można się połączyć do zdalnego hosta, aby przeglądać użytkownika. "/>
 	<string id="8165" value="Nie można pobrać listy plików.  Ten Serwer może nie obsługiwać przeglądania."/>
-	<string id="8166" value="Szukaj w tej sieci:"/>
-	<string id="8167" value="Wszystkie sieci"/> <!-- string id="8176" value="Search PeerProject"/ ? Co tutaj znaczy PeerProject?? -->
-	<string id="8176" value="Szukaj"/>
+	<string id="8166" value="Sieci:"/>
+	<string id="8167" value="Wszystkie sieci"/>
+	<string id="8176" value="Szukaj"/> <!-- ? Co tutaj znaczy PeerProject?? -->
 	<string id="8177" value="Wpisz szukane słowa kluczowe:"/>
 	<string id="8178" value="Jaki jest typ pliku?"/>
 	<string id="8179" value="(Wyczyść historię wyszukiwania)"/>
-	<string id="8180" value="Rozmiar pliku musi być"/>
-	<string id="8181" value="&#160;do"/> <!-- size from xx TO xx-->
-	<string id="8208" value="PeerProject oblicza hash'e dla %Iu plik(ów):"/>
+	<string id="8180" value="Rozmiar pliku min:"/>
+	<string id="8181" value="Rozmiar pliku max:"/>
+	<string id="8208" value="PeerProject oblicza hash'e dla %Iu plików:"/>
 	<string id="8223" value="%i dni i %i godzin"/>
 	<string id="8224" value="PeerProject pobiera:"/>
 	<string id="8225" value="To pobieranie zostało wstrzymane:"/>

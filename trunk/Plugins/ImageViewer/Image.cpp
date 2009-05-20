@@ -2,7 +2,7 @@
 // Image.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008
-// Original author Michael Stokes released portions into the public domain. 
+// Original author Michael Stokes released portions into the public domain.
 // You are free to redistribute and modify this page without any restrictions.
 //
 // This file contains a utility class CImage, for managing bitmap images.
@@ -457,7 +457,7 @@ IImageServicePlugin* CImage::LoadService(LPCTSTR pszFile)
 
 	CRegKey pKey;
 		
-	if ( pKey.Open( HKEY_LOCAL_MACHINE,
+	if ( pKey.Open( HKEY_CURRENT_USER,
 		_T("SOFTWARE\\PeerProject\\PeerProject\\Plugins\\ImageService") ) != ERROR_SUCCESS )
 		return NULL;
 	

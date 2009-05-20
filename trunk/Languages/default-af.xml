@@ -2657,14 +2657,14 @@
 	<string id="8163" value="Deurblaai-data word ontvang (%2.f%%)..."/>
 	<string id="8164" value="Kon nie aan die gasheer konnekteer om deur sy inligting te blaai nie."/>
 	<string id="8165" value="Kon nie die lêerlys aflaai nie.  Hierdie gasheer mag dalk nie deurblaaie ondersteun nie."/>
-	<string id="8166" value="Soek op hierdie netwerk:"/>
+	<string id="8166" value="Netwerk:"/>
 	<string id="8167" value="Alle Netwerke"/>
 	<string id="8176" value="Soek Met PeerProject"/>
 	<string id="8177" value="Tik sleutelwoorde in om voor te soek:"/>
 	<string id="8178" value="Watter tipe lêer is dit?"/>
 	<string id="8179" value="(Maak Soekgeskiedenis Skoon)"/>
-	<string id="8180" value="Lêergrootte moet wees tussen"/>
-	<string id="8181" value="&#160;en"/><!-- size from xx TO xx-->
+	<string id="8180" value="Lêergrootte Min:"/>
+	<string id="8181" value="Lêergrootte Max:"/>
 	<string id="8208" value="PeerProject prosesseer %Iu lêer(s):"/>
 	<string id="8223" value="%i dae en %i ure"/>
 	<string id="8224" value="PeerProject is besig om af te laai:"/>

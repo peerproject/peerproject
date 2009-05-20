@@ -2670,14 +2670,14 @@
 	<string id="8163" value="Gaunamas peržiūros atsakymas (%2.f%%)..."/>
 	<string id="8164" value="Neįmanoma susisiekti su adresatu naudotojo duomenims peržiūrėti."/>
 	<string id="8165" value="Neįmanoma parsisiųsti failų sąrašo. Šis adresatas galbūt nepalaiko peržiūros."/>
-	<string id="8166" value="Ieškoti šiame tinkle:"/>
+	<string id="8166" value="Tinkle:"/>
 	<string id="8167" value="Visuose tinkluose"/>
 	<string id="8176" value="Ieškoti P2P tinkle"/>
 	<string id="8177" value="Įrašykite kelis paieškos raktažodžius:"/>
 	<string id="8178" value="Koks tai failo tipas?"/>
 	<string id="8179" value="(Valyti paieškos žurnalą)"/>
-	<string id="8180" value="Failo dydis turi būti"/>
-	<string id="8181" value="&#160;iki"/><!-- size from xx TO xx-->
+	<string id="8180" value="Failo dydis min:"/>
+	<string id="8181" value="Failo dydis max:"/>
 	<string id="8208" value="„PeerProject“ kuria maišą (tapatyb. kodą) failui (liko %Iu):"/>
 	<string id="8223" value="%i d. ir %i val."/>
 	<string id="8224" value="„PeerProject“ siunčiasi:"/>

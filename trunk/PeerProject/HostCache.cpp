@@ -125,7 +125,8 @@ void CHostCache::Serialize(CArchive& ar)
 	// 14 - Added m_sCountry
 	// 15 - Added m_bDHT and m_oBtGUID (Ryo-oh-ki)
 	// 16 - Added m_nUDPPort, m_oGUID and m_nKADVersion (Ryo-oh-ki)
-	int nVersion = 16;
+	// 17 - Added m_tConnect (Ryo-oh-ki)
+	int nVersion = 17;
 
 	if ( ar.IsStoring() )
 	{
@@ -311,11 +312,7 @@ CHostCacheHostPtr CHostCacheList::Add(IN_ADDR* pAddress, WORD nPort, DWORD tSeen
 		return NULL;
 
 	// Don't add own firewalled IPs
-	if ( Network.IsFirewalledAddress( &pAddress->S_un.S_addr, TRUE, TRUE ) ) 
-		return NULL;
-
-	// Don't add own IP if set not to. (Above check may not run if not ignoring local IPs)
-	if ( ( Settings.Connection.IgnoreOwnIP ) && Network.IsSelfIP( *pAddress ) )
+	if ( Network.IsFirewalledAddress( &pAddress->S_un.S_addr, TRUE ) ) 
 		return NULL;
 
 	// check against IANA Reserved address.
@@ -830,12 +827,12 @@ bool CHostCache::CheckMinimumED2KServers()
 		LoadDefaultED2KServers();
 
 		// Get the server list from eMule (mods) if possible
-		CString strPrograms( GetProgramFilesFolder() );
+		CString strPrograms( theApp.GetProgramFilesFolder() );
 		Import( strPrograms + _T("\\eMule\\config\\server.met"), TRUE );
 		Import( strPrograms + _T("\\Neo Mule\\config\\server.met"), TRUE );
 		Import( strPrograms + _T("\\hebMule\\config\\server.met"), TRUE );
 
-		CString strAppData( GetAppDataFolder() );
+		CString strAppData( theApp.GetAppDataFolder() );
 		Import( strAppData + _T("\\aMule\\server.met"), TRUE );
 
 		// Get server list from Web
@@ -1030,6 +1027,8 @@ void CHostCacheHost::Serialize(CArchive& ar, int nVersion)
 		ar << m_nUDPPort;
 		ar.Write( &m_oGUID[0], m_oGUID.byteCount );
 		ar << m_nKADVersion;
+
+		ar << m_tConnect;
 	}
 	else
 	{
@@ -1120,6 +1119,11 @@ void CHostCacheHost::Serialize(CArchive& ar, int nVersion)
 			ReadArchive( ar, &m_oGUID[0], m_oGUID.byteCount );
 			m_oGUID.validate();
 			ar >> m_nKADVersion;
+		}
+
+		if ( nVersion >= 17 )
+		{
+			ar >> m_tConnect;
 		}
 	}
 }

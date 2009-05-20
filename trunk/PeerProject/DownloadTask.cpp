@@ -232,7 +232,7 @@ void CDownloadTask::RunAllocate()
 void CDownloadTask::RunCopySimple()
 {
 	CString strSafeName = SafeFilename( m_sName );
-	int nExt = strSafeName.ReverseFind( _T('.') );	
+	int nExt = strSafeName.ReverseFind( _T('.') );
 	CString strName( nExt > 0 ? strSafeName.Left( nExt ) : strSafeName );
 	CString strExt(  nExt > 0 ? strSafeName.Mid(  nExt ) : _T("") );
 
@@ -243,7 +243,7 @@ void CDownloadTask::RunCopySimple()
 	if ( m_sPath.CompareNoCase( Settings.Downloads.CompletePath ) != 0 )
 		oPathList.AddTail( Settings.Downloads.CompletePath );
 
-	CString sDefaultCompletePath = GetDocumentsFolder() + _T("\\PeerProject Downloads");
+	CString sDefaultCompletePath = theApp.GetDownloadsFolder();
 	if ( m_sPath.CompareNoCase( sDefaultCompletePath ) != 0 )
 		oPathList.AddTail( sDefaultCompletePath );
 
@@ -252,7 +252,7 @@ void CDownloadTask::RunCopySimple()
 		oPathList.AddTail( sInPlacePath );
 
 	for ( POSITION pos = oPathList.GetHeadPosition(); pos; )
-			{
+	{
 		CString sPath = oPathList.GetNext( pos );
 
 		if ( ! CreateDirectory( sPath ) )

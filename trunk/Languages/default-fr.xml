@@ -2671,14 +2671,14 @@
 	<string id="8163" value="Télécharge la réponse de navigation (%2.f%%)..."/>
 	<string id="8164" value="Impossible de se connecter à l'hôte afin de parcourir l'utilisateur."/>
 	<string id="8165" value="Impossible de télécharger la liste de fichiers. Cet hôte ne semble pas supporter ou autoriser la navigation."/>
-	<string id="8166" value="Rechercher sur le réseau&#160;:"/>
+	<string id="8166" value="Réseau&#160;:"/>
 	<string id="8167" value="Tous les réseaux"/>
 	<string id="8176" value="Rechercher dans PeerProject"/>
 	<string id="8177" value="Tapez les mots-clés à rechercher&#160;:"/>
 	<string id="8178" value="Quel type de fichier&#160;?"/>
 	<string id="8179" value="(Nettoyer l'historique des recherches)"/>
-	<string id="8180" value="La taille du fichier doit être"/>
-	<string id="8181" value="&#160;à"/><!-- size from xx TO xx-->
+	<string id="8180" value="La taille min :"/>
+	<string id="8181" value="La taille max :"/>
 	<string id="8208" value="PeerProject crée les hachages pour %Iu fichier(s)&#160;:"/>
 	<string id="8223" value="%i jours et %i heures"/>
 	<string id="8224" value="PeerProject télécharge&#160;:"/>

@@ -69,7 +69,7 @@ BOOL CAboutDlg::OnInitDialog()
 	CString strCaption;
 
 	GetWindowText( strCaption );
-	strCaption += _T(" ");
+	strCaption += _T(" v");
 	strCaption += theApp.m_sVersion;
 	SetWindowText( strCaption );
 

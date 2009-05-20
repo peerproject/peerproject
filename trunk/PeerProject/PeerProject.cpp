@@ -47,6 +47,7 @@
 #include "PeerProjectURL.h"
 #include "QueryHashMaster.h"
 #include "Registry.h"
+#include "Revision.h"		// To update buildtime
 #include "Scheduler.h"
 #include "SchemaCache.h"
 #include "Security.h"
@@ -315,6 +316,9 @@ BOOL CPeerProjectApp::InitInstance()
 
 	ShowStartupText();
 
+	if ( Settings.Live.FirstRun )
+		Plugins.Register();
+
 	DDEServer.Create();
 	IEProtocol.Create();
 
@@ -544,6 +548,9 @@ int CPeerProjectApp::ExitInstance()
 
 	if ( m_hTheme != NULL )
 		FreeLibrary( m_hTheme );
+
+	if ( m_hShell32 != NULL )
+		FreeLibrary( m_hShell32 );
 
 	if ( m_hShlWapi != NULL )
 		FreeLibrary( m_hShlWapi );
@@ -852,6 +859,12 @@ void CPeerProjectApp::InitResources()
 		(FARPROC&)m_pfnAssocIsDangerous = GetProcAddress( m_hShlWapi, "AssocIsDangerous" );
 	}
 
+	if ( ( m_hShell32 = LoadLibrary( _T("shell32.dll") ) ) != NULL )
+	{
+		(FARPROC&)m_pfnSHGetFolderPathW = GetProcAddress( m_hShell32, "SHGetFolderPathW" );
+		(FARPROC&)m_pfnSHGetKnownFolderPath = GetProcAddress( m_hShell32, "SHGetKnownFolderPath" );
+	}
+
 	// Load the GeoIP library for mapping IPs to countries
 	if ( ( m_hGeoIP = CustomLoadLibrary( _T("GeoIP.dll") ) ) != NULL )
 	{
@@ -883,11 +896,11 @@ void CPeerProjectApp::InitResources()
 		RegCloseKey( hKey );
 	}
 
-//	For Disabled Font Manager-
-//	HDC screen = GetDC( 0 );
-//	scaleX = GetDeviceCaps( screen, LOGPIXELSX ) / 96.0;
-//	scaleY = GetDeviceCaps( screen, LOGPIXELSY ) / 96.0;
-//	ReleaseDC( 0, screen );
+	//For Disabled Font Manager-
+	//HDC screen = GetDC( 0 );
+	//scaleX = GetDeviceCaps( screen, LOGPIXELSX ) / 96.0;
+	//scaleY = GetDeviceCaps( screen, LOGPIXELSY ) / 96.0;
+	//ReleaseDC( 0, screen );
 
 	// Get the fonts from the registry
 	//CString strFont = m_bIsVistaOrNewer ? _T( "Segoe UI" ) : _T( "Tahoma" ) ;
@@ -1820,96 +1833,244 @@ LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 	return ::CallNextHookEx( theApp.m_hHookMouse, nCode, wParam, lParam );
 }
 
-CString GetFolderPath( int nFolder )
+
+/////////////////////////////////////////////////////////////////////////////
+// Folder Path Methods for Windows Vista/7 or XP/2000/2003 
+
+CString CPeerProjectApp::GetWindowsFolder() const
 {
-	TCHAR pszFolderPath[ MAX_PATH ] = { 0 };
+	HRESULT hr;
+	CString sWindows;
 
-	if ( SUCCEEDED( SHGetFolderPath( NULL, nFolder, NULL, NULL, pszFolderPath ) ) )
-		return CString( pszFolderPath );
-
-	return _T("");
-}
-
-CString GetWindowsFolder()
-{
-	TCHAR pszWindowsPath[ MAX_PATH ] = { 0 };
-	UINT nReturnValue = GetWindowsDirectory( pszWindowsPath, MAX_PATH );
-	if ( nReturnValue == 0 || nReturnValue > MAX_PATH ) return CString( _T("c:\\windows") );
-
-	CharLower( pszWindowsPath );
-	return CString( pszWindowsPath );
-}
-
-CString GetProgramFilesFolder()
-{
-	TCHAR pszProgramsPath[ MAX_PATH ] = { 0 };
-	BOOL bOK = FALSE;
-
-	if ( SUCCEEDED( SHGetFolderPath( NULL, CSIDL_PROGRAM_FILES, NULL, NULL, pszProgramsPath ) ) )
-		bOK = TRUE;
-
-	if ( !bOK || ! *pszProgramsPath )
+	// Vista+
+	if ( m_pfnSHGetKnownFolderPath )
 	{
-		// Get drive letter
-		UINT nReturnValue = GetWindowsDirectory( pszProgramsPath, MAX_PATH );
-		if ( nReturnValue == 0 || nReturnValue > MAX_PATH ) return CString( _T("c:\\program files") );
-
-		_tcscpy( pszProgramsPath + 1, _T(":\\program files") );
+		PWSTR pPath = NULL;
+		hr = m_pfnSHGetKnownFolderPath( FOLDERID_Windows,
+			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
+		if ( pPath )
+		{
+			sWindows = pPath;
+			CoTaskMemFree( pPath );
+		}
+		if ( SUCCEEDED( hr ) && ! sWindows.IsEmpty() )
+		{
+			return sWindows;
+		}
 	}
 
-	CharLower( pszProgramsPath );
-	return CString( pszProgramsPath );
+	// XP
+	if ( m_pfnSHGetFolderPathW )
+	{
+		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_WINDOWS, NULL, NULL,
+			sWindows.GetBuffer( MAX_PATH ) );
+		sWindows.ReleaseBuffer();
+		if ( SUCCEEDED( hr  ) && ! sWindows.IsEmpty() )
+		{
+			return sWindows;
+		}
+	}
+
+	// Legacy
+	GetWindowsDirectory( sWindows.GetBuffer( MAX_PATH ), MAX_PATH );
+	sWindows.ReleaseBuffer();
+	return sWindows;
 }
 
-CString GetDocumentsFolder()
+CString CPeerProjectApp::GetProgramFilesFolder() const
 {
-	CString strDocumentsPath( GetFolderPath( CSIDL_PERSONAL ) );
+	HRESULT hr;
+	CString sProgramFiles;
 
-	if ( !strDocumentsPath.GetLength() )
+	// Vista+
+	if ( m_pfnSHGetKnownFolderPath )
 	{
-		strDocumentsPath = CRegistry::GetString( _T("Shell Folders"), _T("Personal"), _T(""), _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer") );
+		PWSTR pPath = NULL;
+		hr = m_pfnSHGetKnownFolderPath( FOLDERID_ProgramFiles,
+			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
+		if ( pPath )
+		{
+			sProgramFiles = pPath;
+			CoTaskMemFree( pPath );
+		}
+		if ( SUCCEEDED( hr ) && ! sProgramFiles.IsEmpty() )
+		{
+			return sProgramFiles;
+		}
 	}
-	ASSERT( strDocumentsPath.GetLength() );
 
-	CharLower( strDocumentsPath.GetBuffer() );
-	strDocumentsPath.ReleaseBuffer();
+	// XP
+	if ( m_pfnSHGetFolderPathW )
+	{
+		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_PROGRAM_FILES, NULL, NULL,
+			sProgramFiles.GetBuffer( MAX_PATH ) );
+		sProgramFiles.ReleaseBuffer();
+		if ( SUCCEEDED( hr  ) && ! sProgramFiles.IsEmpty() )
+		{
+			return sProgramFiles;
+		}
+	}
 
-	return strDocumentsPath;
+	// Legacy
+	sProgramFiles = GetWindowsFolder().Left( 1 ) + _T(":\\Program Files");
+
+	return sProgramFiles;
 }
 
-CString GetAppDataFolder()
+CString CPeerProjectApp::GetDocumentsFolder() const
 {
-	CString strAppDataPath( GetFolderPath( CSIDL_APPDATA ) );
+	HRESULT hr;
+	CString sDocuments;
 
-	if ( !strAppDataPath.GetLength() )
+	// Vista+
+	if ( m_pfnSHGetKnownFolderPath )
 	{
-		strAppDataPath = CRegistry::GetString( _T("Shell Folders"), _T("AppData"), _T(""), _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer") );
+		PWSTR pPath = NULL;
+		hr = m_pfnSHGetKnownFolderPath( FOLDERID_Documents,
+			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
+		if ( pPath )
+		{
+			sDocuments = pPath;
+			CoTaskMemFree( pPath );
+		}
+		if ( SUCCEEDED( hr ) && ! sDocuments.IsEmpty() )
+		{
+			return sDocuments;
+		}
 	}
-	ASSERT( strAppDataPath.GetLength() );
 
-	CharLower( strAppDataPath.GetBuffer() );
-	strAppDataPath.ReleaseBuffer();
+	// XP
+	if ( m_pfnSHGetFolderPathW )
+	{
+		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_PERSONAL, NULL, NULL,
+			sDocuments.GetBuffer( MAX_PATH ) );
+		sDocuments.ReleaseBuffer();
+		if ( SUCCEEDED( hr  ) && ! sDocuments.IsEmpty() )
+		{
+			return sDocuments;
+		}
+	}
 
-	return strAppDataPath;
+	// Legacy
+	sDocuments = CRegistry::GetString( _T("Shell Folders"), _T("Personal"),
+		_T(""), _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer") );
+
+	return sDocuments;
 }
 
-CString GetLocalAppDataFolder()
+CString CPeerProjectApp::GetDownloadsFolder() const
 {
-	CString strLocalAppDataPath( GetFolderPath( CSIDL_LOCAL_APPDATA ) );
+	HRESULT hr;
+	CString sDownloads;
 
-	if ( !strLocalAppDataPath.GetLength() )
+	// Vista+
+	if ( m_pfnSHGetKnownFolderPath )
 	{
-		strLocalAppDataPath = CRegistry::GetString( _T("Shell Folders"), _T("Local AppData"), _T(""), _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer") );
-
-		if ( !strLocalAppDataPath.GetLength() )
-			return GetAppDataFolder();
+		PWSTR pPath = NULL;
+		hr = m_pfnSHGetKnownFolderPath( FOLDERID_Downloads,
+			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
+		if ( pPath )
+		{
+			sDownloads = pPath;
+			CoTaskMemFree( pPath );
+		}
+		if ( SUCCEEDED( hr ) && ! sDownloads.IsEmpty() )
+		{
+			return sDownloads;
+		}
 	}
-	ASSERT( strLocalAppDataPath.GetLength() );
 
-	CharLower( strLocalAppDataPath.GetBuffer() );
-	strLocalAppDataPath.ReleaseBuffer();
+	// XP/Legacy
+	sDownloads = GetDocumentsFolder() + _T("\\PeerProject Downloads");
 
-	return strLocalAppDataPath;
+	return sDownloads;
+}
+
+CString CPeerProjectApp::GetAppDataFolder() const
+{
+	HRESULT hr;
+	CString sAppData;
+
+	// Vista+
+	if ( m_pfnSHGetKnownFolderPath )
+	{
+		PWSTR pPath = NULL;
+		hr = m_pfnSHGetKnownFolderPath( FOLDERID_RoamingAppData,
+			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
+		if ( pPath )
+		{
+			sAppData = pPath;
+			CoTaskMemFree( pPath );
+		}
+		if ( SUCCEEDED( hr ) && ! sAppData.IsEmpty() )
+		{
+			return sAppData;
+		}
+	}
+
+	// XP
+	if ( m_pfnSHGetFolderPathW )
+	{
+		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_APPDATA, NULL, NULL,
+			sAppData.GetBuffer( MAX_PATH ) );
+		sAppData.ReleaseBuffer();
+		if ( SUCCEEDED( hr ) && ! sAppData.IsEmpty() )
+		{
+			return sAppData;
+		}
+	}
+
+	// Legacy
+	sAppData = CRegistry::GetString( _T("Shell Folders"), _T("AppData"),
+		_T(""), _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer") );
+
+	return sAppData;
+}
+
+CString CPeerProjectApp::GetLocalAppDataFolder() const
+{
+	HRESULT hr;
+	CString sLocalAppData;
+
+	// Vista+
+	if ( m_pfnSHGetKnownFolderPath )
+	{
+		PWSTR pPath = NULL;
+		hr = m_pfnSHGetKnownFolderPath( FOLDERID_LocalAppData,
+			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
+		if ( pPath )
+		{
+			sLocalAppData = pPath;
+			CoTaskMemFree( pPath );
+		}
+		if ( SUCCEEDED( hr ) && ! sLocalAppData.IsEmpty() )
+		{
+			return sLocalAppData;
+		}
+	}
+
+	// XP
+	if ( m_pfnSHGetFolderPathW )
+	{
+		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_LOCAL_APPDATA, NULL, NULL,
+			sLocalAppData.GetBuffer( MAX_PATH ) );
+		sLocalAppData.ReleaseBuffer();
+		if ( SUCCEEDED( hr ) && ! sLocalAppData.IsEmpty() )
+		{
+			return sLocalAppData;
+		}
+	}
+
+	// Legacy
+	sLocalAppData = CRegistry::GetString( _T("Shell Folders"), _T("Local AppData"),
+		_T(""), _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer") );
+	if ( ! sLocalAppData.IsEmpty() )
+	{
+		return sLocalAppData;
+	}
+
+	// Failsafe
+	return GetAppDataFolder();
 }
 
 BOOL CreateDirectory(LPCTSTR szPath)
@@ -2358,7 +2519,7 @@ CString BrowseForFolder(LPCTSTR szTitle, LPCTSTR szInitialPath, HWND hWnd)
 	if ( ! szInitialPath || ! *szInitialPath )
 	{
 		if ( ! *szDefaultPath )
-			lstrcpyn( szDefaultPath, (LPCTSTR)GetDocumentsFolder(), MAX_PATH );
+			lstrcpyn( szDefaultPath, (LPCTSTR)theApp.GetDocumentsFolder(), MAX_PATH );
 		szInitialPath = szDefaultPath;
 	}
 

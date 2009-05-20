@@ -2,8 +2,8 @@
 // ImageViewerPlugin.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008
-// Original author Michael Stokes released portions into the public domain. 
-// You are free to redistribute and modify this page without any restrictions. 
+// Original author Michael Stokes released portions into the public domain.
+// You are free to redistribute and modify this page without any restrictions.
 //
 // This file contains the CImageViewerPlugin class, which is the "plugin object".
 // It is created by PeerProject when the plugin is loaded or enabled by the user,
@@ -156,7 +156,7 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::OnExecute(BSTR sFilePath)
 		TCHAR szValue[128];
 		CRegKey pReg;
 
-		if ( pReg.Open( HKEY_LOCAL_MACHINE,
+		if ( pReg.Open( HKEY_CURRENT_USER,
 			_T("SOFTWARE\\PeerProject\\PeerProject\\Plugins\\ImageService") ) != ERROR_SUCCESS )
 			return S_FALSE;
 

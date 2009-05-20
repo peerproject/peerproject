@@ -25,8 +25,8 @@
 #include "CoolInterface.h"
 #include "CtrlMainTabBar.h"
 #include "CtrlCoolBar.h"
-#include "Skin.h"
 #include "SkinWindow.h"
+#include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -204,7 +204,8 @@ CSize CMainTabBarCtrl::CalcFixedLayout(BOOL bStretch, BOOL /*bHorz*/)
 		{
 			CRect rc;
 			pParent->GetWindowRect( &rc );
-			if ( rc.Width() > 32 ) size.cx = rc.Width() + 2;
+			if ( rc.Width() > 32 )
+				size.cx = rc.Width() + 2;
 		}
 	}
 
@@ -591,10 +592,10 @@ void CMainTabBarCtrl::TabItem::Paint(CDC* pDstDC, CDC* pSrcDC, const CPoint& ptO
 		// No label
 		return;
 
-	if ( Skin.m_crNavBarTextUp == CLR_NONE
+	if ( Skin.m_crNavBarText == CLR_NONE
+		&& Skin.m_crNavBarTextUp == CLR_NONE
 		&& Skin.m_crNavBarTextHover == CLR_NONE
-		&& Skin.m_crNavBarTextChecked == CLR_NONE
-		&& Skin.m_crNavBarText == CLR_NONE )
+		&& Skin.m_crNavBarTextChecked == CLR_NONE )
 	{
 		// No caption text
 		return;

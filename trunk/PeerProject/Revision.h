@@ -1,7 +1,6 @@
-//
-// No Revision Data
+// r15
+// Auto-generated
 
-// #pragma once
+#pragma once
 
-// #define __REVISION__	
-// #define __MODAUTHOR__	"YOUR NAME HERE"
+#define __REVISION__ 	"15"

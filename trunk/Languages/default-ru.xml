@@ -2653,15 +2653,15 @@
 	<string id="8163" value="Загружается ответ на просмотр (%2.f%%)..."/>
 	<string id="8164" value="Невозможно соединиться с хостом для просмотра пользователя."/>
 	<string id="8165" value="Невозможно загрузить список файлов.  Возможно хост не поддерживает просматривания."/>
-	<string id="8166" value="Искать в сети:"/>
+	<string id="8166" value="Cети:"/>
 	<string id="8167" value="Во всех сетях"/>
 	<string id="8176" value="Поиск PeerProject"/>
 	<string id="8177" value="Введите ключевые слова для поиска:"/>
 	<string id="8178" value="Какого типа файл?"/>
 	<string id="8179" value="(Очистить историю поисков)"/>
-	<string id="8180" value="Размер файла должен быть:"/>
-	<string id="8181" value="до"/><!-- size from xx TO xx-->
-	<string id="8208" value="PeerProject создает хешы для %Iu файла(ов):"/>
+	<string id="8180" value="Минимальная Pазмер:"/>
+	<string id="8181" value="Максимальный Pазмер:"/>
+	<string id="8208" value="PeerProject создает хешы для %Iu файлов:"/>
 	<string id="8223" value="%i д. и %i час."/>
 	<string id="8224" value="PeerProject загружает:"/>
 	<string id="8225" value="Загрузка приостановлена:"/>

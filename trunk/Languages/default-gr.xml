@@ -2333,7 +2333,6 @@
 	<tip id="ID_DOWNLOADS_SHARE" message="Κοινοποίηση αυτής της ημιτελούς λήψης."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Προβολή πηγών που δεν χρησιμοποιούντε αυτήν τη στιγμή."/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="Αναζήτηση περισσότερων πηγών για τις επιλεγμένες λήψεις."/>
-	<tip id="ID_DOWNLOADS_TORRENT_INFO" message="Προβολή πληροφοριών για το επιλεγμένο torrent..."/>
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Προσθήκη URL πηγής στην επιλεγμένη λήψη..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Προβολή κριτικών για την επιλεγμένη λήψη."/>
 	<tip id="ID_HELP_ABOUT" message="Εμφάνιση του παραθύρου περί του PeerProject..."/>
@@ -2685,14 +2684,14 @@
 	<string id="8163" value="Λήψη απάντησης περιήγησης (%2.f%%)..."/>
 	<string id="8164" value="Αδυναμία σύνδεσης στον host για περιήγηση."/>
 	<string id="8165" value="Αδυναμία λήψης λίστας αρχείων. Αυτός ο host ίσως δεν υποστηρίζει περιήγηση."/>
-	<string id="8166" value="Αναζήτηση στα εξής δίκτυα:"/>
+	<string id="8166" value="Δίκτυα:"/>
 	<string id="8167" value="Όλα τα Δίκτυα"/>
 	<string id="8176" value="Αναζήτηση στο PeerProject"/>
 	<string id="8177" value="Εισάγετε κάποιες λέξεις κλειδιά για αναζήτηση:"/>
 	<string id="8178" value="Τι τύπος αρχείου είναι;"/>
 	<string id="8179" value="(Καθαρισμός Ιστορικού Αναζήτησης)"/>
-	<string id="8180" value="Μέγεθος αρχείου από"/>
-	<string id="8181" value="&#160;ως"/><!-- size from xx TO xx-->
+	<string id="8180" value="Μέγεθος Min:"/>
+	<string id="8181" value="Μέγεθος Max:"/>
 	<string id="8208" value="Το PeerProject σαρώνει %Iu αρχεία:"/>
 	<string id="8223" value="%i μέρες και %i ώρες"/>
 	<string id="8224" value="Το PeerProject λαμβάνει:"/>

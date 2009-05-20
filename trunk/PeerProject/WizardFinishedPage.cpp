@@ -81,7 +81,7 @@ BOOL CWizardFinishedPage::OnInitDialog()
 	m_bAutoConnect	= Settings.Connection.AutoConnect;
 	m_bConnect		= TRUE;
 	if ( Settings.Live.FirstRun )
-		m_bStartup = TRUE;
+		m_bStartup = FALSE;
 	else
 		m_bStartup = Settings.CheckStartup();
 
