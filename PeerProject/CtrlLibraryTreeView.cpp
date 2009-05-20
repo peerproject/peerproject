@@ -562,7 +562,7 @@ void CLibraryTreeView::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
 	OnLButtonDown( nFlags, point );
 
-	if ( !m_bVirtual ) 
+	if ( !m_bVirtual )
 		OnLibraryExplore();
 	else if ( m_pFocus != NULL && !m_pFocus->empty() && Expand( m_pFocus, TRI_UNKNOWN ) )
 		NotifySelection();
@@ -1278,7 +1278,6 @@ void CLibraryTreeView::UpdatePhysical(DWORD nSelectCookie)
 
 			if ( pOld == pFolder )
 			{
-				CRazaThread::YieldProc();
 				bChanged |= Update( pFolder, &*pChild, m_pRoot, TRUE, TRUE,
 					nCleanCookie, nSelectCookie, FALSE );
 				break;
@@ -1287,7 +1286,6 @@ void CLibraryTreeView::UpdatePhysical(DWORD nSelectCookie)
 
 		if ( pChild == m_pRoot->end() )
 		{
-			CRazaThread::YieldProc();
 			bChanged |= Update( pFolder, NULL, m_pRoot, TRUE, TRUE,
 				nCleanCookie, nSelectCookie, FALSE );
 		}
@@ -1388,7 +1386,6 @@ BOOL CLibraryTreeView::Update(CLibraryFolder* pFolder, CLibraryTreeItem* pItem, 
 
 			if ( pOld == pSub )
 			{
-				CRazaThread::YieldProc();
 				bChanged |= Update( pSub, &*pChild, pItem, bVisible, bShared,
 					nCleanCookie, nSelectCookie, bRecurse );
 				break;
@@ -1397,7 +1394,6 @@ BOOL CLibraryTreeView::Update(CLibraryFolder* pFolder, CLibraryTreeItem* pItem, 
 
 		if ( pChild == pItem->end() )
 		{
-			CRazaThread::YieldProc();
 			bChanged |= Update( pSub, NULL, pItem, bVisible, bShared,
 				nCleanCookie, nSelectCookie, bRecurse );
 		}
@@ -1491,7 +1487,6 @@ BOOL CLibraryTreeView::Update(CAlbumFolder* pFolder, CLibraryTreeItem* pItem, CL
 
 			if ( pOld == pSub )
 			{
-				CRazaThread::YieldProc();
 				bChanged |= Update( pSub, &*pChild, pItem, bVisible,
 					nCleanCookie, nSelectCookie );
 				break;
@@ -1500,7 +1495,6 @@ BOOL CLibraryTreeView::Update(CAlbumFolder* pFolder, CLibraryTreeItem* pItem, CL
 
 		if ( pChild == pItem->end() )
 		{
-			CRazaThread::YieldProc();
 			bChanged |= Update( pSub, NULL, pItem, bVisible,
 				nCleanCookie, nSelectCookie );
 		}
@@ -1988,7 +1982,7 @@ void CLibraryTreeView::OnUpdateLibraryExportCollection(CCmdUI *pCmdUI)
 		m_pSelFirst->m_pVirtual->GetFileCount() == 0 ||
 		m_pSelFirst->m_pVirtual->GetFileCount() > 1000 ||
 		CheckURI( m_pSelFirst->m_pVirtual->m_sSchemaURI, CSchema::uriGhostFolder ) ||
-		m_pSelFirst->m_pVirtual->m_oCollSHA1 ) 
+		m_pSelFirst->m_pVirtual->m_oCollSHA1 )
 		bAllowExport = FALSE;
 
 	pCmdUI->Enable( m_nSelected == 1 && bAllowExport );

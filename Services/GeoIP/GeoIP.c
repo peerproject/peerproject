@@ -171,7 +171,7 @@ void GeoIP_setup_custom_directory (char * dir) {
 }
 
 char *_GeoIP_full_path_to(const char *file_name) {
-	int len;
+	size_t len;		// 64-bit-compatible int
 	char *path = malloc(sizeof(char) * 1024);
 
 	if (custom_directory == NULL){

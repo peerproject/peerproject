@@ -116,7 +116,7 @@ BOOL CSearchPanel::Create(CWnd* pParentWnd)
 
 int CSearchPanel::OnCreate(LPCREATESTRUCT lpCreateStruct) 
 {
-	if ( CTaskPanel::OnCreate( lpCreateStruct ) == -1 )return -1;
+	if ( CTaskPanel::OnCreate( lpCreateStruct ) == -1 ) return -1;
 	
 	m_bAdvanced = ( Settings.General.GUIMode != GUI_BASIC ) &&  ( Settings.Search.AdvancedPanel );
 
@@ -124,7 +124,7 @@ int CSearchPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_boxSearch.Create( this, 136, _T("Search"), IDR_SEARCHFRAME );
 	m_boxAdvanced.Create( this, 92, _T("Options"), IDR_SEARCHFRAME );
 	m_boxSchema.Create( this, 0, _T("Schema"), IDR_SEARCHFRAME );
-	m_boxResults.Create( this, 86, _T("Results"), IDR_SEARCHFRAME );
+	m_boxResults.Create( this, 86, _T("Results"), IDR_SEARCHMONITORFRAME );
 	
 	// Basic search box
 	AddBox( &m_boxSearch );

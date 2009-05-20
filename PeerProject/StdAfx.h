@@ -77,8 +77,8 @@
 //	To show features that need guards for Windows 2000 compatability use:
 //	#define NTDDI_VERSION	NTDDI_WIN2K
 //	#define _WIN32_WINNT	0x0500
-#define NTDDI_VERSION	NTDDI_WINXP	// Minimum build target
-#define _WIN32_WINNT	0x0501		// Windows XP, 2003, Vista, 2008
+#define NTDDI_VERSION	NTDDI_LONGHORN	// Minimum build target Vista
+#define _WIN32_WINNT	0x0600		// Windows XP, 2003, Vista, 2008
 #include <sdkddkver.h>				// Setup versioning for windows SDK/DDK
 
 // Add defines missed/messed up when microsoft converted to NTDDI macros
@@ -143,9 +143,13 @@
 // Intrinsics (Workaround for Microsoft double declaration with Visual Studio 2005)
 #define _interlockedbittestandset _ms_set
 #define _interlockedbittestandreset _ms_reset
+#define _interlockedbittestandset64 _ms_set64
+#define _interlockedbittestandreset64 _ms_reset64
 #include <intrin.h>
 #undef _interlockedbittestandset
 #undef _interlockedbittestandreset
+#undef _interlockedbittestandset64
+#undef _interlockedbittestandreset64
 
 //
 // STL

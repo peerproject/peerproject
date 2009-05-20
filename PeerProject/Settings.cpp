@@ -268,9 +268,9 @@ void CSettings::Load()
 	Add( _T("Connection"), _T("InBind"), &Connection.InBind, false );
 	Add( _T("Connection"), _T("InHost"), &Connection.InHost );
 	Add( _T("Connection"), _T("InPort"), &Connection.InPort, GNUTELLA_DEFAULT_PORT, 1, 1, 65535 );
-	Add( _T("Connection"), _T("InSpeed"), &Connection.InSpeed, 2048 );
+	Add( _T("Connection"), _T("InSpeed"), &Connection.InSpeed, 2048, 25000 );
 	Add( _T("Connection"), _T("OutHost"), &Connection.OutHost );
-	Add( _T("Connection"), _T("OutSpeed"), &Connection.OutSpeed, 256 );
+	Add( _T("Connection"), _T("OutSpeed"), &Connection.OutSpeed, 768, 15000 );
 	Add( _T("Connection"), _T("RandomPort"), &Connection.RandomPort, false );
 	Add( _T("Connection"), _T("RequireForTransfers"), &Connection.RequireForTransfers, true );
 	Add( _T("Connection"), _T("SendBuffer"), &Connection.SendBuffer, 2048, 1, 64, 10240 );
@@ -600,7 +600,16 @@ void CSettings::Load()
 			General.Path = General.Path.Left( General.Path.ReverseFind( '\\' ) );
 	}
 
-	if ( ! General.MultiUser )
+	if ( General.MultiUser )
+	{
+		if ( General.UserPath.IsEmpty() )
+			General.UserPath = theApp.GetAppDataFolder() + _T("\\PeerProject");
+		if ( Downloads.IncompletePath.IsEmpty() )
+			Downloads.IncompletePath = theApp.GetLocalAppDataFolder() + _T("\\PeerProject\\Incomplete");
+		if ( Downloads.CompletePath.IsEmpty() )
+			Downloads.CompletePath = theApp.GetDownloadsFolder();
+	}
+	else
 	{
 		if ( General.UserPath.IsEmpty() )
 			General.UserPath = General.Path;
@@ -608,15 +617,6 @@ void CSettings::Load()
 			Downloads.IncompletePath = General.Path + _T("\\Incomplete");
 		if ( Downloads.CompletePath.IsEmpty() )
 			Downloads.CompletePath = General.Path + _T("\\Downloads");
-	}
-	else
-	{
-		if ( General.UserPath.IsEmpty() )
-			General.UserPath = GetAppDataFolder() + _T("\\PeerProject");
-		if ( Downloads.IncompletePath.IsEmpty() )
-			Downloads.IncompletePath = GetLocalAppDataFolder() + _T("\\PeerProject\\Incomplete");
-		if ( Downloads.CompletePath.IsEmpty() )
-			Downloads.CompletePath = GetDocumentsFolder() + _T("\\PeerProject Downloads");
 	}
 
 	if ( Downloads.TorrentPath.IsEmpty() )
@@ -630,7 +630,7 @@ void CSettings::Load()
 	SmartUpgrade();
 
 	//if ( General.Running )
-	// ToDo: PeerProject is restarted after a crash
+	// ToDo: Detect PeerProject restarted after a crash
 
 	// Set current networks
 	Gnutella1.EnableToday		= Gnutella1.EnableAlways;
@@ -1072,7 +1072,7 @@ void CSettings::SmartUpgrade()
 		{
 			// Delete old values
 			SHDeleteValue( HKEY_CURRENT_USER,
-				_T("SOFTWARE\\Shareaza\\Shareaza\\Toolbars"), _T("CRemoteWnd") );
+				_T("SOFTWARE\\PeerProject\\PeerProject\\Toolbars"), _T("CRemoteWnd") );
 		}
 
 		if ( General.SmartVersion < 58 )
@@ -1087,10 +1087,10 @@ void CSettings::SmartUpgrade()
 void CSettings::OnChangeConnectionSpeed()
 {
 #ifndef LAN_MODE
-	bool bLimited = theApp.m_bLimitedConnections && !General.IgnoreXPsp2;
+	bool bLimited = theApp.m_bLimitedConnections && !(General.IgnoreXPsp2 || theApp.m_bIsVistaOrNewer);
 
-	if ( Connection.InSpeed <= 80 )
-	{	// Modem users
+	if ( Connection.InSpeed <= 80 ) 			// Dial-up Modem users
+	{
 		Downloads.MaxFiles				= 8;
 		Downloads.MaxTransfers			= 24;
 		Downloads.MaxFileTransfers		= 4;
@@ -1100,23 +1100,10 @@ void CSettings::OnChangeConnectionSpeed()
 		Search.GeneralThrottle			= 300;	// Slow searches a little so we don't get flooded
 
 		Gnutella2.NumLeafs				= 50;
-		BitTorrent.DownloadTorrents		= 1;	// Best not to try too many torrents
+		BitTorrent.DownloadTorrents		= 2;	// Best not to try too many torrents
 	}
-	else if ( Connection.InSpeed <= 256 )
-	{	// IDSN, Dual modems, etc
-		Downloads.MaxFiles				= 14;
-		Downloads.MaxTransfers			= 32;
-		Downloads.MaxFileTransfers		= 6;
-		Downloads.MaxConnectingSources	= 20;
-		Downloads.MaxFileSearches		= 1;
-		Downloads.SourcesWanted			= 500;
-		Search.GeneralThrottle			= 250;	// Slow searches a little so we don't get flooded
-
-		Gnutella2.NumLeafs				= 200;
-		BitTorrent.DownloadTorrents		= 3;
-	}
-	else if ( Connection.InSpeed <= 768 )
-	{	// Slower broadband
+	else if ( Connection.InSpeed <= 800 )		// Slow broadband
+	{
 		Downloads.MaxFiles				= 20;
 		Downloads.MaxTransfers			= 64;
 		Downloads.MaxFileTransfers		= 8;
@@ -1128,9 +1115,9 @@ void CSettings::OnChangeConnectionSpeed()
 		Gnutella2.NumLeafs				= 300;
 		BitTorrent.DownloadTorrents		= 3;
 	}
-	else if ( Connection.InSpeed <= 2500 || bLimited )
-	{	// Fast broadband
-		Downloads.MaxFiles				= 26;
+	else if ( Connection.InSpeed <= 3000 || bLimited )
+	{
+		Downloads.MaxFiles				= 30;
 		Downloads.MaxTransfers			= 100;
 		Downloads.MaxFileTransfers		= 10;
 		Downloads.MaxConnectingSources	= 28;
@@ -1141,43 +1128,33 @@ void CSettings::OnChangeConnectionSpeed()
 		Gnutella2.NumLeafs				= 300;
 		BitTorrent.DownloadTorrents		= 4;
 	}
-	else if ( Connection.InSpeed <= 5000 )
-	{	// Very high capacity connection
-		Downloads.MaxFiles				= 32;
-		Downloads.MaxTransfers			= 200;
-		Downloads.MaxFileTransfers		= 32;
-		Downloads.MaxConnectingSources	= 32;
-		Downloads.MaxFileSearches		= 3;
-		Downloads.SourcesWanted			= 500;
-		Search.GeneralThrottle			= 200;
-
-		Gnutella2.NumLeafs				= 400;	// Can probably support more leaves
-		BitTorrent.DownloadTorrents		= 5;	// Should be able to handle several torrents
-	}
-	else
+	else if ( Connection.InSpeed <= 10500 )
 	{
 		Downloads.MaxFiles				= 100;
 		Downloads.MaxTransfers			= 250;
 		Downloads.MaxFileTransfers		= 50;
-		Downloads.MaxConnectingSources	= 40;
+		Downloads.MaxConnectingSources	= 50;
 		Downloads.MaxFileSearches		= 5;
 		Downloads.SourcesWanted			= 600;
-		Search.GeneralThrottle			= 250;
-
-		if ( Connection.InSpeed <= 10000 )
-		{
-			Gnutella2.NumLeafs			= 450;	// Can probably support more leaves
-			BitTorrent.DownloadTorrents	= 7;	// Should be able to handle several torrents
-		}
-		else
-		{
-			Gnutella2.NumLeafs			= 500;	// Can probably support more leaves
-			BitTorrent.DownloadTorrents	= 10;	// Should be able to handle several torrents
-		}
+		Search.GeneralThrottle			= 150;
+		Gnutella2.NumLeafs				= 400;	// Can probably support more leaves
+		BitTorrent.DownloadTorrents 	= 8;	// Should be able to handle several torrents
+	}
+	else // Extreme Broadband
+	{
+		Downloads.MaxFiles				= 200;
+		Downloads.MaxTransfers			= 300;
+		Downloads.MaxFileTransfers		= 100;
+		Downloads.MaxConnectingSources	= 100;
+		Downloads.MaxFileSearches		= 6;
+		Downloads.SourcesWanted			= 800;
+		Search.GeneralThrottle			= 100;
+		Gnutella2.NumLeafs				= 500;	// Can probably support more leaves
+		BitTorrent.DownloadTorrents 	= 10;	// Should be able to handle several torrents
 	}
 
-	if( bLimited )
-	{	// Window XP Service Pack 2
+	if( bLimited )	// Windows XP SP2+
+	{
 		Connection.ConnectThrottle		= max( Connection.ConnectThrottle, 250ul );
 		Downloads.ConnectThrottle		= max( Downloads.ConnectThrottle, 800ul );
 		Gnutella.ConnectFactor			= min( Gnutella.ConnectFactor, 3ul );
@@ -1190,7 +1167,8 @@ void CSettings::OnChangeConnectionSpeed()
 		General.ItWasLimited			= true;
 	}
 	else if( General.ItWasLimited )
-	{	// Revert Settings if Half-Open Limit Patch Applied
+	{
+		// Revert Settings if Half-Open Limit Patch Applied
 		Connection.ConnectThrottle		= 0;
 		Downloads.ConnectThrottle		= 250;
 		Gnutella.ConnectFactor			= 4;
@@ -1198,7 +1176,7 @@ void CSettings::OnChangeConnectionSpeed()
 
 		General.ItWasLimited			= false;
 	}
-#endif // LAN_MODE
+#endif // LAN_MOD
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -83,16 +83,16 @@ AppSupportURL=http://support.peerproject.org/
 AppUpdatesURL=http://download.peerproject.org/
 
 [Tasks]
-Name: "language"; Description: "{cm:tasks_languages}";
-Name: "multiuser"; Description: "{cm:tasks_multisetup}"; Flags: unchecked
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"
 Name: "quicklaunch"; Description: "{cm:CreateQuickLaunchIcon}"
-;Name: "firewall"; Description: "{cm:tasks_firewall}"; MinVersion: 0,5.01sp2
+Name: "language"; Description: "{cm:tasks_languages}";
+Name: "multiuser"; Description: "{cm:tasks_multisetup}"; Flags: unchecked
 Name: "upnp"; Description: "{cm:tasks_upnp}"; MinVersion: 0,5.01; Check: CanUserModifyServices; Flags: unchecked
+;Name: "firewall"; Description: "{cm:tasks_firewall}"; MinVersion: 0,5.01sp2
+Name: "resetdiscoveryhostcache"; Description: "{cm:tasks_resetdiscoveryhostcache}"; Flags: unchecked
 #if alpha == "No"
 Name: "deleteoldsetup"; Description: "{cm:tasks_deleteoldsetup}"; Check: EnableDeleteOldSetup
 #endif
-Name: "resetdiscoveryhostcache"; Description: "{cm:tasks_resetdiscoveryhostcache}"; Flags: unchecked
 
 [Files]
 ; Main files

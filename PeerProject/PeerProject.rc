@@ -3316,7 +3316,7 @@ BEGIN
     IDS_BROWSE_DOWNLOADING  "Downloading browse response (%2.f%%)..."
     IDS_BROWSE_CANT_CONNECT "Unable to connect to host to browse user."
     IDS_BROWSE_NOT_SUPPORTED "Unable to download file listing.  This host may not support browsing."
-    IDS_SEARCH_ALL_NETWORKS "All Networks"
+    IDS_SEARCH_ALL_NETWORKS  "All Networks"
     IDS_SEARCH_PANEL_INPUT_3 "Network:"
 END
 
@@ -3327,7 +3327,7 @@ BEGIN
     IDS_SEARCH_PAD_TYPE     "What type of file is it?"
     IDS_SEARCH_PAD_CLEAR_HISTORY "(Clear Search History)"
     IDS_SEARCH_PANEL_INPUT_4 "Min Filesize:"
-	IDS_SEARCH_PANEL_INPUT_5 "Max Filesize:"
+    IDS_SEARCH_PANEL_INPUT_5 "Max Filesize:"
 END
 
 STRINGTABLE 

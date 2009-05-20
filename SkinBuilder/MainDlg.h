@@ -94,7 +94,7 @@ public:
 		CLogFont lf;
 		lf.SetMessageBoxFont();
 		lf.lfWeight = FW_BOLD;
-		lf.MakeLarger(4);
+		lf.MakeLarger(3);
 		m_font.CreateFontIndirect(&lf);
 
 		// ...and attach it to the static control
@@ -138,7 +138,7 @@ public:
 	{
 		SetMsgHandled(FALSE);
 
-		if ( ((uNotifyCode == 0) || (uNotifyCode == 1)) && ((nID >= IDS_TAB1) && (nID <= IDS_TAB6B)) )
+		if ( ((uNotifyCode == 0) || (uNotifyCode == 1)) && ((nID >= IDS_TAB1) && (nID <= IDS_TAB6C)) )
 		{
 			CString str;
 			str.LoadString(nID);
@@ -152,7 +152,7 @@ public:
 
 	LRESULT OnTab1ASelected(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
-		CString str(_T("Get Started."));
+		CString str(_T("Get Started"));
 		m_static.SetWindowText(str);
 		return 0;
 	}

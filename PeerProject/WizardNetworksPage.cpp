@@ -122,12 +122,13 @@ LRESULT CWizardNetworksPage::OnWizardNext()
 
 void CWizardNetworksPage::DoDonkeyImport()
 {
-	CString strPrograms( GetProgramFilesFolder() ), strFolder;
+	CString strPrograms( theApp.GetProgramFilesFolder() ), strFolder;
 	CDonkeyImportDlg dlg( this );
 
 	LPCTSTR pszFolders[] =
 	{
 		_T("<%PROGRAMFILES%>\\eMule\\temp"),
+		_T("<%PROGRAMFILES%>\\aMule\\temp"),
 		_T("<%PROGRAMFILES%>\\Neo Mule\\temp"),
 		_T("<%PROGRAMFILES%>\\eDonkey2000\\temp"),
 		NULL

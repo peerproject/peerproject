@@ -102,7 +102,6 @@ BOOL CLibraryFolders::CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive) cons
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
 		if ( GetNextFolder( pos )->CheckFolder( pFolder, TRUE ) ) return TRUE;
-		CRazaThread::YieldProc();
 	}
 
 	return FALSE;
@@ -369,7 +368,11 @@ bool CLibraryFolders::IsShareable(const CString& strPath) const
 	ToLower( strPathLC );
 
 	//Get system paths (to compare)
-	CString strWindowsLC( GetWindowsFolder() ), strProgramsLC( GetProgramFilesFolder() );
+	CString strWindowsLC( theApp.GetWindowsFolder() );
+	ToLower( strWindowsLC );
+
+	CString strProgramsLC( theApp.GetProgramFilesFolder() );
+	ToLower( strProgramsLC );
 
 	//Get various PeerProject paths (to compare)
 	CString strIncompletePathLC = Settings.Downloads.IncompletePath;
@@ -651,7 +654,6 @@ void CLibraryFolders::Maintain()
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
 		GetNextFolder( pos )->Maintain( TRUE );
-		CRazaThread::YieldProc();
 	}
 }
 

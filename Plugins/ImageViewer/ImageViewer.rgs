@@ -24,7 +24,7 @@ HKCR
 	}
 }
 
-HKLM
+HKCU
 {
 	NoRemove Software
 	{
@@ -38,23 +38,7 @@ HKLM
 					{
 						val 'PeerProject Image Viewer' = s '{2EE9D739-7726-41cf-8F18-4B1B8763BC63}'
 					}
-				}
-			}
-		}
-	}
-}
-
-HKCU
-{
-	NoRemove Software
-	{
-		NoRemove PeerProject
-		{
-			NoRemove PeerProject
-			{
-				NoRemove Plugins
-				{
-					val '{2EE9D739-7726-41cf-8F18-4B1B8763BC63}' = d 1
+					ForceRemove val '{2EE9D739-7726-41cf-8F18-4B1B8763BC63}' = s ''
 				}
 			}
 		}

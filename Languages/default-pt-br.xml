@@ -2690,15 +2690,15 @@
 	<string id="8163" value="Baixando resposta de navegação (%2.f%%)..."/>
 	<string id="8164" value="Incapaz de conectar ao host para navegar o usuário."/>
 	<string id="8165" value="Incapaz de baixar a lista de arquivos. Este host pode não suportar a navegação."/>
-	<string id="8166" value="Procurar nesta rede:"/>
+	<string id="8166" value="Redes:"/>
 	<string id="8167" value="Todas as redes"/>
 	<string id="8176" value="Procurar no PeerProject"/>
 	<string id="8177" value="Digite algumas palavras-chave para procurar:"/>
 	<string id="8178" value="Qual é o tipo de arquivo?"/>
 	<string id="8179" value="(Limpar Histórico de Busca)"/>
-	<string id="8180" value="O tamanho do arquivo deve ser"/>
-	<string id="8181" value="&#160;até"/><!-- size from xx TO xx-->
-	<string id="8208" value="PeerProject está criando Hashes para %Iu os arquivo(s):"/>
+	<string id="8180" value="Tamanho Min:"/>
+	<string id="8181" value="Tamanho Max:"/>
+	<string id="8208" value="PeerProject está criando Hashes para %Iu os arquivos:"/>
 	<string id="8223" value="%i dias e %i horas"/>
 	<string id="8224" value="O PeerProject está baixando:"/>
 	<string id="8225" value="Este download está pausado:"/>

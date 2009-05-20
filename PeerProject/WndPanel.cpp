@@ -68,6 +68,15 @@ CPanelWnd::CPanelWnd(BOOL bTabMode, BOOL bGroupMode)
 	m_bPanelClose = ( m_bPanelMode && ! m_bTabMode );
 }
 
+void CPanelWnd::OnSkinChange()
+{
+	// Disable theme in tabbed mode
+	CoolInterface.EnableTheme( this, ( Skin.GetWindowSkin( this ) == NULL ) &&
+		( Settings.General.GUIMode == GUI_WINDOWED ) );
+
+	CChildWnd::OnSkinChange();
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // CPanelWnd message handlers
 

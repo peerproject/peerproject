@@ -1246,23 +1246,18 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 									 LPCTSTR pszType, LPCTSTR pszApplication, LPCTSTR pszTopic,
 									 UINT nIDIcon, BOOL bOverwrite)
 {
-	HKEY hMainKey, hKey, hSub1, hSub2, hSub3, hSub4;
+	HKEY hKey, hSub1, hSub2, hSub3, hSub4;
 	CString strSubKey, strValue;
 	DWORD nDisposition;
 
 	if ( pszRoot == NULL ) return FALSE;
-
-	if ( Settings.General.MultiUser == TRUE )
-		hMainKey = HKEY_CURRENT_USER;
-	else
-		hMainKey = HKEY_LOCAL_MACHINE;
 
 	if ( pszProtocol == NULL )
 		strSubKey.Format( _T("Software\\%s"), pszRoot );
 	else
 		strSubKey.Format( _T("Software\\%s\\%s"), pszRoot, pszProtocol );
 
-	if ( RegCreateKeyEx( hMainKey, (LPCTSTR)strSubKey, 0, NULL, 0,
+	if ( RegCreateKeyEx( HKEY_CURRENT_USER, (LPCTSTR)strSubKey, 0, NULL, 0,
 		KEY_ALL_ACCESS, NULL, &hKey, &nDisposition ) ) return FALSE;
 
 	if ( nDisposition == REG_OPENED_EXISTING_KEY && ! bOverwrite )
@@ -1350,7 +1345,7 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 	if ( pszType != NULL && pszProtocol != NULL )
 	{
 		strSubKey.Format( _T("Software\\%s\\%s"), pszRoot, pszType );
-		if ( !	RegCreateKeyEx( hMainKey, (LPCTSTR)strSubKey, 0, NULL, 0,
+		if ( !	RegCreateKeyEx( HKEY_CURRENT_USER, (LPCTSTR)strSubKey, 0, NULL, 0,
 				KEY_ALL_ACCESS, NULL, &hKey, &nDisposition ) )
 		{
 			RegSetValueEx( hKey, NULL, 0, REG_SZ, (LPBYTE)pszProtocol,
@@ -1362,14 +1357,15 @@ BOOL CPeerProjectURL::RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, LP
 	return TRUE;
 }
 
-BOOL CPeerProjectURL::IsRegistered(LPCTSTR pszProtocol, HKEY hMainKey)
+BOOL CPeerProjectURL::IsRegistered(LPCTSTR pszProtocol)
 {
 	CString strSubKey;
 
 	strSubKey.Format( _T("Software\\Classes\\%s"), pszProtocol );
-	CString strPath = CRegistry::GetString( _T("shell\\open\\command"), NULL, NULL, strSubKey, hMainKey == HKEY_LOCAL_MACHINE );
+	CString strPath = CRegistry::GetString( _T("shell\\open\\command"), NULL, NULL, strSubKey );
 
-	return _tcsistr( strPath, theApp.m_strBinaryPath ) != NULL || CRegistry::GetString( _T("shell\\open\\ddeexec\\Application"), NULL, NULL, strSubKey, hMainKey == HKEY_LOCAL_MACHINE ) == _T("PeerProject");
+	return _tcsistr( strPath, theApp.m_strBinaryPath ) != NULL ||
+		CRegistry::GetString( _T("shell\\open\\ddeexec\\Application"), NULL, NULL, strSubKey ) == _T("PeerProject");
 }
 
 BOOL CPeerProjectURL::UnregisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol)
@@ -1382,23 +1378,14 @@ BOOL CPeerProjectURL::UnregisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol)
 	else
 		strSubKey.Format( _T("Software\\%s\\%s"), pszRoot, pszProtocol );
 
-	BOOL bRegisteredMachine = IsRegistered( pszProtocol, HKEY_LOCAL_MACHINE );
-	if ( bRegisteredMachine )
-	{
-		DeleteKey( HKEY_LOCAL_MACHINE, (LPCTSTR)strSubKey );
-		RegDeleteKey( HKEY_LOCAL_MACHINE, (LPCTSTR)strSubKey );
-	}
-
-	BOOL bRegisteredUser = IsRegistered( pszProtocol, HKEY_CURRENT_USER );
+	BOOL bRegisteredUser = IsRegistered( pszProtocol );
 	if ( bRegisteredUser )
 	{
 		DeleteKey( HKEY_CURRENT_USER, (LPCTSTR)strSubKey );
 		RegDeleteKey( HKEY_CURRENT_USER, (LPCTSTR)strSubKey );
 	}
 
-	if ( !bRegisteredUser && !bRegisteredMachine ) return FALSE;
-
-	return TRUE;
+	return bRegisteredUser;
 }
 
 void CPeerProjectURL::DeleteKey(HKEY hParent, LPCTSTR pszKey)
@@ -1438,7 +1425,7 @@ BOOL CPeerProjectURL::RegisterMagnetHandler(LPCTSTR pszID, LPCTSTR pszName, LPCT
 	DWORD dwDisposition;
 	LONG lResult;
 
-	lResult = RegOpenKeyEx( HKEY_LOCAL_MACHINE, _T("Software"), 0, KEY_ALL_ACCESS,
+	lResult = RegOpenKeyEx( HKEY_CURRENT_USER, _T("Software"), 0, KEY_ALL_ACCESS,
 		&hSoftware );
 
 	if ( lResult != ERROR_SUCCESS ) return FALSE;

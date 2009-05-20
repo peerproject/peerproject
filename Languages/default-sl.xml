@@ -2563,14 +2563,14 @@
 	<string id="8163" value="Prenašanje odgovora na zahtevo po brskanju (%2.f%%)..."/>
 	<string id="8164" value="Priklop s ciljem brskanja po uporabniku ni mogoče."/>
 	<string id="8165" value="Prenos datotečnega seznama ni uspel. Gostitelj morda ne dovoljuje brskanje po njegovem sistemu."/>
-	<string id="8166" value="Išči v omrežju:"/>
+	<string id="8166" value="Omrežju:"/>
 	<string id="8167" value="Vseh omrežjih"/>
 	<string id="8176" value="Išči po PeerProject"/>
 	<string id="8177" value="Type some keywords to search for:"/>
 	<string id="8178" value="Za kateri datotečni tip gre?"/>
 	<string id="8179" value="(Pobriši zgodovino iskanja)"/>
-	<string id="8180" value="Velikost datoteke more biti"/>
-	<string id="8181" value="&#160;do"/><!-- size from xx TO xx-->
+	<string id="8180" value="Velikost Min:"/>
+	<string id="8181" value="Velikost Max:"/>
 	<string id="8208" value="PeerProject ustvarja izvlečke (hashes) za število datotek %Iu:"/>
 	<string id="8223" value="%i dni in %i ur"/>
 	<string id="8224" value="PeerProject prenaša:"/>

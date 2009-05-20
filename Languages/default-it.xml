@@ -2552,14 +2552,14 @@
 	<string id="8163" value="Trasferimento della lista dei file in corso..."/>
 	<string id="8164" value="Impossibile connettersi all'host per esaminare i file."/>
 	<string id="8165" value="Impossibile scaricare la lista dei file. Questo host potrebbe non supportare l'esplorazione."/>
-	<string id="8166" value="Cerca su questa rete:"/>
+	<string id="8166" value="Rete:"/>
 	<string id="8167" value="Tutte le reti"/>
 	<string id="8176" value="Cerca su PeerProject"/>
 	<string id="8177" value="Inserisci qui la tua ricerca:"/>
 	<string id="8178" value="Che tipo di file è?"/>
 	<string id="8179" value="(Cancella parole ricercate)"/>
-	<string id="8180" value="La dimens. del file deve essere"/>	
-	<string id="8181" value="&#160;a"/><!-- size from xx TO xx-->
+	<string id="8180" value="Dimens. del file:"/>	
+	<string id="8181" value="Dimens. del file:"/>
 	<string id="8208" value="PeerProject sta calcolando l'hash per %Iu file:"/>
 	<string id="8223" value="%i giorni e %i ore"/>
 	<string id="8224" value="PeerProject sta scaricando:"/>

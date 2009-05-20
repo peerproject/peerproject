@@ -2655,14 +2655,14 @@
 	<string id="8163" value="Dateiliste wird heruntergeladen (%2.f%%)..."/>
 	<string id="8164" value="Kann keine Verbindung zum Durchsuchen herstellen."/>
 	<string id="8165" value="Fehler beim Herunterladen der Dateiliste. Dieser Host unterstützt &quot;Durchsuchen&quot; möglicherweise nicht."/>
-	<string id="8166" value="In diesem Netzwerk suchen:"/>
+	<string id="8166" value="Netzwerke:"/>
 	<string id="8167" value="Alle Netzwerke"/>
 	<string id="8176" value="In den P2P-Netzwerken suchen"/>
 	<string id="8177" value="Geben Sie einige Suchbegriffe ein:"/>
 	<string id="8178" value="Dateityp:"/>
 	<string id="8179" value="(Verlauf löschen)"/>
-	<string id="8180" value="Dateigröße"/>
-	<string id="8181" value=" bis"/><!-- size from xx TO xx-->
+	<string id="8180" value="Dateigröße Min:"/>
+	<string id="8181" value="Dateigröße Max:"/>
 	<string id="8208" value="PeerProjekt hasht %Iu Datei(en):"/>
 	<string id="8223" value="%i Tage und %i Stunden"/>
 	<string id="8224" value="PeerProjekt lädt herunter:"/>

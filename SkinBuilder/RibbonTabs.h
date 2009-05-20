@@ -54,6 +54,8 @@
 
 #pragma once
 
+#pragma warning(disable:4267)	// size_t to int (64-bit)
+
 
 #ifndef	__ATLAPP_H__
 	#error RibbonTabs.h requires atlapp.h to be included first
@@ -240,7 +242,7 @@ public:
 			m_pCachedBkBitmap = NULL;
 		}
 
-		for (int i = 0, iTabCount = m_listTabs.GetCount(); i < iTabCount; i++)
+		for (size_t i = 0, iTabCount = m_listTabs.GetCount(); i < iTabCount; i++)
 		{
 			if (m_listTabs[i].listSubtabs)
 			{

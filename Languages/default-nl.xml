@@ -2592,15 +2592,15 @@
 	<string id="8163" value="Antwoord om te bekijken wordt gedownload (%2.f%%)..."/>
 	<string id="8164" value="Niet mogelijk om te verbinden met gastheer voor het bekijken van de gebruiker."/>
 	<string id="8165" value="Niet mogelijk om de bestandenlijst te downloaden. Deze gastheer ondersteund misschien het bekijken niet."/>
-	<string id="8166" value="Op dit netwerk zoeken:"/>
+	<string id="8166" value="Netwerk:"/>
 	<string id="8167" value="Alle netwerken"/>
 	<string id="8176" value="Doorzoek het PeerProject netwerk"/>
 	<string id="8177" value="Geef wat trefwoorden op om naar te zoeken:"/>
 	<string id="8178" value="Het soort bestand:"/>
 	<string id="8179" value="(zoekgeschiedenis wissen)"/>
-	<string id="8180" value="Bestandsgrootte moet zijn"/>
-	<string id="8181" value="&#160;tot"/><!-- size from xx TO xx-->
-	<string id="8208" value="PeerProject creëert hashes voor %Iu bestand(en):"/>
+	<string id="8180" value="Bestandsgrootte Min:"/>
+	<string id="8181" value="Bestandsgrootte Max:"/>
+	<string id="8208" value="PeerProject creëert hashes voor %Iu bestanden:"/>
 	<string id="8223" value="%i dagen and %i uren"/>
 	<string id="8224" value="PeerProject is aan het downloaden:"/>
 	<string id="8225" value="Deze download is gepauzeerd:"/>

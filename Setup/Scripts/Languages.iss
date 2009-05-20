@@ -245,15 +245,15 @@ Source: "Setup\Filter\Catalan.dat"; DestDir: "{app}\Data"; DestName: "AdultFilte
 ; English Default
 components_plugins=Plugins
 components_skins=Skins
-tasks_languages=Multi-Language
 tasks_allusers=All users
 tasks_selectusers=Install %1 for:
 tasks_currentuser=%1 only
-tasks_multisetup=Enable Windows multi-user support
+tasks_languages=Install multi-language support
+tasks_multisetup=Setup Windows user's default folder locations
+tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 tasks_firewall=Add an exception to the Windows Firewall
-tasks_upnp=Enable discovery of Plug'n'Play network devices
-tasks_deleteoldsetup=Delete old installers
 tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
+tasks_deleteoldsetup=Delete old installers
 run_skinexe=Running skin installation...
 reg_incomingchat=Incoming chat message
 reg_apptitle=PeerProject P2P Filesharing
