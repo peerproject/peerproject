@@ -187,9 +187,10 @@
   <watermark target="CHomeUploadsBox.Caption" path="Seven\SidebarCaption.png"/>
   <watermark target="CHomeTorrentsBox.Caption" path="Seven\SidebarCaption.png"/>
   <watermark target="CSearchInputBox.Caption" path="Seven\SidebarCaption.png"/>
-  <watermark target="CSearchResultsBox.Caption" path="Seven\SidebarCaption.png"/>
-  <watermark target="CSearchSchemaBox.Caption" path="Seven\SidebarCaption.png"/>
   <watermark target="CSearchAdvancedBox.Caption" path="Seven\SidebarCaption.png"/>
+  <watermark target="CSearchSchemaBox.Caption" path="Seven\SidebarCaption.png"/>
+  <watermark target="CSearchResultsBox.Caption" path="Seven\SidebarCaption.png"/>
+  <watermark target="CSearchResultsBox" path="Seven\SideBlock.png"/>
 
   <watermark target="CWndTabBar.Active" path="Seven\RibbonBaselineTabActive.png"/>
   <watermark target="CWndTabBar.Hover" path="Seven\RibbonBaselineTabActive.png"/>

@@ -19,70 +19,48 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_LIBRARYDICTIONARY_H__6C8B6129_DF70_4AE4_895B_7C7CE7CB3192__INCLUDED_)
-#define AFX_LIBRARYDICTIONARY_H__6C8B6129_DF70_4AE4_895B_7C7CE7CB3192__INCLUDED_
-
 #pragma once
 
-class CLibraryWord;
 class CLibraryFile;
 class CQueryHashTable;
 class CQuerySearch;
 
+typedef CList< const CLibraryFile* > FilePtrList;
 
-class CLibraryDictionary
+
+class CLibraryDictionary : private ::boost::noncopyable
 {
+private:
+	typedef CMap< CString, const CString&, FilePtrList*, FilePtrList* > WordMap;
+
 // Construction
 public:
 	CLibraryDictionary();
 	virtual ~CLibraryDictionary();
 
 // Attributes
-public:
+private:
+	WordMap				m_oWordMap;
 	CQueryHashTable*	m_pTable;
-protected:
-	CMap< CString, const CString&, CLibraryWord*, CLibraryWord* > m_pWords;
-	BOOL				m_bTable;
+	bool				m_bValid;							// Table is up to date
 	DWORD				m_nSearchCookie;
 
 // Operations
 public:
-	void				Add(CLibraryFile* pFile);
-	void				Remove(CLibraryFile* pFile);
-	BOOL				BuildHashTable();					//Build hash table if needed
-	void				RebuildHashTable();					//Force hash table to re-build
-	CQueryHashTable*	GetHashTable();
-	void				Clear();
-	CList< CLibraryFile* >*	Search(CQuerySearch* pSearch, int nMaximum = 0, BOOL bLocal = FALSE, BOOL bAvailableOnly = TRUE);
-	void				Serialize(CArchive& ar, int nVersion);
-protected:
-	void				ProcessFile(CLibraryFile* pFile, BOOL bAdd);
-	int					ProcessPhrase(CLibraryFile* pFile, const CString& strPhrase, BOOL bAdd, BOOL bLowercase = TRUE);
-	int					MakeKeywords(CLibraryFile* pFile, const CString& strWord, BOOL bAdd);
-	inline void			ProcessWord(CLibraryFile* pFile, const CString& strWord, BOOL bAdd);
-	static BOOL			IsValidKeyword(CString& strKeyword);
-};
-
-
-class CLibraryWord
-{
-// Construction
-public:
-	CLibraryWord();
-	~CLibraryWord();
-
-// Attributes
-public:
-	CLibraryFile**	m_pList;
-	DWORD			m_nCount;
-
-// Operations
-public:
-	inline void		Add(CLibraryFile* pFile);
-	inline BOOL		Remove(CLibraryFile* pFile);
-
+	void					AddFile(const CLibraryFile& oFile);
+	void					RemoveFile(const CLibraryFile& oFile);
+	bool					BuildHashTable();					// Build hash table if needed
+	void					RebuildHashTable();					// Force hash table to re-build
+	CQueryHashTable*		GetHashTable();
+	void					Clear();
+	FilePtrList*			Search(const CQuerySearch& oSearch, int nMaximum = 0, bool bLocal = false, bool bAvailableOnly = true);
+	void					Serialize(CArchive& ar, int nVersion);
+private:
+	void					ProcessFile(const CLibraryFile& oFile, bool bAdd, bool bCanUpload);
+	void					ProcessPhrase(const CLibraryFile& oFile, const CString& strPhrase, bool bAdd, bool bCanUpload);
+	void					MakeKeywords(const CLibraryFile& oFile, const CString& strWord, WORD nWordType, bool bAdd, bool bCanUpload);
+	void					ProcessWord(const CLibraryFile& oFile, const CString& strWord, bool bAdd, bool bCanUpload);
+	void					AddHashes(const CLibraryFile& oFile);
 };
 
 extern CLibraryDictionary LibraryDictionary;
-
-#endif // !defined(AFX_LIBRARYDICTIONARY_H__6C8B6129_DF70_4AE4_895B_7C7CE7CB3192__INCLUDED_)

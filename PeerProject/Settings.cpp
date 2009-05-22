@@ -437,6 +437,7 @@ void CSettings::Load()
 	Add( _T("BitTorrent"), _T("DhtPruneTime"), &BitTorrent.DhtPruneTime, 30*60, 60, 10, 7*24*60*60, _T(" m") );
 	Add( _T("BitTorrent"), _T("DownloadConnections"), &BitTorrent.DownloadConnections, 40, 1, 1, 800 );
 	Add( _T("BitTorrent"), _T("DownloadTorrents"), &BitTorrent.DownloadTorrents, 3, 1, 1, 12 );
+	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, true );
 	Add( _T("BitTorrent"), _T("Endgame"), &BitTorrent.Endgame, true );
 	Add( _T("BitTorrent"), _T("LinkPing"), &BitTorrent.LinkPing, 120*1000, 1000, 10, 60*10, _T(" s") );
 	Add( _T("BitTorrent"), _T("LinkTimeout"), &BitTorrent.LinkTimeout, 180*1000, 1000, 10, 60*10, _T(" s") );
@@ -694,6 +695,7 @@ void CSettings::Load()
 	Gnutella2.EnableToday = Gnutella2.EnableAlways = true;
 	eDonkey.EnableToday = eDonkey.EnableAlways = false;
 	Gnutella1.EnableToday = Gnutella1.EnableAlways = false;
+	BitTorrent.EnableToday = BitTorrent.EnableAlways = false;
 #endif // LAN_MODE
 
 	if ( Live.FirstRun )

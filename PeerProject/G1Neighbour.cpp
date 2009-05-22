@@ -758,7 +758,7 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 
 			// Add the IP address and port number to the Gnutella host cache of computers we can try to connect to
 			HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort, 0,
-				( ( m_bPeerProject && strVendorCode.IsEmpty() ) ? PEERPROJECT_VENDOR_T :
+				( ( m_bClientExtended && strVendorCode.IsEmpty() ) ? PEERPROJECT_VENDOR_T :
 					(LPCTSTR)strVendorCode ), nUptime );
 
 			if ( bGDNA )
@@ -1056,7 +1056,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 		}
 	}
 
-	/*	Other Vendors: ToDo
+	/*	ToDo: Other Vendors 
 
 	else if ( nVendor == 'LIME' || nVendor == 'SNOW' )
 	{
@@ -1080,7 +1080,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 void CG1Neighbour::SendClusterAdvisor()
 {
 	// Only do this if the remote computer is running PeerProject and the settings here allow custom vendor message packets
-	if ( ! m_bPeerProject || ! Settings.Gnutella1.VendorMsg )
+	if ( ! m_bClientExtended || ! Settings.Gnutella1.VendorMsg )
 		return;
 
 	// Setup local variables
@@ -1108,7 +1108,7 @@ void CG1Neighbour::SendClusterAdvisor()
 				{
 					// Make a new vendor specific packet
 					pPacket = CG1Packet::New( G1_PACKET_VENDOR, 1 );
-					pPacket->WriteLongBE( 'RAZA' );  // Back-compatability, vendor code should be "PEER" for PeerProject
+					pPacket->WriteLongBE( 'PEER' );  // Back-compatability, vendor code should be "PEER" for PeerProject
 					pPacket->WriteShortLE( 0x0003 ); // 3 is the code for a cluster advisor packet
 					pPacket->WriteShortLE( 1 );      // Version number is 1
 					pPacket->WriteShortLE( 0 );      // (do)
@@ -1144,11 +1144,13 @@ void CG1Neighbour::SendClusterAdvisor()
 BOOL CG1Neighbour::OnClusterAdvisor(CG1Packet* pPacket)
 {
 	// RazaVerify does nothing, and always returns false (do)
-	if ( ! pPacket->RazaVerify() ) return FALSE;
+	if ( ! pPacket->RazaVerify() )
+		return FALSE;
 
 	// Find out how many IP addresses and port numbers are in this packet
-	WORD nCount = pPacket->ReadShortLE();                          // The first 2 bytes are the number of hosts described
-	if ( pPacket->GetRemaining() < nCount * 6u + 20u ) return FALSE; // Make sure the payload is long enough for that many
+	WORD nCount = pPacket->ReadShortLE();				// The first 2 bytes are the number of hosts described
+	if ( pPacket->GetRemaining() < nCount * 6u + 20u )	// Make sure the payload is long enough for that many
+		return FALSE;
 
 	// Reply to this cluster advisor packet with one of our own
 	SendClusterAdvisor();

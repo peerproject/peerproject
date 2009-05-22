@@ -95,6 +95,7 @@ CEDClient::CEDClient()
 
 	// Misc stuff
 	m_bLogin		= FALSE;
+
 	m_pDownload		= NULL;
 	m_pUpload		= NULL;
 	m_bSeeking		= FALSE;
@@ -928,7 +929,7 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 				m_bEmRequest	= (pTag.m_nValue >> 8 ) & 0x0F;
 				m_bEmComments	= (pTag.m_nValue >> 4 ) & 0x0F;
 				m_bEmPeerCache	= (pTag.m_nValue >> 3 ) & 0x01;
-				m_bEmBrowse		=!( ( pTag.m_nValue >> 2 ) & 0x01 );
+				m_bEmBrowse		= ! ( ( pTag.m_nValue >> 2 ) & 0x01 );
 				m_bEmMultiPacket= (pTag.m_nValue >> 1 ) & 0x01;
 				m_bEmPreview	= (pTag.m_nValue) & 0x01;
 				if ( m_pDownload && m_pDownload->m_pSource && m_pDownload->m_pSource->m_bClientExtended )
@@ -1001,7 +1002,7 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 	}
 
 	// Get client name/version
-	DeriveSoftwareVersion();
+	DetermineUserAgent();
 
 	// If this was a hello
 	if ( pPacket->m_nType == ED2K_C2C_HELLO )
@@ -1027,7 +1028,7 @@ void CEDClient::SendEmuleInfo(BYTE nType)
 {
 	CEDPacket* pPacket = CEDPacket::New( nType, ED2K_PROTOCOL_EMULE );
 
-	pPacket->WriteByte( 0x40 );		// eMule version, 40=Shareaza, 44=PeerProject? ToDo:
+	pPacket->WriteByte( 0x40 );		// eMule version, 40=Shareaza, 80=PeerProject? ToDo: Update
 	pPacket->WriteByte( 0x01 );		// eMule protocol
 
 	// Write number of tags
@@ -1130,7 +1131,7 @@ BOOL CEDClient::OnEmuleInfo(CEDPacket* pPacket)
 	if ( pPacket->m_nType == ED2K_C2C_EMULEINFO ) SendEmuleInfo( ED2K_C2C_EMULEINFOANSWER );
 
 	// Get client name/version
-	DeriveVersion();
+	DetermineUserAgent();
 
 	return TRUE;
 }
@@ -1147,7 +1148,7 @@ void CEDClient::SendPreviewRequest(CDownload* pDownload)
 // CEDClient client version
 
 //Newer clients send the 24 bit "software version" + client ID
-void CEDClient::DeriveSoftwareVersion()
+void CEDClient::DetermineUserAgent()
 {
 	//Newer clients send the 24 bit software version + client ID
 	if ( m_nSoftwareVersion )
@@ -1194,10 +1195,6 @@ void CEDClient::DeriveSoftwareVersion()
 				m_sUserAgent.Format( _T("Shareaza %i.%i.%i.%i"),
 					( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
 					( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
-
-				// Client allows G2 browse, etc
-				if ( m_pUpload ) m_pUpload->m_bClientExtended = TRUE;
-				if ( m_pDownload && m_pDownload->m_pSource ) m_pDownload->m_pSource->m_bClientExtended = TRUE;
 				break;
 			case 5:
 				m_sUserAgent.Format( _T("ePlus %i.%i%c"),
@@ -1231,12 +1228,8 @@ void CEDClient::DeriveSoftwareVersion()
 				m_sUserAgent.Format( _T("Shareaza %i.%i.%i.%i"), 
 					( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
 					( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
-
-				//Client allows G2 browse, etc
-				if ( m_pUpload ) m_pUpload->m_bClientExtended = TRUE;
-				if ( m_pDownload && m_pDownload->m_pSource ) m_pDownload->m_pSource->m_bClientExtended = TRUE;
 				break;
-			case 44:		// PeerProject (Proposed)
+			case 80:		// PeerProject (Proposed)
 				if ( m_bEmAICH )
 				{
 					if ( m_sUserAgent.IsEmpty() )
@@ -1250,20 +1243,12 @@ void CEDClient::DeriveSoftwareVersion()
 				m_sUserAgent.Format( _T("PeerProject %i.%i.%i.%i"),
 					( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
 					( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
-
-				//Client allows G2 browse, etc
-				if ( m_pUpload ) m_pUpload->m_bClientExtended = TRUE;
-				if ( m_pDownload && m_pDownload->m_pSource ) m_pDownload->m_pSource->m_bClientExtended = TRUE;
 				break;
 			case 203:		// ShareazaPlus with RazaCB core
 				//Note 2nd last number (Beta build #) may be truncated, since it's only 3 bits.
 				m_sUserAgent.Format( _T("ShareazaPlus %i.%i.%i.%i"),
 					( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
 					( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
-
-				//Client allows G2 browse, etc
-				if ( m_pUpload ) m_pUpload->m_bClientExtended = TRUE;
-				if ( m_pDownload && m_pDownload->m_pSource ) m_pDownload->m_pSource->m_bClientExtended = TRUE;
 				break;
 			default:	// (Sent a compatible client ID, but we don't recognise it)
 				m_sUserAgent.Format( _T("eMule/c (%i) %i.%i%c"), m_nEmCompatible,
@@ -1274,130 +1259,114 @@ void CEDClient::DeriveSoftwareVersion()
 	}
 	else
 	{
-		DeriveVersion();
-	}
-}
+		//This is the older style of IDing a client
+		if ( m_oGUID[5] == 13 && m_oGUID[14] == 110 )
+			m_bEmule = TRUE;
+		else if ( m_oGUID[5] == 14 && m_oGUID[14] == 111 )
+			m_bEmule = TRUE;
 
-//This is the older style of IDing a client
-void CEDClient::DeriveVersion()
-{
-	if ( m_nSoftwareVersion ) return;
+		if ( m_nEmVersion <= 0 )
+			m_nEmVersion = m_nVersion;
 
-	if ( m_oGUID[5] == 13 && m_oGUID[14] == 110 )
-		m_bEmule = TRUE;
-	else if ( m_oGUID[5] == 14 && m_oGUID[14] == 111 )
-		m_bEmule = TRUE;
-
-	if( m_nEmVersion <= 0 ) m_nEmVersion = m_nVersion;
-
-	if ( m_bEmule )
-	{
-		switch ( m_nEmCompatible )
+		if ( m_bEmule )
 		{
-			case 0:
-				m_sUserAgent.Format( _T("eMule v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
-				break;
-			case 1:
-				m_sUserAgent.Format( _T("cDonkey v%i.%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
-				break;
-			case 2:
-				m_sUserAgent.Format( _T("xMule v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
-				break;
-			case 3:
-				m_sUserAgent.Format( _T("aMule v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
-				break;
-			case 4:		// Shareaza alpha/beta/mod/fork versions
-				if ( m_bEmAICH )
-				{
-					if ( m_sUserAgent.IsEmpty() )
-						m_sUserAgent.Format( _T("eMule mod (4) v%i"), m_nEmVersion );
+			switch ( m_nEmCompatible )
+			{
+				case 0:
+					m_sUserAgent.Format( _T("eMule v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
 					break;
-				}
-
-				m_sUserAgent.Format( _T("Shareaza") );
-				//Client allows G2 browse, etc
-				if ( m_pUpload ) m_pUpload->m_bClientExtended = TRUE;
-				if ( m_pDownload && m_pDownload->m_pSource ) m_pDownload->m_pSource->m_bClientExtended = TRUE;
-				break;
-			case 10:
-				m_sUserAgent.Format( _T("MLdonkey v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
-				break;
-			case 20:
-				m_sUserAgent.Format( _T("Lphant v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
-				break;
-			case 40:		// Shareaza
-				if ( m_bEmAICH )
-				{
-					if ( m_sUserAgent.IsEmpty() )
-						m_sUserAgent.Format( _T("eMule mod (40) v%i"), m_nEmVersion );
+				case 1:
+					m_sUserAgent.Format( _T("cDonkey v%i.%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
 					break;
-				}
-
-				m_sUserAgent.Format( _T("Shareaza") );
-				//Client allows G2 browse, etc
-				if ( m_pUpload ) m_pUpload->m_bClientExtended = TRUE;
-				if ( m_pDownload && m_pDownload->m_pSource ) m_pDownload->m_pSource->m_bClientExtended = TRUE;
-				break;
-			case 44:		// PeerProject?
-				if ( m_bEmAICH )
-				{
-					if ( m_sUserAgent.IsEmpty() )
-						m_sUserAgent.Format( _T("eMule mod (44) v%i"), m_nEmVersion );
+				case 2:
+					m_sUserAgent.Format( _T("xMule v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
 					break;
-				}
+				case 3:
+					m_sUserAgent.Format( _T("aMule v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
+					break;
+				case 4:		// Shareaza alpha/beta/mod/fork versions
+					if ( m_bEmAICH )
+					{
+						if ( m_sUserAgent.IsEmpty() )
+							m_sUserAgent.Format( _T("Shareaza Mod (4) v%i"), m_nEmVersion );
+						break;
+					}
+					m_sUserAgent = _T("Shareaza");
+					break;
+				case 10:
+					m_sUserAgent.Format( _T("MLdonkey v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
+					break;
+				case 20:
+					m_sUserAgent.Format( _T("Lphant v0.%i%i"), m_nEmVersion >> 4, m_nEmVersion & 15 );
+					break;
+				case 40:		// Shareaza
+					if ( m_bEmAICH )
+					{
+						if ( m_sUserAgent.IsEmpty() )
+							m_sUserAgent.Format( _T("Shareaza Mod (40) v%i"), m_nEmVersion );
+						break;
+					}
+					m_sUserAgent = _T("Shareaza");
+					break;
+				case 80:		// PeerProject (Proposed)
+					if ( m_bEmAICH )
+					{
+						if ( m_sUserAgent.IsEmpty() )
+							m_sUserAgent.Format( _T("PeerProject Mod (80) v%i"), m_nEmVersion );
+						break;
+					}
+					m_sUserAgent = _T("PeerProject");
+					break;
+				case 203:		// ShareazaPlus RazaCB
+					m_sUserAgent.Format( _T("ShareazaPlus") );
+					break;
+				case ED2K_CLIENT_MOD:		// (Did not send a compatible client ID, but did send a MOD tag)
+					m_sUserAgent.Format( _T("eMule Mod v%i"), m_nEmVersion );
+					break;
+				case ED2K_CLIENT_UNKNOWN:	// (Did not send a compatible client ID)
+					if ( _tcsistr( m_sNick, _T("www.pruna.com") ) )	// ToDO: We need a better way to recognize pruna
+						m_sUserAgent.Format( _T("Pruna v%i"), m_nEmVersion );
+					else
+						m_sUserAgent.Format( _T("Unidentified v%i"), m_nEmVersion );
+					break;
+				default:					// (Sent a compatible client ID, but we don't recognise it)
+					m_sUserAgent.Format( _T("eMule/c (%i) v0.%i%i"), m_nEmCompatible, m_nEmVersion >> 4, m_nEmVersion & 15 );
+					break;
+			}
+		}
+		else if ( m_oGUID[5] == 'M' && m_oGUID[14] == 'L' )
+		{
+			m_sUserAgent.Format( _T("MLdonkey v%i"), m_nVersion );
+		}
+		else
+		{
+			m_sUserAgent = _T("eDonkeyHybrid ");
 
-				m_sUserAgent.Format( _T("PeerProject") );
-				//Client allows G2 browse, etc
-				if ( m_pUpload ) m_pUpload->m_bClientExtended = TRUE;
-				if ( m_pDownload && m_pDownload->m_pSource ) m_pDownload->m_pSource->m_bClientExtended = TRUE;
-				break;
-			case 203:		// ShareazaPlus with RazaCB core
-				m_sUserAgent.Format( _T("ShareazaPlus") );
-				//Client allows G2 browse, etc
-				if ( m_pUpload ) m_pUpload->m_bClientExtended = TRUE;
-				if ( m_pDownload && m_pDownload->m_pSource ) m_pDownload->m_pSource->m_bClientExtended = TRUE;
-				break;
-			case ED2K_CLIENT_MOD:		// (Did not send a compatible client ID, but did send a MOD tag)
-				m_sUserAgent.Format( _T("eMule mod v%i"), m_nEmVersion );
-				break;
-			case ED2K_CLIENT_UNKNOWN:	// (Did not send a compatible client ID)
-				if ( _tcsistr( m_sNick, _T("www.pruna.com") ) )	// ToDO: We need a better way to recognize pruna
-					m_sUserAgent.Format( _T("Pruna v%i"), m_nEmVersion );
-				else
-					m_sUserAgent.Format( _T("Unidentified v%i"), m_nEmVersion );
-				break;
-			default:					// (Sent a compatible client ID, but we don't recognise it)
-				m_sUserAgent.Format( _T("eMule/c (%i) v0.%i%i"), m_nEmCompatible, m_nEmVersion >> 4, m_nEmVersion & 15 );
-				break;
+			if ( m_nVersion >= 20000 )		// Unknown
+				m_sUserAgent.AppendFormat( _T("%i"), m_nVersion );
+			else if ( m_nVersion >= 10100 )	// eDonkey from versions 1.1.0 to latest version
+			{
+				CString strVersion;
+				strVersion.Format( _T("%i"), m_nVersion );
+				m_sUserAgent.AppendFormat( _T("v%c.%c.%c"), strVersion[0], strVersion[2], strVersion[4] );
+			}
+			else if ( m_nVersion >= 1100 )	// Unknown
+				m_sUserAgent.AppendFormat( _T("%i"), m_nVersion );
+			else if ( m_nVersion >= 1025 )	// eDonkey 0.xx
+				m_sUserAgent.AppendFormat( _T("v0.%i"), m_nVersion - 1000 );
+			else if ( m_nVersion >= 1000 )	// eDonkey 1.0.x
+				m_sUserAgent.AppendFormat( _T("v1.0.%i"), m_nVersion - 1000 );
+			else if ( m_nVersion > 0 )		// Probably the first edonkey versions
+				m_sUserAgent.Format( _T("eDonkey v%i" ), m_nVersion );
+			else							// It shouldn't happen
+				m_sUserAgent = _T("Unidentified eDonkey");
 		}
 	}
-	else if ( m_oGUID[5] == 'M' && m_oGUID[14] == 'L' )
-	{
-		m_sUserAgent.Format( _T("MLdonkey v%i"), m_nVersion );
-	}
-	else
-	{
-		m_sUserAgent.Format( _T("eDonkeyHybrid ") );
 
-		if ( m_nVersion >= 20000 )		// Unknown
-			m_sUserAgent.AppendFormat( _T("%i"), m_nVersion );
-		else if ( m_nVersion >= 10100 )	// eDonkey from versions 1.1.0 to latest version
-		{
-			CString strVersion;
-			strVersion.Format( _T("%i"), m_nVersion );
-			m_sUserAgent.AppendFormat( _T("v%c.%c.%c"), strVersion[0], strVersion[2], strVersion[4] );
-		}
-		else if ( m_nVersion >= 1100 )	// Unknown
-			m_sUserAgent.AppendFormat( _T("%i"), m_nVersion );
-		else if ( m_nVersion >= 1025 )	// eDonkey 0.xx
-			m_sUserAgent.AppendFormat( _T("v0.%i"), m_nVersion - 1000 );
-		else if ( m_nVersion >= 1000 )	// eDonkey 1.0.x
-			m_sUserAgent.AppendFormat( _T("v1.0.%i"), m_nVersion - 1000 );
-		else if ( m_nVersion > 0 )		// Probably the first edonkey versions
-			m_sUserAgent.Format( _T("eDonkey v%i" ), m_nVersion );
-		else							// It shouldn't happen
-			m_sUserAgent.Format( _T("Unidentified eDonkey") );
-	}
+	//Client allows G2 browse, etc.
+	m_bClientExtended = VendorCache.IsExtended( m_sUserAgent );
+	if ( m_pUpload ) m_pUpload->m_bClientExtended = m_bClientExtended;
+	if ( m_pDownload && m_pDownload->m_pSource ) m_pDownload->m_pSource->m_bClientExtended = m_bClientExtended;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1786,155 +1755,155 @@ BOOL CEDClient::OnViewSharedDir(CEDPacket* pPacket)
 
 						pReply->WriteFile( pFile, pFile->GetSize(), this );
 
-					/*	// Obsolete:
+					// Obsolete:
+					// ToDo: Delete?
 
-						// File hash
-						pReply->Write( pFile->m_oED2K );
+					//	// File hash
+					//	pReply->Write( pFile->m_oED2K );
 
-						// ID
-						pReply->WriteLongLE( Network.m_pHost.sin_addr.s_addr );
+					//	// ID
+					//	pReply->WriteLongLE( Network.m_pHost.sin_addr.s_addr );
 
-						// Port
-						pReply->WriteShortLE( htons( Network.m_pHost.sin_port ) );
+					//	// Port
+					//	pReply->WriteShortLE( htons( Network.m_pHost.sin_port ) );
 
-						DWORD nTags = 5;
+					//	DWORD nTags = 5;
 
-						CString strType, strTitle, strArtist, strAlbum, strCodec;
-						DWORD nBitrate = 0, nLength = 0;
-						if ( pFile->m_pSchema &&
-							 pFile->m_pSchema->m_sDonkeyType.GetLength() )
-						{
-							strType = pFile->m_pSchema->m_sDonkeyType;
-							nTags ++;
+					//	CString strType, strTitle, strArtist, strAlbum, strCodec;
+					//	DWORD nBitrate = 0, nLength = 0;
+					//	if ( pFile->m_pSchema &&
+					//		 pFile->m_pSchema->m_sDonkeyType.GetLength() )
+					//	{
+					//		strType = pFile->m_pSchema->m_sDonkeyType;
+					//		nTags ++;
 
-							// Title
-							if ( pFile->m_pMetadata->GetAttributeValue( _T("title") ).GetLength() )
-							{
-								strTitle = pFile->m_pMetadata->GetAttributeValue( _T("title") );
-								if ( strTitle.GetLength() )
-									nTags ++;
-							}
+					//		// Title
+					//		if ( pFile->m_pMetadata->GetAttributeValue( _T("title") ).GetLength() )
+					//		{
+					//			strTitle = pFile->m_pMetadata->GetAttributeValue( _T("title") );
+					//			if ( strTitle.GetLength() )
+					//				nTags ++;
+					//		}
 
-							if ( pFile->IsSchemaURI( CSchema::uriAudio ) )
-							{
-								// Artist
-								if ( pFile->m_pMetadata->GetAttributeValue( _T("artist") ).GetLength() )
-								{
-									strArtist = pFile->m_pMetadata->GetAttributeValue( _T("artist") );
-									if ( strArtist.GetLength() )
-										nTags ++;
-								}
+					//		if ( pFile->IsSchemaURI( CSchema::uriAudio ) )
+					//		{
+					//			// Artist
+					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("artist") ).GetLength() )
+					//			{
+					//				strArtist = pFile->m_pMetadata->GetAttributeValue( _T("artist") );
+					//				if ( strArtist.GetLength() )
+					//					nTags ++;
+					//			}
 
-								// Album
-								if ( pFile->m_pMetadata->GetAttributeValue( _T("album") ).GetLength() )
-								{
-									strAlbum = pFile->m_pMetadata->GetAttributeValue( _T("album") );
-									if ( strAlbum.GetLength() )
-										nTags ++;
-								}
+					//			// Album
+					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("album") ).GetLength() )
+					//			{
+					//				strAlbum = pFile->m_pMetadata->GetAttributeValue( _T("album") );
+					//				if ( strAlbum.GetLength() )
+					//					nTags ++;
+					//			}
 
-								// Bitrate
-								if ( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ).GetLength() )	//And has a bitrate
-								{
-									_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ), _T("%i"), &nBitrate );
-									if ( nBitrate )
-										nTags ++;
-								}
+					//			// Bitrate
+					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ).GetLength() )	//And has a bitrate
+					//			{
+					//				_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ), _T("%i"), &nBitrate );
+					//				if ( nBitrate )
+					//					nTags ++;
+					//			}
 
-								// Length
-								if ( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ).GetLength() )	//And has seconds
-								{
-									nLength = 0;
-									_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ), _T("%i"), &nLength );
-									if ( nLength )
-										nTags ++;
-								}
-							}
-							else if ( pFile->IsSchemaURI( CSchema::uriVideo ) )
-							{
-								// Codec
-								if ( pFile->m_pMetadata->GetAttributeValue( _T("codec") ).GetLength() )
-								{
-									strCodec = pFile->m_pMetadata->GetAttributeValue( _T("codec") );
-									if ( strCodec.GetLength() )
-										nTags ++;
-								}
+					//			// Length
+					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ).GetLength() )	//And has seconds
+					//			{
+					//				nLength = 0;
+					//				_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ), _T("%i"), &nLength );
+					//				if ( nLength )
+					//					nTags ++;
+					//			}
+					//		}
+					//		else if ( pFile->IsSchemaURI( CSchema::uriVideo ) )
+					//		{
+					//			// Codec
+					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("codec") ).GetLength() )
+					//			{
+					//				strCodec = pFile->m_pMetadata->GetAttributeValue( _T("codec") );
+					//				if ( strCodec.GetLength() )
+					//					nTags ++;
+					//			}
 
-								// Length
-								if ( pFile->m_pMetadata->GetAttributeValue( _T("minutes") ).GetLength() )
-								{
-									double nMins = 0.0;
-									_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("minutes") ), _T("%lf"), &nMins );
-									nLength = (DWORD)( nMins * (double)60 );	//Convert to seconds
-									if ( nLength )
-										nTags ++;
-								}
-							}
-						}
+					//			// Length
+					//			if ( pFile->m_pMetadata->GetAttributeValue( _T("minutes") ).GetLength() )
+					//			{
+					//				double nMins = 0.0;
+					//				_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("minutes") ), _T("%lf"), &nMins );
+					//				nLength = (DWORD)( nMins * (double)60 );	//Convert to seconds
+					//				if ( nLength )
+					//					nTags ++;
+					//			}
+					//		}
+					//	}
 
-						BYTE nRating = 0;
-						if ( pFile->m_nRating )
-						{
-							nRating = (BYTE)min( pFile->m_nRating, 5 );
-							nTags ++;
-						}
+					//	BYTE nRating = 0;
+					//	if ( pFile->m_nRating )
+					//	{
+					//		nRating = (BYTE)min( pFile->m_nRating, 5 );
+					//		nTags ++;
+					//	}
 
-						if ( pFile->m_nSize > MAX_SIZE_32BIT )
-							nTags ++;
+					//	if ( pFile->m_nSize > MAX_SIZE_32BIT )
+					//		nTags ++;
 
-						// Number of Tags
-						pReply->WriteLongLE( nTags );
+					//	// Number of Tags
+					//	pReply->WriteLongLE( nTags );
 
-						// Filename
-						CEDTag( ED2K_FT_FILENAME, pFile->m_sName ).Write( pReply, m_bEmUnicode );
+					//	// Filename
+					//	CEDTag( ED2K_FT_FILENAME, pFile->m_sName ).Write( pReply, m_bEmUnicode );
 
-						// File size
-						CEDTag( ED2K_FT_FILESIZE, (DWORD)pFile->m_nSize ).Write( pReply );
-						if ( pFile->m_nSize > MAX_SIZE_32BIT )
-							CEDTag( ED2K_FT_FILESIZE_HI,
-								(DWORD)(pFile->m_nSize >> 32 ) ).Write( pReply );
+					//	// File size
+					//	CEDTag( ED2K_FT_FILESIZE, (DWORD)pFile->m_nSize ).Write( pReply );
+					//	if ( pFile->m_nSize > MAX_SIZE_32BIT )
+					//		CEDTag( ED2K_FT_FILESIZE_HI,
+					//			(DWORD)(pFile->m_nSize >> 32 ) ).Write( pReply );
 
-						// Sources
-						CEDTag( ED2K_FT_SOURCES, 1ull ).Write( pReply );
+					//	// Sources
+					//	CEDTag( ED2K_FT_SOURCES, 1ull ).Write( pReply );
 
-						// Complete sources
-						CEDTag( ED2K_FT_COMPLETE_SOURCES, 1ull ).Write( pReply );
+					//	// Complete sources
+					//	CEDTag( ED2K_FT_COMPLETE_SOURCES, 1ull ).Write( pReply );
 
-						// Last seen
-						CEDTag( ED2K_FT_LASTSEENCOMPLETE, 0ull ).Write( pReply );
+					//	// Last seen
+					//	CEDTag( ED2K_FT_LASTSEENCOMPLETE, 0ull ).Write( pReply );
 
-						// File type
-						if ( strType.GetLength() )
-							CEDTag( ED2K_FT_FILETYPE, strType ).Write( pReply );
+					//	// File type
+					//	if ( strType.GetLength() )
+					//		CEDTag( ED2K_FT_FILETYPE, strType ).Write( pReply );
 
-						// Title
-						if ( strTitle.GetLength() )
-							CEDTag( ED2K_FT_TITLE, strTitle ).Write( pReply );
+					//	// Title
+					//	if ( strTitle.GetLength() )
+					//		CEDTag( ED2K_FT_TITLE, strTitle ).Write( pReply );
 
-						// Artist
-						if ( strArtist.GetLength() )
-							CEDTag( ED2K_FT_ARTIST, strArtist ).Write( pReply );
+					//	// Artist
+					//	if ( strArtist.GetLength() )
+					//		CEDTag( ED2K_FT_ARTIST, strArtist ).Write( pReply );
 
-						// Album
-						if ( strAlbum.GetLength() )
-							CEDTag( ED2K_FT_ALBUM, strAlbum ).Write( pReply );
+					//	// Album
+					//	if ( strAlbum.GetLength() )
+					//		CEDTag( ED2K_FT_ALBUM, strAlbum ).Write( pReply );
 
-						// Bitrate
-						if ( nBitrate )
-							CEDTag( ED2K_FT_BITRATE, nBitrate ).Write( pReply );
+					//	// Bitrate
+					//	if ( nBitrate )
+					//		CEDTag( ED2K_FT_BITRATE, nBitrate ).Write( pReply );
 
-						// Length
-						if ( nLength )
-							CEDTag( ED2K_FT_LENGTH, nLength ).Write( pReply );
+					//	// Length
+					//	if ( nLength )
+					//		CEDTag( ED2K_FT_LENGTH, nLength ).Write( pReply );
 
-						// Codec
-						if ( strCodec.GetLength() )
-							CEDTag( ED2K_FT_CODEC, strCodec ).Write( pReply );
+					//	// Codec
+					//	if ( strCodec.GetLength() )
+					//		CEDTag( ED2K_FT_CODEC, strCodec ).Write( pReply );
 
-						// File rating
-						if ( nRating )
-							CEDTag( ED2K_FT_FILERATING, nRating ).Write( pReply );
-					*/
+					//	// File rating
+					//	if ( nRating )
+					//		CEDTag( ED2K_FT_FILERATING, nRating ).Write( pReply );
 					}
 
 					oLock.Unlock();

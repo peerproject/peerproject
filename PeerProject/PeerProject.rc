@@ -520,7 +520,7 @@ BEGIN
     CONTROL         154,IDC_BANNER,"Static",SS_BITMAP,0,0,367,31
     LTEXT           "PeerProject Filesharing Client ",IDC_TITLE,20,45,262,10,SS_CENTERIMAGE
     LTEXT           "© PeerProject Development Team, 2002-",IDC_COPYRIGHT,20,60,262,12
-    LTEXT           "GPL v3:  PeerProject is free software; you can redistribute and modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or later version at your option.",IDC_STATIC,20,75,262,24
+    LTEXT           "GPL: PeerProject is free software; you can redistribute and/or modify it \nunder the terms of the GNU General Public License as published by the \nFree Software Foundation, version 3 or later.",IDC_STATIC,20,75,262,24
     LTEXT           "CreativeCommons BY-NC-SA covers original artwork.",IDC_STATIC,20,105,262,12
     LTEXT           "Please be aware of local laws and norms.",IDC_STATIC,20,120,262,18
     LTEXT           "http://PeerProject.org/",IDC_WEB,20,142,125,10

@@ -49,7 +49,6 @@ public:
 	BOOL			m_bOld;
 	BOOL			m_bMustPush;
 	DWORD			m_tPushed;
-	CString			m_sUserAgent;
 	CString			m_sUserNick;
 	CGProfile*		m_pProfile;
 	BOOL			m_bUnicode;		// ED2K Client in UTF-8 format

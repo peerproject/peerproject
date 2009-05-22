@@ -49,6 +49,7 @@ public:
 	DWORD		m_tConnected;	// The tick count when the socket connection was made
 	SOCKET		m_hSocket;		// The actual Windows socket for the Internet connection to the remote computer
 	CString		m_sUserAgent;	// The name of the program the remote computer is running
+	BOOL		m_bClientExtended; // Does the remote computer support extended functions? (Running under PeerProject/Shareaza or compatible mod.) Use chat, browse, etc...
 	CString		m_sLastHeader;	// The handshake header that ReadHeaders most recently read
 	int			m_nQueuedRun;	// The queued run state of 0, 1, or 2 (do)
 	PROTOCOLID	m_nProtocol;	// Detected protocol

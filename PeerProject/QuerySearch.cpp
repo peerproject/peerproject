@@ -1271,7 +1271,7 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch matching
 
-BOOL CQuerySearch::Match(LPCTSTR pszFilename, QWORD nSize, LPCTSTR pszSchemaURI, CXMLElement* pXML, const Hashes::Sha1Hash& oSHA1, const Hashes::TigerHash& oTiger, const Hashes::Ed2kHash& oED2K, const Hashes::BtHash& oBTH, const Hashes::Md5Hash& oMD5)
+BOOL CQuerySearch::Match(LPCTSTR pszFilename, QWORD nSize, LPCTSTR pszSchemaURI, CXMLElement* pXML, const Hashes::Sha1Hash& oSHA1, const Hashes::TigerHash& oTiger, const Hashes::Ed2kHash& oED2K, const Hashes::BtHash& oBTH, const Hashes::Md5Hash& oMD5) const
 {
 	if ( nSize == SIZE_UNKNOWN || nSize < m_nMinSize || nSize > m_nMaxSize ) return FALSE;
 
@@ -1339,7 +1339,7 @@ BOOL CQuerySearch::Match(LPCTSTR pszFilename, QWORD nSize, LPCTSTR pszSchemaURI,
 	return m_oSimilarED2K || m_sKeywords.GetLength() && WordMatch( pszFilename, m_sKeywords );
 }
 
-TRISTATE CQuerySearch::MatchMetadata(LPCTSTR pszSchemaURI, CXMLElement* pXML)
+TRISTATE CQuerySearch::MatchMetadata(LPCTSTR pszSchemaURI, CXMLElement* pXML) const
 {
 	if ( ! m_pSchema || ! m_pXML )
 		return TRI_UNKNOWN;
@@ -1385,7 +1385,7 @@ TRISTATE CQuerySearch::MatchMetadata(LPCTSTR pszSchemaURI, CXMLElement* pXML)
 	return ( nCount > 0 ) ? TRI_TRUE : TRI_UNKNOWN;
 }
 
-BOOL CQuerySearch::MatchMetadataShallow(LPCTSTR pszSchemaURI, CXMLElement* pXML, bool* bReject)
+BOOL CQuerySearch::MatchMetadataShallow(LPCTSTR pszSchemaURI, CXMLElement* pXML, bool* bReject) const
 {
 	if ( ! pXML || m_sSearch.IsEmpty() )
 		return FALSE;

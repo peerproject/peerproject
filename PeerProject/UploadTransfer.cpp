@@ -50,7 +50,6 @@ CUploadTransfer::CUploadTransfer(PROTOCOLID nProtocol) :
 	m_pBaseFile( NULL ),
 	m_nBandwidth( Settings.Bandwidth.Request ),
 	m_nUserRating( urNew ),
-	m_bClientExtended( FALSE ),
 	m_nFileBase( 0 ),
 	m_nFileSize( 0 ),
 	m_bFilePartial( FALSE ),
@@ -374,9 +373,9 @@ void CUploadTransfer::CalculateRating(DWORD tNow)
 
 void CUploadTransfer::ClearHashes()
 {
-    m_oSHA1.clear();
-    m_oTiger.clear();
-    m_oED2K.clear();
+	m_oSHA1.clear();
+	m_oTiger.clear();
+	m_oED2K.clear();
 	m_oBTH.clear();
 	m_oMD5.clear();
 }
@@ -416,46 +415,46 @@ void CUploadTransfer::ClearRequest()
 BOOL CUploadTransfer::RequestComplete(CLibraryFile* pFile)
 {
 	ASSERT( pFile != NULL );
-	
+
 	if ( validAndUnequal( m_oSHA1, pFile->m_oSHA1 ) ) return FALSE;
 	if ( validAndUnequal( m_oTiger, pFile->m_oTiger ) ) return FALSE;
 	if ( validAndUnequal( m_oED2K, pFile->m_oED2K ) ) return FALSE;
 	if ( validAndUnequal( m_oBTH, pFile->m_oBTH ) ) return FALSE;
 	if ( validAndUnequal( m_oMD5, pFile->m_oMD5 ) ) return FALSE;
-	
+
 	m_sFileName	= pFile->m_sName;
 	m_sFilePath	= pFile->GetPath();
 	m_nFileBase	= pFile->m_nVirtualSize > 0 ? pFile->m_nVirtualBase : 0;
 	m_nFileSize	= pFile->m_nVirtualSize > 0 ? pFile->m_nVirtualSize : pFile->m_nSize;
 	m_sFileTags	= pFile->m_sShareTags;
 	m_bFilePartial = FALSE;
-	
+
 	m_oSHA1 = pFile->m_oSHA1;
 	m_oTiger = pFile->m_oTiger;
 	m_oED2K = pFile->m_oED2K;
 	m_oBTH = pFile->m_oBTH;
 	m_oMD5 = pFile->m_oMD5;
-	
+
 	return TRUE;
 }
 
 BOOL CUploadTransfer::RequestPartial(CDownload* pFile)
 {
 	ASSERT( pFile != NULL );
-	
+
 	if ( validAndUnequal( m_oSHA1, pFile->m_oSHA1 ) ) return FALSE;
 	if ( validAndUnequal( m_oTiger, pFile->m_oTiger ) ) return FALSE;
 	if ( validAndUnequal( m_oED2K, pFile->m_oED2K ) ) return FALSE;
 	if ( validAndUnequal( m_oBTH, pFile->m_oBTH ) ) return FALSE;
 	if ( validAndUnequal( m_oMD5, pFile->m_oMD5 ) ) return FALSE;
-	
+
 	m_sFileName	= pFile->m_sName;
 	m_sFilePath	= pFile->m_sPath;
 	m_nFileBase	= 0;
 	m_nFileSize	= pFile->m_nSize;
 	m_bFilePartial = TRUE;
 	m_sFileTags.Empty();
-	
+
 	if ( m_oSHA1 && !pFile->m_oSHA1 )
 	{
 		pFile->m_oSHA1 = m_oSHA1;
@@ -464,7 +463,7 @@ BOOL CUploadTransfer::RequestPartial(CDownload* pFile)
 	{
 		m_oSHA1 = pFile->m_oSHA1;
 	}
-	
+
 	if ( m_oTiger && ! pFile->m_oTiger )
 	{
 		pFile->m_oTiger = m_oTiger;
@@ -473,7 +472,7 @@ BOOL CUploadTransfer::RequestPartial(CDownload* pFile)
 	{
 		m_oTiger = pFile->m_oTiger;
 	}
-	
+
 	if ( m_oED2K && ! pFile->m_oED2K )
 	{
 		pFile->m_oED2K = m_oED2K;
