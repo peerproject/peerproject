@@ -73,13 +73,13 @@
 
 #endif	//1
 
-// Target features available from Windows XP onwards.
-//	To show features that need guards for Windows 2000 compatability use:
+// Target features available from Windows Vista onwards.
+// To find features that need guards for Windows 2000/XP temporarily use:
 //	#define NTDDI_VERSION	NTDDI_WIN2K
 //	#define _WIN32_WINNT	0x0500
 #define NTDDI_VERSION	NTDDI_LONGHORN	// Minimum build target Vista
-#define _WIN32_WINNT	0x0600		// Windows XP, 2003, Vista, 2008
-#include <sdkddkver.h>				// Setup versioning for windows SDK/DDK
+#define _WIN32_WINNT	0x0600			// Vista, 2008
+#include <sdkddkver.h>					// Setup versioning for Windows SDK
 
 // Add defines missed/messed up when microsoft converted to NTDDI macros
 #define WINXP			0x05010000		// rpcdce.h, rpcdcep.h

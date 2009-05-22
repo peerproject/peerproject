@@ -158,12 +158,12 @@ void CQueryHashMaster::Build()
 			{
 				AddExactString( pDownload->m_oSHA1.toUrn() );
 			}
-			
+
 			if ( pDownload->m_oTiger )
 			{
 				AddExactString( pDownload->m_oTiger.toUrn() );
 			}
-			
+
 			if ( pDownload->m_oED2K )
 			{
                 AddExactString( pDownload->m_oED2K.toUrn() );

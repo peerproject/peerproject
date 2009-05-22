@@ -193,13 +193,13 @@
   <watermark target="CHomeUploadsBox.Caption"		path="Seven\SidebarCaption.png"/>
   <watermark target="CHomeTorrentsBox.Caption"		path="Seven\SidebarCaption.png"/>
   <watermark target="CSearchInputBox.Caption"		path="Seven\SidebarCaption.png"/>
-  <watermark target="CSearchResultsBox.Caption" 	path="Seven\SidebarCaption.png"/>
-  <watermark target="CSearchSchemaBox.Caption"  	path="Seven\SidebarCaption.png"/>
   <watermark target="CSearchAdvancedBox.Caption" 	path="Seven\SidebarCaption.png"/>
-  <!--watermark target="CSearchInputBox"  		path="MenuBkg.png"-->
-  <!--watermark target="CSearchAdvancedBox"		path="MenuBkg.png"-->
-  <!--watermark target="CSearchResultsBox"  		path="MenuBkg.png"-->
-  <!--watermark target="CSearchSchemaBox"  		path="MenuBkg.png"-->
+  <watermark target="CSearchSchemaBox.Caption"  	path="Seven\SidebarCaption.png"/>
+  <watermark target="CSearchResultsBox.Caption" 	path="Seven\SidebarCaption.png"/>
+  <watermark target="CSearchResultsBox"  		path="Seven\SideBlock.png"/>
+  <!--watermark target="CSearchInputBox"  		path="SideBlock.png"-->
+  <!--watermark target="CSearchAdvancedBox"		path="SideBlock.png"-->
+  <!--watermark target="CSearchSchemaBox"  		path="SideBlock.png"-->
   <!--watermark target="CHomeViewCtrl.Header1"		path="###.png"-->
   <!--watermark target="CHomeViewCtrl.Header2"		path="###.png"-->
 

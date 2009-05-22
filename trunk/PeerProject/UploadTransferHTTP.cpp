@@ -277,13 +277,14 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	}
 	else if ( strHeader.CompareNoCase( _T("X-Node") ) == 0 )
 	{
-		m_bNotPeerProject = TRUE;								// PeerProject doesn't send this header
+		m_bNotPeerProject = TRUE;							// PeerProject doesn't send this header
 	}
 	else if ( strHeader.CompareNoCase( _T("X-Queue") ) == 0 )
 	{
 		m_bQueueMe = TRUE;
 		m_nGnutella |= 1;
-		if ( strValue == _T("1.0") ) m_bNotPeerProject = TRUE;	// PeerProject doesn't send this value ?
+	//	if ( strValue == _T("1.0") )
+	//		m_bNotPeerProject = TRUE;						// PeerProject doesn't send this value ?
 	}
 	else if (	strHeader.CompareNoCase( _T("X-Nick") ) == 0 ||
 				strHeader.CompareNoCase( _T("X-Name") ) == 0 ||
@@ -315,11 +316,13 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 {
 	if ( Uploads.EnforcePerHostLimit( this, TRUE ) ) return FALSE;
 	
-	if ( VendorCache.IsExtended( m_sUserAgent ) )
+	if ( m_bClientExtended )
 	{
-		// Assume certain capabilitites for various Shareaza/PeerProject versions. ToDo: Update?
+		// Assume certain capabilitites for various Shareaza/PeerProject versions.
 		m_nGnutella |= 3;
-		if ( m_sUserAgent == _T("Shareaza 1.4.0.0") ) m_bQueueMe = TRUE;
+
+		// ToDo: Update?
+		// if ( m_sUserAgent == _T("Shareaza 1.4.0.0") ) m_bQueueMe = TRUE;
 
 		// Check for non-PeerProject clients spoofing a PeerProject user agent
 		if ( m_bNotPeerProject )

@@ -47,7 +47,7 @@
 #include "PeerProjectURL.h"
 #include "QueryHashMaster.h"
 #include "Registry.h"
-#include "Revision.h"		// To update buildtime
+#include "Revision.h"
 #include "Scheduler.h"
 #include "SchemaCache.h"
 #include "Security.h"
@@ -188,6 +188,10 @@ CPeerProjectApp::CPeerProjectApp() :
 ,	m_hShlWapi				( NULL )
 ,	m_pfnAssocIsDangerous	( NULL )
 
+,	m_hShell32				( NULL )
+,	m_pfnSHGetFolderPathW	( NULL )
+,	m_pfnSHGetKnownFolderPath( NULL )
+
 ,	m_hLibGFL				( NULL )
 ,	m_hGeoIP				( NULL )
 ,	m_pGeoIP				( NULL )
@@ -202,7 +206,7 @@ CPeerProjectApp::CPeerProjectApp() :
 #ifdef _DEBUG
 	BT_InstallSehFilter();
 	BT_SetTerminate();
-	BT_SetAppName( _T( CLIENT_NAME ) );
+//	BT_SetAppName( _T( CLIENT_NAME ) );
 	BT_SetFlags( BTF_INTERCEPTSUEF | BTF_SHOWADVANCEDUI | BTF_DESCRIBEERROR |
 		BTF_DETAILEDMODE | BTF_ATTACHREPORT | BTF_EDITMAIL );
 	BT_SetSupportEMail( _T("peerprojectbugs@lists.sourceforge.net") );
@@ -342,8 +346,11 @@ BOOL CPeerProjectApp::InitInstance()
 	// ALPHA WARNING. Remember to remove this section for final releases and public betas.
 	if ( ! m_ocmdInfo.m_bNoAlphaWarning && m_ocmdInfo.m_bShowSplash )
 	if ( AfxMessageBox(
-		L"\nWARNING: This is an ALPHA TEST version of PeerProject p2p.\n\n"
-		L"NOT FOR GENERAL USE, it is intended for pre-release testing in controlled environments.  "
+		L"\nWARNING: This is an ALPHA TEST version of PeerProject p2p"
+#ifdef __REVISION__		
+		L", r" _T(__REVISION__)
+#endif
+		L".\n\nNOT FOR GENERAL USE, it is intended for pre-release testing in controlled environments.  "
 		L"It may stop running or display debug info to assist testing.\n\n"
 		L"If you wish to simply use this software, then download the current\n"
 		L"stable release from PeerProject.org.  If you continue past this point,\n"
@@ -871,7 +878,7 @@ void CPeerProjectApp::InitResources()
 		GeoIP_newFunc pfnGeoIP_new = (GeoIP_newFunc)GetProcAddress( m_hGeoIP, "GeoIP_new" );
 		m_pfnGeoIP_country_code_by_ipnum = (GeoIP_country_code_by_ipnumFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_code_by_ipnum" );
 		m_pfnGeoIP_country_name_by_ipnum = (GeoIP_country_name_by_ipnumFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_name_by_ipnum" );
-		if ( pfnGeoIP_new ) 
+		if ( pfnGeoIP_new )
 			m_pGeoIP = pfnGeoIP_new( GEOIP_MEMORY_CACHE );
 	}
 
@@ -1073,7 +1080,7 @@ void CPeerProjectApp::LogMessage(const CString& strLog)
 		{
 			// Close the file
 			pFile.Close();
-			
+
 			// Rotate the logs
 			if ( DeleteFileEx( Settings.General.UserPath + _T("\\Data\\PeerProject.old.log"), FALSE, FALSE, FALSE ) )
 			{
@@ -2351,9 +2358,9 @@ bool MarkFileAsDownload(const CString& sFilename)
 
 	if ( Settings.Library.MarkFileAsDownload )
 	{
-		// TODO: pFile->m_bVerify and IDS_LIBRARY_VERIFY_FIX warning features could be merged
-		// with this function, because they resemble the security warning.
-		// Should raza unblock files from the application without forcing user to do that manually?
+		// ToDo: pFile->m_bVerify and IDS_LIBRARY_VERIFY_FIX warning features
+		// could be merged with this function, because they resemble the security warning.
+		// Shouldn't PeerProject unblock files from the application without forcing user to do that manually?
 		if ( CFileExecutor::IsSafeExecute( pszExt ) )
 			return false;
 
@@ -2582,4 +2589,73 @@ void SafeMessageLoop()
 	{
 	}
 	InterlockedDecrement( &theApp.m_bBusy );
+}
+
+const bool IsCharacter(const WCHAR nChar)
+{
+	WORD nCharType( 0u );
+
+	if ( GetStringTypeW( CT_CTYPE3, &nChar, 1, &nCharType ) )
+		return ( nCharType & C3_ALPHA
+			|| ( ( nCharType & ( C3_KATAKANA | C3_HIRAGANA ) ) && ( nCharType & C3_DIACRITIC ) )
+			|| iswdigit( nChar ) );
+
+	return false;
+}
+
+const bool IsHiragana(const WCHAR nChar)
+{
+	WORD nCharType( 0u );
+
+	if ( GetStringTypeW( CT_CTYPE3, &nChar, 1, &nCharType ) )
+		return ( nCharType & C3_HIRAGANA ) != 0;
+
+	return false;
+}
+
+const bool IsKatakana(const WCHAR nChar)
+{
+	WORD nCharType( 0u );
+
+	if ( GetStringTypeW( CT_CTYPE3, &nChar, 1, &nCharType ) )
+		return ( nCharType & C3_KATAKANA ) != 0;
+
+	return false;
+}
+
+const bool IsKanji(const WCHAR nChar)
+{
+	WORD nCharType( 0u );
+
+	if ( GetStringTypeW( CT_CTYPE3, &nChar, 1, &nCharType ) )
+		return ( nCharType & C3_IDEOGRAPH ) != 0;
+
+	return false;
+}
+
+const bool IsWord(LPCTSTR pszString, size_t nStart, size_t nLength)
+{
+	for ( pszString += nStart ; *pszString && nLength ; pszString++, nLength-- )
+	{
+		if ( _istdigit( *pszString ) ) return false;
+	}
+	return true;
+}
+
+void IsType(LPCTSTR pszString, size_t nStart, size_t nLength, bool& bWord, bool& bDigit, bool& bMix)
+{
+	bWord = false;
+	bDigit = false;
+	for ( pszString += nStart ; *pszString && nLength ; pszString++, nLength-- )
+	{
+		if ( _istdigit( *pszString ) ) bDigit = true;
+		else if ( IsCharacter( *pszString ) ) bWord = true;
+	}
+
+	bMix = bWord && bDigit;
+	if ( bMix )
+	{
+		bWord = false;
+		bDigit = false;
+	}
 }

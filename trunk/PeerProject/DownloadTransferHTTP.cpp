@@ -34,6 +34,7 @@
 #include "GProfile.h"
 #include "XML.h"
 #include "VendorCache.h"
+#include "Transfers.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -695,7 +696,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		m_pSource->m_sServer = strValue;
 		if ( m_pSource->m_sServer.GetLength() > 64 ) m_pSource->m_sServer = m_pSource->m_sServer.Left( 64 );
 
-		if ( VendorCache.IsExtended( m_sUserAgent ) ) m_pSource->SetGnutella( 3 );
+		if ( m_bClientExtended ) m_pSource->SetGnutella( 3 );
 		if ( _tcsistr( m_sUserAgent, _T("trustyfiles") ) != NULL ) m_pSource->SetGnutella( 3 );
 		if ( _tcsistr( m_sUserAgent, _T("gnucdna") ) != NULL ) m_pSource->SetGnutella( 3 );
 		if ( _tcsistr( m_sUserAgent, _T("vagaa") ) != NULL ) m_pSource->SetGnutella( 3 );
