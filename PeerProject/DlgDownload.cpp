@@ -61,27 +61,27 @@ void CDownloadDlg::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadDlg message handlers
 
-BOOL CDownloadDlg::OnInitDialog() 
+BOOL CDownloadDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
-	
+
 	SkinMe( NULL, IDR_DOWNLOADSFRAME );
 	m_wndTorrentFile.EnableWindow( m_pDownload == NULL );
-	
+
 	if ( OpenClipboard() )
 	{
 		if ( HGLOBAL hData = GetClipboardData( CF_UNICODETEXT ) )
 		{
 			size_t nData = GlobalSize( hData );
 			LPVOID pData = GlobalLock( hData );
-				
+
 			LPTSTR pszData = m_sURL.GetBuffer( (int)( nData + 1 ) / 2 + 1 );
 			CopyMemory( pszData, pData, nData );
 			pszData[ ( nData + 1 ) / 2 ] = 0;
 			m_sURL.ReleaseBuffer();
 			GlobalUnlock( hData );
 		}
-				
+
 		CloseClipboard();
 	}
 
@@ -93,11 +93,11 @@ BOOL CDownloadDlg::OnInitDialog()
 
 	UpdateData( FALSE );
 	OnChangeURL();
-	
+
 	return TRUE;
 }
 
-void CDownloadDlg::OnChangeURL() 
+void CDownloadDlg::OnChangeURL()
 {
 	UpdateData();
 
@@ -108,11 +108,13 @@ void CDownloadDlg::OnChangeURL()
 		pURL.m_nAction == CPeerProjectURL::uriDownload ) );
 }
 
-void CDownloadDlg::OnTorrentFile() 
+void CDownloadDlg::OnTorrentFile()
 {
+	UpdateData();
+
 	CFileDialog dlg( TRUE, _T("torrent"), ( Settings.Downloads.TorrentPath + "\\." ) , OFN_HIDEREADONLY,
 		_T("Torrent Files|*.torrent|All Files|*.*||"), this );
-	
+
 	if ( dlg.DoModal() != IDOK ) return;
 	
 	CBTInfo* pTorrent = new CBTInfo();
@@ -133,9 +135,9 @@ void CDownloadDlg::OnTorrentFile()
 		delete pTorrent;
 }
 
-void CDownloadDlg::OnOK() 
+void CDownloadDlg::OnOK()
 {
-	UpdateData( TRUE );
+	UpdateData();
 
 	CPeerProjectURL pURL;
 	if ( pURL.Parse( m_sURL, m_pURLs ) ) CSkinDialog::OnOK();

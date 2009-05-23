@@ -33,6 +33,7 @@
 #include "DlgTorrentSeed.h"
 #include "WndMain.h"
 #include "WndDownloads.h"
+#include "DlgExistingFile.h"
 #include "DlgHelp.h"
 #include "DownloadTask.h"
 #include "FragmentedFile.h"
@@ -80,13 +81,13 @@ void CTorrentSeedDlg::DoDataExchange(CDataExchange* pDX)
 BOOL CTorrentSeedDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
-	
+
 	SkinMe( NULL, IDR_MAINFRAME );
-	
+
 	if ( Settings.General.LanguageRTL ) m_wndProgress.ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
 	m_wndProgress.SetRange( 0, 1000 );
 	m_wndProgress.SetPos( 0 );
-	
+
 	if ( m_bForceSeed )
 	{
 		m_wndDownload.EnableWindow( FALSE );
@@ -102,7 +103,7 @@ void CTorrentSeedDlg::OnDownload()
 {
 	/*CWnd* pWnd =*/ AfxGetMainWnd();
 	CBTInfo* pTorrent = new CBTInfo();
-	
+
 	if ( pTorrent->LoadTorrentFile( m_sTorrent ) )
 	{
 		if ( pTorrent->HasEncodingError() )		// Check the torrent is valid
@@ -119,12 +120,9 @@ void CTorrentSeedDlg::OnDownload()
 			|| ( pFile = LibraryMaps.LookupFileByED2K( oURL.m_oED2K ) ) != NULL
 			|| ( pFile = LibraryMaps.LookupFileByMD5( oURL.m_oMD5 ) ) != NULL )
 		{
-			CString strFormat, strMessage;
-			LoadString( strFormat, IDS_URL_ALREADY_HAVE );
-			strMessage.Format( strFormat, (LPCTSTR)pFile->m_sName );
 			oLibraryLock.Unlock();
 					
-			if ( AfxMessageBox( strMessage, MB_ICONINFORMATION|MB_YESNOCANCEL|MB_DEFBUTTON2 ) == IDNO )
+			if ( AfxMessageBox( L"File Exists", MB_ICONINFORMATION|MB_YESNOCANCEL|MB_DEFBUTTON2 ) == IDNO )
 			{
 				EndDialog( IDOK );
 				return;
@@ -136,21 +134,22 @@ void CTorrentSeedDlg::OnDownload()
 		}
 			
 		CDownload* pDownload = Downloads.Add( oURL );
-			
-		if ( pDownload == NULL ) 			
+
+		if ( pDownload == NULL )
 		{
 			EndDialog( IDOK );
 			return;
 		}
-			
-		if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 )
-		{		
-			if ( ! Network.IsWellConnected() ) Network.Connect( TRUE );
+
+		if ( ! Network.IsWellConnected() &&
+			( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 )
+		{
+			Network.Connect( TRUE );
 		}
 
 		CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
 		pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CDownloadsWnd) );
-				
+
 		if ( Settings.Downloads.ShowMonitorURLs )
 		{
 			CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
@@ -171,7 +170,7 @@ void CTorrentSeedDlg::OnSeed()
 	m_wndDownload.EnableWindow( FALSE );
 	m_wndSeed.EnableWindow( FALSE );
 	m_bCancel = FALSE;
-	
+
 	if ( m_pInfo.LoadTorrentFile( m_sTorrent ) )
 	{
 		if ( m_pInfo.HasEncodingError() )		// Check the torrent is valid
@@ -188,8 +187,8 @@ void CTorrentSeedDlg::OnSeed()
 			if ( pLock.Lock( 250 ) )
 			{
 				LibraryHistory.LastSeededTorrent.m_sName		= m_pInfo.m_sName.Left( 40 );
-				LibraryHistory.LastSeededTorrent.m_sPath = m_sTorrent;
-				LibraryHistory.LastSeededTorrent.m_tLastSeeded = static_cast< DWORD >( time( NULL ) );
+				LibraryHistory.LastSeededTorrent.m_sPath		= m_sTorrent;
+				LibraryHistory.LastSeededTorrent.m_tLastSeeded	= static_cast< DWORD >( time( NULL ) );
 
 				// If it's a 'new' torrent, reset the counters
 				if ( !validAndEqual( LibraryHistory.LastSeededTorrent.m_oBTH, m_pInfo.m_oBTH ) )
@@ -239,14 +238,14 @@ void CTorrentSeedDlg::OnDestroy()
 {
 	m_bCancel = TRUE;
 	CloseThread();
-	
+
 	CSkinDialog::OnDestroy();
 }
 
 void CTorrentSeedDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	CSkinDialog::OnTimer( nIDEvent );
-	
+
 	if ( nIDEvent == 1 )
 	{
 		EndDialog( IDOK );
@@ -370,7 +369,7 @@ BOOL CTorrentSeedDlg::CreateDownload()
 			CDownload* pDownload = Downloads.Add( CPeerProjectURL( new CBTInfo( m_pInfo ) ) );
 			if ( pDownload && pDownload->SeedTorrent( m_sMessage ) )
 			{
-  				return TRUE;
+				return TRUE;
 			}
 			pDownload->Remove();
 		}

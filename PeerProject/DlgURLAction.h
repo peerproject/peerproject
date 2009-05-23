@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_DLGURLACTION_H__8BAFF36B_C812_4B29_8F29_9FBF1D89F3AE__INCLUDED_)
-#define AFX_DLGURLACTION_H__8BAFF36B_C812_4B29_8F29_9FBF1D89F3AE__INCLUDED_
-
 #pragma once
 
 #include "DlgSkinDialog.h"
@@ -31,15 +28,17 @@ class CPeerProjectURL;
 
 class CURLActionDlg : public CSkinDialog
 {
-// Construction
+	DECLARE_DYNAMIC(CURLActionDlg)
+
 public:
 	CURLActionDlg(CWnd* pParent = NULL, CPeerProjectURL* pURL = NULL, BOOL bMultiple = FALSE);
 	virtual ~CURLActionDlg();
 
-// Dialog Data
-public:
-	//{{AFX_DATA(CURLActionDlg)
 	enum { IDD = IDD_URL_ACTION };
+
+	void	AddURL(CPeerProjectURL* pURL);
+
+protected:
 	CStatic	m_wndMessage4;
 	CStatic	m_wndMessage3;
 	CButton	m_wndNewWindow;
@@ -54,39 +53,17 @@ public:
 	CString	m_sHashValue;
 	BOOL	m_bNewWindow;
 	BOOL	m_bAlwaysOpen;
-	//}}AFX_DATA
+	CList< CPeerProjectURL* >	m_pURLs;
+	BOOL	m_bMultiple;
 
-// Operations
-public:
-	void	AddURL(CPeerProjectURL* pURL);
-protected:
 	void	Update();
 
-// Attributes
-protected:
-	CList< CPeerProjectURL* >	m_pURLs;
-	BOOL		m_bMultiple;
-
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CURLActionDlg)
-	public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-	//}}AFX_VIRTUAL
-
-// Implementation
-protected:
-	//{{AFX_MSG(CURLActionDlg)
 	virtual BOOL OnInitDialog();
+
 	afx_msg void OnUrlDownload();
 	afx_msg void OnUrlSearch();
-	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
-
 };
-
-//{{AFX_INSERT_LOCATION}}
-
-#endif // !defined(AFX_DLGURLACTION_H__8BAFF36B_C812_4B29_8F29_9FBF1D89F3AE__INCLUDED_)

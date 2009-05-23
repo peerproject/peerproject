@@ -2189,6 +2189,10 @@
 					>
 				</File>
 				<File
+					RelativePath="DlgProgressBar.cpp"
+					>
+				</File>
+				<File
 					RelativePath="DlgPromote.cpp"
 					>
 				</File>
@@ -3919,6 +3923,10 @@
 				</File>
 				<File
 					RelativePath="DlgProfileManager.h"
+					>
+				</File>
+				<File
+					RelativePath="DlgProgressBar.h"
 					>
 				</File>
 				<File

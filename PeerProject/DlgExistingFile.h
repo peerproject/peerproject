@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_DLGEXISTINGFILE_H__B1B3EEF6_4A7B_4C0C_B705_BBF49EC7B1F0__INCLUDED_)
-#define AFX_DLGEXISTINGFILE_H__B1B3EEF6_4A7B_4C0C_B705_BBF49EC7B1F0__INCLUDED_
-
 #pragma once
 
 #include "DlgSkinDialog.h"
@@ -31,15 +28,34 @@ class CLibraryFile;
 
 class CExistingFileDlg : public CSkinDialog
 {
-// Construction
-public:
-	CExistingFileDlg(CLibraryFile* pFile, CWnd* pParent = NULL, bool bDuplicateSearch = false);
 	DECLARE_DYNAMIC(CExistingFileDlg)
 
-// Dialog Data
 public:
-	//{{AFX_DATA(CExistingFileDlg)
+	CExistingFileDlg(CLibraryFile* pFile, CWnd* pParent = NULL, bool bDuplicateSearch = false);
+
 	enum { IDD = IDD_EXISTING_FILE };
+	enum Action { ShowInLibrary, Download, DontDownload, Cancel };
+
+	static Action CheckExisting(const CPeerProjectFile* pFile);
+
+	inline Action GetResult() const
+	{
+		switch ( m_nAction )
+		{
+		case 0:
+			return ShowInLibrary;
+		case 1:
+			return Download;
+		case 2:
+			return DontDownload;
+		default:
+			return Cancel;
+		}
+	}
+
+	virtual INT_PTR DoModal();
+
+protected:
 	CButton	m_wndOK;
 	CStatic	m_wndName;
 	CString	m_sName;
@@ -53,30 +69,16 @@ public:
 	CButton m_wndDownload;
 	CButton m_wndDontDownload;
 	CString m_sComments;
-	//}}AFX_DATA
 	TRISTATE m_bAvailable;
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CExistingFileDlg)
-	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-	//}}AFX_VIRTUAL
-
-// Implementation
-protected:
-	//{{AFX_MSG(CExistingFileDlg)
 	virtual BOOL OnInitDialog();
-	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	virtual void OnOK();
+
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg void OnAction0();
 	afx_msg void OnAction1();
 	afx_msg void OnAction2();
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 };
-
-//{{AFX_INSERT_LOCATION}}
-
-#endif // !defined(AFX_DLGEXISTINGFILE_H__B1B3EEF6_4A7B_4C0C_B705_BBF49EC7B1F0__INCLUDED_)

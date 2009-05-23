@@ -1304,14 +1304,14 @@ BOOL CIRCFrame::PreTranslateMessage(MSG* pMsg)
 		{
 			if ( m_wndEdit.GetLineCount() > m_nLocalLinesLimit ) 
 			{
-				AfxMessageBox( _T("You excedded the Max number of lines allowed!") );
+				AfxMessageBox( _T("Exceeded Max number of lines allowed.") );
 				return TRUE;
 			}
     		m_wndEdit.GetWindowText( m_sCurrent );
 			if ( m_sCurrent.IsEmpty() ) return TRUE;
 			if ( m_sCurrent.GetLength() > m_nLocalTextLimit ) 
 			{
-				AfxMessageBox( _T("You excedded the Max legnth of text allowed!") );
+				AfxMessageBox( _T("Exceeded Max length of text allowed.") );
 				return TRUE;
 			}
 			int nTab = m_wndTab.GetCurSel();

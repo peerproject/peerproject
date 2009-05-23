@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_DOWNLOADWITHEXTRAS_H__EDD3177D_5313_4C8C_900A_4D5B3DE93BB9__INCLUDED_)
-#define AFX_DOWNLOADWITHEXTRAS_H__EDD3177D_5313_4C8C_900A_4D5B3DE93BB9__INCLUDED_
-
 #pragma once
 
 #include "DownloadWithSearch.h"
@@ -82,9 +79,9 @@ public:
 
 // Operations
 public:
-	BOOL		Preview(CSingleLock* pLock = NULL);
+	BOOL		PreviewFile(DWORD nIndex, CSingleLock* pLock);
 	BOOL		IsPreviewVisible() const;
-	BOOL		CanPreview();
+	BOOL		CanPreview(DWORD nIndex);
 	void		ShowMonitor(CSingleLock* pLock = NULL);
 	void		AddPreviewName(LPCTSTR pszFile);
 	void		DeletePreviews();
@@ -111,5 +108,3 @@ public:
 	friend class CFilePreviewDlg;
 
 };
-
-#endif // !defined(AFX_DOWNLOADWITHEXTRAS_H__EDD3177D_5313_4C8C_900A_4D5B3DE93BB9__INCLUDED_)

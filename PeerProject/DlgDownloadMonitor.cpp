@@ -482,7 +482,8 @@ void CDownloadMonitorDlg::Update(CWnd* pWnd, LPCTSTR pszText)
 
 void CDownloadMonitorDlg::Update(CWnd* pWnd, BOOL bEnabled)
 {
-	if ( pWnd->IsWindowEnabled() == bEnabled ) return;
+	if ( pWnd->IsWindowEnabled() == bEnabled )
+		return;
 	pWnd->EnableWindow( bEnabled );
 }
 
@@ -528,36 +529,20 @@ void CDownloadMonitorDlg::DrawProgressBar(CDC* pDC, CRect* pRect)
 void CDownloadMonitorDlg::OnDownloadLaunch() 
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 250 ) || ! Downloads.Check( m_pDownload ) ) return;
+	if ( ! pLock.Lock( 250 ) || ! Downloads.Check( m_pDownload ) )
+		return;
 	
-	CString strName = m_pDownload->m_sSafeName;
-	BOOL bCompleted = m_pDownload->IsMoving();
+	m_pDownload->Launch( -1, &pLock, FALSE );
 	
-	CString strType;
-	CLSID pCLSID;
-	
-	int nExtPos = strName.ReverseFind( '.' );
-	if ( nExtPos != -1 ) strType = strName.Mid( nExtPos );
-	ToLower( strType );
-	
-	if ( bCompleted || ! Plugins.LookupCLSID( _T("DownloadPreview"), strType, pCLSID ) )
-	{
-		pLock.Unlock();
-		CFileExecutor::Execute( strName, FALSE );
-	}
-	else
-	{
-		m_pDownload->Preview( &pLock );
-		pLock.Unlock();
-	}
-	
-	if ( bCompleted ) PostMessage( WM_CLOSE );
+	if ( m_pDownload->IsCompleted() )
+		PostMessage( WM_CLOSE );
 }
 
 void CDownloadMonitorDlg::OnDownloadLibrary() 
 {
 	CWnd* pMainWnd = AfxGetMainWnd();
-	if ( ! pMainWnd ) return;
+	if ( ! pMainWnd )
+		return;
 
 	pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_LIBRARY );
 	pMainWnd->PostMessage( WM_SYSCOMMAND, SC_RESTORE );
@@ -566,7 +551,8 @@ void CDownloadMonitorDlg::OnDownloadLibrary()
 void CDownloadMonitorDlg::OnDownloadStop() 
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 250 ) || ! Downloads.Check( m_pDownload ) ) return;
+	if ( ! pLock.Lock( 250 ) || ! Downloads.Check( m_pDownload ) )
+		return;
 
 	if ( m_pDownload->IsStarted() )
 	{
@@ -575,7 +561,8 @@ void CDownloadMonitorDlg::OnDownloadStop()
 		strPrompt.Format( strFormat, (LPCTSTR)m_pDownload->m_sName );
 
 		pLock.Unlock();
-		if ( AfxMessageBox( strPrompt, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return;
+		if ( AfxMessageBox( strPrompt, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
+			return;
 		pLock.Lock();
 	}
 

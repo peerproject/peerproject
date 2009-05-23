@@ -212,7 +212,7 @@
 #define IDI_RATING_AVERAGE          	323
 #define IDI_RATING_GOOD             	324
 #define IDR_CHANSFRAME              	991
-#define IDD_DOWNLOAD_ACTIONS            993
+#define IDD_DOWNLOAD_ACTIONS        	993
 #define IDR_IRCFRAME                	994
 #define IDR_USERSFRAME              	995
 #define IDB_FONT_SYMBOLS            	996
@@ -223,6 +223,7 @@
 #define IDD_MESSAGE                     1000
 #define IDC_CONNECT_HOST            	1000
 #define IDC_CONNECT_PORT            	1001
+#define IDD_PROGRESSBAR             	1001
 #define IDC_SCHEMAS                 	1002
 #define IDC_SEARCH                  	1003
 #define IDC_FILTER                  	1004
@@ -585,7 +586,7 @@
 #define IDC_URN_SHA1                	1362
 #define IDC_URN_TIGER               	1363
 #define IDC_URN_ED2K                	1364
-#define IDC_URN_MD5                     1365
+#define IDC_URN_MD5                 	1365
 #define IDC_TRAY_MINIMISE           	1366
 #define IDC_FORGET_VERIFY           	1367
 #define IDC_FORGET_SOURCES          	1368
@@ -797,6 +798,12 @@
 #define IDC_INFO_BUTTON3            	1575
 #define IDC_INFO_SPLIT              	1576
 #define IDC_INFO_REMEMBER           	1577
+#define IDC_LABEL_ACTION            	1580
+#define IDC_LABEL_EVENT             	1581
+#define IDC_PROGRESS_EVENT          	1582
+#define IDC_LABEL_SUB_ACTION        	1583
+#define IDC_SUB_EVENT               	1584
+#define IDC_PROGRESS_SUB_EVENT      	1585
 #define IDS_FILTER_DELETE_CONFIRM   	7000
 #define IDS_SCHEMAS                 	7001
 #define IDS_MULTIPLE_VALUES         	7002
@@ -868,9 +875,9 @@
 #define IDS_SEARCH_PANEL_RESULTS_INACTIVE 8153
 #define IDS_SEARCH_PANEL_RESULTS_NONE   8154
 #define IDS_SEARCH_PANEL_RESULTS_FORMAT 8155
-#define IDS_SEARCH_PANEL_FILTERED       8168
 #define IDS_SEARCH_PANEL_INPUT_CAPTION  8156
 #define IDS_SEARCH_PANEL_RESULTS_CAPTION 8157
+#define IDS_SEARCH_PANEL_FILTERED       8168
 #define IDS_SEARCH_PANEL_CLEAR      	8158
 #define IDS_SEARCH_PANEL_ADVANCED   	8159
 #define IDS_BROWSE_CONNECTING       	8160
@@ -1222,7 +1229,6 @@
 #define IDS_URL_RECEIVED            	16768
 #define IDS_URL_PARSE_ERROR         	16769
 #define IDS_URL_BUSY                	16770
-#define IDS_URL_ALREADY_HAVE        	16771
 #define IDS_URL_HOST                	16772
 #define IDS_URL_PORT                	16773
 #define IDS_URL_CONNECT             	16774
@@ -1416,6 +1422,8 @@
 #define IDS_BT_CLIENT_MAX_CONNECTIONS   17511
 #define IDS_BT_PRIVATE              	17512
 #define IDS_BT_ENCODING             	17513
+#define IDS_BT_UPDATE_TITLE         	17514
+#define IDS_BT_UPDATE_CONVERTING    	17515
 #define IDS_DOWNLOAD_EDIT_RENAME    	18496
 #define IDS_DOWNLOAD_EDIT_BAD_SHA1  	18497
 #define IDS_DOWNLOAD_EDIT_BAD_TIGER 	18498
@@ -1912,7 +1920,7 @@
 #define _APS_3D_CONTROLS            	1
 #define _APS_NEXT_RESOURCE_VALUE    	325
 #define _APS_NEXT_COMMAND_VALUE         33322
-#define _APS_NEXT_CONTROL_VALUE     	1578
+#define _APS_NEXT_CONTROL_VALUE     	1590
 #define _APS_NEXT_SYMED_VALUE       	104
 #endif
 #endif

@@ -686,6 +686,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	if ( strHeader.CompareNoCase( _T("Server") ) == 0 )
 	{
 		m_sUserAgent = strValue;
+		m_bClientExtended = VendorCache.IsExtended( m_sUserAgent );
 		
 		if ( IsAgentBlocked() )
 		{
@@ -850,19 +851,19 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 				&& ( !oMD5  .fromUrn( strValue ) || m_pSource->CheckHash( oMD5   ) )
 				&& ( !oBTH  .fromUrn( strValue ) || ( m_pSource->CheckHash( oBTH   ), TRUE ) ) )
 			{
-				if ( oTiger && Settings.Downloads.VerifyTiger && !m_bTigerIgnore && m_sTigerTree.IsEmpty()
-					&& (   _tcsistr( m_sUserAgent, L"Shareaza 2.1.4" ) != NULL
-						|| _tcsistr( m_sUserAgent, L"Shareaza 2.2.0" ) != NULL ) )
-				{
-					// Converting urn containing tiger tree root to
-					// "/gnutella/thex/v1?urn:tree:tiger/:{TIGER_ROOT}&depth={TIGER_HEIGHT}&ed2k={0/1}"
-					// in case if "X-Thex-URI" and "X-TigerTree-Path" headers will be absent
-					// (perfect workaround for "silent" Shareaza 2.2.0.0)
-					m_sTigerTree.Format( L"/gnutella/thex/v1?%s&depth=%d&ed2k=%d",
-						oTiger.toUrn(),
-						Settings.Library.TigerHeight,
-						Settings.Downloads.VerifyED2K );
-				}
+			//	if ( oTiger && Settings.Downloads.VerifyTiger && !m_bTigerIgnore && m_sTigerTree.IsEmpty()
+			//		&& (   _tcsistr( m_sUserAgent, L"Shareaza 2.1.4" ) != NULL
+			//			|| _tcsistr( m_sUserAgent, L"Shareaza 2.2.0" ) != NULL ) )
+			//	{
+			//		// Converting urn containing tiger tree root to
+			//		// "/gnutella/thex/v1?urn:tree:tiger/:{TIGER_ROOT}&depth={TIGER_HEIGHT}&ed2k={0/1}"
+			//		// in case if "X-Thex-URI" and "X-TigerTree-Path" headers will be absent
+			//		// (perfect workaround for "silent" Shareaza 2.2.0.0)
+			//		m_sTigerTree.Format( L"/gnutella/thex/v1?%s&depth=%d&ed2k=%d",
+			//			oTiger.toUrn(),
+			//			Settings.Library.TigerHeight,
+			//			Settings.Downloads.VerifyED2K );
+			//	}
 				m_bHashMatch = m_bHashMatch || oSHA1 || oTiger || oED2K || oBTH || oMD5;
 				continue;
 			}

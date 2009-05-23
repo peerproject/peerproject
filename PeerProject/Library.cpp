@@ -155,7 +155,7 @@ void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce)
 			nCount++;
 	}
 
-	if ( nCount >= 5 ) // if more than 4 same files, it's suspicious
+	if ( nCount >= 5 ) // More than 4 same files is suspicious
 	{
 		if ( Settings.Live.LastDuplicateHash == pFile->m_oMD5.toString() && !bForce )
 		{
@@ -170,16 +170,13 @@ void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce)
 		Settings.Live.MaliciousWarning = TRUE;
 
 		m_pSection.Unlock();
-		if ( dlg.DoModal() != IDOK )
-		{
-			Settings.Live.LastDuplicateHash.Empty();
-			dlg.m_nAction = 3;
-		}
 
-		if ( dlg.m_nAction == 0 )
+		dlg.DoModal();
+
+		switch ( dlg.GetResult() )
 		{
-			CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
-			if ( pMainWnd )
+		case CExistingFileDlg::ShowInLibrary:
+			if ( CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd() )
 			{
 				CString strHash = L"urn:md5:" + Settings.Live.LastDuplicateHash;
 				int nLen = strHash.GetLength() + 1;
@@ -188,6 +185,14 @@ void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce)
 				CopyMemory( pszHash, strHash.GetBuffer(), sizeof(TCHAR) * nLen );
 				pMainWnd->PostMessage( WM_LIBRARYSEARCH, (WPARAM)pszHash );
 			}
+			break;
+
+		case CExistingFileDlg::Cancel:
+			Settings.Live.LastDuplicateHash.Empty();
+			break;
+
+		default:
+			;
 		}
 		Settings.Live.MaliciousWarning = FALSE;
 	}
@@ -366,7 +371,6 @@ BOOL CLibrary::Load()
 
 	LibraryFolders.CreateAlbumTree();
 	LibraryHashDB.Create();
-	LibraryDictionary.BuildHashTable();
 	LibraryBuilder.BoostPriority( Settings.Library.HighPriorityHash );
 
 	Update();
@@ -505,11 +509,6 @@ BOOL CLibrary::ThreadScan()
 	{
 		if ( Save() )
 			m_nUpdateSaved = GetTickCount();
-
-		if ( bChanged )
-		{
-			LibraryDictionary.BuildHashTable();
-		}
 	}
 
 	return bChanged;
