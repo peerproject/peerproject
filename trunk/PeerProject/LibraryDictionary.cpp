@@ -46,11 +46,10 @@ CLibraryDictionary LibraryDictionary;
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary construction
 
-CLibraryDictionary::CLibraryDictionary()
-	:	m_oWordMap		( 64 )
-	,	m_pTable		( NULL )
-	,	m_bValid		( false )
-	,	m_nSearchCookie	( 1ul )
+CLibraryDictionary::CLibraryDictionary() :
+	m_pTable		( NULL )
+,	m_bValid		( false )
+,	m_nSearchCookie	( 1ul )
 {
 }
 
@@ -65,17 +64,17 @@ CLibraryDictionary::~CLibraryDictionary()
 
 void CLibraryDictionary::AddFile(const CLibraryFile& oFile)
 {
-	bool bCanUpload = oFile.IsShared() != FALSE;
+	const bool bCanUpload = oFile.IsShared();
 
 	ProcessFile( oFile, true, bCanUpload );
 
-	if ( bCanUpload )
+	if ( bCanUpload && m_bValid )
 		AddHashes( oFile );
 }
 
 void CLibraryDictionary::RemoveFile(const CLibraryFile& oFile)
 {
-	bool bCanUpload = oFile.IsShared() != FALSE;
+	const bool bCanUpload = oFile.IsShared();
 
 	ProcessFile( oFile, false, bCanUpload );
 
@@ -83,9 +82,7 @@ void CLibraryDictionary::RemoveFile(const CLibraryFile& oFile)
 	// ToDo: is this wise???  It will happen all the time.
 
 	if ( oFile.IsHashed() )
-	{
 		m_bValid = false;
-	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -113,14 +110,15 @@ void CLibraryDictionary::ProcessPhrase(
 	CString strWord;
 	WORD boundary[ 2 ] = { C3_NOTAPPLICABLE, C3_NOTAPPLICABLE };
 	WORD nKanaType[ 2 ] = { C3_NOTAPPLICABLE, C3_NOTAPPLICABLE };
-	int nPos = 0, nPrevWord = 0, nNextWord = 0;
+	int nPos = 0, nNextWord = 0;
 
 	for ( ; nPos < strPhrase.GetLength() ; ++nPos )
 	{
 		// boundary[ 0 ] -- previous character;
 		// boundary[ 1 ] -- current character;
 		boundary[ 0 ] = boundary[ 1 ];
-		WCHAR nChar = strPhrase[ nPos ];
+		nKanaType[ 0 ] = nKanaType[ 1 ];
+		const WCHAR nChar = strPhrase[ nPos ];
 		GetStringTypeW( CT_CTYPE3, &nChar, 1, &boundary[ 1 ] );
 
 		nKanaType[ 1 ] = boundary[ 1 ] & ( C3_KATAKANA | C3_HIRAGANA );
@@ -134,28 +132,28 @@ void CLibraryDictionary::ProcessPhrase(
 		// Letter is a character if it is alpha-numeric
 		// Work-around for WinXP: Katakana/Hiragana diacritic characters in
 		// the NLS table aren't marked as being alpha (Win2000 & Vista+ are OK)
-		bool bCharacter = ( boundary[ 1 ] & C3_ALPHA )
+		const bool bCharacter = ( boundary[ 1 ] & C3_ALPHA )
 			|| iswdigit( nChar )
 			|| ( nKanaType[ 1 ] && ( boundary[ 1 ] & C3_DIACRITIC ) );
 
-		if ( !bCharacter || ( nPos && boundary[ 0 ] != boundary[ 1 ] ) )
+		if ( !bCharacter
+			|| ( nKanaType[ 0 ] && boundary[ 0 ] != boundary[ 1 ] ) )
 		{
 			// Join two phrases if the previous was a single character word.
 			// Joining single characters breaks GDF compatibility completely,
-			// but Shareaza 2.2 and above are not really following GDF about
-			// word length limit for ASIAN chars, so merging needs to be done.
+			// but PeerProject (Shareaza 2.2 and up) is not really following GDF
+			// about word length limit for ASIAN chars, so merging needs to be done.
 			if ( nPos > nNextWord )
 			{
 				strWord = strPhrase.Mid( nNextWord, nPos - nNextWord );
 				MakeKeywords( oFile, strWord, boundary[ 0 ], bAdd, bCanUpload );
 			}
-			nPrevWord = nNextWord;
 			nNextWord = nPos;
 			nNextWord += ( bCharacter ? 0 : 1 );
 		}
 	}
 
-	strWord = strPhrase.Mid( nPrevWord, nPos - nPrevWord );
+	strWord = strPhrase.Right( nPos - nNextWord );
 	MakeKeywords( oFile, strWord, boundary[ 0 ], bAdd, bCanUpload );
 }
 
@@ -166,7 +164,7 @@ void CLibraryDictionary::MakeKeywords(
 	const CLibraryFile& oFile, const CString& strWord, const WORD nWordType,
 	const bool bAdd, const bool bCanUpload)
 {
-	int nLength = strWord.GetLength();
+	const int nLength = strWord.GetLength();
 
 	if ( !nLength )
 		return;
@@ -287,7 +285,7 @@ void CLibraryDictionary::ProcessWord(
 			if ( pFilePtrList->GetTail() != &oFile )
 			{
 				pFilePtrList->AddTail( &oFile );
-				if ( bCanUpload && !m_pTable->CheckString( strWord ) )
+				if ( bCanUpload && m_bValid && !m_pTable->CheckString( strWord ) )
 					m_pTable->AddString( strWord );
 			}
 		}
@@ -315,7 +313,7 @@ void CLibraryDictionary::ProcessWord(
 		pFilePtrList->AddTail( &oFile );
 		m_oWordMap.SetAt( strWord, pFilePtrList );
 
-		if ( bCanUpload && !BuildHashTable() )
+		if ( bCanUpload && m_bValid )
 			m_pTable->AddString( strWord );
 	}
 }
@@ -345,16 +343,19 @@ void CLibraryDictionary::AddHashes(const CLibraryFile& oFile)
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary build hash table
 
-bool CLibraryDictionary::BuildHashTable()
+void CLibraryDictionary::BuildHashTable()
 {
+	if ( m_bValid )
+		return;
+
 	if ( !m_pTable )
 	{
 		m_pTable = new CQueryHashTable();
-		m_pTable->Create();
+		if ( m_pTable )
+			m_pTable->Create();
+		else
+			return;
 	}
-
-	if ( m_bValid )
-		return false;
 
 	m_pTable->Clear();
 
@@ -367,10 +368,10 @@ bool CLibraryDictionary::BuildHashTable()
 
 		for ( POSITION pos = pFilePtrList->GetHeadPosition() ; pos ; )
 		{
-			const CLibraryFile* pFile = pFilePtrList->GetNext( pos );
+			const CLibraryFile& oFile = *pFilePtrList->GetNext( pos );
 
 			// Check if the file can be uploaded
-			if ( pFile->IsShared() )
+			if ( oFile.IsShared() )
 			{
 				// Add the keyword to the table
 				m_pTable->AddString( strWord );
@@ -382,22 +383,20 @@ bool CLibraryDictionary::BuildHashTable()
 	// Add sha1/ed2k hashes to hash table
 	for ( POSITION pos = LibraryMaps.GetFileIterator() ; pos ; )
 	{
-		CLibraryFile* pFile = LibraryMaps.GetNextFile( pos );
+		const CLibraryFile& oFile = *LibraryMaps.GetNextFile( pos );
 
 		// Check if the file can be uploaded
-		if ( pFile->IsShared() )
-			AddHashes( *pFile );
+		if ( oFile.IsShared() )
+			AddHashes( oFile );
 	}
 
 	m_bValid = true;
-
-	return true;
 }
 
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary rebuild hash table
 //
-// Force hash table to re-build. (If queues changed, etc)
+// Force hash table to re-build.
 
 void CLibraryDictionary::RebuildHashTable()
 {
@@ -409,7 +408,7 @@ void CLibraryDictionary::RebuildHashTable()
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary retrieve hash table
 
-CQueryHashTable* CLibraryDictionary::GetHashTable()
+const CQueryHashTable* CLibraryDictionary::GetHashTable()
 {
 	BuildHashTable();
 
@@ -446,18 +445,23 @@ FilePtrList* CLibraryDictionary::Search(
 	const CQuerySearch& oSearch, const int nMaximum, const bool bLocal,
 	const bool bAvailableOnly)
 {
-	// Only check the hash when a search comes from other client.
-	if ( !bLocal && !m_pTable->Check( &oSearch ) )
-		return NULL;
+	if ( !m_bValid )
+	{
+		BuildHashTable();
+		if ( !m_bValid )
+			return NULL;
+	}
 
-	BuildHashTable();
+	// Only check the hash when a search comes from other client.
+	if ( !bLocal && !m_pTable->Check( oSearch ) )
+		return NULL;
 
 	++m_nSearchCookie;
 	const CLibraryFile* pHit = NULL;
 
+	CQuerySearch::const_iterator pWordEntry = oSearch.begin();
 	const CQuerySearch::const_iterator pLastWordEntry = oSearch.end();
-	for ( CQuerySearch::const_iterator pWordEntry = oSearch.begin() ;
-		pWordEntry != pLastWordEntry ; ++pWordEntry )
+	for ( ; pWordEntry != pLastWordEntry ; ++pWordEntry )
 	{
 		if ( pWordEntry->first[ 0 ] == _T('-') )
 			continue;
@@ -557,7 +561,7 @@ void CLibraryDictionary::Serialize(CArchive& ar, const int nVersion)
 	{
 		if ( nVersion >= 29 )
 		{
-			UINT nWordsCount( 0u );
+			UINT nWordsCount = 0u;
 			ar >> nWordsCount;
 			m_oWordMap.InitHashTable( GetBestHashTableSize( nWordsCount ) );
 		}

@@ -557,7 +557,7 @@ void CCollectionExportDlg::OnOK()
 						// create dirs recursively
 						CreateDirectory( strTarget );
 						if ( ! CopyFile( strSource, strTarget, TRUE ) )
-							AfxMessageBox( _T("TODO: Can't write to ") + strFile );
+							AfxMessageBox( _T("ToDo: Can't write to ") + strFile );
 					}
 				}
 			}
@@ -566,14 +566,14 @@ void CCollectionExportDlg::OnOK()
 		else
 		{
 			pLock.Unlock();
-			AfxMessageBox( _T("TODO: Can't write to ") + strFile );
+			AfxMessageBox( _T("ToDo: Can't write to ") + strFile );
 			m_nStep--;
 		}
 	}
 	else
 	{
 		pLock.Unlock();
-		AfxMessageBox( _T("TODO: Folder disappeared.") );
+		AfxMessageBox( _T("ToDo: Folder disappeared.") );
 		m_nStep--;
 	}
 		break;

@@ -316,7 +316,7 @@ void CDownloadTransferBT::ShowInterest()
 	}
 	else if ( QWORD nBlockSize = m_pDownload->m_pTorrent.m_nBlockSize )
 	{
-		Fragments::List oList( m_pDownload->GetEmptyFragmentList() );
+		Fragments::List oList( m_pDownload->GetWantedFragmentList() );
 		for ( Fragments::List::const_iterator pFragment = oList.begin();
 			!bInterested && pFragment != oList.end(); ++pFragment )
 		{
@@ -403,7 +403,7 @@ BOOL CDownloadTransferBT::SendRequests()
 	ASSERT( nBlockSize != 0 );
 	if ( nBlockSize == 0 ) return TRUE;
 	
-	Fragments::List oPossible( m_pDownload->GetEmptyFragmentList() );
+	Fragments::List oPossible( m_pDownload->GetWantedFragmentList() );
 	
 	if ( ! m_pDownload->m_bTorrentEndgame )
 	{
@@ -544,7 +544,7 @@ BOOL CDownloadTransferBT::OnPiece(CBTPacket* pPacket)
 	if ( ! bSuccess )
 		TRACE( _T("[BT] Failed to submit data %I64u-%I64u to \"%s\".\n"), nOffset, nOffset + nLength, m_pDownload->m_sPath );
 
-	// TODO: SendRequests and ShowInterest could be combined...
+	// ToDo: SendRequests and ShowInterest could be combined...
 	// SendRequests is probably going to tell us if we are interested or not
 	ShowInterest();
 	return SendRequests();

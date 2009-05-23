@@ -363,7 +363,7 @@ BOOL CPeerProjectApp::InitInstance()
 
 	int nSplashSteps = 18
 		+ ( Settings.Connection.EnableFirewallException ? 1 : 0 )
-		+ ((Settings.Connection.EnableUPnP && !Settings.Live.FirstRun) ? 1 : 0 );
+		+ ( Settings.Connection.EnableUPnP ? 1 : 0 );
 
 	SplashStep( L"Winsock", ( ( m_ocmdInfo.m_bNoSplash || ! m_ocmdInfo.m_bShowSplash ) ? 0 : nSplashSteps ), false );
 		WSADATA wsaData;
@@ -425,18 +425,21 @@ BOOL CPeerProjectApp::InitInstance()
 		}
 	}
 
-	// If it is the first run we will run the UPnP discovery only in the QuickStart Wizard
-	if ( Settings.Connection.EnableUPnP && ! Settings.Live.FirstRun )
+	if ( Settings.Connection.EnableUPnP )
 	{
-		SplashStep( L"Firewall/Router Setup" );
-		try
+		SplashStep( L"Enabling Plug'n'Play Network Access" );
+		// First run will do UPnP discovery in the QuickStart Wizard
+		if ( ! Settings.Live.FirstRun )
 		{
-			m_pUPnPFinder.Attach( new CUPnPFinder );
-			if ( m_pUPnPFinder->AreServicesHealthy() )
-				m_pUPnPFinder->StartDiscovery();
+			try
+			{
+				m_pUPnPFinder.Attach( new CUPnPFinder );
+				if ( m_pUPnPFinder->AreServicesHealthy() )
+					m_pUPnPFinder->StartDiscovery();
+			}
+			catch ( CUPnPFinder::UPnPError& ) {}
+			catch ( CException* e ) { e->Delete(); }
 		}
-		catch ( CUPnPFinder::UPnPError& ) {}
-		catch ( CException* e ) { e->Delete(); }
 	}
 
 	SplashStep( L"GUI" );
@@ -483,12 +486,18 @@ int CPeerProjectApp::ExitInstance()
 {
 	if ( m_bInteractive )
 	{
+		int nSplashSteps = 6
+		+ ( Settings.Connection.DeleteFirewallException ? 1 : 0 )
+		+ ( m_pUPnPFinder ? 1 : 0 )
+		+ ( m_bLive ? 1 : 0 );
+		// Active From WndMain
+
 		CWaitCursor pCursor;
 
 		DDEServer.Close();
 		IEProtocol.Close();
 
-		SplashStep( L"Disconnecting" );
+		SplashStep( L"Disconnecting", nSplashSteps, true );
 		VersionChecker.Stop();
 		DiscoveryServices.Stop();
 		Network.Disconnect();
@@ -504,26 +513,6 @@ int CPeerProjectApp::ExitInstance()
 		Uploads.Clear( FALSE );
 		EDClients.Clear();
 
-		if ( Settings.Connection.DeleteFirewallException )
-		{
-			SplashStep( L"Closing Windows Firewall Access" );
-			CFirewall firewall;
-			if ( firewall.AccessWindowsFirewall() )
-			{
-				// Remove application from the firewall exception list
-				firewall.SetupProgram( m_strBinaryPath, theApp.m_pszAppName, TRUE );
-			}
-		}
-
-		if ( m_pUPnPFinder )
-		{
-			SplashStep( L"Closing Firewall/Router Access" );
-			m_pUPnPFinder->StopAsyncFind();
-			if ( Settings.Connection.DeleteUPnPPorts )
-				m_pUPnPFinder->DeletePorts();
-			m_pUPnPFinder.Free();
-		}
-
 		if ( m_bLive )
 		{
 			SplashStep( L"Saving" );
@@ -535,6 +524,26 @@ int CPeerProjectApp::ExitInstance()
 			UploadQueues.Save();
 			DiscoveryServices.Save();
 			Settings.Save( TRUE );
+		}
+
+		if ( m_pUPnPFinder )
+		{
+			SplashStep( L"Closing Plug'n'Play Network Access" );
+			m_pUPnPFinder->StopAsyncFind();
+			if ( Settings.Connection.DeleteUPnPPorts )
+				m_pUPnPFinder->DeletePorts();
+			m_pUPnPFinder.Free();
+		}
+
+		if ( Settings.Connection.DeleteFirewallException )
+		{
+			SplashStep( L"Closing Windows Firewall Access" );
+			CFirewall firewall;
+			if ( firewall.AccessWindowsFirewall() )
+			{
+				// Remove application from the firewall exception list
+				firewall.SetupProgram( m_strBinaryPath, theApp.m_pszAppName, TRUE );
+			}
 		}
 
 		SplashStep( L"Finalizing" );
@@ -1082,17 +1091,15 @@ void CPeerProjectApp::LogMessage(const CString& strLog)
 			pFile.Close();
 
 			// Rotate the logs
-			if ( DeleteFileEx( Settings.General.UserPath + _T("\\Data\\PeerProject.old.log"), FALSE, FALSE, FALSE ) )
-			{
-				MoveFile( Settings.General.UserPath + _T("\\Data\\PeerProject.log"),
-					Settings.General.UserPath + _T("\\Data\\PeerProject.old.log") );
-				// Start a new log
-				if ( ! pFile.Open( Settings.General.UserPath + _T("\\Data\\PeerProject.log"),
-					CFile::modeWrite|CFile::modeCreate ) ) return;
-				// Unicode marker
-				WORD nByteOrder = 0xFEFF;
-				pFile.Write( &nByteOrder, 2 );
-			}
+			MoveFileEx( CString( _T("\\\\?\\") ) + Settings.General.UserPath + _T("\\Data\\PeerProject.log"),
+				CString( _T("\\\\?\\") ) + Settings.General.UserPath + _T("\\Data\\PeerProject.old.log"),
+				MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH );
+			// Start a new log
+			if ( ! pFile.Open( Settings.General.UserPath + _T("\\Data\\PeerProject.log"),
+				CFile::modeWrite|CFile::modeCreate ) ) return;
+			// Unicode marker
+			WORD nByteOrder = 0xFEFF;
+			pFile.Write( &nByteOrder, 2 );
 		}
 	}
 	else
@@ -2591,7 +2598,7 @@ void SafeMessageLoop()
 	InterlockedDecrement( &theApp.m_bBusy );
 }
 
-const bool IsCharacter(const WCHAR nChar)
+bool IsCharacter(const WCHAR nChar)
 {
 	WORD nCharType( 0u );
 
@@ -2603,7 +2610,7 @@ const bool IsCharacter(const WCHAR nChar)
 	return false;
 }
 
-const bool IsHiragana(const WCHAR nChar)
+bool IsHiragana(const WCHAR nChar)
 {
 	WORD nCharType( 0u );
 
@@ -2613,7 +2620,7 @@ const bool IsHiragana(const WCHAR nChar)
 	return false;
 }
 
-const bool IsKatakana(const WCHAR nChar)
+bool IsKatakana(const WCHAR nChar)
 {
 	WORD nCharType( 0u );
 
@@ -2623,7 +2630,7 @@ const bool IsKatakana(const WCHAR nChar)
 	return false;
 }
 
-const bool IsKanji(const WCHAR nChar)
+bool IsKanji(const WCHAR nChar)
 {
 	WORD nCharType( 0u );
 
@@ -2633,11 +2640,12 @@ const bool IsKanji(const WCHAR nChar)
 	return false;
 }
 
-const bool IsWord(LPCTSTR pszString, size_t nStart, size_t nLength)
+bool IsWord(LPCTSTR pszString, size_t nStart, size_t nLength)
 {
-	for ( pszString += nStart ; *pszString && nLength ; pszString++, nLength-- )
+	for ( pszString += nStart ; *pszString && nLength ; ++pszString, --nLength )
 	{
-		if ( _istdigit( *pszString ) ) return false;
+		if ( _istdigit( *pszString ) )
+			return false;
 	}
 	return true;
 }
@@ -2646,10 +2654,12 @@ void IsType(LPCTSTR pszString, size_t nStart, size_t nLength, bool& bWord, bool&
 {
 	bWord = false;
 	bDigit = false;
-	for ( pszString += nStart ; *pszString && nLength ; pszString++, nLength-- )
+	for ( pszString += nStart ; *pszString && nLength ; ++pszString, --nLength )
 	{
-		if ( _istdigit( *pszString ) ) bDigit = true;
-		else if ( IsCharacter( *pszString ) ) bWord = true;
+		if ( _istdigit( *pszString ) )
+			bDigit = true;
+		else if ( IsCharacter( *pszString ) )
+			bWord = true;
 	}
 
 	bMix = bWord && bDigit;

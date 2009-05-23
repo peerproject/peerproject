@@ -58,8 +58,6 @@ protected:
 // Operations
 public:
 	void			Serialize(CArchive& ar);
-    int				CheckExisting(const Hashes::Sha1Hash& oSHA1, const Hashes::TigerHash& oTiger, const Hashes::Ed2kHash& oED2K,
-    							const Hashes::BtHash& oBTH, const Hashes::Md5Hash& oMD5, const QWORD nSize);
 
 	inline BOOL		IsPaused() const
 	{
@@ -91,8 +89,8 @@ protected:
 	afx_msg void OnSearchDownload();
 	afx_msg void OnUpdateSearchDownloadNow(CCmdUI* pCmdUI);
 	afx_msg void OnSearchDownloadNow();
-	afx_msg void OnUpdateSearchCopy(CCmdUI* pCmdUI);
-	afx_msg void OnSearchCopy();
+	afx_msg void OnUpdateSearchURI(CCmdUI* pCmdUI);
+	afx_msg void OnSearchURI();
 	afx_msg void OnUpdateSearchChat(CCmdUI* pCmdUI);
 	afx_msg void OnSearchChat();
 	afx_msg void OnUpdateSearchFilter(CCmdUI* pCmdUI);

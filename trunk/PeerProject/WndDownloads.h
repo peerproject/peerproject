@@ -125,8 +125,8 @@ protected:
 	afx_msg void OnTransfersForget();
 	afx_msg void OnUpdateTransfersChat(CCmdUI* pCmdUI);
 	afx_msg void OnTransfersChat();
-	afx_msg void OnUpdateDownloadsUrl(CCmdUI* pCmdUI);
-	afx_msg void OnDownloadsUrl();
+	afx_msg void OnUpdateDownloadsAddSource(CCmdUI* pCmdUI);
+	afx_msg void OnDownloadsAddSource();
 	afx_msg void OnUpdateDownloadsEnqueue(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsEnqueue();
 	afx_msg void OnUpdateDownloadsAutoClear(CCmdUI* pCmdUI);
@@ -168,8 +168,8 @@ protected:
 	afx_msg void OnDownloadsLaunchComplete();
 	afx_msg void OnUpdateDownloadsShare(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsShare();
-	afx_msg void OnUpdateDownloadsCopy(CCmdUI* pCmdUI);
-	afx_msg void OnDownloadsCopy();
+	afx_msg void OnUpdateDownloadsURI(CCmdUI* pCmdUI);
+	afx_msg void OnDownloadsURI();
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);

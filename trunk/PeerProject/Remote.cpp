@@ -1005,7 +1005,7 @@ void CRemote::PageDownloads()
 		else if ( pDownload->IsPaused() )
 		{
 			Add( _T("download_is_paused"), _T("true") );
-			if ( pDownload->m_bDiskFull )
+			if ( pDownload->GetFileError() != ERROR_SUCCESS )
 			{
 				LoadString( strStatus1, IDS_STATUS_CANTMOVE );
 				LoadString( strStatus2, IDS_STATUS_FILEERROR );

@@ -286,11 +286,11 @@ struct CompareNums
 	}
 };
 
-const bool IsCharacter(WCHAR nChar);
-const bool IsHiragana(WCHAR nChar);
-const bool IsKatakana(WCHAR nChar);
-const bool IsKanji(WCHAR nChar);
-const bool IsWord(LPCTSTR pszString, size_t nStart, size_t nLength);
+bool IsCharacter(WCHAR nChar);
+bool IsHiragana(WCHAR nChar);
+bool IsKatakana(WCHAR nChar);
+bool IsKanji(WCHAR nChar);
+bool IsWord(LPCTSTR pszString, size_t nStart, size_t nLength);
 void IsType(LPCTSTR pszString, size_t nStart, size_t nLength, bool& bWord, bool& bDigit, bool& bMix);
 
 // Use with whole numbers only
@@ -386,9 +386,9 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 #define VENDOR_CODE			"PEER"
 
 // ed2k client ID number.
-// 0x2c (44) = Proposed PeerProject ID
-// 0 = eMule, 1 = cDonkey, 4 = old Shareaza alpha/beta/mod/fork, 0x28 (40) = Shareaza, 0xcb (203) = ShareazaPlus RazaCB, etc
-#define ED2K_CLIENT_ID		40
+// 0x50 (80) = Proposed PeerProject ID
+// 0 = eMule, 1 = cDonkey, 4 = old ShareazaBeta, 0x28 (40) = Shareaza, 0xcb (203) = ShareazaPlus RazaCB
+#define ED2K_CLIENT_ID		80
 
 // 2 Character BT peer-id code
 // PE = PeerProject, SZ = Shareaza, S~ = old Shareaza alpha/beta , CB = ShareazaPlus-RazaCB, AZ = Azureus, etc.

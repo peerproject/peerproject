@@ -59,27 +59,11 @@ public:
 	class CBTFile : public CPeerProjectFile
 	{
 	public:
-		// Returns file download progress ( < 0 - unknown or 0..100% )
-		float GetProgress() const;
-
-		// Returns file download priority
-		inline int GetPriority() const
-		{
-			return m_nFilePriority;
-		}
-
-		// Set file download priority
-		inline void	SetPriority(int nFilePriority)
-		{
-			m_nFilePriority = nFilePriority; 
-		}
-
 		// Find file on disk
 		CString	FindFile();
 
 	private:
 		const CBTInfo*	m_pInfo;			// Parent torrent handler
-		int				m_nFilePriority;	// Download priority (NotWanted, Low, Normal or High)
 		QWORD			m_nOffset;			// File offset inside torrent (cached)
 
 		CBTFile(const CBTInfo* pInfo, const CBTFile* pFile = NULL);
@@ -87,7 +71,6 @@ public:
 
 		friend class CBTInfo;
 	};
-	enum { prNotWanted, prLow, prNormal, prHigh };
 
 // Subclass
 public:
@@ -95,7 +78,7 @@ public:
 	{
 	public:
 		CBTTracker();
-		CBTTracker(const CBTTracker& oSource);	
+		CBTTracker(const CBTTracker& oSource);
 
 		CString		m_sAddress;
 		DWORD		m_tLastAccess;
@@ -110,14 +93,14 @@ public:
 
 		friend class CBTInfo;
 	};
-	
+
 // Attributes
 public:
 	CList< CString > m_sURLs;			// Add sources from torrents - DWK
 	QWORD		m_nTotalSize;
 	DWORD		m_nBlockSize;
 	DWORD		m_nBlockCount;
-    Hashes::BtPureHash* m_pBlockBTH;
+	Hashes::BtPureHash* m_pBlockBTH;
 	QWORD		m_nTotalUpload;			// Total amount uploaded
 	QWORD		m_nTotalDownload;		// Total amount downloaded
 	CList< CBTFile* > m_pFiles;			// List of files
@@ -136,7 +119,7 @@ private:
 	CSHA		m_pTestSHA1;
 	DWORD		m_nTestByte;
 	CBuffer		m_pSource;
-	
+
 	BOOL		CheckFiles();
 	int			AddTracker(const CBTTracker& oTracker);
 
@@ -145,6 +128,7 @@ public:
 	void		Clear();
 	CBTInfo&	Copy(const CBTInfo& oSource);
 	void		Serialize(CArchive& ar);
+	void		ConvertOldTorrents();
 
 	BOOL		LoadTorrentFile(LPCTSTR pszFile);
 	BOOL		LoadTorrentBuffer(CBuffer* pBuffer);

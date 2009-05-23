@@ -966,7 +966,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 
 	pColumn.mask = HDI_FORMAT | HDI_LPARAM;
 
-	/*int nTransfers	= pDownload->GetTransferCount();*/
+	//int nTransfers	= pDownload->GetTransferCount();
 	int nSources		= pDownload->GetEffectiveSourceCount();
 	int nTotalSources	= pDownload->GetSourceCount();
 	int nRating			= pDownload->GetReviewAverage();
@@ -1017,7 +1017,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 				}
 			}
 			else
-			dc.FillSolidRect( rcCell.left, rcCell.top, 16, 16, crLeftAligned );
+				dc.FillSolidRect( rcCell.left, rcCell.top, 16, 16, crLeftAligned );
 			rcCell.left += 16;
 
 			// Draw file icon
@@ -1560,7 +1560,7 @@ CString CDownloadsCtrl::GetDownloadStatus(CDownload *pDownload)
 			LoadString( strText, IDS_STATUS_COMPLETED );
 	else if ( pDownload->IsPaused() )
 	{
-		if ( pDownload->m_bDiskFull )
+		if ( pDownload->GetFileError() != ERROR_SUCCESS )
 			if ( pDownload->IsMoving() )
 				LoadString( strText, IDS_STATUS_CANTMOVE );
 			else

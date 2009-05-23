@@ -69,15 +69,15 @@ BOOL CUploadQueues::Enqueue(CUploadTransfer* pUpload, BOOL bForce)
 
 	ASSERT( pUpload->m_pQueue == NULL );
 
-	if ( pUpload->m_nFileSize == 0 ) return FALSE;
+	if ( pUpload->m_nSize == 0 ) return FALSE;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CUploadQueue* pQueue = GetNext( pos );
 
 		if ( pQueue->CanAccept(	pUpload->m_nProtocol,
-								pUpload->m_sFileName,
-								pUpload->m_nFileSize,
+								pUpload->m_sName,
+								pUpload->m_nSize,
 								( pUpload->m_bFilePartial ? CUploadQueue::ulqPartial : CUploadQueue::ulqLibrary ),
 								pUpload->m_sFileTags ) )
 		{

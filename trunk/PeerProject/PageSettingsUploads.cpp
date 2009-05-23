@@ -32,8 +32,6 @@
 #include "Skin.h"
 #include "DlgHelp.h"
 
-#include "LibraryDictionary.h"
-
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -101,10 +99,10 @@ void CUploadsSettingsPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CUploadsSettingsPage message handlers
 
-BOOL CUploadsSettingsPage::OnInitDialog() 
+BOOL CUploadsSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
-	
+
 	CRect rcList;
 	m_wndQueues.GetClientRect( &rcList );
 	rcList.right -= GetSystemMetrics( SM_CXVSCROLL );
@@ -116,14 +114,14 @@ BOOL CUploadsSettingsPage::OnInitDialog()
 	m_wndQueues.InsertColumn( 3, _T("Transfers"), LVCFMT_CENTER, 70, 2 );
 	m_wndQueues.InsertColumn( 4, _T("Order"), LVCFMT_CENTER, 0, 3 );
 	Skin.Translate( _T("CUploadQueueList"), m_wndQueues.GetHeaderCtrl() );
-	
+
 	m_wndQueues.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
 		LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP, LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 	m_wndQueues.EnableToolTips();
-	
+
 	CLiveList::Sort( &m_wndQueues, 4, FALSE );
 	CLiveList::Sort( &m_wndQueues, 4, FALSE );
-	
+
 	m_nMaxPerHost		= Settings.Uploads.MaxPerHost;
 	m_bHubUnshare		= Settings.Uploads.HubUnshare;
 	m_bSharePartials	= Settings.Uploads.SharePartials;
@@ -141,10 +139,10 @@ BOOL CUploadsSettingsPage::OnInitDialog()
 		strType.TrimRight();
 		if ( strType.GetLength() ) m_wndAgentList.AddString( strType );
 	}
-	
+
 	UpdateData( FALSE );
 	UpdateQueues();
-	
+
 	m_wndAgentAdd.EnableWindow( m_wndAgentList.GetWindowTextLength() > 0 );
 	m_wndAgentRemove.EnableWindow( m_wndAgentList.GetCurSel() >= 0 );
 	m_wndQueueEdit.EnableWindow( m_wndQueues.GetSelectedCount() == 1 );
@@ -163,7 +161,7 @@ BOOL CUploadsSettingsPage::OnInitDialog()
 	return TRUE;
 }
 
-BOOL CUploadsSettingsPage::OnSetActive() 
+BOOL CUploadsSettingsPage::OnSetActive()
 {
 	UpdateQueues();
 	return CSettingsPage::OnSetActive();
@@ -172,16 +170,16 @@ BOOL CUploadsSettingsPage::OnSetActive()
 void CUploadsSettingsPage::UpdateQueues()
 {
 	UpdateData( TRUE );
-	
+
 	QWORD nTotal = Settings.Connection.OutSpeed * Kilobits / Bytes;
 	QWORD nLimit = Settings.ParseVolume( m_sBandwidthLimit );
-	
+
 	if ( nLimit == 0 || nLimit > nTotal ) nLimit = nTotal;
-	
+
 	CSingleLock pLock( &UploadQueues.m_pSection, TRUE );
 	CLiveList pQueues( 5 );
 	int nIndex = 1;
-	
+
 	for ( POSITION pos = UploadQueues.GetIterator() ; pos ; nIndex++ )
 	{
 		BOOL bDonkeyOnlyDisabled = FALSE;
@@ -199,7 +197,7 @@ void CUploadsSettingsPage::UpdateQueues()
 			continue;	// Skip drawing this queue
 
 		CLiveItem* pItem = pQueues.Add( pQueue );
-		
+
 		if ( ( pQueue->m_bEnable ) && ( ! bDonkeyOnlyDisabled ) )
 		{
 			QWORD nBandwidth = nLimit * pQueue->m_nBandwidthPoints / max( 1, UploadQueues.GetTotalBandwidthPoints( TRUE ) );
@@ -215,29 +213,29 @@ void CUploadsSettingsPage::UpdateQueues()
 
 			pItem->m_nImage = CoolInterface.ImageForID( ID_SYSTEM_CLEAR );
 		}
-		
+
 		pItem->Set( 0, pQueue->m_sName );
 		pItem->Set( 1, pQueue->GetCriteriaString() );
-		
+
 		pItem->Format( 4, _T("%i"), nIndex );
-		 
+
 	}
-	
+
 	pLock.Unlock();
 	pQueues.Apply( &m_wndQueues, TRUE );
 }
 
-void CUploadsSettingsPage::OnSelChangeAgentList() 
+void CUploadsSettingsPage::OnSelChangeAgentList()
 {
 	m_wndAgentRemove.EnableWindow( m_wndAgentList.GetCurSel() >= 0 );
 }
 
-void CUploadsSettingsPage::OnEditChangeAgentList() 
+void CUploadsSettingsPage::OnEditChangeAgentList()
 {
 	m_wndAgentAdd.EnableWindow( m_wndAgentList.GetWindowTextLength() > 0 );
 }
 
-void CUploadsSettingsPage::OnAgentAdd() 
+void CUploadsSettingsPage::OnAgentAdd()
 {
 	CString strType;
 	m_wndAgentList.GetWindowText( strType );
@@ -253,14 +251,14 @@ void CUploadsSettingsPage::OnAgentAdd()
 	m_wndAgentList.SetWindowText( _T("") );
 }
 
-void CUploadsSettingsPage::OnAgentRemove() 
+void CUploadsSettingsPage::OnAgentRemove()
 {
 	int nItem = m_wndAgentList.GetCurSel();
 	if ( nItem >= 0 ) m_wndAgentList.DeleteString( nItem );
 	m_wndAgentRemove.EnableWindow( FALSE );
 }
 
-void CUploadsSettingsPage::OnItemChangedQueues(NMHDR* /*pNMHDR*/, LRESULT* pResult) 
+void CUploadsSettingsPage::OnItemChangedQueues(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 {
 //	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	m_wndQueueEdit.EnableWindow( m_wndQueues.GetSelectedCount() == 1 );
@@ -268,87 +266,87 @@ void CUploadsSettingsPage::OnItemChangedQueues(NMHDR* /*pNMHDR*/, LRESULT* pResu
 	*pResult = 0;
 }
 
-void CUploadsSettingsPage::OnDblClkQueues(NMHDR* /*pNMHDR*/, LRESULT* pResult) 
+void CUploadsSettingsPage::OnDblClkQueues(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 {
 	PostMessage( WM_COMMAND, MAKELONG( IDC_QUEUE_EDIT, BN_CLICKED ) );
 	*pResult = 0;
 }
 
-void CUploadsSettingsPage::OnQueueNew() 
+void CUploadsSettingsPage::OnQueueNew()
 {
 	CString strQueueName;
 	LoadString( strQueueName, IDS_UPLOAD_QUEUE_NEW );
 	CUploadQueue* pQueue = UploadQueues.Create( strQueueName, TRUE );
 	UpdateQueues();
-	
+
 	CQueuePropertiesDlg dlg( pQueue, TRUE, this );
 	if ( dlg.DoModal() != IDOK ) UploadQueues.Delete( pQueue );
-	
+
 	UploadQueues.Save();
 	UpdateQueues();
 	m_bQueuesChanged = TRUE;
 }
 
-void CUploadsSettingsPage::OnQueueEdit() 
+void CUploadsSettingsPage::OnQueueEdit()
 {
 	int nSelected = m_wndQueues.GetNextItem( -1, LVNI_SELECTED );
 	if ( nSelected < 0 ) return;
-	
+
 	CUploadQueue* pQueue = (CUploadQueue*)m_wndQueues.GetItemData( nSelected );
-	
+
 	CQueuePropertiesDlg dlg( pQueue, FALSE, this );
 	dlg.DoModal();
-	
+
 	UploadQueues.Save();
 	UpdateQueues();
 	m_bQueuesChanged = TRUE;
 }
 
-void CUploadsSettingsPage::OnQueueDelete() 
+void CUploadsSettingsPage::OnQueueDelete()
 {
 	for ( int nItem = -1 ; ( nItem = m_wndQueues.GetNextItem( nItem, LVNI_SELECTED ) ) >= 0 ; )
 	{
 		CUploadQueue* pQueue = (CUploadQueue*)m_wndQueues.GetItemData( nItem );
 		UploadQueues.Delete( pQueue );
 	}
-	
+
 	UploadQueues.Save();
 	UpdateQueues();
 	m_bQueuesChanged = TRUE;
 }
 
-void CUploadsSettingsPage::OnQueueDrop(NMHDR* pNMHDR, LRESULT* pResult) 
+void CUploadsSettingsPage::OnQueueDrop(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	NM_LISTVIEW* pNM = (NM_LISTVIEW*)pNMHDR;
-	
+
 	CUploadQueue* pTarget = NULL;
-	
+
 	if ( pNM->iItem >= 0 && pNM->iItem < m_wndQueues.GetItemCount() )
 	{
 		pTarget = (CUploadQueue*)m_wndQueues.GetItemData( pNM->iItem );
 		if ( ! UploadQueues.Check( pTarget ) ) pTarget = NULL;
 	}
-	
+
 	for ( int nItem = -1 ; ( nItem = m_wndQueues.GetNextItem( nItem, LVNI_SELECTED ) ) >= 0 ; )
 	{
 		CUploadQueue* pQueue = (CUploadQueue*)m_wndQueues.GetItemData( nItem );
-		
+
 		if ( UploadQueues.Check( pQueue ) && pQueue != pTarget )
 		{
 			UploadQueues.Reorder( pQueue, pTarget );
 		}
 	}
-	
+
 	UploadQueues.Save();
-	UpdateQueues();	
+	UpdateQueues();
 	*pResult = 0;
 }
 
 BOOL CUploadsSettingsPage::OnKillActive()
 {
 	UpdateData();
-	
+
 	if ( IsLimited( m_sBandwidthLimit ) && !Settings.ParseVolume( m_sBandwidthLimit ) )
 	{
 		CString strMessage;
@@ -357,14 +355,14 @@ BOOL CUploadsSettingsPage::OnKillActive()
 		GetDlgItem( IDC_UPLOADS_BANDWIDTH_LIMIT )->SetFocus();
 		return FALSE;
 	}
-	
+
 	return CSettingsPage::OnKillActive();
 }
 
 void CUploadsSettingsPage::OnOK()
 {
 	UpdateData();
-	
+
 	DWORD nOldLimit = Settings.Bandwidth.Uploads;
 
 	Settings.Uploads.MaxPerHost			= m_nMaxPerHost;
@@ -381,7 +379,7 @@ void CUploadsSettingsPage::OnOK()
 	{
 		QWORD nDownload = max( Settings.Bandwidth.Downloads, Settings.Connection.InSpeed  * Kilobits / Bytes );
 		QWORD nUpload	= min( Settings.Bandwidth.Uploads,   Settings.Connection.OutSpeed * Kilobits / Bytes );
-		
+
 		if ( nUpload * 16 < nDownload )
 		{
 			CHelpDlg::Show( _T("GeneralHelp.UploadWarning") );
@@ -391,12 +389,12 @@ void CUploadsSettingsPage::OnOK()
 
 	// Set blocked user agents/strings
 	Settings.Uploads.BlockAgents.Empty();
-	
+
 	for ( int nItem = 0 ; nItem < m_wndAgentList.GetCount() ; nItem++ )
 	{
 		CString str;
 		m_wndAgentList.GetLBText( nItem, str );
-		
+
 		if ( str.GetLength() )
 		{
 			if ( Settings.Uploads.BlockAgents.IsEmpty() )
@@ -409,7 +407,7 @@ void CUploadsSettingsPage::OnOK()
 	// Initialize it to an empty list ("||") to prevent the default being reloaded.
 	if ( m_wndAgentList.GetCount() == 0 )
 		Settings.Uploads.BlockAgents += "||";
-	
+
 	// Create/Validate queues
 	if ( UploadQueues.GetCount() == 0 )
 	{
@@ -417,14 +415,7 @@ void CUploadsSettingsPage::OnOK()
 		m_bQueuesChanged = TRUE;
 	}
 
-		UploadQueues.Validate();
-
-	if ( m_bQueuesChanged )
-	{
-		// Changing queues might change what files are in the hash table
-		LibraryDictionary.RebuildHashTable(); 
-		// ED2k file list will automatically update on next server connection
-	}
+	UploadQueues.Validate();
 
 	UpdateQueues();
 }
@@ -449,11 +440,11 @@ void CUploadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 		// Add the new ones
 		const DWORD nSpeeds[] =
 		{
-			Settings.Connection.OutSpeed / 4,		//  25%
-			Settings.Connection.OutSpeed / 2,		//  50%
+			Settings.Connection.OutSpeed / 4,			//  25%
+			Settings.Connection.OutSpeed / 2,			//  50%
 			( Settings.Connection.OutSpeed * 3 ) / 4,	//  75%
 			( Settings.Connection.OutSpeed * 17 ) / 20,	//  85%
-			Settings.Connection.OutSpeed			// 100%
+			Settings.Connection.OutSpeed				// 100%
 		};
 		for ( int nSpeed = 0 ; nSpeed < sizeof( nSpeeds ) / sizeof( DWORD ) ; nSpeed++ )
 		{
@@ -476,7 +467,7 @@ void CUploadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 bool CUploadsSettingsPage::IsLimited(CString& strText) const
 {
 	if ( ( _tcslen( strText ) == 0 ) ||
-		 ( _tcsistr( strText, _T("MAX") ) != NULL ) || 
+		 ( _tcsistr( strText, _T("MAX") ) != NULL ) ||
 		 ( _tcsistr( strText, _T("NONE") ) != NULL ) )
 		return false;
 	else
