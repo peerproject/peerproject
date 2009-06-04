@@ -76,19 +76,19 @@ BOOL CProfileManagerDlg::Run(LPCTSTR pszWindow)
 INT_PTR CProfileManagerDlg::DoModal(LPCTSTR pszWindow)
 {
 	CIdentityProfilePage	pIdentity;
+	CAvatarProfilePage		pAvatar;
 	CContactProfilePage		pContact;
 	CProfileProfilePage		pProfile;
 	CBioProfilePage			pBio;
-	CAvatarProfilePage		pAvatar;
 	CFavouritesProfilePage	pFavourites;
 	CFilesProfilePage		pFiles;
 	CCertificateProfilePage	pCertificate;
 
 	AddGroup( &pIdentity );
+	AddPage( &pAvatar );
 	AddPage( &pContact );
 	AddPage( &pProfile );
 	AddPage( &pBio );
-	AddPage( &pAvatar );
 	AddGroup( &pFavourites );
 	AddPage( &pFiles );
 	AddGroup( &pCertificate );

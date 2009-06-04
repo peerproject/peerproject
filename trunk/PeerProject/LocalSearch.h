@@ -63,12 +63,12 @@ public:
 	void		WriteVirtualTree();
 protected:
 	INT_PTR		ExecuteSharedFiles(INT_PTR nMaximum);
-	int			ExecutePartialFiles(INT_PTR nMaximum);
-	void		AddHit(CLibraryFile const * const pFile, int nIndex);
-	void		AddHit(CDownload const * const pDownload, int nIndex);
+	INT_PTR		ExecutePartialFiles(INT_PTR nMaximum);
+	template< typename T > INT_PTR SendHits(const CList< const T * >& oFiles);
+	template< typename T > void AddHit(const T * pHit, int nIndex);
+	template< typename T > bool IsValidForHit(const T * pHit) const;
 	void		AddHitG1(CLibraryFile const * const pFile, int nIndex);
 	void		AddHitG2(CLibraryFile const * const pFile, int nIndex);
-	inline bool	IsValidForHit(CLibraryFile const * const pFile) const;
 	inline bool	IsValidForHitG1(CLibraryFile const * const pFile) const;
 	inline bool	IsValidForHitG2(CLibraryFile const * const pFile) const;
 protected:

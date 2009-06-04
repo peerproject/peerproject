@@ -24,6 +24,7 @@
 
 #include "LibraryDictionary.h"
 #include "SharedFile.h"
+#include "QueryHashMaster.h"
 #include "QueryHashTable.h"
 #include "QuerySearch.h"
 
@@ -69,203 +70,44 @@ void CLibraryDictionary::AddFile(const CLibraryFile& oFile)
 	ProcessFile( oFile, true, bCanUpload );
 
 	if ( bCanUpload && m_bValid )
-		AddHashes( oFile );
+		m_pTable->AddHashes( oFile );
 }
 
 void CLibraryDictionary::RemoveFile(const CLibraryFile& oFile)
 {
-	const bool bCanUpload = oFile.IsShared();
-
-	ProcessFile( oFile, false, bCanUpload );
+	ProcessFile( oFile, false, oFile.IsShared() );
 
 	// Always invalidates the table when removing a hashed file...
 	// ToDo: is this wise???  It will happen all the time.
-
 	if ( oFile.IsHashed() )
-		m_bValid = false;
+		Invalidate();
 }
 
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary process file
 
 void CLibraryDictionary::ProcessFile(
-	const CLibraryFile& oFile, const bool bAdd, const bool bCanUpload)
+	const CLibraryFile& oFile, bool bAdd, bool bCanUpload)
 {
 	ProcessPhrase( oFile, oFile.GetSearchName(), bAdd, bCanUpload );
-
-	if ( oFile.m_pMetadata && oFile.m_pSchema )
-	{
-		ProcessWord( oFile, oFile.m_pSchema->GetURI(), bAdd, bCanUpload );
-		ProcessPhrase( oFile, oFile.GetMetadataWords(), bAdd, bCanUpload );
-	}
+	ProcessPhrase( oFile, oFile.GetMetadataWords(), bAdd, bCanUpload );
 }
 
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary phrase parser
 
 void CLibraryDictionary::ProcessPhrase(
-	const CLibraryFile& oFile, const CString& strPhrase, const bool bAdd,
-	const bool bCanUpload)
+	const CLibraryFile& oFile, const CString& strPhrase, bool bAdd,
+	bool bCanUpload)
 {
-	CString strWord;
-	WORD boundary[ 2 ] = { C3_NOTAPPLICABLE, C3_NOTAPPLICABLE };
-	WORD nKanaType[ 2 ] = { C3_NOTAPPLICABLE, C3_NOTAPPLICABLE };
-	int nPos = 0, nNextWord = 0;
-
-	for ( ; nPos < strPhrase.GetLength() ; ++nPos )
-	{
-		// boundary[ 0 ] -- previous character;
-		// boundary[ 1 ] -- current character;
-		boundary[ 0 ] = boundary[ 1 ];
-		nKanaType[ 0 ] = nKanaType[ 1 ];
-		const WCHAR nChar = strPhrase[ nPos ];
-		GetStringTypeW( CT_CTYPE3, &nChar, 1, &boundary[ 1 ] );
-
-		nKanaType[ 1 ] = boundary[ 1 ] & ( C3_KATAKANA | C3_HIRAGANA );
-		if ( nKanaType[ 1 ] == ( C3_KATAKANA | C3_HIRAGANA )
-			&& nKanaType[ 0 ] )
-		{
-			boundary[ 1 ] = boundary[ 0 ];
-			nKanaType[ 1 ] = nKanaType[ 0 ];
-		}
-
-		// Letter is a character if it is alpha-numeric
-		// Work-around for WinXP: Katakana/Hiragana diacritic characters in
-		// the NLS table aren't marked as being alpha (Win2000 & Vista+ are OK)
-		const bool bCharacter = ( boundary[ 1 ] & C3_ALPHA )
-			|| iswdigit( nChar )
-			|| ( nKanaType[ 1 ] && ( boundary[ 1 ] & C3_DIACRITIC ) );
-
-		if ( !bCharacter
-			|| ( nKanaType[ 0 ] && boundary[ 0 ] != boundary[ 1 ] ) )
-		{
-			// Join two phrases if the previous was a single character word.
-			// Joining single characters breaks GDF compatibility completely,
-			// but PeerProject (Shareaza 2.2 and up) is not really following GDF
-			// about word length limit for ASIAN chars, so merging needs to be done.
-			if ( nPos > nNextWord )
-			{
-				strWord = strPhrase.Mid( nNextWord, nPos - nNextWord );
-				MakeKeywords( oFile, strWord, boundary[ 0 ], bAdd, bCanUpload );
-			}
-			nNextWord = nPos;
-			nNextWord += ( bCharacter ? 0 : 1 );
-		}
-	}
-
-	strWord = strPhrase.Right( nPos - nNextWord );
-	MakeKeywords( oFile, strWord, boundary[ 0 ], bAdd, bCanUpload );
-}
-
-//////////////////////////////////////////////////////////////////////
-// CLibraryDictionary keyword maker
-
-void CLibraryDictionary::MakeKeywords(
-	const CLibraryFile& oFile, const CString& strWord, const WORD nWordType,
-	const bool bAdd, const bool bCanUpload)
-{
-	const int nLength = strWord.GetLength();
-
-	if ( !nLength )
+	if ( strPhrase.IsEmpty() )
 		return;
 
-	ProcessWord( oFile, strWord, bAdd, bCanUpload );
-
-	if ( nWordType & C3_HIRAGANA )
+	CStringList oKeywords;
+	CQueryHashTable::MakeKeywords( strPhrase, oKeywords );
+	for ( POSITION pos = oKeywords.GetHeadPosition(); pos; )
 	{
-		// Continuous Hiragana string can be structured with a few prefix or
-		// postfix or both. Assume Prefix/Postfix length is MAX 2 chars.
-		// Note: according to GDF, minimum char length for Hiragana is 2 char
-		if ( nLength < 3 )
-			return;
-
-		// take off last 1 char
-		ProcessWord( oFile, strWord.Left( nLength - 1 ), bAdd, bCanUpload );
-
-		// take off first 1 char
-		ProcessWord( oFile, strWord.Right( nLength - 1 ), bAdd, bCanUpload );
-
-		if ( nLength < 4 )
-			return;
-
-		// take off last 2 chars
-		ProcessWord( oFile, strWord.Left( nLength - 2 ), bAdd, bCanUpload );
-
-		// take off first 2 chars
-		ProcessWord( oFile, strWord.Right( nLength - 2 ), bAdd, bCanUpload );
-
-		// take off first 1 & last 1 chars
-		ProcessWord( oFile, strWord.Mid( 1, nLength - 2 ), bAdd, bCanUpload );
-
-		if ( nLength < 5 )
-			return;
-
-		// take off first 1 & last 2 chars
-		ProcessWord( oFile, strWord.Mid( 1, nLength - 3 ), bAdd, bCanUpload );
-
-		// take off first 2 & last 1 chars
-		ProcessWord( oFile, strWord.Mid( 2, nLength - 3 ), bAdd, bCanUpload );
-
-		if ( nLength < 6 )
-			return;
-
-		// take off first 2 & last 2 chars
-		ProcessWord( oFile, strWord.Mid( 2, nLength - 4 ), bAdd, bCanUpload );
-
-		return;
-	}
-
-	if ( nWordType & C3_KATAKANA )
-	{
-		// Continuous Katakana string does not have Prefix or postfix
-		// but can contain a few words in one continuous string
-		// Assume MAX number of Words contained in continuous Katakana string as Two words
-		// Note: according to GDF, minimum char length for Katakana is 2 char
-		// moreover, it is not known how long the prefix/postfix
-		// not even the length of chars in one word.
-		if ( nLength < 3 )
-			return;
-
-		for ( int nLen = 2 ; nLen < nLength ; ++nLen )
-		{
-			ProcessWord( oFile, strWord.Left( nLen ), bAdd, bCanUpload );
-			ProcessWord( oFile, strWord.Right( nLen ), bAdd, bCanUpload );
-		}
-
-		return;
-	}
-
-	if ( nWordType & C3_IDEOGRAPH )
-	{
-		// Continuous Kanji string may have Prefix or postfix
-		// but can contain a few words in one continuous string
-		// Assume MAX number of Words contained in continuous Kanji string as Two words
-		// Note: according to GDF, minimum char length for Kanji is 1 char
-		// moreover, it is not known how long the prefix/postfix
-		// not even the length of chars in one word.
-		if ( nLength < 2 )
-			return;
-
-		for ( int nLen = 1 ; nLen < nLength ; ++nLen )
-		{
-			ProcessWord( oFile, strWord.Left( nLen ), bAdd, bCanUpload );
-			ProcessWord( oFile, strWord.Right( nLen ), bAdd, bCanUpload );
-		}
-
-		return;
-	}
-
-	if ( Settings.Library.PartialMatch )
-	{
-		if ( nLength < 4 )
-			return;
-
-		ProcessWord( oFile, strWord.Left( nLength - 1 ), bAdd, bCanUpload );
-
-		if ( nLength < 5 )
-			return;
-
-		ProcessWord( oFile, strWord.Left( nLength - 2 ), bAdd, bCanUpload );
+		ProcessWord( oFile, oKeywords.GetNext( pos ), bAdd, bCanUpload );
 	}
 }
 
@@ -273,71 +115,47 @@ void CLibraryDictionary::MakeKeywords(
 // CLibraryDictionary word add and remove
 
 void CLibraryDictionary::ProcessWord(
-	const CLibraryFile& oFile, const CString& strWord, const bool bAdd,
-	const bool bCanUpload)
+	const CLibraryFile& oFile, const CString& strWord, bool bAdd, bool bCanUpload)
 {
-	FilePtrList* pFilePtrList = NULL;
-
-	if ( m_oWordMap.Lookup( strWord, pFilePtrList ) )
+	CWord oWord;
+	if ( m_oWordMap.Lookup( strWord, oWord ) )
 	{
 		if ( bAdd )
 		{
-			if ( pFilePtrList->GetTail() != &oFile )
+			if ( oWord.m_pList->GetTail() != &oFile )
 			{
-				pFilePtrList->AddTail( &oFile );
-				if ( bCanUpload && m_bValid && !m_pTable->CheckString( strWord ) )
-					m_pTable->AddString( strWord );
+				oWord.m_pList->AddTail( &oFile );
+				if ( bCanUpload && m_bValid && ! m_pTable->CheckString( strWord ) )
+					m_pTable->AddExactString( strWord );
 			}
 		}
 		else
 		{
-			POSITION pos = pFilePtrList->Find( &oFile );
+			POSITION pos = oWord.m_pList->Find( &oFile );
 			if ( pos )
 			{
-				pFilePtrList->RemoveAt( pos );
+				oWord.m_pList->RemoveAt( pos );
 
-				if ( pFilePtrList->IsEmpty() )
+				if ( oWord.m_pList->IsEmpty() )
 				{
 					m_oWordMap.RemoveKey( strWord );
-					delete pFilePtrList;
+					delete oWord.m_pList;
 
 					if ( bCanUpload )
-						m_bValid = false;
+						Invalidate();
 				}
 			}
 		}
 	}
 	else if ( bAdd )
 	{
-		pFilePtrList = new FilePtrList;
-		pFilePtrList->AddTail( &oFile );
-		m_oWordMap.SetAt( strWord, pFilePtrList );
+		oWord.m_pList = new CFilePtrList;
+		oWord.m_pList->AddTail( &oFile );
+		m_oWordMap.SetAt( strWord, oWord );
 
 		if ( bCanUpload && m_bValid )
-			m_pTable->AddString( strWord );
+			m_pTable->AddExactString( strWord );
 	}
-}
-
-//////////////////////////////////////////////////////////////////////
-// CLibraryDictionary add hashes to query table
-
-void CLibraryDictionary::AddHashes(const CLibraryFile& oFile)
-{
-	//Add the hashes to the table
-	if ( oFile.m_oSHA1 )
-		m_pTable->AddExactString( oFile.m_oSHA1.toUrn() );
-
-	if ( oFile.m_oTiger )
-		m_pTable->AddExactString( oFile.m_oTiger.toUrn() );
-
-	if ( oFile.m_oED2K )
-		m_pTable->AddExactString( oFile.m_oED2K.toUrn() );
-
-	if ( oFile.m_oBTH )
-		m_pTable->AddExactString( oFile.m_oBTH.toUrn() );
-
-	if ( oFile.m_oMD5 )
-		m_pTable->AddExactString( oFile.m_oMD5.toUrn() );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -363,18 +181,18 @@ void CLibraryDictionary::BuildHashTable()
 	for ( POSITION pos = m_oWordMap.GetStartPosition() ; pos ; )
 	{
 		CString strWord;
-		FilePtrList* pFilePtrList = NULL;
-		m_oWordMap.GetNextAssoc( pos, strWord, pFilePtrList );
+		CWord oWord;
+		m_oWordMap.GetNextAssoc( pos, strWord, oWord );
 
-		for ( POSITION pos = pFilePtrList->GetHeadPosition() ; pos ; )
+		for ( POSITION pos = oWord.m_pList->GetHeadPosition() ; pos ; )
 		{
-			const CLibraryFile& oFile = *pFilePtrList->GetNext( pos );
+			const CLibraryFile& oFile = *oWord.m_pList->GetNext( pos );
 
 			// Check if the file can be uploaded
 			if ( oFile.IsShared() )
 			{
 				// Add the keyword to the table
-				m_pTable->AddString( strWord );
+				m_pTable->AddExactString( strWord );
 				break;
 			}
 		}
@@ -387,7 +205,7 @@ void CLibraryDictionary::BuildHashTable()
 
 		// Check if the file can be uploaded
 		if ( oFile.IsShared() )
-			AddHashes( oFile );
+			m_pTable->AddHashes( oFile );
 	}
 
 	m_bValid = true;
@@ -398,12 +216,12 @@ void CLibraryDictionary::BuildHashTable()
 //
 // Force hash table to re-build.
 
-void CLibraryDictionary::RebuildHashTable()
+void CLibraryDictionary::Invalidate()
 {
 	m_bValid = false;
-	BuildHashTable();
-}
 
+	QueryHashMaster.Invalidate();
+}
 
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary retrieve hash table
@@ -423,10 +241,9 @@ void CLibraryDictionary::Clear()
 	for ( POSITION pos = m_oWordMap.GetStartPosition() ; pos ; )
 	{
 		CString strWord;
-		FilePtrList* pFilePtrList = NULL;
-
-		m_oWordMap.GetNextAssoc( pos, strWord, pFilePtrList );
-		delete pFilePtrList;
+		CWord oWord;
+		m_oWordMap.GetNextAssoc( pos, strWord, oWord );
+		delete oWord.m_pList;
 	}
 
 	m_oWordMap.RemoveAll();
@@ -441,7 +258,7 @@ void CLibraryDictionary::Clear()
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary search
 
-FilePtrList* CLibraryDictionary::Search(
+CFilePtrList* CLibraryDictionary::Search(
 	const CQuerySearch& oSearch, const int nMaximum, const bool bLocal,
 	const bool bAvailableOnly)
 {
@@ -467,13 +284,12 @@ FilePtrList* CLibraryDictionary::Search(
 			continue;
 
 		CString strWord( pWordEntry->first, static_cast< int >( pWordEntry->second ) );
-		FilePtrList* pFilePtrList = NULL;
-
-		if ( m_oWordMap.Lookup( strWord, pFilePtrList ) )
+		CWord oWord;
+		if ( m_oWordMap.Lookup( strWord, oWord ) )
 		{
-			for ( POSITION pos = pFilePtrList->GetHeadPosition() ; pos ; )
+			for ( POSITION pos = oWord.m_pList->GetHeadPosition() ; pos ; )
 			{
-				const CLibraryFile* pFile = pFilePtrList->GetNext( pos );
+				const CLibraryFile* pFile = oWord.m_pList->GetNext( pos );
 
 				if ( bAvailableOnly && pFile->IsGhost() )
 					continue;
@@ -499,7 +315,7 @@ FilePtrList* CLibraryDictionary::Search(
 	size_t nLowerBound = ( oSearch.tableSize() >= 3 )
 		? ( oSearch.tableSize() * 2 / 3 ) : oSearch.tableSize();
 
-	FilePtrList* pHits = NULL;
+	CFilePtrList* pHits = NULL;
 	for ( ; pHit ; pHit = pHit->m_pNextHit )
 	{
 		ASSERT( pHit->m_nSearchCookie == m_nSearchCookie );
@@ -513,7 +329,7 @@ FilePtrList* CLibraryDictionary::Search(
 			pHit->m_oBTH, pHit->m_oMD5 ) )
 		{
 			if ( !pHits )
-				pHits = new FilePtrList;
+				pHits = new CFilePtrList;
 
 			pHits->AddTail( pHit );
 

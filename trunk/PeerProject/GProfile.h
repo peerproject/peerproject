@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_GPROFILE_H__16D49240_3116_441C_9C15_2D604E02B73E__INCLUDED_)
-#define AFX_GPROFILE_H__16D49240_3116_441C_9C15_2D604E02B73E__INCLUDED_
-
 #pragma once
 
 class CXMLElement;
@@ -35,39 +32,33 @@ public:
 	CGProfile();
 	virtual ~CGProfile();
 
-// Attributes
-public:
-	CGuarded< Hashes::Guid > oGUID;
-	CGuarded< Hashes::BtGuid > oGUIDBT;
+	// Gnutella GUID (128 bit)
+	CGuarded< Hashes::Guid >	oGUID;
+	// BitTorrent GUID (160 bit), first 128 bits same as oGUID
+	CGuarded< Hashes::BtGuid >	oGUIDBT;
+
+	void			Create();							// Create default local profile
+	BOOL			Load();								// Get local profile from file at PeerProject start up
+	BOOL			Save();								// Save local profile to file
+	BOOL			FromXML(const CXMLElement* pXML);	// Create remote profile from XML
+	void			Serialize(CArchive& ar);			// Load/Save browsed host profile
+	BOOL			IsValid() const;
+
+	CXMLElement*	GetXML(LPCTSTR pszElement = NULL, BOOL bCreate = FALSE);
+	CString			GetNick() const;
+	CString			GetContact(LPCTSTR pszType) const;
+	CString			GetLocation() const;
+	DWORD			GetPackedGPS() const;
+
+	CG2Packet*		CreateAvatar() const;
+
 protected:
 	CXMLElement*	m_pXML;
-protected:
 	static LPCTSTR	xmlns;
 
-// Operations
-public:
-	void			Create();
-	void			Clear();
-	BOOL			IsValid() const;
-	CXMLElement*	GetXML(LPCTSTR pszElement = NULL, BOOL bCreate = FALSE);
-public:
-	void			Serialize(CArchive& ar);
-	BOOL			Load(LPCTSTR pszFile = NULL);
-	BOOL			Save(LPCTSTR pszFile = NULL);
-	BOOL			FromXML(CXMLElement* pXML);
-public:
-	CString			GetNick() const;
-	CString			GetLocation() const;
-	CString			GetContact(LPCTSTR pszType) const;
-	DWORD			GetPackedGPS() const;
-	CG2Packet*		CreateAvatar();
+	void			CreateBT();		// Create BitTorrent GUID from Gnutella GUID
 
-// Interfaces
-protected:
 	DECLARE_INTERFACE_MAP()
-
 };
 
 extern CGProfile MyProfile;
-
-#endif // !defined(AFX_GPROFILE_H__16D49240_3116_441C_9C15_2D604E02B73E__INCLUDED_)

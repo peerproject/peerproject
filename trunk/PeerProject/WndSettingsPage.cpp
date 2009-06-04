@@ -256,3 +256,27 @@ BOOL CSettingsPage::PreTranslateMessage(MSG* pMsg)
 
 	return CDialog::PreTranslateMessage(pMsg);
 }
+
+/////////////////////////////////////////////////////////////////////////////
+// CEditPath
+
+IMPLEMENT_DYNCREATE(CEditPath, CEdit)
+
+BEGIN_MESSAGE_MAP(CEditPath, CEdit)
+	ON_WM_LBUTTONDBLCLK()
+END_MESSAGE_MAP()
+
+void CEditPath::OnLButtonDblClk(UINT nFlags, CPoint point)
+{
+	CEdit::OnLButtonDblClk( nFlags, point );
+
+	CString sPath;
+	GetWindowText( sPath );
+
+	sPath = CString( _T("\\\\?\\") ) + sPath;	// very long path
+
+	if ( GetFileAttributes( sPath ) != INVALID_FILE_ATTRIBUTES )
+	{
+		ShellExecute( GetSafeHwnd(), NULL, sPath, NULL, NULL, SW_SHOWDEFAULT );
+	}
+}

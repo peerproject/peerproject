@@ -113,16 +113,17 @@ BEGIN_MESSAGE_MAP(CMediaFrame, CWnd)
 	ON_MESSAGE(WM_APPCOMMAND, OnMediaKey)
 END_MESSAGE_MAP()
 
+#define SPLIT_SIZE		6
+#define HEADER_HEIGHT	16
+#define STATUS_HEIGHT	18
 #define SIZE_INTERNAL	1982
 #define SIZE_BARSLIDE	1983
 #define TOOLBAR_STICK	3000
-#define TOOLBAR_ANIMATE	1000
-#define HEADER_HEIGHT	16
-#define STATUS_HEIGHT	18
-#define SPLIT_SIZE		6
+#define TOOLBAR_ANIMATE	800
 #define META_DELAY		10000
 #define TIME_FACTOR		1000000
 #define ONE_SECOND		10000000
+// ToDo: Make Skinnable Options
 
 CMediaFrame* CMediaFrame::g_pMediaFrame = NULL;
 
@@ -147,10 +148,10 @@ CMediaFrame::CMediaFrame()
 	m_tMetadata		= 0;
 
 	m_bFullScreen		= FALSE;
-	m_bListWasVisible   = Settings.MediaPlayer.ListVisible;
-	m_bListVisible		= Settings.MediaPlayer.ListVisible;
-	m_nListSize			= Settings.MediaPlayer.ListSize;
 	m_bStatusVisible	= Settings.MediaPlayer.StatusVisible;
+	m_bListVisible		= Settings.MediaPlayer.ListVisible;
+	m_bListWasVisible   = Settings.MediaPlayer.ListVisible;
+	m_nListSize			= Settings.MediaPlayer.ListSize;
 	m_rcVideo.SetRectEmpty();
 	m_rcStatus.SetRectEmpty();
 	m_bScreenSaverEnabled = TRUE;
@@ -238,16 +239,16 @@ int CMediaFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CMediaFrame::OnDestroy()
 {
+	Settings.MediaPlayer.StatusVisible	= m_bStatusVisible != FALSE;
 	Settings.MediaPlayer.ListVisible	= m_bListVisible != FALSE;
 	Settings.MediaPlayer.ListSize		= m_nListSize;
-	Settings.MediaPlayer.StatusVisible	= m_bStatusVisible != FALSE;
 
 	KillTimer( 2 );
 	KillTimer( 1 );
 
 	Cleanup();
 
-	if ( ! m_bScreenSaverEnabled ) EnableScreenSaver();
+	if ( ! m_bScreenSaverEnabled )		EnableScreenSaver();
 
 	CWnd::OnDestroy();
 }
@@ -1313,7 +1314,7 @@ void CMediaFrame::OnMediaSizeTwo()
 
 void CMediaFrame::OnUpdateMediaSizeHalf(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( Settings.MediaPlayer.Zoom == 4 );
+	pCmdUI->SetCheck( Settings.MediaPlayer.Zoom == smzHalf );
 }
 
 void CMediaFrame::OnMediaSizeHalf()

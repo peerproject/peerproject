@@ -277,9 +277,8 @@ template<> AFX_INLINE UINT AFXAPI HashKey(DWORD_PTR key)
 // Missing constants
 //
 
-#define BIF_NEWDIALOGSTYLE	0x0040
+#define BIF_NEWDIALOGSTYLE	0x00000040
 #define OFN_ENABLESIZING	0x00800000
-
 
 //
 // 64-bit type

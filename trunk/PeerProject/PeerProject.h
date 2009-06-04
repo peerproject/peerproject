@@ -83,11 +83,11 @@ public:
 	volatile bool		m_bInteractive;				// PeerProject begins initialization
 	volatile bool		m_bLive;					// PeerProject fully initialized
 	volatile bool		m_bClosing;					// PeerProject begins closing
-	BOOL				m_bMenuWasVisible;			// For the menus in media player window
 	bool				m_bIsServer;				// Is OS a Server version
 	bool				m_bIsWin2000;				// Is OS Windows 2000
 	bool				m_bIsVistaOrNewer;			// Is OS Vista or newer
 	bool				m_bLimitedConnections;		// Networking is limited (XP SP2)
+	BOOL				m_bMenuWasVisible;			// For the menus in media player window
 	DWORD				m_nWindowsVersion;			// Windows version
 	DWORD				m_nWindowsVersionMinor;		// Windows minor version
 	QWORD				m_nPhysicalMemory;			// Physical RAM installed
@@ -130,10 +130,12 @@ public:
 	HINSTANCE	m_hGeoIP;
 	GeoIP*		m_pGeoIP;
 	typedef GeoIP* (*GeoIP_newFunc)(int);
+	typedef void (*GeoIP_deleteFunc)(GeoIP* gi);
 	typedef const char * (*GeoIP_country_code_by_ipnumFunc) (GeoIP* gi, unsigned long ipnum);
 	typedef const char * (*GeoIP_country_name_by_ipnumFunc) (GeoIP* gi, unsigned long ipnum);
 	GeoIP_country_code_by_ipnumFunc	m_pfnGeoIP_country_code_by_ipnum;
 	GeoIP_country_name_by_ipnumFunc	m_pfnGeoIP_country_name_by_ipnum;
+	GeoIP_deleteFunc				m_pfnGeoIP_delete;
 
 	HINSTANCE			m_hLibGFL;
 
@@ -301,11 +303,11 @@ inline T GetRandomNum(const T& min, const T& max)
 	{
 		T nRandom = 0;
 		if ( CryptGenRandom( theApp.m_hCryptProv, sizeof( T ), (BYTE*)&nRandom ) )
-			return min + (double)nRandom / ( (double)( static_cast< T >( -1 ) ) / ( max - min + 1 ) + 1 );
+			return static_cast< T >( (double)nRandom  * ( (double)max - (double)min + 1 ) / ( (double)static_cast< T >( -1 ) + 1 ) + min );
 	}
 
 	// Fallback to non-secure method
-	return min + (double)rand() / ( (double)RAND_MAX / ( max - min + 1 ) + 1 );
+	return static_cast< T >( (double)rand() * ( max - min + 1 ) / ( (double)RAND_MAX + 1 ) + min );
 }
 
 template <>
@@ -361,7 +363,6 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 #define WM_SETALPHA			(WM_APP+113)	// Increase/decrease main window transparency (WPARAM: 0 - to decrease or 1 - to increase, LPARAM: unused)
 #define WM_METADATA			(WM_APP+114)	// Set/clear library metapanel data & status message (WPARAM: CMetaPanel* pPanelData, LPARAM: LPCTSTR pszMessage)
 #define WM_SANITY_CHECK		(WM_APP+115)	// Run allsystem check against banned hosts (WPARAM: unused, LPARAM: unused)
-#define WM_QUERYHITS		(WM_APP+116)	// Route query hits over windows (WPARAM: unused, LPARAM: CQueryHit* pHits)
 #define WM_NOWUPLOADING		(WM_APP+117)	// New upload notification (WPARAM: unused, LPARAM: CString* pFilename)
 #define WM_TORRENT			(WM_APP+118)	// Open torrent file ( WPARAM: LPTSTR szFilename, LPARAM: unused )
 
@@ -387,7 +388,7 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 
 // ed2k client ID number.
 // 0x50 (80) = Proposed PeerProject ID
-// 0 = eMule, 1 = cDonkey, 4 = old ShareazaBeta, 0x28 (40) = Shareaza, 0xcb (203) = ShareazaPlus RazaCB
+// 0 = eMule, 1 = cDonkey, 4 = old Shareazas, 0x28 (40) = Shareaza, 0xcb (203) = ShareazaPlus RazaCB
 #define ED2K_CLIENT_ID		80
 
 // 2 Character BT peer-id code

@@ -28,7 +28,7 @@
 #include "Library.h"
 #include "SharedFile.h"
 #include "Uploads.h"
-#include "DlgSelectClass.h"
+#include "DlgSelect.h"
 #include "Download.h"
 
 #ifdef _DEBUG
@@ -450,10 +450,10 @@ Fragments::List CFragmentedFile::GetWantedFragmentList() const
 {
 	CQuickLock oLock( m_pSection );
 
-	// TODO: Implement several priorities
-	// TODO: Optimize this by caching
+	// ToDo: Implement several priorities
+	// ToDo: Optimize this by caching
 
-	// Exclude not wanted files
+	// Exclude unwanted files
 	Fragments::List oList( m_oFList );
 	for ( CVirtualFile::const_iterator i = m_oFile.begin(); i != m_oFile.end(); ++i )
 		if ( (*i).m_nPriority == prNotWanted )

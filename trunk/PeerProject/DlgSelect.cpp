@@ -1,5 +1,5 @@
 //
-// DlgSelectClass.cpp
+// DlgSelect.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2009
 // Portions Copyright Shareaza Development Team, 2009.
@@ -21,7 +21,7 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "DlgSelectClass.h"
+#include "DlgSelect.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -60,7 +60,7 @@ BOOL CSelectDialog::OnInitDialog()
 	for ( POSITION pos = m_List.GetHeadPosition(); pos; )
 	{
 		CItem it = m_List.GetNext( pos );
-		int index = m_ListCtrl.AddString( it.m_sItem );	// ToDo: Add string reduction to combobox size
+		int index = m_ListCtrl.AddString( it.m_sItem.Mid( it.m_sItem.Find( '\\' ) + 1 ) );	// Use Truncated Path
 		m_ListCtrl.SetItemData( index, it.m_nData );
 		if ( it.m_nData == m_nData )
 			select = index;

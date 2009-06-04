@@ -22,7 +22,7 @@
 // CShakeNeighbour reads and sends handshake headers to negotiate the Gnutella or Gnutella2 handshake
 // http://pantheraproject.net/wiki/index.php?title=Developers.Code.CShakeNeighbour
 
-// Copy in the contents of these files here before compiling
+
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
@@ -948,8 +948,8 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 	}
 	else if ( m_bBadClient )
 	{
-		// We don't want to accept Hubs or UltraPeers from clients that have bugs 
-		// that pollute the host cache, so stop here.
+		// We don't want to accept Hubs or UltraPeers from clients that have
+		// bugs that pollute the host cache, so stop here.
 	}
 	else if ( !m_bInitiated )
 	{
@@ -1001,9 +1001,9 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 	// These codes for HostCache should be here and ones in HeaderLine should just store these info in String array for this part of Process.
 	if ( !m_bInitiated || m_bBadClient )
 	{
-		// We don't want accept Hubs or UltraPeers from clients that have bugs that pollute
-		// the host cache, not even the cache from incoming connections. this part should be 
-		// ignored
+		// We don't want accept Hubs or UltraPeers from clients that have bugs that
+		// pollute the host cache, not even the cache from incoming connections.
+		// This part should be ignored.
 	}
 	else if ( m_sTryDNAHubs.GetLength() )
 	{	// The remote computer is giving us a list GnucDNA G2 hubs
@@ -1011,13 +1011,13 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 		for ( m_sTryDNAHubs += ',' ; ; ) 
 		{
 			int nPos = m_sTryDNAHubs.Find( ',' );		// Set nPos to the distance in characters from the start to the comma
-			if ( nPos < 0 ) break;					// If no comma was found, leave the loop
-			CString strHost = m_sTryDNAHubs.Left( nPos );// Copy the text up to the comma into strHost
-			m_sTryDNAHubs = m_sTryDNAHubs.Mid( nPos + 1 );    // Clip that text and the comma off the start of strValue
+			if ( nPos < 0 ) break;						// If no comma was found, leave the loop
+			CString strHost = m_sTryDNAHubs.Left( nPos );	// Copy the text up to the comma into strHost
+			m_sTryDNAHubs = m_sTryDNAHubs.Mid( nPos + 1 );	// Clip that text and the comma off the start of strValue
 
 			// Add the host to the Gnutella2 host cache, noting it's a DNA hub
-			// adding host with "GDNA" will not help a lot, if the name is blank, raza might get the name through
-			// KHL over linked Neighbours.
+			// adding host with "GDNA" will not help a lot, if the name is blank,
+			// we might get the name through KHL over linked Neighbours.
 			if ( HostCache.Gnutella2.Add( strHost, 0, NULL ) )
 				nCount++;
 		}
@@ -1032,11 +1032,11 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 		{
 			int nPos = m_sTryHubs.Find( ',' );		// Set nPos to the distance in characters from the start to the comma
 			if ( nPos < 0 ) break;					// If no comma was found, leave the loop
-			CString strHost = m_sTryHubs.Left( nPos );// Copy the text up to the comma into strHost
-			m_sTryHubs = m_sTryHubs.Mid( nPos + 1 );    // Clip that text and the comma off the start of strValue
+			CString strHost = m_sTryHubs.Left( nPos );	// Copy the text up to the comma into strHost
+			m_sTryHubs = m_sTryHubs.Mid( nPos + 1 );	// Clip that text and the comma off the start of strValue
 
-			// since there is no clever way to detect what the given Hosts' vender codes are, just add then as NULL
-			// in order to prevent HostCache/KHL pollution done by wrong assumptions.
+			// Since there is no clever way to detect what the given Hosts' vender codes are,
+			// just add them as NULL in order to prevent HostCache/KHL pollution done by wrong assumptions.
 			if ( HostCache.Gnutella2.Add( strHost, 0, NULL ) ) nCount++; // Count it
 		}
 		// Tell discovery services the remote computer's IP address, and how many hosts it just told us about
@@ -1044,29 +1044,28 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 		m_sTryHubs.Empty();
 	} 
 	else if ( m_sTryUltrapeers.GetLength() )
-	{	// This header has been used for several things. In general, it's giving us a list of
-		// Gnutella Ultrapeers, however some old versions of Shareaza can send G2 hubs in it,
-		// if the client advertises G2 capability
+	{	// This header has been used for several things. In general, it gives us a list of Gnutella Ultrapeers,
+		// however some old versions of Shareaza can send G2 hubs in it.
 
-		// TODO: Clean this up once there are very few of the older clients around
+		// ToDo: Clean this up. (Very few of the older clients are around.)
 
 		int nCount = 0;
 		// Append a comma onto the end of the value text once, and then loop forever
-		for ( m_sTryUltrapeers += ',' ; ; ) // for (;;) is the same thing as forever
+		for ( m_sTryUltrapeers += ',' ; ; )	// for (;;) is the same thing as forever
 		{
 			// Find the first comma in the value text
 			int nPos = m_sTryUltrapeers.Find( ',' ); // Set nPos to the distance in characters from the start to the comma
-			if ( nPos < 0 ) break;           // If no comma was found, leave the loop
+			if ( nPos < 0 ) break;			// If no comma was found, leave the loop
 
 			// Move the text before the comma from the value string to a new string for the host
-			CString strHost = m_sTryUltrapeers.Left( nPos ); // Copy the text up to the comma into strHost
+			CString strHost = m_sTryUltrapeers.Left( nPos );	// Copy the text up to the comma into strHost
 			m_sTryUltrapeers = m_sTryUltrapeers.Mid( nPos + 1 );     // Clip that text and the comma off the start of strValue
 
 			// The remote computer accepts Gnutella2 connection.
 			if ( m_bG2Accept || m_bG2Send )
 			{
-				// since there is no clever way to detect what the given Hosts' vender codes are, just add then as NULL
-				// in order to prevent HostCache/KHL pollution done by wrong assumptions.
+				// Since there is no clever way to detect what the given Hosts' vender codes are,
+				// just add them as NULL in order to prevent HostCache/KHL pollution done by wrong assumptions.
 				//if ( HostCache.Gnutella2.Add( strHost, 0, NULL ) ) nCount++; // Count it
 
 			} 
@@ -1126,15 +1125,15 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 	// The remote computer replied to our headers with something other than "200 OK"
 	if ( m_nState == nrsRejected )
 	{
-		Close( 0 );   // Don't specify an error
-		return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+		Close( 0 ); 	// Don't specify an error
+		return FALSE;	// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
 	} // We've been reading response headers from a remote computer that contacted us
 	else if ( m_nState == nrsHandshake3 ) // We were reading the final header group from the remote computer
 	{
 		// (do)
-		if ( m_bUltraPeerSet == TRI_FALSE                                 // The remote computer told us it's a leaf
-			&& ( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable() ) ) // And we're either a hub or capable of becoming one
+		if ( m_bUltraPeerSet == TRI_FALSE									// The remote computer told us it's a leaf
+			&& ( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable() ) )	// And we're either a hub or capable of becoming one
 		{
 			// Report this case
 			theApp.Message( MSG_INFO, IDS_HANDSHAKE_BACK2LEAF, (LPCTSTR)m_sAddress );
@@ -1177,7 +1176,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 					// Tell the remote computer we can't connect (do)
 					SendHostHeaders( _P("GNUTELLA/0.6 503 I have leaves") );
 					DelayClose( IDS_HANDSHAKE_CANTBEPEER ); // Send the buffer then close the socket
-					return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+					return FALSE;		// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 				}
 
 				// If we are a Gnutella2 hub
@@ -1186,12 +1185,12 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 					// We are a hub, and the remote computer doesn't need any more hub connections, tell it we can't connect
 					SendHostHeaders( _P("GNUTELLA/0.6 503 Ultrapeer disabled") );
 					DelayClose( IDS_HANDSHAKE_NOULTRAPEER ); // Send the buffer then close the socket
-					return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+					return FALSE;		// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 				}
 
 				// We are or can become an ultrapeer, and the remote computer is an ultrapeer that doesn't need any more ultrapeer connections
-				m_nNodeType = ntHub; // Pretend this connection is to a hub above us
-				bFallback = TRUE;    // We'll tell the remote computer we're a leaf so we can still connect
+				m_nNodeType = ntHub;	// Pretend this connection is to a hub above us
+				bFallback = TRUE;		// We'll tell the remote computer we're a leaf so we can still connect
 			}
 
 		} // The remote computer is a hub
@@ -1203,7 +1202,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 				// (do)
 				SendHostHeaders( _P("GNUTELLA/0.6 503 Ultrapeer disabled") );
 				DelayClose( IDS_HANDSHAKE_NOULTRAPEER ); // Send the buffer then close the socket
-				return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+				return FALSE;		// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 			}
 
 			// This connection is to a hub above us
@@ -1218,7 +1217,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 				// Tell the remote computer we can't connect because we need a hub
 				SendHostHeaders( _P("GNUTELLA/0.6 503 Need an Ultrapeer") );
 				DelayClose( IDS_HANDSHAKE_NEEDAPEER ); // Send the buffer then close the socket
-				return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+				return FALSE;		// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 			}
 		}
 		else if ( m_bUltraPeerSet == TRI_UNKNOWN )
@@ -1229,20 +1228,20 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 				// Tell the remote computer we can't connect because we need a hub
 				SendHostHeaders( _P("GNUTELLA/0.6 503 Need an Ultrapeer") );
 				DelayClose( IDS_HANDSHAKE_NEEDAPEER ); // Send the buffer then close the socket
-				return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+				return FALSE;		// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 			}
 			m_nNodeType = ntNode;
 		}
 
 		// If the connection doesn't fall into any of those error cases, accept it with a batch of reply headers
-		Write( _P("GNUTELLA/0.6 200 OK\r\n") );                 // Accept the connection
-		SendPrivateHeaders();                                          // Respond to each header, setting up Gnutella2 packets and compression
+		Write( _P("GNUTELLA/0.6 200 OK\r\n") );					// Accept the connection
+		SendPrivateHeaders();									// Respond to each header, setting up Gnutella2 packets and compression
 		if ( bFallback ) Write( _P("X-Ultrapeer: False\r\n") ); // Tell it we're a leaf so we can still connect
-		Write( _P("\r\n") );                                    // Send a blank line to end this group of headers
+		Write( _P("\r\n") );									// Send a blank line to end this group of headers
 
 		// Turn this CShakeNeighbour object into a CG2Neighbour one, and delete this one
 		OnHandshakeComplete();
-		return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+		return FALSE;		// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
 	} // not rejected, not handshake3, not initiated (do)
 	else
@@ -1258,34 +1257,28 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 			// Tell the remote computer we can't connect because we are a shielded leaf right now
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Shielded leaf node") );
 			DelayClose( IDS_HANDSHAKE_IAMLEAF ); // Send the buffer then close the socket
-			return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+			return FALSE;		// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
 		} // We are a Gnutella2 hub, or at least we are capable of becoming one
 		else if ( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable() )
 		{
-			// The remote computer sent us the header "X-Ultrapeer: False"
-			if ( m_bUltraPeerSet == TRI_FALSE )
+			if ( m_bUltraPeerSet == TRI_FALSE )		// The remote computer sent us the header "X-Ultrapeer: False"
 			{
-				// This connection is to a leaf below us
-				m_nNodeType = ntLeaf;
-
-			} // The remote computer sent us the header "X-Ultrapeer: True"
-			else if ( m_bUltraPeerSet == TRI_TRUE )
+				m_nNodeType = ntLeaf;				// This connection is to a leaf below us
+			}
+			else if ( m_bUltraPeerSet == TRI_TRUE ) // The remote computer sent us the header "X-Ultrapeer: True"
 			{
-				// Record that we are both hubs
-				m_nNodeType = ntNode;
+				m_nNodeType = ntNode;				// Record that we are both hubs
 			}
 			else if ( m_bUltraPeerSet == TRI_UNKNOWN )
 			{
-				// Record that remote Node type is Unknown
-				m_nNodeType = ntLeaf;
+				m_nNodeType = ntLeaf;				// Record that remote Node type is Unknown
 			}
 
 		} // The remote computer is an ultrapeer, and we are not running in hub mode
 		else if ( m_bUltraPeerSet == TRI_TRUE && ( Settings.Gnutella2.ClientMode != MODE_HUB ) )
 		{
-			// This connection is to a hub above us
-			m_nNodeType = ntHub;
+			m_nNodeType = ntHub;					// This connection is to a hub above us
 		}
 
 		// If it's a leaf, check version, etc
@@ -1329,7 +1322,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 			// Tell the remote computer that we can't connect because we have too many connections already, and close the connection
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Maximum connections reached") ); // Send this error code along with some more IP addresses it can try
 			DelayClose( IDS_HANDSHAKE_SURPLUS ); // Close the connection, but not until we've written the buffered outgoing data first
-			return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+			return FALSE;	// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
 		} // Or, if we're both in the same role on the network
 		else if ( ( m_nNodeType == ntHub && ( Settings.Gnutella2.ClientMode == MODE_HUB ) ) ||  // We're both hubs
@@ -1338,7 +1331,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 			// Tell the remote computer that we can't connect
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Ultrapeer disabled") ); // Send the error code along with more IP addresses the remote computer can try
 			DelayClose( IDS_HANDSHAKE_NOULTRAPEER ); // Close the connection, but not until we've written the buffered outgoing data first
-			return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+			return FALSE;	// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
 		} // This connection isn't to a hub above us, and we're a leaf
 		else if ( m_nNodeType != ntHub && ( Settings.Gnutella2.ClientMode == MODE_LEAF ) )
@@ -1346,7 +1339,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 			// Tell the remote computer we can't connect because we need a hub
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Need an Ultrapeer") );
 			DelayClose( IDS_HANDSHAKE_NEEDAPEER ); // Send the buffer then close the socket
-			return FALSE; // Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
+			return FALSE;	// Return false all the way back to CHandshakes::RunHandshakes, which will delete this object
 
 		} // Otherwise, the connection is probably alright
 		else

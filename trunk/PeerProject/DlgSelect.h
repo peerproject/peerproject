@@ -1,5 +1,5 @@
 //
-// DlgSelectClass.h
+// DlgSelect.h
 //
 // This file is part of PeerProject (peerproject.org) © 2009
 // Portions Copyright Shareaza Development Team, 2009.

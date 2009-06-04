@@ -99,6 +99,7 @@ void CSettings::Load()
 	Add( _T("Settings"), _T("LastSettingsIndex"), &General.LastSettingsIndex, 0 );
 	Add( _T("Settings"), _T("RatesInBytes"), &General.RatesInBytes, true );
 	Add( _T("Settings"), _T("RatesUnit"), &General.RatesUnit, 0 );
+	Add( _T("Settings"), _T("RefreshRate"), &General.RefreshRate, 1000, 1, 100, 60000, _T(" ms") );
 	Add( _T("Settings"), _T("Running"), &General.Running, false, true );
 	Add( _T("Settings"), _T("ShowTimestamp"), &General.ShowTimestamp, true );
 	Add( _T("Settings"), _T("SizeLists"), &General.SizeLists, false );
@@ -151,7 +152,6 @@ void CSettings::Load()
 	Add( _T("Library"), _T("MarkFileAsDownload"), &Library.MarkFileAsDownload, true );
 	Add( _T("Library"), _T("MaxMaliciousFileSize"), &Library.MaxMaliciousFileSize, 1024, 1, 1024, 1024*5, _T(" B") );
 	Add( _T("Library"), _T("PanelSize"), &Library.PanelSize, 120, 1, 0, 1024, _T(" px") );
-	Add( _T("Library"), _T("PartialMatch"), &Library.PartialMatch, true );
 	Add( _T("Library"), _T("PreferAPETags"), &Library.PreferAPETags, true );
 	Add( _T("Library"), _T("PrivateTypes"), &Library.PrivateTypes, _T("|vbs|js|jc!|fb!|bc!|!ut|dbx|part|partial|pst|reget|getright|pif|lnk|sd|url|wab|m4p|infodb|racestats|svn|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|") );
 	Add( _T("Library"), _T("QueryRouteSize"), &Library.QueryRouteSize, 20, 1, 8, 24 );
@@ -226,7 +226,7 @@ void CSettings::Load()
 	Add( _T("MediaPlayer"), _T("EnableEnqueue"), &MediaPlayer.EnableEnqueue, true );
 	Add( _T("MediaPlayer"), _T("EnablePlay"), &MediaPlayer.EnablePlay, true );
 	Add( _T("MediaPlayer"), _T("FileTypes"), &MediaPlayer.FileTypes, _T("|aac|asx|wax|m3u|wvx|wmx|asf|wav|snd|au|aif|aifc|aiff|flac|mp3|wma|cda|mid|rmi|midi|avi|flv|mkv|mpeg|mpg|m1v|mp2|mpa|mpe|wmv|") );
-	Add( _T("MediaPlayer"), _T("ListSize"), &MediaPlayer.ListSize, 240 );
+	Add( _T("MediaPlayer"), _T("ListSize"), &MediaPlayer.ListSize, 200 );
 	Add( _T("MediaPlayer"), _T("ListVisible"), &MediaPlayer.ListVisible, true );
 	Add( _T("MediaPlayer"), _T("MediaServicesCLSID"), &MediaPlayer.MediaServicesCLSID, _T("{3DC28AA6-A597-4E03-96DF-ADA19155B0BE}") );
 	Add( _T("MediaPlayer"), _T("Mp3PreviewCLSID"), &MediaPlayer.Mp3PreviewCLSID, _T("{BF00DBCC-90A2-4f46-8171-7D4F929D035F}") );
@@ -406,7 +406,7 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("LearnNewServersClient"), &eDonkey.LearnNewServersClient, false );
 	Add( _T("eDonkey"), _T("MagnetSearch"), &eDonkey.MagnetSearch, true );
 	Add( _T("eDonkey"), _T("MaxLinks"), &eDonkey.MaxLinks, 200, 1, 1, 2048 );
-	Add( _T("eDonkey"), _T("MaxResults"), &eDonkey.MaxResults, 100, 1, 1, 400 );
+	Add( _T("eDonkey"), _T("MaxResults"), &eDonkey.MaxResults, 400, 1, 1, 800 );
 	Add( _T("eDonkey"), _T("MaxShareCount"), &eDonkey.MaxShareCount, 1000, 1, 25, 20000 );
 	Add( _T("eDonkey"), _T("MetAutoQuery"), &eDonkey.MetAutoQuery, true );
 	Add( _T("eDonkey"), _T("MinServerFileSize"), &eDonkey.MinServerFileSize, 0, 1, 0, 50, _T(" MB") );
@@ -438,6 +438,7 @@ void CSettings::Load()
 	Add( _T("BitTorrent"), _T("DownloadConnections"), &BitTorrent.DownloadConnections, 40, 1, 1, 800 );
 	Add( _T("BitTorrent"), _T("DownloadTorrents"), &BitTorrent.DownloadTorrents, 3, 1, 1, 12 );
 	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, true );
+//	Add( _T("BitTorrent"), _T("EnableToday"), &BitTorrent.EnableToday, true );
 	Add( _T("BitTorrent"), _T("Endgame"), &BitTorrent.Endgame, true );
 	Add( _T("BitTorrent"), _T("LinkPing"), &BitTorrent.LinkPing, 120*1000, 1000, 10, 60*10, _T(" s") );
 	Add( _T("BitTorrent"), _T("LinkTimeout"), &BitTorrent.LinkTimeout, 180*1000, 1000, 10, 60*10, _T(" s") );
@@ -637,6 +638,7 @@ void CSettings::Load()
 	Gnutella1.EnableToday		= Gnutella1.EnableAlways;
 	Gnutella2.EnableToday		= Gnutella2.EnableAlways;
 	eDonkey.EnableToday			= eDonkey.EnableAlways;
+	BitTorrent.EnableToday		= BitTorrent.EnableAlways;
 
 	// Make sure some needed paths exist
 	CreateDirectory( General.Path + _T("\\Data") );

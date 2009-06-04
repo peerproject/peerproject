@@ -23,10 +23,11 @@
 
 class CPacket;
 class CBuffer;
+class CNeighbour;
+class CPeerProjectFile;
+class CQueryHashGroup;
 class CQuerySearch;
 class CXMLElement;
-class CNeighbour;
-class CQueryHashGroup;
 
 
 class CQueryHashTable
@@ -48,10 +49,14 @@ public:
 	CBuffer*			m_pBuffer;
 	CQueryHashGroup*	m_pGroup;
 
-// Statics
 public:
+	// Split phrase to keywords
+	static void		MakeKeywords(const CString& strPhrase, CStringList& oKeywords);
 	static DWORD	HashWord(LPCTSTR pszString, size_t nStart, size_t nLength, DWORD nBits);
+
 protected:
+	// Split word to keywords (Katakana/Hiragana/Kanji helper)
+	static void		MakeKeywords(const CString& strWord, WORD nWordType, CStringList& oKeywords);
 	static DWORD	HashNumber(DWORD nNumber, int nBits);
 
 // Operations
@@ -62,8 +67,10 @@ public:
 	bool	Merge(const CQueryHashGroup* pSource);
 	bool	PatchTo(const CQueryHashTable* pTarget, CNeighbour* pNeighbour);
 	bool	OnPacket(CPacket* pPacket);
-	int		AddString(const CString& strString);
-	int		AddExactString(const CString& strString);
+	int		AddFile(const CPeerProjectFile& oFile);		// Add filename and hashes split on keywords
+	int		AddHashes(const CPeerProjectFile& oFile);	// Add file hashes
+	int		AddString(const CString& strString);		// Add string with streaming
+	int		AddExactString(const CString& strString);	// Add string exactly
 	bool	CheckString(const CString& strString) const;
 	bool	Check(const CQuerySearch& oSearch) const;
 	bool	CheckHash(const DWORD nHash) const;
@@ -72,7 +79,7 @@ public:
 protected:
 	bool	OnReset(CPacket* pPacket);
 	bool	OnPatch(CPacket* pPacket);
-	int		Add(LPCTSTR pszString, size_t nStart, size_t nLength);
-	int		AddExact(LPCTSTR pszString, size_t nStart, size_t nLength);
+	int		Add(LPCTSTR pszString, int nStart, int nLength);
+	int		AddExact(LPCTSTR pszString, int nStart, int nLength);
 	bool	PatchToOldPeerProject(const CQueryHashTable* pTarget, CNeighbour* pNeighbour);
 };

@@ -31,7 +31,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Copying DLL Services and SVN Revision..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js"
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -123,7 +123,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Copying DLL Services and SVN Revision..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js"
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -217,7 +217,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Copying DLL Services and SVN Revision..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js"
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -315,7 +315,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Copying DLL Services and SVN Revision..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js"
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -2209,7 +2209,7 @@
 					>
 				</File>
 				<File
-					RelativePath="DlgSelectClass.cpp"
+					RelativePath="DlgSelect.cpp"
 					>
 				</File>
 				<File
@@ -3111,6 +3111,30 @@
 				>
 			</File>
 			<File
+				RelativePath="PeerProject.h"
+				>
+			</File>
+			<File
+				RelativePath="PeerProjectDataSource.h"
+				>
+			</File>
+			<File
+				RelativePath="PeerProjectFile.h"
+				>
+			</File>
+			<File
+				RelativePath="PeerProjectOM.h"
+				>
+			</File>
+			<File
+				RelativePath="PeerProjectThread.h"
+				>
+			</File>
+			<File
+				RelativePath="PeerProjectURL.h"
+				>
+			</File>
+			<File
 				RelativePath="Plugins.h"
 				>
 			</File>
@@ -3220,30 +3244,6 @@
 			</File>
 			<File
 				RelativePath="ShakeNeighbour.h"
-				>
-			</File>
-			<File
-				RelativePath="PeerProject.h"
-				>
-			</File>
-			<File
-				RelativePath="PeerProjectDataSource.h"
-				>
-			</File>
-			<File
-				RelativePath="PeerProjectFile.h"
-				>
-			</File>
-			<File
-				RelativePath="PeerProjectOM.h"
-				>
-			</File>
-			<File
-				RelativePath="PeerProjectThread.h"
-				>
-			</File>
-			<File
-				RelativePath="PeerProjectURL.h"
 				>
 			</File>
 			<File
@@ -3946,7 +3946,7 @@
 					>
 				</File>
 				<File
-					RelativePath="DlgSelectClass.h"
+					RelativePath="DlgSelect.h"
 					>
 				</File>
 				<File
@@ -4452,6 +4452,10 @@
 				>
 			</File>
 			<File
+				RelativePath="Res\CommandIRC.bmp"
+				>
+			</File>
+			<File
 				RelativePath="Res\Commercial.ico"
 				>
 			</File>
@@ -4692,7 +4696,7 @@
 				>
 			</File>
 			<File
-				RelativePath="Res\LargeLogo.jpg"
+				RelativePath="Res\LargeLogo.png"
 				>
 			</File>
 			<File
@@ -4775,7 +4779,6 @@
 				RelativePath="Res\PointerArrow.ico"
 				>
 			</File>
-
 			<File
 				RelativePath="Res\Preview.ico"
 				>
@@ -4929,11 +4932,11 @@
 				>
 			</File>
 			<File
-				RelativePath="Res\TickOpened.ico"
+				RelativePath="Res\TickClosedHover.ico"
 				>
 			</File>
 			<File
-				RelativePath="Res\TickClosedHover.ico"
+				RelativePath="Res\TickOpened.ico"
 				>
 			</File>
 			<File

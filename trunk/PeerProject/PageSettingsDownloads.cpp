@@ -37,10 +37,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CDownloadsSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CDownloadsSettingsPage, CSettingsPage)
-	//{{AFX_MSG_MAP(CDownloadsSettingsPage)
 	ON_BN_CLICKED(IDC_DOWNLOADS_BROWSE, OnDownloadsBrowse)
 	ON_BN_CLICKED(IDC_INCOMPLETE_BROWSE, OnIncompleteBrowse)
-	//}}AFX_MSG_MAP
 	ON_WM_SHOWWINDOW()
 END_MESSAGE_MAP()
 
@@ -48,13 +46,12 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadsSettingsPage property page
 
-CDownloadsSettingsPage::CDownloadsSettingsPage() : CSettingsPage(CDownloadsSettingsPage::IDD)
-	//{{AFX_DATA_INIT(CDownloadsSettingsPage)
+CDownloadsSettingsPage::CDownloadsSettingsPage()
+:	CSettingsPage(CDownloadsSettingsPage::IDD)
 ,	m_nMaxDownFiles		( 0 )
 ,	m_nMaxFileTransfers	( 0 )
 ,	m_nMaxDownTransfers	( 0 )
 ,	m_bRequireConnect	( FALSE )
-	//}}AFX_DATA_INIT
 {
 }
 
@@ -65,7 +62,7 @@ CDownloadsSettingsPage::~CDownloadsSettingsPage()
 void CDownloadsSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CDownloadsSettingsPage)
+
 	DDX_Control(pDX, IDC_MAX_TRANSFERS_SPIN, m_wndMaxDownTransfers);
 	DDX_Control(pDX, IDC_MAX_TPF_SPIN, m_wndMaxFileTransfers);
 	DDX_Control(pDX, IDC_MAX_FILES_SPIN, m_wndMaxDownFiles);
@@ -81,26 +78,26 @@ void CDownloadsSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_CBString(pDX, IDC_DOWNLOADS_BANDWIDTH_LIMIT, m_sBandwidthLimit);
 	DDX_CBString(pDX, IDC_DOWNLOADS_QUEUE_LIMIT, m_sQueueLimit);
 	DDX_Check(pDX, IDC_REQUIRE_CONNECT, m_bRequireConnect);
-	//}}AFX_DATA_MAP
-	
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadsSettingsPage message handlers
 
-BOOL CDownloadsSettingsPage::OnInitDialog() 
+BOOL CDownloadsSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
-	
+
 	m_sDownloadsPath		= Settings.Downloads.CompletePath;
 	m_sIncompletePath		= Settings.Downloads.IncompletePath;
 	m_nMaxDownFiles			= Settings.Downloads.MaxFiles;
 	m_nMaxDownTransfers		= Settings.Downloads.MaxTransfers;
 	m_nMaxFileTransfers		= Settings.Downloads.MaxFileTransfers;
 	m_bRequireConnect		= Settings.Connection.RequireForTransfers;
-	
-	CalculateMaxValues();
-	
+
+	Settings.SetRange( &Settings.Downloads.MaxFiles, m_wndMaxDownFiles );
+	Settings.SetRange( &Settings.Downloads.MaxTransfers, m_wndMaxDownTransfers );
+	Settings.SetRange( &Settings.Downloads.MaxFileTransfers, m_wndMaxFileTransfers );
+
 	m_wndDownloadsPath.SetIcon( IDI_BROWSE );
 	m_wndIncompletePath.SetIcon( IDI_BROWSE );
 
@@ -119,16 +116,19 @@ BOOL CDownloadsSettingsPage::OnInitDialog()
 
 	UpdateData( FALSE );
 
+	m_wndDownloadsFolder.SubclassDlgItem( IDC_DOWNLOADS_FOLDER, this );
+	m_wndIncompleteFolder.SubclassDlgItem( IDC_INCOMPLETE_FOLDER, this );
+
 	return TRUE;
 }
 
-void CDownloadsSettingsPage::OnDownloadsBrowse() 
+void CDownloadsSettingsPage::OnDownloadsBrowse()
 {
 	CString strPath( BrowseForFolder( _T("Select folder for downloads:"),
 		m_sDownloadsPath ) );
 	if ( strPath.IsEmpty() )
 		return;
-	
+
 	// Warn user about a path that's too long
 	if ( _tcslen( strPath ) > MAX_PATH - 33 )
 	{
@@ -146,14 +146,14 @@ void CDownloadsSettingsPage::OnDownloadsBrowse()
 		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 		return;
 	}
-	
+
 	UpdateData( TRUE );
 	m_sDownloadsPath = strPath;
 	m_bDownloadsChanged = TRUE;
 	UpdateData( FALSE );
 }
 
-void CDownloadsSettingsPage::OnIncompleteBrowse() 
+void CDownloadsSettingsPage::OnIncompleteBrowse()
 {
 	CString strPath( BrowseForFolder( _T("Select folder for incomplete files:"),
 		m_sIncompletePath ) );
@@ -195,7 +195,7 @@ void CDownloadsSettingsPage::OnIncompleteBrowse()
 BOOL CDownloadsSettingsPage::OnKillActive()
 {
 	UpdateData();
-	
+
 	if ( IsLimited( m_sBandwidthLimit ) && !Settings.ParseVolume( m_sBandwidthLimit ) )
 	{
 		CString strMessage;
@@ -204,33 +204,11 @@ BOOL CDownloadsSettingsPage::OnKillActive()
 		GetDlgItem( IDC_DOWNLOADS_BANDWIDTH_LIMIT )->SetFocus();
 		return FALSE;
 	}
-	
+
 	return CSettingsPage::OnKillActive();
 }
 
-void CDownloadsSettingsPage::CalculateMaxValues()
-{
-	// Apply limits to display
-	// Guesstimate a good value based on available bandwidth
-		m_nMaxDownFiles = min ( m_nMaxDownFiles, 100 );
-		if ( Settings.GetOutgoingBandwidth() < 16 )
-			m_nMaxDownTransfers = min ( m_nMaxDownTransfers, 200 );
-		else if ( Settings.GetOutgoingBandwidth() <= 32 )
-			m_nMaxDownTransfers = min ( m_nMaxDownTransfers, 250 );
-		else if ( Settings.GetOutgoingBandwidth() <= 64 )
-			m_nMaxDownTransfers = min ( m_nMaxDownTransfers, 400 );
-		else if ( Settings.GetOutgoingBandwidth() <= 128 )
-			m_nMaxDownTransfers = min ( m_nMaxDownTransfers, 600 );
-		else
-			m_nMaxDownTransfers = min ( m_nMaxDownTransfers, 800 );
-		m_nMaxFileTransfers = min ( m_nMaxFileTransfers, 100 );
-
-	m_wndMaxDownFiles.SetRange( 1, (short)m_nMaxDownFiles );
-	m_wndMaxDownTransfers.SetRange( 1, (short)m_nMaxDownTransfers );
-	m_wndMaxFileTransfers.SetRange( 1, (short)m_nMaxFileTransfers );
-}
-
-void CDownloadsSettingsPage::OnOK() 
+void CDownloadsSettingsPage::OnOK()
 {
 	DWORD nQueueLimit = 0;
 	UpdateData( TRUE );
@@ -264,7 +242,7 @@ void CDownloadsSettingsPage::OnOK()
 		// Warn the user about setting the max queue wait limit too low
 		CString strMessage;
 		LoadString( strMessage, IDS_SETTINGS_WARN_QUEUELIMIT );
-					
+
 		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDNO )
 		{
 			nQueueLimit = 0;
@@ -276,17 +254,6 @@ void CDownloadsSettingsPage::OnOK()
 		}
 	}
 
-	// Redraw the text in the queue limit box (in case the limit changed)
-	if ( nQueueLimit > 0 )
-		m_sQueueLimit.Format( _T("%d"), nQueueLimit );
-	else
-		m_sQueueLimit = _T("MAX");
-
-	CalculateMaxValues();
-
-	// Display any data changes
-	UpdateData( FALSE );
-
 	// Put new values in the settings.
 	Settings.Downloads.CompletePath			= m_sDownloadsPath;
 	Settings.Downloads.IncompletePath		= m_sIncompletePath;
@@ -296,11 +263,29 @@ void CDownloadsSettingsPage::OnOK()
 	Settings.Downloads.QueueLimit			= nQueueLimit;
 	Settings.Bandwidth.Downloads			= static_cast< DWORD >( Settings.ParseVolume( m_sBandwidthLimit ) );
 	Settings.Connection.RequireForTransfers	= m_bRequireConnect != FALSE;
-	
+
+	// Normalize data
+	Settings.Normalize( &Settings.Downloads.MaxFiles );
+	m_nMaxDownFiles		= Settings.Downloads.MaxFiles;
+	Settings.Normalize( &Settings.Downloads.MaxTransfers );
+	m_nMaxDownTransfers	= Settings.Downloads.MaxTransfers;
+	Settings.Normalize( &Settings.Downloads.MaxFileTransfers );
+	m_nMaxFileTransfers	= Settings.Downloads.MaxFileTransfers;
+	Settings.Normalize( &Settings.Downloads.QueueLimit );
+
+	// Redraw the text in the queue limit box (in case the limit changed)
+	if ( Settings.Downloads.QueueLimit > 0 )
+		m_sQueueLimit.Format( _T("%d"), Settings.Downloads.QueueLimit );
+	else
+		m_sQueueLimit = _T("MAX");
+
+	// Display any data changes
+	UpdateData( FALSE );
+
 	CreateDirectory( m_sDownloadsPath );
 	CreateDirectory( m_sIncompletePath );
 	// CreateDirectory( m_sTorrentPath );
-	
+
 	if ( m_bDownloadsChanged )
 	{
 		if ( LibraryFolders.GetFolderCount() == 0 )
@@ -310,20 +295,20 @@ void CDownloadsSettingsPage::OnOK()
 		else if ( ! LibraryFolders.IsFolderShared( m_sDownloadsPath ) )
 		{
 			CString strFormat, strMessage;
-			
+
 			LoadString( strFormat, IDS_LIBRARY_DOWNLOADS_ADD );
 			strMessage.Format( strFormat, (LPCTSTR)m_sDownloadsPath );
-			
+
 			if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 			{
 				CLibraryFolder* pFolder = LibraryFolders.AddFolder( m_sDownloadsPath );
-				
+
 				if ( pFolder )
 				{
 					LoadString( strMessage, IDS_LIBRARY_DOWNLOADS_SHARE );
-					
+
 					BOOL bShare = AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES;
-					
+
 					CQuickLock oLock( Library.m_pSection );
 					if ( LibraryFolders.CheckFolder( pFolder, TRUE ) )
 						pFolder->SetShared( bShare ? TRI_TRUE : TRI_FALSE );
@@ -332,7 +317,7 @@ void CDownloadsSettingsPage::OnOK()
 			}
 		}
 	}
-	
+
 	CSettingsPage::OnOK();
 }
 
@@ -355,11 +340,11 @@ void CDownloadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 		// Add the new ones
 		const DWORD nSpeeds[] =
 		{
-			Settings.Connection.InSpeed / 4,		//  25%
-			Settings.Connection.InSpeed / 2,		//  50%
+			Settings.Connection.InSpeed / 4,			//  25%
+			Settings.Connection.InSpeed / 2,			//  50%
 			( Settings.Connection.InSpeed * 3 ) / 4,	//  75%
 			( Settings.Connection.InSpeed * 17 ) / 20,	//  85%
-			Settings.Connection.InSpeed				// 100%
+			Settings.Connection.InSpeed					// 100%
 		};
 		for ( int nSpeed = 0 ; nSpeed < sizeof( nSpeeds ) / sizeof( DWORD ) ; nSpeed++ )
 		{
@@ -399,7 +384,7 @@ void CDownloadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 bool CDownloadsSettingsPage::IsLimited(CString& strText) const
 {
 	if ( ( _tcslen( strText ) == 0 ) ||
-		 ( _tcsistr( strText, _T("MAX") ) != NULL ) || 
+		 ( _tcsistr( strText, _T("MAX") ) != NULL ) ||
 		 ( _tcsistr( strText, _T("NONE") ) != NULL ) )
 		return false;
 	else

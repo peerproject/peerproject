@@ -275,7 +275,9 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 
 BOOL CPeerProjectURL::ParseHTTP(LPCTSTR pszURL, BOOL bResolve)
 {
-	if ( _tcsncmp( pszURL, _T("http://"), 7 ) != 0 ) return FALSE;
+	if ( _tcsncmp( pszURL, _T("http://"), 7 ) != 0 &&
+			_tcsncmp( pszURL, _T("https://"), 8 ) != 0 )
+		 return FALSE;
 
 	Clear();
 
@@ -567,6 +569,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 				if ( !m_oBTH ) m_oBTH.fromUrn( strValue );
 			}
 			else if (	_tcsnicmp( strValue, _T("http://"), 7 ) == 0 ||
+						_tcsnicmp( strValue, _T("https://"), 8 ) == 0 ||
 						_tcsnicmp( strValue, _T("http%3A//"), 9 ) == 0 ||
 						_tcsnicmp( strValue, _T("ftp://"), 6 ) == 0 ||
 						_tcsnicmp( strValue, _T("ftp%3A//"), 8 ) == 0 )
@@ -604,7 +607,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 			m_oBTH.clear();
 		}
 		else if ( _tcsicmp( strKey, _T("xl") ) == 0 ||
-//			_tcsicmp( strKey, _T("sz") ) == 0 ||	// TODO: Uncomment this if/when 'sz' is officially added
+		//	_tcsicmp( strKey, _T("sz") ) == 0 ||	// ToDo: Uncomment this if/when 'sz' is officially added
 			_tcsicmp( strKey, _T("fs") ) == 0 )		// Foxy
 		{
 			QWORD nSize;

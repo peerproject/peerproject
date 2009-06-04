@@ -230,6 +230,12 @@ BOOL CPeerProjectApp::InitInstance()
 
 	SetRegistryKey( _T("PeerProject") );
 	GetVersionNumber();
+#ifdef _DEBUG
+	CString strVersion;
+	BT_SetAppName( _T(CLIENT_NAME) );
+	strVersion.Format( _T("%s (r%s %s)"), m_sVersion, _T(__REVISION__),	m_sBuildDate );
+	BT_SetAppVersion( strVersion );
+#endif
 	Settings.Load();			// Loads settings. Depends on GetVersionNumber()
 	InitResources();			// Loads theApp settings. Depends on Settings::Load()
 	CoolInterface.Load();		// Loads colors and fonts. Depends on InitResources()
@@ -516,14 +522,14 @@ int CPeerProjectApp::ExitInstance()
 		if ( m_bLive )
 		{
 			SplashStep( L"Saving" );
-			Downloads.Save();
+			Settings.Save( TRUE );
 			DownloadGroups.Save();
+			Downloads.Save();
 			Library.Save();
 			Security.Save();
 			HostCache.Save();
 			UploadQueues.Save();
 			DiscoveryServices.Save();
-			Settings.Save( TRUE );
 		}
 
 		if ( m_pUPnPFinder )
@@ -548,7 +554,7 @@ int CPeerProjectApp::ExitInstance()
 
 		SplashStep( L"Finalizing" );
 		BTClients.Clear();
-		Downloads.Clear( TRUE );
+		Downloads.Clear( true );
 		Library.Clear();
 		CoolMenu.Clear();
 		Skin.Clear();
@@ -572,7 +578,11 @@ int CPeerProjectApp::ExitInstance()
 		FreeLibrary( m_hShlWapi );
 
 	if ( m_hGeoIP != NULL )
+	{
+		if ( m_pGeoIP && m_pfnGeoIP_delete )
+			m_pfnGeoIP_delete( m_pGeoIP );
 		FreeLibrary( m_hGeoIP );
+	}
 
 	if ( m_hLibGFL != NULL )
 		FreeLibrary( m_hLibGFL );
@@ -582,8 +592,8 @@ int CPeerProjectApp::ExitInstance()
 	UnhookWindowsHookEx( m_hHookKbd );
 	UnhookWindowsHookEx( m_hHookMouse );
 
-	if ( theApp.m_hCryptProv != 0 )
-		CryptReleaseContext( theApp.m_hCryptProv, 0 );
+	if ( m_hCryptProv )
+		CryptReleaseContext( m_hCryptProv, 0 );
 
 	if ( m_pMutex != NULL )
 		CloseHandle( m_pMutex );
@@ -885,6 +895,7 @@ void CPeerProjectApp::InitResources()
 	if ( ( m_hGeoIP = CustomLoadLibrary( _T("GeoIP.dll") ) ) != NULL )
 	{
 		GeoIP_newFunc pfnGeoIP_new = (GeoIP_newFunc)GetProcAddress( m_hGeoIP, "GeoIP_new" );
+		m_pfnGeoIP_delete = (GeoIP_deleteFunc)GetProcAddress( m_hGeoIP, "GeoIP_delete" );
 		m_pfnGeoIP_country_code_by_ipnum = (GeoIP_country_code_by_ipnumFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_code_by_ipnum" );
 		m_pfnGeoIP_country_name_by_ipnum = (GeoIP_country_name_by_ipnumFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_name_by_ipnum" );
 		if ( pfnGeoIP_new )
@@ -937,6 +948,8 @@ void CPeerProjectApp::InitResources()
 	m_gdiFontLine.CreateFontW( -(int)Settings.Fonts.DefaultSize, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
+
+	CryptAcquireContext( &m_hCryptProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT );
 
 	srand( GetTickCount() );
 

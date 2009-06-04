@@ -356,7 +356,6 @@ void CURLActionDlg::OnUrlDownload()
 				Network.Connect( TRUE );
 			}
 
-
 			if ( m_bMultiple == FALSE )
 			{
 				CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
