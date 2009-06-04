@@ -42,7 +42,8 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
-	// Download priority
+	// Download priority settings (Sets PageTorrentFiles combobox order)
+	// Note: Changing this breaks torrents at startup!
 	enum { prNotWanted, prLow, prNormal, prHigh };
 
 protected:

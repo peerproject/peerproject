@@ -48,7 +48,7 @@ public:
 	void Init();
 	inline bool IsAsyncFindRunning()
 	{
-		if ( m_pDeviceFinder && m_bAsyncFindRunning && GetTickCount() - m_tLastEvent > 20000 )
+		if ( m_pDeviceFinder && m_bAsyncFindRunning && GetTickCount() - m_tLastEvent > 16000 )
 		{
 			m_pDeviceFinder->CancelAsyncFind( m_nAsyncFindHandle );
 			m_bAsyncFindRunning = false;

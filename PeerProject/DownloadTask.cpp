@@ -55,8 +55,8 @@ const DWORD BUFFER_SIZE = 2 * 1024 * 1024u;
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadTask construction
 
-CDownloadTask::CDownloadTask(CDownload* pDownload, dtask nTask, LPCTSTR szParam1 /*=NULL*/) :
-	m_nTask				( nTask )
+CDownloadTask::CDownloadTask(CDownload* pDownload, dtask nTask, LPCTSTR szParam1 /*=NULL*/)
+:	m_nTask				( nTask )
 ,	m_bSuccess			( false )
 ,	m_sFilename			( pDownload->m_sPath )
 ,	m_sDestination		( DownloadGroups.GetCompletedPath( pDownload ).TrimRight( _T("\\") ) )
@@ -91,6 +91,8 @@ CDownloadTask::CDownloadTask(CDownload* pDownload, dtask nTask, LPCTSTR szParam1
 
 CDownloadTask::~CDownloadTask()
 {
+	BOOL bCOM = SUCCEEDED( OleInitialize( NULL ) );
+
 	Transfers.m_pSection.Lock();
 
 	if ( Downloads.Check( m_pDownload ) )
@@ -101,7 +103,21 @@ CDownloadTask::~CDownloadTask()
 
 	CEvent* pEvent = m_pEvent;
 	Transfers.m_pSection.Unlock();
-	if ( pEvent != NULL ) pEvent->SetEvent();
+	if ( pEvent != NULL )
+		pEvent->SetEvent();
+
+	if ( bCOM )
+		OleUninitialize();
+}
+
+bool CDownloadTask::HasSucceeded() const
+{
+	return m_bSuccess;
+}
+
+DWORD CDownloadTask::GetFileError() const
+{
+	return m_nFileError;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -116,7 +132,7 @@ void CDownloadTask::Abort()
 	delete pEvent;
 }
 
-BOOL CDownloadTask::WasAborted()
+bool CDownloadTask::WasAborted() const
 {
 	return m_pEvent != NULL;
 }
@@ -126,6 +142,8 @@ BOOL CDownloadTask::WasAborted()
 
 int CDownloadTask::Run()
 {
+	BOOL bCOM = SUCCEEDED( OleInitialize( NULL ) );
+
 	switch ( m_nTask )
 	{
 	case dtaskCopy:
@@ -144,6 +162,9 @@ int CDownloadTask::Run()
 		RunMerge();
 		break;
 	}
+
+	if ( bCOM )
+		OleUninitialize();
 
 	return 0;
 }

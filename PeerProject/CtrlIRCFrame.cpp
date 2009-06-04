@@ -229,48 +229,48 @@ void CIRCFrame::FillChanList()
 	m_pChanList.AddChannel( _T("-PeerProject Chat"), _T("#PeerProject-Chat") );
 	m_pChanList.AddChannel( _T("-PeerProject Multilingual"), _T("#PeerProject-Multilingual") );
 	m_pChanList.AddChannel( _T("Shareaza"), _T("#shareaza") );
- 	m_pChanList.AddChannel( _T("Afrikaans"), _T("#PeerProject-af") );
+	m_pChanList.AddChannel( _T("Afrikaans"), _T("#PeerProject-af") );
 	m_pChanList.AddChannel( _T("Arabic"), _T("#PeerProject-ar") );
- 	m_pChanList.AddChannel( _T("Chinese"), _T("#PeerProject-chs") );
+	m_pChanList.AddChannel( _T("Chinese"), _T("#PeerProject-chs") );
 	m_pChanList.AddChannel( _T("Croatian"), _T("#PeerProject-cr") );
- 	m_pChanList.AddChannel( _T("Czech"), _T("#PeerProject-cz") );
+	m_pChanList.AddChannel( _T("Czech"), _T("#PeerProject-cz") );
 	m_pChanList.AddChannel( _T("Dutch"), _T("#PeerProject-nl") );
 	m_pChanList.AddChannel( _T("Finish"), _T("#PeerProject-fi") );
 	m_pChanList.AddChannel( _T("French"), _T("#PeerProject-fr") );
- 	m_pChanList.AddChannel( _T("German"), _T("#PeerProject-de") );
+	m_pChanList.AddChannel( _T("German"), _T("#PeerProject-de") );
 	m_pChanList.AddChannel( _T("Greek"), _T("#PeerProject-gr") );
- 	m_pChanList.AddChannel( _T("Hebrew"), _T("#PeerProject-he") );
+	m_pChanList.AddChannel( _T("Hebrew"), _T("#PeerProject-he") );
 	m_pChanList.AddChannel( _T("Hungarian"), _T("#PeerProject-hu") );
- 	m_pChanList.AddChannel( _T("Italian"), _T("#PeerProject-it") );
- 	m_pChanList.AddChannel( _T("Japanese"), _T("#PeerProject-ja") );
+	m_pChanList.AddChannel( _T("Italian"), _T("#PeerProject-it") );
+	m_pChanList.AddChannel( _T("Japanese"), _T("#PeerProject-ja") );
 	m_pChanList.AddChannel( _T("Lithuanian"), _T("#PeerProject-lt") );
- 	m_pChanList.AddChannel( _T("Norwegian"), _T("#PeerProject-no") );
+	m_pChanList.AddChannel( _T("Norwegian"), _T("#PeerProject-no") );
 	m_pChanList.AddChannel( _T("Polish"), _T("#PeerProject-po") );
- 	m_pChanList.AddChannel( _T("Portuguese"), _T("#PeerProject-pt") );
+	m_pChanList.AddChannel( _T("Portuguese"), _T("#PeerProject-pt") );
 	m_pChanList.AddChannel( _T("Russian"), _T("#PeerProject-ru") );
- 	m_pChanList.AddChannel( _T("Spanish"), _T("#PeerProject-es") );
- 	m_pChanList.AddChannel( _T("Swedish"), _T("#PeerProject-sw") );
- 	m_pChanList.AddChannel( _T("Shareaza Afrikaans"), _T("#Shareaza-Afrikaans") );
+	m_pChanList.AddChannel( _T("Spanish"), _T("#PeerProject-es") );
+	m_pChanList.AddChannel( _T("Swedish"), _T("#PeerProject-sw") );
+	m_pChanList.AddChannel( _T("Shareaza Afrikaans"), _T("#Shareaza-Afrikaans") );
 	m_pChanList.AddChannel( _T("Shareaza Arabic"), _T("#Shareaza-Arabic") );
- 	m_pChanList.AddChannel( _T("Shareaza Chinese"), _T("#Shareazat-Chinese") );
+	m_pChanList.AddChannel( _T("Shareaza Chinese"), _T("#Shareazat-Chinese") );
 	m_pChanList.AddChannel( _T("Shareaza Croatian"), _T("#Shareaza-Croatian") );
- 	m_pChanList.AddChannel( _T("Shareaza Czech"), _T("#Shareaza-Czech") );
+	m_pChanList.AddChannel( _T("Shareaza Czech"), _T("#Shareaza-Czech") );
 	m_pChanList.AddChannel( _T("Shareaza Dutch"), _T("#Shareaza-Dutch") );
 	m_pChanList.AddChannel( _T("Shareaza Finish"), _T("#Shareaza-Finish") );
 	m_pChanList.AddChannel( _T("Shareaza French"), _T("#Shareaza-French") );
- 	m_pChanList.AddChannel( _T("Shareaza German"), _T("#Shareaza-German") );
+	m_pChanList.AddChannel( _T("Shareaza German"), _T("#Shareaza-German") );
 	m_pChanList.AddChannel( _T("Shareaza Greek"), _T("#Shareaza-Greek") );
- 	m_pChanList.AddChannel( _T("Shareaza Hebrew"), _T("#Shareaza-Hebrew") );
+	m_pChanList.AddChannel( _T("Shareaza Hebrew"), _T("#Shareaza-Hebrew") );
 	m_pChanList.AddChannel( _T("Shareaza Hungarian"), _T("#Shareaza-Hungarian") );
- 	m_pChanList.AddChannel( _T("Shareaza Italian"), _T("#Shareaza-Italian") );
- 	m_pChanList.AddChannel( _T("Shareaza Japanese"), _T("#Shareaza-Japanese") );
+	m_pChanList.AddChannel( _T("Shareaza Italian"), _T("#Shareaza-Italian") );
+	m_pChanList.AddChannel( _T("Shareaza Japanese"), _T("#Shareaza-Japanese") );
 	m_pChanList.AddChannel( _T("Shareaza Lithuanian"), _T("#Shareaza-Lithuanian") );
- 	m_pChanList.AddChannel( _T("Shareaza Norwegian"), _T("#Shareaza-Norwegian") );
+	m_pChanList.AddChannel( _T("Shareaza Norwegian"), _T("#Shareaza-Norwegian") );
 	m_pChanList.AddChannel( _T("Shareaza Polish"), _T("#Shareaza-Polish") );
- 	m_pChanList.AddChannel( _T("Shareaza Portuguese"), _T("#Shareaza-Portuguese") );
+	m_pChanList.AddChannel( _T("Shareaza Portuguese"), _T("#Shareaza-Portuguese") );
 	m_pChanList.AddChannel( _T("Shareaza Russian"), _T("Shareaza-Russian") );
- 	m_pChanList.AddChannel( _T("Shareaza Spanish"), _T("#Shareaza-Spain") );
- 	m_pChanList.AddChannel( _T("Shareaza Swedish"), _T("#Shareaza-Swedish") );
+	m_pChanList.AddChannel( _T("Shareaza Spanish"), _T("#Shareaza-Spain") );
+	m_pChanList.AddChannel( _T("Shareaza Swedish"), _T("#Shareaza-Swedish") );
 }
  
 void CIRCFrame::SetFonts()
@@ -607,14 +607,7 @@ void CIRCFrame::OnIrcConnect()
 		CString strNick = MyProfile.GetNick();
 		if ( strNick.IsEmpty() )
 		{
-			CString strRandomNumber;
-			m_sNickname = "PeerIRC";
-			srand( (unsigned)time( NULL ) );
-			for ( int nDigit = 0 ; nDigit < 7 ; nDigit++ )
-			{
-				strRandomNumber.Format( L"%d", rand() );
-				m_sNickname += strRandomNumber.GetAt( 0 );
-			}
+			m_sNickname.Format( L"PeerIrc%09u", GetRandomNum( 0ui32, _UI32_MAX ) );
 		}
 		else
 		{

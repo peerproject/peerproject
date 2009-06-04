@@ -116,23 +116,10 @@ void CDownloadDlg::OnTorrentFile()
 		_T("Torrent Files|*.torrent|All Files|*.*||"), this );
 
 	if ( dlg.DoModal() != IDOK ) return;
-	
-	CBTInfo* pTorrent = new CBTInfo();
-	
-	if ( pTorrent->LoadTorrentFile( dlg.GetPathName() ) )
-	{
-		CPeerProjectURL* pURL = new CPeerProjectURL( pTorrent );
-		
-		if ( PostMainWndMessage( WM_URL, (WPARAM)pURL ) )
-		{
-			EndDialog( IDCANCEL );
-			return;
-		}
-		
-		delete pURL;
-	}
-	else
-		delete pTorrent;
+
+	theApp.OpenTorrent( dlg.GetPathName(), TRUE );
+
+	EndDialog( IDCANCEL );
 }
 
 void CDownloadDlg::OnOK()

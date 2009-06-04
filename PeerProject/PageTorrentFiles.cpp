@@ -88,18 +88,19 @@ BOOL CTorrentFilesPage::OnInitDialog()
 	CRect rc;
 	m_wndFiles.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
+	m_wndFiles.SetExtendedStyle( LVS_EX_DOUBLEBUFFER );
 	m_wndFiles.SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
-	m_wndFiles.InsertColumn( 0, _T("Filename"), LVCFMT_LEFT, rc.right - 70 - 60 - 60, -1 );
-	m_wndFiles.InsertColumn( 1, _T("Size"), LVCFMT_RIGHT, 70, 0 );
-	m_wndFiles.InsertColumn( 2, _T("Status"), LVCFMT_RIGHT, 60, 0 );
-	m_wndFiles.InsertColumn( 3, _T("Priority"), LVCFMT_RIGHT, 60, 0 );
+	m_wndFiles.InsertColumn( 0, _T("Filename"), LVCFMT_LEFT, rc.right - 64 - 54 - 52, -1 );
+	m_wndFiles.InsertColumn( 1, _T("Size"), LVCFMT_RIGHT, 64, 0 );
+	m_wndFiles.InsertColumn( 2, _T("Status"), LVCFMT_RIGHT, 54, 0 );
+	m_wndFiles.InsertColumn( 3, _T("Priority"), LVCFMT_RIGHT, 52, 0 );
 	Skin.Translate( _T("CTorrentFileList"), m_wndFiles.GetHeaderCtrl() );
 
 	BEGIN_COLUMN_MAP()
-		COLUMN_MAP( CFragmentedFile::prNotWanted,	LoadString( IDS_PRIORITY_OFF ) )
-		COLUMN_MAP( CFragmentedFile::prLow,			LoadString( IDS_PRIORITY_LOW ) )
-		COLUMN_MAP( CFragmentedFile::prNormal,		LoadString( IDS_PRIORITY_NORMAL ) )
 		COLUMN_MAP( CFragmentedFile::prHigh,		LoadString( IDS_PRIORITY_HIGH ) )
+		COLUMN_MAP( CFragmentedFile::prNormal,		LoadString( IDS_PRIORITY_NORMAL ) )
+		COLUMN_MAP( CFragmentedFile::prLow,			LoadString( IDS_PRIORITY_LOW ) )
+		COLUMN_MAP( CFragmentedFile::prNotWanted,	LoadString( IDS_PRIORITY_OFF ) )
 	END_COLUMN_MAP( m_wndFiles, 3 )
 
 	if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
@@ -122,7 +123,7 @@ BOOL CTorrentFilesPage::OnInitDialog()
 
 	Update();
 
-	SetTimer( 1, 2000, NULL );
+	SetTimer( 1, 50, NULL );	// Refresh Rapidly (20 chances per second)
 
 	return TRUE;
 }

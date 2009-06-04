@@ -89,7 +89,7 @@ void CBitTorrentSettingsPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CBitTorrentSettingsPage message handlers
 
-BOOL CBitTorrentSettingsPage::OnInitDialog() 
+BOOL CBitTorrentSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 	m_bTorrentInterface = Settings.BitTorrent.AdvancedInterface;
@@ -117,10 +117,12 @@ BOOL CBitTorrentSettingsPage::OnInitDialog()
 	m_wndDownloadsSpin.SetRange( 0, (WORD)nMaxTorrents );
 	UpdateData( FALSE );
 
+	m_wndTorrentFolder.SubclassDlgItem( IDC_TORRENTS_FOLDER, this );
+
 	return TRUE;
 }
 
-BOOL CBitTorrentSettingsPage::OnSetActive() 
+BOOL CBitTorrentSettingsPage::OnSetActive()
 {
 	DWORD nMaxTorrents = ( Settings.GetOutgoingBandwidth() / 2 ) + 2;
 	nMaxTorrents = min( 10ul, nMaxTorrents );
@@ -133,38 +135,38 @@ BOOL CBitTorrentSettingsPage::OnSetActive()
 	return CSettingsPage::OnSetActive();
 }
 
-void CBitTorrentSettingsPage::OnTorrentsAutoClear() 
+void CBitTorrentSettingsPage::OnTorrentsAutoClear()
 {
 	UpdateData();
 	m_wndClearPercentage.EnableWindow( m_bAutoClear );
 	m_wndClearPercentageSpin.EnableWindow( m_bAutoClear );
 }
 
-void CBitTorrentSettingsPage::OnTorrentsBrowse() 
+void CBitTorrentSettingsPage::OnTorrentsBrowse()
 {
 	CString strPath( BrowseForFolder( _T("Select folder for torrents:"),
 		m_sTorrentPath ) );
 	if ( strPath.IsEmpty() )
 		return;
-	
+
 	UpdateData( TRUE );
 	m_sTorrentPath = strPath;
 	UpdateData( FALSE );
 }
 
-void CBitTorrentSettingsPage::OnMakerBrowse() 
+void CBitTorrentSettingsPage::OnMakerBrowse()
 {
 	CFileDialog dlg( TRUE, _T("exe"), _T("TorrentWizard.exe") , OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
 		_T("Executable Files|*.exe;*.com|All Files|*.*||"), this );
-	
+
 	if ( dlg.DoModal() != IDOK ) return;
-	
+
 	UpdateData( TRUE );
 	m_sMakerPath = dlg.GetPathName();
 	UpdateData( FALSE );
 }
 
-void CBitTorrentSettingsPage::OnOK() 
+void CBitTorrentSettingsPage::OnOK()
 {
 	BOOL bRedraw = FALSE;
 	UpdateData( TRUE );
@@ -199,14 +201,12 @@ void CBitTorrentSettingsPage::OnOK()
 	Settings.Downloads.TorrentPath			= m_sTorrentPath;
 	Settings.BitTorrent.TorrentCreatorPath	= m_sMakerPath;
 
-	/*
 	// Redraw the GUI to make torrents box show/hide if we need to
-	if ( bRedraw ) 
-	{
-		CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
-		pMainWnd->SetGUIMode( Settings.General.GUIMode, FALSE );
-	}
-	*/
+	//if ( bRedraw )
+	//{
+	//	CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
+	//	pMainWnd->SetGUIMode( Settings.General.GUIMode, FALSE );
+	//}
 
 	CSettingsPage::OnOK();
 }

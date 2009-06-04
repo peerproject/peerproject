@@ -809,7 +809,8 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 	m_sName = pInfo->GetStringFromSubNode( "name", m_nEncoding, m_bEncodingError );
 
 	// If we still don't have a name, generate one
-	if ( m_sName.IsEmpty() ) m_sName.Format( _T("Unnamed_Torrent_%i"), GetRandomNum( (int)0, INT_MAX ) );
+	if ( m_sName.IsEmpty() )
+		m_sName.Format( _T("Unnamed_Torrent_%i"), GetRandomNum( 0i32, _I32_MAX ) );
 
 	// Get the piece stuff
 	CBENode* pPL = pInfo->GetNode( "piece length" );
@@ -1258,23 +1259,25 @@ void CBTInfo::SetTrackerNext(DWORD tTime)
 	// Set current mode to searching
 	m_nTrackerMode = tMultiFinding;
 
+	// Start with the first tracker in the list
+	m_nTrackerIndex = 0;
+
 	// Search through the list for an available tracker
 	// or the first one that will become available
-	int nBestTracker = 0;
-	for ( int nTracker = 0; nTracker < m_oTrackers.GetCount(); nTracker++ )
+	for ( int nTracker = 0; nTracker < m_oTrackers.GetCount(); ++nTracker )
 	{
 		// Get the next tracker in the list
-		CBTTracker& oTracker = m_oTrackers.GetAt( nTracker );
+		CBTTracker& oTracker = m_oTrackers[ nTracker ];
+
+		// If it's available, reset the retry time
+		if ( oTracker.m_tNextTry < tTime )
+			oTracker.m_tNextTry = 0;
 
 		// If this tracker will become available before the current one,
 		// make it the current tracker
-		if ( oTracker.m_tNextTry < m_oTrackers[ nBestTracker ].m_tNextTry )
-		{
-			nBestTracker = nTracker;
-		}
+		if ( m_oTrackers[ m_nTrackerIndex ].m_tNextTry > oTracker.m_tNextTry )
+			m_nTrackerIndex = nTracker;
 	}
-
-	m_nTrackerIndex = nBestTracker;
 }
 
 DWORD CBTInfo::GetTrackerFailures() const

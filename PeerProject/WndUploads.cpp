@@ -124,7 +124,7 @@ int CUploadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	LoadState( NULL, TRUE );
 
-	SetTimer( 2, 2000, NULL );
+	SetTimer( 2, Settings.General.RefreshRate, NULL );
 	PostMessage( WM_TIMER, 2 );
 
 	SetTimer( 4, 5000, NULL );

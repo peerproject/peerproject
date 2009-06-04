@@ -52,8 +52,8 @@ END_MESSAGE_MAP()
 CFavouritesProfilePage::CFavouritesProfilePage() : CSettingsPage( CFavouritesProfilePage::IDD )
 {
 	//{{AFX_DATA_INIT(CFavouritesProfilePage)
-	m_sURL = _T("");
 	m_sTitle = _T("");
+	m_sURL = _T("http://");
 	//}}AFX_DATA_INIT
 }
 
@@ -90,8 +90,8 @@ BOOL CFavouritesProfilePage::OnInitDialog()
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL ) + 1;
 
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
-	m_wndList.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, rc.right / 2, -1 );
-	m_wndList.InsertColumn( 1, _T("URL"), LVCFMT_LEFT, rc.right / 2, 0 );
+	m_wndList.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, 160, -1 );
+	m_wndList.InsertColumn( 1, _T("URL"), LVCFMT_LEFT, rc.right - 160, 0 );
 
 	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
 		LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT );
@@ -126,13 +126,13 @@ BOOL CFavouritesProfilePage::OnInitDialog()
 void CFavouritesProfilePage::OnChangeWebName()
 {
 	UpdateData();
-	m_wndAdd.EnableWindow( m_sTitle.GetLength() && m_sURL.Find( _T("http://") ) == 0 );
+	m_wndAdd.EnableWindow( m_sTitle.GetLength() && m_sURL.Find( _T("://") ) > 3 && m_sURL.Find( _T(".") ) > 8 );
 }
 
 void CFavouritesProfilePage::OnChangeWebUrl()
 {
 	UpdateData();
-	m_wndAdd.EnableWindow( m_sTitle.GetLength() && m_sURL.Find( _T("http://") ) == 0 );
+	m_wndAdd.EnableWindow( m_sTitle.GetLength() && m_sURL.Find( _T("://") ) > 3 && m_sURL.Find( _T(".") ) > 8 );
 }
 
 void CFavouritesProfilePage::OnItemChangedWebList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
@@ -150,7 +150,7 @@ void CFavouritesProfilePage::OnWebAdd()
 	m_wndList.SetItemText( nItem, 1, Settings.General.LanguageRTL ? _T("\x202A") + m_sURL : m_sURL );
 
 	m_sTitle.Empty();
-	m_sURL.Empty();
+	m_sURL = _T("http://");
 
 	UpdateData( FALSE );
 	m_wndAdd.EnableWindow( FALSE );
@@ -189,4 +189,3 @@ void CFavouritesProfilePage::OnOK()
 
 	CSettingsPage::OnOK();
 }
-

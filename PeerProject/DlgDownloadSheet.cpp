@@ -46,11 +46,11 @@ END_MESSAGE_MAP()
 
 CDownloadSheet::CDownloadSheet(CDownload* pDownload) : 
 	m_pDownload( pDownload ),
-	m_sDownloadTitle( L"General" ),
-	m_sActionsTitle( L"Actions" ),
-	m_sGeneralTitle( L"Torrent" ),
 	m_sFilesTitle( L"Files" ),
-	m_sTrackersTitle( L"Trackers" )
+	m_sTrackersTitle( L"Trackers" ),
+	m_sGeneralTitle( L"Torrent" ),
+	m_sDownloadTitle( L"General" ),
+	m_sActionsTitle( L"Actions" )
 {
 }
 
@@ -59,11 +59,21 @@ CDownloadSheet::CDownloadSheet(CDownload* pDownload) :
 
 INT_PTR CDownloadSheet::DoModal(int nPage)
 {
-	CDownloadEditPage		pDownload;
-	CDownloadActionsPage	pActions;
-	CTorrentGeneralPage		pGeneral;
 	CTorrentFilesPage		pFiles;
 	CTorrentTrackersPage	pTrackers;
+	CTorrentGeneralPage		pGeneral;
+	CDownloadEditPage		pDownload;
+	CDownloadActionsPage	pActions;
+
+	if ( m_pDownload->IsTorrent() )
+	{
+		SetTabTitle( &pFiles, m_sFilesTitle );
+		AddPage( &pFiles );
+		SetTabTitle( &pTrackers, m_sTrackersTitle );
+		AddPage( &pTrackers );
+		SetTabTitle( &pGeneral, m_sGeneralTitle );
+		AddPage( &pGeneral );
+	}
 
 	if ( ! m_pDownload->IsMoving() && ! m_pDownload->IsCompleted() )
 	{
@@ -71,16 +81,6 @@ INT_PTR CDownloadSheet::DoModal(int nPage)
 		AddPage( &pDownload );
 		SetTabTitle( &pActions, m_sActionsTitle );
 		AddPage( &pActions );
-	}
-
-	if ( m_pDownload->IsTorrent() )
-	{
-		SetTabTitle( &pGeneral, m_sGeneralTitle );
-		AddPage( &pGeneral );
-		SetTabTitle( &pFiles, m_sFilesTitle );
-		AddPage( &pFiles );
-		SetTabTitle( &pTrackers, m_sTrackersTitle );
-		AddPage( &pTrackers );
 	}
 
 	m_psh.nStartPage = nPage;

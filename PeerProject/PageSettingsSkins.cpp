@@ -458,8 +458,8 @@ void CSkinsSettingsPage::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 
 void CSkinsSettingsPage::OnSkinsBrowse()
 {
-	CFileDialog dlg( TRUE, _T("sks"), _T("*.sks"), OFN_HIDEREADONLY,
-		_T("Skin Packages|*.sks|All Files|*.*||"), this );
+	CFileDialog dlg( TRUE, _T("psk"), _T("*.psk"), OFN_FILEMUSTEXIST,
+		_T("Skin Packages|*.psk;*.sks|All Files|*.*||"), this );
 
 	if ( dlg.DoModal() != IDOK ) return;
 

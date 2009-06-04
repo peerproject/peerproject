@@ -117,6 +117,21 @@ CDownloadWithTorrent::~CDownloadWithTorrent()
 	m_pTorrentBlock = NULL;
 }
 
+bool CDownloadWithTorrent::IsSeeding() const
+{
+	return m_bSeeding != 0;
+}
+
+bool CDownloadWithTorrent::IsTorrent() const
+{
+	return m_pTorrent.IsAvailable();
+}
+
+bool CDownloadWithTorrent::IsSingleFileTorrent() const
+{
+	return IsTorrent() && ( m_pTorrent.GetCount() == 1 );
+}
+
 void CDownloadWithTorrent::Add(CBTTrackerRequest* pRequest)
 {
 	CQuickLock oLock( m_pRequestsSection );
@@ -414,7 +429,7 @@ BOOL CDownloadWithTorrent::GenerateTorrentDownloadID()
 	// Random characters for the rest of the Client ID
 	for ( int nByte = 8 ; nByte < 20 ; nByte++ )
 	{
-		m_pPeerID[ nByte ] = static_cast< BYTE >( rand() & 0xFF );
+		m_pPeerID[ nByte ] = GetRandomNum( 0ui8, _UI8_MAX );
 	}
 	m_pPeerID.validate();
 	return TRUE;

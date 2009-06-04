@@ -61,7 +61,7 @@ public:
 		bool		HashIntegrity;
 		bool		RatesInBytes;				// Show speeds in Bytes/second
 		DWORD		RatesUnit;					// Units that the rates are to be displayed in
-		bool		AlwaysOpenURLs;
+		DWORD		RefreshRate;				// Data display update in milliseconds
 		CString		LastSettingsPage;			// Last selected Settings dialog page
 		DWORD		LastSettingsIndex;			// Top item index of Advanced Settings list
 		CString		Language;
@@ -69,6 +69,7 @@ public:
 		bool		IgnoreXPsp2;				// Ignore the presence of Windows XPsp2 limits
 		bool		ItWasLimited;				// If user patches half-open connection limit change settings back to full speed
 		bool		DebugBTSources;				// Display received sources for BT download when seeding
+		bool		AlwaysOpenURLs;
 		bool		FirstRun;
 		bool		Running;					// ToDo: detect abnormal shutdown on startup
 		DWORD		SmartVersion;				// Settings version
@@ -129,7 +130,6 @@ public:
 	{
 		bool		WatchFolders;
 		DWORD		WatchFoldersTimeout;
-		bool		PartialMatch;
 		bool		VirtualFiles;
 		bool		SourceMesh;
 		DWORD		SourceExpire;
