@@ -46,9 +46,9 @@ public:
 protected:
 	int				m_nSelected;
 	DWORD			m_nIndex;
-	BOOL			m_bNewFile; 	// Flag used to switch off thread if thumbnail cannot be extracted
+	BOOL			m_bNewFile; 		// Flag used to switch off thread if thumbnail cannot be extracted
 	CString			m_sName;
-	CString			m_sPath;
+	CString			m_sPath;			// Current file path
 	CString			m_sFolder;
 	CString			m_sType;
 	CString			m_sSize;
@@ -58,14 +58,13 @@ protected:
 	CSchema*		m_pSchema;
 	CMetaPanel*		m_pMetadata;
 	CMetaPanel*		m_pServiceData;
+	CCriticalSection m_pSection;
 	CRect			m_rcFolder;
 	CRect			m_rcRating;
-	CCriticalSection	m_pSection;
-	BOOL				m_bExternalData;
-	BOOL				m_bDownloadingImage;
-	BOOL				m_bForceUpdate;
-	CBitmap				m_bmThumb;
-	CString				m_sThumb;
+	BOOL			m_bForceUpdate;
+	CString			m_sThumbnailURL;	// Use this URL to load thumbnail instead
+	CString			m_sThumb;			// Loaded thumbnail file path or URL
+	CBitmap			m_bmThumb;
 
 	CLibraryList*	GetViewSelection();
 

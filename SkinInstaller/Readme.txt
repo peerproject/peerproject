@@ -34,13 +34,13 @@ History
  - Updated skin icon (thanks to Kiwi)
 
 1.0.6:
- - Application is now placed in the Skins directory of PeerProject
+ - Application is now placed in the Skins directory
 
 1.0.7:
  - Initial Public Release
  - Typo in MessageBox
  - Removed creation of skin directory code and options
- - Updated MessageBox titles to say PeerProject
+ - Updated MessageBox titles
  - Error messages use exclamation icons
  - More messagebox string changes
  - Output directory is now set to SkinInstaller.exe directory
@@ -81,8 +81,10 @@ History
  - Updated graphics
 
 1.0.10
- - Changed the way how files are extracted. The installer gets the skin name from the XML file and creates a directory with that name and puts all the files inside this directory. For language skins, all files are placed in the \Languages folder.
  - Updated Icon 
+ - Changed the way how files are extracted.
+   The installer gets the skin name from the XML file and creates a directory with that name and puts all the files inside this directory.
+   For language skins, all files are placed in the \Languages folder.
 
 1.0.11
  - Fixed Bug with "Set Skin as Default". It now selects the skin and opens the skin settings window.
@@ -93,6 +95,9 @@ History
  - UTF-8 support implemented
  - GUI fixed (white background)
  - "Updated by" authors are displayed
+
+1.0.0.0
+ - Initial release for PeerProject
  
 ToDo
 ====

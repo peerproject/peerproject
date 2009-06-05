@@ -1,6 +1,7 @@
-// r15
-// Auto-generated
+//
+// No SVN Revision Data
 
-#pragma once
+//#pragma once
 
-#define __REVISION__ 	"15"
+//#define __REVISION__
+//#define __MODAUTHOR__

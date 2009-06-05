@@ -3622,10 +3622,6 @@
 		<control caption="_Verstek Verwyser: "/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokolle">
-		<control caption="PeerProject Algemene Argitektuur Protokolverkenner:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Omslae">
 		<control/>
 		<control caption="Omslag Inligting:"/>
@@ -3657,6 +3653,10 @@
 		<control caption="Verstellings Eienskappe:"/>
 		<control caption="Waarde:"/>
 		<control caption="Beskrywing:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokolle">
+		<control caption="PeerProject Algemene Argitektuur Protokolverkenner:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Oplaai Waglys Verstellings">
@@ -3813,6 +3813,14 @@
 		<control caption="Ouderdom:"/>
 		<control caption="Laat ander toe om my profiel te sien"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
+		<control caption="_Voorskou:"/>
+		<control/>
+		<control caption="_Selekteer:"/>
+		<control caption="Ander Gnutella gebruikers wat na jou profiel en gedeelde lêers kyk sal jou avatar sien.  Pasgemaakte avatars moet 128x128 beeldpunte wees en kan in enige ondersteunde fotolêertipe op jou rekenaar wees."/>
+		<control caption="_Kies..."/>
+		<control caption="_Verwyder"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontak">
 		<control caption="_E-pos Adres:"/>
 		<control caption="Primêr:"/>
@@ -3848,14 +3856,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Biografie">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
-		<control caption="_Voorskou:"/>
-		<control/>
-		<control caption="_Selekteer:"/>
-		<control caption="Ander Gnutella gebruikers wat na jou profiel en gedeelde lêers kyk sal jou avatar sien.  Pasgemaakte avatars moet 128x128 beeldpunte wees en kan in enige ondersteunde fotolêertipe op jou rekenaar wees."/>
-		<control caption="_Kies..."/>
-		<control caption="_Verwyder"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Gunstellinge">
 		<control/>
@@ -4239,11 +4239,6 @@
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Hulp">
-		<control/>
-		<control caption="Maak Toe"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Skrap Lêer">
 		<control caption="Is jy seker dat jy die volgende lêer wil skrap:"/>
 		<control/>
@@ -4274,38 +4269,6 @@
 		<control caption="_Next|_Export..."/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Verander Aflaai (Gevorderd)">
-		<control caption="WAARSKUWING: Hierdie venster verskaf gevorderde aflaaifunksies vir kragtige gebruikers wat, as dit verkeerdelik gebruik word, korrupsie kan veroorsaak."/>
-		<control caption="Filename and Si_ze:"/>
-		<control caption="Lêer_naam:"/>
-		<control/>
-		<control/>
-		<control caption="File size (Byte):"/>
-		<control/>
-		<control caption="_URNs:"/>
-		<control caption="Trusted"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Aksies:"/>
-		<control caption="Vergeet huidige foutkontrole status (en herkontroleer)"/>
-		<control caption="Neem aan lêer is 100% volledig en herkontroleer"/>
-		<control caption="Vergeet alle bekende bronne"/>
-		<control caption="Merge with local file and verify"/>
-		<control caption="Cancel download but save incomplete file(s)"/>
-		<control caption="Data _Verwyderaar:"/>
-		<control caption="Skrap grepe:"/>
-		<control/>
-		<control caption="tot"/>
-		<control/>
-		<control caption="Skrap"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Open Torrentlêer">
 		<control/>
 		<control caption="Jy het 'n BitTorrent Torrentlêer oopgemaak. Wil jy sy inhoud aflaai, of dit hersaai?"/>
@@ -4315,47 +4278,80 @@
 		<control caption="Om voltooide lêers te deel met BitTorrent, moet hulle eers gesaai word. Sodra hierdie proses voltooi is, sal die Torrent as 'n nuwe item op jou aflaailys verskyn."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="BitTorrent Verwyser Inligting">
-		<control caption="BitTorrent _Inligting:"/>
-		<control caption="Naam:"/>
-		<control/>
-		<control caption="Geskep:"/>
-		<control/>
-		<control caption="Deur:"/>
-		<control/>
-		<control caption="Kommentaar:"/>
-		<control/>
-		<control caption="_Aflaaiers:"/>
-		<control caption="Begin nuwe aflaai oordragte:"/>
-		<control caption=" As needed| When ratio over 100%| Only when requested| Never"/>
-		<control/>
-		<control caption="Total Uploaded:"/>
-		<control caption="Notes:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Files">
-		<control caption="Soos benodig|Wanneer verhouding meer as 100% is|Slegs wanneer aangevra|Nooit"/>
-		<control caption="_Lêers:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control/>
-		<control caption="_Verfris"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="Torrent _Information:"/>
-		<control caption="Name:"/>
+		<control/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="_Current Tracker:"/>
-		<control caption="Completed (Seeds):"/>
-		<control/>
-		<control caption="Incomplete:"/>
-		<control/>
-		<control caption="_Refresh"/>
-		<control caption="_Trackers:"/>
-		<control/>
+		<control caption="Seeds (Complete):"/>
+		<control caption="Peers (Incomplete):"/>
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
+		<control caption="_Refresh"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrent">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption=" As needed| When ratio over 100%| Only when requested| Never"/>
+		<control/>
+		<control caption="BitTorrent _Inligting:"/>
+		<control caption="Naam:"/>
+		<control caption="Geskep:"/>
+		<control caption="Deur:"/>
+		<control caption="Kommentaar:"/>
+		<control caption="_Aflaaiers:"/>
+		<control caption="Begin nuwe aflaai oordragte:"/>
+		<control caption="Total Uploaded:"/>
+		<control caption="Notes:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Gevorderd">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="WAARSKUWING: Hierdie venster verskaf gevorderde aflaaifunksies vir kragtige gebruikers wat, as dit verkeerdelik gebruik word, korrupsie kan veroorsaak."/>
+		<control caption="Filename and Si_ze:"/>
+		<control caption="Lêer_naam:"/>
+		<control caption="File size (Byte):"/>
+		<control caption="_URNs:"/>
+		<control caption="Trusted"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="_Aksies:">
+		<control caption="WAARSKUWING: Hierdie venster verskaf gevorderde aflaaifunksies vir kragtige gebruikers wat, as dit verkeerdelik gebruik word, korrupsie kan veroorsaak."/>
+		<control caption="Vergeet alle bekende bronne"/>
+		<control caption="Vergeet huidige foutkontrole status (en herkontroleer)"/>
+		<control caption="Neem aan lêer is 100% volledig en herkontroleer"/>
+		<control caption="Merge with local file and verify"/>
+		<control caption="Cancel download but save incomplete files"/>
+		<control/>
+		<control/>
+		<control caption="_Aksies:"/>
+		<control caption="Data _Verwyderaar:"/>
+		<control caption="Skrap grepe:"/>
+		<control caption="tot"/>
+		<control caption="Skrap"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Aflaaigroep Eienskappe">
 		<control caption="OK"/>
@@ -4392,12 +4388,6 @@
 		<control caption="Ignoreer nuwe weergawes"/>
 		<control caption="Moenie Opgradeer Nie"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Aflaai Resensies">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata Lokalisering">
 		<control caption="Selekteer asseblief die her-enkoderingsmetode:"/>
 		<control caption="Arabic|Baltic|Central European|Chinese Simplified|Chinese Traditional|Cyrillic|Greek|Hebrew|Japanese|Korean|Thai|Turkish|Vietnamese"/>
@@ -4409,11 +4399,22 @@
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Aflaai Resensies">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Hulp">
+		<control/>
+		<control caption="Maak Toe"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4540,6 +4541,8 @@
 	<list name="CTorrentTrackerList">
 		<column from="Filename" to="Lêernaam"/>
 		<column from="Size" to="Grootte"/>
+		<column from="Status" to=""/>
+		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

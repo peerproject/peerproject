@@ -363,8 +363,5 @@ bool CAdvancedSettingsPage::EditItem::IsDefault() const
 
 void CAdvancedSettingsPage::EditItem::Default()
 {
-	if ( m_pItem->m_pDword )
-		m_nValue = m_pItem->m_DwordDefault;
-	else
-		m_bValue = m_pItem->m_BoolDefault;
+	m_pItem->SetDefault();
 }

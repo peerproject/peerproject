@@ -3648,10 +3648,6 @@
 		<control caption="Traqueur par _défaut&#160;:"/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocoles">
-		<control caption="Explorateur de l'architecture commune aux protocoles de PeerProject&#160;:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Thème">
 		<control/>
 		<control caption="Information sur le thème&#160;:"/>
@@ -3675,7 +3671,7 @@
 		<control caption="_Configurer..."/>
 		<control caption="Plus d'extensions"/>
 	</dialog>
-<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Avancé">
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Avancé">
 		<control/>
 		<control/>
 		<control/>
@@ -3683,6 +3679,10 @@
 		<control caption="Paramètres de la propriété&#160;:"/>
 		<control caption="Valeur&#160;:"/>
 		<control caption="Description&#160;:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocoles">
+		<control caption="Explorateur de l'architecture commune aux protocoles de PeerProject&#160;:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Propriétés des files d'attente d'envois">
@@ -3839,6 +3839,14 @@
 		<control caption="Age&#160;:"/>
 		<control caption="Autoriser les utilisateurs à voir mon profil."/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
+		<control caption="_Prévisualiser&#160;:"/>
+		<control/>
+		<control caption="_Sélectionner&#160;:"/>
+		<control caption="Les autres utilisateurs de Gnutella qui parcourent votre profil et vos fichiers partagés verront votre avatar. Les avatars personnalisés doivent avoir une taille de 128x128 pixels et peuvent être de n'importe quel format supporté par votre PC."/>
+		<control caption="Parcourir..."/>
+		<control caption="Enleve_r"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Contact">
 		<control caption="Adresses email&#160;:"/>
 		<control caption="Principale&#160;:"/>
@@ -3874,14 +3882,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
-		<control caption="_Prévisualiser&#160;:"/>
-		<control/>
-		<control caption="_Sélectionner&#160;:"/>
-		<control caption="Les autres utilisateurs de Gnutella qui parcourent votre profil et vos fichiers partagés verront votre avatar. Les avatars personnalisés doivent avoir une taille de 128x128 pixels et peuvent être de n'importe quel format supporté par votre PC."/>
-		<control caption="Parcourir..."/>
-		<control caption="Enleve_r"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoris">
 		<control/>
@@ -4264,11 +4264,6 @@
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Aide de PeerProject">
-		<control/>
-		<control caption="Fermer"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Supprimer un fichier">
 		<control caption="Êtes-vous certain de vouloir supprimer ce fichier&#160;?"/>
 		<control/>
@@ -4299,38 +4294,6 @@
 		<control caption="_Prochain|Export..."/>
 		<control caption="_Annuler"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Édition des téléchargements (avancée)">
-		<control caption="ATTENTION&#160;: Utilisateurs avertis... Cette fenêtre donne accès à des paramètres avancés qui, s'ils sont mal renseignés, peuvent corrompre un fichier."/>
-		<control caption="Nom du fichier et Taille&#160;:"/>
-		<control caption="Nom de Fichier&#160;:"/>
-		<control/>
-		<control/>
-		<control caption="Taille (Octets)&#160;:"/>
-		<control/>
-		<control caption="_URN&#160;:"/>
-		<control caption="Fiable"/>
-		<control caption="SHA1&#160;:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root&#160;:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K&#160;:"/>
-		<control/>
-		<control/>
-		<control caption="_Actions&#160;:"/>
-		<control caption="Oublier le statut de vérification actuelle et revérifier"/>
-		<control caption="Considérer que le fichier est complet à 100% et revérifier"/>
-		<control caption="Oublier toutes les sources connues"/>
-		<control caption="Fusionner avec un fichier local, puis vérifier"/>
-		<control caption="Annuler le téléchargement mais enregistrer le ou les fichiers incomplets"/>
-		<control caption="_Effaceur de données&#160;:"/>
-		<control caption="Effacer le champ entre les octets&#160;:"/>
-		<control/>
-		<control caption="à"/>
-		<control/>
-		<control caption="Effacer"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Ouvrir un fichier Torrent">
 		<control/>
 		<control caption="Vous avez ouvert un fichier Torrent. Voulez-vous télécharger ses contenus, ou le mettre en seed de nouveau&#160;?"/>
@@ -4340,47 +4303,80 @@
 		<control caption="Pour partager des fichiers complets avec BitTorrent il faut les mettre en seed. Une fois ce processus terminé le Torrent apparaîtra dans votre liste de téléchargements."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Général">
-		<control caption="_Information Torrent&#160;:"/>
-		<control caption="Nom&#160;:"/>
-		<control/>
-		<control caption="Date de création&#160;:"/>
-		<control/>
-		<control caption="Auteur&#160;:"/>
-		<control/>
-		<control caption="Commentaire&#160;:"/>
-		<control/>
-		<control caption="Transferts&#160;:"/>
-		<control caption="Commencer des nouveaux transferts:"/>
-		<control caption=" Selon le besoin| Quand le ratio dépasse 100%| Seulement si requis| Jamais"/>
-		<control/>
-		<control caption="Total Envoyé&#160;:"/>
-		<control caption="Notes&#160;:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Fichiers">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Fichiers">
-		<control caption="_Information Torrent&#160;:"/>
-		<control caption="Nom&#160;:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Traqueurs">
 		<control/>
-		<control caption="_Fichiers&#160;:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Traqueurs">
-		<control caption="_Information du Torrent&#160;:"/>
-		<control caption="Nom&#160;:"/>
+		<control/>
 		<control/>
 		<control caption="Traqueur&#160;:"/>
-		<control/>
 		<control caption="_Traqueur actuel&#160;:"/>
-		<control caption="Complets (Seeds)&#160;:"/>
-		<control/>
-		<control caption="Incomplets&#160;:"/>
-		<control/>
-		<control caption="Q_uérir&#160;:"/>
-		<control caption="T_raqueurs&#160;:"/>
-		<control/>
+		<control caption="Seeds (Complets)&#160;:"/>
+		<control caption="Peers (Incomplets)&#160;:"/>
 		<control caption="Mode&#160;:"/>
 		<control caption="Inemployé|Déterminer|Traqueur unique|Multi-traqueur|Multi-tracker (défini)"/>
+		<control caption="Q_uérir&#160;:"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption=" Selon le besoin| Quand le ratio dépasse 100%| Seulement si requis| Jamais"/>
+		<control/>
+		<control caption="_Information Torrent&#160;:"/>
+		<control caption="Nom&#160;:"/>
+		<control caption="Date de création&#160;:"/>
+		<control caption="Auteur&#160;:"/>
+		<control caption="Commentaire&#160;:"/>
+		<control caption="Transferts&#160;:"/>
+		<control caption="Commencer des nouveaux transferts:"/>
+		<control caption="Total Envoyé&#160;:"/>
+		<control caption="Notes&#160;:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Général">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="ATTENTION&#160;: Utilisateurs avertis... Cette fenêtre donne accès à des paramètres avancés qui, s'ils sont mal renseignés, peuvent corrompre un fichier."/>
+		<control caption="Nom du fichier et Taille&#160;:"/>
+		<control caption="Nom de Fichier&#160;:"/>
+		<control caption="Taille (Octets)&#160;:"/>
+		<control caption="_URN&#160;:"/>
+		<control caption="Fiable"/>
+		<control caption="SHA1&#160;:"/>
+		<control caption="Tiger-Root&#160;:"/>
+		<control caption="ED2K&#160;:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Acciones">
+		<control caption="ATTENTION&#160;: Utilisateurs avertis... Cette fenêtre donne accès à des paramètres avancés qui, s'ils sont mal renseignés, peuvent corrompre un fichier."/>
+		<control caption="Oublier toutes les sources connues"/>
+		<control caption="Oublier le statut de vérification actuelle et revérifier"/>
+		<control caption="Considérer que le fichier est complet à 100% et revérifier"/>
+		<control caption="Fusionner avec un fichier local, puis vérifier"/>
+		<control caption="Annuler le téléchargement mais enregistrer le ou les fichiers incomplets"/>
+		<control/>
+		<control/>
+		<control caption="Acciones&#160;:"/>
+		<control caption="_Effaceur de données&#160;:"/>
+		<control caption="Effacer le champ entre les octets&#160;:"/>
+		<control caption="à"/>
+		<control caption="Effacer"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Propriétés du groupe de téléchargement">
 		<control caption="Valider"/>
@@ -4417,12 +4413,6 @@
 		<control caption="Ne pas vérifier les MàJ"/>
 		<control caption="Ne pas MàJ"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Télécharger les Revues">
-		<control/>
-		<control caption="Valider"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Localisation des métadonnées">
 		<control caption="Merci de sélectionner la méthode de réencodage"/>
 		<control caption="Arabe|Balte|Européen de l'Est|Chinois simplifié|Chinois traditionnel|Cyrillique|Grec|Hébreu|Japonais|Coréen|Thaï|Turc|Vietnamien"/>
@@ -4439,6 +4429,17 @@
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
 		<control caption="Entrez le canal que vous voulez ajouter&#160;:|Entrez la justification du kick/ban&#160;:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Télécharger les Revues">
+		<control/>
+		<control caption="Valider"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="Aide de PeerProject">
+		<control/>
+		<control caption="Fermer"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4565,6 +4566,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Nom de fichier"/>
 		<column from="Size" to="Taille"/>
+		<column from="Status" to=""/>
+		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Traqueur"/>

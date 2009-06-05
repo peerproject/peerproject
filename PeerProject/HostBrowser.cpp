@@ -52,7 +52,6 @@ CHostBrowser::CHostBrowser(CBrowseHostWnd* pNotify, PROTOCOLID nProtocol, IN_ADD
 	m_nState		( hbsNull )
 ,	m_pNotify		( pNotify )
 ,	m_pProfile		( NULL )
-
 ,	m_bNewBrowse	( FALSE )
 ,	m_nPort			( nPort )
 ,	m_oClientID		( oClientID )
@@ -63,7 +62,6 @@ CHostBrowser::CHostBrowser(CBrowseHostWnd* pNotify, PROTOCOLID nProtocol, IN_ADD
 ,	m_nHits			( 0 )
 ,	m_pVendor		( NULL )
 ,	m_bCanChat		( FALSE )
-
 ,	m_bDeflate		( FALSE )
 ,	m_nLength		( ~0ul )
 ,	m_nReceived		( 0ul )
@@ -647,7 +645,7 @@ BOOL CHostBrowser::StreamPacketsG1()
 
 		DWORD nLength = sizeof(*pPacket) + pPacket->m_nLength;
 
-		if ( pPacket->m_nLength < 0 || nLength >= (DWORD)Settings.Gnutella1.MaximumPacket * 8 )
+		if ( pPacket->m_nLength < 0 || nLength >= (DWORD)Settings.Gnutella.MaximumPacket * 8 )
 		{
 			theApp.Message( MSG_ERROR, IDS_BROWSE_PACKET_ERROR, m_sAddress );
 			Stop();

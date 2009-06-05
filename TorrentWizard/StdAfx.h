@@ -44,7 +44,7 @@
 
 typedef unsigned __int64 QWORD;
 
-#define BIF_NEWDIALOGSTYLE	0x0040
+#define BIF_NEWDIALOGSTYLE	0x00000040
 #define OFN_ENABLESIZING	0x00800000
 
 using namespace augment;

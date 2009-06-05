@@ -3491,10 +3491,6 @@
 		<control caption="_Rastrejador per defecte (&quot;Tracker&quot;):"/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocols">
-		<control caption="Explorador d'arquitectures comuns dels protocols de PeerProject:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Interfície">
 		<control/>
 		<control caption="Informació de la pell (skin):"/>
@@ -3526,6 +3522,10 @@
 		<control caption="Configuració:"/>
 		<control caption="Valor:"/>
 		<control caption="Descripció:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocols">
+		<control caption="Explorador d'arquitectures comuns dels protocols de PeerProject:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Propietats de la cua de pujada">
@@ -3682,6 +3682,14 @@
 		<control caption="Edat:"/>
 		<control caption="Permetre que altres explorin el meu perfil"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
+		<control caption="Vista _prèvia:"/>
+		<control/>
+		<control caption="_Selecciona:"/>
+		<control caption="Altres usuaris que vegin el teu perfil també veuran el teu avatar. Els avatars personals han de ser de 128x128 píxels i poden ser en qualsevol format d'imatge soportat pel teu PC."/>
+		<control caption="_Explora..."/>
+		<control caption="_Treu"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Contacte">
 		<control caption="_Correu electrònic:"/>
 		<control caption="Primari:"/>
@@ -3717,14 +3725,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Sobre mi">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
-		<control caption="Vista _prèvia:"/>
-		<control/>
-		<control caption="_Selecciona:"/>
-		<control caption="Altres usuaris que vegin el teu perfil també veuran el teu avatar. Els avatars personals han de ser de 128x128 píxels i poden ser en qualsevol format d'imatge soportat pel teu PC."/>
-		<control caption="_Explora..."/>
-		<control caption="_Treu"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favorits">
 		<control/>
@@ -4107,11 +4107,6 @@
 		<control caption="Accepta"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Ajuda de PeerProject">
-		<control/>
-		<control caption="Tanca"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Esborra arxiu">
 		<control caption="Estàs segur d'esborrar...?"/>
 		<control/>
@@ -4142,38 +4137,6 @@
 		<control caption="_Següent|Exporta"/>
 		<control caption="_Cancel·la"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Edició de la descàrrega (avançat)">
-		<control caption="ADVERTÈNCIA: Amb aquesta finestra es poden configurar opcions avançades de la descàrrega per a usuaris avançats, que, si són utilitzades incorrectament, podrien danyar o perdre la descàrrega."/>
-		<control caption="_Nom de l'arxiu i mida:"/>
-		<control caption="Nom:"/>
-		<control/>
-		<control/>
-		<control caption="Mida (Bytes):"/>
-		<control/>
-		<control caption="_URNs:"/>
-		<control caption="De confiança"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Accions:"/>
-		<control caption="Oblida l'estat de verificació actual i torna a verificar"/>
-		<control caption="Asumeix completats i reverifica (per a recuperar descàrregues)"/>
-		<control caption="Oblida totes les fonts conegudes"/>
-		<control caption="Combina amb un arxiu local i verifica"/>
-		<control caption="Cancel·la download but save incomplete file"/>
-		<control caption="_Esborra dades:"/>
-		<control caption="Rang de bytes:"/>
-		<control/>
-		<control caption="a"/>
-		<control/>
-		<control caption="Esborra"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Obre un arxiu Torrent">
 		<control/>
 		<control caption="Has obert un arxiu Torrent. Vols tornar a baixar els seus fitxers o tornar a compartir-lo?"/>
@@ -4183,47 +4146,80 @@
 		<control caption="Per a compartir arxius completats usant BitTorrent han d'estar suministrats. Quant aquest procès estigui complet el Torrent apareixerà com una nova descàrrega a la llista."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Informació avançada del torrent">
-		<control caption="Informació del _Torrent:"/>
-		<control caption="Nom:"/>
-		<control/>
-		<control caption="Creat:"/>
-		<control/>
-		<control caption="Per:"/>
-		<control/>
-		<control caption="Comentaris:"/>
-		<control/>
-		<control caption="Transferències:"/>
-		<control caption="Comença noves transferències de descàrrega:"/>
-		<control caption="&#160;Quan es necessite| Quan el ràtio supera el 100%| Únicament quan siga demanat| Mai"/>
-		<control/>
-		<control caption="Volumen pujat total:"/>
-		<control caption="Notes:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Arxius">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Arxius">
-		<control caption="_Informació del Torrent:"/>
-		<control caption="Nom:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control/>
-		<control caption="_Arxius:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="_Informació del Torrent:"/>
-		<control caption="Nom:"/>
+		<control/>
 		<control/>
 		<control caption="Rastrejador:"/>
-		<control/>
 		<control caption="_Rastrejador actual (tracker):"/>
-		<control caption="Completats (Seeders):"/>
-		<control/>
-		<control caption="Incomplets (Peers):"/>
-		<control/>
-		<control caption="_Actualitza"/>
-		<control caption="_Rastrejadors:"/>
-		<control/>
+		<control caption="Seeds (Completats):"/>
+		<control caption="Peers (Incomplets):"/>
 		<control caption="Mode del rastrejador:"/>
 		<control caption="Deshabilitat|Personalitzat|Tracker únic|Multi-tracker|Multi-tracker (blocat)"/>
+		<control caption="_Actualitza"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;Quan es necessite| Quan el ràtio supera el 100%| Únicament quan siga demanat| Mai"/>
+		<control/>
+		<control caption="Informació del _Torrent:"/>
+		<control caption="Nom:"/>
+		<control caption="Creat:"/>
+		<control caption="Per:"/>
+		<control caption="Comentaris:"/>
+		<control caption="Transferències:"/>
+		<control caption="Comença noves transferències de descàrrega:"/>
+		<control caption="Volumen pujat total:"/>
+		<control caption="Notes:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Avançada">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="ADVERTÈNCIA: Amb aquesta finestra es poden configurar opcions avançades de la descàrrega per a usuaris avançats, que, si són utilitzades incorrectament, podrien danyar o perdre la descàrrega."/>
+		<control caption="_Nom de l'arxiu i mida:"/>
+		<control caption="Nom:"/>
+		<control caption="Mida (Bytes):"/>
+		<control caption="_URNs:"/>
+		<control caption="De confiança"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="_Accions:">
+		<control caption="ADVERTÈNCIA: Amb aquesta finestra es poden configurar opcions avançades de la descàrrega per a usuaris avançats, que, si són utilitzades incorrectament, podrien danyar o perdre la descàrrega."/>
+		<control caption="Oblida totes les fonts conegudes"/>
+		<control caption="Oblida l'estat de verificació actual i torna a verificar"/>
+		<control caption="Asumeix completats i reverifica (per a recuperar descàrregues)"/>
+		<control caption="Combina amb un arxiu local i verifica"/>
+		<control caption="Cancel·la download but save incomplete file"/>
+		<control/>
+		<control/>
+		<control caption="_Accions:"/>
+		<control caption="_Esborra dades:"/>
+		<control caption="Rang de bytes:"/>
+		<control caption="a"/>
+		<control caption="Esborra"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Propietats del grup de descàrrega">
 		<control caption="Sí"/>
@@ -4260,12 +4256,6 @@
 		<control caption="No comproves si hi ha noves versions"/>
 		<control caption="No vull actualitzar"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Descarrega ressenyes">
-		<control/>
-		<control caption="Sí"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Localització de la metainformació">
 		<control caption="Selecciona un mètode de codificació"/>
 		<control caption="Aràbic|Bàltic|Europa Central|Xinès Simplificat|Xinès Tradicional|Cirílic|Grec|Hebreu|Japonès|Coreà|Tailandès|Turc|Vietnamita"/>
@@ -4277,11 +4267,22 @@
 		<control caption="Sí"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="Sí"/>
 		<control caption="Cancel·la"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Descarrega ressenyes">
+		<control/>
+		<control caption="Sí"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="Ajuda de PeerProject">
+		<control/>
+		<control caption="Tanca"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4408,6 +4409,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Nom d'arxiu"/>
 		<column from="Size" to="Mida"/>
+		<column from="Status" to="Estat"/>
+		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Rastrejador"/>

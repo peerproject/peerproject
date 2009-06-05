@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default English Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.7800 -->
+<!-- Translation based on default-en.xml r20 (Shareaza SVN r8000) -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -3415,7 +3415,7 @@
 		<control caption="Filter chat messages for spam"/>
 		<control caption="Censor profanity in chat"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="IRC Chat">
 		<control caption="Client _Options:"/>
 		<control caption="Show chat integration"/>
 		<control caption="Flood protection:"/>
@@ -3451,7 +3451,7 @@
 		<control caption="Port:"/>
 		<control/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web Links">
 		<control caption="_Peer to Peer Link Handling:"/>
 		<control caption="Use PeerProject to open these types of links:"/>
 		<control caption="Magnet ( magnet: )"/>
@@ -3497,7 +3497,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadsSettingsPage" cookie="BuEdBuBuEdBuBuStEdmsStEdmsStEdmsBuStCoStCoBuBu" caption="Downloads">
-		<control caption="Save _Completed Files Here:"/>
+		<control caption="Save Default _Completed Files Here:"/>
 		<control/>
 		<control/>
 		<control caption="Store Temporary _Incomplete Files Here:"/>
@@ -3586,12 +3586,12 @@
 		<control caption="The Gnutella2 network is PeerProject&apos;s premiere network, offering more features and performance than any other P2P net.  Highly recommended."/>
 		<control caption="Connect to Gnutella2 (G2)"/>
 		<control caption="Configure Gnutella2"/>
-		<control caption="Original Gnutella Network:"/>
-		<control caption="Although the original Gnutella network is less feature-rich than Gnutella2, and has fewer files than eDonkey, it remains a valuable resource."/>
+		<control caption="Gnutella Network:"/>
+		<control caption="The original Gnutella network is less feature-rich than Gnutella2, and has fewer files than eDonkey, yet remains a valuable resource."/>
 		<control caption="Connect to Original Gnutella (G1)"/>
 		<control caption="Configure Gnutella1"/>
 		<control caption="eDonkey Network:"/>
-		<control caption="The eDonkey network is a popular server-based network. While not as feature-rich or fast as Gnutella2, eMule has an impressive file collection."/>
+		<control caption="The eDonkey network is a popular server-based network.  While not as feature-rich or fast as G2, eMule has an impressive file collection."/>
 		<control caption="Connect to eDonkey2000 (ED2K)"/>
 		<control caption="Configure eDonkey"/>
 	</dialog>
@@ -3677,10 +3677,6 @@
 		<control caption="Default Tracker: "/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocols">
-		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skins">
 		<control/>
 		<control caption="Skin Information:"/>
@@ -3708,10 +3704,14 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Set Default"/>
+		<control caption="Restore Default"/>
 		<control caption="Setting Properties:"/>
-		<control caption="Value:"/>
+		<control caption=" Value:"/>
 		<control caption="Description:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocols">
+		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Upload Queue Properties">
@@ -3756,9 +3756,9 @@
 		<control caption="Reward uploaders"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Welcome to PeerProject">
-		<control caption="Welcome to PeerProject."/>
-		<control caption="If you haven&apos;t used PeerProject or another P2P client before, this QuickStart wizard can help you configure your copy in a few simple steps."/>
-		<control caption="If you&apos;re a more advanced user, you can access the full range of PeerProject&apos;s options via the Tools menu.  Click Exit to close the wizard at any time."/>
+		<control caption="Welcome to PeerProject file sharing."/>
+		<control caption="This QuickStart wizard can help you configure your software in a few simple steps, even if you haven&apos;t used PeerProject or other P2P client before."/>
+		<control caption="More advanced users can access the full range of PeerProject&apos;s options via the Tools menu.  Click Exit to close the wizard at any time."/>
 		<control caption="This wizard will assist you to:"/>
 		<control/>
 		<control caption="Tell PeerProject about your Internet connection"/>
@@ -3770,26 +3770,26 @@
 		<control caption="Get started using PeerProject."/>
 	</dialog>
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Welcome to PeerProject (1/6)">
-		<control caption="For optimum performance, PeerProject needs to know a little bit about your connection to the Internet."/>
+		<control caption="For best performance, PeerProject needs to know about your connection to the Internet."/>
 		<control caption="Choose the type of your Internet connection:"/>
 		<control caption="Dial up Modem|ISDN|ADSL (256K)|ADSL (512K)|ADSL (768K)|ADSL (1.5M)|ADSL (4.0M)|ADSL2 (8.0M)|ADSL2 (12.0M)|ADSL2+ (24.0M)|Cable Modem/SDSL|T1|T3|LAN|OC3"/>
 		<control caption="Or choose the download speed:"/>
 		<control/>
 		<control caption="and the upload speed:"/>
 		<control/>
-		<control caption="Do you want to automatically setup port-forwarding by using UPnP?"/>
+		<control caption="Automatically setup port-forwarding using Plug&apos;n&apos;Play?"/>
 		<control/>
 		<control caption="Status:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Welcome to PeerProject (2/6)">
-		<control caption="P2P networks are only as good as the people who use them. All of the content available for download is being shared by another user."/>
-		<control caption="You do not have to share content to use PeerProject, however some software will behave differently to users who are not sharing anything."/>
-		<control caption="Please indicate which folders, if any, you wish to share. Simply click the Add button to add a new folder."/>
+		<control caption="P2P networks are only as good as the people who use them.  All of the content available for download is being shared by another user."/>
+		<control caption="You do not have to share content to use PeerProject, however some software will restrict users who are not sharing anything."/>
+		<control caption="Please indicate which folders, if any, you wish to share.  Click the Add button to include a new folder, files can be unshared later."/>
 		<control/>
 		<control caption="_Add..."/>
 		<control caption="_Remove"/>
-		<control caption="WARNING: Uploading unlicensed works is liable in most countries."/>
+		<control caption="CAUTION: Uploading unlicensed copyright works is liable in most countries."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Scanning Folder...">
 		<control/>
@@ -3799,9 +3799,10 @@
 		<control caption="Volume:"/>
 		<control caption="0"/>
 		<control caption="Close"/>
+		<control/>
 	</dialog>
 	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Welcome to PeerProject (3/6)">
-		<control caption="PeerProject is a much friendlier place when everyone writes a few basic details about themselves."/>
+		<control caption="PeerProject is a friendlier place when everyone shares a few basic details about themselves. Full profile is available from the Tools menu."/>
 		<control caption="I use the name:"/>
 		<control/>
 		<control caption="and I&apos;m a:"/>
@@ -3815,20 +3816,20 @@
 		<control caption="PeerProject supports a flexible user interface, so you can choose what is most comfortable for you. You can change these options at any time."/>
 		<control caption="Please select user interface:"/>
 		<control caption="Basic Mode"/>
-		<control caption="Power Mode"/>
-		<control caption="Simple, easy to use menus and buttons.{n}Familiar to users of other file sharing programs."/>
-		<control caption="Power mode offers expert users lots of extra commands, windows, etc.{n}It may be a little confusing for new users!"/>
-		<control caption="Display simplified download progress bars. (Reduces CPU use)"/>
-		<control caption="Handle BitTorrent links. (.torrent files)"/>
+		<control caption="Standard Mode"/>
+		<control caption="Simple, easy to use menus with fewer options.{n}Helpful for new users of file sharing."/>
+		<control caption="Normal mode offers users all extra commands, windows, etc.{n}Might be more confusing for new users."/>
+		<control caption="Display simplified download progress bars. (May be less confusing)"/>
+		<control caption="Handle BitTorrent links. (Associate .torrent files)"/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Welcome to PeerProject (5/6)">
 		<control caption="PeerProject is a general-purpose file-sharing application that can access many P2P networks at the same time.  Here you can select which networks you&apos;d like to access.  Note that you can always select different networks later."/>
-		<control caption="Connect to Gnutella2 (Highly Recommended)"/>
+		<control caption="Connect to Gnutella2 (Default)"/>
 		<control caption="The Gnutella2 network (G2) is PeerProject&apos;s premiere network, offering more features and performance than any other P2P net. (Shareaza)"/>
 		<control caption="Connect to Gnutella"/>
-		<control caption="The original Gnutella network (G1) is less feature-rich than Gnutella2, and has fewer files than ED2K, yet remains a valuable source. (LimeWire)"/>
+		<control caption="The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source. (LimeWire)"/>
 		<control caption="Connect to eDonkey2000"/>
-		<control caption="The eDonkey network (ED2K) is a popular server-based network.  While not as feature-rich or fast as G2, ED2K has an impressive file collection. (eMule)"/>
+		<control caption="The eDonkey network (ED2K) is a popular server-based network.  While not as feature-rich or fast as G2, ED2K has a vast file collection. (eMule)"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Import eDonkey Downloads">
 		<control/>
@@ -3845,7 +3846,7 @@
 		<control caption="Connect to the network when I close this wizard"/>
 		<control caption="Connect to the network every time I start PeerProject"/>
 		<control caption="Start PeerProject every time Windows starts"/>
-		<control caption="Enjoy using PeerProject!"/>
+		<control caption="Enjoy using PeerProject P2P!"/>
 	</dialog>
 	<dialog name="CProfileManagerDlg" cookie="SyBuBuBu#3" caption="Edit My Profile">
 		<control/>
@@ -3867,6 +3868,14 @@
 		<control/>
 		<control caption="Age:"/>
 		<control caption="Allow others to browse my user profile"/>
+	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
+		<control caption="_Preview:"/>
+		<control/>
+		<control caption="_Select:"/>
+		<control caption="Other users browsing your profile and shared files will see your avatar.  Custom avatars should be 128x128 pixels, and can be in any supported image file on your PC."/>
+		<control caption="_Browse..."/>
+		<control caption="_Remove"/>
 	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Contact">
 		<control caption="_Email Addresses:"/>
@@ -3904,27 +3913,19 @@
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
 		<control/>
 	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
-		<control caption="_Preview:"/>
-		<control/>
-		<control caption="_Select:"/>
-		<control caption="Other users browsing your profile and shared files will see your avatar.  Custom avatars should be 128x128 pixels, and can be in any supported image file on your PC."/>
-		<control caption="_Browse..."/>
-		<control caption="_Remove"/>
-	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favorites">
 		<control/>
-		<control caption="_Edit:"/>
-		<control caption="Title:"/>
+		<control caption="_Edit Link:"/>
+		<control caption="Name:"/>
 		<control/>
 		<control caption="URL:"/>
 		<control/>
-		<control caption="New"/>
+		<control caption="Add"/>
 		<control caption="Remove"/>
 	</dialog>
 	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Files">
 		<control caption="_Favorite Files:"/>
-		<control caption="Favorite files are recommended to users who browse your profile. You can create favorite files by adding them to the &quot;Favorites&quot; library folder."/>
+		<control caption="Favorite files are recommended to users who browse your profile.  You can create favorite files by adding them to the &quot;Favorites&quot; library folder."/>
 		<control/>
 	</dialog>
 	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certificate">
@@ -3951,12 +3952,12 @@
 	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Download File or Torrent">
 		<control/>
 		<control/>
-		<control caption="Downloading any file with PeerProject is easy. Simply type or paste the URL or URI describing the file into the box below and press Enter."/>
+		<control caption="Downloading any file with PeerProject is easy.  Simply type or paste the URL or URI describing the file into the box below and press Enter."/>
 		<control/>
 		<control caption="Download"/>
 		<control caption="Cancel"/>
 		<control caption="PeerProject can download files from the web (HTTP), and automatically search and download P2P links (Magnet, Gnutella, eDonkey, mP2P)."/>
-		<control caption="PeerProject can also download BitTorrent files. A torrent can be described by a .torrent file, or a HTTP link to the .torrent file. To download a torrent HTTP link, paste it in the box above. If you already have a .torrent file, click Open Torrent:"/>
+		<control caption="PeerProject can also download BitTorrent files.  A torrent can be described by a .torrent file, or a HTTP link to the .torrent file.  To download a torrent HTTP link, paste it in the box above.  If you already have a .torrent file, click Open Torrent:"/>
 		<control caption="Open _Torrent..."/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="New Search|Search Again|Find in Library">
@@ -4293,11 +4294,6 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Help">
-		<control/>
-		<control caption="Close"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Delete File">
 		<control caption="Are you sure that you want to delete:"/>
 		<control/>
@@ -4328,103 +4324,114 @@
 		<control caption="_Next|_Export..."/>
 		<control caption="_Cancel"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Download Properties">
-		<control caption="WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption."/>
-		<control caption="Filename and Si_ze:"/>
-		<control caption="Filename:"/>
+	<dialog name="CMessageDlg" cookie="BuBuBuBuStStSt" caption="PeerProject">
+		<control caption="1"/>
+		<control caption="2"/>
+		<control caption="3"/>
+		<control caption="_Remember my selection next time"/>
+		<control caption="Your downloaded files folder &quot;D:\Autoload\PeerProject\Torrents&quot; is not yet in your library.{n}{n}Including your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.{n}{n}Would you like to add your downloaded files folder to your library now?"/>
 		<control/>
 		<control/>
-		<control caption="File size (Byte):"/>
 		<control/>
-		<control caption="_URNs:"/>
-		<control caption="Trusted"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Actions:"/>
-		<control caption="Forget current verification status and reverify"/>
-		<control caption="Assume file is 100% complete and reverify"/>
-		<control caption="Forget all known sources"/>
-		<control caption="Merge with local file and verify"/>
-		<control caption="Cancel download but save incomplete file(s)"/>
-		<control caption="Data _Eraser:"/>
-		<control caption="Byte range:"/>
-		<control/>
-		<control caption="to"/>
-		<control/>
-		<control caption="Erase"/>
 	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Open Torrent File">
 		<control/>
-		<control caption="You have opened a BitTorrent torrent file. Would you like to download its contents, or re-seed it?"/>
+		<control caption="You have opened a BitTorrent torrent file.  Would you like to download its contents, or re-seed it?"/>
 		<control caption="Download"/>
 		<control caption="Seed"/>
 		<control caption="Cancel"/>
-		<control caption="To share complete files using BitTorrent they must first be seeded. Once this process is complete the Torrent will appear as a new item in your download list."/>
+		<control caption="To share complete files using BitTorrent they must first be seeded.  Once this process is complete the Torrent will appear as a new item in your download list."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="General">
-		<control caption="Torrent _Information:"/>
-		<control caption="Name:"/>
-		<control/>
-		<control caption="Created:"/>
-		<control/>
-		<control caption="By:"/>
-		<control/>
-		<control caption="Comments:"/>
-		<control/>
-		<control caption="Transfers:"/>
-		<control caption="Start new download transfers:"/>
-		<control caption=" As needed| When ratio over 100%| Only when requested| Never"/>
-		<control/>
-		<control caption="Total Uploaded:"/>
-		<control caption="Notes:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Files">
-		<control caption="Torrent _Information:"/>
-		<control caption="Name:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">	<!--Variant-->
 		<control/>
-		<control caption="_Files:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="Torrent _Information:"/>
-		<control caption="Name:"/>
+		<control/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="_Current Tracker:"/>
-		<control caption="Completed (Seeds):"/>
-		<control/>
-		<control caption="Incomplete:"/>
-		<control/>
-		<control caption="_Refresh"/>
-		<control caption="_Trackers:"/>
-		<control/>
+		<control caption="Seeds (Complete):"/>
+		<control caption="Peers (Incomplete):"/>
 		<control caption="Tracker Mode:"/>
-		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
+		<control caption="Disabled|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
+		<control caption="_Refresh"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption=" As needed| When ratio over 100%| Only when requested| Never"/>
+		<control/>
+		<control caption="Torrent _Information:"/>
+		<control caption="Name:"/>
+		<control caption="Created:"/>
+		<control caption="By:"/>
+		<control caption="Comments:"/>
+		<control caption="Transfers:"/>
+		<control caption="Start new download transfers:"/>
+		<control caption="Total Uploaded:"/>
+		<control caption="Notes:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="General">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption."/>
+		<control caption="Filename and Si_ze:"/>
+		<control caption="Filename:"/>
+		<control caption="File size (Byte):"/>
+		<control caption="_URNs:"/>
+		<control caption="Trusted"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Actions">	<!--Variant-->
+		<control caption="WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption."/>
+		<control caption="Forget all known sources"/>
+		<control caption="Forget current verification status and reverify"/>
+		<control caption="Assume file is 100% complete and reverify"/>
+		<control caption="Merge with local file and verify"/>
+		<control caption="Cancel download but save incomplete files"/>
+		<control/>
+		<control/>
+		<control caption="_Actions:"/>
+		<control caption="Data _Eraser:"/>
+		<control caption="Byte range:"/>
+		<control caption="to"/>
+		<control caption="Erase"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Download Group Properties">
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent Downloads"/>
+		<control caption="_BitTorrent downloads+seeds"/>
 		<control/>
 		<control caption="_Add"/>
 		<control caption="_Remove"/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Group _Name:"/>
-		<control caption="Auto-_Filters:"/>
+		<control caption="_Group Name:"/>
+		<control caption="_Auto-Filters:"/>
 		<control caption="_Completed File Folder:"/>
 		<control caption="_Type of Files:"/>
 		<control caption="_*Drag&apos;n&apos;drop any download later."/>
@@ -4446,12 +4453,6 @@
 		<control caption="Don't check for new versions"/>
 		<control caption="Don't Upgrade"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Download Reviews">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata Localization">
 		<control caption="Please select the method of re-encoding:"/>
 		<control caption="Arabic|Baltic|Central European|Chinese Simplified|Chinese Traditional|Cyrillic|Greek|Hebrew|Japanese|Korean|Thai|Turkish|Vietnamese"/>
@@ -4463,11 +4464,32 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Download Reviews">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Help">
+		<control/>
+		<control caption="Close"/>
+		<control/>
+	</dialog>
+	<dialog name="CAboutDlg" cookie="StStStStStStStBu" caption="About PeerProject">
+		<control/>
+		<control caption="PeerProject Filesharing Client "/>
+		<control caption="&#169; PeerProject Development Team, 2002-"/>
+		<control caption="GPL: PeerProject is free software; you can redistribute and/or modify it {n}under the terms of the GNU General Public License as published by the {n}Free Software Foundation, version 3 or later."/>
+		<control caption="CreativeCommons BY-NC-SA covers original artwork."/>
+		<control caption="Please be aware of local laws and norms."/>
+		<control caption="http://PeerProject.org/"/>
+		<control caption="OK"/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4594,6 +4616,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to=""/>
 		<column from="Size" to=""/>
+		<column from="Status" to=""/>
+		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

@@ -52,6 +52,14 @@ void LoadManifestInfo(char *buf)
 		szUpdates = _wcsdup(p);
 		free(p);
 	}
+
+	if ((p=(TCHAR*)GetManifestValue(pszBuf, L"path"))!=NULL) {
+		szPath = _wcsdup(p);
+		free(p);
+	}
+	else {
+		szPath = szName;
+	}
 }
 
 int SetSkinAsDefault() {

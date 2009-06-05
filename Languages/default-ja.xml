@@ -3464,10 +3464,6 @@
 		<control caption="デフォルトのトラッカー: "/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="プロトコル">
-		<control caption="PeerProject一般プロトコル構造エクスプローラ:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="スキン">
 		<control/>
 		<control caption="スキン情報:"/>
@@ -3499,6 +3495,10 @@
 		<control caption="設定プロパティ:"/>
 		<control caption="値:"/>
 		<control caption="説明:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="プロトコル">
+		<control caption="PeerProject一般プロトコル構造エクスプローラ:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="アップロードキュープロパティ">
@@ -3655,6 +3655,14 @@
 		<control caption="年齢:"/>
 		<control caption="他のユーザーからの参照を許可する"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="近影">
+		<control caption="プレビュー(_P):"/>
+		<control/>
+		<control caption="選択(_S):"/>
+		<control caption="他のGnutellaユーザがあなたのプロフィールや共有ファイルを参照し、近影を見ることになります。 近影をカスタマイズするには128x128ピクセルで、 サポートしている画像ファイルの形式ならどんなものでも構いません。"/>
+		<control caption="参照(_B)..."/>
+		<control caption="削除(_R)"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="連絡先">
 		<control caption="Eメールアドレス(_E):"/>
 		<control caption="常時使用:"/>
@@ -3690,14 +3698,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="略歴">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="近影">
-		<control caption="プレビュー(_P):"/>
-		<control/>
-		<control caption="選択(_S):"/>
-		<control caption="他のGnutellaユーザがあなたのプロフィールや共有ファイルを参照し、近影を見ることになります。 近影をカスタマイズするには128x128ピクセルで、 サポートしている画像ファイルの形式ならどんなものでも構いません。"/>
-		<control caption="参照(_B)..."/>
-		<control caption="削除(_R)"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="お気に入り">
 		<control/>
@@ -4079,11 +4079,6 @@
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProjectヘルプ">
-		<control/>
-		<control caption="閉じる"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="ファイル削除">
 		<control caption="本当に削除してよろしいですか？:"/>
 		<control/>
@@ -4114,38 +4109,6 @@
 		<control caption="次へ(_N)|エクスポート..."/>
 		<control caption="キャンセル(_C)"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="ダウンロードを編集 (高度)">
-		<control caption="警告: このダイアログは熟練したユーザーに対して高度なダウンロード編集機能を提供します。 これが不当に使用された場合、恐らくそのダウンロードは不正になります。"/>
-		<control caption="ファイル名とサイズ(_Z):"/>
-		<control caption="ファイル名:"/>
-		<control/>
-		<control/>
-		<control caption="サイズ(バイト):"/>
-		<control/>
-		<control caption="URN(_U):"/>
-		<control caption="検証"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="操作(_A):"/>
-		<control caption="現在の検証情報を廃棄 (そして再検証)"/>
-		<control caption="ファイルが100%完全であるとみなして再検証する"/>
-		<control caption="既知ソースを全て廃棄"/>
-		<control caption="ローカルファイルと統合して検証する"/>
-		<control caption="キャンセル (save incomplete file)"/>
-		<control caption="データ消去(_E):"/>
-		<control caption="バイト範囲:"/>
-		<control/>
-		<control caption="→"/>
-		<control/>
-		<control caption="消去"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Torrentファイルを開く">
 		<control/>
 		<control caption="BitTorrentファイルを開きました。 その内容をダウンロード、又は再シードしますか??"/>
@@ -4155,47 +4118,80 @@
 		<control caption="BitTorrentを使用して完全なファイルを共有するには、先ず始めにシード作業を行う必要があります。 一旦この作業が完了すれば、Torrentがダウンロードリスト内に新しいアイテムとして表示されます。"/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="一般">
-		<control caption="Torrent情報(_I):"/>
-		<control caption="名前:"/>
-		<control/>
-		<control caption="作成日:"/>
-		<control/>
-		<control caption="作成者:"/>
-		<control/>
-		<control caption="コメント:"/>
-		<control/>
-		<control caption="転送:"/>
-		<control caption="新規ダウンロード転送の開始時期:"/>
-		<control caption="&#160;必要に応じて行う| 割合が100%を超えた時| 要求された場合のみ| 決して行わない"/>
-		<control/>
-		<control caption="アップロード合計:"/>
-		<control caption="注記:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="ファイル">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="ファイル">
-		<control caption="Torrent情報(_I):"/>
-		<control caption="名前:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="トラッカー">
 		<control/>
-		<control caption="ファイル(_F):"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="トラッカー">
-		<control caption="Torrent情報(_I):"/>
-		<control caption="名前:"/>
+		<control/>
 		<control/>
 		<control caption="トラッカー:"/>
-		<control/>
 		<control caption="現在のトラッカー(_D):"/>
-		<control caption="完了済み (シード):"/>
-		<control/>
-		<control caption="未完了:"/>
-		<control/>
-		<control caption="更新(_R)"/>
-		<control caption="トラッカー(_T):"/>
-		<control/>
+		<control caption="シード(完了済み):"/>
+		<control caption="(未完了):"/>
 		<control caption="トラッカー形態:"/>
 		<control caption="無効|カスタム|単一トラッカー|複数トラッカー|複数トラッカー (固定)"/>
+		<control caption="更新(_R)"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="一般">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;必要に応じて行う| 割合が100%を超えた時| 要求された場合のみ| 決して行わない"/>
+		<control/>
+		<control caption="Torrent情報:"/>
+		<control caption="名前:"/>
+		<control caption="作成日:"/>
+		<control caption="作成者:"/>
+		<control caption="コメント:"/>
+		<control caption="転送:"/>
+		<control caption="新規ダウンロード転送の開始時期:"/>
+		<control caption="アップロード合計:"/>
+		<control caption="注記:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="一般">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="警告: このダイアログは熟練したユーザーに対して高度なダウンロード編集機能を提供します。 これが不当に使用された場合、恐らくそのダウンロードは不正になります。"/>
+		<control caption="ファイル名とサイズ:"/>
+		<control caption="ファイル名:"/>
+		<control caption="サイズ(バイト):"/>
+		<control caption="_URN:"/>
+		<control caption="検証"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="操作">
+		<control caption="警告: このダイアログは熟練したユーザーに対して高度なダウンロード編集機能を提供します。 これが不当に使用された場合、恐らくそのダウンロードは不正になります。"/>
+		<control caption="既知ソースを全て廃棄"/>
+		<control caption="現在の検証情報を廃棄 (そして再検証)"/>
+		<control caption="ファイルが100%完全であるとみなして再検証する"/>
+		<control caption="ローカルファイルと統合して検証する"/>
+		<control caption="キャンセル (save incomplete file)"/>
+		<control/>
+		<control/>
+		<control caption="操作"/>
+		<control caption="データ消去(_E):"/>
+		<control caption="バイト範囲:"/>
+		<control caption="→"/>
+		<control caption="消去"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="ダウンロードグループプロパティ">
 		<control caption="OK"/>
@@ -4232,12 +4228,6 @@
 		<control caption="新バージョンをチェックしない"/>
 		<control caption="アップグレードしない"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="ダウンロードレビュー">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadataローカライズ">
 		<control caption="再エンコード方式を選択して下さい"/>
 		<control caption="アラビア語|バルト語|中央ヨーロッパ|簡体中国語|繁体中国語|キリル語|ギリシア語|ヘブライ語|日本語|韓国語|タイ語|トルコ語|ベトナム語"/>
@@ -4247,14 +4237,25 @@
 		<control/>
 		<control/>
 		<control caption="OK"/>
-		<control caption="Cancel"/>
+		<control caption="キャンセル(_C)"/>
 	</dialog>
-<!--<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+<!--<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
-		<control caption="Cancel"/>
+		<control caption="キャンセル(_C)"/>
 		<control caption="Enter channel you want to add:|Enter kick/ban reason:"/>
 	</dialog>-->
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="ダウンロードレビュー">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProjectヘルプ">
+		<control/>
+		<control caption="閉じる"/>
+		<control/>
+	</dialog>
 </dialogs>
 
 <!-- Columns Definitions -->
@@ -4381,6 +4382,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="ファイル名"/>
 		<column from="Size" to="サイズ"/>
+		<column from="Status" to="状態"/>
+		<column from="Priority" to="種類"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="トラッカー"/>

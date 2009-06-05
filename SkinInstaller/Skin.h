@@ -30,12 +30,12 @@
 // Globals
 extern int   skinType;
 extern TCHAR* szName;
+extern TCHAR* szPath;
 extern TCHAR* szVersion;
 extern TCHAR* szAuthor;
 extern TCHAR* szUpdates;
 extern TCHAR* szXML;
 extern TCHAR prefix[MAX_PATH];
-extern BOOL bRunningOnNT;
 
 // Extract.c
 void ExtractSkinFile(LPCTSTR pszFile);

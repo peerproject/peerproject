@@ -327,17 +327,18 @@ public:
 
 	struct sGnutella
 	{
-		DWORD		ConnectFactor;
+		DWORD		ConnectFactor;				// Number of hosts we simultaneously tries when connecting to single hub
 		bool		DeflateHub2Hub;
 		bool		DeflateLeaf2Hub;
 		bool		DeflateHub2Leaf;
-		DWORD		MaxResults;					// Maximum results to return to a single query
-		DWORD		MaxHits;
-		DWORD		HitsPerPacket;
-		DWORD		RouteCache;
-		DWORD		HostCacheSize;
+		DWORD		MaxResults;					// Maximum new results we want on single Search button press
+		DWORD		MaximumPacket;				// Drop packets large than specified (32...256 KB)
+		DWORD		MaxHits;					// Maximum file hits in search result (divided to packets by HitsPerPacket)
+		DWORD		HitsPerPacket;				// Maximum file hits in single search result packet
+		DWORD		RouteCache;					// Life time of node route (seconds)
+		DWORD		HostCacheSize;				// Number of hosts of each type in Host cache
 		DWORD		HostCacheView;
-		DWORD		ConnectThrottle;			// Delay between connection attempts (seconds)
+		DWORD		ConnectThrottle;			// Delay between connection attempts for same host (milliseconds)
 		bool		SpecifyProtocol;			// Specify G1 or G2 when initiating a connection
 	} Gnutella;
 
@@ -349,13 +350,12 @@ public:
 		DWORD		NumHubs;					// Number of ultrapeers a leaf has
 		DWORD		NumLeafs;					// Number of leafs an ultrapeer has
 		DWORD		NumPeers;					// Number of peers an ultrapeer has
-		DWORD		PacketBufferSize;
-		DWORD		PacketBufferTime;
+		DWORD		PacketBufferSize;			// Number of packets in packet buffer
+		DWORD		PacketBufferTime;			// Life time of packet in packet buffer before drop (milliseconds)
 		DWORD		DefaultTTL;
 		DWORD		SearchTTL;
 		DWORD		TranslateTTL;
 		DWORD		MaximumTTL;
-		DWORD		MaximumPacket;
 		DWORD		MaximumQuery;
 		bool		StrictPackets;
 		bool		EnableGGEP;
@@ -535,7 +535,7 @@ public:
 
 	struct sUploads
 	{
-		DWORD		MaxPerHost;					// Simultaneous uploads to one remote client
+		DWORD		MaxPerHost;					// Simultaneous uploads per remote client
 		DWORD		FreeBandwidthValue;
 		DWORD		FreeBandwidthFactor;
 		DWORD		ClampdownFactor;
@@ -737,6 +737,8 @@ public:
 		void	Load();
 		void	Save() const;
 		void	Normalize();
+		bool	IsDefault() const;
+		void	SetDefault();
 		template< class T > void	SetRange(T& pCtrl);
 
 		const LPCTSTR		m_szSection;
@@ -780,6 +782,8 @@ public:
 		return m_pItems.GetNext( rPosition );
 	}
 	void	Normalize(LPVOID pSetting);
+	bool	IsDefault(LPVOID pSetting) const;
+	void	SetDefault(LPVOID pSetting);
 
 	template< class T >
 	void	SetRange(LPVOID pSetting, T& pCtrl)

@@ -36,6 +36,7 @@ HKCU
 				{
 					NoRemove LibraryBuilder
 					{
+						ForceRemove val '.psk' = s '{A4F1E383-B493-4580-8DB6-5CC89CBAAC53}'
 						ForceRemove val '.sks' = s '{A4F1E383-B493-4580-8DB6-5CC89CBAAC53}'
 					}
 				}

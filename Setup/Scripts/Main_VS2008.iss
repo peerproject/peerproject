@@ -213,7 +213,7 @@ Source: "Languages\*"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion ov
 
 ; Tools
 ;Source: "Repository\Bittorrent Tempfile Chopper.exe"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-Source: "Repository\Pilo Torrent Tempfile Splitter.exe"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+;Source: "Repository\Pilo Torrent Tempfile Splitter.exe"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; Licenses
 ; Source: "Setup\License\LICENSE-GeoIP.txt"; DestDir: "{app}"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension

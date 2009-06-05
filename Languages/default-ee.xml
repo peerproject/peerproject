@@ -3428,10 +3428,6 @@
 		<control caption="Vaikimisi Jälitaja: "/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protolollid">
-		<control caption="PeerProject Üldehituse Protokollide Teave:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Nahad">
 		<control/>
 		<control caption="Naha Teave:"/>
@@ -3463,6 +3459,10 @@
 		<control caption="Kirjeldus:"/>
 		<control caption="Seadete Omadused:"/>
 		<control caption="Väärtus:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protolollid">
+		<control caption="PeerProject Üldehituse Protokollide Teave:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Üleslaadimisjärjekorra Omadused">
@@ -3617,6 +3617,14 @@
 		<control caption="Vanus:"/>
 		<control caption="Luba teistel minu andmeid vaadata"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
+		<control caption="_Eelvaade:"/>
+		<control/>
+		<control caption="_Vali:"/>
+		<control caption="Teised Gnutella kasutajad, sirvides sinu profiili ja jagatud faile näevad sinu pilti.  Pildi mõõdud peaksid jääma 128x128 piksilile ja võivad olla igas sinu arvuti poolt toetatavas formaadis."/>
+		<control caption="_Sirvi..."/>
+		<control caption="_Eemalda"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
 		<control caption="_Emaili Addressid:"/>
 		<control caption="Esmane:"/>
@@ -3652,14 +3660,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Biograafia">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
-		<control caption="_Eelvaade:"/>
-		<control/>
-		<control caption="_Vali:"/>
-		<control caption="Teised Gnutella kasutajad, sirvides sinu profiili ja jagatud faile näevad sinu pilti.  Pildi mõõdud peaksid jääma 128x128 piksilile ja võivad olla igas sinu arvuti poolt toetatavas formaadis."/>
-		<control caption="_Sirvi..."/>
-		<control caption="_Eemalda"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Lemmikud">
 		<control/>
@@ -4039,11 +4039,6 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Abi">
-		<control/>
-		<control caption="Sule"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuBuBuBuStEd" caption="Kustuta Fail">
 		<control caption="Oled kindel, et tahad kustutada:"/>
 		<control/>
@@ -4073,38 +4068,6 @@
 		<control caption="_Järgmine|Ekspordi"/>
 		<control caption="_Tühista"/>
 	</dialog>
-	<dialog name="CDownloadEditDlg" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStBuStEdStEdBuBuBuBu" caption="Muuda Allalaadimist">
-		<control caption="HOIATUS: See aken pakub täpsemat allalaadimiste andmete muutmise võimalust arenenud kasutajatele, mida valesti kasutades võib faili kasutuks muuta."/>
-		<control caption="Faili Nimi ja _Suurus:"/>
-		<control caption="Faili Nimi:"/>
-		<control/>
-		<control/>
-		<control caption="Faili Suurus (Baitides):"/>
-		<control/>
-		<control caption="_URNs:"/>
-		<control caption="Usaldatud"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Tegevused:"/>
-		<control caption="Unusta praegune kinnituse seis ja kinnita uuesti"/>
-		<control caption="Eelda, et fail on 100% valmis ja kinnita"/>
-		<control caption="Unusta kõik teadaolevad allikad"/>
-		<control caption="Ühilda kohaliku failiga ja kinnita"/>
-		<control caption="Tühista (save incomplete file)"/>
-		<control caption="Andmete _Kustutaja:"/>
-		<control caption="Baitide ulatus:"/>
-		<control/>
-		<control caption="kuni"/>
-		<control/>
-		<control caption="Kustuta"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Ava Torrent Fail">
 		<control/>
 		<control caption="Oled avanud BitTorrenti torrenti.  Kas soovid selle alla laadida, või edasi jagada?"/>
@@ -4114,47 +4077,80 @@
 		<control caption="Et jagada faile kasutades BitTorrentit, peavad nad olema jagatud.  Kui see on tehtud siis ilmub Torrent uue failina sinu allalaadimiste nimekirja"/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Üldiselt">
-		<control caption="Torrenti _Informatsioon:"/>
-		<control caption="Nimi:"/>
-		<control/>
-		<control caption="Loodud:"/>
-		<control/>
-		<control caption="Autor:"/>
-		<control/>
-		<control caption="Kommentaarid:"/>
-		<control/>
-		<control caption="Ülekanded:"/>
-		<control caption="Alusta uut ülekannet:"/>
-		<control caption="&#160;Vajadusel| Kui hinnang langeb alla 100%| Ainult nõudmisel| Mitte kunagi"/>
-		<control/>
-		<control caption="Kokku Üles Laaditud:"/>
-		<control caption="Märkmed:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Failid">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Failid">
-		<control caption="Torrenti _Informatsioon:"/>
-		<control caption="Nimi:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Jälitused">
 		<control/>
-		<control caption="_Failid:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Jälitused">
-		<control caption="Torrenti _Informatsioon:"/>
-		<control caption="Nimi:"/>
+		<control/>
 		<control/>
 		<control caption="Jälitaja:"/>
-		<control/>
 		<control caption="_Käesolev Jälitaja:"/>
-		<control caption="Valmis (Jagatav):"/>
-		<control/>
-		<control caption="Poolik:"/>
-		<control/>
-		<control caption="_Värskenda"/>
-		<control caption="_Jälitajad:"/>
-		<control/>
+		<control caption="Jagatav (Valmis):"/>
+		<control caption="Peers (Poolik):"/>
 		<control caption="Jälitus Rešiim:"/>
 		<control caption="Väljas|Vaba|Üks Jälitaja|Mitu Jälitajat|Mitu Jälitajat (lukustatud)"/>
+		<control caption="_Värskenda"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Üldiselt">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;Vajadusel| Kui hinnang langeb alla 100%| Ainult nõudmisel| Mitte kunagi"/>
+		<control/>
+		<control caption="Torrenti _Informatsioon:"/>
+		<control caption="Nimi:"/>
+		<control caption="Loodud:"/>
+		<control caption="Autor:"/>
+		<control caption="Kommentaarid:"/>
+		<control caption="Ülekanded:"/>
+		<control caption="Alusta uut ülekannet:"/>
+		<control caption="Kokku Üles Laaditud:"/>
+		<control caption="Märkmed:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Üldiselt">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="HOIATUS: See aken pakub täpsemat allalaadimiste andmete muutmise võimalust arenenud kasutajatele, mida valesti kasutades võib faili kasutuks muuta."/>
+		<control caption="Faili Nimi ja _Suurus:"/>
+		<control caption="Faili Nimi:"/>
+		<control caption="Faili Suurus (Baitides):"/>
+		<control caption="_URNs:"/>
+		<control caption="Usaldatud"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Tegevused">
+		<control caption="HOIATUS: See aken pakub täpsemat allalaadimiste andmete muutmise võimalust arenenud kasutajatele, mida valesti kasutades võib faili kasutuks muuta."/>
+		<control caption="Unusta kõik teadaolevad allikad"/>
+		<control caption="Unusta praegune kinnituse seis ja kinnita uuesti"/>
+		<control caption="Eelda, et fail on 100% valmis ja kinnita"/>
+		<control caption="Ühilda kohaliku failiga ja kinnita"/>
+		<control caption="Tühista (save incomplete file)"/>
+		<control/>
+		<control/>
+		<control caption="Tegevused:"/>
+		<control caption="Andmete _Kustutaja:"/>
+		<control caption="Baitide ulatus:"/>
+		<control caption="kuni"/>
+		<control caption="Kustuta"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Allalaadimisgrupi Omadused">
 		<control caption="OK"/>
@@ -4191,12 +4187,6 @@
 		<control caption="Ära kontrolli uut versiooni"/>
 		<control caption="Ära uuenda"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Allalaadimiste ülevaated">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Andmebaasi kohastamine">
 		<control caption="Vali ümberkodeerimise meetod"/>
 		<control caption="Arabic|Baltic|Central European|Chinese simplified|Chinese traditional|Cyrillic|Greek|Hebrew|Japanese|Korean|Thai|Turkish|Vietnamese"/>
@@ -4208,11 +4198,22 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Allalaadimiste ülevaated">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Abi">
+		<control/>
+		<control caption="Sule"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4339,6 +4340,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Faili nimi"/>
 		<column from="Size" to="Suurus"/>
+		<column from="Status" to="Olek"/>
+		<column from="Priority" to="Tüüp"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Jälitaja"/>

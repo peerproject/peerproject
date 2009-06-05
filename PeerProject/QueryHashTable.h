@@ -67,10 +67,10 @@ public:
 	bool	Merge(const CQueryHashGroup* pSource);
 	bool	PatchTo(const CQueryHashTable* pTarget, CNeighbour* pNeighbour);
 	bool	OnPacket(CPacket* pPacket);
-	int		AddFile(const CPeerProjectFile& oFile);		// Add filename and hashes split on keywords
-	int		AddHashes(const CPeerProjectFile& oFile);	// Add file hashes
-	int		AddString(const CString& strString);		// Add string with streaming
-	int		AddExactString(const CString& strString);	// Add string exactly
+	void	AddFile(const CPeerProjectFile& oFile);		// Add filename and hashes split on keywords
+	void	AddHashes(const CPeerProjectFile& oFile);	// Add file hashes
+	void	AddString(const CString& strString);		// Add string with streaming
+	void	AddExactString(const CString& strString);	// Add string exactly
 	bool	CheckString(const CString& strString) const;
 	bool	Check(const CQuerySearch& oSearch) const;
 	bool	CheckHash(const DWORD nHash) const;
@@ -79,7 +79,7 @@ public:
 protected:
 	bool	OnReset(CPacket* pPacket);
 	bool	OnPatch(CPacket* pPacket);
-	int		Add(LPCTSTR pszString, int nStart, int nLength);
-	int		AddExact(LPCTSTR pszString, int nStart, int nLength);
+	void	Add(LPCTSTR pszString, int nStart, int nLength);
+	void	AddExact(LPCTSTR pszString, int nStart, int nLength);
 	bool	PatchToOldPeerProject(const CQueryHashTable* pTarget, CNeighbour* pNeighbour);
 };

@@ -3376,10 +3376,6 @@
 		<control caption="Gjurmuesi Tipik:"/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokollet">
-		<control caption="Eksploruesi i Protokollit Arkitekturor të Zakontë i PeerProject-s:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Lëvoret">
 		<control/>
 		<control caption="Informacioni i lëvores:"/>
@@ -3411,6 +3407,10 @@
 		<control caption="Vetitë e Kuadros:"/>
 		<control caption="Vlera:"/>	
 		<control caption="Përshkrimi:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokollet">
+		<control caption="Eksploruesi i Protokollit Arkitekturor të Zakontë i PeerProject-s:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Vetitë e Ngarkesës në Radhë">
@@ -3567,6 +3567,14 @@
 		<control caption="Mosha:"/>
 		<control caption="Lejo përdoruesit e tjerë që të shfletojnë profilin tim si përdorues"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Foto">
+		<control caption="_Parashikimi:"/>
+		<control/>
+		<control caption="_Zgjedhja:"/>
+		<control caption="Përdoruesit e Gnutella-s që shfletojnë profilin/skedat që ju shpërndani, do e shikojnë foton tuaj. Fotot me porosi duhet të jenë 128x128 pikselë, dhe në çdo format të skedëimazhit që përkrah PC-ja juaj."/>
+		<control caption="_Shfleto..."/>
+		<control caption="_Fshije"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakti">
 		<control caption="_Adresa e e-mailit:"/>
 		<control caption="Parësore:"/>
@@ -3602,14 +3610,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Foto">
-		<control caption="_Parashikimi:"/>
-		<control/>
-		<control caption="_Zgjedhja:"/>
-		<control caption="Përdoruesit e Gnutella-s që shfletojnë profilin/skedat që ju shpërndani, do e shikojnë foton tuaj. Fotot me porosi duhet të jenë 128x128 pikselë, dhe në çdo format të skedëimazhit që përkrah PC-ja juaj."/>
-		<control caption="_Shfleto..."/>
-		<control caption="_Fshije"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoritet">
 		<control/>
@@ -3992,11 +3992,6 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Ndihmë në PeerProject">
-		<control/>
-		<control caption="Mbylle"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Fshije Skedën">
 		<control caption="A jeni i sigurt se doni të fshini:"/>
 		<control/>
@@ -4014,7 +4009,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Eksporto Koleksionin">
-<control caption="Kjo veçori përdoret për të eksportuar përmbajtjet e një dosjeje ose liste si nj skedë me koleksion të pasur. Ju lutemi zgjidhni një tempujkë dhe shtypni Vijo për të vijuar.|Porositeni koleksionin tuaj duke futur të dhëna më poshtë."/>
+		<control caption="Kjo veçori përdoret për të eksportuar përmbajtjet e një dosjeje ose liste si nj skedë me koleksion të pasur. Ju lutemi zgjidhni një tempujkë dhe shtypni Vijo për të vijuar.|Porositeni koleksionin tuaj duke futur të dhëna më poshtë."/>
 		<control/>
 		<control caption="Informacioni i Tempujkës:"/>
 		<control caption="Emri:"/>
@@ -4027,38 +4022,6 @@
 		<control caption="_Vijo|Eksporto..."/>
 		<control caption="_Anulo"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Editoni Shkarkesën">
-		<control caption="KUJDES: Kjo tabelë paraqet veçori të përparuara për editimin e shkarkimit, të cilat nëse përdoren jokorrekt mund, dhe mbase do të shkaktojnë korruptim."/>
-		<control caption="Emri dhe Për_masa e skedës:"/>
-		<control caption="Emri i skedës:"/>
-		<control/>
-		<control/>
-		<control caption="Përmasa (Bajte):"/>
-		<control/>
-		<control caption="_URN-e:"/>
-		<control caption="Me besim"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Veprime:"/>
-		<control caption="Harro statusin aktual të verifikimit dhe riverifiko"/>
-		<control caption="Supozo që skeda ka përfunduar 100% dhe riverifiko"/>
-		<control caption="Harro gjithë burimet e njohura"/>
-		<control caption="Bashkoje me skedën lokale dhe riverifiko"/>
-		<control caption="Cancel download but save incomplete file(s)"/>
-		<control caption="_Fshirësi i të Dhënave:"/>
-		<control caption="Caku i bajtit:"/>
-		<control/>
-		<control caption="tek"/>
-		<control/>
-		<control caption="Fshije"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Hap Skedë Torrent">
 		<control/>
 		<control caption="Ju keni hapur një skedë torrent në BitTorrent. A doni t'i shkarkoni përmbajtjet e saj, apo ta rimbillni?"/>
@@ -4068,47 +4031,79 @@
 		<control caption="Për të shpërndarë skeda të plota me BitTorrent ato në fillim duhet të mbillen. Sapo ky proces të përfundojë Torrent-i do të shfaqet si një njësi e re në listën tuaj të shkarkimeve."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Përgjithësi">
-		<control caption="_Informacion mbi Torrentin:"/>
-		<control caption="Emri:"/>
-		<control/>
-		<control caption="Krijimi:"/>
-		<control/>
-		<control caption="Nga:"/>
-		<control/>
-		<control caption="Komente:"/>
-		<control/>
-		<control caption="Transferta:"/>
-		<control caption="Nis transferim të ri të shkarkesës:"/>
-		<control caption="&#160;Siç nevojitet| Kur raporti është mbi 100%| Vetëm kur kërkohet| Kurrë"/>
-		<control/>
-		<control caption="Ngarkimi Total:"/>
-		<control caption="Shënime:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Skedat">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Skedat">
-		<control caption="_Informacion mbi Torrentin:"/>
-		<control caption="Emri:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Gjurmuesit">
 		<control/>
-		<control caption="_Skedat:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Gjurmuesit">
-		<control caption="_Informacion mbi Torrentin:"/>
-		<control caption="Emri:"/>
 		<control/>
 		<control caption="Gjurmuesi:"/>
-		<control/>
 		<control caption="Gjurmuesi _Aktual:"/>
-		<control caption="Përfundimi (Farat):"/>
-		<control/>
-		<control caption="Pa përfunduar:"/>
-		<control/>
-		<control caption="_Rifresko"/>
-		<control caption="_Gjurmuesit:"/>
-		<control/>
+		<control caption="Farat (Përfundimi):"/>
+		<control caption="Peers (Pa përfunduar):"/>
 		<control caption="Mënyra e Gjurmuesit:"/>
 		<control caption="E çaktivizuar|Me porosi|Gjurmues i vetëm|Multi-gjurmues|Multi-gjurmues (i kyçur)"/>
+		<control caption="_Rifresko"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrentin">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;Siç nevojitet| Kur raporti është mbi 100%| Vetëm kur kërkohet| Kurrë"/>
+		<control/>
+		<control caption="_Informacion mbi Torrentin:"/>
+		<control caption="Emri:"/>
+		<control caption="Krijimi:"/>
+		<control caption="Nga:"/>
+		<control caption="Komente:"/>
+		<control caption="Transferta:"/>
+		<control caption="Nis transferim të ri të shkarkesës:"/>
+		<control caption="Ngarkimi Total:"/>
+		<control caption="Shënime:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Përgjithësi">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="KUJDES: Kjo tabelë paraqet veçori të përparuara për editimin e shkarkimit, të cilat nëse përdoren jokorrekt mund, dhe mbase do të shkaktojnë korruptim."/>
+		<control caption="Emri dhe Për_masa e skedës:"/>
+		<control caption="Emri i skedës:"/>
+		<control caption="Përmasa (Bajte):"/>
+		<control caption="_URN-e:"/>
+		<control caption="Me besim"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Veprime">
+		<control caption="KUJDES: Kjo tabelë paraqet veçori të përparuara për editimin e shkarkimit, të cilat nëse përdoren jokorrekt mund, dhe mbase do të shkaktojnë korruptim."/>
+		<control caption="Harro gjithë burimet e njohura"/>
+		<control caption="Harro statusin aktual të verifikimit dhe riverifiko"/>
+		<control caption="Supozo që skeda ka përfunduar 100% dhe riverifiko"/>
+		<control caption="Bashkoje me skedën lokale dhe riverifiko"/>
+		<control caption="Cancel download but save incomplete files"/>
+		<control/>
+		<control/>
+		<control caption="Veprime:"/>
+		<control caption="_Fshirësi i të Dhënave:"/>
+		<control caption="Caku i bajtit:"/>
+		<control caption="tek"/>
+		<control caption="Fshije"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Vetitë e Grupit në Shkarkim">
 		<control caption="OK"/>
@@ -4145,12 +4140,6 @@
 		<control caption="Mos verifiko për versione të reja"/>
 		<control caption="Mos Përmirëso"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Pasqyrimet e Shkarkesës">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Vendndodhja e Metadatave">
 		<control caption="Ju lutemi zgjidhni metodën e rikodimit"/>
 		<control caption="Arabe|Baltike|Europa Qendrore|Kineze e thjeshtë|Kineze tradicionale|Cirilike|Greke|Hebraike|Japoneze|Koreane|Tailandeze|Turke|Vietnameze"/>
@@ -4162,11 +4151,22 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 		<control caption="Enter channel you want to add:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Pasqyrimet e Shkarkesës">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="Ndihmë në PeerProject">
+		<control/>
+		<control caption="Mbylle"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4293,6 +4293,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Emri i skedës"/>
 		<column from="Size" to="Përmasa"/>
+		<column from="Status" to="Statusi"/>
+		<column from="Priority" to="Lloji"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Gjurmuesi"/>

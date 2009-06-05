@@ -3495,10 +3495,6 @@
 		<control caption="_Tracker por defecto:"/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocolos">
-		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skins">
 		<control/>
 		<control caption="Información del skin:"/>
@@ -3530,6 +3526,10 @@
 		<control caption="Configuración:"/>
 		<control caption="Valor:"/>
 		<control caption="Descripción:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocolos">
+		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Propiedades de Cola de Subida">
@@ -3686,6 +3686,14 @@
 		<control caption="Edad:"/>
 		<control caption="Permitir que otros exploren mi perfil"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
+		<control caption="Vista _previa:"/>
+		<control/>
+		<control caption="_Seleccionar:"/>
+		<control caption="Otros usuarios que vean tu perfil, tambien van a ver tu avatar.  Avatares personales deben ser de 128x128 pixels, y pueden ser en cualquier formato soportado por tu PC."/>
+		<control caption="_Explorar..."/>
+		<control caption="_Quitar"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Contacto">
 		<control caption="Correo elecrónico:"/>
 		<control caption="Primario:"/>
@@ -3721,14 +3729,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Acerca de mí">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
-		<control caption="Vista _previa:"/>
-		<control/>
-		<control caption="_Seleccionar:"/>
-		<control caption="Otros usuarios que vean tu perfil, tambien van a ver tu avatar.  Avatares personales deben ser de 128x128 pixels, y pueden ser en cualquier formato soportado por tu PC."/>
-		<control caption="_Explorar..."/>
-		<control caption="_Quitar"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoritos">
 		<control/>
@@ -4111,11 +4111,6 @@
 		<control caption="Aceptar"/>
 		<control caption="Cancelar"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Ayuda de PeerProject">
-		<control/>
-		<control caption="Cerrar"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Eliminar Archivo">
 		<control caption="¿Estás seguro de eliminar?"/>
 		<control/>
@@ -4146,38 +4141,6 @@
 		<control caption="_Siguiente|Exportar..."/>
 		<control caption="_Cancelar"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Editar Descarga (Avanzado)">
-		<control caption="ADVERTENCIA: En este diálogo se pueden configurar opciones avanzadas de la descarga, que pueden dañar o perder la descarga."/>
-		<control caption="_Nombre de archivo y tamao:"/>
-		<control caption="Nombre de archivo:"/>
-		<control/>
-		<control/>
-		<control caption="Tamao de Archivo (Byte):"/>
-		<control/>
-		<control caption="_URNs:"/>
-		<control caption="Confiado"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Acciones:"/>
-		<control caption="Olvidar el estado de verificación actual (y reverificar)"/>
-		<control caption="Asumir completados y reverificar (para recuperar descargas)"/>
-		<control caption="Olvidar todas las fuentes"/>
-		<control caption="Juntar con archivo local y verificar"/>
-		<control caption="Cancelar (save incomplete file)"/>
-		<control caption="_Eliminar de Data:"/>
-		<control caption="Eliminar bytes:"/>
-		<control/>
-		<control caption="_a:"/>
-		<control/>
-		<control caption="Eliminar"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Abrir Archivo Torrent">
 		<control/>
 		<control caption="Has abierto un archivo Torrent.  ¿Deseas volver a bajar sus componentes?, o ¿volverlo a compartir?"/>
@@ -4187,47 +4150,79 @@
 		<control caption="Para compartir archivos completados usando BitTorrent deben estar seeded.  Cuando este proceso esté completo el Torrent va aparecer como un nuevo artículo en archivos descargados."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Información Avanzada de Bittorrent">
-		<control caption="Información _Torrent:"/>
-		<control caption="Nombre:"/>
-		<control/>
-		<control caption="Creaado:"/>
-		<control/>
-		<control caption="Por:"/>
-		<control/>
-		<control caption="Comentarios:"/>
-		<control/>
-		<control caption="Transferencias:"/>
-		<control caption="Iniciar nuevas descargas:"/>
-		<control caption="&#160;Cuando sea necesario| Cuando el ratio es ms de 100%| Cuando sea necesario| Nunca"/>
-		<control/>
-		<control caption="Subida total:"/>
-		<control caption="Notas:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Files">
-		<control caption="_Informacin de Torrent :"/>
-		<control caption="Nombre:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control/>
-		<control caption="_Archivos:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="_Información de Torrent:"/>
-		<control caption="Nombre:"/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="_Fuentes Descargando (Peers):"/>
-		<control caption="Completados (Seeds):"/>
-		<control/>
-		<control caption="Incompleto:"/>
-		<control/>
-		<control caption="_Actualizar"/>
-		<control caption="_Trackers"/>
-		<control/>
+		<control caption="Seeds (Completado):"/>
+		<control caption="Peers (Incompleto):"/>
 		<control caption="Tracker Mode:"/>
 		<control caption="Deshabilitado|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
+		<control caption="_Actualizar"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Bittorrent">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;Cuando sea necesario| Cuando el ratio es ms de 100%| Cuando sea necesario| Nunca"/>
+		<control/>
+		<control caption="Información _Torrent:"/>
+		<control caption="Nombre:"/>
+		<control caption="Creaado:"/>
+		<control caption="Por:"/>
+		<control caption="Comentarios:"/>
+		<control caption="Transferencias:"/>
+		<control caption="Iniciar nuevas descargas:"/>
+		<control caption="Subida total:"/>
+		<control caption="Notas:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Avanzado">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="ADVERTENCIA: En este diálogo se pueden configurar opciones avanzadas de la descarga, que pueden dañar o perder la descarga."/>
+		<control caption="_Nombre de archivo y tamao:"/>
+		<control caption="Nombre de archivo:"/>
+		<control caption="Tamao de Archivo (Byte):"/>
+		<control caption="_URNs:"/>
+		<control caption="Confiado"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Acciones">
+		<control caption="ADVERTENCIA: En este diálogo se pueden configurar opciones avanzadas de la descarga, que pueden dañar o perder la descarga."/>
+		<control caption="Olvidar todas las fuentes"/>
+		<control caption="Olvidar el estado de verificación actual (y reverificar)"/>
+		<control caption="Asumir completados y reverificar (para recuperar descargas)"/>
+		<control caption="Juntar con archivo local y verificar"/>
+		<control caption="Cancelar (save incomplete file)"/>
+		<control/>
+		<control/>
+		<control caption="_Acciones:"/>
+		<control caption="_Eliminar de Data:"/>
+		<control caption="Eliminar bytes:"/>
+		<control caption="a"/>
+		<control caption="Eliminar"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Propiedades del Grupo de Descarga">
 		<control caption="OK"/>
@@ -4264,12 +4259,6 @@
 		<control caption="No checar si hay nuevas versiones"/>
 		<control caption="No deseo actualizar"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Descargar Reviews">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Ubicar Metadata">
 		<control caption="Por favor selecciona un metodo de codificación"/>
 		<control caption="Arabico|Baltico|Europa Central|Chino Simplificado|Chino Traducional|Cirílico|Griego|Hebreo|Japonés|Koreano|Taílandes|Turco|Vietnamita"/>
@@ -4281,11 +4270,22 @@
 		<control caption="OK"/>
 		<control caption="Cancelar"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Cancelar"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Descargar Reviews">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="Ayuda de PeerProject">
+		<control/>
+		<control caption="Cerrar"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4412,6 +4412,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Nombre de archivo"/>
 		<column from="Size" to="Tamao"/>
+		<column from="Status" to="Estado"/>
+		<column from="Priority" to="Tipo"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

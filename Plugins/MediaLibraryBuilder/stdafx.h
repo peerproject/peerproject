@@ -1,5 +1,5 @@
 //
-// stdafx.h : include file for standard system include files
+// StdAfx.h : standard system include files
 //
 // This file is part of PeerProject (peerproject.org) © 2008
 // Portions Copyright Nikolay Raspopov, 2005.

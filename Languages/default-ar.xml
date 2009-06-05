@@ -3586,10 +3586,6 @@
 		<control caption="متتبع إفتراضي" />
 		<control />
 	</dialog>
-    <dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="بروتوكول">
-		<control caption=": المشترك PeerProject مستكشف بروتوكول بنية" />
-		<control />
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="الغلاف">
 		<control />
 		<control caption=":معلومات الغلاف" />
@@ -3621,6 +3617,10 @@
 		<control caption=":إعداد الخصائص" />
 		<control caption=":القيمة" />
 		<control caption=":الوصف" />
+		<control />
+	</dialog>
+    <dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="بروتوكول">
+		<control caption=": المشترك PeerProject مستكشف بروتوكول بنية" />
 		<control />
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="خصائص قائمة إنتظار الإرسال">
@@ -3777,6 +3777,14 @@
 		<control caption=":العمر" />
 		<control caption="السمح للآخرين بتصفح التشكيل الجانبي لمواصفاتي" />
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="الصور الرمزية">
+		<control caption=":ال_عرض" />
+		<control />
+		<control caption=":إ_ختيار" />
+		<control caption="سيشاهد المستخدمون في شبكة نيتيللا الآخرون الذين يتصفحون التشكيل الجانبي لمعلوماتك الشخصية و ملفاتك المشاركة الصورة الرمزية الخاصة بك . الصور الرمزية المخصصة يجب أن تكون 128 × 128 بيكسل و يمكن أن تكون من نوع من أنواع الصور المعتمدة" />
+		<control caption="_استعرض..." />
+		<control caption="_إزالة" />
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="الإتصال">
 		<control caption=":ال_بريد الالكتروني" />
 		<control caption=":ال_أساسي" />
@@ -3812,14 +3820,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="نبذة عنك">
 		<control />
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="الصور الرمزية">
-		<control caption=":ال_عرض" />
-		<control />
-		<control caption=":إ_ختيار" />
-		<control caption="سيشاهد المستخدمون في شبكة نيتيللا الآخرون الذين يتصفحون التشكيل الجانبي لمعلوماتك الشخصية و ملفاتك المشاركة الصورة الرمزية الخاصة بك . الصور الرمزية المخصصة يجب أن تكون 128 × 128 بيكسل و يمكن أن تكون من نوع من أنواع الصور المعتمدة" />
-		<control caption="_استعرض..." />
-		<control caption="_إزالة" />
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="المفضلة">
 		<control />
@@ -4200,11 +4200,6 @@
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject تعليمات">
-		<control />
-		<control caption="إغلاق" />
-		<control />
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuBuBuBuStEd" caption="حذف ملف">
 		<control caption="أنت متأكّد بأنك تريد الحذف:" />
 		<control />
@@ -4235,38 +4230,6 @@
 		<control caption="_Next|Export..." />
 		<control caption="_إلغاء الأمر" />
 	</dialog>
-    <dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Download Properties">
-		<control caption="WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption." />
-		<control caption="Filename and Si_ze:" />
-		<control caption="Filename:" />
-		<control />
-		<control />
-		<control caption="File size (Byte):" />
-		<control />
-		<control caption="_URNs:" />
-		<control caption="Trusted" />
-		<control caption="SHA1:" />
-		<control />
-		<control />
-		<control caption="Tiger-Root:" />
-		<control />
-		<control />
-		<control caption="ED2K:" />
-		<control />
-		<control />
-		<control caption="_Actions:" />
-		<control caption="Forget current verification status and reverify" />
-		<control caption="Assume file is 100% complete and reverify" />
-		<control caption="Forget all known sources" />
-		<control caption="Merge with local file and verify" />
-		<control caption="Cancel download but save incomplete file"/>
-		<control caption="Data _Eraser:" />
-		<control caption="Byte range:" />
-		<control />
-		<control caption="to" />
-		<control />
-		<control caption="مسح" />
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption=" فتح ملف Torrent">
 		<control />
 		<control caption="You have opened a BitTorrent torrent file.  Would you like to download its contents, or re-seed it?" />
@@ -4276,49 +4239,82 @@
 		<control caption="To share complete files using BitTorrent they must first be seeded.  Once this process is complete the Torrent will appear as a new item in your download list." />
 		<control />
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="General">
-		<control caption="Torrent _Information:" />
-		<control caption="Name:" />
-		<control />
-		<control caption="Created:" />
-		<control />
-		<control caption="By:" />
-		<control />
-		<control caption="Comments:" />
-		<control />
-		<control caption="Transfers:" />
-		<control caption="Start new download transfers:" />
-		<control caption=" As needed| When ratio over 100%| Only when requested| Never" />
-		<control />
-		<control caption="Total Uploaded:" />
-		<control caption="Notes:" />
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
 		<control />
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Files">
-		<control caption="Torrent _Information:" />
-		<control caption="Name:" />
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control />
-		<control caption="_Files:" />
 		<control />
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="Torrent _Information:" />
-		<control caption="Name:" />
+		<control />
 		<control />
 		<control caption="Tracker:" />
-		<control />
 		<control caption="_Current Tracker:" />
-		<control caption="Completed (Seeds):" />
-		<control />
-		<control caption="Incomplete:" />
-		<control />
-		<control caption="ت_حديث" />
-		<control caption="_Trackers:" />
-		<control />
+		<control caption="Seeds (Complete):" />
+		<control caption="Peers (Incomplete):" />
 		<control caption="Tracker Mode:" />
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)" />
+		<control caption="ت_حديث" />
 	</dialog>
-    <dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Download Group Properties">
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="General">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption=" As needed| When ratio over 100%| Only when requested| Never" />
+		<control caption="Torrent _Information:" />
+		<control caption="Name:" />
+		<control caption="Created:" />
+		<control caption="By:" />
+		<control caption="Comments:" />
+		<control caption="Transfers:" />
+		<control caption="Start new download transfers:" />
+		<control caption="Total Uploaded:" />
+		<control caption="Notes:" />
+	</dialog>
+     	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="General">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption." />
+		<control caption="Filename and Si_ze:" />
+		<control caption="Filename:" />
+		<control caption="File size (Byte):" />
+		<control caption="_URNs:" />
+		<control caption="Trusted" />
+		<control caption="SHA1:" />
+		<control caption="Tiger-Root:" />
+		<control caption="ED2K:" />
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="_Actions:">
+		<control caption="WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption." />
+		<control caption="Forget all known sources" />
+		<control caption="Forget current verification status and reverify" />
+		<control caption="Assume file is 100% complete and reverify" />
+		<control caption="Merge with local file and verify" />
+		<control caption="Cancel download but save incomplete file"/>
+		<control />
+		<control />
+		<control caption="_Actions:" />
+		<control caption="Data _Eraser:" />
+		<control caption="Byte range:" />
+		<control caption="to" />
+		<control caption="مسح" />
+	</dialog>
+	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Download Group Properties">
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 		<control />
@@ -4353,12 +4349,6 @@
 		<control caption="Don't check for new versions" />
 		<control caption="Don't Upgrade" />
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Download Reviews">
-		<control />
-		<control caption="حسنا" />
-		<control />
-		<control />
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata Localisation">
 		<control caption="Please select the method of re-encoding:" />
 		<control caption="Arabic|Baltic|Central European|Chinese simplified|Chinese traditional|Cyrillic|Greek|Hebrew|Japanese|Korean|Thai|Turkish|Vietnamese" />
@@ -4370,11 +4360,22 @@
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Download Reviews">
+		<control />
+		<control caption="حسنا" />
+		<control />
+		<control />
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject تعليمات">
+		<control />
+		<control caption="إغلاق" />
+		<control />
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4501,6 +4502,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="إسم الملف" />
 		<column from="Size" to="الحجم" />
+		<column from="Status" to="الحالة"/>
+		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="المتتبع" />

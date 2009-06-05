@@ -20,7 +20,8 @@
 //
 
 #include "StdAfx.h"
-#include "MediaPlayer.h"
+#include "MediaPlayer_h.h"
+#include "MediaPlayer_i.c"
 
 class CMediaPlayerModule : public CAtlDllModuleT< CMediaPlayerModule >
 {
