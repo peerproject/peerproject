@@ -34,7 +34,7 @@ public:
 	CTransfers();
 	virtual ~CTransfers();
 
-	mutable CMutex	m_pSection;
+	mutable CMutexEx	m_pSection;
 
 	BOOL		IsConnectedTo(const IN_ADDR* pAddress) const;
 	BOOL		StartThread();

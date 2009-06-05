@@ -2222,6 +2222,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Nimi"/>
 		<column from="Size" to="Koko"/>
+		<column from="Status" to="Tila"/>
+		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

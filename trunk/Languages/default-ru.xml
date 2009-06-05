@@ -3636,10 +3636,6 @@
 		<control caption="Трекер по умолч.: "/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Протоколы">
-		<control caption="PeerProject обозреватель протоколов общей архитектуры:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Шкурки">
 		<control/>
 		<control caption="Информация о шкурке:"/>
@@ -3671,6 +3667,10 @@
 		<control caption="Свойства установки:"/>
 		<control caption="Значение:"/>
 		<control caption="Описание:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Протоколы">
+		<control caption="PeerProject обозреватель протоколов общей архитектуры:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Настройка очереди раздач">
@@ -3827,6 +3827,14 @@
 		<control caption="Возраст:"/>
 		<control caption="Другим можно смотреть мой профиль"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Воплощение">
+		<control caption="_Предварительный просмотр:"/>
+		<control/>
+		<control caption="_Выбор:"/>
+		<control caption="Другие пользователи Gnutella, просматривающие ваш профиль и файлы будут видеть вашу картинку воплощения. Она должна быть размером 128x128 пикселей, любого формата изображений."/>
+		<control caption="В_ыбрать..."/>
+		<control caption="_Удалить"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Контакты">
 		<control caption="_Адреса эл. почты:"/>
 		<control caption="Основной:"/>
@@ -3862,14 +3870,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="О себе">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Воплощение">
-		<control caption="_Предварительный просмотр:"/>
-		<control/>
-		<control caption="_Выбор:"/>
-		<control caption="Другие пользователи Gnutella, просматривающие ваш профиль и файлы будут видеть вашу картинку воплощения. Она должна быть размером 128x128 пикселей, любого формата изображений."/>
-		<control caption="В_ыбрать..."/>
-		<control caption="_Удалить"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Избранное">
 		<control/>
@@ -4252,11 +4252,6 @@
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Справка PeerProject'ы">
-		<control/>
-		<control caption="Закрыть"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Удалить файл">
 		<control caption="Вы уверенны, что хотите удалить?:"/>
 		<control/>
@@ -4287,6 +4282,49 @@
 		<control caption="_Далее|Экспорт..."/>
 		<control caption="Отмена"/>
 	</dialog>
+	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Открыть торрент">
+		<control/>
+		<control caption="Вы открыли торрент..."/>
+		<control caption="Загрузить"/>
+		<control caption="Раздать"/>
+		<control caption="Отмена"/>
+		<control caption="Чтобы обмениваться файлами в BitTorrent, их нужно сперва раздать. Когда процесс завершится, торрент появится в Вашем списке загрузок."/>
+		<control/>
+	</dialog>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Файлы">
+		<control/>
+	</dialog>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Трекеры">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Трекер:"/>
+		<control caption="_Активный трекер:"/>
+		<control caption="Pаздача (_Сидеры):"/>
+		<control caption="Загрузка (_Личеры):"/>
+		<control caption="Режим трекера:"/>
+		<control caption="Отключен|Один трекер|Мульти-трекер|Мульти-трекер (заблокир.)"/>
+		<control caption="_Обновить"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Торрент">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption=" Когда необходимо| Когда соотношение выше 100%| Только когда запрашивают| Никогда"/>
+		<control/>
+		<control caption="_Информация о торренте:"/>
+		<control caption="Файл:"/>
+		<control caption="Создан:"/>
+		<control caption="Чем:"/>
+		<control caption="Примечания:"/>
+		<control caption="Пересылки:"/>
+		<control caption="Начать новые загрузки:"/>
+		<control caption="Всего роздано:"/>
+		<control caption="Заметки:"/>
+	</dialog>
 	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Загрузка">
 		<control/>
 		<control/>
@@ -4313,63 +4351,20 @@
 		<control caption="MD5:"/>
 		<control caption="BitTorrent:"/>
 	</dialog>
-	<dialog name="CDownloadActionsPage" cookie="StStStStStEdEdBuBuBuStStSt" caption="Действия">
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Действия">
+		<control caption="ВНИМАНИЕ: Этот диалог для ОПЫТНЫХ пользователей и дает опции, которые при неправильном использовании могут разрушить загрузку."/>
+		<control caption="Забыть все известные источники"/>
 		<control caption="Забыть текущий статус проверки и перепроверить"/>
 		<control caption="Считать, что файл загружен на 100% и перепроверить"/>
-		<control caption="Забыть все известные источники"/>
 		<control caption="Слить с локальным файлом и перепроверить"/>
 		<control caption="Отменить загрузку с сохранением неполных файлов"/>
 		<control/>
 		<control/>
-		<control caption="Стереть"/>
 		<control caption="_Действия:"/>
 		<control caption="_Стиратель:"/>
 		<control caption="Сотри с:"/>
 		<control caption="по"/>
-		<control caption="ВНИМАНИЕ: Этот диалог для ОПЫТНЫХ пользователей и дает опции, которые при неправильном использовании могут разрушить загрузку."/>
-	</dialog>
-	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Открыть торрент">
-		<control/>
-		<control caption="Вы открыли торрент..."/>
-		<control caption="Загрузить"/>
-		<control caption="Раздать"/>
-		<control caption="Отмена"/>
-		<control caption="Чтобы обмениваться файлами в BitTorrent, их нужно сперва раздать. Когда процесс завершится, торрент появится в Вашем списке загрузок."/>
-		<control/>
-	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Торрент">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption=" Когда необходимо| Когда соотношение выше 100%| Только когда запрашивают| Никогда"/>
-		<control/>
-		<control caption="_Информация о торренте:"/>
-		<control caption="Файл:"/>
-		<control caption="Создан:"/>
-		<control caption="Чем:"/>
-		<control caption="Примечания:"/>
-		<control caption="Пересылки:"/>
-		<control caption="Начать новые загрузки:"/>
-		<control caption="Всего роздано:"/>
-		<control caption="Заметки:"/>
-	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Файлы">
-		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdCoBuSyStBuStStSt" caption="Трекеры">
-		<control/>
-		<control/>
-		<control/>
-		<control caption="Отключен|Один трекер|Мульти-трекер|Мульти-трекер (заблокир.)"/>
-		<control caption="_Обновить"/>
-		<control/>
-		<control caption="Трекер:"/>
-		<control caption="_Активный трекер:"/>
-		<control caption="_Сидеры (раздача):"/>
-		<control caption="_Личеры (загрузка):"/>
-		<control caption="Режим трекера:"/>
+		<control caption="Стереть"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Свойства группы загрузки">
 		<control caption="OK"/>
@@ -4406,12 +4401,6 @@
 		<control caption="Не проверять новых версий"/>
 		<control caption="Не обновлять"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Оценки закрузки">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Локализация мета данных">
 		<control caption="Выберите способ перекодировки (группу языков)"/>
 		<control caption="Арабский|Балтийский|Центральной Европы|Китайский упрощенный|Китайский традиционный|Кириллица|Греческий|Иврит|Японский|Корейский|Тайский|Турецкий|Вьетнамский"/>
@@ -4423,11 +4412,22 @@
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Оценки закрузки">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="Справка PeerProject'ы">
+		<control/>
+		<control caption="Закрыть"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4554,6 +4554,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Файл"/>
 		<column from="Size" to="Размер"/>
+		<column from="Status" to="Статус"/>
+		<column from="Priority" to="Тип"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Трекер"/>

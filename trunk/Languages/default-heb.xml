@@ -3645,10 +3645,6 @@ PDF
 		<control caption=" :עוקב הטורנטים"/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="פרוטוקולים">
-		<control caption=":סייר ארכיטקטורת פרוטוקול משותף של שרזה"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="מעטפות">
 		<control/>
 		<control caption=":מידע על המעטפות"/>
@@ -3680,6 +3676,10 @@ PDF
 		<control caption=":ערך"/>
 		<control caption=":תיאור"/>
 		<control caption=":"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="פרוטוקולים">
+		<control caption=":סייר ארכיטקטורת פרוטוקול משותף של שרזה"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="מאפייני תורות העלאה">
@@ -3836,6 +3836,14 @@ PDF
 		<control caption=":גיל"/>
 		<control caption="אפשר לאחרים לסייר בפרופיל המשתמש שלי"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="תמונת פרופיל">
+		<control caption=":תצוגה מקדימה"/>
+		<control/>
+		<control caption=":בחר"/>
+		<control caption="משתמשי גנוטלה שיסיירו בפרופיל שלך יראו את תמונתך. תמונות שאתה יוצר צריכות להיות בגודל 128 על 128 פיקסלים ויכולים להיות מכל סוג של קובץ תמונה שנתמך במחשבך"/>
+		<control caption="סייר"/>
+		<control caption="הסר"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="צור קשר">
 		<control caption=":כתובות אימייל"/>
 		<control caption=":ראשי"/>
@@ -3871,14 +3879,6 @@ PDF
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="ביוגרפיה">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="תמונת פרופיל">
-		<control caption=":תצוגה מקדימה"/>
-		<control/>
-		<control caption=":בחר"/>
-		<control caption="משתמשי גנוטלה שיסיירו בפרופיל שלך יראו את תמונתך. תמונות שאתה יוצר צריכות להיות בגודל 128 על 128 פיקסלים ויכולים להיות מכל סוג של קובץ תמונה שנתמך במחשבך"/>
-		<control caption="סייר"/>
-		<control caption="הסר"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="מועדפים">
 		<control/>
@@ -4261,11 +4261,6 @@ PDF
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="עזרה של שרזה">
-		<control/>
-		<control caption="סגור"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="מחק קובץ">
 		<control caption=":האם אתה בטוח שברצונך למחוק"/>
 		<control/>
@@ -4296,38 +4291,6 @@ PDF
 		<control caption="_הבא|יצא..."/>
 		<control caption="_בטל"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="ערוך הורדה">
-		<control caption="אזהרה: תיבת דו-שיח זו מעניקה אפשרויות מתקדמות לעריכה למשתמשים כבדים אשר ים, אם יעשה בה שימוש באופן שגוי עלולה לגרום לנזק."/>
-		<control caption="שם קובץ וגודל:"/>
-		<control caption="שם קובץ:"/>
-		<control/>
-		<control/>
-		<control caption="גודל קובץ (בתים):"/>
-		<control/>
-		<control caption="_URNs:"/>
-		<control caption="אמין"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_פעולות:"/>
-		<control caption="שכח את מצב האימות הנוכחי ואמת מחדש"/>
-		<control caption="הנח שהקובץ שלם ב-100% ואמת את הקובץ מחדש"/>
-		<control caption="שכח את כל המקורות הידועים"/>
-		<control caption="מזג עם קובץ מקומי וודא"/>
-		<control caption="ביטול"/>
-		<control caption="מוחק _מידע:"/>
-		<control caption="טווח בתים:"/>
-		<control/>
-		<control caption="עד"/>
-		<control/>
-		<control caption="מחק"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="פתח קובץ טורנט">
 		<control/>
 		<control caption="?פתחת קובץ טורנט של ביטורנט. האם ברצונך להוריד את תכניו, או להפיצו מחדש"/>
@@ -4337,47 +4300,80 @@ PDF
 		<control caption="בכדי לשתף קבצים שלמים בעזרת ביטורנט יש לפני כן להפעיל תהליך הפצה, כשהתהליך מסתיים הטורנט יופי כפריט נוסף ברשימת ההורדה שלך"/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="מידע מתקדם של ביטורנט">
-		<control caption=":מידע על הטורנט"/>
-		<control caption=":שם"/>
-		<control/>
-		<control caption=":נוצר"/>
-		<control/>
-		<control caption=":לפי"/>
-		<control/>
-		<control caption=":הערות"/>
-		<control/>
-		<control caption=":העברות"/>
-		<control caption=":התחל העברות של הורדה חדשה"/>
-		<control caption="לפי הצורך|כשהיחס העברות מעל 100%|רק כשמתבקש|אף פעם"/>
-		<control/>
-		<control caption="Total Uploaded:"/>
-		<control caption="Notes:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Files">
-		<control caption="Torrent _Information:"/>
-		<control caption="Name:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control/>
-		<control caption=":קבצים"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-	 	<control caption="Torrent _Information:"/>
-		<control caption="Name:"/>
+		<control/>
 		<control/>
 		<control caption=":גשש"/>
-		<control/>
 		<control caption="_Current Tracker:"/>
-		<control caption="Completed (Seeds):"/>
-		<control/>
-		<control caption="Incomplete:"/>
-		<control/>
-		<control caption="רענן"/> 
-		<control caption="_Trackers:"/>
-		<control/>
+		<control caption="Seeds (Complete):"/>
+		<control caption="Peers (Incomplete):"/>
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
+		<control caption="רענן"/> 
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="מידע מתקדם של ביטורנט">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="לפי הצורך|כשהיחס העברות מעל 100%|רק כשמתבקש|אף פעם"/>
+		<control/>
+		<control caption=":מידע על הטורנט"/>
+		<control caption=":שם"/>
+		<control caption=":נוצר"/>
+		<control caption=":לפי"/>
+		<control caption=":הערות"/>
+		<control caption=":העברות"/>
+		<control caption=":התחל העברות של הורדה חדשה"/>
+		<control caption="Total Uploaded:"/>
+		<control caption="Notes:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="ערוך הורדה">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="אזהרה: תיבת דו-שיח זו מעניקה אפשרויות מתקדמות לעריכה למשתמשים כבדים אשר ים, אם יעשה בה שימוש באופן שגוי עלולה לגרום לנזק."/>
+		<control caption="שם קובץ וגודל:"/>
+		<control caption="שם קובץ:"/>
+		<control caption="גודל קובץ (בתים):"/>
+		<control caption="_URNs:"/>
+		<control caption="אמין"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="פעולות">
+		<control caption="אזהרה: תיבת דו-שיח זו מעניקה אפשרויות מתקדמות לעריכה למשתמשים כבדים אשר ים, אם יעשה בה שימוש באופן שגוי עלולה לגרום לנזק."/>
+		<control caption="שכח את כל המקורות הידועים"/>
+		<control caption="שכח את מצב האימות הנוכחי ואמת מחדש"/>
+		<control caption="הנח שהקובץ שלם ב-100% ואמת את הקובץ מחדש"/>
+		<control caption="מזג עם קובץ מקומי וודא"/>
+		<control caption="ביטול"/>
+		<control/>
+		<control/>
+		<control caption="פעולות:"/>
+		<control caption="מוחק _מידע:"/>
+		<control caption="טווח בתים:"/>
+		<control caption="עד"/>
+		<control caption="מחק"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="הורד מאפייני קבוצה">
 		<control caption="אישור"/>
@@ -4431,11 +4427,16 @@ PDF
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="עזרה של שרזה">
+		<control/>
+		<control caption="סגור"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4562,6 +4563,8 @@ PDF
 	<list name="CTorrentFileList">
 		<column from="Filename" to="שם קובץ"/>
 		<column from="Size" to="גודל"/>
+		<column from="Status" to="מצב"/>
+		<column from="Priority" to="סוג"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="גשש"/>

@@ -28,10 +28,6 @@
 // When the allocated block of memory needs to be bigger, make it 128 bytes bigger
 const DWORD PACKET_GROW = 128u;
 
-// PeerProject's vendor code is "PEER", here is that text in ASCII and wide characters
-#define PEERPROJECT_VENDOR_A VENDOR_CODE
-#define PEERPROJECT_VENDOR_T _T( VENDOR_CODE )
-
 // Tell the compiler these classes exist, and it will find out more about them soon
 class CBuffer;
 class CNeighbour;

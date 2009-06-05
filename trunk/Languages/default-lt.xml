@@ -3645,10 +3645,6 @@
 		<control caption="Numatytasis seklys: "/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokolai">
-		<control caption="„PeerProject“ bendros architektūros protokolų naršyklė:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Apvalkalai">
 		<control/>
 		<control caption="Informacija apie apvalkalą:"/>
@@ -3680,6 +3676,10 @@
 		<control caption="Nuostatos ypatybės:"/>
 		<control caption="Reikšmė:"/>
 		<control caption="Aprašas:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokolai">
+		<control caption="„PeerProject“ bendros architektūros protokolų naršyklė:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Išsiuntimų eilės ypatybės">
@@ -3836,6 +3836,14 @@
 		<control caption="Amžius:"/>
 		<control caption="Rodyti kitiems naudotojams mano profilį"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Kaukė">
+		<control caption="_Peržiūra:"/>
+		<control/>
+		<control caption="Pasi_rinkti:"/>
+		<control caption="Kiti Gnutella naudotojai, peržiūrinėdami Jūsų profilį ir bendrintus failus, matys Jūsų atvaizdą. Savo sukurti atvaizdai turi būti 128x128 pikselių ir gali būti bet koks vaizdo failas, kurį palaiko Jūsų kompiuteris."/>
+		<control caption="Perž_velgti..."/>
+		<control caption="Š_alinti"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Adresai kontaktams">
 		<control caption="_El. pašto adresai:"/>
 		<control caption="Pirminis:"/>
@@ -3871,14 +3879,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Biografija">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Kaukė">
-		<control caption="_Peržiūra:"/>
-		<control/>
-		<control caption="Pasi_rinkti:"/>
-		<control caption="Kiti Gnutella naudotojai, peržiūrinėdami Jūsų profilį ir bendrintus failus, matys Jūsų atvaizdą. Savo sukurti atvaizdai turi būti 128x128 pikselių ir gali būti bet koks vaizdo failas, kurį palaiko Jūsų kompiuteris."/>
-		<control caption="Perž_velgti..."/>
-		<control caption="Š_alinti"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Mėgiamybės">
 		<control/>
@@ -4261,11 +4261,6 @@
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="„PeerProject“ žinynas">
-		<control/>
-		<control caption="Užverti"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Trinti failą">
 		<control caption="Ar tikrai norite ištrinti:"/>
 		<control/>
@@ -4296,38 +4291,6 @@
 		<control caption="_Toliau|Eksportuoti"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Atsisiunčiamo failo savybės">
-		<control caption="DĖMESIO: Šiame dialogo lange patyrę naudotojai gali taisyti failo informaciją, bet neteisingi pakeitimai gali sugadinti failą."/>
-		<control caption="_Failo vardas ir dydis:"/>
-		<control caption="Failo vardas:"/>
-		<control/>
-		<control/>
-		<control caption="Dydis (baitais):"/>
-		<control/>
-		<control caption="_Universalūs ištekliaus vardai (URNs):"/>
-		<control caption="Patikima"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Veiksmai:"/>
-		<control caption="Pamiršti esamą patikros būseną (ir atlikti patikrą iš naujo)"/>
-		<control caption="Tarti, kad failas 100% baigtas siųstis, ir atlikti patikrą iš naujo"/>
-		<control caption="Pamiršti visus šaltinius"/>
-		<control caption="Sulieti su esamu failu ir patikrinti"/>
-		<control caption="Atšaukti siuntimą bet išsaugoti dalinį failą(-us)"/>
-		<control caption="Duomenų _trynimas:"/>
-		<control caption="Ištrinti baitus:"/>
-		<control/>
-		<control caption="iki"/>
-		<control/>
-		<control caption="Ištrinti"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Atverti Torrent failą">
 		<control/>
 		<control caption="Jūs norėjote atverti BitTorrent tinklo torrent failą. Ar parsisiųsti jo turinį ar pradėti skleisti?"/>
@@ -4337,47 +4300,80 @@
 		<control caption="Tam, kad galetumėte dalintis failais BitTorrent tinkle, juos pirma reikia paskleisti. Kai procesas baigsis, Torrent failas atsiras parsisiunčiamų failų sąraše."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Bendra">
-		<control caption="Torrent _informacija:"/>
-		<control caption="Vardas:"/>
-		<control/>
-		<control caption="Sukurta:"/>
-		<control/>
-		<control caption="Programa:"/>
-		<control/>
-		<control caption="Komentarai:"/>
-		<control/>
-		<control caption="Siuntimai:"/>
-		<control caption="Pradėti naujus atsisiuntimus:"/>
-		<control caption="Kada reikia|Kai santykis virš 100%|Tik kai prašoma|Niekada"/>
-		<control/>
-		<control caption="Viso išsiųsta:"/>
-		<control caption="Pastabos:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Failai">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Failai">
-		<control caption="Torrent _informacija:"/>
-		<control caption="Vardas:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Sekliai">
 		<control/>
-		<control caption="_Failai:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Sekliai">
-		<control caption="Torrent _informacija:"/>
-		<control caption="Vardas:"/>
+		<control/>
 		<control/>
 		<control caption="Seklys:"/>
-		<control/>
 		<control caption="_Naudojamas seklys:"/>
 		<control caption="Skleidėjų:"/>
-		<control/>
 		<control caption="Siuntėjai:"/>
-		<control/>
-		<control caption="_Atnaujinti"/>
-		<control caption="_Sekliai:"/>
-		<control/>
 		<control caption="Seklio veiksena:"/>
 		<control caption="Neįgalinta|Pasirinktinė|Vienas seklys|Daug seklių|Daug seklių (užrakinta)"/>
+		<control caption="_Atnaujinti"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Bendra">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Kada reikia|Kai santykis virš 100%|Tik kai prašoma|Niekada"/>
+		<control/>
+		<control caption="Torrent _informacija:"/>
+		<control caption="Vardas:"/>
+		<control caption="Sukurta:"/>
+		<control caption="Programa:"/>
+		<control caption="Komentarai:"/>
+		<control caption="Siuntimai:"/>
+		<control caption="Pradėti naujus atsisiuntimus:"/>
+		<control caption="Viso išsiųsta:"/>
+		<control caption="Pastabos:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Bendra">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="DĖMESIO: Šiame dialogo lange patyrę naudotojai gali taisyti failo informaciją, bet neteisingi pakeitimai gali sugadinti failą."/>
+		<control caption="_Failo vardas ir dydis:"/>
+		<control caption="Failo vardas:"/>
+		<control caption="Dydis (baitais):"/>
+		<control caption="_Universalūs ištekliaus vardai (URNs):"/>
+		<control caption="Patikima"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Veiksmai">
+		<control caption="DĖMESIO: Šiame dialogo lange patyrę naudotojai gali taisyti failo informaciją, bet neteisingi pakeitimai gali sugadinti failą."/>
+		<control caption="Pamiršti visus šaltinius"/>
+		<control caption="Pamiršti esamą patikros būseną (ir atlikti patikrą iš naujo)"/>
+		<control caption="Tarti, kad failas 100% baigtas siųstis, ir atlikti patikrą iš naujo"/>
+		<control caption="Sulieti su esamu failu ir patikrinti"/>
+		<control caption="Atšaukti siuntimą bet išsaugoti dalinį failąus"/>
+		<control/>
+		<control/>
+		<control caption="Veiksmai:"/>
+		<control caption="Duomenų _trynimas:"/>
+		<control caption="Ištrinti baitus:"/>
+		<control caption="iki"/>
+		<control caption="Ištrinti"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Atsisiuntimų grupės ypatybės">
 		<control caption="Gerai"/>
@@ -4414,12 +4410,6 @@
 		<control caption="  Netikrinti naujesnių versijų"/>
 		<control caption="Neatnaujinti"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Atsisiuntimų įvertinimai">
-		<control/>
-		<control caption="Gerai"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Meta duomenų lokalizavimas">
 		<control caption="Pasirinkite perkodavimo būdą (kalbų grupę)"/>
 		<control caption="Arabų|Baltų|Centrinės Europos|Kinų supaprastinta|Kinų tradicininė|Kirilica|Graikų|Hebrajų|Japonų|Korėjiečių|Tai|Turkų|Vietnamiečių"/>
@@ -4436,6 +4426,17 @@
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
 		<control caption="Įveskite kanalą, kurį norite pridėti:|Įveskite veiksmo priežastį:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Atsisiuntimų įvertinimai">
+		<control/>
+		<control caption="Gerai"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="„PeerProject“ žinynas">
+		<control/>
+		<control caption="Užverti"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4559,6 +4560,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Failo vardas"/>
 		<column from="Size" to="Dydis"/>
+		<column from="Status" to="Būklė"/>
+		<column from="Priority" to="Tipas"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Seklys"/>

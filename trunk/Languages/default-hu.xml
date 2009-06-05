@@ -3600,10 +3600,6 @@
 		<control caption="Alapértelm. tracker: "/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokollok">
-		<control caption="A PeerProject által támogatott protokollok"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Kinézetek">
 		<control/>
 		<control caption="Kinézet adatai"/>
@@ -3635,6 +3631,10 @@
 		<control caption="Tulajdonság"/>
 		<control caption="Érték:"/>
 		<control caption="Leírás:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokollok">
+		<control caption="A PeerProject által támogatott protokollok"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Feltöltési sor beállításai">
@@ -3791,6 +3791,14 @@
 		<control caption="Kor:"/>
 		<control caption="Mások is megnézhetik az adatlapomat"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
+		<control caption="_Előnézet"/>
+		<control/>
+		<control caption="_Választás"/>
+		<control caption="Ez a kép az ön adatlapja mellett lesz látható. A kép 128x128 pixel méretű legyen. Bármilyen formátumot használhat."/>
+		<control caption="_Tallózás..."/>
+		<control caption="E_ltávolít"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kapcsolat">
 		<control caption="_E-mail cím"/>
 		<control caption="Cím:"/>
@@ -3826,14 +3834,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Önéletrajz">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
-		<control caption="_Előnézet"/>
-		<control/>
-		<control caption="_Választás"/>
-		<control caption="Ez a kép az ön adatlapja mellett lesz látható. A kép 128x128 pixel méretű legyen. Bármilyen formátumot használhat."/>
-		<control caption="_Tallózás..."/>
-		<control caption="E_ltávolít"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Kedvencek">
 		<control/>
@@ -4216,11 +4216,6 @@
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject súgó">
-		<control/>
-		<control caption="Bezárás"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Fájl törlése">
 		<control caption="Biztos törölni akarja ezt:"/>
 		<control/>
@@ -4251,38 +4246,6 @@
 		<control caption="_Következő|Exportálás..."/>
 		<control caption="_Mégse"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Letöltés szerkesztése">
-		<control caption="FIGYELEM: Ez az ablak különleges beállításokat tartalmaz. A helytelen beállítások az adatok meghibásodását okozhatják!"/>
-		<control caption="Fájlnév és méret"/>
-		<control caption="Fájlnév:"/>
-		<control/>
-		<control/>
-		<control caption="Méret (Bájt):"/>
-		<control/>
-		<control caption="URN-ek"/>
-		<control caption="Bizalom"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Eszközök"/>
-		<control caption="Újraellenőrzés"/>
-		<control caption="Fájl 100%-osnak vétele, és így újraellenőrzése"/>
-		<control caption="Minden ismert forrás elfelejtése"/>
-		<control caption="Helyi fájllal való egyesítés és újraellenőrzés"/>
-		<control caption="Letöltés leállítása, de mentse a félkész fájlt"/>
-		<control caption="Adattörlő"/>
-		<control caption="Törlés (tól-ig):"/>
-		<control/>
-		<control caption="->"/>
-		<control/>
-		<control caption="Töröl"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Torrent fájl megnyitása">
 		<control/>
 		<control caption="Megnyitott egy torrent fájlt. Mit szeretne vele csinálni?"/>
@@ -4292,47 +4255,80 @@
 		<control caption="Ha egy kész fájlt akar megosztani a BitTorrent hálózaton, előbb seedelni kell azt. A torrent egy új elemként fog megjelenni a letöltési listában."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Általános">
-		<control caption="_Torrent adatai"/>
-		<control caption="Név:"/>
-		<control/>
-		<control caption="Készült:"/>
-		<control/>
-		<control caption="Készítő:"/>
-		<control/>
-		<control caption="Megjegyzés:"/>
-		<control/>
-		<control caption="Forgalom"/>
-		<control caption="Új letöltés indítása:"/>
-		<control caption="&#160;Ha szükséges| Ha az arány több, mint 100%| Ha kérik| Soha"/>
-		<control/>
-		<control caption="Teljes feltöltés:"/>
-		<control caption="Megjegyzés:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Fájlok">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Fájlok">
-		<control caption="Torrent adatai"/>
-		<control caption="Név:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackerek">
 		<control/>
-		<control caption="_Fájlok"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackerek">
-		<control caption="_Torrent adatai"/>
-		<control caption="Név:"/>
+		<control/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="_Jelenlegi trackerek"/>
-		<control caption="Kész (Seedek):"/>
-		<control/>
-		<control caption="Félkész (Peerek):"/>
-		<control/>
-		<control caption="_Frissít"/>
-		<control caption="_Trackerek"/>
-		<control/>
+		<control caption="Seedek (Kész):"/>
+		<control caption="Peerek (Félkész):"/>
 		<control caption="Trackermód:"/>
 		<control caption="Letiltva|Saját|Egy tracker|Multi-tracker|Multi-tracker (zárt)"/>
+		<control caption="_Frissít"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Általános">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;Ha szükséges| Ha az arány több, mint 100%| Ha kérik| Soha"/>
+		<control/>
+		<control caption="_Torrent adatai"/>
+		<control caption="Név:"/>
+		<control caption="Készült:"/>
+		<control caption="Készítő:"/>
+		<control caption="Megjegyzés:"/>
+		<control caption="Forgalom"/>
+		<control caption="Új letöltés indítása:"/>
+		<control caption="Teljes feltöltés:"/>
+		<control caption="Megjegyzés:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Letöltés szerkesztése">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="FIGYELEM: Ez az ablak különleges beállításokat tartalmaz. A helytelen beállítások az adatok meghibásodását okozhatják."/>
+		<control caption="Fájlnév és méret"/>
+		<control caption="Fájlnév:"/>
+		<control caption="Méret (Bájt):"/>
+		<control caption="URN-ek"/>
+		<control caption="Bizalom"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Eszközök">
+		<control caption="FIGYELEM: Ez az ablak különleges beállításokat tartalmaz. A helytelen beállítások az adatok meghibásodását okozhatják."/>
+		<control caption="Minden ismert forrás elfelejtése"/>
+		<control caption="Újraellenőrzés"/>
+		<control caption="Fájl 100%-osnak vétele, és így újraellenőrzése"/>
+		<control caption="Helyi fájllal való egyesítés és újraellenőrzés"/>
+		<control caption="Letöltés leállítása, de mentse a félkész fájlt"/>
+		<control/>
+		<control/>
+		<control caption="Eszközök:"/>
+		<control caption="Adattörlő"/>
+		<control caption="Törlés (tól-ig):"/>
+		<control caption="→"/>
+		<control caption="Töröl"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Letöltési csoportok tulajdonságai">
 		<control caption="OK"/>
@@ -4369,12 +4365,6 @@
 		<control caption="Ne keressen új verzió után"/>
 		<control caption="Ne frissítsen"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Vélemények letöltése">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metaadat javítása">
 		<control caption="Válasszon egy másik karakterkódolást:"/>
 		<control caption="Arab|Balti|Közép-Európai|Egyszerűsített kínai|hagyományos kínai|Cirill|Görög|Héber|Japán|Koreai|Thai|Török|Vietnami"/>
@@ -4386,11 +4376,22 @@
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Vélemények letöltése">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject súgó">
+		<control/>
+		<control caption="Bezárás"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4399,7 +4400,7 @@
 		<column from="File" to="Fájl"/>
 		<column from="Extension" to="Típus"/>
 		<column from="Size" to="Méret"/>
-	<column from="Folder" to="Mappa"/>
+		<column from="Folder" to="Mappa"/>
 		<column from="Hits" to="Találatok"/>
 		<column from="Uploads" to="Feltöltés"/>
 		<column from="Modified" to="Módosítva"/>
@@ -4517,6 +4518,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Fájlnév"/>
 		<column from="Size" to="Méret"/>
+		<column from="Status" to="Helyzet"/>
+		<column from="Priority" to="Típus"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Tracker"/>

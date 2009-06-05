@@ -2596,14 +2596,14 @@
 	<string id="16137" value="Refusing duplicate connection from %s."/>
 	<string id="16138" value="Already connected to %s, will not establish a second connection."/>
 	<string id="16139" value="Neighbour %s closed connection (%i : %s)."/>
-	<!-- String not present in English version: <string id="16140" value="Neighbour %s is crawling connections."/> -->
+	<string id="16140" value="Neighbour %s is crawling connections."/> -->
 	<string id="16141" value="Closed connection with neighbour %s because it is not a hub."/>
 	<string id="16144" value="Timed out handshaking with %s."/>
 	<string id="16145" value="Gnutella connection with neighbour %s established successfully (G%i.%i : %s)."/>
 	<string id="16146" value="Handshake with %s failed due to invalid data on the wire."/>
 	<string id="16147" value="Closing surplus connection from %s with host hint (%s port %i)."/>
 	<string id="16148" value="Connection to %s rejected (%s)."/>
-	<!-- String not present in English version: <string id="16149" value="Gnutella 0.6 handshake with %s failed, retrying with 0.4."/> -->
+	<!-- String 16149 not present in English version: --> <string id="16149" value="Gnutella 0.6 handshake with %s failed, retrying with 0.4."/>
 	<string id="16150" value="Closing surplus connection from %s."/>
 	<string id="16151" value="Refusing connection from %s because this is a shielded leaf node."/>
 	<string id="16152" value="Hub neighbour %s won't accept us as a hub, closing connection."/>
@@ -3469,10 +3469,6 @@
 		<control caption="Domyślny Tracker:"/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoły">
-		<control caption="Przeglądarka Protokołu Wspólnej Architektury Shareazy:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skórki">
 		<control/>
 		<control caption="Informacje o skórce:"/>
@@ -3504,6 +3500,10 @@
 		<control caption="Właściwości ustawienia:"/>
 		<control caption="Wartość:"/>
 		<control caption="Opis:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoły">
+		<control caption="Przeglądarka Protokołu Wspólnej Architektury Shareazy:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Właściwości kolejki wysyłań">
@@ -3665,6 +3665,14 @@
 		<control caption="Wiek:"/>
 		<control caption="Pozwól innym na przeglądanie mojego profilu"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Awatar">
+		<control caption="Podgląd:"/>
+		<control/>
+		<control caption="Wybierz:"/>
+		<control caption="Inni użytkownicy Gnutelli przeglądający Twój profil i udostępnione pliki zobaczą Twój awatar. Awatary powinny mieć rozmiar 128x128 pikseli i mogą być zapisane w każdym formacie obsługiwanym przez Twój komputer."/>
+		<control caption="Przeglądaj..."/>
+		<control caption="Usuń"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
 		<control caption="Adresy Email:"/>
 		<control caption="Główny:"/>
@@ -3700,14 +3708,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="O tobie">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Awatar">
-		<control caption="Podgląd:"/>
-		<control/>
-		<control caption="Wybierz:"/>
-		<control caption="Inni użytkownicy Gnutelli przeglądający Twój profil i udostępnione pliki zobaczą Twój awatar. Awatary powinny mieć rozmiar 128x128 pikseli i mogą być zapisane w każdym formacie obsługiwanym przez Twój komputer."/>
-		<control caption="Przeglądaj..."/>
-		<control caption="Usuń"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Ulubione">
 		<control/>
@@ -4090,11 +4090,6 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Pomoc Shareazy">
-		<control/>
-		<control caption="Zamknij"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Usuń plik">
 		<control caption="Czy napewno chcesz usunąć ten plik:"/>
 		<control/>
@@ -4125,38 +4120,6 @@
 		<control caption="_Następny|_Eksportuj..."/>
 		<control caption="Anuluj"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Włąściwości i Zaawansowana edycja pobierania">
-		<control caption="UWAGA: To okno umożliwia zaawansowaną edycję pobierania. Jeśli zostanie nieprawidłowo użyta może i prawdopodobnie spowoduje uszkodzenie pobieranego pliku."/>
-		<control caption="_Nazwa i wielkość pliku"/>
-		<control caption="_Nazwa pliku:"/>
-		<control/>
-		<control/>
-		<control caption="Wielkosć pliku (Byte):"/>
-		<control/>
-		<control caption="URNy:"/>
-		<control caption="Zaufany"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="Akcje:"/>
-		<control caption="Zapomnij aktualny stan weryfikacji (i zweryfikuj ponownie)"/>
-		<control caption="Przyjmij, że plik jest kompletny w 100%-ach i ponownie zweryfikuj"/>
-		<control caption="Zapomnij wszystkie znane źródła"/>
-		<control caption="Scal z lokalnym plikiem i zweryfikuj"/>
-		<control caption="Anuluj pobieranie, ale zapisz niezakończone tymczasowe plik(i) tzw. incomplete "/>
-		<control caption="Wymazywanie danych:"/>
-		<control caption="Wymaż bajty (od bajtu):"/>
-		<control/>
-		<control caption="do"/>
-		<control/>
-		<control caption="Wymaż"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Otwórz plik Torrent">
 		<control/>
 		<control caption="Otwarłeś BitTorentowy plik torrent. Czy chciałbyś pobrać jego zawartość, czy też re-seedować go?"/>
@@ -4166,47 +4129,80 @@
 		<control caption="Aby udostępniać kompletne pliki poprzez BitTorrent musisz je najpierw seedować (zasadzić). Gdy ten proces zostanie zakończony, Torrent pojawi się jako nowa pozycja w Twojej liście pobierań."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="BitTorrent - Zaawansowane Informacje (Ogólnie)">
-		<control caption="Informacje o Torrencie:"/>
-		<control caption="Nazwa:"/>
-		<control/>
-		<control caption="Utworzony:"/>
-		<control/>
-		<control caption="Przez:"/>
-		<control/>
-		<control caption="Komentarze:"/>
-		<control/>
-		<control caption="Transfery:"/>
-		<control caption="Rozpocznij nowe transfery-pobierania:"/>
-		<control caption="Według potrzeb|Kiedy współczynnik jest ponad 100%|Tylko kiedy żądane|Nigdy"/>
-		<control/>
-		<control caption="Łącznie wysłane:"/>
-		<control caption="Uwagi:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Pliki">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Pliki">
-		<control caption="Informacje o Torrencie:"/>
-		<control caption="Nazwa:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackery">
 		<control/>
-		<control caption="Pliki:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackery">
-		<control caption="Informacje o Torrencie:"/>
-		<control caption="Nazwa:"/>
+		<control/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="Obecny Tracker:"/>
-		<control caption="Ukończne (Seedowane):"/>
-		<control/>
-		<control caption="Niekompletne:"/>
-		<control/>
-		<control caption="Odśwież"/>
-		<control caption="Trakery:"/>
-		<control/>
+		<control caption="Seedowane (Ukończne):"/>
+		<control caption="Peers (Niekompletne):"/>
 		<control caption="Tryb Trackera:"/>
 		<control caption="Wyłącz|Custom|Pojedynczy Tracker|Multi-tracker|Multi-tracker (locked)"/>
+		<control caption="Odśwież"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrent">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Według potrzeb|Kiedy współczynnik jest ponad 100%|Tylko kiedy żądane|Nigdy"/>
+		<control/>
+		<control caption="Informacje o Torrencie:"/>
+		<control caption="Nazwa:"/>
+		<control caption="Utworzony:"/>
+		<control caption="Przez:"/>
+		<control caption="Komentarze:"/>
+		<control caption="Transfery:"/>
+		<control caption="Rozpocznij nowe transfery-pobierania:"/>
+		<control caption="Łącznie wysłane:"/>
+		<control caption="Uwagi:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Informacje">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="UWAGA: To okno umożliwia zaawansowaną edycję pobierania. Jeśli zostanie nieprawidłowo użyta może i prawdopodobnie spowoduje uszkodzenie pobieranego pliku."/>
+		<control caption="_Nazwa i wielkość pliku"/>
+		<control caption="_Nazwa pliku:"/>
+		<control caption="Wielkosć pliku (Byte):"/>
+		<control caption="URNy:"/>
+		<control caption="Zaufany"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Akcje">
+		<control caption="UWAGA: To okno umożliwia zaawansowaną edycję pobierania. Jeśli zostanie nieprawidłowo użyta może i prawdopodobnie spowoduje uszkodzenie pobieranego pliku."/>
+		<control caption="Zapomnij wszystkie znane źródła"/>
+		<control caption="Zapomnij aktualny stan weryfikacji (i zweryfikuj ponownie)"/>
+		<control caption="Przyjmij, że plik jest kompletny w 100%-ach i ponownie zweryfikuj"/>
+		<control caption="Scal z lokalnym plikiem i zweryfikuj"/>
+		<control caption="Anuluj pobieranie, ale zapisz niezakończone tymczasowe plik(i) tzw. incomplete "/>
+		<control/>
+		<control/>
+		<control caption="Akcje:"/>
+		<control caption="Wymazywanie danych:"/>
+		<control caption="Wymaż bajty (od bajtu):"/>
+		<control caption="do"/>
+		<control caption="Wymaż"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Właściwości grupy pobierań">
 		<control caption="OK"/>
@@ -4243,12 +4239,6 @@
 		<control caption="Nie sprawdzaj czy są nowe wersje"/>
 		<control caption="Nie aktualizuj"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Recenzje">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Lokalizacja Metadanych">
 		<control caption="Proszę wybrać metodę kodowania"/>
 		<control caption="Arabski|Bałtycki|Europa Środkowa|Chiński uproszczony|Chiński tradycyjny|Cyrylica|Grecki|Hebrajski|Japoński|Koreański|Tajlandzki|Turecki|Wietnamski"/>
@@ -4265,6 +4255,17 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 		<control caption="Wprowadź nazwę kanału, który chcesz dodać:|Wprowadź powód kick'a/bana:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Recenzje">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="Pomoc Shareazy">
+		<control/>
+		<control caption="Zamknij"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4391,6 +4392,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Nazwa pliku"/>
 		<column from="Size" to="Rozmiar"/>
+		<column from="Status" to="Wielkość"/>
+		<column from="Priority" to="Typ"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Nazwa pliku" to=""/>

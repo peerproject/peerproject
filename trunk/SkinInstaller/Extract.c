@@ -228,17 +228,17 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg) {
 	err = unzGetGlobalInfo(ufile, &gi);
 	if (err!=UNZ_OK) return 0;
     
-    if (skinType == 0) {
-        wcscat(prefix, szName);
+    if (skinType == 1) {
+    	wcscat(prefix, L"Languages\\");
+	}
+    else {
+        wcscat(prefix, szPath);
         //Create Directory for the new skin  
         if (!MakeDirectory((LPCTSTR)prefix)) {
     		unzClose(ufile);
 			return 0;
 		}
 	}
-    else {
-    	wcscat(prefix, L"Languages\\");
-    }
     
 	for (i=0;i<gi.number_entry;i++) {
 		err = unzGetCurrentFileInfo(ufile, &fi, fn_zip, sizeof(fn_zip), NULL, 0, NULL, 0);

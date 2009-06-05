@@ -3373,10 +3373,6 @@
 		<control caption="_Standard Tracker:"/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoller">
-		<control caption="PeerProject Common Architecture protokollutforsker:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skins">
 		<control/>
 		<control caption="Informasjon:"/>
@@ -3408,6 +3404,10 @@
 		<control caption="Egenskaper:"/>
 		<control caption="Verdi:"/>
 		<control caption="Beskrivelse:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoller">
+		<control caption="PeerProject Common Architecture protokollutforsker:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Egenskaper opplastings kø">
@@ -3564,6 +3564,14 @@
 		<control caption="Alder:"/>
 		<control caption="La andre utforske min profil"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Bilde">
+		<control caption="_Forhåndsvis:"/>
+		<control/>
+		<control caption="_Velg:"/>
+		<control caption="Andre Gnutella brukere som utforsker din profil kan se ditt bilde.  Bildet bør være 128x128 pixels, og kan være hvilken som helst bilde-type fra din pc."/>
+		<control caption="_Utforsk..."/>
+		<control caption="_Fjern"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
 		<control caption="_E-post adresser:"/>
 		<control caption="Hoved:"/>
@@ -3599,14 +3607,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Beskrivelse">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Bilde">
-		<control caption="_Forhåndsvis:"/>
-		<control/>
-		<control caption="_Velg:"/>
-		<control caption="Andre Gnutella brukere som utforsker din profil kan se ditt bilde.  Bildet bør være 128x128 pixels, og kan være hvilken som helst bilde-type fra din pc."/>
-		<control caption="_Utforsk..."/>
-		<control caption="_Fjern"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoritter">
 		<control/>
@@ -3989,11 +3989,6 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject hjelp">
-		<control/>
-		<control caption="Lukk"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Slett fil">
 		<control caption="Er du sikker på at du vil slette:"/>
 		<control/>
@@ -4024,38 +4019,6 @@
 		<control caption="_Next|_Eksporter:..."/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Endre nedlasting (Avansert)">
-		<control caption="OBS: Avansert redigering er for erfarne brukere, filene kan bli ødelagt hvis du gjør noe galt."/>
-		<control caption="Fil_navn and Si_ze:"/>
-		<control caption="Fil_navn:"/>
-		<control/>
-		<control/>
-		<control caption="File size (Byte):"/>
-		<control/>
-		<control caption="_URNs:"/>
-		<control caption="Trusted:"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Funksjon:"/>
-		<control caption="Glem verifikasjonsstatus og reverifiser"/>
-		<control caption="Anta at filen er 100% og reverifiser"/>
-		<control caption="Glem alle kjente kilder"/>
-		<control caption="Merge with local file and verify"/>
-		<control caption="Avbryt (save incomplete files)"/>
-		<control caption="Slett _data:"/>
-		<control caption="Slett bytes:"/>
-		<control/>
-		<control caption="til"/>
-		<control/>
-		<control caption="Slett"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Åpne torrent-fil">
 		<control/>
 		<control caption="Du har åpnet en BitTorrent-fil. Ønsker du å laste den ned på nytt eller spre den?"/>
@@ -4065,47 +4028,80 @@
 		<control caption="For å dele ferdige filer med BitTorrent må man spre. Når denne prosessen er ferdig vil filen bli lagt til i nedlastings-listen."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Avansert BitTorrent-informason">
-		<control caption="Torrent _informasjon:"/>
-		<control caption="Navn:"/>
-		<control/>
-		<control caption="Laget:"/>
-		<control/>
-		<control caption="Av:"/>
-		<control/>
-		<control caption="Kommentar:"/>
-		<control/>
-		<control caption="Overføringer:"/>
-		<control caption="Start nye nedlastinger:"/>
-		<control caption="Etter behov|Når delingsrate er over 100%|Kun ved forespørsel|Aldri"/>
-		<control/>
-		<control caption="Oppdater"/>
-		<control caption="Notes:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Files">
-		<control caption="Torrent _informasjon:"/>
-		<control caption="Navn:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control/>
-		<control caption="_Fils:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="Torrent _informasjon:"/>
-		<control caption="Navn:"/>
+		<control/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="_Current Tracker:"/>
-		<control caption="Komplette (delere):"/>
-		<control/>
-		<control caption="Incomplete:"/>
-		<control/>
-		<control caption="_Refresh"/>
-		<control caption="_Trackers:"/>
-		<control/>
+		<control caption="Delere (komplette):"/>
+		<control caption="Peers (incomplete):"/>
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
+		<control caption="_Refresh"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrent">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Etter behov|Når delingsrate er over 100%|Kun ved forespørsel|Aldri"/>
+		<control/>
+		<control caption="Torrent _informasjon:"/>
+		<control caption="Navn:"/>
+		<control caption="Laget:"/>
+		<control caption="Av:"/>
+		<control caption="Kommentar:"/>
+		<control caption="Overføringer:"/>
+		<control caption="Start nye nedlastinger:"/>
+		<control caption="Oppdater"/>
+		<control caption="Notes:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Avansert">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="OBS: Avansert redigering er for erfarne brukere, filene kan bli ødelagt hvis du gjør noe galt."/>
+		<control caption="Fil_navn and Si_ze:"/>
+		<control caption="Fil_navn:"/>
+		<control caption="File size (Byte):"/>
+		<control caption="_URNs:"/>
+		<control caption="Trusted:"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Funksjon">
+		<control caption="OBS: Avansert redigering er for erfarne brukere, filene kan bli ødelagt hvis du gjør noe galt."/>
+		<control caption="Glem alle kjente kilder"/>
+		<control caption="Glem verifikasjonsstatus og reverifiser"/>
+		<control caption="Anta at filen er 100% og reverifiser"/>
+		<control caption="Merge with local file and verify"/>
+		<control caption="Avbryt (save incomplete files)"/>
+		<control/>
+		<control/>
+		<control caption="Funksjon:"/>
+		<control caption="Slett _data:"/>
+		<control caption="Slett bytes:"/>
+		<control caption="til"/>
+		<control caption="Slett"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Gruppeegenskaper">
 		<control caption="OK"/>
@@ -4142,12 +4138,6 @@
 		<control caption="Ikke søk etter nye versjoner"/>
 		<control caption="Ikke oppgrader"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Omtaler av nedlasting">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Lokalisering av metadata">
 		<control caption="Vennligst velg metiden for omkoding"/>
 		<control caption="Arabisk|Baltisk|Sentraleuropeisk|Kinesisk forenklet|Kinesisk tradisjonelt|Cyrillisk|Gresk|Hebraisk|Japansk|Koreansk|Thai|Tyrkisk|Vietnamesisk"/>
@@ -4159,11 +4149,22 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Omtaler av nedlasting">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject hjelp">
+		<control/>
+		<control caption="Lukk"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4258,7 +4259,7 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Fil"/>
-		<column from="Type" to="Type"/>
+		<column from="Extension" to="Type"/>
 		<column from="Size" to="Størrelse"/>
 		<column from="Rating" to="Karakter"/>
 		<column from="Status" to=""/>
@@ -4290,10 +4291,12 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Filnavn"/>
 		<column from="Size" to="Størrelse"/>
+		<column from="Status" to=""/>
+		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Filename" to="Filnavn"/>
-		<column from="Size" to="Størrelse"/>
+		<column from="Status" to=""/>
 		<column from="Type" to=""/>
 	</list>
 	<list name="CReviewList">

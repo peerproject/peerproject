@@ -3654,10 +3654,6 @@
 		<control caption="Προεπιλογή Tracker: "/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Πρωτόκολλα">
-		<control caption="Παράθεση Πρωτοκόλλων του PeerProject:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Φλοιοί">
 		<control/>
 		<control caption="Πληροφορίες Φλοιού:"/>
@@ -3689,6 +3685,10 @@
 		<control caption="Εφαρμογή Τιμής:"/>
 		<control caption="Τιμή:"/>
 		<control caption="Περιγραφή:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Πρωτόκολλα">
+		<control caption="Παράθεση Πρωτοκόλλων του PeerProject:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Ιδιότητες Ουράς Αποστολών">
@@ -3845,6 +3845,14 @@
 		<control caption="Ηλικία:"/>
 		<control caption="Επίτρεψη περιήγησης στο προφίλ από άλλους"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Πορτραίτο">
+		<control caption="_Προεπισκόπηση:"/>
+		<control/>
+		<control caption="_Επιλογή:"/>
+		<control caption="Το πορτραίτο σας θα εμφανίζεται σε όσους χρήστες περιηγούνται το προφίλ σας και τα κοινοποιημένα αρχεία σας, και μπορεί να είναι οποιοδήποτε υποστηριζόμενο αρχείο εικόνας μέγεθους 128x128 εικονοστοιχείων."/>
+		<control caption="_Άνοιγμα..."/>
+		<control caption="_Αφαίρεση"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Επαφή">
 		<control caption="_Ηλεκτρονική Διεύθυνση (email):"/>
 		<control caption="Κύρια:"/>
@@ -3880,14 +3888,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Πορτραίτο">
-		<control caption="_Προεπισκόπηση:"/>
-		<control/>
-		<control caption="_Επιλογή:"/>
-		<control caption="Το πορτραίτο σας θα εμφανίζεται σε όσους χρήστες περιηγούνται το προφίλ σας και τα κοινοποιημένα αρχεία σας, και μπορεί να είναι οποιοδήποτε υποστηριζόμενο αρχείο εικόνας μέγεθους 128x128 εικονοστοιχείων."/>
-		<control caption="_Άνοιγμα..."/>
-		<control caption="_Αφαίρεση"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Αγαπημένα">
 		<control/>
@@ -4270,11 +4270,6 @@
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Βοήθεια PeerProject">
-		<control/>
-		<control caption="Κλείσιμο"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Διαγραφή αρχείου">
 		<control caption="Θέλετε σίγουρα να διαγράψετε αυτό το αρχείο;"/>
 		<control/>
@@ -4305,38 +4300,6 @@
 		<control caption="Εξαγωγή..."/>
 		<control caption="_Άκυρο"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Προχωρημένη Διόρθωση Λήψης">
-		<control caption="ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Αυτός ο διάλογος παρέχει επιλογές προχωρημένης διόρθωσης λήψης για εξειδικευμένους χρήστες και αν χρησιμοποιηθεί λανθασμένα πιθανότατα θα προκαλέσει φθορά."/>
-		<control caption="Όνομα και _Μέγεθος Αρχείου:"/>
-		<control caption="Όνομα Αρχείου:"/>
-		<control/>
-		<control/>
-		<control caption="Μέγεθος Αρχείου (Bytes):"/>
-		<control/>
-		<control caption="_URNs:"/>
-		<control caption="Φερέγγυο"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="Ενέργειες:"/>
-		<control caption="Αφαίρεση τρέχουσας επαλήθευσης και επαναεπαλήθευση"/>
-		<control caption="Θεώρηση της λήψης ως ολοκληρωμένης και επαναεπαλήθευσή της"/>
-		<control caption="Απολησμόνηση όλων των γνωστών πηγών"/>
-		<control caption="Συγχώνευση με το τοπικό αρχείο και επαλήθευση"/>
-		<control caption="Ακύρωση λήψης, αλλά αποθήκευση ημιτελών αρχείων"/>
-		<control caption="Απαλειφή _Δεδομένων:"/>
-		<control caption="Σειρά bytes:"/>
-		<control/>
-		<control caption="ως"/>
-		<control/>
-		<control caption="Απαλειφή"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Άνοιγμα Αρχείου Torrent">
 		<control/>
 		<control caption="Ανοίξατε ένα αρχείο torrent. Θέλετε να λάβετε ξανά τα περιεχόμενά του ή να το κάνετε re-seed;"/>
@@ -4346,47 +4309,79 @@
 		<control caption="Για να κοινοποιήσετε ολοκληρωμένα αρχεία χρησιμοποιώντας το BitTorrent, πρέπει πρώτα να τα κάνετε seed. Μόλις ολοκληρωθεί η σχετική διαδικασία, το Torrent θα εμφανιστεί στη λίστα λήψεων."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Προχωρημένες Πληροφορίες BitTorrent">
-		<control caption="Πληροφορίες _Torrent:"/>
-		<control caption="Όνομα:"/>
-		<control/>
-		<control caption="Δημιουργημένο:"/>
-		<control/>
-		<control caption="Από:"/>
-		<control/>
-		<control caption="Σχόλια:"/>
-		<control/>
-		<control caption="Μεταφορές:"/>
-		<control caption="Έναρξη νέων μεταφορών:"/>
-		<control caption=" Βάσει αναγκών| Όταν η αναλογία υπερβαίνει το 100%| Μόνο κατά απαίτηση| Ποτέ"/>
-		<control/>
-		<control caption="Σύνολο Απεσταλμένων:"/>
-		<control caption="Σημειώσεις:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Αρχεία">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Αρχεία">
-		<control caption="Πληροφορίες _Torrent:"/>
-		<control caption="Όνομα:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control/>
-		<control caption="_Αρχεία:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="Πληροφορίες _Torrent:"/>
-		<control caption="Όνομα:"/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="_Τρέχον Tracker:"/>
-		<control caption="Ολοκληρωμένο (Seeds):"/>
-		<control/>
-		<control caption="Ημιτελές:"/>
-		<control/>
-		<control caption="_Ανανέωση"/>
-		<control caption="_Trackers:"/>
-		<control/>
+		<control caption="Seeds (Ολοκληρωμένο):"/>
+		<control caption="Peers (Ημιτελές):"/>
 		<control caption="Κατάσταση Tracker:"/>
 		<control caption="Απενεργοποιημένος|Προσαρμοσμένος|Μονός Tracker|Πολλαπλός Tracker|Πολλαπλός Tracker (κλειδωμένος)"/>
+		<control caption="_Ανανέωση"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrent">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption=" Βάσει αναγκών| Όταν η αναλογία υπερβαίνει το 100%| Μόνο κατά απαίτηση| Ποτέ"/>
+		<control/>
+		<control caption="Πληροφορίες _Torrent:"/>
+		<control caption="Όνομα:"/>
+		<control caption="Δημιουργημένο:"/>
+		<control caption="Από:"/>
+		<control caption="Σχόλια:"/>
+		<control caption="Μεταφορές:"/>
+		<control caption="Έναρξη νέων μεταφορών:"/>
+		<control caption="Σύνολο Απεσταλμένων:"/>
+		<control caption="Σημειώσεις:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Προχωρημένη">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Αυτός ο διάλογος παρέχει επιλογές προχωρημένης διόρθωσης λήψης για εξειδικευμένους χρήστες και αν χρησιμοποιηθεί λανθασμένα πιθανότατα θα προκαλέσει φθορά."/>
+		<control caption="Όνομα και _Μέγεθος Αρχείου:"/>
+		<control caption="Όνομα Αρχείου:"/>
+		<control caption="Μέγεθος Αρχείου (Bytes):"/>
+		<control caption="_URNs:"/>
+		<control caption="Φερέγγυο"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Ενέργειες">
+		<control caption="ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Αυτός ο διάλογος παρέχει επιλογές προχωρημένης διόρθωσης λήψης για εξειδικευμένους χρήστες και αν χρησιμοποιηθεί λανθασμένα πιθανότατα θα προκαλέσει φθορά."/>
+		<control caption="Απολησμόνηση όλων των γνωστών πηγών"/>
+		<control caption="Αφαίρεση τρέχουσας επαλήθευσης και επαναεπαλήθευση"/>
+		<control caption="Θεώρηση της λήψης ως ολοκληρωμένης και επαναεπαλήθευσή της"/>
+		<control caption="Συγχώνευση με το τοπικό αρχείο και επαλήθευση"/>
+		<control caption="Ακύρωση λήψης, αλλά αποθήκευση ημιτελών αρχείων"/>
+		<control/>
+		<control/>
+		<control caption="Ενέργειες:"/>
+		<control caption="Απαλειφή _Δεδομένων:"/>
+		<control caption="Σειρά bytes:"/>
+		<control caption="ως"/>
+		<control caption="Απαλειφή"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Ιδιότητες Ομάδας Λήψεων">
 		<control caption="OK"/>
@@ -4423,12 +4418,6 @@
 		<control caption="Μη έλεγχος για νέες εκδόσεις"/>
 		<control caption="Μη αναβάθμιση"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Κριτικές Λήψης">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata Localisation">
 		<control caption="Επιλογή μεθόδου επανακωδικοποίησης"/>
 		<control caption="Αραβική|Βαλτικής|Κεντροευρωπαϊκή|Κινέζικη απλοποιημένη|Κινέζικη παραδοσιακή|Κυριλλική|Ελληνική|Εβραϊκή|Ιαπωνική|Κορεατική|Τάι|Τούρκικη|Βιετναμέζικη"/>
@@ -4445,6 +4434,17 @@
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 		<control caption="Εισαγωγή ονόματος καναλιού:|Εισαγωγή αιτίας αποπομπής/αποκλεισμού:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Κριτικές Λήψης">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="Βοήθεια PeerProject">
+		<control/>
+		<control caption="Κλείσιμο"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4571,6 +4571,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Όνομα Αρχείου"/>
 		<column from="Size" to="Μέγεθος"/>
+		<column from="Status" to="Κατάσταση"/>
+		<column from="Priority" to="Τύπος"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

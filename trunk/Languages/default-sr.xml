@@ -3370,10 +3370,6 @@
 		<control caption="Default Tracker:"/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoli">
-		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skinovi">
 		<control/>
 		<control caption="Informacije o Skinu:"/>
@@ -3405,6 +3401,10 @@
 		<control caption="Podešavanja:"/>
 		<control caption="Vrednost:"/>
 		<control caption="Opis:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoli">
+		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Podešavanja davanja">
@@ -3559,6 +3559,14 @@
 		<control caption="Starost:"/>
 		<control caption="Dopusti ostalima da pogledaju šta delim"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
+		<control caption="_Pregled:"/>
+		<control/>
+		<control caption="Odaberi:"/>
+		<control caption="Ostali Gnutella korisnici koji pogledaju Vaš profil ili deljene datoteke će videti Vaš avatar.Napravljeni avatari moraju biti 128x128 pixela, i mogu biti u bilo kojem podržanom formatu na Vašem PC-ju."/>
+		<control caption="Traži"/>
+		<control caption="Ukloni"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
 		<control caption="_Email Adresa:"/>
 		<control caption="Glavna:"/>
@@ -3594,14 +3602,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
-		<control caption="_Pregled:"/>
-		<control/>
-		<control caption="Odaberi:"/>
-		<control caption="Ostali Gnutella korisnici koji pogledaju Vaš profil ili deljene datoteke će videti Vaš avatar.Napravljeni avatari moraju biti 128x128 pixela, i mogu biti u bilo kojem podržanom formatu na Vašem PC-ju."/>
-		<control caption="Traži"/>
-		<control caption="Ukloni"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Moje Preporuke">
 		<control/>
@@ -3982,11 +3982,6 @@
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Pomoć">
-		<control/>
-		<control caption="Zatvori"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Obriši Datoteku">
 		<control caption="Jeste li sigurni da želite obrisati:"/>
 		<control/>
@@ -4017,37 +4012,6 @@
 		<control caption="_Next|_Export..."/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Download Properties (Napredno)">
-		<control caption="UPOZORENJE: Ove opcije omogućuju napredno podešavanje skidanja, ako se pogrešno koriste verovatno će uzrokovati GREŠKU u skinutoj datoteci"/>
-		<control caption="Ime Datoteke and Size:"/>
-		<control caption="Ime datoteke:"/>
-		<control/>
-		<control/>
-		<control caption="Filesize (Byte):"/>
-		<control/>
-		<control caption="_URNs:"/>
-		<control caption="Trusted"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Akcije:"/>
-		<control caption="Zaboravi trenutno stanje provere (i ponovno proveri)"/>
-		<control caption="Pretpostavi da je datoteka 100% skinuta i ponovno proveri"/>
-		<control caption="Zaboravi sve poznate izvore"/>
-		<control caption="Odustani (save incomplete file)"/>
-		<control caption="Brisač Podataka:"/>
-		<control caption="Obriši bajtove:"/>
-		<control/>
-		<control caption="do"/>
-		<control/>
-		<control caption="Obriši"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Otvori Torrent Datoteku">
 		<control/>
 		<control caption="Otvorili ste BitTorrent torrent datoteku.Želite je skinuti, ili re-seed?"/>
@@ -4057,47 +4021,81 @@
 		<control caption="Da bi ste delili komletne(seed) datoteke koristeći BitTorrent one moraju prvo biti seeded.Nakon toga Torrent  će se pojaviti kao nova stavaka na Vasoj download listi."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdStEdBuStEdStEdBuStCoBuSyBuCoBu" caption="Napredne Informacije o BitTorrentu">
-		<control caption="Torrent _Informacije:"/>
-		<control caption="Ime:"/>
-		<control/>
-		<control caption="Napravljeno:"/>
-		<control/>
-		<control caption="Napravio:"/>
-		<control/>
-		<control caption="Komentari:"/>
-		<control/>
-		<control caption="Tracker:"/>
-		<control caption="Start new download transfers:"/>
-		<control caption=" As needed| When ratio over 100%| Only when requested| Never"/>
-		<control/>
-		<control caption="_Downloaders:"/>
-		<control caption="Završeni(celi) (Seeds):"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Files">
-		<control caption="Torrent _Information:"/>
-		<control caption="Ime:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control/>
-		<control caption="_Datoteke:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="Torrent _Information:"/>
-		<control caption="Ime:"/>
+		<control/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="_Current Tracker:"/>
-		<control caption="Completed (Seeds):"/>
-		<control/>
-		<control caption="Incomplete:"/>
-		<control/>
-		<control caption="_Refresh"/>
-		<control caption="_Trackers:"/>
-		<control/>
+		<control caption="Seeds (Complete):"/>
+		<control caption="Peers (Incomplete):"/>
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
+		<control caption="_Refresh"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrentu">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption=" As needed| When ratio over 100%| Only when requested| Never"/>
+		<control/>
+		<control caption="Torrent _Informacije:"/>
+		<control caption="Ime:"/>
+		<control caption="Napravljeno:"/>
+		<control caption="Napravio:"/>
+		<control caption="Komentari:"/>
+		<control caption="Tracker:"/>
+		<control caption="Start new download transfers:"/>
+		<control caption="_Downloaders:"/>
+		<control caption="Završeni(celi) (Seeds):"/>
+		<control caption="Notes:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Informacije">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="UPOZORENJE: Ove opcije omogućuju napredno podešavanje skidanja, ako se pogrešno koriste verovatno će uzrokovati GREŠKU u skinutoj datoteci"/>
+		<control caption="Ime Datoteke and Size:"/>
+		<control caption="Ime datoteke:"/>
+		<control caption="Filesize (Byte):"/>
+		<control caption="_URNs:"/>
+		<control caption="Trusted"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Akcije">
+		<control caption="UPOZORENJE: Ove opcije omogućuju napredno podešavanje skidanja, ako se pogrešno koriste verovatno će uzrokovati GREŠKU u skinutoj datoteci"/>
+		<control caption="Zaboravi sve poznate izvore"/>
+		<control caption="Zaboravi trenutno stanje provere (i ponovno proveri)"/>
+		<control caption="Pretpostavi da je datoteka 100% skinuta i ponovno proveri"/>
+		<control caption="Merge with local file i ponovno proveri"/>
+		<control caption="Odustani (save incomplete files)"/>
+		<control/>
+		<control/>
+		<control caption="Akcije:"/>
+		<control caption="Brisač Podataka:"/>
+		<control caption="Obriši bajtove:"/>
+		<control caption="do"/>
+		<control caption="Obriši"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Download Group Podešavanja">
 		<control caption="OK"/>
@@ -4134,12 +4132,6 @@
 		<control caption="Ne proveravaj da li ima novih verzija."/>
 		<control caption="Nemoj Unaprediti"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Skini Kritike">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Lokalizacija Metadate">
 		<control caption="Molim odaberite metodu re-encodinga"/>
 		<control caption="Arabic|Baltic|Central European|Chinese simplified|Chinese traditional|Cyrillic|Greek|Hebrew|Japanese|Korean|Thai|Turkish|Vietnamese"/>
@@ -4151,11 +4143,22 @@
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 		<control caption="Enter a channel you want to add:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Skini Kritike">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Pomoć">
+		<control/>
+		<control caption="Zatvori"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4282,6 +4285,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Ime Datoteke"/>
 		<column from="Size" to="Veličina"/>
+		<column from="Status" to=""/>
+		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

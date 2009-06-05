@@ -313,15 +313,16 @@ void CSettings::Load()
 	Add( _T("Discovery"), _T("UpdatePeriod"), &Discovery.UpdatePeriod, 30*60, 60, 1, 60*24, _T(" m") );
 
 	Add( _T("Gnutella"), _T("ConnectFactor"), &Gnutella.ConnectFactor, 4, 1, 1, 20, _T("x") );
-	Add( _T("Gnutella"), _T("ConnectThrottle"), &Gnutella.ConnectThrottle, 120, 1, 60, 3600, _T(" s") );
+	Add( _T("Gnutella"), _T("ConnectThrottle"), &Gnutella.ConnectThrottle, 30, 1, 0, 3600, _T(" s") );
 	Add( _T("Gnutella"), _T("DeflateHub2Hub"), &Gnutella.DeflateHub2Hub, true );
 	Add( _T("Gnutella"), _T("DeflateHub2Leaf"), &Gnutella.DeflateHub2Leaf, true );
 	Add( _T("Gnutella"), _T("DeflateLeaf2Hub"), &Gnutella.DeflateLeaf2Hub, false );
-	Add( _T("Gnutella"), _T("HitsPerPacket"), &Gnutella.HitsPerPacket, 64, 1, 0, 1024 );
-	Add( _T("Gnutella"), _T("HostCacheSize"), &Gnutella.HostCacheSize, 1024, 1, 32, 16384 );
+	Add( _T("Gnutella"), _T("HitsPerPacket"), &Gnutella.HitsPerPacket, 64, 1, 0, 1024, _T(" files") );
+	Add( _T("Gnutella"), _T("HostCacheSize"), &Gnutella.HostCacheSize, 1024, 1, 32, 16384, _T(" hosts") );
 	Add( _T("Gnutella"), _T("HostCacheView"), &Gnutella.HostCacheView, PROTOCOL_ED2K );
-	Add( _T("Gnutella"), _T("MaxHits"), &Gnutella.MaxHits, 64, 1, 0, 4096 );
-	Add( _T("Gnutella"), _T("MaxResults"), &Gnutella.MaxResults, 150, 1, 1, 300 );
+	Add( _T("Gnutella"), _T("MaxHits"), &Gnutella.MaxHits, 64, 1, 0, 4096, _T(" files") );
+	Add( _T("Gnutella"), _T("MaximumPacket"), &Gnutella.MaximumPacket, 64 * 1024, 1024, 32, 256, _T(" KB") );
+	Add( _T("Gnutella"), _T("MaxResults"), &Gnutella.MaxResults, 150, 1, 1, 300, _T(" hits") );
 	Add( _T("Gnutella"), _T("RouteCache"), &Gnutella.RouteCache, 600, 60, 1, 120, _T(" m") );
 	Add( _T("Gnutella"), _T("SpecifyProtocol"), &Gnutella.SpecifyProtocol, true );
 
@@ -333,13 +334,12 @@ void CSettings::Load()
 	Add( _T("Gnutella1"), _T("HostCount"), &Gnutella1.HostCount, 15, 1, 1, 50 );
 	Add( _T("Gnutella1"), _T("HostExpire"), &Gnutella1.HostExpire, 2*24*60*60, 24*60*60, 1, 100, _T(" d") );
 	Add( _T("Gnutella1"), _T("MaxHostsInPongs"), &Gnutella1.MaxHostsInPongs, 10, 1, 5, 30 );
-	Add( _T("Gnutella1"), _T("MaximumPacket"), &Gnutella1.MaximumPacket, 65535, 1, 32, 262144 );
 	Add( _T("Gnutella1"), _T("MaximumQuery"), &Gnutella1.MaximumQuery, 256, 1, 32, 262144 );
 	Add( _T("Gnutella1"), _T("MaximumTTL"), &Gnutella1.MaximumTTL, 10, 1, 1, 10 );
 	Add( _T("Gnutella1"), _T("NumHubs"), &Gnutella1.NumHubs, 3, 1, 1, 5 );
 	Add( _T("Gnutella1"), _T("NumLeafs"), &Gnutella1.NumLeafs, 50, 1, 5, 1024 );
 	Add( _T("Gnutella1"), _T("NumPeers"), &Gnutella1.NumPeers, 32, 1, 15, 64 ); // For X-Degree
-	Add( _T("Gnutella1"), _T("PacketBufferSize"), &Gnutella1.PacketBufferSize, 64, 1, 1, 1024 );
+	Add( _T("Gnutella1"), _T("PacketBufferSize"), &Gnutella1.PacketBufferSize, 64, 1, 1, 1024, _T(" packets") );
 	Add( _T("Gnutella1"), _T("PacketBufferTime"), &Gnutella1.PacketBufferTime, 60000, 1000, 10, 180, _T(" s") );
 	Add( _T("Gnutella1"), _T("PingFlood"), &Gnutella1.PingFlood, 3000, 1000, 0, 30, _T(" s") );
 	Add( _T("Gnutella1"), _T("PingRate"), &Gnutella1.PingRate, 30000, 1000, 15, 180, _T(" s") );
@@ -347,7 +347,7 @@ void CSettings::Load()
 	Add( _T("Gnutella1"), _T("PongCount"), &Gnutella1.PongCount, 10, 1, 1, 64 );
 	Add( _T("Gnutella1"), _T("QueryHitUTF8"), &Gnutella1.QueryHitUTF8, true );
 	Add( _T("Gnutella1"), _T("QuerySearchUTF8"), &Gnutella1.QuerySearchUTF8, true );
-	Add( _T("Gnutella1"), _T("QueryThrottle"), &Gnutella1.QueryThrottle, 30, 1, 5, 10*60, _T(" s") );
+	Add( _T("Gnutella1"), _T("QueryThrottle"), &Gnutella1.QueryThrottle, 30, 1, 10, 10*60, _T(" s") );
 	Add( _T("Gnutella1"), _T("QueueLimter"), &Gnutella1.HitQueueLimit, 50 );
 	Add( _T("Gnutella1"), _T("RequeryDelay"), &Gnutella1.RequeryDelay, 30, 1, 5, 60, _T(" s") );
 	Add( _T("Gnutella1"), _T("SearchTTL"), &Gnutella1.SearchTTL, 3, 1, 1, 3 );
@@ -406,7 +406,7 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("LearnNewServersClient"), &eDonkey.LearnNewServersClient, false );
 	Add( _T("eDonkey"), _T("MagnetSearch"), &eDonkey.MagnetSearch, true );
 	Add( _T("eDonkey"), _T("MaxLinks"), &eDonkey.MaxLinks, 200, 1, 1, 2048 );
-	Add( _T("eDonkey"), _T("MaxResults"), &eDonkey.MaxResults, 400, 1, 1, 800 );
+	Add( _T("eDonkey"), _T("MaxResults"), &eDonkey.MaxResults, 400, 1, 1, 999 );
 	Add( _T("eDonkey"), _T("MaxShareCount"), &eDonkey.MaxShareCount, 1000, 1, 25, 20000 );
 	Add( _T("eDonkey"), _T("MetAutoQuery"), &eDonkey.MetAutoQuery, true );
 	Add( _T("eDonkey"), _T("MinServerFileSize"), &eDonkey.MinServerFileSize, 0, 1, 0, 50, _T(" MB") );
@@ -698,6 +698,7 @@ void CSettings::Load()
 	eDonkey.EnableToday = eDonkey.EnableAlways = false;
 	Gnutella1.EnableToday = Gnutella1.EnableAlways = false;
 	BitTorrent.EnableToday = BitTorrent.EnableAlways = false;
+	Gnutella.MaxHits = 0;
 #endif // LAN_MODE
 
 	if ( Live.FirstRun )
@@ -725,6 +726,32 @@ void CSettings::Normalize(LPVOID pSetting)
 		if ( *pItem == pSetting )
 		{
 			pItem->Normalize();
+			break;
+		}
+	}
+}
+
+bool CSettings::IsDefault(LPVOID pSetting) const
+{
+	for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
+	{
+		Item* pItem = m_pItems.GetNext( pos );
+		if ( *pItem == pSetting )
+		{
+			return pItem->IsDefault();
+		}
+	}
+	return false;
+}
+
+void CSettings::SetDefault(LPVOID pSetting)
+{
+	for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
+	{
+		Item* pItem = m_pItems.GetNext( pos );
+		if ( *pItem == pSetting )
+		{
+			pItem->SetDefault();
 			break;
 		}
 	}
@@ -1090,7 +1117,6 @@ void CSettings::SmartUpgrade()
 
 void CSettings::OnChangeConnectionSpeed()
 {
-#ifndef LAN_MODE
 	bool bLimited = theApp.m_bLimitedConnections && !(General.IgnoreXPsp2 || theApp.m_bIsVistaOrNewer);
 
 	if ( Connection.InSpeed <= 80 ) 			// Dial-up Modem users
@@ -1180,7 +1206,6 @@ void CSettings::OnChangeConnectionSpeed()
 
 		General.ItWasLimited			= false;
 	}
-#endif // LAN_MOD
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1681,6 +1706,34 @@ void CSettings::Item::Normalize()
 	{
 		*m_pDword = max( min( *m_pDword, m_nMax * m_nScale ), m_nMin * m_nScale );
 	}
+}
+
+bool CSettings::Item::IsDefault() const
+{
+	if ( m_pDword )
+		return ( m_DwordDefault == *m_pDword );
+	else if ( m_pBool )
+		return ( m_BoolDefault == *m_pBool );
+	else if ( m_pFloat )
+		return ( m_FloatDefault == *m_pFloat );
+	else if ( m_pString )
+		return ( m_StringDefault == *m_pString );
+	else
+		return ( SaveSet( m_pSet ).CompareNoCase( m_StringDefault ) == 0 );
+}
+
+void CSettings::Item::SetDefault()
+{
+	if ( m_pDword )
+		*m_pDword = m_DwordDefault;
+	else if ( m_pBool )
+		*m_pBool = m_BoolDefault;
+	else if ( m_pFloat )
+		*m_pFloat = m_FloatDefault;
+	else if ( m_pString )
+		*m_pString = m_StringDefault;
+	else
+		LoadSet( m_pSet, m_StringDefault );
 }
 
 template<>

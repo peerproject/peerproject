@@ -195,6 +195,7 @@ CPeerProjectApp::CPeerProjectApp() :
 ,	m_hLibGFL				( NULL )
 ,	m_hGeoIP				( NULL )
 ,	m_pGeoIP				( NULL )
+,	m_pfnGeoIP_delete		( NULL )
 ,	m_pfnGeoIP_country_code_by_ipnum( NULL )
 ,	m_pfnGeoIP_country_name_by_ipnum( NULL )
 
@@ -872,7 +873,7 @@ void CPeerProjectApp::InitResources()
 		(FARPROC&)m_pfnOpenThemeData = GetProcAddress( m_hTheme, "OpenThemeData" );
 		(FARPROC&)m_pfnCloseThemeData = GetProcAddress( m_hTheme, "CloseThemeData" );
 		(FARPROC&)m_pfnDrawThemeBackground = GetProcAddress( m_hTheme, "DrawThemeBackground" );
-		(FARPROC&)m_pfnEnableThemeDialogTexture = GetProcAddress( m_hTheme, "EnableThemeDialogTexture" );
+	//	(FARPROC&)m_pfnEnableThemeDialogTexture = GetProcAddress( m_hTheme, "EnableThemeDialogTexture" );
 	//	(FARPROC&)m_pfnDrawThemeParentBackground = GetProcAddress( m_hTheme, "DrawThemeParentBackground" );
 	//	(FARPROC&)m_pfnGetThemeBackgroundContentRect = GetProcAddress( m_hTheme, "GetThemeBackgroundContentRect" );
 	//	(FARPROC&)m_pfnGetThemeSysFont = GetProcAddress( m_hTheme, "GetThemeSysFont" );

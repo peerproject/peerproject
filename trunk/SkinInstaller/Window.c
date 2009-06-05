@@ -55,9 +55,9 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 				hFont=CreateFontIndirect(&lf);
 				SendDlgItemMessage(hwndDlg,IDC_NAME,WM_SETFONT,(WPARAM)hFont,0);
 			}
-			if (szName) {
+			if (szPath) {
 				TCHAR buf[256], tbuf[256];
-				_snwprintf(buf, sizeof(buf), L"%s %s", szName, szVersion?szVersion:L"");
+				_snwprintf(buf, sizeof(buf), L"%s %s", skinType? szName : szPath, szVersion?szVersion:L"");
 				_snwprintf(tbuf, sizeof(tbuf), L"%s - %s", buf, skinType? SKIN_LANG_TITLE : SKIN_SKIN_TITLE);
 				SetDlgItemText(hwndDlg, IDC_NAME, buf);
 				SetWindowText(hwndDlg, tbuf);
@@ -99,7 +99,7 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 				TCHAR buf[256];
 				LPDRAWITEMSTRUCT lpDrawItemStruct;
 				lpDrawItemStruct = (LPDRAWITEMSTRUCT)lParam;
-				FillRect(lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, (HBRUSH)(WHITE_BRUSH+1));
+				FillRect(lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, IntToPtr(WHITE_BRUSH+1));
 				ExtFloodFill(lpDrawItemStruct->hDC, lpDrawItemStruct->rcItem.top,
 					lpDrawItemStruct->rcItem.left, RGB(0, 0, 0), FLOODFILLBORDER);
 				SetBkMode(lpDrawItemStruct->hDC, TRANSPARENT);

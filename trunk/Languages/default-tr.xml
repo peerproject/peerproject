@@ -3618,10 +3618,6 @@
 		<control caption="Varsayılan Tracker: "/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoller">
-		<control caption="PeerProject Genel Mimarlık Protokol Araştırıcısı:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Arayüzler">
 		<control/>
 		<control caption="Arayüz Bilgileri:"/>
@@ -3653,6 +3649,10 @@
 		<control caption="Özellik ayarları:"/>
 		<control caption="Değer:"/>
 		<control caption="Açıklama:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoller">
+		<control caption="PeerProject Genel Mimarlık Protokol Araştırıcısı:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Sıra Aktarım Özellikleri">
@@ -3809,6 +3809,14 @@
 		<control caption="Yaş:"/>
 		<control caption="Diğerlerinin benim profilimi görmesine izin ver"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Havari">
+		<control caption="_Önizleme:"/>
+		<control/>
+		<control caption="_Seç:"/>
+		<control caption="Diğer Gnutella kullanıcıları profilinize ve paylaşım dosyalarınıza gözatarken havarinizi göreceklerdir. Havariniz 128x128 pixel olmalıdır ve PC'nizin desteklediği görüntü dosyaları olabilir."/>
+		<control caption="_Gözat..."/>
+		<control caption="_Kaldır"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="İletişim">
 		<control caption="_Email Adresleri:"/>
 		<control caption="Birincil:"/>
@@ -3844,14 +3852,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Hakkımda">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Havari">
-		<control caption="_Önizleme:"/>
-		<control/>
-		<control caption="_Seç:"/>
-		<control caption="Diğer Gnutella kullanıcıları profilinize ve paylaşım dosyalarınıza gözatarken havarinizi göreceklerdir. Havariniz 128x128 pixel olmalıdır ve PC'nizin desteklediği görüntü dosyaları olabilir."/>
-		<control caption="_Gözat..."/>
-		<control caption="_Kaldır"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoriler">
 		<control/>
@@ -4234,11 +4234,6 @@
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Yardım">
-		<control/>
-		<control caption="Kapat"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Dosya Sil">
 		<control caption="Silmek istediğinizden emin misiniz?"/>
 		<control/>
@@ -4269,38 +4264,6 @@
 		<control caption="_Sonraki|D_ışa Aktar..."/>
 		<control caption="İ_ptal"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Download Properties">
-		<control caption="Uyarı: İleri kullanıcılar için bu diyalog ileri indirme biçimlendirme özelliği temin eder, bu özellikler kullanılırsa hatalar oluşabilir ve muhtemelen bozukluklar ortaya çıkabilir."/>
-		<control caption="Dosya Adı ve _Boyutu:"/>
-		<control caption="Dosya Adı:"/>
-		<control/>
-		<control/>
-		<control caption="Dosya boyutu (Bayt)"/>
-		<control/>
-		<control caption="_URNs:"/>
-		<control caption=""/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Faaliyetler:"/>
-		<control caption="Şimdiki doğrulama(ve yeniden doğrulama) durumunu unut"/>
-		<control caption="Varsayılan dosya 100% tam ve yeniden doğrulandı"/>
-		<control caption="Bilinen tüm kaynakları unut"/>
-		<control caption="Yerel dosya ile birleştir ve kontrol et"/>
-		<control caption="İndirimi durdur ama bitirilmemiş dosyaları kaydet"/>
-		<control caption="_Veri Silici:"/>
-		<control caption="Bayt alanı:"/>
-		<control/>
-		<control caption=" rakamından"/>
-		<control/>
-		<control caption="Silme"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Torrent Dosyası Aç">
 		<control/>
 		<control caption="BitTorrent torrent dosyası açtınız.  Onun içindekileri indirmemek ya da tekrar besleme yapmak ister misiniz?"/>
@@ -4310,47 +4273,79 @@
 		<control caption="Dosyaları tam paylaşmak için BitTorrent köken olmalıdır. Bir kere bu iş indirme listenizde yeni bir parça gibi görünecek tam Torent'dır."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="General">
-		<control caption="Torrent _Bilgileri:"/>
-		<control caption="İsim:"/>
-		<control/>
-		<control caption="Oluşturuldu:"/>
-		<control/>
-		<control caption="Tarafından:"/>
-		<control/>
-		<control caption="Açıklamalar:"/>
-		<control/>
-		<control caption="Transferler:"/>
-		<control caption="Yeni bir indirme transferine başla:"/>
-		<control caption="İhtiyaç kadarı|100% oluncaya kadar|Yanlız istek olunca|Asla"/>
-		<control/>
-		<control caption="Toplam Gönderilen:"/>
-		<control caption="Not:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Files">
-		<control caption="Torrent _Information:"/>
-		<control caption="İsim:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control/>
-		<control caption="_Dosyalar:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="Torrent _Verileri:"/>
-		<control caption="İsim:"/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="_Şimdiki Tracker:"/>
-		<control caption="Tamamlanmış (Seed edilen):"/>
-		<control/>
-		<control caption="Bitirilmemiş:"/>
-		<control/>
-		<control caption="T_azele"/>
-		<control caption="_Trackers:"/>
-		<control/>
+		<control caption="Seed (Tamamlanmış):"/>
+		<control caption="Peer (Bitirilmemiş):"/>
 		<control caption="Tracker Modu:"/>
 		<control caption="Etkisiz|Kişisel değer|Tek Tracker|Birçok tracker|Birçok tracker (kilitli)"/>
+		<control caption="T_azele"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="İhtiyaç kadarı|100% oluncaya kadar|Yanlız istek olunca|Asla"/>
+		<control/>
+		<control caption="Torrent _Bilgileri:"/>
+		<control caption="İsim:"/>
+		<control caption="Oluşturuldu:"/>
+		<control caption="Tarafından:"/>
+		<control caption="Açıklamalar:"/>
+		<control caption="Transferler:"/>
+		<control caption="Yeni bir indirme transferine başla:"/>
+		<control caption="Toplam Gönderilen:"/>
+		<control caption="Not:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="General">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Uyarı: İleri kullanıcılar için bu diyalog ileri indirme biçimlendirme özelliği temin eder, bu özellikler kullanılırsa hatalar oluşabilir ve muhtemelen bozukluklar ortaya çıkabilir."/>
+		<control caption="Adı ve _Boyutu:"/>
+		<control caption="Dosya Adı:"/>
+		<control caption="Dosya boyutu (Bayt)"/>
+		<control caption="_URNs:"/>
+		<control caption=""/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Faaliyetler">
+		<control caption="Uyarı: İleri kullanıcılar için bu diyalog ileri indirme biçimlendirme özelliği temin eder, bu özellikler kullanılırsa hatalar oluşabilir ve muhtemelen bozukluklar ortaya çıkabilir."/>
+		<control caption="Bilinen tüm kaynakları unut"/>
+		<control caption="Şimdiki doğrulama(ve yeniden doğrulama) durumunu unut"/>
+		<control caption="Varsayılan dosya 100% tam ve yeniden doğrulandı"/>
+		<control caption="Yerel dosya ile birleştir ve kontrol et"/>
+		<control caption="İndirimi durdur ama bitirilmemiş dosyaları kaydet"/>
+		<control/>
+		<control/>
+		<control caption="Faaliyetler:"/>
+		<control caption="_Veri Silici:"/>
+		<control caption="Bayt alanı:"/>
+		<control caption="→"/>
+		<control caption="Silme"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="İndirme Grup Özellikleri">
 		<control caption="Tamam"/>
@@ -4387,12 +4382,6 @@
 		<control caption="Yeni versiyonları kontrol etme"/>
 		<control caption="Güncelleme"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Gözden Geçirilen İndirmeler">
-		<control/>
-		<control caption="Tamam"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Veri Yerleştir">
 		<control caption="Lütfen kodlama ile ilgili metod seçiniz."/>
 		<control caption="Arapça|Baltık|Merkezi Avrupa|Basitleştirilmiş Çince|Geleneksel Çince|Slavca|Yunanca|İbranice|Japonca|Korece|Tay dili|Türkçe|Vietnamca"/>
@@ -4404,11 +4393,22 @@
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 		<control caption="Eklemek istediğiniz kanalı giriniz:|Kovma/yasaklama nedenini giriniz:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Gözden Geçirilen İndirmeler">
+		<control/>
+		<control caption="Tamam"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject Yardım">
+		<control/>
+		<control caption="Kapat"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4535,6 +4535,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Dosya Adı"/>
 		<column from="Size" to="Boyut"/>
+		<column from="Status" to="Boyut"/>
+		<column from="Priority" to="Tür"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Filename" to="Dosya Adı"/>

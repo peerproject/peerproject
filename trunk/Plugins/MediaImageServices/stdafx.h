@@ -1,10 +1,8 @@
 //
-// stdafx.h : include file for standard system include files,
-// or project specific include files that are used frequently,
-// but are changed infrequently
+// StdAfx.h : standard system include files
 //
 // This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright (c) Nikolay Raspopov, 2005.
+// Portions Copyright Nikolay Raspopov, 2005.
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License

@@ -1902,17 +1902,17 @@ STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    EDITTEXT        IDC_TORRENT_TRACKER,100,14,186,12,ES_AUTOHSCROLL
-    EDITTEXT        IDC_TORRENT_COMPLETED,100,34,58,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
+    EDITTEXT        IDC_TORRENT_TRACKER,90,14,196,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TORRENT_COMPLETED,90,34,58,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
     EDITTEXT        IDC_TORRENT_INCOMPLETE,228,34,58,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-    COMBOBOX        IDC_TORRENT_TRACKERMODE,100,53,120,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "&Refresh",IDC_TORRENT_REFRESH,228,53,58,14
     CONTROL         "",IDC_TORRENT_TRACKERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,7,82,286,131
-    LTEXT           "Tracker:",IDC_STATIC,14,14,84,12,SS_CENTERIMAGE
+    LTEXT           "Tracker:",IDC_STATIC,14,14,74,12,SS_CENTERIMAGE
     GROUPBOX        "&Current Tracker:",IDC_STATIC,7,3,286,71
-    LTEXT           "Completed (Seeds):",IDC_STATIC,14,34,84,12,SS_CENTERIMAGE
-    RTEXT           "Incomplete:",IDC_STATIC,159,34,67,12,SS_CENTERIMAGE
+    LTEXT           "Seeds (Complete):",IDC_STATIC,14,34,74,12,SS_CENTERIMAGE
+    RTEXT           "Peers (Incomplete):",IDC_STATIC,148,34,70,12,SS_CENTERIMAGE
     LTEXT           "Tracker Mode:",IDC_STATIC,14,54,78,9
+    COMBOBOX        IDC_TORRENT_TRACKERMODE,90,53,120,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Refresh",IDC_TORRENT_REFRESH,228,52,58,14
 END
 
 IDD_TORRENT_FILES DIALOGEX 0, 0, 300, 220
@@ -1937,19 +1937,19 @@ STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    LTEXT           "Forget current verification status and reverify",IDC_FORGET_VERIFY,14,41,272,8
-    LTEXT           "Assume file is 100% complete and reverify",IDC_COMPLETE_AND_VERIFY,14,55,272,8
-    LTEXT           "Forget all known sources",IDC_FORGET_SOURCES,14,69,272,8
-    LTEXT           "Merge with local file and verify",IDC_MERGE_AND_VERIFY,14,83,272,8
-    LTEXT           "Cancel download but save incomplete files",IDC_CANCEL_DOWNLOAD,14,97,272,8
+    LTEXT           "WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption.",IDC_STATIC,7,7,286,18
+    LTEXT           "Forget all known sources",IDC_FORGET_SOURCES,20,44,272,8
+    LTEXT           "Forget current verification status and reverify",IDC_FORGET_VERIFY,20,58,272,8
+    LTEXT           "Assume file is 100% complete and reverify",IDC_COMPLETE_AND_VERIFY,20,72,272,8
+    LTEXT           "Merge with local file and verify",IDC_MERGE_AND_VERIFY,20,86,272,8
+    LTEXT           "Save incomplete files and Cancel download",IDC_CANCEL_DOWNLOAD,20,100,272,8
     EDITTEXT        IDC_ERASE_FROM,74,194,65,12,ES_AUTOHSCROLL
-    EDITTEXT        IDC_ERASE_TO,164,194,65,12,ES_AUTOHSCROLL
-    PUSHBUTTON      "Erase",IDC_ERASE,236,193,50,14
+    EDITTEXT        IDC_ERASE_TO,160,194,65,12,ES_AUTOHSCROLL
     GROUPBOX        "&Actions:",IDC_STATIC,7,28,286,147
     GROUPBOX        "Data &Eraser:",IDC_STATIC,7,182,286,33
-    LTEXT           "Byte range:",IDC_STATIC,14,194,57,12,SS_CENTERIMAGE
-    CTEXT           "to",IDC_STATIC,141,192,21,12,SS_CENTERIMAGE
-    LTEXT           "WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption.",IDC_STATIC,7,7,286,18
+    LTEXT           "Byte range:",IDC_STATIC,20,194,52,12,SS_CENTERIMAGE
+    CTEXT           "to",IDC_STATIC,141,194,18,12,SS_CENTERIMAGE
+    PUSHBUTTON      "Erase",IDC_ERASE,236,193,50,14
 END
 
 IDD_SELECT DIALOGEX 0, 0, 350, 60

@@ -29,8 +29,9 @@
 #include "FragmentedFile.h"
 #include "Network.h"
 #include "Buffer.h"
-#include "XML.h"
 #include "DownloadTransferBT.h"
+#include "Transfers.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -44,6 +45,8 @@ static char THIS_FILE[]=__FILE__;
 
 CDownloadTransfer::CDownloadTransfer(CDownloadSource* pSource, PROTOCOLID nProtocol)
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	m_nProtocol		= nProtocol;
 	m_pDownload		= pSource->m_pDownload;
 	m_pDlPrev		= NULL;
@@ -75,14 +78,16 @@ CDownloadTransfer::~CDownloadTransfer()
 //////////////////////////////////////////////////////////////////////
 // CDownloadTransfer close
 // bKeepSource parameter:
-// TRI_FALSE   - the source will be added to m_pFailedSources in CDownloadWithSources,
-//			    removed from the sources and can be distributed in the Source Mesh as X-Nalt
-// TRI_TRUE    - keeps the source and will be distributed as X-Alt
-// TRI_UNKNOWN - keeps the source and will be dropped after several retries, will be
-//            - added to m_pFailedSources when removed
+// TRI_FALSE	- the source will be added to m_pFailedSources in CDownloadWithSources,
+//					removed from the sources and can be distributed in the Source Mesh as X-Nalt
+// TRI_TRUE 	- keeps the source and will be distributed as X-Alt
+// TRI_UNKNOWN	- keeps the source and will be dropped after several retries, will be
+//				- added to m_pFailedSources when removed
 
 void CDownloadTransfer::Close(TRISTATE bKeepSource, DWORD nRetryAfter)
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	SetState( dtsNull );
 
 	CTransfer::Close();
@@ -126,6 +131,8 @@ void CDownloadTransfer::Boost()
 
 DWORD CDownloadTransfer::GetAverageSpeed()
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	return m_AverageSpeed( m_pSource->m_nSpeed = GetMeasuredSpeed() );
 }
 
@@ -216,6 +223,8 @@ BOOL CDownloadTransfer::OnRun()
 
 void CDownloadTransfer::SetState(int nState)
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	if ( m_pDownload != NULL )
 	{
 		if ( Settings.Downloads.SortSources )
@@ -281,6 +290,8 @@ void CDownloadTransfer::SetState(int nState)
 
 void CDownloadTransfer::ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, QWORD nChunk, BOOL bVerifyLock)
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	ASSERT( pnOffset != NULL && pnLength != NULL );
 
 	if ( m_pSource->m_bCloseConn ) return;

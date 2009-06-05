@@ -3573,10 +3573,6 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="Förvald spårare:"/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoll">
-		<control caption="PeerProjects gemensamma protokollutforskare:" />
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skinn">
 		<control/>
 		<control caption="Skinninformation:" />
@@ -3608,6 +3604,10 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="Egenskaper för inställning:" />
 		<control caption="Värde:" />
 		<control caption="Beskrivning:" />
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoll">
+		<control caption="PeerProjects gemensamma protokollutforskare:" />
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Egenskaper för uppladdningskö">
@@ -3764,6 +3764,14 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="Ålder:" />
 		<control caption="Tillåt andra att visa min profil" />
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
+		<control caption="_Förhandsvisning:" />
+		<control/>
+		<control caption="_Välj:" />
+		<control caption="Andra Gnutellaanvändare som visar din profil och dina utdelade viler kommer att se din avatar. Anpassade bilder ska vara 128x128 pixlar och kan vara valfri bildfil på din PC." />
+		<control caption="_Bläddra…" />
+		<control caption="_Radera" />
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
 		<control caption="_Epostadresser:" />
 		<control caption="Primär:" />
@@ -3799,14 +3807,6 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Biografi">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
-		<control caption="_Förhandsvisning:" />
-		<control/>
-		<control caption="_Välj:" />
-		<control caption="Andra Gnutellaanvändare som visar din profil och dina utdelade viler kommer att se din avatar. Anpassade bilder ska vara 128x128 pixlar och kan vara valfri bildfil på din PC." />
-		<control caption="_Bläddra…" />
-		<control caption="_Radera" />
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favoriter">
 		<control/>
@@ -4189,11 +4189,6 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="OK"/>
 		<control caption="Avbryt" />
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Hjälp för PeerProject">
-		<control/>
-		<control caption="Stäng" />
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Radera fil">
 		<control caption="Är du säker på att du vill radera:" />
 		<control/>
@@ -4224,38 +4219,6 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="_Nästa|Exportera..."/>
 		<control caption="_Avbryt"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Redigera nedladdning">
-		<control caption="VARNING: Denna dialog tillhandahåller avancerade nedladdningsinställningar för avancerade användare. Felaktiga användning kan leda till korrupta filer." />
-		<control caption="Filnamn och stor_lek:"/>
-		<control caption="Fil_namn:" />
-		<control/>
-		<control/>
-		<control caption="Filstorlek (Byte):"/>
-		<control/>
-		<control caption="_URNs:"/>
-		<control caption="Pålitlig"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Åtgärder:"/>
-		<control caption="Glöm nuvarande verifikationsstatus (och återverifiera)" />
-		<control caption="Anta att filen är 100% färdig och återverifiera" />
-		<control caption="Glöm alla kända källor" />
-		<control caption="Slå ihop med lokal fil och verifiera"/>
-		<control caption="Avbryt (save incomplete file)"/>
-		<control caption="Data_borttagning:"/>
-		<control caption="Ta bort bytes:" />
-		<control/>
-		<control caption="till"/>
-		<control/>
-		<control caption="Ta bort" />
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Öppna torrentfil">
 		<control/>
 		<control caption="Du har öppnat en BitTorrent torrentfil.  Vill du ladda ned dess innehåll eller återså det?" />
@@ -4265,47 +4228,80 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="För att dela ut kompletta filer med BitTorrent måste de sås. När denna process är färdig kommer torrentfilen synas som en ny artikel i din nedladdningslista." />
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Generellt">
-		<control caption="Torrent_information:"/>
-		<control caption="Namn:"/>
-		<control/>
-		<control caption="Skapad:"/>
-		<control/>
-		<control caption="Av:"/>
-		<control/>
-		<control caption="Kommentarer:"/>
-		<control/>
-		<control caption="Överföringar:"/>
-		<control caption="Påbörja ny överföring:"/>
-		<control caption="&#160;Efter behov| När proportionen är över 100%| Enbart vid förfrågan| Aldrig"/>
-		<control/>
-		<control caption="Totalt uppladdade:"/>
-		<control caption="Anteckningar:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Filer">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Filer">
-		<control caption="Torrent_information:"/>
-		<control caption="Namn:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control/>
-		<control caption="_Filer:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="Torrent_information:"/>
-		<control caption="Namn:"/>
+		<control/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="_Nuvarande Tracker:"/>
-		<control caption="Färdiga (Seeds):"/>
-		<control/>
-		<control caption="Ofullständiga:"/>
-		<control/>
-		<control caption="_Uppdatera"/>
-		<control caption="_Trackers:"/>
-		<control/>
+		<control caption="Seeds (Färdiga):"/>
+		<control caption="Peers (Ofullständiga):"/>
 		<control caption="Trackerläge:"/>
 		<control caption="Avstängd|Anpassad|Enkel tracker|Multi-tracker|Multi-tracker (låst)"/>
+		<control caption="_Uppdatera"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;Efter behov| När proportionen är över 100%| Enbart vid förfrågan| Aldrig"/>
+		<control/>
+		<control caption="Torrent_information:"/>
+		<control caption="Namn:"/>
+		<control caption="Skapad:"/>
+		<control caption="Av:"/>
+		<control caption="Kommentarer:"/>
+		<control caption="Överföringar:"/>
+		<control caption="Påbörja ny överföring:"/>
+		<control caption="Totalt uppladdade:"/>
+		<control caption="Anteckningar:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Generellt">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="VARNING: Denna dialog tillhandahåller avancerade nedladdningsinställningar för avancerade användare. Felaktiga användning kan leda till korrupta filer." />
+		<control caption="Filnamn och stor_lek:"/>
+		<control caption="Fil_namn:" />
+		<control caption="Filstorlek (Byte):"/>
+		<control caption="_URNs:"/>
+		<control caption="Pålitlig"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Åtgärder">
+		<control caption="VARNING: Denna dialog tillhandahåller avancerade nedladdningsinställningar för avancerade användare. Felaktiga användning kan leda till korrupta filer." />
+		<control caption="Glöm alla kända källor" />
+		<control caption="Glöm nuvarande verifikationsstatus (och återverifiera)" />
+		<control caption="Anta att filen är 100% färdig och återverifiera" />
+		<control caption="Slå ihop med lokal fil och verifiera"/>
+		<control caption="Avbryt (save incomplete file)"/>
+		<control/>
+		<control/>
+		<control caption="Åtgärder:"/>
+		<control caption="Data_borttagning:"/>
+		<control caption="Ta bort bytes:" />
+		<control caption="till"/>
+		<control caption="Ta bort" />
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Egenskaper för nedladdningsgruppen">
 		<control caption="OK"/>
@@ -4342,12 +4338,6 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="Kontrollera inte efter nya versioner" />
 		<control caption="Uppgradera inte" />
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Ladda ner recensioner">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadatalokalisering">
 		<control caption="Välj metod för omkodning"/>
 		<control caption="Arabisk|Baltisk|Centraluropeisk|Förenklad kinesisk|Traditionell kinesisk|Kyrillisk|Grekisk|Hebreisk|Japansk|Koreansk|Thailändsk|Turkisk|Vietnamesisk"/>
@@ -4359,11 +4349,22 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Ladda ner recensioner">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="Hjälp för PeerProject">
+		<control/>
+		<control caption="Stäng" />
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4490,6 +4491,8 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Filnamn"/>
 		<column from="Size" to="Storlek"/>
+		<column from="Status" to="Status"/>
+		<column from="Priority" to="Typ"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Tracker"/>

@@ -21,8 +21,10 @@
 
 #pragma once
 
-#include "MediaPlayer.h"
+#include "MediaPlayer_h.h"
 
+
+// CPlayer
 
 class ATL_NO_VTABLE CPlayer :
 	public CComObjectRootEx<CComMultiThreadModel>,
@@ -40,25 +42,22 @@ END_COM_MAP()
 
 DECLARE_PROTECT_FINAL_CONSTRUCT()
 
-DECLARE_GET_CONTROLLING_UNKNOWN()
-
-	HRESULT FinalConstruct()
-	{
-		return S_OK;
-	}
-
-	void FinalRelease()
-	{
-		Destroy();
-	}
+	HRESULT FinalConstruct();
+	void FinalRelease();
 
 protected:
+	HRESULT AdjustVideoZoom(void);
+
 	HWND						m_hwndOwner;
 	RECT						m_rcWindow;
 	CComPtr< IGraphBuilder >	m_pGraph;
 	CComQIPtr< IMediaControl >	m_pControl;
 	CComQIPtr< IMediaEvent >	m_pEvent;
+	CComQIPtr< IBasicVideo >	m_pVideo;
 	CComQIPtr< IVideoWindow >	m_pWindow;
+	MediaZoom					m_nZoom;
+	DOUBLE						m_dAspect;
+	BOOLEAN						m_bAudioOnly;
 
 // IMediaPlayer
 public:
@@ -78,9 +77,9 @@ public:
 	STDMETHOD(SetZoom)(
 		/* [in] */ MediaZoom nZoom);
 	STDMETHOD(GetAspect)(
-		/* [out] */ DOUBLE *pnAspect);
+		/* [out] */ DOUBLE *pdAspect);
 	STDMETHOD(SetAspect)(
-		/* [in] */ DOUBLE nAspect) ;
+		/* [in] */ DOUBLE dAspect) ;
 	STDMETHOD(Open)(
 		/* [in] */ BSTR sFilename);
 	STDMETHOD(Close)(void);

@@ -3487,10 +3487,6 @@
 		<control caption="_Standardní Tracker: "/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoly">
-		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skiny">
 		<control/>
 		<control caption="Informace o Skinu:"/>
@@ -3522,6 +3518,10 @@
 		<control caption="Nastavení vlastností:"/>
 		<control caption="Hodnota:"/>
 		<control caption="Popis:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protokoly">
+		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Vlastnosti fronty pro odesílání">
@@ -3678,6 +3678,14 @@
 		<control caption="Věk:"/>
 		<control caption="Povolit ostatním prohlížet můj profil"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Podobenka">
+		<control caption="Ná_hled:"/>
+		<control/>
+		<control caption="_Zvolte:"/>
+		<control caption="Ostatní uživatelé Gnutelly při prohlížení sdílených souborů mohou vidět i váš profil a vaši podobu. Váš obrázek by měl být 128x128 pixelů a může být v libovolném podporovaném obrazovém souboru na vašem PC."/>
+		<control caption="_Procházet..."/>
+		<control caption="Odst_ranit"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Kontakt">
 		<control caption="_Emailová adresa:"/>
 		<control caption="Hlavní adresa:"/>
@@ -3713,14 +3721,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Podobenka">
-		<control caption="Ná_hled:"/>
-		<control/>
-		<control caption="_Zvolte:"/>
-		<control caption="Ostatní uživatelé Gnutelly při prohlížení sdílených souborů mohou vidět i váš profil a vaši podobu. Váš obrázek by měl být 128x128 pixelů a může být v libovolném podporovaném obrazovém souboru na vašem PC."/>
-		<control caption="_Procházet..."/>
-		<control caption="Odst_ranit"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Oblíbené">
 		<control/>
@@ -4103,11 +4103,6 @@
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="Nápověda PeerProject">
-		<control/>
-		<control caption="Zavřít"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Odstranění souboru">
 		<control caption="Opravdu chcete smazat-odstranit tento soubor:"/>
 		<control/>
@@ -4138,38 +4133,6 @@
 		<control caption="_Next|Export"/>
 		<control caption="_Cancel"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Upravit stahování (Pokročilé)">
-		<control caption="UPOZORNĚNÍ: Pokročilé úpravy stahování jsou pro zkušené uživatele. Pokud je nesprávně použijete mohou a pravděpodobně způsobí poškození souboru."/>
-		<control caption="_Jméno a velikost soubrou:"/>
-		<control caption="Jméno _souboru:"/>
-		<control/>
-		<control/>
-		<control caption="File size (Byte):"/>
-		<control/>
-		<control caption="_URNs:"/>
-		<control caption="Důvěryhodné"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Akce:"/>
-		<control caption="Zapomenout nynější stav ověření a znovu ověřit"/>
-		<control caption="Považovat soubor za 100% dokončen a znovu ověřit"/>
-		<control caption="Zapomenout všechny známé zdroje"/>
-		<control caption="Sloučit se lokálním souborem a ověřit "/>
-		<control caption="Zrušit (save incomplete file)"/>
-		<control caption="_Odstranit data:"/>
-		<control caption="Odstranit byty:"/>
-		<control/>
-		<control caption="do"/>
-		<control/>
-		<control caption="Vymazat"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Otevřít torrent">
 		<control/>
 		<control caption="Otevřeli jste BitTorrent soubor, chcete stáhnout jeho obsah nebo jej znovu nasdílet?"/>
@@ -4179,47 +4142,79 @@
 		<control caption="Před sdílením obsahu stažených BitTorrent souborů musí být nejprve nasdílený vlastní BitTorrent soubor (seed). Jakmile je tento proces dokončen objeví se torent jako stažený soubor ve frontě."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="Obecné">
-		<control caption="Informace o _torentu:"/>
-		<control caption="Jméno:"/>
-		<control/>
-		<control caption="Vytvořen:"/>
-		<control/>
-		<control caption="Uživatelem:"/>
-		<control/>
-		<control caption="KOmtenáře:"/>
-		<control/>
-		<control caption="Přenosy:"/>
-		<control caption="Začít nové přenosy:"/>
-		<control caption="&#160;Podle potřeby| Když je poměr větší něž 100%| Jen pokud požadováno| Nikdy"/>
-		<control/>
-		<control caption="Celkem odesláno:"/>
-		<control caption="Poznámky:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Soubory">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Soubory">
-		<control caption="Informace o _torentu:"/>
-		<control caption="Jméno:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackery">
 		<control/>
-		<control caption="_Soubory:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackery">
-		<control caption="Informace o _torentu:"/>
-		<control caption="Jméno:"/>
+		<control/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="Aktuální Tracker:"/>
-		<control caption="Hotovo (Seeds):"/>
-		<control/>
-		<control caption="Nedokončeno:"/>
-		<control/>
-		<control caption="_Obnovit"/>
-		<control caption="_Trackery:"/>
-		<control/>
+		<control caption="Seeds (Hotovo):"/>
+		<control caption="Peers (Nedokončeno):"/>
 		<control caption="Tracker Mód:"/>
 		<control caption="zakázano|vlastní|Single Tracker|Multi-tracker|Multi-tracker (zamčeno)"/>
+		<control caption="_Obnovit"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Obecné">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;Podle potřeby| Když je poměr větší něž 100%| Jen pokud požadováno| Nikdy"/>
+		<control/>
+		<control caption="Informace o _torentu:"/>
+		<control caption="Jméno:"/>
+		<control caption="Vytvořen:"/>
+		<control caption="Uživatelem:"/>
+		<control caption="KOmtenáře:"/>
+		<control caption="Přenosy:"/>
+		<control caption="Začít nové přenosy:"/>
+		<control caption="Celkem odesláno:"/>
+		<control caption="Poznámky:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Upravit stahování (Pokročilé)">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="UPOZORNĚNÍ: Pokročilé úpravy stahování jsou pro zkušené uživatele. Pokud je nesprávně použijete mohou a pravděpodobně způsobí poškození souboru."/>
+		<control caption="_Jméno a velikost soubrou:"/>
+		<control caption="Jméno _souboru:"/>
+		<control caption="File size (Byte):"/>
+		<control caption="_URNs:"/>
+		<control caption="Důvěryhodné"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Akce">
+		<control caption="UPOZORNĚNÍ: Pokročilé úpravy stahování jsou pro zkušené uživatele. Pokud je nesprávně použijete mohou a pravděpodobně způsobí poškození souboru."/>
+		<control caption="Zapomenout všechny známé zdroje"/>
+		<control caption="Zapomenout nynější stav ověření a znovu ověřit"/>
+		<control caption="Považovat soubor za 100% dokončen a znovu ověřit"/>
+		<control caption="Sloučit se lokálním souborem a ověřit "/>
+		<control caption="Zrušit (save incomplete file)"/>
+		<control/>
+		<control caption="_Akce:"/>
+		<control caption="_Odstranit data:"/>
+		<control caption="Odstranit byty:"/>
+		<control caption="do"/>
+		<control caption="Vymazat"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Stažení vlastností skupiny">
 		<control caption="OK"/>
@@ -4256,12 +4251,6 @@
 		<control caption="Nekontrolovat nové verze"/>
 		<control caption="Nechci aktualizaci"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Prohlédnout stahování">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Lokalizace popisků">
 		<control caption="Prosím zvolte metodu obnovení kódování"/>
 		<control caption="Arabic|Baltic|Central European|Chinese simplified|Chinese traditional|Cyrillic|Greek|Hebrew|Japanese|Korean|Thai|Turkish|Vietnamese"/>
@@ -4273,11 +4262,22 @@
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Prohlédnout stahování">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="Nápověda PeerProject">
+		<control/>
+		<control caption="Zavřít"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4404,11 +4404,13 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Název souboru"/>
 		<column from="Size" to="Velikost"/>
+		<column from="Status" to="Stav"/>
+		<column from="Priority" to="Typ"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>
 		<column from="Status" to="Stav"/>
-		<column from="Type" to="Typ"/>
+		<column from="Priority" to="Typ"/>
 	</list>
 	<list name="CReviewList">
 		<column from="User" to="Uživatel"/>

@@ -113,7 +113,7 @@ public:
 	HANDLE		(WINAPI *m_pfnOpenThemeData)(HWND, LPCWSTR);
 	HRESULT		(WINAPI *m_pfnCloseThemeData)(HANDLE);
 	HRESULT		(WINAPI *m_pfnDrawThemeBackground)(HANDLE, HDC, int, int, const RECT*, const RECT*);
-	HRESULT		(WINAPI *m_pfnEnableThemeDialogTexture)(HWND, DWORD);
+//	HRESULT		(WINAPI *m_pfnEnableThemeDialogTexture)(HWND, DWORD);
 //	HRESULT		(WINAPI *m_pfnDrawThemeParentBackground)(HWND, HDC, RECT*);
 //	HRESULT		(WINAPI *m_pfnGetThemeBackgroundContentRect)(HANDLE, HDC, int, int, const RECT*, RECT*);
 //	HRESULT		(WINAPI *m_pfnGetThemeSysFont)(HANDLE, int, LOGFONT);
@@ -135,7 +135,7 @@ public:
 	typedef const char * (*GeoIP_country_name_by_ipnumFunc) (GeoIP* gi, unsigned long ipnum);
 	GeoIP_country_code_by_ipnumFunc	m_pfnGeoIP_country_code_by_ipnum;
 	GeoIP_country_name_by_ipnumFunc	m_pfnGeoIP_country_name_by_ipnum;
-	GeoIP_deleteFunc				m_pfnGeoIP_delete;
+	GeoIP_deleteFunc	m_pfnGeoIP_delete;
 
 	HINSTANCE			m_hLibGFL;
 

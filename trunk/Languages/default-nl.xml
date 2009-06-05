@@ -3561,10 +3561,6 @@
 		<control caption="Standaard tracker: "/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocollen">
-		<control caption="PeerProject's algemene architectuur protocolverkenner:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skins">
 		<control/>
 		<control caption="Skin informatie:"/>
@@ -3596,6 +3592,10 @@
 		<control caption="Eigenschappen van de instelling:"/>
 		<control caption="Waarde:"/>
 		<control caption="Beschrijving:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocollen">
+		<control caption="PeerProject's algemene architectuur protocolverkenner:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Eigenschappen van de uploadwachtrij">
@@ -3752,6 +3752,14 @@
 		<control caption="Leeftijd:"/>
 		<control caption="Anderen mogen mijn profiel bekijken"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
+		<control caption="_Voorvertoning"/>
+		<control/>
+		<control caption="_Selecteer:"/>
+		<control caption="Andere Gnutella gebruikers die je profiel en gedeelde bestanden bekijken, zullen je avatar zien. Zelfgemaakte avatars moeten 128x128 pixels zijn en kunnen elk door deze PC ondersteund afbeeldingsbestand zijn."/>
+		<control caption="_Zoeken..."/>
+		<control caption="_Verwijderen"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Contact">
 		<control caption="_E-mailadressen:"/>
 		<control caption="Eerste:"/>
@@ -3787,14 +3795,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="Biografie">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
-		<control caption="_Voorvertoning"/>
-		<control/>
-		<control caption="_Selecteer:"/>
-		<control caption="Andere Gnutella gebruikers die je profiel en gedeelde bestanden bekijken, zullen je avatar zien. Zelfgemaakte avatars moeten 128x128 pixels zijn en kunnen elk door deze PC ondersteund afbeeldingsbestand zijn."/>
-		<control caption="_Zoeken..."/>
-		<control caption="_Verwijderen"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favorieten">
 		<control/>
@@ -4177,11 +4177,6 @@
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject help">
-		<control/>
-		<control caption="Sluiten"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Bestand verwijderen">
 		<control caption="Weet je zeker dat je dit bestand wilt verwijderen:"/>
 		<control/>
@@ -4189,7 +4184,7 @@
 		<control caption="Alles wissen"/>
 		<control caption="Annuleren"/>
 		<control/>
-<control caption="PeerProject kan dit bestand onthouden en je waarschuwen als je ergens dit bestand weer tegenkomt. Het zal een spookbastand maken die je commentaar en beoordeling bevat."/>
+		<control caption="PeerProject kan dit bestand onthouden en je waarschuwen als je ergens dit bestand weer tegenkomt. Het zal een spookbastand maken die je commentaar en beoordeling bevat."/>
 		<control caption="Maak een spookbestand"/>
 		<control caption="Waarom verwijder je dit bestand:"/>
 		<control caption="Enkel verwijderen, geen commentaar|Dit bestand is verkeerd benoemd en kan misleidend zijn|Dit bestand is van heel slechte kwaliteit|Dit bestand is corrupt en/of onbruikbaar|Vervang mijn commentaar met nieuwere"/>
@@ -4212,38 +4207,6 @@
 		<control caption="_Volgende|Exporteren..."/>
 		<control caption="_Annuleren"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Download aanpassen (uitgebreid)">
-		<control caption="WAARSCHUWING: De hier weergegeven opties zijn alleen voor gevorderde gebruikers. Bij incorrect gebruik is de kans op datacorruptie zeer groot."/>
-		<control caption="_Bestandsnaam en bestandsgrootte:"/>
-		<control caption="Bestandsnaam:"/>
-		<control/>
-		<control/>
-		<control caption="Grootte in Bytes:"/>
-		<control/>
-		<control caption="_URNs:"/>
-		<control caption="Betrouwbaar"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="_Acties:"/>
-		<control caption="Vergeet de huidige controlestatus (en controleer opnieuw)"/>
-		<control caption="Veronderstel bestand is 100% voltooid en controleer opnieuw"/>
-		<control caption="Vergeet alle bekende bronnen"/>
-		<control caption="Voeg met lokaal bestand samen en controleer"/>
-		<control caption="Annuleren (save incomplete file)"/>
-		<control caption="Data _verwijderaar:"/>
-		<control caption="Wis Bytes:"/>
-		<control/>
-		<control caption="tot"/>
-		<control/>
-		<control caption="Wissen"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Torrentbestand openen">
 		<control/>
 		<control caption="Je hebt een BitTorrent bestand geopend. Wil je de inhoud ervan downloaden of het opnieuw uitzaaien?"/>
@@ -4253,47 +4216,80 @@
 		<control caption="Om volledige bestanden te delen via BitTorrent moeten ze eerst worden uitgezaaid. Als dit proces klaar is verschijnt de torrent als een nieuw item in je downloadlijst."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="BitTorrent tracker venster">
-		<control caption="Torrent_informatie:"/>
-		<control caption="Naam:"/>
-		<control/>
-		<control caption="Gemaakt:"/>
-		<control/>
-		<control caption="Door:"/>
-		<control/>
-		<control caption="Commentaar:"/>
-		<control/>
-		<control caption="Overdrachten:"/>
-		<control caption="Start nieuwe download verplaatsingen:"/>
-		<control caption="Indien nodig|Wanneer verhouding over 100% is|Alleen op verzoek|Nooit"/>
-		<control/>
-		<control caption="Total Uploaded:"/>
-		<control caption="Notes:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="Files">
-		<control caption="Torrent _Information:"/>
-		<control caption="Naam:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control/>
-		<control caption="_Bestanden:"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="Torrent _Information:"/>
-		<control caption="Naam:"/>
+		<control/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="_Current Tracker:"/>
-		<control caption="Volledig (Seeds):"/>
-		<control/>
-		<control caption="Incomplete:"/>
-		<control/>
-		<control caption="_Refresh"/>
-		<control caption="_Trackers:"/>
-		<control/>
+		<control caption="Seeds (Volledig):"/>
+		<control caption="Peers (Incomplete):"/>
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
+		<control caption="_Refresh"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrent">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Indien nodig|Wanneer verhouding over 100% is|Alleen op verzoek|Nooit"/>
+		<control/>
+		<control caption="Torrent_informatie:"/>
+		<control caption="Naam:"/>
+		<control caption="Gemaakt:"/>
+		<control caption="Door:"/>
+		<control caption="Commentaar:"/>
+		<control caption="Overdrachten:"/>
+		<control caption="Start nieuwe download verplaatsingen:"/>
+		<control caption="Total Uploaded:"/>
+		<control caption="Notes:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Uitgebreid">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="WAARSCHUWING: De hier weergegeven opties zijn alleen voor gevorderde gebruikers. Bij incorrect gebruik is de kans op datacorruptie zeer groot."/>
+		<control caption="_Bestandsnaam en bestandsgrootte:"/>
+		<control caption="Bestandsnaam:"/>
+		<control caption="Grootte in Bytes:"/>
+		<control caption="_URNs:"/>
+		<control caption="Betrouwbaar"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Acties">
+		<control caption="WAARSCHUWING: De hier weergegeven opties zijn alleen voor gevorderde gebruikers. Bij incorrect gebruik is de kans op datacorruptie zeer groot."/>
+		<control caption="Vergeet alle bekende bronnen"/>
+		<control caption="Vergeet de huidige controlestatus (en controleer opnieuw)"/>
+		<control caption="Veronderstel bestand is 100% voltooid en controleer opnieuw"/>
+		<control caption="Voeg met lokaal bestand samen en controleer"/>
+		<control caption="Annuleren (save incomplete file)"/>
+		<control/>
+		<control/>
+		<control caption="Acties:"/>
+		<control caption="Data _verwijderaar:"/>
+		<control caption="Wis Bytes:"/>
+		<control caption="tot"/>
+		<control caption="Wissen"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Downloadgroep eigenschappen">
 		<control caption="OK"/>
@@ -4330,12 +4326,6 @@
 		<control caption="Niet controleren op nieuwe versies"/>
 		<control caption="Niet upgraden"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Downloadcommentaar">
-		<control/>
-		<control caption="OK"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Metadata lokalisatie">
 		<control caption="Selecteer hercodeermethode"/>
 		<control caption="Arabisch|Baltisch|Centraal Europees|Chinees (vereenvoudigd)|Chinees (traditioneel)|Cyrillic|Grieks|Hebreeuws|Japans|Koreaans|Thais|Turks|Vietnamees"/>
@@ -4347,11 +4337,22 @@
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Downloadcommentaar">
+		<control/>
+		<control caption="OK"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject help">
+		<control/>
+		<control caption="Sluiten"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4395,7 +4396,7 @@
 		<column from="Total" to="Totaal"/>
 		<column from="Flow" to="Stroom"/>
 		<column from="Leaves" to="Leaves"/>
-		<column from="modus" to="Modus"/>
+		<column from="Mode" to="Modus"/>
 		<column from="Client" to="Cliënt"/>
 		<column from="Name" to="Naam"/>
 		<column from="Country" to="Land"/>
@@ -4475,9 +4476,16 @@
 		<column from="URL" to="URL"/>
 		<column from="Expires" to="Verloopt"/>
 	</list>
-	<list name="CTorrentTrackerList">
+	<list name="CTorrentFileList">
 		<column from="Filename" to="Bestandsnaam"/>
 		<column from="Size" to="Grootte"/>
+		<column from="Status" to=""/>
+		<column from="Priority" to=""/>
+	</list>
+	<list name="CTorrentTrackerList">
+		<column from="Filename" to="Bestandsnaam"/>
+		<column from="Status" to=""/>
+		<column from="Type" to=""/>
 	</list>
 	<list name="CReviewList">
 		<column from="User" to="Gebruiker"/>

@@ -1629,7 +1629,6 @@
 		<text group="32" align="middle">连接中...</text>
 		<text group="33" align="middle">已连接</text>
 		<newline group="30" gap="2"/>
-
 		<group id="2">
 			<para align="center">
 				<newline gap="6"/>
@@ -3077,11 +3076,9 @@
 	<string id="20214" value="较好"/>
 	<string id="20215" value="很好"/>
 	<string id="20216" value="极棒"/>
-
 	<string id="20237" value="确定"/>
 	<string id="20238" value="取消"/>
 </strings>
-
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="常规">
@@ -3402,10 +3399,6 @@
 		<control caption="默认 Tracker:"/>
 		<control/>
 	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="协议">
-		<control caption="PeerProject 通用协议架构浏览:"/>
-		<control/>
-	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="皮肤">
 		<control/>
 		<control caption="皮肤信息:"/>
@@ -3437,6 +3430,10 @@
 		<control caption="设置属性:"/>
 		<control caption="赋值:"/>
 		<control caption="描述:"/>
+		<control/>
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="协议">
+		<control caption="PeerProject 通用协议架构浏览:"/>
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="上传队列属性">
@@ -3593,6 +3590,14 @@
 		<control caption="年龄:"/>
 		<control caption="允许他人浏览我的个人资料"/>
 	</dialog>
+	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="头像">
+		<control caption="预览(_P):"/>
+		<control/>
+		<control caption="选择(_S):"/>
+		<control caption="其他 Gnutella 用户浏览您的个人资料时将会看到您的头像。定制的头像应当是 128x128 象素，可以使用您电脑上的任何图片格式。"/>
+		<control caption="浏览(_B)..."/>
+		<control caption="移除(_R)"/>
+	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="联系">
 		<control caption="Email 地址(_E):"/>
 		<control caption="主要地址:"/>
@@ -3628,14 +3633,6 @@
 	</dialog>
 	<dialog name="CBioProfilePage" cookie="Ed" caption="个人自述">
 		<control/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="头像">
-		<control caption="预览(_P):"/>
-		<control/>
-		<control caption="选择(_S):"/>
-		<control caption="其他 Gnutella 用户浏览您的个人资料时将会看到您的头像。定制的头像应当是 128x128 象素，可以使用您电脑上的任何图片格式。"/>
-		<control caption="浏览(_B)..."/>
-		<control caption="移除(_R)"/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="最爱">
 		<control/>
@@ -4017,11 +4014,6 @@
 		<control caption="确定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject 帮助">
-		<control/>
-		<control caption="关闭"/>
-		<control/>
-	</dialog>
 	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="删除文件">
 		<control caption="您确定要删除:"/>
 		<control/>
@@ -4052,38 +4044,6 @@
 		<control caption="前进(_N)|导出..."/>
 		<control caption="取消(_C)"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="编辑下载">
-		<control caption="警告: 此对话框为高级用户提供下载编辑功能，如果使用不当可能会使软件停止工作。"/>
-		<control caption="文件名称和大小(_Z):"/>
-		<control caption="文件名称:"/>
-		<control/>
-		<control/>
-		<control caption="文件大小(字节):"/>
-		<control/>
-		<control caption="URN(_U):"/>
-		<control caption="信任"/>
-		<control caption="SHA1:"/>
-		<control/>
-		<control/>
-		<control caption="Tiger-Root:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K:"/>
-		<control/>
-		<control/>
-		<control caption="操作(_A):"/>
-		<control caption="忽略当前验证状态和重检"/>
-		<control caption="假设文件 100％ 完整并重检"/>
-		<control caption="忽略所有已知资源"/>
-		<control caption="与本地文件合并且校验"/>
-		<control caption="取消(save incomplete file)"/>
-		<control caption="数据擦除(_E):"/>
-		<control caption="字节范围:"/>
-		<control/>
-		<control caption="到"/>
-		<control/>
-		<control caption="擦除"/>
-	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="打开 Torrent 文件">
 		<control/>
 		<control caption="您已经打开了一个 BitTorrent Torrent 文件。您希望下载它的内容，还是重新做种？"/>
@@ -4093,47 +4053,80 @@
 		<control caption="要使用 BitTorrent 共享完整的文件必须先做种子。此过程完成后 Torrent 将在您的下载列表中显示为一个新的项目。"/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="BuStEdStEdStEdStEdBuStCoEdStStEd" caption="常规">
-		<control caption="Torrent 信息(_I):"/>
-		<control caption="名称:"/>
-		<control/>
-		<control caption="创建:"/>
-		<control/>
-		<control caption="制作:"/>
-		<control/>
-		<control caption="备注:"/>
-		<control/>
-		<control caption="传送:"/>
-		<control caption="启动新的下载传输:"/>
-		<control caption="&#160;需要时| 当比率大于 100% 时| 被请求时| 从不"/>
-		<control/>
-		<control caption="上传总计:"/>
-		<control caption="注释:"/>
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="文件">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="BuStEdBuSy" caption="文件">
-		<control caption="Torrent 信息(_I):"/>
-		<control caption="名称:"/>
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control/>
-		<control caption="文件(_F):"/>
 		<control/>
-	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="BuStEdStEdBuStEdStEdBuBuSyStCo" caption="Trackers">
-		<control caption="Torrent 信息(_I):"/>
-		<control caption="名称:"/>
+		<control/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control/>
 		<control caption="当前 Tracker(_C):"/>
-		<control caption="已完成(种子):"/>
-		<control/>
-		<control caption="未完成:"/>
-		<control/>
-		<control caption="刷新(_R)"/>
-		<control caption="Trackers(_T):"/>
-		<control/>
+		<control caption="种子(已完成):"/>
+		<control caption="(未完成):"/>
 		<control caption="Tracker 模式:"/>
 		<control caption="已禁用|自定义|单一 Tracker|多重 Tracker|多重 Tracker(已锁定)"/>
+		<control caption="刷新(_R)"/>
+	</dialog>
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="常规">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;需要时| 当比率大于 100% 时| 被请求时| 从不"/>
+		<control/>
+		<control caption="Torrent 信息(_I):"/>
+		<control caption="名称:"/>
+		<control caption="创建:"/>
+		<control caption="制作:"/>
+		<control caption="备注:"/>
+		<control caption="传送:"/>
+		<control caption="启动新的下载传输:"/>
+		<control caption="上传总计:"/>
+		<control caption="注释:"/>
+	</dialog>
+	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="编辑下载">
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="警告: 此对话框为高级用户提供下载编辑功能，如果使用不当可能会使软件停止工作。"/>
+		<control caption="文件名称和大小(_Z):"/>
+		<control caption="文件名称:"/>
+		<control caption="文件大小(字节):"/>
+		<control caption="URN:"/>
+		<control caption="信任"/>
+		<control caption="SHA1:"/>
+		<control caption="Tiger-Root:"/>
+		<control caption="ED2K:"/>
+		<control caption="MD5:"/>
+		<control caption="BitTorrent:"/>
+	</dialog>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="操作">
+		<control caption="警告: 此对话框为高级用户提供下载编辑功能，如果使用不当可能会使软件停止工作。"/>
+		<control caption="忽略所有已知资源"/>
+		<control caption="忽略当前验证状态和重检"/>
+		<control caption="假设文件 100％ 完整并重检"/>
+		<control caption="与本地文件合并且校验"/>
+		<control caption="取消(save incomplete file)"/>
+		<control/>
+		<control/>
+		<control caption="操作"/>
+		<control caption="数据擦除:"/>
+		<control caption="字节范围:"/>
+		<control caption="到"/>
+		<control caption="擦除"/>
 	</dialog>
 	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="下载组属性">
 		<control caption="确定"/>
@@ -4170,12 +4163,6 @@
 		<control caption="不要检测新版本"/>
 		<control caption="不要升级"/>
 	</dialog>
-	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="下载评价">
-		<control/>
-		<control caption="确定"/>
-		<control/>
-		<control/>
-	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="元数据本地化">
 		<control caption="请选择重新编码的方式"/>
 		<control caption="阿拉伯文|波罗的海文|中欧|简体中文|繁体中文|西里尔文|希腊文|希伯来文|日文|韩文|泰文|土耳其文|越南文"/>
@@ -4187,11 +4174,22 @@
 		<control caption="确定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Why reason">
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="确定"/>
 		<control caption="取消"/>
 		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+	</dialog>
+	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="下载评价">
+		<control/>
+		<control caption="确定"/>
+		<control/>
+		<control/>
+	</dialog>
+	<dialog name="CHelpDlg" cookie="StBuAf" caption="PeerProject 帮助">
+		<control/>
+		<control caption="关闭"/>
+		<control/>
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
@@ -4317,6 +4315,8 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="文件名"/>
 		<column from="Size" to="大小"/>
+		<column from="Status" to="状态"/>
+		<column from="Priority" to="类型"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="伺服器"/>
