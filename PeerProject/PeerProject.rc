@@ -1381,13 +1381,13 @@ CAPTION "PeerProject Respects its Users"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
     CONTROL         154,IDC_BANNER,"Static",SS_BITMAP,0,0,293,172
-    LTEXT           "Did you know PeerProject is a 100% free product?",IDC_TITLE,15,34,265,19,SS_CENTERIMAGE
-    LTEXT           "PeerProject does not contain any spyware, adware or other bundled software. It does not display any advertisements or popups.\n\nIf you ever see advertising while using PeerProject, be assured that it is not coming from this program.",IDC_STATIC,15,56,265,50
-    LTEXT           "Unfortunately a lot of other software does come with undesirable adware or spyware, so if you see something suspicious you may wish to check your PC with an advertising or spyware removal program.",IDC_STATIC,15,107,265,33
-    LTEXT           "You should not have paid any money to obtain this software.  PeerProject can be freely downloaded by anyone from http://PeerProject.org/.  If you paid someone for PeerProject demand a full refund immediately.",IDC_STATIC,15,143,265,35
-    LTEXT           "PeerProject respects and supports its users.",IDC_RESPECT,15,178,232,13
-    LTEXT           "http://PeerProject.org/",IDC_WEB,15,195,125,10
-    DEFPUSHBUTTON   "Close",IDOK,245,190,39,14
+    LTEXT           "Did you know PeerProject is a 100% free software?",IDC_TITLE,15,34,265,19,SS_CENTERIMAGE
+	LTEXT           "PeerProject does not contain any spyware, adware or bundled software; \nit does not display any advertisements, popups, or other bad behavior.\n\nIf you ever see such activity be assured that it is not coming from this program: stay safe on the open internet.",IDC_STATIC,15,56,265,50
+    LTEXT           "PeerProject is proud to be Free and Open-Source Software.  A non-profit team of passionate volunteers shares this product with all the freedoms of GPL and Creative Commons Licenses, in the hope that it might be useful.",IDC_STATIC,15,107,265,33
+    LTEXT           "You must not have paid any money to obtain this software.  PeerProject can be freely downloaded from PeerProject.org, if you've paid anyone for this demand a full refund immediately.",IDC_STATIC,15,143,265,35
+    LTEXT           "PeerProject respects and appreciates its users.",IDC_RESPECT,15,178,232,13
+    LTEXT           "http://PeerProject.org",IDC_WEB,15,195,125,10
+    DEFPUSHBUTTON   "OK",IDOK,245,190,39,14
 END
 
 IDD_PROMOTE DIALOGEX 0, 0, 292, 185
@@ -1400,8 +1400,8 @@ BEGIN
     LTEXT           "We hope you've enjoyed using PeerProject so far- we believe it's the best file sharing application available.",IDC_STATIC,15,65,260,20
     LTEXT           "Unfortunately, a lot of potential filesharers don't know what they're missing.",IDC_STATIC,15,90,260,20
     LTEXT           "If you know someone who would like PeerProject, whether they're a new user or still using older software, let them know there is a better alternative.",IDC_STATIC,15,110,260,30
-    LTEXT           "(This is the last message that will appear when starting PeerProject.)",IDC_STATIC,15,145,260,10
-    LTEXT           "http://PeerProject.org/",IDC_WEB,15,165,125,10
+    LTEXT           "[This is the last message that will appear when starting PeerProject.]",IDC_STATIC,15,145,260,10
+    LTEXT           "http://PeerProject.org",IDC_WEB,15,165,125,10
     DEFPUSHBUTTON   "OK",IDOK,245,165,39,14
 END
 
@@ -1673,37 +1673,6 @@ BEGIN
     CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,109,276,11
 END
 
-IDD_DOWNLOAD_EDIT DIALOGEX 0, 0, 300, 220
-STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Download Properties"
-FONT 8, "Tahoma", 0, 0, 0x1
-BEGIN
-    EDITTEXT        IDC_NAME,80,40,206,12,ES_AUTOHSCROLL
-    EDITTEXT        IDC_FILESIZE,222,59,64,12,ES_RIGHT | ES_AUTOHSCROLL
-    EDITTEXT        IDC_DISKNAME,14,78,272,12,ES_AUTOHSCROLL | ES_READONLY
-    EDITTEXT        IDC_URN_SHA1,61,122,207,12,ES_AUTOHSCROLL
-    CONTROL         "",IDC_TRUST_SHA1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,124,10,8
-    EDITTEXT        IDC_URN_TIGER,61,140,207,12,ES_AUTOHSCROLL
-    CONTROL         "",IDC_TRUST_TIGER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,142,10,8
-    EDITTEXT        IDC_URN_ED2K,61,158,207,12,ES_AUTOHSCROLL
-    CONTROL         "",IDC_TRUST_ED2K,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,160,10,8
-    EDITTEXT        IDC_URN_MD5,61,176,207,12,ES_AUTOHSCROLL
-    CONTROL         "",IDC_TRUST_MD5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,178,10,8
-    EDITTEXT        IDC_URN_BTH,61,194,207,12,ES_AUTOHSCROLL
-    CONTROL         "",IDC_TRUST_BTH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,195,10,8
-    LTEXT           "WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption.",IDC_STATIC,7,7,286,18
-    GROUPBOX        "Filename and Si&ze:",IDC_STATIC,7,28,286,69
-    LTEXT           "Filename:",IDC_STATIC,14,41,64,10
-    RTEXT           "File size (Byte):",IDC_STATIC,14,60,206,11
-    GROUPBOX        "&URNs:",IDC_STATIC,7,100,286,113
-    RTEXT           "Trusted",IDC_STATIC,14,109,272,11
-    LTEXT           "SHA1:",IDC_STATIC,14,122,45,12,SS_CENTERIMAGE
-    LTEXT           "Tiger-Root:",IDC_STATIC,14,140,45,12,SS_CENTERIMAGE
-    LTEXT           "ED2K:",IDC_STATIC,14,158,45,12,SS_CENTERIMAGE
-    LTEXT           "MD5:",IDC_STATIC,14,176,45,12,SS_CENTERIMAGE
-    LTEXT           "BitTorrent:",IDC_STATIC,14,194,45,12,SS_CENTERIMAGE
-END
-
 IDD_SETTINGS_REMOTE DIALOGEX 0, 0, 282, 220
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Remote Access"
@@ -1874,27 +1843,12 @@ BEGIN
     LTEXT           "Enter channel you want to add:|Enter kick/ban reason:",IDC_IRC_PROMPT,7,7,129,8
 END
 
-IDD_TORRENT_GENERAL DIALOGEX 0, 0, 300, 220
+IDD_TORRENT_FILES DIALOGEX 0, 0, 300, 220
 STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    EDITTEXT        IDC_TORRENT_NAME,60,14,226,12,ES_AUTOHSCROLL | ES_READONLY
-    EDITTEXT        IDC_TORRENT_CREATIONDATE,60,34,74,12,ES_AUTOHSCROLL | ES_READONLY
-    EDITTEXT        IDC_TORRENT_CREATEDBY,173,34,113,12,ES_AUTOHSCROLL | ES_READONLY
-    EDITTEXT        IDC_TORRENT_COMMENTS,60,53,226,77,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL
-    EDITTEXT        IDC_TORRENT_OTHER,60,137,226,12,ES_AUTOHSCROLL | ES_READONLY
-    COMBOBOX        IDC_TORRENT_STARTDOWNLOADS,173,174,113,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    EDITTEXT        IDC_TORRENT_UPLOADTOTAL,173,194,113,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-    GROUPBOX        "Torrent &Information:",-1,7,3,286,153
-    LTEXT           "Name:",-1,14,14,44,12,SS_CENTERIMAGE
-    LTEXT           "Created:",-1,14,34,44,12,SS_CENTERIMAGE
-    LTEXT           "By:",-1,136,34,32,12,SS_CENTERIMAGE,WS_EX_RIGHT
-    LTEXT           "Comments:",-1,14,54,44,12,SS_CENTERIMAGE
-    GROUPBOX        "Transfers:",-1,7,161,286,52
-    RTEXT           "Start new download transfers:",-1,14,175,154,9
-    RTEXT           "Total Uploaded:",-1,14,195,154,9,SS_CENTERIMAGE
-    LTEXT           "Notes:",-1,14,137,46,12,SS_CENTERIMAGE
+    CONTROL         "",IDC_TORRENT_FILES,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,6,7,286,208
 END
 
 IDD_TORRENT_TRACKERS DIALOGEX 0, 0, 300, 220
@@ -1902,25 +1856,87 @@ STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    EDITTEXT        IDC_TORRENT_TRACKER,90,14,196,12,ES_AUTOHSCROLL
-    EDITTEXT        IDC_TORRENT_COMPLETED,90,34,58,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-    EDITTEXT        IDC_TORRENT_INCOMPLETE,228,34,58,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-    CONTROL         "",IDC_TORRENT_TRACKERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,7,82,286,131
+    EDITTEXT        IDC_TORRENT_TRACKER,90,14,194,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TORRENT_COMPLETED,90,34,56,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
+    EDITTEXT        IDC_TORRENT_INCOMPLETE,228,34,56,12,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
+    CONTROL         "",IDC_TORRENT_TRACKERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,6,82,286,133
     LTEXT           "Tracker:",IDC_STATIC,14,14,74,12,SS_CENTERIMAGE
-    GROUPBOX        "&Current Tracker:",IDC_STATIC,7,3,286,71
+    GROUPBOX        "&Current Tracker:",IDC_STATIC,6,3,286,71
     LTEXT           "Seeds (Complete):",IDC_STATIC,14,34,74,12,SS_CENTERIMAGE
-    RTEXT           "Peers (Incomplete):",IDC_STATIC,148,34,70,12,SS_CENTERIMAGE
-    LTEXT           "Tracker Mode:",IDC_STATIC,14,54,78,9
+    CTEXT           "Peers (Incomplete):",IDC_STATIC,148,34,80,12,SS_CENTERIMAGE
+    LTEXT           "Tracker Mode:",IDC_STATIC,14,56,78,9
     COMBOBOX        IDC_TORRENT_TRACKERMODE,90,53,120,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "&Refresh",IDC_TORRENT_REFRESH,228,52,58,14
+    PUSHBUTTON      "&Refresh",IDC_TORRENT_REFRESH,228,52,56,14
 END
 
-IDD_TORRENT_FILES DIALOGEX 0, 0, 300, 220
+IDD_TORRENT_GENERAL DIALOGEX 0, 0, 300, 220
 STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    CONTROL         "",IDC_TORRENT_FILES,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | WS_BORDER | WS_TABSTOP,7,7,286,206
+    EDITTEXT        IDC_TORRENT_NAME,60,14,224,12,ES_READONLY | ES_AUTOHSCROLL
+    EDITTEXT        IDC_TORRENT_CREATIONDATE,60,34,70,12,ES_READONLY | ES_AUTOHSCROLL
+    EDITTEXT        IDC_TORRENT_CREATEDBY,170,34,114,12,ES_READONLY | ES_AUTOHSCROLL
+    EDITTEXT        IDC_TORRENT_COMMENTS,60,53,224,77,ES_READONLY | ES_MULTILINE | WS_VSCROLL | ES_AUTOVSCROLL | ES_AUTOHSCROLL
+    EDITTEXT        IDC_TORRENT_OTHER,60,137,224,12,ES_READONLY | ES_AUTOHSCROLL
+    COMBOBOX        IDC_TORRENT_STARTDOWNLOADS,170,174,114,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TORRENT_UPLOADTOTAL,170,194,114,12,ES_READONLY | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    GROUPBOX        "Torrent &Information:",-1,6,3,286,153
+    LTEXT           "Name:",-1,14,14,44,12,SS_CENTERIMAGE
+    LTEXT           "Created:",-1,14,34,40,12,SS_CENTERIMAGE
+    RTEXT           "By:",-1,132,34,32,12,SS_CENTERIMAGE
+    LTEXT           "Comments:",-1,14,54,44,12,SS_CENTERIMAGE
+    GROUPBOX        "Transfers:",-1,6,161,286,54
+    RTEXT           "Start new download transfers:",-1,14,176,150,9
+    RTEXT           "Total Uploaded:",-1,14,195,150,9,SS_CENTERIMAGE
+    LTEXT           "Notes:",-1,14,137,46,12,SS_CENTERIMAGE
+END
+
+IDD_DOWNLOAD_EDIT DIALOGEX 0, 0, 300, 220
+STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Download Properties"
+FONT 8, "Tahoma", 0, 0, 0x1
+BEGIN
+    LTEXT           "WARNING: This dialog provides advanced download editing features for power users, which will cause corruption if used incorrectly.",IDC_STATIC,7,7,286,18
+    GROUPBOX        "Details:",IDC_STATIC,6,28,286,69
+    LTEXT           "Filename:",IDC_STATIC,14,44,60,10
+    LTEXT           "Location:",IDC_STATIC,14,62,60,10
+    LTEXT           "Byte Size:",IDC_STATIC,14,80,60,11
+    GROUPBOX        "URN Hashes:",IDC_STATIC,6,100,286,115
+    LTEXT           "Trusted?",IDC_STATIC,14,112,270,11
+    EDITTEXT        IDC_NAME,74,42,210,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DISKNAME,74,60,210,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_FILESIZE,74,78,60,12,ES_AUTOHSCROLL
+    CONTROL         " SHA1:",IDC_TRUST_SHA1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,124,60,8
+    EDITTEXT        IDC_URN_SHA1,74,122,210,12,ES_AUTOHSCROLL
+    CONTROL         " ED2K:",IDC_TRUST_ED2K,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,142,60,8
+    EDITTEXT        IDC_URN_ED2K,74,140,210,12,ES_AUTOHSCROLL
+    CONTROL         " MD5:",IDC_TRUST_MD5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,160,60,8
+    EDITTEXT        IDC_URN_MD5,74,158,210,12,ES_AUTOHSCROLL
+    CONTROL         " Tiger-Root:",IDC_TRUST_TIGER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,178,60,8
+    EDITTEXT        IDC_URN_TIGER,74,176,210,12,ES_AUTOHSCROLL
+    CONTROL         " BitTorrent:",IDC_TRUST_BTH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,196,60,8
+    EDITTEXT        IDC_URN_BTH,74,194,210,12,ES_AUTOHSCROLL
+END
+
+IDD_DOWNLOAD_ACTIONS DIALOGEX 0, 0, 300, 222
+STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Download Properties"
+FONT 8, "Tahoma", 0, 0, 0x1
+BEGIN
+    LTEXT           "WARNING: This dialog provides advanced download editing features for power users, which will cause corruption if used incorrectly.",IDC_STATIC,7,7,286,18
+    LTEXT           "Forget all known sources",IDC_FORGET_SOURCES,20,44,264,8
+    LTEXT           "Forget current verification status and reverify",IDC_FORGET_VERIFY,20,58,264,8
+    LTEXT           "Assume file is 100% complete and reverify",IDC_COMPLETE_AND_VERIFY,20,72,264,8
+    LTEXT           "Merge with local file and verify",IDC_MERGE_AND_VERIFY,20,86,264,8
+    LTEXT           "Save incomplete files and Cancel download",IDC_CANCEL_DOWNLOAD,20,100,264,8
+    EDITTEXT        IDC_ERASE_FROM,74,194,65,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ERASE_TO,160,194,65,12,ES_AUTOHSCROLL
+    GROUPBOX        "&Actions:",IDC_STATIC,6,28,286,148
+    GROUPBOX        "Data &Eraser:",IDC_STATIC,6,181,286,34
+    LTEXT           "Byte Range:",IDC_STATIC,20,194,52,12,SS_CENTERIMAGE
+    CTEXT           "to",IDC_STATIC,141,194,18,12,SS_CENTERIMAGE
+    PUSHBUTTON      "Erase",IDC_ERASE,234,193,50,14
 END
 
 IDD_PLUGIN_EXT_SETUP DIALOGEX 0, 0, 100, 147
@@ -1930,26 +1946,6 @@ FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,25,125,50,14
     CONTROL         "",IDC_ASSOCIATIONS,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SORTASCENDING | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,19,7,60,112,WS_EX_CLIENTEDGE
-END
-
-IDD_DOWNLOAD_ACTIONS DIALOGEX 0, 0, 300, 222
-STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Download Properties"
-FONT 8, "Tahoma", 0, 0, 0x1
-BEGIN
-    LTEXT           "WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption.",IDC_STATIC,7,7,286,18
-    LTEXT           "Forget all known sources",IDC_FORGET_SOURCES,20,44,272,8
-    LTEXT           "Forget current verification status and reverify",IDC_FORGET_VERIFY,20,58,272,8
-    LTEXT           "Assume file is 100% complete and reverify",IDC_COMPLETE_AND_VERIFY,20,72,272,8
-    LTEXT           "Merge with local file and verify",IDC_MERGE_AND_VERIFY,20,86,272,8
-    LTEXT           "Save incomplete files and Cancel download",IDC_CANCEL_DOWNLOAD,20,100,272,8
-    EDITTEXT        IDC_ERASE_FROM,74,194,65,12,ES_AUTOHSCROLL
-    EDITTEXT        IDC_ERASE_TO,160,194,65,12,ES_AUTOHSCROLL
-    GROUPBOX        "&Actions:",IDC_STATIC,7,28,286,147
-    GROUPBOX        "Data &Eraser:",IDC_STATIC,7,182,286,33
-    LTEXT           "Byte range:",IDC_STATIC,20,194,52,12,SS_CENTERIMAGE
-    CTEXT           "to",IDC_STATIC,141,194,18,12,SS_CENTERIMAGE
-    PUSHBUTTON      "Erase",IDC_ERASE,236,193,50,14
 END
 
 IDD_SELECT DIALOGEX 0, 0, 350, 60
@@ -2648,10 +2644,10 @@ BEGIN
 
     IDD_DOWNLOAD_EDIT, DIALOG
     BEGIN
-        LEFTMARGIN, 7
+        LEFTMARGIN, 6
         RIGHTMARGIN, 292
         TOPMARGIN, 7
-        BOTTOMMARGIN, 213
+        BOTTOMMARGIN, 214
         HORZGUIDE, 206
         VERTGUIDE, 14
         VERTGUIDE, 61
@@ -2662,10 +2658,10 @@ BEGIN
 
     IDD_DOWNLOAD_ACTIONS, DIALOG
     BEGIN
-        LEFTMARGIN, 7
+        LEFTMARGIN, 6
         RIGHTMARGIN, 292
         TOPMARGIN, 7
-        BOTTOMMARGIN, 215
+        BOTTOMMARGIN, 214
         HORZGUIDE, 14
         HORZGUIDE, 206
         VERTGUIDE, 14
@@ -2674,27 +2670,23 @@ BEGIN
 
     IDD_TORRENT_GENERAL, DIALOG
     BEGIN
-        LEFTMARGIN, 7
+        LEFTMARGIN, 6
         RIGHTMARGIN, 292
         TOPMARGIN, 7
-        BOTTOMMARGIN, 213
+        BOTTOMMARGIN, 214
         HORZGUIDE, 14
         HORZGUIDE, 206
         VERTGUIDE, 14
         VERTGUIDE, 60
-        VERTGUIDE, 134
-        VERTGUIDE, 168
-        VERTGUIDE, 173
         VERTGUIDE, 286
     END
 
     IDD_TORRENT_TRACKERS, DIALOG
     BEGIN
-        LEFTMARGIN, 7
+        LEFTMARGIN, 6
         RIGHTMARGIN, 292
         TOPMARGIN, 7
-        BOTTOMMARGIN, 213
-        BOTTOMMARGIN, 212
+        BOTTOMMARGIN, 214
         HORZGUIDE, 14
         VERTGUIDE, 14
         VERTGUIDE, 100
@@ -2704,10 +2696,10 @@ BEGIN
 
     IDD_TORRENT_FILES, DIALOG
     BEGIN
-        LEFTMARGIN, 7
+        LEFTMARGIN, 6
         RIGHTMARGIN, 292
         TOPMARGIN, 7
-        BOTTOMMARGIN, 213
+        BOTTOMMARGIN, 214
         HORZGUIDE, 14
         HORZGUIDE, 206
         VERTGUIDE, 14
@@ -4258,14 +4250,14 @@ END
 STRINGTABLE 
 BEGIN
     ID_SEARCHMONITOR_CLEAR  "Clear the search monitor buffer."
-    ID_SEARCH_URI          "Copy the P2P Link of the selected file. (URI)"
+    ID_SEARCH_URI           "Copy the P2P Link of the selected file. (URI)"
     ID_HITMONITOR_SEARCH    "Search the network for the selected term."
     ID_HOSTCACHE_G2_HORIZON "Show Gnutella2 horizon hubs."
     ID_HOSTCACHE_G2_CACHE   "Show Gnutella2 cached hosts."
     ID_HOSTCACHE_G1_CACHE   "Show Gnutella1 cached hosts."
     ID_SEARCH_COLUMNS       "Select metadata columns to be displayed..."
-    ID_SEARCH_DOWNLOADNOW   "Download the selected file(s) with priority."
-    ID_DOWNLOADS_RESUME     "Resume the selected download(s)."
+    ID_SEARCH_DOWNLOADNOW   "Download selected files with priority."
+    ID_DOWNLOADS_RESUME     "Resume selected downloads."
     ID_HOSTCACHE_BT_CACHE   "Show BitTorrent cached hosts."
     ID_HOSTCACHE_KAD_CACHE  "Show Kademlia cached hosts."
     ID_DOWNLOADS_CLEAR_COMPLETED "Clear downloads which have been completed."
@@ -4288,9 +4280,9 @@ BEGIN
     ID_DOWNLOADS_REMOTE_PREVIEW "Download preview image for the selected download."
     ID_DOWNLOADS_CLEAR_PAUSED "Clear downloads which have been paused."
     ID_UPLOADS_LAUNCH       "Launch the selected shared file."
-    ID_UPLOADS_DISCONNECT   "Disconnect the selected upload transfer(s)."
+    ID_UPLOADS_DISCONNECT   "Disconnect selected upload transfers."
     ID_UPLOADS_CLEAR_COMPLETED "Clear uploads which have been completed."
-    ID_UPLOADS_CLEAR        "Clear the selected upload(s) from the list."
+    ID_UPLOADS_CLEAR        "Clear selected uploads from the list."
 END
 
 STRINGTABLE 
@@ -4318,7 +4310,7 @@ BEGIN
     ID_NEIGHBOURS_CHAT      "Open a chat session with the selected user."
     ID_SEARCH_STOP          "Stop receiving results in this window."
     ID_TOOLS_DOWNLOAD       "Start downloading a new file or BitTorrent torrent..."
-    ID_DOWNLOADS_ADD_SOURCE        "Add a source URL to the selected download..."
+    ID_DOWNLOADS_ADD_SOURCE "Add a source URL to the selected download..."
     ID_LIBRARY_BITZI_WEB    "View the Bitzi ticket for the selected file on the web."
     ID_LIBRARY_BITZI_DOWNLOAD "Download metadata for the selected files from Bitzi..."
     ID_VIEW_SECURITY        "Show or hide the SECURITY window."

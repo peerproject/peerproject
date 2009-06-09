@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default German Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.7300 -->
+<!-- Translation based on default-en.xml (Shareaza SVN r7300) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
+<!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1324,7 +1324,7 @@
 		<menu text="Video_größe">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Doppelt"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="D_reifach"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="D_reifach"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Größtmöglich"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Fensterfüllend"/>
 			<separator/>
@@ -1362,7 +1362,7 @@
 		<menu text="Video_größe">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Doppelt"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="D_reifach"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="D_reifach"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Größtmöglich"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Fensterfüllend"/>
 			<separator/>
@@ -1384,7 +1384,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Original"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Doppelt"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="D_reifach"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="D_reifach"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Größtmöglich"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Fensterfüllend"/>
 		<separator/>
@@ -2415,7 +2415,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Die Videogröße an das Fenster anpassen. Das Video wird möglicherweise verzerrt."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Wählen Sie die Größe des Videos entsprechend des Seitenverhältnisses."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Das Video in der Originalgröße anzeigen."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Das Video in dreifacher Größe anzeigen."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Das Video in dreifacher Größe anzeigen."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Das Video in doppelter Größe anzeigen."/>
 	<tip id="ID_MEDIA_STATUS" message="Die Statuszeile ein- oder ausblenden."/>
 	<tip id="ID_MEDIA_STOP" message="Die Wiedergabe beenden." tip="Stopp"/>
@@ -4314,31 +4314,27 @@
 		<control caption="Gesamt hochgeladen:"/>
 		<control caption="Notizen:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Download bearbeiten (erweitert)">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Download bearbeiten (erweitert)">
 		<control caption="ACHTUNG: Dieser Dialog stellt erweiterte Funktionen für Poweruser zur Verfügung. Diese Funktionen zerstören bei falscher Anwendung ihre Downloads."/>
 		<control caption="Dateiname und -größe:"/>
-		<control caption="Datei_name:"/>
+		<control caption="Dateiname:"/>
+		<control caption="Datei:"/>
 		<control caption="Dateigröße (Byte):"/>
-		<control caption="_URNs:"/>
-		<control caption="Vertraut"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="URNs:"/>
+		<control caption="Vertraut?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Aktionen">
 		<control caption="ACHTUNG: Dieser Dialog stellt erweiterte Funktionen für Poweruser zur Verfügung. Diese Funktionen zerstören bei falscher Anwendung ihre Downloads."/>
@@ -4421,6 +4417,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Dateiname"/>
+		<column from="Size" to="Größe"/>
+		<column from="Progress" to="Fortschritt"/>
+		<column from="Transfer" to="Heruntergeladen"/>
+		<column from="Percent" to="Fertig"/>
+		<column from="Speed" to="Geschwindigkeit"/>
+		<column from="Status" to="Status"/>
+		<column from="Client" to="Client"/>
+		<column from="Country" to="Land"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Dateiname"/>
+		<column from="Size" to="Größe"/>
+		<column from="Progress" to="Fortschritt"/>
+		<column from="Transfer" to="Heruntergeladen"/>
+		<column from="Speed" to="Geschwindigkeit"/>
+		<column from="Rating" to="Bewertung"/>
+		<column from="Remote User" to="Adresse"/>
+		<column from="Client" to="Client"/>
+		<column from="Country" to="Land"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Dateiname"/>
 		<column from="Extension" to="Typ"/>
@@ -4429,27 +4447,6 @@
 		<column from="Hits" to="Treffer"/>
 		<column from="Uploads" to="Uploads"/>
 		<column from="Modified" to="Modifiziert"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Dateiname"/>
-		<column from="Size" to="Größe"/>
-		<column from="Progress" to="Fortschritt"/>
-		<column from="Speed" to="Geschwindigkeit"/>
-		<column from="Status" to="Status"/>
-		<column from="Client" to="Client"/>
-		<column from="Downloaded" to="Heruntergeladen"/>
-		<column from="Complete" to="Fertig"/>
-		<column from="Country" to="Land"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Adresse"/>
-		<column from="Uploaded File" to="Dateiname"/>
-		<column from="Size" to="Größe"/>
-		<column from="Progress" to="Fortschritt"/>
-		<column from="Speed" to="Geschwindigkeit"/>
-		<column from="Client" to="Client"/>
-		<column from="Rating" to="Bewertung"/>
-		<column from="Country" to="Land"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adresse"/>
@@ -4469,7 +4466,7 @@
 		<column from="Address / Content" to="Adresse/Inhalt"/>
 		<column from="Action" to="Aktion"/>
 		<column from="Expires" to="Läuft ab"/>
-		<column from="Precedence" to="Priorität"/>
+		<column from="#" to="Priorität"/>
 		<column from="Hits" to="Treffer"/>
 		<column from="Comment" to="Kommentar"/>
 	</list>

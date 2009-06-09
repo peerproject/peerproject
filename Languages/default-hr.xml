@@ -5,9 +5,9 @@
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1246,7 +1246,7 @@
 		<menu text="Veličina Ekrana">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Originalna Veličina"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Duplo Uvećana"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Triput Uvećana"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Triput Uvećana"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Najveće moguće"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="Popuni Prozor"/>
 			<separator/>
@@ -1284,7 +1284,7 @@
 		<menu text="Veličina Ekrana">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Originalna Veličina"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Duplo Uvećana"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Triput Uvećana"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Triput Uvećana"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Najveće moguće"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="Popuni Prozor"/>
 			<separator/>
@@ -1306,7 +1306,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Originalna Veličina"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Duplo Uvećana"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="_Triput Uvećana"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Triput Uvećana"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="Najveće moguće"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="Popuni Prozor"/>
 		<separator/>
@@ -2254,7 +2254,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Stretch the video to fill the window, potentially distorting it."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Choose the best size for the video based on its aspect ratio."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Show the video at its original (natural) size."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Show the video at triple its original (natural) size."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Show the video at triple its original (natural) size."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Show the video at double its original (natural) size."/>
 	<tip id="ID_MEDIA_STATUS" message="Show or hide the media status line."/>
 	<tip id="ID_MEDIA_STOP" message="Stani playing the media file." tip="Stani"/>
@@ -4054,31 +4054,27 @@
 		<control caption="Osvježi"/>
 		<control caption="Zatvori"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Edit Download (Napredno)">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Edit Download (Napredno)">
 		<control caption="UPOZORENJE: Ove opcije omogučuju napredno podešavanje skidanja, ako se pogrešno koriste vjerovatno će uzrokovati GREŠKU u skinutoj datoteci"/>
-		<control caption="Ime datoteke &amp; Veličina:"/>
+		<control caption="Ime &amp; Veličina:"/>
 		<control caption="Ime datoteke:"/>
-		<control caption="Datoteke veličina (Byte):"/>
-		<control caption="_URNs:"/>
-		<control caption="Trusted"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="Datoteke:"/>
+		<control caption="Veličina (Bytes):"/>
+		<control caption="URNs:"/>
+		<control caption="Trusted?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Akcije">
 		<control caption="UPOZORENJE: Ove opcije omogučuju napredno podešavanje skidanja, ako se pogrešno koriste vjerovatno će uzrokovati GREŠKU u skinutoj datoteci"/>
@@ -4161,6 +4157,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Skinuta Datoteka"/>
+		<column from="Size" to="Veličina"/>
+		<column from="Progress" to="Stanje"/>
+		<column from="Transfer" to="Skinuto"/>
+		<column from="Percent" to="Gotovo"/>
+		<column from="Speed" to="Brzina"/>
+		<column from="Status" to="Status"/>
+		<column from="Client" to="Davaoc"/>
+		<column from="Country" to="Država"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Davana Datoteka"/>
+		<column from="Size" to="Veličina"/>
+		<column from="Progress" to="Stanje"/>
+		<column from="Transfer" to="Skinuto"/>
+		<column from="Speed" to="Brzina"/>
+		<column from="Rating" to="Ocjena"/>
+		<column from="Remote User" to="Korisnik"/>
+		<column from="Client" to="Klijent"/>
+		<column from="Country" to="Država"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Ime Datoteke"/>
 		<column from="Extension" to="Vrsta"/>
@@ -4169,27 +4187,6 @@
 		<column from="Hits" to="Viđeno"/>
 		<column from="Uploads" to="Dano"/>
 		<column from="Modified" to="Mjenjano"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Skinuta Datoteka"/>
-		<column from="Size" to="Veličina"/>
-		<column from="Progress" to="Stanje"/>
-		<column from="Speed" to="Brzina"/>
-		<column from="Status" to="Status"/>
-		<column from="Client" to="Davaoc"/>
-		<column from="Downloaded" to="Skinuto"/>
-		<column from="Complete" to="Gotovo"/>
-		<column from="Country" to="Država"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Korisnik"/>
-		<column from="Uploaded File" to="Davana Datoteka"/>
-		<column from="Size" to="Veličina"/>
-		<column from="Progress" to="Stanje"/>
-		<column from="Speed" to="Brzina"/>
-		<column from="Client" to="Klijent"/>
-		<column from="Rating" to="Ocjena"/>
-		<column from="Country" to="Država"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adresa"/>
@@ -4209,7 +4206,7 @@
 		<column from="Address / Content" to="Adresa / Sadržaj"/>
 		<column from="Action" to="Akcija"/>
 		<column from="Expires" to="Ističe"/>
-		<column from="Precedence" to=""/>
+		<column from="#" to=""/>
 		<column from="Hits" to="Viđeno"/>
 		<column from="Comment" to="Komentar"/>
 	</list>

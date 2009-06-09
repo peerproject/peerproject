@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Estonian Skin File -->
-<!-- Translation based on default-en.xml Shareaza 2.2.2.9 -->
+<!-- Translation based on default-en.xml (Shareaza 2.2.2.9) -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Special characters used in Estonian:
  Umlauts:
@@ -1256,7 +1256,7 @@
 		<menu text="Pildi Suu_rus">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Normaalne Suurus"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Topelt Suurus"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Kolmekordne Suurus"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Kolmekordne Suurus"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Suurim"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="T_äida Aken"/>
 			<separator/>
@@ -1294,7 +1294,7 @@
 		<menu text="_Pildi Suurus">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Normaalne Suurus"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Topelt Suurus"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Kolmekordne Suurus"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Kolmekordne Suurus"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Suurim"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="T_äida Aken"/>
 			<separator/>
@@ -1316,7 +1316,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Normaalne Suurus"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Topelt Suurus"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="_Kolmekordne Suurus"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Kolmekordne Suurus"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Suurim"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="T_äida Aken"/>
 		<separator/>
@@ -2295,7 +2295,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Venita pilt täisekraanile, tõenäoliselt moonutades seda."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Vali parim pildi suurus arvestades kuvasuhet."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Näita pilti originaal suuruses."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Näita pilti kolm korda suurmana originaalist."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Näita pilti kolm korda suurmana originaalist."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Näita pilt topelt suuruses."/>
 	<tip id="ID_MEDIA_STATUS" message="Näita või peida meedia oleku riba."/>
 	<tip id="ID_MEDIA_STOP" message="Peata meedia." tip="Stop"/>
@@ -4111,31 +4111,27 @@
 		<control caption="Kokku Üles Laaditud:"/>
 		<control caption="Märkmed:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Üldiselt">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Üldiselt">
 		<control caption="HOIATUS: See aken pakub täpsemat allalaadimiste andmete muutmise võimalust arenenud kasutajatele, mida valesti kasutades võib faili kasutuks muuta."/>
-		<control caption="Faili Nimi ja _Suurus:"/>
+		<control caption="Nimi ja Suurus:"/>
 		<control caption="Faili Nimi:"/>
-		<control caption="Faili Suurus (Baitides):"/>
-		<control caption="_URNs:"/>
-		<control caption="Usaldatud"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="Faili:"/>
+		<control caption="Suurus (Baitides):"/>
+		<control caption="URNs:"/>
+		<control caption="Usaldatud?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Tegevused">
 		<control caption="HOIATUS: See aken pakub täpsemat allalaadimiste andmete muutmise võimalust arenenud kasutajatele, mida valesti kasutades võib faili kasutuks muuta."/>
@@ -4218,6 +4214,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Allalaaditud fail"/>
+		<column from="Size" to="Suurus"/>
+		<column from="Progress" to="Edenemine"/>
+		<column from="Transfer" to="Allalaaditud"/>
+		<column from="Percent" to="Tehtud"/>
+		<column from="Speed" to="Kiirus"/>
+		<column from="Status" to="Olek"/>
+		<column from="Client" to="Klient"/>
+		<column from="Country" to="Piirkond"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Üleslaaditud Fail"/>
+		<column from="Size" to="Suurus"/>
+		<column from="Progress" to="Edenemine"/>
+		<column from="Transfer" to="Allalaaditud"/>
+		<column from="Speed" to="Kiirus"/>
+		<column from="Rating" to="Reiting"/>
+		<column from="Remote User" to="Kaugkasutaja"/>
+		<column from="Client" to="Klient"/>
+		<column from="Country" to="Piirkond"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Fail"/>
 		<column from="Extension" to="Faililaiend"/>
@@ -4226,27 +4244,6 @@
 		<column from="Hits" to=""/>
 		<column from="Uploads" to="Üleslaadimine"/>
 		<column from="Modified" to="Muudetud"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Allalaaditud fail"/>
-		<column from="Size" to="Suurus"/>
-		<column from="Progress" to="Edenemine"/>
-		<column from="Speed" to="Kiirus"/>
-		<column from="Status" to="Olek"/>
-		<column from="Client" to="Klient"/>
-		<column from="Downloaded" to="Allalaaditud"/>
-		<column from="Complete" to="Tehtud"/>
-		<column from="Country" to="Piirkond"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Kaugkasutaja"/>
-		<column from="Uploaded File" to="Üleslaaditud Fail"/>
-		<column from="Size" to="Suurus"/>
-		<column from="Progress" to="Edenemine"/>
-		<column from="Speed" to="Kiirus"/>
-		<column from="Client" to="Klient"/>
-		<column from="Rating" to="Reiting"/>
-		<column from="Country" to="Piirkond"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Aadress"/>
@@ -4266,7 +4263,7 @@
 		<column from="Address / Content" to="Aadress / Sisu"/>
 		<column from="Action" to="Tegevus"/>
 		<column from="Expires" to="Aegub"/>
-		<column from="Precedence" to=""/>
+		<column from="#" to=""/>
 		<column from="Hits" to=""/>
 		<column from="Comment" to="Kommentaar"/>
 	</list>

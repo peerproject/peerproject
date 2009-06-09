@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Catalan Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.6090 -->
+<!-- Translation based on default-en.xml (Shareaza SVN r6090) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
+<!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1268,7 +1268,7 @@
 		<menu text="Mida del Video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Mida _original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Mida _doble"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Mida _triple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Mida _triple"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Mida _gran"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Omple finestra"/>
 			<separator/>
@@ -1306,7 +1306,7 @@
 		<menu text="Mida del video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Mida _original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Mida _doble"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Mida _triple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Mida _triple"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Mida _gran"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Omple finestra"/>
 			<separator/>
@@ -1328,7 +1328,7 @@
 	<menu name="CMediaFrame.Zoom">
 			<item id="ID_MEDIA_SIZE_ONE" text="Mida _original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Mida _doble"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Mida _triple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Mida _triple"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Mida _gran"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Omple finestra"/>
 			<separator/>
@@ -2323,7 +2323,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Ajusta la mida del video per omplir la pantalla, podent produir distorsió."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Selecciona la millor mida per al vídeo segons la seua relació d'aspecte."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Mostra el vídeo en sa mida original."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Mostra el vídeo en mida triple."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Mostra el vídeo en mida triple."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Mostra el vídeo en mida doble."/>
 	<tip id="ID_MEDIA_STATUS" message="Mostra o amaga la línia d'estat de multimèdia."/>
 	<tip id="ID_MEDIA_STOP" message="Atura la reproducció de l'arxiu actual." tip="Atura"/>
@@ -4180,31 +4180,27 @@
 		<control caption="Volumen pujat total:"/>
 		<control caption="Notes:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="StBuStEdEdStEdBuStStEdBuStEdBuStEdBuBuStStStStStBuStEdStEdBu" caption="Avançada">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Avançada">
 		<control caption="ADVERTÈNCIA: Amb aquesta finestra es poden configurar opcions avançades de la descàrrega per a usuaris avançats, que, si són utilitzades incorrectament, podrien danyar o perdre la descàrrega."/>
-		<control caption="_Nom de l'arxiu i mida:"/>
+		<control caption="Nom de l'arxiu i mida:"/>
 		<control caption="Nom:"/>
-		<control caption="Mida (Bytes):"/>
-		<control caption="_URNs:"/>
+		<control caption="Arxiu:"/>
+		<control caption="Mida de Bytes:"/>
+		<control caption="URNs:"/>
 		<control caption="De confiança"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="_Accions:">
 		<control caption="ADVERTÈNCIA: Amb aquesta finestra es poden configurar opcions avançades de la descàrrega per a usuaris avançats, que, si són utilitzades incorrectament, podrien danyar o perdre la descàrrega."/>
@@ -4287,6 +4283,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Arxiu descarregat"/>
+		<column from="Size" to="Mida"/>
+		<column from="Progress" to="Progrés"/>
+		<column from="Transfer" to="Descarregat"/>
+		<column from="Percent" to="Complet"/>
+		<column from="Speed" to="Velocitat"/>
+		<column from="Status" to="Estat"/>
+		<column from="Client" to="Client"/>
+		<column from="Country" to="País"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Arxiu pujat"/>
+		<column from="Size" to="Mida"/>
+		<column from="Progress" to="Progrés"/>
+		<column from="Transfer" to="Descarregat"/>
+		<column from="Speed" to="Velocitat"/>
+		<column from="Rating" to="Qualificació"/>
+		<column from="Remote User" to="Usuari remot"/>
+		<column from="Client" to="Client"/>
+		<column from="Country" to="País"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Arxiu"/>
 		<column from="Extension" to="Extensió"/>
@@ -4295,27 +4313,6 @@
 		<column from="Hits" to=""/>
 		<column from="Uploads" to="Pujades"/>
 		<column from="Modified" to="Modificat"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Arxiu descarregat"/>
-		<column from="Size" to="Mida"/>
-		<column from="Progress" to="Progrés"/>
-		<column from="Speed" to="Velocitat"/>
-		<column from="Status" to="Estat"/>
-		<column from="Client" to="Client"/>
-		<column from="Downloaded" to="Descarregat"/>
-		<column from="Complete" to="Complet"/>
-		<column from="Country" to="País"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Usuari remot"/>
-		<column from="Uploaded File" to="Arxiu pujat"/>
-		<column from="Size" to="Mida"/>
-		<column from="Progress" to="Progrés"/>
-		<column from="Speed" to="Velocitat"/>
-		<column from="Client" to="Client"/>
-		<column from="Rating" to="Qualificació"/>
-		<column from="Country" to="País"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adreça"/>
@@ -4335,7 +4332,7 @@
 		<column from="Address / Content" to="Adreça / Contingut"/>
 		<column from="Action" to="Acció"/>
 		<column from="Expires" to="Expiració"/>
-		<column from="Precedence" to="Procedència"/>
+		<column from="#" to="Procedència"/>
 		<column from="Hits" to="Coincidències"/>
 		<column from="Comment" to="Comentari"/>
 	</list>

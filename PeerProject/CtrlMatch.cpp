@@ -130,8 +130,8 @@ int CMatchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	EnableToolTips( TRUE );
 	
 	InsertColumn( MATCH_COL_NAME, _T("File"), HDF_LEFT, 200 );
-	InsertColumn( MATCH_COL_TYPE, _T("Extension"), HDF_CENTER, 80 );
-	InsertColumn( MATCH_COL_SIZE, _T("Size"), HDF_CENTER, 60 );
+	InsertColumn( MATCH_COL_TYPE, _T("Extension"), HDF_CENTER, 64 );
+	InsertColumn( MATCH_COL_SIZE, _T("Size"), HDF_CENTER, 62 );
 	InsertColumn( MATCH_COL_RATING, _T("Rating"), HDF_CENTER, 12*5 );
 	InsertColumn( MATCH_COL_STATUS, _T("Status"), HDF_CENTER, 16*3 );
 	InsertColumn( MATCH_COL_COUNT, _T("Host/Count"), HDF_CENTER, 120 );
@@ -241,8 +241,8 @@ void CMatchCtrl::SetBrowseMode()
 	m_wndHeader.SetItem( MATCH_COL_COUNT, &pZero );
 	m_wndHeader.SetItem( MATCH_COL_SPEED, &pZero );
 	m_wndHeader.SetItem( MATCH_COL_CLIENT, &pZero );
-	m_wndHeader.SetItem( MATCH_COL_TIME, &pZero );
 	m_wndHeader.SetItem( MATCH_COL_COUNTRY, &pZero );
+	m_wndHeader.SetItem( MATCH_COL_TIME, &pZero );
 	LoadColumnState();
 }
 
@@ -1021,13 +1021,6 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			}
 			break;
 
-		case MATCH_COL_TIME:
-			lstrcpyn( szBuffer, pFile->m_pTime.Format( _T("%B %d, %H:%M:%S") ),
-				sizeof( szBuffer ) / sizeof( TCHAR ) );
-			szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
-			pszText = szBuffer;
-			break;
-
 		case MATCH_COL_COUNTRY:
 			if ( pHit )
 			{
@@ -1039,6 +1032,13 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				DrawCountry( dc, rcCol, pFile->GetBestCountry(), bSelected, crBack );
 				pszText = pFile->GetBestCountry();
 			}
+			break;
+
+		case MATCH_COL_TIME:
+			lstrcpyn( szBuffer, pFile->m_pTime.Format( _T("%B %d, %H:%M:%S") ),
+				sizeof( szBuffer ) / sizeof( TCHAR ) );
+			szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
+			pszText = szBuffer;
 			break;
 
 		default:

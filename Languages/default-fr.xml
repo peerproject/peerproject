@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default French Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.7300 -->
+<!-- Translation based on default-en.xml (Shareaza SVN r7300) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
+<!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1335,7 +1335,7 @@
 		<menu text="_Taille de la vidéo">
 			<item id="ID_MEDIA_SIZE_ONE" text="Taille _original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Taille _double"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Taille tr_iple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Taille tr_iple"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Taille la plus _large"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Remplir la fenêtre"/>
 			<separator/>
@@ -1373,7 +1373,7 @@
 		<menu text="_Taille de la vidéo">
 			<item id="ID_MEDIA_SIZE_ONE" text="Taille _original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Taille _double"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Taille tr_iple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Taille tr_iple"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Taille la plus _large"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Remplir la fenêtre"/>
 			<separator/>
@@ -1395,7 +1395,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="Taille _original"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="Taille _double"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="Taille tr_iple"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="Taille tr_iple"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="Taille la plus _large"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Remplir la fenêtre"/>
 		<separator/>
@@ -2427,7 +2427,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Agrandir la vidéo jusqu'à remplir la fenêtre, ce qui peut entraîner une déformation de l'image."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Choisir la meilleure taille pour la vidéo en se basant sur le ratio d'aspect (largeur/hauteur)."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Afficher la vidéo dans sa taille d'origine."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Afficher la vidéo dans une taille triple à sa taille d'origine."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Afficher la vidéo dans une taille triple à sa taille d'origine."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Afficher la vidéo dans une taille double à sa taille d'origine."/>
 	<tip id="ID_MEDIA_STATUS" message="Afficher ou masquer la ligne de statut du média."/>
 	<tip id="ID_MEDIA_STOP" message="Stopper la lecture du fichier média." tip="Stop"/>
@@ -4337,31 +4337,28 @@
 		<control caption="Total Envoyé&#160;:"/>
 		<control caption="Notes&#160;:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Général">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Général">
 		<control caption="ATTENTION&#160;: Utilisateurs avertis... Cette fenêtre donne accès à des paramètres avancés qui, s'ils sont mal renseignés, peuvent corrompre un fichier."/>
-		<control caption="Nom du fichier et Taille&#160;:"/>
+		<control caption="Nom et Taille&#160;:"/>
 		<control caption="Nom de Fichier&#160;:"/>
-		<control caption="Taille (Octets)&#160;:"/>
-		<control caption="_URN&#160;:"/>
-		<control caption="Fiable"/>
-		<control caption="SHA1&#160;:"/>
-		<control caption="Tiger-Root&#160;:"/>
-		<control caption="ED2K&#160;:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="Fichier&#160;:"/>
+		<control caption="Taille de Octets&#160;:"/>
+		<control caption="URN&#160;:"/>
+		<control caption="Fiable&#160;?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1&#160;:"/>
+		<control/>
+		<control caption="&#160;ED2K&#160;:"/>
+		<control/>
+		<control caption="&#160;MD5&#160;:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root&#160;:"/>
+		<control/>
+		<control caption="&#160;BitTorrent&#160;:"/>
+		<control/>
+
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Acciones">
 		<control caption="ATTENTION&#160;: Utilisateurs avertis... Cette fenêtre donne accès à des paramètres avancés qui, s'ils sont mal renseignés, peuvent corrompre un fichier."/>
@@ -4444,6 +4441,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Fichier téléchargé"/>
+		<column from="Size" to="Taille"/>
+		<column from="Progress" to="Progression"/>
+		<column from="Transfer" to="Téléchargé"/>
+		<column from="Percent" to="Avancement"/>
+		<column from="Speed" to="Vitesse"/>
+		<column from="Status" to="Statut"/>
+		<column from="Client" to=""/>
+		<column from="Country" to="Pays"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Fichier envoyé"/>
+		<column from="Size" to="Taille"/>
+		<column from="Progress" to="Progression"/>
+		<column from="Transfer" to="Téléchargé"/>
+		<column from="Speed" to="Vitesse"/>
+		<column from="Rating" to="Évaluation"/>
+		<column from="Remote User" to="Utilisateur distant"/>
+		<column from="Client" to=""/>
+		<column from="Country" to="Pays"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Nom du fichier"/>
 		<column from="Extension" to="Extension"/>
@@ -4452,27 +4471,6 @@
 		<column from="Hits" to="Accès"/>
 		<column from="Uploads" to="Envois"/>
 		<column from="Modified" to="Modifié le"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Fichier téléchargé"/>
-		<column from="Size" to="Taille"/>
-		<column from="Progress" to="Progression"/>
-		<column from="Speed" to="Vitesse"/>
-		<column from="Status" to="Statut"/>
-		<column from="Client" to=""/>
-		<column from="Downloaded" to="Téléchargé"/>
-		<column from="Complete" to="Avancement"/>
-		<column from="Country" to="Pays"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Utilisateur distant"/>
-		<column from="Uploaded File" to="Fichier envoyé"/>
-		<column from="Size" to="Taille"/>
-		<column from="Progress" to="Progression"/>
-		<column from="Speed" to="Vitesse"/>
-		<column from="Client" to=""/>
-		<column from="Rating" to="Évaluation"/>
-		<column from="Country" to="Pays"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adresse"/>
@@ -4492,7 +4490,7 @@
 		<column from="Address / Content" to="Adresse / Contenu"/>
 		<column from="Action" to=""/>
 		<column from="Expires" to="Expiration"/>
-		<column from="Precedence" to="Priorité"/>
+		<column from="#" to="Priorité"/>
 		<column from="Hits" to="Accès"/>
 		<column from="Comment" to="Note"/>
 	</list>

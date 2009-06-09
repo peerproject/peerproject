@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Mexican Spanish Skin File -->
-<!-- Translation based on default-en.xml Shareaza 2.2.3.3 -->
+<!-- Translation based on default-en.xml (Shareaza 2.2.3.3) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
+<!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1273,7 +1273,7 @@
 		<menu text="Tamaño del Video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Tamaño _Original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Tamaño _Doble"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Tamaño _Triple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Triple"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Tamaño _Grande"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Llenar Ventana"/>
 			<separator/>
@@ -1311,7 +1311,7 @@
 		<menu text="Tamaño del Video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Tamaño _Original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Tamaño _Doble"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Tamaño _Triple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Triple"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Tamaño _Grande"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Llenar Ventana"/>
 			<separator/>
@@ -1333,7 +1333,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="Tamaño _Original"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="Tamaño _Doble"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="Tamaño _Triple"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Triple"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="Tamaño _Grande"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Llenar Ventana"/>
 		<separator/>
@@ -2324,7 +2324,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Poner el video lo más grande posible, puede producir distorsión."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Seleccionar el tamaño automáticamente."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Mostrar en tamaño original."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Triple tamaño."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Triple tamaño."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Doble tamaño."/>
 	<tip id="ID_MEDIA_STATUS" message="Mostrar o Esconder la linea del estado del archivo de media."/>
 	<tip id="ID_MEDIA_STOP" message="Parar reproducción."/>
@@ -4150,15 +4150,16 @@
 		<control caption="Para compartir archivos completados usando BitTorrent deben estar seeded.  Cuando este proceso esté completo el Torrent va aparecer como un nuevo artículo en archivos descargados."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Archivos">
 		<control/>
 	</dialog>
 	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control/>
 		<control/>
 		<control/>
+		<control/>
 		<control caption="Tracker:"/>
-		<control caption="_Fuentes Descargando (Peers):"/>
+		<control caption="_Fuentes Descargando:"/>
 		<control caption="Seeds (Completado):"/>
 		<control caption="Peers (Incompleto):"/>
 		<control caption="Tracker Mode:"/>
@@ -4171,11 +4172,11 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="&#160;Cuando sea necesario| Cuando el ratio es ms de 100%| Cuando sea necesario| Nunca"/>
+		<control caption="&#160;Cuando sea necesario| Cuando el ratio es más de 100%| Cuando sea necesario| Nunca"/>
 		<control/>
 		<control caption="Información _Torrent:"/>
 		<control caption="Nombre:"/>
-		<control caption="Creaado:"/>
+		<control caption="Creado:"/>
 		<control caption="Por:"/>
 		<control caption="Comentarios:"/>
 		<control caption="Transferencias:"/>
@@ -4183,39 +4184,35 @@
 		<control caption="Subida total:"/>
 		<control caption="Notas:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Avanzado">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Avanzado">
 		<control caption="ADVERTENCIA: En este diálogo se pueden configurar opciones avanzadas de la descarga, que pueden dañar o perder la descarga."/>
-		<control caption="_Nombre de archivo y tamao:"/>
+		<control caption="Información:"/>
 		<control caption="Nombre de archivo:"/>
-		<control caption="Tamao de Archivo (Byte):"/>
-		<control caption="_URNs:"/>
-		<control caption="Confiado"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="Archivo:"/>
+		<control caption="Tamaño de Bytes:"/>
+		<control caption="URNs:"/>
+		<control caption="¿Confiado?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Acciones">
 		<control caption="ADVERTENCIA: En este diálogo se pueden configurar opciones avanzadas de la descarga, que pueden dañar o perder la descarga."/>
 		<control caption="Olvidar todas las fuentes"/>
-		<control caption="Olvidar el estado de verificación actual (y reverificar)"/>
+		<control caption="Olvidar el estado de verificación actual y reverificar"/>
 		<control caption="Asumir completados y reverificar (para recuperar descargas)"/>
 		<control caption="Juntar con archivo local y verificar"/>
-		<control caption="Cancelar (save incomplete file)"/>
+		<control caption="Cancelar descarga pero save archivos incompletos"/>
 		<control/>
 		<control/>
 		<control caption="_Acciones:"/>
@@ -4290,6 +4287,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Archivo Descargado"/>
+		<column from="Size" to="Tamaño"/>
+		<column from="Progress" to="Progreso"/>
+		<column from="Transfer" to="Descargado"/>
+		<column from="Percent" to="Completo"/>
+		<column from="Speed" to="Velocidad"/>
+		<column from="Status" to="Estado"/>
+		<column from="Client" to="Cliente"/>
+		<column from="Country" to="País"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Archivo Subido"/>
+		<column from="Size" to="Tamaño"/>
+		<column from="Progress" to="Progreso"/>
+		<column from="Transfer" to="Descargado"/>
+		<column from="Speed" to="Velocidad"/>
+		<column from="Rating" to="Valoración"/>
+		<column from="Remote User" to="Usuario Remoto"/>
+		<column from="Client" to="Cliente"/>
+		<column from="Country" to="País"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Archivo"/>
 		<column from="Extension" to="Extensión"/>
@@ -4298,27 +4317,6 @@
 		<column from="Hits" to=""/>
 		<column from="Uploads" to="Subidas"/>
 		<column from="Modified" to="Modificado"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Archivo Descargado"/>
-		<column from="Size" to="Tamaño"/>
-		<column from="Progress" to="Progreso"/>
-		<column from="Speed" to="Velocidad"/>
-		<column from="Status" to="Estado"/>
-		<column from="Client" to="Cliente"/>
-		<column from="Downloaded" to="Descargado"/>
-		<column from="Complete" to="Completo"/>
-		<column from="Country" to="País"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Usuario Remoto"/>
-		<column from="Uploaded File" to="Archivo Subido"/>
-		<column from="Size" to="Tamaño"/>
-		<column from="Progress" to="Progreso"/>
-		<column from="Speed" to="Velocidad"/>
-		<column from="Client" to="Cliente"/>
-		<column from="Rating" to="Valoración"/>
-		<column from="Country" to="País"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Dirección"/>
@@ -4338,7 +4336,7 @@
 		<column from="Address / Content" to="Dirección / Contenido"/>
 		<column from="Action" to="Acción"/>
 		<column from="Expires" to="Expira"/>
-		<column from="Precedence" to="Procedencia"/>
+		<column from="#" to="Procedencia"/>
 		<column from="Hits" to=""/>
 		<column from="Comment" to="Comentario"/>
 	</list>

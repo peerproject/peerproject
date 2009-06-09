@@ -43,6 +43,7 @@ BEGIN_MESSAGE_MAP(CSecurityWnd, CPanelWnd)
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
 	ON_WM_TIMER()
+	ON_WM_CONTEXTMENU()
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_RULES, OnCustomDrawList)
 	ON_NOTIFY(NM_DBLCLK, IDC_RULES, OnDblClkList)
 	ON_NOTIFY(LVN_COLUMNCLICK, IDC_RULES, OnSortList)
@@ -57,7 +58,6 @@ BEGIN_MESSAGE_MAP(CSecurityWnd, CPanelWnd)
 	ON_COMMAND(ID_SECURITY_POLICY_ACCEPT, OnSecurityPolicyAccept)
 	ON_UPDATE_COMMAND_UI(ID_SECURITY_POLICY_DENY, OnUpdateSecurityPolicyDeny)
 	ON_COMMAND(ID_SECURITY_POLICY_DENY, OnSecurityPolicyDeny)
-	ON_WM_CONTEXTMENU()
 	ON_UPDATE_COMMAND_UI(ID_SECURITY_MOVE_UP, OnUpdateSecurityMoveUp)
 	ON_COMMAND(ID_SECURITY_MOVE_UP, OnSecurityMoveUp)
 	ON_UPDATE_COMMAND_UI(ID_SECURITY_MOVE_DOWN, OnUpdateSecurityMoveDown)
@@ -111,12 +111,12 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_gdiImageList.Add( &bmBase, RGB( 0, 255, 0 ) );
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	m_wndList.InsertColumn( 0, _T("Address / Content"), LVCFMT_LEFT, 200, -1 );
-	m_wndList.InsertColumn( 1, _T("Action"), LVCFMT_CENTER, 100, 0 );
-	m_wndList.InsertColumn( 2, _T("Expires"), LVCFMT_CENTER, 100, 1 );
-	m_wndList.InsertColumn( 3, _T("Precedence"), LVCFMT_CENTER, 00, 2 );
-	m_wndList.InsertColumn( 4, _T("Hits"), LVCFMT_CENTER, 60, 3 );
-	m_wndList.InsertColumn( 5, _T("Comment"), LVCFMT_LEFT, 100, 4 );
+	m_wndList.InsertColumn( 0, _T("Address / Content"), LVCFMT_LEFT, 190, -1 );
+	m_wndList.InsertColumn( 1, _T("Hits"), LVCFMT_CENTER, 60, 0 );
+	m_wndList.InsertColumn( 2, _T("Action"), LVCFMT_CENTER, 60, 1 );
+	m_wndList.InsertColumn( 3, _T("Expires"), LVCFMT_CENTER, 60, 2 );
+	m_wndList.InsertColumn( 4, _T("#"), LVCFMT_CENTER, 30, 3 );
+	m_wndList.InsertColumn( 5, _T("Comment"), LVCFMT_LEFT, 140, 4 );
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
 	
@@ -148,8 +148,8 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 
 	CLiveItem* pDefault = pLiveList.Add( (LPVOID)0 );
 	pDefault->Set( 0, _T("Default Policy") );
-	pDefault->Set( 1, Security.m_bDenyPolicy ? _T("Deny") : _T("Accept") );
-	pDefault->Set( 3, _T("X") );
+	pDefault->Set( 2, Security.m_bDenyPolicy ? _T("Deny") : _T("Accept") );
+	pDefault->Set( 4, _T("X") );
 	pDefault->m_nImage = Security.m_bDenyPolicy ? Settings.General.LanguageRTL ? 0 : 2 : 1;
 
 	Security.Expire();
@@ -190,33 +190,33 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 		switch ( pRule->m_nAction )
 		{
 		case CSecureRule::srNull:
-			pItem->Set( 1, _T("N/A") );
+			pItem->Set( 2, _T("N/A") );
 			break;
 		case CSecureRule::srAccept:
-			pItem->Set( 1, _T("Accept") );
+			pItem->Set( 2, _T("Accept") );
 			break;
 		case CSecureRule::srDeny:
-			pItem->Set( 1, _T("Deny") );
+			pItem->Set( 2, _T("Deny") );
 			break;
 		}
 
 		if ( pRule->m_nExpire == CSecureRule::srIndefinite )
 		{
-			pItem->Set( 2, _T("Never") );
+			pItem->Set( 3, _T("Never") );
 		}
 		else if ( pRule->m_nExpire == CSecureRule::srSession )
 		{
-			pItem->Set( 2, _T("Session") );
+			pItem->Set( 3, _T("Session") );
 		}
 		else if ( pRule->m_nExpire >= nNow )
 		{
 			DWORD nTime = ( pRule->m_nExpire - nNow );
-			pItem->Format( 2, _T("%ud %uh %um"), nTime / 86400u, (nTime % 86400u) / 3600u, ( nTime % 3600u ) / 60u );
-			//pItem->Format( 2, _T("%i:%.2i:%.2i"), nTime / 3600, ( nTime % 3600 ) / 60, nTime % 60 );
+			pItem->Format( 3, _T("%ud %uh %um"), nTime / 86400u, (nTime % 86400u) / 3600u, ( nTime % 3600u ) / 60u );
+			//pItem->Format( 3, _T("%i:%.2i:%.2i"), nTime / 3600, ( nTime % 3600 ) / 60, nTime % 60 );
 		}
 
-		pItem->Format( 3, _T("%i"), nCount );
-		pItem->Format( 4, _T("%u (%u)"), pRule->m_nToday, pRule->m_nEver );
+		pItem->Format( 1, _T("%u (%u)"), pRule->m_nToday, pRule->m_nEver );
+		pItem->Format( 4, _T("%i"), nCount );
 		pItem->Set( 5, pRule->m_sComment );
 	}
 
@@ -398,13 +398,11 @@ void CSecurityWnd::OnSecurityMoveUp()
 		CQuickLock oLock( Security.m_pSection );
 
 		if ( CSecureRule* pRule = GetItem( nItem ) )
-		{
 			Security.MoveUp( pRule );
-		}
 	}
 
 	Security.Save();
-	Update( 3 );
+	Update( 4 );
 }
 
 void CSecurityWnd::OnUpdateSecurityMoveDown(CCmdUI* pCmdUI) 
@@ -430,7 +428,7 @@ void CSecurityWnd::OnSecurityMoveDown()
 	}
 
 	Security.Save();
-	Update( 3 );
+	Update( 4 );
 }
 
 void CSecurityWnd::OnSecurityAdd() 
@@ -503,9 +501,7 @@ void CSecurityWnd::OnSecurityExport()
 			CQuickLock oLock( Security.m_pSection );
 
 			if ( CSecureRule* pRule = GetItem( nItem ) )
-			{
 				pXML->AddElement( pRule->ToXML() );
-			}
 		}
 
 		strText = pXML->ToString( TRUE, TRUE );
@@ -522,11 +518,11 @@ void CSecurityWnd::OnSecurityExport()
 	pFile.Close();
 }
 
-void CSecurityWnd::OnSecurityImport() 
+void CSecurityWnd::OnSecurityImport()
 {
 	CFileDialog dlg( TRUE, _T("xml"), NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
 		_T("Security Rules|*.xml;*.net|XML Files|*.xml|NET Files|*.net|All Files|*.*||") );
-	
+
 	if ( dlg.DoModal() != IDOK ) return;
 
 	CWaitCursor pCursor;
@@ -545,7 +541,7 @@ void CSecurityWnd::OnSecurityImport()
 void CSecurityWnd::OnSkinChange()
 {
 	CPanelWnd::OnSkinChange();
-	Settings.LoadList( _T("CSecurityWnd"), &m_wndList, -4 );
+	Settings.LoadList( _T("CSecurityWnd"), &m_wndList, -5 );
 	Skin.CreateToolBar( _T("CSecurityWnd"), &m_wndToolBar );
 }
 
@@ -572,7 +568,6 @@ void CSecurityWnd::OnSecurityPolicyDeny()
 	Update();
 	m_wndList.RedrawItems( 0, m_wndList.GetItemCount() - 1 );
 }
-
 
 BOOL CSecurityWnd::PreTranslateMessage(MSG* pMsg) 
 {
@@ -605,5 +600,3 @@ BOOL CSecurityWnd::PreTranslateMessage(MSG* pMsg)
 
 	return CPanelWnd::PreTranslateMessage( pMsg );
 }
-
-

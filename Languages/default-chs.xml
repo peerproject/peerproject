@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.6092 -->
+<!-- Translation based on default-en.xml (Shareaza SVN r6092) -->
 
 <!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1263,7 +1263,7 @@
 		<menu text="视频大小(_Z)">
 			<item id="ID_MEDIA_SIZE_ONE" text="原始大小(_O)"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="双倍大小(_D)"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="三倍大小(_T)"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="三倍大小(_T)"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="最大化(_L)"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="适合窗口(_W)"/>
 			<separator/>
@@ -1301,7 +1301,7 @@
 		<menu text="视频大小(_Z)">
 			<item id="ID_MEDIA_SIZE_ONE" text="原始大小(_O)"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="双倍大小(_D)"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="三倍大小(_T)"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="三倍大小(_T)"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="最大化(_L)"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="适合窗口(_W)"/>
 			<separator/>
@@ -1323,7 +1323,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="原始大小(_O)"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="双倍大小(_D)"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="三倍大小(_T)"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="三倍大小(_T)"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="最大化(_L)"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="适合窗口(_W)"/>
 		<separator/>
@@ -2257,7 +2257,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="拉伸视频适配窗口，可能会发生扭曲。"/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="选择文件的默认大小放大后进行播放。"/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="以原始大小显示视频。"/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="以三倍大小显示视频。"/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="以三倍大小显示视频。"/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="以双倍大小显示视频。"/>
 	<tip id="ID_MEDIA_STATUS" message="显示或隐藏媒体状态栏。"/>
 	<tip id="ID_MEDIA_STOP" message="停止播放媒体文件。" tip="停止"/>
@@ -4087,31 +4087,27 @@
 		<control caption="上传总计:"/>
 		<control caption="注释:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="编辑下载">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="编辑下载">
 		<control caption="警告: 此对话框为高级用户提供下载编辑功能，如果使用不当可能会使软件停止工作。"/>
-		<control caption="文件名称和大小(_Z):"/>
+		<control caption="文件名称和大小:"/>
+		<control caption="文件名称:"/>
 		<control caption="文件名称:"/>
 		<control caption="文件大小(字节):"/>
 		<control caption="URN:"/>
 		<control caption="信任"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="操作">
 		<control caption="警告: 此对话框为高级用户提供下载编辑功能，如果使用不当可能会使软件停止工作。"/>
@@ -4194,6 +4190,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="下载文件"/>
+		<column from="Size" to="大小"/>
+		<column from="Progress" to="进程"/>
+		<column from="Transfer" to="已下载"/>
+		<column from="Complete" to="完成"/>
+		<column from="Speed" to="速度"/>
+		<column from="Status" to="状态"/>
+		<column from="Client" to="客户端"/>
+		<column from="Country" to="国家"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="上传文件"/>
+		<column from="Size" to="大小"/>
+		<column from="Progress" to="进程"/>
+		<column from="Transfer" to="已下载"/>
+		<column from="Speed" to="速度"/>
+		<column from="Rating" to="比率"/>
+		<column from="Remote User" to="远程用户"/>
+		<column from="Client" to="客户端"/>
+		<column from="Country" to="国家"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="文件"/>
 		<column from="Extension" to="扩展名"/>
@@ -4202,27 +4220,6 @@
 		<column from="Hits" to="命中"/>
 		<column from="Uploads" to="上传"/>
 		<column from="Modified" to="修改时间"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="下载文件"/>
-		<column from="Size" to="大小"/>
-		<column from="Progress" to="进程"/>
-		<column from="Speed" to="速度"/>
-		<column from="Status" to="状态"/>
-		<column from="Client" to="客户端"/>
-		<column from="Downloaded" to="已下载"/>
-		<column from="Complete" to="完成"/>
-        <column from="Country" to="国家"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="远程用户"/>
-		<column from="Uploaded File" to="上传文件"/>
-		<column from="Size" to="大小"/>
-		<column from="Progress" to="进程"/>
-		<column from="Speed" to="速度"/>
-		<column from="Client" to="客户端"/>
-		<column from="Rating" to="比率"/>
-        <column from="Country" to="国家"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="地址"/>
@@ -4236,13 +4233,13 @@
 		<column from="Mode" to="模式"/>
 		<column from="Client" to="客户端"/>
 		<column from="Name" to="名称"/>
-        <column from="Country" to="国家"/>
+		<column from="Country" to="国家"/>
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="地址 / 内容"/>
 		<column from="Action" to="操作"/>
 		<column from="Expires" to="过期"/>
-		<column from="Precedence" to="优先级"/>
+		<column from="#" to="优先级"/>
 		<column from="Hits" to="命中"/>
 		<column from="Comment" to="注释"/>
 	</list>
@@ -4251,11 +4248,12 @@
 		<column from="Port" to="端口"/>
 		<column from="Client" to="客户端"/>
 		<column from="Last Seen" to="最近查看"/>
+		<column from="Daily Uptime" to="时间"/>
 		<column from="Name" to="名称"/>
 		<column from="Description" to="描述"/>
 		<column from="CurUsers" to="当前用户"/>
 		<column from="MaxUsers" to="最大用户数"/>
-        <column from="Failures" to="失败"/>
+		<column from="Failures" to="失败"/>
 		<column from="Country" to="国家"/>
 	</list>
 	<list name="CDiscoveryWnd">

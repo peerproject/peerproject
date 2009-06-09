@@ -641,8 +641,8 @@
 #define IDC_ENABLE_ALWAYS           	1417
 #define IDC_DISKNAME                	1418
 #define IDC_WEB_LIST                	1419
-#define IDC_TRUST_SHA1              	1420
-#define IDC_FILESIZE                	1421
+#define IDC_FILESIZE                	1420
+#define IDC_TRUST_SHA1              	1421
 #define IDC_TRUST_TIGER             	1422
 #define IDC_TRUST_ED2K              	1423
 #define IDC_PROFILE_ICQ             	1424

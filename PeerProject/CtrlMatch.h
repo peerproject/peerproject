@@ -147,8 +147,8 @@ public:
 #define MATCH_COL_COUNT		5
 #define MATCH_COL_SPEED		6
 #define MATCH_COL_CLIENT	7
-#define MATCH_COL_TIME		8
-#define MATCH_COL_COUNTRY	9
+#define MATCH_COL_COUNTRY	8
+#define MATCH_COL_TIME		9
 #define MATCH_COL_MAX		10
 
 #define IDC_MATCHES			100

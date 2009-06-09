@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Albanian Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.6090 -->
+<!-- Translation based on default-en.xml (Shareaza SVN r6090) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
+<!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1265,7 +1265,7 @@
 		<menu text="Për_masë e videos">
 			<item id="ID_MEDIA_SIZE_ONE" text="Përmasë _Origjinale"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Përmasë _Dyfishe"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Përmasë _Trefishe"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Përmasë _Trefishe"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Më e Mirë"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Mbushe Dritaren"/>
 			<separator/>
@@ -1303,7 +1303,7 @@
 		<menu text="Për_masë e videos">
 			<item id="ID_MEDIA_SIZE_ONE" text="Përmasë _Origjinale"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Përmasë _Dyfishe"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Përmasë _Trefishe"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Përmasë _Trefishe"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Më e Mirë"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Mbushe Dritaren"/>
 			<separator/>
@@ -1325,7 +1325,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="Përmasë _Origjinale"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="Përmasë _Dyfishe"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="Përmasë _Trefishe"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="Përmasë _Trefishe"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Më e Mirë"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Mbushe Dritaren"/>
 		<separator/>
@@ -2315,7 +2315,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Zgjeron videon për të mbushur dritaren, ka mundësi të shtrembërohet."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Zgjedh përmasën më të mirë të videos bazuar në raportin e aspektit."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Shfaq videon në përmasën origjinale (natyrale)."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Shfaq videon me përmasë trefishe nga origjinali (natyrale)."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Shfaq videon me përmasë trefishe nga origjinali (natyrale)."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Shfaq videon me përmasë dyfishe nga origjinali (natyrale)."/>
 	<tip id="ID_MEDIA_STATUS" message="Tregon ose fsheh vijën e statusit të medias."/>
 	<tip id="ID_MEDIA_STOP" message="Ndalon leximin e mediaskedës." tip="Ndalo"/>
@@ -4064,31 +4064,27 @@
 		<control caption="Ngarkimi Total:"/>
 		<control caption="Shënime:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Përgjithësi">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Përgjithësi">
 		<control caption="KUJDES: Kjo tabelë paraqet veçori të përparuara për editimin e shkarkimit, të cilat nëse përdoren jokorrekt mund, dhe mbase do të shkaktojnë korruptim."/>
-		<control caption="Emri dhe Për_masa e skedës:"/>
-		<control caption="Emri i skedës:"/>
-		<control caption="Përmasa (Bajte):"/>
-		<control caption="_URN-e:"/>
+		<control caption="Informacion:"/>
+		<control caption="Emri:"/>
+		<control caption="Skedës:"/>
+		<control caption="Përmasa Bajte:"/>
+		<control caption="URN-e:"/>
 		<control caption="Me besim"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Veprime">
 		<control caption="KUJDES: Kjo tabelë paraqet veçori të përparuara për editimin e shkarkimit, të cilat nëse përdoren jokorrekt mund, dhe mbase do të shkaktojnë korruptim."/>
@@ -4171,6 +4167,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Skedë në Shkarkim"/>
+		<column from="Size" to="Përmasa"/>
+		<column from="Progress" to="Progresi"/>
+		<column from="Transfer" to="u Shkarkua"/>
+		<column from="Percent" to="Përfundimi"/>
+		<column from="Speed" to="Shpejtësi"/>
+		<column from="Status" to="Statusi"/>
+		<column from="Client" to="Klienti"/>
+		<column from="Country" to="Shteti"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Skedë në Ngarkim"/>
+		<column from="Size" to="Përmasa"/>
+		<column from="Progress" to="Progresi"/>
+		<column from="Transfer" to="u Shkarkua"/>
+		<column from="Speed" to="Shpejtësi"/>
+		<column from="Rating" to="Vlerësimi"/>
+		<column from="Remote User" to="Përdoruesi i Largët"/>
+		<column from="Client" to="Klienti"/>
+		<column from="Country" to="Shteti"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Skedë"/>
 		<column from="Extension" to="Shtojcë"/>
@@ -4179,27 +4197,6 @@
 		<column from="Hits" to="Hitet"/>
 		<column from="Uploads" to="Ngarkimi"/>
 		<column from="Modified" to="Modifikimi"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Skedë në Shkarkim"/>
-		<column from="Size" to="Përmasa"/>
-		<column from="Progress" to="Progresi"/>
-		<column from="Speed" to="Shpejtësi"/>
-		<column from="Status" to="Statusi"/>
-		<column from="Client" to="Klienti"/>
-		<column from="Downloaded" to="u Shkarkua"/>
-		<column from="Complete" to="Përfundimi"/>
-		<column from="Country" to="Shteti"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Përdoruesi i Largët"/>
-		<column from="Uploaded File" to="Skedë në Ngarkim"/>
-		<column from="Size" to="Përmasa"/>
-		<column from="Progress" to="Progresi"/>
-		<column from="Speed" to="Shpejtësi"/>
-		<column from="Client" to="Klienti"/>
-		<column from="Rating" to="Vlerësimi"/>
-		<column from="Country" to="Shteti"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adresa"/>
@@ -4219,7 +4216,7 @@
 		<column from="Address / Content" to="Përmbajtja"/>
 		<column from="Action" to="Veprimi"/>
 		<column from="Expires" to="Skadimi"/>
-		<column from="Precedence" to="Paraprirja"/>
+		<column from="#" to="Paraprirja"/>
 		<column from="Hits" to="Hitet"/>
 		<column from="Comment" to="Komenti"/>
 	</list>
@@ -4284,10 +4281,10 @@
 	</list>
 	<list name="CFavouritesProfileList">
 		<column from="Name" to="Emri"/>
-		<column from="URL" to="URL"/>
+		<column from="URL" to=""/>
 	</list>
 	<list name="CFileSourcesPageList">
-		<column from="URL" to="URL"/>
+		<column from="URL" to=""/>
 		<column from="Expires" to="Skadimi"/>
 	</list>
 	<list name="CTorrentFileList">

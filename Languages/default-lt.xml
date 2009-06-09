@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Lithuanian Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.7800 -->
+<!-- Translation based on default-en.xml (Shareaza SVN r7800) -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1325,7 +1325,7 @@
 		<menu text="Vaizdo _matmenys">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Originalaus dydžio"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Pad_vigubinti"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Pa_trigubinti"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Pa_trigubinti"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Didžiausi"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="Per visą _langą"/>
 			<separator/>
@@ -1363,7 +1363,7 @@
 		<menu text="Vaizdo _matmenys">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Originalaus dydžio"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Pad_vigubinti"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Pa_trigubinti"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Pa_trigubinti"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Didžiausi"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="Per visą _langą"/>
 			<separator/>
@@ -1385,7 +1385,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Originalaus dydžio"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="Pad_vigubinti"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="Pa_trigubinti"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="Pa_trigubinti"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Didžiausiai"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="Per visą _langą"/>
 		<separator/>
@@ -2427,7 +2427,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Užpildyti langą vaizdu, galbūt vaizdą iškreipiant."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Pasirinkti geriausius vaizdo matmenis, atitinkančius jo matmenų santykį."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Rodyti vaizdą tokiais matmenimis, kaip nurodyta faile."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Rodyti vaizdą patrigubinant nurodytus faile matmenis."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Rodyti vaizdą patrigubinant nurodytus faile matmenis."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Rodyti vaizdą padvigubinant nurodytus faile matmenis."/>
 	<tip id="ID_MEDIA_STATUS" message="Rodyti ar paslėpti grotuvo būklės juostelę."/>
 	<tip id="ID_MEDIA_STOP" message="Sustabdyti grotuvo failo grojimą."/>
@@ -4334,31 +4334,27 @@
 		<control caption="Viso išsiųsta:"/>
 		<control caption="Pastabos:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Bendra">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Bendra">
 		<control caption="DĖMESIO: Šiame dialogo lange patyrę naudotojai gali taisyti failo informaciją, bet neteisingi pakeitimai gali sugadinti failą."/>
-		<control caption="_Failo vardas ir dydis:"/>
+		<control caption="Vardas ir dydis:"/>
 		<control caption="Failo vardas:"/>
+		<control caption="Failo:"/>
 		<control caption="Dydis (baitais):"/>
-		<control caption="_Universalūs ištekliaus vardai (URNs):"/>
-		<control caption="Patikima"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="Universalūs ištekliaus vardai (URNs):"/>
+		<control caption="Patikima?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Veiksmai">
 		<control caption="DĖMESIO: Šiame dialogo lange patyrę naudotojai gali taisyti failo informaciją, bet neteisingi pakeitimai gali sugadinti failą."/>
@@ -4441,6 +4437,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Parsisiunčiamas failas"/>
+		<column from="Size" to="Dydis"/>
+		<column from="Progress" to="Eiga"/>
+		<column from="Transfer" to="Parsisiųsta"/>
+		<column from="Percent" to="Baigta"/>
+		<column from="Speed" to="Sparta"/>
+		<column from="Status" to="Būklė"/>
+		<column from="Client" to="Klientas"/>
+		<column from="Country" to="Šalis"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Išsiunčiamas failas"/>
+		<column from="Size" to="Dydis"/>
+		<column from="Progress" to="Eiga"/>
+		<column from="Transfer" to="Parsisiųsta"/>
+		<column from="Speed" to="Sparta"/>
+		<column from="Rating" to="Reitingas"/>
+		<column from="Remote User" to="Nutolęs naudotojas"/>
+		<column from="Client" to="Klientas"/>
+		<column from="Country" to="Šalis"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Failas"/>
 		<column from="Extension" to="Plėtinys"/>
@@ -4449,27 +4467,6 @@
 		<column from="Hits" to="Kreipinių"/>
 		<column from="Uploads" to="Išsiųsta"/>
 		<column from="Modified" to="Pakeista"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Parsisiunčiamas failas"/>
-		<column from="Size" to="Dydis"/>
-		<column from="Progress" to="Eiga"/>
-		<column from="Speed" to="Sparta"/>
-		<column from="Status" to="Būklė"/>
-		<column from="Client" to="Klientas"/>
-		<column from="Downloaded" to="Parsisiųsta"/>
-		<column from="Complete" to="Baigta"/>
-		<column from="Country" to="Šalis"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Nutolęs naudotojas"/>
-		<column from="Uploaded File" to="Išsiunčiamas failas"/>
-		<column from="Size" to="Dydis"/>
-		<column from="Progress" to="Eiga"/>
-		<column from="Speed" to="Sparta"/>
-		<column from="Client" to="Klientas"/>
-		<column from="Rating" to="Reitingas"/>
-		<column from="Country" to="Šalis"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adresas"/>
@@ -4489,7 +4486,7 @@
 		<column from="Address / Content" to="Adresas ar turinys"/>
 		<column from="Action" to="Veiksmas"/>
 		<column from="Expires" to="Nustoja galioti"/>
-		<column from="Precedence" to="Pirmumas"/>
+		<column from="#" to="Pirmumas"/>
 		<column from="Hits" to="Kreipinių"/>
 		<column from="Comment" to="Komentaras"/>
 	</list>
