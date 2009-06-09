@@ -91,7 +91,7 @@ void CSettings::Load()
 	Add( _T("Settings"), _T("AlwaysOpenURLs"), &General.AlwaysOpenURLs, false );
 	Add( _T("Settings"), _T("CloseMode"), &General.CloseMode, 0, 1, 0, 3 );
 	Add( _T("Settings"), _T("FirstRun"), &General.FirstRun, true, true );
-	Add( _T("Settings"), _T("GUIMode"), &General.GUIMode, GUI_BASIC );
+	Add( _T("Settings"), _T("GUIMode"), &General.GUIMode, GUI_TABBED );
 	Add( _T("Settings"), _T("IgnoreXPsp2"), &General.IgnoreXPsp2, false );
 	Add( _T("Settings"), _T("Language"), &General.Language, _T("en") );
 	Add( _T("Settings"), _T("LanguageRTL"), &General.LanguageRTL, false );

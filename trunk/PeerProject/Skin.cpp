@@ -1183,11 +1183,11 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 	{
 		CFile pFile;
 
-		if ( pFile.Open( _T("\\Dialog.xml"), CFile::modeReadWrite ) )
+		if ( pFile.Open( _T("\\Dialogs.xml"), CFile::modeReadWrite ) )
 		{
 			pFile.Seek( 0, CFile::end );
 		}
-		else if ( ! pFile.Open( _T("\\Dialog.xml"), CFile::modeWrite|CFile::modeCreate ) )
+		else if ( ! pFile.Open( _T("\\Dialogs.xml"), CFile::modeWrite|CFile::modeCreate ) )
 		{
 			return FALSE;
 		}

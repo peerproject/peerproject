@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Polish Skin File -->
-<!-- Translation based on default-en.xml Shareaza 2.1.2.7 -->
+<!-- Translation based on default-en.xml (Shareaza 2.1.2.7) -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1249,7 +1249,7 @@
 		<menu text="Wielkość filmu">
 			<item id="ID_MEDIA_SIZE_ONE" text="Oryginalny rozmiar"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Podwójny rozmiar"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Potrójny rozmiar"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Potrójny rozmiar"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Największy rozmiar"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="Całe okno"/>
 			<separator/>
@@ -1287,7 +1287,7 @@
 		<menu text="Wielkość filmu">
 			<item id="ID_MEDIA_SIZE_ONE" text="Oryginalny rozmiar"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Podwójny rozmiar"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Potrójny rozmiar"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Potrójny rozmiar"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Największy rozmiar"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="Całe okno"/>
 			<separator/>
@@ -1309,7 +1309,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="Oryginalny rozmiar"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="Podwójny rozmiar"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="Potrójny rozmiar"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="Potrójny rozmiar"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="Największy rozmiar"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="Całe okno"/>
 		<separator/>
@@ -2247,7 +2247,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Rozciągnij obraz aby wypełnić okno, potencjalnie rozmazując obraz."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Wbierz najlepszy rozmiar dla obrazu bazujący na jego aspect ratio."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Pokaż obraz w jego orginalnej wielkości."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Pokaż obraz potrójnie powiększony w stosunku do orginału."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Pokaż obraz potrójnie powiększony w stosunku do orginału."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Pokaż obraz podwójnie powiększony w stosunku do orginału."/>
 	<tip id="ID_MEDIA_STATUS" message="Pokaż lub ukryj pasek statusu multimediów."/>
 	<tip id="ID_MEDIA_STOP" message="Zatrzymaj odtwarzanie pliku." tip="Zatrzymaj"/>
@@ -4163,31 +4163,27 @@
 		<control caption="Łącznie wysłane:"/>
 		<control caption="Uwagi:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Informacje">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Informacje">
 		<control caption="UWAGA: To okno umożliwia zaawansowaną edycję pobierania. Jeśli zostanie nieprawidłowo użyta może i prawdopodobnie spowoduje uszkodzenie pobieranego pliku."/>
-		<control caption="_Nazwa i wielkość pliku"/>
-		<control caption="_Nazwa pliku:"/>
-		<control caption="Wielkosć pliku (Byte):"/>
+		<control caption="Informacje"/>
+		<control caption="Nazwa pliku:"/>
+		<control caption="Pliku:"/>
+		<control caption="Wielkosć Byte:"/>
 		<control caption="URNy:"/>
-		<control caption="Zaufany"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="Zaufany?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Akcje">
 		<control caption="UWAGA: To okno umożliwia zaawansowaną edycję pobierania. Jeśli zostanie nieprawidłowo użyta może i prawdopodobnie spowoduje uszkodzenie pobieranego pliku."/>
@@ -4270,6 +4266,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Pobierany plik"/>
+		<column from="Size" to="Rozmiar"/>
+		<column from="Progress" to="Postęp"/>
+		<column from="Transfer" to="Pobrano"/>
+		<column from="Percent" to="Zakończono"/>
+		<column from="Speed" to="Prędkość"/>
+		<column from="Status" to="Status"/>
+		<column from="Client" to="Klient"/>
+		<column from="Country" to="Kraj"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Wysyłany plik"/>
+		<column from="Size" to="Rozmiar"/>
+		<column from="Progress" to="Postęp"/>
+		<column from="Transfer" to="Pobrano"/>
+		<column from="Speed" to="Prędkość"/>
+		<column from="Rating" to="Ocena"/>
+		<column from="Remote User" to="Zdalny użytkownik"/>
+		<column from="Client" to="Klient"/>
+		<column from="Country" to="Kraj"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Plik"/>
 		<column from="Extension" to="Rozszerzenie"/>
@@ -4279,46 +4297,25 @@
 		<column from="Uploads" to="Wysyłki"/>
 		<column from="Modified" to="Zmodyfikowany"/>
 	</list>
-    <list name="CDownloadCtrl">
-        <column from="Downloaded File" to="Pobierany plik"/>
-        <column from="Size" to="Rozmiar"/>
-        <column from="Progress" to="Postęp"/>
-        <column from="Speed" to="Prędkość"/>
-        <column from="Status" to="Status"/>
-        <column from="Client" to="Klient"/>
-        <column from="Downloaded" to="Pobrano"/>
-        <column from="Complete" to="Zakończono"/>
-		<column from="Country" to="Kraj"/>
-    </list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Zdalny użytkownik"/>
-		<column from="Uploaded File" to="Wysyłany plik"/>
-		<column from="Size" to="Rozmiar"/>
-		<column from="Progress" to="Postęp"/>
-		<column from="Speed" to="Prędkość"/>
+	<list name="CNeighboursWnd">
+		<column from="Address" to="Adres"/>
+		<column from="Port" to="Port"/>
+		<column from="Time" to="Czas"/>
+		<column from="Packets" to="Pakiety"/>
+		<column from="Bandwidth" to="Pasmo"/>
+		<column from="Total" to="Przesłano"/>
+		<column from="Flow" to="Strumień"/>
+		<column from="Leaves" to="Listki"/>
+		<column from="Mode" to="Tryb"/>
 		<column from="Client" to="Klient"/>
-		<column from="Rating" to="Ocena"/>
+		<column from="Name" to="Nazwa"/>
 		<column from="Country" to="Kraj"/>
 	</list>
-    <list name="CNeighboursWnd">
-        <column from="Address" to="Adres"/>
-        <column from="Port" to="Port"/>
-        <column from="Time" to="Czas"/>
-        <column from="Packets" to="Pakiety"/>
-        <column from="Bandwidth" to="Pasmo"/>
-        <column from="Total" to="Przesłano"/>
-        <column from="Flow" to="Strumień"/>
-        <column from="Leaves" to="Listki"/>
-        <column from="Mode" to="Tryb"/>
-        <column from="Client" to="Klient"/>
-        <column from="Name" to="Nazwa"/>
-		<column from="Country" to="Kraj"/>
-    </list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adres / Zawartość"/>
 		<column from="Action" to="Akcja"/>
 		<column from="Expires" to="Wygasa"/>
-		<column from="Precedence" to="Pierwszeństwo"/>
+		<column from="#" to="Pierwszeństwo"/>
 		<column from="Hits" to="Trafienia"/>
 		<column from="Comment" to="Komentarz"/>
 	</list>
@@ -4355,7 +4352,7 @@
 	</list>
 	<list name="CSearchMonitorWnd">
 		<column from="Search" to="Szukaj"/>
-		<column from="URN" to="URN"/>
+		<column from="URN" to=""/>
 		<column from="Schema" to="Schemat"/>
 	</list>
 	<list name="CMatchCtrl">
@@ -4383,10 +4380,10 @@
 	</list>
 	<list name="CFavouritesProfileList">
 		<column from="Name" to="Nazwa"/>
-		<column from="URL" to="URL"/>
+		<column from="URL" to=""/>
 	</list>
 	<list name="CFileSourcesPageList">
-		<column from="URL" to="URL"/>
+		<column from="URL" to=""/>
 		<column from="Expires" to="Wygasa"/>
 	</list>
 	<list name="CTorrentFileList">
@@ -4396,8 +4393,8 @@
 		<column from="Priority" to="Typ"/>
 	</list>
 	<list name="CTorrentTrackerList">
-		<column from="Nazwa pliku" to=""/>
-		<column from="Size" to="Wielkość"/>
+		<column from="Tracker" to=""/>
+		<column from="Status" to=""/>
 		<column from="Type" to="Typ"/>
 	</list>
 	<list name="CReviewList">

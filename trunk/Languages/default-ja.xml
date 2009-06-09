@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Japanese Skin File -->
-<!-- Translation based on default-en.xml Shareaza 2.2.0.2 -->
+<!-- Translation based on default-en.xml (Shareaza 2.2.0.2) -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1268,7 +1268,7 @@
 		<menu text="ビデオサイズ(_Z)">
 			<item id="ID_MEDIA_SIZE_ONE" text="元のサイズ(_O)"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="ダブルサイズ(_D)"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="トリプルサイズ(_T)"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="トリプルサイズ(_T)"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="最大(_L)"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="ウィンドウに合わせる(_F)"/>
 			<separator/>
@@ -1306,7 +1306,7 @@
 		<menu text="ビデオサイズ(_Z)">
 			<item id="ID_MEDIA_SIZE_ONE" text="元のサイズ(_O)"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="ダブルサイズ(_D)"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="トリプルサイズ(_T)"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="トリプルサイズ(_T)"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="最大(_L)"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="ウィンドウに合わせる(_F)"/>
 			<separator/>
@@ -1328,7 +1328,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="元のサイズ(_O)"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="ダブルサイズ(_D)"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="トリプルサイズ(_T)"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="トリプルサイズ(_T)"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="最大(_L)"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="ウィンドウに合わせる(_F)"/>
 		<separator/>
@@ -2315,7 +2315,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="ビデオ画像を拡大して表示します"/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="基本となる再生画面のアスペクト比を選択します"/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="ビデオ画像をオリジナルサイズで表示します"/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="ビデオ画像をオリジナルサイズの3倍に拡大して表示します"/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="ビデオ画像をオリジナルサイズの3倍に拡大して表示します"/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="ビデオ画像をオリジナルサイズの2倍に拡大して表示します"/>
 	<tip id="ID_MEDIA_STATUS" message="メディアステータスラインを表示・非表示します"/>
 	<tip id="ID_MEDIA_STOP" message="再生中のメディアファイルを停止します" tip="停止"/>
@@ -4152,31 +4152,27 @@
 		<control caption="アップロード合計:"/>
 		<control caption="注記:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="一般">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="一般">
 		<control caption="警告: このダイアログは熟練したユーザーに対して高度なダウンロード編集機能を提供します。 これが不当に使用された場合、恐らくそのダウンロードは不正になります。"/>
 		<control caption="ファイル名とサイズ:"/>
 		<control caption="ファイル名:"/>
+		<control caption="ファイル名:"/>
 		<control caption="サイズ(バイト):"/>
-		<control caption="_URN:"/>
+		<control caption="URN:"/>
 		<control caption="検証"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="操作">
 		<control caption="警告: このダイアログは熟練したユーザーに対して高度なダウンロード編集機能を提供します。 これが不当に使用された場合、恐らくそのダウンロードは不正になります。"/>
@@ -4260,6 +4256,28 @@
 
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="ダウンロードファイル"/>
+		<column from="Size" to="サイズ"/>
+		<column from="Progress" to="進行"/>
+		<column from="Transfer" to="ダウンロード済"/>
+		<column from="Percent" to="完了"/>
+		<column from="Speed" to="速度"/>
+		<column from="Status" to="状態"/>
+		<column from="Client" to="クライアント"/>
+		<column from="Country" to="国"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="アップロードファイル"/>
+		<column from="Size" to="サイズ"/>
+		<column from="Progress" to="進行"/>
+		<column from="Transfer" to="ダウンロード済"/>
+		<column from="Speed" to="速度"/>
+		<column from="Rating" to="評価"/>
+		<column from="Remote User" to="リモートユーザー"/>
+		<column from="Client" to="クライアント"/>
+		<column from="Country" to="国"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="ファイル"/>
 		<column from="Extension" to="拡張子"/>
@@ -4268,27 +4286,6 @@
 		<column from="Hits" to="ヒット"/>
 		<column from="Uploads" to="アップロード"/>
 		<column from="Modified" to="最終更新日"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="ダウンロードファイル"/>
-		<column from="Size" to="サイズ"/>
-		<column from="Progress" to="進行"/>
-		<column from="Speed" to="速度"/>
-		<column from="Status" to="状態"/>
-		<column from="Client" to="クライアント"/>
-		<column from="Downloaded" to="ダウンロード済"/>
-		<column from="Complete" to="完了"/>
-		<column from="Country" to="国"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="リモートユーザー"/>
-		<column from="Uploaded File" to="アップロードファイル"/>
-		<column from="Size" to="サイズ"/>
-		<column from="Progress" to="進行"/>
-		<column from="Speed" to="速度"/>
-		<column from="Client" to="クライアント"/>
-		<column from="Rating" to="評価"/>
-		<column from="Country" to="国"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="アドレス"/>
@@ -4308,7 +4305,7 @@
 		<column from="Address / Content" to="アドレス / 内容"/>
 		<column from="Action" to="動作"/>
 		<column from="Expires" to="期間"/>
-		<column from="Precedence" to="優先順位"/>
+		<column from="#" to="優先順位"/>
 		<column from="Hits" to="ヒット"/>
 		<column from="Comment" to="コメント"/>
 	</list>

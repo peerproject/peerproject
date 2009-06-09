@@ -1,23 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Hebrew Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.7300 -->
+<!-- Translation based on default-en.xml (Shareaza SVN r7300) -->
 
 <!-- למתרגמים: יש לשים לב לתווים בלתי נראים שהופכים את כיוון ההצגה בשרזה.
 יש גם שוני בתגים של עיצוב כמו
 gap i newline
-בגלל שהממשק מימין לשמאל.
-אפשר לערוך ב
-notepad
-ולהשתמש ב
-PDF
-כדי לעבוד טוב יותר עם ימין לשמאל.-->
+בגלל שהממשק מימין לשמאל.-->
 
 <!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.PeerProject.org/schemas/Skin.xsd" version="1.0">
@@ -1340,7 +1335,7 @@ PDF
 		<menu text="‪Video Si_ze">
 			<item id="ID_MEDIA_SIZE_ONE" text="‪גודל מקורי"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="‪גודל כפול"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="‪גודל משולש"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="‪גודל משולש"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="‪גודל מקסימלי"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="‪מלא את החלון"/>
 			<separator/>
@@ -1378,7 +1373,7 @@ PDF
 		<menu text="‪גודל וידאו">
 			<item id="ID_MEDIA_SIZE_ONE" text="‪גודל מקורי"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="‪גודל כפול"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="‪גודל משולש"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="‪גודל משולש"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="‪גודל מקסימלי"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="‪מלא את החלון"/>
 			<separator/>
@@ -1400,7 +1395,7 @@ PDF
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="‪גודל מקורי"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="‪גודל כפול"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="‪גודל משולש"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="‪גודל משולש"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="‪גודל מקסימלי"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="‪מלא את החלון"/>
 		<separator/>
@@ -1652,7 +1647,7 @@ PDF
 		</group>
 		<group id="6">
 			<newline indent="16"/><icon res="145" width="32" height="32"/><gap size="8"/>
-			<heading align="middle" color="6060FF">א ז ה ר ה&#160; - &#160; פ ת ח ת  ( פ ו ר ט ) &#160; ה - T C P &#160; ש ל ך &#160; ח ס ו מ ה &#160; ע " י  ח ו מ ת - ש א</heading>
+			<heading align="middle" color="6060FF">א ז ה ר ה&#160; - &#160; פ ת ח ת  ( פ ו ר ט ) &#160; ה - T C P &#160; ש ל ך &#160; ח ס ו מ ה &#160; ע  י  ח ו מ ת - ש א</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000"> (NAT) שרזה זיהה שאתה מאחורי חומת-אש או ראוטר,	
 			ואינך מצליח לקבל חיבורי UDP מהאינטרנט. &#160;</text>
@@ -2007,7 +2002,7 @@ PDF
 		<text format="b">אזור הורדות</text>
 		<newline gap="8"/>
 		<text>כאן יוצגו הקבצים שכרגע בהורדה. תוכל/י לראות
-		כל מקור בנפרד ע"י הרחבת כל קובץ בעזרת ה-'+' שמימינו.</text>
+		כל מקור בנפרד ע`י הרחבת כל קובץ בעזרת ה-'+' שמימינו.</text>
 		<newline gap="8"/>
 		<text>תוכל להשתמש בפקודה זו לקבלת עזרה לגבי הורדה ספציפית
 		פשוט לחץ על ההורדה ובחר את פקודה זו שנית.</text>
@@ -2053,7 +2048,7 @@ PDF
 		.תוכל לנסות לחפש את הרשת עבור עוד מקורות בעזרת פקודת
 		'מצא עוד מקורות'
 		.אם המהירות לא משתפרת, ייתכן שזה נובע ממהירות העלאה מוגבלת
-		של המשתמשים מהם אתה מוריד, מהירות ההורדה בד"כ משתפרת עם הזמן.</text>
+		של המשתמשים מהם אתה מוריד, מהירות ההורדה בד`כ משתפרת עם הזמן.</text>
 	</document>
 	<document name="DownloadHelp.Pending">
 		<text format="b">ההורדה בהמתנה לתשובה</text>
@@ -2435,7 +2430,7 @@ PDF
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="מתח את הסרט למילוי החלון, ייתכם עיוות."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="בחר את הגודל המתאים ביותר עבור הוידאו לפי יחס תצוגת התמונה"/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="הצג את הוידאו בגודלו המקורי"/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="הצג את הוידאו בגודל משולש מגודלו המקורי"/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="הצג את הוידאו בגודל משולש מגודלו המקורי"/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="הצג את הוידאו בגודל כפול מגודלו המקורי"/>
 	<tip id="ID_MEDIA_STATUS" message="הצג או הסתר את שורת מצב המדיה"/>
 	<tip id="ID_MEDIA_STOP" message="הפסק השמעת קובץ המדיה" tip="עצור"/>
@@ -4334,31 +4329,27 @@ PDF
 		<control caption="Total Uploaded:"/>
 		<control caption="Notes:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="ערוך הורדה">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="ערוך הורדה">
 		<control caption="אזהרה: תיבת דו-שיח זו מעניקה אפשרויות מתקדמות לעריכה למשתמשים כבדים אשר ים, אם יעשה בה שימוש באופן שגוי עלולה לגרום לנזק."/>
 		<control caption="שם קובץ וגודל:"/>
 		<control caption="שם קובץ:"/>
+		<control caption="שם קובץ:"/>
 		<control caption="גודל קובץ (בתים):"/>
-		<control caption="_URNs:"/>
+		<control caption="URNs:"/>
 		<control caption="אמין"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="פעולות">
 		<control caption="אזהרה: תיבת דו-שיח זו מעניקה אפשרויות מתקדמות לעריכה למשתמשים כבדים אשר ים, אם יעשה בה שימוש באופן שגוי עלולה לגרום לנזק."/>
@@ -4441,6 +4432,28 @@ PDF
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="קובץ בהורדה"/>
+		<column from="Size" to="גודל"/>
+		<column from="Progress" to="התקדמות"/>
+		<column from="Transfer" to="הורד"/>
+		<column from="Percent" to="הסתיים"/>
+		<column from="Speed" to="מהירות"/>
+		<column from="Status" to="מצב"/>
+		<column from="Client" to="מקורות"/>
+		<column from="Country" to="ארץ"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="קובץ שהועלה"/>
+		<column from="Size" to="גודל"/>
+		<column from="Progress" to="התקדמות"/>
+		<column from="Transfer" to="הורד"/>
+		<column from="Speed" to="מהירות"/>
+		<column from="Rating" to="דירוג"/>
+		<column from="Remote User" to="משתמש"/>
+		<column from="Client" to="מקורות"/>
+		<column from="Country" to="ארץ"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="קובץ"/>
 		<column from="Extension" to="סיומת"/>
@@ -4449,27 +4462,6 @@ PDF
 		<column from="Hits" to="בקשות"/>
 		<column from="Uploads" to="העלאות"/>
 		<column from="Modified" to="השתנה"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="קובץ בהורדה"/>
-		<column from="Size" to="גודל"/>
-		<column from="Progress" to="התקדמות"/>
-		<column from="Speed" to="מהירות"/>
-		<column from="Status" to="מצב"/>
-		<column from="Client" to="מקורות"/>
-		<column from="Downloaded" to="הורד"/>
-		<column from="Complete" to="הסתיים"/>
-		<column from="Country" to="ארץ"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="משתמש"/>
-		<column from="Uploaded File" to="קובץ שהועלה"/>
-		<column from="Size" to="גודל"/>
-		<column from="Progress" to="התקדמות"/>
-		<column from="Speed" to="מהירות"/>
-		<column from="Client" to="מקורות"/>
-		<column from="Rating" to="דירוג"/>
- 		<column from="Country" to="ארץ"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="כתובת"/>
@@ -4489,7 +4481,7 @@ PDF
 		<column from="Address / Content" to="כתובת/תוכן"/>
 		<column from="Action" to="פעולה"/>
 		<column from="Expires" to="בתוקף עד"/>
-		<column from="Precedence" to=""/>
+		<column from="#" to=""/>
 		<column from="Hits" to="בקשות"/>
 		<column from="Comment" to="הערה"/>
 	</list>
@@ -4499,12 +4491,12 @@ PDF
 		<column from="Client" to="לקוח"/>
 		<column from="Last Seen" to="נראה לאחרונה"/>
 		<column from="Daily Uptime" to=""/>
-        <column from="Name" to="שם"/>
+		<column from="Name" to="שם"/>
 		<column from="Description" to="תיאור"/>
 		<column from="CurUsers" to="משתמשים כרגע"/>
 		<column from="MaxUsers" to="מקסימום משתמשים"/>
 		<column from="Failures" to=""/>
-		<column from="Country" to=""/>
+		<column from="Country" to="ארץ"/>
 	</list>
 	<list name="CDiscoveryWnd">
 		<column from="Address" to="כתובת"/>

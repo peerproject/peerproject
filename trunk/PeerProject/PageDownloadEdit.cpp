@@ -49,9 +49,9 @@ END_MESSAGE_MAP()
 CDownloadEditPage::CDownloadEditPage() :
 	CPropertyPageAdv( CDownloadEditPage::IDD ),
 	m_bSHA1Trusted( FALSE ),
-	m_bTigerTrusted( FALSE ),
 	m_bED2KTrusted( FALSE ),
 	m_bMD5Trusted( FALSE ),
+	m_bTigerTrusted( FALSE ),
 	m_bBTHTrusted( FALSE )
 {
 }
@@ -67,14 +67,14 @@ void CDownloadEditPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_DISKNAME, m_sDiskName);
 	DDX_Text(pDX, IDC_FILESIZE, m_sFileSize);
 	DDX_Text(pDX, IDC_URN_SHA1, m_sSHA1);
-	DDX_Text(pDX, IDC_URN_TIGER, m_sTiger);
 	DDX_Text(pDX, IDC_URN_ED2K, m_sED2K);
 	DDX_Text(pDX, IDC_URN_MD5, m_sMD5);
+	DDX_Text(pDX, IDC_URN_TIGER, m_sTiger);
 	DDX_Text(pDX, IDC_URN_BTH, m_sBTH);
 	DDX_Check(pDX, IDC_TRUST_SHA1, m_bSHA1Trusted);
-	DDX_Check(pDX, IDC_TRUST_TIGER, m_bTigerTrusted);
 	DDX_Check(pDX, IDC_TRUST_ED2K, m_bED2KTrusted);
 	DDX_Check(pDX, IDC_TRUST_MD5, m_bMD5Trusted);
+	DDX_Check(pDX, IDC_TRUST_TIGER, m_bTigerTrusted);
 	DDX_Check(pDX, IDC_TRUST_BTH, m_bBTHTrusted);
 }
 

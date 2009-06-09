@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Turkish Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.7350 -->
+<!-- Translation based on default-en.xml (Shareaza SVN r7350) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
+<!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1327,7 +1327,7 @@
 		<menu text="_Video Boyutu">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Orijinal Boyut"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Ç_ift Boyut"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Üç_lü Boyut"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Üç_lü Boyut"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Geniş Boyut"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Ekranı Kapla"/>
 			<separator/>
@@ -1365,7 +1365,7 @@
 		<menu text="_Video Boyutu">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Orijinal Boyut"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Ç_ift Boyut"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Üç_lü Boyut"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Üç_lü Boyut"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Geniş Boyut"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Ekranı Kapla"/>
 			<separator/>
@@ -1387,7 +1387,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Orijinal Boyut"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="Ç_ift Boyut"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="Üç_lü Boyut"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="Üç_lü Boyut"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Geniş Boyut"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Ekranı Kapla"/>
 		<separator/>
@@ -2396,7 +2396,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Varsayılan görüntüsündeki videoya ekranı kaplat."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Videonun en boy oranına göre en iyi boyutu seç."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Videoyu orijinal boyutunda göster."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Videoyu üç boyutlu göster."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Videoyu üç boyutlu göster."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Videoyu iki boyutlu göster."/>
 	<tip id="ID_MEDIA_STATUS" message="Ortam durum çubuğunu göster/gizle."/>
 	<tip id="ID_MEDIA_STOP" message="Ortam dosyasını oynatmayı durdur." tip="Durdur"/>
@@ -4306,31 +4306,27 @@
 		<control caption="Toplam Gönderilen:"/>
 		<control caption="Not:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="General">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="General">
 		<control caption="Uyarı: İleri kullanıcılar için bu diyalog ileri indirme biçimlendirme özelliği temin eder, bu özellikler kullanılırsa hatalar oluşabilir ve muhtemelen bozukluklar ortaya çıkabilir."/>
-		<control caption="Adı ve _Boyutu:"/>
+		<control caption="Bilgileri:"/>
 		<control caption="Dosya Adı:"/>
-		<control caption="Dosya boyutu (Bayt)"/>
-		<control caption="_URNs:"/>
-		<control caption=""/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="Dosya:"/>
+		<control caption="Boyutu Bayt"/>
+		<control caption="URNs:"/>
+		<control caption="Trusted?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Faaliyetler">
 		<control caption="Uyarı: İleri kullanıcılar için bu diyalog ileri indirme biçimlendirme özelliği temin eder, bu özellikler kullanılırsa hatalar oluşabilir ve muhtemelen bozukluklar ortaya çıkabilir."/>
@@ -4413,6 +4409,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Dosya"/>
+		<column from="Size" to="Boyut"/>
+		<column from="Progress" to="İlerleme"/>
+		<column from="Transfer" to="İndirmeler"/>
+		<column from="Percent" to="Tam"/>
+		<column from="Speed" to="Hız"/>
+		<column from="Status" to="Durum"/>
+		<column from="Client" to="İstemci"/>
+		<column from="Country" to="Ülke"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Dosya"/>
+		<column from="Size" to="Boyut"/>
+		<column from="Progress" to="İlerleme"/>
+		<column from="Transfer" to="İndirmeler"/>
+		<column from="Speed" to="Hız"/>
+		<column from="Rating" to="Reyting"/>
+		<column from="Remote User" to="Uzak Kullanıcı"/>
+		<column from="Client" to="İstemci"/>
+		<column from="Country" to="Ülke"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Dosya"/>
 		<column from="Extension" to="Uzantı"/>
@@ -4421,27 +4439,6 @@
 		<column from="Hits" to="Bakışlar"/>
 		<column from="Uploads" to="Aktarımlar"/>
 		<column from="Modified" to="Değiştirme"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Dosya"/>
-		<column from="Size" to="Boyut"/>
-		<column from="Progress" to="İlerleme"/>
-		<column from="Speed" to="Hız"/>
-		<column from="Status" to="Durum"/>
-		<column from="Client" to="İstemci"/>
-		<column from="Downloaded" to="İndirmeler"/>
-		<column from="Complete" to="Tam"/>
-		<column from="Country" to="Ülke"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Uzak Kullanıcı"/>
-		<column from="Uploaded File" to="Dosya"/>
-		<column from="Size" to="Boyut"/>
-		<column from="Progress" to="İlerleme"/>
-		<column from="Speed" to="Hız"/>
-		<column from="Client" to="İstemci"/>
-		<column from="Rating" to="Reyting"/>
-		<column from="Country" to="Ülke"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adres"/>
@@ -4461,7 +4458,7 @@
 		<column from="Address / Content" to="Adres/İçerik"/>
 		<column from="Action" to="Faaliyet"/>
 		<column from="Expires" to="Sonlananlar"/>
-		<column from="Precedence" to="Öncelik"/>
+		<column from="#" to="Öncelik"/>
 		<column from="Hits" to="Favoriler"/>
 		<column from="Comment" to="Yorum"/>
 	</list>
@@ -4535,12 +4532,12 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Dosya Adı"/>
 		<column from="Size" to="Boyut"/>
-		<column from="Status" to="Boyut"/>
+		<column from="Status" to=""/>
 		<column from="Priority" to="Tür"/>
 	</list>
 	<list name="CTorrentTrackerList">
-		<column from="Filename" to="Dosya Adı"/>
-		<column from="Size" to="Boyut"/>
+		<column from="Tracker" to=""/>
+		<column from="Status" to=""/>
 		<column from="Type" to="Tür"/>
 	</list>
 	<list name="CReviewList">

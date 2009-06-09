@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Italian Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.6092 -->
+<!-- Translation based on default-en.xml (Shareaza SVN r6092) -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1266,7 +1266,7 @@
 		<menu text="Dimensioni video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Dimensioni originali"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Dimensioni raddoppiate"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Dimensioni triplicate"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Dimensioni triplicate"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Grandezza massima"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="Finestra intera"/>
 			<separator/>
@@ -1304,7 +1304,7 @@
 		<menu text="_Dimensioni video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Dimensioni _originali"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Dimensioni _raddoppiate"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Dimensioni _triplicate"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Dimensioni _triplicate"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Grandezza _massima"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="Finestra _intera"/>
 			<separator/>
@@ -1326,7 +1326,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="Dimensioni originali"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="Dimensioni raddoppiate"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="Dimensioni triplicate"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="Dimensioni triplicate"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="Grandezza massima"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="Finestra intera"/>
 		<separator/>
@@ -2316,7 +2316,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Allarga il video fino a riempire completamente la finestra, potrebbe verificarsi la distorsione delle immagini."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Seleziona le migliori dimensioni del formato video."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Mostra il video con la sue dimensioni originali."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Mostra il video il triplo delle dimensioni originali."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Mostra il video il triplo delle dimensioni originali."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Mostra il video il doppio delle dimensioni originali."/>
 	<tip id="ID_MEDIA_STATUS" message="Mostra o nascondi la barra di stato del lettore multimediale."/>
 	<tip id="ID_MEDIA_STOP" message="Termina l'esecuzione del file multimediale." tip="Stop"/>
@@ -4175,31 +4175,27 @@
 		<control caption="Totale inviato:"/>
 		<control caption="Note:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Generale">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Generale">
 		<control caption="ATTENZIONE: Questa finestra fornisce funzionalità di modifica dei download avanzate per utenti esperti e se usata in modo errato può causare danni."/>
-		<control caption="Nome e _dimensione:"/>
+		<control caption="Nome e dimensione:"/>
 		<control caption="Nome del file:"/>
+		<control caption="File:"/>
 		<control caption="Dimens. (Byte):"/>
-		<control caption="_URN:"/>
+		<control caption="URN:"/>
 		<control caption="Sicuro"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Azioni">
 		<control caption="ATTENZIONE: Questa finestra fornisce funzionalità di modifica dei download avanzate per utenti esperti e se usata in modo errato può causare danni."/>
@@ -4282,6 +4278,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="File scaricato"/>
+		<column from="Size" to="Dimensione"/>
+		<column from="Progress" to="Progresso"/>
+		<column from="Transfer" to="Scaricato"/>
+		<column from="Percent" to="Completato"/>
+		<column from="Speed" to="Velocità"/>
+		<column from="Status" to="Stato"/>
+		<column from="Client" to="Client"/>
+		<column from="Country" to="Stato"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="File inviato"/>
+		<column from="Size" to="Dimensione"/>
+		<column from="Progress" to="Progresso"/>
+		<column from="Transfer" to="Scaricato"/>
+		<column from="Speed" to="Velocità"/>
+		<column from="Rating" to="Voto"/>
+		<column from="Remote User" to="Utente remoto"/>
+		<column from="Client" to="Client"/>
+		<column from="Country" to="Stato"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="File"/>
 		<column from="Extension" to="Estensione"/>
@@ -4290,27 +4308,6 @@
 		<column from="Hits" to="Richieste"/>
 		<column from="Uploads" to="Upload"/>
 		<column from="Modified" to="Modificato"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="File scaricato"/>
-		<column from="Size" to="Dimensione"/>
-		<column from="Progress" to="Progresso"/>
-		<column from="Speed" to="Velocità"/>
-		<column from="Status" to="Stato"/>
-		<column from="Client" to="Client"/>
-		<column from="Downloaded" to="Scaricato"/>
-		<column from="Complete" to="Completato"/>
-		<column from="Country" to="Stato"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Utente remoto"/>
-		<column from="Uploaded File" to="File inviato"/>
-		<column from="Size" to="Dimensione"/>
-		<column from="Progress" to="Progresso"/>
-		<column from="Speed" to="Velocità"/>
-		<column from="Client" to="Client"/>
-		<column from="Rating" to="Voto"/>
-		<column from="Country" to="Stato"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Indirizzo"/>
@@ -4330,7 +4327,7 @@
 		<column from="Address / Content" to="Indirizzo / Contenuto"/>
 		<column from="Action" to="Azione"/>
 		<column from="Expires" to="Scade"/>
-		<column from="Precedence" to="Precedenza"/>
+		<column from="#" to="Precedenza"/>
 		<column from="Hits" to="Richieste"/>
 		<column from="Comment" to="Commento"/>
 	</list>
@@ -4382,7 +4379,7 @@
 		<column from="Time" to="Data / Ora"/>
 		<column from="Country" to="Stato"/>
 	</list>
-		<list name="CUploadQueueList">
+	<list name="CUploadQueueList">
 		<column from="Name" to="Nome"/>
 		<column from="Criteria" to="Criterio"/>
 		<column from="Bandwidth" to="Banda"/>
@@ -4404,13 +4401,13 @@
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Nome file"/>
 		<column from="Size" to="Dimensione"/>
-		<column from="Status" to="Stato"/>	
-		<column from="Priority" to="Tipo"/>	
+		<column from="Status" to="Stato"/>
+		<column from="Priority" to="Tipo"/>
 	</list>
-	<list name="CTorrentTrackerList">	
-		<column from="Tracker" to="Tracker"/>	
-		<column from="Status" to="Stato"/>	
-		<column from="Type" to="Tipo"/>	
+	<list name="CTorrentTrackerList">
+		<column from="Tracker" to="Tracker"/>
+		<column from="Status" to="Stato"/>
+		<column from="Type" to="Tipo"/>
 	</list>
 	<list name="CReviewList">
 		<column from="User" to="Utente"/>

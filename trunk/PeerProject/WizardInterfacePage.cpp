@@ -137,10 +137,12 @@ LRESULT CWizardInterfacePage::OnWizardNext()
 	CWaitCursor pCursor;
 	CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
 
-	if ( m_bExpert && Settings.General.GUIMode == GUI_BASIC )
+	if ( m_bExpert && Settings.General.GUIMode != GUI_TABBED )
 	{
-		Settings.General.GUIMode = GUI_TABBED;
+#ifndef LAN_MODE
 		Settings.BitTorrent.AdvancedInterface = TRUE;
+#endif
+		Settings.General.GUIMode = GUI_TABBED;
 		pMainWnd->SetGUIMode( Settings.General.GUIMode, FALSE );
 	}
 	else if ( !m_bExpert && Settings.General.GUIMode != GUI_BASIC )

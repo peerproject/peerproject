@@ -46,9 +46,10 @@ public:
 		CString		Path;						// Installation path for PeerProject
 		CString		UserPath;					// Path for user data. (May be the same as above for single user installs)
 		bool		MultiUser;					// Multiuser installation
-		DWORD		LogLevel;					// Log severity (0 - MSG_ERROR .. 4 - MSG_DEBUG)
-		bool		SearchLog;					// Display search facility log information
+		bool		DialogScan;					// Create "C:\Dialogs.xml" translation template, with Skin engine in "dialog scan" mode.
 		bool		DebugLog;					// Create a log file
+		bool		SearchLog;					// Display search facility log information
+		DWORD		LogLevel;					// Log severity (0 - MSG_ERROR .. 4 - MSG_DEBUG)
 		DWORD		MaxDebugLogSize;			// Max size of the log file
 		DWORD		DiskSpaceWarning;			// Value at which to warn the user about low disk space
 		DWORD		DiskSpaceStop;				// Value at which to pause all downloads due to low disk space
@@ -74,7 +75,6 @@ public:
 		bool		Running;					// ToDo: detect abnormal shutdown on startup
 		DWORD		SmartVersion;				// Settings version
 		bool		CoolMenuEnable;				// Use skinned menus
-		bool		DialogScan;					// Set Skin engine to "dialog scan" mode, producing "C:\Dialog.xml" translation template.
 	} General;
 
 	struct sVersionCheck

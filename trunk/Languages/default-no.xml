@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Norwegian Skin File -->
-<!-- Translation based on default-en.xml Shareaza 2.2.0.2 -->
+<!-- Translation based on default-en.xml (Shareaza 2.2.0.2) -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1249,7 +1249,7 @@
 		<menu text="Video st_ørrelse">
 			<item id="ID_MEDIA_SIZE_ONE" text="Original størrelse"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Dobbel størrelse"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Trippel størrelse"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Trippel størrelse"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Størst"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="Fyll vindu"/>
 			<separator/>
@@ -1287,7 +1287,7 @@
 		<menu text="Video st_ørrelse">
 			<item id="ID_MEDIA_SIZE_ONE" text="Original størrelse"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Dobbel størrelse"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="Trippel størrelse"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Trippel størrelse"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Størst"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="Fyll vindu"/>
 			<separator/>
@@ -1309,7 +1309,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="Orginal størrelse"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="Dobbel størrelse"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="Trippel størrelse"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="Trippel størrelse"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="Størst"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="Fyll vindu"/>
 		<separator/>
@@ -2257,7 +2257,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Strekk videoen slik at den fyller vinduet, med noe forvrengning."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Velg den beste størrelsen basert på filens aspekt."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Vis videoen i dens orginale størrelse."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Vis videoen i trippel størrelse av orginal."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Vis videoen i trippel størrelse av orginal."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Vis videoen i dobbel størrelse av orginal."/>
 	<tip id="ID_MEDIA_STATUS" message="Vis eller skjul mediastatus linjen."/>
 	<tip id="ID_MEDIA_STOP" message="Stopp avspillingen. " tip="Stopp"/>
@@ -4062,31 +4062,27 @@
 		<control caption="Oppdater"/>
 		<control caption="Notes:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Avansert">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Avansert">
 		<control caption="OBS: Avansert redigering er for erfarne brukere, filene kan bli ødelagt hvis du gjør noe galt."/>
-		<control caption="Fil_navn and Si_ze:"/>
-		<control caption="Fil_navn:"/>
-		<control caption="File size (Byte):"/>
-		<control caption="_URNs:"/>
-		<control caption="Trusted:"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="Informasjon:"/>
+		<control caption="Filnavn:"/>
+		<control caption="Fil:"/>
+		<control caption="Byte Size:"/>
+		<control caption="URNs:"/>
+		<control caption="Trusted?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Funksjon">
 		<control caption="OBS: Avansert redigering er for erfarne brukere, filene kan bli ødelagt hvis du gjør noe galt."/>
@@ -4169,6 +4165,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Fil"/>
+		<column from="Size" to="Størrelse"/>
+		<column from="Progress" to="Fremdrift"/>
+		<column from="Transfer" to="Lastet ned"/>
+		<column from="Percent" to="Ferdig"/>
+		<column from="Speed" to="Hastighet"/>
+		<column from="Status" to=""/>
+		<column from="Client" to="Klient"/>
+		<column from="Country" to="Land"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Fil"/>
+		<column from="Size" to="Størrelse"/>
+		<column from="Progress" to="Fremdrift"/>
+		<column from="Transfer" to="Lastet ned"/>
+		<column from="Speed" to="Hastighet"/>
+		<column from="Rating" to="Karakter"/>
+		<column from="Remote User" to="Bruker"/>
+		<column from="Client" to="Klient"/>
+		<column from="Country" to="Land"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Fil"/>
 		<column from="Extension" to="Etternavn"/>
@@ -4177,27 +4195,6 @@
 		<column from="Hits" to="Treff"/>
 		<column from="Uploads" to="Opplastinger"/>
 		<column from="Modified" to="Modifisert"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Fil"/>
-		<column from="Size" to="Størrelse"/>
-		<column from="Progress" to="Fremdrift"/>
-		<column from="Speed" to="Hastighet"/>
-		<column from="Status" to=""/>
-		<column from="Client" to="Klient"/>
-		<column from="Downloaded" to="Lastet ned"/>
-		<column from="Complete" to="Ferdig"/>
-		<column from="Country" to="Land"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Bruker"/>
-		<column from="Uploaded File" to="Fil"/>
-		<column from="Size" to="Størrelse"/>
-		<column from="Progress" to="Fremdrift"/>
-		<column from="Speed" to="Hastighet"/>
-		<column from="Client" to="Klient"/>
-		<column from="Rating" to="Karakter"/>
-		<column from="Country" to="Land"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adresse"/>
@@ -4217,7 +4214,7 @@
 		<column from="Address / Content" to="Adresse / Inn"/>
 		<column from="Action" to="Tiltak"/>
 		<column from="Expires" to="Går ut"/>
-		<column from="Precedence" to="Prioritet"/>
+		<column from="#" to="Prioritet"/>
 		<column from="Hits" to="Treff"/>
 		<column from="Comment" to="Kommentar"/>
 	</list>
@@ -4295,7 +4292,7 @@
 		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
-		<column from="Filename" to="Filnavn"/>
+		<column from="Tracker" to=""/>
 		<column from="Status" to=""/>
 		<column from="Type" to=""/>
 	</list>

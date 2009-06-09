@@ -44,8 +44,8 @@ public:
 	CUploadQueue*	m_pQueue;		// Queue reference
 	CUploadFile*	m_pBaseFile;	// Reference file
 	DWORD			m_nBandwidth;	// Bandwidth
-	CString			m_sNick;		// User Nick
 	DWORD			m_nUserRating;	// Has the downloader uploaded anything?
+	CString			m_sNick;		// User Nick
 
 	QWORD			m_nFileBase;	// Base offset in requested file
 	BOOL			m_bFilePartial;	// Partial file flag

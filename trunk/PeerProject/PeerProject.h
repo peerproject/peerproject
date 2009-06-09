@@ -369,15 +369,17 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 #define ID_PLUGIN_FIRST	27000
 #define ID_PLUGIN_LAST	27999
 
+// Drag-n-drop stuff
+#define MAX_DRAG_SIZE		256
+#define MAX_DRAG_SIZE_2		(MAX_DRAG_SIZE/2)
+#define DRAG_COLOR_KEY		(RGB(245,248,252))	// Light-blue
+#define DRAG_HOVER_TIME		900 				// Dragging mouse button press after X ms
 
-// Set Default Sizes in Pixels			// ToDo: Make Skinnable Options
-#define PANEL_WIDTH			200 		// Left Sidebar (Home/Search/IRC tabs)
+
+// Set Default Sizes in Pixels				// ToDo: Make Skinnable Options
+#define PANEL_WIDTH			200 			// Left Sidebar (Home/Search/IRC tabs)
 #define THUMB_STORE_SIZE	128
 #define TOOLBAR_HEIGHT		28
-
-
-// Client's name
-#define CLIENT_NAME			"PeerProject"
 
 
 // Network ID stuff
@@ -388,7 +390,7 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 
 // ed2k client ID number.
 // 0x50 (80) = Proposed PeerProject ID
-// 0 = eMule, 1 = cDonkey, 4 = old Shareazas, 0x28 (40) = Shareaza, 0xcb (203) = ShareazaPlus RazaCB
+// 0 = eMule, 1 = cDonkey, 4 = old Shareazas, 0x28 (40) = Shareaza, 0xcb (203) = ShareazaPlus
 #define ED2K_CLIENT_ID		80
 
 // 2 Character BT peer-id code
@@ -396,18 +398,14 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 #define BT_ID1				'P'
 #define BT_ID2				'E'
 
-#define WEB_SITE			"http://PeerProject.org"
+#define WEB_SITE			"http://PeerProject.org/"
 #define WEB_SITE_T			_T( WEB_SITE )
 
+// Client's name
+#define CLIENT_NAME			"PeerProject"
 
-// Drag-n-drop stuff
-
-#define MAX_DRAG_SIZE		256
-#define MAX_DRAG_SIZE_2		(MAX_DRAG_SIZE/2)
-#define DRAG_COLOR_KEY		(RGB(245,248,252))	// Light-blue
-#define DRAG_HOVER_TIME		900 				// Dragging mouse press button after X ms
 
 extern const LPCTSTR RT_BMP;
-extern const LPCTSTR RT_JPEG;
 extern const LPCTSTR RT_PNG;
+extern const LPCTSTR RT_JPEG;
 extern const LPCTSTR RT_GZIP;

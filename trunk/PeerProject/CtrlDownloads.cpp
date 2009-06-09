@@ -75,11 +75,11 @@ END_MESSAGE_MAP()
 #define DOWNLOAD_COLUMN_TITLE		0
 #define DOWNLOAD_COLUMN_SIZE		1
 #define DOWNLOAD_COLUMN_PROGRESS	2	
-#define DOWNLOAD_COLUMN_SPEED		3
-#define DOWNLOAD_COLUMN_STATUS		4
-#define DOWNLOAD_COLUMN_CLIENT		5
-#define DOWNLOAD_COLUMN_DOWNLOADED	6
-#define DOWNLOAD_COLUMN_PERCENTAGE  7
+#define DOWNLOAD_COLUMN_DOWNLOADED	3
+#define DOWNLOAD_COLUMN_PERCENTAGE  4
+#define DOWNLOAD_COLUMN_SPEED		5
+#define DOWNLOAD_COLUMN_STATUS		6
+#define DOWNLOAD_COLUMN_CLIENT		7
 #define DOWNLOAD_COLUMN_COUNTRY		8
 #define COLUMNS_TO_SORT				DOWNLOAD_COLUMN_PERCENTAGE - DOWNLOAD_COLUMN_TITLE
 
@@ -146,15 +146,15 @@ int CDownloadsCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	
 	m_wndTip.Create( this, &Settings.Interface.TipDownloads );
 	
-	InsertColumn( DOWNLOAD_COLUMN_TITLE, _T("Downloaded File"), LVCFMT_LEFT, 210 );
-	InsertColumn( DOWNLOAD_COLUMN_SIZE, _T("Size"), LVCFMT_CENTER, 80 );
-	InsertColumn( DOWNLOAD_COLUMN_PROGRESS, _T("Progress"), LVCFMT_CENTER, 130 );
-	InsertColumn( DOWNLOAD_COLUMN_SPEED, _T("Speed"), LVCFMT_CENTER, 80 );
+	InsertColumn( DOWNLOAD_COLUMN_TITLE, _T("Downloaded File"), LVCFMT_LEFT, 300 );
+	InsertColumn( DOWNLOAD_COLUMN_SIZE, _T("Size"), LVCFMT_CENTER, 64 );
+	InsertColumn( DOWNLOAD_COLUMN_PROGRESS, _T("Progress"), LVCFMT_CENTER, 100 );
+	InsertColumn( DOWNLOAD_COLUMN_DOWNLOADED, _T("Transfer"), LVCFMT_CENTER, 64 );
+	InsertColumn( DOWNLOAD_COLUMN_PERCENTAGE, _T("Percent"), LVCFMT_CENTER, 60 );
+	InsertColumn( DOWNLOAD_COLUMN_SPEED, _T("Speed"), LVCFMT_CENTER, 76 );
 	InsertColumn( DOWNLOAD_COLUMN_STATUS, _T("Status"), LVCFMT_CENTER, 80 );
-	InsertColumn( DOWNLOAD_COLUMN_CLIENT, _T("Client"), LVCFMT_CENTER, 80 );
-	InsertColumn( DOWNLOAD_COLUMN_DOWNLOADED, _T("Downloaded"), LVCFMT_CENTER, 0 );
-	InsertColumn( DOWNLOAD_COLUMN_PERCENTAGE, _T("Complete"), LVCFMT_CENTER, 60 );
-	InsertColumn( DOWNLOAD_COLUMN_COUNTRY, _T("Country"), LVCFMT_LEFT, 50 );
+	InsertColumn( DOWNLOAD_COLUMN_CLIENT, _T("Client"), LVCFMT_CENTER, 100 );
+	InsertColumn( DOWNLOAD_COLUMN_COUNTRY, _T("Country"), LVCFMT_LEFT, 54 );
 	
 	LoadColumnState();
 	
@@ -301,7 +301,9 @@ BOOL CDownloadsCtrl::IsFiltered(CDownload* pDownload)
 
 BOOL CDownloadsCtrl::IsExpandable(CDownload* pDownload)
 {
-	if ( pDownload->IsSeeding() && !Settings.General.DebugBTSources ) return FALSE;
+	if ( pDownload->IsSeeding() && !Settings.General.DebugBTSources )
+		return FALSE;
+
 	if ( Settings.Downloads.ShowSources )
 	{
 		return ( pDownload->GetSourceCount() > 0 );
@@ -589,16 +591,20 @@ BOOL CDownloadsCtrl::GetAt(int nSelect, CDownload** ppDownload, CDownloadSource*
 	{
 		CDownload* pDownload = Downloads.GetNext( posDownload );
 
-		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie ) continue;
-		if ( IsFiltered( pDownload ) ) continue;
+		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie )
+			continue;
+		if ( IsFiltered( pDownload ) )
+			continue;
 
 		if ( nIndex++ == nSelect )
 		{
-			if ( ppDownload != NULL ) *ppDownload = pDownload;
+			if ( ppDownload != NULL )
+				*ppDownload = pDownload;
 			return TRUE;
 		}
 
-		if ( !pDownload->m_bExpanded || ( pDownload->IsSeeding() && !Settings.General.DebugBTSources ) ) continue;
+		if ( !pDownload->m_bExpanded || ( pDownload->IsSeeding() && !Settings.General.DebugBTSources ) )
+			continue;
 
 		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
 		{
@@ -634,8 +640,10 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 	{
 		CDownload* pDownload = Downloads.GetNext( posDownload );
 
-		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie ) continue;
-		if ( IsFiltered( pDownload ) ) continue;
+		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie )
+			continue;
+		if ( IsFiltered( pDownload ) )
+			continue;
 
 		if ( pDownload == pSelect )
 		{
@@ -645,7 +653,8 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 
 		rcItem.OffsetRect( 0, ITEM_HEIGHT );
 
-		if ( ! pDownload->m_bExpanded ) continue;
+		if ( ! pDownload->m_bExpanded )
+			continue;
 
 		if ( Settings.Downloads.ShowSources )
 		{
@@ -700,7 +709,8 @@ BOOL CDownloadsCtrl::DropShowTarget(CList< CDownload* >* /*pSel*/, const CPoint&
 	BOOL bLocal = rcClient.PtInRect( ptLocal );
 	CDownload* pHit = NULL;
 
-	if ( bLocal ) HitTest( ptLocal, &pHit, NULL, NULL, NULL );
+	if ( bLocal )
+		HitTest( ptLocal, &pHit, NULL, NULL, NULL );
 
 	if ( pHit != m_pDragDrop )
 	{
@@ -1023,7 +1033,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 			// Draw file icon
 			ShellIcons.Draw( &dc, ShellIcons.Get( pDownload->m_sName, 16 ), 16,
 				rcCell.left, rcCell.top, crLeftAligned, pDownload->m_bSelected );
-			
+
 			// Add rating overlay
 			switch ( nRating )
 			{
@@ -1125,9 +1135,14 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 				strText.Format( _T("(%i/%i %s)"), nSources, nTotalSources, strSource );
 			}
 			break;
+
 		case DOWNLOAD_COLUMN_DOWNLOADED:
-			strText = Settings.SmartVolume( pDownload->GetVolumeComplete() );
+			if ( pDownload->IsSeeding() )
+				strText = Settings.SmartVolume( pDownload->m_nTorrentUploaded );
+			else
+				strText = Settings.SmartVolume( pDownload->GetVolumeComplete() );
 			break;
+
 		case DOWNLOAD_COLUMN_PERCENTAGE:
 			if ( ( pDownload->m_nSize < SIZE_UNKNOWN ) && ( pDownload->m_nSize > 0 ) )
 			{
@@ -1150,14 +1165,14 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 				LoadString( strText, IDS_STATUS_UNKNOWN );
 			break;
 		}
-		
+
 		nTextLeft	= min( nTextLeft, int(rcCell.left) );
 		nTextRight	= max( nTextRight, int(rcCell.right) );
-		
+
 		if ( ! bDisplayText ) continue;
-		
+
 		if ( rcCell.Width() < 8 ) strText.Empty();
-		
+
 		if ( dc.GetTextExtent( strText ).cx > rcCell.Width() - 8 )
 		{
 			while ( dc.GetTextExtent( strText + _T('\x2026') ).cx > ( rcCell.Width() - 8 ) && strText.GetLength() > 0 )
@@ -1167,10 +1182,10 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 			
 			if ( strText.GetLength() > 0 ) strText += _T('\x2026');
 		}
-		
+
 		int nWidth		= dc.GetTextExtent( strText ).cx;
 		int nPosition	= 0;
-		
+
 		switch ( pColumn.fmt & LVCFMT_JUSTIFYMASK )
 		{
 		default:
@@ -1183,18 +1198,18 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 			nPosition = ( rcCell.right - 4 - nWidth );
 			break;
 		}
-		
+
 		dc.SetBkColor( crBack );
 		dc.ExtTextOut( nPosition, rcCell.top + 2, ETO_CLIPPED|ETO_OPAQUE,
 			&rcCell, strText, NULL );
 	}
-	
+
 	if ( nTextRight < rcRow.right )
 	{
 		CRect rcBlank( nTextRight, rcRow.top, rcRow.right, rcRow.bottom );
 		dc.FillSolidRect( &rcBlank, crBack );
 	}
-	
+
 	if ( bFocus )
 	{
 		CRect rcFocus( nTextLeft, rcRow.top, max( int(rcRow.right), nTextRight ), rcRow.bottom );
@@ -1206,7 +1221,6 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 
 void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownload, CDownloadSource* pSource, BOOL bFocus)
 {
-	int nFlagImage = Flags.GetFlagIndex(pSource->m_sCountry);
 	COLORREF crNatural		= m_bCreateDragImage ? DRAG_COLOR_KEY : CoolInterface.m_crWindow;
 	COLORREF crBack			= pSource->m_bSelected ? CoolInterface.m_crHighlight : crNatural;
 	COLORREF crLeftAligned	= crBack;
@@ -1230,13 +1244,13 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 		CString strText;
 		CRect rcCell;
 		BOOL bDisplayText	= TRUE;
-		
+
 		m_wndHeader.GetItemRect( nColumn, &rcCell );
 		rcCell.left		+= rcRow.left;
 		rcCell.right	+= rcRow.left;
 		rcCell.top		= rcRow.top;
 		rcCell.bottom	= rcRow.bottom;
-		
+
 		crLeftAligned = ( rcRow.left == rcCell.left ? crNatural : crBack ) ;
 
 		switch ( pColumn.lParam )
@@ -1293,7 +1307,7 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 				else
 					strText = Settings.SmartVolume( pSource->m_oAvailable.length_sum() );
 			break;
-			
+
 		case DOWNLOAD_COLUMN_PROGRESS:
 			if ( rcCell.Width() > 75 )
 			{
@@ -1315,7 +1329,7 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
   				else
 					strText.Format( _T("%i%%"), int( pSource->m_oAvailable.length_sum() * 100 / pSource->m_pDownload->m_nSize ) );
 			break;
-			
+
 		case DOWNLOAD_COLUMN_SPEED:
 			if ( pSource->m_pTransfer != NULL )
 			{
@@ -1324,7 +1338,7 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 					strText = Settings.SmartSpeed( nSpeed );
 			}
 			break;
-			
+
 		case DOWNLOAD_COLUMN_STATUS:
 			if ( pSource->m_pTransfer != NULL )
 				strText = pSource->m_pTransfer->GetStateText( FALSE );
@@ -1339,14 +1353,16 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 				}
 			}
 			break;
-			
+
 		case DOWNLOAD_COLUMN_CLIENT:
 			strText = pSource->m_sServer;
 			break;
+
 		case DOWNLOAD_COLUMN_DOWNLOADED:
 			if ( pSource->m_pTransfer != NULL )
 				strText = Settings.SmartVolume( pSource->m_pTransfer->m_nDownloaded );
 			break;
+
 		case DOWNLOAD_COLUMN_PERCENTAGE:
 			if ( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nDownloaded > 0 &&
 				pDownload->m_nSize < SIZE_UNKNOWN && pDownload->m_nSize > 0 )
@@ -1357,15 +1373,16 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 					strText.Format( _T("%i%%"), int( pSource->m_pTransfer->m_nDownloaded * 100 / pSource->m_pDownload->m_nSize ) );
 			}
 			break;
+
 		case DOWNLOAD_COLUMN_COUNTRY:
+			int nFlagImage = Flags.GetFlagIndex(pSource->m_sCountry);
+
 			dc.FillSolidRect( rcCell.left, rcCell.top, 20, rcCell.Height(), crBack );
-			rcCell.left += 2;
+			rcCell.left += 3;
 			if ( nFlagImage >= 0 )
 				ImageList_DrawEx( Flags.m_pImage, nFlagImage, dc.GetSafeHdc(),
-					rcCell.left + 1, rcCell.top, 16, 16, CLR_NONE, CLR_DEFAULT, pSource->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
-
-			rcCell.left += 17;
-			dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crNatural );
+					rcCell.left, rcCell.top, 16, 16, crBack, CLR_DEFAULT, pSource->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
+			rcCell.left += 16;
 
 			strText = pSource->m_sCountry;
 			break;
@@ -1374,7 +1391,8 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 		nTextLeft	= min( nTextLeft, int(rcCell.left) );
 		nTextRight	= max( nTextRight, int(rcCell.right) );
 		
-		if ( ! bDisplayText ) continue;
+		if ( ! bDisplayText )
+			continue;
 		
 		if ( rcCell.Width() < 8 ) strText.Empty();
 		
@@ -1385,12 +1403,13 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 				strText.Truncate( strText.GetLength() - 1 );
 			}
 			
-			if ( strText.GetLength() > 0 ) strText += _T('\x2026');
+			if ( strText.GetLength() > 0 )
+				strText += _T('\x2026');
 		}
-		
+
 		int nWidth		= dc.GetTextExtent( strText ).cx;
 		int nPosition	= 0;
-		
+
 		switch ( pColumn.fmt & LVCFMT_JUSTIFYMASK )
 		{
 		default:
@@ -1403,18 +1422,18 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 			nPosition = ( rcCell.right - 4 - nWidth );
 			break;
 		}
-		
+
 		dc.SetBkColor( crBack );
 		dc.ExtTextOut( nPosition, rcCell.top + 2, ETO_CLIPPED|ETO_OPAQUE,
 			&rcCell, strText, NULL );
 	}
-	
+
 	if ( nTextRight < rcRow.right )
 	{
 		CRect rcBlank( nTextRight, rcRow.top, rcRow.right, rcRow.bottom );
 		dc.FillSolidRect( &rcBlank, crBack );
 	}
-	
+
 	if ( bFocus )
 	{
 		CRect rcFocus( nTextLeft, rcRow.top, max( int(rcRow.right), nTextRight ), rcRow.bottom );
@@ -1442,13 +1461,13 @@ void CDownloadsCtrl::OnSkinChange()
 void CDownloadsCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
 	SCROLLINFO pInfo;
-	
+
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	
 	GetScrollInfo( SB_VERT, &pInfo );
 	int nDelta = pInfo.nPos;
-	
+
 	switch ( nSBCode )
 	{
 	case SB_BOTTOM:
@@ -1474,10 +1493,10 @@ void CDownloadsCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar
 		pInfo.nPos = 0;
 		break;
 	}
-	
+
 	pInfo.nPos = max( 0, min( pInfo.nPos, pInfo.nMax - (int)pInfo.nPage + 1 ) );
 	if ( pInfo.nPos == nDelta ) return;
-	
+
 	SetScrollInfo( SB_VERT, &pInfo, TRUE );
 	Invalidate();
 }
@@ -1485,13 +1504,13 @@ void CDownloadsCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar
 void CDownloadsCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
 	SCROLLINFO pInfo;
-	
+
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
-	
+
 	GetScrollInfo( SB_HORZ, &pInfo );
 	int nDelta = pInfo.nPos;
-	
+
 	switch ( nSBCode )
 	{
 	case SB_BOTTOM:
@@ -1517,18 +1536,18 @@ void CDownloadsCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar
 		pInfo.nPos = 0;
 		break;
 	}
-	
+
 	pInfo.nPos = max( 0, min( pInfo.nPos, pInfo.nMax - (int)pInfo.nPage + 1 ) );
 	if ( pInfo.nPos == nDelta ) return;
-	
+
 	SetScrollInfo( SB_HORZ, &pInfo, TRUE );
-	
+
 	CRect rcClient;
 	GetClientRect( &rcClient );
-	
+
 	m_wndHeader.SetWindowPos( NULL, -pInfo.nPos, 0,
 		rcClient.right + pInfo.nPos, HEADER_HEIGHT, SWP_NOZORDER );
-	
+
 	RedrawWindow( NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW );
 }
 
@@ -1619,7 +1638,6 @@ int CDownloadsCtrl::GetClientStatus(CDownload *pDownload)
 
 void CDownloadsCtrl::BubbleSortDownloads(int nColumn)  // BinaryInsertionSortDownloads(int nColumn)
 {
-
 	m_pbSortAscending[nColumn]= !m_pbSortAscending[nColumn];
 
 	if (Downloads.GetCount() < 2) return;
@@ -1631,7 +1649,7 @@ void CDownloadsCtrl::BubbleSortDownloads(int nColumn)  // BinaryInsertionSortDow
 	{
 		POSITION pos_x = pos;
 		CDownload *x = Downloads.GetNext(pos);
-		
+
 		BOOL bOK = FALSE, bRlBk = TRUE;
 		CDownload *y = NULL;
 		while (bRlBk && (pos_y != NULL))
@@ -1773,7 +1791,7 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CDownloadSource* pSource;
 	CDownload* pDownload;
-	
+
 	m_wndTip.Hide();
 
 	bool bControl = ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) != 0;
@@ -1978,9 +1996,9 @@ void CDownloadsCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 	CDownloadSource* pSource;
 	CDownload* pDownload;
 	CRect rcItem;
-	
+
 	SetFocus();
-	
+
 	if ( HitTest( point, &pDownload, &pSource, NULL, &rcItem ) )
 	{
 		int nTitleStarts = GetExpandableColumnX();
@@ -2011,20 +2029,20 @@ void CDownloadsCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 			GetOwner()->PostMessage( WM_COMMAND, ID_TRANSFERS_CONNECT );
 		}
 	}
-	
+
 	CWnd::OnLButtonDblClk( nFlags, point );
 }
 
 void CDownloadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 {
 	CWnd::OnMouseMove( nFlags, point );
-	
+
 	if ( ( nFlags & ( MK_LBUTTON|MK_RBUTTON) ) == 0 )
 	{
 		CDownloadSource* pSource;
 		CDownload* pDownload;
 		CRect rcItem;
-		
+
 		if ( HitTest( point, &pDownload, &pSource, NULL, &rcItem ) )
 		{
 			// Folder Tick Hoverstates
@@ -2056,7 +2074,7 @@ void CDownloadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 			
 		}
 	}
-	
+
 	m_wndTip.Hide();
 }
 
@@ -2074,7 +2092,7 @@ void CDownloadsCtrl::OnLButtonUp(UINT nFlags, CPoint point)
 		DeselectAll( NULL, m_pDeselect2 );
 		m_pDeselect2 = NULL;
 	}
-	
+
 	CWnd::OnLButtonUp( nFlags, point );
 }
 
@@ -2168,9 +2186,9 @@ CImageList* CDownloadsCtrl::CreateDragImage(CList< CDownload* >* pSel, const CPo
 			rcAll.bottom	= max( rcAll.bottom, rcOne.bottom );
 		}
 	}
-	
+
 	BOOL bClipped = rcAll.Height() > MAX_DRAG_SIZE;
-	
+
 	if ( bClipped )
 	{
 		rcAll.left		= max( rcAll.left, ptMouse.x - MAX_DRAG_SIZE_2 );
@@ -2178,7 +2196,7 @@ CImageList* CDownloadsCtrl::CreateDragImage(CList< CDownload* >* pSel, const CPo
 		rcAll.top		= max( rcAll.top, ptMouse.y - MAX_DRAG_SIZE_2 );
 		rcAll.bottom	= max( rcAll.bottom, ptMouse.y + MAX_DRAG_SIZE_2 );
 	}
-	
+
 	CClientDC dcClient( this );
 	CDC dcMem, dcDrag;
 	CBitmap bmDrag;
@@ -2189,13 +2207,13 @@ CImageList* CDownloadsCtrl::CreateDragImage(CList< CDownload* >* pSel, const CPo
 		return NULL;
 	if ( ! bmDrag.CreateCompatibleBitmap( &dcClient, rcAll.Width(), rcAll.Height() ) )
 		return NULL;
-	
+
 	CBitmap *pOldDrag = dcDrag.SelectObject( &bmDrag );
-	
+
 	dcDrag.FillSolidRect( 0, 0, rcAll.Width(), rcAll.Height(), DRAG_COLOR_KEY );
-	
+
 	CRgn pRgn;
-	
+
 	if ( bClipped )
 	{
 		CPoint ptMiddle( ptMouse.x - rcAll.left, ptMouse.y - rcAll.top );
@@ -2203,7 +2221,7 @@ CImageList* CDownloadsCtrl::CreateDragImage(CList< CDownload* >* pSel, const CPo
 								ptMiddle.x + MAX_DRAG_SIZE_2, ptMiddle.y + MAX_DRAG_SIZE_2 );
 		dcDrag.SelectClipRgn( &pRgn );
 	}
-	
+
 	CFont* pOldFont = (CFont*)dcDrag.SelectObject( &CoolInterface.m_fntNormal );
 	
 	for ( POSITION pos = pSel->GetHeadPosition() ; pos ; )
@@ -2219,23 +2237,23 @@ CImageList* CDownloadsCtrl::CreateDragImage(CList< CDownload* >* pSel, const CPo
 			PaintDownload( dcDrag, rcOut, pDownload, FALSE, FALSE );
 		}
 	}
-	
+
 	dcDrag.SelectObject( pOldFont );
     dcDrag.SelectObject( pOldDrag );
     dcDrag.DeleteDC();
-	
+
 	CImageList* pAll = new CImageList();
 	pAll->Create( rcAll.Width(), rcAll.Height(), ILC_COLOR32|ILC_MASK, 1, 1 ) ||
 	pAll->Create( rcAll.Width(), rcAll.Height(), ILC_COLOR24|ILC_MASK, 1, 1 ) ||
 	pAll->Create( rcAll.Width(), rcAll.Height(), ILC_COLOR16|ILC_MASK, 1, 1 );
 	pAll->Add( &bmDrag, DRAG_COLOR_KEY ); 
-	
+
 	bmDrag.DeleteObject();
 
 	pLock.Unlock();
-	
+
 	pAll->BeginDrag( 0, ptMouse - rcAll.TopLeft() );
-	
+
 	return pAll;
 }
 
@@ -2243,7 +2261,7 @@ int CDownloadsCtrl::GetExpandableColumnX() const
 {
 	HDITEM pColumn = {};
 	int nTitleStarts = 0;
-	
+
 	pColumn.mask = HDI_LPARAM | HDI_WIDTH;
 
 	for ( int nColumn = 0 ; m_wndHeader.GetItem( m_wndHeader.OrderToIndex( nColumn ), &pColumn ) ; nColumn++ )

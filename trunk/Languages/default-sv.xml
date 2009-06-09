@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Swedish Skin File -->
-<!-- Translation based on default-en.xml Shareaza 2.3.2.0 -->
+<!-- Translation based on default-en.xml (Shareaza 2.3.2.0) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
+<!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1295,7 +1295,7 @@
 		<menu text="Videostorlek">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Ursprungsstorlek" />
 			<item id="ID_MEDIA_SIZE_TWO" text="_Dubbla storleken" />
-			<item id="ID_MEDIA_SIZE_THREE" text="_Tredubbla storleken" />
+			<item id="ID_MEDIA_SIZE_HALF" text="_Tredubbla storleken" />
 			<item id="ID_MEDIA_SIZE_FILL" text="_Största" />
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Fyll fönstret" />
 			<separator/>
@@ -1333,7 +1333,7 @@
 		<menu text="Videostorlek">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Ursprungsstorlek" />
 			<item id="ID_MEDIA_SIZE_TWO" text="_Dubbla storleken" />
-			<item id="ID_MEDIA_SIZE_THREE" text="_Tredubbla storleken" />
+			<item id="ID_MEDIA_SIZE_HALF" text="_Tredubbla storleken" />
 			<item id="ID_MEDIA_SIZE_FILL" text="_Största" />
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Fyll fönstret" />
 			<separator/>
@@ -1355,7 +1355,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Ursprungsstorlek" />
 		<item id="ID_MEDIA_SIZE_TWO" text="_Dubbla storleken" />
-		<item id="ID_MEDIA_SIZE_THREE" text="_Tredubbla storleken" />
+		<item id="ID_MEDIA_SIZE_HALF" text="_Tredubbla storleken" />
 		<item id="ID_MEDIA_SIZE_FILL" text="_Största" />
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Fyll fönstret" />
 		<separator/>
@@ -2365,7 +2365,7 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Sträck ut videon så att den fyller hela fönstret och möjligtvis förvanskar den." />
 	<tip id="ID_MEDIA_SIZE_FILL" message="Välj den bästa storleken för videon baserad på dess proportioner." />
 	<tip id="ID_MEDIA_SIZE_ONE" message="Visa videon i sin ursprungsstorlek." />
-	<tip id="ID_MEDIA_SIZE_THREE" message="Visa videon i tre gånger så stor storlek som dess ursprungsstorlek." />
+	<tip id="ID_MEDIA_SIZE_HALF" message="Visa videon i tre gånger så stor storlek som dess ursprungsstorlek." />
 	<tip id="ID_MEDIA_SIZE_TWO" message="Visa videon i dubbel så stor storlek som dess ursprungsstorlek." />
 	<tip id="ID_MEDIA_STATUS" message="Visa eller dölj mediastatusraden." />
 	<tip id="ID_MEDIA_STOP" message="Stoppa uppspelning av mediafilen." tip="Stopp" />
@@ -4262,31 +4262,27 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="Totalt uppladdade:"/>
 		<control caption="Anteckningar:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Generellt">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Generellt">
 		<control caption="VARNING: Denna dialog tillhandahåller avancerade nedladdningsinställningar för avancerade användare. Felaktiga användning kan leda till korrupta filer." />
-		<control caption="Filnamn och stor_lek:"/>
-		<control caption="Fil_namn:" />
-		<control caption="Filstorlek (Byte):"/>
-		<control caption="_URNs:"/>
-		<control caption="Pålitlig"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="Filnamn och storlek:"/>
+		<control caption="Filnamn:" />
+		<control caption="Fil:" />
+		<control caption="Filstorlek Bytes:"/>
+		<control caption="URNs:"/>
+		<control caption="Pålitlig?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Åtgärder">
 		<control caption="VARNING: Denna dialog tillhandahåller avancerade nedladdningsinställningar för avancerade användare. Felaktiga användning kan leda till korrupta filer." />
@@ -4369,6 +4365,28 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Nedladdad fil" />
+		<column from="Size" to="Storlek" />
+		<column from="Progress" to="Händelseförlopp" />
+		<column from="Transfer" to="Nedladdat" />
+		<column from="Percent" to="Slutfört" />
+		<column from="Speed" to="Hastighet" />
+		<column from="Status" to="Status" />
+		<column from="Client" to="Klient" />
+		<column from="Country" to="Land"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Uppladdad fil" />
+		<column from="Size" to="Storlek" />
+		<column from="Progress" to="Händelseförlopp" />
+		<column from="Transfer" to="Nedladdat" />
+		<column from="Speed" to="Storlek" />
+		<column from="Rating" to="Betyg" />
+		<column from="Remote User" to="Fjärranvändare" />
+		<column from="Client" to="Klient" />
+		<column from="Country" to="Land"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Fil" />
 		<column from="Extension" to="Filändelse" />
@@ -4377,27 +4395,6 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<column from="Hits" to="Träffar" />
 		<column from="Uploads" to="Uppladdningar" />
 		<column from="Modified" to="Ändrad" />
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Nedladdad fil" />
-		<column from="Size" to="Storlek" />
-		<column from="Progress" to="Händelseförlopp" />
-		<column from="Speed" to="Hastighet" />
-		<column from="Status" to="Status" />
-		<column from="Client" to="Klient" />
-		<column from="Downloaded" to="Nedladdat" />
-		<column from="Complete" to="Slutfört" />
-		<column from="Country" to="Land"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Fjärranvändare" />
-		<column from="Uploaded File" to="Uppladdad fil" />
-		<column from="Size" to="Storlek" />
-		<column from="Progress" to="Händelseförlopp" />
-		<column from="Speed" to="Storlek" />
-		<column from="Client" to="Klient" />
-		<column from="Rating" to="Betyg" />
-		<column from="Country" to="Land"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adress" />
@@ -4417,7 +4414,7 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<column from="Address / Content" to="Adress / Innehåll" />
 		<column from="Action" to="Händelse" />
 		<column from="Expires" to="Utgångsdatum" />
-		<column from="Precedence" to="Företräde" />
+		<column from="#" to="Företräde" />
 		<column from="Hits" to="Träffar" />
 		<column from="Comment" to="Kommentar" />
 	</list>
@@ -4482,10 +4479,10 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 	</list>
 	<list name="CFavouritesProfileList">
 		<column from="Name" to="Namn" />
-		<column from="URL" to="URL" />
+		<column from="URL" to="" />
 	</list>
 	<list name="CFileSourcesPageList">
-		<column from="URL" to="URL" />
+		<column from="URL" to="" />
 		<column from="Expires" to="Upphör" />
 	</list>
 	<list name="CTorrentFileList">

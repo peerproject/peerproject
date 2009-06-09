@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Hungarian Skin File -->
-<!-- Translation based on default-en.xml SVN rev.7300 -->
+<!-- Translation based on default-en.xml (Shareaza SVN r7300) -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1327,7 +1327,7 @@
 		<menu text="_Videó merete">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Eredeti méret"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Kétszeres méret"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Háromszoros méret"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Háromszoros méret"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="L_egnagyobb"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Ablak kitöltése"/>
 			<separator/>
@@ -1365,7 +1365,7 @@
 		<menu text="_Videó merete">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Eredeti méret"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Kétszeres méret"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Háromszoros méret"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Háromszoros méret"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Legnagyobb"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Ablak kitöltése"/>
 			<separator/>
@@ -1387,7 +1387,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Eredeti méret"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Kétszeres méret"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="_Háromszoros méret"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Háromszoros méret"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Legnagyobb"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Ablak kitöltése"/>
 		<separator/>
@@ -2388,7 +2388,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="A videó szétnyújtása az ablak széléig."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="A videó méretének változtatása."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Eredeti méretben mutatja a videót."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Háromszoros méretben mutatja a videót."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Háromszoros méretben mutatja a videót."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Kétszeres méretben mutatja a videót."/>
 	<tip id="ID_MEDIA_STATUS" message="Média állapotsorának megjelenítése, elrejtése."/>
 	<tip id="ID_MEDIA_STOP" message="Lejátszás leállítása." tip="Stop"/>
@@ -4289,31 +4289,27 @@
 		<control caption="Teljes feltöltés:"/>
 		<control caption="Megjegyzés:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Letöltés szerkesztése">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Letöltés szerkesztése">
 		<control caption="FIGYELEM: Ez az ablak különleges beállításokat tartalmaz. A helytelen beállítások az adatok meghibásodását okozhatják."/>
 		<control caption="Fájlnév és méret"/>
 		<control caption="Fájlnév:"/>
+		<control caption="Fájl:"/>
 		<control caption="Méret (Bájt):"/>
 		<control caption="URN-ek"/>
-		<control caption="Bizalom"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="Bizalom?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Eszközök">
 		<control caption="FIGYELEM: Ez az ablak különleges beállításokat tartalmaz. A helytelen beállítások az adatok meghibásodását okozhatják."/>
@@ -4396,6 +4392,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Letöltendő fájl"/>
+		<column from="Size" to="Méret"/>
+		<column from="Progress" to="Állapot"/>
+		<column from="Transfer" to="Letöltve"/>
+		<column from="Percent" to="Kész"/>
+		<column from="Speed" to="Sebesség"/>
+		<column from="Status" to="Helyzet"/>
+		<column from="Client" to="Kliensprogram"/>
+		<column from="Country" to="Ország"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Feltöltendő fájl"/>
+		<column from="Size" to="Méret"/>
+		<column from="Progress" to="Állapot"/>
+		<column from="Transfer" to="Letöltve"/>
+		<column from="Speed" to="Sebesség"/>
+		<column from="Rating" to="Osztályzat"/>
+		<column from="Remote User" to="Felhasználó"/>
+		<column from="Client" to="Kliensprogram"/>
+		<column from="Country" to="Ország"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Fájl"/>
 		<column from="Extension" to="Típus"/>
@@ -4404,27 +4422,6 @@
 		<column from="Hits" to="Találatok"/>
 		<column from="Uploads" to="Feltöltés"/>
 		<column from="Modified" to="Módosítva"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Letöltendő fájl"/>
-		<column from="Size" to="Méret"/>
-		<column from="Progress" to="Állapot"/>
-		<column from="Speed" to="Sebesség"/>
-		<column from="Status" to="Helyzet"/>
-		<column from="Client" to="Kliensprogram"/>
-		<column from="Downloaded" to="Letöltve"/>
-		<column from="Complete" to="Kész"/>
-		<column from="Country" to="Ország"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Felhasználó"/>
-		<column from="Uploaded File" to="Feltöltendő fájl"/>
-		<column from="Size" to="Méret"/>
-		<column from="Progress" to="Állapot"/>
-		<column from="Speed" to="Sebesség"/>
-		<column from="Client" to="Kliensprogram"/>
-		<column from="Rating" to="Osztályzat"/>
-		<column from="Country" to="Ország"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Cím"/>
@@ -4444,7 +4441,7 @@
 		<column from="Address / Content" to="Cím"/>
 		<column from="Action" to="Feladat"/>
 		<column from="Expires" to="Lejárat"/>
-		<column from="Precedence" to="Elsőbbség"/>
+		<column from="#" to="Elsőbbség"/>
 		<column from="Hits" to="Találatok"/>
 		<column from="Comment" to="Megjegyzés"/>
 	</list>
@@ -4512,8 +4509,8 @@
 		<column from="URL" to=""/>
 	</list>
 	<list name="CFileSourcesPageList">
-		 <column from="URL" to=""/>
-		 <column from="Expires" to="Lejárat"/>
+		<column from="URL" to=""/>
+		<column from="Expires" to="Lejárat"/>
 	</list>
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Fájlnév"/>

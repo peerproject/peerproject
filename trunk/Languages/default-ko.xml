@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Korean Language Skin File -->
-<!-- Translation based on default-en.xml SVN r10 --> <!--Machine Translated-->
+<!-- Translation based on default-en.xml SVN r21 --> <!--Machine Translated-->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->  <!--"Peer Project" = 피어 프로젝트-->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1344,7 +1344,7 @@
 		<menu text="Video Si_ze">
 			<item id="ID_MEDIA_SIZE_ONE" text="원본 크기"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="더블 사이즈"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="트리플 크기"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="트리플 크기"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="최대"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="채우기 창"/>
 			<separator/>
@@ -1382,7 +1382,7 @@
 		<menu text="Video Si_ze">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Triple Size"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Triple Size"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Largest"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Fill Window"/>
 			<separator/>
@@ -1404,7 +1404,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="_Triple Size"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Triple Size"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Largest"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Fill Window"/>
 		<separator/>
@@ -2085,7 +2085,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Stretch the video to fill the window, potentially distorting it."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Choose the best size for the video based on its aspect ratio."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Show the video at its original (natural) size."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Show the video at triple its original (natural) size."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Show the video at triple its original (natural) size."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Show the video at double its original (natural) size."/>
 	<tip id="ID_MEDIA_STATUS" message="Show or hide the media status line."/>
 	<tip id="ID_MEDIA_STOP" message="Stop playing the media file." tip="Stop"/>
@@ -4001,32 +4001,27 @@
 		<control caption="Total Uploaded:"/>
 		<control caption="Notes:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="General">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-
-		<control caption="WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption."/>
-		<control caption="Filename and Si_ze:"/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="General">
+		<control caption="WARNING: This dialog provides advanced download editing features for power users, which will cause corruption if used incorrectly."/>
+		<control caption="Details:"/>
 		<control caption="Filename:"/>
-		<control caption="File size (Byte):"/>
-		<control caption="_URNs:"/>
-		<control caption="Trusted"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="Location:"/>
+		<control caption="Byte Size:"/>
+		<control caption="URN Hashes:"/>
+		<control caption="Trusted?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Actions">
 		<control caption="WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption."/>
@@ -4098,6 +4093,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="다운로드한 파일을"/>
+		<column from="Size" to="크기"/>
+		<column from="Progress" to="진행"/>
+		<column from="Transfer" to="다운로드됨"/>
+		<column from="Percent" to="완료"/>
+		<column from="Speed" to="속도"/>
+		<column from="Status" to="상태"/>
+		<column from="Client" to="클라이언트 "/>
+		<column from="Country" to="국가"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="을 올린 파일"/>
+		<column from="Size" to="크기"/>
+		<column from="Progress" to="진행"/>
+		<column from="Transfer" to="다운로드됨"/>
+		<column from="Speed" to="속도"/>
+		<column from="Rating" to="평가"/>
+		<column from="Remote User" to="원격 사용자"/>
+		<column from="Client" to="클라이언트"/>
+		<column from="Country" to="국가"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="파일"/>
 		<column from="Extension" to="확장"/>
@@ -4106,27 +4123,6 @@
 		<column from="Hits" to="조회수"/>
 		<column from="Uploads" to="업로드"/>
 		<column from="Modified" to="수정됨"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="다운로드한 파일을"/>
-		<column from="Size" to="크기"/>
-		<column from="Progress" to="진행"/>
-		<column from="Speed" to="속도"/>
-		<column from="Status" to="상태"/>
-		<column from="Client" to="클라이언트 "/>
-		<column from="Downloaded" to="다운로드됨"/>
-		<column from="Complete" to="완료"/>
-		<column from="Country" to="국가"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="원격 사용자"/>
-		<column from="Uploaded File" to="을 올린 파일"/>
-		<column from="Size" to="크기"/>
-		<column from="Progress" to="진행"/>
-		<column from="Speed" to="속도"/>
-		<column from="Client" to="클라이언트"/>
-		<column from="Rating" to="평가"/>
-		<column from="Country" to="국가"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="주소"/>
@@ -4146,7 +4142,7 @@
 		<column from="Address / Content" to="주소/콘텐츠 "/>
 		<column from="Action" to="액션"/>
 		<column from="Expires" to="만료"/>
-		<column from="Precedence" to="우선순"/>
+		<column from="#" to="우선순"/>
 		<column from="Hits" to="조회수"/>
 		<column from="Comment" to="코멘트 "/>
 	</list>

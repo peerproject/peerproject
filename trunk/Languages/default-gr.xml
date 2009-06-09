@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Greek Skin File -->
-<!-- Translation based on default-en.xml Shareaza Rev.7455 -->
+<!-- Translation based on default-en.xml (Shareaza SVN r7455) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
+<!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1339,7 +1339,7 @@
 		<menu text="_Μέγεθος Video">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Αρχικό Μέγεθος"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Διπλάσιο Μέγεθος"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Τριπλάσιο Μέγεθος"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Τριπλάσιο Μέγεθος"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Μέγιστο"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Γέμισμα Παραθύρου"/>
 			<separator/>
@@ -1377,7 +1377,7 @@
 		<menu text="_Μέγεθος Video">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Αρχικό Μέγεθος"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Διπλάσιο Μέγεθος"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Τριπλάσιο Μέγεθος"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Τριπλάσιο Μέγεθος"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Μέγιστο"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Γέμισμα Παραθύρου"/>
 			<separator/>
@@ -1399,7 +1399,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Αρχικό Μέγεθος"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Διπλάσιο Μέγεθος"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="_Τριπλάσιο Μέγεθος"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Τριπλάσιο Μέγεθος"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Μέγιστο"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Γέμισμα Παραθύρου"/>
 		<separator/>
@@ -2443,7 +2443,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Έκταση video ώστε να γεμίσει το παράθυρο, ενδεχομένως παραμορφώνοντάς το."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Προσαρμογή video στο μέγιστο μέγεθος, διατηρώντας την αναλογία των δύο διαστάσεων."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Προβολή video στο αρχικό του μέγεθος."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Προβολή video σε μέγεθος τριπλάσιο του αρχικού."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Προβολή video σε μέγεθος τριπλάσιο του αρχικού."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Προβολή video σε μέγεθος διπλάσιο του αρχικού."/>
 	<tip id="ID_MEDIA_STATUS" message="Εναλλαγή προβολής γραμμής κατάστασης πολυμέσων."/>
 	<tip id="ID_MEDIA_STOP" message="Διακοπή αναπαραγωγής αρχείου." tip="Διακοπή"/>
@@ -4342,31 +4342,27 @@
 		<control caption="Σύνολο Απεσταλμένων:"/>
 		<control caption="Σημειώσεις:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Προχωρημένη">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Προχωρημένη">
 		<control caption="ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Αυτός ο διάλογος παρέχει επιλογές προχωρημένης διόρθωσης λήψης για εξειδικευμένους χρήστες και αν χρησιμοποιηθεί λανθασμένα πιθανότατα θα προκαλέσει φθορά."/>
-		<control caption="Όνομα και _Μέγεθος Αρχείου:"/>
+		<control caption="Όνομα και Μέγεθος Αρχείου:"/>
 		<control caption="Όνομα Αρχείου:"/>
+		<control caption="Αρχείου:"/>
 		<control caption="Μέγεθος Αρχείου (Bytes):"/>
-		<control caption="_URNs:"/>
-		<control caption="Φερέγγυο"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="URNs:"/>
+		<control caption="Φερέγγυο?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Ενέργειες">
 		<control caption="ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Αυτός ο διάλογος παρέχει επιλογές προχωρημένης διόρθωσης λήψης για εξειδικευμένους χρήστες και αν χρησιμοποιηθεί λανθασμένα πιθανότατα θα προκαλέσει φθορά."/>
@@ -4449,6 +4445,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Λήψη"/>
+		<column from="Size" to="Μέγεθος"/>
+		<column from="Progress" to="Πρόοδος"/>
+		<column from="Transfer" to="Παραληφθέν"/>
+		<column from="Percent" to="Συμπληρωμένα"/>
+		<column from="Speed" to="Ταχύτητα"/>
+		<column from="Status" to="Κατάσταση"/>
+		<column from="Client" to="Πρόγραμμα"/>
+		<column from="Country" to="Χώρα"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Αποστολή"/>
+		<column from="Size" to="Μέγεθος"/>
+		<column from="Progress" to="Πρόοδος"/>
+		<column from="Transfer" to="Παραληφθέν"/>
+		<column from="Speed" to="Ταχύτητα"/>
+		<column from="Rating" to="Βαθμολογία"/>
+		<column from="Remote User" to="Παραλήπτης"/>
+		<column from="Client" to="Πρόγραμμα"/>
+		<column from="Country" to="Χώρα"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Αρχείο"/>
 		<column from="Extension" to="Τύπος"/>
@@ -4457,27 +4475,6 @@
 		<column from="Hits" to="Ευρέσεις"/>
 		<column from="Uploads" to="Αποστολές"/>
 		<column from="Modified" to="Τροποποίηση"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Λήψη"/>
-		<column from="Size" to="Μέγεθος"/>
-		<column from="Progress" to="Πρόοδος"/>
-		<column from="Speed" to="Ταχύτητα"/>
-		<column from="Status" to="Κατάσταση"/>
-		<column from="Client" to="Πρόγραμμα"/>
-		<column from="Downloaded" to="Παραληφθέν"/>
-		<column from="Complete" to="Συμπληρωμένα"/>
-		<column from="Country" to="Χώρα"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Παραλήπτης"/>
-		<column from="Uploaded File" to="Αποστολή"/>
-		<column from="Size" to="Μέγεθος"/>
-		<column from="Progress" to="Πρόοδος"/>
-		<column from="Speed" to="Ταχύτητα"/>
-		<column from="Client" to="Πρόγραμμα"/>
-		<column from="Rating" to="Βαθμολογία"/>
-		<column from="Country" to="Χώρα"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Διεύθυνση"/>
@@ -4497,7 +4494,7 @@
 		<column from="Address / Content" to="Διεύθυνση / Περιεχόμενο"/>
 		<column from="Action" to="Ενέργεια"/>
 		<column from="Expires" to="Λήξη"/>
-		<column from="Precedence" to="Προτεραιότητα"/>
+		<column from="#" to="Προτεραιότητα"/>
 		<column from="Hits" to="Περιστατικά"/>
 		<column from="Comment" to="Σχόλια"/>
 	</list>

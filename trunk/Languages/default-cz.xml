@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Czech Skin File -->
-<!-- Translation based on default-en.xml Shareaza 2.2.5.7 -->
+<!-- Translation based on default-en.xml (Shareaza 2.2.5.7) -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1268,7 +1268,7 @@
 		<menu text="Velikost v_idea">
 			<item id="ID_MEDIA_SIZE_ONE" text="Pův_odní velikost"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Dvojitá velikost"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Trojitá velikost"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Trojitá velikost"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Největší"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Celé okno"/>
 			<separator/>
@@ -1306,7 +1306,7 @@
 		<menu text="Velikost v_idea">
 			<item id="ID_MEDIA_SIZE_ONE" text="Pův_odní velikost"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Dvojitá velikost"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Trojitá velikost"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Trojitá velikost"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Největší"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Celé okno"/>
 			<separator/>
@@ -1328,7 +1328,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="Pův_odní velikost"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Dvojitá velikost"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="_Trojitá velikost"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Trojitá velikost"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Největší"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Celé okno"/>
 		<separator/>
@@ -2318,7 +2318,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Roztáhnout video a vyplnit okno, i když se zdeformuje."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Vyberte nejlepší velikost pro video podle jeho poměru."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Ukázat video v jeho původní (originální) velikosti."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Ukázat video v jeho trojnásobné velikosti."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Ukázat video v jeho trojnásobné velikosti."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Ukázat video v jeho dvojnásobné velikosti."/>
 	<tip id="ID_MEDIA_STATUS" message="Ukázat nebo skrýt stavový řádek multimédií."/>
 	<tip id="ID_MEDIA_STOP" message="Zastavit přehrávání souboru." tip="Stop"/>
@@ -4176,31 +4176,27 @@
 		<control caption="Celkem odesláno:"/>
 		<control caption="Poznámky:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Upravit stahování (Pokročilé)">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Upravit stahování (Pokročilé)">
 		<control caption="UPOZORNĚNÍ: Pokročilé úpravy stahování jsou pro zkušené uživatele. Pokud je nesprávně použijete mohou a pravděpodobně způsobí poškození souboru."/>
-		<control caption="_Jméno a velikost soubrou:"/>
-		<control caption="Jméno _souboru:"/>
-		<control caption="File size (Byte):"/>
-		<control caption="_URNs:"/>
-		<control caption="Důvěryhodné"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="Jméno a velikost soubrou:"/>
+		<control caption="Jméno souboru:"/>
+		<control caption="Velikost:"/>
+		<control caption="Byte Size:"/>
+		<control caption="URNs:"/>
+		<control caption="Důvěryhodné?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Akce">
 		<control caption="UPOZORNĚNÍ: Pokročilé úpravy stahování jsou pro zkušené uživatele. Pokud je nesprávně použijete mohou a pravděpodobně způsobí poškození souboru."/>
@@ -4282,6 +4278,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Stahovaný soubor"/>
+		<column from="Size" to="Velikost"/>
+		<column from="Progress" to="Postup stahování"/>
+		<column from="Transfer" to="Stáhnuto"/>
+		<column from="Percent" to="Je hotovo"/>
+		<column from="Speed" to="Rychlost"/>
+		<column from="Status" to="Stav"/>
+		<column from="Client" to="Klient"/>
+		<column from="Country" to="Stát"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Odesílané soubory"/>
+		<column from="Size" to="Velikost"/>
+		<column from="Progress" to="Postup stahování"/>
+		<column from="Transfer" to="Stáhnuto"/>
+		<column from="Speed" to="Rychlost"/>
+		<column from="Rating" to="Hodnocení"/>
+		<column from="Remote User" to="Vzdálený uživatel"/>
+		<column from="Client" to="Klient"/>
+		<column from="Country" to="Stát"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Soubor"/>
 		<column from="Extension" to="Přípona"/>
@@ -4290,27 +4308,6 @@
 		<column from="Hits" to="Výsledky"/>
 		<column from="Uploads" to="Odesílání"/>
 		<column from="Modified" to="Změněno"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Stahovaný soubor"/>
-		<column from="Size" to="Velikost"/>
-		<column from="Progress" to="Postup stahování"/>
-		<column from="Speed" to="Rychlost"/>
-		<column from="Status" to="Stav"/>
-		<column from="Client" to="Klient"/>
-		<column from="Downloaded" to="Stáhnuto"/>
-		<column from="Complete" to="Je hotovo"/>
-		<column from="Country" to="Stát"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Vzdálený uživatel"/>
-		<column from="Uploaded File" to="Odesílané soubory"/>
-		<column from="Size" to="Velikost"/>
-		<column from="Progress" to="Postup stahování"/>
-		<column from="Speed" to="Rychlost"/>
-		<column from="Client" to="Klient"/>
-		<column from="Rating" to="Hodnocení"/>
-		<column from="Country" to="Stát"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adresa"/>
@@ -4330,7 +4327,7 @@
 		<column from="Address / Content" to="Adresa / Obsah"/>
 		<column from="Action" to="Akce"/>
 		<column from="Expires" to="Vyprší"/>
-		<column from="Precedence" to="Přednost"/>
+		<column from="#" to="Přednost"/>
 		<column from="Hits" to="Výsledky"/>
 		<column from="Comment" to="Poznámka"/>
 	</list>
@@ -4410,7 +4407,7 @@
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>
 		<column from="Status" to="Stav"/>
-		<column from="Priority" to="Typ"/>
+		<column from="Type" to="Typ"/>
 	</list>
 	<list name="CReviewList">
 		<column from="User" to="Uživatel"/>

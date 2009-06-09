@@ -114,7 +114,7 @@ CHomePanel::CHomePanel()
 
 BOOL CHomePanel::Create(CWnd* pParentWnd)
 {
-	CRect rect( 0, 0, 200, 0 );
+	CRect rect( 0, 0, PANEL_WIDTH, 0 );
 	return CTaskPanel::Create( _T("CHomePanel"), WS_VISIBLE, rect, pParentWnd, IDC_HOME_PANEL );
 }
 
@@ -132,10 +132,8 @@ int CHomePanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	AddBox( &m_boxLibrary );
 	AddBox( &m_boxDownloads );
 	AddBox( &m_boxUploads );
-#ifndef LAN_MODE
 	if ( Settings.BitTorrent.AdvancedInterface )
 		AddBox( &m_boxTorrents );
-#endif // LAN_MOD
 	// SetStretchBox( &m_boxLibrary );
 	
 	return 0;
@@ -150,9 +148,8 @@ void CHomePanel::OnSkinChange()
 	m_boxUploads.OnSkinChange();
 	m_boxConnection.OnSkinChange();
 	m_boxLibrary.OnSkinChange();
-#ifndef LAN_MODE
-	m_boxTorrents.OnSkinChange();
-#endif //LAN_MOD
+	if ( Settings.BitTorrent.AdvancedInterface )
+		m_boxTorrents.OnSkinChange();
 	
 	Update();
 	Invalidate();

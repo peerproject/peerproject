@@ -3,11 +3,11 @@
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 <!-- Translation based on default-en.xml Shareaza 2.2.2.12 -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
+<!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -27,7 +27,6 @@
 
 <!--Font Section for Traditional Chinese-->
 <fonts>
-
         <font name="System.Plain"  face="新細明體"/>
         <font name="System.Bold"   face="新細明體" weight="bold"/>
         <font name="Panel.Caption" face="新細明體" weight="bold"/>
@@ -1265,7 +1264,7 @@
 		<menu text="視訊大小">
 			<item id="ID_MEDIA_SIZE_ONE" text="原始大小"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="雙倍大小"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="三倍大小"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="三倍大小"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="最大"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="填滿視窗"/>
 			<separator/>
@@ -1303,7 +1302,7 @@
 		<menu text="視訊大小">
 			<item id="ID_MEDIA_SIZE_ONE" text="原始大小"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="兩倍大小"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="三倍大小"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="三倍大小"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="最大"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="填滿視窗"/>
 			<separator/>
@@ -1325,7 +1324,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="原始大小"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="雙倍大小"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="三倍大小"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="三倍大小"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="最大"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="填滿視窗"/>
 		<separator/>
@@ -1896,7 +1895,7 @@
 		<newline gap="8"/>
 		<text>這個下載正在等待其他的下載完成.
 		您的下載設定限制同一個時間的最大活躍中的下載數量, 以確保每一個下載擁有足夠的頻寬. 您可以在設定頁面改變設定值.
-		或是您可以使用'繼續" 命令 手動開始這個下載.</text>
+		或是您可以使用'繼續' 命令 手動開始這個下載.</text>
 	</document>
 	<document name="DownloadHelp.Searching">
 		<text format="b">正在搜尋這個下載</text>
@@ -2213,7 +2212,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="伸展這個視訊檔填滿整個視窗, 但有可能會失真."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="根據長寬比選擇這個視訊的最佳大小."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="以原始大小顯示這個視訊."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="以兩倍的原始大小的顯示這個視訊."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="以兩倍的原始大小的顯示這個視訊."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="以三倍的原始大小顯示這個視訊."/>
 	<tip id="ID_MEDIA_STATUS" message="顯示或隱藏多媒體狀態列."/>
 	<tip id="ID_MEDIA_STOP" message="停止播放多媒體檔案." tip="停止"/>
@@ -4036,31 +4035,27 @@
 		<control caption="總計上傳了:"/>
 		<control caption="備註:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="編輯下載">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="編輯下載">
 		<control caption="警告: 這個對話框提供進階使用者進階的下載編輯功能. 如果錯誤地使用, 可能導致資料毀損."/>
 		<control caption="檔案名稱與大小:"/>
 		<control caption="檔案名稱:"/>
+		<control caption="檔案名稱:"/>
 		<control caption="檔案大小 (位元組):"/>
-		<control caption="_URNs:"/>
+		<control caption="URNs:"/>
 		<control caption="可靠的"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="動作">
 		<control caption="警告: 這個對話框提供進階使用者進階的下載編輯功能. 如果錯誤地使用, 可能導致資料毀損."/>
@@ -4144,6 +4139,28 @@
 
 <!--  Columns Definitions-->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="已下載檔" />
+		<column from="Size" to="大小" />
+		<column from="Progress" to="進度" />
+		<column from="Transfer" to="已下載" />
+		<column from="Percent" to="完成" />
+		<column from="Speed" to="速度" />
+		<column from="Status" to="狀態" />
+		<column from="Client" to="客戶端" />
+		<column from="Country" to="地區"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="已上傳檔案" />
+		<column from="Size" to="ˇ大小" />
+		<column from="Progress" to="進度" />
+		<column from="Transfer" to="已下載" />
+		<column from="Speed" to="速度" />
+		<column from="Rating" to="評分" />
+		<column from="Remote User" to="遠端用戶" />
+		<column from="Client" to="客戶端" />
+		<column from="Country" to="地區"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="檔案" />
 		<column from="Extension" to="延伸" />
@@ -4152,27 +4169,6 @@
 		<column from="Hits" to="搜尋次數" />
 		<column from="Uploads" to="上傳" />
 		<column from="Modified" to="最後修改" />
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="已下載檔" />
-		<column from="Size" to="大小" />
-		<column from="Progress" to="進度" />
-		<column from="Speed" to="速度" />
-		<column from="Status" to="狀態" />
-		<column from="Client" to="客戶端" />
-		<column from="Downloaded" to="已下載" />
-		<column from="Complete" to="完成" />
-		<column from="Country" to="地區"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="遠端用戶" />
-		<column from="Uploaded File" to="已上傳檔案" />
-		<column from="Size" to="ˇ大小" />
-		<column from="Progress" to="進度" />
-		<column from="Speed" to="速度" />
-		<column from="Client" to="客戶端" />
-		<column from="Rating" to="評分" />
-		<column from="Country" to="地區"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="位址" />
@@ -4192,7 +4188,7 @@
 		<column from="Address / Content" to="位址 / 內容" />
 		<column from="Action" to="動作" />
 		<column from="Expires" to="有效期限" />
-		<column from="Precedence" to="優先順序" />
+		<column from="#" to="優先順序" />
 		<column from="Hits" to="命中" />
 		<column from="Comment" to="備註" />
 	</list>
@@ -4201,6 +4197,7 @@
 		<column from="Port" to="連接埠" />
 		<column from="Client" to="客戶端" />
 		<column from="Last Seen" to="最後看見" />
+		<column from="Daily Uptime" to="时间"/>
 		<column from="Name" to="名稱" />
 		<column from="Description" to="敘述" />
 		<column from="CurUsers" to="目前用戶人數" />

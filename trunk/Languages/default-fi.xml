@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Finnish Skin File -->
-<!-- Translation based on default-en.xml Shareaza 2.1.3.7 -->
+<!-- Translation based on default-en.xml (Shareaza 2.1.3.7) -->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1252,7 +1252,7 @@
 		<menu text="Videon Ko_ko">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Alkuperäinen Koko"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Kaksinkertainen Koko"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Kolminkertainen Koko"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Kolminkertainen Koko"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Suurin"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Täytä Ikkuna"/>
 			<separator/>
@@ -1290,7 +1290,7 @@
 		<menu text="Videon Ko_ko">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Alkuperäinen Koko"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Kaksinkertainen Koko"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Kolminkertainen Koko"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Kolminkertainen Koko"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Suurin"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Täytä Ikkuna"/>
 			<separator/>
@@ -1312,7 +1312,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Alkuperäinen Koko"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Kaksinkertainen Koko"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="_Kolminkertainen Koko"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Kolminkertainen Koko"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Suurin"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Täytä Ikkuna"/>
 		<separator/>
@@ -2036,70 +2036,40 @@
 		toisia termej aloittaessasi hakua. Pilkutuksia ja jokerimerkkej ei kytet
 		hauissa joten vain se teksti mink annat.</text>
 	</document>
-
-	<!-- Untranslated Documents:
-	<document name="SearchHelp.BadSearch3">
-		<text format="b">Please re-phrase the search</text>
-		<newline gap="8"/>
-		<text>This search seems to contain only common file extentions, or no searchable
-		words.</text>
-		<newline gap="8"/>
-		<text>If you are having trouble creating searches, keep in mind that it's quite similar
-		to a web search. Specific terms or phrases are best- Unique names, titles and
-		keywords.</text>
-		<newline gap="8"/>
-		<text>General terms cannot be searched for efficiently and may result in poor
-		search performance, as well as high bandwidth use during searches.</text>
-		<newline gap="8"/>
-		<text>Further help is available on the PeerProject web site.</text>
-	</document>
-	<document name="SearchHelp.AdultSearch">
-		<text format="b">This search cannot be started</text>
-		<newline gap="8"/>
-		<text>The specified search would probably return a large number of results with adult
-		content, and this has been turned off in the settings. You should either re-phrase the
-		search, or disable the filter.</text>
-		<newline gap="8"/>
-		<text>To disable the filter, go into Tools &gt; Settings &gt; General and un-check the
-		adult content filter.</text>
-	</document>
-
-	<document name="ShareHelp.AlreadyShared">
-		<text format="b">Already Shared</text>
-		<newline gap="8"/>
-		<text>The folder you have selected is already being shared as part of an existing share.</text>
-		<newline gap="8"/>
-		<text> %s</text>
-	</document>
-	<document name="ShareHelp.BadShare">
-		<text format="b">This folder should not be shared</text>
-		<newline gap="8"/>
-		<text>This folder is (or contains) a system folder. Sharing this folder is not
-		recommended, since most of the files in it are of no use to other people.</text>
-		<newline gap="8"/>
-		<text>Folders such as the Windows directory, Program Files, and similar folders
-		do not usually contain files suitable for sharing. Any files of interest would be in
-		sub-folders located</text><text format="i"> inside</text>
-		<text> these folders. Please share those instead.</text>
-		<newline gap="8"/>
-		<text>The PeerProject 'incomplete' folder should also not be shared through the
-		library, since attempting to hash downloads in progress may impact on performance.</text>
-	</document>
-	-->
+	<!--Untranslated Documents-->
 </documents>
 
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
 <!-- <commandTips> Untranslated -->
-
 <!-- Localized Strings -->
 <!-- <strings> Untranslated -->
-
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text -->
 <!-- <dialogs> Untranslated -->
 
 <!-- Column Definitions -->
-<!-- commented:
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Tiedosto"/>
+		<column from="Size" to="Koko"/>
+		<column from="Progress" to=""/>
+		<column from="Transfer" to=""/>
+		<column from="Percent" to=""/>
+		<column from="Speed" to=""/>
+		<column from="Status" to="Tila"/>
+		<column from="Client" to=""/>
+		<column from="Country" to="Maa"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to=""/>
+		<column from="Size" to="Koko"/>
+		<column from="Progress" to=""/>
+		<column from="Transfer" to=""/>
+		<column from="Speed" to=""/>
+		<column from="Rating" to="Arvostelut"/>
+		<column from="Remote User" to=""/>
+		<column from="Client" to=""/>
+		<column from="Country" to="Maa"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Tiedosto"/>
 		<column from="Extension" to=""/>
@@ -2108,27 +2078,6 @@
 		<column from="Hits" to=""/>
 		<column from="Uploads" to=""/>
 		<column from="Modified" to=""/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Tiedosto"/>
-		<column from="Size" to="Koko"/>
-		<column from="Progress" to=""/>
-		<column from="Speed" to=""/>
-		<column from="Status" to="Tila"/>
-		<column from="Client" to=""/>
-		<column from="Downloaded" to=""/>
-		<column from="Complete" to=""/>
-		<column from="Country" to="Maa"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to=""/>
-		<column from="Uploaded File" to=""/>
-		<column from="Size" to="Koko"/>
-		<column from="Progress" to=""/>
-		<column from="Speed" to=""/>
-		<column from="Client" to=""/>
-		<column from="Rating" to="Arvostelut"/>
-		<column from="Country" to="Maa"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to=""/>
@@ -2148,7 +2097,7 @@
 		<column from="Address / Content" to=""/>
 		<column from="Action" to=""/>
 		<column from="Expires" to=""/>
-		<column from="Precedence" to=""/>
+		<column from="#" to=""/>
 		<column from="Hits" to=""/>
 		<column from="Comment" to=""/>
 	</list>
@@ -2236,5 +2185,5 @@
 		<column from="Comments" to=""/>
 		<column from="Order" to=""/>
 	</list>
-</listColumns> -->
+</listColumns>
 </skin>

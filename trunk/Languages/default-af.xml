@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Afrikaans Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.7300 -->
+<!-- Translation based on default-en.xml (Shareaza SVN r7300) -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
+<!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions and other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- limit compatibility with future versions and other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1330,7 +1330,7 @@
 		<menu text="Video _Grootte">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Oorspronklike Grootte"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Dubbelgrootte"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Trippelgrootte"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Trippelgrootte"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Grootste"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Vul Venster"/>
 			<separator/>
@@ -1368,7 +1368,7 @@
 		<menu text="Video _Grootte">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Oorspronklike Grootte"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Dubbelgrootte"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Trippelgrootte"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Trippelgrootte"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Grootste"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Vul Venster"/>
 			<separator/>
@@ -1390,7 +1390,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Oorspronklike Grootte"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Dubbelgrootte"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="_Trippelgrootte"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Trippelgrootte"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Grootste"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Vul Venster"/>
 		<separator/>
@@ -2415,7 +2415,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Strek die video om die venster te vul, moontlik teen 'n verkeerde beeldverhouding."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Kies die beste videogrootte gebasseer op die video se beeldverhouding."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Vertoon die video teen sy oorspronklike (natuurlike) grootte."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Vertoon die video teen drie keer sy oorspronklike (natuurlike) grootte."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Vertoon die video teen drie keer sy oorspronklike (natuurlike) grootte."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Vertoon die video teen dubbel sy oorspronklike (natuurlike) grootte."/>
 	<tip id="ID_MEDIA_STATUS" message="Vertoon of verwyder die mediastatuslyn."/>
 	<tip id="ID_MEDIA_STOP" message="Stop die huidige medialêer." tip="Stop"/>
@@ -4312,31 +4312,27 @@
 		<control caption="Total Uploaded:"/>
 		<control caption="Notes:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Gevorderd">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Gevorderd">
 		<control caption="WAARSKUWING: Hierdie venster verskaf gevorderde aflaaifunksies vir kragtige gebruikers wat, as dit verkeerdelik gebruik word, korrupsie kan veroorsaak."/>
-		<control caption="Filename and Si_ze:"/>
+		<control caption="Details:"/>
 		<control caption="Lêer_naam:"/>
-		<control caption="File size (Byte):"/>
-		<control caption="_URNs:"/>
-		<control caption="Trusted"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control caption="Location:"/>
+		<control caption="Byte Size:"/>
+		<control caption="URNs:"/>
+		<control caption="Trusted?"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="_Aksies:">
 		<control caption="WAARSKUWING: Hierdie venster verskaf gevorderde aflaaifunksies vir kragtige gebruikers wat, as dit verkeerdelik gebruik word, korrupsie kan veroorsaak."/>
@@ -4419,6 +4415,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Lêernaam"/>
+		<column from="Size" to="Grootte"/>
+		<column from="Progress" to="Vordering"/>
+		<column from="Transfer" to="Afgelaai"/>
+		<column from="Percent" to="Voltooi"/>
+		<column from="Speed" to="Spoed"/>
+		<column from="Status" to="Status"/>
+		<column from="Client" to="Program"/>
+		<column from="Country" to="Anderland"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Lêernaam"/>
+		<column from="Size" to="Grootte"/>
+		<column from="Progress" to="Vordering"/>
+		<column from="Transfer" to="Afgelaai"/>
+		<column from="Speed" to="Spoed"/>
+		<column from="Rating" to="Gradering"/>
+		<column from="Remote User" to="Gebruiker"/>
+		<column from="Client" to="Kliënt"/>
+		<column from="Country" to="Anderland"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Lêer"/>
 		<column from="Extension" to="Uitbreiding"/>
@@ -4427,27 +4445,6 @@
 		<column from="Hits" to="Treflaaie"/>
 		<column from="Uploads" to="Oplaaie"/>
 		<column from="Modified" to="Verander"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Lêernaam"/>
-		<column from="Size" to="Grootte"/>
-		<column from="Progress" to="Vordering"/>
-		<column from="Speed" to="Spoed"/>
-		<column from="Status" to="Status"/>
-		<column from="Client" to="Program"/>
-		<column from="Downloaded" to="Afgelaai"/>
-		<column from="Complete" to="Voltooi"/>
-		<column from="Country" to="Anderland"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Gebruiker"/>
-		<column from="Uploaded File" to="Lêernaam"/>
-		<column from="Size" to="Grootte"/>
-		<column from="Progress" to="Vordering"/>
-		<column from="Speed" to="Spoed"/>
-		<column from="Client" to="Kliënt"/>
-		<column from="Rating" to="Gradering"/>
-		<column from="Country" to="Anderland"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adres"/>
@@ -4467,7 +4464,7 @@
 		<column from="Address / Content" to="Adres / Inhoud"/>
 		<column from="Action" to="Aksie"/>
 		<column from="Expires" to="Verval"/>
-		<column from="Precedence" to="Volgorde"/>
+		<column from="#" to="Volgorde"/>
 		<column from="Hits" to="Treflaaie"/>
 		<column from="Comment" to="Kommentaar"/>
 	</list>
@@ -4538,7 +4535,7 @@
 		<column from="URL" to="URL"/>
 		<column from="Expires" to="Verval"/>
 	</list>
-	<list name="CTorrentTrackerList">
+	<list name="CTorrentFileList">
 		<column from="Filename" to="Lêernaam"/>
 		<column from="Size" to="Grootte"/>
 		<column from="Status" to=""/>

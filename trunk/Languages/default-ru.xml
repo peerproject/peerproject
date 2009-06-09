@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Russian Skin File -->
-<!-- Translation based on default-en.xml Shareaza SVN rev.7800 -->
+<!-- Translation based on default-en.xml (Shareaza SVN r7800) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
+<!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
-<!-- in a new skin be sure to ONLY include the sections which you changed! -->
-<!-- Including sections you did not edit will reduce performance and  -->
-<!-- limit compatibility with future versions or other skins.  -->
+<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- Including unedited English sections will reduce performance  -->
+<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -1330,7 +1330,7 @@
 		<menu text="Раз_мер видео">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Оригинальный размер"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Двойной размер"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Тройной размер"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Тройной размер"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Наибольший"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="На _всё окно"/>
 			<separator/>
@@ -1368,7 +1368,7 @@
 		<menu text="_Размер видео">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Оригинальный размер"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Двойной размер"/>
-			<item id="ID_MEDIA_SIZE_THREE" text="_Тройной размер"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Тройной размер"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Наибольший"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="На _всё окно"/>
 			<separator/>
@@ -1390,7 +1390,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Оригинальный размер"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Двойной размер"/>
-		<item id="ID_MEDIA_SIZE_THREE" text="_Тройной размер"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Тройной размер"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Наибольший"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="На _всё окно"/>
 		<separator/>
@@ -2411,7 +2411,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Вытяните видео, чтобы заполнить окно, возможно, искажая изображение."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Выбрать наилучший размер видео, основанный на его пропорциях."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Показывать видео в его оригинальном (естественном) размере."/>
-	<tip id="ID_MEDIA_SIZE_THREE" message="Показывать видео в тройном оригинальном (естественном) размере."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Показывать видео в тройном оригинальном (естественном) размере."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Показывать видео в двойном оригинальном (естественном) размере."/>
 	<tip id="ID_MEDIA_STATUS" message="Показать или скрыть строку медиа статуса."/>
 	<tip id="ID_MEDIA_STOP" message="Остановить воспроизведение медиа файла." tip="Стоп"/>
@@ -4325,31 +4325,27 @@
 		<control caption="Всего роздано:"/>
 		<control caption="Заметки:"/>
 	</dialog>
-	<dialog name="CDownloadEditPage" cookie="EdEdEdEdBuEdBuEdBuEdBuEdBuStBuStStBuStStStStStSt" caption="Загрузка">
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Загрузка">
 		<control caption="ВНИМАНИЕ: Этот диалог для ОПЫТНЫХ пользователей и дает опции, которые при неправильном использовании могут разрушить загрузку."/>
 		<control caption="Имя и размер файла:"/>
 		<control caption="Имя файла:"/>
+		<control caption="файла:"/>
 		<control caption="Размер (байты):"/>
-		<control caption="_URNs:"/>
+		<control caption="URNs:"/>
 		<control caption="Верим"/>
-		<control caption="SHA1:"/>
-		<control caption="Tiger-Root:"/>
-		<control caption="ED2K:"/>
-		<control caption="MD5:"/>
-		<control caption="BitTorrent:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="&#160;SHA1:"/>
+		<control/>
+		<control caption="&#160;ED2K:"/>
+		<control/>
+		<control caption="&#160;MD5:"/>
+		<control/>
+		<control caption="&#160;Tiger-Root:"/>
+		<control/>
+		<control caption="&#160;BitTorrent:"/>
+		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Действия">
 		<control caption="ВНИМАНИЕ: Этот диалог для ОПЫТНЫХ пользователей и дает опции, которые при неправильном использовании могут разрушить загрузку."/>
@@ -4432,6 +4428,28 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
+	<list name="CDownloadCtrl">
+		<column from="Downloaded File" to="Загружаемый файл"/>
+		<column from="Size" to="Размер"/>
+		<column from="Progress" to="Прогресс"/>
+		<column from="Transfer" to="Загружено"/>
+		<column from="Percent" to="Завершено"/>
+		<column from="Speed" to="Скорость"/>
+		<column from="Status" to="Статус"/>
+		<column from="Client" to="Клиент"/>
+		<column from="Country" to="Страна"/>
+	</list>
+	<list name="CUploadCtrl">
+		<column from="Uploaded File" to="Раздаваемый файл"/>
+		<column from="Size" to="Размер"/>
+		<column from="Progress" to="Прогресс"/>
+		<column from="Transfer" to="Загружено"/>
+		<column from="Speed" to="Скорость"/>
+		<column from="Rating" to="Рейтинг"/>
+		<column from="Remote User" to="Хост"/>
+		<column from="Client" to="Клиент"/>
+		<column from="Country" to="Страна"/>
+	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Файл"/>
 		<column from="Extension" to="Расширение"/>
@@ -4440,27 +4458,6 @@
 		<column from="Hits" to="Обращений"/>
 		<column from="Uploads" to="Раздач"/>
 		<column from="Modified" to="Изменено"/>
-	</list>
-	<list name="CDownloadCtrl">
-		<column from="Downloaded File" to="Загружаемый файл"/>
-		<column from="Size" to="Размер"/>
-		<column from="Progress" to="Прогресс"/>
-		<column from="Speed" to="Скорость"/>
-		<column from="Status" to="Статус"/>
-		<column from="Client" to="Клиент"/>
-		<column from="Downloaded" to="Загружено"/>
-		<column from="Complete" to="Завершено"/>
-		<column from="Country" to="Страна"/>
-	</list>
-	<list name="CUploadCtrl">
-		<column from="Remote User" to="Хост"/>
-		<column from="Uploaded File" to="Раздаваемый файл"/>
-		<column from="Size" to="Размер"/>
-		<column from="Progress" to="Прогресс"/>
-		<column from="Speed" to="Скорость"/>
-		<column from="Client" to="Клиент"/>
-		<column from="Rating" to="Рейтинг"/>
-		<column from="Country" to="Страна"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Адрес"/>
@@ -4480,7 +4477,7 @@
 		<column from="Address / Content" to="Адрес/Содержание"/>
 		<column from="Action" to="Действие"/>
 		<column from="Expires" to="Истекает"/>
-		<column from="Precedence" to="Старшинство"/>
+		<column from="#" to="Старшинство"/>
 		<column from="Hits" to="Обращений"/>
 		<column from="Comment" to="Заметка"/>
 	</list>
