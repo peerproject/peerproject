@@ -552,9 +552,9 @@ void CMediaFrame::OnPaint()
 		if ( dc.RectVisible( &rcStatus ) ) PaintStatus( dc, rcStatus );
 	}
 
-	if ( dc.RectVisible( &m_rcVideo ) /* &&  m_pPlayer == NULL */ )	
+	if ( dc.RectVisible( &m_rcVideo ) /* &&  m_pPlayer == NULL */ )
 		PaintSplash( dc, m_rcVideo );
-	// else  
+	// else
 	//	dc.FillSolidRect( &m_rcVideo, CoolInterface.m_crMediaWindowBack );
 	// Mediaplayer plugin handles painting of m_rcVideo rectangular itself
 	// ToDo: Fix unhandled audio files display

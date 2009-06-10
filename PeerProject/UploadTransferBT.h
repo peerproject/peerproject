@@ -47,7 +47,7 @@ public:
 private:
 	Fragments::Queue m_oRequested;
 	Fragments::Queue m_oServed;
-	
+
 // Operations
 public:
 	void			SetChoke(BOOL bChoke);

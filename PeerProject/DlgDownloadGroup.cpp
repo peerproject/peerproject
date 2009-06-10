@@ -90,7 +90,7 @@ BOOL CDownloadGroupDlg::OnInitDialog()
 	LoadString( m_wndSchemas.m_sNoSchemaText, IDS_SEARCH_PANEL_AFT );
 	m_wndSchemas.Load( m_pGroup->m_sSchemaURI );
 	m_sOldSchemaURI = m_pGroup->m_sSchemaURI;
-	
+
 	m_wndBrowse.SetCoolIcon( IDI_BROWSE, Settings.General.LanguageRTL );
 	m_wndCancel.SetCoolIcon( IDI_FAKE, Settings.General.LanguageRTL );
 
@@ -187,7 +187,7 @@ void CDownloadGroupDlg::OnOK()
 
 		// Change schema and remove old schema filters (preserve custom ones)
 		m_pGroup->SetSchema( m_wndSchemas.GetSelectedURI(), TRUE );
-			
+
 		// Why should we force users to have groups named after the schema?
 		// Because we add new schema related types without asking?
 		if ( m_sName.GetLength() && m_pGroup->m_sName != m_sName )
@@ -269,7 +269,7 @@ void CDownloadGroupDlg::OnBrowse()
 	// If the group folder and download folders are the same, use the default download folder
 	CString sSchema = m_wndSchemas.GetSelectedURI();
 	if ( sSchema != CSchema::uriBitTorrent &&
-		 sSchema != CSchema::uriCollection && 
+		 sSchema != CSchema::uriCollection &&
 		! strPath.CompareNoCase( Settings.Downloads.CompletePath ) )
 		m_sFolder.Empty();
 	else

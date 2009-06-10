@@ -1,12 +1,12 @@
-// 
+//
 // Skin.h
-// 
+//
 // This file is part of PeerProject (peerproject.org) © 2008
-// 
-// Portions of this page have been previously released into the public domain.  
+//
+// Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
 // with the exception of the following notice:
-// 
+//
 // The Zlib library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
 // The Unzip library is Copyright (C) 1998-2003 Gilles Vollant.
 

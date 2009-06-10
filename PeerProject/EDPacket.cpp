@@ -256,7 +256,7 @@ void CEDPacket::WriteFile(const CPeerProjectFile* pPeerProjectFile, QWORD nSize,
 	// Title
 	if ( strTitle.GetLength() )
 		CEDTag( ED2K_FT_TITLE, strTitle ).Write( this, bUnicode, bSmlTags );
-	
+
 	// Artist
 	if ( strArtist.GetLength() )
 		CEDTag( ED2K_FT_ARTIST, strArtist ).Write( this, bUnicode, bSmlTags );
@@ -268,11 +268,11 @@ void CEDPacket::WriteFile(const CPeerProjectFile* pPeerProjectFile, QWORD nSize,
 	// Bitrate
 	if ( nBitrate )
 		CEDTag( ED2K_FT_BITRATE, nBitrate ).Write( this, bUnicode, bSmlTags );
-	
+
 	// Length
 	if ( nLength )
 		CEDTag( ED2K_FT_LENGTH, nLength ).Write( this, bUnicode, bSmlTags );
-	
+
 	// Codec
 	if ( strCodec.GetLength() )
 		CEDTag( ED2K_FT_CODEC, strCodec ).Write( this, bUnicode, bSmlTags );

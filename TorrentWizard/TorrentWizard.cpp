@@ -49,27 +49,27 @@ CTorrentWizardApp::CTorrentWizardApp()
 
 BOOL CTorrentWizardApp::InitInstance()
 {
-	CCommandLineInfoEx cmdInfo; 
-	ParseCommandLine(cmdInfo); 
+	CCommandLineInfoEx cmdInfo;
+	ParseCommandLine(cmdInfo);
 
 	cmdInfo.GetOption( _T("sourcefile"), m_sCommandLineSourceFile );
 	cmdInfo.GetOption( _T("destination"), m_sCommandLineDestination );
 	cmdInfo.GetOption( _T("tracker"), m_sCommandLineTracker );
 
-	if( ( m_sCommandLineSourceFile.GetLength() > 0 ) && 
-		( m_sCommandLineDestination.GetLength() > 0 ) && 
+	if( ( m_sCommandLineSourceFile.GetLength() > 0 ) &&
+		( m_sCommandLineDestination.GetLength() > 0 ) &&
 		( m_sCommandLineTracker.GetLength() > 0 ) )
 		m_bCommandLine = TRUE;
 	else
 		m_bCommandLine = FALSE;
 
 	SetRegistryKey( _T("PeerProject") );
-	
+
 	InitEnvironment();
 	InitResources();
-	
+
 	CWizardSheet::Run();
-	
+
 	return FALSE;
 }
 
@@ -92,11 +92,11 @@ void CTorrentWizardApp::InitEnvironment()
 	if ( dwSize > 0 )
 	{
 		BYTE* pBuffer = new BYTE[ dwSize ];
-		
+
 		if ( GetFileVersionInfo( szPath, NULL, dwSize, pBuffer ) )
 		{
 			VS_FIXEDFILEINFO* pTable;
-			
+
 			if ( VerQueryValue( pBuffer, _T("\\"), (VOID**)&pTable, (UINT*)&dwSize ) )
 			{
 				m_nVersion[0] = (WORD)( pTable->dwFileVersionMS >> 16 );
@@ -105,7 +105,7 @@ void CTorrentWizardApp::InitEnvironment()
 				m_nVersion[3] = (WORD)( pTable->dwFileVersionLS & 0xFFFF );
 			}
 		}
-		
+
 		delete [] pBuffer;
 	}
 
@@ -127,15 +127,15 @@ void CTorrentWizardApp::InitResources()
 	m_fntNormal.CreateFont( -11, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, _T("Tahoma") );
-	
+
 	m_fntBold.CreateFont( -11, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, _T("Tahoma") );
-	
+
 	m_fntLine.CreateFont( -11, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, _T("Tahoma") );
-	
+
 	m_fntTiny.CreateFont( -8, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, _T("Tahoma") );
@@ -150,15 +150,15 @@ CString SmartSize(QWORD nVolume)
 {
 	LPCTSTR pszUnit = _T("B");
 	CString strVolume;
-	
+
 	if ( nVolume < 1024 )
 	{
 		strVolume.Format( _T("%lu %s"), (DWORD)nVolume, pszUnit );
 		return strVolume;
 	}
-	
+
 	nVolume /= 1024;
-	
+
 	if ( nVolume < 1024 )
 	{
 		strVolume.Format( _T("%lu K%s"), (DWORD)nVolume, pszUnit );
@@ -175,6 +175,6 @@ CString SmartSize(QWORD nVolume)
 	{
 		strVolume.Format( _T("%.3lf T%s"), (double)(__int64)nVolume / (1024*1024*1024), pszUnit );
 	}
-	
+
 	return strVolume;
 }

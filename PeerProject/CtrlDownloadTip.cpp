@@ -503,7 +503,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 
 	if ( Settings.General.GUIMode == GUI_BASIC )
 		return;
-	
+
 	// We also report on if we have a hashset, and if hash is trusted (Debug mode only)
 	CString strNoHashset, strUntrusted;
 	LoadString( strNoHashset, IDS_TIP_NOHASHSET );

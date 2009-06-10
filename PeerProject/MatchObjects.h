@@ -52,7 +52,7 @@ class CMatchList
 public:
 	CMatchList(CBaseMatchWnd* pParent);
 	virtual ~CMatchList();
-	
+
 public:
 	CMutex			m_pSection;
 	CString			m_sFilter;
@@ -109,7 +109,7 @@ protected:
 		fBTH	= 4,
 		fMD5	= 5
 	};
-	
+
 public:
 	void		UpdateStats();
 	void		AddHits(const CQueryHit* pHits, CQuerySearch* pFilter = NULL);
@@ -139,7 +139,7 @@ protected:
 	CMatchFile* FindFileAndAddHit(CQueryHit* pHit, const findType nFindFlag, FILESTATS* Stats);
 	void		InsertSorted(CMatchFile* pFile);
 	BOOL		FilterHit(CQueryHit* pHit);
-	
+
 	friend class CMatchFile;
 
 };
@@ -150,7 +150,7 @@ class CMatchFile : public CPeerProjectFile
 public:
 	CMatchFile(CMatchList* pList, CQueryHit* pHit = NULL);
 	virtual ~CMatchFile();
-	
+
 public:
 	CMatchList*	m_pList;
 	DWORD		m_nTotal;
@@ -194,7 +194,7 @@ public:
 	CString		GetURN() const;
 	void		Serialize(CArchive& ar, int nVersion);
 	void		Ban(int nBanLength);	// Ban by hashes and by hit host IPs
-	
+
 	inline DWORD GetFilteredCount()
 	{
 		if ( ( m_pList->m_bFilterDRM && m_bDRM ) ||
@@ -205,7 +205,7 @@ public:
 
 		return m_nFiltered;
 	}
-	
+
 	inline DWORD GetItemCount()
 	{
 		DWORD nFiltered = GetFilteredCount();
@@ -256,7 +256,7 @@ public:
 
 	// Get partial count of best Hit
 	DWORD		GetBestPartial() const;
-	
+
 	// Get rating of best Hit
 	int			GetBestRating() const;
 
@@ -271,13 +271,13 @@ public:
 
 	// Get schema of best Hit
 	LPCTSTR		GetBestSchemaURI() const;
-	
+
 	// Get measured of best Hit
 	TRISTATE	GetBestMeasured() const;
 
 	// Get browse host flag of best Hit
 	BOOL		GetBestBrowseHost() const;
-	
+
 	// Is this file known (i.e. exist in Library)?
 	// TRI_UNKNOWN	- Not
 	// TRI_FALSE		- Yes

@@ -22,7 +22,7 @@
 
 // In order to avoid circular dependencies with Boost.TR1
 // we make sure that our include of <memory> doesn't try to
-// pull in the TR1 headers: that's why we use this header 
+// pull in the TR1 headers: that's why we use this header
 // rather than including <memory> directly:
 #include <boost/config/no_tr1/memory.hpp>  // std::auto_ptr
 
@@ -61,7 +61,6 @@ namespace boost
 template<class T> class shared_ptr;
 template<class T> class weak_ptr;
 template<class T> class enable_shared_from_this;
-template<class T> class enable_shared_from_this2;
 
 namespace detail
 {
@@ -110,14 +109,6 @@ template< class X, class Y, class T > inline void sp_enable_shared_from_this( bo
     }
 }
 
-template< class X, class Y, class T > inline void sp_enable_shared_from_this( boost::shared_ptr<X> * ppx, Y const * py, boost::enable_shared_from_this2< T > const * pe )
-{
-    if( pe != 0 )
-    {
-        pe->_internal_accept_owner( ppx, const_cast< Y* >( py ) );
-    }
-}
-
 #ifdef _MANAGED
 
 // Avoid C4793, ... causes native code generation
@@ -150,7 +141,7 @@ template< class T, class R > struct sp_enable_if_auto_ptr
 template< class T, class R > struct sp_enable_if_auto_ptr< std::auto_ptr< T >, R >
 {
     typedef R type;
-}; 
+};
 
 #endif
 
@@ -286,7 +277,7 @@ public:
 #if !defined( BOOST_NO_SFINAE ) && !defined( BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION )
 
     template<class Ap>
-    shared_ptr( Ap r, typename boost::detail::sp_enable_if_auto_ptr<Ap, int>::type = 0 ): px( r.get() ), pn()
+    explicit shared_ptr( Ap r, typename boost::detail::sp_enable_if_auto_ptr<Ap, int>::type = 0 ): px( r.get() ), pn()
     {
         typename Ap::element_type * tmp = r.get();
         pn = boost::detail::shared_count( r );

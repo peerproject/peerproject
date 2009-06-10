@@ -171,7 +171,7 @@ STDMETHODIMP CPlayer::GetVolume(
 	// Convert -10,000 to 0 ->  0.0 to 1.0
 	if ( lVolume < -6000. )
 		*pnVolume = 0;
-	else 
+	else
 		*pnVolume = ( lVolume + 6000. ) / 6000.;
 
 	return S_OK;
@@ -329,7 +329,7 @@ STDMETHODIMP CPlayer::Close(void)
 	if ( ! m_pGraph )
 		return E_INVALIDARG;
 
-	Stop(); 
+	Stop();
 
 	return S_OK;
 }
@@ -548,7 +548,7 @@ HRESULT CPlayer::AdjustVideoZoom(void)
 	{
 		VideoWidth >>= 1;
 		VideoHeight >>= 1;
-	}		
+	}
 	else if ( m_nZoom == smzDouble )
 	{
 		VideoWidth <<= 1;

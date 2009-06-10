@@ -10,7 +10,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Add manually edited resources here...
 
-// 1 TYPELIB "PeerPrject.tlb"
+// 1 TYPELIB "PeerProject.tlb"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -19,7 +19,7 @@
 
 #define	IDR_MANIFEST 1 // 2 for a DLL
 
-IDR_MANIFEST RT_MANIFEST 
+IDR_MANIFEST RT_MANIFEST
 {
     "<assembly xmlns=""urn:schemas-microsoft-com:asm.v1"" manifestVersion=""1.0"">
        <assemblyIdentity type=""win32"" name=""PeerProject.PeerProject"" version=""1.0.0.0""

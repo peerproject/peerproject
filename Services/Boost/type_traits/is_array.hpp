@@ -1,6 +1,6 @@
 
 //  (C) Copyright Dave Abrahams, Steve Cleary, Beman Dawes, Howard
-//  Hinnant & John Maddock 2000.  
+//  Hinnant & John Maddock 2000.
 //  Use, modification and distribution are subject to the Boost Software License,
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt).
@@ -61,8 +61,8 @@ yes_type BOOST_TT_DECL is_array_tester2(...);
 
 template< typename T >
 struct is_array_impl
-{ 
-    BOOST_STATIC_CONSTANT(bool, value = 
+{
+    BOOST_STATIC_CONSTANT(bool, value =
         sizeof(::boost::detail::is_array_tester2(
             ::boost::detail::is_array_tester1(
                 ::boost::type_traits::wrap<T>()

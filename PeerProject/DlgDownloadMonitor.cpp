@@ -531,9 +531,9 @@ void CDownloadMonitorDlg::OnDownloadLaunch()
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 250 ) || ! Downloads.Check( m_pDownload ) )
 		return;
-	
+
 	m_pDownload->Launch( -1, &pLock, FALSE );
-	
+
 	if ( m_pDownload->IsCompleted() )
 		PostMessage( WM_CLOSE );
 }

@@ -215,12 +215,12 @@ void CHomeViewCtrl::OnLayoutComplete()
 //void CHomeViewCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 //{
 //	SCROLLINFO pScroll;
-//	
+//
 //	pScroll.cbSize	= sizeof(pScroll);
 //	pScroll.fMask	= SIF_ALL & ~SIF_TRACKPOS;
-//	
+//
 //	GetScrollInfo( SB_VERT, &pScroll );
-//	
+//
 //	switch ( nSBCode )
 //	{
 //	case SB_BOTTOM:

@@ -29,7 +29,7 @@ using namespace std;
 
 // CDocReader
 
-class ATL_NO_VTABLE CDocReader : 
+class ATL_NO_VTABLE CDocReader :
 	public CComObjectRootEx<CComMultiThreadModel>,
 	public CComCoClass<CDocReader, &CLSID_DocReader>,
 	public IImageServicePlugin,
@@ -194,10 +194,10 @@ public:
 	// IImageServicePlugin Methods
 public:
 	STDMETHOD(LoadFromFile)(BSTR sFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
-	STDMETHOD(LoadFromMemory)(BSTR sType, SAFEARRAY* pMemory, 
+	STDMETHOD(LoadFromMemory)(BSTR sType, SAFEARRAY* pMemory,
 		IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
 	STDMETHOD(SaveToFile)(BSTR sFile, IMAGESERVICEDATA* pParams, SAFEARRAY* pImage);
-	STDMETHOD(SaveToMemory)(BSTR sType, SAFEARRAY** ppMemory, 
+	STDMETHOD(SaveToMemory)(BSTR sType, SAFEARRAY** ppMemory,
 		IMAGESERVICEDATA* pParams, SAFEARRAY* pImage);
 
 private:
@@ -209,9 +209,9 @@ private:
 	CComBSTR GetMetadataXML(unzFile pFile, char* pszFile);
 
 	void Initialize(BOOL bOnlyThumb);
-	HBITMAP GetBitmapFromMetaFile(PICTDESC pds, int nResolution, 
+	HBITMAP GetBitmapFromMetaFile(PICTDESC pds, int nResolution,
 		WORD wBitsPerSample, BITMAPINFO **ppBI);
-	HBITMAP GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution, 
+	HBITMAP GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution,
 		WORD wBitsPerSample, BITMAPINFO **ppBI);
 public:
 	LPWSTR GetDocumentFormat(LPCWSTR pszExt);

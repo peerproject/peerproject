@@ -163,7 +163,7 @@ void CDownloadTabBar::UpdateGroups(int nCookie)
 		CDownloadGroup* pGroup = DownloadGroups.GetNext( pos );
 		m_pItems.AddTail( new TabItem( pGroup, nCookie ) );
 
-		if ( ! bFoundHot && pGroup == m_pHot->m_pGroup ) 
+		if ( ! bFoundHot && pGroup == m_pHot->m_pGroup )
 			bFoundHot = TRUE;
 	}
 

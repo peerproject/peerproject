@@ -133,7 +133,7 @@ CString CPeerProjectFile::GetFilename() const
 		sFilename = CString( _T("btih_") ) + m_oBTH.toString();
 	else
 		sFilename.Format( _T("rand_%2i%2i%2i%2i"),
-			GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ), 
+			GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ),
 			GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ) );
 	return sFilename;
 }
@@ -207,7 +207,7 @@ bool CPeerProjectFile::SplitStringToURLs(LPCTSTR pszURLs, CMapStringToFILETIME& 
 
 	return ! oUrls.IsEmpty();
 }
-	
+
 //////////////////////////////////////////////////////////////////////
 // CPeerProjectFile Automation
 

@@ -155,7 +155,7 @@ void CTransfers::OnRun()
 			break;
 
 			Uploads.OnRun();
-		
+
 			OnCheckExit();
 
 		TransferFiles.CommitDeferred();

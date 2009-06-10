@@ -71,7 +71,7 @@ CDownloadWithSources::~CDownloadWithSources()
 {
 	ClearSources();
 	if ( m_pXML != NULL ) delete m_pXML;
-	
+
 	for ( POSITION pos = m_pFailedSources.GetHeadPosition() ; pos ; )
 		delete m_pFailedSources.GetNext( pos );
 
@@ -86,10 +86,10 @@ DWORD CDownloadWithSources::GetSourceCount(BOOL bNoPush, BOOL bSane) const
 	CQuickLock pLock( Transfers.m_pSection );
 
 	if ( ! bNoPush && ! bSane ) return m_nSourceCount;
-	
+
 	DWORD tNow = GetTickCount();
 	DWORD nCount = 0;
-	
+
 	for ( CDownloadSource* pSource = m_pSourceFirst ; pSource ; pSource = pSource->m_pNext )
 	{
 		if ( ! bNoPush || ! pSource->m_bPushOnly )
@@ -103,7 +103,7 @@ DWORD CDownloadWithSources::GetSourceCount(BOOL bNoPush, BOOL bSane) const
 			}
 		}
 	}
-	
+
 	return nCount;
 }
 
@@ -127,7 +127,7 @@ DWORD CDownloadWithSources::GetBTSourceCount(BOOL bNoPush) const
 
 	DWORD tNow = GetTickCount();
 	DWORD nCount = 0;
-	
+
 	for ( CDownloadSource* pSource = m_pSourceFirst ; pSource ; pSource = pSource->m_pNext )
 	{
 		if ( ( pSource->m_nProtocol == PROTOCOL_BT ) &&									// Only counting BT sources
@@ -147,14 +147,14 @@ DWORD CDownloadWithSources::GetED2KCompleteSourceCount() const
 
 	DWORD tNow = GetTickCount();
 	DWORD nCount = 0;
-	
+
 	for ( CDownloadSource* pSource = m_pSourceFirst ; pSource ; pSource = pSource->m_pNext )
 	{
 		if ( ( ! pSource->m_bPushOnly ) &&						// Push sources shouldn't be counted since you often cannot reach them
 			 ( pSource->m_tAttempt < tNow || pSource->m_tAttempt - tNow <= 900000 ) &&	// Only count sources that are probably active
 			 ( pSource->m_nProtocol == PROTOCOL_ED2K ) &&		// Only count ed2k sources
              ( pSource->m_oAvailable.empty() && pSource->IsOnline() ) )	// Only count complete sources
-			
+
 		{
 			nCount++;
 		}
@@ -171,7 +171,7 @@ BOOL CDownloadWithSources::CheckSource(CDownloadSource* pCheck) const
 	{
 		if ( pSource == pCheck ) return TRUE;
 	}
-	
+
 	return FALSE;
 }
 
@@ -190,7 +190,7 @@ void CDownloadWithSources::ClearSources()
 	m_pSourceFirst = m_pSourceLast = NULL;
 	m_nSourceCount = m_nEdSourceCount = m_nG1SourceCount = m_nFTPSourceCount = 0;
 	m_nG2SourceCount = m_nHTTPSourceCount = m_nBTSourceCount = 0;
-	
+
 	SetModified();
 }
 
@@ -203,7 +203,7 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 
 	BOOL bHash = FALSE;
 	BOOL bUpdated = FALSE;
-	
+
 	if ( ! bForce )
 	{
 		if ( m_oSHA1 && pHit->m_oSHA1 )
@@ -212,7 +212,7 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 			bHash = TRUE;
 		}
 		// We should check Tiger as well as others.
-		// There exist some hash combinations, (Shareaza 2.2.0.0 installer file) 
+		// There exist some hash combinations, (Shareaza 2.2.0.0 installer file)
 		// i.e. with the same SHA1 but different Tiger (CyberBob).
 
 		if ( m_oTiger && pHit->m_oTiger )
@@ -237,18 +237,18 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 			bHash = TRUE;
 		}
 	}
-	
+
 	if ( ! bHash && ! bForce )
 	{
 		if ( Settings.General.HashIntegrity ) return FALSE;
-		
+
 		if ( m_sName.IsEmpty() || pHit->m_sName.IsEmpty() ) return FALSE;
 		if ( m_nSize == SIZE_UNKNOWN || ! pHit->m_bSize ) return FALSE;
-		
+
 		if ( m_nSize != pHit->m_nSize ) return FALSE;
 		if ( m_sName.CompareNoCase( pHit->m_sName ) ) return FALSE;
 	}
-	
+
 	if ( !m_oSHA1 && pHit->m_oSHA1 )
 	{
 		m_oSHA1 = pHit->m_oSHA1;
@@ -274,7 +274,7 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 		m_oMD5 = pHit->m_oMD5;
 		bUpdated = TRUE;
 	}
-	
+
 	if ( m_nSize == SIZE_UNKNOWN && pHit->m_bSize )
 	{
 		m_nSize = pHit->m_nSize;
@@ -288,7 +288,7 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 	{
 		m_sName = pHit->m_sName;
 	}
-	
+
 	if ( Settings.Downloads.Metadata && m_pXML == NULL )
 	{
 		if ( pHit->m_pXML != NULL && pHit->m_sSchemaPlural.GetLength() )
@@ -297,7 +297,7 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 			m_pXML->AddAttribute( _T("xmlns:xsi"), CXMLAttribute::xmlnsInstance );
 			m_pXML->AddAttribute( CXMLAttribute::schemaName, pHit->m_sSchemaURI );
 			m_pXML->AddElement( pHit->m_pXML->Clone() );
-			
+
 			if ( CSchema* pSchema = SchemaCache.Get( pHit->m_sSchemaURI ) )
 			{
 				pSchema->Validate( m_pXML, TRUE );
@@ -315,7 +315,7 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 
 	// No URL, stop now with success
 	if ( ! pHit->m_sURL.IsEmpty() )
-	{	
+	{
 		if ( ! AddSourceInternal( new CDownloadSource( (CDownload*)this, pHit ) ) )
 		{
 			return FALSE;
@@ -352,19 +352,19 @@ BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLa
 	if ( pszURL == NULL ) return FALSE;
 	if ( *pszURL == 0 ) return FALSE;
 	if ( nRedirectionCount > 5 ) return FALSE; // No more than 5 redirections
-	
+
 	BOOL bHashAuth = FALSE;
 	BOOL bValidated = FALSE;
 	CPeerProjectURL pURL;
-	
+
 	if ( *pszURL == '@' )
 	{
 		bHashAuth = TRUE;
 		pszURL++;
 	}
-	
+
 	if ( ! pURL.Parse( pszURL ) ) return FALSE;
-	
+
 	if ( bURN )
 	{
 		if ( Network.IsFirewalledAddress( &pURL.m_pAddress, TRUE ) ||
@@ -494,7 +494,7 @@ int CDownloadWithSources::AddSourceURLs(LPCTSTR pszURLs, BOOL bURN, BOOL bFailed
 		CString strURL;
 		FILETIME tSeen = {};
 		oUrls.GetNextAssoc( pos, strURL, tSeen );
-		
+
 		if ( AddSourceURL( strURL, bURN,
 			( tSeen.dwLowDateTime | tSeen.dwHighDateTime ) ? &tSeen : NULL, 0, bFailed ) )
 		{
@@ -533,7 +533,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 		{
 			if ( ( ( pSource->m_nServerPort == 0 ) && (Settings.Connection.InPort == pSource->m_nPort ) )
 				|| ( Settings.Connection.IgnoreOwnIP ) )
-			{	
+			{
 				delete pSource;
 				return FALSE;
 			}
@@ -548,7 +548,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 			return FALSE;
 		}
 	}
-	
+
 	bool bG2Exists = false;
 	bool bExistingIsRaza = false;
 	bool bDeleteSource = false;
@@ -558,9 +558,9 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 	if ( pSource->m_nRedirectionCount == 0 ) // Don't check for existing sources if source is a redirection
 	{
 		for ( CDownloadSource* pExisting = m_pSourceFirst ; pExisting ; )
-		{	
+		{
 			if ( pExisting->Equals( pSource ) ) // IPs and ports are equal
-			{	
+			{
 				if ( !bExistingIsRaza )
 					bExistingIsRaza = VendorCache.IsExtended( pExisting->m_sServer );
 
@@ -570,21 +570,21 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 				// Point to non-HTTP source which is PeerProject
 				if ( bExistingIsRaza )
 					pCopy = bG2Exists ? NULL : pExisting;
-				
+
 				if ( pExisting->m_nProtocol == pSource->m_nProtocol )
 					bDeleteSource = true;
 
 				if ( pExisting->m_pTransfer != NULL ) // We already downloading
 				{
 					// Remove new source which is not HTTP and return
-					if ( ( pExisting->m_nProtocol == PROTOCOL_HTTP || pExisting->m_nProtocol == PROTOCOL_G2 ) && 
+					if ( ( pExisting->m_nProtocol == PROTOCOL_HTTP || pExisting->m_nProtocol == PROTOCOL_G2 ) &&
 						 ( pSource->m_nProtocol != PROTOCOL_HTTP && pSource->m_nProtocol != PROTOCOL_G2 ) )
 						bDeleteSource = true;
 				}
 				else // We are not downloading
 				{
 					// Replace non-HTTP source with a new one (we will add it later)
-					if ( ( pExisting->m_nProtocol != PROTOCOL_HTTP && pExisting->m_nProtocol != PROTOCOL_G2 ) && 
+					if ( ( pExisting->m_nProtocol != PROTOCOL_HTTP && pExisting->m_nProtocol != PROTOCOL_G2 ) &&
 						 ( pSource->m_nProtocol == PROTOCOL_HTTP || pSource->m_nProtocol == PROTOCOL_G2 ) )
 					{
 						// Set connection delay the same as for the old source
@@ -630,7 +630,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 
 			pG2Source->m_pPrev = m_pSourceLast;
 			pG2Source->m_pNext = NULL;
-				
+
 			if ( m_pSourceLast != NULL )
 			{
 				m_pSourceLast->m_pNext = pG2Source;
@@ -648,7 +648,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 			}
 		}
 	}
-	
+
 	if ( bDeleteSource )
 	{
 		delete pSource;
@@ -673,7 +673,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 
 	pSource->m_pPrev = m_pSourceLast;
 	pSource->m_pNext = NULL;
-		
+
 	if ( m_pSourceLast != NULL )
 	{
 		m_pSourceLast->m_pNext = pSource;
@@ -683,9 +683,9 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 	{
 		m_pSourceFirst = m_pSourceLast = pSource;
 	}
-	
+
 	SetModified();
-	
+
 	return TRUE;
 }
 
@@ -697,7 +697,7 @@ CString CDownloadWithSources::GetSourceURLs(CList< CString >* pState, int nMaxim
 	CQuickLock pLock( Transfers.m_pSection );
 
 	CString strSources;
-	
+
 	for ( CDownloadSource* pSource = m_pSourceFirst ; pSource ; pSource = pSource->m_pNext )
 	{
 		if ( pSource != pExcept && pSource->m_bPushOnly == FALSE &&
@@ -714,7 +714,7 @@ CString CDownloadWithSources::GetSourceURLs(CList< CString >* pState, int nMaxim
 
 			if ( nProtocol == PROTOCOL_G1 )
 			{
-				if ( strSources.GetLength() ) 
+				if ( strSources.GetLength() )
 					strSources += ',';
 				strSources += CString( inet_ntoa( pSource->m_pAddress ) );
 				if ( pSource->m_nPort != GNUTELLA_DEFAULT_PORT )
@@ -740,12 +740,12 @@ CString CDownloadWithSources::GetSourceURLs(CList< CString >* pState, int nMaxim
 				strSources += ' ';
 				strSources += TimeToString( &pSource->m_tLastSeen );
 			}
-			
+
 			if ( nMaximum == 1 ) break;
 			else if ( nMaximum > 1 ) nMaximum --;
 		}
 	}
-	
+
 	return strSources;
 }
 
@@ -773,7 +773,7 @@ CString	CDownloadWithSources::GetTopFailedSources(int nMaximum, PROTOCOLID nProt
 				int nPosSlash = pResult->m_sURL.Find( '/', nPos );
 				if ( nPosSlash < 0 ) continue;
 
-				if ( strSources.GetLength() ) 
+				if ( strSources.GetLength() )
 					strSources += ',';
 
 				strSources += str;
@@ -816,7 +816,7 @@ void CDownloadWithSources::RemoveOverlappingSources(QWORD nOffset, QWORD nLength
 	for ( CDownloadSource* pSource = m_pSourceFirst ; pSource ; )
 	{
 		CDownloadSource* pNext = pSource->m_pNext;
-		
+
 		if ( pSource->TouchedRange( nOffset, nLength ) )
 		{
 			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_VERIFY_DROP,
@@ -825,7 +825,7 @@ void CDownloadWithSources::RemoveOverlappingSources(QWORD nOffset, QWORD nLength
 				nOffset, nOffset + nLength - 1 );
 			pSource->Remove( TRUE, FALSE );
 		}
-		
+
 		pSource = pNext;
 	}
 }
@@ -845,14 +845,14 @@ CFailedSource* CDownloadWithSources::LookupFailedSource(LPCTSTR pszUrl, bool bRe
 		if ( pResult && pResult->m_sURL.Compare( pszUrl ) == 0 )
 		{
 #ifndef NDEBUG
-			theApp.Message( MSG_DEBUG, _T("Votes for file %s: negative - %i, positive - %i; offline status: %i"), 
-				pszUrl, pResult->m_nNegativeVotes, 
-				pResult->m_nPositiveVotes, 
+			theApp.Message( MSG_DEBUG, _T("Votes for file %s: negative - %i, positive - %i; offline status: %i"),
+				pszUrl, pResult->m_nNegativeVotes,
+				pResult->m_nPositiveVotes,
 				pResult->m_bOffline );
 #endif
 			if ( pResult->m_bLocal )
 				break;
-			
+
 			if ( bReliable ) // Not used at the moment anywhere, we check that explicitly
 			{
 				INT_PTR nTotalVotes = pResult->m_nNegativeVotes + pResult->m_nPositiveVotes;
@@ -955,7 +955,7 @@ void CDownloadWithSources::RemoveSource(CDownloadSource* pSource, BOOL bBan)
 	{
 		AddFailedSource( pSource );
 	}
-	
+
 	ASSERT( m_nSourceCount > 0 );
 	m_nSourceCount --;
 
@@ -976,12 +976,12 @@ void CDownloadWithSources::RemoveSource(CDownloadSource* pSource, BOOL bBan)
 		pSource->m_pPrev->m_pNext = pSource->m_pNext;
 	else
 		m_pSourceFirst = pSource->m_pNext;
-	
+
 	if ( pSource->m_pNext != NULL )
 		pSource->m_pNext->m_pPrev = pSource->m_pPrev;
 	else
 		m_pSourceLast = pSource->m_pPrev;
-	
+
 	delete pSource;
 	SetModified();
 }
@@ -994,22 +994,22 @@ void CDownloadWithSources::SortSource(CDownloadSource* pSource, BOOL bTop)
 	CQuickLock pLock( Transfers.m_pSection );
 
 	ASSERT( m_nSourceCount > 0 );
-	
+
 	if ( pSource->m_pPrev != NULL )
 		pSource->m_pPrev->m_pNext = pSource->m_pNext;
 	else
 		m_pSourceFirst = pSource->m_pNext;
-	
+
 	if ( pSource->m_pNext != NULL )
 		pSource->m_pNext->m_pPrev = pSource->m_pPrev;
 	else
 		m_pSourceLast = pSource->m_pPrev;
-	
+
 	if ( ! bTop )
 	{
 		pSource->m_pPrev = m_pSourceLast;
 		pSource->m_pNext = NULL;
-		
+
 		if ( m_pSourceLast != NULL )
 		{
 			m_pSourceLast->m_pNext = pSource;
@@ -1024,7 +1024,7 @@ void CDownloadWithSources::SortSource(CDownloadSource* pSource, BOOL bTop)
 	{
 		pSource->m_pPrev = NULL;
 		pSource->m_pNext = m_pSourceFirst;
-		
+
 		if ( m_pSourceFirst != NULL )
 		{
 			m_pSourceFirst->m_pPrev = pSource;
@@ -1051,12 +1051,12 @@ void CDownloadWithSources::SortSource(CDownloadSource* pSource)
 		pSource->m_pPrev->m_pNext = pSource->m_pNext;
 	else
 		m_pSourceFirst = pSource->m_pNext;
-	
+
 	if ( pSource->m_pNext != NULL )
 		pSource->m_pNext->m_pPrev = pSource->m_pPrev;
 	else
 		m_pSourceLast = pSource->m_pPrev;
-	
+
 
 
 	if ( ( m_pSourceFirst == NULL ) || ( m_pSourceLast == NULL ) )
@@ -1104,7 +1104,7 @@ int CDownloadWithSources::GetSourceColor()
 
 	BOOL bTaken[SRC_COLORS] = {};
 	unsigned int nFree = SRC_COLORS;
-	
+
 	for ( CDownloadSource* pSource = m_pSourceFirst ; pSource ; pSource = pSource->m_pNext )
 	{
 		if ( pSource->m_nColor >= 0 )
@@ -1116,11 +1116,11 @@ int CDownloadWithSources::GetSourceColor()
 			}
 		}
 	}
-	
+
 	if ( nFree == 0 ) return GetRandomNum( 0u, SRC_COLORS - 1 );
-	
+
 	nFree = GetRandomNum( 0u, nFree - 1 );
-	
+
 	for ( int nColor = 0 ; nColor < SRC_COLORS ; nColor++ )
 	{
 		if ( bTaken[ nColor ] == FALSE )
@@ -1128,7 +1128,7 @@ int CDownloadWithSources::GetSourceColor()
 			if ( nFree-- == 0 ) return nColor;
 		}
 	}
-	
+
 	return GetRandomNum( 0u, SRC_COLORS - 1 );
 }
 
@@ -1140,16 +1140,16 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)
 	CDownloadBase::Serialize( ar, nVersion );
 
 	CQuickLock pLock( Transfers.m_pSection );
-	
+
 	if ( ar.IsStoring() )
 	{
 		ar.WriteCount( (DWORD)m_nSourceCount );
-		
+
 		for ( CDownloadSource* pSource = m_pSourceFirst ; pSource ; pSource = pSource->m_pNext )
 		{
 			pSource->Serialize( ar, nVersion );
 		}
-		
+
 		ar.WriteCount( m_pXML != NULL ? 1 : 0 );
 		if ( m_pXML ) m_pXML->Serialize( ar );
 	}
@@ -1159,13 +1159,13 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)
 		{
 			// Create new source
 			CDownloadSource* pSource = new CDownloadSource( (CDownload*)this );
-			
+
 			// Add to the list
 			m_nSourceCount++;
 
 			pSource->m_pPrev = m_pSourceLast;
 			pSource->m_pNext = NULL;
-			
+
 			if ( m_pSourceLast != NULL )
 			{
 				m_pSourceLast->m_pNext = pSource;
@@ -1200,7 +1200,7 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)
 					_stscanf( strURL, _T("%lu"), &pSource->m_pAddress.S_un.S_addr );
 			}
 		}
-		
+
 		if ( ar.ReadCount() )
 		{
 			m_pXML = new CXMLElement();

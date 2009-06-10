@@ -86,7 +86,7 @@ POSITION CRichDocument::Find(CRichElement* pElement) const
 CRichElement* CRichDocument::Add(CRichElement* pElement, POSITION posBefore)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
-	
+
 	if ( posBefore )
 		m_pElements.InsertBefore( posBefore, pElement );
 	else
@@ -107,7 +107,7 @@ CRichElement* CRichDocument::Add(int nType, LPCTSTR pszText, LPCTSTR pszLink, DW
 void CRichDocument::Remove(CRichElement* pElement)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
-	
+
 	if ( POSITION pos = m_pElements.Find( pElement ) )
 	{
 		m_pElements.RemoveAt( pos );
@@ -119,7 +119,7 @@ void CRichDocument::Remove(CRichElement* pElement)
 void CRichDocument::ShowGroup(int nGroup, BOOL bShow)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
-	
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CRichElement* pElement = GetNext( pos );
@@ -130,7 +130,7 @@ void CRichDocument::ShowGroup(int nGroup, BOOL bShow)
 void CRichDocument::ShowGroupRange(int nMin, int nMax, BOOL bShow)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
-	
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CRichElement* pElement = GetNext( pos );
@@ -147,7 +147,7 @@ void CRichDocument::SetModified()
 void CRichDocument::Clear()
 {
 	CSingleLock pLock( &m_pSection, TRUE );
-	
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		delete GetNext( pos );
@@ -169,39 +169,39 @@ void CRichDocument::CreateFonts(LPCTSTR pszFaceName, int nSize)
 
 	if ( nSize == 0 )
 		nSize = Settings.Fonts.DefaultSize + 1;
-	
+
 	if ( m_fntNormal.m_hObject ) m_fntNormal.DeleteObject();
-	
+
 	m_fntNormal.CreateFontW( -nSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, pszFaceName );
-	
+
 	if ( m_fntBold.m_hObject ) m_fntBold.DeleteObject();
-	
+
 	m_fntBold.CreateFontW( -nSize, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, pszFaceName );
-	
+
 	if ( m_fntItalic.m_hObject ) m_fntItalic.DeleteObject();
-	
+
 	m_fntItalic.CreateFontW( -nSize, 0, 0, 0, FW_NORMAL, TRUE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, pszFaceName );
-	
+
 	if ( m_fntUnder.m_hObject ) m_fntUnder.DeleteObject();
-	
+
 	m_fntUnder.CreateFontW( -nSize, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, pszFaceName );
-	
+
 	if ( m_fntBoldUnder.m_hObject ) m_fntBoldUnder.DeleteObject();
-	
+
 	m_fntBoldUnder.CreateFontW( -nSize, 0, 0, 0, FW_BOLD, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, pszFaceName );
-	
+
 	if ( m_fntHeading.m_hObject ) m_fntHeading.DeleteObject();
-	
+
 	m_fntHeading.CreateFontW( -( nSize + 6 ), 0, 0, 0, FW_EXTRABOLD, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, pszFaceName );
@@ -213,16 +213,16 @@ void CRichDocument::CreateFonts(LPCTSTR pszFaceName, int nSize)
 BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, CRichElement*, CRichElement* >* pMap, int nGroup)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
-	
+
 	if ( pBase == NULL ) return FALSE;
-	
+
 	CString strTemp;
-	
+
 	if ( pBase->IsNamed( _T("document") ) )
 	{
 		strTemp = pBase->GetAttributeValue( _T("fontFace") );
 		if ( strTemp.GetLength() ) CreateFonts( strTemp );
-		
+
 		m_crBackground	= CoolInterface.m_crRichdocBack;
 		m_crText		= CoolInterface.m_crRichdocText;
 		m_crLink		= CoolInterface.m_crTextLink;
@@ -234,18 +234,18 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		LoadXMLColor( pBase, _T("crLink"), &m_crLink );
 		LoadXMLColor( pBase, _T("crHover"), &m_crHover );
 		LoadXMLColor( pBase, _T("crHeading"), &m_crHeading );
-		
+
 		strTemp = pBase->GetAttributeValue( _T("leftMargin") );
 		if ( strTemp.GetLength() ) _stscanf( strTemp, _T("%i"), &m_szMargin.cx );
 		strTemp = pBase->GetAttributeValue( _T("topMargin") );
 		if ( strTemp.GetLength() ) _stscanf( strTemp, _T("%i"), &m_szMargin.cy );
 	}
-	
+
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML		= pBase->GetNextElement( pos );
 		CRichElement* pElement	= NULL;
-		
+
 		if ( pXML->IsNamed( _T("text") ) )
 		{
 			pElement = new CRichElement( retText );
@@ -261,9 +261,9 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		else if ( pXML->IsNamed( _T("newline") ) )
 		{
 			pElement = new CRichElement( retNewline );
-			
+
 			strTemp = pXML->GetAttributeValue( _T("gap") );
-			
+
 			if ( strTemp.GetLength() )
 			{
 				pElement->m_sText = strTemp;
@@ -279,7 +279,7 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		else if ( pXML->IsNamed( _T("gap") ) )
 		{
 			pElement = new CRichElement( retGap );
-			
+
 			strTemp = pXML->GetAttributeValue( _T("size") );
 			if ( strTemp ) pElement->m_sText = strTemp;
 		}
@@ -299,7 +299,7 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		{
 			Add( pElement = new CRichElement( retAlign,
 				pXML->GetAttributeValue( _T("align") ) ) );
-			
+
 			if ( pXML->GetElementCount() )
 			{
 				if ( ! LoadXML( pXML, pMap, nGroup ) ) return FALSE;
@@ -308,7 +308,7 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 					Add( new CRichElement( retAlign, _T("left") ) );
 				}
 			}
-			
+
 			continue;
 		}
 		else if ( pXML->IsNamed( _T("group") ) )
@@ -327,28 +327,28 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		{
 			return FALSE;
 		}
-		
+
 		if ( pElement == NULL ) continue;
-		
+
 		strTemp = pXML->GetValue();
 		if ( strTemp.GetLength() ) pElement->m_sText = strTemp;
-		
+
 		pElement->m_nGroup = nGroup;
 		strTemp = pXML->GetAttributeValue( _T("group") );
 		if ( strTemp.GetLength() ) _stscanf( strTemp, _T("%i"), &pElement->m_nGroup );
-		
+
 		strTemp = pXML->GetAttributeValue( _T("format") );
 		ToLower( strTemp );
 
 		if ( strTemp.Find( 'b' ) >= 0 )	pElement->m_nFlags |= retfBold;
 		if ( strTemp.Find( 'i' ) >= 0 )	pElement->m_nFlags |= retfItalic;
 		if ( strTemp.Find( 'u' ) >= 0 )	pElement->m_nFlags |= retfUnderline;
-		
+
 		strTemp = pXML->GetAttributeValue( _T("align") );
 		ToLower( strTemp );
 
 		if ( strTemp == _T("middle") ) pElement->m_nFlags |= retfMiddle;
-		
+
 		strTemp = pXML->GetAttributeValue( _T("color") );
 		if ( strTemp.GetLength() == 6 )
 		{
@@ -374,14 +374,14 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 				pElement->m_sText = strTemp;
 			}
 		}
-		
+
 		if ( pElement->m_nType == retIcon || pElement->m_nType == retBitmap || pElement->m_nType == retAnchor )
 		{
 			strTemp = pXML->GetAttributeValue( _T("res") );
 			if ( strTemp.GetLength() ) pElement->m_sText = strTemp;
 			strTemp = pXML->GetAttributeValue( _T("path") );
 			if ( strTemp.GetLength() ) pElement->m_sText = strTemp;
-			
+
 			strTemp = pXML->GetAttributeValue( _T("width") );
 			if ( strTemp.GetLength() )
 			{
@@ -391,9 +391,9 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 				if ( strTemp.GetLength() ) pElement->m_sText += '.' + strTemp;
 			}
 		}
-		
+
 		pElement->m_sLink = pXML->GetAttributeValue( _T("target") );
-		
+
 		if ( pMap )
 		{
 			strTemp = pXML->GetAttributeValue( _T("id") );
@@ -402,7 +402,7 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 
 		Add( pElement );
 	}
-	
+
 	return TRUE;
 }
 
@@ -412,14 +412,14 @@ BOOL CRichDocument::LoadXMLStyles(CXMLElement* pParent)
 	{
 		CXMLElement* pXML = pParent->GetNextElement( pos );
 		if ( ! pXML->IsNamed( _T("style") ) ) continue;
-		
+
 		CString strName = pXML->GetAttributeValue( _T("name") );
 		ToLower( strName );
-		
+
 		CString strFontFace = Settings.Fonts.DefaultFont;
 		int nFontSize = Settings.Fonts.DefaultSize + 1;
 		int nFontWeight = FW_BOLD;
-		
+
 		if ( CXMLElement* pFont = pXML->GetElementByName( _T("font") ) )
 		{
 			strFontFace = pFont->GetAttributeValue( _T("face") );
@@ -428,11 +428,11 @@ BOOL CRichDocument::LoadXMLStyles(CXMLElement* pParent)
 			strTemp = pFont->GetAttributeValue( _T("weight") );
 			_stscanf( strTemp, _T("%i"), &nFontWeight );
 		}
-		
+
 		CXMLElement* pColors = pXML->GetElementByName( _T("colors") );
 		if ( pColors == NULL ) pColors = pXML->GetElementByName( _T("colours") );
 		if ( pColors == NULL ) pColors = pXML;
-		
+
 		if ( strName == _T("default") || strName.IsEmpty() )
 		{
 			LoadXMLColor( pColors, _T("text"), &m_crText );
@@ -443,14 +443,14 @@ BOOL CRichDocument::LoadXMLStyles(CXMLElement* pParent)
 		else if ( strName == _T("heading") )
 		{
 			LoadXMLColor( pColors, _T("text"), &m_crHeading );
-			
+
 			if ( m_fntHeading.m_hObject ) m_fntHeading.DeleteObject();
 			m_fntHeading.CreateFontW( -nFontSize, 0, 0, 0, nFontWeight, FALSE, FALSE, FALSE,
 				DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 				DEFAULT_PITCH|FF_DONTCARE, strFontFace );
 		}
 	}
-	
+
 	return TRUE;
 }
 
@@ -458,14 +458,14 @@ BOOL CRichDocument::LoadXMLColor(CXMLElement* pXML, LPCTSTR pszName, COLORREF* p
 {
 	CString str = pXML->GetAttributeValue( pszName );
 	if ( str.GetLength() != 6 ) return FALSE;
-	
+
 	int nRed, nGreen, nBlue;
-	
+
 	if ( _stscanf( str.Mid( 0, 2 ), _T("%x"), &nRed ) != 1 ) return FALSE;
 	if ( _stscanf( str.Mid( 2, 2 ), _T("%x"), &nGreen ) != 1 ) return FALSE;
 	if ( _stscanf( str.Mid( 4, 2 ), _T("%x"), &nBlue ) != 1 ) return FALSE;
-	
+
 	*pColor = RGB( nRed, nGreen, nBlue );
-	
+
 	return TRUE;
 }

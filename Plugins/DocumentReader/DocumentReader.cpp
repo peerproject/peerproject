@@ -61,7 +61,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpRes
 		v_hModule = hInstance; v_cLocks = 0;
         v_hPrivateHeap = HeapCreate(0, 0x1000, 0);
         v_fRunningOnNT = ( ( GetVersion() & 0x80000000 ) != 0x80000000 );
-        v_pfnStgOpenStorageEx = ( ( v_fRunningOnNT ) ? 
+        v_pfnStgOpenStorageEx = ( ( v_fRunningOnNT ) ?
 			(PFN_STGOPENSTGEX)GetProcAddress( GetModuleHandle( _T("OLE32") ), "StgOpenStorageEx" ) : NULL );
 		InitializeCriticalSection( &v_csSynch );
 		DisableThreadLibraryCalls( hInstance );
@@ -74,7 +74,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpRes
 		break;
 	}
 
-    return _AtlModule.DllMain( dwReason, lpReserved ); 
+    return _AtlModule.DllMain( dwReason, lpReserved );
 }
 
 // Used to determine whether the DLL can be unloaded by OLE

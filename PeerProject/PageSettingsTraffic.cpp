@@ -64,7 +64,7 @@ void CAdvancedSettingsPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CAdvancedSettingsPage message handlers
 
-BOOL CAdvancedSettingsPage::OnInitDialog() 
+BOOL CAdvancedSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
@@ -145,7 +145,7 @@ void CAdvancedSettingsPage::UpdateListItem(int nItem)
 {
 	EditItem* pItem = (EditItem*)m_wndList.GetItemData( nItem );
 	CString strValue;
-		
+
 	if ( pItem->m_pItem->m_pBool )
 	{
 		ASSERT( pItem->m_pItem->m_nScale == 1 &&
@@ -182,7 +182,7 @@ void CAdvancedSettingsPage::UpdateListItem(int nItem)
 	}
 }
 
-void CAdvancedSettingsPage::OnItemChangedProperties(NMHDR* /*pNMHDR*/, LRESULT* pResult) 
+void CAdvancedSettingsPage::OnItemChangedProperties(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 {
 //	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 
@@ -194,12 +194,12 @@ void CAdvancedSettingsPage::OnItemChangedProperties(NMHDR* /*pNMHDR*/, LRESULT* 
 void CAdvancedSettingsPage::UpdateInputArea()
 {
 	int nItem = m_wndList.GetNextItem( -1, LVNI_SELECTED );
-	
+
 	if ( nItem >= 0 )
 	{
 		EditItem* pItem = (EditItem*)m_wndList.GetItemData( nItem );
 		CString strValue;
-		
+
 		pItem->m_pItem->SetRange( m_wndValueSpin );
 		if ( pItem->m_pItem->m_pDword )
 		{
@@ -220,22 +220,22 @@ void CAdvancedSettingsPage::UpdateInputArea()
 		m_wndValue.EnableWindow( FALSE );
 		m_wndValueSpin.EnableWindow( FALSE );
 		GetDlgItem( IDC_DEFAULT_VALUE )->EnableWindow( FALSE );
-	}	
+	}
 }
 
-void CAdvancedSettingsPage::OnChangeValue() 
+void CAdvancedSettingsPage::OnChangeValue()
 {
 	if ( m_wndList.m_hWnd == NULL ) return;
-	
+
 	int nItem = m_wndList.GetNextItem( -1, LVNI_SELECTED );
-	
+
 	if ( nItem >= 0 )
 	{
 		EditItem* pItem = (EditItem*)m_wndList.GetItemData( nItem );
 		CString strValue;
-		
+
 		m_wndValue.GetWindowText( strValue );
-		
+
 		DWORD nValue = 0;
 		if ( _stscanf( strValue, _T("%lu"), &nValue ) == 1 )
 		{
@@ -252,23 +252,23 @@ void CAdvancedSettingsPage::OnChangeValue()
 	}
 }
 
-void CAdvancedSettingsPage::OnColumnClickProperties(NMHDR* pNMHDR, LRESULT* pResult) 
+void CAdvancedSettingsPage::OnColumnClickProperties(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	CLiveList::Sort( &m_wndList, pNMListView->iSubItem );
 	*pResult = 0;
 }
 
-void CAdvancedSettingsPage::OnOK() 
+void CAdvancedSettingsPage::OnOK()
 {
 	CommitAll();
 
 	UpdateAll();
-	
+
 	CSettingsPage::OnOK();
 }
 
-void CAdvancedSettingsPage::OnDestroy() 
+void CAdvancedSettingsPage::OnDestroy()
 {
 	Settings.General.LastSettingsIndex = m_wndList.GetTopIndex();
 
@@ -276,7 +276,7 @@ void CAdvancedSettingsPage::OnDestroy()
 	{
 		delete (EditItem*)m_wndList.GetItemData( nItem );
 	}
-	
+
 	CSettingsPage::OnDestroy();
 }
 

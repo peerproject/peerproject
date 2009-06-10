@@ -80,7 +80,7 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 	BOOL       bAutomatic,   // True to (do)
 	BOOL       bNoUltraPeer) // By default, false to not (do)
 {
-	// Get this thread exclusive access to the network (do) while this method runs 
+	// Get this thread exclusive access to the network (do) while this method runs
 	CSingleLock pLock( &Network.m_pSection, TRUE ); // When control leaves the method, pLock will go out of scope and release access
 
 	// If the list of connected computers already has this IP address
@@ -95,7 +95,7 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 	}
 
 	// Don't connect to self
-	if ( Settings.Connection.IgnoreOwnIP && Network.IsSelfIP( *pAddress ) ) 
+	if ( Settings.Connection.IgnoreOwnIP && Network.IsSelfIP( *pAddress ) )
 		return NULL;
 
 	// Don't connect to blocked addresses
@@ -156,7 +156,7 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 	{
 		// Make a new CEDNeighbour object, connect it to the IP address, and return a pointer to it
 		CEDNeighbour* pNeighbour = new CEDNeighbour();
-		if ( pNeighbour->ConnectTo( pAddress, nPort, bAutomatic ) ) 
+		if ( pNeighbour->ConnectTo( pAddress, nPort, bAutomatic ) )
 		{
 			// Started connecting to an ed2k neighbour
 			return pNeighbour;
@@ -197,7 +197,7 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 // Returns a pointer to the CShakeNeighbour object
 CNeighbour* CNeighboursWithConnect::OnAccept(CConnection* pConnection)
 {
-	// Get this thread exclusive access to the network (do) while this method runs 
+	// Get this thread exclusive access to the network (do) while this method runs
 	CSingleLock pLock( &Network.m_pSection ); // When control leaves the method, pLock will go out of scope and release access
 	if ( ! pLock.Lock( 250 ) ) return NULL;   // If more than a quarter second passes here waiting for access, give up and leave now
 
@@ -506,7 +506,7 @@ BOOL CNeighboursWithConnect::IsG1Ultrapeer()
 // Takes true if we are running the program in debug mode, and this method should write out debug information
 // Determines if the computer and Internet connection here are strong enough for this program to run as a Gnutella ultrapeer
 // Returns false, which is 0, if we can't be an ultrapeer, or a number 1+ that is higher the better ultrapeer we'd be
-DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bDebug) 
+DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bDebug)
 {
 	// Start out the rating as 0, meaning we can't be a Gnutella ultrapeer
 	DWORD nRating = 0; // If we can be an ultrapeer, we'll set this to 1, and then make it higher if we'd be an even better ultrapeer
@@ -627,13 +627,13 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bDebug)
 
 		// The scheduler is enabled in settings, and it says we can't be an ultrapeer
 		if ( Settings.Scheduler.Enable && !Settings.Scheduler.AllowHub )
-		{	
+		{
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: scheduler active") );
 			return FALSE;
 
 		} // The scheduler is off, or it's on and it's OK with us being an ultrapeer
 		else
-		{	
+		{
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: scheduler OK") );
 		}
 
@@ -948,7 +948,7 @@ void CNeighboursWithConnect::Maintain()
 
 	// Get the time
 	DWORD tTimer = GetTickCount();							// The tick count (milliseconds)
-	DWORD tNow   = static_cast< DWORD >( time( NULL ) );	// The time (in seconds) 
+	DWORD tNow   = static_cast< DWORD >( time( NULL ) );	// The time (in seconds)
 
 	// Don't initiate neighbour connections too quickly if connections are limited
 	if ( ( Settings.Connection.ConnectThrottle != 0 ) && ( tTimer >= Network.m_tLastConnect ) )
@@ -1040,7 +1040,7 @@ void CNeighboursWithConnect::Maintain()
 	// Set our "promoted to hub" timer
 	if ( m_bG2Hub == FALSE )
 		m_tHubG2Promotion = 0;			// If we're not a hub, time promoted is 0
-	else if ( m_tHubG2Promotion == 0 ) 
+	else if ( m_tHubG2Promotion == 0 )
 		m_tHubG2Promotion = tNow;		// If we've just been promoted, set the timer
 
 	// Check if we have verified if we make a good G2 hub
@@ -1058,7 +1058,7 @@ void CNeighboursWithConnect::Maintain()
 			}
 		}
 	}
-	
+
 	if ( Settings.Gnutella1.EnableToday == FALSE )
 	{
 		// Set the limit as no Gnutella hub or leaf connections allowed at all
@@ -1083,13 +1083,13 @@ void CNeighboursWithConnect::Maintain()
 	{
 		// Set the limit as no Gnutella2 hub or leaf connections allowed at all
 		nLimit[ PROTOCOL_G2 ][ ntHub ] = nLimit[ PROTOCOL_G2 ][ ntLeaf ] = 0;
-	} 
+	}
 	else if ( m_bG2Leaf )
 	{	// We're a leaf on the Gnutella2 network
 		// Set the limit for Gnutella2 hub connections as whichever is smaller, the number from settings, or 3
 		nLimit[ PROTOCOL_G2 ][ ntHub ] = Settings.Gnutella2.NumHubs; // NumHubs is 2 by default
 
-	} 
+	}
 	else
 	{	// We're a hub on the Gnutella2 network
 		// Set the limit for Gnutella2 hub connections as whichever number from settings is bigger, peers or hubs
@@ -1138,8 +1138,8 @@ void CNeighboursWithConnect::Maintain()
 			}
 			else
 			{
-				// For ed2k we try one attempt at a time to begin with, but we can step up to 
-				// 2 at a time after a few seconds if the FastConnect option is selected. 
+				// For ed2k we try one attempt at a time to begin with, but we can step up to
+				// 2 at a time after a few seconds if the FastConnect option is selected.
 				if ( ( Settings.eDonkey.FastConnect ) && ( Network.ReadyToTransfer( tTimer ) ) )
 					nAttempt = 2;
 				else
@@ -1273,7 +1273,7 @@ void CNeighboursWithConnect::Maintain()
 					  nLimit[ nProtocol ][ ntHub ] == 0 ) )    // We're not supposed to be connected to this network at all
 				{
 					// If this is the newest hub, remember it.
-					if ( pNewest == NULL || pNeighbour->m_tConnected > pNewest->m_tConnected ) 
+					if ( pNewest == NULL || pNeighbour->m_tConnected > pNewest->m_tConnected )
 						pNewest = pNeighbour;
 				}
 			}

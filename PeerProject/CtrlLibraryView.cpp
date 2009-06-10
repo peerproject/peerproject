@@ -99,7 +99,7 @@ void CLibraryView::GetHeaderContent(int& nImage, CString& str)
 		}
 
 		LoadString( strFormat, IDS_LIBHEAD_EXPLORE_FOLDER );
-		if ( Settings.General.LanguageRTL ) 
+		if ( Settings.General.LanguageRTL )
 			str =  _T("\x202A") + str + _T(" \x200E") + strFormat;
 		else
 			str = strFormat + str;
@@ -268,7 +268,7 @@ INT_PTR CLibraryView::GetSelectedCount() const
 	return m_pSelection.GetCount();
 }
 
-int CLibraryView::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CLibraryView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
@@ -277,7 +277,7 @@ int CLibraryView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-void CLibraryView::OnDestroy() 
+void CLibraryView::OnDestroy()
 {
 	DISABLE_DROP()
 
@@ -358,7 +358,7 @@ BOOL CLibraryView::OnDrop(IDataObject* pDataObj, DWORD grfKeyState, POINT ptScre
 	return FALSE;
 }
 
-BOOL CLibraryView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt) 
+BOOL CLibraryView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
 	// Scroll window under cursor
 	if ( CWnd* pWnd = WindowFromPoint( pt ) )

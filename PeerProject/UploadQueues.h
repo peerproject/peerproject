@@ -102,9 +102,9 @@ public:
 		return m_pList.Find( pQueue ) != NULL;
 	}
 
-	inline BOOL	IsDonkeyRatioActive() const 
-	{ 
-		return ( m_bDonkeyLimited ); 
+	inline BOOL	IsDonkeyRatioActive() const
+	{
+		return ( m_bDonkeyLimited );
 	}
 
 };

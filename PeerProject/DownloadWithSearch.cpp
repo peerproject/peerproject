@@ -70,7 +70,7 @@ BOOL CDownloadWithSearch::FindSourcesAllowed(DWORD tNow) const
 BOOL CDownloadWithSearch::FindMoreSources()
 {
 	BOOL bSuccess = CDownloadWithTiger::FindMoreSources();
-	
+
 	if ( CanSearch() )
 	{
 		DWORD tNow = GetTickCount();
@@ -81,7 +81,7 @@ BOOL CDownloadWithSearch::FindMoreSources()
 			bSuccess = TRUE;
 		}
 	}
-	
+
 	return bSuccess;
 }
 
@@ -95,7 +95,7 @@ void CDownloadWithSearch::RunSearch(DWORD tNow)
 		StopSearch();
 		return;
 	}
-	
+
 	if ( tNow > m_tSearchTime && tNow - m_tSearchTime < Settings.Downloads.SearchPeriod )
 	{
 		StartManualSearch();
@@ -104,9 +104,9 @@ void CDownloadWithSearch::RunSearch(DWORD tNow)
 	{
 		BOOL bFewSources = GetEffectiveSourceCount() < Settings.Downloads.MinSources;
 		BOOL bDataStarve = ( tNow > m_tReceived ? tNow - m_tReceived : 0 ) > Settings.Downloads.StarveTimeout * 1000;
-		
+
 		m_tSearchCheck = tNow;
-		
+
 		if ( IsPaused() == FALSE && ( bFewSources || bDataStarve ) )
 		{
 			StartAutomaticSearch();
@@ -125,9 +125,9 @@ void CDownloadWithSearch::StartManualSearch()
 {
 	CSingleLock pLock( &SearchManager.m_pSection );
 	if ( ! pLock.Lock( 50 ) ) return;
-	
+
 	PrepareSearch();
-	
+
 	m_pSearch->m_nPriority = CManagedSearch::spHighest;
 	m_pSearch->Start();
 }
@@ -139,9 +139,9 @@ void CDownloadWithSearch::StartAutomaticSearch()
 {
 	CSingleLock pLock( &SearchManager.m_pSection );
 	if ( ! pLock.Lock( 10 ) ) return;
-	
+
 	PrepareSearch();
-	
+
 	m_pSearch->m_nPriority = CManagedSearch::spLowest;
 	m_pSearch->Start();
 }
@@ -170,7 +170,7 @@ void CDownloadWithSearch::PrepareSearch()
 {
 	if ( m_pSearch == NULL ) m_pSearch = new CManagedSearch();
 	CQuerySearch* pSearch = m_pSearch->m_pSearch.get();
-	
+
 	pSearch->m_bAndG1 = Settings.Gnutella1.EnableToday;
 
 	if ( pSearch->m_sSearch != m_sName )
@@ -205,7 +205,7 @@ void CDownloadWithSearch::PrepareSearch()
 	{
 		pSearch->m_oMD5 = m_oMD5;
 	}
-	
+
 	pSearch->m_bWantURL	= TRUE;
 	pSearch->m_bWantDN	= ( m_sName.GetLength() == 0 );
 	pSearch->m_bWantXML	= FALSE;

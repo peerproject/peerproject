@@ -129,10 +129,10 @@ struct is_class_impl
 # ifdef __EDG_VERSION__
 BOOST_TT_AUX_BOOL_TRAIT_DEF1(
    is_class,T, boost::detail::is_class_impl<typename boost::remove_cv<T>::type>::value)
-# else 
+# else
 BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_class,T,::boost::detail::is_class_impl<T>::value)
 # endif
-    
+
 } // namespace boost
 
 #include <boost/type_traits/detail/bool_trait_undef.hpp>

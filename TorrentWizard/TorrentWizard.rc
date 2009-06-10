@@ -27,18 +27,18 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE 
+1 TEXTINCLUDE
 BEGIN
     "Resource.h\0"
 END
 
-2 TEXTINCLUDE 
+2 TEXTINCLUDE
 BEGIN
     "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE 
+3 TEXTINCLUDE
 BEGIN
     "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
     "#define _AFX_NO_OLE_RESOURCES\r\n"
@@ -125,7 +125,7 @@ IDB_WIZARD              BITMAP                  "Res\\Wizard.bmp"
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_WELCOME_NEED_TYPE   "You have not selected the type of Torrent file you want to create.  Please select from one of the two options."
     IDS_SINGLE_NEED_FILE    "You have not selected a file to include in the Torrent.  Please click the Browse button and choose a file."
@@ -161,7 +161,7 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_WELCOME_PAGE, DIALOG
     BEGIN

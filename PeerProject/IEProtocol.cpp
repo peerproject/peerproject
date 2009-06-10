@@ -393,7 +393,7 @@ HRESULT CIEProtocol::OnRequestRAZACOL(LPCTSTR pszURL, CBuffer& oBuffer, CString&
 {
 	if ( _tcslen( pszURL ) < 32 + 1 || pszURL[32] != '/' )
 		return INET_E_INVALID_URL;
-	
+
     Hashes::Sha1Hash oSHA1;
 	if ( ! oSHA1.fromString( pszURL ) )
 		return INET_E_INVALID_URL;

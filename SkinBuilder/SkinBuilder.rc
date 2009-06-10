@@ -27,18 +27,18 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE 
+1 TEXTINCLUDE
 BEGIN
     "Resource.h\0"
 END
 
-2 TEXTINCLUDE 
+2 TEXTINCLUDE
 BEGIN
     "#include ""Includes\\atlres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE 
+3 TEXTINCLUDE
 BEGIN
     "\0"
 END
@@ -102,7 +102,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
@@ -164,7 +164,7 @@ END
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDR_MAINFRAME           "SkinBuilder"
     IDS_TAB1                "&Start"
@@ -178,7 +178,7 @@ BEGIN
     IDS_TAB2C               "&Dialogs"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_TAB2D               "&Headers"
     IDS_TAB3                "&Images"
@@ -188,7 +188,7 @@ BEGIN
     IDS_TAB3D               "&Watermarks"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_TAB4                "&Icons"
     IDS_TAB4A               "&Commandstrip"
@@ -200,7 +200,7 @@ BEGIN
     IDS_TAB5C               "Fon&ts"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_TAB6                "&Finish"
     IDS_TAB6A               "Create S&kinfile"

@@ -29,34 +29,34 @@ namespace boost {
 
 struct no_traversal_tag {};
 
-struct incrementable_traversal_tag 
+struct incrementable_traversal_tag
   : no_traversal_tag
 {
 //     incrementable_traversal_tag() {}
 //     incrementable_traversal_tag(std::output_iterator_tag const&) {};
 };
-  
+
 struct single_pass_traversal_tag
   : incrementable_traversal_tag
 {
 //     single_pass_traversal_tag() {}
 //     single_pass_traversal_tag(std::input_iterator_tag const&) {};
 };
-  
+
 struct forward_traversal_tag
   : single_pass_traversal_tag
 {
 //     forward_traversal_tag() {}
 //     forward_traversal_tag(std::forward_iterator_tag const&) {};
 };
-  
+
 struct bidirectional_traversal_tag
   : forward_traversal_tag
 {
 //     bidirectional_traversal_tag() {};
 //     bidirectional_traversal_tag(std::bidirectional_iterator_tag const&) {};
 };
-  
+
 struct random_access_traversal_tag
   : bidirectional_traversal_tag
 {
@@ -65,7 +65,7 @@ struct random_access_traversal_tag
 };
 
 namespace detail
-{  
+{
   //
   // Convert a "strictly old-style" iterator category to a traversal
   // tag.  This is broken out into a separate metafunction to reduce
@@ -130,7 +130,7 @@ namespace detail
       >
   {
   };
-  
+
 # if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
   template <>
   struct pure_traversal_tag<int>

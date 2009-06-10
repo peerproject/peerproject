@@ -50,7 +50,7 @@ protected:
 									// It Did not send any "Content-Type: " or sent us a header like one of these
 									//
 									//    Content-Type: application/x-gnutella-packets
-									//    
+									//
 									//
 	BOOL        m_bG1Accept;        // The remote computer accepts Gnutella1 packets
 									// It Did not send any "Accept: " or sent us a header like one of these

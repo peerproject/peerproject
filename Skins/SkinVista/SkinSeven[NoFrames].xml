@@ -34,7 +34,7 @@
   <color name="System.Base.HiBorder" value="90B8E6"/>
   <color name="System.Base.Highlight" value="DFEDFE"/>
   <color name="System.Back.Checked" value="F8F6F4"/>
-  <color name="System.Back.Selected" value="F8F6F4"/> 
+  <color name="System.Back.Selected" value="F8F6F4"/>
   <color name="System.Back.Checked.Selected" value="F8F6F4"/>
   <color name="System.Border" value="F8F6F4"/>
   <color name="System.Margin" value="F8F6F4"/>
@@ -79,8 +79,8 @@
   <color name="Monitor.History.Back.Max" value="444240"/>
   <color name="Monitor.Upload.Line" value="809AC0"/>
   <color name="Monitor.Upload.Bar" value="809AC0"/>
-  <color name="Schema.Row1" value="F4F2F0"/> 
-  <color name="Schema.Row2" value="EAE8E4"/> 
+  <color name="Schema.Row1" value="F4F2F0"/>
+  <color name="Schema.Row2" value="EAE8E4"/>
   <color name="Schema.Rating" value="4A4440"/>
   <color name="Schema.Rating0" value="EA4A60"/>
   <color name="Schema.Rating1" value="CAC4C0"/>
@@ -126,7 +126,7 @@
   <color name="FragmentBar.Border.Simplebar" value="888888"/>
   <color name="FragmentBar.Border.Simplebar.Selected" value="808080"/>
   <color name="DropdownBox.Back" value="FFFFFF"/>
-  <color name="DropdownBox.Text" value="403A38"/> 
+  <color name="DropdownBox.Text" value="403A38"/>
   <color name="ResizeBar.Edge" value="E8E7E6"/>
   <color name="ResizeBar.Face" value="F8F7F6"/>
   <color name="ResizeBar.Shadow" value="E0DFDD"/>
@@ -177,7 +177,7 @@
   <watermark target="CIRCPanel.Footer" path="Seven\SidebarFooter.jpg"/>
   <watermark target="CIRCWaterMarkPanel" path="Seven\MenuBkg.png"/>
   <watermark target="CIRCHeaderPanel" path="BrowseBanner.png"/>
-  <watermark target="CLibraryHeaderPanel" path="BrowseBanner.png"/> 
+  <watermark target="CLibraryHeaderPanel" path="BrowseBanner.png"/>
   <watermark target="CBrowseHeaderCtrl.Toolbar" path="BrowseBanner.png"/>
   <watermark target="CIRCUsersBox.Caption" path="Seven\SidebarCaption.png"/>
   <watermark target="CIRCChannelsBox.Caption" path="Seven\SidebarCaption.png"/>
@@ -381,7 +381,7 @@
 <menus>
 <menu name="CMainWnd.Tabbed" type="bar">
 <menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
-     
+
  <item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 
  <menu text="_Network">
@@ -473,7 +473,7 @@
 
 <menu name="CMainWnd.Windowed" type="bar">
 <menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
-     
+
  <item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 
  <menu text="_Network">
@@ -566,9 +566,9 @@
 <menu name="CMainWnd.Basic" type="bar">
 <menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 
- <menu text="Warning :"> 
+ <menu text="Warning :">
  </menu>
- <menu text="Basic Mode Unsupported."> 
+ <menu text="Basic Mode Unsupported.">
   <item id="ID_VIEW_TABBED" text="Restore Full Tabbed Mode"/>
  </menu>
  <separator/>

@@ -181,18 +181,18 @@ void CVersionChecker::ProcessResponse()
 {
 	int nDays = VERSIONCHECKER_FREQUENCY;
 	CString strValue;
-	
+
 	if ( m_pResponse.Lookup( _T("Message"), strValue ) ||
 		 m_pResponse.Lookup( _T("MessageBox"), strValue ) )
 	{
 		m_sMessage = strValue;
 	}
-	
+
 	if ( m_pResponse.Lookup( _T("Quote"), strValue ) )
 	{
 		Settings.VersionCheck.Quote = strValue;
 	}
-	
+
 	if ( m_pResponse.Lookup( _T("SystemMsg"), strValue ) )
 	{
 		for ( strValue += '\n' ; strValue.GetLength() ; )
@@ -202,11 +202,11 @@ void CVersionChecker::ProcessResponse()
 			if ( strLine.GetLength() ) theApp.Message( MSG_NOTICE, strLine );
 		}
 	}
-	
+
 	if ( m_pResponse.Lookup( _T("UpgradePrompt"), strValue ) )
 	{
 		Settings.VersionCheck.UpgradePrompt = strValue;
-		
+
 		m_pResponse.Lookup( _T("UpgradeFile"), Settings.VersionCheck.UpgradeFile );
 		m_pResponse.Lookup( _T("UpgradeSHA1"), Settings.VersionCheck.UpgradeSHA1 );
 		m_pResponse.Lookup( _T("UpgradeTiger"), Settings.VersionCheck.UpgradeTiger );
@@ -222,7 +222,7 @@ void CVersionChecker::ProcessResponse()
 	{
 		ClearVersionCheck();
 	}
-	
+
 	if ( m_pResponse.Lookup( _T("AddDiscovery"), strValue ) )
 	{
 		strValue.Trim();
@@ -245,7 +245,7 @@ void CVersionChecker::ProcessResponse()
 	{
 		_stscanf( strValue, _T("%lu"), &nDays );
 	}
-	
+
 	SetNextCheck( nDays );
 
 	m_pResponse.RemoveAll();

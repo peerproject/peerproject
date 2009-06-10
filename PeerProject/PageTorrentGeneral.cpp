@@ -44,7 +44,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CTorrentGeneralPage property page
 
-CTorrentGeneralPage::CTorrentGeneralPage() : 
+CTorrentGeneralPage::CTorrentGeneralPage() :
 	CPropertyPageAdv( CTorrentGeneralPage::IDD )
 {
 }
@@ -120,7 +120,7 @@ BOOL CTorrentGeneralPage::OnInitDialog()
 		(LPCTSTR)Settings.SmartVolume( oInfo.m_nTotalUpload ) );
 
 	UpdateData( FALSE );
-	
+
 	return TRUE;
 }
 
@@ -136,11 +136,11 @@ BOOL CTorrentGeneralPage::OnApply()
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
 	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
 		return FALSE;
-	
+
 	CBTInfo& oInfo = pDownload->m_pTorrent;
 
 	// Update the starting of torrent transfers
 	oInfo.m_nStartDownloads = m_wndStartDownloads.GetCurSel();
-	
+
 	return CPropertyPageAdv::OnApply();
 }

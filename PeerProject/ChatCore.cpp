@@ -73,7 +73,7 @@ void CChatCore::OnAccept(CConnection* pConnection, PROTOCOLID nProtocol)
 {
 	CSingleLock pLock( &m_pSection );
 	if ( ! pLock.Lock( 250 ) ) return;
-	
+
 	CChatSession* pSession = new CChatSession();
 
 	pSession->m_nProtocol = nProtocol;
@@ -85,13 +85,13 @@ BOOL CChatCore::OnPush(const Hashes::Guid& oGUID, CConnection* pConnection)
 {
 	CSingleLock pLock( &m_pSection );
 	if ( ! pLock.Lock( 250 ) ) return FALSE;
-	
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CChatSession* pSession = GetNext( pos );
 		if ( pSession->OnPush( oGUID, pConnection ) ) return TRUE;
 	}
-	
+
 	return FALSE;
 }
 
@@ -106,7 +106,7 @@ void CChatCore::OnED2KMessage(CEDClient* pClient, CEDPacket* pPacket)
 
 	CSingleLock pLock( &m_pSection );
 	if ( ! pLock.Lock( 250 ) ) return;
-	
+
 	CChatSession* pSession = FindSession( pClient );
 
 	pSession->OnED2KMessage( pPacket );
@@ -199,7 +199,7 @@ void CChatCore::Close()
 	{
 		GetNext( pos )->Close();
 	}
-	
+
 	StopThread();
 }
 
@@ -212,7 +212,7 @@ void CChatCore::StartThread()
 		return;
 
 	if ( GetCount() == 0 ) return;
-	
+
 	BeginThread( "ChatCore" );
 }
 
@@ -227,21 +227,21 @@ void CChatCore::StopThread()
 void CChatCore::OnRun()
 {
 	CSingleLock pLock( &m_pSection );
-	
+
 	while ( IsThreadEnabled() )
 	{
 		Sleep( 50 );
 		Doze( 100 );
-		
+
 		if ( pLock.Lock( 250 ) )
 		{
 			if ( GetCount() == 0 ) break;
-			
+
 			for ( POSITION pos = GetIterator() ; pos ; )
 			{
 				GetNext( pos )->DoRun();
 			}
-			
+
 			pLock.Unlock();
 		}
 	}

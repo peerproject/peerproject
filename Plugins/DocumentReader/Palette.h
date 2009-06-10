@@ -89,6 +89,6 @@ void SetGrayPalette(RGBQUAD* pal, WORD wBitsPerSample)
 
 	DWORD biClrUsed = ( 1 << wBitsPerSample );
 	for ( ULONG i = 0 ; i < biClrUsed ; i++ )
-		pal[ i ].rgbBlue = pal[ i ].rgbGreen = pal[ i ].rgbRed = 
+		pal[ i ].rgbBlue = pal[ i ].rgbGreen = pal[ i ].rgbRed =
 		(BYTE)( i * ( 255 / ( biClrUsed - 1 ) ) );
 }

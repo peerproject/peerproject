@@ -67,94 +67,94 @@ void CPackagePage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CPackagePage message handlers
 
-BOOL CPackagePage::OnInitDialog() 
+BOOL CPackagePage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
-	
+
 	CRect rc;
 	m_wndList.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
 	m_wndList.InsertColumn( 0, _T("Filename"), LVCFMT_LEFT, rc.right - 80, -1 );
 	m_wndList.InsertColumn( 1, _T("Size"), LVCFMT_RIGHT, 80, 0 );
-	
+
 	return TRUE;
 }
 
-void CPackagePage::OnReset() 
+void CPackagePage::OnReset()
 {
 }
 
-BOOL CPackagePage::OnSetActive() 
+BOOL CPackagePage::OnSetActive()
 {
 	m_wndRemove.EnableWindow( m_wndList.GetSelectedCount() > 0 );
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
 	return CWizardPage::OnSetActive();
 }
 
-LRESULT CPackagePage::OnWizardBack() 
+LRESULT CPackagePage::OnWizardBack()
 {
 	return IDD_WELCOME_PAGE;
 }
 
-LRESULT CPackagePage::OnWizardNext() 
+LRESULT CPackagePage::OnWizardNext()
 {
 	if ( m_wndList.GetItemCount() == 0 )
 	{
 		AfxMessageBox( IDS_PACKAGE_NEED_FILES, MB_ICONEXCLAMATION );
 		return -1;
 	}
-	
+
 	return IDD_TRACKER_PAGE;
 }
 
-void CPackagePage::OnItemChangedFileList(NMHDR* /*pNMHDR*/, LRESULT* pResult) 
+void CPackagePage::OnItemChangedFileList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 {
 //	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	*pResult = 0;
 	m_wndRemove.EnableWindow( m_wndList.GetSelectedCount() > 0 );
 }
 
-void CPackagePage::OnAddFolder() 
+void CPackagePage::OnAddFolder()
 {
 	TCHAR szPath[MAX_PATH];
 	LPITEMIDLIST pPath;
 	LPMALLOC pMalloc;
 	BROWSEINFO pBI;
-	
+
 	ZeroMemory( &pBI, sizeof(pBI) );
 	pBI.hwndOwner		= GetSafeHwnd();
 	pBI.pszDisplayName	= szPath;
 	pBI.lpszTitle		= _T("Add a folder:");
 	pBI.ulFlags			= BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
-	
+
 	pPath = SHBrowseForFolder( &pBI );
 	if ( pPath == NULL ) return;
-	
+
 	SHGetPathFromIDList( pPath, szPath );
 	SHGetMalloc( &pMalloc );
 	pMalloc->Free( pPath );
 	pMalloc->Release();
-	
+
 	CWaitCursor wc;
 	AddFolder( szPath, 0 );
 }
 
-void CPackagePage::OnAddFile() 
+void CPackagePage::OnAddFile()
 {
 	CFileDialog dlg( TRUE, NULL, NULL,
 		OFN_HIDEREADONLY|OFN_ALLOWMULTISELECT|OFN_ENABLESIZING,
 		_T("All Files|*.*||"), this );
-	
+
 	TCHAR szFiles[81920] = { 0 };
 	dlg.m_ofn.lpstrFile	= szFiles;
 	dlg.m_ofn.nMaxFile	= 81920;
-	
+
 	if ( dlg.DoModal() != IDOK ) return;
-	
+
 	CWaitCursor wc;
 	CString strFolder	= CString( szFiles );
 	LPCTSTR pszFile		= szFiles + strFolder.GetLength() + 1;
-	
+
 	if ( *pszFile )
 	{
 		for ( strFolder += '\\' ; *pszFile ; )
@@ -169,7 +169,7 @@ void CPackagePage::OnAddFile()
 	}
 }
 
-void CPackagePage::OnRemoveFile() 
+void CPackagePage::OnRemoveFile()
 {
 	CWaitCursor wc;
 
@@ -186,7 +186,7 @@ void CPackagePage::OnRemoveFile()
 void CPackagePage::AddFile(LPCTSTR pszFile)
 {
 	HANDLE hFile = CreateFile( pszFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
-	
+
 	if ( hFile == INVALID_HANDLE_VALUE )
 	{
 		CString strFormat, strMessage;
@@ -195,18 +195,18 @@ void CPackagePage::AddFile(LPCTSTR pszFile)
 		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 		return;
 	}
-	
+
 	DWORD nLow, nHigh;
 	nLow = GetFileSize( hFile, &nHigh );
 	QWORD nSize = ( (QWORD)nHigh << 32 ) + (QWORD)nLow;
 	CloseHandle( hFile );
-	
+
 	SHFILEINFO pInfo;
 	ZeroMemory( &pInfo, sizeof(pInfo) );
-	
+
 	HIMAGELIST hIL = (HIMAGELIST)SHGetFileInfo( pszFile, 0, &pInfo, sizeof(pInfo),
 		SHGFI_SYSICONINDEX|SHGFI_SMALLICON );
-	
+
 	if ( hIL != NULL && m_hImageList == NULL )
 	{
 		m_hImageList = hIL;
@@ -215,10 +215,10 @@ void CPackagePage::AddFile(LPCTSTR pszFile)
 		m_wndList.SetImageList( &pTemp, LVSIL_SMALL );
 		pTemp.Detach();
 	}
-	
+
 	int nItem = m_wndList.InsertItem( LVIF_TEXT|LVIF_IMAGE, m_wndList.GetItemCount(),
 		pszFile, 0, 0, pInfo.iIcon, NULL );
-	
+
 	m_wndList.SetItemText( nItem, 1, SmartSize( nSize ) );
 
 	UpdateWindow();
@@ -229,21 +229,21 @@ void CPackagePage::AddFolder(LPCTSTR pszPath, int nRecursive)
 	WIN32_FIND_DATA pFind;
 	CString strPath;
 	HANDLE hSearch;
-	
+
 	strPath.Format( _T("%s\\*.*"), pszPath );
-	
+
 	hSearch = FindFirstFile( strPath, &pFind );
-	
+
 	if ( hSearch != INVALID_HANDLE_VALUE )
 	{
 		do
 		{
 			if ( pFind.cFileName[0] == '.' ||
-				 pFind.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN ) 
+				 pFind.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN )
 				 continue;
-			
+
 			strPath.Format( _T("%s\\%s"), pszPath, pFind.cFileName );
-			
+
 			if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 			{
 				if ( nRecursive == 0 )
@@ -253,7 +253,7 @@ void CPackagePage::AddFolder(LPCTSTR pszPath, int nRecursive)
 					else if ( nResp == IDNO ) nRecursive = 1;
 					else break;
 				}
-				
+
 				if ( nRecursive == 2 ) AddFolder( strPath, 2 );
 			}
 			else
@@ -262,7 +262,7 @@ void CPackagePage::AddFolder(LPCTSTR pszPath, int nRecursive)
 			}
 		}
 		while ( FindNextFile( hSearch, &pFind ) );
-		
+
 		FindClose( hSearch );
 	}
 }

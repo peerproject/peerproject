@@ -50,7 +50,7 @@ CCommandlinePage::CCommandlinePage() : CWizardPage(CCommandlinePage::IDD), m_pBu
 
 CCommandlinePage::~CCommandlinePage()
 {
-	if ( m_pBuilder ) 
+	if ( m_pBuilder )
 		delete m_pBuilder;
 }
 
@@ -76,7 +76,7 @@ void CCommandlinePage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CCommandlinePage message handlers
 
-BOOL CCommandlinePage::OnInitDialog() 
+BOOL CCommandlinePage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 	m_wndSpeed.SetRange( 0, 5 );
@@ -84,7 +84,7 @@ BOOL CCommandlinePage::OnInitDialog()
 	return TRUE;
 }
 
-BOOL CCommandlinePage::OnSetActive() 
+BOOL CCommandlinePage::OnSetActive()
 {
 	SetTimer( 2, 25, NULL );
 	return CWizardPage::OnSetActive();
@@ -98,7 +98,7 @@ void CCommandlinePage::Start()
 	CString sFolder;
 
 	CString strFile = theApp.m_sCommandLineSourceFile;
-			
+
 	if ( LPCTSTR pszSlash = _tcsrchr( strFile, '\\' ) )
 	{
 		m_sDestinationFile = pszSlash + 1;
@@ -106,19 +106,19 @@ void CCommandlinePage::Start()
 	}
 
 	m_pBuilder->SetOutputFile( theApp.m_sCommandLineDestination + '\\' + m_sDestinationFile );
-		
+
 	m_pBuilder->AddTrackerURL( theApp.m_sCommandLineTracker );
-		
+
 	m_pBuilder->SetComment( _T("") );
-		
+
 	m_pBuilder->AddFile( theApp.m_sCommandLineSourceFile );
-	
+
 	m_pBuilder->Start();
-	
+
 	SetTimer( 1, 200, NULL );
 	PostMessage( WM_TIMER, 1 );
-	
-	
+
+
 	m_wndDone1.ShowWindow( SW_HIDE );
 	m_wndDone2.ShowWindow( SW_HIDE );
 	m_wndTorrentName.ShowWindow( SW_HIDE );
@@ -136,10 +136,10 @@ void CCommandlinePage::Start()
 	SetWizardButtons( 0 );
 }
 
-void CCommandlinePage::OnTimer(UINT_PTR nIDEvent) 
+void CCommandlinePage::OnTimer(UINT_PTR nIDEvent)
 {
 	BOOL bFinished = FALSE;
-	
+
 	if ( nIDEvent == 2 )
 	{
 		KillTimer( 2 );
@@ -151,44 +151,44 @@ void CCommandlinePage::OnTimer(UINT_PTR nIDEvent)
 	{
 		CString str1, str2;
 		DWORD nPos, nLen;
-		
+
 		if ( m_pBuilder->GetTotalProgress( nPos, nLen ) )
 		{
 			m_wndProgress.SetRange32( 0, nLen );
 			// m_wndProgress.SetRange( 0, nLen );
 			m_wndProgress.SetPos( nPos );
 		}
-		
+
 		if ( m_pBuilder->GetCurrentFile( str1 ) )
 		{
 			m_wndFileName.GetWindowText( str2 );
 			if ( str1 != str2 ) m_wndFileName.SetWindowText( str1 );
 		}
-		
+
 		if ( m_pBuilder->IsRunning() ) return;
-		
+
 		bFinished = m_pBuilder->IsFinished();
-	
+
 		str1.Empty();
 		m_pBuilder->GetMessageString( str1 );
 		m_wndFileName.SetWindowText( str1 );
-		
+
 		m_pBuilder->Stop();
 		delete m_pBuilder;
 		m_pBuilder = NULL;
 	}
-	
+
 	KillTimer( 1 );
-	
+
 	m_wndAbort.ShowWindow( SW_HIDE );
 	m_wndSpeedMessage.ShowWindow( SW_HIDE );
 	m_wndSpeedSlow.ShowWindow( SW_HIDE );
 	m_wndSpeedFast.ShowWindow( SW_HIDE );
 	m_wndSpeed.ShowWindow( SW_HIDE );
-	
+
 	m_wndTorrentName.SetWindowText( m_sDestinationFile );
 
-	
+
 	if ( bFinished )
 	{
 		m_wndDone1.ShowWindow( SW_SHOW );
@@ -200,13 +200,13 @@ void CCommandlinePage::OnTimer(UINT_PTR nIDEvent)
 	{
 		m_wndProgress.SetPos( 0 );
 	}
-	
+
 	m_wndDone2.ShowWindow( SW_SHOW );
-	
+
 	SetWizardButtons( PSWIZB_FINISH );
 }
 
-void CCommandlinePage::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar) 
+void CCommandlinePage::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	if ( m_pBuilder != NULL )
 	{
@@ -232,29 +232,29 @@ void CCommandlinePage::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar
 			break;
 		}
 	}
-	
+
 	CWizardPage::OnHScroll( nSBCode, nPos, pScrollBar );
 }
 
-BOOL CCommandlinePage::OnWizardFinish() 
+BOOL CCommandlinePage::OnWizardFinish()
 {
 	return m_pBuilder == NULL;
 }
 
-void CCommandlinePage::OnAbort() 
+void CCommandlinePage::OnAbort()
 {
 	CWaitCursor pCursor;
 	if ( m_pBuilder != NULL ) m_pBuilder->Stop();
 }
 
-void CCommandlinePage::OnTorrentOpen() 
+void CCommandlinePage::OnTorrentOpen()
 {
 	ShellExecute( GetSafeHwnd(), _T("open"),
 		theApp.m_sCommandLineDestination, NULL, NULL, SW_SHOWNORMAL );
 }
 
-void CCommandlinePage::OnTorrentSeed() 
+void CCommandlinePage::OnTorrentSeed()
 {
-	ShellExecute( GetSafeHwnd(), NULL, 
+	ShellExecute( GetSafeHwnd(), NULL,
 		theApp.m_sCommandLineDestination + '\\' + m_sDestinationFile, NULL, NULL, SW_SHOWNORMAL );
 }

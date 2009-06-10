@@ -995,7 +995,7 @@
 		<item id="ID_DOWNLOADS_HELP" text="_Súgó..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Előnézet"/>	 
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Előnézet"/>
 		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Képes előnézet"/>
 		<!-- <item id="ID_DOWNLOADS_LAUNCH_COPY" text="_Másolat előnézete"/> -->
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Listához ad"/>
@@ -1073,10 +1073,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Mindet _szünetelteti"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Mindet _törli"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Csoportok _megjelenítése"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="Ú_j csoport"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Csoport _eltávolítása"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Csoportok _megjelenítése"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Tulajdonságok"/>
 	</menu>
@@ -2271,7 +2271,7 @@
 	<tip id="ID_DOWNLOADS_MOVE_UP" message="A kiválasztott letöltés(ek) feljebb tolása az elsőbbségi listán."/>
 	<tip id="ID_DOWNLOADS_PAUSE" message="Szünetelteti a kiválasztott letöltés(ek)et.."/>
 	<tip id="ID_DOWNLOADS_RATE" message="A letöltés osztályozása."/>
-	<tip id="ID_DOWNLOADS_REMOTE_PREVIEW" message="Előnézetként letölt egy képet a letöltésből."/>	
+	<tip id="ID_DOWNLOADS_REMOTE_PREVIEW" message="Előnézetként letölt egy képet a letöltésből."/>
 	<tip id="ID_DOWNLOADS_RESUME" message="A kiválasztott letöltés(ek) folytatása."/>
 	<tip id="ID_DOWNLOADS_SETTINGS" message="Letöltési beállítások..."/>
 	<tip id="ID_DOWNLOADS_SHARE" message="Ezt a félig letöltött fájlt ossza meg másokkal."/>
@@ -2379,7 +2379,7 @@
 	<tip id="ID_MEDIA_PREVIOUS" message="Visszamegy az előző fájlra." tip="Előző"/>
 	<tip id="ID_MEDIA_PROPERTIES" message="A kiválasztott fájl tulajdonságainak szerkesztése."/>
 	<tip id="ID_MEDIA_RANDOM" message="Véletlenszerű lejátszás kapcsolgatása."/>
-	<tip id="ID_MEDIA_RATE" message="Kiválasztott fájl osztályozása."/>	
+	<tip id="ID_MEDIA_RATE" message="Kiválasztott fájl osztályozása."/>
 	<tip id="ID_MEDIA_REMOVE" message="Eltávolítja a lejátszólistából."/>
 	<tip id="ID_MEDIA_REPEAT" message="Ismételt lejátszás kapcsolgatása."/>
 	<tip id="ID_MEDIA_SAVE" message="A jelenlegi list mentése..."/>
@@ -3216,7 +3216,7 @@
 	<string id="20133" value="Érdektelen"/>
 	<string id="20134" value="Elakadva"/>
 	<string id="20135" value="Következő"/>
-	<string id="20136" value="S"/> 
+	<string id="20136" value="S"/>
 	<string id="20137" value="forrás"/> <!-- 3/10 sources, for e.g. -->
 	<string id="20200" value="Vasárnap"/>
 	<string id="20201" value="Hétfő"/>
@@ -3641,7 +3641,7 @@
 		<control caption="_Név"/>
 		<control/>
 		<control caption="_Feltételek"/>
-		<control caption="Csak részben letöltött fájlok"/> 
+		<control caption="Csak részben letöltött fájlok"/>
 		<control caption="Csak a Könyvtárban megosztott fájlok"/>
 		<control caption="Részben és a Könyvtárban is megosztott fájlok"/>
 		<control caption="Minimális fájlméret:"/>
@@ -4439,10 +4439,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Cím"/>
+		<column from="Hits" to="Találatok"/>
 		<column from="Action" to="Feladat"/>
 		<column from="Expires" to="Lejárat"/>
-		<column from="#" to="Elsőbbség"/>
-		<column from="Hits" to="Találatok"/>
+		<column from="#" to="#"/>
 		<column from="Comment" to="Megjegyzés"/>
 	</list>
 	<list name="CHostCacheWnd">

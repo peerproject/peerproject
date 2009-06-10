@@ -74,7 +74,7 @@ void CBENode::Clear()
 			delete [] (CBENode**)m_pValue;
 		}
 	}
-	
+
 	m_nType		= beNull;
 	m_pValue	= NULL;
 	m_nValue	= 0;
@@ -102,20 +102,20 @@ CBENode* CBENode::Add(const LPBYTE pKey, size_t nKey)
 		ASSERT( FALSE );
 		break;
 	}
-	
+
 	auto_ptr< CBENode > pNew( new CBENode );
 	CBENode* pNew_ = pNew.get();
 
 	// Overflow check
 	ASSERT ( m_nValue <= SIZE_T_MAX );
 	size_t nValue = static_cast< size_t >( m_nValue );
-	
+
 	if ( m_nType == beList )
 	{
 		// Overflow check
 		ASSERT( nValue + 1 <= SIZE_T_MAX );
 		auto_array< CBENode* > pList( new CBENode*[ nValue + 1 ] );
-		
+
 		if ( m_pValue )
 		{
 			// Overflow check
@@ -124,7 +124,7 @@ CBENode* CBENode::Add(const LPBYTE pKey, size_t nKey)
 
 			delete [] (CBENode**)m_pValue;
 		}
-		
+
 		pList[ nValue ] = pNew.release();
 		m_pValue = pList.release();
 		++m_nValue;
@@ -134,7 +134,7 @@ CBENode* CBENode::Add(const LPBYTE pKey, size_t nKey)
 		// Overflow check
 		ASSERT( nValue * 2 + 2 <= SIZE_T_MAX );
 		auto_array< CBENode* > pList( new CBENode*[ nValue * 2 + 2 ] );
-		
+
 		if ( m_pValue )
 		{
 			// Overflow check
@@ -143,18 +143,18 @@ CBENode* CBENode::Add(const LPBYTE pKey, size_t nKey)
 
 			delete [] (CBENode**)m_pValue;
 		}
-		
+
 		auto_array< BYTE > pxKey( new BYTE[ nKey + 1 ] );
 		memcpy( pxKey.get(), pKey, nKey );
 		pxKey[ nKey ] = 0;
-		
+
 		pList[ nValue * 2 ]		= pNew.release();
 		pList[ nValue * 2 + 1 ]	= (CBENode*)pxKey.release();
-		
+
 		m_pValue = pList.release();
 		++m_nValue;
 	}
-	
+
 	return pNew_;
 }
 
@@ -164,28 +164,28 @@ CBENode* CBENode::Add(const LPBYTE pKey, size_t nKey)
 CBENode* CBENode::GetNode(LPCSTR pszKey) const
 {
 	if ( m_nType != beDict ) return NULL;
-	
+
 	CBENode** pNode = (CBENode**)m_pValue;
-	
+
 	for ( DWORD nNode = (DWORD)m_nValue ; nNode ; nNode--, pNode += 2 )
 	{
 		if ( strcmp( pszKey, (LPCSTR)pNode[1] ) == 0 ) return *pNode;
 	}
-	
+
 	return NULL;
 }
 
 CBENode* CBENode::GetNode(const LPBYTE pKey, int nKey) const
 {
 	if ( m_nType != beDict ) return NULL;
-	
+
 	CBENode** pNode = (CBENode**)m_pValue;
-	
+
 	for ( DWORD nNode = (DWORD)m_nValue ; nNode ; nNode--, pNode += 2 )
 	{
 		if ( memcmp( pKey, (LPBYTE)pNode[1], nKey ) == 0 ) return *pNode;
 	}
-	
+
 	return NULL;
 }
 
@@ -195,10 +195,10 @@ CBENode* CBENode::GetNode(const LPBYTE pKey, int nKey) const
 CSHA CBENode::GetSHA1() const
 {
 	ASSERT( this != NULL );
-	
+
 	CBuffer pBuffer;
 	Encode( &pBuffer );
-	
+
 	CSHA pSHA;
 	pSHA.Add( pBuffer.m_pBuffer, pBuffer.m_nLength );
 	pSHA.Finish();
@@ -211,11 +211,11 @@ CSHA CBENode::GetSHA1() const
 void CBENode::Encode(CBuffer* pBuffer) const
 {
 	CHAR szBuffer[64];
-	
+
 	ASSERT( this != NULL );
 	ASSERT( pBuffer != NULL );
 	CString str;
-	
+
 	if ( m_nType == beString )
 	{
 		sprintf( szBuffer, "%u:", (DWORD)m_nValue );
@@ -230,22 +230,22 @@ void CBENode::Encode(CBuffer* pBuffer) const
 	else if ( m_nType == beList )
 	{
 		CBENode** pNode = (CBENode**)m_pValue;
-		
+
 		pBuffer->Print( "l" );
-		
+
 		for ( DWORD nItem = 0 ; nItem < (DWORD)m_nValue ; nItem++, pNode++ )
 		{
 			(*pNode)->Encode( pBuffer );
 		}
-		
+
 		pBuffer->Print( "e" );
 	}
 	else if ( m_nType == beDict )
 	{
 		CBENode** pNode = (CBENode**)m_pValue;
-		
+
 		pBuffer->Print( "d" );
-		
+
 		for ( DWORD nItem = 0 ; nItem < m_nValue ; nItem++, pNode += 2 )
 		{
 			LPCSTR pszKey = (LPCSTR)pNode[1];
@@ -255,7 +255,7 @@ void CBENode::Encode(CBuffer* pBuffer) const
 			pBuffer->Print( pszKey );
 			(*pNode)->Encode( pBuffer );
 		}
-		
+
 		pBuffer->Print( "e" );
 	}
 	else

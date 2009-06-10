@@ -161,7 +161,7 @@ public:
 		int nColumns );
 
 	CLiveItemPtr Add(DWORD_PTR nParam);
-	CLiveItemPtr Add(LPVOID pParam);	
+	CLiveItemPtr Add(LPVOID pParam);
 	void Apply();
 	void Sort(int nColumn = -1);
 

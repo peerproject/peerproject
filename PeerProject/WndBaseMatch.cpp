@@ -663,7 +663,7 @@ void CBaseMatchWnd::OnLibraryBitziWeb()
 
 /*
 // Defunct Jigle.com P2P Search Code. ToDo: Re-apply
-void CBaseMatchWnd::OnUpdateLibraryJigle(CCmdUI* pCmdUI) 
+void CBaseMatchWnd::OnUpdateLibraryJigle(CCmdUI* pCmdUI)
 {
 	if ( m_pMatches->GetSelectedCount() != 1 )
 	{

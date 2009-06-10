@@ -74,7 +74,7 @@ protected:
 	BOOL		ExecuteRequest(CString strURL, BYTE** ppBuffer, DWORD* pnBuffer);
     void		OnPreviewLoaded(const Hashes::Sha1Hash& oSHA1, CImageFile* pImage);
     BOOL		CachePreviewImage(const Hashes::Sha1Hash& oSHA1, LPBYTE pBuffer, DWORD nBuffer);
-	
+
 	friend class Review;
 
 	CMatchList*			m_pMatches;

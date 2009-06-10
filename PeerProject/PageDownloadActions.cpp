@@ -228,7 +228,7 @@ void CDownloadActionsPage::OnCompleteVerify()
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
 	if ( ! Downloads.Check( pDownload ) || pDownload->IsMoving() ) return;
-	
+
 	if ( pDownload->NeedTigerTree() && pDownload->NeedHashset() &&
 		! pDownload->IsTorrent() )
 	{

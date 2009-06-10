@@ -182,7 +182,7 @@ void CHashProgressBar::OnPaint()
 	// Text
 	CString strText;
 	strText.Format( IDS_HASH_MESSAGE, LibraryBuilder.GetRemaining() );
-	
+
 	CFont* pOld = dc.SelectObject( &CoolInterface.m_fntNormal );
 	CSize sz = dc.GetTextExtent( strText );
 	CRect rcText( rcClient.left + 4 + 32 + 8, rcClient.top + 4,

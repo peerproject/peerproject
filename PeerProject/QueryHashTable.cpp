@@ -1157,7 +1157,7 @@ void CQueryHashTable::AddExact(LPCTSTR pszString, int nStart, int nLength)
 {
 	if ( ! nLength )
 		return;
-	
+
 	//TRACE( _T("[QHT] \"%hs\"\n"), (LPCSTR)CT2A( CString( pszString + nStart, nLength ) ) );
 	DWORD nHash	= HashWord( pszString, nStart, nLength, m_nBits );
 	BYTE* pHash	= m_pHash + ( nHash >> 3 );

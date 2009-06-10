@@ -97,15 +97,15 @@ CPacketWnd::~CPacketWnd()
 /////////////////////////////////////////////////////////////////////////////
 // CPacketWnd create
 
-int CPacketWnd::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CPacketWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CPanelWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
-	
+
 	m_wndList.Create( WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_CHILD | WS_VISIBLE |
 		LVS_AUTOARRANGE | LVS_REPORT | LVS_SHOWSELALWAYS,
 		rectDefault, this, IDC_PACKETS );
 	m_pSizer.Attach( &m_wndList );
-	
+
 	m_wndList.SetExtendedStyle(
 		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
 
@@ -131,7 +131,7 @@ int CPacketWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( 6, _T("ASCII"), LVCFMT_LEFT,
 		rcList.Width() - 440 - GetSystemMetrics( SM_CXVSCROLL ) - 1, 4 );
 	m_wndList.InsertColumn( 7, _T("G1-ID"), LVCFMT_LEFT, 50, 5 );
-	
+
 	m_pCoolMenu		= NULL;
 	m_nInputFilter	= 0;
 	m_nOutputFilter	= 0;
@@ -146,7 +146,7 @@ int CPacketWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-void CPacketWnd::OnDestroy() 
+void CPacketWnd::OnDestroy()
 {
 	KillTimer( 2 );
 
@@ -230,13 +230,13 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 		// TODO: Filter ED2K packets
 		if ( !m_bTypeED ) return;
 	}
-	
+
 	CSingleLock pLock( &m_pSection, TRUE );
-	
+
 	if ( m_bPaused ) return;
-	
+
 	CLiveItem* pItem = new CLiveItem( 8, 0 );
-	
+
 	pItem->m_nParam = bOutgoing;
 
 	CTime pNow( CTime::GetCurrentTime() );
@@ -244,7 +244,7 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 	strNow.Format( _T("%0.2i:%0.2i:%0.2i"),
 		pNow.GetHour(), pNow.GetMinute(), pNow.GetSecond() );
 	pItem->Set( 0, strNow );
-	
+
 	if ( ! bUDP )
 	{
 		pItem->Set( 1, CString( inet_ntoa( pAddress->sin_addr ) ) );
@@ -265,21 +265,21 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 		else if ( pPacketED )
 			pItem->Set( 2, _T("ED2K UDP") );
 	}
-	
+
 	pItem->Set( 3, pPacket->GetType() );
 	pItem->Set( 5, pPacket->ToHex() );
 	pItem->Set( 6, pPacket->ToASCII() );
-	
+
 	if ( pPacketG1 )
 	{
 		pItem->Format( 4, _T("%u/%u"), unsigned( pPacketG1->m_nTTL ), unsigned( pPacketG1->m_nHops ) );
 		pItem->Set( 7, pPacketG1->GetGUID() );
 	}
-	
+
 	m_pQueue.AddTail( pItem );
 }
 
-void CPacketWnd::OnTimer(UINT_PTR nIDEvent) 
+void CPacketWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( nIDEvent != 2 ) return;
 
@@ -321,7 +321,7 @@ void CPacketWnd::OnTimer(UINT_PTR nIDEvent)
 /////////////////////////////////////////////////////////////////////////////
 // CPacketWnd message handlers
 
-void CPacketWnd::OnSize(UINT nType, int cx, int cy) 
+void CPacketWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CPanelWnd::OnSize( nType, cx, cy );
 	m_pSizer.Resize( cx );
@@ -349,7 +349,7 @@ void CPacketWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 	}
 }
 
-void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point) 
+void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
 	CSingleLock pLock( &Network.m_pSection, TRUE );
 
@@ -375,7 +375,7 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		if ( ( nID % 1000 ) == 2 )
 			pHosts[nGroup].AppendMenu( MF_STRING|MF_GRAYED, 999, _T("No Neighbours") );
 	}
-	
+
 	pTypes1.CreatePopupMenu();
 
 	for ( int nType = 0 ; nType < nTypeG1Size ; nType++ )
@@ -540,12 +540,12 @@ void CPacketWnd::AddNeighbour(CMenu* pMenus, int nGroup, UINT nID, DWORD nTarget
 	pMenus[nGroup].AppendMenu( MF_STRING|nChecked, nID, pszText );
 }
 
-void CPacketWnd::OnMeasureItem(int /*nIDCtl*/, LPMEASUREITEMSTRUCT lpMeasureItemStruct) 
+void CPacketWnd::OnMeasureItem(int /*nIDCtl*/, LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 {
 	if ( m_pCoolMenu ) m_pCoolMenu->OnMeasureItem( lpMeasureItemStruct );
 }
 
-void CPacketWnd::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct) 
+void CPacketWnd::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	if ( m_pCoolMenu ) m_pCoolMenu->OnDrawItem( lpDrawItemStruct );
 }
@@ -556,9 +556,9 @@ void CPacketWnd::OnUpdateBlocker(CCmdUI* pCmdUI)
 	else pCmdUI->ContinueRouting();
 }
 
-void CPacketWnd::OnUpdateSystemClear(CCmdUI* pCmdUI) 
+void CPacketWnd::OnUpdateSystemClear(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( TRUE );	
+	pCmdUI->Enable( TRUE );
 }
 
 

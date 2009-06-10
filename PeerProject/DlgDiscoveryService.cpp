@@ -84,7 +84,7 @@ BOOL CDiscoveryServiceDlg::OnInitDialog()
 
 	m_sAddress	= m_pService->m_sAddress;
 	m_nType		= m_pService->m_nType - 1;
-	
+
 	//Reassigning the combo-box placeholder:
 	if ( m_nType == 1 )
 	{
@@ -97,7 +97,7 @@ BOOL CDiscoveryServiceDlg::OnInitDialog()
 			m_nType = 2;
 		}
 	}
-	else if ( m_nType > 1 ) 
+	else if ( m_nType > 1 )
 	{
 		m_nType += 2;
 	}

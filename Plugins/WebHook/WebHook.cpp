@@ -45,7 +45,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE /*hInstance*/, DWORD dwReason, LPVOID l
 			return FALSE;
 	}
 
-	return _AtlModule.DllMain( dwReason, lpReserved ); 
+	return _AtlModule.DllMain( dwReason, lpReserved );
 }
 
 STDAPI DllCanUnloadNow(void)
@@ -82,10 +82,10 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
     }
 
     if (bInstall)
-    {	
+    {
     	hr = DllRegisterServer();
     	if (FAILED(hr))
-    	{	
+    	{
     		DllUnregisterServer();
     	}
     }

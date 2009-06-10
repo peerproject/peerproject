@@ -28,13 +28,13 @@ namespace boost {
 // references with MSVC6.
 #   pragma warning(push)
 #   pragma warning(disable:4181) // warning C4181: qualifier applied to reference type ignored
-#endif 
+#endif
 
 BOOST_TT_AUX_TYPE_TRAIT_DEF1(add_volatile,T,T volatile)
 
 #if defined(BOOST_MSVC)
 #   pragma warning(pop)
-#endif 
+#endif
 
 #ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_1(typename T,add_volatile,T&,T&)

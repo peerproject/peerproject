@@ -1001,10 +1001,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Wstrzymaj wszystkie"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Wyczyść wszystkie"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Pokaż grupy"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="Nowa grupa..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Usuń grupę"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Pokaż grupy"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Właściwości"/>
 	</menu>
@@ -3295,7 +3295,7 @@
 		<control caption="Przechowuj pliki tymczasowe (jeszcze niekompletne) tutaj:"/>
 		<control/>
 		<control/>
-		<control caption="Maks. liczby jednocześnie  pobier./wyk.:"/><!-- ta część jest najbardziej nie zrozumała i powoduje najwięcej kłopotów przy ustawianiu - dlatego zmieniłem --> 
+		<control caption="Maks. liczby jednocześnie  pobier./wyk.:"/><!-- ta część jest najbardziej nie zrozumała i powoduje najwięcej kłopotów przy ustawianiu - dlatego zmieniłem -->
 		<control caption="plików (maksymalnie):"/>
 		<control/>
 		<control/>
@@ -3779,7 +3779,7 @@
 		<control caption="Ukryj:"/>
 		<control caption="Zajęte hosty"/>
 		<control caption="Nie pasujące pliki"/>
-		<control caption="Hosty za firew./push"/> 
+		<control caption="Hosty za firew./push"/>
 		<control caption="Pliki, które już masz"/>
 		<control caption="Nie stabilne hosty"/>
 		<control caption="Fałszywe wyniki"/>
@@ -4313,10 +4313,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adres / Zawartość"/>
+		<column from="Hits" to="Trafienia"/>
 		<column from="Action" to="Akcja"/>
 		<column from="Expires" to="Wygasa"/>
-		<column from="#" to="Pierwszeństwo"/>
-		<column from="Hits" to="Trafienia"/>
+		<column from="#" to="#"/>
 		<column from="Comment" to="Komentarz"/>
 	</list>
 	<list name="CHostCacheWnd">

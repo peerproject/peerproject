@@ -59,19 +59,19 @@ CHttpRequest::~CHttpRequest()
 void CHttpRequest::Clear()
 {
 	Cancel();
-	
+
 	m_sURL.Empty();
 	m_sRequestHeaders.Empty();
-	
+
 	m_nLimit		= 0;
 	m_nStatusCode	= 0;
-	
+
 	m_sStatusString.Empty();
 	m_pResponseHeaders.RemoveAll();
-	
+
 //	if ( m_pPost != NULL ) delete m_pPost;
 //	m_pPost = NULL;
-	
+
 	if ( m_pResponse != NULL ) delete m_pResponse;
 	m_pResponse = NULL;
 }
@@ -81,7 +81,7 @@ void CHttpRequest::Clear()
 
 BOOL CHttpRequest::SetURL(LPCTSTR pszURL)
 {
-	if ( IsPending() ) 
+	if ( IsPending() )
 		return FALSE;
 	if ( pszURL == NULL || _tcsncmp( pszURL, _T("http"), 4 ) ) return FALSE;
 	m_sURL = pszURL;
@@ -96,7 +96,7 @@ CString CHttpRequest::GetURL() const
 void CHttpRequest::AddHeader(LPCTSTR pszKey, LPCTSTR pszValue)
 {
 	if ( IsPending() ) return;
-	
+
 	m_sRequestHeaders += pszKey;
 	m_sRequestHeaders += _T(": ");
 	m_sRequestHeaders += pszValue;
@@ -106,10 +106,10 @@ void CHttpRequest::AddHeader(LPCTSTR pszKey, LPCTSTR pszValue)
 /*void CHttpRequest::SetPostData(LPCVOID pBody, DWORD nBody)
 {
 	if ( IsPending() ) return;
-	
+
 	if ( m_pPost != NULL ) delete m_pPost;
 	m_pPost = NULL;
-	
+
 	if ( pBody != NULL && nBody > 0 )
 	{
 		m_pPost = new CBuffer();
@@ -308,7 +308,7 @@ void CHttpRequest::OnRun()
 							if ( nColon > 0 )
 							{
 								CString strValue, strName = strHeader.Left( nColon );
-								strName.Trim(); 
+								strName.Trim();
 								ToLower( strName );
 								while ( m_pResponseHeaders.Lookup( strName, strValue ) )
 									strName += _T('_');

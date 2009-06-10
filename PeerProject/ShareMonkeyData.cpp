@@ -80,7 +80,7 @@ void CShareMonkeyData::Clear()
 // CShareMonkeyData start
 BOOL CShareMonkeyData::Start(CLibraryFileView* pView, DWORD nFileIndex)
 {
-	if ( m_hInternet != NULL ) 
+	if ( m_hInternet != NULL )
 		return FALSE;
 
 	CString strAgent = Settings.SmartAgent();
@@ -102,11 +102,11 @@ BOOL CShareMonkeyData::Start(CLibraryFileView* pView, DWORD nFileIndex)
 // CShareMonkeyData stop
 void CShareMonkeyData::Stop()
 {
-	if ( m_hSession != NULL ) 
+	if ( m_hSession != NULL )
 		InternetCloseHandle( m_hSession );
 	m_hSession = NULL;
 
-	if ( m_hInternet ) 
+	if ( m_hInternet )
 		InternetCloseHandle( m_hInternet );
 	m_hInternet = NULL;
 
@@ -150,7 +150,7 @@ void CShareMonkeyData::OnRun()
 			else
 			{
 				if ( m_hInternet == NULL ) break;
-				if ( m_hRequest != NULL ) 
+				if ( m_hRequest != NULL )
 					InternetCloseHandle( m_hRequest );
 				m_hRequest = NULL;
 				m_sStatus = L"Failed. Retrying...";
@@ -159,7 +159,7 @@ void CShareMonkeyData::OnRun()
 			}
 		}
 
-		if ( m_hRequest != NULL ) 
+		if ( m_hRequest != NULL )
 			InternetCloseHandle( m_hRequest );
 		m_hRequest = NULL;
 		m_sResponse.Empty();
@@ -167,11 +167,11 @@ void CShareMonkeyData::OnRun()
 		Sleep( min( m_nDelay, 500ul ) );
 	}
 
-	if ( m_hSession != NULL ) 
+	if ( m_hSession != NULL )
 		InternetCloseHandle( m_hSession );
 	m_hSession = NULL;
 
-	if ( m_hInternet ) 
+	if ( m_hInternet )
 		InternetCloseHandle( m_hInternet );
 	m_hInternet = NULL;
 }
@@ -189,7 +189,7 @@ bool CShareMonkeyData::NotifyWindow(LPCTSTR pszMessage) const
 /////////////////////////////////////////////////////////////////////////////
 BOOL CShareMonkeyData::BuildRequest()
 {
-	int nCategory = 0; 
+	int nCategory = 0;
 
 	m_sURL = Settings.Search.ShareMonkeyBaseURL;
 	m_pSchema = NULL;
@@ -204,7 +204,7 @@ BOOL CShareMonkeyData::BuildRequest()
 	{
 		// storeMatch/<session_id>/<contributor_id>/<file_id>/<product_id>/COUNTRY
 		CString str;
-		str.Format( L"storeMatch/%s/%s/0/%s/%s", m_sSessionID, Settings.WebServices.ShareMonkeyCid, 
+		str.Format( L"storeMatch/%s/%s/0/%s/%s", m_sSessionID, Settings.WebServices.ShareMonkeyCid,
 					m_sProductID, m_sCountry );
 		m_sURL += str;
 	}
@@ -213,7 +213,7 @@ BOOL CShareMonkeyData::BuildRequest()
 
 	if ( m_nRequestType == stProductMatch || m_nRequestType == stComparison )
 	{
-		if ( theApp.m_nUPnPExternalAddress != ADDR_ANY ) 
+		if ( theApp.m_nUPnPExternalAddress != ADDR_ANY )
 		{
 			CString strIP;
 			DWORD ip = theApp.m_nUPnPExternalAddress;
@@ -230,7 +230,7 @@ BOOL CShareMonkeyData::BuildRequest()
 			CQuickLock oLock( Library.m_pSection );
 			CLibraryFile* pFile = Library.LookupFile( m_nFileIndex );
 
-			if ( pFile == NULL ) 
+			if ( pFile == NULL )
 				return FALSE;
 
 			m_sURL += L"&n=" + pFile->m_sName;
@@ -279,7 +279,7 @@ BOOL CShareMonkeyData::BuildRequest()
 				else if ( pFile->m_pSchema->CheckURI( CSchema::uriROM ) ||
 						pFile->m_pSchema->CheckURI( CSchema::uriArchive ) )
 					bAppOrGame = true;
-				
+
 				if ( bAppOrGame && pFile->m_pMetadata )
 				{
 					CString strWords = pFile->m_pSchema->GetIndexedWords( pFile->m_pMetadata->GetFirstElement() );
@@ -288,7 +288,7 @@ BOOL CShareMonkeyData::BuildRequest()
 					else if ( _tcsistr( strWords, L"software" ) != NULL ||
 							_tcsistr( strWords, L"application" ) != NULL )
 						nCategory = 4;
-				} 
+				}
 				else if ( bTorrent && pFile->m_pMetadata && pFile->m_bMetadataAuto )
 				{
 					CXMLAttribute* pInfoHash = pFile->m_pMetadata->GetAttribute( L"hash" );
@@ -399,7 +399,7 @@ BOOL CShareMonkeyData::ExecuteRequest()
 
 	free( pResponse );
 
-	if ( m_hRequest != NULL ) 
+	if ( m_hRequest != NULL )
 		InternetCloseHandle( m_hRequest );
 	m_hRequest = NULL;
 
@@ -414,7 +414,7 @@ BOOL CShareMonkeyData::DecodeResponse(CString& strMessage)
 		Clear();
 
 	m_pXML = CXMLElement::FromString( m_sResponse, TRUE );
-	if ( m_pXML == NULL ) 
+	if ( m_pXML == NULL )
 	{
 		strMessage = L"Invalid XML";
 		return FALSE;
@@ -437,13 +437,13 @@ BOOL CShareMonkeyData::DecodeResponse(CString& strMessage)
 				Clear();
 				return FALSE;
 			}
-		} 
+		}
 		else if ( pElement->IsNamed( L"Status" ) )
 		{
 			strStatus = pElement->GetValue();
 			if ( strStatus.CompareNoCase( L"success" ) != NULL )
 			{
-				if ( m_nRequestType != stComparison ) 
+				if ( m_nRequestType != stComparison )
 					bFailed = true;
 			}
 		}
@@ -495,13 +495,13 @@ BOOL CShareMonkeyData::DecodeResponse(CString& strMessage)
 		return FALSE;
 	else if ( m_nRequestType == stComparison )
 		return TRUE;
-	else 
+	else
 		return bResult;
 }
 
 BOOL CShareMonkeyData::ImportData(CXMLElement* pRoot)
 {
-	if ( pRoot == NULL ) 
+	if ( pRoot == NULL )
 		return FALSE;
 
 	if ( m_nRequestType == stProductMatch )
@@ -615,13 +615,13 @@ BOOL CShareMonkeyData::ImportData(CXMLElement* pRoot)
 		CString strValue = pValue->GetValue();
 		if ( strValue.IsEmpty() )
 			return FALSE;
-		
+
 		CXMLElement* pLink = pRoot->GetElementByName( L"StoreURL" );
 		if ( pLink )
 		{
 			CString strLink;
 			strLink.Format( L"%s|%s", pLink->GetValue(), strValue );
-			
+
 			while ( Find( strName ) )
 				strName += '\x00A0';
 

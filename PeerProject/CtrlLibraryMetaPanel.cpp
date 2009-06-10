@@ -498,7 +498,7 @@ void CLibraryMetaPanel::OnRun()
 	m_pSection.Lock();
 
 	while ( IsThreadEnabled() )
-	{	
+	{
 		CString strPath = m_sPath;
 		CString strURL = m_sThumbnailURL;
 

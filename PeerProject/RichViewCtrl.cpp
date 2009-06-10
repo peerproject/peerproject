@@ -483,7 +483,7 @@ void CRichViewCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
 
 BOOL CRichViewCtrl::OnMouseWheel(UINT /*nFlags*/, short zDelta, CPoint /*pt*/)
 {
-	OnVScroll( SB_THUMBPOSITION, (int)( GetScrollPos( SB_VERT ) - 
+	OnVScroll( SB_THUMBPOSITION, (int)( GetScrollPos( SB_VERT ) -
 		zDelta / WHEEL_DELTA * m_nScrollWheelLines * 16 ), NULL );
 	return TRUE;
 }

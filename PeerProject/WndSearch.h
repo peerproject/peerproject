@@ -75,7 +75,7 @@ public:
 	DWORD				m_nMaxResults;
 	DWORD				m_nMaxED2KResults;
 	DWORD				m_nMaxQueryCount;
-	
+
 // Operations
 public:
 	void			Serialize(CArchive& ar);
@@ -84,7 +84,7 @@ public:
 	void			ExecuteSearch();
 protected:
 	BOOL			DoSizeDetails();
-public:	
+public:
 	virtual void	OnSkinChange();
 	virtual BOOL	OnQueryHits(const CQueryHit* pHits);
 	virtual void	UpdateMessages(BOOL bActive = TRUE);

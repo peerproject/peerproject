@@ -1016,10 +1016,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全部暫停"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全部清除"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="顯示群組"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="新群組..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="移除群組"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="顯示群組"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="屬性"/>
 	</menu>
@@ -4186,10 +4186,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="位址 / 內容" />
+		<column from="Hits" to="命中" />
 		<column from="Action" to="動作" />
 		<column from="Expires" to="有效期限" />
 		<column from="#" to="優先順序" />
-		<column from="Hits" to="命中" />
 		<column from="Comment" to="備註" />
 	</list>
 	<list name="CHostCacheWnd">

@@ -73,7 +73,7 @@
 # if !defined(BOOST_NO_STD_ITERATOR_TRAITS)             \
   && !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) \
   && !defined(BOOST_MSVC_STD_ITERATOR)
-    
+
 namespace boost { namespace detail {
 
 // Define a new template so it can be specialized
@@ -190,7 +190,7 @@ template <class T>
 struct is_mutable_iterator_impl
 {
     static T t;
-    
+
     BOOST_STATIC_CONSTANT(
         bool, value = sizeof(
             detail::is_mutable_iterator_helper(
@@ -213,10 +213,10 @@ BOOST_TT_AUX_BOOL_TRAIT_DEF1(
 template <class T>
 struct is_full_iterator_traits_impl
 {
-    enum { value = 
-           has_value_type<T>::value 
-           & has_reference<T>::value 
-           & has_pointer<T>::value 
+    enum { value =
+           has_value_type<T>::value
+           & has_reference<T>::value
+           & has_pointer<T>::value
            & has_difference_type<T>::value
            & has_iterator_category<T>::value
     };
@@ -228,7 +228,7 @@ BOOST_TT_AUX_BOOL_TRAIT_DEF1(
 
 #   ifdef BOOST_BAD_CONTAINER_ITERATOR_CATEGORY_TYPEDEF
 BOOST_MPL_HAS_XXX_TRAIT_DEF(_Iterator_category)
-    
+
 // is_stlport_40_debug_iterator --
 //
 //   A metafunction returning true iff T has all the requisite nested
@@ -237,10 +237,10 @@ BOOST_MPL_HAS_XXX_TRAIT_DEF(_Iterator_category)
 template <class T>
 struct is_stlport_40_debug_iterator_impl
 {
-    enum { value = 
-           has_value_type<T>::value 
-           & has_reference<T>::value 
-           & has_pointer<T>::value 
+    enum { value =
+           has_value_type<T>::value
+           & has_reference<T>::value
+           & has_pointer<T>::value
            & has_difference_type<T>::value
            & has__Iterator_category<T>::value
     };
@@ -258,7 +258,7 @@ struct stlport_40_debug_iterator_traits
     typedef typename T::difference_type difference_type;
     typedef typename T::_Iterator_category iterator_category;
 };
-#   endif // BOOST_BAD_CONTAINER_ITERATOR_CATEGORY_TYPEDEF 
+#   endif // BOOST_BAD_CONTAINER_ITERATOR_CATEGORY_TYPEDEF
 
 template <class T> struct pointer_iterator_traits;
 
@@ -367,7 +367,7 @@ struct bad_output_iterator_traits
 #   endif
 
 // If we're looking at an MSVC6 (old Dinkumware) ``standard''
-// iterator, this will generate an appropriate traits class. 
+// iterator, this will generate an appropriate traits class.
 template <class Iterator>
 struct msvc_stdlib_iterator_traits
     : mpl::if_<
@@ -394,7 +394,7 @@ struct non_pointer_iterator_traits
         , msvc_stdlib_iterator_traits<Iterator>
 #   ifdef BOOST_BAD_CONTAINER_ITERATOR_CATEGORY_TYPEDEF
         >::type
-#   endif 
+#   endif
     >::type
 {
 };
@@ -416,7 +416,7 @@ struct iterator_traits
     // under some circumstances.
  private:
 #   ifdef BOOST_BAD_OUTPUT_ITERATOR_SPECIALIZATION
-    typedef 
+    typedef
     typename mpl::if_<
         is_bad_output_iterator<Iterator>
         , bad_output_iterator_traits
@@ -478,7 +478,7 @@ distance(Iterator first, Iterator last)
 {
     typedef typename iterator_traits<Iterator>::difference_type diff_t;
     typedef typename ::boost::detail::iterator_traits<Iterator>::iterator_category iterator_category;
-    
+
     return iterator_traits_::distance_select<Iterator,diff_t>::execute(
         first, last, (iterator_category*)0);
 }

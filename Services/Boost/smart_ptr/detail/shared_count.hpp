@@ -31,7 +31,7 @@
 #include <boost/detail/workaround.hpp>
 // In order to avoid circular dependencies with Boost.TR1
 // we make sure that our include of <memory> doesn't try to
-// pull in the TR1 headers: that's why we use this header 
+// pull in the TR1 headers: that's why we use this header
 // rather than including <memory> directly:
 #include <boost/config/no_tr1/memory.hpp>  // std::auto_ptr
 #include <functional>       // std::less
@@ -210,7 +210,7 @@ public:
         r.release();
     }
 
-#endif 
+#endif
 
     ~shared_count() // nothrow
     {

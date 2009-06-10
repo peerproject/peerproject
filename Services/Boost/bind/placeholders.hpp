@@ -3,7 +3,7 @@
 
 // MS compatible compilers support #pragma once
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -25,19 +25,7 @@
 namespace
 {
 
-#if defined(__BORLANDC__) || defined(__GNUC__) && (__GNUC__ * 100 + __GNUC_MINOR__ <= 400)
-
-static inline boost::arg<1> _1() { return boost::arg<1>(); }
-static inline boost::arg<2> _2() { return boost::arg<2>(); }
-static inline boost::arg<3> _3() { return boost::arg<3>(); }
-static inline boost::arg<4> _4() { return boost::arg<4>(); }
-static inline boost::arg<5> _5() { return boost::arg<5>(); }
-static inline boost::arg<6> _6() { return boost::arg<6>(); }
-static inline boost::arg<7> _7() { return boost::arg<7>(); }
-static inline boost::arg<8> _8() { return boost::arg<8>(); }
-static inline boost::arg<9> _9() { return boost::arg<9>(); }
-
-#elif defined(BOOST_MSVC) || (defined(__DECCXX_VER) && __DECCXX_VER <= 60590031) || defined(__MWERKS__)
+#if defined(BOOST_MSVC)
 
 static boost::arg<1> _1;
 static boost::arg<2> _2;

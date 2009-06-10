@@ -13,7 +13,7 @@
 // Must be the last include
 # include <boost/type_traits/detail/bool_trait_def.hpp>
 
-namespace boost { namespace detail { 
+namespace boost { namespace detail {
 
 // is_incrementable<T> metafunction
 //
@@ -27,7 +27,7 @@ namespace is_incrementable_
   // a type returned from operator++ when no increment is found in the
   // type's own namespace
   struct tag {};
-  
+
   // any soaks up implicit conversions and makes the following
   // operator++ less-preferred than any other such operator that
   // might be found via ADL.
@@ -35,7 +35,7 @@ namespace is_incrementable_
 
   // This is a last-resort operator++ for when none other is found
 # if BOOST_WORKAROUND(__GNUC__, == 4) && __GNUC_MINOR__ == 0 && __GNUC_PATCHLEVEL__ == 2
-  
+
 }
 
 namespace is_incrementable_2
@@ -47,34 +47,29 @@ using namespace is_incrementable_2;
 
 namespace is_incrementable_
 {
-  
+
 # else
-  
+
   tag operator++(any const&);
   tag operator++(any const&,int);
-  
-# endif 
+
+# endif
 
 # if BOOST_WORKAROUND(__MWERKS__, BOOST_TESTED_AT(0x3202)) \
     || BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
 #  define BOOST_comma(a,b) (a)
-# else 
+# else
   // In case an operator++ is found that returns void, we'll use ++x,0
-  tag operator,(tag,int);  
+  tag operator,(tag,int);
 #  define BOOST_comma(a,b) (a,b)
-# endif 
-
-# if defined(BOOST_MSVC)
-#  pragma warning(push)
-#  pragma warning(disable:4913) // Warning about operator,
-# endif 
+# endif
 
   // two check overloads help us identify which operator++ was picked
   char (& check(tag) )[2];
-  
+
   template <class T>
   char check(T const&);
-  
+
 
   template <class T>
   struct impl
@@ -97,27 +92,22 @@ namespace is_incrementable_
         , value = sizeof(is_incrementable_::check(BOOST_comma(x++,0))) == 1
       );
   };
-
-# if defined(BOOST_MSVC)
-#  pragma warning(pop)
-# endif 
-
 }
 
 # undef BOOST_comma
 
-template<typename T> 
-struct is_incrementable 
+template<typename T>
+struct is_incrementable
 BOOST_TT_AUX_BOOL_C_BASE(::boost::detail::is_incrementable_::impl<T>::value)
-{ 
+{
     BOOST_TT_AUX_BOOL_TRAIT_VALUE_DECL(::boost::detail::is_incrementable_::impl<T>::value)
     BOOST_MPL_AUX_LAMBDA_SUPPORT(1,is_incrementable,(T))
 };
 
-template<typename T> 
-struct is_postfix_incrementable 
+template<typename T>
+struct is_postfix_incrementable
 BOOST_TT_AUX_BOOL_C_BASE(::boost::detail::is_incrementable_::impl<T>::value)
-{ 
+{
     BOOST_TT_AUX_BOOL_TRAIT_VALUE_DECL(::boost::detail::is_incrementable_::postfix_impl<T>::value)
     BOOST_MPL_AUX_LAMBDA_SUPPORT(1,is_postfix_incrementable,(T))
 };

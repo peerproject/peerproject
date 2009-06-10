@@ -8,7 +8,7 @@
  *
  *
  *  Commercial use is not authorized without agreement
- * 
+ *
  *  URL:     http://www.xnview.com
  *  E-Mail : webmaster@xnview.com
  */
@@ -60,22 +60,22 @@ extern "C" {
     typedef uint16_t   GFL_UINT16;
     typedef int32_t    GFL_INT32;
     typedef uint32_t   GFL_UINT32;
-#endif 
+#endif
 /*
-typedef signed char    GFL_INT8; 
-typedef unsigned char  GFL_UINT8; 
-typedef signed short   GFL_INT16; 
-typedef unsigned short GFL_UINT16; 
+typedef signed char    GFL_INT8;
+typedef unsigned char  GFL_UINT8;
+typedef signed short   GFL_INT16;
+typedef unsigned short GFL_UINT16;
 #if __WORDSIZE == 64
-typedef signed int     GFL_INT32; 
-typedef unsigned int   GFL_UINT32; 
+typedef signed int     GFL_INT32;
+typedef unsigned int   GFL_UINT32;
 #else
-typedef signed long    GFL_INT32; 
-typedef unsigned long  GFL_UINT32; 
+typedef signed long    GFL_INT32;
+typedef unsigned long  GFL_UINT32;
 #endif
 */
 
-typedef unsigned char  GFL_BOOL; 
+typedef unsigned char  GFL_BOOL;
 
 /*
  *  ERROR
@@ -94,7 +94,7 @@ typedef unsigned char  GFL_BOOL;
 
 #define GFL_UNKNOWN_ERROR           255
 
-typedef GFL_INT16 GFL_ERROR; 
+typedef GFL_INT16 GFL_ERROR;
 
 /*
  *  ORIGIN type
@@ -108,7 +108,7 @@ typedef GFL_INT16 GFL_ERROR;
 #define GFL_TOP_RIGHT       (GFL_TOP | GFL_RIGHT)
 #define GFL_BOTTOM_RIGHT    (GFL_BOTTOM | GFL_RIGHT)
 
-typedef GFL_UINT16 GFL_ORIGIN; 
+typedef GFL_UINT16 GFL_ORIGIN;
 
 /*
  *  COMPRESSION type
@@ -127,7 +127,7 @@ typedef GFL_UINT16 GFL_ORIGIN;
 #define GFL_LZW_PREDICTOR         11
 #define GFL_UNKNOWN_COMPRESSION   255
 
-typedef GFL_UINT16 GFL_COMPRESSION; 
+typedef GFL_UINT16 GFL_COMPRESSION;
 
 /*
  *  BITMAP type
@@ -167,49 +167,49 @@ typedef GFL_UINT16 GFL_COMPRESSION;
 
 #define GFL_ISTRUECOLORS(_a) ((_a) & (GFL_RGB | GFL_BGR | GFL_RGBA | GFL_ABGR | GFL_BGRA | GFL_ARGB | GFL_CMYK))
 
-typedef GFL_UINT16 GFL_BITMAP_TYPE; 
+typedef GFL_UINT16 GFL_BITMAP_TYPE;
 
 /*
  *  BITMAP struct
  */
 typedef struct {
-		GFL_UINT8 Red[256]; 
-		GFL_UINT8 Green[256]; 
-		GFL_UINT8 Blue[256]; 
-		GFL_UINT8 Alpha[256]; 
-	} GFL_COLORMAP; 
+		GFL_UINT8 Red[256];
+		GFL_UINT8 Green[256];
+		GFL_UINT8 Blue[256];
+		GFL_UINT8 Alpha[256];
+	} GFL_COLORMAP;
 
 typedef struct {
-		GFL_UINT16 Red, Green, Blue, Alpha; 
-	} GFL_COLOR; 
+		GFL_UINT16 Red, Green, Blue, Alpha;
+	} GFL_COLOR;
 
 /*
  *  BITMAP struct
  */
 typedef struct {
-		GFL_BITMAP_TYPE  Type; 
-		GFL_ORIGIN       Origin; 
-		GFL_INT32        Width; 
-		GFL_INT32        Height; 
-		GFL_UINT32       BytesPerLine; 
-		GFL_INT16        LinePadding; 
+		GFL_BITMAP_TYPE  Type;
+		GFL_ORIGIN       Origin;
+		GFL_INT32        Width;
+		GFL_INT32        Height;
+		GFL_UINT32       BytesPerLine;
+		GFL_INT16        LinePadding;
 		GFL_UINT16       BitsPerComponent;  /* 1, 8, 10, 12, 16 */
 		GFL_UINT16       ComponentsPerPixel;/* 1, 3, 4  */
 		GFL_UINT16       BytesPerPixel;     /* Only valid for 8 or more bits */
-		GFL_UINT16       Xdpi; 
-		GFL_UINT16       Ydpi; 
+		GFL_UINT16       Xdpi;
+		GFL_UINT16       Ydpi;
 		GFL_INT16        TransparentIndex;  /* -1 if not used */
-		GFL_INT16	       Reserved; 
-		GFL_INT32        ColorUsed; 
-		GFL_COLORMAP*    ColorMap; 
-		GFL_UINT8*       Data; 
-		char*            Comment; 
-		void*            MetaData; 
+		GFL_INT16	       Reserved;
+		GFL_INT32        ColorUsed;
+		GFL_COLORMAP*    ColorMap;
+		GFL_UINT8*       Data;
+		char*            Comment;
+		void*            MetaData;
 
-		GFL_INT32        XOffset; 
-		GFL_INT32        YOffset; 
-		char*            Name; 
-	} GFL_BITMAP; 
+		GFL_INT32        XOffset;
+		GFL_INT32        YOffset;
+		char*            Name;
+	} GFL_BITMAP;
 
 /*
  *    Channels Order
@@ -218,7 +218,7 @@ typedef struct {
 #define GFL_CORDER_SEQUENTIAL  1
 #define GFL_CORDER_SEPARATE    2
 
-typedef GFL_UINT16 GFL_CORDER; 
+typedef GFL_UINT16 GFL_CORDER;
 
 /*
  *    Channels Type
@@ -231,7 +231,7 @@ typedef GFL_UINT16 GFL_CORDER;
 #define GFL_CTYPE_CMY          5
 #define GFL_CTYPE_CMYK         6
 
-typedef GFL_UINT16 GFL_CTYPE; 
+typedef GFL_UINT16 GFL_CTYPE;
 
 /*
  *    Lut Type (For DPX/Cineon)
@@ -241,27 +241,27 @@ typedef GFL_UINT16 GFL_CTYPE;
 #define GFL_LUT_TO12BITS      3
 #define GFL_LUT_TO16BITS      4
 
-typedef GFL_UINT16 GFL_LUT_TYPE; 
+typedef GFL_UINT16 GFL_LUT_TYPE;
 
 /*
  *  Callbacks
  */
-typedef void* (GFLAPI *GFL_ALLOC_CALLBACK)( size_t size, void* user_parms ); 
-typedef void* (GFLAPI *GFL_REALLOC_CALLBACK)( void* ptr, size_t new_size, void* user_parms ); 
-typedef void (GFLAPI *GFL_FREE_CALLBACK)( void* ptr, void* user_parms ); 
+typedef void* (GFLAPI *GFL_ALLOC_CALLBACK)( size_t size, void* user_parms );
+typedef void* (GFLAPI *GFL_REALLOC_CALLBACK)( void* ptr, size_t new_size, void* user_parms );
+typedef void (GFLAPI *GFL_FREE_CALLBACK)( void* ptr, void* user_parms );
 
-typedef void * GFL_HANDLE; 
+typedef void * GFL_HANDLE;
 
-typedef GFL_UINT32 (GFLAPI *GFL_READ_CALLBACK)(GFL_HANDLE handle, void* buffer, GFL_UINT32 size); 
-typedef GFL_UINT32 (GFLAPI *GFL_TELL_CALLBACK)(GFL_HANDLE handle); 
-typedef GFL_UINT32 (GFLAPI *GFL_SEEK_CALLBACK)(GFL_HANDLE handle, GFL_INT32 offset, GFL_INT32 origin); 
-typedef GFL_UINT32 (GFLAPI *GFL_WRITE_CALLBACK)(GFL_HANDLE handle, const void* buffer, GFL_UINT32 size); 
+typedef GFL_UINT32 (GFLAPI *GFL_READ_CALLBACK)(GFL_HANDLE handle, void* buffer, GFL_UINT32 size);
+typedef GFL_UINT32 (GFLAPI *GFL_TELL_CALLBACK)(GFL_HANDLE handle);
+typedef GFL_UINT32 (GFLAPI *GFL_SEEK_CALLBACK)(GFL_HANDLE handle, GFL_INT32 offset, GFL_INT32 origin);
+typedef GFL_UINT32 (GFLAPI *GFL_WRITE_CALLBACK)(GFL_HANDLE handle, const void* buffer, GFL_UINT32 size);
 
 typedef void* (GFLAPI *GFL_ALLOCATEBITMAP_CALLBACK)(GFL_INT32 width, GFL_INT32 height, GFL_INT32 number_component, GFL_INT32 bits_per_component, GFL_INT32 padding, GFL_INT32 bytes_per_line, void * user_params); /* Be careful when using this callback */
-typedef void (GFLAPI *GFL_PROGRESS_CALLBACK)(GFL_INT32 percent, void* user_params); 
-typedef GFL_BOOL (GFLAPI *GFL_WANTCANCEL_CALLBACK)(void* user_params); 
+typedef void (GFLAPI *GFL_PROGRESS_CALLBACK)(GFL_INT32 percent, void* user_params);
+typedef GFL_BOOL (GFLAPI *GFL_WANTCANCEL_CALLBACK)(void* user_params);
 
-typedef GFL_ERROR (GFLAPI *GFL_VIRTUAL_SAVE_CALLBACK)(void** pBuffer, GFL_INT32 line, GFL_INT32 nbline, void* user_params); 
+typedef GFL_ERROR (GFLAPI *GFL_VIRTUAL_SAVE_CALLBACK)(void** pBuffer, GFL_INT32 line, GFL_INT32 nbline, void* user_params);
 
 /*
  *  LOAD_PARAMS Flags
@@ -282,59 +282,59 @@ typedef GFL_ERROR (GFLAPI *GFL_VIRTUAL_SAVE_CALLBACK)(void** pBuffer, GFL_INT32 
 #define GFL_LOAD_EMBEDDED_THUMBNAIL       0x00002000 /* gflLoadThumbnail                                   */
 #define GFL_LOAD_ORIENTED_THUMBNAIL       0x00004000 /* gflLoadThumbnail                                   */
 #define GFL_LOAD_ORIGINAL_EMBEDDED_THUMBNAIL 0x00008000 /* gflLoadThumbnail                                   */
-#define GFL_LOAD_ORIENTED				  0x00008000 
+#define GFL_LOAD_ORIENTED				  0x00008000
 /*
  *  GFL_LOAD_CALLBACKS struct
  */
 typedef struct {
-		GFL_READ_CALLBACK  Read; 
-		GFL_TELL_CALLBACK  Tell; 
-		GFL_SEEK_CALLBACK  Seek; 
+		GFL_READ_CALLBACK  Read;
+		GFL_TELL_CALLBACK  Tell;
+		GFL_SEEK_CALLBACK  Seek;
 
 		GFL_ALLOCATEBITMAP_CALLBACK AllocateBitmap; /* Global or not???? */
-		void * AllocateBitmapParams; 
+		void * AllocateBitmapParams;
 
-		GFL_PROGRESS_CALLBACK Progress; 
-		void * ProgressParams; 
+		GFL_PROGRESS_CALLBACK Progress;
+		void * ProgressParams;
 
-		GFL_WANTCANCEL_CALLBACK WantCancel; 
-		void * WantCancelParams; 
+		GFL_WANTCANCEL_CALLBACK WantCancel;
+		void * WantCancelParams;
 
-	} GFL_LOAD_CALLBACKS; 
+	} GFL_LOAD_CALLBACKS;
 
 /*
  *  LOAD_PARAMS struct
  */
 typedef struct {
-		GFL_UINT32       Flags; 
+		GFL_UINT32       Flags;
 		GFL_INT32        FormatIndex; /* -1 for automatic recognition */
     GFL_INT32        ImageWanted; /* for multi-page or animated file */
 		GFL_ORIGIN       Origin;      /* default: GFL_TOP_LEFT   */
 		GFL_BITMAP_TYPE  ColorModel;  /* Only for 24/32 bits picture, GFL_RGB/GFL_RGBA (default), GFL_BGR/GFL_ABGR, GFL_BGRA, GFL_ARGB */
 		GFL_UINT32       LinePadding; /* 1 (default), 2, 4, .... */
-		
+
 		GFL_UINT8        DefaultAlpha; /* Used if alpha doesn't exist in original file & ColorModel=RGBA/BGRA/ABGR/ARGB */
 
 		/*
 		 *
 		 */
-		GFL_UINT8        PsdNoAlphaForNonLayer; 
-		GFL_UINT8        PngComposeWithAlpha; 
-		GFL_UINT8        WMFHighResolution; 
+		GFL_UINT8        PsdNoAlphaForNonLayer;
+		GFL_UINT8        PngComposeWithAlpha;
+		GFL_UINT8        WMFHighResolution;
 
 		/*
 		 * RAW/YUV only
 		 */
-		GFL_INT32        Width; 
-		GFL_INT32        Height; 
-		GFL_UINT32       Offset; 
+		GFL_INT32        Width;
+		GFL_INT32        Height;
+		GFL_UINT32       Offset;
 
 		/*
 		 * RAW only
 		 */
-		GFL_CORDER       ChannelOrder; 
-		GFL_CTYPE        ChannelType; 
-		
+		GFL_CORDER       ChannelOrder;
+		GFL_CTYPE        ChannelType;
+
 		/*
 		 * PCD only
 		 */
@@ -343,37 +343,37 @@ typedef struct {
 		/*
 		 * EPS/PS/AI/PDF only
 		 */
-		GFL_UINT16       EpsDpi; 
-		GFL_INT32        EpsWidth; 
-		GFL_INT32        EpsHeight; 
-		
+		GFL_UINT16       EpsDpi;
+		GFL_INT32        EpsWidth;
+		GFL_INT32        EpsHeight;
+
 		/*
 		 * DPX/Cineon only
 		 */
 		GFL_LUT_TYPE     LutType; /* GFL_LUT_TO8BITS, GFL_LUT_TO10BITS, GFL_LUT_TO12BITS, GFL_LUT_TO16BITS */
-		GFL_UINT16       Reserved3; 
+		GFL_UINT16       Reserved3;
 		GFL_UINT16     * LutData; /* RRRR.../GGGG..../BBBB.....*/
-		const char     * LutFilename; 
-    
-		/* 
+		const char     * LutFilename;
+
+		/*
 		 * Camera RAW only
 		 */
-		GFL_UINT8        CameraRawUseAutomaticBalance; 
-		GFL_UINT8        CameraRawUseCameraBalance; 
-		GFL_UINT8        CameraRawHighlight; 
-		GFL_UINT8        Reserved4; 
-		float            CameraRawGamma; 
-		float            CameraRawBrightness; 
-		float            CameraRawRedScaling; 
-		float            CameraRawBlueScaling; 
-		float            CameraRawFilterDomain; 
-		float            CameraRawFilterRange; 
-		
-		GFL_LOAD_CALLBACKS Callbacks; 
-		
-		void           * UserParams; 
-		
-	} GFL_LOAD_PARAMS; 
+		GFL_UINT8        CameraRawUseAutomaticBalance;
+		GFL_UINT8        CameraRawUseCameraBalance;
+		GFL_UINT8        CameraRawHighlight;
+		GFL_UINT8        Reserved4;
+		float            CameraRawGamma;
+		float            CameraRawBrightness;
+		float            CameraRawRedScaling;
+		float            CameraRawBlueScaling;
+		float            CameraRawFilterDomain;
+		float            CameraRawFilterRange;
+
+		GFL_LOAD_CALLBACKS Callbacks;
+
+		void           * UserParams;
+
+	} GFL_LOAD_PARAMS;
 
 /*
  *  SAVE_PARAMS Flags
@@ -387,10 +387,10 @@ typedef struct {
  *  SAVE_PARAMS struct
  */
 typedef struct {
-		GFL_UINT32       Flags; 
-		GFL_INT32        FormatIndex; 
+		GFL_UINT32       Flags;
+		GFL_INT32        FormatIndex;
 
-		GFL_COMPRESSION  Compression; 
+		GFL_COMPRESSION  Compression;
 		GFL_INT16        Quality;           /* JPEG/Wic/Fpx  */
 		GFL_INT16        CompressionLevel;  /* PNG           */
 		GFL_BOOL         Interlaced;        /* GIF           */
@@ -405,30 +405,30 @@ typedef struct {
 #define GFL_BYTE_ORDER_DEFAULT	0
 #define GFL_BYTE_ORDER_LSBF			1
 #define GFL_BYTE_ORDER_MSBF			2
-		GFL_UINT8        DpxByteOrder; 
-		GFL_UINT8        Reserved3; 
+		GFL_UINT8        DpxByteOrder;
+		GFL_UINT8        Reserved3;
 		GFL_UINT16     * LutData; /* RRRR.../GGGG..../BBBB.....*/
-		const char     * LutFilename; 
+		const char     * LutFilename;
 
 		/*
 		 * For RAW/YUV
 		 */
-		GFL_UINT32       Offset; 
-		GFL_CORDER       ChannelOrder; 
-		GFL_CTYPE        ChannelType; 
+		GFL_UINT32       Offset;
+		GFL_CORDER       ChannelOrder;
+		GFL_CTYPE        ChannelType;
 
 		struct {
-				GFL_WRITE_CALLBACK Write; 
-				GFL_TELL_CALLBACK  Tell;  
-				GFL_SEEK_CALLBACK  Seek;  
+				GFL_WRITE_CALLBACK Write;
+				GFL_TELL_CALLBACK  Tell;
+				GFL_SEEK_CALLBACK  Seek;
 
-				GFL_VIRTUAL_SAVE_CALLBACK GetLine; 
-				void* GetLineParams; 
-			} Callbacks; 
+				GFL_VIRTUAL_SAVE_CALLBACK GetLine;
+				void* GetLineParams;
+			} Callbacks;
 
-		void           * UserParams; 
+		void           * UserParams;
 
-	} GFL_SAVE_PARAMS; 
+	} GFL_SAVE_PARAMS;
 
 /*
  *  Color model
@@ -443,31 +443,31 @@ typedef struct {
 #define GFL_CM_LOGLUV             7
 #define GFL_CM_LOGL               8
 
-typedef GFL_UINT16 GFL_COLORMODEL; 
+typedef GFL_UINT16 GFL_COLORMODEL;
 
 /*
  *  FILE_INFORMATION struct
  */
 typedef struct {
 		GFL_BITMAP_TYPE  Type;   /* Not used */
-		GFL_ORIGIN       Origin; 
-		GFL_INT32        Width; 
-		GFL_INT32        Height; 
-		GFL_INT32        FormatIndex; 
-		char             FormatName[8]; 
-		char             Description[64]; 
-		GFL_UINT16       Xdpi; 
-		GFL_UINT16       Ydpi; 
+		GFL_ORIGIN       Origin;
+		GFL_INT32        Width;
+		GFL_INT32        Height;
+		GFL_INT32        FormatIndex;
+		char             FormatName[8];
+		char             Description[64];
+		GFL_UINT16       Xdpi;
+		GFL_UINT16       Ydpi;
 		GFL_UINT16       BitsPerComponent;  /* 1, 8, 10, 12, 16 */
 		GFL_UINT16       ComponentsPerPixel;/* 1, 3, 4  */
-		GFL_INT32        NumberOfImages; 
-		GFL_UINT32       FileSize; 
-		GFL_COLORMODEL   ColorModel; 
-		GFL_COMPRESSION  Compression; 
-		char             CompressionDescription[64]; 
-		GFL_INT32        XOffset; 
-		GFL_INT32        YOffset; 
-	} GFL_FILE_INFORMATION; 
+		GFL_INT32        NumberOfImages;
+		GFL_UINT32       FileSize;
+		GFL_COLORMODEL   ColorModel;
+		GFL_COMPRESSION  Compression;
+		char             CompressionDescription[64];
+		GFL_INT32        XOffset;
+		GFL_INT32        YOffset;
+	} GFL_FILE_INFORMATION;
 
 #define GFL_READ	0x01
 #define GFL_WRITE	0x02
@@ -476,27 +476,27 @@ typedef struct {
  *  FORMAT_INFORMATION struct
  */
 typedef struct {
-		GFL_INT32        Index; 
-		char             Name[8]; 
-		char             Description[64]; 
-    GFL_UINT32       Status; 
-		GFL_UINT32       NumberOfExtension; 
-		char             Extension[16][8]; 
-	} GFL_FORMAT_INFORMATION; 
+		GFL_INT32        Index;
+		char             Name[8];
+		char             Description[64];
+    GFL_UINT32       Status;
+		GFL_UINT32       NumberOfExtension;
+		char             Extension[16][8];
+	} GFL_FORMAT_INFORMATION;
 
-/* 
+/*
  *  IPTC
  */
 typedef struct {
-		GFL_UINT32 Id; 
-		const char * Name; 
-		const char * Value; 
-	} GFL_IPTC_ENTRY; 
+		GFL_UINT32 Id;
+		const char * Name;
+		const char * Value;
+	} GFL_IPTC_ENTRY;
 
 typedef struct {
-		GFL_UINT32       NumberOfItems; 
-		GFL_IPTC_ENTRY * ItemsList; 
-	} GFL_IPTC_DATA; 
+		GFL_UINT32       NumberOfItems;
+		GFL_IPTC_ENTRY * ItemsList;
+	} GFL_IPTC_DATA;
 
 #define GFL_IPTC_BYLINE										0x50
 #define GFL_IPTC_BYLINETITLE							0x55
@@ -530,7 +530,7 @@ typedef struct {
 #define GFL_IPTC_PROGRAM_VERSION          0x46
 #define GFL_IPTC_CONTACT                  0x76
 
-/* 
+/*
  *  EXIF
  */
 #define GFL_EXIF_MAIN_IFD								0x0001
@@ -546,27 +546,27 @@ typedef struct {
 #define GFL_EXIF_EXPOSURETIME						0x829A
 #define GFL_EXIF_FNUMBER								0x829D
 #define GFL_EXIF_DATETIME_ORIGINAL			0x9003
-#define GFL_EXIF_SHUTTERSPEED						0x9201	
+#define GFL_EXIF_SHUTTERSPEED						0x9201
 #define GFL_EXIF_APERTURE								0x9202
 #define GFL_EXIF_MAXAPERTURE						0x9205
 #define GFL_EXIF_FOCALLENGTH						0x920A
 
 typedef struct {
 		GFL_UINT32 Flag; /* EXIF_...IFD */
-		GFL_UINT32 Tag; 
-		const char * Name; 
-		const char * Value; 
-	} GFL_EXIF_ENTRY; 
+		GFL_UINT32 Tag;
+		const char * Name;
+		const char * Value;
+	} GFL_EXIF_ENTRY;
 
 typedef struct {
-		GFL_UINT32       NumberOfItems; 
-		GFL_EXIF_ENTRY * ItemsList; 
-	} GFL_EXIF_DATA; 
+		GFL_UINT32       NumberOfItems;
+		GFL_EXIF_ENTRY * ItemsList;
+	} GFL_EXIF_DATA;
 
 /*
  * For advanced developer only!!!
  */
-#define GFL_EXIF_BYTE       1 
+#define GFL_EXIF_BYTE       1
 #define GFL_EXIF_STRING     2
 #define GFL_EXIF_USHORT     3
 #define GFL_EXIF_ULONG      4
@@ -580,85 +580,85 @@ typedef struct {
 #define GFL_EXIF_DOUBLE    12
 
 typedef struct _gfl_exif_entryex {
-		GFL_UINT16 Tag; 
-		GFL_UINT16 Format; 
-		GFL_INT32 Ifd; 
-		GFL_INT32 NumberOfComponents; 
-		GFL_UINT32 Value; 
-		GFL_INT32 DataLength; 
-		char* Data; 
+		GFL_UINT16 Tag;
+		GFL_UINT16 Format;
+		GFL_INT32 Ifd;
+		GFL_INT32 NumberOfComponents;
+		GFL_UINT32 Value;
+		GFL_INT32 DataLength;
+		char* Data;
 
-		struct _gfl_exif_entryex* Next; 
-	} GFL_EXIF_ENTRYEX; 
+		struct _gfl_exif_entryex* Next;
+	} GFL_EXIF_ENTRYEX;
 
 typedef struct {
-		GFL_EXIF_ENTRYEX* Root; 
-		GFL_INT32	UseMsbf; 
-	} GFL_EXIF_DATAEX; 
+		GFL_EXIF_ENTRYEX* Root;
+		GFL_INT32	UseMsbf;
+	} GFL_EXIF_DATAEX;
 
 /*
  *  Functions
  */
 
-extern GFLEXTERN void* GFLAPI gflMemoryAlloc( GFL_UINT32 size ); 
+extern GFLEXTERN void* GFLAPI gflMemoryAlloc( GFL_UINT32 size );
 
-extern GFLEXTERN void* GFLAPI gflMemoryRealloc( void* ptr, GFL_UINT32 size ); 
+extern GFLEXTERN void* GFLAPI gflMemoryRealloc( void* ptr, GFL_UINT32 size );
 
-extern GFLEXTERN void GFLAPI gflMemoryFree( void* ptr ); 
-
-/*
- * ~~
- */
-
-extern GFLEXTERN const char* GFLAPI gflGetVersion( void ); 
-
-extern GFLEXTERN const char* GFLAPI gflGetVersionOfLibformat( void ); 
+extern GFLEXTERN void GFLAPI gflMemoryFree( void* ptr );
 
 /*
  * ~~
  */
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflLibraryInit( void ); 
+extern GFLEXTERN const char* GFLAPI gflGetVersion( void );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflLibraryInitEx( GFL_ALLOC_CALLBACK alloc_callback, GFL_REALLOC_CALLBACK realloc_callback, GFL_FREE_CALLBACK free_callback, void * user_parms ); 
+extern GFLEXTERN const char* GFLAPI gflGetVersionOfLibformat( void );
 
-extern GFLEXTERN void GFLAPI gflLibraryExit( void ); 
+/*
+ * ~~
+ */
+
+extern GFLEXTERN GFL_ERROR GFLAPI gflLibraryInit( void );
+
+extern GFLEXTERN GFL_ERROR GFLAPI gflLibraryInitEx( GFL_ALLOC_CALLBACK alloc_callback, GFL_REALLOC_CALLBACK realloc_callback, GFL_FREE_CALLBACK free_callback, void * user_parms );
+
+extern GFLEXTERN void GFLAPI gflLibraryExit( void );
 
 extern GFLEXTERN void GFLAPI gflEnableLZW( GFL_BOOL ); /* If you have the Unisys license */
 
-extern GFLEXTERN void GFLAPI gflSetPluginsPathname( const char* ); 
+extern GFLEXTERN void GFLAPI gflSetPluginsPathname( const char* );
 
 /*
  * ~~
  */
 
-extern GFLEXTERN GFL_INT32 GFLAPI gflGetNumberOfFormat( void ); 
+extern GFLEXTERN GFL_INT32 GFLAPI gflGetNumberOfFormat( void );
 
-extern GFLEXTERN GFL_INT32 GFLAPI gflGetFormatIndexByName( const char* name ); 
+extern GFLEXTERN GFL_INT32 GFLAPI gflGetFormatIndexByName( const char* name );
 
-extern GFLEXTERN const char* GFLAPI gflGetFormatNameByIndex( GFL_INT32 index ); 
+extern GFLEXTERN const char* GFLAPI gflGetFormatNameByIndex( GFL_INT32 index );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflFormatIsSupported( const char* name ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflFormatIsSupported( const char* name );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflFormatIsWritableByIndex( GFL_INT32 index ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflFormatIsWritableByIndex( GFL_INT32 index );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflFormatIsWritableByName( const char* name ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflFormatIsWritableByName( const char* name );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflFormatIsReadableByIndex( GFL_INT32 index ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflFormatIsReadableByIndex( GFL_INT32 index );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflFormatIsReadableByName( const char* name ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflFormatIsReadableByName( const char* name );
 
-extern GFLEXTERN const char* GFLAPI gflGetDefaultFormatSuffixByIndex( GFL_INT32 index ); 
+extern GFLEXTERN const char* GFLAPI gflGetDefaultFormatSuffixByIndex( GFL_INT32 index );
 
-extern GFLEXTERN const char* GFLAPI gflGetDefaultFormatSuffixByName( const char* name ); 
+extern GFLEXTERN const char* GFLAPI gflGetDefaultFormatSuffixByName( const char* name );
 
-extern GFLEXTERN const char* GFLAPI gflGetFormatDescriptionByIndex( GFL_INT32 index ); 
+extern GFLEXTERN const char* GFLAPI gflGetFormatDescriptionByIndex( GFL_INT32 index );
 
-extern GFLEXTERN const char* GFLAPI gflGetFormatDescriptionByName( const char* name ); 
+extern GFLEXTERN const char* GFLAPI gflGetFormatDescriptionByName( const char* name );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflGetFormatInformationByIndex( GFL_INT32 index, GFL_FORMAT_INFORMATION* info ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflGetFormatInformationByIndex( GFL_INT32 index, GFL_FORMAT_INFORMATION* info );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflGetFormatInformationByName( const char* name, GFL_FORMAT_INFORMATION* info ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflGetFormatInformationByName( const char* name, GFL_FORMAT_INFORMATION* info );
 
 /*
  * ~~
@@ -672,76 +672,76 @@ extern GFLEXTERN GFL_ERROR GFLAPI gflGetFormatInformationByName( const char* nam
 #define GFL_SAVE_PARAMS_IN_ASCII          5
 #define GFL_SAVE_PARAMS_LUT               6
 
-typedef GFL_UINT32 GFL_SAVE_PARAMS_TYPE; 
+typedef GFL_UINT32 GFL_SAVE_PARAMS_TYPE;
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflSaveParamsIsSupportedByIndex( GFL_INT32 index, GFL_SAVE_PARAMS_TYPE type ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflSaveParamsIsSupportedByIndex( GFL_INT32 index, GFL_SAVE_PARAMS_TYPE type );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflSaveParamsIsSupportedByName( const char* name, GFL_SAVE_PARAMS_TYPE type ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflSaveParamsIsSupportedByName( const char* name, GFL_SAVE_PARAMS_TYPE type );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflCompressionIsSupportedByIndex( GFL_INT32 index, GFL_COMPRESSION comp ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflCompressionIsSupportedByIndex( GFL_INT32 index, GFL_COMPRESSION comp );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflCompressionIsSupportedByName( const char* name, GFL_COMPRESSION comp ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflCompressionIsSupportedByName( const char* name, GFL_COMPRESSION comp );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapIsSupportedByIndex( GFL_INT32 index, const GFL_BITMAP* bitmap ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapIsSupportedByIndex( GFL_INT32 index, const GFL_BITMAP* bitmap );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapIsSupportedByName( const char* name, const GFL_BITMAP* bitmap ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapIsSupportedByName( const char* name, const GFL_BITMAP* bitmap );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapTypeIsSupportedByIndex( GFL_INT32 index, GFL_BITMAP_TYPE type, GFL_UINT16 bits_per_component ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapTypeIsSupportedByIndex( GFL_INT32 index, GFL_BITMAP_TYPE type, GFL_UINT16 bits_per_component );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapTypeIsSupportedByName( const char* name, GFL_BITMAP_TYPE type, GFL_UINT16 bits_per_component ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapTypeIsSupportedByName( const char* name, GFL_BITMAP_TYPE type, GFL_UINT16 bits_per_component );
 
 /*
  * ~~
  */
 
-extern GFLEXTERN const char * GFLAPI gflGetErrorString( GFL_ERROR error ); 
+extern GFLEXTERN const char * GFLAPI gflGetErrorString( GFL_ERROR error );
 
-extern GFLEXTERN const char * GFLAPI gflGetLabelForColorModel( GFL_COLORMODEL color_model ); 
+extern GFLEXTERN const char * GFLAPI gflGetLabelForColorModel( GFL_COLORMODEL color_model );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflGetFileInformation( const char* filename, GFL_INT32 index, GFL_FILE_INFORMATION *info ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflGetFileInformation( const char* filename, GFL_INT32 index, GFL_FILE_INFORMATION *info );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflGetFileInformationFromHandle( GFL_HANDLE handle, GFL_INT32 index, const GFL_LOAD_CALLBACKS* callbacks, GFL_FILE_INFORMATION* info ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflGetFileInformationFromHandle( GFL_HANDLE handle, GFL_INT32 index, const GFL_LOAD_CALLBACKS* callbacks, GFL_FILE_INFORMATION* info );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflGetFileInformationFromMemory( const GFL_UINT8* data, GFL_UINT32 data_length, GFL_INT32 index, GFL_FILE_INFORMATION* info ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflGetFileInformationFromMemory( const GFL_UINT8* data, GFL_UINT32 data_length, GFL_INT32 index, GFL_FILE_INFORMATION* info );
 
-extern GFLEXTERN void GFLAPI gflFreeFileInformation( GFL_FILE_INFORMATION* info ); 
+extern GFLEXTERN void GFLAPI gflFreeFileInformation( GFL_FILE_INFORMATION* info );
 
-extern GFLEXTERN void GFLAPI gflGetDefaultLoadParams( GFL_LOAD_PARAMS* params ); 
+extern GFLEXTERN void GFLAPI gflGetDefaultLoadParams( GFL_LOAD_PARAMS* params );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflLoadBitmap( const char* filename, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflLoadBitmap( const char* filename, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflLoadBitmapFromHandle( GFL_HANDLE handle, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflLoadBitmapFromHandle( GFL_HANDLE handle, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflLoadBitmapFromMemory( const GFL_UINT8* data, GFL_UINT32 data_length, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflLoadBitmapFromMemory( const GFL_UINT8* data, GFL_UINT32 data_length, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info );
 
-extern GFLEXTERN void GFLAPI gflGetDefaultThumbnailParams( GFL_LOAD_PARAMS* params ); 
+extern GFLEXTERN void GFLAPI gflGetDefaultThumbnailParams( GFL_LOAD_PARAMS* params );
 
 #define gflLoadPreview gflLoadThumbnail
 #define gflLoadPreviewFromHandle gflLoadThumbnailFromHandle
 #define gflGetDefaultPreviewParams gflGetDefaultThumbnailParams
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflLoadThumbnail( const char* filename, GFL_INT32 width, GFL_INT32 height, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflLoadThumbnail( const char* filename, GFL_INT32 width, GFL_INT32 height, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflLoadThumbnailFromHandle( GFL_HANDLE handle, GFL_INT32 width, GFL_INT32 height, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION *info ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflLoadThumbnailFromHandle( GFL_HANDLE handle, GFL_INT32 width, GFL_INT32 height, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION *info );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflLoadThumbnailFromMemory( const GFL_UINT8 * data, GFL_UINT32 data_length, GFL_INT32 width, GFL_INT32 height, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflLoadThumbnailFromMemory( const GFL_UINT8 * data, GFL_UINT32 data_length, GFL_INT32 width, GFL_INT32 height, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info );
 
-extern GFLEXTERN void GFLAPI gflGetDefaultSaveParams( GFL_SAVE_PARAMS* params ); 
+extern GFLEXTERN void GFLAPI gflGetDefaultSaveParams( GFL_SAVE_PARAMS* params );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflSaveBitmap( char* filename, const GFL_BITMAP *bitmap, const GFL_SAVE_PARAMS* params ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflSaveBitmap( char* filename, const GFL_BITMAP *bitmap, const GFL_SAVE_PARAMS* params );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflSaveBitmapIntoHandle( GFL_HANDLE handle, const GFL_BITMAP* bitmap, const GFL_SAVE_PARAMS* params ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflSaveBitmapIntoHandle( GFL_HANDLE handle, const GFL_BITMAP* bitmap, const GFL_SAVE_PARAMS* params );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflSaveBitmapIntoMemory( GFL_UINT8** data, GFL_UINT32* data_length, const GFL_BITMAP* bitmap, const GFL_SAVE_PARAMS* params ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflSaveBitmapIntoMemory( GFL_UINT8** data, GFL_UINT32* data_length, const GFL_BITMAP* bitmap, const GFL_SAVE_PARAMS* params );
 
 /* UNICODE support */
 #ifdef WIN32
 
-extern GFLEXTERN void GFLAPI gflSetPluginsPathnameW( const wchar_t* ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflGetFileInformationW( const wchar_t* filename, GFL_INT32 index, GFL_FILE_INFORMATION *info ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflLoadBitmapW( const wchar_t* filename, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflLoadThumbnailW( const wchar_t* filename, GFL_INT32 width, GFL_INT32 height, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflSaveBitmapW( wchar_t* filename, const GFL_BITMAP *bitmap, const GFL_SAVE_PARAMS* params ); 
+extern GFLEXTERN void GFLAPI gflSetPluginsPathnameW( const wchar_t* );
+extern GFLEXTERN GFL_ERROR GFLAPI gflGetFileInformationW( const wchar_t* filename, GFL_INT32 index, GFL_FILE_INFORMATION *info );
+extern GFLEXTERN GFL_ERROR GFLAPI gflLoadBitmapW( const wchar_t* filename, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info );
+extern GFLEXTERN GFL_ERROR GFLAPI gflLoadThumbnailW( const wchar_t* filename, GFL_INT32 width, GFL_INT32 height, GFL_BITMAP** bitmap, const GFL_LOAD_PARAMS* params, GFL_FILE_INFORMATION* info );
+extern GFLEXTERN GFL_ERROR GFLAPI gflSaveBitmapW( wchar_t* filename, const GFL_BITMAP *bitmap, const GFL_SAVE_PARAMS* params );
 
 #endif
 
@@ -749,156 +749,156 @@ extern GFLEXTERN GFL_ERROR GFLAPI gflSaveBitmapW( wchar_t* filename, const GFL_B
  * ~~
  */
 
-typedef void *GFL_FILE_HANDLE; 
+typedef void *GFL_FILE_HANDLE;
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflFileCreate         ( GFL_FILE_HANDLE* handle, const char* filename, GFL_UINT32 image_count, const GFL_SAVE_PARAMS* params ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflFileCreate         ( GFL_FILE_HANDLE* handle, const char* filename, GFL_UINT32 image_count, const GFL_SAVE_PARAMS* params );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflFileAddPicture     ( GFL_FILE_HANDLE handle, const GFL_BITMAP *bitmap ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflFileAddPicture     ( GFL_FILE_HANDLE handle, const GFL_BITMAP *bitmap );
 
-extern GFLEXTERN void GFLAPI gflFileClose               ( GFL_FILE_HANDLE handle ); 
+extern GFLEXTERN void GFLAPI gflFileClose               ( GFL_FILE_HANDLE handle );
 
 /* UNICODE support */
 #ifdef WIN32
-extern GFLEXTERN GFL_ERROR GFLAPI gflFileCreateW( GFL_FILE_HANDLE* handle, const wchar_t* filename, GFL_UINT32 image_count, const GFL_SAVE_PARAMS* params ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflFileCreateW( GFL_FILE_HANDLE* handle, const wchar_t* filename, GFL_UINT32 image_count, const GFL_SAVE_PARAMS* params );
 #endif
 
 /*
  * ~~
  */
 
-extern GFLEXTERN GFL_BITMAP* GFLAPI gflAllockBitmap( GFL_BITMAP_TYPE type, GFL_INT32 width, GFL_INT32 height, GFL_UINT32 line_padding, const GFL_COLOR*  color ); 
+extern GFLEXTERN GFL_BITMAP* GFLAPI gflAllockBitmap( GFL_BITMAP_TYPE type, GFL_INT32 width, GFL_INT32 height, GFL_UINT32 line_padding, const GFL_COLOR*  color );
 
-extern GFLEXTERN GFL_BITMAP* GFLAPI gflAllockBitmapEx( GFL_BITMAP_TYPE type, GFL_INT32 width, GFL_INT32 height, GFL_UINT16 bits_per_component, GFL_UINT32 padding, const GFL_COLOR*  color ); 
+extern GFLEXTERN GFL_BITMAP* GFLAPI gflAllockBitmapEx( GFL_BITMAP_TYPE type, GFL_INT32 width, GFL_INT32 height, GFL_UINT16 bits_per_component, GFL_UINT32 padding, const GFL_COLOR*  color );
 
-extern GFLEXTERN void GFLAPI gflFreeBitmap( GFL_BITMAP* bitmap ); 
+extern GFLEXTERN void GFLAPI gflFreeBitmap( GFL_BITMAP* bitmap );
 
 extern GFLEXTERN void GFLAPI gflFreeBitmapData( GFL_BITMAP* bitmap ); /* bitmap is not freed */
 
-extern GFLEXTERN GFL_BITMAP* GFLAPI gflCloneBitmap( const GFL_BITMAP* bitmap ); 
+extern GFLEXTERN GFL_BITMAP* GFLAPI gflCloneBitmap( const GFL_BITMAP* bitmap );
 
-extern GFLEXTERN void GFLAPI gflBitmapSetName( GFL_BITMAP* bitmap, const char* name ); 
+extern GFLEXTERN void GFLAPI gflBitmapSetName( GFL_BITMAP* bitmap, const char* name );
 
 /*
  * ~~ METADATA
  */
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapHasEXIF( const GFL_BITMAP* bitmap ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapHasEXIF( const GFL_BITMAP* bitmap );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapHasIPTC( const GFL_BITMAP* bitmap ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapHasIPTC( const GFL_BITMAP* bitmap );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapHasICCProfile( const GFL_BITMAP* bitmap ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapHasICCProfile( const GFL_BITMAP* bitmap );
 
-extern GFLEXTERN void GFLAPI gflBitmapRemoveEXIFThumbnail( GFL_BITMAP* bitmap ); 
+extern GFLEXTERN void GFLAPI gflBitmapRemoveEXIFThumbnail( GFL_BITMAP* bitmap );
 
-extern GFLEXTERN void GFLAPI gflBitmapRemoveICCProfile( GFL_BITMAP* bitmap ); 
+extern GFLEXTERN void GFLAPI gflBitmapRemoveICCProfile( GFL_BITMAP* bitmap );
 
 extern GFLEXTERN void GFLAPI gflBitmapGetICCProfile( const GFL_BITMAP* bitmap, GFL_UINT8** pData, GFL_UINT32* pLength ); /* pData must be freed by gflFreeMemory */
 
-extern GFLEXTERN void GFLAPI gflBitmapCopyICCProfile( const GFL_BITMAP* bitmap_src, GFL_BITMAP* bitmap_dst ); 
+extern GFLEXTERN void GFLAPI gflBitmapCopyICCProfile( const GFL_BITMAP* bitmap_src, GFL_BITMAP* bitmap_dst );
 
-extern GFLEXTERN void GFLAPI gflBitmapRemoveMetaData( GFL_BITMAP* bitmap ); 
+extern GFLEXTERN void GFLAPI gflBitmapRemoveMetaData( GFL_BITMAP* bitmap );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapGetXMP( const GFL_BITMAP* bitmap, GFL_UINT8** pData, GFL_UINT32* pLength ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflBitmapGetXMP( const GFL_BITMAP* bitmap, GFL_UINT8** pData, GFL_UINT32* pLength );
 
-extern GFLEXTERN void GFLAPI gflBitmapSetEXIFThumbnail( GFL_BITMAP* bitmap, const GFL_BITMAP* thumb_bitmap ); 
+extern GFLEXTERN void GFLAPI gflBitmapSetEXIFThumbnail( GFL_BITMAP* bitmap, const GFL_BITMAP* thumb_bitmap );
 
 /*
  * ~~ EXIF function without loading bitmap
  */
 
-extern GFLEXTERN GFL_EXIF_DATA* GFLAPI gflLoadEXIF( const char* filename, GFL_UINT32 flags ); 
+extern GFLEXTERN GFL_EXIF_DATA* GFLAPI gflLoadEXIF( const char* filename, GFL_UINT32 flags );
 
 /*
- * ~~ 
+ * ~~
  */
 
-extern GFLEXTERN GFL_IPTC_DATA* GFLAPI gflBitmapGetIPTC( GFL_BITMAP* bitmap ); 
+extern GFLEXTERN GFL_IPTC_DATA* GFLAPI gflBitmapGetIPTC( GFL_BITMAP* bitmap );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflBitmapGetIPTCValue( const GFL_BITMAP* bitmap, GFL_UINT32 id, char* value, GFL_INT32 value_length ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflBitmapGetIPTCValue( const GFL_BITMAP* bitmap, GFL_UINT32 id, char* value, GFL_INT32 value_length );
 
-extern GFLEXTERN GFL_IPTC_DATA* GFLAPI gflNewIPTC( void ); 
+extern GFLEXTERN GFL_IPTC_DATA* GFLAPI gflNewIPTC( void );
 
-extern GFLEXTERN void GFLAPI gflFreeIPTC( GFL_IPTC_DATA* iptc_data ); 
+extern GFLEXTERN void GFLAPI gflFreeIPTC( GFL_IPTC_DATA* iptc_data );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflSetIPTCValue( GFL_IPTC_DATA* iptc_data, GFL_UINT32 id, const char* value ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflSetIPTCValue( GFL_IPTC_DATA* iptc_data, GFL_UINT32 id, const char* value );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflRemoveIPTCValue( GFL_IPTC_DATA* iptc_data, GFL_UINT32 id ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflRemoveIPTCValue( GFL_IPTC_DATA* iptc_data, GFL_UINT32 id );
 
 /*
  * ~~ IPTC function without loading bitmap
  */
 
-extern GFLEXTERN GFL_IPTC_DATA* GFLAPI gflLoadIPTC( const char* filename ); 
+extern GFLEXTERN GFL_IPTC_DATA* GFLAPI gflLoadIPTC( const char* filename );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflSaveIPTC( const char* filename, const GFL_IPTC_DATA* iptc_data ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflSaveIPTC( const char* filename, const GFL_IPTC_DATA* iptc_data );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflBitmapSetIPTC( GFL_BITMAP* bitmap, const GFL_IPTC_DATA* iptc_data ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflBitmapSetIPTC( GFL_BITMAP* bitmap, const GFL_IPTC_DATA* iptc_data );
 
 /* UNICODE support */
 #ifdef WIN32
-extern GFLEXTERN GFL_EXIF_DATA* GFLAPI gflLoadEXIFW( const wchar_t* filename, GFL_UINT32 flags ); 
-extern GFLEXTERN GFL_IPTC_DATA* GFLAPI gflLoadIPTCW( const wchar_t* filename ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflSaveIPTCW( const wchar_t* filename, const GFL_IPTC_DATA* iptc_data ); 
+extern GFLEXTERN GFL_EXIF_DATA* GFLAPI gflLoadEXIFW( const wchar_t* filename, GFL_UINT32 flags );
+extern GFLEXTERN GFL_IPTC_DATA* GFLAPI gflLoadIPTCW( const wchar_t* filename );
+extern GFLEXTERN GFL_ERROR GFLAPI gflSaveIPTCW( const wchar_t* filename, const GFL_IPTC_DATA* iptc_data );
 #endif
 
 /*
- * ~~ 
+ * ~~
  */
 
 #define GFL_EXIF_WANT_MAKERNOTES	0x0001
-extern GFLEXTERN GFL_EXIF_DATA* GFLAPI gflBitmapGetEXIF( GFL_BITMAP* bitmap, GFL_UINT32 flags ); 
+extern GFLEXTERN GFL_EXIF_DATA* GFLAPI gflBitmapGetEXIF( GFL_BITMAP* bitmap, GFL_UINT32 flags );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflBitmapGetEXIFValue( const GFL_BITMAP* bitmap, GFL_UINT32 tag, char* value, GFL_INT32 value_length ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflBitmapGetEXIFValue( const GFL_BITMAP* bitmap, GFL_UINT32 tag, char* value, GFL_INT32 value_length );
 
-extern GFLEXTERN void GFLAPI gflFreeEXIF( GFL_EXIF_DATA* exif_data ); 
+extern GFLEXTERN void GFLAPI gflFreeEXIF( GFL_EXIF_DATA* exif_data );
 
-extern GFLEXTERN void GFLAPI gflBitmapSetComment( GFL_BITMAP* bitmap, const char* comment ); 
+extern GFLEXTERN void GFLAPI gflBitmapSetComment( GFL_BITMAP* bitmap, const char* comment );
 
 /*
  * For Advanced developer only
  */
 
-extern GFLEXTERN GFL_EXIF_DATAEX* GFLAPI gflBitmapGetEXIF2( const GFL_BITMAP* bitmap ); 
+extern GFLEXTERN GFL_EXIF_DATAEX* GFLAPI gflBitmapGetEXIF2( const GFL_BITMAP* bitmap );
 
-extern GFLEXTERN void GFLAPI gflFreeEXIF2( GFL_EXIF_DATAEX* exif_data ); 
+extern GFLEXTERN void GFLAPI gflFreeEXIF2( GFL_EXIF_DATAEX* exif_data );
 
-extern GFLEXTERN void GFLAPI gflBitmapSetEXIF2( GFL_BITMAP* bitmap, const GFL_EXIF_DATAEX* exif ); 
+extern GFLEXTERN void GFLAPI gflBitmapSetEXIF2( GFL_BITMAP* bitmap, const GFL_EXIF_DATAEX* exif );
 
-extern GFLEXTERN void GFLAPI gflBitmapSetEXIFValueString2( GFL_EXIF_DATAEX* exif, GFL_UINT16 ifd, GFL_UINT16 tag, const char* value ); 
+extern GFLEXTERN void GFLAPI gflBitmapSetEXIFValueString2( GFL_EXIF_DATAEX* exif, GFL_UINT16 ifd, GFL_UINT16 tag, const char* value );
 
-extern GFLEXTERN void GFLAPI gflBitmapSetEXIFValueInt2( GFL_EXIF_DATAEX* exif, GFL_UINT16 ifd, GFL_UINT16 tag, GFL_UINT32 format, GFL_UINT32 value ); 
+extern GFLEXTERN void GFLAPI gflBitmapSetEXIFValueInt2( GFL_EXIF_DATAEX* exif, GFL_UINT16 ifd, GFL_UINT16 tag, GFL_UINT32 format, GFL_UINT32 value );
 
-extern GFLEXTERN void GFLAPI gflBitmapSetEXIFValueRational2( GFL_EXIF_DATAEX* exif, GFL_UINT16 ifd, GFL_UINT16 tag, GFL_UINT32 p, GFL_UINT32 q ); 
+extern GFLEXTERN void GFLAPI gflBitmapSetEXIFValueRational2( GFL_EXIF_DATAEX* exif, GFL_UINT16 ifd, GFL_UINT16 tag, GFL_UINT32 p, GFL_UINT32 q );
 
 /*
  * ~~ COMMENT function without loading bitmap
  */
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflJPEGGetComment( const char* filename, char* comment, int max_size ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflJPEGGetComment( const char* filename, char* comment, int max_size );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflJPEGSetComment( const char* filename, const char* comment ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflJPEGSetComment( const char* filename, const char* comment );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflPNGGetComment( const char* filename, char* comment, int max_size ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflPNGGetComment( const char* filename, char* comment, int max_size );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflPNGSetComment( const char* filename, const char* comment ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflPNGSetComment( const char* filename, const char* comment );
 
 /* UNICODE */
 #ifdef WIN32
-extern GFLEXTERN GFL_ERROR GFLAPI gflJPEGGetCommentW( const wchar_t* filename, char* comment, int max_size ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflJPEGSetCommentW( const wchar_t* filename, const char* comment ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflPNGGetCommentW( const wchar_t* filename, char* comment, int max_size ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflPNGSetCommentW( const wchar_t* filename, const char* comment ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflJPEGGetCommentW( const wchar_t* filename, char* comment, int max_size );
+extern GFLEXTERN GFL_ERROR GFLAPI gflJPEGSetCommentW( const wchar_t* filename, const char* comment );
+extern GFLEXTERN GFL_ERROR GFLAPI gflPNGGetCommentW( const wchar_t* filename, char* comment, int max_size );
+extern GFLEXTERN GFL_ERROR GFLAPI gflPNGSetCommentW( const wchar_t* filename, const char* comment );
 #endif
 
 /*
  * ~~ For DPX LUT
  */
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflIsLutFile( const char* filename ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflIsLutFile( const char* filename );
 
-extern GFLEXTERN GFL_BOOL GFLAPI gflIsCompatibleLutFile( const char* filename, const GFL_INT32 components_per_pixel, const GFL_INT32 bits_per_component, GFL_LUT_TYPE* lut_type ); 
+extern GFLEXTERN GFL_BOOL GFLAPI gflIsCompatibleLutFile( const char* filename, const GFL_INT32 components_per_pixel, const GFL_INT32 bits_per_component, GFL_LUT_TYPE* lut_type );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflApplyLutFile( GFL_BITMAP* bitmap_src, GFL_BITMAP** bitmap_dst, const char* filename, GFL_LUT_TYPE lut_type ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflApplyLutFile( GFL_BITMAP* bitmap_src, GFL_BITMAP** bitmap_dst, const char* filename, GFL_LUT_TYPE lut_type );
 
 /*
  * ~~
@@ -912,7 +912,7 @@ extern GFLEXTERN GFL_ERROR GFLAPI gflApplyLutFile( GFL_BITMAP* bitmap_src, GFL_B
 #define GFL_RESIZE_MITSHELL  6
 #define GFL_RESIZE_LANCZOS   7
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflResize( GFL_BITMAP* src, GFL_BITMAP** dst, GFL_INT32 width, GFL_INT32 height, GFL_UINT32 method, GFL_UINT32 flags ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflResize( GFL_BITMAP* src, GFL_BITMAP** dst, GFL_INT32 width, GFL_INT32 height, GFL_UINT32 method, GFL_UINT32 flags );
 
 /*
  * ~~ DOESN'T WORKS YET WITH MORE THAN 8BITS PER COMPONENT!
@@ -943,7 +943,7 @@ extern GFLEXTERN GFL_ERROR GFLAPI gflResize( GFL_BITMAP* src, GFL_BITMAP** dst, 
 
 #define GFL_MODE_TO_TRUE_COLORS    GFL_MODE_TO_RGB
 
-typedef GFL_UINT16 GFL_MODE; 
+typedef GFL_UINT16 GFL_MODE;
 
 #define GFL_MODE_NO_DITHER         0
 #define GFL_MODE_PATTERN_DITHER    1
@@ -952,9 +952,9 @@ typedef GFL_UINT16 GFL_MODE;
 #define GFL_MODE_ADAPTIVE          4
 #define GFL_MODE_FLOYD_STEINBERG   5  /* Only with GFL_MODE_TO_BINARY */
 
-typedef GFL_UINT16 GFL_MODE_PARAMS; 
+typedef GFL_UINT16 GFL_MODE_PARAMS;
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflChangeColorDepth( GFL_BITMAP* src, GFL_BITMAP** dst, GFL_MODE mode, GFL_MODE_PARAMS params ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflChangeColorDepth( GFL_BITMAP* src, GFL_BITMAP** dst, GFL_MODE mode, GFL_MODE_PARAMS params );
 
 /*
  * ~~
@@ -963,28 +963,28 @@ extern GFLEXTERN GFL_ERROR GFLAPI gflChangeColorDepth( GFL_BITMAP* src, GFL_BITM
 #define gflGetBitmapPtr( _bitmap, _y ) \
 	((_bitmap)->Data + (_y) * (_bitmap)->BytesPerLine)
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflGetColorAt( const GFL_BITMAP* src, GFL_INT32 x, GFL_INT32 y, GFL_COLOR* color ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflSetColorAt( GFL_BITMAP* src, GFL_INT32 x, GFL_INT32 y, const GFL_COLOR* color ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflGetColorAtEx( const GFL_BITMAP* src, GFL_UINT8* ptr, GFL_COLOR* color ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflSetColorAtEx( GFL_BITMAP* src, GFL_UINT8* ptr, const GFL_COLOR* color ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflGetColorAt( const GFL_BITMAP* src, GFL_INT32 x, GFL_INT32 y, GFL_COLOR* color );
+extern GFLEXTERN GFL_ERROR GFLAPI gflSetColorAt( GFL_BITMAP* src, GFL_INT32 x, GFL_INT32 y, const GFL_COLOR* color );
+extern GFLEXTERN GFL_ERROR GFLAPI gflGetColorAtEx( const GFL_BITMAP* src, GFL_UINT8* ptr, GFL_COLOR* color );
+extern GFLEXTERN GFL_ERROR GFLAPI gflSetColorAtEx( GFL_BITMAP* src, GFL_UINT8* ptr, const GFL_COLOR* color );
 
 /*
  * ~~
  */
 
 typedef struct {
-	GFL_INT32 x, y, w, h; 
-} GFL_RECT; 
+	GFL_INT32 x, y, w, h;
+} GFL_RECT;
 
 typedef struct {
-		GFL_INT32 x, y; 
-	} GFL_POINT; 
+		GFL_INT32 x, y;
+	} GFL_POINT;
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflFlipVertical    ( GFL_BITMAP* src, GFL_BITMAP** dst ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflFlipHorizontal  ( GFL_BITMAP* src, GFL_BITMAP** dst ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflCrop            ( GFL_BITMAP* src, GFL_BITMAP** dst, const GFL_RECT* rect ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflAutoCrop        ( GFL_BITMAP* src, GFL_BITMAP** dst, const GFL_COLOR *color, GFL_INT32 tolerance ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflAutoCrop2       ( GFL_BITMAP* src, GFL_BITMAP** dst, const GFL_COLOR *color, GFL_INT32 tolerance ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflFlipVertical    ( GFL_BITMAP* src, GFL_BITMAP** dst );
+extern GFLEXTERN GFL_ERROR GFLAPI gflFlipHorizontal  ( GFL_BITMAP* src, GFL_BITMAP** dst );
+extern GFLEXTERN GFL_ERROR GFLAPI gflCrop            ( GFL_BITMAP* src, GFL_BITMAP** dst, const GFL_RECT* rect );
+extern GFLEXTERN GFL_ERROR GFLAPI gflAutoCrop        ( GFL_BITMAP* src, GFL_BITMAP** dst, const GFL_COLOR *color, GFL_INT32 tolerance );
+extern GFLEXTERN GFL_ERROR GFLAPI gflAutoCrop2       ( GFL_BITMAP* src, GFL_BITMAP** dst, const GFL_COLOR *color, GFL_INT32 tolerance );
 
 /*
  * ~~
@@ -1000,26 +1000,26 @@ extern GFLEXTERN GFL_ERROR GFLAPI gflAutoCrop2       ( GFL_BITMAP* src, GFL_BITM
 #define GFL_CANVASRESIZE_BOTTOM      7
 #define GFL_CANVASRESIZE_BOTTOMRIGHT 8
 
-typedef GFL_UINT32 GFL_CANVASRESIZE; 
+typedef GFL_UINT32 GFL_CANVASRESIZE;
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflResizeCanvas    ( GFL_BITMAP* src, GFL_BITMAP** dst, GFL_INT32 width, GFL_INT32 height, GFL_CANVASRESIZE mode, const GFL_COLOR* color ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflResizeCanvas    ( GFL_BITMAP* src, GFL_BITMAP** dst, GFL_INT32 width, GFL_INT32 height, GFL_CANVASRESIZE mode, const GFL_COLOR* color );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflScaleToGrey     ( GFL_BITMAP* src, GFL_BITMAP** dst, GFL_INT32 width, GFL_INT32 height ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflScaleToGrey     ( GFL_BITMAP* src, GFL_BITMAP** dst, GFL_INT32 width, GFL_INT32 height );
 
 /*
  * ~~
  */
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflRotate          ( GFL_BITMAP* src, GFL_BITMAP** dst, GFL_INT32 angle, const GFL_COLOR *background_color ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflRotateFine      ( GFL_BITMAP* src, GFL_BITMAP** dst, double angle, const GFL_COLOR *background_color ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflRotate          ( GFL_BITMAP* src, GFL_BITMAP** dst, GFL_INT32 angle, const GFL_COLOR *background_color );
+extern GFLEXTERN GFL_ERROR GFLAPI gflRotateFine      ( GFL_BITMAP* src, GFL_BITMAP** dst, double angle, const GFL_COLOR *background_color );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflReplaceColor    ( GFL_BITMAP* src, GFL_BITMAP** dst, const GFL_COLOR *color, const GFL_COLOR *new_color, GFL_INT32 tolerance ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflReplaceColor    ( GFL_BITMAP* src, GFL_BITMAP** dst, const GFL_COLOR *color, const GFL_COLOR *new_color, GFL_INT32 tolerance );
 
-extern GFLEXTERN GFL_ERROR GFLAPI gflBitblt          ( const GFL_BITMAP* src, const GFL_RECT *rect, GFL_BITMAP *dst, GFL_INT32 x_dest, GFL_INT32 y_dest ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflBitbltEx        ( const GFL_BITMAP* src, const GFL_RECT *rect, GFL_BITMAP *dst, GFL_INT32 x_dest, GFL_INT32 y_dest ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflMerge           ( GFL_BITMAP const *src[], const GFL_POINT origin[], const GFL_UINT32 opacity[], GFL_INT32 num_bitmap, GFL_BITMAP** dst ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflCombineAlpha    ( GFL_BITMAP* src, GFL_BITMAP** dst, const GFL_COLOR* color ); 
-extern GFLEXTERN GFL_ERROR GFLAPI gflSetTransparentColor( GFL_BITMAP* src, GFL_BITMAP** dst, const GFL_COLOR * mask_color, const GFL_COLOR* back_color ); 
+extern GFLEXTERN GFL_ERROR GFLAPI gflBitblt          ( const GFL_BITMAP* src, const GFL_RECT *rect, GFL_BITMAP *dst, GFL_INT32 x_dest, GFL_INT32 y_dest );
+extern GFLEXTERN GFL_ERROR GFLAPI gflBitbltEx        ( const GFL_BITMAP* src, const GFL_RECT *rect, GFL_BITMAP *dst, GFL_INT32 x_dest, GFL_INT32 y_dest );
+extern GFLEXTERN GFL_ERROR GFLAPI gflMerge           ( GFL_BITMAP const *src[], const GFL_POINT origin[], const GFL_UINT32 opacity[], GFL_INT32 num_bitmap, GFL_BITMAP** dst );
+extern GFLEXTERN GFL_ERROR GFLAPI gflCombineAlpha    ( GFL_BITMAP* src, GFL_BITMAP** dst, const GFL_COLOR* color );
+extern GFLEXTERN GFL_ERROR GFLAPI gflSetTransparentColor( GFL_BITMAP* src, GFL_BITMAP** dst, const GFL_COLOR * mask_color, const GFL_COLOR* back_color );
 
 #if defined( WIN32 )
 	#pragma pack (pop, before_push)

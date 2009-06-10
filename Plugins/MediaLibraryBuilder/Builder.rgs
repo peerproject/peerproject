@@ -38,7 +38,7 @@ HKCU
 					{
 						ForceRemove val '.3gp' = s '{570C197C-FE9C-4D1F-B6E0-EFA44D36399F}'
 						ForceRemove val '.3gpp' = s '{570C197C-FE9C-4D1F-B6E0-EFA44D36399F}'
-						ForceRemove val '.3g2' = s '{570C197C-FE9C-4D1F-B6E0-EFA44D36399F}'				
+						ForceRemove val '.3g2' = s '{570C197C-FE9C-4D1F-B6E0-EFA44D36399F}'
 						ForceRemove val '.asf' = s '{570C197C-FE9C-4D1F-B6E0-EFA44D36399F}'
 						ForceRemove val '.asx' = s '{570C197C-FE9C-4D1F-B6E0-EFA44D36399F}'
 						ForceRemove val '.avi' = s '{570C197C-FE9C-4D1F-B6E0-EFA44D36399F}'

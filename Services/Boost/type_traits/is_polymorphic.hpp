@@ -1,4 +1,4 @@
-//  (C) Copyright John Maddock 2000. 
+//  (C) Copyright John Maddock 2000.
 //  Use, modification and distribution are subject to the Boost Software License,
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt).
@@ -28,14 +28,14 @@ struct is_polymorphic_imp1
 {
 # if BOOST_WORKAROUND(__MWERKS__, <= 0x2407) // CWPro7 should return false always.
     typedef char d1, (&d2)[2];
-# else 
+# else
    typedef typename remove_cv<T>::type ncvT;
    struct d1 : public ncvT
    {
       d1();
 #  if !defined(__GNUC__) // this raises warnings with some classes, and buys nothing with GCC
       ~d1()throw();
-#  endif 
+#  endif
       char padding[256];
    private:
       // keep some picky compilers happy:
@@ -58,7 +58,7 @@ struct is_polymorphic_imp1
       d2(const d2&);
       d2& operator=(const d2&);
    };
-# endif 
+# endif
    BOOST_STATIC_CONSTANT(bool, value = (sizeof(d2) == sizeof(d1)));
 };
 

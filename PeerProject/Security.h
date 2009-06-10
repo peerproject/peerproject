@@ -33,7 +33,7 @@ class CXMLElement;
 
 enum
 {
-	banSession, ban5Mins, ban30Mins, ban2Hours, banWeek, banForever 
+	banSession, ban5Mins, ban30Mins, ban2Hours, banWeek, banForever
 };
 
 class CSecurity
@@ -86,7 +86,7 @@ public:
 	BOOL			IsDenied(const IN_ADDR* pAddress);
 	BOOL			IsDenied(LPCTSTR pszContent);
 	BOOL			IsDenied(const CPeerProjectFile* pFile);
-	BOOL			IsDenied(CQuerySearch::const_iterator itStart, 
+	BOOL			IsDenied(CQuerySearch::const_iterator itStart,
 							 CQuerySearch::const_iterator itEnd, LPCTSTR pszContent);
 	void			Expire();
 	BOOL			Load();
@@ -136,7 +136,7 @@ public:
 	BOOL	Match(const IN_ADDR* pAddress) const;
 	BOOL	Match(LPCTSTR pszContent) const;
 	BOOL	Match(const CPeerProjectFile* pFile) const;
-	BOOL	Match(CQuerySearch::const_iterator itStart, 
+	BOOL	Match(CQuerySearch::const_iterator itStart,
 				  CQuerySearch::const_iterator itEnd, LPCTSTR pszContent) const;
 	void	SetContentWords(const CString& strContent);
 	CString	GetContentWords();

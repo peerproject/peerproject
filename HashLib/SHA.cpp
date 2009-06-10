@@ -229,7 +229,7 @@ void CSHA::Transform(TransformArray w)
 	F< 17 >( w, a, e, t, b, c, d );
 	F< 18 >( w, a, d, e, t, b, c );
 	F< 19 >( w, a, c, d, e, t, b );
-	
+
 	G<  0 >( w, a, b, c, d, e, t );
 	G<  1 >( w, a, t, b, c, d, e );
 	G<  2 >( w, a, e, t, b, c, d );
@@ -350,8 +350,8 @@ void CSHA::Add(const void* pData, std::size_t nLength)
 //   2. distributions in binary form include the above copyright notice,
 //      this list of conditions and the following disclaimer
 //      in the documentation and/or other associated materials;
-//   3. the copyright holder's name is not used to endorse products 
-//      built using this software without specific written permission. 
+//   3. the copyright holder's name is not used to endorse products
+//      built using this software without specific written permission.
 //
 // ALTERNATIVELY, provided that this notice is retained in full, this product
 // may be distributed under the terms of the GNU General Public License (GPL),
@@ -359,7 +359,7 @@ void CSHA::Add(const void* pData, std::size_t nLength)
 //
 // DISCLAIMER
 // This software is provided 'as is' with no explicit or implied warranties
-// in respect of its properties, including, but not limited to, correctness 
+// in respect of its properties, including, but not limited to, correctness
 // and/or fitness for purpose.
 // ---------------------------------------------------------------------------
 // Issue Date: 30/11/2002

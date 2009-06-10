@@ -114,10 +114,10 @@ BOOL CSearchPanel::Create(CWnd* pParentWnd)
 	return CTaskPanel::Create( _T("CSearchPanel"), WS_VISIBLE, rect, pParentWnd, 0 );
 }
 
-int CSearchPanel::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CSearchPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CTaskPanel::OnCreate( lpCreateStruct ) == -1 ) return -1;
-	
+
 	m_bAdvanced = ( Settings.General.GUIMode != GUI_BASIC ) &&  ( Settings.Search.AdvancedPanel );
 
 	// Set Box Heights & Caption Icons
@@ -125,12 +125,12 @@ int CSearchPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_boxAdvanced.Create( this, 92, _T("Options"), IDR_SEARCHFRAME );
 	m_boxSchema.Create( this, 0, _T("Schema"), IDR_SEARCHFRAME );
 	m_boxResults.Create( this, 86, _T("Results"), IDR_SEARCHMONITORFRAME );
-	
+
 	// Basic search box
 	AddBox( &m_boxSearch );
 
 	// Advanced search options
-	if ( m_bAdvanced ) 
+	if ( m_bAdvanced )
 	{
 		AddBox( &m_boxAdvanced );
 		// If the resolution is low, minimise the advanced box by default
@@ -142,29 +142,29 @@ int CSearchPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// Results summary
 	if ( m_bAdvanced ) AddBox( &m_boxResults );
-	
+
 	// The metadata box varies in height to fill available space
 	SetStretchBox( &m_boxSchema );
-	
+
 	OnSkinChange();
-	
+
 	return 0;
 }
 
 void CSearchPanel::OnSkinChange()
 {
 	CString strCaption;
-	
+
 	LoadString( strCaption, IDS_SEARCH_PANEL_INPUT_CAPTION );
 	m_boxSearch.SetCaption( strCaption );
 	LoadString( strCaption, IDS_SEARCH_PANEL_RESULTS_CAPTION );
 	m_boxResults.SetCaption( strCaption );
 	LoadString( strCaption, IDS_SEARCH_PANEL_ADVANCED );
 	m_boxAdvanced.SetCaption( strCaption );
-	
+
 	SetWatermark( Skin.GetWatermark( _T("CSearchPanel") ) );
 	SetFooter( Skin.GetWatermark( _T("CSearchPanel.Footer") ), TRUE );
-	
+
 	m_boxSearch.SetWatermark( Skin.GetWatermark( _T("CSearchInputBox") ) );
 	m_boxSearch.SetCaptionmark( Skin.GetWatermark( _T("CSearchInputBox.Caption") ) );
 	m_boxSearch.OnSkinChange();
@@ -172,13 +172,13 @@ void CSearchPanel::OnSkinChange()
 	m_boxAdvanced.SetWatermark( Skin.GetWatermark( _T("CSearchAdvancedBox") ) );
 	m_boxAdvanced.SetCaptionmark( Skin.GetWatermark( _T("CSearchAdvancedBox.Caption") ) );
 	m_boxAdvanced.OnSkinChange();
-	
+
 	m_boxSchema.SetWatermark( Skin.GetWatermark( _T("CSearchSchemaBox") ) );
 	m_boxSchema.SetCaptionmark( Skin.GetWatermark( _T("CSearchSchemaBox.Caption") ) );
-	
+
 	m_boxResults.SetWatermark( Skin.GetWatermark( _T("CSearchResultsBox") ) );
 	m_boxResults.SetCaptionmark( Skin.GetWatermark( _T("CSearchResultsBox.Caption") ) );
-	
+
 	Invalidate();
 }
 
@@ -194,7 +194,7 @@ void CSearchPanel::ShowSearch(CManagedSearch* pSearch)
 		OnSchemaChange();
 		return;
 	}
-	
+
 	CString strURN;
 
 	// The search is based on the priority from the lowest to highest
@@ -250,9 +250,9 @@ void CSearchPanel::ShowSearch(CManagedSearch* pSearch)
 			strSize.Empty();
 		if ( m_boxAdvanced.m_wndSizeMax.m_hWnd != NULL ) m_boxAdvanced.m_wndSizeMax.SetWindowText( strSize );
 	}
-	
+
 	OnSchemaChange();
-	
+
 	if ( pSearch->m_pSearch->m_pXML != NULL )
 	{
 		m_boxSchema.m_wndSchema.UpdateData( pSearch->m_pSearch->m_pXML->GetFirstElement(), FALSE );
@@ -280,25 +280,25 @@ void CSearchPanel::ShowStatus(BOOL bStarted, BOOL bSearching, DWORD nHubs, DWORD
 	}
 	else
 	{
-		LoadString( strCaption, IDS_SEARCH_PANEL_START ); 
+		LoadString( strCaption, IDS_SEARCH_PANEL_START );
 		m_boxSearch.m_wndStart.EnableWindow( TRUE );
 		m_boxSearch.m_wndPrefix.EnableWindow( TRUE );
 	}
 	m_boxSearch.m_wndStart.SetText( strCaption );
-	
+
 	LoadString( strCaption, bStarted ? IDS_SEARCH_PANEL_STOP : IDS_SEARCH_PANEL_CLEAR );
 	m_boxSearch.m_wndStop.SetText( strCaption );
-	
+
 	m_boxResults.Update( bStarted, nHubs, nLeaves, nFiles, nHits, nBadHits );
 }
 
 void CSearchPanel::OnSchemaChange()
 {
 	CSchema* pSchema = m_boxSearch.m_wndSchemas.GetSelected();
-	
+
 	m_boxSchema.m_wndSchema.SetSchema( pSchema, TRUE );
 	m_boxSchema.SetSize( pSchema != NULL ? 1 : 0 );
-	
+
 	if ( pSchema != NULL )
 	{
 		HICON hIcon = ShellIcons.ExtractIcon( pSchema->m_nIcon16, 16 );
@@ -333,7 +333,7 @@ void CSearchPanel::OnSchemaChange()
 auto_ptr< CManagedSearch > CSearchPanel::GetSearch()
 {
 	auto_ptr< CManagedSearch > pSearch( new CManagedSearch() );
-	
+
 	CString sSearch;
 	m_boxSearch.m_wndSearch.GetWindowText( sSearch );
 
@@ -433,7 +433,7 @@ void CSearchPanel::ExecuteSearch()
 	m_bSendSearch = FALSE;
 }
 
-BOOL CSearchPanel::PreTranslateMessage(MSG* pMsg) 
+BOOL CSearchPanel::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_KEYDOWN )
 	{
@@ -443,7 +443,7 @@ BOOL CSearchPanel::PreTranslateMessage(MSG* pMsg)
 			return TRUE;
 		}
 	}
-	
+
 	return CTaskPanel::PreTranslateMessage( pMsg );
 }
 
@@ -490,22 +490,22 @@ CSearchInputBox::~CSearchInputBox()
 /////////////////////////////////////////////////////////////////////////////
 // CSearchInputBox message handlers
 
-int CSearchInputBox::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CSearchInputBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
-	
+
 	CRect rc( 0, 0, 0, 0 );
 	CString strCaption;
-	
+
 	if ( ! m_wndSearch.Create( ES_AUTOHSCROLL | WS_TABSTOP | WS_GROUP, rc,
 		this, IDC_SEARCH ) ) return -1;
-	
+
 	m_wndSearch.SetFont( &theApp.m_gdiFont );
 	m_wndSearch.ModifyStyleEx( 0, WS_EX_CLIENTEDGE );
 	m_wndSearch.SetRegistryKey( _T("Search"), _T("Search.%.2i") );
-	
+
 	if ( ! m_wndSchemas.Create( WS_TABSTOP, rc, this, IDC_SCHEMAS ) ) return -1;
-	
+
 	m_wndSchemas.SetDroppedWidth( 200 );
 	LoadString( m_wndSchemas.m_sNoSchemaText, IDS_SEARCH_PANEL_AFT );
 	m_wndSchemas.Load( Settings.Search.LastSchemaURI );
@@ -522,7 +522,7 @@ int CSearchInputBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	OnSkinChange();
 
 	SetPrimary( TRUE );
-	
+
 	return 0;
 }
 
@@ -546,10 +546,10 @@ void CSearchInputBox::OnSkinChange()
 	m_wndPrefix.SetIcon( IDI_HASH );
 }
 
-void CSearchInputBox::OnSize(UINT nType, int cx, int cy) 
+void CSearchInputBox::OnSize(UINT nType, int cx, int cy)
 {
 	CTaskBox::OnSize( nType, cx, cy );
-	
+
 	HDWP hDWP = BeginDeferWindowPos( 4 );
 
 	int width = ( cx - BOX_MARGIN * 3 ) / 2;		// Equal Button Size
@@ -569,21 +569,21 @@ void CSearchInputBox::OnSize(UINT nType, int cx, int cy)
 	DeferWindowPos( hDWP, m_wndPrefix, NULL,
 		cx - BOX_MARGIN - 8, 8, 12, 16, 			// Hash Icon
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-	
+
 	EndDeferWindowPos( hDWP );
 }
 
-void CSearchInputBox::OnPaint() 
+void CSearchInputBox::OnPaint()
 {
 	CPaintDC dc( this );
 	CRect rc, rct;
 	CString str;
-	
+
 	UINT nFlags = ETO_CLIPPED;
 	CDC* pDC = &dc;
-	
+
 	GetClientRect( &rc );
-	
+
 	if ( m_bmWatermark.m_hObject != NULL )
 	{
 		CSize size = rc.Size();
@@ -597,11 +597,11 @@ void CSearchInputBox::OnPaint()
 		pDC->SetBkColor( CoolInterface.m_crTaskBoxClient );
 		nFlags |= ETO_OPAQUE;
 	}
-	
+
 	CFont* pOldFont = (CFont*)pDC->SelectObject( &CoolInterface.m_fntNormal );
-	
+
 	pDC->SetTextColor( 0 );
-	
+
 	LoadString( str, IDS_SEARCH_PANEL_INPUT_1 );	// "Type Search Here"
 	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN, rc.right - BOX_MARGIN - 8, BOX_MARGIN + 16 );
 	pDC->ExtTextOut( rct.left, rct.top, nFlags, &rct, str, NULL );
@@ -613,7 +613,7 @@ void CSearchInputBox::OnPaint()
 	pDC->ExcludeClipRect( &rct );
 
 	pDC->SelectObject( pOldFont );
-	
+
 	if ( pDC != &dc )
 	{
 		dc.BitBlt( 0, 0, rc.Width(), rc.Height(), pDC, 0, 0, SRCCOPY );
@@ -644,12 +644,12 @@ void CSearchInputBox::OnSearchStart()
 void CSearchInputBox::OnSearchStop()
 {
 	CString strCaption, strTest;
-	
+
 	LoadString( strTest, IDS_SEARCH_PANEL_CLEAR );
 	m_wndStop.GetWindowText( strCaption );
-	
+
 	CWnd* pTarget = GetPanel()->GetParent();
-	
+
 	if ( strCaption == strTest )
 		pTarget->PostMessage( WM_COMMAND, ID_SEARCH_CLEAR );
 	else
@@ -709,9 +709,9 @@ void CSearchInputBox::OnSearchPrefixSHA1Tiger()
 	CString sSearch;
 	m_wndSearch.GetWindowText( sSearch );
 	Hashes::Sha1Hash oSHA1;
-	Hashes::TigerHash oTiger;	
+	Hashes::TigerHash oTiger;
 	oSHA1.fromUrn( sSearch ) || oSHA1.fromString( sSearch );
-	oTiger.fromUrn( sSearch ) || oTiger.fromString( sSearch );	
+	oTiger.fromUrn( sSearch ) || oTiger.fromString( sSearch );
     sSearch = _T("urn:bitprint:");
 	sSearch += oSHA1 ? oSHA1.toString() : _T("[SHA1]");
 	sSearch += _T(".");
@@ -782,10 +782,10 @@ CSearchAdvancedBox::~CSearchAdvancedBox()
 /////////////////////////////////////////////////////////////////////////////
 // CSearchAdvancedBox message handlers
 
-int CSearchAdvancedBox::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CSearchAdvancedBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
-	
+
 	CRect rc( 0, 0, 0, 0 );
 	CString strCaption;
 
@@ -832,7 +832,7 @@ int CSearchAdvancedBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		BS_CHECKBOX, rc, this, IDC_SEARCH_GNUTELLA1 ) ) return -1;
 	if ( ! m_wndCheckBoxED2K.Create( L"ED2K", WS_CHILD | WS_VISIBLE | WS_TABSTOP |
 		BS_CHECKBOX, rc, this, IDC_SEARCH_EDONKEY ) ) return -1;
-	
+
 	m_wndCheckBoxG2.SetFont( &theApp.m_gdiFontBold );
 	m_wndCheckBoxG2.SetCheck( BST_CHECKED );
 	m_wndCheckBoxG1.SetFont( &theApp.m_gdiFontBold );
@@ -867,10 +867,10 @@ void CSearchAdvancedBox::OnSkinChange()
 	}
 }
 
-void CSearchAdvancedBox::OnSize(UINT nType, int cx, int cy) 
+void CSearchAdvancedBox::OnSize(UINT nType, int cx, int cy)
 {
 	CTaskBox::OnSize( nType, cx, cy );
-	
+
 	HDWP hDWP = BeginDeferWindowPos( 3 );
 
 	if ( m_wndSizeMin.m_hWnd != NULL )
@@ -895,21 +895,21 @@ void CSearchAdvancedBox::OnSize(UINT nType, int cx, int cy)
 		DeferWindowPos( hDWP, m_wndCheckBoxED2K, NULL,
 			( cx / 2 ) + BOX_MARGIN + 25, 66, ( cx - BOX_MARGIN * 3 ) / 2 - 20, 14,	// ED2K Checkbox
 			SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-	
+
 	EndDeferWindowPos( hDWP );
 }
 
-void CSearchAdvancedBox::OnPaint() 
+void CSearchAdvancedBox::OnPaint()
 {
 	CPaintDC dc( this );
 	CRect rc, rct;
 	CString strControlTitle;
-	
+
 	UINT nFlags = ETO_CLIPPED;
 	CDC* pDC = &dc;
-	
+
 	GetClientRect( &rc );
-	
+
 	if ( m_bmWatermark.m_hObject != NULL )
 	{
 		CSize size = rc.Size();
@@ -924,9 +924,9 @@ void CSearchAdvancedBox::OnPaint()
 		pDC->SetBkColor( CoolInterface.m_crTaskBoxClient );
 		nFlags |= ETO_OPAQUE;
 	}
-	
+
 	CFont* pOldFont = (CFont*)pDC->SelectObject( &CoolInterface.m_fntNormal );
-	
+
 	pDC->SetTextColor( 0 );
 
 	LoadString( strControlTitle, IDS_SEARCH_PANEL_INPUT_3 );		// "Network:"
@@ -943,9 +943,9 @@ void CSearchAdvancedBox::OnPaint()
 	rct.SetRect( BOX_MARGIN + 1, BOX_MARGIN + 39,  rc.right / 2, BOX_MARGIN + 55  );
 	pDC->ExtTextOut( rct.left, rct.top, nFlags, &rct, strControlTitle, NULL );
 	pDC->ExcludeClipRect( &rct );
-	
+
 	pDC->SelectObject( pOldFont );
-	
+
 	if ( pDC != &dc )
 	{
 		dc.BitBlt( 0, 0, rc.Width(), rc.Height(), pDC, 0, 0, SRCCOPY );
@@ -1013,21 +1013,21 @@ CSearchSchemaBox::~CSearchSchemaBox()
 /////////////////////////////////////////////////////////////////////////////
 // CSearchSchemaBox message handlers
 
-int CSearchSchemaBox::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CSearchSchemaBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
-	
+
 	CRect rc;
 	if ( ! m_wndSchema.Create( WS_VISIBLE, rc, this, 0 ) ) return -1;
 
 	m_wndSchema.m_nCaptionWidth	= 0;
 	m_wndSchema.m_nItemHeight	= 42;
 	m_wndSchema.m_bShowBorder	= FALSE;
-	
+
 	return 0;
 }
 
-void CSearchSchemaBox::OnSize(UINT nType, int cx, int cy) 
+void CSearchSchemaBox::OnSize(UINT nType, int cx, int cy)
 {
 	CTaskBox::OnSize( nType, cx, cy );
 	m_wndSchema.SetWindowPos( NULL, 0, 1, cx, cy - 1, SWP_NOZORDER | SWP_NOACTIVATE );
@@ -1068,17 +1068,17 @@ void CSearchResultsBox::Update(BOOL bSearching, DWORD nHubs, DWORD nLeaves, DWOR
 	Invalidate();
 }
 
-void CSearchResultsBox::OnPaint() 
+void CSearchResultsBox::OnPaint()
 {
 	CString strFormat, strText;
 	CPaintDC dc( this );
 	CRect rc;
-	
+
 	UINT nFlags = ETO_CLIPPED;
 	CDC* pDC = &dc;
-	
+
 	GetClientRect( &rc );
-	
+
 	if ( m_bmWatermark.m_hObject )
 	{
 		CSize size = rc.Size();
@@ -1119,7 +1119,7 @@ void CSearchResultsBox::OnPaint()
 	if ( m_nFiles )
 	{
 		LoadString( strFormat, IDS_SEARCH_PANEL_RESULTS_FORMAT );
-		
+
 		if ( strFormat.Find( '|' ) >= 0 )
 		{
 			if ( m_nFiles == 1 && m_nHits == 1 )
@@ -1128,7 +1128,7 @@ void CSearchResultsBox::OnPaint()
 				Skin.SelectCaption( strFormat, 1 );
 			else
 				Skin.SelectCaption( strFormat, 2 );
-			
+
 			strText.Format( strFormat,
 				m_nFiles, m_nHits );
 		}
@@ -1182,7 +1182,7 @@ void CSearchResultsBox::DrawText(CDC* pDC, int nX, int nY, UINT nFlags, LPCTSTR 
 {
 	CSize cz = pDC->GetTextExtent( pszText, static_cast< int >( _tcslen( pszText ) ) );
 	CRect rc( nX, nY, nX + cz.cx, nY + cz.cy );
-	
+
 	pDC->ExtTextOut( nX, nY, nFlags, &rc, pszText, static_cast< UINT >( _tcslen( pszText ) ), NULL );
 	pDC->ExcludeClipRect( nX, nY, nX + cz.cx, nY + cz.cy );
 }

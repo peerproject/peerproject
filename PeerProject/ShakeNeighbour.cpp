@@ -65,7 +65,7 @@ m_bUltraPeerLoaded(TRI_UNKNOWN),	// May not be in use (do)
 m_nDelayCloseReason(0),
 	//ToDo: Check this - G1 setting?
 	// Set m_bCanDeflate to true if the checkboxes in PeerProject Settings allow us to send and receive compressed data
-m_bCanDeflate( Neighbours.IsG2Leaf() ? ( Settings.Gnutella.DeflateHub2Hub || Settings.Gnutella.DeflateLeaf2Hub ) 
+m_bCanDeflate( Neighbours.IsG2Leaf() ? ( Settings.Gnutella.DeflateHub2Hub || Settings.Gnutella.DeflateLeaf2Hub )
 : ( Settings.Gnutella.DeflateHub2Hub || Settings.Gnutella.DeflateHub2Leaf ) ),
 m_bDelayClose(FALSE)
 {
@@ -231,7 +231,7 @@ BOOL CShakeNeighbour::OnConnected()
 
 	// POSSIBLE POLLUTION ALERT:
 	// This SendHostHeaders() should not be here, because remote node is not known either G1 or G2.
-	// Calling this function here sends Cached G1 address to remote host, but since RAZA tells the remote that 
+	// Calling this function here sends Cached G1 address to remote host, but since RAZA tells the remote that
 	// it is G2 capable and if the remote host is PEER/RAZA, it will store GNUTELLA1 nodes into GNUTELLA2 cache.
 	// SendHostHeaders();					 // Try ultrapeers
 
@@ -403,7 +403,7 @@ void CShakeNeighbour::SendMinimalHeaders()
 			}
 		}
 	}
-	else 
+	else
 	{
 		// The remote computer contacted us, and accepts Gnutella2 packets
 		if ( m_bG2Accept && Settings.Gnutella2.EnableToday &&
@@ -474,7 +474,7 @@ void CShakeNeighbour::SendPublicHeaders()
 
 		Write( _P("X-Dynamic-Querying: 0.1\r\n") );
 		Write( _P("X-Ext-Probes: 0.1\r\n") );
-		
+
 		strHeader.Format( _T("X-Degree: %d\r\n"), Settings.Gnutella1.NumPeers );
 		Write( strHeader );
 
@@ -504,7 +504,7 @@ void CShakeNeighbour::SendXUltrapeerHeaders()
 	}
 	else if ( m_nProtocol == PROTOCOL_NULL ) // This protocol ID this method got passed is both Gnutella1 and Gnutella2
 	{
-		if ( Settings.Gnutella1.EnableToday && Settings.Gnutella2.EnableToday && 
+		if ( Settings.Gnutella1.EnableToday && Settings.Gnutella2.EnableToday &&
 			( m_bInitiated || ( ( m_bG2Send || m_bG2Accept) && ( m_bG1Send || m_bG1Accept) ) ) )
 		{
 			// Find out if we are a Gnutella1 Ultrapeer or Gnutella2 hub already,
@@ -570,14 +570,14 @@ void CShakeNeighbour::SendPrivateHeaders()
 	if ( m_bInitiated )
 	{
 		// All the data from the remote computer is going to be compressed
-		if ( m_bDeflateSend ) 
+		if ( m_bDeflateSend )
 		{
 			// Tell it we accept compressed data too
 			Write( _P("Accept-Encoding: deflate\r\n") );
 		}
-		
+
 		// The remote computer accepts compressed data
-		if ( m_bDeflateAccept ) 
+		if ( m_bDeflateAccept )
 		{
 			// Tell it all the data we send it will be compressed
 			Write( _P("Content-Encoding: deflate\r\n") );
@@ -792,7 +792,7 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 			m_bDelayClose = TRUE;
 			Security.Ban( &m_pHost.sin_addr, ban2Hours, TRUE );
 		}
-		
+
 		// If the remote computer is running a client the user has blocked
 		if ( IsAgentBlocked() )
 		{
@@ -963,7 +963,7 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 	else if ( strHeader.CompareNoCase( _T("X-Try-Hubs") ) == 0 )
 	{	// The remote computer is giving us a list G2 hubs
 		m_sTryHubs = strValue;
-	} 
+	}
 	else if (	strHeader.CompareNoCase( _T("X-Try-Ultrapeers") ) == 0 )
 	{	// This header has been used for several things. In general, it's giving us a list of Gnutella Ultrapeers,
 		// however some old versions of Shareaza can send G2 hubs in it, if the client advertises G2 capability.
@@ -1008,7 +1008,7 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 	else if ( m_sTryDNAHubs.GetLength() )
 	{	// The remote computer is giving us a list GnucDNA G2 hubs
 		int nCount = 0;
-		for ( m_sTryDNAHubs += ',' ; ; ) 
+		for ( m_sTryDNAHubs += ',' ; ; )
 		{
 			int nPos = m_sTryDNAHubs.Find( ',' );		// Set nPos to the distance in characters from the start to the comma
 			if ( nPos < 0 ) break;						// If no comma was found, leave the loop
@@ -1028,7 +1028,7 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 	else if ( m_sTryHubs.GetLength() )
 	{	// The remote computer is giving us a list G2 hubs
 		int nCount = 0;
-		for ( m_sTryHubs += ',' ; ; ) 
+		for ( m_sTryHubs += ',' ; ; )
 		{
 			int nPos = m_sTryHubs.Find( ',' );		// Set nPos to the distance in characters from the start to the comma
 			if ( nPos < 0 ) break;					// If no comma was found, leave the loop
@@ -1042,7 +1042,7 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 		// Tell discovery services the remote computer's IP address, and how many hosts it just told us about
 		DiscoveryServices.OnGnutellaAdded( &m_pHost.sin_addr, nCount );
 		m_sTryHubs.Empty();
-	} 
+	}
 	else if ( m_sTryUltrapeers.GetLength() )
 	{	// This header has been used for several things. In general, it gives us a list of Gnutella Ultrapeers,
 		// however some old versions of Shareaza can send G2 hubs in it.
@@ -1068,7 +1068,7 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 				// just add them as NULL in order to prevent HostCache/KHL pollution done by wrong assumptions.
 				//if ( HostCache.Gnutella2.Add( strHost, 0, NULL ) ) nCount++; // Count it
 
-			} 
+			}
 			else if ( m_bG1Accept || m_bG1Send )	// This is a Gnutella connection, not Gnutella2
 			{
 				// Add the host to the Gnutella host cache
@@ -1282,17 +1282,17 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 		}
 
 		// If it's a leaf, check version, etc
-		if ( m_nNodeType == ntLeaf ) 
+		if ( m_nNodeType == ntLeaf )
 		{
-			if ( m_bBadClient ) 
+			if ( m_bBadClient )
 			{
 				// We don't allow these to act as a leaf. (resource use, etc)
 				theApp.Message( MSG_ERROR, _T("Rejecting bad leaf client %s") , (LPCTSTR)m_sUserAgent );
 				Write( _P("GNUTELLA/0.6 503 Refused. http://sourceforge.net/projects/peerproject/\r\n") );
 
-				SendMinimalHeaders();  
+				SendMinimalHeaders();
 				DelayClose( IDS_HANDSHAKE_SURPLUS );
-				return FALSE; 
+				return FALSE;
 			}
 			else if ( ! m_bClientExtended )
 			{

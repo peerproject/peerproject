@@ -78,7 +78,7 @@ int CSchemaCache::Load()
 		__int64 nStart = GetMicroCount();
 #endif
 		strPath.Format( _T("%s\\Schemas\\%s"), (LPCTSTR)Settings.General.Path, pFind.cFileName );
-		
+
 		CSchema* pSchema = new CSchema();
 		if ( pSchema && pSchema->Load( strPath ) )
 		{
@@ -86,7 +86,7 @@ int CSchemaCache::Load()
 			ToLower( strURI );
 
 			m_pURIs.SetAt( strURI, pSchema );
-			
+
 			CString strName( pSchema->m_sSingular );
 			ToLower( strName );
 
@@ -126,7 +126,7 @@ void CSchemaCache::Clear()
 	{
 		delete GetNext( pos );
 	}
-	
+
 	m_pURIs.RemoveAll();
 	m_pNames.RemoveAll();
 }

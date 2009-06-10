@@ -145,21 +145,21 @@ BOOL CIRCNewMessage::operator =(const CIRCNewMessage &rhs)
 /////////////////////////////////////////////////////////////////////////////
 // CIRCFrame system message handlers
 
-BOOL CIRCFrame::Create(CWnd* pParentWnd) 
+BOOL CIRCFrame::Create(CWnd* pParentWnd)
 {
 	CRect rect;
 	return CWnd::Create( NULL, _T("CIRCFrame"), WS_CHILD|WS_VISIBLE|WS_CLIPCHILDREN,
 		rect, pParentWnd, IDC_IRC_FRAME );
 }
 
-int CIRCFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CIRCFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
 	if ( ! m_wndPanel.Create( this ) ) return -1;
 	CRect rectDefault;
 	SetOwner( GetParent() );
 
-	m_wndTab.Create( WS_CHILD | WS_VISIBLE | TCS_FLATBUTTONS | TCS_HOTTRACK | TCS_OWNERDRAWFIXED, 
+	m_wndTab.Create( WS_CHILD | WS_VISIBLE | TCS_FLATBUTTONS | TCS_HOTTRACK | TCS_OWNERDRAWFIXED,
 		rectDefault, this, IDC_CHAT_TABS );
 
 	FillChanList();
@@ -171,7 +171,7 @@ int CIRCFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndView.SetSelectable( TRUE );
 	m_wndView.SetFollowBottom( TRUE );
 
-	if ( ! m_wndMainBar.Create( this, WS_CHILD | WS_VISIBLE | CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) 
+	if ( ! m_wndMainBar.Create( this, WS_CHILD | WS_VISIBLE | CBRS_NOALIGN, AFX_IDW_TOOLBAR ) )
 		return -1;
 	m_wndMainBar.SetBarStyle( m_wndMainBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
 	m_wndMainBar.SetOwner( GetOwner() );
@@ -207,7 +207,7 @@ void CIRCFrame::FillCountChanList(CString strUserCount, CString strChannelName)
 		strList = pChannelList->GetItemText( nList, 0 );
 		if ( strDisplay.CompareNoCase( strList ) == 0 ) { bFound = TRUE; break; }
 	}
-	if ( bFound ) 
+	if ( bFound )
 		strList = pChannelList->GetItemText( nList, 1 );
 	else
 		strList = strUserCount;
@@ -216,11 +216,11 @@ void CIRCFrame::FillCountChanList(CString strUserCount, CString strChannelName)
 	else if ( strUserCount == "-1" ) nCountWnd--;
 	else nCountWnd = nCount;
 	strUserCount.Format( _T("%d"), nCountWnd );
-	if ( !bFound ) 
+	if ( !bFound )
 		nList = pChannelList->InsertItem( pChannelList->GetItemCount() , strDisplay );
 	pChannelList->SetItemText( nList, 1, strUserCount.GetBuffer() );
 }
- 
+
 void CIRCFrame::FillChanList()
 {
 	m_pChanList.RemoveAll();
@@ -272,7 +272,7 @@ void CIRCFrame::FillChanList()
 	m_pChanList.AddChannel( _T("Shareaza Spanish"), _T("#Shareaza-Spain") );
 	m_pChanList.AddChannel( _T("Shareaza Swedish"), _T("#Shareaza-Swedish") );
 }
- 
+
 void CIRCFrame::SetFonts()
 {
 	m_fntEdit.DeleteObject();
@@ -288,7 +288,7 @@ void CIRCFrame::SetFonts()
 	// Find optimal font size values for the starting point
 	// Code adjusted for the majority of fonts for different languages
 	CDC* pDC = GetDC();
-	
+
 	LOGFONT lf;
 	memset( &lf, 0, sizeof(LOGFONT) );
 	lf.lfCharSet = DEFAULT_CHARSET;
@@ -341,7 +341,7 @@ void CIRCFrame::SetFonts()
 	m_wndTab.SetFont( &theApp.m_gdiFont, TRUE );
 }
 
-void CIRCFrame::OnDestroy() 
+void CIRCFrame::OnDestroy()
 {
 	OnIrcChanCmdSave();
 	SendString( _T("/QUIT") );
@@ -374,16 +374,16 @@ void CIRCFrame::OnUpdateCmdUI()
 	m_wndMainBar.OnUpdateCmdUI( (CFrameWnd*)GetOwner(), TRUE );
 }
 
-void CIRCFrame::OnSize(UINT nType, int cx, int cy) 
+void CIRCFrame::OnSize(UINT nType, int cx, int cy)
 {
-	if ( nType != SIZE_INTERNAL && nType != SIZE_BARSLIDE ) 
+	if ( nType != SIZE_INTERNAL && nType != SIZE_BARSLIDE )
 		CWnd::OnSize( nType, cx, cy );
-	
+
 	CRect rc;
 	GetClientRect( &rc );
 
 	if ( rc.Width() < 32 || rc.Height() < 32 ) return;
-	
+
 	m_wndPanel.SetWindowPos( NULL, 0, 0, PANEL_WIDTH, rc.Height(), SWP_NOZORDER );
 
 	rc.bottom -= TOOLBAR_HEIGHT;
@@ -401,10 +401,10 @@ void CIRCFrame::OnSize(UINT nType, int cx, int cy)
 		rc.Width(), rc.Height() - SEPERATOR_HEIGHT - SMALLHEADER_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
 	if ( nType != SIZE_BARSLIDE ) Invalidate();
 	if ( m_wndTab.GetItemCount() > 0 ) ReloadViewText();
-		
+
 }
 
-void CIRCFrame::OnPaint() 
+void CIRCFrame::OnPaint()
 {
 	CPaintDC dc( this );
 	CRect rcClient;
@@ -443,7 +443,7 @@ void CIRCFrame::OnPaint()
 
 	rcComponent.right = rcClient.right;
 	rcComponent.left = rcClient.left + PANEL_WIDTH;
-	rcComponent.top = rcClient.bottom - TOOLBAR_HEIGHT - EDITBOX_HEIGHT - 
+	rcComponent.top = rcClient.bottom - TOOLBAR_HEIGHT - EDITBOX_HEIGHT -
 		TABBAR_HEIGHT - SMALLHEADER_HEIGHT;
 	rcComponent.bottom = rcComponent.top + SMALLHEADER_HEIGHT;
 	PaintHeader( rcComponent, dc );
@@ -455,19 +455,19 @@ void CIRCFrame::OnPaint()
 
 	rcComponent.right = rcClient.right;
 	rcComponent.left = rcClient.left + PANEL_WIDTH;
-	rcComponent.top = rcClient.bottom - TOOLBAR_HEIGHT - EDITBOX_HEIGHT - 
+	rcComponent.top = rcClient.bottom - TOOLBAR_HEIGHT - EDITBOX_HEIGHT -
 		TABBAR_HEIGHT - SMALLHEADER_HEIGHT - SEPERATOR_HEIGHT;
 	rcComponent.bottom = rcComponent.top + SEPERATOR_HEIGHT;
-	dc.FillSolidRect( rcComponent.left, rcComponent.top, 1, 
+	dc.FillSolidRect( rcComponent.left, rcComponent.top, 1,
 		rcComponent.Height(), GetSysColor( COLOR_BTNFACE ) );
-	dc.FillSolidRect( rcComponent.left + 1, rcComponent.top, 1, 
+	dc.FillSolidRect( rcComponent.left + 1, rcComponent.top, 1,
 		rcComponent.Height(), GetSysColor( COLOR_3DHIGHLIGHT ) );
-	dc.FillSolidRect( rcComponent.right - 1, rcComponent.top, 1, 
+	dc.FillSolidRect( rcComponent.right - 1, rcComponent.top, 1,
 		rcComponent.Height(), GetSysColor( COLOR_3DSHADOW ) );
-	dc.FillSolidRect( rcComponent.left + 2, rcComponent.top, 
+	dc.FillSolidRect( rcComponent.left + 2, rcComponent.top,
 		rcComponent.Width() - 3, rcComponent.Height(), GetSysColor( COLOR_BTNFACE ) );
 	dc.ExcludeClipRect( &rcComponent );
-}	
+}
 
 void CIRCFrame::PaintHeader(CRect rcHeader, CDC &dc)
 {
@@ -504,20 +504,20 @@ void CIRCFrame::DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText)
 
 /////////////////////////////////////////////////////////////////////////////
 // CIRCFrame interaction message handlers
-void CIRCFrame::OnContextMenu(CWnd* pWnd, CPoint point) 
+void CIRCFrame::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-	if ( pWnd->m_hWnd == m_wndView.m_hWnd ) 
+	if ( pWnd->m_hWnd == m_wndView.m_hWnd )
 	{
 		CString strText = GetTextFromRichPoint();
 		if ( strText.IsEmpty() ) return;
 		int nIndex = IsUserInList( strText );
-		if ( nIndex != -1 ) 
+		if ( nIndex != -1 )
 		{
 			m_wndPanel.m_boxUsers.m_wndUserList.SetCurSel( nIndex );
 			Skin.TrackPopupMenu( _T("CIRCUserList"), point );
 		}
 	}
-	if ( pWnd->m_hWnd == m_wndTab.m_hWnd ) 
+	if ( pWnd->m_hWnd == m_wndTab.m_hWnd )
 	{
 		CRect rcTab;
 		for ( int nTab = 0 ; nTab < m_wndTab.GetItemCount() ; nTab++ )
@@ -534,7 +534,7 @@ void CIRCFrame::OnContextMenu(CWnd* pWnd, CPoint point)
 	}
 }
 
-void CIRCFrame::OnIrcConnect() 
+void CIRCFrame::OnIrcConnect()
 {
 	struct hostent* host;
 	WSADATA WsaData;
@@ -554,12 +554,12 @@ void CIRCFrame::OnIrcConnect()
 		OnStatusMessage( _T("Error: Cannot open a socket."), ID_COLOR_NOTICE );
 	 	return;
 	}
-	int nBytes = WideCharToMultiByte( CP_ACP, 0, m_sDestinationIP, m_sDestinationIP.GetLength(), 
+	int nBytes = WideCharToMultiByte( CP_ACP, 0, m_sDestinationIP, m_sDestinationIP.GetLength(),
 		NULL, 0, NULL, NULL );
 	LPSTR pBytes = new CHAR[ nBytes + 1 ];
 	WideCharToMultiByte( CP_ACP, 0, m_sDestinationIP, m_sDestinationIP.GetLength(), pBytes, nBytes, NULL, NULL );
 	pBytes[nBytes] = '\0';
-	
+
 	host = gethostbyname( pBytes );
 	delete [] pBytes;
 	if ( host == NULL ) return;
@@ -594,7 +594,7 @@ void CIRCFrame::OnIrcConnect()
 			OnStatusMessage( _T("QUIT: Connection Dropped."), ID_COLOR_NOTICE );
 						m_pIrcBuffer[ nTargetWindow ].Add( char(ID_COLOR_NOTICE) + _T("QUIT: Connection Dropped.") );
 		}
-		else 
+		else
 		{
 			OnStatusMessage( _T("QUIT: Connection Closed."), ID_COLOR_NOTICE );
 			m_pIrcBuffer[ nTargetWindow ].Add( char(ID_COLOR_NOTICE) + _T("QUIT: Connection Closed.") );
@@ -602,7 +602,7 @@ void CIRCFrame::OnIrcConnect()
 	 	return;
 	}
 	m_sNickname	= Settings.IRC.Nick;
-	if ( m_sNickname.IsEmpty() ) 
+	if ( m_sNickname.IsEmpty() )
 	{
 		CString strNick = MyProfile.GetNick();
 		if ( strNick.IsEmpty() )
@@ -647,7 +647,7 @@ void CIRCFrame::OnUpdateIrcUserCmd(CCmdUI* pCmdUI)
 	pCmdUI->SetCheck( FALSE );
 }
 
-void CIRCFrame::OnIrcUserCmdWhois() 
+void CIRCFrame::OnIrcUserCmdWhois()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -656,7 +656,7 @@ void CIRCFrame::OnIrcUserCmdWhois()
 	OnLocalText( "/whois " + RemoveModeOfNick( strText ) );
 }
 
-void CIRCFrame::OnIrcUserCmdOp() 
+void CIRCFrame::OnIrcUserCmdOp()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -666,7 +666,7 @@ void CIRCFrame::OnIrcUserCmdOp()
 	OnLocalText( strText );
 }
 
-void CIRCFrame::OnIrcUserCmdDeop() 
+void CIRCFrame::OnIrcUserCmdDeop()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -680,17 +680,17 @@ void CIRCFrame::OnIrcChanCmdOpen()
 {
 	CString strPath, strItem;
 	CFile pFile;
-	
+
 	strPath = Settings.General.UserPath + _T("\\Data\\ChatChanlist.dat");
-	
+
 	if ( ! pFile.Open( strPath, CFile::modeRead ) ) return;
-	
+
 	CBuffer pBuffer;
 	pBuffer.EnsureBuffer( (DWORD)pFile.GetLength() );
 	pBuffer.m_nLength = (DWORD)pFile.GetLength();
 	pFile.Read( pBuffer.m_pBuffer, pBuffer.m_nLength );
 	pFile.Close();
-	
+
 	while ( pBuffer.ReadLine( strItem ) )
 	{
 		strItem.TrimLeft();
@@ -725,12 +725,12 @@ void CIRCFrame::OnIrcChanCmdSave()
 
 	USES_CONVERSION;
 	LPCSTR pszFile = T2CA( (LPCTSTR)strFile );
-	
+
 	pFile.Write( pszFile, (DWORD)strlen( pszFile ) );
 	pFile.Close();
 }
 
-void CIRCFrame::OnIrcUserCmdVoice() 
+void CIRCFrame::OnIrcUserCmdVoice()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -745,7 +745,7 @@ void CIRCFrame::OnIrcShowSettings()
 	CSettingsManagerDlg::Run( _T("CIRCSettingsPage") );
 }
 
-void CIRCFrame::OnIrcUserCmdBan() 
+void CIRCFrame::OnIrcUserCmdBan()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -754,7 +754,7 @@ void CIRCFrame::OnIrcUserCmdBan()
 	CString strText = "/mode " + GetTabText() + " +b " + RemoveModeOfNick( strText2 );
 	OnLocalText( strText );
 }
-void CIRCFrame::OnIrcUserCmdUnban() 
+void CIRCFrame::OnIrcUserCmdUnban()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -764,7 +764,7 @@ void CIRCFrame::OnIrcUserCmdUnban()
 	OnLocalText( strText );
 }
 
-void CIRCFrame::OnIrcUserCmdKick() 
+void CIRCFrame::OnIrcUserCmdKick()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -774,7 +774,7 @@ void CIRCFrame::OnIrcUserCmdKick()
 	OnLocalText( strText );
 }
 
-void CIRCFrame::OnIrcUserCmdKickWhy() 
+void CIRCFrame::OnIrcUserCmdKickWhy()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -788,7 +788,7 @@ void CIRCFrame::OnIrcUserCmdKickWhy()
 	OnLocalText( strText );
 }
 
-void CIRCFrame::OnIrcUserCmdBanKick() 
+void CIRCFrame::OnIrcUserCmdBanKick()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -800,7 +800,7 @@ void CIRCFrame::OnIrcUserCmdBanKick()
 	OnLocalText( strText );
 }
 
-void CIRCFrame::OnIrcUserCmdBanKickWhy() 
+void CIRCFrame::OnIrcUserCmdBanKickWhy()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -816,7 +816,7 @@ void CIRCFrame::OnIrcUserCmdBanKickWhy()
 	OnLocalText( strText );
 }
 
-void CIRCFrame::OnIrcUserCmdDevoice() 
+void CIRCFrame::OnIrcUserCmdDevoice()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -826,7 +826,7 @@ void CIRCFrame::OnIrcUserCmdDevoice()
 	OnLocalText( strText );
 }
 
-void CIRCFrame::OnIrcUserCmdIgnore() 
+void CIRCFrame::OnIrcUserCmdIgnore()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -836,7 +836,7 @@ void CIRCFrame::OnIrcUserCmdIgnore()
 	OnLocalText( strText );
 }
 
-void CIRCFrame::OnIrcUserCmdUnignore() 
+void CIRCFrame::OnIrcUserCmdUnignore()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -846,7 +846,7 @@ void CIRCFrame::OnIrcUserCmdUnignore()
 	OnLocalText( strText );
 }
 
-void CIRCFrame::OnIrcUserCmdVersion() 
+void CIRCFrame::OnIrcUserCmdVersion()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -859,7 +859,7 @@ void CIRCFrame::OnIrcUserCmdVersion()
 	OnLocalText( strText );
 }
 
-void CIRCFrame::OnIrcUserCmdTime() 
+void CIRCFrame::OnIrcUserCmdTime()
 {
 	int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
 	if ( nItem < 0 ) return;
@@ -872,7 +872,7 @@ void CIRCFrame::OnIrcUserCmdTime()
 	if ( nItem >= 0 ) OnLocalText( strText );
 }
 
-void CIRCFrame::OnIrcCloseTab() 
+void CIRCFrame::OnIrcCloseTab()
 {
 	int nTab = m_wndTab.GetCurSel(), nOldTab( nTab );
 
@@ -904,7 +904,7 @@ void CIRCFrame::OnUpdateIrcCloseTab(CCmdUI* pCmdUI)
 	pCmdUI->SetCheck( FALSE );
 }
 
-void CIRCFrame::OnIrcDisconnect() 
+void CIRCFrame::OnIrcDisconnect()
 {
 	m_wndPanel.m_boxUsers.m_wndUserList.ResetContent();
 	m_wndPanel.m_boxChans.m_wndChanList.DeleteAllItems();
@@ -953,25 +953,25 @@ void CIRCFrame::OnLocalText(LPCTSTR pszText)
 	int nIndex = strMessage.Find( _T("\r\n"), nOldIndex );
 	while ( nIndex != -2 )
 	{
-		if ( nIndex == -1 ) 
+		if ( nIndex == -1 )
 			strText = strMessage.Mid( nOldIndex );
 		else
 			strText = strMessage.Mid( nOldIndex, nIndex - nOldIndex );
 		strText = strText.SpanExcluding( _T("\r\n") );
-		if ( strText.GetLength() > 2 ) 
+		if ( strText.GetLength() > 2 )
 		{
-			if ( strText.Left( 3 ) == "/j " ) 
+			if ( strText.Left( 3 ) == "/j " )
 				strText = "/join" + strText.Mid( 2 );
 		}
-		if ( strText.GetLength() > 3 ) 
+		if ( strText.GetLength() > 3 )
 		{
- 			if ( strText.Left( 4 ) == "/bs " ) 
+ 			if ( strText.Left( 4 ) == "/bs " )
 				strText = "/botserv" + strText.Mid( 3 );
-			if ( strText.Left( 4 ) == "/ns " ) 
+			if ( strText.Left( 4 ) == "/ns " )
 				strText = "/nickserv" + strText.Mid( 3 );
- 			else if ( strText.Left( 4 ) == "/cs " ) 
+ 			else if ( strText.Left( 4 ) == "/cs " )
 				strText = "/chanserv" + strText.Mid( 3 );
-			else if ( strText.Left( 4 ) == "/me " ) 
+			else if ( strText.Left( 4 ) == "/me " )
 				bMeMsg = TRUE;
 		}
 		if ( !bMeMsg )
@@ -998,7 +998,7 @@ void CIRCFrame::OnLocalText(LPCTSTR pszText)
 		{
 			OnStatusMessage( strLine, !bMeMsg ? ID_COLOR_TEXT : ID_COLOR_ME );
 			m_pIrcBuffer[ m_wndTab.GetCurSel() ].Add( strBufferMsg );
-			if ( bMeMsg ) 
+			if ( bMeMsg )
 			{
 				strText = _T( "ACTION ") + strText;
 				strText = _T( " \x01" ) + strText + _T("\x01");
@@ -1010,12 +1010,12 @@ void CIRCFrame::OnLocalText(LPCTSTR pszText)
 		if ( strText.Left( 1 ) == "/" ) strText = strText.Mid( 1 );
 		SendString( strText );
 		if ( nIndex == -1 ) break;
-		nOldIndex = nIndex + 2 ; 	
+		nOldIndex = nIndex + 2 ;
 		nIndex = strMessage.Find( _T("\r\n"), nOldIndex );
 	}
 }
 
- 
+
 void CIRCFrame::OnTimer(UINT_PTR nIDEvent)
 {
 	int nIndex;
@@ -1031,8 +1031,8 @@ void CIRCFrame::OnTimer(UINT_PTR nIDEvent)
 	if ( nIDEvent == 8 )
 	{
 		m_bFloodProtectionRunning = FALSE;
-		int nTargetWindow = IsTabExist( m_sStatus ) ; 
-		if ( m_wndTab.GetCurSel() == nTargetWindow ) 
+		int nTargetWindow = IsTabExist( m_sStatus ) ;
+		if ( m_wndTab.GetCurSel() == nTargetWindow )
 			OnStatusMessage( _T("Stopped flood protection."), ID_COLOR_SERVERMSG );
 		m_pIrcBuffer[ nTargetWindow ].Add( char(ID_COLOR_SERVERMSG) + _T("Stopped flood protection.") );
 		KillTimer( 8 );
@@ -1047,12 +1047,12 @@ void CIRCFrame::OnTimer(UINT_PTR nIDEvent)
 			m_nTimerVal = 0;
 			m_nFloodLimit = _tstoi( (LPCTSTR)Settings.IRC.FloodLimit ) * 3;
 
-			if ( m_nMsgsInSec > m_nFloodLimit ) 
+			if ( m_nMsgsInSec > m_nFloodLimit )
 			{
 				SetTimer( 8, m_nFloodingDelay, NULL );
 				m_bFloodProtectionRunning = TRUE;
 				int nTargetWindow = IsTabExist( m_sStatus );
-				if ( m_wndTab.GetCurSel() == nTargetWindow ) 
+				if ( m_wndTab.GetCurSel() == nTargetWindow )
 					OnStatusMessage( _T("Running flood protection..."), ID_COLOR_SERVERMSG );
 				m_pIrcBuffer[ nTargetWindow ].Add( char(ID_COLOR_SERVERMSG ) + _T("Running flood protection...") );
 			}
@@ -1086,16 +1086,16 @@ void CIRCFrame::OnTimer(UINT_PTR nIDEvent)
 						OnStatusMessage( _T("QUIT: Connection Reset By PEER." ), ID_COLOR_NOTICE );
 					else if ( nError == WSAENOTCONN )
 						OnStatusMessage( _T("QUIT: Connection Dropped."), ID_COLOR_NOTICE );
-					else 
+					else
 						OnStatusMessage( _T("QUIT: Server is busy, please try again later."), ID_COLOR_NOTICE );
 					OnIrcDisconnect();
 					return;
 				}
 			if ( nRetVal != -1 && !strTmp.IsEmpty() )
-			{	
+			{
 				m_nMsgsInSec++;
 				nIndex = strTmp.Find( _T("\x000D\x000A") );
-				if ( nIndex == -1 ) 
+				if ( nIndex == -1 )
 					m_sWsaBuffer = strTmp;
 				else
 				{
@@ -1108,7 +1108,7 @@ void CIRCFrame::OnTimer(UINT_PTR nIDEvent)
 						strTmp = strTmp.Mid( nIndex + 1 );
 						nIndex = strTmp.Find( _T("\x000D\x000A") );
 					}
-					if ( !strTmp.IsEmpty() ) 
+					if ( !strTmp.IsEmpty() )
 						m_sWsaBuffer = m_sWsaBuffer + strTmp;
 					else
 						m_sWsaBuffer.Empty();
@@ -1117,7 +1117,7 @@ void CIRCFrame::OnTimer(UINT_PTR nIDEvent)
 			strTmp.ReleaseBuffer();
 		}
 		pLock.Unlock();
-	} 
+	}
 	CWnd::OnTimer( nIDEvent );
 }
 
@@ -1138,24 +1138,24 @@ void CIRCFrame::OnStatusMessage(LPCTSTR pszText, int nFlags)
 	while ( nIndex != -1 )
 	{
 		nSize = 1;
-		if ( ( (int)( strMessage.GetAt( nIndex + 1 ) ) - 48 ) > -1 && 
+		if ( ( (int)( strMessage.GetAt( nIndex + 1 ) ) - 48 ) > -1 &&
 			 ( (int)( strMessage.GetAt( nIndex + 1 ) ) - 48 < 10 ) )
 		{
 			nSize++;
-			if ( ( (int)( strMessage.GetAt( nIndex + 2 ) ) - 48 ) > -1 && 
+			if ( ( (int)( strMessage.GetAt( nIndex + 2 ) ) - 48 ) > -1 &&
 				 ( (int)( strMessage.GetAt( nIndex + 2 ) ) - 48 < 10 ) ) nSize++;
 
-			if ( strMessage.GetAt( nIndex + 3 ) == ',' || 
-				 strMessage.GetAt( nIndex + 2 ) == ',' ) 
+			if ( strMessage.GetAt( nIndex + 3 ) == ',' ||
+				 strMessage.GetAt( nIndex + 2 ) == ',' )
 			{
 				nSize++;
-				if ( ( (int)( strMessage.GetAt( nIndex + 4 ) ) - 48 ) > -1 && 
+				if ( ( (int)( strMessage.GetAt( nIndex + 4 ) ) - 48 ) > -1 &&
 					 ( (int)( strMessage.GetAt( nIndex + 4 ) ) - 48 < 10 ) ) nSize++;
 
-				if ( ( (int)( strMessage.GetAt( nIndex + 5 ) ) - 48 ) > -1 && 
+				if ( ( (int)( strMessage.GetAt( nIndex + 5 ) ) - 48 ) > -1 &&
 					 ( (int)( strMessage.GetAt( nIndex + 5 ) ) - 48 < 10 ) ) nSize++;
 			}
-		}	
+		}
 		strMessage = strMessage.Mid( 0, nIndex ) + strMessage.Mid( nIndex + nSize + 1 );
 		nIndex = strMessage.Find( _T("\x003") );
 	}
@@ -1187,7 +1187,7 @@ void CIRCFrame::OnStatusMessage(LPCTSTR pszText, int nFlags)
 		if ( nCurrentLength > nViewSize )
 		{
 			nCurrentLength = strMsgTemp.GetLength();
-			nCheckLength = nCurrentLength + 
+			nCheckLength = nCurrentLength +
 						   int( strCurrentWord.GetLength() * 0.3 );
 			nOldChar = 0;
 			nCurrentChar = 0;
@@ -1250,7 +1250,7 @@ void CIRCFrame::ReloadViewText()
     LoadBufferForWindow( m_wndTab.GetCurSel() );
 }
 
-BOOL CIRCFrame::PreTranslateMessage(MSG* pMsg) 
+BOOL CIRCFrame::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_NOTIFY )
 	{
@@ -1295,14 +1295,14 @@ BOOL CIRCFrame::PreTranslateMessage(MSG* pMsg)
 		}
 		if ( pMsg->wParam == VK_RETURN )
 		{
-			if ( m_wndEdit.GetLineCount() > m_nLocalLinesLimit ) 
+			if ( m_wndEdit.GetLineCount() > m_nLocalLinesLimit )
 			{
 				AfxMessageBox( _T("Exceeded Max number of lines allowed.") );
 				return TRUE;
 			}
     		m_wndEdit.GetWindowText( m_sCurrent );
 			if ( m_sCurrent.IsEmpty() ) return TRUE;
-			if ( m_sCurrent.GetLength() > m_nLocalTextLimit ) 
+			if ( m_sCurrent.GetLength() > m_nLocalTextLimit )
 			{
 				AfxMessageBox( _T("Exceeded Max length of text allowed.") );
 				return TRUE;
@@ -1314,7 +1314,7 @@ BOOL CIRCFrame::PreTranslateMessage(MSG* pMsg)
 				m_pLastLineBuffer[ nTab ].RemoveAt( 0 );
 			m_nCurrentPosLineBuffer[ nTab ] = -1;
 			OnLocalText( m_sCurrent );
-			
+
 			m_sCurrent.Empty();
 			m_wndEdit.SetWindowText( m_sCurrent );
 			return TRUE;
@@ -1362,7 +1362,7 @@ void CIRCFrame::ChanListDblClick()
 		SendString( strJoinChannel );
 	}
 }
-	
+
 BOOL CIRCFrame::OnNewMessage(CString strMessage)
 {
 	int nTargetWindow;
@@ -1372,10 +1372,10 @@ BOOL CIRCFrame::OnNewMessage(CString strMessage)
 	oNewMessage.nColorID = 0;
 	oNewMessage.m_sTargetName.Empty();
 	ParseString( strMessage, &oNewMessage );
-	nTargetWindow = IsTabExist( oNewMessage.m_sTargetName ) ; 
+	nTargetWindow = IsTabExist( oNewMessage.m_sTargetName ) ;
 	for ( int nMessage = 0 ; nMessage <= oNewMessage.m_pMessages.GetCount() - 1 ; nMessage++ )
 	{
-		if ( nTargetWindow != -1 ) 
+		if ( nTargetWindow != -1 )
 		{
 			CString strText = oNewMessage.m_pMessages.GetAt( nMessage );
 			CString strLine;
@@ -1483,7 +1483,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 			{
 				oNewMessage->m_sTargetName = GetTabText( m_wndTab.GetCurSel() );
 				int nTab = IsTabExist( m_pWords.GetAt( 6 ) );
-				if ( nTab!= -1 ) 
+				if ( nTab!= -1 )
 				{
 					int nListUser = FindInList( m_pWords.GetAt( 7 ) );
 					if ( nTab == m_wndTab.GetCurSel() && nListUser != -1 )
@@ -1494,7 +1494,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 					SortUserList();
 					FillCountChanList( "-1", m_pWords.GetAt( 6 ) );
 				}
-				CString strSender = "* " + m_pWords.GetAt( 7 ) + " was kicked by " + 
+				CString strSender = "* " + m_pWords.GetAt( 7 ) + " was kicked by " +
 					m_pWords.GetAt( 0 ) + " (" + GetStringAfterParsedItem( 8 ) + ")";
 				oNewMessage->nColorID = ID_COLOR_SERVERMSG;
 				oNewMessage->m_pMessages.Add( strSender );
@@ -1503,14 +1503,14 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 			{
 				oNewMessage->m_sTargetName = m_sStatus;
 				int nTab = IsTabExist( m_pWords.GetAt( 6 ) );
-				if ( nTab != -1 ) 
+				if ( nTab != -1 )
 				{
 					m_wndTab.SetCurSel( nTab );
 					OnIrcCloseTab();
 				}
 				m_wndTab.SetCurSel( 0 );
 				TabClick();
-				CString strSender = "* You were kicked by " + m_pWords.GetAt( 0 ) + 
+				CString strSender = "* You were kicked by " + m_pWords.GetAt( 0 ) +
 					"of channel " + m_pWords.GetAt( 6 ) + " (" + GetStringAfterParsedItem( 8 ) + ")";
 				oNewMessage->nColorID = ID_COLOR_SERVERMSG;
 				oNewMessage->m_pMessages.Add( strSender );
@@ -1548,7 +1548,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 		{
 			oNewMessage->m_sTargetName	= GetTabText( m_wndTab.GetCurSel() );
 			oNewMessage->nColorID		= ID_COLOR_SERVERMSG;
-			CString strSender = "* You have just been invited to channel " + 
+			CString strSender = "* You have just been invited to channel " +
 				m_pWords.GetAt( 8 ) + " by " + m_pWords.GetAt( 6 );
 			oNewMessage->m_pMessages.Add( strSender );
 			return;
@@ -1589,7 +1589,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 		{
 			oNewMessage->m_sTargetName	= GetTabText( m_wndTab.GetCurSel() );
 			oNewMessage->nColorID		= ID_COLOR_SERVERMSG;
-			CString strSender = "* You have just invited " + m_pWords.GetAt( 3 ) + 
+			CString strSender = "* You have just invited " + m_pWords.GetAt( 3 ) +
 				" to channel " + m_pWords.GetAt( 4 );
 			oNewMessage->m_pMessages.Add( strSender );
 			return;
@@ -1598,7 +1598,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 		{
 			oNewMessage->m_sTargetName	= m_sStatus;
 			oNewMessage->nColorID		= ID_COLOR_SERVERMSG;
-			CString strSender = m_pWords.GetAt( 2 ) + " was " + m_pWords.GetAt( 5 ) + 
+			CString strSender = m_pWords.GetAt( 2 ) + " was " + m_pWords.GetAt( 5 ) +
 				m_pWords.GetAt( 6 ) + GetStringAfterParsedItem( 7 );
 			oNewMessage->m_pMessages.Add( strSender );
 			return;
@@ -1643,7 +1643,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 			else if ( pTime.wDayOfWeek == 5 ) LoadString( strDay, IDS_DAY_FRIDAY );
 			else if ( pTime.wDayOfWeek == 6 ) LoadString( strDay, IDS_DAY_SATURDAY );
 
-			OnLocalText( "/NOTICE " + m_pWords.GetAt( 0 ) + ' ' + char( 0x1 ) + 
+			OnLocalText( "/NOTICE " + m_pWords.GetAt( 0 ) + ' ' + char( 0x1 ) +
 				"TIME Today is " + strDay + " for more info contact me." + char( 0x1 ) );
 
 			oNewMessage->m_pMessages.Add( "* " + m_pWords.GetAt( 0 ) + " just TIMEed you." );
@@ -1653,7 +1653,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 		}
 		case ID_MESSAGE_USER_CTCPVERSION:
 		{
-			OnLocalText( "/NOTICE " + m_pWords.GetAt( 0 ) + ' ' + char( 0x1 ) + 
+			OnLocalText( "/NOTICE " + m_pWords.GetAt( 0 ) + ' ' + char( 0x1 ) +
 				"VERSION PeerProject " + theApp.m_sVersion + char( 0x1 ) );
 			oNewMessage->m_pMessages.Add( "* " + m_pWords.GetAt( 0 ) + " just VERSIONed you." );
 			oNewMessage->m_sTargetName	= m_sStatus;
@@ -1662,7 +1662,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 		}
 		case ID_MESSAGE_SERVER_NOTICE:
 		{
-			oNewMessage->m_pMessages.Add( GetStringAfterParsedItem ( FindParsedItem( ":", 2 ) ) + 
+			oNewMessage->m_pMessages.Add( GetStringAfterParsedItem ( FindParsedItem( ":", 2 ) ) +
 				" (" + m_pWords.GetAt( 2 ) + ")" );
 			oNewMessage->m_sTargetName	= m_sStatus;
 			oNewMessage->nColorID		= ID_COLOR_NOTICE;
@@ -1677,7 +1677,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 		{
 			CListCtrl* pChannelList = (CListCtrl*)&(m_wndPanel.m_boxChans.m_wndChanList);
 			for ( int nList = 0 ; nList < pChannelList->GetItemCount() ; nList++ )
-				if ( pChannelList->GetItemText( nList, 1 ) == _T("0") ) 
+				if ( pChannelList->GetItemText( nList, 1 ) == _T("0") )
 					pChannelList->DeleteItem( nList );
 			return;
 		}
@@ -1695,11 +1695,11 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 				strTemp = m_pWords.GetAt( nWord );
 				nModeColumn = 0;
 				nMode = 48;
-				if ( strTemp.Left( 1 ) == "+" ) 
+				if ( strTemp.Left( 1 ) == "+" )
 					nModeColumn = 1;
-				else if ( strTemp.Left( 1 ) == "@" ) 
+				else if ( strTemp.Left( 1 ) == "@" )
 					nModeColumn = 2;
-				else if ( strTemp.Left( 1 ) == "%" ) 
+				else if ( strTemp.Left( 1 ) == "%" )
 					nModeColumn = 4;
 				nMode += nModeColumn;
 				if ( nMode != 48 ) strTemp = strTemp.Mid( 1 );
@@ -1734,7 +1734,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 		{
 			CString strNick( m_pWords.GetAt( 0 ) ), strChannelName( m_pWords.GetAt( 6 ) );
 			int nTab = 	IsTabExist( strChannelName );
-			if ( nTab != -1 ) 
+			if ( nTab != -1 )
 			{
 				int nListUser = FindInList( strNick );
 				if ( nTab == m_wndTab.GetCurSel() && nListUser != -1 )
@@ -1778,7 +1778,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 				if ( nListUser != -1 )
 				{
 					m_pIrcUsersBuffer[ nTab ].RemoveAt( nListUser );
-					if ( m_wndTab.GetCurSel() != nTab ) 
+					if ( m_wndTab.GetCurSel() != nTab )
 						m_pIrcBuffer[ nTab ].Add( char(ID_COLOR_SERVERMSG) + oNewMessage->m_pMessages.GetAt( 0 ) );
 				}
 			}
@@ -1804,8 +1804,8 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 			int nTab = 	IsTabExist( strChannelName );
 			if ( nTab == -1 ) return;
 			m_pIrcUsersBuffer[ nTab ].Add( char( 48 ) + strNick );
-			if ( nTab == m_wndTab.GetCurSel() ) 
-				m_wndPanel.m_boxUsers.m_wndUserList.InsertString( m_wndPanel.m_boxUsers.m_wndUserList.GetCount(), 
+			if ( nTab == m_wndTab.GetCurSel() )
+				m_wndPanel.m_boxUsers.m_wndUserList.InsertString( m_wndPanel.m_boxUsers.m_wndUserList.GetCount(),
 					strNick );
 			FillCountChanList( "0", strChannelName );
 			SortUserList();
@@ -1815,7 +1815,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 			return;
 		}
 		case ID_MESSAGE_SERVER_DISCONNECT:
-		{		
+		{
 			oNewMessage->m_pMessages.Add( GetStringAfterParsedItem( 0 ) );
 			oNewMessage->m_sTargetName	= m_sStatus;
 			oNewMessage->nColorID		= ID_COLOR_SERVERMSG;
@@ -1831,21 +1831,21 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 			{
 				if ( m_pWords.GetCount() - 1 < nCurNick ) break;
 
-				if ( strMode.Mid( nChar, 1 ) == "+" || 
-					 strMode.Mid( nChar, 1 ) == "-" ) 
+				if ( strMode.Mid( nChar, 1 ) == "+" ||
+					 strMode.Mid( nChar, 1 ) == "-" )
 				{
 					bSign = ( strMode.Mid( nChar, 1 ) == "+" );
 					nCurNick--;
 				}
-				else if ( strMode.Mid( nChar, 1 ) == "o" || 
+				else if ( strMode.Mid( nChar, 1 ) == "o" ||
 						  strMode.Mid( nChar, 1 ) == "v" ||
 						  strMode.Mid( nChar, 1 ) == "h" )
 				{
 					int nSign = 1;
 
-					if ( strMode.Mid( nChar, 1 ) == "o" ) 
+					if ( strMode.Mid( nChar, 1 ) == "o" )
 						nSign = 2;
-					else if ( strMode.Mid( nChar, 1 ) == "h" ) 
+					else if ( strMode.Mid( nChar, 1 ) == "h" )
 						nSign = 4;
 
 					int nInUserList = FindInList( m_pWords.GetAt( nCurNick ) );
@@ -1853,18 +1853,18 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 					int nTab = IsTabExist( m_pWords.GetAt( 6 ) );
 					int nInBufferList = FindInList( m_pWords.GetAt( nCurNick ), 2, nTab );
 					if ( nInBufferList <= -1 ) return;
- 
+
 					CString strCurItem = m_pIrcUsersBuffer[nTab].GetAt( nInBufferList );
 					int nMode = int(strCurItem.GetAt( 0 ) - 48);
 					strCurItem = strCurItem.Mid( 1 );
 					CString strCurUser( strCurItem );
 
 					nMode = nMode + nSign * ( bSign ? 1 : -1 );
-					if ( nMode == 2 || nMode == 3 || nMode == 6 || nMode == 7 ) 
+					if ( nMode == 2 || nMode == 3 || nMode == 6 || nMode == 7 )
 						strCurUser = "@" + strCurUser;
-					else if ( nMode == 1 ) 
+					else if ( nMode == 1 )
 						strCurUser = "+" + strCurUser;
-					else if ( nMode == 4 || nMode == 5 ) 
+					else if ( nMode == 4 || nMode == 5 )
 						strCurUser = "%" + strCurUser;
 
 					m_wndPanel.m_boxUsers.m_wndUserList.DeleteString( nInUserList );
@@ -1884,7 +1884,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 			return;
 		}
 		case ID_MESSAGE_NICK:
-		{		
+		{
 			CString strNick = m_pWords.GetAt( 0 );
 			CString strChannelName = GetTabText();
 			CString strTmp;
@@ -1899,19 +1899,19 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 					int nMode = int(strCurItem.GetAt( 0 ) - 48);
 					strCurItem = strCurItem.Mid( 1 );
 					strCurUser = m_pWords.GetAt( 7 );
-					if ( nMode == 2 || nMode == 3 || nMode == 6 || nMode == 7 ) 
+					if ( nMode == 2 || nMode == 3 || nMode == 6 || nMode == 7 )
 						strCurUser = "@" + m_pWords.GetAt( 7 );
-					else if ( nMode == 1 ) 
+					else if ( nMode == 1 )
 						strCurUser = "+" + m_pWords.GetAt( 7 );
-					else if ( nMode == 4 || nMode == 5 ) 
+					else if ( nMode == 4 || nMode == 5 )
 						strCurUser = "%" + m_pWords.GetAt( 7 );
 					nMode += 48;
 					m_pIrcUsersBuffer[ nTab ].SetAt( nListUser, char(nMode) + m_pWords.GetAt( 7 ) );
 					break;
 				}
 			}
- 
-			if ( strNick.CompareNoCase( m_sNickname ) == 0 ) 
+
+			if ( strNick.CompareNoCase( m_sNickname ) == 0 )
 				m_sNickname = m_pWords.GetAt( 7 );
 			nListUser = FindInList( strNick );
 			if ( nListUser != -1 )
@@ -1936,58 +1936,58 @@ int CIRCFrame::ParseMessageID()
 		int nServerErrNum = _tstoi( (LPCTSTR)m_pWords.GetAt( 1 ) );
 		if ( nServerErrNum == 0 )
 		{
-			if ( m_pWords.GetAt( 0 ) == "PING" ) 
+			if ( m_pWords.GetAt( 0 ) == "PING" )
 				nMessageType = ID_MESSAGE_SERVER_PING;
-			else if ( m_pWords.GetAt( 0 ) == "ERROR" ) 
+			else if ( m_pWords.GetAt( 0 ) == "ERROR" )
 				nMessageType = ID_MESSAGE_SERVER_DISCONNECT;
-			if ( m_pWords.GetAt( 1 ) == "NOTICE" ) 
+			if ( m_pWords.GetAt( 1 ) == "NOTICE" )
 				nMessageType = ID_MESSAGE_SERVER_NOTICE;
 		}
 		else
 		{
-			if ( nServerErrNum == 322 ) 
+			if ( nServerErrNum == 322 )
 				nMessageType = ID_MESSAGE_CHANNEL_LIST;
 			else if ( nServerErrNum == 323 )
 				nMessageType = ID_MESSAGE_CHANNEL_LISTEND;
-			else if ( nServerErrNum == 332 ) 
+			else if ( nServerErrNum == 332 )
 				nMessageType = ID_MESSAGE_CHANNEL_TOPICSHOW;
-			else if ( nServerErrNum == 333 ) 
+			else if ( nServerErrNum == 333 )
 				nMessageType = ID_MESSAGE_CHANNEL_TOPICSETBY;
- 			else if ( nServerErrNum == 353 ) 
+ 			else if ( nServerErrNum == 353 )
 				nMessageType = ID_MESSAGE_CLIENT_JOIN_USERLIST;
-			else if ( nServerErrNum == 366 ) 
+			else if ( nServerErrNum == 366 )
 				nMessageType = ID_MESSAGE_CLIENT_JOIN_ENDNAMES;
-			else if ( nServerErrNum == 376 ) 
+			else if ( nServerErrNum == 376 )
 				nMessageType = ID_MESSAGE_SERVER_CONNECTED;
-			else if ( nServerErrNum > 0 && nServerErrNum < 5 ) 
+			else if ( nServerErrNum > 0 && nServerErrNum < 5 )
 				nMessageType = ID_MESSAGE_SERVER_MSG;
-			else if ( nServerErrNum > 250 && nServerErrNum < 270 ) 
+			else if ( nServerErrNum > 250 && nServerErrNum < 270 )
 				nMessageType = ID_MESSAGE_SERVER_MSG;
-			else if ( nServerErrNum == 372 || nServerErrNum == 375 ) 
+			else if ( nServerErrNum == 372 || nServerErrNum == 375 )
 				nMessageType = ID_MESSAGE_SERVER_MSG;
-			else if ( nServerErrNum > 400 ) 
+			else if ( nServerErrNum > 400 )
 				nMessageType = ID_MESSAGE_SERVER_ERROR;
-			else if ( nServerErrNum == 5 || nServerErrNum == 318 || nServerErrNum == 351 || 
-				nServerErrNum == 369 || nServerErrNum == 342 || 
-				nServerErrNum == 331 || nServerErrNum == 321 || 
-				nServerErrNum == 317 || nServerErrNum == 318 || 
-					  nServerErrNum > 299  && nServerErrNum < 304 ) 
+			else if ( nServerErrNum == 5 || nServerErrNum == 318 || nServerErrNum == 351 ||
+				nServerErrNum == 369 || nServerErrNum == 342 ||
+				nServerErrNum == 331 || nServerErrNum == 321 ||
+				nServerErrNum == 317 || nServerErrNum == 318 ||
+					  nServerErrNum > 299  && nServerErrNum < 304 )
 				nMessageType = ID_MESSAGE_IGNORE;
-			else if ( nServerErrNum == 301 ) 
+			else if ( nServerErrNum == 301 )
 				nMessageType = ID_MESSAGE_USER_AWAY;
-			else if ( nServerErrNum == 305 ) 
+			else if ( nServerErrNum == 305 )
 				nMessageType = ID_MESSAGE_STOPAWAY;
-			else if ( nServerErrNum == 306 ) 
+			else if ( nServerErrNum == 306 )
 				nMessageType = ID_MESSAGE_SETAWAY;
-			else if ( nServerErrNum == 341 ) 
+			else if ( nServerErrNum == 341 )
 				nMessageType = ID_MESSAGE_CLIENT_INVITE;
-			else if ( nServerErrNum == 314 ) 
+			else if ( nServerErrNum == 314 )
 				nMessageType = ID_MESSAGE_CLIENT_WHOWAS;
 			else if ( nServerErrNum == 311 || nServerErrNum == 313 || nServerErrNum == 378 ||
-					  nServerErrNum == 312 || nServerErrNum == 319 ) 
+					  nServerErrNum == 312 || nServerErrNum == 319 )
 				nMessageType = ID_MESSAGE_CLIENT_WHOIS;
 		}
-	}	
+	}
 	if ( nWordCount > 6 )
 	{
 		const CString strMessage1( m_pWords.GetAt( 5 ) );
@@ -2018,11 +2018,11 @@ int CIRCFrame::ParseMessageID()
 		const CString strMessage1( m_pWords.GetAt( 5 ) );
 		const CString strMessage2( m_pWords.GetAt( 0 ) );
 
-		if ( strMessage1 == "INVITE" ) 
+		if ( strMessage1 == "INVITE" )
 			nMessageType = ID_MESSAGE_USER_INVITE;
 		else if ( strMessage1 == "NOTICE" && strMessage2 != m_sDestinationIP )
 		{
-			if ( m_pWords.GetAt( 6 ) == m_sNickname ) 
+			if ( m_pWords.GetAt( 6 ) == m_sNickname )
 				nMessageType = ID_MESSAGE_CLIENT_NOTICE;
 			else
 				nMessageType = ID_MESSAGE_CHANNEL_NOTICE;
@@ -2040,15 +2040,15 @@ int CIRCFrame::ParseMessageID()
 				{
 					if ( pszFirst == pszEnd )
 					{
-						if ( str == "version" ) 
+						if ( str == "version" )
 							nMessageType = ID_MESSAGE_USER_CTCPVERSION;
-						else if ( str == "time" ) 
+						else if ( str == "time" )
 							nMessageType = ID_MESSAGE_USER_CTCPTIME;
 					}
-					else if ( str == "actio" ) 
+					else if ( str == "actio" )
 						nMessageType = ID_MESSAGE_USER_ME;
 				}
-				else if ( str == "actio" ) 
+				else if ( str == "actio" )
 					nMessageType = ID_MESSAGE_CHANNEL_ME;
 				}
 				else
@@ -2082,9 +2082,9 @@ void CIRCFrame::ParseString(CString strMessage, CIRCNewMessage* oNewMessage)
 	if ( nThirdToken == 0 ) nThirdToken = strMessage.GetLength() - 1;
 	while ( nPos != -2 )
 	{
-		if ( nPos == -1 ) 
+		if ( nPos == -1 )
 			str = strMessage.Mid( nOldPos + 1 );
-		else 
+		else
 			str = strMessage.Mid( nOldPos + 1, nPos - nOldPos - 1 );
 		nFirstToken = str.Find( '!', 1 );
 		nSecondToken = str.Find( '@', 1 );
@@ -2093,10 +2093,10 @@ void CIRCFrame::ParseString(CString strMessage, CIRCNewMessage* oNewMessage)
 			m_pWords.Add( ":" );
 			str = str.Mid( 1 );
 		}
-		if ( nFirstToken != -1 && nSecondToken != -1 && nFirstToken < nSecondToken && 
-			( nSecondToken < nThirdToken && nThirdToken != -1 || nThirdToken == -1 ) 
+		if ( nFirstToken != -1 && nSecondToken != -1 && nFirstToken < nSecondToken &&
+			( nSecondToken < nThirdToken && nThirdToken != -1 || nThirdToken == -1 )
 			  && nOldPos <= nThirdToken )
-		{	
+		{
 			strNick = str.Mid( 0, nFirstToken );
 			m_pWords.Add( strNick );
 			m_pWords.Add( "!" );
@@ -2182,7 +2182,7 @@ void CIRCFrame::LoadBufferForWindow(int nTab)
 	}
 }
 
-void CIRCFrame::OnClickTab(NMHDR* /* pNMHDR */, LRESULT* pResult) 
+void CIRCFrame::OnClickTab(NMHDR* /* pNMHDR */, LRESULT* pResult)
 {
 	*pResult = 0;
 	TabClick();
@@ -2272,7 +2272,7 @@ int CIRCFrame::AddTab(CString strTabName, int nKindOfTab)
 	}
 	int m_nTab = IsTabExist( strTabName );
 	if ( m_nTab != -1 ) return -1;
-	int nNewTab = m_wndTab.InsertItem( TCIF_TEXT | ( Settings.General.LanguageRTL ? TCIF_RTLREADING : 0 ), 
+	int nNewTab = m_wndTab.InsertItem( TCIF_TEXT | ( Settings.General.LanguageRTL ? TCIF_RTLREADING : 0 ),
 		m_nBufferCount, strTabName, NULL, NULL );
 	m_pIrcBuffer[ m_nBufferCount ].RemoveAll();
 	m_pIrcUsersBuffer[ m_nBufferCount ].RemoveAll();
@@ -2309,17 +2309,17 @@ void CIRCFrame::OnRichDblClk(NMHDR* /* pNMHDR */, LRESULT* pResult)
 	CString strText = GetTextFromRichPoint();
 	if ( strText.IsEmpty() ) return;
 	int nIndex = IsUserInList( strText );
-	if ( nIndex != -1 ) 
+	if ( nIndex != -1 )
 	{
 		UserListDblClick();
 	}
-	else if ( strText.Left( 1 ) == "#" ) 
+	else if ( strText.Left( 1 ) == "#" )
 	{
 		CString strJoinChan = _T("JOIN ") + strText;
 		SendString( strJoinChan );
 	}
 	else if ( strText.Left( 7 ) == "http://" || strText.Left( 4 ) == "www." ||
-		strText.Mid( 1, 7 ) == "http://" || strText.Mid( 1, 4 ) == "www." )	
+		strText.Mid( 1, 7 ) == "http://" || strText.Mid( 1, 4 ) == "www." )
 	{
 		if ( strText.Mid( 1, 7 ) == "http://" || strText.Mid( 1, 4 ) == "www." )
 			strText = strText.Mid( 1 );
@@ -2327,7 +2327,7 @@ void CIRCFrame::OnRichDblClk(NMHDR* /* pNMHDR */, LRESULT* pResult)
 		theApp.InternalURI(	strText );
 	}
 	else if ( strText.Left( 7 ) == "magnet:" || strText.Left( 4 ) == "ed2k:" ||
-		strText.Mid( 1, 7 ) == "magnet:" || strText.Mid( 1, 4 ) == "ed2k:" )	
+		strText.Mid( 1, 7 ) == "magnet:" || strText.Mid( 1, 4 ) == "ed2k:" )
 	{
 		if ( strText.Mid( 1, 7 ) == "magnet:" || strText.Mid( 1, 4 ) == "ed2k:" )
 			strText = strText.Mid( 1 );
@@ -2342,7 +2342,7 @@ void CIRCFrame::OnRichClk(NMHDR* /* pNMHDR */, LRESULT* pResult)
 	CString strText = GetTextFromRichPoint();
 	if ( strText.IsEmpty() ) return;
 	int nIndex = IsUserInList( strText );
-	if ( nIndex != -1 ) 
+	if ( nIndex != -1 )
 	{
 		m_wndPanel.m_boxUsers.m_wndUserList.SetCurSel( nIndex );
 		m_wndPanel.m_boxUsers.m_wndUserList.PostMessage( WM_LBUTTONUP );
@@ -2373,7 +2373,7 @@ int CIRCFrame::FindInList(CString strName, int nList, int nTab)
 		if ( nList == 0 ) m_wndPanel.m_boxUsers.m_wndUserList.GetText( nItem, strNick );
 		if ( nList == 1 ) strNick = m_wndPanel.m_boxChans.m_wndChanList.GetItemText( nItem, 1 );
 		if ( nList == 2 ) strNick = m_pIrcUsersBuffer[ nTab ].GetAt( nItem ).Mid( 1 );
-		if ( RemoveModeOfNick( strNick ) == strName ) 
+		if ( RemoveModeOfNick( strNick ) == strName )
 			nReturn = nItem;
 	}
 	return nReturn;
@@ -2406,12 +2406,12 @@ CString CIRCFrame::GetTextFromRichPoint()
 		int nEnd     = strText.Find( ' ', rp.nOffset );
 		INT_PTR nFragCnt = m_wndView.m_pFragments.GetCount();
 		strTemp = strTemp.Mid( nStart == -1 ? 0 : nStart + 1 );
-		if ( nEnd == -1 ) 
+		if ( nEnd == -1 )
 			strTemp += strText.Mid( rp.nOffset );
 		else
 			strTemp += strText.Mid( rp.nOffset, nEnd - rp.nOffset );
 		int nFrag = rp.nFragment - 1;
-		while ( nStart == -1 && nFrag != -1 ) 
+		while ( nStart == -1 && nFrag != -1 )
 		{
 			if ( _tcscmp( strTemp.Left( 1 ), m_pszLineJoiner ) != 0 ) break;
 			pFragment = (CRichFragment*)m_wndView.m_pFragments.GetAt( nFrag );
@@ -2423,7 +2423,7 @@ CString CIRCFrame::GetTextFromRichPoint()
 			nFrag--;
 		}
 		nFrag = rp.nFragment + 1;
-		while ( ( nEnd == -1 || nEnd == nLength - 1 ) && nFragCnt != nFrag ) 
+		while ( ( nEnd == -1 || nEnd == nLength - 1 ) && nFragCnt != nFrag )
 		{
 			pFragment = (CRichFragment*)m_wndView.m_pFragments.GetAt( nFrag );
 			strText = pFragment->m_pElement->m_sText;
@@ -2453,12 +2453,12 @@ void CIRCFrame::UserListDblClick()
 	m_wndPanel.m_boxUsers.m_wndUserList.GetText( nItem, strQueryUser );
 	strQueryUser = RemoveModeOfNick( strQueryUser );
 	int nTab = IsTabExist( strQueryUser );
-	if ( nTab == -1 ) 
+	if ( nTab == -1 )
 	{
 		nTab = AddTab( strQueryUser, ID_KIND_PRIVATEMSG );
 		if ( nTab == -1 ) return;
 	}
-	m_wndTab.SetCurSel( nTab ) ; 
+	m_wndTab.SetCurSel( nTab ) ;
 	TabClick();
 }
 
@@ -2767,11 +2767,11 @@ LRESULT CIRCTabCtrl::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 	CDC* pDC;
 	if ( message == WM_PAINT )
 	{
-		if ( ( pDC = BeginPaint( &ps ) ) != NULL ) 
+		if ( ( pDC = BeginPaint( &ps ) ) != NULL )
 			DrawTabControl( pDC );
 		EndPaint( &ps );
 		return 0;
-	} 
+	}
 
 	return CTabCtrl::WindowProc(message, wParam, lParam);
 }
@@ -2847,7 +2847,7 @@ void CIRCChannelList::RemoveAll(int nType)
 	{
 		for ( int nChannel = 0 ; nChannel < m_bUserDefined.GetCount() ; nChannel++ )
 		{
-			if ( m_bUserDefined.GetAt( nChannel ) && nType == 1 
+			if ( m_bUserDefined.GetAt( nChannel ) && nType == 1
 				 || !m_bUserDefined.GetAt( nChannel ) && nType == 0 )
 			{
 					m_nCount--;

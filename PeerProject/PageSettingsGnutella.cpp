@@ -100,7 +100,7 @@ void CGnutellaSettingsPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CGnutellaSettingsPage message handlers
 
-BOOL CGnutellaSettingsPage::OnInitDialog() 
+BOOL CGnutellaSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
@@ -142,7 +142,7 @@ BOOL CGnutellaSettingsPage::OnInitDialog()
 
 	//********************	Temp- until UP mode fixed
 	Settings.Gnutella1.ClientMode = MODE_LEAF;
-	m_wndG1ClientMode.EnableWindow( FALSE ); 
+	m_wndG1ClientMode.EnableWindow( FALSE );
 	m_wndG1ClientMode.SetCurSel( MODE_LEAF );
 	//********************
 
@@ -163,15 +163,15 @@ BOOL CGnutellaSettingsPage::OnInitDialog()
 #endif // LAN_MODE
 
 	UpdateData( FALSE );
-	
+
 	return TRUE;
 }
 
-BOOL CGnutellaSettingsPage::OnSetActive() 
+BOOL CGnutellaSettingsPage::OnSetActive()
 {
 	CNetworksSettingsPage* ppNetworks =
 		(CNetworksSettingsPage*)GetPage( RUNTIME_CLASS(CNetworksSettingsPage) );
-	
+
 	if ( ppNetworks->GetSafeHwnd() != NULL )
 	{
 		ppNetworks->UpdateData( TRUE );
@@ -179,7 +179,7 @@ BOOL CGnutellaSettingsPage::OnSetActive()
 		m_bG1Today = ppNetworks->m_bG1Enable;
 		UpdateData( FALSE );
 	}
-	
+
 	return CSettingsPage::OnSetActive();
 }
 
@@ -200,25 +200,25 @@ void CGnutellaSettingsPage::OnG2Always()
 	}
 }
 
-void CGnutellaSettingsPage::OnG2Today() 
+void CGnutellaSettingsPage::OnG2Today()
 {
 	UpdateData();
-	
+
 	if ( ! m_bG2Today )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_NETWORK_DISABLE_G2 );
-		
+
 		if ( AfxMessageBox( strMessage, MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
 		{
 			m_bG2Today = TRUE;
 			UpdateData( FALSE );
 		}
 	}
-	
+
 	CNetworksSettingsPage* ppNetworks =
 		(CNetworksSettingsPage*)GetPage( RUNTIME_CLASS(CNetworksSettingsPage) );
-	
+
 	if ( ppNetworks->GetSafeHwnd() != NULL )
 	{
 		ppNetworks->UpdateData( TRUE );
@@ -227,7 +227,7 @@ void CGnutellaSettingsPage::OnG2Today()
 	}
 }
 
-void CGnutellaSettingsPage::OnG1Today() 
+void CGnutellaSettingsPage::OnG1Today()
 {
 	UpdateData( TRUE );
 
@@ -242,7 +242,7 @@ void CGnutellaSettingsPage::OnG1Today()
 
 	CNetworksSettingsPage* ppNetworks =
 		(CNetworksSettingsPage*)GetPage( RUNTIME_CLASS(CNetworksSettingsPage) );
-	
+
 	if ( ppNetworks->GetSafeHwnd() != NULL )
 	{
 		UpdateData( TRUE );
@@ -252,12 +252,12 @@ void CGnutellaSettingsPage::OnG1Today()
 	}
 }
 
-void CGnutellaSettingsPage::OnOK() 
+void CGnutellaSettingsPage::OnOK()
 {
 	UpdateData();
 
 	//Check if G2 hub mode is forced now, and wasn't forced before.
-	if ( ( m_wndG2ClientMode.GetCurSel() == MODE_HUB ) && ( Settings.Gnutella2.ClientMode != MODE_HUB ) )	
+	if ( ( m_wndG2ClientMode.GetCurSel() == MODE_HUB ) && ( Settings.Gnutella2.ClientMode != MODE_HUB ) )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_NETWORK_FORCE_HUB );
@@ -275,7 +275,7 @@ void CGnutellaSettingsPage::OnOK()
 	{
 		m_bG1Today = m_bG1Always = FALSE;
 	}
-	
+
 	//Load values into the settings variables
 	Settings.Gnutella2.EnableToday		= m_bG2Today != FALSE;
 	Settings.Gnutella2.EnableAlways		= m_bG2Always != FALSE;
@@ -290,7 +290,7 @@ void CGnutellaSettingsPage::OnOK()
 	Settings.Gnutella2.NumHubs			= m_nG2Hubs;
 	Settings.Gnutella2.NumLeafs			= m_nG2Leafs;
 	Settings.Gnutella2.NumPeers			= m_nG2Peers;
-	
+
 	Settings.Gnutella1.ClientMode = m_wndG1ClientMode.GetCurSel(); // Mode is equal to select position
 	if ( Settings.Gnutella1.ClientMode > MODE_ULTRAPEER ) Settings.Gnutella1.ClientMode = MODE_AUTO;
 

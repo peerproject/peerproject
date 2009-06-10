@@ -165,7 +165,7 @@ BEGIN_MESSAGE_MAP(CPropertySheetAdv, CPropertySheet)
 	ON_WM_HELPINFO()
 END_MESSAGE_MAP()
 
-CPropertySheetAdv::CPropertySheetAdv() : 
+CPropertySheetAdv::CPropertySheetAdv() :
 	CPropertySheet( _T("") ),
 	m_pSkin( NULL )
 {
@@ -290,7 +290,7 @@ LRESULT CPropertySheetAdv::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 //BOOL CPropertySheetAdv::OnEraseBkgnd(CDC* pDC)
 //{
 //	if ( m_pSkin && m_pSkin->OnEraseBkgnd( this, pDC ) ) return TRUE;
-//	
+//
 //	CRect rc;
 //	GetClientRect( &rc );
 //	pDC->FillSolidRect( &rc, Skin.m_crDialog );

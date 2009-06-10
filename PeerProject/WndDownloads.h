@@ -32,9 +32,9 @@ class CDownloadsWnd : public CPanelWnd
 public:
 	CDownloadsWnd();
 	virtual ~CDownloadsWnd();
-	
+
 	DECLARE_SERIAL(CDownloadsWnd)
-	
+
 // Operations
 public:
 	virtual void	OnSkinChange();
@@ -44,7 +44,7 @@ public:
 protected:
 	void			Prepare();
 	void			CancelDrag();
-	
+
 // Attributes
 protected:
 	CDownloadsCtrl	m_wndDownloads;
@@ -93,7 +93,7 @@ protected:
 public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
-	
+
 // Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
@@ -185,7 +185,7 @@ protected:
 	afx_msg void OnUpdateDownloadsClearComplete(CCmdUI *pCmdUI);
 	afx_msg void OnDownloadsClearComplete();
 	afx_msg void OnUpdateDownloadsEdit(CCmdUI *pCmdUI);
-	afx_msg void OnDownloadsEdit();	
+	afx_msg void OnDownloadsEdit();
 	afx_msg void OnCaptureChanged(CWnd *pWnd);
 };
 

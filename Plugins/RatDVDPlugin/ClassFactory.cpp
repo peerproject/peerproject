@@ -42,7 +42,7 @@ STDMETHODIMP CRatDVDClassFactory::QueryInterface(REFIID riid, void** ppv)
 	ODS(_T("CRatDVDClassFactory::QueryInterface\n"));
 
 	CHECK_NULL_RETURN(ppv, E_POINTER);
-	
+
 	if ( CLSID_RatDVDReader == riid )
 	{
 		*ppv = this;

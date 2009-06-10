@@ -426,8 +426,16 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("StatsGlobalThrottle"), &eDonkey.StatsGlobalThrottle, 30*60*1000, 60*1000, 30, 120, _T(" m") );
 	Add( _T("eDonkey"), _T("StatsServerThrottle"), &eDonkey.StatsServerThrottle, 7*24*60*60, 24*60*60, 7, 28, _T(" d") );
 
+#ifndef LAN_MODE
+	Add( _T("BitTorrent"), _T("AdvancedInterface"), &BitTorrent.AdvancedInterface, true );
+	Add( _T("BitTorrent"), _T("AdvancedInterfaceSet"), &BitTorrent.AdvancedInterfaceSet, true );
+	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, true );
+//	Add( _T("BitTorrent"), _T("EnableToday"), &BitTorrent.EnableToday, true );
+#else
 	Add( _T("BitTorrent"), _T("AdvancedInterface"), &BitTorrent.AdvancedInterface, false );
 	Add( _T("BitTorrent"), _T("AdvancedInterfaceSet"), &BitTorrent.AdvancedInterfaceSet, false );
+	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, false );
+#endif
 	Add( _T("BitTorrent"), _T("AutoClear"), &BitTorrent.AutoClear, false );
 	Add( _T("BitTorrent"), _T("AutoSeed"), &BitTorrent.AutoSeed, true );
 	Add( _T("BitTorrent"), _T("BandwidthPercentage"), &BitTorrent.BandwidthPercentage, 80, 1, 50, 95, _T(" %") );
@@ -437,8 +445,6 @@ void CSettings::Load()
 	Add( _T("BitTorrent"), _T("DhtPruneTime"), &BitTorrent.DhtPruneTime, 30*60, 60, 10, 7*24*60*60, _T(" m") );
 	Add( _T("BitTorrent"), _T("DownloadConnections"), &BitTorrent.DownloadConnections, 40, 1, 1, 800 );
 	Add( _T("BitTorrent"), _T("DownloadTorrents"), &BitTorrent.DownloadTorrents, 3, 1, 1, 12 );
-	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, true );
-//	Add( _T("BitTorrent"), _T("EnableToday"), &BitTorrent.EnableToday, true );
 	Add( _T("BitTorrent"), _T("Endgame"), &BitTorrent.Endgame, true );
 	Add( _T("BitTorrent"), _T("LinkPing"), &BitTorrent.LinkPing, 120*1000, 1000, 10, 60*10, _T(" s") );
 	Add( _T("BitTorrent"), _T("LinkTimeout"), &BitTorrent.LinkTimeout, 180*1000, 1000, 10, 60*10, _T(" s") );

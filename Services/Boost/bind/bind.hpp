@@ -398,7 +398,7 @@ public:
     bool operator==(list3 const & rhs) const
     {
         return
-            
+
             ref_compare( base_type::a1_, rhs.a1_, 0 ) &&
             ref_compare( base_type::a2_, rhs.a2_, 0 ) &&
             ref_compare( base_type::a3_, rhs.a3_, 0 );
@@ -753,7 +753,7 @@ public:
     bool operator==(list8 const & rhs) const
     {
         return
-            
+
             ref_compare( base_type::a1_, rhs.a1_, 0 ) &&
             ref_compare( base_type::a2_, rhs.a2_, 0 ) &&
             ref_compare( base_type::a3_, rhs.a3_, 0 ) &&

@@ -47,7 +47,7 @@ public:
 	{
 		return m_pURIs.GetStartPosition();
 	}
-	
+
 	CSchema* GetNext(POSITION& pos) const
 	{
 		CSchema* pSchema = NULL;
@@ -55,7 +55,7 @@ public:
 		m_pURIs.GetNextAssoc( pos, strURI, pSchema );
 		return pSchema;
 	}
-	
+
 	CSchema* Get(LPCTSTR pszURI) const
 	{
 		if ( ! pszURI || ! *pszURI ) return NULL;
@@ -65,7 +65,7 @@ public:
 		CSchema* pSchema = NULL;
 		return ( m_pURIs.Lookup( strURI, pSchema ) ) ? pSchema : NULL;
 	}
-	
+
 	CSchema* Guess(LPCTSTR pszName) const
 	{
 		if ( ! pszName || ! *pszName ) return NULL;

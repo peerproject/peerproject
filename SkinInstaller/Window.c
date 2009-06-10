@@ -1,12 +1,12 @@
-// 
+//
 // Window.c
-// 
+//
 // This file is part of PeerProject (peerproject.org) © 2008
-// 
-// Portions of this page have been previously released into the public domain.  
+//
+// Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
 // with the exception of the following notice:
-// 
+//
 // The Zlib library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
 // The Unzip library is Copyright (C) 1998-2003 Gilles Vollant.
 
@@ -22,7 +22,7 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
         case WM_INITDIALOG:
         {
 			HWND hBanner;
-			
+
 			EnableWindow(GetDlgItem(hwndDlg,IDC_CONFIG), FALSE);
 
 			szFile = (LPTSTR)lParam;
@@ -117,7 +117,7 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 				case IDC_INSTALL:
 				{
 					TCHAR modDir[MAX_PATH], *tmp;
-					
+
 					EnableWindow(GetDlgItem(hwndDlg,IDOK), FALSE);
 					GetModuleFileName(NULL, modDir, sizeof(modDir));
 					tmp=wcsrchr(modDir, L'\\');
@@ -129,14 +129,14 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 					    EnableWindow(GetDlgItem(hwndDlg, IDOK), TRUE);
 					    break;
 					}
-					if (!ExtractSkin(szFile, hwndDlg)) { 
+					if (!ExtractSkin(szFile, hwndDlg)) {
 						SendDlgItemMessage(hwndDlg, IDC_PROGRESS, PBM_SETPOS, maxPos, 0);
 						SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"An error occured extracting the skin.  Please try again.");
 						EnableWindow(GetDlgItem(hwndDlg, IDOK), TRUE);
 						break;
 					}
 					SendDlgItemMessage(hwndDlg, IDC_PROGRESS, PBM_SETPOS, maxPos, 0);
-					if (skinType==1) 
+					if (skinType==1)
 						SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"Language successfully installed.");
 					else SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"Skin successfully installed.");
 					EnableWindow(GetDlgItem(hwndDlg, IDOK), TRUE);
@@ -159,7 +159,7 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 						else {
 							if (SetSkinAsDefault()) {
 								PostMessage(app,WM_COMMAND,32959,0);
-								PostMessage(app,WM_COMMAND,32965,0);								
+								PostMessage(app,WM_COMMAND,32965,0);
 							}
 						}
 						EndDialog(hwndDlg, 0);

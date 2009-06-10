@@ -82,10 +82,10 @@ void CWebSettingsPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CWebSettingsPage message handlers
 
-BOOL CWebSettingsPage::OnInitDialog() 
+BOOL CWebSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
-	
+
 	m_bUriMagnet	= Settings.Web.Magnet;
 	m_bUriGnutella	= Settings.Web.Gnutella;
 	m_bUriED2K		= Settings.Web.ED2K;
@@ -107,7 +107,7 @@ BOOL CWebSettingsPage::OnInitDialog()
 	return TRUE;
 }
 
-void CWebSettingsPage::OnWebHook() 
+void CWebSettingsPage::OnWebHook()
 {
 	UpdateData( TRUE );
 	m_wndExtensions.EnableWindow( m_bWebHook );
@@ -115,17 +115,17 @@ void CWebSettingsPage::OnWebHook()
 	OnSelChangeExtList();
 }
 
-void CWebSettingsPage::OnEditChangeExtList() 
+void CWebSettingsPage::OnEditChangeExtList()
 {
 	m_wndExtAdd.EnableWindow( m_bWebHook && m_wndExtensions.GetWindowTextLength() > 0 );
 }
 
-void CWebSettingsPage::OnSelChangeExtList() 
+void CWebSettingsPage::OnSelChangeExtList()
 {
 	m_wndExtRemove.EnableWindow( m_bWebHook && m_wndExtensions.GetCurSel() >= 0 );
 }
 
-void CWebSettingsPage::OnExtAdd() 
+void CWebSettingsPage::OnExtAdd()
 {
 	CString strType;
 	m_wndExtensions.GetWindowText( strType );
@@ -141,7 +141,7 @@ void CWebSettingsPage::OnExtAdd()
 	m_wndExtensions.SetWindowText( _T("") );
 }
 
-void CWebSettingsPage::OnExtRemove() 
+void CWebSettingsPage::OnExtRemove()
 {
 	int nItem = m_wndExtensions.GetCurSel();
 	if ( nItem >= 0 ) m_wndExtensions.DeleteString( nItem );
@@ -151,7 +151,7 @@ void CWebSettingsPage::OnExtRemove()
 void CWebSettingsPage::OnOK()
 {
 	UpdateData();
-	
+
 	Settings.Web.Magnet		= m_bUriMagnet != FALSE;
 	Settings.Web.Gnutella	= m_bUriGnutella != FALSE;
 	Settings.Web.ED2K		= m_bUriED2K != FALSE;
@@ -170,7 +170,7 @@ void CWebSettingsPage::OnOK()
 			Settings.Downloads.WebHookExtensions.insert( str );
 		}
 	}
-	
+
 	CPeerProjectURL::Register();
 
 	CSettingsPage::OnOK();

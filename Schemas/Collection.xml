@@ -623,7 +623,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
  	</member>
      </members>
      <typeFilter>
-		<type extension="co"/> 
+		<type extension="co"/>
 		<type extension="collection"/>
 		<type extension="emulecollection"/>
      </typeFilter>

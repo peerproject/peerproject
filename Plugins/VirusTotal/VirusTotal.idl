@@ -16,7 +16,7 @@ import "PeerProject.idl";
 library VirusTotalLib
 {
 	importlib("stdole2.tlb");
-	
+
 	interface IGeneralPlugin;
 	interface ICommandPlugin;
 

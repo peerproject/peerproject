@@ -37,7 +37,7 @@ public:
 	CManagedSearch(auto_ptr< CQuerySearch > pSearch = auto_ptr< CQuerySearch >( new CQuerySearch() ),
 			int nPriority = 0);
 	~CManagedSearch() { Stop(); }
-	
+
 	enum { spHighest, spMedium, spLowest, spMax };
 
 // Attributes
@@ -81,7 +81,7 @@ protected:
 	BOOL	ExecuteNeighbours(DWORD tTicks, DWORD tSecs);
 	BOOL	ExecuteG2Mesh(DWORD tTicks, DWORD tSecs);
 	BOOL	ExecuteDonkeyMesh(DWORD tTicks, DWORD tSecs);
-	
+
 // Inlines
 public:
 

@@ -1001,10 +1001,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_remor vsega"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Počisti vse"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Po_kaži skupine"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="N_ova skupina..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Ods_trani skupino"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Po_kaži skupine"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Lastnosti"/>
 	</menu>
@@ -1710,7 +1710,7 @@
 		</styles>
 		<text format="b">Dobrodošli v PeerProject upravljalcu z nastavitvami</text>
 		<newline gap="16"/>
-		<text>PeerProject nastavitveni upravljalec omogoča naprednim uporabnikom popolno prilagoditev načina delovanja PeerProject. 
+		<text>PeerProject nastavitveni upravljalec omogoča naprednim uporabnikom popolno prilagoditev načina delovanja PeerProject.
 			Nastavitve v </text>
 		<text format="b">spletni </text>
 		<text>sekciji upravlja način medsebojnega delovanja med PeerProject in drugimi vozli (nodes) znotraj P2P omrežij.</text>
@@ -4228,10 +4228,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Naslov / Vsebina"/>
+		<column from="Hits" to="Zadetki"/>
 		<column from="Action" to="Dejanje"/>
 		<column from="Expires" to="Poteče"/>
 		<column from="#" to="Prednost"/>
-		<column from="Hits" to="Zadetki"/>
 		<column from="Comment" to="Komentar"/>
 	</list>
 	<list name="CHostCacheWnd">

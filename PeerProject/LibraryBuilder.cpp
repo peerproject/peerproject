@@ -843,7 +843,7 @@ bool CLibraryBuilder::DetectVirtualAPEFooter(HANDLE hFile, QWORD& nOffset, QWORD
 bool CLibraryBuilder::DetectVirtualLyrics(HANDLE hFile, QWORD& nOffset, QWORD& nLength)
 {
 	typedef struct Lyrics3v2
-	{		
+	{
 		CHAR	nSize[6];
 		struct LyricsTag
 		{
@@ -876,7 +876,7 @@ bool CLibraryBuilder::DetectVirtualLyrics(HANDLE hFile, QWORD& nOffset, QWORD& n
 
 	CString strLength( pFooter.nSize, 6 );
 	QWORD nSize = 0;
-	if ( memcmp( pFooter.Tag.szVersion, cVersion, 3 ) == 0 && 
+	if ( memcmp( pFooter.Tag.szVersion, cVersion, 3 ) == 0 &&
 		 _stscanf( strLength.TrimLeft('0'), L"%I64u", &nSize ) == 1 )
 	{
 		if ( nSize + sizeof(pFooter) > nLength )
@@ -925,7 +925,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
     int nMode = ( nFrameHeader[3] >> 6 ) & 3;
     int nBitrate = ( nFrameHeader[2] >> 4 ) & 0xf;
     nBitrate = bitrate_table[ nId ][ nBitrate ];
-	
+
 	int nSampleRate = 0;
     // Check for FFE syncword
     if ( ( nFrameHeader[1] >> 4 ) == 0xE )
@@ -935,7 +935,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 	int nFrameSize = ( ( nId + 1 ) * 72000 * nBitrate ) / nSampleRate;
 	if ( nFrameSize > nLength )
 		return false;
- 
+
 	int nVbrHeaderOffset = GetVbrHeaderOffset( nId, nMode );
 	LARGE_INTEGER nNewOffset = { 0 };
 	nNewOffset.LowPart = (LONG)( ( nOffset + nVbrHeaderOffset ) & 0xFFFFFFFF );
@@ -990,7 +990,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 	char szTrail = '\0';
 
 	// Strip off silence and incomplete frames from the end (hackish way)
-	for ( ; nFrameSize > sizeof(DWORD) ; ) 
+	for ( ; nFrameSize > sizeof(DWORD) ; )
 	{
 		nNewOffset.LowPart = (LONG)( ( nOffset + nLength - nFrameSize ) & 0xFFFFFFFF );
 		nNewOffset.HighPart = (LONG)( ( nOffset + nLength - nFrameSize ) >> 32 );
@@ -1027,7 +1027,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 
 		if ( nNewOffset.LowPart == INVALID_SET_FILE_POINTER && GetLastError() != NO_ERROR )
 			break;
-		
+
 		int nLen = sizeof( pFrame );
 		ZeroMemory( &pFrame, nLen );
 		ReadFile( hFile, &pFrame, min( nLen, nFrameSize - nVbrHeaderOffset ), &nRead, NULL );
@@ -1047,7 +1047,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 	}
 
 	// Remove trailing bytes
-	for ( ;  ; ) 
+	for ( ;  ; )
 	{
 		nNewOffset.LowPart = (LONG)( ( nOffset + nLength - 1 ) & 0xFFFFFFFF );
 		nNewOffset.HighPart = (LONG)( ( nOffset + nLength - 1 ) >> 32 );
@@ -1072,7 +1072,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 	if ( !ReadFile( hFile, pFrame.ClassID, 9, &nRead, NULL ) || nRead != 9 )
 		return bChanged;
 
-	if ( memcmp( pFrame.ClassID, cEncoder, 4 ) == 0 ) 
+	if ( memcmp( pFrame.ClassID, cEncoder, 4 ) == 0 )
 	{
 		bChanged = true;
 		nLength -= 8;

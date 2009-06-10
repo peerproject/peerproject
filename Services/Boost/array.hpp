@@ -86,41 +86,41 @@ namespace boost {
         }
 
         // operator[]
-        reference operator[](size_type i) 
-        { 
-            BOOST_ASSERT( i < N && "out of range" ); 
+        reference operator[](size_type i)
+        {
+            BOOST_ASSERT( i < N && "out of range" );
             return elems[i];
         }
-        
-        const_reference operator[](size_type i) const 
-        {     
-            BOOST_ASSERT( i < N && "out of range" ); 
-            return elems[i]; 
+
+        const_reference operator[](size_type i) const
+        {
+            BOOST_ASSERT( i < N && "out of range" );
+            return elems[i];
         }
 
         // at() with range check
         reference at(size_type i) { rangecheck(i); return elems[i]; }
         const_reference at(size_type i) const { rangecheck(i); return elems[i]; }
-    
+
         // front() and back()
-        reference front() 
-        { 
-            return elems[0]; 
-        }
-        
-        const_reference front() const 
+        reference front()
         {
             return elems[0];
         }
-        
-        reference back() 
-        { 
-            return elems[N-1]; 
+
+        const_reference front() const
+        {
+            return elems[0];
         }
-        
-        const_reference back() const 
-        { 
-            return elems[N-1]; 
+
+        reference back()
+        {
+            return elems[N-1];
+        }
+
+        const_reference back() const
+        {
+            return elems[N-1];
         }
 
         // size is constant

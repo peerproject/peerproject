@@ -79,12 +79,12 @@ BOOL CHostCache::Load()
 
 	CString strFile;
 	CFile pFile;
-	
+
 	Clear();
-	
+
 	strFile.Format( _T("%s\\Data\\HostCache.dat"), (LPCTSTR)Settings.General.UserPath );
 	if ( ! pFile.Open( strFile, CFile::modeRead ) ) return FALSE;
-	
+
 	try
 	{
 		CArchive ar( &pFile, CArchive::load );
@@ -107,15 +107,15 @@ BOOL CHostCache::Save()
 
 	CString strFile;
 	CFile pFile;
-	
+
 	strFile.Format( _T("%s\\Data\\HostCache.dat"), (LPCTSTR)Settings.General.UserPath );
-	
+
 	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) ) return FALSE;
-	
+
 	CArchive ar( &pFile, CArchive::store );
 	Serialize( ar );
 	ar.Close();
-	
+
 	return TRUE;
 }
 
@@ -132,7 +132,7 @@ void CHostCache::Serialize(CArchive& ar)
 	{
 		ar << nVersion;
 		ar.WriteCount( m_pList.GetCount() );
-		
+
 		for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 		{
 			CHostCacheList* pCache = m_pList.GetNext( pos );
@@ -144,12 +144,12 @@ void CHostCache::Serialize(CArchive& ar)
 	{
 		ar >> nVersion;
 		if ( nVersion < 6 ) return;
-		
+
 		for ( DWORD_PTR nCount = ar.ReadCount() ; nCount > 0 ; nCount-- )
 		{
 			PROTOCOLID nProtocol;
 			ar >> nProtocol;
-			
+
 			for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 			{
 				CHostCacheList* pCache = m_pList.GetNext( pos );
@@ -306,13 +306,13 @@ void CHostCacheList::Clear()
 CHostCacheHostPtr CHostCacheList::Add(IN_ADDR* pAddress, WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit)
 {
 	// Don't add invalid addresses
-	if ( ! nPort ) 
+	if ( ! nPort )
 		return NULL;
-	if ( ! pAddress->S_un.S_un_b.s_b1 ) 
+	if ( ! pAddress->S_un.S_un_b.s_b1 )
 		return NULL;
 
 	// Don't add own firewalled IPs
-	if ( Network.IsFirewalledAddress( &pAddress->S_un.S_addr, TRUE ) ) 
+	if ( Network.IsFirewalledAddress( &pAddress->S_un.S_addr, TRUE ) )
 		return NULL;
 
 	// check against IANA Reserved address.
@@ -330,33 +330,33 @@ CHostCacheHostPtr CHostCacheList::Add(IN_ADDR* pAddress, WORD nPort, DWORD tSeen
 BOOL CHostCacheList::Add(LPCTSTR pszHost, DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit)
 {
 	CString strHost( pszHost );
-	
+
 	strHost.TrimLeft();
 	strHost.TrimRight();
-	
+
 	int nPos = strHost.ReverseFind( ' ' );
-	
-	if ( nPos > 0 ) 
+
+	if ( nPos > 0 )
 	{
 		CString strTime = strHost.Mid( nPos + 1 );
 		strHost = strHost.Left( nPos );
 		strHost.TrimRight();
-		
+
 		tSeen = TimeFromString( strTime );
 
 		DWORD tNow = static_cast< DWORD >( time( NULL ) );
-		if ( tNow < tSeen ) 
+		if ( tNow < tSeen )
 			tSeen = tNow;
 	}
 
 	nPos = strHost.Find( ':' );
 	if ( nPos < 0 ) return FALSE;
-	
+
 	int nPort = GNUTELLA_DEFAULT_PORT;
 	if ( _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort ) != 1 ||
 		nPort <= 0 || nPort >= 65536 ) return FALSE;
 	strHost = strHost.Left( nPos );
-	
+
 	DWORD nAddress = inet_addr( CT2CA( (LPCTSTR)strHost ) );
 	if ( nAddress == INADDR_NONE ) return FALSE;
 
@@ -365,7 +365,7 @@ BOOL CHostCacheList::Add(LPCTSTR pszHost, DWORD tSeen, LPCTSTR pszVendor, DWORD 
 
 // This function actually adds the remote client to the host cache. Private,
 // but used by the public functions. No security checking, etc.
-CHostCacheHostPtr CHostCacheList::AddInternal(const IN_ADDR* pAddress, WORD nPort, 
+CHostCacheHostPtr CHostCacheList::AddInternal(const IN_ADDR* pAddress, WORD nPort,
 											DWORD tSeen, LPCTSTR pszVendor, DWORD nUptime, DWORD nCurrentLeaves, DWORD nLeafLimit)
 {
 	CQuickLock oLock( m_pSection );
@@ -571,7 +571,7 @@ void CHostCacheList::PruneOldHosts()
 	CQuickLock oLock( m_pSection );
 
 	DWORD tNow = static_cast< DWORD >( time( NULL ) );
-	
+
 	for( CHostCacheMap::iterator i = m_Hosts.begin(); i != m_Hosts.end(); )
 	{
 		CHostCacheHostPtr pHost = (*i).second;
@@ -693,30 +693,30 @@ int CHostCache::ImportMET(CFile* pFile)
 	if ( nVersion != 0xE0 &&
 		 nVersion != ED2K_MET &&
 		 nVersion != ED2K_MET_I64TAGS ) return FALSE;
-	
+
 	int nServers = 0;
 	UINT nCount = 0;
-	
+
 	pFile->Read( &nCount, sizeof(nCount) );
-	
+
 	while ( nCount-- > 0 )
 	{
 		IN_ADDR pAddress;
 		WORD nPort;
 		UINT nTags;
-		
+
 		if ( pFile->Read( &pAddress, sizeof(pAddress) ) != sizeof(pAddress) ) break;
 		if ( pFile->Read( &nPort, sizeof(nPort) ) != sizeof(nPort) ) break;
 		if ( pFile->Read( &nTags, sizeof(nTags) ) != sizeof(nTags) ) break;
-		
+
 		CHostCacheHostPtr pServer = eDonkey.Add( &pAddress, nPort );
-		
+
 		while ( nTags-- > 0 )
 		{
 			CEDTag pTag;
 			if ( ! pTag.Read( pFile ) ) break;
 			if ( pServer == NULL ) continue;
-			
+
 			if ( pTag.Check( ED2K_ST_SERVERNAME, ED2K_TAG_STRING ) )
 			{
 				pServer->m_sName = pTag.m_sValue;
@@ -738,10 +738,10 @@ int CHostCache::ImportMET(CFile* pFile)
 				pServer->m_nUDPFlags = (DWORD)pTag.m_nValue;
 			}
 		}
-		
+
 		nServers++;
 	}
-	
+
 	return nServers;
 }
 
@@ -978,11 +978,11 @@ void CHostCacheHost::Serialize(CArchive& ar, int nVersion)
 	{
 		ar.Write( &m_pAddress, sizeof(m_pAddress) );
 		ar << m_nPort;
-		
+
 		ar << m_tAdded;
 		ar << m_tSeen;
 		ar << m_tRetryAfter;
-		
+
 		if ( m_pVendor != NULL && m_pVendor->m_sCode.GetLength() == 4 )
 		{
 			ar << (CHAR)m_pVendor->m_sCode.GetAt( 0 );
@@ -995,7 +995,7 @@ void CHostCacheHost::Serialize(CArchive& ar, int nVersion)
 			CHAR cZero = 0;
 			ar << cZero;
 		}
-		
+
 		ar << m_sName;
 		if ( m_sName.GetLength() ) ar << m_sDescription;
 
@@ -1007,7 +1007,7 @@ void CHostCacheHost::Serialize(CArchive& ar, int nVersion)
 		ar << m_nTCPFlags;
 		ar << m_nUDPFlags;
 		ar << m_tStats;
-		
+
 		ar << m_nKeyValue;
 		if ( m_nKeyValue != 0 )
 		{
@@ -1034,26 +1034,26 @@ void CHostCacheHost::Serialize(CArchive& ar, int nVersion)
 	{
 		ReadArchive( ar, &m_pAddress, sizeof(m_pAddress) );
 		ar >> m_nPort;
-		
+
 		ar >> m_tAdded;
 		ar >> m_tSeen;
 		ar >> m_tRetryAfter;
-		
+
 		CHAR szaVendor[4] = { 0, 0, 0, 0 };
 		ar >> szaVendor[0];
-		
+
 		if ( szaVendor[0] )
 		{
 			ReadArchive( ar, szaVendor + 1, 3 );
 			TCHAR szVendor[5] = { szaVendor[0], szaVendor[1], szaVendor[2], szaVendor[3], 0 };
 			m_pVendor = VendorCache.Lookup( szVendor );
 		}
-		
+
 		if ( nVersion >= 10 )
 		{
 			ar >> m_sName;
 			if ( m_sName.GetLength() ) ar >> m_sDescription;
-			
+
 			ar >> m_nUserCount;
 			ar >> m_nUserLimit;
 			ar >> m_bPriority;
@@ -1080,7 +1080,7 @@ void CHostCacheHost::Serialize(CArchive& ar, int nVersion)
 				}
 			}
 		}
-		
+
 		ar >> m_nKeyValue;
 		if ( m_nKeyValue != 0 )
 		{
@@ -1315,22 +1315,22 @@ BOOL CHostCacheHost::CanQuery(DWORD tNow) const
 	{
 		// Must support G2
 		if ( !Network.IsConnected() || !Settings.Gnutella2.EnableToday ) return FALSE;
-		
+
 		// Must not be waiting for an ack
 		if ( 0 != m_tAck ) return FALSE;
-		
+
 		// Get the time if not supplied
 		if ( 0 == tNow ) tNow = static_cast< DWORD >( time( NULL ) );
-		
+
 		// Must be a recently seen (current) host
 		if ( ( tNow - m_tSeen ) > Settings.Gnutella2.HostCurrent ) return FALSE;
-		
+
 		// Retry After
 		if ( 0 != m_tRetryAfter && tNow < m_tRetryAfter ) return FALSE;
-		
+
 		// If haven't queried yet, its ok
 		if ( 0 == m_tQuery ) return TRUE;
-		
+
 		// Don't query too fast
 		return ( tNow - m_tQuery ) >= Settings.Gnutella2.QueryHostThrottle;
 	}
@@ -1340,16 +1340,16 @@ BOOL CHostCacheHost::CanQuery(DWORD tNow) const
 		// Must support ED2K
 		if ( !Network.IsConnected() || !Settings.eDonkey.EnableToday ) return FALSE;
 		if ( !Settings.eDonkey.ServerWalk ) return FALSE;
-		
+
 		// Get the time if not supplied
 		if ( 0 == tNow ) tNow = static_cast< DWORD >( time( NULL ) );
-		
+
 		// Retry After
 		if ( 0 != m_tRetryAfter && tNow < m_tRetryAfter ) return FALSE;
-		
+
 		// If haven't queried yet, its ok
 		if ( 0 == m_tQuery ) return TRUE;
-		
+
 		// Don't query too fast
 		return ( tNow - m_tQuery ) >= Settings.eDonkey.QueryServerThrottle;
 	}
@@ -1369,7 +1369,7 @@ BOOL CHostCacheHost::CanQuery(DWORD tNow) const
 
 		// Don't query too fast
 		return ( tNow - m_tQuery ) >= 90u;
-	}	
+	}
 	else if ( m_nProtocol == PROTOCOL_KAD )
 	{
 		return TRUE; // ToDo: Fix it

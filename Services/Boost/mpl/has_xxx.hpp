@@ -5,8 +5,8 @@
 // Copyright Aleksey Gurtovoy 2002-2006
 // Copyright David Abrahams 2002-2003
 //
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
 // See http://www.boost.org/libs/mpl for documentation.
@@ -34,9 +34,9 @@
 
 #   if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
 
-// agurt, 11/sep/02: MSVC-specific version (< 7.1), based on a USENET 
-// newsgroup's posting by John Madsen (comp.lang.c++.moderated, 
-// 1999-11-12 19:17:06 GMT); the code is _not_ standard-conforming, but 
+// agurt, 11/sep/02: MSVC-specific version (< 7.1), based on a USENET
+// newsgroup's posting by John Madsen (comp.lang.c++.moderated,
+// 1999-11-12 19:17:06 GMT); the code is _not_ standard-conforming, but
 // it works way more reliably than the SFINAE-based implementation
 
 // Modified dwa 8/Oct/02 to handle reference types.
@@ -68,9 +68,9 @@ struct msvc_is_incomplete
 #else
     template< typename U >
     static char (& tester(type_wrapper<U>) )[sizeof(U)+1];
-#endif 
-    
-    BOOST_STATIC_CONSTANT(bool, value = 
+#endif
+
+    BOOST_STATIC_CONSTANT(bool, value =
           sizeof(tester(type_wrapper<T>())) == 1
         );
 };
@@ -145,7 +145,7 @@ template<> struct trait<T> \
 #endif
 
 
-// SFINAE-based implementations below are derived from a USENET newsgroup's 
+// SFINAE-based implementations below are derived from a USENET newsgroup's
 // posting by Rani Sharoni (comp.lang.c++.moderated, 2002-03-17 07:45:09 PST)
 
 #   elif BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400)) \
@@ -154,7 +154,7 @@ template<> struct trait<T> \
 // MSVC 7.1+ & VACPP
 
 // agurt, 15/jun/05: replace overload-based SFINAE implementation with SFINAE
-// applied to partial specialization to fix some apparently random failures 
+// applied to partial specialization to fix some apparently random failures
 // (thanks to Daniel Wallin for researching this!)
 
 #   define BOOST_MPL_HAS_XXX_TRAIT_NAMED_DEF(trait, name, default_) \

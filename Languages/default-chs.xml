@@ -1015,10 +1015,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全部暂停(_A)"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全部清除(_C)"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="显示群组(_S)"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="新建群组(_N)..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="移除群组(_G)"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="显示群组(_S)"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="属性(_P)"/>
 	</menu>
@@ -4237,10 +4237,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="地址 / 内容"/>
+		<column from="Hits" to="命中"/>
 		<column from="Action" to="操作"/>
 		<column from="Expires" to="过期"/>
 		<column from="#" to="优先级"/>
-		<column from="Hits" to="命中"/>
 		<column from="Comment" to="注释"/>
 	</list>
 	<list name="CHostCacheWnd">

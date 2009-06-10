@@ -1017,10 +1017,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_usho Gjithçka"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Pastro Gjithçka"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Shfaqi Grupet"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="Grup i _Ri..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Fshije _Grupin"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Shfaqi Grupet"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Veti"/>
 	</menu>
@@ -1942,7 +1942,7 @@
 		<text>Kjo shkarkesë po pret që dikush të nisë ngarkimin.
 		PeerProject është gati ta nisë shkarkimin e kësaj skede, por askush nuk po e dërgon atë në
 		këtë çast. Mbase po prisni në radhët e ndonjërit prej përdoruesve, ndaj dhe shkarkimi
-		mund të nisë në çdo kohë. Ju mund të ekzaminoni burimet individuale për të parë 
+		mund të nisë në çdo kohë. Ju mund të ekzaminoni burimet individuale për të parë
 		secilën prej radhëve ku po prisni. Nëse po shpërndani skeda, shanset që transferimi i
 		shkarkesës të nisë më shpejt mund të rriten.</text>
 	</document>
@@ -2005,7 +2005,7 @@
 		<newline gap="8"/>
 		<text>Tek disku ose direktoria që nevojitet nga PeerProject nuk mund të shkruhet.</text>
 		<newline gap="8"/>
-		<text>Një disk në rrjet mund të jetë shkëputur, ose mbase nuk keni të drejta shkrimi tek 
+		<text>Një disk në rrjet mund të jetë shkëputur, ose mbase nuk keni të drejta shkrimi tek
 		direktoria e zgjedhur. Ju lutemi zgjidhni direktorinë dhe të drejtat, ose ndryshoni vendin
 		e skedave të përkohshme.</text>
 	</document>
@@ -2023,7 +2023,7 @@
 		<text format="b">Filtrimi i përmbajtjeve për të rritur u aktivizua</text>
 		<newline gap="8"/>
 		<text>Ju lutemi vëreni se (si me çdo filtër automatik) mund të mos jetë 100% efektiv në
-		ekranizimin e përmbajtjes. Ai është ndërtuar thjesht për të filtruar rezultatet të tepërta 
+		ekranizimin e përmbajtjes. Ai është ndërtuar thjesht për të filtruar rezultatet të tepërta
 		të padëshiruara, sesa të veprojë si një bllokues me siguri 100%.</text>
 		<newline gap="8"/>
 		<text>Përdorimi i Internetit nga fëmijët (përfshirë shpërndarjen P2P) gjithmonë duhet të kryhet nën vëzhgimin e prindërve.</text>
@@ -2048,7 +2048,7 @@
 		duhet të shkarkoni një listë serverash të ridatuar (skedë met).</text>
 		<newline gap="8"/>
 		<text>Listën e serverave mund ta shkarkoni nga faqja e kuadrove ed2k, ose në dritaren
-		për zbulimin e shërbimeve. (Shtypni F9 për të hapur dritaren për zbulimin e shërbimeve)</text> 
+		për zbulimin e shërbimeve. (Shtypni F9 për të hapur dritaren për zbulimin e shërbimeve)</text>
 	</document>
 	<document name="GeneralHelp.UploadWarning">
 		<text format="b">Kufizimi i ngarkesave mund t'i ngadalësojë shkarkesat</text>
@@ -2057,11 +2057,11 @@
 		klientë që nuk shpërndajnë, ose thjesht parapëlqejnë ngarkim tek shpërndarësit e njohur.</text>
 		<newline/>
 		<text>Për fat të keq, lidhjet me bandë të gjerë DSL janë si një rrugë me dy korsi: ka caktime
-		të ndryshme për ngarkimin dhe shkarkimin. Nëse klienti juaj është konfiguruar siç duhet, 
+		të ndryshme për ngarkimin dhe shkarkimin. Nëse klienti juaj është konfiguruar siç duhet,
 		do të jeni i aftë të ngarkoni me një raport të mirë, ndërkohë që mbani kapacitet të plotë shkarkues.</text>
 		<newline gap="8"/>
 		<text>Normalisht, kufiri i shkarkimit vendoset rreth 85% nga shtrirja e bandës së mbirrymës së vlefshme,
-		kurse shkarkesat janë pa kufij. Ky konfigurim do t'ju japë shkarkesat më të shpejta 
+		kurse shkarkesat janë pa kufij. Ky konfigurim do t'ju japë shkarkesat më të shpejta
 		të mundshme.</text>
 	</document>
 	<!-- Search help documents -->
@@ -2073,7 +2073,7 @@
 		(tip skede). Për më tepër, ai nuk duhet të kufizohet vetëm në numrat a termat
 		negativë, pra nevojitet që t'i shmangni hetimet mjaft të përgjithshme.</text>
 		<newline gap="8"/>
-		<text>Shumë nga klientët në rrjet, për shembull, do e përbuznin kërkimin për një skedë MP3: 
+		<text>Shumë nga klientët në rrjet, për shembull, do e përbuznin kërkimin për një skedë MP3:
 		nuk është aq i mirëpërcaktuar dhe gjeneron shumë rezultate.</text>
 	</document>
 	<document name="SearchHelp.BadSearch2">
@@ -2082,7 +2082,7 @@
 		<text>Kërkimi nuk i përmban termat e mjaftueshëm për të funksionuar si duhet. Për të nisur, gjithë kërkimet
 		nevojitet të kenë një minimum numrash me shkronja alfabetike me vlerë.</text>
 		<newline gap="8"/>
-		<text>Ndonëse mund të kërkoni shtojca të zakonshme të skedave (edhe numra), gjatë krijimit 
+		<text>Ndonëse mund të kërkoni shtojca të zakonshme të skedave (edhe numra), gjatë krijimit
 		të një kërkimi duhet të shkruani
 		edhe terma të tjerë. Pikësimi dhe thonjëzat nuk përdoren, vetëm teksti që shkruani.</text>
 	</document>
@@ -3405,7 +3405,7 @@
 		<control/>
 		<control caption="Set Default"/>
 		<control caption="Vetitë e Kuadros:"/>
-		<control caption="Vlera:"/>	
+		<control caption="Vlera:"/>
 		<control caption="Përshkrimi:"/>
 		<control/>
 	</dialog>
@@ -4214,10 +4214,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Përmbajtja"/>
+		<column from="Hits" to="Hitet"/>
 		<column from="Action" to="Veprimi"/>
 		<column from="Expires" to="Skadimi"/>
-		<column from="#" to="Paraprirja"/>
-		<column from="Hits" to="Hitet"/>
+		<column from="#" to="#"/>
 		<column from="Comment" to="Komenti"/>
 	</list>
 	<list name="CHostCacheWnd">
@@ -4266,7 +4266,7 @@
 		<column from="Speed" to="Shpejtësi"/>
 		<column from="Client" to="Klienti"/>
 		<column from="Time" to="Koha"/>
-		<column from="Country" to="Vendi"/>	
+		<column from="Country" to="Vendi"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Emri"/>

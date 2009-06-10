@@ -1,12 +1,12 @@
-// 
+//
 // Utils.c
-// 
+//
 // This file is part of PeerProject (peerproject.org) © 2008
-// 
-// Portions of this page have been previously released into the public domain.  
+//
+// Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
 // with the exception of the following notice:
-// 
+//
 // The Zlib library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
 // The Unzip library is Copyright (C) 1998-2003 Gilles Vollant.
 
@@ -29,7 +29,7 @@ void LoadManifestInfo(char *buf)
 	nLen = MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)buf, -1, NULL, 0 );
 	pszBuf = (TCHAR*)malloc( nLen * sizeof(TCHAR) );
 	MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)buf, -1, pszBuf, nLen * sizeof(TCHAR) );
-	
+
 	if ((p=(TCHAR*)GetManifestValue(pszBuf, L"type"))!=NULL) {
 		if (!_wcsicmp(p, L"language")) {
 			skinType = 1;
@@ -249,7 +249,7 @@ static int CheckManifestForSkin(LPCTSTR pszFile) {
 		free(pszBuf);
 		return 1;
 	}
-	
+
 	val = (TCHAR*)GetManifestValue(tt, L"type");
 	if (!val) skin = 1;
 	else {

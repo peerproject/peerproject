@@ -174,7 +174,7 @@ void CHostBrowser::Stop(BOOL bCompleted)
 
 	m_nState	= hbsNull;
 	m_tPushed	= 0;
-	
+
 	// ED2K connections aren't handled here- they are in ED2KClient
 	if ( m_nProtocol != PROTOCOL_ED2K )
 	{
@@ -275,7 +275,7 @@ void CHostBrowser::OnDropped()
 		if ( m_nState == hbsConnecting )
 		{
 			theApp.Message( MSG_ERROR, IDS_BROWSE_CANT_CONNECT_TO, m_sAddress );
-			
+
 			if ( ! m_tPushed && SendPush( TRUE ) )
 				return;
 		}

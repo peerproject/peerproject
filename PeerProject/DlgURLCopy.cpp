@@ -160,7 +160,7 @@ void CURLCopyDlg::OnIncludeSelf()
 		}
 	}
 
-	if ( m_pFile->m_oED2K && 
+	if ( m_pFile->m_oED2K &&
 		( m_pFile->m_nSize != 0 && m_pFile->m_nSize != SIZE_UNKNOWN ) &&
 		m_pFile->m_sName.GetLength() )
 	{

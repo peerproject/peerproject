@@ -46,7 +46,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFileGeneralPage property page
 
-CFileGeneralPage::CFileGeneralPage() : 
+CFileGeneralPage::CFileGeneralPage() :
 	CFilePropertiesPage( CFileGeneralPage::IDD ),
 	m_sSHA1(), m_sTiger(), m_sType(), m_sSize(), m_sPath(),
 	m_sModified(), m_sIndex(), m_sMD5(), m_sED2K()
@@ -90,11 +90,11 @@ BOOL CFileGeneralPage::OnInitDialog()
 		m_sType = ShellIcons.GetTypeString( pFile->m_sName );
 		m_sIndex.Format( _T("# %lu"), pFile->m_nIndex );
 
-		m_sSHA1 = pFile->m_oSHA1.toShortUrn();		
+		m_sSHA1 = pFile->m_oSHA1.toShortUrn();
 		m_sTiger = pFile->m_oTiger.toShortUrn();
 		m_sMD5 = pFile->m_oMD5.toShortUrn();
 		m_sED2K = pFile->m_oED2K.toShortUrn();
-		
+
 		if ( m_sSHA1.IsEmpty() && m_sED2K.IsEmpty() && m_sTiger.IsEmpty() && m_sMD5.IsEmpty() )
 		{
 			LoadString(m_sSHA1, IDS_GENERAL_NOURNAVAILABLE );

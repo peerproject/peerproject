@@ -1008,10 +1008,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_ausi Kõik"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Puhasta Kõik"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Näita Gruppe"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Uus Grupp..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Eemalda _Grupp"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Näita Gruppe"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Omadused"/>
 	</menu>
@@ -4261,10 +4261,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Aadress / Sisu"/>
+		<column from="Hits" to=""/>
 		<column from="Action" to="Tegevus"/>
 		<column from="Expires" to="Aegub"/>
 		<column from="#" to=""/>
-		<column from="Hits" to=""/>
 		<column from="Comment" to="Kommentaar"/>
 	</list>
 	<list name="CHostCacheWnd">

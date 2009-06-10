@@ -226,7 +226,7 @@ void CMatchList::AddHits(const CQueryHit* pHits, CQuerySearch* pFilter)
 
 		if ( pFilter != NULL )
 		{
-			// ToDo: pHit->m_bExactMatch is broken anyway, 
+			// ToDo: pHit->m_bExactMatch is broken anyway,
 			// since its m_sKeywords has no punctuation marks.
 			// Consider this:
 			//

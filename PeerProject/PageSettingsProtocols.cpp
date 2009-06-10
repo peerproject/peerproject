@@ -62,12 +62,12 @@ void CProtocolsSettingsPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CProtocolsSettingsPage message handlers
 
-BOOL CProtocolsSettingsPage::OnInitDialog() 
+BOOL CProtocolsSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
-	
+
 	HTREEITEM hNetworks = AddItem( NULL, _T("Peer-to-Peer Network Protocols") );
-	
+
 	HTREEITEM hG2 = AddItem( hNetworks, _T("Gnutella2 Network") );
 	AddItem( hG2, _T("Name"), _T("Gnutella2") );
 	AddItem( hG2, _T("Type"), _T("Decentralized") );
@@ -75,7 +75,7 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 	AddItem( hG2, _T("NodeClass"), _T("Hub, Leaf") );
 	AddItem( hG2, _T("ProtocolVersion"), _T("1.0") );
 	AddItem( hG2, _T("ComponentVersion"), _T("1.0.0.0") );
-	
+
 	HTREEITEM hG1 = AddItem( hNetworks, _T("Gnutella1 Network") );
 	AddItem( hG1, _T("Name"), _T("Gnutella1") );
 	AddItem( hG1, _T("Type"), _T("Decentralized") );
@@ -83,7 +83,7 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 	AddItem( hG1, _T("NodeClass"), _T("Leaf") );
 	AddItem( hG1, _T("ProtocolVersion"), _T("0.6") );
 	AddItem( hG1, _T("ComponentVersion"), _T("1.0.0.0") );
-	
+
 	HTREEITEM hED = AddItem( hNetworks, _T("eDonkey2000 Network") );
 	AddItem( hED, _T("Name"), _T("eDonkey2000") );
 	AddItem( hED, _T("Type"), _T("Server-Based") );
@@ -91,9 +91,9 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 	AddItem( hED, _T("NodeClass"), _T("Client") );
 	AddItem( hED, _T("ProtocolVersion"), _T("1.1") );
 	AddItem( hED, _T("ComponentVersion"), _T("1.0.0.0") );
-	
+
 	HTREEITEM hTransfers = AddItem( NULL, _T("File Transfer Protocols") );
-	
+
 	HTREEITEM hHTTP = AddItem( hTransfers, _T("Hypertext Transfer Protocol (HTTP)") );
 	AddItem( hHTTP, _T("Name"), _T("Hypertext Transfer Protocol (HTTP)") );
 	AddItem( hHTTP, _T("Prefix"), _T("http://") );
@@ -112,7 +112,7 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 	AddItem( hFTP, _T("Capabilities"), _T("Passive") );
 	AddItem( hFTP, _T("ProtocolVersion"), _T("1.0") );
 	AddItem( hFTP, _T("ComponentVersion"), _T("1.0.0.0") );
-	
+
 	HTREEITEM hEFTP = AddItem( hTransfers, _T("eDonkey2000 Client Link (EFTP)") );
 	AddItem( hEFTP, _T("Name"), _T("eDonkey2000 Client Link FTP (EFTP)") );
 	AddItem( hEFTP, _T("Prefix"), _T("ed2kftp://") );
@@ -121,7 +121,7 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 	AddItem( hEFTP, _T("Capabilities"), _T("Hashset, SourceExchange, Deflate") );
 	AddItem( hEFTP, _T("ProtocolVersion"), _T("1.1") );
 	AddItem( hEFTP, _T("ComponentVersion"), _T("1.0.0.0") );
-	
+
 	HTREEITEM hBT = AddItem( hTransfers, _T("BitTorrent Coupling (BT)") );
 	AddItem( hBT, _T("Name"), _T("BitTorrent Coupling (BT)") );
 	AddItem( hBT, _T("Prefix"), _T("btc://") );
@@ -130,7 +130,7 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 	// AddItem( hBT, _T("Capabilities"), _T("Hashset, SourceExchange, Deflate") );
 	AddItem( hBT, _T("ProtocolVersion"), _T("1.0") );
 	AddItem( hBT, _T("ComponentVersion"), _T("1.0.0.0") );
-	
+
 	return TRUE;
 }
 

@@ -105,10 +105,10 @@ BOOL CSecureRuleDlg::OnInitDialog()
 		m_bNew = TRUE;
 		m_pRule = new CSecureRule();
 	}
-	
+
 	CEdit* pwIP[4]		= { &m_wndIP1, &m_wndIP2, &m_wndIP3, &m_wndIP4 };
 	CEdit* pwMask[4]	= { &m_wndMask1, &m_wndMask2, &m_wndMask3, &m_wndMask4 };
-	switch ( m_pRule->m_nType ) 
+	switch ( m_pRule->m_nType )
 	{
 	case CSecureRule::srAddress:
 		m_nType = 0;

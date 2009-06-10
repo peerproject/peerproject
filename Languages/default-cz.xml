@@ -1019,10 +1019,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_ozastavit vše"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Smazat vše"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Ukázat skupiny"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Nová skupina..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Odstranit _skupinu"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Ukázat skupiny"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Vlastnosti"/>
 	</menu>
@@ -4325,10 +4325,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adresa / Obsah"/>
+		<column from="Hits" to="Výsledky"/>
 		<column from="Action" to="Akce"/>
 		<column from="Expires" to="Vyprší"/>
 		<column from="#" to="Přednost"/>
-		<column from="Hits" to="Výsledky"/>
 		<column from="Comment" to="Poznámka"/>
 	</list>
 	<list name="CHostCacheWnd">

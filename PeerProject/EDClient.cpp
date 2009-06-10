@@ -599,7 +599,7 @@ CHostBrowser* CEDClient::GetBrowser() const
 	if ( pLock.Lock( 1000 ) )
 	{
 		if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
-		{	
+		{
 			for ( POSITION pos = pMainWnd->m_pWindows.GetIterator() ; pos ; )
 			{
 				CChildWnd* pChildWnd = pMainWnd->m_pWindows.GetNext( pos );
@@ -1161,8 +1161,8 @@ void CEDClient::DetermineUserAgent()
 		{
 			case 0:
 				m_sUserAgent.Format( _T("eMule %i.%i%c"),
-			//	m_sUserAgent.Format( _T("eMule %i.%i%c (%i)")	-Displays additional build number instead. 
-					( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ), 
+			//	m_sUserAgent.Format( _T("eMule %i.%i%c (%i)")	-Displays additional build number instead.
+					( ( m_nSoftwareVersion >> 17 ) & 0x7F ), ( ( m_nSoftwareVersion >> 10 ) & 0x7F ),
 					( ( m_nSoftwareVersion >>  7 ) & 0x07 ) + 'a' );
 				break;
 			case 1:
@@ -1190,7 +1190,7 @@ void CEDClient::DetermineUserAgent()
 					break;
 				}
 
-				// This is a Shareaza beta build. Note that the 2nd last number (Beta build #) 
+				// This is a Shareaza beta build. Note that the 2nd last number (Beta build #)
 				// may be truncated, since it's only 3 bits.
 				m_sUserAgent.Format( _T("Shareaza %i.%i.%i.%i"),
 					( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
@@ -1217,7 +1217,7 @@ void CEDClient::DetermineUserAgent()
 			case 40:		// Shareaza
 				if ( m_bEmAICH )
 				{
-					if ( m_sUserAgent.IsEmpty() ) 
+					if ( m_sUserAgent.IsEmpty() )
 						m_sUserAgent.Format( _T("eMule Mod (40) %i.%i.%i.%i"),
 							( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
 							( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
@@ -1225,7 +1225,7 @@ void CEDClient::DetermineUserAgent()
 				}
 
 				//Note 2nd last number (Beta build #) may be truncated, since it's only 3 bits.
-				m_sUserAgent.Format( _T("Shareaza %i.%i.%i.%i"), 
+				m_sUserAgent.Format( _T("Shareaza %i.%i.%i.%i"),
 					( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
 					( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
 				break;
@@ -1986,7 +1986,7 @@ BOOL CEDClient::OnViewSharedDirAnswer(CEDPacket* pPacket)
 					break;
 
 				CQueryHit* pHit = new CQueryHit( PROTOCOL_ED2K );
-				
+
 				pHit->m_bBrowseHost = TRUE;
 				pHit->m_bChat = TRUE;
 				pHit->m_pVendor = VendorCache.Lookup( _T("ED2K") );

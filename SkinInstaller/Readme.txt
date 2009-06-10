@@ -2,9 +2,28 @@
 PeerProject Skin Installer
 --------------------------
 
+
+Copyright Information
+=====================
+The SkinInstaller is part of PeerProject (peerproject.org) © 2008
+
+However this software component has been released into the public domain.
+You are free to redistribute and modify it without any restrictions
+with the exception of the following notice:
+
+The Zlib library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
+The Unzip library is Copyright (C) 1998-2003 Gilles Vollant.
+
+
+
+About
+=====
 This installer was originally developed by Robert Rainwater for Shareaza.
 Versions 1.0.9-1.0.11 are extensions by Jann Röder <jann_roeder@arcor.de>
 1.0.12 version improved by Rolandas Rudomanskis.
+1.0.0.0 Adapted to PeerProject
+
+
 
 History
 =======
@@ -81,7 +100,7 @@ History
  - Updated graphics
 
 1.0.10
- - Updated Icon 
+ - Updated Icon
  - Changed the way how files are extracted.
    The installer gets the skin name from the XML file and creates a directory with that name and puts all the files inside this directory.
    For language skins, all files are placed in the \Languages folder.
@@ -98,20 +117,9 @@ History
 
 1.0.0.0
  - Initial release for PeerProject
- 
+ - Added "Path" Manifest element support
+
+
 ToDo
 ====
-
 - Maybe disable all other skins when clicking on Select Skin
-
-
-Copyright Information
-=====================
-The SkinInstaller is part of PeerProject (peerproject.org) © 2008
-
-However this software component has been released into the public domain.
-You are free to redistribute and modify it without any restrictions 
-with the exception of the following notice:
-
-The Zlib library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
-The Unzip library is Copyright (C) 1998-2003 Gilles Vollant.

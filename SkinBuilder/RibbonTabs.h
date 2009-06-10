@@ -49,7 +49,7 @@
 //
 //	In project configuration properties, add the following to Linker/Input:
 //		Delay Loaded DLL:			dwmapi.dll UxTheme.dll
-// 
+//
 
 
 #pragma once
@@ -145,7 +145,7 @@ private:
 	BP_ANIMATIONPARAMS	m_AnimationParams;
 
 	bool				m_bRepaintBackground;
-	CachedBitmap		*m_pCachedBkBitmap;	
+	CachedBitmap		*m_pCachedBkBitmap;
 	ImageAttributes		m_imgAttributes;
 
 	HACCEL				m_hAccel;
@@ -158,7 +158,7 @@ public:
 	BEGIN_MSG_MAP_EX(thisClass)
 		MSG_WM_INITDIALOG(OnInitDialog)
 		MSG_WM_DESTROY(OnDestroy)
-		
+
 		MSG_WM_COMMAND(OnCommand)
 
 		MSG_WM_SIZING(OnSizing)
@@ -219,12 +219,12 @@ public:
 		RGBtoHLS(Color(TAB_FILL_GRADIENTEND).ToCOLORREF(), H, L, S);
 		COLORREF clr = HLStoRGB(H, 36, S);
 
-		// This matrix will grayscale and do colour component addition 
+		// This matrix will grayscale and do colour component addition
 		ColorMatrix colorwash = {	0.213f, 0.213f, 0.213f, 0, 0,
 									0.715f, 0.715f, 0.715f, 0, 0,
 									0.072f, 0.072f, 0.072f, 0, 0,
 										0 , 0     , 0     , 1, 0,
-							 GetRValue(clr) / 255.0f, GetGValue(clr) / 255.0f, GetBValue(clr) / 255.0f, 0, 1 }; 
+							 GetRValue(clr) / 255.0f, GetGValue(clr) / 255.0f, GetBValue(clr) / 255.0f, 0, 1 };
 		m_imgAttributes.SetColorMatrix(&colorwash);
 	}
 
@@ -291,7 +291,7 @@ public:
 
 		// Vista+ Only: Extend the frame (glass)
 		if (IsCompositionEnabled())
-		{	
+		{
 			MARGINS margins = {0 /*Left*/, 0 /*Right*/, m_iRibbonBarHeight /*Top*/, 0};
 			DwmExtendFrameIntoClientArea(m_hWnd, &margins);
 		}
@@ -302,7 +302,7 @@ public:
 		CRect rc;
 		GetWindowRect(rc);
 		MoveWindow(rc.top, rc.left, rc.Width(), rc.Height() + m_iRibbonBarHeight, TRUE);
-	
+
 		return FALSE;
 	}
 
@@ -315,7 +315,7 @@ public:
 		ATLASSERT(pLoop != NULL);
 		pLoop->RemoveMessageFilter(this);
 	}
-	
+
 
 	// Add a tab
 	//		uID: must be a string resource identifier; also serves as a command identifier
@@ -327,11 +327,11 @@ public:
 		RIBBONDLGTAB tab = {0};
 		tab.uID = uID;
 		tab.listSubtabs = new LISTSUBTABS;
-		
+
 		// Default: The first tab added should be selected
 		tab.uState = bFirstTab ? RD_TST_SELECTED : TST_NONE;
 		bFirstTab = false;
-		
+
 		m_listTabs.Add(tab);
 	}
 
@@ -567,7 +567,7 @@ public:
 		else
 		{
 			CRect rc(0, 0, m_rcRibbonBar.left + m_rcRibbonBar.Width(), m_rcRibbonBar.top + m_rcRibbonBar.Height());
-			
+
 			memDC = new CMemoryDC(hDC, rc);
 			dcOut.m_hDC = memDC->m_hDC;
 
@@ -589,7 +589,7 @@ public:
 
 			Bitmap bmp(m_rcRibbonBar.left + m_rcRibbonBar.Width(), m_rcRibbonBar.top + m_rcRibbonBar.Height(), &grfx);
 			Graphics memgfx(&bmp);
-			
+
 			PaintBackground(memgfx);
 
 			if (m_pCachedBkBitmap)
@@ -611,13 +611,13 @@ public:
 
 		if (memDC)
 			delete memDC;
-		
+
 		ReleaseDC(hDC);
 	}
 
 
 private:
-	
+
 	void UpdateSelectedTab(CPoint& point, UINT uID = 0)
 	{
 		bool bSourceIsMouse = (point.x != 0) && (point.y != 0);
@@ -710,18 +710,18 @@ private:
 
 		m_AnimationParams.dwDuration = dwAnimationDuration;	// Put this here for dwDuration=0 on first NCPAINT.
 															// Otherwise, get a fade-in from an (ugly) white box.
-		
+
 		RedrawWindow(&m_rcRibbonBar, NULL, RDW_FRAME | RDW_INVALIDATE | RDW_ERASENOW);
 	}
 
-	// Paints the background: background fill, selected tab and selected sub-tab 
+	// Paints the background: background fill, selected tab and selected sub-tab
 	void PaintBackground(Graphics& graphics)
 	{
 		graphics.SetSmoothingMode(SmoothingModeAntiAlias);
 
 		// Fill background
 		CDCHandle dc(graphics.GetHDC());
-		
+
 		if (IsCompositionEnabled())
 			DrawThemeParentBackground(dc, &m_rcRibbonBar);
 		else
@@ -762,7 +762,7 @@ private:
 			if (m_listTabs[i].uState & RD_TST_SELECTED)
 			{
 				CRect rcTab(m_listTabs[i].rc);
-				
+
 				// Figure out the path around the checked tab and its sub-tabs
 				GraphicsPath path;
 				path.AddArc(rcTab.left, rcTab.top, 10, 10, 180.0f, 90.0f);
@@ -784,14 +784,14 @@ private:
 
 				// Fill the path
 				Rect rect(rcRibbonBar.left, rcRibbonBar.top - 3, rcRibbonBar.Width(), rcRibbonBar.Height() );
-				
+
 				LinearGradientBrush gb(rect, Color::White, Color::Black, LinearGradientModeVertical);
 				Color colors[5] = {Color(TAB_FILL_GRADIENTSTART), Color(TAB_FILL_GRADIENTMID), Color(TAB_FILL_GRADIENTEND), Color(TAB_FILL_GRADIENTMID), Color(TAB_FILL_GRADIENTEND)};
 				REAL blend[5] = {0.0f, 0.2f, 0.46f, 0.50f, 1.0f};		// Gradient Positions
 				gb.SetInterpolationColors(colors, blend, 5);
 
 				graphics.FillPath(&gb, &path);
-				
+
 				// Outline the path
 				Pen pen1(Color::WhiteSmoke, 2.0f), pen2(Color(TAB_OUTLINE));
 				graphics.DrawPath(&pen1, &path);
@@ -874,7 +874,7 @@ private:
 						CIcon icon;
 						icon.LoadIcon(pSubtab->uIconResID, 32, 32);
 						Bitmap bmpIcon(icon);
-						
+
 						graphics.DrawImage(&bmpIcon, Rect(rcSubtab.left + SUBTABPADDING, rcSubtab.top + SUBTABPADDING, iIconSize, iIconSize),
 							0, 0, bmpIcon.GetWidth(), bmpIcon.GetHeight(), UnitPixel, (pSubtab->uState & RD_TST_SELECTED) ? NULL : &m_imgAttributes);
 					}
@@ -896,7 +896,7 @@ private:
 
 		// All items are the same height, only the width can vary
 		rcText.bottom = m_iTabHeight;
-		
+
 		graphics.ReleaseHDC(hDC);
 
 		return rcText;
@@ -968,7 +968,7 @@ private:
 	void GetACCELForStringResource(UINT& uID, CAtlArray<ACCEL>& listAccel)
 	{
 		CString str;
-		str.LoadString(uID);		
+		str.LoadString(uID);
 
 		int iAccelChar = str.Find(_T('&'));
 		if (iAccelChar != -1)
@@ -1054,15 +1054,15 @@ private:
 	void RGBtoHLS(COLORREF lRGBColor, BYTE& H, BYTE& L, BYTE& S)
 	{
 		WORD Rdelta, Gdelta, Bdelta; // Intermediate value: % of spread from max
-		
+
 		// Get R, G, and B out of DWORD
 		BYTE R = GetRValue(lRGBColor);
 		BYTE G = GetGValue(lRGBColor);
 		BYTE B = GetBValue(lRGBColor);
 
 		// Calculate lightness
-		BYTE cMax = max( max(R,G), B);	// Max RGB values 
-		BYTE cMin = min( min(R,G), B);	// Min RGB values 
+		BYTE cMax = max( max(R,G), B);	// Max RGB values
+		BYTE cMin = min( min(R,G), B);	// Min RGB values
 		L = ( ((cMax+cMin)*HLSMAX) + RGBMAX )/(2*RGBMAX);
 
 		// r=g=b --> Achromatic case
@@ -1127,7 +1127,7 @@ private:
 
 		// Achromatic case
 		if (sat == 0)
-		{     
+		{
 			R=G=B=(lum*RGBMAX)/HLSMAX;
 			if (hue != UNDEFINED)
 			{

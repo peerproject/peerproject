@@ -1038,10 +1038,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Alles _pauzeren"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Alles _wissen"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Groepen _tonen"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Nieuwe groep..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Groep _verwijderen"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Groepen _tonen"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Eigenschappen"/>
 	</menu>
@@ -4400,10 +4400,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adres/inhoud"/>
+		<column from="Hits" to="Hits"/>
 		<column from="Action" to="Actie"/>
 		<column from="Expires" to="Verloopt op"/>
-		<column from="#" to="Prioriteit"/>
-		<column from="Hits" to="Hits"/>
+		<column from="#" to="#"/>
 		<column from="Comment" to="Commentaar"/>
 	</list>
 	<list name="CHostCacheWnd">

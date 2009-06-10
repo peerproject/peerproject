@@ -1,4 +1,4 @@
-//  (C) Copyright John Maddock 2000. 
+//  (C) Copyright John Maddock 2000.
 //  Use, modification and distribution are subject to the Boost Software License,
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt).
@@ -16,9 +16,6 @@
 #include "boost/type_traits/add_reference.hpp"
 #include "boost/type_traits/add_volatile.hpp"
 #include "boost/type_traits/alignment_of.hpp"
-#ifndef __BORLANDC__
-#include "boost/type_traits/has_new_operator.hpp"
-#endif
 #include "boost/type_traits/has_nothrow_assign.hpp"
 #include "boost/type_traits/has_nothrow_constructor.hpp"
 #include "boost/type_traits/has_nothrow_copy.hpp"
@@ -59,7 +56,6 @@
 #include "boost/type_traits/is_stateless.hpp"
 #include "boost/type_traits/is_union.hpp"
 #include "boost/type_traits/is_void.hpp"
-#include "boost/type_traits/is_virtual_base_of.hpp"
 #include "boost/type_traits/is_volatile.hpp"
 #include "boost/type_traits/rank.hpp"
 #include "boost/type_traits/extent.hpp"

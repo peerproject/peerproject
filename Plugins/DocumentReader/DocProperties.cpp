@@ -64,7 +64,7 @@ HRESULT CDocumentProperties::Open(BSTR sFileName, VARIANT_BOOL ReadOnly, dsoFile
     DWORD dwOpenMode;
     WCHAR wszFullName[MAX_PATH];
     ULONG ulIdx;
-	
+
 	EnterCritical();
  // Open method called. Ensure we don't have file already open...
 	ODS("CDocumentProperties::Open\n");
@@ -79,7 +79,7 @@ HRESULT CDocumentProperties::Open(BSTR sFileName, VARIANT_BOOL ReadOnly, dsoFile
  // Save file name and path index from SearchFile API...
     m_bstrFileName = SysAllocString(wszFullName);
     m_cFilePartIdx = ulIdx;
-    if ((m_cFilePartIdx < 1) || (m_cFilePartIdx > SysStringLen(m_bstrFileName))) 
+    if ((m_cFilePartIdx < 1) || (m_cFilePartIdx > SysStringLen(m_bstrFileName)))
 		m_cFilePartIdx = 0;
 
  // Set open mode flags based on ReadOnly flag (the exclusive access is required for
@@ -98,32 +98,32 @@ HRESULT CDocumentProperties::Open(BSTR sFileName, VARIANT_BOOL ReadOnly, dsoFile
 	 // it. This function will open the OLE file in transacted read mode, which
 	 // covers cases where the file is in use or is on a read-only share. We can't
 	 // save after the open so we force the read-only flag on...
-        if (((hr == STG_E_ACCESSDENIED) || (hr == STG_E_SHAREVIOLATION)) && 
+        if (((hr == STG_E_ACCESSDENIED) || (hr == STG_E_SHAREVIOLATION)) &&
             (m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess))
         {
             m_fReadOnly = TRUE;
-	        hr = StgOpenStorage(m_bstrFileName, NULL, 
+	        hr = StgOpenStorage(m_bstrFileName, NULL,
 				(STGM_READ | STGM_TRANSACTED | STGM_SHARE_DENY_NONE), NULL, 0, &m_pStorage);
         }
-        
-	 // If we are lucky, we have a storage to read from, so ask OLE to open the 
+
+	 // If we are lucky, we have a storage to read from, so ask OLE to open the
 	 // associated property set for the file and return the IPSS iface...
 	    if (SUCCEEDED(hr))
         {
             hr = m_pStorage->QueryInterface(IID_IPropertySetStorage, (void**)&m_pPropSetStg);
         }
     }
-    else if ((v_pfnStgOpenStorageEx) && 
+    else if ((v_pfnStgOpenStorageEx) &&
              ((m_dwFlags & dsoOptionOnlyOpenOLEFiles) != dsoOptionOnlyOpenOLEFiles))
     {
-     // On Win2K+ we can try and open plain files on NTFS 5.0 drive and get 
+     // On Win2K+ we can try and open plain files on NTFS 5.0 drive and get
      // the NTFS version of OLE properties (saved in alt stream)...
-        hr = (v_pfnStgOpenStorageEx)(m_bstrFileName, dwOpenMode, STGFMT_FILE, 0, NULL, 0, 
+        hr = (v_pfnStgOpenStorageEx)(m_bstrFileName, dwOpenMode, STGFMT_FILE, 0, NULL, 0,
                 IID_IPropertySetStorage, (void**)&m_pPropSetStg);
 
      // If we failed to gain write access, try to just read access if caller
      // wants us to. This only works for access block, not share violations...
-       if ((hr == STG_E_ACCESSDENIED) && (!m_fReadOnly) && 
+       if ((hr == STG_E_ACCESSDENIED) && (!m_fReadOnly) &&
             (m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess))
         {
             m_fReadOnly = TRUE;
@@ -134,7 +134,7 @@ HRESULT CDocumentProperties::Open(BSTR sFileName, VARIANT_BOOL ReadOnly, dsoFile
     else
     {  // If we land here, the file is non-OLE file, and not on NTFS5 drive,
 	   // so we return an error that file has no valid OLE/NTFS extended properties...
-        hr = E_NODOCUMENTPROPS; 
+        hr = E_NODOCUMENTPROPS;
     }
 
     if ( FAILED(hr) )
@@ -166,7 +166,7 @@ HRESULT CDocumentProperties::Close(VARIANT_BOOL SaveBeforeClose)
  // we can be called again. The Zombie call disconnects sub objects
  // and should free them if caller has also released them...
     ZOMBIE_OBJECT(m_pSummProps);
-    
+
     m_pPropSetStg->Release();
 	m_pPropSetStg = NULL;
     m_pStorage->Release();
@@ -185,7 +185,7 @@ HRESULT CDocumentProperties::Close(VARIANT_BOOL SaveBeforeClose)
 HRESULT CDocumentProperties::get_IsReadOnly(VARIANT_BOOL* pbReadOnly)
 {
 	ODS("CDocumentProperties::get_IsReadOnly\n");
-	CHECK_NULL_RETURN(pbReadOnly,  E_POINTER); 
+	CHECK_NULL_RETURN(pbReadOnly,  E_POINTER);
     *pbReadOnly = ((m_fReadOnly) ? VARIANT_TRUE : VARIANT_FALSE);
     return S_OK;
 }
@@ -204,7 +204,7 @@ HRESULT CDocumentProperties::get_IsDirty(VARIANT_BOOL* pbDirty)
 
     if (pbDirty) // Return status to caller...
         *pbDirty = (VARIANT_BOOL)((fDirty) ? VARIANT_TRUE : VARIANT_FALSE);
- 
+
     return S_OK;
 }
 
@@ -266,7 +266,7 @@ HRESULT CDocumentProperties::get_SummaryProperties(CSummaryProperties** ppSummar
 }
 
 ////////////////////////////////////////////////////////////////////////
-// get_Icon - Returns OLE StdPicture object with associated icon 
+// get_Icon - Returns OLE StdPicture object with associated icon
 //
 HRESULT CDocumentProperties::get_Icon(IDispatch** ppicIcon)
 {
@@ -313,7 +313,7 @@ HRESULT CDocumentProperties::get_Path(BSTR* pbstrPath)
 
 	if (m_bstrFileName != NULL && m_cFilePartIdx > 0)
 	    *pbstrPath = SysAllocStringLen(m_bstrFileName, m_cFilePartIdx);
-	
+
 	return S_OK;
 }
 
@@ -329,7 +329,7 @@ HRESULT CDocumentProperties::get_IsOleFile(VARIANT_BOOL* pIsOleFile)
 }
 
 ////////////////////////////////////////////////////////////////////////
-// get_Name - Returns CLSID of OLE DocFile 
+// get_Name - Returns CLSID of OLE DocFile
 //
 HRESULT CDocumentProperties::get_CLSID(BSTR* pbstrCLSID)
 {
@@ -354,7 +354,7 @@ HRESULT CDocumentProperties::get_CLSID(BSTR* pbstrCLSID)
 }
 
 ////////////////////////////////////////////////////////////////////////
-// get_ProgID - Returns ProgID of OLE DocFile 
+// get_ProgID - Returns ProgID of OLE DocFile
 //
 HRESULT CDocumentProperties::get_ProgID(BSTR* pbstrProgID)
 {
@@ -379,7 +379,7 @@ HRESULT CDocumentProperties::get_ProgID(BSTR* pbstrProgID)
 }
 
 ////////////////////////////////////////////////////////////////////////
-// get_OleDocumentFormat - Returns ClipFormat of OLE DocFile 
+// get_OleDocumentFormat - Returns ClipFormat of OLE DocFile
 //
 HRESULT CDocumentProperties::get_OleDocumentFormat(BSTR* pbstrFormat)
 {

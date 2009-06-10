@@ -894,7 +894,7 @@ bool CLibraryTileItem::Update()
 	m_nIcon32		= m_pFolder->m_pSchema ? m_pFolder->m_pSchema->m_nIcon32 : -1;
 	m_nIcon48		= m_pFolder->m_pSchema ? m_pFolder->m_pSchema->m_nIcon48 : -1;
 	m_bCollection	= m_pFolder->m_oCollSHA1.isValid();
-	
+
 	CSchema* pSchema = m_pFolder->m_pSchema;
 
 	if ( pSchema != NULL && m_pFolder->m_pXML != NULL )

@@ -1041,10 +1041,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Gör _paus i alla nedladdningar" />
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Rensa alla nedladdningar" />
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Visa grupper" />
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Ny grupp" />
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Radera _grupp" />
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Visa grupper" />
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Egenskaper" />
 	</menu>
@@ -2054,8 +2054,8 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<newline gap="8"/>
 		<text>En disk eller en mapp som PeerProject behöver är skrivskyddad.</text>
 		<newline gap="8"/>
-		<text>En nätverksenhet kan ha blivit bortkopplad. Du kanske saknar skrivrättigheter 
-		till den valda mappen. Kolla att mappen finns och att du har skrivrättigheter till den 
+		<text>En nätverksenhet kan ha blivit bortkopplad. Du kanske saknar skrivrättigheter
+		till den valda mappen. Kolla att mappen finns och att du har skrivrättigheter till den
 		eller ändra mappen för temporära filer.</text>
 	</document>
 	<document name="GeneralHelp.ConnectionFail">
@@ -2072,7 +2072,7 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<text format="b">Filter för vuxeninnehåll aktiverat</text>
 		<newline gap="8"/>
 		<text>Tänk på att (som med alla automatiserade filter) kan inte filtret vara 100% tillförlitligt.
-			Det är gjort för att på ett enkelt sätt filtrera ut överflödigt och oönskat resultat snarare än att vara ett 
+			Det är gjort för att på ett enkelt sätt filtrera ut överflödigt och oönskat resultat snarare än att vara ett
 100% säkert filter.</text>
 		<newline gap="8"/>
 		<text>Barns Internetanvändande (inklusive användning av fildelningsprogram) ska alltid övervakas av en vuxen.</text>
@@ -2096,21 +2096,21 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<text>Det finns inga servrar i din eDonkey server lista. Du behöver ladda ner
 		en uppdaterad serverlista (metfil) för att ansluta till ED2K.</text>
 		<newline gap="8"/>
-		<text>Du kan ladda ner en server lista från sidan med ed2k inställningar eller 
-		fönstret med upptäckstjänster. (Tryck F9 för att öppna fönstret Upptäckstjänster)</text> 
+		<text>Du kan ladda ner en server lista från sidan med ed2k inställningar eller
+		fönstret med upptäckstjänster. (Tryck F9 för att öppna fönstret Upptäckstjänster)</text>
 	</document>
 	<document name="GeneralHelp.UploadWarning">
 		<text format="b">Att begränsa uppladdningar kan leda till långsammare nedladdningar</text>
 		<newline gap="8"/>
-		<text>Flera av de nätverk PeerProject ansluter till tillämpar proportionell nedladdning, begränsad nedladdning för 
+		<text>Flera av de nätverk PeerProject ansluter till tillämpar proportionell nedladdning, begränsad nedladdning för
 		klienter som inte delar med sig eller föredrar uppladdning till kända fildelare.</text>
 		<newline/>
 		<text>Lyckligtvis är bredbandsanslutningar som vägar med två körbanor: man har
-		separat utrymme för uppladdningar respektive nedladdningar. Om din klient är korrekt konfigurerad, 
+		separat utrymme för uppladdningar respektive nedladdningar. Om din klient är korrekt konfigurerad,
 		bör du kunna ladda upp i god takt samtidigt som du behåller full nedladdningskapacitet.</text>
 		<newline gap="8"/>
 		<text>Standardinställningen begränsar din uppladdning till 85% av kapaciteten,
-		medan nedladdningar är obegränsade. Denna inställning bör generera optimal 
+		medan nedladdningar är obegränsade. Denna inställning bör generera optimal
 		nedladdningshastighet.</text>
 	</document>
 	<!-- Search help documents -->
@@ -2132,7 +2132,7 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		ett minimum av giltiga alfanumeriska tecken för att kunna starta.</text>
 		<newline gap="8"/>
 		<text>Medan vanliga filändelser (och nummer) kan såkas, måste du inkludera andra
-		 termer i din sökning. Skiljetecken och jokertecken används inte 
+		 termer i din sökning. Skiljetecken och jokertecken används inte
 		i sökningen, endast text du skriver.</text>
 	</document>
 	<document name="SearchHelp.BadSearch3">
@@ -2157,7 +2157,7 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 	och detta har blivit avstängt i inställningarna. Du bör antingen formulera om din söktext
 	eller stänga av filtret.</text>
 		<newline gap="8"/>
-		<text>För att stänga av filtret: Gå till Verktyg &gt; Inställningar &gt; Generellt och blocka av 
+		<text>För att stänga av filtret: Gå till Verktyg &gt; Inställningar &gt; Generellt och blocka av
 "Filtrera vuxeninnehåll från sökningar".</text>
 	</document>
 	<!-- Share help documents -->
@@ -4412,10 +4412,10 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adress / Innehåll" />
+		<column from="Hits" to="Träffar" />
 		<column from="Action" to="Händelse" />
 		<column from="Expires" to="Utgångsdatum" />
 		<column from="#" to="Företräde" />
-		<column from="Hits" to="Träffar" />
 		<column from="Comment" to="Kommentar" />
 	</list>
 	<list name="CHostCacheWnd">

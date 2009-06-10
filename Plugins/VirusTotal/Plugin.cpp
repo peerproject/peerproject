@@ -78,7 +78,7 @@ HRESULT CPlugin::Request(LPCWSTR szHash)
 
 // IGeneralPlugin
 
-STDMETHODIMP CPlugin::SetApplication( 
+STDMETHODIMP CPlugin::SetApplication(
 	/* [in] */ IApplication __RPC_FAR *pApplication)
 {
 	if ( ! pApplication )
@@ -176,7 +176,7 @@ STDMETHODIMP CPlugin::InsertCommands()
 	return E_FAIL;
 }
 
-STDMETHODIMP CPlugin::OnUpdate( 
+STDMETHODIMP CPlugin::OnUpdate(
     /* [in] */ UINT nCommandID,
     /* [out][in] */ TRISTATE __RPC_FAR *pbVisible,
     /* [out][in] */ TRISTATE __RPC_FAR *pbEnabled,
@@ -211,7 +211,7 @@ STDMETHODIMP CPlugin::OnUpdate(
 	return S_FALSE;
 }
 
-STDMETHODIMP CPlugin::OnCommand( 
+STDMETHODIMP CPlugin::OnCommand(
 	/* [in] */ UINT nCommandID)
 {
 	ATLTRACE( _T("CPlugin::OnCommand( %d )\n"), nCommandID );

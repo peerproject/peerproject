@@ -43,7 +43,7 @@ typedef struct
 } GNUTELLAPACKET;
 
 // Each CG1Packet object represents a received or preparing to send Gnutella packet
-class CG1Packet : public CPacket // Inherit from CPacket to get memory management, and methods to read 
+class CG1Packet : public CPacket // Inherit from CPacket to get memory management, and methods to read
 								 // and write ASCII text, bytes, and DWORDs
 {
 

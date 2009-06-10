@@ -214,7 +214,7 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 		hr = m_pDocProps->m_pSummProps->get_Version( &bsValue );
 		if ( SUCCEEDED(hr) )
 		{
-			if ( _wcsnicmp( bsValue, L"0.0", 3 ) != 0 ) 
+			if ( _wcsnicmp( bsValue, L"0.0", 3 ) != 0 )
 				pAttributes->Add( L"version", bsValue );
 		}
 
@@ -249,7 +249,7 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	pSingular->Release();
 	pPlural->Release();
 
-	SysFreeString( bsValue );    
+	SysFreeString( bsValue );
 	m_pDocProps->Close( VARIANT_FALSE );
 	return S_OK;
 }
@@ -266,7 +266,7 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 	zlib_filefunc_def FileFunc;
 	fill_win32_filefunc( &FileFunc );
 	pFile = unzOpen2( CW2A(pszName), &FileFunc );
-	
+
 	if ( ! pFile )
 	{
 		// Probably unicode path...
@@ -280,7 +280,7 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 	}
 
 	// Read docProps\app.xml from the archive (Properties -> Pages, Company and AppVersion)
-	// Read docProps\core.xml from the archive 
+	// Read docProps\core.xml from the archive
 	//		(cp:coreProperties -> dc:title, subject, creator, keywords, description, revision, category)
 	CHAR szFirstFile[18] = "docProps/core.xml";
 	CHAR szSecondFile[17] = "docProps/app.xml";
@@ -298,15 +298,15 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 			pInputXML->Release();
 		}
 
-		if ( ! sXML.Length() || FAILED( pXML->FromString( sXML, &pInputXML ) ) || pInputXML == NULL ) 
+		if ( ! sXML.Length() || FAILED( pXML->FromString( sXML, &pInputXML ) ) || pInputXML == NULL )
 		{
 			unzClose( pFile );
 		return E_FAIL;
 	}
-	
+
 		bSecondFile = true;
 	}
-	
+
 	ISXMLElements* pElements;
 	// Get the Elements collection from the XML document
 	if ( FAILED( pInputXML->get_Elements( &pElements ) ) || pElements == NULL )
@@ -321,7 +321,7 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 
 		sXML = GetMetadataXML( pFile, szSecondFile );
 
-		if ( ! sXML.Length() || FAILED( pInputXML->get_Elements( &pElements ) ) || pElements == NULL ) 
+		if ( ! sXML.Length() || FAILED( pInputXML->get_Elements( &pElements ) ) || pElements == NULL )
 		{
 			unzClose( pFile );
 			pInputXML->Delete();
@@ -409,11 +409,11 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 		{
 			if ( pData && SUCCEEDED(pData->get_Value( &bsValue )) )
 			{
-				if ( ! bsKeywords.Length() ) 
+				if ( ! bsKeywords.Length() )
 				{
 					bsKeywords.AssignBSTR( bsValue );
 				}
-				else 
+				else
 				{
 					bsKeywords.Append( L";" );
 					bsKeywords.AppendBSTR( bsValue );
@@ -446,7 +446,7 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 	if ( !bSecondFile )
 	{
 		sXML = GetMetadataXML( pFile, szSecondFile );
-		if ( sXML.Length() > 0 ) 
+		if ( sXML.Length() > 0 )
 		{
 			pInputXML->Delete();
 			pInputXML->Release();
@@ -474,7 +474,7 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 	}
 
 	unzClose( pFile );
-	
+
 	if ( bSecondFile )
 	{
 		hr = pElements->get_ByName( L"Pages", &pData );
@@ -541,7 +541,7 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	zlib_filefunc_def FileFunc;
 	fill_win32_filefunc( &FileFunc );
 	pFile = unzOpen2( CW2A(pszName), &FileFunc );
-	
+
 	if ( ! pFile )
 	{
 		// Probably unicode path...
@@ -569,7 +569,7 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	{
 		return E_FAIL;
 	}
-	
+
 	ISXMLElements* pElements;
 	// Get the Elements collection from the XML document
 	if ( FAILED( pInputXML->get_Elements( &pElements ) ) || pElements == NULL )
@@ -578,9 +578,9 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 		pInputXML->Release();
 		return E_FAIL;
 	}
-	
+
 	ISXMLElement* pMeta;
-	
+
 	// Get root element of metadata
 	if ( FAILED( pElements->get_ByName( L"office:meta", &pMeta ) ) || pMeta == NULL )
 	{
@@ -676,11 +676,11 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 		{
 			if ( pData && SUCCEEDED(pData->get_Value( &bsValue )) )
 			{
-				if ( ! bsKeywords.Length() ) 
+				if ( ! bsKeywords.Length() )
 				{
 					bsKeywords.AssignBSTR( bsValue );
 				}
-				else 
+				else
 				{
 					bsKeywords.Append( L";" );
 					bsKeywords.AppendBSTR( bsValue );
@@ -795,10 +795,10 @@ CComBSTR CDocReader::GetMetadataXML(unzFile pFile, char* pszFile)
 					do
 					{
 						nError = unzReadCurrentFile( pFile, pBuffer, nBufferSize );
-						if ( nError < 0 ) 
+						if ( nError < 0 )
 							break;
 						else if ( nError > 0 )
-							sXML.Append( pBuffer, nBufferSize ); 
+							sXML.Append( pBuffer, nBufferSize );
 					}
 					while ( nError > 0 );
 					if ( nError == UNZ_OK )
@@ -809,7 +809,7 @@ CComBSTR CDocReader::GetMetadataXML(unzFile pFile, char* pszFile)
 						{
 							ConvertToUnicodeEx( sXML, (DWORD)sXML.GetLength(),
 								pszUnicode, (DWORD)sXML.GetLength(), CP_UTF8 );
-							sUnicode = pszUnicode;				
+							sUnicode = pszUnicode;
 							delete [] pszUnicode;
 						}
 					}
@@ -818,7 +818,7 @@ CComBSTR CDocReader::GetMetadataXML(unzFile pFile, char* pszFile)
 			}
 		}
 	}
-	return sUnicode; 
+	return sUnicode;
 }
 
 // IImageServicePlugin Methods
@@ -829,7 +829,7 @@ STDMETHODIMP CDocReader::LoadFromFile(BSTR sFile, IMAGESERVICEDATA* pParams, SAF
 
 	EnterCritical();
 	DllAddRef();
-	
+
 	HRESULT hr = E_FAIL;
 
 	LPCWSTR pszExt = _wcslwr( wcsrchr( sFile, '.') );
@@ -890,7 +890,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 
 	hr = SafeArrayGetUBound( va.parray, 1, &nSize );
 	hr = SafeArrayAccessData( va.parray, (void**)&pclp );
-	
+
 	nSize += 1;
 	SEH_TRY
 	// Most MS documents have thumbnails in WMF format
@@ -912,7 +912,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 			pds.cbSizeofstruct = sizeof(PICTDESC);
 			pds.picType = PICTYPE_METAFILE;
 			pds.wmf.hmeta = hwmf;
-			pds.wmf.xExt = cHeader.Width; 
+			pds.wmf.xExt = cHeader.Width;
 			pds.wmf.yExt = cHeader.Height;
 
 			// We will make such images
@@ -1045,8 +1045,8 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 
 	// Store byte array start position; we will need to delete it later
 	BYTE* pStart = pBytes;
-	
-	// Create 1-dimensional safearray 
+
+	// Create 1-dimensional safearray
 	*ppImage = SafeArrayCreateVector( VT_UI1, 0, nArray );
 	SafeArrayAccessData( *ppImage, (VOID**)&pData );
 
@@ -1062,7 +1062,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 				pRowOut[ 0 ] = pBytes[ 2 ];
 				pRowOut[ 1 ] = pBytes[ 1 ];
 				pRowOut[ 2 ] = pBytes[ 0 ];
-				
+
 				pRowOut += 3;
 				pBytes += 3;
 			}
@@ -1112,7 +1112,7 @@ STDMETHODIMP CDocReader::GetOOThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 	zlib_filefunc_def FileFunc;
 	fill_win32_filefunc( &FileFunc );
 	pFile = unzOpen2( CW2A(pszName), &FileFunc );
-	
+
 	if ( ! pFile )
 	{
 		// Probably unicode path...
@@ -1160,7 +1160,7 @@ STDMETHODIMP CDocReader::GetOOThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 					do
 					{
 						nError = unzReadCurrentFile( pFile, pBuffer, nBufferSize );
-						if ( nError < 0 ) 
+						if ( nError < 0 )
 							break;
 						else if ( nError > 0 )
 						{
@@ -1171,14 +1171,14 @@ STDMETHODIMP CDocReader::GetOOThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 					}
 					while ( nError > 0 );
 
-					if ( nError == UNZ_OK ) 
+					if ( nError == UNZ_OK )
 					{
 						// Get statistics for the final size of byte array
 						STATSTG  BytesStatistics = {};
 						pLockBuffer->Stat( &BytesStatistics, STATFLAG_NONAME );
 						ULONG nArray = static_cast<ULONG>(BytesStatistics.cbSize.QuadPart);
 
-						// Create 1-dimensional safearray 
+						// Create 1-dimensional safearray
 						SAFEARRAY* psa = SafeArrayCreateVector( VT_UI1, 0, nArray );
 						ULONG nRead = 0;
 						LARGE_INTEGER llMove;
@@ -1186,7 +1186,7 @@ STDMETHODIMP CDocReader::GetOOThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 
 						// Go to the beginning of the stream
 						hr = FileStream->Seek( llMove, STREAM_SEEK_SET, NULL );
-						
+
 						// Read byte array from the stream
 						BYTE* pData = NULL;
 						SafeArrayAccessData( psa, (VOID**)&pData );
@@ -1267,7 +1267,7 @@ HBITMAP CDocReader::GetBitmapFromMetaFile(PICTDESC pds, int nResolution, WORD wB
 	nInfoSize += nColorTableSize;
 
 	BITMAPINFO* bmInfo = (LPBITMAPINFO) new BYTE[ nInfoSize ];
-	
+
 	if ( bmInfo == NULL ) return NULL;
 	ZeroMemory( bmInfo, nInfoSize );
 	// Align scanline size to dword
@@ -1366,7 +1366,7 @@ HBITMAP CDocReader::GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution, WORD
 	nInfoSize += nColorTableSize;
 
 	BITMAPINFO* bmInfo = (LPBITMAPINFO) new BYTE[ nInfoSize ];
-	
+
 	if ( bmInfo == NULL ) return NULL;
 	ZeroMemory( bmInfo, nInfoSize );
 	// Align scanline size to dword
@@ -1500,7 +1500,7 @@ LPWSTR CDocReader::GetDocumentFormat(LPCWSTR pszExt)
 					return L"OpenOffice.org 1.0 Spreadsheet Template";
 		}
 	}
-	
+
 	return LPWSTR();
 }
 
@@ -1509,7 +1509,7 @@ LPWSTR CDocReader::GetSchema(BSTR sFile, LPCWSTR pszExt)
 	if ( LPCWSTR pszName = wcsrchr( sFile, '\\' ) )
 	{
 		pszName++;
-		
+
 		if ( _wcsnicmp( pszName, L"ebook - ", 8 ) == 0 ||
 			 _wcsnicmp( pszName, L"(ebook", 6 ) == 0 )
 		{
@@ -1572,7 +1572,7 @@ HRESULT CDocReader::
     DWORD dwOpenMode;
     WCHAR wszFullName[MAX_PATH];
     ULONG ulIdx;
-	
+
  // Open method called. Ensure we don't have file already open...
 	ODS(_T("CDocReader::CDocumentProperties::Open\n"));
     ASSERT(m_pStorage == NULL); // We should only load one at a time per object!
@@ -1586,7 +1586,7 @@ HRESULT CDocReader::
  // Save file name and path index from SearchFile API...
     m_bstrFileName = SysAllocString(wszFullName);
     m_cFilePartIdx = ulIdx;
-    if ((m_cFilePartIdx < 1) || (m_cFilePartIdx > SysStringLen(m_bstrFileName))) 
+    if ((m_cFilePartIdx < 1) || (m_cFilePartIdx > SysStringLen(m_bstrFileName)))
 		m_cFilePartIdx = 0;
 
  // Set open mode flags based on ReadOnly flag (the exclusive access is required for
@@ -1605,32 +1605,32 @@ HRESULT CDocReader::
 	 // it. This function will open the OLE file in transacted read mode, which
 	 // covers cases where the file is in use or is on a read-only share. We can't
 	 // save after the open so we force the read-only flag on...
-        if (((hr == STG_E_ACCESSDENIED) || (hr == STG_E_SHAREVIOLATION)) && 
+        if (((hr == STG_E_ACCESSDENIED) || (hr == STG_E_SHAREVIOLATION)) &&
             (m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess))
         {
             m_fReadOnly = TRUE;
-	        hr = StgOpenStorage(m_bstrFileName, NULL, 
+	        hr = StgOpenStorage(m_bstrFileName, NULL,
 				(STGM_READ | STGM_TRANSACTED | STGM_SHARE_DENY_NONE), NULL, 0, &m_pStorage);
         }
-        
-	 // If we are lucky, we have a storage to read from, so ask OLE to open the 
+
+	 // If we are lucky, we have a storage to read from, so ask OLE to open the
 	 // associated property set for the file and return the IPSS iface...
 	    if (SUCCEEDED(hr))
         {
             hr = m_pStorage->QueryInterface(IID_IPropertySetStorage, (void**)&m_pPropSetStg);
         }
     }
-    else if ((v_pfnStgOpenStorageEx) && 
+    else if ((v_pfnStgOpenStorageEx) &&
              ((m_dwFlags & dsoOptionOnlyOpenOLEFiles) != dsoOptionOnlyOpenOLEFiles))
     {
-     // On Win2K+ we can try and open plain files on NTFS 5.0 drive and get 
+     // On Win2K+ we can try and open plain files on NTFS 5.0 drive and get
      // the NTFS version of OLE properties (saved in alt stream)...
-        hr = (v_pfnStgOpenStorageEx)(m_bstrFileName, dwOpenMode, STGFMT_FILE, 0, NULL, 0, 
+        hr = (v_pfnStgOpenStorageEx)(m_bstrFileName, dwOpenMode, STGFMT_FILE, 0, NULL, 0,
                 IID_IPropertySetStorage, (void**)&m_pPropSetStg);
 
      // If we failed to gain write access, try to just read access if caller
      // wants us to. This only works for access block, not share violations...
-       if ((hr == STG_E_ACCESSDENIED) && (!m_fReadOnly) && 
+       if ((hr == STG_E_ACCESSDENIED) && (!m_fReadOnly) &&
             (m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess))
         {
             m_fReadOnly = TRUE;
@@ -1641,7 +1641,7 @@ HRESULT CDocReader::
     else
     {  // If we land here, the file is non-OLE file, and not on NTFS5 drive,
 	   // so we return an error that file has no valid OLE/NTFS extended properties...
-        hr = E_NODOCUMENTPROPS; 
+        hr = E_NODOCUMENTPROPS;
     }
 
     if ( FAILED(hr) )
@@ -1680,7 +1680,7 @@ HRESULT CDocReader::
  // we can be called again. The Zombie call disconnects sub objects
  // and should free them if caller has also released them...
     ZOMBIE_OBJECT(m_pSummProps);
-    
+
     if ( m_pPropSetStg )
 	{
 		m_pPropSetStg->Release();
@@ -1706,7 +1706,7 @@ HRESULT CDocReader::
 	CDocumentProperties::get_IsReadOnly(VARIANT_BOOL* pbReadOnly)
 {
 	ODS(_T("CDocReader::CDocumentProperties::get_IsReadOnly\n"));
-	CHECK_NULL_RETURN(pbReadOnly,  E_POINTER); 
+	CHECK_NULL_RETURN(pbReadOnly,  E_POINTER);
     *pbReadOnly = ((m_fReadOnly) ? VARIANT_TRUE : VARIANT_FALSE);
     return S_OK;
 }
@@ -1726,7 +1726,7 @@ HRESULT CDocReader::
 
     if (pbDirty) // Return status to caller...
         *pbDirty = (VARIANT_BOOL)((fDirty) ? VARIANT_TRUE : VARIANT_FALSE);
- 
+
     return S_OK;
 }
 
@@ -1789,7 +1789,7 @@ HRESULT CDocReader::
 }
 
 ////////////////////////////////////////////////////////////////////////
-// get_Icon - Returns OLE StdPicture object with associated icon 
+// get_Icon - Returns OLE StdPicture object with associated icon
 //
 HRESULT CDocReader::
 	CDocumentProperties::get_Icon(IDispatch** ppicIcon)
@@ -1839,7 +1839,7 @@ HRESULT CDocReader::
 
 	if (m_bstrFileName != NULL && m_cFilePartIdx > 0)
 	    *pbstrPath = SysAllocStringLen(m_bstrFileName, m_cFilePartIdx);
-	
+
 	return S_OK;
 }
 
@@ -1856,7 +1856,7 @@ HRESULT CDocReader::
 }
 
 ////////////////////////////////////////////////////////////////////////
-// get_Name - Returns CLSID of OLE DocFile 
+// get_Name - Returns CLSID of OLE DocFile
 //
 HRESULT CDocReader::
 	CDocumentProperties::get_CLSID(BSTR* pbstrCLSID)
@@ -1882,7 +1882,7 @@ HRESULT CDocReader::
 }
 
 ////////////////////////////////////////////////////////////////////////
-// get_ProgID - Returns ProgID of OLE DocFile 
+// get_ProgID - Returns ProgID of OLE DocFile
 //
 HRESULT CDocReader::
 	CDocumentProperties::get_ProgID(BSTR* pbstrProgID)
@@ -1908,7 +1908,7 @@ HRESULT CDocReader::
 }
 
 ////////////////////////////////////////////////////////////////////////
-// get_OleDocumentFormat - Returns ClipFormat of OLE DocFile 
+// get_OleDocumentFormat - Returns ClipFormat of OLE DocFile
 //
 HRESULT CDocReader::
 	CDocumentProperties::get_OleDocumentFormat(BSTR* pbstrFormat)
@@ -1997,7 +1997,7 @@ CDocReader::CDocumentProperties::
 //
 ////////////////////////////////////////////////////////////////////////
 // FMTID_SummaryInformation Properties...
-//  
+//
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Title(BSTR* pbstrTitle)
 {
@@ -2194,7 +2194,7 @@ HRESULT CDocReader::CDocumentProperties::
 
 ////////////////////////////////////////////////////////////////////////
 // FMTID_DocSummaryInformation Properties...
-//  
+//
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Category(BSTR* pbstrCategory)
 {
@@ -2353,12 +2353,12 @@ HRESULT CDocReader::CDocumentProperties::
 
 ////////////////////////////////////////////////////////////////////////
 // Internal Functions
-//  
+//
 ////////////////////////////////////////////////////////////////////////
 // LoadProperties -- Reads in both property sets and provides link list
 //   of the properties for each (we keep separatelists because each may
 //   have overlapping PROPIDs and different CodePages).
-//  
+//
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::LoadProperties(IPropertySetStorage* pPropSS, BOOL fIsReadOnly, dsoFileOpenOptions dwFlags)
 {
@@ -2385,7 +2385,7 @@ HRESULT CDocReader::CDocumentProperties::
      // In cases where the propset is not in the file and it is read-only open
      // or a case where DontAutoCreate flag is used, we just treat as read-only
      // with no properties. Otherwise we return error that propset is invalid...
-        if (hr == STG_E_FILENOTFOUND) 
+        if (hr == STG_E_FILENOTFOUND)
         { // We allow partial open if NoAutoCreate is set.
             if ((fIsReadOnly) || (dwFlags & dsoOptionDontAutoCreate))
             {
@@ -2412,7 +2412,7 @@ HRESULT CDocReader::CDocumentProperties::
      // In cases where the propset is not in the file and it is read-only open
      // or a case where DontAutoCreate flag is used, we just treat as read-only
      // with no properties. Otherwise we return error that propset is invalid...
-        if (hr == STG_E_FILENOTFOUND) 
+        if (hr == STG_E_FILENOTFOUND)
         { // We allow partial open if NoAutoCreate is set.
             if ((fIsReadOnly) || (dwFlags & dsoOptionDontAutoCreate))
             {
@@ -2422,7 +2422,7 @@ HRESULT CDocReader::CDocumentProperties::
             else hr = E_INVALIDPROPSET;
         }
     }
-    
+
  // If all wen well, store the parameters passed for later use...
     if (SUCCEEDED(hr))
     {
@@ -2436,7 +2436,7 @@ HRESULT CDocReader::CDocumentProperties::
 
 ////////////////////////////////////////////////////////////////////////
 // ReadProperty -- Reads property of standard type and copies to pv...
-//  
+//
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::ReadProperty(CDocProperty* pPropList, PROPID pid, VARTYPE vt, void** ppv)
 {
@@ -2457,7 +2457,7 @@ HRESULT CDocReader::CDocumentProperties::
         if ( SUCCEEDED(hr) )
         {
          // If data returned is not in the expected type, try to convert it...
-            if ( ( vtTmp.vt != vt ) && 
+            if ( ( vtTmp.vt != vt ) &&
                 ( FAILED(VariantChangeType( &vtTmp, &vtTmp, 0, vt )) ) )
                 return S_FALSE; // E_UNEXPECTED; FIX - 2/18/2000 (return S_FALSE same as missing).
 
@@ -2478,13 +2478,13 @@ HRESULT CDocReader::CDocumentProperties::
 
 ////////////////////////////////////////////////////////////////////////
 // WriteProperty -- Writes property of standard type (can append the list)...
-//  
+//
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::WriteProperty(CDocProperty** ppPropList, PROPID pid, VARTYPE vt, void* pv)
 {
 	HRESULT hr = S_FALSE;
     CDocProperty* pitem;
-	VARIANT vtItem; 
+	VARIANT vtItem;
 
  // Going to add property to list. Make sure we allow writes, and make sure prop list exists...
 	TRACE1("CSummaryProperties::WriteProperty(id=%d)\n", pid);
@@ -2511,8 +2511,8 @@ HRESULT CDocReader::CDocumentProperties::
     {
         hr = pitem->put_Value(&vtItem);
 
-     // Special case where we are adding new property to list that had 
-     // no properties to start with (NTFS5 files mostly, since normal 
+     // Special case where we are adding new property to list that had
+     // no properties to start with (NTFS5 files mostly, since normal
      // Office/OLE files will have at least one summ/docsumm prop...
         if ( ( *ppPropList == NULL ) && SUCCEEDED(hr) )
             *ppPropList = pitem;
@@ -2528,7 +2528,7 @@ HRESULT CDocReader::CDocumentProperties::
 
 ////////////////////////////////////////////////////////////////////////
 // SaveProperties -- Save all changes.
-//  
+//
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::SaveProperties(BOOL fCommitChanges)
 {
@@ -2548,7 +2548,7 @@ HRESULT CDocReader::CDocumentProperties::
         {
          // Save all the changed items in the list...
             hr = SavePropertySetList(pProps, m_wCodePageSI, m_pSummPropList, &cSaved);
-            
+
          // Commit the changes to the file...
             if ( SUCCEEDED(hr) && (cSaved) && (fCommitChanges) )
                 hr = pProps->Commit( STGC_DEFAULT );
@@ -2566,7 +2566,7 @@ HRESULT CDocReader::CDocumentProperties::
         {
          // Save all the changed items in the list...
             hr = SavePropertySetList(pProps, m_wCodePageDSI, m_pDocPropList, &cSaved);
-            
+
          // Commit the changes to the file...
             if ( SUCCEEDED(hr) && (cSaved) && (fCommitChanges) )
                 hr = pProps->Commit(STGC_DEFAULT);
@@ -2580,9 +2580,9 @@ HRESULT CDocReader::CDocumentProperties::
 }
 
 ////////////////////////////////////////////////////////////////////////
-// GetPropertyFromList -- Enumerates a list and finds item with the 
+// GetPropertyFromList -- Enumerates a list and finds item with the
 //    matching id. It can also add a new item (if flag set).
-//  
+//
 CDocProperty* CDocReader::CDocumentProperties::
 	CSummaryProperties::GetPropertyFromList(CDocProperty* plist, PROPID id, BOOL fAppendNew)
 {
@@ -2621,13 +2621,13 @@ CDocProperty* CDocReader::CDocumentProperties::
 
 ////////////////////////////////////////////////////////////////////////
 // FIsDirty -- Checks both lists to see if changes were made.
-//  
+//
 BOOL CDocReader::CDocumentProperties::
 	CSummaryProperties::FIsDirty()
 {
     BOOL fDirty = FALSE;
     CDocProperty* pitem;
-    
+
 	ODS(_T("CSummaryProperties::FIsDirty\n"));
 
  // Loop through summary items and see if any have changed...
@@ -2654,7 +2654,7 @@ BOOL CDocReader::CDocumentProperties::
 
 ////////////////////////////////////////////////////////////////////////
 // Disconnect -- Parent is closing, so disconnect object.
-//  
+//
 void CDocReader::CDocumentProperties::
 	CSummaryProperties::Disconnect()
 {

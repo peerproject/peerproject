@@ -403,7 +403,7 @@ CG2Packet* CQuerySearch::ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey)
 		if ( m_nMinSize == m_nMaxSize )
 		{
 			// Security patch for Anti-p2p/spammer protection faking QueryHit
-			// for query both hash & filesize specified gives 1MB size frame in query  gives 1MB size frame in query 
+			// for query both hash & filesize specified gives 1MB size frame in query  gives 1MB size frame in query
 			// so anti-p2p/spammer hosts based on replying /QH2 packet generated on the info stored in Query packet,
 			// can not determine actual size of file which searcher is really looking for.
 

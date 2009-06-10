@@ -84,10 +84,10 @@ BOOL CIRCPanel::Create(CWnd* pParentWnd)
 	return CTaskPanel::Create( _T("CIRCPanel"), WS_VISIBLE, rect, pParentWnd, 0 );
 }
 
-int CIRCPanel::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CIRCPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CTaskPanel::OnCreate( lpCreateStruct ) == -1 ) return -1;
-	
+
 	m_boxChans.Create( this, 200, _T("Channels"), IDR_CHANSFRAME );
 	m_boxUsers.Create( this, 200, _T("Users"), IDR_USERSFRAME );
 
@@ -101,7 +101,7 @@ int CIRCPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	SetStretchBox( &m_boxUsers );
 
 	OnSkinChange();
-	
+
 	return 0;
 }
 
@@ -142,7 +142,7 @@ CIRCUsersBox::~CIRCUsersBox()
 /////////////////////////////////////////////////////////////////////////////
 // CIRCUsersBox message handlers
 
-int CIRCUsersBox::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CIRCUsersBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
@@ -171,7 +171,7 @@ void CIRCUsersBox::UpdateCaptionCount()
 	SetCaption( strCaption + strCount );
 }
 
-void CIRCUsersBox::OnSize(UINT nType, int cx, int cy) 
+void CIRCUsersBox::OnSize(UINT nType, int cx, int cy)
 {
 	CTaskBox::OnSize( nType, cx, cy );
 
@@ -179,14 +179,14 @@ void CIRCUsersBox::OnSize(UINT nType, int cx, int cy)
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 }
 
-void CIRCUsersBox::OnPaint() 
+void CIRCUsersBox::OnPaint()
 {
 	CTaskBox::OnPaint();
 }
 
-void CIRCUsersBox::OnUsersDoubleClick() 
+void CIRCUsersBox::OnUsersDoubleClick()
 {
-	CPoint pt; 
+	CPoint pt;
 	GetCursorPos( &pt );
 	int nItem = HitTest( pt );
 	if ( nItem >= 0 )
@@ -200,7 +200,7 @@ void CIRCUsersBox::OnUsersDoubleClick()
 	}
 }
 
-void CIRCUsersBox::OnContextMenu(CWnd* /* pWnd */, CPoint point) 
+void CIRCUsersBox::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {
 	int nItem = HitTest( point );
 	if ( nItem >= 0 )
@@ -243,7 +243,7 @@ CIRCChannelsBox::~CIRCChannelsBox()
 /////////////////////////////////////////////////////////////////////////////
 // CIRCUsersBox message handlers
 
-int CIRCChannelsBox::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CIRCChannelsBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
@@ -268,7 +268,7 @@ int CIRCChannelsBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	OnSkinChange();
 
 	SetPrimary( TRUE );
-	
+
 	return 0;
 }
 
@@ -285,7 +285,7 @@ void CIRCChannelsBox::OnSkinChange()
 	m_wndRemoveChannel.SetCoolIcon( ID_IRC_REMOVE, Settings.General.LanguageRTL );
 }
 
-void CIRCChannelsBox::OnSize(UINT nType, int cx, int cy) 
+void CIRCChannelsBox::OnSize(UINT nType, int cx, int cy)
 {
 	CTaskBox::OnSize( nType, cx, cy );
 
@@ -297,7 +297,7 @@ void CIRCChannelsBox::OnSize(UINT nType, int cx, int cy)
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 	DeferWindowPos( hDWP, m_wndRemoveChannel, NULL, cx - 76 - 10, cy - 24 - 10, 76, 24,
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-	
+
 	EndDeferWindowPos( hDWP );
 
 	int nScrollbarWidth = 17;
@@ -307,12 +307,12 @@ void CIRCChannelsBox::OnSize(UINT nType, int cx, int cy)
 	m_wndChanList.SetColumnWidth( 1, nUserCountWidth );
 }
 
-void CIRCChannelsBox::OnPaint() 
+void CIRCChannelsBox::OnPaint()
 {
 	CTaskBox::OnPaint();
 }
 
-void CIRCChannelsBox::OnChansDoubleClick(NMHDR* /* pNMHDR */, LRESULT* pResult) 
+void CIRCChannelsBox::OnChansDoubleClick(NMHDR* /* pNMHDR */, LRESULT* pResult)
 {
 	IRC_PANELEVENT pNotify;
 	pNotify.hdr.hwndFrom	= GetSafeHwnd();
@@ -328,7 +328,7 @@ void CIRCChannelsBox::OnAddChannel()
 	CIrcInputDlg dlg( this, 0, FALSE );	// 0 = select the first caption
 
 	if ( dlg.DoModal() != IDOK ) return;
-	
+
 	CString strChannel = dlg.m_sAnswer;
 	if ( ! strChannel.IsEmpty() )
 	{

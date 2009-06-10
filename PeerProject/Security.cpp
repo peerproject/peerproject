@@ -416,7 +416,7 @@ BOOL CSecurity::IsDenied(const CPeerProjectFile* pFile)
 	return m_bDenyPolicy;
 }
 
-BOOL CSecurity::IsDenied(CQuerySearch::const_iterator itStart, CQuerySearch::const_iterator itEnd, 
+BOOL CSecurity::IsDenied(CQuerySearch::const_iterator itStart, CQuerySearch::const_iterator itEnd,
 						 LPCTSTR pszContent)
 {
 	CQuickLock oLock( m_pSection );
@@ -709,7 +709,7 @@ BOOL CSecurity::IsClientBad(const CString& sUserAgent)
 	if ( sUserAgent.IsEmpty()  )								return TRUE;
 
 	// Bad/unapproved/obsolete versions of Shareaza
-	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("shareaza") ) )	
+	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("shareaza") ) )
 	{
 		szVersion += 8;
 		if ( _tcsistr( sUserAgent, _T(" 0.") ) )				return TRUE;
@@ -726,7 +726,7 @@ BOOL CSecurity::IsClientBad(const CString& sUserAgent)
 	}
 
 	// PeerProject Fakes
-	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("PeerProject") ) )	
+	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("PeerProject") ) )
 	{
 		szVersion += 11;
 		if ( _tcsistr( sUserAgent, _T(" 0.") ) )				return TRUE;
@@ -747,7 +747,7 @@ BOOL CSecurity::IsClientBad(const CString& sUserAgent)
 		if ( _tcsistr( szVersion, _T(" 0.") ) )					return TRUE;
 		return FALSE;
 	}
-	
+
 
 	//BearShare Selectivity
 	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("BearShare") ) )
@@ -762,27 +762,27 @@ BOOL CSecurity::IsClientBad(const CString& sUserAgent)
 
 		return FALSE;
 	}
-	
+
 	//Any iMesh
 	if ( _tcsistr( sUserAgent, _T("iMesh") ) )					return TRUE;
-	
+
 	//Trilix
 	if ( _tcsistr( sUserAgent, _T("Trilix") ) )					return TRUE;
-	
+
 	//Gnutella Turbo (?)
 	if ( _tcsistr( sUserAgent, _T("Gnutella Turbo") ) )			return TRUE;
-	
+
 	//Mastermax File Sharing
 	if ( _tcsistr( sUserAgent, _T("Mastermax File Sharing") ) )	return TRUE;
 
 	//Fildelarprogram
 	if ( _tcsistr( sUserAgent, _T("Fildelarprogram") ) )		return TRUE;
-	
+
 	//Fastload.TV
 	if ( _tcsistr( sUserAgent, _T("Fastload.TV") ) )			return TRUE;
-	
+
 	// Other GPL Violaters, Etc.
-	
+
 	if ( _tcsistr( sUserAgent, _T("K-Lite") ) )					return TRUE;
 
 	if ( _tcsistr( sUserAgent, _T("SlingerX") ) )				return TRUE;
@@ -794,7 +794,7 @@ BOOL CSecurity::IsClientBad(const CString& sUserAgent)
 	if ( _tcsistr( sUserAgent, _T("mxie") ) )					return TRUE;
 
 	if ( _tcsistr( sUserAgent, _T("WinMX") ) )					return TRUE;
-	
+
 	if ( _tcsistr( sUserAgent, _T("eTomi") ) )					return TRUE;
 
 	// Unknown- Assume OK
@@ -975,7 +975,7 @@ BOOL CSecureRule::Match(const CPeerProjectFile* pFile) const
 	return FALSE;
 }
 
-BOOL CSecureRule::Match(CQuerySearch::const_iterator itStart, 
+BOOL CSecureRule::Match(CQuerySearch::const_iterator itStart,
 						CQuerySearch::const_iterator itEnd, LPCTSTR pszContent) const
 {
 	if ( m_nType == srContentRegExp && pszContent && m_pContent )
@@ -1006,7 +1006,7 @@ BOOL CSecureRule::Match(CQuerySearch::const_iterator itStart,
 						// Add all keywords at the "<_>" position
 						for ( ; itStart != itEnd ; itStart++ )
 						{
-							strFilter.AppendFormat( L"%s\\s*", 
+							strFilter.AppendFormat( L"%s\\s*",
 								CString( itStart->first, int(itStart->second) ) );
 						}
 					}
@@ -1023,7 +1023,7 @@ BOOL CSecureRule::Match(CQuerySearch::const_iterator itStart,
 						{
 							if ( nWord == nNumber )
 							{
-								strFilter.AppendFormat( L"%s\\s*", 
+								strFilter.AppendFormat( L"%s\\s*",
 									CString( itStart->first, int(itStart->second) ) );
 								break;
 							}
