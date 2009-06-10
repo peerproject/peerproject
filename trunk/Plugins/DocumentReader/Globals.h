@@ -88,7 +88,7 @@ STDAPI SavePropertySetList(IPropertyStorage *pPropStg, WORD wCodePage, class CDo
 
 ////////////////////////////////////////////////////////////////////
 // CDocProperty - Basic object for single property.
-// 
+//
 
 typedef enum dsoFilePropertyType
 {

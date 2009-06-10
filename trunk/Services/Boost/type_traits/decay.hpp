@@ -18,7 +18,7 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 
-namespace boost 
+namespace boost
 {
 
     template< class T >
@@ -27,17 +27,17 @@ namespace boost
     private:
         typedef BOOST_DEDUCED_TYPENAME remove_reference<T>::type Ty;
     public:
-        typedef BOOST_DEDUCED_TYPENAME mpl::eval_if< 
+        typedef BOOST_DEDUCED_TYPENAME mpl::eval_if<
             is_array<Ty>,
             mpl::identity<BOOST_DEDUCED_TYPENAME remove_bounds<Ty>::type*>,
-            BOOST_DEDUCED_TYPENAME mpl::eval_if< 
+            BOOST_DEDUCED_TYPENAME mpl::eval_if<
                 is_function<Ty>,
                 add_pointer<Ty>,
                 mpl::identity<Ty>
             >
         >::type type;
     };
-    
+
 } // namespace boost
 
 

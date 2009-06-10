@@ -108,7 +108,7 @@ CFilePreviewDlg::CFilePreviewDlg(CDownloadWithExtras* pDownload, DWORD nIndex, C
 		{
 			if ( pFragment->begin() + pFragment->size() >= nOffset &&
 				 nOffset + nLength >= pFragment->begin() )
-			{				
+			{
 				QWORD nPartOffset =
 					max( pFragment->begin(), nOffset );
 				QWORD nPartLength =

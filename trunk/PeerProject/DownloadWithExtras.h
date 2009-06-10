@@ -60,7 +60,7 @@ class CDownloadWithExtras : public CDownloadWithSearch
 protected:
 	CDownloadWithExtras();
 	virtual ~CDownloadWithExtras();
-	
+
 // Attributes
 private:
 	CList< CString >		m_pPreviews;

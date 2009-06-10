@@ -140,7 +140,7 @@ public:
 	{
 		if ( m_oGUID.isValid() && pSource->m_oGUID.isValid() )
 			return m_oGUID == pSource->m_oGUID;
-		
+
 		if ( m_nServerPort != pSource->m_nServerPort )
 		{
 			return FALSE;

@@ -46,7 +46,7 @@
 #define GGEP_META_VIDEO		0x08 // Video
 #define GGEP_META_DOCUMENTS	0x10 // Documents
 #define GGEP_META_IMAGES	0x20 // Images
-#define GGEP_META_WINDOWS	0x40 // Windows Programs/Packages 
+#define GGEP_META_WINDOWS	0x40 // Windows Programs/Packages
 #define GGEP_META_UNIX		0x80 // Linux/Unix/Mac Programs/Packages
 
 // Known GGEP Extension Blocks table:

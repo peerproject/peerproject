@@ -209,7 +209,7 @@ BOOL CConnection::ConnectTo(IN_ADDR* pAddress, WORD nPort)
 			ret = closesocket( m_hSocket );
 			m_hSocket = INVALID_SOCKET;
 
-			if ( nError != 0 ) 
+			if ( nError != 0 )
 				Statistics.Current.Connections.Errors++;
 
 			return FALSE;
@@ -523,7 +523,7 @@ void CConnection::Measure()
 {
 	// Time period for bytes
 	DWORD tCutoff = GetTickCount() - METER_PERIOD;
-	
+
 	// Calculate Input and Output seperately
 	m_mInput.nMeasure  = m_mInput.CalculateUsage( tCutoff )  / ( METER_PERIOD / METER_SECOND );
 	m_mOutput.nMeasure = m_mOutput.CalculateUsage( tCutoff ) / ( METER_PERIOD / METER_SECOND );
@@ -534,7 +534,7 @@ void CConnection::MeasureIn()
 {
 	// Time period for bytes
 	DWORD tCutoff = GetTickCount() - METER_PERIOD;
-	
+
 	// Calculate input speed
 	m_mInput.nMeasure  = m_mInput.CalculateUsage( tCutoff )  / ( METER_PERIOD / METER_SECOND );
 }
@@ -544,7 +544,7 @@ void CConnection::MeasureOut()
 {
 	// Time period for bytes
 	DWORD tCutoff = GetTickCount() - METER_PERIOD;
-	
+
 	// Calculate output speed
 	m_mOutput.nMeasure = m_mOutput.CalculateUsage( tCutoff ) / ( METER_PERIOD / METER_SECOND );
 }
@@ -559,7 +559,7 @@ BOOL CConnection::ReadHeaders()
 	CString strLine;
 	while ( Read( strLine ) ) // ReadLine will return false when there are no more lines
 	{
-		// If the line is more than 256 KB, change it to the line too long error code 
+		// If the line is more than 256 KB, change it to the line too long error code
 		if ( strLine.GetLength() > 256 * 1024 ) strLine = _T("#LINE_TOO_LONG#");
 
 		// Find the first colon in the line
@@ -632,7 +632,7 @@ BOOL CConnection::OnHeaderLine(CString& strHeader, CString& strValue)
 	{
 		// Add this address to our record of them
 		Network.AcquireLocalAddress( strValue );
-	
+
 	} // It's the x my address, listen IP, or node header, like "X-My-Address: 10.254.0.16:6349"
 	else if (  strHeader.CompareNoCase( _T("X-My-Address") ) == 0
 			|| strHeader.CompareNoCase( _T("Listen-IP") ) == 0
@@ -809,7 +809,7 @@ DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime ) const
 	// Loop across the times and histories stored
 	DWORD nData = 0;	// #bytes in the time period
 	DWORD slot = 0;		// Start at the first slot
-	
+
 	// Find the first reading in the time limit
 	while ( slot <= nPosition && pTimes[ slot ] <= tTime ) slot++;
 
@@ -825,7 +825,7 @@ DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime ) const
 		// Add history up to the end of the meter
 		while ( slot < METER_LENGTH ) nData += pHistory[ slot++ ];
 	}
-	
+
 	// return the #bytes in time period
 	return nData;
 }

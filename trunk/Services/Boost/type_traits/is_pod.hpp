@@ -30,7 +30,7 @@ namespace detail {
 #ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
 template <typename T> struct is_pod_impl
-{ 
+{
     BOOST_STATIC_CONSTANT(
         bool, value =
         (::boost::type_traits::ice_or<
@@ -102,7 +102,7 @@ struct is_pod_helper<true>
 
 
 template <typename T> struct is_pod_impl
-{ 
+{
    BOOST_STATIC_CONSTANT(
        bool, value = (
            ::boost::detail::is_pod_helper<

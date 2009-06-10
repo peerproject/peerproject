@@ -1,12 +1,12 @@
-// 
+//
 // Extract.c
-// 
+//
 // This file is part of PeerProject (peerproject.org) © 2008
-// 
-// Portions of this page have been previously released into the public domain.  
+//
+// Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
 // with the exception of the following notice:
-// 
+//
 // The Zlib library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
 // The Unzip library is Copyright (C) 1998-2003 Gilles Vollant.
 
@@ -21,7 +21,7 @@ void ExtractSkinFile(LPCTSTR szFile) {
 	tmp = szRealFile;
 	while ( tmp && *tmp )
 	{
-		if ( *tmp=='\"' ) 
+		if ( *tmp=='\"' )
 		{
 			*tmp = '\0';
 			break;
@@ -38,7 +38,7 @@ int GetInstallDirectory() {
 	HKEY hKey;
     DWORD dwBufLen;
     LONG lRet;
-    
+
     // Get the PeerProject install directory from the registry
     // Check for "Path hack" first @ http://shareazawiki.anenga.com/tiki-index.php?page=FAQ%3AMiscellaneous
     lRet = RegOpenKeyEx( HKEY_CURRENT_USER,
@@ -46,7 +46,7 @@ int GetInstallDirectory() {
            0, KEY_QUERY_VALUE, &hKey );
     if( lRet != ERROR_SUCCESS )
         return 0;
-     
+
     dwBufLen=MAX_PATH;
     lRet = RegQueryValueEx( hKey, L"Path", NULL, NULL,
            (LPBYTE) prefix, &dwBufLen);
@@ -58,7 +58,7 @@ int GetInstallDirectory() {
     return 1;
 }
 
-int GetSkinFileCount(LPTSTR pszFile) 
+int GetSkinFileCount(LPTSTR pszFile)
 {
 	unz_global_info gi;
 	int err;
@@ -84,7 +84,7 @@ int GetSkinFileCount(LPTSTR pszFile)
 			ufile = unzOpen( tmp );
 		}
 	}
-	
+
 	free(tmp);
 	if ( !ufile ) return 0;
 	err = unzGetGlobalInfo(ufile, &gi);
@@ -119,7 +119,7 @@ int ValidateSkin(LPTSTR pszFile, HWND hwndDlg) {
 			ufile = unzOpen( tmpName );
 		}
 	}
-	
+
 	free(tmpName);
 	if ( !ufile ) return 0;
 
@@ -208,7 +208,7 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg) {
 
 	for ( ; *pszScanName ; pszScanName++, pszDest++ ) *pszDest = (char)*pszScanName;
 	*pszDest = '\0';
-		
+
 	ufile = unzOpen( tmp );
 
 	if ( !ufile )
@@ -222,27 +222,27 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg) {
 			ufile = unzOpen( tmp );
 		}
 	}
-	
+
 	free(tmp);
 
 	err = unzGetGlobalInfo(ufile, &gi);
 	if (err!=UNZ_OK) return 0;
-    
+
     if (skinType == 1) {
     	wcscat(prefix, L"Languages\\");
 	}
     else {
         wcscat(prefix, szPath);
-        //Create Directory for the new skin  
+        //Create Directory for the new skin
         if (!MakeDirectory((LPCTSTR)prefix)) {
     		unzClose(ufile);
 			return 0;
 		}
 	}
-    
+
 	for (i=0;i<gi.number_entry;i++) {
 		err = unzGetCurrentFileInfo(ufile, &fi, fn_zip, sizeof(fn_zip), NULL, 0, NULL, 0);
-		
+
 		zippedName = p = filename_withoutpath = (TCHAR*)GetUnicodeString(fn_zip);
         while ((*p) != '\0')
         {
@@ -267,19 +267,19 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg) {
             if (skinType == 1) {
             	wcscpy(fn_fs, (LPCTSTR)prefix);
                 wcscat(fn_fs, filename_withoutpath);
-            }           
+            }
             else {
             	wcscpy(fn_fs, (LPCTSTR)prefix);
                 wcscat(fn_fs, L"\\");
                 wcscat(fn_fs, filename_withoutpath);
             }
-            
+
     		err = unzOpenCurrentFile(ufile);
 			if (err!=UNZ_OK) {
 				free(zippedName);
 				return 0;
 			}
-			hFile = CreateFile( fn_fs, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, 
+			hFile = CreateFile( fn_fs, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
 				FILE_ATTRIBUTE_NORMAL | FILE_ATTRIBUTE_ARCHIVE, NULL );
 
 			if (!hFile) {

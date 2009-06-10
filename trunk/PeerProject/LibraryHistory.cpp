@@ -186,7 +186,7 @@ void CLibraryHistory::Prune()
 		CLibraryRecent* pRecent = m_pList.GetPrev( pos );
 
 		DWORD nDays = (DWORD)( ( MAKEQWORD( tNow.dwLowDateTime, tNow.dwHighDateTime ) -
-			 MAKEQWORD( pRecent->m_tAdded.dwLowDateTime, pRecent->m_tAdded.dwHighDateTime ) ) / 
+			 MAKEQWORD( pRecent->m_tAdded.dwLowDateTime, pRecent->m_tAdded.dwHighDateTime ) ) /
 			 ( 10000000ull * 60 * 60 * 24 ) );
 		if ( nDays > Settings.Library.HistoryDays )
 		{
@@ -321,7 +321,7 @@ CLibraryRecent::CLibraryRecent(
 	m_oMD5		( oMD5 )
 {
 	m_sPath		= pszPath;
-	GetSystemTimeAsFileTime( &m_tAdded );	
+	GetSystemTimeAsFileTime( &m_tAdded );
 }
 
 //////////////////////////////////////////////////////////////////////

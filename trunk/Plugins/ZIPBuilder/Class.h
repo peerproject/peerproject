@@ -24,7 +24,7 @@
 #include "resource.h"
 #include "ZIPBuilder.h"
 
-class ATL_NO_VTABLE CZIPBuilder : 
+class ATL_NO_VTABLE CZIPBuilder :
 	public CComObjectRootEx< CComMultiThreadModel >,
 	public CComCoClass< CZIPBuilder, &CLSID_ZIPBuilder >,
 	public ILibraryBuilderPlugin

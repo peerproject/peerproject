@@ -295,7 +295,7 @@ BOOL CDiscoveryServices::CheckWebCacheValid(LPCTSTR pszAddress)
 				return FALSE;
 		}
 	}
-	
+
 	// Check it has a valid protocol
 	if ( _tcsnicmp( pszAddress, _T("http://"),  7 ) == 0 )
 		pszAddress += 7;
@@ -1395,7 +1395,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 		return FALSE;
 
 	int nHosts = 0, nCaches = 0;
-	
+
 	// Split answer to lines
 	while ( strOutput.GetLength() )
 	{
@@ -1436,7 +1436,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 					DWORD tSeen	= static_cast< DWORD >( time( NULL ) ) - nSeconds;
 
 					// Skip cluster field
-					
+
 					// Get current leaves field
 					DWORD nCurrentLeaves = 0;
 					if ( oParts.GetCount() >= 5 && ! oParts[ 4 ].IsEmpty() )
@@ -1489,7 +1489,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 							return FALSE;
 					}
 
-					if ( ( m_nLastQueryProtocol == PROTOCOL_G2 ) ? 
+					if ( ( m_nLastQueryProtocol == PROTOCOL_G2 ) ?
 						HostCache.Gnutella2.Add( (IN_ADDR*)&nAddress, (WORD)nPort,
 							tSeen, ( pVendor ? (LPCTSTR)pVendor->m_sCode : NULL ),
 							tUptime, nCurrentLeaves, nLeafLimit ) :

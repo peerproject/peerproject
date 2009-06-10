@@ -65,7 +65,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpRes
 		break;
 	}
 
-    return _AtlModule.DllMain( dwReason, lpReserved ); 
+    return _AtlModule.DllMain( dwReason, lpReserved );
 }
 
 // Used to determine whether the DLL can be unloaded by OLE

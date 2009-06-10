@@ -247,7 +247,7 @@ BOOL CBrowseFrameCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 				rcClient.right,
 				rcClient.bottom - m_nPanelSize );
 
-	if ( m_wndTree.IsWindowVisible() ) 
+	if ( m_wndTree.IsWindowVisible() )
 	{
 		if ( Settings.General.LanguageRTL )
 			rc.right -= m_nTreeSize + SPLIT_SIZE;

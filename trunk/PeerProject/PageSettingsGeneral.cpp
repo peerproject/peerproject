@@ -97,10 +97,10 @@ void CGeneralSettingsPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CGeneralSettingsPage message handlers
 
-BOOL CGeneralSettingsPage::OnInitDialog() 
+BOOL CGeneralSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
-	
+
 	m_bStartup				= Settings.CheckStartup();
 	m_bAutoConnect			= Settings.Connection.AutoConnect;
 	m_nCloseMode			= Settings.General.CloseMode;
@@ -112,26 +112,26 @@ BOOL CGeneralSettingsPage::OnInitDialog()
 	m_bPromptURLs			= ! Settings.General.AlwaysOpenURLs;
 	m_bHideSearch			= Settings.Search.HideSearchPanel;
 	m_bAdultFilter			= Settings.Search.AdultFilter;
-	
+
 	m_bRatesInBytes			= Settings.General.RatesInBytes
 							+ Settings.General.RatesUnit * 2;
-	
+
 	CRect rc;
 	CString strTitle( _T("Search Results") );
 
 	m_wndTips.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL ) + 1;
-	
+
 	m_wndTips.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, rc.right, 0 );
 	m_wndTips.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_LABELTIP, 
+		LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_LABELTIP,
 		LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_LABELTIP );
-	
+
 	if ( CSchema* pSchema = SchemaCache.Get( CSchema::uriSearchFolder ) )
 	{
 		strTitle = pSchema->m_sTitle;
 		int nColon = strTitle.Find( ':' );
-		if ( nColon >= 0 ) 
+		if ( nColon >= 0 )
 			strTitle = strTitle.Mid( nColon + 1 ).Trim();
 	}
 
@@ -146,15 +146,15 @@ BOOL CGeneralSettingsPage::OnInitDialog()
 	Add( strTitle, Settings.Interface.TipNeighbours );
 	LoadString( strTitle, IDR_MEDIAFRAME );
 	Add( strTitle, Settings.Interface.TipMedia );
-	
+
 	Settings.SetRange( &Settings.Interface.TipDelay, m_wndTipSpin );
 	m_nTipDelay	= Settings.Interface.TipDelay;
-	
+
 	Settings.SetRange( &Settings.Interface.TipAlpha, m_wndTipAlpha );
 	m_wndTipAlpha.SetPos( Settings.Interface.TipAlpha );
-	
+
 	UpdateData( FALSE );
-	
+
 	return TRUE;
 }
 
@@ -162,22 +162,22 @@ void CGeneralSettingsPage::Add(LPCTSTR pszName, BOOL bState)
 {
 	int nItem = m_wndTips.InsertItem( LVIF_TEXT, m_wndTips.GetItemCount(),
 		pszName, 0, 0, 0, 0 );
-	
+
 	if ( bState )
 		m_wndTips.SetItemState( nItem, 2 << 12, LVIS_STATEIMAGEMASK );
 }
 
-void CGeneralSettingsPage::OnOK() 
+void CGeneralSettingsPage::OnOK()
 {
 	UpdateData();
 
-	if ( ( Settings.Search.AdultFilter == FALSE ) && ( m_bAdultFilter == TRUE ) 
+	if ( ( Settings.Search.AdultFilter == FALSE ) && ( m_bAdultFilter == TRUE )
 		&& ( Settings.Live.AdultWarning == FALSE ) )
 	{
 		Settings.Live.AdultWarning = TRUE;
 		CHelpDlg::Show( _T("GeneralHelp.AdultFilter") );
 	}
-	
+
 	Settings.SetStartup( m_bStartup );
 	Settings.Connection.AutoConnect		= m_bAutoConnect != FALSE;
 	Settings.General.CloseMode			= m_nCloseMode;
@@ -189,20 +189,20 @@ void CGeneralSettingsPage::OnOK()
 	Settings.General.AlwaysOpenURLs		= ! m_bPromptURLs;
 	Settings.Search.HideSearchPanel		= m_bHideSearch != FALSE;
 	Settings.Search.AdultFilter			= m_bAdultFilter != FALSE;
-	
+
 	Settings.General.RatesInBytes		= m_bRatesInBytes % 2 == 1;
 	Settings.General.RatesUnit			= m_bRatesInBytes / 2;
-	
+
 	Settings.Interface.TipSearch		= m_wndTips.GetItemState( 0, LVIS_STATEIMAGEMASK ) == ( 2 << 12 );
 	Settings.Interface.TipLibrary		= m_wndTips.GetItemState( 1, LVIS_STATEIMAGEMASK ) == ( 2 << 12 );
 	Settings.Interface.TipDownloads		= m_wndTips.GetItemState( 2, LVIS_STATEIMAGEMASK ) == ( 2 << 12 );
 	Settings.Interface.TipUploads		= m_wndTips.GetItemState( 3, LVIS_STATEIMAGEMASK ) == ( 2 << 12 );
 	Settings.Interface.TipNeighbours	= m_wndTips.GetItemState( 4, LVIS_STATEIMAGEMASK ) == ( 2 << 12 );
 	Settings.Interface.TipMedia			= m_wndTips.GetItemState( 5, LVIS_STATEIMAGEMASK ) == ( 2 << 12 );
-	
+
 	Settings.Interface.TipDelay	= m_nTipDelay;
 	Settings.Interface.TipAlpha	= m_wndTipAlpha.GetPos();
-	
+
 	CSettingsPage::OnOK();
 }
 

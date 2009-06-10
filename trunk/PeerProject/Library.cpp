@@ -240,7 +240,7 @@ bool CLibrary::OnQueryHits(const CQueryHit* pHits)
 			}
 		}
 	}
-	
+
 	return true;
 }
 

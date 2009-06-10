@@ -55,13 +55,13 @@ CRichSettingsPage::CRichSettingsPage(LPCTSTR pszName) : CSettingsPage(CRichSetti
 		m_sName = GetRuntimeClass()->m_lpszClassName;
 	else
 		m_sName = pszName;
-	
+
 	m_pDocument = NULL;
-	
+
 	if ( CXMLElement* pXML = Skin.GetDocument( m_sName ) )
 	{
 		m_sCaption = pXML->GetAttributeValue( _T("title"), m_sName );
-		
+
 		m_pDocument = new CRichDocument();
 		m_pDocument->CreateFonts( Settings.Fonts.DefaultFont, Settings.Fonts.DefaultSize );
 		m_pDocument->m_crBackground = Skin.m_crDialog;
@@ -84,10 +84,10 @@ void CRichSettingsPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CRichSettingsPage message handlers
 
-BOOL CRichSettingsPage::OnInitDialog() 
+BOOL CRichSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
-	
+
 	SetWindowText( m_sCaption );
 	Skin.Apply( m_sName, this );
 
@@ -97,7 +97,7 @@ BOOL CRichSettingsPage::OnInitDialog()
 	GetClientRect( &rc );
 	m_wndView.Create( WS_VISIBLE, rc, this, IDC_RICH_VIEW );
 	m_wndView.SetDocument( m_pDocument );
-	
+
 	return TRUE;
 }
 

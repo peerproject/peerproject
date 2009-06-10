@@ -145,7 +145,7 @@ void CPluginsSettingsPage::OnItemChangedPlugins(NMHDR* pNMHDR, LRESULT* pResult)
 	nItem = pNMListView->iItem;
 
 	if ( ( ( pNMListView->uOldState >> 12 ) & LVIS_SELECTED ) == 0 &&
-		 ( ( pNMListView->uNewState >> 12 ) & LVIS_SELECTED ) != 0 ) 
+		 ( ( pNMListView->uNewState >> 12 ) & LVIS_SELECTED ) != 0 )
 	{
 		CString strExt = m_wndList.GetItemText( nItem, 2 );
 		strExt.Replace( _T("-"), _T("") );
@@ -155,7 +155,7 @@ void CPluginsSettingsPage::OnItemChangedPlugins(NMHDR* pNMHDR, LRESULT* pResult)
 			( ( pNMListView->uNewState >> 12 ) & LVIS_SELECTED ) == 0 )
 	{
 		CString strExt = m_wndList.GetItemText( nItem, 2 );
-		if ( ! strExt.IsEmpty() ) 
+		if ( ! strExt.IsEmpty() )
 			strExt.Replace( _T("-"), _T("") );
 		else
 			strExt = _T("-");
@@ -205,7 +205,7 @@ void CPluginsSettingsPage::OnPluginsSetup()
 	CPlugin* pPlugin = (CPlugin*)m_wndList.GetItemData( nItem );
 	strExt = m_wndList.GetItemText( nItem, 2 );
 
-	if ( pPlugin != NULL && pPlugin->m_pPlugin != NULL ) 
+	if ( pPlugin != NULL && pPlugin->m_pPlugin != NULL )
 		pPlugin->m_pPlugin->Configure();
 	else if ( ! strExt.IsEmpty() )
 	{
@@ -261,7 +261,7 @@ void CPluginsSettingsPage::OnOK()
 /////////////////////////////////////////////////////////////////////////////
 // CPluginsSettingsPage plugin enumeration
 
-void CPluginsSettingsPage::InsertPlugin(LPCTSTR pszCLSID, LPCTSTR pszName, int nImage, TRISTATE bEnabled, 
+void CPluginsSettingsPage::InsertPlugin(LPCTSTR pszCLSID, LPCTSTR pszName, int nImage, TRISTATE bEnabled,
 										LPVOID pPlugin, LPCTSTR pszExtension)
 {
     int nItem = 0;
@@ -389,11 +389,11 @@ void CPluginsSettingsPage::EnumerateMiscPlugins(LPCTSTR pszType, HKEY hRoot)
 
 					if ( ERROR_SUCCESS == RegOpenKeyEx( HKEY_CURRENT_USER, strPath, 0, KEY_READ, &hUserPlugins ) )
 					{
-						if ( ERROR_SUCCESS == RegQueryValueEx( hUserPlugins, (LPCTSTR)szValue, 
+						if ( ERROR_SUCCESS == RegQueryValueEx( hUserPlugins, (LPCTSTR)szValue,
 												NULL, &nType, NULL, &nLength ) && nType == REG_SZ && nLength )
 						{
 							TCHAR* pszExtValue = new TCHAR[ nLength ];
-							if ( ERROR_SUCCESS == RegQueryValueEx( hUserPlugins, (LPCTSTR)szValue, 
+							if ( ERROR_SUCCESS == RegQueryValueEx( hUserPlugins, (LPCTSTR)szValue,
 													NULL, &nType, (LPBYTE)pszExtValue, &nLength ) )
 							{
 								// Found under user options
@@ -498,7 +498,7 @@ CString CPluginsSettingsPage::GetPluginComments(LPCTSTR pszCLSID) const
 	}
 
 	WCHAR* pLanguage = (WCHAR*)pBuffer + 20 + 26 + 18 + 3;
-	
+
 	if ( wcslen( pLanguage ) != 8 )
 	{
 		delete [] pBuffer;

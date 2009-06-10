@@ -146,7 +146,7 @@ CZIPFile::File* CZIPFile::GetFile(LPCTSTR pszFile, BOOL bSmartSearch) const
 
 	for ( int nFile = m_nFile ; nFile ; nFile--, pFile++ )
 	{
-		if ( _tcsicoll( pFile->m_sName, pszFile ) == 0 ) 
+		if ( _tcsicoll( pFile->m_sName, pszFile ) == 0 )
 		{
 			bFound = true;
 			break;

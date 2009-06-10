@@ -333,7 +333,7 @@ public:
             compressed_pair_5(first_param_type x, second_param_type y) : _first(x), _second(y) {}
    // only one single argument constructor since T1 == T2
    explicit compressed_pair_5(first_param_type x) : _first(x), _second(x) {}
-   compressed_pair_5(const ::boost::compressed_pair<T1,T2>& c) 
+   compressed_pair_5(const ::boost::compressed_pair<T1,T2>& c)
       : _first(c.first()), _second(c.second()) {}
 
    first_reference       first()       { return _first; }

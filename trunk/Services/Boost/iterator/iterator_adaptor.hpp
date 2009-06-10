@@ -43,7 +43,7 @@ namespace boost
   // indicate "use the default", this can also be passed by users
   // explicitly in order to specify that the default should be used.
   struct use_default;
-  
+
 # ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
   // the incompleteness of use_default causes massive problems for
   // is_convertible (naturally).  This workaround is fortunately not
@@ -51,14 +51,14 @@ namespace boost
   template<class To>
   struct is_convertible<use_default,To>
     : mpl::false_ {};
-# endif 
-  
+# endif
+
   namespace detail
   {
 
-    // 
+    //
     // Result type used in enable_if_convertible meta function.
-    // This can be an incomplete type, as only pointers to 
+    // This can be an incomplete type, as only pointers to
     // enable_if_convertible< ... >::type are used.
     // We could have used void for this, but conversion to
     // void* is just to easy.
@@ -79,7 +79,7 @@ namespace boost
   //   public iterator_adaptor< adapted_iterator<Iterator>, Iterator >
   // {
   // public:
-  //   
+  //
   //   ...
   //
   //   template <class OtherIterator>
@@ -98,15 +98,15 @@ namespace boost
   // and not at the actual instantiation.
   //
   // enable_if_interoperable can be safely used in user code. It falls back to
-  // always enabled for compilers that don't support enable_if or is_convertible. 
-  // There is no need for compiler specific workarounds in user code. 
+  // always enabled for compilers that don't support enable_if or is_convertible.
+  // There is no need for compiler specific workarounds in user code.
   //
   // The operators implementation relies on boost::is_convertible not returning
   // false positives for user/library defined iterator types. See comments
   // on operator implementation for consequences.
   //
 #  if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-  
+
   template<typename From, typename To>
   struct enable_if_convertible
   {
@@ -119,17 +119,17 @@ namespace boost
       , int&
      >::type type;
   };
-  
+
 #  elif defined(BOOST_NO_IS_CONVERTIBLE) || defined(BOOST_NO_SFINAE)
-  
+
   template <class From, class To>
   struct enable_if_convertible
   {
       typedef boost::detail::enable_type type;
   };
-  
+
 #  elif BOOST_WORKAROUND(_MSC_FULL_VER, BOOST_TESTED_AT(13102292)) && BOOST_MSVC > 1300
-  
+
   // For some reason vc7.1 needs us to "cut off" instantiation
   // of is_convertible in a few cases.
   template<typename From, typename To>
@@ -142,9 +142,9 @@ namespace boost
       , boost::detail::enable_type
     >
   {};
-  
-#  else 
-  
+
+#  else
+
   template<typename From, typename To>
   struct enable_if_convertible
     : iterators::enable_if<
@@ -152,9 +152,9 @@ namespace boost
         , boost::detail::enable_type
       >
   {};
-      
+
 # endif
-  
+
   //
   // Default template argument handling for iterator_adaptor
   //
@@ -186,7 +186,7 @@ namespace boost
     {
         typedef iterator_facade<
             Derived
-            
+
 # ifdef BOOST_ITERATOR_REF_CONSTNESS_KILLS_WRITABILITY
           , typename boost::detail::ia_dflt_help<
                 Value
@@ -201,7 +201,7 @@ namespace boost
                 Value, iterator_value<Base>
             >::type
 # endif
-            
+
           , typename boost::detail::ia_dflt_help<
                 Traversal
               , iterator_traversal<Base>
@@ -222,7 +222,7 @@ namespace boost
         >
         type;
     };
-  
+
     // workaround for aC++ CR JAGaf33512
     template <class Tr1, class Tr2>
     inline void iterator_adaptor_assert_traversal ()
@@ -230,7 +230,7 @@ namespace boost
       BOOST_STATIC_ASSERT((is_convertible<Tr1, Tr2>::value));
     }
   }
-  
+
   //
   // Iterator Adaptor
   //
@@ -291,7 +291,7 @@ namespace boost
    protected:
       // for convenience in derived classes
       typedef iterator_adaptor<Derived,Base,Value,Traversal,Reference,Difference> iterator_adaptor_;
-      
+
       //
       // lvalue access to the Base object for Derived
       //
@@ -307,13 +307,13 @@ namespace boost
       // to prevent temptation for Derived classes to use it, which
       // will often result in an error.  Derived classes should use
       // base_reference(), above, to get direct access to m_iterator.
-      // 
+      //
       typename super_t::reference dereference() const
         { return *m_iterator; }
 
       template <
       class OtherDerived, class OtherIterator, class V, class C, class R, class D
-      >   
+      >
       bool equal(iterator_adaptor<OtherDerived, OtherIterator, V, C, R, D> const& x) const
       {
         // Maybe readd with same_distance
@@ -335,10 +335,10 @@ namespace boost
           BOOST_ITERATOR_ADAPTOR_ASSERT_TRAVERSAL(random_access_traversal_tag)
           m_iterator += n;
       }
-  
+
       void increment() { ++m_iterator; }
 
-      void decrement() 
+      void decrement()
       {
           BOOST_ITERATOR_ADAPTOR_ASSERT_TRAVERSAL(bidirectional_traversal_tag)
            --m_iterator;
@@ -346,7 +346,7 @@ namespace boost
 
       template <
           class OtherDerived, class OtherIterator, class V, class C, class R, class D
-      >   
+      >
       typename super_t::difference_type distance_to(
           iterator_adaptor<OtherDerived, OtherIterator, V, C, R, D> const& y) const
       {
@@ -359,7 +359,7 @@ namespace boost
       }
 
 # undef BOOST_ITERATOR_ADAPTOR_ASSERT_TRAVERSAL
-      
+
    private: // data members
       Base m_iterator;
   };

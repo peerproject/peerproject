@@ -223,7 +223,7 @@ void CURLExportDlg::MakeURL(const CPeerProjectFile* pFile, CString& strLine)
 
 	strLine.Replace( _T("[Name]"), pFile->m_sName );
 	strLine.Replace( _T("[NameURI]"), URLEncode( pFile->m_sName ) );
-	
+
 	if ( pFile->m_sURL.GetLength() )
 	{
 		strLine.Replace( _T("[Link]"), pFile->m_sURL );

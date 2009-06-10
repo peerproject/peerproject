@@ -373,7 +373,7 @@ void CGGEPItem::WriteTo(CPacket* pPacket)
 	if ( m_pNext == NULL )
 		nFlags |= GGEP_HDR_LAST; // Last extension in the block
 
-	// Flags -- 1 byte 
+	// Flags -- 1 byte
 	pPacket->WriteByte( nFlags );
 
 	// ID -- 1-15 byte

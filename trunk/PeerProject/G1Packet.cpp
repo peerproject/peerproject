@@ -272,8 +272,8 @@ int CG1Packet::GGEPReadCachedHosts(const CGGEPBlock& pGGEP)
 			WORD nPort = 0;
 			pIPPs->Read( (void*)&nAddress, 4 );
 			pIPPs->Read( (void*)&nPort, 2 );
-			theApp.Message( MSG_DEBUG, _T("Got G1 host %s:%i"), 
-				(LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ); 
+			theApp.Message( MSG_DEBUG, _T("Got G1 host %s:%i"),
+				(LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort );
 			CHostCacheHostPtr pCachedHost =
 				HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort );
 			if ( pCachedHost ) nCount++;
@@ -295,8 +295,8 @@ int CG1Packet::GGEPReadCachedHosts(const CGGEPBlock& pGGEP)
 				WORD nPort = 0;
 				pGDNAs->Read( (void*)&nAddress, 4 );
 				pGDNAs->Read( (void*)&nPort, 2 );
-				theApp.Message( MSG_DEBUG, _T("Got GDNA host %s:%i"), 
-					(LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ); 
+				theApp.Message( MSG_DEBUG, _T("Got GDNA host %s:%i"),
+					(LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort );
 				CHostCacheHostPtr pCachedHost =
 					HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort );
 				if ( pCachedHost ) nCount++;

@@ -1018,10 +1018,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_auziraj Sve"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Očisti Sve"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Pokaži Grupe"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Nova Grupa..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Ukloni _Grupu"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Pokaži Grupe"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Podešavanja"/>
 	</menu>
@@ -4206,10 +4206,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adresa / Sadržaj"/>
+		<column from="Hits" to="Viđeno"/>
 		<column from="Action" to="Akcija"/>
 		<column from="Expires" to="Ističe"/>
 		<column from="#" to=""/>
-		<column from="Hits" to="Viđeno"/>
 		<column from="Comment" to="Komentar"/>
 	</list>
 	<list name="CHostCacheWnd">

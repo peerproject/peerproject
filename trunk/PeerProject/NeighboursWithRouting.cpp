@@ -70,7 +70,7 @@ int CNeighboursWithRouting::Broadcast(CPacket* pPacket, CNeighbour* pExcept, BOO
 	int nCount = 0;
 	bool bSend = true;
 
-	if ( ! Settings.Gnutella1.EnableGGEP && bGGEP ) 
+	if ( ! Settings.Gnutella1.EnableGGEP && bGGEP )
 		return 0;
 
 	// Loop through each neighbour in the list

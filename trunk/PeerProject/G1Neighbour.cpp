@@ -889,7 +889,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			pReply->WriteLongBE( 'BEAR' );
 			Send( pReply ); // Send the reply packet to the remote computer
 
-		} 
+		}
 		// Vendor is the ASCII text "RAZA" for Shareaza
 		else if ( nVendor == 'RAZA' || nVendor == 'AZAR' ) // It's backwards because of network byte order (Confirm?)
 		{
@@ -905,7 +905,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			pReply->WriteShortLE( 0x0003 );
 			pReply->WriteShortLE( 1 );
 			Send( pReply ); // Send the reply packet to the remote computer
-		} 
+		}
 		// Vendor is the ASCII text "PEER" for PeerProject
 		else if ( nVendor == 'PEER' || nVendor == 'REEP' ) // It's backwards because of network byte order (Confirm?)
 		{
@@ -921,7 +921,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			pReply->WriteShortLE( 0x0003 );
 			pReply->WriteShortLE( 1 );
 			Send( pReply ); // Send the reply packet to the remote computer
-		} 
+		}
 		// Vendor is the ASCII text "BEAR" for BearShare
 		else if ( nVendor == 'BEAR' ) // It's backwards because of network byte order (Confirm?)
 		{
@@ -1056,7 +1056,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 		}
 	}
 
-	/*	ToDo: Other Vendors 
+	/*	ToDo: Other Vendors
 
 	else if ( nVendor == 'LIME' || nVendor == 'SNOW' )
 	{

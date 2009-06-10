@@ -54,7 +54,7 @@ class CDownloadWithSources : public CDownloadBase
 protected:
 	CDownloadWithSources();
 	virtual ~CDownloadWithSources();
-	
+
 // Attributes
 private:
 	CDownloadSource*	m_pSourceFirst;

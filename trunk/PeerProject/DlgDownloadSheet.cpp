@@ -44,7 +44,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadSheet
 
-CDownloadSheet::CDownloadSheet(CDownload* pDownload) : 
+CDownloadSheet::CDownloadSheet(CDownload* pDownload) :
 	m_pDownload( pDownload ),
 	m_sFilesTitle( L"Files" ),
 	m_sTrackersTitle( L"Trackers" ),

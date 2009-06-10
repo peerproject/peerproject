@@ -25,7 +25,7 @@
 enum
 {
   kpidNoProperty = 0,
-  
+
   kpidHandlerItemIndex = 2,
   kpidPath,
   kpidName,

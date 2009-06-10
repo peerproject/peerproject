@@ -72,7 +72,7 @@ CUploadQueue::~CUploadQueue()
 		CUploadTransfer* pUpload = m_pActive.GetNext( pos );
 		pUpload->m_pQueue = NULL;
 	}
-	
+
 	for ( int nPosition = 0 ; nPosition < m_pQueued.GetSize() ; nPosition++ )
 	{
 		CUploadTransfer* pUpload = m_pQueued.GetAt( nPosition );
@@ -86,7 +86,7 @@ CUploadQueue::~CUploadQueue()
 CString CUploadQueue::GetCriteriaString() const
 {
 	CString str1, str2;
-	
+
 	if ( m_nProtocols != 0 )
 	{
 		if ( m_nProtocols & (1<<PROTOCOL_HTTP) )
@@ -100,21 +100,21 @@ CString CUploadQueue::GetCriteriaString() const
 			str1 += _T("ED2K");
 		}
 	}
-	
+
 	if ( m_nMinSize > 0 )
 	{
 		if ( str1.GetLength() ) str1 += _T(", ");
 		str2.Format( _T(">=%s"), Settings.SmartVolume( m_nMinSize ) );
 		str1 += str2;
 	}
-	
+
 	if ( m_nMaxSize < ~0ull )
 	{
 		if ( str1.GetLength() ) str1 += _T(", ");
 		str2.Format( _T("<=%s"), Settings.SmartVolume( m_nMaxSize ) );
 		str1 += str2;
 	}
-	
+
 	if ( m_nFileStateFlag == ulqPartial )
 	{
 		if ( str1.GetLength() ) str1 += _T(", ");
@@ -127,9 +127,9 @@ CString CUploadQueue::GetCriteriaString() const
 		LoadString( str2, IDS_UPLOAD_QUEUE_LIBRARY );
 		str1 += str2;
 	}
-	
+
 	// ADD: Release states
-	
+
 	return str1;
 }
 
@@ -139,27 +139,27 @@ CString CUploadQueue::GetCriteriaString() const
 BOOL CUploadQueue::CanAccept(PROTOCOLID nProtocol, LPCTSTR pszName, QWORD nSize, DWORD nFileState, LPCTSTR pszShareTags) const
 {
 	if ( ! m_bEnable ) return FALSE;
-	
+
 	if ( nSize < m_nMinSize ) return FALSE;
 	if ( nSize > m_nMaxSize ) return FALSE;
-	
+
 	if ( m_nProtocols != 0 &&
 		 ( m_nProtocols & ( 1 << nProtocol ) ) == 0 ) return FALSE;
-	
+
 	if ( (m_nFileStateFlag & nFileState) == 0 ) return FALSE;
-	
+
 	if ( m_sShareTag.GetLength() > 0 )
 	{
 		if ( pszShareTags == NULL ) return FALSE;
 		if ( _tcsistr( pszShareTags, m_sShareTag ) == NULL ) return FALSE;
 	}
-	
+
 	if ( m_sNameMatch.GetLength() > 0 )
 	{
 		if ( pszName == NULL ) return FALSE;
 		if ( CQuerySearch::WordMatch( pszName, m_sNameMatch ) == FALSE ) return FALSE;
 	}
-	
+
 	return TRUE;
 }
 
@@ -170,11 +170,11 @@ BOOL CUploadQueue::Enqueue(CUploadTransfer* pUpload, BOOL bForce, BOOL bStart)
 {
 	ASSERT( pUpload != NULL );
 	ASSERT( pUpload->m_pQueue == NULL );
-	
+
 	if ( ! bForce && ! bStart )	//If this upload isn't forced, check to see if it's valid to queue
-	{	
+	{
 		if ( m_bRewardUploaders && ( pUpload->m_nUserRating > urSharing  ) )
-		{	
+		{
 			// If reward is on, a non-sharer might not queue.
 			// Check if the # already queued plus # reserved by the reward
 			// percentage is greater than the queue would be able to hold.
@@ -185,20 +185,20 @@ BOOL CUploadQueue::Enqueue(CUploadTransfer* pUpload, BOOL bForce, BOOL bStart)
 			}
 		}
 		else
-		{	
+		{
 			// If reward is off, or user is known to share, just check if the queue is full
-			if ( GetQueueRemaining() <= 0 )	
+			if ( GetQueueRemaining() <= 0 )
 				return FALSE;
 		}
 	}
-	
+
 	m_pQueued.Add( pUpload );
 	pUpload->m_pQueue = this;
-		
+
 	if ( bStart )
 	{
 		StartImpl( pUpload );
-			
+
 		if ( GetTransferCount() <= m_nMinTransfers )
 			SpreadBandwidth();
 		else
@@ -215,7 +215,7 @@ BOOL CUploadQueue::Dequeue(CUploadTransfer* pUpload)
 {
 	ASSERT( pUpload != NULL );
 	ASSERT( pUpload->m_pQueue == this );
-	
+
 	if ( POSITION pos = m_pActive.Find( pUpload ) )
 	{
 		pUpload->m_pQueue = NULL;
@@ -223,7 +223,7 @@ BOOL CUploadQueue::Dequeue(CUploadTransfer* pUpload)
 		RescaleBandwidth();
 		return TRUE;
 	}
-	
+
 	for ( int nPosition = 0 ; nPosition < m_pQueued.GetSize() ; nPosition++ )
 	{
 		if ( m_pQueued.GetAt( nPosition ) == pUpload )
@@ -233,7 +233,7 @@ BOOL CUploadQueue::Dequeue(CUploadTransfer* pUpload)
 			return TRUE;
 		}
 	}
-	
+
 	return FALSE;
 }
 
@@ -244,9 +244,9 @@ int CUploadQueue::GetPosition(CUploadTransfer* pUpload, BOOL bStart)
 {
 	ASSERT( pUpload != NULL );
 	ASSERT( pUpload->m_pQueue == this );
-	
+
 	if ( m_pActive.Find( pUpload ) ) return 0;
-	
+
 	for ( int nPosition = 0 ; nPosition < m_pQueued.GetSize() ; nPosition++ )
 	{
 		if ( m_pQueued.GetAt( nPosition ) == pUpload )
@@ -255,7 +255,7 @@ int CUploadQueue::GetPosition(CUploadTransfer* pUpload, BOOL bStart)
 			return nPosition + 1;
 		}
 	}
-	
+
 	return -1;
 }
 
@@ -268,7 +268,7 @@ BOOL CUploadQueue::StealPosition(CUploadTransfer* pTarget, CUploadTransfer* pSou
 	ASSERT( pSource != NULL );
 	ASSERT( pTarget->m_pQueue == NULL );
 	ASSERT( pSource->m_pQueue == this );
-	
+
 	if ( POSITION pos = m_pActive.Find( pSource ) )
 	{
 		m_pActive.SetAt( pos, pTarget );
@@ -277,7 +277,7 @@ BOOL CUploadQueue::StealPosition(CUploadTransfer* pTarget, CUploadTransfer* pSou
 		pTarget->m_nBandwidth = pSource->m_nBandwidth;
 		return TRUE;
 	}
-	
+
 	for ( int nPosition = 0 ; nPosition < m_pQueued.GetSize() ; nPosition++ )
 	{
 		if ( m_pQueued.GetAt( nPosition ) == pSource )
@@ -288,7 +288,7 @@ BOOL CUploadQueue::StealPosition(CUploadTransfer* pTarget, CUploadTransfer* pSou
 			return TRUE;
 		}
 	}
-	
+
 	return FALSE;
 }
 
@@ -300,10 +300,10 @@ BOOL CUploadQueue::Start(CUploadTransfer* pUpload, BOOL bPeek)
 	ASSERT( pUpload != NULL );
 	ASSERT( pUpload->m_pQueue == this );
 	ASSERT( m_pActive.Find( pUpload ) == NULL );
-	
+
 	INT_PTR nTransfers = GetTransferCount();
 	if ( nTransfers >= m_nMaxTransfers ) return FALSE;
-	
+
 	if ( nTransfers < m_nMinTransfers )
 	{
 		if ( bPeek ) return TRUE;
@@ -313,7 +313,7 @@ BOOL CUploadQueue::Start(CUploadTransfer* pUpload, BOOL bPeek)
 			(LPCTSTR)pUpload->m_sAddress );
 		return TRUE;
 	}
-	
+
 	if ( DWORD nAvailable = GetAvailableBandwidth() )
 	{
 		if ( bPeek ) return TRUE;
@@ -323,7 +323,7 @@ BOOL CUploadQueue::Start(CUploadTransfer* pUpload, BOOL bPeek)
 			pUpload->m_sAddress, Settings.SmartSpeed( nAvailable ) );
 		return TRUE;
 	}
-	
+
 	return FALSE;
 }
 
@@ -347,10 +347,10 @@ void CUploadQueue::StartImpl(CUploadTransfer* pUpload)
 INT_PTR CUploadQueue::GetBandwidthPoints(INT_PTR nTransfers) const
 {
 	if ( nTransfers < 0 ) nTransfers = GetTransferCount();
-	
+
 	if ( nTransfers == 0 ) return 0;
 	if ( nTransfers >= m_nMinTransfers ) return m_nBandwidthPoints;
-	
+
 	return m_nBandwidthPoints * nTransfers / max( 1, m_nMinTransfers );
 }
 
@@ -358,24 +358,24 @@ DWORD CUploadQueue::GetBandwidthLimit(INT_PTR nTransfers) const
 {
 	INT_PTR nLocalPoints = GetBandwidthPoints( nTransfers );
 	if ( nLocalPoints == 0 ) return 0;
-	
+
 	INT_PTR nTotalPoints = nLocalPoints;
-	
+
 	for ( POSITION pos = UploadQueues.GetIterator() ; pos ; )
 	{
 		CUploadQueue* pOther = UploadQueues.GetNext( pos );
 		if ( pOther != this ) nTotalPoints += pOther->GetBandwidthPoints();
 	}
-	
+
 	DWORD nTotal = Settings.Connection.OutSpeed * 128;
 	DWORD nLimit = ( Settings.Uploads.HubUnshare && Neighbours.IsG2Hub() ) ?
 		Settings.Bandwidth.HubUploads : Settings.Bandwidth.Uploads;
 	if ( nLimit == 0 || nLimit > nTotal ) nLimit = nTotal;
-	
+
 	// Limit if torrents are active
-	if ( Uploads.m_nTorrentSpeed > 0 ) 
+	if ( Uploads.m_nTorrentSpeed > 0 )
 		nLimit = ( nLimit * Settings.BitTorrent.BandwidthPercentage ) / 100;
-	
+
 	return static_cast< DWORD >( nLimit
 			* ( nLocalPoints + Settings.Uploads.ThrottleMode )
 			/ max( 1, nTotalPoints ) );
@@ -384,16 +384,16 @@ DWORD CUploadQueue::GetBandwidthLimit(INT_PTR nTransfers) const
 DWORD CUploadQueue::GetAvailableBandwidth() const
 {
 	INT_PTR nTransfers = GetTransferCount();
-	
+
 	if ( nTransfers < m_nMinTransfers )
 	{
 		nTransfers ++;
 		return static_cast< DWORD >( GetBandwidthLimit( nTransfers ) / nTransfers );
 	}
-	
+
 	DWORD nTotal = GetBandwidthLimit();
 	DWORD nUsed = 0;
-	
+
 	for ( POSITION pos = m_pActive.GetHeadPosition() ; pos ; )
 	{
 		CUploadTransfer* pActive = m_pActive.GetNext( pos );
@@ -401,14 +401,14 @@ DWORD CUploadQueue::GetAvailableBandwidth() const
 		// Max speed in such case is zero.
 		nUsed += pActive->GetMaxSpeed();
 	}
-	
+
 	if ( nUsed >= nTotal ) return 0;
-	
+
 	DWORD nAvailable = nTotal - nUsed;
-	
+
 	if ( nAvailable < Settings.Uploads.FreeBandwidthValue ) return 0;
 	if ( nAvailable < ( nTotal * Settings.Uploads.FreeBandwidthFactor / 100 ) ) return 0;
-	
+
 	return nAvailable;
 }
 
@@ -424,9 +424,9 @@ DWORD CUploadQueue::GetPredictedBandwidth() const
 void CUploadQueue::SpreadBandwidth()
 {
 	ASSERT( GetTransferCount() <= m_nMinTransfers );
-	
+
 	DWORD nTotal = GetBandwidthLimit();
-	
+
 	for ( POSITION pos = m_pActive.GetHeadPosition() ; pos ; )
 	{
 		CUploadTransfer* pActive = m_pActive.GetNext( pos );
@@ -441,22 +441,22 @@ void CUploadQueue::RescaleBandwidth()
 		SpreadBandwidth();
 		return;
 	}
-	
+
 	DWORD nTotal		= GetBandwidthLimit();
 	DWORD nAllocated	= 0;
-	
+
 	if ( nTotal == 0 ) return;
-	
+
 	for ( POSITION pos = m_pActive.GetHeadPosition() ; pos ; )
 	{
 		CUploadTransfer* pActive = m_pActive.GetNext( pos );
 		// If newly queued host is set as "Next", don't count allocated bandwidth
 		// Max speed in such case is zero.
 		nAllocated += pActive->GetMaxSpeed();
-	}	
-	
+	}
+
 	double nScale = (double)nTotal / (double)nAllocated;
-	
+
 	for ( POSITION pos = m_pActive.GetHeadPosition() ; pos ; )
 	{
 		CUploadTransfer* pActive = m_pActive.GetNext( pos );
@@ -473,14 +473,14 @@ void CUploadQueue::Serialize(CArchive& ar, int nVersion)
 	{
 		ar << m_sName;
 		ar << m_bEnable;
-		
+
 		ar << m_nProtocols;
 		ar << m_nMinSize;
 		ar << m_nMaxSize;
 		ar << m_nFileStateFlag;
 		ar << m_sShareTag;
 		ar << m_sNameMatch;
-		
+
 		ar << m_nCapacity;
 		ar << m_nMinTransfers;
 		ar << m_nMaxTransfers;
@@ -489,16 +489,16 @@ void CUploadQueue::Serialize(CArchive& ar, int nVersion)
 		ar << m_nRotateTime;
 		ar << m_nRotateChunk;
 		ar << m_bRewardUploaders;
-		
+
 		ar << m_bExpanded;
 	}
 	else
 	{
 		ar >> m_sName;
 		ar >> m_bEnable;
-		
+
 		ar >> m_nProtocols;
-		
+
 		if ( nVersion >= 3 )
 		{
 			ar >> m_nMinSize;
@@ -512,7 +512,7 @@ void CUploadQueue::Serialize(CArchive& ar, int nVersion)
 			ar >> nInt32;
 			m_nMaxSize = nInt32;
 		}
-		
+
 		if ( nVersion >= 6 )
 		{
 			ar >> m_nFileStateFlag;
@@ -533,7 +533,7 @@ void CUploadQueue::Serialize(CArchive& ar, int nVersion)
 
 		ar >> m_sShareTag;
 		ar >> m_sNameMatch;
-		
+
 		ar >> m_nCapacity;
 		ar >> m_nMinTransfers;
 		ar >> m_nMaxTransfers;
@@ -543,7 +543,7 @@ void CUploadQueue::Serialize(CArchive& ar, int nVersion)
 		ar >> m_nRotateChunk;
 
 		if ( nVersion >= 5 ) ar >> m_bRewardUploaders;
-		
+
 		if ( nVersion >= 4 ) ar >> m_bExpanded;
 	}
 }

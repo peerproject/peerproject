@@ -107,17 +107,17 @@ CCollectionFile::File* CCollectionFile::FindByURN(LPCTSTR pszURN)
     Hashes::Md5Hash oMD5;
     Hashes::Ed2kHash oED2K;
 	Hashes::BtHash oBTH;
-	
+
 	oSHA1.fromUrn( pszURN );
     oMD5.fromUrn( pszURN );
     oTiger.fromUrn( pszURN );
     oED2K.fromUrn( pszURN );
 	oBTH.fromUrn( pszURN );
-	
+
 	for ( POSITION pos = GetFileIterator() ; pos ; )
 	{
 		File* pFile = GetNextFile( pos );
-		
+
 		if ( validAndEqual( oSHA1, pFile->m_oSHA1 ) ) return pFile;
 		if ( validAndEqual( oMD5, pFile->m_oMD5 ) ) return pFile;
 		if ( validAndEqual( oTiger, pFile->m_oTiger ) ) return pFile;
@@ -274,7 +274,7 @@ BOOL CCollectionFile::LoadEMule(LPCTSTR pszFile)
 						break;
 
 					if ( pTag.Check( ED2K_FT_FILENAME, ED2K_TAG_STRING ) )
-					{						
+					{
 						m_sTitle = pTag.m_sValue;
 					}
 					else if ( pTag.Check( ED2K_FT_COLLECTIONAUTHOR, ED2K_TAG_STRING ) )
@@ -492,7 +492,7 @@ BOOL CCollectionFile::File::Parse(CXMLElement* pRoot)
 			}
 		}
 	}
-	
+
 	return IsHashed();
 }
 
@@ -517,7 +517,7 @@ BOOL CCollectionFile::File::Parse(CFile& pFile)
 				m_nSize = pTag.m_nValue;
 			}
 			else if ( pTag.Check( ED2K_FT_FILENAME, ED2K_TAG_STRING ) )
-			{						
+			{
 				m_sName = pTag.m_sValue;
 			}
 			else if ( pTag.Check( ED2K_FT_FILETYPE, ED2K_TAG_STRING ) )

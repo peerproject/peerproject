@@ -8,7 +8,7 @@
 # include <boost/detail/iterator.hpp>
 # include <boost/detail/workaround.hpp>
 
-namespace boost { 
+namespace boost {
 
 // Unfortunately, g++ 2.95.x chokes when we define a class template
 // iterator_category which has the same name as its
@@ -29,20 +29,20 @@ struct iterator_value
 {
     typedef typename boost::detail::iterator_traits<Iterator>::value_type type;
 };
-  
+
 template <class Iterator>
 struct iterator_reference
 {
     typedef typename boost::detail::iterator_traits<Iterator>::reference type;
 };
-  
-  
+
+
 template <class Iterator>
 struct iterator_pointer
 {
     typedef typename boost::detail::iterator_traits<Iterator>::pointer type;
 };
-  
+
 template <class Iterator>
 struct iterator_difference
 {
@@ -61,7 +61,7 @@ struct iterator_value<int>
 {
     typedef void type;
 };
-  
+
 template <>
 struct iterator_reference<int>
 {
@@ -73,13 +73,13 @@ struct iterator_pointer<int>
 {
     typedef void type;
 };
-  
+
 template <>
 struct iterator_difference<int>
 {
     typedef void type;
 };
-  
+
 template <>
 struct BOOST_ITERATOR_CATEGORY<int>
 {

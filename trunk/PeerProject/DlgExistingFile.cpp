@@ -68,7 +68,7 @@ CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectFile*
 	if ( dlg.m_nAction == 0 )
 	{
 		if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
-		{	
+		{
 			if ( CLibraryWnd* pLibrary = (CLibraryWnd*)(
 				pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) ) )
 			{
@@ -157,7 +157,7 @@ BOOL CExistingFileDlg::OnInitDialog()
 
 	SkinMe( NULL, IDR_DOWNLOADSFRAME );
 
-	if ( m_bAvailable == TRI_UNKNOWN ) 
+	if ( m_bAvailable == TRI_UNKNOWN )
 		m_nAction = 1;
 	else if ( m_bAvailable == TRI_TRUE )
 		m_nAction = 0;

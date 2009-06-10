@@ -26,7 +26,7 @@ public:
     typedef T * argument_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) ())
     F f_;
 
@@ -41,7 +41,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(mf0)(F f): f_(f) {}
 
     R operator()(T * p) const
@@ -89,7 +89,7 @@ public:
     typedef T const * argument_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) () const)
     F f_;
 
@@ -104,7 +104,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(cmf0)(F f): f_(f) {}
 
     template<class U> R operator()(U const & u) const
@@ -139,7 +139,7 @@ public:
     typedef A1 second_argument_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1))
     F f_;
 
@@ -154,7 +154,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(mf1)(F f): f_(f) {}
 
     R operator()(T * p, A1 a1) const
@@ -203,7 +203,7 @@ public:
     typedef A1 second_argument_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1) const)
     F f_;
 
@@ -218,7 +218,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(cmf1)(F f): f_(f) {}
 
     template<class U> R operator()(U const & u, A1 a1) const
@@ -251,7 +251,7 @@ public:
     typedef R result_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1, A2))
     F f_;
 
@@ -266,7 +266,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(mf2)(F f): f_(f) {}
 
     R operator()(T * p, A1 a1, A2 a2) const
@@ -313,7 +313,7 @@ public:
     typedef R result_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1, A2) const)
     F f_;
 
@@ -328,7 +328,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(cmf2)(F f): f_(f) {}
 
     template<class U> R operator()(U const & u, A1 a1, A2 a2) const
@@ -361,7 +361,7 @@ public:
     typedef R result_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1, A2, A3))
     F f_;
 
@@ -376,7 +376,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(mf3)(F f): f_(f) {}
 
     R operator()(T * p, A1 a1, A2 a2, A3 a3) const
@@ -471,7 +471,7 @@ public:
     typedef R result_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1, A2, A3, A4))
     F f_;
 
@@ -486,7 +486,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(mf4)(F f): f_(f) {}
 
     R operator()(T * p, A1 a1, A2 a2, A3 a3, A4 a4) const
@@ -533,7 +533,7 @@ public:
     typedef R result_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1, A2, A3, A4) const)
     F f_;
 
@@ -548,7 +548,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(cmf4)(F f): f_(f) {}
 
     template<class U> R operator()(U const & u, A1 a1, A2 a2, A3 a3, A4 a4) const
@@ -581,7 +581,7 @@ public:
     typedef R result_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1, A2, A3, A4, A5))
     F f_;
 
@@ -596,7 +596,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(mf5)(F f): f_(f) {}
 
     R operator()(T * p, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5) const
@@ -643,7 +643,7 @@ public:
     typedef R result_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1, A2, A3, A4, A5) const)
     F f_;
 
@@ -658,7 +658,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(cmf5)(F f): f_(f) {}
 
     template<class U> R operator()(U const & u, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5) const
@@ -753,7 +753,7 @@ public:
     typedef R result_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1, A2, A3, A4, A5, A6) const)
     F f_;
 
@@ -768,7 +768,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(cmf6)(F f): f_(f) {}
 
     template<class U> R operator()(U const & u, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6) const
@@ -801,7 +801,7 @@ public:
     typedef R result_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1, A2, A3, A4, A5, A6, A7))
     F f_;
 
@@ -816,7 +816,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(mf7)(F f): f_(f) {}
 
     R operator()(T * p, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7) const
@@ -863,7 +863,7 @@ public:
     typedef R result_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1, A2, A3, A4, A5, A6, A7) const)
     F f_;
 
@@ -878,7 +878,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(cmf7)(F f): f_(f) {}
 
     template<class U> R operator()(U const & u, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7) const
@@ -911,7 +911,7 @@ public:
     typedef R result_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1, A2, A3, A4, A5, A6, A7, A8))
     F f_;
 
@@ -926,7 +926,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(mf8)(F f): f_(f) {}
 
     R operator()(T * p, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8) const
@@ -973,7 +973,7 @@ public:
     typedef R result_type;
 
 private:
-    
+
     BOOST_MEM_FN_TYPEDEF(R (BOOST_MEM_FN_CC T::*F) (A1, A2, A3, A4, A5, A6, A7, A8) const)
     F f_;
 
@@ -988,7 +988,7 @@ private:
     }
 
 public:
-    
+
     explicit BOOST_MEM_FN_NAME(cmf8)(F f): f_(f) {}
 
     R operator()(T const * p, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8) const

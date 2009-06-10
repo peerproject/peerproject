@@ -70,7 +70,7 @@ LPCTSTR CRemoteWnd::m_hClass = NULL;
 
 CRemoteWnd::CRemoteWnd()
 {
-	if ( m_hClass == NULL ) 
+	if ( m_hClass == NULL )
 		m_hClass = AfxRegisterWndClass( 0 );
 
 	m_pMonitor		= NULL;
@@ -649,28 +649,28 @@ void CRemoteWnd::PaintStatus(CDC* pDC)
 		{
 			pDC->SetTextColor( m_pSkin->m_crCaptionOutline );
 			m_rcsStatusText.OffsetRect( 1 , 0 );
-			pDC->DrawText( m_sStatus, m_rcsStatusText, 
+			pDC->DrawText( m_sStatus, m_rcsStatusText,
 			DT_SINGLELINE|DT_CENTER|DT_VCENTER|DT_NOPREFIX|DT_END_ELLIPSIS );
 			m_rcsStatusText.OffsetRect( 0 , 1 );
-			pDC->DrawText( m_sStatus, m_rcsStatusText, 
+			pDC->DrawText( m_sStatus, m_rcsStatusText,
 			DT_SINGLELINE|DT_CENTER|DT_VCENTER|DT_NOPREFIX|DT_END_ELLIPSIS );
 			m_rcsStatusText.OffsetRect( -1 , 0 );
-			pDC->DrawText( m_sStatus, m_rcsStatusText, 
+			pDC->DrawText( m_sStatus, m_rcsStatusText,
 			DT_SINGLELINE|DT_CENTER|DT_VCENTER|DT_NOPREFIX|DT_END_ELLIPSIS );
 			m_rcsStatusText.OffsetRect( -1 , 0 );
-			pDC->DrawText( m_sStatus, m_rcsStatusText, 
+			pDC->DrawText( m_sStatus, m_rcsStatusText,
 			DT_SINGLELINE|DT_CENTER|DT_VCENTER|DT_NOPREFIX|DT_END_ELLIPSIS );
 			m_rcsStatusText.OffsetRect( 0 , -1 );
-			pDC->DrawText( m_sStatus, m_rcsStatusText, 
+			pDC->DrawText( m_sStatus, m_rcsStatusText,
 			DT_SINGLELINE|DT_CENTER|DT_VCENTER|DT_NOPREFIX|DT_END_ELLIPSIS );
 			m_rcsStatusText.OffsetRect( 0 , -1 );
-			pDC->DrawText( m_sStatus, m_rcsStatusText, 
+			pDC->DrawText( m_sStatus, m_rcsStatusText,
 			DT_SINGLELINE|DT_CENTER|DT_VCENTER|DT_NOPREFIX|DT_END_ELLIPSIS );
 			m_rcsStatusText.OffsetRect( 1 , 0 );
-			pDC->DrawText( m_sStatus, m_rcsStatusText, 
+			pDC->DrawText( m_sStatus, m_rcsStatusText,
 			DT_SINGLELINE|DT_CENTER|DT_VCENTER|DT_NOPREFIX|DT_END_ELLIPSIS );
 			m_rcsStatusText.OffsetRect( 1 , 0 );
-			pDC->DrawText( m_sStatus, m_rcsStatusText, 
+			pDC->DrawText( m_sStatus, m_rcsStatusText,
 			DT_SINGLELINE|DT_CENTER|DT_VCENTER|DT_NOPREFIX|DT_END_ELLIPSIS );
 			m_rcsStatusText.OffsetRect( -1 , 1 );
 			pDC->SetTextColor( m_pSkin->m_crCaptionText );
@@ -680,26 +680,26 @@ void CRemoteWnd::PaintStatus(CDC* pDC)
 		{
 			pDC->SetTextColor( m_pSkin->m_crCaptionShadow );
 			m_rcsStatusText.OffsetRect( 1 , 1 );
-			pDC->DrawText( m_sStatus, &m_rcsStatusText, 
+			pDC->DrawText( m_sStatus, &m_rcsStatusText,
 			DT_SINGLELINE|DT_CENTER|DT_VCENTER|DT_NOPREFIX|DT_END_ELLIPSIS );
 			m_rcsStatusText.OffsetRect( -1 , -1 );
 			pDC->SetTextColor( m_pSkin->m_crCaptionText );
 		}
 
-		pDC->DrawText( m_sStatus, &m_rcsStatusText, 
+		pDC->DrawText( m_sStatus, &m_rcsStatusText,
 			DT_SINGLELINE|DT_CENTER|DT_VCENTER|DT_NOPREFIX|DT_END_ELLIPSIS );
 
-		if ( Settings.General.LanguageRTL ) 
+		if ( Settings.General.LanguageRTL )
 		{
 			CRect rcSrc;
 			rcSrc.top = 0; rcSrc.left = 0;
 			rcSrc.right = m_rcsStatusText.Width();
 			rcSrc.bottom = m_rcsStatusText.Height();
 
-			pDC->StretchBlt( rcSrc.Width() + m_rcsStatusText.left, 
+			pDC->StretchBlt( rcSrc.Width() + m_rcsStatusText.left,
 				m_rcsStatusText.top, -rcSrc.Width(), rcSrc.Height(),
-				pDC, m_rcsStatusText.left, m_rcsStatusText.top, 
-				rcSrc.Width(), rcSrc.Height(), SRCCOPY );	
+				pDC, m_rcsStatusText.left, m_rcsStatusText.top,
+				rcSrc.Width(), rcSrc.Height(), SRCCOPY );
 		}
 	}
 }

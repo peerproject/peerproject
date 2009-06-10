@@ -1020,10 +1020,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全て一時停止(_A)"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全てクリア(_C)"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="グループ表示(_S)"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="新規グループ(_N)..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="グループ削除(_G)"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="グループ表示(_S)"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="プロパティ(_P)"/>
 	</menu>
@@ -4303,10 +4303,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="アドレス / 内容"/>
+		<column from="Hits" to="ヒット"/>
 		<column from="Action" to="動作"/>
 		<column from="Expires" to="期間"/>
 		<column from="#" to="優先順位"/>
-		<column from="Hits" to="ヒット"/>
 		<column from="Comment" to="コメント"/>
 	</list>
 	<list name="CHostCacheWnd">

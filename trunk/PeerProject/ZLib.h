@@ -30,7 +30,7 @@
 #pragma once
 
 // Wraps the compress and decompress data compression functions of the ZLib compression library
-class CZLib  
+class CZLib
 {
 
 // Operations

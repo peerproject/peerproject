@@ -75,7 +75,7 @@ protected:
 	};
 
 	typedef std::vector< CVirtualFilePart > CVirtualFile;
-	
+
 	struct Less : public std::binary_function< CVirtualFilePart, CVirtualFilePart, bool >
 	{
 		inline bool operator()(const CVirtualFilePart& _Left, const CVirtualFilePart& _Right) const
@@ -192,22 +192,22 @@ public:
 	{
 		CQuickLock oLock( m_pSection );
 
-		return nIndex < m_oFile.size() ? 
+		return nIndex < m_oFile.size() ?
 			static_cast< const CPeerProjectFile* >( &m_oFile[ nIndex ] ) : NULL;
 	}
 
 	// Are all of subfiles open?
 	BOOL IsOpen() const;
-	
+
 	// Get subfile offset
 	QWORD GetOffset(DWORD nIndex) const;
-	
+
 	// Get subfile length
 	QWORD GetLength(DWORD nIndex) const;
 
 	// Get subfile path
 	CString GetPath(DWORD nIndex) const;
-	
+
 	// Set subfile path
 	void SetPath(DWORD nIndex, LPCTSTR szPath);
 
@@ -237,7 +237,7 @@ public:
 	{
 		return m_oFList.limit() > 0;
 	}
-	
+
 	// Returns file download progress ( < 0 - unknown or 0..100% )
 	float GetProgress(DWORD nIndex) const;
 
@@ -300,7 +300,7 @@ public:
 
 	// Get completed size of subfile (in bytes)
 	QWORD GetCompleted(DWORD nIndex) const;
-	
+
 	// Is download complete?
 	inline bool IsComplete() const
 	{
@@ -315,7 +315,7 @@ public:
 //
 //		return m_oFList.size();
 //	}
-	
+
 //	inline BOOL IsFlushNeeded() const
 //	{
 //		CQuickLock oLock( m_pSection );

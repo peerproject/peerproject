@@ -28,7 +28,7 @@ namespace boost
    public:
       reverse_iterator() {}
 
-      explicit reverse_iterator(Iterator x) 
+      explicit reverse_iterator(Iterator x)
           : super_t(x) {}
 
       template<class OtherIterator>
@@ -41,7 +41,7 @@ namespace boost
 
    private:
       typename super_t::reference dereference() const { return *boost::prior(this->base()); }
-    
+
       void increment() { --this->base_reference(); }
       void decrement() { ++this->base_reference(); }
 

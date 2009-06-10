@@ -72,7 +72,7 @@ BOOL CPanelCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 	return TRUE;
 }
 
-void CPanelCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/) 
+void CPanelCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
 	SCROLLINFO pScroll = {};
 	pScroll.cbSize	= sizeof(pScroll);
@@ -104,16 +104,16 @@ void CPanelCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 		pScroll.nPos = nPos;
 		break;
 	}
-	
+
 	pScroll.fMask	= SIF_POS;
 	pScroll.nPos	= max( 0, min( pScroll.nPos, pScroll.nMax ) );
-	
+
 	SetScrollInfo( SB_VERT, &pScroll );
 
 	Invalidate();
 }
 
-void CPanelCtrl::OnSize(UINT nType, int cx, int cy) 
+void CPanelCtrl::OnSize(UINT nType, int cx, int cy)
 {
 	CWnd::OnSize( nType, cx, cy );
 

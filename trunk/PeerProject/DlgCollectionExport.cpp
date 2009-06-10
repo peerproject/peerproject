@@ -106,14 +106,14 @@ BOOL CCollectionExportDlg::OnInitDialog()
 	//Translate window
 	SkinMe( _T("CCollectionExportDlg"), IDI_COLLECTION );
 
-	if ( Settings.General.LanguageRTL ) 
-		m_wndDesc.ModifyStyleEx( WS_EX_RTLREADING|WS_EX_RIGHT|WS_EX_LEFTSCROLLBAR, 
+	if ( Settings.General.LanguageRTL )
+		m_wndDesc.ModifyStyleEx( WS_EX_RTLREADING|WS_EX_RIGHT|WS_EX_LEFTSCROLLBAR,
 			WS_EX_LTRREADING|WS_EX_LEFT|WS_EX_RIGHTSCROLLBAR, 0 );
 
 	m_nSelected = -1;
 	m_wndName.SetWindowText( _T("") );
 	m_wndAuthor.SetWindowText( _T("") );
-	
+
 	//Get label and button caption for the first screen, save the rest to variables for later use.
 	CString str;
 	m_wndOK.GetWindowText( str );
@@ -148,7 +148,7 @@ BOOL CCollectionExportDlg::OnInitDialog()
 	m_nStep = 1;
 
 	CWaitCursor pCursor;
-	
+
 	//Get templates info from Templates folder and fill in the list
 	EnumerateTemplates();
 
@@ -176,7 +176,7 @@ void CCollectionExportDlg::EnumerateTemplates(LPCTSTR pszPath)
 			{
 				strPath.Format( _T("%s%s\\"),
 					pszPath ? pszPath : _T(""), pFind.cFileName );
-				
+
 				EnumerateTemplates( strPath );
 			}
 			else if (	_tcsistr( pFind.cFileName, _T(".xml") ) != NULL )
@@ -200,36 +200,36 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 	if ( strXML.IsEmpty() ) return FALSE;
 
 	CXMLElement* pXML = NULL;
-	
+
 	int nManifest = strXML.Find( _T("<manifest") );
-	
+
 	if ( nManifest > 0 )
 	{
 		CString strManifest = strXML.Mid( nManifest ).SpanExcluding( _T(">") ) + '>';
-		
+
 		if ( CXMLElement* pManifest = CXMLElement::FromString( strManifest ) )
 		{
 			pXML = new CXMLElement( NULL, _T("template") );
 			pXML->AddElement( pManifest );
 		}
 	}
-	
+
 	if ( pXML == NULL )
 	{
 		pXML = CXMLElement::FromString( strXML, TRUE );
 		if ( pXML == NULL ) return FALSE;
 	}
-	
+
 	strXML.Empty();
-	
+
 	CXMLElement* pManifest = pXML->GetElementByName( _T("manifest") );
-	
+
 	if ( ! pXML->IsNamed( _T("template") ) || pManifest == NULL )
 	{
 		delete pXML;
 		return FALSE;
 	}
-	
+
 	CString strIcon		= pManifest->GetAttributeValue( _T("icon") );
 	CString	strName		= pManifest->GetAttributeValue( _T("name"), pszName );
 	CString strAuthor	= pManifest->GetAttributeValue( _T("author"), _T("Unknown") );
@@ -237,7 +237,7 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 	CString strURL		= pManifest->GetAttributeValue( _T("link") );
 	CString strEmail	= pManifest->GetAttributeValue( _T("email") );
 	CString strDesc		= pManifest->GetAttributeValue( _T("description") );
-	
+
 	delete pXML;
 
 	if ( Settings.General.LanguageRTL )
@@ -262,7 +262,7 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 
 		strIcon = strIcon.Left( strIcon.GetLength() - 3 ) + _T("ico");
 	}
-	
+
 	if ( strURL.Find( _T("http://") ) == 0 )
 	{
 	}
@@ -274,12 +274,12 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 	{
 		strURL.Empty();
 	}
-	
+
 	if ( strEmail.Find( '@' ) < 0 ) strEmail.Empty();
-	
+
 	CLiveItem pItem( 7, 0 );
 	HICON hIcon;
-	
+
 	if ( ExtractIconEx( strIcon, 0, NULL, &hIcon, 1 ) != NULL && hIcon != NULL )
 	{
 		pItem.m_nImage = AddIcon( hIcon, m_gdiImageList );
@@ -288,17 +288,17 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 	{
 		pItem.m_nImage = 0;
 	}
-	
+
 	pItem.Set( 0, strName );
 	pItem.Set( 1, strAuthor );
 	pItem.Set( 2, strVersion );
 	pItem.Set( 4, strURL );
 	pItem.Set( 5, strEmail );
 	pItem.Set( 6, strDesc );
-	
+
 	strName.Format( _T("%s%s"), pszPath ? pszPath : _T(""), pszName );
 	pItem.Set( 3, strName );
-	
+
 	/*int nItem =*/ pItem.Add( &m_wndList, -1, 7 );
 
 	return TRUE;
@@ -328,7 +328,7 @@ void CCollectionExportDlg::OnOK()
 			{
 				m_wndWizard.ShowWindow( SW_SHOW );
 				if ( ! m_wndWizard.m_bValid ) m_wndOK.EnableWindow( FALSE );
-				break; 
+				break;
 			}
 
 			// Find position of wizard control
@@ -342,12 +342,12 @@ void CCollectionExportDlg::OnOK()
 			rcNew.bottom = rcReference1.bottom;
 			rcNew.right = rcReference2.right;
 			int nItem = m_wndList.GetNextItem( -1, LVNI_SELECTED );
-			CString strXML = Settings.General.Path + _T("\\Templates\\") 
+			CString strXML = Settings.General.Path + _T("\\Templates\\")
 							+ m_wndList.GetItemText( nItem, 3 );
 			if ( ! m_wndWizard )
 			{
 				CWaitCursor pCursor;
-				m_wndWizard.Create( WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP, 
+				m_wndWizard.Create( WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP,
 					rcNew, this, IDC_WIZARD, strXML, m_pFolder );
 				pCursor.Restore();
 			}
@@ -358,7 +358,7 @@ void CCollectionExportDlg::OnOK()
 		break;
 		case 2: // the second wizard screen
 			CString strPath = BrowseForFolder( _T("Select folder for output:") );
-			if ( strPath.IsEmpty() ) 
+			if ( strPath.IsEmpty() )
 			{
 				m_nStep--; // do not increment at the end of case
 				break;
@@ -381,7 +381,7 @@ void CCollectionExportDlg::OnOK()
 
 			pFile.Write( (LPCSTR)strXMLUTF8, strXMLUTF8.GetLength() );
 			pFile.Close();
-					
+
 			int nPosTpl = 0;
 			while ( nPosTpl < m_wndWizard.m_pTemplatePaths.GetSize() )
 			{
@@ -397,7 +397,7 @@ void CCollectionExportDlg::OnOK()
 					strNewFilePath = strPath + _T("\\") +
 						strTemplateName.Left( strTemplateName.ReverseFind( '.' ) ) +
 						_T(".htm");
-					
+
 					CString strTemplatePath;
 					if ( strTemplateName != "index.htm" )
 						strTemplatePath = DirFromPath( m_wndWizard.m_sXMLPath ) +
@@ -431,7 +431,7 @@ void CCollectionExportDlg::OnOK()
 
 					CEdit* pEdit = (CEdit*)m_wndWizard.GetDlgItem( nControlID );
 					CString strReplace;
-					if ( pEdit->IsKindOf( RUNTIME_CLASS( CEdit ) ) ) 
+					if ( pEdit->IsKindOf( RUNTIME_CLASS( CEdit ) ) )
 						pEdit->GetWindowText( strReplace );
 					else // something wrong
 					{
@@ -439,7 +439,7 @@ void CCollectionExportDlg::OnOK()
 						break;
 					}
 
-					if ( nFileID < (UINT)m_wndWizard.m_pFileDocs.GetSize() && 
+					if ( nFileID < (UINT)m_wndWizard.m_pFileDocs.GetSize() &&
 						strTemplateName == "index.htm" )
 					{
 						int nPosDocs = 0;
@@ -456,7 +456,7 @@ void CCollectionExportDlg::OnOK()
 							if ( ! strMap.IsEmpty() && strReplace.Find(':') != -1 )
 								strNewReplace = strReplace.Mid( strReplace.ReverseFind('\\') + 1 );
 							else strNewReplace = strReplace;
-							
+
 							// single filepicker is replaced everywhere
 							// e.g. various bullets may be identical
 							if ( strMap.IsEmpty() || strMap == "s" )
@@ -481,7 +481,7 @@ void CCollectionExportDlg::OnOK()
 								{
 									strReplace.Replace( '/', '\\' );
 									strTarget = strPath + _T('\\') + strReplace;
-									strSourceFile = DirFromPath( m_wndWizard.m_sXMLPath ) +	
+									strSourceFile = DirFromPath( m_wndWizard.m_sXMLPath ) +
 											_T('\\') + strReplace;
 								}
 								else
@@ -502,14 +502,14 @@ void CCollectionExportDlg::OnOK()
 							if ( strMap == "m" ) break;
 						} // while each even/odd file
 					}
-					
+
 					// ordinary template ignores individual file replacements
-					if ( ! strSource.IsEmpty() && strMap.IsEmpty() || strMap == "s" ) 
+					if ( ! strSource.IsEmpty() && strMap.IsEmpty() || strMap == "s" )
 					{
 						m_wndWizard.ReplaceNoCase( strSource, str, strReplace );
 					}
 				} // while each wizard row
-				
+
 				// combine file docs and embed in "main" template
 				if ( strTemplateName == "index.htm" )
 				{
@@ -536,7 +536,7 @@ void CCollectionExportDlg::OnOK()
 					strSource.ReleaseBuffer();
 				}
 			} // while each template file
-			
+
 			// copy all non-parsed files such as images, stylesheets etc.
 			int nPosImg = 0;
 			while ( nPosImg < m_wndWizard.m_pImagePaths.GetSize() )
@@ -549,7 +549,7 @@ void CCollectionExportDlg::OnOK()
 				if ( GetFileAttributes( strTarget ) == 0xFFFFFFFF )
 				{
 					CString strSource;
-					strSource = DirFromPath( m_wndWizard.m_sXMLPath ) + 
+					strSource = DirFromPath( m_wndWizard.m_sXMLPath ) +
 							_T('\\') + strFileName;
 					// source file exists
 					if ( GetFileAttributes( strSource ) != 0xFFFFFFFF )
@@ -619,7 +619,7 @@ CXMLElement* CCollectionExportDlg::CreateXML(BOOL bMetadataAll)
 		if ( pFile == NULL ) continue;
 
 		CXMLElement* pFileRoot = pContents->AddElement( _T("file") );
-		
+
 		if ( pFile->m_oSHA1 && pFile->m_oTiger )
 		{
 			pFileRoot->AddElement( _T("id") )->SetValue(
@@ -746,7 +746,7 @@ void CCollectionExportDlg::OnTemplatesDeleteOrBack()
 				strPath = strPath.Left( strPath.GetLength() - 1 );
 				RemoveDirectory( strPath );
 			}
-			
+
 			m_wndList.DeleteItem( m_nSelected );
 			m_wndName.SetWindowText( _T("") );
 			m_wndAuthor.SetWindowText( _T("") );
@@ -775,7 +775,7 @@ void CCollectionExportDlg::OnTemplatesDeleteOrBack()
 
 			// Hide wizard control
 			m_wndWizard.ShowWindow( SW_HIDE );
-			
+
 			m_nStep--;
 		}
 		break;
@@ -785,7 +785,7 @@ void CCollectionExportDlg::OnTemplatesDeleteOrBack()
 void CCollectionExportDlg::OnItemChangedTemplates(NMHDR* /*pNMHDR*/, LRESULT *pResult)
 {
 	*pResult = 0;
-	
+
 	int nItem = m_wndList.GetNextItem( -1, LVNI_SELECTED );
 	if ( nItem == m_nSelected ) return; // selection is the same
 
@@ -793,7 +793,7 @@ void CCollectionExportDlg::OnItemChangedTemplates(NMHDR* /*pNMHDR*/, LRESULT *pR
 	m_wndWizard.DestroyWindow();
 
 	m_nSelected = nItem;
-	
+
 	if ( nItem >= 0 )
 	{
 		m_wndName.SetWindowText( m_wndList.GetItemText( nItem, 0 ) );
@@ -812,10 +812,10 @@ void CCollectionExportDlg::OnItemChangedTemplates(NMHDR* /*pNMHDR*/, LRESULT *pR
 	}
 }
 
-HBRUSH CCollectionExportDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor) 
+HBRUSH CCollectionExportDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CSkinDialog::OnCtlColor( pDC, pWnd, nCtlColor );
-	
+
 	if ( m_nSelected >= 0 )
 	{
 		if ( pWnd == &m_wndName )
@@ -839,16 +839,16 @@ HBRUSH CCollectionExportDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	return hbr;
 }
 
-BOOL CCollectionExportDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) 
+BOOL CCollectionExportDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
 	if ( m_nSelected >= 0 && m_nStep == 1 )
 	{
 		CPoint point;
 		CRect rc;
-		
+
 		GetCursorPos( &point );
 		m_wndName.GetWindowRect( &rc );
-		
+
 		if ( rc.PtInRect( point ) )
 		{
 			if ( m_wndList.GetItemText( m_nSelected, 4 ).GetLength() )
@@ -873,7 +873,7 @@ BOOL CCollectionExportDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	return CSkinDialog::OnSetCursor( pWnd, nHitTest, message );
 }
 
-void CCollectionExportDlg::OnLButtonUp(UINT /*nFlags*/, CPoint point) 
+void CCollectionExportDlg::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 {
 	CRect rc;
 
@@ -881,7 +881,7 @@ void CCollectionExportDlg::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 
 	ClientToScreen( &point );
 	m_wndName.GetWindowRect( &rc );
-	
+
 	if ( rc.PtInRect( point ) )
 	{
 		CString strURL = m_wndList.GetItemText( m_nSelected, 4 );
@@ -895,7 +895,7 @@ void CCollectionExportDlg::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 	}
 
 	m_wndAuthor.GetWindowRect( &rc );
-	
+
 	if ( rc.PtInRect( point ) )
 	{
 		CString strEmail = m_wndList.GetItemText( m_nSelected, 5 );
@@ -909,12 +909,12 @@ void CCollectionExportDlg::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 	}
 }
 
-BOOL CCollectionExportDlg::PreTranslateMessage(MSG* pMsg) 
+BOOL CCollectionExportDlg::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_TAB )
 	{
 		if ( m_wndWizard )
-			if ( m_wndWizard.IsWindowVisible() ) 
+			if ( m_wndWizard.IsWindowVisible() )
 				if ( m_wndWizard.OnTab() ) return TRUE; // TODO: when template is invalid tab key does not work.
 	}
 

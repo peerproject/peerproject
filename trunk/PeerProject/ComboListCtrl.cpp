@@ -97,7 +97,7 @@ void CComboListCtrl::OnMouseMove(UINT nFlags, CPoint point)
 	{
 		if ( m_pTip.get() ) m_pTip->Hide();
 
-		CPoint pt; 
+		CPoint pt;
 		GetCursorPos( &pt );
 		CRect rc;
 		m_pCombo->GetWindowRect( rc );
@@ -106,7 +106,7 @@ void CComboListCtrl::OnMouseMove(UINT nFlags, CPoint point)
 			Hide();
 		}
 	}
-	else if ( m_pTip.get() ) 
+	else if ( m_pTip.get() )
 	{
 		int iItem = HitTest( point );
 		if ( iItem >= 0 )
@@ -168,7 +168,7 @@ void CComboListCtrl::Hide()
 		m_oData[ m_iSelectedItem ].erase( m_iSelectedSubItem );
 		m_oData[ m_iSelectedItem ].insert(
 			CIntIntMap::value_type( m_iSelectedSubItem, (*value).first ) );
-	
+
 		SetItemText( m_iSelectedItem, m_iSelectedSubItem, (*value).second );
 
 		m_pCombo->DestroyWindow();

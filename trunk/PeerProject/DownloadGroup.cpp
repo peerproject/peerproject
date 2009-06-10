@@ -113,7 +113,7 @@ BOOL CDownloadGroup::Link(CDownload* pDownload)
 		for ( POSITION pos = m_pFilters.GetHeadPosition() ; pos ; )
 		{
 			CString strFilter = m_pFilters.GetNext( pos );
-			
+
 			if ( strFilter.GetAt( 0 ) == _T('.') )
 			{
 				int nPos( pDownload->m_sName.ReverseFind( _T('.') ) );

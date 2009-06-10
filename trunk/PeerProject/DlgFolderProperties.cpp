@@ -109,7 +109,7 @@ BOOL CFolderPropertiesDlg::OnInitDialog()
 		if ( m_wndSchemas.GetCurSel() < 0 ) m_wndSchemas.SetCurSel( 0 );
 
 		OnSelChangeSchemas();
-		
+
 		m_bUpdating = TRUE;
 		if ( m_pFolder->m_pXML ) m_wndData.UpdateData( m_pFolder->m_pXML, FALSE );
 		m_bUpdating = FALSE;
@@ -383,7 +383,7 @@ void CFolderPropertiesDlg::DoApply(BOOL bMetaToFiles)
 void CFolderPropertiesDlg::OnCancel()
 {
 	if ( m_pFolder->m_sSchemaURI && m_pFolder->m_sSchemaURI.IsEmpty() )
-	{ 
+	{
 		// "New Folder" created and Cancel button was pressed
 		// By default only OK button asigns schema
 		m_pFolder->Delete();

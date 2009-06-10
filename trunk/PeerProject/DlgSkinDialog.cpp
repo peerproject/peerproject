@@ -317,7 +317,7 @@ BOOL CSkinDialog::OnInitDialog()
 
 		pBanner = &m_oBanner;
 	}
-	
+
 	if ( pBanner && Settings.General.LanguageRTL )
 	{
 		// Adjust banner width

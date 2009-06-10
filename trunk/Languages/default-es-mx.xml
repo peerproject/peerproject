@@ -660,7 +660,7 @@
 		</menu>
 		<menu text="_Herramientas">
 			<item id="ID_LIBRARY_FOLDERS" text="Compartir _Archivos..."/>
-			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir mi carpeta de Descargas completadas"/>			
+			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir mi carpeta de Descargas completadas"/>
 			<separator/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Descargar Archivo/Torrent..."/>
 			<item id="ID_TOOLS_SEEDTORRENT" 	text="_Seed New Torrent..."/>
@@ -1025,10 +1025,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Pausar todas"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Cancelar/Eliminar todas"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Mostrar Grupos"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="Crear _Grupo..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Eliminar Grupo"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Mostrar Grupos"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Pr_opiedades"/>
 	</menu>
@@ -4334,10 +4334,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Dirección / Contenido"/>
+		<column from="Hits" to=""/>
 		<column from="Action" to="Acción"/>
 		<column from="Expires" to="Expira"/>
-		<column from="#" to="Procedencia"/>
-		<column from="Hits" to=""/>
+		<column from="#" to="#"/>
 		<column from="Comment" to="Comentario"/>
 	</list>
 	<list name="CHostCacheWnd">

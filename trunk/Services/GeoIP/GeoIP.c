@@ -339,7 +339,7 @@ int _check_mtime(GeoIP *gi) {
 					fprintf(stderr, "Error reading file %s -- corrupt\n", gi->file_path);
 					return -1;
 				}
-				if (gi->flags & GEOIP_INDEX_CACHE) {                        
+				if (gi->flags & GEOIP_INDEX_CACHE) {
 					gi->index_cache = (unsigned char *) realloc(gi->index_cache, sizeof(unsigned char) * ((gi->databaseSegments[0] * (long)gi->record_length * 2)));
 					if (gi->index_cache != NULL) {
 						fseek(gi->GeoIPDatabase, 0, SEEK_SET);
@@ -546,7 +546,7 @@ GeoIP* GeoIP_open (const char * filename, int flags) {
 		}
 		gi->flags = flags;
 		_setup_segments(gi);
-		if (flags & GEOIP_INDEX_CACHE) {                        
+		if (flags & GEOIP_INDEX_CACHE) {
 			gi->index_cache = (unsigned char *) malloc(sizeof(unsigned char) * ((gi->databaseSegments[0] * (long)gi->record_length * 2)));
 			if (gi->index_cache != NULL) {
 				fseek(gi->GeoIPDatabase, 0, SEEK_SET);
@@ -685,7 +685,7 @@ const char *GeoIP_country_name_by_ipnum (GeoIP* gi, unsigned long ipnum) {
 	int country_id;
 	country_id = GeoIP_id_by_ipnum(gi, ipnum);
 	return (country_id > 0) ? GeoIP_country_name[country_id] : NULL;
-} 
+}
 
 const char *GeoIP_country_code_by_ipnum (GeoIP* gi, unsigned long ipnum) {
 	int country_id;
@@ -731,7 +731,7 @@ int GeoIP_id_by_ipnum (GeoIP* gi, unsigned long ipnum) {
 	if (ipnum == 0) {
 		return 0;
 	}
-	if (gi->databaseType != GEOIP_COUNTRY_EDITION && 
+	if (gi->databaseType != GEOIP_COUNTRY_EDITION &&
 			gi->databaseType != GEOIP_PROXY_EDITION &&
 			gi->databaseType != GEOIP_NETSPEED_EDITION) {
 		printf("Invalid database type %s, expected %s\n",
@@ -837,7 +837,7 @@ void GeoIP_assign_region_by_inetaddr(GeoIP* gi, unsigned long inetaddr, GeoIPReg
 static
 GeoIPRegion * _get_region(GeoIP* gi, unsigned long ipnum) {
 	GeoIPRegion * region;
- 
+
 	region = malloc(sizeof(GeoIPRegion));
 	if (region) {
 		GeoIP_assign_region_by_inetaddr(gi, htonl(ipnum), region);
@@ -904,7 +904,7 @@ char *_get_name (GeoIP* gi, unsigned long ipnum) {
 	}
 
 	seek_org = _GeoIP_seek_record(gi, ipnum);
-	if (seek_org == gi->databaseSegments[0])		
+	if (seek_org == gi->databaseSegments[0])
 		return NULL;
 
 	record_pointer = seek_org + (2 * gi->record_length - 1) * gi->databaseSegments[0];
@@ -925,7 +925,7 @@ char *_get_name (GeoIP* gi, unsigned long ipnum) {
 }
 
 char *GeoIP_name_by_ipnum (GeoIP* gi, unsigned long ipnum) {
-	return _get_name(gi,ipnum);  
+	return _get_name(gi,ipnum);
 }
 
 char *GeoIP_name_by_addr (GeoIP* gi, const char *addr) {

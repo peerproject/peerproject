@@ -283,9 +283,9 @@ public:
 	BOOL				Check(const CHostCacheHostPtr pHost) const;
 	void				Remove(CHostCacheHostPtr pHost);
 	void				SanityCheck();
-	void				OnFailure(const IN_ADDR* pAddress, WORD nPort, 
+	void				OnFailure(const IN_ADDR* pAddress, WORD nPort,
 							  PROTOCOLID nProtocol=PROTOCOL_NULL, bool bRemove=true);
-	void				OnSuccess(const IN_ADDR* pAddress, WORD nPort, 
+	void				OnSuccess(const IN_ADDR* pAddress, WORD nPort,
 							  PROTOCOLID nProtocol=PROTOCOL_NULL, bool bUpdate=true);
 	void				PruneOldHosts();
 

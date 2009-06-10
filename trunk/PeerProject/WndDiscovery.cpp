@@ -85,18 +85,18 @@ CDiscoveryWnd::~CDiscoveryWnd()
 /////////////////////////////////////////////////////////////////////////////
 // CDiscoveryWnd message handlers
 
-int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CPanelWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
-	
+
 	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
 		rectDefault, this, IDC_SERVICES );
 	m_pSizer.Attach( &m_wndList );
-	
+
 	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
 		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP,
 		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
-	
+
 	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 4, 1 );
 	AddIcon( IDR_HOSTCACHEFRAME, m_gdiImageList );
 	AddIcon( IDI_DISCOVERY_GRAY, m_gdiImageList );
@@ -119,7 +119,7 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( 10, _T("Pong"), LVCFMT_CENTER, 150, 9 );
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
-	
+
 	LoadState( _T("CDiscoveryWnd"), TRUE );
 
 	m_bShowGnutella		= TRUE;
@@ -129,15 +129,15 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	CWaitCursor pCursor;
 	Update();
-	
+
 	return 0;
 }
 
-void CDiscoveryWnd::OnDestroy() 
+void CDiscoveryWnd::OnDestroy()
 {
 	DiscoveryServices.Save();
 
-	Settings.SaveList( _T("CDiscoveryWnd"), &m_wndList );		
+	Settings.SaveList( _T("CDiscoveryWnd"), &m_wndList );
 	SaveState( _T("CDiscoveryWnd") );
 
 	CPanelWnd::OnDestroy();
@@ -182,7 +182,7 @@ void CDiscoveryWnd::Update()
 					pItem->m_nImage = 4;		// Blue icon
 				else if ( pService->m_bGnutella1 )
 					pItem->m_nImage = 1;		// Grey icon
-				else 
+				else
 					pItem->m_nImage = 3;		// Blank
 			}
 		}
@@ -204,9 +204,9 @@ void CDiscoveryWnd::Update()
 		{
 			continue;
 		}
-		
+
 		pItem->Set( 0, pService->m_sAddress );
-		
+
 		if ( pService->m_tAccessed )
 		{
 			CTime pTime( (time_t)pService->m_tAccessed );
@@ -217,12 +217,12 @@ void CDiscoveryWnd::Update()
 			if ( pService->m_nType != CDiscoveryService::dsBlocked )
 				pItem->Set( 2, _T("0 - Never") );
 		}
-		
+
 		if ( pService->m_nType != CDiscoveryService::dsBlocked )
 		{
 			pItem->Format( 7, _T("%u"), pService->m_nAccesses );
 			pItem->Format( 9, _T("%u"), pService->m_nFailures );
-			
+
 			if ( pService->m_tAccessed )
 			{
 				pItem->Format( 3, _T("%u"), pService->m_nHosts );
@@ -230,7 +230,7 @@ void CDiscoveryWnd::Update()
 				pItem->Format( 8, _T("%u"), pService->m_nUpdates );
 				pItem->Format( 5, _T("%u"), pService->m_nURLs );
 				pItem->Format( 6, _T("%u"), pService->m_nTotalURLs );
-				
+
 				if ( ( ! pService->m_sPong.IsEmpty() ) && pService->m_nType == CDiscoveryService::dsWebCache && pService->m_bGnutella2 )
 				{
 					pItem->Set( 10, pService->m_sPong );
@@ -238,7 +238,7 @@ void CDiscoveryWnd::Update()
 			}
 		}
 	}
-	
+
 	pLiveList.Apply( &m_wndList, TRUE );
 }
 
@@ -249,7 +249,7 @@ CDiscoveryService* CDiscoveryWnd::GetItem(int nItem)
 		CDiscoveryService* pService = (CDiscoveryService*)m_wndList.GetItemData( nItem );
 		if ( DiscoveryServices.Check( pService ) ) return pService;
 	}
-	
+
 	return NULL;
 }
 
@@ -259,14 +259,14 @@ void CDiscoveryWnd::OnSkinChange()
 	Settings.LoadList( _T("CDiscoveryWnd"), &m_wndList, 3 );
 }
 
-void CDiscoveryWnd::OnSize(UINT nType, int cx, int cy) 
+void CDiscoveryWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CPanelWnd::OnSize(nType, cx, cy);
 	m_pSizer.Resize( cx );
 	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy, SWP_NOZORDER );
 }
 
-void CDiscoveryWnd::OnTimer(UINT_PTR nIDEvent) 
+void CDiscoveryWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( ( nIDEvent == 1 ) && ( IsPartiallyVisible() ) ) Update();
 }
@@ -284,12 +284,12 @@ void CDiscoveryWnd::OnSortList(NMHDR* pNotifyStruct, LRESULT *pResult)
 	*pResult = 0;
 }
 
-void CDiscoveryWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point) 
+void CDiscoveryWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
 	Skin.TrackPopupMenu( _T("CDiscoveryWnd"), point, ID_DISCOVERY_EDIT );
 }
 
-void CDiscoveryWnd::OnUpdateDiscoveryQuery(CCmdUI* pCmdUI) 
+void CDiscoveryWnd::OnUpdateDiscoveryQuery(CCmdUI* pCmdUI)
 {
 	if (  m_wndList.GetSelectedCount() == 1 )
 	{
@@ -304,16 +304,16 @@ void CDiscoveryWnd::OnUpdateDiscoveryQuery(CCmdUI* pCmdUI)
 	pCmdUI->Enable( FALSE );
 }
 
-void CDiscoveryWnd::OnDiscoveryQuery() 
+void CDiscoveryWnd::OnDiscoveryQuery()
 {
 	CSingleLock pLock( &Network.m_pSection, FALSE );
 	if ( ! pLock.Lock( 250 ) )
 		return;
-	
+
 	for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
 	{
 		CDiscoveryService* pService = GetItem( nItem );
-		
+
 		if ( pService != NULL )
 		{
 			DiscoveryServices.Execute( pService,
@@ -324,7 +324,7 @@ void CDiscoveryWnd::OnDiscoveryQuery()
 	}
 }
 
-void CDiscoveryWnd::OnUpdateDiscoveryAdvertise(CCmdUI* pCmdUI) 
+void CDiscoveryWnd::OnUpdateDiscoveryAdvertise(CCmdUI* pCmdUI)
 {
 	CSingleLock pLock( &Network.m_pSection );
 
@@ -339,7 +339,7 @@ void CDiscoveryWnd::OnUpdateDiscoveryAdvertise(CCmdUI* pCmdUI)
 	}
 }
 
-void CDiscoveryWnd::OnDiscoveryAdvertise() 
+void CDiscoveryWnd::OnDiscoveryAdvertise()
 {
 	CSingleLock pLock( &Network.m_pSection, FALSE );
 	if ( ! pLock.Lock( 250 ) )
@@ -353,12 +353,12 @@ void CDiscoveryWnd::OnDiscoveryAdvertise()
 	}
 }
 
-void CDiscoveryWnd::OnUpdateDiscoveryBrowse(CCmdUI* pCmdUI) 
+void CDiscoveryWnd::OnUpdateDiscoveryBrowse(CCmdUI* pCmdUI)
 {
 	OnUpdateDiscoveryAdvertise( pCmdUI );
 }
 
-void CDiscoveryWnd::OnDiscoveryBrowse() 
+void CDiscoveryWnd::OnDiscoveryBrowse()
 {
 	CSingleLock pLock( &Network.m_pSection, FALSE );
 	if ( ! pLock.Lock( 250 ) )
@@ -378,12 +378,12 @@ void CDiscoveryWnd::OnDiscoveryBrowse()
 	}
 }
 
-void CDiscoveryWnd::OnUpdateDiscoveryRemove(CCmdUI* pCmdUI) 
+void CDiscoveryWnd::OnUpdateDiscoveryRemove(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( m_wndList.GetSelectedCount() > 0 );
 }
 
-void CDiscoveryWnd::OnDiscoveryRemove() 
+void CDiscoveryWnd::OnDiscoveryRemove()
 {
 	CSingleLock pLock( &Network.m_pSection, FALSE );
 	if ( ! pLock.Lock( 250 ) )
@@ -400,12 +400,12 @@ void CDiscoveryWnd::OnDiscoveryRemove()
 	Update();
 }
 
-void CDiscoveryWnd::OnUpdateDiscoveryEdit(CCmdUI* pCmdUI) 
+void CDiscoveryWnd::OnUpdateDiscoveryEdit(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( m_wndList.GetSelectedCount() == 1 );
 }
 
-void CDiscoveryWnd::OnDiscoveryEdit() 
+void CDiscoveryWnd::OnDiscoveryEdit()
 {
 	CSingleLock pLock( &Network.m_pSection, FALSE );
 	if ( ! pLock.Lock( 250 ) )
@@ -421,51 +421,51 @@ void CDiscoveryWnd::OnDiscoveryEdit()
 	if ( dlg.DoModal() == IDOK ) Update();
 }
 
-void CDiscoveryWnd::OnUpdateDiscoveryGnutella(CCmdUI* pCmdUI) 
+void CDiscoveryWnd::OnUpdateDiscoveryGnutella(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck( m_bShowGnutella );
 }
 
-void CDiscoveryWnd::OnDiscoveryGnutella() 
+void CDiscoveryWnd::OnDiscoveryGnutella()
 {
 	m_bShowGnutella = ! m_bShowGnutella;
 	Update();
 }
 
-void CDiscoveryWnd::OnUpdateDiscoveryWebcache(CCmdUI* pCmdUI) 
+void CDiscoveryWnd::OnUpdateDiscoveryWebcache(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck( m_bShowWebCache );
 }
 
-void CDiscoveryWnd::OnDiscoveryWebcache() 
+void CDiscoveryWnd::OnDiscoveryWebcache()
 {
 	m_bShowWebCache = ! m_bShowWebCache;
 	Update();
 }
 
-void CDiscoveryWnd::OnUpdateDiscoveryServerMet(CCmdUI* pCmdUI) 
+void CDiscoveryWnd::OnUpdateDiscoveryServerMet(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck( m_bShowServerMet );
 }
 
-void CDiscoveryWnd::OnDiscoveryServerMet() 
+void CDiscoveryWnd::OnDiscoveryServerMet()
 {
 	m_bShowServerMet = ! m_bShowServerMet;
 	Update();
 }
 
-void CDiscoveryWnd::OnUpdateDiscoveryBlocked(CCmdUI* pCmdUI) 
+void CDiscoveryWnd::OnUpdateDiscoveryBlocked(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck( m_bShowBlocked );
 }
 
-void CDiscoveryWnd::OnDiscoveryBlocked() 
+void CDiscoveryWnd::OnDiscoveryBlocked()
 {
 	m_bShowBlocked = ! m_bShowBlocked;
 	Update();
 }
 
-void CDiscoveryWnd::OnDiscoveryAdd() 
+void CDiscoveryWnd::OnDiscoveryAdd()
 {
 	CDiscoveryServiceDlg dlg;
 

@@ -45,7 +45,7 @@ struct make_unsigned_imp
 
    typedef typename remove_cv<T>::type t_no_cv;
    typedef typename mpl::if_c<
-      (::boost::type_traits::ice_and< 
+      (::boost::type_traits::ice_and<
          ::boost::is_unsigned<T>::value,
          ::boost::is_integral<T>::value,
          ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, char>::value>::value,
@@ -53,7 +53,7 @@ struct make_unsigned_imp
          ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, bool>::value>::value >::value),
       T,
       typename mpl::if_c<
-         (::boost::type_traits::ice_and< 
+         (::boost::type_traits::ice_and<
             ::boost::is_integral<T>::value,
             ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, char>::value>::value,
             ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, wchar_t>::value>::value,
@@ -108,14 +108,14 @@ struct make_unsigned_imp
          >::type
       >::type
    >::type base_integer_type;
-   
+
    // Add back any const qualifier:
    typedef typename mpl::if_<
       is_const<T>,
       typename add_const<base_integer_type>::type,
       base_integer_type
    >::type const_base_integer_type;
-   
+
    // Add back any volatile qualifier:
    typedef typename mpl::if_<
       is_volatile<T>,

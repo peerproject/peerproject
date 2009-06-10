@@ -29,13 +29,13 @@ class CSchemaChild;
 class CXMLElement;
 class CSchemaBitzi;
 
-class CSchema  
+class CSchema
 {
 // Construction
 public:
 	CSchema();
 	virtual ~CSchema();
-	
+
 // Attributes
 public:
 	int			m_nType;
@@ -63,13 +63,13 @@ public:
 	int			m_nIcon16;
 	int			m_nIcon32;
 	int			m_nIcon48;
-	
+
 	enum { stFile, stFolder };
 	enum { saDefault, saAdvanced, saSystem, saMax };
 
 protected:
 	CString		m_sURI;
-	
+
 // Operations
 public:
 	POSITION		GetMemberIterator() const;

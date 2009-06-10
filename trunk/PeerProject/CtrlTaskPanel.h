@@ -90,7 +90,7 @@ public:
 	virtual ~CTaskBox();
 
 	DECLARE_DYNAMIC(CTaskBox)
-	
+
 	CTaskPanel*	GetPanel() const;
 	void		SetCaption(LPCTSTR pszCaption);
 	void		SetIcon(HICON hIcon);

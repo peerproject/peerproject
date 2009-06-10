@@ -78,7 +78,7 @@ protected:
 	void		Serialize(CArchive& ar, int nVersion);
 	BOOL		ResolveGnutella();
 
-	friend class CDiscoveryServices;	
+	friend class CDiscoveryServices;
 };
 
 class CDiscoveryServices :
@@ -87,7 +87,7 @@ class CDiscoveryServices :
 public:
 	CDiscoveryServices();
 	virtual ~CDiscoveryServices();
-	
+
 	enum Mode
 	{
 		wcmHosts, wcmCaches, wcmUpdate, wcmSubmit, wcmServerMet
@@ -135,7 +135,7 @@ protected:
 	void				Clear();
 	int					ExecuteBootstraps( int nCount, BOOL bUDP = FALSE, PROTOCOLID nProtocol = PROTOCOL_NULL );
 	void				Serialize(CArchive& ar);
-	BOOL				RequestRandomService(PROTOCOLID nProtocol);	
+	BOOL				RequestRandomService(PROTOCOLID nProtocol);
 	CDiscoveryService*  GetRandomService(PROTOCOLID nProtocol);
 	CDiscoveryService*	GetRandomWebCache(PROTOCOLID nProtocol, BOOL bWorkingOnly, CDiscoveryService* pExclude = NULL, BOOL bForUpdate = FALSE);
 	BOOL				RequestWebCache(CDiscoveryService* pService, Mode nMode, PROTOCOLID nProtocol);

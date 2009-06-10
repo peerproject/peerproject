@@ -13,7 +13,7 @@
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
 <!-- Manifest -->
-<manifest	name="Suomi" 
+<manifest	name="Suomi"
 		author="Toni Kaija"
 		updatedBy=""
 		description="PeerProject Default Finnish Skin File"
@@ -1001,10 +1001,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="K_eskeytä Kaikki"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Tyhjennä Kaikki"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Näytä Ryhmät"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Uusi Ryhmä..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Poista _Ryhmä"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Näytä Ryhmät"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Ominaisuudet"/>
 	</menu>
@@ -2095,10 +2095,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to=""/>
+		<column from="Hits" to=""/>
 		<column from="Action" to=""/>
 		<column from="Expires" to=""/>
 		<column from="#" to=""/>
-		<column from="Hits" to=""/>
 		<column from="Comment" to=""/>
 	</list>
 	<list name="CHostCacheWnd">

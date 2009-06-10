@@ -100,7 +100,7 @@ BOOL CAboutDlg::OnInitDialog()
 	BYTE* pValue = NULL;
 	CString strCopyRight;
 
-	if ( VerQueryValue( pBuffer, L"\\StringFileInfo\\000004b0\\LegalCopyright", 
+	if ( VerQueryValue( pBuffer, L"\\StringFileInfo\\000004b0\\LegalCopyright",
 		 (void**)&pValue, (UINT*)&dwSize ) )
 		strCopyRight = (LPCTSTR)pValue;
 

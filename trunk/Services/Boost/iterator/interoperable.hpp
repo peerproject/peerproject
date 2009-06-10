@@ -27,7 +27,7 @@ namespace boost
   // standards requirements on constant/mutable container
   // iterators (23.1 [lib.container.requirements]).
   //
-  // For compilers that don't support is_convertible 
+  // For compilers that don't support is_convertible
   // is_interoperable gives false positives. See comments
   // on operator implementation for consequences.
   //
@@ -40,7 +40,7 @@ namespace boost
           is_convertible< A, B >
         , is_convertible< B, A > >
 # endif
-  { 
+  {
   };
 
 } // namespace boost

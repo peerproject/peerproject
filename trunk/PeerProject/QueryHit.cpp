@@ -60,7 +60,7 @@ CQueryHit::CQueryHit(PROTOCOLID nProtocol, const Hashes::Guid& oSearchID) :
 	m_bStable		( TRI_UNKNOWN ),
 	m_bMeasured		( TRI_UNKNOWN ),
 	m_bChat			( FALSE ),
-	m_bBrowseHost	( FALSE ),	
+	m_bBrowseHost	( FALSE ),
 	m_nGroup		( 0 ),
 //	m_bSHA1			( FALSE ),
 //	m_bTiger		( FALSE ),
@@ -72,10 +72,10 @@ CQueryHit::CQueryHit(PROTOCOLID nProtocol, const Hashes::Guid& oSearchID) :
 	m_nPartial		( 0 ),
 	m_bPreview		( FALSE ),
 	m_nUpSlots		( 0 ),
-	m_nUpQueue		( 0 ),	
-	m_bCollection	( FALSE ),	
+	m_nUpQueue		( 0 ),
+	m_bCollection	( FALSE ),
 	m_pXML			( NULL ),
-	m_nRating		( 0 ),	
+	m_nRating		( 0 ),
 	m_bBogus		( FALSE ),
 	m_bMatched		( FALSE ),
 	m_bExactMatch	( FALSE ),
@@ -117,7 +117,7 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 			if ( ! static_cast< CG2Packet* >( static_cast< CPacket* >( pPacket ) )->
 				SeekToWrapped() ) return NULL;
 			pPacket->Read( &pG1, sizeof(pG1) );
-			
+
 			oQueryID = pG1.m_oGUID;
 			if ( pnHops ) *pnHops = pG1.m_nHops + 1;
 		}
@@ -126,7 +126,7 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 			oQueryID = pPacket->m_oGUID;
 			if ( pnHops ) *pnHops = pPacket->m_nHops + 1;
 		}
-		
+
 		oQueryID.validate();
 
 		BYTE nCount = pPacket->ReadByte();
@@ -147,12 +147,12 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 			if ( pFirstHit ) pLastHit->m_pNext = pHit;
 			else pFirstHit = pHit;
 			pLastHit = pHit;
-			
+
 			pHit->m_pAddress	= (IN_ADDR&)nAddress;
 			pHit->m_sCountry	= theApp.GetCountryCode( pHit->m_pAddress );
 			pHit->m_nPort		= nPort;
 			pHit->m_nSpeed		= nSpeed;
-			
+
 			pHit->ReadG1Packet( pPacket );
 			if ( pHit->m_bBogus )
 				bBogus = TRUE;
@@ -171,12 +171,12 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 				pVendor = VendorCache.m_pNull;
 			nPublicSize	= pPacket->ReadByte();
 		}
-		
+
 		BOOL bBrowseHost = FALSE;
 		if ( pVendor && pVendor->m_bHTMLBrowse )
 			bBrowseHost = TRUE;
-		
-		if ( pPacket->GetRemaining() < nPublicSize + 16u ) 
+
+		if ( pPacket->GetRemaining() < nPublicSize + 16u )
 		{
 			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with invalid size of public data") );
 			AfxThrowUserException();
@@ -189,13 +189,13 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 			nFlags[1]	= pPacket->ReadByte();
 			nPublicSize -= 2;
 		}
-		
+
 		WORD nXMLSize = 0;
 		if ( nPublicSize >= 2 )
 		{
 			nXMLSize = pPacket->ReadShortLE();
 			nPublicSize -= 2;
-			if ( nPublicSize + nXMLSize + 16u > pPacket->GetRemaining() ) 
+			if ( nPublicSize + nXMLSize + 16u > pPacket->GetRemaining() )
 			{
 				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with invalid size of XML data") );
 				AfxThrowUserException();
@@ -254,9 +254,9 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 			nFlags[0] |= G1_QHD_PUSH;
 			nFlags[1] |= G1_QHD_PUSH;
 		}
-		
+
 		// Read client ID
-		Hashes::Guid oClientID;		
+		Hashes::Guid oClientID;
 		pPacket->Seek( 16, CG1Packet::seekEnd );
 		pPacket->Read( oClientID );
 
@@ -282,9 +282,9 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 		if ( pFirstHit ) pFirstHit->Delete();
 		return NULL;
 	}
-	
+
 	if ( pXML ) delete pXML;
-	
+
 	return pFirstHit;
 }
 
@@ -297,7 +297,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 	{
 		return FromG1Packet( (CG1Packet*)pPacket );
 	}
-	
+
 	if ( ! pPacket->m_bCompound )
 	{
 		theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: No compounded packet") );
@@ -373,25 +373,25 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 					DWORD nQueued = 0, nUploads = 0, nSpeed = 0;
 					G2_PACKET nInnerType;
 					DWORD nInner;
-					
+
 					while ( pPacket->m_nPosition < nSkip && pPacket->ReadPacket( nInnerType, nInner ) )
 					{
 						DWORD nSkipInner = pPacket->m_nPosition + nInner;
-						
+
 						if ( nInnerType == G2_PACKET_PEER_STATUS && nInner >= 7 )
 						{
 							nQueued		= pPacket->ReadShortBE();
 							nUploads	= pPacket->ReadByte();
 							nSpeed		= pPacket->ReadLongBE();
 						}
-						
+
 						pPacket->m_nPosition = nSkipInner;
 					}
-					
+
 					if ( pPacket->m_nPosition < nSkip && nSpeed > 0 )
 					{
 						int nGroup = pPacket->ReadByte();
-						
+
 						if ( nGroup >= 0 && nGroup < 8 )
 						{
 							nGroupState[ nGroup ][0] = TRUE;
@@ -489,16 +489,16 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 			case G2_PACKET_METADATA:
 				{
 					CString strXML	= pPacket->ReadString( nLength );
-					LPCTSTR pszXML	= strXML;					
+					LPCTSTR pszXML	= strXML;
 					while ( pszXML && *pszXML )
 					{
 						CXMLElement* pPart = CXMLElement::FromString( pszXML, TRUE );
 						if ( !pPart )
 							break;
-						
+
 						if ( ! pXML ) pXML = new CXMLElement( NULL, _T("Metadata") );
 						pXML->AddElement( pPart );
-						
+
 						pszXML = _tcsstr( pszXML + 1, _T("<?xml") );
 					}
 				}
@@ -534,11 +534,11 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 				if ( nLength > 0 )
 				{
 					BYTE nStatus = pPacket->ReadByte();
-					
+
 					bBusy	= ( nStatus & G2_SS_BUSY ) ? TRUE : FALSE;
 					bPush	= ( nStatus & G2_SS_PUSH ) ? TRUE : FALSE;
 					bStable	= ( nStatus & G2_SS_STABLE ) ? TRUE : FALSE;
-					
+
 					if ( nLength >= 1+4+2+1 )
 					{
 						nGroupState[0][0] = TRUE;
@@ -557,7 +557,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 
 			pPacket->m_nPosition = nSkip;
 		}
-		
+
 		if ( ! oClientID )
 		{
 			theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Node guid missed") );
@@ -572,7 +572,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 		BYTE nHops = pPacket->ReadByte() + 1;
 		if ( pnHops )
 			*pnHops = nHops;
-		
+
 		pPacket->Read( oSearchID );
 		oSearchID.validate();
 	}
@@ -588,13 +588,13 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 
 	if ( !bPush )
 		bPush = ( nPort == 0 || Network.IsFirewalledAddress( &nAddress ) );
-	
+
 	DWORD nIndex = 0;
 	for ( CQueryHit* pHit = pFirstHit ; pHit ; pHit = pHit->m_pNext, nIndex++ )
 	{
 		if ( nGroupState[ pHit->m_nGroup ][0] == FALSE )
 			pHit->m_nGroup = 0;
-		
+
 		pHit->m_oSearchID	= oSearchID;
 		pHit->m_oClientID	= oClientID;
 		pHit->m_pAddress	= *(IN_ADDR*)&nAddress;
@@ -612,12 +612,12 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 		pHit->m_bBrowseHost	= bBrowseHost;
 		pHit->m_sNick		= strNick;
 		pHit->m_bPreview	&= pHit->m_bPush == TRI_FALSE;
-		
+
 		if ( pHit->m_nUpSlots > 0 )
 		{
 			pHit->m_bBusy = ( pHit->m_nUpSlots <= pHit->m_nUpQueue ) ? TRI_TRUE : TRI_FALSE;
 		}
-		
+
 		pHit->Resolve();
 
 		// Apply external metadata if available
@@ -636,7 +636,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 			}
 		}
 	}
-	
+
 	if ( bSpam )
 	{
 		if ( pFirstHit )
@@ -652,7 +652,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 	else if ( !CheckBogus( pFirstHit ) )
 	{
 		// Now add all hub list to the route cache
-		for ( NodeIter iter = pTestNodeList.begin( ) ; 
+		for ( NodeIter iter = pTestNodeList.begin( ) ;
 			  iter != pTestNodeList.end( ) ; iter++ )
 		{
 			SOCKADDR_IN pHub;
@@ -665,10 +665,10 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 			Network.NodeRoute->Add( oClientID, &pHub );
 		}
 	}
-	
+
 	if ( pXML )
 		delete pXML;
-	
+
 	return pFirstHit;
 }
 
@@ -687,14 +687,14 @@ CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOO
 			 pPacket->m_nType == ED2K_S2CG_SEARCHRESULT )
 		{
 			DWORD nCount = 1;
-			
+
 			if ( pPacket->m_nType == ED2K_S2C_SEARCHRESULTS )
 			{
 				if ( pPacket->GetRemaining() < 4 )
 					AfxThrowUserException();
 				nCount = pPacket->ReadLongLE();
 			}
-			
+
 			while ( nCount-- > 0 && pPacket->GetRemaining() >= Hashes::Ed2kHash::byteCount + 10 )
 			{
 				auto_ptr< CQueryHit >pHit( new CQueryHit( PROTOCOL_ED2K, oSearchID ) );
@@ -702,7 +702,7 @@ CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOO
 				// Enable chat for ed2k hits
 				pHit->m_bBrowseHost = TRUE;
 				pHit->m_bChat = TRUE;
-				
+
 				pHit->m_pVendor = VendorCache.Lookup( _T("ED2K") );
 				if ( ! pHit->m_pVendor ) pHit->m_pVendor = VendorCache.m_pNull;
 				pHit->ReadEDPacket( pPacket, pServer, bUnicode );
@@ -729,11 +729,11 @@ CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOO
 			pPacket->Read( oHash );
 
 			BYTE nCount = pPacket->ReadByte();
-			
+
 			while ( nCount-- > 0 && pPacket->GetRemaining() >= 6 )
 			{
 				auto_ptr< CQueryHit >pHit( new CQueryHit( PROTOCOL_ED2K, oSearchID ) );
-				
+
 				// Enable chat for ed2k hits
 				pHit->m_bBrowseHost = TRUE;
 				pHit->m_bChat = TRUE;
@@ -754,7 +754,7 @@ CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOO
 
 		// Enable chat for ed2k hits
 		//pFirstHit->m_bChat = TRUE;
-		
+
 		//CheckBogus( pFirstHit );
 	}
 	catch ( CException* pException )
@@ -796,7 +796,7 @@ BOOL CQueryHit::CheckBogus(CQueryHit* pFirstHit)
 		strTemp.assign( pFirstHit->m_oMD5.toUrn() );
 		pList.push_back( strTemp );
 	}
-	
+
 	for ( CQueryHit* pHit = pFirstHit->m_pNext ; pHit ; pHit = pHit->m_pNext )
 	{
 		if ( pHit->m_oSHA1 )
@@ -820,7 +820,7 @@ BOOL CQueryHit::CheckBogus(CQueryHit* pFirstHit)
 			pList.push_back( strTemp );
 		}
 	}
-	
+
 	size_t nBogus = pList.size();
 
 	StringList::iterator it, it2;
@@ -846,11 +846,11 @@ BOOL CQueryHit::CheckBogus(CQueryHit* pFirstHit)
 		else
 			++it;
 	}
-	
+
 	nBogus -= pList.size();
 
 	if ( nBogus == 0 ) return FALSE;
-	
+
 	for ( CQueryHit* pHit = pFirstHit ; pHit ; pHit = pHit->m_pNext )
 	{
 		if ( pHit->m_oSHA1 )
@@ -868,7 +868,7 @@ BOOL CQueryHit::CheckBogus(CQueryHit* pFirstHit)
 	}
 
 	theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got bogus hit packet. Cross-hit hash check failed") );
-	
+
 	return TRUE;
 }
 
@@ -1023,7 +1023,7 @@ void CQueryHit::ReadG1Packet(CG1Packet* pPacket)
 
 	if ( Settings.Gnutella1.QueryHitUTF8 ) //Support UTF-8 Query
 	{
-		m_sName	= pPacket->ReadStringUTF8();	
+		m_sName	= pPacket->ReadStringUTF8();
 	}
 	else
 	{
@@ -1033,7 +1033,7 @@ void CQueryHit::ReadG1Packet(CG1Packet* pPacket)
 	while ( pPacket->GetRemaining() )
 	{
 		BYTE nPeek = pPacket->PeekByte();
-		
+
 		if ( nPeek == GGEP_MAGIC )
 		{
 			// GGEP extension
@@ -1199,7 +1199,7 @@ void CQueryHit::ReadGGEP(CG1Packet* pPacket)
 		if ( oBTH   && ! m_oBTH )   m_oBTH   = oBTH;
 		if ( oMD5   && ! m_oMD5 )   m_oMD5   = oMD5;
 	}
-	else 
+	else
 	{
 		// Fatal error
 		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with malformed GGEP") );
@@ -1275,7 +1275,7 @@ void CQueryHit::ParseAttributes(const Hashes::Guid& oClientID, CVendor* pVendor,
 	m_pVendor		= pVendor ? pVendor : VendorCache.m_pNull;
 	m_bChat			= bChat;
 	m_bBrowseHost	= bBrowseHost;
-	
+
 	if ( nFlags[1] & G1_QHD_PUSH )
 		m_bPush		= ( nFlags[0] & G1_QHD_PUSH ) ? TRI_TRUE : TRI_FALSE;
 	if ( nFlags[0] & G1_QHD_BUSY )
@@ -1301,7 +1301,7 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 		while ( pPacket->m_nPosition < nEnd && pPacket->ReadPacket( nType, nPacket ) )
 		{
 			DWORD nSkip = pPacket->m_nPosition + nPacket;
-			
+
 			switch ( nType )
 			{
 			case G2_PACKET_URN:
@@ -1398,7 +1398,7 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 						{
 							m_sSchemaPlural		= pXML->GetName();
 							m_sSchemaURI		= pURI->GetValue();
-							CXMLElement* pChild	= pXML->GetFirstElement();						
+							CXMLElement* pChild	= pXML->GetFirstElement();
 							if ( pChild != NULL && m_sSchemaPlural.GetLength() > 0 &&
 								m_sSchemaURI.GetLength() > 0 )
 							{
@@ -1569,7 +1569,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 			AfxThrowUserException();
 
 		CEDTag pTag;
-		if ( ! pTag.Read( pPacket, bUnicode ) ) 
+		if ( ! pTag.Read( pPacket, bUnicode ) )
 			AfxThrowUserException();
 
 		if ( pTag.m_nKey == ED2K_FT_FILENAME )
@@ -1608,7 +1608,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 			{
 				//Assume this file is 50% complete. (we can't tell yet, but at least this will warn the user)
 				m_nPartial = (DWORD)m_nSize >> 2;
-				//theApp.Message( MSG_NOTICE, _T("ED2K_FT_COMPLETESOURCES tag reports no complete sources.") );				
+				//theApp.Message( MSG_NOTICE, _T("ED2K_FT_COMPLETESOURCES tag reports no complete sources.") );
 			}
 			else
 			{
@@ -1617,7 +1617,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 		}
 		else if ( pTag.m_nKey == ED2K_FT_LENGTH )
 		{	//Length- new style (DWORD)
-			nLength = (DWORD)pTag.m_nValue;	
+			nLength = (DWORD)pTag.m_nValue;
 		}
 		else if ( ( pTag.m_nKey == ED2K_FT_BITRATE ) )
 		{	//Bitrate- new style
@@ -1636,13 +1636,13 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 			m_nRating = ( pTag.m_nValue & 0xFF );
 
 			if ( m_nRating >= 250 )			// Excellent
-				m_nRating = 6;			 
+				m_nRating = 6;
 			else if ( m_nRating >= 220 )	// Very good
-				m_nRating = 5;	
+				m_nRating = 5;
 			else if ( m_nRating >= 180 )	// Good
-				m_nRating = 4;	
+				m_nRating = 4;
 			else if ( m_nRating >= 120 )	// Average
-				m_nRating = 3;	
+				m_nRating = 3;
 			else if ( m_nRating >= 80 )		// Poor
 				m_nRating = 2;
 			else							// Fake
@@ -1667,7 +1667,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 			{
 				_stscanf( pTag.m_sValue, _T("%i:%i"), &nMins, &nSecs );
 			}
-			else 
+			else
 			{
 				_stscanf( pTag.m_sValue, _T("%i:%i:%i"), &nHours, &nMins, &nSecs );
 			}
@@ -1677,7 +1677,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 		else if ( ( pTag.m_nKey == 0 ) &&
 				  ( pTag.m_nType == ED2K_TAG_INT ) &&
 				  ( pTag.m_sKey == _T("bitrate") ) )
-		{	//Bitrate- old style			
+		{	//Bitrate- old style
 			strBitrate.Format( _T("%lu"), pTag.m_nValue );
 		}
 		else if ( ( pTag.m_nKey == 0 ) &&
@@ -1711,7 +1711,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 	else
 	{
 		// eMule doesn't share 0 byte files, thus it should mean the file size is unknown.
-		// It means also a hit for the currently downloaded file but such files have empty 
+		// It means also a hit for the currently downloaded file but such files have empty
 		// file names.
 		m_nSize = SIZE_UNKNOWN;
 	}
@@ -1723,7 +1723,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 	if ( m_sName.GetLength() )
 	{
 		int nExtPos = m_sName.ReverseFind( '.' );
-		if ( nExtPos != -1 ) 
+		if ( nExtPos != -1 )
 		{
 			strType = m_sName.Mid( nExtPos );
 			ToLower( strType );
@@ -1772,7 +1772,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 			// Add metadata
 			if ( nLength > 0 )
 			{
-				double nMins = (double)nLength / (double)60;	
+				double nMins = (double)nLength / (double)60;
 				strLength.Format( _T("%.3f"), nMins );
 				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("video") );
 				m_pXML->AddAttribute( _T("minutes"), strLength );
@@ -1793,37 +1793,37 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 		{	// Application
 			m_sSchemaURI = CSchema::uriApplication;
 		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriImage ) ) != NULL && 
+		else if ( ( pSchema = SchemaCache.Get( CSchema::uriImage ) ) != NULL &&
 					pSchema->FilterType( strType ) )
 		{	// Image
 			m_sSchemaURI = CSchema::uriImage;
 		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriBook ) ) != NULL && 
+		else if ( ( pSchema = SchemaCache.Get( CSchema::uriBook ) ) != NULL &&
 					pSchema->FilterType( strType ) )
 		{	// eBook
 			m_sSchemaURI = CSchema::uriBook;
 		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriDocument ) ) != NULL && 
+		else if ( ( pSchema = SchemaCache.Get( CSchema::uriDocument ) ) != NULL &&
 					pSchema->FilterType( strType ) )
 		{	// Document
 			m_sSchemaURI = CSchema::uriDocument;
 		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriPresentation ) ) != NULL && 
+		else if ( ( pSchema = SchemaCache.Get( CSchema::uriPresentation ) ) != NULL &&
 					pSchema->FilterType( strType ) )
 		{	// Presentation
 			m_sSchemaURI = CSchema::uriPresentation;
 		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriSpreadsheet ) ) != NULL && 
+		else if ( ( pSchema = SchemaCache.Get( CSchema::uriSpreadsheet ) ) != NULL &&
 					pSchema->FilterType( strType ) )
 		{	// Spreadsheet
 			m_sSchemaURI = CSchema::uriSpreadsheet;
 		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriROM ) ) != NULL && 
+		else if ( ( pSchema = SchemaCache.Get( CSchema::uriROM ) ) != NULL &&
 					pSchema->FilterType( strType ) )
 		{	// ROM Image
 			m_sSchemaURI = CSchema::uriROM;
 		}
-		else if ( ( pSchema = SchemaCache.Get( CSchema::uriCollection ) ) != NULL && 
+		else if ( ( pSchema = SchemaCache.Get( CSchema::uriCollection ) ) != NULL &&
 					pSchema->FilterType( strType ) )
 		{	// Collection
 			m_sSchemaURI = CSchema::uriCollection;
@@ -1838,7 +1838,7 @@ void CQueryHit::ReadEDAddress(CEDPacket* pPacket, SOCKADDR_IN* pServer)
 		AfxThrowUserException();
 
 	m_nPort = pPacket->ReadShortLE();
-	
+
 	Hashes::Guid::iterator i = m_oClientID.begin();
 	*i++ = pServer->sin_addr.S_un.S_addr;
 	*i++ = htons( pServer->sin_port );
@@ -2043,7 +2043,7 @@ void CQueryHit::Delete()
 int CQueryHit::GetRating()
 {
 	int nRating = 0;
-	
+
 	if ( m_bPush != TRI_TRUE ) nRating += 4;
 	if ( m_bBusy != TRI_TRUE ) nRating += 2;
 	if ( m_bStable == TRI_TRUE ) nRating ++;
@@ -2114,7 +2114,7 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 	{
 		ReadArchive( ar, &m_oSearchID[ 0 ], Hashes::Guid::byteCount );
 		m_oSearchID.validate();
-		
+
 		if ( nVersion >= 9 ) ar >> m_nProtocol;
 		ReadArchive( ar, &m_oClientID[ 0 ], Hashes::Guid::byteCount );
 		m_oClientID.validate();
@@ -2151,7 +2151,7 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 		ar >> m_sName;
 		ar >> m_nIndex;
 		ar >> m_bSize;
-		
+
 		if ( nVersion >= 10 )
 		{
 			ar >> m_nSize;
@@ -2162,30 +2162,30 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 			ar >> nSize;
 			m_nSize = nSize;
 		}
-		
+
 		ar >> m_nHitSources;
 		ar >> m_nPartial;
 		ar >> m_bPreview;
 		ar >> m_sPreview;
 		if ( nVersion >= 11 ) ar >> m_bCollection;
-		
+
 		ar >> m_sSchemaURI;
 		ar >> m_sSchemaPlural;
-		
+
 		if ( m_sSchemaURI.GetLength() )
 		{
 			m_pXML = new CXMLElement();
 			m_pXML->Serialize( ar );
 		}
-		
+
 		ar >> m_nRating;
 		ar >> m_sComments;
-		
+
 		ar >> m_bMatched;
 		if ( nVersion >= 12 ) ar >> m_bExactMatch;
 		ar >> m_bBogus;
 		ar >> m_bDownload;
-		
+
 		if ( m_nHitSources == 0 && m_sURL.GetLength() ) m_nHitSources = 1;
 	}
 }

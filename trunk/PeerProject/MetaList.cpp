@@ -85,7 +85,7 @@ CMetaItem* CMetaList::Find(LPCTSTR pszKey) const
 		CMetaItem* pItem = GetNext( pos );
 		if ( pItem->m_sKey.CompareNoCase( pszKey ) == 0 ) return pItem;
 	}
-	
+
 	return NULL;
 }
 
@@ -94,7 +94,7 @@ BOOL CMetaList::IsMusicBrainz() const
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CMetaItem* pItem = GetNext( pos );
-		if ( pItem->m_pMember && pItem->m_sValue.GetLength() && 
+		if ( pItem->m_pMember && pItem->m_sValue.GetLength() &&
 			 pItem->m_sValue != g_strMultiple )
 		{
 			if ( pItem->m_pMember->m_sName == L"mbalbumid" ||
@@ -114,9 +114,9 @@ void CMetaList::Remove(LPCTSTR pszKey)
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		POSITION posCur = pos;
-		
+
 		CMetaItem* pItem = GetNext( pos );
-		
+
 		if ( pItem->m_sKey.CompareNoCase( pszKey ) == 0 )
 		{
 			m_pItems.RemoveAt( posCur );
@@ -131,7 +131,7 @@ void CMetaList::Remove(LPCTSTR pszKey)
 void CMetaList::Shuffle()
 {
 	if ( m_pItems.GetCount() < 2 ) return;
-	
+
 	CMetaItem* pItem = (CMetaItem*)m_pItems.RemoveHead();
 	m_pItems.AddTail( pItem );
 }
@@ -141,10 +141,10 @@ void CMetaList::Shuffle()
 
 void CMetaList::Setup(CSchema* pSchema, BOOL bClear)
 {
-	if ( bClear ) 
+	if ( bClear )
 		CMetaList::Clear();
 	if ( ! pSchema ) return;
-	
+
 	for ( POSITION pos = pSchema->GetMemberIterator() ; pos ; )
 	{
 		CSchemaMember* pMember = pSchema->GetNextMember( pos );
@@ -186,7 +186,7 @@ void CMetaList::Setup(CMetaList* pMetaList)
 			pItem->m_sValue = pItemOther->m_sValue;
 		}
 
-		if ( pItem ) 
+		if ( pItem )
 			pItem->m_bValueDefined = pItemOther->m_sValue.GetLength() > 0;
 	}
 
@@ -209,7 +209,7 @@ void CMetaList::Setup(CMetaList* pMetaList)
 void CMetaList::Combine(CXMLElement* pXML)
 {
 	if ( pXML == NULL ) return;
-	
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		GetNext( pos )->Combine( pXML );
@@ -238,14 +238,14 @@ void CMetaList::CreateLinks()
 	{
 		CMetaItem* pItem = GetNext( pos );
 		pItem->CreateLink();
-		
+
 		int nLink = pItem->m_sKey.Find( _T("Link") );
 
 		if ( nLink > 0 )
 		{
 			CString strBase( pItem->m_sKey.Left( nLink ) );
 			strBase.TrimRight();
-			
+
 			if ( CMetaItem* pBase = Find( strBase ) )
 			{
 				if ( pBase->m_sValue.GetLength() )
@@ -269,7 +269,7 @@ void CMetaList::Clean(int nMaxLength)
 	{
 		POSITION posCur = pos;
 		CMetaItem* pItem = GetNext( pos );
-		
+
 		if ( ! pItem->Limit( nMaxLength ) )
 		{
 			m_pItems.RemoveAt( posCur );
@@ -340,9 +340,9 @@ BOOL CMetaList::OnSetCursor(CWnd* pWnd)
 	CPoint point;
 	GetCursorPos( &point );
 	pWnd->ScreenToClient( &point );
-	
+
 	if ( HitTest( point, TRUE ) == NULL ) return FALSE;
-	
+
 	SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
 	return TRUE;
 }
@@ -367,12 +367,12 @@ CMetaItem::CMetaItem(CSchemaMember* pMember)
 
 BOOL CMetaItem::Combine(CXMLElement* pXML)
 {
-	if ( ! m_pMember ) 
+	if ( ! m_pMember )
 		return FALSE;
-	
+
 	CString strValue = m_pMember->GetValueFrom( pXML, NULL, TRUE );
 	strValue.Trim();
-	
+
 	if ( !m_bValueDefined )
 	{
 		m_sValue = strValue;
@@ -381,12 +381,12 @@ BOOL CMetaItem::Combine(CXMLElement* pXML)
 	{
 		m_sValue = g_strMultiple;
 	}
-	
+
 	m_bValueDefined = TRUE;
 	int nVote = 1;
 	if ( m_pVote.Lookup( strValue, nVote ) ) nVote ++;
 	m_pVote.SetAt( strValue, nVote );
-	
+
 	return TRUE;
 }
 
@@ -396,23 +396,23 @@ BOOL CMetaItem::Combine(CXMLElement* pXML)
 void CMetaItem::Vote()
 {
 	if ( m_sValue != g_strMultiple ) return;
-	
+
 	int nBest = 0;
-	
+
 	for ( POSITION pos = m_pVote.GetStartPosition() ; pos ; )
 	{
 		CString strValue;
 		int nVote;
-		
+
 		m_pVote.GetNextAssoc( pos, strValue, nVote );
-		
+
 		if ( nVote > nBest )
 		{
 			nBest = nVote;
 			m_sValue = strValue;
 		}
 	}
-	
+
 	m_pVote.RemoveAll();
 }
 
@@ -429,7 +429,7 @@ BOOL CMetaItem::Limit(int nMaxLength)
 	{
 		m_sValue = m_sValue.Left( nMaxLength ) + _T('\x2026');
 	}
-	
+
 	return TRUE;
 }
 
@@ -438,7 +438,7 @@ BOOL CMetaItem::Limit(int nMaxLength)
 
 BOOL CMetaItem::CreateLink()
 {
-	if ( m_sValue.Find( _T("http://") ) == 0 || m_sValue.Find( _T("www.") ) == 0 ) 
+	if ( m_sValue.Find( _T("http://") ) == 0 || m_sValue.Find( _T("www.") ) == 0 )
 	{
 		m_bLink = TRUE;
 
@@ -451,16 +451,16 @@ BOOL CMetaItem::CreateLink()
 	}
 
 	if ( m_pMember == NULL ) return FALSE;
-	
+
 	if ( m_pMember->m_sLinkURI.IsEmpty() ) return FALSE;
 	if ( m_pMember->m_sLinkName.IsEmpty() ) return FALSE;
-	
+
 	m_bLink = LibraryFolders.GetAlbumTarget(	m_pMember->m_sLinkURI,
 												m_pMember->m_sLinkName,
 												m_sValue ) != NULL;
-	
+
 	if ( m_bLink ) m_sLink = m_sValue;
-	
+
 	return m_bLink;
 }
 
@@ -496,7 +496,7 @@ CAlbumFolder* CMetaItem::GetLinkTarget(BOOL bHTTP) const
 
 CString CMetaItem::GetMusicBrainzLink() const
 {
-	if ( m_pMember == NULL || m_sValue.IsEmpty() ) 
+	if ( m_pMember == NULL || m_sValue.IsEmpty() )
 		return CString();
 
 	if ( m_pMember->m_sName == L"mbalbumid" )

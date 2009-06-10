@@ -68,7 +68,7 @@ BOOL CLibraryTipCtrl::OnPrepare()
 		CLibraryFile* pLibraryFile = Library.LookupFile(
 			reinterpret_cast< DWORD_PTR >( m_pContext ) );
 
-		CPeerProjectFile* pFile = pLibraryFile ? 
+		CPeerProjectFile* pFile = pLibraryFile ?
 			static_cast< CPeerProjectFile* >( pLibraryFile ) :
 			reinterpret_cast< CPeerProjectFile* >( m_pContext );
 
@@ -88,7 +88,7 @@ BOOL CLibraryTipCtrl::OnPrepare()
 		m_sSize = Settings.SmartVolume( pFile->GetSize() );
 		m_nIcon = 0;
 
-		if ( pLibraryFile && pLibraryFile->m_pFolder ) 
+		if ( pLibraryFile && pLibraryFile->m_pFolder )
 			m_sFolder = pLibraryFile->m_pFolder->m_sPath;
 		else
 			m_sFolder.Empty(); // Ghost files have no location

@@ -1,11 +1,11 @@
-//  (C) Copyright John Maddock 2001 - 2003. 
-//  (C) Copyright Darin Adler 2001 - 2002. 
-//  (C) Copyright Peter Dimov 2001. 
-//  (C) Copyright Aleksey Gurtovoy 2002. 
-//  (C) Copyright David Abrahams 2002 - 2003. 
-//  (C) Copyright Beman Dawes 2002 - 2003. 
-//  Use, modification and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright John Maddock 2001 - 2003.
+//  (C) Copyright Darin Adler 2001 - 2002.
+//  (C) Copyright Peter Dimov 2001.
+//  (C) Copyright Aleksey Gurtovoy 2002.
+//  (C) Copyright David Abrahams 2002 - 2003.
+//  (C) Copyright Beman Dawes 2002 - 2003.
+//  Use, modification and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org for most recent version.
@@ -69,7 +69,7 @@
 
 #endif
 
-#if _MSC_VER < 1400 
+#if _MSC_VER < 1400
 // although a conforming signature for swprint exists in VC7.1
 // it appears not to actually work:
 #  define BOOST_NO_SWPRINTF
@@ -107,11 +107,11 @@
 #  define BOOST_NO_SWPRINTF
 #endif
 
-//   
-// check for exception handling support:   
-#ifndef _CPPUNWIND 
-#  define BOOST_NO_EXCEPTIONS   
-#endif 
+//
+// check for exception handling support:
+#ifndef _CPPUNWIND
+#  define BOOST_NO_EXCEPTIONS
+#endif
 
 //
 // __int64 support:
@@ -178,7 +178,7 @@
 #endif
 
 // TODO:
-// these things are mostly bogus. 1200 means version 12.0 of the compiler. The 
+// these things are mostly bogus. 1200 means version 12.0 of the compiler. The
 // artificial versions assigned to them only refer to the versions of some IDE
 // these compilers have been shipped with, and even that is not all of it. Some
 // were shipped with freely downloadable SDKs, others as crosscompilers in eVC.

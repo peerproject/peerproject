@@ -81,7 +81,7 @@ void CGProfile::Create()
 	// Generate new Gnutella GUID
 	Hashes::Guid tmp;
 	VERIFY( SUCCEEDED( CoCreateGuid( reinterpret_cast< GUID* > ( &tmp[0] ) ) ) );
-	
+
 	VERIFY( tmp.validate() );
 	oGUID = tmp;
 
@@ -99,7 +99,7 @@ void CGProfile::CreateBT()
 	CopyMemory( &tmp_bt[0], &((Hashes::Guid)oGUID)[0], ((Hashes::Guid)oGUID).byteCount );
 	for ( size_t nByte = ((Hashes::Guid)oGUID).byteCount ; nByte < tmp_bt.byteCount ; nByte++ )
 		tmp_bt[ nByte ] = GetRandomNum( 0ui8, _UI8_MAX );
-	
+
 	VERIFY( tmp_bt.validate() );
 	oGUIDBT = tmp_bt;
 
@@ -127,7 +127,7 @@ BOOL CGProfile::Load()
 		delete pXML;
 		return FALSE;
 	}
-		
+
 	if ( ! (Hashes::BtGuid)oGUIDBT )
 	{
 		// Upgrade

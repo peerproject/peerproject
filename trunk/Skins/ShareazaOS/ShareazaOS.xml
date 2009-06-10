@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-  <!-- 
+  <!--
 	Name:		Shareaza OS
 	Author:		RocketX
 	Version:	1.5
 	Released:	June 4, 2005
 	Modified: 	July 1, 2008
 	-->
-  <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0"> 
+  <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
     <manifest
 		name="Shareaza OS"
 		author="RocketX"
@@ -16,13 +16,13 @@
 		version="1.5"
 		type="Skin"
 		icon="Shareaza.ico"/>
-    <fonts> 
+    <fonts>
       <font name="Panel.Caption" face="Arial" size="12" weight="plain"/>
       <font name="Panel.Caption" language="ja" face="MS UI Gothic" size="12" weight="normal"/>
       <font name="Panel.Caption" language="chs" face="Tahoma" size="12" weight="bold"/>
     </fonts>
     <!-- Manifest -->
-    <colorScheme> 
+    <colorScheme>
       <color name="System.Base.Window"           value="FFFFFF"/>      <!-- main window bg / menu selected hovers -->
       <color name="System.Base.Midtone"          value="E6E6E6"/>      <!-- main bars bg (toolbars) -->
       <color name="System.Back.Selected"         value="D9D9D9"/>      <!-- menu / unselected hovers -->
@@ -55,7 +55,7 @@
       <color name="Media.Panel.Caption.Text"     value="FFFF00"/>
     </colorScheme>
     <!-- Command bar watermarks -->
-    <watermarks> 
+    <watermarks>
       <watermark target="CCoolMenu" path="sos_menuwm.png"/>
       <watermark target="CHomePanel" path="sos_sidebg.png"/>
       <watermark target="CSearchPanel" path="sos_sidebg.png"/>
@@ -81,12 +81,12 @@
 	<icon id="IDI_POINTER_ARROW" path="PointerArrow.ico"/>
 	<!--icon id="IDR_MAINFRAME" path="Shareaza.ico"-->
     </commandImages>
-    <WindowSkins> 
+    <WindowSkins>
       <!-- Main window -->
-      <windowSkin> 
+      <windowSkin>
         <image path="sos_main.png"/>
         <target window="CMainWnd"/>
-        <parts> 
+        <parts>
           <part name="TopLeft"		rect="0,0,179,35"/>
           <part name="Top"		rect="179,0,30,35"/>
           <part name="TopRight"		rect="23,36,115,35"/>
@@ -106,22 +106,22 @@
           <part name="CloseDown"	rect="75,146,25,25"/>
           <part name="CloseHover"	rect="75,120,25,25"/>
         </parts>
-        <anchors> 
+        <anchors>
           <anchor name="Close"		rect="-32,5,25,25"/>
           <anchor name="MirrorFull"	rect="8,110,14,32"/>
           <anchor name="Minimise"	rect="-98,5,25,25"/>
           <anchor name="Maximise"	rect="-65,5,25,25"/>
         </anchors>
-        <region> 
+        <region>
           <shape type="roundRect" rect="0,0,-1,-1" size="4,4" />
         </region>
         <maximiseCrop rect="0,0,0,0"/>
       </windowSkin>
       <!-- Settings -->
-      <windowSkin> 
+      <windowSkin>
         <image path="sos_main.png"/>
         <target window="CDialog"/>
-        <parts> 
+        <parts>
           <part name="TopLeft"		rect="139,36,41,33"/>
           <part name="Top"		rect="181,36,5,33"/>
           <part name="TopRight"		rect="187,36,44,33"/>
@@ -137,20 +137,20 @@
           <part name="CloseDown"	rect="95,72,23,23"/>
           <part name="CloseHover"	rect="95,96,23,23"/>
         </parts>
-        <anchors> 
+        <anchors>
           <anchor name="Close"		rect="-31,5,23,23"/>
           <anchor name="Icon"		rect="8,8,16,16"/>
         </anchors>
-        <region> 
+        <region>
           <shape type="roundRect" rect="0,0,-1,-1" size="4,4" />
         </region>
         <caption align="left" rect="40,0,320,33" fontFace="Tahoma" fontSize="13" color="333333" inactivecolor="999999" />
       </windowSkin>
       <!-- floating windows -->
-      <windowSkin> 
+      <windowSkin>
         <image path="sos_main.png"/>
         <target window="CChildWnd"/>
-        <parts> 
+        <parts>
           <part name="TopLeft"		rect="139,36,41,33"/>
           <part name="Top"		rect="181,36,5,33"/>
           <part name="TopRight"		rect="119,72,104,33"/>
@@ -170,22 +170,22 @@
           <part name="CloseDown"	rect="95,72,23,23"/>
           <part name="CloseHover"	rect="95,96,23,23"/>
         </parts>
-        <anchors> 
+        <anchors>
           <anchor name="Minimise"	rect="-89,5,23,23" />
           <anchor name="Maximise"	rect="-60,5,23,23" />
           <anchor name="Close"		rect="-31,5,23,23"/>
           <anchor name="Icon"		rect="8,8,16,16"/>
         </anchors>
-        <region> 
+        <region>
           <shape type="roundRect" rect="0,0,-1,-1" size="4,4" />
         </region>
         <caption align="left" rect="40,0,600,33" fontFace="Tahoma" fontSize="13" color="333333" inactivecolor="999999" />
       </windowSkin>
       <!-- Download Monitor contributed by StevenB -->
-      <windowSkin> 
+      <windowSkin>
         <image path="sos_main.png"/>
         <target window="CDownloadMonitorDlg"/>
-        <parts> 
+        <parts>
           <part name="TopLeft"		rect="139,36,41,33"/>
           <part name="Top"		rect="181,36,5,33"/>
           <part name="TopRight"		rect="119,105,104,33"/>
@@ -205,19 +205,19 @@
           <part name="CloseDown"	rect="95,72,23,23"/>
           <part name="CloseHover"	rect="95,96,23,23"/>
         </parts>
-        <anchors> 
+        <anchors>
           <anchor name="Minimise"	rect="-60,5,23,23" />
           <anchor name="Maximise"	rect="-89,5,23,23" />
           <anchor name="Close"		rect="-31,5,23,23"/>
           <anchor name="Icon"		rect="8,8,16,16"/>
         </anchors>
-        <region> 
+        <region>
           <shape type="roundRect" rect="0,0,-1,-1" size="4,4" />
         </region>
         <caption align="left" rect="40,0,280,33" fontFace="Tahoma" fontSize="13" color="333333" inactivecolor="999999" />
       </windowSkin>
       <!-- Other Panels -->
-      <windowSkin> 
+      <windowSkin>
         <image path="sos_area.png"/>
         <target window="CSecurityWnd.Panel"/>
         <target window="CHostCacheWnd.Panel"/>
@@ -226,7 +226,7 @@
         <target window="CSearchMonitorWnd.Panel"/>
         <target window="CHitMonitorWnd.Panel"/>
         <target window="CBrowseHostWnd.Panel"/>
-        <parts> 
+        <parts>
           <part name="TopLeft" rect="16,189,40,29"/>
           <part name="Top" rect="56,3,5,29"/>
           <part name="TopRight" rect="66,189,76,29"/>
@@ -234,16 +234,16 @@
           <part name="CloseDown" rect="48,225,42,16"/>
           <part name="CloseHover" rect="98,225,42,16"/>
         </parts>
-        <anchors> 
+        <anchors>
           <anchor name="Close" rect="-44,6,42,16"/>
         </anchors>
         <caption align="left" rect="40,-2,500,30" fontFace="Tahoma" fontSize="14" color="333333" inactivecolor="999999" />
       </windowSkin>
       <!-- MEDIA PLAYER -->
-      <windowSkin> 
+      <windowSkin>
         <image path="sos_area.png"/>
         <target window="CMediaWnd.Panel"/>
-        <parts> 
+        <parts>
           <part name="TopLeft" rect="16,96,40,29"/>
           <part name="Top" rect="56,3,5,29"/>
           <part name="TopRight" rect="66,189,76,29"/>
@@ -251,16 +251,16 @@
           <part name="CloseDown" rect="48,225,42,16"/>
           <part name="CloseHover" rect="98,225,42,16"/>
         </parts>
-        <anchors> 
+        <anchors>
           <anchor name="Close" rect="-44,6,42,16"/>
         </anchors>
         <caption align="left" rect="40,-2,500,30" fontFace="Tahoma" fontSize="14" color="333333" inactivecolor="999999" />
       </windowSkin>
       <!-- SEARCH -->
-      <windowSkin> 
+      <windowSkin>
         <image path="sos_area.png"/>
         <target window="CSearchWnd.Panel"/>
-        <parts> 
+        <parts>
           <part name="TopLeft" rect="16,65,40,29"/>
           <part name="Top" rect="56,3,5,29"/>
           <part name="TopRight" rect="66,189,76,29"/>
@@ -268,16 +268,16 @@
           <part name="CloseDown" rect="48,225,42,16"/>
           <part name="CloseHover" rect="98,225,42,16"/>
         </parts>
-        <anchors> 
+        <anchors>
           <anchor name="Close" rect="-44,6,42,16"/>
         </anchors>
         <caption align="left" rect="40,-2,500,30" fontFace="Tahoma" fontSize="14" color="333333" inactivecolor="999999" />
       </windowSkin>
       <!-- HOME -->
-      <windowSkin> 
+      <windowSkin>
         <image path="sos_area.png"/>
         <target window="CHomeWnd.Panel"/>
-        <parts> 
+        <parts>
           <part name="TopLeft" rect="16,3,40,29"/>
           <part name="Top" rect="56,3,5,29"/>
           <part name="TopRight" rect="66,189,76,29"/>
@@ -285,10 +285,10 @@
         <caption align="left" rect="40,-2,500,30" fontFace="Tahoma" fontSize="14" color="333333" inactivecolor="999999" />
       </windowSkin>
       <!-- LIBRARY -->
-      <windowSkin> 
+      <windowSkin>
         <image path="sos_area.png"/>
         <target window="CLibraryWnd.Panel"/>
-        <parts> 
+        <parts>
           <part name="TopLeft" rect="16,34,40,29"/>
           <part name="Top" rect="56,3,5,29"/>
           <part name="TopRight" rect="66,189,76,29"/>
@@ -296,10 +296,10 @@
         <caption align="left" rect="40,-2,500,30" fontFace="Tahoma" fontSize="14" color="333333" inactivecolor="999999" />
       </windowSkin>
       <!-- DOWNLOADS -->
-      <windowSkin> 
+      <windowSkin>
         <image path="sos_area.png"/>
         <target window="CDownloadsWnd.Panel"/>
-        <parts> 
+        <parts>
           <part name="TopLeft" rect="16,127,40,29"/>
           <part name="Top" rect="56,3,5,29"/>
           <part name="TopRight" rect="66,189,76,29"/>
@@ -307,10 +307,10 @@
         <caption align="left" rect="40,-2,500,30" fontFace="Tahoma" fontSize="14" color="333333" inactivecolor="999999" />
       </windowSkin>
       <!-- UPLOADS -->
-      <windowSkin> 
+      <windowSkin>
         <image path="sos_area.png"/>
         <target window="CUploadsWnd.Panel"/>
-        <parts> 
+        <parts>
           <part name="TopLeft" rect="16,125,40,31"/>
           <part name="Top" rect="56,1,5,31"/>
           <part name="TopRight" rect="66,187,76,31"/>
@@ -318,10 +318,10 @@
         <caption align="left" rect="40,-0,500,30" fontFace="Tahoma" fontSize="14" color="333333" inactivecolor="999999" />
       </windowSkin>
       <!-- NEIGHBOURS -->
-      <windowSkin> 
+      <windowSkin>
         <image path="sos_area.png"/>
         <target window="CNeighboursWnd.Panel"/>
-        <parts> 
+        <parts>
           <part name="TopLeft" rect="16,158,40,29"/>
           <part name="Top" rect="56,3,5,29"/>
           <part name="TopRight" rect="66,189,76,29"/>
@@ -329,10 +329,10 @@
         <caption align="left" rect="40,-2,500,30" fontFace="Tahoma" fontSize="14" color="333333" inactivecolor="999999" />
       </windowSkin>
       <!-- SYSTEM -->
-      <windowSkin> 
+      <windowSkin>
         <image path="sos_area.png"/>
         <target window="CSystemWnd.Panel"/>
-        <parts> 
+        <parts>
           <part name="TopLeft" rect="16,156,40,31"/>
           <part name="Top" rect="56,1,5,31"/>
           <part name="TopRight" rect="66,187,76,31"/>
@@ -354,10 +354,10 @@
         <caption align="left" rect="40,-2,500,30" fontFace="Tahoma" fontSize="14" color="333333" inactivecolor="999999" />
       </windowSkin>
       <!-- MEDIA REMOTE -->
-      <windowSkin> 
+      <windowSkin>
       <image path="RemoteWnd.png"/>
       <target window="CRemoteWnd"/>
-      <region> 
+      <region>
 	<shape type="rectangle" rect="0,0,271,119"/>
 	<shape type="rectangle" combine="diff"		rect="0,0,249,3"/>
 	<shape type="rectangle" combine="diff"		rect="0,5,1,2"/>
@@ -373,7 +373,7 @@
 	<shape type="rectangle" combine="diff"		rect="270,117,271,118"/>
 	<shape type="rectangle" combine="diff"		rect="269,118,271,119"/>
       </region>
-      <anchors> 
+      <anchors>
 	<anchor name="StatusText"			rect="24,33,236,17"/>
 	<anchor name="History"				rect="12,14,112,13"/>
 	<anchor name="MediaSeekTrack"			rect="10,99,162,11"/>
@@ -383,7 +383,7 @@
 	<anchor name="MediaStatePaused"			rect="11,35,9,11"/>
 	<anchor name="MediaStateStopped"		rect="11,35,9,11"/>
       </anchors>
-      <parts> 
+      <parts>
 	<part name="Background"				rect="0,0,271,119"/>
 	<part name="HistoryTx1"				rect="0,142,112,13"/>
 	<part name="HistoryRx1"				rect="0,155,112,13"/>
@@ -396,7 +396,7 @@
 	<part name="MediaStatePaused"			rect="439,16,9,11"/>
 	<part name="MediaStateStopped"			rect="448,16,9,11"/>
       </parts>
-      <anchors> 
+      <anchors>
 	<anchor name="_ID_MEDIA_ADD"			rect="208,60,32,35"/>
 	<anchor name="_ID_MEDIA_ADD_FOLDER"		rect="240,67,23,23" />
 	<anchor name="_ID_MEDIA_PLAY"			rect="43,59,35,35"/>
@@ -409,7 +409,7 @@
 	<anchor name="_ID_MEDIA_RANDOM"			rect="160,18,38,7"/>
 	<anchor name="_ID_MEDIA_REPEAT" 		rect="205,18,33,7"/>
       </anchors>
-      <parts> 
+      <parts>
 	<part name="_ID_MEDIA_ADD.Hover"		rect="369,126,32,35"/>
 	<part name="_ID_MEDIA_ADD.Down"			rect="430,126,33,35"/>
 	<part name="_ID_MEDIA_ADD_FOLDER.Hover"		rect="401,133,23,23"/>

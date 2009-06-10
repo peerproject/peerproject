@@ -20,14 +20,14 @@
 
 namespace boost {
 namespace detail {
-    template <class U, U x> 
+    template <class U, U x>
     struct test;
 
     template <typename T>
     struct has_new_operator_impl {
         template<class U>
         static type_traits::yes_type check_sig(
-            U*, 
+            U*,
             test<
             void *(*)(std::size_t),
                 &U::operator new
@@ -35,7 +35,7 @@ namespace detail {
         );
         template<class U>
         static type_traits::yes_type check_sig(
-            U*, 
+            U*,
             test<
             void *(*)(std::size_t, const std::nothrow_t&),
                 &U::operator new
@@ -43,7 +43,7 @@ namespace detail {
         );
         template<class U>
         static type_traits::yes_type check_sig(
-            U*, 
+            U*,
             test<
             void *(*)(std::size_t, void*),
                 &U::operator new
@@ -54,7 +54,7 @@ namespace detail {
 
         template<class U>
         static type_traits::yes_type check_sig2(
-            U*, 
+            U*,
             test<
             void *(*)(std::size_t),
                 &U::operator new[]
@@ -62,7 +62,7 @@ namespace detail {
         );
         template<class U>
         static type_traits::yes_type check_sig2(
-            U*, 
+            U*,
             test<
             void *(*)(std::size_t, const std::nothrow_t&),
                 &U::operator new[]
@@ -70,7 +70,7 @@ namespace detail {
         );
         template<class U>
         static type_traits::yes_type check_sig2(
-            U*, 
+            U*,
             test<
             void *(*)(std::size_t, void*),
                 &U::operator new[]
@@ -97,7 +97,7 @@ namespace detail {
                 #pragma warning(pop)
             #endif
         #endif
-        BOOST_STATIC_CONSTANT(bool, value = 
+        BOOST_STATIC_CONSTANT(bool, value =
            (::boost::type_traits::ice_or<
             (s1 == sizeof(type_traits::yes_type)),
             (s2 == sizeof(type_traits::yes_type))

@@ -227,7 +227,7 @@ BOOL CFirewall::IsProgramEnabled( const CString& path, BOOL* enabled )
 	}
 }
 
-// This means that all the exceptions such as GloballyOpenPorts, Applications, or Services, 
+// This means that all the exceptions such as GloballyOpenPorts, Applications, or Services,
 // which are specified in the profile, are ignored and only locally initiated traffic is allowed
 
 BOOL CFirewall::AreExceptionsAllowed()
@@ -237,7 +237,7 @@ BOOL CFirewall::AreExceptionsAllowed()
 
     hr = Profile->get_ExceptionsNotAllowed( &vbNotAllowed );
     if ( SUCCEEDED(hr) && vbNotAllowed != VARIANT_FALSE ) return FALSE;
-    
+
     return TRUE;
 }
 

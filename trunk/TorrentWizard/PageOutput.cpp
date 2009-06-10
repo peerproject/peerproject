@@ -73,10 +73,10 @@ void COutputPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // COutputPage message handlers
 
-BOOL COutputPage::OnInitDialog() 
+BOOL COutputPage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
-	
+
 	int nCount = theApp.GetProfileInt( _T("Folders"), _T("Count"), 0 );
 	m_bAutoPieces = theApp.GetProfileInt( _T("Folders"), _T("AutoPieceSize"), TRUE );
 	m_nPieceIndex = theApp.GetProfileInt( _T("Folders"), _T("PieceSize"), 0 );
@@ -89,16 +89,16 @@ BOOL COutputPage::OnInitDialog()
 		CString strName, strURL;
 		strName.Format( _T("%.3i.Path"), nItem + 1 );
 		strURL = theApp.GetProfileString( _T("Folders"), strName );
-		if ( strURL.GetLength() ) 
+		if ( strURL.GetLength() )
 			m_wndFolders.AddString( strURL );
 	}
-	
+
 	OnReset();
-	
+
 	return TRUE;
 }
 
-void COutputPage::OnReset() 
+void COutputPage::OnReset()
 {
 	m_sName.Empty();
 	m_sFolder.Empty();
@@ -106,22 +106,22 @@ void COutputPage::OnReset()
 	UpdateData( FALSE );
 }
 
-BOOL COutputPage::OnSetActive() 
+BOOL COutputPage::OnSetActive()
 {
 		GET_PAGE( CWelcomePage, pWelcome );
-		
+
 		if ( pWelcome->m_nType == 0 )
 		{
 			GET_PAGE( CSinglePage, pSingle );
-			
+
 			CString strFile = pSingle->m_sFileName;
-			
+
 			if ( LPCTSTR pszSlash = _tcsrchr( strFile, '\\' ) )
 			{
 				m_sName = pszSlash + 1;
 				m_sName += _T(".torrent");
-				
-				if ( m_sFolder.IsEmpty() ) 
+
+				if ( m_sFolder.IsEmpty() )
 					m_sFolder = strFile.Left( (int)( pszSlash - strFile ) );
 			}
 		}
@@ -130,7 +130,7 @@ BOOL COutputPage::OnSetActive()
 		GET_PAGE( CPackagePage, pPackage );
 
 		CString sName = pPackage->m_wndList.GetItemText( 0, 0 );
-		
+
 		// Get same part of first and last files
 		int nCount = pPackage->m_wndList.GetItemCount();
 		if ( nCount > 1 )
@@ -160,7 +160,7 @@ BOOL COutputPage::OnSetActive()
 			}
 		}
 
-			if ( m_sFolder.IsEmpty() ) 
+			if ( m_sFolder.IsEmpty() )
 				m_sFolder = theApp.GetProfileString( _T("Folders"), _T("Last") );
 		if ( ! m_sFolder.IsEmpty() && m_sName.IsEmpty() )
 		{
@@ -168,40 +168,40 @@ BOOL COutputPage::OnSetActive()
 			m_sName += _T(".torrent");
 		}
 	}
-		
+
 	UpdateData( FALSE );
-	
+
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
 	return CWizardPage::OnSetActive();
 }
 
-void COutputPage::OnBrowseFolder() 
+void COutputPage::OnBrowseFolder()
 {
 	TCHAR szPath[MAX_PATH];
 	LPITEMIDLIST pPath;
 	LPMALLOC pMalloc;
 	BROWSEINFO pBI;
-	
+
 	ZeroMemory( &pBI, sizeof(pBI) );
 	pBI.hwndOwner		= GetSafeHwnd();
 	pBI.pszDisplayName	= szPath;
 	pBI.lpszTitle		= _T("Select folder:");
 	pBI.ulFlags			= BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
-	
+
 	pPath = SHBrowseForFolder( &pBI );
 	if ( pPath == NULL ) return;
-	
+
 	SHGetPathFromIDList( pPath, szPath );
 	SHGetMalloc( &pMalloc );
 	pMalloc->Free( pPath );
 	pMalloc->Release();
-	
+
 	UpdateData( TRUE );
 	m_sFolder = szPath;
 	UpdateData( FALSE );
 }
 
-void COutputPage::OnClearFolders() 
+void COutputPage::OnClearFolders()
 {
 	theApp.WriteProfileInt( _T("Folders"), _T("Count"), 0 );
 	theApp.WriteProfileInt( _T("Folders"), _T("AutoPieceSize"), m_bAutoPieces );
@@ -215,43 +215,43 @@ void COutputPage::OnClearFolders()
 	m_wndFolders.SetFocus();
 }
 
-LRESULT COutputPage::OnWizardBack() 
+LRESULT COutputPage::OnWizardBack()
 {
 	return IDD_COMMENT_PAGE;
 }
 
-LRESULT COutputPage::OnWizardNext() 
+LRESULT COutputPage::OnWizardNext()
 {
 	UpdateData();
-	
+
 	if ( m_sFolder.IsEmpty() )
 	{
 		AfxMessageBox( IDS_OUTPUT_NEED_FOLDER, MB_ICONEXCLAMATION );
 		m_wndFolders.SetFocus();
 		return -1;
 	}
-	
+
 	if ( GetFileAttributes( m_sFolder ) == 0xFFFFFFFF )
 	{
 		CString strFormat, strMessage;
-		
+
 		strFormat.LoadString( IDS_OUTPUT_CREATE_FOLDER );
 		strMessage.Format( strFormat, (LPCTSTR)m_sFolder );
 
 		if ( IDYES != AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) )
 			return -1;
-		
+
 		if ( ! CreateDirectory( m_sFolder, NULL ) )
 		{
 			strFormat.LoadString( IDS_OUTPUT_CANT_CREATE_FOLDER );
 			strMessage.Format( strFormat, (LPCTSTR)m_sFolder );
-			
+
 			AfxMessageBox( IDS_OUTPUT_CANT_CREATE_FOLDER, MB_ICONEXCLAMATION );
 			m_wndFolders.SetFocus();
 			return -1;
 		}
 	}
-	
+
 	if ( m_sName.IsEmpty() )
 	{
 		AfxMessageBox( IDS_OUTPUT_NEED_FILE, MB_ICONEXCLAMATION );
@@ -264,7 +264,7 @@ LRESULT COutputPage::OnWizardNext()
 		 m_sName.Find( _T(".Torrent") ) < 0 )
 	{
 		UINT nResp = AfxMessageBox( IDS_OUTPUT_EXTENSION, MB_ICONQUESTION|MB_YESNOCANCEL );
-		
+
 		if ( nResp == IDYES )
 		{
 			m_sName += _T(".torrent");
@@ -276,33 +276,33 @@ LRESULT COutputPage::OnWizardNext()
 			return -1;
 		}
 	}
-	
+
 	CString strPath = m_sFolder + '\\' + m_sName;
-	
+
 	if ( GetFileAttributes( strPath ) != INVALID_FILE_ATTRIBUTES )
 	{
 		CString strFormat, strMessage;
-		
+
 		strFormat.LoadString( IDS_OUTPUT_REPLACE_FILE );
 		strMessage.Format( strFormat, (LPCTSTR)strPath );
-		
+
 		if ( IDYES != AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) )
 			return -1;
-		
+
 		DeleteFile( strPath );
 	}
-	
+
 	if ( m_wndFolders.FindStringExact( -1, m_sFolder ) < 0 )
 	{
 		m_wndFolders.AddString( m_sFolder );
-		
+
 		CString strName;
 		int nCount = theApp.GetProfileInt( _T("Folders"), _T("Count"), 0 );
 		strName.Format( _T("%.3i.Path"), ++nCount );
 		theApp.WriteProfileInt( _T("Folders"), _T("Count"), nCount );
 		theApp.WriteProfileString( _T("Folders"), strName, m_sFolder );
 	}
-	
+
 	theApp.WriteProfileString( _T("Folders"), _T("Last"), m_sFolder );
 	theApp.WriteProfileInt( _T("Folders"), _T("AutoPieceSize"), m_bAutoPieces );
 	theApp.WriteProfileInt( _T("Folders"), _T("SHA1"), m_bSHA1 );
@@ -316,7 +316,7 @@ LRESULT COutputPage::OnWizardNext()
 void COutputPage::OnClickedAutoPieceSize()
 {
 	UpdateData( TRUE );
-	m_wndPieceSize.EnableWindow( !m_bAutoPieces );	
+	m_wndPieceSize.EnableWindow( !m_bAutoPieces );
 }
 
 void COutputPage::OnCloseupPieceSize()

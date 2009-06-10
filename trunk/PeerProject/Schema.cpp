@@ -131,7 +131,7 @@ BOOL CSchema::Load(LPCTSTR pszFile)
 	if ( nSlash >= 0 ) strFile = strFile.Left( nSlash );
 
 	if ( ! LoadSchema( strFile + _T(".xsd") ) ) return FALSE;
-	
+
 	m_sIcon = strFile + _T(".ico");
 
 	LoadDescriptor( strFile + _T(".xml") );
@@ -175,7 +175,7 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 		m_sPlural = pPlural->GetAttributeValue( _T("name") );
 
 		CXMLElement* pComplexType = pPlural->GetFirstElement();
-		
+
 		if ( pComplexType && pComplexType->IsNamed( _T("complexType") ) && m_sPlural.GetLength() )
 		{
 			CXMLElement* pElement = pComplexType->GetFirstElement();
@@ -198,7 +198,7 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 			}
 		}
 	}
-	
+
 	CXMLElement* pMapping = pRoot->GetElementByName( _T("mapping") );
 	if ( pMapping )
 	{
@@ -222,14 +222,14 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 	}
 
 	delete pRoot;
-	
+
 	return bResult;
 }
 
 BOOL CSchema::LoadPrimary(CXMLElement* pRoot, CXMLElement* pType)
 {
 	if ( ! pRoot || ! pType ) return FALSE;
-	
+
 	if ( ! pType->IsNamed( _T("complexType") ) &&
 		 ! pType->IsNamed( _T("all") ) ) return FALSE;
 
@@ -292,38 +292,38 @@ BOOL CSchema::LoadDescriptor(LPCTSTR pszFile)
 {
 	CXMLElement* pRoot = CXMLElement::FromFile( pszFile );
 	if ( NULL == pRoot ) return FALSE;
-	
+
 	if ( ! CheckURI( pRoot->GetAttributeValue( _T("location") ) ) ||
 		 ! pRoot->IsNamed( _T("schemaDescriptor") ) )
 	{
 		delete pRoot;
 		return FALSE;
 	}
-	
+
 	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pElement = pRoot->GetNextElement( pos );
-		
+
 		if ( pElement->IsNamed( _T("object") ) )
 		{
 			CString strType = pElement->GetAttributeValue( _T("type") );
 			ToLower( strType );
-			
+
 			if ( strType == _T("file") )
 				m_nType = stFile;
 			else if ( strType == _T("folder") || strType == _T("album") )
 				m_nType = stFolder;
-			
+
 			strType = pElement->GetAttributeValue( _T("availability") );
 			ToLower( strType );
-			
+
 			if ( strType == _T("system") )
 				m_nAvailability = saSystem;
 			else if ( strType == _T("advanced") )
 				m_nAvailability = saAdvanced;
 			else
 				m_nAvailability = saDefault;
-			
+
 			if ( pElement->GetAttribute( _T("private") ) ) m_bPrivate = TRUE;
 		}
 		else if ( pElement->IsNamed( _T("titles") ) )
@@ -414,15 +414,15 @@ void CSchema::LoadDescriptorIcons(CXMLElement* pElement)
 void CSchema::LoadDescriptorMembers(CXMLElement* pElement)
 {
 	BOOL bPrompt = FALSE;
-	
+
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pDisplay = pElement->GetNextElement( pos );
-		
+
 		if ( pDisplay->IsNamed( _T("member") ) )
 		{
 			CString strMember = pDisplay->GetAttributeValue( _T("name") );
-			
+
 			if ( CSchemaMember* pMember = GetMember( strMember ) )
 			{
 				pMember->LoadDescriptor( pDisplay );
@@ -430,9 +430,9 @@ void CSchema::LoadDescriptorMembers(CXMLElement* pElement)
 			}
 		}
 	}
-	
+
 	if ( bPrompt ) return;
-	
+
 	for ( POSITION pos = GetMemberIterator() ; pos ; )
 	{
 		GetNextMember( pos )->m_bPrompt = TRUE;
@@ -515,7 +515,7 @@ void CSchema::LoadDescriptorHeaderContent(CXMLElement* pElement)
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pElement->GetNextElement( pos );
-		
+
 		BOOL bLanguage = pXML->GetAttributeValue( _T("language") ).
 			CompareNoCase( Settings.General.Language ) == 0;
 
@@ -535,14 +535,14 @@ void CSchema::LoadDescriptorHeaderContent(CXMLElement* pElement)
 void CSchema::LoadDescriptorViewContent(CXMLElement* pElement)
 {
 	m_sLibraryView = pElement->GetAttributeValue( _T("preferredView") );
-	
+
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pElement->GetNextElement( pos );
 
 		BOOL bLanguage = pXML->GetAttributeValue( _T("language") ).
 			CompareNoCase( Settings.General.Language ) == 0;
-		
+
 		if ( pXML->IsNamed( _T("tileLine1") ) )
 		{
 			if ( bLanguage || m_sTileLine1.IsEmpty() )
@@ -630,27 +630,27 @@ CXMLElement* CSchema::Instantiate(BOOL bNamespace) const
 BOOL CSchema::Validate(CXMLElement* pXML, BOOL bFix)
 {
 	if ( pXML == NULL ) return FALSE;
-	
+
 	if ( ! pXML->IsNamed( m_sPlural ) ) return FALSE;
 	if ( ! CheckURI( pXML->GetAttributeValue( CXMLAttribute::schemaName ) ) ) return FALSE;
-	
+
 	CXMLElement* pBody = pXML->GetFirstElement();
 	if ( pBody == NULL ) return FALSE;
 	if ( ! pBody->IsNamed( m_sSingular ) ) return FALSE;
-	
+
 	for ( POSITION pos = GetMemberIterator() ; pos ; )
 	{
 		CSchemaMember* pMember = GetNextMember( pos );
-		
+
 		CString str = pMember->GetValueFrom( pBody, L"(~np~)", FALSE );
 		if ( str == L"(~np~)" ) continue;
-		
+
 		if ( pMember->m_bNumeric )
 		{
 			float nNumber = 0.0f;
 			bool bValid = true;
 
-			if ( str.GetLength() && _stscanf( str, L"%f", &nNumber ) != 1 ) 
+			if ( str.GetLength() && _stscanf( str, L"%f", &nNumber ) != 1 )
 				bValid = false;
 			if ( nNumber < pMember->m_nMinOccurs || nNumber > pMember->m_nMaxOccurs )
 				bValid = false;
@@ -683,7 +683,7 @@ BOOL CSchema::Validate(CXMLElement* pXML, BOOL bFix)
 			if ( str.GetLength() > pMember->m_nMaxLength )
 			{
 				if ( ! bFix ) return FALSE;
-				
+
 				str = str.Left( pMember->m_nMaxLength );
 				pMember->SetValueTo( pBody, str );
 			}
@@ -698,7 +698,7 @@ BOOL CSchema::Validate(CXMLElement* pXML, BOOL bFix)
 			pMember->SetValueTo( pBody, L"" );
 		}
 	}
-	
+
 	return TRUE;
 }
 
@@ -708,17 +708,17 @@ BOOL CSchema::Validate(CXMLElement* pXML, BOOL bFix)
 CString CSchema::GetIndexedWords(CXMLElement* pXML) const
 {
 	CString str;
-	
+
 	if ( pXML == NULL ) return str;
-	
+
 	for ( POSITION pos = GetMemberIterator() ; pos ; )
 	{
 		CSchemaMember* pMember = GetNextMember( pos );
-		
+
 		if ( pMember->m_bIndexed )
 		{
 			CString strMember = pMember->GetValueFrom( pXML, NULL, FALSE );
-			
+
 			if ( strMember.GetLength() )
 			{
 				if ( str.GetLength() ) str += ' ';
@@ -726,24 +726,24 @@ CString CSchema::GetIndexedWords(CXMLElement* pXML) const
 			}
 		}
 	}
-	ToLower( str );	
+	ToLower( str );
 	return str;
 }
 
 CString CSchema::GetVisibleWords(CXMLElement* pXML) const
 {
 	CString str;
-	
+
 	if ( pXML == NULL ) return str;
-	
+
 	for ( POSITION pos = GetMemberIterator() ; pos ; )
 	{
 		CSchemaMember* pMember = GetNextMember( pos );
-		
+
 		if ( !pMember->m_bHidden )
 		{
 			CString strMember = pMember->GetValueFrom( pXML, NULL, FALSE );
-			
+
 			if ( strMember.GetLength() )
 			{
 				if ( str.GetLength() ) str += ' ';
@@ -765,7 +765,7 @@ void CSchema::ResolveTokens(CString& str, CXMLElement* pXML) const
 		if ( nOpen < 0 ) break;
 		int nClose = str.Find( '}' );
 		if ( nClose <= nOpen ) break;
-		
+
 		CString strMember = str.Mid( nOpen + 1, nClose - nOpen - 1 );
 		strMember.TrimLeft(); strMember.TrimRight();
 

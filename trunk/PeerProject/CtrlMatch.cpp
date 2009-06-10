@@ -79,7 +79,7 @@ CMatchCtrl::CMatchCtrl()
 {
 	m_pMatches		= NULL;
 	m_sType			= _T("Search");
-	
+
 	m_pSchema		= NULL;
 	m_nTopIndex		= 0;
 	m_nHitIndex		= 0;
@@ -115,20 +115,20 @@ BOOL CMatchCtrl::Create(CMatchList* pMatches, CWnd* pParentWnd)
 		WS_VISIBLE, rect, pParentWnd, IDC_MATCHES, NULL );
 }
 
-int CMatchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CMatchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
-	
+
 	CRect rc;
-	
+
 	if ( ! m_wndHeader.Create( WS_CHILD|WS_VISIBLE|HDS_BUTTONS|HDS_DRAGDROP|HDS_HOTTRACK|HDS_FULLDRAG,
 		rc, this, IDC_MATCH_HEADER ) ) return -1;
 	m_wndHeader.SetFont( &theApp.m_gdiFont );
-	
+
 	if ( ! m_wndTip.Create( this ) ) return -1;
-	
+
 	EnableToolTips( TRUE );
-	
+
 	InsertColumn( MATCH_COL_NAME, _T("File"), HDF_LEFT, 200 );
 	InsertColumn( MATCH_COL_TYPE, _T("Extension"), HDF_CENTER, 64 );
 	InsertColumn( MATCH_COL_SIZE, _T("Size"), HDF_CENTER, 62 );
@@ -146,15 +146,15 @@ int CMatchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pStars.Create( 12, 12, ILC_COLOR24|ILC_MASK, 7, 0 ) ||
 	m_pStars.Create( 12, 12, ILC_COLOR16|ILC_MASK, 7, 0 );
 	m_pStars.Add( &bmStar, RGB( 0, 255, 0 ) );
-	
+
 	LoadColumnState();
-	
+
 	UpdateScroll();
-	
+
 	return 0;
 }
 
-void CMatchCtrl::OnDestroy() 
+void CMatchCtrl::OnDestroy()
 {
 	m_wndTip.DestroyWindow();
 
@@ -162,10 +162,10 @@ void CMatchCtrl::OnDestroy()
 	CWnd::OnDestroy();
 }
 
-void CMatchCtrl::OnSize(UINT nType, int cx, int cy) 
+void CMatchCtrl::OnSize(UINT nType, int cx, int cy)
 {
 	CWnd::OnSize( nType, cx, cy );
-	
+
 	m_nCurrentWidth = cx;
 
 	m_nPageCount = ( cy - HEADER_HEIGHT ) / ITEM_HEIGHT;
@@ -192,7 +192,7 @@ void CMatchCtrl::Update()
 	{
 		Invalidate();
 	}
-	
+
 	m_pMatches->ClearUpdated();
 }
 
@@ -204,17 +204,17 @@ void CMatchCtrl::DestructiveUpdate()
 void CMatchCtrl::SelectSchema(CSchema* pSchema, CList< CSchemaMember* >* pColumns)
 {
 	SaveColumnState();
-	
+
 	m_pSchema = pSchema;
 	m_pColumns.RemoveAll();
-	
+
 	while ( m_wndHeader.DeleteItem( MATCH_COL_MAX ) );
 	int nColumn = MATCH_COL_MAX;
-	
+
 	if ( pSchema && pColumns )
 	{
 		m_pColumns.AddTail( pColumns );
-		
+
 		for ( POSITION pos = m_pColumns.GetHeadPosition() ; pos ; nColumn++ )
 		{
 			CSchemaMember* pMember = m_pColumns.GetNext( pos );
@@ -224,11 +224,11 @@ void CMatchCtrl::SelectSchema(CSchema* pSchema, CList< CSchemaMember* >* pColumn
 				nColumn--;
 		}
 	}
-	
+
 	m_pMatches->SelectSchema( pSchema, pColumns );
-	
+
 	LoadColumnState();
-	
+
 	Update();
 }
 
@@ -257,18 +257,18 @@ void CMatchCtrl::SetSortColumn(int nColumn, BOOL bDirection)
 {
 	CSingleLock pLock( &m_pMatches->m_pSection, TRUE );
 	CWaitCursor pCursor;
-	
+
 	m_pMatches->SetSortColumn( nColumn, bDirection );
 	Update();
-	
+
 	if ( m_bmSortAsc.m_hObject == NULL )
 	{
 		m_bmSortAsc.LoadMappedBitmap( IDB_SORT_ASC );
 		m_bmSortDesc.LoadMappedBitmap( IDB_SORT_DESC );
 	}
-	
+
 	HDITEM pColumn = { HDI_BITMAP|HDI_FORMAT };
-	
+
 	for ( int nCol = 0 ; m_wndHeader.GetItem( nCol, &pColumn ) ; nCol++ )
 	{
 		if ( nCol == nColumn )
@@ -281,7 +281,7 @@ void CMatchCtrl::SetSortColumn(int nColumn, BOOL bDirection)
 			pColumn.fmt &= ~HDF_BITMAP;
 			pColumn.hbm = NULL;
 		}
-		
+
 		m_wndHeader.SetItem( nCol, &pColumn );
 	}
 }
@@ -292,23 +292,23 @@ void CMatchCtrl::SetMessage(UINT nMessageID, BOOL bLink)
 	Skin.LoadString( strCurrentText, m_nMessage );
 
 	if ( nMessageID == m_nMessage && m_bSearchLink == bLink && strCurrentText == m_sMessage ) return;
-	
+
 	m_bSearchLink = bLink;
-	
+
 	m_nMessage = nMessageID;
 	m_sMessage = strCurrentText;
-	
+
 	if ( m_nCacheItems == 0 ) Invalidate();
 }
 
 void CMatchCtrl::SetMessage(LPCTSTR pszMessage, BOOL bLink)
 {
 	if ( m_sMessage == pszMessage && m_bSearchLink == bLink ) return;
-	
+
 	m_bSearchLink = bLink;
 	m_nMessage = 0;
 	m_sMessage = pszMessage;
-	
+
 	if ( m_nCacheItems == 0 ) Invalidate();
 }
 
@@ -323,38 +323,38 @@ void CMatchCtrl::EnableTips(BOOL bTips)
 void CMatchCtrl::InsertColumn(int nColumn, LPCTSTR pszCaption, int nFormat, int nWidth)
 {
 	HDITEM pItem = { HDI_TEXT|HDI_FORMAT|HDI_WIDTH };
-	
+
 	pItem.pszText		= (LPTSTR)pszCaption;
 	pItem.cchTextMax	= static_cast< int >( _tcslen( pszCaption ) );
 	pItem.fmt			= nFormat;
 	pItem.cxy			= nWidth;
-	
+
 	m_wndHeader.InsertItem( nColumn, &pItem );
 }
 
 void CMatchCtrl::SaveColumnState()
 {
 	HDITEM pItem = { HDI_WIDTH|HDI_ORDER };
-	
+
 	CString strOrdering, strWidths, strItem;
-	
+
 	for ( int nColumns = 0 ; m_wndHeader.GetItem( nColumns, &pItem ) ; nColumns++ )
 	{
 		m_wndHeader.GetItem( nColumns, &pItem );
-		
+
 		strItem.Format( _T("%.2x"), pItem.iOrder );
 		strOrdering += strItem;
-		
+
 		strItem.Format( _T("%.4x"), pItem.cxy );
 		strWidths += strItem;
 	}
-	
-	int nSort = m_pMatches->m_nSortColumn >= 0 ? 
+
+	int nSort = m_pMatches->m_nSortColumn >= 0 ?
 		( m_pMatches->m_nSortColumn + 1 ) * m_pMatches->m_bSortDir : 0;
-	
+
 	LPCTSTR pszName = _T("Null");
 	if ( m_pSchema ) pszName = m_pSchema->m_sSingular;
-	
+
 	strItem.Format( _T("CMatchCtrl.%s.%s.Ordering"), m_sType, pszName );
 	theApp.WriteProfileString( _T("ListStates"), strItem, strOrdering );
 	strItem.Format( _T("CMatchCtrl.%s.%s.Widths"), m_sType, pszName );
@@ -366,41 +366,41 @@ void CMatchCtrl::SaveColumnState()
 BOOL CMatchCtrl::LoadColumnState()
 {
 	CString strOrdering, strWidths, strItem;
-	
+
 	LPCTSTR pszName = _T("Null");
 	if ( m_pSchema ) pszName = m_pSchema->m_sSingular;
-	
+
 	strItem.Format( _T("CMatchCtrl.%s.%s.Ordering"), m_sType, pszName );
 	strOrdering = theApp.GetProfileString( _T("ListStates"), strItem, _T("") );
 	strItem.Format( _T("CMatchCtrl.%s.%s.Widths"), m_sType, pszName );
 	strWidths = theApp.GetProfileString( _T("ListStates"), strItem, _T("") );
 	strItem.Format( _T("CMatchCtrl.%s.%s.Sort"), m_sType, pszName );
 	int nSort = theApp.GetProfileInt( _T("ListStates"), strItem, - MATCH_COL_COUNT - 1 );
-	
+
 	HDITEM pItem = { HDI_WIDTH|HDI_ORDER };
-	
+
 	if ( _tcsncmp( strWidths, _T("0000"), 4 ) == 0 &&
 		 _tcsncmp( strOrdering, _T("00"), 2 ) == 0 )
 	{
 		strWidths = strWidths.Mid( 4 );
 		strOrdering = strOrdering.Mid( 2 );
 	}
-	
+
 	for ( int nColumns = 0 ; m_wndHeader.GetItem( nColumns, &pItem ) ; nColumns++ )
 	{
 		if ( strWidths.GetLength() < 4 || strOrdering.GetLength() < 2 ) return FALSE;
-		
+
 		_stscanf( strWidths.Left( 4 ), _T("%x"), &pItem.cxy );
 		_stscanf( strOrdering.Left( 2 ), _T("%x"), &pItem.iOrder );
-		
+
 		strWidths = strWidths.Mid( 4 );
 		strOrdering = strOrdering.Mid( 2 );
-		
+
 		m_wndHeader.SetItem( nColumns, &pItem );
 	}
-	
+
 	SetSortColumn( abs( nSort ) - 1, nSort < 0 );
-	
+
 	return TRUE;
 }
 
@@ -410,7 +410,7 @@ BOOL CMatchCtrl::LoadColumnState()
 void CMatchCtrl::UpdateScroll(DWORD nScroll)
 {
 	SCROLLINFO pInfo;
-	
+
 	pInfo.cbSize	= sizeof(pInfo);
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
@@ -418,31 +418,31 @@ void CMatchCtrl::UpdateScroll(DWORD nScroll)
 	pInfo.nPage		= m_nPageCount;
 	pInfo.nPos		= nScroll < 0xFFFFFFFF ? nScroll : GetScrollPos( SB_VERT );
 	pInfo.nPos		= max( 0, min( pInfo.nPos, pInfo.nMax - (int)pInfo.nPage + 1 ) );
-	
+
 	SetScrollInfo( SB_VERT, &pInfo, TRUE );
-	
+
 	int nColumnWidth = 0;
-	
+
 	for ( int nColumn = m_wndHeader.GetItemCount() - 1 ; nColumn >= 0 ; nColumn-- )
 	{
 		CRect rcCol;
 		Header_GetItemRect( m_wndHeader.GetSafeHwnd(), nColumn, &rcCol );
 		nColumnWidth = max( nColumnWidth, int(rcCol.right) );
 	}
-	
+
 	pInfo.fMask		= SIF_ALL & ~SIF_TRACKPOS;
 	pInfo.nMin		= 0;
 	pInfo.nMax		= nColumnWidth - 1;
 	pInfo.nPage		= m_nCurrentWidth;
 	pInfo.nPos		= GetScrollPos( SB_HORZ );
 	pInfo.nPos		= max( 0, min( pInfo.nPos, pInfo.nMax - (int)pInfo.nPage + 1 ) );
-	
+
 	SetScrollInfo( SB_HORZ, &pInfo, TRUE );
-	
+
 	CRect rc;
 	m_wndHeader.GetWindowRect( &rc );
 	ScreenToClient( &rc );
-	
+
 	if ( rc.left != -pInfo.nPos || rc.Width() != max( m_nCurrentWidth, pInfo.nMax ) )
 	{
 		m_wndHeader.SetWindowPos( NULL, -pInfo.nPos, 0,
@@ -450,7 +450,7 @@ void CMatchCtrl::UpdateScroll(DWORD nScroll)
 	}
 }
 
-void CMatchCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/) 
+void CMatchCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
 	switch ( nSBCode )
 	{
@@ -479,7 +479,7 @@ void CMatchCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 	}
 }
 
-void CMatchCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/) 
+void CMatchCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 {
 	SCROLLINFO pInfo;
 
@@ -526,7 +526,7 @@ void CMatchCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 	RedrawWindow( NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW );
 }
 
-BOOL CMatchCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt) 
+BOOL CMatchCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
 	// Scroll window under cursor
 	if ( CWnd* pWnd = WindowFromPoint( pt ) )
@@ -550,39 +550,39 @@ void CMatchCtrl::ScrollTo(DWORD nIndex)
 	if ( nLimit > (DWORD)m_nPageCount ) nLimit -= m_nPageCount;
 	else nLimit = 0;
 	nIndex = min( nIndex, nLimit );
-	
+
 	DWORD nScroll = 0;
-	
+
 	m_nTopIndex = 0;
 	m_nHitIndex = 0;
 	m_nBottomIndex = 0xFFFFFFFF;
-	
+
 	CMatchFile** ppFile = m_pMatches->m_pFiles;
-	
+
 	for ( DWORD nFiles = 0 ; nFiles < m_pMatches->m_nFiles ; nFiles++, ppFile++ )
 	{
 		DWORD nCount = (*ppFile)->GetItemCount();
 		if ( ! nCount ) continue;
-		
+
 		m_nTopIndex = nFiles;
-		
+
 		if ( nIndex < nCount )
 		{
 			m_nHitIndex = nIndex;
 			nScroll += nIndex;
 			break;
 		}
-		
+
 		nIndex -= nCount;
 		nScroll += nCount;
 	}
-	
+
 	UpdateScroll( nScroll );
-	
+
 	CRect rc;
 	GetClientRect( &rc );
 	rc.top += HEADER_HEIGHT;
-	
+
 	// RedrawWindow( &rc, NULL, RDW_INVALIDATE | RDW_UPDATENOW );
 	RedrawWindow( &rc, NULL, RDW_INVALIDATE );
 }
@@ -590,45 +590,45 @@ void CMatchCtrl::ScrollTo(DWORD nIndex)
 /////////////////////////////////////////////////////////////////////////////
 // CMatchCtrl painting
 
-BOOL CMatchCtrl::OnEraseBkgnd(CDC* /*pDC*/) 
+BOOL CMatchCtrl::OnEraseBkgnd(CDC* /*pDC*/)
 {
 	return TRUE;
 }
 
-void CMatchCtrl::OnPaint() 
+void CMatchCtrl::OnPaint()
 {
 	CSingleLock pLock( &m_pMatches->m_pSection );
-	
+
 	if ( ! pLock.Lock( 80 ) )
 	{
 		PostMessage( WM_TIMER, 1 );
 		return;
 	}
-	
+
 	CRect rcClient, rcItem;
 	CPaintDC dc( this );
 	if ( Settings.General.LanguageRTL ) dc.SetTextAlign( TA_RTLREADING );
-	
+
 	GetClientRect( &rcClient );
 	rcClient.top += HEADER_HEIGHT;
-	
+
 	dc.SetViewportOrg( -GetScrollPos( SB_HORZ ), 0 );
-	
+
 	INT nZeroInt, nColWidth;
 	GetScrollRange( SB_HORZ, &nZeroInt, &nColWidth );
 	rcClient.right = max( rcClient.right, LONG(nColWidth) );
-	
+
 	CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntNormal );
-	
+
 	m_nTrailWidth = dc.GetTextExtent( _T('\x2026') ).cx;
-	
+
 	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, 0 );
 	rcItem.top -= m_nHitIndex * ITEM_HEIGHT;
 	rcItem.bottom = rcItem.top + ITEM_HEIGHT;
-	
+
 	CMatchFile** ppFile = m_pMatches->m_pFiles + m_nTopIndex;
 	BOOL bFocus = ( GetFocus() == this );
-	
+
     DWORD nIndex = m_nTopIndex;
 	for (	;
 			nIndex < m_pMatches->m_nFiles && rcItem.top < rcClient.bottom ;
@@ -636,40 +636,40 @@ void CMatchCtrl::OnPaint()
 	{
 		CMatchFile* pFile = *ppFile;
 		int nCount = pFile->GetFilteredCount();
-		
+
 		// Don't paint the file if it has been filtered.
 		if ( ! nCount ) continue;
-		
+
 		if ( rcItem.top >= rcClient.top && dc.RectVisible( &rcItem ) )
 		{
 			DrawItem( dc, rcItem, pFile, NULL, bFocus && ( nIndex == m_nFocus ) );
 		}
-		
+
 		rcItem.top += ITEM_HEIGHT;
 		rcItem.bottom += ITEM_HEIGHT;
-		
+
 		if ( nCount > 1 && pFile->m_bExpanded )
 		{
 			for ( CQueryHit* pHit = pFile->GetHits() ; pHit ; pHit = pHit->m_pNext )
 			{
 				// Don't paint filtered hits.
 				if ( ! pHit->m_bFiltered ) continue;
-				
+
 				if ( rcItem.top >= rcClient.top && dc.RectVisible( &rcItem ) )
 				{
 					DrawItem( dc, rcItem, pFile, pHit, FALSE );
 				}
-				
+
 				rcItem.top += ITEM_HEIGHT;
 				rcItem.bottom += ITEM_HEIGHT;
-				
+
 				if ( rcItem.top >= rcClient.bottom ) break;
 			}
 		}
 	}
-	
+
 	m_nBottomIndex = nIndex + 1;
-	
+
 	if ( m_pMatches->m_nFilteredFiles == 0 && m_sMessage.GetLength() )
 	{
 		dc.SetViewportOrg( 0, 0 );
@@ -677,11 +677,11 @@ void CMatchCtrl::OnPaint()
 		rcClient.top += HEADER_HEIGHT;
 		DrawEmptyMessage( dc, rcClient );
 	}
-	
+
 	dc.SelectObject( pOldFont );
-	
+
 	rcItem.bottom = rcClient.bottom;
-	
+
 	if ( dc.RectVisible( &rcItem ) )
 	{
 		dc.FillSolidRect( &rcItem, CoolInterface.m_crWindow );
@@ -691,14 +691,14 @@ void CMatchCtrl::OnPaint()
 void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* pHit, BOOL bFocus)
 {
 	TCHAR szBuffer[64];
-	
+
 	int nColumns	= m_wndHeader.GetItemCount();
 	int nHits		= pHit ? 0 : pFile->GetFilteredCount();
-	
+
 	LPCTSTR pszName	= pHit ? pHit->m_sName : pFile->m_sName;
 	LPCTSTR pszType	= _tcsrchr( pszName, '.' );
 	int nNameLen	= static_cast< int >( pszType ? pszType - pszName : _tcslen( pszName ) );
-	
+
 	BOOL bSelected	= pHit ? pHit->m_bSelected : pFile->m_bSelected;
 	BOOL bGrayed	= FALSE;
 	COLORREF crWnd	= CoolInterface.m_crWindow;
@@ -757,21 +757,21 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		crText = pFile->GetLibraryStatus() == TRI_TRUE ? CoolInterface.m_crSearchGhostrated : CoolInterface.m_crSearchNull;
 		bGrayed = TRUE;
 	}
-	
+
 	dc.SetBkMode( OPAQUE );
 	dc.SetBkColor( crBack );
-	
+
 	dc.SelectObject( Settings.Search.HighlightNew && ( pHit ? pHit->m_bNew : pFile->m_bNew )
 		? &theApp.m_gdiFontBold : &theApp.m_gdiFont );
-	
+
 	for ( int nColumn = 0 ; nColumn < nColumns ; nColumn++ )
 	{
 		HDITEM pColumn = { HDI_FORMAT|HDI_WIDTH|HDI_ORDER };
 		CRect rcCol;
-		
+
 		Header_GetItem( m_wndHeader.GetSafeHwnd(), nColumn, &pColumn );
 		Header_GetItemRect( m_wndHeader.GetSafeHwnd(), nColumn, &rcCol );
-		
+
 		int nLeft = rcCol.left;
 		rcCol.top = rcRow.top;
 		rcCol.bottom = rcRow.bottom;
@@ -784,9 +784,9 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		LPCTSTR pszText	= _T("");
 		int nText		= -1;
 		int nPosition;
-		
+
 		dc.SetTextColor( crText );
-		
+
 		switch ( nColumn )
 		{
 		case MATCH_COL_NAME:
@@ -815,7 +815,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				ShellIcons.Draw( &dc, pFile->m_nShellIndex, 16, rcCol.left + 16, rcCol.top,	crLeftAligned, bSelected );
 
 				dc.FillSolidRect( rcCol.left, rcCol.top + 16, 32, ITEM_HEIGHT - 16, crLeftAligned );
-				
+
 				rcCol.left += 32;
 			}
 			else
@@ -823,7 +823,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				dc.FillSolidRect( rcCol.left, rcCol.top, ( pHit ? 24 : 16 ),
 					ITEM_HEIGHT, crLeftAligned );
 				rcCol.left += ( pHit ? 24 : 16 );
-				
+
 				// Draw file icon
 				ShellIcons.Draw( &dc, pFile->m_nShellIndex, 16, rcCol.left, rcCol.top,
 					crLeftAligned, bSelected );
@@ -849,7 +849,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 
 			dc.FillSolidRect( rcCol.left, rcCol.top, 1, ITEM_HEIGHT, crLeftAligned );
 			rcCol.left += 1;
-			
+
 			if ( bSelected && bFocus )
 			{
 				CRect rcFocus( &rcRow );
@@ -860,7 +860,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				dc.ExcludeClipRect( rcFocus.left, rcFocus.top + 1, rcFocus.left + 1, rcFocus.bottom - 1 );
 				dc.ExcludeClipRect( rcFocus.right - 1, rcFocus.top + 1, rcFocus.right, rcFocus.bottom - 1 );
 			}
-			
+
 			break;
 
 		case MATCH_COL_TYPE:
@@ -870,7 +870,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		case MATCH_COL_SIZE:
 			pszText = pFile->m_sSize;
 			break;
-		
+
 		case MATCH_COL_STATUS:
 			if ( pHit )
 			{
@@ -885,7 +885,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				DrawStatus( dc, rcCol, pFile, NULL, bSelected, crBack );
 			}
 			break;
-			
+
 		case MATCH_COL_RATING:
 			if ( pHit )
 			{
@@ -902,7 +902,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 					bSelected, crBack );
 			}
 			break;
-			
+
 		case MATCH_COL_COUNT:
 			if ( nHits == 1 || pHit != NULL )
 			{
@@ -994,7 +994,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			}
 			pszText = szBuffer;
 			break;
-			
+
 		case MATCH_COL_SPEED:
 			if ( pHit )
 			{
@@ -1061,7 +1061,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			nTrail = m_nTrailWidth;
 			nText--;
 		}
-		
+
 		switch ( pColumn.fmt & HDF_JUSTIFYMASK )
 		{
 		default:
@@ -1102,15 +1102,15 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit* pHit, BOOL bSelected, COLORREF crBack)
 {
 	if ( rcCol.Width() < 16 * 3 ) return;
-	
+
 	int nLeft = rcCol.left;
-	
+
 	if ( rcCol.Width() > 16 * 6 )
 		nLeft = ( rcCol.left + rcCol.right ) / 2 - ( 16 * 6 ) / 2;
-	
+
 	int nPos = nLeft;
 	TRISTATE bState;
-	
+
 	if ( ( bState = pHit ? pHit->m_bBusy : pFile->m_bBusy ) != FALSE )
 	{
 		CoolInterface.Draw( &dc, ( bState == TRI_TRUE ? IDI_BUSY : IDI_TICK ), 16,
@@ -1120,9 +1120,9 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 	{
 		dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
 	}
-	
+
 	nPos += 16;
-	
+
 	if ( ( bState = pHit ? pHit->m_bPush : pFile->m_bPush ) != FALSE )
 	{
 		CoolInterface.Draw( &dc, ( bState == TRI_TRUE ? IDI_FIREWALLED : IDI_TICK ), 16,
@@ -1132,9 +1132,9 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 	{
 		dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
 	}
-	
+
 	nPos += 16;
-	
+
 	if ( ( bState = pHit ? pHit->m_bStable : pFile->m_bStable ) != FALSE )
 	{
 		CoolInterface.Draw( &dc, ( bState == TRI_TRUE ? IDI_TICK : IDI_UNSTABLE ), 16,
@@ -1144,7 +1144,7 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 	{
 		dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
 	}
-	
+
 	nPos += 16;
 
 	if ( nPos + 16 < rcCol.right )
@@ -1160,7 +1160,7 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 
 		nPos += 16;
 	}
-	
+
 	if ( nPos + 16 < rcCol.right && pHit )
 	{
 		if ( pHit->m_bBrowseHost )
@@ -1171,10 +1171,10 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 		{
 			dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
 		}
-		
+
 		nPos += 16;
 	}
-	
+
 	if ( nPos + 16 < rcCol.right && pHit )
 	{
 		if ( pHit->m_bChat )
@@ -1189,7 +1189,7 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 
 		nPos += 16;
 	}
-	
+
 	dc.ExcludeClipRect( nLeft, rcCol.top, nPos, rcCol.top + 16 );
 }
 
@@ -1198,7 +1198,7 @@ void CMatchCtrl::DrawRating(CDC& dc, CRect& rcCol, int nRating, BOOL bSelected, 
 	if ( nRating > 1 && nRating <= 6 )
 	{
 		CPoint pt( rcCol.left, rcCol.top + 2 );
-		
+
 		if ( rcCol.Width() >= 12 * 5 )
 		{
 			pt.x += rcCol.Width() / 2;
@@ -1208,7 +1208,7 @@ void CMatchCtrl::DrawRating(CDC& dc, CRect& rcCol, int nRating, BOOL bSelected, 
 		{
 			nRating = min( nRating - 1, rcCol.Width() / 12 );
 		}
-		
+
 		while ( nRating-- )
 		{
 			ImageList_DrawEx( m_pStars, 0, dc, pt.x, pt.y, 12, 12, crBack,
@@ -1224,7 +1224,7 @@ void CMatchCtrl::DrawRating(CDC& dc, CRect& rcCol, int nRating, BOOL bSelected, 
 			crBack, bSelected ? ILD_BLEND50 : ILD_NORMAL );
 		dc.ExcludeClipRect( pt.x, pt.y, pt.x + 12, pt.y + 12 );
 	}
-	
+
 	dc.FillSolidRect( &rcCol, crBack );
 }
 
@@ -1248,7 +1248,7 @@ void CMatchCtrl::DrawEmptyMessage(CDC& dc, CRect& rcClient)
 	CPoint ptText;
 	CRect rcText;
 	CSize szText;
-	
+
 	rcText.SetRect( rcClient.left, 16, rcClient.right, 0 );
 	rcText.bottom = ( rcClient.top + rcClient.bottom ) / 2;
 	rcText.top = rcText.bottom - rcText.top;
@@ -1259,11 +1259,11 @@ void CMatchCtrl::DrawEmptyMessage(CDC& dc, CRect& rcClient)
 	dc.SetBkColor( CoolInterface.m_crWindow );
 	dc.SetTextColor( CoolInterface.m_crText );
 	dc.SelectObject( &theApp.m_gdiFont );
-	
+
 	szText		= dc.GetTextExtent( m_sMessage );
 	ptText.x	= ( rcText.left + rcText.right ) / 2 - szText.cx / 2;
 	ptText.y	= ( rcText.top + rcText.bottom ) / 2 - szText.cy / 2;
-	
+
 	dc.ExtTextOut( ptText.x, ptText.y, ETO_CLIPPED|ETO_OPAQUE, &rcText, m_sMessage, NULL );
 	dc.ExcludeClipRect( &rcText );
 
@@ -1293,31 +1293,31 @@ BOOL CMatchCtrl::HitTest(const CPoint& point, CMatchFile** poFile, CQueryHit** p
 {
 	CSingleLock pLock( &m_pMatches->m_pSection );
 	CRect rcClient, rcItem;
-	
+
 	if ( poFile ) *poFile = NULL;
 	if ( poHit ) *poHit = NULL;
 	if ( pnIndex ) *pnIndex = 0xFFFFFFFF;
-	
+
 	if ( ! pLock.Lock( 10 ) ) return FALSE;
-	
+
 	GetClientRect( &rcClient );
 	rcClient.top += HEADER_HEIGHT;
-	
+
 	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, 0 );
 	rcItem.top -= m_nHitIndex * ITEM_HEIGHT;
 	rcItem.bottom = rcItem.top + ITEM_HEIGHT;
-	
+
 	CMatchFile** ppFile = m_pMatches->m_pFiles + m_nTopIndex;
-	
+
 	for (	DWORD nIndex = m_nTopIndex ;
 			nIndex < m_pMatches->m_nFiles && rcItem.top < rcClient.bottom ;
 			nIndex++, ppFile++ )
 	{
 		CMatchFile* pFile = *ppFile;
 		int nCount = pFile->GetFilteredCount();
-		
+
 		if ( ! nCount ) continue;
-		
+
 		if ( rcItem.top >= rcClient.top && rcItem.PtInRect( point ) )
 		{
 			*poFile = pFile;
@@ -1325,16 +1325,16 @@ BOOL CMatchCtrl::HitTest(const CPoint& point, CMatchFile** poFile, CQueryHit** p
 			if ( pRect ) *pRect = rcItem;
 			return TRUE;
 		}
-		
+
 		rcItem.top += ITEM_HEIGHT;
 		rcItem.bottom += ITEM_HEIGHT;
-		
+
 		if ( nCount > 1 && pFile->m_bExpanded )
 		{
 			for ( CQueryHit* pHit = pFile->GetHits() ; pHit ; pHit = pHit->m_pNext )
 			{
 				if ( ! pHit->m_bFiltered ) continue;
-				
+
 				if ( rcItem.top >= rcClient.top && rcItem.PtInRect( point ) )
 				{
 					*poFile = pFile;
@@ -1343,15 +1343,15 @@ BOOL CMatchCtrl::HitTest(const CPoint& point, CMatchFile** poFile, CQueryHit** p
 					if ( pRect ) *pRect = rcItem;
 					return TRUE;
 				}
-				
+
 				rcItem.top += ITEM_HEIGHT;
 				rcItem.bottom += ITEM_HEIGHT;
-				
+
 				if ( rcItem.top >= rcClient.bottom ) break;
 			}
 		}
 	}
-	
+
 	return FALSE;
 }
 
@@ -1359,103 +1359,103 @@ BOOL CMatchCtrl::GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* 
 {
 	CSingleLock pLock( &m_pMatches->m_pSection );
 	CRect rcClient, rcItem;
-	
+
 	if ( ! pLock.Lock( 10 ) ) return FALSE;
-	
+
 	GetClientRect( &rcClient );
 	rcClient.top += HEADER_HEIGHT;
-	
+
 	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, rcClient.top + ITEM_HEIGHT );
 	rcItem.top -= m_nHitIndex * ITEM_HEIGHT;
 	rcItem.bottom = rcItem.top + ITEM_HEIGHT;
-	
+
 	if ( m_nTopIndex > 0 )
 	{
 		CMatchFile** ppFile = m_pMatches->m_pFiles + m_nTopIndex - 1;
-		
+
 		for ( DWORD nIndex = m_nTopIndex ; nIndex ; nIndex--, ppFile-- )
 		{
 			CMatchFile* pFile = *ppFile;
 			int nCount = pFile->GetFilteredCount();
-			
+
 			if ( ! nCount ) continue;
-			
+
 			rcItem.top -= ITEM_HEIGHT;
 			rcItem.bottom -= ITEM_HEIGHT;
-			
+
 			if ( nCount > 1 && pFile->m_bExpanded )
 			{
 				for ( CQueryHit* pHit = pFile->GetHits() ; pHit ; pHit = pHit->m_pNext )
 				{
 					if ( ! pHit->m_bFiltered ) continue;
-					
+
 					rcItem.top -= ITEM_HEIGHT;
 					rcItem.bottom -= ITEM_HEIGHT;
 				}
 			}
 		}
 	}
-	
+
 	CMatchFile** ppFile = ppFile = m_pMatches->m_pFiles;
-	
+
 	for ( DWORD nIndex = m_pMatches->m_nFiles ; nIndex ; nIndex--, ppFile++ )
 	{
 		CMatchFile* pFile = *ppFile;
 		int nCount = pFile->GetFilteredCount();
-		
+
 		if ( ! nCount ) continue;
-		
+
 		if ( pFile == pFindFile )
 		{
 			*pRect = rcItem;
 			return TRUE;
 		}
-		
+
 		rcItem.top += ITEM_HEIGHT;
 		rcItem.bottom += ITEM_HEIGHT;
-		
+
 		if ( nCount > 1 && pFile->m_bExpanded )
 		{
 			for ( CQueryHit* pHit = pFile->GetHits() ; pHit ; pHit = pHit->m_pNext )
 			{
 				if ( ! pHit->m_bFiltered ) continue;
-				
+
 				if ( pHit == pFindHit )
 				{
 					*pRect = rcItem;
 					return TRUE;
 				}
-				
+
 				rcItem.top += ITEM_HEIGHT;
 				rcItem.bottom += ITEM_HEIGHT;
 			}
 		}
 	}
-	
+
 	return FALSE;
 }
 
-void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point) 
+void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	CSingleLock pLock( &m_pMatches->m_pSection, TRUE );
 	CMatchFile* pFile;
 	CQueryHit* pHit;
 	DWORD nIndex;
 	CRect rcItem;
-	
+
 	SetFocus();
 	SetCapture();
 	m_wndTip.Hide();
-	
+
 	HitTest( point, &pFile, &pHit, &nIndex, &rcItem );
-	
+
 	if ( pFile != NULL && pHit == NULL && pFile->GetFilteredCount() > 1 )
 	{
 		CRect rcHeader;
 		Header_GetItemRect( m_wndHeader.GetSafeHwnd(), 0, &rcHeader );
-		
+
 		point.x += GetScrollPos( SB_HORZ );
-		
+
 		if ( point.x >= rcHeader.left && point.x <= rcHeader.left + 16 )
 		{
 			pFile->Expand( ! pFile->m_bExpanded );
@@ -1466,9 +1466,9 @@ void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 
 		point.x -= GetScrollPos( SB_HORZ );
 	}
-	
+
 	BOOL bChanged = FALSE;
-	
+
 	if ( ( nFlags & MK_SHIFT ) == 0 && ( nFlags & MK_CONTROL ) == 0 &&
 		 ( nFlags & MK_RBUTTON ) == 0 )
 	{
@@ -1554,7 +1554,7 @@ void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 			m_pLastSelectedHit = pHit;
 
 			BOOL bSelected = ( pHit != NULL ) ? pHit->m_bSelected : pFile->m_bSelected;
-			
+
 			if ( nFlags & MK_RBUTTON )
 			{
 				if ( ! bSelected )
@@ -1575,28 +1575,28 @@ void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 		m_pLastSelectedFile = NULL;
 		m_pLastSelectedHit = NULL;
 	}
-	
+
 	if ( bChanged ) NotifySelection();
 	Update();
 }
 
-void CMatchCtrl::OnMouseMove(UINT nFlags, CPoint point) 
+void CMatchCtrl::OnMouseMove(UINT nFlags, CPoint point)
 {
 	CWnd::OnMouseMove( nFlags, point );
 
 	CRect rcCol;
-	
+
 	GetClientRect( &rcCol );
 	rcCol.top += HEADER_HEIGHT;
-	
+
 	if ( m_bTips && rcCol.PtInRect( point ) && point.x >= rcCol.left + 16 )
 	{
 		CSingleLock pLock( &m_pMatches->m_pSection );
 		if ( ! pLock.Lock( 100 ) ) return;
-		
+
 		CMatchFile* pFile;
 		CQueryHit* pHit;
-		
+
 		if ( HitTest( point, &pFile, &pHit ) && PixelTest( point ) )
 		{
 			m_wndTip.Show( pFile, pHit );
@@ -1620,11 +1620,11 @@ BOOL CMatchCtrl::PixelTest(const CPoint& point)
 	CClientDC dc( this );
 	COLORREF crEmpty;
 	CRect rc;
-	
+
 	crEmpty = CoolInterface.m_crWindow;
 	if ( dc.GetPixel( point ) != crEmpty ) return TRUE;
 	GetClientRect( &rc );
-	
+
 	for ( int nDirection = 0 ; nDirection < 4 ; nDirection++ )
 	{
 		CPoint pt( point );
@@ -1636,26 +1636,26 @@ BOOL CMatchCtrl::PixelTest(const CPoint& point)
 			if ( dc.GetPixel( pt ) != crEmpty ) return TRUE;
 		}
 	}
-	
+
 	return FALSE;
 }
 
-void CMatchCtrl::OnLButtonUp(UINT /*nFlags*/, CPoint point) 
+void CMatchCtrl::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 {
 	ReleaseCapture();
-	
+
 	if ( m_pMatches->m_nFilteredFiles == 0 && m_bSearchLink )
 	{
 		CRect rc;
-		
+
 		GetClientRect( &rc );
 		rc.top += HEADER_HEIGHT;
-		
+
 		rc.left		= ( rc.left + rc.right ) / 2 - 64;
 		rc.right	= rc.left + 128;
 		rc.top		= ( rc.top + rc.bottom ) / 2;
 		rc.bottom	= rc.top + 16;
-		
+
 		if ( rc.PtInRect( point ) )
 		{
 			GetOwner()->PostMessage( WM_COMMAND, ID_SEARCH_SEARCH );
@@ -1664,7 +1664,7 @@ void CMatchCtrl::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 	}
 }
 
-void CMatchCtrl::OnLButtonDblClk(UINT nFlags, CPoint point) 
+void CMatchCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
 	if ( point.x < 16 )
 	{
@@ -1675,66 +1675,66 @@ void CMatchCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 	/*	CMatchFile* pFile	= NULL;
 		CQueryHit* pHit		= NULL;
 		CRect rcItem;
-		
+
 		if ( HitTest( point, &pFile, &pHit, NULL, &rcItem ) )
 		{
 			// ToDo: Check if its on an action icon and take the appropriate action
 		}
-	*/		
+	*/
 		GetOwner()->PostMessage( WM_COMMAND, ID_SEARCH_DOWNLOAD );
 	}
 }
 
-void CMatchCtrl::OnRButtonDown(UINT nFlags, CPoint point) 
+void CMatchCtrl::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	OnLButtonDown( nFlags, point );
 	CWnd::OnRButtonDown( nFlags, point );
 }
 
-void CMatchCtrl::OnRButtonUp(UINT nFlags, CPoint point) 
+void CMatchCtrl::OnRButtonUp(UINT nFlags, CPoint point)
 {
 	OnLButtonUp( nFlags, point );
 	CWnd::OnRButtonUp( nFlags, point );
 }
 
-BOOL CMatchCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) 
+BOOL CMatchCtrl::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
 	if ( m_pMatches->m_nFilteredFiles == 0 && m_bSearchLink )
 	{
 		CPoint point;
 		CRect rc;
-		
+
 		GetClientRect( &rc );
 		rc.top += HEADER_HEIGHT;
-		
+
 		rc.left		= ( rc.left + rc.right ) / 2 - 64;
 		rc.right	= rc.left + 128;
 		rc.top		= ( rc.top + rc.bottom ) / 2;
 		rc.bottom	= rc.top + 16;
 		ClientToScreen( &rc );
-		
+
 		GetCursorPos( &point );
-		
+
 		if ( rc.PtInRect( point ) )
 		{
 			SetCursor( theApp.LoadCursor( IDC_HAND ) );
 			return TRUE;
 		}
 	}
-	
+
 	return CWnd::OnSetCursor( pWnd, nHitTest, message );
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // CMatchCtrl key based interaction
 
-void CMatchCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) 
+void CMatchCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0x8000;
 	BOOL bControl = ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0x8000;
-	
+
 	m_wndTip.Hide();
-	
+
 	switch ( nChar )
 	{
 	case 'A':
@@ -1778,21 +1778,21 @@ void CMatchCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		DoExpand( TRUE );
 		break;
 	}
-	
+
 	CWnd::OnKeyDown( nChar, nRepCnt, nFlags );
 }
 
 void CMatchCtrl::MoveFocus(int nDelta, BOOL bShift)
 {
 	CSingleLock pLock( &m_pMatches->m_pSection, TRUE );
-	
+
 	if ( m_pMatches->m_nFiles == 0 || nDelta == 0 ) return;
-	
+
 	if ( m_nFocus >= m_pMatches->m_nFiles )
 	{
 		m_nFocus = nDelta > 0 ? 0 : m_pMatches->m_nFiles - 1;
 	}
-	
+
 	CMatchFile** ppFile = m_pMatches->m_pFiles + m_nFocus;
 	int nSign = ( nDelta > 0 ) ? 1 : -1;
 
@@ -1802,16 +1802,16 @@ void CMatchCtrl::MoveFocus(int nDelta, BOOL bShift)
 		CMatchFile* pFile = *ppFile;
 		if ( pFile->GetItemCount() ) break;
 	}
-	
+
 	if ( m_nFocus >= m_pMatches->m_nFiles )
 	{
 		m_nFocus = nDelta > 0 ? m_pMatches->m_nFiles - 1 : 0;
 		return;
 	}
-	
+
 	CMatchFile* pFocus = NULL;
 	nDelta += nSign;
-	
+
 	for (	DWORD nPosition = m_nFocus ;
 			nPosition < m_pMatches->m_nFiles && nDelta != 0 ;
 			nPosition += nSign, ppFile += nSign )
@@ -1825,20 +1825,20 @@ void CMatchCtrl::MoveFocus(int nDelta, BOOL bShift)
 			nDelta		-= nSign;
 		}
 	}
-	
+
 	if ( pFocus != NULL )
 	{
 		CRect rcItem, rcClient;
 		BOOL bChanged = FALSE;
-				
+
 		if ( ! bShift ) bChanged |= m_pMatches->ClearSelection();
 		bChanged |= m_pMatches->Select( pFocus, NULL, TRUE );
-				
+
 		if ( GetItemRect( pFocus, NULL, &rcItem ) )
 		{
 			GetClientRect( &rcClient );
 			rcClient.top += HEADER_HEIGHT;
-			
+
 			if ( rcItem.top < rcClient.top )
 			{
 				ScrollBy( ( rcItem.top - rcClient.top - ITEM_HEIGHT + 1 ) / ITEM_HEIGHT );
@@ -1848,7 +1848,7 @@ void CMatchCtrl::MoveFocus(int nDelta, BOOL bShift)
 				ScrollBy( ( rcItem.bottom - rcClient.bottom + ITEM_HEIGHT - 1 ) / ITEM_HEIGHT );
 			}
 		}
-		
+
 		if ( bChanged ) NotifySelection();
 		Update();
 	}
@@ -1875,9 +1875,9 @@ void CMatchCtrl::DoDelete()
 		m_pMatches->Select( NULL, pHit, FALSE );
 		pHit->m_bBogus = TRUE;
 	}
-	
+
 	m_pMatches->Filter();
-	
+
 	m_wndTip.Hide();
 	if ( bChanged ) NotifySelection();
 	Update();
@@ -1887,14 +1887,14 @@ void CMatchCtrl::DoExpand(BOOL bExpand)
 {
 	CSingleLock pLock( &m_pMatches->m_pSection, TRUE );
 	BOOL bChanged = FALSE;
-	
+
 	for ( POSITION pos = m_pMatches->m_pSelectedFiles.GetHeadPosition() ; pos ; )
 	{
 		CMatchFile* pFile = (CMatchFile*)m_pMatches->m_pSelectedFiles.GetNext( pos );
 
 		bChanged |= pFile->Expand( bExpand );
 	}
-	
+
 	m_wndTip.Hide();
 	if ( bChanged ) NotifySelection();
 	Update();
@@ -1943,7 +1943,7 @@ void CMatchCtrl::NotifySelection()
 void CMatchCtrl::OnClickHeader(NMHDR* pNotifyStruct, LRESULT* /*pResult*/)
 {
 	HD_NOTIFY* pNotify = (HD_NOTIFY*)pNotifyStruct;
-	
+
 	if ( m_pMatches->m_nSortColumn == pNotify->iItem )
 	{
 		if ( m_pMatches->m_bSortDir == 1 )
@@ -1967,7 +1967,7 @@ void CMatchCtrl::OnChangeHeader(NMHDR* /*pNotifyStruct*/, LRESULT* /*pResult*/)
 	Invalidate();
 }
 
-void CMatchCtrl::OnTimer(UINT_PTR /*nIDEvent*/) 
+void CMatchCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
 {
 	Invalidate();
 }

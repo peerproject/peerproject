@@ -71,7 +71,7 @@ protected:
 		{
 			m_pLock->Unlock();
 		}
-		
+
 		inline operator CBuffer*() const throw()
 		{
 			return m_pBuffer;

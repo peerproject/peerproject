@@ -157,9 +157,9 @@ const void* aligned_storage<S,A>::address() const
 template <std::size_t size_, std::size_t alignment_>
 struct is_pod<boost::detail::aligned_storage::aligned_storage_imp<size_,alignment_> >
    BOOST_TT_AUX_BOOL_C_BASE(true)
-{ 
+{
     BOOST_TT_AUX_BOOL_TRAIT_VALUE_DECL(true)
-}; 
+};
 #endif
 
 

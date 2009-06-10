@@ -486,7 +486,7 @@ int CLiveList::SortProc(LPCTSTR sA, LPCTSTR sB, BOOL bNumeric)
 		TCHAR* pA = (TCHAR*)_tcschr( sA, '/' );
 		TCHAR* pB = (TCHAR*)_tcschr( sB, '/' );
 		DWORD maskA = 0xffffffff, maskB = 0xffffffff;
-		if ( ( ! pA || atoip( pA + 1, maskA ) ) && 
+		if ( ( ! pA || atoip( pA + 1, maskA ) ) &&
 			 ( ! pB || atoip( pB + 1, maskB ) ) )
 		{
 			QWORD nA = ( ( (QWORD) ipA ) << 32 ) | maskA;
@@ -880,18 +880,18 @@ void CLiveListCtrl::OnLvnGetdispinfoW(NMHDR *pNMHDR, LRESULT *pResult)
 			pDispInfo->item.cchTextMax );
 	}
 
-	if ( pDispInfo->item.mask & LVIF_IMAGE ) 
+	if ( pDispInfo->item.mask & LVIF_IMAGE )
 	{
 		pDispInfo->item.iImage = pItem->m_nImage;
 	}
 
-	if ( pDispInfo->item.mask & LVIF_STATE ) 
+	if ( pDispInfo->item.mask & LVIF_STATE )
 	{
 		pDispInfo->item.state = INDEXTOOVERLAYMASK( pItem->m_nMaskOverlay ) |
 			INDEXTOSTATEIMAGEMASK( pItem->m_nMaskState );
 	}
 
-	if ( pDispInfo->item.mask & LVFI_PARAM ) 
+	if ( pDispInfo->item.mask & LVFI_PARAM )
 	{
 		pDispInfo->item.lParam = pItem->m_nParam;
 	}
@@ -914,18 +914,18 @@ void CLiveListCtrl::OnLvnGetdispinfoA(NMHDR *pNMHDR, LRESULT *pResult)
 			pDispInfo->item.cchTextMax );
 	}
 
-	if ( pDispInfo->item.mask & LVIF_IMAGE ) 
+	if ( pDispInfo->item.mask & LVIF_IMAGE )
 	{
 		pDispInfo->item.iImage = pItem->m_nImage;
 	}
 
-	if ( pDispInfo->item.mask & LVIF_STATE ) 
+	if ( pDispInfo->item.mask & LVIF_STATE )
 	{
 		pDispInfo->item.state = INDEXTOOVERLAYMASK( pItem->m_nMaskOverlay ) |
 			INDEXTOSTATEIMAGEMASK( pItem->m_nMaskState );
 	}
 
-	if ( pDispInfo->item.mask & LVFI_PARAM ) 
+	if ( pDispInfo->item.mask & LVFI_PARAM )
 	{
 		pDispInfo->item.lParam = pItem->m_nParam;
 	}

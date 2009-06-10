@@ -74,7 +74,7 @@ void CChatWindows::Close()
 	{
 		GetNext( pos )->GetParent()->DestroyWindow();
 	}
-	
+
 	m_pList.RemoveAll();
 }
 

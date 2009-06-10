@@ -145,9 +145,9 @@ void CCoolBarCtrl::SetWatermark(HBITMAP hBitmap, BOOL bDetach)
 void CCoolBarItem::SetButtonmark(HBITMAP hBitmap)
 {
 	m_bRegularButton = FALSE;
-	if ( hBitmap != NULL ) 
+	if ( hBitmap != NULL )
 	{
-		if ( m_bmButtonmark.m_hObject ) 
+		if ( m_bmButtonmark.m_hObject )
 			m_bmButtonmark.DeleteObject();
 		m_bmButtonmark.Attach( hBitmap );
 		m_bRegularButton = TRUE;
@@ -292,7 +292,7 @@ UINT CCoolBarCtrl::ThrowMenu(UINT nID, CMenu* pMenu, CWnd* pParent, BOOL bComman
 	if ( bCommand ) nFlags |= TPM_RETURNCMD;
 
 #if 1
-	CoolMenu.RegisterEdge( Settings.General.LanguageRTL ? rcButton.right : rcButton.left, 
+	CoolMenu.RegisterEdge( Settings.General.LanguageRTL ? rcButton.right : rcButton.left,
 		rcButton.bottom, rcButton.Width() );
 	bRight = FALSE;
 #endif
@@ -748,7 +748,7 @@ void CCoolBarCtrl::OnMouseMove(UINT nFlags, CPoint point)
 {
 	CCoolBarItem* pItem = HitTest( point );
 
-	if ( m_pDown && m_pDown != pItem ) 
+	if ( m_pDown && m_pDown != pItem )
 		pItem = NULL;
 
 	if ( pItem != m_pHot )
@@ -824,7 +824,7 @@ void CCoolBarCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	CWnd* pFocus = GetFocus();
 
-	if ( pFocus && pFocus->GetParent() == this ) 
+	if ( pFocus && pFocus->GetParent() == this )
 		SetFocus();
 
 	CCoolBarItem* pItem = HitTest( point );
@@ -857,7 +857,7 @@ void CCoolBarCtrl::OnLButtonUp(UINT nFlags, CPoint point)
 		ReleaseCapture();
 		Invalidate();
 
-		if ( bOn ) 
+		if ( bOn )
 			GetOwner()->PostMessage( WM_COMMAND, pItem->m_nID );
 
 		return;
@@ -895,7 +895,7 @@ BOOL CCoolBarCtrl::OnCommand(WPARAM wParam, LPARAM lParam)
 	if ( HIWORD( wParam ) == EN_SETFOCUS ||
 		 HIWORD( wParam ) == EN_KILLFOCUS ) Invalidate();
 
-	if ( GetParent()->SendMessage( WM_COMMAND, wParam, lParam ) ) 
+	if ( GetParent()->SendMessage( WM_COMMAND, wParam, lParam ) )
 		return TRUE;
 
 	return CControlBar::OnCommand( wParam, lParam );
@@ -982,7 +982,7 @@ CCoolBarItem::CCoolBarItem(CCoolBarCtrl* pBar, UINT nID, int nImage)
 , m_nCtrlHeight( CONTROL_HEIGHT )
 {
 	m_nID = nID;
-	
+
 	switch ( nID )
 	{
 	case ID_SEPARATOR:
@@ -1012,14 +1012,14 @@ CCoolBarItem::CCoolBarItem(CCoolBarCtrl* pBar, CCoolBarItem* pCopy)
 	m_nCtrlID		= pCopy->m_nCtrlID;
 	m_nCtrlHeight	= pCopy->m_nCtrlHeight;
 	m_bCheckButton	= pCopy->m_bCheckButton;
-	
+
 	/* if ( m_nImage < 0 ) */ m_nImage = CoolInterface.ImageForID( m_nID );
 	SetText( pCopy->m_sText );
 }
 
 CCoolBarItem::~CCoolBarItem()
 {
-	if ( m_bmButtonmark.m_hObject ) 
+	if ( m_bmButtonmark.m_hObject )
 		m_bmButtonmark.DeleteObject();
 }
 
@@ -1110,15 +1110,15 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	if ( m_nID == ID_SEPARATOR )
 	{
 		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Separator" ) );
-		if ( m_bRegularButton ) 
+		if ( m_bRegularButton )
 			CoolInterface.DrawWatermark( pDC, &rc, &m_bmButtonmark );
 		else
 		{
-			if ( !bTransparent ) 
+			if ( !bTransparent )
 				pDC->FillSolidRect( rc.left, rc.top, 3, rc.Height(), CoolInterface.m_crMidtone );
-			pDC->Draw3dRect( rc.left + 3, rc.top, 1, rc.Height(), 
+			pDC->Draw3dRect( rc.left + 3, rc.top, 1, rc.Height(),
 							 CoolInterface.m_crDisabled, CoolInterface.m_crDisabled );
-			if ( !bTransparent ) 
+			if ( !bTransparent )
 				pDC->FillSolidRect( rc.left + 4, rc.top, 3, rc.Height(), CoolInterface.m_crMidtone );
 		}
 		return;
@@ -1128,7 +1128,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	{
 		for ( int nShrink = rc.Height() - m_nCtrlHeight ; nShrink > 0 ; nShrink -= 2 )
 		{
-			if ( !bTransparent ) 
+			if ( !bTransparent )
 				pDC->Draw3dRect( &rc, CoolInterface.m_crMidtone, CoolInterface.m_crMidtone );
 			rc.DeflateRect( 0, 1 );
 		}
@@ -1141,26 +1141,26 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	}
 	else
 	{
-		if ( !bTransparent ) 
+		if ( !bTransparent )
 			pDC->Draw3dRect( &rc, CoolInterface.m_crMidtone, CoolInterface.m_crMidtone );
 		rc.DeflateRect( 1, 1 );
 	}
 
 	if ( m_nImage <= 0 && bDown) // No Icon Assumes Menu Item Case
 		SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Down" ) );
-	else if ( m_nImage <= 0 && bHot ) 
+	else if ( m_nImage <= 0 && bHot )
 		SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Hover" ) );
-	else if ( m_nImage <= 0 ) 
+	else if ( m_nImage <= 0 )
 		SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Up" ) );
-	else if ( !m_bEnabled ) 
+	else if ( !m_bEnabled )
 		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Disabled" ) );
-	else if ( bDown ) 
+	else if ( bDown )
 		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Down" ) );
-	else if ( bHot ) 
+	else if ( bHot )
 		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Hover" ) );
-	else if ( m_bChecked ) 
+	else if ( m_bChecked )
 		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Checked" ) );
-	else // if( m_bEnabled ) 
+	else // if( m_bEnabled )
 		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Up" ) );
 
 	if ( m_bRegularButton && !m_nCtrlID )
@@ -1170,7 +1170,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		pDC->SetBkMode( TRANSPARENT );
 		crBackground = CLR_NONE;
 		rc.OffsetRect( 1 , 0 );
-	}	
+	}
 	else if ( m_bEnabled && ( bHot || bDown || m_bChecked ) )
 	{
 
@@ -1200,7 +1200,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 			crBackground = bDown && bHot ? CoolInterface.m_crBackCheckSel : CoolInterface.m_crBackSel;
 		}
 	}
-	else 
+	else
 	{
 		if ( bTransparent )
 		{

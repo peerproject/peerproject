@@ -62,7 +62,7 @@
 #endif
 
 //
-// std extension namespace is stdext for vc7.1 and later, 
+// std extension namespace is stdext for vc7.1 and later,
 // the same applies to other compilers that sit on top
 // of vc7.1 (Intel and Comeau):
 //

@@ -556,7 +556,7 @@
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
 			</menu>
-			<separator/> <!-- 
+			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Güncellemeleri _Kontrol Et"/>
 			<item id="ID_HELP_DONATE" text="PeerProject _Projesine Bağış!"/>
 			<separator/> -->
@@ -1073,10 +1073,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Tü_münü Duraklat"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Tümü_nü Temizle"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="G_rupları Göster"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Yeni Grup..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Grup Kaldır"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="G_rupları Göster"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Ö_zellikler"/>
 	</menu>
@@ -1833,7 +1833,7 @@
 		</styles>
 		<text format="b">PeerProject'nın Ayarlar Yönetimine hoşgeldiniz.</text>
 		<newline gap="16"/>
-		<text>PeerProject Ayarlar Yönetimi ileri kulanıcılara 
+		<text>PeerProject Ayarlar Yönetimi ileri kulanıcılara
 			PeerProject'nın nasıl çalışacağını tamamen ayarlamalarına izin verir. Ayarlar </text>
 		<text format="b">Genel</text>
 		<text>sekmesi kullanıcı olaylarını kapsar. </text>
@@ -1870,7 +1870,7 @@
 		</styles>
 		<text format="b">PeerProject'nın Ayarlar Yönetimine hoşgeldiniz.</text>
 		<newline gap="16"/>
-		<text>PeerProject Ayarlar Yönetimi ileri kulanıcılara PeerProject'nın nasıl çalışacağını tamamen ayarlamalarına izin verir. 
+		<text>PeerProject Ayarlar Yönetimi ileri kulanıcılara PeerProject'nın nasıl çalışacağını tamamen ayarlamalarına izin verir.
 			Ayarlar	</text>
 		<text format="b">İnternet </text>
 		<text> sekmesi karşılıklı ağlardaki diğer düğümlerle etkileşimini kontrol eder. </text>
@@ -1994,7 +1994,7 @@
 	<document name="DownloadHelp.Select">
 		<text format="b">İndirme Alanı</text>
 		<newline gap="8"/>
-		<text>Dosyaların nereye indirildiğini gösterir. 
+		<text>Dosyaların nereye indirildiğini gösterir.
 		Kişisel kaynakları ayrıntılarıyla görüntüleyebilirsiniz.</text>
 		<newline gap="8"/>
 		<text>Belirli bir İndirme sırasında yardım bilgisi almak için bu komutu kullanabilirsiniz.
@@ -2003,13 +2003,13 @@
 	<document name="DownloadHelp.Completed">
 		<text format="b">İndirme Tamamlandı</text>
 		<newline gap="8"/>
-		<text>PeerProject dosyanın indirilmesi tamamladı ve yanlışsız aktarımı doğruladı. 
+		<text>PeerProject dosyanın indirilmesi tamamladı ve yanlışsız aktarımı doğruladı.
 		Dosya İndirilenler klasörüne taşındı.</text>
 	</document>
 	<document name="DownloadHelp.Moving">
 		<text format="b">İndirme Devam Ediyor</text>
 		<newline gap="8"/>
-		<text>PeerProject dosyanın İndirilmesini tamamladı ve yanlışsız aktarımı doğruladı. 
+		<text>PeerProject dosyanın İndirilmesini tamamladı ve yanlışsız aktarımı doğruladı.
 		Dosya şu an indirilenler klasörüne taşınıyor.</text>
 	</document>
 	<document name="DownloadHelp.Paused">
@@ -2117,7 +2117,7 @@
 		<text format="b">Gelişmiş içerik filtresi etkin kılındı</text>
 		<newline gap="8"/>
 		<text>Lütfen dikkat, ekran içerikleri (herhangi bir otomatik filtre kadar) 100% etkili olmayabilir.
-		Bu, fazla istenmeyen sonuçları süzmek için basit bir şekilde taslaktır, 
+		Bu, fazla istenmeyen sonuçları süzmek için basit bir şekilde taslaktır,
 		100% güvenli blok kadar tercih edilir.</text>
 		<newline gap="8"/>
 		<text>Çocukların Internet kullanımı(P2P dosya paylaşımı dahil) daima ailelerin denetimi altında olmalıdır.</text>
@@ -2126,7 +2126,7 @@
 		<text format="b">Torrent kodlama hatası olduğunu görür</text>
 		<newline gap="8"/>
 		<text>Windows, bu torrentda metin şifre çözümünde bir çeviri hatası bildirdi.
-		Torrent bozuk ya da sadece yanlış kodlanmış olması mümkündür. 
+		Torrent bozuk ya da sadece yanlış kodlanmış olması mümkündür.
 		Bazı dosya isimleri yanlış olsa da torrent hala düzgün indirebilir.</text>
 		<newline gap="8"/>
 		<text>
@@ -4456,10 +4456,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adres/İçerik"/>
+		<column from="Hits" to="Favoriler"/>
 		<column from="Action" to="Faaliyet"/>
 		<column from="Expires" to="Sonlananlar"/>
 		<column from="#" to="Öncelik"/>
-		<column from="Hits" to="Favoriler"/>
 		<column from="Comment" to="Yorum"/>
 	</list>
 	<list name="CHostCacheWnd">

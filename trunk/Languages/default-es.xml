@@ -660,7 +660,7 @@
 		</menu>
 		<menu text="_Herramientas">
 			<item id="ID_LIBRARY_FOLDERS" text="Compartir _Archivos..."/>
-			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir mi carpeta de Descargas completadas"/>			
+			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir mi carpeta de Descargas completadas"/>
 			<separator/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Descargar Archivo/Torrent..."/>
 			<item id="ID_TOOLS_SEEDTORRENT" 	text="_Seed New Torrent..."/>
@@ -1025,10 +1025,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Pausar todas"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Cancelar/Eliminar todas"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Mostrar Grupos"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="Crear _Grupo..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Eliminar Grupo"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Mostrar Grupos"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Pr_opiedades"/>
 	</menu>
@@ -1960,7 +1960,7 @@
 		<newline gap="8"/>
 		<text>Esta descarga esta esperando a que una de tus descargas se complete.
 		Tu configuración limita el número de descargas que pueden estar activas
-		al mismo tiempo, para asegurarse de que cada descarga tenga una cantidad buena de ancho de 
+		al mismo tiempo, para asegurarse de que cada descarga tenga una cantidad buena de ancho de
 		banda. Puedes cambiar esta configuración en Herramientas, Configuración de PeerProject.</text>
 	</document>
 	<document name="DownloadHelp.Searching">
@@ -2047,7 +2047,7 @@
 		te va asegurar que funcione en más aplicaciones torrent.</text>
 		<newline gap="8"/>
 		<link target="http://peerproject.org/help/?torrentencoding">Pincha aquí para ayuda adicional</link>
-		<text>, o descarga sofware adicional para reparar el torrent.</text>	
+		<text>, o descarga sofware adicional para reparar el torrent.</text>
 	</document>
 	<document name="GeneralHelp.DonkeyServerList">
 		<text format="b">Tu lista de servidores eDonkey está vacía</text>
@@ -2077,7 +2077,7 @@
 		<text format="b">Por favor vuelve a reformular la busqueda</text>
 		<newline gap="8"/>
 		<text>Esta busqueda esta mal formateada, y no funcionará correctamente.
-		Las busquedas deberían incluir varios terminos cuando sea possible, y deberían especificar un esquema 
+		Las busquedas deberían incluir varios terminos cuando sea possible, y deberían especificar un esquema
 		(tipo de archivo). Además, las busquedas no deben ser limitadas a números o terminos negativos,
 		y debiendo evitar hacer muchas queries (busquedas).</text>
 		<newline gap="8"/>
@@ -4332,10 +4332,10 @@ g name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Rastreado
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Dirección / Contenido"/>
+		<column from="Hits" to=""/>
 		<column from="Action" to="Acción"/>
 		<column from="Expires" to="Expira"/>
 		<column from="#" to="Procedencia"/>
-		<column from="Hits" to=""/>
 		<column from="Comment" to="Comentario"/>
 	</list>
 	<list name="CHostCacheWnd">

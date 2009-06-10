@@ -49,7 +49,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CTorrentFilesPage property page
 
-CTorrentFilesPage::CTorrentFilesPage() : 
+CTorrentFilesPage::CTorrentFilesPage() :
 	CPropertyPageAdv( CTorrentFilesPage::IDD )
 {
 }
@@ -80,7 +80,7 @@ BOOL CTorrentFilesPage::OnInitDialog()
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
 	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
 		return FALSE;
-	
+
 	auto_ptr< CCoolTipCtrl > pTip( new CLibraryTipCtrl );
 	pTip->Create( this, &Settings.Interface.TipDownloads );
 	m_wndFiles.EnableTips( pTip );
@@ -149,7 +149,7 @@ BOOL CTorrentFilesPage::OnApply()
 	return CPropertyPageAdv::OnApply();
 }
 
-void CTorrentFilesPage::OnTimer(UINT_PTR nIDEvent) 
+void CTorrentFilesPage::OnTimer(UINT_PTR nIDEvent)
 {
 	CPropertyPageAdv::OnTimer( nIDEvent );
 
@@ -182,7 +182,7 @@ void CTorrentFilesPage::Update()
 	}
 }
 
-void CTorrentFilesPage::OnDestroy() 
+void CTorrentFilesPage::OnDestroy()
 {
 	KillTimer( 1 );
 

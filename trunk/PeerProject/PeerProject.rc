@@ -27,18 +27,18 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE 
+1 TEXTINCLUDE
 BEGIN
     "Resource.h\0"
 END
 
-2 TEXTINCLUDE 
+2 TEXTINCLUDE
 BEGIN
     "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE 
+3 TEXTINCLUDE
 BEGIN
     "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
     "#define _AFX_NO_OLE_RESOURCES\r\n"
@@ -1995,7 +1995,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_CONNECT_TO, DIALOG
     BEGIN
@@ -2757,7 +2757,7 @@ END
 // Accelerator
 //
 
-IDR_MAINFRAME ACCELERATORS 
+IDR_MAINFRAME ACCELERATORS
 BEGIN
     "D",            ID_TOOLS_DOWNLOAD,      VIRTKEY, CONTROL, NOINVERT
     "G",            ID_NETWORK_CONNECT,     VIRTKEY, CONTROL, NOINVERT
@@ -2794,383 +2794,383 @@ END
 IDD_SETTINGS_CONNECTION DLGINIT
 BEGIN
     IDC_INBOUND_HOST, 0x403, 10, 0
-0x7541, 0x6f74, 0x616d, 0x6974, 0x0063, 
+0x7541, 0x6f74, 0x616d, 0x6974, 0x0063,
     IDC_OUTBOUND_HOST, 0x403, 10, 0
-0x7541, 0x6f74, 0x616d, 0x6974, 0x0063, 
+0x7541, 0x6f74, 0x616d, 0x6974, 0x0063,
     0
 END
 
 IDD_WIZARD_CONNECTION DLGINIT
 BEGIN
     IDC_CONNECTION_TYPE, 0x403, 14, 0
-0x6944, 0x6c61, 0x7520, 0x2070, 0x6f4d, 0x6564, 0x006d, 
+0x6944, 0x6c61, 0x7520, 0x2070, 0x6f4d, 0x6564, 0x006d,
     IDC_CONNECTION_TYPE, 0x403, 5, 0
-0x5349, 0x4e44, "\000" 
+0x5349, 0x4e44, "\000"
     IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x4441, 0x4c53, 0x2820, 0x3532, 0x4b36, 0x0029, 
+0x4441, 0x4c53, 0x2820, 0x3532, 0x4b36, 0x0029,
     IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x4441, 0x4c53, 0x2820, 0x3135, 0x4b32, 0x0029, 
+0x4441, 0x4c53, 0x2820, 0x3135, 0x4b32, 0x0029,
     IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x4441, 0x4c53, 0x2820, 0x3637, 0x4b38, 0x0029, 
+0x4441, 0x4c53, 0x2820, 0x3637, 0x4b38, 0x0029,
     IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x4441, 0x4c53, 0x2820, 0x2e31, 0x4d35, 0x0029, 
+0x4441, 0x4c53, 0x2820, 0x2e31, 0x4d35, 0x0029,
     IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x4441, 0x4c53, 0x2820, 0x2e34, 0x4d30, 0x0029, 
+0x4441, 0x4c53, 0x2820, 0x2e34, 0x4d30, 0x0029,
     IDC_CONNECTION_TYPE, 0x403, 13, 0
-0x4441, 0x4c53, 0x2032, 0x3828, 0x302e, 0x294d, "\000" 
+0x4441, 0x4c53, 0x2032, 0x3828, 0x302e, 0x294d, "\000"
     IDC_CONNECTION_TYPE, 0x403, 14, 0
-0x4441, 0x4c53, 0x2032, 0x3128, 0x2e32, 0x4d30, 0x0029, 
+0x4441, 0x4c53, 0x2032, 0x3128, 0x2e32, 0x4d30, 0x0029,
     IDC_CONNECTION_TYPE, 0x403, 15, 0
-0x4441, 0x4c53, 0x2b32, 0x2820, 0x3432, 0x302e, 0x294d, "\000" 
+0x4441, 0x4c53, 0x2b32, 0x2820, 0x3432, 0x302e, 0x294d, "\000"
     IDC_CONNECTION_TYPE, 0x403, 17, 0
-0x6143, 0x6c62, 0x2065, 0x6f4d, 0x6564, 0x2f6d, 0x4453, 0x4c53, "\000" 
+0x6143, 0x6c62, 0x2065, 0x6f4d, 0x6564, 0x2f6d, 0x4453, 0x4c53, "\000"
     IDC_CONNECTION_TYPE, 0x403, 3, 0
-0x3154, "\000" 
+0x3154, "\000"
     IDC_CONNECTION_TYPE, 0x403, 3, 0
-0x3354, "\000" 
+0x3354, "\000"
     IDC_CONNECTION_TYPE, 0x403, 4, 0
-0x414c, 0x004e, 
+0x414c, 0x004e,
     IDC_CONNECTION_TYPE, 0x403, 4, 0
-0x434f, 0x0033, 
+0x434f, 0x0033,
     0
 END
 
 IDD_SECURE_RULE DLGINIT
 BEGIN
     IDC_RULE_TYPE, 0x403, 21, 0
-0x654e, 0x7774, 0x726f, 0x206b, 0x4928, 0x2950, 0x4120, 0x6464, 0x6572, 
-0x7373, "\000" 
+0x654e, 0x7774, 0x726f, 0x206b, 0x4928, 0x2950, 0x4120, 0x6464, 0x6572,
+0x7373, "\000"
     IDC_RULE_TYPE, 0x403, 15, 0
-0x6f43, 0x746e, 0x6e65, 0x2074, 0x6946, 0x746c, 0x7265, "\000" 
+0x6f43, 0x746e, 0x6e65, 0x2074, 0x6946, 0x746c, 0x7265, "\000"
     IDC_RULE_ACTION, 0x403, 5, 0
-0x6f4e, 0x656e, "\000" 
+0x6f4e, 0x656e, "\000"
     IDC_RULE_ACTION, 0x403, 7, 0
-0x6341, 0x6563, 0x7470, "\000" 
+0x6341, 0x6563, 0x7470, "\000"
     IDC_RULE_ACTION, 0x403, 5, 0
-0x6544, 0x796e, "\000" 
+0x6544, 0x796e, "\000"
     IDC_RULE_EXPIRE, 0x403, 19, 0
-0x654e, 0x6576, 0x2072, 0x4928, 0x646e, 0x6665, 0x6e69, 0x7469, 0x2965, 
-"\000" 
+0x654e, 0x6576, 0x2072, 0x4928, 0x646e, 0x6665, 0x6e69, 0x7469, 0x2965,
+"\000"
     IDC_RULE_EXPIRE, 0x403, 18, 0
-0x7441, 0x4520, 0x646e, 0x6f20, 0x2066, 0x6553, 0x7373, 0x6f69, 0x006e, 
+0x7441, 0x4520, 0x646e, 0x6f20, 0x2066, 0x6553, 0x7373, 0x6f69, 0x006e,
 
     IDC_RULE_EXPIRE, 0x403, 7, 0
-0x6641, 0x6574, 0x3a72, "\000" 
+0x6641, 0x6574, 0x3a72, "\000"
     0
 END
 
 IDD_DISCOVERY_SERVICE DLGINIT
 BEGIN
     IDC_SERVICE_TYPE, 0x403, 19, 0
-0x6e47, 0x7475, 0x6c65, 0x616c, 0x4220, 0x6f6f, 0x7374, 0x7274, 0x7061, 
-"\000" 
+0x6e47, 0x7475, 0x6c65, 0x616c, 0x4220, 0x6f6f, 0x7374, 0x7274, 0x7061,
+"\000"
     IDC_SERVICE_TYPE, 0x403, 13, 0
-0x3147, 0x4720, 0x6557, 0x4362, 0x6361, 0x6568, "\000" 
+0x3147, 0x4720, 0x6557, 0x4362, 0x6361, 0x6568, "\000"
     IDC_SERVICE_TYPE, 0x403, 13, 0
-0x3247, 0x4720, 0x6557, 0x4362, 0x6361, 0x6568, "\000" 
+0x3247, 0x4720, 0x6557, 0x4362, 0x6361, 0x6568, "\000"
     IDC_SERVICE_TYPE, 0x403, 16, 0
-0x3147, 0x472f, 0x2032, 0x5747, 0x6265, 0x6143, 0x6863, 0x0065, 
+0x3147, 0x472f, 0x2032, 0x5747, 0x6265, 0x6143, 0x6863, 0x0065,
     IDC_SERVICE_TYPE, 0x403, 15, 0
-0x6553, 0x7672, 0x7265, 0x6d2e, 0x7465, 0x5520, 0x4c52, "\000" 
+0x6553, 0x7672, 0x7265, 0x6d2e, 0x7465, 0x5520, 0x4c52, "\000"
     IDC_SERVICE_TYPE, 0x403, 8, 0
-0x6c42, 0x636f, 0x656b, 0x0064, 
+0x6c42, 0x636f, 0x656b, 0x0064,
     0
 END
 
 IDD_SETTINGS_GENERAL DLGINIT
 BEGIN
     IDC_RATES_IN_BYTES, 0x403, 12, 0
-0x6962, 0x7374, 0x732f, 0x6365, 0x6e6f, 0x0064, 
+0x6962, 0x7374, 0x732f, 0x6365, 0x6e6f, 0x0064,
     IDC_RATES_IN_BYTES, 0x403, 13, 0
-0x7962, 0x6574, 0x2f73, 0x6573, 0x6f63, 0x646e, "\000" 
+0x7962, 0x6574, 0x2f73, 0x6573, 0x6f63, 0x646e, "\000"
     IDC_RATES_IN_BYTES, 0x403, 4, 0
-0x2f62, 0x0073, 
+0x2f62, 0x0073,
     IDC_RATES_IN_BYTES, 0x403, 4, 0
-0x2f42, 0x0073, 
+0x2f42, 0x0073,
     IDC_RATES_IN_BYTES, 0x403, 5, 0
-0x624b, 0x732f, "\000" 
+0x624b, 0x732f, "\000"
     IDC_RATES_IN_BYTES, 0x403, 5, 0
-0x424b, 0x732f, "\000" 
+0x424b, 0x732f, "\000"
     IDC_RATES_IN_BYTES, 0x403, 5, 0
-0x624d, 0x732f, "\000" 
+0x624d, 0x732f, "\000"
     IDC_RATES_IN_BYTES, 0x403, 5, 0
-0x424d, 0x732f, "\000" 
+0x424d, 0x732f, "\000"
     IDC_CLOSE_MODE, 0x403, 7, 0
-0x7341, 0x206b, 0x654d, "\000" 
+0x7341, 0x206b, 0x654d, "\000"
     IDC_CLOSE_MODE, 0x403, 18, 0
-0x6c43, 0x736f, 0x2065, 0x6d49, 0x656d, 0x6964, 0x7461, 0x6c65, 0x0079, 
+0x6c43, 0x736f, 0x2065, 0x6d49, 0x656d, 0x6964, 0x7461, 0x6c65, 0x0079,
 
     IDC_CLOSE_MODE, 0x403, 17, 0
-0x694d, 0x696e, 0x696d, 0x6573, 0x7420, 0x206f, 0x7254, 0x7961, "\000" 
+0x694d, 0x696e, 0x696d, 0x6573, 0x7420, 0x206f, 0x7254, 0x7961, "\000"
     IDC_CLOSE_MODE, 0x403, 22, 0
-0x6c43, 0x736f, 0x2065, 0x6641, 0x6574, 0x2072, 0x7254, 0x6e61, 0x6673, 
-0x7265, 0x0073, 
+0x6c43, 0x736f, 0x2065, 0x6641, 0x6574, 0x2072, 0x7254, 0x6e61, 0x6673,
+0x7265, 0x0073,
     IDC_TRAY_MINIMISE, 0x403, 7, 0
-0x6f4e, 0x6d72, 0x6c61, "\000" 
+0x6f4e, 0x6d72, 0x6c61, "\000"
     IDC_TRAY_MINIMISE, 0x403, 17, 0
-0x694d, 0x696e, 0x696d, 0x6573, 0x7420, 0x206f, 0x7254, 0x7961, "\000" 
+0x694d, 0x696e, 0x696d, 0x6573, 0x7420, 0x206f, 0x7254, 0x7961, "\000"
     0
 END
 
 IDD_URL_EXPORT DLGINIT
 BEGIN
     IDC_URL_TOKEN, 0x403, 11, 0
-0x6954, 0x6567, 0x2072, 0x6f52, 0x746f, "\000" 
+0x6954, 0x6567, 0x2072, 0x6f52, 0x746f, "\000"
     IDC_URL_TOKEN, 0x403, 5, 0
-0x4853, 0x3141, "\000" 
+0x4853, 0x3141, "\000"
     IDC_URL_TOKEN, 0x403, 4, 0
-0x444d, 0x0035, 
+0x444d, 0x0035,
     IDC_URL_TOKEN, 0x403, 12, 0
-0x4445, 0x4b32, 0x2820, 0x4d43, 0x3444, 0x0029, 
+0x4445, 0x4b32, 0x2820, 0x4d43, 0x3444, 0x0029,
     IDC_URL_TOKEN, 0x403, 11, 0
-0x6942, 0x5474, 0x726f, 0x6572, 0x746e, "\000" 
+0x6942, 0x5474, 0x726f, 0x6572, 0x746e, "\000"
     IDC_URL_TOKEN, 0x403, 9, 0
-0x6946, 0x656c, 0x616e, 0x656d, "\000" 
+0x6946, 0x656c, 0x616e, 0x656d, "\000"
     IDC_URL_TOKEN, 0x403, 15, 0
-0x6946, 0x656c, 0x616e, 0x656d, 0x2820, 0x5255, 0x2949, "\000" 
+0x6946, 0x656c, 0x616e, 0x656d, 0x2820, 0x5255, 0x2949, "\000"
     IDC_URL_TOKEN, 0x403, 14, 0
-0x6142, 0x6573, 0x4620, 0x6c69, 0x6e65, 0x6d61, 0x0065, 
+0x6142, 0x6573, 0x4620, 0x6c69, 0x6e65, 0x6d61, 0x0065,
     IDC_URL_TOKEN, 0x403, 15, 0
-0x6946, 0x656c, 0x4520, 0x7478, 0x6e65, 0x6973, 0x6e6f, "\000" 
+0x6946, 0x656c, 0x4520, 0x7478, 0x6e65, 0x6973, 0x6e6f, "\000"
     IDC_URL_TOKEN, 0x403, 10, 0
-0x6946, 0x656c, 0x5320, 0x7a69, 0x0065, 
+0x6946, 0x656c, 0x5320, 0x7a69, 0x0065,
     IDC_URL_TOKEN, 0x403, 18, 0
-0x6946, 0x656c, 0x5320, 0x7a69, 0x2065, 0x6228, 0x7479, 0x7365, 0x0029, 
+0x6946, 0x656c, 0x5320, 0x7a69, 0x2065, 0x6228, 0x7479, 0x7365, 0x0029,
 
     IDC_URL_TOKEN, 0x403, 12, 0
-0x6f46, 0x646c, 0x7265, 0x5020, 0x7461, 0x0068, 
+0x6f46, 0x646c, 0x7265, 0x5020, 0x7461, 0x0068,
     IDC_URL_TOKEN, 0x403, 11, 0
-0x6f4c, 0x6163, 0x206c, 0x6f48, 0x7473, "\000" 
+0x6f4c, 0x6163, 0x206c, 0x6f48, 0x7473, "\000"
     IDC_URL_TOKEN, 0x403, 11, 0
-0x6f4c, 0x6163, 0x206c, 0x6f50, 0x7472, "\000" 
+0x6f4c, 0x6163, 0x206c, 0x6f50, 0x7472, "\000"
     IDC_URL_TOKEN, 0x403, 5, 0
-0x694c, 0x6b6e, "\000" 
+0x694c, 0x6b6e, "\000"
     IDC_URL_TOKEN, 0x403, 11, 0
-0x694c, 0x6b6e, 0x2820, 0x5255, 0x2949, "\000" 
+0x694c, 0x6b6e, 0x2820, 0x5255, 0x2949, "\000"
     IDC_URL_PRESET, 0x403, 7, 0
-0x614d, 0x6e67, 0x7465, "\000" 
+0x614d, 0x6e67, 0x7465, "\000"
     IDC_URL_PRESET, 0x403, 8, 0
-0x4465, 0x6e6f, 0x656b, 0x0079, 
+0x4465, 0x6e6f, 0x656b, 0x0079,
     IDC_URL_PRESET, 0x403, 12, 0
-0x614d, 0x6e67, 0x7465, 0x4820, 0x4d54, 0x004c, 
+0x614d, 0x6e67, 0x7465, 0x4820, 0x4d54, 0x004c,
     IDC_URL_PRESET, 0x403, 13, 0
-0x4465, 0x6e6f, 0x656b, 0x2079, 0x5448, 0x4c4d, "\000" 
+0x4465, 0x6e6f, 0x656b, 0x2079, 0x5448, 0x4c4d, "\000"
     0
 END
 
 IDD_PROFILE_IDENTITY DLGINIT
 BEGIN
     IDC_PROFILE_GENDER, 0x403, 1, 0
-"\000" 
+"\000"
     IDC_PROFILE_GENDER, 0x403, 5, 0
-0x614d, 0x656c, "\000" 
+0x614d, 0x656c, "\000"
     IDC_PROFILE_GENDER, 0x403, 7, 0
-0x6546, 0x616d, 0x656c, "\000" 
+0x6546, 0x616d, 0x656c, "\000"
     0
 END
 
 IDD_MEDIA_VIS DLGINIT
 BEGIN
     IDC_VIS_SIZE, 0x403, 15, 0
-0x6f46, 0x746f, 0x7265, 0x4420, 0x7369, 0x6c70, 0x7961, "\000" 
+0x6f46, 0x746f, 0x7265, 0x4420, 0x7369, 0x6c70, 0x7961, "\000"
     IDC_VIS_SIZE, 0x403, 18, 0
-0x7546, 0x6c6c, 0x5320, 0x7a69, 0x2065, 0x6944, 0x7073, 0x616c, 0x0079, 
+0x7546, 0x6c6c, 0x5320, 0x7a69, 0x2065, 0x6944, 0x7073, 0x616c, 0x0079,
 
     IDC_VIS_SIZE, 0x403, 14, 0
-0x614c, 0x6772, 0x2065, 0x6944, 0x7073, 0x616c, 0x0079, 
+0x614c, 0x6772, 0x2065, 0x6944, 0x7073, 0x616c, 0x0079,
     IDC_VIS_SIZE, 0x403, 15, 0
-0x654d, 0x6964, 0x6d75, 0x4420, 0x7369, 0x6c70, 0x7961, "\000" 
+0x654d, 0x6964, 0x6d75, 0x4420, 0x7369, 0x6c70, 0x7961, "\000"
     IDC_VIS_SIZE, 0x403, 14, 0
-0x6d53, 0x6c61, 0x206c, 0x6944, 0x7073, 0x616c, 0x0079, 
+0x6d53, 0x6c61, 0x206c, 0x6944, 0x7073, 0x616c, 0x0079,
     0
 END
 
 IDD_FILE_COMMENTS DLGINIT
 BEGIN
     IDC_FILE_RATING, 0x403, 12, 0
-0x4e28, 0x206f, 0x6152, 0x6974, 0x676e, 0x0029, 
+0x4e28, 0x206f, 0x6152, 0x6974, 0x676e, 0x0029,
     IDC_FILE_RATING, 0x403, 24, 0
-0x6146, 0x656b, 0x432f, 0x726f, 0x7572, 0x7470, 0x4d2f, 0x7369, 0x656c, 
-0x6461, 0x6e69, 0x0067, 
+0x6146, 0x656b, 0x432f, 0x726f, 0x7572, 0x7470, 0x4d2f, 0x7369, 0x656c,
+0x6461, 0x6e69, 0x0067,
     IDC_FILE_RATING, 0x403, 5, 0
-0x6f50, 0x726f, "\000" 
+0x6f50, 0x726f, "\000"
     IDC_FILE_RATING, 0x403, 8, 0
-0x7641, 0x7265, 0x6761, 0x0065, 
+0x7641, 0x7265, 0x6761, 0x0065,
     IDC_FILE_RATING, 0x403, 5, 0
-0x6f47, 0x646f, "\000" 
+0x6f47, 0x646f, "\000"
     IDC_FILE_RATING, 0x403, 10, 0
-0x6556, 0x7972, 0x4720, 0x6f6f, 0x0064, 
+0x6556, 0x7972, 0x4720, 0x6f6f, 0x0064,
     IDC_FILE_RATING, 0x403, 10, 0
-0x7845, 0x6563, 0x6c6c, 0x6e65, 0x0074, 
+0x7845, 0x6563, 0x6c6c, 0x6e65, 0x0074,
     0
 END
 
 IDD_CONNECT_TO DLGINIT
 BEGIN
     IDC_CONNECT_PROTOCOL, 0x403, 18, 0
-0x6e47, 0x7475, 0x6c65, 0x616c, 0x2031, 0x2820, 0x7561, 0x6f74, 0x0029, 
+0x6e47, 0x7475, 0x6c65, 0x616c, 0x2031, 0x2820, 0x7561, 0x6f74, 0x0029,
 
     IDC_CONNECT_PROTOCOL, 0x403, 18, 0
-0x6e47, 0x7475, 0x6c65, 0x616c, 0x2032, 0x2820, 0x7561, 0x6f74, 0x0029, 
+0x6e47, 0x7475, 0x6c65, 0x616c, 0x2032, 0x2820, 0x7561, 0x6f74, 0x0029,
 
     IDC_CONNECT_PROTOCOL, 0x403, 12, 0
-0x4465, 0x6e6f, 0x656b, 0x3279, 0x3030, 0x0030, 
+0x4465, 0x6e6f, 0x656b, 0x3279, 0x3030, 0x0030,
     0
 END
 
 IDD_QUEUE_PROPERTIES DLGINIT
 BEGIN
     IDC_MARKED_LIST, 0x403, 1, 0
-"\000" 
+"\000"
     IDC_MARKED_LIST, 0x403, 8, 0
-0x6552, 0x656c, 0x7361, 0x0065, 
+0x6552, 0x656c, 0x7361, 0x0065,
     IDC_MARKED_LIST, 0x403, 8, 0
-0x6f50, 0x7570, 0x616c, 0x0072, 
+0x6f50, 0x7570, 0x616c, 0x0072,
     0
 END
 
 IDD_SETTINGS_UPLOADS DLGINIT
 BEGIN
     IDC_THROTTLE_MODE, 0x403, 8, 0
-0x614d, 0x6978, 0x756d, 0x006d, 
+0x614d, 0x6978, 0x756d, 0x006d,
     IDC_THROTTLE_MODE, 0x403, 8, 0
-0x7641, 0x7265, 0x6761, 0x0065, 
+0x7641, 0x7265, 0x6761, 0x0065,
     0
 END
 
 IDD_WIZARD_PROFILE DLGINIT
 BEGIN
     IDC_PROFILE_AGE, 0x403, 10, 0
-0x2820, 0x6863, 0x6f6f, 0x6573, 0x0029, 
+0x2820, 0x6863, 0x6f6f, 0x6573, 0x0029,
     IDC_PROFILE_GENDER, 0x403, 10, 0
-0x2820, 0x6863, 0x6f6f, 0x6573, 0x0029, 
+0x2820, 0x6863, 0x6f6f, 0x6573, 0x0029,
     IDC_PROFILE_GENDER, 0x403, 5, 0
-0x6720, 0x7975, "\000" 
+0x6720, 0x7975, "\000"
     IDC_PROFILE_GENDER, 0x403, 6, 0
-0x6720, 0x7269, 0x006c, 
+0x6720, 0x7269, 0x006c,
     IDC_PROFILE_GENDER, 0x403, 5, 0
-0x6d20, 0x6e61, "\000" 
+0x6d20, 0x6e61, "\000"
     IDC_PROFILE_GENDER, 0x403, 7, 0
-0x7720, 0x6d6f, 0x6e61, "\000" 
+0x7720, 0x6d6f, 0x6e61, "\000"
     0
 END
 
 IDD_SETTINGS_GNUTELLA DLGINIT
 BEGIN
     IDC_G2_CLIENTMODE, 0x403, 8, 0
-0x704f, 0x6974, 0x616d, 0x006c, 
+0x704f, 0x6974, 0x616d, 0x006c,
     IDC_G2_CLIENTMODE, 0x403, 5, 0
-0x654c, 0x6661, "\000" 
+0x654c, 0x6661, "\000"
     IDC_G2_CLIENTMODE, 0x403, 4, 0
-0x7548, 0x0062, 
+0x7548, 0x0062,
     IDC_G1_CLIENTMODE, 0x403, 8, 0
-0x704f, 0x6974, 0x616d, 0x006c, 
+0x704f, 0x6974, 0x616d, 0x006c,
     IDC_G1_CLIENTMODE, 0x403, 5, 0
-0x654c, 0x6661, "\000" 
+0x654c, 0x6661, "\000"
     IDC_G1_CLIENTMODE, 0x403, 10, 0
-0x6c55, 0x7274, 0x7061, 0x6565, 0x0072, 
+0x6c55, 0x7274, 0x7061, 0x6565, 0x0072,
     0
 END
 
 IDD_CODEPAGES DLGINIT
 BEGIN
     IDC_CODEPAGES, 0x403, 7, 0
-0x7241, 0x6261, 0x6369, "\000" 
+0x7241, 0x6261, 0x6369, "\000"
     IDC_CODEPAGES, 0x403, 7, 0
-0x6142, 0x746c, 0x6369, "\000" 
+0x6142, 0x746c, 0x6369, "\000"
     IDC_CODEPAGES, 0x403, 17, 0
-0x6543, 0x746e, 0x6172, 0x206c, 0x7545, 0x6f72, 0x6570, 0x6e61, "\000" 
+0x6543, 0x746e, 0x6172, 0x206c, 0x7545, 0x6f72, 0x6570, 0x6e61, "\000"
     IDC_CODEPAGES, 0x403, 19, 0
-0x6843, 0x6e69, 0x7365, 0x2065, 0x6953, 0x706d, 0x696c, 0x6966, 0x6465, 
-"\000" 
+0x6843, 0x6e69, 0x7365, 0x2065, 0x6953, 0x706d, 0x696c, 0x6966, 0x6465,
+"\000"
     IDC_CODEPAGES, 0x403, 20, 0
-0x6843, 0x6e69, 0x7365, 0x2065, 0x7254, 0x6461, 0x7469, 0x6f69, 0x616e, 
-0x006c, 
+0x6843, 0x6e69, 0x7365, 0x2065, 0x7254, 0x6461, 0x7469, 0x6f69, 0x616e,
+0x006c,
     IDC_CODEPAGES, 0x403, 9, 0
-0x7943, 0x6972, 0x6c6c, 0x6369, "\000" 
+0x7943, 0x6972, 0x6c6c, 0x6369, "\000"
     IDC_CODEPAGES, 0x403, 6, 0
-0x7247, 0x6565, 0x006b, 
+0x7247, 0x6565, 0x006b,
     IDC_CODEPAGES, 0x403, 7, 0
-0x6548, 0x7262, 0x7765, "\000" 
+0x6548, 0x7262, 0x7765, "\000"
     IDC_CODEPAGES, 0x403, 9, 0
-0x614a, 0x6170, 0x656e, 0x6573, "\000" 
+0x614a, 0x6170, 0x656e, 0x6573, "\000"
     IDC_CODEPAGES, 0x403, 7, 0
-0x6f4b, 0x6572, 0x6e61, "\000" 
+0x6f4b, 0x6572, 0x6e61, "\000"
     IDC_CODEPAGES, 0x403, 5, 0
-0x6854, 0x6961, "\000" 
+0x6854, 0x6961, "\000"
     IDC_CODEPAGES, 0x403, 8, 0
-0x7554, 0x6b72, 0x7369, 0x0068, 
+0x7554, 0x6b72, 0x7369, 0x0068,
     IDC_CODEPAGES, 0x403, 11, 0
-0x6956, 0x7465, 0x616e, 0x656d, 0x6573, "\000" 
+0x6956, 0x7465, 0x616e, 0x656d, 0x6573, "\000"
     0
 END
 
 IDD_TORRENT_GENERAL DLGINIT
 BEGIN
     IDC_TORRENT_STARTDOWNLOADS, 0x403, 11, 0
-0x4120, 0x2073, 0x656e, 0x6465, 0x6465, "\000" 
+0x4120, 0x2073, 0x656e, 0x6465, 0x6465, "\000"
     IDC_TORRENT_STARTDOWNLOADS, 0x403, 22, 0
-0x5720, 0x6568, 0x206e, 0x6172, 0x6974, 0x206f, 0x766f, 0x7265, 0x3120, 
-0x3030, 0x0025, 
+0x5720, 0x6568, 0x206e, 0x6172, 0x6974, 0x206f, 0x766f, 0x7265, 0x3120,
+0x3030, 0x0025,
     IDC_TORRENT_STARTDOWNLOADS, 0x403, 21, 0
-0x4f20, 0x6c6e, 0x2079, 0x6877, 0x6e65, 0x7220, 0x7165, 0x6575, 0x7473, 
-0x6465, "\000" 
+0x4f20, 0x6c6e, 0x2079, 0x6877, 0x6e65, 0x7220, 0x7165, 0x6575, 0x7473,
+0x6465, "\000"
     IDC_TORRENT_STARTDOWNLOADS, 0x403, 7, 0
-0x4e20, 0x7665, 0x7265, "\000" 
+0x4e20, 0x7665, 0x7265, "\000"
     0
 END
 
 IDD_TORRENT_TRACKERS DLGINIT
 BEGIN
     IDC_TORRENT_TRACKERMODE, 0x403, 9, 0
-0x6944, 0x6173, 0x6c62, 0x6465, "\000" 
+0x6944, 0x6173, 0x6c62, 0x6465, "\000"
     IDC_TORRENT_TRACKERMODE, 0x403, 15, 0
-0x6953, 0x676e, 0x656c, 0x5420, 0x6172, 0x6b63, 0x7265, "\000" 
+0x6953, 0x676e, 0x656c, 0x5420, 0x6172, 0x6b63, 0x7265, "\000"
     IDC_TORRENT_TRACKERMODE, 0x403, 14, 0
-0x754d, 0x746c, 0x2d69, 0x7274, 0x6361, 0x656b, 0x0072, 
+0x754d, 0x746c, 0x2d69, 0x7274, 0x6361, 0x656b, 0x0072,
     IDC_TORRENT_TRACKERMODE, 0x403, 23, 0
-0x754d, 0x746c, 0x2d69, 0x7274, 0x6361, 0x656b, 0x2072, 0x6c28, 0x636f, 
-0x656b, 0x2964, "\000" 
+0x754d, 0x746c, 0x2d69, 0x7274, 0x6361, 0x656b, 0x2072, 0x6c28, 0x636f,
+0x656b, 0x2964, "\000"
     0
 END
 
 IDD_DELETE_FILE DLGINIT
 BEGIN
     IDC_DELETE_OPTIONS, 0x403, 32, 0
-0x754a, 0x7473, 0x6420, 0x6c65, 0x7465, 0x6e69, 0x2c67, 0x6b20, 0x6565, 
-0x2070, 0x796d, 0x6320, 0x6d6f, 0x656d, 0x746e, 0x0073, 
+0x754a, 0x7473, 0x6420, 0x6c65, 0x7465, 0x6e69, 0x2c67, 0x6b20, 0x6565,
+0x2070, 0x796d, 0x6320, 0x6d6f, 0x656d, 0x746e, 0x0073,
     IDC_DELETE_OPTIONS, 0x403, 56, 0
-0x6854, 0x7369, 0x6620, 0x6c69, 0x2065, 0x7369, 0x6e20, 0x6d61, 0x6465, 
-0x6920, 0x636e, 0x726f, 0x6572, 0x7463, 0x796c, 0x202c, 0x6e61, 0x2064, 
-0x6f63, 0x6c75, 0x2064, 0x6562, 0x6d20, 0x7369, 0x656c, 0x6461, 0x6e69, 
-0x0067, 
+0x6854, 0x7369, 0x6620, 0x6c69, 0x2065, 0x7369, 0x6e20, 0x6d61, 0x6465,
+0x6920, 0x636e, 0x726f, 0x6572, 0x7463, 0x796c, 0x202c, 0x6e61, 0x2064,
+0x6f63, 0x6c75, 0x2064, 0x6562, 0x6d20, 0x7369, 0x656c, 0x6461, 0x6e69,
+0x0067,
     IDC_DELETE_OPTIONS, 0x403, 34, 0
-0x6854, 0x7369, 0x6620, 0x6c69, 0x2065, 0x7369, 0x6f20, 0x2066, 0x6576, 
-0x7972, 0x7020, 0x6f6f, 0x2072, 0x7571, 0x6c61, 0x7469, 0x0079, 
+0x6854, 0x7369, 0x6620, 0x6c69, 0x2065, 0x7369, 0x6f20, 0x2066, 0x6576,
+0x7972, 0x7020, 0x6f6f, 0x2072, 0x7571, 0x6c61, 0x7469, 0x0079,
     IDC_DELETE_OPTIONS, 0x403, 55, 0
-0x6854, 0x7369, 0x6620, 0x6c69, 0x2065, 0x7369, 0x6120, 0x6620, 0x6b61, 
-0x2c65, 0x6f20, 0x2072, 0x7369, 0x6320, 0x726f, 0x7572, 0x7470, 0x6f20, 
-0x2072, 0x6f73, 0x656d, 0x6f68, 0x2077, 0x6e75, 0x7375, 0x6261, 0x656c, 
-"\000" 
+0x6854, 0x7369, 0x6620, 0x6c69, 0x2065, 0x7369, 0x6120, 0x6620, 0x6b61,
+0x2c65, 0x6f20, 0x2072, 0x7369, 0x6320, 0x726f, 0x7572, 0x7470, 0x6f20,
+0x2072, 0x6f73, 0x656d, 0x6f68, 0x2077, 0x6e75, 0x7375, 0x6261, 0x656c,
+"\000"
     IDC_DELETE_OPTIONS, 0x403, 38, 0
-0x6552, 0x6c70, 0x6361, 0x2065, 0x796d, 0x6320, 0x6d6f, 0x656d, 0x746e, 
-0x2073, 0x6977, 0x6874, 0x7420, 0x6568, 0x6e20, 0x7765, 0x6f20, 0x656e, 
-0x0073, 
+0x6552, 0x6c70, 0x6361, 0x2065, 0x796d, 0x6320, 0x6d6f, 0x656d, 0x746e,
+0x2073, 0x6977, 0x6874, 0x7420, 0x6568, 0x6e20, 0x7765, 0x6f20, 0x656e,
+0x0073,
     IDC_GHOST_RATING, 0x403, 12, 0
-0x4e28, 0x206f, 0x6152, 0x6974, 0x676e, 0x0029, 
+0x4e28, 0x206f, 0x6152, 0x6974, 0x676e, 0x0029,
     IDC_GHOST_RATING, 0x403, 24, 0
-0x6146, 0x656b, 0x432f, 0x726f, 0x7572, 0x7470, 0x4d2f, 0x7369, 0x656c, 
-0x6461, 0x6e69, 0x0067, 
+0x6146, 0x656b, 0x432f, 0x726f, 0x7572, 0x7470, 0x4d2f, 0x7369, 0x656c,
+0x6461, 0x6e69, 0x0067,
     IDC_GHOST_RATING, 0x403, 5, 0
-0x6f50, 0x726f, "\000" 
+0x6f50, 0x726f, "\000"
     IDC_GHOST_RATING, 0x403, 8, 0
-0x7641, 0x7265, 0x6761, 0x0065, 
+0x7641, 0x7265, 0x6761, 0x0065,
     IDC_GHOST_RATING, 0x403, 5, 0
-0x6f47, 0x646f, "\000" 
+0x6f47, 0x646f, "\000"
     IDC_GHOST_RATING, 0x403, 10, 0
-0x6556, 0x7972, 0x4720, 0x6f6f, 0x0064, 
+0x6556, 0x7972, 0x4720, 0x6f6f, 0x0064,
     IDC_GHOST_RATING, 0x403, 10, 0
-0x7845, 0x6563, 0x6c6c, 0x6e65, 0x0074, 
+0x7845, 0x6563, 0x6c6c, 0x6e65, 0x0074,
     0
 END
 
@@ -3180,7 +3180,7 @@ END
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDR_MAINFRAME           "PeerProject"
     IDR_SYSTEMFRAME         "System"
@@ -3200,7 +3200,7 @@ BEGIN
     IDR_BROWSEHOSTFRAME     "Browse"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDR_HOMEFRAME           "PeerProject Home"
     IDR_MEDIAFRAME          "Media Player"
@@ -3219,7 +3219,7 @@ BEGIN
     IDS_INFO_REMEMBER       "&Remember my selection next time"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PRIORITY_HIGH       "High"
     IDS_PRIORITY_NORMAL     "Normal"
@@ -3227,13 +3227,13 @@ BEGIN
     IDS_PRIORITY_OFF        "Skip"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_SECURITY_REMOVE_CONFIRM "Are you sure you want to delete the selected security rules?  This cannot be undone."
     IDS_FOLDER_TIP          "Files shared over the Internet"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_FILTER_DELETE_CONFIRM "Are you sure you want to delete this filter ?"
     IDS_SCHEMAS             "&Schemas"
@@ -3243,14 +3243,14 @@ BEGIN
     IDS_FILTER_NO_NAME      "Please give your filter a name."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_COLLECTION_WIZARD_NOTVALID "This template is invalid."
     IDS_COLLECTION_WIZARD_NOCUSTOM "This template does not have any customizations."
     IDS_TEMPLATE_DELETE     "Are you sure you want to delete the ""%s"" template?\nThis cannot be undone."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_SETTINGS            "PeerProject Settings"
     IDS_WIZARD              "Welcome to PeerProject"
@@ -3268,7 +3268,7 @@ BEGIN
     IDS_DOWNLOAD_PROPERTIES "Download Properties"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_STATUS_BAR_CONNECTED "Connected to %lu neighbors.  %s in local library."
     IDS_STATUS_BAR_CONNECTING "Connecting to the network..."
@@ -3281,7 +3281,7 @@ BEGIN
     IDS_NETWORK_DISCONNECT  "Disconnect"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_SEARCH_DETAILS_EMPTY "This area shows more information about files you select."
     IDS_SEARCH_DETAILS_SOURCES_ONE "One source is available (%s).  "
@@ -3295,7 +3295,7 @@ BEGIN
     IDS_SEARCH_DETAILS_PREVIEW_FAILED "Unable to download preview content from ""%s""."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_SEARCH_AGAIN        "Click here to search again"
     IDS_SEARCH_NONE         "No searches have been started in this window yet."
@@ -3312,7 +3312,7 @@ BEGIN
     IDS_SEARCH_PANEL_SEARCHING "Searching"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_SEARCH_PANEL_START  "Search"
     IDS_SEARCH_PANEL_MORE   "More"
@@ -3333,7 +3333,7 @@ BEGIN
     IDS_SEARCH_PANEL_ADVANCED "Advanced"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_BROWSE_CONNECTING   "Establishing a connection to host..."
     IDS_BROWSE_PUSHED       "Sent a push request, waiting for connection..."
@@ -3345,7 +3345,7 @@ BEGIN
     IDS_SEARCH_PANEL_INPUT_3 "Network:"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_SEARCH_PAD_HEADER   "Search PeerProject"
     IDS_SEARCH_PAD_WORDS    "Type some keywords to search for:"
@@ -3355,13 +3355,13 @@ BEGIN
     IDS_SEARCH_PANEL_INPUT_5 "Max Filesize:"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_HASH_MESSAGE        "PeerProject is creating hashes for %Iu files:"
     IDS_DLM_TIME_DAH        "%i days and %i hours"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DLM_DOWNLOADING     "PeerProject is downloading:"
     IDS_DLM_PAUSED          "This download is paused:"
@@ -3380,7 +3380,7 @@ BEGIN
     IDS_DLM_COMPLETED_WORD  "Completed"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DLM_MOVING          "PeerProject is moving the download:"
     IDS_DLM_VERIFY          "PeerProject is checking the download for errors:"
@@ -3388,7 +3388,7 @@ BEGIN
     IDS_DLM_NUMBER_OF_REVIEWS "Number of reviews:"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_LIBHEAD_HOME        "Exploring Your PeerProject Library"
     IDS_LIBHEAD_EXPLORE_FOLDER "Exploring "
@@ -3400,7 +3400,7 @@ BEGIN
     IDS_LIBPANEL_RATE_FILE  "Rate this file"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_TIP_NA              "N/A"
     IDS_TIP_LOCATION        "Location"
@@ -3419,7 +3419,7 @@ BEGIN
     IDS_TIP_NOHASHSET       "No Hashset"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_TIP_STATUS          "Status:"
     IDS_TIP_SPEED           "Speed:"
@@ -3439,13 +3439,13 @@ BEGIN
     IDS_TIP_FILE_FIREWALLED "Sources for this file are firewalled"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_TIP_FILE_UNSTABLE   "Sources for this file may be unstable"
     IDS_TIP_UNTRUSTED       "Untrusted"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_STATUS_BAR_CONNECTED_HUB_UP "Hub/Ultrapeer mode with %lu neighbors.  %s in local library."
     IDS_STATUS_BAR_CONNECTED_UP "Ultrapeer mode with %lu neighbors.  %s in local library."
@@ -3453,12 +3453,12 @@ BEGIN
     IDS_STATUS_BAR_CONNECTED_SIMPLE "Connected. %s in local library."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_NETWORK_UPNP_FAILED "UPnP port mapping failed after 10 attempts."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_NETWORK_STARTUP     "Starting PeerProject network core..."
     IDS_NETWORK_CANT_LISTEN "Can't bind to %s port %i for incoming connections.  Incoming connections will not be supported."
@@ -3478,7 +3478,7 @@ BEGIN
     IDS_NETWORK_DISCONNECT_CONFIRM "Are you sure you want to disconnect?"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_NETWORK_UNLIMIT     "You are running the Scheduler in 'G2 only' mode. Would you like to turn this mode off, so that all active networks remain connected?"
     IDS_NETWORK_SEARCH_SENT "Sending query for ""%s"" to %s."
@@ -3488,7 +3488,7 @@ BEGIN
     IDS_NETWORK_BANDWIDTH_LOW "Your outgoing bandwidth is too low to enable this network"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_CONNECTION_ACCEPTED "Accepted an incoming connection from %s port %i."
     IDS_CONNECTION_ATTEMPTING "Initiating a neighbor connection to %s port %i..."
@@ -3505,7 +3505,7 @@ BEGIN
     IDS_CONNECTION_PEERPRUNE "Closed connection with neighbor %s because it is not a hub."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_HANDSHAKE_TIMEOUT   "Timed out handshaking with %s."
     IDS_HANDSHAKE_ONLINE    "Gnutella connection with neighbor %s established successfully (G%i.%i : %s)."
@@ -3524,7 +3524,7 @@ BEGIN
     IDS_HANDSHAKE_NOTG2     "Closing connection to non-Gnutella2 neighbor %s."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PROTOCOL_TOO_LARGE  "Neighbor %s forwarded a packet of excessive size, dropping connection."
     IDS_PROTOCOL_NO_TTL     "Neighbor %s forwarded a packet with zero TTL, ignoring."
@@ -3540,7 +3540,7 @@ BEGIN
     IDS_PROTOCOL_SIZE_PUSH  "Neighbor %s forwarded a push packet with invalid length, ignoring."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DOWNLOAD_ADDED      "Added ""%s"" to download queue with %i source(s)."
     IDS_DOWNLOAD_COMPLETED  "Completed download of ""%s""."
@@ -3560,9 +3560,9 @@ BEGIN
     IDS_DOWNLOAD_TRAFFIC_TIMEOUT "Closing download connection %s due to lack of traffic."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
-    IDS_DOWNLOAD_FILENOTFOUND 
+    IDS_DOWNLOAD_FILENOTFOUND
                             "Download host %s does not have the file ""%s""."
     IDS_DOWNLOAD_NOHTTP     "Download host %s responded with an invalid HTTP response."
     IDS_DOWNLOAD_HTTPCODE   "Download host %s responded with %s (%s)."
@@ -3581,7 +3581,7 @@ BEGIN
     IDS_DOWNLOAD_SOURCES_CONNECTED "Can't fetch more sources for download ""%s"" because there is no network connection."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DOWNLOAD_SOURCES    "Querying for more sources for download ""%s"" on %i connection(s)..."
     IDS_DOWNLOAD_PUSH_SENT  "Sending push request for download ""%s""..."
@@ -3601,7 +3601,7 @@ BEGIN
     IDS_DOWNLOAD_TIGER_RECV "Receiving tiger-tree volume from %s (%s)..."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PROTOCOL_QRP_UNEXPECTED "Receiving an unexpected query routing table update from neighbor %s."
     IDS_PROTOCOL_QRP_FAILED "Neighbor %s sent an invalid query routing table update, dropping connection."
@@ -3611,7 +3611,7 @@ BEGIN
     IDS_PROTOCOL_QRP_SENT   "Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_LIBRARY_CONFIRM_EXECUTE "Are you sure you want to launch the file ""%s"" ?\n\nSome files can be harmful to your computer.  Ensure you know what the file is before launching it."
     IDS_LIBRARY_METADATA_MANY "You are about to modify the metadata of %i files, are you sure you want to continue?"
@@ -3631,7 +3631,7 @@ BEGIN
     IDS_LIBRARY_DELETE_FAIL "PeerProject could not delete the file:\n\n%s"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DOWNLOAD_TIGER_CORRUPT "Download host's tiger-tree data is corrupt or internally inconsistent, ignoring it."
     IDS_DOWNLOAD_TIGER_MISMATCH "Download host's tiger-tree does not match expected root value."
@@ -3651,7 +3651,7 @@ BEGIN
     IDS_DOWNLOAD_VERIFY_DROP "Dropping source %s (%s) for sending corrupted parts of ""%s"" (%I64i-%I64i)."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_UPLOAD_NOHTTP       "Upload host %s sent an invalid HTTP request."
     IDS_UPLOAD_CONNECT      "Initiating a push connection to %s. %s"
@@ -3671,7 +3671,7 @@ BEGIN
     IDS_UPLOAD_REMOVE       "Removed upload of ""%s"" to %s."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_UPLOAD_BROWSER		"Upload host %s is on the user-agent block list, denying request."
     IDS_UPLOAD_HEADERS		"Sending upload headers from ""%s"" to host %s (%s)."
@@ -3691,7 +3691,7 @@ BEGIN
     IDS_UPLOAD_BUSY_HOST 	"Refusing upload of ""%s"" to %s (%s), too many concurrent from host."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_UPLOAD_PREVIEW_SEND	"Uploading a preview of ""%s"" to %s."
     IDS_UPLOAD_PREVIEW_BUSY	"Refusing to upload a preview of ""%s"" to %s, too many preview connections."
@@ -3711,7 +3711,7 @@ BEGIN
     IDS_UPLOAD_QUEUE_ED2K_CORE	"eDonkey Core"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_UPLOAD_QUEUE_ED2K_PARTIALS "eDonkey Partials"
     IDS_UPLOAD_QUEUE_ED2K_GUARD "eDonkey Guard"
@@ -3727,7 +3727,7 @@ BEGIN
     IDS_UPLOAD_QUEUE_LIBRARY	"Library Files"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_LIBRARY_TARGET_EXISTS	"Target file exists:\n\n%s\n\nWould you like to overwrite it?"
     IDS_LIBRARY_TYPE_FILTER_ALL	"Show All File Types"
@@ -3745,7 +3745,7 @@ BEGIN
     IDS_DOWNLOAD_NEW_GROUP	"New Group"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_CHAT_CONNECTED_X	"Connected to %s, handshaking..."
     IDS_CHAT_ONLINE_X		"Now chatting with %s (%s)."
@@ -3761,7 +3761,7 @@ BEGIN
     IDS_CHAT_UNCONNECTED_X	"You're not connected."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_GRAPH_TOTAL_BANDWIDTH_IN "Total Generic Receive Bandwidth"
     IDS_GRAPH_TOTAL_BANDWIDTH_OUT "Total Generic Transmit Bandwidth"
@@ -3781,7 +3781,7 @@ BEGIN
     IDS_GRAPH_GNUTELLA_LOST "Gnutella Packets Lost"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_GRAPH_GNUTELLA_QUERIES "Gnutella Local Queries"
     IDS_GRAPH_TOTAL_BANDWIDTH_TCP_IN "Total TCP Receive Bandwidth"
@@ -3793,7 +3793,7 @@ BEGIN
     IDS_GRAPH_CONNECTION_ERRORS "Connection Errors (%)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_URL_RECEIVED        "Received URL ""%s"""
     IDS_URL_PARSE_ERROR     "Unable to parse URL: PeerProject does not understand this URL."
@@ -3812,13 +3812,13 @@ BEGIN
     IDS_BITZI_FINISHED      "Finished, click Close"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_BITZI_CLOSE         "&Close"
     IDS_MEDIAVIS_NOVIS      "(No Visualisation)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_WIZARD_NEED_SPEED   "You have not yet specified a connection speed.  Before continuing, please either choose your Internet connection type, or type in a connection speed."
     IDS_WIZARD_SHARE_CONFIRM "You have not specified any folders to share.  Are you sure?"
@@ -3837,7 +3837,7 @@ BEGIN
     IDS_UPNP_SERVICES_ERROR "UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_SETTINGS_WARN_QUEUELIMIT	"The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.\nAre you sure you want to limit what queue positions you will accept?"
     IDS_SETTINGS_FILEPATH_TOO_LONG	"Windows doesn't support file paths longer than 256 characters.\nPlease select a folder with a shorter path."
@@ -3845,7 +3845,7 @@ BEGIN
     IDS_SETTINGS_INCOMPLETE_LIBRARY "The incomplete files folder should not be in the library, as it would reduce performance. Incomplete files may be shared directly from the transfers window."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DISCOVERY_BOOTSTRAP "Querying host discovery services..."
     IDS_DISCOVERY_QUERY     "Querying discovery service ""%s""..."
@@ -3857,7 +3857,7 @@ BEGIN
     IDS_DISCOVERY_SUBMIT    "Submitting GWebCache ""%s"" to a random GWebCache..."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_BROWSE_CONNECTING_TO "Initiating a connection to %s to browse user..."
     IDS_BROWSE_CANT_CONNECT_TO "Unable to initiate a connection to %s to browse user."
@@ -3877,7 +3877,7 @@ BEGIN
     IDS_BROWSE_TITLE_FORMAT "Browsing %s"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_MEDIA_TIMESPLIT     " / "
     IDS_MEDIA_SMPLAYER      "PeerProject Media Player"
@@ -3891,7 +3891,7 @@ BEGIN
     IDS_MEDIA_PLAYLIST      "Playlist:"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_NEIGHBOUR_G1PP      "Gnutella: Peer-to-Peer Connection"
     IDS_NEIGHBOUR_G1LU      "Gnutella: Leaf-to-Ultrapeer Connection"
@@ -3899,7 +3899,7 @@ BEGIN
     IDS_NEIGHBOUR_G2HH      "Gnutella II: Hub-to-Hub Connection"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_NEIGHBOUR_G2LH      "Gnutella II: Leaf-to-Hub Connection"
     IDS_NEIGHBOUR_G2HL      "Gnutella II: Hub-to-Leaf Connection"
@@ -3919,7 +3919,7 @@ BEGIN
     IDS_NEIGHBOUR_REJECTED  "Rejected"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_NEIGHBOUR_CLOSING   "Closing"
     IDS_NEIGHBOUR_UNKNOWN   "Unknown"
@@ -3934,7 +3934,7 @@ BEGIN
     IDS_NEIGHBOUR_ED2K_HIGHID "eDonkey (HighID)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_IRC_PANEL_TITLE     "Welcome to the PeerProject IRC Chatrooms"
     IDS_IRC_PANEL_SUBTITLE  "Please respect others while using this service"
@@ -3945,7 +3945,7 @@ BEGIN
     IDS_IRC_PANEL_CHANS_CAPTION "Channels"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_CHAT_CONNECTING_TO  "Initiating a connection to %s..."
     IDS_CHAT_CANT_CONNECT   "Unable to create a connection to %s."
@@ -3965,7 +3965,7 @@ BEGIN
     IDS_CHAT_CANT_PUSH      "Unable to request a push connection from %s, no route available."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_CHAT_NOT_CONNECTED_1 "Cannot send message, you are not connected.  PeerProject is trying to connect..."
     IDS_CHAT_NOT_CONNECTED_2 "Cannot send message, a connection has not been established yet."
@@ -3973,7 +3973,7 @@ BEGIN
     IDS_CHAT_PRIORITY_GRANTED "Granted upload priority to host %s."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ED2K_SERVER_CONNECTING "Initiating connection to eDonkey server at %s..."
     IDS_ED2K_SERVER_CONNECTED "Connected to eDonkey server %s, handshaking..."
@@ -3993,14 +3993,14 @@ BEGIN
     IDS_ED2K_CLIENT_WRONG_GUID "eDonkey client %s has the wrong GUID, aborting handshake."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ED2K_CLIENT_CONNECT_TIMEOUT "Timed out connecting to eDonkey client %s."
     IDS_ED2K_CLIENT_HANDSHAKE_TIMEOUT "Timed out handshaking with eDonkey client %s."
     IDS_ED2K_CLIENT_DISABLED "Refusing eDonkey client link from %s because eDonkey is disabled."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ED2K_EPI_START      "Starting eDonkey partial download import process..."
     IDS_ED2K_EPI_FINISHED   "Process complete, %i partial downloads imported successfully."
@@ -4017,7 +4017,7 @@ BEGIN
     IDS_ED2K_EPI_DISK_SPACE "  Insufficient disk space to copy download file."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_BT_CLIENT_ACCEPTED  "Incoming connection from %s is a BitTorrent coupling, negotiating..."
     IDS_BT_CLIENT_CONNECT_TIMEOUT "Timed out connecting to BitTorrent client %s."
@@ -4037,7 +4037,7 @@ BEGIN
     IDS_BT_CLIENT_HANDSHAKING "Established BitTorrent coupling with %s, handshaking..."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_BT_TRACK_CHANGE     "You have changed the tracker URL for this torrent.  Are you sure you want to save this change?\n\nAn invalid tracker URL may prevent further downloading."
     IDS_BT_CLIENT_EXTENDED  "BitTorrent coupling with %s is extended protocol, identified ""%s""."
@@ -4054,7 +4054,7 @@ BEGIN
     IDS_BT_TRACKER_MULTI    "Tracker failed- Trying next tracker (%i of %i)"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_BT_CLIENT_DROP_CONNECTING "BitTorrent connection to %s was dropped."
     IDS_BT_CLIENT_DROP_HANDSHAKE "BitTorrent handshake with %s was dropped."
@@ -4067,7 +4067,7 @@ BEGIN
     IDS_BT_UPDATE_CONVERTING "Converting Torrent:"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DOWNLOAD_EDIT_RENAME "You have made changes to the name field.  Are you sure you want to rename this download?"
     IDS_DOWNLOAD_EDIT_FORGET_VERIFY "Are you sure you want to forget the current verification status?  All downloaded data will be treated as untrusted, and cached hashtrees and hashsets will be flushed."
@@ -4084,14 +4084,14 @@ BEGIN
     IDS_DOWNLOAD_QUEUE_HUGE "Dropping download source %s for ""%s"" because queue position %i is too high."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_REMOTE_DISABLED     "Remote access is disabled."
     IDS_REMOTE_ENABLED      "You must choose a username and password."
     IDS_REMOTE_UNAVAILABLE  "Unable to accept connections, URL unavailable."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_GENERAL_NOURNAVAILABLE "No URN available"
     IDS_GENERAL_CLOSE       "Close"
@@ -4109,7 +4109,7 @@ BEGIN
     IDS_SHAREMONKEY_MESSAGE "This option uses services provided by ShareMonkey.com for recognising information about selected files.\n\nPeerProject will transmit file details and your location in order to query the ShareMonkey database.  If you are concerned about privacy, you may wish to consult the ShareMonkey.com privacy policy.\n\nWould you like to proceed?"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_DAY_SUNDAY          "Sunday"
     IDS_DAY_MONDAY          "Monday"
@@ -4121,7 +4121,7 @@ BEGIN
     IDS_DAY_EVERYDAY        "Everyday"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_STATUS_CONNECTING   "Connecting"
     IDS_STATUS_REQUESTING   "Requesting"
@@ -4137,7 +4137,7 @@ BEGIN
     IDS_STATUS_COMPLETED    "Completed"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_STATUS_SEEDING      "Seeding"
     IDS_STATUS_MOVING       "Moving"
@@ -4157,7 +4157,7 @@ BEGIN
     IDS_STATUS_SOURCE       "source"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_STATUS_SOURCES      "sources"
     IDS_STATUS_SOURCESTENS  "sources"
@@ -4171,7 +4171,7 @@ BEGIN
     IDS_STATUS_SOURCESOF    "sources"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_RATING_NORATING     "(No Rating)"
     IDS_RATING_1            "Fake / Corrupt"
@@ -4183,7 +4183,7 @@ BEGIN
     IDS_SELECT_ED2K_TEMP_FOLDER "Select the eDonkey/eMule temp folder:"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_HELP_ABOUT           "Display the PeerProject about dialog..."
     ID_HELP_VERSION_CHECK   "Check for new version"
@@ -4195,7 +4195,7 @@ BEGIN
     ID_VIEW_NEIGHBOURS      "Show or hide the NEIGHBORS window."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_VIEW_TRAFFIC         "Show or hide a GRAPH window."
     ID_VIEW_LIBRARY         "Show or hide the LIBRARY window."
@@ -4215,7 +4215,7 @@ BEGIN
     ID_HOSTCACHE_DISCONNECT "Disconnect from selected neighbors."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_HOSTCACHE_REMOVE     "Remove the selected hosts from the host cache."
     ID_NETWORK_CONNECT_TO   "Manually connect to a host..."
@@ -4229,7 +4229,7 @@ BEGIN
     ID_HITMONITOR_PAUSE     "Pause hit monitoring."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_TRANSFERS_DISCONNECT "Disconnect the selected download transfer(s)."
     ID_TRANSFERS_FORGET     "Disconnect and forget the selected download source(s)."
@@ -4247,7 +4247,7 @@ BEGIN
     ID_TRAFFIC_AXIS         "Display Vertical Axis"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_SEARCHMONITOR_CLEAR  "Clear the search monitor buffer."
     ID_SEARCH_URI           "Copy the P2P Link of the selected file. (URI)"
@@ -4266,7 +4266,7 @@ BEGIN
     ID_DOWNLOADS_CLEAR      "Clear/remove the selected downloads."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_DOWNLOADS_PAUSE      "Pause selected downloads."
     ID_DOWNLOADS_VIEW_REVIEWS "View reviews for the selected download."
@@ -4285,7 +4285,7 @@ BEGIN
     ID_UPLOADS_CLEAR        "Clear selected uploads from the list."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_TRAFFIC_LEGEND       "Display legend."
     ID_TRAFFIC_SETUP        "Select and configure items to graph..."
@@ -4301,7 +4301,7 @@ BEGIN
     ID_TRAY_OPEN            "Open the PeerProject window."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_NETWORK_AUTO_CLOSE   "Automatically close PeerProject when transfers have completed."
     ID_UPLOADS_AUTO_CLEAR   "Automatically clear uploads which have been completed."
@@ -4316,7 +4316,7 @@ BEGIN
     ID_VIEW_SECURITY        "Show or hide the SECURITY window."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_SECURITY_EDIT        "Edit the selected security rule..."
     ID_SECURITY_REMOVE      "Remove the selected security rules."
@@ -4332,7 +4332,7 @@ BEGIN
     ID_DOWNLOADS_ENQUEUE    "Add the selected download(s) to your media playlist."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_SECURITY_MOVE_UP     "Move the selected security rules up the precedence list."
     ID_SECURITY_MOVE_DOWN   "Move the selected security rules down the precedence list."
@@ -4348,7 +4348,7 @@ BEGIN
     ID_DISCOVERY_EDIT       "View the properties for the selected discovery service."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_DISCOVERY_QUERY      "Query the selected discovery services now."
     ID_DISCOVERY_REMOVE     "Remove the selected discovery services."
@@ -4367,7 +4367,7 @@ BEGIN
     ID_BROWSE_LAUNCH        "Browse the selected user's profile and shared files."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_SYSTEM_VERBOSE_ERROR "Display errors only."
     ID_SYSTEM_VERBOSE_WARNING "Display warnings and above."
@@ -4376,7 +4376,7 @@ BEGIN
     ID_SYSTEM_VERBOSE_DEBUG "Display all."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_DOWNLOADS_BOOST      "Boost the performance of the selected download by removing bandwidth limits."
     ID_TAB_HOME             "Return to the PeerProject Home page"
@@ -4393,7 +4393,7 @@ BEGIN
     ID_TOOLS_RESKIN         "Reload and apply your current skin selection."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_MONITOR_CLOSE        "Close the monitor window."
     ID_WINDOW_TOOLBAR       "Show or hide the toolbar."
@@ -4411,7 +4411,7 @@ BEGIN
     ID_DOWNLOADS_SETTINGS   "Configure download settings..."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_UPLOADS_SETTINGS     "Configure upload settings..."
     ID_DOWNLOADS_FILTER_ALL "Show all downloads."
@@ -4431,7 +4431,7 @@ BEGIN
     ID_LIBRARY_VIEW_THUMBNAIL "Show thumbnails for files\nThumbnail View"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_LIBRARY_PARENT       "Move up to the parent folder."
     ID_LIBRARY_PANEL        "Show or hide the library detail panel."
@@ -4450,7 +4450,7 @@ BEGIN
     ID_MEDIA_FULLSCREEN     "Toggle full-screen video mode."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_MEDIA_SIZE_DISTORT   "Stretch the video to fill the window, potentially distorting it."
     ID_MEDIA_SIZE_FILL      "Choose the best size for the video based on its aspect ratio."
@@ -4470,7 +4470,7 @@ BEGIN
     ID_MEDIA_REMOVE         "Remove the selected media file from the playlist."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_MEDIA_CLEAR          "Clear (empty) the playlist."
     ID_MEDIA_SAVE           "Save the current playlist to a file..."
@@ -4488,7 +4488,7 @@ BEGIN
     ID_BROWSE_FILES         "View the user's shared files"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_MEDIA_VIS            "Select an audio visualisation plugin..."
     ID_DOWNLOADS_LAUNCH_COMPLETE "Open or play the selected file."
@@ -4507,9 +4507,9 @@ BEGIN
     ID_MEDIA_ADD_FOLDER     "Add a folder of media files to the playlist..."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
-    ID_LIBRARY_FOLDER_FILE_PROPERTIES 
+    ID_LIBRARY_FOLDER_FILE_PROPERTIES
                             "View and edit the properties of all files in the selected folder(s)..."
     ID_LIBRARY_REBUILD      "Rebuild metadata and hashes for the selected folders or files."
     ID_DOWNLOADS_URI        "Copy the P2P Link of the selected file. (URI)"
@@ -4524,7 +4524,7 @@ BEGIN
     ID_SEARCH_FOR_ARTIST    "Search for music files by the same artist as the selected file."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_SEARCH_FOR_ALBUM     "Search for music files in the same album as the selected file."
     ID_SEARCH_FOR_SERIES    "Search for video files in the same series as the selected file."
@@ -4541,7 +4541,7 @@ BEGIN
     ID_VIEW_BASIC           "Use PeerProject in Basic mode."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_LIBRARY_SEARCH_QUICK "Search your file library..."
     ID_DOWNLOAD_GROUP_NEW   "Create a new download group..."
@@ -4559,7 +4559,7 @@ BEGIN
     ID_LIBRARY_CREATETORRENT "Create a .torrent for this file to upload to a website."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_WINDOW_NAVBAR        "Show or hide the navigation bar."
     ID_DOWNLOADS_RATE       "Rate the selected download."
@@ -4575,7 +4575,7 @@ BEGIN
     ID_TOOLS_SEEDTORRENT    "Seed the selected Torrent on BitTorrent."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_HELP_FORUMS          "Visit the PeerProject Discussion Forums."
     ID_HELP_UPDATE          "Check for news and updates."
@@ -4587,13 +4587,13 @@ BEGIN
     ID_HELP_FAKESHAREAZA    "Visit FakeShareaza.com to learn more."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     AFX_IDS_APP_TITLE       "PeerProject"
     AFX_IDS_IDLEMESSAGE     "Ready"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
     ID_WINDOW_CASCADE       "Expand all open windows to fill the screen."
@@ -4601,24 +4601,24 @@ BEGIN
     ID_WINDOW_TILE_VERT     "Arrange open windows as vertical, non-overlapping tiles."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_IRC_HEADERTITLE     "Welcome to PeerProject Chat!"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_IRC_HEADERSUBTITLE  "Please respect others while using this service"
     IDS_IRC_HEADERCHAT      "Chat!"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_MEDIA_PROPERTIES     "View and edit the properties of the selected files..."
     ID_MEDIA_RATE           "Rate the selected files."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_LIBRARY_ALBUM_TRACK "#"
     IDS_LIBRARY_ALBUM_TITLE "Title"
@@ -4629,12 +4629,12 @@ BEGIN
     IDS_LIBRARY_ALBUM_RATING "Rating"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_TAB_IRC              "Show the IRC Chat window."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_WEBSERVICES_LIST     "Choose the web service to get more information about the selected file."
     ID_WEBSERVICES_SHAREMONKEY "Search for the file infomation using ShareMonkey service."
@@ -4650,7 +4650,7 @@ BEGIN
     ID_MUSICBRAINZ_ALBUMS   "Look at all albums for this artist."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     AFX_IDS_SCSIZE          "Change the window size"
     AFX_IDS_SCMOVE          "Change the window position"
@@ -4661,25 +4661,25 @@ BEGIN
     AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     AFX_IDS_SCRESTORE       "Restore the window to normal size"
     AFX_IDS_SCTASKLIST      "Activate Task List"
     AFX_IDS_MDICHILD        "Activate this window"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     AFX_IDS_PREVIEW_CLOSE   "Close print preview mode\nCancel Preview"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
     ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDC_IMPORT_DOWNLOADS    "Import eMule partial downloads..."
 END

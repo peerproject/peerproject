@@ -480,7 +480,7 @@ void CChatFrame::OnChatUnderline()
 		InsertText( _T("[u]") );
 }
 
-void CChatFrame::OnChatColor() 
+void CChatFrame::OnChatColor()
 {
 	if ( ! m_pSession ) return;
 

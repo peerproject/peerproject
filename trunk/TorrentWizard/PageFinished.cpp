@@ -88,7 +88,7 @@ void CFinishedPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CFinishedPage message handlers
 
-BOOL CFinishedPage::OnInitDialog() 
+BOOL CFinishedPage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 	m_wndSpeed.SetRange( 0, 5 );
@@ -96,7 +96,7 @@ BOOL CFinishedPage::OnInitDialog()
 	return TRUE;
 }
 
-BOOL CFinishedPage::OnSetActive() 
+BOOL CFinishedPage::OnSetActive()
 {
 	SetTimer( 2, 25, NULL );
 	return CWizardPage::OnSetActive();
@@ -117,12 +117,12 @@ void CFinishedPage::Start()
 
 	GET_PAGE( CTrackerPage, pTracker );
 	m_pBuilder->AddTrackerURL( pTracker->m_sTracker );
-		
+
 	GET_PAGE( CCommentPage, pComment );
 	m_pBuilder->SetComment( pComment->m_sComment );
-		
+
 	GET_PAGE( CWelcomePage, pWelcome );
-		
+
 	if ( pWelcome->m_nType == 0 )
 	{
 		GET_PAGE( CSinglePage, pSingle );
@@ -131,24 +131,24 @@ void CFinishedPage::Start()
 	else
 	{
 		GET_PAGE( CPackagePage, pPackage );
-			
+
 		for ( int nFile = 0 ; nFile < pPackage->m_wndList.GetItemCount() ; nFile++ )
 		{
 			m_pBuilder->AddFile( pPackage->m_wndList.GetItemText( nFile, 0 ) );
 		}
 	}
-	
+
 	m_pBuilder->Start();
-	
+
 	SetTimer( 1, 200, NULL );
 	PostMessage( WM_TIMER, 1 );
-	
+
 	m_wndDone1.ShowWindow( SW_HIDE );
 	m_wndDone2.ShowWindow( SW_HIDE );
 	m_wndTorrentName.ShowWindow( SW_HIDE );
 	m_wndTorrentCopy.ShowWindow( SW_HIDE );
 	m_wndTorrentOpen.ShowWindow( SW_HIDE );
-	m_wndTorrentSeed.ShowWindow( SW_HIDE );	
+	m_wndTorrentSeed.ShowWindow( SW_HIDE );
 
 	m_wndAbort.ShowWindow( SW_SHOW );
 	m_wndSpeedMessage.ShowWindow( SW_SHOW );
@@ -161,10 +161,10 @@ void CFinishedPage::Start()
 	SetWizardButtons( 0 );
 }
 
-void CFinishedPage::OnTimer(UINT_PTR nIDEvent) 
+void CFinishedPage::OnTimer(UINT_PTR nIDEvent)
 {
 	BOOL bFinished = FALSE;
-	
+
 	if ( nIDEvent == 2 )
 	{
 		KillTimer( 2 );
@@ -176,44 +176,44 @@ void CFinishedPage::OnTimer(UINT_PTR nIDEvent)
 	{
 		CString str1, str2;
 		DWORD nPos, nLen;
-		
+
 		if ( m_pBuilder->GetTotalProgress( nPos, nLen ) )
 		{
 			m_wndProgress.SetRange32( 0, nLen );
 			// m_wndProgress.SetRange( 0, nLen );
 			m_wndProgress.SetPos( nPos );
 		}
-		
+
 		if ( m_pBuilder->GetCurrentFile( str1 ) )
 		{
 			m_wndFileName.GetWindowText( str2 );
 			if ( str1 != str2 ) m_wndFileName.SetWindowText( str1 );
 		}
-		
+
 		if ( m_pBuilder->IsRunning() ) return;
-		
+
 		bFinished = m_pBuilder->IsFinished();
-	
+
 		str1.Empty();
 		m_pBuilder->GetMessageString( str1 );
 		m_wndFileName.SetWindowText( str1 );
-		
+
 		m_pBuilder->Stop();
 		delete m_pBuilder;
 		m_pBuilder = NULL;
 	}
-	
+
 	KillTimer( 1 );
-	
+
 	m_wndAbort.ShowWindow( SW_HIDE );
 	m_wndSpeedMessage.ShowWindow( SW_HIDE );
 	m_wndSpeedSlow.ShowWindow( SW_HIDE );
 	m_wndSpeedFast.ShowWindow( SW_HIDE );
 	m_wndSpeed.ShowWindow( SW_HIDE );
-	
+
 	GET_PAGE( COutputPage, pOutput );
 	m_wndTorrentName.SetWindowText( pOutput->m_sFolder + '\\' + pOutput->m_sName );
-	
+
 	if ( bFinished )
 	{
 		m_wndDone1.ShowWindow( SW_SHOW );
@@ -226,13 +226,13 @@ void CFinishedPage::OnTimer(UINT_PTR nIDEvent)
 	{
 		m_wndProgress.SetPos( 0 );
 	}
-	
+
 	m_wndDone2.ShowWindow( SW_SHOW );
-	
+
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_FINISH );
 }
 
-void CFinishedPage::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar) 
+void CFinishedPage::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	if ( m_pBuilder != NULL )
 	{
@@ -258,11 +258,11 @@ void CFinishedPage::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 			break;
 		}
 	}
-	
+
 	CWizardPage::OnHScroll( nSBCode, nPos, pScrollBar );
 }
 
-LRESULT CFinishedPage::OnWizardBack() 
+LRESULT CFinishedPage::OnWizardBack()
 {
 	if ( m_pBuilder == NULL )
 	{
@@ -275,18 +275,18 @@ LRESULT CFinishedPage::OnWizardBack()
 	}
 }
 
-BOOL CFinishedPage::OnWizardFinish() 
+BOOL CFinishedPage::OnWizardFinish()
 {
 	return m_pBuilder == NULL;
 }
 
-void CFinishedPage::OnAbort() 
+void CFinishedPage::OnAbort()
 {
 	CWaitCursor pCursor;
 	if ( m_pBuilder != NULL ) m_pBuilder->Stop();
 }
 
-void CFinishedPage::OnTorrentCopy() 
+void CFinishedPage::OnTorrentCopy()
 {
 	if ( OpenClipboard() )
 	{
@@ -302,7 +302,7 @@ void CFinishedPage::OnTorrentCopy()
 			LPVOID pMem = GlobalLock( hMem );
 			CopyMemory( pMem, (LPCTSTR)strText.GetBuffer(), strText.GetLength() * 2 + 1 );
 			GlobalUnlock( hMem );
-			
+
 			EmptyClipboard();
 			SetClipboardData( CF_UNICODETEXT, hMem );
 			CloseClipboard();
@@ -317,7 +317,7 @@ void CFinishedPage::OnTorrentCopy()
 			LPVOID pMem = GlobalLock( hMem );
 			CopyMemory( pMem, pStr, nLen + 1 );
 			GlobalUnlock( hMem );
-			
+
 			EmptyClipboard();
 			SetClipboardData( CF_TEXT, hMem );
 			CloseClipboard();
@@ -326,14 +326,14 @@ void CFinishedPage::OnTorrentCopy()
 	}
 }
 
-void CFinishedPage::OnTorrentOpen() 
+void CFinishedPage::OnTorrentOpen()
 {
 	GET_PAGE( COutputPage, pOutput );
 	ShellExecute( GetSafeHwnd(), _T("open"),
 		pOutput->m_sFolder, NULL, NULL, SW_SHOWNORMAL );
 }
 
-void CFinishedPage::OnTorrentSeed() 
+void CFinishedPage::OnTorrentSeed()
 {
 	CString strText;
 	m_wndTorrentName.GetWindowText( strText );

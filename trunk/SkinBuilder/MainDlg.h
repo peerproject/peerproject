@@ -187,7 +187,7 @@ public:
 
 	LRESULT OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
-		// ToDo: Add validation code 
+		// ToDo: Add validation code
 		// CloseDialog(wID);
 		return 0;
 	}

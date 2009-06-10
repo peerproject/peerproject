@@ -127,13 +127,13 @@ BOOL CDownloadEditPage::OnApply()
 	Hashes::Ed2kHash oED2K;
 	Hashes::Md5Hash oMD5;
 	Hashes::BtHash oBTH;
-	
+
     oSHA1.fromString( m_sSHA1 );
     oTiger.fromString( m_sTiger );
     oED2K.fromString( m_sED2K );
     oMD5.fromString( m_sMD5 );
     oBTH.fromString( m_sBTH );
-	
+
 	if ( m_sSHA1.GetLength() > 0 && !oSHA1 )
 	{
 		LoadString( strFormat, IDS_DOWNLOAD_EDIT_BAD_HASH );
@@ -213,7 +213,7 @@ BOOL CDownloadEditPage::OnApply()
 		pDownload->ClearVerification();
 		bCriticalChange = true;
 	}
-	
+
 	if ( pDownload->m_oSHA1.isValid() != oSHA1.isValid()
 		|| validAndUnequal( pDownload->m_oSHA1, oSHA1 ) )
 	{
@@ -229,7 +229,7 @@ BOOL CDownloadEditPage::OnApply()
 		pDownload->ClearVerification();
 		bCriticalChange = true;
 	}
-	
+
 	if ( pDownload->m_oTiger.isValid() != oTiger.isValid()
 		|| validAndUnequal( pDownload->m_oTiger, oTiger ) )
 	{
@@ -245,7 +245,7 @@ BOOL CDownloadEditPage::OnApply()
 		pDownload->ClearVerification();
 		bCriticalChange = true;
 	}
-	
+
 	if ( pDownload->m_oED2K.isValid() != oED2K.isValid()
 		|| validAndUnequal( pDownload->m_oED2K, oED2K ) )
 	{
@@ -277,7 +277,7 @@ BOOL CDownloadEditPage::OnApply()
 		pDownload->ClearVerification();
 		bCriticalChange = true;
 	}
-		
+
 	if ( pDownload->m_oBTH.isValid() != oBTH.isValid()
 		|| validAndUnequal( pDownload->m_oBTH, oBTH ) )
 	{

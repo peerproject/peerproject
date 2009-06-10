@@ -92,7 +92,7 @@ protected:
 // Registration Operations
 public:
 	static void	Register(BOOL bOnStartup = FALSE);
-	static BOOL	RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol, 
+	static BOOL	RegisterShellType(LPCTSTR pszRoot, LPCTSTR pszProtocol,
 		LPCTSTR pszName, LPCTSTR pszType, LPCTSTR pszApplication, LPCTSTR pszTopic, UINT nIDIcon, BOOL bOverwrite = TRUE);
 	static BOOL	RegisterMagnetHandler(LPCTSTR pszID, LPCTSTR pszName, LPCTSTR pszDescription, LPCTSTR pszApplication, UINT nIDIcon);
 	static BOOL	IsRegistered(LPCTSTR pszProtocol);

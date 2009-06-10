@@ -5,7 +5,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt).
 //
 //  See http://www.boost.org/libs/type_traits for most recent version including documentation.
- 
+
 #ifndef BOOST_TT_IS_BASE_OF_HPP_INCLUDED
 #define BOOST_TT_IS_BASE_OF_HPP_INCLUDED
 
@@ -22,7 +22,7 @@ BOOST_TT_AUX_BOOL_TRAIT_DEF2(
       is_base_of
     , Base
     , Derived
-    , (::boost::type_traits::ice_or<      
+    , (::boost::type_traits::ice_or<
          (::boost::detail::is_base_and_derived_impl<Base,Derived>::value),
          (::boost::is_same<Base,Derived>::value)>::value)
     )

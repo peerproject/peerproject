@@ -105,7 +105,7 @@ BOOL CMediaSettingsPage::OnInitDialog()
 	{
 		m_wndList.AddString( *i );
 	}
-	
+
 	CString str;
 	LoadString( str, IDS_MEDIA_SMPLAYER );
 	m_wndServices.AddString( str );
@@ -196,7 +196,7 @@ void CMediaSettingsPage::OnOK()
 	if ( m_sServicePath.IsEmpty() )
 		Settings.MediaPlayer.ShortPaths = FALSE;
 	else
-	{	
+	{
 		strRegData = _T("-");
 		/*
 		// Starting from v.0.8.5 VLC player reads unicode paths
@@ -254,13 +254,13 @@ void CMediaSettingsPage::OnSelChangeMediaService()
 	{
 		CFileDialog dlg( TRUE, _T("exe"), _T("") , OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
 			_T("Executable Files|*.exe;*.com|All Files|*.*||"), this );
-		
+
 		if ( dlg.DoModal() != IDOK )
 		{
 			m_wndServices.SetCurSel( 0 );
 			return;
 		}
-		
+
 		// Delete old file name first
 		if ( nCustomIndex == 2 ) m_wndServices.DeleteString( 0 );
 		m_wndServices.InsertString( 0, dlg.GetFileName() );

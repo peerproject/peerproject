@@ -4,7 +4,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt).
 //
 //  See http://www.boost.org/libs/type_traits for most recent version including documentation.
- 
+
 #ifndef BOOST_TT_IS_VIRTUAL_BASE_OF_HPP_INCLUDED
 #define BOOST_TT_IS_VIRTUAL_BASE_OF_HPP_INCLUDED
 
@@ -37,14 +37,14 @@ template<typename Base, typename Derived>
 struct is_virtual_base_of_impl<Base, Derived, mpl::true_>
 {
 #ifdef __BORLANDC__
-    struct X : public virtual Derived, public virtual Base 
+    struct X : public virtual Derived, public virtual Base
     {
        X();
        X(const X&);
        X& operator=(const X&);
        ~X();
     };
-    struct Y : public virtual Derived 
+    struct Y : public virtual Derived
     {
        Y();
        Y(const Y&);
@@ -52,14 +52,14 @@ struct is_virtual_base_of_impl<Base, Derived, mpl::true_>
        ~Y();
     };
 #else
-    struct X : Derived, virtual Base 
+    struct X : Derived, virtual Base
     {
        X();
        X(const X&);
        X& operator=(const X&);
        ~X();
     };
-    struct Y : Derived 
+    struct Y : Derived
     {
        Y();
        Y(const Y&);
@@ -88,7 +88,7 @@ BOOST_TT_AUX_BOOL_TRAIT_DEF2(
       is_virtual_base_of
        , Base
        , Derived
-       , (::boost::detail::is_virtual_base_of_impl2<Base,Derived>::value) 
+       , (::boost::detail::is_virtual_base_of_impl2<Base,Derived>::value)
 )
 
 #ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION

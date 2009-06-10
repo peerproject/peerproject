@@ -20,14 +20,14 @@ gap i newline
 <!-- Manifest -->
 <manifest	name="עברית"
 		author="David Aravon"
-		updatedBy="_peer_ (la. Han), Omega"	
+		updatedBy="_peer_ (la. Han), Omega"
 		description="PeerProject Default Hebrew Skin File"
 		link="http://PeerProject.sourceforge.net/"
 		email="peer_l_(at)hotmail, omega09(at)sourceforge.net"
 		version="1.0.0.0"
 		type="Language"
 		language="heb"
-		prompt="לחץ כאן לקביעת עברית כשפת ברירת המחדל"		
+		prompt="לחץ כאן לקביעת עברית כשפת ברירת המחדל"
 		dir="rtl"
 />
 
@@ -91,7 +91,7 @@ gap i newline
 		<button id="ID_SEARCH_PANEL" text="‪הצג לוח חיפוש"/>
 		<button id="ID_SEARCH_DETAILS" text="‪הצג פרטי חיפוש"/>
 		<rightAlign/>
-		<label text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>	
+		<label text="‪:מסנן" tip="הקלד מספר מילים לסינון תוצאות החיפוש"/>
 		<control id="IDC_FILTER_BOX" width="130"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="‪...עוד"/>
 	</toolbar>
@@ -361,7 +361,7 @@ gap i newline
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
-		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>	
+		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="‪שוחח עם משתמש"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="‪גנוטלה 2"/>
@@ -1081,10 +1081,10 @@ gap i newline
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="‪ה_שהה את כל ההורדות"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="‪_נקה את כל ההורדות"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="‪הצג קבוצות"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="‪_קבוצה חדשה"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="‪...הסר קבוצה"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="‪הצג קבוצות"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="‪מ_אפיינים"/>
 	</menu>
@@ -1638,7 +1638,7 @@ gap i newline
 			<icon res="252" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">א ז ה ר ה &#160; - &#160; א ת ה &#160; ח ס ו ם &#160; ב ח ו מ ת  א ש</heading>
 			<newline gap="8" indent="42"/>
-			<text color="FF0000"> (NAT) שרזה זיהה שאתה מאחורי חומת-אש או ראוטר,	
+			<text color="FF0000"> (NAT) שרזה זיהה שאתה מאחורי חומת-אש או ראוטר,
 			ואינך מצליח לקבל חיבורי UDP מהאינטרנט. &#160;</text>
 			<text color="FF0000" format="b">זה עלול לגרום לביצועי הורדה נמוכים</text>
 			<newline gap="6"/>
@@ -1649,7 +1649,7 @@ gap i newline
 			<newline indent="16"/><icon res="145" width="32" height="32"/><gap size="8"/>
 			<heading align="middle" color="6060FF">א ז ה ר ה&#160; - &#160; פ ת ח ת  ( פ ו ר ט ) &#160; ה - T C P &#160; ש ל ך &#160; ח ס ו מ ה &#160; ע  י  ח ו מ ת - ש א</heading>
 			<newline gap="8" indent="42"/>
-			<text color="FF0000"> (NAT) שרזה זיהה שאתה מאחורי חומת-אש או ראוטר,	
+			<text color="FF0000"> (NAT) שרזה זיהה שאתה מאחורי חומת-אש או ראוטר,
 			ואינך מצליח לקבל חיבורי UDP מהאינטרנט. &#160;</text>
 			<text color="FF0000" format="b">זה עלול לגרום לביצועי הורדה נמוכים</text>
 			<newline gap="6"/>
@@ -1838,7 +1838,7 @@ gap i newline
 		<text format="b">‫‮‫‮ ברוכים הבאים למנהל ההגדרות של שרזה</text>
 		<newline gap="16"/>
 		<text>אשף ההגדרות של שרזה מאפשר למשתמשים מתקדמים להתאים באופן
-			מלא איך שרזה תפעל. </text>	
+			מלא איך שרזה תפעל. </text>
 		<newline gap="10" margin="16"/>
 		<text format="b"> כללי: </text>
 		<text>נועד להגדרת העדפות המשתמש:</text>
@@ -3681,7 +3681,7 @@ gap i newline
 		<control caption=":שם"/>
 		<control/>
 		<control caption=":רישום קריטריון"/>
-		<control caption="קבצים שהורדו חלקית בלבד"/> 
+		<control caption="קבצים שהורדו חלקית בלבד"/>
 		<control caption="Shared Library files only"/>
 		<control caption="Both partial and library files"/>
         <control caption="גודל קובץ מקור מינימלי"/>
@@ -4309,7 +4309,7 @@ gap i newline
 		<control caption="Peers (Incomplete):"/>
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
-		<control caption="רענן"/> 
+		<control caption="רענן"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="מידע מתקדם של ביטורנט">
 		<control/>
@@ -4479,10 +4479,10 @@ gap i newline
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="כתובת/תוכן"/>
+		<column from="Hits" to="בקשות"/>
 		<column from="Action" to="פעולה"/>
 		<column from="Expires" to="בתוקף עד"/>
 		<column from="#" to=""/>
-		<column from="Hits" to="בקשות"/>
 		<column from="Comment" to="הערה"/>
 	</list>
 	<list name="CHostCacheWnd">

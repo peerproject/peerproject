@@ -34,7 +34,7 @@ CModule _AtlModule;
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE /*hInstance*/, DWORD dwReason, LPVOID lpReserved)
 {
-    return _AtlModule.DllMain( dwReason, lpReserved ); 
+    return _AtlModule.DllMain( dwReason, lpReserved );
 }
 
 STDAPI DllCanUnloadNow(void)

@@ -75,7 +75,7 @@ HRESULT CDocProperty::get_Type(dsoFilePropertyType *dsoType)
       case VT_BSTR: lType = dsoPropertyTypeString; break;
       case VT_I2:
       case VT_I4:   lType = dsoPropertyTypeLong;   break;
-      case VT_R4:   
+      case VT_R4:
       case VT_R8:   lType = dsoPropertyTypeDouble; break;
       case VT_BOOL: lType = dsoPropertyTypeBool;   break;
       case VT_DATE: lType = dsoPropertyTypeDate;   break;

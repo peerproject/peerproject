@@ -93,18 +93,18 @@ class CEDClient;
 class CEDNeighbour;
 
 
-class CEDPacket : public CPacket  
+class CEDPacket : public CPacket
 {
 // Construction
 protected:
 	CEDPacket();
 	virtual ~CEDPacket();
-	
+
 // Attributes
 public:
 	BYTE	m_nEdProtocol;
 	BYTE	m_nType;
-	
+
 // Operations
 public:
 	CString				ReadEDString(BOOL bUnicode);
@@ -142,7 +142,7 @@ protected:
 		virtual void NewPoolImpl(int nSize, CPacket*& pPool, int& nPitch);
 		virtual void FreePoolImpl(CPacket* pPool);
 	};
-	
+
 	static CEDPacketPool POOL;
 
 // Construction
@@ -154,7 +154,7 @@ public:
 		pPacket->m_nType		= nType;
 		return pPacket;
 	}
-	
+
 	static CEDPacket* New(ED2K_TCP_HEADER* pHeader)
 	{
 		CEDPacket* pPacket		= (CEDPacket*)POOL.New();
@@ -177,7 +177,7 @@ public:
 	{
 		POOL.Delete( this );
 	}
-	
+
 	friend class CEDPacket::CEDPacketPool;
 };
 
@@ -331,7 +331,7 @@ public:
 	void	Write(CEDPacket* pPacket, BOOL bUnicode = FALSE, BOOL bSmallTags = FALSE);
 	BOOL	Read(CEDPacket* pPacket, BOOL bUnicode = FALSE);
 	BOOL	Read(CFile* pFile);
-	
+
 // Inlines
 public:
 	inline BOOL Check(BYTE nKey, BYTE nType) const
@@ -374,7 +374,7 @@ public:
 #define ED2K_CT_VERSION				0x11
 #define ED2K_CT_SERVER_FLAGS		0x20	// Tell server about compression, new tags, unicode
 #define ED2K_CT_MODVERSION			0x55	// MOD version
-#define	ED2K_CT_UDPPORTS			0xF9	// Ports used for UDP (hi word - KAD port, low word - UDP port)	
+#define	ED2K_CT_UDPPORTS			0xF9	// Ports used for UDP (hi word - KAD port, low word - UDP port)
 #define	ED2K_CT_FEATUREVERSIONS		0xFA	// <uint32> Features 1:
 											//  3 AICH Version (0 = not supported)
 											//  1 Unicode

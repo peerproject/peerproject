@@ -565,7 +565,7 @@
 		<menu text="_Sites da Rede">
 			<item id="ID_HELP_HOMEPAGE" text="_Site do PeerProject"/>
 			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
-			<!-- <separator/> 
+			<!-- <separator/>
 			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
 			<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 			<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -664,7 +664,7 @@
 		<menu text="_Sites da Rede">
 			<item id="ID_HELP_HOMEPAGE" text="Site do PeerProject"/>
 			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
-			<!-- <separator/> 
+			<!-- <separator/>
 			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
 			<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 			<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -756,7 +756,7 @@
 		<menu text="_Sites da Rede">
 			<item id="ID_HELP_HOMEPAGE" text="Site do PeerProject"/>
 			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
-			<!-- <separator/> 
+			<!-- <separator/>
 			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
 			<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 			<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -1087,10 +1087,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_ausar Todos"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Limpar Todos"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Mostrar Grupos"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Novo Grupo..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Remover _Grupo"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Mostrar Grupos"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Propriedades"/>
 	</menu>
@@ -2037,7 +2037,7 @@
 	<document name="DownloadHelp.Paused">
 		<text format="b">Este Download está Pausado</text>
 		<newline gap="8"/>
-		<text>Você pausou este download. Se você quer resumir o download, 
+		<text>Você pausou este download. Se você quer resumir o download,
 		você pode clicar no comando '</text>
 		<text format="b">Resumir Download</text>
 		<text>'.</text>
@@ -2257,7 +2257,7 @@
 		recomendado, já que a maioria dos arquivos dela não são de uso para outras pessoas.</text>
 		<newline gap="8"/>
 		<text>Pastas como o diretório do Windows, Arquivos de Programas, e pastas similares
-		não contém geralmente, arquivos que possam ser adequados para compartilhar. 
+		não contém geralmente, arquivos que possam ser adequados para compartilhar.
 		Quaisquer arquivos de interesse estariam em sub-pastas localizadas</text>
 		<text format="i"> dentro</text>
 		<text> destas pastas. Por favor compartilhe-as em vez das outras.</text>
@@ -4512,10 +4512,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Endereço / Conteúdo"/>
+		<column from="Hits" to="Acertos"/>
 		<column from="Action" to="Ação"/>
 		<column from="Expires" to="Expira"/>
 		<column from="#" to="Prioridade"/>
-		<column from="Hits" to="Acertos"/>
 		<column from="Comment" to="Comentário"/>
 	</list>
 	<list name="CHostCacheWnd">

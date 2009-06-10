@@ -111,7 +111,7 @@ CG2Packet* CG2Packet::New(G2_PACKET nType, CG1Packet* pWrap, int nMinTTL)
 	CG2Packet* pPacket = New( nType, FALSE );
 
 	GNUTELLAPACKET pHeader;
-	
+
 	pHeader.m_oGUID		= pWrap->m_oGUID.storage();
 	pHeader.m_nType		= pWrap->m_nType;
 	pHeader.m_nTTL		= min( pWrap->m_nTTL, BYTE(nMinTTL) );
@@ -308,9 +308,9 @@ BOOL CG2Packet::GetTo(Hashes::Guid& oGUID)
 	if ( pTest[1] != 0x10 ) return FALSE;
 	if ( pTest[2] != 'T' ) return FALSE;
 	if ( pTest[3] != 'O' ) return FALSE;
-	
+
 	CopyMemory( &oGUID[ 0 ], pTest + 4, oGUID.byteCount );
-	
+
 	return BOOL( oGUID.validate() );
 }
 

@@ -56,10 +56,10 @@ CDownloadTransferED2K::CDownloadTransferED2K(CDownloadSource* pSource) : CDownlo
 	m_tRanking		= 0;
 	m_pAvailable	= NULL;
 	m_bUDP			= FALSE;
-	
+
 	m_pInflatePtr		= NULL;
 	m_pInflateBuffer	= new CBuffer();
-	
+
     ASSERT( m_pDownload->m_oED2K );
 }
 
@@ -70,9 +70,9 @@ CDownloadTransferED2K::~CDownloadTransferED2K()
 
 	ClearRequests();
 	delete m_pInflateBuffer;
-	
+
 	if ( m_pAvailable != NULL ) delete [] m_pAvailable;
-	
+
 	ASSERT( m_pClient == NULL );
 	ASSERT( ! EDClients.IsMyDownload( this ) );
 }
@@ -84,29 +84,29 @@ BOOL CDownloadTransferED2K::Initiate()
 {
 	ASSERT( m_pClient == NULL );
 	ASSERT( m_nState == dtsNull );
-	
+
     if ( ! m_pDownload->m_oED2K || m_pDownload->m_nSize == SIZE_UNKNOWN )
 	{
 		Close( TRI_FALSE );
 		return FALSE;
 	}
-	
+
 	m_pClient = EDClients.Connect(
 		m_pSource->m_pAddress.S_un.S_addr,
 		m_pSource->m_nPort,
 		m_pSource->m_nServerPort ? &m_pSource->m_pServerAddress : NULL,
 		m_pSource->m_nServerPort,
 		m_pSource->m_oGUID );
-	
+
 	if ( m_pClient == NULL )
 	{
 		Close( EDClients.IsFull() ? TRI_TRUE : TRI_FALSE );
 		return FALSE;
 	}
-	
+
 	SetState( dtsConnecting );
 	m_tConnected = GetTickCount();
-	
+
 	if ( ! m_pClient->AttachDownload( this ) )
 	{
 		SetState( dtsNull );
@@ -114,14 +114,14 @@ BOOL CDownloadTransferED2K::Initiate()
 		Close( TRI_TRUE );
 		return FALSE;
 	}
-	
+
 	m_pHost			= m_pClient->m_pHost;
 	m_sAddress		= m_pClient->m_sAddress;
 	if( m_sAddress.IsEmpty() )
 		m_sAddress	= inet_ntoa( m_pHost.sin_addr );
 	UpdateCountry();
 	m_pClient->m_mInput.pLimit = &m_nBandwidth;
-	
+
 	return TRUE;
 }
 
@@ -137,7 +137,7 @@ void CDownloadTransferED2K::Close(TRISTATE bKeepSource, DWORD nRetryAfter)
 		m_pClient->OnDownloadClose();
 		m_pClient = NULL;
 	}
-	
+
 	CDownloadTransfer::Close( bKeepSource, nRetryAfter );
 }
 
@@ -210,7 +210,7 @@ BOOL CDownloadTransferED2K::OnRunEx(DWORD tNow)
 		}
 		break;
 	}
-	
+
 	return TRUE;
 }
 
@@ -225,14 +225,14 @@ BOOL CDownloadTransferED2K::OnConnected()
 	m_pHost		= m_pClient->m_pHost;
 	m_sAddress	= m_pClient->m_sAddress;
 	UpdateCountry();
-	
+
 	m_pSource->m_oGUID		= m_pClient->m_oGUID;
 	m_pSource->m_sServer	= m_sUserAgent = m_pClient->m_sUserAgent;
 	m_pSource->m_sNick		= m_pClient->m_sNick;
 	m_pSource->SetLastSeen();
-	
+
 	theApp.Message( MSG_INFO, IDS_DOWNLOAD_CONNECTED, (LPCTSTR)m_sAddress );
-	
+
 	return SendPrimaryRequest();
 }
 
@@ -275,7 +275,7 @@ BOOL CDownloadTransferED2K::OnFileNotFound(CEDPacket* /*pPacket*/)
 {
 	theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILENOTFOUND,
 		(LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
-	
+
 	Close( TRI_FALSE );
 	return FALSE;
 }
@@ -283,38 +283,38 @@ BOOL CDownloadTransferED2K::OnFileNotFound(CEDPacket* /*pPacket*/)
 BOOL CDownloadTransferED2K::OnFileStatus(CEDPacket* pPacket)
 {
 	if ( m_nState <= dtsConnecting ) return TRUE;
-	
+
     if ( pPacket->GetRemaining() < Hashes::Ed2kHash::byteCount + 2 )
 	{
 		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_BAD_PACKET, (LPCTSTR)m_sAddress, pPacket->m_nType );
 		Close( TRI_FALSE );
 		return FALSE;
 	}
-	
+
 	Hashes::Ed2kHash oED2K;
 	pPacket->Read( oED2K );
-	
+
 	if ( validAndUnequal( oED2K, m_pDownload->m_oED2K ) )
 	{
 		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_WRONG_HASH,
 			(LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
 		return TRUE;
 	}
-	
+
 	DWORD nBlocks = pPacket->ReadShortLE();
-	
+
 	if ( nBlocks == (DWORD)( ( m_pDownload->m_nSize + ED2K_PART_SIZE - 1 ) / ED2K_PART_SIZE ) )
 	{
         m_pSource->m_oAvailable.clear();
-		
+
 		if ( m_pAvailable != NULL ) delete [] m_pAvailable;
 		m_pAvailable = new BYTE[ nBlocks ];
 		ZeroMemory( m_pAvailable, nBlocks );
-		
+
 		for ( DWORD nBlock = 0 ; nBlock < nBlocks && pPacket->GetRemaining() ; )
 		{
 			BYTE nByte = pPacket->ReadByte();
-			
+
 			for ( int nBit = 0 ; nBit < 8 && nBlock < nBlocks ; nBit++, nBlock++ )
 			{
 				if ( nByte & ( 1 << nBit ) )
@@ -322,7 +322,7 @@ BOOL CDownloadTransferED2K::OnFileStatus(CEDPacket* pPacket)
 					QWORD nFrom = ED2K_PART_SIZE * nBlock;
 					QWORD nTo = nFrom + ED2K_PART_SIZE;
 					nTo = min( nTo, m_pDownload->m_nSize );
-					
+
 					m_pSource->m_oAvailable.insert( m_pSource->m_oAvailable.end(),
 						Fragments::Fragment( nFrom, nTo ) );
 					m_pAvailable[ nBlock ] = TRUE;
@@ -333,7 +333,7 @@ BOOL CDownloadTransferED2K::OnFileStatus(CEDPacket* pPacket)
 	else if ( nBlocks == 0 )
 	{
 		m_pSource->m_oAvailable.clear();
-		
+
 		if ( m_pAvailable != NULL ) delete [] m_pAvailable;
 		m_pAvailable = NULL;
 	}
@@ -343,16 +343,16 @@ BOOL CDownloadTransferED2K::OnFileStatus(CEDPacket* pPacket)
 		Close( TRI_FALSE );
 		return FALSE;
 	}
-	
+
 	SendSecondaryRequest();
-	
+
 	return TRUE;
 }
 
 BOOL CDownloadTransferED2K::OnHashsetAnswer(CEDPacket* pPacket)
 {
 	if ( m_nState != dtsHashset ) return TRUE;
-	
+
     if ( pPacket->GetRemaining() < Hashes::Ed2kHash::byteCount + 2 )
 	{
 		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_BAD_PACKET, (LPCTSTR)m_sAddress, pPacket->m_nType );
@@ -362,7 +362,7 @@ BOOL CDownloadTransferED2K::OnHashsetAnswer(CEDPacket* pPacket)
 
     Hashes::Ed2kHash oED2K;
 	pPacket->Read( oED2K );
-	
+
 	if ( validAndUnequal( oED2K, m_pDownload->m_oED2K ) )
 	{
 		return TRUE;	// Hack
@@ -370,18 +370,18 @@ BOOL CDownloadTransferED2K::OnHashsetAnswer(CEDPacket* pPacket)
 //		Close( TRI_FALSE );
 //		return FALSE;
 	}
-	
+
 	m_bHashset = TRUE;
-	
+
 	DWORD nBlocks = pPacket->ReadShortLE();
 	bool bNullBlock = ( m_pDownload->m_nSize % ED2K_PART_SIZE == 0 && m_pDownload->m_nSize );
 	QWORD nBlocksFromSize = ( m_pDownload->m_nSize + ED2K_PART_SIZE - 1 ) / ED2K_PART_SIZE;
 
 	if ( bNullBlock )
 		nBlocksFromSize++;
-	
+
 	if ( nBlocks == 0 ) nBlocks = 1;
-	
+
 	if ( nBlocks != nBlocksFromSize )
 	{
 		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_HASHSET_ERROR, (LPCTSTR)m_sAddress );
@@ -391,7 +391,7 @@ BOOL CDownloadTransferED2K::OnHashsetAnswer(CEDPacket* pPacket)
 	{
 		return SendSecondaryRequest();
 	}
-	
+
 	Close( TRI_FALSE );
 	return FALSE;
 }
@@ -399,16 +399,16 @@ BOOL CDownloadTransferED2K::OnHashsetAnswer(CEDPacket* pPacket)
 BOOL CDownloadTransferED2K::OnQueueRank(CEDPacket* pPacket)
 {
 	if ( m_nState <= dtsConnecting ) return TRUE;
-	
+
 	if ( pPacket->GetRemaining() < 4 )
 	{
 		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_BAD_PACKET, (LPCTSTR)m_sAddress, pPacket->m_nType );
 		Close( TRI_FALSE );
 		return FALSE;
 	}
-	
+
 	m_nQueuePos	= pPacket->ReadLongLE();
-	
+
 	if ( m_nQueuePos > 0 )
 	{
 		SetQueueRank( m_nQueuePos );
@@ -418,26 +418,26 @@ BOOL CDownloadTransferED2K::OnQueueRank(CEDPacket* pPacket)
 		m_pSource->m_tAttempt = GetTickCount() + Settings.eDonkey.ReAskTime * 1000;
 		Close( TRI_UNKNOWN );
 	}
-	
+
 	return TRUE;
 }
 
 BOOL CDownloadTransferED2K::OnRankingInfo(CEDPacket* pPacket)
 {
 	if ( m_nState <= dtsConnecting ) return TRUE;
-	
+
 	if ( pPacket->GetRemaining() < 12 )
 	{
 		theApp.Message( MSG_ERROR, IDS_ED2K_CLIENT_BAD_PACKET, (LPCTSTR)m_sAddress, pPacket->m_nType );
 		Close( TRI_FALSE );
 		return FALSE;
 	}
-	
+
 	m_nQueuePos	= pPacket->ReadShortLE();
 	m_nQueueLen	= pPacket->ReadShortLE();
-	
+
 	SetQueueRank( m_nQueuePos );
-	
+
 	return TRUE;
 }
 
@@ -451,7 +451,7 @@ BOOL CDownloadTransferED2K::OnFileComment(CEDPacket* pPacket)
 	nFileRating = pPacket->ReadByte();
 
 	nLength = pPacket->ReadLongLE();
-	if ( nLength > 0 ) 
+	if ( nLength > 0 )
 	{
 		if ( nLength > ED2K_COMMENT_MAX ) nLength = ED2K_COMMENT_MAX;
 
@@ -474,9 +474,9 @@ BOOL CDownloadTransferED2K::OnStartUpload(CEDPacket* /*pPacket*/)
 {
 	SetState( dtsDownloading );
 	m_pClient->m_mInput.tLast = GetTickCount();
-	
+
 	ClearRequests();
-	
+
 	return SendFragmentRequests();
 }
 
@@ -667,7 +667,7 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 {
 	ASSERT( m_pClient != NULL );
 	DWORD tNow = GetTickCount();
-	
+
 	/*
 	if ( m_pDownload->GetVolumeRemaining() == 0 )
 	{
@@ -681,10 +681,10 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 	SetState( dtsRequesting );
 
 	//Set the 'last requested' time
-	m_tRequest	= tNow;		
+	m_tRequest	= tNow;
 
 	ClearRequests();
-	
+
 	//Send ed2k file request
 	CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_FILEREQUEST );
 	pPacket->Write( m_pDownload->m_oED2K );
@@ -695,13 +695,13 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 	}
 
 	//It's not very accurate
-	if ( Settings.eDonkey.ExtendedRequest >= 2 && m_pClient->m_bEmRequest >= 2 ) 
+	if ( Settings.eDonkey.ExtendedRequest >= 2 && m_pClient->m_bEmRequest >= 2 )
 	{
 		pPacket->WriteShortLE( (WORD) m_pDownload->GetED2KCompleteSourceCount() );
 	}
 
 	Send( pPacket );
-	
+
 	if ( m_pDownload->m_nSize <= ED2K_PART_SIZE )
 	{
 		// Don't ask for status - if the client answers, we know the file is complete anyway
@@ -713,7 +713,7 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 		pPacket->Write( m_pDownload->m_oED2K );
 		Send( pPacket );
 	}
-	
+
 	if ( ( m_pDownload->GetSourceCount() < Settings.Downloads.SourcesWanted ) &&// We want more sources
 		 ( tNow > m_tSources ) && ( tNow - m_tSources > 30 * 60 * 1000 ) &&		// We have not asked for at least 30 minutes
 		 ( m_pClient->m_bEmule ) && ( Network.IsListening() ) )					// Remote client is eMule compatible and we are accepting packets
@@ -725,7 +725,7 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 		pPacket->Write( m_pDownload->m_oED2K );
 		Send( pPacket );
 	}
-	
+
 	return TRUE;
 }
 
@@ -734,19 +734,19 @@ BOOL CDownloadTransferED2K::SendSecondaryRequest()
 	ASSERT( m_pClient != NULL );
 	ASSERT( m_nState > dtsConnecting );
 	// ASSERT( m_nState == dtsRequesting || m_nState == dtsHashset );
-	
+
 	if ( ! m_pDownload->PrepareFile() )
 	{
 		Close( TRI_TRUE );
 		return FALSE;
 	}
-	
+
 	if ( m_bHashset == FALSE && m_pDownload->NeedHashset() )
 	{
 		CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_HASHSETREQUEST );
 		pPacket->Write( m_pDownload->m_oED2K );
 		Send( pPacket );
-		
+
 		SetState( dtsHashset );
 		m_pClient->m_mInput.tLast = GetTickCount();
 	}
@@ -755,7 +755,7 @@ BOOL CDownloadTransferED2K::SendSecondaryRequest()
 		CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_QUEUEREQUEST );
 		pPacket->Write( m_pDownload->m_oED2K );
 		Send( pPacket );
-		
+
 		SetState( dtsEnqueue );
 		m_tRequest = GetTickCount();
 	}
@@ -767,9 +767,9 @@ BOOL CDownloadTransferED2K::SendSecondaryRequest()
 		Close( TRI_TRUE );
 		return FALSE;
 	}
-	
+
 	ClearRequests();
-	
+
 	return TRUE;
 }
 
@@ -780,13 +780,13 @@ BOOL CDownloadTransferED2K::SendFragmentRequests()
 {
 	//ASSERT( m_nState == dtsDownloading );
 	ASSERT( m_pClient != NULL );
-	
+
 	if ( m_nState != dtsDownloading ) return TRUE;
 
 	if ( m_oRequested.size() >= (int)Settings.eDonkey.RequestPipe ) return TRUE;
-	
+
 	Fragments::List oPossible( m_pDownload->GetWantedFragmentList() );
-	
+
 	if ( !m_pClient->m_bEmLargeFile && ( m_pDownload->m_nSize & 0xffffffff00000000 ) )
 	{
 		Fragments::Fragment Selected( 0x100000000, m_pDownload->m_nSize - 1 );
@@ -801,7 +801,7 @@ BOOL CDownloadTransferED2K::SendFragmentRequests()
 			pTransfer->SubtractRequested( oPossible );
 		}
 	}
-	
+
 	typedef std::map<QWORD ,Fragments::Fragment> _TRequest;
 	typedef  _TRequest::iterator _TRequestIndex;
 	_TRequest	oRequesting;
@@ -907,14 +907,14 @@ BOOL CDownloadTransferED2K::SendFragmentRequests()
 			theApp.Message( (WORD)nType, IDS_DOWNLOAD_FRAGMENT_REQUEST,
 				nOffsetBegin[nCount], nOffsetEnd[nCount],
 				(LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
-		} 
+		}
 	}
 
 	// If there are no more possible chunks to request, and endgame is available but not active
 	if ( oPossible.empty() && Settings.eDonkey.Endgame && ! m_pDownload->m_bTorrentEndgame )
 	{
 		// And the file is at least 100MB, with less than 1MB to go
-		if ( ( m_pDownload->GetVolumeComplete() > 100*1024*1024 ) && 
+		if ( ( m_pDownload->GetVolumeComplete() > 100*1024*1024 ) &&
 			 ( m_pDownload->GetVolumeRemaining() <  1*1024*1024 ) )
 		{
 			// Then activate endgame
@@ -924,19 +924,19 @@ BOOL CDownloadTransferED2K::SendFragmentRequests()
 	}
 
 	if ( !m_oRequested.empty() ) return TRUE;
-	
+
 	Send( CEDPacket::New( ED2K_C2C_QUEUERELEASE ) );
-	
+
 	theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_END, (LPCTSTR)m_sAddress );
 	Close( TRI_TRUE );
-	
+
 	return FALSE;
 }
 
 void CDownloadTransferED2K::ClearRequests()
 {
 	m_oRequested.clear();
-	
+
 	if ( z_streamp pStream = (z_streamp)m_pInflatePtr )
 	{
 		inflateEnd( pStream );
@@ -978,7 +978,7 @@ BOOL CDownloadTransferED2K::RunQueued(DWORD tNow)
 {
 	ASSERT( m_pClient != NULL );
 	ASSERT( m_nState == dtsQueued );
-	
+
 	if ( Settings.Downloads.QueueLimit > 0 && m_nQueuePos > Settings.Downloads.QueueLimit )
 	{
 		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_QUEUE_HUGE,
@@ -1006,7 +1006,7 @@ BOOL CDownloadTransferED2K::RunQueued(DWORD tNow)
 	else if ( tNow > m_tRequest && tNow - m_tRequest > Settings.eDonkey.ReAskTime * 1000 )
 	{
 		m_tRequest = GetTickCount();
-		
+
 		if ( m_pClient->IsOnline() )
 		{
 			return OnConnected();
@@ -1016,7 +1016,7 @@ BOOL CDownloadTransferED2K::RunQueued(DWORD tNow)
 			m_pClient->Connect();
 		}
 	}
-	
+
 	return TRUE;
 }
 
@@ -1030,9 +1030,9 @@ void CDownloadTransferED2K::SetQueueRank(int nRank)
 	m_tRequest	= m_tRanking = GetTickCount();
 	m_nQueuePos	= nRank;
 	m_bUDP		= FALSE;
-	
+
 	ClearRequests();
-	
+
 	theApp.Message( MSG_INFO, IDS_DOWNLOAD_QUEUED,
 		(LPCTSTR)m_sAddress, m_nQueuePos, m_nQueueLen, _T("eDonkey2000") );
 }
@@ -1066,7 +1066,7 @@ BOOL CDownloadTransferED2K::OnSendingPart64(CEDPacket* pPacket)
 
 	QWORD	nOffset = pPacket->ReadLongLE();
 			nOffset = ( (QWORD)pPacket->ReadLongLE() << 32 ) | nOffset;
-	
+
 	QWORD	nLength = pPacket->ReadLongLE();
 			nLength = ( (QWORD)pPacket->ReadLongLE() << 32 ) | nLength;
 

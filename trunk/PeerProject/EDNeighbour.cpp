@@ -213,7 +213,7 @@ BOOL CEDNeighbour::OnConnected()
 			( ( theApp.m_nVersion[1] & 0x7F ) << 10 ) |
 			( ( theApp.m_nVersion[2] & 0x07 ) << 7  ) |
 			( ( theApp.m_nVersion[3] & 0x7F )       ) ) ).Write( pPacket );
-	
+
 	// 5 - Port
 	if ( Settings.eDonkey.SendPortServer )
 		CEDTag( ED2K_CT_PORT, htons( Network.m_pHost.sin_port ) ).Write( pPacket );

@@ -99,8 +99,8 @@ BOOL CSkinsSettingsPage::OnInitDialog()
 	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
 		LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES, LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES );
 
-	if ( Settings.General.LanguageRTL ) 
-		m_wndDesc.ModifyStyleEx( WS_EX_RTLREADING|WS_EX_RIGHT|WS_EX_LEFTSCROLLBAR, 
+	if ( Settings.General.LanguageRTL )
+		m_wndDesc.ModifyStyleEx( WS_EX_RTLREADING|WS_EX_RIGHT|WS_EX_LEFTSCROLLBAR,
 			WS_EX_LTRREADING|WS_EX_LEFT|WS_EX_RIGHTSCROLLBAR, 0 );
 
 	m_nSelected = -1;
@@ -258,7 +258,7 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	CString strEmail	= pManifest->GetAttributeValue( _T("email") );
 	CString strDesc		= pManifest->GetAttributeValue( _T("description") );
 
-	if ( Settings.General.LanguageRTL ) 
+	if ( Settings.General.LanguageRTL )
 	{
 		strName = _T("\x202A") + strName;
 		strAuthor = _T("\x202A") + strAuthor;

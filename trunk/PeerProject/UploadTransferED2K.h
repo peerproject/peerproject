@@ -33,7 +33,7 @@ class CUploadTransferED2K : public CUploadTransfer
 public:
 	CUploadTransferED2K(CEDClient* pClient);
 	virtual ~CUploadTransferED2K();
-	
+
 // Attributes
 public:
 	CEDClient*		m_pClient;					// The remote client.

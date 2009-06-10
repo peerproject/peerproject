@@ -101,22 +101,22 @@ BOOL CTorrentBuilder::SetOutputFile(LPCTSTR pszPath)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 	if ( m_bActive ) return FALSE;
-	
+
 	m_sOutput = pszPath;
-	
+
 	if ( m_sName.IsEmpty() )
 	{
 		if ( LPCTSTR pszSlash = _tcsrchr( pszPath, '\\' ) )
 		{
 			m_sName = pszSlash + 1;
-			
+
 			int nPos = m_sName.ReverseFind( '.' );
 			if ( nPos >= 0 ) m_sName = m_sName.Left( nPos );
 			nPos = m_sName.ReverseFind( '.' );
 			if ( nPos >= 0 ) m_sName = m_sName.Left( nPos );
 		}
 	}
-	
+
 	return TRUE;
 }
 
@@ -150,17 +150,17 @@ BOOL CTorrentBuilder::SetComment(LPCTSTR pszComment)
 BOOL CTorrentBuilder::Start()
 {
 	if ( m_hThread != NULL ) Stop();
-	
+
 	if ( m_sName.IsEmpty() || m_sOutput.IsEmpty() ) return FALSE;
 	if ( m_pFiles.GetCount() == 0 ) return FALSE;
-	
+
 	m_bActive	= TRUE;
 	m_bFinished	= FALSE;
 	m_bAbort	= FALSE;
 	m_sMessage.Empty();
-	
+
 	CreateThread();
-	
+
 	return TRUE;
 }
 
@@ -168,7 +168,7 @@ void CTorrentBuilder::Stop()
 {
 	if ( m_hThread == NULL ) return;
 	m_bAbort = TRUE;
-	
+
 	int nAttempt = 5;
 	for ( nAttempt ; nAttempt > 0 ; nAttempt-- )
 	{
@@ -176,12 +176,12 @@ void CTorrentBuilder::Stop()
 		if ( ! GetExitCodeThread( m_hThread, &nCode ) || nCode != STILL_ACTIVE ) break;
 		Sleep( 1000 );
 	}
-	
+
 	if ( nAttempt <= 0 )
 	{
 		TerminateThread( m_hThread, 1 );
 	}
-	
+
 	m_hThread	= NULL;
 	m_bActive	= FALSE;
 	m_bFinished	= FALSE;
@@ -200,7 +200,7 @@ BOOL CTorrentBuilder::SetPriority(int nPriority)
 		SetThreadPriority( nPriority );
 		return TRUE;
 	}
-	
+
 	return FALSE;
 }
 
@@ -247,7 +247,7 @@ BOOL CTorrentBuilder::GetMessageString(CString& strMessage)
 /////////////////////////////////////////////////////////////////////////////
 // CTorrentBuilder run
 
-int CTorrentBuilder::Run() 
+int CTorrentBuilder::Run()
 {
 	if ( m_pSection.Lock() )
 	{
@@ -260,7 +260,7 @@ int CTorrentBuilder::Run()
 		m_pPieceSHA1	= NULL;
 		m_pSection.Unlock();
 	}
-	
+
 	if ( ScanFiles() && ! m_bAbort )
 	{
 		if ( ProcessFiles() )
@@ -271,7 +271,7 @@ int CTorrentBuilder::Run()
 			}
 		}
 	}
-	
+
 	if ( m_pSection.Lock() )
 	{
 		delete [] m_pPieceSHA1;
@@ -284,13 +284,13 @@ int CTorrentBuilder::Run()
 		m_pFileSHA1		= NULL;
 		delete [] m_pFileSize;
 		m_pFileSize		= NULL;
-		
+
 		m_sThisFile.Empty();
 		m_bActive = FALSE;
-		
+
 		m_pSection.Unlock();
 	}
-	
+
 	return 0;
 }
 
@@ -305,17 +305,17 @@ BOOL CTorrentBuilder::ScanFiles()
 		delete [] m_pBuffer;
 	m_sThisFile = _T(" Prescanning files...");
 	m_pSection.Unlock();
-	
+
 	delete [] m_pFileSize;
 	m_pFileSize = new QWORD[ m_pFiles.GetCount() ];
 	int nFile = 0;
-	
+
 	for ( POSITION pos = m_pFiles.GetHeadPosition() ; pos && ! m_bAbort ; nFile++ )
 	{
 		CString strFile = m_pFiles.GetNext( pos );
-		
+
 		HANDLE hFile = CreateFile( strFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
-		
+
 		if ( hFile == INVALID_HANDLE_VALUE )
 		{
 			m_pSection.Lock();
@@ -326,16 +326,16 @@ BOOL CTorrentBuilder::ScanFiles()
 			m_pSection.Unlock();
 			break;
 		}
-		
+
 		DWORD nLow, nHigh;
 		nLow = GetFileSize( hFile, &nHigh );
 		CloseHandle( hFile );
-		
+
 		QWORD nSize = ( (QWORD)nHigh << 32 ) + (QWORD)nLow;
 		m_pFileSize[ nFile ] = nSize;
 		m_nTotalSize += nSize;
 	}
-	
+
 	m_pSection.Lock();
 	m_sThisFile.Empty();
 
@@ -364,7 +364,7 @@ BOOL CTorrentBuilder::ScanFiles()
 	m_nBuffer = m_nPieceSize;
 	m_pBuffer = new BYTE[ m_nBuffer ];
 	m_pSection.Unlock();
-	
+
 	return m_bAbort == FALSE;
 }
 
@@ -377,11 +377,11 @@ BOOL CTorrentBuilder::ProcessFiles()
 	if ( m_bED2K ) m_oDataED2K.BeginFile( m_nTotalSize );
 	if ( m_bMD5 ) m_oDataMD5.Reset();
 	m_oPieceSHA1.Reset();
-	
+
 	m_nPieceUsed	= 0;
 	m_nPiecePos		= 0;
 	m_nPieceCount	= (DWORD)( ( m_nTotalSize + (QWORD)m_nPieceSize - 1 ) / (QWORD)m_nPieceSize );
-	
+
 	delete [] m_pPieceSHA1;
 	m_pPieceSHA1	= new CSHA[ m_nPieceCount ];
 
@@ -392,17 +392,17 @@ BOOL CTorrentBuilder::ProcessFiles()
 	delete [] m_pFileED2K;
 	m_pFileED2K = NULL;
 	if ( m_bED2K ) m_pFileED2K	= new CED2K[ m_pFiles.GetCount() ];
-	
+
 	delete [] m_pFileMD5;
 	m_pFileMD5 = NULL;
 	if ( m_bMD5 ) m_pFileMD5	= new CMD5[ m_pFiles.GetCount() ];
-	
+
 	int nFile = 0;
-	
+
 	for ( POSITION pos = m_pFiles.GetHeadPosition() ; pos && ! m_bAbort ; nFile++ )
 	{
 		CString strFile = m_pFiles.GetNext( pos );
-		
+
 		if ( ! ProcessFile( nFile, strFile ) )
 		{
 			if ( m_bAbort ) break;
@@ -415,17 +415,17 @@ BOOL CTorrentBuilder::ProcessFiles()
 			break;
 		}
 	}
-	
+
 	if ( m_nPieceUsed > 0 )
 	{
 		m_oPieceSHA1.Finish();
 		m_pPieceSHA1[ m_nPiecePos++ ] = m_oPieceSHA1;
 	}
-	
+
 	if ( m_bSHA1 ) m_oDataSHA1.Finish();
 	if ( m_bED2K ) m_oDataED2K.FinishFile();
 	if ( m_bMD5 ) m_oDataMD5.Finish();
-	
+
 	return ( m_bAbort == FALSE );
 }
 
@@ -437,33 +437,33 @@ BOOL CTorrentBuilder::ProcessFile(DWORD nFile, LPCTSTR pszFile)
 	m_pSection.Lock();
 	m_sThisFile = pszFile;
 	m_pSection.Unlock();
-	
+
 	HANDLE hFile = CreateFile( pszFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 	if ( hFile == INVALID_HANDLE_VALUE )
 		return FALSE;
-	
+
 	DWORD nLow, nHigh;
 	nLow = GetFileSize( hFile, &nHigh );
 	QWORD nSize = ( (QWORD)nHigh << 32 ) + (QWORD)nLow;
-	
+
 	if ( m_bSHA1 ) m_pFileSHA1[ nFile ].Reset();
 	if ( m_bED2K ) m_pFileED2K[ nFile ].BeginFile( nSize );
 	if ( m_bMD5 ) m_pFileMD5[ nFile ].Reset();
-	
+
 	while ( nSize > 0 && ! m_bAbort )
 	{
 		DWORD nLimit	= min( m_nBuffer, m_nPieceSize - m_nPieceUsed );
 		DWORD nRead		= ( nSize > (QWORD)nLimit ) ? nLimit : (DWORD)nSize;
-		
+
 		ReadFile( hFile, m_pBuffer, nRead, &nRead, NULL );
 		if ( nRead == 0 ) break;
-		
+
 		nSize -= (QWORD)nRead;
 		m_nTotalPos += (QWORD)nRead;
-		
+
 		m_oPieceSHA1.Add( m_pBuffer, nRead );
 		m_nPieceUsed += nRead;
-		
+
 		if ( m_bSHA1 )
 		{
 			m_oDataSHA1.Add( m_pBuffer, nRead );
@@ -481,7 +481,7 @@ BOOL CTorrentBuilder::ProcessFile(DWORD nFile, LPCTSTR pszFile)
 			m_oDataMD5.Add( m_pBuffer, nRead );
 			m_pFileMD5[ nFile ].Add( m_pBuffer, nRead );
 		}
-		
+
 		if ( m_nPieceUsed >= m_nPieceSize )
 		{
 			m_oPieceSHA1.Finish();
@@ -490,13 +490,13 @@ BOOL CTorrentBuilder::ProcessFile(DWORD nFile, LPCTSTR pszFile)
 			m_nPieceUsed = 0;
 		}
 	}
-	
+
 	if ( m_bSHA1 ) m_pFileSHA1[ nFile ].Finish();
 	if ( m_bED2K ) m_pFileED2K[ nFile ].FinishFile();
 	if ( m_bMD5 ) m_pFileMD5[ nFile ].Finish();
 
 	CloseHandle( hFile );
-	
+
 	return ( nSize == 0 );
 }
 
@@ -548,9 +548,9 @@ BOOL CTorrentBuilder::WriteOutput()
 		m_oDataMD5.GetHash( (uchar*)&pDataMD5[ 0 ] );
 		CBENode* pMD5 = pInfo->Add( "md5sum" );
 		pMD5->SetString( &pDataMD5, sizeof CMD5::Digest );
-	}	
+	}
 	CString strFirst = m_pFiles.GetHead();
-	
+
 	if ( m_pFiles.GetCount() == 1 )
 	{
 		int nPos = strFirst.ReverseFind( '\\' );
@@ -569,7 +569,7 @@ BOOL CTorrentBuilder::WriteOutput()
 		{
 		CBENode* pName = pInfo->Add( "name" );
 		pName->SetString( m_sName );
-		}	
+		}
 		CBENode* pFiles = pInfo->Add( "files" );
 		int nCommonPath = 32000;
 		int nFile = 0;
@@ -577,12 +577,12 @@ BOOL CTorrentBuilder::WriteOutput()
 		for ( ; pos ; nFile++ )
 		{
 			CString strThis = m_pFiles.GetNext( pos );
-			
+
 			if ( nFile == 0 ) continue;
-			
+
 			LPCTSTR pszFirst	= strFirst;
 			LPCTSTR pszThis		= strThis;
-			
+
 			for ( int nPos = 0, nSlash = 0 ; nPos < nCommonPath ; nPos++ )
 			{
 				if ( pszThis[nPos] != pszFirst[nPos] ||
@@ -614,9 +614,9 @@ BOOL CTorrentBuilder::WriteOutput()
 			{
 				CString strPart = strFile.SpanExcluding( _T("\\/") );
 				if ( strPart.IsEmpty() ) break;
-				
+
 				pPath->Add( NULL, NULL )->SetString( strPart );
-				
+
 				strFile = strFile.Mid( strPart.GetLength() );
 				if ( strFile.GetLength() ) strFile = strFile.Mid( 1 );
 			}
@@ -648,19 +648,19 @@ BOOL CTorrentBuilder::WriteOutput()
 		CBENode* pAgent = pRoot.Add( "created by" );
 		CString strAgent = _T("TorrentWizard ") + theApp.m_sVersion;
 		pAgent->SetString( strAgent );
-	}	
+	}
 	if ( m_sComment.GetLength() > 0 )
 	{
 		CBENode* pComment = pRoot.Add( "comment" );
 		pComment->SetString( m_sComment );
 	}
-	
+
 	CBuffer pOutput;
 	pRoot.Encode( &pOutput );
-	
+
 	HANDLE hFile = CreateFile( m_sOutput, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
 		FILE_ATTRIBUTE_NORMAL, NULL );
-	
+
 	if ( hFile == INVALID_HANDLE_VALUE )
 	{
 		m_pSection.Lock();
@@ -671,10 +671,10 @@ BOOL CTorrentBuilder::WriteOutput()
 		m_pSection.Unlock();
 		return FALSE;
 	}
-	
+
 	DWORD nWrote = 0;
 	WriteFile( hFile, pOutput.m_pBuffer, pOutput.m_nLength, &nWrote, NULL );
 	CloseHandle( hFile );
-	
+
 	return TRUE;
 }

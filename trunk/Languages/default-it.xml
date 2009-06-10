@@ -1018,10 +1018,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Sospendi tutti"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Rimuovi tutti"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Mostra gruppi"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="Nuovo gruppo..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Rimuovi gruppo"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Mostra gruppi"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Proprietà"/>
 	</menu>
@@ -1889,8 +1889,8 @@
 		<text format="b">Seleziona un download</text>
 		<newline gap="8"/>
 		<text>Questa è la cartella ove vengono visualizzati i file da scaricare. Puoi visualizzare
-		i sorgenti da cui scaricare espandendo ogni file col piccolo + sulla sinistra.</text> 
-		<newline gap="8"/> 
+		i sorgenti da cui scaricare espandendo ogni file col piccolo + sulla sinistra.</text>
+		<newline gap="8"/>
 		<text>Puoi usare questo comando per ottenere informazioni di supporto su un download. Devi
 		semplicemente selezionare un download e scegliere nuovamente questo comando.</text>
 	</document>
@@ -2006,7 +2006,7 @@
 		<newline gap="8"/>
 		<text>Il disco o la cartella di cui PeerProject necessita non può essere scritta.</text>
 		<newline gap="8"/>
-		<text>Un drive di rete può essere disconnesso, o non hai il permesso di scrittura 
+		<text>Un drive di rete può essere disconnesso, o non hai il permesso di scrittura
 		nella cartella selezionata. Controlla le cartelle e i permessi, o cambia la posizione
 		dei file temporanei.</text>
 	</document>
@@ -2058,7 +2058,7 @@
 		ai client che non condividono o preferenzia l'invio a condivisori conosciuti.</text>
 		<newline/>
 		<text>Fortunatamente, la connessioni DSL a banda larga sono a due vie:
-		allocano separatamente l'invio e la ricezione. Se il client è configurato correttamente, 
+		allocano separatamente l'invio e la ricezione. Se il client è configurato correttamente,
 		dovresti essere in grado di inviare a buona velocità mantenendo la piena velocità di scaricamento.</text>
 		<newline gap="8"/>
 		<text>Di default, il limite di invio è fissato a circa 85% della banda di invio disponibile,
@@ -2071,10 +2071,10 @@
 		<newline gap="8"/>
 		<text>Questa ricerca è malformattata, e potrebbe non funzionare correttamente.
 		Le ricerche dovrebbero includere molti termini dove possibile, e specificare uno schema
-		(tipo file). Inoltre, le ricerche non devono essere limitate a numeri o 
+		(tipo file). Inoltre, le ricerche non devono essere limitate a numeri o
 		solo termini negativi, e si dovrebbero evitare ricerche generalizzate.</text>
 		<newline gap="8"/>
-		<text>La maggior parte dei client nella rete ignora una ricerca per tutti i file MP3, ad esempio, 
+		<text>La maggior parte dei client nella rete ignora una ricerca per tutti i file MP3, ad esempio,
 		in quanto non è abbastanza specifica, e potrebbe generare troppi risultati.</text>
 	</document>
 	<document name="SearchHelp.BadSearch2">
@@ -2474,8 +2474,8 @@
 	<string id="WINDOW_SEARCHPAD" value="Ricerca"/>
 	<string id="WINDOW_HELP" value="Aiuto di PeerProject"/>
 	<string id="7000" value="Sei sicuro di voler cancellare questo filtro ?"/>
-	<string id="7001" value="&amp;Schemi"/>	
-	<string id="7002" value="Valori multipli"/>	
+	<string id="7001" value="&amp;Schemi"/>
+	<string id="7002" value="Valori multipli"/>
 	<string id="7003" value="Multiplo"/>
 	<string id="7004" value="C'è già un filtro chiamato &quot;%s&quot;, vuoi sostituirlo?"/>
 	<string id="7005" value="Dai un nome al filtro."/>
@@ -2559,7 +2559,7 @@
 	<string id="8177" value="Inserisci qui la tua ricerca:"/>
 	<string id="8178" value="Che tipo di file è?"/>
 	<string id="8179" value="(Cancella parole ricercate)"/>
-	<string id="8180" value="Dimens. del file:"/>	
+	<string id="8180" value="Dimens. del file:"/>
 	<string id="8181" value="Dimens. del file:"/>
 	<string id="8208" value="PeerProject sta calcolando l'hash per %Iu file:"/>
 	<string id="8223" value="%i giorni e %i ore"/>
@@ -4141,10 +4141,10 @@
 		<control caption="Clicca su Condividi per condividere file completi usando BitTorrent. Quando questo processo è completato il torrent comparirà nell'elenco dei tuoi download."/>
 		<control/>
 	</dialog>
-	<dialog name="CTorrentFilesPage" cookie="Sy" caption="File">	
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="File">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Tracker">	
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Tracker">
 		<control/>
 		<control/>
 		<control/>
@@ -4163,7 +4163,7 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="&#160;Quando necessario| Quando il rapp. DL/UL supera il 100%| Solo quando richiesto| Mai"/>	
+		<control caption="&#160;Quando necessario| Quando il rapp. DL/UL supera il 100%| Solo quando richiesto| Mai"/>
 		<control/>
 		<control caption="_Informazioni del torrent:"/>
 		<control caption="Nome:"/>
@@ -4325,10 +4325,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Indirizzo / Contenuto"/>
+		<column from="Hits" to="Richieste"/>
 		<column from="Action" to="Azione"/>
 		<column from="Expires" to="Scade"/>
-		<column from="#" to="Precedenza"/>
-		<column from="Hits" to="Richieste"/>
+		<column from="#" to="#"/>
 		<column from="Comment" to="Commento"/>
 	</list>
 	<list name="CHostCacheWnd">

@@ -32,7 +32,7 @@
 // CDocumentClassFactory - IClassFactory Implementation
 //
 //  This is a fairly simple CF. We don't provide support for licensing
-//  in this sample, nor aggregation. We just create and return a new 
+//  in this sample, nor aggregation. We just create and return a new
 //  CDocReader object.
 //
 
@@ -45,7 +45,7 @@ STDMETHODIMP CDocumentClassFactory::QueryInterface(REFIID riid, void** ppv)
 	ODS(_T("CDocumentClassFactory::QueryInterface\n"));
 
 	CHECK_NULL_RETURN(ppv, E_POINTER);
-	
+
 	if ( CLSID_DocReader == riid )
 	{
 		*ppv = this;

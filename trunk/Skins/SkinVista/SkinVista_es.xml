@@ -40,14 +40,14 @@
   <item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir Downloads Folder"/>
   <separator/>
  <item id="ID_TOOLS_DOWNLOAD" text="Descargar Archivo/Torrent..."/>
- <item id="ID_TOOLS_SEEDTORRENT" text="Enviar Nuevo Torrent..."/> 
+ <item id="ID_TOOLS_SEEDTORRENT" text="Enviar Nuevo Torrent..."/>
  <item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
-  <!--NOTE: Even Seed is used, it has no translation: I've used 'Send' for the translation.--> 
+  <!--NOTE: Even Seed is used, it has no translation: I've used 'Send' for the translation.-->
   <!--NOTE: Maybe 'proporcionar' (provide) or  'lanzar' (launch).-->
  <item id="IDC_IMPORT_DOWNLOADS"  text="Importar Parciales de eDonkey..."/>
  <separator/>
  <item id="ID_TOOLS_LANGUAGE" text="Seleccionar idioma..."/>
- <item id="ID_TOOLS_SKIN" text="Seleccionar un Skin..."/> 
+ <item id="ID_TOOLS_SKIN" text="Seleccionar un Skin..."/>
   <!--NOTE: Skin ~ piel? Skin is used most frequently-->
  <separator/>
  <item id="ID_TOOLS_PROFILE" text="Editar Mi Perfil..."/>
@@ -56,7 +56,7 @@
  <item id="ID_TOOLS_SETTINGS" text="Configuración de PeerProject..."/>
 </menu>
 
-<menu text="_Vista Avanzada"> 
+<menu text="_Vista Avanzada">
  <item id="ID_TAB_HOME" text="Inicio"  shortcut="Ctrl+H"/>
  <item id="ID_TAB_SEARCH" text="Buscar"  shortcut="Ctrl+S"/>
  <item id="ID_VIEW_DOWNLOADS" text="Descargando" shortcut="F3"/>
@@ -68,7 +68,7 @@
  <item id="ID_VIEW_SECURITY" text="Seguridad"   shortcut="F7"/>
  <item id="ID_VIEW_HOSTS" text="Caché de Hosts" shortcut="F8"/>
   <!--NOTE: Maybe 'Cache de Equipos' (not recommended)-->
- <item id="ID_VIEW_DISCOVERY" text="Descubrimientos"  shortcut="F9"/> 
+ <item id="ID_VIEW_DISCOVERY" text="Descubrimientos"  shortcut="F9"/>
   <!--NOTE: 'Servicios de descubrimiento' = 'Discovery services'-->
  <item id="ID_VIEW_TRAFFIC" text="Gráfico" shortcut="F10"/>
  <item id="ID_VIEW_SYSTEM" text="Sistema"  shortcut="F11"/>
@@ -143,14 +143,14 @@
   <item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir Downloads Folder"/>
   <separator/>
  <item id="ID_TOOLS_DOWNLOAD" text="Descargar Archivo/Torrent..."/>
- <item id="ID_TOOLS_SEEDTORRENT" text="Enviar Nuevo Torrent..."/> 
+ <item id="ID_TOOLS_SEEDTORRENT" text="Enviar Nuevo Torrent..."/>
  <item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
-  <!--NOTE: Even Seed is used, it has no translation: I've used 'Send' for the translation.--> 
+  <!--NOTE: Even Seed is used, it has no translation: I've used 'Send' for the translation.-->
   <!--NOTE: Maybe 'proporcionar' (provide) or  'lanzar' (launch).-->
  <item id="IDC_IMPORT_DOWNLOADS"  text="Importar Parciales de eDonkey..."/>
  <separator/>
  <item id="ID_TOOLS_LANGUAGE" text="Seleccionar idioma..."/>
- <item id="ID_TOOLS_SKIN" text="Seleccionar un Skin..."/> 
+ <item id="ID_TOOLS_SKIN" text="Seleccionar un Skin..."/>
   <!--NOTE: Skin ~ piel? Skin is used most frequently-->
  <separator/>
  <item id="ID_TOOLS_PROFILE" text="Editar Mi Perfil..."/>
@@ -159,7 +159,7 @@
  <item id="ID_TOOLS_SETTINGS" text="Configuración de PeerProject..."/>
 </menu>
 
-<menu text="_Vista Avanzada"> 
+<menu text="_Vista Avanzada">
  <item id="ID_TAB_HOME" text="Inicio"  shortcut="Ctrl+H"/>
  <item id="ID_TAB_SEARCH" text="Buscar"  shortcut="Ctrl+S"/>
  <item id="ID_VIEW_DOWNLOADS" text="Descargando" shortcut="F3"/>
@@ -171,7 +171,7 @@
  <item id="ID_VIEW_SECURITY" text="Seguridad"   shortcut="F7"/>
  <item id="ID_VIEW_HOSTS" text="Caché de Hosts" shortcut="F8"/>
   <!--NOTE: Maybe 'Cache de Equipos' (not recommended)-->
- <item id="ID_VIEW_DISCOVERY" text="Descubrimientos"  shortcut="F9"/> 
+ <item id="ID_VIEW_DISCOVERY" text="Descubrimientos"  shortcut="F9"/>
   <!--NOTE: 'Servicios de descubrimiento' = 'Discovery services'-->
  <item id="ID_VIEW_TRAFFIC" text="Gráfico" shortcut="F10"/>
  <item id="ID_VIEW_SYSTEM" text="Sistema"  shortcut="F11"/>
@@ -246,14 +246,14 @@
   <item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir Downloads Folder"/>
   <separator/>
  <item id="ID_TOOLS_DOWNLOAD" text="Descargar Archivo/Torrent..."/>
- <item id="ID_TOOLS_SEEDTORRENT" text="Enviar Nuevo Torrent..."/> 
+ <item id="ID_TOOLS_SEEDTORRENT" text="Enviar Nuevo Torrent..."/>
  <item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
-  <!--NOTE: Even Seed is used, it has no translation: I've used 'Send' for the translation.--> 
+  <!--NOTE: Even Seed is used, it has no translation: I've used 'Send' for the translation.-->
   <!--NOTE: Maybe 'proporcionar' (provide) or  'lanzar' (launch).-->
  <item id="IDC_IMPORT_DOWNLOADS"  text="Importar Parciales de eDonkey..."/>
  <separator/>
  <item id="ID_TOOLS_LANGUAGE" text="Seleccionar idioma..."/>
- <item id="ID_TOOLS_SKIN" text="Seleccionar un Skin..."/> 
+ <item id="ID_TOOLS_SKIN" text="Seleccionar un Skin..."/>
   <!--NOTE: Skin ~ piel? Skin is used most frequently-->
  <separator/>
  <item id="ID_TOOLS_PROFILE" text="Editar Mi Perfil..."/>
@@ -262,7 +262,7 @@
  <item id="ID_TOOLS_SETTINGS" text="Configuración de PeerProject..."/>
 </menu>
 
-<menu text="_Vista Avanzada"> 
+<menu text="_Vista Avanzada">
  <item id="ID_TAB_HOME" text="Inicio"  shortcut="Ctrl+H"/>
  <item id="ID_TAB_SEARCH" text="Buscar"  shortcut="Ctrl+S"/>
  <item id="ID_VIEW_DOWNLOADS" text="Descargando" shortcut="F3"/>
@@ -274,7 +274,7 @@
  <item id="ID_VIEW_SECURITY" text="Seguridad"   shortcut="F7"/>
  <item id="ID_VIEW_HOSTS" text="Caché de Hosts" shortcut="F8"/>
   <!--NOTE: Maybe 'Cache de Equipos' (not recommended)-->
- <item id="ID_VIEW_DISCOVERY" text="Descubrimientos"  shortcut="F9"/> 
+ <item id="ID_VIEW_DISCOVERY" text="Descubrimientos"  shortcut="F9"/>
   <!--NOTE: 'Servicios de descubrimiento' = 'Discovery services'-->
  <item id="ID_VIEW_TRAFFIC" text="Gráfico" shortcut="F10"/>
  <item id="ID_VIEW_SYSTEM" text="Sistema"  shortcut="F11"/>
@@ -331,15 +331,15 @@
 <toolbars>
 
 <toolbar name="CMainWnd.Tabbed">
-<button id="ID_NETWORK_CONNECT" text="Conectar"/>  
+<button id="ID_NETWORK_CONNECT" text="Conectar"/>
 <separator/>
-<button id="ID_WINDOW_NAVBAR" text="Mostrar Barra de Navegación"/>  
+<button id="ID_WINDOW_NAVBAR" text="Mostrar Barra de Navegación"/>
 </toolbar>
 
 <toolbar name="CMainWnd.Basic">
-<button id="ID_NETWORK_CONNECT" text="Conectar"/>  
+<button id="ID_NETWORK_CONNECT" text="Conectar"/>
 <separator/>
-<button id="ID_VIEW_TABBED" text="Mostrar Modo Avanzado"/>  
+<button id="ID_VIEW_TABBED" text="Mostrar Modo Avanzado"/>
 </toolbar>
 
 </toolbars>

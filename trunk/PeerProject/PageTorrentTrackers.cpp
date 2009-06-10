@@ -54,7 +54,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CTorrentTrackersPage property page
 
-CTorrentTrackersPage::CTorrentTrackersPage() : 
+CTorrentTrackersPage::CTorrentTrackersPage() :
 	CPropertyPageAdv( CTorrentTrackersPage::IDD ),
 	m_pDownload( NULL )
 {
@@ -82,7 +82,7 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 {
 	if ( ! CPropertyPageAdv::OnInitDialog() )
 		return FALSE;
-	
+
 	CSingleLock oLock( &Transfers.m_pSection );
 	if ( ! oLock.Lock( 250 ) )
 		return FALSE;
@@ -168,32 +168,32 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 	return TRUE;
 }
 
-void CTorrentTrackersPage::OnDestroy() 
+void CTorrentTrackersPage::OnDestroy()
 {
-	if ( IsThreadAlive() ) 
+	if ( IsThreadAlive() )
 	{
 		m_pRequest.Cancel();
 		CloseThread();
 	}
-	
+
 	CPropertyPageAdv::OnDestroy();
 }
 
-void CTorrentTrackersPage::OnTorrentRefresh() 
+void CTorrentTrackersPage::OnTorrentRefresh()
 {
 	if ( m_wndRefresh.IsWindowEnabled() == FALSE ) return;
-	
-	if ( IsThreadAlive() ) 
+
+	if ( IsThreadAlive() )
 	{
 		m_pRequest.Cancel();
 		CloseThread();
 	}
-	
+
 	m_wndRefresh.EnableWindow( FALSE );
 	BeginThread( "PageTorrentTrackers" );
 }
 
-void CTorrentTrackersPage::OnTimer(UINT_PTR nIDEvent) 
+void CTorrentTrackersPage::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( nIDEvent == 1 )
 	{
@@ -309,7 +309,7 @@ void CTorrentTrackersPage::OnRun()
 								PostMessage( WM_TIMER, 3 );
 								return;
 							}
-							
+
 							delete pNode;
 						}
 					}
@@ -324,7 +324,7 @@ void CTorrentTrackersPage::OnRun()
 BOOL CTorrentTrackersPage::OnTree(CBENode* pNode)
 {
 	if ( ! pNode->IsType( CBENode::beDict ) ) return FALSE;
-	
+
 	CBENode* pFiles = pNode->GetNode( "files" );
 	if ( ! pFiles->IsType( CBENode::beDict ) ) return FALSE;
 
@@ -341,26 +341,26 @@ BOOL CTorrentTrackersPage::OnTree(CBENode* pNode)
 	}
 
     CBENode* pFile = pFiles->GetNode( nKey, Hashes::BtHash::byteCount );
-	if ( ! pFile->IsType( CBENode::beDict ) ) return FALSE;	
-	
+	if ( ! pFile->IsType( CBENode::beDict ) ) return FALSE;
+
 	m_nComplete		= 0;
 	m_nIncomplete	= 0;
-	
+
 	if ( CBENode* pComplete = pFile->GetNode( "complete" ) )
 	{
 		if ( ! pComplete->IsType( CBENode::beInt ) ) return FALSE;
 		// Since we read QWORDs, make sure we won't get negative values;
 		// Some buggy trackers send very huge numbers, so let's leave them as
-		// the max int.	
+		// the max int.
 		m_nComplete = (int)(pComplete->GetInt() & ~0xFFFF0000);
 	}
-	
+
 	if ( CBENode* pIncomplete = pFile->GetNode( "incomplete" ) )
 	{
-		if ( ! pIncomplete->IsType( CBENode::beInt ) ) return FALSE;	
+		if ( ! pIncomplete->IsType( CBENode::beInt ) ) return FALSE;
 		m_nIncomplete = (int)(pIncomplete->GetInt() & ~0xFFFF0000);
 	}
-	
+
 	return TRUE;
 }
 
@@ -368,11 +368,11 @@ void CTorrentTrackersPage::OnEnChangeTorrentTracker()
 {
 	if ( ! UpdateData() )
 		return;
- 
+
 	CSingleLock oLock( &Transfers.m_pSection );
 	if ( ! oLock.Lock( 250 ) )
 		return;
- 
+
 	if ( ! Downloads.Check( m_pDownload ) || m_pDownload->IsMoving() )
 		return;
 

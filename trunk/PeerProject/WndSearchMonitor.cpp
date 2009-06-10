@@ -75,19 +75,19 @@ CSearchMonitorWnd::~CSearchMonitorWnd()
 /////////////////////////////////////////////////////////////////////////////
 // CSearchMonitorWnd message handlers
 
-int CSearchMonitorWnd::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CSearchMonitorWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CPanelWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
-	
+
 	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
 		rectDefault, this, IDC_SEARCHES );
 
 	m_pSizer.Attach( &m_wndList );
-	
+
 	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
 		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP,
 		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
-	
+
 	VERIFY( m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 1, 1 ) );
 	AddIcon( IDR_SEARCHMONITORFRAME , m_gdiImageList );
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
@@ -98,16 +98,16 @@ int CSearchMonitorWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( 3, _T("Endpoint"), LVCFMT_LEFT, 100, 2 );
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
-	
+
 	LoadState( _T("CSearchMonitorWnd"), TRUE );
-	
+
 	m_bPaused = FALSE;
 	SetTimer( 2, 250, NULL );
 
 	return 0;
 }
 
-void CSearchMonitorWnd::OnDestroy() 
+void CSearchMonitorWnd::OnDestroy()
 {
 	KillTimer( 2 );
 
@@ -134,24 +134,24 @@ void CSearchMonitorWnd::OnSkinChange()
 	Settings.LoadList( _T("CSearchMonitorWnd"), &m_wndList );
 }
 
-void CSearchMonitorWnd::OnSize(UINT nType, int cx, int cy) 
+void CSearchMonitorWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CPanelWnd::OnSize( nType, cx, cy );
 	m_pSizer.Resize( cx );
 	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy, SWP_NOZORDER );
 }
 
-void CSearchMonitorWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point) 
+void CSearchMonitorWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
 	Skin.TrackPopupMenu( _T("CSearchMonitorWnd"), point, ID_HITMONITOR_SEARCH );
 }
 
-void CSearchMonitorWnd::OnUpdateSearchMonitorSearch(CCmdUI* pCmdUI) 
+void CSearchMonitorWnd::OnUpdateSearchMonitorSearch(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( m_wndList.GetSelectedCount() == 1 );
 }
 
-void CSearchMonitorWnd::OnSearchMonitorSearch() 
+void CSearchMonitorWnd::OnSearchMonitorSearch()
 {
 	int nItem = m_wndList.GetNextItem( -1, LVNI_SELECTED );
 
@@ -160,12 +160,12 @@ void CSearchMonitorWnd::OnSearchMonitorSearch()
 		auto_ptr< CQuerySearch > pSearch( new CQuerySearch() );
 		pSearch->m_sSearch = m_wndList.GetItemText( nItem, 0 );
 
-		if ( pSearch->m_sSearch.GetLength() == 0 || 
+		if ( pSearch->m_sSearch.GetLength() == 0 ||
 			 _tcscmp( pSearch->m_sSearch, _T("\\") ) == 0 )
 		{
 			pSearch->m_sSearch = m_wndList.GetItemText( nItem, 1 );
-			
-			if ( _tcsicmp( pSearch->m_sSearch, _T("None") ) != 0 && 
+
+			if ( _tcsicmp( pSearch->m_sSearch, _T("None") ) != 0 &&
 				 _tcsncmp( pSearch->m_sSearch, _T("btih:"), 5 ) != 0 )
 				pSearch->m_sSearch = _T("urn:") + m_wndList.GetItemText( nItem, 1 );
 			else
@@ -177,17 +177,17 @@ void CSearchMonitorWnd::OnSearchMonitorSearch()
 	}
 }
 
-void CSearchMonitorWnd::OnUpdateSearchMonitorPause(CCmdUI* pCmdUI) 
+void CSearchMonitorWnd::OnUpdateSearchMonitorPause(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck( m_bPaused );
 }
 
-void CSearchMonitorWnd::OnSearchMonitorPause() 
+void CSearchMonitorWnd::OnSearchMonitorPause()
 {
 	m_bPaused = ! m_bPaused;
 }
 
-void CSearchMonitorWnd::OnSearchMonitorClear() 
+void CSearchMonitorWnd::OnSearchMonitorClear()
 {
 	m_wndList.DeleteAllItems();
 }
@@ -252,9 +252,9 @@ void CSearchMonitorWnd::OnQuerySearch(CQuerySearch* pSearch)
 	{
 		strSearch += ' ';
 		strSearch += pSearch->m_pXML->GetRecursiveWords();
-		
+
 		strSchema = pSearch->m_pXML->GetAttributeValue( CXMLAttribute::schemaName, _T("") );
-		
+
 		int nSlash = strSchema.ReverseFind( '/' );
 		if ( nSlash > 0 ) strSchema = strSchema.Mid( nSlash + 1 );
 	}
@@ -263,11 +263,11 @@ void CSearchMonitorWnd::OnQuerySearch(CQuerySearch* pSearch)
 	pItem->Set( 1, strURN );
 	pItem->Set( 2, strSchema );
 	pItem->Set( 3, strNode );
-		
+
 	m_pQueue.AddTail( pItem );
 }
 
-void CSearchMonitorWnd::OnTimer(UINT_PTR nIDEvent) 
+void CSearchMonitorWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( nIDEvent != 2 ) return;
 

@@ -74,7 +74,7 @@ IDR_CLASS       REGISTRY                "Class.rgs"
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PROJNAME            "ZIPBuilder"
 END

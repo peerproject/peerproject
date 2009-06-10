@@ -12,7 +12,7 @@
 /* Release notes:
    01st October 2000:
       Fixed call_traits on VC6, using "poor man's partial specialisation",
-      using ideas taken from "Generative programming" by Krzysztof Czarnecki 
+      using ideas taken from "Generative programming" by Krzysztof Czarnecki
       & Ulrich Eisenecker.
 */
 
@@ -94,7 +94,7 @@ struct call_traits_chooser<false, false, true>
    };
 };
 
-template <bool size_is_small> 
+template <bool size_is_small>
 struct call_traits_sizeof_chooser2
 {
    template <class T>
@@ -104,7 +104,7 @@ struct call_traits_sizeof_chooser2
    };
 };
 
-template<> 
+template<>
 struct call_traits_sizeof_chooser2<false>
 {
    template <class T>
@@ -134,7 +134,7 @@ struct call_traits
 private:
     typedef detail::call_traits_chooser<
          ::boost::is_pointer<T>::value,
-         ::boost::is_arithmetic<T>::value, 
+         ::boost::is_arithmetic<T>::value,
          ::boost::is_reference<T>::value
       > chooser;
    typedef typename chooser::template rebind<T> bound_type;

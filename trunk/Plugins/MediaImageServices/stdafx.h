@@ -44,7 +44,7 @@
 #include <dshow.h>
 #include <amvideo.h>
 
-//qedit.h workaround for missing dxtrans.h  
+//qedit.h workaround for missing dxtrans.h
 #pragma include_alias( "dxtrans.h", "qedit.h" )
 #define __IDxtCompositor_INTERFACE_DEFINED__
 #define __IDxtAlphaSetter_INTERFACE_DEFINED__

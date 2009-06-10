@@ -20,10 +20,10 @@
 // missing partial specialization  workaround.
 //////////////////////////////////////////////////////////////////////////////
 
-namespace boost 
+namespace boost
 {
-    namespace range_detail 
-    {        
+    namespace range_detail
+    {
         template< typename T >
         struct range_iterator_ {
             template< typename C >
@@ -55,23 +55,23 @@ namespace boost
 
         template<>
         struct range_iterator_<array_>
-        { 
+        {
             template< typename T >
             struct pts
             {
-                typedef BOOST_RANGE_DEDUCED_TYPENAME 
+                typedef BOOST_RANGE_DEDUCED_TYPENAME
                     remove_extent<T>::type* type;
             };
         };
-        
-    } 
+
+    }
 
     template< typename C >
     class range_mutable_iterator
     {
         typedef BOOST_RANGE_DEDUCED_TYPENAME range_detail::range<C>::type c_type;
     public:
-        typedef typename range_detail::range_iterator_<c_type>::BOOST_NESTED_TEMPLATE pts<C>::type type; 
+        typedef typename range_detail::range_iterator_<c_type>::BOOST_NESTED_TEMPLATE pts<C>::type type;
     };
 }
 

@@ -114,7 +114,7 @@ void CTorrentSeedDlg::OnDownload()
 		CPeerProjectURL oURL( pTorrent );
 
 		CSingleLock oLibraryLock( &Library.m_pSection, TRUE );
-		
+
 		CExistingFileDlg::Action action = CExistingFileDlg::CheckExisting( &oURL );
 		if ( action == CExistingFileDlg::Cancel )
 			return;
@@ -276,7 +276,7 @@ BOOL CTorrentSeedDlg::LoadTorrent(CString strPath)
 		CPeerProjectURL oURL( new CBTInfo( m_pInfo ) );
 		CDownload* pDownload = Downloads.Add( oURL );
 
-		if ( pDownload == NULL ) 			
+		if ( pDownload == NULL )
 			return FALSE;
 
 		if ( ! Network.IsConnected() )

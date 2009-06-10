@@ -78,7 +78,7 @@
   <item id="ID_VIEW_WINDOWED"		text="Pencereli Mod" shortcut="unsupported"/>
   <separator/>
   <item id="ID_WINDOW_NAVBAR"		text="Kaydırma Çubuğunu Göster" shortcut="required"/>
-  <item id="ID_WINDOW_TABBAR"		text="Sekme Çubuğunu Göster" shortcut="required"/>	
+  <item id="ID_WINDOW_TABBAR"		text="Sekme Çubuğunu Göster" shortcut="required"/>
   <item id="ID_WINDOW_MONITOR"		text="Monitörü Göster"/>
   <item id="ID_WINDOW_REMOTE"		text="Sanal Uzaktan Kumanda"/>
  </menu>
@@ -175,7 +175,7 @@
   <item id="ID_VIEW_WINDOWED"		text="Pencereli Mod" shortcut="unsupported"/>
   <separator/>
   <item id="ID_WINDOW_NAVBAR"		text="Kaydırma Çubuğunu Göster" shortcut="required"/>
-  <item id="ID_WINDOW_TABBAR"		text="Sekme Çubuğunu Göster" shortcut="required"/>	
+  <item id="ID_WINDOW_TABBAR"		text="Sekme Çubuğunu Göster" shortcut="required"/>
   <item id="ID_WINDOW_MONITOR"		text="Monitörü Göster"/>
   <item id="ID_WINDOW_REMOTE"		text="Sanal Uzaktan Kumanda"/>
  </menu>
@@ -272,7 +272,7 @@
   <item id="ID_VIEW_WINDOWED"		text="Pencereli Mod" shortcut="unsupported"/>
   <separator/>
   <item id="ID_WINDOW_NAVBAR"		text="Kaydırma Çubuğunu Göster" shortcut="required"/>
-  <item id="ID_WINDOW_TABBAR"		text="Sekme Çubuğunu Göster" shortcut="required"/>	
+  <item id="ID_WINDOW_TABBAR"		text="Sekme Çubuğunu Göster" shortcut="required"/>
   <item id="ID_WINDOW_MONITOR"		text="Monitörü Göster"/>
   <item id="ID_WINDOW_REMOTE"		text="Sanal Uzaktan Kumanda"/>
  </menu>

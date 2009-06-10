@@ -85,7 +85,7 @@ int CHomeWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-void CHomeWnd::OnDestroy() 
+void CHomeWnd::OnDestroy()
 {
 	SaveState();
 	CPanelWnd::OnDestroy();

@@ -1071,10 +1071,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Stabdyti visus"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Valyti visus"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Rodyti grupes"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Nauja grupė..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Š_alinti grupę"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Rodyti grupes"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Ypatybės"/>
 	</menu>
@@ -3672,7 +3672,7 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Numatytoji reikšmė"/>		
+		<control caption="Numatytoji reikšmė"/>
 		<control caption="Nuostatos ypatybės:"/>
 		<control caption="Reikšmė:"/>
 		<control caption="Aprašas:"/>
@@ -4484,10 +4484,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adresas ar turinys"/>
+		<column from="Hits" to="Kreipinių"/>
 		<column from="Action" to="Veiksmas"/>
 		<column from="Expires" to="Nustoja galioti"/>
-		<column from="#" to="Pirmumas"/>
-		<column from="Hits" to="Kreipinių"/>
+		<column from="#" to="#"/>
 		<column from="Comment" to="Komentaras"/>
 	</list>
 	<list name="CHostCacheWnd">

@@ -386,7 +386,7 @@ void CDownloadGroups::CleanTemporary()
 
 			m_pList.RemoveAt( posCurrent );
 			delete pGroup;
-			
+
 			m_nBaseCookie ++;
 			m_nGroupCookie ++;
 

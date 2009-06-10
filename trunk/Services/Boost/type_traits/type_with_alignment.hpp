@@ -213,7 +213,7 @@ class type_with_alignment_imp
 }
 
 template <std::size_t Align>
-class type_with_alignment 
+class type_with_alignment
   : public ::boost::detail::type_with_alignment_imp<Align>
 {
 };
@@ -256,74 +256,74 @@ BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a32,true)
 // with suitable alignment.  This does mean however, that type_with_alignment<>
 // may return a type which cannot be passed through a function call
 // by value (and neither can any type containing such a type like
-// Boost.Optional).  However, this only happens when we have no choice 
+// Boost.Optional).  However, this only happens when we have no choice
 // in the matter because no other "ordinary" type is available.
 //
 namespace align {
-struct __declspec(align(8)) a8 { 
-   char m[8]; 
+struct __declspec(align(8)) a8 {
+   char m[8];
    typedef a8 type;
 };
-struct __declspec(align(16)) a16 { 
-   char m[16]; 
+struct __declspec(align(16)) a16 {
+   char m[16];
    typedef a16 type;
 };
-struct __declspec(align(32)) a32 { 
-   char m[32]; 
+struct __declspec(align(32)) a32 {
+   char m[32];
    typedef a32 type;
 };
-struct __declspec(align(64)) a64 
-{ 
-   char m[64]; 
+struct __declspec(align(64)) a64
+{
+   char m[64];
    typedef a64 type;
 };
-struct __declspec(align(128)) a128 { 
-   char m[128]; 
+struct __declspec(align(128)) a128 {
+   char m[128];
    typedef a128 type;
 };
 }
 
-template<> class type_with_alignment<8>  
-{ 
+template<> class type_with_alignment<8>
+{
    typedef mpl::if_c<
       ::boost::alignment_of<detail::max_align>::value < 8,
       align::a8,
-      detail::type_with_alignment_imp<8> >::type t1; 
-public: 
+      detail::type_with_alignment_imp<8> >::type t1;
+public:
    typedef t1::type type;
 };
-template<> class type_with_alignment<16> 
-{ 
+template<> class type_with_alignment<16>
+{
    typedef mpl::if_c<
       ::boost::alignment_of<detail::max_align>::value < 16,
       align::a16,
-      detail::type_with_alignment_imp<16> >::type t1; 
-public: 
+      detail::type_with_alignment_imp<16> >::type t1;
+public:
    typedef t1::type type;
 };
-template<> class type_with_alignment<32> 
-{ 
+template<> class type_with_alignment<32>
+{
    typedef mpl::if_c<
       ::boost::alignment_of<detail::max_align>::value < 32,
       align::a32,
-      detail::type_with_alignment_imp<32> >::type t1; 
-public: 
+      detail::type_with_alignment_imp<32> >::type t1;
+public:
    typedef t1::type type;
 };
 template<> class type_with_alignment<64> {
    typedef mpl::if_c<
       ::boost::alignment_of<detail::max_align>::value < 64,
       align::a64,
-      detail::type_with_alignment_imp<64> >::type t1; 
-public: 
+      detail::type_with_alignment_imp<64> >::type t1;
+public:
    typedef t1::type type;
 };
 template<> class type_with_alignment<128> {
    typedef mpl::if_c<
       ::boost::alignment_of<detail::max_align>::value < 128,
       align::a128,
-      detail::type_with_alignment_imp<128> >::type t1; 
-public: 
+      detail::type_with_alignment_imp<128> >::type t1;
+public:
    typedef t1::type type;
 };
 

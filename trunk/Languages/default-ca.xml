@@ -1020,10 +1020,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Atura totes"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Cancel·la totes"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Mostra grups"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="Crea _grup..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Esborra grup"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Mostra grups"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Pr_opietats"/>
 	</menu>
@@ -1959,7 +1959,7 @@
 		<newline gap="8"/>
 		<text>Aquesta transferència està esperant a que algú comence a carregar-la.
 		PeerProject està llest per a descarregar l'arxiu, però ningú l'està compartint
-		en aquest moment. Estàs probablement esperant en cua de descàrrega. Pots examinar les fonts individuals per a 
+		en aquest moment. Estàs probablement esperant en cua de descàrrega. Pots examinar les fonts individuals per a
 		veure en quin lloc de la cua hi estàs esperant.
 		</text>
 	</document>
@@ -4330,10 +4330,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adreça / Contingut"/>
+		<column from="Hits" to="Coincidències"/>
 		<column from="Action" to="Acció"/>
 		<column from="Expires" to="Expiració"/>
 		<column from="#" to="Procedència"/>
-		<column from="Hits" to="Coincidències"/>
 		<column from="Comment" to="Comentari"/>
 	</list>
 	<list name="CHostCacheWnd">

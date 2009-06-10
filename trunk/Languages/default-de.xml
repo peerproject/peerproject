@@ -422,31 +422,31 @@
 	</toolbar>
 	<!-- WEBSERVICES -->
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Daten holen" /> 
-		<separator /> 
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Zurück" /> 
-		<button id="ID_SHAREMONKEY_NEXT" text="Vor" /> 
-		<separator /> 
-		<button id="ID_SHAREMONKEY_PRICES" text="Preisanfrage" /> 
-		<button id="ID_SHAREMONKEY_COMPARE" text="Vergleichen" /> 
-		<button id="ID_SHAREMONKEY_BUY" text="Kaufen" /> 
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Daten holen" />
+		<separator />
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Zurück" />
+		<button id="ID_SHAREMONKEY_NEXT" text="Vor" />
+		<separator />
+		<button id="ID_SHAREMONKEY_PRICES" text="Preisanfrage" />
+		<button id="ID_SHAREMONKEY_COMPARE" text="Vergleichen" />
+		<button id="ID_SHAREMONKEY_BUY" text="Kaufen" />
 	</toolbar>
 	<toolbar name="WebServices.ShareMonkey.WithSave">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Daten holen" /> 
-		<button id="ID_SHAREMONKEY_SAVE" text="Speichern" /> 
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Daten holen" />
+		<button id="ID_SHAREMONKEY_SAVE" text="Speichern" />
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Vorschau speichern" width="100" checked="true"/>
-		<separator /> 
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Zurück" /> 
-		<button id="ID_SHAREMONKEY_NEXT" text="Vor" /> 
-		<separator /> 
-		<button id="ID_SHAREMONKEY_PRICES" text="Preisanfrage" /> 
-		<button id="ID_SHAREMONKEY_COMPARE" text="Vergleichen" /> 
-		<button id="ID_SHAREMONKEY_BUY" text="Kaufen" /> 
+		<separator />
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Zurück" />
+		<button id="ID_SHAREMONKEY_NEXT" text="Vor" />
+		<separator />
+		<button id="ID_SHAREMONKEY_PRICES" text="Preisanfrage" />
+		<button id="ID_SHAREMONKEY_COMPARE" text="Vergleichen" />
+		<button id="ID_SHAREMONKEY_BUY" text="Kaufen" />
 	</toolbar>
 	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="Treffer anzeigen" /> 
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="Alle Alben ansehen" /> 
-		<separator /> 
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Treffer anzeigen" />
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Alle Alben ansehen" />
+		<separator />
 	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
@@ -1070,10 +1070,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Alle _anhalten"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Alle _entfernen"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Gruppen a_nzeigen"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Neue Gruppe..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Gruppe entfernen"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Gruppen a_nzeigen"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Ei_genschaften"/>
 	</menu>
@@ -1413,7 +1413,7 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<menu id="ID_SYSTEM_VERBOSE" text="_Modus"> 
+		<menu id="ID_SYSTEM_VERBOSE" text="_Modus">
 			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
@@ -4395,7 +4395,7 @@
 		<control/>
 		<control/>
 		<control caption="OK"/>
-		<control caption="Abbrechen"/>	
+		<control caption="Abbrechen"/>
 	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
@@ -4464,10 +4464,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adresse/Inhalt"/>
+		<column from="Hits" to="Treffer"/>
 		<column from="Action" to="Aktion"/>
 		<column from="Expires" to="Läuft ab"/>
 		<column from="#" to="Priorität"/>
-		<column from="Hits" to="Treffer"/>
 		<column from="Comment" to="Kommentar"/>
 	</list>
 	<list name="CHostCacheWnd">

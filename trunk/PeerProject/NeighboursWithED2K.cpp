@@ -66,7 +66,7 @@ CEDNeighbour* CNeighboursWithED2K::GetDonkeyServer() const // Here, const means 
 	{
 		// Get the neighbour under the current position, and move to the next position
 		CEDNeighbour* pNeighbour = (CEDNeighbour*)GetNext( pos );
-		
+
 		// This neighbour really is running eDonkey2000
 		if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
 		{

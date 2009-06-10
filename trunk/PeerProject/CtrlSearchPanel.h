@@ -97,7 +97,7 @@ public:
 	CBrush			m_brBack;
 	COLORREF		m_crBack;
 	CImageList		m_gdiImageList;
-	
+
 // Operations
 public:
 	void	OnSkinChange();
@@ -128,7 +128,7 @@ public:
 	CSearchSchemaBox();
 	virtual ~CSearchSchemaBox();
 	DECLARE_DYNAMIC(CSearchSchemaBox)
-	
+
 // Attributes
 public:
 	CSchemaCtrl		m_wndSchema;
@@ -219,7 +219,7 @@ public:
 	void			OnSkinChange();
 	void			Disable();
 	void			Enable();
-	
+
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CSearchPanel)

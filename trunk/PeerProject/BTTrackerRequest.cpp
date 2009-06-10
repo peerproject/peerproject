@@ -44,8 +44,8 @@ CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR ps
 	m_bProcess( bProcess )
 {
 	ASSERT( pDownload != NULL );
-	ASSERT( pDownload->IsTorrent() ); 
-		
+	ASSERT( pDownload->IsTorrent() );
+
 	CString strURL;
 	// Create the basic URL
 	CString strAddress = pDownload->m_pTorrent.GetTrackerAddress();
@@ -58,17 +58,17 @@ CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR ps
 		pDownload->m_nTorrentUploaded,
 		pDownload->m_nTorrentDownloaded,
 		pDownload->GetVolumeRemaining() );
-	
+
 	// If an event was specified, add it.
 	if ( pszVerb != NULL )
-	{	
+	{
 		// Valid events: started, completed, stopped
 		strURL += _T("&event=");
 		strURL += pszVerb;
 
 		// If event is 'started' and the IP is valid, add it.
 		if ( !_tcscmp( pszVerb, _T("started") ) && Network.m_pHost.sin_addr.s_addr != INADDR_ANY )
-		{	
+		{
 			// Note: Some trackers ignore this value and take the IP the request came from. (Usually the same)
 			strURL += _T("&ip=");
 			strURL += inet_ntoa( Network.m_pHost.sin_addr );
@@ -82,13 +82,13 @@ CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR ps
 
 	// If the TrackerKey is true and we have a valid key, then use it.
 	if ( ( pDownload->m_sKey.GetLength() > 4 ) && ( Settings.BitTorrent.TrackerKey ) )
-	{	
+	{
 		ASSERT ( pDownload->m_sKey.GetLength() < 20 );		//Key too long
 
 		strURL += _T("&key=");
 		strURL += pDownload->m_sKey;
-	}	
-	
+	}
+
 	m_pRequest.SetURL( strURL );
 	m_pRequest.AddHeader( _T("Accept-Encoding"), _T("deflate, gzip") );
 	m_pRequest.EnableCookie( false );
@@ -113,14 +113,14 @@ CBTTrackerRequest::~CBTTrackerRequest()
 CString CBTTrackerRequest::Escape(const Hashes::BtHash& oBTH)
 {
 	static LPCTSTR pszHex = _T("0123456789ABCDEF");
-	
+
 	CString str;
-    LPTSTR psz = str.GetBuffer( Hashes::BtHash::byteCount * 3 + 1 );
-	
+	LPTSTR psz = str.GetBuffer( Hashes::BtHash::byteCount * 3 + 1 );
+
 	for ( int nByte = 0 ; nByte < Hashes::BtHash::byteCount ; nByte++ )
 	{
 		int nValue = oBTH[ nByte ];
-		
+
 		if (	( nValue >= '0' && nValue <= '9' ) ||
 				( nValue >= 'a' && nValue <= 'z' ) ||
 				( nValue >= 'A' && nValue <= 'Z' ) )
@@ -134,24 +134,24 @@ CString CBTTrackerRequest::Escape(const Hashes::BtHash& oBTH)
 			*psz++ = pszHex[ nValue & 15 ];
 		}
 	}
-	
+
 	*psz = 0;
 	str.ReleaseBuffer();
-	
+
 	return str;
 }
 
 CString CBTTrackerRequest::Escape(const Hashes::BtGuid& oGUID)
 {
 	static LPCTSTR pszHex = _T("0123456789ABCDEF");
-	
+
 	CString str;
-    LPTSTR psz = str.GetBuffer( Hashes::BtGuid::byteCount * 3 + 1 );
-	
+	LPTSTR psz = str.GetBuffer( Hashes::BtGuid::byteCount * 3 + 1 );
+
 	for ( int nByte = 0 ; nByte < Hashes::BtGuid::byteCount ; nByte++ )
 	{
 		int nValue = oGUID[ nByte ];
-		
+
 		if (	( nValue >= '0' && nValue <= '9' ) ||
 				( nValue >= 'a' && nValue <= 'z' ) ||
 				( nValue >= 'A' && nValue <= 'Z' ) )
@@ -165,10 +165,10 @@ CString CBTTrackerRequest::Escape(const Hashes::BtGuid& oGUID)
 			*psz++ = pszHex[ nValue & 15 ];
 		}
 	}
-	
+
 	*psz = 0;
 	str.ReleaseBuffer();
-	
+
 	return str;
 }
 

@@ -59,7 +59,7 @@ CTransferFile* CTransferFiles::Open(LPCTSTR pszFile, BOOL bWrite)
 	{
 		if ( bWrite && ! pFile->EnsureWrite() )
 			return NULL;
-	
+
 		pFile->AddRef();
 	}
 	else

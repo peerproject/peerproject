@@ -234,7 +234,7 @@ BOOL CSearchManager::OnQueryAck(CG2Packet* pPacket, SOCKADDR_IN* pHost, Hashes::
 		_T("Processing query acknowledgement from %s (time adjust %+d seconds): %d hubs, %d leaves, %d suggested hubs, retry after %d seconds."),
 		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), tAdjust,
 		nHubs, nLeaves, nSuggestedHubs, nRetryAfter );
-	
+
 	CSingleLock pLock( &m_pSection );
 
 	if ( pLock.Lock( 100 ) )
@@ -299,7 +299,7 @@ WORD CSearchManager::OnQueryStatusRequest(const Hashes::Guid& oGUID)
 {
 	CSingleLock pLock( &m_pSection );
 	if ( ! pLock.Lock( 100 ) ) return 0xFFFF;
-	
+
 	CManagedSearch* pSearch = Find( oGUID );
 	if ( pSearch == NULL ) return 0xFFFF;
 

@@ -335,7 +335,7 @@ BOOL CPeerProjectApp::InitInstance()
 
 	// ***********
 	//*
-	// BETA EXPIRATION. Remember to re-compile to update the time, 
+	// BETA EXPIRATION. Remember to re-compile to update the time,
 	// and remove this section for final releases and public betas.
 	COleDateTime tCurrent = COleDateTime::GetCurrentTime();
 	//COleDateTimeSpan tTimeOut( 31 * 2, 0, 0, 0);	// Betas that aren't on sourceforge
@@ -354,7 +354,7 @@ BOOL CPeerProjectApp::InitInstance()
 	if ( ! m_ocmdInfo.m_bNoAlphaWarning && m_ocmdInfo.m_bShowSplash )
 	if ( AfxMessageBox(
 		L"\nWARNING: This is an ALPHA TEST version of PeerProject p2p"
-#ifdef __REVISION__		
+#ifdef __REVISION__
 		L", r" _T(__REVISION__)
 #endif
 		L".\n\nNOT FOR GENERAL USE, it is intended for pre-release testing in controlled environments.  "
@@ -1863,7 +1863,7 @@ LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Folder Path Methods for Windows Vista/7 or XP/2000/2003 
+// Folder Path Methods for Windows Vista/7 or XP/2000/2003
 
 CString CPeerProjectApp::GetWindowsFolder() const
 {

@@ -48,8 +48,8 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFileSharingPage property page
 
-CFileSharingPage::CFileSharingPage() : 
-	CFilePropertiesPage(CFileSharingPage::IDD), m_bOverride( -1 ), 
+CFileSharingPage::CFileSharingPage() :
+	CFilePropertiesPage(CFileSharingPage::IDD), m_bOverride( -1 ),
 	m_bShare( FALSE ), m_sTags()
 {
 }

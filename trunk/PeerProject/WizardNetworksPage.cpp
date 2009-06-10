@@ -71,7 +71,7 @@ void CWizardNetworksPage::DoDataExchange(CDataExchange* pDX)
 /////////////////////////////////////////////////////////////////////////////
 // CWizardNetworksPage message handlers
 
-BOOL CWizardNetworksPage::OnInitDialog() 
+BOOL CWizardNetworksPage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 
@@ -92,13 +92,13 @@ BOOL CWizardNetworksPage::OnInitDialog()
 	return TRUE;
 }
 
-BOOL CWizardNetworksPage::OnSetActive() 
+BOOL CWizardNetworksPage::OnSetActive()
 {
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
 	return CWizardPage::OnSetActive();
 }
 
-LRESULT CWizardNetworksPage::OnWizardNext() 
+LRESULT CWizardNetworksPage::OnWizardNext()
 {
 	UpdateData();
 
@@ -145,7 +145,7 @@ void CWizardNetworksPage::DoDonkeyImport()
 	{
 		strFolder = pszFolders[ nFolder ];
 		strFolder.Replace( _T("<%PROGRAMFILES%>"), strPrograms );
-		
+
 		if ( GetFileAttributes( strFolder ) != 0xFFFFFFFF )
 		{
 			dlg.m_pImporter.AddFolder( strFolder );

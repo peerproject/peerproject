@@ -74,8 +74,8 @@
   <!--color name="Monitor.Download.Bar" 		value="FFFFFF"-->
   <color name="Monitor.Upload.Line" 			value="809AC0"/>
   <color name="Monitor.Upload.Bar" 			value="809AC0"/>
-  <color name="Schema.Row1"				value="F4F2F0"/> 
-  <color name="Schema.Row2"				value="EAE8E4"/> 
+  <color name="Schema.Row1"				value="F4F2F0"/>
+  <color name="Schema.Row2"				value="EAE8E4"/>
   <color name="Schema.Rating"				value="4A4440"/>
   <color name="Schema.Rating0"				value="EA4A60"/>
   <color name="Schema.Rating1"				value="CAC4C0"/>
@@ -121,7 +121,7 @@
   <color name="FragmentBar.Border.Simplebar" 		value="888888"/>
   <color name="FragmentBar.Border.Simplebar.Selected" 	value="808080"/>
   <color name="DropdownBox.Back"			value="FFFFFF"/>
-  <color name="DropdownBox.Text"			value="403A38"/> 
+  <color name="DropdownBox.Text"			value="403A38"/>
   <color name="ResizeBar.Edge"				value="E8E7E6"/>
   <color name="ResizeBar.Face"				value="F8F7F6"/>
   <color name="ResizeBar.Shadow" 			value="E0DFDD"/>
@@ -174,7 +174,7 @@
   <watermark target="CIRCPanel.Footer" 			path="Vista\SidebarFooter.png"/>
   <watermark target="CIRCWaterMarkPanel"		path="Vista\MenuBkg.png"/>
   <watermark target="CIRCHeaderPanel"			path="BrowseBanner.png"/>
-  <watermark target="CLibraryHeaderPanel"		path="BrowseBanner.png"/> 
+  <watermark target="CLibraryHeaderPanel"		path="BrowseBanner.png"/>
   <watermark target="CBrowseHeaderCtrl.Toolbar" 	path="BrowseBanner.png"/>
   <!--watermark target="CPanelWnd.Caption" 		path="Footer.png"-->
   <watermark target="CIRCUsersBox.Caption"		path="Vista\SidebarCaption.png"/>
@@ -215,7 +215,7 @@
 
 <!-- Main Window -->
 
-<windowSkin> 
+<windowSkin>
 <image 	path="FrameVista.png"/>
 <target window="CMainWnd"/>
 <parts>
@@ -241,12 +241,12 @@
  <part name="CloseHover"	rect="575,135,42,21"/>
  <part name="CloseDown" 	rect="575,159,42,21"/>
 </parts>
-<anchors> 
+<anchors>
  <anchor name="Minimise"	rect="-101,0,26,21"/>
  <anchor name="Maximise"	rect="-75,0,26,21"/>
  <anchor name="Close"		rect="-49,0,42,21"/>
 </anchors>
-<region> 
+<region>
  <shape type="roundRect"	rect="0,2,-1,-1" size="12,12"/>
  <shape type="roundRect"	rect="0,-20,-1,-1" size="9,9" combine="or"/>
  <shape type="rectangle"	rect="8,0,19,2" combine="or"/>
@@ -327,7 +327,7 @@
 <windowSkin>
 <image path="FrameVista.png"/>
 <target window="CChildWnd"/>
-<parts> 
+<parts>
  <part name="TopLeft"		rect="9,76,220,27"/>
  <part name="Top"		rect="230,76,10,27"/>
  <part name="TopRight"		rect="482,76,148,27"/>
@@ -343,7 +343,7 @@
  <part name="CloseHover"	rect="575,182,42,18"/>
  <part name="CloseDown" 	rect="575,202,42,18"/>
 </parts>
-<anchors> 
+<anchors>
  <anchor name="Icon"		rect="6,5,16,16"/>
  <anchor name="Minimise"	rect="-99,1,25,18"/>
  <anchor name="Maximise"	rect="-74,1,26,18"/>
@@ -506,7 +506,7 @@
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/> 
+<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked"	rect="0,24,70,24"/>
@@ -552,7 +552,7 @@
 <menus>
 <menu name="CMainWnd.Tabbed" type="bar">
 <menu text="- . . ..-. . .">
-     
+
  <item id="ID_TOOLS_SETTINGS"		text="_Settings..."/>
 
  <menu text="_Network">
@@ -645,7 +645,7 @@
 
 <menu name="CMainWnd.Windowed" type="bar">
 <menu text="- . . ..-. . .">
-     
+
  <item id="ID_TOOLS_SETTINGS"		text="_Settings..."/>
 
  <menu text="_Network">
@@ -739,9 +739,9 @@
 <menu name="CMainWnd.Basic" type="bar">
 <menu text=" . . . . .. . .">
 
- <menu text="Warning :"> 
+ <menu text="Warning :">
  </menu>
- <menu text="Basic Mode Unsupported."> 
+ <menu text="Basic Mode Unsupported.">
   <item id="ID_VIEW_TABBED"		text="Restore Full Tabbed Mode"/>
  </menu>
  <separator/>

@@ -84,7 +84,7 @@ CSecurityWnd::~CSecurityWnd()
 /////////////////////////////////////////////////////////////////////////////
 // CSecurityWnd message handlers
 
-int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CPanelWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
@@ -95,14 +95,14 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		rectDefault, this, IDC_RULES );
 
 	m_pSizer.Attach( &m_wndList );
-	
+
 	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
 		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP,
 		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
-	
+
 	CBitmap bmBase;
 	bmBase.LoadBitmap( IDB_SECURITY );
-	if ( Settings.General.LanguageRTL ) 
+	if ( Settings.General.LanguageRTL )
 		bmBase.m_hObject = CreateMirroredBitmap( (HBITMAP) bmBase.m_hObject );
 
 	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 3, 1 ) ||
@@ -119,7 +119,7 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( 5, _T("Comment"), LVCFMT_LEFT, 140, 4 );
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
-	
+
 	LoadState( _T("CSecurityWnd"), TRUE );
 
 	Update();
@@ -127,11 +127,11 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-void CSecurityWnd::OnDestroy() 
+void CSecurityWnd::OnDestroy()
 {
 	Security.Save();
 
-	Settings.SaveList( _T("CSecurityWnd"), &m_wndList );		
+	Settings.SaveList( _T("CSecurityWnd"), &m_wndList );
 	SaveState( _T("CSecurityWnd") );
 
 	CPanelWnd::OnDestroy();
@@ -244,14 +244,14 @@ CSecureRule* CSecurityWnd::GetItem(int nItem)
 /////////////////////////////////////////////////////////////////////////////
 // CSecurityWnd message handlers
 
-void CSecurityWnd::OnSize(UINT nType, int cx, int cy) 
+void CSecurityWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CPanelWnd::OnSize( nType, cx, cy );
 	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy - TOOLBAR_HEIGHT, SWP_NOZORDER );
 	SizeListAndBar( &m_wndList, &m_wndToolBar );
 }
 
-void CSecurityWnd::OnTimer(UINT_PTR nIDEvent) 
+void CSecurityWnd::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( ( nIDEvent == 1 ) && ( IsPartiallyVisible() ) )
 	{
@@ -309,25 +309,25 @@ void CSecurityWnd::OnSortList(NMHDR* pNotifyStruct, LRESULT *pResult)
 	*pResult = 0;
 }
 
-void CSecurityWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point) 
+void CSecurityWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
 	Skin.TrackPopupMenu( _T("CSecurityWnd"), point, ID_SECURITY_EDIT );
 }
 
-void CSecurityWnd::OnUpdateSecurityEdit(CCmdUI* pCmdUI) 
+void CSecurityWnd::OnUpdateSecurityEdit(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( m_wndList.GetSelectedCount() == 1 );
 }
 
-void CSecurityWnd::OnSecurityEdit() 
+void CSecurityWnd::OnSecurityEdit()
 {
 	CSecureRule* pEditableRule;
 	{
 		CQuickLock oLock( Security.m_pSection );
-		
+
 		CSecureRule* pRule = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
 		if ( ! pRule ) return;
-		pEditableRule = new CSecureRule( *pRule ); 
+		pEditableRule = new CSecureRule( *pRule );
 	}
 
 	CSecureRuleDlg dlg( NULL, pEditableRule );
@@ -340,12 +340,12 @@ void CSecurityWnd::OnSecurityEdit()
 		delete pEditableRule;
 }
 
-void CSecurityWnd::OnUpdateSecurityReset(CCmdUI* pCmdUI) 
+void CSecurityWnd::OnUpdateSecurityReset(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( m_wndList.GetSelectedCount() > 0 );
 }
 
-void CSecurityWnd::OnSecurityReset() 
+void CSecurityWnd::OnSecurityReset()
 {
 	for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
 	{
@@ -361,12 +361,12 @@ void CSecurityWnd::OnSecurityReset()
 	Update();
 }
 
-void CSecurityWnd::OnUpdateSecurityRemove(CCmdUI* pCmdUI) 
+void CSecurityWnd::OnUpdateSecurityRemove(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( m_wndList.GetSelectedCount() > 0 );
 }
 
-void CSecurityWnd::OnSecurityRemove() 
+void CSecurityWnd::OnSecurityRemove()
 {
 	CString strMessage;
 	LoadString( strMessage, IDS_SECURITY_REMOVE_CONFIRM );
@@ -386,12 +386,12 @@ void CSecurityWnd::OnSecurityRemove()
 	Update();
 }
 
-void CSecurityWnd::OnUpdateSecurityMoveUp(CCmdUI* pCmdUI) 
+void CSecurityWnd::OnUpdateSecurityMoveUp(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( m_wndList.GetSelectedCount() > 0 );
 }
 
-void CSecurityWnd::OnSecurityMoveUp() 
+void CSecurityWnd::OnSecurityMoveUp()
 {
 	for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
 	{
@@ -405,12 +405,12 @@ void CSecurityWnd::OnSecurityMoveUp()
 	Update( 4 );
 }
 
-void CSecurityWnd::OnUpdateSecurityMoveDown(CCmdUI* pCmdUI) 
+void CSecurityWnd::OnUpdateSecurityMoveDown(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( m_wndList.GetSelectedCount() > 0 );
 }
 
-void CSecurityWnd::OnSecurityMoveDown() 
+void CSecurityWnd::OnSecurityMoveDown()
 {
 	CQuickLock oLock( Security.m_pSection );
 
@@ -431,7 +431,7 @@ void CSecurityWnd::OnSecurityMoveDown()
 	Update( 4 );
 }
 
-void CSecurityWnd::OnSecurityAdd() 
+void CSecurityWnd::OnSecurityAdd()
 {
 	CSecureRuleDlg dlg;
 
@@ -442,21 +442,21 @@ void CSecurityWnd::OnSecurityAdd()
 	}
 }
 
-void CSecurityWnd::OnUpdateSecurityExport(CCmdUI* pCmdUI) 
+void CSecurityWnd::OnUpdateSecurityExport(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( m_wndList.GetSelectedCount() > 0 );
 }
 
-void CSecurityWnd::OnSecurityExport() 
+void CSecurityWnd::OnSecurityExport()
 {
 	CFileDialog dlg( FALSE, _T("xml"), NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
 		_T("XML Security Files|*.xml|NET Security Files|*.net|All Files|*.*||") );
-	
+
 	if ( dlg.DoModal() != IDOK ) return;
-	
+
 	CString strText;
 	CFile pFile;
-	
+
 	if ( ! pFile.Open( dlg.GetPathName(), CFile::modeWrite|CFile::modeCreate ) )
 	{
 		// TODO: Error
@@ -465,7 +465,7 @@ void CSecurityWnd::OnSecurityExport()
 	}
 
 	CWaitCursor pCursor;
-	
+
 	if ( dlg.GetFileExt().CompareNoCase( _T("net") ) == 0 )
 	{
 		for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
@@ -511,7 +511,7 @@ void CSecurityWnd::OnSecurityExport()
 		WideCharToMultiByte( CP_ACP, 0, strText, strText.GetLength(), pBytes, nBytes, NULL, NULL );
 		pFile.Write( pBytes, nBytes );
 		delete [] pBytes;
-		
+
 		delete pXML;
 	}
 
@@ -545,31 +545,31 @@ void CSecurityWnd::OnSkinChange()
 	Skin.CreateToolBar( _T("CSecurityWnd"), &m_wndToolBar );
 }
 
-void CSecurityWnd::OnUpdateSecurityPolicyAccept(CCmdUI* pCmdUI) 
+void CSecurityWnd::OnUpdateSecurityPolicyAccept(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck( Security.m_bDenyPolicy == FALSE );
 }
 
-void CSecurityWnd::OnSecurityPolicyAccept() 
+void CSecurityWnd::OnSecurityPolicyAccept()
 {
 	Security.m_bDenyPolicy = FALSE;
 	Update();
 	m_wndList.RedrawItems( 0, m_wndList.GetItemCount() - 1 );
 }
 
-void CSecurityWnd::OnUpdateSecurityPolicyDeny(CCmdUI* pCmdUI) 
+void CSecurityWnd::OnUpdateSecurityPolicyDeny(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck( Security.m_bDenyPolicy == TRUE );
 }
 
-void CSecurityWnd::OnSecurityPolicyDeny() 
+void CSecurityWnd::OnSecurityPolicyDeny()
 {
 	Security.m_bDenyPolicy = TRUE;
 	Update();
 	m_wndList.RedrawItems( 0, m_wndList.GetItemCount() - 1 );
 }
 
-BOOL CSecurityWnd::PreTranslateMessage(MSG* pMsg) 
+BOOL CSecurityWnd::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_KEYDOWN )
 	{

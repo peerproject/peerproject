@@ -35,7 +35,7 @@ public:
 	virtual ~CSinglePage();
 
 	DECLARE_DYNCREATE(CSinglePage)
-	
+
 // Dialog Data
 public:
 	//{{AFX_DATA(CSinglePage)

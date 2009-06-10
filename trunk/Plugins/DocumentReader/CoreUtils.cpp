@@ -32,7 +32,7 @@
 ////////////////////////////////////////////////////////////////////
 // OpenPropertyStorage
 //
-//  Function takes a PropertySetStorage and returns the desired 
+//  Function takes a PropertySetStorage and returns the desired
 //  PropertyStorage for the FMTID. The function will create a storage
 //  if one does not exist (and flags allow).
 //
@@ -62,9 +62,9 @@ STDAPI OpenPropertyStorage(IPropertySetStorage* pPropSS, REFFMTID fmtid, BOOL fR
      // Outlook 2000/XP doesn't handle Unicode property sets very well. So if we need to
      // create a propset for the caller, allow the caller the ability to set the
      // PROPSETFLAG_ANSI flag on the new set.
-     // 
-     // The ANSI flag was the default in File 1.0, but this was changed to Unicode 
-     // for version 1.2 to meet request by ASIA/EMEA clients. Unicode should work 
+     //
+     // The ANSI flag was the default in File 1.0, but this was changed to Unicode
+     // for version 1.2 to meet request by ASIA/EMEA clients. Unicode should work
      // but there have been reported problems (in Outlook, Win2K SP2) that indicate
      // clients may want to use the ANSI flag (so it is passed here)...
 		hr = pPropSS->Create(fmtid, NULL, (fUseANSI ? PROPSETFLAG_ANSI : 0), dwMode, ppPropStg);
@@ -72,7 +72,7 @@ STDAPI OpenPropertyStorage(IPropertySetStorage* pPropSS, REFFMTID fmtid, BOOL fR
     // If we created with ANSI flag, we must set the code page value to match ACP...
         if (SUCCEEDED(hr) && (fUseANSI) && (*ppPropStg))
 		{
-			VARIANT vtT; 
+			VARIANT vtT;
             PROPSPEC spc;
             spc.ulKind = PRSPEC_PROPID; spc.propid = PID_CODEPAGE;
 
@@ -87,7 +87,7 @@ STDAPI OpenPropertyStorage(IPropertySetStorage* pPropSS, REFFMTID fmtid, BOOL fR
 			    WriteProperty(*ppPropStg, spc, 0, &vtT);
             }
         }
-        
+
 	}
 
 	return hr;
@@ -96,7 +96,7 @@ STDAPI OpenPropertyStorage(IPropertySetStorage* pPropSS, REFFMTID fmtid, BOOL fR
 ////////////////////////////////////////////////////////////////////
 // ConvertBlobToVarVector
 //
-//  Takes a PROPVARIANT BLOB or pclipdata and converts it to VARIANT SAFEARRAY 
+//  Takes a PROPVARIANT BLOB or pclipdata and converts it to VARIANT SAFEARRAY
 //  which can be treated by VB as vector (1-dim) Byte Array.
 //
 STDAPI ConvertBinaryToVarVector(PROPVARIANT *pVarBlob, VARIANT *pVarByteArray)
@@ -105,12 +105,12 @@ STDAPI ConvertBinaryToVarVector(PROPVARIANT *pVarBlob, VARIANT *pVarByteArray)
     SAFEARRAY* pSA;
     DWORD dwSize;
 
-    if ( ( pVarBlob == NULL ) || (pVarBlob->vt != VT_BLOB) && 
+    if ( ( pVarBlob == NULL ) || (pVarBlob->vt != VT_BLOB) &&
 		 ( pVarBlob->vt != VT_CF ) || ( pVarByteArray == NULL ) )
         return E_UNEXPECTED;
 
  // Identify the size
-    if ( pVarBlob->vt == VT_BLOB ) 
+    if ( pVarBlob->vt == VT_BLOB )
 		dwSize = pVarBlob->blob.cbSize;
 	else
 		dwSize = pVarBlob->pclipdata->cbSize;
@@ -154,7 +154,7 @@ STDAPI ConvertBinaryToVarVector(PROPVARIANT *pVarBlob, VARIANT *pVarByteArray)
 //  used if we have to translate to/from MBCS to Unicode. We handle one special
 //  case for PIDSI_EDITTIME which is a INT64 saved in FILETIME structure. For
 //  compatibility we cut it down to seconds and store in LONG (VT_I4). This is
-//  OK as long as we don't save it back (which we don't allow in this sample). 
+//  OK as long as we don't save it back (which we don't allow in this sample).
 //
 STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VARIANT* pvtResult)
 {
@@ -232,7 +232,7 @@ STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VA
 				    if (FileTimeToLocalFileTime(pft, &lft))
 					    pft = &lft;
 
-				    if (FileTimeToSystemTime(pft, &lst) && 
+				    if (FileTimeToSystemTime(pft, &lst) &&
 					    SystemTimeToVariantTime(&lst, &dtDate))
 				    {
 					    pvtResult->vt = VT_DATE;
@@ -278,7 +278,7 @@ STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VA
 // WriteProperty
 //
 //  Writes a property to the given PropertyStorage. The code page parameter
-//  is used to convert string into code page of the property set itself only 
+//  is used to convert string into code page of the property set itself only
 //  if the PROPSETFLAG_ANSI is set. Otherwise we save in Unicode.
 //
 STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VARIANT* pvtValue)
@@ -335,7 +335,7 @@ STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, V
 			FILETIME utc = {0,0};
 			FILETIME lft;
 			SYSTEMTIME lst;
-			if ((0 != pvtValue->date) && 
+			if ((0 != pvtValue->date) &&
 				(VariantTimeToSystemTime(pvtValue->date, &lst)) &&
 				(SystemTimeToFileTime(&lst, &lft)))
 			{
@@ -403,9 +403,9 @@ STDAPI_(BOOL) VarTypeReadable(VARTYPE vt)
 //
 //   This function take an IPropertyStorage and enumerates all the properties
 //   to create a linked list of CDocProperty objects. The linked list is used
-//   to cache the data and manipulate it before a save. 
+//   to cache the data and manipulate it before a save.
 //
-//   FUTURE: We ought to consider building prop list first, then call ReadMulitple 
+//   FUTURE: We ought to consider building prop list first, then call ReadMulitple
 //   with PROPSPEC array to fill in the data in one shot. However, given the properties
 //   we allow are realtively small in size, we have not seen a performance benefit to
 //   make this worth the extra code and regression risk.
@@ -453,7 +453,7 @@ STDAPI LoadPropertySetList(IPropertyStorage *pPropStg, WORD *pwCodePage, CDocPro
          // data types we handle are limited to just a subset we can convert
          // to VB supportted types (variant arrays and ole picdisp)...
 			BOOL bDontSkip = !( ( ( sps.vt & VT_CF ) == VT_CF ) ^ bOnlyThumb );
-            if ( ( ( sps.vt & VT_VECTOR ) != VT_VECTOR ) && 
+            if ( ( ( sps.vt & VT_VECTOR ) != VT_VECTOR ) &&
                 VarTypeReadable( (VARTYPE)(sps.vt & VT_TYPEMASK) ) && bDontSkip )
             {
                 spc.ulKind = PRSPEC_PROPID;
@@ -533,7 +533,7 @@ STDAPI SavePropertySetList(IPropertyStorage *pPropStg, WORD wCodePage, CDocPrope
          // this is an item wehen added then deleted before save,
          // we don't need to do anything...
             if (pitem->IsNewItem() == FALSE)
-            {                
+            {
              // Determine if item is known by name or by id...
                 pitem->get_Name(&bstrName);
                 if (bstrName)
@@ -549,14 +549,14 @@ STDAPI SavePropertySetList(IPropertyStorage *pPropStg, WORD wCodePage, CDocPrope
                     if (spc.propid == 0)
                         { hr = E_UNEXPECTED; break; }
                 }
-            
+
              // Now remove the item...
                 hr = pPropStg->DeleteMultiple(1, &spc);
 
              // Break out if error occurred...
                 if (FAILED(hr)) break;
 
-             // Since we changed an item in the file, we need 
+             // Since we changed an item in the file, we need
              // to increment the count...
                 pitem->OnRemoveComplete();
                 ++cItemsChanged;
@@ -723,7 +723,7 @@ STDAPI_(LPSTR) ConvertToMBCS(LPCWSTR pwszUnicodeString, WORD wCodePage)
 }
 
 ////////////////////////////////////////////////////////////////////////
-// ConvertToBSTR 
+// ConvertToBSTR
 //
 STDAPI_(BSTR) ConvertToBSTR(LPCSTR pszAnsiString, WORD wCodePage)
 {
@@ -738,7 +738,7 @@ STDAPI_(BSTR) ConvertToBSTR(LPCSTR pszAnsiString, WORD wCodePage)
 	{
 		cbnew = ((cblen + 1) * sizeof(WCHAR));
 		pwsz = (LPWSTR)MemAlloc(cbnew);
-		if (pwsz) 
+		if (pwsz)
 		{
 			if (SUCCEEDED(ConvertToUnicodeEx(pszAnsiString, cblen, pwsz, cbnew, wCodePage)))
 				bstr = SysAllocString(pwsz);
@@ -802,7 +802,7 @@ STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
  // Now ask the OS to check the strings and give us its read. (We prefer checking
  // in Unicode since this is faster and we may have strings that can't be thunked
  // down to the local ANSI code page)...
-	if (v_fRunningOnNT) 
+	if (v_fRunningOnNT)
     {
 		iret = CompareStringW(lcid, NORM_IGNORECASE | NORM_IGNOREWIDTH, pwsz1, cblen1, pwsz2, cblen2);
 	}
@@ -936,7 +936,7 @@ STDAPI_(BOOL) FGetIconForFile(LPCWSTR pwszFile, HICON *pico)
 
     memset(rgBuffer, 0, sizeof(rgBuffer));
 
-	if (v_fRunningOnNT) 
+	if (v_fRunningOnNT)
     {
         if (s_pfnExtractAssociatedIconW == NULL)
         {
@@ -956,7 +956,7 @@ STDAPI_(BOOL) FGetIconForFile(LPCWSTR pwszFile, HICON *pico)
             s_pfnExtractAssociatedIconA = (PFN_ExtractAssociatedIconA)GetProcAddress(s_hShell32, "ExtractAssociatedIconA");
             CHECK_NULL_RETURN(s_pfnExtractAssociatedIconA, FALSE);
         }
-        
+
         psz = ConvertToMBCS(pwszFile, CP_ACP);
         if (psz)
         {

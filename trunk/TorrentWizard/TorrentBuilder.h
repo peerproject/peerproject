@@ -28,9 +28,9 @@ class CTorrentBuilder : public CWinThread
 public:
 	CTorrentBuilder();
 	virtual ~CTorrentBuilder();
-	
+
 	DECLARE_DYNCREATE(CTorrentBuilder)
-	
+
 // Operations
 public:
 	BOOL	SetName(LPCTSTR pszName);
@@ -54,7 +54,7 @@ protected:
 	BOOL	ProcessFiles();
 	BOOL	ProcessFile(DWORD nFile, LPCTSTR pszFile);
 	BOOL	WriteOutput();
-	
+
 // Attributes
 protected:
 	CCriticalSection	m_pSection;
@@ -89,11 +89,11 @@ protected:
 	BOOL				m_bAutoPieces;
 	BYTE*				m_pBuffer;
 	DWORD				m_nBuffer;
-	
+
 // Overrides
 public:
 	virtual BOOL InitInstance() { return TRUE; }
 	virtual int Run();
-	
+
 	DECLARE_MESSAGE_MAP()
 };

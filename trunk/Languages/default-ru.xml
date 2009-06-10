@@ -1076,10 +1076,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="При_остановить все"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Убрать все"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Показывать группы"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Новая группа..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Удалить _группу"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Показывать группы"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Свойства"/>
 	</menu>
@@ -4475,10 +4475,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Адрес/Содержание"/>
+		<column from="Hits" to="Обращений"/>
 		<column from="Action" to="Действие"/>
 		<column from="Expires" to="Истекает"/>
-		<column from="#" to="Старшинство"/>
-		<column from="Hits" to="Обращений"/>
+		<column from="#" to="#"/>
 		<column from="Comment" to="Заметка"/>
 	</list>
 	<list name="CHostCacheWnd">

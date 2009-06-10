@@ -324,7 +324,7 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 	Transfers.m_pSection.Lock();
 
 	CDownload* pDownload = Downloads.Add();
-	
+
 	pDownload->m_oED2K			= oED2K;
 	pDownload->m_bED2KTrusted	= true; // .part use trusted hashes
 	pDownload->m_nSize			= nSize;
@@ -340,7 +340,7 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 
 		pGapStart.Lookup( nPart, nStart );
 		pGapStop.Lookup( nPart, nStop );
-		
+
 		pDownload->InvalidateFileRange( nStart, nStop - nStart );
 	}
 
@@ -361,7 +361,7 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 
 	Message( IDS_ED2K_EPI_FILE_CREATED,
 		Settings.SmartVolume( pDownload->GetVolumeRemaining() ) );
-	
+
 	return TRUE;
 }
 

@@ -1001,10 +1001,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Pause alle"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Fjern alle"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Vis grupper"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="Ny gruppe"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Fjern gruppe"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Vis grupper"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Egenskaper"/>
 	</menu>
@@ -4212,10 +4212,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adresse / Inn"/>
+		<column from="Hits" to="Treff"/>
 		<column from="Action" to="Tiltak"/>
 		<column from="Expires" to="Går ut"/>
 		<column from="#" to="Prioritet"/>
-		<column from="Hits" to="Treff"/>
 		<column from="Comment" to="Kommentar"/>
 	</list>
 	<list name="CHostCacheWnd">

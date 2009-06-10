@@ -75,7 +75,7 @@ void CDownloadSource::Construct(const CDownload* pDownload)
 	m_nPort			= 0;
 	ZeroMemory( &m_pServerAddress, sizeof( m_pServerAddress ) );
 	m_nServerPort	= 0;
-	
+
 	m_nIndex		= 0;
 	m_bHashAuth		= FALSE;
 	m_bSHA1			= FALSE;
@@ -83,7 +83,7 @@ void CDownloadSource::Construct(const CDownload* pDownload)
 	m_bED2K			= FALSE;
 	m_bBTH			= FALSE;
 	m_bMD5			= FALSE;
-	
+
 	m_nSpeed		= 0;
 	m_bPushOnly		= FALSE;
 	m_bCloseConn	= FALSE;
@@ -93,7 +93,7 @@ void CDownloadSource::Construct(const CDownload* pDownload)
 
 	m_nGnutella		= 0;
 	m_bClientExtended=FALSE;
-	
+
 	m_nSortOrder	= 0xFFFFFFFF;
 	m_nColor		= -1;
 	m_tAttempt		= 0;
@@ -116,9 +116,9 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const CQueryHit* pH
 : m_oAvailable( pDownload->m_nSize ), m_oPastFragments( pDownload->m_nSize )
 {
 	Construct( pDownload );
-	
+
 	m_bPushOnly	= pHit->m_bPush == TRI_TRUE ? TRUE : FALSE;
-	
+
 	m_sURL		= pHit->m_sURL;
 	m_pAddress	= pHit->m_pAddress;	// Not needed? , m_pAddress is set in ResolveURL() again
 	m_nPort		= pHit->m_nPort;	// Not needed?
@@ -132,7 +132,7 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const CQueryHit* pH
 	m_bED2K		= bool( pHit->m_oED2K );
 	m_bBTH		= bool( pHit->m_oBTH );
 	m_bMD5		= bool( pHit->m_oMD5 );
-	
+
 	if ( pHit->m_nProtocol == PROTOCOL_G1 || pHit->m_nProtocol == PROTOCOL_G2 )
 	{
 		m_oGUID = pHit->m_oClientID;
@@ -153,7 +153,7 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const CQueryHit* pH
 			m_sURL.Format( _T("%s%I64i/"), strTemp, pDownload->m_nSize );
 		}
 	}
-	
+
 	ResolveURL();
 
 	// If we got hit with BitTorrent hash
@@ -178,7 +178,7 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, DWORD nClientID, WO
 : m_oAvailable( pDownload->m_nSize ), m_oPastFragments( pDownload->m_nSize )
 {
 	Construct( pDownload );
-	
+
 	if ( ( m_bPushOnly = CEDPacket::IsLowID( nClientID ) ) != FALSE )
 	{
 		m_sURL.Format( _T("ed2kftp://%lu@%s:%i/%s/%I64i/"),
@@ -192,12 +192,12 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, DWORD nClientID, WO
 			(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)nClientID ) ), nClientPort,
             (LPCTSTR)m_pDownload->m_oED2K.toString(), m_pDownload->m_nSize );
 	}
-	
+
 	m_oGUID = oGUID;
-	
+
 	m_bED2K		= TRUE;
 	m_sServer	= _T("eDonkey2000");
-	
+
 	ResolveURL();
 }
 
@@ -208,7 +208,7 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const Hashes::BtGui
 : m_oAvailable( pDownload->m_nSize ), m_oPastFragments( pDownload->m_nSize )
 {
 	Construct( pDownload );
-	
+
 	if ( oGUID )
 	{
 		m_sURL.Format( _T("btc://%s:%i/%s/%s/"),
@@ -226,7 +226,7 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const Hashes::BtGui
 	m_bBTH		= TRUE;
 	m_oGUID	= transformGuid( oGUID );
 	m_sServer	= _T("BitTorrent");
-	
+
 	ResolveURL();
 }
 
@@ -237,14 +237,14 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, LPCTSTR pszURL, BOO
 : m_oAvailable( pDownload->m_nSize ), m_oPastFragments( pDownload->m_nSize )
 {
 	Construct( pDownload );
-	
+
 	ASSERT( pszURL != NULL );
 	m_sURL = pszURL;
-	
+
 	if ( ! ResolveURL() ) return;
-	
+
 	m_bHashAuth		= bHashAuth;
-	
+
 	if ( pLastSeen != NULL )
 	{
 		FILETIME tNow = m_tLastSeen;
@@ -261,13 +261,13 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, LPCTSTR pszURL, BOO
 BOOL CDownloadSource::ResolveURL()
 {
 	CPeerProjectURL pURL;
-	
+
 	if ( ! pURL.Parse( m_sURL ) )
 	{
 		theApp.Message( MSG_ERROR, _T("Unable to parse URL: %s"), (LPCTSTR)m_sURL );
 		return FALSE;
 	}
-	
+
 	m_bSHA1		|= static_cast< BOOL >( bool( pURL.m_oSHA1 ) );
 	m_bTiger	|= static_cast< BOOL >( bool( pURL.m_oTiger ) );
 	m_bED2K		|= static_cast< BOOL >( bool( pURL.m_oED2K ) );
@@ -277,7 +277,7 @@ BOOL CDownloadSource::ResolveURL()
 	m_nProtocol	= pURL.m_nProtocol;
 	m_pAddress	= pURL.m_pAddress;
 	m_nPort		= pURL.m_nPort;
-	
+
 	if ( m_nProtocol == PROTOCOL_ED2K )
 	{
 		m_pServerAddress	= pURL.m_pServerAddress;
@@ -291,7 +291,7 @@ BOOL CDownloadSource::ResolveURL()
 			m_oGUID = transformGuid( pURL.m_oBTC );
 		}
 	}
-	
+
 	m_sCountry		= theApp.GetCountryCode( m_pAddress );
 	m_sCountryName	= theApp.GetCountryName( m_pAddress );
 
@@ -307,14 +307,14 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
 	{
 		ar << m_sURL;
 		ar << m_nProtocol;
-		
+
 		SerializeOut( ar, m_oGUID );
-		
+
 		ar << m_nPort;
 		if ( m_nPort ) ar.Write( &m_pAddress, sizeof(m_pAddress) );
 		ar << m_nServerPort;
 		if ( m_nServerPort ) ar.Write( &m_pServerAddress, sizeof(m_pServerAddress) );
-		
+
 		ar << m_sName;
 		ar << m_nIndex;
 		ar << m_bHashAuth;
@@ -323,7 +323,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
 		ar << m_bED2K;
 		ar << m_bBTH;
 		ar << m_bMD5;
-		
+
 		ar << m_sServer;
 		ar << m_sNick;
 		ar << m_sCountry;
@@ -333,7 +333,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
 		ar << m_bCloseConn;
 		ar << m_bReadContent;
 		ar.Write( &m_tLastSeen, sizeof(FILETIME) );
-		
+
         SerializeOut2( ar, m_oPastFragments );
 
 		ar << m_bClientExtended;
@@ -342,14 +342,14 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
 	{
 		ar >> m_sURL;
 		ar >> m_nProtocol;
-		
+
 		SerializeIn( ar, m_oGUID, nVersion);
-		
+
 		ar >> m_nPort;
 		if ( m_nPort ) ReadArchive( ar, &m_pAddress, sizeof(m_pAddress) );
 		ar >> m_nServerPort;
 		if ( m_nServerPort ) ReadArchive( ar, &m_pServerAddress, sizeof(m_pServerAddress) );
-		
+
 		ar >> m_sName;
 		ar >> m_nIndex;
 		ar >> m_bHashAuth;
@@ -361,16 +361,16 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
 			ar >> m_bBTH;
 			ar >> m_bMD5;
 		}
-		
+
 		ar >> m_sServer;
 		if ( nVersion >= 24 ) ar >> m_sNick;
 
-		if ( nVersion >= 36 ) 
+		if ( nVersion >= 36 )
 			ar >> m_sCountry;
 		else
 			m_sCountry = theApp.GetCountryCode( m_pAddress );
 
-		if ( nVersion >= 38 ) 
+		if ( nVersion >= 38 )
 			ar >> m_sCountryName;
 		else
 			m_sCountryName = theApp.GetCountryName( m_pAddress );
@@ -380,7 +380,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
 		ar >> m_bCloseConn;
 		ar >> m_bReadContent;
 		ReadArchive( ar, &m_tLastSeen, sizeof(FILETIME) );
-		
+
         SerializeIn2( ar, m_oPastFragments, nVersion );
 
 		if ( nVersion >= 39 )
@@ -402,7 +402,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
 		if ( nVersion >= 13 ) ar >> m_bTiger;
 		if ( nVersion >= 13 ) ar >> m_bED2K;
 		if ( nVersion >= 10 ) ar >> m_bHashAuth;
-		
+
 		if ( nVersion == 8 )
 		{
 			DWORD nV;
@@ -413,18 +413,18 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
 		{
 			ar >> m_sServer;
 		}
-		
+
 		ar >> m_bPushOnly;
 		ar >> m_bReadContent;
 		if ( nVersion >= 7 ) ar >> m_bCloseConn;
 		if ( nVersion >= 12 ) ReadArchive( ar, &m_tLastSeen, sizeof(FILETIME) );
-		
+
 		ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
 		ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
 		m_oGUID.validate();
-		
+
         SerializeIn2( ar, m_oPastFragments, nVersion );
-		
+
 		ResolveURL();
 	}
 }
@@ -435,7 +435,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
 CDownloadTransfer* CDownloadSource::CreateTransfer()
 {
 	ASSERT( m_pTransfer == NULL );
-	
+
 	switch ( m_nProtocol )
 	{
 	case PROTOCOL_G1:	return ( m_pTransfer = new CDownloadTransferHTTP( this ) );
@@ -514,9 +514,9 @@ BOOL CDownloadSource::CanInitiate(BOOL bNetwork, BOOL bEstablished)
 		return FALSE;
 	}
 
-	if ( ( Settings.Connection.IgnoreOwnIP ) && Network.IsSelfIP( m_pAddress ) ) 
+	if ( ( Settings.Connection.IgnoreOwnIP ) && Network.IsSelfIP( m_pAddress ) )
 		return FALSE;
-	
+
 	return bEstablished || Downloads.AllowMoreTransfers( (IN_ADDR*)&m_pAddress );
 }
 
@@ -540,7 +540,7 @@ void CDownloadSource::Remove(BOOL bCloseTransfer, BOOL bBan)
 			m_pTransfer = NULL;
 		}
 	}
-	
+
 	m_pDownload->RemoveSource( this, m_pDownload->IsSeeding() ? FALSE : bBan );
 }
 
@@ -628,7 +628,7 @@ DWORD CDownloadSource::CalcFailureDelay(DWORD nRetryAfter) const
 		}
 		else  // I think it is nasty to set 1 Day delay
 		{
-			if ( nDelay > 86400000 ) nDelay = 86400000; 
+			if ( nDelay > 86400000 ) nDelay = 86400000;
 		}
 	}
 
@@ -659,7 +659,7 @@ void CDownloadSource::OnResumeClosed()
 		m_pTransfer = NULL;
 	}
 
-	m_tAttempt = 0;	
+	m_tAttempt = 0;
 	m_pDownload->SetModified();
 }
 
@@ -701,13 +701,13 @@ BOOL CDownloadSource::CheckHash(const Hashes::Sha1Hash& oSHA1)
 	else
 	{
 		if ( m_pDownload->IsTorrent() && ! m_pDownload->IsSingleFileTorrent() ) return TRUE;
-		
+
 		m_pDownload->m_oSHA1 = oSHA1;
 	}
-	
+
 	m_bSHA1 = TRUE;
 	m_pDownload->SetModified();
-	
+
 	return TRUE;
 }
 
@@ -720,13 +720,13 @@ BOOL CDownloadSource::CheckHash(const Hashes::TigerHash& oTiger)
 	else
 	{
 		if ( m_pDownload->IsTorrent() && ! m_pDownload->IsSingleFileTorrent() ) return TRUE;
-		
+
 		m_pDownload->m_oTiger = oTiger;
 	}
-	
+
 	m_bTiger = TRUE;
 	m_pDownload->SetModified();
-	
+
 	return TRUE;
 }
 
@@ -739,13 +739,13 @@ BOOL CDownloadSource::CheckHash(const Hashes::Ed2kHash& oED2K)
 	else
 	{
 		if ( m_pDownload->IsTorrent() && ! m_pDownload->IsSingleFileTorrent() ) return TRUE;
-		
+
 		m_pDownload->m_oED2K = oED2K;
 	}
-	
+
 	m_bED2K = TRUE;
 	m_pDownload->SetModified();
-	
+
 	return TRUE;
 }
 
@@ -800,16 +800,16 @@ BOOL CDownloadSource::PushRequest()
 	{
 		if ( m_nServerPort == 0 ) return FALSE;
 		if ( EDClients.IsFull() ) return TRUE;
-		
+
 		CEDClient* pClient = EDClients.Connect( m_pAddress.S_un.S_addr, m_nPort,
 			&m_pServerAddress, m_nServerPort, m_oGUID );
-		
+
 		if ( pClient != NULL && pClient->m_bConnected )
 		{
 			pClient->SeekNewDownload();
 			return TRUE;
 		}
-		
+
 		if ( Neighbours.PushDonkey( m_pAddress.S_un.S_addr, &m_pServerAddress, m_nServerPort ) )
 		{
 			theApp.Message( MSG_INFO, IDS_DOWNLOAD_PUSH_SENT, (LPCTSTR)m_pDownload->m_sName );
@@ -820,7 +820,7 @@ BOOL CDownloadSource::PushRequest()
 	else
 	{
 		if ( ! m_oGUID ) return FALSE;
-		
+
 		if ( Network.SendPush( m_oGUID, m_nIndex ) )
 		{
 			theApp.Message( MSG_INFO, IDS_DOWNLOAD_PUSH_SENT, (LPCTSTR)m_pDownload->m_sName );
@@ -828,7 +828,7 @@ BOOL CDownloadSource::PushRequest()
 			return TRUE;
 		}
 	}
-	
+
 	return FALSE;
 }
 
@@ -840,9 +840,9 @@ BOOL CDownloadSource::CheckPush(const Hashes::Guid& oClientID)
 BOOL CDownloadSource::CheckDonkey(CEDClient* pClient)
 {
 	if ( m_nProtocol != PROTOCOL_ED2K ) return FALSE;
-	
+
 	if ( m_oGUID && pClient->m_oGUID ) return m_oGUID == pClient->m_oGUID;
-	
+
 	if ( m_bPushOnly )
 	{
 		return	m_pServerAddress.S_un.S_addr == pClient->m_pServer.sin_addr.S_un.S_addr &&
@@ -870,23 +870,23 @@ void CDownloadSource::AddFragment(QWORD nOffset, QWORD nLength, BOOL /*bMerge*/)
 void CDownloadSource::SetAvailableRanges(LPCTSTR pszRanges)
 {
     m_oAvailable.clear();
-	
+
 	if ( ! pszRanges || ! *pszRanges ) return;
 	if ( _tcsnicmp( pszRanges, _T("bytes"), 5 ) ) return;
-	
+
 	CString strRanges( pszRanges + 6 );
-	
+
 	for ( strRanges += ',' ; strRanges.GetLength() ; )
 	{
 		CString strRange = strRanges.SpanExcluding( _T(", \t") );
 		strRanges = strRanges.Mid( strRange.GetLength() + 1 );
-		
+
 		strRange.TrimLeft();
 		strRange.TrimRight();
 		if ( strRange.Find( '-' ) < 0 ) continue;
-		
+
 		QWORD nFirst = 0, nLast = 0;
-		
+
 		// 0 - 0 has special meaning
 		if ( _stscanf( strRange, _T("%I64i-%I64i"), &nFirst, &nLast ) == 2 && nLast > nFirst )
 		{
@@ -898,7 +898,7 @@ void CDownloadSource::SetAvailableRanges(LPCTSTR pszRanges)
             }
 		}
 	}
-	
+
 	m_pDownload->SetModified();
 }
 
@@ -927,7 +927,7 @@ BOOL CDownloadSource::TouchedRange(QWORD nOffset, QWORD nLength) const
 			return TRUE;
 		}
 	}
-	
+
 	return m_oPastFragments.overlaps( Fragments::Fragment( nOffset, nOffset + nLength ) );
 }
 

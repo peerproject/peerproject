@@ -103,7 +103,7 @@ BOOL CNewSearchDlg::OnInitDialog()
 	Settings.LoadWindow( _T("NewSearch"), this );
 
 	OnCloseUpSchemas();
-	
+
 	if ( m_pSearch->m_oSHA1 )
 	{
 		m_wndSearch.SetWindowText( m_pSearch->m_oSHA1.toUrn() );
@@ -193,11 +193,11 @@ void CNewSearchDlg::OnChangeSearch()
     Hashes::TigerHash oTiger;
     Hashes::Sha1Hash oSHA1;
     Hashes::Ed2kHash oED2K;
-	
+
 	bHash |= static_cast< BOOL >( oSHA1.fromUrn( strSearch ) );
 	bHash |= static_cast< BOOL >( oTiger.fromUrn( strSearch ) );
 	bHash |= static_cast< BOOL >( oED2K.fromUrn( strSearch ) );
-	
+
 	if ( m_wndSchema.IsWindowVisible() == bHash )
 	{
 		m_wndSchema.ShowWindow( bHash ? SW_HIDE : SW_SHOW );

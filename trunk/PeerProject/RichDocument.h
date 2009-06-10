@@ -28,13 +28,13 @@ class CRichElement;
 class CXMLElement;
 
 
-class CRichDocument  
+class CRichDocument
 {
 // Construction
 public:
 	CRichDocument();
 	virtual ~CRichDocument();
-	
+
 // Attributes
 public:
 	CCriticalSection	m_pSection;
@@ -54,7 +54,7 @@ public:
 	CFont			m_fntUnder;
 	CFont			m_fntBoldUnder;
 	CFont			m_fntHeading;
-	
+
 // Operations
 public:
 	POSITION		GetIterator() const;

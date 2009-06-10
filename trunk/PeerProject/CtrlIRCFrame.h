@@ -41,10 +41,10 @@ public:
 class CIRCTabCtrl : public CTabCtrl
 {
 	enum
-	{ 
+	{
 		paintNone = 0,
-		paintBody = 0x1, 
-		paintSelected = 0x2, 
+		paintBody = 0x1,
+		paintSelected = 0x2,
 		paintHotTrack = 0x4
 	};
 

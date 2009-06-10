@@ -45,7 +45,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFilePropertiesSheet
 
-CFilePropertiesSheet::CFilePropertiesSheet(CLibraryListItem oObject) : 
+CFilePropertiesSheet::CFilePropertiesSheet(CLibraryListItem oObject) :
 	m_sGeneralTitle( L"General" ),
 	m_sMetadataTitle( L"Metadata" ),
 	m_sCommentsTitle( L"My Review" ),

@@ -28,7 +28,7 @@
 
 #  ifdef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 #   include <boost/detail/is_function_ref_tester.hpp>
-#  endif 
+#  endif
 
 namespace boost { namespace detail {
 
@@ -50,7 +50,7 @@ template<class T>
 struct is_reference_to_const<T const volatile&> : mpl::true_
 {
 };
-#   endif 
+#   endif
 
 template <class T>
 struct is_reference_to_function : mpl::false_
@@ -143,7 +143,7 @@ template <class T>
 struct is_reference_to_volatile<T const volatile&> : mpl::true_
 {
 };
-#   endif 
+#   endif
 
 
 template <class T>
@@ -288,7 +288,7 @@ struct false_helper1
 };
 
 template <typename V>
-typename is_const_help<V>::type reference_to_const_helper(V&);    
+typename is_const_help<V>::type reference_to_const_helper(V&);
 outer_no_type
 reference_to_const_helper(...);
 
@@ -333,7 +333,7 @@ struct is_reference_to_non_const_helper1
         BOOST_STATIC_CONSTANT(
             bool, value
             = sizeof(reference_to_const_helper(t)) == sizeof(inner_no_type));
-        
+
         typedef mpl::bool_<value> type;
     };
 };
@@ -353,7 +353,7 @@ struct is_reference_to_non_const
 
 
 template <typename V>
-typename is_volatile_help<V>::type reference_to_volatile_helper(V&);    
+typename is_volatile_help<V>::type reference_to_volatile_helper(V&);
 outer_no_type
 reference_to_volatile_helper(...);
 
@@ -395,14 +395,14 @@ struct reference_to_pointer_impl
         bool, value
         = (sizeof((reference_to_pointer_helper)(t)) == sizeof(inner_yes_type))
         );
-    
+
     typedef mpl::bool_<value> type;
 };
-    
+
 template <class T>
 struct is_reference_to_pointer
   : mpl::eval_if<is_reference<T>, reference_to_pointer_impl<T>, mpl::false_>::type
-{   
+{
     BOOST_MPL_AUX_LAMBDA_SUPPORT(1,is_reference_to_pointer,(T))
 };
 
@@ -476,7 +476,7 @@ struct is_pointer_to_class
         );
     typedef mpl::bool_<value> type;
 };
-#  endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION 
+#  endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
 }
 

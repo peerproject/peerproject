@@ -564,7 +564,7 @@
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
-			<separator/> <!-- 
+			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_Rechercher des mises à jour"/>
 			<item id="ID_HELP_DONATE" text="Faire un _don au Projet PeerProject"/>
 			<separator/> -->
@@ -1081,10 +1081,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Tout mettre en pa_use"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Tout nettoyer"/>
 		<separator/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Afficher les groupes"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Nouveau groupe..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Enlever le groupe"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Afficher les groupes"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Propriétés"/>
 	</menu>
@@ -2999,7 +2999,7 @@
 	<string id="16534" value="Bande passante TCP reçue"/>
 	<string id="16535" value="Bande passante UDP totale"/>
 	<string id="16536" value="Gnutella Ratio Pings reçus/transmis"/>
-	<string id="16537" value="Gnutella Ratio Pongs reçus/transmis"/>		
+	<string id="16537" value="Gnutella Ratio Pongs reçus/transmis"/>
 	<string id="16538" value="Erreur de connexion (%)"/>
 	<string id="16768" value="Adresse reçue &#171;&#160;%s&#160;&#187;"/>
 	<string id="16769" value="Impossible d'analyser cette URL&#160;: PeerProject ne reconnaît pas cette URL."/>
@@ -4488,10 +4488,10 @@
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Adresse / Contenu"/>
+		<column from="Hits" to="Accès"/>
 		<column from="Action" to=""/>
 		<column from="Expires" to="Expiration"/>
 		<column from="#" to="Priorité"/>
-		<column from="Hits" to="Accès"/>
 		<column from="Comment" to="Note"/>
 	</list>
 	<list name="CHostCacheWnd">
