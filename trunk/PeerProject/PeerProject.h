@@ -295,6 +295,18 @@ bool IsKanji(WCHAR nChar);
 bool IsWord(LPCTSTR pszString, size_t nStart, size_t nLength);
 void IsType(LPCTSTR pszString, size_t nStart, size_t nLength, bool& bWord, bool& bDigit, bool& bMix);
 
+class CLowerCaseTable
+{
+public:
+	explicit CLowerCaseTable();
+	TCHAR operator()(TCHAR cLookup) const;
+	CString& operator()(CString& strSource) const;
+private:
+	TCHAR cTable[ 65536 ];
+};
+
+extern const CLowerCaseTable ToLower;
+
 // Use with whole numbers only
 template <typename T>
 inline T GetRandomNum(const T& min, const T& max)
@@ -369,12 +381,13 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 #define ID_PLUGIN_FIRST	27000
 #define ID_PLUGIN_LAST	27999
 
+#define HTTP_HEADER_MAX_LINE	(256 * 1024)	// Maximum allowed size of single HTTP-header line (256 Kb)
+
 // Drag-n-drop stuff
 #define MAX_DRAG_SIZE		256
 #define MAX_DRAG_SIZE_2		(MAX_DRAG_SIZE/2)
 #define DRAG_COLOR_KEY		(RGB(245,248,252))	// Light-blue
 #define DRAG_HOVER_TIME		900 				// Dragging mouse button press after X ms
-
 
 // Set Default Sizes in Pixels				// ToDo: Make Skinnable Options
 #define PANEL_WIDTH			200 			// Left Sidebar (Home/Search/IRC tabs)

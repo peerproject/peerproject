@@ -4680,14 +4680,6 @@
 				>
 			</File>
 			<File
-				RelativePath="Res\HostIn.ico"
-				>
-			</File>
-			<File
-				RelativePath="Res\HostOut.ico"
-				>
-			</File>
-			<File
 				RelativePath="Res\IRC.ico"
 				>
 			</File>

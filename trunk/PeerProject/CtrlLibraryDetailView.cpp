@@ -75,7 +75,7 @@ BEGIN_MESSAGE_MAP(CLibraryDetailView, CLibraryFileView)
 	ON_NOTIFY_REFLECT(LVN_ODFINDITEMA, OnFindItemA)
 	ON_NOTIFY_REFLECT(NM_CUSTOMDRAW, OnCustomDraw)
 	ON_NOTIFY_REFLECT(NM_DBLCLK, OnDblClk)
-	ON_UPDATE_COMMAND_UI_RANGE(1000, 1100, OnUpdateBlocker)
+	ON_UPDATE_COMMAND_UI_RANGE(ID_SCHEMA_MENU_MIN, ID_SCHEMA_MENU_MAX, OnUpdateBlocker)
 END_MESSAGE_MAP()
 
 #define GET_LIST()		CListCtrl* pList = (CListCtrl*)this
@@ -132,12 +132,12 @@ int CLibraryDetailView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	GET_LIST();
 
-	pList->InsertColumn( 0, _T("File"), LVCFMT_LEFT, 200, -1 );
+	pList->InsertColumn( 0, _T("File"), LVCFMT_LEFT, 220, -1 );
 	pList->SetCallbackMask( LVIS_SELECTED );
 
 	if ( m_nStyle == LVS_REPORT )
 	{
-		pList->InsertColumn( 1, _T("Extension"), LVCFMT_CENTER, 40, 0 );
+		pList->InsertColumn( 1, _T("Type"), LVCFMT_CENTER, 40, 0 );
 		pList->InsertColumn( 2, _T("Size"), LVCFMT_CENTER, 60, 1 );
 		pList->InsertColumn( 3, _T("Folder"), LVCFMT_LEFT, 0, 2 );
 		pList->InsertColumn( 4, _T("Hits"), LVCFMT_CENTER, 70, 3 );

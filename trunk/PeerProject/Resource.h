@@ -107,11 +107,9 @@
 #define IDR_LARGE_LOGO              	196
 #define IDD_SETTINGS_WEB            	198
 #define IDD_PROFILE_IDENTITY        	199
-#define IDI_HOST_OUTGOING           	200
-#define IDI_HOST_INCOMING           	201
 #define IDD_PROFILE_FAVOURITES      	201
-#define IDI_PROPERTIES              	202
 #define IDD_PROFILE_PROFILE         	202
+#define IDI_PROPERTIES              	202
 #define IDI_DOWNLOAD_MONITOR        	203
 #define IDD_PROFILE_CONTACT         	204
 #define IDD_PROFILE_BIO             	205

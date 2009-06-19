@@ -142,10 +142,10 @@ public:
 #define MATCH_COL_NAME		0
 #define MATCH_COL_TYPE		1
 #define MATCH_COL_SIZE		2
-#define MATCH_COL_RATING	3
-#define MATCH_COL_STATUS	4
-#define MATCH_COL_COUNT		5
-#define MATCH_COL_SPEED		6
+#define MATCH_COL_COUNT		3
+#define MATCH_COL_SPEED		4
+#define MATCH_COL_RATING	5
+#define MATCH_COL_STATUS	6
 #define MATCH_COL_CLIENT	7
 #define MATCH_COL_COUNTRY	8
 #define MATCH_COL_TIME		9

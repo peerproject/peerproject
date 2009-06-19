@@ -684,7 +684,7 @@ BOOL CShakeNeighbour::ReadResponse()
 	// Read one header line from the handshake the remote computer has sent us
 	CString strLine; // The line
 	if ( ! Read( strLine ) ) return TRUE; // The line is still arriving, return true to try this method again
-	if ( strLine.GetLength() > 256 * 1024 ) strLine = _T("#LINE_TOO_LONG#"); // Make sure the line isn't too long
+	if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE ) strLine = _T("#LINE_TOO_LONG#"); // Make sure the line isn't too long
 
 	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> HANDSHAKE: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine ); // Report handshake lines
 
@@ -1047,7 +1047,7 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 	{	// This header has been used for several things. In general, it gives us a list of Gnutella Ultrapeers,
 		// however some old versions of Shareaza can send G2 hubs in it.
 
-		// ToDo: Clean this up. (Very few of the older clients are around.)
+		// ToDo: Clean this up. (Very few older clients remain.)
 
 		int nCount = 0;
 		// Append a comma onto the end of the value text once, and then loop forever
@@ -1058,8 +1058,8 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 			if ( nPos < 0 ) break;			// If no comma was found, leave the loop
 
 			// Move the text before the comma from the value string to a new string for the host
-			CString strHost = m_sTryUltrapeers.Left( nPos );	// Copy the text up to the comma into strHost
-			m_sTryUltrapeers = m_sTryUltrapeers.Mid( nPos + 1 );     // Clip that text and the comma off the start of strValue
+			CString strHost = m_sTryUltrapeers.Left( nPos );		// Copy the text up to the comma into strHost
+			m_sTryUltrapeers = m_sTryUltrapeers.Mid( nPos + 1 );	// Clip that text and the comma off the start of strValue
 
 			// The remote computer accepts Gnutella2 connection.
 			if ( m_bG2Accept || m_bG2Send )

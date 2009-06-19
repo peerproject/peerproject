@@ -129,16 +129,16 @@ int CMatchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	EnableToolTips( TRUE );
 
-	InsertColumn( MATCH_COL_NAME, _T("File"), HDF_LEFT, 200 );
-	InsertColumn( MATCH_COL_TYPE, _T("Extension"), HDF_CENTER, 64 );
+	InsertColumn( MATCH_COL_NAME, _T("File"), HDF_LEFT, 220 );
+	InsertColumn( MATCH_COL_TYPE, _T("Type"), HDF_CENTER, 50 );
 	InsertColumn( MATCH_COL_SIZE, _T("Size"), HDF_CENTER, 62 );
+	InsertColumn( MATCH_COL_COUNT, _T("Host/Count"), HDF_CENTER, 110 );
+	InsertColumn( MATCH_COL_SPEED, _T("Speed"), HDF_CENTER, 60 );
 	InsertColumn( MATCH_COL_RATING, _T("Rating"), HDF_CENTER, 12*5 );
 	InsertColumn( MATCH_COL_STATUS, _T("Status"), HDF_CENTER, 16*3 );
-	InsertColumn( MATCH_COL_COUNT, _T("Host/Count"), HDF_CENTER, 120 );
-	InsertColumn( MATCH_COL_SPEED, _T("Speed"), HDF_CENTER, 60 );
 	InsertColumn( MATCH_COL_CLIENT, _T("Client"), HDF_CENTER, 80 );
 	InsertColumn( MATCH_COL_COUNTRY, _T("Country"), HDF_LEFT, 56 );
-	InsertColumn( MATCH_COL_TIME, _T("Time"), HDF_CENTER, 120 );
+	InsertColumn( MATCH_COL_TIME, _T("Time"), HDF_CENTER, 102 );
 
 	CBitmap bmStar;
 	bmStar.LoadBitmap( IDB_SMALL_STAR );
@@ -864,43 +864,12 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			break;
 
 		case MATCH_COL_TYPE:
-			if ( pszType ) pszText = pszType + 1;
+			if ( pszType )
+				pszText = pszType + 1;
 			break;
 
 		case MATCH_COL_SIZE:
 			pszText = pFile->m_sSize;
-			break;
-
-		case MATCH_COL_STATUS:
-			if ( pHit )
-			{
-				DrawStatus( dc, rcCol, pFile, pHit, bSelected, crBack );
-			}
-			else if ( nHits == 1 )
-			{
-				DrawStatus( dc, rcCol, pFile, pFile->GetBest(), bSelected, crBack );
-			}
-			else
-			{
-				DrawStatus( dc, rcCol, pFile, NULL, bSelected, crBack );
-			}
-			break;
-
-		case MATCH_COL_RATING:
-			if ( pHit )
-			{
-				DrawRating( dc, rcCol, pHit->m_nRating, bSelected, crBack );
-			}
-			else if ( nHits == 1 )
-			{
-				DrawRating( dc, rcCol, pFile->GetBestRating(), bSelected, crBack );
-			}
-			else
-			{
-				DrawRating( dc, rcCol,
-					pFile->m_nRated ? pFile->m_nRating / pFile->m_nRated : 0,
-					bSelected, crBack );
-			}
 			break;
 
 		case MATCH_COL_COUNT:
@@ -1008,6 +977,38 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			}
 			break;
 
+		case MATCH_COL_RATING:
+			if ( pHit )
+			{
+				DrawRating( dc, rcCol, pHit->m_nRating, bSelected, crBack );
+			}
+			else if ( nHits == 1 )
+			{
+				DrawRating( dc, rcCol, pFile->GetBestRating(), bSelected, crBack );
+			}
+			else
+			{
+				DrawRating( dc, rcCol,
+					pFile->m_nRated ? pFile->m_nRating / pFile->m_nRated : 0,
+					bSelected, crBack );
+			}
+			break;
+
+		case MATCH_COL_STATUS:
+			if ( pHit )
+			{
+				DrawStatus( dc, rcCol, pFile, pHit, bSelected, crBack );
+			}
+			else if ( nHits == 1 )
+			{
+				DrawStatus( dc, rcCol, pFile, pFile->GetBest(), bSelected, crBack );
+			}
+			else
+			{
+				DrawStatus( dc, rcCol, pFile, NULL, bSelected, crBack );
+			}
+			break;
+
 		case MATCH_COL_CLIENT:
 			if ( pHit )
 			{
@@ -1035,10 +1036,20 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			break;
 
 		case MATCH_COL_TIME:
-			lstrcpyn( szBuffer, pFile->m_pTime.Format( _T("%B %d, %H:%M:%S") ),
-				sizeof( szBuffer ) / sizeof( TCHAR ) );
-			szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
-			pszText = szBuffer;
+			{
+				SYSTEMTIME st;
+				if ( pFile->m_pTime.GetAsSystemTime( st ) )
+				{
+					int nChars = GetTimeFormat( LOCALE_USER_DEFAULT, 0,
+						&st, NULL, szBuffer, _countof( szBuffer ) );
+					szBuffer[ nChars - 1 ] = _T(' ');
+					szBuffer[ nChars ] = _T(' ');
+					nChars += GetDateFormat( LOCALE_USER_DEFAULT, DATE_SHORTDATE,
+						&st, NULL, szBuffer + nChars + 1, _countof( szBuffer ) );
+					szBuffer[ nChars - 5 ] = 0;		// Strip Year
+					pszText = szBuffer;
+				}
+			}
 			break;
 
 		default:
@@ -1672,15 +1683,14 @@ void CMatchCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 	}
 	else
 	{
-	/*	CMatchFile* pFile	= NULL;
-		CQueryHit* pHit		= NULL;
-		CRect rcItem;
+	//	CMatchFile* pFile	= NULL;
+	//	CQueryHit* pHit		= NULL;
+	//	CRect rcItem;
 
-		if ( HitTest( point, &pFile, &pHit, NULL, &rcItem ) )
-		{
-			// ToDo: Check if its on an action icon and take the appropriate action
-		}
-	*/
+	//	if ( HitTest( point, &pFile, &pHit, NULL, &rcItem ) )
+	//	{
+	//		// ToDo: Check if its on an action icon and take the appropriate action
+	//	}
 		GetOwner()->PostMessage( WM_COMMAND, ID_SEARCH_DOWNLOAD );
 	}
 }
