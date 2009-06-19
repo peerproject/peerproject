@@ -23,6 +23,7 @@
 #include "PeerProject.h"
 #include "Schema.h"
 #include "DlgHitColumns.h"
+#include "CoolMenu.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -31,9 +32,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 BEGIN_MESSAGE_MAP(CSchemaColumnsDlg, CSkinDialog)
-	//{{AFX_MSG_MAP(CSchemaColumnsDlg)
 	ON_CBN_SELCHANGE(IDC_SCHEMAS, OnSelChangeSchemas)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -42,17 +41,14 @@ END_MESSAGE_MAP()
 
 CSchemaColumnsDlg::CSchemaColumnsDlg(CWnd* pParent ) : CSkinDialog(CSchemaColumnsDlg::IDD, pParent)
 {
-	//{{AFX_DATA_INIT(CSchemaColumnsDlg)
-	//}}AFX_DATA_INIT
 }
 
 void CSchemaColumnsDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CSchemaColumnsDlg)
+
 	DDX_Control(pDX, IDC_COLUMNS, m_wndColumns);
 	DDX_Control(pDX, IDC_SCHEMAS, m_wndSchemas);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -70,7 +66,7 @@ BOOL CSchemaColumnsDlg::OnInitDialog()
 
 	LoadString( m_wndSchemas.m_sNoSchemaText, IDS_SEARCH_NO_SCHEMA );
 	m_wndSchemas.Load( m_pSchema ? m_pSchema->GetURI() : _T("") );
-	
+
 	OnSelChangeSchemas();
 
 	for ( int nMember = 0 ; nMember < m_wndColumns.GetItemCount() ; nMember++ )
@@ -201,7 +197,7 @@ CMenu* CSchemaColumnsDlg::BuildColumnMenu(CSchema* pSchema, CList< CSchemaMember
 
 	pMenu->CreatePopupMenu();
 
-	UINT nID = 1000;
+	UINT nID = ID_SCHEMA_MENU_MIN;
 
 	for ( POSITION pos = pSchema->GetMemberIterator() ; pos ; nID++ )
 	{
@@ -211,8 +207,10 @@ CMenu* CSchemaColumnsDlg::BuildColumnMenu(CSchema* pSchema, CList< CSchemaMember
 		{
 			UINT nFlags = MF_STRING;
 
-			if ( nID > 1000 && ( ( nID - 1000 ) % 16 ) == 0 ) nFlags |= MF_MENUBREAK;
-			if ( pColumns && pColumns->Find( pMember ) != NULL ) nFlags |= MF_CHECKED;
+			if ( nID > ID_SCHEMA_MENU_MIN && ( ( nID - ID_SCHEMA_MENU_MIN ) % 16 ) == 0 )
+				nFlags |= MF_MENUBREAK;
+			if ( pColumns && pColumns->Find( pMember ) != NULL )
+				nFlags |= MF_CHECKED;
 
 			pMenu->AppendMenu( nFlags, nID, pMember->m_sTitle );
 		}
@@ -230,7 +228,7 @@ BOOL CSchemaColumnsDlg::ToggleColumnHelper(CSchema* pSchema, CList< CSchemaMembe
 {
 	if ( ! pSchema ) return FALSE;
 
-	UINT nID = 1000;
+	UINT nID = ID_SCHEMA_MENU_MIN;
 
 	pTarget->RemoveAll();
 	pTarget->AddTail( pSource );

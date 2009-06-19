@@ -81,7 +81,7 @@
 #define _WIN32_WINNT	0x0600			// Vista, 2008
 #include <sdkddkver.h>					// Setup versioning for Windows SDK
 
-// Add defines missed/messed up when microsoft converted to NTDDI macros
+// Add defines missed/messed up when Microsoft converted to NTDDI macros
 #define WINXP			0x05010000		// rpcdce.h, rpcdcep.h
 #define NTDDI_XP		0x05010000		// ipexport.h, iphlpapi.h
 #define NTDDI_WXP		0x05010000		// rpcasync.h
@@ -532,19 +532,6 @@ private:
 	typedef CMutex CMutexEx;
 
 #endif	// _DEBUG
-
-class CLowerCaseTable
-{
-public:
-	explicit CLowerCaseTable();
-	inline const TCHAR& operator()(const TCHAR cLookup) const { return cTable[ cLookup ]; }
-	const CString& operator()(CString& strSource) const;
-	inline const TCHAR& operator[](const TCHAR cLookup) const { return ( *this )( cLookup ); }
-private:
-	TCHAR cTable[ 65537 ];
-};
-
-extern const CLowerCaseTable ToLower;
 
 #ifdef _DEBUG
 	#define VERIFY_FILE_ACCESS(h,f) \

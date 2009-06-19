@@ -142,8 +142,6 @@ IDB_REMOTE_SKIN         BITMAP			"Res\\RemoteWnd.bmp"
 // application icon remains consistent on all systems.
 IDR_MAINFRAME           ICON			"Res\\PeerProject.ico"
 IDR_SYSTEMFRAME     	ICON			"Res\\System.ico"
-IDI_HOST_OUTGOING   	ICON			"Res\\HostOut.ico"
-IDI_HOST_INCOMING   	ICON			"Res\\HostIn.ico"
 IDR_NEIGHBOURSFRAME 	ICON			"Res\\Network.ico"
 IDR_PACKETFRAME     	ICON			"Res\\Packets.ico"
 IDR_HOSTCACHEFRAME  	ICON			"Res\\HostCache.ico"
@@ -151,8 +149,8 @@ IDR_SEARCHFRAME     	ICON			"Res\\Search.ico"
 IDR_SEARCHMONITORFRAME	ICON			"Res\\HitMonitor.ico"
 IDR_HITMONITORFRAME 	ICON			"Res\\HitMonitor.ico"
 IDR_DOWNLOADSFRAME  	ICON			"Res\\Downloads.ico"
-IDR_LIBRARYFRAME    	ICON			"Res\\Library.ico"
 IDR_UPLOADSFRAME    	ICON			"Res\\Uploads.ico"
+IDR_LIBRARYFRAME    	ICON			"Res\\Library.ico"
 IDI_BROWSE          	ICON			"Res\\Browse.ico"
 IDR_BROWSEHOSTFRAME 	ICON			"Res\\Browse.ico"
 IDR_HOMEFRAME       	ICON			"Res\\Home.ico"
@@ -648,9 +646,8 @@ BEGIN
     CONTROL         "Power Mode",IDC_INTERFACE_1,"Button",BS_AUTORADIOBUTTON,14,75,250,10
     LTEXT           "Simple, easy to use menus with fewer options.\nHelpful for new users of file sharing.",IDC_DESCRIPTION_0,27,51,243,21
     LTEXT           "Standard mode offers expert users all extra commands, windows, etc.\nMight be more confusing for new users.",IDC_DESCRIPTION_1,27,87,243,21
-    CONTROL         "Display simplified download progress bars. (May reduce CPU use)",IDC_DOWNLOADS_SIMPLEBAR,
-					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,114,256,10
-    CONTROL         "Handle BitTorrent links. (Associate .torrent files)",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,128,256,10
+    CONTROL         "Display simplified download progress bars. (Less detail for new users)",IDC_DOWNLOADS_SIMPLEBAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,120,256,10
+    CONTROL         "Handle BitTorrent links. (Associate .torrent files)",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,136,256,10
 END
 
 IDD_WIZARD_NETWORKS DIALOGEX 0, 0, 277, 174
@@ -1605,8 +1602,8 @@ BEGIN
     PUSHBUTTON      "",IDC_DOWNLOADS_DEFAULT,241,59,23,20
     GROUPBOX        "&Group Name:",IDC_STATIC,7,7,266,36,WS_GROUP
     GROUPBOX        "&Auto-Filters:",IDC_STATIC,7,91,127,105,WS_GROUP
-    GROUPBOX        "&Completed File Folder:",IDC_STATIC,7,49,266,36,WS_GROUP
-    GROUPBOX        "&Type of Files:",IDC_STATIC,141,91,132,105,WS_GROUP
+    GROUPBOX        "&Completed Files Folder:",IDC_STATIC,7,49,266,36,WS_GROUP
+    GROUPBOX        "&Types of Files:",IDC_STATIC,141,91,132,105,WS_GROUP
     LTEXT           "&*Drag'n'drop any download later.",IDC_STATIC,150,177,116,16
 END
 

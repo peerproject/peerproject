@@ -1952,6 +1952,15 @@ int CMatchFile::Compare(CMatchFile* pFile) const
 	case MATCH_COL_SIZE:
 		return m_nSize == pFile->m_nSize ? 0 : ( m_nSize > pFile->m_nSize ? 1 : -1 );
 
+	case MATCH_COL_COUNT:
+		return m_nFiltered == pFile->m_nFiltered ? 0 : ( m_nFiltered > pFile->m_nFiltered ? 1 : -1 );
+		//ToDo: Add secondary sorting value to m_nSources
+
+	case MATCH_COL_SPEED:
+		x = m_nFiltered ? m_nSpeed / m_nFiltered : 0;
+		y = pFile->m_nFiltered ? pFile->m_nSpeed / pFile->m_nFiltered : 0;
+		return x == y ? 0 : ( x > y ? 1 : -1 );
+
 	case MATCH_COL_RATING:
 		x = m_nRated ? m_nRating / m_nRated : 0;
 		y = pFile->m_nRated ? pFile->m_nRating / pFile->m_nRated : 0;
@@ -1967,10 +1976,6 @@ int CMatchFile::Compare(CMatchFile* pFile) const
 		if ( pFile->m_bStable == TRI_TRUE ) y ++;
 		return x == y ? 0 : ( x > y ? 1 : -1 );
 
-	case MATCH_COL_COUNT:
-		return m_nFiltered == pFile->m_nFiltered ? 0 : ( m_nFiltered > pFile->m_nFiltered ? 1 : -1 );
-		//ToDo: Add secondary sorting value to m_nSources
-
 	case MATCH_COL_CLIENT:
 		{
 			LPCTSTR pszType1 = ( m_nFiltered == 1 ) ? (LPCTSTR)m_pHits->m_pVendor->m_sName : NULL;
@@ -1982,13 +1987,8 @@ int CMatchFile::Compare(CMatchFile* pFile) const
 			return x > 0 ? 1 : -1;
 		}
 
-	case MATCH_COL_TIME:
-		return m_pTime == pFile->m_pTime ? 0 : ( m_pTime > pFile->m_pTime ? 1 : -1 );
 
-	case MATCH_COL_SPEED:
-		x = m_nFiltered ? m_nSpeed / m_nFiltered : 0;
-		y = pFile->m_nFiltered ? pFile->m_nSpeed / pFile->m_nFiltered : 0;
-		return x == y ? 0 : ( x > y ? 1 : -1 );
+
 	case MATCH_COL_COUNTRY:
 		{
 			LPCTSTR pszType1 = ( m_nFiltered == 1 ) ? (LPCTSTR)m_pHits->m_sCountry : NULL;
@@ -1999,6 +1999,10 @@ int CMatchFile::Compare(CMatchFile* pFile) const
 			if ( ! x ) return 0;
 			return x > 0 ? 1 : -1;
 		}
+
+	case MATCH_COL_TIME:
+		return m_pTime == pFile->m_pTime ? 0 : ( m_pTime > pFile->m_pTime ? 1 : -1 );
+
 	default:
 		if ( ! m_pColumns ) return ( pFile->m_pColumns ? -1 : 0 );
 		else if ( ! pFile->m_pColumns ) return 1;
