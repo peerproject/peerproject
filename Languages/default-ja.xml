@@ -4280,7 +4280,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="ファイル"/>
-		<column from="Extension" to="拡張子"/>
+		<column from="Type" to="拡張子"/>
 		<column from="Size" to="サイズ"/>
 		<column from="Folder" to="フォルダ"/>
 		<column from="Hits" to="ヒット"/>
@@ -4347,15 +4347,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="ファイル"/>
-		<column from="Extension" to="拡張子"/>
+		<column from="Type" to="拡張子"/>
 		<column from="Size" to="サイズ"/>
-		<column from="Rating" to="評価"/>
-		<column from="Status" to="状態"/>
 		<column from="Host/Count" to="ホスト/カウント"/>
 		<column from="Speed" to="速度"/>
+		<column from="Rating" to="評価"/>
+		<column from="Status" to="状態"/>
 		<column from="Client" to="クライアント"/>
-		<column from="Time" to="時間"/>
 		<column from="Country" to="国"/>
+		<column from="Time" to="時間"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="名前"/>

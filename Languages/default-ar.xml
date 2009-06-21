@@ -4403,7 +4403,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="ملف" />
-		<column from="Extension" to="الإمتداد" />
+		<column from="Type" to="الإمتداد" />
 		<column from="Size" to="الحجم" />
 		<column from="Folder" to="مجلد" />
 		<column from="Hits" to="ضربات" />
@@ -4470,15 +4470,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="ملف" />
-		<column from="Extension" to="الإمتداد" />
+		<column from="Type" to="الإمتداد" />
 		<column from="Size" to="الحجم" />
-		<column from="Rating" to="التصنيف" />
-		<column from="Status" to="الحالة" />
 		<column from="Host/Count" to="المضيف/العدد" />
 		<column from="Speed" to="السرعة" />
+		<column from="Rating" to="التصنيف" />
+		<column from="Status" to="الحالة" />
 		<column from="Client" to="التابع" />
-		<column from="Time" to="الوقت" />
 		<column from="Country" to="البلد" />
+		<column from="Time" to="الوقت" />
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="الاسم" />

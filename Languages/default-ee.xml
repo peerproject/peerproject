@@ -4238,7 +4238,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Fail"/>
-		<column from="Extension" to="Faililaiend"/>
+		<column from="Type" to="Faililaiend"/>
 		<column from="Size" to="Suurus"/>
 		<column from="Folder" to="Kaust"/>
 		<column from="Hits" to=""/>
@@ -4305,15 +4305,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Fail"/>
-		<column from="Extension" to="Faililaiend"/>
+		<column from="Type" to="Tüüp"/>
 		<column from="Size" to="Suurus"/>
-		<column from="Rating" to="Hinnang"/>
-		<column from="Status" to="Olek"/>
 		<column from="Host/Count" to="Server"/>
 		<column from="Speed" to="Kiirus"/>
+		<column from="Rating" to="Hinnang"/>
+		<column from="Status" to="Olek"/>
 		<column from="Client" to="Klient"/>
-		<column from="Time" to=""/>
 		<column from="Country" to="Piirkond"/>
+		<column from="Time" to=""/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nimi"/>

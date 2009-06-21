@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Mexican Spanish Skin File -->
-<!-- Translation based on default-en.xml (Shareaza 2.2.3.3) -->
+<!-- Translation based on default-en.xml (Shareaza 2.4.0.4) -->
 
 <!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -313,7 +313,7 @@
 		<button id="ID_MEDIA_PLAYLIST" text="Lista del reproductor"/>
 	</toolbar>
 	<toolbar name="CMediaFrame">
-		<button id="ID_MEDIA_PLAY" text="Reproducir"/>
+		<button id="ID_MEDIA_PLAY" text="Reproducir &#160;"/>
 		<button id="ID_MEDIA_PAUSE" text="Pausa" visible="false"/>
 		<button id="ID_MEDIA_STOP" text="Detener"/>
 		<separator/>
@@ -569,7 +569,7 @@
 				<item id="ID_VIEW_RESULTS_MONITOR" text="_Monitor de resultados" shortcut="Ctrl+F3"/>
 			</menu>
 			<separator/>
-			<item id="ID_VIEW_BASIC" text="_Modo Normal"/>
+			<item id="ID_VIEW_BASIC" text="_Modo Basic"/>
 			<item id="ID_VIEW_TABBED" text="_Modo Avanzado"/>
 			<item id="ID_VIEW_WINDOWED" text="_Modo Ventanas"/>
 		</menu>
@@ -631,7 +631,7 @@
 			<menu text="Conectar _A">
 				<item id="ID_NETWORK_G2" text="Conectar a _Gnutella2"/>
 				<item id="ID_NETWORK_G1" text="Conectar a _Gnutella1"/>
-				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey2000"/>
+				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="_Salir Después de Transferencias"/>
@@ -1128,12 +1128,12 @@
 		<item id="ID_LIBRARY_DELETE" text="_Eliminar"/>
 		<separator/>
 		<menu text="S_earch For">
-			<item id="ID_SEARCH_FOR_THIS" text="Este Arhivo"/>
+			<item id="ID_SEARCH_FOR_THIS" text="Este Archivo"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Archivos Similares"/>
 			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Música por el mismo artista"/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="Música del mismo artista"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Música del mismo Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Episodios de las mismás series"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="Episodios de la misma serie"/>
 		</menu>
 		<menu text="_Web Services">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Ver _Bitzi Ticket"/>
@@ -1171,7 +1171,7 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Ver _Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Adquirir Metadata"/>
 			<separator/>
-<item id="ID_LIBRARY_CREATETORRENT" text="Crear Archivo .torrent"/>
+			<item id="ID_LIBRARY_CREATETORRENT" text="Crear Archivo .torrent"/>
 		</menu>
 		<menu text="O_rganizar">
 			<item id="ID_LIBRARY_RENAME" text="_Renombrar Archivo"/>
@@ -1179,8 +1179,11 @@
 			<item id="ID_LIBRARY_COPY" text="_Copiar Archivos..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Ubicar Metadata"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Seleccionar _Columnas..."/>
+		<separator/>
+		<item id="ID_SHELL_MENU" text="S_hell menu"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propiedades"/>
 	</menu>
@@ -1273,13 +1276,13 @@
 		<menu text="Tamaño del Video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Tamaño _Original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Tamaño _Doble"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Triple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Medio"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Tamaño _Grande"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Llenar Ventana"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="_Aspecto Original"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 (TV)"/>
-			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Film)"/>
+			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Película)"/>
 			<separator/>
 			<item id="ID_MEDIA_FULLSCREEN" text="_Pantalla Completa"/>
 		</menu>
@@ -1311,13 +1314,13 @@
 		<menu text="Tamaño del Video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Tamaño _Original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Tamaño _Doble"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Triple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Medio"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Tamaño _Grande"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Llenar Ventana"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="_Aspecto Original"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 (TV)"/>
-			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Film)"/>
+			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Película)"/>
 			<separator/>
 			<item id="ID_MEDIA_FULLSCREEN" text="_Pantalla Completa"/>
 		</menu>
@@ -1333,13 +1336,13 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="Tamaño _Original"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="Tamaño _Doble"/>
-		<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Triple"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Medio"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="Tamaño _Grande"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Llenar Ventana"/>
 		<separator/>
-		<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
+		<item id="ID_MEDIA_ASPECT_DEFAULT" text="Aspecto _Predeterminado"/>
 		<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
-		<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Film)"/>
+		<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Película)"/>
 	</menu>
 	<menu name="CMediaList">
 		<item id="ID_MEDIA_SELECT" text="_Reproducir"/>
@@ -1351,7 +1354,7 @@
 		<item id="ID_MEDIA_REMOVE" text="_Quitar"/>
 		<separator/>
 		<item id="ID_MEDIA_RANDOM" text="Modo al Azar"/>
-		<item id="ID_MEDIA_REPEAT" text="Modo que se repite"/>
+		<item id="ID_MEDIA_REPEAT" text="Modo de repetición"/>
 		<separator/>
 		<item id="ID_MEDIA_OPEN" text="_Abrir lista de reproducción..."/>
 		<item id="ID_MEDIA_SAVE" text="_Guardar lista de reproducción..."/>
@@ -1608,7 +1611,7 @@
 		</styles>
 		<para align="center">
 			<group id="1">
-				<text>No estas descargando ningún archivo todavia.</text>
+				<text>No estás descargando ningún archivo todavía.</text>
 				<newline gap="4"/>
 			</group>
 			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Ir a descarga</link>
@@ -1630,7 +1633,7 @@
 				<newline gap="8"/>
 			</group>
 			<text id="LibraryFiles" format="b">%lu </text>
-			<text>files, </text>
+			<text>archivos, </text>
 			<text id="LibraryVolume" format="b">%s</text>
 			<newline gap="4"/>
 			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Ir a Mi Colección</link>
@@ -2313,9 +2316,11 @@
 	<tip id="ID_MEDIA_OPEN" message="Abrir media o lista de reproducción..."/>
 	<tip id="ID_MEDIA_PAUSE" message="Poner en pausa la reproducción."/>
 	<tip id="ID_MEDIA_PLAY" message="Iniciar reproducción."/>
-	<tip id="ID_MEDIA_PLAYLIST" message="Mostrar la lista de reproducción."/>
+	<tip id="ID_MEDIA_PLAYLIST" message="Mostrar/Ocultar la lista de reproducción."/>
 	<tip id="ID_MEDIA_PREVIOUS" message="Ir al archivo anterior."/>
+	<tip id="ID_MEDIA_PROPERTIES" message="Ver y editar las propiedades de los archivos seleccionados."/>
 	<tip id="ID_MEDIA_RANDOM" message="Reproducción al azar."/>
+	<tip id="ID_MEDIA_RATE" message="Ratio de archivos seleccionados."/>
 	<tip id="ID_MEDIA_REMOVE" message="Quitar de la lista de reproducción."/>
 	<tip id="ID_MEDIA_REPEAT" message="Repetir archivo."/>
 	<tip id="ID_MEDIA_SAVE" message="Guardar la lista de reproducción..."/>
@@ -2324,7 +2329,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Poner el video lo más grande posible, puede producir distorsión."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Seleccionar el tamaño automáticamente."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Mostrar en tamaño original."/>
-	<tip id="ID_MEDIA_SIZE_HALF" message="Triple tamaño."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Medio tamaño."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Doble tamaño."/>
 	<tip id="ID_MEDIA_STATUS" message="Mostrar o Esconder la linea del estado del archivo de media."/>
 	<tip id="ID_MEDIA_STOP" message="Parar reproducción."/>
@@ -2428,7 +2433,7 @@
 	<tip id="ID_VIEW_DOWNLOADS" message="Muestra u oculta las subidas de archivos."/>
 	<tip id="ID_VIEW_HELP" message="Mostrar u ocultar ventana de ayuda."/>
 	<tip id="ID_VIEW_HOSTS" message="Muestra u oculta la memoria de usuarios (Host Cache)."/>
-	<tip id="ID_VIEW_LIBRARY" message="Muestra u oculta Mi Colección."/>
+	<tip id="ID_VIEW_LIBRARY" message="Muestra u oculta mi Colección."/>
 	<tip id="ID_VIEW_MEDIA" message="Mostrar u ocultar el Reproductor."/>
 	<tip id="ID_VIEW_NEIGHBOURS" message="Mostrar u ocultar la pantalla de vecinos."/>
 	<tip id="ID_VIEW_PACKETS" message="Muestra u oculta la historia de paquetes."/>
@@ -2470,7 +2475,7 @@
 	<string id="WINDOW_SEARCH" value="Buscar"/>
 	<string id="WINDOW_HITMONITOR" value="Monitor de resultados"/>
 	<string id="WINDOW_DOWNLOADS" value="Archivos descargando"/>
-	<string id="WINDOW_LIBRARY" value="Mi Colección"/>
+	<string id="WINDOW_LIBRARY" value="Colección"/>
 	<string id="WINDOW_UPLOADS" value="Archivos subiendo"/>
 	<string id="WINDOW_TRAFFIC" value="Gráfico"/>
 	<string id="WINDOW_CHAT" value="Chat"/>
@@ -2488,8 +2493,8 @@
 	<string id="7004" value="Ya hay un filtro llamado &quot;%s&quot;, deseas remplazarlo?"/>
 	<string id="7005" value="Por favor dale un nombre al filtro."/>
 	<string id="7100" value="Este template es invalido."/>
-	<string id="7101" value="Este template no tiene ningn cambio."/>
-	<string id="7102" value="Ests seguro que deseas borrar el template &quot;%s&quot;?\nEso no se puede deshacer."/>
+	<string id="7101" value="Este template no tiene ningún cambio."/>
+	<string id="7102" value="Estás seguro que deseas borrar el template &quot;%s&quot;?\nEso no se puede deshacer."/>
 	<string id="8000" value="Configuración de PeerProject"/>
 	<string id="8001" value="Bienvenido a PeerProject"/>
 	<string id="8002" value="Propiedades del Archivo"/>
@@ -2502,12 +2507,14 @@
 	<string id="8009" value="¿Estas seguro que deseas eliminar &quot;%s&quot; skin?  Esto no se puede deshacer."/>
 	<string id="8010" value="Esta es una versión pre-release de PeerProject, y el periodo de Beta Testing ha terminado.  Por favor descarga la versión completa de http://peerproject.org/."/>
 	<string id="8011" value="Cambiado de vista va a cerrar todas las ventanas que tienes abiertas.  ¿Deseas cambiar ahora?"/>
-	<string id="8012" value="Informacin Torrent"/>
-	<string id="8060" value="Modo Hub %lu en red(s).  %s en Mi Colección."/>
-	<string id="8061" value="Modo Ultrapeer en %lu vecino(s) .  %s en Mi Colección."/>
-	<string id="8062" value="Modo Hub/Ultrapeer %lu en red(s).  %s en Mi Colección."/>
-	<string id="8063" value="Conectado. %s en Mi Colección."/>
-	<string id="8064" value="Conectado a %lu vecino(s).  Tienes %s en Mi Colección."/>
+	<string id="8012" value="Información Torrent"/>
+	<string id="8013" value="No hay nueva versión de PeerProject detecta."/>
+	<string id="8014" value="Descargar Propiedades"/>
+	<string id="8060" value="Modo Hub %lu en redes.  %s en Mi Colección."/>
+	<string id="8061" value="Modo Ultrapeer en %lu vecinos.  %s en Mi Colección."/>
+	<string id="8062" value="Modo Hub/Ultrapeer %lu en redes.  %s en Mi Colección."/>
+	<string id="8063" value="Conectado. %s en mi Colección."/>
+	<string id="8064" value="Conectado a %lu vecinos.  Tienes %s en Mi Colección."/>
 	<string id="8065" value="Conectando a la red..."/>
 	<string id="8066" value="PeerProject no esta conectado a la red."/>
 	<string id="8067" value="%s entra : %s sale [D:%I64i/U:%I64i]"/>
@@ -2535,7 +2542,7 @@
 	<string id="8134" value="Se va a iniciar una nueva búsqueda.  ¿Quieres eliminar los resltados actuales?"/>
 	<string id="8135" value="No Hay Metadata"/>
 	<string id="8136" value="Búsqueda de texto puro"/>
-	<string id="8137" value="No Columnas de Schema "/>
+	<string id="8137" value="No Columnas de Esquema"/>
 	<string id="8141" value="Mostrar el panel de búsqueda"/>
 	<string id="8142" value="Esconder el panel de búsqueda"/>
 	<string id="8143" value="Buscando..."/>
@@ -2567,8 +2574,8 @@
 	<string id="8177" value="Teclea algunas palabras claves para buscar:"/>
 	<string id="8178" value="¿Qué tipo de archivo deseas buscar?"/>
 	<string id="8179" value="(Limpiar Historía de Búsqueda)"/>
-	<string id="8180" value="Tamaño Min:"/>
-	<string id="8181" value="Tamaño Max:"/>
+	<string id="8180" value="Tamaño Mín:"/>
+	<string id="8181" value="Tamaño Máx:"/>
 	<string id="8208" value="PeerProject esta creando hashes para %Iu archivo(s):"/>
 	<string id="8223" value="%i dias y %i horas"/>
 	<string id="8224" value="PeerProject esta descargando:"/>
@@ -2756,10 +2763,10 @@
 	<string id="16308" value="La fuente de descarga %s envió datos no solicitados, cerrando conexión."/>
 	<string id="16309" value="Pidiendo metadata para &quot;%s&quot; desde %s..."/>
 	<string id="16310" value="Recibiendo datos tiger-tree data desde %s (%s)..."/>
-	<string id="16311" value="Pidiendo hashset eDonkey2000 para &quot;%s&quot; desde %s..."/>
-	<string id="16312" value="Recibido un hashset eDonkey2000 invalido desde %s, olvidando fuente."/>
-	<string id="16313" value="Recibido un hashset eDonkey2000 desde &quot;%s&quot;, el chunk minimo verificable es %s."/>
-	<string id="16314" value="El hashset eDonkey2000 es corrupto o internamente incosistente, olvidando fuente."/>
+	<string id="16311" value="Pidiendo hashset eDonkey para &quot;%s&quot; desde %s..."/>
+	<string id="16312" value="Recibido un hashset eDonkey invalido desde %s, olvidando fuente."/>
+	<string id="16313" value="Recibido un hashset eDonkey desde &quot;%s&quot;, el chunk minimo verificable es %s."/>
+	<string id="16314" value="El hashset eDonkey es corrupto o internamente incosistente, olvidando fuente."/>
 	<string id="16315" value="No fue posible iniciar inflate para la descarga &quot;%s&quot;."/>
 	<string id="16316" value="Timed out esperando actualización de cola de descarga eDonkey2000 fuente %s para archivo &quot;%s&quot;."/>
 	<string id="16317" value="Quedandose en cola para &quot;%s&quot;."/>
@@ -2779,7 +2786,7 @@
 	<string id="16331" value="Terminada la subida de parte &quot;%s&quot; a %s."/>
 	<string id="16332" value="Conexión entrante de %s es un pedido de subida HTTP."/>
 	<string id="16333" value="Muy ocupado para subir &quot;%s&quot; a %s, cola #%i of %i (&quot;%s&quot;)."/>
-	<string id="16334" value="petición push %s pidio un archivo desconocido, conectando de todas maneras..."/>
+	<string id="16334" value="Petición push %s pidio un archivo desconocido, conectando de todas maneras..."/>
 	<string id="16335" value="Eliminado subida de &quot;%s&quot; a %s."/>
 	<string id="16336" value="Host de subida %s esta en la lista de bloqueo user-agent, denegando petición."/>
 	<string id="16337" value="Enviando headers de subida &quot;%s&quot; a host %s (%s)."/>
@@ -2807,7 +2814,7 @@
 	<string id="16359" value="Cola desconectada a host de subida %s expiro, borrando."/>
 	<string id="16360" value="Rechazando subida de &quot;%s&quot; a %s (%s), todas las colas llenas."/>
 	<string id="16361" value="Rechazando subida de %s (%s), red deshabilitadas."/>
-	<string id="16362" value="Subidas eDonkey2000 no deben ser canceladas.  ¿Estas seguro que deseas cancelar esta subida?"/>
+	<string id="16362" value="Subidas eDonkey no deben ser canceladas.  ¿Estas seguro que deseas cancelar esta subida?"/>
 	<string id="16363" value="Sudidas Torrent"/>
 	<string id="16364" value="Subidas Completadas"/>
 	<string id="16365" value="¿Estás seguro que deseas cancelar/abortar todas las descargas en este grupo?"/>
@@ -2917,12 +2924,12 @@
 	<string id="16807" value="Por favor incluya la unidades para el límite del ancho de bada de la siguiente forma &quot;123 kb/s&quot; para kilobits por segundo, o &quot;123 KB/s&quot; para kiloBytes por segundo."/>
 	<string id="16808" value="No has seleccionado tu edad y sexo. ¿Estas seguro que deseas continuar sin hacer esto?"/>
 	<string id="16809" value="Sa&amp;lir"/>
-	<string id="16810" value="años"/>
+	<string id="16810" value="Años"/>
 	<string id="16811" value="Automatico"/>
 	<string id="16812" value="Por favor espera: Encontrando dispositivos UPnP y configurandolos..."/>
 	<string id="16813" value="Por favor espera: Actualizando servicios de descubrimiento..."/>
 	<string id="16814" value="Please wait: Actualizando lista de servidor eDonkey2000..."/>
-	<string id="16815" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
+	<string id="16815" value="El servicio de red para Dispositivo UPnP no está ejecutado. Este servicio es requerido completar la configuración.\nNecesitas completar el inicio del servicio como automático."/>
 	<string id="16816" value="La red eDonkey utiliza largas colas con tiempos largos de espera. Limitando tu máxima cola de posición puede que te de problemas para iniciar las descargas.\nEstas seguro que deseas limitar las posiciones de cola que vas a aceptar?"/>
 	<string id="16817" value="Windows no soporta nomres ms grandes que 256 caracteres.\nPlor favor selecciona un nombre con un tamao ms pequeo."/>
 	<string id="16818" value="La carpeta de archivos incompletos no debe de estar en la librera, porque reduce velocidad. Archivos incompletos pueden ser compartidos directamente de la ventana de transferencias."/>
@@ -2943,14 +2950,14 @@
 	<string id="16934" value="La exploración del usuario %s respondió %s (%s)."/>
 	<string id="16935" value="La exploración del usuario %s respondió incorrectamente, puede no soportarlo."/>
 	<string id="16936" value="Recibiendo contenido de exploración del usuario %s (%s)"/>
-	<string id="16938" value="Error explorando el usuario %s."/>
+	<string id="16938" value="Error explorando paquetes Gnutella del usuario %s."/>
 	<string id="16939" value="Finalizada la exploración del usuario %s, %i archivos encontrados."/>
 	<string id="16940" value="La exploración del usuario %s fué cerrada."/>
 	<string id="16941" value="Cerrando exploración del usuario %s por falta de tráfico."/>
 	<string id="16942" value="Cerrando exploración del usuario %s."/>
 	<string id="16943" value="Explorando usuario %s"/>
-	<string id="16944" value="Encontrados %i archivos compartdios en Mi Colección de %s."/>
-	<string id="16991" value="PeerProject Media Player"/>
+	<string id="16944" value="Encontrados %i archivos compartdios en Colección de %s."/>
+	<string id="16991" value="Reproductor de PeerProject"/>
 	<string id="16992" value="PeerProject no pudo iniciar los servicias de reproducción.  Por favor reinstale PeerProject, y confirme que tiene todos los codecs, filtros y controladores necesarios.."/>
 	<string id="16993" value="Todos los archivos de Media|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
 	<string id="16994" value="El archivo &quot;%s&quot;, no se pudo cargar."/>
@@ -2987,7 +2994,7 @@
 	<string id="17105" value="Gnutella II: Conexión Hub-to-Leaf"/>
 	<string id="17106" value="Conexión Servidor eDonkey(LOWID: %lu)"/>
 	<string id="17107" value="Conexión Servidor eDonkey"/>
-	<string id="17108" value="Handshake"/>
+	<string id="17108" value="Conexión"/>
 	<string id="17109" value="Entrada"/>
 	<string id="17110" value="Salida"/>
 	<string id="17111" value="Actual:"/>
@@ -2997,7 +3004,7 @@
 	<string id="17115" value="Deflate"/>
 	<string id="17116" value="Ninguno"/>
 	<string id="17117" value="Conectando"/>
-	<string id="17118" value="Handshaking"/>
+	<string id="17118" value="Negociando Conexión"/>
 	<string id="17119" value="Rechazado"/>
 	<string id="17120" value="Cerrando"/>
 	<string id="17121" value="Desconocido"/>
@@ -3008,28 +3015,28 @@
 	<string id="17126" value="G2 Hub"/>
 	<string id="17127" value="G2 Leaf"/>
 	<string id="17128" value="Servidor eDonkey2000"/>
-	<string id="17129" value="eDonkey2000 (LowID)"/>
-	<string id="17130" value="eDonkey2000 (HighID)"/>
-	<string id="17216" value="Iniciando conexión a servidor eDonkey2000 en %s..."/>
-	<string id="17217" value="Conectado en servidor eDonkey2000 %s, handshaking..."/>
+	<string id="17129" value="eDonkey (LowID)"/>
+	<string id="17130" value="eDonkey (HighID)"/>
+	<string id="17216" value="Iniciando conexión a servidor eDonkey en %s..."/>
+	<string id="17217" value="Conectado en servidor eDonkey %s, handshaking..."/>
 	<string id="17218" value="ED2K[%s] %s"/>
-	<string id="17219" value="El servidor eDonkey2000 %s no aceptó la conexión."/>
-	<string id="17220" value="El servidor eDonkey2000 %s nos dió %lu como número de identificación."/>
-	<string id="17221" value="El servidor eDonkey2000 %s cambió nuestro número de identificación de %lu a %lu."/>
-	<string id="17222" value="El servidor eDonkey2000 %s se identifica como &quot;%s&quot;."/>
-	<string id="17223" value="El servidor eDonkey2000 %s no aceptó la conexión."/>
-	<string id="17224" value="Error iniciando la conexión con el cliente %s de eDonkey2000."/>
-	<string id="17225" value="La conexión con el cliente %s de eDonkey2000 fué perdida."/>
-	<string id="17226" value="El servidor %s de eDonkey2000 envió un paquete mal construido (id=%x)."/>
-	<string id="17227" value="La conexión entrante de %s es un cliente eDonkey2000."/>
-	<string id="17228" value="Enviando tabla de hashes del archivo &quot;%s&quot; al cliente %s de eDonkey2000..."/>
-	<string id="17229" value="La conexión con %s de eDonkey2000 fué cerrada por falta de actividad."/>
-	<string id="17230" value="Iniciando conexión con el cliente %s de eDonkey2000..."/>
-	<string id="17231" value="El cliente %s de eDonkey2000 tiene un GUID erroneo, abortando conexión."/>
-	<string id="17232" value="La conexión con el cliente %s de eDonkey2000 tardó mucho tiempo."/>
-	<string id="17233" value="El inicio de la conexión con el cliente %s de eDonkey2000 se demoró mucho."/>
-	<string id="17234" value="Reusando conexión  con el eDonkey2000 de %s porque eDonkey2000 está desabilitado."/>
-	<string id="17248" value="Iniciando el proceso de importar archivos incompletos del eDonkey2000..."/>
+	<string id="17219" value="El servidor eDonkey %s no aceptó la conexión."/>
+	<string id="17220" value="El servidor eDonkey %s nos dió %lu como número de identificación."/>
+	<string id="17221" value="El servidor eDonkey %s cambió nuestro número de identificación de %lu a %lu."/>
+	<string id="17222" value="El servidor eDonkey %s se identifica como &quot;%s&quot;."/>
+	<string id="17223" value="El servidor eDonkey %s no aceptó la conexión."/>
+	<string id="17224" value="Error iniciando la conexión con el cliente %s de eDonkey."/>
+	<string id="17225" value="La conexión con el cliente %s de eDonkey fué perdida."/>
+	<string id="17226" value="El servidor %s de eDonkey envió un paquete mal construido (id=%x)."/>
+	<string id="17227" value="La conexión entrante de %s es un cliente eDonkey."/>
+	<string id="17228" value="Enviando tabla de hashes del archivo &quot;%s&quot; al cliente %s de eDonkey..."/>
+	<string id="17229" value="La conexión con %s de eDonkey fué cerrada por falta de actividad."/>
+	<string id="17230" value="Iniciando conexión con el cliente %s de eDonkey..."/>
+	<string id="17231" value="El cliente %s de eDonkey tiene un GUID erroneo, abortando conexión."/>
+	<string id="17232" value="La conexión con el cliente %s de eDonkey tardó mucho tiempo."/>
+	<string id="17233" value="El inicio de la conexión con el cliente %s de eDonkey se demoró mucho."/>
+	<string id="17234" value="Reusando conexión  con el eDonkey de %s porque eDonkey está desabilitado."/>
+	<string id="17248" value="Iniciando el proceso de importar archivos incompletos del eDonkey..."/>
 	<string id="17249" value="Proceso culminado, %i archivos parciales fueron importados."/>
 	<string id="17250" value="Escaneando la carpeta: &quot;%s&quot;..."/>
 	<string id="17251" value="No se pudo importar el archivo."/>
@@ -3070,18 +3077,18 @@
 	<string id="17498" value="Hubo un error con el archivo &quot;%s&quot;."/>
 	<string id="17500" value="El tracker no respondio, tratando otra vez"/>
 	<string id="17501" value="No se pudo comunicar al tracker"/>
-	<string id="17503" value="Tracker failed- Trying next tracker (%i of %i)"/>
-	<string id="17505" value="BitTorrent connection to %s was dropped."/>
-	<string id="17506" value="BitTorrent handshake with %s was dropped."/>
-	<string id="17507" value="BitTorrent coupling with %s was dropped."/>
-	<string id="17510" value="BitTorrent coupling with %s not accepted, a connection to this client already exists."/>
-	<string id="17511" value="BitTorrent coupling with %s not accepted, maximum connections reached."/>
-	<string id="17512" value="Private torrent"/>
-	<string id="17513" value="Encoding error"/>
+	<string id="17503" value="Tracker fallido- Intentando siguiente tracker (%i of %i)"/>
+	<string id="17505" value="Conexión BitTorrent a %s ha caído."/>
+	<string id="17506" value="Conexión BitTorrent con %s ha caído."/>
+	<string id="17507" value="Acoplamiento BitTorrent con %s ha caído."/>
+	<string id="17510" value="Acoplamiento BitTorrent con %s no aceptada, ya existe una conexión con este cliente."/>
+	<string id="17511" value="Acoplamiento BitTorrent con %s no aceptada, máximo de conexiones alcanzado."/>
+	<string id="17512" value="Torrent privado"/>
+	<string id="17513" value="Error de codificación"/>
 	<string id="18496" value="Usted ha cambiado el nombre del archivo.  ¿Está seguro de cambiarlo?"/>
 	<string id="18497" value="El valor de SHA1 que le asignó a la descarga no es válido.  Pro favor revíselo."/>
 	<string id="18498" value="El valor de root tiger-tree asignado no es válido."/>
-	<string id="18499" value="El valor del hash de eDonkey2000 asignado no es válido."/>
+	<string id="18499" value="El valor del hash de eDonkey asignado no es válido."/>
 	<string id="18500" value="¿Estás seguro de cambiar el SHA1?"/>
 	<string id="18501" value="¿Estás seguro de cambiar el root tiger-tree hash?"/>
 	<string id="18502" value="¿Estás seguro de cambiar el hash de eDonkey?"/>
@@ -3100,13 +3107,13 @@
 	<string id="20000" value="No hay URN disponible"/>
 	<string id="20001" value="Cerrar"/>
 	<string id="20002" value="de"/> <!--"1 of 10"-->
-	<string id="20003" value="Cambiando la direccin de interface requiere reiniciar. \nVas a necesitar reiniciar PeerProject manualmente. Salir ahora?"/>
+	<string id="20003" value="Cambiando la dirección de interface requiere reiniciar. \nVas a necesitar reiniciar PeerProject manualmente. Salir ahora?"/>
 	<string id="20005" value="No"/>
 	<string id="20006" value="Sì"/>
 	<string id="20007" value="Auto"/>
 	<string id="20008" value="Por defecto"/>
 	<string id="20009" value="Custom"/>
-	<string id="20010" value="&amp;Atrs"/>
+	<string id="20010" value="&amp;Atrás"/>
 	<string id="20011" value="&amp;Siguiente"/>
 	<string id="20012" value="Finalizar"/>
 	<string id="20013" value="Todo"/>
@@ -3144,7 +3151,7 @@
 	<string id="20131" value="fuentes"/> <!-- from 2 to 4 -->
 	<string id="20132" value="fuentes"/> <!-- from 5 to 9 -->
 	<string id="20133" value="Desinteresado"/>
-	<string id="20134" value="Choked"/>
+	<string id="20134" value="Cortado"/>
 	<string id="20135" value="Siguiente"/>
 	<string id="20136" value="C"/>
 	<string id="20137" value="fuentes"/><!-- 3/10 sources, for e.g. -->
@@ -3155,7 +3162,7 @@
 	<string id="20204" value="Jueves"/>
 	<string id="20205" value="Viernes"/>
 	<string id="20206" value="Sabado"/>
-	<string id="20210" value="(No Rating)"/>
+	<string id="20210" value="(Sin respuesta)"/>
 	<string id="20211" value="Falso / Corrupto"/>
 	<string id="20212" value="Malo"/>
 	<string id="20213" value="Promedio"/>
@@ -3164,7 +3171,7 @@
 	<string id="20216" value="Excelente"/>
 	<string id="20217" value="Selecciona la carpeta temporal de eDonkey/eMule:"/>
 	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/><!-- Track number -->
+	<string id="20230" value="#"/> <!-- Track number -->
 	<string id="20231" value="Título"/>
 	<string id="20232" value="Tamaño"/>
 	<string id="20233" value="Bitrate"/>
@@ -3192,7 +3199,7 @@
 		<control caption="Mostrar confirmación antes de abrir URIs"/>
 		<control caption="Mostrar tasa de transferencia en:"/>
 		<control caption="bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
-		<control caption="Cuadros informativos(tooltips):"/>
+		<control caption="_Descargas"/>
 		<control caption="Expandir nuevas transferencias por defecto"/>
 		<control caption="Mostrar barra simple de proceso"/>
 		<control caption="_Buscar:"/>
@@ -3200,7 +3207,7 @@
 		<control caption="Cambiar a vista de transferencias en descarga"/>
 		<control caption="Esconder la barra de al lado al empezar la busqueda"/>
 		<control caption="Filtrar contenido de adultos en las búsquedas"/>
-		<control caption="T_ooltips:"/>
+		<control caption="T_ooltips(mensajes emergentes):"/>
 		<control/>
 		<control caption="Retraso (ms):"/>
 		<control/>
@@ -3216,7 +3223,7 @@
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Colección">
 		<control caption="_Opciones:"/>
 		<control caption="Recordar vistas de carpetas"/>
-		<control caption="Ver carpetas de Mi Colección"/>
+		<control caption="Ver carpetas de Colección"/>
 		<control caption="Hashing rápido (Utiliza más CPU)"/>
 		<control caption="Permitir exploración de usuario"/>
 		<control caption="Archivos _recientes:"/>
@@ -3252,9 +3259,9 @@
 		<control/>
 		<control caption="_Agregar"/>
 		<control caption="_Eliminar"/>
-		<control caption="Plugin de _Visualisation de Audio:"/>
+		<control caption="Plugin de _Visualización de Audio:"/>
 		<control caption="_Seleccionar Plugin..."/>
-		<control caption="_Media Handling"/>
+		<control caption="Programador de _Media"/>
 		<control caption="Seleccionar un programa de medios:"/>
 		<control caption="Nota: Seleccionar un programa de medios externo va a automaticamente deshabilitar todos los Plugins de Visualizacin y de Medios!"/>
 	</dialog>
@@ -3274,7 +3281,7 @@
 		<control caption="Usar PeerProject para abrir estos enlaces:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
-		<control caption="eDonkey2000 ( ed2k: )"/>
+		<control caption="eDonkey ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
 		<control caption="Manejador de _Descargas:"/>
@@ -3458,14 +3465,14 @@
 		<control caption="Parar después de:"/>
 		<control/>
 		<control/>
-		<control caption="resultados."/>
+		<control caption="Resultados."/>
 		<control caption="Recibe y actualiza la lista de servidores del servidor conectado"/>
 		<control caption="Límite de _conexiones con otros clientes:"/>
 		<control caption="No conectar con más de:"/>
 		<control/>
 		<control/>
 		<control caption="clientes de eDonkey al la vez."/>
-		<control caption="_Herramientas de eDonkey2000:"/>
+		<control caption="_Herramientas de eDonkey:"/>
 		<control caption="Descargar lista de servidores de eDonkey2000 de la web:"/>
 		<control caption="Descargar..."/>
 	</dialog>
@@ -3539,9 +3546,9 @@
 		<control caption="Archivos solamente descargados parcialmente"/>
 		<control caption="Archivos compartidos en librera solamente"/>
 		<control caption="Archivos parciales y de librera"/>
-		<control caption="Minimo del tamaño del archivo fuente:"/>
+		<control caption="Mínimo del tamaño del archivo fuente:"/>
 		<control/>
-		<control caption="Maximo del tamaño del archivo fuente:"/>
+		<control caption="Máximo del tamaño del archivo fuente:"/>
 		<control/>
 		<control caption="Archivos Marcados:"/>
 		<control caption="Popular|Release"/>
@@ -3757,7 +3764,7 @@
 	<dialog name="CLanguageDlg" cookie="" caption="Select Language">
 	</dialog>
 	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Conectar A|Explorar Usuarios">
-		<control caption="Initiate a new connection to host or server:|Browse this host:"/>
+		<control caption="Iniciar una nueva conexión al host o servidor:|Explorar este host:"/>
 		<control/>
 		<control/>
 		<control caption="Protocolo de red."/>
@@ -3777,7 +3784,7 @@
 		<control caption="PeerProject también puede descargar y compartir archivos de BitTorrent. Los torrent pueden ser un archivo o un URL. Para decargarlo de un enlace, póngalo en el recuadro. Si ya tienes el archivo del torrent, haz click en Abrir Torrent:"/>
 		<control caption="Abrir _Torrent..."/>
 	</dialog>
-	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Buscar|Buscar de nuevo|Buscar en Mi Colección">
+	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Buscar|Buscar de nuevo|Buscar en Colección">
 		<control/>
 		<control/>
 		<control caption="Buscar"/>
@@ -3972,7 +3979,7 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Netmask:"/>
+		<control caption="Máscara de red:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4085,8 +4092,8 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Este archivo ya está en Mi Colección.  ¿Qué quiere hacer?"/>
-		<control caption="Ubicarlo en Mi Colección"/>
+		<control caption="Este archivo ya está en Colección.  ¿Qué quiere hacer?"/>
+		<control caption="Ubicarlo en Colección"/>
 		<control caption="Descargarlo de nuevo"/>
 		<control caption="Nada, dejar el archivo original"/>
 		<control caption="Continuar"/>
@@ -4153,7 +4160,7 @@
 	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Archivos">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Rastreadores">
 		<control/>
 		<control/>
 		<control/>
@@ -4166,7 +4173,7 @@
 		<control caption="Deshabilitado|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
 		<control caption="_Actualizar"/>
 	</dialog>
-	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Bittorrent">
+	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="BitTorrent">
 		<control/>
 		<control/>
 		<control/>
@@ -4311,7 +4318,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Archivo"/>
-		<column from="Extension" to="Extensión"/>
+		<column from="Type" to="Extensión"/>
 		<column from="Size" to="Tamaño"/>
 		<column from="Folder" to="Carpeta"/>
 		<column from="Hits" to=""/>
@@ -4378,15 +4385,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Archivo"/>
-		<column from="Extension" to="Extensión"/>
+		<column from="Type" to="Tipo"/>
 		<column from="Size" to="Tamaño"/>
-		<column from="Rating" to="Valoración"/>
-		<column from="Status" to="Estado"/>
 		<column from="Host/Count" to=""/>
 		<column from="Speed" to="Velocidad"/>
+		<column from="Rating" to="Valoración"/>
+		<column from="Status" to="Estado"/>
 		<column from="Client" to="Cliente"/>
-		<column from="Time" to="Tiempo"/>
 		<column from="Country" to="País"/>
+		<column from="Time" to="Tiempo"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nombre"/>
@@ -4409,12 +4416,12 @@
 	</list>
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Nombre de archivo"/>
-		<column from="Size" to="Tamao"/>
+		<column from="Size" to="Tamaño"/>
 		<column from="Status" to="Estado"/>
 		<column from="Priority" to="Tipo"/>
 	</list>
 	<list name="CTorrentTrackerList">
-		<column from="Tracker" to=""/>
+		<column from="Tracker" to="Rastreador"/>
 		<column from="Status" to="Estado"/>
 		<column from="Type" to="Tipo"/>
 	</list>

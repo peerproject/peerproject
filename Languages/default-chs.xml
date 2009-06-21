@@ -4214,7 +4214,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="文件"/>
-		<column from="Extension" to="扩展名"/>
+		<column from="Type" to="扩展名"/>
 		<column from="Size" to="大小"/>
 		<column from="Folder" to="文件夹"/>
 		<column from="Hits" to="命中"/>
@@ -4281,15 +4281,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="文件"/>
-		<column from="Extension" to="扩展名"/>
+		<column from="Type" to="扩展名"/>
 		<column from="Size" to="大小"/>
-		<column from="Rating" to="评级"/>
-		<column from="Status" to="状态"/>
 		<column from="Host/Count" to="主机/计数"/>
 		<column from="Speed" to="速度"/>
+		<column from="Rating" to="评级"/>
+		<column from="Status" to="状态"/>
 		<column from="Client" to="客户端"/>
-		<column from="Time" to="时间"/>
 		<column from="Country" to="国家"/>
+		<column from="Time" to="时间"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="名称"/>

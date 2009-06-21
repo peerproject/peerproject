@@ -661,7 +661,6 @@
 			<item id="ID_HELP_DONATE" text="_Пожертвования"/>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_О PeerProject..."/>
-
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Windowed" type="bar">
@@ -754,7 +753,6 @@
 			<item id="ID_HELP_DONATE" text="_Пожертвования"/>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_О PeerProject..."/>
-
 		</menu>
 	</menu>
 	<!-- VIEW POPUP -->
@@ -1260,7 +1258,7 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Загрузить метаданные"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
+			<item id="ID_LIBRARY_URI" text="URI"/>
 		</menu>
 		<menu text="О_перации">
 			<item id="ID_LIBRARY_RENAME" text="_Переименовать файл"/>
@@ -1280,7 +1278,7 @@
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Общий доступ"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
+		<item id="ID_LIBRARY_URI" text="URI"/>
 		<item id="ID_LIBRARY_DELETE" text="_Удалить"/>
 		<separator/>
 		<menu text="_Искать">
@@ -1330,7 +1328,7 @@
 		<menu text="Раз_мер видео">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Оригинальный размер"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Двойной размер"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="_Тройной размер"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Половинай размер"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Наибольший"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="На _всё окно"/>
 			<separator/>
@@ -1368,7 +1366,7 @@
 		<menu text="_Размер видео">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Оригинальный размер"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Двойной размер"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="_Тройной размер"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Половинай размер"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="_Наибольший"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="На _всё окно"/>
 			<separator/>
@@ -1390,7 +1388,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Оригинальный размер"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Двойной размер"/>
-		<item id="ID_MEDIA_SIZE_HALF" text="_Тройной размер"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Половинай размер"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Наибольший"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="На _всё окно"/>
 		<separator/>
@@ -1535,7 +1533,7 @@
 			<item id="ID_CHAT_BOLD" text="_Жирный"/>
 			<item id="ID_CHAT_ITALIC" text="_Наклонный"/>
 			<item id="ID_CHAT_UNDERLINE" text="_Подчеркнутый"/>
-			<item id="ID_CHAT_COLOR" text="_Цвет"/>
+			<item id="ID_CHAT_COLOUR" text="_Цвет"/>
 			<item id="ID_CHAT_EMOTICONS" text="_Смайлики"/>
 		</menu>
 		<separator/>
@@ -2570,7 +2568,7 @@
 	<string id="WINDOW_MEDIA" value="Проигрыватель"/>
 	<string id="WINDOW_SEARCHPAD" value="Поиск"/>
 	<string id="WINDOW_HELP" value="PeerProject помощь"/>
-	<string id="WINDOW_IRC" value="Чат Shareaza"/>
+	<string id="WINDOW_IRC" value="Чат PeerProject"/>
 	<string id="7000" value="Вы уверены, что хотите удалить этот фильтр?"/>
 	<string id="7001" value="&amp;Схемы"/>
 	<string id="7002" value="Разные значения"/>
@@ -2659,8 +2657,8 @@
 	<string id="8177" value="Введите ключевые слова для поиска:"/>
 	<string id="8178" value="Какого типа файл?"/>
 	<string id="8179" value="(Очистить историю поисков)"/>
-	<string id="8180" value="Минимальная Pазмер:"/>
-	<string id="8181" value="Максимальный Pазмер:"/>
+	<string id="8180" value="Минимальная:"/> <!--Pазмер-->
+	<string id="8181" value="Максимальный:"/>
 	<string id="8208" value="PeerProject создает хешы для %Iu файлов:"/>
 	<string id="8223" value="%i д. и %i час."/>
 	<string id="8224" value="PeerProject загружает:"/>
@@ -4452,7 +4450,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Файл"/>
-		<column from="Extension" to="Расширение"/>
+		<column from="Type" to="Расширение"/>
 		<column from="Size" to="Размер"/>
 		<column from="Folder" to="Папка"/>
 		<column from="Hits" to="Обращений"/>
@@ -4519,15 +4517,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Файл"/>
-		<column from="Extension" to="Расширение"/>
+		<column from="Type" to="Тип"/>
 		<column from="Size" to="Размер"/>
-		<column from="Rating" to="Оценка"/>
-		<column from="Status" to="Статус"/>
 		<column from="Host/Count" to="Кол-во хостов"/>
 		<column from="Speed" to="Скорость"/>
+		<column from="Rating" to="Оценка"/>
+		<column from="Status" to="Статус"/>
 		<column from="Client" to="Клиент"/>
-		<column from="Time" to="Время"/>
 		<column from="Country" to="Страна"/>
+		<column from="Time" to="Время"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Название"/>

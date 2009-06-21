@@ -4439,7 +4439,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Lêer"/>
-		<column from="Extension" to="Uitbreiding"/>
+		<column from="Type" to="Uitbreiding"/>
 		<column from="Size" to="Grootte"/>
 		<column from="Folder" to="Gids"/>
 		<column from="Hits" to="Treflaaie"/>
@@ -4506,15 +4506,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Lêer"/>
-		<column from="Extension" to="Uitbreiding"/>
+		<column from="Type" to="Tipe"/>
 		<column from="Size" to="Grootte"/>
-		<column from="Rating" to="Gradering"/>
-		<column from="Status" to="Status"/>
 		<column from="Host/Count" to="Gasheer/Aantal"/>
 		<column from="Speed" to="Spoed"/>
+		<column from="Rating" to="Gradering"/>
+		<column from="Status" to="Status"/>
 		<column from="Client" to="Program"/>
-		<column from="Time" to=""/>
 		<column from="Country" to="Anderland"/>
+		<column from="Time" to=""/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Naam"/>

@@ -102,7 +102,7 @@
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Cerca ancora..."/>
-		<button id="ID_SEARCH_STOP" text="Stop"/>
+		<button id="ID_SEARCH_STOP" text="Ferma Ricerca"/>
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Scarica"/>
 		<button id="ID_BROWSE_LAUNCH" text="Esplora utente"/>
@@ -121,7 +121,7 @@
 	</toolbar>
 	<toolbar name="CBrowseTree.Top">
 		<button id="ID_LIBRARY_TREE_PHYSICAL" text="Cartelle"/>
-		<button id="ID_LIBRARY_TREE_VIRTUAL" text="Organizzata"/>
+		<button id="ID_LIBRARY_TREE_VIRTUAL" text="Organizzatore"/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Scarica file"/>
@@ -149,13 +149,13 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Apri/Play"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Anteprima file"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Anteprima file"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Elimina file"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Riprendi"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pausa"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Annulla"/>
-		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Rimuovi download"/>
+		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Rimuovi"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostra monitor"/>
 		<rightAlign/>
@@ -165,7 +165,7 @@
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Apri/Play"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Elimina file"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Anteprima file"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Anteprima file"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Riprendi"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pausa"/>
@@ -204,7 +204,7 @@
 	<!-- LIBRARY FRAME -->
 	<toolbar name="CLibraryTree.Top">
 		<button id="ID_LIBRARY_TREE_PHYSICAL" text="Cartelle"/>
-		<button id="ID_LIBRARY_TREE_VIRTUAL" text="Organizzata"/>
+		<button id="ID_LIBRARY_TREE_VIRTUAL" text="Organizzatore"/>
 	</toolbar>
 	<toolbar name="CLibraryTree.Virtual">
 		<button id="ID_LIBRARY_FOLDERS" text="Condividi file..."/>
@@ -408,6 +408,33 @@
 		<button id="ID_CHAT_DISCONNECT" text="Disconnetti"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.ShareMonkey">
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Ottieni Dati"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Precedente"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="Successivo"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PRICES" text="Ottieni Prezzi"/>
+		<button id="ID_SHAREMONKEY_COMPARE" text="Confronta"/>
+		<button id="ID_SHAREMONKEY_BUY" text="Compralo"/>
+	</toolbar>
+	<toolbar name="WebServices.ShareMonkey.WithSave">
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Ottieni Dati"/>
+		<button id="ID_SHAREMONKEY_SAVE" text="Salva"/>
+		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Salva Anteprima" width="100" checked="true"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Precedente"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="Successivo"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PRICES" text="Ottieni Prezzi"/>
+		<button id="ID_SHAREMONKEY_COMPARE" text="Confronta"/>
+		<button id="ID_SHAREMONKEY_BUY" text="Compralo"/>
+	</toolbar>
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Vedi Corrispondenze Album"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Vedi Tutti Gli Album"/>
+		<separator/>
+	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_BestFit" text="Adatta dimensioni"/>
@@ -640,6 +667,7 @@
 			<item id="ID_VIEW_UPLOADS" text="Upload" shortcut="F4"/>
 			<item id="ID_VIEW_LIBRARY" text="Libreria" shortcut="F5"/>
 			<item id="ID_VIEW_MEDIA" text="Media" shortcut="F6"/>
+			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="Sicurezza" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="Cache host" shortcut="F8"/>
@@ -1140,6 +1168,7 @@
 			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizza metadata"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="Aggiorna _metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Proprietà"/>
 	</menu>
@@ -1172,8 +1201,11 @@
 			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizza metadata"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="Aggiorna _metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Modifica colonne..."/>
+		<separator/>
+		<item id="ID_SHELL_MENU" text="Menu s_hell"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Proprietà"/>
 	</menu>
@@ -1208,6 +1240,7 @@
 			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizza metadata"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="Aggiorna _metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Proprietà"/>
 	</menu>
@@ -1242,6 +1275,7 @@
 			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizza metadata"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="Aggiorna _metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Modifica colonne..."/>
 		<separator/>
@@ -1266,7 +1300,7 @@
 		<menu text="Dimensioni video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Dimensioni originali"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Dimensioni raddoppiate"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="Dimensioni triplicate"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Dimensioni mezzo"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Grandezza massima"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="Finestra intera"/>
 			<separator/>
@@ -1304,7 +1338,7 @@
 		<menu text="_Dimensioni video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Dimensioni _originali"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Dimensioni _raddoppiate"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="Dimensioni _triplicate"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Dimensioni me_zzo"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Grandezza _massima"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="Finestra _intera"/>
 			<separator/>
@@ -1326,7 +1360,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="Dimensioni originali"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="Dimensioni raddoppiate"/>
-		<item id="ID_MEDIA_SIZE_HALF" text="Dimensioni triplicate"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="Dimensioni mezzo"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="Grandezza massima"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="Finestra intera"/>
 		<separator/>
@@ -1355,7 +1389,13 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="Modalità _discorsiva"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Modalità Discorsiva">
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Errore"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Attenzione"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Avviso"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Informazione"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="Registra _orario"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copia" shortcut="Ctrl+C"/>
@@ -1398,8 +1438,11 @@
 	<menu name="CSearchMonitorWnd">
 		<item id="ID_HITMONITOR_SEARCH" text="Cerca questo"/>
 		<separator/>
-		<item id="ID_SEARCHMONITOR_PAUSE" text="Sospendi visualizzazione"/>
-		<item id="ID_SEARCHMONITOR_CLEAR" text="Svuota buffer"/>
+		<item id="ID_BROWSE_LAUNCH" text="_Sfoglia Utente"/>
+		<item id="ID_SECURITY_BAN" text="Blocca Utente"/>
+		<separator/>
+		<item id="ID_SEARCHMONITOR_PAUSE" text="Sospendi Visualizzazione"/>
+		<item id="ID_SEARCHMONITOR_CLEAR" text="Svuota Buffer"/>
 	</menu>
 	<!-- GRAPH/TRAFFIC WINDOW -->
 	<menu name="CTrafficWnd">
@@ -1468,6 +1511,39 @@
 		<separator/>
 		<item id="ID_CHAT_TIMESTAMP" text="Registra orario"/>
 		<item id="ID_CHAT_CLEAR" text="Svuota finestra"/>
+	</menu>
+	<!-- IRC WINDOW -->
+	<menu name="CIRCTabRClick">
+		<item id="ID_IRC_CLOSETAB" text="_Chiudi"/>
+	</menu>
+	<menu name="CIRCUserList">
+		<item id="ID_IRC_WHOIS" text="_Whois (Chi è)"/>
+		<item id="ID_IRC_QUERY" text="_Query"/>
+		<separator/>
+		<menu text="Azioni">
+			<item id="ID_IRC_TIME" text="_Data/Ora"/>
+			<item id="ID_IRC_VERSION" text="_Versione"/>
+		</menu>
+		<separator/>
+		<menu text="Controllo">
+			<item id="ID_IRC_IGNORE" text="_Ignora"/>
+			<item id="ID_IRC_UNIGNORE" text="_Unignora"/>
+			<item id="ID_IRC_OP" text="_Op"/>
+			<item id="ID_IRC_DEOP" text="_Deop"/>
+			<item id="ID_IRC_VOICE" text="_Voice"/>
+			<item id="ID_IRC_DEVOICE" text="D_evoice"/>
+			<item id="ID_IRC_KICK" text="_Kick"/>
+			<item id="ID_IRC_KICKWHY" text="Kick (perché?)"/>
+			<item id="ID_IRC_BAN" text="_Ban"/>
+			<item id="ID_IRC_UNBAN" text="_Unban"/>
+			<item id="ID_IRC_BANKICK" text="Kick+Ban"/>
+			<item id="ID_IRC_BANKICKWHY" text="Kick+Ban (perché?)"/>
+		</menu>
+	</menu>
+	<menu name="WebServices.List.Menu">
+		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
+		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
@@ -1572,6 +1648,11 @@
 		<text align="middle">&#160;- Modifica le impostazioni di PeerProject</text>
 		<newline gap="8"/>
 		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
+		<newline gap="8"/>
+		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/>
+		<gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Filtri di Sicurezza</link>
+		<text align="middle">&#160;- Aggiungi/Rimuovi i filtri per migliorare i tuoi risultati di ricerca</text>
 		<gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Aiuto veloce</link>
 		<text align="middle">&#160;- Aiuti fondamentali per usare PeerProject</text>
@@ -1891,8 +1972,17 @@
 		<text>Questa è la cartella ove vengono visualizzati i file da scaricare. Puoi visualizzare
 		i sorgenti da cui scaricare espandendo ogni file col piccolo + sulla sinistra.</text>
 		<newline gap="8"/>
-		<text>Puoi usare questo comando per ottenere informazioni di supporto su un download. Devi
+		<text>Sposta i tuoi download in alto/basso per la priorità, oppure usa i Gruppi di Download
+		per un'organizzazione migliore (in Modalità Avanzata).</text>
+		<newline gap="16"/>
+		<text>Puoi anche usare questo comando per ottenere informazioni di supporto su uno specifico download. Devi
 		semplicemente selezionare un download e scegliere nuovamente questo comando.</text>
+	</document>
+	<document name="DownloadHelp.Seeding">
+		<text format="b">Questo Torrent è in invio</text>
+		<newline gap="8"/>
+		<text>PeerProject ha completato e verificato questo download e lo sta condividendo
+		con gli altri utenti attraverso BitTorrent. Per favore condividi fino a 100%.</text>
 	</document>
 	<document name="DownloadHelp.Completed">
 		<text format="b">Questo download è stato completato</text>
@@ -2112,7 +2202,7 @@
 		<text>Per disabilitare il filtro, devi andare in Strumenti &gt; Configurazioni &gt; Generale e
 		disabilitare il filtro contenuti adatti per adulti.</text>
 	</document>
-<!-- Share help documents -->
+	<!-- Share help documents -->
 	<document name="ShareHelp.AlreadyShared">
 		<text format="b">Già Condivisa</text>
 		<newline gap="8"/>
@@ -2206,7 +2296,6 @@
 	<tip id="ID_DOWNLOADS_SHARE" message="Condividi con gli altri utenti questo file scaricato parzialmente."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Mostra le fonti che non sono correntemente attive."/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="Cerca altre fonti per i download selezionati."/>
-	<tip id="ID_DOWNLOADS_TORRENT_INFO" message="Visualizza le informazioni sul download BitTorrent selezionato..."/>
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Aggiungi una fonte URL al download selezionato..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Visualizza revisioni per i download selezionati"/>
 	<tip id="ID_HELP_ABOUT" message="Mostra la finestra delle informazioni..."/>
@@ -2225,6 +2314,8 @@
 	<tip id="ID_HELP_WEB_4" message="Visita questo sito web"/>
 	<tip id="ID_HELP_WEB_5" message="Visita questo sito web"/>
 	<tip id="ID_HELP_WEB_6" message="Visita questo sito web"/>
+	<tip id="ID_HELP_DONATE" message="Se lo desideri, puoi donarci dei fondi e dimostrare il tuo apprezzamento."/>
+	<tip id="ID_HELP_FAKESHAREAZA" message="Traduci FakePeerProject.com per saperne di più sui recenti avvenimenti."/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Pulisci la memoria del monitor dei file più richiesti."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Sospendi il monitor dei file più richiesti."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Cerca nella rete le parole selezionate."/>
@@ -2316,7 +2407,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Allarga il video fino a riempire completamente la finestra, potrebbe verificarsi la distorsione delle immagini."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Seleziona le migliori dimensioni del formato video."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Mostra il video con la sue dimensioni originali."/>
-	<tip id="ID_MEDIA_SIZE_HALF" message="Mostra il video il triplo delle dimensioni originali."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Mostra il video il mezzo delle dimensioni originali."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Mostra il video il doppio delle dimensioni originali."/>
 	<tip id="ID_MEDIA_STATUS" message="Mostra o nascondi la barra di stato del lettore multimediale."/>
 	<tip id="ID_MEDIA_STOP" message="Termina l'esecuzione del file multimediale." tip="Stop"/>
@@ -2375,8 +2466,8 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Registra un orario per ciascuna linea."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Mostra il log dettagliato delle attività di sistema."/>
 	<tip id="ID_TAB_CONNECT" message="Connetti o disconnetti dalla rete."/>
-	<tip id="ID_TAB_HELP" message="Suggerimenti di supporto per PeerProject."/>
 	<tip id="ID_TAB_HOME" message="Vai alla pagina iniziale di PeerProject"/>
+	<tip id="ID_TAB_IRC" message="Mostra la finestra della Chat IRC."/>
 	<tip id="ID_TAB_LIBRARY" message="Visualizza e organizza il contenuto della tua libreria."/>
 	<tip id="ID_TAB_MEDIA" message="Esegui i file video e audio dalla tua libreria."/>
 	<tip id="ID_TAB_NETWORK" message="Visualizza la qualità della tua connessione alla rete."/>
@@ -2418,7 +2509,6 @@
 	<tip id="ID_VIEW_BASIC" message="Usa PeerProject in modalità normale."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Mostra o nascondi la finestra dei servizi di connessione."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Mostra o nascondi la finestra dei download."/>
-	<tip id="ID_VIEW_HELP" message="Mostra o nascondi la finestra di aiuto."/>
 	<tip id="ID_VIEW_HOSTS" message="Mostra o nascondi la finestra della cache host."/>
 	<tip id="ID_VIEW_LIBRARY" message="Mostra o nascondi la finestra della libreria."/>
 	<tip id="ID_VIEW_MEDIA" message="Mostra o nascondi la finestra del lettore multimediale."/>
@@ -2440,6 +2530,8 @@
 	<tip id="ID_WINDOW_TILE_HORZ" message="Disponi le finestre aperte orizzontalmente, senza sovrapposizioni."/>
 	<tip id="ID_WINDOW_TILE_VERT" message="Disponi le finestre aperte verticalmente, senza sovrapposizioni."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Mostra o nascondi la barra degli strumenti."/>
+	<tip id="ID_WEBSERVICES_LIST" message="Scegli il servizio web per avere maggiori informazioni sul file selezionato."/>
+	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Cerca le informazioni sul file utilizzando il servizio ShareMonkey."/>
 	<!-- PLUGIN TIPS -->
 	<tip id="ImageViewer_BestFit" message="Ridimensiona l'immagine per adattarsi alla finestra."/>
 	<tip id="ImageViewer_ActualSize" message="Mostra l'immagine con le dimensioni naturali."/>
@@ -2450,6 +2542,7 @@
 <controlTips>
 	<tip id="IDC_THROTTLE_MODE" message="Nella modalità Massimo la larghezza di banda non supererà il valore specificato. Nella modalità Medio oscillerà intorno al valore in entrambi i lati."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Questa opzione non ha effetto sui download iniziati precedentemente, inoltre è ignorata se il file ha l'hash eDonkey e la rete eDonkey è abilitata o se è un torrent.{n}Tuttavia questa opzione non è ignorata se il download è in pausa.{n}{n}ATTENZIONE: Usa questa opzione soltanto in caso di reale necessità, se abusi dell'opzione puoi essere bannato."/>
+	<tip id="IDC_REGEXP" message="Inserisci espressioni regolari nella sintassi perl.{n}Le chiavi di ricerca possono essere specificate nella forma di &lt;n&gt;, dove n è un numero compreso da 1 a 9. Se vuoi porre tutte le parole chiave dopo le altre, usa questi &lt;_&gt; identificatori."/>
 </controlTips>
 <!-- Localized Strings -->
 <strings>
@@ -2473,6 +2566,7 @@
 	<string id="WINDOW_MEDIA" value="Media player"/>
 	<string id="WINDOW_SEARCHPAD" value="Ricerca"/>
 	<string id="WINDOW_HELP" value="Aiuto di PeerProject"/>
+	<string id="WINDOW_IRC" value="Chat IRC di PeerProject"/>
 	<string id="7000" value="Sei sicuro di voler cancellare questo filtro ?"/>
 	<string id="7001" value="&amp;Schemi"/>
 	<string id="7002" value="Valori multipli"/>
@@ -2495,6 +2589,8 @@
 	<string id="8010" value="Questa è una versione pre-release di PeerProject e il periodo di beta testing è terminato. Scarica la versione completa e ufficiale da http://peerproject.org/."/>
 	<string id="8011" value="Cambiando la visualizzazione qualsiasi finestra aperta si chiuderà. Desideri cambiare ora?"/>
 	<string id="8012" value="Informazioni sul torrent"/>
+	<string id="8013" value="Nessuna nuova versione di PeerProject rilevata."/>
+	<string id="8014" value="Proprietà del download"/>
 	<string id="8060" value="Modalità Hub/Ultrapeer con %lu vicino(i). %s nella libreria locale."/>
 	<string id="8061" value="Modalità Ultrapeer con %lu vicino(i). %s nella libreria locale."/>
 	<string id="8062" value="Modalità Hub con %lu vicino(i). %s nella tua libreria locale."/>
@@ -2559,8 +2655,8 @@
 	<string id="8177" value="Inserisci qui la tua ricerca:"/>
 	<string id="8178" value="Che tipo di file è?"/>
 	<string id="8179" value="(Cancella parole ricercate)"/>
-	<string id="8180" value="Dimens. del file:"/>
-	<string id="8181" value="Dimens. del file:"/>
+	<string id="8180" value="Dimens. Min:"/>
+	<string id="8181" value="Dimens. Max:"/>
 	<string id="8208" value="PeerProject sta calcolando l'hash per %Iu file:"/>
 	<string id="8223" value="%i giorni e %i ore"/>
 	<string id="8224" value="PeerProject sta scaricando:"/>
@@ -2642,6 +2738,7 @@
 	<string id="16077" value="L'indirizzo %s è già bloccato dalle regole di sicurezza."/>
 	<string id="16078" value="Regola di sicurezza per bloccare %s aggiunta."/>
 	<string id="16079" value="Desideri disconnettere?"/>
+	<string id="16080" value="Stai utilizzando il pianificatore in modalità 'solo G2'. Vuoi disabilitare questa modalità, cosicchè tutte le reti attive rimangano connesse?"/>
 	<string id="16081" value="Invio richiesta per &quot;%s&quot; a %s."/>
 	<string id="16083" value="Forzare il tuo PC in modalità hub potrebbe aver riflessi negativi sulla rete. Generalmente è meglio permettere a PeerProject di decidere se deve essere utilizzata la modalità hub.\n\nLa modalità hub non permette migliori risultati nella ricerca, o genera migliori risultati per l'utente. Desideri continuare?"/>
 	<string id="16084" value="Disabilitando il supporto per il protocollo Gnutella-1 potrebbe limitare i risultati nelle tue ricerche, inoltre il tuo comportamento come hub potrebbe impattarsi anche sui risultati di altri utenti. Desideri continuare?"/>
@@ -2845,6 +2942,7 @@
 	<string id="16410" value="Una sottocartella della cartella selezionata &quot;%s&quot; è già parte della tua libreria.\nAggiungere questa cartella causerà il re-hashing di alcuni file.\n\nVuoi continuare?"/>
 	<string id="16411" value="Impossibile spostare il file %s. Il file può essere in uso da un'altra applicazione.\n\nVuoi provare a copiarlo invece di spostarlo?"/>
 	<string id="16412" value="File fantasma"/>
+	<string id="16413" value="Nuovo gruppo"/>
 	<string id="16448" value="Connesso a %s, negoziazione in corso..."/>
 	<string id="16449" value="Stai chattando con %s (%s)."/>
 	<string id="16450" value="Connessione con %s chiusa."/>
@@ -2950,6 +3048,13 @@
 	<string id="16997" value="Nessun file in riproduzione. Fai doppio click su un file multimediale della tua libreria per riprodurlo."/>
 	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Playlist:"/>
+	<string id="17017" value="Invia:"/>
+	<string id="17018" value="Benvenuto sulla Chat IRC di PeerProject!"/>
+	<string id="17019" value="Per favore rispetta gli altri quando usi questo servizio"/>
+	<string id="17020" value="Aggiungi"/>
+	<string id="17021" value="Rimuovi"/>
+	<string id="17022" value="Utenti"/>
+	<string id="17023" value="Canali"/>
 	<string id="17024" value="Avvio di una connessione con %s in corso..."/>
 	<string id="17025" value="Impossibile avviare una connessione con %s."/>
 	<string id="17026" value="Richiesta di una connessione push con firewall da %s in corso..."/>
@@ -3069,6 +3174,8 @@
 	<string id="17511" value="Aggancio BitTorrent a %s non accettato, numero massimo di connessioni raggiunto."/>
 	<string id="17512" value="Torrent privato"/>
 	<string id="17513" value="Errore di codifica"/>
+	<string id="17514" value="Sto Aggiornando i Download Bittorrent..."/>
+	<string id="17515" value="Sto Convertendo il Torrent:"/>
 	<string id="18496" value="Hai modificato il nome del file. Desideri rinominare questo download?"/>
 	<string id="18497" value="Hai inserito un hash SHA1 non valido. Controlla e riprova di nuovo."/>
 	<string id="18498" value="Hai inserito un hash tiger-tree root non valido. Controlla e riprova di nuovo."/>
@@ -3164,6 +3271,12 @@
 	<string id="20236" value="Valutazione"/>
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Annulla"/>
+	<string id="20239" value="Fermat"/>
+	<string id="20240" value="Vai Indietro"/>
+	<string id="20241" value="Ignora"/>
+	<string id="20242" value="Riprova"/>
+	<string id="20243" value="Continua"/>
+	<string id="20244" value="&amp;Ricorda le mie impostazioni la prossima volta"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
@@ -3232,7 +3345,7 @@
 		<control/>
 		<control/>
 		<control caption="Crea file fantasma durante la cancellazione"/>
-		<control caption="Smart video series detection"/>
+		<control caption="Rilevamento intelligente serie di video"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Media player">
 		<control caption="_Opzioni:"/>
@@ -3259,7 +3372,42 @@
 		<control caption="Filtra i messaggi chat dallo spam"/>
 		<control caption="Censura contenuti profani in chat"/>
 	</dialog>
-	<!--dialog name="CIRCSettingsPage"-->
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="null">
+		<control caption="_Opzioni client:"/>
+		<control caption="Mostra integrazione chat"/>
+		<control caption="Protezione flood:"/>
+		<control/>
+		<control caption="linee al secondo"/>
+		<control caption="Mostra timestamp"/>
+		<control caption="Font schermo:"/>
+		<control/>
+		<control caption="_Colori:"/>
+		<control/>
+		<control caption="Messaggi server"/>
+		<control/>
+		<control caption="Topic"/>
+		<control/>
+		<control caption="Azioni canale"/>
+		<control/>
+		<control caption="Avvisi"/>
+		<control/>
+		<control caption="Sfondo chat"/>
+		<control/>
+		<control caption="Testo"/>
+		<control caption="Impo_stazioni di connessione:"/>
+		<control caption="Nick:"/>
+		<control/>
+		<control caption="Nome utente:"/>
+		<control/>
+		<control caption="Nick alternativo:"/>
+		<control/>
+		<control caption="Nome reale:"/>
+		<control/>
+		<control caption="Server:"/>
+		<control/>
+		<control caption="Porta:"/>
+		<control/>
+	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Gestione link _Peer to Peer:"/>
 		<control caption="Usa PeerProject per aprire questi tipi di link:"/>
@@ -3513,7 +3661,7 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Set Default"/>
+		<control caption="Imposta come default"/>
 		<control caption="Regolazione delle proprietà:"/>
 		<control caption="Valore:"/>
 		<control caption="Descrizione:"/>
@@ -3535,7 +3683,7 @@
 		<control caption="Dimensione massima del file:"/>
 		<control/>
 		<control caption="File segnati:"/>
-		<control/>
+		<control caption="Release|Popolare"/>
 		<control caption="Nome del file è:"/>
 		<control/>
 		<control caption="Protocolli:"/>
@@ -3779,7 +3927,7 @@
 		<control/>
 		<control caption="Reg. Exp."/>
 		<control caption="( puoi anche escludere parole con -parola )"/>
-		<control caption=" E che sono di _dimensioni:"/>
+		<control caption="E che sono di _dimensioni:"/>
 		<control caption="Minime:"/>
 		<control/>
 		<control caption="Massime:"/>
@@ -4011,8 +4159,8 @@
 		<control/>
 		<control caption="Inserisci token:"/>
 		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|Nome file|Nome file (URI)|Nome file di base|Estensione file|Dimensione file |Dimensione file (byte)|Percorso cartella|Host locale|Porta locale"/>
-		<control caption="Formato:"/>
-		<control/>
+		<control caption="Seleziona Formato:"/>
+		<control caption="Magnet|eDonkey|Magnet HTML|eDonkey HTML"/>
 		<control caption="_Copia"/>
 		<control caption="Salva..."/>
 		<control/>
@@ -4123,9 +4271,9 @@
 		<control/>
 		<control caption="Informazioni sul template:"/>
 		<control caption="Nome:"/>
-		<control/>
+		<control caption="..."/>
 		<control caption="Autore:"/>
-		<control/>
+		<control caption="..."/>
 		<control caption="Descrizione:"/>
 		<control/>
 		<control caption="Cancella|_Indietro"/>
@@ -4250,7 +4398,7 @@
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Localizzazione metadata">
 		<control caption="Seleziona il metodo di ri-codifica"/>
 		<control caption="Arabo|Baltico|Europeo centrale|Cinese semplificato|Cinese tradizionale|Cirillico|Greco|Ebraico|Giapponese|Coreano|Tailandese|Turco|Vietnamita"/>
-		<control caption="Preview:"/>
+		<control caption="Anteprima:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4302,7 +4450,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="File"/>
-		<column from="Extension" to="Estensione"/>
+		<column from="Type" to="Tipo"/>
 		<column from="Size" to="Dimensione"/>
 		<column from="Folder" to="Cartella"/>
 		<column from="Hits" to="Richieste"/>
@@ -4369,15 +4517,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="File"/>
-		<column from="Extension" to="Estensione"/>
+		<column from="Type" to="Tipo"/>
 		<column from="Size" to="Dimensione"/>
-		<column from="Rating" to="Voto"/>
-		<column from="Status" to="Stato"/>
 		<column from="Host/Count" to="Host/Contatore"/>
 		<column from="Speed" to="Velocità"/>
+		<column from="Rating" to="Voto"/>
+		<column from="Status" to="Stato"/>
 		<column from="Client" to="Client"/>
-		<column from="Time" to="Data / Ora"/>
 		<column from="Country" to="Stato"/>
+		<column from="Time" to="Data / Ora"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nome"/>

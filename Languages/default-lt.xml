@@ -4461,7 +4461,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Failas"/>
-		<column from="Extension" to="Plėtinys"/>
+		<column from="Type" to="Plėtinys"/>
 		<column from="Size" to="Dydis"/>
 		<column from="Folder" to="Aplankas"/>
 		<column from="Hits" to="Kreipinių"/>
@@ -4525,15 +4525,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Failas"/>
-		<column from="Extension" to="Plėtinys"/>
+		<column from="Type" to="Tipas"/>
 		<column from="Size" to="Dydis"/>
-		<column from="Rating" to="Įvertinimas"/>
-		<column from="Status" to="Būklė"/>
 		<column from="Host/Count" to="Adresatas/Kiekis"/>
 		<column from="Speed" to="Sparta"/>
+		<column from="Rating" to="Įvertinimas"/>
+		<column from="Status" to="Būklė"/>
 		<column from="Client" to="Klientas"/>
-		<column from="Time" to="Laikas"/>
 		<column from="Country" to="Šalis"/>
+		<column from="Time" to="Laikas"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Pavadinimas"/>

@@ -1046,7 +1046,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 					szBuffer[ nChars ] = _T(' ');
 					nChars += GetDateFormat( LOCALE_USER_DEFAULT, DATE_SHORTDATE,
 						&st, NULL, szBuffer + nChars + 1, _countof( szBuffer ) );
-					szBuffer[ nChars - 5 ] = 0;		// Strip Year
+					szBuffer[ nChars - 5 ] = 0;			// Strip Year
 					pszText = szBuffer;
 				}
 			}

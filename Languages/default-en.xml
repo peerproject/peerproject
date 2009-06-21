@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default English Skin File -->
-<!-- Translation based on default-en.xml r22 (Shareaza SVN r8000) -->
+<!-- Translation based on default-en.xml r24 (Shareaza SVN r8000) -->
 
 <!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -375,10 +375,11 @@
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Settings"/>
 	</toolbar>
+	<!-- SECURITY WINDOW -->
 	<toolbar name="CSecurityWnd">
-		<button id="ID_SECURITY_EDIT" text="Edit Rule"/>
-		<separator/>
 		<button id="ID_SECURITY_ADD" text="Add Rule"/>
+		<separator/>
+		<button id="ID_SECURITY_EDIT" text="Edit Rule"/>
 		<button id="ID_SECURITY_REMOVE" text="Remove Rule"/>
 		<separator/>
 		<button id="ID_SECURITY_MOVE_UP" text="Move Up"/>
@@ -916,8 +917,8 @@
 		<item id="ID_SEARCH_URI" text="Get P2P Link (_URI)"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Bro_wse User"/>
-		<item id="ID_SEARCH_CHAT" text="_Chat to User"/>
-		<item id="ID_SECURITY_BAN" text="_Ban User"/>
+		<item id="ID_SEARCH_CHAT" text="_Chat with User"/>
+		<item id="ID_SECURITY_BAN" text="_Ban User+File"/>
 		<separator/>
 		<menu text="_Search For">
 			<item id="ID_SEARCH_FOR_THIS" text="_This File"/>
@@ -1088,12 +1089,12 @@
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent _Properties..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start New _Download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New _Torrent"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Aut_o Clear"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
+		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Auto Clear"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
@@ -1685,7 +1686,7 @@
 		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/>
 		<gap size="8"/>
 		<link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Fake file awareness: Add rules to improve search results</text>
+		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
 		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
 		<gap size="8"/>
@@ -4491,7 +4492,7 @@
 <listColumns>
 	<list name="CLibraryWnd">
 		<column from="File" to=""/>
-		<column from="Extension" to=""/>
+		<column from="Type" to=""/>
 		<column from="Size" to=""/>
 		<column from="Folder" to=""/>
 		<column from="Hits" to=""/>
@@ -4580,15 +4581,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to=""/>
-		<column from="Extension" to=""/>
+		<column from="Type" to=""/>
 		<column from="Size" to=""/>
-		<column from="Rating" to=""/>
-		<column from="Status" to=""/>
 		<column from="Host/Count" to=""/>
 		<column from="Speed" to=""/>
+		<column from="Rating" to=""/>
+		<column from="Status" to=""/>
 		<column from="Client" to=""/>
-		<column from="Time" to=""/>
 		<column from="Country" to=""/>
+		<column from="Time" to=""/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to=""/>
