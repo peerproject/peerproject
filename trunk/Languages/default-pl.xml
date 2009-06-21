@@ -4290,7 +4290,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Plik"/>
-		<column from="Extension" to="Rozszerzenie"/>
+		<column from="Type" to="Rozszerzenie"/>
 		<column from="Size" to="Wielkość"/>
 		<column from="Folder" to="Folder"/>
 		<column from="Hits" to="Trafienia"/>
@@ -4357,15 +4357,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Plik"/>
-		<column from="Extension" to="Rozszerzenie"/>
+		<column from="Type" to="Typ"/>
 		<column from="Size" to="Wielkość"/>
-		<column from="Rating" to="Ocena"/>
-		<column from="Status" to="Status"/>
 		<column from="Host/Count" to="Host/Ilość"/>
 		<column from="Speed" to="Szybkość"/>
+		<column from="Rating" to="Ocena"/>
+		<column from="Status" to="Status"/>
 		<column from="Client" to="Klient"/>
-		<column from="Time" to="Czas"/>
 		<column from="Country" to="Kraj"/>
+		<column from="Time" to="Czas"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nazwa"/>

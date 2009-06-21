@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Korean Language Skin File -->
-<!-- Translation based on default-en.xml SVN r21 --> <!--Machine Translated-->
+<!-- Translation based on default-en.xml SVN r24 --> <!--Machine Translated-->
 
 <!-- This skin template represents the current PeerProject defaults.  -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -1369,7 +1369,7 @@
 		<item id="ID_MEDIA_STOP" text="_Stop"/>
 		<separator/>
 		<item id="ID_MEDIA_OPEN" text="_Open Media File..."/>
-		<item id="ID_MEDIA_CLOSE" text="_Close File"/>
+		<item id="ID_MEDIA_CLOSE" text="_닫기 File"/>
 		<separator/>
 		<menu text="Play_list">
 			<item id="ID_MEDIA_PREVIOUS" text="Pre_vious"/>
@@ -1537,65 +1537,15 @@
 		<item id="ID_DISCOVERY_EDIT" text="_Properties"/>
 	</menu>
 	<!-- PRIVATE CHAT FRAME -->
-	<menu name="CPrivateChatFrame">
-		<item id="ID_CHAT_CONNECT" text="_Connect"/>
-		<item id="ID_CHAT_DISCONNECT" text="_Disconnect"/>
-		<separator/>
-		<item id="ID_CHAT_BROWSE" text="_Browse User"/>
-		<item id="ID_CHAT_PRIORITY" text="Grant _Priority"/>
-		<!-- <item id="ID_CHAT_SEND_FILE" text="_Send File..."/> -->
-		<separator/>
-		<menu text="_Format">
-			<item id="ID_CHAT_BOLD" text="Set _Bold"/>
-			<item id="ID_CHAT_ITALIC" text="Set _Italic"/>
-			<item id="ID_CHAT_UNDERLINE" text="Set _Underline"/>
-			<item id="ID_CHAT_COLOR" text="Set _Color"/>
-			<item id="ID_CHAT_EMOTICONS" text="_Emoticons"/>
-		</menu>
-		<separator/>
-		<item id="ID_CHAT_TIMESTAMP" text="Toggle _Timestamp"/>
-		<item id="ID_CHAT_CLEAR" text="C_lear Window"/>
-	</menu>
 	<!-- IRC WINDOW -->
 	<menu name="CIRCTabRClick">
-		<item id="ID_IRC_CLOSETAB" text="_Close"/>
-	</menu>
-	<menu name="CIRCUserList">
-		<item id="ID_IRC_WHOIS" text="_Whois"/>
-		<item id="ID_IRC_QUERY" text="_Query"/>
-		<separator/>
-		<menu text="Actions">
-			<item id="ID_IRC_TIME" text="_Time"/>
-			<item id="ID_IRC_VERSION" text="_Version"/>
-		</menu>
-		<separator/>
-		<menu text="Control">
-			<item id="ID_IRC_IGNORE" text="_Ignore"/>
-			<item id="ID_IRC_UNIGNORE" text="_Unignore"/>
-			<item id="ID_IRC_OP" text="_Op"/>
-			<item id="ID_IRC_DEOP" text="_Deop"/>
-			<item id="ID_IRC_VOICE" text="_Voice"/>
-			<item id="ID_IRC_DEVOICE" text="D_evoice"/>
-			<item id="ID_IRC_KICK" text="_Kick"/>
-			<item id="ID_IRC_KICKWHY" text="Kick (why?)"/>
-			<item id="ID_IRC_BAN" text="_Ban"/>
-			<item id="ID_IRC_UNBAN" text="_Unban"/>
-			<item id="ID_IRC_BANKICK" text="Kick+Ban"/>
-			<item id="ID_IRC_BANKICKWHY" text="Kick+Ban (why?)"/>
-		</menu>
-	</menu>
-	<menu name="WebServices.List.Menu">
-		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
-		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
-		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+		<item id="ID_IRC_CLOSETAB" text="_닫기"/>
 	</menu>
 </menus>
-
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
 	<!-- CHomeViewCtrl Front Page Font is Broken -->
-
   <!-- Homepanel Taskboxes -->
   <document name="CHomeConnectionBox" title="연결" leftMargin="6" topMargin="6">
     <styles>
@@ -1904,324 +1854,9 @@
 	<!-- MISSING -->
 </documents>
 <!-- Localized Command Tip Text."Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
-	<tip id="ID_BROWSE_FILES" message="View the user's shared files"/>
-	<tip id="ID_BROWSE_LAUNCH" message="Browse the selected user's profile and shared files."/>
-	<tip id="ID_BROWSE_PROFILE" message="Browse the user's profile."/>
-	<tip id="ID_BROWSE_REFRESH" message="Refresh the list of files available on this host."/>
-	<tip id="ID_BROWSE_STOP" message="Stop browsing files on this host."/>
-	<tip id="ID_CHAT_BOLD" message="Apply bold formatting (Ctrl+B)"/>
-	<tip id="ID_CHAT_BROWSE" message="Browse the user's profile and shared files."/>
-	<tip id="ID_CHAT_CLEAR" message="Clear the message text in this window."/>
-	<tip id="ID_CHAT_COLOR" message="Select a text color (Ctrl+K)"/>
-	<tip id="ID_CHAT_CONNECT" message="Connect to the chat session."/>
-	<tip id="ID_CHAT_DISCONNECT" message="Disconnect the chat session."/>
-	<tip id="ID_CHAT_EMOTICONS" message="Insert an emoticon."/>
-	<tip id="ID_CHAT_ITALIC" message="Apply italic formatting (Ctrl+I)"/>
-	<tip id="ID_CHAT_PRIORITY" message="Grant upload priority to this user."/>
-	<!-- <tip id="ID_CHAT_SEND_FILE" message="Send a file to the user..."/> -->
-	<tip id="ID_CHAT_TIMESTAMP" message="Show the time when each message was received."/>
-	<tip id="ID_CHAT_UNDERLINE" message="Apply underline formatting (Ctrl+U)"/>
-	<tip id="ID_CHILD_CLOSE" message="Close the active window."/>
-	<tip id="ID_CHILD_MAXIMISE" message="Enlarge the active window to fill the window."/>
-	<tip id="ID_CHILD_MINIMISE" message="Minimise the selected window to the tab bar."/>
-	<tip id="ID_CHILD_RESTORE" message="Open the selected window."/>
-	<tip id="ID_DISCOVERY_ADD" message="Add a new discovery service..."/>
-	<tip id="ID_DISCOVERY_ADVERTISE" message="Advertise the selected GWebCache service to a random existing GWebCache."/>
-	<tip id="ID_DISCOVERY_BROWSE" message="Browse statistics for the selected GWebCache service on the Web."/>
-	<tip id="ID_DISCOVERY_EDIT" message="View the properties for the selected discovery service."/>
-	<tip id="ID_DISCOVERY_GNUTELLA" message="Show bootstrap services in the Discovery window."/>
-	<tip id="ID_DISCOVERY_QUERY" message="Query the selected discovery services now."/>
-	<tip id="ID_DISCOVERY_REMOVE" message="Remove the selected discovery services."/>
-	<tip id="ID_DISCOVERY_SERVERMET" message="Show eDonkey Server.met services in the Discovery window."/>
-	<tip id="ID_DISCOVERY_WEBCACHE" message="Show GWebCache services in the Discovery window."/>
-	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Cancel and remove all downloads in this group."/>
-	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Create a new download group..."/>
-	<tip id="ID_DOWNLOAD_GROUP_PAUSE" message="Pause all downloads in this group."/>
-	<tip id="ID_DOWNLOAD_GROUP_PROPERTIES" message="Edit the properties of the selected download group."/>
-	<tip id="ID_DOWNLOAD_GROUP_REMOVE" message="Remove the selected download group."/>
-	<tip id="ID_DOWNLOAD_GROUP_RESUME" message="Resume all downloads in this group."/>
-	<tip id="ID_DOWNLOAD_GROUP_SHOW" message="Show or hide the download group bar."/>
-	<tip id="ID_DOWNLOADS_AUTO_CLEAR" message="Automatically clear downloads which have been completed."/>
-	<tip id="ID_DOWNLOADS_BOOST" message="Boost the performance of the selected download by removing bandwidth limits."/>
-	<tip id="ID_DOWNLOADS_CLEAR" message="Clear/remove the selected download(s)."/>
-	<tip id="ID_DOWNLOADS_CLEAR_COMPLETE" message="Remove the selected download(s) from the list."/>
-	<tip id="ID_DOWNLOADS_CLEAR_COMPLETED" message="Clear downloads which have been completed."/>
-	<tip id="ID_DOWNLOADS_CLEAR_INCOMPLETE" message="Cancel the selected incomplete download(s)."/>
-	<tip id="ID_DOWNLOADS_CLEAR_PAUSED" message="Clear downloads which have been paused."/>
-	<tip id="ID_DOWNLOADS_URI" message="Copy the URI of the selected file. (P2P hyperlink)"/>
-	<tip id="ID_DOWNLOADS_EDIT" message="Show the advanced edit download interface..."/>
-	<tip id="ID_DOWNLOADS_ENQUEUE" message="Add the selected download(s) to your media playlist."/>
-	<tip id="ID_DOWNLOADS_FILE_DELETE" message="Delete the selected completed file(s)."/>
-	<tip id="ID_DOWNLOADS_FILTER_ACTIVE" message="Show downloads which are active."/>
-	<tip id="ID_DOWNLOADS_FILTER_ALL" message="Show all downloads."/>
-	<tip id="ID_DOWNLOADS_FILTER_MENU" message="Choose which types of downloads to show and which types to hide in this view."/>
-	<tip id="ID_DOWNLOADS_FILTER_PAUSED" message="Show downloads which are paused."/>
-	<tip id="ID_DOWNLOADS_FILTER_QUEUED" message="Show downloads which are waiting in queues."/>
-	<tip id="ID_DOWNLOADS_FILTER_SOURCES" message="Show downloads which are waiting for sources."/>
-	<tip id="ID_DOWNLOADS_HELP" message="View help information on this download..."/>
-	<tip id="ID_DOWNLOADS_LAUNCH" message="Preview the selected file(s) in place."/>
-	<tip id="ID_DOWNLOADS_LAUNCH_COMPLETE" message="Open or play the selected file(s)."/>
-	<tip id="ID_DOWNLOADS_LAUNCH_COPY" message="SmartPreview the selected download(s)."/>
-	<tip id="ID_DOWNLOADS_MONITOR" message="Open a download monitor window for this download..."/>
-	<tip id="ID_DOWNLOADS_MOVE_DOWN" message="Move the selected download(s) down the priority list."/>
-	<tip id="ID_DOWNLOADS_MOVE_UP" message="Move the selected download(s) up the priority list."/>
-	<tip id="ID_DOWNLOADS_PAUSE" message="Pause the selected download(s)."/>
-	<tip id="ID_DOWNLOADS_RATE" message="Rate the selected download."/>
-	<tip id="ID_DOWNLOADS_REMOTE_PREVIEW" message="Download preview image for the selected download."/>
-	<tip id="ID_DOWNLOADS_RESUME" message="Resume the selected download(s)."/>
-	<tip id="ID_DOWNLOADS_SETTINGS" message="Configure download settings..."/>
-	<tip id="ID_DOWNLOADS_SHARE" message="Share this partially downloaded file with other users."/>
-	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Display sources which are not currently being used."/>
-	<tip id="ID_DOWNLOADS_SOURCES" message="Search for more sources for the selected download(s)."/>
-	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Add a source URL to the selected download..."/>
-	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="View reviews for the selected download"/>
-	<tip id="ID_HELP_ABOUT" message="Display the PeerProject about dialog..."/>
-	<tip id="ID_HELP_CODEC" message="All about codecs and video problems."/>
-	<tip id="ID_HELP_FAQ" message="View the PeerProject FAQ."/>
-	<tip id="ID_HELP_ROUTER" message="Get help configuring your router or firewall."/>
-	<tip id="ID_HELP_FORUMS" message="Visit the PeerProject Discussion Forums."/>
-	<tip id="ID_HELP_GUIDE" message="Visit the PeerProject Users Guide."/>
-	<tip id="ID_HELP_HOMEPAGE" message="Visit the PeerProject web site."/>
-	<tip id="ID_HELP_SECURITY" message="Help protecting your system from hostile programs."/>
-	<tip id="ID_HELP_UPDATE" message="Check for news and updates."/>
-	<tip id="ID_HELP_TEST" message="Run the connection test."/>
-	<tip id="ID_HELP_WEB_1" message="Visit this website"/>
-	<tip id="ID_HELP_WEB_2" message="Visit this website"/>
-	<tip id="ID_HELP_WEB_3" message="Visit this website"/>
-	<tip id="ID_HELP_WEB_4" message="Visit this website"/>
-	<tip id="ID_HELP_WEB_5" message="Visit this website"/>
-	<tip id="ID_HELP_WEB_6" message="Visit this website"/>
-	<tip id="ID_HELP_DONATE" message="If you want, you can donate to our legal fund and show your appreciation."/>
-	<tip id="ID_HELP_FAKESHAREAZA" message="Translate FakeShareaza.com to learn more about recent events."/>
-	<tip id="ID_HITMONITOR_CLEAR" message="Clear the hit monitor buffer."/>
-	<tip id="ID_HITMONITOR_PAUSE" message="Pause hit monitoring."/>
-	<tip id="ID_HITMONITOR_SEARCH" message="Search the network for the selected term."/>
-	<tip id="ID_HOSTCACHE_CONNECT" message="Connect to the selected host(s)."/>
-	<tip id="ID_HOSTCACHE_DISCONNECT" message="Disconnect from the selected neighbour(s)."/>
-	<tip id="ID_HOSTCACHE_ED2K_CACHE" message="Show eDonkey servers."/>
-	<tip id="ID_HOSTCACHE_ED2K_DOWNLOAD" message="Download an eDonkey &quot;server.met&quot; file..."/>
-	<tip id="ID_HOSTCACHE_G1_CACHE" message="Show Gnutella1 cached hosts."/>
-	<tip id="ID_HOSTCACHE_G2_CACHE" message="Show Gnutella2 cached hosts."/>
-	<tip id="ID_HOSTCACHE_G2_HORIZON" message="Show Gnutella2 horizon hubs."/>
-	<tip id="ID_HOSTCACHE_IMPORT" message="Import a list of known hosts, such as a &quot;server.met&quot; file..."/>
-	<tip id="ID_HOSTCACHE_PRIORITY" message="Try to connect to this server before other servers."/>
-	<tip id="ID_HOSTCACHE_REMOVE" message="Remove the selected hosts from the host cache."/>
-	<tip id="ID_LIBRARY_ADD" message="Add a new folder to your library..."/>
-	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Delete the selected album folder."/>
-	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Open the selected album folder."/>
-	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="View and edit the properties of the selected album folder..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Download metadata for the selected file(s) from Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="View the Bitzi(TM) ticket for the selected file on the web."/>
-	<tip id="ID_LIBRARY_COLUMNS" message="Select metadata columns to be displayed..."/>
-	<tip id="ID_LIBRARY_COPY" message="Copy the selected files to another library folder..."/>
-	<tip id="ID_LIBRARY_CREATETORRENT" message="Create a .torrent for this file to upload to a website."/>
-	<tip id="ID_LIBRARY_DELETE" message="Delete the selected files permanently."/>
-	<tip id="ID_LIBRARY_ENQUEUE" message="Add the selected file(s) to your media playlist."/>
-	<tip id="ID_LIBRARY_EXPLORE" message="Open the selected folder(s)."/>
-	<tip id="ID_LIBRARY_EXPORT_COLLECTION" message="Export the selected album folder to collection files..."/>
-	<tip id="ID_LIBRARY_FOLDER_DOWNLOAD" message="Download all files in the selected collection."/>
-	<tip id="ID_LIBRARY_FOLDER_ENQUEUE" message="Add every file in the selected album folder(s) to your playlist."/>
-	<tip id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" message="View and edit the properties of all files in the selected folder(s)..."/>
-	<tip id="ID_LIBRARY_FOLDER_METADATA" message="Apply common metadata from the album folder to all of its files."/>
-	<tip id="ID_LIBRARY_FOLDER_NEW" message="Create a new album folder here..."/>
-	<tip id="ID_LIBRARY_FOLDER_PROPERTIES" message="View and edit the properties of the selected album folder..."/>
-	<tip id="ID_LIBRARY_FOLDERS" message="Manage the physical folders in your library..."/>
-	<tip id="ID_LIBRARY_HASH_PRIORITY" message="Boost the speed of file scanning and hashing."/>
-	<tip id="ID_LIBRARY_LAUNCH" message="Open or play the selected file(s)."/>
-	<tip id="ID_LIBRARY_MOVE" message="Move the selected files to another library folder..."/>
-	<tip id="ID_LIBRARY_PANEL" message="Show or hide the library detail panel."/>
-	<tip id="ID_LIBRARY_PARENT" message="Move up to the parent folder."/>
-	<tip id="ID_LIBRARY_PROPERTIES" message="View and edit the properties of the selected files..."/>
-	<tip id="ID_LIBRARY_REBUILD" message="Rebuild metadata and hashes for the selected folders or files."/>
-	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Rebuild metadata using other language."/>
-	<tip id="ID_LIBRARY_REFRESH" message="Refresh the library view."/>
-	<tip id="ID_LIBRARY_REMOVE" message="Remove the selected shared folders."/>
-	<tip id="ID_LIBRARY_RENAME" message="Rename the selected file in-place."/>
-	<tip id="ID_LIBRARY_SCAN" message="Scan the selected folders or files for changes."/>
-	<tip id="ID_LIBRARY_SEARCH" message="Search your file library..."/>
-	<tip id="ID_LIBRARY_SEARCH_QUICK" message="Search your file library..."/>
-	<tip id="ID_LIBRARY_SEED_TORRENT" message="Seed the selected Torrent on BitTorrent."/>
-	<tip id="ID_LIBRARY_SELECT_ALL" message="Select and view all folders in your library."/>
-	<tip id="ID_LIBRARY_SHARED_FILE" message="Share or unshare the selected files."/>
-	<tip id="ID_LIBRARY_SHARED_FOLDER" message="Share or unshare the selected folder(s)."/>
-	<tip id="ID_LIBRARY_TREE_PHYSICAL" message="View the physical folders in your library."/>
-	<tip id="ID_LIBRARY_TREE_VIRTUAL" message="Organise your library."/>
-	<tip id="ID_LIBRARY_UNLINK" message="Remove the select files from the current album folder."/>
-	<tip id="ID_LIBRARY_URI" message="Copy the URI of the selected file."/>
-	<tip id="ID_LIBRARY_VIEW" message="Select a library view..."/>
-	<tip id="ID_LIBRARY_VIEW_ALBUM" message="Show an album view" tip="Album View"/>
-	<tip id="ID_LIBRARY_VIEW_COLLECTION" message="Show the rich collection view" tip="Collection View"/>
-	<tip id="ID_LIBRARY_VIEW_DETAIL" message="Show file name, details and metadata" tip="Detail View"/>
-	<tip id="ID_LIBRARY_VIEW_HOME" message="Library home page view" tip="Home View"/>
-	<tip id="ID_LIBRARY_VIEW_ICON" message="Show files as icons" tip="Icon View"/>
-	<tip id="ID_LIBRARY_VIEW_LIST" message="Show files in a horizontal list" tip="List View"/>
-	<tip id="ID_LIBRARY_VIEW_THUMBNAIL" message="Show thumbnails for files" tip="Thumbnail View"/>
-	<tip id="ID_LIBRARY_VIEW_TILE" message="Show a list of album folders." tip="Tile View"/>
-	<tip id="ID_MEDIA_ADD" message="Add a media file to the playlist..."/>
-	<tip id="ID_MEDIA_ADD_FOLDER" message="Add a folder of media files to the playlist..."/>
-	<tip id="ID_MEDIA_ASPECT_16_9" message="Lock video to 16:9 aspect ratio, suitable for film."/>
-	<tip id="ID_MEDIA_ASPECT_4_3" message="Lock video to 4:3 aspect ratio, suitable for TV."/>
-	<tip id="ID_MEDIA_ASPECT_DEFAULT" message="Use the video's default aspect ratio."/>
-	<tip id="ID_MEDIA_CLEAR" message="Clear (empty) the playlist."/>
-	<tip id="ID_MEDIA_CLOSE" message="Close the current media file, freeing up memory."/>
-	<tip id="ID_MEDIA_EXPORT_COLLECTION" message="Save the playlist as a collection file..."/>
-	<tip id="ID_MEDIA_FULLSCREEN" message="Toggle full-screen video mode."/>
-	<tip id="ID_MEDIA_MUTE" message="Mute audio playback"/>
-	<tip id="ID_MEDIA_NEXT" message="Skip ahead to the next file in the current playlist." tip="Next File"/>
-	<tip id="ID_MEDIA_OPEN" message="Open and play a media file or playlist..."/>
-	<tip id="ID_MEDIA_PAUSE" message="Pause playback of the media file." tip="Pause"/>
-	<tip id="ID_MEDIA_PLAY" message="Start playing the current media file." tip="Play"/>
-	<tip id="ID_MEDIA_PLAYLIST" message="Show or hide the playlist editor."/>
-	<tip id="ID_MEDIA_PREVIOUS" message="Skip back to the previous file in the current playlist." tip="Previous File"/>
-	<tip id="ID_MEDIA_PROPERTIES" message="View and edit the properties of the selected files."/>
-	<tip id="ID_MEDIA_RANDOM" message="Toggle random (shuffle) mode in the current playlist."/>
-	<tip id="ID_MEDIA_RATE" message="Rate the selected files."/>
-	<tip id="ID_MEDIA_REMOVE" message="Remove the selected media file from the playlist."/>
-	<tip id="ID_MEDIA_REPEAT" message="Repeat the current media file."/>
-	<tip id="ID_MEDIA_SAVE" message="Save the current playlist to a file..."/>
-	<tip id="ID_MEDIA_SELECT" message="Select and play this file."/>
-	<tip id="ID_MEDIA_SETTINGS" message="Display the media settings page..."/>
-	<tip id="ID_MEDIA_SIZE_DISTORT" message="Stretch the video to fill the window, potentially distorting it."/>
-	<tip id="ID_MEDIA_SIZE_FILL" message="Choose the best size for the video based on its aspect ratio."/>
-	<tip id="ID_MEDIA_SIZE_ONE" message="Show the video at its original (natural) size."/>
-	<tip id="ID_MEDIA_SIZE_HALF" message="Show the video at triple its original (natural) size."/>
-	<tip id="ID_MEDIA_SIZE_TWO" message="Show the video at double its original (natural) size."/>
-	<tip id="ID_MEDIA_STATUS" message="Show or hide the media status line."/>
-	<tip id="ID_MEDIA_STOP" message="Stop playing the media file." tip="Stop"/>
-	<tip id="ID_MEDIA_VIS" message="Select an audio visualisation plugin..."/>
-	<tip id="ID_MEDIA_ZOOM" message="Adjust video zoom and aspect ratio settings."/>
-	<tip id="ID_MONITOR_CLOSE" message="Close the monitor window."/>
-	<tip id="ID_NEIGHBOURS_CHAT" message="Open a chat session with the selected user."/>
-	<tip id="ID_NEIGHBOURS_URI" message="Copy a URI to access the selected host."/>
-	<tip id="ID_NEIGHBOURS_DISCONNECT" message="Disconnect the selected neighbour(s)."/>
-	<tip id="ID_NEIGHBOURS_SETTINGS" message="Configure network settings..."/>
-	<tip id="ID_NEIGHBOURS_VIEW_ALL" message="Open a new Packet Dump window monitoring this neighbour."/>
-	<tip id="ID_NEIGHBOURS_VIEW_INCOMING" message="Open a new Packet Dump window monitoring incoming traffic from this neighbour."/>
-	<tip id="ID_NEIGHBOURS_VIEW_OUTGOING" message="Open a new Packet Dump window monitoring outgoing traffic to this neighbour."/>
-	<tip id="ID_NETWORK_AUTO_CLOSE" message="Automatically close PeerProject when transfers have completed."/>
-	<tip id="ID_NETWORK_BROWSE_TO" message="Browse a user, showing their profile and shared files..."/>
-	<tip id="ID_NETWORK_CONNECT" message="Connect to selected networks."/>
-	<tip id="ID_NETWORK_CONNECT_TO" message="Manually connect to a host..."/>
-	<tip id="ID_NETWORK_DISCONNECT" message="Disconnect from all networks, this will also stop all downloads and uploads."/>
-	<tip id="ID_NETWORK_ED2K" message="Connect to the eDonkey network."/>
-	<tip id="ID_NETWORK_EXIT" message="Exit PeerProject"/>
-	<tip id="ID_NETWORK_G1" message="Connect to the original Gnutella network."/>
-	<tip id="ID_NETWORK_G2" message="Connect to the Gnutella2 network (highly recommended)."/>
-	<tip id="ID_NETWORK_SEARCH" message="Start a new search of the network..."/>
-	<tip id="ID_SEARCH_CHAT" message="Open a chat session with the selected user."/>
-	<tip id="ID_SEARCH_CLEAR" message="Clear the search results."/>
-	<tip id="ID_SEARCH_COLUMNS" message="Select metadata columns to be displayed..."/>
-	<tip id="ID_SEARCH_URI" message="Copy the URI of the selected file."/>
-	<tip id="ID_SEARCH_DETAILS" message="Display detailed information on the selected file."/>
-	<tip id="ID_SEARCH_DOWNLOAD" message="Download the selected file(s)."/>
-	<tip id="ID_SEARCH_DOWNLOADNOW" message="Download the selected file(s) with priority."/>
-	<tip id="ID_SEARCH_FILTER" message="Filter the search results by certain words and conditions..."/>
-	<tip id="ID_SEARCH_FILTER_RAW" message="Filter the search results by certain words and conditions..."/>
-	<tip id="ID_SEARCH_FILTER_REMOVE" message="Remove filtering from the results."/>
-	<tip id="ID_SEARCH_FOR_ALBUM" message="Search for music files in the same album as the selected file."/>
-	<tip id="ID_SEARCH_FOR_ARTIST" message="Search for music files by the same artist as the selected file."/>
-	<tip id="ID_SEARCH_FOR_SERIES" message="Search for video files in the same series as the selected file."/>
-	<tip id="ID_SEARCH_FOR_SIMILAR" message="Search for files which are similar to the selected file."/>
-	<tip id="ID_SEARCH_FOR_THIS" message="Search for other copies of the selected file."/>
-	<tip id="ID_SEARCH_PANEL" message="Display the quick search panel on the left of the Search window."/>
-	<tip id="ID_SEARCH_SEARCH" message="Search the network again..."/>
-	<tip id="ID_SEARCH_STOP" message="Stop receiving results in this window."/>
-	<tip id="ID_SEARCHMONITOR_CLEAR" message="Clear the search monitor buffer."/>
-	<tip id="ID_SEARCHMONITOR_PAUSE" message="Pause search monitoring."/>
-	<tip id="ID_SECURITY_ADD" message="Add a new rule to the security chain..."/>
-	<tip id="ID_SECURITY_BAN" message="Ban the selected host for the duration of this session."/>
-	<tip id="ID_SECURITY_EDIT" message="Edit the selected security rule..."/>
-	<tip id="ID_SECURITY_EXPORT" message="Export the selected security rules to a file..."/>
-	<tip id="ID_SECURITY_IMPORT" message="Import security rules from a file..."/>
-	<tip id="ID_SECURITY_MOVE_DOWN" message="Move the selected security rules down the precedence list."/>
-	<tip id="ID_SECURITY_MOVE_UP" message="Move the selected security rules up the precedence list."/>
-	<tip id="ID_SECURITY_POLICY_ACCEPT" message="Set the default security policy to allow all hosts."/>
-	<tip id="ID_SECURITY_POLICY_DENY" message="Set the default security policy to deny all hosts."/>
-	<tip id="ID_SECURITY_REMOVE" message="Remove the selected security rules."/>
-	<tip id="ID_SECURITY_RESET" message="Reset the hit counts on the selected rules."/>
-	<tip id="ID_SYSTEM_CLEAR" message="Clear the status log."/>
-	<tip id="ID_SYSTEM_TIMESTAMP" message="Record a timestamp for each line."/>
-	<tip id="ID_SYSTEM_VERBOSE" message="Display a detailed system activity log."/>
-	<tip id="ID_TAB_CONNECT" message="Connect or disconnect from the network."/>
-	<tip id="ID_TAB_HOME" message="Return to the PeerProject Home page"/>
-	<tip id="ID_TAB_SEARCH" message="Search the network for files to download"/>
-	<tip id="ID_TAB_TRANSFERS" message="Monitor uploads and downloads you are performing."/>
-	<tip id="ID_TAB_NETWORK" message="See how well you are connected to the Network."/>
-	<tip id="ID_TAB_LIBRARY" message="View and manage your local content library."/>
-	<tip id="ID_TAB_MEDIA" message="Play audio and video media files from your library."/>
-	<tip id="ID_TAB_IRC" message="Show the IRC Chat window."/>
-	<tip id="ID_TOOLS_DOWNLOAD" message="Start downloading a new file or torrent..."/>
-	<tip id="ID_TOOLS_LANGUAGE" message="Select the language you wish to use PeerProject in..."/>
-	<tip id="ID_TOOLS_PROFILE" message="Edit your user profile..."/>
-	<tip id="ID_TOOLS_RESKIN" message="Reload and apply your current skin selection."/>
-	<tip id="ID_TOOLS_SEEDTORRENT" message="Seed the selected Torrent on BitTorrent."/>
-	<tip id="ID_TOOLS_SETTINGS" message="Configure PeerProject settings..."/>
-	<tip id="ID_TOOLS_SKIN" message="Choose a different skin for PeerProject to use..."/>
-	<tip id="ID_TOOLS_WIZARD" message="Open the PeerProject QuickStart wizard..."/>
-	<tip id="ID_TRAFFIC_AXIS" message="Display Vertical Axis"/>
-	<tip id="ID_TRAFFIC_CLEAR" message="Clear the traffic graph."/>
-	<tip id="ID_TRAFFIC_GRID" message="Display grid lines."/>
-	<tip id="ID_TRAFFIC_LEGEND" message="Display legend."/>
-	<tip id="ID_TRAFFIC_SETUP" message="Select and configure items to graph..."/>
-	<tip id="ID_TRAFFIC_WINDOW" message="Open a new graph window..."/>
-	<tip id="ID_TRANSFERS_CHAT" message="Open a chat session with the selected user."/>
-	<tip id="ID_TRANSFERS_CONNECT" message="Access the selected download source(s) and attempt to download."/>
-	<tip id="ID_TRANSFERS_DISCONNECT" message="Disconnect the selected download transfer(s)."/>
-	<tip id="ID_TRANSFERS_FORGET" message="Disconnect and forget the selected download source(s)."/>
-	<tip id="ID_TRAY_OPEN" message="Open the PeerProject window."/>
-	<tip id="ID_UPLOADS_AUTO_CLEAR" message="Automatically clear uploads which have been completed."/>
-	<tip id="ID_UPLOADS_CHAT" message="Open a chat session with the selected user."/>
-	<tip id="ID_UPLOADS_CLEAR" message="Clear the selected upload(s) from the list."/>
-	<tip id="ID_UPLOADS_CLEAR_COMPLETED" message="Clear uploads which have been completed."/>
-	<tip id="ID_UPLOADS_DISCONNECT" message="Disconnect the selected upload transfer(s)."/>
-	<tip id="ID_UPLOADS_FILTER_ACTIVE" message="Show all uploads which are actively sending."/>
-	<tip id="ID_UPLOADS_FILTER_ALL" message="Show all uploads."/>
-	<tip id="ID_UPLOADS_FILTER_HISTORY" message="Show uploads which are no longer connected."/>
-	<tip id="ID_UPLOADS_FILTER_MENU" message="Choose which types of uploads to show and which types to hide in this view."/>
-	<tip id="ID_UPLOADS_FILTER_QUEUED" message="Show uploads which are waiting in your queues."/>
-	<tip id="ID_UPLOADS_FILTER_TORRENT" message="Show BitTorrent uploads."/>
-	<tip id="ID_UPLOADS_LAUNCH" message="Launch the selected shared file(s)."/>
-	<tip id="ID_UPLOADS_SETTINGS" message="Configure upload settings..."/>
-	<tip id="ID_UPLOADS_START" message="Start the selected queued upload(s)."/>
-	<tip id="ID_VIEW_BASIC" message="Use PeerProject in Basic mode."/>
-	<tip id="ID_VIEW_DISCOVERY" message="Show or hide the DISCOVERY SERVICES window."/>
-	<tip id="ID_VIEW_DOWNLOADS" message="Show or hide the DOWNLOADS window."/>
-	<tip id="ID_VIEW_HOSTS" message="Show or hide the HOST CACHE window."/>
-	<tip id="ID_VIEW_LIBRARY" message="Show or hide the LIBRARY window."/>
-	<tip id="ID_VIEW_MEDIA" message="Show or hide the MEDIA PLAYER window."/>
-	<tip id="ID_VIEW_NEIGHBOURS" message="Show or hide the NEIGHBOURS window."/>
-	<tip id="ID_VIEW_PACKETS" message="Show or hide the PACKET DUMP window."/>
-	<tip id="ID_VIEW_RESULTS_MONITOR" message="Show or hide the HIT MONITOR window."/>
-	<tip id="ID_VIEW_SEARCH_MONITOR" message="Show or hide the SEARCH MONITOR window."/>
-	<tip id="ID_VIEW_SECURITY" message="Show or hide the SECURITY window."/>
-	<tip id="ID_VIEW_SYSTEM" message="Show or hide the SYSTEM window."/>
-	<tip id="ID_VIEW_TABBED" message="Use PeerProject in power Tabbed mode (Home, Library, Media, Transfers, Network)."/>
-	<tip id="ID_VIEW_TRAFFIC" message="Show or hide a GRAPH window."/>
-	<tip id="ID_VIEW_UPLOADS" message="Show or hide the UPLOADS window."/>
-	<tip id="ID_VIEW_WINDOWED" message="Use PeerProject in power Windowed mode."/>
-	<tip id="ID_WINDOW_CASCADE" message="Expand all open windows to fill the screen."/>
-	<tip id="ID_WINDOW_MONITOR" message="Show or hide the bandwidth monitor."/>
-	<tip id="ID_WINDOW_NAVBAR" message="Show or hide the navigation bar."/>
-	<tip id="ID_WINDOW_REMOTE" message="Show or hide the PeerProject Remote Control"/>
-	<tip id="ID_WINDOW_TABBAR" message="Show or hide the window tab bar."/>
-	<tip id="ID_WINDOW_TILE_HORZ" message="Arrange open windows as horizontal, non-overlapping tiles."/>
-	<tip id="ID_WINDOW_TILE_VERT" message="Arrange open windows as vertical, non-overlapping tiles."/>
-	<tip id="ID_WINDOW_TOOLBAR" message="Show or hide the toolbar."/>
-	<tip id="ID_WEBSERVICES_LIST" message="Choose the web service to get more information about the selected file."/>
-	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Search for the file infomation using ShareMonkey service."/>
-	<!-- PLUGIN TIPS -->
-	<tip id="ImageViewer_BestFit" message="Resize the image to fit within the window."/>
-	<tip id="ImageViewer_ActualSize" message="Show the image at its natural size."/>
-	<tip id="ImageViewer_Refresh" message="Refresh the image."/>
-	<tip id="ImageViewer_Close" message="Close the image viewer window."/>
-</commandTips>
+<!-- No CommandTips -->
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
-<controlTips>
-	<tip id="IDC_THROTTLE_MODE" message="In the maximum mode the bandwidth won't exceed the specified value. In the average mode it will fluctuate around the value to both sides."/>
-	<tip id="IDC_REGEXP" message="Enter regular expressions in perl syntax.{n}The search keywords can be specified in a form of &lt;n&gt;, where n is number between 1 and 9. If you want to put all keywords each after other, use &lt;_&gt; markup."/>
-	<tip id="IDC_SHARE_PARTIALS" message="This setting has no effect on downloads previously started, also this setting is ignored if the file have the eDonkey hash and the eDonkey network is enabled or if it is a torrent.{n}However this setting isn't ignored if the download is paused.{n}{n}ATTENTION: Use this option only in case of real necessity, if you abuse of the option you may be banned."/>
-</controlTips>
+<!-- No ControlTips -->
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -2673,7 +2308,7 @@
 	<string id="16781" value="Requesting..."/>
 	<string id="16782" value="Success!"/>
 	<string id="16783" value="Finished, click Close"/>
-	<string id="16784" value="&amp;Close"/>
+	<string id="16784" value="&amp;닫기"/>
 	<string id="16785" value="(No Visualisation)"/>
 	<string id="16800" value="You have not yet specified a connection speed. Before continuing, please either choose your Internet connection type, or type in a connection speed."/>
 	<string id="16802" value="You have not specified any folders to share. Are you sure?"/>
@@ -2873,10 +2508,10 @@
 	<string id="19001" value="You must choose a username and password."/>
 	<string id="19002" value="Unable to accept connections, URL unavailable."/>
 	<string id="20000" value="No URN available"/>
-	<string id="20001" value="Close"/>
+	<string id="20001" value="닫기"/>
 	<string id="20002" value="of"/> <!--"1 of 10"-->
 	<string id="20003" value="Changing interface direction requires restart. \nYou will need to start PeerProject manually. Exit now?"/>
-	<string id="20005" value="No"/>
+	<string id="20005" value="아니오"/>
 	<string id="20006" value="예"/>
 	<string id="20007" value="자동"/>
 	<string id="20008" value="기본"/>
@@ -3433,7 +3068,7 @@
 		<control caption="0"/>
 		<control caption="Volume:"/>
 		<control caption="0"/>
-		<control caption="Close"/>
+		<control caption="닫기"/>
 	</dialog>
 	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="피어 프로젝트에 오신 것을 환영합니다 (3/6)">
 		<control caption="PeerProject is a much friendlier place when everyone writes a few basic details about themselves."/>
@@ -3462,16 +3097,16 @@
 		<control caption="The Gnutella2 network (G2) is PeerProject&apos;s premiere network, offering more features and performance than any other P2P net. (Shareaza)"/>
 		<control caption="Connect to Gnutella"/>
 		<control caption="The original Gnutella network (G1) is less feature-rich than Gnutella2, and has fewer files than ED2K, yet remains a valuable source. (LimeWire)"/>
-		<control caption="Connect to eDonkey2000"/>
+		<control caption="Connect to eDonkey"/>
 		<control caption="The eDonkey network (ED2K) is a popular server-based network.  While not as feature-rich or fast as G2, ED2K has an impressive file collection. (eMule)"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Import eDonkey Downloads">
 		<control/>
 		<control caption="PeerProject has detected that you have another eDonkey program installed on your computer. Would you like to import any unfinished downloads into PeerProject?"/>
-		<control caption="Yes"/>
-		<control caption="No|Cancel"/>
+		<control caption="예"/>
+		<control caption="아니오|Cancel"/>
 		<control/>
-		<control caption="Close"/>
+		<control caption="닫기"/>
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="피어 프로젝트에 오신 것을 환영합니다 (6/6)">
 		<control caption="That&apos;s it.  PeerProject has been configured to work with your computer."/>
@@ -3885,7 +3520,7 @@
 		<control caption="You should not have had to pay any money to obtain PeerProject. PeerProject can be freely downloaded by anyone from http://PeerProject.org/. If you paid someone money for PeerProject, you should demand a full refund immediately."/>
 		<control caption="PeerProject respects its users!"/>
 		<control caption="http://PeerProject.org/"/>
-		<control caption="Close"/>
+		<control caption="닫기"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Spread the Word">
 		<control/>
@@ -4117,7 +3752,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="파일"/>
-		<column from="Extension" to="확장"/>
+		<column from="Type" to="확장"/>
 		<column from="Size" to="크기"/>
 		<column from="Folder" to="폴더"/>
 		<column from="Hits" to="조회수"/>
@@ -4184,15 +3819,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="파일"/>
-		<column from="Extension" to="확장"/>
+		<column from="Type" to="확장"/>
 		<column from="Size" to="크기"/>
-		<column from="Rating" to="평가"/>
-		<column from="Status" to="상태"/>
 		<column from="Host/Count" to="호스트/백작"/>
 		<column from="Speed" to="속도 "/>
+		<column from="Rating" to="평가"/>
+		<column from="Status" to="상태"/>
 		<column from="Client" to="클라이언트"/>
-		<column from="Time" to="타임"/>
 		<column from="Country" to="국가"/>
+		<column from="Time" to="타임"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="이름"/>

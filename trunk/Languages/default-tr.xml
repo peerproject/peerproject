@@ -4433,7 +4433,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Dosya"/>
-		<column from="Extension" to="Uzantı"/>
+		<column from="Type" to="Uzantı"/>
 		<column from="Size" to="Boyut"/>
 		<column from="Folder" to="Klasör"/>
 		<column from="Hits" to="Bakışlar"/>
@@ -4500,15 +4500,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Dosya"/>
-		<column from="Extension" to="Uzantı"/>
+		<column from="Type" to="Uzantı"/>
 		<column from="Size" to="Boyut"/>
-		<column from="Rating" to="Reyting"/>
-		<column from="Status" to="Durum"/>
 		<column from="Host/Count" to="Host/Sayı"/>
 		<column from="Speed" to="Hız"/>
+		<column from="Rating" to="Reyting"/>
+		<column from="Status" to="Durum"/>
 		<column from="Client" to="İstemci"/>
-		<column from="Time" to="Zaman"/>
 		<column from="Country" to="Ülke"/>
+		<column from="Time" to="Zaman"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="İsim"/>

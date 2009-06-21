@@ -4163,7 +4163,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="檔案" />
-		<column from="Extension" to="延伸" />
+		<column from="Type" to="延伸" />
 		<column from="Size" to="大小" />
 		<column from="Folder" to="資料夾" />
 		<column from="Hits" to="搜尋次數" />
@@ -4230,15 +4230,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="檔案" />
-		<column from="Extension" to="" />
+		<column from="Type" to="類型" />
 		<column from="Size" to="大小" />
-		<column from="Rating" to="評分" />
-		<column from="Status" to="狀態" />
 		<column from="Host/Count" to="主機/計數" />
 		<column from="Speed" to="速度" />
+		<column from="Rating" to="評分" />
+		<column from="Status" to="狀態" />
 		<column from="Client" to="客戶端" />
-		<column from="Time" to=""/>
 		<column from="Country" to="地區"/>
+		<column from="Time" to="时间"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="名稱" />

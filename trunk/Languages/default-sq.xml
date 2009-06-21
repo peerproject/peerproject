@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Albanian Skin File -->
-<!-- Translation based on default-en.xml (Shareaza SVN r6090) -->
+<!-- Translation based on default-en.xml (Shareaza SVN r7800) -->
 
 <!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -59,6 +59,7 @@
 		<button id="ID_VIEW_UPLOADS"/>
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
+		<button id="ID_TAB_IRC"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -86,7 +87,7 @@
 		<rightAlign/>
 		<label text="Filtër:" tip="Shkruani disa fjalë për filtrimin e rezultateve"/>
 		<control id="IDC_FILTER_BOX" width="130"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Më tepër..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Më shumë..."/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="Shkarko"/>
@@ -97,11 +98,11 @@
 		<rightAlign/>
 		<label text="Filtër:" tip="Shkruani disa fjalë për filtrimin e rezultateve"/>
 		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Më tepër..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Më shumë..."/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Kërko Prapë..."/>
-		<button id="ID_SEARCH_STOP" text="Ndale Kërkimin "/>
+		<button id="ID_SEARCH_STOP" text="Ndale Kërkimin"/>
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Shkarko"/>
 		<button id="ID_BROWSE_LAUNCH" text="Shfleto"/>
@@ -111,12 +112,12 @@
 		<rightAlign/>
 		<label text="Filtër:" tip="Shkruani disa fjalë për filtrimin e rezultateve"/>
 		<control id="IDC_FILTER_BOX" width="150"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Më tepër..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Më shumë..."/>
 	</toolbar>
 	<!-- BROWSE HOST WINDOW -->
 	<toolbar name="CBrowseHeaderCtrl">
 		<button id="ID_BROWSE_PROFILE" text="Profili"/>
-		<button id="ID_BROWSE_FILES" text="Skeda të Shpërndara"/>
+		<button id="ID_BROWSE_FILES" text="Skedat e Shpërndara"/>
 	</toolbar>
 	<toolbar name="CBrowseTree.Top">
 		<button id="ID_LIBRARY_TREE_PHYSICAL" text="Dosje"/>
@@ -130,7 +131,7 @@
 		<rightAlign/>
 		<label text="Filtër:" tip="Shkruani disa fjalë për filtrimin e rezultateve"/>
 		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Më tepër..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Më shumë..."/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Shkarko"/>
@@ -206,7 +207,7 @@
 		<button id="ID_LIBRARY_TREE_VIRTUAL" text="Organizuesi"/>
 	</toolbar>
 	<toolbar name="CLibraryTree.Virtual">
-		<button id="ID_LIBRARY_FOLDERS" text="Shpërnda skedat..."/>
+		<button id="ID_LIBRARY_FOLDERS" text="Shpërnda skeda..."/>
 	</toolbar>
 	<toolbar name="CLibraryHeaderBar.Physical">
 		<button id="ID_LIBRARY_PARENT" text="Sipër"/>
@@ -338,6 +339,13 @@
 		<button id="ID_MEDIA_CLEAR" text="Pastro"/>
 		<button id="ID_MEDIA_SAVE" text="Ruaje"/>
 	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_CONNECT" text="Lidhu" tip="Lidhu te IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Shkëputu" tip="Shkëputu nga IRC"/>
+		<rightAlign/>
+		<button id="ID_IRC_SETTINGS" text="Vendosje" tip="Konfiguro Vendosjet e IRC"/>
+	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Shfleto"/>
@@ -361,7 +369,21 @@
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
-		<button id="ID_NEIGHBOURS_SETTINGS" text="Kuadro"/>
+		<button id="ID_NEIGHBOURS_SETTINGS" text="Vendosje"/>
+	</toolbar>
+	<!-- SECURITY WINDOW -->
+	<toolbar name="CSecurityWnd">
+		<button id="ID_SECURITY_EDIT" text="Edito Rregullin"/>
+		<separator/>
+		<button id="ID_SECURITY_ADD" text="Shto Rregull"/>
+		<button id="ID_SECURITY_REMOVE" text="Hiqe Rregullin"/>
+		<separator/>
+		<button id="ID_SECURITY_MOVE_UP" text="Lëvize Sipër"/>
+		<button id="ID_SECURITY_MOVE_DOWN" text="Lëvize Poshtë"/>
+		<rightAlign/>
+		<button id="ID_SECURITY_RESET" text="Rivendose"/>
+		<button id="ID_SECURITY_IMPORT" text="Importo Listën"/>
+		<button id="ID_SECURITY_EXPORT" text="Eksporto Listën"/>
 	</toolbar>
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
@@ -369,11 +391,11 @@
 		<button id="ID_HITMONITOR_SEARCH" text="Ripyete"/>
 		<separator/>
 		<button id="ID_HITMONITOR_PAUSE" text="Pusho"/>
-		<button id="ID_SEARCH_CLEAR" text="Pastro"/>
+		<button id="ID_HITMONITOR_CLEAR" text="Pastro"/>
 		<rightAlign/>
 		<label text="Filtër:" tip="Shkruani disa fjalë për filtrimin e rezultateve"/>
 		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Më tepër..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Më shumë..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd.Basic">
@@ -407,6 +429,33 @@
 		<button id="ID_CHAT_DISCONNECT" text="Shkëputu"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.ShareMonkey">
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Merr të Dhëna"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Kaluar"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="Tjetër"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PRICES" text="Merr Çmime"/>
+		<button id="ID_SHAREMONKEY_COMPARE" text="Krahaso"/>
+		<button id="ID_SHAREMONKEY_BUY" text="Blije"/>
+	</toolbar>
+	<toolbar name="WebServices.ShareMonkey.WithSave">
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Merr të Dhêna"/>
+		<button id="ID_SHAREMONKEY_SAVE" text="Ruaj"/>
+		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Ruaj Parashikimin" width="100" checked="true"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Kaluar"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="Tjetër"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PRICES" text="Merr Çmime"/>
+		<button id="ID_SHAREMONKEY_COMPARE" text="Krahaso"/>
+		<button id="ID_SHAREMONKEY_BUY" text="Blije"/>
+	</toolbar>
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Shiko Dublimet e Albumit"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Shiko Tërë Albumet"/>
+		<separator/>
+	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_BestFit" text="Përmasa Perfekte"/>
@@ -468,8 +517,9 @@
 			<item id="ID_TAB_LIBRARY" text="_Librari"/>
 			<item id="ID_TAB_MEDIA" text="_Media"/>
 			<item id="ID_TAB_SEARCH" text="_Kërkoni"/>
-			<item id="ID_TAB_TRANSFERS" text="_Shkarkimi"/>
+			<item id="ID_TAB_TRANSFERS" text="_Shkarkime"/>
 			<item id="ID_WINDOW_REMOTE" text="_Pulti"/>
+			<item id="ID_TAB_IRC" text="_Chat"/>
 			<separator/>
 			<menu text="_Përparime">
 				<item id="ID_VIEW_NEIGHBOURS" text="_Hostet"/>
@@ -487,8 +537,8 @@
 			<item id="ID_LIBRARY_FOLDERS" text="_Skedat e Shpërndara..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="Shkarko një _Skedë/Torrent..."/>
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Zgjidhe L_ëvoren..."/>
 			<item id="ID_TOOLS_LANGUAGE" text="Zgjidhe _Gjuhën..."/>
+			<item id="ID_TOOLS_SKIN" text="Zgjidhe L_ëvoren..."/>
 			<separator/>
 			<item id="ID_TOOLS_PROFILE" text="Edito _Profilin..."/>
 			<item id="ID_TOOLS_WIZARD" text="_Uizardi i Shpejtë..."/>
@@ -523,7 +573,7 @@
 			<item id="ID_NETWORK_CONNECT" text="_Lidhu" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Shkëputu"/>
 			<separator/>
-			<menu text="Zgjidhe _Rrjetin">
+			<menu text="Zgjidh _Rrjetet">
 				<item id="ID_NETWORK_G2" text="_Gnutella2"/>
 				<item id="ID_NETWORK_G1" text="Gnutella_1"/>
 				<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
@@ -532,21 +582,22 @@
 			<item id="ID_NETWORK_CONNECT_TO" text="Lidhu _Te..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="_Shfleto një Host..."/>
 			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="Dil _Kur Përfundon"/>
-			<item id="ID_NETWORK_EXIT" text="D_il"/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Dil _Pas Transferimit"/>
+			<item id="ID_NETWORK_EXIT" text="D_alje"/>
 		</menu>
 		<menu text="_Pamje">
 			<item id="ID_TAB_HOME" text="_Shtëpi"/>
 			<item id="ID_TAB_LIBRARY" text="_Librari"/>
 			<item id="ID_TAB_MEDIA" text="_Media"/>
 			<item id="ID_TAB_SEARCH" text="_Kërko"/>
-			<item id="ID_TAB_TRANSFERS" text="_Transferimi"/>
+			<item id="ID_TAB_TRANSFERS" text="_Transferime"/>
 			<item id="ID_TAB_NETWORK" text="_Rrjeti"/>
+			<item id="ID_TAB_IRC" text="_Chat"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="Si_guri"/>
 			<item id="ID_VIEW_HOSTS" text="Depo H_osti"/>
 			<separator/>
-			<menu text="P_ërparime">
+			<menu text="A_vancuar">
 				<item id="ID_VIEW_SYSTEM" text="S_istemi" shortcut="F11"/>
 				<item id="ID_VIEW_NEIGHBOURS" text="H_ostet" shortcut="F2"/>
 				<item id="ID_VIEW_DOWNLOADS" text="_Shkarkimi" shortcut="F3"/>
@@ -583,25 +634,25 @@
 			<item id="ID_TOOLS_SETTINGS" text="Kuadrot e _PeerProject-s..."/>
 		</menu>
 		<menu text="_Dritare">
-			<item id="ID_WINDOW_NAVBAR" text="Shfaqe Shufrën e _Lundrimit"/>
-			<item id="ID_WINDOW_TOOLBAR" text="Shfaqe Shufrën e _Mjeteve"/>
+			<item id="ID_WINDOW_NAVBAR" text="Trego Brezin e _Lundrimit"/>
+			<item id="ID_WINDOW_TOOLBAR" text="Trego Brezin e _Mjeteve"/>
 			<separator/>
-			<item id="ID_WINDOW_TABBAR" text="Shfaqe _Shufrën e Lidhur"/>
-			<item id="ID_WINDOW_MONITOR" text="Shfaqe _Monitorin"/>
-			<item id="ID_WINDOW_REMOTE" text="Shfaqe _Pultin"/>
+			<item id="ID_WINDOW_TABBAR" text="Trego _Brezin e Fushës"/>
+			<item id="ID_WINDOW_MONITOR" text="Trego _Monitorin"/>
+			<item id="ID_WINDOW_REMOTE" text="Trego _Pultin"/>
 		</menu>
 		<menu text="_Ndihmë">
-			<item id="ID_HELP_FAQ" text="_Pyetje rreth PeerProject-s"/>
-			<item id="ID_HELP_TEST" text="_Testo Lidhjen"/>
+			<item id="ID_HELP_FAQ" text="_PBSH për PeerProject-n"/>
+			<item id="ID_HELP_TEST" text="_Testi i Lidhjes"/>
 			<separator/>
 			<menu text="_Guidë">
 				<item id="ID_HELP_GUIDE" text="Guida e _Përdoruesit"/>
-				<item id="ID_HELP_ROUTER" text="Ndihmë mbi _Routerin"/>
-				<item id="ID_HELP_SECURITY" text="Ndihmë mbi _Sigurinë"/>
-				<item id="ID_HELP_CODEC" text="Ndihmë mbi _Koduesin"/>
+				<item id="ID_HELP_ROUTER" text="Ndihmë për _Routerin"/>
+				<item id="ID_HELP_SECURITY" text="Ndihmë për _Sigurinë"/>
+				<item id="ID_HELP_CODEC" text="Ndihmë për _Koduesin"/>
 			</menu>
 			<separator/>
-			<menu text="_Trojet">
+			<menu text="_Troje rrjeti">
 				<item id="ID_HELP_HOMEPAGE" text="Trualli i _PeerProject-s"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Forumet e PeerProject-s"/>
@@ -639,6 +690,7 @@
 			<item id="ID_VIEW_UPLOADS" text="_Ngarkimi" shortcut="F4"/>
 			<item id="ID_VIEW_LIBRARY" text="_Librari" shortcut="F5"/>
 			<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
+			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="Si_guri" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="_Depot" shortcut="F8"/>
@@ -672,22 +724,22 @@
 			<item id="ID_WINDOW_TILE_HORZ" text="Hapje _Horizontale"/>
 			<item id="ID_WINDOW_TILE_VERT" text="Hapje _Vertikale"/>
 			<separator/>
-			<item id="ID_WINDOW_NAVBAR" text="Shfaqe Shufrën e _Lundrimit"/>
-			<item id="ID_WINDOW_TOOLBAR" text="Shfaqe Shufrën e _Mjeteve"/>
+			<item id="ID_WINDOW_NAVBAR" text="Trego Brezin e _Lundrimit"/>
+			<item id="ID_WINDOW_TOOLBAR" text="Trego Brezin e _Mjeteve"/>
 			<separator/>
-			<item id="ID_WINDOW_TABBAR" text="Shfaqe _Shufrën e Lidhur"/>
-			<item id="ID_WINDOW_MONITOR" text="Shfaqe _Monitorin"/>
-			<item id="ID_WINDOW_REMOTE" text="Shfaqe _Pultin"/>
+			<item id="ID_WINDOW_TABBAR" text="Trego Brezin e Lidhur"/>
+			<item id="ID_WINDOW_MONITOR" text="Trego _Monitorin"/>
+			<item id="ID_WINDOW_REMOTE" text="Trego _Pultin"/>
 		</menu>
 		<menu text="_Ndihmë">
-			<item id="ID_HELP_FAQ" text="_Pyetje rreth PeerProject-s"/>
-			<item id="ID_HELP_TEST" text="_Testo Lidhjen"/>
+			<item id="ID_HELP_FAQ" text="_PBSH për PeerProject-n"/>
+			<item id="ID_HELP_TEST" text="_Testi i Lidhjes"/>
 			<separator/>
 			<menu text="_Guidë">
 				<item id="ID_HELP_GUIDE" text="Guida e _Përdoruesit"/>
-				<item id="ID_HELP_ROUTER" text="Ndihmë mbi _Routerin"/>
-				<item id="ID_HELP_SECURITY" text="Ndihmë mbi _Sigurinë"/>
-				<item id="ID_HELP_CODEC" text="Ndihmë mbi _Koduesin"/>
+				<item id="ID_HELP_ROUTER" text="Ndihmë për _Routerin"/>
+				<item id="ID_HELP_SECURITY" text="Ndihmë për _Sigurinë"/>
+				<item id="ID_HELP_CODEC" text="Ndihmë për _Koduesin"/>
 			</menu>
 			<separator/>
 			<menu text="_Trojet">
@@ -708,49 +760,50 @@
 		<item id="ID_TAB_LIBRARY" text="_Librari"/>
 		<item id="ID_TAB_MEDIA" text="_Media"/>
 		<item id="ID_TAB_SEARCH" text="_Kërkoni"/>
-		<item id="ID_TAB_TRANSFERS" text="_Shkarkimi"/>
+		<item id="ID_TAB_TRANSFERS" text="_Shkarkime"/>
 		<separator/>
-		<menu text="_Përparime">
-			<item id="ID_VIEW_NEIGHBOURS" text="_Hostet"/>
-			<item id="ID_VIEW_UPLOADS" text="_Ngarkimi"/>
+		<menu text="_Avancuar">
+			<item id="ID_VIEW_NEIGHBOURS" text="_Fqinj"/>
+			<item id="ID_VIEW_UPLOADS" text="_Ngarkime"/>
 			<item id="ID_VIEW_SECURITY" text="_Siguri"/>
-			<item id="ID_VIEW_HOSTS" text="_Depot"/>
+			<item id="ID_VIEW_HOSTS" text="_Depo Hosti"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.View.Tabbed">
 		<item id="ID_TAB_HOME" text="_Shtëpi"/>
 		<item id="ID_TAB_LIBRARY" text="_Librari"/>
 		<item id="ID_TAB_MEDIA" text="_Media"/>
-		<item id="ID_TAB_SEARCH" text="_Kërko"/>
-		<item id="ID_TAB_TRANSFERS" text="_Transferimi"/>
+		<item id="ID_TAB_SEARCH" text="_Kërkoni"/>
+		<item id="ID_TAB_TRANSFERS" text="_Transferime"/>
 		<item id="ID_TAB_NETWORK" text="_Rrjeti"/>
+		<item id="ID_TAB_IRC" text="_Chat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Si_guri"/>
 		<item id="ID_VIEW_HOSTS" text="Depo _Hosti"/>
-		<item id="ID_VIEW_DISCOVERY" text="Zbu_limi"/>
-		<item id="ID_VIEW_TRAFFIC" text="_Grafikët"/>
+		<item id="ID_VIEW_DISCOVERY" text="Zbu_lim"/>
+		<item id="ID_VIEW_TRAFFIC" text="_Grafikë"/>
 		<separator/>
-		<item id="ID_VIEW_PACKETS" text="_Paketat"/>
-		<item id="ID_VIEW_SEARCH_MONITOR" text="Monitori i Kë_rkimeve"/>
+		<item id="ID_VIEW_PACKETS" text="_Paketa"/>
+		<item id="ID_VIEW_SEARCH_MONITOR" text="Monitori i Kë_rkimit"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="Monitori i H_iteve"/>
 	</menu>
 	<menu name="CMainWnd.View.Windowed">
 		<item id="ID_NETWORK_SEARCH" text="_Kërkim i Ri..."/>
 		<separator/>
 		<item id="ID_VIEW_SYSTEM" text="S_istemi"/>
-		<item id="ID_VIEW_NEIGHBOURS" text="_Hostet"/>
-		<item id="ID_VIEW_DOWNLOADS" text="_Shkarkimi"/>
-		<item id="ID_VIEW_UPLOADS" text="_Ngarkimi"/>
+		<item id="ID_VIEW_NEIGHBOURS" text="_Fqinj"/>
+		<item id="ID_VIEW_DOWNLOADS" text="_Shkarkime"/>
+		<item id="ID_VIEW_UPLOADS" text="_Ngarkime"/>
 		<item id="ID_VIEW_LIBRARY" text="_Librari"/>
 		<item id="ID_VIEW_MEDIA" text="_Media"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Si_guri"/>
-		<item id="ID_VIEW_HOSTS" text="_Depot"/>
-		<item id="ID_VIEW_DISCOVERY" text="Zbu_limi"/>
-		<item id="ID_VIEW_TRAFFIC" text="_Grafikët"/>
+		<item id="ID_VIEW_HOSTS" text="Depo _Hosti"/>
+		<item id="ID_VIEW_DISCOVERY" text="Zbu_lim"/>
+		<item id="ID_VIEW_TRAFFIC" text="_Grafikë"/>
 		<separator/>
-		<item id="ID_VIEW_PACKETS" text="_Paketat"/>
-		<item id="ID_VIEW_SEARCH_MONITOR" text="Monitori i Kë_rkimeve"/>
+		<item id="ID_VIEW_PACKETS" text="_Paketa"/>
+		<item id="ID_VIEW_SEARCH_MONITOR" text="Monitori i Kë_rkimit"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="Monitori i H_iteve"/>
 	</menu>
 	<!-- HOME MENU -->
@@ -759,11 +812,11 @@
 		<item id="ID_TAB_LIBRARY" text="_Librari"/>
 		<item id="ID_TAB_MEDIA" text="_Media"/>
 		<item id="ID_TAB_SEARCH" text="_Kërkoni"/>
-		<item id="ID_TAB_TRANSFERS" text="_Shkarkimi"/>
+		<item id="ID_TAB_TRANSFERS" text="_Shkarkime"/>
 		<separator/>
-		<menu text="_Përparime">
-			<item id="ID_VIEW_NEIGHBOURS" text="_Hostet"/>
-			<item id="ID_VIEW_UPLOADS" text="_Ngarkimi"/>
+		<menu text="_Avancuar">
+			<item id="ID_VIEW_NEIGHBOURS" text="_Fqinj"/>
+			<item id="ID_VIEW_UPLOADS" text="_Ngarkime"/>
 			<item id="ID_VIEW_SECURITY" text="_Siguri"/>
 			<item id="ID_VIEW_HOSTS" text="Depo _Hosti"/>
 		</menu>
@@ -775,14 +828,15 @@
 		<item id="ID_TAB_SEARCH" text="_Kërko"/>
 		<item id="ID_TAB_TRANSFERS" text="_Transferimi"/>
 		<item id="ID_TAB_NETWORK" text="_Rrjeti"/>
+		<item id="ID_TAB_IRC" text="_Chat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Si_guri"/>
-		<item id="ID_VIEW_HOSTS" text="_Depot"/>
-		<item id="ID_VIEW_DISCOVERY" text="Zbu_limi"/>
-		<item id="ID_VIEW_TRAFFIC" text="_Grafikët"/>
+		<item id="ID_VIEW_HOSTS" text="_Depo Hosti"/>
+		<item id="ID_VIEW_DISCOVERY" text="Zbu_lim"/>
+		<item id="ID_VIEW_TRAFFIC" text="_Grafikë"/>
 		<separator/>
-		<item id="ID_VIEW_PACKETS" text="_Paketat"/>
-		<item id="ID_VIEW_SEARCH_MONITOR" text="Monitori i Kë_rkimeve"/>
+		<item id="ID_VIEW_PACKETS" text="_Paketa"/>
+		<item id="ID_VIEW_SEARCH_MONITOR" text="Monitori i Kë_rkimit"/>
 		<item id="ID_VIEW_RESULTS_MONITOR" text="Monitori i H_iteve"/>
 	</menu>
 	<!-- HOST CACHE WINDOW -->
@@ -811,8 +865,8 @@
 		<item id="ID_BROWSE_LAUNCH" text="_Shfleto"/>
 		<item id="ID_SEARCH_CHAT" text="_Bisedo"/>
 		<separator/>
-		<menu text="_Kërko për">
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda të Ngjashme"/>
+		<menu text="_Kërko Për">
+			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda _Njësoj"/>
 			<separator/>
 			<item id="ID_SEARCH_FOR_ARTIST" text="Muzikë nga i njëjti Artist"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikë nga i njëjti Album"/>
@@ -857,8 +911,8 @@
 		<separator/>
 		<item id="ID_SEARCH_CHAT" text="_Bisedo"/>
 		<separator/>
-		<menu text="_Kërko për">
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda të Ngjashme"/>
+		<menu text="_Kërko Për">
+			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda _Njësoj"/>
 			<separator/>
 			<item id="ID_SEARCH_FOR_ARTIST" text="Muzikë nga i njëjti Artist"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikë nga i njëjti Album"/>
@@ -876,9 +930,9 @@
 		<separator/>
 		<item id="ID_SEARCH_CHAT" text="_Bisedo"/>
 		<separator/>
-		<menu text="_Kërko për">
-			<item id="ID_SEARCH_FOR_THIS" text="Këtë Skedë"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda të Ngjashme"/>
+		<menu text="_Kërko Për">
+			<item id="ID_SEARCH_FOR_THIS" text="_Këtë Skedë"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda _Njësoj"/>
 			<separator/>
 			<item id="ID_SEARCH_FOR_ARTIST" text="Muzikë nga i njëjti Artist"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikë nga i njëjti Album"/>
@@ -889,7 +943,7 @@
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filtro Rezultatet..."/>
-		<item id="ID_SEARCH_FILTER_REMOVE" text="H_iqe Filtrin"/>
+		<item id="ID_SEARCH_FILTER_REMOVE" text="F_shije Filtrin"/>
 		<separator/>
 		<item id="ID_SEARCH_COLUMNS" text="Edito K_olonat..."/>
 	</menu>
@@ -930,18 +984,16 @@
 		<item id="ID_DOWNLOADS_RESUME" text="_Rimerre"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_usho"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Anulo"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="P_astro të Përfunduarit"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Gjej Burime të Tjera"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="P_astro të Përfunduarit"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="A_utopastro"/> -->
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ndihmë..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Parashiko"/>
-				<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Parashikim i L_argët"/>
-		<!-- <item id="ID_DOWNLOADS_LAUNCH_COPY" text="Para_shiko Kopjen"/> -->
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Para_shiko Kopjen"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Parashikim i L_argët"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Shtoje në _Listë"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Shiko Pasqyrat"/>
 		<separator/>
@@ -951,8 +1003,8 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Gjej Burime të Tjera"/>
 		<separator/>
-		<menu text="_Përparime">
-			<item id="ID_DOWNLOADS_SHARE" text="_Shpërndaje Skedën"/>
+		<menu text="_Avancuar">
+			<item id="ID_DOWNLOADS_SHARE" text="_Shpërnda Skedë"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="_Kopjo URIn"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Shto një Burim..."/>
@@ -1025,15 +1077,15 @@
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Veti"/>
 	</menu>
 	<menu name="CDownloadsWnd.Filter">
-		<item id="ID_DOWNLOADS_FILTER_ALL" text="Shfaqe _Gjithçka"/>
+		<item id="ID_DOWNLOADS_FILTER_ALL" text="Trego _Gjithçka"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Shfaqi A_ktivët"/>
-		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Shfaqi Jo_aktivët"/>
-		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Shfaqi _Jo-burimorët"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Shfaqi të _Pushuarit"/>
+		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Trego A_ktivët"/>
+		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Trego Jo_aktivët"/>
+		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Trego _Jo-burimorët"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Trego të _Pushuarit"/>
 		<separator/>
-		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Shfaqi Gjithë _Burimet"/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Shfaqi _Grupet"/>
+		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Trego Tërë _Burimet"/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Trego _Grupet"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
 	<menu name="CUploadsWnd.Upload.Basic">
@@ -1049,7 +1101,7 @@
 		<item id="ID_SECURITY_BAN" text="D_ëboje"/>
 	</menu>
 	<menu name="CUploadsWnd.Queue">
-		<item id="ID_UPLOADS_EDIT_QUEUE" text="Kuadrot e _Pritjes"/>
+		<item id="ID_UPLOADS_EDIT_QUEUE" text="Vendosjet e _Pritjes"/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="P_astro të Përfunduarit"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto_pastro"/>
 	</menu>
@@ -1059,19 +1111,19 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto_pastro"/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
-		<item id="ID_UPLOADS_FILTER_ALL" text="Shfaqe Gjithçka"/>
+		<item id="ID_UPLOADS_FILTER_ALL" text="Trego _Gjithçka"/>
 		<separator/>
-		<item id="ID_UPLOADS_FILTER_ACTIVE" text="Shfaqi Aktivët"/>
-		<item id="ID_UPLOADS_FILTER_QUEUED" text="Shfaqi Joaktivët"/>
-		<item id="ID_UPLOADS_FILTER_TORRENT" text="Shfaqi BitTorrent"/>
-		<item id="ID_UPLOADS_FILTER_HISTORY" text="Shfaqe Historinë"/>
+		<item id="ID_UPLOADS_FILTER_ACTIVE" text="Trego A_ktivët"/>
+		<item id="ID_UPLOADS_FILTER_QUEUED" text="Trego të _Radhiturit"/>
+		<item id="ID_UPLOADS_FILTER_TORRENT" text="Trego _BitTorrent"/>
+		<item id="ID_UPLOADS_FILTER_HISTORY" text="Trego _Historinë"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">
 		<item id="ID_LIBRARY_SHARED_FOLDER" text="_Shpërndahet"/>
 		<item id="ID_LIBRARY_REMOVE" text="_Fshije"/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDERS" text="Shpërnda skedat..."/>
+		<item id="ID_LIBRARY_FOLDERS" text="Shpërnda _Skeda..."/>
 	</menu>
 	<menu name="CLibraryTree.Physical">
 		<item id="ID_LIBRARY_EXPLORE" text="_Eksploro"/>
@@ -1081,19 +1133,19 @@
 		<separator/>
 		<item id="ID_LIBRARY_SCAN" text="S_kano"/>
 		<item id="ID_LIBRARY_REBUILD" text="Ri_ndërto"/>
-		<item id="ID_LIBRARY_FOLDERS" text="Shpërnda skedat..."/>
+		<item id="ID_LIBRARY_FOLDERS" text="Shpërnda _Skeda..."/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="_Vetitë e skedës"/>
+		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="_Vetitë e Skedës"/>
 	</menu>
 	<menu name="CLibraryTree.Virtual.Basic">
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Lexo Albumin"/>
+		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Luaj Albumin"/>
 		<item id="ID_LIBRARY_FOLDER_DELETE" text="_Fshije"/>
 		<separator/>
 		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="Vetitë e _Skedës"/>
 		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="Vetitë e _Albumit"/>
 	</menu>
 	<menu name="CLibraryTree.Virtual">
-		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Lexo Albumin"/>
+		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Luaj Albumin"/>
 		<item id="ID_LIBRARY_FOLDER_DELETE" text="_Fshije"/>
 		<separator/>
 		<item id="ID_LIBRARY_REBUILD" text="_Rindërto"/>
@@ -1112,26 +1164,26 @@
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Veti"/>
 	</menu>
 	<menu name="CLibraryFileView.Physical.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Hape/Lexo"/>
-		<item id="ID_LIBRARY_ENQUEUE" text="_Shtoje në Listë"/>
+		<item id="ID_LIBRARY_LAUNCH" text="_Hape ose Luaje"/>
+		<item id="ID_LIBRARY_ENQUEUE" text="_Shtoje te Lista"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shpërndahet"/>
 		<separator/>
 		<item id="ID_LIBRARY_DELETE" text="_Fshije"/>
 		<separator/>
-		<menu text="K_ërko për">
-			<item id="ID_SEARCH_FOR_THIS" text="Këtë Skedë"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda të Ngjashme"/>
+		<menu text="K_ërko Për">
+			<item id="ID_SEARCH_FOR_THIS" text="_Këtë Skedë"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda _Njësoj"/>
 			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Muzikë nga i njëjti Artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikë nga i njëjti Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Episode nga i njëjti Serial"/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="_Muzikë nga ky Artist"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikë në këtë _Album"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="_Episode në këtë Serial"/>
 		</menu>
 		<menu text="Shërbime _Rrjeti">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Shkarko Metadatat"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
+			<item id="ID_LIBRARY_URI" text="Kopjo _URI-n"/>
 		</menu>
 		<menu text="O_rganizo">
 			<item id="ID_LIBRARY_RENAME" text="_Riemërto Skedën"/>
@@ -1139,6 +1191,7 @@
 			<item id="ID_LIBRARY_COPY" text="_Kopjo Skedën..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizo Metadatat"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rifresko Metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Veti"/>
 	</menu>
@@ -1148,16 +1201,16 @@
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shpërndahet"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
+		<item id="ID_LIBRARY_URI" text="Kopjo _URI-n"/>
 		<item id="ID_LIBRARY_DELETE" text="_Fshije"/>
 		<separator/>
-		<menu text="K_ërko për">
-			<item id="ID_SEARCH_FOR_THIS" text="Këtë Skedë"/>
-			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda të Ngjashme"/>
+		<menu text="K_ërko Për">
+			<item id="ID_SEARCH_FOR_THIS" text="_Këtë Skedë"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="Skeda _Njësoj"/>
 			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Muzikë nga i njëjti Artist"/>
-			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikë nga i njëjti Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Episode nga i njëjti Serial"/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="_Muzikë nga ky Artist"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikë në këtë _Album"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="_Episode në këtë Serial"/>
 		</menu>
 		<menu text="Shërbime _Rrjeti">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
@@ -1173,6 +1226,8 @@
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizo Metadatat"/>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Zgjidhi _Kolonat..."/>
+		<separator/>
+		<item id="ID_SHELL_MENU" text="Menyja B_azë"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Veti"/>
 	</menu>
@@ -1197,7 +1252,7 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Shiko Biletën _Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Përfto Metadatat"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
+			<item id="ID_LIBRARY_URI" text="Kopjo _URI-n"/>
 		</menu>
 		<menu text="O_rganizo">
 			<item id="ID_LIBRARY_RENAME" text="_Riemërto Skedën"/>
@@ -1207,6 +1262,7 @@
 			<item id="ID_LIBRARY_COPY" text="_Kopjo Skedën..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizo Metadatat"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rifresko Metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Veti"/>
 	</menu>
@@ -1216,7 +1272,7 @@
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shpërndahet"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
+		<item id="ID_LIBRARY_URI" text="Kopjo _URI-n"/>
 		<item id="ID_LIBRARY_DELETE" text="_Fshije"/>
 		<separator/>
 		<menu text="K_ërko për">
@@ -1241,6 +1297,7 @@
 			<item id="ID_LIBRARY_COPY" text="_Kopjo Skedën..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokalizo Metadatat"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Rifresko Metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Zgjidhi _Kolonat..."/>
 		<separator/>
@@ -1263,10 +1320,10 @@
 			<item id="ID_MEDIA_PLAYLIST" text="Shfaqe _Listën"/>
 		</menu>
 		<menu text="Për_masë e videos">
-			<item id="ID_MEDIA_SIZE_ONE" text="Përmasë _Origjinale"/>
-			<item id="ID_MEDIA_SIZE_TWO" text="Përmasë _Dyfishe"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="Përmasë _Trefishe"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="_Më e Mirë"/>
+			<item id="ID_MEDIA_SIZE_ONE" text="Masa _Origjinale"/>
+			<item id="ID_MEDIA_SIZE_TWO" text="Masa _Dyfishe"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Masa _Trefishe"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="_Më e Madhe"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Mbushe Dritaren"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="_Aspekt Tipik"/>
@@ -1275,36 +1332,36 @@
 			<separator/>
 			<item id="ID_MEDIA_FULLSCREEN" text="Ekran i _Plotë"/>
 		</menu>
-		<menu text="Kuadro">
+		<menu text="Vendos_je">
 			<item id="ID_MEDIA_VIS" text="Zgjidhe _Vegimin..."/>
 			<separator/>
-			<item id="ID_MEDIA_PLAYLIST" text="Shfaqe _Listën"/>
-			<item id="ID_MEDIA_STATUS" text="Shfaqe Vijën e _Statusit"/>
+			<item id="ID_MEDIA_PLAYLIST" text="Trego _Listën"/>
+			<item id="ID_MEDIA_STATUS" text="Trego Vijën e _Statusit"/>
 			<separator/>
-			<item id="ID_MEDIA_SETTINGS" text="Kuadrot e _Medias..."/>
+			<item id="ID_MEDIA_SETTINGS" text="Vendosjet e _Medias..."/>
 		</menu>
 	</menu>
 	<menu name="CMediaFrame">
-		<item id="ID_MEDIA_PLAY" text="_Lexo"/>
+		<item id="ID_MEDIA_PLAY" text="_Luaj"/>
 		<item id="ID_MEDIA_PAUSE" text="Pu_sho"/>
 		<item id="ID_MEDIA_STOP" text="_Ndale"/>
 		<separator/>
-		<item id="ID_MEDIA_OPEN" text="_Hap një skedë..."/>
-		<item id="ID_MEDIA_CLOSE" text="_Mbylle"/>
+		<item id="ID_MEDIA_OPEN" text="_Hap Skedë Mediatike..."/>
+		<item id="ID_MEDIA_CLOSE" text="_Mbylle Skedën"/>
 		<separator/>
-		<menu text="Listë">
-			<item id="ID_MEDIA_PREVIOUS" text="Pra_pa"/>
-			<item id="ID_MEDIA_NEXT" text="_Para"/>
+		<menu text="Lista">
+			<item id="ID_MEDIA_PREVIOUS" text="Kal_uar"/>
+			<item id="ID_MEDIA_NEXT" text="_Tjetër"/>
 			<item id="ID_MEDIA_RANDOM" text="_Rastësi"/>
 			<item id="ID_MEDIA_REPEAT" text="P_ërsërite"/>
 			<separator/>
 			<item id="ID_MEDIA_PLAYLIST" text="Shfaqe _Listën"/>
 		</menu>
 		<menu text="Për_masë e videos">
-			<item id="ID_MEDIA_SIZE_ONE" text="Përmasë _Origjinale"/>
-			<item id="ID_MEDIA_SIZE_TWO" text="Përmasë _Dyfishe"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="Përmasë _Trefishe"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="_Më e Mirë"/>
+			<item id="ID_MEDIA_SIZE_ONE" text="Masa _Origjinale"/>
+			<item id="ID_MEDIA_SIZE_TWO" text="Masa _Dyfishe"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Masa _Trefishe"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="_Më e Madhe"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Mbushe Dritaren"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="_Aspekt Tipik"/>
@@ -1313,20 +1370,20 @@
 			<separator/>
 			<item id="ID_MEDIA_FULLSCREEN" text="Ekran i _Plotë"/>
 		</menu>
-		<menu text="Kuadro">
+		<menu text="Vendo_sje">
 			<item id="ID_MEDIA_VIS" text="Zgjidhe _Vegimin..."/>
 			<separator/>
-			<item id="ID_MEDIA_PLAYLIST" text="Shfaqe _Listën"/>
-			<item id="ID_MEDIA_STATUS" text="Shfaqe Vijën e _Statusit"/>
+			<item id="ID_MEDIA_PLAYLIST" text="Trego _Listën"/>
+			<item id="ID_MEDIA_STATUS" text="Trego Vijën e _Statusit"/>
 			<separator/>
-			<item id="ID_MEDIA_SETTINGS" text="Kuadrot e _Medias..."/>
+			<item id="ID_MEDIA_SETTINGS" text="Vendosjet e _Medias..."/>
 		</menu>
 	</menu>
 	<menu name="CMediaFrame.Zoom">
-		<item id="ID_MEDIA_SIZE_ONE" text="Përmasë _Origjinale"/>
-		<item id="ID_MEDIA_SIZE_TWO" text="Përmasë _Dyfishe"/>
-		<item id="ID_MEDIA_SIZE_HALF" text="Përmasë _Trefishe"/>
-		<item id="ID_MEDIA_SIZE_FILL" text="_Më e Mirë"/>
+		<item id="ID_MEDIA_SIZE_ONE" text="Masa _Origjinale"/>
+		<item id="ID_MEDIA_SIZE_TWO" text="Masa _Dyfishe"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="Masa _Trefishe"/>
+		<item id="ID_MEDIA_SIZE_FILL" text="_Më e Madhe"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Mbushe Dritaren"/>
 		<separator/>
 		<item id="ID_MEDIA_ASPECT_DEFAULT" text="_Aspekt Tipik"/>
@@ -1334,32 +1391,38 @@
 		<item id="ID_MEDIA_ASPECT_16_9" text="Raport _16:9 (Film)"/>
 	</menu>
 	<menu name="CMediaList">
-		<item id="ID_MEDIA_SELECT" text="_Lexo"/>
-		<item id="ID_MEDIA_RATE" text="Ra_në Skedë..."/>
-		<item id="ID_MEDIA_PROPERTIES" text="_Vetitë..."/>
+		<item id="ID_MEDIA_SELECT" text="_Luaj"/>
+		<item id="ID_MEDIA_RATE" text="Vler_ëso Skedën..."/>
+		<item id="ID_MEDIA_PROPERTIES" text="_Veti..."/>
 		<separator/>
-		<item id="ID_MEDIA_ADD" text="_Shto një Skedë..."/>
-		<item id="ID_MEDIA_ADD_FOLDER" text="Shto një _Dosje..."/>
+		<item id="ID_MEDIA_ADD" text="_Shto Skedë..."/>
+		<item id="ID_MEDIA_ADD_FOLDER" text="Shto _Dosje..."/>
 		<item id="ID_MEDIA_REMOVE" text="_Fshije"/>
 		<separator/>
 		<item id="ID_MEDIA_RANDOM" text="Mënyrë Ra_stësore"/>
 		<item id="ID_MEDIA_REPEAT" text="Mënyrë Pë_rsëritëse"/>
 		<separator/>
-		<item id="ID_MEDIA_OPEN" text="_Hap një Listë..."/>
-		<item id="ID_MEDIA_SAVE" text="_Ruaje Këtë Listë..."/>
+		<item id="ID_MEDIA_OPEN" text="_Hap Listën..."/>
+		<item id="ID_MEDIA_SAVE" text="_Ruaj Listën..."/>
 		<item id="ID_MEDIA_EXPORT_COLLECTION" text="E_ksporto Koleksionin..."/>
 		<item id="ID_MEDIA_CLEAR" text="_Pastro Listën"/>
 		<separator/>
-		<item id="ID_MEDIA_PLAYLIST" text="Shfaqe Li_stën"/>
+		<item id="ID_MEDIA_PLAYLIST" text="Trego Li_stën"/>
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="Me të _Dhëna"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="Mjaft të _Dhëna">
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Gabim"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Kujdes"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Lajmërim"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="Me Dat_ë"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Kopjo" shortcut="Ctrl+C"/>
 		<separator/>
-		<item id="ID_SYSTEM_CLEAR" text="Pastro _Depon"/>
+		<item id="ID_SYSTEM_CLEAR" text="Pastro _Zbutësin"/>
 	</menu>
 	<!-- NEIGHBOURS WINDOW -->
 	<menu name="CNeighboursWnd.Basic">
@@ -1379,7 +1442,7 @@
 		<separator/>
 		<item id="ID_NEIGHBOURS_URI" text="Kopjo _URIn"/>
 		<separator/>
-		<menu text="_Rrjeti">
+		<menu text="_Rrjete">
 			<item id="ID_NETWORK_CONNECT" text="_Lidhu"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Shkëputu"/>
 			<separator/>
@@ -1397,16 +1460,19 @@
 	<menu name="CSearchMonitorWnd">
 		<item id="ID_HITMONITOR_SEARCH" text="_Kërko për Këtë"/>
 		<separator/>
+		<item id="ID_BROWSE_LAUNCH" text="_Shfleto Përdoruesin"/>
+		<item id="ID_SECURITY_BAN" text="D_ëboje Përdoruesin"/>
+		<separator/>
 		<item id="ID_SEARCHMONITOR_PAUSE" text="_Pusho Shfaqjen"/>
 		<item id="ID_SEARCHMONITOR_CLEAR" text="_Pastro Ditarin"/>
 	</menu>
 	<!-- GRAPH/TRAFFIC WINDOW -->
 	<menu name="CTrafficWnd">
-		<item id="ID_TRAFFIC_SETUP" text="_Zgjidhi Grafikët..."/>
+		<item id="ID_TRAFFIC_SETUP" text="_Zgjidh Grafikët..."/>
 		<separator/>
-		<item id="ID_TRAFFIC_GRID" text="_Me Rrjetë"/>
-		<item id="ID_TRAFFIC_AXIS" text="Me _Bosht"/>
-		<item id="ID_TRAFFIC_LEGEND" text="Me _Legjendë"/>
+		<item id="ID_TRAFFIC_GRID" text="_Rrjetë"/>
+		<item id="ID_TRAFFIC_AXIS" text="_Bosht"/>
+		<item id="ID_TRAFFIC_LEGEND" text="_Legjendë"/>
 		<separator/>
 		<item id="ID_TRAFFIC_CLEAR" text="_Pastro"/>
 		<separator/>
@@ -1425,9 +1491,9 @@
 		<item id="ID_SECURITY_IMPORT" text="_Importo..."/>
 		<item id="ID_SECURITY_EXPORT" text="E_ksporto..."/>
 		<separator/>
-		<menu text="Sjell_je Tipike">
-			<item id="ID_SECURITY_POLICY_ACCEPT" text="_Pranoje"/>
-			<item id="ID_SECURITY_POLICY_DENY" text="_Mohoje"/>
+		<menu text="Meto_da Tipike">
+			<item id="ID_SECURITY_POLICY_ACCEPT" text="_Prano"/>
+			<item id="ID_SECURITY_POLICY_DENY" text="_Moho"/>
 		</menu>
 		<separator/>
 		<item id="ID_SECURITY_EDIT" text="_Veti"/>
@@ -1440,11 +1506,11 @@
 		<separator/>
 		<item id="ID_DISCOVERY_BROWSE" text="_Statistikat"/>
 		<separator/>
-		<item id="ID_DISCOVERY_GNUTELLA" text="Shfaqi _Bootstrap-et"/>
-		<item id="ID_DISCOVERY_WEBCACHE" text="Shfaqi _GWebDepot"/>
-		<item id="ID_DISCOVERY_SERVERMET" text="Shfaqi Ser_ver.met-et"/>
+		<item id="ID_DISCOVERY_GNUTELLA" text="Trego _Bootstrap-et"/>
+		<item id="ID_DISCOVERY_WEBCACHE" text="Trego _GWebDepot"/>
+		<item id="ID_DISCOVERY_SERVERMET" text="Trego Ser_ver.met-et"/>
 		<separator/>
-		<item id="ID_DISCOVERY_ADD" text="_Shto një Shërbim..."/>
+		<item id="ID_DISCOVERY_ADD" text="_Shto Shërbim..."/>
 		<separator/>
 		<item id="ID_DISCOVERY_EDIT" text="_Veti"/>
 	</menu>
@@ -1454,15 +1520,15 @@
 		<item id="ID_CHAT_DISCONNECT" text="_Shkëputu"/>
 		<separator/>
 		<item id="ID_CHAT_BROWSE" text="_Shfleto"/>
-		<item id="ID_CHAT_SEND_FILE" text="_Dërgo një Skedë..."/>
-		<item id="ID_CHAT_PRIORITY" text="Përparësia e _Dhënies"/>
+		<item id="ID_CHAT_PRIORITY" text="Parësi e _Dhënies"/>
+		<!--<item id="ID_CHAT_SEND_FILE" text="_Dërgo një Skedë..."/>-->
 		<separator/>
 		<menu text="_Formati">
-			<item id="ID_CHAT_BOLD" text="Vendos _Trashësi"/>
-			<item id="ID_CHAT_ITALIC" text="Vendos _Pjerrësi"/>
-			<item id="ID_CHAT_UNDERLINE" text="Vendos _Nënvijëzim"/>
-			<item id="ID_CHAT_COLOR" text="Vendos _Ngjyrë"/>
-			<item id="ID_CHAT_EMOTICONS" text="_Emoticon-e"/>
+			<item id="ID_CHAT_BOLD" text="Trashësi"/>
+			<item id="ID_CHAT_ITALIC" text="Pjerrësi"/>
+			<item id="ID_CHAT_UNDERLINE" text="Nënvijëzim"/>
+			<item id="ID_CHAT_COLOR" text="Ngjyrë"/>
+			<item id="ID_CHAT_EMOTICONS" text="Emoticon-e"/>
 		</menu>
 		<separator/>
 		<item id="ID_CHAT_TIMESTAMP" text="_Me Datë"/>
@@ -1470,12 +1536,45 @@
 	</menu>
 	<!-- PLUGIN MENUS -->
 	<menu name="ImageViewer_Context">
-		<item id="ImageViewer_BestFit" text="_Përmasa Perfekte"/>
-		<item id="ImageViewer_ActualSize" text="Përmasa _Aktuale"/>
+		<item id="ImageViewer_BestFit" text="_Masa Perfekte"/>
+		<item id="ImageViewer_ActualSize" text="Masa _Aktuale"/>
 		<separator/>
 		<item id="ImageViewer_Refresh" text="_Rifresko"/>
 		<separator/>
 		<item id="ImageViewer_Close" text="_Mbylle"/>
+	</menu>
+	<!-- IRC WINDOW -->
+	<menu name="CIRCTabRClick">
+		<item id="ID_IRC_CLOSETAB" text="_Mbylle"/>
+	</menu>
+	<menu name="CIRCUserList">
+		<item id="ID_IRC_WHOIS" text="_Whois"/>
+		<item id="ID_IRC_QUERY" text="_Pyete"/>
+		<separator/>
+		<menu text="Veprime">
+			<item id="ID_IRC_TIME" text="_Ora"/>
+			<item id="ID_IRC_VERSION" text="_Versioni"/>
+		</menu>
+		<separator/>
+		<menu text="Kontrolli">
+			<item id="ID_IRC_IGNORE" text="_Përbuz"/>
+			<item id="ID_IRC_UNIGNORE" text="_Mos përbuz"/>
+			<item id="ID_IRC_OP" text="_Op"/>
+			<item id="ID_IRC_DEOP" text="_Deop"/>
+			<item id="ID_IRC_VOICE" text="_Voice"/>
+			<item id="ID_IRC_DEVOICE" text="D_evoice"/>
+			<item id="ID_IRC_KICK" text="_Gjuaj"/>
+			<item id="ID_IRC_KICKWHY" text="Gjuaj (pse?)"/>
+			<item id="ID_IRC_BAN" text="_Dëbo"/>
+			<item id="ID_IRC_UNBAN" text="_Mos dëbo"/>
+			<item id="ID_IRC_BANKICK" text="Gjuaj+Dëbo"/>
+			<item id="ID_IRC_BANKICKWHY" text="Gjuaj+Dëbo (pse?)"/>
+		</menu>
+	</menu>
+	<menu name="WebServices.List.Menu">
+		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
+		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
 	</menu>
 </menus>
 <!-- Documents -->
@@ -1570,6 +1669,11 @@
 		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Uizardi i Shpejtë</link>
 		<text align="middle">&#160;- Editoni kuadrot e PeerProject-s</text>
 		<newline gap="8"/>
+		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/>
+		<gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Filtrat e Sigurisë</link>
+		<text align="middle">&#160;- Shto/Fshiji filtrat që të përmirësosh rezultatet e kërkimit</text>
+		<newline gap="8"/>
 		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
 		<gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Ndihmë e Shpejtë</link>
@@ -1652,35 +1756,36 @@
 		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
 		<text group="20" align="middle" format="b">Gnutella2: </text>
 		<text group="21" align="middle">I shkëputur</text>
-		<text group="22" align="middle">Po lidhem...</text>
+		<text group="22" align="middle">Lidhje...</text>
 		<text group="23" align="middle">I Lidhur</text>
 		<text group="24" align="middle" id="G2Hubs">%i nyje</text>
 		<text group="25" align="middle" id="G2Leaves">%i gjethe</text>
 		<newline group="20" gap="2"/>
-		<icon group="30" command="ID_NETWORK_ED2K"/><gap group="30" size="4"/>
-		<text group="30" align="middle" format="b">eDonkey: </text>
-		<text group="31" align="middle">I shkëputur</text>
-		<text group="32" align="middle">Po lidhem...</text>
-		<text group="33" align="middle">I Lidhur</text>
-		<newline group="30" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/><gap group="10" size="4"/>
 		<text group="10" align="middle" format="b">Gnutella1: </text>
 		<text group="11" align="middle">I shkëputur</text>
-		<text group="12" align="middle">Po lidhem...</text>
+		<text group="12" align="middle">Lidhje...</text>
 		<text group="13" align="middle">I Lidhur</text>
 		<newline group="10" gap="2"/>
+		<icon group="30" command="ID_NETWORK_ED2K"/><gap group="30" size="4"/>
+		<text group="30" align="middle" format="b">eDonkey: </text>
+		<text group="31" align="middle">I shkëputur</text>
+		<text group="32" align="middle">Lidhje...</text>
+		<text group="33" align="middle">I Lidhur</text>
+		<newline group="30" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>Lidhja zgjati </text>
+				<newline gap="4"/>
+				<text>Jeni i lidhur për </text>
+				<newline gap="0"/>
 				<text id="ConnectedHours" format="b">%i </text>
-				<text>orë e </text>
+				<text>orë dhe </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>min.</text>
+				<text>minuta.</text>
 			</para>
 		</group>
 	</document>
-	<document name="CHomeUploadsBox" title="Ngarkimi" leftMargin="6" topMargin="6">
+	<document name="CHomeUploadsBox" title="Ngarkesa" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font face="Verdana" size="9"/>
@@ -1692,11 +1797,11 @@
 			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i ngarkesa aktive</link>
 			<newline gap="4"/>
 			<text id="UploadedNone">Nuk po ngarkoni asnjë skedë.</text>
-			<text id="UploadedOne">Ju keni ngarkuar 1 skedë (%s).</text>
-			<text id="UploadedMany">Ju keni ngarkuar %i skeda (%s).</text>
+			<text id="UploadedOne">Keni ngarkuar 1 skedë (%s).</text>
+			<text id="UploadedMany">Keni ngarkuar %i skeda (%s).</text>
 		</para>
 	</document>
-	<document name="CHomeTorrentsBox" title="Torrentet" leftMargin="6" topMargin="6">
+	<document name="CHomeTorrentsBox" title="Torrente" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font face="Verdana" size="9"/>
@@ -1726,10 +1831,10 @@
 		</styles>
 		<text format="b">Mirë se erdhët te Menaxheri për Kuadrot e PeerProject-s</text>
 		<newline gap="16"/>
-		<text>Menaxheri për Kuadrot e PeerProject-s bën që përdoruesit e përparuar të porositin tërësisht mënyrën si
-			PeerProject funksionon.  Kuadrot e seksionit </text>
+		<text>Menaxheri për Vendosjet e PeerProject-s i lejon përdoruesit e avancuar të porositin tërësisht mënyrën si
+			funksionon PeerProject. Vendosjet te seksioni </text>
 		<text format="b">Përgjithësi </text>
-		<text>kërkojnë një përdorues me përvojë.</text>
+		<text>kanë të bëjnë me përvojën e përdoruesit.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">Përgjithësi:</link>
 		<gap size="4"/>
@@ -1749,11 +1854,11 @@
 		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
 		<gap size="4"/>
-		<text>IRC chatroom visual appearance and connection settings.</text>
+		<text>Pamje figurative të dhomës IRC dhe vendosjet e lidhjes.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Rrjeti:</link>
 		<gap size="4"/>
-		<text>Integron PeerProject-n me shfletuesin e rrjetit që të pranojë linket pikë-më-pikë dhe të shkarkojë përmbajtje.</text>
+		<text>Integroni PeerProject-n me shfletuesin e rrjetit që të pranojë linket pikë-më-pikë dhe të shkarkojë përmbajtjen.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Interneti" leftMargin="8" topMargin="8">
 		<styles>
@@ -1766,7 +1871,7 @@
 		<text>Menaxheri për Kuadrot e PeerProject-s bën që përdoruesit e përparuar të porositin tërësisht mënyrën si
 			PeerProject funksionon.  Kuadrot e seksionit </text>
 		<text format="b">Interneti </text>
-		<text>tregojnë si PeerProject ndërvepron me nyjet e tjera në rrjetet pikë-më-pikë të klasifikuara.</text>
+		<text>tregojnë si ndërvepron PeerProject me nyjet e tjera në rrjetet pikë-më-pikë të klasifikuara.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Lidhja:</link>
 		<gap size="4"/>
@@ -1786,7 +1891,7 @@
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<gap size="4"/>
-		<text>Limit download connections based on a periodic schedule.</text>
+		<text>Kufizoni lidhjet e shkarkimit bazuar në një plan periodik.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -1807,7 +1912,7 @@
 		</group>
 		<group id="3">
 			<newline gap="8" indent="0"/>
-			<text format="b">Demografia</text>
+			<text format="b">Demografi</text>
 			<newline gap="2" indent="8"/>
 			<text id="GenderMale">Mashkull</text>
 			<text id="GenderFemale">Femër</text>
@@ -1816,7 +1921,7 @@
 		</group>
 		<group id="4">
 			<newline gap="8" indent="0"/>
-			<text format="b">Informacioni Kontaktues</text>
+			<text format="b">Informacioni i Kontaktit</text>
 			<newline gap="1" indent="8"/>
 		</group>
 		<group id="40">
@@ -1864,7 +1969,7 @@
 	</document>
 	<document name="CBrowseHostProfile.2">
 		<newline gap="40" indent="0"/>
-		<text format="b">Skeda të Shpërndara</text>
+		<text format="b">Skedat e Shpërndara</text>
 		<newline gap="4" indent="8"/>
 		<icon res="137" target="peer:command:ID_BROWSE_FILES"/><gap size="5"/>
 		<link target="peer:command:ID_BROWSE_FILES" align="middle">Shikoni Skedat e Shpërndara</link>
@@ -1885,13 +1990,22 @@
 	</document>
 	<!-- Download help documents -->
 	<document name="DownloadHelp.Select">
-		<text format="b">Zona e Shkarkimeve</text>
+		<text format="b">Zona e Shkarkesave</text>
 		<newline gap="8"/>
-		<text>Këtu shfaqen skedat aktualisht në shkarkim. Ju mund t'i shikoni
-		burimet individuale duke e zgjedhur çdo skedë me + e vogël anash.</text>
+		<text>Këtu shfaqen skedat që janë aktualisht në shkarkim. Mund t'i shikoni
+		burimet individuale duke e zgjeruar çdo skedë me + e vogël anash.</text>
 		<newline gap="8"/>
-		<text>Këto komandë mund ta përdorni gjithashtu për të marrë informacione mbi një shkarkesë të caktuar.
-		Thjesht kapni shkarkesën dhe zgjidhni sërish këtë komandë.</text>
+		<text>Kapi e hidhi shkarkesat që janë më lart në listë për parësi, ose te fushat e Grupit
+		të Shkarkimit për organizim më të mirë (te Mënyra e Avancuar).</text>
+		<newline gap="16"/>
+		<text>Këtë komandë mund ta përdorni edhe për të marrë informacion ndihmës për një
+		shkarkesë të caktuar. Thjesht zgjidheni një shkarkesë dhe pastaj komandën Ndihmë.</text>
+	</document>
+	<document name="DownloadHelp.Seeding">
+		<text format="b">Ky Torrent Mbillet</text>
+		<newline gap="8"/>
+		<text>PeerProject ka verifikuar këtë shkarkesë të plotë, dhe po e ndan atë tërë kohën
+		me shkarkues të tjerë përmes BitTorrent-it. Ju lutemi shpërndajeni të paktën 100%.</text>
 	</document>
 	<document name="DownloadHelp.Completed">
 		<text format="b">Kjo Shkarkesë Përfundoi</text>
@@ -1903,7 +2017,7 @@
 		<text format="b">Kjo Shkarkesë po Lëviz</text>
 		<newline gap="8"/>
 		<text>PeerProject e përfundoi shkarkimin e kësaj skede, dhe verifikoi se ajo
-		është korrekte.  Aktualisht po lëviz dhe/ose çpaketohet në dosjen e shkarkesave tuaja.</text>
+		është korrekte. Ajo po lëvizet dhe/ose shpaketohet në dosjen e shkarkesave tuaja.</text>
 	</document>
 	<document name="DownloadHelp.Paused">
 		<text format="b">Kjo Shkarkesë Pushoi</text>
@@ -1912,51 +2026,51 @@
 		të klikoni komandën '</text><text format="b">Rimerre</text><text>'.</text>
 	</document>
 	<document name="DownloadHelp.DiskFull">
-		<text format="b">Disku është Plot</text>
+		<text format="b">Disku Është Plot</text>
 		<newline gap="8"/>
 		<text>PeerProject e pushoi automatikisht këtë shkarkesë sepse disku i ngurtë
-		duket se është plot, ose skeda në shkarkim nuk mund të shkruhet.  Nëse dëshironi
+		duket se është plot ose skeda në shkarkim nuk mund të shkruhet. Nëse dëshironi
 		të vijoni me shkarkimin, ju lutemi lironi pak hapësirën në disk dhe/ose sigurohuni
-		që dosja e skedës së paplotë të jetë e hapshme, pastaj rimerrni
+		që dosja e skedës së paplotë të jetë e hapshme, pastaj rimerreni
 		shkarkimin.</text>
 	</document>
 	<document name="DownloadHelp.Verifying">
-		<text format="b">Kjo Shkarkesë po Verifikohet</text>
+		<text format="b">Kjo Shkarkesë Verifikohet</text>
 		<newline gap="8"/>
-		<text>Shkarkimi përfundoi! Tani PeerProject po e verifikon atë për t'u siguruar
-		që jetë pikërisht e njëjtë me skedën origjinale.  Nëse gjendet ndonjë pjesë e
-		dëmtuar, PeerProject do ta riparojë automatikisht.</text>
+		<text>Kjo shkarkesë ka përfunduar dhe tani PeerProject po e verifikon atë për t'u siguruar
+		që të jetë pikërisht e njëjtë me skedën origjinale. Nëse gjendet ndonjë pjesë e
+		dëmtuar, PeerProject do e riparojë automatikisht.</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
 		<text format="b">Kjo Shkarkesë është Aktive!</text>
 		<newline gap="8"/>
-		<text>Kjo shkarkesë është aktualisht në progres.  Nëse po shkarkohet shumë ngadalë,
-		mund të provoni të kërkoni në rrjet për më tepër burime me komandën '</text>
-		<text format="b">Gjej më Tepër Burime</text><text>'. Nëse shpejtësia nuk përmirësohet,
-		shkaku mund të jetë shpejtësia e kufizuar në ngarkim e përdoruesve nga të cilët po
+		<text>Kjo shkarkesë është aktualisht në progres. Nëse shkarkohet shumë ngadalë,
+		mund të provoni të kërkoni rrjetin për më shumë burime me komandën '</text>
+		<text format="b">Gjej më Shumë Burime</text><text>'. Nëse shpejtësia nuk përmirësohet,
+		shkaku mund të jetë shpejtësia e kufizuar e ngarkimit për përdoruesit nga të cilët po
 		shkarkoni.  Shpejtësia e shkarkimit zakonisht rritet me kohë.</text>
 	</document>
 	<document name="DownloadHelp.Pending">
-		<text format="b">Kjo Shkarkesë po Varet</text>
+		<text format="b">Kjo Shkarkesë Varet</text>
 		<newline gap="8"/>
-		<text>Kjo shkarkesë po pret që dikush të nisë ngarkimin.
-		PeerProject është gati ta nisë shkarkimin e kësaj skede, por askush nuk po e dërgon atë në
-		këtë çast. Mbase po prisni në radhët e ndonjërit prej përdoruesve, ndaj dhe shkarkimi
+		<text>Kjo shkarkesë pret që dikush të nisë ngarkimin.
+		PeerProject është gati ta nisë shkarkimin e kësaj skede, por për momentin askush nuk po
+		e mbjell atë në. Mbase po prisni radhën e ndonjërit prej përdoruesve të tjerë, dhe shkarkimi
 		mund të nisë në çdo kohë. Ju mund të ekzaminoni burimet individuale për të parë
-		secilën prej radhëve ku po prisni. Nëse po shpërndani skeda, shanset që transferimi i
+		secilën radhë ku po prisni. Nëse po shpërndani skeda, shanset që transferimi i
 		shkarkesës të nisë më shpejt mund të rriten.</text>
 	</document>
 	<document name="DownloadHelp.Queued">
-		<text format="b">Kjo Shkarkesë u vu në Pritje</text>
+		<text format="b">Kjo Shkarkesë Vendoshet në Pritje</text>
 		<newline gap="8"/>
 		<text>Kjo shkarkesë po pret që disa nga shkarkesat e tjera të përfundojnë.
-		Kuadrot e shkarkimit e kufizojnë numrin e shkarkesave që mund të jenë aktive
+		Vendosjet e shkarkimit e kufizojnë numrin e shkarkesave që mund të jenë aktive
 		në një kohë të dhënë, për t'u siguruar që secila shkarkesë të marrë një masë të mirë
-		të shtrirjes së vlefshme të bandës.  Këta kuadro mund të ndryshoni tek Mjete, Kuadrot e PeerProject-s.
+		të shtrirjes së vlefshme të bandës.  Këto vendosje mund t'i ndryshoni tek Mjete, Vendosjet e PeerProject-s.
 		Si alternativë, këtë shkarkesë mund ta nisni edhe me dorë sipas komandës 'Rimerre'.</text>
 	</document>
 	<document name="DownloadHelp.Searching">
-		<text format="b">Kjo Shkarkesë po Kërkon</text>
+		<text format="b">Kjo Shkarkesë Kërkon</text>
 		<newline gap="8"/>
 		<text>Për këtë shkarkesë ka burime të njohura, ndaj edhe PeerProject po kërkon në
 		gjithë rrjet e lidhura P2P për burime të reja.  Sapo burimet të gjenden, shkarkimi
@@ -1970,13 +2084,13 @@
 		të ngjashme pak më të vlefshme.</text>
 	</document>
 	<document name="DownloadHelp.Creating">
-		<text format="b">Kjo Shkarkesë po Krijon</text>
+		<text format="b">Kjo Shkarkesë Krijon</text>
 		<newline gap="8"/>
 		<text>PeerProject po paracakton një skedë ku të depozitojë shkarkesën, që ta ruajë
 		kohën për më vonë.</text>
 	</document>
 	<document name="DownloadHelp.Tracker">
-		<text format="b">Gjurmuesi BitTorrent Ra</text>
+		<text format="b">Gjurmuesi BitTorrent Bie</text>
 		<newline gap="8"/>
 		<text>Serveri gjurmues BitTorrent për këtë shkarkesë duket se është prishur ose
 		po keqfunksionon.  PeerProject nuk mund të kontaktojë me të për të marrë
@@ -1984,7 +2098,7 @@
 	</document>
 	<!-- Upload help documents -->
 	<document name="UploadHelp">
-		<text format="b">Zona e Ngarkimeve</text>
+		<text format="b">Zona e Ngarkesave</text>
 		<newline gap="8"/>
 		<text>Këtu shfaqen radhët dhe ngarkesat. Çdo radhë mund ta zgjeroni me
 		+ e vogël majtas, dhe mund të filtroni atë që shfaqet me butonin në të
@@ -1998,19 +2112,19 @@
 		<newline gap="8"/>
 		<text>Mundohuni gjithmonë që të mbani një hapësirë të lirë të mjaftueshme për diskun. Programet
 		mund të bëhen të paqëndrueshme nëse disqet janë plot, kurse skedat e përkohshme mund të humbasin. Duhet të
-		ngarkoni një disk-pastrues, të fshini skedat e panevojshme, ose të çinstaloni softuere që nuk ju nevojiten më.</text>
+		ngarkoni një disk-pastrues, të fshini skedat e panevojshme, ose të çinstaloni softuerë që nuk ju nevojiten më.</text>
 	</document>
 	<document name="GeneralHelp.DiskWriteFail">
-		<text format="b">Direktoria e Kërkuar Nuk Shkruhet</text>
+		<text format="b">Një Direktori e Kërkuar Nuk Shkruhet</text>
 		<newline gap="8"/>
 		<text>Tek disku ose direktoria që nevojitet nga PeerProject nuk mund të shkruhet.</text>
 		<newline gap="8"/>
 		<text>Një disk në rrjet mund të jetë shkëputur, ose mbase nuk keni të drejta shkrimi tek
-		direktoria e zgjedhur. Ju lutemi zgjidhni direktorinë dhe të drejtat, ose ndryshoni vendin
+		direktoria e zgjedhur. Ju lutemi zgjidheni direktorinë dhe të drejtat, ose ndryshoni vendin
 		e skedave të përkohshme.</text>
 	</document>
 	<document name="GeneralHelp.ConnectionFail">
-		<text format="b">Lidhja me Internetin Mungon</text>
+		<text format="b">Mungon Lidhja me Internetin</text>
 		<newline gap="8"/>
 		<text>Windows po raporton se nuk jeni i lidhur në Internet.</text>
 		<newline gap="8"/>
@@ -2020,7 +2134,7 @@
 		<text>PeerProject po i ndal orvatjet për lidhje për të shmangur humbjen e ndonjë hosti në depo.</text>
 	</document>
 	<document name="GeneralHelp.AdultFilter">
-		<text format="b">Filtrimi i përmbajtjeve për të rritur u aktivizua</text>
+		<text format="b">Aktivizohet Filtri i përmbajtjeve për të rritur</text>
 		<newline gap="8"/>
 		<text>Ju lutemi vëreni se (si me çdo filtër automatik) mund të mos jetë 100% efektiv në
 		ekranizimin e përmbajtjes. Ai është ndërtuar thjesht për të filtruar rezultatet të tepërta
@@ -2029,7 +2143,7 @@
 		<text>Përdorimi i Internetit nga fëmijët (përfshirë shpërndarjen P2P) gjithmonë duhet të kryhet nën vëzhgimin e prindërve.</text>
 	</document>
 	<document name="GeneralHelp.BadTorrentEncoding">
-		<text format="b">Ky torrent duket se ka një gabim në kodim</text>
+		<text format="b">Ky torrent duket se ka gabime në kodim</text>
 		<newline gap="8"/>
 		<text>Windows raportoi një gabim përkthimi gjatë dekodimit të teksit në këtë torrent. Ka mundësi
 		që torrenti të jetë i korruptuar, ose thjesht i koduar jokorrektësisht. Torrenti mundet ende
@@ -2039,7 +2153,7 @@
 		do të sigurojë që të punojë siç duhet në gjithë aplikimet BitTorrent.</text>
 		<newline gap="8"/>
 		<link target="http://peerproject.org/help/?torrentencoding">Klikoni për ndihmë shtesë</link>
-		<text>, ose për të shkarkuar softuere për riparimin e torrenteve.</text>
+		<text>, ose për të shkarkuar softuerë për riparimin e torrenteve.</text>
   </document>
 	<document name="GeneralHelp.DonkeyServerList">
 		<text format="b">Lista e serverit eDonkey është bosh</text>
@@ -2047,11 +2161,11 @@
 		<text>Në listën e serverit eDonkey nuk ka servera. Për t'u lidhur tek ED2K,
 		duhet të shkarkoni një listë serverash të ridatuar (skedë met).</text>
 		<newline gap="8"/>
-		<text>Listën e serverave mund ta shkarkoni nga faqja e kuadrove ed2k, ose në dritaren
+		<text>Listën e serverave mund ta shkarkoni nga faqja e vendosjeve ed2k, ose në dritaren
 		për zbulimin e shërbimeve. (Shtypni F9 për të hapur dritaren për zbulimin e shërbimeve)</text>
 	</document>
 	<document name="GeneralHelp.UploadWarning">
-		<text format="b">Kufizimi i ngarkesave mund t'i ngadalësojë shkarkesat</text>
+		<text format="b">Kufizimi i ngarkesave mund të ngadalësojë shkarkimin</text>
 		<newline gap="8"/>
 		<text>Shumë nga rrjetet ku PeerProject lidhet detyorjnë raporte, kufij ngarkese tek
 		klientë që nuk shpërndajnë, ose thjesht parapëlqejnë ngarkim tek shpërndarësit e njohur.</text>
@@ -2066,7 +2180,7 @@
 	</document>
 	<!-- Search help documents -->
 	<document name="SearchHelp.BadSearch1">
-		<text format="b">Ju lutemi rishkruani kërkimin!</text>
+		<text format="b">Ju lutemi rishkruani kërkimin</text>
 		<newline gap="8"/>
 		<text>Kërkimi nuk është i formatuar mirë, ndaj mund të mos funksionojë si duhet.
 		Kërkimi duhet të përfshijë terma të ndryshëm, atje ku mundet, dhe duhet të caktojë një skemë
@@ -2077,7 +2191,7 @@
 		nuk është aq i mirëpërcaktuar dhe gjeneron shumë rezultate.</text>
 	</document>
 	<document name="SearchHelp.BadSearch2">
-		<text format="b">Ju lutemi rishkruani kërkimin!</text>
+		<text format="b">Ju lutemi rishkruani kërkimin</text>
 		<newline gap="8"/>
 		<text>Kërkimi nuk i përmban termat e mjaftueshëm për të funksionuar si duhet. Për të nisur, gjithë kërkimet
 		nevojitet të kenë një minimum numrash me shkronja alfabetike me vlerë.</text>
@@ -2087,7 +2201,7 @@
 		edhe terma të tjerë. Pikësimi dhe thonjëzat nuk përdoren, vetëm teksti që shkruani.</text>
 	</document>
 	<document name="SearchHelp.BadSearch3">
-		<text format="b">Ju lutemi rishkruani kërkimin!</text>
+		<text format="b">Ju lutemi rishkruani kërkimin</text>
 		<newline gap="8"/>
 		<text>Me sa duket, kërkimi përmban vetëm shtojcën e zakonshme të skedës, ose fjalë që
 		nuk kërkohen.</text>
@@ -2105,15 +2219,15 @@
 		<text format="b">Ky kërkim nuk mund të nisë</text>
 		<newline gap="8"/>
 		<text>Kërkimi i përcaktuar ka mundësi që të kthejë një numër të madh rezultatesh me përmbajtje
-		për të rritur, dhe kjo gjë është çaktivizuar tek kuadrot. Duhet ose ta riformuloni
+		për të rritur, dhe kjo gjë është çaktivizuar tek vendosjet. Duhet ose ta riformuloni
 		kërkesën, ose ta çaktivizoni filtrin.</text>
 		<newline gap="8"/>
-		<text>Për ta çaktivizuar filtrin, shkoni tek Mjete &gt; Kuadro &gt; Përgjithësi, dhe mos e zgjidhni
+		<text>Për ta çaktivizuar filtrin, shkoni tek Mjete &gt; Vendosje &gt; Përgjithësi, dhe mos e zgjidhni
 		filtrin e përmbajtjes për të rritur.</text>
 	</document>
 	<!-- Share help documents -->
 	<document name="ShareHelp.AlreadyShared">
-		<text format="b">Aktualisht Shpërndahet</text>
+		<text format="b">Tashmë i Shpërndarë</text>
 		<newline gap="8"/>
 		<text>Dosja që zgjodhët po shpërndahet që më parë si pjesë e një shpërndarjeje ekzistuese.</text>
 		<newline gap="8"/>
@@ -2150,7 +2264,7 @@
 	<tip id="ID_CHAT_EMOTICONS" message="Vendos një emoticon."/>
 	<tip id="ID_CHAT_ITALIC" message="Zbaton formatim të pjerrët (Ctrl+I)"/>
 	<tip id="ID_CHAT_PRIORITY" message="Lejon parësinë e ngarkimit tek përdoruesi."/>
-	<tip id="ID_CHAT_SEND_FILE" message="I dërgon përdoruesit një skedë..."/>
+	<!-- <tip id="ID_CHAT_SEND_FILE" message="I dërgon përdoruesit një skedë..."/> -->
 	<tip id="ID_CHAT_TIMESTAMP" message="Tregon kohën kur shfaqen mesazhet."/>
 	<tip id="ID_CHAT_UNDERLINE" message="Zbaton formatim me nënvizim (Ctrl+U)"/>
 	<tip id="ID_CHILD_CLOSE" message="Mbyll dritaren aktive."/>
@@ -2209,7 +2323,7 @@
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Shton një URL-burim në shkarkesën e zgjedhur..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Shikon pasqyrimet për shkarkesën e zgjedhur"/>
 	<tip id="ID_HELP_ABOUT" message="Tregon tabelën me informacionet e PeerProject-s..."/>
-	<tip id="ID_HELP_CODEC" message="Gjithçka mbi problemet me koduesit dhe videot."/>
+	<tip id="ID_HELP_CODEC" message="Gjithçka për problemet me koduesit dhe videot."/>
 	<tip id="ID_HELP_FAQ" message="Tregon pyetjet me përgjigje rreth PeerProject-s."/>
 	<tip id="ID_HELP_ROUTER" message="Ndihmon në konfigurimin e routerit ose fajruollit."/>
 	<tip id="ID_HELP_FORUMS" message="Viziton forumet për diskutimet rreth PeerProject-s."/>
@@ -2224,6 +2338,8 @@
 	<tip id="ID_HELP_WEB_4" message="Viziton truallin"/>
 	<tip id="ID_HELP_WEB_5" message="Viziton truallin"/>
 	<tip id="ID_HELP_WEB_6" message="Viziton truallin"/>
+	<tip id="ID_HELP_DONATE" message="Nëse doni, mund të kontribuoni te fondi ynë i ligjshëm dhe të tregoni falënderimin tuaj."/>
+	<tip id="ID_HELP_FAKESHAREAZA" message="Përkthe FakeShareaza.com që të mësosh më shumë për ngjarjet e fundit."/>
 	<tip id="ID_HITMONITOR_CLEAR" message="Pastron zbutësin e monitorimit të hiteve."/>
 	<tip id="ID_HITMONITOR_PAUSE" message="Pushon monitorimin e hiteve."/>
 	<tip id="ID_HITMONITOR_SEARCH" message="Kërkon në rrjet për termin e zgjedhur."/>
@@ -2296,7 +2412,7 @@
 	<tip id="ID_MEDIA_CLEAR" message="Pastron (boshatis) listën."/>
 	<tip id="ID_MEDIA_CLOSE" message="Mbyll mediaskedën aktuale dhe e lëshon në kujtesë."/>
 	<tip id="ID_MEDIA_EXPORT_COLLECTION" message="Ruan listën si skedë koleksioni..."/>
-	<tip id="ID_MEDIA_FULLSCREEN" message="Nyjëton mënyrën filmike me ekran të plotë."/>
+	<tip id="ID_MEDIA_FULLSCREEN" message="Vë mënyrën filmike me ekran të plotë."/>
 	<tip id="ID_MEDIA_MUTE" message="Heq zërin e pjesës"/>
 	<tip id="ID_MEDIA_NEXT" message="Kalon përpara në skedën tjetër të listës aktuale." tip="Skedë e Parme"/>
 	<tip id="ID_MEDIA_OPEN" message="Hap dhe luan një mediaskedë ose listë..."/>
@@ -2305,27 +2421,27 @@
 	<tip id="ID_MEDIA_PLAYLIST" message="Tregon ose fsheh editorin e listës."/>
 	<tip id="ID_MEDIA_PREVIOUS" message="Kalon pas në skedën tjetër të listës aktuale." tip="Skedë e Pasme"/>
 	<tip id="ID_MEDIA_PROPERTIES" message="Tregon dhe editon vetitë e skedës së zgjedhur."/>
-	<tip id="ID_MEDIA_RANDOM" message="Nyjëton mënyrën rastësore (përzierë) në listën aktuale."/>
+	<tip id="ID_MEDIA_RANDOM" message="Vë mënyrën rastësore (përzierë) në listën aktuale."/>
 	<tip id="ID_MEDIA_RATE" message="Vlerëson skedën e zgjedhur."/>
 	<tip id="ID_MEDIA_REMOVE" message="Fshin nga lista mediaskedën e zgjedhur."/>
 	<tip id="ID_MEDIA_REPEAT" message="Përsërit mediaskedën aktuale."/>
 	<tip id="ID_MEDIA_SAVE" message="Ruan në skedë listën aktuale..."/>
 	<tip id="ID_MEDIA_SELECT" message="Zgjedh dhe luan skedën."/>
-	<tip id="ID_MEDIA_SETTINGS" message="Tregon faqen e kuadrove të medias..."/>
+	<tip id="ID_MEDIA_SETTINGS" message="Tregon faqen e vendosjeve të medias..."/>
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Zgjeron videon për të mbushur dritaren, ka mundësi të shtrembërohet."/>
-	<tip id="ID_MEDIA_SIZE_FILL" message="Zgjedh përmasën më të mirë të videos bazuar në raportin e aspektit."/>
-	<tip id="ID_MEDIA_SIZE_ONE" message="Shfaq videon në përmasën origjinale (natyrale)."/>
-	<tip id="ID_MEDIA_SIZE_HALF" message="Shfaq videon me përmasë trefishe nga origjinali (natyrale)."/>
-	<tip id="ID_MEDIA_SIZE_TWO" message="Shfaq videon me përmasë dyfishe nga origjinali (natyrale)."/>
+	<tip id="ID_MEDIA_SIZE_FILL" message="Zgjedh masën më të mirë të videos bazuar në raportin e aspektit."/>
+	<tip id="ID_MEDIA_SIZE_ONE" message="Tregon videon në masën origjinale (natyrale)."/>
+	<tip id="ID_MEDIA_SIZE_TWO" message="Tregon videon me masë dyfishe nga origjinali (natyrale)."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Tregon videon me masë trefishe nga origjinali (natyrale)."/>
 	<tip id="ID_MEDIA_STATUS" message="Tregon ose fsheh vijën e statusit të medias."/>
 	<tip id="ID_MEDIA_STOP" message="Ndalon leximin e mediaskedës." tip="Ndalo"/>
 	<tip id="ID_MEDIA_VIS" message="Zgjedh prizën e vegimit zanor..."/>
-	<tip id="ID_MEDIA_ZOOM" message="Ndreq zmadhimin e videos dhe kuadrot për raportin e aspektit."/>
+	<tip id="ID_MEDIA_ZOOM" message="Ndreq zmadhimin e videos dhe vendosjet për raportin e aspektit."/>
 	<tip id="ID_MONITOR_CLOSE" message="Mbyll dritaren e monitorit."/>
 	<tip id="ID_NEIGHBOURS_CHAT" message="Hap një sesion chat-i me përdoruesin e zgjedhur."/>
 	<tip id="ID_NEIGHBOURS_URI" message="Kopjon një URI që të hapet hosti i zgjedhur."/>
 	<tip id="ID_NEIGHBOURS_DISCONNECT" message="Shkëput fqinjët e zgjedhur."/>
-	<tip id="ID_NEIGHBOURS_SETTINGS" message="Konfiguron kuadrot e rrjetit..."/>
+	<tip id="ID_NEIGHBOURS_SETTINGS" message="Konfiguron vendosjet e rrjetit..."/>
 	<tip id="ID_NEIGHBOURS_VIEW_ALL" message="Hap dritaren e re Skuta Pakete për monitorimin e fqinjit."/>
 	<tip id="ID_NEIGHBOURS_VIEW_INCOMING" message="Hap dritaren e re Skuta Pakete për monitorimin e trafikut hyrës nga fqinji."/>
 	<tip id="ID_NEIGHBOURS_VIEW_OUTGOING" message="Hap dritaren e re Skuta Pakete për monitorimin e trafikut dalës nga fqinji."/>
@@ -2343,7 +2459,7 @@
 	<tip id="ID_SEARCH_CLEAR" message="Pastron rezultatet e kërkimit."/>
 	<tip id="ID_SEARCH_COLUMNS" message="Zgjedh kolonat me metadatat që do të shfaqen..."/>
 	<tip id="ID_SEARCH_URI" message="Kopjon URI-n e skedës së zgjedhur."/>
-	<tip id="ID_SEARCH_DETAILS" message="Shfaq informacion me detaje mbi skedën e zgjedhur."/>
+	<tip id="ID_SEARCH_DETAILS" message="Tregon informacion me detaje mbi skedën e zgjedhur."/>
 	<tip id="ID_SEARCH_DOWNLOAD" message="Shkarkon skedën e zgjedhur."/>
 	<tip id="ID_SEARCH_DOWNLOADNOW" message="Shkarkon me përparësi skedën e zgjedhur."/>
 	<tip id="ID_SEARCH_FILTER" message="Filtron rezultatet e kërkimit sipas një fjale dhe kushti të caktuar..."/>
@@ -2374,8 +2490,8 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Regjistron shtypjen e kohës për secilën vijë."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Tregon një ditar me detaje për aktivitetet e sistemit."/>
 	<tip id="ID_TAB_CONNECT" message="Lidh ose shkëput rrjetin."/>
-	<tip id="ID_TAB_HELP" message="Jep ndihmë në përdorimin e PeerProject-s."/>
 	<tip id="ID_TAB_HOME" message="Rikthen faqen zyrtare të PeerProject-s"/>
+	<tip id="ID_TAB_IRC" message="Tregon dritaren IRC të Chat-it."/>
 	<tip id="ID_TAB_LIBRARY" message="Tregon dhe menaxhon librarinë me përmbajtjen lokale."/>
 	<tip id="ID_TAB_MEDIA" message="Luan mediaskedat filmike dhe zanore në librari."/>
 	<tip id="ID_TAB_NETWORK" message="Tregon sa mirë jeni i lidhur në Rrjet."/>
@@ -2384,11 +2500,11 @@
 	<tip id="ID_TOOLS_DOWNLOAD" message="Niset shkarkimi i një skede të re ose i një torrenti BitTorrent..."/>
 	<tip id="ID_TOOLS_LANGUAGE" message="Zgjidhet gjuha e parapëlqyer e PeerProject-s..."/>
 	<tip id="ID_TOOLS_PROFILE" message="Editohet profili juaj..."/>
-	<tip id="ID_TOOLS_RESKIN" message="Ringkarkon dhe zbaton lëvoren aktuale të zgjedhur."/>
+	<tip id="ID_TOOLS_RESKIN" message="Ringarkon dhe zbaton lëvoren aktuale të zgjedhur."/>
 	<tip id="ID_TOOLS_SEEDTORRENT" message="Mbjell torrentin e zgjedhur në BitTorrent."/>
-	<tip id="ID_TOOLS_SETTINGS" message="Konfigurohen kuadrot e PeerProject-s..."/>
+	<tip id="ID_TOOLS_SETTINGS" message="Konfigurohen vendosjet e PeerProject-s..."/>
 	<tip id="ID_TOOLS_SKIN" message="Zgjidhet një lëvore tjetër për t'u përdorur në PeerProject..."/>
-	<tip id="ID_TOOLS_WIZARD" message="Hapet uizardi i shpejtë në PeerProject..."/>
+	<tip id="ID_TOOLS_WIZARD" message="Hapet udhërrëfyesi i shpejtë në PeerProject..."/>
 	<tip id="ID_TRAFFIC_AXIS" message="Tregon Boshtin Vertikal"/>
 	<tip id="ID_TRAFFIC_CLEAR" message="Pastron grafikun e trafikut."/>
 	<tip id="ID_TRAFFIC_GRID" message="Tregon pamje me rrjetë."/>
@@ -2412,12 +2528,11 @@
 	<tip id="ID_UPLOADS_FILTER_QUEUED" message="Tregon ngarkesën që pret në radhë."/>
 	<tip id="ID_UPLOADS_FILTER_TORRENT" message="Tregon ngarkesat e BitTorrent."/>
 	<tip id="ID_UPLOADS_LAUNCH" message="Lëshon skedën e zgjedhur që shpërndahet."/>
-	<tip id="ID_UPLOADS_SETTINGS" message="Konfiguron kuadrot e ngarkesës..."/>
+	<tip id="ID_UPLOADS_SETTINGS" message="Konfiguron vendosjet e ngarkesës..."/>
 	<tip id="ID_UPLOADS_START" message="Nis ngarkesën e zgjedhur në radhën e pritjes."/>
 	<tip id="ID_VIEW_BASIC" message="Përdor PeerProject-n në mënyrën e Thjeshtë."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Tregon ose fsheh dritaren SHËRBIMET ZBULUESE."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Tregon ose fsheh dritaren SHKARKIMI."/>
-	<tip id="ID_VIEW_HELP" message="Tregon ose fsheh dritaren NDIHMË."/>
 	<tip id="ID_VIEW_HOSTS" message="Tregon ose fsheh dritaren DEPO HOSTI."/>
 	<tip id="ID_VIEW_LIBRARY" message="Tregon ose fsheh dritaren LIBRARI."/>
 	<tip id="ID_VIEW_MEDIA" message="Tregon ose fsheh dritaren MEDIALEXUESI."/>
@@ -2439,9 +2554,11 @@
 	<tip id="ID_WINDOW_TILE_HORZ" message="Radhit dritaret e hapura si horizontale, me tituj jombulues."/>
 	<tip id="ID_WINDOW_TILE_VERT" message="Radhit dritaret e hapura si vertikale, me tituj jombulues."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Tregon ose fsheh shufrën e mjeteve."/>
+	<tip id="ID_WEBSERVICES_LIST" message="Zgjidh shërbimin e rrjetit që të marrësh më shumë informacion për skedën e zgjedhur."/>
+	<tip id="ID_WEBSERVICES_SHAREMONKEY" message="Kërkon për informacionin e skedës duke përdorur shërbimin ShareMonkey."/>
 	<!-- PLUGIN TIPS -->
 	<tip id="ImageViewer_BestFit" message="Ripërmason figurën që të jetë brenda dritares."/>
-	<tip id="ImageViewer_ActualSize" message="Shfaq figurën në përmasën e saj natyrale."/>
+	<tip id="ImageViewer_ActualSize" message="Tregon figurën në masën e saj natyrale."/>
 	<tip id="ImageViewer_Refresh" message="Rifreskon figurën."/>
 	<tip id="ImageViewer_Close" message="Mbyll dritaren e shikuesit të figurave."/>
 </commandTips>
@@ -2449,63 +2566,67 @@
 <controlTips>
 	<tip id="IDC_THROTTLE_MODE" message="Në mënyrën maksimale shtrirja e bandës nuk do e kalojë vlerën e përcaktuar. Në mënyrën mesatare ka një luhatje midis vlerës në të dyja anët."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Ky kuadro nuk ka efekt në shkarkesat që kanë nisur më parë, gjithashtu përbuzet nëse skeda ka hash eDonkey dhe nëse aktivizohet rrjeti eDonkey ose nëse është një torrent.{n}Gjithsesi, ky kuadro nuk përbuzet nëse shkarkesa pushon.{n}{n}KUJDES: Përdoreni këtë mundësi vetëm në rast nevoje të vërtetë. Nëse abuzoni me mundësinë, mund të dëboheni."/>
+	<tip id="IDC_REGEXP" message="Shkruaj shprehje të rregullta sipas sintaksës perl.{n}Fjalët kyçe mund të përcaktohen sipas një forme &lt;n&gt;, ku n është numri midis 1 dhe 9. Nëse doni t'i vendosni gjithë fjalët kyçe mbrapa njëra-tjetrës, përdor &lt;_&gt; shenjim."/>
 </controlTips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
 	<string id="WINDOW_SYSTEM" value="Sistemi"/>
-	<string id="WINDOW_NEIGHBOURS" value="Hostet"/>
-	<string id="WINDOW_PACKET" value="Paketat"/>
-	<string id="WINDOW_HOSTCACHE" value="Depot"/>
-	<string id="WINDOW_SEARCHMONITOR" value="Monitori i Kërkimeve"/>
+	<string id="WINDOW_NEIGHBOURS" value="Fqinj"/>
+	<string id="WINDOW_PACKET" value="Paketa"/>
+	<string id="WINDOW_HOSTCACHE" value="Depo Hosti"/>
+	<string id="WINDOW_SEARCHMONITOR" value="Monitori i Kërkimit"/>
 	<string id="WINDOW_SEARCH" value="Kërkoni"/>
 	<string id="WINDOW_HITMONITOR" value="Monitori i Hiteve"/>
-	<string id="WINDOW_DOWNLOADS" value="Shkarkimi"/>
+	<string id="WINDOW_DOWNLOADS" value="Shkarkime"/>
 	<string id="WINDOW_LIBRARY" value="Librari"/>
-	<string id="WINDOW_UPLOADS" value="Ngarkimi"/>
-	<string id="WINDOW_TRAFFIC" value="Grafikët"/>
+	<string id="WINDOW_UPLOADS" value="Ngarkime"/>
+	<string id="WINDOW_TRAFFIC" value="Grafikë"/>
 	<string id="WINDOW_CHAT" value="Chat"/>
 	<string id="WINDOW_SECURITY" value="Siguri"/>
-	<string id="WINDOW_DISCOVERY" value="Shërbimet Zbuluese"/>
+	<string id="WINDOW_DISCOVERY" value="Shërbime Zbulimi"/>
 	<string id="WINDOW_BROWSEHOST" value="Shfleto"/>
-	<string id="WINDOW_HOME" value="Qendra PeerProject"/>
-	<string id="WINDOW_MEDIA" value="Lexuesi"/>
+	<string id="WINDOW_HOME" value="Shtëpia PeerProject"/>
+	<string id="WINDOW_MEDIA" value="MediaLuajtësi"/>
 	<string id="WINDOW_SEARCHPAD" value="Kërko"/>
 	<string id="WINDOW_HELP" value="Ndihmë në PeerProject"/>
+	<string id="WINDOW_IRC" value="Chat në PeerProject"/>
 	<string id="7000" value="A jeni i sigurt që ky filtër të fshihet?"/>
-	<string id="7001" value="&amp;Skemat"/>
-	<string id="7002" value="Vlerat Shumëfishe"/>
+	<string id="7001" value="&amp;Skema"/>
+	<string id="7002" value="Vlera Shumëfishe"/>
 	<string id="7003" value="Shumëfishe"/>
 	<string id="7004" value="Filtri i quajtur &quot;%s&quot; ekziston që më parë, a doni të zëvendësohet?"/>
 	<string id="7005" value="Ju lutemi emërtoni filtrin tuaj."/>
 	<string id="7100" value="Kjo tempujkë është jokorrekte."/>
 	<string id="7101" value="Kjo tempujkë nuk të jep mundësi zgjedhjeje."/>
 	<string id="7102" value="A jeni i sigurt se doni të fshini tempujkën &quot;%s&quot;?\nKjo nuk mund të kthehet!"/>
-	<string id="8000" value="Kuadrot e PeerProject-s"/>
-	<string id="8001" value="Mirë se erdhët në PeerProject"/>
-	<string id="8002" value="Vetitë e skedës"/>
-	<string id="8003" value="Editoni Profilin"/>
-	<string id="8004" value="Mirë se erdhët në PeerProject (version) !\n.\nPeerProject është softuer tërësisht falas.\nJu lutemi përdoreni me përgjegjësi dhe respektoni ligjin mbi pronën intelektuale.\n."/>
-	<string id="8005" value="(mbylle kur përfundon)"/>
+	<string id="8000" value="Vendosjet e PeerProject-s"/>
+	<string id="8001" value="Mirë se erdhe te PeerProject"/>
+	<string id="8002" value="Vetitë e Skedës"/>
+	<string id="8003" value="Edito Profilin Tim"/>
+	<string id="8004" value="Mirë se erdhe te PeerProject (version) !\n.\nPeerProject është softuer tërësisht falas.\nJu lutemi përdoreni me përgjegjësi dhe respektoni ligjin për pronën intelektuale.\n."/>
+	<string id="8005" value="(mbylle pas transferimit)"/>
 	<string id="8006" value="Nuk jeni i lidhur. Që të nisni, shtypni butonin Lidhu."/>
 	<string id="8007" value="Nuk ka asnjë kërkim aktiv. Klikoni që të kërkoni për një skedë."/>
 	<string id="8008" value="PeerProject mbaroi shkarkimin e versionit të ri (%s). A doni të përmirësoni tani?\n\nNëse zgjidhni Po, PeerProject do të mbyllet përkohësisht deri në instalimin e përmirësimit."/>
 	<string id="8009" value="A jeni i sigurt se doni të fshini lëvoren &quot;%s&quot;? Këtë nuk mund ta ktheni."/>
-	<string id="8010" value="Ky është një version i paralëshuar i PeerProject dhe periudha beta e testimit ka përfunduar. Ju lutemi shkarkoni lëshimin e plotë, zyrtar, në http://peerproject.org/."/>
-	<string id="8011" value="Ndryshimi i pamjes do të mbyllë gjithë dritaret e hapura. A jeni i sigurt për këtë?"/>
-	<string id="8012" value="Informacion mbi Torrentin"/>
+	<string id="8010" value="Ky është një version i paralëshuar i PeerProject dhe periudha beta e testimit ka përfunduar. Ju lutemi shkarkoni lëshimin e plotë, zyrtar, në http://PeerProject.sourceforge.net/."/>
+	<string id="8011" value="Ndryshimi i pamjes do i mbyllë gjithë dritaret e hapura. A jeni i sigurt për këtë?"/>
+	<string id="8012" value="Informacioni i Torrentit"/>
+	<string id="8013" value="Nuk diktohet asnjë verion i ri i PeerProject-s."/>
+	<string id="8014" value="Vetitë e Shkarkimit"/>
 	<string id="8060" value="Mënyrë Nyje/Ultrapikë me %lu hoste.  %s në librarinë lokale."/>
 	<string id="8061" value="Mënyrë Ultrapikë me %lu hoste.  %s në librarinë lokale."/>
 	<string id="8062" value="Mënyrë Nyje me %lu hoste.  %s në librarinë lokale."/>
-	<string id="8063" value="I Lidhur. %s në librarinë lokale."/>
-	<string id="8064" value="I Lidhur në %lu hoste.  %s në librarinë lokale."/>
-	<string id="8065" value="Po lidhem në rrjet..."/>
+	<string id="8063" value="I lidhur. %s në librarinë lokale."/>
+	<string id="8064" value="I lidhur te %lu fqinjë.  %s në librarinë lokale."/>
+	<string id="8065" value="Lidhje në rrjet..."/>
 	<string id="8066" value="Nuk jeni i Lidhur në Rrjet."/>
 	<string id="8067" value="%s brenda : %s jashtë [S:%I64i/N:%I64i]"/>
 	<string id="8068" value="[H:%I64i] %s brenda : %s jashtë [S:%I64i/N:%I64i]"/>
 	<string id="8069" value="Lidhu"/>
-	<string id="8070" value="Po lidhem..."/>
-	<string id="8071" value="I Lidhur"/>
+	<string id="8070" value="Lidhje..."/>
+	<string id="8071" value="I lidhur"/>
 	<string id="8072" value="Shkëputu"/>
 	<string id="8096" value="Kjo zonë tregon më tepër informacion rreth skedës që zgjidhet."/>
 	<string id="8097" value="Ka një burim të vlefshëm (%s)."/>
@@ -2515,7 +2636,7 @@
 	<string id="8101" value="%s shkruan:"/>
 	<string id="8102" value="%s vlerëson:"/>
 	<string id="8103" value="Klikoni të Parashikoni"/>
-	<string id="8104" value="Po parashikoj..."/>
+	<string id="8104" value="Parashikim..."/>
 	<string id="8105" value="E Pamundur të shkarkoj përmbajtjen e parashikimit nga &quot;%s&quot;."/>
 	<string id="8128" value="Klikoni që të kërkoni përsëri"/>
 	<string id="8129" value="Në këtë dritare nuk kryhen kërkime."/>
@@ -2529,37 +2650,37 @@
 	<string id="8137" value="Pa Kolona Skeme"/>
 	<string id="8141" value="Shfaq panelin e kërkimeve"/>
 	<string id="8142" value="Fsheh panelin e kërkimeve"/>
-	<string id="8143" value="Po kërkoj..."/>
+	<string id="8143" value="Kërkim..."/>
 	<string id="8144" value="Kërko"/>
-	<string id="8145" value="Më Tepër"/>
+	<string id="8145" value="Më Shumë"/>
 	<string id="8146" value="Ndalo"/>
 	<string id="8147" value="Çdolloj Skede"/>
 	<string id="8148" value="Shkruani kërkimin:"/>
 	<string id="8149" value="Për këtë lloj skede:"/>
-	<string id="8150" value="Po kërkohet:"/>
-	<string id="8151" value="Gjetët:"/>
+	<string id="8150" value="Kërkim:"/>
+	<string id="8151" value="Gjetur:"/>
 	<string id="8152" value="%lu nyje, %lu gjethe"/>
-	<string id="8153" value="Aktualisht nuk po kërkohet"/>
+	<string id="8153" value="Aktualisht nuk kërkohet"/>
 	<string id="8154" value="Nuk gjendet asnjë skedë"/>
 	<string id="8155" value="%lu skedë në %lu hit|%lu skedë në %lu hite|%lu skeda %lu hite"/>
 	<string id="8156" value="Kërko"/>
-	<string id="8157" value="Rezultatet"/>
+	<string id="8157" value="Rezultate"/>
 	<string id="8158" value="Pastro"/>
-	<string id="8159" value="Përparime"/>
+	<string id="8159" value="Avancuar"/>
 	<string id="8160" value="Po vendos lidhje me hostin..."/>
 	<string id="8161" value="Dërgova një kërkesë shtytëse, po pres lidhjen..."/>
-	<string id="8162" value="U Lidha, po kërkoj shfletimin..."/>
+	<string id="8162" value="I lidhur, kërkohet shfletimi..."/>
 	<string id="8163" value="Po shkarkoj përgjigjen e shfletimit (%2.f%%)..."/>
 	<string id="8164" value="E Pamundur të lidhem te hosti për shfletim përdoruesi."/>
 	<string id="8165" value="E Pamundur të shkarkoj listën e skedave. Ky host mbase nuk e përkrah shfletimin."/>
-	<string id="8166" value="Rrjet:"/>
+	<string id="8166" value="Kërko në këtë rrjet:"/>
 	<string id="8167" value="Gjithë Rrjetin"/>
-	<string id="8176" value="Kërkoni në PeerProject"/>
+	<string id="8176" value="Kërko te PeerProject"/>
 	<string id="8177" value="Shkruani fjalët kyçe që doni të kërkoni:"/>
 	<string id="8178" value="Çfarë lloj skede është?"/>
 	<string id="8179" value="(Pastro Historinë Kërkimore)"/>
-	<string id="8180" value="Përmasa Min:"/>
-	<string id="8181" value="Përmasa Max:"/>
+	<string id="8180" value="Masa Min:"/>
+	<string id="8181" value="Masa Maks:"/>
 	<string id="8208" value="PeerProject po krijon hashe për %Iu skeda:"/>
 	<string id="8223" value="%i ditë %i orë"/>
 	<string id="8224" value="PeerProject po shkarkon:"/>
@@ -2571,12 +2692,12 @@
 	<string id="8230" value="PeerProject po gjen burime për:"/>
 	<string id="8231" value="Asnjë burim"/>
 	<string id="8232" value="Hape"/>
-	<string id="8233" value="Parashikoje"/>
+	<string id="8233" value="Parashiko"/>
 	<string id="8235" value="Shpejtësi:"/>
 	<string id="8236" value="Kohë e mbetur:"/>
 	<string id="8237" value="Në shkarkim:"/>
 	<string id="8238" value="Burime:"/>
-	<string id="8239" value="Përfundoi"/>
+	<string id="8239" value="Përfundon"/>
 	<string id="8240" value="PeerProject po lëviz shkarkesën:"/>
 	<string id="8241" value="PeerProject po verifikon shkarkesën për gabime:"/>
 	<string id="8243" value="Në ngarkim:"/>
@@ -2590,7 +2711,7 @@
 	<string id="8294" value="Shtesat e Fundit"/>
 	<string id="8295" value="Vlerëso Skedën"/>
 	<string id="8304" value="N/A"/>
-	<string id="8306" value="Vendi"/>
+	<string id="8306" value="Pozicioni"/>
 	<string id="8307" value="Lloji"/>
 	<string id="8308" value="Masa"/>
 	<string id="8309" value="Burime të Pjesshme (%.2f%% me vlerë)"/>
@@ -2600,28 +2721,28 @@
 	<string id="8313" value="Kjo skedë duket si spam."/>
 	<string id="8314" value="Këtë skedë e keni shkarkuar e fshirë më parë."/>
 	<string id="8315" value="Në Listën e Zezë:"/>
-	<string id="8316" value="Hitet"/>
-	<string id="8317" value="Ngarkimi"/>
+	<string id="8316" value="Hite"/>
+	<string id="8317" value="Ngarkime"/>
 	<string id="8318" value="%lu sot, %lu në total"/>
 	<string id="8319" value="Pa Hashset"/>
 	<string id="8320" value="Statusi:"/>
 	<string id="8321" value="Shpejtësi:"/>
 	<string id="8322" value="URLi:"/>
-	<string id="8323" value="Agjenti Përdorues:"/>
+	<string id="8323" value="Agjenti Përd.:"/>
 	<string id="8324" value="Joaktiv"/>
 	<string id="8325" value="Aktiv"/>
 	<string id="8326" value="Tjetri në Rresht"/>
 	<string id="8327" value="Skedat:"/>
 	<string id="8328" value="Vëllimi Total:"/>
-	<string id="8329" value="e librarisë tuaj"/>
-	<string id="8330" value="në dosje"/>
+	<string id="8329" value="i librarisë tuaj"/>
+	<string id="8330" value="Dosja"/>
 	<string id="8331" value="Ky server është aktualisht i zënë"/>
 	<string id="8332" value="Ky burim ka fajruoll"/>
 	<string id="8333" value="Ky burim mund të jetë i paqëndrueshëm"/>
 	<string id="8334" value="Aktualisht burimet për këtë skedë janë të zëna"/>
 	<string id="8335" value="Burimet për këtë skedë kanë fajruoll"/>
 	<string id="8336" value="Burimet për këtë skedë mund të jenë të paqëndrueshme"/>
-	<string id="8337" value="I pabesë"/>
+	<string id="8337" value="I pasigurt"/>
 	<string id="13000" value="A jeni i sigurt se doni të fshini rregullat e zgjedhur të sigurisë?  Kjo nuk mund të çbëhet."/>
 	<string id="13001" value="Skedat që shpërndahen në Internet"/>
 	<string id="16063" value="Përparimi UPnP i portit dështoi pas 10 orvatjesh."/>
@@ -2663,167 +2784,29 @@
 	<string id="16145" value="Lidhja Gnutella me fqinjin %s u krye me sukses (G%i.%i : %s)."/>
 	<string id="16146" value="Takimi i duarve me %s dështoi për shkak të të dhënave invalide në fill."/>
 	<string id="16147" value="Po mbyll lidhjen tepricë nga %s me këshillë hosti (%s porti %i)."/>
-	<string id="16148" value="Lidhja tek %s ndaloi (%s)."/>
-	<string id="16150" value="Po mbyll lidhjen tepricë nga %s."/>
-	<string id="16151" value="Po refuzoj lidhjen nga %s sepse është një gjethe nyje me mburojë."/>
+	<string id="16148" value="Lidhja te %s mohohet (%s)."/>
+	<string id="16150" value="Mbyllet lidhja tepricë nga %s."/>
+	<string id="16151" value="Refuzohet lidhja nga %s sepse është një gjethe nyje me mburojë."/>
 	<string id="16152" value="Fqinji nyje %s nuk na pranon si nyje, po mbyll lidhjen."/>
 	<string id="16153" value="Fqinji në lidhje %s po kthehet pas në gjethe nyje me mburojë."/>
 	<string id="16154" value="Vendosa lidhjen nyje, po mbyll lidhjet e pikës."/>
-	<string id="16155" value="Po veproj si nyje për fqinjin gjethe %s."/>
-	<string id="16156" value="Fqinji %s do të jetë nyje, po mbyll lidhjen."/>
-	<string id="16157" value="Fqinji %s nuk është nyje, po mbyll lidhjen."/>
+	<string id="16155" value="Veprim si nyje për fqinjin gjethe %s."/>
+	<string id="16156" value="Fqinji %s do të jetë nyje, mbyllje e lidhjes."/>
+	<string id="16157" value="Fqinji %s nuk është nyje, mbyllje e lidhjes."/>
 	<string id="16158" value="Lidhja Gnutella2 me fqinjin %s u vendos me sukses (%s)."/>
 	<string id="16159" value="Po mbyll lidhjen me fqinjin jo-Gnutella2 %s."/>
-	<string id="16192" value="Fqinji %s përparoi një paketë me përmasë të tepërt, po lëshoj lidhjen."/>
-	<string id="16193" value="Fqinji %s përparoi një paketë TTL zero, po e përbuz."/>
-	<string id="16194" value="Fqinji %s përparoi një paketë me TTL të tepërt, po lëshoj paketën (TTL=%i, Hove=%i)."/>
-	<string id="16195" value="Fqinji %s përparoi një paketë ping me gjatësi invalide, po e përbuz."/>
-	<string id="16196" value="Fqinji %s përparoi një paketë pong me gjatësi invalide, po e përbuz."/>
+	<string id="16192" value="Fqinji %s përparoi një paketë me masë të tepërt, lëshim i lidhjes."/>
+	<string id="16193" value="Fqinji %s përparoi një paketë TTL zero, përbuzje."/>
+	<string id="16194" value="Fqinji %s përparoi një paketë me TTL të tepërt, lëshim i paketës (TTL=%i, Hops=%i)."/>
+	<string id="16195" value="Fqinji %s përparoi një paketë ping me gjatësi invalide, përbuzje."/>
+	<string id="16196" value="Fqinji %s përparoi një paketë pong me gjatësi invalide, përbuzje."/>
 	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
-	<string id="16198" value="Fqinji gjethe %s po përparon hetime, po lëshoj lidhjen."/>
-	<string id="16199" value="Fqinji %s përparoi një paketë të panjohur (0x%.2x), po e përbuz."/>
-	<string id="16200" value="Fqinji %s përparoi një pong me të dhëna adrese invalide, po e përbuz."/>
-	<string id="16201" value="Received a malformatted query packet from %s, ignoring."/>
-	<string id="16202" value="Received a malformatted query hit packet from %s, ignoring."/>
-	<string id="16203" value="Neighbour %s forwarded a push packet with invalid length, ignoring."/>
-	<string id="16208" value="Receiving an unexpected query routing table update from neighbour %s."/>
-	<string id="16209" value="Neighbour %s sent an invalid query routing table update, dropping connection."/>
-	<string id="16210" value="Neighbour %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
-	<string id="16211" value="Neighbour %s forwarded a push request to a firewalled address, ignoring."/>
-	<string id="16212" value="Neighbour %s forwarded an extended packet that is not GGEP encoded."/>
-	<string id="16213" value="Sending query routing table to neighbour %s (%i bit = %lu[%i], %i%% full)"/>
-	<string id="16256" value="Added &quot;%s&quot; to download queue with %i source(s)."/>
-	<string id="16257" value="Completed download of &quot;%s&quot;."/>
-	<string id="16258" value="Pausing download of &quot;%s&quot;."/>
-	<string id="16259" value="Resuming download of &quot;%s&quot;."/>
-	<string id="16260" value="Cleared download &quot;%s&quot;."/>
-	<string id="16261" value="Creating file &quot;%s&quot; for download."/>
-	<string id="16262" value="Unable to create local file &quot;%s&quot; for download, aborting."/>
-	<string id="16263" value="Unable to open local file &quot;%s&quot; for download, aborting."/>
-	<string id="16264" value="Initiating a connection to %s port %i to download &quot;%s&quot;..."/>
-	<string id="16265" value="Unable to connect to download host %s."/>
-	<string id="16266" value="Download connection to %s established."/>
-	<string id="16267" value="Requesting download fragment (%I64i-%I64i) of &quot;%s&quot; from %s."/>
-	<string id="16268" value="No more download fragments, closing connection to %s."/>
-	<string id="16269" value="Fragment shortened, closing connection to %s."/>
-	<string id="16270" value="Download request to %s timed out, closing connection."/>
-	<string id="16271" value="Closing download connection %s due to lack of traffic."/>
-	<string id="16272" value="Download host %s does not have the file &quot;%s&quot;."/>
-	<string id="16273" value="Download host %s responded with an invalid HTTP response."/>
-	<string id="16274" value="Download host %s responded with %s (%s)."/>
-	<string id="16275" value="Download host %s's version of &quot;%s&quot; has a different URN, aborting."/>
-	<string id="16276" value="Download host %s's version of &quot;%s&quot; has a different length, aborting."/>
-	<string id="16277" value="Download host %s responded with a useless byte range of &quot;%s&quot;, pending."/>
-	<string id="16278" value="Download connection to %s was lost."/>
-	<string id="16279" value="Receiving download content from host %s (%s)."/>
-	<string id="16280" value="Download host %s is busy, retrying in %i seconds."/>
-	<string id="16281" value="Are you sure you want to clear &quot;%s&quot;?\n\nOnce a download has been cleared from the Downloads window, it cannot be resumed later."/>
-	<string id="16282" value="Aborting download of &quot;%s&quot; from %s (%s), network disabled."/>
-	<string id="16283" value="The file &quot;%s&quot; is already being downloaded, adding sources."/>
-	<string id="16284" value="Received a faulty push connection from %s, closing connection."/>
-	<string id="16285" value="Received an unnecessary push connection from %s."/>
-	<string id="16286" value="Host %s is pushing download &quot;%s&quot;, accepting."/>
-	<string id="16287" value="Can't fetch more sources for download &quot;%s&quot; because there is no network connection."/>
-	<string id="16288" value="Querying for more sources for download &quot;%s&quot; on %i connection(s)..."/>
-	<string id="16289" value="Sending push request for download &quot;%s&quot;..."/>
-	<string id="16290" value="Download host %s responded with a different, but useful range (%I64i-%I64i) of &quot;%s&quot;."/>
-	<string id="16291" value="Moved &quot;%s&quot; to &quot;%s&quot;, download complete."/>
-	<string id="16292" value="Couldn't move download &quot;%s&quot; to &quot;%s&quot;.  Check that the incomplete file is not in use, and that your downloads folder exists and is writable."/>
-	<string id="16293" value="Resolving &quot;%s&quot; to download &quot;%s&quot;..."/>
-	<string id="16294" value="Unable to resolve &quot;%s&quot;."/>
-	<string id="16295" value="Boosting download &quot;%s&quot; by removing bandwidth caps."/>
-	<string id="16296" value="Successfully verified download &quot;%s&quot;."/>
-	<string id="16297" value="WARNING: Download &quot;%s&quot; failed verification, it may not be the file you intended to download!"/>
-	<string id="16298" value="Download host %s is busy, waiting in queue at position #%i of %i (&quot;%s&quot;)."/>
-	<string id="16299" value="Are you sure you want to clear all paused downloads?  Once a download has been cleared from the Downloads window, it cannot be resumed."/>
-	<string id="16300" value="Are you sure you want to delete the download &quot;%s&quot;?"/>
-	<string id="16301" value="Requesting tiger-tree volume for &quot;%s&quot; from %s..."/>
-	<string id="16302" value="Download host %s could not satisfy the tiger-tree request."/>
-	<string id="16303" value="Receiving tiger-tree volume from %s (%s)..."/>
-	<string id="16304" value="Download host's tiger-tree data is corrupt or internally inconsistent, ignoring it."/>
-	<string id="16305" value="Download host's tiger-tree does not match expected root value."/>
-	<string id="16306" value="Received tiger-tree volume for &quot;%s&quot;, %i levels, minimum verifiable chunk %s."/>
-	<string id="16307" value="Closing download connection to %s, no longer required."/>
-	<string id="16308" value="Download host %s sent unsolicited data, closing connection."/>
-	<string id="16309" value="Requesting metadata for &quot;%s&quot; from %s..."/>
-	<string id="16310" value="Receiving tiger-tree data from %s (%s)..."/>
-	<string id="16311" value="Requesting eDonkey hashset for &quot;%s&quot; from %s..."/>
-	<string id="16312" value="Received an invalid eDonkey hashset from %s, dropping source."/>
-	<string id="16313" value="Received eDonkey hashset for &quot;%s&quot;, minimum verifiable chunk %s."/>
-	<string id="16314" value="Download host's eDonkey hashset is corrupt or internally inconsistent, dropping source."/>
-	<string id="16315" value="Unable to initialize inflate for download &quot;%s&quot;."/>
-	<string id="16316" value="Timed out waiting for queue update from eDonkey download host %s for file &quot;%s&quot;."/>
-	<string id="16317" value="Staying in queue for &quot;%s&quot;."/>
-	<string id="16318" value="Insufficient disk space to download &quot;%s&quot; (%s)."/>
-	<string id="16319" value="Dropping source %s (%s) for sending corrupted parts of &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="16320" value="Upload host %s sent an invalid HTTP request."/>
-	<string id="16321" value="Initiating a push connection to %s. %s"/>
-	<string id="16322" value="Unable to connect to host %s for push."/>
-	<string id="16323" value="Upload connection to %s was closed."/>
-	<string id="16324" value="Timed out waiting for request from upload host %s."/>
-	<string id="16325" value="Upload host %s requested unknown or unavailable object &quot;%s&quot;."/>
-	<string id="16326" value="Upload host %s requested &quot;%s&quot; with different SHA1."/>
-	<string id="16327" value="Refusing upload of &quot;%s&quot; to %s (%s), busy and client does not support queues."/>
-	<string id="16328" value="Push connection to %s established, waiting for handshake..."/>
-	<string id="16329" value="Can't open &quot;%s&quot; to upload to host %s, disk/file error."/>
-	<string id="16330" value="Sending upload content range %I64i-%I64i from &quot;%s&quot; to host %s (%s)."/>
-	<string id="16331" value="Finished uploading part of &quot;%s&quot; to %s."/>
-	<string id="16332" value="Incoming connection from %s is a HTTP upload request."/>
-	<string id="16333" value="Too busy to upload &quot;%s&quot; to %s, queued at #%i of %i (&quot;%s&quot;)."/>
-	<string id="16334" value="Legacy push request from %s requested an unknown file, connecting anyway..."/>
-	<string id="16335" value="Removed upload of &quot;%s&quot; to %s."/>
-	<string id="16336" value="Upload host %s is on the user-agent block list, denying request."/>
-	<string id="16337" value="Sending upload headers from &quot;%s&quot; to host %s (%s)."/>
-	<string id="16338" value="Upload host %s requested an unsatisfiable range of file &quot;%s&quot;."/>
-	<string id="16339" value="Sending default HTML response to upload host %s (%s)."/>
-	<string id="16340" value="Denied browse user request from %s."/>
-	<string id="16341" value="Upload host %s (%s) sent a browse user request, responding..."/>
-	<string id="16342" value="Closing upload connection %s due to lack of traffic."/>
-	<string id="16343" value="Closing older upload to %s because it has made a fresh connection."/>
-	<string id="16344" value="Refusing new upload to %s because an earlier connection is still pending."/>
-	<string id="16345" value="Stopped uploading &quot;%s&quot; to %s because the file was deleted."/>
-	<string id="16346" value="Sending upload content range %I64i-%I64i from partial file &quot;%s&quot; to host %s (%s)."/>
-	<string id="16347" value="Queued upload %s is re-requesting too fast, closing connection."/>
-	<string id="16348" value="Refusing push request to %s because it has too many upload connections."/>
-	<string id="16349" value="Uploading tiger-tree data for &quot;%s&quot; to %s."/>
-	<string id="16350" value="Uploading metadata for &quot;%s&quot; to %s."/>
-	<string id="16351" value="Refusing upload of &quot;%s&quot; to %s (%s), too many concurrent from host."/>
-	<string id="16352" value="Uploading a preview of &quot;%s&quot; to %s."/>
-	<string id="16353" value="Refusing to upload a preview of &quot;%s&quot; to %s, too many preview connections."/>
-	<string id="16354" value="Upload host %s requested a preview of &quot;%s&quot;, but no preview is available."/>
-	<string id="16355" value="Scheduling a dynamic preview of &quot;%s&quot; for upload to %s."/>
-	<string id="16356" value="Refusing browse user request from %s, too many browse connections."/>
-	<string id="16357" value="Uploading file &quot;%s&quot; to host %s..."/>
-	<string id="16358" value="Upload connection to %s was lost, preserving queue position."/>
-	<string id="16359" value="Offline queued upload host %s expired, removing."/>
-	<string id="16360" value="Refusing upload of &quot;%s&quot; to %s (%s), all matching queues are full."/>
-	<string id="16361" value="Refusing upload to %s (%s), network disabled."/>
-	<string id="16362" value="eDonkey uploads should not be cancelled.  Are you sure you want to cancel this upload?"/>
-	<string id="16363" value="Torrent Uploads"/>
-	<string id="16364" value="Completed Uploads"/>
-	<string id="16365" value="Are you sure you want to cancel/abort every download in this group?"/>
-	<string id="16366" value="Queue"/>
-	<string id="16367" value="eDonkey Core"/>
-	<string id="16368" value="eDonkey Partials"/>
-	<string id="16369" value="eDonkey Guard"/>
-	<string id="16370" value="Small Files"/>
-	<string id="16371" value="Medium Files"/>
-	<string id="16372" value="Large Files"/>
-	<string id="16373" value="Partial Files"/>
-	<string id="16374" value="New Queue"/>
-	<string id="16375" value="Partial"/>
-	<string id="16376" value="All Files"/>
-	<string id="16377" value="HTTP Guard"/>
-	<string id="16379" value="Library Files"/>
-	<string id="16384" value="Are you sure you want to launch the file &quot;%s&quot; ?\n\nSome files can be harmful to your computer.  Ensure you know what the file is before launching it."/>
-	<string id="16385" value="You are about to modify the metadata of %i files, are you sure you want to continue?"/>
-	<string id="16386" value="Editing metadata of %i files."/>
-	<string id="16387" value="The file &quot;%s&quot; has not yet been hashed.  Please wait for the file to be hashed, and then try again."/>
-	<string id="16388" value="This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected file(s) in order to query the Bitzi database.  If you are concerned about privacy, you may wish to consult the Bitzi.com privacy policy.\n\nWould you like to proceed?"/>
-	<string id="16389" value="Are you sure you want to permenantly delete the %i selected file(s) ?\n\nThe files will be moved to your &quot;recycle bin&quot; if it is enabled."/>
-	<string id="16390" value="You have not yet selected a media player to enqueue files with, such as Nullsoft Winamp.  Would you like to select one now?\n\nPeerProject will pass the name of the file to your selected program with the &quot;/ADD&quot; argument."/>
+	<string id="16198" value="Fqinji gjethe %s po përparon hetime, lëshim i lidhjes."/>
+	<string id="16199" value="Fqinji %s përparoi një paketë të panjohur (0x%.2x), përbuzje."/>
+	<string id="16200" value="Fqinji %s përparoi një pong me të dhëna adrese invalide, përbuzje."/>
+	<!--MISSING STRINGS-->
 	<string id="16391" value="Ju nuk jeni i lidhur në rrjet."/>
-	<string id="16392" value="Shtypni butonin Lidhu që të nisni."/>
+	<string id="16392" value="Shtype butonin Lidhu që të fillosh."/>
 	<string id="16393" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download.  Are you sure you want to open it?"/>
 	<string id="16394" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
 	<string id="16395" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
@@ -2843,62 +2826,24 @@
 	<string id="16409" value="Eksporto &amp;URI-t..."/>
 	<string id="16410" value="A subfolder of the selected folder &quot;%s&quot; is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"/>
 	<string id="16411" value="Unable to move the file %s. The file may be in use by another application.\n\nDo you wish to try to copy this file instead?"/>
-	<string id="16412" value="Skedë Fantazmë"/>
-	<string id="16448" value="Connected to %s, handshaking..."/>
-	<string id="16449" value="Now chatting with %s (%s)."/>
-	<string id="16450" value="Connection to %s closed."/>
-	<string id="16451" value="The connection to %s was lost."/>
-	<string id="16452" value="Unrecognised command &quot;%s&quot;."/>
-	<string id="16453" value="Connecting to %s for chat..."/>
-	<string id="16454" value="Accepted incoming chat request from %s, handshaking..."/>
-	<string id="16455" value="%s is now known as %s."/>
-	<string id="16456" value="Unable to connect to host %s."/>
-	<string id="16457" value="Connection failed due to invalid data on the wire."/>
-	<string id="16458" value="Received an unknown response: %s"/>
-	<string id="16459" value="You're not connected."/>
-	<string id="16512" value="Total Generic Receive Bandwidth"/>
-	<string id="16513" value="Total Generic Transmit Bandwidth"/>
-	<string id="16514" value="Gnutella Connections (Total)"/>
-	<string id="16515" value="Gnutella Connections (Active)"/>
-	<string id="16516" value="Gnutella Receive Bandwidth"/>
-	<string id="16517" value="Gnutella Transmit Bandwidth"/>
-	<string id="16518" value="Download File Count"/>
-	<string id="16519" value="Download Transfer Count"/>
-	<string id="16520" value="Download Bandwidth"/>
-	<string id="16521" value="Upload Transfer Count"/>
-	<string id="16522" value="Upload Bandwidth"/>
-	<string id="16523" value="Gnutella Packets Received"/>
-	<string id="16524" value="Gnutella Packets Transmitted"/>
-	<string id="16525" value="Gnutella Packets Routed"/>
-	<string id="16526" value="Gnutella Packets Dropped"/>
-	<string id="16527" value="Gnutella Packets Lost"/>
-	<string id="16528" value="Gnutella Local Queries"/>
-	<string id="16532" value="Total TCP Receive Bandwidth"/>
-	<string id="16533" value="Total TCP Transmit Bandwidth"/>
-	<string id="16534" value="Total UDP Receive Bandwidth"/>
-	<string id="16535" value="Total UDP Transmit Bandwidth"/>
-	<string id="16536" value="Gnutella Ratio of Received/Sent Pings"/>
-	<string id="16537" value="Gnutella Ratio of Received/Sent Pongs"/>
-	<string id="16538" value="Connection Errors (%)"/>
-	<string id="16768" value="Received URL &quot;%s&quot;"/>
-	<string id="16769" value="Unable to parse URL: PeerProject does not understand this URL."/>
-	<string id="16770" value="Unable to display URL action dialog because PeerProject is busy."/>
-	<string id="16771" value="You already have the file &quot;%s&quot; in your library.  Do you want to download it anyway?"/>
+	<string id="16412" value="Skeda Fantazmë"/>
+	<string id="16413" value="Grup i Ri"/>
+	<!--MISSING STRINGS-->
 	<string id="16772" value="Hosti:"/>
 	<string id="16773" value="Porti:"/>
 	<string id="16774" value="&amp;Lidhu"/>
 	<string id="16775" value="&amp;Shfleto"/>
 	<string id="16776" value="Shto"/>
-	<string id="16777" value="Emri:"/>
+	<string id="16777" value="Emri i skedës:"/>
 	<string id="16778" value="URLi:"/>
 	<string id="16779" value="Lloji:"/>
-	<string id="16780" value="Jo i caktuar"/>
-	<string id="16781" value="Po kërkoj..."/>
+	<string id="16780" value="I pacaktuar"/>
+	<string id="16781" value="Kërkim..."/>
 	<string id="16782" value="Sukses!"/>
-	<string id="16783" value="Përfundoi, klikoni Mbylle"/>
+	<string id="16783" value="Përfundon, klikoni Mbylle"/>
 	<string id="16784" value="&amp;Mbylle"/>
 	<string id="16785" value="(Asnjë vegim)"/>
-	<string id="16800" value="Ju nuk e keni përcaktuar shpejtësinë e lidhjes. Përpara se të vijoni, ju lutemi zgjidhni llojin e lidhjes tuaj me Internetin, ose shkruani shpejtësinë e lidhjes."/>
+	<string id="16800" value="Ju nuk e keni përcaktuar shpejtësinë e lidhjes. Përpara se të vijoni, ju lutemi zgjidheni llojin e lidhjes tuaj me Internetin, ose shkruani shpejtësinë e lidhjes."/>
 	<string id="16802" value="Ju nuk keni përcaktuar asnjë dosje për shpërndarje. A jeni i sigurt?"/>
 	<string id="16803" value="Dosja që po shpërndani shpërndahet që më parë si pjesë e një tjetër dosje të shpërndarë:\n\n%s"/>
 	<string id="16804" value="Në profilin e përdoruesit nuk keni shkruar asnjë emër."/>
@@ -2906,10 +2851,10 @@
 	<string id="16806" value="You have indicated that you want to set up port-forwarding on your NAT router or firewall.\n\nPlease configure your network to forward TCP and UDP ports %i to your local PC."/>
 	<string id="16807" value="Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
 	<string id="16808" value="You have not selected your age and gender.  Are you sure you want to continue without doing this?"/>
-	<string id="16809" value="D&amp;il"/>
+	<string id="16809" value="D&amp;alje"/>
 	<string id="16810" value="vjeç"/>
 	<string id="16811" value="Automatike"/>
-		<string id="16812" value="Please wait: Finding UPnP devices and setting them up..."/>
+	<string id="16812" value="Please wait: Finding UPnP devices and setting them up..."/>
 	<string id="16813" value="Please wait: Updating discovery services..."/>
 	<string id="16814" value="Please wait: Updating eDonkey server list..."/>
 	<string id="16815" value="UPnP Device Host Service is not running. This service is required to perform the setup.\nYou need to set the startup type of the service to automatic."/>
@@ -2917,8 +2862,8 @@
 	<string id="16817" value="Windows doesn't support paths longer than 256 characters.\nPlease select a folder with a shorter path."/>
 	<string id="16818" value="The complete and incomplete folders should not be the same"/>
 	<string id="16819" value="The incomplete files folder should not be in the library, as it would reduce performance. Incomplete files may be shared directly from the transfers window."/>
-	<string id="16864" value="Po hetohet shërbimi zbulues i hostit..."/>
-	<string id="16865" value="Po hetohet shërbimi zbulues &quot;%s&quot;..."/>
+	<string id="16864" value="Hetohen shërbimet zbuluese të hostit..."/>
+	<string id="16865" value="Hetohet shërbimi zbulues &quot;%s&quot;..."/>
 	<string id="16866" value="GWebCache transaction successful (&quot;%s&quot;)."/>
 	<string id="16867" value="Discovery service &quot;%s&quot; failed, fail count %i."/>
 	<string id="16868" value="Discovery service &quot;%s&quot; has failed %i times, removing."/>
@@ -2938,11 +2883,11 @@
 	<string id="16940" value="Browse user connection to %s was dropped."/>
 	<string id="16941" value="Closing browse user connection %s due to lack of traffic."/>
 	<string id="16942" value="Closing browse user connection to %s."/>
-	<string id="16943" value="Po shfletoj %s"/>
+	<string id="16943" value="Shfletim %s"/>
 	<string id="16944" value="U gjetën %i skeda të shpërndara në librarinë e %s."/>
-	<string id="16991" value="Medialexuesi PeerProject"/>
+	<string id="16991" value="MediaLuajtësi i PeerProject-s"/>
 	<string id="16992" value="PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
-	<string id="16993" value="Gjithë Skedat Mediatike|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Listë|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Skedë Zanore|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Skedë Filmike|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Kolonë Zanore në CD|*.cda|Skedë MIDI|*.mid;*.rmi;*.midi|Gjithë Skedat|*.*||"/>
+	<string id="16993" value="Tërë Skedat Mediatike|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Lista|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Skeda Zanore|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Skeda Filmike|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Kolona CD Audio|*.cda|Skeda MIDI|*.mid;*.rmi;*.midi|Tërë Skedat|*.*||"/>
 	<string id="16994" value="Nuk mund të ngarkohet kjo skedë mediatike &quot;%s&quot;"/>
 	<string id="16995" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
 	<string id="16996" value="Part of this file could not be played, you may need to download additional codecs."/>
@@ -2960,6 +2905,8 @@
 	<string id="17511" value="Çiftëzimi BitTorrent me %s nuk u pranua, u arritën lidhjet maksimale."/>
 	<string id="17512" value="Torrent privat"/>
 	<string id="17513" value="Gabim kodimi"/>
+	<string id="17514" value="Ridatim i Shkarkesave Bittorrent..."/>
+	<string id="17515" value="Konvertim i Torrentit:"/>
 	<string id="18496" value="Ju kryet ndryshime në fushën e emrit.  A jeni i sigurt se doni të riemërtoni shkarkesën?"/>
 	<string id="18497" value="Ju shkruat një vlerë SHA1, gjithsesi nuk ka vlerë.  Ju lutemi rishikoni dhe provoni përsëri."/>
 	<string id="18498" value="Ju shkruat një vlerë-rrënjë tiger-tree, gjithsesi nuk ka vlerë.  Ju lutemi rishikoni dhe provoni përsëri."/>
@@ -2975,9 +2922,9 @@
 	<string id="18508" value="Po këpus burimin e shkarkesës %s për &quot;%s&quot; sepse pozicioni në radhë %i është mjaft i lartë."/>
 	<string id="18509" value="Nuk mund të supozoni se kjo shkarkesë ka përfunduar dhe ta riverifikoni atë, pasi nuk keni akoma ndonjë të dhënë të pjesshme verifikuese, si vëllimin tiger-tree, hashsetin eDonkey ose atë BitTorrent.  Pa informacion verifikues shkarkesa nuk mund të riverifikohet."/>
 	<string id="18510" value="A jeni i sigurt se doni të supozoni se kjo shkarkesë ka përfunduar dhe do e riverifikoni atë?  E tërë skeda do të merret parasysh dhe PeerProject do të pranojë pjesë të cilat e kalojnë verifikimin dhe do të rishkarkojë pjesët që nuk e kalojnë atë."/>
-	<string id="18511" value="Ju kryet ndryshime në përmasën e skedës. A jeni i sigurt se doni të ndryshoni përmasën për këtë shkarkesë?"/>
+	<string id="18511" value="Ju kryet ndryshime në masën e skedës. A jeni i sigurt se doni të ndryshoni masën për këtë shkarkesë?"/>
 	<string id="19000" value="Hyrja në largësi është çaktivizuar."/>
-	<string id="19001" value="Duhet të zgjidhni një emër përdoruesi dhe fjalëkalimin."/>
+	<string id="19001" value="Duhet të zgjidhet një emër përdoruesi dhe fjalëkalimi."/>
 	<string id="19002" value="Nuk mund të pranoj lidhjet, URLi pa vlerë."/>
 	<string id="20000" value="Asnjë URN me vlerë"/>
 	<string id="20001" value="Mbylle"/>
@@ -2989,36 +2936,36 @@
 	<string id="20008" value="Tipik"/>
 	<string id="20009" value="Me porosi"/>
 	<string id="20010" value="&amp;Pas"/>
-	<string id="20011" value="&amp;Vijo"/>
+	<string id="20011" value="&amp;Tjetër"/>
 	<string id="20012" value="Përfundo"/>
 	<string id="20013" value="Gjithçka"/>
-	<string id="20100" value="po Lidhem"/>
-	<string id="20101" value="po Kërkoj"/>
+	<string id="20100" value="Lidhje"/>
+	<string id="20101" value="Kërkesë"/>
 	<string id="20102" value="Përgjigje"/>
-	<string id="20103" value="po Shkarkoj"/>
+	<string id="20103" value="Shkarkim"/>
 	<string id="20104" value="TigerTree"/>
 	<string id="20105" value="Hashset"/>
 	<string id="20106" value="Metadata"/>
 	<string id="20107" value="I Zënë"/>
 	<string id="20108" value="Në radhë"/>
 	<string id="20109" value="Në pritje"/>
-	<string id="20110" value="Nuk e di"/>
-	<string id="20111" value="Përfundoi"/>
-	<string id="20112" value="Po mbjell"/>
-	<string id="20113" value="Po lëviz"/>
-	<string id="20114" value="I Pushuar"/>
+	<string id="20110" value="E panjohur"/>
+	<string id="20111" value="Përfundon"/>
+	<string id="20112" value="Mbjellje"/>
+	<string id="20113" value="Lëviz"/>
+	<string id="20114" value="Pushon"/>
 	<string id="20115" value="Gabim Skede"/>
-	<string id="20116" value="Nuk Mund të Lëviz"/>
-	<string id="20117" value="Po verifikoj"/>
+	<string id="20116" value="Nuk Lëviz"/>
+	<string id="20117" value="Verifikim"/>
 	<string id="20118" value="Aktiv"/>
-	<string id="20119" value="Po varem"/>
-	<string id="20120" value="Po kërkoj"/>
-	<string id="20121" value="Po krijoj"/>
+	<string id="20119" value="Varje"/>
+	<string id="20120" value="Kërkim"/>
+	<string id="20121" value="Krijim"/>
 	<string id="20122" value="Torrenti"/>
 	<string id="20123" value="Gjurmuesi Poshtë"/>
 	<string id="20124" value="(Asnjë Burim)"/>
-	<string id="20125" value="I Verifikuar"/>
-	<string id="20126" value="I Paverifikuar"/>
+	<string id="20125" value="I verifikuar"/>
+	<string id="20126" value="I paverifikuar"/>
 	<string id="20127" value="burim"/>
 	<string id="20128" value="burime"/> <!-- numbers 21, 31, etc. -->
 	<string id="20129" value="burime"/> <!-- tens -->
@@ -3037,30 +2984,36 @@
 	<string id="20204" value="e Enjte"/>
 	<string id="20205" value="e Premte"/>
 	<string id="20206" value="e Shtunë"/>
-	<string id="20210" value="(pa Vlerësim)"/>
+	<string id="20210" value="(Pa Vlerësim)"/>
 	<string id="20211" value="Fals / i Korruptuar"/>
-	<string id="20212" value="i Dobët"/>
+	<string id="20212" value="I dobët"/>
 	<string id="20213" value="Mesatar"/>
-	<string id="20214" value="i Mirë"/>
+	<string id="20214" value="I mirë"/>
 	<string id="20215" value="Shumë i mirë"/>
-	<string id="20216" value="i Shkëlqyer"/>
-	<string id="20217" value="Zgjidhni dosjen 'temp' të eDonkey/eMule:"/>
+	<string id="20216" value="I shkëlqyer"/>
+	<string id="20217" value="Zgjidheni dosjen temp të eDonkey/eMule:"/>
 	<!-- Column headers in Library Album View -->
 	<string id="20230" value="#"/> <!-- Track number -->
 	<string id="20231" value="Titulli"/>
-	<string id="20232" value="Kohëzgjatja"/>
+	<string id="20232" value="Kohëzgjatje"/>
 	<string id="20233" value="Bitrate"/>
 	<string id="20234" value="Albumi"/>
 	<string id="20235" value="Artisti"/>
 	<string id="20236" value="Vlerësimi"/>
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Anulo"/>
+	<string id="20239" value="Ndërprite"/>
+	<string id="20240" value="Riprovo"/>
+	<string id="20241" value="Përbuze"/>
+	<string id="20242" value="Provo Përsëri"/>
+	<string id="20243" value="Vijo"/>
+	<string id="20244" value="&amp;Mbaj mend zgjedhjen time herën tjetër"/>
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Përgjithësi">
 	</dialog>
-	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="Kuadrot e PeerProject-s">
+	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="Vendosjet e PeerProject-s">
 		<control/>
 		<control caption="OK"/>
 		<control caption="Anulo"/>
@@ -3069,8 +3022,8 @@
 	</dialog>
 	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Përgjithësi">
 		<control caption="_Përgjithësi:"/>
-		<control caption="Autolidhu sapo PeerProject nis"/>
-		<control caption="Nise PeerProject-n sapo Windows nis"/>
+		<control caption="Autolidhu kur nis PeerProject"/>
+		<control caption="Nise PeerProject-n kur nis Windows-i"/>
 		<control caption="Lajmëro përpara hapjes së URI-ve"/>
 		<control caption="Raporto në:"/>
 		<control caption="bajt/sekondë|bajte/sekondë|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
@@ -3082,18 +3035,18 @@
 		<control caption="Kalo tek pamja Transferimi kur shkarkon"/>
 		<control caption="Fshehe shufrën anësore sapo kërkimi nis"/>
 		<control caption="Filtro përmbajtjet për të rritur"/>
-		<control caption="K_ëshillat:"/>
+		<control caption="K_ëshilla:"/>
 		<control/>
 		<control caption="Vonesa (ms):"/>
 		<control/>
 		<control/>
 		<control caption="Opaciteti:"/>
 		<control/>
-		<control caption="_Tabaka:"/>
-		<control caption="Kur klikoj 'mbylle':"/>
-		<control caption="Më Pyet|Mbylle Menjëherë|Minimizo në Tabaka|Mbylle kur Përfundon"/>
+		<control caption="_Brezi:"/>
+		<control caption="Kur klikoj mbylle:"/>
+		<control caption="Më Pyet|Mbylle Menjëherë|Minimizohu në Brez|Mbylle Pas Transferimit"/>
 		<control caption="Kur klikoj 'minimizo':"/>
-		<control caption="Normale|Minimizo në Tabaka"/>
+		<control caption="Normale|Minimizohu në Brez"/>
 	</dialog>
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Librari">
 		<control caption="_Mundësi:"/>
@@ -3110,26 +3063,26 @@
 		<control/>
 		<control/>
 		<control caption="ditë"/>
-		<control caption="Pastro Historinë"/>
-		<control caption="_Nuk Rrezikojnë:"/>
+		<control caption="Pastro Historinë Tani"/>
+		<control caption="_Hap pa Rrezik:"/>
 		<control/>
 		<control caption="_Shto"/>
 		<control caption="_Fshije"/>
-		<control caption="_Nuk Shpërndahen:"/>
+		<control caption="_Kurrë Mos Shpërnda:"/>
 		<control/>
 		<control caption="_Shto"/>
 		<control caption="_Fshije"/>
-		<control caption="Depozitimi për _Koleksionet:"/>
+		<control caption="Depozito Këtu _Koleksionet:"/>
 		<control/>
 		<control/>
 		<control caption="Krijo skeda fantazmë kur fshin"/>
-		<control caption="Smart video series detection"/>
+		<control caption="Diktim inteligjent i serive filmike"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Lexuesi">
+	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="MediaLuajtësi">
 		<control caption="_Mundësi:"/>
 		<control/>
-		<control caption="Medialexuesi në PeerProject do të LEXOJË llojet e skedave më poshtë"/>
-		<control caption="Medialexuesi në PeerProject do të vë në radhë llojet e skedave më poshtë"/>
+		<control caption="MediaLuajtësi në PeerProject do të LEXOJË llojet e skedave më poshtë"/>
+		<control caption="MediaLuajtësi në PeerProject do të vë në radhë llojet e skedave më poshtë"/>
 		<control caption="_Lloji i Skedave:"/>
 		<control/>
 		<control caption="_Shto"/>
@@ -3137,21 +3090,57 @@
 		<control caption="Prizat e _Vegimit Zanor:"/>
 		<control caption="_Zgjidhi Prizat..."/>
 		<control caption="Trajtimi i _Medias"/>
-		<control caption="Zgjidhni Trajtuesin e Medias:"/>
-		<control caption="Kujdes: Nëse zgjidhni një Trajtues të Medias të jashtëm do të çaktivizoni automatikisht gjithë Prizat e Medias dhe të Vegimit!"/>
+		<control caption="Zgjidheni Trajtuesin e Medias:"/>
+		<control caption="Kujdes: Nëse zgjidhet një Trajtues i jashtëm i Medias do të çaktivizohen automatikisht gjithë Prizat e Medias dhe të Vegimit!"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Komuniteti">
 		<control caption="_Profili Im:"/>
 		<control caption="Profili si Përdorues i Gnutella-s mund të përdoret që të ndani me të tjerët informacione rreth vetes, interesave dhe skedave/trojeve që rekomandoni."/>
-		<control caption="Edito Profilin"/>
-		<control caption="_Chat-i:"/>
+		<control caption="Edito Profilin Tim"/>
+		<control caption="_Chat:"/>
 		<control caption="Lejo chat-in pikë më pikë me klientët e pajtueshëm"/>
 		<control caption="Lejo chat-in në të gjitha rrjetet"/>
 		<control caption="Filtro mesazhet me spame"/>
-		<control caption="Censuro blasfeminë"/>
+		<control caption="Censuro blasfeminë në chat"/>
+	</dialog>
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
+		<control caption="_Mundësitë e Klientit:"/>
+		<control caption="Trego intregimin e chat-it"/>
+		<control caption="Mbrojtja nga përmbytjet:"/>
+		<control/>
+		<control caption="vija për sekondë"/>
+		<control caption="Trego orën"/>
+		<control caption="Shkrimi i Ekranit:"/>
+		<control/>
+		<control caption="_Ngjyra:"/>
+		<control/>
+		<control caption="Mesazhet e serverit"/>
+		<control/>
+		<control caption="Tema"/>
+		<control/>
+		<control caption="Veprimet e Kanalit"/>
+		<control/>
+		<control caption="Lajmërime"/>
+		<control/>
+		<control caption="Sfondi i chat-it"/>
+		<control/>
+		<control caption="Teksti"/>
+		<control caption="_Vendosjet e Lidhjes:"/>
+		<control caption="Nofka:"/>
+		<control/>
+		<control caption="Emri i përdoruesit:"/>
+		<control/>
+		<control caption="Nofka Alternative:"/>
+		<control/>
+		<control caption="Emri i vërtetë:"/>
+		<control/>
+		<control caption="Serveri:"/>
+		<control/>
+		<control caption="Porti:"/>
+		<control/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Rrjeti">
-		<control caption="Trajtimi për Linket _Pikë më Pikë:"/>
+		<control caption="Trajtimi i Linkeve _Pikë më Pikë:"/>
 		<control caption="PeerProject do të hapë këto lloje linkesh:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
@@ -3167,19 +3156,19 @@
 	</dialog>
 	<dialog name="CInternetSettingsGroup" caption="Interneti">
 	</dialog>
-	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Lidhja">
-		<control caption="Adresë _Përbrenda:"/>
+	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Lidhje">
+		<control caption="Adresë _Hyrëse:"/>
 		<control caption="Adresa:"/>
-		<control caption="Auto"/>
+		<control caption="Automatike"/>
 		<control caption="Shpejtësi:"/>
 		<control/>
 		<control caption="Porti:"/>
 		<control/>
-		<control caption="Rastësi"/>
-		<control caption="Forco lidhjen tek kjo adresë"/>
-		<control caption="Adresë _Përjashtë:"/>
+		<control caption="Rastësor"/>
+		<control caption="Forco lidhjen te kjo adresë"/>
+		<control caption="Adresë _Dalëse:"/>
 		<control caption="Adresa:"/>
-		<control caption="Auto"/>
+		<control caption="Automatike"/>
 		<control caption="Shpejtësi:"/>
 		<control/>
 		<control caption="M_undësi:"/>
@@ -3187,35 +3176,35 @@
 		<control/>
 		<control caption="Përbuze adresën me IP private/lokale "/>
 		<control caption="Lejo ndërtimin e mjeteve lidhëse UPnP "/>
-		<control caption="_Jashtëkohë:"/>
-		<control caption="Lidhja:"/>
+		<control caption="_Jashtëkoha:"/>
+		<control caption="Lidhje:"/>
 		<control/>
 		<control/>
 		<control caption="Takimi i Dorës:"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadsSettingsPage" cookie="BuEdBuBuEdBuBuStEdmsStEdmsStEdmsBuStCoStCoBuBu" caption="Shkarkesat">
-		<control caption="Depozitimi për Skedat e _Përfunduara:"/>
+	<dialog name="CDownloadsSettingsPage" cookie="BuEdBuBuEdBuBuStEdmsStEdmsStEdmsBuStCoStCoBuBu" caption="Shkarkesa">
+		<control caption="Depozitoni Këtu Skedat e _Përfunduara:"/>
 		<control/>
 		<control/>
-		<control caption="Depozitimi për Skedat e Përkohshme të _Papërfunduara:"/>
+		<control caption="Depozitoni Këtu Skedat e Përkohshme të _Papërfunduara:"/>
 		<control/>
 		<control/>
 		<control caption="_Numri i Shkarkesave:"/>
-		<control caption="Skedat Maks.:"/>
+		<control caption="Skeda Maks.:"/>
 		<control/>
 		<control/>
-		<control caption="Shkarkesat Maks.:"/>
+		<control caption="Transferta Maksimale:"/>
 		<control/>
 		<control/>
-		<control caption="Burimet për Skedë:"/>
+		<control caption="Transferta për Skedë:"/>
 		<control/>
 		<control/>
-		<control caption="_Kufiri:"/>
+		<control caption="_Kufijtë:"/>
 		<control caption="Banda Totale e Shkarkimit:"/>
 		<control/>
-		<control caption="Gjatësi Maks. e Pritjes në Radhë:"/>
+		<control caption="Gjatësi Maks. e Radhës:"/>
 		<control/>
 		<control/>
 		<control caption="Shkarko e ngarko vetëm nga rrjetet e lidhura."/>
@@ -3233,14 +3222,14 @@
 		<control/>
 		<control caption="+"/>
 		<control caption="-"/>
-		<control caption="_Shtrirja e Bandës:"/>
+		<control caption="_Gjerësi e Bandës:"/>
 		<control caption="Kufiri:"/>
 		<control/>
 		<control caption="Mënyra:"/>
 		<control caption="Maksimale|Mesatare"/>
-		<control caption="_Pritja në Radhë:"/>
+		<control caption="_Radhë:"/>
 		<control/>
-		<control caption="e _Re..."/>
+		<control caption="E _re..."/>
 		<control caption="_Edito..."/>
 		<control caption="_Fshije"/>
 		<control caption="(ndryshimet kanë efekt menjëherë)"/>
@@ -3248,7 +3237,7 @@
 	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Largësi">
 		<control caption="_Guidë:"/>
 		<control caption="Hyrja në Largësi bën që PeerProject të lihet të veprojë në PC e të kontrollohet me një shfletues rrjeti të jashtëm. Që kjo veçori të përdoret, duhet të jeni i aftë të pranoni lidhjet hyrëse (d.m.th. konfiguroni routerin si duhet etj.)."/>
-		<control caption="_Leje:"/>
+		<control caption="_Aktivizo:"/>
 		<control caption="Lejo Hyrjen në Largësi të PeerProject-s:"/>
 		<control/>
 		<control caption="_Kredencialet:"/>
@@ -3271,7 +3260,7 @@
 		<control caption="Enj"/>
 		<control caption="Pre"/>
 		<control caption="Sht"/>
-		<control caption="I Palidhur"/>
+		<control caption="Mos u lidh"/>
 		<control caption="Lidhje e kufizuar"/>
 		<control caption="Lidhje me shpejtësi të plotë"/>
 		<control caption="% e _shtrirjes së bandës nën kufi"/>
@@ -3378,7 +3367,7 @@
 	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Lëvoret">
 		<control/>
-		<control caption="Informacioni i lëvores:"/>
+		<control caption="Informacioni i Lëvores:"/>
 		<control caption="Emri:"/>
 		<control caption="..."/>
 		<control caption="Autori:"/>
@@ -3387,24 +3376,24 @@
 		<control/>
 		<control caption="Fshije"/>
 		<control caption="Instalo..."/>
-		<control caption="Gjej më Tepër"/>
+		<control caption="Gjej më Shumë"/>
 	</dialog>
 	<dialog name="CPluginsSettingsPage" cookie="SyBuStStStEdBuBu" caption="Prizat">
 		<control/>
-		<control caption="Informacioni i prizës:"/>
+		<control caption="Informacioni i Prizës:"/>
 		<control caption="Emri:"/>
 		<control caption="..."/>
 		<control caption="Përshkrimi:"/>
 		<control/>
 		<control caption="_Ndërto..."/>
-		<control caption="Gjej më Tepër"/>
+		<control caption="Gjej më Shumë"/>
 	</dialog>
 	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Përparime">
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Set Default"/>
-		<control caption="Vetitë e Kuadros:"/>
+		<control caption="Vendos Tipiket"/>
+		<control caption="Vetitë e Vendosjes:"/>
 		<control caption="Vlera:"/>
 		<control caption="Përshkrimi:"/>
 		<control/>
@@ -3420,9 +3409,9 @@
 		<control caption="Vetëm skeda të shkarkuara pjesërisht"/>
 		<control caption="Vetëm skeda të shpërndara në Librari"/>
 		<control caption="Edhe skeda të pjesshme, edhe të librarisë"/>
-		<control caption="Përmasa min. e skedëburimit:"/>
+		<control caption="Masa min. e skedëburimit:"/>
 		<control/>
-		<control caption="Përmasa maks. e skedëburimit:"/>
+		<control caption="Masa maks. e skedëburimit:"/>
 		<control/>
 		<control caption="Shenjo skedën:"/>
 		<control/>
@@ -3444,7 +3433,7 @@
 		<control caption="Parametra të _Shërbimit:"/>
 		<control caption="Pjesa e ngopur e shtri. së bandës:"/>
 		<control/>
-		<control caption="Shtri. e bandës për punët në radhë:"/>
+		<control caption="Gjerësi e bandës për punët në radhë:"/>
 		<control/>
 		<control/>
 		<control caption="Rrotullo pas N sekondash:"/>
@@ -3454,25 +3443,25 @@
 		<control caption="Anulo"/>
 		<control caption="Shpërbleji ngarkuesit"/>
 	</dialog>
-	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Mirë se erdhët në PeerProject">
-		<control caption="Mirë se erdhët në PeerProject!"/>
-		<control caption="Nëse nuk e keni përdorur ndonjëherë PeerProject-n apo një klient tjetër P2P, ky uizard i shpejtë do ju ndihmojë ta konfiguroni atë sipas disa hapave të thjeshtë."/>
-		<control caption="Nëse jeni përdorues më i përparuar, mundet të hapni gamën e gjerë të mundësive të PeerProject-s, në menynë Mjete. Klikoni Dil që ky uizard të mbyllet në çdo kohë."/>
-		<control caption="Uizardi ndihmon të:"/>
+	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Mirë se erdhe te PeerProject">
+		<control caption="Mirë se erdhe te PeerProject!"/>
+		<control caption="Nëse nuk e keni përdorur ndonjëherë PeerProject-n apo një klient tjetër P2P, ky udhërrëfyes i shpejtë do ju ndihmojë ta konfiguroni atë sipas disa hapave të thjeshtë."/>
+		<control caption="Nëse jeni përdorues më i përparuar, mundet të hapni gamën e gjerë të mundësive të PeerProject-s, në menynë Mjete. Klikoni Dil që ky udhërrëfyes të mbyllet në çdo kohë."/>
+		<control caption="Udhërrëfyesi ndihmon të:"/>
 		<control/>
-		<control caption="Njohë PeerProject-n me lidhjen tuaj në Internet"/>
+		<control caption="Njohësh PeerProject-n me lidhjen tënde të Internetit"/>
 		<control/>
 		<control caption="Zgjidhni skedat që dëshironi të shpërndani"/>
 		<control/>
-		<control caption="Lidheni në rrjetet P2P që parapëlqeni, dhe"/>
+		<control caption="Lidhesh te rrjetet P2P që pëlqen, dhe"/>
 		<control/>
 		<control caption="Përdorni PeerProject-n."/>
 	</dialog>
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Mirë se erdhët në PeerProject (1/6)">
 		<control caption="Për efektshmëri optimale, PeerProject duhet të dijë si lidheni në Internet."/>
-		<control caption="Zgjidhni llojin e lidhjes me Internet:"/>
+		<control caption="Zgjidheni llojin e lidhjes me Internet:"/>
 		<control caption="Modem Dial up|ISDN|ADSL (256K)|ADSL (512K)|ADSL (768K)|ADSL (1.5M)|ADSL (4.0M)|ADSL2 (8.0M)|ADSL2 (12.0M)|ADSL2+ (24.0M)|Modem me Kabllo/SDSL|T1|T3|LAN|OC3"/>
-		<control caption="Ose zgjidhni shpejtësinë e shkarkimit:"/>
+		<control caption="Ose zgjidheni shpejtësinë e shkarkimit:"/>
 		<control/>
 		<control caption="shpejtësinë e ngarkimit:"/>
 		<control/>
@@ -3499,7 +3488,7 @@
 		<control caption="0"/>
 		<control caption="Mbylle"/>
 	</dialog>
-	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Mirë se erdhët në PeerProject (3/6)">
+	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Mirë se erdhe te PeerProject (3/6)">
 		<control caption="PeerProject është një vend miqësor ku secili mund të shkruajë disa detaje themelore rreth vetes."/>
 		<control caption="Unë quhem:"/>
 		<control/>
@@ -3510,7 +3499,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Mirë se erdhët në PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Mirë se erdhe te PeerProject (4/6)">
 		<control caption="PeerProject ka një ndërfaqe që mund të ndryshohet, pra ju mund të zgjidhni atë që ju përshtatet më shumë. Këto mundësi mund të ndryshohen në çdo kohë."/>
 		<control caption="Ju lutemi zgjidhni ndërfaqen tuaj:"/>
 		<control caption="E Thjeshtë"/>
@@ -3537,7 +3526,7 @@
 		<control/>
 		<control caption="Mbylle"/>
 	</dialog>
-	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Mirë se erdhët në PeerProject (6/6)">
+	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Mirë se erdhe te PeerProject (6/6)">
 		<control caption="Kaq ishte! Ju konfiguruat PeerProject-n që të punojë në këtë kompjuter."/>
 		<control caption="Nëse doni t'i ndryshoni përsëri kuadrot, uizardi i shpejtë mund të rihapet duke zgjedhur menynë Mjete."/>
 		<control caption="Kur të mbyllni këtë uizard duke klikuar Përfundo, mund të lidheni në rrjetet që zgjodhët dhe të nisni të kërkoni e shkarkoni përmbajtjet e dëshiruara."/>
@@ -4191,7 +4180,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Skedë"/>
-		<column from="Extension" to="Shtojcë"/>
+		<column from="Type" to="Shtojcë"/>
 		<column from="Size" to="Përmasë"/>
 		<column from="Folder" to="Dosje"/>
 		<column from="Hits" to="Hitet"/>
@@ -4258,15 +4247,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Skeda"/>
-		<column from="Extension" to="Shtojca"/>
+		<column from="Type" to="Shtojca"/>
 		<column from="Size" to="Përmasa"/>
-		<column from="Rating" to="Vlerësimi"/>
-		<column from="Status" to="Statusi"/>
 		<column from="Host/Count" to="Hosti/Numërimi"/>
 		<column from="Speed" to="Shpejtësi"/>
+		<column from="Rating" to="Vlerësimi"/>
+		<column from="Status" to="Statusi"/>
 		<column from="Client" to="Klienti"/>
-		<column from="Time" to="Koha"/>
 		<column from="Country" to="Vendi"/>
+		<column from="Time" to="Koha"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Emri"/>
@@ -4276,7 +4265,7 @@
 		<column from="Order" to="Rendi"/>
 	</list>
 	<list name="CAdvancedSettingsList">
-		<column from="Setting" to="Kuadro"/>
+		<column from="Setting" to="Vendosje"/>
 		<column from="Value" to="Vlera"/>
 	</list>
 	<list name="CFavouritesProfileList">
@@ -4289,7 +4278,7 @@
 	</list>
 	<list name="CTorrentFileList">
 		<column from="Filename" to="Emri i skedës"/>
-		<column from="Size" to="Përmasa"/>
+		<column from="Size" to="Masa"/>
 		<column from="Status" to="Statusi"/>
 		<column from="Priority" to="Lloji"/>
 	</list>

@@ -4302,7 +4302,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Soubor"/>
-		<column from="Extension" to="Přípona"/>
+		<column from="Type" to="Přípona"/>
 		<column from="Size" to="Velikost"/>
 		<column from="Folder" to="Složka"/>
 		<column from="Hits" to="Výsledky"/>
@@ -4369,15 +4369,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Soubor"/>
-		<column from="Extension" to="Přípona"/>
+		<column from="Type" to="Přípona"/>
 		<column from="Size" to="Velikost"/>
-		<column from="Rating" to="Hodnocení"/>
-		<column from="Status" to="Stav"/>
 		<column from="Host/Count" to="Uživatel/Počet"/>
 		<column from="Speed" to="Rychlost"/>
+		<column from="Rating" to="Hodnocení"/>
+		<column from="Status" to="Stav"/>
 		<column from="Client" to="Klient"/>
-		<column from="Time" to="Čas"/>
 		<column from="Country" to="Stát"/>
+		<column from="Time" to="Čas"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Název"/>

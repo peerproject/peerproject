@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Catalan Skin File -->
-<!-- Translation based on default-en.xml (Shareaza SVN r6090) -->
+<!-- Translation based on default-en.xml (Shareaza 2.4.0.4) -->
 
 <!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -59,6 +59,7 @@
 		<button id="ID_VIEW_UPLOADS"/>
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
+		<button id="ID_TAB_IRC"/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -164,7 +165,7 @@
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Obre o reprodueix"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Esborra l&apos;arxiu"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Vista prèvia"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Vista prèvia"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Continua la descàrrega"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Atura la descàrrega"/>
@@ -347,8 +348,8 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Parla amb l'usuari"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurar..."/>
 	</toolbar>
@@ -361,11 +362,12 @@
 		<button id="ID_SECURITY_BAN" text="Bloca"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configuració..."/>
 	</toolbar>
+	<!-- SECURITY WINDOW -->
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Descarrega"/>
@@ -410,6 +412,33 @@
 		<button id="ID_CHAT_DISCONNECT" text="Desconnecta"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.ShareMonkey">
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Get Data"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Previous"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="Next"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PRICES" text="Get Prices"/>
+		<button id="ID_SHAREMONKEY_COMPARE" text="Compare"/>
+		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
+	</toolbar>
+	<toolbar name="WebServices.ShareMonkey.WithSave">
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Get Data"/>
+		<button id="ID_SHAREMONKEY_SAVE" text="Save"/>
+		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Save Preview" width="100" checked="true"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Previous"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="Next"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PRICES" text="Get Prices"/>
+		<button id="ID_SHAREMONKEY_COMPARE" text="Compare"/>
+		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
+	</toolbar>
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="View Album Matches"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="View All Albums"/>
+		<separator/>
+	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
 		<button id="ImageViewer_BestFit" text="Millor ajust"/>
@@ -459,8 +488,8 @@
 			<separator/>
 			<menu text="Escollir _Xarxes">
 				<item id="ID_NETWORK_G2" text="Connecta a _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Connecta a Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="_Surt després de les transferències"/>
@@ -473,6 +502,7 @@
 			<item id="ID_TAB_SEARCH" text="_Cerca"/>
 			<item id="ID_TAB_TRANSFERS" text="_Descàrregues"/>
 			<item id="ID_WINDOW_REMOTE" text="_Remot"/>
+			<item id="ID_TAB_IRC" text="_Chat"/>
 			<separator/>
 			<menu text="_Avançat">
 				<item id="ID_VIEW_NEIGHBOURS" text="_Xarxa" shortcut="F7"/>
@@ -480,7 +510,7 @@
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="Se_guretat"/>
 				<item id="ID_VIEW_HOSTS" text="C_axè dels servidors"/>
-				<item id="ID_VIEW_DISCVERY" text="Desco_briment"/>
+				<item id="ID_VIEW_DISCOVERY" text="Desco_briment"/>
 			</menu>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="_Mode normal"/>
@@ -524,12 +554,12 @@
 	<menu name="CMainWnd.Tabbed" type="bar">
 		<menu text="_Xarxa">
 			<item id="ID_NETWORK_CONNECT" text="_Connecta" shortcut="Ctrl+G"/>
-			<item id="ID_NETWORK_DISCNNECT" text="_Desconnecta"/>
+			<item id="ID_NETWORK_DISCONNECT" text="_Desconnecta"/>
 			<separator/>
 			<menu text="Escollir _Xarxes">
 				<item id="ID_NETWORK_G2" text="Connecta a _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Connecta a _Gnutella 1"/>
+				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Connecta _a..." shortcut="Ctrl+T"/>
@@ -545,6 +575,7 @@
 			<item id="ID_TAB_SEARCH" text="_Cerca"/>
 			<item id="ID_TAB_TRANSFERS" text="_Transferències"/>
 			<item id="ID_TAB_NETWORK" text="_Xarxa"/>
+			<item id="ID_TAB_IRC" text="_Chat"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="_Seguretat"/>
 			<item id="ID_VIEW_HOSTS" text="_Caxè de servidors"/>
@@ -559,7 +590,7 @@
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="_Seguretat" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="_Caxè de servidors" shortcut="F8"/>
-				<item id="ID_VIEW_DISCVERY" text="_Descobriments" shortcut="F9"/>
+				<item id="ID_VIEW_DISCOVERY" text="_Descobriments" shortcut="F9"/>
 				<item id="ID_VIEW_TRAFFIC" text="_Gràfica" shortcut="F10"/>
 				<separator/>
 				<item id="ID_VIEW_PACKETS" text="_Monitor de paquets" shortcut="Ctrl+F1"/>
@@ -621,15 +652,15 @@
 			<item id="ID_NETWORK_SEARCH" text="Nova _cerca..." shortcut="Ctrl+S"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT" text="_Connecta" shortcut="Ctrl+G"/>
-			<item id="ID_NETWORK_DISCNNECT" text="_Desconnecta"/>
+			<item id="ID_NETWORK_DISCONNECT" text="_Desconnecta"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT_TO" text="Connecta _a..." shortcut="Ctrl+T"/>
 			<item id="ID_NETWORK_BROWSE_TO" text="E_xplora host..."/>
 			<separator/>
 			<menu text="Connectar _A">
 				<item id="ID_NETWORK_G2" text="Connecta a _Gnutella2"/>
-				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
 				<item id="ID_NETWORK_G1" text="Connecta a _Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Tanca _després de les transferències"/>
@@ -642,10 +673,11 @@
 			<item id="ID_VIEW_UPLOADS" text="_Pujades" shortcut="F4"/>
 			<item id="ID_VIEW_LIBRARY" text="_La meva col·lecció" shortcut="F5"/>
 			<item id="ID_VIEW_MEDIA" text="_Multimèdia" shortcut="F6"/>
+			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="_Seguretat" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="C_axè dels servidors" shortcut="F8"/>
-			<item id="ID_VIEW_DISCVERY" text="_Serveis de descobriment" shortcut="F9"/>
+			<item id="ID_VIEW_DISCOVERY" text="_Serveis de descobriment" shortcut="F9"/>
 			<item id="ID_VIEW_TRAFFIC" text="_Gràfiques" shortcut="F10"/>
 			<separator/>
 			<item id="ID_VIEW_PACKETS" text="_Monitor de paquets" shortcut="Ctrl+F1"/>
@@ -727,6 +759,7 @@
 		<item id="ID_TAB_SEARCH" text="_Cerca"/>
 		<item id="ID_TAB_TRANSFERS" text="_Transferències"/>
 		<item id="ID_TAB_NETWORK" text="_Xarxa"/>
+		<item id="ID_TAB_IRC" text="_Chat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="_Seguretat"/>
 		<item id="ID_VIEW_HOSTS" text="Caxè de servidors"/>
@@ -791,7 +824,7 @@
 	<!-- HOST CACHE WINDOW -->
 	<menu name="CHostCacheWnd">
 		<item id="ID_HOSTCACHE_CONNECT" text="_Connecta ara"/>
-		<item id="ID_HOSTCACHE_DISCNNECT" text="_Desconnecta"/>
+		<item id="ID_HOSTCACHE_DISCONNECT" text="_Desconnecta"/>
 		<item id="ID_NEIGHBOURS_URI" text="Copia _URI"/>
 		<item id="ID_HOSTCACHE_PRIORITY" text="_Servidor amb prioritat"/>
 		<separator/>
@@ -884,7 +917,7 @@
 			<item id="ID_SEARCH_FOR_SIMILAR" text="_Arxius semblants"/>
 			<separator/>
 			<item id="ID_SEARCH_FOR_ARTIST" text="Música d'aquest artista"/>
-			<item id="ID_SEARCH_FOR_ÀLBUM" text="Música d'aquest àlbum"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Música d'aquest àlbum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodis d'aquesta sèrie"/>
 		</menu>
 		<menu text="Serveis _web">
@@ -926,7 +959,7 @@
 	</menu>
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Vista prèvia"/>
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="_Vista prèvia"/>
 		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Vista prèvia remota"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Mostra ressenyes"/>
 		<separator/>
@@ -943,8 +976,8 @@
 	</menu>
 	<menu name="CDownloadsWnd.Download">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Vista prèvia"/>
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Vi_sta Prèvia de còpia"/>
 		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<!-- <item id="ID_DOWNLOADS_LAUNCH_COPY" text="Vi_sta Prèvia de còpia"/> -->
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Afegeix a  la llista de reproducció"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Mostra ressenyes"/>
 		<separator/>
@@ -1142,6 +1175,7 @@
 			<item id="ID_LIBRARY_COPY" text="_Copia arxiu..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propietats"/>
 	</menu>
@@ -1174,8 +1208,11 @@
 			<item id="ID_LIBRARY_COPY" text="_Copia arxius..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Tria _columnes..."/>
+		<separator/>
+		<item id="ID_SHELL_MENU" text="S_hell menu"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propietats"/>
 	</menu>
@@ -1210,6 +1247,7 @@
 			<item id="ID_LIBRARY_COPY" text="_Copia arxius..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propietats"/>
 	</menu>
@@ -1244,6 +1282,7 @@
 			<item id="ID_LIBRARY_COPY" text="_Copia arxius..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Tria _columnes..."/>
 		<separator/>
@@ -1268,7 +1307,7 @@
 		<menu text="Mida del Video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Mida _original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Mida _doble"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="Mida _triple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Mida _medio"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Mida _gran"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Omple finestra"/>
 			<separator/>
@@ -1306,7 +1345,7 @@
 		<menu text="Mida del video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Mida _original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Mida _doble"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="Mida _triple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Mida _medio"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Mida _gran"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Omple finestra"/>
 			<separator/>
@@ -1328,7 +1367,7 @@
 	<menu name="CMediaFrame.Zoom">
 			<item id="ID_MEDIA_SIZE_ONE" text="Mida _original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Mida _doble"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="Mida _triple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Mida _medio"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Mida _gran"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Omple finestra"/>
 			<separator/>
@@ -1357,7 +1396,13 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="_Verbose Mode"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Verbose Mode">
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Error"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Warning"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Notice"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="Timestam_p"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copia" shortcut="Ctrl+C"/>
@@ -1387,8 +1432,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="_Desconnecta"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Mostra _tot el trànsit"/>
@@ -1399,6 +1444,9 @@
 	<!-- SEARCH MONITOR WINDOW -->
 	<menu name="CSearchMonitorWnd">
 		<item id="ID_HITMONITOR_SEARCH" text="_Cerca això"/>
+		<separator/>
+		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
+		<item id="ID_SECURITY_BAN" text="B_an User"/>
 		<separator/>
 		<item id="ID_SEARCHMONITOR_PAUSE" text="_Pausa la visualització"/>
 		<item id="ID_SEARCHMONITOR_CLEAR" text="_Esborra el búfer"/>
@@ -1430,7 +1478,7 @@
 		<separator/>
 		<menu text="P_olítica per defecte">
 			<item id="ID_SECURITY_POLICY_ACCEPT" text="_Permet"/>
-			<item id="ID_SECURITY_POLICY_DEny" text="_Denega"/>
+			<item id="ID_SECURITY_POLICY_DENY" text="_Denega"/>
 		</menu>
 		<separator/>
 		<item id="ID_SECURITY_EDIT" text="_Propietats"/>
@@ -1480,8 +1528,8 @@
 		<separator/>
 		<item id="ImageViewer_Close" text="_Tanca"/>
 	</menu>
+	<!-- IRC WINDOW -->
 </menus>
-<!-- CIRCFrame -->
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
@@ -2065,8 +2113,9 @@
 		<text format="b">Limitar les pujades pot derivar en una baixa velocitat de descàrrega</text>
 		<newline gap="8"/>
 		<text>Algunes xarxes a què PeerProject es connecta recolcen igualtats, limitant pujades
-		a clients que no comparteixen, o simplement preferència a pujar a clients que comparteixen.
-		</text><text>Afortunadament, les connexions DSL són com una carretera de 2 vies. Has de configurar un
+		a clients que no comparteixen, o simplement preferència a pujar a clients que comparteixen.</text>
+		<newline/>
+		<text>Afortunadament, les connexions DSL són com una carretera de 2 vies. Has de configurar un
 		ample de banda per a la pujada i altre per a la baixada. Si el teu client està pròpiament configurat,
 		has de poder pujar a una bona velocitat i al mateix temps estar descarregant al màxim.</text>
 		<newline gap="8"/>
@@ -2213,7 +2262,6 @@
 	<tip id="ID_DOWNLOADS_SHARE" message="Comparteix aquest arxiu parcial amb altres usuaris."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Mostra totes les fonts."/>
 	<tip id="ID_DOWNLOADS_SOURCES" message="Cerca més fonts per a aquest(s) arxiu(s)."/>
-	<tip id="ID_DOWNLOADS_TORRENT_INFO" message="Mostra informació de la descàrrega BitTorrent seleccionada..."/>
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Afegeix font (URI) a la descàrrega seleccionada..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Mostra ressenyes per a la descàrrega seleccionada"/>
 	<tip id="ID_HELP_ABOUT" message="Informació sobre el programa PeerProject..."/>
@@ -2323,7 +2371,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Ajusta la mida del video per omplir la pantalla, podent produir distorsió."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Selecciona la millor mida per al vídeo segons la seua relació d'aspecte."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Mostra el vídeo en sa mida original."/>
-	<tip id="ID_MEDIA_SIZE_HALF" message="Mostra el vídeo en mida triple."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Mostra el vídeo en mida medio."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Mostra el vídeo en mida doble."/>
 	<tip id="ID_MEDIA_STATUS" message="Mostra o amaga la línia d'estat de multimèdia."/>
 	<tip id="ID_MEDIA_STOP" message="Atura la reproducció de l'arxiu actual." tip="Atura"/>
@@ -2382,8 +2430,8 @@
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Enregistra el temps a cada línia."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Mostra informació detallada de l'activitat del sistema."/>
 	<tip id="ID_TAB_CONNECT" message="Connecta o desconnecta de la xarxa."/>
-	<tip id="ID_TAB_HELP" message="Ajuda sobre l'ús de PeerProject."/>
 	<tip id="ID_TAB_HOME" message="Pàgina inicial de la web de PeerProject"/>
+	<tip id="ID_TAB_IRC" message="Show the IRC Chat window."/>
 	<tip id="ID_TAB_LIBRARY" message="Mostra i administra la col·lecció local."/>
 	<tip id="ID_TAB_MEDIA" message="Reprodueix arxius de multimèdia de la col·lecció."/>
 	<tip id="ID_TAB_NETWORK" message="Mostra les connexions a les xarxes."/>
@@ -2425,7 +2473,6 @@
 	<tip id="ID_VIEW_BASIC" message="Usa PeerProject en el mode normal."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Mostra o oculta la finestra dels serveis de descobriment."/>
 	<tip id="ID_VIEW_DOWNLOADS" message="Mostra o oculta la finestra de descàrregues."/>
-	<tip id="ID_VIEW_HELP" message="Mostra o oculta la finestra d'ajuda."/>
 	<tip id="ID_VIEW_HOSTS" message="Mostra o oculta el registre de servidors."/>
 	<tip id="ID_VIEW_LIBRARY" message="Mostra o oculta la finestra de la col·lecció."/>
 	<tip id="ID_VIEW_MEDIA" message="Mostra o oculta la finestra del reproductor."/>
@@ -2502,6 +2549,8 @@
 	<string id="8010" value="Aquesta és una versió pre-llançament de PeerProject, i el període de proves (Beta) s'ha acabat. Si us plau, descarrega la versió completa de http://peerproject.org/."/>
 	<string id="8011" value="El canvi de vista tancarà totes les finestres que tens obertes. Vols canviar ara?"/>
 	<string id="8012" value="Informació del Torrent"/>
+	<string id="8013" value="No hi ha nova versió de PeerProject detecta."/>
+	<string id="8014" value="Download Properties"/>
 	<string id="8060" value="Mode Hub/Ultrapeer amb %lu veí(ïns. %s a la meva col·lecció local."/>
 	<string id="8061" value="Mode Ultrapeer amb %lu veí(ïns).  %s a la col·lecció local."/>
 	<string id="8062" value="Mode Hub amb %lu veí(ïns). %s a la meva col·lecció."/>
@@ -2852,6 +2901,7 @@
 	<string id="16410" value="Una subcarpeta de la carpeta seleccionada &quot;%s&quot; ja és actualment part de la col·lecció.\nAfegir aquesta carpeta causarà una reverificació dels arxius.\n\nDe segur que dessitja continuar?"/>
 	<string id="16411" value="No es pogué moure el fitxer %s. L'arxiu potser està sent utilitzat per altra aplicació.\n\nDessitja provar a copiar l'arxiu?"/>
 	<string id="16412" value="Arxiu fantasma"/>
+	<string id="16413" value="Nuevo Grup"/>
 	<string id="16448" value="Conectant a %s, negociant..."/>
 	<string id="16449" value="Xatejant amb %s (%s)."/>
 	<string id="16450" value="La connexió amb %s ha estat tancada."/>
@@ -2887,7 +2937,7 @@
 	<string id="16535" value="Ample de banda total de transmissió UDP"/>
 	<string id="16536" value="Ràtio de pings rebuts/enviats de Gnutella"/>
 	<string id="16537" value="Ràtio de pongs rebuts/enviats de Gnutella"/>
-	<string id="16768" value="Errors de connexió (%)"/>
+	<string id="16538" value="Errors de connexió (%)"/>
 	<string id="16769" value="PeerProject no ha entés l'URL &quot;%s&quot;."/>
 	<string id="16770" value="L'adreça URL no s'ha pogut processar, PeerProject no la pot interpretar."/>
 	<string id="16771" value="L'arxiu &quot;%s&quot; ja està en La meva Col·lecció.  ¿Vols descarregar-lo de totes formes?"/>
@@ -3136,16 +3186,16 @@
 	<string id="20125" value="Verificat"/>
 	<string id="20126" value="No verificat"/>
 	<string id="20127" value="font"/>
-	<string id="20128" value="fonts"/><!-- numbers 21, 31, ... -->
-	<string id="20129" value="fonts"/><!-- tens -->
-	<string id="20130" value="fonts"/><!-- from 11 to 19 -->
-	<string id="20131" value="fonts"/><!-- from 2 to 4 -->
-	<string id="20132" value="fonts"/><!-- from 5 to 9 -->
+	<string id="20128" value="fonts"/> <!-- numbers 21, 31, ... -->
+	<string id="20129" value="fonts"/> <!-- tens -->
+	<string id="20130" value="fonts"/> <!-- from 11 to 19 -->
+	<string id="20131" value="fonts"/> <!-- from 2 to 4 -->
+	<string id="20132" value="fonts"/> <!-- from 5 to 9 -->
 	<string id="20133" value="Desaparegut"/>
 	<string id="20134" value="Tallat"/>
 	<string id="20135" value="Següent"/>
 	<string id="20136" value="C"/>
-	<string id="20137" value="fonts"/><!-- 3/10 sources, for e.g. -->
+	<string id="20137" value="fonts"/> <!-- 3/10 sources -->
 	<string id="20200" value="Diumenge"/>
 	<string id="20201" value="Dilluns"/>
 	<string id="20202" value="Dimarts"/>
@@ -3162,7 +3212,7 @@
 	<string id="20216" value="Excel·lent"/>
 	<string id="20217" value="Selecciona la carpeta temporal de eDonkey/eMule:"/>
 	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/><!-- Track number -->
+	<string id="20230" value="#"/> <!-- Track number -->
 	<string id="20231" value="Títol"/>
 	<string id="20232" value="Duració"/>
 	<string id="20233" value="Taxa de bits"/>
@@ -3365,7 +3415,7 @@
 		<control caption="L'accès remot de PeerProject et permet deixar PeerProject executant-se al teu PC, i controlar-lo usant un navegador. Necessitaràs acceptar connexions entrants per a usar aquesta característica (ex: Configurar el teu router, etc)."/>
 		<control caption="_Habilita:"/>
 		<control caption="Habilita l'accès remot de PeerProject:"/>
-		<control/>
+		<control caption="URL"/>
 		<control caption="_Credencials:"/>
 		<control caption="Tria un usuari:"/>
 		<control/>
@@ -3478,7 +3528,7 @@
 		<control caption=" Neteja els torrents descarregats&#160;&#160;quan la ràtio de compartició sigui 1"/>
 		<control/>
 		<control/>
-		<control/>
+		<control caption="%"/>
 		<control caption="&#160;Prefereix fonts torrent"/>
 		<control caption="_EndGame:"/>
 		<control caption="Habilita el mode EndGame al completar torrents"/>
@@ -4017,7 +4067,7 @@
 		<control caption="Inserir camp:"/>
 		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|Nom d'arxiu|Arxiu (URI)|Nom d'arxiu base|Extensió|Mida d'arxiu|Mida d'arxiu (bytes)|Ruta de la carpeta|Adreça local|Port local"/>
 		<control caption="Predefinits:"/>
-		<control/>
+		<control caption="Magnet|eDonkey|Magnet HTML|eDonkey HTML"/>
 		<control caption="Copia"/>
 		<control caption="Desa..."/>
 		<control/>
@@ -4128,9 +4178,9 @@
 		<control/>
 		<control caption="Informació de la plantilla:"/>
 		<control caption="Nom:"/>
-		<control/>
+		<control caption="..."/>
 		<control caption="Autor:"/>
-		<control/>
+		<control caption="..."/>
 		<control caption="Descripció:"/>
 		<control/>
 		<control caption="Esborra|_Torna"/>
@@ -4307,7 +4357,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Arxiu"/>
-		<column from="Extension" to="Extensió"/>
+		<column from="Type" to="Extensió"/>
 		<column from="Size" to="Mida"/>
 		<column from="Folder" to="Carpeta"/>
 		<column from="Hits" to=""/>
@@ -4333,7 +4383,7 @@
 		<column from="Hits" to="Coincidències"/>
 		<column from="Action" to="Acció"/>
 		<column from="Expires" to="Expiració"/>
-		<column from="#" to="Procedència"/>
+		<column from="#" to="#"/>
 		<column from="Comment" to="Comentari"/>
 	</list>
 	<list name="CHostCacheWnd">
@@ -4374,15 +4424,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Arxiu"/>
-		<column from="Extension" to="Extensió"/>
+		<column from="Type" to="Tipus"/>
 		<column from="Size" to="Mida"/>
-		<column from="Rating" to="Qualificació"/>
-		<column from="Status" to="Estat"/>
 		<column from="Host/Count" to="Amfitrions"/>
 		<column from="Speed" to="Velocitat"/>
+		<column from="Rating" to="Qualificació"/>
+		<column from="Status" to="Estat"/>
 		<column from="Client" to="Client"/>
-		<column from="Time" to="Hora"/>
 		<column from="Country" to="País"/>
+		<column from="Time" to="Hora"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nom"/>

@@ -4190,7 +4190,7 @@
 		<column from="Speed" to="Hitrost"/>
 		<column from="Status" to=""/>
 		<column from="Client" to="Odjemalec"/>
-		<column from="Country" to=""/>
+		<column from="Country" to="Država"/>
 	</list>
 	<list name="CUploadCtrl">
 		<column from="Uploaded File" to="Naložena datoteka"/>
@@ -4201,11 +4201,11 @@
 		<column from="Rating" to="Ocena"/>
 		<column from="Remote User" to="Oddaljen uporabnik"/>
 		<column from="Client" to="Odjemalec"/>
-		<column from="Country" to=""/>
+		<column from="Country" to="Država"/>
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Datoteka"/>
-		<column from="Extension" to="Končnica"/>
+		<column from="Type" to="Končnica"/>
 		<column from="Size" to="Velikost"/>
 		<column from="Folder" to="Mapa"/>
 		<column from="Hits" to="Zadetkov"/>
@@ -4224,7 +4224,7 @@
 		<column from="Mode" to="Način"/>
 		<column from="Client" to="Odjemalec"/>
 		<column from="Name" to="Ime"/>
-		<column from="Country" to=""/>
+		<column from="Country" to="Država"/>
 	</list>
 	<list name="CSecurityWnd">
 		<column from="Address / Content" to="Naslov / Vsebina"/>
@@ -4245,7 +4245,7 @@
 		<column from="CurUsers" to="TrenutUporab"/>
 		<column from="MaxUsers" to="MaksUporab"/>
 		<column from="Failures" to=""/>
-		<column from="Country" to=""/>
+		<column from="Country" to="Država"/>
 	</list>
 	<list name="CDiscoveryWnd">
 		<column from="Address" to="Naslov"/>
@@ -4272,15 +4272,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Datoteka"/>
-		<column from="Extension" to="Končnica"/>
+		<column from="Type" to="Tip"/>
 		<column from="Size" to="Velikost"/>
-		<column from="Rating" to="Ocena"/>
-		<column from="Status" to=""/>
 		<column from="Host/Count" to="Gostitelj/Število"/>
 		<column from="Speed" to="Hitrost"/>
+		<column from="Rating" to="Ocena"/>
+		<column from="Status" to=""/>
 		<column from="Client" to="Odjemalec"/>
+		<column from="Country" to="Država"/>
 		<column from="Time" to=""/>
-		<column from="Country" to=""/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Ime"/>

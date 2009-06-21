@@ -4416,7 +4416,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Fájl"/>
-		<column from="Extension" to="Típus"/>
+		<column from="Type" to="Típus"/>
 		<column from="Size" to="Méret"/>
 		<column from="Folder" to="Mappa"/>
 		<column from="Hits" to="Találatok"/>
@@ -4483,15 +4483,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Fájl"/>
-		<column from="Extension" to="Típus"/>
+		<column from="Type" to="Típus"/>
 		<column from="Size" to="Méret"/>
-		<column from="Rating" to="Osztályzat"/>
-		<column from="Status" to="Státusz"/>
 		<column from="Host/Count" to="IP/Források"/>
 		<column from="Speed" to="Sebesség"/>
+		<column from="Rating" to="Osztályzat"/>
+		<column from="Status" to="Státusz"/>
 		<column from="Client" to="Kliensprogram"/>
-		<column from="Time" to="Idő"/>
 		<column from="Country" to="Ország"/>
+		<column from="Time" to="Idő"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Név"/>

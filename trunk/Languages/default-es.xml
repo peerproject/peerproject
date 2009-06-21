@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default International Spanish Skin File -->
-<!-- Translation based on default-en.xml (Shareaza SVN r6090) -->
+<!-- Translation based on default-en.xml (Shareaza 2.4.0.4) -->
 
 <!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -15,7 +15,7 @@
 <!-- Manifest -->
 <manifest	name="Español"
 		author="ramdomcrazy"
-		updatedBy="ramdomcrazy"
+		updatedBy="Biasoli"
 		description="PeerProject Default International Spanish Skin File"
 		link="http://PeerProject.org/"
 		email="ramdomcrazy(at)users.sourceforge.net"
@@ -313,7 +313,7 @@
 		<button id="ID_MEDIA_PLAYLIST" text="Lista del reproductor"/>
 	</toolbar>
 	<toolbar name="CMediaFrame">
-		<button id="ID_MEDIA_PLAY" text="Reproducir&#160;&#160;&#160;"/>
+		<button id="ID_MEDIA_PLAY" text="Reproducir &#160;"/>
 		<button id="ID_MEDIA_PAUSE" text="Pausa" visible="false"/>
 		<button id="ID_MEDIA_STOP" text="Detener"/>
 		<separator/>
@@ -381,12 +381,12 @@
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd.Basic">
-		<button id="ID_HOSTCACHE_CONNECT" text="Conectar A"/>
+		<button id="ID_HOSTCACHE_CONNECT" text="Conectar a"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Desconectar"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Eliminar"/>
 	</toolbar>
 	<toolbar name="CHostCacheWnd">
-		<button id="ID_HOSTCACHE_CONNECT" text="Conectar A"/>
+		<button id="ID_HOSTCACHE_CONNECT" text="Conectar a"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Desconectar"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Eliminar"/>
 		<rightAlign/>
@@ -569,7 +569,7 @@
 				<item id="ID_VIEW_RESULTS_MONITOR" text="_Monitor de resultados" shortcut="Ctrl+F3"/>
 			</menu>
 			<separator/>
-			<item id="ID_VIEW_BASIC" text="_Modo Normal"/>
+			<item id="ID_VIEW_BASIC" text="_Modo Basic"/>
 			<item id="ID_VIEW_TABBED" text="_Modo Avanzado"/>
 			<item id="ID_VIEW_WINDOWED" text="_Modo Ventanas"/>
 		</menu>
@@ -631,7 +631,7 @@
 			<menu text="Conectar _A">
 				<item id="ID_NETWORK_G2" text="Conectar a _Gnutella2"/>
 				<item id="ID_NETWORK_G1" text="Conectar a _Gnutella1"/>
-				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey2000"/>
+				<item id="ID_NETWORK_ED2K" text="Conectar a _eDonkey"/>
 			</menu>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="_Salir Después de Transferencias"/>
@@ -654,7 +654,7 @@
 			<item id="ID_VIEW_SEARCH_MONITOR" text="_Monitor de Búsqueda" shortcut="Ctrl+F2"/>
 			<item id="ID_VIEW_RESULTS_MONITOR" text="_Monitor de Resultados" shortcut="Ctrl+F3"/>
 			<separator/>
-			<item id="ID_VIEW_BASIC" text="Modo Normal"/>
+			<item id="ID_VIEW_BASIC" text="Modo Basic"/>
 			<item id="ID_VIEW_TABBED" text="Modo Avanzado"/>
 			<item id="ID_VIEW_WINDOWED" text="Modo Ventanas"/>
 		</menu>
@@ -951,7 +951,7 @@
 		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Vista Previa Rápida"/>
 		<!-- <item id="ID_DOWNLOADS_LAUNCH_COPY" text="Vi_sta Previa a Copia"/> -->
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Agregar a la lista de reproducción"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Ver Evaluaciones (Reviews)"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Ver Evaluaciones"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Reanudar"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_ausar"/>
@@ -1128,12 +1128,12 @@
 		<item id="ID_LIBRARY_DELETE" text="_Eliminar"/>
 		<separator/>
 		<menu text="S_earch For">
-			<item id="ID_SEARCH_FOR_THIS" text="Este Arhivo"/>
+			<item id="ID_SEARCH_FOR_THIS" text="Este Archivo"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="Archivos Similares"/>
 			<separator/>
-			<item id="ID_SEARCH_FOR_ARTIST" text="Música por el mismo artista"/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="Música del mismo artista"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Música del mismo Album"/>
-			<item id="ID_SEARCH_FOR_SERIES" text="Episodios de las mismás series"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="Episodios de la misma serie"/>
 		</menu>
 		<menu text="_Web Services">
 			<item id="ID_LIBRARY_BITZI_WEB" text="Ver _Bitzi Ticket"/>
@@ -1171,7 +1171,7 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Ver _Bitzi Ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Adquirir Metadata"/>
 			<separator/>
-<item id="ID_LIBRARY_CREATETORRENT" text="Crear Archivo .torrent"/>
+			<item id="ID_LIBRARY_CREATETORRENT" text="Crear Archivo .torrent"/>
 		</menu>
 		<menu text="O_rganizar">
 			<item id="ID_LIBRARY_RENAME" text="_Renombrar Archivo"/>
@@ -1179,8 +1179,11 @@
 			<item id="ID_LIBRARY_COPY" text="_Copiar Archivos..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Ubicar Metadata"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Seleccionar _Columnas..."/>
+		<separator/>
+		<item id="ID_SHELL_MENU" text="S_hell menu"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propiedades"/>
 	</menu>
@@ -1273,13 +1276,13 @@
 		<menu text="Tamaño del Video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Tamaño _Original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Tamaño _Doble"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Triple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Medio"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Tamaño _Grande"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Llenar Ventana"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="_Aspecto Original"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 (TV)"/>
-			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Film)"/>
+			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Película)"/>
 			<separator/>
 			<item id="ID_MEDIA_FULLSCREEN" text="_Pantalla Completa"/>
 		</menu>
@@ -1311,13 +1314,13 @@
 		<menu text="Tamaño del Video">
 			<item id="ID_MEDIA_SIZE_ONE" text="Tamaño _Original"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="Tamaño _Doble"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Triple"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Medio"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Tamaño _Grande"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="_Llenar Ventana"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="_Aspecto Original"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 (TV)"/>
-			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Film)"/>
+			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Película)"/>
 			<separator/>
 			<item id="ID_MEDIA_FULLSCREEN" text="_Pantalla Completa"/>
 		</menu>
@@ -1333,17 +1336,17 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="Tamaño _Original"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="Tamaño _Doble"/>
-		<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Triple"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="Tamaño _Medio"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="Tamaño _Grande"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Llenar Ventana"/>
 		<separator/>
-		<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
+		<item id="ID_MEDIA_ASPECT_DEFAULT" text="Aspecto _Predeterminado"/>
 		<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
-		<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Film)"/>
+		<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Película)"/>
 	</menu>
 	<menu name="CMediaList">
 		<item id="ID_MEDIA_SELECT" text="_Reproducir"/>
-		<item id="ID_MEDIA_RATE" text="_Ratio de archivo..."/>
+		<item id="ID_MEDIA_RATE" text="_Puntaj de archivo..."/>
 		<item id="ID_MEDIA_PROPERTIES" text="_Propiedades..."/>
 		<separator/>
 		<item id="ID_MEDIA_ADD" text="_Agregar Archivo..."/>
@@ -1351,7 +1354,7 @@
 		<item id="ID_MEDIA_REMOVE" text="_Quitar"/>
 		<separator/>
 		<item id="ID_MEDIA_RANDOM" text="Modo al Azar"/>
-		<item id="ID_MEDIA_REPEAT" text="Modo que se repite"/>
+		<item id="ID_MEDIA_REPEAT" text="Modo de repetición"/>
 		<separator/>
 		<item id="ID_MEDIA_OPEN" text="_Abrir lista de reproducción..."/>
 		<item id="ID_MEDIA_SAVE" text="_Guardar lista de reproducción..."/>
@@ -1367,7 +1370,7 @@
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Copiar" shortcut="Ctrl+C"/>
 		<separator/>
-		<item id="ID_SYSTEM_CLEAR" text="Limpiar _Buffer"/>
+		<item id="ID_SYSTEM_CLEAR" text="Limpiar _Búfer"/>
 	</menu>
 	<!-- NEIGHBOURS WINDOW -->
 	<menu name="CNeighboursWnd.Basic">
@@ -1435,7 +1438,7 @@
 		<separator/>
 		<menu text="Default P_olicy">
 			<item id="ID_SECURITY_POLICY_ACCEPT" text="_Aceptar"/>
-			<item id="ID_SECURITY_POLICY_DENY" text="_Negar"/>
+			<item id="ID_SECURITY_POLICY_DENY" text="_Denegar"/>
 		</menu>
 		<separator/>
 		<item id="ID_SECURITY_EDIT" text="_Propiedades"/>
@@ -1470,7 +1473,7 @@
 			<item id="ID_CHAT_ITALIC" text="C_ursiva"/>
 			<item id="ID_CHAT_UNDERLINE" text="_Subrayado"/>
 			<item id="ID_CHAT_COLOR" text="_Color"/>
-			<item id="ID_CHAT_EMOTICONS" text="_Carita"/>
+			<item id="ID_CHAT_EMOTICONS" text="_Emoticón"/>
 		</menu>
 		<separator/>
 		<item id="ID_CHAT_TIMESTAMP" text="Marca del _Tiempo"/>
@@ -1504,7 +1507,7 @@
 			<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/><gap size="8"/>
 			<heading align="middle">EMPEZARA CONECTARTE</heading>
 			<newline gap="8" indent="42"/>
-			<text>Bienvenido a PeerProject.</text>
+			<text>Bienvenido a 'PeerProyecto.'</text>
 			<newline gap="8" indent="42"/>
 			<text>No has seleccionado ninguna Red Peer to Peer. &#160;</text>
 			<link target="peer:command:ID_NETWORK_CONNECT">¡Haz Click Aquí Para Empezar!</link>
@@ -1538,7 +1541,7 @@
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject ha detectado que estas detrás de un NAT, router o un firewall,
 			y no puedes recibir conexiones entrantes de Internet. &#160;</text>
-			<text color="FF0000" format="b">Esto va a causar un bajo desempeño en las descargas.</text>
+			<text color="FF0000" format="b">Esto causará un bajo desempeño en las descargas.</text>
 			<newline gap="6"/>
 			<link target="peer:command:ID_HELP_ROUTER">Haz click aquí para aprender como configurar tu Firewall y/o Router</link>
 			<newline gap="18" indent="0"/>
@@ -1587,7 +1590,7 @@
 			<icon res="128" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">ACCESO REMOTO ESTA HABILITADO</heading>
 			<newline gap="8" indent="42"/>
-			<text>El Acceso Remoto de PeerProject esta habilitado. El Control de PeerProject esta usando tu navegador web:</text>
+			<text>El Acceso Remoto de PeerProject está habilitado. El Control de PeerProject esta usando tu navegador web:</text>
 			<newline gap="6"/>
 			<link id="RemoteAccessURL1"/>
 			<text>&#160;- or -&#160;</text>
@@ -1603,7 +1606,7 @@
 		</styles>
 		<para align="center">
 			<group id="1">
-				<text>No estas descargando ningún archivo todavía.</text>
+				<text>No estás descargando ningún archivo todavía.</text>
 				<newline gap="4"/>
 			</group>
 			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Ir a Descargas</link>
@@ -1625,13 +1628,13 @@
 				<newline gap="8"/>
 			</group>
 			<text id="LibraryFiles" format="b">%lu </text>
-			<text>files, </text>
+			<text>archivos, </text>
 			<text id="LibraryVolume" format="b">%s</text>
 			<newline gap="4"/>
 			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Ir a Mi Colección</link>
 			<group id="1">
 				<newline gap="8"/>
-				<text>PeerProject esta escaneando y procesando </text>
+				<text>PeerProject está escaneando y procesando </text>
 				<text id="LibraryHashRemaining" format="b">%lu </text>
 				<text>archivos.</text>
 				<newline gap="8"/>
@@ -1889,7 +1892,7 @@
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
-			<text format="b">Páginas web favoritas</text>
+			<text format="b">Sitios web favoritos</text>
 			<newline gap="4" indent="8" id="Bookmarks"/>
 		</group>
 		<newline gap="16" indent="0"/>
@@ -1914,7 +1917,7 @@
 		<text format="b">Moviendo el archivo transferido</text>
 		<newline gap="8"/>
 		<text>PeerProject ha terminado de descargar y verificar este archivo.
-		Actualmente esta siendo transferido a la carpeta de archivos compartidos (</text>
+		Actualmente está siendo transferido a la carpeta de archivos compartidos (</text>
 	</document>
 	<document name="DownloadHelp.Paused">
 		<text format="b">En Pausa</text>
@@ -1938,9 +1941,9 @@
 		transferida incorrectamente, PeerProject se encargará de repararla de forma automática.</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
-		<text format="b">Transferencia Activa!</text>
+		<text format="b">¡Transferencia Activa!</text>
 		<newline gap="8"/>
-		<text>Esta descarga esta en progreso.  Si esta bajando demásiado lento,
+		<text>Esta descarga está en progreso.  Si está bajando demásiado lento,
 		puedes tratar de buscar en la red más fuentes usando el comando </text>
 		<text format="b">Buscar Más Fuentes. </text><text>  Si la velocidad no incrementa y no mejora puede ser que los usuarios
 		de los que estas descargando el archivo tienen una velocidad de subida muy baja. La velocidad de descarga mejora con el tiempo.</text>
@@ -1948,7 +1951,7 @@
 	<document name="DownloadHelp.Pending">
 		<text format="b">Transferencia pendiente</text>
 		<newline gap="8"/>
-		<text>Esta transferencia esta actualmente en espera, esperando a que finalicen
+		<text>Esta transferencia está actualmente en espera, esperando a que finalicen
 		aquellas que estén arriba de esta.
 		El número de transferencias activas en cualquier momento es limitado por la opción
 		que se encuentra en la parte de descargas de la configuración, esto es para asegurar
@@ -1956,9 +1959,9 @@
 		y la descarga Puede comenzar a transferir en cualquier momento.</text>
 	</document>
 	<document name="DownloadHelp.Queued">
-		<text format="b">Esta descarga esta en cola</text>
+		<text format="b">Esta descarga está en cola</text>
 		<newline gap="8"/>
-		<text>Esta descarga esta esperando a que una de tus descargas se complete.
+		<text>Esta descarga está esperando a que una de tus descargas se complete.
 		Tu configuración limita el número de descargas que pueden estar activas
 		al mismo tiempo, para asegurarse de que cada descarga tenga una cantidad buena de ancho de
 		banda. Puedes cambiar esta configuración en Herramientas, Configuración de PeerProject.</text>
@@ -1973,7 +1976,7 @@
 		<text format="b">Buscar Más Fuentes </text><text>comando.</text>
 		<newline gap="8"/>
 		<text>Desafortunadamente hay casos en que la persona que tiene el archivo que a
-		usted le interesa, no esta conectada.  Lo único que se puede hacer es
+		usted le interesa, no está conectada.  Lo único que se puede hacer es
 		esperar, o cancelar la transferencia, y descargar un archivo similar que esté
 		más disponible.</text>
 	</document>
@@ -1981,7 +1984,7 @@
 		<text format="b">Creando el archivo</text>
 		<newline gap="8"/>
 		<text>Este es un archivo grande, PeerProject tiene que abrir espacio en el disco duro
-		para que este quepa.</text>
+		para que quepa.</text>
 	</document>
 	<document name="DownloadHelp.Tracker">
 		<text format="b">Tracker de BitTorrent fuera de servicio</text>
@@ -1992,9 +1995,9 @@
 	</document>
 	<!-- Upload help documents -->
 	<document name="UploadHelp">
-		<text format="b">Area de subidas</text>
+		<text format="b">Área de subidas</text>
 		<newline gap="8"/>
-		<text>Aqui es donde las colas y las subidas son mostradas. Puedes expandir cada cola
+		<text>Aquí es donde las colas y las subidas son mostradas. Puedes expandir cada cola
 		con el pequeño + en la izquierda, y el filtro que es mostrado con el botón de la
 		derecha en la ventana de herramientas.</text>
 	</document>
@@ -2004,9 +2007,9 @@
 		<newline gap="8"/>
 		<text>La cantidad de espacio disponible en uno o varios Discos usados por PeerProject es bajo.</text>
 		<newline gap="8"/>
-		<text>Tu siempre deberías tener una cantidad considerable de espacio libre en el Disco Duro.
+		<text>Tú siempre deberías tener una cantidad considerable de espacio libre en el Disco Duro.
 		Los programas se pueden hacer inestables cuando las unidades estan llenas, y los archivos temporales podrían
-		perderse. Tu deberías ejecutar un "Disk Clean-Up", eliminando archivos que ya no uses, o desistalar software que ya no necesitas.</text>
+		perderse. Deberías limpiar el disco de información innecesaria, eliminando archivos que ya no uses, o desistalar software que ya no necesitas.</text>
 	</document>
 	<document name="GeneralHelp.DiskWriteFail">
 		<text format="b">Un directorio requerido no es escribible</text>
@@ -2323,7 +2326,7 @@
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Poner el video lo más grande posible, puede producir distorsión."/>
 	<tip id="ID_MEDIA_SIZE_FILL" message="Seleccionar el tamaño automáticamente."/>
 	<tip id="ID_MEDIA_SIZE_ONE" message="Mostrar en tamaño original."/>
-	<tip id="ID_MEDIA_SIZE_HALF" message="Triple tamaño."/>
+	<tip id="ID_MEDIA_SIZE_HALF" message="Medio tamaño."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Doble tamaño."/>
 	<tip id="ID_MEDIA_STATUS" message="Mostrar o Esconder la linea del estado del archivo de media."/>
 	<tip id="ID_MEDIA_STOP" message="Parar reproducción."/>
@@ -2502,11 +2505,13 @@
 	<string id="8010" value="Esta es una versión pre-release de PeerProject, y el periodo de Beta Testing ha terminado.  Por favor descarga la versión completa de http://peerproject.org/."/>
 	<string id="8011" value="Cambiado de vista va a cerrar todas las ventanas que tienes abiertas.  ¿Deseas cambiar ahora?"/>
 	<string id="8012" value="Información Torrent"/>
-	<string id="8060" value="Modo Hub/Ultrapeer %lu en red(s).  %s en Colección."/>
-	<string id="8061" value="Modo Ultrapeer en %lu vecino(s) .  %s en Colección."/>
-	<string id="8062" value="Modo Hub %lu en red(s).  %s en Colección."/>
+	<string id="8013" value="No hay nueva versión de PeerProject detecta."/>
+	<string id="8014" value="Descargar Propiedades"/>
+	<string id="8060" value="Modo Hub/Ultrapeer %lu en redes.  %s en Colección."/>
+	<string id="8061" value="Modo Ultrapeer en %lu vecinos.  %s en Colección."/>
+	<string id="8062" value="Modo Hub %lu en redes.  %s en Colección."/>
 	<string id="8063" value="Conectado. %s en Colección."/>
-	<string id="8064" value="Conectado a %lu vecino(s).  Tienes %s en Colección."/>
+	<string id="8064" value="Conectado a %lu vecinos.  Tienes %s en Colección."/>
 	<string id="8065" value="Conectando a la red..."/>
 	<string id="8066" value="PeerProject no esta conectado a la red."/>
 	<string id="8067" value="%s entra : %s sale [D:%I64i/U:%I64i]"/>
@@ -2566,8 +2571,8 @@
 	<string id="8177" value="Teclea algunas palabras claves para buscar:"/>
 	<string id="8178" value="¿Qué tipo de archivo deseas buscar?"/>
 	<string id="8179" value="(Limpiar Historía de Búsqueda)"/>
-	<string id="8180" value="Tamaño Min:"/>
-	<string id="8181" value="Tamaño Max:"/>
+	<string id="8180" value="Tamaño Mín:"/>
+	<string id="8181" value="Tamaño Máx:"/>
 	<string id="8208" value="PeerProject esta creando hashes para %Iu archivo(s):"/>
 	<string id="8223" value="%i dias y %i horas"/>
 	<string id="8224" value="PeerProject esta descargando:"/>
@@ -2985,7 +2990,7 @@
 	<string id="17105" value="Gnutella II: Conexión Hub-to-Leaf"/>
 	<string id="17106" value="Conexión Servidor eDonkey(LOWID: %lu)"/>
 	<string id="17107" value="Conexión Servidor eDonkey"/>
-	<string id="17108" value="Conexión(Handshake)"/>
+	<string id="17108" value="Conexión"/>
 	<string id="17109" value="Entrada"/>
 	<string id="17110" value="Salida"/>
 	<string id="17111" value="Actual:"/>
@@ -2995,7 +3000,7 @@
 	<string id="17115" value="Deflate"/>
 	<string id="17116" value="Ninguno"/>
 	<string id="17117" value="Conectando"/>
-	<string id="17118" value="Negociando conexión(Handshaking)"/>
+	<string id="17118" value="Negociando Conexión"/>
 	<string id="17119" value="Rechazado"/>
 	<string id="17120" value="Cerrando"/>
 	<string id="17121" value="Desconocido"/>
@@ -3162,7 +3167,7 @@
 	<string id="20216" value="Excelente"/>
 	<string id="20217" value="Selecciona la carpeta temporal de eDonkey/eMule:"/>
 	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/><!-- Track number -->
+	<string id="20230" value="#"/> <!-- Track number -->
 	<string id="20231" value="Título"/>
 	<string id="20232" value="Tamaño"/>
 	<string id="20233" value="Bitrate"/>
@@ -3304,7 +3309,7 @@
 		<control/>
 		<control caption="Ignorar direcciones IP privadas/locales"/>
 		<control caption="Habilitar soporte UPnP"/>
-		<control caption="_Timeouts (tiempos de espera):"/>
+		<control caption="_Timeouts:"/>
 		<control caption="Conexión:"/>
 		<control/>
 		<control/>
@@ -3572,12 +3577,12 @@
 		<control caption="Dar premio a usuarios que suben"/>
 	</dialog>
 	<dialog name="CWizardWelcomePage" cookie="StStStStStStStStStStStSt" caption="Bienvenido(a) a PeerProject">
-		<control caption="Bienvenido(a) a PeerProject! ('Proyecto de Peers')"/>
+		<control caption="¡Bienvenido(a) a PeerProject! (Peer Proyecto)"/>
 		<control caption="Este asistente te va a ayudar a configurar de forma rápida las opciones básicas de PeerProject."/>
 		<control caption="Si eres un usuario avanzado, las opciones se pueden cambiar usando el menú de herramientas. Esta guía puede ser cerrada en cualquier momento, haciendole click en Cerrar."/>
 		<control caption="Este asistente te ayudará a:"/>
 		<control/>
-		<control caption="Configurar el tipo de tu conexión"/>
+		<control caption="Configurar el tipo de su conexión"/>
 		<control/>
 		<control caption="Preparar contenido para compartir"/>
 		<control/>
@@ -4148,10 +4153,10 @@
 		<control caption="Para compartir archivos completados usando BitTorrent deben estar seeded.  Cuando este proceso esté completo el Torrent va aparecer como un nuevo artículo en archivos descargados."/>
 		<control/>
 	</dialog>
-	<dialo	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Archivos">
+	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Archivos">
 		<control/>
 	</dialog>
-g name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Rastreadores">
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Rastreadores">
 		<control/>
 		<control/>
 		<control/>
@@ -4309,7 +4314,7 @@ g name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Rastreado
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Archivo"/>
-		<column from="Extension" to="Extensión"/>
+		<column from="Type" to="Extensión"/>
 		<column from="Size" to="Tamaño"/>
 		<column from="Folder" to="Carpeta"/>
 		<column from="Hits" to=""/>
@@ -4335,7 +4340,7 @@ g name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Rastreado
 		<column from="Hits" to=""/>
 		<column from="Action" to="Acción"/>
 		<column from="Expires" to="Expira"/>
-		<column from="#" to="Procedencia"/>
+		<column from="#" to="#"/>
 		<column from="Comment" to="Comentario"/>
 	</list>
 	<list name="CHostCacheWnd">
@@ -4376,15 +4381,15 @@ g name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Rastreado
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Archivo"/>
-		<column from="Extension" to="Extensión"/>
+		<column from="Type" to="Tipo"/>
 		<column from="Size" to="Tamaño"/>
-		<column from="Rating" to="Valoración"/>
-		<column from="Status" to="Estado"/>
 		<column from="Host/Count" to=""/>
 		<column from="Speed" to="Velocidad"/>
+		<column from="Rating" to="Valoración"/>
+		<column from="Status" to="Estado"/>
 		<column from="Client" to="Cliente"/>
-		<column from="Time" to="Tiempo"/>
 		<column from="Country" to="País"/>
+		<column from="Time" to="Tiempo"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nombre"/>

@@ -613,6 +613,7 @@
 			<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 			<item id="ID_VIEW_LIBRARY" text="_Biblioteca" shortcut="F5"/>
 			<item id="ID_VIEW_MEDIA" text="_Media Player" shortcut="F6"/>
+			<item id="ID_TAB_IRC" text="IR_C" shortcut="F12"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="Se_gurança" shortcut="F7"/>
 			<item id="ID_VIEW_HOSTS" text="C_ache dos Hosts" shortcut="F8"/>
@@ -702,6 +703,7 @@
 		<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 		<item id="ID_VIEW_LIBRARY" text="_Biblioteca" shortcut="F5"/>
 		<item id="ID_VIEW_MEDIA" text="_Media Player" shortcut="F6"/>
+		<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Se_gurança" shortcut="F7"/>
 		<item id="ID_VIEW_HOSTS" text="C_ache dos Hosts" shortcut="F8"/>
@@ -1201,7 +1203,7 @@
 		  <item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
 		  <item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
+		<item id="ID_LIBRARY_URI" text="Copiar _URI"/>
 		</menu>
 		<menu text="O_rganizar">
 		  <item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
@@ -1219,7 +1221,7 @@
 	 	<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartilhado"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
+		<item id="ID_LIBRARY_URI" text="Copiar _URI"/>
 		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
 		<separator/>
 		<menu text="P_rocurar Por">
@@ -1271,7 +1273,7 @@
 		  <item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
 		  <item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
+		<item id="ID_LIBRARY_URI" text="Copiar _URI"/>
 	  </menu>
 	  <menu text="O_rganizar">
 		<item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
@@ -1291,7 +1293,7 @@
 	  <separator/>
 	  <item id="ID_LIBRARY_SHARED_FILE" text="_Compartilhado"/>
 	  <separator/>
-	  <item id="ID_LIBRARY_URI" text=""/>
+	  <item id="ID_LIBRARY_URI" text="Copiar _URI"/>
 	  <item id="ID_LIBRARY_DELETE" text="_Apagar"/>
 	  <separator/>
 	  <menu text="P_rocurar Por">
@@ -1341,7 +1343,7 @@
 	  <menu text="Tamanho do Ví_deo">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Tamanho Original"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Tamanho Duplo"/>
-		<item id="ID_MEDIA_SIZE_HALF" text="_Triplo do Tamanho"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Tamanho Medio"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Maior"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Preencher a Janela"/>
 		<separator/>
@@ -1379,7 +1381,7 @@
 	  <menu text="Tamanho do Ví_deo">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Tamanho Original"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Tamanho Duplo"/>
-		<item id="ID_MEDIA_SIZE_HALF" text="_Triplo do Tamanho"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Tamanho Medio"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Maior"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Preencher a Janela"/>
 		<separator/>
@@ -1401,7 +1403,7 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Tamanho Original"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Tamanho Dobrado"/>
-		<item id="ID_MEDIA_SIZE_HALF" text="_Triplo do Tamanho"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Tamanho Medio"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="_Maior"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="_Preencher a Janela"/>
 		<separator/>
@@ -1479,6 +1481,9 @@
 	<menu name="CSearchMonitorWnd">
 		<item id="ID_HITMONITOR_SEARCH" text="_Procurar Por Isto"/>
 		<separator/>
+			<item id="ID_BROWSE_LAUNCH" text="_Navegar Usuário"/>
+			<item id="ID_SECURITY_BAN" text="B_anir Usuário"/>
+			<separator/>
 		<item id="ID_SEARCHMONITOR_PAUSE" text="_Pausar Exibição"/>
 		<item id="ID_SEARCHMONITOR_CLEAR" text="_Limpar Buffer"/>
 	</menu>
@@ -1540,11 +1545,11 @@
 		<item id="ID_CHAT_PRIORITY" text="Garantir _Prioridade"/>
 		<separator/>
 		<menu text="_Formato">
-		  <item id="ID_CHAT_BOLD" text="Escolher _Negrito"/>
-		  <item id="ID_CHAT_ITALIC" text="Escolher _Itálico"/>
-		  <item id="ID_CHAT_UNDERLINE" text="Escolher _Sublinhado"/>
-		  <item id="ID_CHAT_COLOR" text="Escolher _Cor"/>
-		  <item id="ID_CHAT_EMOTICONS" text="_Emoticons"/>
+			<item id="ID_CHAT_BOLD" text="Escolher _Negrito"/>
+			<item id="ID_CHAT_ITALIC" text="Escolher _Itálico"/>
+			<item id="ID_CHAT_UNDERLINE" text="Escolher _Sublinhado"/>
+			<item id="ID_CHAT_COLOUR" text="Escolher _Cor"/>
+			<item id="ID_CHAT_EMOTICONS" text="_Emoticons"/>
 		</menu>
 		<separator/>
 		<item id="ID_CHAT_TIMESTAMP" text="_Estampa do Tempo"/>
@@ -1693,6 +1698,11 @@
 	  <link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Assistente de Configurações</link>
 	  <text align="middle">&#160;- Edite as configurações do PeerProject</text>
 	  <newline gap="8"/>
+	  <icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/>
+	  <gap size="8"/>
+	  <link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Filtros de Segurança</link>
+	  <text align="middle">&#160;- Adicionar/Remover os filtros para melhorar sua performance de busca</text>
+	  <newline gap="8"/>
 	  <icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
 	  <gap size="8"/>
 	  <link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Ajuda Rápida</link>
@@ -1802,9 +1812,9 @@
 		  <text>Você está conectado há </text>
 		  <newline gap="0"/>
 		  <text id="ConnectedHours" format="b">%i </text>
-		  <text>hora(s) e </text>
+		  <text>horas e </text>
 		  <text id="ConnectedMinutes" format="b">%i </text>
-		  <text>minuto(s).</text>
+		  <text>minutos.</text>
 		</para>
 	  </group>
 	</document>
@@ -2630,9 +2640,9 @@
 	<string id="8010" value="Esta é uma versão de pré-lançamento do PeerProject e o período de testes beta acabou. Por favor baixar a versão completa oficial de http://peerproject.sourceforge.net/."/>
 	<string id="8011" value="Mudar a visualização fechará quaisquer janelas que estejam abertas. Você gostaria de mudar agora?"/>
 	<string id="8012" value="Informação do Torrent"/>
-	<string id="8013" value="Nenhuma versão nova do shareaza detectada."/>
+		<string id="8013" value="Nenhuma versão nova do PeerProject detectada."/>
 	<string id="8014" value="Propriedades do Download"/>
-	<string id="8060" value="Modo Hub/Ultrapeer com %lu vizinho(s). %s na sua bilioteca local."/>
+		<string id="8060" value="Modo Hub/Ultrapeer com %lu vizinho(s). %s na sua biblioteca local."/>
 	<string id="8061" value="Modo Ultrapeer com %lu vizinho(s). %s na sua biblioteca Local."/>
 	<string id="8062" value="Modo Hub com %lu vizinho(s). %s na biblioteca local."/>
 	<string id="8063" value="Conectado. %s na sua biblioteca local."/>
@@ -2779,7 +2789,7 @@
 	<string id="16077" value="O endereço %s já está sendo bloqueado pelas suas regras de segurança."/>
 	<string id="16078" value="Adicionada uma regra de segurança para bloquear %s."/>
 	<string id="16079" value="Você tem certeza que você quer desconectar?"/>
-	<string id="16080" value="Você está executando o Agendador no modo 'apenas G2'. Você gostaria de desativar esta modo, para que todas as redes ativas permaneçam conectadas?"/>
+	<string id="16080" value="Você está executando a Agenda no modo 'apenas G2'. Você gostaria de desativar esta modo, para que todas as redes ativas permaneçam conectadas?"/>
 	<string id="16081" value="Enviando inquisição para &quot;%s&quot; para %s."/>
 	<string id="16083" value="Forçar o seu PC em modo de HUB pode ter resultados adversos na perfomance e na rede P2P. É geralmente melhor deixar o PeerProject decidir se o modo hub deve ou não ser usado.\n\nModo hub NÃO produz melhores resultados de busca, ou tem quaisquer outras vantagens a você.\n\nVocê realmente quer fazer isso, apesar destas desvantagens?"/>
 	<string id="16084" value="Desativar o suporte aos protocolos Gnutella-1 pode limitar os seus resultados de busca, e se você está agindo como um hub pode também ter um impacto sob os resultados de outros usuários. Você tem certeza que você quer fazer isto?"/>
@@ -4489,7 +4499,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Arquivo"/>
-		<column from="Extension" to="Extensão"/>
+		<column from="Type" to="Extensão"/>
 		<column from="Size" to="Tamanho"/>
 		<column from="Folder" to="Pasta"/>
 		<column from="Hits" to="Acertos"/>
@@ -4556,15 +4566,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Arquivo"/>
-		<column from="Extension" to="Extensão"/>
+		<column from="Type" to="Tipo"/>
 		<column from="Size" to="Tamanho"/>
-		<column from="Rating" to="Classificação"/>
-		<column from="Status" to="Status"/>
 		<column from="Host/Count" to="Host/Contagem"/>
 		<column from="Speed" to="Velocidade"/>
+		<column from="Rating" to="Classificação"/>
+		<column from="Status" to="Status"/>
 		<column from="Client" to="Cliente"/>
-		<column from="Time" to="Horário"/>
 		<column from="Country" to="País"/>
+		<column from="Time" to="Horário"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nome"/>

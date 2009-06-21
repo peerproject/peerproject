@@ -2072,7 +2072,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Tiedosto"/>
-		<column from="Extension" to=""/>
+		<column from="Type" to=""/>
 		<column from="Size" to="Koko"/>
 		<column from="Folder" to=""/>
 		<column from="Hits" to=""/>
@@ -2139,15 +2139,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Tiedosto"/>
-		<column from="Extension" to=""/>
+		<column from="Type" to=""/>
 		<column from="Size" to="Koko"/>
-		<column from="Rating" to="Arvostelut"/>
-		<column from="Status" to="Tila"/>
 		<column from="Host/Count" to=""/>
 		<column from="Speed" to=""/>
+		<column from="Rating" to="Arvostelut"/>
+		<column from="Status" to="Tila"/>
 		<column from="Client" to=""/>
-		<column from="Time" to="Aika"/>
 		<column from="Country" to="Maa"/>
+		<column from="Time" to="Aika"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Nimi"/>

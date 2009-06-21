@@ -4469,7 +4469,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Αρχείο"/>
-		<column from="Extension" to="Τύπος"/>
+		<column from="Type" to="Τύπος"/>
 		<column from="Size" to="Μέγεθος"/>
 		<column from="Folder" to="Φάκελος"/>
 		<column from="Hits" to="Ευρέσεις"/>
@@ -4536,15 +4536,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Αρχείο"/>
-		<column from="Extension" to="Τύπος"/>
+		<column from="Type" to="Τύπος"/>
 		<column from="Size" to="Μέγεθος"/>
-		<column from="Rating" to="Βαθμολόγηση"/>
-		<column from="Status" to="Κατάσταση"/>
 		<column from="Host/Count" to="Host/Πλήθος"/>
 		<column from="Speed" to="Ταχύτητα"/>
+		<column from="Rating" to="Βαθμολόγηση"/>
+		<column from="Status" to="Κατάσταση"/>
 		<column from="Client" to="Πρόγραμμα"/>
-		<column from="Time" to="Ημερομηνία"/>
 		<column from="Country" to="Χώρα"/>
+		<column from="Time" to="Ημερομηνία"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Όνομα"/>

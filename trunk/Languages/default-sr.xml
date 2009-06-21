@@ -4183,7 +4183,7 @@
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Ime Datoteke"/>
-		<column from="Extension" to="Vrsta"/>
+		<column from="Type" to="Vrsta"/>
 		<column from="Size" to="Veličina"/>
 		<column from="Folder" to="Fascikla"/>
 		<column from="Hits" to="Viđeno"/>
@@ -4250,15 +4250,15 @@
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Ime Datoteke"/>
-		<column from="Extension" to="Vrsta"/>
+		<column from="Type" to="Vrsta"/>
 		<column from="Size" to="Veličina"/>
-		<column from="Rating" to="Ocena"/>
-		<column from="Status" to="Stanje"/>
 		<column from="Host/Count" to="Davalac/Koliko"/>
 		<column from="Speed" to="Brzina"/>
+		<column from="Rating" to="Ocena"/>
+		<column from="Status" to="Stanje"/>
 		<column from="Client" to="Klijent"/>
-		<column from="Time" to="Vreme"/>
 		<column from="Country" to="Država"/>
+		<column from="Time" to="Vreme"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Ime"/>

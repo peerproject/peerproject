@@ -4389,7 +4389,7 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 	</list>
 	<list name="CLibraryWnd">
 		<column from="File" to="Fil" />
-		<column from="Extension" to="Filändelse" />
+		<column from="Type" to="Filändelse" />
 		<column from="Size" to="Storlek" />
 		<column from="Folder" to="Mapp" />
 		<column from="Hits" to="Träffar" />
@@ -4456,15 +4456,15 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 	</list>
 	<list name="CMatchCtrl">
 		<column from="File" to="Fil" />
-		<column from="Extension" to="Filändelse"/>
+		<column from="Type" to="Typ"/>
 		<column from="Size" to="Storlek" />
-		<column from="Rating" to="Betyg" />
-		<column from="Status" to="Status" />
 		<column from="Host/Count" to="Värd/Antal" />
 		<column from="Speed" to="Hastighet" />
+		<column from="Rating" to="Betyg" />
+		<column from="Status" to="Status" />
 		<column from="Client" to="Klient" />
-		<column from="Time" to="Tid"/>
 		<column from="Country" to="Land"/>
+		<column from="Time" to="Tid"/>
 	</list>
 	<list name="CUploadQueueList">
 		<column from="Name" to="Namn" />
