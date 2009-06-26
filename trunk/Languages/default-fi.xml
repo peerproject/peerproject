@@ -973,16 +973,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Avaa tai Toista"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Lisää Soittolistaan"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Avaa _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Tyhjennä"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Kopioi _URl"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Kehittynyt _Editointi"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Poista Tiedostot"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Arvioi Tiedosto..."/>
+		<item id="ID_DOWNLOADS_URI" text="Kopioi _URl"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Info"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Avaa"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Avaa _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Lopeta Jako"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ohje..."/>
 		<separator/>
@@ -997,6 +999,8 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Aut_omaattinen Tyhjennys"/>
 	</menu>
 	<menu name="CDownloadTabBar">
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Avaa _Folder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Jatka Kaikkia"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="K_eskeytä Kaikki"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Tyhjennä Kaikki"/>
@@ -1027,6 +1031,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Aloita Nyt"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Tyhjennä"/>
+		<item id="ID_UPLOADS_FOLDER" text="Avaa _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Selaa Käyttäjää"/>
 		<item id="ID_UPLOADS_CHAT" text="_Keskustele Käyttäjän Kanssa"/>
@@ -1038,9 +1043,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_omaattinen Tyhjennys"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Ohje..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="T_yhjennä Valmiit"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_omaattinen Tyhjennys"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Ohje..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Näytä Kaikki"/>
@@ -2172,7 +2178,6 @@
 		<column from="Filename" to="Nimi"/>
 		<column from="Size" to="Koko"/>
 		<column from="Status" to="Tila"/>
-		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

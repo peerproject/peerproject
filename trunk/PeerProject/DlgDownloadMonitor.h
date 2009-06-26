@@ -78,8 +78,8 @@ public:
 	CStatic	m_wndSpeedLabel;
 	CStatic	m_wndSources;
 	CStatic	m_wndSourcesLabel;
-	CButton	m_wndLibrary;
 	CButton	m_wndLaunch;
+	CButton	m_wndView;
 	CStatic	m_wndIcon;
 	CStatic	m_wndGraph;
 	CStatic	m_wndFile;
@@ -102,7 +102,7 @@ protected:
 	afx_msg void OnDestroy();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnDownloadLaunch();
-	afx_msg void OnDownloadLibrary();
+	afx_msg void OnDownloadView();
 	afx_msg void OnDownloadStop();
 	afx_msg void OnClose();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);

@@ -995,16 +995,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Reproducir"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Agregar al Reproductor"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Abrir _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Limpiar"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Copiar _URI"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Información"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Eliminar Archivo"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Darle rating a archivo..."/>
+		<item id="ID_DOWNLOADS_URI" text="Copiar _URI"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="Información"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Abrir"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Abrir _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Detener Compartir"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ayuda..."/>
 		<separator/>
@@ -1051,6 +1053,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Empezar Ahora"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Limpiar"/>
+		<item id="ID_UPLOADS_FOLDER" text="Abrir _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Explorar Usuario"/>
 		<item id="ID_UPLOADS_CHAT" text="_Platicar con Usuario"/>
@@ -1062,9 +1065,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="A_uto Limpiar"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Ayuda..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Limpiar Completados"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Limpiar"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Ayuda..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Mostrar _Todos"/>
@@ -2573,7 +2577,7 @@
 	<string id="8179" value="(Limpiar Historía de Búsqueda)"/>
 	<string id="8180" value="Tamaño Mín:"/>
 	<string id="8181" value="Tamaño Máx:"/>
-	<string id="8208" value="PeerProject esta creando hashes para %Iu archivo(s):"/>
+	<string id="8208" value="PeerProject esta creando hashes para %Iu archivos:"/>
 	<string id="8223" value="%i dias y %i horas"/>
 	<string id="8224" value="PeerProject esta descargando:"/>
 	<string id="8225" value="Esta descarga esta en pausa:"/>
@@ -3833,25 +3837,25 @@
 		<control caption="Cancelar"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Descargar : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Descargar">
 		<control caption="PeerProject esta descargando:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Velocidad de transferencia:"/>
+		<control caption="Fuentes:"/>
 		<control caption="..."/>
 		<control caption="Tiempo estimado:"/>
 		<control caption="..."/>
+		<control caption="Velocidad de transferencia:"/>
+		<control caption="..."/>
 		<control caption="Descargado:"/>
 		<control caption="..."/>
-		<control caption="Fuentes:"/>
-		<control caption="..."/>
+		<control caption="Ver"/>
+		<control caption="Abrir"/>
+		<control caption="Cancelar"/>
+		<control caption="Cerrar"/>
 		<control caption="Cerrar esta ventana al finalizar"/>
-		<control caption="Abrir archivo"/>
-		<control caption="Ver mi Colección"/>
-		<control caption="Cancelar transferencia"/>
-		<control caption="Ocultar"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="General">
 		<control caption="Universal Resource Names (URNs)"/>
@@ -4270,6 +4274,13 @@
 		<control caption="OK"/>
 		<control caption="Cancelar"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Seleccionas">
+		<control caption="Selecciona un Arquivo:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Cancelar"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -4414,7 +4425,6 @@
 		<column from="Filename" to="Nombre de archivo"/>
 		<column from="Size" to="Tamaño"/>
 		<column from="Status" to="Estado"/>
-		<column from="Priority" to="Tipo"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Rastreador"/>

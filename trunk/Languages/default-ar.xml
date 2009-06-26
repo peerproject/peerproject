@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <!-- PeerProject Arabic Language Skin File -->
-<!-- Translation based on default-en.xml (Shareaza SVN r7300) -->
+<!-- Translation based on default-en.xml -->
 
 <!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -1021,16 +1021,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_فتح او تشغيل" />
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_اضافه الى قائمة التشغيل" />
+		<item id="ID_DOWNLOADS_FOLDER" text="فتح _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_إزالة" />
-		<separator />
-		<item id="ID_DOWNLOADS_URI" text="نسخ _رابط" />
-		<item id="ID_DOWNLOADS_EDIT" text="معلومات" />
 		<separator />
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_حذف الملف" />
 		<item id="ID_DOWNLOADS_RATE" text="_تصنيف الملف..." />
+		<item id="ID_DOWNLOADS_URI" text="نسخ _رابط" />
+		<separator />
+		<item id="ID_DOWNLOADS_EDIT" text="_معلومات" />
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_فتح" />
+		<item id="ID_DOWNLOADS_FOLDER" text="فتح _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_إيقاف الإرسال" />
 		<item id="ID_DOWNLOADS_HELP" text="_تعليمات..." />
 		<separator />
@@ -1045,7 +1047,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="مسح_ تلقائي" />
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="فتح _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_متابعة الكل" />
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="ا_يقاف مؤقت للكل" />
@@ -1077,6 +1079,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_ابداء الان" />
 		<item id="ID_UPLOADS_CLEAR" text="_إزالة" />
+		<item id="ID_UPLOADS_FOLDER" text="فتح _Folder"/>
 		<separator />
 		<item id="ID_BROWSE_LAUNCH" text="ت_صفح المستخدم" />
 		<item id="ID_UPLOADS_CHAT" text="الم_حادثة مع المستخدم" />
@@ -1088,9 +1091,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="مسح_ تلقائي" />
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_تعليمات..." />
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="ت_م المسح" />
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="مسح_ تلقائي" />
+		<separator />
+		<item id="ID_UPLOADS_HELP" text="_تعليمات..." />
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="عرض الكل" />
@@ -2622,7 +2626,7 @@
 	<string id="8179" value="(Clear Search History)" />
 	<string id="8180" value="Min Filesize:" />
 	<string id="8181" value="Max Filesize:" />
-	<string id="8208" value="PeerProject is creating hashes for %Iu file(s):" />
+	<string id="8208" value="PeerProject is creating hashes for %Iu files:" />
 	<string id="8223" value="%i days and %i hours" />
 	<string id="8224" value="PeerProject is downloading:" />
 	<string id="8225" value="This download is paused:" />
@@ -3921,25 +3925,25 @@
 		<control caption="إلغاء الأمر" />
 		<control />
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="تحميل : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="تحميل">
 		<control caption=":يقوم بالتحميل PeerProject" />
 		<control caption="..." />
 		<control />
 		<control />
 		<control />
-		<control caption=":السرعة الإجمالية للنقل" />
+		<control caption=":عدد المصادر" />
 		<control caption="..." />
 		<control caption=":الوقت المتبقي المقدر" />
 		<control caption="..." />
+		<control caption=":السرعة الإجمالية للنقل" />
+		<control caption="..." />
 		<control caption=":حجم التحميل" />
 		<control caption="..." />
-		<control caption=":عدد المصادر" />
-		<control caption="..." />
-		<control caption="إغلاق هذه النافذة عند إنتهاء التحميل" />
-		<control caption="فتح ملف" />
 		<control caption="عرض المكتبة" />
+		<control caption="فتح ملف" />
 		<control caption="إلغاء التحميل" />
 		<control caption="اخفاء" />
+		<control caption="إغلاق هذه النافذة عند إنتهاء التحميل" />
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="عام">
 		<control caption="أسماء المصادر العالمية (URNs)" />
@@ -4359,6 +4363,13 @@
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selection">
+		<control caption="Select File:"/>
+		<control/>
+		<control caption="حسنا" />
+		<control caption="إلغاء الأمر" />
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="حسنا" />
@@ -4503,7 +4514,6 @@
 		<column from="Filename" to="إسم الملف" />
 		<column from="Size" to="الحجم" />
 		<column from="Status" to="الحالة"/>
-		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="المتتبع" />

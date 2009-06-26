@@ -1046,15 +1046,19 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open or Play"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Add to Playlist"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Clear"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Delete File"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Rate File..."/>
 		<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Properties..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open File"/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
+ 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent _Properties..."/>
@@ -1100,6 +1104,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Start Now"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Clear"/>
+		<item id="ID_UPLOADS_FOLDER" text="Open _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
 		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
@@ -1107,13 +1112,16 @@
 	</menu>
 	<menu name="CUploadsWnd.Queue">
 		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Queue Settings"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Clear"/>
+		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Auto Clear"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Auto Clear"/>
+		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Help..."/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Clear"/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Show _All"/>
@@ -2461,7 +2469,7 @@
 		<image id="ID_TOOLS_WIZARD" id1="ID_DOWNLOADS_RATE" id2="ID_MEDIA_RATE" id3="ID_DOWNLOADS_VIEW_REVIEWS"/>
 		<!--Folders-->
 		<image id="ID_DOWNLOADS_FILTER_MENU" id1="ID_UPLOADS_FILTER_MENU" id2="ID_SEARCH_FILTER" id3="ID_LIBRARY_FOLDER_PROPERTIES" id4="ID_LIBRARY_ALBUM_PROPERTIES"/>
-		<image id="ID_LIBRARY_TREE_PHYSICAL" id1="ID_OPEN_DOWNLOADS_FOLDER" id2="ID_DOWNLOAD_GROUP_OPEN" id3="ID_LIBRARY_FOLDER_OPEN"/>
+		<image id="ID_LIBRARY_TREE_PHYSICAL" id1="ID_DOWNLOADS_FOLDER" id2="ID_UPLOADS_FOLDER" id3="ID_OPEN_DOWNLOADS_FOLDER" id4="ID_DOWNLOAD_GROUP_OPEN" id5="ID_LIBRARY_FOLDER_OPEN"/>
 		<image /> <!--Opened-->
 		<image id="ID_LIBRARY_TREE_VIRTUAL"/>
 		<image id="SHI_FOLDER_CLOSED"/>

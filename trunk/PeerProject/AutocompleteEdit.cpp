@@ -216,9 +216,7 @@ IMPLEMENT_DYNCREATE(CAutocompleteEdit, CEdit)
 
 CAutocompleteEdit::CAutocompleteEdit()
 {
-#ifndef _WIN32_WCE
 	EnableActiveAccessibility();
-#endif
 }
 
 BEGIN_MESSAGE_MAP(CAutocompleteEdit, CEdit)

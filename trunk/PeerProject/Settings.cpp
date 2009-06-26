@@ -467,9 +467,10 @@ void CSettings::Load()
 	Add( _T("Downloads"), _T("ChunkSize"), &Downloads.ChunkSize, 512*1024, 1024, 0, 10240, _T(" KB") );
 	Add( _T("Downloads"), _T("ChunkStrap"), &Downloads.ChunkStrap, 128*1024, 1024, 0, 10240, _T(" KB") );
 	Add( _T("Downloads"), _T("ClearDelay"), &Downloads.ClearDelay, 60*1000, 1000, 1, 30*60, _T(" s") );
+	Add( _T("Downloads"), _T("ConnectThrottle"), &Downloads.ConnectThrottle, 250, 1, 0, 5000, _T(" ms") );
 	Add( _T("Downloads"), _T("CollectionPath"), &Downloads.CollectionPath );
 	Add( _T("Downloads"), _T("CompletePath"), &Downloads.CompletePath );
-	Add( _T("Downloads"), _T("ConnectThrottle"), &Downloads.ConnectThrottle, 250, 1, 0, 5000, _T(" ms") );
+	Add( _T("Downloads"), _T("TorrentPath"), &Downloads.TorrentPath );
 	Add( _T("Downloads"), _T("FilterMask"), &Downloads.FilterMask, 0xFFFFFFFF );
 	Add( _T("Downloads"), _T("FlushSD"), &Downloads.FlushSD, true );
 	Add( _T("Downloads"), _T("IncompletePath"), &Downloads.IncompletePath );
@@ -504,7 +505,6 @@ void CSettings::Load()
 	Add( _T("Downloads"), _T("StartDroppingFailedSourcesNumber"), &Downloads.StartDroppingFailedSourcesNumber, 20, 1, 0, 50 );
 	Add( _T("Downloads"), _T("StarveGiveUp"), &Downloads.StarveGiveUp, 3, 1, 3, 120, _T(" h") );
 	Add( _T("Downloads"), _T("StarveTimeout"), &Downloads.StarveTimeout, 45*60, 60, 45, 24*60, _T(" m") );
-	Add( _T("Downloads"), _T("TorrentPath"), &Downloads.TorrentPath );
 	Add( _T("Downloads"), _T("VerifyED2K"), &Downloads.VerifyED2K, true );
 	Add( _T("Downloads"), _T("VerifyFiles"), &Downloads.VerifyFiles, true );
 	Add( _T("Downloads"), _T("VerifyTiger"), &Downloads.VerifyTiger, true );

@@ -1043,16 +1043,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Megnyitás és Lejátszás"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Listához ad"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Megnyitás _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Töröl"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="_URI másolása"/>
-		<item id="ID_DOWNLOADS_EDIT" text="_Infó"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Fájl törlése"/>
 		<item id="ID_DOWNLOADS_RATE" text="Fájl _osztályozása..."/>
+		<item id="ID_DOWNLOADS_URI" text="_URI másolása"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Infó"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Megnyitás"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Megnyitás _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Seedelés leállítása"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Súgó..."/>
 		<separator/>
@@ -1067,7 +1069,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Automata törlés"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Megnyitás _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Mindet _folytat"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Mindet _szünetelteti"/>
@@ -1099,6 +1101,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Kezdés most"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Töröl"/>
+		<item id="ID_UPLOADS_FOLDER" text="Megnyitás _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Fájllista és adatlap"/>
 		<item id="ID_UPLOADS_CHAT" text="_Csevegés"/>
@@ -1110,9 +1113,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Automata törlés"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Súgó..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Kész törlése"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Automata törlés"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Súgó..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="_Mindet mutat"/>
@@ -3941,19 +3945,19 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Sebesség:"/>
+		<control caption="Források száma:"/>
 		<control caption="..."/>
 		<control caption="Hátralévő idő:"/>
 		<control caption="..."/>
+		<control caption="Sebesség:"/>
+		<control caption="..."/>
 		<control caption="Letöltve:"/>
 		<control caption="..."/>
-		<control caption="Források száma:"/>
-		<control caption="..."/>
-		<control caption="A letöltés végeztével zárja be ezt az ablakot"/>
-		<control caption="Fájl megnyitása"/>
 		<control caption="Könyvtár"/>
+		<control caption="Fájl megnyitása"/>
 		<control caption="Letöltés törlése"/>
 		<control caption="Elrejt"/>
+		<control caption="A letöltés végeztével zárja be ezt az ablakot"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Általános">
 		<control caption="Universal Resource Names (URN)"/>
@@ -4372,6 +4376,13 @@
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Elérhetővé">
+		<control caption="Elérhető File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Mégse"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -4516,7 +4527,6 @@
 		<column from="Filename" to="Fájlnév"/>
 		<column from="Size" to="Méret"/>
 		<column from="Status" to="Helyzet"/>
-		<column from="Priority" to="Típus"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Tracker"/>

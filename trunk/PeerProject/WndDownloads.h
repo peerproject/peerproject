@@ -141,6 +141,8 @@ protected:
 	afx_msg void OnDownloadsBoost();
 	afx_msg void OnUpdateDownloadsLaunchCopy(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsLaunchCopy();
+	afx_msg void OnUpdateDownloadsFolder(CCmdUI* pCmdUI);
+	afx_msg void OnDownloadsFolder();
 	afx_msg void OnUpdateDownloadsMonitor(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsMonitor();
 	afx_msg void OnMeasureItem(int nIDCtl, LPMEASUREITEMSTRUCT lpMeasureItemStruct);

@@ -201,11 +201,9 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;DLL;_CRT_SECURE_NO_DEPRECATE"
-				MinimalRebuild="true"
 				RuntimeLibrary="2"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
 				WarningLevel="3"
-				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -276,10 +274,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN64;WIN32;NDEBUG;_WINDOWS;_USRDLL;DLL;_CRT_SECURE_NO_DEPRECATE"
-				MinimalRebuild="true"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
 				WarningLevel="3"
-				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"

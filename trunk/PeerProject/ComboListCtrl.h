@@ -19,9 +19,11 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
+// ComboBoxes and ToolTips currently Disabled (Using Checkboxes and Labeltips)
+
 #pragma once
 
-#include "CtrlCoolTip.h"
+//#include "CtrlCoolTip.h"
 
 
 class CComboListCtrl : public CListCtrl
@@ -37,27 +39,27 @@ public:
 	typedef std::vector< CIntIntMap > CIntIntMapVector;
 	typedef std::map< int, CIntStringMap > CIntIntStringMapMap;
 
-	void EnableTips(auto_ptr< CCoolTipCtrl > pTip);
-	int GetColumnData(int iItem, int iColumn) const;
+	int  GetColumnData(int iItem, int iColumn) const;
 	void SetColumnData(int iItem, int iColumn, int iData);
 	void SetColumnValues(int iColumn, const CIntStringMap& oValues);
+//	void EnableTips(auto_ptr< CCoolTipCtrl > pTip);
 
 protected:
-	auto_ptr< CCoolTipCtrl >	m_pTip;
-	CComboBox*					m_pCombo;
+//	auto_ptr< CCoolTipCtrl >	m_pTip;
+//	CComboBox*					m_pCombo;
 	int							m_iSelectedItem;
 	int							m_iSelectedSubItem;
 	CIntIntMapVector			m_oData;
 	CIntIntStringMapMap			m_oColumns;
 
-	int HitTest(const CPoint& ptAction);
-	void Show(int iItem, int iSubItem);
-	void Hide();
+//	int HitTest(const CPoint& ptAction);
+//	void Show(int iItem, int iSubItem);
+//	void Hide();
 
-	afx_msg void OnNMClick(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+//	afx_msg void OnNMClick(NMHDR *pNMHDR, LRESULT *pResult);
+//	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 
-	DECLARE_MESSAGE_MAP()
+//	DECLARE_MESSAGE_MAP()
 };
 
 #define BEGIN_COLUMN_MAP() \

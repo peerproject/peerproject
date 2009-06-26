@@ -978,16 +978,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Ava"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Lisa Playlisti"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Ava _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Puhasta"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Kopeeri _URI"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Kustuta Fail"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Hinda Fail..."/>
+		<item id="ID_DOWNLOADS_URI" text="Kopeeri _URI"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="Info"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Ava"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Ava _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Lõpeta Jagamine"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Abi..."/>
 		<separator/>
@@ -1002,7 +1004,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Aut_o Puhastus"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Ava _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Jätka Kõiki"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_ausi Kõik"/>
@@ -1034,6 +1036,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Alusta Kohe"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Puhasta"/>
+		<item id="ID_UPLOADS_FOLDER" text="Ava _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Sirvi Kasutajat"/>
 		<item id="ID_UPLOADS_CHAT" text="_Vestle Kasutajaga"/>
@@ -1045,9 +1048,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Puhastus"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Abi..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Puhasta Valmis"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Puhastus"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Abi..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Näita Kõiki"/>
@@ -3760,25 +3764,25 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Allalaadimine : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Allalaadimine">
 		<control caption="PeerProject Tõmbab:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Ülekande kiirus:"/>
+		<control caption="Allikate Arv:"/>
 		<control caption="..."/>
 		<control caption="Arvatav järelejäänud aeg:"/>
 		<control caption="..."/>
+		<control caption="Ülekande kiirus:"/>
+		<control caption="..."/>
 		<control caption="Seni Allalaetud:"/>
 		<control caption="..."/>
-		<control caption="Allikate Arv:"/>
-		<control caption="..."/>
-		<control caption="Sulge see aken, kui allalaadimine lõpeb"/>
-		<control caption="Ava Fail"/>
 		<control caption="Vaata Raamatukokku"/>
+		<control caption="Ava Fail"/>
 		<control caption="Tühista"/>
 		<control caption="Peida"/>
+		<control caption="Sulge see aken, kui allalaadimine lõpeb"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Üldist">
 		<control caption="Universal Resource Names (URNs)(Levinud ressursside nimed) "/>
@@ -4194,6 +4198,13 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Valid">
+		<control caption="Vali File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Tühista"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -4338,7 +4349,6 @@
 		<column from="Filename" to="Faili nimi"/>
 		<column from="Size" to="Suurus"/>
 		<column from="Status" to="Olek"/>
-		<column from="Priority" to="Tüüp"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Jälitaja"/>

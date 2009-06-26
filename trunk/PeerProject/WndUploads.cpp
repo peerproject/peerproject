@@ -47,6 +47,8 @@
 #include "DlgHelp.h"
 #include "LibraryDictionary.h"
 
+#include <IO.h>	// For torrent filepath validaton
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -66,6 +68,8 @@ BEGIN_MESSAGE_MAP(CUploadsWnd, CPanelWnd)
 	ON_COMMAND(ID_UPLOADS_DISCONNECT, OnUploadsDisconnect)
 	ON_UPDATE_COMMAND_UI(ID_UPLOADS_LAUNCH, OnUpdateUploadsLaunch)
 	ON_COMMAND(ID_UPLOADS_LAUNCH, OnUploadsLaunch)
+	ON_UPDATE_COMMAND_UI(ID_UPLOADS_FOLDER, OnUpdateUploadsFolder)
+	ON_COMMAND(ID_UPLOADS_FOLDER, OnUploadsFolder)
 	ON_UPDATE_COMMAND_UI(ID_UPLOADS_CLEAR, OnUpdateUploadsClear)
 	ON_COMMAND(ID_UPLOADS_CLEAR, OnUploadsClear)
 	ON_COMMAND(ID_UPLOADS_CLEAR_COMPLETED, OnUploadsClearCompleted)
@@ -474,9 +478,51 @@ void CUploadsWnd::OnUploadsLaunch()
 		{
 			CString strPath = pFile->m_sPath;
 
-			pLock.Unlock();
-			if ( ! CFileExecutor::Execute( strPath ) ) break;
-			pLock.Lock();
+			if ( strPath.Find( pFile->m_sName ) > 3 )	// Not Torrent
+			{
+				pLock.Unlock();
+				if ( CFileExecutor::Execute( strPath ) )
+					pLock.Lock();
+			}
+		}
+	}
+}
+
+void CUploadsWnd::OnUpdateUploadsFolder(CCmdUI* pCmdUI)
+{
+	Prepare();
+	pCmdUI->Enable( m_bSelFile );
+}
+
+void CUploadsWnd::OnUploadsFolder()
+{
+	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
+	{
+		CUploadFile* pFile = UploadFiles.GetNext( pos );
+		if ( IsSelected( pFile ) )
+		{
+			CString strPath = pFile->m_sPath;
+
+			if ( strPath.Find( pFile->m_sName ) > 3 )
+			{
+				ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), "/select, " + strPath, NULL, SW_SHOWNORMAL );
+			}
+			else // Torrent handling, ToDo: Fix other download groups
+			{
+				strPath = Settings.Downloads.TorrentPath + "\\" + pFile->m_sName;
+				if ( PathIsDirectory( strPath ) )
+				{
+					ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
+				}
+				else
+				{
+					char charPath[255];
+					sprintf(charPath, "%S", strPath);	// CString to Char for <IO> filepath validation 
+					if (_access (charPath, 0) == 0)
+						ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), "/select, " + strPath, NULL, SW_SHOWNORMAL );
+				}
+			}
 		}
 	}
 }

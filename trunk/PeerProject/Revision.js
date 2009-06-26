@@ -32,7 +32,7 @@ try
 {
 	var svnfile = fso.OpenTextFile( fsvn, 1, false );
 	revision = svnfile.Read( 68 ).substr( 66 );		// Parsing:  "!svn/ver/XXX/"
-	WScript.Echo( "Current Revision is " + revision );
+	WScript.Echo( "Current SVN Revision is " + revision );
 	svnfile.Close();
 }
 catch(e)

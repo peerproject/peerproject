@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default English Skin File -->
-<!-- Translation based on default-en.xml r24 (Shareaza SVN r8000) -->
+<!-- Translation based on default-en.xml r25 -->
 
 <!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -1075,14 +1075,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open or Play"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Add to Playlist"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Clear"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Delete File"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Rate File..."/>
 		<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Properties..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open File"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
@@ -1129,6 +1133,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Start Now"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Clear"/>
+		<item id="ID_UPLOADS_FOLDER" text="Open _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
 		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
@@ -1136,13 +1141,16 @@
 	</menu>
 	<menu name="CUploadsWnd.Queue">
 		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Queue Settings"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Clear"/>
+		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Auto Clear"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Auto Clear"/>
+		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Help..."/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Clear"/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Show _All"/>
@@ -4013,25 +4021,25 @@
 		<control caption="Cancel"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Download : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Download">
 		<control caption="PeerProject is downloading:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Total transfer speed:"/>
-		<control caption="..."/>
-		<control caption="Estimated time remaining:"/>
-		<control caption="..."/>
-		<control caption="Volume downloaded:"/>
-		<control caption="..."/>
 		<control caption="Number of sources:"/>
 		<control caption="..."/>
-		<control caption="Close this window when the download completes"/>
-		<control caption="Open File"/>
-		<control caption="View Library"/>
-		<control caption="Cancel Download"/>
-		<control caption="Hide"/>
+		<control caption="Time remaining:"/>
+		<control caption="..."/>
+		<control caption="Transfer speed:"/>
+		<control caption="..."/>
+		<control caption="Total downloaded:"/>
+		<control caption="..."/>
+		<control caption="Show"/>
+		<control caption="Open"/>
+		<control caption="Cancel"/>
+		<control caption="Close"/>
+		<control caption="Close window when completed"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="General">
 		<control caption="Universal Resource Names (URNs)"/>
@@ -4460,6 +4468,13 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selection">
+		<control caption="Select File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Cancel"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -4614,7 +4629,6 @@
 		<column from="Filename" to=""/>
 		<column from="Size" to=""/>
 		<column from="Status" to=""/>
-		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

@@ -1051,16 +1051,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Ouvrir ou lire"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Ajouter à la liste de _lecture"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Ouvrir _folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Netto_yer"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="_Copier l'URI"/>
-		<item id="ID_DOWNLOADS_EDIT" text="_Propriétés"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Supprimer le fichier"/>
 		<item id="ID_DOWNLOADS_RATE" text="É_valuer ce fichier..."/>
+		<item id="ID_DOWNLOADS_URI" text="_Copier l'URI"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Propriétés"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Ouvrir"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Ouvrir _folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stopper le seed"/>
 		<item id="ID_DOWNLOADS_HELP" text="Ai_de..."/>
 		<separator/>
@@ -1075,7 +1077,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Nettoyer a_utomatiquement"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Ouvrir _folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Tout _reprendre"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Tout mettre en pa_use"/>
@@ -1107,6 +1109,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="Démarrer _maintenant"/>
 		<item id="ID_UPLOADS_CLEAR" text="Netto_yer"/>
+		<item id="ID_UPLOADS_FOLDER" text="Ouvrir _folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Parcourir l'utilisateur"/>
 		<item id="ID_UPLOADS_CHAT" text="_Discuter avec l'util."/>
@@ -1116,11 +1119,14 @@
 		<item id="ID_UPLOADS_EDIT_QUEUE" text="Réglages _file d'attente"/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Nettoyer terminés"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Nettoyer a_utomatiquement"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="Ai_de..."/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="Ai_de..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Nettoyer terminés"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Nettoyer a_utomatiquement"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="Ai_de..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="_Tout afficher"/>
@@ -2679,7 +2685,7 @@
 	<string id="8179" value="(Nettoyer l'historique des recherches)"/>
 	<string id="8180" value="La taille min :"/>
 	<string id="8181" value="La taille max :"/>
-	<string id="8208" value="PeerProject crée les hachages pour %Iu fichier(s)&#160;:"/>
+	<string id="8208" value="PeerProject crée les hachages pour %Iu fichiers&#160;:"/>
 	<string id="8223" value="%i jours et %i heures"/>
 	<string id="8224" value="PeerProject télécharge&#160;:"/>
 	<string id="8225" value="Ce téléchargement est en pause&#160;:"/>
@@ -3983,25 +3989,25 @@
 		<control caption="Annuler"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Téléchargement&#160;:&#160;PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Téléchargement">
 		<control caption="PeerProject télécharge&#160;:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Vitesse totale&#160;:"/>
+		<control caption="Nombre de sources&#160;:"/>
 		<control caption="..."/>
 		<control caption="Temps restant estimé&#160;:"/>
 		<control caption="..."/>
+		<control caption="Vitesse totale&#160;:"/>
+		<control caption="..."/>
 		<control caption="Volume téléchargé&#160;:"/>
 		<control caption="..."/>
-		<control caption="Nombre de sources&#160;:"/>
-		<control caption="..."/>
-		<control caption="Fermer cette fenêtre à la fin du téléchargement"/>
-		<control caption="Ouvrir le fichier"/>
-		<control caption="Voir la bibliothèque"/>
+		<control caption="Voir"/>
+		<control caption="Ouvrir"/>
 		<control caption="Arrêter"/>
-		<control caption="Masquer"/>
+		<control caption="Fermer"/>
+		<control caption="Fermer cette fenêtre à la fin du téléchargement"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Général">
 		<control caption="Universal Resource Names (URN)"/>
@@ -4421,6 +4427,13 @@
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Sélectionnez">
+		<control caption="Sélectionner une file:"/>
+		<control/>
+		<control caption="Valider"/>
+		<control caption="Annuler"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Nom du canal|Raison">
 		<control/>
 		<control caption="Valider"/>
@@ -4565,7 +4578,6 @@
 		<column from="Filename" to="Nom de fichier"/>
 		<column from="Size" to="Taille"/>
 		<column from="Status" to=""/>
-		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Traqueur"/>

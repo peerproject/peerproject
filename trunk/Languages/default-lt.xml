@@ -1041,16 +1041,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Atv_erti ar vykdyti"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Įt_raukti į grojaraštį"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Atverti _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Val_yti"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Kopijuoti _nuorodą"/>
-		<item id="ID_DOWNLOADS_EDIT" text="_Aprašas"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Trinti failą"/>
 		<item id="ID_DOWNLOADS_RATE" text="Įve_rtinti failą..."/>
+		<item id="ID_DOWNLOADS_URI" text="Kopijuoti _nuorodą"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Aprašas"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Atverti"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Atverti _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Nutraukti skleidimą"/>
 		<item id="ID_DOWNLOADS_HELP" text="Ži_nynas..."/>
 		<separator/>
@@ -1065,7 +1067,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Savai_minis valymas"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Atverti _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Tęsti visus"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Stabdyti visus"/>
@@ -1097,6 +1099,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Leisti dabar"/>
 		<item id="ID_UPLOADS_CLEAR" text="Š_alinti"/>
+		<item id="ID_UPLOADS_FOLDER" text="Atverti _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Rodyti naudotojo duomenis"/>
 		<item id="ID_UPLOADS_CHAT" text="_Kalbėtis su naudotoju"/>
@@ -1108,9 +1111,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Savai_minis valymas"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="Ži_nynas..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Valyti baigtus"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Savai_minis valymas"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="Ži_nynas..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Rodyti _viską"/>
@@ -3980,25 +3984,25 @@
 		<control caption="Atšaukti"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Siunčiamas failas : „PeerProject“">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Siunčiamas failas">
 		<control caption="„PeerProject“ parsisiunčia:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Bendra siuntimo sparta:"/>
+		<control caption="Šaltinių skaičius:"/>
 		<control caption="..."/>
 		<control caption="Apytiksliai likę laiko:"/>
 		<control caption="..."/>
+		<control caption="Bendra siuntimo sparta:"/>
+		<control caption="..."/>
 		<control caption="Parsisiuntimo apimtis:"/>
 		<control caption="..."/>
-		<control caption="Šaltinių skaičius:"/>
-		<control caption="..."/>
-		<control caption="Užverti šį langą, kai parsisiuntimas bus baigtas"/>
-		<control caption="Atverti failą"/>
 		<control caption="Rodyti kolekciją"/>
+		<control caption="Atverti failą"/>
 		<control caption="Atšaukti siuntimą"/>
 		<control caption="Slėpti"/>
+		<control caption="Užverti šį langą, kai parsisiuntimas bus baigtas"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Bendra">
 		<control caption="Universalūs ištekliaus vardai (URNs)"/>
@@ -4417,6 +4421,13 @@
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Pasirinksite">
+		<control caption="Pasirinkite File:"/>
+		<control/>
+		<control caption="Gerai"/>
+		<control caption="Atšaukti"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Kanalo pavadinimas|Priežastis">
 		<control/>
 		<control caption="Gerai"/>
@@ -4558,7 +4569,6 @@
 		<column from="Filename" to="Failo vardas"/>
 		<column from="Size" to="Dydis"/>
 		<column from="Status" to="Būklė"/>
-		<column from="Priority" to="Tipas"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Seklys"/>

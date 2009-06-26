@@ -59,7 +59,6 @@ class CDatagramIn;
 class CDatagramOut;
 class CBENode;
 
-
 class CDatagrams
 {
 // Construction
@@ -77,7 +76,7 @@ protected:
 	CBuffer*	m_pBufferBuffer;	// Output buffers
 	DWORD		m_nBufferBuffer;	// Number of output buffers (Settings.Gnutella2.UdpBuffers)
 	CBuffer*	m_pBufferFree;		// List of free output buffers
-	DWORD		m_nBufferFree;		// Number of items in list of free output buffers
+	DWORD		m_nBufferFree;		// Number of free output buffer items in list
 protected:
 	CDatagramIn*	m_pInputBuffer;
 	DWORD			m_nInputBuffer;
@@ -103,7 +102,7 @@ public:
 	DWORD				m_nOutPackets;
 private:
 	// Buffer for current incoming UDP packet. It's global since
-	// CDatagrams process one packet at once only. Maximal UDP size 64KB.
+	// CDatagrams processes one packet at once only. Maximum UDP size 64KB.
 	BYTE		m_pReadBuffer[ 65536 ];
 
 // Operations

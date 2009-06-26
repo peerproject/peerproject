@@ -253,6 +253,7 @@
 				PrecompiledHeaderThrough="StdAfx.h"
 				PrecompiledHeaderFile="$(IntDir)/$(ProjectName).pch"
 				WarningLevel="4"
+				DebugInformationFormat="3"
 				DisableSpecificWarnings="4710;4711;4738"
 			/>
 			<Tool
@@ -351,7 +352,9 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StdAfx.h"
 				PrecompiledHeaderFile="$(IntDir)/$(ProjectName).pch"
+				ProgramDataBaseFileName="$(IntDir)\PeerProject.pdb"
 				WarningLevel="4"
+				DebugInformationFormat="3"
 				DisableSpecificWarnings="4710;4711;4738"
 			/>
 			<Tool
@@ -4440,11 +4443,11 @@
 				>
 			</File>
 			<File
-				RelativePath="Res\Colors.ico"
+				RelativePath="Res\ColorDot.bmp"
 				>
 			</File>
 			<File
-				RelativePath="Res\ColorDot.bmp"
+				RelativePath="Res\Colors.ico"
 				>
 			</File>
 			<File
@@ -4904,6 +4907,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Data\Splash.png"
+				>
+			</File>
+			<File
 				RelativePath="Res\Star.ico"
 				>
 			</File>
@@ -4975,19 +4982,15 @@
 				RelativePath="Res\World.ico"
 				>
 			</File>
-			<File
-				RelativePath="..\Data\Splash.png"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Library Files"
 			>
 			<File
-				RelativePath="..\Services\BugTrap\BugTrapU.lib"
+				RelativePath="..\Services\BugTrap\BugTrapU-x64.lib"
 				>
 				<FileConfiguration
-					Name="Debug|x64"
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -5012,10 +5015,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Services\BugTrap\BugTrapU-x64.lib"
+				RelativePath="..\Services\BugTrap\BugTrapU.lib"
 				>
 				<FileConfiguration
-					Name="Debug|Win32"
+					Name="Debug|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool

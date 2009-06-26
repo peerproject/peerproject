@@ -1023,16 +1023,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Reprodueix"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Afegeix al reproductor"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Obre _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Neteja"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Copia _URI"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Informació"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Esborra Arxiu"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Valora arxiu..."/>
+		<item id="ID_DOWNLOADS_URI" text="Copia _URI"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="Informació"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Obre"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Obre _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Atura el sembrat"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ajuda..."/>
 		<separator/>
@@ -1047,7 +1049,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Neteja aut_omàtica"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Obre _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Inicia totes"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Atura totes"/>
@@ -1079,6 +1081,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Comença ara"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Neteja"/>
+		<item id="ID_UPLOADS_FOLDER" text="Obre _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Explora usuari"/>
 		<item id="ID_UPLOADS_CHAT" text="_Parla amb l'usuari"/>
@@ -1090,9 +1093,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Neteja _automàtica"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Ajuda..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="N_eteja els completats"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Neteja aut_omàtica"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Ajuda..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Mostra _tots"/>
@@ -2617,7 +2621,7 @@
 	<string id="8179" value="(Neteja l'historial de cerca)"/>
 	<string id="8180" value="La mida min:"/>
 	<string id="8181" value="La mida max:"/>
-	<string id="8208" value="PeerProject està creant els hashs per a %Iu arxiu(s):"/>
+	<string id="8208" value="PeerProject està creant els hashs per a %Iu arxius:"/>
 	<string id="8223" value="%i dius i %i hores"/>
 	<string id="8224" value="PeerProject està descarregant:"/>
 	<string id="8225" value="Aquesta descàrrega està pausada:"/>
@@ -3876,25 +3880,25 @@
 		<control caption="Cancel·la"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Descàrrega : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Descàrrega">
 		<control caption="PeerProject està descarregant:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Velocitat de transferència:"/>
+		<control caption="Fonts:"/>
 		<control caption="..."/>
 		<control caption="Temps estimat:"/>
 		<control caption="..."/>
+		<control caption="Velocitat de transferència:"/>
+		<control caption="..."/>
 		<control caption="Volum descarregat:"/>
 		<control caption="..."/>
-		<control caption="Fonts:"/>
-		<control caption="..."/>
+		<control caption="Mostra"/>
+		<control caption="Obre"/>
+		<control caption="Cancel·la"/>
+		<control caption="Tanca"/>
 		<control caption="Tanca aquesta finestra al finalitzar"/>
-		<control caption="Obre arxiu"/>
-		<control caption="Mostra la col·lecció"/>
-		<control caption="Cancel·la la transferència"/>
-		<control caption="Oculta"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="General">
 		<control caption="Universal Resource Names (URNs)"/>
@@ -4313,6 +4317,13 @@
 		<control caption="Sí"/>
 		<control caption="Cancel·la"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selecciones>
+		<control caption="Selecciona una File:"/>
+		<control/>
+		<control caption="Sí"/>
+		<control caption="Cancel·la"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="Sí"/>
@@ -4457,7 +4468,6 @@
 		<column from="Filename" to="Nom d'arxiu"/>
 		<column from="Size" to="Mida"/>
 		<column from="Status" to="Estat"/>
-		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Rastrejador"/>

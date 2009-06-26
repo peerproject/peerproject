@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
-<!-- Translation based on default-en.xml Shareaza 2.2.2.12 -->
+<!-- Translation based on default-en.xml (Shareaza 2.2.2.12) -->
 
 <!-- This skin template represents the current PeerProject defaults. -->
 <!-- You can use this file as a basis for creating new skins, however -->
@@ -986,16 +986,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開啟或播放"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="新增至播放清單"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="開啟 Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="清除"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="複製 P2P Link (_URI)"/>
-		<item id="ID_DOWNLOADS_EDIT" text="資訊"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="刪除檔案"/>
 		<item id="ID_DOWNLOADS_RATE" text="為檔案評分..."/>
+		<item id="ID_DOWNLOADS_URI" text="複製 P2P Link (_URI)"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="資訊"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開啟"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="開啟 Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="停止做種"/>
 		<item id="ID_DOWNLOADS_HELP" text="說明..."/>
 		<separator/>
@@ -1010,7 +1012,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="自動清除"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="開啟 _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全部繼續"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全部暫停"/>
@@ -1042,6 +1044,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="立刻開始"/>
 		<item id="ID_UPLOADS_CLEAR" text="清除"/>
+		<item id="ID_UPLOADS_FOLDER" text="開啟 _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
 		<item id="ID_UPLOADS_CHAT" text="與使用者聊天"/>
@@ -1053,9 +1056,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="自動清除"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="說明..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="清除完成的上傳"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="自動清除"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="說明..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="顯示所有的"/>
@@ -1379,7 +1383,7 @@
 			<item id="ID_NETWORK_DISCONNECT" text="中斷連線"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella 1"/>
+			<item id="ID_NETWORK_G1" text="Gnutella1"/>
 			<item id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		</menu>
 		<menu text="監視器">
@@ -1550,54 +1554,7 @@
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
-	<document name="CHomeDownloadsBox" title="My Downloads" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font face="新細明體" size="14"/>
-			</style>
-		</styles>
-		<para align="center">
-			<group id="1">
-				<text>尚未下載任何檔案</text>
-				<newline gap="4"/>
-			</group>
-			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">查看下載</link>
-			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">查看下載 (一個)</link>
-			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">查看下載(%i個)</link>
-		</para>
-	</document>
-	<document name="CHomeLibraryBox" title="My Library" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font face="新細明體" size="13"/>
-			</style>
-		</styles>
-		<para align="center">
-			<group id="2">
-				<text>最近尚未下載任何新檔案</text>
-				<newline gap="8"/>
-			</group>
-			<text id="LibraryFiles" format="b">%lu </text>
-			<text>files, </text>
-			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="4"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">前往我的收藏</link>
-			<group id="1">
-				<newline gap="8"/>
-				<text>PeerProject 正在掃瞄並且處理 </text>
-				<text id="LibraryHashRemaining" format="b">%lu個</text>
-				<text>檔案.</text>
-				<newline gap="8"/>
-			</group>
-			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">點選這裡讓切細慢一點</link>
-			</group>
-			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">點選這裡讓切細快一點</link>
-			</group>
-		</para>
-	</document>
-	<document name="CHomeConnectionBox" title="Connection" leftMargin="6" topMargin="6">
+	<document name="CHomeConnectionBox" title="连接" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font face="新細明體" size="13"/>
@@ -1641,7 +1598,53 @@
 			</para>
 		</group>
 	</document>
-	<document name="CHomeUploadsBox" title="Uploads" leftMargin="6" topMargin="6">
+	<document name="CHomeLibraryBox" title="收藏" leftMargin="6" topMargin="6">
+		<styles>
+			<style name="default">
+				<font face="新細明體" size="13"/>
+			</style>
+		</styles>
+		<para align="center">
+			<group id="2">
+				<text>最近尚未下載任何新檔案</text>
+				<newline gap="8"/>
+			</group>
+			<text id="LibraryFiles" format="b">%lu </text>
+			<text>files, </text>
+			<text id="LibraryVolume" format="b">%s</text>
+			<newline gap="4"/>
+			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">前往我的收藏</link>
+			<group id="1">
+				<newline gap="8"/>
+				<text>PeerProject 正在掃瞄並且處理 </text>
+				<text id="LibraryHashRemaining" format="b">%lu個</text>
+				<text>檔案.</text>
+				<newline gap="8"/>
+			</group>
+			<group id="3">
+				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">點選這裡讓切細慢一點</link>
+			</group>
+			<group id="4">
+				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">點選這裡讓切細快一點</link>
+			</group>
+		</para>
+	</document>
+	<document name="CHomeDownloadsBox" title="下载" leftMargin="6" topMargin="6">
+		<styles>
+			<style name="default">
+				<font face="新細明體" size="13"/>
+			</style>
+		</styles>
+		<para align="center">
+			<group id="1">
+				<text>尚未下載任何檔案</text>
+				<newline gap="4"/>
+			</group>
+			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">查看下載</link>
+			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">查看下載 (一個)</link>
+			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">查看下載(%i個)</link>
+		</para>
+	</document>	<document name="CHomeUploadsBox" title="上传" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font face="新細明體" size="12"/>
@@ -3680,25 +3683,25 @@
 		<control caption="確定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="下載 : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="下載">
 		<control caption="PeerProject 正在下載:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="總計傳輸速度:"/>
+		<control caption="來源數:"/>
 		<control caption="..."/>
 		<control caption="估計剩餘時間:"/>
 		<control caption="..."/>
+		<control caption="總計傳輸速度:"/>
+		<control caption="..."/>
 		<control caption="已下載的容量:"/>
 		<control caption="..."/>
-		<control caption="來源數:"/>
-		<control caption="..."/>
-		<control caption="下載完成後關閉這個視窗"/>
-		<control caption="開啟檔案"/>
 		<control caption="檢視收藏"/>
+		<control caption="開啟檔案"/>
 		<control caption="取消下載"/>
 		<control caption="隱藏"/>
+		<control caption="下載完成後關閉這個視窗"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="一般">
 		<control caption="萬用資源名稱 (URNs)"/>
@@ -4118,6 +4121,13 @@
 		<control caption="確定"/>
 		<control caption="取消"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selection">
+		<control caption="Select File:"/>
+		<control/>
+		<control caption="確定"/>
+		<control caption="取消"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="確定"/>
@@ -4263,7 +4273,6 @@
 		<column from="Filename" to="檔案名稱" />
 		<column from="Size" to="大小" />
 		<column from="Status" to="狀態" />
-		<column from="Priority" to="類型" />
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="伺服器" />

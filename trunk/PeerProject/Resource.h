@@ -400,7 +400,7 @@
 #define IDC_LIN_SPIN                	1177
 #define IDC_DOWNLOAD_STOP           	1178
 #define IDC_LIN_TOTAL               	1179
-#define IDC_DOWNLOAD_LIBRARY        	1180
+#define IDC_DOWNLOAD_VIEW           	1180
 #define IDC_LOUT_SPIN               	1181
 #define IDC_DOWNLOAD_STATUS         	1182
 #define IDC_LOUT_TOTAL              	1183
@@ -1577,7 +1577,7 @@
 #define ID_SEARCH_DOWNLOADNOW       	32824
 #define ID_OPEN_DOWNLOADS_FOLDER    	32825
 #define ID_DOWNLOADS_RESUME         	32826
-#define ID_HOSTCACHE_BT_CACHE       	32827
+#define ID_UPLOADS_FOLDER           	32827
 #define ID_DOWNLOADS_CLEAR_COMPLETED	32828
 #define ID_DOWNLOADS_SOURCES        	32829
 #define ID_DOWNLOADS_LAUNCH         	32830
@@ -1618,6 +1618,7 @@
 #define ID_TRAFFIC_SETUP            	32865
 #define ID_TRAFFIC_CLEAR            	32866
 #define ID_TOOLS_WIZARD             	32867
+#define ID_HOSTCACHE_BT_CACHE       	32868
 #define ID_CHILD_RESTORE            	32869
 #define ID_CHILD_CLOSE              	32870
 #define ID_CHILD_MAXIMISE           	32871
@@ -1680,6 +1681,7 @@
 #define ID_DOWNLOADS_BOOST          	32944
 #define ID_TAB_HOME                 	32946
 #define ID_DOWNLOADS_LAUNCH_COPY    	32947
+#define ID_DOWNLOADS_FOLDER             32948
 #define ID_DOWNLOADS_MONITOR        	32949
 #define ID_LIBRARY_SELECT_ALL       	32950
 #define ID_SECURITY_EXPORT          	32951
