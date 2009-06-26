@@ -1051,16 +1051,18 @@ gap i newline
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="‪_פתח או הפעל"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="‪_הוסף לרשימת השמעה"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="פתח _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="‪_נקה"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="‪...URI העתק"/>
-		<item id="ID_DOWNLOADS_EDIT" text="‪מידע לגבי הטורנט"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="‪_מחק קובץ"/>
 		<item id="ID_DOWNLOADS_RATE" text="‪...דרג קובץ"/>
+		<item id="ID_DOWNLOADS_URI" text="‪...URI העתק"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="‪מידע לגבי הטורנט"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="‪_פתח"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="פתח _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="‪הפסק בקשות להעלאות"/>
 		<item id="ID_DOWNLOADS_HELP" text="‪...ע_זרה"/>
 		<separator/>
@@ -1075,7 +1077,7 @@ gap i newline
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="‪נקה אוטומטית הורדות שהסתיימו"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="פתח _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="‪המשך את כל ההור_דות"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="‪ה_שהה את כל ההורדות"/>
@@ -1107,6 +1109,7 @@ gap i newline
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="‪_התחל כעת"/>
 		<item id="ID_UPLOADS_CLEAR" text="‪_נקה"/>
+		<item id="ID_UPLOADS_FOLDER" text="פתח _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="‪_עיין בקבצי המשתמש"/>
 		<item id="ID_UPLOADS_CHAT" text="‪_שוחח עם המשתמש"/>
@@ -1118,9 +1121,10 @@ gap i newline
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="‪נקה אוטומטית הורדות שהסתיימו"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="‪...ע_זרה"/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="‪נקה הורדות שהסתיימו"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="‪נקה אוטומטית הורדות שהסתיימו"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="‪...ע_זרה"/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="‪הצג הכל"/>
@@ -2522,7 +2526,7 @@ gap i newline
 	<string id="8179" value="‪(נקה את היסטוריית החיפוש)"/>
 	<string id="8180" value="‪:גודל הקובץ"/>
 	<string id="8181" value="‪:גודל הקובץ"/>
-	<string id="8208" value="‪PeerProject is creating hashes for %i file(s):" />
+	<string id="8208" value="‪PeerProject is creating hashes for %Iu files:" />
 	<string id="8223" value="&#8235;%i ימים %i שעות"/>
 	<string id="8224" value="‪:שרזה מוריד"/>
 	<string id="8225" value="‪:הורדה זו מושהת"/>
@@ -3555,19 +3559,19 @@ gap i newline
 		<control/>
 		<control/>
 		<control/>
-		<control caption=":הורדה כוללת"/>
+		<control caption=":מספר מקורות"/>
 		<control caption="..."/>
 		<control caption=":זמן שנותר"/>
 		<control caption="..."/>
+		<control caption=":הורדה כוללת"/>
+		<control caption="..."/>
 		<control caption=":גודל שהורד"/>
 		<control caption="..."/>
-		<control caption=":מספר מקורות"/>
-		<control caption="..."/>
-		<control caption="סגור את חלון זה כשההורדה מסתיימת"/>
-		<control caption="פתח קובץ"/>
 		<control caption="תצוגת ספריה"/>
+		<control caption="פתח קובץ"/>
 		<control caption="בטל הורדה"/>
 		<control caption="הסתר"/>
+		<control caption="סגור את חלון זה כשההורדה מסתיימת"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="כללי">
 		<control caption="שמות משאבים אוניברסליים (URNs)"/>
@@ -3992,6 +3996,13 @@ gap i newline
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selection">
+		<control caption="Select File:"/>
+		<control/>
+		<control caption="אישור"/>
+		<control caption="ביטול"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="אישור"/>
@@ -4130,7 +4141,6 @@ gap i newline
 		<column from="Filename" to="שם קובץ"/>
 		<column from="Size" to="גודל"/>
 		<column from="Status" to="מצב"/>
-		<column from="Priority" to="סוג"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="גשש"/>

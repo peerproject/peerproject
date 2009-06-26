@@ -117,8 +117,8 @@
 	<resource code="32824" id="ID_SEARCH_DOWNLOADNOW"/>
 	<resource code="32825" id="ID_OPEN_DOWNLOADS_FOLDER"/>
 	<resource code="32826" id="ID_DOWNLOADS_RESUME"/>
-	<resource code="32827" id="ID_HOSTCACHE_BT_CACHE"/>
-	<resource code="32828" id="ID_DOWNLOADS_CLEAR_COMPLETED"/>
+  <resource code="32827" id="ID_UPLOADS_FOLDER"/>
+  <resource code="32828" id="ID_DOWNLOADS_CLEAR_COMPLETED"/>
 	<resource code="32829" id="ID_DOWNLOADS_SOURCES"/>
 	<resource code="32830" id="ID_DOWNLOADS_LAUNCH"/>
 	<resource code="32831" id="ID_DOWNLOADS_CLEAR"/>
@@ -158,7 +158,8 @@
 	<resource code="32865" id="ID_TRAFFIC_SETUP"/>
 	<resource code="32866" id="ID_TRAFFIC_CLEAR"/>
 	<resource code="32867" id="ID_TOOLS_WIZARD"/>
-	<resource code="32869" id="ID_CHILD_RESTORE"/>
+  <resource code="32868" id="ID_HOSTCACHE_BT_CACHE"/>
+  <resource code="32869" id="ID_CHILD_RESTORE"/>
 	<resource code="32870" id="ID_CHILD_CLOSE"/>
 	<resource code="32871" id="ID_CHILD_MAXIMISE"/>
 	<resource code="32872" id="ID_CHILD_MINIMISE"/>
@@ -220,7 +221,8 @@
 	<resource code="32944" id="ID_DOWNLOADS_BOOST"/>
 	<resource code="32946" id="ID_TAB_HOME"/>
 	<resource code="32947" id="ID_DOWNLOADS_LAUNCH_COPY"/>
-	<resource code="32949" id="ID_DOWNLOADS_MONITOR"/>
+  <resource code="32948" id="ID_DOWNLOADS_FOLDER"/>
+  <resource code="32949" id="ID_DOWNLOADS_MONITOR"/>
 	<resource code="32950" id="ID_LIBRARY_SELECT_ALL"/>
 	<resource code="32951" id="ID_SECURITY_EXPORT"/>
 	<resource code="32952" id="ID_SECURITY_IMPORT"/>

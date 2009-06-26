@@ -35,8 +35,7 @@ public:
 	CPeerProjectFile& operator=(const CPeerProjectFile& pFile);
 
 	CString				m_sName;	// Filename only
-	QWORD				m_nSize;	// Size if any:
-									// (there is no size if it equal to 0 or SIZE_UNKNOWN)
+	QWORD				m_nSize;	// Size if any: (no size if equal to 0 or SIZE_UNKNOWN)
 	Hashes::Sha1Hash	m_oSHA1;	// SHA1 (Base32)
 	Hashes::TigerHash	m_oTiger;	// TigerTree Root Hash (Base32)
 	Hashes::Ed2kHash	m_oED2K;	// ED2K (MD4, Base16)

@@ -1040,16 +1040,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Öffnen"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_In Wiedergabeliste aufnehmen"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Öffnen _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Entfernen"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="U_RI kopieren"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Properties"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Datei löschen"/>
 		<item id="ID_DOWNLOADS_RATE" text="D_atei bewerten..."/>
+		<item id="ID_DOWNLOADS_URI" text="_URI link kopieren"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="Properties"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Öffnen"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Öffnen _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Seeden beenden"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Hilfe..."/>
 		<separator/>
@@ -1064,7 +1066,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Automatisch entfernen"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Öffnen _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Alle _starten"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Alle _anhalten"/>
@@ -1096,6 +1098,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Jetzt starten"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Abbrechen"/>
+		<item id="ID_UPLOADS_FOLDER" text="Öffnen _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Benutzer _durchsuchen"/>
 		<item id="ID_UPLOADS_CHAT" text="Mit Benutzer _chatten"/>
@@ -1107,9 +1110,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Automatisch entfernen"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Hilfe..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Beendete entfernen"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Automatisch entfernen"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Hilfe..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="_Alle Uploads/Clients anzeigen"/>
@@ -2663,7 +2667,7 @@
 	<string id="8179" value="(Verlauf löschen)"/>
 	<string id="8180" value="Dateigröße Min:"/>
 	<string id="8181" value="Dateigröße Max:"/>
-	<string id="8208" value="PeerProjekt hasht %Iu Datei(en):"/>
+	<string id="8208" value="PeerProjekt hasht %Iu Daten:"/>
 	<string id="8223" value="%i Tage und %i Stunden"/>
 	<string id="8224" value="PeerProjekt lädt herunter:"/>
 	<string id="8225" value="Dieser Download wurde angehalten:"/>
@@ -3960,25 +3964,25 @@
 		<control caption="Abbrechen"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Download: PeerProjekt">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Download">
 		<control caption="PeerProjekt lädt herunter:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Übertragungsrate:"/>
+		<control caption="Anzahl Quellen:"/>
 		<control caption="..."/>
 		<control caption="Geschätzte Dauer:"/>
 		<control caption="..."/>
+		<control caption="Übertragungsrate:"/>
+		<control caption="..."/>
 		<control caption="Heruntergeladen:"/>
 		<control caption="..."/>
-		<control caption="Anzahl Quellen:"/>
-		<control caption="..."/>
-		<control caption="Dialogfeld nach Beendigung des Downloads schließen"/>
-		<control caption="Datei öffnen"/>
-		<control caption="Bibliothek"/>
+		<control caption="Show"/>
+		<control caption="Öffnen"/>
 		<control caption="Abbrechen"/>
 		<control caption="Schließen"/>
+		<control caption="Dialogfeld nach Beendigung des Downloads schließen"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Allgemein">
 		<control caption="Universal Resource Names (URNs)"/>
@@ -4397,6 +4401,13 @@
 		<control caption="OK"/>
 		<control caption="Abbrechen"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Wählen">
+		<control caption="Wählen File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Abbrechen"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -4541,7 +4552,6 @@
 		<column from="Filename" to="Dateiname"/>
 		<column from="Size" to="Größe"/>
 		<column from="Status" to="Status"/>
-		<column from="Priority" to="Typ"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Tracker"/>

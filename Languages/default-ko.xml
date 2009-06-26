@@ -1074,14 +1074,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open or Play"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Add to Playlist"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="열기 다운로드 폴더"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Clear"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Delete File"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Rate File..."/>
 		<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Properties..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open File"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
@@ -1128,6 +1132,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Start Now"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Clear"/>
+		<item id="ID_UPLOADS_FOLDER" text="Open _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
 		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
@@ -1139,9 +1144,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Clear"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Clear"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="모두보기"/>
@@ -3282,25 +3288,25 @@
 		<control caption="취소"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="다운로드 : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="다운로드">
 		<control caption="PeerProject is downloading:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Total transfer speed:"/>
-		<control caption="..."/>
-		<control caption="Estimated time remaining:"/>
-		<control caption="..."/>
-		<control caption="Volume downloaded:"/>
-		<control caption="..."/>
 		<control caption="Number of sources:"/>
 		<control caption="..."/>
-		<control caption="Close this window when the download completes"/>
-		<control caption="Open File"/>
-		<control caption="View Library"/>
-		<control caption="Cancel Download"/>
-		<control caption="Hide"/>
+		<control caption="Time remaining:"/>
+		<control caption="..."/>
+		<control caption="Transfer speed:"/>
+		<control caption="..."/>
+		<control caption="Total downloaded:"/>
+		<control caption="..."/>
+		<control caption="View"/>
+		<control caption="Open"/>
+		<control caption="Cancel"/>
+		<control caption="Close"/>
+		<control caption="Close window when completed"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="General">
 		<control caption="Universal Resource Names (URNs)"/>
@@ -3719,6 +3725,13 @@
 		<control caption="OK"/>
 		<control caption="취소"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selection">
+		<control caption="Select File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="취소"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -3852,7 +3865,6 @@
 		<column from="Filename" to="이름"/>
 		<column from="Size" to="크기"/>
 		<column from="Status" to="상태"/>
-		<column from="Priority" to="유형"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="트래커"/>

@@ -985,16 +985,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="打开或播放(_O)"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="加入播放列表(_A)"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="打开 Folder(_F)"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="清除(_C)"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="复制 URI(_U)"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Torrent 信息"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="删除文件(_D)"/>
 		<item id="ID_DOWNLOADS_RATE" text="文件评级(_R)..."/>
+		<item id="ID_DOWNLOADS_URI" text="复制 URI(_U)"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="信息"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="打开(_O)"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="打开 Folder(_F)"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="停止做种(_S)"/>
 		<item id="ID_DOWNLOADS_HELP" text="帮助(_H)..."/>
 		<separator/>
@@ -1009,7 +1011,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="自动清除(_O)"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="打开 Folder(_F)"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全部续传(_R)"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全部暂停(_A)"/>
@@ -1041,6 +1043,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="立即开始(_S)"/>
 		<item id="ID_UPLOADS_CLEAR" text="清除(_C)"/>
+		<item id="ID_UPLOADS_FOLDER" text="打开 Folder(_F)"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="浏览用户(_B)"/>
 		<item id="ID_UPLOADS_CHAT" text="与用户聊天(_C)"/>
@@ -1052,9 +1055,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="自动清除(_O)"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="帮助(_H)..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="清除完成文件(_L)"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="自动清除(_O)"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="帮助(_H)..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="显示全部"/>
@@ -1549,53 +1553,6 @@
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
-	<document name="CHomeDownloadsBox" title="下载" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font face="Tahoma" size="11"/>
-			</style>
-		</styles>
-		<para align="center">
-			<group id="1">
-				<text>您还没有下载任何文件。</text>
-				<newline gap="4"/>
-			</group>
-			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">切换到下载</link>
-			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">切换到下载 (1)</link>
-			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">切换到下载 (%i)</link>
-		</para>
-	</document>
-	<document name="CHomeLibraryBox" title="收藏" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font face="Tahoma" size="11"/>
-			</style>
-		</styles>
-		<para align="center">
-			<group id="2">
-				<text>您最近没有下载新的文件。</text>
-				<newline gap="8"/>
-			</group>
-			<text id="LibraryFiles" format="b">%lu</text>
-			<text>个文件，</text>
-			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="0"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">切换到收藏</link>
-			<group id="1">
-				<newline gap="8"/>
-				<text>PeerProject 正在扫描和处理</text>
-				<text id="LibraryHashRemaining" format="b">%lu</text>
-				<text>个文件。</text>
-				<newline gap="8"/>
-			</group>
-			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">点击这里加快 Hash</link>
-			</group>
-			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">点击这里减慢 Hash</link>
-			</group>
-		</para>
-	</document>
 	<document name="CHomeConnectionBox" title="连接" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
@@ -1640,6 +1597,53 @@
 			</para>
 		</group>
 	</document>
+	<document name="CHomeLibraryBox" title="收藏" leftMargin="6" topMargin="6">
+		<styles>
+			<style name="default">
+				<font face="Tahoma" size="11"/>
+			</style>
+		</styles>
+		<para align="center">
+			<group id="2">
+				<text>您最近没有下载新的文件。</text>
+				<newline gap="8"/>
+			</group>
+			<text id="LibraryFiles" format="b">%lu</text>
+			<text>个文件，</text>
+			<text id="LibraryVolume" format="b">%s</text>
+			<newline gap="0"/>
+			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">切换到收藏</link>
+			<group id="1">
+				<newline gap="8"/>
+				<text>PeerProject 正在扫描和处理</text>
+				<text id="LibraryHashRemaining" format="b">%lu</text>
+				<text>个文件。</text>
+				<newline gap="8"/>
+			</group>
+			<group id="3">
+				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">点击这里加快 Hash</link>
+			</group>
+			<group id="4">
+				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">点击这里减慢 Hash</link>
+			</group>
+		</para>
+	</document>
+	<document name="CHomeDownloadsBox" title="下载" leftMargin="6" topMargin="6">
+		<styles>
+			<style name="default">
+				<font face="Tahoma" size="11"/>
+			</style>
+		</styles>
+		<para align="center">
+			<group id="1">
+				<text>您还没有下载任何文件。</text>
+				<newline gap="4"/>
+			</group>
+			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">切换到下载</link>
+			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">切换到下载 (1)</link>
+			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">切换到下载 (%i)</link>
+		</para>
+	</document>
 	<document name="CHomeUploadsBox" title="上传" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
@@ -1656,7 +1660,7 @@
 			<text id="UploadedMany">您上传了 %i 个文件 (%s)。</text>
 		</para>
 	</document>
-	<document name="CHomeTorrentsBox" title="Torrent" leftMargin="6" topMargin="6">
+	<document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font face="Tahoma" size="11"/>
@@ -3733,25 +3737,25 @@
 		<control caption="确定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="下载 : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="下载">
 		<control caption="PeerProject 正在下载:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="总体传送速度:"/>
+		<control caption="已知资源数量:"/>
 		<control caption="..."/>
 		<control caption="估计剩余时间:"/>
 		<control caption="..."/>
+		<control caption="总体传送速度:"/>
+		<control caption="..."/>
 		<control caption="完成下载数量:"/>
 		<control caption="..."/>
-		<control caption="已知资源数量:"/>
-		<control caption="..."/>
-		<control caption="下载完毕后关闭此窗口"/>
-		<control caption="打开文件"/>
 		<control caption="查看收藏"/>
+		<control caption="打开文件"/>
 		<control caption="停止下载"/>
 		<control caption="隐藏"/>
+		<control caption="下载完毕后关闭此窗口"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="常规">
 		<control caption="通用资源名称 (URN)"/>
@@ -4170,6 +4174,13 @@
 		<control caption="确定"/>
 		<control caption="取消"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selection">
+		<control caption="Select File:"/>
+		<control/>
+		<control caption="确定"/>
+		<control caption="取消"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="确定"/>
@@ -4314,7 +4325,6 @@
 		<column from="Filename" to="文件名"/>
 		<column from="Size" to="大小"/>
 		<column from="Status" to="状态"/>
-		<column from="Priority" to="类型"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="伺服器"/>

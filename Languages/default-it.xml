@@ -1016,16 +1016,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Apri/Play"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Aggiungi alla playlist"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Apri _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Rimuovi"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Copia URI"/>
-		<item id="ID_DOWNLOADS_EDIT" text="_Info"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="Elimina file"/>
 		<item id="ID_DOWNLOADS_RATE" text="Valuta file..."/>
+		<item id="ID_DOWNLOADS_URI" text="Copia _URI"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Info"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Apri"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Apri _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Ferma condivisione"/>
 		<item id="ID_DOWNLOADS_HELP" text="Aiuto..."/>
 		<separator/>
@@ -1040,7 +1042,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Auto-Elimina Completati"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Apri _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Riprendi tutti"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Sospendi tutti"/>
@@ -1072,6 +1074,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="Avvia"/>
 		<item id="ID_UPLOADS_CLEAR" text="Rimuovi"/>
+		<item id="ID_UPLOADS_FOLDER" text="Apri _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Esplora utente"/>
 		<item id="ID_UPLOADS_CHAT" text="Chat"/>
@@ -1083,9 +1086,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto-Rimuovi Completati"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="Aiuto..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Rimuovi Completati"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto Rimuovi Completati"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="Aiuto..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Mostra _tutto"/>
@@ -3969,25 +3973,25 @@
 		<control caption="Annulla"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Download : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Download">
 		<control caption="PeerProject sta scaricando:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
+		<control caption="Numero di fonti:"/>
+		<control caption="..."/>
 		<control caption="Velocità di trasferimento:"/>
 		<control caption="..."/>
 		<control caption="Tempo residuo stimato:"/>
 		<control caption="..."/>
 		<control caption="Volume scaricato:"/>
 		<control caption="..."/>
-		<control caption="Numero di fonti:"/>
-		<control caption="..."/>
+		<control caption="Visualizza"/>
+		<control caption="Apri"/>
+		<control caption="Annulla"/>
+		<control caption="Chiudi"/>
 		<control caption="Chiudi questa finestra al termine del download"/>
-		<control caption="Apri file"/>
-		<control caption="Visualizza libreria"/>
-		<control caption="Annulla download"/>
-		<control caption="Nascondi"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Generale">
 		<control caption="Nome universale delle risorse (URN)"/>
@@ -4406,6 +4410,13 @@
 		<control caption="OK"/>
 		<control caption="Annulla"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selezioni">
+		<control caption="Seleziona una File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Annulla"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -4550,7 +4561,6 @@
 		<column from="Filename" to="Nome file"/>
 		<column from="Size" to="Dimensione"/>
 		<column from="Status" to="Stato"/>
-		<column from="Priority" to="Tipo"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Tracker"/>

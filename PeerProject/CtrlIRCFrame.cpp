@@ -225,9 +225,9 @@ void CIRCFrame::FillChanList()
 {
 	m_pChanList.RemoveAll();
 	m_pChanList.AddChannel( _T("-PeerProject Main"), _T("#PeerProject") );
-	m_pChanList.AddChannel( _T("-PeerProject Help"), _T("#PeerProject-Support") );
-	m_pChanList.AddChannel( _T("-PeerProject Chat"), _T("#PeerProject-Chat") );
-	m_pChanList.AddChannel( _T("-PeerProject Multilingual"), _T("#PeerProject-Multilingual") );
+	m_pChanList.AddChannel( _T("-PeerProject Help"), _T("#PeerProjectSupport") );
+	m_pChanList.AddChannel( _T("-PeerProject Chat"), _T("#PeerProjectChat") );
+	m_pChanList.AddChannel( _T("-PeerProject Multilingual"), _T("#PeerProjectMulti") );
 	m_pChanList.AddChannel( _T("Shareaza"), _T("#shareaza") );
 	m_pChanList.AddChannel( _T("Afrikaans"), _T("#PeerProject-af") );
 	m_pChanList.AddChannel( _T("Arabic"), _T("#PeerProject-ar") );
@@ -239,7 +239,7 @@ void CIRCFrame::FillChanList()
 	m_pChanList.AddChannel( _T("French"), _T("#PeerProject-fr") );
 	m_pChanList.AddChannel( _T("German"), _T("#PeerProject-de") );
 	m_pChanList.AddChannel( _T("Greek"), _T("#PeerProject-gr") );
-	m_pChanList.AddChannel( _T("Hebrew"), _T("#PeerProject-he") );
+	m_pChanList.AddChannel( _T("Hebrew"), _T("#PeerProject-heb") );
 	m_pChanList.AddChannel( _T("Hungarian"), _T("#PeerProject-hu") );
 	m_pChanList.AddChannel( _T("Italian"), _T("#PeerProject-it") );
 	m_pChanList.AddChannel( _T("Japanese"), _T("#PeerProject-ja") );
@@ -1449,9 +1449,11 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 		case ID_MESSAGE_SERVER_PING:
 		{
 			SendString(	_T("PONG ") + GetStringAfterParsedItem( 1 ) );
+#ifdef _DEBUG
 			oNewMessage->m_pMessages.Add ( _T("Ping? Pong!" ) );
 			oNewMessage->m_sTargetName	= m_sStatus;
 			oNewMessage->nColorID		= ID_COLOR_SERVERMSG;
+#endif
 			return;
 		}
 		case ID_MESSAGE_USER_MESSAGE:
@@ -1624,7 +1626,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 		    m_wndTab.GetItem( nTab, &item );
 
 			strChannelName = pszBuffer;
-			oNewMessage->m_pMessages.Add( "-" + m_pWords.GetAt( 0 ) + "- " + GetStringAfterParsedItem ( 8 ) );
+			oNewMessage->m_pMessages.Add( "-" + m_pWords.GetAt( 0 ) + "- " + GetStringAfterParsedItem ( 7 ) );
 			oNewMessage->m_sTargetName	= strChannelName;
 			oNewMessage->nColorID		= ID_COLOR_NOTICE;
 			return;
@@ -1752,12 +1754,15 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 		}
 		case ID_MESSAGE_CHANNEL_QUIT:
 		{
-			CString strNick( m_pWords.GetAt( 0 ) ), strChannelName;
+			CString strNick( m_pWords.GetAt( 0 ) ), strTabName;
 			CString strUserMsg = GetStringAfterParsedItem ( 6 ) ;
 			int nTab = m_wndTab.GetCurSel();
 			int nListUser = FindInList( strNick );
-			if ( nTab == m_wndTab.GetCurSel() && nListUser != -1 )
-					m_wndPanel.m_boxUsers.m_wndUserList.DeleteString( nListUser );
+			if ( nListUser != -1 )
+			{
+				m_wndPanel.m_boxUsers.m_wndUserList.DeleteString( nListUser );
+				SortUserList();
+			}
 
 			TCHAR pszBuffer[ 20 ];
 			TCITEM item;
@@ -1765,23 +1770,39 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 			item.pszText = pszBuffer;
 			item.cchTextMax = sizeof(pszBuffer) / sizeof(TCHAR);
 		    m_wndTab.GetItem( nTab, &item );
-			strChannelName = pszBuffer;
+			strTabName = pszBuffer;
 
-			SortUserList();
-			FillCountChanList( "-1", strChannelName );
+			FillCountChanList( "-1", strTabName );
 			oNewMessage->m_pMessages.Add( "* " + strNick + " has Quit: ( " + strUserMsg + " ) " );
-			oNewMessage->m_sTargetName	= strChannelName;
+			oNewMessage->m_sTargetName	= strTabName;	//By setting TargetName message will be shown in that tab, plus all channel windows.
 			oNewMessage->nColorID		= ID_COLOR_SERVERMSG;
+
+			// Was that PM window?
+			bool bOurBuddy = strNick == strTabName;
+
 			for ( nTab = 1 ; nTab < m_nBufferCount ; nTab++ )
 			{
 				nListUser = FindInList( strNick, 2, nTab );
-				if ( nListUser != -1 )
+				m_wndTab.GetItem( nTab, &item );
+				if ( nListUser != -1 || strNick == pszBuffer )
 				{
+					if ( nListUser != -1 )
 					m_pIrcUsersBuffer[ nTab ].RemoveAt( nListUser );
-					if ( m_wndTab.GetCurSel() != nTab )
-						m_pIrcBuffer[ nTab ].Add( char(ID_COLOR_SERVERMSG) + oNewMessage->m_pMessages.GetAt( 0 ) );
+					else 
+					{
+						bOurBuddy = true;
+						oNewMessage->m_sTargetName = strNick;
+						continue;
+					}
+					// Add quit message to the channel window where the user was active
+					m_pIrcBuffer[ nTab ].Add( char(ID_COLOR_SERVERMSG) + oNewMessage->m_pMessages.GetAt( 0 ) );
 				}
 			}
+
+			// Don't add server message to PM window if that was other user
+			if ( ! bOurBuddy )
+				oNewMessage->m_sTargetName.Empty();
+
 			return;
 		}
 		case ID_MESSAGE_CLIENT_JOIN:
@@ -1816,9 +1837,7 @@ void CIRCFrame::ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMess
 		}
 		case ID_MESSAGE_SERVER_DISCONNECT:
 		{
-			oNewMessage->m_pMessages.Add( GetStringAfterParsedItem( 0 ) );
-			oNewMessage->m_sTargetName	= m_sStatus;
-			oNewMessage->nColorID		= ID_COLOR_SERVERMSG;
+			OnStatusMessage( GetStringAfterParsedItem( FindParsedItem( ":", 2 ) ), ID_COLOR_SERVERMSG );
 			OnIrcDisconnect();
 			return;
 		}
@@ -2462,11 +2481,11 @@ void CIRCFrame::UserListDblClick()
 	TabClick();
 }
 
+static const wchar_t IrcModeChars[] = { '@', '%', '+', '~', '&' };
+
 CString CIRCFrame::RemoveModeOfNick(CString strNick) const
 {
-	if ( strNick.Mid( 0, 1 ) == "@" || strNick.Mid( 0, 1 ) == "%" || strNick.Mid( 0, 1 ) == "+" )
-		strNick = strNick.Mid( 1 );
-	return strNick;
+	return strNick.TrimLeft( IrcModeChars );
 }
 
 int CIRCFrame::IsUserInList(CString strUser)

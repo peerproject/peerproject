@@ -1008,16 +1008,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Openen of afspelen"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Toevoegen aan afspeellijst"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Openen _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Wissen"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="_URI kopiëren"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Torrent_informatie"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="Bestand _verwijderen"/>
 		<item id="ID_DOWNLOADS_RATE" text="Bestand _beoordelen..."/>
+		<item id="ID_DOWNLOADS_URI" text="_URI kopiëren"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Informatie"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Openen"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Openen _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop het uitzaaien"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
@@ -1032,7 +1034,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Automatisch wissen"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Openen _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Alles _hervatten"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Alles _pauzeren"/>
@@ -1064,6 +1066,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="Nu _starten"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Wissen"/>
+		<item id="ID_UPLOADS_FOLDER" text="Openen _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Gebruiker _bekijken"/>
 		<item id="ID_UPLOADS_CHAT" text="_Chatten met gebruiker"/>
@@ -1075,9 +1078,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Automatisch wissen"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Wis voltooide bestanden"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="A_utomatisch wissen"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="_Alles tonen"/>
@@ -3896,25 +3900,25 @@
 		<control caption="Annuleren"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Download: PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Download">
 		<control caption="PeerProject is bezig met downloaden:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Totale downloadsnelheid:"/>
+		<control caption="Aantal bronnen:"/>
 		<control caption="..."/>
-		<control caption="Geschatte overgebleven tijd:"/>
+		<control caption="Geschatte tijd:"/>
+		<control caption="..."/>
+		<control caption="Downloadsnelheid:"/>
 		<control caption="..."/>
 		<control caption="Al gedownload:"/>
 		<control caption="..."/>
-		<control caption="Aantal bronnen:"/>
-		<control caption="..."/>
+		<control caption="Ga naar"/>
+		<control caption="Open"/>
+		<control caption="Stop"/>
+		<control caption="Sluiten"/>
 		<control caption="Dit venster sluiten als de download voltooid is"/>
-		<control caption="Open bestand"/>
-		<control caption="Ga naar bibliotheek"/>
-		<control caption="Stop download"/>
-		<control caption="Verbergen"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Algemeen">
 		<control caption="Universele bronnamen (URNs)"/>
@@ -4333,6 +4337,13 @@
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selecteren">
+		<control caption="Selecteer een File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Annuleren"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -4477,7 +4488,6 @@
 		<column from="Filename" to="Bestandsnaam"/>
 		<column from="Size" to="Grootte"/>
 		<column from="Status" to=""/>
-		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

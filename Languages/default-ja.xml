@@ -990,16 +990,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開く・再生(_O)"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="再生リストに追加(_A)"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="開くFolder(_F)"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="クリア(_C)"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="URIをコピー(_U)"/>
-		<item id="ID_DOWNLOADS_EDIT" text="情報"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="削除(_D)"/>
 		<item id="ID_DOWNLOADS_RATE" text="ファイルを評価(_R)..."/>
+		<item id="ID_DOWNLOADS_URI" text="URIをコピー(_U)"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="情報(_I)"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開く(_O)"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="開くFolder(_F)"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="シード停止(_S)"/>
 		<item id="ID_DOWNLOADS_HELP" text="ヘルプ(_H)..."/>
 		<separator/>
@@ -1014,7 +1016,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="自動クリア処理(_O)"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="開くFolder(_F)"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全て再開(_R)"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全て一時停止(_A)"/>
@@ -1046,6 +1048,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="すぐに開始(_S)"/>
 		<item id="ID_UPLOADS_CLEAR" text="クリア(_C)"/>
+		<item id="ID_UPLOADS_FOLDER" text="開くFolder(_F)"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="参照(_B)"/>
 		<item id="ID_UPLOADS_CHAT" text="チャット(_C)"/>
@@ -1057,9 +1060,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="自動クリア処理(_O)"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="ヘルプ(_H)..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="完了済みをクリア(_L)"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="自動クリア処理(_O)"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="ヘルプ(_H)..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="全て表示"/>
@@ -3798,25 +3802,25 @@
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="ダウンロード : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="ダウンロード">
 		<control caption="PeerProjectはダウンロード中です:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="総転送速度:"/>
+		<control caption="ソース数:"/>
 		<control caption="..."/>
 		<control caption="予想残り時間:"/>
 		<control caption="..."/>
+		<control caption="総転送速度:"/>
+		<control caption="..."/>
 		<control caption="ダウンロード量:"/>
 		<control caption="..."/>
-		<control caption="ソース数:"/>
-		<control caption="..."/>
-		<control caption="ダウンロード完了時にこのウィンドウを閉じる"/>
-		<control caption="ファイルを開く"/>
 		<control caption="ライブラリを表示"/>
+		<control caption="ファイルを開く"/>
 		<control caption="キャンセル"/>
 		<control caption="非表示"/>
+		<control caption="ダウンロード完了時にこのウィンドウを閉じる"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="一般">
 		<control caption="ユニバーサルリソース名(URN)"/>
@@ -4235,12 +4239,19 @@
 		<control caption="OK"/>
 		<control caption="キャンセル(_C)"/>
 	</dialog>
-<!--<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selection">
+		<control caption="Select File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="キャンセル(_C)"/>
+		<control/>
+	</dialog>
+	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
 		<control caption="キャンセル(_C)"/>
 		<control caption="Enter channel you want to add:|Enter kick/ban reason:"/>
-	</dialog>-->
+	</dialog>
 	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="ダウンロードレビュー">
 		<control/>
 		<control caption="OK"/>
@@ -4380,7 +4391,6 @@
 		<column from="Filename" to="ファイル名"/>
 		<column from="Size" to="サイズ"/>
 		<column from="Status" to="状態"/>
-		<column from="Priority" to="種類"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="トラッカー"/>

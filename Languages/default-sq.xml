@@ -1039,16 +1039,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Hape/Lexo"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Shtoje në Listë"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Aç _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Pastro"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Kopjo _URIn"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Fshije Skedën"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Vlerëso Skedën..."/>
+		<item id="ID_DOWNLOADS_URI" text="Kopjo _URIn"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="Info"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Hape"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Aç _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Ndale Mbjelljen"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ndihmë..."/>
 		<separator/>
@@ -1063,7 +1065,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Auto_pastro"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Aç _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Rimerre Gjithçka"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_usho Gjithçka"/>
@@ -1095,6 +1097,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Fillo Tani"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Pastro"/>
+		<item id="ID_UPLOADS_FOLDER" text="Aç _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Shfleto"/>
 		<item id="ID_UPLOADS_CHAT" text="_Bisedo"/>
@@ -1106,9 +1109,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto_pastro"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Ndihmë..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="P_astro të Përfunduarit"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto_pastro"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Ndihmë..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Trego _Gjithçka"/>
@@ -3700,25 +3704,25 @@
 		<control caption="Anulo"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Shkarko : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Shkarko">
 		<control caption="PeerProject po shkarkon:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Shpejtësi:"/>
+		<control caption="Burime:"/>
 		<control caption="..."/>
 		<control caption="Kohë e mbetur:"/>
 		<control caption="..."/>
+		<control caption="Shpejtësi:"/>
+		<control caption="..."/>
 		<control caption="Në shkarkim:"/>
 		<control caption="..."/>
-		<control caption="Burime:"/>
-		<control caption="..."/>
-		<control caption="Mbylle dritaren kur shkarkimi përfundon"/>
+		<control caption="Shiko"/>
 		<control caption="Hape Skedën"/>
-		<control caption="Shiko Librarinë"/>
 		<control caption="Anuloje"/>
 		<control caption="Fshehe"/>
+		<control caption="Mbylle dritaren kur shkarkimi përfundon"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Përgjithësi">
 		<control caption="Emri Burimor Universal (URN)"/>
@@ -4136,6 +4140,13 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Zgjidhni">
+		<control caption="Zgjidhni një File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Anulo"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -4280,7 +4291,6 @@
 		<column from="Filename" to="Emri i skedës"/>
 		<column from="Size" to="Masa"/>
 		<column from="Status" to="Statusi"/>
-		<column from="Priority" to="Lloji"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Gjurmuesi"/>

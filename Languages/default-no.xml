@@ -971,16 +971,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Åpne eller spill av"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Legg til spilleliste"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Åpne _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Fjern"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Kopier URI"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Informasjon"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="Slett fil"/>
 		<item id="ID_DOWNLOADS_RATE" text="Gi karakter"/>
+		<item id="ID_DOWNLOADS_URI" text="Kopier URI"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="Informasjon"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Åpne"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Åpne _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stopp spreding"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Hjelp..."/>
 		<separator/>
@@ -995,7 +997,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Fjern ferdige automatisk"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Åpne _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Fortsett alle"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Pause alle"/>
@@ -1027,6 +1029,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="Start nå"/>
 		<item id="ID_UPLOADS_CLEAR" text="Fjern"/>
+		<item id="ID_UPLOADS_FOLDER" text="Åpne _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Utforsk bruker"/>
 		<item id="ID_UPLOADS_CHAT" text="Snakk med bruker"/>
@@ -1038,9 +1041,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Fjern ferdige automatisk"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Hjelp..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Fjern ferdige"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Fjern ferdige automatisk"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Hjelp..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Vis alle"/>
@@ -3708,25 +3712,25 @@
 		<control caption="Avbryt"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Nedlasting : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Nedlasting">
 		<control caption="PeerProject laster ned:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Hastighet:"/>
+		<control caption="Antall kilder:"/>
 		<control caption="..."/>
 		<control caption="Gjenstående tid:"/>
 		<control caption="..."/>
+		<control caption="Hastighet:"/>
+		<control caption="..."/>
 		<control caption="Lastet ned:"/>
 		<control caption="..."/>
-		<control caption="Antall kilder:"/>
-		<control caption="..."/>
-		<control caption="Lukk dette vinduet når filen er ferdig"/>
-		<control caption="Åpne filen"/>
-		<control caption="Vis mine filer"/>
+		<control caption="Vis"/>
+		<control caption="Åpne"/>
 		<control caption="Avbryt"/>
 		<control caption="Skjul"/>
+		<control caption="Lukk dette vinduet når filen er ferdig"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Generelt">
 		<control caption="Universelt Ressurs Navn (URN)"/>
@@ -4145,6 +4149,13 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Velger">
+		<control caption="Velg File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Avbryt"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -4289,7 +4300,6 @@
 		<column from="Filename" to="Filnavn"/>
 		<column from="Size" to="Størrelse"/>
 		<column from="Status" to=""/>
-		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

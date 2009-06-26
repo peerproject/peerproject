@@ -115,10 +115,12 @@ BEGIN_MESSAGE_MAP(CDownloadsWnd, CPanelWnd)
 	ON_COMMAND(ID_BROWSE_LAUNCH, OnBrowseLaunch)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_BOOST, OnUpdateDownloadsBoost)
 	ON_COMMAND(ID_DOWNLOADS_BOOST, OnDownloadsBoost)
-	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_LAUNCH_COPY, OnUpdateDownloadsLaunchCopy)
-	ON_COMMAND(ID_DOWNLOADS_LAUNCH_COPY, OnDownloadsLaunchCopy)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_MONITOR, OnUpdateDownloadsMonitor)
 	ON_COMMAND(ID_DOWNLOADS_MONITOR, OnDownloadsMonitor)
+	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_FOLDER, OnUpdateDownloadsFolder)
+	ON_COMMAND(ID_DOWNLOADS_FOLDER, OnDownloadsFolder)
+	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_LAUNCH_COPY, OnUpdateDownloadsLaunchCopy)
+	ON_COMMAND(ID_DOWNLOADS_LAUNCH_COPY, OnDownloadsLaunchCopy)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_FILE_DELETE, OnUpdateDownloadsFileDelete)
 	ON_COMMAND(ID_DOWNLOADS_FILE_DELETE, OnDownloadsFileDelete)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_RATE, OnUpdateDownloadsRate)
@@ -1502,15 +1504,40 @@ void CDownloadsWnd::OnBrowseLaunch()
 	}
 }
 
-void CDownloadsWnd::OnUpdateDownloadsShowSources(CCmdUI* pCmdUI)
+void CDownloadsWnd::OnUpdateDownloadsFolder(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( Settings.Downloads.ShowSources );
+	Prepare();
+	pCmdUI->Enable( m_bSelDownload );
 }
 
-void CDownloadsWnd::OnDownloadsShowSources()
+void CDownloadsWnd::OnDownloadsFolder()
 {
-	Settings.Downloads.ShowSources = ! Settings.Downloads.ShowSources;
-	Update();
+	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
+	{
+		CDownload* pDownload = Downloads.GetNext( pos );
+		if ( pDownload->m_bSelected && ( pDownload->IsCompleted() || pDownload->IsSeeding() ) )
+		{
+			CString strPath = pDownload->GetPath( 0 );
+
+			if ( pDownload->GetFileCount() == 1 )
+			{
+				ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), "/select, " + strPath, NULL, SW_SHOWNORMAL );
+			}
+			else
+			{
+				CString strName = pDownload->m_sName;
+				if ( strPath.Find( strName ) > 1 )
+					strPath = strPath.Left( strPath.Find( strName ) + strName.GetLength() );
+				else
+					strPath = strPath.Left( strPath.ReverseFind( '\\' ) + 1 );
+
+				if ( PathIsDirectory( strPath ) )
+					ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
+			}
+		}
+	}
+	pLock.Unlock();
 }
 
 void CDownloadsWnd::OnUpdateDownloadsFileDelete(CCmdUI* pCmdUI)
@@ -1612,6 +1639,17 @@ void CDownloadsWnd::OnDownloadsRate()
 
 	dlg.DoModal( 2 );
 
+	Update();
+}
+
+void CDownloadsWnd::OnUpdateDownloadsShowSources(CCmdUI* pCmdUI)
+{
+	pCmdUI->SetCheck( Settings.Downloads.ShowSources );
+}
+
+void CDownloadsWnd::OnDownloadsShowSources()
+{
+	Settings.Downloads.ShowSources = ! Settings.Downloads.ShowSources;
 	Update();
 }
 

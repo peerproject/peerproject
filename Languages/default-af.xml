@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Afrikaans Skin File -->
-<!-- Translation based on default-en.xml (Shareaza SVN r7300) -->
+<!-- Translation based on default-en.xml -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
 <!-- This skin template represents the current PeerProject defaults. -->
@@ -1047,15 +1047,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open of Speel"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Voeg by Medialys"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Maak Skoon"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="_Kopieer URI"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Skrap Lêer"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Gradeer Lêer..."/>
+		<item id="ID_DOWNLOADS_URI" text="_Kopieer URI"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Eienskappe..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Hou op Saai"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Hulp..."/>
 		<separator/>
@@ -1102,6 +1105,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Begin Dadelik Oplaai"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Kanselleer Oplaai"/>
+		<item id="ID_UPLOADS_FOLDER" text="Open _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Blaai deur Gebruikersinligting"/>
 		<item id="ID_UPLOADS_CHAT" text="_Gesels met Gebruiker"/>
@@ -1113,9 +1117,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Maak _Outomaties Skoon"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Hulp..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Verwyder _Voltooide Oplaaie"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Maak _Outomaties Skoon"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Hulp..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Vertoon Alles"/>
@@ -2665,7 +2670,7 @@
 	<string id="8179" value="(Maak Soekgeskiedenis Skoon)"/>
 	<string id="8180" value="Lêergrootte Min:"/>
 	<string id="8181" value="Lêergrootte Max:"/>
-	<string id="8208" value="PeerProject prosesseer %Iu lêer(s):"/>
+	<string id="8208" value="PeerProject prosesseer %Iu lêers:"/>
 	<string id="8223" value="%i dae en %i ure"/>
 	<string id="8224" value="PeerProject is besig om af te laai:"/>
 	<string id="8225" value="Hierdie aflaai is gevries:"/>
@@ -3957,25 +3962,25 @@
 		<control caption="Kanselleer"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Aflaai : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Aflaai">
 		<control caption="PeerProject is besig om af te laai:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
+		<control caption="Aantal bronne:"/>
+		<control caption="..."/>
 		<control caption="Totale oordragspoed:"/>
 		<control caption="..."/>
 		<control caption="Verwagte tyd oor:"/>
 		<control caption="..."/>
 		<control caption="Hoeveelheid afgelaai:"/>
 		<control caption="..."/>
-		<control caption="Aantal bronne:"/>
-		<control caption="..."/>
-		<control caption="Maak hierdie venster toe wanneer aflaai voltooi het"/>
-		<control caption="Open Lêer"/>
-		<control caption="Vertoon Biblioteek"/>
+		<control caption="Open"/>
+		<control caption="Vertoon"/>
 		<control caption="Staak Aflaai"/>
 		<control caption="Steek Weg"/>
+		<control caption="Maak hierdie venster toe wanneer aflaai voltooi het"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Algemeen">
 		<control caption="Universele Hulpbronname (URNs)"/>
@@ -4395,6 +4400,13 @@
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selekteer">
+		<control caption="Select File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Kanselleer"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -4539,7 +4551,6 @@
 		<column from="Filename" to="Lêernaam"/>
 		<column from="Size" to="Grootte"/>
 		<column from="Status" to=""/>
-		<column from="Priority" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

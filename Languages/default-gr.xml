@@ -1055,16 +1055,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Άνοιγμα"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Προσθήκη στη _Λίστα Αναπαραγωγής"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Άνοιγμα _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Απόσυρση"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Αντι_γραφή URI"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Πληροφορίες"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Διαγραφή Αρχείου!"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Κριτική Αρχείου..."/>
+		<item id="ID_DOWNLOADS_URI" text="Αντι_γραφή URI"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="Πληροφορίες"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Άνοιγμα"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Άνοιγμα _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Ματαίωση Seeding"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Βοήθεια..."/>
 		<separator/>
@@ -1079,7 +1081,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Αυτόματη Απόσυρση"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Άνοιγμα _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Συνέχιση Όλων"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Παύση Όλων"/>
@@ -1111,6 +1113,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="Άμεση _Εκκίνηση"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Αφαίρεση Αποστολής"/>
+		<item id="ID_UPLOADS_FOLDER" text="Άνοιγμα _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Περι_ήγηση Χρήστη"/>
 		<item id="ID_UPLOADS_CHAT" text="_Συνομιλία με Χρήστη"/>
@@ -1122,9 +1125,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Αυτόματη Απόσυρση"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Βοήθεια..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Απόσυρση _Ολοκληρωμένων"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Αυτόματη Απόσυρση"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Βοήθεια..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Προβολή _Όλων"/>
@@ -3989,25 +3993,25 @@
 		<control caption="Άκυρο"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Λήψη : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Λήψη">
 		<control caption="Το PeerProject λαμβάνει:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Συνολική ταχύτητα μεταφοράς:"/>
+		<control caption="Αριθμός πηγών:"/>
 		<control caption="..."/>
 		<control caption="Εκτιμόμενος απομένοντας χρόνος:"/>
 		<control caption="..."/>
+		<control caption="Συνολική ταχύτητα μεταφοράς:"/>
+		<control caption="..."/>
 		<control caption="Παραληφθήσα ποσότητα:"/>
 		<control caption="..."/>
-		<control caption="Αριθμός πηγών:"/>
-		<control caption="..."/>
-		<control caption="Μετά την ολοκλήρωση της λήψης, κλείσιμο παραθύρου."/>
-		<control caption="Άνοιγμα Αρχείου"/>
 		<control caption="Εμφάνιση Βιβλιοθήκης"/>
+		<control caption="Άνοιγμα Αρχείου"/>
 		<control caption="Διαγραφή Λήψης"/>
 		<control caption="Απόκρυψη"/>
+		<control caption="Μετά την ολοκλήρωση της λήψης, κλείσιμο παραθύρου."/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Γενικά">
 		<control caption="Universal Resource Names (URNs)"/>
@@ -4425,6 +4429,13 @@
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Eπιλέξετε">
+		<control caption="Επιλογή File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Άκυρο"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Προσθήκη Καναλιού|Αιτιολόγηση">
 		<control/>
 		<control caption="OK"/>
@@ -4569,7 +4580,6 @@
 		<column from="Filename" to="Όνομα Αρχείου"/>
 		<column from="Size" to="Μέγεθος"/>
 		<column from="Status" to="Κατάσταση"/>
-		<column from="Priority" to="Τύπος"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

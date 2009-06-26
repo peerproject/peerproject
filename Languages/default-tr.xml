@@ -1043,16 +1043,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Aç/Oynat"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Oynatma Listesine Ekle"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Aç _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Temizle"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Kopyala P2P Link (_URI)"/>
-		<item id="ID_DOWNLOADS_EDIT" text="_Özellikler"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Dosya Sil"/>
 		<item id="ID_DOWNLOADS_RATE" text="Dosya indirme _Hızı..."/>
+		<item id="ID_DOWNLOADS_URI" text="Kopyala P2P Link (_URI)"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Özellikler"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Aç"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Aç _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Yükleme Durdur"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Yardım..."/>
 		<separator/>
@@ -1067,7 +1069,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Otomatik Temizle"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Aç _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Tümünü Sürdür"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Tü_münü Duraklat"/>
@@ -1099,6 +1101,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="Şi_mdi Başla"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Temizle"/>
+		<item id="ID_UPLOADS_FOLDER" text="Aç _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Kullanıcı Ara"/>
 		<item id="ID_UPLOADS_CHAT" text="_Sohbet"/>
@@ -1110,9 +1113,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Otomatik Temizle"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Yardım..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Bi_teni Temizle"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Otomatik Temizle"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Yardım..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="_Tümünü Göster"/>
@@ -3953,25 +3957,25 @@
 		<control caption="İptal"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="İndirim: PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="İndirim">
 		<control caption="PeerProject indiriyor:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Toplam Aktarım Hızı:"/>
+		<control caption="Kaynak Sayısı:"/>
 		<control caption="..."/>
 		<control caption="Kalan Tahmini Süre:"/>
 		<control caption="..."/>
+		<control caption="Toplam Aktarım Hızı:"/>
+		<control caption="..."/>
 		<control caption="İndirilen Bölüm:"/>
 		<control caption="..."/>
-		<control caption="Kaynak Sayısı:"/>
-		<control caption="..."/>
-		<control caption="İndirme tamamlandığında pencereyi kapat"/>
-		<control caption="Dosya Aç"/>
 		<control caption="Kütüphane Görüntüle"/>
+		<control caption="Dosya Aç"/>
 		<control caption="İndirme İptal"/>
-		<control caption="Gizle"/>
+		<control caption="Kapat"/>
+		<control caption="İndirme tamamlandığında pencereyi kapat"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Genel">
 		<control caption="Universal Resource Names(URNs) - Genel Kaynak İsimleri"/>
@@ -4389,6 +4393,13 @@
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Seçiniz">
+		<control caption="Seçimi File:"/>
+		<control/>
+		<control caption="Tamam"/>
+		<control caption="İptal"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="Tamam"/>
@@ -4533,7 +4544,6 @@
 		<column from="Filename" to="Dosya Adı"/>
 		<column from="Size" to="Boyut"/>
 		<column from="Status" to=""/>
-		<column from="Priority" to="Tür"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

@@ -78,6 +78,8 @@ protected:
 	afx_msg void OnUploadsDisconnect();
 	afx_msg void OnUpdateUploadsLaunch(CCmdUI* pCmdUI);
 	afx_msg void OnUploadsLaunch();
+	afx_msg void OnUpdateUploadsFolder(CCmdUI* pCmdUI);
+	afx_msg void OnUploadsFolder();
 	afx_msg void OnUpdateUploadsClear(CCmdUI* pCmdUI);
 	afx_msg void OnUploadsClear();
 	afx_msg void OnUploadsClearCompleted();

@@ -971,16 +971,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Odpri ali predvajaj"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Dodaj predvajalnemu seznamu"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Odpri _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Počisti"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Kopiraj _URI"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Informacije"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Briši datoteko"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Oceni datoteko..."/>
+		<item id="ID_DOWNLOADS_URI" text="Kopiraj _URI"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="Informacije"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Odpri"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Odpri _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Končaj sejanje (seeding)"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Pomoč..."/>
 		<separator/>
@@ -995,7 +997,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Samodejno počisti"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Odpri _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Nadaljuj vse"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_remor vsega"/>
@@ -1027,6 +1029,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Začni takoj"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Počisti"/>
+		<item id="ID_UPLOADS_FOLDER" text="Odpri _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Brskanje po uporabniku"/>
 		<item id="ID_UPLOADS_CHAT" text="_Kramljaj z uporabnikom"/>
@@ -1038,9 +1041,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Samodejno počisti"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Pomoč..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Počisti _končano"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Samodejno počisti"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Pomoč..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Pokaži vse"/>
@@ -3724,25 +3728,25 @@
 		<control caption="V redu"/>
 		<control caption="Prekliči"/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Prenesi : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Prenesi">
 		<control caption="PeerProject prenaša:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Skupna prenosna hitrost:"/>
+		<control caption="Št. virov:"/>
 		<control caption="..."/>
 		<control caption="Čas do konca:"/>
 		<control caption="..."/>
+		<control caption="Skupna prenosna hitrost:"/>
+		<control caption="..."/>
 		<control caption="Prenešen zvezek:"/>
 		<control caption="..."/>
-		<control caption="Št. virov:"/>
-		<control caption="..."/>
-		<control caption="Po končanem prenosu zapri to okno"/>
-		<control caption="Odpri datoteko"/>
 		<control caption="Ogled knjižnice"/>
+		<control caption="Odpri datoteko"/>
 		<control caption="Prekliči prenos"/>
 		<control caption="Skrij"/>
+		<control caption="Po končanem prenosu zapri to okno"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Splošno">
 		<control caption="Univerzalna imena sredstev (URN-ji)"/>
@@ -4161,6 +4165,13 @@
 		<control caption="V redu"/>
 		<control caption="Prekliči"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Izbrali">
+		<control caption="Izberi File:"/>
+		<control/>
+		<control caption="V redu"/>
+		<control caption="Prekliči"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="V redu"/>
@@ -4305,7 +4316,6 @@
 		<column from="Filename" to="Datotečno ime"/>
 		<column from="Size" to="Velikost"/>
 		<column from="Status" to=""/>
-		<column from="Priority" to="Tip"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Sledilnik"/>

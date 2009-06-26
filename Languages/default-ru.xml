@@ -81,7 +81,7 @@
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Загрузить"/>
-		<button id="ID_BROWSE_LAUNCH" text="Данные пользователя"/>
+		<button id="ID_BROWSE_LAUNCH" text="Просмотр хоста"/>
 		<separator/>
 		<button id="ID_SEARCH_PANEL" text="Панель поиска"/>
 		<button id="ID_SEARCH_DETAILS" text="Подробности"/>
@@ -92,7 +92,7 @@
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="Загрузить"/>
-		<button id="ID_BROWSE_LAUNCH" text="Данные пользователя"/>
+		<button id="ID_BROWSE_LAUNCH" text="Просмотр хоста"/>
 		<separator/>
 		<button id="ID_SEARCH_PANEL" text="Панель поиска"/>
 		<button id="ID_SEARCH_DETAILS" text="Подробности"/>
@@ -106,7 +106,7 @@
 		<button id="ID_SEARCH_STOP" text="Остановка поиска"/>
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Загрузить"/>
-		<button id="ID_BROWSE_LAUNCH" text="Данные пользователя"/>
+		<button id="ID_BROWSE_LAUNCH" text="Просмотр хоста"/>
 		<separator/>
 		<button id="ID_SEARCH_PANEL" text="Панель поиска"/>
 		<button id="ID_SEARCH_DETAILS" text="Подробности"/>
@@ -482,8 +482,8 @@
 		<item id="ID_NETWORK_SEARCH" text="Новый поиск..."/>
 		<item id="ID_TOOLS_DOWNLOAD" text="Загрузить файл..."/>
 		<separator/>
-		<item id="ID_MEDIA_PLAY" text="Воспроизводить"/>
-		<item id="ID_MEDIA_PAUSE" text="Приостановить"/>
+		<item id="ID_MEDIA_PLAY" text="Играть"/>
+		<item id="ID_MEDIA_PAUSE" text="Пауза"/>
 		<item id="ID_MEDIA_PREVIOUS" text="Предыдущий трэк"/>
 		<item id="ID_MEDIA_NEXT" text="Следующий трэк"/>
 		<separator/>
@@ -1044,16 +1044,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Открыть"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Добавить в список"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Открыть _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="У_брать"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Копировать _ссылку"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Torrent инфо"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Удалить файл"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Оценка файла..."/>
+		<item id="ID_DOWNLOADS_URI" text="Копировать _ссылку"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="инфо"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Открыть"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Открыть _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Убрать"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Справка..."/>
 		<separator/>
@@ -1068,7 +1070,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Авто-очистка"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Открыть _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Продолжить все"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="При_остановить все"/>
@@ -1100,6 +1102,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Начать сейчас"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Убрать"/>
+		<item id="ID_UPLOADS_FOLDER" text="Открыть _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Просмотр _хоста"/>
 		<item id="ID_UPLOADS_CHAT" text="_Чат"/>
@@ -1109,11 +1112,14 @@
 		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Настройка очереди"/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Очистить от завершенных"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Авто-очистка"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Справка..."/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Справка..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Очистить от завершенных"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Авто-очистка"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Справка..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Показывать все"/>
@@ -3969,25 +3975,25 @@
 		<control caption="Отмена"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Загрузка : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Загрузка">
 		<control caption="PeerProject загружает:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Скорость передачи:"/>
+		<control caption="Кол-во источников:"/>
 		<control caption="..."/>
 		<control caption="Примерно осталось:"/>
 		<control caption="..."/>
+		<control caption="Скорость передачи:"/>
+		<control caption="..."/>
 		<control caption="Загрузили|Всего|%:"/>
 		<control caption="..."/>
-		<control caption="Кол-во источников:"/>
-		<control caption="..."/>
-		<control caption="Закрыть окно по завершению загрузки"/>
-		<control caption="Открыть файл"/>
 		<control caption="Просмотр хранилища"/>
+		<control caption="Открыть файл"/>
 		<control caption="Удалить загрузку"/>
-		<control caption="Скрыть"/>
+		<control caption="Закрыть"/>
+		<control caption="Закрыть окно по завершению загрузки"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Основное">
 		<control caption="Унифицированные имена ресурсов (URNs)"/>
@@ -4406,6 +4412,13 @@
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selection">
+		<control caption="Select File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Отмена"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -4550,7 +4563,6 @@
 		<column from="Filename" to="Файл"/>
 		<column from="Size" to="Размер"/>
 		<column from="Status" to="Статус"/>
-		<column from="Priority" to="Тип"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Трекер"/>

@@ -989,16 +989,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Otevřít nebo přehrát"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Přidat do Playlistu"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Otevřít _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Smazat"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Kopírovat _URI"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Odstranit soubor"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Rychlost souboru..."/>
+		<item id="ID_DOWNLOADS_URI" text="Kopírovat _URI"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="Info"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Otevřít"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Otevřít _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Za_stavit Seedování"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Nápověda..."/>
 		<separator/>
@@ -1013,7 +1015,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Aut_o vymazání"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Otevřít _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Obnovit vše"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_ozastavit vše"/>
@@ -1045,6 +1047,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Upřednostnit"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Smazat"/>
+		<item id="ID_UPLOADS_FOLDER" text="Otevřít _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="P_rohlédnout uživatele"/>
 		<item id="ID_UPLOADS_CHAT" text="_Pokec s uživatelem"/>
@@ -1056,9 +1059,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o vymazání"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Nápověda..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="V_ymazat dokončené"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o vymazání"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Nápověda..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Ukázat vše"/>
@@ -2563,7 +2567,7 @@
 	<string id="8179" value="(Vymazat historii hledání)"/>
 	<string id="8180" value="Velikost souboru:"/>
 	<string id="8181" value="Velikost souboru:"/>
-	<string id="8208" value="PeerProject vytvoří rozdělený soubor pro %Iu soubor(y):"/>
+	<string id="8208" value="PeerProject vytvoří rozdělený soubor pro %Iu soubory:"/>
 	<string id="8223" value="%i dní a %i hodin"/>
 	<string id="8224" value="PeerProject stahuje soubor:"/>
 	<string id="8225" value="Toto stahování je pozastaveno:"/>
@@ -3822,25 +3826,25 @@
 		<control caption="Zrušit"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Stáhnout : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Stáhnout">
 		<control caption="PeerProject stahuje soubor:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Celková rychlost přenosu:"/>
+		<control caption="Počet zdrojů:"/>
 		<control caption="..."/>
 		<control caption="Odhadovaný čas pro stažení:"/>
 		<control caption="..."/>
+		<control caption="Celková rychlost přenosu:"/>
+		<control caption="..."/>
 		<control caption="Stažená velikost:"/>
 		<control caption="..."/>
-		<control caption="Počet zdrojů:"/>
-		<control caption="..."/>
-		<control caption="Zavřít toto okno po dokončení stahování"/>
-		<control caption="Otevřít soubor"/>
 		<control caption="Prohlížet knihovnu"/>
+		<control caption="Otevřít soubor"/>
 		<control caption="Zrušit stahování"/>
 		<control caption="Skrýt"/>
+		<control caption="Zavřít toto okno po dokončení stahování"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Hlavní">
 		<control caption="Jméno univerzálního zdroje (URNs)"/>
@@ -4258,6 +4262,13 @@
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selection">
+		<control caption="Select File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Zrušit"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -4402,7 +4413,6 @@
 		<column from="Filename" to="Název souboru"/>
 		<column from="Size" to="Velikost"/>
 		<column from="Status" to="Stav"/>
-		<column from="Priority" to="Typ"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

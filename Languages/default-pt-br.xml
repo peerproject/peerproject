@@ -1059,16 +1059,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Abrir/Tocar"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Adicionar a lista de execuções"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Abrir _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Limpar"/>
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Copiar P2P Link (_URI)"/>
-		<item id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Apagar Arquivo"/>
 		<item id="ID_DOWNLOADS_RATE" text="_Classificar Arquivo..."/>
+		<item id="ID_DOWNLOADS_URI" text="Copiar P2P Link (_URI)"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="Info"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Abrir"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Abrir _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Parar com o Seeding"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ajuda..."/>
 		<separator/>
@@ -1083,7 +1085,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Aut_o Limpar"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Abrir _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Resumir Todos"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_ausar Todos"/>
@@ -1115,6 +1117,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Iniciar Agora"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Limpar"/>
+		<item id="ID_UPLOADS_FOLDER" text="Abrir _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Navegar Usuário"/>
 		<item id="ID_UPLOADS_CHAT" text="_Conversar com Usuário"/>
@@ -1124,11 +1127,14 @@
 		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Configurações da Fila"/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="L_impar os Completados"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Limpar"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Ajuda..."/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Ajuda..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="L_impar os Completados"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Limpar"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Ajuda..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Mostrar _Todos"/>
@@ -4018,25 +4024,25 @@
 		<control caption="Cancelar"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Download : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Download">
 		<control caption="O PeerProject está baixando:"/>
 		<control caption="..."/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Velocidade total da transferência:"/>
+		<control caption="Número de fontes:"/>
 		<control caption="..."/>
 		<control caption="Tempo restante estimado:"/>
 		<control caption="..."/>
+		<control caption="Velocidade total da transferência:"/>
+		<control caption="..."/>
 		<control caption="Volume baixado:"/>
 		<control caption="..."/>
-		<control caption="Número de fontes:"/>
-		<control caption="..."/>
+		<control caption="Ver"/>
+		<control caption="Abrir"/>
+		<control caption="Cancelar"/>
+		<control caption="Fechar"/>
 		<control caption="Fechar esta janela quando o download completar"/>
-		<control caption="Abrir Arquivo"/>
-		<control caption="Ver Biblioteca"/>
-		<control caption="Cancelar Download"/>
-		<control caption="Esconder"/>
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Geral">
 		<control caption="Nomes Universais de Recursos (URNs)"/>
@@ -4455,6 +4461,13 @@
 		<control caption="OK"/>
 		<control caption="Cancelar"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Seleciona">
+		<control caption="Selecionar uma File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Cancelar"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Nome do Canal|Por qual motivo">
 		<control/>
 		<control caption="OK"/>
@@ -4599,7 +4612,6 @@
 		<column from="Filename" to="Nome do Arquivo"/>
 		<column from="Size" to="Tamanho"/>
 		<column from="Status" to="Status"/>
-		<column from="Priority" to="Tipo"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Tracker"/>

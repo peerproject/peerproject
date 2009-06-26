@@ -16,13 +16,13 @@
 <manifest	name="Svenska"
 		author="Marcus Ehrenlans"
 		updatedBy="DanielB"
-		description="PeerProject Default Swedish Skin File"
+		description="PeerProject Default Swedish Skin File…"
 		link="http://PeerProject.org/"
 		email="swey1(at)hotmail.com"
 		version="1.0.0.0"
 		type="Language"
 		language="sv"
-		prompt="Klicka här för att välja svenska som ditt språk."
+		prompt="Klicka här för att välja svenska som ditt språk…"
 		dir="ltr"
 />
 
@@ -1011,16 +1011,18 @@
 	<menu name="CDownloadsWnd.Completed">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Öppna eller spela upp" />
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Lägg till i spellista" />
+		<item id="ID_DOWNLOADS_FOLDER" text="Öppna _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Rensa" />
-		<separator/>
-		<item id="ID_DOWNLOADS_URI" text="Kopiera _URI" />
-		<item id="ID_DOWNLOADS_EDIT" text="_Info"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Radera fil" />
 		<item id="ID_DOWNLOADS_RATE" text="_Betygsätt fil…" />
+		<item id="ID_DOWNLOADS_URI" text="Kopiera _URI" />
+		<separator/>
+		<item id="ID_DOWNLOADS_EDIT" text="_Info"/>
 	</menu>
 	<menu name="CDownloadsWnd.Seeding">
-		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_ppna"/>
+		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Öppna"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Öppna _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Sluta dela ut"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Hjälp…"/>
 		<separator/>
@@ -1035,7 +1037,7 @@
 		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Rensa _automatiskt"/>
 	</menu>
 	<menu name="CDownloadTabBar">
-		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
+		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Öppna _Folder"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Återuppta alla nedladdningar" />
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Gör _paus i alla nedladdningar" />
@@ -1067,6 +1069,7 @@
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Starta nu" />
 		<item id="ID_UPLOADS_CLEAR" text="_Rensa" />
+		<item id="ID_UPLOADS_FOLDER" text="Öppna _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Visa användarens filer" />
 		<item id="ID_UPLOADS_CHAT" text="_Chatta med användaren" />
@@ -1078,9 +1081,10 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Automatisk rensning"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_HELP" text="_Hjälp"/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Rensa färdiga"/>
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Automatisk rensning"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Hjälp"/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Visa alla" />
@@ -3908,25 +3912,25 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="Avbryt"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Ladda ned : PeerProject">
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Ladda ned">
 		<control caption="PeerProject laddas ned:" />
-		<control caption="…" />
+		<control caption="..." />
 		<control/>
 		<control/>
 		<control/>
+		<control caption="Antal källor:" />
+		<control caption="..." />
 		<control caption="Total överföringsfart:" />
 		<control caption="…" />
 		<control caption="Beräknad återstående tid:" />
-		<control caption="…" />
+		<control caption="..." />
 		<control caption="Nedladdad volym:" />
-		<control caption="…" />
-		<control caption="Antal källor:" />
-		<control caption="…" />
+		<control caption="..." />
 		<control caption="Stäng detta fönster när nedladdningen är klar" />
 		<control caption="Öppna fil" />
 		<control caption="Visa bibliotek" />
 		<control caption="Avbryt nedladdning" />
-		<control caption="Dölj" />
+		<control caption="Stäng" />
 	</dialog>
 	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Generellt">
 		<control caption="Universalla resursnamn (URNs)" />
@@ -4345,6 +4349,13 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Väljer">
+		<control caption="Välj en File:"/>
+		<control/>
+		<control caption="OK"/>
+		<control caption="Avbryt"/>
+		<control/>
+	</dialog>
 	<dialog name="CIrcInputDlg" cookie="EdBuBuSt" caption="Channel Name|Reason Why">
 		<control/>
 		<control caption="OK"/>
@@ -4489,7 +4500,6 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<column from="Filename" to="Filnamn"/>
 		<column from="Size" to="Storlek"/>
 		<column from="Status" to="Status"/>
-		<column from="Priority" to="Typ"/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to="Tracker"/>

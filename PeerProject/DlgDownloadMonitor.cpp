@@ -53,7 +53,7 @@ BEGIN_MESSAGE_MAP(CDownloadMonitorDlg, CSkinDialog)
 	ON_WM_DESTROY()
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_DOWNLOAD_LAUNCH, OnDownloadLaunch)
-	ON_BN_CLICKED(IDC_DOWNLOAD_LIBRARY, OnDownloadLibrary)
+	ON_BN_CLICKED(IDC_DOWNLOAD_VIEW, OnDownloadView)
 	ON_BN_CLICKED(IDC_DOWNLOAD_STOP, OnDownloadStop)
 	ON_WM_CLOSE()
 	ON_WM_SYSCOMMAND()
@@ -105,8 +105,8 @@ void CDownloadMonitorDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DOWNLOAD_STATUS, m_wndStatus);
 	DDX_Control(pDX, IDC_DOWNLOAD_SPEED, m_wndSpeed);
 	DDX_Control(pDX, IDC_DOWNLOAD_SOURCES, m_wndSources);
-	DDX_Control(pDX, IDC_DOWNLOAD_LIBRARY, m_wndLibrary);
 	DDX_Control(pDX, IDC_DOWNLOAD_LAUNCH, m_wndLaunch);
+	DDX_Control(pDX, IDC_DOWNLOAD_VIEW, m_wndView);
 	DDX_Control(pDX, IDC_DOWNLOAD_ICON, m_wndIcon);
 	DDX_Control(pDX, IDC_DOWNLOAD_GRAPH, m_wndGraph);
 	DDX_Control(pDX, IDC_DOWNLOAD_FILE, m_wndFile);
@@ -287,19 +287,19 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 	if ( m_pDownload->IsStarted() )
 	{
 		if ( Settings.General.LanguageRTL )
-		{
-			strText.Format( _T("%s %s %.2f%% : PeerProject"),
+		{ 
+			strText.Format( _T("%s %s %.2f%%"),
 				(LPCTSTR)m_pDownload->m_sName, strOf, m_pDownload->GetProgress() );
 		}
 		else
 		{
-			strText.Format( _T("%.2f%% %s %s : PeerProject"),
+			strText.Format( _T("%.2f%% %s %s"),
 				m_pDownload->GetProgress(), strOf, (LPCTSTR)m_pDownload->m_sName );
 		}
 	}
 	else
 	{
-		strText.Format( _T("%s : PeerProject"),
+		strText.Format( _T("%s"),
 			(LPCTSTR)m_pDownload->m_sName );
 	}
 
@@ -380,6 +380,9 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 		LoadString( strText, IDS_DLM_DOWNLOADING );
 		Update( &m_wndStatus, strText );
 
+		strText = Settings.SmartSpeed( m_pDownload->GetAverageSpeed() );
+		Update( &m_wndSpeed, strText );
+
 		DWORD nTime = m_pDownload->GetTimeRemaining();
 		strText.Empty();
 
@@ -409,9 +412,6 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 
 		Update( &m_wndTime, strText );
 
-		strText = Settings.SmartSpeed( m_pDownload->GetAverageSpeed() );
-		Update( &m_wndSpeed, strText );
-
 		strText.Format( _T("%i %s %i"), nTransferCount, strOf, nSourceCount );
 		if ( Settings.General.LanguageRTL ) strText = _T("\x202B") + strText;
 		Update( &m_wndSources, strText );
@@ -420,8 +420,9 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 	{
 		LoadString( strText, IDS_DLM_DOWNLOADING );
 		Update( &m_wndStatus, strText );
+		strText = Settings.SmartSpeed( m_pDownload->GetAverageSpeed() );
+		Update( &m_wndSpeed, strText );
 		Update( &m_wndTime, strNA );
-		Update( &m_wndSpeed, strNA );
 		strText.Format( _T("%i"), nSourceCount );
 		Update( &m_wndSources, strText );
 	}
@@ -526,6 +527,16 @@ void CDownloadMonitorDlg::DrawProgressBar(CDC* pDC, CRect* pRect)
 	}
 }
 
+void CDownloadMonitorDlg::OnDownloadView()
+{
+	CWnd* pMainWnd = AfxGetMainWnd();
+	if ( ! pMainWnd )
+		return;
+
+	pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_DOWNLOADS );
+	pMainWnd->PostMessage( WM_SYSCOMMAND, SC_RESTORE );
+}
+
 void CDownloadMonitorDlg::OnDownloadLaunch()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
@@ -536,16 +547,6 @@ void CDownloadMonitorDlg::OnDownloadLaunch()
 
 	if ( m_pDownload->IsCompleted() )
 		PostMessage( WM_CLOSE );
-}
-
-void CDownloadMonitorDlg::OnDownloadLibrary()
-{
-	CWnd* pMainWnd = AfxGetMainWnd();
-	if ( ! pMainWnd )
-		return;
-
-	pMainWnd->PostMessage( WM_COMMAND, ID_VIEW_LIBRARY );
-	pMainWnd->PostMessage( WM_SYSCOMMAND, SC_RESTORE );
 }
 
 void CDownloadMonitorDlg::OnDownloadStop()
@@ -686,7 +687,7 @@ void CDownloadMonitorDlg::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 BOOL CDownloadMonitorDlg::OnNeedText(UINT /*nID*/, NMHDR* pTTTH, LRESULT* /*pResult*/)
 {
-	// Fix it: It does not get a notification from the static window (!)
+	// ToDo: Fix This? It does not get a notification from the static window (!)
 	if ( pTTTH->idFrom == IDC_DOWNLOAD_FILE )
 	{
 		TOOLTIPTEXT* pTTT = (TOOLTIPTEXT*)pTTTH;
