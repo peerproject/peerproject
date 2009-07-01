@@ -3,11 +3,11 @@
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 <!-- Translation based on default-en.xml (Shareaza 2.2.2.12) -->
 
-<!-- This skin template represents the current PeerProject defaults. -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -17,7 +17,7 @@
 		author="James Bond"
 		updateBy="James Bond"
 		description="PeerProject Default Chinese (Traditional) Skin File"
-		link="http://PeerProject.org/"
+		link="http://PeerProject.org"
 		email="Contact(at)PeerProject.org"
 		version="1.0.0.0"
 		type="Language"
@@ -156,7 +156,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開啟或播放"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="預覽檔案"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="預覽檔案"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="刪除檔案"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="繼續下載"/>
@@ -1006,10 +1006,9 @@
 	<menu name="CDownloadsWnd.Nothing">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="自動清除"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="說明..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="清除已完成的下載"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="自動清除"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="開啟 _Folder"/>
@@ -1029,11 +1028,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="顯示全部"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="顯示活躍中的"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="顯示暫停的"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="顯示等待中的"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="顯示沒有來源的"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="顯示暫停的"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Show See_ds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="顯示所有的來源"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="顯示群組"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1056,8 +1057,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="自動清除"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="分享檔案..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="清除完成的上傳"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="自動清除"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="說明..."/>
 	</menu>
@@ -1068,6 +1069,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="顯示排隊中的"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="顯示 BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="顯示歷程記錄"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="自動清除"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

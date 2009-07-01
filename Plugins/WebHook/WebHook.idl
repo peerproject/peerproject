@@ -47,7 +47,7 @@ library WebHookLib
 	};
 
 	[
-		uuid(0EEDB912-C5FA-486F-8334-57288578C627),
+		uuid(C0283C00-AA11-43E4-8C1D-8D28A0C86042),
 		helpstring("PeerProject Downloads Web Hook")
 	]
 	coclass WebHook

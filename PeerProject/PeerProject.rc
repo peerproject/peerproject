@@ -518,8 +518,8 @@ BEGIN
     CONTROL         154,IDC_BANNER,"Static",SS_BITMAP,0,0,367,31
     LTEXT           "PeerProject Filesharing Client ",IDC_TITLE,20,45,262,10,SS_CENTERIMAGE
     LTEXT           "© PeerProject Development Team, 2002-",IDC_COPYRIGHT,20,60,262,12
-    LTEXT           "GPL: PeerProject is free software; you can redistribute and/or modify it \nunder the terms of the GNU General Public License as published by the \nFree Software Foundation, version 3 or later.",IDC_STATIC,20,75,262,24
-    LTEXT           "CreativeCommons BY-NC-SA covers original artwork.",IDC_STATIC,20,105,262,12
+    LTEXT           "GPL: PeerProject™ is free software; you can redistribute and/or modify it \nunder the terms of the GNU General Public License as published by the \nFree Software Foundation, version 3 or later.",IDC_STATIC,20,75,262,24
+    LTEXT           "Creative Commons BY-NC-SA covers original artwork.",IDC_STATIC,20,105,262,12
     LTEXT           "Please be aware of local laws and norms.",IDC_STATIC,20,120,262,18
     LTEXT           "http://PeerProject.org/",IDC_WEB,20,142,125,10
     DEFPUSHBUTTON   "OK",IDOK,235,141,50,14
@@ -1378,10 +1378,10 @@ CAPTION "PeerProject Respects its Users"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
     CONTROL         154,IDC_BANNER,"Static",SS_BITMAP,0,0,293,172
-    LTEXT           "Did you know PeerProject is a 100% free software?",IDC_TITLE,15,34,265,19,SS_CENTERIMAGE
+    LTEXT           "Did you know PeerProject is 100% free software?",IDC_TITLE,15,34,265,19,SS_CENTERIMAGE
 	LTEXT           "PeerProject does not contain any spyware, adware or bundled software; \nit does not display any advertisements, popups, or other bad behavior.\n\nIf you ever see such activity be assured that it is not coming from this program: stay safe on the open internet.",IDC_STATIC,15,56,265,50
     LTEXT           "PeerProject is proud to be Free and Open-Source Software.  A non-profit team of passionate volunteers shares this product with all the freedoms of GPL and Creative Commons Licenses, in the hope that it might be useful.",IDC_STATIC,15,107,265,33
-    LTEXT           "You must not have paid any money to obtain this software.  PeerProject can be freely downloaded from PeerProject.org, if you've paid anyone for this demand a full refund immediately.",IDC_STATIC,15,143,265,35
+    LTEXT           "You must not have paid any money to obtain this program.  PeerProject can be freely downloaded from PeerProject.org, if you've paid anyone for this demand a full refund immediately.",IDC_STATIC,15,143,265,35
     LTEXT           "PeerProject respects and appreciates its users.",IDC_RESPECT,15,178,232,13
     LTEXT           "http://PeerProject.org",IDC_WEB,15,195,125,10
     DEFPUSHBUTTON   "OK",IDOK,245,190,39,14
@@ -1394,10 +1394,10 @@ FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
     CONTROL         154,IDC_BANNER,"Static",SS_BITMAP,0,0,293,172
     LTEXT           "Help Spread the Word",IDC_TITLE,15,45,265,10,SS_CENTERIMAGE
-    LTEXT           "We hope you've enjoyed using PeerProject so far- we believe it's the best file sharing application available.",IDC_STATIC,15,65,260,20
+    LTEXT           "Hope you've enjoyed using PeerProject so far, it strives to be the best true file sharing software available.",IDC_STATIC,15,65,260,20
     LTEXT           "Unfortunately, a lot of potential filesharers don't know what they're missing.",IDC_STATIC,15,90,260,20
-    LTEXT           "If you know someone who would like PeerProject, whether they're a new user or still using older software, let them know there is a better alternative.",IDC_STATIC,15,110,260,30
-    LTEXT           "[This is the last message that will appear when starting PeerProject.]",IDC_STATIC,15,145,260,10
+    LTEXT           "If you know someone who might like PeerProject, whether a new user or still using older software, let them know there is a better alternative. And Thanks.",IDC_STATIC,15,105,260,30
+	LTEXT           "{This is the last welcome message you will see.}",IDC_STATIC,15,145,260,10
     LTEXT           "http://PeerProject.org",IDC_WEB,15,165,125,10
     DEFPUSHBUTTON   "OK",IDOK,245,165,39,14
 END
@@ -3879,7 +3879,7 @@ BEGIN
     IDS_MEDIA_TIMESPLIT     " / "
     IDS_MEDIA_SMPLAYER      "PeerProject Media Player"
     IDS_MEDIA_PLUGIN_CREATE "PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."
-    IDS_MEDIA_FILTER        "All Media Files|*.aac;*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.flv;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Video Files|*.avi;*.asf;*.flv;*.ogm;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Audio Files|*.aac;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm|MIDI Files|*.mid;*.rmi;*.midi|CD Audio Tracks|*.cda|Image Files|*.bmp;*.gif;*.jpeg;*.jpg;*.png;|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|All Files|*.*||"
+    IDS_MEDIA_FILTER        "All Media Files|*.aac;*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.flv;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mp4;*.mpa;*.mpe;*.wmv|Video Files|*.avi;*.asf;*.flv;*.ogm;*.mkv;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Audio Files|*.aac;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.flac;*.wma;*.rm;*.mp3;*.ogg;*.ogm|MIDI Files|*.mid;*.rmi;*.midi|CD Audio Tracks|*.cda|Image Files|*.bmp;*.gif;*.jpeg;*.jpg;*.png;|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|All Files|*.*||"
     IDS_MEDIA_LOAD_FAIL     "Unable to load media file ""%s"""
     IDS_MEDIA_LOAD_FAIL_HELP "The file may be damaged, or you may not have the necessary codecs to play it."
     IDS_MEDIA_PARTIAL_RENDER "Part of the file could not be played, you may need to install additional codecs.\n(Try a codec pack from www.codecs.com)"

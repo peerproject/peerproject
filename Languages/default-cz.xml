@@ -3,11 +3,11 @@
 <!-- PeerProject Default Czech Skin File -->
 <!-- Translation based on default-en.xml (Shareaza 2.2.5.7) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
 <!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -17,7 +17,7 @@
 		author="Prometheus"
 		updateBy="Odin"
 		description="PeerProject Default Czech Skin File"
-		link="http://PeerProject.org/"
+		link="http://PeerProject.org"
 		email="odinuv(at)users.sourceforge.net"
 		version="1.0.0.0"
 		type="Language"
@@ -148,7 +148,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Otevřít nebo přehrát"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Náhled souboru"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Náhled souboru"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Odstranit soubor"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Obnovit stahování"/>
@@ -1007,12 +1007,11 @@
 		<item id="ID_DOWNLOADS_EDIT" text="_Vlastnosti..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start Nová Download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Nová Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="V_ymazat dokončené"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Nápověda..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="V_ymazat dokončené"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Aut_o vymazání"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Otevřít _Folder"/>
@@ -1032,11 +1031,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Ukázat _vše"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Ukázat a_ktivní"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Ukázat _Pozastavené"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Ukázat č_ekající"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Ukázat _Bez zdrojů"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Ukázat _Pozastavené"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Ukázat See_ds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Ukázat v_šechny zdroje"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Ukázat _Skupiny"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1059,8 +1060,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o vymazání"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="Sdílené soubory..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="V_ymazat dokončené"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o vymazání"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Nápověda..."/>
 	</menu>
@@ -1071,6 +1072,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Ukázat frontu"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Ukázat BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Ukázat historii"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o vymazání"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

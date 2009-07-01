@@ -29,7 +29,7 @@ public :
 	CModule();
 	virtual ~CModule();
 	DECLARE_LIBID( LIBID_SevenZipBuilderLib )
-	DECLARE_REGISTRY_APPID_RESOURCEID( IDR_APP, "{B69F80CD-FB15-45E8-B359-92A41CC571A7}" )
+	DECLARE_REGISTRY_APPID_RESOURCEID( IDR_APP, "{C2D1E91C-5C0B-4F01-BA5A-447D1F28A53B}" )
 
 protected:
 	HMODULE	m_h7zxr;
@@ -92,7 +92,7 @@ CModule _AtlModule;
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE /*hInstance*/, DWORD dwReason, LPVOID lpReserved)
 {
-    return _AtlModule.DllMain( dwReason, lpReserved ); 
+    return _AtlModule.DllMain( dwReason, lpReserved );
 }
 
 STDAPI DllCanUnloadNow(void)

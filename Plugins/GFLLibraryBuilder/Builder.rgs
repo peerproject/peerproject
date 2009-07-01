@@ -2,16 +2,16 @@ HKCR
 {
 	ForceRemove GFLLibraryBuilder.Builder.1 = s 'GFL Library Builder'
 	{
-		CLSID = s '{6C9E61BE-E58F-4AE1-A304-6FF1D183804C}'
+		CLSID = s '{C937FE9E-FC47-49F8-A115-1925D95E1FE5}'
 	}
 	ForceRemove GFLLibraryBuilder.Builder = s 'GFL Library Builder'
 	{
-		CLSID = s '{6C9E61BE-E58F-4AE1-A304-6FF1D183804C}'
+		CLSID = s '{C937FE9E-FC47-49F8-A115-1925D95E1FE5}'
 		CurVer = s 'GFLLibraryBuilder.Builder.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {6C9E61BE-E58F-4AE1-A304-6FF1D183804C} = s 'GFL Library Builder'
+		ForceRemove {C937FE9E-FC47-49F8-A115-1925D95E1FE5} = s 'GFL Library Builder'
 		{
 			ProgID = s 'GFLLibraryBuilder.Builder.1'
 			VersionIndependentProgID = s 'GFLLibraryBuilder.Builder'

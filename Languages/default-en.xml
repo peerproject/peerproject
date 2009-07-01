@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default English Skin File -->
-<!-- Translation based on default-en.xml r25 -->
+<!-- Translation based on default-en.xml r26 -->
 
-<!-- This skin template represents the current PeerProject defaults. -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -358,7 +358,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Chat to User"/>
 			<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Settings"/>
@@ -370,7 +370,7 @@
 		<button id="ID_SECURITY_BAN" text="Ban Host"/>
 			<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Settings"/>
@@ -1012,7 +1012,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Preview"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_View Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
@@ -1020,10 +1020,7 @@
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Find More Sources"/>
-		<separator/> <!--
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="A_uto Clear"/>
-		<separator/> -->
+		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
@@ -1034,23 +1031,23 @@
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Vie_w Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
-		<item id="ID_DOWNLOADS_PAUSE" text="P_ause"/>
+		<item id="ID_DOWNLOADS_PAUSE" text="Pa_use"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Find More Sources"/>
-		<separator/>
 		<menu text="_Advanced">
 			<item id="ID_DOWNLOADS_SHARE" text="_Share File"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Add Source..."/>
+			<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MONITOR" text="Monitor _Window"/>
-			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Move _Up" shortcut="Ctrl+Up"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move _Down" shortcut="Ctrl+Dn"/>
+			<item id="ID_DOWNLOADS_MONITOR" text="_Monitor Window"/>
 			<item id="ID_DOWNLOADS_BOOST" text="_Ignore Bandwidth Limit"/>
+			<separator/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Move Up" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move Down" shortcut="Ctrl+Dn"/>
 		</menu>
+		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Download Propert_ies"/>
@@ -1067,7 +1064,7 @@
 	</menu>
 	<menu name="CDownloadsWnd.Completed.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Play or Open"/>
-		<item id="ID_DOWNLOADS_ENQUEUE" text="_Add to Playlist"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Clear"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Delete File"/>
@@ -1095,10 +1092,9 @@
 	<menu name="CDownloadsWnd.Nothing">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start New _Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New _Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Auto Clear"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
@@ -1107,10 +1103,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Pa_use All"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Clear All"/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Show Groups"/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Hide Groups"/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="_New Group..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="R_emove Group"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="_New Group..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Properties"/>
 	</menu>
@@ -1118,11 +1114,14 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Show _All"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Show A_ctive"/>
-		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Show P_ending"/>
-		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Show _No Sources"/>
 		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Show _Paused"/>
+		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Show _Queued"/>
+		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Show _No Sources"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Show See_ds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Show All _Sources"/>
+		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Auto Clear"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Show _Groups"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1137,7 +1136,7 @@
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
 		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
-		<item id="ID_SECURITY_BAN" text="B_an User"/>
+		<item id="ID_SECURITY_BAN" text="Ba_n User"/>
 	</menu>
 	<menu name="CUploadsWnd.Queue">
 		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Queue Settings"/>
@@ -1147,18 +1146,20 @@
 		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="_Shared Folders..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Auto Clear"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Show _All"/>
 		<separator/>
-		<item id="ID_UPLOADS_FILTER_ACTIVE" text="Show A_ctive"/>
+		<item id="ID_UPLOADS_FILTER_ACTIVE" text="Show Acti_ve"/>
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Show _Queued"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Show _BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Show _History"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto _Clear"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">
@@ -1738,7 +1739,7 @@
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
 		<gap  group="10" size="4"/>
-		<text group="10" align="middle" format="b">Gnutella1: </text>
+		<text group="10" align="middle" format="b">Gnutella: </text>
 		<text group="11" align="middle">Disconnected</text>
 		<text group="12" align="middle">Connecting...</text>
 		<text group="13" align="middle">Connected</text>
@@ -3597,7 +3598,7 @@
 		<control caption="Gnutella Network:"/>
 		<control caption="The original Gnutella network is less feature-rich than Gnutella2, and has fewer files than eDonkey, yet remains a valuable resource."/>
 		<control caption="Connect to Original Gnutella (G1)"/>
-		<control caption="Configure Gnutella1"/>
+		<control caption="Configure Gnutella"/>
 		<control caption="eDonkey Network:"/>
 		<control caption="The eDonkey network is a popular server-based network.  While not as feature-rich or fast as G2, eMule has an impressive file collection."/>
 		<control caption="Connect to eDonkey2000 (ED2K)"/>
@@ -3619,9 +3620,9 @@
 		<control caption="Hub to Hub:"/>
 		<control/>
 		<control/>
-		<control caption="Gnutella1 Network:"/>
-		<control caption="Always connect to Gnutella1"/>
-		<control caption="Connect to Gnutella1 today"/>
+		<control caption="Gnutella Network:"/>
+		<control caption="Always connect to Gnutella"/>
+		<control caption="Connect to Gnutella today"/>
 		<control caption="Mode: "/>
 		<control caption="Optimal|Leaf|Ultrapeer"/>
 		<control caption="G_1 Connections:"/>
@@ -3952,7 +3953,7 @@
 		<control/>
 		<control/>
 		<control caption="Network _Protocol:"/>
-		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey"/>
+		<control caption="Gnutella (auto)|Gnutella2 (auto)|eDonkey"/>
 		<control caption="_Suppress Ultrapeer"/>
 		<control caption="Connect"/>
 		<control caption="Cancel"/>
@@ -4253,22 +4254,22 @@
 	</dialog>
 	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject Respects its Users">
 		<control/>
-		<control caption="Did you know PeerProject is a 100% free product?"/>
-		<control caption="PeerProject does NOT contain ANY &quot;spyware&quot;, &quot;adware&quot; or other bundled software. It does NOT display any advertisements or &quot;popups&quot;, ever.{n}{n}If you ever see advertising or &quot;popups&quot; while using PeerProject, be assured that they are NOT coming from this program."/>
-		<control caption="Unfortunately a lot of other software does come with undesirable adware or spyware, so if you see something suspicious you may wish to check your PC with an advertising or spyware removal program."/>
-		<control caption="You should not have had to pay any money to obtain PeerProject. PeerProject can be freely downloaded by anyone from http://PeerProject.org/. If you paid someone money for PeerProject, you should demand a full refund immediately."/>
-		<control caption="PeerProject respects its users."/>
-		<control caption="http://PeerProject.org/"/>
+		<control caption="Did you know PeerProject is 100% free software?"/>
+		<control caption="PeerProject does not contain any spyware, adware or bundled software;{n}it does not display any advertisements, popups, or other bad behavior.{n}{n}If you ever see such activity be assured that it is not coming from this program."/>
+		<control caption="PeerProject is proud to be Free and Open-Source Software.  A non-profit team of passionate volunteers shares this product with all the freedoms of GPL and Creative Commons Licenses, in the hope that it might be useful."/>
+		<control caption="You must not have paid any money to obtain this program.  PeerProject can be freely downloaded from PeerProject.org, if you've paid anyone for this demand a full refund immediately."/>
+		<control caption="PeerProject respects and appreciates its users."/>
+		<control caption="http://PeerProject.org"/>
 		<control caption="Close"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Spread the Word">
 		<control/>
-		<control caption="Help Us Spread the Word"/>
-		<control caption="We hope you've enjoyed using PeerProject so far. We believe it's the best true file sharing application available."/>
-		<control caption="Unfortunately, a lot of file sharers don't know what they're missing-"/>
-		<control caption="If you know someone who would like PeerProject, whether they're a new user or someone still using older software, why not let them know there is a better alternative?"/>
-		<control caption="Chances are they'll be grateful you did."/>
-		<control caption="http://PeerProject.org/"/>
+		<control caption="Help Spread the Word"/>
+		<control caption="Hope you've enjoyed using PeerProject so far, it strives to be the best true file sharing software available."/>
+		<control caption="Unfortunately, a lot of potential filesharers don't know what they're missing."/>
+		<control caption="If you know someone who might like PeerProject, whether a new user or still using older software, let them know there is a better alternative. And Thanks."/>
+		<control caption="{This is the last welcome message you will see.}"/>
+		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
 	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Existing File">

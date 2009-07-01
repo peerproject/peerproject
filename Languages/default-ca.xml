@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Catalan Skin File -->
-<!-- Translation based on default-en.xml (Shareaza 2.4.0.4) -->
+<!-- Translation based on default-en.xml -->
 
-<!-- This skin template represents the current PeerProject defaults. -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -17,7 +17,7 @@
 		author="Daniel Olivares Giménez (iniciat per CATMidia.cat)"
 		updatedBy="Equip de traduccions de FeshoCAT (TraduCAT, http://tradu.feshocat.cat)"
 		description="PeerProject Default Catalan Skin File"
-		link="http://tradu.feshocat.cat/"
+		link="http://tradu.feshocat.cat"
 		email="tradu(at)feshocat.cat"
 		version="1.0.0.0"
 		type="Language"
@@ -149,7 +149,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Obre o reprodueix"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Vista prèvia"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Vista prèvia"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Esborra l'arxiu"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Continua la descàrrega"/>
@@ -1043,10 +1043,9 @@
 	<menu name="CDownloadsWnd.Nothing">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Neteja els completats"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ajuda..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Neteja els completats"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Neteja aut_omàtica"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Obre _Folder"/>
@@ -1066,11 +1065,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Mostra _tots"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Mostra els a_ctius"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Mostra els _pausats"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Mostra els p_endents"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Mostra els _sense fonts"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Mostra els _pausats"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Mostra els _seeds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Mostra totes les _fonts"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Mostra els _grups"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1093,8 +1094,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Neteja _automàtica"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="Comparteix arxius..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="N_eteja els completats"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Neteja aut_omàtica"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Ajuda..."/>
 	</menu>
@@ -1105,6 +1106,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Mostra la cola"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Mostra els BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Mostra l'historial"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Neteja aut_omàtica"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

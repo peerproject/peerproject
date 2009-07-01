@@ -3,11 +3,11 @@
 <!-- PeerProject Default Norwegian Skin File -->
 <!-- Translation based on default-en.xml (Shareaza 2.2.0.2) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -17,7 +17,7 @@
 		author="Tom Seland"
 		updatedBy="Tom Seland"
 		description="PeerProject Default Norwegian Skin File"
-		link="http://PeerProject.org/"
+		link="http://PeerProject.org"
 		email="Contact(at)PeerProject.org"
 		version="1.0.0.0"
 		type="Language"
@@ -149,7 +149,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Åpne eller spill av"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Forhåndsvis"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Forhåndsvis"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Slett fil"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Fortsett nedlasting"/>
@@ -989,12 +989,11 @@
 		<item id="ID_DOWNLOADS_EDIT" text="Informasjon om torrent..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start Ny Download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Ny Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Fjern ferdige"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Hjelp..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Fjern ferdige"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Fjern ferdige automatisk"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Åpne _Folder"/>
@@ -1014,11 +1013,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Vis alle"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Vis aktive"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Vis pausede"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Vis venter"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Vis ingen kilder"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Vis pausede"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Vis seeds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Vis alle kilder"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Vis grupper"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1041,8 +1042,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Fjern ferdige automatisk"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="Del filer..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Fjern ferdige"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Fjern ferdige automatisk"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Hjelp..."/>
 	</menu>
@@ -1053,6 +1054,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Vis i kø"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Vis BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Vis historie"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Fjern ferdige automatisk"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

@@ -3,11 +3,11 @@
 <!-- PeerProject Default Polish Skin File -->
 <!-- Translation based on default-en.xml (Shareaza 2.1.2.7) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -149,7 +149,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Otwórz lub odtwarzaj"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Podgląd pliku"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Podgląd pliku"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Usuń plik"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Wznów pobieranie"/>
@@ -989,12 +989,11 @@
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent _Info..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start Nowa Download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Nowa Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Wyczyść zakończone"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Pomoc..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Wyczyść zakończone"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Autoczyszczenie"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Otwórz _Folder"/>
@@ -1014,11 +1013,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Pokaż wszystkie"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Pokaż aktywne"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Pokaż wstrzymane"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Pokaż oczekujące"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Pokaż bez źródeł"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Pokaż wstrzymane"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Pokaż Seeds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Pokaż wszystkie źródła"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Pokaż grupy"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1041,8 +1042,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Autoczyszczenie"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="Udostępnij pliki..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Wyczyść zakończone"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Autoczyszczenie"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="Pomoc..."/>
 	</menu>
@@ -1053,6 +1054,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Pokaż czekające"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Pokaż BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Pokaż Historię"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Autoczyszczenie"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

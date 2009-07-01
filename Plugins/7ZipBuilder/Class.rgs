@@ -2,16 +2,16 @@ HKCR
 {
 	ForceRemove 7ZipBuilder.7ZipBuilder.1 = s '7-Zip Builder'
 	{
-		CLSID = s '{B69F80CD-FB15-45E8-B359-92A41CC571A7}'
+		CLSID = s '{C2D1E91C-5C0B-4F01-BA5A-447D1F28A53B}'
 	}
 	ForceRemove 7ZipBuilder.7ZipBuilder = s '7-Zip Builder'
 	{
-		CLSID = s '{B69F80CD-FB15-45E8-B359-92A41CC571A7}'
+		CLSID = s '{C2D1E91C-5C0B-4F01-BA5A-447D1F28A53B}'
 		CurVer = s '7ZipBuilder.7ZipBuilder.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {B69F80CD-FB15-45E8-B359-92A41CC571A7} = s '7-Zip Builder'
+		ForceRemove {C2D1E91C-5C0B-4F01-BA5A-447D1F28A53B} = s '7-Zip Builder'
 		{
 			ProgID = s '7ZipBuilder.7ZipBuilder.1'
 			VersionIndependentProgID = s '7ZipBuilder.7ZipBuilder'
@@ -36,7 +36,7 @@ HKCU
 				{
 					NoRemove LibraryBuilder
 					{
-						ForceRemove val '.7z' = s '{B69F80CD-FB15-45E8-B359-92A41CC571A7}'
+						ForceRemove val '.7z' = s '{C2D1E91C-5C0B-4F01-BA5A-447D1F28A53B}'
 					}
 				}
 			}

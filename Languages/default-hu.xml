@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Hungarian Skin File -->
-<!-- Translation based on default-en.xml (Shareaza SVN r7300) -->
+<!-- Translation based on default-en.xml -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -149,7 +149,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Megnyitás-Lejátszás"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Előnézet"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Előnézet"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Törlés"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Letöltés folytatása"/>
@@ -1061,12 +1061,11 @@
 		<item id="ID_DOWNLOADS_EDIT" text="T_ulajdonságok..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start Új Download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Új Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Kész törlése"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Súgó..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Kész törlése"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Automata törlés"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Megnyitás _Folder"/>
@@ -1086,11 +1085,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="_Mindet mutat"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="_Aktív megjelenítése"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="_Szüneteltetett megjelenítése"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="_Függőben lévő megjelenítése"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="F_orrás nélküli megjelenítése"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="_Szüneteltetett megjelenítése"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="_Seeds  megjelenítése"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="_Minden forrás megjelenítése"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Csoportok megjelenítése"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1113,8 +1114,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Automata törlés"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="_Fájlok megosztása..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Kész törlése"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Automata törlés"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Súgó..."/>
 	</menu>
@@ -1125,6 +1126,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="_Sorbanálló megjelenítése"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="_BitTorrent megjelenítése"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="_Előzmények megjelenítése"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Automata törlés"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

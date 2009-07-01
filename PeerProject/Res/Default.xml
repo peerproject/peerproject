@@ -142,7 +142,7 @@
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Open File"/>
-		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Preview :"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Preview :&#160;"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Delete File"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancel File"/>
@@ -335,7 +335,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Chat to User"/>
 			<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Settings"/>
@@ -347,7 +347,7 @@
 		<button id="ID_SECURITY_BAN" text="Ban Host"/>
 			<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Settings"/>
@@ -983,7 +983,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Preview"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_View Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
@@ -991,10 +991,7 @@
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Find More Sources"/>
-		<separator/> <!--
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="A_uto Clear"/>
-		<separator/> -->
+		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
@@ -1005,23 +1002,23 @@
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Vie_w Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
-		<item id="ID_DOWNLOADS_PAUSE" text="P_ause"/>
+		<item id="ID_DOWNLOADS_PAUSE" text="Pa_use"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Find More Sources"/>
-		<separator/>
 		<menu text="_Advanced">
 			<item id="ID_DOWNLOADS_SHARE" text="_Share File"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Add Source..."/>
+			<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MONITOR" text="Monitor _Window"/>
-			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Move _Up" shortcut="Ctrl+Up"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move _Down" shortcut="Ctrl+Dn"/>
+			<item id="ID_DOWNLOADS_MONITOR" text="_Monitor Window"/>
 			<item id="ID_DOWNLOADS_BOOST" text="_Ignore Bandwidth Limit"/>
+			<separator/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Move Up" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move Down" shortcut="Ctrl+Dn"/>
 		</menu>
+		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Download Propert_ies"/>
@@ -1038,7 +1035,7 @@
 	</menu>
 	<menu name="CDownloadsWnd.Completed.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Play or Open"/>
-		<item id="ID_DOWNLOADS_ENQUEUE" text="_Add to Playlist"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Clear"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Delete File"/>
@@ -1066,10 +1063,9 @@
 	<menu name="CDownloadsWnd.Nothing">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start New _Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New _Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Auto Clear"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
@@ -1078,10 +1074,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Pa_use All"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Clear All"/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Show Groups"/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Hide Groups"/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="_New Group..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="R_emove Group"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="_New Group..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Properties"/>
 	</menu>
@@ -1089,11 +1085,14 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Show _All"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Show A_ctive"/>
-		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Show P_ending"/>
-		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Show _No Sources"/>
 		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Show _Paused"/>
+		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Show _Queued"/>
+		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Show _No Sources"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Show See_ds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Show All _Sources"/>
+		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Auto Clear"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Show _Groups"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1108,7 +1107,7 @@
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
 		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
-		<item id="ID_SECURITY_BAN" text="B_an User"/>
+		<item id="ID_SECURITY_BAN" text="Ba_n User"/>
 	</menu>
 	<menu name="CUploadsWnd.Queue">
 		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Queue Settings"/>
@@ -1118,18 +1117,20 @@
 		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="_Shared Folders..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Auto Clear"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="Show _All"/>
 		<separator/>
-		<item id="ID_UPLOADS_FILTER_ACTIVE" text="Show A_ctive"/>
+		<item id="ID_UPLOADS_FILTER_ACTIVE" text="Show Acti_ve"/>
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Show _Queued"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Show _BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Show _History"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto _Clear"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">
@@ -1710,7 +1711,7 @@
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
 		<gap  group="10" size="4"/>
-		<text group="10" align="middle" format="b">Gnutella1: </text>
+		<text group="10" align="middle" format="b">Gnutella: </text>
 		<text group="11" align="middle">Disconnected</text>
 		<text group="12" align="middle">Connecting...</text>
 		<text group="13" align="middle">Connected</text>

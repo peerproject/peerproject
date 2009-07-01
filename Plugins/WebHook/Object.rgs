@@ -2,16 +2,16 @@ HKCR
 {
 	ForceRemove PeerProject.WebHook.1 = s 'PeerProject Web Download Hook'
 	{
-		CLSID = s '{0EEDB912-C5FA-486F-8334-57288578C627}'
+		CLSID = s '{C0283C00-AA11-43E4-8C1D-8D28A0C86042}'
 	}
 	ForceRemove PeerProject.WebHook = s 'PeerProject Web Download Hook'
 	{
-		CLSID = s '{0EEDB912-C5FA-486F-8334-57288578C627}'
+		CLSID = s '{C0283C00-AA11-43E4-8C1D-8D28A0C86042}'
 		CurVer = s 'PeerProject.WebHook.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {0EEDB912-C5FA-486F-8334-57288578C627} = s 'PeerProject Web Download Hook'
+		ForceRemove {C0283C00-AA11-43E4-8C1D-8D28A0C86042} = s 'PeerProject Web Download Hook'
 		{
 			ProgID = s 'PeerProject.WebHook.1'
 			VersionIndependentProgID = s 'PeerProject.WebHook'
@@ -39,7 +39,7 @@ HKLM
 					{
 						NoRemove 'Browser Helper Objects'
 						{
-							ForceRemove {0EEDB912-C5FA-486F-8334-57288578C627}
+							ForceRemove {C0283C00-AA11-43E4-8C1D-8D28A0C86042}
 						}
 					}
 				}

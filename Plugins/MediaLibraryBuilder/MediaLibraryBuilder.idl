@@ -32,7 +32,7 @@ library MediaLibraryBuilderLib
 {
 	importlib("stdole2.tlb");
 	[
-		uuid(570C197C-FE9C-4D1F-B6E0-EFA44D36399F)
+		uuid(C8613374-9313-4E34-AD6C-A6F7FA317D3A)
 	]
 	coclass Builder
 	{

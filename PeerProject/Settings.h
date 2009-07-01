@@ -234,7 +234,7 @@ public:
 		CString		Mp3PreviewCLSID;
 		CString		AviPreviewCLSID;
 		CString		VisWrapperCLSID;
-		CString		VisSoniqueCLSID;
+	//	CString		VisSoniqueCLSID;			// No Sonique Vis plugin support available
 		CString		VisCLSID;
 		CString		VisPath;
 		DWORD		VisSize;

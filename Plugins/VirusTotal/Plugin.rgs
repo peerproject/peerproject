@@ -2,16 +2,16 @@ HKCR
 {
 	ForceRemove VirusTotal.Plugin.1 = s 'VirusTotal Plugin'
 	{
-		CLSID = s '{76F13243-9F62-4241-AC07-3B359BBE4EC5}'
+		CLSID = s '{C0C4B390-C390-414A-A1F0-6EF1A45B5852}'
 	}
 	ForceRemove VirusTotal.Plugin = s 'VirusTotal Plugin'
 	{
-		CLSID = s '{76F13243-9F62-4241-AC07-3B359BBE4EC5}'
+		CLSID = s '{C0C4B390-C390-414A-A1F0-6EF1A45B5852}'
 		CurVer = s 'VirusTotal.Plugin.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {76F13243-9F62-4241-AC07-3B359BBE4EC5} = s 'VirusTotal Plugin'
+		ForceRemove {C0C4B390-C390-414A-A1F0-6EF1A45B5852} = s 'VirusTotal Plugin'
 		{
 			ProgID = s 'VirusTotal.Plugin.1'
 			VersionIndependentProgID = s 'VirusTotal.Plugin'
@@ -36,9 +36,9 @@ HKCU
 				{
 					NoRemove General
 					{
-						ForceRemove val 'VirusTotal Plugin' = s '{76F13243-9F62-4241-AC07-3B359BBE4EC5}'
+						ForceRemove val 'VirusTotal Plugin' = s '{C0C4B390-C390-414A-A1F0-6EF1A45B5852}'
 					}
-					ForceRemove val '{76F13243-9F62-4241-AC07-3B359BBE4EC5}' = s ''
+					ForceRemove val '{C0C4B390-C390-414A-A1F0-6EF1A45B5852}' = s ''
 				}
 			}
 		}

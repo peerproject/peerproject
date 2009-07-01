@@ -2,16 +2,16 @@ HKCR
 {
 	ForceRemove PeerProject.RatDVDReader.1 = s 'RatDVD Metadata Reader and Thumbnailer'
 	{
-		CLSID = s '{61700EEC-D5D3-4793-BD1F-514896D67F44}'
+		CLSID = s '{C4E7FDB7-C085-465B-AC72-3AB28A20C353}'
 	}
 	ForceRemove PeerProject.RatDVDReader = s 'RatDVD Metadata Reader and Thumbnailer'
 	{
-		CLSID = s '{61700EEC-D5D3-4793-BD1F-514896D67F44}'
+		CLSID = s '{C4E7FDB7-C085-465B-AC72-3AB28A20C353}'
 		CurVer = s 'PeerProject.RatDVDReader.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {61700EEC-D5D3-4793-BD1F-514896D67F44} = s 'RatDVD Metadata Reader and Thumbnailer'
+		ForceRemove {C4E7FDB7-C085-465B-AC72-3AB28A20C353} = s 'RatDVD Metadata Reader and Thumbnailer'
 		{
 			ProgID = s 'PeerProject.RatDVDReader.1'
 			VersionIndependentProgID = s 'PeerProject.RatDVDReader'
@@ -36,11 +36,11 @@ HKCU
 				{
 					NoRemove ImageService
 					{
-						ForceRemove val '.ratdvd' = s '{61700EEC-D5D3-4793-BD1F-514896D67F44}'
+						ForceRemove val '.ratdvd' = s '{C4E7FDB7-C085-465B-AC72-3AB28A20C353}'
 					}
 					NoRemove LibraryBuilder
 					{
-						ForceRemove val '.ratdvd' = s '{61700EEC-D5D3-4793-BD1F-514896D67F44}'
+						ForceRemove val '.ratdvd' = s '{C4E7FDB7-C085-465B-AC72-3AB28A20C353}'
 					}
 				}
 			}

@@ -240,7 +240,8 @@
 	<resource code="32965" id="ID_TOOLS_SKIN"/>
 	<resource code="32967" id="ID_LIBRARY_HASH_PRIORITY"/>
 	<resource code="32968" id="ID_DOWNLOADS_FILE_DELETE"/>
-	<resource code="32970" id="ID_LIBRARY_RENAME"/>
+  <resource code="32969" id="ID_NEIGHBOURS_SETTINGS"/>
+  <resource code="32970" id="ID_LIBRARY_RENAME"/>
 	<resource code="32971" id="ID_UPLOADS_START"/>
 	<resource code="32972" id="ID_DOWNLOADS_MOVE_UP"/>
 	<resource code="32973" id="ID_DOWNLOADS_MOVE_DOWN"/>
@@ -252,7 +253,7 @@
 	<resource code="32979" id="ID_DOWNLOADS_FILTER_QUEUED"/>
 	<resource code="32980" id="ID_DOWNLOADS_FILTER_SOURCES"/>
 	<resource code="32981" id="ID_DOWNLOADS_FILTER_PAUSED"/>
-	<resource code="32982" id="ID_NEIGHBOURS_SETTINGS"/>
+	<resource code="32982" id="ID_DOWNLOADS_FILTER_SEEDS"/>
 	<resource code="32983" id="ID_LIBRARY_TREE_PHYSICAL"/>
 	<resource code="32984" id="ID_LIBRARY_TREE_VIRTUAL"/>
 	<resource code="32985" id="ID_LIBRARY_SHARED_FOLDER"/>

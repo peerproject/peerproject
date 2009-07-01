@@ -27,14 +27,14 @@ class CModule : public CAtlDllModuleT< CModule >
 {
 public :
 	DECLARE_LIBID( LIBID_SkinScanLib )
-	DECLARE_REGISTRY_APPID_RESOURCEID( IDR_APP, "{A4F1E383-B493-4580-8DB6-5CC89CBAAC53}" )
+	DECLARE_REGISTRY_APPID_RESOURCEID( IDR_APP, "{C5594A56-ED24-44C8-B6DA-BDC1BCF809DD}" )
 };
 
 CModule _AtlModule;
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE /*hInstance*/, DWORD dwReason, LPVOID lpReserved)
 {
-    return _AtlModule.DllMain( dwReason, lpReserved ); 
+    return _AtlModule.DllMain( dwReason, lpReserved );
 }
 
 STDAPI DllCanUnloadNow(void)

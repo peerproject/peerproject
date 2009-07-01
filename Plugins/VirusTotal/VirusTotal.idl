@@ -21,7 +21,7 @@ library VirusTotalLib
 	interface ICommandPlugin;
 
 	[
-		uuid(76F13243-9F62-4241-AC07-3B359BBE4EC5)
+		uuid(C0C4B390-C390-414A-A1F0-6EF1A45B5852)
 	]
 	coclass Plugin
 	{

@@ -32,7 +32,7 @@ library SWFPluginLib
 {
 	importlib("stdole2.tlb");
 	[
-		uuid(FC4D8F69-0B18-49BB-8AB7-87EB77AA1A9D),
+		uuid(C604ED62-01C8-407B-B8A2-3A5C8A71B542),
 		helpstring("SWF Image Services")
 	]
 	coclass SWFReader
@@ -40,7 +40,7 @@ library SWFPluginLib
 		[default] interface IImageServicePlugin;
 	};
 	[
-		uuid(B978F591-5137-4612-873A-DC2081BAD6CD),
+		uuid(C646E072-09A4-4E4C-9724-C5B737846D14),
 		helpstring("SWF Library Builder")
 	]
 	coclass SWFBuilder

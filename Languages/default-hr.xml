@@ -3,11 +3,11 @@
 <!-- PeerProject Default Croatian Skin File -->
 <!-- This translation is based on default-en.xml (Shareaza 2.2.0.2) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -17,7 +17,7 @@
 		author="Biza"
 		updatedBy="Biza"
 		description="PeerProject Default Croatian Skin File"
-		link="http://PeerProject.org/"
+		link="http://PeerProject.org"
 		email=""
 		version="1.0.0.0"
 		type="Language"
@@ -148,7 +148,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Otvori ili Pokreni"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Pregledaj"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Pregledaj"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Obriši"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Nastavi Skidanje"/>
@@ -603,7 +603,7 @@
 	</menu>
 	<menu name="CMainWnd.Windowed" type="bar">
 		<menu text="Mreža">
-			<item id="ID_NETWORK_SEARCH" text="Nova Po_traga..."/> shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_SEARCH" text="Nova Po_traga..." shortcut="Ctrl+T"/>
 			<separator/>
 			<item id="ID_NETWORK_CONNECT" text="_Spoji" shortcut="Ctrl+S"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Isključi"/>
@@ -988,12 +988,11 @@
 		<item id="ID_DOWNLOADS_EDIT" text="_Informacije o Torrentu..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start Nova Download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Nova Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Makni Gotove"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Pomoć..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Makni Gotove"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Automatski Makni Gotove"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Otvori _Folder"/>
@@ -1013,11 +1012,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Pok_aži Sve"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Pokaži Aktivne"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Pokaži Pauzirane"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Pokaži na Čekanju"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Pokaži Bez Izvora"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Pokaži Pauzirane"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Pokaži See_ds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Pokaži _Sve Izvore"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Pokaži Grupe"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1040,8 +1041,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_omatski Makni Gotove"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="Djeli..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Makni Gotove"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_omatski Makni Gotove"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="Pomoć..."/>
 	</menu>
@@ -1052,6 +1053,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Pokaži na Čekanju"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Pokaži BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Pokaži Prijašnje"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_omatski Makni Gotove"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

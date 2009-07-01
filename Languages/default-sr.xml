@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Serbian Skin File -->
-<!-- Translation based on default-en.xml (Shareaza 2.3.2.0) -->
+<!-- Translation based on default-en.xml -->
 
-<!-- This skin template represents the current PeerProject defaults. -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -149,7 +149,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Отвори или пусти"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Преглед фајла"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Преглед фајла"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Обриши фајл"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Настави преузимање"/>
@@ -1006,12 +1006,11 @@
 		<item id="ID_DOWNLOADS_EDIT" text="_Informacije o Torrent..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start Nova Download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Nova Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Očisti Gotove"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="Pomoć..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Očisti Gotove"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Automatski Očisti Gotove"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Pokreni _Folder"/>
@@ -1031,11 +1030,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Pok_aži Sve"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Pokaži Aktivne"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Pokaži Pauzirane"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Pokaži na Čekanju"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Pokaži Bez Izvora"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Pokaži Pauzirane"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Pokaži See_ds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Pokaži _Sve Izvore"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Pokaži Grupe"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1058,8 +1059,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_omatski Očisti Gotove"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="Deli..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Očisti Gotove"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_omatski Očisti Gotove"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="Pomoć..."/>
 	</menu>
@@ -1070,6 +1071,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Pokaži na Čekanju"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Pokaži BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Pokaži Završene"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_omatski Očisti Gotove"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

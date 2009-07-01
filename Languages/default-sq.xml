@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Albanian Skin File -->
-<!-- Translation based on default-en.xml (Shareaza SVN r7800) -->
+<!-- Translation based on default-en.xml -->
 
-<!-- This skin template represents the current PeerProject defaults. -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -17,7 +17,7 @@
 		author="Besmir Godole"
 		updatedBy="Besmir Godole"
 		description="PeerProject Default Albanian Skin File"
-		link="http://PeerProject.org/"
+		link="http://PeerProject.org"
 		email="bgodole(at)gmail.com"
 		version="1.0.0.0"
 		type="Language"
@@ -149,7 +149,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Hape/Lexo"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Parashiko"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Parashiko"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Fshije"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Rimerre"/>
@@ -1059,10 +1059,9 @@
 	<menu name="CDownloadsWnd.Nothing">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="P_astro të Përfunduarit"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ndihmë..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="P_astro të Përfunduarit"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Auto_pastro"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Aç _Folder"/>
@@ -1082,11 +1081,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Trego _Gjithçka"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Trego A_ktivët"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Trego të _Pushuarit"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Trego Jo_aktivët"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Trego _Jo-burimorët"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Trego të _Pushuarit"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Trego See_ds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Trego Tërë _Burimet"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Trego _Grupet"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1109,8 +1110,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto_pastro"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="Shpërnda _Skeda..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="P_astro të Përfunduarit"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto_pastro"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Ndihmë..."/>
 	</menu>
@@ -1121,6 +1122,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Trego të _Radhiturit"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Trego _BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Trego _Historinë"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto_pastro"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

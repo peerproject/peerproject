@@ -2,16 +2,16 @@ HKCR
 {
 	ForceRemove SWFPlugin.SWFBuilder.1 = s 'SWF Library Builder'
 	{
-		CLSID = s '{B978F591-5137-4612-873A-DC2081BAD6CD}'
+		CLSID = s '{C646E072-09A4-4E4C-9724-C5B737846D14}'
 	}
 	ForceRemove SWFPlugin.SWFBuilder = s 'SWF Library Builder'
 	{
-		CLSID = s '{B978F591-5137-4612-873A-DC2081BAD6CD}'
+		CLSID = s '{C646E072-09A4-4E4C-9724-C5B737846D14}'
 		CurVer = s 'SWFPlugin.SWFBuilder.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {B978F591-5137-4612-873A-DC2081BAD6CD} = s 'SWF Library Builder'
+		ForceRemove {C646E072-09A4-4E4C-9724-C5B737846D14} = s 'SWF Library Builder'
 		{
 			ProgID = s 'SWFPlugin.SWFBuilder.1'
 			VersionIndependentProgID = s 'SWFPlugin.SWFBuilder'
@@ -36,7 +36,7 @@ HKCU
 				{
 					NoRemove LibraryBuilder
 					{
-						ForceRemove val '.swf' = s '{B978F591-5137-4612-873A-DC2081BAD6CD}'
+						ForceRemove val '.swf' = s '{C646E072-09A4-4E4C-9724-C5B737846D14}'
 					}
 				}
 			}

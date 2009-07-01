@@ -2,16 +2,16 @@ HKCR
 {
 	ForceRemove PeerProject.MediaFilter.1 = s 'PeerProject Media Filter Class'
 	{
-		CLSID = s '{43F28544-45F6-487B-915D-31230E851418}'
+		CLSID = s '{C8CF1C0A-0848-4BF4-AC3E-FCFCDD88F3E1}'
 	}
 	ForceRemove PeerProject.MediaFilter = s 'PeerProject Media Filter Class'
 	{
-		CLSID = s '{43F28544-45F6-487B-915D-31230E851418}'
+		CLSID = s '{C8CF1C0A-0848-4BF4-AC3E-FCFCDD88F3E1}'
 		CurVer = s 'PeerProject.MediaFilter.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {43F28544-45F6-487B-915D-31230E851418} = s 'PeerProject Media Filter Class'
+		ForceRemove {C8CF1C0A-0848-4BF4-AC3E-FCFCDD88F3E1} = s 'PeerProject Media Filter Class'
 		{
 			ProgID = s 'PeerProject.MediaFilter.1'
 			VersionIndependentProgID = s 'PeerProject.MediaFilter'

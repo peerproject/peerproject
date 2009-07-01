@@ -32,7 +32,7 @@ library MediaImageServicesLib
 {
 	importlib("stdole2.tlb");
 	[
-		uuid(04CC76C7-1ED7-4CAE-9762-B8664ED008ED)
+		uuid(C88A4A9E-17C4-429D-86BA-3327CED6DE62)
 	]
 	coclass VideoReader
 	{

@@ -2,16 +2,16 @@ HKCR
 {
 	ForceRemove SWFPlugin.SWFReader.1 = s 'SWF Image Services'
 	{
-		CLSID = s '{FC4D8F69-0B18-49BB-8AB7-87EB77AA1A9D}'
+		CLSID = s '{C604ED62-01C8-407B-B8A2-3A5C8A71B542}'
 	}
 	ForceRemove SWFPlugin.SWFReader = s 'SWF Image Services'
 	{
-		CLSID = s '{FC4D8F69-0B18-49BB-8AB7-87EB77AA1A9D}'
+		CLSID = s '{C604ED62-01C8-407B-B8A2-3A5C8A71B542}'
 		CurVer = s 'SWFPlugin.SWFReader.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {FC4D8F69-0B18-49BB-8AB7-87EB77AA1A9D} = s 'SWF Image Services'
+		ForceRemove {C604ED62-01C8-407B-B8A2-3A5C8A71B542} = s 'SWF Image Services'
 		{
 			ProgID = s 'SWFPlugin.SWFReader.1'
 			VersionIndependentProgID = s 'SWFPlugin.SWFReader'
@@ -36,7 +36,7 @@ HKCU
 				{
 					NoRemove ImageService
 					{
-						ForceRemove val '.swf' = s '{FC4D8F69-0B18-49BB-8AB7-87EB77AA1A9D}'
+						ForceRemove val '.swf' = s '{C604ED62-01C8-407B-B8A2-3A5C8A71B542}'
 					}
 				}
 			}

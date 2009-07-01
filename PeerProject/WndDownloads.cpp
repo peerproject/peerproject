@@ -134,12 +134,14 @@ BEGIN_MESSAGE_MAP(CDownloadsWnd, CPanelWnd)
 	ON_COMMAND(ID_DOWNLOADS_FILTER_ALL, OnDownloadsFilterAll)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_FILTER_ACTIVE, OnUpdateDownloadsFilterActive)
 	ON_COMMAND(ID_DOWNLOADS_FILTER_ACTIVE, OnDownloadsFilterActive)
+	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_FILTER_PAUSED, OnUpdateDownloadsFilterPaused)
+	ON_COMMAND(ID_DOWNLOADS_FILTER_PAUSED, OnDownloadsFilterPaused)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_FILTER_QUEUED, OnUpdateDownloadsFilterQueued)
 	ON_COMMAND(ID_DOWNLOADS_FILTER_QUEUED, OnDownloadsFilterQueued)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_FILTER_SOURCES, OnUpdateDownloadsFilterSources)
 	ON_COMMAND(ID_DOWNLOADS_FILTER_SOURCES, OnDownloadsFilterSources)
-	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_FILTER_PAUSED, OnUpdateDownloadsFilterPaused)
-	ON_COMMAND(ID_DOWNLOADS_FILTER_PAUSED, OnDownloadsFilterPaused)
+	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_FILTER_SEEDS, OnUpdateDownloadsFilterSeeds)
+	ON_COMMAND(ID_DOWNLOADS_FILTER_SEEDS, OnDownloadsFilterSeeds)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_LAUNCH_COMPLETE, OnUpdateDownloadsLaunchComplete)
 	ON_COMMAND(ID_DOWNLOADS_LAUNCH_COMPLETE, OnDownloadsLaunchComplete)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_SHARE, OnUpdateDownloadsShare)
@@ -333,12 +335,12 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 			{
 				CDownload* pDownload = Downloads.GetNext( pos );
 
-				if ( pDownload->IsCompleted() &&					// If the download has completed
-					pDownload->IsPreviewVisible() == FALSE &&		// And isn't previewing
+				if ( pDownload->IsCompleted() &&				// If the download has completed
+					pDownload->IsPreviewVisible() == FALSE &&	// And isn't previewing
 					tNow - pDownload->m_tCompleted > Settings.Downloads.ClearDelay )
 				{
 					// We might want to clear this download
-					if ( pDownload->IsTorrent() == TRUE )	//If it's a torrent
+					if ( pDownload->IsTorrent() == TRUE )		// It's a torrent
 					{
 						// Check the torrent clear settings
 						if ( Settings.BitTorrent.AutoClear )
@@ -350,7 +352,7 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 							}
 						}
 					}
-					else												// else (It's a normal download)
+					else										// Or it's a normal download
 					{
 						// Check the general auto clear setting
 						if ( Settings.Downloads.AutoClear )
@@ -820,7 +822,6 @@ void CDownloadsWnd::OnDownloadsClearComplete()
 	Update();
 }
 
-
 void CDownloadsWnd::OnUpdateDownloadsViewReviews(CCmdUI* pCmdUI)
 {
 	Prepare();
@@ -967,7 +968,7 @@ void CDownloadsWnd::OnUpdateDownloadsLaunchComplete(CCmdUI* pCmdUI)
 {
 	Prepare();
 	if ( CCoolBarItem* pItem = CCoolBarItem::FromCmdUI( pCmdUI ) )
-		pItem->Show( m_bSelCompleted || ! m_bSelDownload );
+		pItem->Show( m_bSelCompleted || ! m_bSelDownload || ( m_bSelDownload && ! m_bSelNotMoving ) );
 	pCmdUI->Enable( m_bSelCompleted );
 }
 
@@ -980,7 +981,7 @@ void CDownloadsWnd::OnUpdateDownloadsLaunchCopy(CCmdUI* pCmdUI)
 {
 	Prepare();
 	if ( CCoolBarItem* pcCmdUI = CCoolBarItem::FromCmdUI( pCmdUI ) )
-		pcCmdUI->Show( ! m_bSelCompleted && m_bSelStartedAndNotMoving );
+		pcCmdUI->Show( ! m_bSelCompleted && m_bSelNotMoving );
 	pCmdUI->Enable( m_bSelStartedAndNotMoving );
 }
 
@@ -1512,7 +1513,7 @@ void CDownloadsWnd::OnUpdateDownloadsFolder(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsFolder()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+//	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
@@ -1537,7 +1538,6 @@ void CDownloadsWnd::OnDownloadsFolder()
 			}
 		}
 	}
-	pLock.Unlock();
 }
 
 void CDownloadsWnd::OnUpdateDownloadsFileDelete(CCmdUI* pCmdUI)
@@ -1711,6 +1711,17 @@ void CDownloadsWnd::OnDownloadsFilterActive()
 	Update();
 }
 
+void CDownloadsWnd::OnUpdateDownloadsFilterPaused(CCmdUI* pCmdUI)
+{
+	pCmdUI->SetCheck( ( Settings.Downloads.FilterMask & DLF_PAUSED ) > 0 );
+}
+
+void CDownloadsWnd::OnDownloadsFilterPaused()
+{
+	Settings.Downloads.FilterMask ^= DLF_PAUSED;
+	Update();
+}
+
 void CDownloadsWnd::OnUpdateDownloadsFilterQueued(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck( ( Settings.Downloads.FilterMask & DLF_QUEUED ) > 0 );
@@ -1733,14 +1744,14 @@ void CDownloadsWnd::OnDownloadsFilterSources()
 	Update();
 }
 
-void CDownloadsWnd::OnUpdateDownloadsFilterPaused(CCmdUI* pCmdUI)
+void CDownloadsWnd::OnUpdateDownloadsFilterSeeds(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( ( Settings.Downloads.FilterMask & DLF_PAUSED ) > 0 );
+	pCmdUI->SetCheck( ( Settings.Downloads.FilterMask & DLF_SEED ) > 0 );
 }
 
-void CDownloadsWnd::OnDownloadsFilterPaused()
+void CDownloadsWnd::OnDownloadsFilterSeeds()
 {
-	Settings.Downloads.FilterMask ^= DLF_PAUSED;
+	Settings.Downloads.FilterMask ^= DLF_SEED;
 	Update();
 }
 

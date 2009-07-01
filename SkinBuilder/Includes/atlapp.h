@@ -25,12 +25,12 @@
 	#error atlapp.h requires atlbase.h to be included first
 #endif
 
-#if defined(_WIN32_WCE)
+#ifdef _WIN32_WCE
 	#error Windows CE is not supported by this package
 #endif
 
 #if _ATL_VER < 0x0700
-	#error ATL versions under 7.0 are not supported by this package
+	#error ATL versions under 7.0 are unsupported by this package
 #endif
 
 #ifdef _ATL_NO_COMMODULE
@@ -52,7 +52,7 @@
 #include "atlres.h"
 
 
-// We need to disable this warning because of template class arguments
+// Disable this warning for template class arguments
 #pragma warning(disable: 4127)
 
 
@@ -119,12 +119,12 @@
 // define useful macros from winuser.h
 #ifndef IS_INTRESOURCE
   #define IS_INTRESOURCE(_r) (((ULONG_PTR)(_r) >> 16) == 0)
-#endif // IS_INTRESOURCE
+#endif
 
 // protect template members from windowsx.h macros
 #ifdef _INC_WINDOWSX
   #undef SubclassWindow
-#endif // _INC_WINDOWSX
+#endif
 
 // define useful macros from windowsx.h
 #ifndef GET_X_LPARAM
@@ -207,23 +207,23 @@ inline BOOL AtlInitCommonControls(DWORD dwFlags)
 
 #if (_WIN32_WINNT >= 0x0600) && !defined(REBARBANDINFO_V6_SIZE)
   #define REBARBANDINFO_V6_SIZE   _SIZEOF_STRUCT(REBARBANDINFO, cxHeader)
-#endif // (_WIN32_WINNT >= 0x0600) && !defined(REBARBANDINFO_V6_SIZE)
+#endif
 
 #if (_WIN32_WINNT >= 0x0600) && !defined(LVGROUP_V5_SIZE)
   #define LVGROUP_V5_SIZE   _SIZEOF_STRUCT(LVGROUP, uAlign)
-#endif // (_WIN32_WINNT >= 0x0600) && !defined(LVGROUP_V5_SIZE)
+#endif
 
 #if (_WIN32_WINNT >= 0x0600) && !defined(LVTILEINFO_V5_SIZE)
   #define LVTILEINFO_V5_SIZE   _SIZEOF_STRUCT(LVTILEINFO, puColumns)
-#endif // (_WIN32_WINNT >= 0x0600) && !defined(LVTILEINFO_V5_SIZE)
+#endif 
 
 #if defined(NTDDI_VERSION) && (NTDDI_VERSION >= NTDDI_LONGHORN) && !defined(MCHITTESTINFO_V1_SIZE)
   #define MCHITTESTINFO_V1_SIZE   _SIZEOF_STRUCT(MCHITTESTINFO, st)
-#endif // defined(NTDDI_VERSION) && (NTDDI_VERSION >= NTDDI_LONGHORN) && !defined(MCHITTESTINFO_V1_SIZE)
+#endif
 
 #if (WINVER >= 0x0600) && !defined(NONCLIENTMETRICS_V1_SIZE)
   #define NONCLIENTMETRICS_V1_SIZE   _SIZEOF_STRUCT(NONCLIENTMETRICS, lfMessageFont)
-#endif // (WINVER >= 0x0600) && !defined(NONCLIENTMETRICS_V1_SIZE)
+#endif
 
 #endif // !_WTL_NO_RUNTIME_STRUCT_SIZE
 
@@ -854,7 +854,7 @@ public:
 			ATLASSERT(::IsWindow(hNtfWnd));
 			if(::IsWindow(hNtfWnd))
 			{
-// need conditional code because types don't match in winuser.h
+// Need conditional code because types don't match in winuser.h
 #ifdef _WIN64
 				::SetWindowLongPtr(hNtfWnd, GWLP_USERDATA, (LONG_PTR)this);
 #else
@@ -949,7 +949,7 @@ public:
 	{
 		if(uMsg == WM_SETTINGCHANGE)
 		{
-// need conditional code because types don't match in winuser.h
+// Need conditional code because types don't match in winuser.h
 #ifdef _WIN64
 			CAppModule* pModule = (CAppModule*)::GetWindowLongPtr(hWnd, GWLP_USERDATA);
 #else
@@ -1022,7 +1022,7 @@ public:
 			// timed out
 			if(!m_bActivity && m_nLockCnt == 0) // if no activity let's really bail
 			{
-#if ((_WIN32_WINNT >= 0x0400 ) || defined(_WIN32_DCOM)) && defined(_ATL_FREE_THREADED)
+#ifdef _ATL_FREE_THREADED
 				::CoSuspendClassObjects();
 				if(!m_bActivity && m_nLockCnt == 0)
 #endif
@@ -1097,14 +1097,14 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 // General DLL version helpers (excluded from atlbase.h if _ATL_DLL is defined)
 
-#if (_ATL_VER < 0x0700) && defined(_ATL_DLL)
+//#if (_ATL_VER < 0x0700) && defined(_ATL_DLL)
 
 // Common Control Versions:
 //   Win95/WinNT 4.0    maj=4 min=00
 //   IE 3.x     maj=4 min=70
 //   IE 4.0     maj=4 min=71
 
-#endif // (_ATL_VER < 0x0700)
+//#endif // (_ATL_VER < 0x0700 Unsupported)
 
 
 // These are always included

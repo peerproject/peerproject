@@ -1,3 +1,5 @@
+http://www.rarlab.com/rar/UnRARDLL.exe
+
       The unrar.dll library is freeware. This means:
 
    1. All copyrights to RAR and the unrar.dll are exclusively
@@ -15,4 +17,4 @@
       Thank you for your interest in RAR and unrar.dll.
 
 
-                                            Alexander L. Roshal
+						Alexander L. Roshal

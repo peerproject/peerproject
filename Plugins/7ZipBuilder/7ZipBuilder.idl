@@ -32,7 +32,7 @@ library SevenZipBuilderLib
 {
 	importlib("stdole2.tlb");
 	[
-		uuid(B69F80CD-FB15-45E8-B359-92A41CC571A7)
+		uuid(C2D1E91C-5C0B-4F01-BA5A-447D1F28A53B)
 	]
 	coclass SevenZipBuilder
 	{

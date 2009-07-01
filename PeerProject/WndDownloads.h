@@ -160,12 +160,14 @@ protected:
 	afx_msg void OnDownloadsFilterAll();
 	afx_msg void OnUpdateDownloadsFilterActive(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsFilterActive();
+	afx_msg void OnUpdateDownloadsFilterPaused(CCmdUI* pCmdUI);
+	afx_msg void OnDownloadsFilterPaused();
 	afx_msg void OnUpdateDownloadsFilterQueued(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsFilterQueued();
 	afx_msg void OnUpdateDownloadsFilterSources(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsFilterSources();
-	afx_msg void OnUpdateDownloadsFilterPaused(CCmdUI* pCmdUI);
-	afx_msg void OnDownloadsFilterPaused();
+	afx_msg void OnUpdateDownloadsFilterSeeds(CCmdUI* pCmdUI);
+	afx_msg void OnDownloadsFilterSeeds();
 	afx_msg void OnUpdateDownloadsLaunchComplete(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsLaunchComplete();
 	afx_msg void OnUpdateDownloadsShare(CCmdUI* pCmdUI);

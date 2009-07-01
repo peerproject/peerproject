@@ -32,7 +32,7 @@ library RARBuilderLib
 {
 	importlib("stdole2.tlb");
 	[
-		uuid(F801DAD7-F08D-48EF-B0DF-6B120377E835)
+		uuid(C2F61D04-BE35-4AE3-84A8-BE140613E26D)
 	]
 	coclass RARBuilder
 	{
