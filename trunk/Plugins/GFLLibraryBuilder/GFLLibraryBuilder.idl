@@ -32,7 +32,7 @@ library GFLLibraryBuilderLib
 {
 	importlib("stdole2.tlb");
 	[
-		uuid(6C9E61BE-E58F-4AE1-A304-6FF1D183804C)
+		uuid(C937FE9E-FC47-49F8-A115-1925D95E1FE5)
 	]
 	coclass Builder
 	{

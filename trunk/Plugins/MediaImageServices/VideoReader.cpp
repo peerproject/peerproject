@@ -19,7 +19,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "VideoReader.h"
 
 void CopyBitmap(char* pDestination, const char* pSource,
@@ -145,7 +145,7 @@ STDMETHODIMP CVideoReader::LoadFromFile (
 						{
 							hr = pDet->get_StreamMediaType( &mt );
 							if ( SUCCEEDED( hr ) &&
-								 mt.formattype == FORMAT_VideoInfo && 
+								 mt.formattype == FORMAT_VideoInfo &&
 								 mt.cbFormat >= sizeof(VIDEOINFOHEADER) &&
 								 mt.pbFormat != NULL )
 							{
@@ -197,9 +197,9 @@ STDMETHODIMP CVideoReader::LoadFromFile (
 
 					ATLTRACE( _T("Video size: %dx%dx%d\n"),
 						pVih->bmiHeader.biWidth, pVih->bmiHeader.biHeight,
-						pVih->bmiHeader.biBitCount);							
+						pVih->bmiHeader.biBitCount);
 					pParams->nWidth = pVih->bmiHeader.biWidth;
-					pParams->nHeight = pVih->bmiHeader.biHeight;				    
+					pParams->nHeight = pVih->bmiHeader.biHeight;
 					if ( pParams->nHeight < 0 )
 						pParams->nHeight = -pParams->nHeight;
 					pParams->nComponents = 3; // 24-bit RGB only

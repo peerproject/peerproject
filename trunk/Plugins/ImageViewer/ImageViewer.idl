@@ -2,7 +2,7 @@
 // ImageViewer.idl
 //
 // This file is part of PeerProject (peerproject.org) © 2008
-// Original author Michael Stokes released portions into the public domain. 
+// Original author Michael Stokes released portions into the public domain.
 // You are free to redistribute and modify this page without any restrictions.
 //
 
@@ -18,9 +18,9 @@ import "PeerProject.idl";
 library ImageViewerLib
 {
 	importlib("stdole2.tlb");
-		
+
 	[
-		uuid(2EE9D739-7726-41cf-8F18-4B1B8763BC63),
+		uuid(CFFA98CB-08D4-402B-8595-1E067D563060),
 		helpstring("Image Viewer Plugin")
 	]
 	coclass ImageViewerPlugin

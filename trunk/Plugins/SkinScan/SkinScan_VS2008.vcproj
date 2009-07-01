@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="SkinScan"
-	ProjectGUID="{A4F1E383-B493-4580-8DB6-5CC89CBAAC53}"
+	ProjectGUID="{C5594A56-ED24-44C8-B6DA-BDC1BCF809DD}"
 	RootNamespace="SkinScan"
 	Keyword="AtlProj"
 	TargetFrameworkVersion="131072"

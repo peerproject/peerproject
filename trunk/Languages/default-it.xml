@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Italian Skin File -->
-<!-- Translation based on default-en.xml (Shareaza SVN r6092) -->
+<!-- Translation based on default-en.xml -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -17,7 +17,7 @@
 		author="Salvatore Scirè, Francesco Gabrielli"
 		updatedBy="ale5000"
 		description="PeerProject Default Italian Skin File"
-		link="http://PeerProject.org/"
+		link="http://PeerProject.org"
 		email=""
 		version="1.0.0.0"
 		type="Language"
@@ -1034,12 +1034,11 @@
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent _Info..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start Nuovo Download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Nuovo Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Elimina Completati"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="Aiuto..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Elimina Completati"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Auto-Elimina Completati"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Apri _Folder"/>
@@ -1059,11 +1058,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Mostra tutto"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Mostra attivi"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Mostra in pausa"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Mostra in attesa"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Mostra senza fonti"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Mostra in pausa"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Mostra See_ds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Mostra tutte le fonti"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Mostra gruppi"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1086,8 +1087,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto-Rimuovi Completati"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="Condividi _file..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Rimuovi Completati"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto Rimuovi Completati"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="Aiuto..."/>
 	</menu>
@@ -1098,6 +1099,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Mostra a_ccodati"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Mostra _BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Mostra cro_nologia"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto Rimuovi Completati"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

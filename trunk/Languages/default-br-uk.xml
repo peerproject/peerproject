@@ -3,11 +3,11 @@
 <!-- PeerProject Default English Skin File -->
 <!-- Translation based on default-en.xml -->
 
-<!-- This skin template represents the current PeerProject defaults. -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -844,6 +844,15 @@
 		<control caption="Select Colour..."/>
 		<control/>
 		<control caption="_Remove"/>
+	</dialog>
+	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Close Button">
+		<control/>
+		<control caption="This is the first time you have clicked PeerProject's close button. Please choose what action you would like to take from now on:"/>
+		<control caption="Minimise to the tray area"/>
+		<control caption="Shut down PeerProject immediately"/>
+		<control caption="Shut down PeerProject after any downloads and uploads finish"/>
+		<control caption="OK"/>
+		<control caption="Cancel"/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Collection Export">
 		<control caption="This feature is used to export the contents of a folder or playlist as a rich collection file. Please select a template and press Next to continue.|Customise your collection by entering data below."/>

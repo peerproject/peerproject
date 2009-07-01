@@ -3,11 +3,11 @@
 <!-- PeerProject Default Estonian Skin File -->
 <!-- Translation based on default-en.xml (Shareaza 2.2.2.9) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
 <!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Special characters used in Estonian:
  Umlauts:
@@ -24,7 +24,7 @@
 		author="Janza"
 		updateBy="Felix Kütt"
 		description="PeerProject Default Estonian Skin File"
-		link="http://PeerProject.org/"
+		link="http://PeerProject.org"
 		email="janekk32(at)solo.delfi.ee"
 		version="1.0.0.0"
 		type="Language"
@@ -155,7 +155,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Ava"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Eelvaade"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Eelvaade"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Kustuta"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Jätka"/>
@@ -996,12 +996,11 @@
 		<item id="ID_DOWNLOADS_EDIT" text="_Info..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start Näita Download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Näita Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="P_uhasta Valmis"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Abi..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="P_uhasta Valmis"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Aut_o Puhastus"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Ava _Folder"/>
@@ -1021,11 +1020,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Näita _Kõik"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Näita A_ktiivsed"/>
-		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Näita O_otel"/>
-		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Näita _Allikateta"/>
 		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Näita _Pausitud"/>
+		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Näita _Ootel"/>
+		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Näita _Allikateta"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Näita See_ds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Näita K_õiki Allikaid"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Näita _Gruppe"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1048,8 +1049,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Puhastus"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="Jaga Faile..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Puhasta Valmis"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Puhastus"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Abi..."/>
 	</menu>
@@ -1060,6 +1061,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Näita Järjekord"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Näita BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Näita Ajalugu"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Puhastus"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

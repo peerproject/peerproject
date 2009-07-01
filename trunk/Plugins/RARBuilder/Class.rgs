@@ -2,16 +2,16 @@ HKCR
 {
 	ForceRemove RARBuilder.RARBuilder.1 = s 'RAR Builder'
 	{
-		CLSID = s '{F801DAD7-F08D-48EF-B0DF-6B120377E835}'
+		CLSID = s '{C2F61D04-BE35-4AE3-84A8-BE140613E26D}'
 	}
 	ForceRemove RARBuilder.RARBuilder = s 'RAR Builder'
 	{
-		CLSID = s '{F801DAD7-F08D-48EF-B0DF-6B120377E835}'
+		CLSID = s '{C2F61D04-BE35-4AE3-84A8-BE140613E26D}'
 		CurVer = s 'RARBuilder.RARBuilder.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {F801DAD7-F08D-48EF-B0DF-6B120377E835} = s 'RAR Builder'
+		ForceRemove {C2F61D04-BE35-4AE3-84A8-BE140613E26D} = s 'RAR Builder'
 		{
 			ProgID = s 'RARBuilder.RARBuilder.1'
 			VersionIndependentProgID = s 'RARBuilder.RARBuilder'
@@ -36,7 +36,7 @@ HKCU
 				{
 					NoRemove LibraryBuilder
 					{
-						ForceRemove val '.rar' = s '{F801DAD7-F08D-48EF-B0DF-6B120377E835}'
+						ForceRemove val '.rar' = s '{C2F61D04-BE35-4AE3-84A8-BE140613E26D}'
 					}
 				}
 			}

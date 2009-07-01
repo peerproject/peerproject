@@ -17,7 +17,7 @@ library DocumentReaderLib
 {
 	importlib("stdole2.tlb");
 	[
-		uuid(E9F51B1E-DB0F-4EEE-9B36-46151994C715),
+		uuid(C4CBDA0D-CAD2-44E5-92CD-9F6E76BC56BC),
 	]
 	coclass DocReader
 	{

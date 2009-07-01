@@ -296,7 +296,6 @@
  <shape type="roundRect"	rect="0,0,10,-1" size="9,9" combine="or"/>
 </region>
 <caption align="left" rect="26,1,260,24" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="000000" outlinecolor="ECECEC" inactivecolor="606060"/>
-<!--shadowcolor,outlinecolor-->
 </windowSkin>
 
 <!-- Download Monitor Window -->
@@ -305,9 +304,9 @@
 <image path="FrameVista.png"/>
 <target window="CDownloadMonitorDlg"/>
 <parts>
- <part name="TopLeft"		rect="9,104,110,28"/>
- <part name="Top"		rect="110,104,2,28"/>
- <part name="TopRight"		rect="250,76,190,28"/>
+ <part name="TopLeft"		rect="9,104,110,27"/>
+ <part name="Top"		rect="110,104,2,27"/>
+ <part name="TopRight"		rect="340,76,100,27"/>
  <part name="LeftTop"		rect="9,140,7,110"/>
  <part name="Left"		rect="9,360,7,30"/>
  <part name="RightTop"		rect="623,140,8,110"/>

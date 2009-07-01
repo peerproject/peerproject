@@ -496,7 +496,7 @@ void CUploadsWnd::OnUpdateUploadsFolder(CCmdUI* pCmdUI)
 
 void CUploadsWnd::OnUploadsFolder()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+//	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
 	{
 		CUploadFile* pFile = UploadFiles.GetNext( pos );

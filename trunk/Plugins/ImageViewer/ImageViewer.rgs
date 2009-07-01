@@ -2,16 +2,16 @@ HKCR
 {
 	PeerProject.ImageViewerPlugin.1 = s 'PeerProject Image Viewer Plugin'
 	{
-		CLSID = s '{2EE9D739-7726-41cf-8F18-4B1B8763BC63}'
+		CLSID = s '{CFFA98CB-08D4-402B-8595-1E067D563060}'
 	}
 	PeerProject.ImageViewerPlugin = s 'PeerProject Image Viewer Plugin'
 	{
-		CLSID = s '{2EE9D739-7726-41cf-8F18-4B1B8763BC63}'
+		CLSID = s '{CFFA98CB-08D4-402B-8595-1E067D563060}'
 		CurVer = s 'PeerProject.ImageViewerPlugin.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {2EE9D739-7726-41cf-8F18-4B1B8763BC63} = s 'PeerProject Image Viewer Plugin'
+		ForceRemove {CFFA98CB-08D4-402B-8595-1E067D563060} = s 'PeerProject Image Viewer Plugin'
 		{
 			ProgID = s 'PeerProject.ImageViewerPlugin.1'
 			VersionIndependentProgID = s 'PeerProject.ImageViewerPlugin'
@@ -36,9 +36,9 @@ HKCU
 				{
 					NoRemove General
 					{
-						val 'PeerProject Image Viewer' = s '{2EE9D739-7726-41cf-8F18-4B1B8763BC63}'
+						val 'PeerProject Image Viewer' = s '{CFFA98CB-08D4-402B-8595-1E067D563060}'
 					}
-					ForceRemove val '{2EE9D739-7726-41cf-8F18-4B1B8763BC63}' = s ''
+					ForceRemove val '{CFFA98CB-08D4-402B-8595-1E067D563060}' = s ''
 				}
 			}
 		}

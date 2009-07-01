@@ -2,16 +2,16 @@ HKCR
 {
 	ForceRemove PeerProject.MediaPlayer.1 = s 'PeerProject Media Services Plugin'
 	{
-		CLSID = s '{3DC28AA6-A597-4E03-96DF-ADA19155B0BE}'
+		CLSID = s '{CCE7B109-15D6-4223-B6FF-0C6C851B6680}'
 	}
 	ForceRemove PeerProject.MediaPlayer = s 'PeerProject Media Services Plugin'
 	{
-		CLSID = s '{3DC28AA6-A597-4E03-96DF-ADA19155B0BE}'
+		CLSID = s '{CCE7B109-15D6-4223-B6FF-0C6C851B6680}'
 		CurVer = s 'PeerProject.MediaPlayer.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {3DC28AA6-A597-4E03-96DF-ADA19155B0BE} = s 'PeerProject Media Services Plugin'
+		ForceRemove {CCE7B109-15D6-4223-B6FF-0C6C851B6680} = s 'PeerProject Media Services Plugin'
 		{
 			ProgID = s 'PeerProject.MediaPlayer.1'
 			VersionIndependentProgID = s 'PeerProject.MediaPlayer'
@@ -37,7 +37,7 @@ HKCU
 				{
 					NoRemove MediaPlayer
 					{
-						ForceRemove val 'Default' = s '{3DC28AA6-A597-4E03-96DF-ADA19155B0BE}'
+						ForceRemove val 'Default' = s '{CCE7B109-15D6-4223-B6FF-0C6C851B6680}'
 					}
 				}
 			}

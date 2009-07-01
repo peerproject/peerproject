@@ -2,16 +2,16 @@ HKCR
 {
 	ForceRemove ZIPBuilder.ZIPBuilder.1 = s 'ZIP Builder'
 	{
-		CLSID = s '{2F74AA28-2498-4805-911A-04C39858D529}'
+		CLSID = s '{C2AC3234-100D-4CC4-BCBB-ACF5F18D4854}'
 	}
 	ForceRemove ZIPBuilder.ZIPBuilder = s 'ZIP Builder'
 	{
-		CLSID = s '{2F74AA28-2498-4805-911A-04C39858D529}'
+		CLSID = s '{C2AC3234-100D-4CC4-BCBB-ACF5F18D4854}'
 		CurVer = s 'ZIPBuilder.ZIPBuilder.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {2F74AA28-2498-4805-911A-04C39858D529} = s 'ZIP Builder'
+		ForceRemove {C2AC3234-100D-4CC4-BCBB-ACF5F18D4854} = s 'ZIP Builder'
 		{
 			ProgID = s 'ZIPBuilder.ZIPBuilder.1'
 			VersionIndependentProgID = s 'ZIPBuilder.ZIPBuilder'
@@ -36,7 +36,7 @@ HKCU
 				{
 					NoRemove LibraryBuilder
 					{
-						ForceRemove val '.zip' = s '{2F74AA28-2498-4805-911A-04C39858D529}'
+						ForceRemove val '.zip' = s '{C2AC3234-100D-4CC4-BCBB-ACF5F18D4854}'
 					}
 				}
 			}

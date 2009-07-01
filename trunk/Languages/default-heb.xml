@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Hebrew Skin File -->
-<!-- Translation based on default-en.xml (Shareaza SVN r7300) -->
+<!-- Translation based on default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- למתרגמים: יש לשים לב לתווים בלתי נראים שהופכים את כיוון ההצגה בשרזה.
 יש גם שוני בתגים של עיצוב כמו
 gap i newline
 בגלל שהממשק מימין לשמאל.-->
-
-<!-- This skin template represents the current PeerProject defaults. -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -155,7 +155,7 @@ gap i newline
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="‪פתח או הפעל"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="‪תצוגה מקדימה"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="‪תצוגה מקדימה"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="‪מחק קובץ"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="‪המשך הורדה"/>
@@ -1069,12 +1069,11 @@ gap i newline
 		<item id="ID_DOWNLOADS_EDIT" text="...‪מידע על ה_טורנט"/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start New Downloadחדשה"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrentחדשה"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="‪נקה הורדות שהסתיימו"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="‪...ע_זרה"/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="‪נקה הורדות שהסתיימו"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="‪נקה אוטומטית הורדות שהסתיימו"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="פתח _Folder"/>
@@ -1094,11 +1093,13 @@ gap i newline
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="‪הצג הכל"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="‪הצג פעילים"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="‪הצג מושהים"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="‪הצג בהמתנה לתשובה"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="‪הצג ללא מקורות"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="‪הצג מושהים"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Seedsהצג"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="‪הצג את כל המקורות"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="‪הצג קבוצות"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1121,8 +1122,8 @@ gap i newline
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="‪נקה אוטומטית הורדות שהסתיימו"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="‪...שתף קבצים"/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="‪נקה הורדות שהסתיימו"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="‪נקה אוטומטית הורדות שהסתיימו"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="‪...ע_זרה"/>
 	</menu>
@@ -1133,6 +1134,8 @@ gap i newline
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="‪_הצג המתנות בתור"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="‪BitTorrent הצג"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="‪הצג היסטוריה"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="‪נקה אוטומטית הורדות שהסתיימו"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

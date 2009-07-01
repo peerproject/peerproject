@@ -144,7 +144,7 @@ STDAPI DllRegisterServer(void)
 		ext.Insert (0, _T('.'));
 		ATLTRACE (_T("Add %s\n"), ext);
 		SHSetValue (HKEY_CURRENT_USER, REG_IMAGESERVICE_KEY, ext, REG_SZ,
-			_T("{FF5FCD00-2C20-49D8-84F6-888D2E2C95DA}"),
+			_T("{C9314782-CB91-40B8-B375-F631FF30C1C8}"),
 			38 * sizeof (TCHAR));
 	}
 

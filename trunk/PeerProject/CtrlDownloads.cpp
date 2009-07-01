@@ -266,34 +266,23 @@ BOOL CDownloadsCtrl::IsFiltered(CDownload* pDownload)
 	DWORD nFilterMask = Settings.Downloads.FilterMask;
 	if ( Settings.General.GUIMode == GUI_BASIC ) nFilterMask = 0xFFFFFFFF;
 
-	if ( pDownload->IsMoving() )
-	{
-		return ( ( nFilterMask & DLF_ACTIVE ) == 0 );
-	}
-	else if ( pDownload->IsPaused() )
+	if ( pDownload->IsPaused() )
 	{
 		return ( ( nFilterMask & DLF_PAUSED ) == 0 );
 	}
-	else if ( pDownload->IsDownloading() )
+	else if ( pDownload->IsSeeding() )
+	{
+		return ( ( nFilterMask & DLF_SEED ) == 0 );
+	}
+	else if ( pDownload->IsDownloading() || pDownload->IsMoving() )
 	{
 		return ( ( nFilterMask & DLF_ACTIVE ) == 0 );
 	}
 	else if ( pDownload->GetEffectiveSourceCount() > 0 )
 	{
-		if ( pDownload->IsDownloading() )
-		{
-			return ( ( nFilterMask & DLF_ACTIVE ) == 0 );
-		}
-		else
-		{
-			return ( ( nFilterMask & DLF_QUEUED ) == 0 );
-		}
+		return ( ( nFilterMask & DLF_QUEUED ) == 0 );
 	}
-	else if ( pDownload->m_nSize == SIZE_UNKNOWN )
-	{
-		return ( ( nFilterMask & DLF_SOURCES ) == 0 );
-	}
-	else
+	else //if ( pDownload->m_nSize == SIZE_UNKNOWN )
 	{
 		return ( ( nFilterMask & DLF_SOURCES ) == 0 );
 	}

@@ -4,11 +4,11 @@
 <!-- Translation based on default-en.xml -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- This skin template represents the current PeerProject defaults. -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
 <!-- Including unedited English sections will reduce performance -->
-<!-- limit compatibility with future versions and other skins. -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -18,7 +18,7 @@
 		author="Johann van der Walt (Thesage)"
 		updatedBy="Thesage, omega09"
 		description="PeerProject Default Afrikaans Skin File"
-		link="http://PeerProject.org/"
+		link="http://PeerProject.org"
 		email="jvdwalt(at)tuks.co.za"
 		version="1.0.0.0"
 		type="Language"
@@ -150,7 +150,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Open of Speel"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Kyk Voorskou van Lêer"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Kyk Voorskou van Lêer"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Skrap Lêer"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Hervat Aflaai"/>
@@ -1065,12 +1065,11 @@
 		<item id="ID_DOWNLOADS_EDIT" text="_Eienskappe..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start Nuwe Download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Nuwe Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Verwyder _Voltooide Aflaaie"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Hulp..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Verwyder _Voltooide Aflaaie"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Maak _Outomaties Skoon"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
@@ -1090,11 +1089,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Vertoon _Alle Aflaaie"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Vertoon A_ktiewe Aflaaie"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Vertoon _Gevriesde Aflaaie"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Vertoon _Wagtende Aflaaie"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Vertoon Aflaaie met _Geen Bronne"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Vertoon _Gevriesde Aflaaie"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Vertoon _Seeds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Vertoon Alle _Bronne"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Vertoon _Groepe"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1117,8 +1118,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Maak _Outomaties Skoon"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="Deel Lêers..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Verwyder _Voltooide Oplaaie"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Maak _Outomaties Skoon"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Hulp..."/>
 	</menu>
@@ -1129,6 +1130,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Vertoon Wagtende Oplaaie"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Vertoon BitTorrent Oplaaie"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Vertoon Oplaai Geskiedenis"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Maak _Outomaties Skoon"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

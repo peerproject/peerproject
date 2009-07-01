@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Korean Language Skin File -->
-<!-- Translation based on default-en.xml SVN r24 --> <!--Machine Translated-->
+<!-- Translation based on default-en.xml SVN r25 --> <!--Machine Translated-->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->  <!--"Peer Project" = 피어 프로젝트-->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -16,7 +16,7 @@
 <manifest	name="한국어"
 		author="PeerProject Development Team"
 		description="PeerProject Korean Language Skin File"
-		link="http://PeerProject.org/"
+		link="http://PeerProject.org"
 		email="Contact(at)PeerProject.org"
 		version="1.0.0.0"
 		type="Language"
@@ -1094,10 +1094,9 @@
 	<menu name="CDownloadsWnd.Nothing">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Aut_o Clear"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Open Folder"/>
@@ -1117,11 +1116,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Show _All"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Show A_ctive"/>
-		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Show P_ending"/>
-		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Show _No Sources"/>
 		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Show _Paused"/>
+		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Show _Queued"/>
+		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Show _No Sources"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Show See_ds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Show All _Sources"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Show _Groups"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1144,18 +1145,20 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Clear"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Clear"/>
+		<item id="ID_LIBRARY_FOLDERS" text="파일을 공유..."/>
+		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="모두보기"/>
 		<separator/>
-		<item id="ID_UPLOADS_FILTER_ACTIVE" text="Show A_ctive"/>
+		<item id="ID_UPLOADS_FILTER_ACTIVE" text="Show Activ_e"/>
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Show _Queued"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Show _BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Show _History"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Auto _Clear"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

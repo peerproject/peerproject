@@ -3,11 +3,11 @@
 <!-- PeerProject Default Japanese Skin File -->
 <!-- Translation based on default-en.xml (Shareaza 2.2.0.2) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -23,7 +23,7 @@
 		author="ワン公DukeDog, CyberBob"
 		updatedBy=""
 		description="PeerProject Default Japanese Skin File"
-		link="http://www.dukedog.flnet.org/"
+		link="http://www.dukedog.flnet.org"
 		email="countnyan(at)hotmail.com"
 		version="1.0.0.0"
 		type="Language"
@@ -155,7 +155,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開く・再生"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="プレビュー"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="プレビュー"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="削除"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="再開"/>
@@ -1010,10 +1010,9 @@
 	<menu name="CDownloadsWnd.Nothing">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="完了済みをクリア(_C)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="ヘルプ(_H)..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="完了済みをクリア(_L)"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="自動クリア処理(_O)"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="開くFolder(_F)"/>
@@ -1033,11 +1032,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="全て表示(_A)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="アクティブを表示(_C)"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="停止を表示(_P)"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="保留中を表示(_E)"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="ソース無しを表示(_N)"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="停止を表示(_P)"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Seeds(_D)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="全てのソースを表示(_S)"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="グループを表示(_G)"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1060,8 +1061,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="自動クリア処理(_O)"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="共有ファイル(_S)..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="完了済みをクリア(_L)"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="自動クリア処理(_O)"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="ヘルプ(_H)..."/>
 	</menu>
@@ -1072,6 +1073,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="キュー状態を表示"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="BitTorrentを表示"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="履歴を表示"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="自動クリア処理(_O)"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">
@@ -1940,7 +1943,7 @@
 		<newline gap="8"/>
 		<text>このダウンロードは現在進行中です。
 		もしそのダウンロードが遅すぎる場合は</text>
-		'<text format="b">追加ソースを検索</text><text>'コマンドでネットワーク内に更に多くの
+		<text format="b">追加ソースを検索</text><text>'コマンドでネットワーク内に更に多くの
 		ソースがないか検索してみて下さい。それでも速度が改善されない場合はダウンロード
 		しているユーザがアップロード速度を絞っているのかも知れません。</text>
 	</document>

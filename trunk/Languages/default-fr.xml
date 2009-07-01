@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default French Skin File -->
-<!-- Translation based on default-en.xml (Shareaza SVN r7300) -->
+<!-- Translation based on default-en.xml -->
 
-<!-- This skin template represents the current PeerProject defaults. -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -17,7 +17,7 @@
 		author="Antoine Martin-Lalande (Sensi)"
 		updatedBy="ceceboy, zigotozor"
 		description="PeerProject Default French Skin File"
-		link="http://PeerProject.org/"
+		link="http://PeerProject.org"
 		email="shareaza.fr(at)gmail.com"
 		version="1.0.0.0"
 		type="Language"
@@ -149,7 +149,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Ouvrir ou lire"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Prévisualiser le fichier"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Prévisualiser le fichier"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Supprimer le fichier"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Reprendre"/>
@@ -1069,12 +1069,11 @@
 		<item id="ID_DOWNLOADS_EDIT" text="_Propriétés..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start nouveau download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed nouveau torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Nettoyer"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="Ai_de..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Nettoyer terminés"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Nettoyer a_utomatiquement"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="_Ouvrir _folder"/>
@@ -1094,11 +1093,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="_Tout afficher"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Afficher &#171;&#160;_Actif&#160;&#187;"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Afficher &#171;&#160;En pa_use&#160;&#187;"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Afficher &#171;&#160;En _suspens&#160;&#187;"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Afficher &#171;&#160;Pas de s_ource&#160;&#187;"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Afficher &#171;&#160;En pa_use&#160;&#187;"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Afficher &#171;&#160;_Seeds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Afficher _toutes les sources"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Afficher les g_roupes"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1123,8 +1124,8 @@
 		<item id="ID_UPLOADS_HELP" text="Ai_de..."/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="Partager des _fichiers..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Nettoyer terminés"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Nettoyer a_utomatiquement"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="Ai_de..."/>
 	</menu>
@@ -1135,6 +1136,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Afficher &#171;&#160;En fil_e d'attente&#160;&#187;"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Afficher &#171;&#160;_BitTorrent&#160;&#187;"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Afficher &#171;&#160;_Historique&#160;&#187;"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Nettoyer a_utomatiquement"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">
@@ -1435,7 +1438,7 @@
 			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Avertissement"/>
 			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Note"/>
 			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
-			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>*
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debug"/>
 		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="_Horodateur"/>
 		<separator/>

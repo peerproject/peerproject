@@ -3,11 +3,11 @@
 <!-- PeerProject Default Finnish Skin File -->
 <!-- Translation based on default-en.xml (Shareaza 2.1.3.7) -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -17,7 +17,7 @@
 		author="Toni Kaija"
 		updatedBy=""
 		description="PeerProject Default Finnish Skin File"
-		link="http://www.gamerfactory.co.nr/"
+		link="http://www.gamerfactory.co.nr"
 		email=""
 		version="1.0.0.0"
 		type="Language"
@@ -148,7 +148,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Avaa tai Toista"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Esikatsele Tiedosto"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Esikatsele Tiedosto"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Poista Tiedosto"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Palaa Lataukseen"/>
@@ -991,12 +991,11 @@
 		<item id="ID_DOWNLOADS_EDIT" text="Torrentti _Info..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start Uusi Download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Uusi Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="T_yhjennä Valmiit"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ohje..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="T_yhjennä Valmiit"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Aut_omaattinen Tyhjennys"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Avaa _Folder"/>
@@ -1019,8 +1018,10 @@
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Näytä P_yytävät"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Näytä _Lähteetömät"/>
 		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Näytä _Keskeytetyt"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Näytä See_ds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Näytä Kaikki _Lähteet"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Näytä _Ryhmät"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1043,8 +1044,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_omaattinen Tyhjennys"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="Jaa Tiedostoja..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="T_yhjennä Valmiit"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_omaattinen Tyhjennys"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Ohje..."/>
 	</menu>
@@ -1055,6 +1056,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Näytä Jonottavat"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Näytä BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Näytä Historia"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_omaattinen Tyhjennys"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

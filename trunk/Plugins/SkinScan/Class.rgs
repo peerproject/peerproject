@@ -2,16 +2,16 @@ HKCR
 {
 	ForceRemove PeerProject.SkinInfoExtractor.1 = s 'PeerProject Skin Metadata Extractor'
 	{
-		CLSID = s '{A4F1E383-B493-4580-8DB6-5CC89CBAAC53}'
+		CLSID = s '{C5594A56-ED24-44C8-B6DA-BDC1BCF809DD}'
 	}
 	ForceRemove PeerProject.SkinInfoExtractor = s 'PeerProject Skin Metadata Extractor'
 	{
-		CLSID = s '{A4F1E383-B493-4580-8DB6-5CC89CBAAC53}'
+		CLSID = s '{C5594A56-ED24-44C8-B6DA-BDC1BCF809DD}'
 		CurVer = s 'PeerProject.SkinInfoExtractor.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {A4F1E383-B493-4580-8DB6-5CC89CBAAC53} = s 'PeerProject Skin Metadata Extractor'
+		ForceRemove {C5594A56-ED24-44C8-B6DA-BDC1BCF809DD} = s 'PeerProject Skin Metadata Extractor'
 		{
 			ProgID = s 'PeerProject.SkinInfoExtractor.1'
 			VersionIndependentProgID = s 'PeerProject.SkinInfoExtractor'
@@ -36,8 +36,8 @@ HKCU
 				{
 					NoRemove LibraryBuilder
 					{
-						ForceRemove val '.psk' = s '{A4F1E383-B493-4580-8DB6-5CC89CBAAC53}'
-						ForceRemove val '.sks' = s '{A4F1E383-B493-4580-8DB6-5CC89CBAAC53}'
+						ForceRemove val '.psk' = s '{C5594A56-ED24-44C8-B6DA-BDC1BCF809DD}'
+						ForceRemove val '.sks' = s '{C5594A56-ED24-44C8-B6DA-BDC1BCF809DD}'
 					}
 				}
 			}

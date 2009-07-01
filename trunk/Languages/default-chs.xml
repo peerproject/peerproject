@@ -3,11 +3,11 @@
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 <!-- Translation based on default-en.xml (Shareaza SVN r6092) -->
 
-<!-- This skin template represents the current PeerProject defaults. -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -155,7 +155,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="打开或播放"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="预览文件"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="预览文件"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="删除文件"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="续传"/>
@@ -1005,10 +1005,9 @@
 	<menu name="CDownloadsWnd.Nothing">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="清除完成文件"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="帮助(_H)..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="清除完成文件(_L)"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="自动清除(_O)"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="打开 Folder(_F)"/>
@@ -1028,11 +1027,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="显示全部(_A)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="显示活动的(_C)"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="显示暂停的(_P)"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="显示等待的(_E)"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="显示无资源的(_N)"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="显示暂停的(_P)"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Seeds(_D)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="显示全部资源(_S)"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="显示群组(_G)"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1055,8 +1056,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="自动清除(_O)"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="共享文件(_S)..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="清除完成文件(_L)"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="自动清除(_O)"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="帮助(_H)..."/>
 	</menu>
@@ -1067,6 +1068,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="显示队列的"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="显示 BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="显示历史"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="自动清除(_O)"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

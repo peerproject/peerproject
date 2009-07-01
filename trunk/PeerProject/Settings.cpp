@@ -225,10 +225,10 @@ void CSettings::Load()
 	Add( _T("MediaPlayer"), _T("AviPreviewCLSID"), &MediaPlayer.AviPreviewCLSID, _T("{394011F0-6D5C-42a3-96C6-24B9AD6B010C}") );
 	Add( _T("MediaPlayer"), _T("EnableEnqueue"), &MediaPlayer.EnableEnqueue, true );
 	Add( _T("MediaPlayer"), _T("EnablePlay"), &MediaPlayer.EnablePlay, true );
-	Add( _T("MediaPlayer"), _T("FileTypes"), &MediaPlayer.FileTypes, _T("|aac|asx|wax|m3u|wvx|wmx|asf|wav|snd|au|aif|aifc|aiff|flac|mp3|wma|cda|mid|rmi|midi|avi|flv|mkv|mpeg|mpg|m1v|mp2|mpa|mpe|wmv|") );
+	Add( _T("MediaPlayer"), _T("FileTypes"), &MediaPlayer.FileTypes, _T("|aac|asx|wax|m3u|wvx|wmx|asf|wav|snd|au|aif|aifc|aiff|flac|mp3|wma|cda|mid|rmi|midi|avi|flv|mkv|mpeg|mpg|m1v|mp2|mp4|mpa|mpe|ogm|wmv|") );
 	Add( _T("MediaPlayer"), _T("ListSize"), &MediaPlayer.ListSize, 200 );
 	Add( _T("MediaPlayer"), _T("ListVisible"), &MediaPlayer.ListVisible, true );
-	Add( _T("MediaPlayer"), _T("MediaServicesCLSID"), &MediaPlayer.MediaServicesCLSID, _T("{3DC28AA6-A597-4E03-96DF-ADA19155B0BE}") );
+	Add( _T("MediaPlayer"), _T("MediaServicesCLSID"), &MediaPlayer.MediaServicesCLSID, _T("{CCE7B109-15D6-4223-B6FF-0C6C851B6680}") );
 	Add( _T("MediaPlayer"), _T("Mp3PreviewCLSID"), &MediaPlayer.Mp3PreviewCLSID, _T("{BF00DBCC-90A2-4f46-8171-7D4F929D035F}") );
 	Add( _T("MediaPlayer"), _T("Mpeg1PreviewCLSID"), &MediaPlayer.Mpeg1PreviewCLSID, _T("{9AA8DF47-B8FE-47da-AB1A-2DAA0DA0B646}") );
 	Add( _T("MediaPlayer"), _T("Random"), &MediaPlayer.Random, false );
@@ -239,8 +239,8 @@ void CSettings::Load()
 	Add( _T("MediaPlayer"), _T("VisCLSID"), &MediaPlayer.VisCLSID, _T("{591A5CFF-3172-4020-A067-238542DDE9C2}") );
 	Add( _T("MediaPlayer"), _T("VisPath"), &MediaPlayer.VisPath );
 	Add( _T("MediaPlayer"), _T("VisSize"), &MediaPlayer.VisSize, 1 );
-	Add( _T("MediaPlayer"), _T("VisSoniqueCLSID"), &MediaPlayer.VisSoniqueCLSID, _T("{D07E630D-A850-4f11-AD29-3D3848B67EFE}") );
 	Add( _T("MediaPlayer"), _T("VisWrapperCLSID"), &MediaPlayer.VisWrapperCLSID, _T("{C3B7B25C-6B8B-481A-BC48-59F9A6F7B69A}") );
+//	Add( _T("MediaPlayer"), _T("VisSoniqueCLSID"), &MediaPlayer.VisSoniqueCLSID, _T("{D07E630D-A850-4f11-AD29-3D3848B67EFE}") );
 	Add( _T("MediaPlayer"), _T("Volume"), &MediaPlayer.Volume, 1.0f );
 	Add( _T("MediaPlayer"), _T("Zoom"), (DWORD*)&MediaPlayer.Zoom, smzFill );
 
@@ -986,7 +986,7 @@ void CSettings::SmartUpgrade()
 		if ( General.SmartVersion < 50 )
 		{
 			CString strExts =
-				theApp.GetProfileString( L"Plugins", L"{04CC76C7-1ED7-4CAE-9762-B8664ED008ED}" );
+				theApp.GetProfileString( L"Plugins", L"{C88A4A9E-17C4-429D-86BA-3327CED6DE62}" );
 			if ( strExts.GetLength() > 0 && strExts.GetAt( 0 ) == '|' )
 			{
 				if ( _tcsistr( strExts, L"|.3gp|" ) == NULL && _tcsistr( strExts, L"|-.3gp|" ) == NULL )
@@ -1011,16 +1011,16 @@ void CSettings::SmartUpgrade()
 					strExts += L"|.rmvb|";
 				if ( _tcsistr( strExts, L"|.mp4|" ) == NULL && _tcsistr( strExts, L"|-.mp4|" ) == NULL )
 					strExts += L"|.mp4|";
-				theApp.WriteProfileString( L"Plugins", L"{04CC76C7-1ED7-4CAE-9762-B8664ED008ED}", strExts );
+				theApp.WriteProfileString( L"Plugins", L"{C88A4A9E-17C4-429D-86BA-3327CED6DE62}", strExts );
 			}
 			else
 			{
 				// the value is missing or it was REG_DWORD as in earlier versions
 				strExts = L"|.asf||.asx||.avi||.divx||.m2v||.m2p||.mkv||.mov||.mpeg||.mpg||.ogm||.qt||.ram||.rm||.vob||.wmv||.xvid||.mp4||.rmvb||.3gp||.3gpp||.3g2||.dv||.flv||.ivf||.gvi||.mpe||.nsv||.wm|";
-				theApp.WriteProfileString( L"Plugins", L"{04CC76C7-1ED7-4CAE-9762-B8664ED008ED}", strExts );
+				theApp.WriteProfileString( L"Plugins", L"{C88A4A9E-17C4-429D-86BA-3327CED6DE62}", strExts );
 			}
 			strExts =
-				theApp.GetProfileString( L"Plugins", L"{570C197C-FE9C-4D1F-B6E0-EFA44D36399F}" );
+				theApp.GetProfileString( L"Plugins", L"{C8613374-9313-4E34-AD6C-A6F7FA317D3A}" );
 			if ( strExts.GetLength() > 0 && strExts.GetAt( 0 ) == '|' )
 			{
 				if ( _tcsistr( strExts, L"|.3gp|" ) == NULL && _tcsistr( strExts, L"|-.3gp|" ) == NULL )
@@ -1045,12 +1045,12 @@ void CSettings::SmartUpgrade()
 					strExts += L"|.rmvb|";
 				if ( _tcsistr( strExts, L"|.mp4|" ) == NULL && _tcsistr( strExts, L"|-.mp4|" ) == NULL )
 					strExts += L"|.mp4|";
-				theApp.WriteProfileString( L"Plugins", L"{570C197C-FE9C-4D1F-B6E0-EFA44D36399F}", strExts );
+				theApp.WriteProfileString( L"Plugins", L"{C8613374-9313-4E34-AD6C-A6F7FA317D3A}", strExts );
 			}
 			else
 			{
 				strExts = L"|.asf||.asx||.avi||.divx||.m2v||.m2p||.mkv||.mov||.mpeg||.mpg||.ogm||.qt||.ram||.rm||.vob||.wmv||.xvid||.mp4||.rmvb||.3gp||.3gpp||.3g2||.dv||.flv||.ivf||.gvi||.mpe||.nsv||.wm|";
-				theApp.WriteProfileString( L"Plugins", L"{570C197C-FE9C-4D1F-B6E0-EFA44D36399F}", strExts );
+				theApp.WriteProfileString( L"Plugins", L"{C8613374-9313-4E34-AD6C-A6F7FA317D3A}", strExts );
 			}
 		}
 

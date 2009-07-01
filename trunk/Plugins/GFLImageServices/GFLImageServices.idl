@@ -32,7 +32,7 @@ library GFLImageServicesLib
 {
 	importlib("stdole2.tlb");
 	[
-		uuid(FF5FCD00-2C20-49D8-84F6-888D2E2C95DA)
+		uuid(C9314782-CB91-40B8-B375-F631FF30C1C8)
 	]
 	coclass GFLReader
 	{

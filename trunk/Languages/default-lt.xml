@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default Lithuanian Skin File -->
-<!-- Translation based on default-en.xml (Shareaza SVN r7800) -->
+<!-- Translation based on default-en.xml -->
 
-<!-- This skin template represents the current PeerProject defaults.  -->
-<!-- You can use this file as a basis for creating new skins, however -->
-<!-- in any skin be sure to include only the sections that are changed. -->
-<!-- Including unedited English sections will reduce performance  -->
-<!-- and limit compatibility with future versions or other skins. -->
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,	 -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Including unedited English sections will reduce performance -->
+<!-- and limit compatibility with future versions or other skins.-->
 
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
@@ -17,7 +17,7 @@
 		author="Rolandas Rudomanskis"
 		updatedBy="Rolandas Rudomanskis"
 		description="PeerProject Default Lithuanian Skin File"
-		link="http://PeerProject.org/"
+		link="http://PeerProject.org"
 		email="rrol2002(at)hotmail.com"
 		version="1.0.0.0"
 		type="Language"
@@ -149,7 +149,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Atverti ar vykdyti"/>
-		<button id="ID_DOWNLOADS_LAUNCH" text="Peržiūra"/>
+		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Peržiūra"/>
 		<button id="ID_DOWNLOADS_FILE_DELETE" text="Trinti failą"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_RESUME" text="Tęsti siuntimą"/>
@@ -1059,12 +1059,11 @@
 		<item id="ID_DOWNLOADS_EDIT" text="Sa_vybės..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
+		<item id="ID_TOOLS_DOWNLOAD" text="Start Nauja Download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Nauja Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Valyti baigtus"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="Ži_nynas..."/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Valyti baigtus"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Savai_minis valymas"/>
 	</menu>
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="Atverti _Folder"/>
@@ -1084,11 +1083,13 @@
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Rodyti _viską"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILTER_ACTIVE" text="Rodyti _aktyvius"/>
+		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Rodyti _pristabdytus"/>
 		<item id="ID_DOWNLOADS_FILTER_QUEUED" text="Rodyti esančius _eilėje"/>
 		<item id="ID_DOWNLOADS_FILTER_SOURCES" text="Rodyti _be šaltinių"/>
-		<item id="ID_DOWNLOADS_FILTER_PAUSED" text="Rodyti _pristabdytus"/>
+		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Rodyti see_ds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Rodyti vi_sus šaltinius"/>
+		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Rodyti _grupes"/>
 	</menu>
 	<!-- UPLOADS WINDOW -->
@@ -1111,8 +1112,8 @@
 		<item id="ID_UPLOADS_AUTO_CLEAR" text="Savai_minis valymas"/>
 	</menu>
 	<menu name="CUploadsWnd.Nothing">
+		<item id="ID_LIBRARY_FOLDERS" text="Bendrinti failus..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Valyti baigtus"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Savai_minis valymas"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="Ži_nynas..."/>
 	</menu>
@@ -1123,6 +1124,8 @@
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Rodyti _esančius eilėje"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Rodyti BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Rodyti ž_urnalą"/>
+		<separator/>
+		<item id="ID_UPLOADS_AUTO_CLEAR" text="Savai_minis valymas"/>
 	</menu>
 	<!-- LIBRARY FRAME -->
 	<menu name="CLibraryTree.Physical.Basic">

@@ -211,8 +211,8 @@ void CMediaSettingsPage::OnOK()
 	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.Mp3PreviewCLSID, strRegData );
 	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.Mpeg1PreviewCLSID, strRegData );
 	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.VisCLSID, strRegData );
-	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.VisSoniqueCLSID, strRegData );
 	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.VisWrapperCLSID, strRegData );
+//	theApp.WriteProfileString( _T("Plugins"), Settings.MediaPlayer.VisSoniqueCLSID, strRegData );
 
 	CSettingsSheet* pSheet = GetSheet();
 	for ( INT_PTR nPage = 0 ; nPage < pSheet->GetPageCount() ; nPage++ )

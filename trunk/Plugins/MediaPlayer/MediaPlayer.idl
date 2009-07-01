@@ -86,7 +86,7 @@ library MediaPlayerLib
 {
 	importlib("stdole2.tlb");
 	[
-		uuid(3DC28AA6-A597-4E03-96DF-ADA19155B0BE),
+		uuid(CCE7B109-15D6-4223-B6FF-0C6C851B6680),
 		helpstring("PeerProject Media Services Plugin")
 	]
 	coclass MediaPlayer

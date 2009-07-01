@@ -297,7 +297,7 @@
 <parts>
  <part name="TopLeft"		rect="9,104,110,28"/>
  <part name="Top"		rect="110,104,2,28"/>
- <part name="TopRight"		rect="250,76,190,28"/>
+ <part name="TopRight"		rect="340,76,100,28"/>
  <part name="LeftTop"		rect="9,140,7,110"/>
  <part name="Left"		rect="9,360,7,30"/>
  <part name="RightTop"		rect="623,140,8,110"/>

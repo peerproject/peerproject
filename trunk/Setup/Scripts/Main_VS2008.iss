@@ -431,12 +431,6 @@ Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PeerPro
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\VersionCheck"; Flags: dontcreatekey deletekey
 Root: HKLM; Subkey: "Software\PeerProject\PeerProject\VersionCheck"; Flags: dontcreatekey deletekey
 
-; Delete Generic Video thumbnailer plugin
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; ValueName: "{{17BF74FD-69AF-4BD5-A982-EA6DE6F3449C}"; Flags: dontcreatekey deletevalue
-Root: HKCR; Subkey: "PeerProject.AVIThumb"; Flags: dontcreatekey deletekey
-Root: HKCR; Subkey: "PeerProject.AVIThumb.1"; Flags: dontcreatekey deletekey
-Root: HKCR; Subkey: "CLSID\{{17BF74FD-69AF-4BD5-A982-EA6DE6F3449C}"; Flags: dontcreatekey deletekey
-
 ; Create TorrentWizard default dir locations
 Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Folders"; ValueType: string; ValueName: "001.Path"; ValueData: "{userappdata}\PeerProject\Torrents"; Flags: createvalueifdoesntexist; Tasks: multiuser
 Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Folders"; ValueType: string; ValueName: "Last"; ValueData: "{userappdata}\PeerProject\Torrents"; Flags: createvalueifdoesntexist; Tasks: multiuser
@@ -446,7 +440,7 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: st
 
 ; Disable extensions for plugins which make trouble
 ; Since it is image services plugin we need to add extensions required for the first run
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; ValueType: string; ValueName: "{{FF5FCD00-2C20-49D8-84F6-888D2E2C95DA}"; ValueData: "|-.pdf||.bmp||.png||.jpg|"; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; ValueType: string; ValueName: "{{C9314782-CB91-40B8-B375-F631FF30C1C8}"; ValueData: "|-.pdf||.bmp||.png||.jpg|"; Flags: createvalueifdoesntexist uninsdeletekey
 
 [Dirs]
 ; Make complete, incomplete, torrent and collection dir

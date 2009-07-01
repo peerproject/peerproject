@@ -819,30 +819,32 @@ void CPeerProjectApp::GetVersionNumber()
 	//	Major version == 5
 	//		Win2000 = 0, WinXP = 1, WinXP64 = 2, Server2003 = 2
 	//	Major version == 6
-	//		Vista = 0, Server2008 = 0
+	//		Vista = 0, Server2008 = 0, Windows7 = 1
 	m_nWindowsVersionMinor = pVersion.dwMinorVersion;
+
+	// Get Service Pack version
+	TCHAR* sp = _tcsstr( pVersion.szCSDVersion, _T("Service Pack") );
 
 	// Most supported windows versions have network limiting
 	m_bLimitedConnections = true;
 
-	// Set some variables for different Windows OSes
+	// Set some variables for different Windows OS
 	if ( m_nWindowsVersion == 5 )
 	{
-		TCHAR* sp = _tcsstr( pVersion.szCSDVersion, _T("Service Pack") );
-
 		// Windows 2000
 		if ( m_nWindowsVersionMinor == 0 )
+		{
 			m_bIsWin2000 = true;
-
+			m_bLimitedConnections = false;
+		}
 		// Windows XP
 		else if ( m_nWindowsVersionMinor == 1 )
 		{
-			// No network limiting for Vanilla XP or SP1
+			// No network limiting for original XP or SP1
 			if ( !sp || sp[ 13 ] == '1' )
 				m_bLimitedConnections = false;
 		}
-
-		// Windows 2003 or Windows XP64
+		// Windows XP64 or 2003
 		else if ( m_nWindowsVersionMinor == 2 )
 		{
 			// No network limiting for Vanilla Win2003/XP64
@@ -851,7 +853,39 @@ void CPeerProjectApp::GetVersionNumber()
 		}
 	}
 	else if ( m_nWindowsVersion >= 6 )
+	{
+		// GUI support
 		m_bIsVistaOrNewer = true;
+
+		if ( pVersion.wProductType == VER_NT_SERVER )
+		{
+			m_bLimitedConnections = false;
+			return;
+		}
+
+		// Windows 7 or Vista SP2+ have Registry patch
+		if ( m_nWindowsVersionMinor >= 1 || sp[ 13 ] >= '2' )
+		{
+			m_bLimitedConnections = false;
+
+			HKEY hKey;
+			if ( RegOpenKeyEx( HKEY_LOCAL_MACHINE,
+				L"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+				0, KEY_QUERY_VALUE, &hKey ) == ERROR_SUCCESS )
+			{
+				DWORD nSize = sizeof( DWORD ), nResult = 0, nType = REG_NONE;
+				if ( ( RegQueryValueEx( hKey, L"EnableConnectionRateLimiting",
+					NULL, &nType, (LPBYTE)&nResult, &nSize ) == ERROR_SUCCESS ) &&
+					nType == REG_DWORD && nResult == 1 )
+				{
+					// ToDo: Request user to modify value
+					m_bLimitedConnections = true;
+				}
+
+				RegCloseKey( hKey );
+			}
+		}
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -897,18 +897,20 @@ void CRemote::PageDownloads()
 
 	if ( ! GetKey( _T("filter_set") ).IsEmpty() )
 	{
-		Settings.Downloads.FilterMask &= ~( DLF_ACTIVE | DLF_QUEUED | DLF_SOURCES | DLF_PAUSED );
+		Settings.Downloads.FilterMask &= ~( DLF_ACTIVE | DLF_PAUSED | DLF_QUEUED | DLF_SOURCES | DLF_SEED );
 		if ( GetKey( _T("filter_active") ) == _T("1") ) Settings.Downloads.FilterMask |= DLF_ACTIVE;
+		if ( GetKey( _T("filter_paused") ) == _T("1") ) Settings.Downloads.FilterMask |= DLF_PAUSED;
 		if ( GetKey( _T("filter_queued") ) == _T("1") ) Settings.Downloads.FilterMask |= DLF_QUEUED;
 		if ( GetKey( _T("filter_sources") ) == _T("1") ) Settings.Downloads.FilterMask |= DLF_SOURCES;
-		if ( GetKey( _T("filter_paused") ) == _T("1") ) Settings.Downloads.FilterMask |= DLF_PAUSED;
+		if ( GetKey( _T("filter_seeds") ) == _T("1") ) Settings.Downloads.FilterMask |= DLF_SEED;
 		Settings.Downloads.ShowSources = ( GetKey( _T("filter_show_all") ) == _T("1") );
 	}
 
 	Add( _T("filter_active"), ( Settings.Downloads.FilterMask & DLF_ACTIVE ) ? _T("checked=\"checked\"") : _T("") );
+	Add( _T("filter_paused"), ( Settings.Downloads.FilterMask & DLF_PAUSED ) ? _T("checked=\"checked\"") : _T("") );
 	Add( _T("filter_queued"), ( Settings.Downloads.FilterMask & DLF_QUEUED ) ? _T("checked=\"checked\"") : _T("") );
 	Add( _T("filter_sources"), ( Settings.Downloads.FilterMask & DLF_SOURCES ) ? _T("checked=\"checked\"") : _T("") );
-	Add( _T("filter_paused"), ( Settings.Downloads.FilterMask & DLF_PAUSED ) ? _T("checked=\"checked\"") : _T("") );
+	Add( _T("filter_seeds"), ( Settings.Downloads.FilterMask & DLF_PAUSED ) ? _T("checked=\"checked\"") : _T("") );
 	Add( _T("filter_show_all"), Settings.Downloads.ShowSources ? _T("checked=\"checked\"") : _T("") );
 	Output( _T("downloadsTop") );
 
