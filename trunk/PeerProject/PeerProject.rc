@@ -1427,8 +1427,8 @@ CAPTION "Close Button"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
     CONTROL         154,IDC_BANNER,"Static",SS_BITMAP | WS_GROUP,0,0,292,31
-    LTEXT           "This is the first time you have clicked PeerProject's close button.\nPlease choose what action you would like to take when clicking the close button from now on:",IDC_STATIC,15,40,260,30
-    CONTROL         "Minimise to the tray area",IDC_CLOSE_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,30,75,245,10
+    LTEXT           "This is the first time you have clicked PeerProject's close button.\nPlease choose what action you would like to take:",IDC_STATIC,15,40,260,30
+    CONTROL         "Minimize to tray area",IDC_CLOSE_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,30,75,245,10
     CONTROL         "Shut down PeerProject immediately",IDC_CLOSE_1,"Button",BS_AUTORADIOBUTTON,30,90,245,10
     CONTROL         "Shut down PeerProject after any downloads and uploads finish",IDC_CLOSE_2,
 					"Button",BS_AUTORADIOBUTTON,30,105,245,10
@@ -1727,13 +1727,13 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Scheduler"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "&Options:",IDC_STATIC,3,156,154,58
+    GROUPBOX        "&Options:",IDC_STATIC,3,155,152,60
     CONTROL         " &Enable scheduler",IDC_SCHEDULER_ENABLE,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,10,165,144,15,WS_EX_TRANSPARENT
     EDITTEXT        IDC_SCHEDULER_LIMITED,10,182,29,12,ES_AUTOHSCROLL | ES_NUMBER
     CONTROL         "",IDC_SCHEDULER_LIMITED_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,27,181,11,12
     CONTROL         "&Connect to only G2 when limited",IDC_SCHEDULER_LIMITED_NETWORKS,
 					"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,10,196,142,15,WS_EX_TRANSPARENT
-    GROUPBOX        "Key:",IDC_STATIC,3,105,154,49
+    GROUPBOX        "Key:",IDC_STATIC,3,105,152,50
     RTEXT           "Sun",IDC_STATIC,0,26,21,8,0,WS_EX_TRANSPARENT
     RTEXT           "Mon",IDC_STATIC,0,36,21,8,0,WS_EX_TRANSPARENT
     RTEXT           "Tue",IDC_STATIC,0,46,21,8,0,WS_EX_TRANSPARENT
@@ -1746,8 +1746,8 @@ BEGIN
     LTEXT           "Connect at full speed",IDC_STORE_VIEWS,36,140,116,8,0,WS_EX_TRANSPARENT
     LTEXT           "% of &bandwidth when limited",IDC_STATIC,40,182,114,12,SS_CENTERIMAGE,WS_EX_TRANSPARENT
     EDITTEXT        IDC_SCHEDULER_DISPLAY,35,96,187,11,ES_AUTOHSCROLL | ES_READONLY | WS_DISABLED | NOT WS_BORDER | NOT WS_TABSTOP,WS_EX_TRANSPARENT
-    GROUPBOX        "Help",IDC_STATIC,159,105,118,108,0,WS_EX_RIGHT
-    LTEXT           "The scheduler is designed to allow you to set times when PeerProject will connect and download files. \n\n\nNote: If you have PeerProject open while the scheduler is active, you may see it changing settings- This is normal!",IDC_STATIC,167,113,101,93
+    GROUPBOX        "Help",IDC_STATIC,160,105,118,110,0
+    LTEXT           "The scheduler is designed to allow you to set times when PeerProject will connect and download files. \n\n\nNote: If you have PeerProject open while the scheduler is active you may see it changing settings- this is normal.",IDC_STATIC,168,116,104,94
 END
 
 IDD_FILTER_SAVE_AS DIALOGEX 0, 0, 205, 46

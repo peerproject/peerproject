@@ -12,12 +12,6 @@
 <!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
-<fonts>
-	<font name="System.Plain" face="MS UI Gothic" size="12" weight="plain" />
-	<font name="System.Bold" face="MS UI Gothic" size="12" weight="bold" />
-	<font name="Panel.Caption" face="MS UI Gothic" size="12" weight="plain" />
-</fonts>
-
 <!-- Manifest -->
 <manifest	name="日本語"
 		author="ワン公DukeDog, CyberBob"

@@ -69,6 +69,8 @@ void CCrawlSession::Clear()
 
 void CCrawlSession::Bootstrap()
 {
+	CSingleLock pLock( &Network.m_pSection, TRUE );
+
 	for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
 	{
 		CNeighbour* pNeighbour = Neighbours.GetNext( pos );

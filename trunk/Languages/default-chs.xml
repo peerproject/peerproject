@@ -25,12 +25,6 @@
 		prompt="单击这里显示简体中文"
 />
 
-<fonts>
-	<font name="System.Plain" face="Tahoma" size="11" />
-	<font name="System.Bold" face="Tahoma" size="11" weight="bold" />
-	<font name="Panel.Caption" face="Tahoma" size="11" />
-</fonts>
-
 <!-- Toolbar Definitions -->
 <toolbars>
 	<!-- MAIN WINDOW -->
@@ -1476,10 +1470,10 @@
 	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
 		<styles>
 			<style name="default">
-				<font face="Tahoma" size="11"/>
+				<font size="11"/>
 			</style>
 			<style name="heading">
-				<font face="Tahoma" size="16" weight="800"/>
+				<font size="16" weight="800"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
@@ -1559,7 +1553,7 @@
 	<document name="CHomeConnectionBox" title="连接" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Tahoma" size="11"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1603,7 +1597,7 @@
 	<document name="CHomeLibraryBox" title="收藏" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Tahoma" size="11"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1634,7 +1628,7 @@
 	<document name="CHomeDownloadsBox" title="下载" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Tahoma" size="11"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1650,7 +1644,7 @@
 	<document name="CHomeUploadsBox" title="上传" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Tahoma" size="11"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1666,7 +1660,7 @@
 	<document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Tahoma" size="11"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">

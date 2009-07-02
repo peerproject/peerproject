@@ -27,7 +27,6 @@
 #include "Connection.h"
 #include "zlib.h"
 
-// Tell the compiler these classes exist
 class CBuffer;
 class CPacket;
 class CVendor;
@@ -76,24 +75,23 @@ public:
 // Attributes: State
 public:
 	// Used by the list of neighbour objects in CNeighbours
-	DWORD      m_nRunCookie; // The number of times this neighbour has been run, CNeighboursBase::OnRun uses this to run each neighbour in the list once
-	DWORD      m_nUnique;    // A number, like 2, 3, 4 and so on, which is the unique key for this CNeighbour object in CNeighbour's m_pUniques map
-	NrsState      m_nState;           // Neighbour state, like connecting, handshake 1, 2, or 3, or rejected
-	CVendor*      m_pVendor;
-	Hashes::Guid  m_oGUID;
-	CGProfile*    m_pProfile;
-	Hashes::Guid  m_oMoreResultsGUID; // GUID of the last search, used to get more results (do)
+	DWORD			m_nRunCookie;		// The number of times this neighbour has been run, CNeighboursBase::OnRun uses this to run each neighbour in the list once
+	NrsState		m_nState;			// Neighbour state, like connecting, handshake 1, 2, or 3, or rejected
+	CVendor*		m_pVendor;
+	Hashes::Guid	m_oGUID;
+	CGProfile*		m_pProfile;
+	Hashes::Guid	m_oMoreResultsGUID;	// GUID of the last search, used to get more results (do)
 
 // Attributes: Capabilities
 public:
-	BOOL    m_bAutomatic;
-	NrsNode m_nNodeType;       // This connection is to a hub above us, ntHub, a leaf below us, ntLeaf, or a hub just like us, ntNode
-	BOOL    m_bQueryRouting;
-	BOOL    m_bPongCaching;
-	BOOL    m_bVendorMsg;      // True if the remote computer told us it supports vendor-specific messages
-	BOOL    m_bGGEP;
-	DWORD   m_tLastQuery;      // The time we last got a query packet, recorded as the number of seconds since 1970
-	BOOL    m_bBadClient;		// Is the remote client running a 'bad' client- GPL rip, buggy, etc. (not banned, though)
+	BOOL	m_bAutomatic;
+	NrsNode	m_nNodeType;				// This connection is to a hub above us, ntHub, a leaf below us, ntLeaf, or a hub just like us, ntNode
+	BOOL	m_bQueryRouting;
+	BOOL	m_bPongCaching;
+	BOOL	m_bVendorMsg;				// True if the remote computer told us it supports vendor-specific messages
+	BOOL	m_bGGEP;
+	DWORD	m_tLastQuery;				// The time we last got a query packet, recorded as the number of seconds since 1970
+	BOOL	m_bBadClient;				// Is the remote client running a 'bad' client- GPL rip, buggy, etc. (not banned, though)
 
 	DWORD	m_nDegree;					// "X-Degree: n" (-1 if not set)
 	DWORD	m_nMaxTTL;					// "X-Max-TTL: n" (-1 if not set)

@@ -51,7 +51,7 @@ public:
 	CRouteCache*	QueryRoute;
 	CQueryKeys*		QueryKeys;
 
-	CMutex			m_pSection;
+	CMutexEx		m_pSection;
 	SOCKADDR_IN		m_pHost;				// Structure (Windows Sockets) which holds address of the local machine
 	BOOL			m_bAutoConnect;
 	DWORD			m_tStartedConnecting;	// Time PeerProject started trying to connect
@@ -121,7 +121,7 @@ public:
 	BOOL		RouteHits(CQueryHit* pHits, CPacket* pPacket);
 	void		OnWinsock(WPARAM wParam, LPARAM lParam);
 	void		OnQuerySearch(CQuerySearch* pSearch);
-	void		OnQueryHits(CQueryHit* pHits);	// Add query hit to queue
+	void		OnQueryHits(CQueryHit* pHits);			// Add query hit to queue
 public:
 	void		UDPHostCache(IN_ADDR* pAddress, WORD nPort);
 	void		UDPKnownHubCache(IN_ADDR* pAddress, WORD nPort);

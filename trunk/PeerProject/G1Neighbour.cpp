@@ -241,7 +241,7 @@ BOOL CG1Neighbour::Send(CPacket* pPacket, BOOL bRelease, BOOL bBuffered)
 		QueueRun(); // (do)
 
 		// Show this packet to all the windows on the tab bar
-		pPacketG1->SmartDump( &m_pHost, FALSE, TRUE, m_nUnique );
+		pPacketG1->SmartDump( &m_pHost, FALSE, TRUE, (DWORD_PTR)this );
 
 		// Record that we sent the packet
 		bSuccess = TRUE;
@@ -338,7 +338,7 @@ BOOL CG1Neighbour::OnPacket(CG1Packet* pPacket)
 	}
 
 	// Show this packet to all the windows on the tab bar
-	pPacket->SmartDump( &m_pHost, FALSE, FALSE, m_nUnique );
+	pPacket->SmartDump( &m_pHost, FALSE, FALSE, (DWORD_PTR)this );
 
 	// Sort the packet by type, hand it to the correct packet handler, and return the result from that
 	switch ( pPacket->m_nType )

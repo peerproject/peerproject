@@ -1583,7 +1583,7 @@
 	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="12"/>
+				<font size="12"/>
 			</style>
 			<style name="heading">
 				<font face="Trebuchet MS" size="16" weight="800"/>
@@ -1689,7 +1689,7 @@
 	<document name="CHomeDownloadsBox" title="Letöltések" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="9"/>
+				<font size="9"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1705,7 +1705,7 @@
 	<document name="CHomeLibraryBox" title="Könyvtár" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="9"/>
+				<font size="9"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1738,7 +1738,7 @@
 	<document name="CHomeConnectionBox" title="Kapcsolat" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="9"/>
+				<font size="9"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1783,7 +1783,7 @@
 	<document name="CHomeUploadsBox" title="Feltöltések" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="9"/>
+				<font size="9"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1799,7 +1799,7 @@
 	<document name="CHomeTorrentsBox" title="Torrentek" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="9"/>
+				<font size="9"/>
 			</style>
 		</styles>
 		<para align="center">

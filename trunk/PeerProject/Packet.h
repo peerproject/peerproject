@@ -22,7 +22,6 @@
 // CPacket represents a packet on a peer-to-peer network, and CPacketPool keeps lists of them
 // http://www.pantheraproject.net/wiki/index.php?title=Developers.Code.CPacket
 
-// Only include the lines beneath this one once
 #pragma once
 
 // When the allocated block of memory needs to be bigger, make it 128 bytes bigger
@@ -113,7 +112,7 @@ public:
 	virtual void    Debug(LPCTSTR pszReason) const;
 
 	// Gives this packet and related objects to each window in the tab bar for them to process it
-	void SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD nNeighbourUnique = 0) const;
+	void SmartDump(const SOCKADDR_IN* pAddress, BOOL bUDP, BOOL bOutgoing, DWORD_PTR nNeighbourUnique = 0) const;
 
 public:
 

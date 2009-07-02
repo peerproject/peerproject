@@ -748,7 +748,7 @@ void CUploadsCtrl::OnPaint()
 	int nScroll = GetScrollPos( SB_VERT );
 	int nIndex = 0;
 
-	CFont* pfOld = (CFont*)dc.SelectObject( &theApp.m_gdiFont );
+	CFont* pfOld = (CFont*)dc.SelectObject( &CoolInterface.m_fntNormal );
 	BOOL bFocus = ( GetFocus() == this );
 
 	for ( POSITION posQueue = GetQueueIterator() ; posQueue && rcItem.top < rcClient.bottom ; )
@@ -821,7 +821,7 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 
 	pColumn.mask = HDI_FORMAT | HDI_LPARAM;
 
-	dc.SelectObject( &theApp.m_gdiFontBold );
+	dc.SelectObject( &CoolInterface.m_fntBold );
 
 	for ( int nColumn = 0 ; m_wndHeader.GetItem( nColumn, &pColumn ) ; nColumn++ )
 	{
@@ -942,7 +942,7 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 		dc.FillSolidRect( &rcBlank, crBack );
 	}
 
-	dc.SelectObject( &theApp.m_gdiFont );
+	dc.SelectObject( &CoolInterface.m_fntNormal );
 
 	if ( bFocus )
 	{
@@ -1139,6 +1139,8 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 
 void CUploadsCtrl::OnSkinChange()
 {
+	m_wndHeader.SetFont( &CoolInterface.m_fntNormal );
+
 	for ( int nImage = 1 ; nImage < 7 ; nImage++ )
 	{
 		HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE );

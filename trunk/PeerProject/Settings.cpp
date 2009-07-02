@@ -32,7 +32,7 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-#define SMART_VERSION	58
+#define SMART_VERSION	59
 
 CSettings Settings;
 
@@ -138,7 +138,7 @@ void CSettings::Load()
 	Add( _T("Fonts"), _T("DefaultFont"), &Fonts.DefaultFont, theApp.m_bIsVistaOrNewer ? _T( "Segoe UI" ) : _T( "Tahoma" ) );
 	Add( _T("Fonts"), _T("PacketDumpFont"), &Fonts.PacketDumpFont, _T("Lucida Console") );
 	Add( _T("Fonts"), _T("SystemLogFont"), &Fonts.SystemLogFont, theApp.m_bIsVistaOrNewer ? _T( "Segoe UI" ) : _T( "Tahoma" ) );
-	Add( _T("Fonts"), _T("DefaultSize"), &Fonts.DefaultSize, 11 );
+	Add( _T("Fonts"), _T("FontSize"), &Fonts.FontSize, 11 );
 
 	Add( _T("Library"), _T("CreateGhosts"), &Library.CreateGhosts, true );
 	Add( _T("Library"), _T("FilterURI"), &Library.FilterURI );
@@ -1115,6 +1115,13 @@ void CSettings::SmartUpgrade()
 		if ( General.SmartVersion < 58 )
 		{
 			eDonkey.LargeFileSupport = true;
+		}
+
+		if ( General.SmartVersion < 59 )
+		{
+			Fonts.DefaultFont.Empty();
+			Fonts.SystemLogFont.Empty();
+			Fonts.FontSize = 11;
 		}
 	}
 

@@ -1708,7 +1708,7 @@ gap i newline
 	<document name="CHomeDownloadsBox" title="ההורדות שלי" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Tahoma" size="10"/>
+				<font size="10"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1724,7 +1724,7 @@ gap i newline
 	<document name="CHomeLibraryBox" title="הספריה שלי" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Tahoma" size="10"/>
+				<font size="10"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1757,7 +1757,7 @@ gap i newline
 	<document name="CHomeConnectionBox" title="חיבור" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Tahoma" size="10"/>
+				<font size="10"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1801,7 +1801,7 @@ gap i newline
 	<document name="CHomeUploadsBox" title="העלאות" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Tahoma" size="10"/>
+				<font size="10"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1817,7 +1817,7 @@ gap i newline
 	<document name="CHomeTorrentsBox" title="טורנטים" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Tahoma" size="10"/>
+				<font size="10"/>
 			</style>
 		</styles>
 		<para align="center">
