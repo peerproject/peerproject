@@ -44,7 +44,6 @@ static char THIS_FILE[]=__FILE__;
 // When the program makes the CNeighbours object, this constructor initializes the member variables defined in CNeighboursBase
 CNeighboursBase::CNeighboursBase()
 {
-	m_nUnique       = 2; // Give the first neighbour which needs a unique number the number 2, the one after that will get 3, and so on
 	m_nRunCookie    = 5; // Start the run cookie as 5, OnRun will make it 6, 7, 8 and so on
 	m_nStableCount  = 0; // We don't have any stable connections to remote computers yet
 	m_nLeafCount    = 0; // We aren't connected to any leaves yet
@@ -68,28 +67,16 @@ CNeighboursBase::~CNeighboursBase()
 // Returns a POSITION value, or null if the map is empty
 POSITION CNeighboursBase::GetIterator() const
 {
-	// Return the POSITION that GetStartPosition gets from the m_pUniques map
-	return m_pUniques.GetStartPosition(); // Returns a POSITION value that we can use to loop through the contents
+	ASSUME_LOCK( Network.m_pSection );
+
+	return m_pNeighbours.GetHeadPosition();
 }
 
-// Call repeatedly to loop through the contents of the m_pUniques map
-// Takes access to the POSITION value that GetIterator returned
-// Calls GetNextAssoc to get the next thing in the map
-// Casts it back to a CNeighbour object, and returns a pointer to it
 CNeighbour* CNeighboursBase::GetNext(POSITION& pos) const
 {
-	// Local variables for the key and value under pos
-	DWORD_PTR   nUnique;    // The key, a pointer
-	CNeighbour* pNeighbour; // The value, a pointer to an object that inherits from CNeighbour
+	ASSUME_LOCK( Network.m_pSection );
 
-	// Retrieves the map element at pos, and then updates pos to refer to the next element in the map
-	m_pUniques.GetNextAssoc(
-		pos,                  // A reference to the POSITION value that is used, and then updated
-		nUnique,              // GetNextAssoc writes the key of the element here, we don't need it
-		pNeighbour );		  // GetNextAssoc writes the value of the element here
-
-	// Return the pointer to the object that inherits from CNeighbour that we got from the m_pUniques map
-	return pNeighbour;
+	return m_pNeighbours.GetNext( pos );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -100,35 +87,28 @@ CNeighbour* CNeighboursBase::GetNext(POSITION& pos) const
 // Returns it, or null if not found
 CNeighbour* CNeighboursBase::Get(DWORD_PTR nUnique) const
 {
-	// Make a local pointer to a CNeighbour object and start it out pointing at null
-	CNeighbour* pNeighbour = NULL;
+	ASSUME_LOCK( Network.m_pSection );
 
-	// Lookup the CNeighbour object with that value in the m_pUniques map
-	if ( ! m_pUniques.Lookup( // If Lookup can't find the element, it will return 0, and the if will execute
-		nUnique,      // Cast the DWORD as a pointer and use it as the key value
-		              // This is a reference to a pointer, letting Lookup change where the pointer points
-		pNeighbour ) )        // Lookup will write the value pointer it finds in pNeighbour
+	if ( POSITION pos = m_pNeighbours.Find( (CNeighbour*)nUnique ) )
+		return m_pNeighbours.GetAt( pos );
 
-		// Lookup couldn't find the element, make sure the local pointer we return will be null
-		pNeighbour = NULL;
-
-	// Return a pointer to the CNeighbours object Lookup found, or null if not found
-	return pNeighbour;
+	return NULL;
 }
 
 // Takes an IP address
 // Finds the neighbour object in the m_pUniques map that represents the remote computer with that address
 // Returns it, or null if not found
-CNeighbour* CNeighboursBase::Get(IN_ADDR* pAddress) const // Saying const here means this method won't change any member variables
+CNeighbour* CNeighboursBase::Get(IN_ADDR* pAddress) const	// Saying const here means this method won't change any member variables
 {
-	// Loop through each neighbour in the m_pUniques map
-	for ( POSITION pos = GetIterator() ; pos ; ) // Get a POSITION iterator, and leave when calling GetNext made it null
+	ASSUME_LOCK( Network.m_pSection );
+
+	for ( POSITION pos = m_pNeighbours.GetHeadPosition() ; pos ; )
 	{
-		// Get the neighbour object at the current position, and move pos to the next position
-		CNeighbour* pNeighbour = GetNext( pos );
+		CNeighbour* pNeighbour = m_pNeighbours.GetNext( pos );
 
 		// If this neighbour object has the IP address we are looking for, return it
-		if ( pNeighbour->m_pHost.sin_addr.S_un.S_addr == pAddress->S_un.S_addr ) return pNeighbour;
+		if ( pNeighbour->m_pHost.sin_addr.S_un.S_addr == pAddress->S_un.S_addr )
+			return pNeighbour;
 	}
 
 	// None of the neighbour objects in the map had the IP address we are looking for
@@ -139,12 +119,14 @@ CNeighbour* CNeighboursBase::Get(IN_ADDR* pAddress) const // Saying const here m
 // Returns it, or null if not found
 CNeighbour* CNeighboursBase::GetNewest(PROTOCOLID nProtocol, int nState, int nNodeType) const
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	DWORD tCurrent = GetTickCount();
 	DWORD tMinTime = 0xffffffff;
 	CNeighbour* pMinNeighbour = NULL;
-	for ( POSITION pos = GetIterator() ; pos ; )
+	for ( POSITION pos = m_pNeighbours.GetHeadPosition() ; pos ; )
 	{
-		CNeighbour* pNeighbour = GetNext( pos );
+		CNeighbour* pNeighbour = m_pNeighbours.GetNext( pos );
 		if ( ( nProtocol == PROTOCOL_ANY || nProtocol == pNeighbour->m_nProtocol ) &&
 			 ( nState < 0 || nState == pNeighbour->m_nState ) &&
 			 ( nNodeType < 0 || nNodeType == pNeighbour->m_nNodeType ) )
@@ -168,22 +150,14 @@ CNeighbour* CNeighboursBase::GetNewest(PROTOCOLID nProtocol, int nState, int nNo
 // Returns the number found
 DWORD CNeighboursBase::GetCount(PROTOCOLID nProtocol, int nState, int nNodeType) const
 {
-	// Start out the count at 0
-	DWORD nCount = 0;
+	DWORD nCount = 0;	// Start count at 0
 
-	// Get exclusive access to the network object (do)
-	if ( ( Network.m_pSection.Lock( 200 ) ) ) // If we're waiting more than a fifth of a second for it, give up
+	CSingleLock pLock( &Network.m_pSection, FALSE );
+	if ( pLock.Lock( 200 ) )
 	{
-		// Loop through each neighbour in the m_pUniques map
-		for ( POSITION pos = m_pUniques.GetStartPosition() ; pos ; ) // Get a POSITION iterator, and leave when calling GetNext made it null
+		for ( POSITION pos = m_pNeighbours.GetHeadPosition() ; pos ; )
 		{
-			// Get a key and value from the m_pUniques map
-			CNeighbour* pNeighbour;   // GetNextAssoc will put the neighbour pointer here
-			DWORD_PTR nUnique;        // GetNextAssoc will put the key to that neighbour here
-			m_pUniques.GetNextAssoc(  // Get a key and value from the map, and move pos to the next one for the next time this runs
-				pos,                  // Get the neighbour at this position, and move pos to the next one
-				nUnique,              // GetNextAssoc will write the key here
-				pNeighbour ); // And the corresponding neighbour pointer here
+			CNeighbour* pNeighbour = m_pNeighbours.GetNext( pos );
 
 			// If this neighbour has the protocol we are looking for, or nProtocl is negative to count them all
 			if ( nProtocol == PROTOCOL_ANY || nProtocol == pNeighbour->m_nProtocol )
@@ -193,16 +167,13 @@ DWORD CNeighboursBase::GetCount(PROTOCOLID nProtocol, int nState, int nNodeType)
 				{
 					// If this neighbour is in the ultra or leaf role we are looking for, or nNodeType is null to count them all
 					if ( nNodeType < 0 || nNodeType == pNeighbour->m_nNodeType )
-					{
-						// Count it
 						nCount++;
-					}
 				}
 			}
 		}
 
 		// Let another thread gain exclusive access to the network object (do)
-		Network.m_pSection.Unlock();
+		pLock.Unlock();
 	}
 
 	// Return the number of neighbours we found in the list that match the given qualities
@@ -215,20 +186,12 @@ DWORD CNeighboursBase::GetCount(PROTOCOLID nProtocol, int nState, int nNodeType)
 // Returns true if it finds one
 BOOL CNeighboursBase::NeighbourExists(PROTOCOLID nProtocol, int nState, int nNodeType) const
 {
-	// Get exclusive access to the network object, giving up after a fifth of a second of waiting
-	CSingleLock pLock( &Network.m_pSection );
-	if ( pLock.Lock( 200 ) ) return FALSE;
-
-	// Loop through each neighbour in the m_pUniques map
-	for ( POSITION pos = m_pUniques.GetStartPosition() ; pos ; )
+	CSingleLock pLock( &Network.m_pSection, FALSE );
+	if ( pLock.Lock( 200 ) )
 	{
-		// Get a key and value from the m_pUniques map
-		CNeighbour* pNeighbour;   // GetNextAssoc will put the neighbour pointer here
-		DWORD_PTR nUnique;        // GetNextAssoc will put the key to that neighbour here
-		m_pUniques.GetNextAssoc(  // Get a key and value from the map, and move pos to the next one for the next time this runs
-			pos,                  // Get the neighbour at this position, and move pos to the next one
-			nUnique,              // GetNextAssoc will write the key here
-			pNeighbour ); // And the corresponding neighbour pointer here
+		for ( POSITION pos = m_pNeighbours.GetHeadPosition() ; pos ; )
+		{
+			CNeighbour* pNeighbour = m_pNeighbours.GetNext( pos );
 
 		// If this neighbour has the protocol we are looking for, or nProtocl is negative to count them all
 		if ( nProtocol == PROTOCOL_ANY || nProtocol == pNeighbour->m_nProtocol )
@@ -245,7 +208,7 @@ BOOL CNeighboursBase::NeighbourExists(PROTOCOLID nProtocol, int nState, int nNod
 			}
 		}
 	}
-
+	}
 	// Not found
 	return FALSE;
 }
@@ -265,11 +228,9 @@ void CNeighboursBase::Connect()
 // Calls Close on all the neighbours in the list, and resets member variables back to 0
 void CNeighboursBase::Close()
 {
-	// Loop through each neighbour in the list
-	for ( POSITION pos = GetIterator() ; pos ; )
+	for ( POSITION pos = m_pNeighbours.GetHeadPosition() ; pos ; )
 	{
-		// Call the close method on it
-		GetNext( pos )->Close(); // GetNext gets the neighbour at the current position, and then moves pos forward
+		m_pNeighbours.GetNext( pos )->Close();
 	}
 
 	// Reset member variables back to 0
@@ -306,16 +267,18 @@ void CNeighboursBase::OnRun()
 	while ( bUpdated )
 	{
 		// Make sure this thread is the only one accessing the network object
-		Network.m_pSection.Lock();
+		CSingleLock pLock( &Network.m_pSection, FALSE );
+		if ( ! pLock.Lock( 200 ) )
+			continue;
 
 		// Indicate if stats were updated
 		bUpdated = false;
 
 		// Loop through the neighbours in the list
-		for ( POSITION pos = GetIterator() ; pos ; )
+		for ( POSITION pos = m_pNeighbours.GetHeadPosition() ; pos ; )
 		{
 			// Get the neighbour at this position, and move pos to the next position in the m_pUniques map
-			CNeighbour* pNeighbour = GetNext( pos );
+			CNeighbour* pNeighbour = m_pNeighbours.GetNext( pos );
 
 			// If this neighbour doesn't have the new run cookie count yet, we need to run it
 			if ( pNeighbour->m_nRunCookie != m_nRunCookie )
@@ -352,7 +315,7 @@ void CNeighboursBase::OnRun()
 		}
 
 		// We're done with the network object for right now, let another thread access it
-		Network.m_pSection.Unlock();
+		pLock.Unlock();
 	}
 
 	// Save the values we calculated in local variables into the corresponding member variables
@@ -368,46 +331,33 @@ void CNeighboursBase::OnRun()
 
 // Takes a neighbour object, and true to find it an unused m_nUnique number
 // Adds it to the m_pUniques map using pNeighbour->m_nUnique as the key
-void CNeighboursBase::Add(CNeighbour* pNeighbour, BOOL bAssignUnique)
+void CNeighboursBase::Add(CNeighbour* pNeighbour)
 {
-	// The caller wants us to assign this neighbour a unique number for the map
-	if ( bAssignUnique )
-	{
-		// Start out pExisting as null, nothing found yet
-		CNeighbour* pExisting = NULL;
+	ASSUME_LOCK( Network.m_pSection );
 
-		// Assign this neighbour a number like 2, 3, 4 and so on that no neighbour in the list has already
-		do
+	if ( POSITION pos = m_pNeighbours.Find( pNeighbour ) )
 		{
-			// Give the number in this CNeighbours object to this neighbour
-			pNeighbour->m_nUnique = m_nUnique++; // Then, move to the next number for the next neighbour
-
-		} // Look for this number in the map already, and break if it's not found
-		while (
-
-			// This neighbour has a unique number less than 2, or
-			pNeighbour->m_nUnique < 2 // Not really possible, because we just set it to 2, 3, 4 or so on (do)
-
-			// Lookup can find this number in use as a key in the map already
-			|| m_pUniques.Lookup(              // Given a key, find the corresponding value in the map
-				pNeighbour->m_nUnique, // The key is this neighbour's unique number
-				pExisting ) );         // If there is a value for that key, Lookup will write it in pExisting
+		// Dup?
 	}
-
-	// Now that we've given this neighbour a unique key, insert it with that key into the map
-	m_pUniques.SetAt(                  // Insert an element into the map
-		pNeighbour->m_nUnique, // Under this key
-		pNeighbour );                  // Put this element
+	else
+	{
+		m_pNeighbours.AddTail( pNeighbour );
+	}
 }
 
 // Takes a pointer to a neighbour object
 // Removes it from the list
 void CNeighboursBase::Remove(CNeighbour* pNeighbour)
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	// Tell the network object to remove this neighbour also
 	Network.QueryRoute->Remove( pNeighbour );
 	Network.NodeRoute->Remove( pNeighbour );
 
 	// Remove the neighbour object from the map
-	m_pUniques.RemoveKey( pNeighbour->m_nUnique ); // Remove it by its key
+	if ( POSITION pos = m_pNeighbours.Find( pNeighbour ) )
+	{
+		m_pNeighbours.RemoveAt( pos );
+	}
 }

@@ -116,8 +116,8 @@ public:
 //	HRESULT		(WINAPI *m_pfnEnableThemeDialogTexture)(HWND, DWORD);
 //	HRESULT		(WINAPI *m_pfnDrawThemeParentBackground)(HWND, HDC, RECT*);
 //	HRESULT		(WINAPI *m_pfnGetThemeBackgroundContentRect)(HANDLE, HDC, int, int, const RECT*, RECT*);
-//	HRESULT		(WINAPI *m_pfnGetThemeSysFont)(HANDLE, int, LOGFONT);
 //	HRESULT		(WINAPI *m_pfnDrawThemeText)(HANDLE, HDC, int, int, LPCWSTR, int, DWORD, DWORD, const RECT*);
+	HRESULT		(WINAPI *m_pfnGetThemeSysFont)(HTHEME, int, __out LOGFONTW*);
 
 	// Shell functions
 	BOOL		(WINAPI *m_pfnAssocIsDangerous)(LPCWSTR);

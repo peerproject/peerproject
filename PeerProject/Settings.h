@@ -123,7 +123,7 @@ public:
 		CString		DefaultFont;				// Main font
 		CString		PacketDumpFont;				// Packet Window font
 		CString		SystemLogFont;				// System Window font
-		DWORD		DefaultSize;				// The basic font size
+		DWORD		FontSize;					// Basic font size
 	} Fonts;
 
 	struct sLibrary

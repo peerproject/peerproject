@@ -910,8 +910,8 @@ void CPeerProjectApp::InitResources()
 	//	(FARPROC&)m_pfnEnableThemeDialogTexture = GetProcAddress( m_hTheme, "EnableThemeDialogTexture" );
 	//	(FARPROC&)m_pfnDrawThemeParentBackground = GetProcAddress( m_hTheme, "DrawThemeParentBackground" );
 	//	(FARPROC&)m_pfnGetThemeBackgroundContentRect = GetProcAddress( m_hTheme, "GetThemeBackgroundContentRect" );
-	//	(FARPROC&)m_pfnGetThemeSysFont = GetProcAddress( m_hTheme, "GetThemeSysFont" );
 	//	(FARPROC&)m_pfnDrawThemeText = GetProcAddress( m_hTheme, "DrawThemeText" );
+		(FARPROC&)m_pfnGetThemeSysFont = GetProcAddress( m_hTheme, "GetThemeSysFont" );
 	}
 
 	// Get pointers to some functions that require Internet Explorer 6 or greater
@@ -958,29 +958,45 @@ void CPeerProjectApp::InitResources()
 		RegCloseKey( hKey );
 	}
 
-	//For Disabled Font Manager-
-	//HDC screen = GetDC( 0 );
-	//scaleX = GetDeviceCaps( screen, LOGPIXELSX ) / 96.0;
-	//scaleY = GetDeviceCaps( screen, LOGPIXELSY ) / 96.0;
-	//ReleaseDC( 0, screen );
+	// Set up the default fonts
+	if ( Settings.Fonts.DefaultFont.IsEmpty() )
+	{
+		// Get font from current theme
+		if ( m_pfnGetThemeSysFont )
+		{
+			LOGFONT pFont = {};
+			if ( m_pfnGetThemeSysFont( NULL, TMT_MENUFONT, &pFont ) == S_OK )
+			{
+				Settings.Fonts.DefaultFont = pFont.lfFaceName;
+			}
+		}
+	}
+	if ( Settings.Fonts.DefaultFont.IsEmpty() )
+	{
+		// Get font by legacy method
+		NONCLIENTMETRICS pMetrics = { sizeof( NONCLIENTMETRICS ) };
+		SystemParametersInfo( SPI_GETNONCLIENTMETRICS, sizeof( NONCLIENTMETRICS ),
+			&pMetrics, 0 );
+		Settings.Fonts.DefaultFont = pMetrics.lfMenuFont.lfFaceName;
+	}
+	if ( Settings.Fonts.SystemLogFont.IsEmpty() )
+	{
+		Settings.Fonts.SystemLogFont = Settings.Fonts.DefaultFont;
+	}
+	if ( Settings.Fonts.PacketDumpFont.IsEmpty() )
+	{
+		Settings.Fonts.PacketDumpFont = _T("Lucida Console");
+	}
 
-	// Get the fonts from the registry
-	//CString strFont = m_bIsVistaOrNewer ? _T( "Segoe UI" ) : _T( "Tahoma" ) ;
-	//theApp.m_sDefaultFont		= theApp.GetProfileString( _T("Fonts"), _T("DefaultFont"), strFont );
-	//theApp.m_sPacketDumpFont	= theApp.GetProfileString( _T("Fonts"), _T("PacketDumpFont"), _T("Lucida Console") );
-	//theApp.m_sSystemLogFont	= theApp.GetProfileString( _T("Fonts"), _T("SystemLogFont"), strFont );
-	//theApp.m_nDefaultFontSize	= theApp.GetProfileInt( _T("Fonts"), _T("FontSize"), 11 );
-
-	// Setup the default font
-	m_gdiFont.CreateFontW( -(int)Settings.Fonts.DefaultSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+	m_gdiFont.CreateFont( -(int)Settings.Fonts.FontSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
-	m_gdiFontBold.CreateFontW( -(int)Settings.Fonts.DefaultSize, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+	m_gdiFontBold.CreateFont( -(int)Settings.Fonts.FontSize, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
-	m_gdiFontLine.CreateFontW( -(int)Settings.Fonts.DefaultSize, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
+	m_gdiFontLine.CreateFont( -(int)Settings.Fonts.FontSize, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 

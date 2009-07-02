@@ -1578,17 +1578,17 @@
 	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="12"/>
+				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
 			<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/><gap size="8"/>
-			<heading align="middle">GET CONNECTED</heading>
+			<heading align="middle">Get Connected</heading>
 			<newline gap="8" indent="42"/>
 			<text>Welcome to PeerProject.</text>
 			<newline gap="8" indent="42"/>
@@ -1598,20 +1598,20 @@
 		</group>
 		<group id="2">
 			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">START DOWNLOAD</heading>
+			<heading align="middle">Start Download</heading>
 			<newline gap="8" indent="42"/>
 			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
-			<text align="middle">&#160; downloading a new file or torrent.</text>
+			<text align="middle">&#160;downloading a new file or torrent link.</text>
 			<newline gap="24" indent="0"/>
 			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
-			<heading align="middle">SEARCH FOR A FILE</heading>
+			<heading align="middle">Search For Files</heading>
 			<newline gap="4" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
-			<newline gap="12" indent="0"/>
+			<newline gap="16" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">UPGRADE NOTICE</heading>
+			<heading align="middle">Upgrade Notice</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
@@ -1620,39 +1620,45 @@
 		</group>
 		<group id="4">
 			<icon res="252" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">WARNING: YOU ARE FIREWALLED</heading>
+			<heading align="middle">Warning: You Are Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
 			and are unable to receive connections from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor download and search performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Click here to learn how to configure your router or firewall</link>
-			<newline gap="18" indent="0"/>
+			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<text>&#160;or </text>
+			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="6">
 			<icon res="252" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">WARNING: YOUR TCP PORT IS FIREWALLED</heading>
+			<heading align="middle">Warning: Your TCP Port Is Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
 			and are unable to receive TCP connections from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor download performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Click here to learn how to configure your router or firewall</link>
-			<newline gap="18" indent="0"/>
+			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<text>&#160;or </text>
+			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="7">
 			<icon res="252" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">WARNING: YOUR UDP PORT IS FIREWALLED</heading>
+			<heading align="middle">Warning: Your UDP Port Is Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
 			and are unable to receive UDP messages from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor search performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Click here to learn how to configure your router or firewall</link>
-			<newline gap="18" indent="0"/>
+			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<text>&#160;or </text>
+			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<icon res="236" width="32" height="32"/><gap size="8"/>
-		<heading align="middle">CUSTOMIZE PEERPROJECT</heading>
+		<heading align="middle">Customize PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
 		<gap size="8"/>
@@ -1662,7 +1668,7 @@
 		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
 		<gap size="8"/>
 		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Settings Wizard</link>
-		<text align="middle">&#160;- Quick edit PeerProject's basic settings</text>
+		<text align="middle">&#160;- Quick-edit PeerProject's basic settings</text>
 		<newline gap="8"/>
 		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/>
 		<gap size="8"/>
@@ -1673,24 +1679,24 @@
 		<gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Quick Help</link>
 		<text align="middle">&#160;- Get online support using PeerProject</text>
-		<newline gap="18" indent="0"/>
+		<newline gap="20" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">REMOTE ACCESS ENABLED</heading>
+			<heading align="middle">Remote Access Enabled</heading>
 			<newline gap="8" indent="42"/>
-			<text>PeerProject Remote Access is enabled. Control PeerProject using your web browser at:</text>
+			<text>Control PeerProject using your web browser at:</text>
 			<newline gap="6"/>
 			<link id="RemoteAccessURL1"/>
 			<text>&#160;- or -&#160;</text>
 			<link id="RemoteAccessURL2"/>
-			<newline gap="16" indent="0"/>
+			<newline gap="18" indent="0"/>
 		</group>
 	</document>
 	<!-- Homepanel Taskboxes -->
 	<document name="CHomeConnectionBox" title="Connection" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="9"/>
+				<font size="10"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1738,7 +1744,7 @@
 	<document name="CHomeLibraryBox" title="Library" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="9"/>
+				<font size="10"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1771,7 +1777,7 @@
 	<document name="CHomeDownloadsBox" title="Downloads" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="9"/>
+				<font size="10"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1790,7 +1796,7 @@
 	<document name="CHomeUploadsBox" title="Uploads" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="9"/>
+				<font size="10"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1798,7 +1804,7 @@
 			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 active upload</link>
 			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i active uploads</link>
 			<newline gap="4"/>
-			<text id="UploadedNone">You have not uploaded any files.</text>
+			<text id="UploadedNone">No files uploaded.</text>
 			<text id="UploadedOne">1 file (%s)</text>
 			<text id="UploadedMany">%i files (%s)</text>
 		</para>
@@ -1806,7 +1812,7 @@
 	<document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="9"/>
+				<font size="10"/>
 			</style>
 		</styles>
 		<para align="center">

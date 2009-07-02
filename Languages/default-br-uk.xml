@@ -481,7 +481,7 @@
 	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="12"/>
+				<font size="12"/>
 			</style>
 			<style name="heading">
 				<font face="Trebuchet MS" size="16" weight="800"/>

@@ -76,9 +76,9 @@ BOOL CAboutDlg::OnInitDialog()
 	m_wndTitle.GetWindowText( strCaption );
 	strCaption += theApp.m_sVersion;
 #ifdef _WIN64
-	strCaption += _T(" 64-bit  (") + theApp.m_sBuildDate;
+	strCaption += _T("  64-bit  (") + theApp.m_sBuildDate;
 #else
-	strCaption += _T(" 32-bit  (") + theApp.m_sBuildDate;
+	strCaption += _T("  32-bit  (") + theApp.m_sBuildDate;
 #endif
 #ifdef __REVISION__
 	strCaption += _T(" r") _T(__REVISION__) _T(")");
@@ -118,12 +118,12 @@ HBRUSH CAboutDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	if ( pWnd == &m_wndTitle )
 	{
-		pDC->SelectObject( &theApp.m_gdiFontBold );
+		pDC->SelectObject( &CoolInterface.m_fntBold );
 	}
 	else if ( pWnd == &m_wndWeb )
 	{
 		pDC->SetTextColor( CoolInterface.m_crTextLink );
-		pDC->SelectObject( &theApp.m_gdiFontLine );
+		pDC->SelectObject( &CoolInterface.m_fntUnder );
 	}
 
 	return hbr;

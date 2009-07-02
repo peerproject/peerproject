@@ -1559,7 +1559,7 @@
   <document name="CHomeConnectionBox" title="연결" leftMargin="6" topMargin="6">
     <styles>
       <style name="default">
-        <font face="Verdana" size="9"/>
+        <font size="9"/>
       </style>
     </styles>
     <group id="1">
@@ -1607,7 +1607,7 @@
   <document name="CHomeLibraryBox" title="도서관" leftMargin="6" topMargin="6">
     <styles>
       <style name="default">
-        <font face="Verdana" size="9"/>
+        <font size="9"/>
       </style>
     </styles>
     <para align="center">
@@ -1640,7 +1640,7 @@
   <document name="CHomeDownloadsBox" title="다운로드" leftMargin="6" topMargin="6">
     <styles>
       <style name="default">
-        <font face="Verdana" size="9"/>
+        <font size="9"/>
       </style>
     </styles>
     <para align="center">
@@ -1659,7 +1659,7 @@
   <document name="CHomeUploadsBox" title="업로드" leftMargin="6" topMargin="6">
     <styles>
       <style name="default">
-        <font face="Verdana" size="9"/>
+        <font size="9"/>
       </style>
     </styles>
     <para align="center">
@@ -1675,7 +1675,7 @@
   <document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
     <styles>
       <style name="default">
-        <font face="Verdana" size="9"/>
+        <font size="9"/>
       </style>
     </styles>
     <para align="center">

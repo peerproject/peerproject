@@ -1529,10 +1529,10 @@
 	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
 		<styles>
 			<style name="الإفتراضي">
-				<font face="Tahoma" size="12" />
+				<font size="12" />
 			</style>
 			<style name="default">
-				<font face="Tahoma" size="16" weight="800" />
+				<font size="16" weight="800" />
 			</style>
 		</styles>
 		<anchor id="المقدمة" width="32" height="152" />
@@ -1641,7 +1641,7 @@
 	<document name="CHomeDownloadsBox" title="مكتبة ملفاتي الخاصة" rightMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Verdana" size="9" />
+				<font size="9" />
 			</style>
 		</styles>
 		<para align="center">
@@ -1657,7 +1657,7 @@
 	<document name="CHomeLibraryBox" title="مكتبتي الخاصة" rightMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font face="Tahoma" size="9" />
+				<font size="9" />
 			</style>
 		</styles>
 		<para align="center">
@@ -1690,7 +1690,7 @@
   <document name="CHomeConnectionBox" title="الإتصال" rightMargin="6" topMargin="6">
 	<styles>
 	  <style name="default">
-		<font face="Tahoma" size="9" />
+		<font size="9" />
 	  </style>
 	</styles>
 	<para align="center">
@@ -1736,7 +1736,7 @@
 	<document name="CHomeUploadsBox" title="رفع الملفات" rightMargin="6" topMargin="6">
 	<styles>
 		<style name="default">
-			<font face="Tahoma" size="9" />
+			<font size="9" />
 		</style>
 	</styles>
 	<para align="center">
@@ -1752,7 +1752,7 @@
 	<document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
 	<styles>
 		<style name="default">
-			<font face="Tahoma" size="9" />
+			<font size="9" />
 		</style>
 	</styles>
 	<para align="center">

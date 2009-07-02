@@ -164,11 +164,11 @@ void CRichDocument::CreateFonts(LPCTSTR pszFaceName, int nSize)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 
-	if ( pszFaceName == NULL )
+	if ( ! pszFaceName || ! *pszFaceName )
 		pszFaceName = Settings.Fonts.DefaultFont;
 
 	if ( nSize == 0 )
-		nSize = Settings.Fonts.DefaultSize + 1;
+		nSize = Settings.Fonts.FontSize + 1;
 
 	if ( m_fntNormal.m_hObject ) m_fntNormal.DeleteObject();
 
@@ -417,7 +417,7 @@ BOOL CRichDocument::LoadXMLStyles(CXMLElement* pParent)
 		ToLower( strName );
 
 		CString strFontFace = Settings.Fonts.DefaultFont;
-		int nFontSize = Settings.Fonts.DefaultSize + 1;
+		int nFontSize = Settings.Fonts.FontSize + 1;
 		int nFontWeight = FW_BOLD;
 
 		if ( CXMLElement* pFont = pXML->GetElementByName( _T("font") ) )
