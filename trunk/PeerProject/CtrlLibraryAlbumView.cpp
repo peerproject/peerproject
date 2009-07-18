@@ -50,14 +50,15 @@ BEGIN_MESSAGE_MAP(CLibraryAlbumView, CLibraryFileView)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
+	ON_WM_PAINT()
 	ON_WM_VSCROLL()
 	ON_WM_MOUSEWHEEL()
-	ON_WM_PAINT()
-	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
+	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_RBUTTONDOWN()
+	ON_WM_XBUTTONDOWN()
 	ON_WM_KEYDOWN()
 	ON_WM_GETDLGCODE()
 	//}}AFX_MSG_MAP
@@ -731,36 +732,6 @@ BOOL CLibraryAlbumView::GetItemRect(CLibraryAlbumTrack* pTrack, CRect* pRect)
 	return FALSE;
 }
 
-void CLibraryAlbumView::OnLButtonDown(UINT nFlags, CPoint point)
-{
-	SetFocus();
-
-	CRect rcTrack;
-	CLibraryAlbumTrack* pHit = HitTest( point, &rcTrack );
-
-	if ( pHit != NULL && pHit->HitTestRating( rcTrack, point ) )
-	{
-		pHit->LockRating();
-		m_pRating = NULL;
-		Invalidate();
-		return;
-	}
-
-	if ( SelectTo( pHit ) )
-	{
-		Invalidate();
-		CLibraryFileView::CheckDynamicBar();
-	}
-
-	if ( pHit && ( nFlags & MK_RBUTTON ) == 0 )
-	{
-		m_bDrag = TRUE;
-		m_ptDrag = point;
-	}
-
-	CLibraryFileView::OnLButtonDown( nFlags, point );
-}
-
 void CLibraryAlbumView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	if ( m_bDrag && ( nFlags & MK_LBUTTON ) )
@@ -815,6 +786,36 @@ void CLibraryAlbumView::OnMouseMove(UINT nFlags, CPoint point)
 	}
 }
 
+void CLibraryAlbumView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	SetFocus();
+
+	CRect rcTrack;
+	CLibraryAlbumTrack* pHit = HitTest( point, &rcTrack );
+
+	if ( pHit != NULL && pHit->HitTestRating( rcTrack, point ) )
+	{
+		pHit->LockRating();
+		m_pRating = NULL;
+		Invalidate();
+		return;
+	}
+
+	if ( SelectTo( pHit ) )
+	{
+		Invalidate();
+		CLibraryFileView::CheckDynamicBar();
+	}
+
+	if ( pHit && ( nFlags & MK_RBUTTON ) == 0 )
+	{
+		m_bDrag = TRUE;
+		m_ptDrag = point;
+	}
+
+	CLibraryFileView::OnLButtonDown( nFlags, point );
+}
+
 void CLibraryAlbumView::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	m_bDrag = FALSE;
@@ -836,6 +837,12 @@ void CLibraryAlbumView::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	OnLButtonDown( nFlags, point );
 	CLibraryFileView::OnRButtonDown( nFlags, point );
+}
+
+void CLibraryAlbumView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
 }
 
 void CLibraryAlbumView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)

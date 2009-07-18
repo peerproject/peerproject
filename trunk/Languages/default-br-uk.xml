@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Default English Skin File -->
-<!-- Translation based on default-en.xml -->
+<!-- Translation based on default-en.xml r28 -->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,	 -->
@@ -154,7 +154,8 @@
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 			<separator/>
 			<menu text="A_dvanced">
-				<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
+				<item id="ID_TAB_HOME" text="_Home Tab" shortcut="Alt-Home"/>
+				<item id="ID_TAB_IRC" text="IRC _Chatrooms" shortcut="F12"/>
 				<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
 				<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 				<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
@@ -170,6 +171,7 @@
 				<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
 				<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
 				<item id="ID_VIEW_RESULTS_MONITOR" text="H_it Monitor" shortcut="Ctrl+F3"/>
+				<item id="ID_TAB_SEARCH" text="New _Search" shortcut="Ctrl-S"/>
 			</menu>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="_Basic Mode"/>
@@ -240,8 +242,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="_Browse Host..."/>
 			<separator/>
 			<menu text="Choose _Networks">
-				<item id="ID_NETWORK_G2" text="Connect to _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Connect to Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Connect to Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
 			</menu>
 			<separator/>
@@ -249,7 +251,8 @@
 			<item id="ID_NETWORK_EXIT" text="E_xit"/>
 		</menu>
 		<menu text="_View">
-			<item id="ID_VIEW_SYSTEM" text="_System" shortcut="F11"/>
+			<item id="ID_TAB_HOME" text="_Home View" shortcut="Alt-Home"/>
+			<item id="ID_VIEW_SYSTEM" text="S_ystem" shortcut="F11"/>
 			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbours" shortcut="Ctrl+F11"/>
 			<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
@@ -265,6 +268,7 @@
 			<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
 			<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
 			<item id="ID_VIEW_RESULTS_MONITOR" text="H_it Monitor" shortcut="Ctrl+F3"/>
+			<item id="ID_VIEW_SEARCH" text="New _Search" shortcut="Ctrl+S"/>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="Basic Mode"/>
 			<item id="ID_VIEW_TABBED" text="Tabbed Mode"/>
@@ -478,43 +482,47 @@
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
-	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
+	<document name="CHomeViewCtrl" leftMargin="20" topMargin="0">
 		<styles>
 			<style name="default">
-				<font size="12"/>
+				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
 			<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/><gap size="8"/>
-			<heading align="middle">GET CONNECTED</heading>
+			<heading align="middle">Get Connected</heading>
 			<newline gap="8" indent="42"/>
 			<text>Welcome to PeerProject.</text>
 			<newline gap="8" indent="42"/>
-			<text>You are not currently connected to any peer-to-peer networks. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">Click here to start!</link>
-			<newline gap="18" indent="0"/>
+			<text>You are not currently connected to any peer-to-peer networks.</text>
+			<newline gap="2" indent="42"/>
+			<link target="peer:command:ID_NETWORK_CONNECT" format="bu">Click here to start!</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">START DOWNLOAD</heading>
-			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
-			<text align="middle">&#160; downloading a new file or torrent.</text>
-			<newline gap="24" indent="0"/>
 			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
-			<heading align="middle">SEARCH FOR A FILE</heading>
+			<heading align="middle">Search for Files</heading>
 			<newline gap="4" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
-			<newline gap="12" indent="0"/>
+			<newline gap="20" indent="0"/>
+			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<heading align="middle">Start a Download</heading>
+			<newline gap="8" indent="42"/>
+			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
+			<text align="middle">&#160;downloading a new file or torrent link.</text>
+			<newline gap="4" indent="42"/>
+			<text align="middle">Or open your completed </text>
+			<link target="peer:shell:downloads">downloads folder.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">UPGRADE NOTICE</heading>
+			<icon res="128" width="32" height="32" target="peer:upgrade"/><gap size="8"/>
+			<heading align="middle">Upgrade Notice</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
@@ -522,143 +530,125 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">WARNING: YOU ARE FIREWALLED</heading>
+			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<heading align="middle">Warning: You Are Firewalled</heading>
 			<newline gap="8" indent="42"/>
-			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
-			and are unable to receive connections from the Internet. &#160;</text>
+			<text color="FF0000">PeerProject has detected that you are hidden behind a router or firewall,
+			and are unable to receive active connections from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor download and search performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Click here to learn how to configure your router or firewall</link>
-			<newline gap="18" indent="0"/>
+			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<text>&#160;or </text>
+			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="6">
 			<icon res="252" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">WARNING: YOUR TCP PORT IS FIREWALLED</heading>
+			<heading align="middle">Warning: Your TCP Port Is Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
 			and are unable to receive TCP connections from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor download performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Click here to learn how to configure your router or firewall</link>
-			<newline gap="18" indent="0"/>
+			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<text>&#160;or </text>
+			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="7">
 			<icon res="252" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">WARNING: YOUR UDP PORT IS FIREWALLED</heading>
+			<heading align="middle">Warning: Your UDP Port Is Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
 			and are unable to receive UDP messages from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor search performance.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Click here to learn how to configure your router or firewall</link>
-			<newline gap="18" indent="0"/>
+			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<text>&#160;or </text>
+			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
+			<newline gap="20" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32"/><gap size="8"/>
-		<heading align="middle">CUSTOMISE PEERPROJECT</heading>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<heading align="middle">Customise PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
+		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Skins</link>
 		<text align="middle">&#160;- Change PeerProject's look &amp; feel</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Settings Wizard</link>
 		<text align="middle">&#160;- Quick edit PeerProject's basic settings</text>
 		<newline gap="8"/>
-		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/>
-		<gap size="8"/>
+		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
+		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Quick Help</link>
 		<text align="middle">&#160;- Get online support using PeerProject</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">REMOTE ACCESS ENABLED</heading>
+			<heading align="middle">Remote Access Enabled</heading>
 			<newline gap="8" indent="42"/>
-			<text>PeerProject Remote Access is enabled. Control PeerProject using your web browser at:</text>
+			<text>Control PeerProject using your web browser at:</text>
 			<newline gap="6"/>
 			<link id="RemoteAccessURL1"/>
-			<text>&#160;- or -&#160;</text>
+			<text>&#160; or &#160;</text>
 			<link id="RemoteAccessURL2"/>
-			<newline gap="16" indent="0"/>
+			<newline gap="18" indent="0"/>
 		</group>
+		<newline gap="16" indent="0"/>
 	</document>
 	<!-- Settings Pages -->
 	<document name="CGeneralSettingsGroup" title="General" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
-		<text>The PeerProject Settings Manager allows advanced users to completely customise how
-			PeerProject works. The settings in the </text>
+		<text>The PeerProject Settings Manager allows advanced users to completely customise how PeerProject works.
+			&#160;The settings in the </text>
 		<text format="b">General </text>
 		<text>section relate to the user experience.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">General:</link>
-		<gap size="4"/>
-		<text>Common user interface settings like tooltips, minimize behavior, number formats, prompts, etc.</text>
+		<text>&#160;Common user interface settings like tooltips, minimize behavior, number formats, prompts, etc.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">Library:</link>
-		<gap size="4"/>
-		<text>Presentation, file access, and management of the file library.</text>
+		<text>&#160;Presentation, file access, and management of the file library.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
-		<gap size="4"/>
-		<text>Set when to use the internal PeerProject Media Center.</text>
+		<text>&#160;Set when to use the internal PeerProject Media Center.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Community:</link>
-		<gap size="4"/>
-		<text>Your profile and direct chat settings.</text>
+		<text>&#160;Your profile and direct chat settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link>
-		<gap size="4"/>
-		<text>IRC chatroom visual appearance and connection settings.</text>
+		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
-		<gap size="4"/>
-		<text>Integrate PeerProject with your web browser to accept peer-to-peer links and download content.</text>
+		<text>&#160;Integrate PeerProject with your web browser to accept peer-to-peer links and download content.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
-		<text>The PeerProject Settings Manager allows advanced users to completely customise how
-			PeerProject works. The settings in the </text>
+		<text>The PeerProject Settings Manager allows advanced users to completely customise how PeerProject works.
+			&#160;The settings in the </text>
 		<text format="b">Internet </text>
 		<text>section control how PeerProject interacts with other nodes in distributed peer-to-peer networks.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Connection:</link>
-		<gap size="4"/>
-		<text>The speeds and capabilities of your Internet connection.</text>
+		<text>&#160;The speeds and capabilities of your Internet connection.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">Downloads:</link>
-		<gap size="4"/>
-		<text>Download throughput, scheduling, verification, timeouts and management.</text>
+		<text>&#160;Download throughput, scheduling, verification, timeouts and management.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads:</link>
-		<gap size="4"/>
-		<text>Upload capacity, queuing, banning, timeouts and special requests.</text>
+		<text>&#160;Upload capacity, queuing, banning, timeouts and special requests.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">Remote:</link>
-		<gap size="4"/>
-		<text>Set up the ability to control PeerProject remotely through a web browser.</text>
+		<text>&#160;Set up the ability to control PeerProject remotely through a web browser.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<gap size="4"/>
-		<text>Limit download connections based on a periodic schedule.</text>
+		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<document name="CBrowseHostProfile.2">
 		<newline gap="40" indent="0"/>

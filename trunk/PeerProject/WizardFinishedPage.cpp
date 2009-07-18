@@ -92,6 +92,11 @@ BOOL CWizardFinishedPage::OnInitDialog()
 
 BOOL CWizardFinishedPage::OnSetActive()
 {
+	//Wizard Window Caption Workaround
+	CString strCaption;
+	GetWindowText( strCaption );
+	GetParent()->SetWindowText( strCaption );
+
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_FINISH );
 	return CWizardPage::OnSetActive();
 }

@@ -337,7 +337,8 @@ void CHomeSearchCtrl::OnSearchStart()
 
 void CHomeSearchCtrl::OnSearchAdvanced()
 {
-	Search( false );
+//	Search( false );
+	GetTopLevelParent()->PostMessage( WM_COMMAND, ID_TAB_SEARCH );
 }
 
 void CHomeSearchCtrl::Activate()

@@ -117,8 +117,8 @@
 	<resource code="32824" id="ID_SEARCH_DOWNLOADNOW"/>
 	<resource code="32825" id="ID_OPEN_DOWNLOADS_FOLDER"/>
 	<resource code="32826" id="ID_DOWNLOADS_RESUME"/>
-  <resource code="32827" id="ID_UPLOADS_FOLDER"/>
-  <resource code="32828" id="ID_DOWNLOADS_CLEAR_COMPLETED"/>
+	<resource code="32827" id="ID_UPLOADS_FOLDER"/>
+	<resource code="32828" id="ID_DOWNLOADS_CLEAR_COMPLETED"/>
 	<resource code="32829" id="ID_DOWNLOADS_SOURCES"/>
 	<resource code="32830" id="ID_DOWNLOADS_LAUNCH"/>
 	<resource code="32831" id="ID_DOWNLOADS_CLEAR"/>
@@ -137,7 +137,6 @@
 	<resource code="32844" id="ID_UPLOADS_DISCONNECT"/>
 	<resource code="32845" id="ID_UPLOADS_CLEAR_COMPLETED"/>
 	<resource code="32846" id="ID_UPLOADS_CLEAR"/>
-	<resource code="32847" id="ID_UPLOADS_EDIT_QUEUE"/>
 	<resource code="32848" id="ID_TRANSFERS_DISCONNECT"/>
 	<resource code="32849" id="ID_TRANSFERS_FORGET"/>
 	<resource code="32850" id="ID_UPLOADS_HELP"/>
@@ -158,8 +157,8 @@
 	<resource code="32865" id="ID_TRAFFIC_SETUP"/>
 	<resource code="32866" id="ID_TRAFFIC_CLEAR"/>
 	<resource code="32867" id="ID_TOOLS_WIZARD"/>
-  <resource code="32868" id="ID_HOSTCACHE_BT_CACHE"/>
-  <resource code="32869" id="ID_CHILD_RESTORE"/>
+	<resource code="32868" id="ID_HOSTCACHE_BT_CACHE"/>
+	<resource code="32869" id="ID_CHILD_RESTORE"/>
 	<resource code="32870" id="ID_CHILD_CLOSE"/>
 	<resource code="32871" id="ID_CHILD_MAXIMISE"/>
 	<resource code="32872" id="ID_CHILD_MINIMISE"/>
@@ -221,8 +220,8 @@
 	<resource code="32944" id="ID_DOWNLOADS_BOOST"/>
 	<resource code="32946" id="ID_TAB_HOME"/>
 	<resource code="32947" id="ID_DOWNLOADS_LAUNCH_COPY"/>
-  <resource code="32948" id="ID_DOWNLOADS_FOLDER"/>
-  <resource code="32949" id="ID_DOWNLOADS_MONITOR"/>
+	<resource code="32948" id="ID_DOWNLOADS_FOLDER"/>
+	<resource code="32949" id="ID_DOWNLOADS_MONITOR"/>
 	<resource code="32950" id="ID_LIBRARY_SELECT_ALL"/>
 	<resource code="32951" id="ID_SECURITY_EXPORT"/>
 	<resource code="32952" id="ID_SECURITY_IMPORT"/>
@@ -240,8 +239,8 @@
 	<resource code="32965" id="ID_TOOLS_SKIN"/>
 	<resource code="32967" id="ID_LIBRARY_HASH_PRIORITY"/>
 	<resource code="32968" id="ID_DOWNLOADS_FILE_DELETE"/>
-  <resource code="32969" id="ID_NEIGHBOURS_SETTINGS"/>
-  <resource code="32970" id="ID_LIBRARY_RENAME"/>
+	<resource code="32969" id="ID_NEIGHBOURS_SETTINGS"/>
+	<resource code="32970" id="ID_LIBRARY_RENAME"/>
 	<resource code="32971" id="ID_UPLOADS_START"/>
 	<resource code="32972" id="ID_DOWNLOADS_MOVE_UP"/>
 	<resource code="32973" id="ID_DOWNLOADS_MOVE_DOWN"/>

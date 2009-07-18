@@ -562,7 +562,7 @@
   <item id="IDC_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
   <separator/>
   <item id="ID_TOOLS_LANGUAGE"		text="Choose a _Language..."/>
-  <item id="ID_TOOLS_SKIN"			text="Choose a S_kin..."/>
+  <item id="ID_TOOLS_SKIN"		text="Choose a S_kin..."/>
   <separator/>
   <item id="ID_TOOLS_PROFILE"		text="Edit My _Profile..."/>
   <item id="ID_TOOLS_WIZARD" 		text="QuickStart _Wizard..."/>
@@ -571,7 +571,7 @@
  </menu>
 
  <menu text="Advanced _View">
-  <item id="ID_TAB_HOME"		text="_Home" shortcut="Ctrl-H"/>
+  <item id="ID_TAB_HOME"		text="_Home" shortcut="Alt-Home/Ctrl-H"/>
   <item id="ID_TAB_SEARCH"		text="_Search" shortcut="Ctrl-S"/>
   <item id="ID_VIEW_DOWNLOADS"		text="_Downloads" shortcut="F3"/>
   <item id="ID_VIEW_UPLOADS"		text="_Uploads" shortcut="F4"/>
@@ -664,7 +664,7 @@
  </menu>
 
  <menu text="Advanced _View">
-  <item id="ID_TAB_HOME"		text="_Home" shortcut="Ctrl-H"/>
+  <item id="ID_TAB_HOME"		text="_Home" shortcut="Alt-Home/Ctrl-H"/>
   <item id="ID_TAB_SEARCH"		text="_Search" shortcut="Ctrl-S"/>
   <item id="ID_VIEW_DOWNLOADS"		text="_Downloads" shortcut="F3"/>
   <item id="ID_VIEW_UPLOADS"		text="_Uploads" shortcut="F4"/>
@@ -758,7 +758,7 @@
  </menu>
 
  <menu text="Advanced _View">
-  <item id="ID_TAB_HOME"		text="_Home" shortcut="Ctrl-H"/>
+  <item id="ID_TAB_HOME"		text="_Home" shortcut="Alt-Home/Ctrl-H"/>
   <item id="ID_TAB_SEARCH"		text="_Search" shortcut="Ctrl-S"/>
   <item id="ID_VIEW_DOWNLOADS"		text="_Downloads" shortcut="F3"/>
   <item id="ID_VIEW_UPLOADS"		text="_Uploads" shortcut="F4"/>
@@ -1933,7 +1933,7 @@
  <part name="_ID_TAB_MEDIA.Down"	rect="420,72,70,24"/>
 </parts>
 <anchors>
- <anchor name="Background"			rect="0,0,498,28"/>
+ <anchor name="Background"		rect="0,0,498,28"/>
  <anchor name="_ID_TAB_HOME"		rect="6,2,78,24"/>
  <anchor name="_ID_TAB_SEARCH"		rect="84,2,78,24"/>
  <anchor name="_ID_TAB_TRANSFERS"	rect="162,2,100,24"/>

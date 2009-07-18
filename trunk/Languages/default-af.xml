@@ -1064,7 +1064,7 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Eienskappe..."/>
 	</menu>
-	<menu name="CDownloadsWnd.Nothing">
+	<menu name="CDownloadsWnd.Default">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start Nuwe Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Nuwe Torrent"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Verwyder _Voltooide Aflaaie"/>
@@ -1112,13 +1112,9 @@
 		<item id="ID_UPLOADS_CHAT" text="_Gesels met Gebruiker"/>
 		<item id="ID_SECURITY_BAN" text="V_erban Gebruiker"/>
 	</menu>
-	<menu name="CUploadsWnd.Queue">
-		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Waglys Verstellings"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Verwyder _Voltooide Oplaaie"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Maak _Outomaties Skoon"/>
-	</menu>
-	<menu name="CUploadsWnd.Nothing">
+	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="Deel Lêers..."/>
+		<item id="ID_UPLOADS_SETTINGS" text="_Waglys Verstellings..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Verwyder _Voltooide Oplaaie"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Hulp..."/>
@@ -1585,10 +1581,10 @@
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
-	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
+	<document name="CHomeViewCtrl" leftMargin="20" topMargin="0">
 		<styles>
 			<style name="default">
-				<font size="12"/>
+				<font size="13"/>
 			</style>
 			<style name="heading">
 				<font face="Trebuchet MS" size="16" weight="800"/>
@@ -1621,7 +1617,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">WAARSKUWING: AGTER 'N NETSKANS</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject het raakgesien dat jy agter 'n NAT roeteerder of netskans is
@@ -1653,7 +1649,7 @@
 			<link target="peer:command:ID_HELP_ROUTER">Kliek hier om uit te vind hoe om jou roeteerder of netskans reg in te stel</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32"/><gap size="8"/>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">VERANDER PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
@@ -1690,21 +1686,50 @@
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
-	<document name="CHomeDownloadsBox" title="My Aflaaie" leftMargin="6" topMargin="6">
+	<document name="CHomeConnectionBox" title="Konneksie" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="9"/>
 			</style>
 		</styles>
-		<para align="center">
-			<group id="1">
-				<text>Jy is nie tans besig met enige aflaaie nie.</text>
+		<group id="1">
+			<para align="center">
+				<text format="b">Nie gekonnekteer</text>
 				<newline gap="4"/>
-			</group>
-			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Gaan na Aflaaie</link>
-			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Gaan na Aflaai (1)</link>
-			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Gaan na Aflaaie (%i)</link>
-		</para>
+				<link target="peer:command:ID_NETWORK_CONNECT">Kliek hier om te konnekteer</link>
+			</para>
+		</group>
+		<icon group="20" command="ID_NETWORK_G2"/>
+		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
+		<text group="21" align="middle">Nie Gekonnekteer</text>
+		<text group="22" align="middle">Konnekteer nou...</text>
+		<text group="23" align="middle">Gekonnekteer</text>
+		<text group="24" align="middle" id="G2Hubs">%i gashere</text>
+		<text group="25" align="middle" id="G2Leaves">%i kliënte</text>
+		<newline group="20" gap="2"/>
+		<icon group="10" command="ID_NETWORK_G1"/>
+		<text group="10" align="middle" format="b">&#160;Gnutella:</text>
+		<text group="11" align="middle">Nie Gekonnekteer</text>
+		<text group="12" align="middle">Konnekteer nou...</text>
+		<text group="13" align="middle">Gekonnekteer</text>
+		<newline group="10" gap="2"/>
+		<icon group="30" command="ID_NETWORK_ED2K"/>
+		<text group="30" align="middle" format="b">&#160;eDonkey:</text>
+		<text group="31" align="middle">Nie Gekonnekteer</text>
+		<text group="32" align="middle">Konnekteer nou...</text>
+		<text group="33" align="middle">Gekonnekteer</text>
+		<newline group="30" gap="2"/>
+		<group id="2">
+			<para align="center">
+				<newline gap="4"/>
+				<text>Jy is gekonnekteer vir </text>
+				<newline gap="0"/>
+				<text id="ConnectedHours" format="b">%i </text>
+				<text>ure en </text>
+				<text id="ConnectedMinutes" format="b">%i </text>
+				<text>minute.</text>
+			</para>
+		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="Biblioteek" leftMargin="6" topMargin="6">
 		<styles>
@@ -1737,50 +1762,27 @@
 			</group>
 		</para>
 	</document>
-	<document name="CHomeConnectionBox" title="Konneksie" leftMargin="6" topMargin="6">
+	<document name="CHomeDownloadsBox" title="My Aflaaie" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="9"/>
 			</style>
 		</styles>
-		<group id="1">
-			<para align="center">
-				<text format="b">Nie gekonnekteer</text>
+		<para align="center">
+			<group id="1">
+				<text>Jy is nie tans besig met enige aflaaie nie.</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Kliek hier om te konnekteer</link>
-			</para>
-		</group>
-		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
-		<text group="20" align="middle" format="b">Gnutella2: </text>
-		<text group="21" align="middle">Nie Gekonnekteer</text>
-		<text group="22" align="middle">Konnekteer nou...</text>
-		<text group="23" align="middle">Gekonnekteer</text>
-		<text group="24" align="middle" id="G2Hubs">%i gashere</text>
-		<text group="25" align="middle" id="G2Leaves">%i kliënte</text>
-		<newline group="20" gap="2"/>
-		<icon group="10" command="ID_NETWORK_G1"/><gap group="10" size="4"/>
-		<text group="10" align="middle" format="b">Gnutella1:</text>
-		<text group="11" align="middle">Nie Gekonnekteer</text>
-		<text group="12" align="middle">Konnekteer nou...</text>
-		<text group="13" align="middle">Gekonnekteer</text>
-		<newline group="10" gap="2"/>
-		<icon group="30" command="ID_NETWORK_ED2K"/><gap group="30" size="4"/>
-		<text group="30" align="middle" format="b">eDonkey:</text>
-		<text group="31" align="middle">Nie Gekonnekteer</text>
-		<text group="32" align="middle">Konnekteer nou...</text>
-		<text group="33" align="middle">Gekonnekteer</text>
-		<newline group="30" gap="2"/>
-		<group id="2">
-			<para align="center">
-				<newline gap="4"/>
-				<text>Jy is gekonnekteer vir </text>
-				<newline gap="0"/>
-				<text id="ConnectedHours" format="b">%i </text>
-				<text>ure en </text>
-				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minute.</text>
-			</para>
-		</group>
+			</group>
+			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Gaan na Aflaaie</link>
+			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Gaan na Aflaai (1)</link>
+			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Gaan na Aflaaie (%i)</link>
+			<newline gap="4"/>
+			<text id="DownloadedNone">No lêers (</text>
+			<text id="DownloadedOne">1 lêer (</text>
+			<text id="DownloadedMany">%i lêer (</text>
+			<text id="DownloadedVolume" format="b">%s</text>
+			<text>)</text>
+		</para>
 	</document>
 	<document name="CHomeUploadsBox" title="Oplaaie" leftMargin="6" topMargin="6">
 		<styles>
@@ -1790,42 +1792,21 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Geen aktiewe oplaaie nie</text>
-			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 aktiewe oplaai</link>
-			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i aktiewe oplaaie</link>
-			<newline gap="4"/>
-			<text id="UploadedNone">Jy het nog geen lêers vandag opgelaai nie.</text>
-			<text id="UploadedOne">Jy het 1 lêer  opgelaai (%s).</text>
-			<text id="UploadedMany">Jy het %i lêers  opgelaai (%s).</text>
-		</para>
-	</document>
-	<document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font size="9"/>
-			</style>
-		</styles>
-		<para align="center">
-			<text id="TorrentsNone" format="b">Geen saaiende torrents nie</text>
-			<text id="TorrentsOne" format="b">1 saaiende torrent</text>
-			<text id="TorrentsMany" format="b">%i saaiende torrents</text>
-			<newline gap="4"/>
-			<link id="ReseedTorrent" format="bu" target="peer:command:ID_TOOLS_RESEEDTORRENT">Hersaai  %s</link>
+			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktiewe oplaai</link>
+			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i aktiewe oplaaie</link>
 			<newline gap="4"/>
 			<group id="1">
-				<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Saai 'n ander torrent</link>
+				<text id="TorrentsOne">1 saaiende torrent</text>
+				<text id="TorrentsMany">%i saaiende torrents</text>
+				<newline gap="4"/>
 			</group>
-			<group id="2">
-				<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Saai 'n torrent</link>
-			</group>
+			<text id="UploadedNone">nog geen lêers vandag opgelaai nie.</text>
+			<text id="UploadedOne">1 lêer (%s).</text>
+			<text id="UploadedMany">%i lêers (%s).</text>
 		</para>
 	</document>
 	<!-- Settings Pages -->
 	<document name="CGeneralSettingsGroup" title="Algemeen" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Welkom by die PeerProject Verstellingsbeheerder</text>
 		<newline gap="16"/>
 		<text>Die PeerProject Verstellingsbeheerder laat gevorderde gebruikers toe om die werking van PeerProject
@@ -1834,35 +1815,24 @@
 		<text>afdeling hou verband met die gebruikerskoppelvlak.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">Algemeen:</link>
-		<gap size="4"/>
-		<text>Algemene gebruikerskoppelvlak verstellings soos tooltips, minimeer gedrag, syferformate, vrae, ens.</text>
+		<text>&#160;Algemene gebruikerskoppelvlak verstellings soos tooltips, minimeer gedrag, syferformate, vrae, ens.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">Biblioteek:</link>
-		<gap size="4"/>
-		<text>Voorstelling en beheer van die lêerbiblioteek en die oopmaak van lêers.</text>
+		<text>&#160;Voorstelling en beheer van die lêerbiblioteek en die oopmaak van lêers.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CMediaSettingsPage" format="b">Media Speler:</link>
-		<gap size="4"/>
-		<text>Waar en wanneer om die ingeboude PeerProject Mediasentrum te gebruik.</text>
+		<text>&#160;Waar en wanneer om die ingeboude PeerProject Mediasentrum te gebruik.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Gemeenskap:</link>
-		<gap size="4"/>
-		<text>Jou profiel, geselsies en kitsboodskap verstellings.</text>
+		<text>&#160;Jou profiel, geselsies en kitsboodskap verstellings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">Web:</link>
-		<gap size="4"/>
-		<text>IRC chatroom visual appearance and connection settings.</text>
+		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
-		<gap size="4"/>
-		<text>Integreer PeerProject met jou webblaaier om persoon-tot-persoon skakels te aanvaar en inhoud af te laai.</text>
+		<text>&#160;Integreer PeerProject met jou webblaaier om persoon-tot-persoon skakels te aanvaar en inhoud af te laai.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Welkom by die PeerProject Verstellingsbeheerder</text>
 		<newline gap="16"/>
 		<text>Die PeerProject Verstellingsbeheerder laat gevorderde gebruikers toe om die werking van PeerProject
@@ -1871,24 +1841,19 @@
 		<text> afdeling beheer hoe PeerProject met ander nodusse binne verspreide persoon-tot-persoon netwerke kommunikeer. </text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Konneksie:</link>
-		<gap size="4"/>
-		<text>Die spoed en vermoëns van jou Internet konneksie.</text>
+		<text>&#160;Die spoed en vermoëns van jou Internet konneksie.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">Aflaaie:</link>
-		<gap size="4"/>
-		<text>Aflaai datavloei, skedulering, kontrolering, tydsopskorting en beheer.</text>
+		<text>&#160;Aflaai datavloei, skedulering, kontrolering, tydsopskorting en beheer.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Oplaaie:</link>
-		<gap size="4"/>
-		<text>Oplaai kapasiteit, waglyste, verbanning, tydsopskorting en spesiale navrae.</text>
+		<text>&#160;Oplaai kapasiteit, waglyste, verbanning, tydsopskorting en spesiale navrae.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">Afstandbeheer:</link>
-		<gap size="4"/>
-		<text>Stel die funksie in om PeerProject deur 'n afgeleë web blaaier te kan beheer.</text>
+		<text>&#160;Stel die funksie in om PeerProject deur 'n afgeleë web blaaier te kan beheer.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<gap size="4"/>
-		<text>Limit download connections based on a periodic schedule.</text>
+		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -3725,7 +3690,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Welkom by PeerProject (1/6)">
 		<control caption="Vir optimale werksverrigting, benodig PeerProject inligting oor jou internet konneksie."/>
 		<control caption=" ( selekteer asseblief )| Ek gebruik nou die Internet by die huis| Ek gebruik nou die Internet vanaf 'n kampus LAN| Ek gebruik nou die Internet vanaf 'n kantoor LAN| Ek gebruik nou die Internet by 'n hotel of lughawe"/>
-		<control caption="Dial up Modem|ISDN|ADSL (256K)|ADSL (512K)|ADSL (768K)|ADSL (1.5M)|ADSL (4.0M)|ADSL2 (8.0M)|ADSL2 (12.0M)|ADSL2+ (24.0M)|Cable Modem/SDSL|T1|T3|LAN|OC3"/>
+		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
 		<control caption="Or choose the download speed:"/>
 		<control/>
 		<control caption="and the upload speed:"/>

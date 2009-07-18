@@ -20,7 +20,7 @@
 //
 
 // Complete the CNeighbours inheritance column, calling Close on each neighbour when the program exits
-// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CNeighbours
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighbours
 
 // Copy in the contents of these files here before compiling
 #include "StdAfx.h"

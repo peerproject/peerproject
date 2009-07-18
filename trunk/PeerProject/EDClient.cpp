@@ -1233,7 +1233,7 @@ void CEDClient::DetermineUserAgent()
 				if ( m_bEmAICH )
 				{
 					if ( m_sUserAgent.IsEmpty() )
-						m_sUserAgent.Format( _T("eMule Mod (44) %i.%i.%i.%i"),
+						m_sUserAgent.Format( _T("eMule Mod (80) %i.%i.%i.%i"),
 							( ( m_nSoftwareVersion >> 17 ) &0x7F ), ( ( m_nSoftwareVersion >> 10 ) &0x7F ),
 							( ( m_nSoftwareVersion >>  7 ) &0x07 ), ( ( m_nSoftwareVersion ) &0x7F ) );
 					break;

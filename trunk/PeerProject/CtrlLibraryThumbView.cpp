@@ -51,12 +51,13 @@ BEGIN_MESSAGE_MAP(CLibraryThumbView, CLibraryFileView)
 	ON_WM_PAINT()
 	ON_WM_VSCROLL()
 	ON_WM_MOUSEWHEEL()
-	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONDBLCLK()
 	ON_WM_LBUTTONUP()
 	ON_WM_RBUTTONDOWN()
+	ON_WM_XBUTTONDOWN()
 	ON_WM_KEYDOWN()
-	ON_WM_LBUTTONDBLCLK()
 	ON_WM_TIMER()
 	ON_WM_SETFOCUS()
 	ON_WM_GETDLGCODE()
@@ -628,6 +629,24 @@ BOOL CLibraryThumbView::GetItemRect(CLibraryThumbItem* pThumb, CRect* pRect)
 	return FALSE;
 }
 
+void CLibraryThumbView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	if ( m_bDrag && ( nFlags & MK_LBUTTON ) )
+	{
+		CSize szDiff = point - m_ptDrag;
+
+		if ( abs( szDiff.cx ) > 5 || abs( szDiff.cy ) > 5 )
+		{
+			m_bDrag = FALSE;
+			StartDragging( point );
+		}
+	}
+	else
+		m_bDrag = FALSE;
+
+	CLibraryFileView::OnMouseMove( nFlags, point );
+}
+
 void CLibraryThumbView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	CLibraryThumbItem* pHit = HitTest( point );
@@ -649,24 +668,6 @@ void CLibraryThumbView::OnLButtonDown(UINT nFlags, CPoint point)
 	CLibraryFileView::OnLButtonDown( nFlags, point );
 }
 
-void CLibraryThumbView::OnMouseMove(UINT nFlags, CPoint point)
-{
-	if ( m_bDrag && ( nFlags & MK_LBUTTON ) )
-	{
-		CSize szDiff = point - m_ptDrag;
-
-		if ( abs( szDiff.cx ) > 5 || abs( szDiff.cy ) > 5 )
-		{
-			m_bDrag = FALSE;
-			StartDragging( point );
-		}
-	}
-	else
-		m_bDrag = FALSE;
-
-	CLibraryFileView::OnMouseMove( nFlags, point );
-}
-
 void CLibraryThumbView::OnLButtonUp(UINT nFlags, CPoint /*point*/)
 {
 	m_bDrag = FALSE;
@@ -686,6 +687,12 @@ void CLibraryThumbView::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	OnLButtonDown( nFlags, point );
 	CLibraryFileView::OnRButtonDown( nFlags, point );
+}
+
+void CLibraryThumbView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
 }
 
 void CLibraryThumbView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)

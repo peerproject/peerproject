@@ -3227,50 +3227,50 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		return false;
 	}
 
-/*	// Get XMP metadata; Not implemented, we should prefer XMP if the file creation time was less
-	// than metadata timestamp
-	// Get matadata from catalog dictionary if available
-	DWORD nOffsetMeta = 0;
-	if ( nOffsetRoot != 0 )
-	{
-		strSeek.Format( _T("%lu 0 obj"), nOffsetRoot );
-		SetFilePointer( hFile, pOffset[ nOffsetRoot ], NULL, FILE_BEGIN );
-		strLine = ReadLine( hFile, (LPCTSTR)_T("<") );
-		if ( strLine == strSeek )
-		{
-			if ( ReadLine( hFile, (LPCTSTR)_T("<") ).IsEmpty() &&
-				 ReadLine( hFile, (LPCTSTR)_T("/") ).IsEmpty() &&
-				 ReadLine( hFile, (LPCTSTR)_T("/") ).MakeLower() == _T("type") &&
-				 ReadLine( hFile, (LPCTSTR)_T("/") ).MakeLower() == _T("catalog") )
-			{
-				strLine = ReadLine( hFile, (LPCTSTR)_T("/>") );
-				while ( !strLine.IsEmpty() )
-				{
-					CString strEntry;
-					int nData = 0;
-					nData = strLine.Find( _T(" ") );
-					strEntry = ToLower( strLine.Left( nData ) );
-					if ( strEntry == _T("metadata") )
-					{
-						_stscanf( strLine.Mid( nData + 1 ), _T("%lu"), &nOffsetMeta );
-					}
-					strLine = ReadLine( hFile, (LPCTSTR)_T("/>") );
-				}
-			}
-		}
-	}
+/*	// Get XMP metadata; Not implemented,
+//	// we should prefer XMP if the file creation time was less than metadata timestamp
+//	// Get matadata from catalog dictionary if available
+//	DWORD nOffsetMeta = 0;
+//	if ( nOffsetRoot != 0 )
+//	{
+//		strSeek.Format( _T("%lu 0 obj"), nOffsetRoot );
+//		SetFilePointer( hFile, pOffset[ nOffsetRoot ], NULL, FILE_BEGIN );
+//		strLine = ReadLine( hFile, (LPCTSTR)_T("<") );
+//		if ( strLine == strSeek )
+//		{
+//			if ( ReadLine( hFile, (LPCTSTR)_T("<") ).IsEmpty() &&
+//				 ReadLine( hFile, (LPCTSTR)_T("/") ).IsEmpty() &&
+//				 ReadLine( hFile, (LPCTSTR)_T("/") ).MakeLower() == _T("type") &&
+//				 ReadLine( hFile, (LPCTSTR)_T("/") ).MakeLower() == _T("catalog") )
+//			{
+//				strLine = ReadLine( hFile, (LPCTSTR)_T("/>") );
+//				while ( !strLine.IsEmpty() )
+//				{
+//					CString strEntry;
+//					int nData = 0;
+//					nData = strLine.Find( _T(" ") );
+//					strEntry = ToLower( strLine.Left( nData ) );
+//					if ( strEntry == _T("metadata") )
+//					{
+//						_stscanf( strLine.Mid( nData + 1 ), _T("%lu"), &nOffsetMeta );
+//					}
+//					strLine = ReadLine( hFile, (LPCTSTR)_T("/>") );
+//				}
+//			}
+//		}
+//	}
 
-	if ( nOffsetMeta != 0 )
-	{
-		SetFilePointer( hFile, pOffset[ nOffsetMeta ], NULL, FILE_BEGIN );
-		strLine = ReadLine( hFile ); //xxx 0 obj
-		strLine = ReadLine( hFile ); //<</Type /Matadata /Subtype /XML /Length xxx
-		strLine = ReadLine( hFile ); //stream
-		strLine = ReadLine( hFile ); //XML metadata
-		strLine = ReadLine( hFile ); //endstream
-		strLine = ReadLine( hFile ); //endobj
-	}*/
-
+//	if ( nOffsetMeta != 0 )
+//	{
+//		SetFilePointer( hFile, pOffset[ nOffsetMeta ], NULL, FILE_BEGIN );
+//		strLine = ReadLine( hFile ); //xxx 0 obj
+//		strLine = ReadLine( hFile ); //<</Type /Matadata /Subtype /XML /Length xxx
+//		strLine = ReadLine( hFile ); //stream
+//		strLine = ReadLine( hFile ); //XML metadata
+//		strLine = ReadLine( hFile ); //endstream
+//		strLine = ReadLine( hFile ); //endobj
+//	}
+*/
 	// No page number in info, count manually
 	if ( nPages == 0 )
 	{

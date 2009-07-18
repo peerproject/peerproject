@@ -20,7 +20,7 @@
 //
 
 // Keeps a list of CNeighbour objects, with methods to go through them, add and remove them, and count them
-// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CNeighboursBase
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursBase
 
 
 #pragma once

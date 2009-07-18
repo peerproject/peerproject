@@ -20,10 +20,9 @@
 //
 
 // CFirewall wraps Windows COM components to change Windows Firewall settings, and talk UPnP to a NAT router
-// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CFirewall
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CFirewall
 
-// If Visual Studio can't find these files, check out http://pantheraproject.net/wiki/index.php?title=Zootella.SP2Platform
-// Include headers from the Windows XP SP2 version of the Platform SDK, or later
+// Include headers from the Windows XP SP2 version of Platform SDK or later
 
 #ifndef FIREWALL_H_INCLUDED
 #define FIREWALL_H_INCLUDED

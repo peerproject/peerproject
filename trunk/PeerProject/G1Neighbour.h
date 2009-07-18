@@ -20,7 +20,7 @@
 //
 
 // A CG1Neighbour object represents a remote computer running Gnutella software with which we are exchanging Gnutella packets
-// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CG1Neighbour
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1Neighbour
 
 #pragma once
 

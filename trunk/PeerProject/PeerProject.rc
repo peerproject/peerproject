@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (United States) resources
+// English (U.S.) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -84,15 +84,15 @@ BEGIN
         BLOCK "000004b0"
         BEGIN
             VALUE "Title", "PeerProject"
-            VALUE "Comments", "PeerProject P2P Filesharing"
+            VALUE "Comments", "PeerProject P2P"
             VALUE "CompanyName", "PeerProject Development Team"
-            VALUE "FileDescription", "PeerProject P2P Filesharing"
-            VALUE "FileVersion", "1, 0, 0, 0"
+            VALUE "FileDescription", "PeerProject P2P"
+            VALUE "FileVersion", "1.0.0.0"
             VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2009"
             VALUE "OriginalFilename", "PeerProject.exe"
             VALUE "InternalName", "PeerProject"
             VALUE "ProductName", "PeerProject"
-            VALUE "ProductVersion", "1, 0, 0, 0"
+            VALUE "ProductVersion", "1.0.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -261,8 +261,8 @@ IDR_HTML_DISABLED       HTML			"Res\\Disabled.htm"
 
 IDR_HTML_ABOUT          GZIP			"Res\\About.htm.gz"
 IDR_HTML_BROWSER        GZIP			"Res\\Browser.htm.gz"
-IDR_XML_DEFINITIONS     GZIP			"Res\\Definitions.xml.gz"
 IDR_XML_DEFAULT         GZIP			"Res\\Default.xml.gz"
+IDR_XML_DEFINITIONS     GZIP			"Res\\Definitions.xml.gz"
 IDR_XML_SCHEMA_MAPS     GZIP			"Res\\SchemaMappings.xml.gz"
 
 
@@ -401,9 +401,9 @@ BEGIN
     LTEXT           "Hub to Hub:",IDC_STATIC,18,137,65,12,SS_CENTERIMAGE
     EDITTEXT        IDC_G2_PEERS,90,137,35,12,ES_AUTOHSCROLL | ES_NUMBER
     CONTROL         "Spin1",IDC_G2_PEERS_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,126,137,11,12
-    GROUPBOX        "Gnutella1 Network:",IDC_STATIC,142,13,133,60,WS_GROUP
-    CONTROL         "Always connect to Gnutella1",IDC_G1_ALWAYS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,145,25,125,8
-    CONTROL         "Connect to Gnutella1 today",IDC_G1_TODAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,145,38,125,8
+    GROUPBOX        "Gnutella Network:",IDC_STATIC,142,13,133,60,WS_GROUP
+    CONTROL         "Always connect to Gnutella",IDC_G1_ALWAYS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,145,25,125,8
+    CONTROL         "Connect to Gnutella today",IDC_G1_TODAY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,145,38,125,8
     LTEXT           "Mode: ",IDC_STATIC,150,55,56,8,0,WS_EX_RIGHT
     COMBOBOX        IDC_G1_CLIENTMODE,209,53,54,53,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "G&1 Connections:",IDC_STATIC,142,84,133,75,WS_GROUP
@@ -506,23 +506,23 @@ BEGIN
     GROUPBOX        "&Tray:",IDC_STATIC,170,134,105,75,WS_GROUP
     LTEXT           "When I click close:",IDC_STATIC,178,145,94,10,SS_CENTERIMAGE
     COMBOBOX        IDC_CLOSE_MODE,180,160,85,55,CBS_DROPDOWNLIST | WS_VSCROLL | WS_GROUP | WS_TABSTOP
-    LTEXT           "When I click minimise:",IDC_STATIC,178,180,94,10,SS_CENTERIMAGE
+    LTEXT           "When I click minimize:",IDC_STATIC,178,180,94,10,SS_CENTERIMAGE
     COMBOBOX        IDC_TRAY_MINIMISE,180,192,85,55,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
 END
 
-IDD_ABOUT DIALOGEX 0, 0, 292, 162
+IDD_ABOUT DIALOGEX 0, 0, 290, 162
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About PeerProject"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    CONTROL         154,IDC_BANNER,"Static",SS_BITMAP,0,0,367,31
-    LTEXT           "PeerProject Filesharing Client ",IDC_TITLE,20,45,262,10,SS_CENTERIMAGE
-    LTEXT           "© PeerProject Development Team, 2002-",IDC_COPYRIGHT,20,60,262,12
-    LTEXT           "GPL: PeerProject™ is free software; you can redistribute and/or modify it \nunder the terms of the GNU General Public License as published by the \nFree Software Foundation, version 3 or later.",IDC_STATIC,20,75,262,24
-    LTEXT           "Creative Commons BY-NC-SA covers original artwork.",IDC_STATIC,20,105,262,12
-    LTEXT           "Please be aware of local laws and norms.",IDC_STATIC,20,120,262,18
-    LTEXT           "http://PeerProject.org/",IDC_WEB,20,142,125,10
-    DEFPUSHBUTTON   "OK",IDOK,235,141,50,14
+    CONTROL         154,IDC_BANNER,"Static",SS_BITMAP,0,0,368,31
+    LTEXT           "PeerProject Filesharing Client ",IDC_TITLE,20,44,262,10,SS_CENTERIMAGE
+    LTEXT           "© PeerProject Development Team, 2008-",IDC_COPYRIGHT,20,60,262,12
+    LTEXT           "PeerProject™ is free software;  you can redistribute and/or modify it \nunder the terms of the GNU General Public License as published by \nthe Free Software Foundation, version 3 or later.  (GPL v3)",IDC_STATIC,20,80,262,24
+    LTEXT           "Creative Commons BY-NC-SA covers original artwork.",IDC_STATIC,20,110,220,12
+    LTEXT           "Portions originally copyright Shareaza, 2002-2008.",IDC_STATIC,20,124,220,18
+    LTEXT           "http://PeerProject.org",IDC_WEB,20,144,90,10
+    DEFPUSHBUTTON   "OK",IDOK,234,142,50,14
 END
 
 IDD_GRAPH_LIST DIALOG  0, 0, 247, 230
@@ -593,13 +593,13 @@ CAPTION "Welcome to PeerProject (1/6)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
     LTEXT           "For best performance, PeerProject needs to know about your connection to the Internet.",IDC_STATIC,7,10,263,18
-    LTEXT           "Choose the type of your Internet connection:",IDC_STATIC,7,30,260,12
+    LTEXT           "Select your Internet connection type:",IDC_STATIC,7,30,260,12
     COMBOBOX        IDC_CONNECTION_TYPE,26,44,100,178,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Or choose the download speed:",IDC_STATIC,7,64,130,12
     COMBOBOX        IDC_WIZARD_DOWNLOAD_SPEED,26,78,75,178,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
     LTEXT           "and the upload speed:",IDC_STATIC,165,64,100,12
     COMBOBOX        IDC_WIZARD_UPLOAD_SPEED,166,78,75,178,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Automatically setup port-forwarding using Plug'n'Play?",IDC_STATIC,7,98,240,12
+    LTEXT           "Automatically setup port-forwarding using Plug'n'Play?",IDC_STATIC,7,98,410,12
     COMBOBOX        IDC_WIZARD_UPNP,26,112,75,178,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Status:",IDC_CONNECTION_STATUS,9,132,261,8
     CONTROL         "",IDC_CONNECTION_PROGRESS,"msctls_progress32",WS_BORDER,14,143,256,7
@@ -1284,20 +1284,20 @@ BEGIN
     LTEXT           "GUID:",IDC_STATIC,15,60,50,11,SS_CENTERIMAGE
     LTEXT           "8A87AD8B-8511-418b-9ED6-BB7CAAE8CF4C",IDC_GUID,75,60,190,10,SS_CENTERIMAGE
     LTEXT           "Created:",IDC_STATIC,15,75,50,11,SS_CENTERIMAGE | NOT WS_VISIBLE
-    LTEXT           "12:45, 27 September 2002",IDC_GUID_TIME,75,75,190,11,SS_CENTERIMAGE | NOT WS_VISIBLE
+    LTEXT           "12:00, 01 September 2002",IDC_GUID_TIME,75,75,190,11,SS_CENTERIMAGE | NOT WS_VISIBLE
     PUSHBUTTON      "Generate New",IDC_GUID_CREATE,105,105,70,15
 END
 
 IDD_SHARE_MANAGER DIALOGEX 0, 0, 292, 180
 STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Shared Folder Manager"
+CAPTION "Shared Folders Manager"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-    CONTROL         154,IDC_BANNER,"Static",SS_BITMAP,0,0,293,172
-    LTEXT           "This is a list of folders in your library.  You can add and remove folders using the buttons on the left.  When you add a new folder it is initially shared with other users, however you can unshare it from the PeerProject library if you wish.",IDC_STATIC,5,35,280,30
-    CONTROL         "List1",IDC_SHARE_FOLDERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,10,70,275,85
-    PUSHBUTTON      "&Add...",IDC_SHARE_ADD,10,160,45,15
-    PUSHBUTTON      "&Remove",IDC_SHARE_REMOVE,60,160,45,15,WS_DISABLED
+    CONTROL         154,IDC_BANNER,"Static",SS_BITMAP,0,0,294,172
+    LTEXT           "This is a list of folders in your personal library. \nFirst add folders here, then click the checkboxes to publicly share or hide them. Specific files and subfolders can be shared/unshared from the Library.",IDC_STATIC,8,35,280,30
+    CONTROL         "List1",IDC_SHARE_FOLDERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,8,70,276,85
+    PUSHBUTTON      "&Add...",IDC_SHARE_ADD,8,160,45,15
+    PUSHBUTTON      "&Remove",IDC_SHARE_REMOVE,58,160,45,15,WS_DISABLED
     DEFPUSHBUTTON   "OK",IDOK,190,160,45,15
     PUSHBUTTON      "Cancel",IDCANCEL,240,160,45,15
 END
@@ -1394,10 +1394,10 @@ FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
     CONTROL         154,IDC_BANNER,"Static",SS_BITMAP,0,0,293,172
     LTEXT           "Help Spread the Word",IDC_TITLE,15,45,265,10,SS_CENTERIMAGE
-    LTEXT           "Hope you've enjoyed using PeerProject so far, it strives to be the best true file sharing software available.",IDC_STATIC,15,65,260,20
-    LTEXT           "Unfortunately, a lot of potential filesharers don't know what they're missing.",IDC_STATIC,15,90,260,20
-    LTEXT           "If you know someone who might like PeerProject, whether a new user or still using older software, let them know there is a better alternative. And Thanks.",IDC_STATIC,15,105,260,30
-	LTEXT           "{This is the last welcome message you will see.}",IDC_STATIC,15,145,260,10
+    LTEXT           "Hope you're finding PeerProject useful, it strives to be the best true file sharing software available.",IDC_STATIC,15,65,260,20
+    LTEXT           "However, a lot of potential filesharers don't know what they're missing.",IDC_STATIC,15,90,260,20
+    LTEXT           "If you know someone who might like PeerProject, whether a new user or still using older software, let them know there is a better alternative. \nAnd Thanks.",IDC_STATIC,15,105,260,30
+    LTEXT           "This is the last welcome message you will see.",IDC_STATIC,15,145,260,10
     LTEXT           "http://PeerProject.org",IDC_WEB,15,165,125,10
     DEFPUSHBUTTON   "OK",IDOK,245,165,39,14
 END
@@ -1476,7 +1476,7 @@ BEGIN
     GROUPBOX        "Gnutella Network:",IDC_STATIC,5,95,270,55,WS_GROUP
     LTEXT           "The original Gnutella network is less feature-rich than Gnutella2, and has fewer files than eDonkey, yet remains a valuable resource.",IDC_STATIC,15,110,250,18
     CONTROL         "Connect to Original Gnutella (G1)",IDC_G1_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,132,145,10
-    RTEXT           "Configure Gnutella1",IDC_G1_SETUP,165,132,100,10
+    RTEXT           "Configure Gnutella",IDC_G1_SETUP,165,132,100,10
     GROUPBOX        "eDonkey Network:",IDC_STATIC,5,155,270,55,WS_GROUP
     LTEXT           "The eDonkey network is a popular server-based network.  While not as feature-rich or fast as G2, eMule has an impressive file collection.",IDC_STATIC,15,170,250,18
     CONTROL         "Connect to eDonkey2000 (ED2K)",IDC_ED2K_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,193,145,10
@@ -1604,7 +1604,7 @@ BEGIN
     GROUPBOX        "&Auto-Filters:",IDC_STATIC,7,91,127,105,WS_GROUP
     GROUPBOX        "&Completed Files Folder:",IDC_STATIC,7,49,266,36,WS_GROUP
     GROUPBOX        "&Types of Files:",IDC_STATIC,141,91,132,105,WS_GROUP
-    LTEXT           "&*Drag'n'drop any download later.",IDC_STATIC,150,177,116,16
+    LTEXT           "&*Add any download type later.",IDC_STATIC,150,177,116,16
 END
 
 IDD_HELP DIALOG  0, 0, 292, 159
@@ -1746,7 +1746,7 @@ BEGIN
     LTEXT           "Connect at full speed",IDC_STORE_VIEWS,36,140,116,8,0,WS_EX_TRANSPARENT
     LTEXT           "% of &bandwidth when limited",IDC_STATIC,40,182,114,12,SS_CENTERIMAGE,WS_EX_TRANSPARENT
     EDITTEXT        IDC_SCHEDULER_DISPLAY,35,96,187,11,ES_AUTOHSCROLL | ES_READONLY | WS_DISABLED | NOT WS_BORDER | NOT WS_TABSTOP,WS_EX_TRANSPARENT
-    GROUPBOX        "Help",IDC_STATIC,160,105,118,110,0
+    GROUPBOX        "Help",IDC_STATIC,160,105,118,110
     LTEXT           "The scheduler is designed to allow you to set times when PeerProject will connect and download files. \n\n\nNote: If you have PeerProject open while the scheduler is active you may see it changing settings- this is normal.",IDC_STATIC,168,116,104,94
 END
 
@@ -2420,10 +2420,10 @@ BEGIN
 
     IDD_SHARE_MANAGER, DIALOG
     BEGIN
-        LEFTMARGIN, 7
+        LEFTMARGIN, 8
         RIGHTMARGIN, 285
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 173
+        TOPMARGIN, 8
+        BOTTOMMARGIN, 174
     END
 
     IDD_PROFILE_AVATAR, DIALOG
@@ -2714,7 +2714,7 @@ BEGIN
     IDD_SELECT, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 342
+        RIGHTMARGIN, 322
         TOPMARGIN, 7
         BOTTOMMARGIN, 52
     END
@@ -2778,8 +2778,11 @@ BEGIN
     VK_F11,         ID_VIEW_SYSTEM,         VIRTKEY, NOINVERT
     VK_F11,         ID_VIEW_NEIGHBOURS,     VIRTKEY, CONTROL, NOINVERT
     VK_F12,         ID_TAB_IRC,             VIRTKEY, NOINVERT
-    VK_UP,          ID_LIBRARY_PARENT,      VIRTKEY, CONTROL, NOINVERT
-    "Z",            ID_TOOLS_RESKIN,        VIRTKEY, SHIFT, CONTROL, NOINVERT
+    VK_HOME,        ID_TAB_HOME,            VIRTKEY, ALT, NOINVERT
+    VK_UP,          ID_LIBRARY_PARENT,      VIRTKEY, ALT, NOINVERT
+    VK_LEFT,        ID_LIBRARY_PARENT,      VIRTKEY, ALT, NOINVERT
+//	VK_XBUTTON1,    ID_LIBRARY_PARENT,      VIRTKEY, NOINVERT
+	"Z",            ID_TOOLS_RESKIN,        VIRTKEY, CONTROL, SHIFT, NOINVERT
 END
 
 
@@ -2800,27 +2803,27 @@ END
 IDD_WIZARD_CONNECTION DLGINIT
 BEGIN
     IDC_CONNECTION_TYPE, 0x403, 14, 0
-0x6944, 0x6c61, 0x7520, 0x2070, 0x6f4d, 0x6564, 0x006d,
-    IDC_CONNECTION_TYPE, 0x403, 5, 0
-0x5349, 0x4e44, "\000"
+0x6944, 0x6c61, 0x752d, 0x2070, 0x6f4d, 0x6564, 0x006d, 
     IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x4441, 0x4c53, 0x2820, 0x3532, 0x4b36, 0x0029,
+0x5349, 0x4e44, 0x2820, 0x3231, 0x4b38, 0x0029, 
+    IDC_CONNECTION_TYPE, 0x403, 11, 0
+0x5344, 0x204c, 0x3728, 0x3836, 0x294b, "\000" 
+    IDC_CONNECTION_TYPE, 0x403, 11, 0
+0x5344, 0x204c, 0x3128, 0x352e, 0x294d, "\000" 
+    IDC_CONNECTION_TYPE, 0x403, 11, 0
+0x5344, 0x204c, 0x3428, 0x302e, 0x294d, "\000" 
     IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x4441, 0x4c53, 0x2820, 0x3135, 0x4b32, 0x0029,
-    IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x4441, 0x4c53, 0x2820, 0x3637, 0x4b38, 0x0029,
-    IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x4441, 0x4c53, 0x2820, 0x2e31, 0x4d35, 0x0029,
-    IDC_CONNECTION_TYPE, 0x403, 12, 0
-0x4441, 0x4c53, 0x2820, 0x2e34, 0x4d30, 0x0029,
+0x5344, 0x324c, 0x2820, 0x2e38, 0x4d30, 0x0029, 
     IDC_CONNECTION_TYPE, 0x403, 13, 0
-0x4441, 0x4c53, 0x2032, 0x3828, 0x302e, 0x294d, "\000"
-    IDC_CONNECTION_TYPE, 0x403, 14, 0
-0x4441, 0x4c53, 0x2032, 0x3128, 0x2e32, 0x4d30, 0x0029,
-    IDC_CONNECTION_TYPE, 0x403, 15, 0
-0x4441, 0x4c53, 0x2b32, 0x2820, 0x3432, 0x302e, 0x294d, "\000"
-    IDC_CONNECTION_TYPE, 0x403, 17, 0
-0x6143, 0x6c62, 0x2065, 0x6f4d, 0x6564, 0x2f6d, 0x4453, 0x4c53, "\000"
+0x4946, 0x534f, 0x2820, 0x3031, 0x302e, 0x294d, "\000" 
+    IDC_CONNECTION_TYPE, 0x403, 13, 0
+0x5344, 0x324c, 0x2820, 0x3231, 0x302e, 0x294d, "\000" 
+    IDC_CONNECTION_TYPE, 0x403, 13, 0
+0x4946, 0x534f, 0x2820, 0x3032, 0x302e, 0x294d, "\000" 
+    IDC_CONNECTION_TYPE, 0x403, 13, 0
+0x5344, 0x324c, 0x2820, 0x3432, 0x302e, 0x294d, "\000" 
+    IDC_CONNECTION_TYPE, 0x403, 12, 0
+0x6143, 0x6c62, 0x2065, 0x6f4d, 0x6564, 0x006d, 
     IDC_CONNECTION_TYPE, 0x403, 3, 0
 0x3154, "\000"
     IDC_CONNECTION_TYPE, 0x403, 3, 0
@@ -3346,7 +3349,7 @@ STRINGTABLE
 BEGIN
     IDS_SEARCH_PAD_HEADER   "Search PeerProject"
     IDS_SEARCH_PAD_WORDS    "Type some keywords to search for:"
-    IDS_SEARCH_PAD_TYPE     "What type of file is it?"
+    IDS_SEARCH_PAD_TYPE     "What kind of files?"
     IDS_SEARCH_PAD_CLEAR_HISTORY "(Clear Search History)"
     IDS_SEARCH_PANEL_INPUT_4 "Min Filesize:"
     IDS_SEARCH_PANEL_INPUT_5 "Max Filesize:"
@@ -3539,7 +3542,8 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_DOWNLOAD_ADDED      "Added ""%s"" to download queue with %i source(s)."
+    IDS_DOWNLOAD_GROUP      "Drag'n'drop files to the %s group"
+    IDS_DOWNLOAD_ADDED      "Added ""%s"" to download queue with %i sources."
     IDS_DOWNLOAD_COMPLETED  "Completed download of ""%s""."
     IDS_DOWNLOAD_PAUSED     "Pausing download of ""%s""."
     IDS_DOWNLOAD_RESUMED    "Resuming download of ""%s""."
@@ -3559,8 +3563,7 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_DOWNLOAD_FILENOTFOUND
-                            "Download host %s does not have the file ""%s""."
+    IDS_DOWNLOAD_FILENOTFOUND "Download host %s does not have the file ""%s""."
     IDS_DOWNLOAD_NOHTTP     "Download host %s responded with an invalid HTTP response."
     IDS_DOWNLOAD_HTTPCODE   "Download host %s responded with %s (%s)."
     IDS_DOWNLOAD_WRONG_HASH "Download host %s's version of ""%s"" has a different URN, aborting."
@@ -3751,7 +3754,7 @@ BEGIN
     IDS_CHAT_UNRECOGNISED_X	"Unrecognised command ""%s""."
     IDS_CHAT_CONNECTING_X	"Connecting to %s for chat..."
     IDS_CHAT_ACCEPTED_X 	"Accepted incoming chat request from %s, handshaking..."
-    IDS_CHAT_NICK_X		"%s is now known as %s."
+    IDS_CHAT_NICK_X			"%s is now known as %s."
     IDS_CHAT_CONNECT_FAIL_X	"Unable to connect to host %s."
     IDS_CHAT_PROTOCOL_X 	"Connection failed due to invalid data on the wire."
     IDS_CHAT_RESPONSE_X 	"Received an unknown response: %s"
@@ -4336,9 +4339,9 @@ BEGIN
     ID_SECURITY_BAN         "Ban the selected host for the duration of this session."
     ID_TAB_NETWORK          "See how well you are connected to the Network."
     ID_TAB_LIBRARY          "View and manage your local content library."
-    ID_TAB_TRANSFERS        "Monitor uploads and downloads you are performing."
+    ID_TAB_TRANSFERS        "Manage all your active downloads and uploads."
     ID_TAB_CONNECT          "Connect or disconnect from the network."
-    ID_VIEW_TABBED          "Use PeerProject in power Tabbed mode (Home, Library, Media, Transfers, Network)."
+    ID_VIEW_TABBED          "Use PeerProject in standard Tabbed mode. (Home, Search, Transfers, Network, Library, Media)"
     ID_VIEW_WINDOWED        "Use PeerProject in power Windowed mode."
     ID_LIBRARY_URI          "Copy the P2P Link of the selected file. (URI)"
     ID_VIEW_DISCOVERY       "Show or hide the DISCOVERY SERVICES window."
@@ -4430,7 +4433,7 @@ END
 
 STRINGTABLE
 BEGIN
-    ID_LIBRARY_PARENT       "Move up to the parent folder."
+    ID_LIBRARY_PARENT       "Go back to the parent folder."
     ID_LIBRARY_PANEL        "Show or hide the library detail panel."
     ID_LIBRARY_FOLDER_PROPERTIES "View and edit the properties of the selected album folder..."
     ID_LIBRARY_FOLDER_NEW   "Create a new album folder here..."
@@ -4600,13 +4603,13 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_IRC_HEADERTITLE     "Welcome to PeerProject Chat!"
+    IDS_IRC_HEADERTITLE     "Welcome to PeerProject Chat."
 END
 
 STRINGTABLE
 BEGIN
     IDS_IRC_HEADERSUBTITLE  "Please respect others while using this service"
-    IDS_IRC_HEADERCHAT      "Chat!"
+    IDS_IRC_HEADERCHAT      "Chat."
 END
 
 STRINGTABLE
@@ -4681,7 +4684,7 @@ BEGIN
     IDC_IMPORT_DOWNLOADS    "Import eMule partial downloads..."
 END
 
-#endif    // English (United States) resources
+#endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

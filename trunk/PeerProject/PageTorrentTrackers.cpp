@@ -42,9 +42,9 @@ IMPLEMENT_DYNCREATE(CTorrentTrackersPage, CPropertyPageAdv)
 
 BEGIN_MESSAGE_MAP(CTorrentTrackersPage, CPropertyPageAdv)
 	ON_WM_PAINT()
-	ON_BN_CLICKED(IDC_TORRENT_REFRESH, &CTorrentTrackersPage::OnTorrentRefresh)
 	ON_WM_TIMER()
 	ON_WM_DESTROY()
+	ON_BN_CLICKED(IDC_TORRENT_REFRESH, &CTorrentTrackersPage::OnTorrentRefresh)
 	ON_EN_CHANGE(IDC_TORRENT_TRACKER, &CTorrentTrackersPage::OnEnChangeTorrentTracker)
 	ON_NOTIFY(NM_CLICK, IDC_TORRENT_TRACKERS, &CTorrentTrackersPage::OnNMClickTorrentTrackers)
 	ON_CBN_SELCHANGE(IDC_TORRENT_TRACKERMODE, &CTorrentTrackersPage::OnCbnSelchangeTorrentTrackermode)
@@ -111,9 +111,10 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 	m_wndTrackers.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
 	CoolInterface.SetImageListTo( m_wndTrackers, LVSIL_SMALL );
-	m_wndTrackers.InsertColumn( 0, _T("Tracker"), LVCFMT_LEFT, rc.right - 80, -1 );
-	m_wndTrackers.InsertColumn( 1, _T("Status"), LVCFMT_RIGHT, 80, 0 );
-	m_wndTrackers.InsertColumn( 2, _T("Type"), LVCFMT_LEFT, 0, 0 );
+	m_wndTrackers.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
+	m_wndTrackers.InsertColumn( 0, _T("Tracker"), LVCFMT_LEFT, rc.right - 70, -1 );
+	m_wndTrackers.InsertColumn( 1, _T("Status"), LVCFMT_CENTER, 70, 0 );
+	m_wndTrackers.InsertColumn( 2, _T("Type"), LVCFMT_CENTER, 0, 0 );
 	Skin.Translate( _T("CTorrentTrackerList"), m_wndTrackers.GetHeaderCtrl() );
 
 	int nTracker = 0;
@@ -207,7 +208,7 @@ void CTorrentTrackersPage::OnTimer(UINT_PTR nIDEvent)
 		CloseThread();
 
 		// Re-enable the refresh button
-		SetTimer( 1, 4000, NULL );
+		SetTimer( 1, 3300, NULL );
 
 		if ( nIDEvent == 3 )
 		{
@@ -350,8 +351,7 @@ BOOL CTorrentTrackersPage::OnTree(CBENode* pNode)
 	{
 		if ( ! pComplete->IsType( CBENode::beInt ) ) return FALSE;
 		// Since we read QWORDs, make sure we won't get negative values;
-		// Some buggy trackers send very huge numbers, so let's leave them as
-		// the max int.
+		// Some buggy trackers send very huge numbers, so leave them as the max int.
 		m_nComplete = (int)(pComplete->GetInt() & ~0xFFFF0000);
 	}
 

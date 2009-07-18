@@ -20,7 +20,7 @@
 //
 
 // CConnection holds a socket used to communicate with a remote computer, and is the root of a big inheritance tree
-// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CConnection
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CConnection
 
 #include "StdAfx.h"
 #include "PeerProject.h"

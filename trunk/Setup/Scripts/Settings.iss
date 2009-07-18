@@ -4,7 +4,7 @@
 ; Turn on SkinVista Theme
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Skins"; ValueType: dword; ValueName: "SkinVista\SkinVista.xml"; ValueData: "{ini:{param:SETTINGS|},Skins,SkinVista|1}"; Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Skins"; ValueType: dword; ValueName: "SkinVista\SkinVista_{language}.xml"; ValueData: "{ini:{param:SETTINGS|},Skins,SkinVista|1}"; Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "ListSize"; ValueData: 139 ;					Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "ListSize"; ValueData: 139 ;				Flags: createvalueifdoesntexist uninsdeletekey
 
 ; Set SkinVista Menubar
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Summary"; ValueType: dword; ValueName: "Bars";  ValueData: 7 ;			Flags: createvalueifdoesntexist uninsdeletekey
@@ -120,15 +120,17 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; V
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; ValueType: dword; ValueName: "YPos"; ValueData: $000002CB ;		Flags: createvalueifdoesntexist uninsdeletekey
 
 
-; Disable extensions for plugins which make trouble
+; Disable extensions for plugins which make trouble (?)
 ; Since it is image services plugin we need to add extensions required for the first run
-; Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; ValueType: string; ValueName: "{{C9314782-CB91-40B8-B375-F631FF30C1C8}"; ValueData: "|-.pdf||.bmp||.png||.jpg|"; Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Library"; ValueType: dword; ValueName: "HighPriorityHash"; ValueData: 1 ; 			Flags: createvalueifdoesntexist uninsdeletekey
+; Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; ValueType: string; ValueName: "{C9314782-CB91-40B8-B375-F631FF30C1C8}"; ValueData: "|-.pdf||.bmp||.png||.jpg|"; Flags: createvalueifdoesntexist uninsdeletekey
 
 ; Set Wizard Defaults
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Library";  ValueType: dword; ValueName: "HighPriorityHash"; ValueData: 1 ; 			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Settings"; ValueType: dword; ValueName: "GUIMode"; ValueData: 1 ; 				Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\eDonkey";  ValueType: dword; ValueName: "EnableAlways"; ValueData: 1 ;				Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Gnutella1"; ValueType: dword; ValueName: "EnableAlways"; ValueData: 1 ;				Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: dword; ValueName: "AdvancedInterface"; ValueData: 1 ;			Flags: uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: dword; ValueName: "AdvancedInterface"; ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: string; ValueName: "TorrentCreatorPath"; ValueData: "TorrentWizard.exe" ; Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: string; ValueName: "DefaultTracker"; ValueData: "http://tracker.thepiratebay.org/announce" ; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: string; ValueName: "DefaultTracker"; ValueData: "http://tracker.openbittorrent.com:80/announce" ; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "001.URL"; ValueData: "http://tracker.openbittorrent.com:80/announce" ; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: dword; ValueName: "Count"; ValueData: 1 ;					Flags: createvalueifdoesntexist uninsdeletekey

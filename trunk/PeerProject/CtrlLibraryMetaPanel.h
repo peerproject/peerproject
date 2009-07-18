@@ -78,6 +78,7 @@ protected:
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 
 	DECLARE_MESSAGE_MAP()
 };

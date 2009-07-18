@@ -46,6 +46,7 @@ BEGIN_MESSAGE_MAP(CLibraryHeaderPanel, CWnd)
 	ON_WM_PAINT()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
+	ON_WM_XBUTTONDOWN()
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	//}}AFX_MSG_MAP
@@ -311,4 +312,10 @@ void CLibraryHeaderPanel::OnLButtonUp(UINT nFlags, CPoint point)
 	}
 
 	CWnd::OnLButtonUp( nFlags, point );
+}
+
+void CLibraryHeaderPanel::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
 }

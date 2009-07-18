@@ -20,7 +20,7 @@
 //
 
 // CShakeNeighbour reads and sends handshake headers to negotiate the Gnutella or Gnutella2 handshake
-// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CShakeNeighbour
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CShakeNeighbour
 
 
 #include "StdAfx.h"

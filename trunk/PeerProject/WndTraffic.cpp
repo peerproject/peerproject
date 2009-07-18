@@ -106,7 +106,7 @@ void CTrafficWnd::FindFreeUnique()
 	{
 		BOOL bAvailable		= TRUE;
 		CTrafficWnd* pChild = NULL;
-		
+
 		while ( ( pChild = (CTrafficWnd*)pWindows->Find( RUNTIME_CLASS(CTrafficWnd), pChild ) ) != NULL )
 		{
 			if ( pChild != this && pChild->m_nUnique == m_nUnique )

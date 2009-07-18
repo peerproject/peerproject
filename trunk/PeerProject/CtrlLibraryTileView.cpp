@@ -47,10 +47,11 @@ BEGIN_MESSAGE_MAP(CLibraryTileView, CLibraryView)
 	ON_WM_PAINT()
 	ON_WM_VSCROLL()
 	ON_WM_MOUSEWHEEL()
-	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
+	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_RBUTTONDOWN()
+	ON_WM_XBUTTONDOWN()
 	ON_WM_KEYDOWN()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_CONTEXTMENU()
@@ -651,25 +652,6 @@ bool CLibraryTileView::GetItemRect(iterator pTile, CRect* pRect)
 	return false;
 }
 
-void CLibraryTileView::OnLButtonDown(UINT nFlags, CPoint point)
-{
-	CSingleLock oLock( &m_pSection, TRUE );
-
-	iterator pHit = HitTest( point );
-
-	if ( SelectTo( pHit ) ) Invalidate();
-
-	SetFocus();
-
-	if ( pHit != end() && ( nFlags & MK_RBUTTON ) == 0 )
-	{
-		m_bDrag = TRUE;
-		m_ptDrag = point;
-	}
-
-	CLibraryView::OnLButtonDown( nFlags, point );
-}
-
 void CLibraryTileView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	CSingleLock oLock( &m_pSection, TRUE );
@@ -688,6 +670,25 @@ void CLibraryTileView::OnMouseMove(UINT nFlags, CPoint point)
 		m_bDrag = FALSE;
 
 	CLibraryView::OnMouseMove( nFlags, point );
+}
+
+void CLibraryTileView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	CSingleLock oLock( &m_pSection, TRUE );
+
+	iterator pHit = HitTest( point );
+
+	if ( SelectTo( pHit ) ) Invalidate();
+
+	SetFocus();
+
+	if ( pHit != end() && ( nFlags & MK_RBUTTON ) == 0 )
+	{
+		m_bDrag = TRUE;
+		m_ptDrag = point;
+	}
+
+	CLibraryView::OnLButtonDown( nFlags, point );
 }
 
 void CLibraryTileView::OnLButtonUp(UINT nFlags, CPoint /*point*/)
@@ -718,6 +719,12 @@ void CLibraryTileView::OnRButtonDown(UINT nFlags, CPoint point)
 	SetFocus();
 
 	CLibraryView::OnRButtonDown( nFlags, point );
+}
+
+void CLibraryTileView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
 }
 
 void CLibraryTileView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)

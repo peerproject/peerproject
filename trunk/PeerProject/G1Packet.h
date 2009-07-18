@@ -20,7 +20,7 @@
 //
 
 // CG1Packet represents a Gnutella packet, and CG1PacketPool keeps lists of them
-// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CG1Packet
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1Packet
 
 #pragma once
 

@@ -75,12 +75,11 @@ BOOL CShareManagerDlg::OnInitDialog()
 
 	CRect rc;
 	m_wndList.GetClientRect( &rc );
-	m_wndList.InsertColumn( 0, _T("Folder"), LVCFMT_LEFT, rc.Width() - GetSystemMetrics( SM_CXVSCROLL ) );
+	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
+	m_wndList.InsertColumn( 0, _T("Folder"), LVCFMT_LEFT, rc.right - GetSystemMetrics( SM_CXVSCROLL ) );
 	m_wndList.SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
+
 	m_wndList.EnableToolTips( TRUE );
-	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP,
-		LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
 	{
 		CQuickLock oLock( Library.m_pSection );
@@ -91,6 +90,9 @@ BOOL CShareManagerDlg::OnInitDialog()
 
 			m_wndList.InsertItem( LVIF_TEXT|LVIF_IMAGE, m_wndList.GetItemCount(),
 				pFolder->m_sPath, 0, 0, SHI_FOLDER_OPEN, 0 );
+
+			m_wndList.SetItemState( m_wndList.GetItemCount() - 1 ,
+				UINT( ( pFolder->IsShared() != TRUE ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
 		}
 	}
 
@@ -134,7 +136,15 @@ void CShareManagerDlg::OnOK()
 			for ( ; nItem < m_wndList.GetItemCount() ; nItem++ )
 			{
 				CString strFolder = m_wndList.GetItemText( nItem, 0 );
-				if ( strFolder.CompareNoCase( pFolder->m_sPath ) == 0 ) break;
+				if ( strFolder.CompareNoCase( pFolder->m_sPath ) == 0 )
+				{	
+					if ( m_wndList.GetCheck(nItem) && ! pFolder->IsShared() )
+						pFolder->SetShared( TRI_TRUE );
+					else if ( ! m_wndList.GetCheck(nItem) && pFolder->IsShared() )
+						pFolder->SetShared( TRI_FALSE );
+					
+					break;
+				}
 			}
 
 			if ( nItem >= m_wndList.GetItemCount() )

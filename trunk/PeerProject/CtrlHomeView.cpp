@@ -133,7 +133,7 @@ void CHomeViewCtrl::Update()
 	m_pDocument.ShowGroup( GROUP_FIREWALLED_TCP, FALSE );
 	m_pDocument.ShowGroup( GROUP_FIREWALLED_UDP, FALSE );
 
-	// TODO Temp Disabled:
+	// ToDo: Temp Disabled
 	//m_pDocument.ShowGroup( GROUP_FIREWALLED, bOnG2 && bTCPFirewalled && bUDPFirewalled );
 	//m_pDocument.ShowGroup( GROUP_FIREWALLED_TCP, bOnG2 && bTCPFirewalled && !bUDPFirewalled );
 	//m_pDocument.ShowGroup( GROUP_FIREWALLED_UDP, bOnG2 && !bTCPFirewalled && bUDPFirewalled );
@@ -210,7 +210,7 @@ void CHomeViewCtrl::OnLayoutComplete()
 }
 
 ///////////////////////////////////////////////////////////////////////////
-// CHomeViewCtrl Scrolling (Non-Functional)
+// CHomeViewCtrl Scrolling (Non-Functional/Redundant)
 //
 //void CHomeViewCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 //{
@@ -318,4 +318,3 @@ void CHomeViewCtrl::OnVScrolled()
 {
 	OnLayoutComplete();
 }
-

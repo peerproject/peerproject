@@ -42,9 +42,9 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
-	// Download priority settings (Sets PageTorrentFiles combobox order)
+	// Download priority settings (Sets PageTorrentFiles combobox order -unused)
 	// Note: Changing this breaks torrents at startup!
-	enum { prNotWanted, prLow, prNormal, prHigh };
+	enum { prDiscarded, prLow, prNormal, prHigh };
 
 protected:
 	virtual ~CFragmentedFile();

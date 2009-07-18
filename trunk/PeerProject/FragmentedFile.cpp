@@ -422,7 +422,7 @@ int CFragmentedFile::GetPriority(DWORD nIndex) const
 {
 	CQuickLock oLock( m_pSection );
 
-	return ( nIndex < m_oFile.size() ) ? m_oFile[ nIndex ].m_nPriority : prNotWanted;
+	return ( nIndex < m_oFile.size() ) ? m_oFile[ nIndex ].m_nPriority : prDiscarded;
 }
 
 void CFragmentedFile::SetPriority(DWORD nIndex, int nPriority)
@@ -456,7 +456,7 @@ Fragments::List CFragmentedFile::GetWantedFragmentList() const
 	// Exclude unwanted files
 	Fragments::List oList( m_oFList );
 	for ( CVirtualFile::const_iterator i = m_oFile.begin(); i != m_oFile.end(); ++i )
-		if ( (*i).m_nPriority == prNotWanted )
+		if ( (*i).m_nPriority == prDiscarded )
 			oList.erase( Fragments::Fragment( (*i).m_nOffset, (*i).m_nOffset + (*i).m_nSize ) );
 
 	return oList;
@@ -559,10 +559,13 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 
 		sPath = m_oFile[ nIndex ].m_sPath;
 		sName = m_oFile[ nIndex ].m_sName;
-		bSkip = ( m_oFile[ nIndex ].m_nPriority == prNotWanted );
+		bSkip = ( m_oFile[ nIndex ].m_nPriority == prDiscarded );
 
 		// Close our handle
 		m_oFile[ nIndex ].Release();
+
+		// Make read-only
+		m_oFile[ nIndex ].m_bWrite = FALSE;
 	}
 
 	ASSERT( ! sName.IsEmpty() );
@@ -735,10 +738,9 @@ void CFragmentedFile::Serialize(CArchive& ar, int nVersion)
 					ar >> nPriority;
 				}
 
-				if ( sPath.IsEmpty() ||
+				if ( sPath.IsEmpty() || sName.IsEmpty() ||
 					bWrite < FALSE || bWrite > TRUE ||
-					sName.IsEmpty() ||
-					nPriority < prNotWanted || nPriority > prHigh )
+					nPriority < prDiscarded || nPriority > prHigh )
 					AfxThrowArchiveException( CArchiveException::genericException );
 
 				if ( ! Open( sPath, nOffset, nLength, bWrite, sName, nPriority ) )

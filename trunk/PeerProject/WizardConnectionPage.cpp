@@ -22,11 +22,11 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Skin.h"
 #include "Network.h"
 #include "WizardSheet.h"
 #include "WizardConnectionPage.h"
 #include "UploadQueues.h"
-#include "Skin.h"
 #include "DlgHelp.h"
 #include "HostCache.h"
 #include "DiscoveryServices.h"
@@ -92,25 +92,25 @@ BOOL CWizardConnectionPage::OnInitDialog()
 
 	CString strTemp;
 
-	m_wndType.SetItemData( 0, 56 );		// Dial up Modem;
-	m_wndType.SetItemData( 1, 128 );	// ISDN
-	m_wndType.SetItemData( 2, 256);		// ADSL (256K)
-	m_wndType.SetItemData( 3, 512);		// ADSL (512K)
-	m_wndType.SetItemData( 4, 768);		// ADSL (768K)
-	m_wndType.SetItemData( 5, 1536 );	// ADSL (1.5M)
-	m_wndType.SetItemData( 6, 4096 );	// ADSL (4.0M)
-	m_wndType.SetItemData( 7, 8192 );	// ADSL2 (8.0M)
-	m_wndType.SetItemData( 8, 12288 );	// ADSL2 (12.0M)
-	m_wndType.SetItemData( 9, 24576 );	// ADSL2+ (24.0M)
-	m_wndType.SetItemData(10, 1550 );	// Cable Modem/SDSL
+	m_wndType.SetItemData( 0, 56 );		// Dial-up Modem;
+	m_wndType.SetItemData( 1, 128 );	// ISDN (128K)
+	m_wndType.SetItemData( 2, 768);		// DSL (768K)
+	m_wndType.SetItemData( 3, 1536 );	// DSL (1.5M)
+	m_wndType.SetItemData( 4, 4096 );	// DSL (4.0M)
+	m_wndType.SetItemData( 5, 8192 );	// DSL2 (8.0M)
+	m_wndType.SetItemData( 6, 10240 );	// FIOS (10.0M)
+	m_wndType.SetItemData( 7, 12288 );	// DSL2 (12.0M)
+	m_wndType.SetItemData( 8, 20480 );	// FIOS (20.0M)
+	m_wndType.SetItemData( 9, 24576 );	// DSL2 (24.0M)
+	m_wndType.SetItemData(10, 3100 );	// Cable Modem
 	m_wndType.SetItemData(11, 1544 );	// T1
 	m_wndType.SetItemData(12, 45000 );	// T3
 	m_wndType.SetItemData(13, 102400 );	// LAN
 	m_wndType.SetItemData(14, 155000 );	// OC3
 	m_wndType.SetCurSel( -1 );
-	//Dial up Modem;ISDN;ADSL (256K);ADSL (512K);ADSL (768K);ADSL (1.5M);ADSL (4.0M);ADSL2 (8.0M);ADSL2 (12.0M);ADSL2+ (24.0M);Cable Modem/SDSL;T1;T3;LAN;OC3;
+	//Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Cable Modem|T1|T3|LAN|OC3
 
-	const double nSpeeds[] = { 28.8, 33.6, 56, 64, 128, 256, 384, 512, 640, 768, 1024, 1536, 1544, 1550, 2048, 3072, 4096, 5120, 8192, 10240, 12288, 24576, 45000, 102400, 155000, 0 };
+	const double nSpeeds[] = { 28.8, 33.6, 56, 64, 128, 256, 384, 512, 640, 768, 1024, 1536, 1544, 1550, 2048, 3072, 4096, 5120, 8192, 10240, 12288, 20480, 24576, 45000, 102400, 155000, 0 };
 	for ( int nSpeed = 0 ; nSpeeds[ nSpeed ] ; nSpeed++ )
 	{
 		strTemp.Format( _T("%lg kbps"), nSpeeds[ nSpeed ] );
@@ -141,6 +141,11 @@ BOOL CWizardConnectionPage::OnInitDialog()
 
 BOOL CWizardConnectionPage::OnSetActive()
 {
+	//Wizard Window Caption Workaround
+	CString strCaption;
+	GetWindowText( strCaption );
+	GetParent()->SetWindowText( strCaption );
+
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
 	m_wndProgress.SetPos( 0 );
 	m_wndStatus.SetWindowText( L"" );

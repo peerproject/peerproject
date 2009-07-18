@@ -929,8 +929,8 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 					{
 						CString strSource, strText;
 						LoadSourcesString( strSource,  pFile->m_nFiltered );
-						if ( pFile->m_nFiltered < 5 && pFile->m_nSources > 2400 )
-							strText.Format( _T("%u fakes"), pFile->m_nFiltered );
+						if ( pFile->m_nFiltered < 5 && pFile->m_nSources > 2300 )
+							strText.Format( _T("%u fakes"), pFile->m_nFiltered );		//ToDo: Translate "fakes"
 						else if ( pFile->m_nFiltered > 99 && pFile->m_nSources > pFile->m_nFiltered )
 							strText.Format( _T("%u %s +%u"), pFile->m_nFiltered, strSource, pFile->m_nSources - pFile->m_nFiltered );
 						else if ( pFile->m_nSources > pFile->m_nFiltered )
@@ -939,7 +939,6 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 							strText.Format( _T("%u %s "), pFile->m_nFiltered, strSource );
 						else
 							strText.Format( _T("%u %s"), pFile->m_nFiltered, strSource );
-						//ToDo: Translate "fakes"
 
 						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), strText, pFile->m_nFiltered );
 						szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
@@ -956,8 +955,8 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			{
 				CString strSource, strText;
 				LoadSourcesString( strSource, pFile->m_nFiltered );
-				if ( pFile->m_nFiltered < 5 && pFile->m_nSources > 2400 )
-					strText.Format( _T("%u fakes"), pFile->m_nFiltered );
+				if ( pFile->m_nFiltered < 5 && pFile->m_nSources > 2300 )
+					strText.Format( _T("%u fakes"), pFile->m_nFiltered );		//ToDo: Translate "fakes"
 				else if ( pFile->m_nFiltered > 99 && pFile->m_nSources > pFile->m_nFiltered )
 					strText.Format( _T("%u %s +%u"), pFile->m_nFiltered, strSource, pFile->m_nSources - pFile->m_nFiltered );
 				else if ( pFile->m_nSources > pFile->m_nFiltered )
@@ -966,7 +965,6 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 					strText.Format( _T("%u %s "), pFile->m_nFiltered, strSource );
 				else
 					strText.Format( _T("%u %s"), pFile->m_nFiltered, strSource );
-				//ToDo: Translate "fakes"
 
 				_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), strText, pFile->m_nFiltered );
 				szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;

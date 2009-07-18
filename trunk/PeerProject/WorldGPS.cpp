@@ -60,7 +60,7 @@ BOOL CWorldGPS::Load()
 
 	bool bImport = theApp.GetProfileInt( L"", L"ImportWorldGPS", FALSE ) != 0;
 	strFile.Append( bImport ? L".xml" : L".dat" );
-		
+
 	if ( ! pFile.Open( (LPCTSTR)strFile.GetBuffer(), CFile::modeRead ) )
 	{
 		if ( bImport )

@@ -20,7 +20,7 @@
 //
 
 // Add methods helpful for eDonkey2000 that look at the list of neighbours
-// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CNeighboursWithED2K
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithED2K
 
 // Copy in the contents of these files here before compiling
 #include "StdAfx.h"

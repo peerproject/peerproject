@@ -1212,10 +1212,10 @@ void CSettings::OnChangeConnectionSpeed()
 	else if( General.ItWasLimited )
 	{
 		// Revert Settings if Half-Open Limit Patch Applied
-		Connection.ConnectThrottle		= 0;
-		Downloads.ConnectThrottle		= 250;
-		Gnutella.ConnectFactor			= 4;
-		Connection.SlowConnect			= false;
+		SetDefault( &Connection.ConnectThrottle );
+		SetDefault( &Downloads.ConnectThrottle );
+		SetDefault( &Gnutella.ConnectFactor );
+		SetDefault( &Connection.SlowConnect );
 
 		General.ItWasLimited			= false;
 	}
@@ -1625,8 +1625,8 @@ void CSettings::Item::Load()
 	else if ( m_pDword )
 	{
 		ASSERT( ! m_pFloat && ! m_pString && ! m_pSet );
-		ASSERT( ( m_nScale == 0 && m_nMin == 0 && m_nMax == 0 ) \
-			|| ( m_nScale && m_nMin < m_nMax ) );
+	//	ASSERT( m_nScale == 0 && m_nMin == 0 && m_nMax == 0 );
+	//	ASSERT( m_nScale && m_nMin < m_nMax );
 		*m_pDword = CRegistry::GetDword( m_szSection, m_szName, m_DwordDefault );
 		if ( m_nScale && m_nMin < m_nMax )
 		{
