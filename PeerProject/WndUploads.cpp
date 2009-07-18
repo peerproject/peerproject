@@ -83,8 +83,6 @@ BEGIN_MESSAGE_MAP(CUploadsWnd, CPanelWnd)
 	ON_COMMAND(ID_BROWSE_LAUNCH, OnBrowseLaunch)
 	ON_UPDATE_COMMAND_UI(ID_UPLOADS_START, OnUpdateUploadsStart)
 	ON_COMMAND(ID_UPLOADS_START, OnUploadsStart)
-	ON_UPDATE_COMMAND_UI(ID_UPLOADS_EDIT_QUEUE, OnUpdateEditQueue)
-	ON_COMMAND(ID_UPLOADS_EDIT_QUEUE, OnEditQueue)
 	ON_COMMAND(ID_UPLOADS_HELP, OnUploadsHelp)
 	ON_COMMAND(ID_UPLOADS_SETTINGS, OnUploadsSettings)
 	ON_UPDATE_COMMAND_UI(ID_UPLOADS_FILTER_ALL, OnUpdateUploadsFilterAll)
@@ -224,21 +222,10 @@ void CUploadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	m_wndUploads.ScreenToClient( &ptLocal );
 	m_tSel = 0;
 
-	if ( m_wndUploads.HitTest( ptLocal, &pQueue, &pUpload, NULL, NULL ) )
-	{
-		if ( pUpload != NULL )
-		{
-			pLock.Unlock();
-			Skin.TrackPopupMenu( _T("CUploadsWnd.Upload"), point, ID_UPLOADS_LAUNCH );
-			return;
-		}
-	}
-
-	if ( ( pQueue == NULL ) || ( Settings.General.GUIMode == GUI_BASIC ) ||		//If we're not pointing at a queue, or in basic mode
-		( pQueue == UploadQueues.m_pHistoryQueue ) || ( pQueue == UploadQueues.m_pTorrentQueue ) )	//Or pointing at a pre-defined queue
-		Skin.TrackPopupMenu( _T("CUploadsWnd.Nothing"), point, ID_UPLOADS_HELP );
+	if ( m_wndUploads.HitTest( ptLocal, &pQueue, &pUpload, NULL, NULL ) && pUpload != NULL )
+		Skin.TrackPopupMenu( _T("CUploadsWnd.Upload"), point, ID_UPLOADS_LAUNCH );
 	else
-		Skin.TrackPopupMenu( _T("CUploadsWnd.Queue"), point, ID_UPLOADS_EDIT_QUEUE );
+		Skin.TrackPopupMenu( _T("CUploadsWnd.Default"), point, ID_UPLOADS_HELP );
 
 	pLock.Unlock();
 }
@@ -246,7 +233,8 @@ void CUploadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 void CUploadsWnd::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd)
 {
 	CPanelWnd::OnMDIActivate( bActivate, pActivateWnd, pDeactivateWnd );
-	if ( bActivate ) m_wndUploads.SetFocus();
+	if ( bActivate )
+		m_wndUploads.SetFocus();
 }
 
 BOOL CUploadsWnd::IsSelected(CUploadFile* pFile)
@@ -644,29 +632,6 @@ void CUploadsWnd::OnUploadsAutoClear()
 {
 	Settings.Uploads.AutoClear = ! Settings.Uploads.AutoClear;
 	if ( Settings.Uploads.AutoClear ) OnTimer( 4 );
-}
-
-void CUploadsWnd::OnUpdateEditQueue(CCmdUI* pCmdUI)
-{
-	Prepare();
-	pCmdUI->Enable( ! m_bSelFile );
-}
-
-void CUploadsWnd::OnEditQueue()
-{
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-
-	for ( POSITION pos = UploadQueues.GetIterator() ; pos ; )
-	{
-		CUploadQueue* pQueue = UploadQueues.GetNext( pos );
-
-		if ( pQueue->m_bSelected )
-		{
-			CSettingsManagerDlg::Run( _T("CUploadsSettingsPage") );
-			return;
-		}
-	}
-
 }
 
 void CUploadsWnd::OnUploadsHelp()

@@ -29,8 +29,8 @@
 #include "Schema.h"
 #include "SchemaChild.h"
 #include "SchemaCache.h"
-#include "XML.h"
 #include "Settings.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -204,7 +204,7 @@ CAlbumFolder* CAlbumFolder::FindFolder(const Hashes::Guid& oGUID)
 		return this;
 	}
 
-	// Find between childrens
+	// Find between children
 	POSITION pos = m_pFolders.GetHeadPosition();
 	while ( pos )
 	{
@@ -870,8 +870,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 			using namespace regex;
 			try
 			{
-				const rpattern firstPattern( L"(.*)(\\bse?a?s?o?n?)\\s*([0-9]+)\\s*(ep?i?s?o?d?e?)\\s*([0-9]+)[^0-9]+",
-											 NOCASE, MODE_SAFE );
+				const rpattern firstPattern( L"(.*)(\\bse?a?s?o?n?)\\s*([0-9]+)\\s*(ep?i?s?o?d?e?)\\s*([0-9]+)[^0-9]+", NOCASE, MODE_SAFE );
 				const rpattern secondPattern( L"(.*[^0-9]+\\b)([0-9]+)\\s*[xX]\\s*([0-9]+)[^0-9]+", NOFLAGS, MODE_SAFE );
 
 				split_results splitResults;

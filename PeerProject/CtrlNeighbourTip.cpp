@@ -104,7 +104,7 @@ void CNeighbourTipCtrl::OnHide()
 void CNeighbourTipCtrl::OnCalcSize(CDC* pDC)
 {
 	CSingleLock pLock( &Network.m_pSection );
-	if ( ! pLock.Lock( 100 ) ) return;
+	if ( ! pLock.Lock( 200 ) ) return;
 
 	CNeighbour* pNeighbour = Neighbours.Get( reinterpret_cast< DWORD_PTR>( m_pContext ) );
 	CString str;

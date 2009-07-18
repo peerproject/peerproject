@@ -708,35 +708,25 @@ BOOL CSecurity::IsClientBad(const CString& sUserAgent)
 	// No user agent- Assume bad. (Allowed connection but no searches performed)
 	if ( sUserAgent.IsEmpty()  )								return TRUE;
 
-	// Bad/unapproved/obsolete versions of Shareaza
-	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("shareaza") ) )
-	{
-		szVersion += 8;
-		if ( _tcsistr( sUserAgent, _T(" 0.") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" 1.") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" 2.0") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" 3.") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" 4.") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" 5.") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" 6.") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" 7.") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" pro") ) )				return TRUE;
-
-		return FALSE;
-	}
-
 	// PeerProject Fakes
 	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("PeerProject") ) )
 	{
 		szVersion += 11;
-		if ( _tcsistr( sUserAgent, _T(" 0.") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" 2.") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" 3.") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" 4.") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" 5.") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" pro") ) )				return TRUE;
+		if ( _tcsistr( sUserAgent, _T(" 1.") ) )				return FALSE;
+	//	if ( _tcsistr( sUserAgent, _T(" 2.") ) )				return FALSE;
 
-		return FALSE;
+		return TRUE;
+	}
+
+	// Shareaza Fakes/Obsolete
+	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("shareaza") ) )
+	{
+		szVersion += 8;
+		if ( _tcsistr( sUserAgent, _T(" 2.0") ) )				return TRUE;
+		if ( _tcsistr( sUserAgent, _T(" 2.") ) )				return FALSE;
+		if ( _tcsistr( sUserAgent, _T("Plus") ) )				return FALSE;
+
+		return TRUE;
 	}
 
 	// Dianlei: Shareaza rip-off
@@ -745,40 +735,33 @@ BOOL CSecurity::IsClientBad(const CString& sUserAgent)
 	{
 		szVersion += 7;
 		if ( _tcsistr( szVersion, _T(" 0.") ) )					return TRUE;
+
 		return FALSE;
 	}
-
 
 	//BearShare Selectivity
 	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("BearShare") ) )
 	{
 		szVersion += 9;
-		if ( _tcsistr( szVersion, _T(" 6.") ) )					return TRUE;
-		if ( _tcsistr( szVersion, _T(" 7.") ) )					return TRUE;
-		if ( _tcsistr( szVersion, _T(" Lite") ) )				return TRUE;
-		if ( _tcsistr( szVersion, _T(" Pro") ) )				return TRUE;
-		if ( _tcsistr( szVersion, _T(" MP3") ) )				return TRUE;
-		if ( _tcsistr( szVersion, _T(" Music") ) )				return TRUE;
+		if ( _tcsistr( szVersion, _T(" 4.") ) )					return FALSE;
+		if ( _tcsistr( szVersion, _T(" 5.") ) )					return FALSE;
 
-		return FALSE;
+		return TRUE;
 	}
 
 	//Any iMesh
 	if ( _tcsistr( sUserAgent, _T("iMesh") ) )					return TRUE;
 
-	//Trilix
+	// Other Miscillaneous
+
 	if ( _tcsistr( sUserAgent, _T("Trilix") ) )					return TRUE;
 
-	//Gnutella Turbo (?)
 	if ( _tcsistr( sUserAgent, _T("Gnutella Turbo") ) )			return TRUE;
 
-	//Mastermax File Sharing
 	if ( _tcsistr( sUserAgent, _T("Mastermax File Sharing") ) )	return TRUE;
 
-	//Fildelarprogram
 	if ( _tcsistr( sUserAgent, _T("Fildelarprogram") ) )		return TRUE;
 
-	//Fastload.TV
 	if ( _tcsistr( sUserAgent, _T("Fastload.TV") ) )			return TRUE;
 
 	// Other GPL Violaters, Etc.
@@ -808,8 +791,11 @@ BOOL CSecurity::IsClientBanned(const CString& sUserAgent)
 	if ( sUserAgent.IsEmpty() )
 		return FALSE;
 
+	//Foxy (Private G2)
+	if ( _tcsistr( sUserAgent, _T("Foxy") ) )					return TRUE;
+
 	// i2hub leecher client. (Tested, does not upload)
-	if ( _tcsistr( sUserAgent, _T("i2hub 2.0") ) )				return TRUE;
+	if ( _tcsistr( sUserAgent, _T("i2hub") ) )					return TRUE;
 
 	// Check by content filter
 	return IsDenied( sUserAgent );
@@ -905,7 +891,7 @@ BOOL CSecureRule::Match(const IN_ADDR* pAddress) const
 		DWORD* pMask = (DWORD*)m_nMask;
 		DWORD* pTest = (DWORD*)pAddress;
 
-// This only works if IP's are &ed before entered in the list
+		// This only works if IP's are &ed before entered in the list
 		if ( ( ( *pTest ) & ( *pMask ) ) == ( *pBase ) )
 		{
 			return ! IsExpired( (DWORD)time( NULL ) );

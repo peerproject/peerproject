@@ -91,18 +91,18 @@ BOOL CTorrentFilesPage::OnInitDialog()
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
 	m_wndFiles.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
 	m_wndFiles.SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
-	m_wndFiles.InsertColumn( 0, _T("Filename"), LVCFMT_LEFT, rc.right - 64 - 54 /*- 52*/, -1 );
-	m_wndFiles.InsertColumn( 1, _T("Size"), LVCFMT_RIGHT, 64, 0 );
+	m_wndFiles.InsertColumn( 0, _T("Filename"), LVCFMT_LEFT, rc.right - 66 - 54, -1 );
+	m_wndFiles.InsertColumn( 1, _T("Size"), LVCFMT_RIGHT, 66, 0 );
 	m_wndFiles.InsertColumn( 2, _T("Status"), LVCFMT_RIGHT, 54, 0 );
 //	m_wndFiles.InsertColumn( 3, _T("Priority"), LVCFMT_RIGHT, 52, 0 );
 	Skin.Translate( _T("CTorrentFileList"), m_wndFiles.GetHeaderCtrl() );
 
-// Priority Column:
+// Priority Column Combobox:
 //	BEGIN_COLUMN_MAP()
 //		COLUMN_MAP( CFragmentedFile::prHigh,		LoadString( IDS_PRIORITY_HIGH ) )
 //		COLUMN_MAP( CFragmentedFile::prNormal,		LoadString( IDS_PRIORITY_NORMAL ) )
 //		COLUMN_MAP( CFragmentedFile::prLow,			LoadString( IDS_PRIORITY_LOW ) )
-//		COLUMN_MAP( CFragmentedFile::prNotWanted,	LoadString( IDS_PRIORITY_OFF ) )
+//		COLUMN_MAP( CFragmentedFile::prDiscarded,	LoadString( IDS_PRIORITY_OFF ) )
 //	END_COLUMN_MAP( m_wndFiles, 3 )
 
 	if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
@@ -123,16 +123,15 @@ BOOL CTorrentFilesPage::OnInitDialog()
 			m_wndFiles.SetItemText( pItem.iItem, 1,
 				Settings.SmartVolume( pFragFile->GetLength( i ) ) );
 			m_wndFiles.SetItemState( i,
-				UINT( ( pFragFile->GetPriority( i ) == CFragmentedFile::prNotWanted ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
-	//		Priority Column:
-	//		m_wndFiles.SetColumnData( pItem.iItem, 3,
-	//			pFragFile->GetPriority( i ) );
+				UINT( ( pFragFile->GetPriority( i ) == CFragmentedFile::prDiscarded ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
+		//Priority Column:
+		//	m_wndFiles.SetColumnData( pItem.iItem, 3, pFragFile->GetPriority( i ) );
 		}
 	}
 
 	Update();
 
-	SetTimer( 1, 50, NULL );	// Rapid Refresh (20 chances per second)
+	SetTimer( 1, 100, NULL );	// Rapid Refresh (10 chances per second)
 
 	return TRUE;
 }
@@ -154,17 +153,26 @@ void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
 		return;
 
 	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 200 ) )
+	if ( ! oLock.Lock( 250 ) )
 		return;
 
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
 
 	if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
-	{
-		pFragFile->SetPriority( pNMListView->iItem, bChecked ? CFragmentedFile::prNormal : CFragmentedFile::prNotWanted );
-	}
+		pFragFile->SetPriority( pNMListView->iItem, bChecked ? CFragmentedFile::prNormal : CFragmentedFile::prDiscarded );
 
 	oLock.Unlock();
+
+	// Multiple highlighted items group handling
+	if ( m_wndFiles.GetItemState( pNMListView->iItem, LVIS_SELECTED ) )
+	{
+		int nItem = -1;
+		while ( ( nItem = m_wndFiles.GetNextItem( nItem, LVNI_ALL|LVNI_SELECTED ) ) > -1 )
+		{
+			if ( m_wndFiles.GetCheck(nItem) != bChecked )
+				m_wndFiles.SetCheck(nItem, bChecked ? BST_CHECKED : BST_UNCHECKED );
+		}
+	}
 }
 
 void CTorrentFilesPage::OnNMDblclkTorrentFiles(NMHDR *pNMHDR, LRESULT *pResult)

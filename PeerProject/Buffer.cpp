@@ -20,7 +20,7 @@
 //
 
 // CBuffer holds some memory, and takes care of allocating and freeing it itself
-// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CBuffer
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CBuffer
 
 // Copy in the contents of these files here before compiling
 #include "StdAfx.h"
@@ -407,8 +407,9 @@ const DWORD CBuffer::Receive(const SOCKET hSocket, DWORD nSpeedLimit)
 		nSpeedLimit	-= nRead;	// Adjust the limit
 	}
 
-	// Add the total to the statistics
+	// Add the total to statistics
 	Statistics.Current.Bandwidth.Incoming += nTotal;
+	Statistics.Current.Downloads.Volume += ( nTotal / 1024 );
 
 	// Return the total #bytes read
 	return nTotal;

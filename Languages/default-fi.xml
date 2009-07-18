@@ -990,7 +990,7 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrentti _Info..."/>
 	</menu>
-	<menu name="CDownloadsWnd.Nothing">
+	<menu name="CDownloadsWnd.Default">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start Uusi Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Uusi Torrent"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="T_yhjennä Valmiit"/>
@@ -1038,13 +1038,9 @@
 		<item id="ID_UPLOADS_CHAT" text="_Keskustele Käyttäjän Kanssa"/>
 		<item id="ID_SECURITY_BAN" text="E_stä Käyttäjä"/>
 	</menu>
-	<menu name="CUploadsWnd.Queue">
-		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Jonotus Asetukset"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="T_yhjennä Valmiit"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_omaattinen Tyhjennys"/>
-	</menu>
-	<menu name="CUploadsWnd.Nothing">
+	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="Jaa Tiedostoja..."/>
+		<item id="ID_UPLOADS_SETTINGS" text="_Jonotus Asetukset..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="T_yhjennä Valmiit"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Ohje..."/>
@@ -1463,10 +1459,10 @@
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
-	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
+	<document name="CHomeViewCtrl" leftMargin="20" topMargin="0">
 		<styles>
 			<style name="default">
-				<font size="12"/>
+				<font size="13"/>
 			</style>
 			<style name="heading">
 				<font face="Trebuchet MS" size="16" weight="800"/>
@@ -1499,7 +1495,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">VAROITUS: SINUT ON PALOMUURTETTU</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject on huomannut että olet NAT reitittimen tai palomuurin takana,
@@ -1509,7 +1505,7 @@
 			<link target="peer:command:ID_HELP_ROUTER">Klikkaa tähän kunika konfiguroida reitittimesi tai palomuurisi</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32"/><gap size="8"/>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">KUSTOMOI PEERPROJECT A</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
@@ -1547,21 +1543,50 @@
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
-	<document name="CHomeDownloadsBox" title="Omat Lataukset" leftMargin="6" topMargin="6">
+	<document name="CHomeConnectionBox" title="Yhteys" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="9"/>
 			</style>
 		</styles>
-		<para align="center">
-			<group id="1">
-				<text>Sinä et ole vielä lataamassa yhtään tiedostoa.</text>
+		<group id="1">
+			<para align="center">
+				<text format="b">Ei yhdistetty</text>
 				<newline gap="4"/>
-			</group>
-			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Mene Latauksiin</link>
-			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Mene Lataukseen (1)</link>
-			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Mene Latauksiin (%i)</link>
-		</para>
+				<link target="peer:command:ID_NETWORK_CONNECT">Klikkaa tähän yhdistääksesi</link>
+			</para>
+		</group>
+		<icon group="20" command="ID_NETWORK_G2"/>
+		<text group="20" align="middle" format="b">&#160;Gnutella2:</text>
+		<text group="21" align="middle">Ei Yhdistetty</text>
+		<text group="22" align="middle">Yhdistetään...</text>
+		<text group="23" align="middle">Yhdistetty</text>
+		<text group="24" align="middle" id="G2Hubs">%i hubia</text>
+		<text group="25" align="middle" id="G2Leaves">%i lehteä</text>
+		<newline group="20" gap="2"/>
+		<icon group="10" command="ID_NETWORK_G1"/>
+		<text group="10" align="middle" format="b">&#160;Gnutella:</text>
+		<text group="11" align="middle">Ei Yhdistetty</text>
+		<text group="12" align="middle">Yhdistetään...</text>
+		<text group="13" align="middle">Yhdistetty</text>
+		<newline group="10" gap="2"/>
+		<icon group="30" command="ID_NETWORK_ED2K"/>
+		<text group="30" align="middle" format="b">&#160;eDonkey:</text>
+		<text group="31" align="middle">Ei Yhdistetty</text>
+		<text group="32" align="middle">Yhdistetään...</text>
+		<text group="33" align="middle">Yhdistetty</text>
+		<newline group="30" gap="2"/>
+		<group id="2">
+			<para align="center">
+				<newline gap="4"/>
+				<text>Olet ollut yhteydessä </text>
+				<newline gap="0"/>
+				<text id="ConnectedHours" format="b">%i </text>
+				<text>tuntia ja </text>
+				<text id="ConnectedMinutes" format="b">%i </text>
+				<text>minuuttia.</text>
+			</para>
+		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="Oma Kirjasto" leftMargin="6" topMargin="6">
 		<styles>
@@ -1594,50 +1619,27 @@
 			</group>
 		</para>
 	</document>
-	<document name="CHomeConnectionBox" title="Yhteys" leftMargin="6" topMargin="6">
+	<document name="CHomeDownloadsBox" title="Omat Lataukset" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="9"/>
 			</style>
 		</styles>
-		<group id="1">
-			<para align="center">
-				<text format="b">Ei yhdistetty</text>
+		<para align="center">
+			<group id="1">
+				<text>Sinä et ole vielä lataamassa yhtään tiedostoa.</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Klikkaa tähän yhdistääksesi</link>
-			</para>
-		</group>
-		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
-		<text group="20" align="middle" format="b">Gnutella2:</text>
-		<text group="21" align="middle">Ei Yhdistetty</text>
-		<text group="22" align="middle">Yhdistetään...</text>
-		<text group="23" align="middle">Yhdistetty</text>
-		<text group="24" align="middle" id="G2Hubs">%i hubia</text>
-		<text group="25" align="middle" id="G2Leaves">%i lehteä</text>
-		<newline group="20" gap="2"/>
-		<icon group="10" command="ID_NETWORK_G1"/><gap group="10" size="4"/>
-		<text group="10" align="middle" format="b">Gnutella1:</text>
-		<text group="11" align="middle">Ei Yhdistetty</text>
-		<text group="12" align="middle">Yhdistetään...</text>
-		<text group="13" align="middle">Yhdistetty</text>
-		<newline group="10" gap="2"/>
-		<icon group="30" command="ID_NETWORK_ED2K"/><gap group="30" size="4"/>
-		<text group="30" align="middle" format="b">eDonkey:</text>
-		<text group="31" align="middle">Ei Yhdistetty</text>
-		<text group="32" align="middle">Yhdistetään...</text>
-		<text group="33" align="middle">Yhdistetty</text>
-		<newline group="30" gap="2"/>
-		<group id="2">
-			<para align="center">
-				<newline gap="4"/>
-				<text>Olet ollut yhteydessä </text>
-				<newline gap="0"/>
-				<text id="ConnectedHours" format="b">%i </text>
-				<text>tuntia ja </text>
-				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minuuttia.</text>
-			</para>
-		</group>
+			</group>
+			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Mene Latauksiin</link>
+			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Mene Lataukseen (1)</link>
+			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Mene Latauksiin (%i)</link>
+			<newline gap="4"/>
+			<text id="DownloadedNone">No tiedostoa (</text>
+			<text id="DownloadedOne">1 tiedoston (</text>
+			<text id="DownloadedMany">%i tiedostoa (</text>
+			<text id="DownloadedVolume" format="b">%s</text>
+			<text>)</text>
+		</para>
 	</document>
 	<document name="CHomeUploadsBox" title="Lähetykset" leftMargin="6" topMargin="6">
 		<styles>
@@ -1647,42 +1649,21 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Ei aktiivisia lähetyksiä</text>
-			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 aktiivinen lähetys</link>
-			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i aktiivista lähetystä</link>
-			<newline gap="4"/>
-			<text id="UploadedNone">Sinä et ole lähettänyt yhtään tiedostoa tänään.</text>
-			<text id="UploadedOne">Sinä olet lähettänyt 1 tiedoston (%s).</text>
-			<text id="UploadedMany">Sinä olet lähettänyt %i tiedostoa (%s).</text>
-		</para>
-	</document>
-	<document name="CHomeTorrentsBox" title="Torrentit" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font size="9"/>
-			</style>
-		</styles>
-		<para align="center">
-			<text id="TorrentsNone" format="b">Ei jaossa olevia torrentteja</text>
-			<text id="TorrentsOne" format="b">1 jaettu torrentti</text>
-			<text id="TorrentsMany" format="b">%i jaettua torrenttia</text>
-			<newline gap="4"/>
-			<link id="ReseedTorrent" format="bu" target="peer:command:ID_TOOLS_RESEEDTORRENT">Jaa uudelleen %s</link>
+			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktiivinen lähetys</link>
+			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i aktiivista lähetystä</link>
 			<newline gap="4"/>
 			<group id="1">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Jaa toinen torrentti</link>
+				<text id="TorrentsOne">1 jaettu torrentti</text>
+				<text id="TorrentsMany">%i jaettua torrenttia</text>
+				<newline gap="4"/>
 			</group>
-			<group id="2">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Jaa torrentti</link>
-			</group>
+			<text id="UploadedNone">Sinä et ole lähettänyt yhtään tiedostoa tänään.</text>
+			<text id="UploadedOne">1 tiedoston (%s)</text>
+			<text id="UploadedMany">%i tiedostoa (%s)</text>
 		</para>
 	</document>
 	<!-- Settings Pages -->
 	<document name="CGeneralSettingsGroup" title="Yleiset" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Tervetuloa PeerProjectn Asetus Manageriin</text>
 		<newline gap="16"/>
 		<text>PeerProject Asetus Manageri antaa  käyttäjien kustomoida täysin kuinka
@@ -1691,35 +1672,24 @@
 		<text>alue joka liittyy käyttö kokemukseen.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">Yleinen:</link>
-		<gap size="4"/>
-		<text>Yleiset käyttöliitymän asetukset kuten työkaluvihjeet, pienennys käyttäytyminen, formaattien määrä, kyselyt, jne.</text>
+		<text>&#160;Yleiset käyttöliitymän asetukset kuten työkaluvihjeet, pienennys käyttäytyminen, formaattien määrä, kyselyt, jne.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">Kirjasto:</link>
-		<gap size="4"/>
-		<text>Kirjaston näyttö ja managerointi, ja tiedostojen avaus.</text>
+		<text>&#160;Kirjaston näyttö ja managerointi, ja tiedostojen avaus.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CMediaSettingsPage" format="b">Media Toistin:</link>
-		<gap size="4"/>
-		<text>Missä ja milloin käyttää sisään rakennettuaPeerProjectn Media Keskusta.</text>
+		<text>&#160;Missä ja milloin käyttää sisään rakennettuaPeerProjectn Media Keskusta.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Yhteisö:</link>
-		<gap size="4"/>
-		<text>Sinun profiilisi, chat ja pikaviesti asetukset.</text>
+		<text>&#160;Sinun profiilisi, chat ja pikaviesti asetukset.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
-		<gap size="4"/>
-		<text>IRC chatroom visual appearance and connection settings.</text>
+		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
-		<gap size="4"/>
-		<text>Integroi PeerProject sinun nettiselaimeesi hyväksyäksesi p2p linkkejä ja ladata sisältöä.</text>
+		<text>&#160;Integroi PeerProject sinun nettiselaimeesi hyväksyäksesi p2p linkkejä ja ladata sisältöä.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Tervetuloa PeerProjectn Asetus Manageriin</text>
 		<newline gap="16"/>
 		<text>PeerProject Asetus Manageri antaa  käyttäjien kustomoida täysin kuinka
@@ -1728,24 +1698,19 @@
 		<text>alue joka kontrolloi kuinka PeerProject käyttäytyy toisien koneiden kanssa jaetuissa p2p verkoissa.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Yhteys:</link>
-		<gap size="4"/>
-		<text>Internet yhteytesi nopeus ja toimivuus.</text>
+		<text>&#160;Internet yhteytesi nopeus ja toimivuus.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">Lataukset:</link>
-		<gap size="4"/>
-		<text>Latauksen tuotos, ajastus, varmistus, aikakatkaisut ja managerointi.</text>
+		<text>&#160;Latauksen tuotos, ajastus, varmistus, aikakatkaisut ja managerointi.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Lähetykset:</link>
-		<gap size="4"/>
-		<text>Lähetys kyky, jonotus, estäminen, aikakatkaisut ja erikois pyynnöt.</text>
+		<text>&#160;Lähetys kyky, jonotus, estäminen, aikakatkaisut ja erikois pyynnöt.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">Kauko-ohjaus:</link>
-		<gap size="4"/>
-		<text>Aseta mahdollisuus kontrolloida PeerProjecta nettiselaimellasi.</text>
+		<text>&#160;Aseta mahdollisuus kontrolloida PeerProjecta nettiselaimellasi.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<gap size="4"/>
-		<text>Limit download connections based on a periodic schedule.</text>
+		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">

@@ -1040,7 +1040,7 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Informació del Torrent..."/>
 	</menu>
-	<menu name="CDownloadsWnd.Nothing">
+	<menu name="CDownloadsWnd.Default">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Neteja els completats"/>
@@ -1088,13 +1088,9 @@
 		<item id="ID_UPLOADS_CHAT" text="_Parla amb l'usuari"/>
 		<item id="ID_SECURITY_BAN" text="_Bloqueja l'usuari"/>
 	</menu>
-	<menu name="CUploadsWnd.Queue">
-		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Configuració de cua"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="N_eteja els completat"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Neteja _automàtica"/>
-	</menu>
-	<menu name="CUploadsWnd.Nothing">
+	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="Comparteix arxius..."/>
+		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Configuració de cua..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="N_eteja els completats"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Ajuda..."/>
@@ -1540,10 +1536,10 @@
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
-	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
+	<document name="CHomeViewCtrl" leftMargin="20" topMargin="0">
 		<styles>
 			<style name="default">
-				<font size="12"/>
+				<font size="13"/>
 			</style>
 			<style name="heading">
 				<font face="Trebuchet MS" size="16" weight="800"/>
@@ -1584,7 +1580,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">ADVERTIMENT - PROBLEMA AMB CONNEXIONS ENTRANTS</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject ha detectat que estàs sota un NAT, router o un tallafocs,
@@ -1616,7 +1612,7 @@
 			<link target="peer:command:ID_HELP_ROUTER">Clica aquí per a aprendre com configurar el teu router o tallafocs</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32"/><gap size="8"/>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PERSONALITZA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
@@ -1662,21 +1658,50 @@
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
-	<document name="CHomeDownloadsBox" title="Les meves descàrregues" leftMargin="6" topMargin="6">
+	<document name="CHomeConnectionBox" title="Connexió" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="9"/>
 			</style>
 		</styles>
-		<para align="center">
-			<group id="1">
-				<text>No estàs descarregant cap arxiu encara.</text>
+		<group id="1">
+			<para align="center">
+				<text format="b">No connectat</text>
 				<newline gap="4"/>
-			</group>
-			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Mostra les descàrregues </link>
-			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Mostra les descàrregues (1)</link>
-			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Mostra les descàrregues (%i)</link>
-		</para>
+				<link target="peer:command:ID_NETWORK_CONNECT">Fes clic aquí per a connectar-te</link>
+			</para>
+		</group>
+		<icon group="20" command="ID_NETWORK_G2"/>
+		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
+		<text group="21" align="middle">Desconnectat</text>
+		<text group="22" align="middle">Connectant...</text>
+		<text group="23" align="middle">Connectat</text>
+		<text group="24" align="middle" id="G2Hubs">%i hubs</text>
+		<text group="25" align="middle" id="G2Leaves">%i leaves</text>
+		<newline group="20" gap="2"/>
+		<icon group="10" command="ID_NETWORK_G1"/>
+		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
+		<text group="11" align="middle">Desconnectat</text>
+		<text group="12" align="middle">Connectant...</text>
+		<text group="13" align="middle">Connectat</text>
+		<newline group="10" gap="2"/>
+		<icon group="30" command="ID_NETWORK_ED2K"/>
+		<text group="30" align="middle" format="b">&#160;ED2K: </text>
+		<text group="31" align="middle">Desconnectat</text>
+		<text group="32" align="middle">Connectant...</text>
+		<text group="33" align="middle">Connectat</text>
+		<newline group="30" gap="2"/>
+		<group id="2">
+			<para align="center">
+				<newline gap="6"/>
+				<text>Has estat connectat durant </text>
+				<newline gap="0"/>
+				<text id="ConnectedHours" format="b">%i </text>
+				<text>hores i </text>
+				<text id="ConnectedMinutes" format="b">%i </text>
+				<text>minuts.</text>
+			</para>
+		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="La meva biblioteca" leftMargin="6" topMargin="6">
 		<styles>
@@ -1711,50 +1736,27 @@
 			</group>
 		</para>
 	</document>
-	<document name="CHomeConnectionBox" title="Connexió" leftMargin="6" topMargin="6">
+	<document name="CHomeDownloadsBox" title="Les meves descàrregues" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="9"/>
 			</style>
 		</styles>
-		<group id="1">
-			<para align="center">
-				<text format="b">No connectat</text>
+		<para align="center">
+			<group id="1">
+				<text>No estàs descarregant cap arxiu encara.</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Fes clic aquí per a connectar-te</link>
-			</para>
-		</group>
-		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
-		<text group="20" align="middle" format="b">Gnutella2: </text>
-		<text group="21" align="middle">Desconnectat</text>
-		<text group="22" align="middle">Connectant...</text>
-		<text group="23" align="middle">Connectat</text>
-		<text group="24" align="middle" id="G2Hubs">%i hubs</text>
-		<text group="25" align="middle" id="G2Leaves">%i leaves</text>
-		<newline group="20" gap="2"/>
-		<icon group="10" command="ID_NETWORK_G1"/><gap group="10" size="4"/>
-		<text group="10" align="middle" format="b">Gnutella1: </text>
-		<text group="11" align="middle">Desconnectat</text>
-		<text group="12" align="middle">Connectant...</text>
-		<text group="13" align="middle">Connectat</text>
-		<newline group="10" gap="2"/>
-		<icon group="30" command="ID_NETWORK_ED2K"/><gap group="30" size="4"/>
-		<text group="30" align="middle" format="b">e2dk: </text>
-		<text group="31" align="middle">Desconnectat</text>
-		<text group="32" align="middle">Connectant...</text>
-		<text group="33" align="middle">Connectat</text>
-		<newline group="30" gap="2"/>
-		<group id="2">
-			<para align="center">
-				<newline gap="6"/>
-				<text>Has estat connectat durant </text>
-				<newline gap="0"/>
-				<text id="ConnectedHours" format="b">%i </text>
-				<text>hores i </text>
-				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minuts.</text>
-			</para>
-		</group>
+			</group>
+			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Mostra les descàrregues </link>
+			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 descàrregues</link>
+			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">%i descàrregues</link>
+			<newline gap="4"/>
+			<text id="DownloadedNone">No arxius (</text>
+			<text id="DownloadedOne">1 arxiu (</text>
+			<text id="DownloadedMany">%i arxius (</text>
+			<text id="DownloadedVolume" format="b">%s</text>
+			<text>)</text>
+		</para>
 	</document>
 	<document name="CHomeUploadsBox" title="Pujades" leftMargin="6" topMargin="6">
 		<styles>
@@ -1764,42 +1766,21 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">No hi ha pujades</text>
-			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 pujada</link>
-			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i pujades</link>
-			<newline gap="4"/>
-			<text id="UploadedNone">Avui no s'ha pujat cap arxiu.</text>
-			<text id="UploadedOne">En aquesta sessió s'ha pujat 1 arxiu (%s).</text>
-			<text id="UploadedMany">En aquesta sessió s'han pujat %i arxius (%s).</text>
-		</para>
-	</document>
-	<document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font size="9"/>
-			</style>
-		</styles>
-		<para align="center">
-			<text id="TorrentsNone" format="b">Cap torrent està éssent compartit</text>
-			<text id="TorrentsOne" format="b">1 torrent compartit</text>
-			<text id="TorrentsMany" format="b">%i torrents compartits</text>
-			<newline gap="4"/>
-			<link id="ReseedTorrent" format="bu" target="peer:command:ID_TOOLS_RESEEDTORRENT">Torna a compartir %s</link>
+			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 pujada</link>
+			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i pujades</link>
 			<newline gap="4"/>
 			<group id="1">
-				<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Comparteix altre torrent</link>
+				<text id="TorrentsOne">1 torrent compartit</text>
+				<text id="TorrentsMany">%i torrents compartits</text>
+				<newline gap="4"/>
 			</group>
-			<group id="2">
-				<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Comparteix un torrent</link>
-			</group>
+			<text id="UploadedNone">Avui no s'ha pujat cap arxiu.</text>
+			<text id="UploadedOne">1 arxiu (%s)</text>
+			<text id="UploadedMany">%i arxius (%s)</text>
 		</para>
 	</document>
 	<!-- Settings Pages -->
 	<document name="CGeneralSettingsGroup" title="General" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Configuració de PeerProject</text>
 		<newline gap="16"/>
 		<text>Aquesta pantalla permet configurar una gran quantitat de paràmetres del funcionament
@@ -1808,35 +1789,24 @@
 		<text>està relacionada amb l'experiència de l'usuari.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">General:</link>
-		<gap size="4"/>
-		<text>Configuració general com pistes, acció del botó minimitzar, formats, etc.</text>
+		<text>&#160;Configuració general com pistes, acció del botó minimitzar, formats, etc.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">La meva col·lecció:</link>
-		<gap size="4"/>
-		<text>Presentació i control de la col·lecció, i obertura d'arxius.</text>
+		<text>&#160;Presentació i control de la col·lecció, i obertura d'arxius.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CMediaSettingsPage" format="b">Reproductor:</link>
-		<gap size="4"/>
-		<text>Quan i com usar el Centre de Media de PeerProject.</text>
+		<text>&#160;Quan i com usar el Centre de Media de PeerProject.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Comunitat:</link>
-		<gap size="4"/>
-		<text>Configura el teu perfil, xat i serveis de missatgeria.</text>
+		<text>&#160;Configura el teu perfil, xat i serveis de missatgeria.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">Chat:</link>
-		<gap size="4"/>
-		<text>IRC chatroom visual appearance and connection settings.</text>
+		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
-		<gap size="4"/>
-		<text>Integra PeerProject amb el teu navegador d'internet, per a acceptar enllaços peer-to-peer i controlar les descàrregues.</text>
+		<text>&#160;Integra PeerProject amb el teu navegador d'internet, per a acceptar enllaços peer-to-peer i controlar les descàrregues.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Configuració de PeerProject</text>
 		<newline gap="16"/>
 		<text>Aquesta pantalla permet configurar una gran quantitat de paràmetres del funcionament
@@ -1845,24 +1815,19 @@
 		<text>permet configurar la interacció de PeerProject amb les xarxes peer-to-peer.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Connexió:</link>
-		<gap size="4"/>
-		<text>Velocitat i capacitat de la teva connexió.</text>
+		<text>&#160;Velocitat i capacitat de la teva connexió.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">Descàrregues:</link>
-		<gap size="4"/>
-		<text>Configura el comportament de les descàrregues, ample de banda, verificació, temps i control.</text>
+		<text>&#160;Configura el comportament de les descàrregues, ample de banda, verificació, temps i control.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Pujades:</link>
-		<gap size="4"/>
-		<text>Capacitat de pujar, encuar, blocar, temps d'expiracions i peticions especials.</text>
+		<text>&#160;Capacitat de pujar, encuar, blocar, temps d'expiracions i peticions especials.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CNetworksSettingsPage" format="b">Remot:</link>
-		<gap size="4"/>
-		<text>Configura PeerProject per a ser controlat remotament des d'un navegador d'internet.</text>
+		<text>&#160;Configura PeerProject per a ser controlat remotament des d'un navegador d'internet.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<gap size="4"/>
-		<text>Limit download connections based on a periodic schedule.</text>
+		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -3643,7 +3608,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Benvingut/uda a PeerProject (1/6)">
 		<control caption="Per a un rendiment óptim, PeerProject necessita saber un mica més sobre la teva connexió a Internet."/>
 		<control caption="Tria el tipus de la teva connexió a Internet:"/>
-		<control caption="Mòdem|ISDN|ADSL (256K)|ADSL (512K)|ADSL (768K)|ADSL (1.5M)|ADSL (4.0M)|ADSL2 (8.0M)|ADSL2 (12.0M)|ADSL2+ (24.0M)|Cable Modem/SDSL|T1|T3|LAN|OC3"/>
+		<control caption="Mòdem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem/SDSL|T1|T3|LAN|OC3"/>
 		<control caption="O tria una velocitat de descàrrega:"/>
 		<control/>
 		<control caption="i de pujada:"/>

@@ -1422,7 +1422,7 @@ void CUploadsCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 		else if ( pQueue != NULL )
 		{
 			GetOwner()->PostMessage( WM_TIMER, 5 );
-			GetOwner()->PostMessage( WM_COMMAND, ID_UPLOADS_EDIT_QUEUE );
+			GetOwner()->PostMessage( WM_COMMAND, ID_UPLOADS_SETTINGS );
 		}
 		else if ( pFile != NULL )
 		{

@@ -20,7 +20,7 @@
 //
 
 // CBuffer holds some memory, and takes care of allocating and freeing it itself
-// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CBuffer
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CBuffer
 
 // Only include the lines beneath this one once
 #pragma once
@@ -32,8 +32,8 @@ class CBuffer : private boost::noncopyable
 // Construction
 public:
 	// Make a new CBuffer object, and delete one
-	CBuffer();			// Construct a CBuffer object
-	virtual ~CBuffer();	// The virtual keyword indicates a class that inherits from this one may override this
+	CBuffer();				// Construct a CBuffer object
+	virtual ~CBuffer();		// The virtual keyword indicates a class that inherits from this one may override this
 
 // Attributes
 public:

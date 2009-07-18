@@ -1068,7 +1068,7 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Propriétés..."/>
 	</menu>
-	<menu name="CDownloadsWnd.Nothing">
+	<menu name="CDownloadsWnd.Default">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start nouveau download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed nouveau torrent"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Nettoyer"/>
@@ -1116,15 +1116,9 @@
 		<item id="ID_UPLOADS_CHAT" text="_Discuter avec l'util."/>
 		<item id="ID_SECURITY_BAN" text="_Bannir l'util."/>
 	</menu>
-	<menu name="CUploadsWnd.Queue">
-		<item id="ID_UPLOADS_EDIT_QUEUE" text="Réglages _file d'attente"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Nettoyer terminés"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Nettoyer a_utomatiquement"/>
-		<separator/>
-		<item id="ID_UPLOADS_HELP" text="Ai_de..."/>
-	</menu>
-	<menu name="CUploadsWnd.Nothing">
+	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="Partager des _fichiers..."/>
+		<item id="ID_UPLOADS_SETTINGS" text="Réglages _file d'attente..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Nettoyer terminés"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="Ai_de..."/>
@@ -1599,43 +1593,47 @@
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
-	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
+	<document name="CHomeViewCtrl" leftMargin="20" topMargin="0">
 		<styles>
 			<style name="default">
-				<font size="12"/>
+				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Trebuchet MS" size="16" weight="800"/>
+				<font face="Segoe UI" size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
 		<newline gap="0"/>
 		<group id="1">
-			<icon res="130" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">CONNECTEZ-VOUS</heading>
+			<icon res="130" width="32" height="32" target="peer:command:ID_NETWORK_CONNECT"/><gap size="8"/>
+			<heading align="middle">Connectez-vous</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject vous souhaite la bienvenue!</text>
 			<newline gap="8" indent="42"/>
-			<text>Vous n'êtes actuellement connecté à aucun réseau p2p. &#160;</text>
+			<text>Vous n'êtes actuellement connecté à aucun réseau p2p.</text>
+			<newline gap="2" indent="42"/>
 			<link target="peer:command:ID_NETWORK_CONNECT">Cliquez ici pour commencer!</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
+			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<heading align="middle">Rechercher des Fichiers</heading>
+			<newline gap="4" indent="42"/>
+			<anchor id="SearchBox" width="256" height="80"/>
+			<newline gap="20" indent="0"/>
 			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">RECHERCHEZ DANS PEERPROJECT</heading>
+			<heading align="middle">Démarrer un Téléchargement</heading>
 			<newline gap="8" indent="42"/>
 			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Cliquez ici pour commencer</link>
-			<text align="middle">&#160; téléchargement en cours d'un nouveau fichier ou torrent.</text>
-			<newline gap="24" indent="0"/>
-			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
-			<heading align="middle">CHERCHEZ UN FICHIER</heading>
-			<newline gap="8" indent="42"/>
-			<anchor id="SearchBox" width="256" height="80"/>
-			<newline gap="12" indent="0"/>
+			<text align="middle">&#160;téléchargement en cours d'un nouveau fichier ou torrent.</text>
+			<newline gap="4" indent="42"/>
+			<text>Ou ouvrir le </text>
+			<link target="peer:shell:downloads">dossier de telechargements.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">MISEÀ JOUR DISPONIBLE</heading>
+			<heading align="middle">Miseà Jour Disponible</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Mise à jour"/>
 			<newline gap="6"/>
@@ -1643,121 +1641,81 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">ATTENTION: VOUS ÊTES DERRIÈRE UN PARE-FEU</heading>
+			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<heading align="middle">Attention : Vous Êtes Derrière Un Pare-feu</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject a détecté un routeur NAT ou un pare-feu,
 			et est dans l'incapacité actuelle de recevoir des connexions entrantes depuis Internet.  </text>
 			<text color="FF0000" format="b">Ceci peut entraîner une faible performance en cherchant, envoi et téléchargement.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Cliquez ici pour apprendre à configurer votre routeur ou pare-feu</link>
+			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<text>&#160;ou </text>
+			<link target="peer:command:ID_HELP_ROUTER">apprendre à configurer votre routeur.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="6">
 			<icon res="252" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">ATTENTION: VOTRE PORT TCP EST DERRIÈRE UN PARE-FEU</heading>
+			<heading align="middle">Attention : Votre Port TCP Est Derrière Un Pare-feu</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject a détecté que vous êtes derrière un fare-feu ou un routeur NAT,
 			et il est dans l'incapacité actuelle de recevoir des connexions TCP entrantes depuis internet.  </text>
 			<text color="FF0000" format="b">Ceci peut entraîner une faible performance en cherchant, envoi et téléchargement.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Cliquez ici pour apprendre à configurer votre routeur ou pare-feu</link>
+			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<text>&#160;ou </text>
+			<link target="peer:command:ID_HELP_ROUTER">apprendre à configurer votre routeur.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="7">
 			<icon res="252" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">ATTENTION: VOTRE PORT UDP EST DERRIÈRE UN PARE-FEU</heading>
+			<heading align="middle">Attention : Votre Port UDP Est Derrière Un Pare-feu</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject a détecté que vous êtes derrière un pare-feu ou un routeur NAT,
 			et il est dans l'incapacité actuelle de recevoir des connexions UDP entrantes depuis internet.  </text>
 			<text color="FF0000" format="b">Ceci peut entraîner une faible performance en cherchant.</text>
 			<newline gap="6"/>
-			<link target="peer:command:ID_HELP_ROUTER">Cliquez ici pour apprendre à configurer votre routeur ou pare-feu</link>
+			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<text>&#160;ou </text>
+			<link target="peer:command:ID_HELP_ROUTER">apprendre à configurer votre routeur.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32"/><gap size="8"/>
-		<heading align="middle">PERSONNALISEZ PEERPROJECT</heading>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<heading align="middle">Personnalisez PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
+		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Thèmes</link>
-		<text align="middle"> - Changez l'apparence de PeerProject.</text>
+		<text align="middle">&#160;- Changez l'apparence de PeerProject.</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Assistant de configuration</link>
-		<text align="middle"> - Éditez les réglages de PeerProject.</text>
+		<text align="middle">&#160;- Éditez les réglages de PeerProject.</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
+		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<newline gap="8"/>
+		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Aide Rapide</link>
-		<text align="middle"> - Obtenez de l'aide dans l'utilisation de PeerProject.</text>
+		<text align="middle">&#160;- Obtenez de l'aide dans l'utilisation de PeerProject.</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">L'ACCÈSÀ DISTANCE EST ACTIVÉ</heading>
+			<heading align="middle">L'accèsà Distance Est Activé</heading>
 			<newline gap="8" indent="42"/>
 			<text>L'accès à distance de PeerProject est activé. Prenez le contrôle de PeerProject depuis votre navigateur Web à partir de l'adresse:</text>
 			<newline gap="6"/>
 			<link id="RemoteAccessURL1"/>
-			<text> - ou - </text>
+			<text>&#160; ou &#160;</text>
 			<link id="RemoteAccessURL2"/>
 			<newline gap="16" indent="0"/>
 		</group>
+		<newline gap="4" indent="0"/>
 	</document>
-	<document name="CHomeDownloadsBox" title="Téléchargements" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font size="9"/>
-			</style>
-		</styles>
-		<para align="center">
-			<group id="1">
-				<text>Vous ne téléchargez pas encore de fichiers.</text>
-				<newline gap="4"/>
-			</group>
-			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Aucun téléchargement</link>
-			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Voir le téléchargement (1)</link>
-			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Voir les téléchargements (%i)</link>
-		</para>
-	</document>
-	<document name="CHomeLibraryBox" title="Bibliothèque" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font size="9"/>
-			</style>
-		</styles>
-		<para align="center">
-			<group id="2">
-				<text>Vous n'avez pas téléchargé de fichier récemment.</text>
-				<newline gap="8"/>
-			</group>
-			<text id="LibraryFiles" format="b">%lu </text>
-			<text>fichiers, </text>
-			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="4"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Aller dans ma bibliothèque</link>
-			<newline gap="4"/>
-			<link format="bu" target="peer:shell:downloads">Ouvrir le dossier de vos telechargements</link>
-			<group id="1">
-				<newline gap="8"/>
-				<text>PeerProject effectue l'indexation et le hachage de </text>
-				<text id="LibraryHashRemaining" format="b">%lu </text>
-				<text>fichiers.</text>
-				<newline gap="8"/>
-			</group>
-			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Cliquez ici pour accélérer le hachage</link>
-			</group>
-			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Cliquez ici pour ralentir le hachage</link>
-			</group>
-		</para>
-	</document>
+	<!-- Homepanel Taskboxes -->
 	<document name="CHomeConnectionBox" title="Connexions" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1767,82 +1725,115 @@
 				<link target="peer:command:ID_NETWORK_CONNECT">Cliquez ici pour vous connecter</link>
 			</para>
 		</group>
-		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
-		<text group="20" align="middle" format="b">Gnutella2&#160;: </text>
+		<icon group="20" command="ID_NETWORK_G2"/>
+		<text group="20" align="middle" format="b">&#160;Gnutella2 : </text>
 		<text group="21" align="middle">Déconnecté</text>
 		<text group="22" align="middle">Connexion...</text>
 		<text group="23" align="middle">Connecté</text>
 		<text group="24" align="middle" id="G2Hubs">%i hubs</text>
 		<text group="25" align="middle" id="G2Leaves">%i leaves</text>
 		<newline group="20" gap="2"/>
-		<icon group="10" command="ID_NETWORK_G1"/><gap group="10" size="4"/>
-		<text group="10" align="middle" format="b">Gnutella1&#160;: </text>
+		<icon group="10" command="ID_NETWORK_G1"/>
+		<text group="10" align="middle" format="b">&#160;Gnutella : </text>
 		<text group="11" align="middle">Déconnecté</text>
 		<text group="12" align="middle">Connexion...</text>
 		<text group="13" align="middle">Connecté</text>
 		<newline group="10" gap="2"/>
-		<icon group="30" command="ID_NETWORK_ED2K"/><gap group="30" size="4"/>
-		<text group="30" align="middle" format="b">eDonkey&#160;: </text>
+		<icon group="30" command="ID_NETWORK_ED2K"/>
+		<text group="30" align="middle" format="b">&#160;eDonkey : </text>
 		<text group="31" align="middle">Déconnecté</text>
 		<text group="32" align="middle">Connexion...</text>
 		<text group="33" align="middle">Connecté</text>
 		<newline group="30" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>Vous êtes connecté depuis </text>
-				<newline gap="0"/>
+				<newline gap="4"/>
+				<link target="peer:command:ID_TAB_NETWORK">Réseau</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>heures et </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minutes.</text>
+				<text>minutes</text>
 			</para>
 		</group>
+	</document>
+	<document name="CHomeLibraryBox" title="Bibliothèque" leftMargin="6" topMargin="6">
+		<styles>
+			<style name="default">
+				<font size="11"/>
+			</style>
+		</styles>
+		<para align="center">
+			<group id="2">
+				<text>Vous n'avez pas téléchargé de fichier récemment.</text>
+				<newline gap="8"/>
+			</group>
+			<link target="peer:command:ID_VIEW_LIBRARY">Aller dans bibliothèque</link>
+			<newline gap="4"/>
+			<text id="LibraryFiles" format="b">%lu </text>
+			<text>fichiers (</text>
+			<text id="LibraryVolume" format="b">%s</text>
+			<text>)</text>
+			<group id="1">
+				<newline gap="8"/>
+				<text>Indexation de </text>
+				<text id="LibraryHashRemaining" format="b">%lu </text>
+				<text>fichiers :</text>
+				<newline gap="2"/>
+				<group id="3">
+					<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Accélérer le hachage</link>
+				</group>
+				<group id="4">
+					<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Ralentir le hachage</link>
+				</group>
+			</group>
+		</para>
+	</document>
+	<document name="CHomeDownloadsBox" title="Téléchargements" leftMargin="6" topMargin="6">
+		<styles>
+			<style name="default">
+				<font size="11"/>
+			</style>
+		</styles>
+		<para align="center">
+			<group id="1">
+				<text format="b">Ne téléchargez pas encore de fichiers</text>
+				<newline gap="4"/>
+			</group>
+			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Voir les téléchargements</link>
+			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 téléchargement</link>
+			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">%i téléchargements</link>
+			<newline gap="4"/>
+			<text id="DownloadedNone">No fichiers (</text>
+			<text id="DownloadedOne">1 fichier (</text>
+			<text id="DownloadedMany">%i fichiers (</text>
+			<text id="DownloadedVolume" format="b">%s</text>
+			<text>)</text>
+		</para>
 	</document>
 	<document name="CHomeUploadsBox" title="Envois" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Aucun envoi</text>
-			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 envoi actif</link>
-			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i envois actifs</link>
-			<newline gap="4"/>
-			<text id="UploadedNone">Vous n'avez pas envoyé de fichier aujourd'hui...</text>
-			<text id="UploadedOne">Vous avez envoyé 1 fichier (%s).</text>
-			<text id="UploadedMany">Vous avez envoyé %i fichiers (%s).</text>
-		</para>
-	</document>
-	<document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font size="9"/>
-			</style>
-		</styles>
-		<para align="center">
-			<text id="TorrentsNone" format="b">Pas de torrent en seed</text>
-			<text id="TorrentsOne" format="b">1 torrent en seed</text>
-			<text id="TorrentsMany" format="b">%i torrents en seed</text>
-			<newline gap="4"/>
-			<link id="ReseedTorrent" format="bu" target="peer:command:ID_TOOLS_RESEEDTORRENT">Re-seed %s</link>
+			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 envoi actif</link>
+			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i envois actifs</link>
 			<newline gap="4"/>
 			<group id="1">
-				<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Seed d'un autre torrent</link>
+				<text id="TorrentsOne">1 torrent en seed</text>
+				<text id="TorrentsMany">%i torrents en seed</text>
+				<newline gap="4"/>
 			</group>
-			<group id="2">
-				<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Seed d'un torrent</link>
-			</group>
+			<text id="UploadedNone">N'avez pas envoyé de fichier</text>
+			<text id="UploadedOne">Envoyé 1 fichier (%s)</text>
+			<text id="UploadedMany">Envoyé %i fichiers (%s)</text>
 		</para>
 	</document>
 	<!-- Settings Pages -->
 	<document name="CGeneralSettingsGroup" title="Général" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Bienvenue dans le gestionnaire de réglages de PeerProject</text>
 		<newline gap="16"/>
 		<text>Le gestionnaire de réglages de PeerProject permet aux utilisateurs initiés de personnaliser
@@ -1851,35 +1842,24 @@
 		<text>sont liés aux habitudes de l'utilisateur.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">Général :</link>
-		<gap size="4"/>
-		<text>Réglages communs de l'interface utilisateur comme l'aide contextuelle, le comportement du mode réduit, l'affichage des unités de tranferts, les notifications, etc.</text>
+		<text>&#160;Réglages communs de l'interface utilisateur comme l'aide contextuelle, le comportement du mode réduit, l'affichage des unités de tranferts, les notifications, etc.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">Bibliothèque :</link>
-		<gap size="4"/>
-		<text>Présentation et gestion de la bibliothèque de fichiers, ouverture des fichiers.</text>
+		<text>&#160;Présentation et gestion de la bibliothèque de fichiers, ouverture des fichiers.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CMediaSettingsPage" format="b">Lecteur Multimédia :</link>
-		<gap size="4"/>
-		<text>Quand et où utiliser le Lecteur Multimédia de PeerProject.</text>
+		<text>&#160;Quand et où utiliser le Lecteur Multimédia de PeerProject.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Communauté :</link>
-		<gap size="4"/>
-		<text>Votre profil, vos préférences pour les sessions de discussion et la messagerie instantanée.</text>
+		<text>&#160;Votre profil, vos préférences pour les sessions de discussion et la messagerie instantanée.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC :</link>
-		<gap size="4"/>
-		<text>Apparence visuelle du salon IRC et paramètres de connexion.</text>
+		<text>&#160;Apparence visuelle du salon IRC et paramètres de connexion.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web :</link>
-		<gap size="4"/>
-		<text>Intégrez PeerProject dans votre navigateur Web pour accepter les liens p2p (URI) et télécharger du contenu.</text>
+		<text>&#160;Intégrez PeerProject dans votre navigateur Web pour accepter les liens p2p (URI) et télécharger du contenu.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Bienvenue dans le gestionnaire de réglages de PeerProject</text>
 		<newline gap="16"/>
 		<text>Le gestionnaire de réglages de PeerProject permet aux utilisateurs initiés de personnaliser
@@ -1888,24 +1868,19 @@
 		<text>indiquent à PeerProject comment interagir avec les autres «&#160;nœuds&#160;» présents sur les réseaux distribués p2p.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Connexion :</link>
-		<gap size="4"/>
-		<text>Vitesses et caractéristiques de votre connexion Internet.</text>
+		<text>&#160;Vitesses et caractéristiques de votre connexion Internet.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">Téléchargements :</link>
-		<gap size="4"/>
-		<text>Bande passante dédiée aux téléchargements, planification, vérification, temps morts et gestion.</text>
+		<text>&#160;Bande passante dédiée aux téléchargements, planification, vérification, temps morts et gestion.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Envois :</link>
-		<gap size="4"/>
-		<text>Capacité des envois, mise en file, bannissement, temps morts et demandes spéciales.</text>
+		<text>&#160;Capacité des envois, mise en file, bannissement, temps morts et demandes spéciales.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">Accès à distance :</link>
-		<gap size="4"/>
-		<text>Configurer le contrôle à distance de PeerProject à partir d'un navigateur web.</text>
+		<text>&#160;Configurer le contrôle à distance de PeerProject à partir d'un navigateur web.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler :</link>
-		<gap size="4"/>
-		<text>Limiter les connexions de téléchargement selon un plan périodique pré-établi.</text>
+		<text>&#160;Limiter les connexions de téléchargement selon un plan périodique pré-établi.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -3752,7 +3727,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="PeerProject vous souhaite la bienvenue (1/6)">
 		<control caption="Pour des performances optimales, PeerProject doit en connaître un peu plus sur votre connexion à Internet."/>
 		<control caption="Veuillez sélectionner le type de connexion&#160;:"/>
-		<control caption="| Modem Dial up| ISDN| ADSL (256K)| ADSL (512K)| ADSL (768K)| ADSL (1.5M)| ADSL (4.0M)| ADSL2 (8.0M)| ADSL2 (12.0M)| ADSL2+ (24.0M)| Modem Câble/SDSL| T1| T3| LAN| OC3"/>
+		<control caption="| Modem Dial up|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Modem Câble/SDSL| T1| T3| LAN| OC3"/>
 		<control caption="Ou, choisissez la vitesse téléchargement&#160;:"/>
 		<control/>
 		<control caption="et la vitesse d'envoi&#160;:"/>

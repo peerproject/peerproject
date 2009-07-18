@@ -75,6 +75,11 @@ BOOL CWizardWelcomePage::OnInitDialog()
 
 BOOL CWizardWelcomePage::OnSetActive()
 {
+	//Wizard Window Caption Workaround
+	CString strCaption;
+	GetWindowText( strCaption );
+	GetParent()->SetWindowText( strCaption );
+
 	SetWizardButtons( PSWIZB_NEXT );
 	return CWizardPage::OnSetActive();
 }

@@ -988,7 +988,7 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent _Info..."/>
 	</menu>
-	<menu name="CDownloadsWnd.Nothing">
+	<menu name="CDownloadsWnd.Default">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start Nowa Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Nowa Torrent"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Wyczyść zakończone"/>
@@ -1036,13 +1036,9 @@
 		<item id="ID_UPLOADS_CHAT" text="Rozmowa z użytkownikiem"/>
 		<item id="ID_SECURITY_BAN" text="Ban"/>
 	</menu>
-	<menu name="CUploadsWnd.Queue">
-		<item id="ID_UPLOADS_EDIT_QUEUE" text="Ustawienia kolejki"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Wyczyść zakończone"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Autoczyszczenie"/>
-	</menu>
-	<menu name="CUploadsWnd.Nothing">
+	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="Udostępnij pliki..."/>
+		<item id="ID_UPLOADS_SETTINGS" text="Ustawienia kolejki..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Wyczyść zakończone"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="Pomoc..."/>
@@ -1458,10 +1454,10 @@
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
-	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
+	<document name="CHomeViewCtrl" leftMargin="20" topMargin="0">
 		<styles>
 			<style name="default">
-				<font size="12"/>
+				<font size="13"/>
 			</style>
 			<style name="heading">
 				<font face="Trebuchet MS" size="16" weight="800"/>
@@ -1494,7 +1490,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">UWAGA: JESTEŚ ZABLOKOWANY FIREWALLEM</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject wykryła, że jesteś za NATem lub firewallem
@@ -1504,7 +1500,7 @@
 			<link target="peer:command:ID_HELP_ROUTER">Kliknij tutaj, aby dowiedzieć się jak skonfigurować Twój router lub firewall</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32"/><gap size="8"/>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">DOSTOSUJ PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
@@ -1541,21 +1537,50 @@
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
-	<document name="CHomeDownloadsBox" title="Moje Pobierania" leftMargin="6" topMargin="6">
+	<document name="CHomeConnectionBox" title="Połączenie" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="9"/>
 			</style>
 		</styles>
-		<para align="center">
-			<group id="1">
-				<text>Nie pobierasz jeszcze żadnych plików.</text>
+		<group id="1">
+			<para align="center">
+				<text format="b">Nie połączony</text>
 				<newline gap="4"/>
-			</group>
-			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Idź do Pobierań</link>
-			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Idź do Pobierań (1)</link>
-			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Idź do Pobierań (%i)</link>
-		</para>
+				<link target="peer:command:ID_NETWORK_CONNECT">Kliknij tutaj, aby się połączyć</link>
+			</para>
+		</group>
+		<icon group="20" command="ID_NETWORK_G2"/>
+		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
+		<text group="21" align="middle">Rozłączony</text>
+		<text group="22" align="middle">Łączenie...</text>
+		<text group="23" align="middle">Połączony</text>
+		<text group="24" align="middle" id="G2Hubs">%i hub(y)</text>
+		<text group="25" align="middle" id="G2Leaves">%i listków</text>
+		<newline group="20" gap="2"/>
+		<icon group="10" command="ID_NETWORK_G1"/>
+		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
+		<text group="11" align="middle">Rozłączony</text>
+		<text group="12" align="middle">Łącznie...</text>
+		<text group="13" align="middle">Połączony</text>
+		<newline group="10" gap="2"/>
+		<icon group="30" command="ID_NETWORK_ED2K"/>
+		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
+		<text group="31" align="middle">Rozłączony</text>
+		<text group="32" align="middle">Łączenie...</text>
+		<text group="33" align="middle">Połączony</text>
+		<newline group="30" gap="2"/>
+		<group id="2">
+			<para align="center">
+				<newline gap="6"/>
+				<text>Jesteś połączony przez </text>
+				<newline gap="0"/>
+				<text id="ConnectedHours" format="b">%i </text>
+				<text>godzin(y) i </text>
+				<text id="ConnectedMinutes" format="b">%i </text>
+				<text>minuty.</text>
+			</para>
+		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="Moje Zasoby" leftMargin="6" topMargin="6">
 		<styles>
@@ -1588,49 +1613,27 @@
 			</group>
 		</para>
 	</document>
-	<document name="CHomeConnectionBox" title="Połączenie" leftMargin="6" topMargin="6">
+	<document name="CHomeDownloadsBox" title="Moje Pobierania" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="9"/>
 			</style>
 		</styles>
-		<group id="1">
-			<para align="center">
-				<text format="b">Nie połączony</text>
+		<para align="center">
+			<group id="1">
+				<text>Nie pobierasz jeszcze żadnych plików.</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Kliknij tutaj, aby się połączyć</link>
-			</para>
-		</group>
-		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
-		<text group="20" align="middle" format="b">Gnutella2: </text>
-		<text group="21" align="middle">Rozłączony</text>
-		<text group="22" align="middle">Łączenie...</text>
-		<text group="23" align="middle">Połączony</text>
-		<text group="24" align="middle" id="G2Hubs">%i hub(y)</text>
-		<text group="25" align="middle" id="G2Leaves">%i listków</text>
-		<newline group="20" gap="2"/>
-		<icon group="10" command="ID_NETWORK_G1"/><gap group="10" size="4"/>
-		<text group="10" align="middle" format="b">Gnutella1: </text>
-		<text group="11" align="middle">Rozłączony</text>
-		<text group="12" align="middle">Łącznie...</text>
-		<text group="13" align="middle">Połączony</text>
-		<newline group="10" gap="2"/>
-		<icon group="30" command="ID_NETWORK_ED2K"/><gap group="30" size="4"/>
-		<text group="30" align="middle" format="b">eDonkey: </text>
-		<text group="31" align="middle">Rozłączony</text>
-		<text group="32" align="middle">Łączenie...</text>
-		<text group="33" align="middle">Połączony</text>
-		<newline group="30" gap="2"/>
-		<group id="2">
-			<para align="center">
-				<newline gap="6"/>
-				<text>Jesteś połączony przez </text>
-				<text id="ConnectedHours" format="b">%i </text>
-				<text>godzin(y) i </text>
-				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minut(y).</text>
-			</para>
-		</group>
+			</group>
+			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Idź do Pobierań</link>
+			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Idź do Pobierań (1)</link>
+			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Idź do Pobierań (%i)</link>
+			<newline gap="4"/>
+			<text id="DownloadedNone">No plików (</text>
+			<text id="DownloadedOne">1 plik (</text>
+			<text id="DownloadedMany">%i plików (</text>
+			<text id="DownloadedVolume" format="b">%s</text>
+			<text>)</text>
+		</para>
 	</document>
 	<document name="CHomeUploadsBox" title="Wysyłania" leftMargin="6" topMargin="6">
 		<styles>
@@ -1640,42 +1643,21 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Brak pobierających</text>
-			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 aktywny pobierający</link>
-			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i aktywnych pobierających</link>
-			<newline gap="4"/>
-			<text id="UploadedNone">Nie wysłałeś dziś żadnych plików.</text>
-			<text id="UploadedOne">Wysłałeś 1 plik.</text>
-			<text id="UploadedMany">Wysłałeś %i plików.</text>
-		</para>
-	</document>
-	<document name="CHomeTorrentsBox" title="Torrent" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font size="9"/>
-			</style>
-		</styles>
-		<para align="center">
-			<text id="TorrentsNone" format="b">Nie seedujesz żadnych torrentów</text>
-			<text id="TorrentsOne" format="b">Seedujesz 1 torrent</text>
-			<text id="TorrentsMany" format="b">Seedujesz %i torrentów</text>
-			<newline gap="4"/>
-			<link id="ReseedTorrent" format="bu" target="peer:command:ID_TOOLS_RESEEDTORRENT">Seeduj ponownie %s</link>
+			<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktywny pobierający</link>
+			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i aktywnych pobierających</link>
 			<newline gap="4"/>
 			<group id="1">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Seeduj inny torrent</link>
+				<text id="TorrentsOne">Seedujesz 1 torrent</text>
+				<text id="TorrentsMany">Seedujesz %i torrentów</text>
+				<newline gap="4"/>
 			</group>
-			<group id="2">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Seeduj torrent</link>
-			</group>
+			<text id="UploadedNone">Nie wysłałeś dziś żadnych plików.</text>
+			<text id="UploadedOne">1 plik (%s)</text>
+			<text id="UploadedMany">%i plików (%s)</text>
 		</para>
 	</document>
 	<!-- Settings Pages -->
 	<document name="CGeneralSettingsGroup" title="Ogólne" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Witaj w Menedżerze ustawień PeerProject</text>
 		<newline gap="16"/>
 		<text>Menedżer ustawień PeerProject pozwala zaawansowanym użytkownikom w pełni dostosować
@@ -1684,35 +1666,24 @@
 		<text>związane są z doświadczeniami użytkownika.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">Ogólne:</link>
-		<gap size="4"/>
-		<text>Popularne ustawienia interfejsu użytkownika takie jak zachowanie po zminimalizowaniu, format liczb, podpowiedzi, etc.</text>
+		<text>&#160;Popularne ustawienia interfejsu użytkownika takie jak zachowanie po zminimalizowaniu, format liczb, podpowiedzi, etc.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">Zasoby:</link>
-		<gap size="4"/>
-		<text>Prezentacja i zarządzanie Zasobami. </text>
+		<text>&#160;Prezentacja i zarządzanie Zasobami. </text>
 		<newline gap="10"/>
 		<link target="peer:page:CMediaSettingsPage" format="b">Odtwarzacz:</link>
-		<gap size="4"/>
-		<text>Kiedy i gdzie używać wbudowanego Odtwarzacza.</text>
+		<text>&#160;Kiedy i gdzie używać wbudowanego Odtwarzacza.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Społeczność:</link>
-		<gap size="4"/>
-		<text>Twój profil i ustawienia wiadomości.</text>
+		<text>&#160;Twój profil i ustawienia wiadomości.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">Chat:</link>
-		<gap size="4"/>
-		<text>IRC chatroom visual appearance and connection settings.</text>
+		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">WWW:</link>
-		<gap size="4"/>
-		<text>Integracja PeerProject z Twoją przeglądarką, aby akceptować odnośniki peer-to-peer.</text>
+		<text>&#160;Integracja PeerProject z Twoją przeglądarką, aby akceptować odnośniki peer-to-peer.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Witaj w Menedżerze ustawień PeerProject</text>
 		<newline gap="16"/>
 		<text>Menedżer ustawień PeerProject pozwala zaawansowanym użytkownikom w pełni dostosować
@@ -1721,24 +1692,19 @@
 		<text>kontrolują zachowanie PeerProject z innymi węzłami w sieci peer-to-peer.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Połączenie:</link>
-		<gap size="4"/>
-		<text>Szybkość i możliwości Twojego połączenia.</text>
+		<text>&#160;Szybkość i możliwości Twojego połączenia.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">Pobierania:</link>
-		<gap size="4"/>
-		<text>Przepustowość pobierania, planowanie, weryfikacja i zarządzanie.</text>
+		<text>&#160;Przepustowość pobierania, planowanie, weryfikacja i zarządzanie.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Wysyłanie:</link>
-		<gap size="4"/>
-		<text>Kolejki, zakazy, limity czasu i specjalne żądania.</text>
+		<text>&#160;Kolejki, zakazy, limity czasu i specjalne żądania.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">Zdalny:</link>
-		<gap size="4"/>
-		<text>Ustaw możliwość sterowania PeerProject przez przeglądarkę stron www.</text>
+		<text>&#160;Ustaw możliwość sterowania PeerProject przez przeglądarkę stron www.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<gap size="4"/>
-		<text>Limit download connections based on a periodic schedule.</text>
+		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -3568,15 +3534,10 @@
 		<control/>
 		<control caption="... i rozpocząć używanie Shareazy."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StCoStCoStCoStCoStCo" caption="Witaj w PeerProjecte (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Witaj w PeerProjecte (1/6)">
 		<control caption="Do optymalnego działania, PeerProject potrzebuje trochę wiadomości o Twoim połączeniu z Internetem."/>
 		<control caption="Wybierz rodzaj Twojego łącza Internetowego:"/>
-		<control caption="Czy twoja sieć jest chroniona przez firewall lub router NAT?"/>
-		<control caption="&#160;Nie, MOGĘ przyjmować wszystkie przychodzące połączenia.| Tak, więc NIE MOGĘ akceptować połączeń przychodzących z Internetu.| Nie mam pojęcia, proszę WYKRYĆ to dla mnie"/>
-		<control caption="Czy masz firewall lub router NAT na twoim domowym łączu z Internetem?"/>
-		<control caption="&#160;Nie, mam PEŁNY DOSTĘP do Internetu| Tak, ale ustawię przekierowanie portu dla Shareazy| Tak, NIE MOGĘ przyjmować połączeń przychodzących z Internetu.| Nie mam pojęcia, proszę WYKRYĆ to dla mnie"/>
-		<control caption="Jeśli wiesz jak szybkie jest twoje łącze, wybierz najlepszą opcję z poniższej listy:"/>
-		<control caption="| Modem wdzwaniany | ISDN| ADSL (256K)| ADSL (512K)| ADSL (768K)| ADSL (1.5M)| ADSL (4.0M)| ADSL2 (8.0M)| ADSL2 (12.0M)| ADSL2+ (24.0M)| Modem kablowy/SDSL| T1| T3| LAN| OC3"/>
+		<control caption="|Modem wdzwaniany |ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Modem kablowy/SDSL| T1| T3| LAN| OC3"/>
 		<control caption="LUB, wybierz prędkość pobierania:"/>
 		<control/>
 		<control caption="i prędkość wysyłania:"/>

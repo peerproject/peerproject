@@ -1060,7 +1060,7 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="İ_leri Düzenleme..."/>
 	</menu>
-	<menu name="CDownloadsWnd.Nothing">
+	<menu name="CDownloadsWnd.Default">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start Yeni Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Yeni Torrent"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Bi_teni Temizle"/>
@@ -1108,13 +1108,9 @@
 		<item id="ID_UPLOADS_CHAT" text="_Sohbet"/>
 		<item id="ID_SECURITY_BAN" text="Kullanıcı _Engelle"/>
 	</menu>
-	<menu name="CUploadsWnd.Queue">
-		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Sıra Ayarları"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Bi_teni Temizle"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Otomatik Temizle"/>
-	</menu>
-	<menu name="CUploadsWnd.Nothing">
+	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="Paylaşılan _Dosyalar..."/>
+		<item id="ID_UPLOADS_SETTINGS" text="_Sıra Ayarları..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Bi_teni Temizle"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Yardım..."/>
@@ -1589,10 +1585,10 @@
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
-	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
+	<document name="CHomeViewCtrl" leftMargin="20" topMargin="0">
 		<styles>
 			<style name="default">
-				<font size="12"/>
+				<font size="13"/>
 			</style>
 			<style name="heading">
 				<font face="Trebuchet MS" size="16" weight="800"/>
@@ -1631,7 +1627,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">UYARI - GÜVENLİK DUVARI AÇIK</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject sizin bir güvenlik duvarının ya da NAT yönlendiricinin arkasında olduğunuzu tespit etti ve internetten gelecek olan bağlantıları alamazsınız. &#160;</text>
@@ -1662,7 +1658,7 @@
 			<link target="peer:command:ID_HELP_ROUTER">Yönlendirici ya da güvenlik duvarı ayarları için tıklayınız.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32"/><gap size="8"/>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PEERPROJECT İstemcisine</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
@@ -1699,21 +1695,49 @@
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
-	<document name="CHomeDownloadsBox" title="İndirmelerim" leftMargin="6" topMargin="6">
+	<document name="CHomeConnectionBox" title="Bağlantı" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="9"/>
 			</style>
 		</styles>
-		<para align="center">
-			<group id="1">
-				<text>Henüz hiç dosya indirmediniz.</text>
+		<group id="1">
+			<para align="center">
+				<text format="b">Bağlı Değil</text>
 				<newline gap="4"/>
-			</group>
-			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">İndirmelere Git</link>
-			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">İndirme Git(1)</link>
-			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">İndirmelere Git (%i)</link>
-		</para>
+				<link target="peer:command:ID_NETWORK_CONNECT">Bağlanmak için tıklayınız!</link>
+			</para>
+		</group>
+		<icon group="20" command="ID_NETWORK_G2"/>
+		<text group="20" align="middle" format="b">&#160;Gnutella2:</text>
+		<text group="21" align="middle">Bağlantı Yok</text>
+		<text group="22" align="middle">Bağlanıyor...</text>
+		<text group="23" align="middle">Bağlandı</text>
+		<text group="24" align="middle" id="G2Hubs">%i hub</text>
+		<text group="25" align="middle" id="G2Leaves">%i eş</text>
+		<newline group="20" gap="2"/>
+		<icon group="10" command="ID_NETWORK_G1"/>
+		<text group="10" align="middle" format="b">&#160;Gnutella:</text>
+		<text group="11" align="middle">Bağlantı Yok</text>
+		<text group="12" align="middle">Bağlanıyor...</text>
+		<text group="13" align="middle">Bağlandı</text>
+		<newline group="10" gap="2"/>
+		<icon group="30" command="ID_NETWORK_ED2K"/>
+		<text group="30" align="middle" format="b">&#160;eDonkey:</text>
+		<text group="31" align="middle">Bağlantı Yok</text>
+		<text group="32" align="middle">Bağlanıyor...</text>
+		<text group="33" align="middle">Bağlandı</text>
+		<newline group="30" gap="2"/>
+		<group id="2">
+			<para align="center">
+				<newline gap="4"/>
+				<text>Bağlantıda </text>
+				<text id="ConnectedHours" format="b">%i </text>
+				<text>saat ve </text>
+				<text id="ConnectedMinutes" format="b">%i </text>
+				<text>dakika bulundunuz</text>
+			</para>
+		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="Kütüphanem" leftMargin="6" topMargin="6">
 		<styles>
@@ -1732,9 +1756,9 @@
 			<newline gap="0"/>
 			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Kütüphaneme Git</link>
 			<newline gap="4"/>
-			<link format="bu" target="raza:command:ID_VIEW_LIBRARY">Kütüphaneme Git</link>
+			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Kütüphaneme Git</link>
 			<newline gap="4"/>
-			<link format="bu" target="raza:shell:downloads">İndirmeler Dosyamı Aç</link>
+			<link format="bu" target="peer:shell:downloads">İndirmeler Dosyamı Aç</link>
 			<group id="1">
 				<newline gap="8"/>
 				<text>PeerProject </text>
@@ -1750,49 +1774,27 @@
 			</group>
 		</para>
 	</document>
-	<document name="CHomeConnectionBox" title="Bağlantı" leftMargin="6" topMargin="6">
+	<document name="CHomeDownloadsBox" title="İndirmelerim" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="9"/>
 			</style>
 		</styles>
-		<group id="1">
-			<para align="center">
-				<text format="b">Bağlı Değil</text>
+		<para align="center">
+			<group id="1">
+				<text>Henüz hiç dosya indirmediniz.</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Bağlanmak için tıklayınız!</link>
-			</para>
-		</group>
-		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
-		<text group="20" align="middle" format="b">Gnutella2:</text>
-		<text group="21" align="middle">Bağlantı Yok</text>
-		<text group="22" align="middle">Bağlanıyor...</text>
-		<text group="23" align="middle">Bağlandı</text>
-		<text group="24" align="middle" id="G2Hubs">%i hub</text>
-		<text group="25" align="middle" id="G2Leaves">%i eş</text>
-		<newline group="20" gap="2"/>
-		<icon group="10" command="ID_NETWORK_G1"/><gap group="10" size="4"/>
-		<text group="10" align="middle" format="b">Gnutella1:</text>
-		<text group="11" align="middle">Bağlantı Yok</text>
-		<text group="12" align="middle">Bağlanıyor...</text>
-		<text group="13" align="middle">Bağlandı</text>
-		<newline group="10" gap="2"/>
-		<icon group="30" command="ID_NETWORK_ED2K"/><gap group="30" size="4"/>
-		<text group="30" align="middle" format="b">eDonkey:</text>
-		<text group="31" align="middle">Bağlantı Yok</text>
-		<text group="32" align="middle">Bağlanıyor...</text>
-		<text group="33" align="middle">Bağlandı</text>
-		<newline group="30" gap="2"/>
-		<group id="2">
-			<para align="center">
-				<newline gap="4"/>
-				<text>Bağlantıda </text>
-				<text id="ConnectedHours" format="b">%i </text>
-				<text>saat ve </text>
-				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>dakika bulundunuz</text>
-			</para>
-		</group>
+			</group>
+			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">İndirmelere Git</link>
+			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 İndirme</link>
+			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">%i İndirmelere</link>
+			<newline gap="4"/>
+			<text id="DownloadedNone">No dosya (</text>
+			<text id="DownloadedOne">1 dosya (</text>
+			<text id="DownloadedMany">%i dosya (</text>
+			<text id="DownloadedVolume" format="b">%s</text>
+			<text>)</text>
+		</para>
 	</document>
 	<document name="CHomeUploadsBox" title="Uploads" leftMargin="6" topMargin="6">
 		<styles>
@@ -1802,42 +1804,21 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Aktif aktarım yok</text>
-			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 aktif aktarım</link>
-			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i aktif aktarım</link>
-			<newline gap="4"/>
-			<text id="UploadedNone">Bugün hiç aktarım yapmadınız.</text>
-			<text id="UploadedOne">1 dosya(%s) aktardınız.</text>
-			<text id="UploadedMany">%i dosya(%s) aktardınız.</text>
-		</para>
-	</document>
-	<document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font size="9"/>
-			</style>
-		</styles>
-		<para align="center">
-			<text id="TorrentsNone" format="b">Torrent kaynağı yok</text>
-			<text id="TorrentsOne" format="b">1 torrent kaynağı</text>
-			<text id="TorrentsMany" format="b">%i torrent kaynağı</text>
-			<newline gap="4"/>
-			<link id="ReseedTorrent" format="bu" target="peer:command:ID_TOOLS_RESEEDTORRENT">Kaynak %s</link>
+			<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktif aktarım</link>
+			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i aktif aktarım</link>
 			<newline gap="4"/>
 			<group id="1">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Kaynak başka bir torrent</link>
+				<text id="TorrentsOne">1 torrent kaynağı</text>
+				<text id="TorrentsMany">%i torrent kaynağı</text>
+				<newline gap="4"/>
 			</group>
-			<group id="2">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Bir torrent kaynak</link>
-			</group>
+			<text id="UploadedNone">Bugün hiç aktarım yapmadınız.</text>
+			<text id="UploadedOne">1 dosya (%s) aktardınız</text>
+			<text id="UploadedMany">%i dosya (%s) aktardınız</text>
 		</para>
 	</document>
 	<!-- Settings Pages -->
 	<document name="CGeneralSettingsGroup" title="Genel" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">PeerProject'nın Ayarlar Yönetimine hoşgeldiniz.</text>
 		<newline gap="16"/>
 		<text>PeerProject Ayarlar Yönetimi ileri kulanıcılara
@@ -1846,35 +1827,24 @@
 		<text>sekmesi kullanıcı olaylarını kapsar. </text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">Genel:</link>
-		<gap size="4"/>
-		<text>Ortak kullanıcılar arayüzünde araçlar, küçültme, numara formatları, uyarılar vb. ayarlar vardır. </text>
+		<text>&#160;Ortak kullanıcılar arayüzünde araçlar, küçültme, numara formatları, uyarılar vb. ayarlar vardır. </text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">Kütüphane:</link>
-		<gap size="4"/>
-		<text>Dosya kütüphanesini tanıtır ve yönetir, ve dosyaları açar.</text>
+		<text>&#160;Dosya kütüphanesini tanıtır ve yönetir, ve dosyaları açar.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
-		<gap size="4"/>
-		<text>PeerProject Medya Merkezi yapısı nerede ve ne zaman kullanılır.</text>
+		<text>&#160;PeerProject Medya Merkezi yapısı nerede ve ne zaman kullanılır.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">İletişim:</link>
-		<gap size="4"/>
-		<text>Profil, sohbet ve mesaj ayarları.</text>
+		<text>&#160;Profil, sohbet ve mesaj ayarları.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
-		<gap size="4"/>
-		<text>IRC sohbet odasının görünümü ve bağlantı ayarları.</text>
+		<text>&#160;IRC sohbet odasının görünümü ve bağlantı ayarları.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Bütünleşmesi:</link>
-		<gap size="4"/>
-		<text>PeerProject tarayıcınızın kabul ettiği linkler ve İndirilmiş içeriklerle bütünleşir.</text>
+		<text>&#160;PeerProject tarayıcınızın kabul ettiği linkler ve İndirilmiş içeriklerle bütünleşir.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">PeerProject'nın Ayarlar Yönetimine hoşgeldiniz.</text>
 		<newline gap="16"/>
 		<text>PeerProject Ayarlar Yönetimi ileri kulanıcılara PeerProject'nın nasıl çalışacağını tamamen ayarlamalarına izin verir.
@@ -1883,24 +1853,19 @@
 		<text> sekmesi karşılıklı ağlardaki diğer düğümlerle etkileşimini kontrol eder. </text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Bağlantı:</link>
-		<gap size="4"/>
-		<text>İnternet bağlantınızın hızı ve verimidir.</text>
+		<text>&#160;İnternet bağlantınızın hızı ve verimidir.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">İndirmeler:</link>
-		<gap size="4"/>
-		<text>İndirme programı, doğrulaması, zamanı ve yönetimi.</text>
+		<text>&#160;İndirme programı, doğrulaması, zamanı ve yönetimi.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Aktarımlar:</link>
-		<gap size="4"/>
-		<text>Aktarım kapasitesi, sıralaması, kısıtlamaları, zamanı ve özel sorgular.</text>
+		<text>&#160;Aktarım kapasitesi, sıralaması, kısıtlamaları, zamanı ve özel sorgular.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">Uzak:</link>
-		<gap size="4"/>
-		<text>Web tarayıcınız aracılığıyla PeerProject uzaktan kontrol yapmanızı sağlayan ayarlar. </text>
+		<text>&#160;Web tarayıcınız aracılığıyla PeerProject uzaktan kontrol yapmanızı sağlayan ayarlar. </text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<gap size="4"/>
-		<text>İndirme bağlantılarını periyodik planlamaya göre sınırlar.</text>
+		<text>&#160;İndirme bağlantılarını periyodik planlamaya göre sınırlar.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -3720,7 +3685,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="PeerProject'ya Hoşgeldiniz (1/6)">
 		<control caption="En iyi sonuç için PeerProject'nın bağlantınız hakkında bazı temel bilgilere ihtiyacı bulunmaktadır."/>
 		<control caption="İnternet bağlantınızı PeerProject'ya belirtin:"/>
-		<control caption="Çevirmeli Modem|ISDN|ADSL (256K)|ADSL (512K)|ADSL (768K)|ADSL (1.5M)|ADSL (4.0M)|ADSL2 (8.0M)|ADSL2 (12.0M)|ADSL2+ (24.0M)|Kablo Modemi/SDSL|T1|T3|LAN|OC3"/>
+		<control caption="Çevirmeli Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Kablo Modemi/SDSL|T1|T3|LAN|OC3"/>
 		<control caption="Ya da indirme hızınızı:"/>
 		<control/>
 		<control caption="ve gönderme hızınızı belirtin:"/>

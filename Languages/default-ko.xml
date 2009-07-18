@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- PeerProject Korean Language Skin File -->
-<!-- Translation based on default-en.xml SVN r25 --> <!--Machine Translated-->
+<!-- Translation based on default-en.xml SVN r28 --> <!--Machine Translated-->
 
 <!-- This skin template represents current PeerProject defaults. -->
 <!-- Use this file as a basis for creating new language skins,	 -->
@@ -198,7 +198,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="찾아보기 사용자"/>
 		<button id="ID_UPLOADS_CHAT" text="Chat 사용자"/>
-		<button id="ID_SECURITY_BAN" text="B반 장관은 사용자"/>
+		<button id="ID_SECURITY_BAN" text="반 장관은 사용자"/>
 			<rightAlign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="지우기 정가"/>
 		<separator/>
@@ -358,23 +358,24 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="채팅 사용자에게"/>
 			<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="설정"/>
 	</toolbar>
 	<toolbar name="CNeighboursWnd">
-		<button id="ID_NETWORK_CONNECT_TO" text="C에 연결하려면"/>
+		<button id="ID_NETWORK_CONNECT_TO" text="에 연결하려면"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="끊습니다"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="반 장관은 호스트"/>
 			<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="설정 "/>
 	</toolbar>
+	<!-- SECURITY WINDOW -->
 	<toolbar name="CSecurityWnd">
 		<button id="ID_SECURITY_EDIT" text="편집 규칙"/>
 		<separator/>
@@ -611,6 +612,7 @@
 			<item id="ID_VIEW_HOSTS" text="호스트 캐시"/>
 			<separator/>
 			<menu text="고급 ">
+				<item id="ID_TAB_HOME" text="홈 Tab" shortcut="Alt-Home"/>
 				<item id="ID_TAB_IRC" text="IRC 채팅" shortcut="F12"/>
 				<item id="ID_VIEW_DOWNLOADS" text="다운로드" shortcut="F3"/>
 				<item id="ID_VIEW_UPLOADS" text="업로드" shortcut="F4"/>
@@ -627,6 +629,7 @@
 				<item id="ID_VIEW_PACKETS" text="패킷 덤프" shortcut="Ctrl+F1"/>
 				<item id="ID_VIEW_SEARCH_MONITOR" text="검색 모니터" shortcut="Ctrl+F2"/>
 				<item id="ID_VIEW_RESULTS_MONITOR" text="히트 모니터" shortcut="Ctrl+F3"/>
+				<item id="ID_TAB_SEARCH" text="검색" shortcut="Ctrl-S"/>
 			</menu>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="_기본 모드"/>
@@ -706,6 +709,7 @@
 			<item id="ID_NETWORK_EXIT" text="종료"/>
 		</menu>
 		<menu text="보기">
+			<item id="ID_TAB_HOME" text="홈 View" shortcut="Alt-Home"/>
 			<item id="ID_VIEW_SYSTEM" text="시스템 " shortcut="F11"/>
 			<item id="ID_VIEW_NEIGHBOURS" text="이웃" shortcut="Ctrl+F11"/>
 			<item id="ID_VIEW_DOWNLOADS" text="다운로드" shortcut="F3"/>
@@ -722,6 +726,7 @@
 			<item id="ID_VIEW_PACKETS" text="패킷 덤프 " shortcut="Ctrl+F1"/>
 			<item id="ID_VIEW_SEARCH_MONITOR" text="검색 모니터" shortcut="Ctrl+F2"/>
 			<item id="ID_VIEW_RESULTS_MONITOR" text="히트 모니" shortcut="Ctrl+F3"/>
+			<item id="ID_VIEW_SEARCH" text="새로운 검색" shortcut="Ctrl+S"/>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="기본 모드"/>
 			<item id="ID_VIEW_TABBED" text="탭 모드"/>
@@ -916,8 +921,8 @@
 		<item id="ID_SEARCH_URI" text="Get P2P Link (_URI)"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="Bro_wse User"/>
-		<item id="ID_SEARCH_CHAT" text="_Chat to User"/>
-		<item id="ID_SECURITY_BAN" text="_Ban User"/>
+		<item id="ID_SEARCH_CHAT" text="_Chat with User"/>
+		<item id="ID_SECURITY_BAN" text="_Ban User+File"/>
 		<separator/>
 		<menu text="_Search For">
 			<item id="ID_SEARCH_FOR_THIS" text="_This File"/>
@@ -1011,7 +1016,7 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Preview"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_View Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
@@ -1019,10 +1024,7 @@
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Find More Sources"/>
-		<separator/> <!--
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="A_uto Clear"/>
-		<separator/> -->
+		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
@@ -1033,23 +1035,23 @@
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Vie_w Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
-		<item id="ID_DOWNLOADS_PAUSE" text="P_ause"/>
+		<item id="ID_DOWNLOADS_PAUSE" text="Pa_use"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Cancel"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Find More Sources"/>
-		<separator/>
 		<menu text="_Advanced">
 			<item id="ID_DOWNLOADS_SHARE" text="_Share File"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Add Source..."/>
+			<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MONITOR" text="Monitor _Window"/>
-			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Move _Up" shortcut="Ctrl+Up"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move _Down" shortcut="Ctrl+Dn"/>
+			<item id="ID_DOWNLOADS_MONITOR" text="_Monitor Window"/>
 			<item id="ID_DOWNLOADS_BOOST" text="_Ignore Bandwidth Limit"/>
+			<separator/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Move Up" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move Down" shortcut="Ctrl+Dn"/>
 		</menu>
+		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Download Propert_ies"/>
@@ -1066,7 +1068,7 @@
 	</menu>
 	<menu name="CDownloadsWnd.Completed.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Play or Open"/>
-		<item id="ID_DOWNLOADS_ENQUEUE" text="_Add to Playlist"/>
+		<item id="ID_DOWNLOADS_FOLDER" text="열기 다운로드 폴더"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Clear"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="_Delete File"/>
@@ -1091,10 +1093,10 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent _Properties..."/>
 	</menu>
-	<menu name="CDownloadsWnd.Nothing">
-		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
-		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
+	<menu name="CDownloadsWnd.Default">
+		<item id="ID_TOOLS_DOWNLOAD" text="Start New _Download"/>
+		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New _Torrent"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 	</menu>
@@ -1105,10 +1107,10 @@
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Pa_use All"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Clear All"/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Show Groups"/>
+		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Hide Groups"/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="_New Group..."/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="R_emove Group"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="_New Group..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Properties"/>
 	</menu>
@@ -1122,6 +1124,7 @@
 		<item id="ID_DOWNLOADS_FILTER_SEEDS" text="Show See_ds"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SHOW_SOURCES" text="Show All _Sources"/>
+		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Auto Clear"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Show _Groups"/>
 	</menu>
@@ -1129,6 +1132,8 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="찾아보기 사용자"/>
 		<item id="ID_UPLOADS_CHAT" text="채팅 사용자에게"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Start Now"/>
@@ -1137,15 +1142,11 @@
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
 		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
-		<item id="ID_SECURITY_BAN" text="B_an User"/>
+		<item id="ID_SECURITY_BAN" text="Ba_n User"/>
 	</menu>
-	<menu name="CUploadsWnd.Queue">
-		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Queue Settings"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="Aut_o Clear"/>
-	</menu>
-	<menu name="CUploadsWnd.Nothing">
+	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="파일을 공유..."/>
+		<item id="ID_UPLOADS_SETTINGS" text="_Queue Settings..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Help..."/>
@@ -1153,7 +1154,7 @@
 	<menu name="CUploadsWnd.Filter">
 		<item id="ID_UPLOADS_FILTER_ALL" text="모두보기"/>
 		<separator/>
-		<item id="ID_UPLOADS_FILTER_ACTIVE" text="Show Activ_e"/>
+		<item id="ID_UPLOADS_FILTER_ACTIVE" text="Show Acti_ve"/>
 		<item id="ID_UPLOADS_FILTER_QUEUED" text="Show _Queued"/>
 		<item id="ID_UPLOADS_FILTER_TORRENT" text="Show _BitTorrent"/>
 		<item id="ID_UPLOADS_FILTER_HISTORY" text="Show _History"/>
@@ -1364,7 +1365,7 @@
 			<item id="ID_MEDIA_FULLSCREEN" text="전체 화면"/>
 		</menu>
 		<menu text="Setti_ngs">
-			<item id="ID_MEDIA_VIS" text="Ch시각화 선택..."/>
+			<item id="ID_MEDIA_VIS" text="시각화 선택..."/>
 			<separator/>
 			<item id="ID_MEDIA_PLAYLIST" text="쇼 재생"/>
 			<item id="ID_MEDIA_STATUS" text="보기 상태 라인"/>
@@ -1391,13 +1392,13 @@
 		<menu text="Video Si_ze">
 			<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
-			<item id="ID_MEDIA_SIZE_HALF" text="_Triple Size"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="_Largest"/>
-			<item id="ID_MEDIA_SIZE_DISTORT" text="_Fill Window"/>
+			<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="Fill _Window"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
-			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
-			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Film)"/>
+			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (텔레비젼)"/>
+			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 Ratio (영화)"/>
 			<separator/>
 			<item id="ID_MEDIA_FULLSCREEN" text="_Full Screen"/>
 		</menu>
@@ -1413,27 +1414,27 @@
 	<menu name="CMediaFrame.Zoom">
 		<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
-		<item id="ID_MEDIA_SIZE_HALF" text="_Triple Size"/>
-		<item id="ID_MEDIA_SIZE_FILL" text="_Largest"/>
-		<item id="ID_MEDIA_SIZE_DISTORT" text="_Fill Window"/>
+		<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
+		<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
+		<item id="ID_MEDIA_SIZE_DISTORT" text="Fill _Window"/>
 		<separator/>
 		<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
-		<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
-		<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Film)"/>
+		<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (텔레비젼)"/>
+		<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 Ratio (영화)"/>
 	</menu>
 	<menu name="CMediaList">
 		<item id="ID_MEDIA_SELECT" text="_Play"/>
 		<item id="ID_MEDIA_PROPERTIES" text="_Properties..."/>
 		<item id="ID_MEDIA_RATE" text="Ra_te File..."/>
 		<separator/>
-		<item id="ID_MEDIA_ADD" text="_Add File(s)..."/>
-		<item id="ID_MEDIA_REMOVE" text="_Remove Files(s)"/>
+		<item id="ID_MEDIA_ADD" text="_Add Files..."/>
+		<item id="ID_MEDIA_REMOVE" text="_Remove Files"/>
+		<item id="ID_MEDIA_CLEAR" text="_Clear Playlist"/>
 		<separator/>
 		<item id="ID_MEDIA_ADD_FOLDER" text="Add _Folder..."/>
 		<item id="ID_MEDIA_OPEN" text="_Open Playlist..."/>
 		<item id="ID_MEDIA_SAVE" text="_Save Playlist..."/>
 		<item id="ID_MEDIA_EXPORT_COLLECTION" text="E_xport Collection..."/>
-		<item id="ID_MEDIA_CLEAR" text="_Clear Playlist"/>
 		<separator/>
 		<item id="ID_MEDIA_RANDOM" text="Ra_ndom Mode"/>
 		<item id="ID_MEDIA_REPEAT" text="Rep_eat Mode"/>
@@ -1477,8 +1478,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Connect"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Disconnect"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 		</menu>
 		<menu text="_Monitor">
@@ -1555,151 +1556,129 @@
 <documents>
 	<!-- Home View -->
 	<!-- CHomeViewCtrl Front Page Font is Broken -->
-  <!-- Homepanel Taskboxes -->
-  <document name="CHomeConnectionBox" title="연결" leftMargin="6" topMargin="6">
-    <styles>
-      <style name="default">
-        <font size="9"/>
-      </style>
-    </styles>
-    <group id="1">
-      <para align="center">
-        <text format="b">Not connected</text>
-        <newline gap="4"/>
-        <link target="peer:command:ID_NETWORK_CONNECT">여기를 클릭하여 연결합니다.</link>
-      </para>
-    </group>
-    <icon group="20" command="ID_NETWORK_G2"/>
-    <gap  group="20" size="4"/>
-    <text group="20" align="middle" format="b">Gnutella2: </text>
-    <text group="21" align="middle">Disconnected</text>
-    <text group="22" align="middle">Connecting...</text>
-    <text group="23" align="middle">Connected</text>
-    <text group="24" align="middle" id="G2Hubs">%i hubs</text>
-    <text group="25" align="middle" id="G2Leaves">%i leaves</text>
-    <newline group="20" gap="2"/>
-    <icon group="10" command="ID_NETWORK_G1"/>
-    <gap  group="10" size="4"/>
-    <text group="10" align="middle" format="b">Gnutella1: </text>
-    <text group="11" align="middle">Disconnected</text>
-    <text group="12" align="middle">Connecting...</text>
-    <text group="13" align="middle">Connected</text>
-    <newline group="10" gap="2"/>
-    <icon group="30" command="ID_NETWORK_ED2K"/>
-    <gap  group="30" size="4"/>
-    <text group="30" align="middle" format="b">eDonkey: </text>
-    <text group="31" align="middle">Disconnected</text>
-    <text group="32" align="middle">Connecting...</text>
-    <text group="33" align="middle">Connected</text>
-    <newline group="30" gap="2"/>
-    <group id="2">
-      <para align="center">
-        <newline gap="4"/>
-        <text>You have been connected for </text>
-        <newline gap="0"/>
-        <text id="ConnectedHours" format="b">%i </text>
-        <text>hours and </text>
-        <text id="ConnectedMinutes" format="b">%i </text>
-        <text>minutes.</text>
-      </para>
-    </group>
-  </document>
-  <document name="CHomeLibraryBox" title="도서관" leftMargin="6" topMargin="6">
-    <styles>
-      <style name="default">
-        <font size="9"/>
-      </style>
-    </styles>
-    <para align="center">
-      <group id="2">
-        <text>You have not downloaded any new files recently.</text>
-        <newline gap="8"/>
-      </group>
-      <link format="bu" target="peer:command:ID_VIEW_LIBRARY">Go to Library View</link>
-      <text>:</text>
-      <newline gap="2"/>
-      <text id="LibraryFiles" format="b">%lu </text>
-      <text>files  (</text>
-      <text id="LibraryVolume" format="b">%s</text>
-      <text>)</text>
-      <group id="1">
-        <newline gap="8"/>
-        <text>PeerProject is scanning and processing </text>
-        <text id="LibraryHashRemaining" format="b">%lu </text>
-        <text>files.</text>
-        <newline gap="4"/>
-      </group>
-      <group id="3">
-        <link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Click here to hash faster.</link>
-      </group>
-      <group id="4">
-        <link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Click here to hash slower.</link>
-      </group>
-    </para>
-  </document>
-  <document name="CHomeDownloadsBox" title="다운로드" leftMargin="6" topMargin="6">
-    <styles>
-      <style name="default">
-        <font size="9"/>
-      </style>
-    </styles>
-    <para align="center">
-      <group id="1">
-        <text>No active downloads</text>
-        <newline gap="2"/>
-      </group>
-      <newline gap="4"/>
-      <link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Go to Downloads View</link>
-      <link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">1 active download</link>
-      <link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">%i active downloads</link>
-      <newline gap="4"/>
-      <link format="bu" target="peer:shell:downloads">Open Downloads Folder</link>
-    </para>
-  </document>
-  <document name="CHomeUploadsBox" title="업로드" leftMargin="6" topMargin="6">
-    <styles>
-      <style name="default">
-        <font size="9"/>
-      </style>
-    </styles>
-    <para align="center">
-      <text id="UploadsNone" format="b">No active uploads</text>
-      <link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 active upload</link>
-      <link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i active uploads</link>
-      <newline gap="4"/>
-      <text id="UploadedNone">You have not uploaded any files.</text>
-      <text id="UploadedOne">1 file (%s)</text>
-      <text id="UploadedMany">%i files (%s)</text>
-    </para>
-  </document>
-  <document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
-    <styles>
-      <style name="default">
-        <font size="9"/>
-      </style>
-    </styles>
-    <para align="center">
-      <text id="TorrentsNone" format="b">No seeding torrents</text>
-      <text id="TorrentsOne" format="b">1 seeding torrent</text>
-      <text id="TorrentsMany" format="b">%i seeding torrents</text>
-      <newline gap="4"/>
-      <group id="1">
-        <link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Seed a torrent.</link>
-      </group>
-      <group id="2">
-        <link id="ReseedTorrent" format="bu" target="peer:command:ID_TOOLS_RESEEDTORRENT">Re-seed %s</link>
-        <newline gap="4"/>
-        <link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Seed another torrent.</link>
-      </group>
-    </para>
-  </document>
-	<!-- Settings Pages -->
-	<document name="CGeneralSettingsGroup" title="General" leftMargin="8" topMargin="8">
+	<!-- Homepanel Taskboxes -->
+	<document name="CHomeConnectionBox" title="연결" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<colors link="000080"/>
+				<font size="11"/>
 			</style>
 		</styles>
+		<group id="1">
+			<para align="center">
+				<text format="b">Not connected</text>
+				<newline gap="4"/>
+				<link target="peer:command:ID_NETWORK_CONNECT">여기를 클릭하여 연결합니다.</link>
+			</para>
+		</group>
+		<icon group="20" command="ID_NETWORK_G2"/>
+		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
+		<text group="21" align="middle">Disconnected</text>
+		<text group="22" align="middle">Connecting...</text>
+		<text group="23" align="middle">Connected</text>
+		<text group="24" align="middle" id="G2Hubs">%i hubs</text>
+		<text group="25" align="middle" id="G2Leaves">%i leaves</text>
+		<newline group="20" gap="2"/>
+		<icon group="10" command="ID_NETWORK_G1"/>
+		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
+		<text group="11" align="middle">Disconnected</text>
+		<text group="12" align="middle">Connecting...</text>
+		<text group="13" align="middle">Connected</text>
+		<newline group="10" gap="2"/>
+		<icon group="30" command="ID_NETWORK_ED2K"/>
+		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
+		<text group="31" align="middle">Disconnected</text>
+		<text group="32" align="middle">Connecting...</text>
+		<text group="33" align="middle">Connected</text>
+		<newline group="30" gap="2"/>
+		<group id="2">
+			<para align="center">
+				<newline gap="4"/>
+				<link target="peer:command:ID_TAB_NETWORK">Network Session</link>
+				<newline gap="4"/>
+				<text id="ConnectedHours" format="b">%i </text>
+				<text>hours and </text>
+				<text id="ConnectedMinutes" format="b">%i </text>
+				<text>minutes</text>
+			</para>
+		</group>
+	</document>
+	<document name="CHomeLibraryBox" title="도서관" leftMargin="6" topMargin="6">
+		<styles>
+			<style name="default">
+				<font size="11"/>
+			</style>
+		</styles>
+		<para align="center">
+			<group id="2">
+				<text>No new files downloaded recently.</text>
+				<newline gap="8"/>
+			</group>
+			<link target="peer:command:ID_VIEW_LIBRARY">Local Library</link>
+			<newline gap="4"/>
+			<text id="LibraryFiles" format="b">%lu </text>
+			<text>files (</text>
+			<text id="LibraryVolume" format="b">%s</text>
+			<text>)</text>
+			<group id="1">
+				<newline gap="8"/>
+				<text>Processing </text>
+				<text id="LibraryHashRemaining" format="b">%lu </text>
+				<text>files:</text>
+				<newline gap="2"/>
+				<group id="3">
+					<link id="LibraryHashFaster" target="peer:command:ID_LIBRARY_HASH_PRIORITY">Click here to hash faster.</link>
+				</group>
+				<group id="4">
+					<link id="LibraryHashFaster" target="peer:command:ID_LIBRARY_HASH_PRIORITY">Click here to hash slower.</link>
+				</group>
+			</group>
+		</para>
+	</document>
+	<document name="CHomeDownloadsBox" title="다운로드" leftMargin="6" topMargin="6">
+		<styles>
+			<style name="default">
+				<font size="11"/>
+			</style>
+		</styles>
+		<para align="center">
+			<group id="1">
+				<text format="b">No active downloads</text>
+				<newline gap="4"/>
+			</group>
+			<link id="DownloadsNone" format="u" target="peer:command:ID_VIEW_DOWNLOADS">Go to Downloads View</link>
+			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">1 active download</link>
+			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">%i active downloads</link>
+			<newline gap="4"/>
+			<text id="DownloadedNone">No files (</text>
+			<text id="DownloadedOne">1 file (</text>
+			<text id="DownloadedMany">%i files (</text>
+			<text id="DownloadedVolume" format="b">%s</text>
+			<text>)</text>
+		</para>
+	</document>
+	<document name="CHomeUploadsBox" title="업로드" leftMargin="6" topMargin="6">
+		<styles>
+			<style name="default">
+				<font size="11"/>
+			</style>
+		</styles>
+		<para align="center">
+			<text id="UploadsNone" format="b">No active uploads</text>
+			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 active upload</link>
+			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i active uploads</link>
+			<newline gap="4"/>
+			<group id="1">
+				<text id="TorrentsOne">1 seeding torrent</text>
+				<text id="TorrentsMany">%i seeding torrents</text>
+				<newline gap="4"/>
+			</group>
+			<text id="UploadedNone">No files uploaded</text>
+			<text id="UploadedOne">1 file (%s)</text>
+			<text id="UploadedMany">%i files (%s)</text>
+		</para>
+	</document>
+	<!-- Settings Pages -->
+<!--<document name="CGeneralSettingsGroup" title="General" leftMargin="8" topMargin="8">
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
 		<text>The PeerProject Settings Manager allows advanced users to completely customize how
@@ -1708,35 +1687,24 @@
 		<text>section relate to the user experience.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">General:</link>
-		<gap size="4"/>
-		<text>Common user interface settings like tooltips, minimize behavior, number formats, prompts, etc.</text>
+		<text>&#160;Common user interface settings like tooltips, minimize behavior, number formats, prompts, etc.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">Library:</link>
-		<gap size="4"/>
-		<text>Presentation, file access, and management of the file library.</text>
+		<text>&#160;Presentation, file access, and management of the file library.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
-		<gap size="4"/>
-		<text>Set when to use the internal PeerProject Media Center.</text>
+		<text>&#160;Set when to use the internal PeerProject Media System.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Community:</link>
-		<gap size="4"/>
-		<text>Your profile and direct chat settings.</text>
+		<text>&#160;Your profile and direct chat settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link>
-		<gap size="4"/>
-		<text>IRC chatroom visual appearance and connection settings.</text>
+		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
-		<gap size="4"/>
-		<text>Integrate PeerProject with your web browser to accept peer-to-peer links and download content.</text>
-	</document>
-	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
+		<text>&#160;Integrate PeerProject with your web browser to accept peer-to-peer links and download content.</text>
+	</document> -->
+<!--<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
 		<text>The PeerProject Settings Manager allows advanced users to completely customize how
@@ -1745,25 +1713,20 @@
 		<text>section control how PeerProject interacts with other nodes in distributed peer-to-peer networks.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Connection:</link>
-		<gap size="4"/>
-		<text>The speeds and capabilities of your Internet connection.</text>
+		<text>&#160;The speeds and capabilities of your Internet connection.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">Downloads:</link>
-		<gap size="4"/>
-		<text>Download throughput, scheduling, verification, timeouts and management.</text>
+		<text>&#160;Download throughput, scheduling, verification, timeouts and management.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads:</link>
-		<gap size="4"/>
-		<text>Upload capacity, queuing, banning, timeouts and special requests.</text>
+		<text>&#160;Upload capacity, queuing, banning, timeouts and special requests.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">Remote:</link>
-		<gap size="4"/>
-		<text>Set up the ability to control PeerProject remotely through a web browser.</text>
+		<text>&#160;Setup the ability to control PeerProject remotely through a web browser.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<gap size="4"/>
-		<text>Limit download connections based on a periodic schedule.</text>
-	</document>
+		<text>&#160;Limit download connections based on a periodic schedule.</text>
+	</document> -->
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
 		<heading id="Nick"/>
@@ -1848,8 +1811,7 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Community</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
-			<gap size="5"/>
+			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/><gap size="5"/>
 			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
 		</group>
 		<group id="3">
@@ -2067,51 +2029,51 @@
 	<string id="16085" value="Gnutella2 is PeerProject's premiere network. Disabling support for it may severely limit both the number and quality of your search results. Are you SURE you want to do this?"/>
 	<string id="16087" value="Your outgoing bandwidth is too low to enable this network"/>
 	<string id="16128" value="Accepted an incoming connection from %s port %i."/>
-	<string id="16129" value="Initiating a neighbour connection to %s port %i..."/>
-	<string id="16130" value="Unable to initiate a neighbour connection with %s."/>
+	<string id="16129" value="Initiating a neighbor connection to %s port %i..."/>
+	<string id="16130" value="Unable to initiate a neighbor connection with %s."/>
 	<string id="16131" value="Timed out connecting to %s."/>
-	<string id="16132" value="Closing connection to neighbour %s due to lack of traffic."/>
-	<string id="16133" value="Established a connection with neighbour %s, handshaking..."/>
-	<string id="16134" value="Closed connection with neighbour %s."/>
-	<string id="16135" value="Unable to initiate a neighbour connection with %s (refused)."/>
-	<string id="16136" value="Neighbour %s dropped the connection unexpectedly."/>
+	<string id="16132" value="Closing connection to neighbor %s due to lack of traffic."/>
+	<string id="16133" value="Established a connection with neighbor %s, handshaking..."/>
+	<string id="16134" value="Closed connection with neighbor %s."/>
+	<string id="16135" value="Unable to initiate a neighbor connection with %s (refused)."/>
+	<string id="16136" value="Neighbor %s dropped the connection unexpectedly."/>
 	<string id="16137" value="Refusing duplicate connection from %s."/>
 	<string id="16138" value="Already connected to %s, will not establish a second connection."/>
-	<string id="16139" value="Neighbour %s closed connection (%i : %s)."/>
-	<string id="16141" value="Closed connection with neighbour %s because it is not a hub."/>
+	<string id="16139" value="Neighbor %s closed connection (%i : %s)."/>
+	<string id="16141" value="Closed connection with neighbor %s because it is not a hub."/>
 	<string id="16144" value="Timed out handshaking with %s."/>
-	<string id="16145" value="Gnutella connection with neighbour %s established successfully (G%i.%i : %s)."/>
+	<string id="16145" value="Gnutella connection with neighbor %s established successfully (G%i.%i : %s)."/>
 	<string id="16146" value="Handshake with %s failed due to invalid data on the wire."/>
 	<string id="16147" value="Closing surplus connection from %s with host hint (%s port %i)."/>
 	<string id="16148" value="Connection to %s rejected (%s)."/>
 	<string id="16150" value="Closing surplus connection from %s."/>
 	<string id="16151" value="Refusing connection from %s because this is a shielded leaf node."/>
-	<string id="16152" value="Hub neighbour %s won't accept us as a hub, closing connection."/>
-	<string id="16153" value="Connecting neighbour %s falling back to shielded leaf mode."/>
+	<string id="16152" value="Hub neighbor %s won't accept us as a hub, closing connection."/>
+	<string id="16153" value="Connecting neighbor %s falling back to shielded leaf mode."/>
 	<string id="16154" value="Hub connection established, closing peer connections."/>
-	<string id="16155" value="Acting as a hub for leaf neighbour %s."/>
-	<string id="16156" value="Neighbour %s wants to be a hub, closing connection."/>
-	<string id="16157" value="Neighbour %s is not a hub, closing connection."/>
-	<string id="16158" value="Gnutella2 connection with neighbour %s established successfully (%s)."/>
-	<string id="16159" value="Closing connection to non-Gnutella2 neighbour %s."/>
-	<string id="16192" value="Neighbour %s forwarded a packet of excessive size, dropping connection."/>
-	<string id="16193" value="Neighbour %s forwarded a packet with zero TTL, ignoring."/>
-	<string id="16194" value="Neighbour %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."/>
-	<string id="16195" value="Neighbour %s forwarded a ping packet with invalid length, ignoring."/>
-	<string id="16196" value="Neighbour %s forwarded a pong packet with invalid length, ignoring."/>
+	<string id="16155" value="Acting as a hub for leaf neighbor %s."/>
+	<string id="16156" value="Neighbor %s wants to be a hub, closing connection."/>
+	<string id="16157" value="Neighbor %s is not a hub, closing connection."/>
+	<string id="16158" value="Gnutella2 connection with neighbor %s established successfully (%s)."/>
+	<string id="16159" value="Closing connection to non-Gnutella2 neighbor %s."/>
+	<string id="16192" value="Neighbor %s forwarded a packet of excessive size, dropping connection."/>
+	<string id="16193" value="Neighbor %s forwarded a packet with zero TTL, ignoring."/>
+	<string id="16194" value="Neighbor %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."/>
+	<string id="16195" value="Neighbor %s forwarded a ping packet with invalid length, ignoring."/>
+	<string id="16196" value="Neighbor %s forwarded a pong packet with invalid length, ignoring."/>
 	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
-	<string id="16198" value="Leaf neighbour %s is forwarding queries, dropping connection."/>
-	<string id="16199" value="Neighbour %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
-	<string id="16200" value="Neighbour %s forwarded a pong with invalid address data, ignoring."/>
+	<string id="16198" value="Leaf neighbor %s is forwarding queries, dropping connection."/>
+	<string id="16199" value="Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
+	<string id="16200" value="Neighbor %s forwarded a pong with invalid address data, ignoring."/>
 	<string id="16201" value="Received a malformatted query packet from %s, ignoring."/>
 	<string id="16202" value="Received a malformatted query hit packet from %s, ignoring."/>
-	<string id="16203" value="Neighbour %s forwarded a push packet with invalid length, ignoring."/>
-	<string id="16208" value="Receiving an unexpected query routing table update from neighbour %s."/>
-	<string id="16209" value="Neighbour %s sent an invalid query routing table update, dropping connection."/>
-	<string id="16210" value="Neighbour %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
-	<string id="16211" value="Neighbour %s forwarded a push request to a firewalled address, ignoring."/>
-	<string id="16212" value="Neighbour %s forwarded an extended packet that is not GGEP encoded."/>
-	<string id="16213" value="Sending query routing table to neighbour %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16203" value="Neighbor %s forwarded a push packet with invalid length, ignoring."/>
+	<string id="16208" value="Receiving an unexpected query routing table update from neighbor %s."/>
+	<string id="16209" value="Neighbor %s sent an invalid query routing table update, dropping connection."/>
+	<string id="16210" value="Neighbor %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
+	<string id="16211" value="Neighbor %s forwarded a push request to a firewalled address, ignoring."/>
+	<string id="16212" value="Neighbor %s forwarded an extended packet that is not GGEP encoded."/>
+	<string id="16213" value="Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"/>
 	<string id="16256" value="Added &quot;%s&quot; to download queue with %i source(s)."/>
 	<string id="16257" value="Completed download of &quot;%s&quot;."/>
 	<string id="16258" value="Pausing download of &quot;%s&quot;."/>
@@ -2678,7 +2640,7 @@
 		<control/>
 		<control caption="_Add"/>
 		<control caption="_Remove"/>
-		<control caption="Audio _Visualisation Plugin:"/>
+		<control caption="Audio _Visualization Plugin:"/>
 		<control caption="_Select Plugin..."/>
 		<control caption="_Media Handling"/>
 		<control caption="Choose Media Handler:"/>
@@ -2865,8 +2827,8 @@
 		<control caption="The Gnutella2 network is PeerProject&apos;s premiere network, offering more features and performance than any other P2P net.  Highly recommended."/>
 		<control caption="Connect to Gnutella2 (G2)"/>
 		<control caption="Configure Gnutella2"/>
-		<control caption="Original Gnutella Network:"/>
-		<control caption="Although the original Gnutella network is less feature-rich than Gnutella2, and has fewer files than eDonkey, it remains a valuable resource."/>
+		<control caption="Gnutella Network:"/>
+		<control caption="The original Gnutella network is less feature-rich than Gnutella2, and has fewer files than eDonkey, yet remains a valuable resource."/>
 		<control caption="Connect to Original Gnutella (G1)"/>
 		<control caption="Configure Gnutella1"/>
 		<control caption="eDonkey Network:"/>
@@ -2890,9 +2852,9 @@
 		<control caption="Hub to Hub:"/>
 		<control/>
 		<control/>
-		<control caption="Gnutella1 Network:"/>
-		<control caption="Always connect to Gnutella1"/>
-		<control caption="Connect to Gnutella1 today"/>
+		<control caption="Gnutella Network:"/>
+		<control caption="Always connect to Gnutella"/>
+		<control caption="Connect to Gnutella today"/>
 		<control caption="Mode: "/>
 		<control caption="Optimal|Leaf|Ultrapeer"/>
 		<control caption="G_1 Connections:"/>
@@ -3051,7 +3013,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="피어 프로젝트에 오신 것을 환영합니다 (1/6)">
 		<control caption="For optimum performance, PeerProject needs to know a little bit about your connection to the Internet."/>
 		<control caption="Choose the type of your Internet connection:"/>
-		<control caption="Dial up Modem|ISDN|ADSL (256K)|ADSL (512K)|ADSL (768K)|ADSL (1.5M)|ADSL (4.0M)|ADSL2 (8.0M)|ADSL2 (12.0M)|ADSL2+ (24.0M)|Cable Modem/SDSL|T1|T3|LAN|OC3"/>
+		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
 		<control caption="Or choose the download speed:"/>
 		<control/>
 		<control caption="and the upload speed:"/>
@@ -3305,7 +3267,7 @@
 		<control caption="..."/>
 		<control caption="Total downloaded:"/>
 		<control caption="..."/>
-		<control caption="View"/>
+		<control caption="Show"/>
 		<control caption="Open"/>
 		<control caption="Cancel"/>
 		<control caption="Close"/>
@@ -3518,27 +3480,27 @@
 		<control caption="PeerProject is creating a preview of the download:"/>
 		<control/>
 		<control/>
-		<control caption="(copying downloaded chunks to a new preview file)"/>
+		<control caption="(Copying downloaded chunks to a new preview file)"/>
 		<control caption="취소"/>
 	</dialog>
 	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject Respects its Users">
 		<control/>
-		<control caption="Did you know PeerProject is a 100% free product?"/>
-		<control caption="PeerProject does NOT contain ANY &quot;spyware&quot;, &quot;adware&quot; or other bundled software. It does NOT display any advertisements or &quot;popups&quot;, ever.{n}{n}If you ever see advertising or &quot;popups&quot; while using PeerProject, be assured that they are NOT coming from this program."/>
-		<control caption="Unfortunately a lot of other software does come with undesirable adware or spyware, so if you see something suspicious you may wish to check your PC with an advertising or spyware removal program."/>
-		<control caption="You should not have had to pay any money to obtain PeerProject. PeerProject can be freely downloaded by anyone from http://PeerProject.org/. If you paid someone money for PeerProject, you should demand a full refund immediately."/>
-		<control caption="PeerProject respects its users!"/>
-		<control caption="http://PeerProject.org/"/>
+		<control caption="Did you know PeerProject is 100% free software?"/>
+		<control caption="PeerProject does not contain any spyware, adware or bundled software;{n}it does not display any advertisements, popups, or other bad behavior.{n}{n}If you ever see such activity be assured that it is not coming from this program."/>
+		<control caption="PeerProject is proud to be Free and Open-Source Software.  A non-profit team of passionate volunteers shares this product with all the freedoms of GPL and Creative Commons Licenses, in the hope that it might be useful."/>
+		<control caption="You must not have paid any money to obtain this program.  PeerProject can be freely downloaded from PeerProject.org, if you've paid anyone for this demand a full refund immediately."/>
+		<control caption="PeerProject respects and appreciates its users."/>
+		<control caption="http://PeerProject.org"/>
 		<control caption="닫기"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStStBu" caption="Spread the Word">
 		<control/>
-		<control caption="Help Us Spread the Word"/>
-		<control caption="We hope you have enjoyed using PeerProject so far. We believe it is the best file sharing application around."/>
-		<control caption="Unfortunately, a lot of file sharers don't know what they're missing!"/>
-		<control caption="If you know someone who would like PeerProject, whether they're a new user or someone still putting up with an inferior product, why not let them know there is a better alternative?"/>
-		<control caption="Chances are they'll be grateful you rescued them!"/>
-		<control caption="http://PeerProject.org/"/>
+		<control caption="Help Spread the Word"/>
+		<control caption="Hope you've enjoyed using PeerProject so far, it strives to be the best true file sharing software available."/>
+		<control caption="Unfortunately, a lot of potential filesharers don't know what they're missing."/>
+		<control caption="If you know someone who might like PeerProject, whether a new user or still using older software, let them know there is a better alternative. And Thanks."/>
+		<control caption="{This is the last welcome message you will see.}"/>
+		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
 	<dialog name="CExistingFileDlg" cookie="StStStStStBuBuBuBuBuStSt" caption="Existing File">
@@ -3553,12 +3515,12 @@
 		<control caption="OK"/>
 		<control caption="취소"/>
 		<control caption="You have downloaded and deleted this file before. What would you like to do?"/>
-		<control caption="Warning!!! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
+		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Close Button">
 		<control/>
 		<control caption="This is the first time you have clicked PeerProject's close button. Please choose what action you would like PeerProject to take when clicking the close button from now on:"/>
-		<control caption="Minimise to the tray area"/>
+		<control caption="Minimize to the tray area"/>
 		<control caption="Shut down PeerProject immediately"/>
 		<control caption="Shut down PeerProject after any downloads and uploads finish"/>
 		<control caption="OK"/>

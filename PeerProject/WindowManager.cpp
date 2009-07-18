@@ -577,7 +577,7 @@ void CWindowManager::SaveBrowseHostWindows()
 
 //////////////////////////////////////////////////////////////////////
 // CWindowManager new blank search window
-// ToDo: Toggle between existing searches after new search
+// ToDo: Toggle between existing searches
 
 void CWindowManager::OpenNewSearchWindow()
 {
@@ -585,14 +585,12 @@ void CWindowManager::OpenNewSearchWindow()
 	{
 		CSearchWnd* pChild = (CSearchWnd*)GetNext( pos );
 
-		if ( pChild->IsKindOf( RUNTIME_CLASS(CSearchWnd) ) )
+		if ( pChild->IsKindOf( RUNTIME_CLASS(CSearchWnd) ) && pChild->GetLastSearch() == NULL )
 		{
-			if ( pChild->GetLastSearch() == NULL )
-			{
-				if ( pChild->IsIconic() ) pChild->ShowWindow( SW_SHOWNORMAL );
-				pChild->BringWindowToTop();
-				return;
-			}
+			pChild->BringWindowToTop();
+			if ( pChild->IsIconic() )
+				pChild->ShowWindow( SW_SHOWNORMAL );
+			return;
 		}
 	}
 

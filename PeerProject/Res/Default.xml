@@ -581,11 +581,12 @@
 			<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
 			<separator/>
 			<menu text="A_dvanced">
-				<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
+				<item id="ID_TAB_HOME" text="_Home Tab" shortcut="Alt-Home"/>
+				<item id="ID_TAB_IRC" text="IRC _Chatrooms" shortcut="F12"/>
 				<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
 				<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 				<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
-				<item id="ID_VIEW_MEDIA" text="_Media Player" shortcut="F6"/>
+				<item id="ID_VIEW_MEDIA" text="_Mediaplayer" shortcut="F6"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
@@ -597,6 +598,7 @@
 				<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
 				<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
 				<item id="ID_VIEW_RESULTS_MONITOR" text="H_it Monitor" shortcut="Ctrl+F3"/>
+				<item id="ID_TAB_SEARCH" text="New _Search" shortcut="Ctrl-S"/>
 			</menu>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="_Basic Mode"/>
@@ -668,8 +670,8 @@
 			<item id="ID_NETWORK_BROWSE_TO" text="_Browse Host..."/>
 			<separator/>
 			<menu text="Choose _Networks">
-				<item id="ID_NETWORK_G2" text="Connect to _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Connect to Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Connect to Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
 			</menu>
 			<separator/>
@@ -677,12 +679,13 @@
 			<item id="ID_NETWORK_EXIT" text="E_xit"/>
 		</menu>
 		<menu text="_View">
-			<item id="ID_VIEW_SYSTEM" text="_System" shortcut="F11"/>
+			<item id="ID_TAB_HOME" text="_Home View" shortcut="Alt-Home"/>
+			<item id="ID_VIEW_SYSTEM" text="S_ystem" shortcut="F11"/>
 			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors" shortcut="Ctrl+F11"/>
 			<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 			<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
-			<item id="ID_VIEW_MEDIA" text="_Media Player" shortcut="F6"/>
+			<item id="ID_VIEW_MEDIA" text="_Mediaplayer" shortcut="F6"/>
 			<item id="ID_TAB_IRC" text="IRC _Chat" shortcut="F12"/>
 			<separator/>
 			<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
@@ -693,6 +696,7 @@
 			<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
 			<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
 			<item id="ID_VIEW_RESULTS_MONITOR" text="H_it Monitor" shortcut="Ctrl+F3"/>
+			<item id="ID_VIEW_SEARCH" text="New _Search" shortcut="Ctrl+S"/>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="Basic Mode"/>
 			<item id="ID_VIEW_TABBED" text="Tabbed Mode"/>
@@ -1060,7 +1064,7 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent _Properties..."/>
 	</menu>
-	<menu name="CDownloadsWnd.Nothing">
+	<menu name="CDownloadsWnd.Default">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start New _Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New _Torrent"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
@@ -1079,7 +1083,7 @@
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="R_emove Group"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_New Group..."/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Properties"/>
+		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Properties..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Filter">
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Show _All"/>
@@ -1099,6 +1103,8 @@
 	<menu name="CUploadsWnd.Upload.Basic">
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
 		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
+		<separator/>
+		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Start Now"/>
@@ -1109,15 +1115,9 @@
 		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
 		<item id="ID_SECURITY_BAN" text="Ba_n User"/>
 	</menu>
-	<menu name="CUploadsWnd.Queue">
-		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Queue Settings"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Auto Clear"/>
-		<separator/>
-		<item id="ID_UPLOADS_HELP" text="_Help..."/>
-	</menu>
-	<menu name="CUploadsWnd.Nothing">
+	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="_Shared Folders..."/>
+		<item id="ID_UPLOADS_SETTINGS" text="_Queue Settings..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Clear Completed"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Help..."/>
@@ -1179,7 +1179,7 @@
 		<item id="ID_LIBRARY_ALBUM_PROPERTIES" text="_Properties"/>
 	</menu>
 	<menu name="CLibraryFileView.Physical.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Open or Play"/>
+		<item id="ID_LIBRARY_LAUNCH" text="Play or _Open"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Add to Playlist"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
@@ -1203,7 +1203,7 @@
 		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 	</menu>
 	<menu name="CLibraryFileView.Physical">
-		<item id="ID_LIBRARY_LAUNCH" text="_Open or Play"/>
+		<item id="ID_LIBRARY_LAUNCH" text="_Open/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 		<separator/>
@@ -1240,7 +1240,7 @@
 		<item id="ID_SHELL_MENU" text="S_hell menu"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual.Basic">
-		<item id="ID_LIBRARY_LAUNCH" text="_Open or Play"/>
+		<item id="ID_LIBRARY_LAUNCH" text="Play or _Open"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Play _Album"/>
 		<separator/>
@@ -1267,7 +1267,7 @@
 		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual">
-		<item id="ID_LIBRARY_LAUNCH" text="_Open or Play"/>
+		<item id="ID_LIBRARY_LAUNCH" text="_Open/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 		<separator/>
@@ -1331,7 +1331,7 @@
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
-			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Film)"/>
+			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 Ratio (Film)"/>
 			<separator/>
 			<item id="ID_MEDIA_FULLSCREEN" text="_Full Screen"/>
 		</menu>
@@ -1365,11 +1365,11 @@
 			<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
 			<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
 			<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
-			<item id="ID_MEDIA_SIZE_DISTORT" text="Fi_ll Window"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="Fill _Window"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
-			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Film)"/>
+			<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 Ratio (Film)"/>
 			<separator/>
 			<item id="ID_MEDIA_FULLSCREEN" text="_Full Screen"/>
 		</menu>
@@ -1387,11 +1387,11 @@
 		<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
 		<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
 		<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
-		<item id="ID_MEDIA_SIZE_DISTORT" text="Fi_ll Window"/>
+		<item id="ID_MEDIA_SIZE_DISTORT" text="Fill _Window"/>
 		<separator/>
 		<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
 		<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
-		<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 (Film)"/>
+		<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 Ratio (Film)"/>
 	</menu>
 	<menu name="CMediaList">
 		<item id="ID_MEDIA_SELECT" text="_Play"/>
@@ -1449,8 +1449,8 @@
 			<item id="ID_NETWORK_CONNECT" text="_Connect"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Disconnect"/>
 			<separator/>
-			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
+			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
 		</menu>
 		<menu text="_Monitor">
@@ -1575,7 +1575,7 @@
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
-	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
+	<document name="CHomeViewCtrl" leftMargin="20" topMargin="0">
 		<styles>
 			<style name="default">
 				<font size="13"/>
@@ -1592,38 +1592,42 @@
 			<newline gap="8" indent="42"/>
 			<text>Welcome to PeerProject.</text>
 			<newline gap="8" indent="42"/>
-			<text>You are not currently connected to any peer-to-peer networks. &#160;</text>
-			<link target="peer:command:ID_NETWORK_CONNECT">Click here to start!</link>
-			<newline gap="18" indent="0"/>
+			<text>You are not currently connected to any peer-to-peer networks.</text>
+			<newline gap="2" indent="42"/>
+			<link target="peer:command:ID_NETWORK_CONNECT" format="bu">Click here to start!</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">Start Download</heading>
-			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
-			<text align="middle">&#160;downloading a new file or torrent link.</text>
-			<newline gap="24" indent="0"/>
 			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
-			<heading align="middle">Search For Files</heading>
+			<heading align="middle">Search for Files</heading>
 			<newline gap="4" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
-			<newline gap="16" indent="0"/>
+			<newline gap="20" indent="0"/>
+			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<heading align="middle">Start a Download</heading>
+			<newline gap="8" indent="42"/>
+			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
+			<text>&#160;downloading a new file or torrent link.</text>
+			<newline gap="4" indent="42"/>
+			<text>Or open your completed </text>
+			<link target="peer:shell:downloads">downloads folder.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="128" width="32" height="32"/><gap size="8"/>
+			<icon res="128" width="32" height="32" target="peer:upgrade"/><gap size="8"/>
 			<heading align="middle">Upgrade Notice</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
 			<link target="peer:upgrade">Click here to upgrade</link>
-			<newline gap="18" indent="0"/>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">Warning: You Are Firewalled</heading>
+			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+			<heading align="middle">Warning: You Are Firewalled!</heading>
 			<newline gap="8" indent="42"/>
-			<text color="FF0000">PeerProject has detected that you are behind a NAT router or firewall,
-			and are unable to receive connections from the Internet. &#160;</text>
+			<text color="FF0000">PeerProject has detected that you are hidden behind a router or firewall,
+			and are unable to receive active connections from the Internet. &#160;</text>
 			<text color="FF0000" format="b">This may cause poor download and search performance.</text>
 			<newline gap="6"/>
 			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
@@ -1657,29 +1661,25 @@
 			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
 			<newline gap="20" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32"/><gap size="8"/>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Customize PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Skins</link>
+		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle">&#160;- Change PeerProject's look &amp; feel</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Settings Wizard</link>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle" format="bu">Settings Wizard</link>
 		<text align="middle">&#160;- Quick-edit PeerProject's basic settings</text>
 		<newline gap="8"/>
-		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Security Filters</link>
+		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle" format="bu">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Quick Help</link>
+		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle" format="bu">Quick Help</link>
 		<text align="middle">&#160;- Get online support using PeerProject</text>
-		<newline gap="20" indent="0"/>
+		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">Remote Access Enabled</heading>
@@ -1687,16 +1687,17 @@
 			<text>Control PeerProject using your web browser at:</text>
 			<newline gap="6"/>
 			<link id="RemoteAccessURL1"/>
-			<text>&#160;- or -&#160;</text>
+			<text>&#160; or &#160;</text>
 			<link id="RemoteAccessURL2"/>
 			<newline gap="18" indent="0"/>
 		</group>
+		<newline gap="4" indent="0"/>
 	</document>
 	<!-- Homepanel Taskboxes -->
 	<document name="CHomeConnectionBox" title="Connection" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="10"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1707,8 +1708,7 @@
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
-		<gap  group="20" size="4"/>
-		<text group="20" align="middle" format="b">Gnutella2: </text>
+		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
 		<text group="21" align="middle">Disconnected</text>
 		<text group="22" align="middle">Connecting...</text>
 		<text group="23" align="middle">Connected</text>
@@ -1716,15 +1716,13 @@
 		<text group="25" align="middle" id="G2Leaves">%i leaves</text>
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
-		<gap  group="10" size="4"/>
-		<text group="10" align="middle" format="b">Gnutella: </text>
+		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
 		<text group="11" align="middle">Disconnected</text>
 		<text group="12" align="middle">Connecting...</text>
 		<text group="13" align="middle">Connected</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
-		<gap  group="30" size="4"/>
-		<text group="30" align="middle" format="b">eDonkey: </text>
+		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
 		<text group="31" align="middle">Disconnected</text>
 		<text group="32" align="middle">Connecting...</text>
 		<text group="33" align="middle">Connected</text>
@@ -1732,174 +1730,139 @@
 		<group id="2">
 			<para align="center">
 				<newline gap="4"/>
-				<text>You have been connected for </text>
-				<newline gap="0"/>
+				<link target="peer:command:ID_TAB_NETWORK">Network Session</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>hours and </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minutes.</text>
+				<text>minutes</text>
 			</para>
 		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="Library" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="10"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
 			<group id="2">
-				<text>You have not downloaded any new files recently.</text>
+				<text>No new files downloaded recently.</text>
 				<newline gap="8"/>
 			</group>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Go to Library View</link>
-			<text>:</text>
-			<newline gap="2"/>
+			<link target="peer:command:ID_VIEW_LIBRARY">Local Library</link>
+			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
-			<text>files  (</text>
+			<text>files (</text>
 			<text id="LibraryVolume" format="b">%s</text>
 			<text>)</text>
 			<group id="1">
 				<newline gap="8"/>
-				<text>PeerProject is scanning and processing </text>
+				<text>Processing </text>
 				<text id="LibraryHashRemaining" format="b">%lu </text>
-				<text>files.</text>
-				<newline gap="4"/>
-			</group>
-			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Click here to hash faster.</link>
-			</group>
-			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Click here to hash slower.</link>
+				<text>files:</text>
+				<newline gap="2"/>
+				<group id="3">
+					<link id="LibraryHashFaster" target="peer:command:ID_LIBRARY_HASH_PRIORITY">Click here to hash faster.</link>
+				</group>
+				<group id="4">
+					<link id="LibraryHashFaster" target="peer:command:ID_LIBRARY_HASH_PRIORITY">Click here to hash slower.</link>
+				</group>
 			</group>
 		</para>
 	</document>
 	<document name="CHomeDownloadsBox" title="Downloads" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="10"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
 			<group id="1">
-				<text>No active downloads</text>
-				<newline gap="2"/>
+				<text format="b">No active downloads</text>
+				<newline gap="4"/>
 			</group>
+			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Go to Downloads View</link>
+			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 active download</link>
+			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">%i active downloads</link>
 			<newline gap="4"/>
-			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Go to Downloads View</link>
-			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">1 active download</link>
-			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">%i active downloads</link>
-			<newline gap="4"/>
-			<link format="bu" target="peer:shell:downloads">Open Downloads Folder</link>
+			<text id="DownloadedNone">No files (</text>
+			<text id="DownloadedOne">1 file (</text>
+			<text id="DownloadedMany">%i files (</text>
+			<text id="DownloadedVolume" format="b">%s</text>
+			<text>)</text>
 		</para>
 	</document>
 	<document name="CHomeUploadsBox" title="Uploads" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="10"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">No active uploads</text>
-			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 active upload</link>
-			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i active uploads</link>
+			<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 active upload</link>
+			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i active uploads</link>
 			<newline gap="4"/>
-			<text id="UploadedNone">No files uploaded.</text>
+			<group id="1">
+				<text id="TorrentsOne">1 seeding torrent</text>
+				<text id="TorrentsMany">%i seeding torrents</text>
+				<newline gap="4"/>
+			</group>
+			<text id="UploadedNone">No files uploaded</text>
 			<text id="UploadedOne">1 file (%s)</text>
 			<text id="UploadedMany">%i files (%s)</text>
 		</para>
 	</document>
-	<document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font size="10"/>
-			</style>
-		</styles>
-		<para align="center">
-			<text id="TorrentsNone" format="b">No seeding torrents</text>
-			<text id="TorrentsOne" format="b">1 seeding torrent</text>
-			<text id="TorrentsMany" format="b">%i seeding torrents</text>
-			<newline gap="4"/>
-			<group id="1">
-				<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Seed a torrent.</link>
-			</group>
-			<group id="2">
-				<link id="ReseedTorrent" format="bu" target="peer:command:ID_TOOLS_RESEEDTORRENT">Re-seed %s</link>
-				<newline gap="4"/>
-				<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Seed another torrent.</link>
-			</group>
-		</para>
-	</document>
 	<!-- Settings Pages -->
 	<document name="CGeneralSettingsGroup" title="General" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
-		<text>The PeerProject Settings Manager allows advanced users to completely customize how
-			PeerProject works. The settings in the </text>
+		<text>The PeerProject Settings Manager allows advanced users to completely customize how PeerProject works.
+			&#160;The settings in the </text>
 		<text format="b">General </text>
 		<text>section relate to the user experience.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">General:</link>
-		<gap size="4"/>
-		<text>Common user interface settings like tooltips, minimize behavior, number formats, prompts, etc.</text>
+		<text>&#160;Common user interface settings like tooltips, minimize behavior, number formats, prompts, etc.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">Library:</link>
-		<gap size="4"/>
-		<text>Presentation, file access, and management of the file library.</text>
+		<text>&#160;Presentation, file access, and management of the file library.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
-		<gap size="4"/>
-		<text>Set when to use the internal PeerProject Media Center.</text>
+		<text>&#160;Set when to use the internal PeerProject Media System.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Community:</link>
-		<gap size="4"/>
-		<text>Your profile and direct chat settings.</text>
+		<text>&#160;Your profile and direct chat settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link>
-		<gap size="4"/>
-		<text>IRC chatroom visual appearance and connection settings.</text>
+		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
-		<gap size="4"/>
-		<text>Integrate PeerProject with your web browser to accept peer-to-peer links and download content.</text>
+		<text>&#160;Integrate PeerProject with your web browser to accept peer-to-peer links and download content.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
-		<text>The PeerProject Settings Manager allows advanced users to completely customize how
-			PeerProject works. The settings in the </text>
+		<text>The PeerProject Settings Manager allows advanced users to completely customize how PeerProject works.
+			&#160;The settings in the </text>
 		<text format="b">Internet </text>
 		<text>section control how PeerProject interacts with other nodes in distributed peer-to-peer networks.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Connection:</link>
-		<gap size="4"/>
-		<text>The speeds and capabilities of your Internet connection.</text>
+		<text>&#160;The speeds and capabilities of your Internet connection.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">Downloads:</link>
-		<gap size="4"/>
-		<text>Download throughput, scheduling, verification, timeouts and management.</text>
+		<text>&#160;Download throughput, scheduling, verification, timeouts and management.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads:</link>
-		<gap size="4"/>
-		<text>Upload capacity, queuing, banning, timeouts and special requests.</text>
+		<text>&#160;Upload capacity, queuing, banning, timeouts and special requests.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">Remote:</link>
-		<gap size="4"/>
-		<text>Set up the ability to control PeerProject remotely through a web browser.</text>
+		<text>&#160;Setup the ability to control PeerProject remotely through a web browser.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<gap size="4"/>
-		<text>Limit download connections based on a periodic schedule.</text>
+		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -1985,11 +1948,10 @@
 			<newline gap="16" indent="0"/>
 			<text format="b">Community</text>
 			<newline gap="4" indent="8"/>
-			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/>
-			<gap size="5"/>
+			<icon res="140" target="peer:command:ID_SEARCH_CHAT"/><gap size="5"/>
 			<link target="peer:command:ID_SEARCH_CHAT" align="middle">Chat With User</link>
 		</group>
-		<!-- ToDo: Add Flag/ClientVersion to Profile -->
+		<!-- ToDo: Add Client/Flag to Profile -->
 		<!--
 		<group id="3">
 			<newline gap="16" indent="0"/>
@@ -2054,10 +2016,9 @@
 		<text format="b">The Disk is Full</text>
 		<newline gap="8"/>
 		<text>PeerProject has paused this download automatically because the hard disk
-		appears to be full, or the download file cannot be written to. If you wish
-		to continue downloading, please free some space on your hard disk and/or check
-		to make sure the incomplete file folder is accessible, and then resume the
-		download.</text>
+		appears to be full, or the download file cannot be written to. If you wish to 
+		continue downloading, please free some space on your hard disk and/or check
+		to make sure the incomplete file folder is accessible, and then resume the download.</text>
 	</document>
 	<document name="DownloadHelp.Verifying">
 		<text format="b">This Download is Verifying</text>
@@ -2228,8 +2189,7 @@
 	<document name="SearchHelp.BadSearch3">
 		<text format="b">Please re-phrase the search</text>
 		<newline gap="8"/>
-		<text>This search seems to contain only common file extensions, or no searchable
-		words.</text>
+		<text>This search seems to contain only common file extensions, or no searchable words.</text>
 		<newline gap="8"/>
 		<text>If you are having trouble creating searches, keep in mind that it's quite similar
 		to a web search. Specific terms or phrases are best- Unique names, titles and keywords.</text>

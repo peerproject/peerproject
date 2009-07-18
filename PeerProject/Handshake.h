@@ -20,7 +20,7 @@
 //
 
 // CHandshake figures out what the remote computer wants from the first 7 bytes it sends us
-// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CHandshake
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CHandshake
 
 #pragma once
 

@@ -54,6 +54,7 @@ BEGIN_MESSAGE_MAP(CLibraryMetaPanel, CPanelCtrl)
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDOWN()
+	ON_WM_XBUTTONDOWN()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -488,6 +489,12 @@ void CLibraryMetaPanel::OnLButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 	SetFocus();
 	CLibraryFrame* pFrame = (CLibraryFrame*)GetOwner();
 	pFrame->HideDynamicBar();
+}
+
+void CLibraryMetaPanel::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
 }
 
 /////////////////////////////////////////////////////////////////////////////

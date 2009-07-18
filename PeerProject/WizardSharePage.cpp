@@ -136,6 +136,11 @@ BOOL CWizardSharePage::OnInitDialog()
 
 BOOL CWizardSharePage::OnSetActive()
 {
+	//Wizard Window Caption Workaround
+	CString strCaption;
+	GetWindowText( strCaption );
+	GetParent()->SetWindowText( strCaption );
+
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
 	return CWizardPage::OnSetActive();
 }

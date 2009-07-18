@@ -444,7 +444,7 @@ void CDownloadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( pDownload != NULL )
 		Skin.TrackPopupMenu( _T("CDownloadsWnd.Download"), point, ID_DOWNLOADS_LAUNCH_COPY );
 	else
-		Skin.TrackPopupMenu( _T("CDownloadsWnd.Nothing"), point, ID_DOWNLOADS_HELP );
+		Skin.TrackPopupMenu( _T("CDownloadsWnd.Default"), point, ID_DOWNLOADS_HELP );
 
 	pLock.Unlock();
 }

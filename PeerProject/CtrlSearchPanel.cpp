@@ -795,7 +795,7 @@ int CSearchAdvancedBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndSizeMin.SetFont( &theApp.m_gdiFont );
 
 	m_wndSizeMin.AddString( _T("") );
-	m_wndSizeMin.AddString( _T("500 KB") );
+	m_wndSizeMin.AddString( _T("100 KB") );
 	m_wndSizeMin.AddString( _T("1 MB") );
 	m_wndSizeMin.AddString( _T("10 MB") );
 	m_wndSizeMin.AddString( _T("50 MB") );
@@ -811,7 +811,7 @@ int CSearchAdvancedBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndSizeMax.SetFont( &theApp.m_gdiFont );
 
 	m_wndSizeMax.AddString( _T("") );
-	m_wndSizeMax.AddString( _T("500 KB") );
+	m_wndSizeMax.AddString( _T("100 KB") );
 	m_wndSizeMax.AddString( _T("1 MB") );
 	m_wndSizeMax.AddString( _T("10 MB") );
 	m_wndSizeMax.AddString( _T("50 MB") );
@@ -1191,4 +1191,3 @@ void CSearchResultsBox::OnExpanded(BOOL bOpen)
 {
 	theApp.WriteProfileInt( _T("Settings"), _T("SearchPanelResults"), bOpen );
 }
-

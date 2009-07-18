@@ -996,7 +996,7 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent 資訊..."/>
 	</menu>
-	<menu name="CDownloadsWnd.Nothing">
+	<menu name="CDownloadsWnd.Default">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start New Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed New Torrent"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="自動清除"/>
@@ -1044,13 +1044,9 @@
 		<item id="ID_UPLOADS_CHAT" text="與使用者聊天"/>
 		<item id="ID_SECURITY_BAN" text="封鎖使用者"/>
 	</menu>
-	<menu name="CUploadsWnd.Queue">
-		<item id="ID_UPLOADS_EDIT_QUEUE" text="排隊設定"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="清除完成的上傳"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="自動清除"/>
-	</menu>
-	<menu name="CUploadsWnd.Nothing">
+	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="分享檔案..."/>
+		<item id="ID_UPLOADS_SETTINGS" text="排隊設定..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="清除完成的上傳"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="說明..."/>
@@ -1467,10 +1463,10 @@
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
-	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
+	<document name="CHomeViewCtrl" leftMargin="20" topMargin="0">
 		<styles>
 			<style name="default">
-				<font face="新細明體" size="16"/>
+				<font size="13"/>
 			</style>
 			<style name="heading">
 				<font face="Trebuchet MS" size="16" weight="800"/>
@@ -1503,7 +1499,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">警告! 你受到防火牆的保護</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject 偵測到你受到 NAT 路由器或是防火牆的保護,
@@ -1513,7 +1509,7 @@
 			<link target="peer:command:ID_HELP_ROUTER">點選這裡學習如何設定您的路由器或是防火牆</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32"/><gap size="8"/>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">自訂 PeerProject</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
@@ -1563,22 +1559,22 @@
 				<link target="peer:command:ID_NETWORK_CONNECT">點選這裡連線</link>
 			</para>
 		</group>
-		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
-		<text group="20" align="middle" format="b">Gnutella2:</text>
+		<icon group="20" command="ID_NETWORK_G2"/>
+		<text group="20" align="middle" format="b">&#160;Gnutella2:</text>
 		<text group="21" align="middle">已中斷連線</text>
 		<text group="22" align="middle">連線中...</text>
 		<text group="23" align="middle">已連線</text>
 		<text group="24" align="middle" id="G2Hubs">%i 結點</text>
 		<text group="25" align="middle" id="G2Leaves">%i 葉結點</text>
 		<newline group="20" gap="2"/>
-		<icon group="10" command="ID_NETWORK_G1"/><gap group="10" size="4"/>
-		<text group="10" align="middle" format="b">Gnutella1:</text>
+		<icon group="10" command="ID_NETWORK_G1"/>
+		<text group="10" align="middle" format="b">&#160;Gnutella:</text>
 		<text group="11" align="middle">已中斷連線</text>
 		<text group="12" align="middle">連線中...</text>
 		<text group="13" align="middle">已連線</text>
 		<newline group="10" gap="2"/>
-		<icon group="30" command="ID_NETWORK_ED2K"/><gap group="30" size="4"/>
-		<text group="30" align="middle" format="b">eDonkey:</text>
+		<icon group="30" command="ID_NETWORK_ED2K"/>
+		<text group="30" align="middle" format="b">&#160;eDonkey:</text>
 		<text group="31" align="middle">已中斷連線</text>
 		<text group="32" align="middle">連線中...</text>
 		<text group="33" align="middle">已連線</text>
@@ -1636,11 +1632,18 @@
 				<text>尚未下載任何檔案</text>
 				<newline gap="4"/>
 			</group>
-			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">查看下載</link>
-			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">查看下載 (一個)</link>
-			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">查看下載(%i個)</link>
+			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">查看下載</link>
+			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">查看下載 (一個)</link>
+			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">查看下載(%i個)</link>
+			<newline gap="4"/>
+			<text id="DownloadedNone">No 個檔案 (</text>
+			<text id="DownloadedOne">1 個檔案 (</text>
+			<text id="DownloadedMany">%i 個檔案 (</text>
+			<text id="DownloadedVolume" format="b">%s</text>
+			<text>)</text>
 		</para>
-	</document>	<document name="CHomeUploadsBox" title="上传" leftMargin="6" topMargin="6">
+	</document>
+	<document name="CHomeUploadsBox" title="上传" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font face="新細明體" size="12"/>
@@ -1648,42 +1651,21 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">無活躍中的上傳</text>
-			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1個活躍中的上傳</link>
-			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i個活躍中的上傳</link>
+			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1個活躍中的上傳</link>
+			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i個活躍中的上傳</link>
 			<newline gap="4"/>
+			<group id="1">
+				<text id="TorrentsOne">1個 torrent 正在做種</text>
+				<text id="TorrentsMany">%i個 torrent 正在做種</text>
+				<newline gap="4"/>
+			</group>
 			<text id="UploadedNone">您今天還沒有上傳任何檔案.</text>
 			<text id="UploadedOne">您已經上傳了1個檔案 (%s).</text>
 			<text id="UploadedMany">您已經上傳了%i個檔案 (%s).</text>
 		</para>
 	</document>
-	<document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font face="新細明體" size="12"/>
-			</style>
-		</styles>
-		<para align="center">
-			<text id="TorrentsNone" format="b">沒有正在做種的 torrent</text>
-			<text id="TorrentsOne" format="b">1個 torrent 正在做種</text>
-			<text id="TorrentsMany" format="b">%i個 torrent 正在做種</text>
-			<newline gap="4"/>
-			<link id="ReseedTorrent" format="bu" target="peer:command:ID_TOOLS_RESEEDTORRENT">補種 %s</link>
-			<newline gap="4"/>
-			<group id="1">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">為另一個 torrent 做種</link>
-			</group>
-			<group id="2">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">為一個 torrent做種</link>
-			</group>
-		</para>
-	</document>
 	<!-- Settings Pages -->
 	<document name="CGeneralSettingsGroup" title="General" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">歡迎使用 PeerProject 的設定管理員</text>
 		<newline gap="16"/>
 		<text>PeerProject 設定管理員讓進階使用者完全地自訂 PeerProject 的運作方式
@@ -1692,35 +1674,24 @@
 		<text>使用者的習慣.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">一般:</link>
-		<gap size="4"/>
-		<text>常用使用者介面, 像是工具提示, 最小化的運作方式, 數值格式, 提示, 等等...</text>
+		<text>&#160;常用使用者介面, 像是工具提示, 最小化的運作方式, 數值格式, 提示, 等等...</text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">收藏:</link>
-		<gap size="4"/>
-		<text>管理與顯示檔案收藏, 檔案開啟.</text>
+		<text>&#160;管理與顯示檔案收藏, 檔案開啟.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CMediaSettingsPage" format="b">多媒體播放程式:</link>
-		<gap size="4"/>
-		<text>何時何處使用內建的PeerProject 多媒體結點.</text>
+		<text>&#160;何時何處使用內建的PeerProject 多媒體結點.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">社群:</link>
-		<gap size="4"/>
-		<text>您的個人檔案, 聊天與即時通訊的設定.</text>
+		<text>&#160;您的個人檔案, 聊天與即時通訊的設定.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
-		<gap size="4"/>
-		<text>IRC.</text>
+		<text>&#160;IRC.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">網際網路:</link>
-		<gap size="4"/>
-		<text>PeerProject 崁入您的瀏覽器, 處理 P2P 連結與下載內容.</text>
+		<text>&#160;PeerProject 崁入您的瀏覽器, 處理 P2P 連結與下載內容.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">歡迎使用 PeerProject 的設定管理員</text>
 		<newline gap="16"/>
 		<text>PeerProject 設定管理員讓使用者完全地自訂 PeerProject 的運作方式.
@@ -1729,24 +1700,19 @@
 		<text>在分散式 P2P 網路中 PeerProject 如何與其他結點互動.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">連線:</link>
-		<gap size="4"/>
-		<text>網際網路的速度與性能.</text>
+		<text>&#160;網際網路的速度與性能.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">下載:</link>
-		<gap size="4"/>
-		<text>下載總處理能力, 預定表, 驗證, 逾時與管理.</text>
+		<text>&#160;下載總處理能力, 預定表, 驗證, 逾時與管理.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">上傳:</link>
-		<gap size="4"/>
-		<text>上傳性能 , 排隊等候, 封鎖, 逾時與特別要求.</text>
+		<text>&#160;上傳性能 , 排隊等候, 封鎖, 逾時與特別要求.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">遙控:</link>
-		<gap size="4"/>
-		<text>有關經由瀏覽器遠端操控 PeerProject 的設定.</text>
+		<text>&#160;有關經由瀏覽器遠端操控 PeerProject 的設定.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<gap size="4"/>
-		<text>Limit download connections based on a periodic schedule.</text>
+		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -3440,7 +3406,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="歡迎使用者 PeerProject (1/6)">
 		<control caption="為了達到最佳效能, PeerProject 需要知道您的上網方式/地點."/>
 		<control caption="如果知道您網際網路的頻寬, 請選擇最接近的速度:"/>
-		<control caption="撥接網路| ISDN| ADSL (256K)| ADSL (512K)| ADSL (768K)| ADSL (1.5M)| ADSL (4.0M)| ADSL2 (8.0M)| ADSL2 (12.0M)| ADSL2+ (24.0M)| Cable Modem/SDSL| T1| T3| 區域網路| OC3"/>
+		<control caption="|撥接網路|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Cable Modem/SDSL| T1| T3| 區域網路| OC3"/>
 		<control caption="或选择:"/>
 		<control/>
 		<control caption="状态:"/>

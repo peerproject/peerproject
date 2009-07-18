@@ -988,7 +988,7 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Informacija o _Torrentu..."/>
 	</menu>
-	<menu name="CDownloadsWnd.Nothing">
+	<menu name="CDownloadsWnd.Default">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start Nova Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Nova Torrent"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Počisti _kočano"/>
@@ -1036,13 +1036,9 @@
 		<item id="ID_UPLOADS_CHAT" text="_Kramljaj z uporabnikom"/>
 		<item id="ID_SECURITY_BAN" text="_Izobči uporabnika (ban)"/>
 	</menu>
-	<menu name="CUploadsWnd.Queue">
-		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Nastavitve čakalne vrste"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Počisti _končano"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Samodejno počisti"/>
-	</menu>
-	<menu name="CUploadsWnd.Nothing">
+	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="Deli datoteke..."/>
+		<item id="ID_UPLOADS_SETTINGS" text="_Nastavitve čakalne vrste..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="Počisti _končano"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Pomoč..."/>
@@ -1459,10 +1455,10 @@
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
-	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
+	<document name="CHomeViewCtrl" leftMargin="20" topMargin="0">
 		<styles>
 			<style name="default">
-				<font size="12"/>
+				<font size="13"/>
 			</style>
 			<style name="heading">
 				<font face="Trebuchet MS" size="16" weight="800"/>
@@ -1495,7 +1491,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">POZOR: STE ZA POŽARNIM ZIDOM</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">Program PeerProject je zaznal, da se nahajate za NAT usmerjevalnikom oz. požarnim zidom,
@@ -1505,7 +1501,7 @@
 			<link target="peer:command:ID_HELP_ROUTER">Kliknite sem, da izveste, kako nastaviti vaš usmerjevalnik oz. požarni zid.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32"/><gap size="8"/>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PRILAGODI PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
 		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
@@ -1542,21 +1538,50 @@
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
-	<document name="CHomeDownloadsBox" title="Prenosi" leftMargin="6" topMargin="6">
+	<document name="CHomeConnectionBox" title="Povezava" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="9"/>
 			</style>
 		</styles>
-		<para align="center">
-			<group id="1">
-				<text>Trenutno ne prenašate nobenih datotek.</text>
+		<group id="1">
+			<para align="center">
+				<text format="b">Povezava prekinjena</text>
 				<newline gap="4"/>
-			</group>
-			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Pojdi na Prenose</link>
-			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Pojdi na prenos (1)</link>
-			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Pojdi na prenose (%i)</link>
-		</para>
+				<link target="peer:command:ID_NETWORK_CONNECT">Kliknite sem za vzpostavitev povezave</link>
+			</para>
+		</group>
+		<icon group="20" command="ID_NETWORK_G2"/>
+		<text group="20" align="middle" format="b">&#160;Gnutella2:</text>
+		<text group="21" align="middle">Povezava prekinjena</text>
+		<text group="22" align="middle">Povezujem...</text>
+		<text group="23" align="middle">Povezan</text>
+		<text group="24" align="middle" id="G2Hubs"> zvezdišč (hubov): %i</text>
+		<text group="25" align="middle" id="G2Leaves">listov (leaves): %i</text>
+		<newline group="20" gap="2"/>
+		<icon group="10" command="ID_NETWORK_G1"/>
+		<text group="10" align="middle" format="b">&#160;Gnutella:</text>
+		<text group="11" align="middle">Povezava prekinjena</text>
+		<text group="12" align="middle">Povezujem...</text>
+		<text group="13" align="middle">Povezan</text>
+		<newline group="10" gap="2"/>
+		<icon group="30" command="ID_NETWORK_ED2K"/>
+		<text group="30" align="middle" format="b">&#160;eDonkey:</text>
+		<text group="31" align="middle">Povezava prekinjena</text>
+		<text group="32" align="middle">Povezujem...</text>
+		<text group="33" align="middle">Povezan</text>
+		<newline group="30" gap="2"/>
+		<group id="2">
+			<para align="center">
+				<newline gap="6"/>
+				<text>Povezani ste </text>
+				<newline gap="0"/>
+				<text id="ConnectedHours" format="b">%i </text>
+				<text>ur in </text>
+				<text id="ConnectedMinutes" format="b">%i </text>
+				<text>minut.</text>
+			</para>
+		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="Knjižnica" leftMargin="6" topMargin="6">
 		<styles>
@@ -1589,50 +1614,27 @@
 			</group>
 		</para>
 	</document>
-	<document name="CHomeConnectionBox" title="Povezava" leftMargin="6" topMargin="6">
+	<document name="CHomeDownloadsBox" title="Prenosi" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
 				<font size="9"/>
 			</style>
 		</styles>
-		<group id="1">
-			<para align="center">
-				<text format="b">Povezava prekinjena</text>
+		<para align="center">
+			<group id="1">
+				<text>Trenutno ne prenašate nobenih datotek.</text>
 				<newline gap="4"/>
-				<link target="peer:command:ID_NETWORK_CONNECT">Kliknite sem za vzpostavitev povezave</link>
-			</para>
-		</group>
-		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
-		<text group="20" align="middle" format="b">Gnutella2:</text>
-		<text group="21" align="middle">Povezava prekinjena</text>
-		<text group="22" align="middle">Povezujem...</text>
-		<text group="23" align="middle">Povezan</text>
-		<text group="24" align="middle" id="G2Hubs"> zvezdišč (hubov): %i</text>
-		<text group="25" align="middle" id="G2Leaves">listov (leaves): %i</text>
-		<newline group="20" gap="2"/>
-		<icon group="10" command="ID_NETWORK_G1"/><gap group="10" size="4"/>
-		<text group="10" align="middle" format="b">Gnutella1:</text>
-		<text group="11" align="middle">Povezava prekinjena</text>
-		<text group="12" align="middle">Povezujem...</text>
-		<text group="13" align="middle">Povezan</text>
-		<newline group="10" gap="2"/>
-		<icon group="30" command="ID_NETWORK_ED2K"/><gap group="30" size="4"/>
-		<text group="30" align="middle" format="b">eDonkey:</text>
-		<text group="31" align="middle">Povezava prekinjena</text>
-		<text group="32" align="middle">Povezujem...</text>
-		<text group="33" align="middle">Povezan</text>
-		<newline group="30" gap="2"/>
-		<group id="2">
-			<para align="center">
-				<newline gap="6"/>
-				<text>Povezani ste </text>
-				<newline gap="0"/>
-				<text id="ConnectedHours" format="b">%i </text>
-				<text>ur in </text>
-				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minut.</text>
-			</para>
-		</group>
+			</group>
+			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Pojdi na Prenose</link>
+			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Pojdi na prenos (1)</link>
+			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Pojdi na prenose (%i)</link>
+			<newline gap="4"/>
+			<text id="DownloadedNone">No datotek (</text>
+			<text id="DownloadedOne">Eno datoteko (</text>
+			<text id="DownloadedMany">%i datotek(i) (</text>
+			<text id="DownloadedVolume" format="b">%s</text>
+			<text>)</text>
+		</para>
 	</document>
 	<document name="CHomeUploadsBox" title="Naložki (uploads)" leftMargin="6" topMargin="6">
 		<styles>
@@ -1642,42 +1644,21 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Ni aktivnih naložkov</text>
-			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 aktivni naložek</link>
-			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i aktivnih(a) naložkov(a)</link>
-			<newline gap="4"/>
-			<text id="UploadedNone">Danes še niste naložili nobenih datotek.</text>
-			<text id="UploadedOne">Naložili ste eno datoteko (%s).</text>
-			<text id="UploadedMany">Naložili ste %i datotek(i) (%s).</text>
-		</para>
-	</document>
-	<document name="CHomeTorrentsBox" title="Torrenti" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font size="9"/>
-			</style>
-		</styles>
-		<para align="center">
-			<text id="TorrentsNone" format="b">Ni sejanih torrentov</text>
-			<text id="TorrentsOne" format="b">1 sejan torrent</text>
-			<text id="TorrentsMany" format="b">%i sejanih(a) torrentov(a)</text>
-			<newline gap="4"/>
-			<link id="ReseedTorrent" format="bu" target="peer:command:ID_TOOLS_RESEEDTORRENT">Ponovi sejanje %s</link>
+			<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktivni naložek</link>
+			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i aktivnih(a) naložkov(a)</link>
 			<newline gap="4"/>
 			<group id="1">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Sejanje novega torrenta</link>
+				<text id="TorrentsOne">1 sejan torrent</text>
+				<text id="TorrentsMany">%i sejanih(a) torrentov(a)</text>
+				<newline gap="4"/>
 			</group>
-			<group id="2">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Sejanje torrenta</link>
-			</group>
+			<text id="UploadedNone">Danes še niste naložili nobenih datotek.</text>
+			<text id="UploadedOne">Eno datoteko (%s)</text>
+			<text id="UploadedMany">%i datotek(i) (%s)</text>
 		</para>
 	</document>
 	<!-- Settings Pages -->
 	<document name="CGeneralSettingsGroup" title="General" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Dobrodošli v PeerProject upravljalcu z nastavitvami</text>
 		<newline gap="16"/>
 		<text>PeerProject nastavitveni upravljalec omogoča naprednim uporabnikom popolno prireditev delovanja programa.
@@ -1686,35 +1667,24 @@
 		<text>sekciji se nanaša na uporabnikovo doživljanje programa.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">Splošno:</link>
-		<gap size="4"/>
-		<text>Nastavitve uporabniškega vmesnika kot npr.: orodni namigi, obnašanje minimiranja, oblike števil, kazalci (prompts), itd.</text>
+		<text>&#160;Nastavitve uporabniškega vmesnika kot npr.: orodni namigi, obnašanje minimiranja, oblike števil, kazalci (prompts), itd.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">Knjižnica:</link>
-		<gap size="4"/>
-		<text>Predstavitev in upravljanje datotečne knjižnice ter odpiranje datotek.</text>
+		<text>&#160;Predstavitev in upravljanje datotečne knjižnice ter odpiranje datotek.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CMediaSettingsPage" format="b">Medijski predvajalnik:</link>
-		<gap size="4"/>
-		<text>Kdaj in kako uporabiti vgrajen PeerProject medijski predvajalnik.</text>
+		<text>&#160;Kdaj in kako uporabiti vgrajen PeerProject medijski predvajalnik.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Družba:</link>
-		<gap size="4"/>
-		<text>Nastavitve vašega profila, kramljanja (chat) in takojšnjega sporočanja (instant messaging).</text>
+		<text>&#160;Nastavitve vašega profila, kramljanja (chat) in takojšnjega sporočanja (instant messaging).</text>
 		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
-		<gap size="4"/>
-		<text>IRC chatroom visual appearance and connection settings.</text>
+		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Splet:</link>
-		<gap size="4"/>
-		<text>Povežite PeerProject z vašim spletnim brskalnikom. Tako boste lahko prejemali P2P povezave in druge vsebine prenosov.</text>
+		<text>&#160;Povežite PeerProject z vašim spletnim brskalnikom. Tako boste lahko prejemali P2P povezave in druge vsebine prenosov.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Splet" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Dobrodošli v PeerProject upravljalcu z nastavitvami</text>
 		<newline gap="16"/>
 		<text>PeerProject nastavitveni upravljalec omogoča naprednim uporabnikom popolno prilagoditev načina delovanja PeerProject.
@@ -1723,24 +1693,19 @@
 		<text>sekciji upravlja način medsebojnega delovanja med PeerProject in drugimi vozli (nodes) znotraj P2P omrežij.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Povezava:</link>
-		<gap size="4"/>
-		<text>Hitrost in zmožnosti vaše spletne povezave.</text>
+		<text>&#160;Hitrost in zmožnosti vaše spletne povezave.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">Prenosi:</link>
-		<gap size="4"/>
-		<text>Pretok prenosov, časovno razporejanje (scheduling), preverjanje (verifikacija), časoven omejitve in upravljanje.</text>
+		<text>&#160;Pretok prenosov, časovno razporejanje (scheduling), preverjanje (verifikacija), časoven omejitve in upravljanje.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Nalaganje (uploads):</link>
-		<gap size="4"/>
-		<text>Zmogljivost nalaganja, razvrščanje (queuing), prepovedi oz. izobčenja (banning), časovne omejitve in posebni zahtevki.</text>
+		<text>&#160;Zmogljivost nalaganja, razvrščanje (queuing), prepovedi oz. izobčenja (banning), časovne omejitve in posebni zahtevki.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">Oddaljeno:</link>
-		<gap size="4"/>
-		<text>Nastavljanje zmogljivosti za oddaljen dostop do PeerProject z uporabo spletnega brskalnika.</text>
+		<text>&#160;Nastavljanje zmogljivosti za oddaljen dostop do PeerProject z uporabo spletnega brskalnika.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-		<gap size="4"/>
-		<text>Limit download connections based on a periodic schedule.</text>
+		<text>&#160;Limit download connections based on a periodic schedule.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -3492,7 +3457,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Dobrodošli v PeerProject (1/6)">
 		<control caption="For optimum performance, PeerProject needs to know a little bit about your connection to the Internet."/>
 		<control caption="Če poznate hitrost vaše povezave v medmrežje, jo izberite iz spodnjega seznama:"/>
-		<control caption="| Modemska povezava| ISDN| ADSL (256K)| ADSL (512K)| ADSL (768K)| ADSL (1.5M)| ADSL (4.0M)| ADSL2 (8.0M)| ADSL2 (12.0M)| ADSL2+ (24.0M)| Kabelski modem/SDSL| T1| T3| LAN| OC3"/>
+		<control caption="|Modemska povezava|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Kabelski modem/SDSL| T1| T3| LAN| OC3"/>
 		<control caption="ALI izberite (download):"/>
 		<control/>
 		<control caption="ALI izberite (upload):"/>

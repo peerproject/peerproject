@@ -43,8 +43,8 @@ BEGIN_MESSAGE_MAP(CLibraryWnd, CPanelWnd)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_SIZE()
-	ON_WM_MDIACTIVATE()
 	ON_WM_TIMER()
+	ON_WM_MDIACTIVATE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -151,6 +151,7 @@ void CLibraryWnd::OnSkinChange()
 	m_wndFrame.OnSkinChange();
 }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryWnd events
 
@@ -255,8 +256,8 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 							oLock.Unlock();
 						}
 						else
-						{	//File of this name exists in the folder, but does not appear in the
-							//library. Most likely cause- Corrupt file in collection folder.
+						{	//File of this name exists in the folder, but does not appear in the library.
+							//Most likely cause- Corrupt file in collection folder.
 							oLock.Unlock();
 							LoadString( strFormat, IDS_LIBRARY_COLLECTION_CANT_INSTALL );
 							strMessage.Format( strFormat, (LPCTSTR)pCollection.GetTitle(), (LPCTSTR)Settings.Downloads.CollectionPath );
@@ -280,76 +281,8 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 	}
 
-	if ( pFolder != NULL ) Display( pFolder ); //Display the collection
+	if ( pFolder != NULL )
+		Display( pFolder );	//Display the collection
+
 	return ( pFolder != NULL );
 }
-
-
-/*
-/////////////////////////////////////////////////////////////////////////////
-// CLibraryWnd events
-
-HRESULT CLibraryWnd::GetGenericView(IGenericView** ppView)
-{
-	if ( m_wndFrame.m_hWnd == NULL ) return S_FALSE;
-	CLibraryList* pList = m_wndFrame.GetViewSelection();
-	*ppView = (IGenericView*)pList->GetInterface( IID_IGenericView, TRUE );
-	return S_OK;
-}
-
-BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
-{
-	CAlbumFolder* pFolder = NULL;
-
-	if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( pszPath, TRUE, FALSE, TRUE ) )
-	{
-		pFolder = LibraryFolders.GetCollection( &pFile->m_pSHA1 );
-		Library.Unlock();
-	}
-	else
-	{
-		CString strFormat, strMessage;
-		CCollectionFile pCollection;
-
-		if ( pCollection.Open( pszPath ) )
-		{
-			CString strSource( pszPath ), strTarget;
-
-			int nName = strSource.ReverseFind( '\\' );
-			if ( nName >= 0 )
-			{
-				strTarget = Settings.Downloads.CompletePath + strSource.Mid( nName );
-				LibraryBuilder.RequestPriority( strTarget );
-			}
-
-			if ( strTarget.GetLength() > 0 && CopyFile( strSource, strTarget, TRUE ) )
-			{
-				LoadString( strFormat, IDS_LIBRARY_COLLECTION_INSTALLED );
-				strMessage.Format( strFormat, (LPCTSTR)pCollection.GetTitle() );
-				AfxMessageBox( strMessage, MB_ICONINFORMATION );
-
-				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strTarget, TRUE, FALSE, TRUE ) )
-				{
-					pFolder = LibraryFolders.GetCollection( &pFile->m_pSHA1 );
-					Library.Unlock();
-				}
-			}
-			else
-			{
-				LoadString( strFormat, IDS_LIBRARY_COLLECTION_CANT_INSTALL );
-				strMessage.Format( strFormat, (LPCTSTR)pCollection.GetTitle(), (LPCTSTR)Settings.Downloads.CompletePath );
-				AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
-			}
-		}
-		else
-		{
-			LoadString( strFormat, IDS_LIBRARY_COLLECTION_INVALID );
-			strMessage.Format( strFormat, pszPath );
-			AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
-		}
-	}
-
-	if ( pFolder != NULL ) Display( pFolder );
-	return ( pFolder != NULL );
-}
-*/

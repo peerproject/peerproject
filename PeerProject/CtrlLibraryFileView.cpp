@@ -62,6 +62,7 @@ BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_RBUTTONDOWN()
+	ON_WM_XBUTTONDOWN()
 	ON_WM_KEYDOWN()
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_LAUNCH, OnUpdateLibraryLaunch)
 	ON_COMMAND(ID_LIBRARY_LAUNCH, OnLibraryLaunch)
@@ -266,6 +267,12 @@ void CLibraryFileView::OnRButtonDown(UINT nFlags, CPoint point)
 	GetToolTip()->Hide();
 
 	CWnd::OnRButtonDown( nFlags, point );
+}
+
+void CLibraryFileView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
 }
 
 void CLibraryFileView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)

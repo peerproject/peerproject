@@ -202,7 +202,7 @@ void CRichDocument::CreateFonts(LPCTSTR pszFaceName, int nSize)
 
 	if ( m_fntHeading.m_hObject ) m_fntHeading.DeleteObject();
 
-	m_fntHeading.CreateFontW( -( nSize + 6 ), 0, 0, 0, FW_EXTRABOLD, FALSE, FALSE, FALSE,
+	m_fntHeading.CreateFontW( -( nSize + 8 ), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH|FF_DONTCARE, pszFaceName );
 }

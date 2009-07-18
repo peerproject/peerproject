@@ -64,6 +64,12 @@ public:
 
 		struct
 		{
+			QWORD	Files;
+			QWORD	Volume;
+		} Downloads;
+
+		struct
+		{
 			QWORD	Outgoing;
 			QWORD	Incoming;
 			QWORD	Routed;

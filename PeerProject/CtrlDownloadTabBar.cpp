@@ -115,7 +115,7 @@ int CDownloadTabBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CControlBar::OnCreate( lpCreateStruct ) == -1 ) return -1;
 //	if ( Skin.m_bBordersEnabled )
-	  m_dwStyle |= CBRS_BORDER_3D;
+		m_dwStyle |= CBRS_BORDER_3D;
 	return 0;
 }
 
@@ -138,13 +138,9 @@ void CDownloadTabBar::Update(int nCookie)
 	CSingleLock pLock( &DownloadGroups.m_pSection, TRUE );
 
 	if ( m_nCookie != DownloadGroups.GetGroupCookie() )
-	{
 		UpdateGroups( nCookie );
-	}
 	else
-	{
 		UpdateStates( nCookie );
-	}
 }
 
 void CDownloadTabBar::UpdateGroups(int nCookie)
@@ -229,7 +225,7 @@ CDownloadTabBar::TabItem* CDownloadTabBar::HitTest(const CPoint& point, CRect* p
 	return NULL;
 }
 
-/*INT_PTR CDownloadTabBar::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
+INT_PTR CDownloadTabBar::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
 {
 	CRect rcItem;
 	TabItem* pItem = HitTest( point, &rcItem );
@@ -237,14 +233,21 @@ CDownloadTabBar::TabItem* CDownloadTabBar::HitTest(const CPoint& point, CRect* p
 	if ( pItem == NULL ) return -1;
 	if ( pTI == NULL ) return 1;
 
+	CString sTip;
+	LoadString( sTip, IDS_GENERAL_ALL );
+	if ( pItem->m_sName == sTip ) return -1;
+
+	LoadString( sTip, IDS_DOWNLOAD_GROUP );
+	sTip.Format( sTip, pItem->m_sName );
+
 	pTI->uFlags		= TTF_NOTBUTTON;
 	pTI->hwnd		= GetSafeHwnd();
 	pTI->uId		= NULL;
 	pTI->rect		= rcItem;
-	pTI->lpszText	= _tcsdup( pItem->m_sCaption );
+	pTI->lpszText	= _tcsdup( sTip );
 
 	return pTI->uId;
-}*/
+}
 
 void CDownloadTabBar::DoPaint(CDC* pDC)
 {

@@ -1061,7 +1061,7 @@
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Свойства..."/>
 	</menu>
-	<menu name="CDownloadsWnd.Nothing">
+	<menu name="CDownloadsWnd.Default">
 		<item id="ID_TOOLS_DOWNLOAD" text="Start Новая Download"/>
 		<item id="ID_TOOLS_SEEDTORRENT" text="Seed Новая Torrent"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Очистить от завершенных"/>
@@ -1109,15 +1109,9 @@
 		<item id="ID_UPLOADS_CHAT" text="_Чат"/>
 		<item id="ID_SECURITY_BAN" text="Б_локировать"/>
 	</menu>
-	<menu name="CUploadsWnd.Queue">
-		<item id="ID_UPLOADS_EDIT_QUEUE" text="_Настройка очереди"/>
-		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Очистить от завершенных"/>
-		<item id="ID_UPLOADS_AUTO_CLEAR" text="_Авто-очистка"/>
-		<separator/>
-		<item id="ID_UPLOADS_HELP" text="_Справка..."/>
-	</menu>
-	<menu name="CUploadsWnd.Nothing">
+	<menu name="CUploadsWnd.Default">
 		<item id="ID_LIBRARY_FOLDERS" text="Раз_делять файлы..."/>
+		<item id="ID_UPLOADS_SETTINGS" text="_Настройка очереди..."/>
 		<item id="ID_UPLOADS_CLEAR_COMPLETED" text="_Очистить от завершенных"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Справка..."/>
@@ -1586,10 +1580,10 @@
 <!-- Documents -->
 <documents>
 	<!-- Home View -->
-	<document name="CHomeViewCtrl" leftMargin="16" topMargin="0">
+	<document name="CHomeViewCtrl" leftMargin="20" topMargin="0">
 		<styles>
 			<style name="default">
-				<font size="12"/>
+				<font size="13"/>
 			</style>
 			<style name="heading">
 				<font face="Trebuchet MS" size="16" weight="800"/>
@@ -1609,17 +1603,20 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
+			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
+			<heading align="middle">ПОИСК ФАЙЛА</heading>
+			<newline gap="8" indent="42"/>
+			<anchor id="SearchBox" width="256" height="80"/>
+			<newline gap="18" indent="0"/>
 			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
 			<heading align="middle">НАЧАТЬ ЗАГРУЗКУ</heading>
 			<newline gap="8" indent="42"/>
 			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Щелкните здесь</link>
 			<text align="middle">, чтобы начать загрузку файла или торрента.</text>
-			<newline gap="24" indent="0"/>
-			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
-			<heading align="middle">ПОИСК ФАЙЛА</heading>
-			<newline gap="8" indent="42"/>
-			<anchor id="SearchBox" width="256" height="80"/>
-			<newline gap="12" indent="0"/>
+			<newline gap="4" indent="42"/>
+			<text align="middle">Открыть папку с </text>
+			<link target="peer:shell:downloads">загрузками</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1631,13 +1628,15 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
-			<icon res="252" width="32" height="32"/><gap size="8"/>
+			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">ВНИМАНИЕ: ВЫ ЗА БРАНДМАУЭРОМ</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject обнаружила что вы за маршрутизатором или брандмаудэром,
 			и неспособны принимать соединения из Интернета. &#160;</text>
 			<text color="FF0000" format="b">Это может ограничить скорость Загрузок/Раздач.</text>
 			<newline gap="6"/>
+			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<text>&#160;или </text>
 			<link target="peer:command:ID_HELP_ROUTER">Щелкните здесь, чтобы узнать, как настроить ваш маршрутизатор или брандмауэр</link>
 			<newline gap="18" indent="0"/>
 		</group>
@@ -1649,6 +1648,8 @@
 			и неспособны принимать TCP соединения из Интернета. &#160;</text>
 			<text color="FF0000" format="b">Это может ограничить скорость Загрузок/Раздач.</text>
 			<newline gap="6"/>
+			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<text>&#160;или </text>
 			<link target="peer:command:ID_HELP_ROUTER">Щелкните здесь, чтобы узнать, как настроить ваш маршрутизатор или брандмауэр</link>
 			<newline gap="18" indent="0"/>
 		</group>
@@ -1660,24 +1661,27 @@
 			и неспособны принимать TCP соединения из Интернета. &#160;</text>
 			<text color="FF0000" format="b">Это может ограничить скорость Загрузок/Раздач.</text>
 			<newline gap="6"/>
+			<link target="peer:command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
+			<text>&#160;или </text>
 			<link target="peer:command:ID_HELP_ROUTER">Щелкните здесь, чтобы узнать, как настроить ваш маршрутизатор или брандмауэр</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32"/><gap size="8"/>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">НАСТРОЙТЕ PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
+		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Шкурки</link>
 		<text align="middle">&#160;- Измeнение обликa Sharеaza</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
+		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Мaстер Устанoвок</link>
 		<text align="middle">&#160;- Пошaговый мaстер устанoвок Sharеaza</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
+		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<newline gap="8"/>
+		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Быстрaя Помoщь</link>
 		<text align="middle">&#160;- Онлайновая Справочная Система Wiki</text>
 		<newline gap="18" indent="0"/>
@@ -1688,60 +1692,13 @@
 			<text>Разрешено удаленное управление PeerProject, используйте обозреватель и адрес:</text>
 			<newline gap="6"/>
 			<link id="RemoteAccessURL1"/>
-			<text>&#160; - или -&#160;</text>
+			<text>&#160; или &#160;</text>
 			<link id="RemoteAccessURL2"/>
 			<newline gap="16" indent="0"/>
 		</group>
+		<newline gap="4" indent="0"/>
 	</document>
-	<document name="CHomeDownloadsBox" title="Мои загрузки" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font size="9"/>
-			</style>
-		</styles>
-		<para align="center">
-			<group id="1">
-				<text>Нет активных загрузок</text>
-				<newline gap="4"/>
-			</group>
-			<link id="DownloadsNone" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Перейти к загрузкам</link>
-			<link id="DownloadsOne" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Перейти к загрузке (1)</link>
-			<link id="DownloadsMany" format="bu" target="peer:command:ID_VIEW_DOWNLOADS">Перейти к загрузкам (%i)</link>
-		</para>
-	</document>
-	<document name="CHomeLibraryBox" title="Моё хранилище" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font size="9"/>
-			</style>
-		</styles>
-		<para align="center">
-			<group id="2">
-				<text>Вы не загружали никаких новых файлов недавно.</text>
-				<newline gap="8"/>
-			</group>
-			<text id="LibraryFiles" format="b">%lu</text>
-			<text>файла(ов), </text>
-			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="4"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Перейти в хранилище</link>
-			<newline gap="4"/>
-			<link format="bu" target="peer:shell:downloads">Открыть папку с загрузками</link>
-			<group id="1">
-				<newline gap="8"/>
-				<text>PeerProject просматривает и обрабатывает </text>
-				<text id="LibraryHashRemaining" format="b">%lu</text>
-				<text>файла(ов).</text>
-				<newline gap="8"/>
-			</group>
-			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Хешировать быстрее</link>
-			</group>
-			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Хешировать медленнее</link>
-			</group>
-		</para>
-	</document>
+	<!-- Homepanel Taskboxes -->
 	<document name="CHomeConnectionBox" title="Подключения" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
@@ -1755,22 +1712,22 @@
 				<link target="peer:command:ID_NETWORK_CONNECT">Подключиться!</link>
 			</para>
 		</group>
-		<icon group="20" command="ID_NETWORK_G2"/><gap group="20" size="4"/>
-		<text group="20" align="middle" format="b">Gnutella2: </text>
+		<icon group="20" command="ID_NETWORK_G2"/>
+		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
 		<text group="21" align="middle">Отключено</text>
 		<text group="22" align="middle">Подключение…</text>
 		<text group="23" align="middle">Подключено</text>
 		<text group="24" align="middle" id="G2Hubs">%i узла(ов)</text>
 		<text group="25" align="middle" id="G2Leaves">%i ветви(ей)</text>
 		<newline group="20" gap="2"/>
-		<icon group="10" command="ID_NETWORK_G1"/><gap group="10" size="4"/>
-		<text group="10" align="middle" format="b">Gnutella1: </text>
+		<icon group="10" command="ID_NETWORK_G1"/>
+		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
 		<text group="11" align="middle">Отключено</text>
 		<text group="12" align="middle">Подключение…</text>
 		<text group="13" align="middle">Подключено</text>
 		<newline group="10" gap="2"/>
-		<icon group="30" command="ID_NETWORK_ED2K"/><gap group="30" size="4"/>
-		<text group="30" align="middle" format="b">eDonkey: </text>
+		<icon group="30" command="ID_NETWORK_ED2K"/>
+		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
 		<text group="31" align="middle">Отключено</text>
 		<text group="32" align="middle">Подключение…</text>
 		<text group="33" align="middle">Подключено</text>
@@ -1787,6 +1744,60 @@
 			</para>
 		</group>
 	</document>
+	<document name="CHomeLibraryBox" title="Моё хранилище" leftMargin="6" topMargin="6">
+		<styles>
+			<style name="default">
+				<font size="9"/>
+			</style>
+		</styles>
+		<para align="center">
+			<group id="2">
+				<text>Вы не загружали никаких новых файлов недавно.</text>
+				<newline gap="8"/>
+			</group>
+			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Перейти в хранилище</link>
+			<newline gap="4"/>
+			<text id="LibraryFiles" format="b">%lu</text>
+			<text>файла(ов) (</text>
+			<text id="LibraryVolume" format="b">%s</text>
+			<text>)</text>
+			<group id="1">
+				<newline gap="8"/>
+				<text>PeerProject просматривает и обрабатывает </text>
+				<text id="LibraryHashRemaining" format="b">%lu</text>
+				<text>файла(ов).</text>
+				<newline gap="8"/>
+			</group>
+			<group id="3">
+				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Хешировать быстрее</link>
+			</group>
+			<group id="4">
+				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Хешировать медленнее</link>
+			</group>
+		</para>
+	</document>
+	<document name="CHomeDownloadsBox" title="Мои загрузки" leftMargin="6" topMargin="6">
+		<styles>
+			<style name="default">
+				<font size="9"/>
+			</style>
+		</styles>
+		<para align="center">
+			<group id="1">
+				<text>Нет активных загрузок</text>
+				<newline gap="4"/>
+			</group>
+			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Перейти к загрузкам</link>
+			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Перейти к загрузке (1)</link>
+			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Перейти к загрузкам (%i)</link>
+			<newline gap="4"/>
+			<text id="DownloadedNone">No файла/ов (</text>
+			<text id="DownloadedOne">1 файл (</text>
+			<text id="DownloadedMany">%i файла/ов (</text>
+			<text id="DownloadedVolume" format="b">%s</text>
+			<text>)</text>
+		</para>
+	</document>
 	<document name="CHomeUploadsBox" title="Раздачи" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
@@ -1795,42 +1806,21 @@
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Нет активных раздач</text>
-			<link id="UploadsOne" format="bu" target="peer:command:ID_VIEW_UPLOADS">1 раздача активна</link>
-			<link id="UploadsMany" format="bu" target="peer:command:ID_VIEW_UPLOADS">%i раздача(и) активна(ы)</link>
-			<newline gap="4"/>
-			<text id="UploadedNone">Cегодня раздач не было</text>
-			<text id="UploadedOne">Всего 1 файл (%s)</text>
-			<text id="UploadedMany">Всего %i файла(ов) (%s)</text>
-		</para>
-	</document>
-	<document name="CHomeTorrentsBox" title="Torrents" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font size="9"/>
-			</style>
-		</styles>
-		<para align="center">
-			<text id="TorrentsNone" format="b">Торренты не раздаются</text>
-			<text id="TorrentsOne" format="b">Раздается 1 торрент</text>
-			<text id="TorrentsMany" format="b">Раздается %i торрента(ов)</text>
-			<newline gap="4"/>
-			<link id="ReseedTorrent" format="bu" target="peer:command:ID_TOOLS_RESEEDTORRENT">Раздавать %s</link>
+			<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 раздача активна</link>
+			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i раздача(и) активна(ы)</link>
 			<newline gap="4"/>
 			<group id="1">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Начать раздачу</link>
+				<text id="TorrentsOne">Раздается 1 торрент</text>
+				<text id="TorrentsMany">Раздается %i торрента(ов)</text>
+				<newline gap="4"/>
 			</group>
-			<group id="2">
-			<link id="SeedTorrent" format="bu" target="peer:command:ID_TOOLS_SEEDTORRENT">Начать раздачу</link>
-			</group>
+			<text id="UploadedNone">Cегодня раздач не было</text>
+			<text id="UploadedOne">Всего 1 файл (%s)</text>
+			<text id="UploadedMany">Всего %i файла/ов (%s)</text>
 		</para>
 	</document>
 	<!-- Settings Pages -->
 	<document name="CGeneralSettingsGroup" title="Главное" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Добро пожаловать в менеджер установок PeerProject</text>
 		<newline gap="16"/>
 		<text>Менеджер установок PeerProject опытным пользователям позволит полностью настроить
@@ -1839,62 +1829,46 @@
 		<text>потребуют некоторого пользовательского опыта.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">Основное:</link>
-		<gap size="4"/>
-		<text>Обычные пользовательские настройки как подсказки, минимизация, форматы номеров, запросы, и т.д.</text>
+		<text>&#160;Обычные пользовательские настройки как подсказки, минимизация, форматы номеров, запросы, и т.д.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">Хранилище:</link>
-		<gap size="4"/>
-		<text>Представление и управление Хранилищем, и связи файлов.</text>
+		<text>&#160;Представление и управление Хранилищем, и связи файлов.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CMediaSettingsPage" format="b">Проигрыватель:</link>
-		<gap size="4"/>
-		<text>Когда и где использовать встроенный в PeerProject Медиа Центр.</text>
+		<text>&#160;Когда и где использовать встроенный в PeerProject Медиа Центр.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Сообщество:</link>
-		<gap size="4"/>
-		<text>Ваш профиль, чат и установки быстрых сообщений (пейджер).</text>
+		<text>&#160;Ваш профиль, чат и установки быстрых сообщений (пейджер).</text>
 		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
-		<gap size="4"/>
-		<text>IRC.</text>
+		<text>&#160;IRC.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Веб:</link>
-		<gap size="4"/>
-		<text>Интегрируйте PeerProject с вашим веб обозревателем для приема P2P ссылок и другого содержимого.</text>
+		<text>&#160;Интегрируйте PeerProject с вашим веб обозревателем для приема P2P ссылок и другого содержимого.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Интернет" leftMargin="8" topMargin="8">
-		<styles>
-			<style name="default">
-				<colors link="000080"/>
-			</style>
-		</styles>
 		<text format="b">Добро пожаловать в менеджер установок PeerProject</text>
 		<newline gap="16"/>
 		<text>Менеджер установок PeerProject опытным пользователям позволит полностью настроить
 			работу PeerProject.  Установки в секции </text>
 		<text format="b">Интернет </text>
-		<text>	контролируют взаимодействие PeerProject с другими узлами в пределах распределенного соединения равноправных узлов.
+		<text>контролируют взаимодействие PeerProject с другими узлами в пределах распределенного соединения равноправных узлов.
 		</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Соединения:</link>
-		<gap size="4"/>
-		<text>Скорости и способности вашего соединения с Интернетом.</text>
+		<text>&#160;Скорости и способности вашего соединения с Интернетом.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">Загрузки:</link>
-		<gap size="4"/>
-		<text>Производительность загрузки, планирование, проверка, перерывы и управление.</text>
+		<text>&#160;Производительность загрузки, планирование, проверка, перерывы и управление.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Раздачи:</link>
-		<gap size="4"/>
-		<text>Скорости Раздач, организация очереди, запреты, перерывы и специальные запросы.</text>
+		<text>&#160;Скорости Раздач, организация очереди, запреты, перерывы и специальные запросы.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">Удаленное управление:</link>
-		<gap size="4"/>
-		<text>Включите поддержку удаленного управления, чтобы контроллировать PeerProject при помощи веб браузера.</text>
+		<text>&#160;Включите поддержку удаленного управления, чтобы контроллировать PeerProject при помощи веб браузера.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Расписание:</link>
-		<gap size="4"/>
-		<text>Составте расписание для ограничения загрузок по времени.</text>
+		<text>&#160;Составте расписание для ограничения загрузок по времени.</text>
 	</document>
 	<!-- Browse User Profile -->
 	<document name="CBrowseHostProfile.1">
@@ -3738,7 +3712,7 @@
 	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Добро пожаловать в PeerProject (1/6)">
 		<control caption="Для оптимальной работы PeerProject должна знать о вашем соединении с Интернетом."/>
 		<control caption="Выберите тип подключения к интернету:"/>
-		<control caption="Коммутир. соединение|ИСДН|АДСЛ (256 К)|АДСЛ (512 К)|АДСЛ (768 К)|АДСЛ (1,5 М)|АДСЛ (4,0 M)|АДСЛ2 (8,0 M)|АДСЛ2 (12,0 M)|АДСЛ2+ (24,0 M)|Кабельный модем/СДСЛ|Т1|Т3|Локальная сеть|OC3"/>
+		<control caption="Коммутир. соединение|ИСДН (128 К)|ДСЛ (768 К)|ДСЛ (1,5 М)|ДСЛ (4,0 M)|ДСЛ2 (8,0 M)|ДСЛ2 (10,0 M)|ДСЛ2 (12,0 M)|ДСЛ2+ (20,0 M)|ДСЛ2+ (24,0 M)|Кабельный модем|Т1|Т3|Локальная сеть|OC3"/>
 		<control caption="Или выберите скорость загрузки:"/>
 		<control/>
 		<control caption="и скорость раздачи:"/>

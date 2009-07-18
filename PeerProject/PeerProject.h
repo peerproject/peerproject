@@ -361,61 +361,61 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 #define MSG_FACILITY_INCOMING	0x0200
 #define MSG_FACILITY_OUTGOING	0x0300
 
-#define WM_WINSOCK			(WM_APP+101)	// Winsock messages proxy to Network object (Used by WSAAsyncGetHostByName() function)
-#define WM_VERSIONCHECK		(WM_APP+102)	// Version check (WAPARM: VERSION_CHECK nCode, LPARAM: unused)
-#define WM_OPENCHAT			(WM_APP+103)	// Open chat window (WAPARM: CChatSession* pChat, LPARAM: unused)
-#define WM_TRAY				(WM_APP+104)	// Tray icon notification (WPARAM: unused, LPARAM: uMouseMessage)
-#define WM_URL				(WM_APP+105)	// Open URL (WPARAM: CShareazaURL* pURL, LPARAM: unused)
-#define WM_SKINCHANGED		(WM_APP+106)	// Skin change (WPARAM: unused, LPARAM: unused)
-#define WM_COLLECTION		(WM_APP+107)	// Open collection file (WPARAM: unused, LPARAM: LPTSTR szFilename)
-#define WM_OPENSEARCH		(WM_APP+108)	// Open new search (WPARAM: CQuerySearch* pSearch, LPARAM: unused)
-#define WM_LIBRARYSEARCH	(WM_APP+110)	// Start file library search (WPARAM: LPTSTR pszSearch, LPARAM: unused)
-#define WM_PLAYFILE			(WM_APP+111)	// Play file by media system (WPARAM: unused, LPARAM: CString* pFilename)
-#define WM_ENQUEUEFILE		(WM_APP+112)	// Enqueue file to media system (WPARAM: unused, LPARAM: CString* pFilename)
-#define WM_SETALPHA			(WM_APP+113)	// Increase/decrease main window transparency (WPARAM: 0 - to decrease or 1 - to increase, LPARAM: unused)
-#define WM_METADATA			(WM_APP+114)	// Set/clear library metapanel data & status message (WPARAM: CMetaPanel* pPanelData, LPARAM: LPCTSTR pszMessage)
-#define WM_SANITY_CHECK		(WM_APP+115)	// Run allsystem check against banned hosts (WPARAM: unused, LPARAM: unused)
-#define WM_NOWUPLOADING		(WM_APP+117)	// New upload notification (WPARAM: unused, LPARAM: CString* pFilename)
-#define WM_TORRENT			(WM_APP+118)	// Open torrent file ( WPARAM: LPTSTR szFilename, LPARAM: unused )
+#define WM_WINSOCK				(WM_APP+101)	// Winsock messages proxy to Network object (Used by WSAAsyncGetHostByName() function)
+#define WM_VERSIONCHECK			(WM_APP+102)	// Version check (WAPARM: VERSION_CHECK nCode, LPARAM: unused)
+#define WM_OPENCHAT				(WM_APP+103)	// Open chat window (WAPARM: CChatSession* pChat, LPARAM: unused)
+#define WM_TRAY					(WM_APP+104)	// Tray icon notification (WPARAM: unused, LPARAM: uMouseMessage)
+#define WM_URL					(WM_APP+105)	// Open URL (WPARAM: CShareazaURL* pURL, LPARAM: unused)
+#define WM_SKINCHANGED			(WM_APP+106)	// Skin change (WPARAM: unused, LPARAM: unused)
+#define WM_COLLECTION			(WM_APP+107)	// Open collection file (WPARAM: unused, LPARAM: LPTSTR szFilename)
+#define WM_OPENSEARCH			(WM_APP+108)	// Open new search (WPARAM: CQuerySearch* pSearch, LPARAM: unused)
+#define WM_LIBRARYSEARCH		(WM_APP+110)	// Start file library search (WPARAM: LPTSTR pszSearch, LPARAM: unused)
+#define WM_PLAYFILE				(WM_APP+111)	// Play file by media system (WPARAM: unused, LPARAM: CString* pFilename)
+#define WM_ENQUEUEFILE			(WM_APP+112)	// Enqueue file to media system (WPARAM: unused, LPARAM: CString* pFilename)
+#define WM_SETALPHA				(WM_APP+113)	// Increase/decrease main window transparency (WPARAM: 0 - to decrease or 1 - to increase, LPARAM: unused)
+#define WM_METADATA				(WM_APP+114)	// Set/clear library metapanel data & status message (WPARAM: CMetaPanel* pPanelData, LPARAM: LPCTSTR pszMessage)
+#define WM_SANITY_CHECK			(WM_APP+115)	// Run allsystem check against banned hosts (WPARAM: unused, LPARAM: unused)
+#define WM_NOWUPLOADING			(WM_APP+117)	// New upload notification (WPARAM: unused, LPARAM: CString* pFilename)
+#define WM_TORRENT				(WM_APP+118)	// Open torrent file ( WPARAM: LPTSTR szFilename, LPARAM: unused )
 
-#define ID_PLUGIN_FIRST	27000
-#define ID_PLUGIN_LAST	27999
+#define ID_PLUGIN_FIRST			27000
+#define ID_PLUGIN_LAST			27999
 
 #define HTTP_HEADER_MAX_LINE	(256 * 1024)	// Maximum allowed size of single HTTP-header line (256 Kb)
 
 // Drag-n-drop stuff
-#define MAX_DRAG_SIZE		256
-#define MAX_DRAG_SIZE_2		(MAX_DRAG_SIZE/2)
-#define DRAG_COLOR_KEY		(RGB(245,248,252))	// Light-blue
-#define DRAG_HOVER_TIME		900 				// Dragging mouse button press after X ms
+#define MAX_DRAG_SIZE			256
+#define MAX_DRAG_SIZE_2			(MAX_DRAG_SIZE/2)
+#define DRAG_COLOR_KEY			(RGB(245,248,252)) // Light-blue
+#define DRAG_HOVER_TIME			900 			// Dragging mouse button press after X ms
 
-// Set Default Sizes in Pixels				// ToDo: Make Skinnable Options
-#define PANEL_WIDTH			200 			// Left Sidebar (Home/Search/IRC tabs)
-#define THUMB_STORE_SIZE	128
-#define TOOLBAR_HEIGHT		28
+// Set Default Sizes in Pixels					// ToDo: Make Skinnable Options
+#define PANEL_WIDTH				200 			// Left Sidebar (Home/Search/IRC)
+#define THUMB_STORE_SIZE		128
+#define TOOLBAR_HEIGHT			28
 
 
-// Network ID stuff
-
-// 4 Character vendor code (G1,G2)
-// BEAR, LIME, RAZA, RAZB, RZCB, etc
-#define VENDOR_CODE			"PEER"
-
-// ed2k client ID number.
-// 0x50 (80) = Proposed PeerProject ID
-// 0 = eMule, 1 = cDonkey, 4 = old Shareazas, 0x28 (40) = Shareaza, 0xcb (203) = ShareazaPlus
-#define ED2K_CLIENT_ID		80
-
-// 2 Character BT peer-id code
-// PE = PeerProject, SZ = Shareaza, S~ = old Shareaza alpha/beta , CB = ShareazaPlus-RazaCB, AZ = Azureus, etc.
-#define BT_ID1				'P'
-#define BT_ID2				'E'
-
-#define WEB_SITE			"http://PeerProject.org/"
-#define WEB_SITE_T			_T( WEB_SITE )
+// Network ID's:
 
 // Client's name
-#define CLIENT_NAME			"PeerProject"
+#define CLIENT_NAME				"PeerProject"
+
+// 4 Character vendor code (G1,G2)
+// PEER, RAZA, RAZB, BEAR, LIME
+#define VENDOR_CODE				"PEER"
+
+// ed2k client ID number.
+// 80 (0x50) = Proposed PeerProject ID
+// 0 = eMule, 1 = cDonkey, 4 = old Shareaza, 40 (0x28) = Shareaza
+#define ED2K_CLIENT_ID			80
+
+// 2 Character BT peer-id code
+// PE = PeerProject, SZ = Shareaza, S~ = old Shareaza
+#define BT_ID1					'P'
+#define BT_ID2					'E'
+
+#define WEB_SITE				"http://PeerProject.org/"
+#define WEB_SITE_T				_T( WEB_SITE )
 
 
 extern const LPCTSTR RT_BMP;

@@ -666,7 +666,7 @@ void CEDClients::RunGlobalStatsRequests(DWORD tNow)
 				   ( m_bAllServersDone ) ) )													//  OR we have checked all servers
 			{
 				CSingleLock pLock( &Network.m_pSection );
-				if ( ! pLock.Lock( 100 ) ) continue;
+				if ( ! pLock.Lock( 200 ) ) continue;
 
 				// Don't ask current neighbours for stats
 				if ( ! Neighbours.Get( &pHost->m_pAddress ) )

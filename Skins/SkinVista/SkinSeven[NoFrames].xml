@@ -418,7 +418,7 @@
  </menu>
 
  <menu text="Advanced _View">
-  <item id="ID_TAB_HOME" text="_Home" shortcut="Ctrl-H"/>
+  <item id="ID_TAB_HOME" text="_Home" shortcut="Alt-Home/Ctrl-H"/>
   <item id="ID_TAB_SEARCH" text="_Search" shortcut="Ctrl-S"/>
   <item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
   <item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
@@ -510,7 +510,7 @@
  </menu>
 
  <menu text="Advanced _View">
-  <item id="ID_TAB_HOME" text="_Home" shortcut="Ctrl-H"/>
+  <item id="ID_TAB_HOME" text="_Home" shortcut="Alt-Home/Ctrl-H"/>
   <item id="ID_TAB_SEARCH" text="_Search" shortcut="Ctrl-S"/>
   <item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
   <item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
@@ -604,7 +604,7 @@
  </menu>
 
  <menu text="Advanced _View">
-  <item id="ID_TAB_HOME" text="_Home" shortcut="Ctrl-H"/>
+  <item id="ID_TAB_HOME" text="_Home" shortcut="Alt-Home/Ctrl-H"/>
   <item id="ID_TAB_SEARCH" text="_Search" shortcut="Ctrl-S"/>
   <item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
   <item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
@@ -763,46 +763,46 @@
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
- <part name="_ID_TAB_HOME.Up" rect="0,0,68,24"/>
- <part name="_ID_TAB_HOME.Checked" rect="0,24,68,24"/>
- <part name="_ID_TAB_HOME.Hover" rect="0,48,68,24"/>
- <part name="_ID_TAB_HOME.Down" rect="0,72,68,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="68,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="68,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="68,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="68,72,66,24"/>
- <part name="_ID_TAB_TRANSFERS.Up" rect="134,0,78,24"/>
- <part name="_ID_TAB_TRANSFERS.Checked" rect="134,24,78,24"/>
- <part name="_ID_TAB_TRANSFERS.Hover" rect="134,48,78,24"/>
- <part name="_ID_TAB_TRANSFERS.Down" rect="134,72,78,24"/>
- <part name="_ID_TAB_NETWORK.Up" rect="212,0,74,24"/>
- <part name="_ID_TAB_NETWORK.Checked" rect="212,24,74,24"/>
- <part name="_ID_TAB_NETWORK.Hover" rect="212,48,74,24"/>
- <part name="_ID_TAB_NETWORK.Down" rect="212,72,74,24"/>
- <part name="_ID_TAB_LIBRARY.Up" rect="286,0,70,24"/>
- <part name="_ID_TAB_LIBRARY.Checked" rect="286,24,70,24"/>
- <part name="_ID_TAB_LIBRARY.Hover" rect="286,48,70,24"/>
- <part name="_ID_TAB_LIBRARY.Down" rect="286,72,70,24"/>
- <part name="_ID_TAB_MEDIA.Up" rect="356,0,70,24"/>
- <part name="_ID_TAB_MEDIA.Checked" rect="356,24,70,24"/>
- <part name="_ID_TAB_MEDIA.Hover" rect="356,48,70,24"/>
- <part name="_ID_TAB_MEDIA.Down" rect="356,72,70,24"/>
+ <part name="_ID_TAB_HOME.Up" rect="62,0,66,24"/>
+ <part name="_ID_TAB_HOME.Checked" rect="62,24,66,24"/>
+ <part name="_ID_TAB_HOME.Hover" rect="62,48,66,24"/>
+ <part name="_ID_TAB_HOME.Down" rect="62,72,66,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="62,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="62,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="62,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="62,72,66,24"/>
+ <part name="_ID_TAB_TRANSFERS.Up" rect="128,0,74,24"/>
+ <part name="_ID_TAB_TRANSFERS.Checked" rect="128,24,74,24"/>
+ <part name="_ID_TAB_TRANSFERS.Hover" rect="128,48,74,24"/>
+ <part name="_ID_TAB_TRANSFERS.Down" rect="128,72,74,24"/>
+ <part name="_ID_TAB_NETWORK.Up" rect="128,0,74,24"/>
+ <part name="_ID_TAB_NETWORK.Checked" rect="128,24,74,24"/>
+ <part name="_ID_TAB_NETWORK.Hover" rect="128,48,74,24"/>
+ <part name="_ID_TAB_NETWORK.Down" rect="128,72,74,24"/>
+ <part name="_ID_TAB_LIBRARY.Up" rect="62,0,66,24"/>
+ <part name="_ID_TAB_LIBRARY.Checked" rect="62,24,66,24"/>
+ <part name="_ID_TAB_LIBRARY.Hover" rect="62,48,66,24"/>
+ <part name="_ID_TAB_LIBRARY.Down" rect="62,72,66,24"/>
+ <part name="_ID_TAB_MEDIA.Up" rect="62,0,66,24"/>
+ <part name="_ID_TAB_MEDIA.Checked" rect="62,24,66,24"/>
+ <part name="_ID_TAB_MEDIA.Hover" rect="62,48,66,24"/>
+ <part name="_ID_TAB_MEDIA.Down" rect="62,72,66,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,438,28"/>
- <anchor name="_ID_TAB_HOME" rect="6,2,68,24"/>
- <anchor name="_ID_TAB_SEARCH" rect="74,2,66,24"/>
- <anchor name="_ID_TAB_TRANSFERS" rect="140,2,78,24"/>
- <anchor name="_ID_TAB_NETWORK" rect="218,2,74,24"/>
- <anchor name="_ID_TAB_LIBRARY" rect="292,2,70,24"/>
- <anchor name="_ID_TAB_MEDIA" rect="362,2,70,24"/>
+ <anchor name="Background" rect="0,0,428,28"/>
+ <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
+ <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
+ <anchor name="_ID_TAB_TRANSFERS" rect="138,2,74,24"/>
+ <anchor name="_ID_TAB_NETWORK" rect="213,2,74,24"/>
+ <anchor name="_ID_TAB_LIBRARY" rect="287,2,66,24"/>
+ <anchor name="_ID_TAB_MEDIA" rect="353,2,66,24"/>
 </anchors>
 </windowSkin>
 
 <!-- Afrikaans -->
 
 <windowSkin>
-<image type="image" language="af" path="Seven\RibbonTabs_af.png"/>
+<image type="image" language="af" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -847,7 +847,7 @@
 <!-- Catalan -->
 
 <windowSkin>
-<image type="image" language="ca" path="Seven\RibbonTabs_es.png"/>
+<image type="image" language="ca" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -892,7 +892,7 @@
 <!-- Czech -->
 
 <windowSkin>
-<image type="image" language="cz" path="Seven\RibbonTabs_cz.png"/>
+<image type="image" language="cz" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
@@ -937,7 +937,7 @@
 <!-- Estonian -->
 
 <windowSkin>
-<image type="image" language="ee" path="Seven\RibbonTabs_ee.png"/>
+<image type="image" language="ee" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -982,7 +982,7 @@
 <!-- German -->
 
 <windowSkin>
-<image type="image" language="de" path="Seven\RibbonTabs_de.png"/>
+<image type="image" language="de" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1024,100 +1024,100 @@
 </anchors>
 </windowSkin>
 
-<!-- Spanish -->
+<!-- *Spanish -->
 
 <windowSkin>
-<image type="image" language="es" path="Seven\RibbonTabs_es.png"/>
+<image type="image" language="es" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
- <part name="_ID_TAB_HOME.Up" rect="0,0,66,24"/>
- <part name="_ID_TAB_HOME.Checked" rect="0,24,66,24"/>
- <part name="_ID_TAB_HOME.Hover" rect="0,48,66,24"/>
- <part name="_ID_TAB_HOME.Down" rect="0,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="66,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="66,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="66,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="66,72,66,24"/>
- <part name="_ID_TAB_TRANSFERS.Up" rect="132,0,102,24"/>
- <part name="_ID_TAB_TRANSFERS.Checked" rect="132,24,102,24"/>
- <part name="_ID_TAB_TRANSFERS.Hover" rect="132,48,102,24"/>
- <part name="_ID_TAB_TRANSFERS.Down" rect="132,72,102,24"/>
- <part name="_ID_TAB_NETWORK.Up" rect="234,0,62,24"/>
- <part name="_ID_TAB_NETWORK.Checked" rect="234,24,62,24"/>
- <part name="_ID_TAB_NETWORK.Hover" rect="234,48,62,24"/>
- <part name="_ID_TAB_NETWORK.Down" rect="234,72,62,24"/>
- <part name="_ID_TAB_LIBRARY.Up" rect="296,0,80,24"/>
- <part name="_ID_TAB_LIBRARY.Checked" rect="296,24,80,24"/>
- <part name="_ID_TAB_LIBRARY.Hover" rect="296,48,80,24"/>
- <part name="_ID_TAB_LIBRARY.Down" rect="296,72,80,24"/>
- <part name="_ID_TAB_MEDIA.Up" rect="376,0,92,24"/>
- <part name="_ID_TAB_MEDIA.Checked" rect="376,24,92,24"/>
- <part name="_ID_TAB_MEDIA.Hover" rect="376,48,92,24"/>
- <part name="_ID_TAB_MEDIA.Down" rect="376,72,92,24"/>
+ <part name="_ID_TAB_HOME.Up" rect="62,0,66,24"/>
+ <part name="_ID_TAB_HOME.Checked" rect="62,24,66,24"/>
+ <part name="_ID_TAB_HOME.Hover" rect="62,48,66,24"/>
+ <part name="_ID_TAB_HOME.Down" rect="62,72,66,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="62,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="62,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="62,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="62,72,66,24"/>
+ <part name="_ID_TAB_TRANSFERS.Up" rect="454,0,100,24"/>
+ <part name="_ID_TAB_TRANSFERS.Checked" rect="454,24,100,24"/>
+ <part name="_ID_TAB_TRANSFERS.Hover" rect="454,48,100,24"/>
+ <part name="_ID_TAB_TRANSFERS.Down" rect="454,72,100,24"/>
+ <part name="_ID_TAB_NETWORK.Up" rect="0,0,62,24"/>
+ <part name="_ID_TAB_NETWORK.Checked" rect="0,24,62,24"/>
+ <part name="_ID_TAB_NETWORK.Hover" rect="0,48,62,24"/>
+ <part name="_ID_TAB_NETWORK.Down" rect="0,72,62,24"/>
+ <part name="_ID_TAB_LIBRARY.Up" rect="202,0,78,24"/>
+ <part name="_ID_TAB_LIBRARY.Checked" rect="202,24,78,24"/>
+ <part name="_ID_TAB_LIBRARY.Hover" rect="202,48,78,24"/>
+ <part name="_ID_TAB_LIBRARY.Down" rect="202,72,78,24"/>
+ <part name="_ID_TAB_MEDIA.Up" rect="364,0,90,24"/>
+ <part name="_ID_TAB_MEDIA.Checked" rect="364,24,90,24"/>
+ <part name="_ID_TAB_MEDIA.Hover" rect="364,48,90,24"/>
+ <part name="_ID_TAB_MEDIA.Down" rect="364,72,90,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,480,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
- <anchor name="_ID_TAB_TRANSFERS" rect="138,2,102,24"/>
- <anchor name="_ID_TAB_NETWORK" rect="240,2,62,24"/>
- <anchor name="_ID_TAB_LIBRARY" rect="302,2,80,24"/>
- <anchor name="_ID_TAB_MEDIA" rect="382,2,92,24"/>
+ <anchor name="_ID_TAB_TRANSFERS" rect="138,2,100,24"/>
+ <anchor name="_ID_TAB_NETWORK" rect="238,2,62,24"/>
+ <anchor name="_ID_TAB_LIBRARY" rect="300,2,78,24"/>
+ <anchor name="_ID_TAB_MEDIA" rect="378,2,90,24"/>
 </anchors>
 </windowSkin>
 
-<!-- Spanish-Mexican -->
+<!-- *Spanish-Mexican -->
 
 <windowSkin>
-<image type="image" language="es-MX" path="Seven\RibbonTabs_es.png"/>
+<image type="image" language="es-MX" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
- <part name="_ID_TAB_HOME.Up" rect="0,0,66,24"/>
- <part name="_ID_TAB_HOME.Checked" rect="0,24,66,24"/>
- <part name="_ID_TAB_HOME.Hover" rect="0,48,66,24"/>
- <part name="_ID_TAB_HOME.Down" rect="0,72,66,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="66,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="66,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="66,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="66,72,66,24"/>
- <part name="_ID_TAB_TRANSFERS.Up" rect="132,0,102,24"/>
- <part name="_ID_TAB_TRANSFERS.Checked" rect="132,24,102,24"/>
- <part name="_ID_TAB_TRANSFERS.Hover" rect="132,48,102,24"/>
- <part name="_ID_TAB_TRANSFERS.Down" rect="132,72,102,24"/>
- <part name="_ID_TAB_NETWORK.Up" rect="234,0,62,24"/>
- <part name="_ID_TAB_NETWORK.Checked" rect="234,24,62,24"/>
- <part name="_ID_TAB_NETWORK.Hover" rect="234,48,62,24"/>
- <part name="_ID_TAB_NETWORK.Down" rect="234,72,62,24"/>
- <part name="_ID_TAB_LIBRARY.Up" rect="296,0,80,24"/>
- <part name="_ID_TAB_LIBRARY.Checked" rect="296,24,80,24"/>
- <part name="_ID_TAB_LIBRARY.Hover" rect="296,48,80,24"/>
- <part name="_ID_TAB_LIBRARY.Down" rect="296,72,80,24"/>
- <part name="_ID_TAB_MEDIA.Up" rect="376,0,92,24"/>
- <part name="_ID_TAB_MEDIA.Checked" rect="376,24,92,24"/>
- <part name="_ID_TAB_MEDIA.Hover" rect="376,48,92,24"/>
- <part name="_ID_TAB_MEDIA.Down" rect="376,72,92,24"/>
+ <part name="_ID_TAB_HOME.Up" rect="62,0,66,24"/>
+ <part name="_ID_TAB_HOME.Checked" rect="62,24,66,24"/>
+ <part name="_ID_TAB_HOME.Hover" rect="62,48,66,24"/>
+ <part name="_ID_TAB_HOME.Down" rect="62,72,66,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="62,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="62,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="62,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="62,72,66,24"/>
+ <part name="_ID_TAB_TRANSFERS.Up" rect="454,0,100,24"/>
+ <part name="_ID_TAB_TRANSFERS.Checked" rect="454,24,100,24"/>
+ <part name="_ID_TAB_TRANSFERS.Hover" rect="454,48,100,24"/>
+ <part name="_ID_TAB_TRANSFERS.Down" rect="454,72,100,24"/>
+ <part name="_ID_TAB_NETWORK.Up" rect="0,0,62,24"/>
+ <part name="_ID_TAB_NETWORK.Checked" rect="0,24,62,24"/>
+ <part name="_ID_TAB_NETWORK.Hover" rect="0,48,62,24"/>
+ <part name="_ID_TAB_NETWORK.Down" rect="0,72,62,24"/>
+ <part name="_ID_TAB_LIBRARY.Up" rect="202,0,78,24"/>
+ <part name="_ID_TAB_LIBRARY.Checked" rect="202,24,78,24"/>
+ <part name="_ID_TAB_LIBRARY.Hover" rect="202,48,78,24"/>
+ <part name="_ID_TAB_LIBRARY.Down" rect="202,72,78,24"/>
+ <part name="_ID_TAB_MEDIA.Up" rect="364,0,90,24"/>
+ <part name="_ID_TAB_MEDIA.Checked" rect="364,24,90,24"/>
+ <part name="_ID_TAB_MEDIA.Hover" rect="364,48,90,24"/>
+ <part name="_ID_TAB_MEDIA.Down" rect="364,72,90,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,480,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
- <anchor name="_ID_TAB_TRANSFERS" rect="138,2,102,24"/>
- <anchor name="_ID_TAB_NETWORK" rect="240,2,62,24"/>
- <anchor name="_ID_TAB_LIBRARY" rect="302,2,80,24"/>
- <anchor name="_ID_TAB_MEDIA" rect="382,2,92,24"/>
+ <anchor name="_ID_TAB_TRANSFERS" rect="138,2,100,24"/>
+ <anchor name="_ID_TAB_NETWORK" rect="238,2,62,24"/>
+ <anchor name="_ID_TAB_LIBRARY" rect="300,2,78,24"/>
+ <anchor name="_ID_TAB_MEDIA" rect="378,2,90,24"/>
 </anchors>
 </windowSkin>
 
 <!-- Finnish -->
 
 <windowSkin>
-<image type="image" language="fi" path="Seven\RibbonTabs_fi.png"/>
+<image type="image" language="fi" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1162,7 +1162,7 @@
 <!-- French -->
 
 <windowSkin>
-<image type="image" language="fr" path="Seven\RibbonTabs_fr.png"/>
+<image type="image" language="fr" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1207,7 +1207,7 @@
 <!-- Greek -->
 
 <windowSkin>
-<image type="image" language="gr" path="Seven\RibbonTabs_gr.png"/>
+<image type="image" language="gr" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1252,7 +1252,7 @@
 <!-- Croatian -->
 
 <windowSkin>
-<image type="image" language="hr" path="Seven\RibbonTabs_sr.png"/>
+<image type="image" language="hr" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1297,7 +1297,7 @@
 <!-- Hungarian -->
 
 <windowSkin>
-<image type="image" language="hu" path="Seven\RibbonTabs_hu.png"/>
+<image type="image" language="hu" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1342,7 +1342,7 @@
 <!-- Italian -->
 
 <windowSkin>
-<image type="image" language="it" path="Seven\RibbonTabs_it.png"/>
+<image type="image" language="it" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1387,7 +1387,7 @@
 <!-- Lithuanian -->
 
 <windowSkin>
-<image type="image" language="lt" path="Seven\RibbonTabs_lt.png"/>
+<image type="image" language="lt" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1432,7 +1432,7 @@
 <!-- Dutch -->
 
 <windowSkin>
-<image type="image" language="nl" path="Seven\RibbonTabs_nl.png"/>
+<image type="image" language="nl" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1477,7 +1477,7 @@
 <!-- Norwegian -->
 
 <windowSkin>
-<image type="image" language="no" path="Seven\RibbonTabs_no.png"/>
+<image type="image" language="no" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1522,7 +1522,7 @@
 <!-- Polish -->
 
 <windowSkin>
-<image type="image" language="pl" path="Seven\RibbonTabs_pl.png"/>
+<image type="image" language="pl" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1567,7 +1567,7 @@
 <!-- Portuguese -->
 
 <windowSkin>
-<image type="image" language="pt-br" path="Seven\RibbonTabs_pt.png"/>
+<image type="image" language="pt-br" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1612,7 +1612,7 @@
 <!-- Russian -->
 
 <windowSkin>
-<image type="image" language="ru" path="Seven\RibbonTabs_ru.png"/>
+<image type="image" language="ru" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1657,7 +1657,7 @@
 <!-- Slovenian -->
 
 <windowSkin>
-<image type="image" language="sl" path="Seven\RibbonTabs_sl.png"/>
+<image type="image" language="sl" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1702,7 +1702,7 @@
 <!-- Serbian -->
 
 <windowSkin>
-<image type="image" language="sr" path="Seven\RibbonTabs_sr.png"/>
+<image type="image" language="sr" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1747,7 +1747,7 @@
 <!-- Albanian -->
 
 <windowSkin>
-<image type="image" language="sq" path="Seven\RibbonTabs_sq.png"/>
+<image type="image" language="sq" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1789,55 +1789,100 @@
 </anchors>
 </windowSkin>
 
-<!-- Turkish -->
+<!-- Swedish -->
 
 <windowSkin>
-<image type="image" language="tr" path="Seven\RibbonTabs_tr.png"/>
+<image type="image" language="sv" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
- <part name="_ID_TAB_HOME.Up" rect="0,0,80,24"/>
- <part name="_ID_TAB_HOME.Checked" rect="0,24,80,24"/>
- <part name="_ID_TAB_HOME.Hover" rect="0,48,80,24"/>
- <part name="_ID_TAB_HOME.Down" rect="0,72,80,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="80,0,64,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="80,24,64,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="80,48,64,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="80,72,64,24"/>
- <part name="_ID_TAB_TRANSFERS.Up" rect="144,0,80,24"/>
- <part name="_ID_TAB_TRANSFERS.Checked" rect="144,24,80,24"/>
- <part name="_ID_TAB_TRANSFERS.Hover" rect="144,48,80,24"/>
- <part name="_ID_TAB_TRANSFERS.Down" rect="144,72,80,24"/>
- <part name="_ID_TAB_NETWORK.Up" rect="224,0,56,24"/>
- <part name="_ID_TAB_NETWORK.Checked" rect="224,24,56,24"/>
- <part name="_ID_TAB_NETWORK.Hover" rect="224,48,56,24"/>
- <part name="_ID_TAB_NETWORK.Down" rect="224,72,56,24"/>
- <part name="_ID_TAB_LIBRARY.Up" rect="280,0,86,24"/>
- <part name="_ID_TAB_LIBRARY.Checked" rect="280,24,86,24"/>
- <part name="_ID_TAB_LIBRARY.Hover" rect="280,48,86,24"/>
- <part name="_ID_TAB_LIBRARY.Down" rect="280,72,86,24"/>
- <part name="_ID_TAB_MEDIA.Up" rect="366,0,64,24"/>
- <part name="_ID_TAB_MEDIA.Checked" rect="366,24,64,24"/>
- <part name="_ID_TAB_MEDIA.Hover" rect="366,48,64,24"/>
- <part name="_ID_TAB_MEDIA.Down" rect="366,72,64,24"/>
+ <part name="_ID_TAB_HOME.Up" rect="62,0,66,24"/>
+ <part name="_ID_TAB_HOME.Checked" rect="62,24,66,24"/>
+ <part name="_ID_TAB_HOME.Hover" rect="62,48,66,24"/>
+ <part name="_ID_TAB_HOME.Down" rect="62,72,66,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="62,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="62,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="62,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="62,72,66,24"/>
+ <part name="_ID_TAB_TRANSFERS.Up" rect="128,0,74,24"/>
+ <part name="_ID_TAB_TRANSFERS.Checked" rect="128,24,74,24"/>
+ <part name="_ID_TAB_TRANSFERS.Hover" rect="128,48,74,24"/>
+ <part name="_ID_TAB_TRANSFERS.Down" rect="128,72,74,24"/>
+ <part name="_ID_TAB_NETWORK.Up" rect="128,0,74,24"/>
+ <part name="_ID_TAB_NETWORK.Checked" rect="128,24,74,24"/>
+ <part name="_ID_TAB_NETWORK.Hover" rect="128,48,74,24"/>
+ <part name="_ID_TAB_NETWORK.Down" rect="128,72,74,24"/>
+ <part name="_ID_TAB_LIBRARY.Up" rect="62,0,66,24"/>
+ <part name="_ID_TAB_LIBRARY.Checked" rect="62,24,66,24"/>
+ <part name="_ID_TAB_LIBRARY.Hover" rect="62,48,66,24"/>
+ <part name="_ID_TAB_LIBRARY.Down" rect="62,72,66,24"/>
+ <part name="_ID_TAB_MEDIA.Up" rect="62,0,66,24"/>
+ <part name="_ID_TAB_MEDIA.Checked" rect="62,24,66,24"/>
+ <part name="_ID_TAB_MEDIA.Hover" rect="62,48,66,24"/>
+ <part name="_ID_TAB_MEDIA.Down" rect="62,72,66,24"/>
+</parts>
+<anchors>
+ <anchor name="Background" rect="0,0,426,28"/>
+ <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
+ <anchor name="_ID_TAB_SEARCH" rect="72,2,66,24"/>
+ <anchor name="_ID_TAB_TRANSFERS" rect="138,2,74,24"/>
+ <anchor name="_ID_TAB_NETWORK" rect="212,2,74,24"/>
+ <anchor name="_ID_TAB_LIBRARY" rect="286,2,66,24"/>
+ <anchor name="_ID_TAB_MEDIA" rect="352,2,66,24"/>
+</anchors>
+</windowSkin>
+
+<!--* Turkish -->
+
+<windowSkin>
+<image type="image" language="tr" path="Seven\RibbonTabsBlank.png"/>
+<image type="watermark" path="Seven\RibbonTabsBkg.png"/>
+<target window="CMainTabBarCtrl"/>
+<target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Windowed"/>
+<parts>
+ <part name="_ID_TAB_HOME.Up" rect="202,0,78,24"/>
+ <part name="_ID_TAB_HOME.Checked" rect="202,24,78,24"/>
+ <part name="_ID_TAB_HOME.Hover" rect="202,48,78,24"/>
+ <part name="_ID_TAB_HOME.Down" rect="202,72,78,24"/>
+ <part name="_ID_TAB_SEARCH.Up" rect="0,0,62,24"/>
+ <part name="_ID_TAB_SEARCH.Checked" rect="0,24,62,24"/>
+ <part name="_ID_TAB_SEARCH.Hover" rect="0,48,62,24"/>
+ <part name="_ID_TAB_SEARCH.Down" rect="0,72,62,24"/>
+ <part name="_ID_TAB_TRANSFERS.Up" rect="202,0,78,24"/>
+ <part name="_ID_TAB_TRANSFERS.Checked" rect="202,24,78,24"/>
+ <part name="_ID_TAB_TRANSFERS.Hover" rect="202,48,78,24"/>
+ <part name="_ID_TAB_TRANSFERS.Down" rect="202,72,78,24"/>
+ <part name="_ID_TAB_NETWORK.Up" rect="0,0,62,24"/>
+ <part name="_ID_TAB_NETWORK.Checked" rect="0,24,62,24"/>
+ <part name="_ID_TAB_NETWORK.Hover" rect="0,48,62,24"/>
+ <part name="_ID_TAB_NETWORK.Down" rect="0,72,62,24"/>
+ <part name="_ID_TAB_LIBRARY.Up" rect="280,0,84,24"/>
+ <part name="_ID_TAB_LIBRARY.Checked" rect="280,24,84,24"/>
+ <part name="_ID_TAB_LIBRARY.Hover" rect="280,48,84,24"/>
+ <part name="_ID_TAB_LIBRARY.Down" rect="280,72,84,24"/>
+ <part name="_ID_TAB_MEDIA.Up" rect="0,0,62,24"/>
+ <part name="_ID_TAB_MEDIA.Checked" rect="0,24,62,24"/>
+ <part name="_ID_TAB_MEDIA.Hover" rect="0,48,62,24"/>
+ <part name="_ID_TAB_MEDIA.Down" rect="0,72,62,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,442,28"/>
- <anchor name="_ID_TAB_HOME" rect="8,2,80,24"/>
- <anchor name="_ID_TAB_SEARCH" rect="88,2,64,24"/>
- <anchor name="_ID_TAB_TRANSFERS" rect="152,2,80,24"/>
- <anchor name="_ID_TAB_NETWORK" rect="232,2,56,24"/>
- <anchor name="_ID_TAB_LIBRARY" rect="288,2,86,24"/>
- <anchor name="_ID_TAB_MEDIA" rect="374,2,64,24"/>
+ <anchor name="_ID_TAB_HOME" rect="6,2,78,24"/>
+ <anchor name="_ID_TAB_SEARCH" rect="84,2,62,24"/>
+ <anchor name="_ID_TAB_TRANSFERS" rect="146,2,78,24"/>
+ <anchor name="_ID_TAB_NETWORK" rect="214,2,62,24"/>
+ <anchor name="_ID_TAB_LIBRARY" rect="276,2,84,24"/>
+ <anchor name="_ID_TAB_MEDIA" rect="360,2,62,24"/>
 </anchors>
 </windowSkin>
 
 <!-- Japanese -->
 
 <windowSkin>
-<image type="image" language="ja" path="Seven\RibbonTabs_ja.png"/>
+<image type="image" language="ja" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1882,7 +1927,7 @@
 <!-- Korean -->
 
 <windowSkin>
-<image type="image" language="ko" path="Seven\RibbonTabs_ko.png"/>
+<image type="image" language="ko" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1927,7 +1972,7 @@
 <!-- Chinese Simple -->
 
 <windowSkin>
-<image type="image" language="chs" path="Seven\RibbonTabs_ch.png"/>
+<image type="image" language="chs" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1972,7 +2017,7 @@
 <!-- Chinese Traditional -->
 
 <windowSkin>
-<image type="image" language="tw" path="Seven\RibbonTabs_ch.png"/>
+<image type="image" language="tw" path="Seven\RibbonTabsBlank.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>

@@ -30,6 +30,7 @@
 #include "DownloadGroups.h"
 #include "FileExecutor.h"
 #include "Uploads.h"
+#include "Statistics.h"
 #include "SharedFile.h"
 #include "Library.h"
 #include "LibraryBuilder.h"
@@ -485,6 +486,8 @@ void CDownload::OnDownloaded()
 
 	ASSERT( !IsTasking() );
 	SetTask( new CDownloadTask( this, CDownloadTask::dtaskCopy ) );
+
+	Statistics.Current.Downloads.Files++;
 
 	SetModified();
 }

@@ -59,10 +59,11 @@ BEGIN_MESSAGE_MAP(CLibraryTreeView, CWnd)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_MOUSEWHEEL()
-	ON_WM_KEYDOWN()
-	ON_WM_RBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
+	ON_WM_RBUTTONDOWN()
+	ON_WM_XBUTTONDOWN()
+	ON_WM_KEYDOWN()
 	ON_WM_CONTEXTMENU()
 	ON_UPDATE_COMMAND_UI(ID_LIBRARY_PARENT, OnUpdateLibraryParent)
 	ON_COMMAND(ID_LIBRARY_PARENT, OnLibraryParent)
@@ -568,6 +569,13 @@ void CLibraryTreeView::OnLButtonDblClk(UINT nFlags, CPoint point)
 		NotifySelection();
 }
 
+void CLibraryTreeView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	m_bDrag = FALSE;
+
+	CWnd::OnLButtonUp( nFlags, point );
+}
+
 void CLibraryTreeView::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	OnLButtonDown( nFlags, point );
@@ -575,11 +583,10 @@ void CLibraryTreeView::OnRButtonDown(UINT nFlags, CPoint point)
 	CWnd::OnRButtonDown( nFlags, point );
 }
 
-void CLibraryTreeView::OnLButtonUp(UINT nFlags, CPoint point)
+void CLibraryTreeView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
 {
-	m_bDrag = FALSE;
-
-	CWnd::OnLButtonUp( nFlags, point );
+	if ( nButton == 1 )
+		OnLibraryParent();
 }
 
 void CLibraryTreeView::OnMouseMove(UINT nFlags, CPoint point)

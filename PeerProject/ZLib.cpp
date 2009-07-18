@@ -20,14 +20,13 @@
 //
 
 // CZLib makes it easier to use the zlib compression library
-// http://pantheraproject.net/wiki/index.php?title=Developers.Code.CZLib
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CZLib
 
-// Copy in the contents of these files here before compiling
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "ZLib.h"
 
-// If we are compiling in debug mode, replace the text "THIS_FILE" in the code with the name of this file
+// When compiling in debug mode, replace text "THIS_FILE" in the code with the name of this file
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -49,11 +48,11 @@ auto_array< BYTE > CZLib::Compress(LPCVOID pInput, DWORD nInput, DWORD* pnOutput
 	auto_array< BYTE > pBuffer( new BYTE[ *pnOutput ] );
 
 	// Compress the data at pInput into pBuffer, putting how many bytes it wrote under pnOutput
-	int nRes = compress(      // Compress data from one buffer to another, returns Z_OK 0 false if it works
-		pBuffer.get(),        // The output buffer where ZLib can write compressed data
-		pnOutput,             // Reads how much space it has there, writes how much space it used
-		(const BYTE *)pInput, // The source buffer with data to compress
-		nInput );             // The number of bytes there
+	int nRes = compress(		// Compress data from one buffer to another, returns Z_OK 0 false if it works
+		pBuffer.get(),			// The output buffer where ZLib can write compressed data
+		pnOutput,				// Reads how much space it has there, writes how much space it used
+		(const BYTE *)pInput,	// The source buffer with data to compress
+		nInput );				// The number of bytes there
 	if ( nRes != Z_OK )
 	{
 		// The compress function reported error
@@ -62,9 +61,9 @@ auto_array< BYTE > CZLib::Compress(LPCVOID pInput, DWORD nInput, DWORD* pnOutput
 	}
 
 	// The pBuffer buffer is too big, make a new one exactly the right size, copy the data, delete the first, and return the second
-	auto_array< BYTE > pOutput( new BYTE[ *pnOutput ] ); // Allocate a new buffer exactly big enough to hold the bytes compress wrote
-	memcpy( pOutput.get(), pBuffer.get(), *pnOutput );   // Copy the compressed bytes from the old buffer to the new one
-	return pOutput;                                      // Return the new one
+	auto_array< BYTE > pOutput( new BYTE[ *pnOutput ] );	// Allocate a new buffer exact size to hold the bytes compress wrote
+	memcpy( pOutput.get(), pBuffer.get(), *pnOutput );	// Copy the compressed bytes from the old buffer to the new one
+	return pOutput;										// Return new buffer
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -91,11 +90,11 @@ auto_array< BYTE > CZLib::Decompress(LPCVOID pInput, DWORD nInput, DWORD* pnOutp
 		*pnOutput = nSuggest;
 
 		// Uncompress the data from pInput into pBuffer, writing how big it is now in pnOutput
-		int nRes = uncompress(        // Uncompress data
-			pBuffer,                  // Destination buffer where uncompress can write uncompressed data
-			pnOutput,                 // Reads how much space it has there, and writes how much space it used
-			(const BYTE *)pInput,     // Source buffer of compressed data
-			nInput );                 // Number of bytes there
+		int nRes = uncompress(		// Uncompress data
+			pBuffer,				// Destination buffer where uncompress can write uncompressed data
+			pnOutput,				// Reads how much space it has there, and writes how much space it used
+			(const BYTE *)pInput,	// Source buffer of compressed data
+			nInput ); 				// Number of bytes there
 
 		if ( Z_OK == nRes )
 			break;
@@ -104,17 +103,17 @@ auto_array< BYTE > CZLib::Decompress(LPCVOID pInput, DWORD nInput, DWORD* pnOutp
 
 		if ( Z_BUF_ERROR != nRes )
 		{
-			// The uncompress function returned an error, delete the buffer we allocated and return error
+			// Uncompress function returned an error, delete allocated buffer and return the error
 			*pnOutput = 0;
 			return auto_array< BYTE >();
 		}
 	}
 
 	// The pBuffer buffer is bigger than necessary, move its bytes into one perfectly sized, and return it
-	auto_array< BYTE > pOutput( new BYTE[ *pnOutput ] ); // Make a new buffer exactly the right size
-	memcpy( pOutput.get(), pBuffer, *pnOutput );         // Copy the data from the one that's too big
+	auto_array< BYTE > pOutput( new BYTE[ *pnOutput ] );	// Make a new buffer exactly the right size
+	memcpy( pOutput.get(), pBuffer, *pnOutput );	// Copy the data from the one that's too big
 
 	delete [] pBuffer;
 
-	return pOutput;                                      // Return a pointer to the perfectly sized one
+	return pOutput;									// Return a pointer to the perfectly sized one
 }

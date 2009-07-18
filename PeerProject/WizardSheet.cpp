@@ -104,6 +104,8 @@ BOOL CWizardSheet::OnInitDialog()
 
 	SetIcon( CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE ), FALSE );
 	SetFont( &theApp.m_gdiFont );
+//	LoadString( strMessage, IDS_WIZARD );
+//	SetWindowText( _T( strMessage ) );
 
 	GetClientRect( &rc );
 

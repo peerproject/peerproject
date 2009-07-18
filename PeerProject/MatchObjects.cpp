@@ -1854,10 +1854,11 @@ void CMatchFile::Added(CQueryHit* pHit)
 		// Set torrent bool
 		if ( ( _tcsicmp( pszExt, _T("torrent") ) == 0 ) ) m_bTorrent = TRUE;
 
+		// BASIC SPAM DETECTION:
 		// Check if file is suspicious
 		if ( ! m_bSuspicious )
 		{
-			// These are basically always viral or useless
+			// Viral or useless filetypes
 			if ( ( _tcsicmp( pszExt, _T("vbs") ) == 0 ) ||
 				 ( _tcsicmp( pszExt, _T("lnk") ) == 0 ) ||
 				 ( _tcsicmp( pszExt, _T("pif") ) == 0 ) )
@@ -1865,43 +1866,72 @@ void CMatchFile::Added(CQueryHit* pHit)
 				m_bSuspicious = TRUE;
 			}
 
-			// Basic viral check. User still needs a virus scanner, but this may help. ;)
-			if ( ( _tcsicmp( pszExt, _T("exe") ) == 0 ) ||
-				 ( _tcsicmp( pszExt, _T("com") ) == 0 ) )
+			// Small filesize spam/viral
+			if ( m_nSize < 90 * 1024 )
 			{
-				if ( m_nSize < 128 * 1024 )
+				if ( ( _tcsicmp( pszExt, _T("exe") ) == 0 ) ||
+					( _tcsicmp( pszExt, _T("com") ) == 0 ) ||
+					( _tcsicmp( pszExt, _T("avi") ) == 0 ) ||
+					( _tcsicmp( pszExt, _T("mpg") ) == 0 ) ||
+					( _tcsicmp( pszExt, _T("wmv") ) == 0 ) ||
+					( _tcsicmp( pszExt, _T("wma") ) == 0 ) )
 				{
-					// It's really likely to be viral.
 					m_bSuspicious = TRUE;
 				}
 			}
 
-			// Really common spam types
-			if ( ( _tcsicmp( pszExt, _T("wmv") ) == 0 ) ||
-				 ( _tcsicmp( pszExt, _T("wma") ) == 0 ) )
+			// Exact search hit spam
+			if ( pHit->m_bExactMatch )
 			{
-				if ( m_nSize < 256 * 1024 )
+				if ( _tcsicmp( pszExt, _T("zip") ) == 0 )						//.zip
 				{
-					// A movie file this small is very odd.
-					m_bSuspicious = TRUE;
+					if ( ( m_nSize < 16 * 1024 ) ||
+						( m_nSize > 73 * 1024 && m_nSize < 75 * 1024 ) ||		// 74kb
+						( m_nSize > 88 * 1024 && m_nSize < 90 * 1024 ) ||		// 89kb
+						( m_nSize > 278 * 1024 && m_nSize < 282 * 1024 ) ||		//280kb
+						( m_nSize > 370 * 1024 && m_nSize < 372 * 1024 ) ||		//371kb
+						( m_nSize > 501 * 1024 && m_nSize < 505 * 1024 ) ||		//502kb
+						( m_nSize > 645 * 1024 && m_nSize < 655 * 1024 ) )		//650kb
+					{
+						m_bSuspicious = TRUE;
+					}
 				}
-			}
-
-			// ZIP/RAR spam
-			if ( ( _tcsicmp( pszExt, _T("zip") ) == 0 ) ||
-				 ( _tcsicmp( pszExt, _T("rar") ) == 0 ) )
-			{
-				if ( m_nSize < 128 * 1024 )
+				else if ( _tcsicmp( pszExt, _T("wma") ) == 0 )					//.wma
 				{
-					m_bSuspicious = TRUE;
+					if ( ( m_nSize > 525 * 1024 && m_nSize < 530 * 1024 ) ||	//528kb
+						( m_nSize > 575 * 1024 && m_nSize < 577 * 1024 )  ||	//576kb
+						( m_nSize > 2800 * 1024 && m_nSize < 2860 * 1024 ) ||	//2.75mb
+						( m_nSize > 3330 * 1024 && m_nSize < 3480 * 1024 ) )	//3.32mb
+					{
+						m_bSuspicious = TRUE;
+					}
 				}
-				else if ( ( m_nSize < 512 * 1024 ) && ( pHit->m_bExactMatch ) )
+				else if ( _tcsicmp( pszExt, _T("mp3") ) == 0 )					//.mp3
 				{
-					m_bSuspicious = TRUE;
+					if ( ( m_nSize > 3460 * 1024 && m_nSize < 3480 * 1024 ) ||	//3.38mb
+						( m_nSize > 5000 * 1024 && m_nSize < 5120 * 1024 ) ||	//4.98mb
+						( m_nSize > 5780 * 1024 && m_nSize < 5800 * 1024 ) )	//5.65mb
+					{
+						m_bSuspicious = TRUE;
+					}
+				}
+				else if ( _tcsicmp( pszExt, _T("mpg") ) == 0 )					//.mpg
+				{
+					if ( m_nSize > 556 * 1024 && m_nSize < 564 * 1024 )			//560kb
+					{
+						m_bSuspicious = TRUE;
+					}
+				}
+				else if ( ( _tcsicmp( pszExt, _T("au") ) == 0 ) ||				//.au
+					( _tcsicmp( pszExt, _T("snd") ) == 0 ) )					//.snd
+				{
+					if ( m_nSize > 3800 * 1024 && m_nSize < 5500 * 1024 )		//~4 mb
+					{
+						m_bSuspicious = TRUE;
+					}
 				}
 			}
 		}
-
 	}
 
 	if ( m_bDownload ) pHit->m_bDownload = TRUE;

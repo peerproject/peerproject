@@ -107,6 +107,11 @@ BOOL CWizardProfilePage::OnInitDialog()
 
 BOOL CWizardProfilePage::OnSetActive()
 {
+	//Wizard Window Caption Workaround
+	CString strCaption;
+	GetWindowText( strCaption );
+	GetParent()->SetWindowText( strCaption );
+
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
 
 	m_sNick = MyProfile.GetNick();
@@ -300,7 +305,7 @@ LRESULT CWizardProfilePage::OnWizardNext()
 		if ( pLocation->GetElementCount() == 0 ) pLocation->Delete();
 	}
 
-	/* These popups are pretty annoying. Since this information is underutilized let's 
+	/* These popups are pretty annoying. Since this information is underutilized let's
 	   not put so much emphasis on it at this time.
 
 	if ( MyProfile.GetNick().IsEmpty() )

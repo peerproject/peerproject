@@ -106,7 +106,8 @@ BOOL CSkinDialog::SkinMe(LPCTSTR pszSkin, UINT nIcon, BOOL bLanguage)
 
 	if ( m_pSkin != NULL )
 	{
-		if ( GetStyle() & WS_CAPTION ) ModifyStyle( WS_CAPTION, 0 );
+		if ( GetStyle() & WS_CAPTION )
+			ModifyStyle( WS_CAPTION, 0 );
 
 		m_pSkin->CalcWindowRect( &rc );
 
@@ -118,7 +119,8 @@ BOOL CSkinDialog::SkinMe(LPCTSTR pszSkin, UINT nIcon, BOOL bLanguage)
 	}
 	else
 	{
-		if ( ( GetStyle() & WS_CAPTION ) == 0 ) ModifyStyle( 0, WS_CAPTION );
+		if ( ( GetStyle() & WS_CAPTION ) == 0 )
+			ModifyStyle( 0, WS_CAPTION );
 
 		CalcWindowRect( &rc );
 		SetWindowRgn( NULL, FALSE );
