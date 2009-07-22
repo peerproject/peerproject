@@ -80,7 +80,7 @@ BEGIN_MESSAGE_MAP(CLibraryFrame, CWnd)
 END_MESSAGE_MAP()
 
 #define SPLIT_SIZE		6
-//define TOOLBAR_HEIGHT 28
+//define TOOLBAR_HEIGHT 28	 // Skin.m_nToolbarHeight
 
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryFrame construction
@@ -137,7 +137,7 @@ int CLibraryFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndTreeBottom.SetBarStyle( m_wndTreeBottom.GetBarStyle() | CBRS_TOOLTIPS|CBRS_BORDER_TOP );
 	m_wndTreeBottom.SetOwner( GetOwner() );
 
-	CRect rcTypes( 0, 0, 128, TOOLBAR_HEIGHT );
+	CRect rcTypes( 0, 0, 128, Skin.m_nToolbarHeight );
 	if ( ! m_wndTreeTypes.Create( WS_CHILD|WS_CLIPSIBLINGS, rcTypes, this, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndTreeTypes.GetWindowRect( &rcTypes );
 	m_nTreeTypesHeight = rcTypes.Height();
@@ -187,6 +187,7 @@ void CLibraryFrame::OnDestroy()
 
 void CLibraryFrame::OnSkinChange()
 {
+	OnSize( 0, 0, 0 );
 	m_wndTree.SetVirtual( Settings.Library.ShowVirtual );
 
 	Skin.CreateToolBar( _T("CLibraryTree.Top"), &m_wndTreeTop );
@@ -276,41 +277,41 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 	{
 		m_nTreeSize = max( 0, rc.Width() - SPLIT_SIZE );
 	}
-	if ( rc.Height() - TOOLBAR_HEIGHT * 2 - m_nHeaderSize < m_nPanelSize + SPLIT_SIZE )
+	if ( rc.Height() - Skin.m_nToolbarHeight * 2 - m_nHeaderSize < m_nPanelSize + SPLIT_SIZE )
 	{
-		m_nPanelSize = max( 0, rc.Height() - TOOLBAR_HEIGHT * 2 - m_nHeaderSize - SPLIT_SIZE );
+		m_nPanelSize = max( 0, rc.Height() - Skin.m_nToolbarHeight * 2 - m_nHeaderSize - SPLIT_SIZE );
 	}
 
 	HDWP hDWP = BeginDeferWindowPos(
 		7 + ( m_pView != NULL ) + ( m_pPanel != NULL ) + ( m_nHeaderSize > 0 ) );
 
 	DeferWindowPos( hDWP, m_wndTreeTop.GetSafeHwnd(), NULL,
-		rc.left, rc.top, m_nTreeSize, TOOLBAR_HEIGHT, SWP_NOZORDER );
+		rc.left, rc.top, m_nTreeSize, Skin.m_nToolbarHeight, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndTreeBottom.GetSafeHwnd(), NULL,
-		rc.left, rc.bottom - TOOLBAR_HEIGHT, m_nTreeSize, TOOLBAR_HEIGHT, SWP_NOZORDER );
+		rc.left, rc.bottom - Skin.m_nToolbarHeight, m_nTreeSize, Skin.m_nToolbarHeight, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndTreeTypes.GetSafeHwnd(), NULL,
 		rc.left, rc.bottom - m_nTreeTypesHeight, m_nTreeSize, 256, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndViewTop.GetSafeHwnd(), NULL,
 		rc.left + m_nTreeSize + SPLIT_SIZE, rc.top,
-		rc.Width() - m_nTreeSize - SPLIT_SIZE, TOOLBAR_HEIGHT - 1, SWP_NOZORDER );
+		rc.Width() - m_nTreeSize - SPLIT_SIZE, Skin.m_nToolbarHeight - 1, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndViewBottom.GetSafeHwnd(), NULL,
-		rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - TOOLBAR_HEIGHT,
-		rc.Width() - m_nTreeSize - SPLIT_SIZE, TOOLBAR_HEIGHT, SWP_NOZORDER );
+		rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - Skin.m_nToolbarHeight,
+		rc.Width() - m_nTreeSize - SPLIT_SIZE, Skin.m_nToolbarHeight, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndBottomDynamic.GetSafeHwnd(), NULL,
-		rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - TOOLBAR_HEIGHT * 2,
-		rc.Width() - m_nTreeSize - SPLIT_SIZE, TOOLBAR_HEIGHT, SWP_NOZORDER );
+		rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - Skin.m_nToolbarHeight * 2,
+		rc.Width() - m_nTreeSize - SPLIT_SIZE, Skin.m_nToolbarHeight, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndTree.GetSafeHwnd(), NULL,
-		rc.left, rc.top + TOOLBAR_HEIGHT, m_nTreeSize, rc.Height() - TOOLBAR_HEIGHT * 2, SWP_NOZORDER );
+		rc.left, rc.top + Skin.m_nToolbarHeight, m_nTreeSize, rc.Height() - Skin.m_nToolbarHeight * 2, SWP_NOZORDER );
 
 	if ( m_pView != NULL )
 	{
-		int nTop = rc.top + TOOLBAR_HEIGHT - 1;
+		int nTop = rc.top + Skin.m_nToolbarHeight - 1;
 
 		if ( m_nHeaderSize > 0 )
 		{
@@ -321,7 +322,7 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 			nTop += m_nHeaderSize + 1;
 		}
 
-		int nHeight = rc.bottom - TOOLBAR_HEIGHT - nTop;
+		int nHeight = rc.bottom - Skin.m_nToolbarHeight - nTop;
 		if ( m_pPanel ) nHeight -= m_nPanelSize + SPLIT_SIZE;
 
 		DeferWindowPos( hDWP, m_pView->GetSafeHwnd(), NULL,
@@ -332,7 +333,7 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 	if ( m_pPanel != NULL )
 	{
 		DeferWindowPos( hDWP, m_pPanel->GetSafeHwnd(), NULL,
-			rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - TOOLBAR_HEIGHT - m_nPanelSize,
+			rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - Skin.m_nToolbarHeight - m_nPanelSize,
 			rc.Width() - m_nTreeSize - SPLIT_SIZE, m_nPanelSize, SWP_NOZORDER|SWP_SHOWWINDOW );
 	}
 
@@ -358,13 +359,13 @@ void CLibraryFrame::OnPaint()
 
 	if ( m_nHeaderSize > 0 )
 	{
-		dc.FillSolidRect( rc.right, rcClient.top + TOOLBAR_HEIGHT - 1 + m_nHeaderSize,
+		dc.FillSolidRect( rc.right, rcClient.top + Skin.m_nToolbarHeight - 1 + m_nHeaderSize,
 			rcClient.right - rc.right, 1, CoolInterface.m_crSys3DHighlight );
 	}
 
 	if ( Settings.Library.ShowVirtual == FALSE )
 	{
-		rc.SetRect( rcClient.left, rcClient.bottom - TOOLBAR_HEIGHT,
+		rc.SetRect( rcClient.left, rcClient.bottom - Skin.m_nToolbarHeight,
 			rcClient.left + m_nTreeSize, rcClient.bottom - m_nTreeTypesHeight );
 		dc.FillSolidRect( rc.left, rc.top, rc.Width(), 1, CoolInterface.m_crSys3DShadow );
 		dc.FillSolidRect( rc.left, rc.top + 1, rc.Width(), 1, CoolInterface.m_crSys3DHighlight );
@@ -374,9 +375,9 @@ void CLibraryFrame::OnPaint()
 	if ( m_pPanel != NULL )
 	{
 		rc.SetRect(	rcClient.left + m_nTreeSize + SPLIT_SIZE,
-					rcClient.bottom - TOOLBAR_HEIGHT - m_nPanelSize - SPLIT_SIZE,
+					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize - SPLIT_SIZE,
 					rcClient.right,
-					rcClient.bottom - TOOLBAR_HEIGHT - m_nPanelSize );
+					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize );
 
 		dc.FillSolidRect( rc.left, rc.top, rc.Width(), 1, CoolInterface.m_crResizebarEdge );
 		dc.FillSolidRect( rc.left, rc.top + 1, rc.Width(), 1, CoolInterface.m_crResizebarHighlight );
@@ -425,9 +426,9 @@ BOOL CLibraryFrame::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	{
 		rc.SetRect(	Settings.General.LanguageRTL ? rcClient.left :
 					rcClient.left + m_nTreeSize + SPLIT_SIZE,
-					rcClient.bottom - TOOLBAR_HEIGHT - m_nPanelSize - SPLIT_SIZE,
+					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize - SPLIT_SIZE,
 					Settings.General.LanguageRTL ? rcClient.right - m_nTreeSize : rcClient.right,
-					rcClient.bottom - TOOLBAR_HEIGHT - m_nPanelSize );
+					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize );
 
 		if ( rc.PtInRect( point ) )
 		{
@@ -459,9 +460,9 @@ void CLibraryFrame::OnLButtonDown(UINT nFlags, CPoint point)
 	if ( m_pPanel != NULL )
 	{
 		rc.SetRect(	rcClient.left + m_nTreeSize + SPLIT_SIZE,
-					rcClient.bottom - TOOLBAR_HEIGHT - m_nPanelSize - SPLIT_SIZE,
+					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize - SPLIT_SIZE,
 					rcClient.right,
-					rcClient.bottom - TOOLBAR_HEIGHT - m_nPanelSize );
+					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize );
 
 		if ( rc.PtInRect( point ) )
 		{
@@ -536,8 +537,8 @@ BOOL CLibraryFrame::DoSizePanel()
 
 	GetClientRect( &rcClient );
 	rcClient.left += m_nTreeSize + SPLIT_SIZE;
-	rcClient.top += TOOLBAR_HEIGHT + m_nHeaderSize;
-	rcClient.bottom -= TOOLBAR_HEIGHT;
+	rcClient.top += Skin.m_nToolbarHeight + m_nHeaderSize;
+	rcClient.bottom -= Skin.m_nToolbarHeight;
 	ClientToScreen( &rcClient );
 	ClipCursor( &rcClient );
 	SetCapture();

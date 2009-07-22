@@ -30,7 +30,7 @@
 <toolbars>
 	<!-- MAIN WINDOW -->
 	<toolbar name="CMainWnd.Basic">
-		<button id="ID_NETWORK_CONNECT" text="_Anslut" />
+		<button id="ID_NETWORK_CONNECT" text="Anslut" />
 		<separator/>
 		<button id="ID_TAB_HOME" text="Hem" />
 		<button id="ID_TAB_SEARCH" text="Sök" />
@@ -47,10 +47,10 @@
 		<button id="ID_TAB_NETWORK" text="Nätverk" />
 		<button id="ID_TAB_LIBRARY" text="Bibliotek" />
 		<button id="ID_TAB_MEDIA" text="Media" />
-		<button id="ID_TAB_IRC" text="Chat"/>
+		<button id="ID_TAB_IRC" text="Chat" />
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
-		<button id="ID_NETWORK_CONNECT" text="_Anslut" />
+		<button id="ID_NETWORK_CONNECT" text="Anslut" />
 		<button id="ID_NETWORK_DISCONNECT"/>
 		<separator/>
 		<button id="ID_TAB_HOME"/>
@@ -82,24 +82,23 @@
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Ladda ned" />
 		<button id="ID_BROWSE_LAUNCH" text="Visa användarens filer" />
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Visa sökning" />
-		<button id="ID_SEARCH_DETAILS" text="Visa detaljer" />
 		<rightAlign/>
-		<label text="Filter:" tip="Skriv några ord för att filtrera resultatet" />
-		<control id="IDC_FILTER_BOX" width="130"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mer…" />
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Skriv några ord för att filtrera resultatet" />
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Visa detaljer" />
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="Ladda ned" />
-		<button id="ID_BROWSE_LAUNCH" text="Visa användarens filer" />
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Visa sökning" />
-		<button id="ID_SEARCH_DETAILS" text="Visa detaljer" />
+		<button id="ID_BROWSE_LAUNCH" text="Visa användarens filer" />
+		<button id="ID_SECURITY_BAN" text="Ban User"/>
 		<rightAlign/>
-		<label text="Filter:" tip="Skriv några ord för att filtrera resultatet" />
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mer…" />
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Skriv några ord för att filtrera resultatet" />
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Visa detaljer" />
+		<button id="ID_SEARCH_PANEL" text="Visa sökning" />
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Sk igen..."/>
@@ -107,13 +106,13 @@
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Ladda ned"/>
 		<button id="ID_BROWSE_LAUNCH" text="Visa användarens filer"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Visa sökning" />
-		<button id="ID_SEARCH_DETAILS" text="Visa detaljer" />
+		<button id="ID_SECURITY_BAN" text="Ban User"/>
 		<rightAlign/>
-		<label text="Filter:" tip="Skriv några ord för att filtrera resultatet" />
-		<control id="IDC_FILTER_BOX" width="150"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mer…" />
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Skriv några ord för att filtrera resultatet" />
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Visa detaljer" />
+		<button id="ID_SEARCH_PANEL" text="Visa sökning" />
 	</toolbar>
 	<!-- BROWSE HOST WINDOW -->
 	<toolbar name="CBrowseHeaderCtrl">
@@ -127,25 +126,23 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Ladda ned fil" />
 		<button id="ID_SEARCH_CHAT" text="Chatta med användare" />
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Skriv några ord för att filtrera resultatet" />
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Visa detaljer" />
-		<rightAlign/>
-		<label text="Filter:" tip="Skriv några ord för att filtrera resultatet" />
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mer…" />
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Ladda ned fil" />
-		<button id="ID_SEARCH_CHAT" text="Chatta med användare" />
-		<separator/>
 		<button id="ID_BROWSE_STOP" text="Stopp" />
 		<button id="ID_BROWSE_REFRESH" text="Uppdatera" />
 		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="Visa detaljer" />
+		<button id="ID_SEARCH_CHAT" text="Chatta med användare" />
 		<rightAlign/>
-		<label text="Filter:" tip="Skriv några ord för att filtrera resultatet" />
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mer…" />
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Skriv några ord för att filtrera resultatet" />
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Visa detaljer" />
 	</toolbar>
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
@@ -383,7 +380,7 @@
 		<button id="ID_HITMONITOR_CLEAR" text="Rensa"/>
 		<rightAlign/>
 		<label text="Filter:" tip="Skriv några ord för att filtrera resultatet" />
-		<control id="IDC_FILTER_BOX" width="160"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Mer…" />
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
@@ -461,76 +458,96 @@
 		<item id="ID_NETWORK_EXIT" text="Avsluta" />
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
-	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="_Nätverk">
-			<item id="ID_NETWORK_CONNECT" text="_Anslut" shortcut="Ctrl+G" />
-			<separator/>
-			<menu text="Välj _Nätverk">
-				<item id="ID_NETWORK_G2" text="Anslut till _Gnutella2" />
-				<item id="ID_NETWORK_G1" text="Anslut till Gnutella_1" />
-				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey" />
-			</menu>
-			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="Avsluta _efter överföringar" />
-			<item id="ID_NETWORK_EXIT" text="A_vsluta" />
-		</menu>
-		<menu text="_Visa">
-			<item id="ID_TAB_HOME" text="_Hem" />
-			<item id="ID_TAB_LIBRARY" text="_Bibliotek" />
-			<item id="ID_TAB_MEDIA" text="_Mediaspelare" />
-			<item id="ID_TAB_SEARCH" text="_Sök" />
-			<item id="ID_TAB_TRANSFERS" text="_Nedladdningar" />
-			<item id="ID_WINDOW_REMOTE" text="_Fjärrkontroll"/>
-			<item id="ID_TAB_IRC" text="_Chat"/>
-			<separator/>
-			<menu text="_Avancerat">
-				<item id="ID_VIEW_NEIGHBOURS" text="_Grannar"/>
-				<item id="ID_VIEW_UPLOADS" text="_Uppladdningar"/>
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+			<item id="ID_TOOLS_SETTINGS" text="_Inställningar…"/>
+			<menu text="_Nätverk">
+				<item id="ID_NETWORK_CONNECT" text="_Anslut" shortcut="Ctrl+G" />
+				<item id="ID_NETWORK_DISCONNECT" text="_Koppla ifrån" />
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="Sä_kerhet"/>
-				<item id="ID_VIEW_HOSTS" text="_Värdcache"/>
-				<item id="ID_VIEW_DISCOVERY" text="_Upptäck"/>
+				<item id="ID_NETWORK_G2" text="Anslut till Gnutella_2" />
+				<item id="ID_NETWORK_G1" text="Anslut till _Gnutella" />
+				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey" />
+				<separator/>
+				<item id="ID_NETWORK_CONNECT_TO" text="Anslut _till…" shortcut="Ctrl+T" />
+				<item id="ID_NETWORK_BROWSE_TO" text="Visa värdens _filer…" />
+				<separator/>
+				<item id="ID_NETWORK_AUTO_CLOSE" text="Avsluta _efter överföringar" />
+				<item id="ID_NETWORK_EXIT" text="A_vsluta" />
 			</menu>
-			<separator/>
-			<item id="ID_VIEW_BASIC" text="_Normalt läge"/>
-			<item id="ID_VIEW_TABBED" text="Avancerat _läge"/>
-		</menu>
-		<menu text="_Verktyg">
-			<item id="ID_LIBRARY_FOLDERS" text="Dela ut _filer..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="_Ladda ned fil/Torrent"/>
-			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Välj _skinn"/>
-			<item id="ID_TOOLS_LANGUAGE" text="Välj ett s_pråk"/>
-			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="Redigera _min profil"/>
-			<item id="ID_TOOLS_WIZARD" text="Snabbstarts_guide"/>
-			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="_Inställningar…" />
-		</menu>
-		<menu text="_Hjälp">
-			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
-			<item id="ID_HELP_TEST" text="_Testa din anslutning"/>
-			<separator/>
-			<menu text="_Guider">
-				<item id="ID_HELP_GUIDE" text="PeerProjects Användar_guide"/>
-				<item id="ID_HELP_ROUTER" text="_Routerhjälp"/>
-				<item id="ID_HELP_SECURITY" text="Sä_kerhetshjälp"/>
-				<item id="ID_HELP_CODEC" text="_Codechjälp"/>
+			<menu text="V_erktyg">
+				<item id="ID_LIBRARY_FOLDERS" text="Utdelade _filer…" />
+				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_ppna mappen med avslutade"/>
+				<separator/>
+				<item id="ID_TOOLS_DOWNLOAD" text="_Ladda ned fil/Torrent…" />
+				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+				<item id="IDC_IMPORT_DOWNLOADS" text="_Importera oavslutade eMule"/>
+				<separator/>
+				<item id="ID_TOOLS_LANGUAGE" text="Välj ett s_pråk…" />
+				<item id="ID_TOOLS_SKIN" text="Välj _skinn…" />
+				<separator/>
+				<item id="ID_TOOLS_PROFILE" text="Redigera _min profil…" />
+				<item id="ID_TOOLS_WIZARD" text="Snabbstarts_guide…" />
+				<separator/>
+				<item id="ID_TOOLS_SETTINGS" text="_Inställningar…" />
 			</menu>
-			<separator/>
-			<menu text="_Webbsidor">
+			<menu text="_Visa">
+				<item id="ID_TAB_HOME" text="_Hem"  shortcut="Ctrl+H" />
+				<item id="ID_VIEW_SYSTEM" text="S_ystem" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="_Grannar" shortcut="Ctrl+F11" />
+				<item id="ID_VIEW_DOWNLOADS" text="_Nedladdningar" shortcut="F3" />
+				<item id="ID_VIEW_UPLOADS" text="_Uppladdningar" shortcut="F4" />
+				<item id="ID_VIEW_LIBRARY" text="_Bibliotek" shortcut="F5" />
+				<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6" />
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Sä_kerhet" shortcut="F7" />
+				<item id="ID_VIEW_HOSTS" text="_Värdcache" shortcut="F8" />
+				<item id="ID_VIEW_DISCOVERY" text="_Upptäck" shortcut="F9" />
+				<item id="ID_VIEW_TRAFFIC" text="_Diagram" shortcut="F10" />
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="_Paketdump" shortcut="Ctrl+F1" />
+				<item id="ID_VIEW_SEARCH_MONITOR" text="_Sökmonitor" shortcut="Ctrl+F2" />
+				<item id="ID_VIEW_RESULTS_MONITOR" text="_Träffmonitor" shortcut="Ctrl+F3" />
+				<item id="ID_TAB_SEARCH" text="_Sök" shortcut="Ctrl+S" />
+			</menu>
+			<menu text="_Fönster">
+				<item id="ID_VIEW_BASIC" text="_Normalt läge" />
+				<item id="ID_VIEW_TABBED" text="_Tabbläge" />
+				<item id="ID_VIEW_WINDOWED" text="_Fönsterläge" />
+				<separator/>
+				<item id="ID_WINDOW_NAVBAR" text="Visa _navigationsfält" />
+				<item id="ID_WINDOW_TOOLBAR" text="Visa _verktygsfält" />
+				<separator/>
+				<item id="ID_WINDOW_TAB	BAR" text="Visa _tabbfält" />
+				<item id="ID_WINDOW_MONITOR" text="Visa _monitor" />
+				<item id="ID_WINDOW_REMOTE" text="Visa _fjärrkontroll" />
+			</menu>
+			<menu text="_Hjälp">
+				<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
+				<item id="ID_HELP_TEST" text="_Testa din anslutning"/>
+				<separator/>
+				<menu text="_Guider">
+					<item id="ID_HELP_GUIDE" text="PeerProjects användar_guide"/>
+					<item id="ID_HELP_ROUTER" text="_Routerhjälp"/>
+					<item id="ID_HELP_SECURITY" text="Sä_kerhetshjälp"/>
+					<item id="ID_HELP_CODEC" text="_Codechjälp"/>
+				</menu>
+				<separator/>
+				<menu text="_Webbsidor">
+					<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
+					<separator/>
+					<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet!"/>
+					<item id="ID_HELP_VERSION_CHECK" text="Leta efter ny version"/>
+					<!-- <item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				</menu>
+				<separator/>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjects hemsida"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Senaste _nyheter"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_ABOUT" text="_Om PeerProject"/>
 			</menu>
-			<separator/>
-			<item id="ID_HELP_VERSION_CHECK" text="_Leta efter nya versioner"/>
-			<separator/>
-			<item id="ID_HELP_ABOUT" text="_Om PeerProject"/>
-			<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet!"/>
+			<item id="ID_NETWORK_EXIT" text="A_vsluta"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
@@ -627,6 +644,78 @@
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Leta efter ny version"/>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="_Om PeerProject"/>
+			<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet!"/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="_Nätverk">
+			<item id="ID_NETWORK_CONNECT" text="_Anslut" shortcut="Ctrl+G" />
+			<separator/>
+			<menu text="Välj _Nätverk">
+				<item id="ID_NETWORK_G2" text="Anslut till _Gnutella2" />
+				<item id="ID_NETWORK_G1" text="Anslut till Gnutella_1" />
+				<item id="ID_NETWORK_ED2K" text="Anslut till _eDonkey" />
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Avsluta _efter överföringar" />
+			<item id="ID_NETWORK_EXIT" text="A_vsluta" />
+		</menu>
+		<menu text="_Visa">
+			<item id="ID_TAB_HOME" text="_Hem" />
+			<item id="ID_TAB_LIBRARY" text="_Bibliotek" />
+			<item id="ID_TAB_MEDIA" text="_Mediaspelare" />
+			<item id="ID_TAB_SEARCH" text="_Sök" />
+			<item id="ID_TAB_TRANSFERS" text="_Nedladdningar" />
+			<item id="ID_WINDOW_REMOTE" text="_Fjärrkontroll"/>
+			<item id="ID_TAB_IRC" text="_Chat"/>
+			<separator/>
+			<menu text="_Avancerat">
+				<item id="ID_VIEW_NEIGHBOURS" text="_Grannar"/>
+				<item id="ID_VIEW_UPLOADS" text="_Uppladdningar"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Sä_kerhet"/>
+				<item id="ID_VIEW_HOSTS" text="_Värdcache"/>
+				<item id="ID_VIEW_DISCOVERY" text="_Upptäck"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="_Normalt läge"/>
+			<item id="ID_VIEW_TABBED" text="Avancerat _läge"/>
+		</menu>
+		<menu text="_Verktyg">
+			<item id="ID_LIBRARY_FOLDERS" text="Dela ut _filer..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Ladda ned fil/Torrent"/>
+			<separator/>
+			<item id="ID_TOOLS_SKIN" text="Välj _skinn"/>
+			<item id="ID_TOOLS_LANGUAGE" text="Välj ett s_pråk"/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Redigera _min profil"/>
+			<item id="ID_TOOLS_WIZARD" text="Snabbstarts_guide"/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="_Inställningar…" />
+		</menu>
+		<menu text="_Hjälp">
+			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
+			<item id="ID_HELP_TEST" text="_Testa din anslutning"/>
+			<separator/>
+			<menu text="_Guider">
+				<item id="ID_HELP_GUIDE" text="PeerProjects Användar_guide"/>
+				<item id="ID_HELP_ROUTER" text="_Routerhjälp"/>
+				<item id="ID_HELP_SECURITY" text="Sä_kerhetshjälp"/>
+				<item id="ID_HELP_CODEC" text="_Codechjälp"/>
+			</menu>
+			<separator/>
+			<menu text="_Webbsidor">
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProjects hemsida"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
+				<!-- <item id="ID_HELP_UPDATE" text="Senaste _nyheter"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+			</menu>
+			<separator/>
+			<item id="ID_HELP_VERSION_CHECK" text="_Leta efter nya versioner"/>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Om PeerProject"/>
 			<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet!"/>
@@ -1560,17 +1649,20 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">START DOWNLOAD</heading>
-			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Klicka här för att starta</link>
-			<text align="middle">&#160; nedladdning av ny fil eller torrent.</text>
-			<newline gap="24" indent="0"/>
 			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
-			<heading align="middle">S Ö K   PEERPROJECT</heading>
+			<heading align="middle">SÖK HÄR</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
-			<newline gap="12" indent="0"/>
+			<newline gap="14" indent="0"/>
+			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<heading align="middle">START NEDLADDAD</heading>
+			<newline gap="8" indent="42"/>
+			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Klicka här för att starta</link>
+			<text>&#160;nedladdning av ny fil eller torrent.</text>
+			<newline gap="2" indent="42"/>
+			<text>Eller öppna min mapp med </text>
+			<link target="peer:shell:downloads">nedladdade filer.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1647,7 +1739,7 @@
 	<document name="CHomeConnectionBox" title="Anslutning" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1679,20 +1771,20 @@
 		<newline group="30" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="4"/>
-				<text>Du har varit ansluten i </text>
-				<newline gap="0"/>
+				<newline gap="2"/>
+				<link target="peer:command:ID_TAB_NETWORK">Nätverk Session</link>
+				<newline gap="2"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>timmar och </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minuter.</text>
+				<text>minuter</text>
 			</para>
 		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="Bibliotek" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1700,13 +1792,12 @@
 				<text>Du har inte laddat ned några ny filer på sistone.</text>
 				<newline gap="8"/>
 			</group>
+			<link target="peer:command:ID_VIEW_LIBRARY">Gå till bibliotek</link>
+			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
-			<text>filer, </text>
+			<text>filer (</text>
 			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="4"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Gå till mitt bibliotek</link>
-			<newline gap="4"/>
-			<link format="bu" target="peer:shell:downloads">Öppna min mapp med nedladdade filer</link>
+			<text>)</text>
 			<group id="1">
 				<newline gap="8"/>
 				<text>PeerProject granskar och arbetar</text>
@@ -1725,7 +1816,7 @@
 	<document name="CHomeDownloadsBox" title="Nedladdningar" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1747,7 +1838,7 @@
 	<document name="CHomeUploadsBox" title="Uppladdningar" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1905,7 +1996,7 @@
 		</group>
 		<group id="3">
 			<newline gap="16" indent="0"/>
-		<text format="b">Favoritlänkar</text>
+			<text format="b">Favoritlänkar</text>
 			<newline gap="4" indent="8" id="Bookmarks"/>
 		</group>
 		<newline gap="16" indent="0"/>
@@ -1917,81 +2008,81 @@
 		<text>Här visas filer som håller på att laddas ner. Du kan visa
 		källor för varje fil genom att klicka på plustecknet bredvid filens namn.</text>
 		<newline gap="8"/>
-		<text>Du kan använda detta kommando för att få hjälp om en nedladdning. Välj helt enkelt
-	en nedladdning och klicka på detta kommando igen.</text>
+		<text>Du kan använda detta kommando för att få hjälp om en nedladdning.
+		Välj helt enkelt en nedladdning och klicka på detta kommando igen.</text>
 	</document>
 	<document name="DownloadHelp.Completed">
 		<text format="b">Denna nedladdning är fullständig</text>
 		<newline gap="8"/>
-		<text>PeerProject har laddat ned denna fil fullständigt och verifierat att den är
-	100% korrekt. Den har också flyttats till din nedladdningsmapp.</text>
+		<text>PeerProject har laddat ned denna fil fullständigt och verifierat att den är 100% korrekt.
+		Den har också flyttats till din nedladdningsmapp.</text>
 	</document>
 	<document name="DownloadHelp.Moving">
 		<text format="b">Denna nedladdning flyttas</text>
 		<newline gap="8"/>
-		<text>PeerProject har avslutad nedladdningen av denna fil och har verifierat att den
-	är korrekt. Den flyttas för tillfället och/eller packas upp till din nedladdningsmapp.</text>
+		<text>PeerProject har avslutad nedladdningen av denna fil och har verifierat att den är korrekt.
+		Den flyttas för tillfället och/eller packas upp till din nedladdningsmapp.</text>
 	</document>
 	<document name="DownloadHelp.Paused">
 		<text format="b">Denna nedladdning är pausad</text>
 		<newline gap="8"/>
 		<text>Du har pausat denna nedladdning. Om du vill återuppta nedladdning
-	kan du klicka på </text><text format="b">Återuppta nedladdning</text><text>skommandot.</text>
+		kan du klicka på </text><text format="b">Återuppta nedladdning</text><text>skommandot.</text>
 	</document>
 	<document name="DownloadHelp.DiskFull">
 		<text format="b">Diskutrymmet är slut</text>
 		<newline gap="8"/>
 		<text>PeerProject har pausat nedladdningen automatiskt eftersom hårddiskutrymmet
-	verkar vara slut eller nedladdningsfilen kan inte skrivas till. Vill du fortsätta
-	nedladdningen, frigör utrymme på din hårddisk och/eller kontrollera
-	att åtkomst finns till mappen för ofullständiga filer, .</text>
+		verkar vara slut eller nedladdningsfilen kan inte skrivas till. Vill du fortsätta
+		nedladdningen, frigör utrymme på din hårddisk och/eller kontrollera
+		att åtkomst finns till mappen för ofullständiga filer, .</text>
 	</document>
 	<document name="DownloadHelp.Verifying">
 		<text format="b">Denna nedladdning verifieras</text>
 		<newline gap="8"/>
 		<text>Nedladdningen har avslutats och PeerProject kontrollerar nu innehållet för
-	att garantera att den är exakt som ursprungsfilen. Om felaktiga delar hittas
-	kommer PeerProject reparera dem automatiskt.</text>
+		att garantera att den är exakt som ursprungsfilen. Om felaktiga delar hittas
+		kommer PeerProject reparera dem automatiskt.</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
 		<text format="b">Denna nedladdning är aktiv!</text>
 		<newline gap="8"/>
 		<text>Denna nedladdning är förnärvarande igång. Om den laddas ned för långsamt,
-	kan du söka på nätverket efter fler källor med </text>
+		kan du söka på nätverket efter fler källor med </text>
 		<text format="b">Sök efter fler källor</text><text>-kommandot. Om hastigheten inte
-	ökar kan det bero på begränsning av uppladdningshastighet hos användarna du laddar ned från.
-	Nedladdningshastigheten ökar vanligtvis med tiden.</text>
+		ökar kan det bero på begränsning av uppladdningshastighet hos användarna du laddar ned från.
+		Nedladdningshastigheten ökar vanligtvis med tiden.</text>
 	</document>
 	<document name="DownloadHelp.Pending">
 		<text format="b">Denna nedladdning är i avvaktan</text>
 		<newline gap="8"/>
 		<text>Denna nedladdning väntar på att någon ska ladda upp filen.
-		PeerProject är redo att påbörja nedladdningen, men ingen skickar
-den just nu. Du står antagligen i kö och nedladdningen kan börja närsomhelst.
-Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
+		PeerProject är redo att påbörja nedladdningen, men ingen skickar den just nu.
+		Du står antagligen i kö och nedladdningen kan börja närsomhelst.
+		Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		Om du själv delar ut filer kan det förbättra dina chanser att starta nedladdningen snabbt.</text>
 	</document>
 	<document name="DownloadHelp.Queued">
 		<text format="b">Denna nedladdning är i avvaktan</text>
 		<newline gap="8"/>
 		<text>Denna nedladdning väntar på att dina andra nedladdningar ska avslutas.
-	Dina nedladdningsinställningar begränsar antalet nedladdningar som kan vara aktiva
-	samtidigt, för att försäkra att alla nedladdningar får en stor andel av den tillgängliga
+		Dina nedladdningsinställningar begränsar antalet nedladdningar som kan vara aktiva
+			samtidigt, för att försäkra att alla nedladdningar får en stor andel av den tillgängliga
 	bandbredden. Du kan ändra inställningarna via Verktyg, PeerProjectinställningar.</text>
 	</document>
 	<document name="DownloadHelp.Searching">
 		<text format="b">Denna nedladdning söker</text>
 		<newline gap="8"/>
 		<text>Det finns inga kända källor för denna nedladdning, så PeerProject söker
-	på alla ansluta fildelningsnätverk efter fler källor. När källor är funna kommer
-	nedladdningen att starta automatiskt. PeerProject söker efter källor automatiskt.
-	Du kan dock öka hastigheten på processen genom </text>
+		på alla ansluta fildelningsnätverk efter fler källor. När källor är funna kommer
+		nedladdningen att starta automatiskt. PeerProject söker efter källor automatiskt.
+		Du kan dock öka hastigheten på processen genom </text>
 		<text format="b">Söka efter fler källor</text><text>-kommandot.</text>
 		<newline gap="8"/>
 		<text>Tyvärr är det ofta så att det inte finns några användare anslutna som har
-	filen du letar efter. Det enda du kan göra då är att vänta på att någon
-	ska ansluta eller avbryta nedladdningen och försöka hitta en liknande fil som är
-	tillgänglig i större skala.</text>
+		filen du letar efter. Det enda du kan göra då är att vänta på att någon
+		ska ansluta eller avbryta nedladdningen och försöka hitta en liknande fil som är
+		tillgänglig i större skala.</text>
 	</document>
 	<document name="DownloadHelp.Creating">
 		<text format="b">Nedladdningen skapas</text>
@@ -2002,7 +2093,7 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<text format="b">BitTorrentspåraren nere</text>
 		<newline gap="8"/>
 		<text>BitTorrentspåraren verkar vara nere eller ofungerande.
-	PeerProject kan inte ansluta för att ta emot en list över nedladdningskällor.</text>
+		PeerProject kan inte ansluta för att ta emot en list över nedladdningskällor.</text>
 	</document>
 	<!-- Upload help documents -->
 	<document name="UploadHelp">
@@ -2045,8 +2136,8 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<text format="b">Filter för vuxeninnehåll aktiverat</text>
 		<newline gap="8"/>
 		<text>Tänk på att (som med alla automatiserade filter) kan inte filtret vara 100% tillförlitligt.
-			Det är gjort för att på ett enkelt sätt filtrera ut överflödigt och oönskat resultat snarare än att vara ett
-100% säkert filter.</text>
+		Det är gjort för att på ett enkelt sätt filtrera ut överflödigt och oönskat resultat snarare än att vara ett
+		100% säkert filter.</text>
 		<newline gap="8"/>
 		<text>Barns Internetanvändande (inklusive användning av fildelningsprogram) ska alltid övervakas av en vuxen.</text>
 	</document>
@@ -2127,11 +2218,11 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<text format="b">Denna sökning kan inte startas</text>
 		<newline gap="8"/>
 		<text>Den valda sökningen skulle antagligen skapa ett stort resultat med vuxeninnehåll
-	och detta har blivit avstängt i inställningarna. Du bör antingen formulera om din söktext
-	eller stänga av filtret.</text>
+		och detta har blivit avstängt i inställningarna. Du bör antingen formulera om din söktext
+		eller stänga av filtret.</text>
 		<newline gap="8"/>
 		<text>För att stänga av filtret: Gå till Verktyg &gt; Inställningar &gt; Generellt och blocka av
-"Filtrera vuxeninnehåll från sökningar".</text>
+		"Filtrera vuxeninnehåll från sökningar".</text>
 	</document>
 	<!-- Share help documents -->
 	<document name="ShareHelp.AlreadyShared">
@@ -2145,15 +2236,15 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 		<text format="b">Denna mapp bör inte delas ut</text>
 		<newline gap="8"/>
 		<text>Denna folder är en systemmapp (eller innehåller systemfiler). Utdelning av denna mapp
-		   rekommenderas inte, eftersom de flesta av filerna i den är oanvändbara för andra personer.</text>
+		rekommenderas inte, eftersom de flesta av filerna i den är oanvändbara för andra personer.</text>
 		<newline gap="8"/>
 		<text>Mappar som Windowsmappen, Program/Program Files och liknande mappar
-		   innehåller vanligtvis inte filer lämpliga för utdelning. Filer som kan vara intressanta finns i
-		  undermappar som finns </text><text format="i"> innanför </text><text> dessa
-		   mappar. Dela gärna ut dem istället.</text>
+		innehåller vanligtvis inte filer lämpliga för utdelning. Filer som kan vara intressanta finns i
+		undermappar som finns </text><text format="i">innanför </text>
+		<text> dessa mappar. Dela gärna ut dem istället.</text>
 		<newline gap="8"/>
 		<text>PeerProjects mapp för ofullständiga filer ska inte heller delas ut,
-		 eftersom granskning av filer som laddas ned kan påverka prestandan.</text>
+		eftersom granskning av filer som laddas ned kan påverka prestandan.</text>
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
@@ -2583,8 +2674,8 @@ Du kan undersöka varje källa för att se hur högt upp i kön du befinner dig.
 	<string id="8177" value="Skriv några nyckelord att söka efter:" />
 	<string id="8178" value="Vad är det för filtyp?" />
 	<string id="8179" value="(Rensa sökhistorik)" />
-	<string id="8180" value="Filstorleken Min:"/>
-	<string id="8181" value="Filstorleken Max:"/>
+	<string id="8180" value="Storleken Min:"/>
+	<string id="8181" value="Storleken Max:"/>
 	<string id="8208" value="PeerProject granskar %Iu filer:"/>
 	<string id="8223" value="%i dagar och %i timmar"/>
 	<string id="8224" value="PeerProject laddar ned:"/>

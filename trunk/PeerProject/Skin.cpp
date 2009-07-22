@@ -94,9 +94,6 @@ void CSkin::Apply()
 
 	CoolMenu.SetWatermark( GetWatermark( _T("CCoolMenu") ) );
 
-	// Disable Menubar 3D Borders
-	m_bBordersEnabled = CoolInterface.m_crSysBorders != CLR_NONE ? TRUE : FALSE ;
-
 	Plugins.OnSkinChanged();
 }
 
@@ -109,6 +106,13 @@ void CSkin::CreateDefault()
 
 	CoolInterface.CreateFonts();
 
+	// Default Options
+
+	m_nToolbarHeight = 28;
+	m_nSidebarWidth = 200;
+	m_bMenuBorders = TRUE;
+	m_bMenuGripper = TRUE;
+	m_bDropMenu = FALSE;
 	m_rcNavBarOffset = CRect( 0, 0, 0, 0 );
 
 	// Command Icons
@@ -393,6 +397,10 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 		{
 			if ( ! LoadWindowSkins( pSub, strPath ) ) break;
 		}
+		else if ( pSub->IsNamed( _T("colorScheme") ) || pSub->IsNamed( _T("colourScheme") ) )
+		{
+			if ( ! LoadColorScheme( pSub ) ) break;
+		}
 		else if ( pSub->IsNamed( _T("menus") ) )
 		{
 			if ( ! LoadMenus( pSub ) ) break;
@@ -400,10 +408,6 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 		else if ( pSub->IsNamed( _T("toolbars") ) )
 		{
 			if ( ! LoadToolbars( pSub ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("navbar") ) )
-		{
-			if ( ! LoadNavBar( pSub ) ) break;
 		}
 		else if ( pSub->IsNamed( _T("dialogs") ) )
 		{
@@ -417,26 +421,30 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 		{
 			if ( ! LoadControlTips( pSub ) ) break;
 		}
-		else if ( pSub->IsNamed( _T("fonts" ) ) )
-		{
-			if ( ! LoadFonts( pSub, strPath ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("colorScheme") ) || pSub->IsNamed( _T("colourScheme") ) )
-		{
-			if ( ! LoadColorScheme( pSub ) ) break;
-		}
-		else if ( pSub->IsNamed( _T("listColumns") ) )
-		{
-			if ( ! LoadListColumns( pSub ) ) break;
-		}
 		else if ( pSub->IsNamed( _T("commandMap") ) || pSub->IsNamed( _T("tipMap") ) ||
 				  pSub->IsNamed( _T("resourceMap") ) )
 		{
 			if ( ! LoadResourceMap( pSub ) ) break;
 		}
+		else if ( pSub->IsNamed( _T("listColumns") ) )
+		{
+			if ( ! LoadListColumns( pSub ) ) break;
+		}
+		else if ( pSub->IsNamed( _T("fonts" ) ) )
+		{
+			if ( ! LoadFonts( pSub, strPath ) ) break;
+		}
 		else if ( pSub->IsNamed( _T("documents" ) ) )
 		{
 			if ( ! LoadDocuments( pSub ) ) break;
+		}
+		else if ( pSub->IsNamed( _T("options") ) )
+		{
+			if ( ! LoadOptions( pSub ) ) break;
+		}
+		else if ( pSub->IsNamed( _T("navbar") ) )
+		{
+			if ( ! LoadNavBar( pSub ) ) break;
 		}
 		else if ( pSub->IsNamed( _T("manifest") ) )
 		{
@@ -551,6 +559,102 @@ BOOL CSkin::LoadStrings(CXMLElement* pBase)
 
 	return TRUE;
 }
+
+
+//////////////////////////////////////////////////////////////////////
+// CSkin custom options
+
+BOOL CSkin::LoadOptions(CXMLElement* pBase)
+{
+	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
+	{
+		CXMLElement* pXML = pBase->GetNextElement( pos );
+
+
+		if ( pXML->IsNamed( _T("option") ) )
+		{
+			CString strName		= pXML->GetAttributeValue( _T("name") );
+			CString strValue	= pXML->GetAttributeValue( _T("value") );
+			CString strHeight	= pXML->GetAttributeValue( _T("height") );
+			CString strWidth	= pXML->GetAttributeValue( _T("width") );
+
+			if ( strName.CompareNoCase( _T("navbar") ) == 0 )
+			{
+				if ( ! LoadNavBar( pXML ) )
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Skin Option [Navbar] Failed"), pXML->ToString() );
+			}
+			else if ( strName.CompareNoCase( _T("dropmenu") ) == 0 )
+			{
+				if ( strValue.CompareNoCase( _T("false") ) == 0 )
+					m_bDropMenu = FALSE;
+				else if ( strValue.CompareNoCase( _T("true") ) == 0 )
+					m_bDropMenu = TRUE;
+			}
+			else if ( strName.CompareNoCase( _T("menuborders") ) == 0 ||  strName.CompareNoCase( _T("menubevel") ) == 0 )
+			{
+				if ( strValue.CompareNoCase( _T("false") ) == 0 )
+					m_bMenuBorders = FALSE;
+				else if ( strValue.CompareNoCase( _T("true") ) == 0 )
+					m_bMenuBorders = TRUE;
+			}
+			else if ( strName.CompareNoCase( _T("menugripper") ) == 0 )
+			{
+				if ( strValue.CompareNoCase( _T("false") ) == 0 )
+					m_bMenuGripper = FALSE;
+				else if ( strValue.CompareNoCase( _T("true") ) == 0 )
+					m_bMenuGripper = TRUE;
+			}
+			else if ( strName.CompareNoCase( _T("toolbar") ) == 0 || strName.CompareNoCase( _T("toolbars") ) == 0 )
+			{
+				if ( strValue.GetLength() )
+					m_nToolbarHeight = _wtoi(strValue);
+				else if ( strHeight.GetLength() )
+					m_nToolbarHeight = _wtoi(strHeight);
+			}
+			else if ( strName.CompareNoCase( _T("sidebar") ) == 0 || strName.CompareNoCase( _T("sidepanel") ) == 0 )
+			{
+				if ( strValue.GetLength() )
+					m_nSidebarWidth = _wtoi(strValue);
+				else if ( strWidth.GetLength() )
+					m_nSidebarWidth = _wtoi(strWidth);
+			}
+		}
+		else
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in skin [Options]"), pXML->ToString() );
+	}
+
+	return TRUE;
+}
+
+BOOL CSkin::LoadNavBar(CXMLElement* pBase)
+{
+	CString strValue = pBase->GetAttributeValue( _T("offset") );
+	if ( strValue.GetLength() )
+	{
+		_stscanf( strValue, _T("%i,%i"),
+			&m_rcNavBarOffset.left, &m_rcNavBarOffset.top );
+	}
+
+	strValue = pBase->GetAttributeValue( _T("mode") );
+	if ( ! strValue.GetLength() )
+		strValue = pBase->GetAttributeValue( _T("case") );
+
+	if ( strValue.CompareNoCase( _T("upper") ) == 0 )
+	{
+		m_NavBarMode = NavBarUpper;
+	}
+	else if ( strValue.CompareNoCase( _T("lower") ) == 0 )
+	{
+		m_NavBarMode = NavBarLower;
+	}
+	else
+	{
+		m_NavBarMode = NavBarNormal;
+	}
+
+	return TRUE;
+}
+
 
 //////////////////////////////////////////////////////////////////////
 // CSkin dialog control tips
@@ -734,32 +838,6 @@ BOOL CSkin::CreateMenu(CXMLElement* pRoot, HMENU hMenu)
 
 //////////////////////////////////////////////////////////////////////
 // CSkin toolbars
-
-BOOL CSkin::LoadNavBar(CXMLElement* pBase)
-{
-	CString strValue = pBase->GetAttributeValue( _T("offset") );
-	if ( strValue.GetLength() )
-	{
-		_stscanf( strValue, _T("%i,%i"),
-			&m_rcNavBarOffset.left, &m_rcNavBarOffset.top );
-	}
-
-	strValue = pBase->GetAttributeValue( _T("mode") );
-	if ( strValue.CompareNoCase( _T("upper") ) == 0 )
-	{
-		m_NavBarMode = NavBarUpper;
-	}
-	else if ( strValue.CompareNoCase( _T("lower") ) == 0 )
-	{
-		m_NavBarMode = NavBarLower;
-	}
-	else
-	{
-		m_NavBarMode = NavBarNormal;
-	}
-
-	return TRUE;
-}
 
 BOOL CSkin::CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar)
 {

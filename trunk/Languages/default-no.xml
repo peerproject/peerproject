@@ -81,24 +81,22 @@
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Nedlasting"/>
 		<button id="ID_BROWSE_LAUNCH" text="Utforsk bruker"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Vis søk"/>
-		<button id="ID_SEARCH_DETAILS" text="Vis detaljer"/>
 		<rightAlign/>
-		<label text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
-		<control id="IDC_FILTER_BOX" width="130"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mer..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Vis detaljer"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="Nedlasting"/>
 		<button id="ID_BROWSE_LAUNCH" text="Utforsk bruker"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Vis søk"/>
-		<button id="ID_SEARCH_DETAILS" text="Vis detaljer"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mer..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Vis detaljer"/>
+		<button id="ID_SEARCH_PANEL" text="Vis søk"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Søk på nytt..."/>
@@ -106,14 +104,13 @@
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Nedlasting"/>
 		<button id="ID_BROWSE_LAUNCH" text="Utforsk bruker"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Vis søk"/>
-		<button id="ID_SEARCH_DETAILS" text="Vis detaljer"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
-		<control id="IDC_FILTER_BOX" width="150"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mer..."/>
-	</toolbar>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Vis detaljer"/>
+		<button id="ID_SEARCH_PANEL" text="Vis søk"/>	</toolbar>
 	<!-- BROWSE HOST WINDOW -->
 	<toolbar name="CBrowseHeaderCtrl">
 		<button id="ID_BROWSE_PROFILE" text="Profil"/>
@@ -126,25 +123,23 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Last ned fil"/>
 		<button id="ID_SEARCH_CHAT" text="Snakk med bruker"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW"text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Vis detaljer"/>
-		<rightAlign/>
-		<label text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mer..."/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Last ned fil"/>
-		<button id="ID_SEARCH_CHAT" text="Snakk med bruker"/>
-		<separator/>
 		<button id="ID_BROWSE_STOP" text="Stopp"/>
 		<button id="ID_BROWSE_REFRESH" text="Oppdater"/>
 		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="Vis detaljer"/>
+		<button id="ID_SEARCH_CHAT" text="Snakk med bruker"/>
 		<rightAlign/>
-		<label text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mer..."/>
+		<button id="ID_SEARCH_FILTER_RAW"text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Vis detaljer"/>
 	</toolbar>
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
@@ -373,7 +368,7 @@
 		<button id="ID_HITMONITOR_CLEAR" text="Fjern"/>
 		<rightAlign/>
 		<label text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Mer..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
@@ -444,6 +439,92 @@
 		<item id="ID_NETWORK_EXIT" text="Avslutt"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+			<item id="ID_TOOLS_SETTINGS" text="_Innstillinger..."/>
+			<menu text="_Nettverk">
+				<item id="ID_NETWORK_CONNECT" text="Koble til" shortcut="Ctrl+G"/>
+				<item id="ID_NETWORK_DISCONNECT" text="Koble fra"/>
+				<separator/>
+				<item id="ID_NETWORK_G2" text="Koble til Gnutella2"/>
+				<item id="ID_NETWORK_G1" text="Koble til Gnutella"/>
+				<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
+				<separator/>
+				<item id="ID_NETWORK_CONNECT_TO" text="Koble til..." shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_BROWSE_TO" text="Utforsk vert..."/>
+				<separator/>
+				<item id="ID_NETWORK_AUTO_CLOSE" text="Avslutt etter overføringer"/>
+				<item id="ID_NETWORK_EXIT" text="Avslutt"/>
+			</menu>
+			<menu text="_Verktøy">
+				<item id="ID_LIBRARY_FOLDERS" text="Del filer"/>
+				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads Folder"/>
+				<separator/>
+				<item id="ID_TOOLS_DOWNLOAD" text="Last ned fil/torrent..."/>
+				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+				<separator/>
+				<item id="ID_TOOLS_LANGUAGE" text="Velg språk"/>
+				<item id="ID_TOOLS_SKIN" text="Velg et skin..."/>
+				<separator/>
+				<item id="ID_TOOLS_PROFILE" text="Endre min profil"/>
+				<item id="ID_TOOLS_WIZARD" text="Innstillingsveiviser"/>
+				<separator/>
+				<item id="ID_TOOLS_SETTINGS" text="Innstillinger"/>
+			</menu>
+			<menu text="_Vis">
+				<item id="ID_TAB_HOME" text="Hjem" shortcut="Ctrl+H"/>
+				<item id="ID_VIEW_SYSTEM" text="System" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="Naboer" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_DOWNLOADS" text="Nedlastinger" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="Opplastinger" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="Mine filer" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="Media" shortcut="F6"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Sikkerhet" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="Vert-cache" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="Oppdagelse" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="Graf" shortcut="F10"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="Pakkedump" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="Søkemonitor" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="Treffmonitor" shortcut="Ctrl+F3"/>
+				<item id="ID_TAB_SEARCH" text="Søk" shortcut="Ctrl+S"/>
+			</menu>
+			<menu text="_Vindu">
+				<item id="ID_VIEW_BASIC" text="Basicmodus"/>
+				<item id="ID_VIEW_TABBED" text="Fanemodus"/>
+				<item id="ID_VIEW_WINDOWED" text="Vindumodus"/>
+				<separator/>
+				<item id="ID_WINDOW_NAVBAR" text="Vis navigasjonslinje"/>
+				<item id="ID_WINDOW_TOOLBAR" text="Vis verktøyslinje"/>
+				<item id="ID_WINDOW_TABBAR" text="Vis ekstra linje"/>
+				<item id="ID_WINDOW_MONITOR" text="Vis monitor"/>
+				<item id="ID_WINDOW_REMOTE" text="Vis fjernkontroll"/>
+			</menu>
+			<menu text="_Hjelp">
+				<item id="ID_HELP_FAQ" text="PeerProject FAQ"/>
+				<separator/>
+				<menu text="_Guider">
+					<item id="ID_HELP_GUIDE" text="PeerProject brukerguide"/>
+					<item id="ID_HELP_ROUTER" text="Hjelp med _router"/>
+					<item id="ID_HELP_SECURITY" text="Hjelp med _sikkerhet"/>
+					<item id="ID_HELP_CODEC" text="Hjelp med _codec'er"/>
+				</menu>
+				<separator/>
+				<menu text="Nettsider">
+					<item id="ID_HELP_FORUMS" text="PeerProject forum"/>
+					<separator/>
+					<!-- <item id="ID_HELP_UPDATE" text="Siste nytt"/>
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				</menu>
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
+				<separator/>
+				<item id="ID_HELP_ABOUT" text="Om PeerProject..."/>
+			</menu>
+			<item id="ID_NETWORK_EXIT" text="_Avslutt"/>
+		</menu>
+	</menu>
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="Nettverk">
 			<item id="ID_NETWORK_CONNECT" text="Koble til" shortcut="Ctrl+G"/>
@@ -488,97 +569,6 @@
 			<item id="ID_TOOLS_WIZARD" text="Innstillingsveiviser"/>
 			<separator/>
 			<item id="ID_TOOLS_SETTINGS" text="Innstillinger"/>
-		</menu>
-		<menu text="_Hjelp">
-			<item id="ID_HELP_FAQ" text="PeerProject FAQ"/>
-			<separator/>
-			<menu text="_Guider">
-				<item id="ID_HELP_GUIDE" text="PeerProject brukerguide"/>
-				<item id="ID_HELP_ROUTER" text="Hjelp med _router"/>
-				<item id="ID_HELP_SECURITY" text="Hjelp med _sikkerhet"/>
-				<item id="ID_HELP_CODEC" text="Hjelp med _codec'er"/>
-			</menu>
-				<separator/>
-			<menu text="Nettsider">
-				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
-				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProject forum"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Siste nytt"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
-			</menu>
-			<separator/>
-			<item id="ID_HELP_ABOUT" text="Om PeerProject..."/>
-		</menu>
-	</menu>
-	<menu name="CMainWnd.Tabbed" type="bar">
-		<menu text="Nettverk">
-			<item id="ID_NETWORK_CONNECT" text="Koble til" shortcut="Ctrl+G"/>
-			<item id="ID_NETWORK_DISCONNECT" text="Koble fra"/>
-			<separator/>
-			<menu text="Velg nettverk">
-				<item id="ID_NETWORK_G2" text="Koble til Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Koble til Gnutella1"/>
-				<item id="ID_NETWORK_ED2K" text="Koble til eDonkey2000"/>
-			</menu>
-			<separator/>
-			<item id="ID_NETWORK_CONNECT_TO" text="Koble til..." shortcut="Ctrl+T"/>
-			<item id="ID_NETWORK_BROWSE_TO" text="Utforsk vert..."/>
-			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="Avslutt etter overføringer"/>
-			<item id="ID_NETWORK_EXIT" text="Avslutt"/>
-		</menu>
-		<menu text="_Vis">
-			<item id="ID_TAB_HOME" text="Hjem"/>
-			<item id="ID_TAB_LIBRARY" text="Mine filer"/>
-			<item id="ID_TAB_MEDIA" text="Mediaspiller"/>
-			<item id="ID_TAB_SEARCH" text="Søk"/>
-			<item id="ID_TAB_TRANSFERS" text="Overføringer"/>
-			<item id="ID_TAB_NETWORK" text="Nettverk"/>
-			<separator/>
-			<item id="ID_VIEW_SECURITY" text="Sikkerhet"/>
-			<item id="ID_VIEW_HOSTS" text="Vert-cache"/>
-			<separator/>
-			<menu text="Avansert">
-				<item id="ID_VIEW_SYSTEM" text="System" shortcut="F11"/>
-				<item id="ID_VIEW_NEIGHBOURS" text="Naboer" shortcut="Ctrl+F11"/>
-				<item id="ID_VIEW_DOWNLOADS" text="Nedlastinger" shortcut="F3"/>
-				<item id="ID_VIEW_UPLOADS" text="Opplastinger" shortcut="F4"/>
-				<item id="ID_VIEW_LIBRARY" text="Mine filer" shortcut="F5"/>
-				<item id="ID_VIEW_MEDIA" text="Media" shortcut="F6"/>
-				<separator/>
-				<item id="ID_VIEW_SECURITY" text="Sikkerhet" shortcut="F7"/>
-				<item id="ID_VIEW_HOSTS" text="Vert-cache" shortcut="F8"/>
-				<item id="ID_VIEW_DISCOVERY" text="Oppdagelse" shortcut="F9"/>
-				<item id="ID_VIEW_TRAFFIC" text="Graf" shortcut="F10"/>
-				<separator/>
-				<item id="ID_VIEW_PACKETS" text="Pakkedump" shortcut="Ctrl+F1"/>
-				<item id="ID_VIEW_SEARCH_MONITOR" text="Søkemonitor" shortcut="Ctrl+F2"/>
-				<item id="ID_VIEW_RESULTS_MONITOR" text="Treffmonitor" shortcut="Ctrl+F3"/>
-			</menu>
-			<separator/>
-			<item id="ID_VIEW_BASIC" text="Normalmodus"/>
-			<item id="ID_VIEW_TABBED" text="Fanemodus"/>
-			<item id="ID_VIEW_WINDOWED" text="Vindumodus"/>
-		</menu>
-		<menu text="_Verktøy">
-			<item id="ID_LIBRARY_FOLDERS" text="Del filer"/>
-			<item id="ID_TOOLS_DOWNLOAD" text="Last ned fil/torrent..."/>
-			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Velg et skin..."/>
-			<item id="ID_TOOLS_LANGUAGE" text="Velg språk"/>
-			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="Endre min profil"/>
-			<item id="ID_TOOLS_WIZARD" text="Innstillingsveiviser"/>
-			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="Innstillinger"/>
-		</menu>
-		<menu text="_Vindu">
-			<item id="ID_WINDOW_NAVBAR" text="Vis navigasjonslinje"/>
-			<item id="ID_WINDOW_TOOLBAR" text="Vis verktøyslinje"/>
-			<item id="ID_WINDOW_TABBAR" text="Vis ekstra linje"/>
-			<item id="ID_WINDOW_MONITOR" text="Vis monitor"/>
-			<item id="ID_WINDOW_REMOTE" text="Vis fjernkontroll"/>
 		</menu>
 		<menu text="_Hjelp">
 			<item id="ID_HELP_FAQ" text="PeerProject FAQ"/>
@@ -1475,10 +1465,16 @@
 		</group>
 		<group id="2">
 			<icon res="134" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">SØK MED PEERPROJECT</heading>
+			<heading align="middle">SØK MED</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
+			<icon res="136" width="32" height="32" target="peer:shell:downloads"/><gap size="8"/>
+			<heading align="middle">MINE NEDLASTINGER</heading>
+			<newline gap="8" indent="42"/>
+			<text>Or open your completed </text>
+			<link target="peer:shell:downloads">downloads folder.</link>
+			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1518,13 +1514,6 @@
 		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Hjelp</link>
 		<text align="middle">&#160;- Få grunnleggende hjelp til å bruke PeerProject</text>
 		<newline gap="18" indent="0"/>
-		<icon res="136" width="32" height="32" target="peer:shell:downloads"/>
-		<gap size="8"/>
-		<heading align="middle">MINE NEDLASTINGER</heading>
-		<newline gap="8" indent="42"/>
-		<text>To open the folder with your downloads </text>
-		<link target="peer:shell:downloads">click here</link>
-		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">FJERNKONSOLLEN ER PÅ</heading>
@@ -1540,7 +1529,7 @@
 	<document name="CHomeConnectionBox" title="Tilkobling" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1585,7 +1574,7 @@
 	<document name="CHomeLibraryBox" title="Mine filer" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1593,11 +1582,12 @@
 				<text>Du har ikke lastet ned noen nye filer i det siste.</text>
 				<newline gap="8"/>
 			</group>
+			<link target="peer:command:ID_VIEW_LIBRARY">Gå til mine filer</link>
+			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
-			<text>filer, </text>
+			<text>filer (</text>
 			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="0"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Gå til mine filer</link>
+			<text>)</text>
 			<group id="1">
 				<newline gap="8"/>
 				<text>PeerProject skanner og bearbeider </text>
@@ -1616,7 +1606,7 @@
 	<document name="CHomeDownloadsBox" title="Mine nedlastinger" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1638,13 +1628,13 @@
 	<document name="CHomeUploadsBox" title="Opplastinger" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">Ingen opplastinger</text>
 			<link id="UploadsOne"  target="peer:command:ID_VIEW_UPLOADS" format="bu">1 aktiv opplasting</link>
-			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu"%i opplastinger</link>
+			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i opplastinger</link>
 			<newline gap="4"/>
 			<group id="1">
 				<text id="TorrentsOne">Sprer 1 torrent</text>

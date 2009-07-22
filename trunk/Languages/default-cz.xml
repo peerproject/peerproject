@@ -79,25 +79,25 @@
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Stáhnout"/>
-		<button id="ID_BROWSE_LAUNCH" text="Prohlédnout uživatele"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Zobrazit hledání"/>
-		<button id="ID_SEARCH_DETAILS" text="Ukázat detaily"/>
+		<button id="ID_BROWSE_LAUNCH" text="Prohlédnout uživatele"/>
 		<rightAlign/>
-		<label text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
-		<control id="IDC_FILTER_BOX" width="130"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Více..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Ukázat detaily"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="Stáhnout"/>
-		<button id="ID_BROWSE_LAUNCH" text="Prohlédnout uživatele"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Zobrazit hledání"/>
-		<button id="ID_SEARCH_DETAILS" text="Ukázat detaily"/>
+		<button id="ID_BROWSE_LAUNCH" text="Prohlédnout uživatele"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Více..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Ukázat detaily"/>
+		<button id="ID_SEARCH_PANEL" text="Zobrazit hledání"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Hledat znovu..."/>
@@ -105,13 +105,13 @@
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Stáhnout"/>
 		<button id="ID_BROWSE_LAUNCH" text="Prohlédnout uživatele"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Zobrazit hledání"/>
-		<button id="ID_SEARCH_DETAILS" text="Ukázat detaily"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
-		<control id="IDC_FILTER_BOX" width="150"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Více..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Ukázat detaily"/>
+		<button id="ID_SEARCH_PANEL" text="Zobrazit hledání"/>
 	</toolbar>
 	<!-- BROWSE HOST WINDOW -->
 	<toolbar name="CBrowseHeaderCtrl">
@@ -125,25 +125,23 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Stáhnout soubor"/>
 		<button id="ID_SEARCH_CHAT" text="Pokec s uživatelem"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Ukázat detaily"/>
-		<rightAlign/>
-		<label text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Více..."/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Stáhnout soubor"/>
-		<button id="ID_SEARCH_CHAT" text="Pokec s uživatelem"/>
-		<separator/>
 		<button id="ID_BROWSE_STOP" text="Stop"/>
 		<button id="ID_BROWSE_REFRESH" text="Obnovit"/>
 		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="Ukázat detaily"/>
+		<button id="ID_SEARCH_CHAT" text="Pokec s uživatelem"/>
 		<rightAlign/>
-		<label text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Více..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Ukázat detaily"/>
 	</toolbar>
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
@@ -372,7 +370,7 @@
 		<button id="ID_HITMONITOR_CLEAR" text="Smazat"/>
 		<rightAlign/>
 		<label text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Více..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
@@ -450,72 +448,93 @@
 		<item id="ID_NETWORK_EXIT" text="Konec"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
-	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="_Síť">
-			<item id="ID_NETWORK_CONNECT" text="_Připojit" shortcut="Ctrl+G"/>
-			<separator/>
-			<menu text="Zvolte si _Síť">
-				<item id="ID_NETWORK_G2" text="Připojit ke _Gnutelle2"/>
-				<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
-				<item id="ID_NETWORK_G1" text="Připojit ke Gnutelle_1"/>
-			</menu>
-			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="Ukončit po _stažení"/>
-			<item id="ID_NETWORK_EXIT" text="K_onec"/>
-		</menu>
-		<menu text="_Zobrazit">
-			<item id="ID_TAB_HOME" text="H_lavní"/>
-			<item id="ID_TAB_LIBRARY" text="_Knihovna"/>
-			<item id="ID_TAB_MEDIA" text="_Media Player"/>
-			<item id="ID_TAB_SEARCH" text="_Hledat"/>
-			<item id="ID_TAB_TRANSFERS" text="_Stahování"/>
-			<item id="ID_WINDOW_REMOTE" text="Zob_razit dálkové ovládání"/>
-			<separator/>
-			<menu text="_Pokročilé">
-				<item id="ID_VIEW_NEIGHBOURS" text="O_kolní počítače"/>
-				<item id="ID_VIEW_UPLOADS" text="_Odesílání"/>
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+			<item id="ID_TOOLS_SETTINGS" text="_Nastavení..."/>
+			<menu text="_Web">
+				<item id="ID_NETWORK_CONNECT" text="_Připojit" shortcut="Ctrl+G"/>
+				<item id="ID_NETWORK_DISCONNECT" text="_Odpojit"/>
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="Zabe_zpečení"/>
-				<item id="ID_VIEW_HOSTS" text="Cache h_osta"/>
-				<item id="ID_VIEW_DISCOVERY" text="Vyhledání"/>
+				<item id="ID_NETWORK_G2" text="Připojit ke Gnutelle_2"/>
+				<item id="ID_NETWORK_G1" text="Připojit ke _Gnutelle"/>
+				<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
+				<separator/>
+				<item id="ID_NETWORK_CONNECT_TO" text="Připojit _ke..." shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_BROWSE_TO" text="_Prohlížet hosta..."/>
+				<separator/>
+				<item id="ID_NETWORK_AUTO_CLOSE" text="Ukončit po _stažení"/>
+				<item id="ID_NETWORK_EXIT" text="K_onec"/>
 			</menu>
-			<separator/>
-			<item id="ID_VIEW_BASIC" text="_Normální režim"/>
-			<item id="ID_VIEW_TABBED" text="_Speciální režim"/>
-		</menu>
-		<menu text="Nás_troje">
-			<item id="ID_LIBRARY_FOLDERS" text="Sdílené _soubory..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="_Stažení souboru/Torrent..."/>
-			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Zvolte si _vzhled (Skiny)..."/>
-			<item id="ID_TOOLS_LANGUAGE" text="Zvolte si _jazyk..."/>
-			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="Upravit vlastní _profil..."/>
-			<item id="ID_TOOLS_WIZARD" text="Průvodce rychlým na_stavením..."/>
-			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="Nastavení _PeerProject..."/>
-		</menu>
-		<menu text="_Nápověda">
-			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
-			<item id="ID_HELP_TEST" text="_Test připojení"/>
-			<separator/>
-			<menu text="_Průvodci">
-				<item id="ID_HELP_GUIDE" text="Průvodce _uživatelů PeerProject"/>
-				<item id="ID_HELP_ROUTER" text="Pomoc s nastavením _Routeru"/>
-				<item id="ID_HELP_SECURITY" text="Nápověda _zabezpečení"/>
-				<item id="ID_HELP_CODEC" text="Pomoc s _kodetky"/>
+			<menu text="Nás_troje">
+				<item id="ID_LIBRARY_FOLDERS" text="Sdílené _soubory..."/>
+				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Otevřít adresář se staženými soubory"/>
+				<separator/>
+				<item id="ID_TOOLS_DOWNLOAD" text="_Stáhnout soubor/Torrent..."/>
+				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+				<item id="IDC_IMPORT_DOWNLOADS" text="_Importovat soubory z eMule..."/>
+				<separator/>
+				<item id="ID_TOOLS_LANGUAGE" text="Zvolte si _jazyk..."/>
+				<item id="ID_TOOLS_SKIN" text="Zvolte si _vzhled (Skiny)..."/>
+				<separator/>
+				<item id="ID_TOOLS_PROFILE" text="Upravit vlastní _profil..."/>
+				<item id="ID_TOOLS_WIZARD" text="Průvodce rychlým na_stavením..."/>
+				<separator/>
+				<item id="ID_TOOLS_SETTINGS" text="Nastavení _PeerProject..."/>
 			</menu>
-			<separator/>
-			<menu text="_Webové stránky">
+			<menu text="_Zobrazit">
+				<item id="ID_TAB_HOME" text="_Hlavní" shortcut="Ctrl+H"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="Oko_lní počítače" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_SYSTEM" text="_Systém" shortcut="F11"/>
+				<item id="ID_VIEW_DOWNLOADS" text="_Stahování" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="_Odesílání" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="_Knihovna" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="_Přehrávač" shortcut="F6"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Zabe_zpečení" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="Cache h_osta" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="Vyhledání" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="_Graf" shortcut="F10"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="Výpis _paketů" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="Monitor hled_ání" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="Spust_it monitorování" shortcut="Ctrl+F3"/>
+				<item id="ID_TAB_SEARCH" text="_Hledat" shortcut="Ctrl+S"/>
+			</menu>
+			<menu text="_Okno">
+				<item id="ID_VIEW_BASIC" text="_Normální režim"/>
+				<item id="ID_VIEW_TABBED" text="Režim _tabulí"/>
+				<item id="ID_VIEW_WINDOWED" text="Režim _oken"/>
+				<separator/>
+				<item id="ID_WINDOW_NAVBAR" text="Zobrazit horní _lištu s tlačítky"/>
+				<item id="ID_WINDOW_TOOLBAR" text="Zobrazit liš_tu nástrojů"/>
+				<separator/>
+				<item id="ID_WINDOW_TABBAR" text="Zobrazit lištu _evidence spuštěných oken"/>
+				<item id="ID_WINDOW_MONITOR" text="Zobrazit okénko _monitorování"/>
+				<item id="ID_WINDOW_REMOTE" text="Zob_razit dálkové ovládání"/>
+			</menu>
+			<menu text="_Nápověda">
+				<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
+				<item id="ID_HELP_TEST" text="_Test připojení"/>
+				<separator/>
+				<menu text="_Průvodci">
+					<item id="ID_HELP_GUIDE" text="Průvodce _uživatelů PeerProject"/>
+					<item id="ID_HELP_ROUTER" text="Pomoc s nastavením _Routeru"/>
+					<item id="ID_HELP_SECURITY" text="Nápověda _zabezpečení"/>
+					<item id="ID_HELP_CODEC" text="Pomoc s _kodetky"/>
+				</menu>
+				<separator/>
+				<menu text="_Webové stránky">
+					<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
+					<separator/>
+					<!-- <item id="ID_HELP_UPDATE" text="Poslední novinky"/>
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Poslední novinky"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_ABOUT" text="O progr_amu PeerProject..."/>
 			</menu>
-			<separator/>
-			<item id="ID_HELP_ABOUT" text="O progr_amu PeerProject..."/>
+			<item id="ID_NETWORK_EXIT" text="_Konec"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
@@ -589,6 +608,74 @@
 			<item id="ID_WINDOW_TABBAR" text="Zobrazit lištu _evidence spuštěných oken"/>
 			<item id="ID_WINDOW_MONITOR" text="Zobrazit okénko _monitorování"/>
 			<item id="ID_WINDOW_REMOTE" text="Zob_razit dálkové ovládání"/>
+		</menu>
+		<menu text="_Nápověda">
+			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
+			<item id="ID_HELP_TEST" text="_Test připojení"/>
+			<separator/>
+			<menu text="_Průvodci">
+				<item id="ID_HELP_GUIDE" text="Průvodce _uživatelů PeerProject"/>
+				<item id="ID_HELP_ROUTER" text="Pomoc s nastavením _Routeru"/>
+				<item id="ID_HELP_SECURITY" text="Nápověda _zabezpečení"/>
+				<item id="ID_HELP_CODEC" text="Pomoc s _kodetky"/>
+			</menu>
+			<separator/>
+			<menu text="_Webové stránky">
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
+				<!-- <item id="ID_HELP_UPDATE" text="Poslední novinky"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+			</menu>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="O progr_amu PeerProject..."/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="_Síť">
+			<item id="ID_NETWORK_CONNECT" text="_Připojit" shortcut="Ctrl+G"/>
+			<separator/>
+			<menu text="Zvolte si _Síť">
+				<item id="ID_NETWORK_G2" text="Připojit ke _Gnutelle2"/>
+				<item id="ID_NETWORK_ED2K" text="Připojit k _eDonkey"/>
+				<item id="ID_NETWORK_G1" text="Připojit ke Gnutelle_1"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Ukončit po _stažení"/>
+			<item id="ID_NETWORK_EXIT" text="K_onec"/>
+		</menu>
+		<menu text="_Zobrazit">
+			<item id="ID_TAB_HOME" text="H_lavní"/>
+			<item id="ID_TAB_LIBRARY" text="_Knihovna"/>
+			<item id="ID_TAB_MEDIA" text="_Media Player"/>
+			<item id="ID_TAB_SEARCH" text="_Hledat"/>
+			<item id="ID_TAB_TRANSFERS" text="_Stahování"/>
+			<item id="ID_WINDOW_REMOTE" text="Zob_razit dálkové ovládání"/>
+			<separator/>
+			<menu text="_Pokročilé">
+				<item id="ID_VIEW_NEIGHBOURS" text="O_kolní počítače"/>
+				<item id="ID_VIEW_UPLOADS" text="_Odesílání"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Zabe_zpečení"/>
+				<item id="ID_VIEW_HOSTS" text="Cache h_osta"/>
+				<item id="ID_VIEW_DISCOVERY" text="Vyhledání"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="_Normální režim"/>
+			<item id="ID_VIEW_TABBED" text="_Speciální režim"/>
+		</menu>
+		<menu text="Nás_troje">
+			<item id="ID_LIBRARY_FOLDERS" text="Sdílené _soubory..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Stažení souboru/Torrent..."/>
+			<separator/>
+			<item id="ID_TOOLS_SKIN" text="Zvolte si _vzhled (Skiny)..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="Zvolte si _jazyk..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Upravit vlastní _profil..."/>
+			<item id="ID_TOOLS_WIZARD" text="Průvodce rychlým na_stavením..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="Nastavení _PeerProject..."/>
 		</menu>
 		<menu text="_Nápověda">
 			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
@@ -1509,17 +1596,20 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">ZAČNĚTE STAHOVAT</heading>
-			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Klikněte sem pro</link>
-			<text align="middle">&#160;stažení souboru nebo torrentu.</text>
-			<newline gap="24" indent="0"/>
 			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">HLEDÁNÍ V PEERPROJECT</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
-			<newline gap="12" indent="0"/>
+			<newline gap="14" indent="0"/>
+			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<heading align="middle">ZAČNĚTE STAHOVAT</heading>
+			<newline gap="8" indent="42"/>
+			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Klikněte sem pro</link>
+			<text>&#160;stažení souboru nebo torrentu.</text>
+			<newline gap="2" indent="42"/>
+			<text>Nebo otevřit adresář se </text>
+			<link target="peer:shell:downloads">staženými soubory.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1588,7 +1678,7 @@
 			<text>Je umožněn vzdálený přístup PeerProject. Pro ovládání PeerProject používejte vašeho internetového prohlížeče:</text>
 			<newline gap="6"/>
 			<link id="RemoteAccessURL1"/>
-			<text>&#160;- nebo -&#160;</text>
+			<text>&#160; nebo &#160;</text>
 			<link id="RemoteAccessURL2"/>
 			<newline gap="16" indent="0"/>
 		</group>
@@ -1596,7 +1686,7 @@
 	<document name="CHomeConnectionBox" title="Připojení" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1607,7 +1697,7 @@
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
-		<text group="20" align="middle" format="b">&#160;Gnutella2:</text>
+		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
 		<text group="21" align="middle">Nepřipojeno</text>
 		<text group="22" align="middle">Připojuji...</text>
 		<text group="23" align="middle">Připojeno</text>
@@ -1615,13 +1705,13 @@
 		<text group="25" align="middle" id="G2Leaves">%i ukončení</text>
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
-		<text group="10" align="middle" format="b">&#160;Gnutella:</text>
+		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
 		<text group="11" align="middle">Nepřipojeno</text>
 		<text group="12" align="middle">Připojuji...</text>
 		<text group="13" align="middle">Připojeno</text>
 		<newline group="10" gap="2"/>
-		<icon group="30" command="ID_NETWORK_ED2K"/><
-		<text group="30" align="middle" format="b">&#160;eDonkey:</text>
+		<icon group="30" command="ID_NETWORK_ED2K"/>
+		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
 		<text group="31" align="middle">Nepřipojeno</text>
 		<text group="32" align="middle">Připojuji...</text>
 		<text group="33" align="middle">Připojeno</text>
@@ -1629,18 +1719,19 @@
 		<group id="2">
 			<para align="center">
 				<newline gap="6"/>
-				<text>Jste připojeni </text>
+				<link target="peer:command:ID_VIEW_LIBRARY">Jste připojeni</link>
+				<newline gap="2"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>hodin a </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minut.</text>
+				<text>minut</text>
 			</para>
 		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="Moje Knihovna" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1648,13 +1739,12 @@
 				<text>V poslední době jste nestáhli žádné nové soubory.</text>
 				<newline gap="8"/>
 			</group>
+			<link target="peer:command:ID_VIEW_LIBRARY">Přejít do vlastní knihovny</link>
+			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
-			<text>files, </text>
+			<text>files (</text>
 			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="4"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Přejít do vlastní knihovny</link>
-			<newline gap="4"/>
-			<link format="bu" target="peer:shell:downloads">Otevřit adresář se staženými soubory</link>
+			<text>)</text>
 			<group id="1">
 				<newline gap="8"/>
 				<text>PeerProject prohlíží a zpracovává </text>
@@ -1673,7 +1763,7 @@
 	<document name="CHomeDownloadsBox" title="Moje stahování" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1695,7 +1785,7 @@
 	<document name="CHomeUploadsBox" title="Odesílání" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">

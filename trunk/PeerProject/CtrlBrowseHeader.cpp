@@ -150,6 +150,7 @@ void CBrowseHeaderCtrl::OnSize(UINT nType, int cx, int cy)
 
 void CBrowseHeaderCtrl::OnSkinChange()
 {
+	OnSize( 0, 0, 0 );
 	Skin.CreateToolBar( _T("CBrowseHeaderCtrl"), this );
 
 	if ( m_bmImage.m_hObject == NULL &&

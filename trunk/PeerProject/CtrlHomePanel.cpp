@@ -108,7 +108,7 @@ CHomePanel::CHomePanel()
 
 BOOL CHomePanel::Create(CWnd* pParentWnd)
 {
-	CRect rect( 0, 0, PANEL_WIDTH, 0 );
+	CRect rect( 0, 0, Skin.m_nSidebarWidth, 0 );
 	return CTaskPanel::Create( _T("CHomePanel"), WS_VISIBLE, rect, pParentWnd, IDC_HOME_PANEL );
 }
 
@@ -135,10 +135,18 @@ void CHomePanel::OnSkinChange()
 	SetWatermark( Skin.GetWatermark( _T("CHomePanel") ) );
 	SetFooter( Skin.GetWatermark( _T("CHomePanel.Footer") ), TRUE );
 
-	m_boxDownloads.OnSkinChange();
-	m_boxUploads.OnSkinChange();
 	m_boxConnection.OnSkinChange();
 	m_boxLibrary.OnSkinChange();
+	m_boxDownloads.OnSkinChange();
+	m_boxUploads.OnSkinChange();
+
+	Update();
+	Invalidate();
+
+	m_boxConnection.OnSkinChange();
+	m_boxLibrary.OnSkinChange();
+	m_boxDownloads.OnSkinChange();
+	m_boxUploads.OnSkinChange();
 
 	Update();
 	Invalidate();
@@ -352,6 +360,8 @@ void CHomeConnectionBox::Update()
 	str.Format( _T("%I64i "), ( Statistics.Today.Timer.Connected / 60 ) % 60 );
 	if ( m_pdConnectedMinutes ) m_pdConnectedMinutes->SetText( str );
 
+	OnSize( 0, 0, 0 );		// Fix all taskbox heights if Sidebar width changed
+
 	CRichTaskBox::Update();
 }
 
@@ -529,6 +539,8 @@ void CHomeLibraryBox::Update()
 		m_pDocument->ShowGroup( 3, FALSE );
 		m_pDocument->ShowGroup( 4, FALSE );
 	}
+
+//	OnSize( 0, 0, 0 );		// Duplicate fix all taskbox heights if Sidebar width changed
 
 	if ( GetView().IsModified() )
 	{
@@ -808,6 +820,7 @@ void CHomeDownloadsBox::OnSkinChange()
 	if ( m_pdDownloadedMany ) m_sDownloadedMany = m_pdDownloadedMany->m_sText;
 
 	GetView().SetDocument( m_pDocument );
+
 	Update();
 }
 

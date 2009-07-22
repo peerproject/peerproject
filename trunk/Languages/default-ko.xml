@@ -88,7 +88,6 @@
 		<control id="107" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="보기 / 숨기기 세부 사항"/>
-		<button id="ID_SEARCH_PANEL" text="보기 / 숨기기 Sidepanel"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="다운로드"/>
@@ -508,78 +507,99 @@
 		<item id="ID_NETWORK_EXIT" text="종료"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
-	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="_Network">
-			<item id="ID_NETWORK_CONNECT" text="연결" shortcut="Ctrl+G"/>
-			<separator/>
-			<menu text="Choose _Networks">
-				<item id="ID_NETWORK_G2" text="연결 to Gnutella_2"/>
-				<item id="ID_NETWORK_G1" text="연결 to Gnutella_1"/>
-				<item id="ID_NETWORK_ED2K" text="연결 to eDonkey"/>
-			</menu>
-			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="종료 After Transfers"/>
-			<item id="ID_NETWORK_EXIT" text="종료"/>
-		</menu>
-		<menu text="_View">
-			<item id="ID_TAB_HOME" text="홈"/>
-			<item id="ID_TAB_SEARCH" text="검색"/>
-			<item id="ID_TAB_TRANSFERS" text="다운로드"/>
-			<item id="ID_TAB_LIBRARY" text="도서관"/>
-			<item id="ID_TAB_MEDIA" text="미디어 플레이어"/>
-			<item id="ID_TAB_IRC" text="IRC 채팅"/>
-			<item id="ID_WINDOW_REMOTE" text="미디어 리모트"/>
-			<separator/>
-			<menu text="_Advanced">
-				<item id="ID_VIEW_NEIGHBOURS" text="이웃"/>
-				<item id="ID_VIEW_UPLOADS" text="업로드"/>
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+			<item id="ID_TOOLS_SETTINGS" text="설정..."/>
+			<menu text="_Network">
+				<item id="ID_NETWORK_CONNECT" text="연결" shortcut="Ctrl+G"/>
+				<item id="ID_NETWORK_DISCONNECT" text="끊습니다"/>
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="보안 항목"/>
-				<item id="ID_VIEW_HOSTS" text="호스트 캐시"/>
-				<item id="ID_VIEW_DISCOVERY" text="디스커버"/>
+				<item id="ID_NETWORK_G2" text="연결 to Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="연결 to _Gnutella"/>
+				<item id="ID_NETWORK_ED2K" text="연결 to _eDonkey"/>
+				<separator/>
+				<item id="ID_NETWORK_CONNECT_TO" text="에 연결하려면..." shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_BROWSE_TO" text="찾아보기 호스트 ..."/>
+				<separator/>
+				<item id="ID_NETWORK_AUTO_CLOSE" text="후종료"/>
+				<item id="ID_NETWORK_EXIT" text="종료"/>
 			</menu>
-			<separator/>
-			<item id="ID_VIEW_BASIC" text="_기본 모드"/>
-			<item id="ID_VIEW_TABBED" text="전원 모드 "/>
-		</menu>
-		<menu text="_Tools">
-			<item id="ID_LIBRARY_FOLDERS" text="파일을 공유..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="다운로드 파일/Torrent..."/>
-			<separator/>
-			<item id="ID_TOOLS_LANGUAGE" text="C언어 선택 항목 ID를..."/>
-			<item id="ID_TOOLS_SKIN" text="스킨 선택..."/>
-			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="내 프로필 수정..."/>
-			<item id="ID_TOOLS_WIZARD" text="빠른 마법사..."/>
-			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="_PeerProject 설정..."/>
-		</menu>
-		<menu text="_Help">
-			<item id="ID_HELP_FAQ" text="PeerProject 자주 묻는 질문"/>
-			<item id="ID_HELP_TEST" text="연결 테스트 "/>
-			<separator/>
-			<menu text="_Guides">
-				<item id="ID_HELP_GUIDE" text="PeerProject _사용자 가이"/>
-				<item id="ID_HELP_ROUTER" text="_라우터 도움말"/>
-				<item id="ID_HELP_SECURITY" text="보안 도움말 항목"/>
-				<item id="ID_HELP_CODEC" text="코덱 도움"/>
+			<menu text="도구">
+				<item id="ID_LIBRARY_FOLDERS" text="파일을 공유..."/>
+				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="다운로드 폴더를 완료 "/>
+				<separator/>
+				<item id="ID_TOOLS_DOWNLOAD" text="다운로드 파일/Torrent..."/>
+				<item id="ID_TOOLS_SEEDTORRENT"	text="종자 뉴 Torrent..."/>
+				<item id="ID_TOOLS_CREATETORRENT" text="새. Torrent 만들기..."/>
+				<item id="IDC_IMPORT_DOWNLOADS"	text="가져오기 eMule 부분..."/>
+				<separator/>
+				<item id="ID_TOOLS_LANGUAGE" text="언어 선택 항목 ID를..."/>
+				<item id="ID_TOOLS_SKIN" text="Skin 선택..."/>
+				<separator/>
+				<item id="ID_TOOLS_PROFILE" text="내 프로필 수정..."/>
+				<item id="ID_TOOLS_WIZARD" text="빠른 마법..."/>
+				<separator/>
+				<item id="ID_TOOLS_SETTINGS" text="_PeerProject 설정..."/>
 			</menu>
-			<separator/>
-			<menu text="_Websites">
+			<menu text="_View">
+				<item id="ID_TAB_HOME" text="홈 Tab" shortcut="Alt-Home"/>
+				<item id="ID_TAB_IRC" text="IRC 채팅" shortcut="F12"/>
+				<item id="ID_VIEW_DOWNLOADS" text="다운로드" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="업로드" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="도서관" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="미디어 플레이어" shortcut="F6"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="보안 항목" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="호스트 캐시" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="디스커버리" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="그래프" shortcut="F10"/>
+				<item id="ID_VIEW_SYSTEM" text="시스템" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="이웃" shortcut="Ctrl+F11"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="패킷 덤프" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="검색 모니터" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="히트 모니터" shortcut="Ctrl+F3"/>
+				<item id="ID_TAB_SEARCH" text="검색" shortcut="Ctrl-S"/>
+			</menu>
+			<menu text="창">
+				<item id="ID_VIEW_BASIC" text="_기본 모드"/>
+				<item id="ID_VIEW_TABBED" text="탭 모드 "/>
+				<item id="ID_VIEW_WINDOWED" text="창 모드"/>
+				<separator/>
+				<item id="ID_WINDOW_NAVBAR" text="보기 네비게이션 바"/>
+				<item id="ID_WINDOW_TOOLBAR" text="보기 도구 모음"/>
+				<separator/>
+				<item id="ID_WINDOW_TABBAR" text="탭보기 바"/>
+				<item id="ID_WINDOW_MONITOR" text="모니터보기"/>
+				<item id="ID_WINDOW_REMOTE" text="원격보기"/>
+			</menu>
+			<menu text="도움말">
+				<item id="ID_HELP_FAQ" text="PeerProject 자주 묻는 질문 "/>
+				<item id="ID_HELP_TEST" text="연결 테스트"/>
+				<separator/>
+				<menu text="가이드">
+					<item id="ID_HELP_GUIDE" text="PeerProject 사용자 가이드"/>
+					<item id="ID_HELP_ROUTER" text="라우터 도움말"/>
+					<item id="ID_HELP_SECURITY" text="보안 도움말 항목"/>
+					<item id="ID_HELP_CODEC" text="코덱 도움말 "/>
+				</menu>
+				<separator/>
+				<menu text="_Websites">
+					<separator/>
+					<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
+					<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>
+					<item id="ID_HELP_DONATE" text="기부 PeerProject로"/>
+					<item id="ID_HELP_WEB_6" text="PeerProject스킨 사이트 "/>
+					<item id="ID_HELP_FAKESHAREAZA" text="가짜 FakeSharea_za.com"/> <!--
+					<item id="ID_HELP_UPDATE" text="최신 뉴스"/>
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject 사이트 항목"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
-				<item id="ID_HELP_WEB_6" text="PeerProject 스킨 사이트"/>
-				<item id="ID_HELP_FAKESHAREAZA" text="가짜 FakeSharea_za.com"/> <!--
-				<item id="ID_HELP_UPDATE" text="최신 뉴스 "/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_ABOUT" text="항목 ID를  PeerProject..."/>
 			</menu>
-			<separator/> <!--
-			<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인 "/>
-			<item id="ID_HELP_DONATE" text="기부  PeerProject"/>
-			<separator/> -->
-			<item id="ID_HELP_ABOUT" text="항목 ID를 PeerProject..."/>
+			<item id="ID_NETWORK_EXIT" text="종료"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
@@ -687,6 +707,80 @@
 			<item id="ID_HELP_DONATE" text="기부 PeerProject로"/>
 			<separator/> -->
 			<item id="ID_HELP_ABOUT" text="항목 ID를  PeerProject..."/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="_Network">
+			<item id="ID_NETWORK_CONNECT" text="연결" shortcut="Ctrl+G"/>
+			<separator/>
+			<menu text="Choose _Networks">
+				<item id="ID_NETWORK_G2" text="연결 to Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="연결 to Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="연결 to eDonkey"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="종료 After Transfers"/>
+			<item id="ID_NETWORK_EXIT" text="종료"/>
+		</menu>
+		<menu text="_View">
+			<item id="ID_TAB_HOME" text="홈"/>
+			<item id="ID_TAB_SEARCH" text="검색"/>
+			<item id="ID_TAB_TRANSFERS" text="다운로드"/>
+			<item id="ID_TAB_LIBRARY" text="도서관"/>
+			<item id="ID_TAB_MEDIA" text="미디어 플레이어"/>
+			<item id="ID_TAB_IRC" text="IRC 채팅"/>
+			<item id="ID_WINDOW_REMOTE" text="미디어 리모트"/>
+			<separator/>
+			<menu text="_Advanced">
+				<item id="ID_VIEW_NEIGHBOURS" text="이웃"/>
+				<item id="ID_VIEW_UPLOADS" text="업로드"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="보안 항목"/>
+				<item id="ID_VIEW_HOSTS" text="호스트 캐시"/>
+				<item id="ID_VIEW_DISCOVERY" text="디스커버"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="_기본 모드"/>
+			<item id="ID_VIEW_TABBED" text="전원 모드 "/>
+		</menu>
+		<menu text="_Tools">
+			<item id="ID_LIBRARY_FOLDERS" text="파일을 공유..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="다운로드 파일/Torrent..."/>
+			<separator/>
+			<item id="ID_TOOLS_LANGUAGE" text="C언어 선택 항목 ID를..."/>
+			<item id="ID_TOOLS_SKIN" text="스킨 선택..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="내 프로필 수정..."/>
+			<item id="ID_TOOLS_WIZARD" text="빠른 마법사..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="_PeerProject 설정..."/>
+		</menu>
+		<menu text="_Help">
+			<item id="ID_HELP_FAQ" text="PeerProject 자주 묻는 질문"/>
+			<item id="ID_HELP_TEST" text="연결 테스트 "/>
+			<separator/>
+			<menu text="_Guides">
+				<item id="ID_HELP_GUIDE" text="PeerProject _사용자 가이"/>
+				<item id="ID_HELP_ROUTER" text="_라우터 도움말"/>
+				<item id="ID_HELP_SECURITY" text="보안 도움말 항목"/>
+				<item id="ID_HELP_CODEC" text="코덱 도움"/>
+			</menu>
+			<separator/>
+			<menu text="_Websites">
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject 사이트 항목"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
+				<item id="ID_HELP_WEB_6" text="PeerProject 스킨 사이트"/>
+				<item id="ID_HELP_FAKESHAREAZA" text="가짜 FakeSharea_za.com"/> <!--
+				<item id="ID_HELP_UPDATE" text="최신 뉴스 "/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+			</menu>
+			<separator/> <!--
+			<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인 "/>
+			<item id="ID_HELP_DONATE" text="기부  PeerProject"/>
+			<separator/> -->
+			<item id="ID_HELP_ABOUT" text="항목 ID를 PeerProject..."/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Windowed" type="bar">

@@ -161,7 +161,6 @@ protected:
 
 // NavBar
 public:
-	BOOL		m_bBordersEnabled;
 	COLORREF	m_crNavBarText;
 	COLORREF	m_crNavBarTextUp;
 	COLORREF	m_crNavBarTextDown;
@@ -181,6 +180,16 @@ public:
 	enum { NavBarNormal, NavBarUpper, NavBarLower } m_NavBarMode;
 protected:
 	BOOL	LoadNavBar(CXMLElement* pBase);
+	BOOL	LoadOptions(CXMLElement* pBase);
+
+// Option Settings
+public:
+	BOOL		m_bDropMenu;
+	BOOL		m_bMenuBorders;
+	BOOL		m_bMenuGripper;
+	INT			m_nToolbarHeight;
+	INT			m_nSidebarWidth;
+
 
 private:
 	CSkin(const CSkin&);

@@ -81,24 +81,23 @@
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Parsisiųsti"/>
 		<button id="ID_BROWSE_LAUNCH" text="Rodyti naudotojo duomenis"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Paieškos skydelis"/>
-		<button id="ID_SEARCH_DETAILS" text="Išsamus aprašas"/>
 		<rightAlign/>
-		<label text="Filtras:" tip="Įrašykite atrankos filtro žodžius"/>
-		<control id="IDC_FILTER_BOX" width="130"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Dar..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtras:" tip="Įrašykite atrankos filtro žodžius"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Išsamus aprašas"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="Parsisiųsti"/>
-		<button id="ID_BROWSE_LAUNCH" text="Rodyti naudotojo duomenis"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Paieškos skydelis"/>
-		<button id="ID_SEARCH_DETAILS" text="Išsamus aprašas"/>
+		<button id="ID_BROWSE_LAUNCH" text="Rodyti naudotojo duomenis"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filtras:" tip="Įrašykite atrankos filtro žodžius"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Dar..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtras:" tip="Įrašykite atrankos filtro žodžius"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Išsamus aprašas"/>
+		<button id="ID_SEARCH_PANEL" text="Paieškos skydelis"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Ieškoti dar..."/>
@@ -106,13 +105,13 @@
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Siųstis"/>
 		<button id="ID_BROWSE_LAUNCH" text="Rodyti naudotojo duomenis"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Paieškos skydelis"/>
-		<button id="ID_SEARCH_DETAILS" text="Išsamus aprašas"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filtras:" tip="Įrašykite atrankos filtro žodžius"/>
-		<control id="IDC_FILTER_BOX" width="150"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Dar..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtras:" tip="Įrašykite atrankos filtro žodžius"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Išsamus aprašas"/>
+		<button id="ID_SEARCH_PANEL" text="Paieškos skydelis"/>
 	</toolbar>
 	<!-- BROWSE HOST WINDOW -->
 	<toolbar name="CBrowseHeaderCtrl">
@@ -126,25 +125,23 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Parsisiųsti failą"/>
 		<button id="ID_SEARCH_CHAT" text="Kalbėtis su naudotoju"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtras:" tip="Įrašykite atrankos filtro žodžius"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Išsamus aprašas"/>
-		<rightAlign/>
-		<label text="Filtras:" tip="Įrašykite atrankos filtro žodžius"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Dar..."/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Parsisiųsti failą"/>
-		<button id="ID_SEARCH_CHAT" text="Kalbėtis su naudotoju"/>
-		<separator/>
 		<button id="ID_BROWSE_STOP" text="Stabdyti"/>
 		<button id="ID_BROWSE_REFRESH" text="Atnaujinti"/>
 		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="Išsamus aprašas"/>
+		<button id="ID_SEARCH_CHAT" text="Kalbėtis su naudotoju"/>
 		<rightAlign/>
-		<label text="Filtras:" tip="Įrašykite atrankos filtro žodžius"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Dar..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtras:" tip="Įrašykite atrankos filtro žodžius"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Išsamus aprašas"/>
 	</toolbar>
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
@@ -382,7 +379,7 @@
 		<button id="ID_HITMONITOR_CLEAR" text="Valyti"/>
 		<rightAlign/>
 		<label text="Filtras:" tip="Įrašykite atrankos filtro žodžius"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Dar..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
@@ -489,77 +486,92 @@
 		<item id="ID_NETWORK_EXIT" text="Išeiti"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
-	<menu name="CMainWnd.Basic" type="bar">
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<item id="ID_TOOLS_SETTINGS" text="Nuostatos..."/>
 		<menu text="_Tinklas">
-			<item id="ID_NETWORK_CONNECT" text="Jun_gtis" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_CONNECT" text="Jungtis" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="Atsijungti"/>
 			<separator/>
-			<menu text="_Rinktis tinklus">
-				<item id="ID_NETWORK_G2" text="Jungtis prie _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Jungtis prie Gnutella_1"/>
-				<item id="ID_NETWORK_ED2K" text="Jungtis prie _eDonkey"/>
-			</menu>
+			<item id="ID_NETWORK_G2" text="Jungtis prie Gnutella2"/>
+			<item id="ID_NETWORK_G1" text="Jungtis prie Gnutella1"/>
+			<item id="ID_NETWORK_ED2K" text="Jungtis prie eDonkey"/>
 			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="Išeiti _baigus siųsti"/>
-			<item id="ID_NETWORK_EXIT" text="Iš_eiti"/>
+			<item id="ID_NETWORK_CONNECT_TO" text="Jungtis prie..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="Naršyti adresatą..."/>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Išeiti baigus siųsti"/>
+			<item id="ID_NETWORK_EXIT" text="Išeiti tuoj pat"/>
 		</menu>
-		<menu text="_Rodyti">
-			<item id="ID_TAB_HOME" text="_Pradžia"/>
-			<item id="ID_TAB_LIBRARY" text="_Kolekcija"/>
-			<item id="ID_TAB_MEDIA" text="_Grotuvas"/>
-			<item id="ID_TAB_SEARCH" text="Pa_ieška"/>
-			<item id="ID_TAB_TRANSFERS" text="_Atsisiuntimai"/>
-			<item id="ID_WINDOW_REMOTE" text="P_ultelis"/>
-			<item id="ID_TAB_IRC" text="P_okalbiai"/>
+		<menu text="Į_rankiai">
+			<item id="ID_LIBRARY_FOLDERS" text="Bendrinti failus..."/>
+			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads Folder"/>
 			<separator/>
-			<menu text="Kita">
-				<item id="ID_VIEW_NEIGHBOURS" text="_Kaimynai"/>
-				<item id="ID_VIEW_UPLOADS" text="_Išsiuntimai"/>
-				<separator/>
-				<item id="ID_VIEW_SECURITY" text="Ap_sauga"/>
-				<item id="ID_VIEW_HOSTS" text="Adresatų _talpykla"/>
-				<item id="ID_VIEW_DISCOVERY" text="Paslaugų _radimo tarnybos"/>
-			</menu>
+			<item id="ID_TOOLS_DOWNLOAD" text="Atsisiųsti failą/Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" text="Skleisti torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+			<item id="IDC_IMPORT_DOWNLOADS" text="Importuoti eMule dalinius failus..."/>
 			<separator/>
-			<item id="ID_VIEW_BASIC" text="Įprastinė _veiksena"/>
-			<item id="ID_VIEW_TABBED" text="_Eksperto veiksena"/>
+			<item id="ID_TOOLS_LANGUAGE" text="Pasirinkti kalbą..."/>
+			<item id="ID_TOOLS_SKIN" text="Pasirinkti apvalkalą..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Taisyti savo profilį..."/>
+			<item id="ID_TOOLS_WIZARD" text="Nuostatų vedlys..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="„PeerProject“ nuostatos..."/>
 		</menu>
-		<menu text="Įran_kiai">
-			<item id="ID_LIBRARY_FOLDERS" text="_Bendrinti failus..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="_Atsisiųsti failą/Torrent..."/>
+		<menu text="_Kita">
+			<item id="ID_TAB_HOME" text="Pradžia" shortcut="Ctrl+H"/>
+			<item id="ID_TAB_SEARCH" text="Paieška" shortcut="Ctrl+S"/>
+			<item id="ID_VIEW_DOWNLOADS" text="Atsisiuntimai" shortcut="F3"/>
+			<item id="ID_VIEW_UPLOADS" text="Išsiuntimai" shortcut="F4"/>
+			<item id="ID_VIEW_LIBRARY" text="Kolekcija" shortcut="F5"/>
+			<item id="ID_VIEW_MEDIA" text="Grotuvas" shortcut="F6"/>
 			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Pasirinkti ap_valkalą..."/>
-			<item id="ID_TOOLS_LANGUAGE" text="Pasirinkti _kalbą..."/>
+			<item id="ID_VIEW_SECURITY" text="Apsauga" shortcut="F7"/>
+			<item id="ID_VIEW_HOSTS" text="Adresatų talpykla" shortcut="F8"/>
+			<item id="ID_VIEW_DISCOVERY" text="Paslaugų radimo tarnybos" shortcut="F9"/>
+			<item id="ID_VIEW_TRAFFIC" text="Grafikai" shortcut="F10"/>
+			<item id="ID_VIEW_SYSTEM" text="Sistema" shortcut="F11"/>
+			<item id="ID_VIEW_NEIGHBOURS" text="Kaimynai" shortcut="Crtl+F11"/>
 			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="Taisyti savo _profilį..."/>
-			<item id="ID_TOOLS_WIZARD" text="_Nuostatų vedlys..."/>
+			<item id="ID_VIEW_PACKETS" text="Paketų išvestis" shortcut="Ctrl+F1"/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Paieškos užklausų monitorius" shortcut="Ctrl+F2"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="Kreipinių monitorius" shortcut="Ctrl+F3"/>
+		</menu>
+		<menu text="_Langas">
+			<item id="ID_VIEW_TABBED" text="Kortelių veiksena" shortcut="būtina"/>
+			<item id="ID_VIEW_WINDOWED" text="Langų veiksena" shortcut="nepalaiko"/>
 			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="„_PeerProject“ nuostatos..."/>
+			<item id="ID_WINDOW_NAVBAR" text="Rodyti naršymo juostą" shortcut="būtina"/>
+			<item id="ID_WINDOW_TABBAR" text="Rodyti kortelių juostą" shortcut="būtina"/>
+			<item id="ID_WINDOW_MONITOR" text="Rodyti monitorių"/>
+			<item id="ID_WINDOW_REMOTE" text="Rodyti grotuvo pultelį"/>
 		</menu>
 		<menu text="Ži_nynas">
-			<item id="ID_HELP_FAQ" text="„PeerProject“ _DUK"/>
-			<item id="ID_HELP_TEST" text="Ryšio testas"/>
-			<separator/>
-			<menu text="_Vadovai">
-				<item id="ID_HELP_GUIDE" text="„PeerProject“ _naudotojo vadovas"/>
-				<item id="ID_HELP_ROUTER" text="Pagalba apie _maršrutizatorius"/>
-				<item id="ID_HELP_SECURITY" text="_Pagalba apie apsaugą"/>
-				<item id="ID_HELP_CODEC" text="Pagalba apie _kodekus"/>
+			<item id="ID_HELP_GUIDE" text="„PeerProject“ naudotojo vadovas"/>
+			<item id="ID_HELP_FORUMS" text="„PeerProject“ forumai"/>
+			<item id="ID_HELP_FAQ" text="„PeerProject“ DUK" shortcut="F1"/>
+			<menu text="SkinVista žinynas">
+				<menu text="Jei meniu juosta rodoma neteisingai --"/>
+				<menu text="Pasirinkite meniu: Langas: Rodyti naršymo juostą"/>
+				<menu text="Tada sujunkite naršymo juosta su meniu juosta-"/>
+				<menu text="(Nutempkite į šalį prieš padedant į viršų)"/>
+				<menu text="Perkraukite sąsają, jei reikia pašalinti defektus: Ctrl+Shift+Z"/>
 			</menu>
 			<separator/>
-			<menu text="Tinkla_lapiai">
-				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
-				<separator/>
-				<item id="ID_HELP_FORUMS" text="„PeerProject“ _forumai"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Paskutinės naujienos"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+			<menu text="Tinkl_alapiai">
+				<item id="ID_HELP_WEB_3" text="Slyck.com"/>
+				<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				<item id="ID_HELP_WEB_6" text="DeviantArt.com Skins"/>
 			</menu>
+			<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 			<separator/>
-			<item id="ID_HELP_VERSION_CHECK" text="Tikrinti naujesnės _versijos"/>
-			<item id="ID_HELP_DONATE" text="_Aukoti PeerProject projektui"/>
-			<separator/>
-			<item id="ID_HELP_ABOUT" text="_Apie „PeerProject“..."/>
+			<item id="ID_HELP_ABOUT" text="Apie „PeerProject“..."/>
 		</menu>
+		<item id="ID_NETWORK_EXIT" text="Išeiti"/>
+                </menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
 		<menu text="_Tinklas">
@@ -633,6 +645,78 @@
 			<item id="ID_WINDOW_TABBAR" text="Rodyti _kortelių juostą"/>
 			<item id="ID_WINDOW_MONITOR" text="Rodyti _monitorių"/>
 			<item id="ID_WINDOW_REMOTE" text="Rodyti _pultelį"/>
+		</menu>
+		<menu text="Ži_nynas">
+			<item id="ID_HELP_FAQ" text="„PeerProject“ _DUK"/>
+			<item id="ID_HELP_TEST" text="Ryšio testas"/>
+			<separator/>
+			<menu text="_Vadovai">
+				<item id="ID_HELP_GUIDE" text="„PeerProject“ _naudotojo vadovas"/>
+				<item id="ID_HELP_ROUTER" text="Pagalba apie _maršrutizatorius"/>
+				<item id="ID_HELP_SECURITY" text="_Pagalba apie apsaugą"/>
+				<item id="ID_HELP_CODEC" text="Pagalba apie _kodekus"/>
+			</menu>
+			<separator/>
+			<menu text="Tinkla_lapiai">
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="„PeerProject“ _forumai"/>
+				<!-- <item id="ID_HELP_UPDATE" text="Paskutinės naujienos"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+			</menu>
+			<separator/>
+			<item id="ID_HELP_VERSION_CHECK" text="Tikrinti naujesnės _versijos"/>
+			<item id="ID_HELP_DONATE" text="_Aukoti PeerProject projektui"/>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="_Apie „PeerProject“..."/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="_Tinklas">
+			<item id="ID_NETWORK_CONNECT" text="Jun_gtis" shortcut="Ctrl+G"/>
+			<separator/>
+			<menu text="_Rinktis tinklus">
+				<item id="ID_NETWORK_G2" text="Jungtis prie _Gnutella2"/>
+				<item id="ID_NETWORK_G1" text="Jungtis prie Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Jungtis prie _eDonkey"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Išeiti _baigus siųsti"/>
+			<item id="ID_NETWORK_EXIT" text="Iš_eiti"/>
+		</menu>
+		<menu text="_Rodyti">
+			<item id="ID_TAB_HOME" text="_Pradžia"/>
+			<item id="ID_TAB_LIBRARY" text="_Kolekcija"/>
+			<item id="ID_TAB_MEDIA" text="_Grotuvas"/>
+			<item id="ID_TAB_SEARCH" text="Pa_ieška"/>
+			<item id="ID_TAB_TRANSFERS" text="_Atsisiuntimai"/>
+			<item id="ID_WINDOW_REMOTE" text="P_ultelis"/>
+			<item id="ID_TAB_IRC" text="P_okalbiai"/>
+			<separator/>
+			<menu text="Kita">
+				<item id="ID_VIEW_NEIGHBOURS" text="_Kaimynai"/>
+				<item id="ID_VIEW_UPLOADS" text="_Išsiuntimai"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Ap_sauga"/>
+				<item id="ID_VIEW_HOSTS" text="Adresatų _talpykla"/>
+				<item id="ID_VIEW_DISCOVERY" text="Paslaugų _radimo tarnybos"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="Įprastinė _veiksena"/>
+			<item id="ID_VIEW_TABBED" text="_Eksperto veiksena"/>
+		</menu>
+		<menu text="Įran_kiai">
+			<item id="ID_LIBRARY_FOLDERS" text="_Bendrinti failus..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Atsisiųsti failą/Torrent..."/>
+			<separator/>
+			<item id="ID_TOOLS_SKIN" text="Pasirinkti ap_valkalą..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="Pasirinkti _kalbą..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Taisyti savo _profilį..."/>
+			<item id="ID_TOOLS_WIZARD" text="_Nuostatų vedlys..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="„_PeerProject“ nuostatos..."/>
 		</menu>
 		<menu text="Ži_nynas">
 			<item id="ID_HELP_FAQ" text="„PeerProject“ _DUK"/>
@@ -1605,17 +1689,19 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">PRADĖTI SIŲSTIS</heading>
-			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Paspauskite čia</link>
-			<text align="middle">, jei norite pradėti siųstis failą ar torentą.</text>
-			<newline gap="24" indent="0"/>
 			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">IEŠKOTI FAILO</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
-			<newline gap="12" indent="0"/>
+			<newline gap="14" indent="0"/>
+			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<heading align="middle">PRADĖTI SIŲSTIS</heading>
+			<newline gap="8" indent="42"/>
+			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Paspauskite čia</link>
+			<text>, jei norite pradėti siųstis failą ar torentą.</text>
+			<newline gap="2" indent="42"/>
+			<link target="peer:shell:downloads">Atverti atsisiuntimų katalogą.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1699,7 +1785,7 @@
 	<document name="CHomeConnectionBox" title="Susijungimai" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1744,7 +1830,7 @@
 	<document name="CHomeLibraryBox" title="Mano kolekcija" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1752,19 +1838,17 @@
 				<text>Jūs kol kas nesate atsisiuntę jokių failų.</text>
 				<newline gap="8"/>
 			</group>
-			<text>Viso failų: </text>
+			<link target="peer:command:ID_VIEW_LIBRARY">Eiti į savo kolekciją</link>
+			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu</text>
-			<text>, </text>
+			<text>failų (</text>
 			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="4"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Eiti į savo kolekciją</link>
-			<newline gap="4"/>
-			<link format="bu" target="peer:shell:downloads">Atverti atsisiuntimų katalogą</link>
+			<text>)</text>
 			<group id="1">
 				<newline gap="8"/>
 				<text>„PeerProject“ skenuoja ir apdoroja </text>
 				<text id="LibraryHashRemaining" format="b">%lu </text>
-				<text>failus(-ą,-ų).</text>
+				<text>failus(-ą,-ų)</text>
 				<newline gap="8"/>
 			</group>
 			<group id="3">
@@ -1778,7 +1862,7 @@
 	<document name="CHomeDownloadsBox" title="Mano atsisiuntimai" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1800,7 +1884,7 @@
 	<document name="CHomeUploadsBox" title="Išsiuntimai" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">

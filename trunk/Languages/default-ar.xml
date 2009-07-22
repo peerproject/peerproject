@@ -82,24 +82,24 @@
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="تحميل" />
 		<button id="ID_BROWSE_LAUNCH" text="معلومات عن المستخدم" />
+		<rightAlign />
+		<button id="ID_SEARCH_FILTER_RAW" text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
+		<control id="IDC_FILTER_BOX" width="80" />
 		<separator />
 		<button id="ID_SEARCH_PANEL" text="إظهار البحث" />
 		<button id="ID_SEARCH_DETAILS" text="إظهار التفاصيل" />
-		<rightAlign />
-		<label text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
-		<control id="IDC_FILTER_BOX" width="130" />
-		<button id="ID_SEARCH_FILTER_RAW" text="المزيد..." />
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="تحميل" />
+		<separator />
 		<button id="ID_BROWSE_LAUNCH" text="معلومات عن المستخدم" />
+		<button id="ID_SECURITY_BAN" text="Ban"/>
+		<rightAlign />
+		<button id="ID_SEARCH_FILTER_RAW" text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
+		<control id="IDC_FILTER_BOX" width="80" />
 		<separator />
 		<button id="ID_SEARCH_PANEL" text="إظهار البحث" />
 		<button id="ID_SEARCH_DETAILS" text="إظهار التفاصيل" />
-		<rightAlign />
-		<label text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
-		<control id="IDC_FILTER_BOX" width="160" />
-		<button id="ID_SEARCH_FILTER_RAW" text="المزيد..." />
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="البحث ثانية ..." />
@@ -107,13 +107,13 @@
 		<separator />
 		<button id="ID_SEARCH_DOWNLOAD" text="تحميل" />
 		<button id="ID_BROWSE_LAUNCH" text="تصفح لمستخدم" />
+		<button id="ID_SECURITY_BAN" text="Ban"/>
+		<rightAlign />
+		<button id="ID_SEARCH_FILTER_RAW" text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
+		<control id="IDC_FILTER_BOX" width="80" />
 		<separator />
 		<button id="ID_SEARCH_PANEL" text="إظهار البحث" />
 		<button id="ID_SEARCH_DETAILS" text="إظهار التفاصيل" />
-		<rightAlign />
-		<label text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
-		<control id="IDC_FILTER_BOX" width="150" />
-		<button id="ID_SEARCH_FILTER_RAW" text="المزيد..." />
 	</toolbar>
 	<!--نافذة تصفج المضيف-->
 	<toolbar name="CBrowseHeaderCtrl">
@@ -127,25 +127,23 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="تحميل الملف" />
 		<button id="ID_SEARCH_CHAT" text="محادثة المستخدم" />
+		<rightAlign />
+		<button id="ID_SEARCH_FILTER_RAW" text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
+		<control id="IDC_FILTER_BOX" width="80" />
 		<separator />
 		<button id="ID_SEARCH_DETAILS" text="إظهار التفاصيل" />
-		<rightAlign />
-		<label text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
-		<control id="IDC_FILTER_BOX" width="160" />
-		<button id="ID_SEARCH_FILTER_RAW" text="المزيد..." />
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="تحميل الملف" />
-		<button id="ID_SEARCH_CHAT" text="محادثة المستخدم" />
-		<separator />
 		<button id="ID_BROWSE_STOP" text="إيقاف" />
 		<button id="ID_BROWSE_REFRESH" text="تحديث" />
 		<separator />
-		<button id="ID_SEARCH_DETAILS" text="إظهار التفاصيل" />
+		<button id="ID_SEARCH_CHAT" text="محادثة المستخدم" />
 		<rightAlign />
-		<label text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
-		<control id="IDC_FILTER_BOX" width="160" />
-		<button id="ID_SEARCH_FILTER_RAW" text="المزيد..." />
+		<button id="ID_SEARCH_FILTER_RAW" text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
+		<control id="IDC_FILTER_BOX" width="80" />
+		<separator />
+		<button id="ID_SEARCH_DETAILS" text="إظهار التفاصيل" />
 	</toolbar>
 	<!--نافذة التحميلات-->
 	<toolbar name="CDownloadsWnd.Basic">
@@ -378,7 +376,7 @@
 		<button id="ID_HITMONITOR_CLEAR" text="مسح" />
 		<rightAlign />
 		<label text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
-		<control id="IDC_FILTER_BOX" width="160" />
+		<control id="IDC_FILTER_BOX" width="80" />
 		<button id="ID_SEARCH_FILTER_RAW" text="المزيد..." />
 	</toolbar>
 	<!--نافذة مخزون المضيف المؤقت-->
@@ -466,7 +464,7 @@
 		<item id="ID_CHILD_CLOSE" text="_إغلاق النافذة" />
 	</menu>
 	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+	<menu name="CMainWnd.Tray">
 		<item id="ID_TRAY_OPEN" text="فتح PeerProject" />
 		<separator />
 		<item id="ID_WINDOW_REMOTE" text="Show Remote"/>
@@ -483,74 +481,94 @@
 		<item id="ID_NETWORK_EXIT" text="خ_روج" />
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
-	<menu name="CMainWnd.Basic" type="شريط">
-		<menu text="_شبكة">
-  		<item id="ID_NETWORK_CONNECT" text="_إتصال" shortcut="Ctrl+G" />
-  		<separator />
-  		<menu text="تحديد _الشبكات">
-    		<item id="ID_NETWORK_G2" text="_الإتصال بـ Gnutella2" />
-    		<item id="ID_NETWORK_G1" text="الإتصال بـ Gnutella_1" />
-    		<item id="ID_NETWORK_ED2K" text="_الإتصال بـ eDonkey2000" />
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+			<item id="ID_TOOLS_SETTINGS" text="إ_عدادات ..."/>
+			<menu text="_شبكة">
+				<item id="ID_NETWORK_CONNECT" text="_إتصال" shortcut="Ctrl+G" />
+				<item id="ID_NETWORK_DISCONNECT" text="_قطع الإتصال" />
+				<separator />
+				<item id="ID_NETWORK_G2" text="_الإتصال بـ Gnutella_2" />
+				<item id="ID_NETWORK_G1" text="الإتصال بـ _Gnutella" />
+				<item id="ID_NETWORK_ED2K" text=" _الإتصال بـ _eDonkey2000" />
+				<separator />
+				<item id="ID_NETWORK_CONNECT_TO" text="الإتصال _بـ..." shortcut="Ctrl+T" />
+				<item id="ID_NETWORK_BROWSE_TO" text="_إستعراض المضيف..." />
+				<separator />
+				<item id="ID_NETWORK_AUTO_CLOSE" text="الخروج عند إنتهاء _ نقل البيانات" />
+				<item id="ID_NETWORK_EXIT" text="خ_روج" />
+			</menu>
+			<menu text="_ادوات">
+				<item id="ID_LIBRARY_FOLDERS" text="مشاركة _الملفات..." />
+				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_فتح مجلدي للتحميلات المكتملة" />
+				<separator />
+				<item id="ID_TOOLS_DOWNLOAD" text="_تحميل الملف/Torrent..." />
+				<item id="ID_TOOLS_CREATETORRENT" text="_Create .Torrent..."/>
+				<item id="IDC_IMPORT_DOWNLOADS" text="_إستيراد تحميلات eMule الجزئية" />
+				<separator />
+				<item id="ID_TOOLS_LANGUAGE" text="تحديد _ اللغه..." />
+				<item id="ID_TOOLS_SKIN" text="تحديد غ_لاف..." />
+				<separator />
+				<item id="ID_TOOLS_PROFILE" text="تحرير _ملفي الخاص..." />
+    				<item id="ID_TOOLS_WIZARD" text="_معالج البدء السريع..." />
+				<separator />
+				<item id="ID_TOOLS_SETTINGS" text="إ_عدادات PeerProject" />
+			</menu>
+			<menu text="_عرض">
+				<item id="ID_TAB_HOME" text="_الرئيسية"  shortcut="Ctrl+H" />
+				<item id="ID_VIEW_NEIGHBOURS" text="الات_صالات المجاوره" shortcut="F2" />
+				<item id="ID_VIEW_SYSTEM" text="ن_ظام" shortcut="F11" />
+				<item id="ID_VIEW_DOWNLOADS" text="_مكتبة الملفات" shortcut="F3" />
+				<item id="ID_VIEW_UPLOADS" text="_رفع الملفات" shortcut="F4" />
+				<item id="ID_VIEW_LIBRARY" text="_المكتبة" shortcut="F5" />
+				<item id="ID_VIEW_MEDIA" text="_الوسائط" shortcut="F6" />
+				<separator />
+				<item id="ID_VIEW_SECURITY" text="ا_من" shortcut="F7" />
+				<item id="ID_VIEW_HOSTS" text="ا_لمخزون المؤقت للمضيف" shortcut="F8" />
+				<item id="ID_VIEW_DISCOVERY" text="اكت_شاف" shortcut="F9" />
+				<item id="ID_VIEW_TRAFFIC" text="_مخطط" shortcut="F10" />
+				<separator />
+				<item id="ID_VIEW_PACKETS" text="_تفريغ الحزمة" shortcut="Ctrl+F1" />
+				<item id="ID_VIEW_SEARCH_MONITOR" text="شا_شة البحث" shortcut="Ctrl+F2" />
+				<item id="ID_VIEW_RESULTS_MONITOR" text="ا_ختر شاشة" shortcut="Ctrl+F3" />
+				<item id="ID_TAB_SEARCH" text="_بحث"  shortcut="Ctrl+S"/>
+			</menu>
+			<menu text="_نافذة">
+				<item id="ID_VIEW_BASIC" text="ن_ظام عادي" />
+				<item id="ID_VIEW_TABBED" text="نظ_ام متقدم" />
+				<item id="ID_VIEW_WINDOWED" text="_نظام ذو نوافذ" />
+				<separator />
+				<item id="ID_WINDOW_NAVBAR" text="عرض _عامود التصفح" />
+				<item id="ID_WINDOW_TOOLBAR" text="إظهار _مربع الادوات" />
+				<separator />
+				<item id="ID_WINDOW_TABBAR" text="إظهار شريط المع_لومات" />	
+				<item id="ID_WINDOW_MONITOR" text="إظهار _الشاشة" />
+				<item id="ID_WINDOW_REMOTE" text="إظهار _الإتصال عن بعد" />	
+			</menu>
+			<menu text="_تعليمات">
+				<item id="ID_HELP_FAQ" text="_إستفسارات PeerProject" />
+				<item id="ID_HELP_TEST" text="_فحص الإتصال" />
+				<separator />
+				<menu text="_الأدلة الإرشادية">
+					<item id="ID_HELP_GUIDE" text="مستخدمي _دليل PeerProject" />
+					<item id="ID_HELP_ROUTER" text="_تعليمات جهاز التوجيه" />
+					<item id="ID_HELP_SECURITY" text="_تعليمات الأمان" />
+					<item id="ID_HELP_CODEC" text="_تعليمات أدوات الترميز" />
+				</menu>
+				<separator />
+				<menu text="_مواقع ويب">
+					<item id="ID_HELP_FORUMS" text="_منتديات PeerProject" />
+					<separator />
+					<item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				</menu>
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject.org" />
+				<separator/>
+				<item id="ID_HELP_ABOUT" text="_معلومات عن PeerProject..."/>
+			</menu>
+			<item id="ID_NETWORK_EXIT" text="خ_روج"/>
 		</menu>
-		<separator />
-		<item id="ID_NETWORK_AUTO_CLOSE" text="الخروج عند إنتهاء _ نقل البيانات" />
-		<item id="ID_NETWORK_EXIT" text="خ_روج" />
-	</menu>
-	<menu text="_عرض">
-		<item id="ID_TAB_HOME" text="_الرئيسية" />
-		<item id="ID_TAB_SEARCH" text="_بحث" />
-		<item id="ID_TAB_TRANSFERS" text="_مكتبة الملفات" />
-		<item id="ID_TAB_LIBRARY" text="_المكتبة" />
-		<item id="ID_TAB_MEDIA" text="_مشغل الوسائط" />
-		<item id="ID_TAB_IRC" text="_محادثة" />
-		<item id="ID_WINDOW_REMOTE" text="_بعيد" />
-		<separator />
-		<menu text="_خيارات متقدمة">
-			<item id="ID_VIEW_NEIGHBOURS" text="_الإتصالات المجاورة" />
-			<item id="ID_VIEW_UPLOADS" text="_المرفوعات" />
-			<separator />
-			<item id="ID_VIEW_SECURITY" text="ال_أمان" />
-			<item id="ID_VIEW_HOSTS" text="ا_لمخزون المؤقت للمضيف" />
-			<item id="ID_VIEW_DISCOVERY" text="الإكت_شاف" />
-		</menu>
-		<separator />
-		<item id="ID_VIEW_BASIC" text="_النمط العادي" />
-		<item id="ID_VIEW_TABBED" text="_النمط المتقدم" />
-	</menu>
-	<menu text="_أدوات">
-		<item id="ID_LIBRARY_FOLDERS" text="مشارك_ة الملفات..." />
-		<item id="ID_TOOLS_DOWNLOAD" text="_تحميل ملف/Torrent..." />
-		<separator />
-		<item id="ID_TOOLS_SKIN" text="تحديد الغلا_ف..." />
-		<item id="ID_TOOLS_LANGUAGE" text="تحديد ال_لغة..." />
-		<separator />
-		<item id="ID_TOOLS_SKIN" text="تحديد غ_لاف..." />
-		<item id="ID_TOOLS_LANGUAGE" text="تحديد _ اللغه..." />
-		<separator />
-		<item id="ID_TOOLS_SETTINGS" text="إ_عدادات PeerProject" />
-	</menu>
-	<menu text="_تعليمات">
-		<item id="ID_HELP_FAQ" text="مستخدمي _دليل PeerProject" />
-		<item id="ID_HELP_TEST" text="_فحص الإتصال" />
-		<separator />
-		<menu text="_Guides">
-			<item id="ID_HELP_GUIDE" text="مستخدمي _دليل PeerProject" />
-			<item id="ID_HELP_ROUTER" text="_تعليمات جهاز التوجيه" />
-			<item id="ID_HELP_SECURITY" text="_تعليمات الأمان" />
-			<item id="ID_HELP_CODEC" text="_تعليمات أدوات الترميز" />
-		</menu>
-		<separator />
-		<menu text="_المواقع">
-			<item id="ID_HELP_HOMEPAGE" text="_PeerProject.org" />
-			<separator />
-			<item id="ID_HELP_FORUMS" text="_منتديات PeerProject" />
-			<!-- <item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-			<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-	  <item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
-		</menu>
-		<separator />
-		<item id="ID_HELP_ABOUT" text="_معلومات عن PeerProject ..." />
-	</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="شريط">
 	<menu text="_شبكة">
@@ -646,6 +664,75 @@
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_معلومات عن PeerProject..."/>
 		</menu>
+	</menu>
+	<menu name="CMainWnd.Basic" type="شريط">
+		<menu text="_شبكة">
+  		<item id="ID_NETWORK_CONNECT" text="_إتصال" shortcut="Ctrl+G" />
+  		<separator />
+  		<menu text="تحديد _الشبكات">
+    		<item id="ID_NETWORK_G2" text="_الإتصال بـ Gnutella2" />
+    		<item id="ID_NETWORK_G1" text="الإتصال بـ Gnutella_1" />
+    		<item id="ID_NETWORK_ED2K" text="_الإتصال بـ eDonkey2000" />
+		</menu>
+		<separator />
+		<item id="ID_NETWORK_AUTO_CLOSE" text="الخروج عند إنتهاء _ نقل البيانات" />
+		<item id="ID_NETWORK_EXIT" text="خ_روج" />
+	</menu>
+	<menu text="_عرض">
+		<item id="ID_TAB_HOME" text="_الرئيسية" />
+		<item id="ID_TAB_SEARCH" text="_بحث" />
+		<item id="ID_TAB_TRANSFERS" text="_مكتبة الملفات" />
+		<item id="ID_TAB_LIBRARY" text="_المكتبة" />
+		<item id="ID_TAB_MEDIA" text="_مشغل الوسائط" />
+		<item id="ID_TAB_IRC" text="_محادثة" />
+		<item id="ID_WINDOW_REMOTE" text="_بعيد" />
+		<separator />
+		<menu text="_خيارات متقدمة">
+			<item id="ID_VIEW_NEIGHBOURS" text="_الإتصالات المجاورة" />
+			<item id="ID_VIEW_UPLOADS" text="_المرفوعات" />
+			<separator />
+			<item id="ID_VIEW_SECURITY" text="ال_أمان" />
+			<item id="ID_VIEW_HOSTS" text="ا_لمخزون المؤقت للمضيف" />
+			<item id="ID_VIEW_DISCOVERY" text="الإكت_شاف" />
+		</menu>
+		<separator />
+		<item id="ID_VIEW_BASIC" text="_النمط العادي" />
+		<item id="ID_VIEW_TABBED" text="_النمط المتقدم" />
+	</menu>
+	<menu text="_أدوات">
+		<item id="ID_LIBRARY_FOLDERS" text="مشارك_ة الملفات..." />
+		<item id="ID_TOOLS_DOWNLOAD" text="_تحميل ملف/Torrent..." />
+		<separator />
+		<item id="ID_TOOLS_SKIN" text="تحديد الغلا_ف..." />
+		<item id="ID_TOOLS_LANGUAGE" text="تحديد ال_لغة..." />
+		<separator />
+		<item id="ID_TOOLS_SKIN" text="تحديد غ_لاف..." />
+		<item id="ID_TOOLS_LANGUAGE" text="تحديد _ اللغه..." />
+		<separator />
+		<item id="ID_TOOLS_SETTINGS" text="إ_عدادات PeerProject" />
+	</menu>
+	<menu text="_تعليمات">
+		<item id="ID_HELP_FAQ" text="مستخدمي _دليل PeerProject" />
+		<item id="ID_HELP_TEST" text="_فحص الإتصال" />
+		<separator />
+		<menu text="_Guides">
+			<item id="ID_HELP_GUIDE" text="مستخدمي _دليل PeerProject" />
+			<item id="ID_HELP_ROUTER" text="_تعليمات جهاز التوجيه" />
+			<item id="ID_HELP_SECURITY" text="_تعليمات الأمان" />
+			<item id="ID_HELP_CODEC" text="_تعليمات أدوات الترميز" />
+		</menu>
+		<separator />
+		<menu text="_المواقع">
+			<item id="ID_HELP_HOMEPAGE" text="_PeerProject.org" />
+			<separator />
+			<item id="ID_HELP_FORUMS" text="_منتديات PeerProject" />
+			<!-- <item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
+			<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+			<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+		</menu>
+		<separator />
+		<item id="ID_HELP_ABOUT" text="_معلومات عن PeerProject ..." />
+	  </menu>
 	</menu>
 	<menu name="CMainWnd.Windowed" type="bar">
 		<menu text="_شبكة">
@@ -1545,18 +1632,20 @@
 			<newline gap="18" indent="0" />
 		</group>
 		<group id="2">
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD" />
-			<heading align="middle"> ابدأ التحميل </heading>
-			<newline gap="8" indent="42" />
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">أنقر هنا لتبدأ</link>
-			<text align="middle">   - حمل ملف جديد أو حمل ملف torrent .</text>
-			<newline gap="24" indent="0" />
 			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH" />
 			<gap size="8" />
 			<heading align="middle">إبــحــث عــن مــلــف</heading>
 			<newline gap="8" indent="42" />
 			<anchor id="SearchBox" width="256" height="80" />
 			<newline gap="12" indent="0" />
+			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD" />
+			<heading align="middle"> ابدأ التحميل </heading>
+			<newline gap="8" indent="42" />
+			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">أنقر هنا لتبدأ</link>
+			<text>   - حمل ملف جديد أو حمل ملف torrent.</text>
+			<newline gap="2" indent="42" />
+			<link target="peer:shell:downloads">فتح مجلد تحميلاتي</link>
+			<newline gap="20" indent="0" />
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32" />
@@ -1637,7 +1726,7 @@
 	<document name="CHomeConnectionBox" title="الإتصال" rightMargin="6" topMargin="6">
 		<styles>
 		  <style name="default">
-			<font size="9" />
+			<font size="11" />
 		  </style>
 		</styles>
 		<para align="center">
@@ -1683,7 +1772,7 @@
 	<document name="CHomeLibraryBox" title="مكتبتي الخاصة" rightMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9" />
+				<font size="11" />
 			</style>
 		</styles>
 		<para align="center">
@@ -1691,13 +1780,12 @@
 				<text>لا تقوم بتحميل اي ملفات الان</text>
 				<newline gap="8" />
 			</group>
+			<link target="peer:command:ID_VIEW_LIBRARY">الإنتقال إلى مكتبتي</link>
+			<newline gap="4" />
 			<text id="LibraryFiles" format="b">%lu </text>
 			<text>ملفات, </text>
 			<text id="LibraryVolume" format="b">%s</text>
 			<newline gap="4" />
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">الإنتقال إلى مكتبتي</link>
-			<newline gap="4" />
-			<link format="bu" target="peer:shell:downloads">فتح مجلد تحميلاتي</link>
 			<group id="1">
 				<newline gap="8" />
 				<text> يقوم بالمسح والمعالجة PeerProject</text>
@@ -1716,7 +1804,7 @@
 	<document name="CHomeDownloadsBox" title="مكتبة ملفاتي الخاصة" rightMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9" />
+				<font size="11" />
 			</style>
 		</styles>
 		<para align="center">
@@ -1738,7 +1826,7 @@
 	<document name="CHomeUploadsBox" title="رفع الملفات" rightMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9" />
+				<font size="11" />
 			</style>
 		</styles>
 		<para align="center">

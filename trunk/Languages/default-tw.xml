@@ -80,25 +80,25 @@
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="下載"/>
-		<button id="ID_BROWSE_LAUNCH" text="調閱使用者"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="顯示搜尋"/>
-		<button id="ID_SEARCH_DETAILS" text="顯示詳細內容"/>
+		<button id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
 		<rightAlign/>
-		<label text="過濾:" tip="請鍵入要過濾的關鍵字"/>
-		<control id="IDC_FILTER_BOX" width="130"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="更多..."/>
+		<button id="ID_SEARCH_FILTER_RAW"text="過濾:" tip="請鍵入要過濾的關鍵字"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="顯示詳細內容"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="下載"/>
-		<button id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="顯示搜尋"/>
-		<button id="ID_SEARCH_DETAILS" text="顯示詳細內容"/>
+		<button id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="過濾:" tip="請鍵入要過濾的關鍵字"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="更多..."/>
+		<button id="ID_SEARCH_FILTER_RAW"text="過濾:" tip="請鍵入要過濾的關鍵字"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="顯示詳細內容"/>
+		<button id="ID_SEARCH_PANEL" text="顯示搜尋"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="再次搜尋"/>
@@ -106,13 +106,13 @@
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="下載"/>
 		<button id="ID_BROWSE_LAUNCH" text="調閱使用者"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="顯示搜尋"/>
-		<button id="ID_SEARCH_DETAILS" text="顯示詳細內容"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="過濾:" tip="請鍵入要過濾的關鍵字"/>
-		<control id="IDC_FILTER_BOX" width="150"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="更多..."/>
+		<button id="ID_SEARCH_FILTER_RAW"text="過濾:" tip="請鍵入要過濾的關鍵字"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="顯示詳細內容"/>
+		<button id="ID_SEARCH_PANEL" text="顯示搜尋"/>
 	</toolbar>
 	<!-- BROWSE HOST WINDOW -->
 	<toolbar name="CBrowseHeaderCtrl">
@@ -126,25 +126,23 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="下載檔案"/>
 		<button id="ID_SEARCH_CHAT" text="與使用者聊天"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW"text="過濾:" tip="請鍵入要過濾的關鍵字"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="顯示詳細內容"/>
-		<rightAlign/>
-		<label text="過濾:" tip="請鍵入要過濾的關鍵字"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="更多..."/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="下載檔案"/>
-		<button id="ID_SEARCH_CHAT" text="與使用者聊天"/>
-		<separator/>
 		<button id="ID_BROWSE_STOP" text="停止"/>
 		<button id="ID_BROWSE_REFRESH" text="重新整理"/>
 		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="顯示詳細內容"/>
+		<button id="ID_SEARCH_CHAT" text="與使用者聊天"/>
 		<rightAlign/>
-		<label text="過濾:" tip="請鍵入要過濾的關鍵字"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="更多..."/>
+		<button id="ID_SEARCH_FILTER_RAW"text="過濾:" tip="請鍵入要過濾的關鍵字"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="顯示詳細內容"/>
 	</toolbar>
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
@@ -373,7 +371,7 @@
 		<button id="ID_HITMONITOR_CLEAR" text="清除"/>
 		<rightAlign/>
 		<label text="過濾:" tip="請鍵入要過濾的關鍵字"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="更多..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
@@ -452,71 +450,89 @@
 		<item id="ID_NETWORK_EXIT" text="離開"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
-	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="網路">
-			<item id="ID_NETWORK_CONNECT" text="連線" shortcut="Ctrl+G"/>
-			<separator/>
-			<menu text="選擇網路">
-				<item id="ID_NETWORK_G2" text="連線至 Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="連線至 Gnutella 1"/>
-				<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
-			</menu>
-			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="傳輸後離開"/>
-			<item id="ID_NETWORK_EXIT" text="離開"/>
-		</menu>
-		<menu text="檢視">
-			<item id="ID_TAB_HOME" text="主頁"/>
-			<item id="ID_TAB_LIBRARY" text="收藏"/>
-			<item id="ID_TAB_MEDIA" text="多媒體播放程式"/>
-			<item id="ID_TAB_SEARCH" text="搜尋"/>
-			<item id="ID_TAB_TRANSFERS" text="下載"/>
-			<item id="ID_WINDOW_REMOTE" text="顯示遙控器"/>
-			<separator/>
-			<menu text="進階">
-				<item id="ID_VIEW_NEIGHBOURS" text="我的鄰居"/>
-				<item id="ID_VIEW_UPLOADS" text="上傳"/>
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+			<item id="ID_TOOLS_SETTINGS" text="設定..."/>
+			<menu text="網路">
+				<item id="ID_NETWORK_CONNECT" text="連線" shortcut="Ctrl+G"/>
+				<item id="ID_NETWORK_DISCONNECT" text="中斷連線"/>
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="安全性"/>
-				<item id="ID_VIEW_HOSTS" text="主機快取"/>
-				<item id="ID_VIEW_DISCOVERY" text="揭示"/>
+				<item id="ID_NETWORK_G2" text="連線至 Gnutella2"/>
+				<item id="ID_NETWORK_G1" text="連線至 Gnutella"/>
+				<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
+				<separator/>
+				<item id="ID_NETWORK_CONNECT_TO" text="連線至..." shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_BROWSE_TO" text="瀏覽主機..."/>
+				<separator/>
+				<item id="ID_NETWORK_AUTO_CLOSE" text="傳輸後離開"/>
+				<item id="ID_NETWORK_EXIT" text="離開"/>
 			</menu>
-			<separator/>
-			<item id="ID_VIEW_BASIC" text="標準模式"/>
-			<item id="ID_VIEW_TABBED" text="進階模式"/>
-		</menu>
-		<menu text="工具箱">
-			<item id="ID_LIBRARY_FOLDERS" text="分享檔案..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="下載檔案/Torrent..."/>
-			<separator/>
-			<item id="ID_TOOLS_SKIN" text="選擇外觀"/>
-			<item id="ID_TOOLS_LANGUAGE" text="選擇語言"/>
-			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="編輯我的個人檔案..."/>
-			<item id="ID_TOOLS_WIZARD" text="快速啟動精靈"/>
-			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="PeerProject 設定"/>
-		</menu>
-		<menu text="說明">
-			<item id="ID_HELP_FAQ" text="PeerProject 常見答客問"/>
-			<separator/>
-			<menu text="指南">
-				<item id="ID_HELP_GUIDE" text="PeerProject 使用指南"/>
-				<item id="ID_HELP_ROUTER" text="路由器說明"/>
-				<item id="ID_HELP_SECURITY" text="安全性說明"/>
-				<item id="ID_HELP_CODEC" text="Codec 說明"/>
+			<menu text="工具箱">
+				<item id="ID_LIBRARY_FOLDERS" text="分享檔案..."/>
+				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads Folder"/>
+				<separator/>
+				<item id="ID_TOOLS_DOWNLOAD" text="下載檔案/Torrent..."/>
+				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+				<separator/>
+				<item id="ID_TOOLS_LANGUAGE" text="選擇語言"/>
+				<item id="ID_TOOLS_SKIN" text="選擇外觀"/>
+				<separator/>
+				<item id="ID_TOOLS_PROFILE" text="編輯我的個人檔案"/>
+				<item id="ID_TOOLS_WIZARD" text="快速啟動精靈"/>
+				<separator/>
+				<item id="ID_TOOLS_SETTINGS" text="_PeerProject 設定"/>
 			</menu>
-			<separator/>
-			<menu text="網站">
+			<menu text="檢視">
+				<item id="ID_TAB_HOME" text="主頁" shortcut="Ctrl+H"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="我的鄰居" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_SYSTEM" text="系統" shortcut="F11"/>
+				<item id="ID_VIEW_DOWNLOADS" text="下載" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="上傳" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="收藏" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="多媒體" shortcut="F6"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="安全性" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="主機快取" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="揭示" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="圖表" shortcut="F10"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="封包傾印" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="Search Monitor" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="搜尋回應監視器" shortcut="Ctrl+F3"/>
+			</menu>
+			<menu text="視窗">
+				<item id="ID_VIEW_BASIC" text="標準模式"/>
+				<item id="ID_VIEW_TABBED" text="標籤模式"/>
+				<item id="ID_VIEW_WINDOWED" text="多重視窗模式"/>
+				<separator/>
+				<item id="ID_WINDOW_NAVBAR" text="顯示導覽列"/>
+				<item id="ID_WINDOW_TOOLBAR" text="顯示工具列"/>
+				<item id="ID_WINDOW_TABBAR" text="顯示標籤列"/>
+				<item id="ID_WINDOW_MONITOR" text="顯示監視器"/>
+				<item id="ID_WINDOW_REMOTE" text="顯示遙控器"/>
+			</menu>
+			<menu text="說明">
+				<item id="ID_HELP_FAQ" text="PeerProject 常見答客問"/>
+				<separator/>
+				<menu text="指南">
+					<item id="ID_HELP_GUIDE" text="PeerProject 使用指南"/>
+					<item id="ID_HELP_ROUTER" text="路由器說明"/>
+					<item id="ID_HELP_SECURITY" text="安全性說明"/>
+					<item id="ID_HELP_CODEC" text="Codec 說明"/>
+				</menu>
+				<separator/>
+				<menu text="網站">
+					<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
+					<item id="ID_HELP_UPDATE" text="最新消息"/>
+					<separator/>
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
-				<item id="ID_HELP_UPDATE" text="最新消息"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+				<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
 			</menu>
-			<separator/>
-			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
+			<item id="ID_NETWORK_EXIT" text="離開"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
@@ -587,6 +603,73 @@
 			<item id="ID_WINDOW_TABBAR" text="顯示標籤列"/>
 			<item id="ID_WINDOW_MONITOR" text="顯示監視器"/>
 			<item id="ID_WINDOW_REMOTE" text="顯示遙控器"/>
+		</menu>
+		<menu text="說明">
+			<item id="ID_HELP_FAQ" text="PeerProject 常見答客問"/>
+			<separator/>
+			<menu text="指南">
+				<item id="ID_HELP_GUIDE" text="PeerProject 使用指南"/>
+				<item id="ID_HELP_ROUTER" text="路由器說明"/>
+				<item id="ID_HELP_SECURITY" text="安全性說明"/>
+				<item id="ID_HELP_CODEC" text="Codec 說明"/>
+			</menu>
+			<separator/>
+			<menu text="網站">
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
+				<item id="ID_HELP_UPDATE" text="最新消息"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+			</menu>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="網路">
+			<item id="ID_NETWORK_CONNECT" text="連線" shortcut="Ctrl+G"/>
+			<separator/>
+			<menu text="選擇網路">
+				<item id="ID_NETWORK_G2" text="連線至 Gnutella2"/>
+				<item id="ID_NETWORK_G1" text="連線至 Gnutella 1"/>
+				<item id="ID_NETWORK_ED2K" text="連線至 eDonkey2000"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="傳輸後離開"/>
+			<item id="ID_NETWORK_EXIT" text="離開"/>
+		</menu>
+		<menu text="檢視">
+			<item id="ID_TAB_HOME" text="主頁"/>
+			<item id="ID_TAB_LIBRARY" text="收藏"/>
+			<item id="ID_TAB_MEDIA" text="多媒體播放程式"/>
+			<item id="ID_TAB_SEARCH" text="搜尋"/>
+			<item id="ID_TAB_TRANSFERS" text="下載"/>
+			<item id="ID_WINDOW_REMOTE" text="顯示遙控器"/>
+			<separator/>
+			<menu text="進階">
+				<item id="ID_VIEW_NEIGHBOURS" text="我的鄰居"/>
+				<item id="ID_VIEW_UPLOADS" text="上傳"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="安全性"/>
+				<item id="ID_VIEW_HOSTS" text="主機快取"/>
+				<item id="ID_VIEW_DISCOVERY" text="揭示"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="標準模式"/>
+			<item id="ID_VIEW_TABBED" text="進階模式"/>
+		</menu>
+		<menu text="工具箱">
+			<item id="ID_LIBRARY_FOLDERS" text="分享檔案..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="下載檔案/Torrent..."/>
+			<separator/>
+			<item id="ID_TOOLS_SKIN" text="選擇外觀"/>
+			<item id="ID_TOOLS_LANGUAGE" text="選擇語言"/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="編輯我的個人檔案..."/>
+			<item id="ID_TOOLS_WIZARD" text="快速啟動精靈"/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="PeerProject 設定"/>
 		</menu>
 		<menu text="說明">
 			<item id="ID_HELP_FAQ" text="PeerProject 常見答客問"/>
@@ -1484,10 +1567,16 @@
 		</group>
 		<group id="2">
 			<icon res="134" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">搜尋 PeerProject</heading>
+			<heading align="middle">搜尋</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
-			<newline gap="12" indent="0"/>
+			<newline gap="14" indent="0"/>
+			<icon res="136" width="32" height="32" target="peer:shell:downloads"/><gap size="8"/>
+			<heading align="middle">我的下載</heading>
+			<newline gap="8" indent="42"/>
+			<text>查看我的下載資料夾︰</text>
+			<link target="peer:shell:downloads">點這裡</link>
+			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1527,13 +1616,6 @@
 		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">快速說明</link>
 		<text align="middle">&#160;︰查看 PeerProject 入門使用說明</text>
 		<newline gap="18" indent="0"/>
-		<icon res="136" width="32" height="32" target="peer:shell:downloads"/>
-		<gap size="8"/>
-		<heading align="middle">我的下載</heading>
-		<newline gap="8" indent="32"/>
-		<text>查看我的下載資料夾︰</text>
-		<link target="peer:shell:downloads">點這裡</link>
-		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">遠端   監控   已啟用</heading>
@@ -1547,11 +1629,6 @@
 		</group>
 	</document>
 	<document name="CHomeConnectionBox" title="连接" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font face="新細明體" size="13"/>
-			</style>
-		</styles>
 		<group id="1">
 			<para align="center">
 				<text format="b">尚未連線</text>
@@ -1591,21 +1668,17 @@
 		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="收藏" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font face="新細明體" size="13"/>
-			</style>
-		</styles>
 		<para align="center">
 			<group id="2">
 				<text>最近尚未下載任何新檔案</text>
 				<newline gap="8"/>
 			</group>
-			<text id="LibraryFiles" format="b">%lu </text>
-			<text>files, </text>
-			<text id="LibraryVolume" format="b">%s</text>
+			<link target="peer:command:ID_VIEW_LIBRARY">前往我的收藏</link>
 			<newline gap="4"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">前往我的收藏</link>
+			<text id="LibraryFiles" format="b">%lu </text>
+			<text>个文件 (</text>
+			<text id="LibraryVolume" format="b">%s</text>
+			<text>)</text>
 			<group id="1">
 				<newline gap="8"/>
 				<text>PeerProject 正在掃瞄並且處理 </text>
@@ -1622,11 +1695,6 @@
 		</para>
 	</document>
 	<document name="CHomeDownloadsBox" title="下载" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font face="新細明體" size="13"/>
-			</style>
-		</styles>
 		<para align="center">
 			<group id="1">
 				<text>尚未下載任何檔案</text>
@@ -1644,11 +1712,6 @@
 		</para>
 	</document>
 	<document name="CHomeUploadsBox" title="上传" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font face="新細明體" size="12"/>
-			</style>
-		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">無活躍中的上傳</text>
 			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1個活躍中的上傳</link>
@@ -1659,9 +1722,9 @@
 				<text id="TorrentsMany">%i個 torrent 正在做種</text>
 				<newline gap="4"/>
 			</group>
-			<text id="UploadedNone">您今天還沒有上傳任何檔案.</text>
-			<text id="UploadedOne">您已經上傳了1個檔案 (%s).</text>
-			<text id="UploadedMany">您已經上傳了%i個檔案 (%s).</text>
+			<text id="UploadedNone">您今天還沒有上傳任何檔案</text>
+			<text id="UploadedOne">您已經上傳了1個檔案 (%s)</text>
+			<text id="UploadedMany">您已經上傳了%i個檔案 (%s)</text>
 		</para>
 	</document>
 	<!-- Settings Pages -->

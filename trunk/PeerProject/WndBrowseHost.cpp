@@ -133,6 +133,7 @@ void CBrowseHostWnd::OnDestroy()
 
 void CBrowseHostWnd::OnSkinChange()
 {
+	OnSize( 0, 0, 0 );
 	CBaseMatchWnd::OnSkinChange();
 
 	Skin.CreateToolBar( _T("CBrowseHostWnd"), &m_wndToolBar );
@@ -171,10 +172,10 @@ void CBrowseHostWnd::OnSize(UINT nType, int cx, int cy)
 	GetClientRect( &rc );
 
 	rc.top += 64;
-	rc.bottom -= TOOLBAR_HEIGHT;
+	rc.bottom -= Skin.m_nToolbarHeight;
 
 	m_wndHeader.SetWindowPos( NULL, rc.left, 0, rc.Width(), rc.top, SWP_NOZORDER );
-	m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom, rc.Width(), TOOLBAR_HEIGHT, SWP_NOZORDER );
+	m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom, rc.Width(), Skin.m_nToolbarHeight, SWP_NOZORDER );
 	m_wndProfile.SetWindowPos( NULL, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOZORDER );
 	m_wndFrame.SetWindowPos( NULL, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOZORDER );
 }

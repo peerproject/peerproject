@@ -269,7 +269,7 @@ void CIRCFrame::FillChanList()
 	m_pChanList.AddChannel( _T("Shareaza Polish"), _T("#Shareaza-Polish") );
 	m_pChanList.AddChannel( _T("Shareaza Portuguese"), _T("#Shareaza-Portuguese") );
 	m_pChanList.AddChannel( _T("Shareaza Russian"), _T("Shareaza-Russian") );
-	m_pChanList.AddChannel( _T("Shareaza Spanish"), _T("#Shareaza-Spain") );
+	m_pChanList.AddChannel( _T("Shareaza Spanish"), _T("#Shareaza-Spanish") );
 	m_pChanList.AddChannel( _T("Shareaza Swedish"), _T("#Shareaza-Swedish") );
 }
 
@@ -357,6 +357,7 @@ void CIRCFrame::OnDestroy()
 
 void CIRCFrame::OnSkinChange()
 {
+	OnSize( 0, 0, 0 );
 	m_wndPanel.OnSkinChange();
 
 	Skin.CreateToolBar( _T("CIRCFrame"), &m_wndMainBar );
@@ -384,13 +385,13 @@ void CIRCFrame::OnSize(UINT nType, int cx, int cy)
 
 	if ( rc.Width() < 32 || rc.Height() < 32 ) return;
 
-	m_wndPanel.SetWindowPos( NULL, 0, 0, PANEL_WIDTH, rc.Height(), SWP_NOZORDER );
+	m_wndPanel.SetWindowPos( NULL, 0, 0, Skin.m_nSidebarWidth, rc.Height(), SWP_NOZORDER );
 
-	rc.bottom -= TOOLBAR_HEIGHT;
+	rc.bottom -= Skin.m_nToolbarHeight;
 	rc.top    += IRCHEADER_HEIGHT;
-	rc.left   += PANEL_WIDTH;
+	rc.left   += Skin.m_nSidebarWidth;
 	m_wndMainBar.SetWindowPos( NULL, rc.left, rc.bottom, rc.Width(),
-		TOOLBAR_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
+		Skin.m_nToolbarHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
 	m_wndTab.SetWindowPos( NULL, rc.left, rc.bottom - TABBAR_HEIGHT,
 		rc.Width(), TABBAR_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
 	rc.bottom -= TABBAR_HEIGHT;
@@ -420,7 +421,7 @@ void CIRCFrame::OnPaint()
 	CRect rcComponent;
 
 	rcComponent.right = rcClient.right;
-	rcComponent.left = rcClient.left + PANEL_WIDTH;
+	rcComponent.left = rcClient.left + Skin.m_nSidebarWidth;
 	rcComponent.top = rcClient.top;
 	rcComponent.bottom = rcComponent.top + IRCHEADER_HEIGHT;
 	PaintHeader( rcComponent, dc );
@@ -442,8 +443,8 @@ void CIRCFrame::OnPaint()
 	DrawText( &dc, rcComponent.left, rcComponent.top, pszSubtitle );
 
 	rcComponent.right = rcClient.right;
-	rcComponent.left = rcClient.left + PANEL_WIDTH;
-	rcComponent.top = rcClient.bottom - TOOLBAR_HEIGHT - EDITBOX_HEIGHT -
+	rcComponent.left = rcClient.left + Skin.m_nSidebarWidth;
+	rcComponent.top = rcClient.bottom - Skin.m_nToolbarHeight - EDITBOX_HEIGHT -
 		TABBAR_HEIGHT - SMALLHEADER_HEIGHT;
 	rcComponent.bottom = rcComponent.top + SMALLHEADER_HEIGHT;
 	PaintHeader( rcComponent, dc );
@@ -454,8 +455,8 @@ void CIRCFrame::OnPaint()
 	DrawText( &dc, rcComponent.left, rcComponent.top, str );
 
 	rcComponent.right = rcClient.right;
-	rcComponent.left = rcClient.left + PANEL_WIDTH;
-	rcComponent.top = rcClient.bottom - TOOLBAR_HEIGHT - EDITBOX_HEIGHT -
+	rcComponent.left = rcClient.left + Skin.m_nSidebarWidth;
+	rcComponent.top = rcClient.bottom - Skin.m_nToolbarHeight - EDITBOX_HEIGHT -
 		TABBAR_HEIGHT - SMALLHEADER_HEIGHT - SEPERATOR_HEIGHT;
 	rcComponent.bottom = rcComponent.top + SEPERATOR_HEIGHT;
 	dc.FillSolidRect( rcComponent.left, rcComponent.top, 1,

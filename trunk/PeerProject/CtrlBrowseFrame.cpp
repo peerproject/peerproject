@@ -118,6 +118,7 @@ void CBrowseFrameCtrl::OnDestroy()
 
 void CBrowseFrameCtrl::OnSkinChange()
 {
+	OnSize( 0, 0, 0 );
 	Skin.CreateToolBar( _T("CBrowseTree.Top"), &m_wndTreeTop );
 	Skin.Translate( _T("CMatchCtrl"), &m_wndList->m_wndHeader );
 }

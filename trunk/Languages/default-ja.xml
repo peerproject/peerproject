@@ -80,25 +80,25 @@
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="ダウンロード"/>
-		<button id="ID_BROWSE_LAUNCH" text="ユーザを参照"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="検索パネルを表示"/>
-		<button id="ID_SEARCH_DETAILS" text="詳細を表示"/>
+		<button id="ID_BROWSE_LAUNCH" text="参照"/>
 		<rightAlign/>
-		<label text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
-		<control id="IDC_FILTER_BOX" width="130"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="詳細設定..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="詳細"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="ダウンロード"/>
-		<button id="ID_BROWSE_LAUNCH" text="参照"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="検索パネルを表示"/>
-		<button id="ID_SEARCH_DETAILS" text="詳細"/>
+		<button id="ID_BROWSE_LAUNCH" text="参照"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="詳細設定..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="詳細"/>
+		<button id="ID_SEARCH_PANEL" text="検索パネルを表示"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="再検索..."/>
@@ -106,13 +106,13 @@
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="ダウンロード"/>
 		<button id="ID_BROWSE_LAUNCH" text="参照"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="検索パネルを表示"/>
-		<button id="ID_SEARCH_DETAILS" text="詳細を表示"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
-		<control id="IDC_FILTER_BOX" width="150"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="詳細設定..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="詳細"/>
+		<button id="ID_SEARCH_PANEL" text="検索パネルを表示"/>
 	</toolbar>
 	<!-- BROWSE HOST WINDOW -->
 	<toolbar name="CBrowseHeaderCtrl">
@@ -126,25 +126,23 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="ダウンロード"/>
 		<button id="ID_SEARCH_CHAT" text="チャット"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW" text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="詳細を表示"/>
-		<rightAlign/>
-		<label text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="詳細設定..."/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="ダウンロード"/>
-		<button id="ID_SEARCH_CHAT" text="チャット"/>
-		<separator/>
 		<button id="ID_BROWSE_STOP" text="停止"/>
 		<button id="ID_BROWSE_REFRESH" text="更新"/>
 		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="詳細を表示"/>
+		<button id="ID_SEARCH_CHAT" text="チャット"/>
 		<rightAlign/>
-		<label text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="詳細設定..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="詳細を表示"/>
 	</toolbar>
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
@@ -373,7 +371,7 @@
 		<button id="ID_HITMONITOR_CLEAR" text="クリア"/>
 		<rightAlign/>
 		<label text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="詳細設定..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
@@ -451,72 +449,90 @@
 		<item id="ID_NETWORK_EXIT" text="終了(X)"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
-	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="ネットワーク(_N)">
-			<item id="ID_NETWORK_CONNECT" text="接続(_C)" shortcut="Ctrl+G"/>
-			<separator/>
-			<menu text="ネットワーク選択(_N)">
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+			<item id="ID_TOOLS_SETTINGS" text="設定..."/>
+			<menu text="ネットワーク(_N)">
+				<item id="ID_NETWORK_CONNECT" text="接続(_C)" shortcut="Ctrl+G"/>
+				<item id="ID_NETWORK_DISCONNECT" text="切断(_D)"/>
+				<separator/>
 				<item id="ID_NETWORK_G2" text="Gnutella2へ接続(_G)"/>
 				<item id="ID_NETWORK_G1" text="Gnutella1へ接続(_1)"/>
 				<item id="ID_NETWORK_ED2K" text="eDonkey2000へ接続(_E)"/>
-			</menu>
-			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終了(_A)"/>
-			<item id="ID_NETWORK_EXIT" text="終了(_X)"/>
-		</menu>
-		<menu text="表示(_V)">
-			<item id="ID_TAB_HOME" text="ホーム(_H)"/>
-			<item id="ID_TAB_LIBRARY" text="ライブラリ(_L)"/>
-			<item id="ID_TAB_MEDIA" text="メディアプレーヤー(_M)"/>
-			<item id="ID_TAB_SEARCH" text="検索(_S)"/>
-			<item id="ID_TAB_TRANSFERS" text="ダウンロード(_D)"/>
-			<item id="ID_WINDOW_REMOTE" text="リモート(_R)"/>
-			<separator/>
-			<menu text="高度(_A)">
-				<item id="ID_VIEW_NEIGHBOURS" text="近隣(_N)"/>
-				<item id="ID_VIEW_UPLOADS" text="アップロード(_U)"/>
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="セキュリティ(_C)"/>
-				<item id="ID_VIEW_HOSTS" text="ホストキャッシュ(_O)"/>
-				<item id="ID_VIEW_DISCOVERY" text="ディスカバリ(_V)"/>
+				<item id="ID_NETWORK_CONNECT_TO" text="接続先(_T)..." shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_BROWSE_TO" text="ホストを参照(_B)..."/>
+				<separator/>
+				<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終了(_A)"/>
+				<item id="ID_NETWORK_EXIT" text="終了(_X)"/>
 			</menu>
-			<separator/>
-			<item id="ID_VIEW_BASIC" text="素人モード(_N)"/>
-			<item id="ID_VIEW_TABBED" text="玄人モード(_P)"/>
-		</menu>
-		<menu text="ツール(_T)">
-			<item id="ID_LIBRARY_FOLDERS" text="共有ファイル(_F)..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="ダウンロード/Torrent(_D)..."/>
-			<separator/>
-			<item id="ID_TOOLS_SKIN" text="スキンを選択(_K)..."/>
-			<item id="ID_TOOLS_LANGUAGE" text="言語を選択(_L)..."/>
-			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="プロフィールを編集(_P)..."/>
-			<item id="ID_TOOLS_WIZARD" text="クイックスタートウィザード(_W)..."/>
-			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="PeerProject設定(_S)..."/>
-		</menu>
-		<menu text="ヘルプ(_H)">
-			<item id="ID_HELP_FAQ" text="PeerProject FAQ(_F)"/>
-			<item id="ID_HELP_TEST" text="_Connection Test"/>
-			<separator/>
-			<menu text="ガイド(_G)">
-				<item id="ID_HELP_GUIDE" text="PeerProjectユーザーズガイド(_U)"/>
-				<item id="ID_HELP_ROUTER" text="ルーター ヘルプ(_R)"/>
-				<item id="ID_HELP_SECURITY" text="セキュリティ ヘルプ(_S)"/>
-				<item id="ID_HELP_CODEC" text="コーデック ヘルプ(_C)"/>
+			<menu text="ツール(_T)">
+				<item id="ID_LIBRARY_FOLDERS" text="共有ファイル(_F)..."/>
+				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads Folder"/>
+				<separator/>
+				<item id="ID_TOOLS_DOWNLOAD" text="ダウンロード/Torrent(_D)..."/>
+				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+				<separator/>
+				<item id="ID_TOOLS_LANGUAGE" text="言語を選択(_L)..."/>
+				<item id="ID_TOOLS_SKIN" text="スキンを選択(_K)..."/>
+				<separator/>
+				<item id="ID_TOOLS_PROFILE" text="プロフィールを編集(_P)..."/>
+				<item id="ID_TOOLS_WIZARD" text="クイックスタートウィザード(_W)..."/>
+				<separator/>
+				<item id="ID_TOOLS_SETTINGS" text="PeerProject設定(_S)..."/>
 			</menu>
-			<separator/>
-			<menu text="ウェブサイト(_W)">
+			<menu text="表示(_V)">
+				<item id="ID_TAB_HOME" text="ホーム(_H)" shortcut="Ctrl+H"/>
+				<item id="ID_VIEW_SYSTEM" text="システム(_Y)" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="近隣(_E)" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_DOWNLOADS" text="ダウンロード(_D)" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="アップロード(_U)" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="ライブラリ(_L)" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="メディア(_M)" shortcut="F6"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="セキュリティ(_C)" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="ホストキャッシュ(_O)" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="ディスカバリ(_V)" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="グラフ(_G)" shortcut="F10"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="パケットダンプ(_P)" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="検索モニタ(_A)" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="ヒットモニタ(_I)" shortcut="Ctrl+F3"/>
+				<item id="ID_TAB_SEARCH" text="検索(_S)"/>
+			</menu>
+			<menu text="ウィンドウ(_W)">
+				<item id="ID_VIEW_BASIC" text="標準モード(_O)"/>
+				<item id="ID_VIEW_TABBED" text="タブモード(_A)"/>
+				<item id="ID_VIEW_WINDOWED" text="ウィンドウモード(_W)"/>
+				<separator/>
+				<item id="ID_WINDOW_NAVBAR" text="ナビゲーションバーを表示(_N)"/>
+				<item id="ID_WINDOW_TOOLBAR" text="ツールバーを表示(_T)"/>
+				<item id="ID_WINDOW_TABBAR" text="タブバーを表示(_B)"/>
+				<item id="ID_WINDOW_MONITOR" text="モニタを表示(_M)"/>
+				<item id="ID_WINDOW_REMOTE" text="リモートを表示(_R)"/>
+			</menu>
+			<menu text="ヘルプ(_H)">
+				<item id="ID_HELP_FAQ" text="PeerProject FAQ(_F)"/>
+				<separator/>
+				<menu text="ガイド(_G)">
+					<item id="ID_HELP_GUIDE" text="PeerProjectユーザーズガイド(_U)"/>
+					<item id="ID_HELP_ROUTER" text="ルーター ヘルプ(_R)"/>
+					<item id="ID_HELP_SECURITY" text="セキュリティ ヘルプ(_S)"/>
+					<item id="ID_HELP_CODEC" text="コーデック ヘルプ(_C)"/>
+				</menu>
+				<separator/>
+				<menu text="ウェブサイト(_W)">
+					<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム(_F)"/>
+					<separator/>
+					<!-- <item id="ID_HELP_UPDATE" text="最新ニュース"/>
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site(_S)"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム(_F)"/>
-				<!-- <item id="ID_HELP_UPDATE" text="最新ニュース"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_HELP_ABOUT" text="PeerProjectについて(_A)..."/>
 			</menu>
-			<separator/>
-			<item id="ID_HELP_ABOUT" text="PeerProjectについて(_A)..."/>
+			<item id="ID_NETWORK_EXIT" text="終了"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
@@ -590,6 +606,74 @@
 		</menu>
 		<menu text="ヘルプ(_H)">
 			<item id="ID_HELP_FAQ" text="PeerProject FAQ(_F)"/>
+			<separator/>
+			<menu text="ガイド(_G)">
+				<item id="ID_HELP_GUIDE" text="PeerProjectユーザーズガイド(_U)"/>
+				<item id="ID_HELP_ROUTER" text="ルーター ヘルプ(_R)"/>
+				<item id="ID_HELP_SECURITY" text="セキュリティ ヘルプ(_S)"/>
+				<item id="ID_HELP_CODEC" text="コーデック ヘルプ(_C)"/>
+			</menu>
+			<separator/>
+			<menu text="ウェブサイト(_W)">
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject site(_S)"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム(_F)"/>
+				<!-- <item id="ID_HELP_UPDATE" text="最新ニュース"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+			</menu>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="PeerProjectについて(_A)..."/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="ネットワーク(_N)">
+			<item id="ID_NETWORK_CONNECT" text="接続(_C)" shortcut="Ctrl+G"/>
+			<separator/>
+			<menu text="ネットワーク選択(_N)">
+				<item id="ID_NETWORK_G2" text="Gnutella2へ接続(_G)"/>
+				<item id="ID_NETWORK_G1" text="Gnutella1へ接続(_1)"/>
+				<item id="ID_NETWORK_ED2K" text="eDonkey2000へ接続(_E)"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="転送後に終了(_A)"/>
+			<item id="ID_NETWORK_EXIT" text="終了(_X)"/>
+		</menu>
+		<menu text="表示(_V)">
+			<item id="ID_TAB_HOME" text="ホーム(_H)"/>
+			<item id="ID_TAB_LIBRARY" text="ライブラリ(_L)"/>
+			<item id="ID_TAB_MEDIA" text="メディアプレーヤー(_M)"/>
+			<item id="ID_TAB_SEARCH" text="検索(_S)"/>
+			<item id="ID_TAB_TRANSFERS" text="ダウンロード(_D)"/>
+			<item id="ID_WINDOW_REMOTE" text="リモート(_R)"/>
+			<separator/>
+			<menu text="高度(_A)">
+				<item id="ID_VIEW_NEIGHBOURS" text="近隣(_N)"/>
+				<item id="ID_VIEW_UPLOADS" text="アップロード(_U)"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="セキュリティ(_C)"/>
+				<item id="ID_VIEW_HOSTS" text="ホストキャッシュ(_O)"/>
+				<item id="ID_VIEW_DISCOVERY" text="ディスカバリ(_V)"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="素人モード(_N)"/>
+			<item id="ID_VIEW_TABBED" text="玄人モード(_P)"/>
+		</menu>
+		<menu text="ツール(_T)">
+			<item id="ID_LIBRARY_FOLDERS" text="共有ファイル(_F)..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="ダウンロード/Torrent(_D)..."/>
+			<separator/>
+			<item id="ID_TOOLS_SKIN" text="スキンを選択(_K)..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="言語を選択(_L)..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="プロフィールを編集(_P)..."/>
+			<item id="ID_TOOLS_WIZARD" text="クイックスタートウィザード(_W)..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="PeerProject設定(_S)..."/>
+		</menu>
+		<menu text="ヘルプ(_H)">
+			<item id="ID_HELP_FAQ" text="PeerProject FAQ(_F)"/>
+			<item id="ID_HELP_TEST" text="_Connection Test"/>
 			<separator/>
 			<menu text="ガイド(_G)">
 				<item id="ID_HELP_GUIDE" text="PeerProjectユーザーズガイド(_U)"/>
@@ -1503,17 +1587,20 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">PEERPROJECT 検 索</heading>
-			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
-			<text align="middle">&#160; downloading a new file or torrent.</text>
-			<newline gap="24" indent="0"/>
 			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">SEARCH FOR A FILE</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
+			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<heading align="middle">PEERPROJECT 検 索</heading>
+			<newline gap="8" indent="42"/>
+			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
+			<text>&#160;downloading a new file or torrent.</text>
+			<newline gap="2" indent="42"/>
+			<text>Or open your completed</text>
+			<link target="peer:shell:downloads">downloads folder.</link>
+			<newline gap="24" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1588,12 +1675,8 @@
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
+	<!-- Homepanel Taskboxes -->
 	<document name="CHomeConnectionBox" title="接続" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font face="MS UI Gothic" size="9"/>
-			</style>
-		</styles>
 		<group id="1">
 			<para align="center">
 				<text format="b">未接続</text>
@@ -1602,7 +1685,7 @@
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
-		<text group="20" align="middle" format="b">&#160;Gnutella2:</text>
+		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
 		<text group="21" align="middle">切断</text>
 		<text group="22" align="middle">接続中...</text>
 		<text group="23" align="middle">接続済</text>
@@ -1610,13 +1693,13 @@
 		<text group="25" align="middle" id="G2Leaves">%i リーフ</text>
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
-		<text group="10" align="middle" format="b">&#160;Gnutella:</text>
+		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
 		<text group="11" align="middle">切断</text>
 		<text group="12" align="middle">接続中...</text>
 		<text group="13" align="middle">接続済</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
-		<text group="30" align="middle" format="b">&#160;eDonkey:</text>
+		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
 		<text group="31" align="middle">切断</text>
 		<text group="32" align="middle">接続中...</text>
 		<text group="33" align="middle">接続済</text>
@@ -1633,23 +1716,17 @@
 		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="ライブラリ" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font face="MS UI Gothic" size="9"/>
-			</style>
-		</styles>
 		<para align="center">
 			<group id="2">
 				<text>最近ダウンロードしたファイルはありません。</text>
 				<newline gap="8"/>
 			</group>
-			<text id="LibraryFiles" format="b">%lu </text>
-			<text>ファイル, </text>
-			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="0"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">ライブラリを表示</link>
+			<link target="peer:command:ID_VIEW_LIBRARY">ライブラリを表示</link>
 			<newline gap="4"/>
-			<link format="bu" target="peer:shell:downloads">Open my Downloads folder</link>
+			<text id="LibraryFiles" format="b">%lu </text>
+			<text>ファイル (</text>
+			<text id="LibraryVolume" format="b">%s</text>
+			<text>)</text>
 			<group id="1">
 				<newline gap="8"/>
 				<text>PeerProjectはスキャン処理を実行中です</text>
@@ -1666,11 +1743,6 @@
 		</para>
 	</document>
 	<document name="CHomeDownloadsBox" title="ダウンロード" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font face="MS UI Gothic" size="9"/>
-			</style>
-		</styles>
 		<para align="center">
 			<group id="1">
 				<text>現在ダウンロード中のファイルはありません</text>
@@ -1688,11 +1760,6 @@
 		</para>
 	</document>
 	<document name="CHomeUploadsBox" title="アップロード" leftMargin="6" topMargin="6">
-		<styles>
-			<style name="default">
-				<font face="MS UI Gothic" size="9"/>
-			</style>
-		</styles>
 		<para align="center">
 			<text id="UploadsNone" format="b">アクティブなアップロードはありません</text>
 			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 アクティブアップロード</link>

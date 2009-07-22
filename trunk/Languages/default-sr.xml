@@ -81,24 +81,22 @@
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Преузимање"/>
 		<button id="ID_BROWSE_LAUNCH" text="Претражи корисника"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Прикажи претрагу"/>
-		<button id="ID_SEARCH_DETAILS" text="Прикажи детаље"/>
 		<rightAlign/>
-		<label text="Filter:" tip="Укуцајте неку реч да би сте филтрирали резултат"/>
-		<control id="IDC_FILTER_BOX" width="130"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Више ..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Укуцајте неку реч да би сте филтрирали резултат"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Прикажи детаље"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="Преузимање"/>
 		<button id="ID_BROWSE_LAUNCH" text="Претражи корисника"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Прикажи претрагу"/>
-		<button id="ID_SEARCH_DETAILS" text="Прикажи детаље"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filter:" tip="Укуцајте неку реч да би сте филтрирали резултат"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text=" Више ..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Укуцајте неку реч да би сте филтрирали резултат"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Прикажи детаље"/>
+		<button id="ID_SEARCH_PANEL" text="Прикажи претрагу"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Претражи поново ..."/>
@@ -106,13 +104,13 @@
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Преузимање"/>
 		<button id="ID_BROWSE_LAUNCH" text="Претражи корисника"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Прикажи претрагу"/>
-		<button id="ID_SEARCH_DETAILS" text="Прикажи детаље"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filter:" tip="Укуцајте неку реч да би сте филтрирали резултат"/>
-		<control id="IDC_FILTER_BOX" width="150"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Више ..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Укуцајте неку реч да би сте филтрирали резултат"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Прикажи детаље"/>
+		<button id="ID_SEARCH_PANEL" text="Прикажи претрагу"/>
 	</toolbar>
 	<!-- BROWSE HOST WINDOW -->
 	<toolbar name="CBrowseHeaderCtrl">
@@ -126,25 +124,23 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Преузми фајл"/>
 		<button id="ID_SEARCH_CHAT" text="Ћаскај са корисником"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Укуцајте неку реч да би сте филтрирали резултат"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Прикажи детаље"/>
-		<rightAlign/>
-		<label text="Filter:" tip="Укуцајте неку реч да би сте филтрирали резултат"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Више..."/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Преузми фајл"/>
-		<button id="ID_SEARCH_CHAT" text="Ћаскај са корисником"/>
-		<separator/>
 		<button id="ID_BROWSE_STOP" text="Заустави"/>
 		<button id="ID_BROWSE_REFRESH" text="Освежи"/>
 		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="Прикажи детаље"/>
+		<button id="ID_SEARCH_CHAT" text="Ћаскај са корисником"/>
 		<rightAlign/>
-		<label text="Filter:" tip="Укуцајте неку реч да би сте филтрирали резултат"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Више ..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Укуцајте неку реч да би сте филтрирали резултат"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Прикажи детаље"/>
 	</toolbar>
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
@@ -373,7 +369,7 @@
 		<button id="ID_HITMONITOR_CLEAR" text="Очисти"/>
 		<rightAlign/>
 		<label text="Filter:" tip="Укуцајте неку реч да би сте филтрирали резултат"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Више ..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
@@ -451,72 +447,93 @@
 		<item id="ID_NETWORK_EXIT" text="Izlaz"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
-	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="_Mreža">
-			<item id="ID_NETWORK_CONNECT" text="_Повежи се" shortcut="Ctrl+G"/>
-			<separator/>
-			<menu text="Odaberi _Mrežu">
-				<item id="ID_NETWORK_G2" text="Повежи се на _Gnutellu2"/>
-				<item id="ID_NETWORK_G1" text="SПовежи се на Gnutellu_1"/>
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+			<item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
+			<menu text="_Mreža">
+				<item id="ID_NETWORK_CONNECT" text="_Повежи се" shortcut="Ctrl+G"/>
+				<item id="ID_NETWORK_DISCONNECT" text="_Прекини везу"/>
+				<separator/>
+				<item id="ID_NETWORK_G2" text="Повежи се на Gnutellu_2"/>
+				<item id="ID_NETWORK_G1" text="Повежи се на _Gnutellu"/>
 				<item id="ID_NETWORK_ED2K" text="Повежи се на _eDonkey2000"/>
-			</menu>
-			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="Изађи _након преузимања"/>
-			<item id="ID_NETWORK_EXIT" text="И_злаз"/>
-		</menu>
-		<menu text="_Prikaz">
-			<item id="ID_TAB_HOME" text="_Почетна"/>
-			<item id="ID_TAB_LIBRARY" text="_Библиотека"/>
-			<item id="ID_TAB_MEDIA" text="_Медија плејер"/>
-			<item id="ID_TAB_SEARCH" text="_Претрага"/>
-			<item id="ID_TAB_TRANSFERS" text="_Преузимања"/>
-			<item id="ID_WINDOW_REMOTE" text="_Даљински"/>
-			<separator/>
-			<menu text="N_apredno">
-				<item id="ID_VIEW_NEIGHBOURS" text="_Комшије"/>
-				<item id="ID_VIEW_UPLOADS" text="_Послато"/>
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="С_игурност"/>
-				<item id="ID_VIEW_HOSTS" text="Кеш _домаћина"/>
-				<item id="ID_VIEW_DISCOVERY" text="Прон_алажење"/>
-			</menu>
-			<separator/>
-			<item id="ID_VIEW_BASIC" text="_Нормални режим"/>
-			<item id="ID_VIEW_TABBED" text="_Напредни режим"/>
-		</menu>
-		<menu text="Ala_ti">
-			<item id="ID_LIBRARY_FOLDERS" text="Дели _Фајлове ..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="_Преузми фајл/Torrent ..."/>
-			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Изаберите  и_зглед ..."/>
-			<item id="ID_TOOLS_LANGUAGE" text="Изаберите _језик..."/>
-			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="Измени Мој _профил ..."/>
-			<item id="ID_TOOLS_WIZARD" text="QuickStart _ чаробњак..."/>
-			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="_PeerProject подешавања ..."/>
-		</menu>
-		<menu text="Pomoć">
-			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
-			<separator/>
-			<menu text="Upute">
-				<item id="ID_HELP_GUIDE" text="PeerProject _водич за кориснике"/>
-				<item id="ID_HELP_ROUTER" text="_Помоћ око рутера"/>
-				<item id="ID_HELP_SECURITY" text="_Помоћ око сигурности"/>
-				<item id="ID_HELP_CODEC" text="_Помоћ око кодека"/>
-				<item id="ID_HELP_TEST" text="_Тестирање конекције"/>
-			</menu>
-			<separator/>
-			<menu text="_WebStranice">
-				<item id="ID_HELP_HOMEPAGE" text="_Сајт PeerProject"/>
+				<item id="ID_NETWORK_CONNECT_TO" text="Повежи се на ..." shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_BROWSE_TO" text="Претражи корисника ..."/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProject форуми"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Novosti"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				<item id="ID_NETWORK_AUTO_CLOSE" text="Изађи _након преузимања"/>
+				<item id="ID_NETWORK_EXIT" text="И_злаз"/>
 			</menu>
-			<separator/>
-			<item id="ID_HELP_ABOUT" text="_O PeerProject..."/>
+			<menu text="Ala_ti">
+				<item id="ID_LIBRARY_FOLDERS" text="Дели _фајлове ..."/>
+				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Отвори фолдер са преузетим фајловима"/>
+				<separator/>
+				<item id="ID_TOOLS_DOWNLOAD" text="_Преузимање фајла/Torrent..."/>
+				<item id="ID_TOOLS_CREATETORRENT" text="_Create .Torrent..."/>
+				<item id="IDC_IMPORT_DOWNLOADS" text="_Увези eMule парцијално преузето..."/>
+				<separator/>
+				<item id="ID_TOOLS_LANGUAGE" text="Изабери _језик ..."/>
+				<item id="ID_TOOLS_SKIN" text="Изабери и_зглед..."/>
+				<separator/>
+				<item id="ID_TOOLS_PROFILE" text="Измени Мој _профил ..."/>
+				<item id="ID_TOOLS_WIZARD" text="QuickStart _чаробњак..."/>
+				<separator/>
+				<item id="ID_TOOLS_SETTINGS" text="_PeerProject подешавања..."/>
+			</menu>
+			<menu text="Prikaz">
+				<item id="ID_TAB_HOME" text="_Почетна" shortcut="Ctrl+H"/>
+				<item id="ID_VIEW_SYSTEM" text="С_истем" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="К_омшије" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_DOWNLOADS" text="_Преузимања" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="_Послато" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="_Библиотека" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="_Медија" shortcut="F6"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Си_гурност" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="К_еш домаћина" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="Проналаж_ење" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="_Графикон" shortcut="F10"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="_Преглед пакета" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="Пре_глед претрага" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="Прег_лед погодака" shortcut="Ctrl+F3"/>
+				<item id="ID_TAB_SEARCH" text="_Претрага" shortcut="Ctrl+S"/>
+			</menu>
+			<menu text="Prozori">
+				<item id="ID_VIEW_BASIC" text="Н_ормални режим"/>
+				<item id="ID_VIEW_TABBED" text="Т_абовани режим"/>
+				<item id="ID_VIEW_WINDOWED" text="_Прозорни режим"/>
+				<separator/>
+				<item id="ID_WINDOW_NAVBAR" text="Прикажи _навигациону траку"/>
+				<item id="ID_WINDOW_TOOLBAR" text="прикажи _траку са алатима"/>
+				<separator/>
+				<item id="ID_WINDOW_TABBAR" text="Прикажи Табуларну _траку"/>
+				<item id="ID_WINDOW_MONITOR" text="Прикажи _монитор"/>
+				<item id="ID_WINDOW_REMOTE" text="Прикажи _даљински"/>
+			</menu>
+			<menu text="Pomoć">
+				<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
+				<separator/>
+				<menu text="Upute">
+					<item id="ID_HELP_GUIDE" text="PeerProject водич за кориснике"/>
+					<item id="ID_HELP_ROUTER" text="_Помоћ око рутера"/>
+					<item id="ID_HELP_SECURITY" text="По_моћ око сигурности"/>
+					<item id="ID_HELP_CODEC" text="П_омоћ око кодека"/>
+					<item id="ID_HELP_TEST" text="_Тестирање конекције"/>
+				</menu>
+				<separator/>
+				<menu text="_Web stranice">
+					<item id="ID_HELP_FORUMS" text="PeerProject форуми"/>
+					<separator/>
+					<!-- <item id="ID_HELP_UPDATE" text="Novosti"/>
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+				</menu>
+				<item id="ID_HELP_HOMEPAGE" text="Сајт _PeerProject"/>
+				<separator/>
+				<item id="ID_HELP_ABOUT" text="_O PeerProject..."/>
+			</menu>
+			<item id="ID_NETWORK_EXIT" text="E_xit"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
@@ -604,6 +621,74 @@
 			<separator/>
 			<menu text="_Web stranice">
 				<item id="ID_HELP_HOMEPAGE" text="Сајт _PeerProject"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="PeerProject форуми"/>
+				<!-- <item id="ID_HELP_UPDATE" text="Novosti"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+			</menu>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="_O PeerProject..."/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="_Mreža">
+			<item id="ID_NETWORK_CONNECT" text="_Повежи се" shortcut="Ctrl+G"/>
+			<separator/>
+			<menu text="Odaberi _Mrežu">
+				<item id="ID_NETWORK_G2" text="Повежи се на _Gnutellu2"/>
+				<item id="ID_NETWORK_G1" text="SПовежи се на Gnutellu_1"/>
+				<item id="ID_NETWORK_ED2K" text="Повежи се на _eDonkey2000"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Изађи _након преузимања"/>
+			<item id="ID_NETWORK_EXIT" text="И_злаз"/>
+		</menu>
+		<menu text="_Prikaz">
+			<item id="ID_TAB_HOME" text="_Почетна"/>
+			<item id="ID_TAB_LIBRARY" text="_Библиотека"/>
+			<item id="ID_TAB_MEDIA" text="_Медија плејер"/>
+			<item id="ID_TAB_SEARCH" text="_Претрага"/>
+			<item id="ID_TAB_TRANSFERS" text="_Преузимања"/>
+			<item id="ID_WINDOW_REMOTE" text="_Даљински"/>
+			<separator/>
+			<menu text="N_apredno">
+				<item id="ID_VIEW_NEIGHBOURS" text="_Комшије"/>
+				<item id="ID_VIEW_UPLOADS" text="_Послато"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="С_игурност"/>
+				<item id="ID_VIEW_HOSTS" text="Кеш _домаћина"/>
+				<item id="ID_VIEW_DISCOVERY" text="Прон_алажење"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="_Нормални режим"/>
+			<item id="ID_VIEW_TABBED" text="_Напредни режим"/>
+		</menu>
+		<menu text="Ala_ti">
+			<item id="ID_LIBRARY_FOLDERS" text="Дели _Фајлове ..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Преузми фајл/Torrent ..."/>
+			<separator/>
+			<item id="ID_TOOLS_SKIN" text="Изаберите  и_зглед ..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="Изаберите _језик..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Измени Мој _профил ..."/>
+			<item id="ID_TOOLS_WIZARD" text="QuickStart _ чаробњак..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="_PeerProject подешавања ..."/>
+		</menu>
+		<menu text="Pomoć">
+			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
+			<separator/>
+			<menu text="Upute">
+				<item id="ID_HELP_GUIDE" text="PeerProject _водич за кориснике"/>
+				<item id="ID_HELP_ROUTER" text="_Помоћ око рутера"/>
+				<item id="ID_HELP_SECURITY" text="_Помоћ око сигурности"/>
+				<item id="ID_HELP_CODEC" text="_Помоћ око кодека"/>
+				<item id="ID_HELP_TEST" text="_Тестирање конекције"/>
+			</menu>
+			<separator/>
+			<menu text="_WebStranice">
+				<item id="ID_HELP_HOMEPAGE" text="_Сајт PeerProject"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject форуми"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Novosti"/>
@@ -1502,6 +1587,15 @@
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
+			<icon res="136" width="32" height="32" target="peer:shell:downloads"/><gap size="8"/>
+			<heading align="middle">UPRAVO SKIDAM</heading>
+			<newline gap="8" indent="42"/>
+			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
+			<text>&#160;downloading a new file or torrent link.</text>
+			<newline gap="4" indent="42"/>
+			<text>Or open your completed </text>
+			<link target="peer:shell:downloads">downloads folder.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1541,13 +1635,6 @@
 		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Hitna Pomoć</link>
 		<text align="middle">&#160;- Na brzinu nauči osnove rada sa PeerProject</text>
 		<newline gap="18" indent="0"/>
-		<icon res="136" width="32" height="32" target="peer:shell:downloads"/>
-		<gap size="8"/>
-		<heading align="middle">UPRAVO SKIDAM</heading>
-		<newline gap="8" indent="42"/>
-		<text>To open the folder with your downloads </text>
-		<link target="peer:shell:downloads">click here</link>
-		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">PRISTUPNA  DALJINU - UKLUČEN</heading>
@@ -1563,7 +1650,7 @@
 	<document name="CHomeConnectionBox" title="Spajam" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1608,7 +1695,7 @@
 	<document name="CHomeLibraryBox" title="Kolekcija" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1616,11 +1703,12 @@
 				<text>U zadnje vreme niste ništa skinuli.</text>
 				<newline gap="8"/>
 			</group>
+			<link target="peer:command:ID_VIEW_LIBRARY">Pogledajte Vašu Kolekciju </link>
+			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
-			<text>files, </text>
+			<text>files (</text>
 			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="0"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Pogledajte Vašu Kolekciju </link>
+			<text>)</text>
 			<group id="1">
 				<newline gap="8"/>
 				<text>PeerProject skenira i obrađuje </text>
@@ -1639,7 +1727,7 @@
 	<document name="CHomeDownloadsBox" title="Upravo Skidam" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1661,7 +1749,7 @@
 	<document name="CHomeUploadsBox" title="Deljenje" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">

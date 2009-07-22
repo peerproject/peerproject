@@ -3,7 +3,6 @@
 [Registry]
 ; Turn on SkinVista Theme
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Skins"; ValueType: dword; ValueName: "SkinVista\SkinVista.xml"; ValueData: "{ini:{param:SETTINGS|},Skins,SkinVista|1}"; Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Skins"; ValueType: dword; ValueName: "SkinVista\SkinVista_{language}.xml"; ValueData: "{ini:{param:SETTINGS|},Skins,SkinVista|1}"; Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "ListSize"; ValueData: 139 ;				Flags: createvalueifdoesntexist uninsdeletekey
 
 ; Set SkinVista Menubar

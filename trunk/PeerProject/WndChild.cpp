@@ -307,10 +307,10 @@ void CChildWnd::SizeListAndBar(CWnd* pList, CWnd* pBar)
 	CRect rc;
 	GetClientRect( &rc );
 
-	rc.bottom -= TOOLBAR_HEIGHT;
+	rc.bottom -= Skin.m_nToolbarHeight;
 	HDWP hPos = BeginDeferWindowPos( 2 );
 	DeferWindowPos( hPos, pBar->GetSafeHwnd(), NULL,
-		rc.left, rc.bottom, rc.Width(), TOOLBAR_HEIGHT,
+		rc.left, rc.bottom, rc.Width(), Skin.m_nToolbarHeight,
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 	DeferWindowPos( hPos, pList->GetSafeHwnd(), NULL,
 		rc.left, rc.top, rc.Width(), rc.Height(),
@@ -480,6 +480,7 @@ LRESULT CChildWnd::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 void CChildWnd::OnSkinChange()
 {
 	m_pSkin = Skin.GetWindowSkin( this );
+	OnSize( 0, 0, 0 );
 
  	//ToDo: Remove this mode?
 	CoolInterface.EnableTheme( this, ( m_pSkin == NULL ) &&

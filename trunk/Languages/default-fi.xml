@@ -79,25 +79,25 @@
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Lataa"/>
-		<button id="ID_BROWSE_LAUNCH" text="Selaa Käyttäjää"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Näytä Haku"/>
-		<button id="ID_SEARCH_DETAILS" text="Näytä Tiedot"/>
+		<button id="ID_BROWSE_LAUNCH" text="Selaa Käyttäjää"/>
 		<rightAlign/>
-		<label text="Suodatin" tip="Kirjoita sanoja joilla haluat suodattaa hakuasi"/>
-		<control id="IDC_FILTER_BOX" width="130"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Lisää..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Suodatin:" tip="Kirjoita sanoja joilla haluat suodattaa hakuasi"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Näytä Tiedot"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="Lataa"/>
-		<button id="ID_BROWSE_LAUNCH" text="Selaa Käyttäjää"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Näytä Haku"/>
-		<button id="ID_SEARCH_DETAILS" text="Näytä Tiedot"/>
+		<button id="ID_BROWSE_LAUNCH" text="Selaa Käyttäjää"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Suodatin" tip="Kirjoita sanoja joilla haluat suodattaa hakuasi"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Lisää..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Suodatin" tip="Kirjoita sanoja joilla haluat suodattaa hakuasi"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Näytä Tiedot"/>
+		<button id="ID_SEARCH_PANEL" text="Näytä Haku"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Etsi Uudestaan..."/>
@@ -105,13 +105,13 @@
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Lataa"/>
 		<button id="ID_BROWSE_LAUNCH" text="Selaa Käyttäjää"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Näytä Haku"/>
-		<button id="ID_SEARCH_DETAILS" text="Näytä Tiedot"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Suodatin" tip="Kirjoita sanoja joilla haluat suodattaa hakuasi"/>
-		<control id="IDC_FILTER_BOX" width="150"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Lisää..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Suodatin" tip="Kirjoita sanoja joilla haluat suodattaa hakuasi"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Näytä Tiedot"/>
+		<button id="ID_SEARCH_PANEL" text="Näytä Haku"/>
 	</toolbar>
 	<!-- BROWSE HOST WINDOW -->
 	<toolbar name="CBrowseHeaderCtrl">
@@ -125,25 +125,23 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Lataa Tiedosto"/>
 		<button id="ID_SEARCH_CHAT" text="Keskustele Käyttäjän kanssa"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Suodatin" tip="Kirjoita sanoja joilla haluat suodattaa hakuasi"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Näytä Tiedot"/>
-		<rightAlign/>
-		<label text="Suodatin" tip="Kirjoita sanoja joilla haluat suodattaa hakuasi"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Lisää..."/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Lataa Tiedosto"/>
-		<button id="ID_SEARCH_CHAT" text="Keskustele Käyttäjän kanssa"/>
-		<separator/>
 		<button id="ID_BROWSE_STOP" text="Pysäytä"/>
 		<button id="ID_BROWSE_REFRESH" text="Virkistä"/>
 		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="Näytä Tiedot"/>
+		<button id="ID_SEARCH_CHAT" text="Keskustele Käyttäjän kanssa"/>
 		<rightAlign/>
-		<label text="Suodatin" tip="Kirjoita sanoja joilla haluat suodattaa hakuasi"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Lisää..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Suodatin" tip="Kirjoita sanoja joilla haluat suodattaa hakuasi"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Näytä Tiedot"/>
 	</toolbar>
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
@@ -376,7 +374,7 @@
 		<button id="ID_HITMONITOR_CLEAR" text="Tyhjennä"/>
 		<rightAlign/>
 		<label text="Suodatin" tip="Kirjoita sanoja joilla haluat suodattaa hakuasi"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Lisää..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
@@ -446,75 +444,95 @@
 		<item id="ID_NETWORK_EXIT" text="Poistu"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
-	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="_Verkko">
-			<item id="ID_NETWORK_CONNECT" text="_Yhdistä" shortcut="Ctrl+G"/>
-			<separator/>
-			<menu text="Valitse _Verkot">
-				<item id="ID_NETWORK_G2" text="Yhdistä _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Yhdistä Gnutella_1"/>
-				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
-			</menu>
-			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="Poistu Siirtojen Jälkeen"/>
-			<item id="ID_NETWORK_EXIT" text="P_oistu"/>
-		</menu>
-		<menu text="_Näytä">
-			<item id="ID_TAB_HOME" text="_Koti"/>
-			<item id="ID_TAB_LIBRARY" text="_Kirjasto"/>
-			<item id="ID_TAB_MEDIA" text="_Media Soitin"/>
-			<item id="ID_TAB_SEARCH" text="_Hae"/>
-			<item id="ID_TAB_TRANSFERS" text="_Lataukset"/>
-			<item id="ID_WINDOW_REMOTE" text="Näytä _Kauko-ohjain"/>
-			<separator/>
-			<menu text="_Lisää">
-				<item id="ID_VIEW_NEIGHBOURS" text="_Naapurit"/>
-				<item id="ID_VIEW_UPLOADS" text="_Lähetykset"/>
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+			<item id="ID_TOOLS_SETTINGS" text="_Asetukset..."/>
+			<menu text="_Verkko">
+				<item id="ID_NETWORK_CONNECT" text="_Yhdistä" shortcut="Ctrl+G"/>
+				<item id="ID_NETWORK_DISCONNECT" text="_Katkaise Yhteys"/>
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="Tu_rvallisuus"/>
-				<item id="ID_VIEW_HOSTS" text="K_äyttäjä Välimuisti"/>
-				<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
+				<item id="ID_NETWORK_G2" text="Yhdistä Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Yhdistä _Gnutella"/>
+				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
+				<separator/>
+				<item id="ID_NETWORK_CONNECT_TO" text="Yhdistä..." shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_BROWSE_TO" text="_Selaa Käyttäjää"/>
+				<separator/>
+				<item id="ID_NETWORK_AUTO_CLOSE" text="Poistu _Siirtojen Jälkeen"/>
+				<item id="ID_NETWORK_EXIT" text="_Poistu"/>
 			</menu>
-			<separator/>
-			<item id="ID_VIEW_BASIC" text="_Normaali Tila"/>
-			<item id="ID_VIEW_TABBED" text="_Teho Tila"/>
-		</menu>
-		<menu text="_Työkalut">
-			<item id="ID_LIBRARY_FOLDERS" text="Jaa _Tiedostoja"/>
-			<item id="ID_TOOLS_DOWNLOAD" text="_Lataa Tiedosto/Torrentti..."/>
-			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Valitse U_lkoasu"/>
-			<item id="ID_TOOLS_LANGUAGE" text="Valitse _Käyttökieli"/>
-			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="Editoi _Profiiliani"/>
-			<item id="ID_TOOLS_WIZARD" text="QuickStart _Aloitus..."/>
-			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="_PeerProject Asetukset..."/>
-		</menu>
-		<menu text="_Ohje">
-			<item id="ID_HELP_FAQ" text="PeerProject _UKK (en)"/>
-			<separator/>
-			<menu text="_Ohjeet">
-				<item id="ID_HELP_GUIDE" text="PeerProject _Käyttäjän Ohje (en)"/>
-				<item id="ID_HELP_ROUTER" text="_Reititin Apu (en)"/>
-				<item id="ID_HELP_SECURITY" text="_Turvallisuus Ohje (en)"/>
-				<item id="ID_HELP_CODEC" text="_Koodekki Apu (en)"/>
+			<menu text="_Työkalut">
+				<item id="ID_LIBRARY_FOLDERS" text="Jaa _Tiedostoja"/>
+				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads Folder"/>
+				<separator/>
+				<item id="ID_TOOLS_DOWNLOAD" text="_Lataa Tiedosto/Torrentti..."/>
+				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+				<separator/>
+				<item id="ID_TOOLS_LANGUAGE" text="Valitse _Käyttökieli"/>
+				<item id="ID_TOOLS_SKIN" text="Valitse U_lkoasu"/>
+				<separator/>
+				<item id="ID_TOOLS_PROFILE" text="Editoi _Profiiliani..."/>
+				<item id="ID_TOOLS_WIZARD" text="QuickStart _Aloitus..."/>
+				<separator/>
+				<item id="ID_TOOLS_SETTINGS" text="_PeerProjectn Asetukset..."/>
 			</menu>
-			<separator/>
-			<menu text="_Sivustot">
+			<menu text="_Näytä">
+				<item id="ID_TAB_HOME" text="_Koti" shortcut="Ctrl+H"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="N_aapurit" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_SYSTEM" text="J_ärjestelmä" shortcut="F11"/>	
+				<item id="ID_VIEW_DOWNLOADS" text="_Lataukset" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="_Lähetykset" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="_Kirjasto" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Tu_rvallisuus" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="K_äyttäjä Välimuisti" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="_Grafiikka" shortcut="F10"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="_Paketti Tuloste" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="Ha_ku Monitori" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="O_suma Monitori" shortcut="Ctrl+F3"/>
+				<item id="ID_TAB_SEARCH" text="_Hae" shortcut="Ctrl+S"/>
+			</menu>
+			<menu text="_Ikkuna">
+				<item id="ID_VIEW_BASIC" text="N_ormaali Tila"/>
+				<item id="ID_VIEW_TABBED" text="V_älilehti Tila"/>
+				<item id="ID_VIEW_WINDOWED" text="_Ikkunoitu Tila"/>
+				<separator/>
+				<item id="ID_WINDOW_NAVBAR" text="Näytä _Navigaatio Palkki"/>
+				<item id="ID_WINDOW_TOOLBAR" text="Näytä _Työkalu Palkki"/>
+				<separator/>
+				<item id="ID_WINDOW_TABBAR" text="Näytä Välilehti _Palkki"/>
+				<item id="ID_WINDOW_MONITOR" text="Näytä _Monitori"/>
+				<item id="ID_WINDOW_REMOTE" text="Näytä _Kauko-ohjain"/>
+			</menu>
+			<menu text="_Ohje">
+				<item id="ID_HELP_FAQ" text="PeerProject _UKK (en)"/>
+				<separator/>
+				<menu text="_Ohjeet">
+					<item id="ID_HELP_GUIDE" text="PeerProject _Käyttäjän Ohje (en)"/>
+					<item id="ID_HELP_ROUTER" text="_Reititin Apu (en)"/>
+					<item id="ID_HELP_SECURITY" text="_Turvallisuus Ohje (en)"/>
+					<item id="ID_HELP_CODEC" text="_Koodekki Apu (en)"/>
+				</menu>
+				<separator/>
+				<menu text="_Sivustot">
+					<item id="ID_HELP_FORUMS" text="PeerProject _Foorumit (en)"/>
+					<separator/>
+					<!-- <item id="ID_HELP_UPDATE" text="Viimeisimmät uutiset (en)"/>
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com (en)"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com (en)"/> -->
+				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site (en)"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProject _Foorumit (en)"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Viimeisimmät uutiset (en)"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com (en)"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com (en)"/> -->
+				<item id="ID_HELP_ABOUT" text="_Tietoja PeerProjectsta..."/>
 			</menu>
-			<separator/>
-			<item id="ID_HELP_ABOUT" text="_Tietoja PeerProject..."/>
+			<item id="ID_NETWORK_EXIT" text="_Poistu"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
-		<menu text="_Verkko">
+	<menu text="_Verkko">
 			<item id="ID_NETWORK_CONNECT" text="_Yhdistä" shortcut="Ctrl+G"/>
 			<item id="ID_NETWORK_DISCONNECT" text="_Katkaise Yhteys"/>
 			<separator/>
@@ -602,6 +620,73 @@
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Tietoja PeerProjectsta..."/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="_Verkko">
+			<item id="ID_NETWORK_CONNECT" text="_Yhdistä" shortcut="Ctrl+G"/>
+			<separator/>
+			<menu text="Valitse _Verkot">
+				<item id="ID_NETWORK_G2" text="Yhdistä _Gnutella2"/>
+				<item id="ID_NETWORK_G1" text="Yhdistä Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Yhdistä _eDonkey2000"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Poistu Siirtojen Jälkeen"/>
+			<item id="ID_NETWORK_EXIT" text="P_oistu"/>
+		</menu>
+		<menu text="_Näytä">
+			<item id="ID_TAB_HOME" text="_Koti"/>
+			<item id="ID_TAB_LIBRARY" text="_Kirjasto"/>
+			<item id="ID_TAB_MEDIA" text="_Media Soitin"/>
+			<item id="ID_TAB_SEARCH" text="_Hae"/>
+			<item id="ID_TAB_TRANSFERS" text="_Lataukset"/>
+			<item id="ID_WINDOW_REMOTE" text="Näytä _Kauko-ohjain"/>
+			<separator/>
+			<menu text="_Lisää">
+				<item id="ID_VIEW_NEIGHBOURS" text="_Naapurit"/>
+				<item id="ID_VIEW_UPLOADS" text="_Lähetykset"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Tu_rvallisuus"/>
+				<item id="ID_VIEW_HOSTS" text="K_äyttäjä Välimuisti"/>
+				<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="_Normaali Tila"/>
+			<item id="ID_VIEW_TABBED" text="_Teho Tila"/>
+		</menu>
+		<menu text="_Työkalut">
+			<item id="ID_LIBRARY_FOLDERS" text="Jaa _Tiedostoja"/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Lataa Tiedosto/Torrentti..."/>
+			<separator/>
+			<item id="ID_TOOLS_SKIN" text="Valitse U_lkoasu"/>
+			<item id="ID_TOOLS_LANGUAGE" text="Valitse _Käyttökieli"/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Editoi _Profiiliani"/>
+			<item id="ID_TOOLS_WIZARD" text="QuickStart _Aloitus..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="_PeerProject Asetukset..."/>
+		</menu>
+		<menu text="_Ohje">
+			<item id="ID_HELP_FAQ" text="PeerProject _UKK (en)"/>
+			<separator/>
+			<menu text="_Ohjeet">
+				<item id="ID_HELP_GUIDE" text="PeerProject _Käyttäjän Ohje (en)"/>
+				<item id="ID_HELP_ROUTER" text="_Reititin Apu (en)"/>
+				<item id="ID_HELP_SECURITY" text="_Turvallisuus Ohje (en)"/>
+				<item id="ID_HELP_CODEC" text="_Koodekki Apu (en)"/>
+			</menu>
+			<separator/>
+			<menu text="_Sivustot">
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site (en)"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="PeerProject _Foorumit (en)"/>
+				<!-- <item id="ID_HELP_UPDATE" text="Viimeisimmät uutiset (en)"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com (en)"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com (en)"/> -->
+			</menu>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="_Tietoja PeerProject..."/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Windowed" type="bar">
@@ -1480,10 +1565,16 @@
 		</group>
 		<group id="2">
 			<icon res="134" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">ETSI PEERPROJECT LLA</heading>
+			<heading align="middle">ETSI LLA</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
+			<icon res="136" width="32" height="32" target="peer:shell:downloads"/><gap size="8"/>
+			<heading align="middle">OMAT LATAUKSET</heading>
+			<newline gap="8" indent="42"/>
+			<text>Or open your completed </text>
+			<link target="peer:shell:downloads">downloads folder.</link>
+			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1523,13 +1614,6 @@
 		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Pika Apu</link>
 		<text align="middle">&#160;- Hanki joitain perus ohjeita PeerProjectn käyttämiseen</text>
 		<newline gap="18" indent="0"/>
-		<icon res="136" width="32" height="32" target="peer:shell:downloads"/>
-		<gap size="8"/>
-		<heading align="middle">OMAT LATAUKSET</heading>
-		<newline gap="8" indent="42"/>
-		<text>To open the folder with your downloads </text>
-		<link target="peer:shell:downloads">click here</link>
-		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/>
 			<gap size="8"/>
@@ -1543,10 +1627,11 @@
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
+	<!-- Homepanel Taskboxes -->
 	<document name="CHomeConnectionBox" title="Yhteys" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1557,7 +1642,7 @@
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
-		<text group="20" align="middle" format="b">&#160;Gnutella2:</text>
+		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
 		<text group="21" align="middle">Ei Yhdistetty</text>
 		<text group="22" align="middle">Yhdistetään...</text>
 		<text group="23" align="middle">Yhdistetty</text>
@@ -1565,13 +1650,13 @@
 		<text group="25" align="middle" id="G2Leaves">%i lehteä</text>
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
-		<text group="10" align="middle" format="b">&#160;Gnutella:</text>
+		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
 		<text group="11" align="middle">Ei Yhdistetty</text>
 		<text group="12" align="middle">Yhdistetään...</text>
 		<text group="13" align="middle">Yhdistetty</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
-		<text group="30" align="middle" format="b">&#160;eDonkey:</text>
+		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
 		<text group="31" align="middle">Ei Yhdistetty</text>
 		<text group="32" align="middle">Yhdistetään...</text>
 		<text group="33" align="middle">Yhdistetty</text>
@@ -1591,7 +1676,7 @@
 	<document name="CHomeLibraryBox" title="Oma Kirjasto" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1599,11 +1684,12 @@
 				<text>Sinä et ole ladannut yhtään tiedostoa viime aikoina.</text>
 				<newline gap="8"/>
 			</group>
+			<link target="peer:command:ID_VIEW_LIBRARY">Mene Kirjastoon</link>
+			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
-			<text>tiedostoa, </text>
+			<text>tiedostoa (</text>
 			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="0"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Mene Kirjastoon</link>
+			<text>)</text>
 			<group id="1">
 				<newline gap="8"/>
 				<text>PeerProject scannaa ja prosessoi </text>
@@ -1622,7 +1708,7 @@
 	<document name="CHomeDownloadsBox" title="Omat Lataukset" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1644,7 +1730,7 @@
 	<document name="CHomeUploadsBox" title="Lähetykset" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">

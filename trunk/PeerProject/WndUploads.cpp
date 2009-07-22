@@ -163,6 +163,7 @@ void CUploadsWnd::OnSize(UINT nType, int cx, int cy)
 
 void CUploadsWnd::OnSkinChange()
 {
+	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
 	Skin.Translate( _T("CUploadCtrl"), &m_wndUploads.m_wndHeader);
 	Skin.CreateToolBar( _T("CUploadsWnd"), &m_wndToolBar );
