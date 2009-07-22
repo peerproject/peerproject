@@ -253,6 +253,7 @@ CHostCacheHost* CHostCacheWnd::GetItem(int nItem)
 
 void CHostCacheWnd::OnSkinChange()
 {
+	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
 	Settings.LoadList( _T("CHostCacheWnd"), &m_wndList );
 	Skin.CreateToolBar( _T("CHostCacheWnd"), &m_wndToolBar );

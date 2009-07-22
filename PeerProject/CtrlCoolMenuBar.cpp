@@ -23,8 +23,8 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "CoolInterface.h"
-#include "CoolMenu.h"
 #include "CtrlCoolMenuBar.h"
+#include "CoolMenu.h"
 
 #ifdef _PEERPROJECT
 #include "WndChild.h"
@@ -35,6 +35,9 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #endif
+
+#define MENUBAR_HEIGHT 28
+
 
 BEGIN_MESSAGE_MAP(CCoolMenuBarCtrl, CCoolBarCtrl)
 	//{{AFX_MSG_MAP(CCoolMenuBarCtrl)
@@ -56,13 +59,13 @@ END_MESSAGE_MAP()
 
 CCoolMenuBarCtrl::CCoolMenuBarCtrl()
 {
+	m_hMenu		= NULL;
 	m_bMenuGray	= TRUE;
 	m_bGripper	= TRUE;
 
 	m_bStretch	= theApp.GetProfileInt( _T(""), _T("MenuStretch"), TRUE );
-	if ( theApp.GetProfileInt( _T(""), _T("MenuHalfHeight"), TRUE ) ) m_nHeight = TOOLBAR_HEIGHT;
-
-	m_hMenu		= NULL;
+	if ( theApp.GetProfileInt( _T(""), _T("MenuHalfHeight"), TRUE ) )
+		m_nHeight = MENUBAR_HEIGHT;		// Skin.m_nToolbarHeight -Unskinnable?
 }
 
 CCoolMenuBarCtrl::~CCoolMenuBarCtrl()

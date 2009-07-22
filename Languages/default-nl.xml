@@ -81,24 +81,23 @@
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Downloaden"/>
 		<button id="ID_BROWSE_LAUNCH" text="Gebruiker bekijken"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Zoekpaneel"/>
-		<button id="ID_SEARCH_DETAILS" text="Details tonen"/>
 		<rightAlign/>
-		<label text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
-		<control id="IDC_FILTER_BOX" width="130"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Meer..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Details tonen"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="Downloaden"/>
-		<button id="ID_BROWSE_LAUNCH" text="Gebruiker bekijken"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Zoekpaneel"/>
-		<button id="ID_SEARCH_DETAILS" text="Details tonen"/>
+		<button id="ID_BROWSE_LAUNCH" text="Gebruiker bekijken"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Meer..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Details tonen"/>
+		<button id="ID_SEARCH_PANEL" text="Zoekpaneel"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Opnieuw zoeken..."/>
@@ -106,13 +105,13 @@
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Downloaden"/>
 		<button id="ID_BROWSE_LAUNCH" text="Gebruiker bekijken"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Zoekpaneel"/>
-		<button id="ID_SEARCH_DETAILS" text="Details tonen"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
-		<control id="IDC_FILTER_BOX" width="150"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Meer..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Details tonen"/>
+		<button id="ID_SEARCH_PANEL" text="Zoekpaneel"/>
 	</toolbar>
 	<!-- BROWSE HOST WINDOW -->
 	<toolbar name="CBrowseHeaderCtrl">
@@ -126,25 +125,23 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Bestand downloaden"/>
 		<button id="ID_SEARCH_CHAT" text="Chatten"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Details tonen"/>
-		<rightAlign/>
-		<label text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Meer..."/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Bestand downloaden"/>
-		<button id="ID_SEARCH_CHAT" text="Chatten"/>
-		<separator/>
 		<button id="ID_BROWSE_STOP" text="Stoppen"/>
 		<button id="ID_BROWSE_REFRESH" text="Vernieuwen"/>
 		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="Details tonen"/>
+		<button id="ID_SEARCH_CHAT" text="Chatten"/>
 		<rightAlign/>
-		<label text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Meer..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Details tonen"/>
 	</toolbar>
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
@@ -382,7 +379,7 @@
 		<button id="ID_SEARCH_CLEAR" text="Wissen"/>
 		<rightAlign/>
 		<label text="Filteren:" tip="Geef een paar woorden op om het resultaat mee te filteren"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Meer..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
@@ -462,75 +459,92 @@
 		<item id="ID_NETWORK_EXIT" text="Afsluiten"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
-	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="_Netwerk">
-			<item id="ID_NETWORK_CONNECT" text="_Verbinden" shortcut="Ctrl+G"/>
-			<separator/>
-			<menu text="_Netwerken Kiezen">
-				<item id="ID_NETWORK_G2" text="Verbinden met _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Verbinden met Gnutella_1"/>
-				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
-			</menu>
-			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="Afsluiten na ver_keer"/>
-			<item id="ID_NETWORK_EXIT" text="_Afsluiten"/>
-		</menu>
-		<menu text="_Menu's">
-			<item id="ID_TAB_HOME" text="_Startpagina"/>
-			<item id="ID_TAB_LIBRARY" text="_Bibliotheek"/>
-			<item id="ID_TAB_MEDIA" text="_Media"/>
-			<item id="ID_TAB_SEARCH" text="_Zoeken"/>
-			<item id="ID_TAB_TRANSFERS" text="_Downloads"/>
-			<item id="ID_WINDOW_REMOTE" text="_Afstandsbediening"/>
-			<item id="ID_TAB_IRC" text="_Chat"/>
-			<separator/>
-			<menu text="Uitg_ebreid">
-				<item id="ID_VIEW_NEIGHBOURS" text="_Netwerk"/>
-				<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+			<item id="ID_TOOLS_SETTINGS" text="_Instellingen..."/>
+			<menu text="_Netwerk">
+				<item id="ID_NETWORK_CONNECT" text="_Verbinden..." shortcut="Ctrl+G"/>
+				<item id="ID_NETWORK_DISCONNECT" text="Verbinding ver_breken"/>
 				<separator/>
-				<item id="ID_VIEW_SECURITY" text="Beveili_ging"/>
+				<item id="ID_NETWORK_G2" text="Verbinden met Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
+				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
+				<separator/>
+				<item id="ID_NETWORK_CONNECT_TO" text="Verbinden _met..." shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_BROWSE_TO" text="Gastheer be_kijken..."/>
+				<separator/>
+				<item id="ID_NETWORK_AUTO_CLOSE" text="Afsluiten na ver_keer"/>
+				<item id="ID_NETWORK_EXIT" text="_Afsluiten"/>
+			</menu>
+			<menu text="_Hulpmiddelen">
+				<item id="ID_LIBRARY_FOLDERS" text="_Bestanden delen..."/>
+				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open mijn map met complete downloads"/>
+				<separator/>
+				<item id="ID_TOOLS_DOWNLOAD" text="Downloadlink _invoegen..."/>
+				<item id="ID_TOOLS_SEEDTORRENT" text="_Seed a .Torrent..."/>
+				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+				<item id="IDC_IMPORT_DOWNLOADS" text="_Importeer gedeeltelijke eMule downloads..."/>
+				<separator/>
+				<item id="ID_TOOLS_LANGUAGE" text="Een _taal kiezen..."/>
+				<item id="ID_TOOLS_SKIN" text="Een _skin kiezen..."/>
+				<separator/>
+				<item id="ID_TOOLS_PROFILE" text="Mijn _profiel aanpassen..."/>
+				<item id="ID_TOOLS_WIZARD" text="SnelStart _wizard..."/>
+				<separator/>
+				<item id="ID_TOOLS_SETTINGS" text="PeerProject _instellingen..."/>
+			</menu>
+			<menu text="_Menu's">
+				<item id="ID_TAB_HOME" text="_Startpagina"/>
+				<item id="ID_TAB_SEARCH" text="_Zoeken"/>
+				<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
+				<item id="ID_TAB_LIBRARY" text="_Bibliotheek"/>
+				<item id="ID_TAB_MEDIA" text="_Media"/>
+				<item id="ID_TAB_IRC" text="_Chat"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Be_veiliging"/>
 				<item id="ID_VIEW_HOSTS" text="Gastheer c_ache"/>
-				<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
+				<item id="ID_VIEW_DISCOVERY" text="Dis_covery" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="_Grafiek" shortcut="F10"/>
+				<item id="ID_VIEW_SYSTEM" text="S_ysteem" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="_Netwerk" shortcut="Ctrl+F11"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="_Pakket dump" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="Zoekmonito_r" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="H_itmonitor" shortcut="Ctrl+F3"/>
 			</menu>
-			<separator/>
-			<item id="ID_VIEW_BASIC" text="Normale _stijl"/>
-			<item id="ID_VIEW_TABBED" text="_Tabbladstijl"/>
-		</menu>
-		<menu text="_Hulpmiddelen">
-			<item id="ID_LIBRARY_FOLDERS" text="_Bestanden delen..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="Downloadlink _invoegen..."/>
-			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Een _skin kiezen..."/>
-			<item id="ID_TOOLS_LANGUAGE" text="Een _taal kiezen..."/>
-			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="Mijn _profiel aanpassen..."/>
-			<item id="ID_TOOLS_WIZARD" text="SnelStart _wizard..."/>
-			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="PeerProject _instellingen..."/>
-		</menu>
-		<menu text="_Hulp">
-			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
-			<item id="ID_HELP_TEST" text="_Verbindingstest (Aanbevolen)"/>
-			<separator/>
-			<menu text="_Handleidingen">
-				<item id="ID_HELP_GUIDE" text="PeerProject _gebruikershandleiding"/>
-				<item id="ID_HELP_ROUTER" text="_Router hulp"/>
-				<item id="ID_HELP_SECURITY" text="_Beveiligingshulp"/>
-				<item id="ID_HELP_CODEC" text="_Codechulp"/>
+			<menu text="_Venster">
+				<item id="ID_VIEW_TABBED" text="_Tabbladstijl"/>
+				<item id="ID_VIEW_WINDOWED" text="V_ensterstijl"/>
+				<separator/>
+				<item id="ID_WINDOW_NAVBAR" text="_Navigatiebalk tonen"/>
+				<item id="ID_WINDOW_TABBAR" text="_Tabbalk tonen"/>
+				<item id="ID_WINDOW_MONITOR" text="_Monitor tonen"/>
+				<item id="ID_WINDOW_REMOTE" text="_Afstandsbediening tonen"/>
 			</menu>
-			<separator/>
-			<menu text="_Websites">
+			<menu text="_Hulp">
+				<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
+				<item id="ID_HELP_TEST" text="_Verbindingstest(aanbevolen)"/>
+				<separator/>
+				<menu text="_Handleidingen">
+					<item id="ID_HELP_GUIDE" text="PeerProject _gebruikershandleiding"/>
+					<item id="ID_HELP_ROUTER" text="_Router hulp"/>
+					<item id="ID_HELP_SECURITY" text="_Beveiligingshulp"/>
+					<item id="ID_HELP_CODEC" text="_Codechulp"/>
+				</menu>
+				<separator/>
+				<menu text="_Websites">
+					<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
+					<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+					<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
+				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
-				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
-				<separator/>
+				<item id="ID_HELP_ABOUT" text="_Over PeerProject..."/>
 			</menu>
-			<separator/>
-			<item id="ID_HELP_ABOUT" text="_Over PeerProject..."/>
+			<item id="ID_NETWORK_EXIT" text="E_xit"/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
@@ -539,8 +553,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="Verbinding ver_breken"/>
 			<separator/>
 			<menu text="Net_werken kiezen">
-				<item id="ID_NETWORK_G2" text="Verbinden met _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Verbinden met Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Verbinden met Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Verbinden met _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
 			</menu>
 			<separator/>
@@ -609,6 +623,77 @@
 		<menu text="_Hulp">
 			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
 			<item id="ID_HELP_TEST" text="_Verbindingstest(aanbevolen)"/>
+			<separator/>
+			<menu text="_Handleidingen">
+				<item id="ID_HELP_GUIDE" text="PeerProject _gebruikershandleiding"/>
+				<item id="ID_HELP_ROUTER" text="_Router hulp"/>
+				<item id="ID_HELP_SECURITY" text="_Beveiligingshulp"/>
+				<item id="ID_HELP_CODEC" text="_Codechulp"/>
+			</menu>
+			<separator/>
+			<menu text="_Websites">
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
+				<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
+				<separator/>
+			</menu>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="_Over PeerProject..."/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="_Netwerk">
+			<item id="ID_NETWORK_CONNECT" text="_Verbinden" shortcut="Ctrl+G"/>
+			<separator/>
+			<menu text="_Netwerken Kiezen">
+				<item id="ID_NETWORK_G2" text="Verbinden met _Gnutella2"/>
+				<item id="ID_NETWORK_G1" text="Verbinden met Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Verbinden met _eDonkey"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Afsluiten na ver_keer"/>
+			<item id="ID_NETWORK_EXIT" text="_Afsluiten"/>
+		</menu>
+		<menu text="_Menu's">
+			<item id="ID_TAB_HOME" text="_Startpagina"/>
+			<item id="ID_TAB_LIBRARY" text="_Bibliotheek"/>
+			<item id="ID_TAB_MEDIA" text="_Media"/>
+			<item id="ID_TAB_SEARCH" text="_Zoeken"/>
+			<item id="ID_TAB_TRANSFERS" text="_Downloads"/>
+			<item id="ID_WINDOW_REMOTE" text="_Afstandsbediening"/>
+			<item id="ID_TAB_IRC" text="_Chat"/>
+			<separator/>
+			<menu text="Uitg_ebreid">
+				<item id="ID_VIEW_NEIGHBOURS" text="_Netwerk"/>
+				<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Beveili_ging"/>
+				<item id="ID_VIEW_HOSTS" text="Gastheer c_ache"/>
+				<item id="ID_VIEW_DISCOVERY" text="Disco_very"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="Normale _stijl"/>
+			<item id="ID_VIEW_TABBED" text="_Tabbladstijl"/>
+		</menu>
+		<menu text="_Hulpmiddelen">
+			<item id="ID_LIBRARY_FOLDERS" text="_Bestanden delen..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="Downloadlink _invoegen..."/>
+			<separator/>
+			<item id="ID_TOOLS_SKIN" text="Een _skin kiezen..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="Een _taal kiezen..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Mijn _profiel aanpassen..."/>
+			<item id="ID_TOOLS_WIZARD" text="SnelStart _wizard..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="PeerProject _instellingen..."/>
+		</menu>
+		<menu text="_Hulp">
+			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
+			<item id="ID_HELP_TEST" text="_Verbindingstest (Aanbevolen)"/>
 			<separator/>
 			<menu text="_Handleidingen">
 				<item id="ID_HELP_GUIDE" text="PeerProject _gebruikershandleiding"/>
@@ -1548,17 +1633,19 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">START DOWNLOAD</heading>
-			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Klik hier om te starten</link>
-			<text align="middle">&#160; bezig aan het downloaden.</text>
-			<newline gap="24" indent="0"/>
 			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">ZOEK VOOR EEN BESTAND</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="12" indent="0"/>
+			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<heading align="middle">START DOWNLOAD</heading>
+			<newline gap="8" indent="42"/>
+			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Klik hier om te starten</link>
+			<text align="middle">&#160; bezig aan het downloaden.</text>
+			<newline gap="4" indent="42"/>
+			<link target="peer:shell:downloads">Open mijn Download map.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1635,7 +1722,7 @@
 	<document name="CHomeConnectionBox" title="Netwerk" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1667,19 +1754,20 @@
 		<newline group="30" gap="2"/>
 		<group id="2">
 			<para align="center">
-				<newline gap="6"/>
-				<text>Je bent al </text>
+				<newline gap="4"/>
+				<link target="peer:command:ID_TAB_NETWORK">Netwerk Session</link>
+				<newline gap="4"/>
 				<text id="ConnectedHours" format="b">%i </text>
 				<text>uur en </text>
 				<text id="ConnectedMinutes" format="b">%i </text>
-				<text>minuten verbonden.</text>
+				<text>minuten</text>
 			</para>
 		</group>
 	</document>
 	<document name="CHomeLibraryBox" title="Bibliotheek" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1687,32 +1775,31 @@
 				<text>Je hebt onlangs geen nieuwe bestanden gedownload.</text>
 				<newline gap="8"/>
 			</group>
+			<link target="peer:command:ID_VIEW_LIBRARY">Mijn bibliotheek</link>
+			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
-			<text>bestanden, </text>
+			<text>bestanden (</text>
 			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="4"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Ga naar mijn bibliotheek</link>
-			<newline gap="4"/>
-			<link format="bu" target="peer:shell:downloads">Open mijn Download map</link>
+			<text>)</text>
 			<group id="1">
 				<newline gap="8"/>
 				<text>PeerProject is </text>
 				<text id="LibraryHashRemaining" format="b">%lu </text>
 				<text>bestanden aan het scannen en verwerken.</text>
 				<newline gap="8"/>
-			</group>
-			<group id="3">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Klik hier om sneller te verwerken</link>
-			</group>
-			<group id="4">
-				<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Klik hier om langzamer te verwerken</link>
+				<group id="3">
+					<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Klik hier om sneller te verwerken</link>
+				</group>
+				<group id="4">
+					<link target="peer:command:ID_LIBRARY_HASH_PRIORITY">Klik hier om langzamer te verwerken</link>
+				</group>
 			</group>
 		</para>
 	</document>
 	<document name="CHomeDownloadsBox" title="Downloads" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1721,8 +1808,8 @@
 				<newline gap="4"/>
 			</group>
 			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Ga naar downloads</link>
-			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Ga naar download (1)</link>
-			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">Ga naar downloads (%i)</link>
+			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 actieve download</link>
+			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">%i actieve downloads</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No bestanden (</text>
 			<text id="DownloadedOne">1 bestand (</text>
@@ -1734,7 +1821,7 @@
 	<document name="CHomeUploadsBox" title="Uploads" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -2053,7 +2140,7 @@
 		<newline gap="8"/>
 		<link target="http://peerproject.org/help/?torrentencoding">Klik hier voor extra hulp</link>
 		<text>, of om software te downloaden om de torrent te herstellen.</text>
-</document>
+	</document>
 	<document name="GeneralHelp.DonkeyServerList">
 		<text format="b">De eDonkey Serverlijst is leeg.</text>
 		<newline gap="8"/>

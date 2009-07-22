@@ -34,7 +34,7 @@
 		<button id="ID_TAB_HOME" text="Inici"/>
 		<button id="ID_TAB_SEARCH" text="Cerca"/>
 		<button id="ID_TAB_TRANSFERS" text="Descàrregues"/>
-		<button id="ID_TAB_LIBRARY" text="La meva col·lecció"/>
+		<button id="ID_TAB_LIBRARY" text="Col·lecció"/>
 		<button id="ID_TAB_MEDIA" text="Reproductor"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
@@ -44,7 +44,7 @@
 		<button id="ID_TAB_SEARCH" text="Cerca"/>
 		<button id="ID_TAB_TRANSFERS" text="Transferències"/>
 		<button id="ID_TAB_NETWORK" text="Xarxa"/>
-		<button id="ID_TAB_LIBRARY" text="La meva col·lecció"/>
+		<button id="ID_TAB_LIBRARY" text="Col·lecció"/>
 		<button id="ID_TAB_MEDIA" text="Reproductor"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
 	</toolbar>
@@ -80,25 +80,25 @@
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Descarrega arxiu"/>
-		<button id="ID_BROWSE_LAUNCH" text="Explora usuari"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Barra de cerca"/>
-		<button id="ID_SEARCH_DETAILS" text="Detalls"/>
+		<button id="ID_BROWSE_LAUNCH" text="Explora usuari"/>
 		<rightAlign/>
-		<label text="Filtre:" tip="Filtrar resultats amb"/>
-		<control id="IDC_FILTER_BOX" width="130"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Més..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrar resultats amb"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Detalls"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="Descarrega"/>
-		<button id="ID_BROWSE_LAUNCH" text="Explora"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Barra de cerca"/>
-		<button id="ID_SEARCH_DETAILS" text="Detalls"/>
+		<button id="ID_BROWSE_LAUNCH" text="Explora"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filtre:" tip="Filtrar resultats amb"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Més..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrar resultats amb"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Detalls"/>
+		<button id="ID_SEARCH_PANEL" text="Barra de cerca"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Cerca novament..."/>
@@ -106,13 +106,13 @@
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Descarrega"/>
 		<button id="ID_BROWSE_LAUNCH" text="Explora l'usuari"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Mostra la cerca"/>
-		<button id="ID_SEARCH_DETAILS" text="Mostra la cerca"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filter:" tip="Filtrar resultats amb:"/>
-		<control id="IDC_FILTER_BOX" width="150"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Més..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrar resultats amb"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Detalls"/>
+		<button id="ID_SEARCH_PANEL" text="Barra de cerca"/>
 	</toolbar>
 	<!-- BROWSE HOST WINDOW -->
 	<toolbar name="CBrowseHeaderCtrl">
@@ -126,25 +126,23 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Descarrega l&apos;arxiu"/>
 		<button id="ID_SEARCH_CHAT" text="Parlar amb Usuari"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtra els resultats amb"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Detalls"/>
-		<rightAlign/>
-		<label text="Filtre:" tip="Filtra els resultats amb"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Més..."/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Descarrega l'arxiu"/>
-		<button id="ID_SEARCH_CHAT" text="Xat amb l'usuari"/>
-		<separator/>
 		<button id="ID_BROWSE_STOP" text="Atura"/>
 		<button id="ID_BROWSE_REFRESH" text="Actualitza"/>
 		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="Detalls"/>
+		<button id="ID_SEARCH_CHAT" text="Xat amb l'usuari"/>
 		<rightAlign/>
-		<label text="Filtre:" tip="Filtra els resultats amb"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Més..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtra els resultats amb"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Detalls"/>
 	</toolbar>
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
@@ -377,7 +375,7 @@
 		<button id="ID_HITMONITOR_CLEAR" text="Neteja"/>
 		<rightAlign/>
 		<label text="Filter:" tip="Filtra els resultats amb"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Més..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
@@ -482,6 +480,195 @@
 		<item id="ID_NETWORK_EXIT" text="Surt"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+			<item id="ID_TOOLS_SETTINGS" text="_Configuració..."/>
+			<menu text="_Xarxa">
+				<item id="ID_NETWORK_CONNECT" text="_Connecta" shortcut="Ctrl+G"/>
+				<item id="ID_NETWORK_DISCONNECT" text="_Desconnecta"/>
+				<separator/>
+				<menu text="Escollir _Xarxes">
+					<item id="ID_NETWORK_G2" text="Connecta a Gnutella_2"/>
+					<item id="ID_NETWORK_G1" text="Connecta a _Gnutella"/>
+					<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
+				</menu>
+				<separator/>
+				<item id="ID_NETWORK_CONNECT_TO" text="Connecta _a..." shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_BROWSE_TO" text="_Explora l'usuari..."/>
+				<separator/>
+				<item id="ID_NETWORK_AUTO_CLOSE" text="_Surt després de les transferències"/>
+				<item id="ID_NETWORK_EXIT" text="_Surt"/>
+			</menu>
+			<menu text="_Eines">
+				<item id="ID_LIBRARY_FOLDERS" text="Arxius _compartits..."/>
+				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Carpeta de descàrregues"/>
+				<separator/>
+				<item id="ID_TOOLS_DOWNLOAD" text="_Descarrega arxiu/torrent..."/>
+				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+				<item id="IDC_IMPORT_DOWNLOADS" text="_Importa descàrregues parcials de l'eMule"/>
+				<separator/>
+				<item id="ID_TOOLS_LANGUAGE" text="Tria un _idioma..."/>
+				<item id="ID_TOOLS_SKIN" text="Tria _interfície..."/>
+				<separator/>
+				<item id="ID_TOOLS_PROFILE" text="Edita el _perfil..."/>
+				<item id="ID_TOOLS_WIZARD" text="Configuració _ràpida..."/>
+				<separator/>
+				<item id="ID_TOOLS_SETTINGS" text="_Configuració de PeerProject..."/>
+			</menu>
+			<menu text="_Veure">
+				<item id="ID_TAB_HOME" text="_Inici" shortcut="Ctrl+H"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="_Xarxa" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_SYSTEM" text="_Sistema" shortcut="F11"/>
+				<item id="ID_VIEW_DOWNLOADS" text="_Descàrregues" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="_Pujades" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="La meva _Col·lecció" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
+				<item id="ID_TAB_IRC" text="_Chat" shortcut="F12"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="_Seguretat" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="_Caxè de servidors" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="_Descobriments" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="_Gràfica" shortcut="F10"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="_Monitor de paquets" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="_Monitor de cerca" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="_Monitor de peticions" shortcut="Ctrl+F3"/>
+			</menu>
+			<menu text="_Finestra">
+				<item id="ID_VIEW_BASIC" text="_Mode basic"/>
+				<item id="ID_VIEW_TABBED" text="_Mode avançat"/>
+				<item id="ID_VIEW_WINDOWED" text="_Mode finestres"/>
+				<separator/>
+				<item id="ID_WINDOW_NAVBAR" text="Mostra la _barra de navegació"/>
+				<item id="ID_WINDOW_TOOLBAR" text="Mostra la _barra d'eines"/>
+				<separator/>
+				<item id="ID_WINDOW_TABBAR" text="Mostra la _barra de pestanyes"/>
+				<item id="ID_WINDOW_MONITOR" text="Mostra el _monitor"/>
+				<item id="ID_WINDOW_REMOTE" text="Mostra el _control remot"/>
+			</menu>
+			<menu text="_Ajuda">
+				<item id="ID_HELP_FAQ" text="Guia d'usuaris del PeerProject"/>
+				<item id="ID_HELP_TEST" text="Test de _Connexió"/>
+				<separator/>
+				<menu text="_Guies">
+					<item id="ID_HELP_GUIDE" text="_Guia d'usuaris del PeerProject"/>
+					<item id="ID_HELP_ROUTER" text="_Ajuda amb el router"/>
+					<item id="ID_HELP_SECURITY" text="_Ajuda de seguretat"/>
+					<item id="ID_HELP_CODEC" text="_Ajuda de códecs"/>
+				</menu>
+				<separator/>
+				<menu text="_Llocs Web">
+					<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
+					<item id="ID_HELP_FAKESHAREAZA" text="FakeShareaza.com Info"/>
+					<!-- <item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
+					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+				</menu>
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
+				<separator/>
+				<item id="ID_HELP_ABOUT" text="_Quant a PeerProject..."/>
+			</menu>
+			<item id="ID_NETWORK_EXIT" text="_Surt"/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Tabbed" type="bar">
+		<menu text="_Xarxa">
+			<item id="ID_NETWORK_CONNECT" text="_Connecta" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="_Desconnecta"/>
+			<separator/>
+			<menu text="Escollir _Xarxes">
+				<item id="ID_NETWORK_G2" text="Connecta a _Gnutella2"/>
+				<item id="ID_NETWORK_G1" text="Connecta a _Gnutella"/>
+				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_CONNECT_TO" text="Connecta _a..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="_Explora l'usuari..."/>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="_Surt després de les transferències"/>
+			<item id="ID_NETWORK_EXIT" text="_Surt"/>
+		</menu>
+		<menu text="_Veure">
+			<item id="ID_TAB_HOME" text="_Inici"/>
+			<item id="ID_TAB_LIBRARY" text="_La meva col·lecció"/>
+			<item id="ID_TAB_MEDIA" text="_Reproductor multimèdia"/>
+			<item id="ID_TAB_SEARCH" text="_Cerca"/>
+			<item id="ID_TAB_TRANSFERS" text="_Transferències"/>
+			<item id="ID_TAB_NETWORK" text="_Xarxa"/>
+			<item id="ID_TAB_IRC" text="_Chat"/>
+			<separator/>
+			<item id="ID_VIEW_SECURITY" text="_Seguretat"/>
+			<item id="ID_VIEW_HOSTS" text="_Caxè de servidors"/>
+			<separator/>
+			<menu text="A_vançat">
+				<item id="ID_VIEW_SYSTEM" text="_Sistema" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="_Xarxa" shortcut="Ctrl+F11"/>
+				<item id="ID_VIEW_DOWNLOADS" text="_Descàrregues" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="_Pujades" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="La meva _Col·lecció" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="_Seguretat" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="_Caxè de servidors" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="_Descobriments" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="_Gràfica" shortcut="F10"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="_Monitor de paquets" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="_Monitor de cerca" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="_Monitor de peticions" shortcut="Ctrl+F3"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="_Mode normal"/>
+			<item id="ID_VIEW_TABBED" text="_Mode avançat"/>
+			<item id="ID_VIEW_WINDOWED" text="_Mode finestres"/>
+		</menu>
+		<menu text="_Eines">
+			<item id="ID_LIBRARY_FOLDERS" text="Arxius _compartits..."/>
+			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Obre la carpeta de descàrregues completades"/>
+			<separator/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Descarrega arxiu/torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+			<item id="IDC_IMPORT_DOWNLOADS" text="_Importa descàrregues parcials de l'eMule"/>
+			<separator/>
+			<item id="ID_TOOLS_SKIN" text="Tria _interfície..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="Tria un _idioma..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Edita el _perfil..."/>
+			<item id="ID_TOOLS_WIZARD" text="Configuració _ràpida..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="_Configuració de PeerProject..."/>
+		</menu>
+		<menu text="_Finestra">
+			<item id="ID_WINDOW_NAVBAR" text="Mostra la _barra de navegació"/>
+			<item id="ID_WINDOW_TOOLBAR" text="Mostra la _barra d'eines"/>
+			<separator/>
+			<item id="ID_WINDOW_TABBAR" text="Mostra la _barra de pestanyes"/>
+			<item id="ID_WINDOW_MONITOR" text="Mostra el _monitor"/>
+			<item id="ID_WINDOW_REMOTE" text="Mostra el _control remot"/>
+		</menu>
+		<menu text="_Ajuda">
+			<item id="ID_HELP_FAQ" text="Guia d'usuaris del PeerProject"/>
+			<item id="ID_HELP_TEST" text="Test de _Connexió"/>
+			<separator/>
+			<menu text="_Guies">
+				<item id="ID_HELP_GUIDE" text="_Guia d'usuaris del PeerProject"/>
+				<item id="ID_HELP_ROUTER" text="_Ajuda amb el router"/>
+				<item id="ID_HELP_SECURITY" text="_Ajuda de seguretat"/>
+				<item id="ID_HELP_CODEC" text="_Ajuda de códecs"/>
+			</menu>
+			<separator/>
+			<menu text="_Llocs Web">
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
+				<!-- <item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
+			</menu>
+			<separator/>
+			<item id="ID_HELP_ABOUT" text="_Quant a PeerProject..."/>
+		</menu>
+	</menu>
 	<menu name="CMainWnd.Basic" type="bar">
 		<menu text="_Xarxa">
 			<item id="ID_NETWORK_CONNECT" text="_Connecta" shortcut="Ctrl+G"/>
@@ -544,102 +731,6 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Darreres notícies"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
-			</menu>
-			<separator/>
-			<item id="ID_HELP_ABOUT" text="_Quant a PeerProject..."/>
-		</menu>
-	</menu>
-	<menu name="CMainWnd.Tabbed" type="bar">
-		<menu text="_Xarxa">
-			<item id="ID_NETWORK_CONNECT" text="_Connecta" shortcut="Ctrl+G"/>
-			<item id="ID_NETWORK_DISCONNECT" text="_Desconnecta"/>
-			<separator/>
-			<menu text="Escollir _Xarxes">
-				<item id="ID_NETWORK_G2" text="Connecta a _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Connecta a _Gnutella 1"/>
-				<item id="ID_NETWORK_ED2K" text="Connecta a _eDonkey"/>
-			</menu>
-			<separator/>
-			<item id="ID_NETWORK_CONNECT_TO" text="Connecta _a..." shortcut="Ctrl+T"/>
-			<item id="ID_NETWORK_BROWSE_TO" text="_Explora l'usuari..."/>
-			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="_Surt després de les transferències"/>
-			<item id="ID_NETWORK_EXIT" text="_Surt"/>
-		</menu>
-		<menu text="_Veure">
-			<item id="ID_TAB_HOME" text="_Inici"/>
-			<item id="ID_TAB_LIBRARY" text="_La meva col·lecció"/>
-			<item id="ID_TAB_MEDIA" text="_Reproductor multimèdia"/>
-			<item id="ID_TAB_SEARCH" text="_Cerca"/>
-			<item id="ID_TAB_TRANSFERS" text="_Transferències"/>
-			<item id="ID_TAB_NETWORK" text="_Xarxa"/>
-			<item id="ID_TAB_IRC" text="_Chat"/>
-			<separator/>
-			<item id="ID_VIEW_SECURITY" text="_Seguretat"/>
-			<item id="ID_VIEW_HOSTS" text="_Caxè de servidors"/>
-			<separator/>
-			<menu text="A_vançat">
-				<item id="ID_VIEW_SYSTEM" text="_Sistema" shortcut="F11"/>
-				<item id="ID_VIEW_NEIGHBOURS" text="_Xarxa" shortcut="Ctrl+F11"/>
-				<item id="ID_VIEW_DOWNLOADS" text="_Descàrregues" shortcut="F3"/>
-				<item id="ID_VIEW_UPLOADS" text="_Pujades" shortcut="F4"/>
-				<item id="ID_VIEW_LIBRARY" text="La meva _Col·lecció" shortcut="F5"/>
-				<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
-				<separator/>
-				<item id="ID_VIEW_SECURITY" text="_Seguretat" shortcut="F7"/>
-				<item id="ID_VIEW_HOSTS" text="_Caxè de servidors" shortcut="F8"/>
-				<item id="ID_VIEW_DISCOVERY" text="_Descobriments" shortcut="F9"/>
-				<item id="ID_VIEW_TRAFFIC" text="_Gràfica" shortcut="F10"/>
-				<separator/>
-				<item id="ID_VIEW_PACKETS" text="_Monitor de paquets" shortcut="Ctrl+F1"/>
-				<item id="ID_VIEW_SEARCH_MONITOR" text="_Monitor de cerca" shortcut="Ctrl+F2"/>
-				<item id="ID_VIEW_RESULTS_MONITOR" text="_Monitor de peticions" shortcut="Ctrl+F3"/>
-			</menu>
-			<separator/>
-			<item id="ID_VIEW_BASIC" text="_Mode normal"/>
-			<item id="ID_VIEW_TABBED" text="_Mode avançat"/>
-			<item id="ID_VIEW_WINDOWED" text="_Mode finestres"/>
-		</menu>
-		<menu text="_Eines">
-			<item id="ID_LIBRARY_FOLDERS" text="Arxius _compartits..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="_Descarrega arxiu/torrent..."/>
-			<item id="IDC_IMPORT_DOWNLOADS" text="_Importa descàrregues parcials de l'eMule"/>
-			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Obre la carpeta de descàrregues completades"/>
-			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Tria _interfície..."/>
-			<item id="ID_TOOLS_LANGUAGE" text="Tria un _idioma..."/>
-			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="Edita el _perfil..."/>
-			<item id="ID_TOOLS_WIZARD" text="Configuració _ràpida..."/>
-			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="_Configuració de PeerProject..."/>
-		</menu>
-		<menu text="_Finestra">
-			<item id="ID_WINDOW_NAVBAR" text="Mostra la _barra de navegació"/>
-			<item id="ID_WINDOW_TOOLBAR" text="Mostra la _barra d'eines"/>
-			<separator/>
-			<item id="ID_WINDOW_TABBAR" text="Mostra la _barra de pestanyes"/>
-			<item id="ID_WINDOW_MONITOR" text="Mostra el _monitor"/>
-			<item id="ID_WINDOW_REMOTE" text="Mostra el _control remot"/>
-		</menu>
-		<menu text="_Ajuda">
-			<item id="ID_HELP_FAQ" text="Guia d'usuaris del PeerProject"/>
-			<item id="ID_HELP_TEST" text="Test de _Connexió"/>
-			<separator/>
-			<menu text="_Guies">
-				<item id="ID_HELP_GUIDE" text="_Guia d'usuaris del PeerProject"/>
-				<item id="ID_HELP_ROUTER" text="_Ajuda amb el router"/>
-				<item id="ID_HELP_SECURITY" text="_Ajuda de seguretat"/>
-				<item id="ID_HELP_CODEC" text="_Ajuda de códecs"/>
-			</menu>
-			<separator/>
-			<menu text="_Llocs Web">
-				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
-				<separator/>
-				<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 			</menu>
@@ -1558,17 +1649,20 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">COMENÇA A DESCARREGAR</heading>
-			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Fes click aquí per a començar</link>
-			<text align="middle">&#160; a descarregar un nou arxiu o torrent.</text>
-			<newline gap="24" indent="0"/>
 			<icon res="134" width="32" height="32" target="peer:command:ID_TAB_SEARCH"/><gap size="8"/>
 			<heading align="middle">CERCA UN A ARXIU</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
-			<newline gap="12" indent="0"/>
+			<newline gap="14" indent="0"/>
+			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<heading align="middle">COMENÇA A DESCARREGAR</heading>
+			<newline gap="8" indent="42"/>
+			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Fes click aquí per a començar</link>
+			<text>&#160; a descarregar un nou arxiu o torrent.</text>
+			<newline gap="2" indent="42"/>
+			<text>O obre la meva </text>
+			<link target="peer:shell:downloads">carpeta de descàrregues.</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1661,7 +1755,7 @@
 	<document name="CHomeConnectionBox" title="Connexió" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1706,7 +1800,7 @@
 	<document name="CHomeLibraryBox" title="La meva biblioteca" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1714,13 +1808,12 @@
 				<text>No has descarregat cap arxiu recentment.</text>
 				<newline gap="8"/>
 			</group>
-			<text id="LibraryFiles" format="b">%lu </text>
-			<text>arxius, </text>
-			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="0"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Ves a la meva col·lecció </link>
+			<link target="peer:command:ID_VIEW_LIBRARY">Meva col·lecció</link>
 			<newline gap="4"/>
-			<link format="bu" target="peer:shell:downloads">Obre la meva carpeta de descàrregues</link>
+			<text id="LibraryFiles" format="b">%lu </text>
+			<text>arxius (</text>
+			<text id="LibraryVolume" format="b">%s</text>
+			<text>)</text>
 			<group id="1">
 				<newline gap="8"/>
 				<text>PeerProject està escanejant i processant </text>
@@ -1739,7 +1832,7 @@
 	<document name="CHomeDownloadsBox" title="Les meves descàrregues" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1761,7 +1854,7 @@
 	<document name="CHomeUploadsBox" title="Pujades" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -4285,7 +4378,7 @@
 		<control caption="Sí"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selecciones>
+	<dialog name="CSelectDialog" cookie="StCoBuBu" caption="Selecciones">
 		<control caption="Selecciona una File:"/>
 		<control/>
 		<control caption="Sí"/>

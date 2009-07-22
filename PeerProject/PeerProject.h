@@ -389,10 +389,10 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 #define DRAG_COLOR_KEY			(RGB(245,248,252)) // Light-blue
 #define DRAG_HOVER_TIME			900 			// Dragging mouse button press after X ms
 
-// Set Default Sizes in Pixels					// ToDo: Make Skinnable Options
-#define PANEL_WIDTH				200 			// Left Sidebar (Home/Search/IRC)
+// Set Default Sizes in Pixels					// Skinnable Options:
+//#define PANEL_WIDTH			200				// Skin.m_nSidebarWidth
+//#define TOOLBAR_HEIGHT		28				// Skin.m_nToolbarHeight
 #define THUMB_STORE_SIZE		128
-#define TOOLBAR_HEIGHT			28
 
 
 // Network ID's:

@@ -364,6 +364,7 @@ CNeighbour* CNeighboursWnd::GetItem(int nItem)
 
 void CNeighboursWnd::OnSkinChange()
 {
+	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
 	Settings.LoadList( _T("CNeighboursWnd"), &m_wndList );
 	Skin.CreateToolBar( _T("CNeighboursWnd"), &m_wndToolBar );

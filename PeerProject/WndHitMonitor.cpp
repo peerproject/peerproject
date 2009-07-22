@@ -142,6 +142,7 @@ void CHitMonitorWnd::OnHitMonitorClear()
 
 void CHitMonitorWnd::OnSkinChange()
 {
+	OnSize( 0, 0, 0 );
 	CBaseMatchWnd::OnSkinChange();
 	Skin.Translate( _T("CMatchCtrl"), &m_wndList.m_wndHeader );
 	Skin.CreateToolBar( _T("CHitMonitorWnd"), &m_wndToolBar );

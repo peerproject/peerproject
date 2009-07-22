@@ -44,7 +44,7 @@
 		<button id="ID_TAB_HOME" text="Lar"/>
 		<button id="ID_TAB_SEARCH" text="Procurar"/>
 		<button id="ID_TAB_TRANSFERS" text="Transferências"/>
-		<button id="ID_TAB_NETWORK" text="Rede"/>
+		<button id="ID_TAB_NETWORK" text="Redes"/>
 		<button id="ID_TAB_LIBRARY" text="Biblioteca"/>
 		<button id="ID_TAB_MEDIA" text="Mídia"/>
 		<button id="ID_TAB_IRC" text="Chat"/>
@@ -81,25 +81,25 @@
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar"/>
-		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Mostrar Busca"/>
-		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
+		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
 		<rightAlign/>
-		<label text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
-		<control id="IDC_FILTER_BOX" width="130"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mais..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar"/>
-		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Mostrar Busca"/>
-		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
+		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mais..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
+		<button id="ID_SEARCH_PANEL" text="Mostrar Busca"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Procurar de Novo..."/>
@@ -107,13 +107,13 @@
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar"/>
 		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Mostrar Busca"/>
-		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filtro:" tip="Digite algumas palavras para filtras os resultados com elas"/>
-		<control id="IDC_FILTER_BOX" width="150"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mais..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
+		<button id="ID_SEARCH_PANEL" text="Mostrar Busca"/>
 	</toolbar>
 	<!-- BROWSE HOST WINDOW -->
 	<toolbar name="CBrowseHeaderCtrl">
@@ -127,25 +127,23 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar Arquivo"/>
 		<button id="ID_SEARCH_CHAT" text="Conversar"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW"  text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
-		<rightAlign/>
-		<label text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mais..."/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar Arquivo"/>
-		<button id="ID_SEARCH_CHAT" text="Conversar"/>
-		<separator/>
 		<button id="ID_BROWSE_STOP" text="Parar"/>
 		<button id="ID_BROWSE_REFRESH" text="Atualizar"/>
 		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
+		<button id="ID_SEARCH_CHAT" text="Conversar"/>
 		<rightAlign/>
-		<label text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Mais..."/>
+		<button id="ID_SEARCH_FILTER_RAW"  text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Mostrar Detalhes"/>
 	</toolbar>
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
@@ -398,7 +396,7 @@
 		<button id="ID_HITMONITOR_CLEAR" text="Limpar"/>
 		<rightAlign/>
 		<label text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Mais..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
@@ -488,7 +486,7 @@
 		<item id="ID_CHILD_CLOSE" text="_Fechar Janela"/>
 	</menu>
 	<!-- TRAY MENU -->
-	<menu name="CMainWnd.Tray">	<!--"CRemoteWnd"-->
+	<menu name="CMainWnd.Tray">
 		<item id="ID_TRAY_OPEN" text="Abrir o PeerProject"/>
 		<separator/>
 		<item id="ID_WINDOW_REMOTE" text="Abrir o Remoto"/>
@@ -505,77 +503,89 @@
 		<item id="ID_NETWORK_EXIT" text="Sair"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
-	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="_Rede">
-		<item id="ID_NETWORK_CONNECT" text="_Conectar" shortcut="Ctrl+G"/>
-		<separator/>
-		<menu text="Escolha as _Redes">
-			<item id="ID_NETWORK_G2" text="Conectar na _Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Conectar na Gnutella_1"/>
-			<item id="ID_NETWORK_ED2K" text="Conectar no _eDonkey"/>
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+			<item id="ID_TOOLS_SETTINGS" text="Configurações..."/>
+			<menu text="_Red">
+				<item id="ID_NETWORK_CONNECT" text="Conectar" shortcut="Ctrl+G"/>
+				<item id="ID_NETWORK_DISCONNECT" text="Desconectar"/>
+				<separator/>
+				<item id="ID_NETWORK_G2" text="Conectar a Gnutella2"/>
+				<item id="ID_NETWORK_G1" text="Conectar a Gnutella1"/>
+				<item id="ID_NETWORK_ED2K" text="Conectar a eDonkey2000"/>
+				<separator/>
+				<item id="ID_NETWORK_CONNECT_TO" text="Conectar A..." shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_BROWSE_TO" text="Explorar Usuario..."/>
+				<separator/>
+				<item id="ID_NETWORK_AUTO_CLOSE" text="Salir Después de Transferencias"/>
+				<item id="ID_NETWORK_EXIT" text="Salida Rápida"/>
+			</menu>
+			<menu text="_Herramientas">
+				<item id="ID_LIBRARY_FOLDERS" text="Compartilhar Archi_vos..."/>
+				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Abrir Downloads Folder"/>
+				<separator/>
+				<item id="ID_TOOLS_DOWNLOAD" text="Descargar Archivo/Torrent..."/>
+				<item id="ID_TOOLS_SEEDTORRENT" text="Enviar Nuevo Torrent..."/>
+				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+				<item id="IDC_IMPORT_DOWNLOADS" text="Importar Parciales de eDonkey..."/>
+				<separator/>
+				<item id="ID_TOOLS_LANGUAGE" text="Escolher um idioma..."/>
+				<item id="ID_TOOLS_SKIN" text="Escolher um Skin..."/>
+				<separator/>
+				<item id="ID_TOOLS_PROFILE" text="Editar Meu Perfil..."/>
+				<item id="ID_TOOLS_WIZARD" text="Assistente de _Configuração..."/>
+				<separator/>
+				<item id="ID_TOOLS_SETTINGS" text="Configurações do PeerProject..."/>
+			</menu>
+			<menu text="_Vista Avanzada">
+				<item id="ID_TAB_HOME" text="Inicio" shortcut="Ctrl+H"/>
+				<item id="ID_TAB_SEARCH" text="Buscar" shortcut="Ctrl+S"/>
+				<item id="ID_VIEW_DOWNLOADS" text="Descargando" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="Subiendo" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="Colección" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
+					<item id="ID_TAB_IRC" text="_IRC" shortcut="F12"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Se_gurança" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="Caché dos Hosts" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="Desco_brimento" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="Gráfico" shortcut="F10"/>
+				<item id="ID_VIEW_SYSTEM" text="Sistema" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="Vecinos" shortcut="Crtl+F11"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="Volcado de pacotes" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="Monitor de bucas" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="Monitor de resultados" shortcut="Ctrl+F3"/>
+			</menu>
+			<menu  text="_Ventana">
+				<item id="ID_VIEW_TABBED" text="M_odo em Abas" shortcut="necesario"/>
+				<item id="ID_VIEW_WINDOWED" text="Modo de _Janelas" shortcut="malo"/>
+				<separator/>
+				<item id="ID_WINDOW_NAVBAR" text="Mostrar Barra de Navegação" shortcut="necesario"/>
+				<item id="ID_WINDOW_TABBAR" text="Mostrar Barra de Abaas" shortcut="necesario"/>
+				<item id="ID_WINDOW_MONITOR" text="Mostrar Monitor"/>
+				<item id="ID_WINDOW_REMOTE" text="Mostrar Ventana Remoto"/>
+			</menu>
+			<menu  text="_Ayuda">
+				<item id="ID_HELP_GUIDE" text="Guia para Usuarios de PeerProject"/>
+				<item id="ID_HELP_FORUMS" text="Foro de PeerProject"/>
+				<item id="ID_HELP_FAQ" text="Preguntas mas frecuentes" shortcut="F1"/>
+				<menu text="Ayuda de SkinVista">
+					<menu text="Vuelve a cargar la interfaz gráfica para eliminar los errores: Ctrl+Mays+Z"> </menu>
+				</menu>
+				<separator/>
+				<menu text="_Enlaces">
+					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
+					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+					<item id="ID_HELP_WEB_6" text="DeviantArt.com Skins"/>
+				</menu>
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
+				<separator/>
+				<item id="ID_HELP_ABOUT" text="Acerca de PeerProject..."/>
+			</menu>
+			<item id="ID_NETWORK_EXIT" text="Salir"/>
 		</menu>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Sair _Após as Transferências"/>
-		<item id="ID_NETWORK_EXIT" text="S_air"/>
-		</menu>
-		<menu text="_Visualizar">
-		<item id="ID_TAB_HOME" text="_Home"/>
-		<item id="ID_TAB_LIBRARY" text="_Biblioteca"/>
-		<item id="ID_TAB_MEDIA" text="_Media Player"/>
-		<item id="ID_TAB_SEARCH" text="_Procurar"/>
-		<item id="ID_TAB_TRANSFERS" text="_Downloads"/>
-		<item id="ID_WINDOW_REMOTE" text="_Remoto"/>
-		<item id="ID_TAB_IRC" text="_Chat"/>
-		<separator/>
-		<menu text="_Avançado">
-			<item id="ID_VIEW_NEIGHBOURS" text="_Vizinhos"/>
-			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
-			<separator/>
-			<item id="ID_VIEW_SECURITY" text="Se_gurança"/>
-			<item id="ID_VIEW_HOSTS" text="_Cache dos Hosts"/>
-			<item id="ID_VIEW_DISCOVERY" text="Desco_brimento"/>
-		</menu>
-		<separator/>
-		<item id="ID_VIEW_BASIC" text="_Modo Básico"/>
-		<item id="ID_VIEW_TABBED" text="_Modo Power"/>
-		</menu>
-		<menu text="_Ferramentas">
-		<item id="ID_LIBRARY_FOLDERS" text="Compartilhar _Arquivos..."/>
-		<item id="ID_TOOLS_DOWNLOAD" text="_Baixar Arquivo/Torrent..."/>
-		<separator/>
-		<item id="ID_TOOLS_SKIN" text="Escolher uma S_kin..."/>
-		<item id="ID_TOOLS_LANGUAGE" text="Escolher um _Idioma..."/>
-		<separator/>
-		<item id="ID_TOOLS_PROFILE" text="Editar Meu _Perfil..."/>
-		<item id="ID_TOOLS_WIZARD" text="Assistente de _Configuração..."/>
-		<separator/>
-		<item id="ID_TOOLS_SETTINGS" text="_Configurações do PeerProject..."/>
-		</menu>
-		<menu text="_Ajuda">
-		<item id="ID_HELP_FAQ" text="FAQ do _PeerProject"/>
-		<item id="ID_HELP_TEST" text="_Teste de Conexão"/>
-		<separator/>
-		<menu text="_Guias">
-			<item id="ID_HELP_GUIDE" text="Guia dos _Usuários do PeerProject"/>
-			<item id="ID_HELP_ROUTER" text="_Ajuda sobre Roteador"/>
-			<item id="ID_HELP_SECURITY" text="_Ajuda sobre Segurança"/>
-			<item id="ID_HELP_CODEC" text="_Ajuda sobre Codecs"/>
-		</menu>
-		<separator/>
-		<menu text="_Sites da Rede">
-			<item id="ID_HELP_HOMEPAGE" text="_Site do PeerProject"/>
-			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
-			<!-- <separator/>
-			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
-			<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-			<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
-		</menu>
-		<separator/> <!--
-		  <item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
-		  <item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/>
-		<separator/> -->
-		<item id="ID_HELP_ABOUT" text="_Sobre o PeerProject..."/>
-	  </menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
 	  <menu text="_Rede">
@@ -663,17 +673,86 @@
 		</menu>
 		<separator/>
 		<menu text="_Sites da Rede">
-			<item id="ID_HELP_HOMEPAGE" text="Site do PeerProject"/>
 			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
-			<!-- <separator/>
 			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
+		  	<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
+		  	<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/>
+			<item id="ID_HELP_WEB_6" text="PeerProject S_kins"/>
+			<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
 			<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 			<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 		</menu>
-		<separator/> <!--
-		  <item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
-		  <item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject"/>
-		<separator/> -->
+		<item id="ID_HELP_HOMEPAGE" text="_Site do PeerProject"/>
+		<separator/>
+		<item id="ID_HELP_ABOUT" text="_Sobre o PeerProject..."/>
+	  </menu>
+	</menu>
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="_Rede">
+		<item id="ID_NETWORK_CONNECT" text="_Conectar" shortcut="Ctrl+G"/>
+		<separator/>
+		<menu text="Escolha as _Redes">
+			<item id="ID_NETWORK_G2" text="Conectar na _Gnutella2"/>
+			<item id="ID_NETWORK_G1" text="Conectar na Gnutella_1"/>
+			<item id="ID_NETWORK_ED2K" text="Conectar no _eDonkey"/>
+		</menu>
+		<separator/>
+		<item id="ID_NETWORK_AUTO_CLOSE" text="Sair _Após as Transferências"/>
+		<item id="ID_NETWORK_EXIT" text="S_air"/>
+		</menu>
+		<menu text="_Visualizar">
+		<item id="ID_TAB_HOME" text="_Home"/>
+		<item id="ID_TAB_LIBRARY" text="_Biblioteca"/>
+		<item id="ID_TAB_MEDIA" text="_Media Player"/>
+		<item id="ID_TAB_SEARCH" text="_Procurar"/>
+		<item id="ID_TAB_TRANSFERS" text="_Downloads"/>
+		<item id="ID_WINDOW_REMOTE" text="_Remoto"/>
+		<item id="ID_TAB_IRC" text="_Chat"/>
+		<separator/>
+		<menu text="_Avançado">
+			<item id="ID_VIEW_NEIGHBOURS" text="_Vizinhos"/>
+			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
+			<separator/>
+			<item id="ID_VIEW_SECURITY" text="Se_gurança"/>
+			<item id="ID_VIEW_HOSTS" text="_Cache dos Hosts"/>
+			<item id="ID_VIEW_DISCOVERY" text="Desco_brimento"/>
+		</menu>
+		<separator/>
+		<item id="ID_VIEW_BASIC" text="_Modo Básico"/>
+		<item id="ID_VIEW_TABBED" text="_Modo Power"/>
+		</menu>
+		<menu text="_Ferramentas">
+		<item id="ID_LIBRARY_FOLDERS" text="Compartilhar _Arquivos..."/>
+		<item id="ID_TOOLS_DOWNLOAD" text="_Baixar Arquivo/Torrent..."/>
+		<separator/>
+		<item id="ID_TOOLS_SKIN" text="Escolher uma S_kin..."/>
+		<item id="ID_TOOLS_LANGUAGE" text="Escolher um _Idioma..."/>
+		<separator/>
+		<item id="ID_TOOLS_PROFILE" text="Editar Meu _Perfil..."/>
+		<item id="ID_TOOLS_WIZARD" text="Assistente de _Configuração..."/>
+		<separator/>
+		<item id="ID_TOOLS_SETTINGS" text="_Configurações do PeerProject..."/>
+		</menu>
+		<menu text="_Ajuda">
+		<item id="ID_HELP_FAQ" text="FAQ do _PeerProject"/>
+		<item id="ID_HELP_TEST" text="_Teste de Conexão"/>
+		<separator/>
+		<menu text="_Guias">
+			<item id="ID_HELP_GUIDE" text="Guia dos _Usuários do PeerProject"/>
+			<item id="ID_HELP_ROUTER" text="_Ajuda sobre Roteador"/>
+			<item id="ID_HELP_SECURITY" text="_Ajuda sobre Segurança"/>
+			<item id="ID_HELP_CODEC" text="_Ajuda sobre Codecs"/>
+		</menu>
+		<separator/>
+		<menu text="_Sites da Rede">
+			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
+			<!-- <separator/>
+			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
+		  	<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
+		  	<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/> -->
+		</menu>
+		<item id="ID_HELP_HOMEPAGE" text="_Site do PeerProject"/>
+		<separator/>
 		<item id="ID_HELP_ABOUT" text="_Sobre o PeerProject..."/>
 	  </menu>
 	</menu>
@@ -1779,7 +1858,7 @@
 		  <text>Você não baixou quaisquer arquivos novos recentemente.</text>
 		  <newline gap="8"/>
 		</group>
-		<link target="peer:command:ID_VIEW_LIBRARY">Ir para a Biblioteca</link>
+		<link target="peer:command:ID_VIEW_LIBRARY">Ir a Biblioteca</link>
 		<newline gap="4"/>
 		<text id="LibraryFiles" format="b">%lu </text>
 		<text>arquivos (</text>

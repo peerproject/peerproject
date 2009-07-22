@@ -311,6 +311,7 @@ BOOL CMediaFrame::PreTranslateMessage(MSG* pMsg)
 
 void CMediaFrame::OnSkinChange()
 {
+	OnSize( 0, 0, 0 );
 	Skin.CreateToolBar( _T("CMediaFrame"), &m_wndToolBar );
 	Skin.CreateToolBar( _T("CMediaList"), &m_wndListBar );
 
@@ -409,17 +410,17 @@ void CMediaFrame::OnSize(UINT nType, int cx, int cy)
 
 	if ( m_bListVisible || ! m_bFullScreen )
 	{
-		rc.bottom -= TOOLBAR_HEIGHT;
+		rc.bottom -= Skin.m_nToolbarHeight;
 		m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom, rc.Width(),
-			TOOLBAR_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
+			Skin.m_nToolbarHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
 
 		if ( m_bListVisible )
 		{
 			rc.right -= m_nListSize;
 			m_wndList.SetWindowPos( NULL, rc.right, rc.top + HEADER_HEIGHT, m_nListSize,
-				rc.bottom - TOOLBAR_HEIGHT - HEADER_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
-			m_wndListBar.SetWindowPos( NULL, rc.right, rc.bottom - TOOLBAR_HEIGHT,
-				m_nListSize, TOOLBAR_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
+				rc.bottom - Skin.m_nToolbarHeight - HEADER_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
+			m_wndListBar.SetWindowPos( NULL, rc.right, rc.bottom - Skin.m_nToolbarHeight,
+				m_nListSize, Skin.m_nToolbarHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
 			rc.right -= SPLIT_SIZE;
 		}
 		else if ( m_wndList.IsWindowVisible() )
@@ -437,11 +438,11 @@ void CMediaFrame::OnSize(UINT nType, int cx, int cy)
 		}
 
 		DWORD tElapse = GetTickCount() - m_tBarTime;
-		int nBar = TOOLBAR_HEIGHT;
+		int nBar = Skin.m_nToolbarHeight;
 
 		if ( tElapse < TOOLBAR_STICK )
 		{
-			nBar = TOOLBAR_HEIGHT;
+			nBar = Skin.m_nToolbarHeight;
 		}
 		else if ( tElapse > TOOLBAR_STICK + TOOLBAR_ANIMATE )
 		{
@@ -452,11 +453,11 @@ void CMediaFrame::OnSize(UINT nType, int cx, int cy)
 		else
 		{
 			tElapse -= TOOLBAR_STICK;
-			nBar = TOOLBAR_HEIGHT - ( tElapse * TOOLBAR_HEIGHT / TOOLBAR_ANIMATE );
+			nBar = Skin.m_nToolbarHeight - ( tElapse * Skin.m_nToolbarHeight / TOOLBAR_ANIMATE );
 		}
 
 		m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom - nBar, rc.Width(),
-			TOOLBAR_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
+			Skin.m_nToolbarHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
 	}
 
 	if ( m_bStatusVisible )
@@ -831,7 +832,7 @@ BOOL CMediaFrame::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 					rcClient.top,
 					Settings.General.LanguageRTL ? rcClient.left + m_nListSize + SPLIT_SIZE :
 					rcClient.right - m_nListSize,
-					rcClient.bottom - TOOLBAR_HEIGHT );
+					rcClient.bottom - Skin.m_nToolbarHeight );
 
 		if ( rc.PtInRect( point ) )
 		{
@@ -877,7 +878,7 @@ void CMediaFrame::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 
 	if (	( m_bFullScreen && point.y <= STATUS_HEIGHT ) ||
-			( ! m_bFullScreen && point.y >= rcClient.bottom - STATUS_HEIGHT - TOOLBAR_HEIGHT ) )
+			( ! m_bFullScreen && point.y >= rcClient.bottom - STATUS_HEIGHT - Skin.m_nToolbarHeight ) )
 	{
 		OnMediaStatus();
 		return;

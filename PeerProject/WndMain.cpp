@@ -1085,7 +1085,14 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 	Skin.Apply();
 
-	if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd") ) )
+	if ( Skin.m_bDropMenu )
+	{
+		if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.DropMenu") ) )
+			m_wndMenuBar.SetMenu( pMenu->GetSafeHmenu() );
+		else if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd") ) )
+			m_wndMenuBar.SetMenu( pMenu->GetSafeHmenu() );
+	}
+	else if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd") ) )
 	{
 		m_wndMenuBar.SetMenu( pMenu->GetSafeHmenu() );
 	}

@@ -93,6 +93,7 @@ void CHomeWnd::OnDestroy()
 
 void CHomeWnd::OnSkinChange()
 {
+	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
 
 	m_wndView.OnSkinChange();
@@ -103,8 +104,8 @@ void CHomeWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CPanelWnd::OnSize( nType, cx, cy );
 
-	m_wndPanel.SetWindowPos( NULL, 0, 0, PANEL_WIDTH, cy, SWP_NOZORDER );
-	m_wndView.SetWindowPos( NULL, PANEL_WIDTH, 0, cx - PANEL_WIDTH, cy, SWP_NOZORDER|SWP_SHOWWINDOW );
+	m_wndPanel.SetWindowPos( NULL, 0, 0, Skin.m_nSidebarWidth, cy, SWP_NOZORDER );
+	m_wndView.SetWindowPos( NULL, Skin.m_nSidebarWidth, 0, cx - Skin.m_nSidebarWidth, cy, SWP_NOZORDER|SWP_SHOWWINDOW );
 }
 
 void CHomeWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)

@@ -80,7 +80,7 @@ int CMonitorBarCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CControlBar::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-//	if ( Skin.m_bBordersEnabled )
+//	if ( Skin.m_bMenuBorders )
 		m_dwStyle |= CBRS_BORDER_3D;
 
 	if ( lpCreateStruct->dwExStyle & WS_EX_LAYOUTRTL )
@@ -191,7 +191,7 @@ void CMonitorBarCtrl::DoPaint(CDC* pDC)
 	if ( ! CoolInterface.DrawWatermark( pMemDC, &rcClient, &m_bmWatermark ) )
 		pMemDC->FillSolidRect( &rcClient, CoolInterface.m_crMidtone );
 
-	if ( Skin.m_bBordersEnabled )
+	if ( Skin.m_bMenuBorders )
 		DrawBorders( pMemDC, rcClient );
 	else
 		rcClient.DeflateRect( 2, 3, 2, 1 );

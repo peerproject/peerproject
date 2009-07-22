@@ -137,7 +137,7 @@ int CWndTabBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CControlBar::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-//	if ( Skin.m_bBordersEnabled )
+//	if ( Skin.m_bMenuBorders )
 		m_dwStyle |= CBRS_BORDER_3D;
 
 	m_pImages.Create( 16, 16, ILC_COLOR32|ILC_MASK, 1, 1 );
@@ -371,7 +371,7 @@ void CWndTabBar::DoPaint(CDC* pDC)
 		CoolInterface.DrawWatermark( pDC, &rc, &m_bmImage );
 	}
 
-	if ( Skin.m_bBordersEnabled )
+	if ( Skin.m_bMenuBorders )
 		DrawBorders( pDC, rc );
 
 	CFont* pOldFont = (CFont*)pDC->SelectObject( &CoolInterface.m_fntNormal );
@@ -745,7 +745,7 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 	COLORREF crBack;
 	m_bTabTest = FALSE;
 
-	if ( ! Skin.m_bBordersEnabled )
+	if ( ! Skin.m_bMenuBorders )
 	{
 		if ( ! bTransparent )
 			pDC->FillSolidRect( rc , CoolInterface.m_crMidtone );

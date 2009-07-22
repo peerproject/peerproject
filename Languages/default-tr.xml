@@ -82,24 +82,23 @@
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="İndir"/>
 		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Aramaları Göster"/>
-		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
 		<rightAlign/>
-		<label text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
-		<control id="IDC_FILTER_BOX" width="130"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Dahası..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Panel">
 		<button id="ID_SEARCH_DOWNLOAD" text="İndir"/>
-		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
 		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Aramaları Göster"/>
-		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
+		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Dahası..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
+		<button id="ID_SEARCH_PANEL" text="Aramaları Göster"/>
 	</toolbar>
 	<toolbar name="CSearchWnd.Full">
 		<button id="ID_SEARCH_SEARCH" text="Tekrar Ara..."/>
@@ -107,13 +106,13 @@
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="İndirme"/>
 		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
-		<separator/>
-		<button id="ID_SEARCH_PANEL" text="Aramaları Göster"/>
-		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
+		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
-		<label text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
-		<control id="IDC_FILTER_BOX" width="150"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Dahası..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
+		<button id="ID_SEARCH_PANEL" text="Aramaları Göster"/>
 	</toolbar>
 	<!-- BROWSE HOST WINDOW -->
 	<toolbar name="CBrowseHeaderCtrl">
@@ -127,25 +126,23 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Dosya İndir"/>
 		<button id="ID_SEARCH_CHAT" text="Sohbet"/>
+		<rightAlign/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
 		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
-		<rightAlign/>
-		<label text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Dahası..."/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Dosya İndir"/>
-		<button id="ID_SEARCH_CHAT" text="Sohbet"/>
-		<separator/>
 		<button id="ID_BROWSE_STOP" text="Durdur"/>
 		<button id="ID_BROWSE_REFRESH" text="Yenile"/>
 		<separator/>
-		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
+		<button id="ID_SEARCH_CHAT" text="Sohbet"/>
 		<rightAlign/>
-		<label text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Dahası..."/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri "/>
+		<control id="IDC_FILTER_BOX" width="80"/>
+		<separator/>
+		<button id="ID_SEARCH_DETAILS" text="Ayrıntıları Göster"/>
 	</toolbar>
 	<!-- DOWNLOADS WINDOW -->
 	<toolbar name="CDownloadsWnd.Basic">
@@ -384,7 +381,7 @@
 		<button id="ID_HITMONITOR_CLEAR" text="Temizle"/>
 		<rightAlign/>
 		<label text="Filtre:" tip="Filtrede Sorgulanmış Kelimeler"/>
-		<control id="IDC_FILTER_BOX" width="160"/>
+		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Dahası..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
@@ -491,76 +488,92 @@
 		<item id="ID_NETWORK_EXIT" text="Çıkış"/>
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
-	<menu name="CMainWnd.Basic" type="bar">
-		<menu text="_Ağ">
-			<item id="ID_NETWORK_CONNECT" text="_Bağlan" shortcut="Ctrl+G"/>
-			<separator/>
-			<menu text="Ağını _Seç">
-				<item id="ID_NETWORK_G2" text="Bağlan _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Bağlan Gnutella_1"/>
-				<item id="ID_NETWORK_ED2K" text="Bağlan _eDonkey2000"/>
+	<menu name="CMainWnd.DropMenu" type="bar">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+			<item id="ID_TOOLS_SETTINGS" text="A_yarları..."/>
+			<menu text="_Ağ">
+				<item id="ID_NETWORK_CONNECT" text="Bağlan" shortcut="Ctrl+G"/>
+				<item id="ID_NETWORK_DISCONNECT" text="Bağlantı Kes"/>
+				<separator/>
+				<item id="ID_NETWORK_G2" text="Gnutella2 ağına bağlan"/>
+				<item id="ID_NETWORK_G1" text="Gnutella1 ağına bağlan"/>
+				<item id="ID_NETWORK_ED2K" text="eDonkey2000 ağına bağlan"/>
+				<separator/>
+				<item id="ID_NETWORK_CONNECT_TO" text="Bağlan..." shortcut="Ctrl+T"/>
+				<item id="ID_NETWORK_BROWSE_TO" text="Hosta Gözat..."/>
+				<separator/>
+				<item id="ID_NETWORK_AUTO_CLOSE" text="Çıkış Transferden Sonra"/>
+				<item id="ID_NETWORK_EXIT" text="Şimdi Çık"/>
 			</menu>
-			<separator/>
-			<item id="ID_NETWORK_AUTO_CLOSE" text="Çıkış _Transferden Sonra"/>
+			<menu text="A_raçlar">
+				<item id="ID_LIBRARY_FOLDERS" text="Dosya Paylaşımı..."/>
+				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads Folder"/>
+				<separator/>
+				<item id="ID_TOOLS_DOWNLOAD" text="Dosya/Torrent İndir..."/>
+				<item id="ID_TOOLS_SEEDTORRENT" text="Yeni Torrent Seed et..."/>
+				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+				<item id="IDC_IMPORT_DOWNLOADS" text="eMule indirim bölümlerini içe aktar..."/>
+				<separator/>
+				<item id="ID_TOOLS_LANGUAGE" text="Dil Seçimi..."/>
+				<item id="ID_TOOLS_SKIN" text="Arayüz Seçimi..."/>
+				<separator/>
+				<item id="ID_TOOLS_PROFILE" text="Profilimi Düzenle..."/>
+				<item id="ID_TOOLS_WIZARD" text="Hızlı Başlat Sihirbazı..."/>
+				<separator/>
+				<item id="ID_TOOLS_SETTINGS" text="PeerProject Ayarları..."/>
+			</menu>
+			<menu text="İleri _Görünüm">
+				<item id="ID_TAB_HOME" text="Ana Sayfa" shortcut="Ctrl+H"/>
+				<item id="ID_TAB_SEARCH" text="Aramalar" shortcut="Ctrl+S"/>
+				<item id="ID_VIEW_DOWNLOADS" text="İndirmeler" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="Gönderiler" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="Kütüphane" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="Medya Oynatıcısı" shortcut="F6"/>
+				<item id="ID_TAB_IRC" text="_IRC" shortcut="F12"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="Güvenlik" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="Host Bellek" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="Keşif" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="Grafik" shortcut="F10"/>
+				<item id="ID_VIEW_SYSTEM" text="Sistem" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="Komşular" shortcut="Crtl+F11"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="Çöp Kutusu" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="Aramalar Monitörü" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="Ulaşımlar Monitörü" shortcut="Ctrl+F3"/>
+			</menu>
+			<menu text="_Pencere">
+				<item id="ID_VIEW_TABBED" text="Sekmeli Mod" shortcut="required"/>
+				<item id="ID_VIEW_WINDOWED" text="Pencereli Mod" shortcut="unsupported"/>
+				<separator/>
+				<item id="ID_WINDOW_NAVBAR" text="Kaydırma Çubuğunu Göster" shortcut="required"/>
+				<item id="ID_WINDOW_TABBAR" text="Sekme Çubuğunu Göster" shortcut="required"/>
+				<item id="ID_WINDOW_MONITOR" text="Monitörü Göster"/>
+				<item id="ID_WINDOW_REMOTE" text="Sanal Uzaktan Kumanda"/>
+			</menu>
+			<menu text="_Yardım">
+				<item id="ID_HELP_GUIDE" text="Shareaza Kullanıcı Rehberi"/>
+				<item id="ID_HELP_FORUMS" text="Shareaza Forumları"/>
+				<item id="ID_HELP_FAQ" text="Shareaza SSS" shortcut="F1"/>
+				<menu text="Skin Yardımı">
+  					<menu text="Menü çubuğunun görünümü yanlış ise --">			</menu>
+  					<menu text="Menü: Pencere: Kaydırma Çubuğunu Göster'e bakınız">			</menu>
+  					<menu text="Ve kaydırma ve menü çubuğu kısmılarını ayırınız-">			</menu>
+  					<menu text="(Kaydırıp en üste yerleştirin)">			</menu>
+  					<menu text="Sorunu gidermek için arayüzü tekrar yükleyiniz: Cntrl+Shift+Z">			</menu>
+				</menu>
+				<separator/>
+				<menu text="_Web Siteleri">
+  					<item id="ID_HELP_WEB_3" text="Slyck.com"/>
+  					<item id="ID_HELP_WEB_1" text="ZeroPaid.com"/>
+  					<item id="ID_HELP_WEB_2" text="P2PForums.com"/>
+  					<item id="ID_HELP_WEB_6" text="DeviantArt.com Skins"/>
+				</menu>
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
+				<separator/>
+				<item id="ID_HELP_ABOUT" text="PeerProject Hakkında..."/>
+			</menu>
 			<item id="ID_NETWORK_EXIT" text="Çı_kış"/>
-		</menu>
-		<menu text="_Görünüm">
-			<item id="ID_TAB_HOME" text="_Ana Sayfa"/>
-			<item id="ID_TAB_LIBRARY" text="_Kütüphane"/>
-			<item id="ID_TAB_MEDIA" text="_Ortam Oynatıcı"/>
-			<item id="ID_TAB_SEARCH" text="A_rama"/>
-			<item id="ID_TAB_TRANSFERS" text="_İndirme"/>
-			<item id="ID_WINDOW_REMOTE" text="Sanal _Uzaktan Kumanda"/>
-			<item id="ID_TAB_IRC" text="IR_C Sohbet"/>
-			<separator/>
-			<menu text="Geliş_miş">
-				<item id="ID_VIEW_NEIGHBOURS" text="_Komşular"/>
-				<item id="ID_VIEW_UPLOADS" text="_Dosya Alımı"/>
-				<separator/>
-				<item id="ID_VIEW_SECURITY" text="_Güvenlik"/>
-				<item id="ID_VIEW_HOSTS" text="Sunucu _Belleği"/>
-				<item id="ID_VIEW_DISCOVERY" text="K_eşif"/>
-			</menu>
-			<separator/>
-			<item id="ID_VIEW_BASIC" text="_Normal Mod"/>
-			<item id="ID_VIEW_TABBED" text="İ_leri Mod"/>
-		</menu>
-		<menu text="A_raçlar">
-			<item id="ID_LIBRARY_FOLDERS" text="Dosya _Paylaşımı..."/>
-			<item id="ID_TOOLS_DOWNLOAD" text="_Dosya/Torrent İndir..."/>
-			<separator/>
-			<item id="ID_TOOLS_SKIN" text="Ara_yüz Seçimi..."/>
-			<item id="ID_TOOLS_LANGUAGE" text="Di_l Seçimi..."/>
-			<separator/>
-			<item id="ID_TOOLS_PROFILE" text="Pro_fili Düzenle..."/>
-			<item id="ID_TOOLS_WIZARD" text="_Hızlı Başlat Sihirbazı..."/>
-			<separator/>
-			<item id="ID_TOOLS_SETTINGS" text="_PeerProject Ayarları..."/>
-		</menu>
-		<menu text="_Yardım">
-			<item id="ID_HELP_FAQ" text="PeerProject _SSS"/>
-			<item id="ID_HELP_TEST" text="_Bağlantı Testi"/>
-			<separator/>
-			<menu text="_Guides">
-				<item id="ID_HELP_GUIDE" text="PeerProject _Kullanıcı Rehberi "/>
-				<item id="ID_HELP_ROUTER" text="_Sunucu Yardımı"/>
-				<item id="ID_HELP_SECURITY" text="_Güvenlik Yardımı"/>
-				<item id="ID_HELP_CODEC" text="_Codec Yardımı"/>
-			</menu>
-			<separator/>
-			<menu text="_Websiteleri">
-				<item id="ID_HELP_HOMEPAGE" text="_PeerProject Sitesi"/>
-				<separator/>
-				<item id="ID_HELP_FORUMS" text="PeerProject _Forumları"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Son Haberler"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
-				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
-			</menu>
-			<separator/> <!--
-			<item id="ID_HELP_VERSION_CHECK" text="Güncellemeleri _Kontrol Et"/>
-			<item id="ID_HELP_DONATE" text="PeerProject _Projesine Bağış!"/>
-			<separator/> -->
-			<item id="ID_HELP_ABOUT" text="_PeerProject Hakkında..."/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Tabbed" type="bar">
@@ -569,8 +582,8 @@
 			<item id="ID_NETWORK_DISCONNECT" text="Bağ_lantı Kes"/>
 			<separator/>
 			<menu text="Choose _Networks">
-				<item id="ID_NETWORK_G2" text="Bağlan _Gnutella2"/>
-				<item id="ID_NETWORK_G1" text="Bağlan Gnutella_1"/>
+				<item id="ID_NETWORK_G2" text="Bağlan Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Bağlan _Gnutella"/>
 				<item id="ID_NETWORK_ED2K" text="Bağlan _eDonkey2000"/>
 			</menu>
 			<separator/>
@@ -658,6 +671,78 @@
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Güncellemeleri _Kontrol Et"/>
 			<item id="ID_HELP_DONATE" text="PeerProject _Projesine Bağış"/>
+			<separator/> -->
+			<item id="ID_HELP_ABOUT" text="_PeerProject Hakkında..."/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Basic" type="bar">
+		<menu text="_Ağ">
+			<item id="ID_NETWORK_CONNECT" text="_Bağlan" shortcut="Ctrl+G"/>
+			<separator/>
+			<menu text="Ağını _Seç">
+				<item id="ID_NETWORK_G2" text="Bağlan _Gnutella2"/>
+				<item id="ID_NETWORK_G1" text="Bağlan Gnutella_1"/>
+				<item id="ID_NETWORK_ED2K" text="Bağlan _eDonkey2000"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Çıkış _Transferden Sonra"/>
+			<item id="ID_NETWORK_EXIT" text="Çı_kış"/>
+		</menu>
+		<menu text="_Görünüm">
+			<item id="ID_TAB_HOME" text="_Ana Sayfa"/>
+			<item id="ID_TAB_LIBRARY" text="_Kütüphane"/>
+			<item id="ID_TAB_MEDIA" text="_Ortam Oynatıcı"/>
+			<item id="ID_TAB_SEARCH" text="A_rama"/>
+			<item id="ID_TAB_TRANSFERS" text="_İndirme"/>
+			<item id="ID_WINDOW_REMOTE" text="Sanal _Uzaktan Kumanda"/>
+			<item id="ID_TAB_IRC" text="IR_C Sohbet"/>
+			<separator/>
+			<menu text="Geliş_miş">
+				<item id="ID_VIEW_NEIGHBOURS" text="_Komşular"/>
+				<item id="ID_VIEW_UPLOADS" text="_Dosya Alımı"/>
+				<separator/>
+				<item id="ID_VIEW_SECURITY" text="_Güvenlik"/>
+				<item id="ID_VIEW_HOSTS" text="Sunucu _Belleği"/>
+				<item id="ID_VIEW_DISCOVERY" text="K_eşif"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="_Normal Mod"/>
+			<item id="ID_VIEW_TABBED" text="İ_leri Mod"/>
+		</menu>
+		<menu text="A_raçlar">
+			<item id="ID_LIBRARY_FOLDERS" text="Dosya _Paylaşımı..."/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Dosya/Torrent İndir..."/>
+			<separator/>
+			<item id="ID_TOOLS_SKIN" text="Ara_yüz Seçimi..."/>
+			<item id="ID_TOOLS_LANGUAGE" text="Di_l Seçimi..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Pro_fili Düzenle..."/>
+			<item id="ID_TOOLS_WIZARD" text="_Hızlı Başlat Sihirbazı..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="_PeerProject Ayarları..."/>
+		</menu>
+		<menu text="_Yardım">
+			<item id="ID_HELP_FAQ" text="PeerProject _SSS"/>
+			<item id="ID_HELP_TEST" text="_Bağlantı Testi"/>
+			<separator/>
+			<menu text="_Guides">
+				<item id="ID_HELP_GUIDE" text="PeerProject _Kullanıcı Rehberi "/>
+				<item id="ID_HELP_ROUTER" text="_Sunucu Yardımı"/>
+				<item id="ID_HELP_SECURITY" text="_Güvenlik Yardımı"/>
+				<item id="ID_HELP_CODEC" text="_Codec Yardımı"/>
+			</menu>
+			<separator/>
+			<menu text="_Websiteleri">
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject Sitesi"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="PeerProject _Forumları"/>
+				<!-- <item id="ID_HELP_UPDATE" text="Son Haberler"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
+				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
+			</menu>
+			<separator/> <!--
+			<item id="ID_HELP_VERSION_CHECK" text="Güncellemeleri _Kontrol Et"/>
+			<item id="ID_HELP_DONATE" text="PeerProject _Projesine Bağış!"/>
 			<separator/> -->
 			<item id="ID_HELP_ABOUT" text="_PeerProject Hakkında..."/>
 		</menu>
@@ -1605,17 +1690,19 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
-			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">İNDİRMEYE BAŞLA</heading>
-			<newline gap="8" indent="42"/>
-			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Buraya tıklayıp</link>
-			<text align="middle">&#160; yeni bir dosya ya da torrent indirmeye başlayın.</text>
-			<newline gap="24" indent="0"/>
 			<icon res="134" width="32" height="32"/><gap size="8"/>
 			<heading align="middle">PEERPROJECT ARAMA</heading>
 			<newline gap="8" indent="42"/>
 			<anchor id="SearchBox" width="256" height="80"/>
-			<newline gap="12" indent="0"/>
+			<newline gap="14" indent="0"/>
+			<icon res="136" width="32" height="32" target="peer:command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
+			<heading align="middle">İNDİRMEYE BAŞLA</heading>
+			<newline gap="8" indent="42"/>
+			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Buraya tıklayıp</link>
+			<text>&#160; yeni bir dosya ya da torrent indirmeye başlayın.</text>
+			<newline gap="2"/>
+			<link target="peer:shell:downloads">İndirmeler Dosyamı Aç</link>
+			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1698,7 +1785,7 @@
 	<document name="CHomeConnectionBox" title="Bağlantı" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<group id="1">
@@ -1742,7 +1829,7 @@
 	<document name="CHomeLibraryBox" title="Kütüphanem" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1750,15 +1837,12 @@
 				<text>Son zamanlarda yeni dosya indirmediniz.</text>
 				<newline gap="8"/>
 			</group>
+			<link target="peer:command:ID_VIEW_LIBRARY">Kütüphaneme Git</link>
+			<newline gap="4"/>
 			<text id="LibraryFiles" format="b">%lu </text>
-			<text>files, </text>
+			<text>files (</text>
 			<text id="LibraryVolume" format="b">%s</text>
-			<newline gap="0"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Kütüphaneme Git</link>
-			<newline gap="4"/>
-			<link format="bu" target="peer:command:ID_VIEW_LIBRARY">Kütüphaneme Git</link>
-			<newline gap="4"/>
-			<link format="bu" target="peer:shell:downloads">İndirmeler Dosyamı Aç</link>
+			<text>)</text>
 			<group id="1">
 				<newline gap="8"/>
 				<text>PeerProject </text>
@@ -1777,7 +1861,7 @@
 	<document name="CHomeDownloadsBox" title="İndirmelerim" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">
@@ -1799,7 +1883,7 @@
 	<document name="CHomeUploadsBox" title="Uploads" leftMargin="6" topMargin="6">
 		<styles>
 			<style name="default">
-				<font size="9"/>
+				<font size="11"/>
 			</style>
 		</styles>
 		<para align="center">

@@ -226,6 +226,7 @@ void CDownloadsWnd::OnDestroy()
 
 void CDownloadsWnd::OnSkinChange()
 {
+	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
 	Skin.Translate( _T("CDownloadCtrl"), &m_wndDownloads.m_wndHeader);
 	Skin.CreateToolBar( _T("CDownloadsWnd"), &m_wndToolBar );
@@ -277,7 +278,7 @@ void CDownloadsWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CPanelWnd::OnSize( nType, cx, cy );
 
-	CRect rc( 0, 0, cx, cy - TOOLBAR_HEIGHT );
+	CRect rc( 0, 0, cx, cy - Skin.m_nToolbarHeight );
 
 	BOOL bTabs = ( Settings.General.GUIMode != GUI_BASIC ) && Settings.Downloads.ShowGroups;
 
@@ -292,7 +293,7 @@ void CDownloadsWnd::OnSize(UINT nType, int cx, int cy)
 	if ( bTabs ) DeferWindowPos( hPos, m_wndTabBar, NULL,
 		rc.left, 0, rc.Width(), 24, SWP_NOZORDER|SWP_SHOWWINDOW );
 	DeferWindowPos( hPos, m_wndToolBar, NULL,
-		rc.left, rc.bottom, rc.Width(), TOOLBAR_HEIGHT, SWP_NOZORDER );
+		rc.left, rc.bottom, rc.Width(), Skin.m_nToolbarHeight, SWP_NOZORDER );
 	EndDeferWindowPos( hPos );
 }
 
