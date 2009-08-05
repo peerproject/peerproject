@@ -26,8 +26,6 @@
 #include "CoolInterface.h"
 #include "DDEServer.h"
 #include "DiscoveryServices.h"
-#include "DlgHelp.h"
-#include "DlgSplash.h"
 #include "DownloadGroups.h"
 #include "Downloads.h"
 #include "EDClients.h"
@@ -62,7 +60,11 @@
 #include "Uploads.h"
 #include "VendorCache.h"
 #include "VersionChecker.h"
+
+#include "DlgHelp.h"
+#include "DlgSplash.h"
 #include "WndMain.h"
+#include "WndMedia.h"
 #include "WndSystem.h"
 
 #ifdef _DEBUG
@@ -2151,6 +2153,30 @@ CString CPeerProjectApp::GetLocalAppDataFolder() const
 	return GetAppDataFolder();
 }
 
+void CPeerProjectApp::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
+{
+	LibraryBuilder.Remove( pszSource );
+
+	Uploads.OnRename( pszSource, pszTarget );
+
+	Downloads.OnRename( pszSource, pszTarget );
+
+	// Notify built-in Mediaplayer
+	if ( pszTarget == NULL )
+	{
+		CQuickLock otheAppLock( theApp.m_pSection );
+
+		if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
+		{
+			if ( CMediaWnd* pMediaWnd =
+				(CMediaWnd*)pMainWnd->m_pWindows.Find( RUNTIME_CLASS( CMediaWnd ) ) )
+			{
+				pMediaWnd->OnFileDelete( pszSource );
+			}
+		}
+	}
+}
+
 BOOL CreateDirectory(LPCTSTR szPath)
 {
 	DWORD dwAttr = GetFileAttributes( CString( _T("\\\\?\\") ) + szPath );
@@ -2192,10 +2218,10 @@ BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEn
 			if ( bShared )
 			{
 				// Stop builder
-				LibraryBuilder.Remove( szPath.get() );
+				//LibraryBuilder.Remove( szPath.get() );
 
 				// Stop uploads
-				while( ! Uploads.OnRename( szPath.get(), NULL, true ) );
+				theApp.OnRename( szPath.get(), NULL );
 			}
 
 			if ( bToRecycleBin )
@@ -2431,7 +2457,7 @@ bool MarkFileAsDownload(const CString& sFilename)
 	{
 		// ToDo: pFile->m_bVerify and IDS_LIBRARY_VERIFY_FIX warning features
 		// could be merged with this function, because they resemble the security warning.
-		// Shouldn't PeerProject unblock files from the application without forcing user to do that manually?
+		// Shouldn't we unblock files from the application without forcing user to do that manually?
 		if ( CFileExecutor::IsSafeExecute( pszExt ) )
 			return false;
 

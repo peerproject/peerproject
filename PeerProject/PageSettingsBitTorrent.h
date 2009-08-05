@@ -39,7 +39,6 @@ public:
 	virtual BOOL OnSetActive();
 
 protected:
-	BOOL			m_bTorrentInterface;
 	BOOL			m_bEndGame;
 	int				m_nLinks;
 	CSpinButtonCtrl	m_wndLinksSpin;

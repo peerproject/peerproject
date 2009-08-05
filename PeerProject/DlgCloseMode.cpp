@@ -88,10 +88,10 @@ void CCloseModeDlg::OnOK()
 	switch ( m_nMode )
 	{
 	case 0:
-		Settings.General.CloseMode = 2;
+		Settings.General.CloseMode = 1;
 		break;
 	case 1:
-		Settings.General.CloseMode = 1;
+		Settings.General.CloseMode = 2;
 		break;
 	case 2:
 		Settings.General.CloseMode = 3;

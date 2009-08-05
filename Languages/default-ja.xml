@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Japanese Skin File -->
-<!-- Translation based on default-en.xml (Shareaza 2.2.0.2) -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Japanese Skin File -->
+
+<!-- Translation based on default-en.xml (Shareaza 2.2.0.2) -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="日本語"
-		author="ワン公DukeDog, CyberBob"
-		updatedBy=""
-		description="PeerProject Default Japanese Skin File"
-		link="http://www.dukedog.flnet.org"
-		email="countnyan(at)hotmail.com"
-		version="1.0.0.0"
-		type="Language"
-		language="ja"
-		prompt="アプリケーションで日本語を使用したい場合はここをクリックして下さい"
+<manifest
+	name="日本語"
+	author="ワン公DukeDog, CyberBob"
+	updatedBy=""
+	description="PeerProject Default Japanese Skin File"
+	link="http://www.dukedog.flnet.org"
+	email="countnyan(at)hotmail.com"
+	version="1.0.0.0"
+	type="Language"
+	language="ja"
+	prompt="アプリケーションで日本語を使用したい場合はここをクリックして下さい"
 />
 
 <!-- Toolbar Definitions -->
@@ -60,6 +61,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -68,13 +70,12 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
 		<button id="ID_NETWORK_SEARCH" text="新規検索"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
@@ -1098,11 +1099,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全て再開(_R)"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全て一時停止(_A)"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全てクリア(_C)"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="グループ表示(_S)"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="新規グループ(_N)..."/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="グループ削除(_G)"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="新規グループ(_N)..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="プロパティ(_P)"/>
 	</menu>
@@ -1644,23 +1646,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">ここをクリックすればルータやファイアーウォールの設定法について知ることができます</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PEERPROJECT  カ ス タ マ イ ズ</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">スキン</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">スキン</link>
 		<text align="middle">&#160;- PeerProjectの外観を変更することが出来ます</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">設定ウィザード</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">設定ウィザード</link>
 		<text align="middle">&#160;- PeerProjectの設定を行います</text>
 		<newline gap="8"/>
-
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">クイックヘルプ</link>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">クイックヘルプ</link>
 		<text align="middle">&#160;- PeerProjectを使う上での基本的なヘルプを参照出来ます</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1697,6 +1699,8 @@
 		<text group="11" align="middle">切断</text>
 		<text group="12" align="middle">接続中...</text>
 		<text group="13" align="middle">接続済</text>
+		<text group="14" align="middle" id="G1Hubs">%i ハブ</text>
+		<text group="15" align="middle" id="G1Leaves">%i リーフ</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
@@ -2530,8 +2534,8 @@
 	<string id="8064" value="近隣接続 %lu, 共有 %s"/>
 	<string id="8065" value="ネットワークに接続中..."/>
 	<string id="8066" value="ネットワーク未接続です"/>
-	<string id="8067" value="入 %s : 出 %s [D:%I64i/U:%I64i]"/>
-	<string id="8068" value="[H:%I64i] 入 %s : 出 %s [D:%I64i/U:%I64i]"/>
+	<string id="8067" value="入 %s : 出 %s (d:%I64i/u:%I64i)"/>
+	<string id="8068" value="入 %s : 出 %s (d:%I64i/u:%I64i/s:%I64i)"/>
 	<string id="8069" value="接続"/>
 	<string id="8070" value="接続中..."/>
 	<string id="8071" value="接続済み"/>
@@ -3212,7 +3216,7 @@
 		<control/>
 		<control caption="トレイ(_T):"/>
 		<control caption="閉じるをクリックした時:"/>
-		<control caption="確認する|直ぐに終了|タスクトレイに最小化|転送後に終了"/>
+		<control caption="確認する|タスクトレイに最小化|直ぐに終了|転送後に終了"/>
 		<control caption="最小化をクリックした時:"/>
 		<control caption="通常|タスクトレイに最小化"/>
 	</dialog>
@@ -3471,9 +3475,7 @@
 		<control caption="ウェブからeDonkey2000サーバーリストをダウンロード:"/>
 		<control caption="ダウンロード..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="インターフェース(_I):"/>
-		<control caption="追加のBitTorrentインターフェースを表示する"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="ダウンロード接続数(_D):"/>
 		<control/>
 		<control/>
@@ -3839,9 +3841,9 @@
 		<control/>
 		<control caption="ソース数:"/>
 		<control caption="..."/>
-		<control caption="予想残り時間:"/>
-		<control caption="..."/>
 		<control caption="総転送速度:"/>
+		<control caption="..."/>
+		<control caption="予想残り時間:"/>
 		<control caption="..."/>
 		<control caption="ダウンロード量:"/>
 		<control caption="..."/>

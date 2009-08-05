@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Lithuanian Skin File -->
-<!-- Translation based on default-en.xml -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Lithuanian Skin File -->
+
+<!-- Translation based on default-en.xml -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="Lietuvių"
-		author="Rolandas Rudomanskis"
-		updatedBy="Rolandas Rudomanskis"
-		description="PeerProject Default Lithuanian Skin File"
-		link="http://PeerProject.org"
-		email="rrol2002(at)hotmail.com"
-		version="1.0.0.0"
-		type="Language"
-		language="lt"
-		prompt="Paspauskite čia, jei Jūsų gimtoji kalba lietuvių."
+<manifest
+	name="Lietuvių"
+	author="Rolandas Rudomanskis"
+	updatedBy="Rolandas Rudomanskis"
+	description="PeerProject Default Lithuanian Skin File"
+	link="http://PeerProject.org"
+	email="rrol2002(at)hotmail.com"
+	version="1.0.0.0"
+	type="Language"
+	language="lt"
+	prompt="Paspauskite čia, jei Jūsų gimtoji kalba lietuvių."
 />
 
 <!-- Toolbar Definitions -->
@@ -60,6 +61,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -68,13 +70,12 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
 		<button id="ID_NETWORK_SEARCH" text="Nauja paieška"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
@@ -1155,11 +1156,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Tęsti visus"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Stabdyti visus"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Valyti visus"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Rodyti grupes"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Nauja grupė..."/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Š_alinti grupę"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Nauja grupė..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Ypatybės"/>
 	</menu>
@@ -1745,27 +1747,28 @@
 			<link target="peer:command:ID_HELP_ROUTER">Paspauskite čia, jei norite sužinoti, kaip suderinti savo maršrutizatorių ar užkardą</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PRISITAIKYKITE SAU „PEERPROJECT“</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Apvalkalai</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Apvalkalai</link>
 		<text align="middle">&#160;- Pakeiskite „PeerProject“ išvaizdą</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Nuostatų vedlys</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Nuostatų vedlys</link>
 		<text align="middle">&#160;- Taisykite „PeerProject“ nuostatas</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Trumpas žinynas</link>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Trumpas žinynas</link>
 		<text align="middle">&#160;- Sužinokite esminius dalykus apie „PeerProject“</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/>
 		<gap size="8"/>
-		<link target="http://sourceforge.net/projects/corefonts/" format="bu" align="middle">Šriftų atnaujinimas</link>
+		<link target="http://sourceforge.net/projects/corefonts/" align="middle" format="bu">Šriftų atnaujinimas</link>
 		<text align="middle">&#160;- Nematote lietuviškų raidžių šiame puslapyje?</text>
 		<newline indent="82"/>
 		<text align="middle">Čia rasite taisyklingą „MS Trebuchet“ ir kitus šriftus.</text>
@@ -1808,6 +1811,8 @@
 		<text group="11" align="middle">Atsijungta</text>
 		<text group="12" align="middle">Jungiamasi...</text>
 		<text group="13" align="middle">Prisijungta</text>
+		<text group="14" align="middle" id="G1Hubs">%i mazgai</text>
+		<text group="15" align="middle" id="G1Leaves">%i šakos</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
@@ -2669,8 +2674,8 @@
 	<string id="8064" value="Prisijungta prie %lu kaimynų(-o). %s asmeninėje kolekcijoje."/>
 	<string id="8065" value="Jungiamasi prie tinklo..."/>
 	<string id="8066" value="Neprisijungta prie tinklo."/>
-	<string id="8067" value="%s įein. : %s išein. [A:%I64i/I:%I64i]"/>
-	<string id="8068" value="[M:%I64i] %s įein. : %s išein. [A:%I64i/I:%I64i]"/>
+	<string id="8067" value="%s įein. : %s išein. (a:%I64i/i:%I64i)"/>
+	<string id="8068" value="%s įein. : %s išein. (a:%I64i/i:%I64i/m:%I64i)"/>
 	<string id="8069" value="Jungtis"/>
 	<string id="8070" value="Jungiamasi..."/>
 	<string id="8071" value="Prisijungta"/>
@@ -3374,7 +3379,7 @@
 		<control/>
 		<control caption="_Sistemos juostelė:"/>
 		<control caption="Kai paspaudžiu baigti:"/>
-		<control caption="Paklausti|Iškart užverti|Patalpinti juostelėn|Baigti atsisiuntus"/>
+		<control caption="Paklausti|Patalpinti juostelėn|Iškart užverti|Baigti atsisiuntus"/>
 		<control caption="Kai paspaudžiu sutraukti:"/>
 		<control caption="Įprastas veiksmas|Patalpinti juostelėn"/>
 	</dialog>
@@ -3669,9 +3674,7 @@
 		<control caption="eDonkey serverių sąrašo parsisiuntimas iš interneto:"/>
 		<control caption="Parsisiųsti..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Sąsaja:"/>
-		<control caption="Rodyti papildomus BitTorrent sąsajos elementus"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Atsisiuntimų susijungimai:"/>
 		<control/>
 		<control/>
@@ -4038,9 +4041,9 @@
 		<control/>
 		<control caption="Šaltinių skaičius:"/>
 		<control caption="..."/>
-		<control caption="Apytiksliai likę laiko:"/>
-		<control caption="..."/>
 		<control caption="Bendra siuntimo sparta:"/>
+		<control caption="..."/>
+		<control caption="Apytiksliai likę laiko:"/>
 		<control caption="..."/>
 		<control caption="Parsisiuntimo apimtis:"/>
 		<control caption="..."/>

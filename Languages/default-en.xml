@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default English Skin File -->
-<!-- Translation based on default-en.xml r29 -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default English Skin File -->
+
+<!-- Translation based on default-en.xml r30 -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="English (Default)"
-		author="PeerProject Development Team"
-		description="PeerProject Default English Skin File"
-		link="http://PeerProject.org/"
-		email="Contact(at)PeerProject.org"
-		version="1.0.0.0"
-		type="Language"
-		language="en"
-		prompt="Click here to select English as your natural language."
-		dir="ltr"
+<manifest
+	name="English (Default)"
+	author="PeerProject Development Team"
+	description="PeerProject Default English Skin File"
+	link="http://PeerProject.org"
+	email="Contact(at)PeerProject.org"
+	version="1.0.0.0"
+	type="Language"
+	language="en"
+	dir="ltr"
+	prompt="Click here to select English as your natural language."
 />
 
 <!-- Toolbar Definitions -->
@@ -63,6 +64,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -71,14 +73,13 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
-		<button id="ID_NETWORK_SEARCH" text="New Search"/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
+		<button id="ID_NETWORK_SEARCH" text="Search"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
@@ -402,6 +403,22 @@
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
 		<control id="107" width="100"/>
 	</toolbar>
+	<!-- DISCOVERY SERVICES WINDOW -->
+	<toolbar name="CDiscoveryWnd">
+		<button id="ID_DISCOVERY_ADD" text="Add Service"/>
+		<separator/>
+		<button id="ID_DISCOVERY_EDIT" text="Edit Service"/>
+		<button id="ID_DISCOVERY_REMOVE" text="Remove Service"/>
+		<separator/>
+		<button id="ID_DISCOVERY_QUERY" text="Query Now"/>
+		<button id="ID_DISCOVERY_ADVERTISE" text="Advertise"/>
+		<separator/>
+		<button id="ID_DISCOVERY_BROWSE" text="Statistics Page"/>
+			<rightAlign/>
+		<button id="ID_DISCOVERY_WEBCACHE" text="GWebCaches"/>
+		<button id="ID_DISCOVERY_GNUTELLA" text="Bootstraps"/>
+		<button id="ID_DISCOVERY_SERVERMET" text="Server.met's"/>
+	</toolbar>
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd.Basic">
 		<button id="ID_HOSTCACHE_CONNECT" text="Connect To"/>
@@ -420,9 +437,7 @@
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
-		<button id="ID_HOSTCACHE_BT_CACHE" text="Cache"/>
-		<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Servers"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -565,12 +580,12 @@
 				<item id="ID_VIEW_RESULTS_MONITOR" text="H_it Monitor" shortcut="Ctrl+F3"/>
 			</menu>
 			<menu text="_Window">
-				<item id="ID_VIEW_TABBED" text="T_abbed Mode" shortcut="required"/>
-				<item id="ID_VIEW_WINDOWED" text="_Windowed Mode" shortcut="unsupported"/>
+				<item id="ID_VIEW_TABBED" text="_Tabbed Mode" shortcut="default"/>
+				<item id="ID_VIEW_WINDOWED" text="_Windowed Mode" shortcut="advanced"/>
 				<separator/>
-				<item id="ID_WINDOW_NAVBAR" text="Show _Nav Bar" shortcut="required"/>
-				<item id="ID_WINDOW_TABBAR" text="Show _Tab Bar" shortcut="required"/>
-				<item id="ID_WINDOW_MONITOR" text="Show _Monitor Widget"/>
+				<item id="ID_WINDOW_NAVBAR" text="Show _Nav Bar" shortcut="default"/>
+				<item id="ID_WINDOW_TABBAR" text="Show Tas_k Bar" shortcut="default"/>
+				<item id="ID_WINDOW_MONITOR" text="Show _Monitor Bar"/>
 				<item id="ID_WINDOW_REMOTE" text="Show Media _Remote"/>
 			</menu>
 			<menu text="_Help">
@@ -1188,9 +1203,10 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Resume All"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Pa_use All"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Clear All"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Hide Groups"/>
-		<separator/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="R_emove Group"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_New Group..."/>
 		<separator/>
@@ -1563,11 +1579,16 @@
 			<item id="ID_NETWORK_G2" text="Gnutella_2"/>
 			<item id="ID_NETWORK_G1" text="_Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="_Discovery Services"/>
+			<item id="ID_VIEW_HOSTS" text="_Host Server Cache"/>
 		</menu>
 		<menu text="_Monitor">
-			<item id="ID_NEIGHBOURS_VIEW_ALL" text="View _All Traffic"/>
+			<item id="ID_NEIGHBOURS_VIEW_ALL" text="View _Traffic Packets"/>
 			<item id="ID_NEIGHBOURS_VIEW_INCOMING" text="View _Incoming Traffic"/>
 			<item id="ID_NEIGHBOURS_VIEW_OUTGOING" text="View _Outgoing Traffic"/>
+			<separator/>
+			<item id="ID_VIEW_TRAFFIC" text="View Advanced Gra_ph"/>
 		</menu>
 	</menu>
 	<!-- SEARCH MONITOR WINDOW -->
@@ -1771,23 +1792,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
 			<newline gap="20" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="30" height="30" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Customize PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
-		<text align="middle">&#160;- Change PeerProject's look &amp; feel</text>
+		<text align="middle">&#160;- Change PeerProject's visual appearance</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" align="middle" format="bu">Settings Wizard</link>
-		<text align="middle">&#160;- Quick-edit PeerProject's basic settings</text>
-		<newline gap="8"/>
-		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle" format="bu">Security Filters</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" align="middle" format="bu">Quick Help</link>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link>
+		<text align="middle">&#160;- Quick-edit PeerProject's basic settings</text>
+		<newline gap="8"/>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Quick Help</link>
 		<text align="middle">&#160;- Get online support using PeerProject</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1821,7 +1842,7 @@
 		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
 		<text group="21" align="middle">Disconnected</text>
 		<text group="22" align="middle">Connecting...</text>
-		<text group="23" align="middle">Connected</text>
+		<text group="23" align="middle" id="G2Peers">Hub mode</text>
 		<text group="24" align="middle" id="G2Hubs">%i hubs</text>
 		<text group="25" align="middle" id="G2Leaves">%i leaves</text>
 		<newline group="20" gap="2"/>
@@ -1829,7 +1850,9 @@
 		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
 		<text group="11" align="middle">Disconnected</text>
 		<text group="12" align="middle">Connecting...</text>
-		<text group="13" align="middle">Connected</text>
+		<text group="13" align="middle" id="G1Peers">Ultrapeer</text>
+		<text group="14" align="middle" id="G1Hubs">%i peers</text>
+		<text group="15" align="middle" id="G1Leaves">%i leaves</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
@@ -2313,16 +2336,16 @@
 	<document name="ShareHelp.BadShare">
 		<text format="b">This folder should not be shared</text>
 		<newline gap="8"/>
-		<text>This folder is (or contains) a system folder. Sharing this folder is not
-		recommended, since most of the files in it are of no use to other people.</text>
+		<text>This location is a protected system folder, or contains one.</text>
+		<newline/>
+		<text>Sharing this folder is not recommended.</text>
 		<newline gap="8"/>
-		<text>Folders such as the Windows directory, Program Files, and similar folders
-		do not usually contain files suitable for sharing. Any files of interest would be in
-		sub-folders located</text><text format="i"> inside</text>
-		<text> these folders. Please share those instead.</text>
-		<newline gap="8"/>
-		<text>The PeerProject 'incomplete' folder should also not be shared through the library,
-		as attempting to hash downloads in progress may impact performance.</text>
+		<text>Folders such as the Windows directory or Program Files do not
+		usually contain files suitable for sharing.&#160; Any files of interest
+		would be in sub-folders located </text><text format="i">inside </text>
+		<text>these folders.&#160; Please share those instead.</text>
+		<newline gap="12"/>
+		<text>The PeerProject 'incomplete' folder also should not be shared this way.</text>
 	</document>
 </documents>
 <!-- Localized Command Tip Text."Message" displayed in status bar, "Tip" shown in tooltip -->
@@ -2357,17 +2380,19 @@
 	<tip id="ID_DISCOVERY_REMOVE" message="Remove the selected discovery services."/>
 	<tip id="ID_DISCOVERY_SERVERMET" message="Show eDonkey Server.met services in the Discovery window."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Show GWebCache services in the Discovery window."/>
-	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Cancel and remove all downloads in this group."/>
+	<tip id="ID_DOWNLOAD_GROUP_MOVERIGHT" message="Move this group to the far right. (Favor other group filters)"/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Create a new download group..."/>
 	<tip id="ID_DOWNLOAD_GROUP_PAUSE" message="Pause all downloads in this group."/>
 	<tip id="ID_DOWNLOAD_GROUP_PROPERTIES" message="Edit the properties of the selected download group."/>
 	<tip id="ID_DOWNLOAD_GROUP_REMOVE" message="Remove the selected download group."/>
 	<tip id="ID_DOWNLOAD_GROUP_RESUME" message="Resume all downloads in this group."/>
+	<tip id="ID_DOWNLOAD_GROUP_CLEAR" message="Cancel and remove all downloads in this group."/>
+	<tip id="ID_DOWNLOAD_GROUP_OPEN" message="Show the completed downloads folder for this group."/>
 	<tip id="ID_DOWNLOAD_GROUP_SHOW" message="Show or hide the download group bar."/>
 	<tip id="ID_DOWNLOADS_AUTO_CLEAR" message="Automatically clear downloads which have been completed."/>
 	<tip id="ID_DOWNLOADS_BOOST" message="Boost the performance of the selected download by removing bandwidth limits."/>
 	<tip id="ID_DOWNLOADS_CLEAR" message="Clear/Remove selected downloads."/>
-	<tip id="ID_DOWNLOADS_CLEAR_COMPLETE" message="Remove the selected download(s) from the list."/>
+	<tip id="ID_DOWNLOADS_CLEAR_COMPLETE" message="Remove selected complete downloads from the list."/>
 	<tip id="ID_DOWNLOADS_CLEAR_COMPLETED" message="Clear downloads which have been completed."/>
 	<tip id="ID_DOWNLOADS_CLEAR_INCOMPLETE" message="Cancel the selected incomplete download(s)."/>
 	<tip id="ID_DOWNLOADS_CLEAR_PAUSED" message="Clear downloads which have been paused."/>
@@ -2552,7 +2577,7 @@
 	<tip id="ID_SEARCHMONITOR_CLEAR" message="Clear the search monitor buffer."/>
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Pause search monitoring."/>
 	<tip id="ID_SECURITY_ADD" message="Add a new rule to the security chain..."/>
-	<tip id="ID_SECURITY_BAN" message="Ban the selected host for the duration of this session."/>
+	<tip id="ID_SECURITY_BAN" message="Filter out the selected host for an extended period."/>
 	<tip id="ID_SECURITY_EDIT" message="Edit the selected security rule..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Export the selected security rules to a file..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Import security rules from a file..."/>
@@ -2680,7 +2705,7 @@
 	<string id="8001" value="Welcome to PeerProject"/>
 	<string id="8002" value="File Properties"/>
 	<string id="8003" value="Edit My Profile"/>
-	<string id="8004" value="!Welcome to PeerProject (version) !\n.\nPeerProject is completely free software.\nPlease use it responsibly and respect intellectual property law.\n."/>
+	<string id="8004" value="!Welcome to PeerProject (version) !\n.\nPeerProject is completely free software.\nPlease use it responsibly and respect local laws.\n."/>
 	<string id="8005" value="(Closing after transfers)"/>
 	<string id="8006" value="You're not connected. Click the Connect button to get started."/>
 	<string id="8007" value="There are no active searches. Click here to search for files."/>
@@ -2698,8 +2723,8 @@
 	<string id="8064" value="Connected to %lu neighbors. %s in local library."/>
 	<string id="8065" value="Connecting to the network..."/>
 	<string id="8066" value="Not connected to the network."/>
-	<string id="8067" value="%s in : %s out [D:%I64i/U:%I64i]"/>
-	<string id="8068" value="[H:%I64i] %s in : %s out [D:%I64i/U:%I64i]"/>
+	<string id="8067" value="%s in : %s out  (d:%I64i/u:%I64i)"/>
+	<string id="8068" value="%s in : %s out  (d:%I64i/u:%I64i/peers:%I64i)"/>
 	<string id="8069" value="Connect"/>
 	<string id="8070" value="Connecting..."/>
 	<string id="8071" value="Connected"/>
@@ -3413,9 +3438,9 @@
 		<control caption="Opacity:"/>
 		<control/>
 		<control caption="_Tray:"/>
-		<control caption="When I click close:"/>
-		<control caption="Ask Me|Close Immediately|Minimize to Tray|Close After Transfers"/>
-		<control caption="When I click minimize:"/>
+		<control caption="Close button:"/>
+		<control caption="Ask Me|Minimize to Tray|Close Immediately|Close After Transfers"/>
+		<control caption="Minimize button:"/>
 		<control caption="Normal|Minimize to Tray"/>
 	</dialog>
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Library">
@@ -3709,9 +3734,7 @@
 		<control caption="Download eDonkey server list from the web:"/>
 		<control caption="Download..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Interface:"/>
-		<control caption="Display additional BitTorrent interface elements"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download Connections:"/>
 		<control/>
 		<control/>
@@ -3719,13 +3742,13 @@
 		<control/>
 		<control/>
 		<control caption="Client connections"/>
-		<control caption=" Clear downloaded torrents        When the share ratio reaches"/>
+		<control caption="Clear downloaded torrents when share ratio reaches:"/>
 		<control/>
 		<control/>
 		<control caption="%"/>
 		<control caption="Prefer torrent sources"/>
 		<control caption="_EndGame:"/>
-		<control caption="Enable EndGame mode when completing torrents"/>
+		<control caption="Enable EndGame mode when completing torrents (multi-source)"/>
 		<control caption="_Store Torrents Here:"/>
 		<control/>
 		<control/>
@@ -3841,13 +3864,13 @@
 		<control/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="Welcome to PeerProject (2/6)">
-		<control caption="P2P networks are only as good as the people who use them.  All of the content available for download is being shared by another user."/>
-		<control caption="You do not have to share content to use PeerProject, however some software will restrict users who are not sharing anything."/>
-		<control caption="Please indicate which folders, if any, you wish to share.  Click the Add button to include a new folder, files can be unshared later."/>
+		<control caption="P2P networks are only as good as the people who use them:{n}Anything available for download is being shared by another user like you."/>
+		<control caption="You do not need to share any files to use PeerProject,  however your downloading performance may be restricted by other users.  Be polite."/>
+		<control caption="First use the Add button to include folders in your local libray,  then click the checkboxes to publicly share or hide them.  Files can be unshared later."/>
 		<control/>
 		<control caption="_Add..."/>
 		<control caption="_Remove"/>
-		<control caption="CAUTION: Uploading unlicensed copyright works is liable in most countries."/>
+		<control caption="CAUTION: Uploading unauthorized copyright works is liable in some countries."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Scanning Folder...">
 		<control/>
@@ -4079,9 +4102,9 @@
 		<control/>
 		<control caption="Number of sources:"/>
 		<control caption="..."/>
-		<control caption="Time remaining:"/>
-		<control caption="..."/>
 		<control caption="Transfer speed:"/>
+		<control caption="..."/>
+		<control caption="Time remaining:"/>
 		<control caption="..."/>
 		<control caption="Total downloaded:"/>
 		<control caption="..."/>

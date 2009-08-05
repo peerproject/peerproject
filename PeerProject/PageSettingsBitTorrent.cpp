@@ -46,7 +46,6 @@ END_MESSAGE_MAP()
 CBitTorrentSettingsPage::CBitTorrentSettingsPage() : CSettingsPage(CBitTorrentSettingsPage::IDD)
 {
 	//{{AFX_DATA_INIT(CBitTorrentSettingsPage)
-	m_bTorrentInterface	= FALSE;
 	m_bEndGame			= FALSE;
 	m_nLinks			= 0;
 	m_nDownloads		= 0;
@@ -67,7 +66,6 @@ void CBitTorrentSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CBitTorrentSettingsPage)
-	DDX_Check(pDX, IDC_TORRENT_INTERFACE, m_bTorrentInterface);
 	DDX_Check(pDX, IDC_TORRENT_ENDGAME, m_bEndGame);
 	DDX_Text(pDX, IDC_TORRENT_CLIENTLINKS, m_nLinks);
 	DDX_Control(pDX, IDC_TORRENT_LINKS_SPIN, m_wndLinksSpin);
@@ -92,7 +90,6 @@ void CBitTorrentSettingsPage::DoDataExchange(CDataExchange* pDX)
 BOOL CBitTorrentSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
-	m_bTorrentInterface = Settings.BitTorrent.AdvancedInterface;
 	m_bEndGame			= Settings.BitTorrent.Endgame;
 	m_nLinks			= Settings.BitTorrent.DownloadConnections;
 	m_sTracker			= Settings.BitTorrent.DefaultTracker;
@@ -168,7 +165,6 @@ void CBitTorrentSettingsPage::OnMakerBrowse()
 
 void CBitTorrentSettingsPage::OnOK()
 {
-	BOOL bRedraw = FALSE;
 	UpdateData( TRUE );
 
 	m_nClearPercentage = min (m_nClearPercentage, 999);
@@ -188,9 +184,6 @@ void CBitTorrentSettingsPage::OnOK()
 
 	UpdateData( FALSE );
 
-	if ( Settings.BitTorrent.AdvancedInterface != ( m_bTorrentInterface != FALSE ) ) bRedraw = TRUE;
-
-	Settings.BitTorrent.AdvancedInterface	= m_bTorrentInterface != FALSE;
 	Settings.BitTorrent.Endgame				= m_bEndGame != FALSE;
 	Settings.BitTorrent.DownloadConnections	= m_nLinks;
 	Settings.BitTorrent.DownloadTorrents	= m_nDownloads;
@@ -201,7 +194,7 @@ void CBitTorrentSettingsPage::OnOK()
 	Settings.Downloads.TorrentPath			= m_sTorrentPath;
 	Settings.BitTorrent.TorrentCreatorPath	= m_sMakerPath;
 
-	// Redraw the GUI to make torrents box show/hide if we need to
+	// Redraw the GUI if we need to (show/hide obsolete torrents box)
 	//if ( bRedraw )
 	//{
 	//	CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();

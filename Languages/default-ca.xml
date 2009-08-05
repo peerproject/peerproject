@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Catalan Skin File -->
-<!-- Translation based on default-en.xml -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Catalan Skin File -->
+
+<!-- Translation based on default-en.xml -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="Català"
-		author="Daniel Olivares Giménez (iniciat per CATMidia.cat)"
-		updatedBy="Equip de traduccions de FeshoCAT (TraduCAT, http://tradu.feshocat.cat)"
-		description="PeerProject Default Catalan Skin File"
-		link="http://tradu.feshocat.cat"
-		email="tradu(at)feshocat.cat"
-		version="1.0.0.0"
-		type="Language"
-		language="ca"
-		prompt="Selecciona ací per fer servir PeerProject en català!"
+<manifest
+	name="Català"
+	author="Daniel Olivares Giménez (iniciat per CATMidia.cat)"
+	updatedBy="Equip de traduccions de FeshoCAT (TraduCAT, http://tradu.feshocat.cat)"
+	description="PeerProject Default Catalan Skin File"
+	link="http://tradu.feshocat.cat"
+	email="tradu(at)feshocat.cat"
+	version="1.0.0.0"
+	type="Language"
+	language="ca"
+	prompt="Selecciona ací per fer servir PeerProject en català!"
 />
 
 <!-- Toolbar Definitions -->
@@ -60,6 +61,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -68,14 +70,13 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
-		<button id="ID_NETWORK_SEARCH" text="Nova cerca"/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
+		<button id="ID_NETWORK_SEARCH" text="Cerca"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
@@ -1144,11 +1145,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Inicia totes"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Atura totes"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Cancel·la totes"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Mostra grups"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="Crea _grup..."/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Esborra grup"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="Crea _grup..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Pr_opietats"/>
 	</menu>
@@ -1706,22 +1708,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">Clica aquí per a aprendre com configurar el teu router o tallafocs</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PERSONALITZA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Skins</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle">&#160;- Canvia l'aspecte del PeerProject</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Assistent de configuració</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Assistent de configuració</link>
 		<text align="middle">&#160;- Configuració de PeerProject</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Ajuda ràpida</link>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Ajuda ràpida</link>
 		<text align="middle">&#160;- Rep ajuda ràpida de com usar PeerProject</text>
 		<newline gap="18" indent="0"/>
 		<!--new adition-->
@@ -1729,15 +1732,15 @@
 		<heading align="middle">PROGRAMARI EN CATALÀ</heading>
 		<newline gap="8" indent="42"/>
 		<gap size="8"/>
-		<link target="http://tradu.feshocat.cat/" format="bu" align="middle">TraduCAT</link>
+		<link target="http://tradu.feshocat.cat/" align="middle" format="bu">TraduCAT</link>
 		<text align="middle">&#160;- TraduCAT és l'equip de traducció del PeerProject.</text>
 		<newline gap="8" indent="42"/>
 		<gap size="8"/>
-		<link target="http://www.softcatala.cat" format="bu" align="middle">SoftCatalà</link>
+		<link target="http://www.softcatala.cat" align="middle" format="bu">SoftCatalà</link>
 		<text align="middle">&#160;- Associació sense ànim de lucre que fomenta l'ús del català a les noves tecnologies.</text>
 		<newline gap="8" indent="42"/>
 		<gap size="8"/>
-		<link target="http://www.catmidia.cat" format="bu" align="middle">CATMidia</link>
+		<link target="http://www.catmidia.cat" align="middle" format="bu">CATMidia</link>
 		<text align="middle">&#160;- Comunitat que es preocupa, entre molts altres continguts, pel programari lliure així com per la seva traducció i adaptació al català.</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1778,6 +1781,8 @@
 		<text group="11" align="middle">Desconnectat</text>
 		<text group="12" align="middle">Connectant...</text>
 		<text group="13" align="middle">Connectat</text>
+		<text group="14" align="middle" id="G1Hubs">%i peers</text>
+		<text group="15" align="middle" id="G1Leaves">%i leaves</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;ED2K: </text>
@@ -2623,8 +2628,8 @@
 	<string id="8064" value="Connectat amb %lu veí(ïns).  Tens %s a la col·lecció local."/>
 	<string id="8065" value="Conectant a la xarxa..."/>
 	<string id="8066" value="PeerProject no està connectat a la xarxa."/>
-	<string id="8067" value="%s Entra : %s Surt [D:%I64i/U:%I64i]"/>
-	<string id="8068" value="[H:%I64i] %s Entra : %s Surt [D:%I64i/U:%I64i]"/>
+	<string id="8067" value="%s Entra : %s Surt (d:%I64i/u:%I64i)"/>
+	<string id="8068" value="%s Entra : %s Surt (d:%I64i/u:%I64i/c:%I64i)"/>
 	<string id="8069" value="Connecta"/>
 	<string id="8070" value="Connectant..."/>
 	<string id="8071" value="Connectat"/>
@@ -3322,7 +3327,7 @@
 		<control/>
 		<control caption="_Barra de tasques:"/>
 		<control caption="Quant fas clic al botó de tancament:"/>
-		<control caption="Pregunta|Tanca inmediatament|Minimitza a barra de tasques|Tanca després de les transferències"/>
+		<control caption="Pregunta|Minimitza a barra de tasques|Tanca inmediatament|Tanca després de les transferències"/>
 		<control caption="Quant es fa clic a minimitzar:"/>
 		<control caption="Normal|Minimitza a la barra de tasques"/>
 	</dialog>
@@ -3580,9 +3585,7 @@
 		<control caption="Descarrega una llista de servidors de eDonkey de la web:"/>
 		<control caption="Descarrega..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Interface:"/>
-		<control caption="Mostra elements addicionals BitTorrent en la interfície"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Connexions de descàrrega:"/>
 		<control/>
 		<control/>
@@ -3949,9 +3952,9 @@
 		<control/>
 		<control caption="Fonts:"/>
 		<control caption="..."/>
-		<control caption="Temps estimat:"/>
+		<control caption="Transferència:"/>
 		<control caption="..."/>
-		<control caption="Velocitat de transferència:"/>
+		<control caption="Temps estimat:"/>
 		<control caption="..."/>
 		<control caption="Volum descarregat:"/>
 		<control caption="..."/>

@@ -82,12 +82,12 @@ BEGIN
             VALUE "Comments", "PeerProject Torrent Wizard"
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "PeerProject Torrent Wizard"
-            VALUE "FileVersion", "1, 0, 0, 0"
+            VALUE "FileVersion", "1. 0. 0. 0"
             VALUE "InternalName", "TorrentWizard"
             VALUE "LegalCopyright", "Copyright © 2008 PeerProject Development Team"
             VALUE "OriginalFilename", "TorrentWizard.exe"
             VALUE "ProductName", "PeerProject"
-            VALUE "ProductVersion", "1, 0, 0, 0"
+            VALUE "ProductVersion", "1. 0. 0. 0"
         END
     END
     BLOCK "VarFileInfo"
@@ -155,80 +155,6 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT
 #pragma code_page(1252)
 #endif //_WIN32
 
-/////////////////////////////////////////////////////////////////////////////
-//
-// DESIGNINFO
-//
-
-#ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO
-BEGIN
-    IDD_WELCOME_PAGE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 315
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 218
-    END
-
-    IDD_SINGLE_PAGE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 315
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 218
-    END
-
-    IDD_PACKAGE_PAGE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 315
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 218
-    END
-
-    IDD_TRACKER_PAGE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 315
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 218
-    END
-
-    IDD_COMMENT_PAGE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 315
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 218
-    END
-
-    IDD_OUTPUT_PAGE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 315
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 218
-    END
-
-    IDD_FINISHED_PAGE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 315
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 218
-    END
-
-    IDD_COMMANDLINE_PAGE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 315
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 218
-    END
-END
-#endif    // APSTUDIO_INVOKED
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -243,7 +169,7 @@ BEGIN
     LTEXT           "Welcome to PeerProject's Torrent Wizard",IDC_TITLE,15,15,300,10
     LTEXT           "This tool will guide you through creating a .torrent file,\nthe small meta-file that describes a BitTorrent download.",IDC_STATIC,15,35,300,20
     LTEXT           "What kind of Torrent would you like to create?",IDC_STATIC,15,80,300,10
-    CONTROL         "Single File (Enhanced)",IDC_TYPE_SINGLE,"Button",BS_AUTORADIOBUTTON | WS_GROUP,35,105,280,10
+    CONTROL         "Single File (Prefered)",IDC_TYPE_SINGLE,"Button",BS_AUTORADIOBUTTON | WS_GROUP,35,105,280,10
     CONTROL         "Multiple Files (Standard Package)",IDC_TYPE_PACKAGE,"Button",BS_AUTORADIOBUTTON,35,125,280,10
     LTEXT           "1/5 Click Next to choose which files to include in the Torrent.",IDC_STATIC,15,190,300,20
 END
@@ -399,6 +325,82 @@ BEGIN
 0x3420, 0x3930, 0x2036, 0x424b, "\000"
     0
 END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_WELCOME_PAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 315
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 218
+    END
+
+    IDD_SINGLE_PAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 315
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 218
+    END
+
+    IDD_PACKAGE_PAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 315
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 218
+    END
+
+    IDD_TRACKER_PAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 315
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 218
+    END
+
+    IDD_COMMENT_PAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 315
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 218
+    END
+
+    IDD_OUTPUT_PAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 315
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 218
+    END
+
+    IDD_FINISHED_PAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 315
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 218
+    END
+
+    IDD_COMMANDLINE_PAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 315
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 218
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
 
 #endif    // Neutral (Default) resources
 /////////////////////////////////////////////////////////////////////////////

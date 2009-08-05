@@ -64,10 +64,9 @@ bool CDownloadWithTransfers::HasActiveTransfers() const
 {
 	for ( CDownloadTransfer* pTransfer = m_pTransferFirst; pTransfer; pTransfer = pTransfer->m_pDlNext )
 	{
-		// Metadata, tiger fetch are also transfers, but since they are very short in time
-		// should we check that?
-		// TODO: find why static_cast< CConnection* >( pTransfer )->m_bConnected is FALSE
-		// when when the status is dtsDownloading.
+		// Metadata, tiger fetch are also transfers, but very short in time -should we check that?
+		// ToDo: Fix why	static_cast< CConnection* >( pTransfer )->m_bConnected
+		// is always FALSE when status is dtsDownloading.
 		if ( pTransfer->m_nState == dtsDownloading )
 		{
 			return true;
@@ -82,8 +81,9 @@ DWORD CDownloadWithTransfers::GetTransferCount() const
 
 	for ( CDownloadTransfer* pTransfer = m_pTransferFirst; pTransfer; pTransfer = pTransfer->m_pDlNext )
 	{
-		if ( pTransfer->m_nState > dtsNull &&
-			 static_cast< CConnection* >( pTransfer )->m_bConnected )
+		if ( pTransfer->m_nState == dtsDownloading ||		 			// Workaround: 
+			( pTransfer->m_nState > dtsNull &&
+			static_cast< CConnection* >( pTransfer )->m_bConnected ) )	// Always returns FALSE when dtsDownloading?
 		{
 			++nCount;
 		}
@@ -91,13 +91,14 @@ DWORD CDownloadWithTransfers::GetTransferCount() const
 	return nCount;
 }
 
-// This inline is used to clean up the function below and make it more readable. It's the first
-// condition in any IF statement that checks if the current transfer should be counted
+// This inline is used to clean up the function below and make it more readable.
+// It's the first condition in any IF statement that checks if the current transfer should be counted
 bool CDownloadWithTransfers::ValidTransfer(IN_ADDR* const pAddress, CDownloadTransfer* const pTransfer) const
 {
 	return ( ! pAddress || pAddress->S_un.S_addr == pTransfer->m_pHost.sin_addr.S_un.S_addr ) &&
-			 pTransfer->m_nState > dtsNull &&
-			 static_cast< CConnection* >( pTransfer )->m_bConnected;
+			( pTransfer->m_nState == dtsDownloading ||		 			// Workaround: 
+			( pTransfer->m_nState > dtsNull &&
+			static_cast< CConnection* >( pTransfer )->m_bConnected ) );	// Always returns FALSE when dtsDownloading?
 }
 
 DWORD CDownloadWithTransfers::GetTransferCount(int nState, IN_ADDR* const pAddress) const

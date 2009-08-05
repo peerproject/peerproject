@@ -146,9 +146,7 @@
 #define IDD_WIZARD_NETWORKS         	231
 #define IDD_FILE_SHARING            	232
 #define IDD_DONKEY_IMPORT           	235
-#define IDI_CLIPBOARD               	236
 #define IDD_DOWNLOAD_GROUP          	236
-#define IDI_SKINNING                	237
 #define IDR_TORRENT_ICON            	239
 #define IDD_HELP                    	240
 #define IDB_NAVBAR_IMAGE            	241
@@ -1540,6 +1538,8 @@
 #define ID_NETWORK_CONNECT          	32777
 #define ID_NETWORK_DISCONNECT       	32778
 #define ID_TOOLS_SETTINGS           	32779
+#define ID_TAB_HOME                 	32780
+#define ID_VIEW_BASIC               	32781
 #define ID_VIEW_SYSTEM              	32782
 #define ID_VIEW_NEIGHBOURS          	32783
 #define ID_VIEW_TRAFFIC             	32784
@@ -1548,9 +1548,9 @@
 #define ID_VIEW_UPLOADS             	32787
 #define ID_VIEW_HOSTS               	32788
 #define ID_VIEW_PACKETS             	32789
-#define ID_NEIGHBOURS_DISCONNECT    	32790
+#define ID_SYSTEM_COPY              	32790
 #define ID_SYSTEM_CLEAR             	32791
-#define ID_SYSTEM_COPY              	32792
+#define ID_NEIGHBOURS_DISCONNECT    	32792
 #define ID_NEIGHBOURS_VIEW_ALL      	32793
 #define ID_NEIGHBOURS_VIEW_INCOMING 	32794
 #define ID_NEIGHBOURS_VIEW_OUTGOING 	32795
@@ -1662,6 +1662,7 @@
 #define ID_VIEW_WINDOWED            	32923
 #define ID_LIBRARY_URI              	32924
 #define ID_VIEW_DISCOVERY           	32925
+#define ID_DISCOVERY_SERVERMET      	32926
 #define ID_DISCOVERY_EDIT           	32927
 #define ID_DISCOVERY_QUERY          	32928
 #define ID_DISCOVERY_REMOVE         	32929
@@ -1679,7 +1680,6 @@
 #define ID_BROWSE_REFRESH           	32941
 #define ID_BROWSE_LAUNCH            	32943
 #define ID_DOWNLOADS_BOOST          	32944
-#define ID_TAB_HOME                 	32946
 #define ID_DOWNLOADS_LAUNCH_COPY    	32947
 #define ID_DOWNLOADS_FOLDER             32948
 #define ID_DOWNLOADS_MONITOR        	32949
@@ -1808,16 +1808,16 @@
 #define ID_HOSTCACHE_ED2K_CACHE     	33076
 #define ID_HOSTCACHE_IMPORT         	33077
 #define ID_HOSTCACHE_ED2K_DOWNLOAD  	33078
-#define ID_DISCOVERY_SERVERMET      	33079
+#define ID_HOSTCACHE_PRIORITY       	33079
 #define ID_NETWORK_G2               	33080
 #define ID_NETWORK_G1               	33081
 #define ID_NETWORK_ED2K             	33082
 #define ID_NETWORK_HTTP             	33083
 #define ID_NETWORK_FTP              	33084
 #define ID_NETWORK_BT               	33085
-#define ID_HOSTCACHE_PRIORITY       	33086
-#define ID_VIEW_BASIC               	33087
-#define ID_LIBRARY_SEARCH_QUICK     	33088
+#define ID_NETWORK_KAD              	33086
+#define ID_DOWNLOAD_GROUP_MOVELEFT    	33087
+#define ID_DOWNLOAD_GROUP_MOVERIGHT    	33088
 #define ID_DOWNLOAD_GROUP_NEW       	33089
 #define ID_DOWNLOAD_GROUP_REMOVE    	33090
 #define ID_DOWNLOAD_GROUP_PROPERTIES	33091
@@ -1832,7 +1832,7 @@
 #define ID_DOWNLOADS_CLEAR_INCOMPLETE   33100
 #define ID_DOWNLOADS_CLEAR_COMPLETE 	33101
 #define ID_LIBRARY_CREATETORRENT    	33102
-#define ID_NETWORK_KAD              	33103
+#define ID_LIBRARY_SEARCH_QUICK     	33103
 #define ID_WINDOW_NAVBAR            	33104
 #define ID_DOWNLOADS_RATE           	33105
 #define ID_LIBRARY_VIEW_COLLECTION  	33106

@@ -69,7 +69,7 @@ CUploadTransferHTTP::CUploadTransferHTTP() : CUploadTransfer( PROTOCOL_HTTP )
 	m_bKeepAlive		= TRUE;
 	m_nGnutella			= 0;
 	m_nReaskMultiplier	= 1;
-	m_bNotPeerProject		= FALSE;
+	m_bNotPeerProject	= FALSE;
 }
 
 CUploadTransferHTTP::~CUploadTransferHTTP()
@@ -872,16 +872,12 @@ BOOL CUploadTransferHTTP::QueueRequest()
 				//ASSERT( FALSE );
 			}
 
-
 			if ( nPosition == 0 )
 			{
 				// Queued, and ready to send
 				return OpenFileSendHeaders();
 			}
-			else
-			{
-				// Queued, but must wait
-			}
+			//else	// Queued, but must wait
 		}
 		else if ( UploadQueues.Enqueue( this ) )
 		{
@@ -890,14 +886,12 @@ BOOL CUploadTransferHTTP::QueueRequest()
 				( m_bFilePartial ? CUploadQueue::ulqPartial : CUploadQueue::ulqLibrary ), m_sFileTags ) );
 
 			nPosition = UploadQueues.GetPosition( this, TRUE );
-			ASSERT( nPosition >= 0 );
-
 			if ( nPosition == 0 )
 			{
 				// Queued, and ready to send
 				return OpenFileSendHeaders();
 			}
-			else if ( m_bQueueMe )
+			else if ( m_bQueueMe && nPosition > 0 )
 			{
 				// Queued, but must wait
 			}
@@ -908,10 +902,7 @@ BOOL CUploadTransferHTTP::QueueRequest()
 				ASSERT( m_pQueue == NULL );
 			}
 		}
-		else
-		{
-			// Unable to queue anywhere
-		}
+		//else	// Unable to queue anywhere
 	}
 	else
 	{

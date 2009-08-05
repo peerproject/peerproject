@@ -165,6 +165,7 @@
   <watermark target="ImageViewerWnd.Toolbar"		path="Toolbar.png"/>
   <watermark target="CIRCFrame.Toolbar"	 		path="Toolbar.png"/>
   <watermark target="CNeighboursWnd.Toolbar"		path="ToolbarLt.png"/>
+  <watermark target="CDiscoveryWnd.Toolbar"  		path="Toolbar.png"/>
   <watermark target="CHostCacheWnd.Toolbar"  		path="Toolbar.png"/>
   <watermark target="CHitMonitorWnd.Toolbar"  		path="Toolbar.png"/>
   <watermark target="CSecurityWnd.Toolbar"  		path="Toolbar.png"/>
@@ -206,8 +207,8 @@
   <watermark target="CDownloadTabBar.Active" 		path="DownloadgroupsTab.png"/>
   <watermark target="CDownloadTabBar.Hover" 		path="DownloadgroupsHover.png"/>
   <watermark target="CDownloadTabBar.Active.Hover" 	path="DownloadgroupsHover.png"/>
-  <watermark target="CCoolMenuBar.Hover" 		path="Vista\CoolMenuBarHover.png"/>
-  <watermark target="CCoolMenuBar.Down" 		path="Vista\CoolMenuBarDown.png"/>
+  <watermark target="CCoolMenuItem.Hover" 		path="Vista\CoolMenuBarHover.png"/>
+  <watermark target="CCoolMenuItem.Down" 		path="Vista\CoolMenuBarDown.png"/>
   <!--watermark target="CCoolbar.Disabled" 		path="ToolbarButtonHover.png"-->
   <!--watermark target="CCoolbar.Up" 			path="ToolbarButtonHover.png"-->
   <watermark target="CCoolbar.Down" 			path="ToolbarButtonDown.png"/>
@@ -254,11 +255,11 @@
 <region>
  <shape type="roundRect"	rect="0,2,-1,-1" size="12,12"/>
  <shape type="roundRect"	rect="0,-20,-1,-1" size="9,9" combine="or"/>
- <shape type="rectangle"	rect="8,0,19,2" combine="or"/>
- <shape type="rectangle"	rect="19,1,21,2" combine="or"/>
- <shape type="rectangle"	rect="58,0,69,2" combine="or"/>
- <shape type="rectangle"	rect="69,1,71,2" combine="or"/>
- <shape type="rectangle"	rect="100,1,103,2" combine="or"/>
+ <shape type="rectangle"	rect="9,0,20,2" combine="or"/>
+ <shape type="rectangle"	rect="20,1,22,2" combine="or"/>
+ <shape type="rectangle"	rect="63,0,74,2" combine="or"/>
+ <shape type="rectangle"	rect="74,1,76,2" combine="or"/>
+ <shape type="rectangle"	rect="108,1,111,2" combine="or"/>
 </region>
 <maximiseCrop rect="4,8,-4,-4"/>
 </windowSkin>

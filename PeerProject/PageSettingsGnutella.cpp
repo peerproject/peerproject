@@ -140,10 +140,11 @@ BOOL CGnutellaSettingsPage::OnInitDialog()
 	m_wndG2ClientMode.SetItemData( 1, MODE_LEAF );
 	m_wndG2ClientMode.SetItemData( 2, MODE_HUB );
 
-	//********************	Temp- until UP mode fixed
-	Settings.Gnutella1.ClientMode = MODE_LEAF;
-	m_wndG1ClientMode.EnableWindow( FALSE );
-	m_wndG1ClientMode.SetCurSel( MODE_LEAF );
+	//********************
+	// Uncomment to temp disable UltraPeer mode:
+	//Settings.Gnutella1.ClientMode = MODE_LEAF;
+	//m_wndG1ClientMode.EnableWindow( FALSE );
+	//m_wndG1ClientMode.SetCurSel( MODE_LEAF );
 	//********************
 
 	m_wndG2ClientMode.SetCurSel( Settings.Gnutella2.ClientMode );

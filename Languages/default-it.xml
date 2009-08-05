@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Italian Skin File -->
-<!-- Translation based on default-en.xml -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Italian Skin File -->
+
+<!-- Translation based on default-en.xml -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="Italiano"
-		author="Salvatore Scirè, Francesco Gabrielli"
-		updatedBy="ale5000"
-		description="PeerProject Default Italian Skin File"
-		link="http://PeerProject.org"
-		email=""
-		version="1.0.0.0"
-		type="Language"
-		language="it"
-		prompt="Clicca qui per selezionare l'Italiano come lingua predefinita."
+<manifest
+	name="Italiano"
+	author="Salvatore Scirè, Francesco Gabrielli"
+	updatedBy="ale5000"
+	description="PeerProject Default Italian Skin File"
+	link="http://PeerProject.org"
+	email=""
+	version="1.0.0.0"
+	type="Language"
+	language="it"
+	prompt="Clicca qui per selezionare l'Italiano come lingua predefinita."
 />
 
 <!-- Toolbar Definitions -->
@@ -60,6 +61,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -68,14 +70,13 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
-		<button id="ID_NETWORK_SEARCH" text="Nuova ricerca"/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
+		<button id="ID_NETWORK_SEARCH" text="Ricerca"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
@@ -1126,11 +1127,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Riprendi tutti"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Sospendi tutti"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Rimuovi tutti"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Mostra gruppi"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="Nuovo gruppo..."/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Rimuovi gruppo"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="Nuovo gruppo..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Proprietà"/>
 	</menu>
@@ -1720,27 +1722,28 @@
 			<link target="peer:command:ID_HELP_ROUTER">Clicca qui per sapere come configurare il tuo router o firewall</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PERSONALIZZA PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Skin</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skin</link>
 		<text align="middle">&#160;- Cambia l'aspetto di PeerProject</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Configurazione guidata</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Configurazione guidata</link>
 		<text align="middle">&#160;- Modifica le impostazioni di PeerProject</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<newline gap="8"/>
-		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><newline gap="8"/>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/>
 		<gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Filtri di Sicurezza</link>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Filtri di Sicurezza</link>
 		<text align="middle">&#160;- Aggiungi/Rimuovi i filtri per migliorare i tuoi risultati di ricerca</text>
 		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Aiuto veloce</link>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Aiuto veloce</link>
 		<text align="middle">&#160;- Aiuti fondamentali per usare PeerProject</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1781,6 +1784,8 @@
 		<text group="11" align="middle">Disconnesso</text>
 		<text group="12" align="middle">Connessione...</text>
 		<text group="13" align="middle">Connesso</text>
+		<text group="14" align="middle" id="G1Hubs">%i peers</text>
+		<text group="15" align="middle" id="G1Leaves">%i permessi</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
@@ -2653,8 +2658,8 @@
 	<string id="8064" value="Connesso con %lu host. %s nella libreria locale."/>
 	<string id="8065" value="Connessione alla rete in corso..."/>
 	<string id="8066" value="Non connesso alla rete."/>
-	<string id="8067" value="%s in : %s out [D:%I64i/U:%I64i]"/>
-	<string id="8068" value="[H:%I64i] %s in : %s out [D:%I64i/U:%I64i]"/>
+	<string id="8067" value="%s in : %s out (d:%I64i/u:%I64i)"/>
+	<string id="8068" value="%s in : %s out (d:%I64i/u:%I64i/s:%I64i) "/>
 	<string id="8069" value="Connetti"/>
 	<string id="8070" value="Connessione..."/>
 	<string id="8071" value="Connesso"/>
@@ -3368,7 +3373,7 @@
 		<control/>
 		<control caption="_Barra:"/>
 		<control caption="Quando clicco chiudi:"/>
-		<control caption="Chiedi|Esci immediatamente|Minimizza nell'area di notifica|Esci al termine dei trasferimenti"/>
+		<control caption="Chiedi|Minimizza nell'area di notifica|Esci immediatamente|Esci al termine dei trasferimenti"/>
 		<control caption="Quando clicco minimizza:"/>
 		<control caption="Normale|Minimizza nell'area di notifica"/>
 	</dialog>
@@ -3663,9 +3668,7 @@
 		<control caption="Scarica la lista dei server eDonkey dal web:"/>
 		<control caption="Scarica..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Interfaccia:"/>
-		<control caption="Mostra elementi addizionali dell'interfaccia di BitTorrent"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Connessioni di download:"/>
 		<control/>
 		<control/>
@@ -4032,7 +4035,7 @@
 		<control/>
 		<control caption="Numero di fonti:"/>
 		<control caption="..."/>
-		<control caption="Velocità di trasferimento:"/>
+		<control caption="Trasferimento:"/>
 		<control caption="..."/>
 		<control caption="Tempo residuo stimato:"/>
 		<control caption="..."/>

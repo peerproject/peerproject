@@ -26,7 +26,6 @@
 #include "LibraryFolders.h"
 #include "SharedFolder.h"
 #include "SharedFile.h"
-#include "Uploads.h"
 #include "DlgFileCopy.h"
 #include "CtrlSharedFolder.h"
 #include "Skin.h"
@@ -305,28 +304,28 @@ void CFileCopyDlg::OnRun()
 		}
 
 		delete pMetadata;
-/*
-		// Alternate code to check if file is hashing first
-		CString sCurrent, sFile;
-		int nRemaining;
-		LibraryBuilder.UpdateStatus( &sCurrent, &nRemaining );
-		sFile = strPath + _T("\\") + strName;
 
-		if ( sFile == sCurrent )
-		{
-			LoadString ( sFile, IDS_LIBRARY_BITZI_HASHED );
-			sCurrent.Format( sFile, strName );
-			theApp.Message( MSG_NOTICE, sCurrent  );
+	// Alternate code to check if file is hashing first:
 
-			LoadString ( sCurrent, IDS_STATUS_FILEERROR );
-			m_wndFileName.SetWindowText( sCurrent );
-		}
-		else
-		{
-			m_wndFileName.SetWindowText( strName );
-			ProcessFile( strName, strPath, bMetaData );
-		}
-*/
+	//	CString sCurrent, sFile;
+	//	int nRemaining;
+	//	LibraryBuilder.UpdateStatus( &sCurrent, &nRemaining );
+	//	sFile = strPath + _T("\\") + strName;
+
+	//	if ( sFile == sCurrent )
+	//	{
+	//		LoadString ( sFile, IDS_LIBRARY_BITZI_HASHED );
+	//		sCurrent.Format( sFile, strName );
+	//		theApp.Message( MSG_NOTICE, sCurrent  );
+
+	//		LoadString ( sCurrent, IDS_STATUS_FILEERROR );
+	//		m_wndFileName.SetWindowText( sCurrent );
+	//	}
+	//	else
+	//	{
+	//		m_wndFileName.SetWindowText( strName );
+	//		ProcessFile( strName, strPath, bMetaData );
+	//	}
 	}
 }
 
@@ -427,13 +426,13 @@ bool CFileCopyDlg::ProcessMove(const CString& strSource, const CString& strTarge
 		return false;
 
 	// Close the file handle
-	while( !Uploads.OnRename( strSource ) );
+	theApp.OnRename( strSource );
 
 	// Try moving the file
 	if ( MoveFile( strSource, strTarget ) )
 	{
 		// Success. Tell the file to use its new name
-		while( !Uploads.OnRename( strSource, strTarget ) );
+		theApp.OnRename( strSource, strTarget );
 		return true;
 	}
 
@@ -441,12 +440,12 @@ bool CFileCopyDlg::ProcessMove(const CString& strSource, const CString& strTarge
 	if ( ProcessCopy( strSource, strTarget ) )
 	{
 		// Success. Tell the file to use its new name
-		while( !Uploads.OnRename( strSource, strTarget ) );
+		theApp.OnRename( strSource, strTarget );
 		return DeleteFileEx( strSource, TRUE, FALSE, FALSE ) != 0;
 	}
 
 	// Failure. Continue using its old name
-	while( !Uploads.OnRename( strSource, strSource ) );
+	theApp.OnRename( strSource, strSource );
 
 	return false;
 }

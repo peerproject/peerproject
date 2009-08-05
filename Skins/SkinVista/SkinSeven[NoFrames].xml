@@ -171,6 +171,7 @@
   <watermark target="ImageViewerWnd.Toolbar" path="Toolbar.png"/>
   <watermark target="CIRCFrame.Toolbar" path="Toolbar.png"/>
   <watermark target="CNeighboursWnd.Toolbar" path="ToolbarLt.png"/>
+  <watermark target="CDiscoveryWnd.Toolbar"  path="Toolbar.png"/>
   <watermark target="CHostCacheWnd.Toolbar"  path="Toolbar.png"/>
   <watermark target="CHitMonitorWnd.Toolbar" path="Toolbar.png"/>
   <watermark target="CSecurityWnd.Toolbar" path="Toolbar.png"/>
@@ -205,8 +206,11 @@
   <watermark target="CDownloadTabBar.Active" path="DownloadgroupsTab.png"/>
   <watermark target="CDownloadTabBar.Hover" path="DownloadgroupsHover.png"/>
   <watermark target="CDownloadTabBar.Active.Hover" path="DownloadgroupsHover.png"/>
-  <watermark target="CCoolMenuBar.Hover" path="Seven\MenuButtonHover.png"/>
-  <watermark target="CCoolMenuBar.Down" path="Seven\MenuButtonDown.png"/>
+  <watermark target="CCoolMenuItem.Hover" path="Seven\MenuButtonTextHover.png"/>
+  <watermark target="CCoolMenuItem.Down" path="Seven\MenuButtonTextDown.png"/>
+  <watermark target="CCoolMenuBar.Hover" path="Seven\MenuButtonState.png"/>
+  <watermark target="CCoolMenuBar.Down" path="Seven\MenuButtonState.png"/>
+  <watermark target="CCoolMenuBar.Checked" 	path="Seven\MenuButtonState.png"/>
   <watermark target="CCoolbar.Down" path="ToolbarButtonDown.png"/>
   <watermark target="CCoolbar.Hover" path="ToolbarButtonHover.png"/>
   <watermark target="CCoolbar.Checked" path="ToolbarButtonDown.png"/>
@@ -433,7 +437,7 @@
  <image id="ID_CHILD_CLOSE" id1="ID_NETWORK_EXIT"/>
  <image id="ID_SEARCH_SEARCH" id1="ID_TAB_SEARCH" id2="ID_NETWORK_SEARCH" id3="ID_LIBRARY_SEARCH_QUICK" id4="IDR_SEARCHFRAME"
 	id5="ID_VIEW_SEARCH_MONITOR" id6="ID_HITMONITOR_SEARCH" id7="ID_VIEW_RESULTS_MONITOR" id8="ID_DOWNLOADS_SOURCES"/>
- <image id="ID_SEARCH_FILTER_RAW"/>
+ <image />
  <image id="ID_TAB_HOME"/>
 </bitmap>
 

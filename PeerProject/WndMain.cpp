@@ -381,7 +381,7 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( ! m_wndStatusBar.Create( this ) ) return -1;
 	m_wndStatusBar.SetIndicators( wID, 2 );
 	m_wndStatusBar.SetPaneInfo( 0, ID_SEPARATOR, SBPS_STRETCH, 0 );
-	m_wndStatusBar.SetPaneInfo( 1, ID_SEPARATOR, SBPS_NORMAL, 210 );
+	m_wndStatusBar.SetPaneInfo( 1, ID_SEPARATOR, SBPS_NORMAL, 220 );	// Status Panel Width (lower-right)
 
 	EnableDocking( CBRS_ALIGN_ANY );
 
@@ -810,7 +810,7 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 
 	// Switch tray icon
 
-	BOOL bNeedTrayIcon = m_bTrayHide || Settings.General.TrayMinimise || Settings.General.CloseMode == 2;
+	BOOL bNeedTrayIcon = m_bTrayHide || Settings.General.TrayMinimise || Settings.General.CloseMode == 1;
 
 	if ( bNeedTrayIcon && ! m_bTrayIcon )
 	{
@@ -1047,7 +1047,7 @@ void CMainWnd::OnSysCommand(UINT nID, LPARAM lParam)
 					OnNetworkAutoClose();
 				return;
 			}
-			else if ( Settings.General.CloseMode == 2 && ! bShift )
+			else if ( Settings.General.CloseMode == 1 && ! bShift )
 			{
 				CloseToTray();
 				return;
@@ -1424,11 +1424,11 @@ void CMainWnd::UpdateMessages()
 	if ( m_bTrayIcon )
 	{
 		strMessage.Format( IDS_TRAY_TIP,
-			CGraphItem::GetValue( GRC_GNUTELLA_CONNECTIONS ),
 			Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_IN ), bits ),
 			Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_OUT ), bits ),
 			CGraphItem::GetValue( GRC_DOWNLOADS_TRANSFERS ),
-			CGraphItem::GetValue( GRC_UPLOADS_TRANSFERS ) );
+			CGraphItem::GetValue( GRC_UPLOADS_TRANSFERS ),
+			CGraphItem::GetValue( GRC_GNUTELLA_CONNECTIONS ) );
 
 		if ( strMessage != m_pTray.szTip )
 		{

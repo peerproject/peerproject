@@ -30,10 +30,11 @@ class CXMLElement;
 #define SECURITY_SER_VERSION	5
 // History:
 // 5 - extended security rule type (ryo-oh-ki)
+// 5B- added banCustom (PeerProject 1.0)
 
 enum
 {
-	banSession, ban5Mins, ban30Mins, ban2Hours, banWeek, banForever
+	banSession, ban5Mins, ban30Mins, ban2Hours, banWeek, banCustom, banForever
 };
 
 class CSecurity

@@ -196,11 +196,11 @@ void CRemoteWnd::OnTimer(UINT_PTR /*nIDEvent*/)
 		}
 
 		m_sStatus.Format( IDS_TRAY_TIP,
-			CGraphItem::GetValue( GRC_GNUTELLA_CONNECTIONS ),
 			Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_IN ), bits ),
 			Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_OUT ), bits ),
 			CGraphItem::GetValue( GRC_DOWNLOADS_TRANSFERS ),
-			CGraphItem::GetValue( GRC_UPLOADS_TRANSFERS ) );
+			CGraphItem::GetValue( GRC_UPLOADS_TRANSFERS ),
+			CGraphItem::GetValue( GRC_GNUTELLA_CONNECTIONS ) );
 	}
 
 	Invalidate();

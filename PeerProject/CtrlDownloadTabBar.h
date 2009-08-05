@@ -112,6 +112,10 @@ protected:
 	afx_msg void OnDownloadGroupNew();
 	afx_msg void OnUpdateDownloadGroupRemove(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadGroupRemove();
+	afx_msg void OnUpdateDownloadGroupMoveRight(CCmdUI* pCmdUI);
+	afx_msg void OnDownloadGroupMoveRight();
+//	afx_msg void OnUpdateDownloadGroupMoveLeft(CCmdUI* pCmdUI);
+//	afx_msg void OnDownloadGroupMoveLeft();
 	afx_msg void OnUpdateDownloadGroupProperties(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadGroupProperties();
 	afx_msg void OnUpdateDownloadGroupResume(CCmdUI* pCmdUI);

@@ -13,7 +13,6 @@
 <commandImages>
  <icon id="244" path="CollectionXP.ico" types="16,32,48" rtl="0"/>
  <icon id="236" path="ClipboardXP.ico"  types="16,32" rtl="0"/>
- <icon id="237" path="PaintbrushesXP.ico" types="16,32" rtl="0"/>
  <icon id="147" path="HelpXP.ico" types="16,32" rtl="0"/>
  <icon id="137" path="LibraryXP.ico" types="16,32" rtl="0"/>
  <icon id="134" path="SearchXP.ico" types="16,32" rtl="0"/>

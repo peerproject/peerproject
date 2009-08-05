@@ -380,7 +380,14 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 		LoadString( strText, IDS_DLM_DOWNLOADING );
 		Update( &m_wndStatus, strText );
 
-		strText = Settings.SmartSpeed( m_pDownload->GetAverageSpeed() );
+		strText.Format( _T("%i  (%s %i)"), nTransferCount, strOf, nSourceCount );
+		if ( Settings.General.LanguageRTL ) strText = _T("\x202B") + strText;
+		Update( &m_wndSources, strText );
+
+		if ( m_pDownload->GetAverageSpeed() > 10 )
+			strText = Settings.SmartSpeed( m_pDownload->GetAverageSpeed() );
+		else
+			LoadString( strText, IDS_TIP_NA );
 		Update( &m_wndSpeed, strText );
 
 		DWORD nTime = m_pDownload->GetTimeRemaining();
@@ -388,17 +395,17 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 
 		if ( nTime != 0xFFFFFFFF )
 		{
-			if ( nTime > 86400 )
+			if ( nTime > 90000 )
 			{
 				LoadString( strFormat, IDS_DLM_TIME_DAH );
 				strText.Format( strFormat, nTime / 86400, ( nTime / 3600 ) % 24 );
 			}
-			else if ( nTime > 3600 )
+			else if ( nTime > 3660 )
 			{
 				LoadString( strFormat, IDS_DLM_TIME_HAM );
 				strText.Format( strFormat, nTime / 3600, ( nTime % 3600 ) / 60 );
 			}
-			else if ( nTime > 60 )
+			else if ( nTime > 61 )
 			{
 				LoadString( strFormat, IDS_DLM_TIME_MAS );
 				strText.Format( strFormat, nTime / 60, nTime % 60 );
@@ -409,38 +416,37 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 				strText.Format( strFormat, nTime % 60 );
 			}
 		}
+		else
+		{
+			LoadString( strText, IDS_TIP_NA );
+		}
 
 		Update( &m_wndTime, strText );
-
-		strText.Format( _T("%i %s %i"), nTransferCount, strOf, nSourceCount );
-		if ( Settings.General.LanguageRTL ) strText = _T("\x202B") + strText;
-		Update( &m_wndSources, strText );
 	}
-	else if ( nSourceCount )
+	else if ( nSourceCount )	// No Transfers
 	{
 		LoadString( strText, IDS_DLM_DOWNLOADING );
 		Update( &m_wndStatus, strText );
-		strText = Settings.SmartSpeed( m_pDownload->GetAverageSpeed() );
-		Update( &m_wndSpeed, strText );
-		Update( &m_wndTime, strNA );
 		strText.Format( _T("%i"), nSourceCount );
 		Update( &m_wndSources, strText );
+		Update( &m_wndSpeed, strNA );
+		Update( &m_wndTime, strNA );
 	}
 	else
 	{
 		LoadString( strText, IDS_DLM_SOURCING );
 		Update( &m_wndStatus, strText );
-		Update( &m_wndTime, strNA );
-		Update( &m_wndSpeed, strNA );
 		LoadString( strText, IDS_DLM_NO_SOURCES );
 		Update( &m_wndSources, strText );
+		Update( &m_wndSpeed, strNA );
+		Update( &m_wndTime, strNA );
 	}
 
 	if ( m_pDownload->IsStarted() )
 	{
 		if ( Settings.General.LanguageRTL )
 		{
-			strText.Format( _T("(%.2f%%) %s %s %s"),
+			strText.Format( _T("(%.2f%%)  %s %s %s"),
 				m_pDownload->GetProgress(),
 				Settings.SmartVolume( m_pDownload->m_nSize ),
 				strOf,
@@ -448,7 +454,7 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 		}
 		else
 		{
-			strText.Format( _T("%s %s %s (%.2f%%)"),
+			strText.Format( _T("%s %s %s  (%.2f%%)"),
 				Settings.SmartVolume( m_pDownload->GetVolumeComplete() ),
 				strOf,
 				Settings.SmartVolume( m_pDownload->m_nSize ),

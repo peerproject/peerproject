@@ -160,6 +160,7 @@
   <watermark target="ImageViewerWnd.Toolbar" path="Toolbar.png"/>
   <watermark target="CIRCFrame.Toolbar" path="Toolbar.png"/>
   <watermark target="CNeighboursWnd.Toolbar" path="ToolbarLt.png"/>
+  <watermark target="CDiscoveryWnd.Toolbar"  		path="Toolbar.png"/>
   <watermark target="CHostCacheWnd.Toolbar" path="Toolbar.png"/>
   <watermark target="CHitMonitorWnd.Toolbar" path="Toolbar.png"/>
   <watermark target="CSecurityWnd.Toolbar" path="Toolbar.png"/>
@@ -193,8 +194,8 @@
   <watermark target="CDownloadTabBar.Active" path="DownloadgroupsTab.png"/>
   <watermark target="CDownloadTabBar.Hover" path="DownloadgroupsHover.png"/>
   <watermark target="CDownloadTabBar.Active.Hover" path="DownloadgroupsHover.png"/>
-  <watermark target="CCoolMenuBar.Hover" path="Vista\CoolMenuBarHover.png"/>
-  <watermark target="CCoolMenuBar.Down" path="Vista\CoolMenuBarDown.png"/>
+  <watermark target="CCoolMenuItem.Hover" path="Vista\CoolMenuBarHover.png"/>
+  <watermark target="CCoolMenuItem.Down" path="Vista\CoolMenuBarDown.png"/>
   <watermark target="CCoolbar.Down" path="ToolbarButtonDown.png"/>
   <watermark target="CCoolbar.Hover"  path="ToolbarButtonHover.png"/>
   <watermark target="CCoolbar.Checked" path="ToolbarButtonDown.png"/>

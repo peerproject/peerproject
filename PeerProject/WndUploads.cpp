@@ -215,7 +215,7 @@ void CUploadsWnd::OnTimer(UINT_PTR nIDEvent)
 
 void CUploadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &UploadQueues.m_pSection, TRUE );
 	CUploadQueue* pQueue;
 	CUploadFile* pUpload;
 
@@ -485,7 +485,7 @@ void CUploadsWnd::OnUpdateUploadsFolder(CCmdUI* pCmdUI)
 
 void CUploadsWnd::OnUploadsFolder()
 {
-//	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CQuickLock oLock( UploadQueues.m_pSection );
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
 	{
 		CUploadFile* pFile = UploadFiles.GetNext( pos );

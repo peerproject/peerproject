@@ -465,11 +465,12 @@ void CShakeNeighbour::SendPublicHeaders()
 		Write( _P("X-Requeries: False\r\n") );
 
 		// Tell the remote computer all the Gnutella features we support
+		//Write( _P("Bye-Packet: 0.1\r\n") );										// ToDo: Support Bye message code logging?
 		if ( Settings.Gnutella1.EnableGGEP ) Write( _P("GGEP: 0.5\r\n") );			// We support GGEP blocks
 		Write( _P("Pong-Caching: 0.1\r\n") );										// We support pong caching
 		if ( Settings.Gnutella1.VendorMsg ) Write( _P("Vendor-Message: 0.1\r\n") );	// We support vendor-specific messages
 
-		Write( _P("X-Query-Routing: 0.1\r\n") );										// We support the query routing protocol
+		Write( _P("X-Query-Routing: 0.1\r\n") );									// We support the query routing protocol
 		Write( _P("X-Ultrapeer-Query-Routing: 0.1\r\n") );
 
 		Write( _P("X-Dynamic-Querying: 0.1\r\n") );
@@ -1288,7 +1289,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 			{
 				// We don't allow these to act as a leaf. (resource use, etc)
 				theApp.Message( MSG_ERROR, _T("Rejecting bad leaf client %s") , (LPCTSTR)m_sUserAgent );
-				Write( _P("GNUTELLA/0.6 503 Refused. http://sourceforge.net/projects/peerproject/\r\n") );
+				Write( _P("GNUTELLA/0.6 503 Client Refused.\r\n") );
 
 				SendMinimalHeaders();
 				DelayClose( IDS_HANDSHAKE_SURPLUS );

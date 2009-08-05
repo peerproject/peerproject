@@ -442,7 +442,7 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bDebug)
 	}
 
 	// The user has never used BitTorrent, so that won't be taking up any bandwidth
-	if ( ! Settings.BitTorrent.AdvancedInterfaceSet )
+	if ( ! Settings.BitTorrent.EnableAlways )
 	{
 		nRating++;
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("BT is not in use") );
@@ -665,21 +665,21 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bDebug)
 	}
 
 	// We'll be a better Gnutella ultrapeer if the program isn't connected to the other networks
-	if ( !Settings.eDonkey.EnableToday ) // Not connected to eDonkey2000
+	if ( ! Settings.eDonkey.EnableToday ) // Not connected to eDonkey2000
 	{
 		nRating++;
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("eDonkey not enabled") );
 	}
 
-	// The user has never used BitTorrent, so that won't be taking up any bandwidth
-	if ( ! Settings.BitTorrent.AdvancedInterfaceSet )
+	// The user has disabled BitTorrent, so that won't be taking up any bandwidth
+	if ( ! Settings.BitTorrent.EnableAlways )
 	{
 		nRating++;
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("BT is not in use") );
 	}
 
 	// The program is not connected to the Gnutella2 network
-	if ( !Settings.Gnutella2.EnableToday )
+	if ( ! Settings.Gnutella2.EnableToday )
 	{
 		nRating++;
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("G2 not enabled") );
@@ -693,7 +693,7 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bDebug)
 	}
 
 	// If the scheduler isn't enabled, award another point
-	if ( !Settings.Scheduler.Enable )
+	if ( ! Settings.Scheduler.Enable )
 	{
 		nRating++;
 	}

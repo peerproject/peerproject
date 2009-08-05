@@ -52,6 +52,10 @@ BEGIN_MESSAGE_MAP(CDownloadTabBar, CControlBar)
 	ON_COMMAND(ID_DOWNLOAD_GROUP_NEW, OnDownloadGroupNew)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOAD_GROUP_REMOVE, OnUpdateDownloadGroupRemove)
 	ON_COMMAND(ID_DOWNLOAD_GROUP_REMOVE, OnDownloadGroupRemove)
+//	ON_UPDATE_COMMAND_UI(ID_DOWNLOAD_GROUP_MOVELEFT, OnUpdateDownloadGroupMoveLeft)
+//	ON_COMMAND(ID_DOWNLOAD_GROUP_MOVELEFT, OnDownloadGroupMoveLeft)
+	ON_UPDATE_COMMAND_UI(ID_DOWNLOAD_GROUP_MOVERIGHT, OnUpdateDownloadGroupMoveRight)
+	ON_COMMAND(ID_DOWNLOAD_GROUP_MOVERIGHT, OnDownloadGroupMoveRight)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOAD_GROUP_PROPERTIES, OnUpdateDownloadGroupProperties)
 	ON_COMMAND(ID_DOWNLOAD_GROUP_PROPERTIES, OnDownloadGroupProperties)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOAD_GROUP_RESUME, OnUpdateDownloadGroupResume)
@@ -559,6 +563,29 @@ void CDownloadTabBar::OnDownloadGroupRemove()
 	DownloadGroups.Remove( GetSelectedGroup() );
 	NotifySelection();
 }
+
+void CDownloadTabBar::OnUpdateDownloadGroupMoveRight(CCmdUI* pCmdUI)
+{
+	pCmdUI->Enable( GetSelectedCount() == 1 && GetSelectedGroup() != DownloadGroups.GetSuperGroup() );
+}
+
+void CDownloadTabBar::OnDownloadGroupMoveRight()
+{
+	DownloadGroups.MoveRight( GetSelectedGroup() );
+	NotifySelection();
+}
+
+//ToDo: Enable Right/Left Group Shift
+//void CDownloadTabBar::OnUpdateDownloadGroupMoveLeft(CCmdUI* pCmdUI)
+//{
+//	pCmdUI->Enable( GetSelectedCount() == 1 && GetSelectedGroup() != DownloadGroups.GetSuperGroup() );
+//}
+
+//void CDownloadTabBar::OnDownloadGroupMoveLeft()
+//{
+//	DownloadGroups.MoveLeft( GetSelectedGroup() );
+//	NotifySelection();
+//}
 
 void CDownloadTabBar::OnUpdateDownloadGroupProperties(CCmdUI* pCmdUI)
 {

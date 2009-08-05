@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Finnish Skin File -->
-<!-- Translation based on default-en.xml (Shareaza 2.1.3.7) -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Finnish Skin File -->
+
+<!-- Translation based on default-en.xml (Shareaza 2.1.3.7) -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="Suomi"
-		author="Toni Kaija"
-		updatedBy=""
-		description="PeerProject Default Finnish Skin File"
-		link="http://www.gamerfactory.co.nr"
-		email=""
-		version="1.0.0.0"
-		type="Language"
-		language="fi"
-		prompt="Klikkaa tähän valitaksesi Suomen käyttökieleksi."
+<manifest
+	name="Suomi"
+	author="Toni Kaija"
+	updatedBy=""
+	description="PeerProject Default Finnish Skin File"
+	link="http://www.gamerfactory.co.nr"
+	email=""
+	version="1.0.0.0"
+	type="Language"
+	language="fi"
+	prompt="Klikkaa tähän valitaksesi Suomen käyttökieleksi."
 />
 
 <!-- Toolbar Definitions -->
@@ -59,6 +60,8 @@
 		<button id="ID_VIEW_UPLOADS"/>
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
+		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -67,13 +70,12 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
 		<button id="ID_NETWORK_SEARCH" text="Uusi Haku"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
@@ -1088,11 +1090,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Jatka Kaikkia"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="K_eskeytä Kaikki"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Tyhjennä Kaikki"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Näytä Ryhmät"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Uusi Ryhmä..."/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Poista _Ryhmä"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Uusi Ryhmä..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Ominaisuudet"/>
 	</menu>
@@ -1596,22 +1599,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">Klikkaa tähän kunika konfiguroida reitittimesi tai palomuurisi</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">KUSTOMOI PEERPROJECT A</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Ulkoasut</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Ulkoasut</link>
 		<text align="middle">&#160;- Muuta PeerProjectn ulkonäköä</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Asetus Velho</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Asetus Velho</link>
 		<text align="middle">&#160;- Editoi PeerProject:n Asetuksia</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Pika Apu</link>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Pika Apu</link>
 		<text align="middle">&#160;- Hanki joitain perus ohjeita PeerProjectn käyttämiseen</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1654,6 +1658,8 @@
 		<text group="11" align="middle">Ei Yhdistetty</text>
 		<text group="12" align="middle">Yhdistetään...</text>
 		<text group="13" align="middle">Yhdistetty</text>
+		<text group="14" align="middle" id="G1Hubs">%i peers</text>
+		<text group="15" align="middle" id="G1Leaves">%i lehteä</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>

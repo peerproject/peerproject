@@ -26,13 +26,13 @@ class CConnection;
 class CUploadTransfer;
 
 
-class CUploads  
+class CUploads
 {
 // Construction
 public:
 	CUploads();
 	virtual ~CUploads();
-	
+
 // Attributes
 public:
 	DWORD		m_nCount;			// Active count
@@ -49,17 +49,17 @@ public:
 	void		Clear(BOOL bMessage = TRUE);
 	DWORD		GetCount(CUploadTransfer* pExcept, int nState = -1) const;
 	DWORD		GetTorrentCount(int nState) const;
-public:
+
 	BOOL		AllowMoreTo(IN_ADDR* pAddress) const;
 	BOOL		CanUploadFileTo(IN_ADDR* pAddress, const Hashes::Sha1Hash& oSHA1) const;
 	BOOL		EnforcePerHostLimit(CUploadTransfer* pUpload, BOOL bRequest = FALSE);
-public:
+
 	void		SetStable(DWORD nSpeed);
 	DWORD		GetBandwidth() const;
 	void		OnRun();
 	BOOL		OnAccept(CConnection* pConnection);
-	bool		OnRename(const CString& strSource, LPCTSTR pszTarget = (LPCTSTR)1, bool bRemoving = false);
-public:
+	void		OnRename(LPCTSTR pszSource, LPCTSTR pszTarget);	// pszTarget: 0 = delete file, 1 = release file
+
 	void		Add(CUploadTransfer* pUpload);
 	void		Remove(CUploadTransfer* pUpload);
 
@@ -69,17 +69,17 @@ public:
 	{
 		return m_pList.GetHeadPosition();
 	}
-	
+
 	inline CUploadTransfer* GetNext(POSITION& pos) const
 	{
 		return m_pList.GetNext( pos );
 	}
-	
+
 	inline BOOL Check(CUploadTransfer* pUpload) const
 	{
 		return m_pList.Find( pUpload ) != NULL;
 	}
-	
+
 	inline INT_PTR GetTransferCount() const
 	{
 		return GetCount( NULL, -2 );
@@ -94,7 +94,7 @@ public:
 	{
 		return GetTorrentCount( -3 );
 	}
-	
+
 };
 
 extern CUploads Uploads;

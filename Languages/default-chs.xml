@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Chinese (Simplified) Skin File -->
-<!-- Translation based on default-en.xml (Shareaza SVN r6092) -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Chinese (Simplified) Skin File -->
+
+<!-- Translation based on default-en.xml (Shareaza r6092) -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="简体中文"
-		author="STC"
-		updatedBy="John"
-		description="PeerProject Chinese (Simplified) Skin File"
-		link="http://www.p2pnet.cn/shareaza"
-		email="ShareazaSTC(at)gmail.com"
-		version="1.0.0.0"
-		type="Language"
-		language="chs"
-		prompt="单击这里显示简体中文"
+<manifest
+	name="简体中文"
+	author="STC"
+	updatedBy="John"
+	description="PeerProject Chinese (Simplified) Skin File"
+	link="http://www.p2pnet.cn/shareaza"
+	email="ShareazaSTC(at)gmail.com"
+	version="1.0.0.0"
+	type="Language"
+	language="chs"
+	prompt="单击这里显示简体中文"
 />
 
 <!-- Toolbar Definitions -->
@@ -60,6 +61,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -68,13 +70,12 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
 		<button id="ID_NETWORK_SEARCH" text="新建搜索"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
@@ -1093,11 +1094,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全部续传(_R)"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全部暂停(_A)"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全部清除(_C)"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="显示群组(_S)"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="新建群组(_N)..."/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="移除群组(_G)"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="新建群组(_N)..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="属性(_P)"/>
 	</menu>
@@ -1599,22 +1601,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">单击此处了解如何配置您的路由器或防火墙</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">定 制 &#160;PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">皮肤外观</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">皮肤外观</link>
 		<text align="middle">&#160;- 更改 PeerProject 的外观</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">设置向导</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">设置向导</link>
 		<text align="middle">&#160;- 编辑 PeerProject 的设置</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">快速帮助</link>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">快速帮助</link>
 		<text align="middle">&#160;- 获取使用 PeerProject 的基本帮助</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1655,6 +1658,8 @@
 		<text group="11" align="middle">断开连接</text>
 		<text group="12" align="middle">连接中...</text>
 		<text group="13" align="middle">已连接</text>
+		<text group="14" align="middle" id="G1Hubs">%i 个集端</text>
+		<text group="15" align="middle" id="G1Leaves">%i 个子端</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
@@ -2484,8 +2489,8 @@
 	<string id="8064" value="连接到 %lu 个邻居。%s 处于本地收藏中。"/>
 	<string id="8065" value="连接网络..."/>
 	<string id="8066" value="尚未连接网络。"/>
-	<string id="8067" value="%s传入:%s传出[下载:%I64i/上传:%I64i]"/>
-	<string id="8068" value="[活动:%I64i]%s传入:%s传出[下载:%I64i/上传:%I64i]"/>
+	<string id="8067" value="%s传入:%s传出 (下载:%I64i/上传:%I64i)"/>
+	<string id="8068" value="%s传入:%s传出 (下载:%I64i/上传:%I64i/活动:%I64i)"/>
 	<string id="8069" value="连接"/>
 	<string id="8070" value="连接中..."/>
 	<string id="8071" value="连接完毕"/>
@@ -3164,7 +3169,7 @@
 		<control/>
 		<control caption="系统托盘(_T):"/>
 		<control caption="点击关闭时:"/>
-		<control caption="询问我|立即关闭|最小化到系统托盘|传输完毕后关闭"/>
+		<control caption="询问我|最小化到系统托盘|立即关闭|传输完毕后关闭"/>
 		<control caption="点击最小化时:"/>
 		<control caption="标准|最小化到系统托盘"/>
 	</dialog>
@@ -3423,9 +3428,7 @@
 		<control caption="从网络上下载 eDonkey 服务器列表:"/>
 		<control caption="下载..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="界面(_I):"/>
-		<control caption="显示 BitTorrent 额外的界面元素"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="下载连接(_D):"/>
 		<control/>
 		<control/>
@@ -3791,9 +3794,9 @@
 		<control/>
 		<control caption="已知资源数量:"/>
 		<control caption="..."/>
-		<control caption="估计剩余时间:"/>
-		<control caption="..."/>
 		<control caption="总体传送速度:"/>
+		<control caption="..."/>
+		<control caption="估计剩余时间:"/>
 		<control caption="..."/>
 		<control caption="完成下载数量:"/>
 		<control caption="..."/>

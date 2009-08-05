@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default German Skin File -->
-<!-- Translation based on default-en.xml -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default German Skin File -->
+
+<!-- Translation based on default-en.xml -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="Deutsch"
-		author="Jann Röder"
-		updatedBy="Frontier, OldDeath, ZeRO (Daisuke)"
-		description="PeerProjekt Default German Skin File"
-		link="http://PeerProject.org"
-		email="zero9999(at)gmail.com"
-		version="1.0.0.0"
-		type="Language"
-		language="de"
-		prompt="Klicken Sie hier, um Deutsch als Sprache zu wählen."
+<manifest
+	name="Deutsch"
+	author="Jann Röder"
+	updatedBy="Frontier, OldDeath, ZeRO (Daisuke)"
+	description="PeerProjekt Default German Skin File"
+	link="http://PeerProject.org"
+	email="zero9999(at)gmail.com"
+	version="1.0.0.0"
+	type="Language"
+	language="de"
+	prompt="Klicken Sie hier, um Deutsch als Sprache zu wählen."
 />
 
 <!-- Toolbar Definitions -->
@@ -60,6 +61,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -68,13 +70,12 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
 		<button id="ID_NETWORK_SEARCH" text="Neue Suche"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
@@ -1159,11 +1160,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Alle _starten"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Alle _anhalten"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Alle _entfernen"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Gruppen a_nzeigen"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Neue Gruppe..."/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Gruppe entfernen"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Neue Gruppe..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Ei_genschaften"/>
 	</menu>
@@ -1757,23 +1759,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">sie ihren Router konfigurieren müssen</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PeerProjekt Anpassen</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Skins</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle"> - Das Aussehen von PeerProjekt verändern</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Einstellungsassistent</link>
-		<text align="middle"> - Einstellungen anpassen</text>
-		<newline gap="8"/>
-		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle" format="bu">Security Filters</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Hilfe</link>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Einstellungsassistent</link>
+		<text align="middle"> - Einstellungen anpassen</text>
+		<newline gap="8"/>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Hilfe</link>
 		<text align="middle"> - PeerProjekt-Anleitung und FAQ</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1816,6 +1818,8 @@
 		<text group="11" align="middle">Nicht verbunden</text>
 		<text group="12" align="middle">Verbinden...</text>
 		<text group="13" align="middle">Verbunden</text>
+		<text group="14" align="middle" id="G1Hubs">%i Peers</text>
+		<text group="15" align="middle" id="G1Leaves">%i Leaves</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
@@ -2677,8 +2681,8 @@
 	<string id="8064" value="Verbunden mit %lu Host(s), %s in der lokalen Bibliothek."/>
 	<string id="8065" value="Verbindung mit Netzwerken herstellen..."/>
 	<string id="8066" value="Mit keinem Netzwerk verbunden."/>
-	<string id="8067" value="%s ein : %s aus [D:%I64i/U:%I64i]"/>
-	<string id="8068" value="[H:%I64i] %s ein : %s aus [D:%I64i/U:%I64i]"/>
+	<string id="8067" value="%s ein : %s aus (d:%I64i/u:%I64i)"/>
+	<string id="8068" value="%s ein : %s aus (d:%I64i/u:%I64i/h:%I64i)"/>
 	<string id="8069" value="Verbinden"/>
 	<string id="8070" value="Verbinden..."/>
 	<string id="8071" value="Verbunden"/>
@@ -3377,7 +3381,7 @@
 		<control/>
 		<control caption="_Tray:"/>
 		<control caption="Bei Klick auf [X]:"/>
-		<control caption="Fragen|Sofort beenden|In den Tray minimieren|Nach Transfers beenden"/>
+		<control caption="Fragen|In den Tray minimieren|Sofort beenden|Nach Transfers beenden"/>
 		<control caption="Bei Klick auf [-]:"/>
 		<control caption="Minimieren (normal)|In den Tray minimieren"/>
 	</dialog>
@@ -3672,9 +3676,7 @@
 		<control caption="Serverliste aus dem Internet herunterladen:"/>
 		<control caption="Herunterladen..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Benutzeroberfläche:"/>
-		<control caption="Zusätzliche BitTorrent-Bedienelemente anzeigen"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download-Verbindungen:"/>
 		<control/>
 		<control/>
@@ -4041,9 +4043,9 @@
 		<control/>
 		<control caption="Anzahl Quellen:"/>
 		<control caption="..."/>
-		<control caption="Geschätzte Dauer:"/>
-		<control caption="..."/>
 		<control caption="Übertragungsrate:"/>
+		<control caption="..."/>
+		<control caption="Geschätzte Dauer:"/>
 		<control caption="..."/>
 		<control caption="Heruntergeladen:"/>
 		<control caption="..."/>

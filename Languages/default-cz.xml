@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Czech Skin File -->
-<!-- Translation based on default-en.xml (Shareaza 2.2.5.7) -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Czech Skin File -->
+
+<!-- Translation based on default-en.xml (Shareaza 2.2.5.7) -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="Čeština"
-		author="Prometheus"
-		updateBy="Odin"
-		description="PeerProject Default Czech Skin File"
-		link="http://PeerProject.org"
-		email="odinuv(at)users.sourceforge.net"
-		version="1.0.0.0"
-		type="Language"
-		language="cz"
-		prompt="Kliknutím si zvolíte&#160;&#269;eštinu."
+<manifest
+	name="Čeština"
+	author="Prometheus"
+	updateBy="Odin"
+	description="PeerProject Default Czech Skin File"
+	link="http://PeerProject.org"
+	email="odinuv(at)users.sourceforge.net"
+	version="1.0.0.0"
+	type="Language"
+	language="cz"
+	prompt="Kliknutím si zvolíte&#160;&#269;eštinu."
 />
 
 <!-- Toolbar Definitions -->
@@ -59,6 +60,8 @@
 		<button id="ID_VIEW_UPLOADS"/>
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
+		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -67,14 +70,13 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
-		<button id="ID_NETWORK_SEARCH" text="Nové hledání"/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
+		<button id="ID_NETWORK_SEARCH" text="Hledání"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
@@ -1106,11 +1108,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Obnovit vše"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_ozastavit vše"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Smazat vše"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Ukázat skupiny"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Nová skupina..."/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Odstranit _skupinu"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Nová skupina..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Vlastnosti"/>
 	</menu>
@@ -1653,22 +1656,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">Klikněte zde pro radu jak nastavit váš router nebo firewall</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">UPRAVTE SI PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Skiny</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skiny</link>
 		<text align="middle">&#160;- Změní vzhled &amp; prostředí PeerProject</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Průvodce nastavením</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Průvodce nastavením</link>
 		<text align="middle">&#160;- Upraví nastavení PeerProject</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Rychlá Nápověda</link>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Rychlá Nápověda</link>
 		<text align="middle">&#160;- Otevře Nápovědu jak používat PeerProject</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1709,6 +1713,8 @@
 		<text group="11" align="middle">Nepřipojeno</text>
 		<text group="12" align="middle">Připojuji...</text>
 		<text group="13" align="middle">Připojeno</text>
+		<text group="14" align="middle" id="G1Hubs">%i uzle</text>
+		<text group="15" align="middle" id="G1Leaves">%i ukončení</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
@@ -2566,8 +2572,8 @@
 	<string id="8064" value="Připojeno ke %lu uzlům. %s v místní knihovně."/>
 	<string id="8065" value="Připojuji se do sítě..."/>
 	<string id="8066" value="Nejste připojeni do sítě."/>
-	<string id="8067" value="%s přích : %s odch [St:%I64i/Od:%I64i]"/>
-	<string id="8068" value="[H:%I64i] %s přích : %s odch [St:%I64i/Od:%I64i]"/>
+	<string id="8067" value="%s přích : %s odch (St:%I64i/Od:%I64i)"/>
+	<string id="8068" value="%s přích : %s odch (St:%I64i/Od:%I64i/H:%I64i)"/>
 	<string id="8069" value="Připojit"/>
 	<string id="8070" value="Připojuji..."/>
 	<string id="8071" value="Připojit"/>
@@ -3264,7 +3270,7 @@
 		<control/>
 		<control caption="_Lišta:"/>
 		<control caption="Když kliknu zavřít:"/>
-		<control caption="Zeptej se mě|Ihned zavřít|Shodit do lišty|Zavít po dokončení přenosu"/>
+		<control caption="Zeptej se mě|Shodit do lišty|Ihned zavřít|Zavít po dokončení přenosu"/>
 		<control caption="Když kliknu minimalizovat:"/>
 		<control caption="Normálně na lištu|Shodit do ikony v liště"/>
 	</dialog>
@@ -3523,9 +3529,7 @@
 		<control caption="Stáhnout seznam serverů eDonkey z webu:"/>
 		<control caption="Stáhnout..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Interface:"/>
-		<control caption="Zobrazit další prvky rozhraní BitTorrent"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Připojená stahování:"/>
 		<control/>
 		<control/>
@@ -3892,9 +3896,9 @@
 		<control/>
 		<control caption="Počet zdrojů:"/>
 		<control caption="..."/>
-		<control caption="Odhadovaný čas pro stažení:"/>
-		<control caption="..."/>
 		<control caption="Celková rychlost přenosu:"/>
+		<control caption="..."/>
+		<control caption="Odhadovaný čas pro stažení:"/>
 		<control caption="..."/>
 		<control caption="Stažená velikost:"/>
 		<control caption="..."/>

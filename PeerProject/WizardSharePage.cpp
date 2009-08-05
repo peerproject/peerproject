@@ -84,12 +84,10 @@ BOOL CWizardSharePage::OnInitDialog()
 
 	CRect rc;
 	m_wndList.GetClientRect( &rc );
+	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
 	m_wndList.InsertColumn( 0, _T("Folder"), LVCFMT_LEFT, rc.Width() - GetSystemMetrics( SM_CXVSCROLL ) );
 	m_wndList.SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
 	m_wndList.EnableToolTips( TRUE );
-	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP,
-		LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
 	{
 		CQuickLock oLock( Library.m_pSection );
@@ -100,6 +98,9 @@ BOOL CWizardSharePage::OnInitDialog()
 
 			m_wndList.InsertItem( LVIF_TEXT|LVIF_IMAGE, m_wndList.GetItemCount(),
 				pFolder->m_sPath, 0, 0, SHI_FOLDER_OPEN, 0 );
+
+			m_wndList.SetItemState( m_wndList.GetItemCount() - 1 ,
+				UINT( ( pFolder->IsShared() != TRUE ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
 		}
 
 		CString strPrograms( theApp.GetProgramFilesFolder() ), strFolder;
@@ -113,19 +114,20 @@ BOOL CWizardSharePage::OnInitDialog()
 		CreateDirectory( Settings.Downloads.TorrentPath );
 		AddPhysicalFolder( Settings.Downloads.TorrentPath );
 
-		strFolder = strPrograms + _T("\\Piolet\\My Shared Folder");
+		strFolder = strPrograms + _T("\\Shareaza\\Downloads");
 		AddPhysicalFolder( strFolder );
 		strFolder = strPrograms + _T("\\eMule\\Incoming");
 		AddPhysicalFolder( strFolder );
 		strFolder = strPrograms + _T("\\Neo Mule\\Incoming");
 		AddPhysicalFolder( strFolder );
-		strFolder = strPrograms + _T("\\eDonkey2000\\incoming");
-		AddPhysicalFolder( strFolder );
 		strFolder = strPrograms + _T("\\Ares\\My Shared Folder");
+		AddPhysicalFolder( strFolder );
+		strFolder = strPrograms + _T("\\Piolet\\My Shared Folder");
 		AddPhysicalFolder( strFolder );
 		strFolder = strPrograms + _T("\\morpheus\\My Shared Folder");
 		AddPhysicalFolder( strFolder );
 
+		AddRegistryFolder( HKEY_CURRENT_USER, _T("Software\\Shareaza\\Shareaza\\Downloads"), _T("CompletePath") );
 		AddRegistryFolder( HKEY_CURRENT_USER, _T("Software\\Kazaa\\Transfer"), _T("DlDir0") );
 		AddRegistryFolder( HKEY_CURRENT_USER, _T("Software\\Xolox"), _T("completedir") );
 		AddRegistryFolder( HKEY_CURRENT_USER, _T("Software\\Xolox"), _T("sharedir") );
@@ -196,6 +198,8 @@ void CWizardSharePage::OnItemChangedShareFolders(NMHDR* /*pNMHDR*/, LRESULT* pRe
 void CWizardSharePage::OnShareAdd()
 {
 	LibraryFolders.AddSharedFolder( m_wndList );
+
+	m_wndList.SetItemState( m_wndList.GetItemCount() - 1 , 2 << 12, LVIS_STATEIMAGEMASK );	// Checked box
 }
 
 void CWizardSharePage::OnShareRemove()
@@ -203,9 +207,7 @@ void CWizardSharePage::OnShareRemove()
 	for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
 	{
 		if ( m_wndList.GetItemState( nItem, LVIS_SELECTED ) )
-		{
 			m_wndList.DeleteItem( nItem-- );
-		}
 	}
 }
 
@@ -232,7 +234,15 @@ LRESULT CWizardSharePage::OnWizardNext()
 			for ( ; nItem < m_wndList.GetItemCount() ; nItem++ )
 			{
 				CString strFolder = m_wndList.GetItemText( nItem, 0 );
-				if ( strFolder.CompareNoCase( pFolder->m_sPath ) == 0 ) break;
+				if ( strFolder.CompareNoCase( pFolder->m_sPath ) == 0 )
+				{	
+					if ( m_wndList.GetCheck(nItem) && ! pFolder->IsShared() )
+						pFolder->SetShared( TRI_TRUE );
+					else if ( ! m_wndList.GetCheck(nItem) && pFolder->IsShared() )
+						pFolder->SetShared( TRI_FALSE );
+					
+					break;
+				}
 			}
 
 			if ( nItem >= m_wndList.GetItemCount() )

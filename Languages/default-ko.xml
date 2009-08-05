@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Korean Language Skin File -->
-<!-- Translation based on default-en.xml SVN r28 --> <!--Machine Translated-->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->  <!--"Peer Project" = 피어 프로젝트-->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Korean Language Skin File -->
+
+<!-- Translation based on default-en.xml SVN r30 --> <!--Machine Translated!-->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="한국어"
-		author="PeerProject Development Team"
-		description="PeerProject Korean Language Skin File"
-		link="http://PeerProject.org"
-		email="Contact(at)PeerProject.org"
-		version="1.0.0.0"
-		type="Language"
-		language="ko"
-		prompt="여기를 클릭하여 자연 언어는 한국을 선택합니다."
-		dir="ltr"
+<manifest
+	name="한국어"
+	author="PeerProject Development Team"
+	description="PeerProject Korean Language Skin File"
+	link="http://PeerProject.org"
+	email="Contact(at)PeerProject.org"
+	version="1.0.0.0"
+	type="Language"
+	language="ko"
+	prompt="여기를 클릭하여 자연 언어는 한국을 선택합니다."
 />
 
 <!-- Toolbar Definitions -->
@@ -61,6 +61,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -69,13 +70,12 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
 		<button id="ID_NETWORK_SEARCH" text="새로운 검색"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
@@ -1200,9 +1200,10 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Resume All"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Pa_use All"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Clear All"/>
-		<separator/>
+		<separator/> <1--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Hide Groups"/>
-		<separator/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="R_emove Group"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_New Group..."/>
 		<separator/>
@@ -1677,6 +1678,8 @@
 		<text group="11" align="middle">Disconnected</text>
 		<text group="12" align="middle">Connecting...</text>
 		<text group="13" align="middle">Connected</text>
+		<text group="14" align="middle" id="G1Hubs">%i peers</text>
+		<text group="15" align="middle" id="G1Leaves">%i leaves</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
@@ -1976,8 +1979,8 @@
 	<string id="8064" value="&#160; %lu 이웃에 연결됨. &#160; %s 지방 컬렉션."/>
 	<string id="8065" value="Connecting to the network..."/>
 	<string id="8066" value="Not connected to the network."/>
-	<string id="8067" value="%s in : %s out [D:%I64i/U:%I64i]"/>
-	<string id="8068" value="[H:%I64i] %s in : %s out [D:%I64i/U:%I64i]"/>
+	<string id="8067" value="%s in : %s out (d:%I64i/u:%I64i)"/>
+	<string id="8068" value="%s in : %s out (d:%I64i/u:%I64i/peers:%I64i)"/>
 	<string id="8069" value="Connect"/>
 	<string id="8070" value="Connecting..."/>
 	<string id="8071" value="Connected"/>
@@ -2690,10 +2693,10 @@
 		<control caption="Opacity:"/>
 		<control/>
 		<control caption="_Tray:"/>
-		<control caption="When I click close:"/>
-		<control caption="Ask Me|Close Immediately|Minimise to Tray|Close After Transfers"/>
-		<control caption="When I click minimise:"/>
-		<control caption="Normal|Minimise to Tray"/>
+		<control caption="Close Button Behavior:"/>
+		<control caption="Ask Me|Minimize to Tray|Close Immediately|Close After Transfers"/>
+		<control caption="Minimize Button Behavior:"/>
+		<control caption="Normal|Minimize to Tray"/>
 	</dialog>
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="도서관">
 		<control caption="_Options:"/>
@@ -2986,9 +2989,7 @@
 		<control caption="Download eDonkey server list from the web:"/>
 		<control caption="Download..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Interface:"/>
-		<control caption="Display additional BitTorrent interface elements"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download Connections:"/>
 		<control/>
 		<control/>
@@ -2996,13 +2997,13 @@
 		<control/>
 		<control/>
 		<control caption="Client connections"/>
-		<control caption=" Clear downloaded torrents        When the share ratio reaches"/>
+		<control caption="Clear downloaded torrents when share ratio reaches:"/>
 		<control/>
 		<control/>
 		<control caption="%"/>
 		<control caption="Prefer torrent sources"/>
 		<control caption="_EndGame:"/>
-		<control caption="Enable EndGame mode when completing torrents"/>
+		<control caption="Enable EndGame mode when completing torrents (multi-source)"/>
 		<control caption="_Store Torrents Here:"/>
 		<control/>
 		<control/>
@@ -3355,9 +3356,9 @@
 		<control/>
 		<control caption="Number of sources:"/>
 		<control caption="..."/>
-		<control caption="Time remaining:"/>
-		<control caption="..."/>
 		<control caption="Transfer speed:"/>
+		<control caption="..."/>
+		<control caption="Time remaining:"/>
 		<control caption="..."/>
 		<control caption="Total downloaded:"/>
 		<control caption="..."/>

@@ -1146,12 +1146,29 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		rc.DeflateRect( 1, 1 );
 	}
 
-	if ( m_nImage <= 0 && bDown) // No Icon Assumes Menu Item Case
-		SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Down" ) );
-	else if ( m_nImage <= 0 && bHot )
-		SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Hover" ) );
-	else if ( m_nImage <= 0 )
-		SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Up" ) );
+	if ( m_pBar->m_bGripper )	// Detect Menubar Items
+	{
+		if ( m_nImage > 0 ) 	// Windowed Mode Icons
+		{
+			if ( bDown )
+				SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Down" ) );
+			else if ( bHot )
+				SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Hover" ) );
+			else if ( m_bChecked )
+				SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Checked" ) );
+			else
+				SetButtonmark( Skin.GetWatermark( L"CCoolMenuBar.Up" ) );
+		}
+		else	// Text Menus
+		{
+			if ( bDown )
+				SetButtonmark( Skin.GetWatermark( L"CCoolMenuItem.Down" ) );
+			else if ( bHot )
+				SetButtonmark( Skin.GetWatermark( L"CCoolMenuItem.Hover" ) );
+			else
+				SetButtonmark( Skin.GetWatermark( L"CCoolMenuItem.Up" ) );
+		}
+	}
 	else if ( !m_bEnabled )
 		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Disabled" ) );
 	else if ( bDown )
@@ -1166,7 +1183,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	if ( m_bRegularButton && !m_nCtrlID )
 	{
 		CoolInterface.DrawWatermark( pDC, &rc, &m_bmButtonmark );
-		// A mess in function prototype. Why pass "bTransparent" and then ignore it? (Temp Watermark)
+		// ToDo: Fix mess in function prototype. Why pass "bTransparent" and then ignore it? (Temp Watermark)
 		pDC->SetBkMode( TRANSPARENT );
 		crBackground = CLR_NONE;
 		rc.OffsetRect( 1 , 0 );

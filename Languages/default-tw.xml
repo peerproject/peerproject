@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Chinese (Traditional) Skin File -->
-<!-- Translation based on default-en.xml (Shareaza 2.2.2.12) -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Chinese (Traditional) Skin File -->
+
+<!-- Translation based on default-en.xml (Shareaza 2.2.2.12) -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="繁體中文"
-		author="James Bond"
-		updateBy="James Bond"
-		description="PeerProject Default Chinese (Traditional) Skin File"
-		link="http://PeerProject.org"
-		email="Contact(at)PeerProject.org"
-		version="1.0.0.0"
-		type="Language"
-		language="tw"
-		prompt="設定繁體中文為預設語言"
+<manifest
+	name="繁體中文"
+	author="James Bond"
+	updateBy="James Bond"
+	description="PeerProject Default Chinese (Traditional) Skin File"
+	link="http://PeerProject.org"
+	email="Contact(at)PeerProject.org"
+	version="1.0.0.0"
+	type="Language"
+	language="tw"
+	prompt="設定繁體中文為預設語言"
 />
 
 <!-- Toolbar Definitions -->
@@ -60,6 +61,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -68,13 +70,12 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
 		<button id="ID_NETWORK_SEARCH" text="新的搜尋"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
@@ -1092,11 +1093,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全部繼續"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全部暫停"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全部清除"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="顯示群組"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="新群組..."/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="移除群組"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="新群組..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="屬性"/>
 	</menu>
@@ -1598,22 +1600,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">點選這裡學習如何設定您的路由器或是防火牆</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">自訂 PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">外觀</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">外觀</link>
 		<text align="middle">&#160;︰改變 PeerProject 的外觀</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">設定精靈</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">設定精靈</link>
 		<text align="middle">&#160;︰編輯 PeerProject 的設定</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">快速說明</link>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">快速說明</link>
 		<text align="middle">&#160;︰查看 PeerProject 入門使用說明</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1649,6 +1652,8 @@
 		<text group="11" align="middle">已中斷連線</text>
 		<text group="12" align="middle">連線中...</text>
 		<text group="13" align="middle">已連線</text>
+		<text group="14" align="middle" id="G1Hubs">%i 結點</text>
+		<text group="15" align="middle" id="G1Leaves">%i 葉結點</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey:</text>
@@ -2416,8 +2421,8 @@
 	<string id="8064" value="已連線至 %lu 鄰居.  %s 在本地收藏."/>
 	<string id="8065" value="連線到網路中..."/>
 	<string id="8066" value="還沒連線到網路."/>
-	<string id="8067" value="%s in : %s out [D:%I64i/U:%I64i]"/>
-	<string id="8068" value="[H:%I64i] %s in : %s out [D:%I64i/U:%I64i]"/>
+	<string id="8067" value="%s in : %s out (d:%I64i/u:%I64i)"/>
+	<string id="8068" value="%s in : %s out (d:%I64i/u:%I64i/s:%I64i)"/>
 	<string id="8069" value="連線"/>
 	<string id="8070" value="連線中"/>
 	<string id="8071" value="已連線"/>
@@ -3089,7 +3094,7 @@
 		<control/>
 		<control caption="系統列:"/>
 		<control caption="當我點選關閉鈕時:"/>
-		<control caption="詢問我|立刻關閉程式|最小化至系統列|傳輸後關閉"/>
+		<control caption="詢問我|最小化至系統列|立刻關閉程式|傳輸後關閉"/>
 		<control caption="當我點選最小化時:"/>
 		<control caption="標準|最小化至系統列"/>
 	</dialog>
@@ -3348,9 +3353,7 @@
 		<control caption="從網際網路下載 eDonkey2000 伺服器清單:"/>
 		<control caption="下載..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="介面:"/>
-		<control caption="顯示額外的 BitTorrent 介面要素"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="下載連線:"/>
 		<control/>
 		<control/>
@@ -3716,9 +3719,9 @@
 		<control/>
 		<control caption="來源數:"/>
 		<control caption="..."/>
-		<control caption="估計剩餘時間:"/>
-		<control caption="..."/>
 		<control caption="總計傳輸速度:"/>
+		<control caption="..."/>
+		<control caption="估計剩餘時間:"/>
 		<control caption="..."/>
 		<control caption="已下載的容量:"/>
 		<control caption="..."/>

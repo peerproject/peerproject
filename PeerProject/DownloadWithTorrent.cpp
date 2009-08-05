@@ -278,13 +278,6 @@ BOOL CDownloadWithTorrent::SetTorrent(const CBTInfo& oTorrent)
 		oTorrent.SaveTorrentFile( Settings.Downloads.TorrentPath );
 	}
 
-	if ( ! Settings.BitTorrent.AdvancedInterfaceSet )
-	{
-		// If this is the first time the user has downloaded a torrent, turn the extra interface on.
-		Settings.BitTorrent.AdvancedInterfaceSet	= TRUE;
-		Settings.BitTorrent.AdvancedInterface		= TRUE;
-	}
-
 	return TRUE;
 }
 

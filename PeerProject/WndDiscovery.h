@@ -43,6 +43,7 @@ public:
 	CListCtrl		m_wndList;
 	CImageList		m_gdiImageList;
 	CLiveListSizer	m_pSizer;
+	CCoolBarCtrl    m_wndToolBar;
 	BOOL			m_bShowGnutella;
 	BOOL			m_bShowWebCache;
 	BOOL			m_bShowServerMet;

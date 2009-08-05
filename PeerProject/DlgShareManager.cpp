@@ -110,6 +110,8 @@ void CShareManagerDlg::OnItemChangedShareFolders(NMHDR* /*pNMHDR*/, LRESULT* pRe
 void CShareManagerDlg::OnShareAdd()
 {
 	LibraryFolders.AddSharedFolder( m_wndList );
+
+	m_wndList.SetItemState( m_wndList.GetItemCount() - 1 , 2 << 12, LVIS_STATEIMAGEMASK );	// Checked box
 }
 
 void CShareManagerDlg::OnShareRemove()
@@ -117,9 +119,7 @@ void CShareManagerDlg::OnShareRemove()
 	for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
 	{
 		if ( m_wndList.GetItemState( nItem, LVIS_SELECTED ) )
-		{
 			m_wndList.DeleteItem( nItem-- );
-		}
 	}
 }
 
