@@ -361,6 +361,7 @@ DWORD CUploadQueue::GetBandwidthLimit(INT_PTR nTransfers) const
 
 	INT_PTR nTotalPoints = nLocalPoints;
 
+	CQuickLock oLock( UploadQueues.m_pSection );
 	for ( POSITION pos = UploadQueues.GetIterator() ; pos ; )
 	{
 		CUploadQueue* pOther = UploadQueues.GetNext( pos );

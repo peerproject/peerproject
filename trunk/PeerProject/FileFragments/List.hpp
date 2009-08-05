@@ -77,47 +77,46 @@ public:
 		m_set.clear();
 		Traits::clear();
 	}
-	// @insert  Inserts a fragment into the container. Because of the automatic
-	//          sorting and merging guarantied by the container, this might
-	//          not insert the full range indicated by the fragment in cases
-	//          when parts of the range of the fragment are already present.
-	//          Attempting to insert an empty fragment ( Length() == 0 ) is
-	//          possible ( if the fragment is constructible in the first place )
-	//          but does nothing.
-	// @return  Returns the length of the range that has been inserted.
-	//          Effectively it reflects the change of sumLength().
+	// @insert	Inserts a fragment into the container.
+	//			Because of the automatic sorting and merging guaranteed by the container,
+	//			this might not insert the full range indicated by the fragment
+	//			in cases when parts of the range of the fragment are already present.
+	//			Attempting to insert an empty fragment ( Length() == 0 ) is possible
+	//			(if fragment is constructible in the first place) but does nothing.
+	// @return	Returns the length of the range that has been inserted.
+	//			Effectively it reflects the change of sumLength().
 	// @complexity   ~O( log( n ) )
 	range_size_type insert(const range_type& value);
-	// @insert  Inserts a sequence of fragments. An optimized version should be
-	//          written if 2 large containers have to be merged often.
+	// @insert	Inserts a sequence of fragments. An optimized version should be
+	//			written if 2 large containers have to be merged often.
 	// @complexity   ~O( n_insert * log( n ) )
-	template< typename input_iterator >            
+	template< typename input_iterator >
 	range_size_type insert(input_iterator first, input_iterator last)
 	{
 		range_size_type sum = 0;
 		for ( ; first != last; ) sum += insert( *first++ );
 		return sum;
 	}
-	// @insert  Inserts a fragment using an iterator as hint. Insertion is done
-	//          in constant time, if no merging occurs and the element can be
-	//          inserted before the hint. Otherwise normal insertion occurs.
+	// @insert	Inserts a fragment using an iterator as hint. Insertion is done
+	//			in constant time, if no merging occurs and the element can be
+	//			inserted before the hint. Otherwise normal insertion occurs.
 	// @complexity   ~O( 1 ) or ~O( log( n ) )
 	range_size_type insert(const iterator where, const range_type& value);
-	// @erase   Deletes a fragment from the container. Because of the automatic
-	//          sorting and merging guarantied by the container, this might
-	//          not delete the full range indicated by the fragment, in cases
-	//          when parts of the range of the fragment are not present.
-	//          Attempting to delete an empty fragment ( Length() == 0 ) is
-	//          possible but does nothing.
-	// @return  Returns the length of the range that has been deleted.
-	//          Effectively it reflects the change of sumLength().
-	//          Note that this differs from the standard containers interface
-	//          which usually returns a size_type for this kind of funtion,
-	//          which indictaes the number of elements being erased.
+	// @erase	Deletes a fragment from the container.
+	//			Because of the automatic sorting and merging guaranteed by the container,
+	//			this might not delete the full range indicated by the fragment
+	//			in cases when parts of the range of the fragment are already present.
+	//			Attempting to delete an empty fragment ( Length() == 0 ) is possible
+	//			(if fragment is constructible in the first place) but does nothing.
+	// @return	Returns the length of the range that has been deleted.
+	//			Effectively it reflects the change of sumLength().
+	//			Note that this differs from the standard containers interface
+	//			which usually returns a size_type for this kind of funtion,
+	//			which indictaes the number of elements being erased.
 	range_size_type erase(const range_type& value);
-	// @erase   Deletes a sequence of fragments from the container. That
-	//          sequence need not be part of the list. If it is, use a loop
-	//          over the next function instead, if speed is important.
+	// @erase	Deletes a sequence of fragments from the container.
+	//			That sequence need not be part of the list. If it is,
+	//			use a loop over the next function instead, if speed is important.
 	template< typename input_iterator >
 	range_size_type erase(input_iterator first, input_iterator last)
 	{
@@ -125,10 +124,10 @@ public:
 		for ( ; first != last; ) sum += erase( *first++ );
 		return sum;
 	}
-	// @erase   This deletes the fragment the argument points to.
-	//          Iterators that point to other fragments remain valid.
-	// @return  Returns iterator that points to the next fragment after the one
-	//          pointed to by the argument.
+	// @erase	This deletes the fragment the argument points to.
+	//			Iterators that point to other fragments remain valid.
+	// @return	Returns iterator that points to the next fragment
+	//			after the one pointed to by the argument.
 	// @complexity   ~O( log( n ) )
 	range_size_type erase(const iterator where)
 	{
@@ -136,9 +135,9 @@ public:
 		m_set.erase( where );
 		return result;
 	}
-	// @swap    Swaps two lists.
+	// @swap	Swaps two lists.
 	// @complexity   ~O( 1 )
-	void swap(List& rhs)                    // throw ()
+	void swap(List& rhs)			// throw ()
 	{
 		Traits::swap( rhs );
 		m_set.swap( rhs.m_set );
@@ -234,9 +233,10 @@ list_type inverse(const list_type& src);
 
 } // namespace Ranges
 
+
 ////////////////////////////////////////////////////////////////////////////////
 // Implementation
-////////////////////////////////////////////////////////////////////////////////
+//
 
 namespace Ranges
 {
@@ -248,7 +248,7 @@ typename RangeT::size_type List< RangeT, TraitsT, ContainerT >::insert(const Ran
 	{
 //		throw ListException( value, limit() );
 		CString msg;
-		msg.Format( _T( "ListError - insert - size: %u - limit: %I64u - sum: %I64u - " )
+		msg.Format( _T( "Fragment ListError Insert - size: %u - limit: %I64u - sum: %I64u - " )
 			_T( "Range - begin: %I64u - end: %I64u" ),
 			size(), limit(), Traits::length_sum(), value.begin(), value.end() );
 		theApp.Message( MSG_ERROR, msg );
@@ -269,7 +269,7 @@ typename RangeT::size_type List< RangeT, TraitsT, ContainerT >::insert(
 	{
 //		throw ListException( value, limit() );
 		CString msg;
-		msg.Format( _T( "ListError - insert(h) - size: %u - limit: %I64u - sum: %I64u - " )
+		msg.Format( _T( "Fragment ListError Insert(h) - size: %u - limit: %I64u - sum: %I64u - " )
 			_T( "Range - begin: %I64u - end: %I64u" ),
 			size(), limit(), Traits::length_sum(), value.begin(), value.end() );
 		theApp.Message( MSG_ERROR, msg );
@@ -290,7 +290,7 @@ typename RangeT::size_type List< RangeT, TraitsT, ContainerT >::erase(const Rang
 	{
 //		throw ListException( value, limit() );
 		CString msg;
-		msg.Format( _T( "ListError - erase - size: %u - limit: %I64u - sum: %I64u - " )
+		msg.Format( _T( "Fragment ListError Erase - size: %u - limit: %I64u - sum: %I64u - " )
 			_T( "Range - begin: %I64i - end: %I64u" ),
 			size(), limit(), Traits::length_sum(), value.begin(), value.end() );
 		theApp.Message( MSG_ERROR, msg );

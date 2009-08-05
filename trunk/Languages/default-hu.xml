@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Hungarian Skin File -->
-<!-- Translation based on default-en.xml -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Hungarian Skin File -->
+
+<!-- Translation based on default-en.xml -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="Magyar"
-		author="Yuri"
-		updatedBy="Yuri"
-		description="PeerProject Default Hungarian Skin File"
-		link="http://totenkopf.uw.hu"
-		email="yurielvtars(at)gmail.com"
-		version="1.0.0.0"
-		type="Language"
-		language="hu"
-		prompt="Kattintson ide a magyar nyelvhez."
+<manifest
+	name="Magyar"
+	author="Yuri"
+	updatedBy="Yuri"
+	description="PeerProject Default Hungarian Skin File"
+	link="http://totenkopf.uw.hu"
+	email="yurielvtars(at)gmail.com"
+	version="1.0.0.0"
+	type="Language"
+	language="hu"
+	prompt="Kattintson ide a magyar nyelvhez."
 />
 
 <!-- Toolbar Definitions -->
@@ -60,6 +61,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -68,14 +70,13 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
-		<button id="ID_NETWORK_SEARCH" text="Új keresés"/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
+		<button id="ID_NETWORK_SEARCH" text="Keresés"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
@@ -1158,11 +1159,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Mindet _folytat"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Mindet _szünetelteti"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Mindet _törli"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Csoportok _megjelenítése"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="Ú_j csoport"/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Csoport _eltávolítása"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="Ú_j csoport"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Tulajdonságok"/>
 	</menu>
@@ -1739,22 +1741,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">Kattintson ide a router vagy tűzfal helyes beállításához.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">TESTRESZABÁS</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Kinézetek</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Kinézetek</link>
 		<text align="middle">&#160;- Változtassa meg a PeerProject kinézetét.</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Gyors beállítás</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Gyors beállítás</link>
 		<text align="middle">&#160;- PeerProject beállítások egyszerűen.</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Súgó</link>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Súgó</link>
 		<text align="middle">&#160;- Segítség a program használatához.</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1795,6 +1798,8 @@
 		<text group="11" align="middle">Nincs kapcsolat</text>
 		<text group="12" align="middle">Kapcsolódás...</text>
 		<text group="13" align="middle">Kapcsolódva</text>
+		<text group="14" align="middle" id="G1Hubs">%i peer</text>
+		<text group="15" align="middle" id="G1Leaves">%i leaf</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
@@ -2631,8 +2636,8 @@
 	<string id="8064" value="Kapcsolódva %lu szomszéddal.  %s a megosztás mérete."/>
 	<string id="8065" value="Kapcsolódás..."/>
 	<string id="8066" value="Nincs kapcsolat."/>
-	<string id="8067" value="Le: %s | Fel: %s  [D:%I64i/U:%I64i]"/>
-	<string id="8068" value="[H:%I64i]  Le: %s | Fel: %s  [D:%I64i/U:%I64i]"/>
+	<string id="8067" value="Le: %s | Fel: %s  (d:%I64i/u:%I64i)"/>
+	<string id="8068" value="Le: %s | Fel: %s  (d:%I64i/u:%I64i/s:%I64i)"/>
 	<string id="8069" value="Kapcsolódás"/>
 	<string id="8070" value="Kapcsolódás..."/>
 	<string id="8071" value="Kapcsolódva"/>
@@ -3331,7 +3336,7 @@
 		<control/>
 		<control caption="_Tálca"/>
 		<control caption="Bezárás gomb:"/>
-		<control caption="Rákérdez|Azonnal bezár|Leküldi az óra mellé|Forgalom után bezár"/>
+		<control caption="Rákérdez|Leküldi az óra mellé|Azonnal bezár|Forgalom után bezár"/>
 		<control caption="Kis méret gomb:"/>
 		<control caption="Normál|Leküldi az óra mellé"/>
 	</dialog>
@@ -3626,9 +3631,7 @@
 		<control caption="eDonkey szerverlista letöltése az internetről:"/>
 		<control caption="Letöltés..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Felhasználói felület"/>
-		<control caption="További BitTorrent elemek megjelenítése"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Letöltési kapcsolatok"/>
 		<control/>
 		<control/>
@@ -3995,9 +3998,9 @@
 		<control/>
 		<control caption="Források száma:"/>
 		<control caption="..."/>
-		<control caption="Hátralévő idő:"/>
-		<control caption="..."/>
 		<control caption="Sebesség:"/>
+		<control caption="..."/>
+		<control caption="Hátralévő idő:"/>
 		<control caption="..."/>
 		<control caption="Letöltve:"/>
 		<control caption="..."/>

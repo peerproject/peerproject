@@ -113,11 +113,50 @@ void CDownloadGroups::Remove(CDownloadGroup* pGroup)
 		if ( pGroup == m_pSuper ) return;
 		m_pList.RemoveAt( pos );
 		delete pGroup;
-
-		m_nBaseCookie ++;
-		m_nGroupCookie ++;
 	}
 }
+
+//////////////////////////////////////////////////////////////////////
+// CDownloadGroups move group
+
+void CDownloadGroups::MoveRight(CDownloadGroup* pGroup)
+{
+	CQuickLock pLock( m_pSection );
+
+	if ( POSITION pos = m_pList.Find( pGroup ) )
+	{
+		if ( pGroup == m_pSuper ) return;
+		m_pList.AddTail( pGroup );
+		m_pList.RemoveAt( pos );
+	}
+
+	Save();
+	Load();
+}
+
+// ToDo: Enable Left/Right Group Shift
+//void CDownloadGroups::MoveLeft(CDownloadGroup* pGroup)
+//{
+//	CQuickLock pLock( m_pSection );
+
+//	if ( POSITION pos = m_pList.Find( pGroup ) )
+//	{
+//		if ( pGroup == m_pSuper ) return;
+
+//		if ( POSITION pos2 = m_pList.GetTailPosition() )
+//		{
+//			CDownloadGroup* pGroup2 = m_pList.GetAt( pos2 );
+//			if ( pGroup2 == m_pSuper ) return;
+
+//			m_pList.SetAt( pos, pGroup2 );
+//			m_pList.SetAt( pos2, pGroup );
+//		}
+
+//		Save();
+//		Load();
+//	}
+//}
+
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadGroups link a download to the appropriate groups
@@ -352,17 +391,6 @@ void CDownloadGroups::Serialize(CArchive& ar)
 			if ( nState == 1 ) m_pSuper = pGroup;
 
 			pGroup->Serialize( ar, nVersion );
-		}
-
-		if ( nVersion < 5 )
-		{
-			CDownloadGroup* pGroup = Add( _T("Image") );
-			pGroup->SetSchema( CSchema::uriImage );
-			pGroup->SetDefaultFilters();
-
-			pGroup = Add( _T("Collection") );
-			pGroup->SetSchema( CSchema::uriCollection );
-			pGroup->SetDefaultFilters();
 		}
 
 		GetSuperGroup();

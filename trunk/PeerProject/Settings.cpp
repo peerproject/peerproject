@@ -98,7 +98,7 @@ void CSettings::Load()
 	Add( _T("Settings"), _T("LastSettingsPage"), &General.LastSettingsPage );
 	Add( _T("Settings"), _T("LastSettingsIndex"), &General.LastSettingsIndex, 0 );
 	Add( _T("Settings"), _T("RatesInBytes"), &General.RatesInBytes, true );
-	Add( _T("Settings"), _T("RatesUnit"), &General.RatesUnit, 0 );
+	Add( _T("Settings"), _T("RatesUnit"), &General.RatesUnit, 2, 1, 0, 3 );
 	Add( _T("Settings"), _T("RefreshRate"), &General.RefreshRate, 1000, 1, 100, 60000, _T(" ms") );
 	Add( _T("Settings"), _T("Running"), &General.Running, false, true );
 	Add( _T("Settings"), _T("ShowTimestamp"), &General.ShowTimestamp, true );
@@ -140,15 +140,15 @@ void CSettings::Load()
 	Add( _T("Fonts"), _T("PacketDumpFont"), &Fonts.PacketDumpFont, _T("Lucida Console") );
 	Add( _T("Fonts"), _T("FontSize"), &Fonts.FontSize, 11 );
 
-	Add( _T("Library"), _T("CreateGhosts"), &Library.CreateGhosts, true );
+	Add( _T("Library"), _T("CreateGhosts"), &Library.CreateGhosts, false );
 	Add( _T("Library"), _T("FilterURI"), &Library.FilterURI );
 	Add( _T("Library"), _T("HashWindow"), &Library.HashWindow, true );
-	Add( _T("Library"), _T("HighPriorityHash"), &Library.HighPriorityHash, false );
-	Add( _T("Library"), _T("HighPriorityHashing"), &Library.HighPriorityHashing, 20, 1, 1, 100, _T(" MB/s") );
-	Add( _T("Library"), _T("HistoryDays"), &Library.HistoryDays, 3, 1, 0, 365, _T(" days") );
+	Add( _T("Library"), _T("HighPriorityHash"), &Library.HighPriorityHash, true );
+	Add( _T("Library"), _T("HighPriorityHashing"), &Library.HighPriorityHashing, 24, 1, 2, 100, _T(" MB/s") );
+	Add( _T("Library"), _T("HistoryDays"), &Library.HistoryDays, 5, 1, 0, 365, _T(" days") );
 	Add( _T("Library"), _T("HistoryTotal"), &Library.HistoryTotal, 32, 1, 0, 100, _T(" files") );
 	Add( _T("Library"), _T("LastUsedView"), &Library.LastUsedView );
-	Add( _T("Library"), _T("LowPriorityHashing"), &Library.LowPriorityHashing, 2, 1, 1, 100, _T(" MB/s") );
+	Add( _T("Library"), _T("LowPriorityHashing"), &Library.LowPriorityHashing, 4, 1, 1, 50, _T(" MB/s") );
 	Add( _T("Library"), _T("MarkFileAsDownload"), &Library.MarkFileAsDownload, true );
 	Add( _T("Library"), _T("MaxMaliciousFileSize"), &Library.MaxMaliciousFileSize, 1024, 1, 1024, 1024*5, _T(" B") );
 	Add( _T("Library"), _T("PanelSize"), &Library.PanelSize, 120, 1, 0, 1024, _T(" px") );
@@ -326,7 +326,7 @@ void CSettings::Load()
 	Add( _T("Gnutella"), _T("RouteCache"), &Gnutella.RouteCache, 600, 60, 1, 120, _T(" m") );
 	Add( _T("Gnutella"), _T("SpecifyProtocol"), &Gnutella.SpecifyProtocol, true );
 
-	Add( _T("Gnutella1"), _T("ClientMode"), &Gnutella1.ClientMode, MODE_LEAF, 1, MODE_AUTO, MODE_HUB );
+	Add( _T("Gnutella1"), _T("ClientMode"), &Gnutella1.ClientMode, MODE_AUTO, 1, MODE_AUTO, MODE_HUB );	// MODE_LEAF
 	Add( _T("Gnutella1"), _T("DefaultTTL"), &Gnutella1.DefaultTTL, 3, 1, 1, 3 );
 	Add( _T("Gnutella1"), _T("EnableAlways"), &Gnutella1.EnableAlways, false );
 	Add( _T("Gnutella1"), _T("EnableGGEP"), &Gnutella1.EnableGGEP, true );
@@ -410,7 +410,7 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("MaxShareCount"), &eDonkey.MaxShareCount, 1000, 1, 25, 20000 );
 	Add( _T("eDonkey"), _T("MetAutoQuery"), &eDonkey.MetAutoQuery, true );
 	Add( _T("eDonkey"), _T("MinServerFileSize"), &eDonkey.MinServerFileSize, 0, 1, 0, 50, _T(" MB") );
-	Add( _T("eDonkey"), _T("NumServers"), &eDonkey.NumServers, 1, 1, 0, 1 );
+	Add( _T("eDonkey"), _T("NumServers"), &eDonkey.NumServers, 1, 1, 0, 2 );
 	Add( _T("eDonkey"), _T("PacketThrottle"), &eDonkey.PacketThrottle, 500, 1, 250, 5000, _T(" ms") );
 	Add( _T("eDonkey"), _T("QueryFileThrottle"), &eDonkey.QueryFileThrottle, 60*60*1000, 60*1000, 30, 120, _T(" m") );
 	Add( _T("eDonkey"), _T("QueryGlobalThrottle"), &eDonkey.QueryGlobalThrottle, 1000, 1, 1000, 20000, _T(" ms") );
@@ -428,12 +428,10 @@ void CSettings::Load()
 
 #ifndef LAN_MODE
 	Add( _T("BitTorrent"), _T("AdvancedInterface"), &BitTorrent.AdvancedInterface, true );
-	Add( _T("BitTorrent"), _T("AdvancedInterfaceSet"), &BitTorrent.AdvancedInterfaceSet, true );
 	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, true );
 //	Add( _T("BitTorrent"), _T("EnableToday"), &BitTorrent.EnableToday, true );
 #else
 	Add( _T("BitTorrent"), _T("AdvancedInterface"), &BitTorrent.AdvancedInterface, false );
-	Add( _T("BitTorrent"), _T("AdvancedInterfaceSet"), &BitTorrent.AdvancedInterfaceSet, false );
 	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, false );
 #endif
 	Add( _T("BitTorrent"), _T("AutoClear"), &BitTorrent.AutoClear, false );
@@ -458,7 +456,7 @@ void CSettings::Load()
 	Add( _T("BitTorrent"), _T("TorrentCreatorPath"), &BitTorrent.TorrentCreatorPath );
 	Add( _T("BitTorrent"), _T("TorrentExtraKeys"), &BitTorrent.TorrentExtraKeys, true );
 	Add( _T("BitTorrent"), _T("TrackerKey"), &BitTorrent.TrackerKey, true );
-	Add( _T("BitTorrent"), _T("UploadCount"), &BitTorrent.UploadCount, 4, 1, 2, 16 );
+	Add( _T("BitTorrent"), _T("UploadCount"), &BitTorrent.UploadCount, 4, 1, 2, 20 );
 
 	Add( _T("Downloads"), _T("AllowBackwards"), &Downloads.AllowBackwards, true );
 	Add( _T("Downloads"), _T("AutoClear"), &Downloads.AutoClear, false );
@@ -538,20 +536,6 @@ void CSettings::Load()
 	Add( _T("Uploads"), _T("ShareTiger"), &Uploads.ShareTiger, true );
 	Add( _T("Uploads"), _T("ThrottleMode"), &Uploads.ThrottleMode, true );
 
-	Add( _T("Remote"), _T("Enable"), &Remote.Enable, false );
-	Add( _T("Remote"), _T("Password"), &Remote.Password );
-	Add( _T("Remote"), _T("Username"), &Remote.Username );
-
-	Add( _T("Scheduler"), _T("AllowHub"), &Scheduler.AllowHub, true );
-	Add( _T("Scheduler"), _T("Enable"), &Scheduler.Enable, false );
-	Add( _T("Scheduler"), _T("LimitedBandwidth"), &Scheduler.LimitedBandwidth, 50, 1, 0, 100, _T(" %") );
-	Add( _T("Scheduler"), _T("LimitedNetworks"), &Scheduler.LimitedNetworks, true );
-
-	Add( _T("Experimental"), _T("EnableDIPPSupport"), &Experimental.EnableDIPPSupport, false );
-	Add( _T("Experimental"), _T("TestBTPartials"), &Experimental.TestBTPartials, false );
-
-	Add( _T("WINE"), _T("MenuFix"), &WINE.MenuFix, true );
-
 	Add( _T("IRC"), _T("Colors[0]"), &IRC.Colors[0], RGB(244,0,0) );
 	Add( _T("IRC"), _T("Colors[1]"), &IRC.Colors[1], RGB(0,0,0) );
 	Add( _T("IRC"), _T("Colors[2]"), &IRC.Colors[2], RGB(0,0,244) );
@@ -575,6 +559,22 @@ void CSettings::Load()
 	Add( _T("IRC"), _T("RealName"), &IRC.RealName, _T("PeerIRC") );
 	Add( _T("IRC"), _T("ScreenFont"), &IRC.ScreenFont );
 	Add( _T("IRC"), _T("Updated"), &IRC.Updated, FALSE );
+
+	Add( _T("Remote"), _T("Enable"), &Remote.Enable, false );
+	Add( _T("Remote"), _T("Password"), &Remote.Password );
+	Add( _T("Remote"), _T("Username"), &Remote.Username );
+
+	Add( _T("Scheduler"), _T("AllowHub"), &Scheduler.AllowHub, true );
+	Add( _T("Scheduler"), _T("Enable"), &Scheduler.Enable, false );
+	Add( _T("Scheduler"), _T("LimitedBandwidth"), &Scheduler.LimitedBandwidth, 50, 1, 0, 100, _T(" %") );
+	Add( _T("Scheduler"), _T("LimitedNetworks"), &Scheduler.LimitedNetworks, true );
+
+	Add( _T("Security"), _T("DefaultBan"), &Security.DefaultBan, 100*24*3600, 24*3600, 1, 1000, _T(" days") );
+
+	Add( _T("Experimental"), _T("EnableDIPPSupport"), &Experimental.EnableDIPPSupport, false );
+	Add( _T("Experimental"), _T("TestBTPartials"), &Experimental.TestBTPartials, false );
+
+	Add( _T("WINE"), _T("MenuFix"), &WINE.MenuFix, true );
 
 
 	// Load settings

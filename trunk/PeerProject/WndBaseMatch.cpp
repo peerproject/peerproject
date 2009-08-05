@@ -563,13 +563,30 @@ void CBaseMatchWnd::OnSecurityBan()
 {
 	CSingleLock pLock( &Network.m_pSection, TRUE );
 
-	if ( CMatchFile* pFile = m_pMatches->GetSelectedFile() )
+	if ( m_pMatches->GetSelectedCount() == 1 )
 	{
-		pFile->Ban( banForever );
+		if ( CMatchFile* pFile = m_pMatches->GetSelectedFile() )
+			pFile->Ban( banCustom );
+		else if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
+			pHit->Ban( banCustom );
+		return;
 	}
-	else if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
+	//else multiple selections
+
+	POSITION pos;
+
+	for ( pos = m_pMatches->m_pSelectedFiles.GetHeadPosition() ; pos ; )
 	{
-		pHit->Ban( banForever );
+		CMatchFile* pFile = m_pMatches->m_pSelectedFiles.GetNext( pos );
+
+		pFile->Ban( banCustom );
+	}
+
+	for ( pos = m_pMatches->m_pSelectedHits.GetHeadPosition() ; pos ; )
+	{
+		CQueryHit* pHit = m_pMatches->m_pSelectedHits.GetNext( pos );
+
+		pHit->Ban( banCustom );
 	}
 }
 

@@ -200,6 +200,10 @@ void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile
 				{
 					pRule->m_nExpire = static_cast< DWORD >( time( NULL ) + 604800 );
 				}
+				else if ( ( nBanLength == banCustom ) && ( pRule->m_nExpire < tNow + Settings.Security.DefaultBan + 3600 ) )
+				{
+					pRule->m_nExpire = static_cast< DWORD >( time( NULL ) + Settings.Security.DefaultBan + 3600 );
+				}
 				else if ( ( nBanLength == banForever ) && ( pRule->m_nExpire != CSecureRule::srIndefinite ) )
 				{
 					pRule->m_nExpire = CSecureRule::srIndefinite;
@@ -238,6 +242,10 @@ void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile
 	case banWeek:
 		pRule->m_nExpire	= static_cast< DWORD >( time( NULL ) + 604800 );
 		pRule->m_sComment	= _T("Client Block");
+		break;
+	case banCustom:
+		pRule->m_nExpire	= static_cast< DWORD >( time( NULL ) + Settings.Security.DefaultBan + 3600 );
+		pRule->m_sComment	= _T("Ban");
 		break;
 	case banForever:
 		pRule->m_nExpire	= CSecureRule::srIndefinite;

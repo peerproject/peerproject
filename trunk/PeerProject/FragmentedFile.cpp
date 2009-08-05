@@ -27,7 +27,6 @@
 #include "BTInfo.h"
 #include "Library.h"
 #include "SharedFile.h"
-#include "Uploads.h"
 #include "DlgSelect.h"
 #include "Download.h"
 
@@ -164,7 +163,7 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength,
 	m_nFileError = ERROR_SUCCESS;
 
 	CVirtualFile::iterator pItr = std::find( m_oFile.begin(), m_oFile.end(), pszFile );
-	BOOL bNew = ( pItr == m_oFile.end() );
+	bool bNew = ( pItr == m_oFile.end() );
 	if ( bNew )
 	{
 		// Use new
@@ -172,6 +171,7 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength,
 		part.m_sPath = pszFile;
 		part.m_nOffset = nOffset;
 		part.m_bWrite = bWrite;
+		part.m_nPriority = nPriority;
 
 		if ( pszName )
 			part.m_sName = pszName;
@@ -231,7 +231,6 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength,
 
 	(*pItr).m_nSize = nLength;
 	(*pItr).m_pFile = pFile;
-	(*pItr).m_nPriority = nPriority;
 
 	std::sort( m_oFile.begin(), m_oFile.end(), Less() );
 
@@ -584,8 +583,7 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 			(LPCTSTR)sPath, (LPCTSTR)strTargetDir );
 
 	// Close chained uploads
-	while( !Uploads.OnRename( sPath ) )
-		SwitchToThread();
+	theApp.OnRename( sPath );
 
 	// Create directory for file recursively
 	BOOL bSuccess = CreateDirectory( strTargetDir );
@@ -613,8 +611,7 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 
 	if ( ! bSkip )
 		// ReEnable uploads
-		while( !Uploads.OnRename( sPath, bSuccess ? strTarget : sPath ) )
-			SwitchToThread();
+		theApp.OnRename( sPath, bSuccess ? strTarget : sPath );
 
 	return ( bSuccess ? ERROR_SUCCESS : dwError );
 }

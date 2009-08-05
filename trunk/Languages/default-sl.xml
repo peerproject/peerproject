@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Slovenian Skin File -->
-<!-- Translation based on default-en.xml (Shareaza 2.2.2.12) -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Slovenian Skin File -->
+
+<!-- Translation based on default-en.xml (Shareaza 2.2.2.12) -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="Slovenščina"
-		author="Martin McDowell, dr.vet.med."
-		updatedBy=""
-		description="PeerProject Default Slovenian Skin File"
-		link="http://mcdragon.blogspot.com/"
-		email="mcdragon(at)email.si"
-		version="1.0.0.0"
-		type="Language"
-		language="sl"
-		prompt="Click here to select Slovenian (Slovenščina) as your natural language."
+<manifest
+	name="Slovenščina"
+	author="Martin McDowell, dr.vet.med."
+	updatedBy=""
+	description="PeerProject Default Slovenian Skin File"
+	link="http://mcdragon.blogspot.com/"
+	email="mcdragon(at)email.si"
+	version="1.0.0.0"
+	type="Language"
+	language="sl"
+	prompt="Click here to select Slovenian (Slovenščina) as your natural language."
 />
 
 <!-- Toolbar Definitions -->
@@ -60,6 +61,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -68,14 +70,13 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
-		<button id="ID_NETWORK_SEARCH" text="Novo iskanje"/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
+		<button id="ID_NETWORK_SEARCH" text="Iskanje"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
@@ -1084,11 +1085,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Nadaljuj vse"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_remor vsega"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Počisti vse"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Po_kaži skupine"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="N_ova skupina..."/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Ods_trani skupino"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="N_ova skupina..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Lastnosti"/>
 	</menu>
@@ -1593,22 +1595,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">Kliknite sem, da izveste, kako nastaviti vaš usmerjevalnik oz. požarni zid.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">PRILAGODI PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Preobleke</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Preobleke</link>
 		<text align="middle">&#160;- Spremeni izgled PeerProject</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Čarovnik za nastavitve</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Čarovnik za nastavitve</link>
 		<text align="middle">&#160;- Uredi PeerProject Nastavitve</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Hitra pomoč</link>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Hitra pomoč</link>
 		<text align="middle">&#160;- Osnovna pomoč za uporabo PeerProject</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1641,14 +1644,16 @@
 		<text group="21" align="middle">Povezava prekinjena</text>
 		<text group="22" align="middle">Povezujem...</text>
 		<text group="23" align="middle">Povezan</text>
-		<text group="24" align="middle" id="G2Hubs"> zvezdišč (hubov): %i</text>
-		<text group="25" align="middle" id="G2Leaves">listov (leaves): %i</text>
+		<text group="24" align="middle" id="G2Hubs">%i zvezdišč</text>
+		<text group="25" align="middle" id="G2Leaves">%i listov</text>
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
 		<text group="10" align="middle" format="b">&#160;Gnutella:</text>
 		<text group="11" align="middle">Povezava prekinjena</text>
 		<text group="12" align="middle">Povezujem...</text>
 		<text group="13" align="middle">Povezan</text>
+		<text group="14" align="middle" id="G1Hubs">%i zvezdišč</text>
+		<text group="15" align="middle" id="G1Leaves">%i listov</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey:</text>
@@ -2495,8 +2500,8 @@
 	<string id="8064" value="Povezan s sosedi: %lu. V lokalni knjižnici: %s."/>
 	<string id="8065" value="Povezujem na omrežje..."/>
 	<string id="8066" value="Ni povezave v omrežje."/>
-	<string id="8067" value="%s not : %s ven [D:%I64i/U:%I64i]"/>
-	<string id="8068" value="[H:%I64i] %s not : %s ven [D:%I64i/U:%I64i]"/>
+	<string id="8067" value="%s not : %s ven (d:%I64i/u:%I64i)"/>
+	<string id="8068" value="%s not : %s ven (d:%I64i/u:%I64i/s:%I64i)"/>
 	<string id="8069" value="Poveži se"/>
 	<string id="8070" value="Povezujem..."/>
 	<string id="8071" value="Povezan"/>
@@ -3167,7 +3172,7 @@
 		<control/>
 		<control caption="_Opravilna vrstica:"/>
 		<control caption="Ko kliknem zapri:"/>
-		<control caption="Vprašaj me|Takoj zapri|Minimiziraj v opravilno vrstico|Zapri po prenosih"/>
+		<control caption="Vprašaj me|Minimiziraj v opravilno vrstico|Takoj zapri|Zapri po prenosih"/>
 		<control caption="Ko izberem minimizranje:"/>
 		<control caption="Navadno|Minimiziraj v opravilno vrstico"/>
 	</dialog>
@@ -3422,9 +3427,7 @@
 		<control caption="Prenesi eDonkey2000 seznam strežnikov iz spleta:"/>
 		<control caption="Prenesi..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Vmesnik:"/>
-		<control caption="Prikaži dodatne BitTorrent elemente vmesnika"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Prenosne povezave:"/>
 		<control/>
 		<control/>
@@ -3790,9 +3793,9 @@
 		<control/>
 		<control caption="Št. virov:"/>
 		<control caption="..."/>
-		<control caption="Čas do konca:"/>
-		<control caption="..."/>
 		<control caption="Skupna prenosna hitrost:"/>
+		<control caption="..."/>
+		<control caption="Čas do konca:"/>
 		<control caption="..."/>
 		<control caption="Prenešen zvezek:"/>
 		<control caption="..."/>

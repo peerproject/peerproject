@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default English Skin File -->
-<!-- Translation based on default-en.xml r28 -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Brittish-English Skin File -->
+
+<!-- Translation based on default-en.xml r30 -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="English (UK)"
-		author="PeerProject Development Team"
-		description="PeerProject Alt English Skin File"
-		link="http://PeerProject.org/"
-		email="Contact(at)PeerProject.org"
-		version="1.0.0.0"
-		type="Language"
-		language="en-uk"
-		prompt="Click here to select Brittish English as your natural language."
-		dir="ltr"
+<manifest
+	name="English (UK)"
+	author="PeerProject Development Team"
+	description="PeerProject Alt English Skin File"
+	link="http://PeerProject.org/"
+	email="Contact(at)PeerProject.org"
+	version="1.0.0.0"
+	type="Language"
+	language="en-uk"
+	prompt="Click here to select Brittish English as your natural language."
+	dir="ltr"
 />
 
 <!-- Toolbar Definitions -->
@@ -568,23 +569,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">learn how to configure your router.</link>
 			<newline gap="20" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="30" height="30" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Customise PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Skins</link>
-		<text align="middle">&#160;- Change PeerProject's look &amp; feel</text>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
+		<text align="middle">&#160;- Change PeerProject's visual appearance</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Settings Wizard</link>
-		<text align="middle">&#160;- Quick edit PeerProject's basic settings</text>
-		<newline gap="8"/>
-		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Quick Help</link>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Settings Wizard</link>
+		<text align="middle">&#160;- Quick-edit PeerProject's basic settings</text>
+		<newline gap="8"/>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Quick Help</link>
 		<text align="middle">&#160;- Get online support using PeerProject</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -750,10 +751,10 @@
 		<control caption="Opacity:"/>
 		<control/>
 		<control caption="_Tray:"/>
-		<control caption="When I click close:"/>
-		<control caption="Ask Me|Close Immediately|Minimise to Tray|Close After Transfers"/>
-		<control caption="When I click minimize:"/>
-		<control caption="Normal|Minimise to Tray"/>
+		<control caption="Close button behaviour:"/>
+		<control caption="Ask Me|Minimise to Tray|Close Immediately|Close After Transfers"/>
+		<control caption="Minimise button behaviour:"/>
+		<control caption="Normal Taskbar|Minimise to Tray"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Media Player">
 		<control caption="_Options:"/>

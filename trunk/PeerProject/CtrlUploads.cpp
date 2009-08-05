@@ -316,7 +316,7 @@ void CUploadsCtrl::SelectTo(int nIndex)
 
 void CUploadsCtrl::DeselectAll(CUploadFile* /*pExcept*/)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &UploadQueues.m_pSection, TRUE );
 	POSITION pos;
 
 	UploadQueues.m_pTorrentQueue->m_bSelected = FALSE;
@@ -353,6 +353,10 @@ BOOL CUploadsCtrl::HitTest(const CPoint& point, CUploadQueue** ppQueue, CUploadF
 
 	if ( ppQueue != NULL ) *ppQueue = NULL;
 	if ( ppFile != NULL ) *ppFile = NULL;
+
+	CSingleLock pLock( &UploadQueues.m_pSection, FALSE );
+	if ( ! pLock.Lock( 500 ) )
+		return FALSE;
 
 	for ( POSITION posQueue = GetQueueIterator() ; posQueue && rcItem.top < rcClient.bottom ; )
 	{
@@ -419,6 +423,10 @@ BOOL CUploadsCtrl::GetAt(int nSelect, CUploadQueue** ppQueue, CUploadFile** ppFi
 	if ( ppQueue != NULL ) *ppQueue = NULL;
 	if ( ppFile != NULL ) *ppFile = NULL;
 
+	CSingleLock pLock( &UploadQueues.m_pSection, FALSE );
+	if ( ! pLock.Lock( 500 ) )
+		return FALSE;
+
 	for ( POSITION posQueue = GetQueueIterator() ; posQueue ; )
 	{
 		CUploadQueue* pQueue = GetNextQueue( posQueue );
@@ -458,6 +466,8 @@ BOOL CUploadsCtrl::GetAt(int nSelect, CUploadQueue** ppQueue, CUploadFile** ppFi
 
 POSITION CUploadsCtrl::GetQueueIterator()
 {
+	ASSUME_LOCK( UploadQueues.m_pSection );
+
 	if ( Settings.Uploads.FilterMask & ULF_TORRENT )
 	{
 		return (POSITION)UploadQueues.m_pTorrentQueue;
@@ -478,6 +488,7 @@ POSITION CUploadsCtrl::GetQueueIterator()
 
 CUploadQueue* CUploadsCtrl::GetNextQueue(POSITION& pos)
 {
+	ASSUME_LOCK( UploadQueues.m_pSection );
 	ASSERT( pos != NULL );
 
 	if ( pos == (POSITION)UploadQueues.m_pTorrentQueue )
@@ -521,6 +532,8 @@ CUploadQueue* CUploadsCtrl::GetNextQueue(POSITION& pos)
 
 POSITION CUploadsCtrl::GetFileIterator(CUploadQueue* pQueue)
 {
+	ASSUME_LOCK( UploadQueues.m_pSection );
+
 	if ( pQueue == UploadQueues.m_pTorrentQueue )
 	{
 		for ( POSITION posNext = UploadFiles.GetIterator() ; posNext ; )
@@ -580,6 +593,7 @@ POSITION CUploadsCtrl::GetFileIterator(CUploadQueue* pQueue)
 
 CUploadFile* CUploadsCtrl::GetNextFile(CUploadQueue* pQueue, POSITION& pos, int* pnPosition)
 {
+	ASSUME_LOCK( UploadQueues.m_pSection );
 	ASSERT( pos != NULL );
 
 	if ( pnPosition != NULL ) *pnPosition = -1;
@@ -685,7 +699,7 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 	int nScroll = GetScrollPos( SB_HORZ );
 	m_wndHeader.SetWindowPos( NULL, -nScroll, 0, rcClient.right + nScroll, HEADER_HEIGHT, SWP_SHOWWINDOW );
 
-	CSingleLock pLock( &Transfers.m_pSection, FALSE );
+	CSingleLock pLock( &UploadQueues.m_pSection, FALSE );
 	if ( ! pLock.Lock( 250 ) )
 		return;
 
@@ -733,7 +747,6 @@ void CUploadsCtrl::OnSize(UINT nType, int cx, int cy)
 
 void CUploadsCtrl::OnPaint()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CRect rcClient, rcItem;
 	CPaintDC dc( this );
 	if ( Settings.General.LanguageRTL ) dc.SetTextAlign( TA_RTLREADING );
@@ -751,34 +764,15 @@ void CUploadsCtrl::OnPaint()
 	CFont* pfOld = (CFont*)dc.SelectObject( &CoolInterface.m_fntNormal );
 	BOOL bFocus = ( GetFocus() == this );
 
-	for ( POSITION posQueue = GetQueueIterator() ; posQueue && rcItem.top < rcClient.bottom ; )
+	CSingleLock pLock( &UploadQueues.m_pSection, FALSE );
+	if ( pLock.Lock( 500 ) )
 	{
-		CUploadQueue* pQueue = GetNextQueue( posQueue );
-
-		POSITION posFile = GetFileIterator( pQueue );
-		if ( posFile == NULL )
-			continue;
-
-		if ( nScroll > 0 )
+		for ( POSITION posQueue = GetQueueIterator() ; posQueue && rcItem.top < rcClient.bottom ; )
 		{
-			nScroll --;
-		}
-		else
-		{
-			PaintQueue( dc, rcItem, pQueue, bFocus && ( m_nFocus == nIndex ) );
-			rcItem.OffsetRect( 0, ITEM_HEIGHT );
-		}
+			CUploadQueue* pQueue = GetNextQueue( posQueue );
 
-		nIndex ++;
-
-		if ( ! pQueue->m_bExpanded )
-			continue;
-
-		while ( posFile && rcItem.top < rcClient.bottom && rcItem.top < rcClient.bottom )
-		{
-			int nPosition;
-			CUploadFile* pFile = GetNextFile( pQueue, posFile, &nPosition );
-			if ( pFile == NULL )
+			POSITION posFile = GetFileIterator( pQueue );
+			if ( posFile == NULL )
 				continue;
 
 			if ( nScroll > 0 )
@@ -787,11 +781,34 @@ void CUploadsCtrl::OnPaint()
 			}
 			else
 			{
-				PaintFile( dc, rcItem, pQueue, pFile, nPosition, bFocus && ( m_nFocus == nIndex ) );
+				PaintQueue( dc, rcItem, pQueue, bFocus && ( m_nFocus == nIndex ) );
 				rcItem.OffsetRect( 0, ITEM_HEIGHT );
 			}
 
 			nIndex ++;
+
+			if ( ! pQueue->m_bExpanded )
+				continue;
+
+			while ( posFile && rcItem.top < rcClient.bottom && rcItem.top < rcClient.bottom )
+			{
+				int nPosition;
+				CUploadFile* pFile = GetNextFile( pQueue, posFile, &nPosition );
+				if ( pFile == NULL )
+					continue;
+
+				if ( nScroll > 0 )
+				{
+					nScroll --;
+				}
+				else
+				{
+					PaintFile( dc, rcItem, pQueue, pFile, nPosition, bFocus && ( m_nFocus == nIndex ) );
+					rcItem.OffsetRect( 0, ITEM_HEIGHT );
+				}
+
+				nIndex ++;
+			}
 		}
 	}
 
@@ -804,6 +821,8 @@ void CUploadsCtrl::OnPaint()
 
 void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue, BOOL bFocus)
 {
+	ASSUME_LOCK( UploadQueues.m_pSection );
+
 	COLORREF crNatural	= CoolInterface.m_crWindow;
 	COLORREF crBack		= pQueue->m_bSelected ? CoolInterface.m_crHighlight : crNatural;
 	COLORREF crLeftAligned = crBack ;
@@ -848,7 +867,7 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 
 			if ( pQueue->m_bExpanded )
 			{
-			CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
+				CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
 					16, rcCell.left, rcCell.top, crLeftAligned );
 			}
 			else

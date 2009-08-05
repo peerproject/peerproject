@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Albanian Skin File -->
-<!-- Translation based on default-en.xml -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Albanian Skin File -->
+
+<!-- Translation based on default-en.xml -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="Shqip"
-		author="Besmir Godole"
-		updatedBy="Besmir Godole"
-		description="PeerProject Default Albanian Skin File"
-		link="http://PeerProject.org"
-		email="bgodole(at)gmail.com"
-		version="1.0.0.0"
-		type="Language"
-		language="sq"
-		prompt="Zgjidhni Shqipen si gjuhë tipike."
+<manifest
+	name="Shqip"
+	author="Besmir Godole"
+	updatedBy="Besmir Godole"
+	description="PeerProject Default Albanian Skin File"
+	link="http://PeerProject.org"
+	email="bgodole(at)gmail.com"
+	version="1.0.0.0"
+	type="Language"
+	language="sq"
+	prompt="Zgjidhni Shqipen si gjuhë tipike."
 />
 
 <!-- Toolbar Definitions -->
@@ -60,6 +61,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -68,13 +70,12 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
 		<button id="ID_NETWORK_SEARCH" text="Kërkim i Ri"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
@@ -1155,11 +1156,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Rimerre Gjithçka"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="P_usho Gjithçka"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Pastro Gjithçka"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Shfaqi Grupet"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="Grup i _Ri..."/>
-		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Fshije _Grupin"/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
+		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Fshije Grupin"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Grup i Ri..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Veti"/>
 	</menu>
@@ -1747,27 +1749,27 @@
 			<link target="peer:command:ID_HELP_ROUTER">Mësoni rreth konfigurimit të routerit ose fajruollit</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">POROSITENI PEERPROJECT - n</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Lëvoret</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Lëvoret</link>
 		<text align="middle">&#160;- Ndryshoni pamjen &amp; ndjesinë e PeerProject-s</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Uizardi i Shpejtë</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Uizardi i Shpejtë</link>
 		<text align="middle">&#160;- Editoni kuadrot e PeerProject-s</text>
 		<newline gap="8"/>
-		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Filtrat e Sigurisë</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Filtrat e Sigurisë</link>
 		<text align="middle">&#160;- Shto/Fshiji filtrat që të përmirësosh rezultatet e kërkimit</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Ndihmë e Shpejtë</link>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Ndihmë e Shpejtë</link>
 		<text align="middle">&#160;- Merrni ndihmën kryesore mbi përdorimin e PeerProject-s</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1808,6 +1810,8 @@
 		<text group="11" align="middle">I shkëputur</text>
 		<text group="12" align="middle">Lidhje...</text>
 		<text group="13" align="middle">I Lidhur</text>
+		<text group="14" align="middle" id="G1Hubs">%i nyje</text>
+		<text group="15" align="middle" id="G1Leaves">%i gjethe</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
@@ -2680,8 +2684,8 @@
 	<string id="8064" value="I lidhur te %lu fqinjë.  %s në librarinë lokale."/>
 	<string id="8065" value="Lidhje në rrjet..."/>
 	<string id="8066" value="Nuk jeni i Lidhur në Rrjet."/>
-	<string id="8067" value="%s brenda : %s jashtë [S:%I64i/N:%I64i]"/>
-	<string id="8068" value="[H:%I64i] %s brenda : %s jashtë [S:%I64i/N:%I64i]"/>
+	<string id="8067" value="%s brenda : %s jashtë (s:%I64i/n:%I64i)"/>
+	<string id="8068" value="%s brenda : %s jashtë (s:%I64i/n:%I64i/c:%I64i)"/>
 	<string id="8069" value="Lidhu"/>
 	<string id="8070" value="Lidhje..."/>
 	<string id="8071" value="I lidhur"/>
@@ -3102,7 +3106,7 @@
 		<control/>
 		<control caption="_Brezi:"/>
 		<control caption="Kur klikoj mbylle:"/>
-		<control caption="Më Pyet|Mbylle Menjëherë|Minimizohu në Brez|Mbylle Pas Transferimit"/>
+		<control caption="Më Pyet|Minimizohu në Brez|Mbylle Menjëherë|Mbylle Pas Transferimit"/>
 		<control caption="Kur klikoj 'minimizo':"/>
 		<control caption="Normale|Minimizohu në Brez"/>
 	</dialog>
@@ -3397,9 +3401,7 @@
 		<control caption="Shkarko server-listën e eDonkey në rrjet:"/>
 		<control caption="Shkarko..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Ndërfaqe:"/>
-		<control caption="Shfaqi elementet shtesë në ndërfaqen BitTorrent"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Lidhjet për _Shkarkim:"/>
 		<control/>
 		<control/>
@@ -3766,9 +3768,9 @@
 		<control/>
 		<control caption="Burime:"/>
 		<control caption="..."/>
-		<control caption="Kohë e mbetur:"/>
-		<control caption="..."/>
 		<control caption="Shpejtësi:"/>
+		<control caption="..."/>
+		<control caption="Kohë e mbetur:"/>
 		<control caption="..."/>
 		<control caption="Në shkarkim:"/>
 		<control caption="..."/>

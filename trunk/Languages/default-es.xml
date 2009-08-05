@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default International Spanish Skin File -->
-<!-- Translation based on default-en.xml -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default International Spanish Skin File -->
+
+<!-- Translation based on default-en.xml -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="Español"
-		author="ramdomcrazy"
-		updatedBy="Biasoli"
-		description="PeerProject Default International Spanish Skin File"
-		link="http://PeerProject.org"
-		email="ramdomcrazy(at)users.sourceforge.net"
-		version="1.0.0.0"
-		type="Language"
-		language="es"
-		prompt="Seleccione aquí para usar PeerProject en Español Internacional"
+<manifest
+	name="Español"
+	author="ramdomcrazy"
+	updatedBy="Biasoli"
+	description="PeerProject Default International Spanish Skin File"
+	link="http://PeerProject.org"
+	email="ramdomcrazy(at)users.sourceforge.net"
+	version="1.0.0.0"
+	type="Language"
+	language="es"
+	prompt="Seleccione aquí para usar PeerProject en Español Internacional"
 />
 
 <!-- Toolbar Definitions -->
@@ -59,6 +60,8 @@
 		<button id="ID_VIEW_UPLOADS"/>
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
+		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -67,13 +70,12 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
 		<button id="ID_NETWORK_SEARCH" text="Buscar"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
@@ -1110,11 +1112,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Iniciar todas"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Pausar todas"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Cancelar/Eliminar todas"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Mostrar Grupos"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="Crear _Grupo..."/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Eliminar Grupo"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="Crear _Grupo..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Pr_opiedades"/>
 	</menu>
@@ -1660,23 +1663,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">Haz click aquí para aprender como configurar tu Firewall y/o router</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">Personalizar PeerProject</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Skins</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle">&#160;- Cambia el aspecto de PeerProject &amp; experimenta</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Asistente de Configuración</link>
-		<text align="middle">&#160;- Editar Configuración de PeerProject</text>
-		<newline gap="8"/>
-		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Ayuda Rápida</link>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Asistente de Configuración</link>
+		<text align="middle">&#160;- Editar Configuración de PeerProject</text>
+		<newline gap="8"/>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Ayuda Rápida</link>
 		<text align="middle">&#160;- Consigue ayuda sobre aspectos básicos de PeerProject</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1719,6 +1722,8 @@
 		<text group="11" align="middle">Desconectado</text>
 		<text group="12" align="middle">Conectando...</text>
 		<text group="13" align="middle">Conectado</text>
+		<text group="14" align="middle" id="G1Hubs">%i peers</text>
+		<text group="15" align="middle" id="G1Leaves">%i leaves</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
@@ -2575,8 +2580,8 @@
 	<string id="8064" value="Conectado a %lu vecinos.  Tienes %s en Colección."/>
 	<string id="8065" value="Conectando a la red..."/>
 	<string id="8066" value="PeerProject no esta conectado a la red."/>
-	<string id="8067" value="%s entra : %s sale [D:%I64i/U:%I64i]"/>
-	<string id="8068" value="[C:%I64i] %s entra : %s sale [D:%I64i/U:%I64i]"/>
+	<string id="8067" value="%s entra : %s sale (d:%I64i/u:%I64i)"/>
+	<string id="8068" value="%s entra : %s sale (d:%I64i/u:%I64i/c:%I64i)"/>
 	<string id="8069" value="Conectar"/>
 	<string id="8070" value="Conectando..."/>
 	<string id="8071" value="Conectado"/>
@@ -3273,7 +3278,7 @@
 		<control/>
 		<control caption="_Barra de tareas:"/>
 		<control caption="Cuando hago click cerrar:"/>
-		<control caption="Preguntarme|Cerrar Inmediatamente|Minimizar barra de tareas|Cerrar después de transferencias"/>
+		<control caption="Preguntarme|Minimizar barra de tareas|Cerrar Inmediatamente|Cerrar después de transferencias"/>
 		<control caption="Cuando hago click minimizar:"/>
 		<control caption="Normal|Minimizar barra de tareas"/>
 	</dialog>
@@ -3533,9 +3538,7 @@
 		<control caption="Descargar lista de servidores eDonkey de la web:"/>
 		<control caption="Descargar..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Interface:"/>
-		<control caption="Mostrar elementos adicionales BitTorrent en la interface"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Conexiones de descarga:"/>
 		<control/>
 		<control/>
@@ -3902,9 +3905,9 @@
 		<control/>
 		<control caption="Fuentes:"/>
 		<control caption="..."/>
-		<control caption="Tiempo estimado:"/>
+		<control caption="Transferencia:"/>
 		<control caption="..."/>
-		<control caption="Velocidad de transferencia:"/>
+		<control caption="Tiempo estimado:"/>
 		<control caption="..."/>
 		<control caption="Descargado:"/>
 		<control caption="..."/>

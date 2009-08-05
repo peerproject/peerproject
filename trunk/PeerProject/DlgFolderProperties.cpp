@@ -60,7 +60,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFolderPropertiesDlg dialog
 
-CFolderPropertiesDlg::CFolderPropertiesDlg(CWnd* pParent, CAlbumFolder* pFolder) : CSkinDialog( CFolderPropertiesDlg::IDD, pParent, FALSE ) //ToDo: Fix TRUE Banner Display
+CFolderPropertiesDlg::CFolderPropertiesDlg(CWnd* pParent, CAlbumFolder* pFolder) : CSkinDialog( CFolderPropertiesDlg::IDD, pParent, FALSE ) //ToDo: Fix TRUE Banner Display?
 {
 	m_pFolder	= pFolder;
 	m_nWidth	= 0;
@@ -382,11 +382,16 @@ void CFolderPropertiesDlg::DoApply(BOOL bMetaToFiles)
 
 void CFolderPropertiesDlg::OnCancel()
 {
-	if ( m_pFolder->m_sSchemaURI && m_pFolder->m_sSchemaURI.IsEmpty() )
+	CQuickLock oLock( Library.m_pSection );
+
+	if ( LibraryFolders.CheckAlbum( m_pFolder ) )
 	{
-		// "New Folder" created and Cancel button was pressed
-		// By default only OK button asigns schema
-		m_pFolder->Delete();
+		if ( m_pFolder->m_sSchemaURI && m_pFolder->m_sSchemaURI.IsEmpty() )
+		{
+			m_pFolder->Delete();	// "New Folder" created but Cancelled
+									// Only OK button assigns schema
+		}
 	}
+
 	return CSkinDialog::OnCancel();
 }

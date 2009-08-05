@@ -1,29 +1,30 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Afrikaans Skin File -->
-<!-- Translation based on default-en.xml -->
-<!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Afrikaans Skin File -->
+<!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
+
+<!-- Translation based on default-en.xml -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="Afrikaans"
-		author="Johann van der Walt (Thesage)"
-		updatedBy="Thesage, omega09"
-		description="PeerProject Default Afrikaans Skin File"
-		link="http://PeerProject.org"
-		email="jvdwalt(at)tuks.co.za"
-		version="1.0.0.0"
-		type="Language"
-		language="af"
-		prompt="Kliek hier om Afrikaans as jou taal te kies."
+<manifest
+	name="Afrikaans"
+	author="Johann van der Walt (Thesage)"
+	updatedBy="Thesage, omega09"
+	description="PeerProject Default Afrikaans Skin File"
+	link="http://PeerProject.org"
+	email="jvdwalt(at)tuks.co.za"
+	version="1.0.0.0"
+	type="Language"
+	language="af"
+	prompt="Kliek hier om Afrikaans as jou taal te kies."
 />
 
 <!-- Toolbar Definitions -->
@@ -61,6 +62,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -69,14 +71,13 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
-		<button id="ID_NETWORK_SEARCH" text="Nuwe Soektog"/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
+		<button id="ID_NETWORK_SEARCH" text="Soektog"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
 	<toolbar name="CSearchWnd.Panel.Basic">
@@ -1166,11 +1167,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Hervat Alle Aflaaie"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="_Vries Alle Aflaaie"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="V_erwyder Alle Aflaaie"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Vertoon Groepe"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Nuwe Groep..."/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Verwyder _Groep"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Nuwe Groep..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Eienskappe"/>
 	</menu>
@@ -1747,22 +1749,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">Kliek hier om uit te vind hoe om jou roeteerder of netskans reg in te stel</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">VERANDER PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Omslae</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Omslae</link>
 		<text align="middle">&#160;- Verander hoe PeerProject lyk en voel</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Verstellingsassistent</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Verstellingsassistent</link>
 		<text align="middle">&#160;- Verstel die PeerProject Opsies</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Vinnige Hulp</link>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Vinnige Hulp</link>
 		<text align="middle">&#160;- Kry basiese hulp met die gebruik van PeerProject</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1803,6 +1806,8 @@
 		<text group="11" align="middle">Nie Gekonnekteer</text>
 		<text group="12" align="middle">Konnekteer nou...</text>
 		<text group="13" align="middle">Gekonnekteer</text>
+		<text group="14" align="middle" id="G1Hubs">%i gashere</text>
+		<text group="15" align="middle" id="G1Leaves">%i kliënte</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey:</text>
@@ -2671,8 +2676,8 @@
 	<string id="8064" value="Gekonnekteer aan %lu gashere.  %s in lokale biblioteek."/>
 	<string id="8065" value="Besig om aan die netwerk te konnekteer..."/>
 	<string id="8066" value="Nie aan die netwerk gekonnekteer nie."/>
-	<string id="8067" value="%s in : %s uit [A:%I64i/O:%I64i]"/>
-	<string id="8068" value="[H:%I64i] %s in : %s uit [A:%I64i/O:%I64i]"/>
+	<string id="8067" value="%s in : %s uit (a:%I64i/o:%I64i)"/>
+	<string id="8068" value="%s in : %s uit (a:%I64i/o:%I64i/h:%I64i)"/>
 	<string id="8069" value="Konnekteer"/>
 	<string id="8070" value="Besig om te konnekteer..."/>
 	<string id="8071" value="Gekonnekteer"/>
@@ -3366,7 +3371,7 @@
 		<control/>
 		<control caption="_Taakbalk:"/>
 		<control caption="As ek sluit kliek:"/>
-		<control caption="Vra My|Sluit Dadelik|Minimeer na Taakbalk|Sluit Na Oordragte"/>
+		<control caption="Vra My|Minimeer na Taakbalk|Sluit Dadelik|Sluit Na Oordragte"/>
 		<control caption="As ek minimeer kliek:"/>
 		<control caption="Normaal|Minimeer na Taakbalk"/>
 	</dialog>
@@ -3661,9 +3666,7 @@
 		<control caption="Laai eDonkey2000 bedienerlys van die web af:"/>
 		<control caption="Laai Af..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Koppelvlak:"/>
-		<control caption="Vertoon ekstra BitTorrent koppelvlak-elemente"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Aflaai Koppellings:"/>
 		<control/>
 		<control/>

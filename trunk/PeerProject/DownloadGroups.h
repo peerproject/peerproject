@@ -47,6 +47,8 @@ public:
 	CDownloadGroup*		GetSuperGroup();
 	CDownloadGroup*		Add(LPCTSTR pszName = NULL, BOOL bTemporary = FALSE, BOOL bUseExisting = FALSE);
 	void				Remove(CDownloadGroup* pGroup);
+	void				MoveRight(CDownloadGroup* pGroup);
+//	void				MoveLeft(CDownloadGroup* pGroup);
 	void				Link(CDownload* pDownload);
 	void				Unlink(CDownload* pDownload, BOOL bAndSuper = TRUE);
 	void				CreateDefault();

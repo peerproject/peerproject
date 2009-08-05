@@ -86,8 +86,8 @@ AppUpdatesURL=http://download.peerproject.org/
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"
 Name: "quicklaunch"; Description: "{cm:CreateQuickLaunchIcon}"
 Name: "language"; Description: "{cm:tasks_languages}";
-Name: "multiuser"; Description: "{cm:tasks_multisetup}"; Flags: unchecked
-Name: "upnp"; Description: "{cm:tasks_upnp}"; MinVersion: 0,5.01; Check: CanUserModifyServices; Flags: unchecked
+Name: "multiuser"; Description: "{cm:tasks_multisetup}";
+Name: "upnp"; Description: "{cm:tasks_upnp}"; MinVersion: 0,5.01; Check: CanUserModifyServices;
 ;Name: "firewall"; Description: "{cm:tasks_firewall}"; MinVersion: 0,5.01sp2
 Name: "resetdiscoveryhostcache"; Description: "{cm:tasks_resetdiscoveryhostcache}"; Flags: unchecked
 #if alpha == "No"
@@ -283,14 +283,14 @@ Source: "Data\DefaultSecurity.dat"; DestDir: "{app}\Data"; DestName: "Security.d
 ; PeerProject Start Menu Shortcuts
 Name: "{group}\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
 Name: "{group}\TorrentWizard"; Filename: "{app}\TorrentWizard.exe"; WorkingDir: "{app}"; Comment: "PeerProject Torrent File Creator"
-Name: "{group}\GUI Mode\{#internal_name} ({cm:icons_basicmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-basic"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
-Name: "{group}\GUI Mode\{#internal_name} ({cm:icons_tabbedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-tabbed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
-Name: "{group}\GUI Mode\{#internal_name} ({cm:icons_windowedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-windowed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
+Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_basicmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-basic"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
+Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_tabbedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-tabbed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
+Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_windowedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-windowed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
 Name: "{commondesktop}\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: desktopicon
 Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: quicklaunch
 
 ; Other icons in user language
-Name: "{group}\{cm:icons_license}"; Filename: "{app}\Uninstall\license.rtf"; WorkingDir: "{app}\Uninstall"; Comment: "{cm:icons_license}"
+Name: "{group}\{cm:icons_license}"; Filename: "{app}\Uninstall\GPL License.rtf"; WorkingDir: "{app}\Uninstall"; Comment: "{cm:icons_license}"
 Name: "{group}\{cm:icons_uninstall}"; Filename: "{uninstallexe}"; WorkingDir: "{app}\Uninstall"; Comment: "{cm:UninstallProgram,PeerProject}"; IconFilename: "{app}\Uninstall\uninstall.ico"
 ;Name: "{userprograms}\{groupname}\{cm:icons_downloads}"; Filename: "{ini:{param:SETTINGS|},Locations,CompletePath|{reg:HKCU\Software\PeerProject\PeerProject\Downloads,CompletePath|{userdocs}\PeerProject Downloads}}"; WorkingDir: "{ini:{param:SETTINGS|},Locations,CompletePath|{reg:HKCU\Software\PeerProject\PeerProject\Downloads,CompletePath|{userdocs}\PeerProject Downloads}}"; Comment: "{cm:icons_downloads}"; Tasks: multiuser; Check: not WizardNoIcons
 ;Name: "{group}\{cm:icons_downloads}"; Filename: "{ini:{param:SETTINGS|},Locations,CompletePath|{reg:HKCU\Software\PeerProject\PeerProject\Downloads,CompletePath|{app}\Downloads}}"; WorkingDir: "{ini:{param:SETTINGS|},Locations,CompletePath|{reg:HKCU\Software\PeerProject\PeerProject\Downloads,CompletePath|{app}\Downloads}}"; Comment: "{cm:icons_downloads}"; Tasks: not multiuser; Check: not WizardNoIcons
@@ -298,7 +298,7 @@ Name: "{group}\{cm:icons_uninstall}"; Filename: "{uninstallexe}"; WorkingDir: "{
 [Messages]
 ; Overwrite standard ISL entries
 ; DO NOT use for localized messages
-BeveledLabel=PeerProject Development Team
+BeveledLabel=PeerProject.org
 SetupAppTitle=Setup | {#internal_name}
 
 [Run]
@@ -472,8 +472,6 @@ Type: files; Name: "{app}\LibGFL*.dll"
 Type: files; Name: "{app}\Plugins\*.pdb"
 Type: files; Name: "{app}\Plugins\zlib.dll"
 Type: files; Name: "{app}\Plugins\LibGFL*.dll"
-Type: files; Name: "{app}\Schemas\VendorCache.xsd"
-Type: files; Name: "{app}\Schemas\SchemaDescriptor.xsd"
 Type: files; Name: "{app}\GPL-License.txt"
 Type: files; Name: "{app}\*.dat"
 Type: files; Name: "{app}\*.xml"

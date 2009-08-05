@@ -1,28 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Norwegian Skin File -->
-<!-- Translation based on default-en.xml (Shareaza 2.2.0.2) -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Norwegian Skin File -->
+
+<!-- Translation based on default-en.xml (Shareaza 2.2.0.2) -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="Norsk"
-		author="Tom Seland"
-		updatedBy="Tom Seland"
-		description="PeerProject Default Norwegian Skin File"
-		link="http://PeerProject.org"
-		email="Contact(at)PeerProject.org"
-		version="1.0.0.0"
-		type="Language"
-		language="no"
-		prompt="Klikk her for å velge norsk som språk"
+<manifest
+	name="Norsk"
+	author="Tom Seland"
+	updatedBy="Tom Seland"
+	description="PeerProject Default Norwegian Skin File"
+	link="http://PeerProject.org"
+	email="Contact(at)PeerProject.org"
+	version="1.0.0.0"
+	type="Language"
+	language="no"
+	prompt="Klikk her for å velge norsk som språk"
 />
 
 <!-- Toolbar Definitions -->
@@ -60,6 +61,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -68,13 +70,12 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
 		<button id="ID_NETWORK_SEARCH" text="Nytt søk"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
@@ -991,11 +992,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="Fortsett alle"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Pause alle"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="Fjern alle"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Vis grupper"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="Ny gruppe"/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Fjern gruppe"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="Ny gruppe"/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="Egenskaper"/>
 	</menu>
@@ -1496,22 +1498,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">Klikk her for å lære hvordan du skal sette opp routeren eller brannmuren din</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">MODIFISER PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Skins</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
 		<text align="middle">&#160;- Endre PeerProject's utseende</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Innstillingsveiviser</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Innstillingsveiviser</link>
 		<text align="middle">&#160;- Endre PeerProject's innstillinger</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/>
-		<gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Hjelp</link>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Hjelp</link>
 		<text align="middle">&#160;- Få grunnleggende hjelp til å bruke PeerProject</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1552,6 +1555,8 @@
 		<text group="11" align="middle">Koblet fra</text>
 		<text group="12" align="middle">Kobler til...</text>
 		<text group="13" align="middle">Koblet til</text>
+		<text group="14" align="middle" id="G1Hubs">%i peers</text>
+		<text group="15" align="middle" id="G1Leaves">%i leaves</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
@@ -2392,8 +2397,8 @@
 	<string id="8064" value="Koblet til %lu nabo(er).  %s lokalt."/>
 	<string id="8065" value="Kobler til nettverket..."/>
 	<string id="8066" value="Ikke koblet til nettverket."/>
-	<string id="8067" value="%s inn : %s ut [D:%I64i/U:%I64i]"/>
-	<string id="8068" value="[H:%I64i] %s inn : %s ut [D:%I64i/U:%I64i]"/>
+	<string id="8067" value="%s inn : %s ut (d:%I64i/u:%I64i)"/>
+	<string id="8068" value="%s inn : %s ut (d:%I64i/u:%I64i/s:%I64i)"/>
 	<string id="8069" value="Koble til"/>
 	<string id="8070" value="Kobler til..."/>
 	<string id="8071" value="Koblet til"/>
@@ -3051,7 +3056,7 @@
 		<control/>
 		<control caption="_Systemfeltet:"/>
 		<control caption="Når jeg trykker lukk:"/>
-		<control caption="Spør meg|Avslutt umiddelbart|Minimer til systemfelt|Avslutt etter overføringer"/>
+		<control caption="Spør meg|Minimer til systemfelt|Avslutt umiddelbart|Avslutt etter overføringer"/>
 		<control caption="Når jeg trykker minimer:"/>
 		<control caption="Normal|Minimer til systemfeltet"/>
 	</dialog>
@@ -3310,9 +3315,7 @@
 		<control caption="Last ned eDonkey2000 serverliste fra nettet:"/>
 		<control caption="Last ned..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="Grensesnitt:"/>
-		<control caption="Vis flere BitTorrent grensesnitts-elementer"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Nedlastingskoblinger:"/>
 		<control/>
 		<control/>
@@ -3679,9 +3682,9 @@
 		<control/>
 		<control caption="Antall kilder:"/>
 		<control caption="..."/>
-		<control caption="Gjenstående tid:"/>
-		<control caption="..."/>
 		<control caption="Hastighet:"/>
+		<control caption="..."/>
+		<control caption="Gjenstående tid:"/>
 		<control caption="..."/>
 		<control caption="Lastet ned:"/>
 		<control caption="..."/>

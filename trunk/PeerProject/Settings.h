@@ -60,21 +60,21 @@ public:
 		bool		ShowTimestamp;
 		bool		SizeLists;
 		bool		HashIntegrity;
-		bool		RatesInBytes;				// Show speeds in Bytes/second
-		DWORD		RatesUnit;					// Units that the rates are to be displayed in
+		bool		RatesInBytes;				// Show speeds in bits or Bytes per second
+		DWORD		RatesUnit;					// Units that rates are to be displayed in (B/KB/MB)
 		DWORD		RefreshRate;				// Data display update in milliseconds
-		CString		LastSettingsPage;			// Last selected Settings dialog page
 		DWORD		LastSettingsIndex;			// Top item index of Advanced Settings list
+		CString		LastSettingsPage;			// Last selected Settings dialog page
 		CString		Language;
 		bool		LanguageRTL;				// Right-to-Left GUI
 		bool		IgnoreXPsp2;				// Ignore the presence of Windows XPsp2 limits
 		bool		ItWasLimited;				// If user patches half-open connection limit change settings back to full speed
 		bool		DebugBTSources;				// Display received sources for BT download when seeding
 		bool		AlwaysOpenURLs;
-		bool		FirstRun;
-		bool		Running;					// ToDo: detect abnormal shutdown on startup
 		DWORD		SmartVersion;				// Settings version
 		bool		CoolMenuEnable;				// Use skinned menus
+		bool		FirstRun;					// Original installation
+		bool		Running;					// ToDo: detect abnormal shutdown on startup
 	} General;
 
 	struct sVersionCheck
@@ -451,8 +451,7 @@ public:
 	{
 		bool		EnableToday;
 		bool		EnableAlways;
-		bool		AdvancedInterface;			// Display BT 'extras' (Seed Torrent box, etc)
-		bool		AdvancedInterfaceSet;		// Has PeerProject auto-set the above value (first time a user downloads a torrent)
+		bool		AdvancedInterface;			// Display BT 'extras' (Obsolete Torrent box)
 		CString		TorrentCreatorPath;			// Location of the program used to create .torrent files
 		CString		DefaultTracker;
 		DWORD		DefaultTrackerPeriod;		// Delay between tracker contact attempts if one is not specified by tracker
@@ -562,21 +561,6 @@ public:
 		DWORD		RewardQueuePercentage;		// The percentage of each reward queue reserved for uploaders
 	} Uploads;
 
-	struct sRemote
-	{
-		bool		Enable;
-		CString		Username;
-		CString		Password;
-	} Remote;
-
-	struct sScheduler
-	{
-		bool		Enable;						// Enable the scheduler
-		DWORD		LimitedBandwidth;			// % of bandwidth to use in limited mode
-		bool		LimitedNetworks;			// Only connect to G2/BT when limited
-		bool		AllowHub;					// Allow hub mode while scheduler is active
-	} Scheduler;
-
 	struct sIRC
 	{
 		COLORREF		Colors[11];
@@ -611,6 +595,26 @@ public:
 		CString		LastDuplicateHash;			// Stores the hash of the file about which the warning was shown
 		bool		MaliciousWarning;			// Is the warning dialog opened?
 	} Live;
+
+	struct sRemote
+	{
+		bool		Enable;
+		CString		Username;
+		CString		Password;
+	} Remote;
+
+	struct sScheduler
+	{
+		bool		Enable;						// Enable the scheduler
+		DWORD		LimitedBandwidth;			// % of bandwidth to use in limited mode
+		bool		LimitedNetworks;			// Only connect to G2/BT when limited
+		bool		AllowHub;					// Allow hub mode while scheduler is active
+	} Scheduler;
+
+	struct sSecurity
+	{
+		DWORD		DefaultBan;					// Custom Ban expiration in seconds
+	} Security;
 
 	struct sExperimental
 	{

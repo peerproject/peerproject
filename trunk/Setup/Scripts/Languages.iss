@@ -107,71 +107,71 @@ Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritere
 
 
 ; Common files
-Source: "Setup\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "Official License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
+Source: "Setup\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
 
 ; Install default license
-Source: "Setup\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: not language
+Source: "Setup\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: not language
 ; Install localized license
 ; English
-Source: "Setup\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en; Tasks: language
+Source: "Setup\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en; Tasks: language
 ; Dutch
-Source: "Setup\License\Dutch.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: nl; Tasks: language
+Source: "Setup\License\Dutch.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: nl; Tasks: language
 ; Lithuanian
-Source: "Setup\License\Lithuanian.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: lt; Tasks: language
+Source: "Setup\License\Lithuanian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: lt; Tasks: language
 ; German
-Source: "Setup\License\German.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: de; Tasks: language
+Source: "Setup\License\German.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: de; Tasks: language
 ; Italian
-Source: "Setup\License\Italian.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: it; Tasks: language
+Source: "Setup\License\Italian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: it; Tasks: language
 ; Norwegian
-Source: "Setup\License\Norwegian.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: no; Tasks: language
+Source: "Setup\License\Norwegian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: no; Tasks: language
 ; Afrikaans
-Source: "Setup\License\Afrikaans.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: af; Tasks: language
+Source: "Setup\License\Afrikaans.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: af; Tasks: language
 ; Portuguese std
-Source: "Setup\License\Portuguese.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt; Tasks: language
+Source: "Setup\License\Portuguese.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt; Tasks: language
 ; Portuguese Braz
-Source: "Setup\License\Portuguese-Brazil.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt_br; Tasks: language
+Source: "Setup\License\Portuguese-Brazil.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt_br; Tasks: language
 ; French
-Source: "Setup\License\French.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fr; Tasks: language
+Source: "Setup\License\French.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fr; Tasks: language
 ; Spanish std
-Source: "Setup\License\Spanish.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es; Tasks: language
+Source: "Setup\License\Spanish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es; Tasks: language
 ; Spanish Mexican
-Source: "Setup\License\Spanish-Mexican.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es_mx; Tasks: language
+Source: "Setup\License\Spanish-Mexican.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es_mx; Tasks: language
 ; Russian
-Source: "Setup\License\Russian.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ru; Tasks: language
+Source: "Setup\License\Russian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ru; Tasks: language
 ; Greek
-Source: "Setup\License\Greek.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: gr; Tasks: language
+Source: "Setup\License\Greek.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: gr; Tasks: language
 ; Hungarian
-Source: "Setup\License\Hungarian.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu; Tasks: language
+Source: "Setup\License\Hungarian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu; Tasks: language
 ; Chinese Simp
-Source: "Setup\License\Chinese-Simple.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: chs; Tasks: language
+Source: "Setup\License\Chinese-Simple.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: chs; Tasks: language
 ; Swedish
-Source: "Setup\License\Swedish.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sv; Tasks: language
+Source: "Setup\License\Swedish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sv; Tasks: language
 ; Finnish
-Source: "Setup\License\Finnish.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fi; Tasks: language
+Source: "Setup\License\Finnish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fi; Tasks: language
 ; Hebrew
-Source: "Setup\License\Hebrew.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: heb; Tasks: language
+Source: "Setup\License\Hebrew.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: heb; Tasks: language
 ; Polish
-Source: "Setup\License\Polish.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pl; Tasks: language
+Source: "Setup\License\Polish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pl; Tasks: language
 ; Czech
-Source: "Setup\License\Czech.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: cz; Tasks: language
+Source: "Setup\License\Czech.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: cz; Tasks: language
 ; Serbian
-Source: "Setup\License\Serbian.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr; Tasks: language
+Source: "Setup\License\Serbian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr; Tasks: language
 ; Turkish
-Source: "Setup\License\Turkish.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr; Tasks: language
+Source: "Setup\License\Turkish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr; Tasks: language
 ; Japanese
-Source: "Setup\License\Japanese.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja; Tasks: language
+Source: "Setup\License\Japanese.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja; Tasks: language
 ; Arabic
-Source: "Setup\License\Arabic.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar; Tasks: language
+Source: "Setup\License\Arabic.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar; Tasks: language
 ; Estonian
-Source: "Setup\License\Estonian.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee; Tasks: language
+Source: "Setup\License\Estonian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee; Tasks: language
 ; Chinese Trad
-Source: "Setup\License\Chinese-Traditional.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tw; Tasks: language
+Source: "Setup\License\Chinese-Traditional.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tw; Tasks: language
 ; Slovenian
-Source: "Setup\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl; Tasks: language
+Source: "Setup\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl; Tasks: language
 ; Catalan
-Source: "Setup\License\Catalan.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca; Tasks: language
+Source: "Setup\License\Catalan.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca; Tasks: language
 ; Catalan
-Source: "Setup\License\Albanian.rtf"; DestDir: "{app}\Uninstall"; DestName: "License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq; Tasks: language
+Source: "Setup\License\Albanian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq; Tasks: language
 
 
 ; Install default filter
@@ -238,6 +238,18 @@ Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilte
 ; Catalan
 Source: "Setup\Filter\Catalan.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca; Tasks: language
 
+
+[Messages]
+; This section overrides existing phrazes specified in Inno's Default.isl file
+
+SelectLanguageLabel=%nSelect a language to use during installation:
+WelcomeLabel1=%nWelcome to the%n[name] Setup Wizard
+WelcomeLabel2=This will install [name/ver]%nP2P filesharing on your computer.%n%nIt is recommended to close applications before continuing.
+FinishedHeadingLabel=%nCompleting the [name]%nSetup Wizard
+FinishedLabel=Setup has finished installing [name] on your computer.%nIt can be launched from the installed shortcut icons.
+LicenseLabel3=Please read the following copyright license agreement.%nYou should understand the basic terms of this License before continuing installation.
+
+
 [CustomMessages]
 ; This section specifies phrazes and words not specified in the ISL files
 ; Avoid customizing the ISL files since they will change with each version of Inno Setup.
@@ -257,14 +269,14 @@ tasks_deleteoldsetup=Delete old installers
 run_skinexe=Running skin installation...
 reg_incomingchat=Incoming chat message
 reg_apptitle=PeerProject P2P Filesharing
-icons_license=License
+icons_license=GPL License
 icons_uninstall=Uninstall
 icons_downloads=Downloads
 icons_basicmode=Basic Mode
 icons_tabbedmode=Tabbed Mode
 icons_windowedmode=Windowed Mode
-CreateDesktopIcon=Display a &desktop icon
-CreateQuickLaunchIcon=Display a &Quick Launch icon
+CreateDesktopIcon=Add a &desktop shortcut icon
+CreateQuickLaunchIcon=Add a &Quick Launch icon
 PathNotExist=Error, the path of the %1 folder doesn't exist
 dialog_shutdown=%1 is currently running. Would you like %1 to be shutdown so the installation can continue?
 dialog_firewall=Setup failed to add PeerProject to the Windows Firewall.%nPlease add PeerProject to the exception list manually.

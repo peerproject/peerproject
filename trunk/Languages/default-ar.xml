@@ -1,19 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
-<!-- PeerProject Arabic Language Skin File -->
-<!-- Translation based on default-en.xml -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Arabic Language Skin File -->
+
+<!-- Translation based on default-en.xml -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest name="Arabic العربية"
+<manifest
+	name="Arabic العربية"
 	author="Awadh A Al-Ghaamdi"
 	updatedBy="الأستاذ عوض الغامدي"
 	description="PeerProject Default Arabic Skin File"
@@ -22,8 +23,8 @@
 	version="1.0.0.0"
 	type="Language"
 	language="ar"
-	prompt="أنقر هنا لإختيار اللغة العربية كلغة طبيعية بالنسبة لك"
 	dir="rtl"
+	prompt="أنقر هنا لإختيار اللغة العربية كلغة طبيعية بالنسبة لك"
 />
 
 <!-- Toolbar Definitions -->
@@ -61,6 +62,7 @@
 		<button id="ID_VIEW_LIBRARY" />
 		<button id="ID_VIEW_MEDIA" />
 		<button id="ID_TAB_IRC" />
+		<separator/>
 		<button id="ID_VIEW_SECURITY" />
 		<button id="ID_VIEW_HOSTS" />
 		<button id="ID_VIEW_DISCOVERY" />
@@ -68,14 +70,13 @@
 		<button id="ID_VIEW_PACKETS" />
 		<button id="ID_VIEW_SEARCH_MONITOR" />
 		<button id="ID_VIEW_RESULTS_MONITOR" />
-		<separator />
-		<button id="ID_TOOLS_SETTINGS" />
-		<button id="ID_TOOLS_DOWNLOAD" />
-		<separator />
+		<separator/>
 		<button id="ID_WINDOW_CASCADE" />
 		<button id="ID_WINDOW_TILE_HORZ" />
 		<button id="ID_WINDOW_TILE_VERT" />
-		<separator />
+		<separator/>
+		<button id="ID_TOOLS_SETTINGS" />
+		<button id="ID_TOOLS_DOWNLOAD" />
 		<button id="ID_NETWORK_SEARCH" text="بحث جديد" />
 	</toolbar>
 	<!--نافذة بحث-->
@@ -1138,11 +1139,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_متابعة الكل" />
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="ا_يقاف مؤقت للكل" />
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_مسح الكل" />
-		<separator />
+		<separator /> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_عرض المجموعات" />
-		<separator />
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="_مجموعه جديدة..." />
+		<separator /> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority" />
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="مجموعه _حذف" />
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="_مجموعه جديدة..." />
 		<separator />
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_خصائص" />
 	</menu>
@@ -1691,23 +1693,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">أنقر هنا لتتعلم عن كيفية تكوين جهاز توجيهك أو جدارك الناري</link>
 			<newline gap="18" indent="0" />
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS" />
-		<gap size="8" />
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS" /> <gap size="8" />
 		<heading align="middle">تــخــصــيــص PEERPROJECT</heading>
 		<newline gap="12" indent="42" />
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN" />
-		<gap size="8" />
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">الغلافات</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN" /> <gap size="8" />
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">الغلافات</link>
 		<text align="middle"> - تغيير غلاف PeerProject و سمته</text>
 		<newline gap="8" />
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD" />
-		<gap size="8" />
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">معالج الإعدادات</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
+		<text align="middle">&#160;- Update blocklist</text>
+		<newline gap="8"/>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD" /> <gap size="8" />
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">معالج الإعدادات</link>
 		<text align="middle"> - تحرير إعدادات PeerProject</text>
 		<newline gap="8" />
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ" />
-		<gap size="8" />
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">تعليمات سريعة</link>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ" /> <gap size="8" />
+		<link target="peer:command:ID_HELP_FAQ" align="middle">تعليمات سريعة</link>
 		<text align="middle"> - أحصل على بعض التعليمات الأساسية عن PeerProject</text>
 		<newline gap="18" indent="0" />
 		<group id="5">
@@ -1750,6 +1752,8 @@
 		<text group="11" align="middle">غير متصل</text>
 		<text group="12" align="middle">إتصال...</text>
 		<text group="13" align="middle">متصل</text>
+		<text group="14" align="middle" id="G1Hubs">%i محور</text>
+		<text group="15" align="middle" id="G1Leaves">%i فرع</text>
 		<newline group="10" gap="2" />
 		<icon group="30" command="ID_NETWORK_ED2K" />
 		<gap group="30" size="4" />
@@ -2627,15 +2631,15 @@
 	<string id="8010" value="هذا هي نسخة مبدئية من PeerProject ، و قد أنتهت فترة الإختبار لها . الرجاء حمل الإطلاق الرسمي الكامل من http://peerproject.org/." />
 	<string id="8011" value="Changing view will close any windows you have open.  Would you like to change now?" />
 	<string id="8012" value="Torrent Information" />
-	<string id="8060" value="Hub/Ultrapeer mode with %lu neighbour(s).  %s in local library." />
-	<string id="8061" value="Ultrapeer mode with %lu neighbour(s).  %s in local library." />
-	<string id="8062" value="Hub mode with %lu neighbour(s).  %s in local library." />
+	<string id="8060" value="Hub/Ultrapeer mode with %lu neighbours.  %s in local library." />
+	<string id="8061" value="Ultrapeer mode with %lu neighbours.  %s in local library." />
+	<string id="8062" value="Hub mode with %lu neighbours.  %s in local library." />
 	<string id="8063" value="Connected. %s in local library." />
-	<string id="8064" value="Connected to %lu neighbour(s).  %s in local library." />
+	<string id="8064" value="Connected to %lu neighbours.  %s in local library." />
 	<string id="8065" value="Connecting to the network..." />
 	<string id="8066" value="Not connected to the network." />
-	<string id="8067" value="%s in : %s out [D:%I64i/U:%I64i]" />
-	<string id="8068" value="[H:%I64i] %s in : %s out [D:%I64i/U:%I64i]" />
+	<string id="8067" value="%s in : %s out (d:%I64i/u:%I64i)" />
+	<string id="8068" value="%s in : %s out (d:%I64i/u:%I64i/s:%I64i)" />
 	<string id="8069" value="إتصال" />
 	<string id="8070" value="إتصال..." />
 	<string id="8071" value="متصل" />
@@ -3632,9 +3636,7 @@
 		<control caption=":من الانترنت eDonkey تحميل قائمة ملقم" />
 		<control caption="تحميل..." />
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption=":_الواجهة" />
-		<control caption="الإضافية BitTorrent عرض عناصر واجهة" />
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption=":إ_تصالات التحميل" />
 		<control />
 		<control />
@@ -4000,9 +4002,9 @@
 		<control />
 		<control caption=":عدد المصادر" />
 		<control caption="..." />
-		<control caption=":الوقت المتبقي المقدر" />
-		<control caption="..." />
 		<control caption=":السرعة الإجمالية للنقل" />
+		<control caption="..." />
+		<control caption=":الوقت المتبقي المقدر" />
 		<control caption="..." />
 		<control caption=":حجم التحميل" />
 		<control caption="..." />

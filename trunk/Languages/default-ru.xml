@@ -1,29 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- PeerProject Default Russian Skin File -->
-<!-- Translation based on default-en.x3ml -->
-
-<!-- This skin template represents current PeerProject defaults. -->
-<!-- Use this file as a basis for creating new language skins,	 -->
-<!-- however be sure to include only sections that are changed.  -->
-<!-- Including unedited English sections will reduce performance -->
-<!-- and limit compatibility with future versions or other skins.-->
-
-<!-- Body element, don't touch -->
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
+<!-- PeerProject Default Russian Skin File -->
+
+<!-- Translation based on default-en.xml -->
+<!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
+
+<!-- This skin template represents current PeerProject defaults. -->
+<!-- Use this file as a basis for creating new language skins,   -->
+<!-- however be sure to include only sections that are changed.  -->
+<!-- Unedited English content limits compatibility & performance.-->
+<!-- Better to be concise than literal:  Please test visibility! -->
+
 <!-- Manifest -->
-<manifest	name="Pусский"
-		author="dAbserver"
-		updatedBy="Rolandas Rudomanskis, ryo-oh-ki"
-		description="PeerProject Default Russian Skin File"
-		link="http://PeerProject.org"
-		email="Contact(at)PeerProject.org"
-		version="1.0.0.0"
-		type="Language"
-		language="ru"
-		prompt="Щелкните здесь для смены языка на Русский (от dAbserver)"
-		dir="ltr"
+<manifest
+	name="Pусский"
+	author="dAbserver"
+	updatedBy="Rolandas Rudomanskis, ryo-oh-ki"
+	description="PeerProject Default Russian Skin File"
+	link="http://PeerProject.org"
+	email="Contact(at)PeerProject.org"
+	version="1.0.0.0"
+	type="Language"
+	language="ru"
+	prompt="Щелкните здесь для смены языка на Русский (от dAbserver)"
 />
 
 <!-- Toolbar Definitions -->
@@ -61,6 +61,7 @@
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
+		<separator/>
 		<button id="ID_VIEW_SECURITY"/>
 		<button id="ID_VIEW_HOSTS"/>
 		<button id="ID_VIEW_DISCOVERY"/>
@@ -69,13 +70,12 @@
 		<button id="ID_VIEW_SEARCH_MONITOR"/>
 		<button id="ID_VIEW_RESULTS_MONITOR"/>
 		<separator/>
-		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>
-		<separator/>
 		<button id="ID_WINDOW_CASCADE"/>
 		<button id="ID_WINDOW_TILE_HORZ"/>
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
+		<button id="ID_TOOLS_SETTINGS"/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
 		<button id="ID_NETWORK_SEARCH" text="Новый поиск"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
@@ -1160,11 +1160,12 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Продолжить все"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="При_остановить все"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Убрать все"/>
-		<separator/>
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Показывать группы"/>
-		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Новая группа..."/>
+		<separator/> -->
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Удалить _группу"/>
+		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Новая группа..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Свойства"/>
 	</menu>
@@ -1752,23 +1753,23 @@
 			<link target="peer:command:ID_HELP_ROUTER">Щелкните здесь, чтобы узнать, как настроить ваш маршрутизатор или брандмауэр</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
+		<icon res="128" width="32" height="32" target="peer:command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 		<heading align="middle">НАСТРОЙТЕ PEERPROJECT</heading>
 		<newline gap="12" indent="42"/>
-		<icon res="237" width="32" height="32" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_SKIN" format="bu" align="middle">Шкурки</link>
+		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Шкурки</link>
 		<text align="middle">&#160;- Измeнение обликa Sharеaza</text>
 		<newline gap="8"/>
-		<icon res="236" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
-		<link target="peer:command:ID_TOOLS_WIZARD" format="bu" align="middle">Мaстер Устанoвок</link>
-		<text align="middle">&#160;- Пошaговый мaстер устанoвок Sharеaza</text>
-		<newline gap="8"/>
-		<icon res="141" width="32" height="32" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" format="bu" align="middle">Security Filters</link>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
 		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
 		<newline gap="8"/>
-		<icon res="147" width="32" height="32" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FAQ" format="bu" align="middle">Быстрaя Помoщь</link>
+		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
+		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Мaстер Устанoвок</link>
+		<text align="middle">&#160;- Пошaговый мaстер устанoвок Sharеaza</text>
+		<newline gap="8"/>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FAQ" align="middle">Быстрaя Помoщь</link>
 		<text align="middle">&#160;- Онлайновая Справочная Система Wiki</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
@@ -1811,6 +1812,8 @@
 		<text group="11" align="middle">Отключено</text>
 		<text group="12" align="middle">Подключение…</text>
 		<text group="13" align="middle">Подключено</text>
+		<text group="14" align="middle" id="G1Hubs">%i узла(ов)</text>
+		<text group="15" align="middle" id="G1Leaves">%i ветви(ей)</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
@@ -2669,8 +2672,8 @@
 	<string id="8064" value="Соединено с %lu хостом(ами).  %s в собсвенном хранилище."/>
 	<string id="8065" value="Подключаюсь к сети..."/>
 	<string id="8066" value="Нет соединения с сетью."/>
-	<string id="8067" value="%s-Вх. %s-Исх. [З:%I64i/В:%I64i]"/>
-	<string id="8068" value="[У:%I64i] %s-Вх. %s-Исх. [З:%I64i/В:%I64i]"/>
+	<string id="8067" value="%s-Вх. %s-Исх. (З:%I64i/В:%I64i)"/>
+	<string id="8068" value="%s-Вх. %s-Исх. (З:%I64i/В:%I64i/У:%I64i)"/>
 	<string id="8069" value="Подключиться"/>
 	<string id="8070" value="Подключение..."/>
 	<string id="8071" value="Подключено"/>
@@ -3382,7 +3385,7 @@
 		<control/>
 		<control caption="_Трей:"/>
 		<control caption="Когда щелкаю закрыть:"/>
-		<control caption="Спрашивать|Сразу закрыть|Отправить в трей|Закрыть после пересылок"/>
+		<control caption="Спрашивать|Отправить в трей|Сразу закрыть|Закрыть после пересылок"/>
 		<control caption="Когда щелкаю свернуть:"/>
 		<control caption="Обычное действие|Отправить в трей"/>
 	</dialog>
@@ -3677,9 +3680,7 @@
 		<control caption="Загрузить список серверов из вба:"/>
 		<control caption="Загрузить..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuBuBuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="_Интерфейс:"/>
-		<control caption="Показывать дополнительные элементы BitTorrent интерфейса"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Соединений для загрузки:"/>
 		<control/>
 		<control/>
@@ -4046,9 +4047,9 @@
 		<control/>
 		<control caption="Кол-во источников:"/>
 		<control caption="..."/>
-		<control caption="Примерно осталось:"/>
-		<control caption="..."/>
 		<control caption="Скорость передачи:"/>
+		<control caption="..."/>
+		<control caption="Примерно осталось:"/>
 		<control caption="..."/>
 		<control caption="Загрузили|Всего|%:"/>
 		<control caption="..."/>

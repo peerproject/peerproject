@@ -89,6 +89,9 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CPanelWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
+	if ( m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) )
+		m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
+
 	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
 		rectDefault, this, IDC_SERVICES );
 	m_pSizer.Attach( &m_wndList );
@@ -255,15 +258,17 @@ CDiscoveryService* CDiscoveryWnd::GetItem(int nItem)
 
 void CDiscoveryWnd::OnSkinChange()
 {
+	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
 	Settings.LoadList( _T("CDiscoveryWnd"), &m_wndList, 3 );
+	Skin.CreateToolBar( _T("CDiscoveryWnd"), &m_wndToolBar );
 }
 
 void CDiscoveryWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CPanelWnd::OnSize(nType, cx, cy);
-	m_pSizer.Resize( cx );
-	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy, SWP_NOZORDER );
+	SizeListAndBar( &m_wndList, &m_wndToolBar );
+	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy - Skin.m_nToolbarHeight, SWP_NOZORDER );
 }
 
 void CDiscoveryWnd::OnTimer(UINT_PTR nIDEvent)

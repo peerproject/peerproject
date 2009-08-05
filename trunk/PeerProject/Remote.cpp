@@ -1168,6 +1168,10 @@ void CRemote::PageUploads()
 {
 	if ( CheckCookie() ) return;
 
+	CSingleLock pLock( &UploadQueues.m_pSection, FALSE );
+	if ( ! pLock.Lock( 1000 ) )
+		return;
+
 	CString str;
 
 	Prepare();
