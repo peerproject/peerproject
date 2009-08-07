@@ -3740,19 +3740,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\Res\channel.ico"
+				RelativePath="Res\Busy.ico"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Res\Channel.ico"
 				>
 			</File>
 			<File
 				RelativePath="..\PeerProject\Res\Chat.ico"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\Res\ChatHeader.ico"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\Res\ChatHeader32.ico"
 				>
 			</File>
 			<File
@@ -3761,10 +3757,6 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\Res\ChildFrame.bmp"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\Res\Clipboard.ico"
 				>
 			</File>
 			<File
@@ -4003,14 +3995,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\PeerProject\Res\HostIn.ico"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\Res\HostOut.ico"
-				>
-			</File>
-			<File
 				RelativePath="..\PeerProject\Res\irc.ico"
 				>
 			</File>
@@ -4208,10 +4192,6 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\Res\Skin.ico"
-				>
-			</File>
-			<File
-				RelativePath="..\PeerProject\Res\Skinning.ico"
 				>
 			</File>
 			<File
