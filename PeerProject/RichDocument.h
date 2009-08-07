@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_RICHDOCUMENT_H__9D4A133E_6F29_4BF5_8CCF_2A02830663D5__INCLUDED_)
-#define AFX_RICHDOCUMENT_H__9D4A133E_6F29_4BF5_8CCF_2A02830663D5__INCLUDED_
-
 #pragma once
 
 class CRichElement;
@@ -30,24 +27,18 @@ class CXMLElement;
 
 class CRichDocument
 {
-// Construction
 public:
 	CRichDocument();
 	virtual ~CRichDocument();
 
-// Attributes
-public:
 	CCriticalSection	m_pSection;
-	CList< CRichElement* > m_pElements;
-	DWORD				m_nCookie;
-public:
+	DWORD			m_nCookie;
 	CSize			m_szMargin;
 	COLORREF		m_crBackground;
 	COLORREF		m_crText;
 	COLORREF		m_crLink;
 	COLORREF		m_crHover;
 	COLORREF		m_crHeading;
-public:
 	CFont			m_fntNormal;
 	CFont			m_fntBold;
 	CFont			m_fntItalic;
@@ -55,14 +46,12 @@ public:
 	CFont			m_fntBoldUnder;
 	CFont			m_fntHeading;
 
-// Operations
 public:
 	POSITION		GetIterator() const;
 	CRichElement*	GetNext(POSITION& pos) const;
 	CRichElement*	GetPrev(POSITION& pos) const;
 	INT_PTR			GetCount() const;
 	POSITION		Find(CRichElement* pElement) const;
-public:
 	CRichElement*	Add(CRichElement* pElement, POSITION posBefore = NULL);
 	CRichElement*	Add(int nType, LPCTSTR pszText, LPCTSTR pszLink = NULL, DWORD nFlags = 0, int nGroup = 0, POSITION posBefore = NULL);
 	void			Remove(CRichElement* pElement);
@@ -70,12 +59,13 @@ public:
 	void			ShowGroupRange(int nMin, int nMax, BOOL bShow = TRUE);
 	void			SetModified();
 	void			Clear();
-public:
 	BOOL			LoadXML(CXMLElement* pBase, CMap< CString, const CString&, CRichElement*, CRichElement* >* pMap = NULL, int nGroup = 0);
-	void			CreateFonts(LPCTSTR pszFaceName = NULL, int nSize = 0);
+//	void			CreateFonts(LPCTSTR pszFaceName = NULL, int nSize = 0);
+
 protected:
+	CList< CRichElement* >	m_pElements;
+
+	void			CreateFonts(const LOGFONT* lpLogFont = NULL, const LOGFONT* lpHeading = NULL);
 	BOOL			LoadXMLStyles(CXMLElement* pParent);
 	BOOL			LoadXMLColor(CXMLElement* pXML, LPCTSTR pszName, COLORREF* pColor);
 };
-
-#endif // !defined(AFX_RICHDOCUMENT_H__9D4A133E_6F29_4BF5_8CCF_2A02830663D5__INCLUDED_)

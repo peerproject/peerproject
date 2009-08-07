@@ -40,6 +40,8 @@ public:
 	CFont		m_fntBoldItalic;	// system.bold + italic
 	CFont		m_fntCaption;		// panel.caption
 	CFont		m_fntNavBar;		// navbar.caption
+	CFont		m_fntRichDefault;	// richdoc.default
+	CFont		m_fntRichHeading;	// richdoc.heading
 	BOOL		m_bCustom;
 
 	COLORREF	m_crWindow;

@@ -488,10 +488,12 @@ void CCoolInterface::CreateFonts(LPCTSTR pszFace, int nSize)
 	if ( m_fntNormal.m_hObject ) m_fntNormal.DeleteObject();
 	if ( m_fntBold.m_hObject ) m_fntBold.DeleteObject();
 	if ( m_fntUnder.m_hObject ) m_fntUnder.DeleteObject();
-	if ( m_fntCaption.m_hObject ) m_fntCaption.DeleteObject();
 	if ( m_fntItalic.m_hObject ) m_fntItalic.DeleteObject();
 	if ( m_fntBoldItalic.m_hObject ) m_fntBoldItalic.DeleteObject();
+	if ( m_fntCaption.m_hObject ) m_fntCaption.DeleteObject();
 	if ( m_fntNavBar.m_hObject ) m_fntNavBar.DeleteObject();
+	if ( m_fntRichDefault.m_hObject ) m_fntRichDefault.DeleteObject();
+	if ( m_fntRichHeading.m_hObject ) m_fntRichHeading.DeleteObject();
 
 	BYTE nQuality = theApp.m_bIsVistaOrNewer ? DEFAULT_QUALITY : ANTIALIASED_QUALITY;
 
@@ -520,7 +522,15 @@ void CCoolInterface::CreateFonts(LPCTSTR pszFace, int nSize)
 		DEFAULT_PITCH|FF_DONTCARE, pszFace );
 
 	m_fntNavBar.CreateFontW( -nSize - 2, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, nQuality,
+		DEFAULT_PITCH|FF_DONTCARE, pszFace );
+
+	m_fntRichDefault.CreateFontW( -nSize - 1, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, nQuality,
+		DEFAULT_PITCH|FF_DONTCARE, pszFace );
+
+	m_fntRichHeading.CreateFontW( -nSize - 6, 0, 0, 0, FW_EXTRABOLD, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, nQuality,
 		DEFAULT_PITCH|FF_DONTCARE, pszFace );
 }
 

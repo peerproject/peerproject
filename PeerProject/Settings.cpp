@@ -330,7 +330,7 @@ void CSettings::Load()
 	Add( _T("Gnutella1"), _T("DefaultTTL"), &Gnutella1.DefaultTTL, 3, 1, 1, 3 );
 	Add( _T("Gnutella1"), _T("EnableAlways"), &Gnutella1.EnableAlways, false );
 	Add( _T("Gnutella1"), _T("EnableGGEP"), &Gnutella1.EnableGGEP, true );
-	Add( _T("Gnutella1"), _T("EnableOOB"), &Gnutella1.EnableOOB, false );	// ToDo: Change to "true" when OOB fully implemented.
+	Add( _T("Gnutella1"), _T("EnableOOB"), &Gnutella1.EnableOOB, false );	// ToDo: Set "true" when OOB fully implemented.
 	Add( _T("Gnutella1"), _T("HostCount"), &Gnutella1.HostCount, 15, 1, 1, 50 );
 	Add( _T("Gnutella1"), _T("HostExpire"), &Gnutella1.HostExpire, 2*24*60*60, 24*60*60, 1, 100, _T(" d") );
 	Add( _T("Gnutella1"), _T("MaxHostsInPongs"), &Gnutella1.MaxHostsInPongs, 10, 1, 5, 30 );
@@ -348,7 +348,7 @@ void CSettings::Load()
 	Add( _T("Gnutella1"), _T("QueryHitUTF8"), &Gnutella1.QueryHitUTF8, true );
 	Add( _T("Gnutella1"), _T("QuerySearchUTF8"), &Gnutella1.QuerySearchUTF8, true );
 	Add( _T("Gnutella1"), _T("QueryThrottle"), &Gnutella1.QueryThrottle, 30, 1, 10, 10*60, _T(" s") );
-	Add( _T("Gnutella1"), _T("QueueLimiter"), &Gnutella1.HitQueueLimit, 100 );	// Unused
+//	Add( _T("Gnutella1"), _T("QueueLimiter"), &Gnutella1.HitQueueLimit, 100 );	// Unused
 	Add( _T("Gnutella1"), _T("RequeryDelay"), &Gnutella1.RequeryDelay, 30, 1, 5, 60, _T(" s") );
 	Add( _T("Gnutella1"), _T("SearchTTL"), &Gnutella1.SearchTTL, 3, 1, 1, 3 );
 	Add( _T("Gnutella1"), _T("StrictPackets"), &Gnutella1.StrictPackets, false );

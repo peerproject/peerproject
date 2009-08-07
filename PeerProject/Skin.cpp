@@ -1866,8 +1866,17 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				{
 					pFont = &CoolInterface.m_fntNavBar;
 				}
+				else if ( strName.CompareNoCase( _T("richdoc.default") ) == 0 || strName.CompareNoCase( _T("rich.default") ) == 0 )
+				{
+					pFont = &CoolInterface.m_fntRichDefault;
+				}
+				else if ( strName.CompareNoCase( _T("richdoc.heading") ) == 0 || strName.CompareNoCase( _T("rich.heading") ) == 0 )
+				{
+					pFont = &CoolInterface.m_fntRichHeading;
+				}
 				else
 				{
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown Font"), pXML->ToString() );
 					continue;
 				}
 
