@@ -362,10 +362,19 @@ BOOL CLibraryView::OnDrop(IDataObject* pDataObj, DWORD grfKeyState, POINT ptScre
 
 BOOL CLibraryView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
-	// Scroll window under cursor
+	// Scroll window under cursor, from various Views
 	if ( CWnd* pWnd = WindowFromPoint( pt ) )
+	{
 		if ( pWnd != this )
-			return pWnd->SendMessage( WM_MOUSEWHEEL, MAKEWPARAM( nFlags, zDelta ), MAKELPARAM( pt.x, pt.y ) );
+		{
+			if ( pWnd == FindWindowEx( GetParent()->GetSafeHwnd(), NULL, NULL, _T("CPanelCtrl") ) ||
+				pWnd == FindWindowEx( GetParent()->GetSafeHwnd(), NULL, NULL, _T("CLibraryTreeView") ) )
+			{
+				pWnd->PostMessage( WM_MOUSEWHEEL, MAKEWPARAM( nFlags, zDelta ), MAKELPARAM( pt.x, pt.y ) );
+				return TRUE;
+			}
+		}
+	}
 
 	return CWnd::OnMouseWheel( nFlags, zDelta, pt );
 }
