@@ -38,6 +38,7 @@ public:
 	//{{AFX_DATA(CLanguageDlg)
 	enum { IDD = IDD_LANGUAGE };
 	//}}AFX_DATA
+
 protected:
 	CArray< CString >	m_pPaths;
 	CArray< CString >	m_pTitles;
@@ -47,14 +48,13 @@ protected:
 	int				m_nHover;
 	int				m_nDown;
 	BOOL			m_bKeyMode;
-protected:
+
 	CFont			m_fntNormal;
 	CFont			m_fntBold;
 	CFont			m_fntSmall;
 	HCURSOR			m_hArrow;
 	HCURSOR			m_hHand;
 	CBitmap			m_bmHeader;
-	int				m_nRows;
 
 // Overrides
 public:
@@ -64,6 +64,7 @@ public:
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	//}}AFX_VIRTUAL
+
 protected:
 	void	PaintItem(int nItem, CDC* pDC, CRect* pRect);
 	void	AddEnglishDefault();

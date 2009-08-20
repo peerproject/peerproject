@@ -23,9 +23,10 @@
 #define IDC_FILE_LIST                   1004
 #define IDC_ADD_FOLDER                  1005
 #define IDC_ADD_FILE                    1006
-#define IDC_TRACKER                     1007
 #define IDC_REMOVE_FILE                 1007
-#define IDC_CLEAR_TRACKERS              1008
+#define IDC_TRACKER                     1007
+#define IDC_TRACKER2                    1008
+#define IDC_CLEAR_TRACKERS              1009
 #define IDC_FOLDER                      1009
 #define IDC_CLEAR_FOLDERS               1010
 #define IDC_TORRENT_NAME                1011

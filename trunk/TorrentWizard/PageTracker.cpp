@@ -59,6 +59,8 @@ void CTrackerPage::DoDataExchange(CDataExchange* pDX)
 	//{{AFX_DATA_MAP(CTrackerPage)
 	DDX_Control(pDX, IDC_TRACKER, m_wndTracker);
 	DDX_CBString(pDX, IDC_TRACKER, m_sTracker);
+	DDX_Control(pDX, IDC_TRACKER2, m_wndTracker2);
+	DDX_CBString(pDX, IDC_TRACKER2, m_sTracker2);
 	//}}AFX_DATA_MAP
 }
 
@@ -76,7 +78,11 @@ BOOL CTrackerPage::OnInitDialog()
 		CString strName, strURL;
 		strName.Format( _T("%.3i.URL"), nItem + 1 );
 		strURL = theApp.GetProfileString( _T("Trackers"), strName );
-		if ( strURL.GetLength() ) m_wndTracker.AddString( strURL );
+		if ( strURL.GetLength() )
+		{
+			m_wndTracker.AddString( strURL );
+			m_wndTracker2.AddString( strURL );
+		}
 	}
 	
 	m_sTracker = theApp.GetProfileString( _T("Trackers"), _T("Last") );
@@ -97,6 +103,7 @@ void CTrackerPage::OnClearTrackers()
 	m_sTracker.Empty();
 	UpdateData( FALSE );
 	m_wndTracker.ResetContent();
+	m_wndTracker2.ResetContent();
 	m_wndTracker.SetFocus();
 }
 
@@ -110,7 +117,7 @@ LRESULT CTrackerPage::OnWizardNext()
 {
 	UpdateData( TRUE );
 	
-	if ( m_sTracker.IsEmpty() || m_sTracker.Find( _T("http") ) != 0 )
+	if ( m_sTracker.Find( _T("http") ) != 0 || m_sTracker.GetLength() < 16 )
 	{
 		if ( IDYES != AfxMessageBox( IDS_TRACKER_NEED_URL, MB_ICONQUESTION|MB_YESNO ) )
 		{
@@ -119,9 +126,10 @@ LRESULT CTrackerPage::OnWizardNext()
 		}
 	}
 	
-	if ( m_sTracker.GetLength() > 0 && m_wndTracker.FindStringExact( -1, m_sTracker ) < 0 )
+	if ( m_sTracker.GetLength() > 15 && m_wndTracker.FindStringExact( -1, m_sTracker ) < 0 )
 	{
-		m_wndTracker.AddString( m_sTracker );
+		m_wndTracker.AddString( m_sTracker );	// Populate Combo-box
+		m_wndTracker2.AddString( m_sTracker );
 		
 		CString strName;
 		int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
@@ -129,7 +137,19 @@ LRESULT CTrackerPage::OnWizardNext()
 		theApp.WriteProfileInt( _T("Trackers"), _T("Count"), nCount );
 		theApp.WriteProfileString( _T("Trackers"), strName, m_sTracker );
 	}
-	
+
+	if ( m_sTracker2.Find( _T("http") ) == 0 && m_sTracker2.GetLength() > 15 && m_wndTracker2.FindStringExact( -1, m_sTracker2 ) < 0 )
+	{
+		m_wndTracker.AddString( m_sTracker2 );
+		m_wndTracker2.AddString( m_sTracker2 );
+		
+		CString strName;
+		int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
+		strName.Format( _T("%.3i.URL"), ++nCount );
+		theApp.WriteProfileInt( _T("Trackers"), _T("Count"), nCount );
+		theApp.WriteProfileString( _T("Trackers"), strName, m_sTracker );
+	}
+
 	theApp.WriteProfileString( _T("Trackers"), _T("Last"), m_sTracker );
 	
 	return IDD_COMMENT_PAGE;

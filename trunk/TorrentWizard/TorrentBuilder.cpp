@@ -136,6 +136,14 @@ BOOL CTorrentBuilder::AddTrackerURL(LPCTSTR pszURL)
 	return TRUE;
 }
 
+BOOL CTorrentBuilder::AddTrackerURL2(LPCTSTR pszURL)
+{
+	CSingleLock pLock( &m_pSection, TRUE );
+	if ( m_bActive ) return FALSE;
+	m_sTracker2 = pszURL;
+	return TRUE;
+}
+
 BOOL CTorrentBuilder::SetComment(LPCTSTR pszComment)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
@@ -506,25 +514,45 @@ BOOL CTorrentBuilder::ProcessFile(DWORD nFile, LPCTSTR pszFile)
 BOOL CTorrentBuilder::WriteOutput()
 {
 	CBENode pRoot;
-	if ( m_sTracker.GetLength() > 0 )
+	if ( m_sTracker.GetLength() > 15 )
 	{
 		CBENode* pAnnounce = pRoot.Add( "announce" );
 		pAnnounce->SetString( m_sTracker );
 	}
+	if ( m_sTracker2.GetLength() > 15 && m_sTracker2 != m_sTracker )
 	{
-	CBENode* pDate = pRoot.Add( "creation date" );
-	pDate->SetInt( (QWORD)time( NULL ) );
+		// Rough implementation.  ToDo: Cleanup for more trackers
+
+		CBENode* pAnnounceList = pRoot.Add( "announce-list" );
+		{
+			BYTE*	pBuffer = NULL;		// Quick List Workaround
+
+			CBENode* pList1 = pAnnounceList->Add( pBuffer, 1 );
+			{
+				CBENode* pAnnounce = pList1->Add( pBuffer, 2 );
+				pAnnounce->SetString( m_sTracker );
+			}
+			CBENode* pList2 = pAnnounceList->Add( pBuffer, 1 );
+			{
+				CBENode* pAnnounce = pList2->Add( pBuffer, 2 );
+				pAnnounce->SetString( m_sTracker2 );
+			}
+		}
+	}
+	{
+		CBENode* pDate = pRoot.Add( "creation date" );
+		pDate->SetInt( (QWORD)time( NULL ) );
 	}
 	CBENode* pInfo = pRoot.Add( "info" );
 	{
-	CBENode* pPL = pInfo->Add( "piece length" );
-	pPL->SetInt( m_nPieceSize );
+		CBENode* pPL = pInfo->Add( "piece length" );
+		pPL->SetInt( m_nPieceSize );
 	}
 	{
 		CSHA::Digest* pPieceSHA1 = new CSHA::Digest[ m_nPieceCount ];
 		for ( DWORD i = 0 ; i < m_nPieceCount; ++i )
 			m_pPieceSHA1[ i ].GetHash( (uchar*)&pPieceSHA1[ i ][ 0 ] );
-	CBENode* pPieces = pInfo->Add( "pieces" );
+		CBENode* pPieces = pInfo->Add( "pieces" );
 		pPieces->SetString( pPieceSHA1, m_nPieceCount * sizeof CSHA::Digest );
 		delete [] pPieceSHA1;
 	}
@@ -532,14 +560,14 @@ BOOL CTorrentBuilder::WriteOutput()
 	{
 		CSHA::Digest pDataSHA1;
 		m_oDataSHA1.GetHash( (uchar*)&pDataSHA1[ 0 ] );
-	CBENode* pSHA1 = pInfo->Add( "sha1" );
+		CBENode* pSHA1 = pInfo->Add( "sha1" );
 		pSHA1->SetString( &pDataSHA1, sizeof CSHA::Digest );
 	}
 	if ( m_bED2K )
 	{
 		CMD4::Digest pDataED2K;
 		m_oDataED2K.GetRoot( (uchar*)&pDataED2K[ 0 ] );
-	CBENode* pED2K = pInfo->Add( "ed2k" );
+		CBENode* pED2K = pInfo->Add( "ed2k" );
 		pED2K->SetString( &pDataED2K, sizeof CMD4::Digest );
 	}
 	if ( m_bMD5 )
@@ -556,19 +584,19 @@ BOOL CTorrentBuilder::WriteOutput()
 		int nPos = strFirst.ReverseFind( '\\' );
 		if ( nPos >= 0 ) strFirst = strFirst.Mid( nPos + 1 );
 		{
-		CBENode* pName = pInfo->Add( "name" );
-		pName->SetString( strFirst );
+			CBENode* pName = pInfo->Add( "name" );
+			pName->SetString( strFirst );
 		}
 		{
-		CBENode* pLength = pInfo->Add( "length" );
-		pLength->SetInt( m_nTotalSize );
+			CBENode* pLength = pInfo->Add( "length" );
+			pLength->SetInt( m_nTotalSize );
 		}
 	}
 	else
 	{
 		{
-		CBENode* pName = pInfo->Add( "name" );
-		pName->SetString( m_sName );
+			CBENode* pName = pInfo->Add( "name" );
+			pName->SetString( m_sName );
 		}
 		CBENode* pFiles = pInfo->Add( "files" );
 		int nCommonPath = 32000;
@@ -604,30 +632,30 @@ BOOL CTorrentBuilder::WriteOutput()
 			CString strFile = m_pFiles.GetNext( pos );
 			CBENode* pFile = pFiles->Add( NULL, NULL );
 			{
-			CBENode* pLength = pFile->Add( "length" );
-			pLength->SetInt( m_pFileSize[ nFile ] );
+				CBENode* pLength = pFile->Add( "length" );
+				pLength->SetInt( m_pFileSize[ nFile ] );
 			}
 			{
-			CBENode* pPath = pFile->Add( "path" );
-			strFile = strFile.Mid( nCommonPath );
-			while ( strFile.GetLength() )
-			{
-				CString strPart = strFile.SpanExcluding( _T("\\/") );
-				if ( strPart.IsEmpty() ) break;
+				CBENode* pPath = pFile->Add( "path" );
+				strFile = strFile.Mid( nCommonPath );
+				while ( strFile.GetLength() )
+				{
+					CString strPart = strFile.SpanExcluding( _T("\\/") );
+					if ( strPart.IsEmpty() ) break;
 
-				pPath->Add( NULL, NULL )->SetString( strPart );
+					pPath->Add( NULL, NULL )->SetString( strPart );
 
-				strFile = strFile.Mid( strPart.GetLength() );
-				if ( strFile.GetLength() ) strFile = strFile.Mid( 1 );
+					strFile = strFile.Mid( strPart.GetLength() );
+					if ( strFile.GetLength() ) strFile = strFile.Mid( 1 );
+				}
 			}
-		}
 			if ( m_bSHA1 )
 			{
 				CSHA::Digest pFileSHA1;
 				m_pFileSHA1[ nFile ].GetHash( (uchar*)&pFileSHA1[ 0 ] );
 				CBENode* pSHA1 = pFile->Add( "sha1" );
 				pSHA1->SetString( &pFileSHA1, sizeof CSHA::Digest );
-	}
+			}
 			if ( m_bED2K )
 			{
 				CMD4::Digest pFileED2K;
@@ -646,7 +674,7 @@ BOOL CTorrentBuilder::WriteOutput()
 	}
 	{
 		CBENode* pAgent = pRoot.Add( "created by" );
-		CString strAgent = _T("TorrentWizard ") + theApp.m_sVersion;
+		CString strAgent = _T("PeerProject Wizard ") + theApp.m_sVersion;
 		pAgent->SetString( strAgent );
 	}
 	if ( m_sComment.GetLength() > 0 )

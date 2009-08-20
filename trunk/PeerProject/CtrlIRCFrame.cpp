@@ -231,7 +231,7 @@ void CIRCFrame::FillChanList()
 	m_pChanList.AddChannel( _T("Shareaza"), _T("#shareaza") );
 	m_pChanList.AddChannel( _T("Afrikaans"), _T("#PeerProject-af") );
 	m_pChanList.AddChannel( _T("Arabic"), _T("#PeerProject-ar") );
-	m_pChanList.AddChannel( _T("Chinese"), _T("#PeerProject-chs") );
+	m_pChanList.AddChannel( _T("Chinese"), _T("#PeerProject-zh") );
 	m_pChanList.AddChannel( _T("Croatian"), _T("#PeerProject-cr") );
 	m_pChanList.AddChannel( _T("Czech"), _T("#PeerProject-cz") );
 	m_pChanList.AddChannel( _T("Dutch"), _T("#PeerProject-nl") );
@@ -243,13 +243,14 @@ void CIRCFrame::FillChanList()
 	m_pChanList.AddChannel( _T("Hungarian"), _T("#PeerProject-hu") );
 	m_pChanList.AddChannel( _T("Italian"), _T("#PeerProject-it") );
 	m_pChanList.AddChannel( _T("Japanese"), _T("#PeerProject-ja") );
+	m_pChanList.AddChannel( _T("Korean"), _T("#PeerProject-ko") );
 	m_pChanList.AddChannel( _T("Lithuanian"), _T("#PeerProject-lt") );
 	m_pChanList.AddChannel( _T("Norwegian"), _T("#PeerProject-no") );
 	m_pChanList.AddChannel( _T("Polish"), _T("#PeerProject-po") );
 	m_pChanList.AddChannel( _T("Portuguese"), _T("#PeerProject-pt") );
 	m_pChanList.AddChannel( _T("Russian"), _T("#PeerProject-ru") );
 	m_pChanList.AddChannel( _T("Spanish"), _T("#PeerProject-es") );
-	m_pChanList.AddChannel( _T("Swedish"), _T("#PeerProject-sw") );
+	m_pChanList.AddChannel( _T("Swedish"), _T("#PeerProject-sv") );
 	m_pChanList.AddChannel( _T("Shareaza Afrikaans"), _T("#Shareaza-Afrikaans") );
 	m_pChanList.AddChannel( _T("Shareaza Arabic"), _T("#Shareaza-Arabic") );
 	m_pChanList.AddChannel( _T("Shareaza Chinese"), _T("#Shareazat-Chinese") );

@@ -328,7 +328,7 @@ void CSettings::Load()
 
 	Add( _T("Gnutella1"), _T("ClientMode"), &Gnutella1.ClientMode, MODE_AUTO, 1, MODE_AUTO, MODE_HUB );	// MODE_LEAF
 	Add( _T("Gnutella1"), _T("DefaultTTL"), &Gnutella1.DefaultTTL, 3, 1, 1, 3 );
-	Add( _T("Gnutella1"), _T("EnableAlways"), &Gnutella1.EnableAlways, false );
+	Add( _T("Gnutella1"), _T("EnableAlways"), &Gnutella1.EnableAlways, true );
 	Add( _T("Gnutella1"), _T("EnableGGEP"), &Gnutella1.EnableGGEP, true );
 	Add( _T("Gnutella1"), _T("EnableOOB"), &Gnutella1.EnableOOB, false );	// ToDo: Set "true" when OOB fully implemented.
 	Add( _T("Gnutella1"), _T("HostCount"), &Gnutella1.HostCount, 15, 1, 1, 50 );
@@ -394,7 +394,7 @@ void CSettings::Load()
 
 	Add( _T("eDonkey"), _T("DefaultServerFlags"), &eDonkey.DefaultServerFlags, 0xFFFFFFFF );
 	Add( _T("eDonkey"), _T("DequeueTime"), &eDonkey.DequeueTime, 3600, 60, 2, 512, _T(" m") );
-	Add( _T("eDonkey"), _T("EnableAlways"), &eDonkey.EnableAlways, false );
+	Add( _T("eDonkey"), _T("EnableAlways"), &eDonkey.EnableAlways, true );
 	Add( _T("eDonkey"), _T("Endgame"), &eDonkey.Endgame, true );
 	Add( _T("eDonkey"), _T("ExtendedRequest"), &eDonkey.ExtendedRequest, 2, 1, 0, 2 );
 	Add( _T("eDonkey"), _T("FastConnect"), &eDonkey.FastConnect, false );
@@ -420,7 +420,7 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("RequestPipe"), &eDonkey.RequestPipe, 3, 1, 1, 10 );
 	Add( _T("eDonkey"), _T("RequestSize"), &eDonkey.RequestSize, 180*1024/2, 1024, 10, 1000, _T(" KB") );
 	Add( _T("eDonkey"), _T("SendPortServer"), &eDonkey.SendPortServer, false );
-	Add( _T("eDonkey"), _T("ServerListURL"), &eDonkey.ServerListURL, _T("http://ocbmaurice.dyndns.org/pl/slist.pl/server.met?download/server-best.met") );
+	Add( _T("eDonkey"), _T("ServerListURL"), &eDonkey.ServerListURL, _T("http://peerates.net/servers.php") );
 	Add( _T("eDonkey"), _T("ServerWalk"), &eDonkey.ServerWalk, true );
 	Add( _T("eDonkey"), _T("SourceThrottle"), &eDonkey.SourceThrottle, 1000, 1, 250, 5000, _T(" ms") );
 	Add( _T("eDonkey"), _T("StatsGlobalThrottle"), &eDonkey.StatsGlobalThrottle, 30*60*1000, 60*1000, 30, 120, _T(" m") );

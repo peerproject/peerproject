@@ -1780,7 +1780,7 @@
 <!-- Chinese Simple -->
 
 <windowSkin>
-<image type="image" language="chs" path="Seven\RibbonTabs_ch.png"/>
+<image type="image" language="zhs" path="Seven\RibbonTabs_ch.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>
@@ -1825,7 +1825,7 @@
 <!-- Chinese Traditional -->
 
 <windowSkin>
-<image type="image" language="tw" path="Seven\RibbonTabs_ch.png"/>
+<image type="image" language="zht" path="Seven\RibbonTabs_ch.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>

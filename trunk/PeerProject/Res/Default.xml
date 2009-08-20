@@ -1578,7 +1578,7 @@
 		<item id="ID_TRAFFIC_SETUP" text="_Select Graphs..."/>
 		<separator/>
 		<item id="ID_TRAFFIC_GRID" text="_Grid Lines"/>
-		<item id="ID_TRAFFIC_AXIS" text="_Axis"/>
+		<item id="ID_TRAFFIC_AXIS" text="_Scale"/>
 		<item id="ID_TRAFFIC_LEGEND" text="_Legend"/>
 		<separator/>
 		<item id="ID_TRAFFIC_CLEAR" text="_Clear"/>
@@ -1685,7 +1685,7 @@
 				<font size="13"/>
 			</style>
 			<style name="heading">
-				<font face="Segoe UI" size="18" weight="400"/>
+				<font size="18" weight="400"/>
 			</style>
 		</styles>
 		<anchor id="Header" width="32" height="152"/>
@@ -1812,7 +1812,7 @@
 			</para>
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
-		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
+		<text group="20" align="middle" format="b">&#160;Gnutella2: &#160;</text>
 		<text group="21" align="middle">Disconnected</text>
 		<text group="22" align="middle">Connecting...</text>
 		<text group="23" align="middle" id="G2Peers">Hub mode</text>
@@ -1820,7 +1820,7 @@
 		<text group="25" align="middle" id="G2Leaves">%i leaves</text>
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
-		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
+		<text group="10" align="middle" format="b">&#160;Gnutella: &#160;</text>
 		<text group="11" align="middle">Disconnected</text>
 		<text group="12" align="middle">Connecting...</text>
 		<text group="13" align="middle" id="G1Peers">Ultrapeer</text>
@@ -1828,7 +1828,7 @@
 		<text group="15" align="middle" id="G1Leaves">%i leaves</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
-		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
+		<text group="30" align="middle" format="b">&#160;eDonkey: &#160;</text>
 		<text group="31" align="middle">Disconnected</text>
 		<text group="32" align="middle">Connecting...</text>
 		<text group="33" align="middle">Connected</text>
@@ -2238,7 +2238,7 @@
 		<text format="b">Torrent encoding error detected</text>
 		<newline gap="8"/>
 		<text>Windows has reported a 'translation fault' while decoding text in this torrent.
-		The torrent file may be corrupt, or just incorrectly encoded (often mixed Linux data).
+		The torrent file may be corrupt, or just incorrectly encoded.
 		The target file itself can most likely still be downloaded.</text>
 		<newline gap="8"/>
 		<text>Many torrent creation programs should allow you to repair this torrent,

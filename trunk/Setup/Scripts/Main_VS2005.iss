@@ -51,6 +51,9 @@ AppMutex={#internal_name}
 DefaultDirName={ini:{param:SETTINGS|},Locations,Path|{reg:HKLM\SOFTWARE\{#internal_name},|{pf}\{#internal_name}}}
 DirExistsWarning=no
 DefaultGroupName={#internal_name}
+#if VER > 0x05030200
+  DisableProgramGroupPage=auto
+#endif
 AllowNoIcons=yes
 OutputDir=VS2005\Installer
 OutputBaseFilename={#output_name}
@@ -61,21 +64,21 @@ PrivilegesRequired=poweruser
 ShowLanguageDialog=yes
 ShowUndisplayableLanguages=yes
 LanguageDetectionMethod=locale
-UninstallDisplayIcon={app}\Uninstall\setup.exe
+AppModifyPath="{app}\Uninstall\Setup.exe"
+UninstallDisplayIcon={app}\Uninstall\Setup.exe
 UninstallDisplayName={#internal_name} {#version}
 UninstallFilesDir={app}\Uninstall
 SetupIconFile=Setup\Res\Install.ico
 ShowComponentSizes=no
 WizardImageFile=Setup\Res\Sidebar.bmp
 WizardSmallImageFile=Setup\Res\CornerLogo.bmp
-AppModifyPath="{app}\Uninstall\setup.exe"
 ChangesAssociations=yes
 ChangesEnvironment=yes
 OutputManifestFile=Manifest_{#ConfigurationName}{#PlatformName}.txt
 MinVersion=0,5.0
 #if PlatformName == "x64"
-ArchitecturesAllowed=x64
-ArchitecturesInstallIn64BitMode=x64
+  ArchitecturesAllowed=x64
+  ArchitecturesInstallIn64BitMode=x64
 #endif
 
 ; Set the SVN root as source dir (up 2 levels)
@@ -169,13 +172,13 @@ Source: "Setup\Res\Uninstall.ico"; DestDir: "{app}\Uninstall"; Flags: ignorevers
 Source: "Schemas\*"; DestDir: "{app}\Schemas"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"
 
 ; Skins
-Source: "Skins\*"; DestDir: "{app}\Skins"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn,\Arcadia's Call\*,\Green Moon\*,\LiquidMetal*\*,\NucleoX\*,\Raza-Ablaze\*"
+Source: "Skins\*"; DestDir: "{app}\Skins"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn,.bak"
 
 ; Templates
 Source: "Templates\*"; DestDir: "{app}\Templates"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn"
 
 ; Languages
-Source: "Languages\*"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: "language"; Excludes: ".svn,*.bak,default-en.xml"
+Source: "Languages\*"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: "language"; Excludes: ".svn,*.bak,default-en.*"
 
 ; Visualizations
 ;Source: "Plugins\MediaVis\*"; DestDir: "{app}\Vis"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn"
@@ -453,7 +456,6 @@ Type: filesandordirs; Name: "{userappdata}\PeerProject\Skins"
 Type: files; Name: "{reg:HKCU\Software\PeerProject\PeerProject\Downloads,CompletePath|{userdocs}\PeerProject Downloads}\Thumbs.db"; Tasks: multiuser
 Type: files; Name: "{reg:HKCU\Software\PeerProject\PeerProject\Downloads,CompletePath|{app}\Downloads}\Thumbs.db"
 Type: files; Name: "{userappdata}\PeerProject\Data\DefaultAvatar.png"
-Type: files; Name: "{app}\Skins\Languages\default-en.xml"
 
 ; Clean up old PeerProject Shortcuts
 Type: files; Name: "{userdesktop}\PeerProject.lnk"; Tasks: not desktopicon
@@ -664,7 +666,7 @@ begin
     hService := OpenService(hSCManager, ServiceName, SERVICE_QUERY_STATUS);
     if (hService <> 0) then begin
       if (QueryServiceStatus(hService, sStatus)) then
-        Result := (sStatus.dwCurrentState = SERVICE_RUNNING)
+        Result := (sStatus.dwCurrentState = SERVICE_RUNNING);
       CloseServiceHandle(hService);
     end;
     CloseServiceHandle(hSCManager);
@@ -845,8 +847,12 @@ Function GetRelFilePath(LangCode: String): String;
 Begin
   StringChangeEx(LangCode, '_', '-', True);
 
-  if ( LangCode = 'pt' ) then
+  if ( LangCode = 'en-uk' ) then
+    Result := 'Languages\default-alt.xml'
+  else if ( LangCode = 'pt' ) then
     Result := 'Languages\default-pt-br.xml'
+  else if ( LangCode = 'af' ) then
+    Result := 'Languages\default-za.xml'
   else
     Result := 'Languages\default-' + LangCode + '.xml';
 End;

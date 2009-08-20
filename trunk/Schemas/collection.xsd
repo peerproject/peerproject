@@ -40,6 +40,7 @@
 				<enumeration value="ZIP"/>
 				<enumeration value="RAR"/>
 				<enumeration value="ACE"/>
+				<enumeration value="7Z"/>
 			</simpleType>
 		</attribute>
 		<attribute name="OS">

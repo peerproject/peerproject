@@ -32,12 +32,18 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 <schemaDescriptor location="http://www.shareaza.com/schemas/musicArtistCollection.xsd" xmlns="http://www.shareaza.com/schemas/SchemaDescriptor.xsd">
 
 	<object type="folder" availability="system"/>
+	<contains>
+		<object type="folder" location="http://www.shareaza.com/schemas/musicArtist.xsd"/>
+	</contains>
+	<images>
+		<icon path="MusicFolder.ico"/>
+	</images>
 	<titles>
 		<title language="en">Music:By Artist</title>
 		<title language="af">Musiek:Volgens Kunstenaar</title>
 		<title language="ca">Música: per artista</title>
-		<title language="chs">&#160;音乐:按 - 艺人</title>
-		<title language="cht">音樂:由-藝人</title>
+		<title language="zhs">&#160;音乐:按 - 艺人</title>
+		<title language="zht">音樂:由-藝人</title>
 		<title language="cz">Hudba:Podle autora</title>
 		<title language="de">Musik:Nach Künstler</title>
 		<title language="ee">Muusika:Artistid</title>
@@ -67,8 +73,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Title</title>
 			<title language="af">Titel</title>
 			<title language="ca">Títol</title>
-			<title language="chs">标题</title>
-			<title language="cht">標題</title>
+			<title language="zhs">标题</title>
+			<title language="zht">標題</title>
 			<title language="cz">Název</title>
 			<title language="de">Titel</title>
 			<title language="ee">Pealkiri</title>
@@ -93,18 +99,12 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="tr">Başlık</title>
 		</member>
 	</members>
-	<images>
-		<icon path="MusicFolder.ico"/>
-	</images>
-	<contains>
-		<object type="folder" location="http://www.shareaza.com/schemas/musicArtist.xsd"/>
-	</contains>
 	<headerContent version="1.0">
 		<title language="en">Music By Artist</title>
 		<title language="af">Musiek Volgens Kunstenaar</title>
 		<title language="ca">Música per artista</title>
-		<title language="chs">音乐 按艺术家</title>
-		<title language="cht">音樂-由-藝人</title>
+		<title language="zhs">音乐 按艺术家</title>
+		<title language="zht">音樂-由-藝人</title>
 		<title language="cz">Hudba podle autora</title>
 		<title language="de">Musik nach Künstler</title>
 		<title language="ee">Muusika Artistid</title>
@@ -130,8 +130,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="en">This folder contains a list of the artists in your music library.</subtitle>
 		<subtitle language="af">Hierdie gids bevat 'n lys van die kunstenaars wat jy in jou biblioteek het.</subtitle>
 		<subtitle language="ca">Aquesta carpeta conté una llista d'artistes de la teva col·lecció de música.</subtitle>
-		<subtitle language="chs">此文件夹包含您收藏中艺术家的清单。</subtitle>
-		<subtitle language="cht">這個資料夾包含了在您的音樂收藏中一個藝人清單.</subtitle>
+		<subtitle language="zhs">此文件夹包含您收藏中艺术家的清单。</subtitle>
+		<subtitle language="zht">這個資料夾包含了在您的音樂收藏中一個藝人清單.</subtitle>
 		<subtitle language="cz">Tato složka obsahuje seznam autorů, jejichž díla máte v knihovně.</subtitle>
 		<subtitle language="de">Dieser Ordner enthält eine Liste der Künstler in ihrer Musikbibliothek.</subtitle>
 		<subtitle language="ee">See kaust sisaldab nimekirja Esitajatest sinu raamatukogus</subtitle>

@@ -167,10 +167,10 @@ CAPTION "PeerProject Torrent Wizard - Choose Torrent Type"
 FONT 8, "Tahoma", 0, 0, 0x0
 BEGIN
     LTEXT           "Welcome to PeerProject's Torrent Wizard",IDC_TITLE,15,15,300,10
-    LTEXT           "This tool will guide you through creating a .torrent file,\nthe small meta-file that describes a BitTorrent download.",IDC_STATIC,15,35,300,20
+    LTEXT           "This tool will guide you through creating a .torrent file,\nthe small meta-file that defines a BitTorrent download.",IDC_STATIC,15,35,300,20
     LTEXT           "What kind of Torrent would you like to create?",IDC_STATIC,15,80,300,10
-    CONTROL         "Single File (Prefered)",IDC_TYPE_SINGLE,"Button",BS_AUTORADIOBUTTON | WS_GROUP,35,105,280,10
-    CONTROL         "Multiple Files (Standard Package)",IDC_TYPE_PACKAGE,"Button",BS_AUTORADIOBUTTON,35,125,280,10
+    CONTROL         "Single File  (Preferred)",IDC_TYPE_SINGLE,"Button",BS_AUTORADIOBUTTON | WS_GROUP,35,105,280,10
+    CONTROL         "Multiple Files  (Standard Package)",IDC_TYPE_PACKAGE,"Button",BS_AUTORADIOBUTTON,35,125,280,10
     LTEXT           "1/5 Click Next to choose which files to include in the Torrent.",IDC_STATIC,15,190,300,20
 END
 
@@ -210,13 +210,15 @@ CAPTION "PeerProject Torrent Wizard - Tracker Selection"
 FONT 8, "Tahoma", 0, 0, 0x0
 BEGIN
     LTEXT           "Select Tracker URL",IDC_TITLE,15,15,300,10
-    LTEXT           "A 'Tracker' server keeps the list of active downloaders for each BitTorrent file.\n\nThis Torrent Wizard creates torrent files that do not require a tracker to find peers,\nif the user is running a BitTorrent client that supports decentralized searching.",IDC_STATIC,15,35,300,35
-    LTEXT           "However, many users are running BitTorrent clients that do not support such searching, and still rely on a central BitTorrent tracker. You can find public trackers by searching online.",IDC_STATIC,15,75,300,25
-    LTEXT           "Your Torrent should now reference a tracker URL that clients will contact when downloading.  Please type your tracker's 'announce' link below, or select from ones used recently.",IDC_STATIC,15,98,300,25
-    LTEXT           "Type or select a tracker URL:",IDC_STATIC,15,140,300,10
-    COMBOBOX        IDC_TRACKER,15,150,300,140,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "&Clear List",IDC_CLEAR_TRACKERS,265,165,50,15
-    LTEXT           "3/5 Click Next to add comments to your Torrent file.",IDC_STATIC,15,190,300,10
+    LTEXT           "A 'Tracker' server maintains the list of active downloaders for each BitTorrent file.",IDC_STATIC,15,35,300,35
+    LTEXT           "This Wizard creates full torrentfiles that allow decentralized searching for sources.\nHowever, most BitTorrent users still rely on one or more central BitTorrent trackers.\nYou can find public trackers to use by searching online.",IDC_STATIC,15,52,300,25
+    LTEXT           "Your Torrent should now reference the URL that clients will contact when downloading.\nCopy/paste your tracker's 'announce' link below,  or select one used recently.",IDC_STATIC,15,84,300,25
+    LTEXT           "Type or select a tracker URL:",IDC_STATIC,15,120,300,10
+    COMBOBOX        IDC_TRACKER,15,131,300,140,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Add an optional secondary tracker URL:",IDC_STATIC,15,150,300,10
+    COMBOBOX        IDC_TRACKER2,15,161,300,140,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Clear History",IDC_CLEAR_TRACKERS,260,185,55,15
+    LTEXT           "3/5 Click Next to add comments to your Torrent file.",IDC_STATIC,15,190,220,10
 END
 
 IDD_COMMENT_PAGE DIALOGEX 0, 0, 322, 225

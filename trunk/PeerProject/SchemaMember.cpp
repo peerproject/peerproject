@@ -77,7 +77,7 @@ CString CSchemaMember::GetNextItem(POSITION& pos) const
 
 CString CSchemaMember::GetValueFrom(CXMLElement* pBase, LPCTSTR pszDefault, BOOL bFormat, BOOL bNoValidation) const
 {
-	// OPTIMIZE: This could all be done with LPCTSTR pointers instead of CString
+	// ToDo: OPTIMIZE: This could all be done with LPCTSTR pointers instead of CString
 	CString strValue;
 	
 	if ( pBase != NULL )
@@ -98,7 +98,7 @@ CString CSchemaMember::GetValueFrom(CXMLElement* pBase, LPCTSTR pszDefault, BOOL
 
 	if ( ! bNoValidation )
 	{
-		// validate numeric value, empty if invalid
+		// Validate numeric value, empty if invalid
 		if ( m_bNumeric )
 		{
 			float nNumber = 0.0;
@@ -313,15 +313,10 @@ BOOL CSchemaMember::LoadDescriptor(CXMLElement* pXML)
 		}
 		else if ( pElement->IsNamed( L"title" ) )
 		{
-			if ( pElement->GetAttributeValue( L"language" ).
-				 CompareNoCase( Settings.General.Language ) == 0 )
-			{
+			if ( pElement->GetAttributeValue( L"language" ).CompareNoCase( Settings.General.Language ) == 0 )
 				m_sTitle = pElement->GetValue();
-			}
 			else if ( m_sTitle.IsEmpty() )
-			{
 				m_sTitle = pElement->GetValue();
-			}
 		}
 		else if ( pElement->IsNamed( L"link" ) )
 		{

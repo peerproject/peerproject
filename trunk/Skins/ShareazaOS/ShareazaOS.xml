@@ -19,7 +19,7 @@
     <fonts>
       <font name="Panel.Caption" face="Arial" size="12" weight="plain"/>
       <font name="Panel.Caption" language="ja" face="MS UI Gothic" size="12" weight="normal"/>
-      <font name="Panel.Caption" language="chs" face="Tahoma" size="12" weight="bold"/>
+      <font name="Panel.Caption" language="zhs" face="Tahoma" size="12" weight="bold"/>
     </fonts>
     <!-- Manifest -->
     <colorScheme>
@@ -2641,8 +2641,8 @@
       <!-- end navbar language for tr -->
       <!-- navbar language for tw -->
       <windowSkin>
-        <image type="image" language="tw" path="sos_navbar_chs.png"/>
-        <image type="watermark" language="tw" path="sos_navbarbg.png"/>
+        <image type="image" language="zht" path="sos_navbar_chs.png"/>
+        <image type="watermark" language="zht" path="sos_navbarbg.png"/>
         <target window="CMainTabBarCtrl"/>
         <target window="CMainTabBarCtrl.Windowed"/>
         <parts>
@@ -2687,8 +2687,8 @@
         </anchors>
       </windowSkin>
       <windowSkin>
-        <image type="image" language="tw" path="sos_navbar_chs.png"/>
-        <image type="watermark" language="tw" path="sos_navbarbg.png"/>
+        <image type="image" language="zht" path="sos_navbar_chs.png"/>
+        <image type="watermark" language="zht" path="sos_navbarbg.png"/>
         <target window="CMainTabBarCtrl.Basic"/>
         <parts>
           <part name="_ID_TAB_HOME.Up"		rect="0,0,81,29"/>
@@ -2729,8 +2729,8 @@
       <!-- end navbar language for tw -->
       <!-- navbar language for chs -->
       <windowSkin>
-        <image type="image" language="chs" path="sos_navbar_chs.png"/>
-        <image type="watermark" language="chs" path="sos_navbarbg.png"/>
+        <image type="image" language="zhs" path="sos_navbar_chs.png"/>
+        <image type="watermark" language="zhs" path="sos_navbarbg.png"/>
         <target window="CMainTabBarCtrl"/>
         <target window="CMainTabBarCtrl.Windowed"/>
         <parts>
@@ -2775,8 +2775,8 @@
         </anchors>
       </windowSkin>
       <windowSkin>
-        <image type="image" language="chs" path="sos_navbar_chs.png"/>
-        <image type="watermark" language="chs" path="sos_navbarbg.png"/>
+        <image type="image" language="zhs" path="sos_navbar_chs.png"/>
+        <image type="watermark" language="zhs" path="sos_navbarbg.png"/>
         <target window="CMainTabBarCtrl.Basic"/>
         <parts>
           <part name="_ID_TAB_HOME.Up"		rect="0,0,81,29"/>

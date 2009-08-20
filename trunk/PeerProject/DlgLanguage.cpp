@@ -54,6 +54,7 @@ END_MESSAGE_MAP()
 #define HEADING_HEIGHT	50
 #define ITEM_HEIGHT		38
 #define ITEM_WIDTH		200
+#define ITEM_ROWS		11
 #define TEXT_MARGIN		0
 
 
@@ -105,27 +106,22 @@ BOOL CLanguageDlg::OnInitDialog()
 	m_pImages.Create( 32, 32, ILC_COLOR24|ILC_MASK, 1, 1 ) ||
 	m_pImages.Create( 32, 32, ILC_COLOR16|ILC_MASK, 1, 1 );
 
-	// Always include English as a choice
-	AddEnglishDefault();
-	// Add any other languages that are available
-	Enumerate();
+	AddEnglishDefault();	// Always include English as a choice
+
+	Enumerate();			// Add any other available languages
 
 	m_nHover	= 0;
 	m_nDown		= 0;
 	m_bKeyMode	= FALSE;
 
-	CRect rc( 0, 0, ITEM_WIDTH * 3 + GetSystemMetrics( SM_CXVSCROLL ), HEADING_HEIGHT );
-
-	m_nRows = 10;
-
-	rc.bottom += ( m_nRows ) * ITEM_HEIGHT;
+	CRect rc( 0, 0, ITEM_WIDTH * 3 + GetSystemMetrics( SM_CXVSCROLL ), ITEM_HEIGHT * ITEM_ROWS + HEADING_HEIGHT );
 
 	SCROLLINFO pScroll = {};
 	pScroll.cbSize	= sizeof(pScroll);
 	pScroll.fMask	= SIF_RANGE|SIF_PAGE|SIF_DISABLENOSCROLL;
 	pScroll.nMin	= 0;
 	pScroll.nMax	= ( m_pPaths.GetSize() / 3 ) + ( m_pPaths.GetSize() % 3 ? 1 : 0 );
-	pScroll.nPage	= m_nRows + 1;
+	pScroll.nPage	= ITEM_ROWS + 1;
 	SetScrollInfo( SB_VERT, &pScroll, TRUE );
 
 	//if ( m_pSkin )
@@ -477,7 +473,7 @@ void CLanguageDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				pInfo.nPos = 0;
 				SetScrollInfo( SB_VERT, &pInfo, TRUE );
 			}
-			else if ( ( m_nHover - 1 ) / 3 > pInfo.nPos + m_nRows - 1 )
+			else if ( ( m_nHover - 1 ) / 3 > pInfo.nPos + ITEM_ROWS - 1 )
 			{
 				pInfo.nPos += 1;
 				SetScrollInfo( SB_VERT, &pInfo, TRUE );
