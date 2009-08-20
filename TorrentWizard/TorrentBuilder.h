@@ -39,6 +39,7 @@ public:
 	void	Enable(BOOL bSHA1, BOOL bED2K, BOOL bMD5);
 	BOOL	AddFile(LPCTSTR pszPath);
 	BOOL	AddTrackerURL(LPCTSTR pszURL);
+	BOOL	AddTrackerURL2(LPCTSTR pszURL);
 	BOOL	SetComment(LPCTSTR pszComment);
 public:
 	BOOL	Start();
@@ -65,6 +66,7 @@ protected:
 	CString				m_sName;
 	CString				m_sOutput;
 	CString				m_sTracker;
+	CString				m_sTracker2;
 	CString				m_sComment;
 	CStringList			m_pFiles;
 	CString				m_sThisFile;

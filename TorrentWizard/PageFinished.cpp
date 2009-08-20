@@ -117,6 +117,7 @@ void CFinishedPage::Start()
 
 	GET_PAGE( CTrackerPage, pTracker );
 	m_pBuilder->AddTrackerURL( pTracker->m_sTracker );
+	m_pBuilder->AddTrackerURL2( pTracker->m_sTracker2 );
 
 	GET_PAGE( CCommentPage, pComment );
 	m_pBuilder->SetComment( pComment->m_sComment );
@@ -328,9 +329,12 @@ void CFinishedPage::OnTorrentCopy()
 
 void CFinishedPage::OnTorrentOpen()
 {
-	GET_PAGE( COutputPage, pOutput );
-	ShellExecute( GetSafeHwnd(), _T("open"),
-		pOutput->m_sFolder, NULL, NULL, SW_SHOWNORMAL );
+//	GET_PAGE( COutputPage, pOutput );
+//	ShellExecute( GetSafeHwnd(), _T("open"), pOutput->m_sFolder, NULL, NULL, SW_SHOWNORMAL );
+
+	CString strPath;
+	m_wndTorrentName.GetWindowText( strPath );
+	ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), "/select, " + strPath, NULL, SW_SHOWNORMAL );
 }
 
 void CFinishedPage::OnTorrentSeed()

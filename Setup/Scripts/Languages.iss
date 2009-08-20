@@ -6,6 +6,7 @@
 ; Note: first language specified is default > English
 
 Name: "en"; MessagesFile: "compiler:Default.isl"; LicenseFile: "Setup/License/Default.rtf"
+Name: "en_uk"; MessagesFile: "Setup\Languages\English-UK.isl"; LicenseFile: "Setup/License/Default.rtf"
 Name: "ar"; MessagesFile: "Setup\Languages\Arabic.isl"; LicenseFile: "Setup/License/Arabic.rtf"
 Name: "af"; MessagesFile: "Setup\Languages\Afrikaans.isl"; LicenseFile: "Setup/License/Afrikaans.rtf"
 Name: "ca"; MessagesFile: "Setup\Languages\Catalan.isl"; LicenseFile: "Setup/License/Catalan.rtf"
@@ -32,8 +33,8 @@ Name: "sq"; MessagesFile: "Setup\Languages\Albanian.isl"; LicenseFile: "Setup/Li
 Name: "sr"; MessagesFile: "Setup\Languages\Serbian.isl"; LicenseFile: "Setup/License/Serbian.rtf"
 Name: "sv"; MessagesFile: "Setup\Languages\Swedish.isl"; LicenseFile: "Setup/License/Swedish.rtf"
 Name: "tr"; MessagesFile: "Setup\Languages\Turkish.isl"; LicenseFile: "Setup/License/Turkish.rtf"
-Name: "tw"; MessagesFile: "Setup\Languages\Chinese-Traditional.isl"; LicenseFile: "Setup/License/Chinese-Traditional.rtf"
-Name: "chs"; MessagesFile: "Setup\Languages\Chinese-Simple.isl"; LicenseFile: "Setup/License/Chinese-Simple.rtf"
+Name: "zhs"; MessagesFile: "Setup\Languages\Chinese-Simple.isl"; LicenseFile: "Setup/License/Chinese-Simple.rtf"
+Name: "zht"; MessagesFile: "Setup\Languages\Chinese-Traditional.isl"; LicenseFile: "Setup/License/Chinese-Traditional.rtf"
 Name: "ja"; MessagesFile: "Setup\Languages\Japanese.isl"; LicenseFile: "Setup/License/Japanese.rtf"
 Name: "ko"; MessagesFile: "Setup\Languages\Korean.isl"; LicenseFile: "Setup/License/Korean.rtf"
 
@@ -46,6 +47,8 @@ Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritere
 ; Install localized remote
 ; English
 Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: en; Tasks: language
+; English-UK
+Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: en_uk; Tasks: language
 ; Dutch
 Source: "Remote\nl\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: nl; Tasks: language
 ; Lithuanian
@@ -77,9 +80,9 @@ Source: "Remote\hu\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritere
 ; Japanese
 Source: "Remote\ja\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: ja; Tasks: language
 ; Chinese Simp
-Source: "Remote\chs\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: chs; Tasks: language
+Source: "Remote\chs\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: zhs; Tasks: language
 ; Chinese Trad
-Source: "Remote\chs\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: tw; Tasks: language
+Source: "Remote\chs\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: zht; Tasks: language
 ; Swedish
 Source: "Remote\sv\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: sv; Tasks: language
 ; Finnish
@@ -111,9 +114,12 @@ Source: "Setup\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL 
 
 ; Install default license
 Source: "Setup\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: not language
+
 ; Install localized license
 ; English
 Source: "Setup\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en; Tasks: language
+; English-UK
+Source: "Setup\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en_uk; Tasks: language
 ; Dutch
 Source: "Setup\License\Dutch.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: nl; Tasks: language
 ; Lithuanian
@@ -142,8 +148,6 @@ Source: "Setup\License\Russian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL 
 Source: "Setup\License\Greek.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: gr; Tasks: language
 ; Hungarian
 Source: "Setup\License\Hungarian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu; Tasks: language
-; Chinese Simp
-Source: "Setup\License\Chinese-Simple.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: chs; Tasks: language
 ; Swedish
 Source: "Setup\License\Swedish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sv; Tasks: language
 ; Finnish
@@ -164,8 +168,10 @@ Source: "Setup\License\Japanese.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL
 Source: "Setup\License\Arabic.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar; Tasks: language
 ; Estonian
 Source: "Setup\License\Estonian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee; Tasks: language
+; Chinese Simp
+Source: "Setup\License\Chinese-Simple.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zhs; Tasks: language
 ; Chinese Trad
-Source: "Setup\License\Chinese-Traditional.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tw; Tasks: language
+Source: "Setup\License\Chinese-Traditional.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zht; Tasks: language
 ; Slovenian
 Source: "Setup\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl; Tasks: language
 ; Catalan
@@ -176,9 +182,12 @@ Source: "Setup\License\Albanian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL
 
 ; Install default filter
 Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: not language
+
 ; Install localized filter
 ; English
 Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en; Tasks: language
+; English
+Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en_uk; Tasks: language
 ; Dutch
 Source: "Setup\Filter\Dutch.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: nl; Tasks: language
 ; Lithuanian
@@ -207,10 +216,6 @@ Source: "Setup\Filter\Russian.dat"; DestDir: "{app}\Data"; DestName: "AdultFilte
 Source: "Setup\Filter\Greek.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: gr; Tasks: language
 ; Hungarian
 Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu; Tasks: language
-; Chinese Simp
-Source: "Setup\Filter\Chinese-Simpl.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: chs; Tasks: language
-; Chinese Trad
-Source: "Setup\Filter\Chinese-Simpl.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tw; Tasks: language
 ; Swedish
 Source: "Setup\Filter\Swedish.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sv; Tasks: language
 ; Finnish
@@ -223,10 +228,6 @@ Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilte
 Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: cz; Tasks: language
 ; Serbian
 Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr; Tasks: language
-; Turkish
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr; Tasks: language
-; Japanese
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja; Tasks: language
 ; Arabic
 Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar; Tasks: language
 ; Estonian
@@ -235,12 +236,20 @@ Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilte
 Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl; Tasks: language
 ; Albanian
 Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq; Tasks: language
+; Turkish
+Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr; Tasks: language
+; Japanese
+Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja; Tasks: language
 ; Catalan
 Source: "Setup\Filter\Catalan.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca; Tasks: language
+; Chinese Simp
+Source: "Setup\Filter\Chinese-Simpl.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zhs; Tasks: language
+; Chinese Trad
+Source: "Setup\Filter\Chinese-Simpl.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zht; Tasks: language
 
 
 [Messages]
-; This section overrides existing phrazes specified in Inno's Default.isl file
+; This section overrides existing phrases specified in Inno's Default.isl file
 
 SelectLanguageLabel=%nSelect a language to use during installation:
 WelcomeLabel1=%nWelcome to the%n[name] Setup Wizard
@@ -251,7 +260,7 @@ LicenseLabel3=Please read the following copyright license agreement.%nYou should
 
 
 [CustomMessages]
-; This section specifies phrazes and words not specified in the ISL files
+; This section specifies phrases and words not specified in the ISL files
 ; Avoid customizing the ISL files since they will change with each version of Inno Setup.
 
 ; English Default
@@ -297,7 +306,7 @@ af.tasks_selectusers=Installeer %1 vir die volgende gebruikers:
 af.tasks_currentuser=Vir %1 alleenlik
 af.tasks_multisetup=Skakel ondersteuning vir veelvuldige gebruikers aan
 af.tasks_firewall=Voeg 'n uitsondering by die Windows Netskans
-af.tasks_upnp=Enable discovery of Plug'n'Play network devices
+af.tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 af.tasks_deleteoldsetup=Skrap ou opstellerslêers
 af.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 af.run_skinexe=Hardloop omslagte installasie...
@@ -326,7 +335,7 @@ ar.tasks_selectusers=ãä ÃÌá %1 ÊÑßíÈ:
 ar.tasks_currentuser=%1 İŞØ
 ar.tasks_multisetup=Êãßíä ÇáÏÚã áÚÏÉ ãÓÊÎÏãíä
 ar.tasks_firewall=ÅÖÇİÉ ÅÓÊËäÇÁ Åáì ÌÏÇÑ ÇáæíäÏæÒ ÇáäÇÑí
-ar.tasks_upnp=Enable discovery of Plug'n'Play network devices
+ar.tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 ar.tasks_deleteoldsetup=ÍĞİ ãáİÇÊ ÇáÊÑßíÈ ÇáŞÏíãÉ
 ar.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 ar.run_skinexe=...íÊã ÊÔÛíá ÊÑßíÈ ÇáÛáÇİ
@@ -444,7 +453,7 @@ ee.tasks_selectusers=Installi %1 jaoks:
 ee.tasks_currentuser=%1 ainult
 ee.tasks_multisetup=Võimalda mitmekasutaja tugi
 ee.tasks_firewall=Lisa erand Windowsi Tulemüüri
-ee.tasks_upnp=Enable discovery of Plug'n'Play network devices
+ee.tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 ee.tasks_deleteoldsetup=Kustuta vanad installerid
 ee.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 ee.run_skinexe=Käivitan Naha installi...
@@ -473,7 +482,7 @@ es.tasks_selectusers=Instalar %1 para:
 es.tasks_currentuser=%1 solamente
 es.tasks_multisetup=Habilitar soporte multi-usuario
 es.tasks_firewall=Agregar una excepción al Firewall de Windows
-es.tasks_upnp=Enable discovery of Plug'n'Play network devices
+es.tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 es.tasks_deleteoldsetup=Borrar archivos de instaladores viejos
 es.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 es.run_skinexe=Instalando Skin...
@@ -502,7 +511,7 @@ es_mx.tasks_selectusers=Instalar %1 para:
 es_mx.tasks_currentuser=%1 solamente
 es_mx.tasks_multisetup=Habilitar soporte multi-usuario
 es_mx.tasks_firewall=Agregar una excepción al Firewall de Windows
-es_mx.tasks_upnp=Enable discovery of Plug'n'Play network devices
+es_mx.tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 es_mx.tasks_deleteoldsetup=Borrar archivos de instaladores viejos
 es_mx.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 es_mx.run_skinexe=Instalando Skin...
@@ -560,7 +569,7 @@ fi.tasks_selectusers=Asenna %1 käyttäjille:
 fi.tasks_currentuser=%1 vain
 fi.tasks_multisetup=Asenna kaikille koneen käyttäjille
 fi.tasks_firewall=Lisää poikkeus Windowsin palomuuriin
-fi.tasks_upnp=Enable discovery of Plug'n'Play network devices
+fi.tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 fi.tasks_deleteoldsetup=Poista vanhat asennusohjelmat
 fi.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 fi.run_skinexe=Käynnissä ulkoasujen asennus...
@@ -589,7 +598,7 @@ gr.tasks_selectusers=ÅãêáôÜóôáóç %1 ãéá:
 gr.tasks_currentuser=%1 ìüíï
 gr.tasks_multisetup=Åíåñãïğïßçóç ôçò âïŞèåéáò ğïëëáğëşí ÷ñçóôşí
 gr.tasks_firewall=ÂÜëå ìéá åîáßñåóç óôï ôåß÷ïò ğñïóôáóßáò ôùí Windows
-gr.tasks_upnp=Enable discovery of Plug'n'Play network devices
+gr.tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 gr.tasks_deleteoldsetup=Äéİãñáøå ôçí ğáëéÜ åãêáôÜóôáóç
 gr.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 gr.run_skinexe=Running ÅãêáôÜóôáóç ôïõ skin...
@@ -618,7 +627,7 @@ heb.tasks_selectusers=äú÷ï àú %1 òáåø
 heb.tasks_currentuser=%1 ø÷
 heb.tasks_multisetup=àôùø úîéëä ìîùúîùéí îøåáéí
 heb.tasks_firewall=äåñó ëìì ìçåîú äàù ìàéôùåø ùøæä
-heb.tasks_upnp=Enable discovery of Plug'n'Play network devices
+heb.tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 heb.tasks_deleteoldsetup=îç÷ äú÷ğåú éùğåú
 heb.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 heb.run_skinexe=îøéõ äú÷ğú îòèôåú...
@@ -766,7 +775,7 @@ no.tasks_selectusers=Installer %1 for:
 no.tasks_currentuser=Kun %1
 no.tasks_multisetup=Flere brukere
 no.tasks_firewall=Lag nytt unntak i Windows brannmur
-no.tasks_upnp=Enable discovery of Plug'n'Play network devices
+no.tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 no.tasks_deleteoldsetup=Slett eldre installasjonsfiler
 no.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 no.run_skinexe=Kjører skin installasjon...
@@ -795,7 +804,7 @@ pl.tasks_selectusers=Instaluj dla %1:
 pl.tasks_currentuser=tylko %1
 pl.tasks_multisetup=W³¹cz obs³ugê wielu u¿ytkowników
 pl.tasks_firewall=Dodaj wyj¹tek do Firewall'a Windows'a
-pl.tasks_upnp=Enable discovery of Plug'n'Play network devices
+pl.tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 pl.tasks_deleteoldsetup=Usuñ stare instalatory
 pl.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 pl.run_skinexe=Instalowanie skórek...
@@ -913,7 +922,7 @@ sl.tasks_selectusers=Namesti %1 za:
 sl.tasks_currentuser=Samo %1
 sl.tasks_multisetup=Omogoèi veè-uporabniško podporo
 sl.tasks_firewall=Dodaj izjemo v Windows poarni zid
-sl.tasks_upnp=Enable discovery of Plug'n'Play network devices
+sl.tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 sl.tasks_deleteoldsetup=Briši stare namešèevalce
 sl.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 sl.run_skinexe=Namestitev preobleke v teku...
@@ -972,7 +981,7 @@ sr.tasks_selectusers=Instaliraj %1 za:
 sr.tasks_currentuser=%1 samo
 sr.tasks_multisetup=Omoguæi više-korisnièku podršku
 sr.tasks_firewall=Dodaj izuzetak u Windows Vatrozid
-sr.tasks_upnp=Enable discovery of Plug'n'Play network devices
+sr.tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 sr.tasks_deleteoldsetup=Ukloni stare instalere
 sr.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
 sr.run_skinexe=Instalacija skina u toku...
@@ -1052,63 +1061,63 @@ tr.page_viruswarning_subtitle=Bir AntiVirus programı yüklediniz mi?
 tr.CreateDesktopIcon=Bir &Masaüstü ikonu görüntüle
 tr.CreateQuickLaunchIcon=Bir &Hızlı Başlat ikonu görüntüle
 ; Chinese Traditional
-tw.components_plugins=¥~±¾
-tw.components_skins=¥~Æ[
-tw.tasks_languages=»y¨¥
-tw.tasks_allusers=©Ò¦³ªº¨Ï¥ÎªÌ
-tw.tasks_selectusers=¬°³o¨Ç¨Ï¥ÎªÌ¦w¸Ë %1:
-tw.tasks_currentuser=¥u¦³ %1
-tw.tasks_multisetup=±Ò¥Î¦h­«¨Ï¥ÎªÌ¤ä´©
-tw.tasks_firewall=¼W¥[¨Ò¥~¦Ü Windows ¨¾¤õÀğ (XP)
-tw.tasks_upnp=Enable discovery of Plug'n'Play network devices
-tw.tasks_deleteoldsetup=§R°£ÂÂªº¦w¸Ëµ{¦¡
-tw.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
-tw.run_skinexe=¥¿¦b¦w¸Ë¥~Æ[...
-tw.reg_incomingchat=¿é¤Jªº²á¤Ñ°T®§
-tw.reg_apptitle=PeerProject---³Ì²×ªºÀÉ®×¤À¨É³nÅé
-tw.icons_license=³nÅé±ÂÅv¨ó©w
-tw.icons_uninstall=¸Ñ°£¦w¸Ë
-tw.icons_downloads=¤U¸ü
-tw.icons_basicmode=¼Ğ·Ç¼Ò¦¡
-tw.icons_tabbedmode=¼ĞÅÒ¼Ò¦¡
-tw.icons_windowedmode=¦h­«µøµ¡¼Ò¦¡
-tw.dialog_shutdown=%1 ¥¿¦b¹B§@¤¤. ±z­nÃö³¬ %1 , Åı¦w¸Ëµ{¦¡±o¥HÄ~Äò¶i¦æ¶Ü?
-tw.dialog_firewall=¦w¸Ëµ{¦¡µLªk·s¼W PeerProject ¦ÜWindows ¨¾¤õÀğ.%n½Ğ¤â°Ê·s¼W PeerProject ¦Ü¨Ò¥~²M³æ
-tw.dialog_malwaredetected=Malware has been detected on your system at %1, please remove it with a virus/malware scanner before installing PeerProject. Do you want to exit now?
-tw.page_viruswarning_text=¨Ï¥Îºô»Úºô¸ô®É, ±zÀ³¸ÓÁ`¬O½T«O¨¾¬r³nÅé¬°³Ì·sª©¥», ¦p¦¹¤~¯à«OÅ@±zÁ×§K¨ü¨ì¤ì°¨, Ä¯ÂÎ, ©Î¬O´c·Nµ{¦¡ªº«I®`. ±z¥i¥HÂI¿ï³o­Ó³sµ²¨ú±o¦w¥ş©Ê¯µ³Z»P¨}¦n¨¾¬r³nÅéªº²M³æ:
-tw.page_viruswarning_title=¯f¬rÄµ§i
-tw.page_viruswarning_subtitle=±z¬O§_¤w¸g¦w¸Ë¤F¤@­Ó¨¾¬r³nÅé?
-tw.CreateDesktopIcon=½Ğ·s¼W¤@­Ó&®à­±¹Ï¥Ü
-tw.CreateQuickLaunchIcon=½Ğ·s¼W¤@­Ó&§Ö³t±Ò°Ê¹Ï¥Ü
+zht.components_plugins=¥~±¾
+zht.components_skins=¥~Æ[
+zht.tasks_languages=»y¨¥
+zht.tasks_allusers=©Ò¦³ªº¨Ï¥ÎªÌ
+zht.tasks_selectusers=¬°³o¨Ç¨Ï¥ÎªÌ¦w¸Ë %1:
+zht.tasks_currentuser=¥u¦³ %1
+zht.tasks_multisetup=±Ò¥Î¦h­«¨Ï¥ÎªÌ¤ä´©
+zht.tasks_firewall=¼W¥[¨Ò¥~¦Ü Windows ¨¾¤õÀğ (XP)
+zht.tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
+zht.tasks_deleteoldsetup=§R°£ÂÂªº¦w¸Ëµ{¦¡
+zht.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
+zht.run_skinexe=¥¿¦b¦w¸Ë¥~Æ[...
+zht.reg_incomingchat=¿é¤Jªº²á¤Ñ°T®§
+zht.reg_apptitle=PeerProject---³Ì²×ªºÀÉ®×¤À¨É³nÅé
+zht.icons_license=³nÅé±ÂÅv¨ó©w
+zht.icons_uninstall=¸Ñ°£¦w¸Ë
+zht.icons_downloads=¤U¸ü
+zht.icons_basicmode=¼Ğ·Ç¼Ò¦¡
+zht.icons_tabbedmode=¼ĞÅÒ¼Ò¦¡
+zht.icons_windowedmode=¦h­«µøµ¡¼Ò¦¡
+zht.dialog_shutdown=%1 ¥¿¦b¹B§@¤¤. ±z­nÃö³¬ %1 , Åı¦w¸Ëµ{¦¡±o¥HÄ~Äò¶i¦æ¶Ü?
+zht.dialog_firewall=¦w¸Ëµ{¦¡µLªk·s¼W PeerProject ¦ÜWindows ¨¾¤õÀğ.%n½Ğ¤â°Ê·s¼W PeerProject ¦Ü¨Ò¥~²M³æ
+zht.dialog_malwaredetected=Malware has been detected on your system at %1, please remove it with a virus/malware scanner before installing PeerProject. Do you want to exit now?
+zht.page_viruswarning_text=¨Ï¥Îºô»Úºô¸ô®É, ±zÀ³¸ÓÁ`¬O½T«O¨¾¬r³nÅé¬°³Ì·sª©¥», ¦p¦¹¤~¯à«OÅ@±zÁ×§K¨ü¨ì¤ì°¨, Ä¯ÂÎ, ©Î¬O´c·Nµ{¦¡ªº«I®`. ±z¥i¥HÂI¿ï³o­Ó³sµ²¨ú±o¦w¥ş©Ê¯µ³Z»P¨}¦n¨¾¬r³nÅéªº²M³æ:
+zht.page_viruswarning_title=¯f¬rÄµ§i
+zht.page_viruswarning_subtitle=±z¬O§_¤w¸g¦w¸Ë¤F¤@­Ó¨¾¬r³nÅé?
+zht.CreateDesktopIcon=½Ğ·s¼W¤@­Ó&®à­±¹Ï¥Ü
+zht.CreateQuickLaunchIcon=½Ğ·s¼W¤@­Ó&§Ö³t±Ò°Ê¹Ï¥Ü
 ; Chinese Simplified
-chs.components_plugins=²å¼ş
-chs.components_skins=Æ¤·ô
-chs.tasks_languages=ÓïÑÔ
-chs.tasks_allusers=ËùÓĞÓÃ»§
-chs.tasks_selectusers=°²×° %1 Îª:
-chs.tasks_currentuser=½ö %1
-chs.tasks_multisetup=ÆôÓÃ¶àÓÃ»§Ö§³Ö
-chs.tasks_firewall=Ìí¼ÓÒ»¸öÀıÍâµ½ Windows ·À»ğÇ½
-chs.tasks_upnp=ÆôÓÃ UPnP Çı¶¯Æ÷²éÑ¯
-chs.tasks_deleteoldsetup=É¾³ı¾ÉµÄ°²×°ÎÄ¼ş
-chs.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
-chs.run_skinexe=°²×°Æ¤·ô...
-chs.reg_incomingchat=´«ÈëÁÄÌìÏûÏ¢
-chs.reg_apptitle=PeerProject ÖÕ¼«ÎÄ¼ş¹²Ïí
-chs.icons_license=Ğí¿É
-chs.icons_uninstall=Ğ¶ÔØ
-chs.icons_downloads=ÏÂÔØ
-chs.icons_basicmode=ÆÕÍ¨Ä£Ê½
-chs.icons_tabbedmode=±êÇ©Ä£Ê½
-chs.icons_windowedmode=ÊÓ´°Ä£Ê½
-chs.dialog_shutdown=%1 ÕıÔÚÔËĞĞ¡£ÄúÏ£Íû¹Ø±Õ %1 ÒÔ±ã¼ÌĞø°²×°Âğ£¿
-chs.dialog_firewall=°²×°Ìí¼Ó PeerProject µ½ Windows ·À»ğÇ½Ê§°Ü¡£%nÇë½« PeerProject ÊÖ¶¯Ìí¼ÓÖÁ³ıÍâÁĞ±í¡£
-chs.dialog_malwaredetected=Malware has been detected on your system at %1, please remove it with a virus/malware scanner before installing PeerProject. Do you want to exit now?
-chs.page_viruswarning_text=ÔÚÊÔÓÃ»¥ÁªÍøÊ±£¬ÄúĞèÒªÈ·¶¨ÄúÓµÓĞ×îĞÂµÄ²¡¶¾É¨ÃèÈí¼şÒÔ±£»¤ÄúÃâÊÜÄ¾Âí¡¢Èä³æºÍÆäËû¶ñÒâ³ÌĞòµÄÇÖº¦¡£Äú¿ÉÒÔÔÚÒÔÏÂÁ´½ÓÖĞÕÒµ½½ÏºÃµÄ²¡¶¾É¨ÃèÈí¼şµÄÁĞ±íÒÔ¼°ÆäËû±£»¤ÄúµÄ¼ÆËã»úµÄ°²È«½¨Òé:
-chs.page_viruswarning_title=²¡¶¾¾¯¸æ
-chs.page_viruswarning_subtitle=Äú°²×°ÁË·À²¡¶¾Èí¼şÁËÂğ£¿
-chs.CreateDesktopIcon=ÏÔÊ¾×ÀÃæÍ¼±ê(&D)
-chs.CreateQuickLaunchIcon=ÏÔÊ¾¿ìËÙÆô¶¯À¸Í¼±ê(&Q)
+zhs.components_plugins=²å¼ş
+zhs.components_skins=Æ¤·ô
+zhs.tasks_languages=ÓïÑÔ
+zhs.tasks_allusers=ËùÓĞÓÃ»§
+zhs.tasks_selectusers=°²×° %1 Îª:
+zhs.tasks_currentuser=½ö %1
+zhs.tasks_multisetup=ÆôÓÃ¶àÓÃ»§Ö§³Ö
+zhs.tasks_firewall=Ìí¼ÓÒ»¸öÀıÍâµ½ Windows ·À»ğÇ½
+zhs.tasks_upnp=ÆôÓÃ UPnP Çı¶¯Æ÷²éÑ¯
+zhs.tasks_deleteoldsetup=É¾³ı¾ÉµÄ°²×°ÎÄ¼ş
+zhs.tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
+zhs.run_skinexe=°²×°Æ¤·ô...
+zhs.reg_incomingchat=´«ÈëÁÄÌìÏûÏ¢
+zhs.reg_apptitle=PeerProject ÖÕ¼«ÎÄ¼ş¹²Ïí
+zhs.icons_license=Ğí¿É
+zhs.icons_uninstall=Ğ¶ÔØ
+zhs.icons_downloads=ÏÂÔØ
+zhs.icons_basicmode=ÆÕÍ¨Ä£Ê½
+zhs.icons_tabbedmode=±êÇ©Ä£Ê½
+zhs.icons_windowedmode=ÊÓ´°Ä£Ê½
+zhs.dialog_shutdown=%1 ÕıÔÚÔËĞĞ¡£ÄúÏ£Íû¹Ø±Õ %1 ÒÔ±ã¼ÌĞø°²×°Âğ£¿
+zhs.dialog_firewall=°²×°Ìí¼Ó PeerProject µ½ Windows ·À»ğÇ½Ê§°Ü¡£%nÇë½« PeerProject ÊÖ¶¯Ìí¼ÓÖÁ³ıÍâÁĞ±í¡£
+zhs.dialog_malwaredetected=Malware has been detected on your system at %1, please remove it with a virus/malware scanner before installing PeerProject. Do you want to exit now?
+zhs.page_viruswarning_text=ÔÚÊÔÓÃ»¥ÁªÍøÊ±£¬ÄúĞèÒªÈ·¶¨ÄúÓµÓĞ×îĞÂµÄ²¡¶¾É¨ÃèÈí¼şÒÔ±£»¤ÄúÃâÊÜÄ¾Âí¡¢Èä³æºÍÆäËû¶ñÒâ³ÌĞòµÄÇÖº¦¡£Äú¿ÉÒÔÔÚÒÔÏÂÁ´½ÓÖĞÕÒµ½½ÏºÃµÄ²¡¶¾É¨ÃèÈí¼şµÄÁĞ±íÒÔ¼°ÆäËû±£»¤ÄúµÄ¼ÆËã»úµÄ°²È«½¨Òé:
+zhs.page_viruswarning_title=²¡¶¾¾¯¸æ
+zhs.page_viruswarning_subtitle=Äú°²×°ÁË·À²¡¶¾Èí¼şÁËÂğ£¿
+zhs.CreateDesktopIcon=ÏÔÊ¾×ÀÃæÍ¼±ê(&D)
+zhs.CreateQuickLaunchIcon=ÏÔÊ¾¿ìËÙÆô¶¯À¸Í¼±ê(&Q)
 ; Japanese
 ja.components_plugins=ƒvƒ‰ƒOƒCƒ“
 ja.components_skins=ƒXƒLƒ“

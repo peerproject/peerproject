@@ -35,8 +35,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">BitTorrent</title>
 		<title language="af">BitTorrent</title>
 		<title language="ca">BitTorrent</title>
-		<title language="chs">BitTorrent</title>
-		<title language="cht">BitTorrent</title>
+		<title language="zhs">BitTorrent</title>
+		<title language="zht">BitTorrent</title>
 		<title language="cz">BitTorrent</title>
 		<title language="de">BitTorrent</title>
 		<title language="ee">BitTorrent</title>
@@ -66,8 +66,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Info Hash</title>
 			<title language="af">Info Hash</title>
 			<title language="ca">Info Hash</title>
-			<title language="chs">信息哈希</title>
-			<title language="cht">Info Hash</title>
+			<title language="zhs">信息哈希</title>
+			<title language="zht">Info Hash</title>
 			<title language="cz">Hash</title>
 			<title language="de">Info Hash</title>
 			<title language="ee">Info Hash</title>
@@ -96,8 +96,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Tracker</title>
 			<title language="af">Tracker</title>
 			<title language="ca">Rastrejador</title>
-			<title language="chs">Tracker</title>
-			<title language="cht">Tracker</title>
+			<title language="zhs">Tracker</title>
+			<title language="zht">Tracker</title>
 			<title language="cz">Tracker</title>
 			<title language="de">Tracker</title>
 			<title language="ee">Tracker</title>
@@ -126,8 +126,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Encoding</title>
 			<title language="af">Encoding</title>
 			<title language="ca">Codificació</title>
-			<title language="chs">编码</title>
-			<title language="cht">Encoding</title>
+			<title language="zhs">编码</title>
+			<title language="zht">Encoding</title>
 			<title language="cz">Kódování</title>
 			<title language="de">Encoding</title>
 			<title language="ee">Encoding</title>
@@ -156,8 +156,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Creation Date</title>
 			<title language="af">Creation Date</title>
 			<title language="ca">Creation date</title>
-			<title language="chs">创建媒体日期</title>
-			<title language="cht">Creation Date</title>
+			<title language="zhs">创建媒体日期</title>
+			<title language="zht">Creation Date</title>
 			<title language="cz">Datum vytvoření:</title>
 			<title language="de">Creation Date</title>
 			<title language="ee">Creation Date</title>
@@ -186,8 +186,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Created By</title>
 			<title language="af">Created By</title>
 			<title language="ca">Created by</title>
-			<title language="chs">制作人</title>
-			<title language="cht">Created By</title>
+			<title language="zhs">制作人</title>
+			<title language="zht">Created By</title>
 			<title language="cz">Vytvořil:</title>
 			<title language="de">Created By</title>
 			<title language="ee">Created By</title>
@@ -215,8 +215,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Comments</title>
 			<title language="af">Kommentaar</title>
 			<title language="ca">Comentaris</title>
-			<title language="chs">注释</title>
-			<title language="cht">注釋</title>
+			<title language="zhs">注释</title>
+			<title language="zht">注釋</title>
 			<title language="cz">Komentáře</title>
 			<title language="de">Kommentar</title>
 			<title language="ee">Arvamused</title>

@@ -36,8 +36,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">General:the PeerProject Library</title>
 		<title language="af">Algemeen:PeerProject Biblioteek</title>
 		<title language="ca">General: La col·lecció</title>
-		<title language="chs">&#160;常规:我的 PeerProject 库</title>
-		<title language="cht">一般:我的 PeerProject 收藏</title>
+		<title language="zhs">&#160;常规:我的 PeerProject 库</title>
+		<title language="zht">一般:我的 PeerProject 收藏</title>
 		<title language="cz">Obecné:Knihovna</title>
 		<title language="de">Allgemein:PeerProject Bibliothek</title>
 		<title language="ee">Üldine:PeerProject Raamatukogu</title>
@@ -67,8 +67,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Title</title>
 			<title language="af">Titel</title>
 			<title language="ca">Títol</title>
-			<title language="chs">标题</title>
-			<title language="cht">標題</title>
+			<title language="zhs">标题</title>
+			<title language="zht">標題</title>
 			<title language="cz">Název</title>
 			<title language="de">Titel</title>
 			<title language="ee">Pealkiri</title>
@@ -96,8 +96,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Owner</title>
 			<title language="af">Eienaar</title>
 			<title language="ca">Propietari</title>
-			<title language="chs">所有人</title>
-			<title language="cht">所有人</title>
+			<title language="zhs">所有人</title>
+			<title language="zht">所有人</title>
 			<title language="cz">Majitel</title>
 			<title language="de">Besitzer</title>
 			<title language="ee">Omanik</title>
@@ -125,8 +125,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Comments</title>
 			<title language="af">Kommentaar</title>
 			<title language="ca">Comentaris</title>
-			<title language="chs">注释</title>
-			<title language="cht">注釋</title>
+			<title language="zhs">注释</title>
+			<title language="zht">注釋</title>
 			<title language="cz">Komentáře</title>
 			<title language="de">Kommentar</title>
 			<title language="ee">Arvamused</title>
@@ -158,8 +158,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Welcome to your Library.</title>
 		<title language="af">Welkom by Jou Biblioteek.</title>
 		<title language="ca">Benvingut/da a la meva col·lecció.</title>
-		<title language="chs">欢迎来到您的库.</title>
-		<title language="cht">歡迎來到您的收藏.</title>
+		<title language="zhs">欢迎来到您的库.</title>
+		<title language="zht">歡迎來到您的收藏.</title>
 		<title language="cz">Vítejte v knihovně.</title>
 		<title language="de">Willkommen in ihrer Bibliothek.</title>
 		<title language="ee">Teretulemast  Minu Raamatukokku.</title>
@@ -185,8 +185,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="en">You have {totalFiles} files totalling {totalVolume} available.</subtitle>
 		<subtitle language="af">Jy het {totalFiles} lêers met 'n totaal van {totalVolume} in jou biblioteek.</subtitle>
 		<subtitle language="ca">Tens {totalFiles} arxius a la teva col·lecció i {totalVolume} d'espai.</subtitle>
-		<subtitle language="chs">您总计有 {totalFiles} 个文件，共计 {totalVolume} 位于您的库中。</subtitle>
-		<subtitle language="cht">您有 {totalFiles} 個檔案，總計大小 {totalVolume} 在您的收藏.</subtitle>
+		<subtitle language="zhs">您总计有 {totalFiles} 个文件，共计 {totalVolume} 位于您的库中。</subtitle>
+		<subtitle language="zht">您有 {totalFiles} 個檔案，總計大小 {totalVolume} 在您的收藏.</subtitle>
 		<subtitle language="cz">V knihovně máte celkem {totalFiles} souborů o celkové velikosti {totalVolume}.</subtitle>
 		<subtitle language="de">Sie haben {totalFiles} Dateien in ihrer Bibliothek, die {totalVolume} belegen.</subtitle>
 		<subtitle language="ee">Sul on {totalFiles} faili, kokku {totalVolume} sinu raamatukogus.</subtitle>

@@ -32,12 +32,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 <schemaDescriptor location="http://www.shareaza.com/schemas/ghostFolder.xsd" xmlns="http://www.shareaza.com/schemas/SchemaDescriptor.xsd">
 
 	<object type="folder" availability="system" private="true"/>
+   	<viewContent version="1.0" preferredView="CLibraryDetailView"/>
 	<titles>
 		<title language="en">General:Ghost Files</title>
 		<title language="af">General:Ghost Files</title>
 		<title language="ca">General: Arxius fantasmes</title>
-		<title language="chs">&#160;常规:回收文件</title>
-		<title language="cht">General:Ghost Files</title>
+		<title language="zhs">&#160;常规:回收文件</title>
+		<title language="zht">General:Ghost Files</title>
 		<title language="cz">Obecné:Smazané soubory</title>
 		<title language="de">Allgemein:Geister-Dateien</title>
 		<title language="ee">Üldine:Varifailid</title>
@@ -70,8 +71,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Title</title>
 			<title language="af">Titel</title>
 			<title language="ca">Títol</title>
-			<title language="chs">标题</title>
-			<title language="cht">標題</title>
+			<title language="zhs">标题</title>
+			<title language="zht">標題</title>
 			<title language="cz">Název</title>
 			<title language="de">Titel</title>
 			<title language="ee">Pealkiri</title>
@@ -100,8 +101,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Ghost Files</title>
 		<title language="af">Ghost Files</title>
 		<title language="ca">Arxius fantasma</title>
-		<title language="chs">回收文件</title>
-		<title language="cht">鬼檔案</title>
+		<title language="zhs">回收文件</title>
+		<title language="zht">鬼檔案</title>
 		<title language="cz">Smazané soubory</title>
 		<title language="de">Verwalten der Geister-Dateien</title>
 		<title language="ee">Varifailid</title>
@@ -127,8 +128,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="en">This folder contains every file which you've deleted from the Library.</subtitle>
 		<subtitle language="af">This folder contains every file which you've deleted from the Library.</subtitle>
 		<subtitle language="ca">Aquesta carpeta conté els arxius esborrats de la teva col·lecció.</subtitle>
-		<subtitle language="chs">此文件夹包含了所有您从收藏夹删除的文件。</subtitle>
-		<subtitle language="cht">這個資料夾包含所有您從收藏刪除的檔案</subtitle>
+		<subtitle language="zhs">此文件夹包含了所有您从收藏夹删除的文件。</subtitle>
+		<subtitle language="zht">這個資料夾包含所有您從收藏刪除的檔案</subtitle>
 		<subtitle language="cz">Tato složka obsahuje seznam souborů vymazaných z knihovny.</subtitle>
 		<subtitle language="de">Dieser Ordner enthält Informationen über alle aus der Bibliothek gelöschten Dateien, die Sie kommentiert oder bewertet haben.</subtitle>
 		<subtitle language="ee">See kaust sisaldab kõiki faile, mis sa oled oma Raamatukogust ära kustutanud.</subtitle>
@@ -152,6 +153,5 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<subtitle language="sv">Denna mapp innehåller varje fil som du har raderat från din samling.</subtitle>
 		<subtitle language="tr">Bu klasör kütüphaneden sildiğiniz tüm dosyaları içerir.</subtitle>
      </headerContent>
-     <viewContent version="1.0" preferredView="CLibraryDetailView"/>
-
+ 
 </schemaDescriptor>

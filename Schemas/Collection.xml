@@ -35,8 +35,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Collection</title>
 		<title language="af">Collection</title>
 		<title language="ca">Col·lecció</title>
-		<title language="chs">收藏</title>
-		<title language="cht">Collection</title>
+		<title language="zhs">收藏</title>
+		<title language="zht">Collection</title>
 		<title language="cz">Sbírka</title>
 		<title language="de">Kollektion</title>
 		<title language="ee">Collection</title>
@@ -69,8 +69,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Title</title>
 		<title language="af">Titel</title>
 		<title language="ca">Títol</title>
-		<title language="chs">标题</title>
-		<title language="cht">標題</title>
+		<title language="zhs">标题</title>
+		<title language="zht">標題</title>
 		<title language="cz">Název</title>
 		<title language="de">Titel</title>
 		<title language="ee">Pealkiri</title>
@@ -99,8 +99,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Version</title>
 		<title language="af">Weergawe</title>
 		<title language="ca">Versió</title>
-		<title language="chs">版本</title>
-		<title language="cht">版本</title>
+		<title language="zhs">版本</title>
+		<title language="zht">版本</title>
 		<title language="cz">Verze</title>
 		<title language="de">Version</title>
 		<title language="ee">Versioon</title>
@@ -128,8 +128,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Description</title>
 		<title language="af">Beskrywing</title>
 		<title language="ca">Descripció</title>
-		<title language="chs">描述</title>
-		<title language="cht">描述</title>
+		<title language="zhs">描述</title>
+		<title language="zht">描述</title>
 		<title language="cz">Popis</title>
 		<title language="de">Beschreibung</title>
 		<title language="ee">Kirjeldus</title>
@@ -157,8 +157,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Release Notes</title>
 		<title language="af">Uitgewers Notas</title>
 		<title language="ca">Notes dels publicadors</title>
-		<title language="chs">发布备注</title>
-		<title language="cht">釋放注解</title>
+		<title language="zhs">发布备注</title>
+		<title language="zht">釋放注解</title>
 		<title language="cz">Poznámky k vydání:</title>
 		<title language="de">Release Notes</title>
 		<title language="ee">Väljalaske Info</title>
@@ -186,8 +186,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">File Version</title>
 		<title language="af">Lêer Weergawe</title>
 		<title language="ca">Versió de l'arxiu</title>
-		<title language="chs">文件版本</title>
-		<title language="cht">檔案版本</title>
+		<title language="zhs">文件版本</title>
+		<title language="zht">檔案版本</title>
 		<title language="cz">Verze souboru</title>
 		<title language="de">Dateiversion</title>
 		<title language="ee">Faili Versioon</title>
@@ -215,8 +215,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Original File Name</title>
 		<title language="af">Oorspr. Lêernaam</title>
 		<title language="ca">Nom original</title>
-		<title language="chs">原始文件名称</title>
-		<title language="cht">原始的檔案名稱</title>
+		<title language="zhs">原始文件名称</title>
+		<title language="zht">原始的檔案名稱</title>
 		<title language="cz">Původní jméno</title>
 		<title language="de">Originaldateiname</title>
 		<title language="ee">Algne Failinimi</title>
@@ -245,8 +245,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Company</title>
 		<title language="af">Maatskappy</title>
 		<title language="ca">Companyia</title>
-		<title language="chs">公司</title>
-		<title language="cht">公司</title>
+		<title language="zhs">公司</title>
+		<title language="zht">公司</title>
 		<title language="cz">Spolešnost</title>
 		<title language="de">Firma</title>
 		<title language="ee">Firma</title>
@@ -274,8 +274,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Copyright</title>
 		<title language="af">Kopiereg</title>
 		<title language="ca">Copyright</title>
-		<title language="chs">版权</title>
-		<title language="cht">版權</title>
+		<title language="zhs">版权</title>
+		<title language="zht">版權</title>
 		<title language="cz">Autorská práva</title>
 		<title language="de">Copyright</title>
 		<title language="ee">Autorikaitse</title>
@@ -304,8 +304,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Type</title>
 		<title language="af">Tipe</title>
 		<title language="ca">Tipus</title>
-		<title language="chs">类型</title>
-		<title language="cht">類型</title>
+		<title language="zhs">类型</title>
+		<title language="zht">類型</title>
 		<title language="cz">Typ</title>
 		<title language="de">Art</title>
 		<title language="ee">Tüüp</title>
@@ -333,8 +333,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Archive Type</title>
 		<title language="af">Argieftipe</title>
 		<title language="ca">Tipus d'arxiu</title>
-		<title language="chs">文件类型</title>
-		<title language="cht">檔案類型</title>
+		<title language="zhs">文件类型</title>
+		<title language="zht">檔案類型</title>
 		<title language="cz">Typ archívu</title>
 		<title language="de">Archivtyp</title>
 		<title language="ee">Arhiivi Tüüp</title>
@@ -363,8 +363,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">OS</title>
 		<title language="af">OS</title>
 		<title language="ca">Sistema operatiu</title>
-		<title language="chs">操作系统</title>
-		<title language="cht">OS</title>
+		<title language="zhs">操作系统</title>
+		<title language="zht">OS</title>
 		<title language="cz">OS</title>
 		<title language="de">Betriebssystem</title>
 		<title language="ee">OS</title>
@@ -393,8 +393,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Language</title>
 		<title language="af">Taal</title>
 		<title language="ca">Idioma</title>
-		<title language="chs">语言</title>
-		<title language="cht">語言</title>
+		<title language="zhs">语言</title>
+		<title language="zht">語言</title>
 		<title language="cz">Jazyk</title>
 		<title language="de">Sprache</title>
 		<title language="ee">Keel</title>
@@ -422,8 +422,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Keywords</title>
 		<title language="af">Sleutelwoorde</title>
 		<title language="ca">Paraules clau</title>
-		<title language="chs">关键词</title>
-		<title language="cht">關鍵字</title>
+		<title language="zhs">关键词</title>
+		<title language="zht">關鍵字</title>
 		<title language="cz">Klíčová slova</title>
 		<title language="de">Schlüsselwörter</title>
 		<title language="ee">Võtmesõnad</title>
@@ -451,8 +451,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">P2P Release Date</title>
 		<title language="af">P2P Vrystelling</title>
 		<title language="ca">Data d'aparició P2P</title>
-		<title language="chs">P2P 发布时间</title>
-		<title language="cht">P2P 釋放日期</title>
+		<title language="zhs">P2P 发布时间</title>
+		<title language="zht">P2P 釋放日期</title>
 		<title language="cz">Datum zveřejnění v P2P</title>
 		<title language="de">P2P-Releasedatum</title>
 		<title language="ee">P2P Väljalaske Aeg</title>
@@ -480,8 +480,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Distributer</title>
 		<title language="af">Verspreider</title>
 		<title language="ca">Distribuïdor</title>
-		<title language="chs">内容提供商</title>
-		<title language="cht">經銷商</title>
+		<title language="zhs">内容提供商</title>
+		<title language="zht">經銷商</title>
 		<title language="cz">Distributor</title>
 		<title language="de">Herausgeber</title>
 		<title language="ee">Levitaja</title>
@@ -509,8 +509,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Distributer Link</title>
 		<title language="af">Verspreider Skakel</title>
 		<title language="ca">Enllaç del distribuïdor</title>
-		<title language="chs">促销链接</title>
-		<title language="cht">經銷商連結</title>
+		<title language="zhs">促销链接</title>
+		<title language="zht">經銷商連結</title>
 		<title language="cz">Odkaz na distributora</title>
 		<title language="de">Link zum Herausgeber</title>
 		<title language="ee">Levitaja Link</title>
@@ -538,8 +538,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Release Group</title>
 		<title language="af">Uitgewers Groep</title>
 		<title language="ca">Grup de publicació</title>
-		<title language="chs">发行组织</title>
-		<title language="cht">釋放團體</title>
+		<title language="zhs">发行组织</title>
+		<title language="zht">釋放團體</title>
 		<title language="cz">Vydala skupina:</title>
 		<title language="de">Release Group</title>
 		<title language="ee">Väljalaske Grupp</title>
@@ -567,8 +567,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Release Group Link</title>
 		<title language="af">Uitgewers Skakel</title>
 		<title language="ca">Drecera del publicador</title>
-		<title language="chs">发行组织链接</title>
-		<title language="cht">釋放團體連結</title>
+		<title language="zhs">发行组织链接</title>
+		<title language="zht">釋放團體連結</title>
 		<title language="cz">Odkaz na vydavatele:</title>
 		<title language="de">Release Group Link</title>
 		<title language="ee">Väljalaske Grupi Link</title>
@@ -596,8 +596,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="en">Link</title>
 		<title language="af">Skakel</title>
 		<title language="ca">Enllaç</title>
-		<title language="chs">链接</title>
-		<title language="cht">連結</title>
+		<title language="zhs">链接</title>
+		<title language="zht">連結</title>
 		<title language="cz">Odkaz</title>
 		<title language="de">Link</title>
 		<title language="ee">Link</title>
@@ -626,5 +626,6 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<type extension="co"/>
 		<type extension="collection"/>
 		<type extension="emulecollection"/>
-     </typeFilter>
+ 		<type extension="magma"/>
+    </typeFilter>
 </schemaDescriptor>

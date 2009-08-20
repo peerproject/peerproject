@@ -1593,7 +1593,7 @@
 <!-- Chinese Simple -->
 
 <windowSkin>
-<image type="image" language="chs" path="Vista\RibbonTabs_chs.png"/>
+<image type="image" language="zhs" path="Vista\RibbonTabs_chs.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
@@ -1638,7 +1638,7 @@
 <!-- Chinese Traditional -->
 
 <windowSkin>
-<image type="image" language="tw" path="Vista\RibbonTabs_tw.png"/>
+<image type="image" language="zht" path="Vista\RibbonTabs_tw.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>

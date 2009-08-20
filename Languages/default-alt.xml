@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
-<!-- PeerProject Brittish-English Skin File -->
+<!-- PeerProject UK English Skin File -->
 
 <!-- Translation based on default-en.xml r30 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
@@ -14,7 +14,7 @@
 
 <!-- Manifest -->
 <manifest
-	name="English (UK)"
+	name="English"
 	author="PeerProject Development Team"
 	description="PeerProject Alt English Skin File"
 	link="http://PeerProject.org/"
@@ -22,7 +22,7 @@
 	version="1.0.0.0"
 	type="Language"
 	language="en-uk"
-	prompt="Click here to select Brittish English as your natural language."
+	prompt="Click here to select English (UK) as your natural language."
 	dir="ltr"
 />
 

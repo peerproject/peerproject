@@ -41,7 +41,9 @@ public:
 	//{{AFX_DATA(CTrackerPage)
 	enum { IDD = IDD_TRACKER_PAGE };
 	CComboBox	m_wndTracker;
+	CComboBox	m_wndTracker2;
 	CString	m_sTracker;
+	CString	m_sTracker2;
 	//}}AFX_DATA
 
 // Overrides
