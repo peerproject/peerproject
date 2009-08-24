@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml -->
+<!-- Translation based on default-en.xml r35 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -150,30 +150,30 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="فتح او تشغيل" />
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="عرض الملف" />
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="حذف ملف" />
 		<separator />
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="حذف ملف" />
 		<button id="ID_DOWNLOADS_RESUME" text="متابعة التحميل" />
 		<button id="ID_DOWNLOADS_PAUSE" text="إيقاف التحميل مؤقتا" />
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="إلغاء التحميل" />
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="إزالة التحميل" />
 		<separator />
+		<button id="ID_DOWNLOADS_EDIT" text="معلومات" />
 		<button id="ID_DOWNLOADS_MONITOR" text="إظهار الشاشة" />
 		<rightAlign />
-		<button id="ID_TOOLS_DOWNLOAD" text="اضافة تحميل/Torrent..." />
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="تم اكمال المسح" />
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="فتح او تشغيل" />
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="حذف ملف" />
 		<button id="ID_DOWNLOADS_LAUNCH" text="عرض الملف" />
 		<separator />
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="حذف ملف" />
 		<button id="ID_DOWNLOADS_RESUME" text="متابعة التحميل" />
 		<button id="ID_DOWNLOADS_PAUSE" text="إيقاف التحميل مؤقتا" />
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="إلغاء التحميل" />
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="إزالة التحميل" />
 		<separator />
-		<button id="ID_DOWNLOADS_MONITOR" text="إظهار الشاشة" />
 		<button id="ID_DOWNLOADS_EDIT" text="معلومات" />
+		<button id="ID_DOWNLOADS_MONITOR" text="إظهار الشاشة" />
 		<rightAlign />
 		<button id="ID_TOOLS_DOWNLOAD" text="اضافة تحميل/Torrent..." />
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="تم اكمال المسح" />
@@ -349,7 +349,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="محادثة المستخدم" />
 		<rightAlign />
 		<button id="ID_NETWORK_G2" text="Gnutella2" />
-		<button id="ID_NETWORK_G1" text="Gnutella1" />
+		<button id="ID_NETWORK_G1" text="Gnutella" />
 		<button id="ID_NETWORK_ED2K" text="eDonkey" />
 		<separator />
 		<button id="ID_NEIGHBOURS_SETTINGS" text="إعدادات" />
@@ -358,8 +358,6 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="الإتصال بـ" />
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="قطع الإتصال" />
 		<separator />
-		<button id="ID_BROWSE_LAUNCH" text="معلومات عن المستخدم" />
-		<button id="ID_NEIGHBOURS_CHAT" text="محادثة المستخدم" />
 		<button id="ID_SECURITY_BAN" text="حظر مضيف" />
 		<rightAlign />
 		<button id="ID_NETWORK_G2" text="Gnutella2" />
@@ -1706,11 +1704,15 @@
 		<newline gap="8"/>
 		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD" /> <gap size="8" />
 		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">معالج الإعدادات</link>
-		<text align="middle"> - تحرير إعدادات PeerProject</text>
+		<text align="middle">&#160;- تحرير إعدادات PeerProject</text>
 		<newline gap="8" />
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ" /> <gap size="8" />
 		<link target="peer:command:ID_HELP_FAQ" align="middle">تعليمات سريعة</link>
-		<text align="middle"> - أحصل على بعض التعليمات الأساسية عن PeerProject</text>
+		<text align="middle">&#160;- أحصل على بعض التعليمات الأساسية عن PeerProject</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">المحلية المنتدى</link>
+		<text align="middle">&#160;- اذهب الى حسابك في اللغة العربية مناقشة منتدى</text>
 		<newline gap="18" indent="0" />
 		<group id="5">
 			<icon res="128" width="32" height="32" />
@@ -3400,7 +3402,7 @@
 		<control caption="فرز رسائل المحادثة من الرسائل العشوائية" />
 		<control caption="حساسية عبارات المحادثة" />
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="محادثة">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="محادثة">
 		<control caption="خيارات ال_تابع :" />
 		<control caption="إظهار تكامل المحادثة" />
 		<control caption="الحماية من الفيضان :" />
@@ -3411,17 +3413,21 @@
 		<control />
 		<control caption="الألوان :" />
 		<control />
-		<control caption="رسائل الخادم :" />
+		<control caption="خلفية المحادثة" />
 		<control />
-		<control caption="المواضيع" />
+		<control caption="النص" />
+		<control />
+		<control caption="النص" />
 		<control />
 		<control caption="إجراءات القناة" />
 		<control />
+		<control caption="إجراءات القناة" />
+		<control />
+		<control caption="رسائل الخادم" />
+		<control />
 		<control caption="ملاحظات" />
 		<control />
-		<control caption="خلفية المحادثة:" />
-		<control />
-		<control caption="النص" />
+		<control caption="المواضيع" />
 		<control caption="إعدادات الإ_تصال:" />
 		<control caption="الإسم المستعار:" />
 		<control />

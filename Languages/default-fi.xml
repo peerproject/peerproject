@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r35 (Shareaza 2.1.3.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -149,23 +149,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Avaa tai Toista"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Esikatsele Tiedosto"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Poista Tiedosto"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Poista Tiedosto"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Palaa Lataukseen"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pysäytä Lataus"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Peruuta Lataus"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Poista Latauslistalta"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Torrentin Tiedot"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Näytä Monitori"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Lisää Lataus/Torrentti..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Poista Valmiit listalta"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Avaa tai Toista"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Poista Tiedosto"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="Esikatsele Tiedosto"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Poista Tiedosto"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Palaa Lataukseen"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pysäytä Lataus"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Peruuta Lataus"/>
@@ -348,7 +348,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Keskustele Käyttäjän Kanssa"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Asetukset"/>
@@ -357,12 +357,10 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Yhdistä..."/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Kataise Yhteys"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Selaa Käyttäjää"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Keskustele Käyttäjän Kanssa"/>
 		<button id="ID_SECURITY_BAN" text="Estä Käyttäjä"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Asetukset"/>
@@ -1617,6 +1615,10 @@
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Pika Apu</link>
 		<text align="middle">&#160;- Hanki joitain perus ohjeita PeerProjectn käyttämiseen</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Paikallinen Forum</link>
+		<text align="middle">&#160;- Mene Suomen kielen keskustelufoorumi</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/>

@@ -21,8 +21,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			UseOfATL="0"
@@ -31,7 +31,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Get HashLib DLL..."
-				CommandLine="copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="copy /b /y &quot;..\HashLib\$(ConfigurationName) $(PlatformName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -113,8 +113,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			UseOfATL="0"
@@ -123,7 +123,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Get HashLib DLL..."
-				CommandLine="copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="copy /b /y &quot;..\HashLib\$(ConfigurationName) $(PlatformName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -198,8 +198,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			UseOfATL="0"
@@ -209,7 +209,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Get HashLib DLL..."
-				CommandLine="copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="copy /b /y &quot;..\HashLib\$(ConfigurationName) $(PlatformName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -289,8 +289,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			UseOfATL="0"
@@ -300,7 +300,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Get HashLib DLL..."
-				CommandLine="copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="copy /b /y &quot;..\HashLib\$(ConfigurationName) $(PlatformName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -346,6 +346,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="version.lib"
+				LinkIncremental="1"
 				GenerateManifest="false"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="2"

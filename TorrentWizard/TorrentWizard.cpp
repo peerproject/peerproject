@@ -59,9 +59,38 @@ BOOL CTorrentWizardApp::InitInstance()
 	if( ( m_sCommandLineSourceFile.GetLength() > 0 ) &&
 		( m_sCommandLineDestination.GetLength() > 0 ) &&
 		( m_sCommandLineTracker.GetLength() > 0 ) )
+	{
 		m_bCommandLine = TRUE;
+	}
 	else
+	{
 		m_bCommandLine = FALSE;
+
+		// Test prior app instance for non-commandline
+		HANDLE pMutex = CreateMutex( NULL, FALSE, _T("Global\\TorrentWizard") );
+		if ( GetLastError() == ERROR_ALREADY_EXISTS )
+		{
+			// Show first instance
+			//if ( CWnd* pWnd = CWnd::FindWindow( _T("TorrentWizard"), NULL ) )
+			//{
+			//	pWnd->SendMessage( WM_SYSCOMMAND, SC_RESTORE );
+			//	pWnd->ShowWindow( SW_SHOWNORMAL );
+			//	pWnd->BringWindowToTop();
+			//	pWnd->SetForegroundWindow();
+			//}
+
+			if ( MessageBox( NULL,
+				(LPCWSTR)L"TorrentWizard is currently running.\nDo you want to open a new window?",
+				(LPCWSTR)L"PeerProject TorrentWizard",
+				MB_ICONQUESTION | MB_OKCANCEL | MB_SETFOREGROUND ) == IDCANCEL )
+			{
+				CloseHandle( pMutex );
+
+				return FALSE;
+			}
+		}
+		// else Continue
+	}
 
 	SetRegistryKey( _T("PeerProject") );
 

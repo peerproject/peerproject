@@ -313,17 +313,18 @@ protected:
 #define	ID_MESSAGE_STOPAWAY				242
 #define	ID_MESSAGE_SETAWAY				243
 
-#define	ID_COLOR_NEWMSG					0
-#define	ID_COLOR_MSG					1
-#define	ID_COLOR_SERVERMSG				2
-#define	ID_COLOR_TOPIC					3
-#define	ID_COLOR_CHANNELACTION			4
-#define	ID_COLOR_NOTICE					5
-#define	ID_COLOR_TABS					6
-#define	ID_COLOR_CHATBACK				7
-#define ID_COLOR_TEXT					8
-#define	ID_COLOR_SERVERERROR			9
-#define	ID_COLOR_ME						10
+#define	ID_COLOR_CHATWINDOW				0
+#define ID_COLOR_TEXT					1
+#define ID_COLOR_TEXTLOCAL				2
+#define	ID_COLOR_CHANNELACTION			3
+#define	ID_COLOR_ME						4
+#define	ID_COLOR_MSG					5
+#define	ID_COLOR_NEWMSG					6
+#define	ID_COLOR_SERVERMSG				7
+#define	ID_COLOR_TOPIC					8
+#define	ID_COLOR_NOTICE					9
+#define	ID_COLOR_SERVERERROR			10
+#define	ID_COLOR_TABS					11
 
 #define	ID_KIND_CLIENT					51
 #define	ID_KIND_PRIVATEMSG				52

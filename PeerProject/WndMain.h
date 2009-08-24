@@ -169,6 +169,7 @@ protected:
 	afx_msg void OnHelpConnectiontest();
 	afx_msg void OnHelpGuide();
 	afx_msg void OnHelpForums();
+	afx_msg void OnHelpForumsLocal();
 	afx_msg void OnHelpUpdate();
 	afx_msg void OnHelpRouter();
 	afx_msg void OnHelpSecurity();

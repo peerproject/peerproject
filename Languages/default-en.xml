@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r34 -->
+<!-- Translation based on default-en.xml r35 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -16,6 +16,7 @@
 <manifest
 	name="English (Default)"
 	author="PeerProject Development Team"
+	updatedBy=""
 	description="PeerProject Default English Skin File"
 	link="http://PeerProject.org"
 	email="Contact(at)PeerProject.org"
@@ -154,16 +155,16 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Play or Open"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Preview File"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Delete File"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Delete File"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Resume Download"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pause Download"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancel Download"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Clear Download"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Details"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Show Monitor"/>
 			<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Add New Download"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Clear Completed"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -427,7 +428,7 @@
 			<rightAlign/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
-		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
+		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Servers"/>
 	</toolbar>
 	<toolbar name="CHostCacheWnd">
 		<button id="ID_HOSTCACHE_CONNECT" text="Connect To"/>
@@ -589,9 +590,10 @@
 				<item id="ID_WINDOW_REMOTE" text="Show Media _Remote"/>
 			</menu>
 			<menu text="_Help">
-				<item id="ID_HELP_GUIDE" text="PeerProject _User Guide"/>
+				<item id="ID_HELP_FAQ" text="PeerProject FA_Q" shortcut="F1"/>
+				<item id="ID_HELP_GUIDE" text="PeerProject User _Guide"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<item id="ID_HELP_FAQ" text="PeerProject FAQ" shortcut="F1"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
 				<menu text="Skin Help">
 				</menu>
 				<separator/>
@@ -702,6 +704,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
 				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
 				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
@@ -776,6 +779,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject Site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
 				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
 				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/>
 			</menu>
@@ -873,6 +877,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_English Language Forum"/> <!--Localized-->
 				<item id="ID_HELP_WEB_6" text="PeerProject S_kin Site"/>
 				<item id="ID_HELP_FAKESHAREAZA" text="FakeSharea_za.com"/> <!--
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
@@ -1028,6 +1033,9 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="_Music by the same Artist"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Search M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
 		<menu text="_Web Services">
 			<item id="ID_LIBRARY_BITZI_WEB" text="View _Bitzi Ticket"/>
@@ -1595,11 +1603,10 @@
 	<menu name="CSearchMonitorWnd">
 		<item id="ID_HITMONITOR_SEARCH" text="_Search for This"/>
 		<separator/>
-		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
-		<item id="ID_SECURITY_BAN" text="B_an User"/>
-		<separator/>
 		<item id="ID_SEARCHMONITOR_PAUSE" text="_Pause Display"/>
 		<item id="ID_SEARCHMONITOR_CLEAR" text="_Clear Buffer"/>
+		<separator/>
+		<item id="ID_SECURITY_BAN" text="_Ban End User"/>
 	</menu>
 	<!-- GRAPH/TRAFFIC WINDOW -->
 	<menu name="CTrafficWnd">
@@ -1701,6 +1708,15 @@
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
 		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+	</menu>
+	<!-- PLUGIN MENUS -->
+	<menu name="ImageViewer_Context">
+		<item id="ImageViewer_ActualSize" text="_Actual Size"/>
+		<item id="ImageViewer_BestFit" text="_Best Fit"/>
+		<separator/>
+		<item id="ImageViewer_Refresh" text="_Refresh"/>
+		<separator/>
+		<item id="ImageViewer_Close" text="_Close"/>
 	</menu>
 </menus>
 <!-- Documents -->
@@ -1810,6 +1826,10 @@
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Quick Help</link>
 		<text align="middle">&#160;- Get online support using PeerProject</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
+		<text align="middle">&#160;- Go to your English language forum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1843,22 +1863,22 @@
 		<text group="21" align="middle">Disconnected</text>
 		<text group="22" align="middle">Connecting...</text>
 		<text group="23" align="middle" id="G2Peers">Hub mode</text>
-		<text group="24" align="middle" id="G2Hubs">%i hubs</text>
-		<text group="25" align="middle" id="G2Leaves">%i leaves</text>
+		<text group="24" align="middle" id="G2Hubs">%i Hubs</text>
+		<text group="25" align="middle" id="G2Leaves">%i Leaves</text>
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
 		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
 		<text group="11" align="middle">Disconnected</text>
 		<text group="12" align="middle">Connecting...</text>
 		<text group="13" align="middle" id="G1Peers">Ultrapeer</text>
-		<text group="14" align="middle" id="G1Hubs">%i peers</text>
-		<text group="15" align="middle" id="G1Leaves">%i leaves</text>
+		<text group="14" align="middle" id="G1Hubs">%i Peers</text>
+		<text group="15" align="middle" id="G1Leaves">%i Leaves</text>
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
 		<text group="31" align="middle">Disconnected</text>
 		<text group="32" align="middle">Connecting...</text>
-		<text group="33" align="middle">Connected</text>
+		<text group="33" align="middle" id="ED2KServers">1 Server</text>
 		<newline group="30" gap="2"/>
 		<group id="2">
 			<para align="center">
@@ -1933,15 +1953,15 @@
 			</style>
 		</styles>
 		<para align="center">
+			<group id="1">
+				<text id="TorrentsOne">1 seeding torrent</text>
+				<text id="TorrentsMany">%i seeding torrents</text>
+				<newline gap="8"/>
+			</group>
 			<text id="UploadsNone" format="b">No active uploads</text>
 			<link id="UploadsOne" target="peer:command:ID_VIEW_UPLOADS" format="bu">1 active upload</link>
 			<link id="UploadsMany" target="peer:command:ID_VIEW_UPLOADS" format="bu">%i active uploads</link>
 			<newline gap="4"/>
-			<group id="1">
-				<text id="TorrentsOne">1 seeding torrent</text>
-				<text id="TorrentsMany">%i seeding torrents</text>
-				<newline gap="4"/>
-			</group>
 			<text id="UploadedNone">No files uploaded</text>
 			<text id="UploadedOne">1 file (%s)</text>
 			<text id="UploadedMany">%i files (%s)</text>
@@ -3498,7 +3518,7 @@
 		<control caption="Filter chat messages for spam"/>
 		<control caption="Censor profanity in chat"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="IRC Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="IRC Chat">
 		<control caption="Client _Options:"/>
 		<control caption="Show chat integration"/>
 		<control caption="Flood protection:"/>
@@ -3509,17 +3529,21 @@
 		<control/>
 		<control caption="_Colors:"/>
 		<control/>
+		<control caption="Window"/>
+		<control/>
+		<control caption="Text"/>
+		<control/>
+		<control caption="Local text"/>
+		<control/>
+		<control caption="User action"/>
+		<control/>
+		<control caption="Channel actions"/>
+		<control/>
 		<control caption="Server messages"/>
-		<control/>
-		<control caption="Topics"/>
-		<control/>
-		<control caption="Channel Actions"/>
 		<control/>
 		<control caption="Notices"/>
 		<control/>
-		<control caption="Chat background"/>
-		<control/>
-		<control caption="Text"/>
+		<control caption="Topics"/>
 		<control caption="Connection _Settings:"/>
 		<control caption="Nickname:"/>
 		<control/>
@@ -3664,24 +3688,24 @@
 		<control caption="The scheduler is designed to allow you to set times when PeerProject will connect and download files. {n}{n}{n}Note: If you have PeerProject open while the scheduler is active, you may see it changing settings- This is normal."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Networks">
-		<control caption="PeerProject is a general-purpose file-sharing application that can access many P2P networks at the same time. On this page you can select which P2P networks you want to connect to, and then adjust specific settings for each network."/>
+		<control caption="PeerProject is a general-purpose file-sharing application that can utilize several P2P networks simultaneously. On this page you can select which P2P networks you want to connect to, and then adjust specific settings for each network."/>
 		<control caption="Gnutella2 Network:"/>
-		<control caption="The Gnutella2 network is PeerProject&apos;s premiere network, offering more features and performance than any other P2P net.  Highly recommended."/>
+		<control caption="The G2 network is PeerProject's premiere protocol, offering more features and performance than any other P2P net. (Shareaza)"/>
 		<control caption="Connect to Gnutella2 (G2)"/>
 		<control caption="Configure Gnutella2"/>
 		<control caption="Gnutella Network:"/>
-		<control caption="The original Gnutella network is less feature-rich than Gnutella2, and has fewer files than eDonkey, yet remains a valuable resource."/>
-		<control caption="Connect to Original Gnutella (G1)"/>
+		<control caption="The original Gnutella network is less feature-rich than G2, and has fewer files than eDonkey, yet remains a valuable resource. (Limewire)"/>
+		<control caption="Connect to Gnutella (G1)"/>
 		<control caption="Configure Gnutella"/>
 		<control caption="eDonkey Network:"/>
-		<control caption="The eDonkey network is a popular server-based network.  While not as feature-rich or fast as G2, eMule has an impressive file collection."/>
+		<control caption="The eDonkey network is a popular server-based network.  Not as feature-rich or fast as G2, but ED2K has an impressive size. (eMule)"/>
 		<control caption="Connect to eDonkey2000 (ED2K)"/>
 		<control caption="Configure eDonkey"/>
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Network:"/>
-		<control caption="Always connect to Gnutella2"/>
-		<control caption="Connect to Gnutella2 today"/>
+		<control caption="Always connect to G2"/>
+		<control caption="Connect to G2 today"/>
 		<control caption="Mode: "/>
 		<control caption="Optimal|Leaf|Hub"/>
 		<control caption="G_2 Connections:"/>
@@ -3699,7 +3723,7 @@
 		<control caption="Connect to Gnutella today"/>
 		<control caption="Mode: "/>
 		<control caption="Optimal|Leaf|Ultrapeer"/>
-		<control caption="G_1 Connections:"/>
+		<control caption="_Gnutella Connections:"/>
 		<control caption="Leaf to Ultrapeer:"/>
 		<control/>
 		<control/>
@@ -3880,7 +3904,6 @@
 		<control caption="Volume:"/>
 		<control caption="0"/>
 		<control caption="Close"/>
-		<control/>
 	</dialog>
 	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoCo" caption="Welcome to PeerProject (3/6)">
 		<control caption="PeerProject is a friendlier place when everyone shares a few basic details about themselves. Full profile is available from the Tools menu."/>
@@ -4410,7 +4433,7 @@
 		<control caption="2"/>
 		<control caption="3"/>
 		<control caption="_Remember my selection next time"/>
-		<control caption="Your downloaded files folder &quot;D:\Autoload\PeerProject\Torrents&quot; is not yet in your library.{n}{n}Including your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.{n}{n}Would you like to add your downloaded files folder to your library now?"/>
+		<control caption="Your downloaded files folder &quot;%s&quot; is not yet in your library.{n}{n}Including your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.{n}{n}Would you like to add your downloaded files folder to your library now?"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4578,15 +4601,6 @@
 </dialogs>
 <!-- Columns Definitions -->
 <listColumns>
-	<list name="CLibraryWnd">
-		<column from="File" to=""/>
-		<column from="Type" to=""/>
-		<column from="Size" to=""/>
-		<column from="Folder" to=""/>
-		<column from="Hits" to=""/>
-		<column from="Uploads" to=""/>
-		<column from="Modified" to=""/>
-	</list>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to=""/>
 		<column from="Size" to=""/>
@@ -4608,6 +4622,15 @@
 		<column from="Remote User" to=""/>
 		<column from="Client" to=""/>
 		<column from="Country" to=""/>
+	</list>
+	<list name="CLibraryWnd">
+		<column from="File" to=""/>
+		<column from="Type" to=""/>
+		<column from="Size" to=""/>
+		<column from="Folder" to=""/>
+		<column from="Hits" to=""/>
+		<column from="Uploads" to=""/>
+		<column from="Modified" to=""/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to=""/>

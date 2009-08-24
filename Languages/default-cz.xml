@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r35 (Shareaza 2.2.5.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -149,23 +149,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Otevřít nebo přehrát"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Náhled souboru"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Odstranit soubor"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Odstranit soubor"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Obnovit stahování"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pozastavit stahování"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Zrušit stahování"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Vymazat stažené"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Vlastnosti"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Zobrazit monitorování"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Přidat stahování/Torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Vymazat dokončené"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Otevřít nebo přehrát"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Odstranit soubor"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="Náhled souboru"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Odstranit soubor"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Obnovit stahování"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pozastavit stahování"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Zrušit stahování"/>
@@ -344,8 +344,8 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Pokec s uživatelem"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Nastavení"/>
 	</toolbar>
@@ -353,13 +353,11 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Připojit se"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Odpojit"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Prohlédnout uživatele"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Pokec s uživatelem"/>
 		<button id="ID_SECURITY_BAN" text="Blokovat uživatele"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Nastavení"/>
 	</toolbar>
@@ -1674,6 +1672,10 @@
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Rychlá Nápověda</link>
 		<text align="middle">&#160;- Otevře Nápovědu jak používat PeerProject</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Místní Fórum</link>
+		<text align="middle">&#160;- Přejít na české diskusní fórum jazyk</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>

@@ -536,17 +536,18 @@ void CSettings::Load()
 	Add( _T("Uploads"), _T("ShareTiger"), &Uploads.ShareTiger, true );
 	Add( _T("Uploads"), _T("ThrottleMode"), &Uploads.ThrottleMode, true );
 
-	Add( _T("IRC"), _T("Colors[0]"), &IRC.Colors[0], RGB(244,0,0) );
-	Add( _T("IRC"), _T("Colors[1]"), &IRC.Colors[1], RGB(0,0,0) );
-	Add( _T("IRC"), _T("Colors[2]"), &IRC.Colors[2], RGB(0,0,244) );
-	Add( _T("IRC"), _T("Colors[3]"), &IRC.Colors[3], RGB(200,100,120) );
-	Add( _T("IRC"), _T("Colors[4]"), &IRC.Colors[4], RGB(0,144,0) );
-	Add( _T("IRC"), _T("Colors[5]"), &IRC.Colors[5], RGB(244,0,0) );
-	Add( _T("IRC"), _T("Colors[6]"), &IRC.Colors[6], RGB(230,230,230) );
-	Add( _T("IRC"), _T("Colors[7]"), &IRC.Colors[7], RGB(0xF8,0xF8,0xF8) );
-	Add( _T("IRC"), _T("Colors[8]"), &IRC.Colors[8], RGB(0,0,0) );
-	Add( _T("IRC"), _T("Colors[9]"), &IRC.Colors[9], RGB(200,30,30) );
-	Add( _T("IRC"), _T("Colors[10]"), &IRC.Colors[10], RGB(200,130,230) );
+	Add( _T("IRC"), _T("Colors[0]"), &IRC.Colors[0], RGB(254,254,252) );	// ID_COLOR_CHATWINDOW
+	Add( _T("IRC"), _T("Colors[1]"), &IRC.Colors[1], RGB(0,0,0) );			// ID_COLOR_TEXT
+	Add( _T("IRC"), _T("Colors[2]"), &IRC.Colors[2], RGB(40,40,40) );		// ID_COLOR_TEXTLOCAL
+	Add( _T("IRC"), _T("Colors[3]"), &IRC.Colors[3], RGB(10,140,10) );		// ID_COLOR_CHANNELACTION
+	Add( _T("IRC"), _T("Colors[4]"), &IRC.Colors[4], RGB(180,120,220) );	// ID_COLOR_ME
+	Add( _T("IRC"), _T("Colors[5]"), &IRC.Colors[5], RGB(0,0,0) );			// ID_COLOR_MSG
+	Add( _T("IRC"), _T("Colors[6]"), &IRC.Colors[6], RGB(240,20,10) );		// ID_COLOR_NEWMSG
+	Add( _T("IRC"), _T("Colors[7]"), &IRC.Colors[7], RGB(10,20,240) );		// ID_COLOR_SERVERMSG
+	Add( _T("IRC"), _T("Colors[8]"), &IRC.Colors[8], RGB(200,100,120) );	// ID_COLOR_TOPIC
+	Add( _T("IRC"), _T("Colors[9]"), &IRC.Colors[9], RGB(240,20,10) );		// ID_COLOR_NOTICE
+	Add( _T("IRC"), _T("Colors[10]"), &IRC.Colors[10], RGB(200,30,30) );	// ID_COLOR_SERVERERROR
+	Add( _T("IRC"), _T("Colors[11]"), &IRC.Colors[11], RGB(230,230,230) );	// ID_COLOR_TABS
 	Add( _T("IRC"), _T("Show"), &IRC.Show, TRUE );
 	Add( _T("IRC"), _T("FloodEnable"), &IRC.FloodEnable, TRUE );
 	Add( _T("IRC"), _T("Nick"), &IRC.Nick );

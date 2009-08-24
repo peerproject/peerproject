@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml -->
+<!-- Translation based on default-en.xml r35 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -149,23 +149,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Открыть"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Просмотр"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Удалить файл"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Удалить файл"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Продолжить"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Приостановить"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Отменить"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Убрать"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Свойства"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Монитор"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Начать загрузку..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Очистить от завершенных"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Открыть"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Удалить файл"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="Открыть"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Удалить файл"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Продолжить"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Приостановить"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Отменить"/>
@@ -354,7 +354,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Чат"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Установки"/>
@@ -363,12 +363,10 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Подключиться..."/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Отключиться"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Просмотр хоста"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Чат"/>
 		<button id="ID_SECURITY_BAN" text="Блокировать"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Установки"/>
@@ -565,7 +563,8 @@
 				<separator/>
 				<menu text="_Веб сайты">
   				<item id="ID_HELP_FORUMS" text="_Форумы PeerProject"/>
- 				<item id="ID_HELP_UPDATE" text="Последние новости"/> <!--
+  				<item id="ID_HELP_FORUMS_LOCAL" text="_Форумы Pусский"/>
+				<item id="ID_HELP_UPDATE" text="Последние новости"/> <!--
  				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
  				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
 				</menu>	<!--
@@ -667,6 +666,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_Сайт PeerProject"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Форумы PeerProject"/>
+ 				<item id="ID_HELP_FORUMS_LOCAL" text="_Форумы Pусский"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Последние новости"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
@@ -739,6 +739,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_Сайт PeerProject.org"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Форумы PeerProject"/>
+ 				<item id="ID_HELP_FORUMS_LOCAL" text="_Форумы Pусский"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Последние новости"/> -->
 			</menu>
 			<separator/>
@@ -830,6 +831,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_Сайт PeerProject"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Форумы PeerProject"/>
+ 				<item id="ID_HELP_FORUMS_LOCAL" text="_Форумы Pусский"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Последние новости"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
@@ -1771,6 +1773,10 @@
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Быстрaя Помoщь</link>
 		<text align="middle">&#160;- Онлайновая Справочная Система Wiki</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Местных форумах</link>
+		<text align="middle">&#160;- Перейдите на русский язык дискуссионный форум</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -2377,7 +2383,8 @@
 	<tip id="ID_HELP_FAQ" message="Посетить ЧаВо PeerProject."/>
 	<tip id="ID_HELP_ROUTER" message="Получите помощь по настройке вашего маршрутизатора или брандмауэра."/>
 	<tip id="ID_HELP_FORUMS" message="Посетить форумы дискуссий PeerProject."/>
-	<tip id="ID_HELP_GUIDE" message="Посетить Руководство пользователя PeerProject."/>
+	<tip id="ID_HELP_FORUMS_LOCAL" message="Посетить форумы дискуссий PeerProject."/>
+	<tip id="ID_HELP_GUIDE" message="Посетить Руководство пользователя Pусский."/>
 	<tip id="ID_HELP_HOMEPAGE" message="Посетить сайт PeerProject.org."/>
 	<tip id="ID_HELP_SECURITY" message="Узнайте как защититься от вредителей в сетях."/>
 	<tip id="ID_HELP_UPDATE" message="Узнайте новости и об обновлениях."/>
@@ -3444,7 +3451,7 @@
 		<control caption="Фильтровать текст чата от спама"/>
 		<control caption="Фильтровать нецензурные слова в чате"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Чат">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Чат">
 		<control caption="Настройки _чата:"/>
 		<control caption="Show chat  integration"/>
 		<control caption="Flood protection:"/>
@@ -3455,17 +3462,21 @@
 		<control/>
 		<control caption="_Цвета:"/>
 		<control/>
-		<control caption="Сообщений сервера"/>
-		<control/>
-		<control caption="Топиков"/>
-		<control/>
-		<control caption="Действий"/>
-		<control/>
-		<control caption="Уведомлений"/>
-		<control/>
 		<control caption="Фон"/>
 		<control/>
 		<control caption="Текста"/>
+		<control/>
+		<control caption="Текста mестных"/>
+		<control/>
+		<control caption="Действий user"/>
+		<control/>
+		<control caption="Действий"/>
+		<control/>
+		<control caption="Сообщений сервера"/>
+		<control/>
+		<control caption="Уведомлений"/>
+		<control/>
+		<control caption="Топиков"/>
 		<control caption="Настройки _соединения:"/>
 		<control caption="Ник:"/>
 		<control/>

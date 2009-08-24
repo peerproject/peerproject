@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r35 (Shareaza 2.1.2.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -147,23 +147,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Otwórz lub odtwarzaj"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Podgląd pliku"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Usuń plik"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Usuń plik"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Wznów pobieranie"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Wstrzymaj pobieranie"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Anuluj pobieranie"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Wyczyść pobieranie"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Pokaż monitor"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Dodaj plik/Torrent"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Wyczyść zakończone"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Otwórz lub odtwarzaj"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Usuń plik"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="Podgląd pliku"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Usuń plik"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Wznów pobieranie"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Wstrzymaj pobieranie"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Anuluj pobieranie"/>
@@ -342,7 +342,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Rozmowa z użytkownikiem"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ustawienia"/>
@@ -351,12 +351,10 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Połącz z"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Rozłącz"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Przegladaj użytkownika"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Rozmowa z użytkownikiem"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ustawienia"/>
@@ -1520,6 +1518,10 @@
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Szybka pomoc</link>
 		<text align="middle">&#160;- Podstawowa pomoc dotycząca używania PeerProject</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Lokalne Forum</link>
+		<text align="middle">&#160;- Przejdź do forum języka polskiego</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -3179,7 +3181,7 @@
 		<control caption="Filtruj wiadomości ze spamu"/>
 		<control caption="Cenzuruj wulgaryzmy w rozmowie"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Czat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Czat">
 		<control caption="Opcje klienta:"/>
 		<control caption="Pokaż integrację czata"/>
 		<control caption="Ochrona przed floodem:"/>
@@ -3190,17 +3192,21 @@
 		<control/>
 		<control caption="Kolory:"/>
 		<control/>
-		<control caption="Server komunikatów"/>
-		<control/>
-		<control caption="Tematy"/>
-		<control/>
-		<control caption="Akcje kanału"/>
-		<control/>
-		<control caption="Powiadomienia"/>
-		<control/>
 		<control caption="Tło czata"/>
 		<control/>
 		<control caption="Tekst"/>
+		<control/>
+		<control caption="Tekst lokalne"/>
+		<control/>
+		<control caption="Akcje user"/>
+		<control/>
+		<control caption="Akcje kanału"/>
+		<control/>
+		<control caption="Server komunikatów"/>
+		<control/>
+		<control caption="Powiadomienia"/>
+		<control/>
+		<control caption="Tematy"/>
 		<control caption="Ustawienia połączenia:"/>
 		<control caption="Nick:"/>
 		<control/>

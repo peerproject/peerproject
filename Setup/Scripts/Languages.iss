@@ -14,7 +14,7 @@ Name: "cz"; MessagesFile: "Setup\Languages\Czech.isl"; LicenseFile: "Setup/Licen
 Name: "de"; MessagesFile: "Setup\Languages\German.isl"; LicenseFile: "Setup/License/German.rtf"
 Name: "ee"; MessagesFile: "Setup\Languages\Estonian.isl"; LicenseFile: "Setup/License/Estonian.rtf"
 Name: "es"; MessagesFile: "Setup\Languages\Spanish.isl"; LicenseFile: "Setup/License/Spanish.rtf"
-Name: "es_mx"; MessagesFile: "Setup\Languages\Spanish-Mexican.isl"; LicenseFile: "Setup/License/Spanish-Mexican.rtf"
+Name: "es_mx"; MessagesFile: "Setup\Languages\Spanish-Mexican.isl"; LicenseFile: "Setup/License/Spanish.rtf"
 Name: "fi"; MessagesFile: "Setup\Languages\Finnish.isl"; LicenseFile: "Setup/License/Finnish.rtf"
 Name: "fr"; MessagesFile: "Setup\Languages\French.isl"; LicenseFile: "Setup/License/French.rtf"
 Name: "gr"; MessagesFile: "Setup\Languages\Greek.isl"; LicenseFile: "Setup/License/Greek.rtf"
@@ -26,7 +26,7 @@ Name: "nl"; MessagesFile: "Setup\Languages\Dutch.isl"; LicenseFile: "Setup/Licen
 Name: "no"; MessagesFile: "Setup\Languages\Norwegian.isl"; LicenseFile: "Setup/License/Norwegian.rtf"
 Name: "pl"; MessagesFile: "Setup\Languages\Polish.isl"; LicenseFile: "Setup/License/Polish.rtf"
 Name: "pt"; MessagesFile: "compiler:Languages\Portuguese.isl"; LicenseFile: "Setup/License/Portuguese.rtf"
-Name: "pt_br"; MessagesFile: "Setup\Languages\Portuguese-Brazil.isl"; LicenseFile: "Setup/License/Portuguese-Brazil.rtf"
+Name: "pt_br"; MessagesFile: "Setup\Languages\Portuguese-Brazil.isl"; LicenseFile: "Setup/License/Portuguese.rtf"
 Name: "ru"; MessagesFile: "Setup\Languages\Russian.isl"; LicenseFile: "Setup/License/Russian.rtf"
 Name: "sl"; MessagesFile: "Setup\Languages\Slovenian.isl"; LicenseFile: "Setup/License/Default.rtf"
 Name: "sq"; MessagesFile: "Setup\Languages\Albanian.isl"; LicenseFile: "Setup/License/Albanian.rtf"
@@ -135,13 +135,13 @@ Source: "Setup\License\Afrikaans.rtf"; DestDir: "{app}\Uninstall"; DestName: "GP
 ; Portuguese std
 Source: "Setup\License\Portuguese.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt; Tasks: language
 ; Portuguese Braz
-Source: "Setup\License\Portuguese-Brazil.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt_br; Tasks: language
+Source: "Setup\License\Portuguese.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt_br; Tasks: language
 ; French
 Source: "Setup\License\French.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fr; Tasks: language
 ; Spanish std
 Source: "Setup\License\Spanish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es; Tasks: language
 ; Spanish Mexican
-Source: "Setup\License\Spanish-Mexican.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es_mx; Tasks: language
+Source: "Setup\License\Spanish.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es_mx; Tasks: language
 ; Russian
 Source: "Setup\License\Russian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ru; Tasks: language
 ; Greek

@@ -23,8 +23,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			UseOfATL="0"
@@ -102,8 +102,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			UseOfATL="0"
@@ -179,8 +179,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			UseOfATL="0"
@@ -263,8 +263,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			UseOfATL="0"

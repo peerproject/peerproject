@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml -->
+<!-- Translation based on default-en.xml r35 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -149,23 +149,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Abrir/Tocar"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Prever Arquivo"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Apagar Arquivo"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Apagar Arquivo"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Resumir"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pausar"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancelar"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Limpar Download"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Propriedades"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostrar Monitor"/>
 		<rightAlign/>
-		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Limpar"/>
 		<button id="ID_DOWNLOADS_FILTER_MENU" text="Filtrar"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Abrir/Tocar"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Apagar Arquivo"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="Prever Arquivo"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Apagar Arquivo"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Resumir"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pausar"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancelar"/>
@@ -353,8 +353,8 @@
 		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Conversar"/>
 		<rightAlign/>
-		<button id="ID_NETWORK_G2" text="Gnutella 2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella 1"/>
+		<button id="ID_NETWORK_G2" text="Gnutella2"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurações"/>
@@ -363,12 +363,10 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Conectar na"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Desconectar"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Conversar"/>
 		<button id="ID_SECURITY_BAN" text="Banir Host"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurações"/>
@@ -567,9 +565,10 @@
 				<item id="ID_WINDOW_REMOTE" text="Mostrar Ventana Remoto"/>
 			</menu>
 			<menu  text="_Ayuda">
-				<item id="ID_HELP_GUIDE" text="Guia para Usuarios de PeerProject"/>
-				<item id="ID_HELP_FORUMS" text="Foro de PeerProject"/>
 				<item id="ID_HELP_FAQ" text="Preguntas mas frecuentes" shortcut="F1"/>
+				<item id="ID_HELP_GUIDE" text="Guia para Usuarios de PeerProject"/>
+				<item id="ID_HELP_FORUMS" text="Fóruns do PeerProject"/>
+ 				<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
 				<menu text="Ayuda de SkinVista">
 					<menu text="Vuelve a cargar la interfaz gráfica para eliminar los errores: Ctrl+Mays+Z"> </menu>
 				</menu>
@@ -674,6 +673,7 @@
 		<separator/>
 		<menu text="_Sites da Rede">
 			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
+			<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
 			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
 		  	<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
 		  	<item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject!"/>
@@ -746,6 +746,7 @@
 		<separator/>
 		<menu text="_Sites da Rede">
 			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
+			<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
 			<!-- <separator/>
 			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
 		  	<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
@@ -836,7 +837,8 @@
 		<separator/>
 		<menu text="_Sites da Rede">
 			<item id="ID_HELP_HOMEPAGE" text="Site do PeerProject"/>
-			<item id="ID_HELP_FORUMS" text="Fóruns do _PeerProject"/>
+			<item id="ID_HELP_FORUMS" text="Fóruns do PeerProject"/>
+ 			<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
 			<!-- <separator/>
 			<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
 			<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
@@ -1788,6 +1790,10 @@
 	  <icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 	  <link target="peer:command:ID_HELP_FAQ" align="middle">Ajuda Rápida</link>
 	  <text align="middle">&#160;- Obtenha um pouco de ajuda básica sobre como usar o PeerProject</text>
+	  <newline gap="8"/>
+	  <icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+	  <link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Fóruns</link>
+	  <text align="middle">&#160;- Vá para o Fórum Português Língua discussão</text>
 	  <newline gap="18" indent="0"/>
 	  <group id="5">
 		<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -2388,14 +2394,14 @@
 	<tip id="ID_DOWNLOADS_MONITOR" message="Abrir uma janela de monitor de downloads para este download..."/>
 	<tip id="ID_DOWNLOADS_MOVE_DOWN" message="Mover o(s) download(s) selecionado(s) para baixo na lista de prioridade."/>
 	<tip id="ID_DOWNLOADS_MOVE_UP" message="Mover o(s) download(s) selecionado(s) para cima na lista de prioridade."/>
-	<tip id="ID_DOWNLOADS_PAUSE" message="Pausar o(s) download(s) selecionado(s)."/>
+	<tip id="ID_DOWNLOADS_PAUSE" message="Pausar os downloads selecionados."/>
 	<tip id="ID_DOWNLOADS_RATE" message="Classificar o download selecionado."/>
 	<tip id="ID_DOWNLOADS_REMOTE_PREVIEW" message="Baixar a prévia da imagem para o download selecionado."/>
-	<tip id="ID_DOWNLOADS_RESUME" message="Resumir o(s) download(s) selecionado(s)."/>
+	<tip id="ID_DOWNLOADS_RESUME" message="Resumir os downloads selecionados."/>
 	<tip id="ID_DOWNLOADS_SETTINGS" message="Configurar as opções de download..."/>
 	<tip id="ID_DOWNLOADS_SHARE" message="Compartilhar este arquivo parcialmente baixado com outros usuários."/>
 	<tip id="ID_DOWNLOADS_SHOW_SOURCES" message="Exibir fontes que não estão sendo usadas atualmente."/>
-	<tip id="ID_DOWNLOADS_SOURCES" message="Procurar por mais fontes para o(s) download(s) selecionado(s)."/>
+	<tip id="ID_DOWNLOADS_SOURCES" message="Procurar por mais fontes para o download selecionado."/>
 	<tip id="ID_DOWNLOADS_ADD_SOURCE" message="Adicionar uma fonte URL ao download selecionado..."/>
 	<tip id="ID_DOWNLOADS_VIEW_REVIEWS" message="Ver comentários sobre o download selecionado"/>
 	<tip id="ID_HELP_ABOUT" message="Exibir o diálogo  &quot;sobre&quot; do PeerProject..."/>
@@ -2403,6 +2409,7 @@
 	<tip id="ID_HELP_FAQ" message="Ver o FAQ do PeerProject."/>
 	<tip id="ID_HELP_ROUTER" message="Consiga ajuda para configurar o seu Roteador ou Firewall."/>
 	<tip id="ID_HELP_FORUMS" message="Visitar os fóruns de discussão do PeerProject."/>
+	<tip id="ID_HELP_FORUMS_LOCAL" message="Visitar os fóro de discussão de Português."/>
 	<tip id="ID_HELP_GUIDE" message="Visite o Guia dos Usuários do PeerProject."/>
 	<tip id="ID_HELP_HOMEPAGE" message="Visitar o site PeerProject.org."/>
 	<tip id="ID_HELP_SECURITY" message="Ajuda para proteger o seu sistema de programas hostis"/>
@@ -3470,7 +3477,7 @@
 		<control caption="Filtrar mensagens de chat com spam"/>
 		<control caption="Censurar obscenidades no chat"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
 		<control caption="Opções do _Cliente:"/>
 		<control caption="Mostrar a integração com o chat"/>
 		<control caption="Proteção contra flood:"/>
@@ -3481,17 +3488,21 @@
 		<control/>
 		<control caption="_Cores:"/>
 		<control/>
+		<control caption="Cenário de fundo"/>
+		<control/>
+		<control caption="Texto"/>
+		<control/>
+		<control caption="Texto local"/>
+		<control/>
+		<control caption="Ações no user"/>
+		<control/>
+		<control caption="Ações no canal"/>
+		<control/>
 		<control caption="Mensagens do servidor"/>
-		<control/>
-		<control caption="Tópicos"/>
-		<control/>
-		<control caption="Ações no Canal"/>
 		<control/>
 		<control caption="Recados"/>
 		<control/>
-		<control caption="Cenário de Fundo do Chat"/>
-		<control/>
-		<control caption="Texto"/>
+		<control caption="Tópicos"/>
 		<control caption="Configurações da _Conexão:"/>
 		<control caption="Apelido:"/>
 		<control/>

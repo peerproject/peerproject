@@ -563,7 +563,7 @@ public:
 
 	struct sIRC
 	{
-		COLORREF		Colors[11];
+		COLORREF		Colors[12];
 		bool			Show;
 		bool			FloodEnable;
 		bool			Timestamp;
@@ -574,8 +574,8 @@ public:
 		CString			ServerName;
 		CString			ServerPort;
 		CString			FloodLimit;
-		bool			Updated;
 		CString			ScreenFont;
+		bool			Updated;
 	} IRC;
 
 	struct sLive

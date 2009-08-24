@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml -->
+<!-- Translation based on default-en.xml r35 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -148,23 +148,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Hape/Lexo"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Parashiko"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Fshije"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Fshije"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Rimerre"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pusho"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Anulo"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Pastro"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitoro"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Shto një Shkarkesë/Torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Pastro të Përfunduarit"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Hape/Lexo"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Fshije"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="Parashiko"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Fshije"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Rimerre"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pusho"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Anulo"/>
@@ -350,7 +350,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Bisedo"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Kuadro"/>
@@ -359,12 +359,10 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Lidhu Te"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Shkëputu"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Shfleto"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Bisedo"/>
 		<button id="ID_SECURITY_BAN" text="Dëboje"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Vendosje"/>
@@ -1771,6 +1769,10 @@
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Ndihmë e Shpejtë</link>
 		<text align="middle">&#160;- Merrni ndihmën kryesore mbi përdorimin e PeerProject-s</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
+		<text align="middle">&#160;- Shko tek forumi shqiptar tuaj diskutim gjuhën</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -3165,7 +3167,7 @@
 		<control caption="Filtro mesazhet me spame"/>
 		<control caption="Censuro blasfeminë në chat"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
 		<control caption="_Mundësitë e Klientit:"/>
 		<control caption="Trego intregimin e chat-it"/>
 		<control caption="Mbrojtja nga përmbytjet:"/>
@@ -3176,17 +3178,19 @@
 		<control/>
 		<control caption="_Ngjyra:"/>
 		<control/>
-		<control caption="Mesazhet e serverit"/>
-		<control/>
-		<control caption="Tema"/>
-		<control/>
-		<control caption="Veprimet e Kanalit"/>
-		<control/>
-		<control caption="Lajmërime"/>
-		<control/>
 		<control caption="Sfondi i chat-it"/>
 		<control/>
 		<control caption="Teksti"/>
+		<control/>
+		<control caption="Veprimet e user"/>
+		<control/>
+		<control caption="Veprimet e kanalit"/>
+		<control/>
+		<control caption="Mesazhet e serverit"/>
+		<control/>
+		<control caption="Lajmërime"/>
+		<control/>
+		<control caption="Tema"/>
 		<control caption="_Vendosjet e Lidhjes:"/>
 		<control caption="Nofka:"/>
 		<control/>

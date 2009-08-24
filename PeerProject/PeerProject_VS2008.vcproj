@@ -21,8 +21,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			UseOfATL="0"
@@ -31,7 +31,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Copying DLL Services and SVN Revision..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(ConfigurationName) $(PlatformName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(ConfigurationName) $(PlatformName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -113,8 +113,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			UseOfATL="0"
@@ -123,7 +123,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Copying DLL Services and SVN Revision..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(ConfigurationName) $(PlatformName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(ConfigurationName) $(PlatformName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -206,8 +206,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			UseOfATL="0"
@@ -217,7 +217,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Copying DLL Services and SVN Revision..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(ConfigurationName) $(PlatformName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(ConfigurationName) $(PlatformName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -305,8 +305,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="1"
 			UseOfATL="0"
@@ -316,7 +316,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Copying DLL Services and SVN Revision..."
-				CommandLine="copy /b /y &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(PlatformName) $(ConfigurationName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(PlatformName) $(ConfigurationName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
+				CommandLine="copy /b /y &quot;..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\HashLib\$(ConfigurationName) $(PlatformName)\HashLib.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;copy /b /y &quot;..\Services\SQLite\$(ConfigurationName) $(PlatformName)\SQLite.dll&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;cscript.exe //nologo Revision.js&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"

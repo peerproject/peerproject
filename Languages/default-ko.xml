@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml SVN r30 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r35 --> <!--Machine Translated!-->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -150,16 +150,16 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="재생 또는 열기"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="미리보기 파일"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="파일 삭제"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="파일 삭제"/>
 		<button id="ID_DOWNLOADS_RESUME" text="이력서 다운로드"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="일시 중지 다운로"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="취소 다운로드"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="지우기 다운로드"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="세부 사항"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="모니터보기"/>
 			<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="새 다운로드 추가"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="지우기 완료"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -2698,7 +2698,7 @@
 		<control caption="Minimize Button Behavior:"/>
 		<control caption="Normal|Minimize to Tray"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="도서관">
+<!--	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="도서관">
 		<control caption="_Options:"/>
 		<control caption="Remember folder views"/>
 		<control caption="Watch library folders"/>
@@ -2727,8 +2727,8 @@
 		<control/>
 		<control caption="Create ghost files when deleting"/>
 		<control caption="Smart video series detection"/>
-	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Media Player">
+	</dialog> -->
+<!--	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Media Player">
 		<control caption="_Options:"/>
 		<control/>
 		<control caption="Use the PeerProject Media Player to PLAY the file types listed below"/>
@@ -2742,8 +2742,8 @@
 		<control caption="_Media Handling"/>
 		<control caption="Choose Media Handler:"/>
 		<control caption="Warning: Choosing an external Media Handler will automatically disable all Media and Visualisation Plugins!"/>
-	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Community">
+	</dialog> -->
+<!--	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Community">
 		<control caption="My _Profile:"/>
 		<control caption="You can use your Gnutella User Profile to share information about yourself, your interests and recommended files and websites with others."/>
 		<control caption="Edit My Profile"/>
@@ -2752,8 +2752,8 @@
 		<control caption="Enable chat on all protocols where possible"/>
 		<control caption="Filter chat messages for spam"/>
 		<control caption="Censor profanity in chat"/>
-	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
+	</dialog> -->
+<!--	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
 		<control caption="Client _Options:"/>
 		<control caption="Show chat integration"/>
 		<control caption="Flood protection:"/>
@@ -2764,17 +2764,21 @@
 		<control/>
 		<control caption="_Colors:"/>
 		<control/>
-		<control caption="Server messages"/>
-		<control/>
-		<control caption="Topics"/>
-		<control/>
-		<control caption="Channel Actions"/>
-		<control/>
-		<control caption="Notices"/>
-		<control/>
 		<control caption="Chat background"/>
 		<control/>
 		<control caption="Text"/>
+		<control/>
+		<control caption="Local text"/>
+		<control/>
+		<control caption="User action"/>
+		<control/>
+		<control caption="Channel actions"/>
+		<control/>
+		<control caption="Server messages"/>
+		<control/>
+		<control caption="Notices"/>
+		<control/>
+		<control caption="Topics"/>
 		<control caption="Connection _Settings:"/>
 		<control caption="Nickname:"/>
 		<control/>
@@ -2788,8 +2792,8 @@
 		<control/>
 		<control caption="Port:"/>
 		<control/>
-	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
+	</dialog> -->
+<!--	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="_Peer to Peer Link Handling:"/>
 		<control caption="Use PeerProject to open these types of links:"/>
 		<control caption="Magnet ( magnet: )"/>
@@ -2803,10 +2807,10 @@
 		<control caption="_Add"/>
 		<control caption="_Remove"/>
 		<control caption="The download manager plugin will only attempt to download file types listed here. Other file types will be handled by your web browser. PeerProject must be running to manage downloads."/>
-	</dialog>
-	<dialog name="CInternetSettingsGroup" cookie="" caption="Internet">
-	</dialog>
-	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Connection">
+	</dialog> -->
+<!--	<dialog name="CInternetSettingsGroup" cookie="" caption="Internet">
+	</dialog> -->
+<!--	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Connection">
 		<control caption="_Inbound Address:"/>
 		<control caption="Address:"/>
 		<control caption="Automatic"/>
@@ -2833,8 +2837,8 @@
 		<control caption="Handshake:"/>
 		<control/>
 		<control/>
-	</dialog>
-	<dialog name="CDownloadsSettingsPage" cookie="BuEdBuBuEdBuBuStEdmsStEdmsStEdmsBuStCoStCoBuBu" caption="다운로드">
+	</dialog> -->
+<!--	<dialog name="CDownloadsSettingsPage" cookie="BuEdBuBuEdBuBuStEdmsStEdmsStEdmsBuStCoStCoBuBu" caption="다운로드">
 		<control caption="Save _Completed Files Here:"/>
 		<control/>
 		<control/>
@@ -2858,8 +2862,8 @@
 		<control/>
 		<control/>
 		<control caption="Only download and upload to networks which are connected."/>
-	</dialog>
-	<dialog name="CUploadsSettingsPage" cookie="BuBuBuBuBuStEdmsBuCoBuBuBuStCoStCoBuSyBuBuBuSt" caption="업로드"> <!--Variant-->
+	</dialog> -->
+<!--	<dialog name="CUploadsSettingsPage" cookie="BuBuBuBuBuStEdmsBuCoBuBuBuStCoStCoBuSyBuBuBuSt" caption="업로드"> <!--Variant-->
 		<control caption="_Options:"/>
 		<control caption="Limit sharing in hub mode"/>
 		<control caption="Share new partial downloads"/>
@@ -2883,8 +2887,8 @@
 		<control caption="_Edit..."/>
 		<control caption="_Delete"/>
 		<control caption="(changes take effect immediately)"/>
-	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Remote Access">
+	</dialog> -->
+<!--	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Remote Access">
 		<control caption="_Guide:"/>
 		<control caption="PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser. You will need to be able to accept incoming connections to use this feature (i.e. properly configured router, etc)."/>
 		<control caption="_Enable:"/>
@@ -2895,8 +2899,8 @@
 		<control/>
 		<control caption="Choose a Password:"/>
 		<control/>
-	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Scheduler">
+	</dialog> -->
+<!--	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Scheduler">
 		<control caption="_Options:"/>
 		<control caption="_Enable Scheduler"/>
 		<control/>
@@ -2917,8 +2921,8 @@
 		<control/>
 		<control caption="Help"/>
 		<control caption="The scheduler is designed to allow you to set times when PeerProject will connect and download files. {n}{n}{n}Note: If you have PeerProject open while the scheduler is active, you may see it changing settings- This is normal."/>
-	</dialog>
-	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Networks">
+	</dialog> -->
+<!--	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Networks">
 		<control caption="PeerProject is a general-purpose file-sharing application that can access many P2P networks at the same time. On this page you can select which P2P networks you want to connect to, and then adjust specific settings for each network."/>
 		<control caption="Gnutella2 Network:"/>
 		<control caption="The Gnutella2 network is PeerProject&apos;s premiere network, offering more features and performance than any other P2P net.  Highly recommended."/>
@@ -2932,8 +2936,8 @@
 		<control caption="The eDonkey network is a popular server-based network. While not as feature-rich or fast as Gnutella2, eMule has an impressive file collection."/>
 		<control caption="Connect to eDonkey2000 (ED2K)"/>
 		<control caption="Configure eDonkey"/>
-	</dialog>
-	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
+	</dialog> -->
+<!--	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Network:"/>
 		<control caption="Always connect to Gnutella2"/>
 		<control caption="Connect to Gnutella2 today"/>
@@ -2968,8 +2972,8 @@
 		<control caption="Hub to Leaf"/>
 		<control caption="Leaf to Hub"/>
 		<control caption="Hub to Hub"/>
-	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	</dialog> -->
+<!--	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
 		<control caption="_eDonkey Network:"/>
 		<control caption="Always connect to eDonkey"/>
 		<control caption="Connect to eDonkey today"/>
@@ -2988,8 +2992,8 @@
 		<control caption="eDonkey _Tools:"/>
 		<control caption="Download eDonkey server list from the web:"/>
 		<control caption="Download..."/>
-	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	</dialog> -->
+<!--	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download Connections:"/>
 		<control/>
 		<control/>
@@ -3012,8 +3016,8 @@
 		<control/>
 		<control caption="Default Tracker: "/>
 		<control/>
-	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skins">
+	</dialog> -->
+<!--	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skins">
 		<control/>
 		<control caption="Skin Information:"/>
 		<control caption="Name:"/>
@@ -3025,8 +3029,8 @@
 		<control caption="Delete"/>
 		<control caption="Install..."/>
 		<control caption="Get More"/>
-	</dialog>
-	<dialog name="CPluginsSettingsPage" cookie="SyBuStStStEdBuBu" caption="Plugins">
+	</dialog> -->
+<!--	<dialog name="CPluginsSettingsPage" cookie="SyBuStStStEdBuBu" caption="Plugins">
 		<control/>
 		<control caption="Plugin Information:"/>
 		<control caption="Name:"/>
@@ -3035,8 +3039,8 @@
 		<control/>
 		<control caption="_Setup..."/>
 		<control caption="Get More"/>
-	</dialog>
-	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Advanced">
+	</dialog> -->
+<!--	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Advanced">
 		<control/>
 		<control/>
 		<control/>
@@ -3045,11 +3049,11 @@
 		<control caption="Value:"/>
 		<control caption="Description:"/>
 		<control/>
-	</dialog>
-	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocols">
+	</dialog> -->
+<!--	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocols">
 		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
 		<control/>
-	</dialog>
+	</dialog> -->
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Upload Queue Properties">
 		<control caption="_Name:"/>
 		<control/>
@@ -3151,7 +3155,7 @@
 		<control caption="PeerProject supports a flexible user interface, so you can choose what is most comfortable for you. You can change these options at any time."/>
 		<control caption="Please select user interface:"/>
 		<control caption="Basic Mode"/>
-		<control caption="Power Mode"/>
+		<control caption="Tabbed Mode"/>
 		<control caption="Simple, easy to use menus and buttons.{n}Familiar to users of other file sharing programs."/>
 		<control caption="Power mode offers expert users lots of extra commands, windows, etc.{n}It may be a little confusing for new users!"/>
 		<control caption="Display simplified download progress bars. (Reduces CPU use)"/>

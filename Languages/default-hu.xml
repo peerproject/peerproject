@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml -->
+<!-- Translation based on default-en.xml r35 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -148,23 +148,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Megnyitás-Lejátszás"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Előnézet"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Törlés"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Törlés"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Letöltés folytatása"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Letöltés szüneteltetése"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Letöltés leállítása"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Letöltés törlése"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Infó"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitor megjelenítése"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Torrent/Link hozzáadása..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Kész törlése"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Megnyitás-Lejátszás"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Törlés"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="Előnézet"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Törlés"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Letöltés folytatása"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Letöltés szüneteltetése"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Letöltés leállítása"/>
@@ -355,7 +355,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Csevegés"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Beállítások"/>
@@ -364,12 +364,10 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Kapcsolódás"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Lekapcsolódás"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Fájllista és adatlap"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Csevegés"/>
 		<button id="ID_SECURITY_BAN" text="Kiszolgáló kitiltása"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Beállítások"/>
@@ -1759,6 +1757,10 @@
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Súgó</link>
 		<text align="middle">&#160;- Segítség a program használatához.</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Helyi Fórum</link>
+		<text align="middle">&#160;- Menj el a magyar nyelv vitafórum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -3395,7 +3397,7 @@
 		<control caption="Kéretlen üzenetek kiszűrése"/>
 		<control caption="Trágár szövegek kiszűrése"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Csevegés">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Csevegés">
 		<control caption="_Kliens beállítások"/>
 		<control caption="Csevegés intergrálása"/>
 		<control caption="Elárasztás elleni védelem:"/>
@@ -3404,19 +3406,23 @@
 		<control caption="Időbélyeg megjelenítése"/>
 		<control caption="Betűtípus:"/>
 		<control/>
-		<control caption="_Színek"/>
-		<control/>
-		<control caption="Szerverüzenetek"/>
-		<control/>
-		<control caption="Téma"/>
-		<control/>
-		<control caption="Csatorna események"/>
-		<control/>
-		<control caption="Megjegyzések"/>
+		<control caption="_Színek:"/>
 		<control/>
 		<control caption="Csevegőablak háttere"/>
 		<control/>
 		<control caption="Szöveg"/>
+		<control/>
+		<control caption="Szöveg helyi"/>
+		<control/>
+		<control caption="User események"/>
+		<control/>
+		<control caption="Csatorna események"/>
+		<control/>
+		<control caption="Szerverüzenetek"/>
+		<control/>
+		<control caption="Megjegyzések"/>
+		<control/>
+		<control caption="Téma"/>
 		<control caption="K_apcsolódási beállítások"/>
 		<control caption="Becenév:"/>
 		<control/>

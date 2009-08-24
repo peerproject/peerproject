@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml -->
+<!-- Translation based on default-en.xml r35 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -148,23 +148,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Openen of afspelen"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Voorvertonen"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Verwijderen"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Verwijderen"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Hervatten"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pauzeren"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Beëindigen"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Wissen"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Informatie"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitor tonen"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Download/Torrent toevoegen..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Wis voltooide bestanden"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Openen of afspelen"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Verwijderen"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="Voorvertonen"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Verwijderen"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Hervatten"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pauzeren"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Beëindigen"/>
@@ -352,7 +352,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Chatten"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Instellingen"/>
@@ -361,12 +361,10 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Verbinden met..."/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Verbinding verbreken"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Gebruiker bekijken"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Chatten"/>
 		<button id="ID_SECURITY_BAN" text="Gastheer verbannen"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Instellingen"/>
@@ -536,6 +534,7 @@
 				<separator/>
 				<menu text="_Websites">
 					<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
+					<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
 					<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 					<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -636,6 +635,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -707,6 +707,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -798,6 +799,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/>	-->
@@ -1709,6 +1711,10 @@
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Help</link>
 		<text align="middle">&#160;- PeerProject's gebruikerhandleiding en FAQ</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
+		<text align="middle">&#160;- Ga naar je Nederlandse taal discussieforum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -2317,6 +2323,7 @@
 	<tip id="ID_HELP_FAQ" message="Bezoek de PeerProject gebruikershandleiding en FAQ."/>
 	<tip id="ID_HELP_ROUTER" message="Klik hier als je hulp nodig hebt bij het instellen van je firewall of router."/>
 	<tip id="ID_HELP_FORUMS" message="Bezoek de PeerProject forums."/>
+	<tip id="ID_HELP_FORUMS_LOCAL" message="Bezoek de Nederlands forum."/>
 	<tip id="ID_HELP_GUIDE" message="Bezoek de PeerProject gebruikershandleiding."/>
 	<tip id="ID_HELP_HOMEPAGE" message="Bezoek de PeerProject website."/>
 	<tip id="ID_HELP_SECURITY" message="Helpt je systeem te beschermen tegen kwaadaardige programma's."/>
@@ -3363,7 +3370,7 @@
 		<control caption="Filter chatberichten op spam"/>
 		<control caption="Verberg scheldwoorden in chatberichten"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="IRC/Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="IRC/Chat">
 		<control caption="Client _Opties:"/>
 		<control caption="Toon de chat integratie"/>
 		<control caption="Vloed verdediging:"/>
@@ -3374,17 +3381,21 @@
 		<control/>
 		<control caption="_Kleuren:"/>
 		<control/>
-		<control caption="Server boodschappen"/>
-		<control/>
-		<control caption="Hoofdingen"/>
-		<control/>
-		<control caption="Kanaal acties"/>
-		<control/>
-		<control caption="Mededelingen"/>
-		<control/>
 		<control caption="Chat achtergrond"/>
 		<control/>
 		<control caption="Tekst"/>
+		<control/>
+		<control caption="Local tekst"/>
+		<control/>
+		<control caption="User acties"/>
+		<control/>
+		<control caption="Kanaal acties"/>
+		<control/>
+		<control caption="Server boodschappen"/>
+		<control/>
+		<control caption="Mededelingen"/>
+		<control/>
+		<control caption="Hoofdingen"/>
 		<control caption="_Verbindingsinstellingen:"/>
 		<control caption="Pseudoniem:"/>
 		<control/>

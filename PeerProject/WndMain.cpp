@@ -182,6 +182,7 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_HELP_FAQ, OnHelpFaq)
 	ON_COMMAND(ID_HELP_GUIDE, OnHelpGuide)
 	ON_COMMAND(ID_HELP_FORUMS, OnHelpForums)
+	ON_COMMAND(ID_HELP_FORUMS_LOCAL, OnHelpForumsLocal)
 	ON_COMMAND(ID_HELP_UPDATE, OnHelpUpdate)
 	ON_COMMAND(ID_HELP_ROUTER, OnHelpRouter)
 	ON_COMMAND(ID_HELP_SECURITY, OnHelpSecurity)
@@ -2646,12 +2647,21 @@ void CMainWnd::OnHelpForums()
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
+void CMainWnd::OnHelpForumsLocal()
+{
+	const CString strWebSite(WEB_SITE_T);
+
+	ShellExecute( GetSafeHwnd(), _T("open"),
+		strWebSite + _T("forums/local/") + Settings.General.Language.Left(2),
+		NULL, NULL, SW_SHOWNORMAL );
+}
+
 void CMainWnd::OnHelpUpdate()
 {
 	const CString strWebSite(WEB_SITE_T);
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("help/update/?Version=") + theApp.m_sVersion,
+		Settings.VersionCheck.UpdateCheckURL + _T("?Version=") + theApp.m_sVersion + _T("?Language=") + Settings.General.Language.Left(2),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 

@@ -21,8 +21,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="2"
 			UseOfATL="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -109,13 +109,13 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="2"
 			UseOfATL="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -202,13 +202,13 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="2"
 			UseOfATL="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -300,13 +300,13 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="2"
 			UseOfATL="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -398,7 +398,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;regsvr32 /s /c &quot;$(TargetPath)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

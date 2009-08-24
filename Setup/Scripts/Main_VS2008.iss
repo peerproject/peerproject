@@ -10,26 +10,26 @@
   #error PreProcessor version 5.2.0.0 or higher is needed for this script
 #endif
 
-#define internal_name GetStringFileInfo("..\PeerProject\" + PlatformName + " " + ConfigurationName + "\PeerProject.exe", INTERNAL_NAME);
+#define internal_name GetStringFileInfo("..\PeerProject\" + ConfigurationName + " " + PlatformName + "\PeerProject.exe", INTERNAL_NAME);
 #define name          internal_name
 #define build         PlatformName + " " + ConfigurationName + " Build"
-#define version       GetFileVersion("..\PeerProject\" + PlatformName + " " + ConfigurationName + "\PeerProject.exe")
+#define version       GetFileVersion("..\PeerProject\" + ConfigurationName + " " + PlatformName + "\PeerProject.exe")
 #define Publisher     "PeerProject Development Team"
 #define Description   internal_name + " Filesharing System"
 #define date          GetDateTimeString('yyyy/mm/dd', '-', '')
 
 #if ConfigurationName == "Debug"
-  #define output_name internal_name + "_" + version + "_" + date + "_" + PlatformName + "_" + ConfigurationName
+  #define output_name	internal_name + "_" + version + "_" + date + "_" + PlatformName + "_" + ConfigurationName
 #elif alpha == "Yes"
   #if PlatformName == "x64"
-    #define output_name internal_name + "_" + version + "_" + date + "_" + PlatformName
+    #define output_name	internal_name + "_" + version + "_" + date + "_" + PlatformName
   #else
-    #define output_name internal_name + "_" + version + "_" + date
+    #define output_name	internal_name + "_" + version + "_" + date
   #endif
 #elif PlatformName == "x64"
-  #define output_name internal_name + "_" + version + "_" + PlatformName
+  #define output_name	internal_name + "_" + version + "_" + PlatformName
 #else
-  #define output_name internal_name + "_" + version
+  #define output_name	internal_name + "_" + version
 #endif
 
 [Setup]
@@ -38,7 +38,7 @@ AppId={#internal_name}
 AppName={#name}
 AppVersion={#version}
 AppVerName={#internal_name} {#build} {#version}
-AppMutex={#internal_name}
+AppMutex={#internal_name},Global\TorrentWizard
 DefaultDirName={ini:{param:SETTINGS|},Locations,Path|{reg:HKLM\SOFTWARE\{#internal_name},|{pf}\{#internal_name}}}
 DirExistsWarning=no
 DefaultGroupName={#internal_name}
@@ -99,10 +99,10 @@ Name: "deleteoldsetup"; Description: "{cm:tasks_deleteoldsetup}"; Check: EnableD
 
 [Files]
 ; Main files
-Source: "PeerProject\{#PlatformName} {#ConfigurationName}\PeerProject.exe"; 	DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-Source: "SkinBuilder\{#PlatformName} {#ConfigurationName}\SkinBuilder.exe"; 	DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-Source: "SkinInstaller\{#PlatformName} {#ConfigurationName}\SkinInstaller.exe";	DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-Source: "TorrentWizard\{#PlatformName} {#ConfigurationName}\TorrentWizard.exe";	DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "PeerProject\{#ConfigurationName} {#PlatformName}\PeerProject.exe"; 	DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "SkinBuilder\{#ConfigurationName} {#PlatformName}\SkinBuilder.exe"; 	DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "SkinInstaller\{#ConfigurationName} {#PlatformName}\SkinInstaller.exe";	DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "TorrentWizard\{#ConfigurationName} {#PlatformName}\TorrentWizard.exe";	DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; Save/Restore scripts
 Source: "Services\SaveSettings.bat"; DestDir: "{app}"; DestName: "SaveSettings.bat"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension skipifsourcedoesntexist
@@ -118,35 +118,35 @@ Source: "Services\zlibwapi-x64.dll"; DestDir: "{app}\Plugins"; DestName: "zlibwa
 #endif
 
 ; HashLib
-Source: "HashLib\{#PlatformName} {#ConfigurationName}\HashLib.dll"; DestDir: "{app}"; DestName: "HashLib.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "HashLib\{#ConfigurationName} {#PlatformName}\HashLib.dll"; DestDir: "{app}"; DestName: "HashLib.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; SQLite
-Source: "Services\SQLite\{#PlatformName} {#ConfigurationName}\SQLite.dll"; DestDir: "{app}"; DestName: "SQLite.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Services\SQLite\{#ConfigurationName} {#PlatformName}\SQLite.dll"; DestDir: "{app}"; DestName: "SQLite.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; GeoIP
-Source: "Services\GeoIP\{#PlatformName} {#ConfigurationName}\GeoIP.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Services\GeoIP\{#ConfigurationName} {#PlatformName}\GeoIP.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 Source: "Data\GeoIP.dat";  DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; Plugins
-Source: "Plugins\7ZipBuilder\{#PlatformName} {#ConfigurationName}\7ZipBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
-Source: "Plugins\7ZipBuilder\{#PlatformName} {#ConfigurationName}\7zxr.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
-;Source: "Plugins\7ZipBuilder\{#PlatformName} {#ConfigurationName}\7zxr.dll"; DestDir: "{app}";        Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Plugins\7ZipBuilder\{#ConfigurationName} {#PlatformName}\7ZipBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\7ZipBuilder\{#ConfigurationName} {#PlatformName}\7zxr.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
+;Source: "Plugins\7ZipBuilder\{#ConfigurationName} {#PlatformName}\7zxr.dll"; DestDir: "{app}";        Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
-Source: "Plugins\DocumentReader\{#PlatformName} {#ConfigurationName}\DocumentReader.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\DocumentReader\{#ConfigurationName} {#PlatformName}\DocumentReader.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Plugins\GFLImageServices\{#PlatformName} {#ConfigurationName}\GFLImageServices.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\GFLImageServices\{#ConfigurationName} {#PlatformName}\GFLImageServices.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 Source: "Services\LibGFL\{#PlatformName}\LibGFL290.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
 Source: "Services\LibGFL\{#PlatformName}\LibGFL290.dll"; DestDir: "{app}";         Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
-Source: "Plugins\GFLLibraryBuilder\{#PlatformName} {#ConfigurationName}\GFLLibraryBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\GFLLibraryBuilder\{#ConfigurationName} {#PlatformName}\GFLLibraryBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Plugins\ImageViewer\{#PlatformName} {#ConfigurationName}\ImageViewer.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\ImageViewer\{#ConfigurationName} {#PlatformName}\ImageViewer.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Plugins\MediaImageServices\{#PlatformName} {#ConfigurationName}\MediaImageServices.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\MediaImageServices\{#ConfigurationName} {#PlatformName}\MediaImageServices.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Plugins\MediaLibraryBuilder\{#PlatformName} {#ConfigurationName}\MediaLibraryBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\MediaLibraryBuilder\{#ConfigurationName} {#PlatformName}\MediaLibraryBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Plugins\RARBuilder\{#PlatformName} {#ConfigurationName}\RARBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\RARBuilder\{#ConfigurationName} {#PlatformName}\RARBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 #if PlatformName == "Win32"
 Source: "Plugins\RARBuilder\Unrar.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 ;Source: "Plugins\RARBuilder\Unrar.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
@@ -156,17 +156,17 @@ Source: "Plugins\RARBuilder\Unrar64.dll"; DestDir: "{app}\Plugins"; Flags: overw
 #endif
 
 
-Source: "Plugins\RatDVDPlugin\{#PlatformName} {#ConfigurationName}\RatDVDReader.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\RatDVDPlugin\{#ConfigurationName} {#PlatformName}\RatDVDReader.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Plugins\SkinScan\{#PlatformName} {#ConfigurationName}\SkinScan.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\SkinScan\{#ConfigurationName} {#PlatformName}\SkinScan.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Plugins\SWFPlugin\{#PlatformName} {#ConfigurationName}\SWFPlugin.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\SWFPlugin\{#ConfigurationName} {#PlatformName}\SWFPlugin.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Plugins\ZIPBuilder\{#PlatformName} {#ConfigurationName}\ZIPBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\ZIPBuilder\{#ConfigurationName} {#PlatformName}\ZIPBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Plugins\VirusTotal\{#PlatformName} {#ConfigurationName}\VirusTotal.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\VirusTotal\{#ConfigurationName} {#PlatformName}\VirusTotal.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Plugins\MediaPlayer\{#PlatformName} {#ConfigurationName}\MediaPlayer.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\MediaPlayer\{#ConfigurationName} {#PlatformName}\MediaPlayer.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
 ; Don't register WebHook.dll since it will setup PeerProject as download manager
 Source: "Plugins\WebHook.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
@@ -175,7 +175,7 @@ Source: "Plugins\WebHook.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonl
 ;--== Debug Databases ==--
 #if ConfigurationName == "Debug"
 
-Source: "PeerProject\{#PlatformName} {#ConfigurationName}\PeerProject.pdb"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "PeerProject\{#ConfigurationName} {#PlatformName}\PeerProject.pdb"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 ; ** This section can be uncommented to include the debug database files for all the plugins
 ;Source: "Plugins\*.pdb"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 ; ** The next line can be uncommented to include geoip, skin & zlibwapi debug database files
