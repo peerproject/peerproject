@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml -->
+<!-- Translation based on default-en.xml r35 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -149,13 +149,14 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Obre o reprodueix"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Vista prèvia"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Esborra l'arxiu"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Esborra l'arxiu"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Continua la descàrrega"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Atura la descàrrega"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancel·la la descàrrega"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Neteja la descàrrega"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Informació"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostra el monitor"/>
 		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Afegeix descàrrega/torrent..."/>
@@ -163,9 +164,9 @@
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Obre o reprodueix"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Esborra l&apos;arxiu"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Vista prèvia"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Esborra l&apos;arxiu"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Continua la descàrrega"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Atura la descàrrega"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Cancel·la la descàrrega"/>
@@ -347,7 +348,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Parla amb l'usuari"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configurar..."/>
@@ -356,12 +357,10 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Connectar A..."/>
 		<button id="ID_NEIGHBOURS_DISCNNECT" text="Desconnectar"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Explora l'usuari"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Parla amb l'usuari"/>
 		<button id="ID_SECURITY_BAN" text="Bloca"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Configuració..."/>
@@ -1742,6 +1741,10 @@
 		<gap size="8"/>
 		<link target="http://www.catmidia.cat" align="middle" format="bu">CATMidia</link>
 		<text align="middle">&#160;- Comunitat que es preocupa, entre molts altres continguts, pel programari lliure així com per la seva traducció i adaptació al català.</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Fòrum Local</link>
+		<text align="middle">&#160;- Vés a la teva llengua català fòrum de discussió</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>

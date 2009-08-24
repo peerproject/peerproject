@@ -40,12 +40,14 @@ public:
 // Dialog Data
 public:
 	enum { IDD = IDD_SETTINGS_IRC };
-	CButton m_wndColorServer;
-	CButton	m_wndColorTopic;
-	CButton	m_wndColorAction;
-	CButton	m_wndColorNotice;
 	CButton	m_wndColorBg;
 	CButton	m_wndColorText;
+	CButton	m_wndColorTextLocal;
+	CButton	m_wndColorUserAction;
+	CButton	m_wndColorAction;
+	CButton m_wndColorServer;
+	CButton	m_wndColorNotice;
+	CButton	m_wndColorTopic;
 	BOOL	m_bShow;
 	BOOL	m_bFloodEnable;
 	BOOL	m_bTimestamp;
@@ -71,21 +73,25 @@ public:
 
 // Implementation
 protected:
-	afx_msg void OnBnClickedIrcColorServer();
-	afx_msg void OnBnClickedIrcColorTopic();
-	afx_msg void OnBnClickedIrcColorAction();
-	afx_msg void OnBnClickedIrcColorNotice();
-	afx_msg void OnBnClickedIrcColorBg();
-	afx_msg void OnBnClickedIrcColorText();
+	afx_msg void OnClickIrcColorBg();
+	afx_msg void OnClickIrcColorText();
+	afx_msg void OnClickIrcColorTextLocal();
+	afx_msg void OnClickIrcColorUserAction();
+	afx_msg void OnClickIrcColorAction();
+	afx_msg void OnClickIrcColorServer();
+	afx_msg void OnClickIrcColorNotice();
+	afx_msg void OnClickIrcColorTopic();
 
 	DECLARE_MESSAGE_MAP()
 };
 
 #endif // !defined(AFX_PAGESETTINGSIRC__INCLUDED_)
  
-#define	ID_COLOR_SERVERMSG				2
-#define	ID_COLOR_TOPIC					3
-#define	ID_COLOR_CHANNELACTION			4
-#define	ID_COLOR_NOTICE					5
-#define	ID_COLOR_CHATBACK				7
-#define ID_COLOR_TEXT					8
+#define	ID_COLOR_CHATWINDOW				0
+#define ID_COLOR_TEXT					1
+#define ID_COLOR_TEXTLOCAL				2
+#define	ID_COLOR_CHANNELACTION			3
+#define	ID_COLOR_ME						4
+#define	ID_COLOR_SERVERMSG				7
+#define	ID_COLOR_TOPIC					8
+#define	ID_COLOR_NOTICE					9

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 <
-<!-- Translation based on default-en.xml -->
+<!-- Translation based on default-en.xml r35 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -154,23 +154,23 @@ gap i newline
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="‪פתח או הפעל"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="‪תצוגה מקדימה"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="‪מחק קובץ"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="‪מחק קובץ"/>
 		<button id="ID_DOWNLOADS_RESUME" text="‪המשך הורדה"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="‪השהה הורדה"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="‪בטל הורדה"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="‪נקה הורדה"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="‪מידע הטורנט"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="‪(הצג משגוח (מוניטור"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="‪הוסף הורדה/טורנט"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="‪נקה הורדות שהסתיימו"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="‪פתח או הפעל"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="‪מחק קובץ"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="‪תצוגה מקדימה"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="‪מחק קובץ"/>
 		<button id="ID_DOWNLOADS_RESUME" text="‪המשך הורדה"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="‪השהה הורדה"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="‪בטל הורדה"/>
@@ -372,8 +372,6 @@ gap i newline
 		<button id="ID_NETWORK_CONNECT_TO" text="‪התחבר אל"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="‪התנתק"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="‪עיין במשתמש"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="‪שוחח עם משתמש"/>
 		<button id="ID_SECURITY_BAN" text="חסום מארח (הוסט)"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="‪גנוטלה 2"/>
@@ -1781,6 +1779,10 @@ gap i newline
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">עזרה מהירה</link>
 		<text align="middle">&#160;- קבל עזרה בסיסית בהפעלת שרזה</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">מקומי פורום</link>
+		<text align="middle">&#160;- עברית עבור השפה שלך לדיון בפורום</text>
 		<newline gap="18" indent="16"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -3018,7 +3020,7 @@ gap i newline
 		<control caption="...סינון הודעות זבל"/>
 		<control caption="צינזור חומר פוגעני בצ'אט"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="חדר שיחה">
+<!--	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="חדר שיחה">
 		<control caption="Client _Options:"/>
 		<control caption="Show chat integration"/>
 		<control caption="Flood protection:"/>
@@ -3029,17 +3031,21 @@ gap i newline
 		<control/>
 		<control caption="_Colors:"/>
 		<control/>
+		<control caption="Window"/>
+		<control/>
+		<control caption="Text"/>
+		<control/>
+		<control caption="Local text"/>
+		<control/>
+		<control caption="User action"/>
+		<control/>
+		<control caption="Channel actions"/>
+		<control/>
 		<control caption="Server messages"/>
-		<control/>
-		<control caption="Topics"/>
-		<control/>
-		<control caption="Channel Actions"/>
 		<control/>
 		<control caption="Notices"/>
 		<control/>
-		<control caption="Chat background"/>
-		<control/>
-		<control caption="Text"/>
+		<control caption="Topics"/>
 		<control caption="Connection _Settings:"/>
 		<control caption="Nickname:"/>
 		<control/>
@@ -3053,7 +3059,7 @@ gap i newline
 		<control/>
 		<control caption="Port:"/>
 		<control/>
-	</dialog>
+	</dialog> -->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="רשת">
 		<control caption=":צורת השימוש בלינקים לתקשורת ישירה"/>
 		<control caption=":השתמש בשרזה לפתיחת סוגי הלינקים הבאים"/>

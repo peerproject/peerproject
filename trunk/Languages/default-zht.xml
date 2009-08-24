@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r35 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -149,23 +149,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開啟或播放"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="預覽檔案"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="刪除檔案"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="刪除檔案"/>
 		<button id="ID_DOWNLOADS_RESUME" text="繼續下載"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="暫停下載"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消下載"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="清除下載"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="資訊"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="顯示監視器"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="新增檔案/Torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="清除已完成下載"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開啟或播放"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="刪除檔案"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="預覽檔案"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="刪除檔案"/>
 		<button id="ID_DOWNLOADS_RESUME" text="繼續下載"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="暫停下載"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="取消下載"/>
@@ -344,8 +344,8 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="封鎖使用者"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="設定"/>
 	</toolbar>
@@ -353,13 +353,11 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="連線"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="中斷連線"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="與使用者聊天"/>
 		<button id="ID_SECURITY_BAN" text="封鎖主機"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
-		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
+		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="設定"/>
 	</toolbar>
@@ -1618,6 +1616,10 @@
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">快速說明</link>
 		<text align="middle">&#160;︰查看 PeerProject 入門使用說明</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">本地論壇</link>
+		<text align="middle">&#160;- 轉到您的中文論壇</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>

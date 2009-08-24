@@ -293,34 +293,27 @@ BOOL CPeerProjectApp::InitInstance()
 	}
 
 	m_pMutex = CreateMutex( NULL, FALSE, _T("Global\\PeerProject") );
-	if ( m_pMutex != NULL )
+	if ( m_pMutex == NULL )
 	{
-		if ( GetLastError() == ERROR_ALREADY_EXISTS )
-		{
-			CloseHandle( m_pMutex );
-			m_pMutex = NULL;
-
-			// Popup first instance
-			if ( CWnd* pWnd = CWnd::FindWindow( _T("PeerProjectMainWnd"), NULL ) )
-			{
-				pWnd->SendMessage( WM_SYSCOMMAND, SC_RESTORE );
-				pWnd->ShowWindow( SW_SHOWNORMAL );
-				pWnd->BringWindowToTop();
-				pWnd->SetForegroundWindow();
-			}
-			else
-			{
-				// Probably window created in another user's session
-			}
-			return FALSE;
-		}
-		// We are first!
+		return FALSE;		// Mutex probably created in another multi-user session
 	}
-	else
+	else if ( GetLastError() == ERROR_ALREADY_EXISTS )
 	{
-		// Probably mutex created in another user's session
+		CloseHandle( m_pMutex );
+		m_pMutex = NULL;
+
+		// Show first instance instead
+		if ( CWnd* pWnd = CWnd::FindWindow( _T("PeerProjectMainWnd"), NULL ) )
+		{
+			pWnd->SendMessage( WM_SYSCOMMAND, SC_RESTORE );
+			pWnd->ShowWindow( SW_SHOWNORMAL );
+			pWnd->BringWindowToTop();
+			pWnd->SetForegroundWindow();
+		}
+
 		return FALSE;
 	}
+	// else only app instance, continue.
 
 	m_bInteractive = true;
 
@@ -336,6 +329,8 @@ BOOL CPeerProjectApp::InitInstance()
 	IEProtocol.Create();
 
 	// ***********
+	// NO PUBLIC RELEASE
+
 	//*
 	// BETA EXPIRATION. Remember to re-compile to update the time,
 	// and remove this section for final releases and public betas.
@@ -354,6 +349,7 @@ BOOL CPeerProjectApp::InitInstance()
 	//*
 	// ALPHA WARNING. Remember to remove this section for final releases and public betas.
 	if ( ! m_ocmdInfo.m_bNoAlphaWarning && m_ocmdInfo.m_bShowSplash )
+	{
 	if ( AfxMessageBox(
 		L"\nWARNING: This is an ALPHA TEST version of PeerProject p2p"
 #ifdef __REVISION__
@@ -365,9 +361,12 @@ BOOL CPeerProjectApp::InitInstance()
 		L"stable release from PeerProject.org.  If you continue past this point,\n"
 		L"you may experience system instability or lose files.  Be aware of\n"
 		L"recent development before using, effects might not be recoverable.\n\n"
-		L"Do you wish to continue?", MB_ICONEXCLAMATION|MB_YESNO ) == IDNO )
+		L"Do you wish to continue?", MB_ICONEXCLAMATION|MB_YESNO|MB_SETFOREGROUND ) == IDNO )
 		return FALSE;
+	}
 	//*/
+
+	// NO PUBLIC RELEASE
 	// ***********
 
 	int nSplashSteps = 18

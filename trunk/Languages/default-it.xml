@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml -->
+<!-- Translation based on default-en.xml r35 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -149,23 +149,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Apri/Play"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Anteprima file"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Elimina file"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Elimina file"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Riprendi"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pausa"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Annulla"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Rimuovi"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Informazioni"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostra monitor"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Aggiungi download..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Rimuovi file completati"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Apri/Play"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Elimina file"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Anteprima file"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Elimina file"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Riprendi"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pausa"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Annulla"/>
@@ -344,7 +344,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Chat"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Opzioni"/>
@@ -353,12 +353,10 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Connetti a"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Disconnetti"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Esplora utente"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Chat"/>
 		<button id="ID_SECURITY_BAN" text="Blocca host"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Opzioni"/>
@@ -541,11 +539,12 @@
 				<item id="ID_WINDOW_REMOTE" text="Mostra Controllo Remoto"/>
 			</menu>
 			<menu text="_Aiuto">
-				<item id="ID_HELP_GUIDE" text="Guida di PeerProject"/>
-				<item id="ID_HELP_FORUMS" text="Forum di PeerProject"/>
 				<item id="ID_HELP_FAQ" text="FAQ di PeerProject " shortcut="F1"/>
+				<item id="ID_HELP_GUIDE" text="Guida di PeerProject"/>
+				<item id="ID_HELP_FORUMS" text="Forums di PeerProject"/>
+ 				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum di Italiano"/>
 				<menu text="Aiuto di SkinVista">
- 				<menu text="Reload GUI: Cntrl+Shift+Z">			</menu>
+ 					<menu text="Reload GUI: Cntrl+Shift+Z"></menu>
 				</menu>
 				<separator/>
 				<menu text="_Websites">
@@ -648,6 +647,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="Sito di _PeerProject"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Forum di PeerProject"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum di Italiano"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Ultime notizie"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -715,7 +715,8 @@
 			<menu text="_Siti web">
 				<item id="ID_HELP_HOMEPAGE" text="Sito di _PeerProject"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="_Forum di PeerProject"/>
+				<item id="ID_HELP_FORUMS" text="_Forums di PeerProject"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum di Italiano"/>
 				<item id="ID_HELP_UPDATE" text="Ultime notizie"/>
 			</menu>
 			<separator/>
@@ -803,7 +804,8 @@
 			<menu text="_Siti web">
 				<item id="ID_HELP_HOMEPAGE" text="Sito di _PeerProject"/>
 				<separator/>
-				<item id="ID_HELP_FORUMS" text="_Forum di PeerProject"/>
+				<item id="ID_HELP_FORUMS" text="_Forums di PeerProject"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum di Italiano"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Ultime notizie"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>
 				<item id="ID_HELP_WEB_2" text="P2PForums.com"/> -->
@@ -1737,14 +1739,17 @@
 		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">Configurazione guidata</link>
 		<text align="middle">&#160;- Modifica le impostazioni di PeerProject</text>
 		<newline gap="8"/>
-		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><newline gap="8"/>
-		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/>
-		<gap size="8"/>
+		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Filtri di Sicurezza</link>
 		<text align="middle">&#160;- Aggiungi/Rimuovi i filtri per migliorare i tuoi risultati di ricerca</text>
-		<gap size="8"/>
+		<newline gap="8"/>
+		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Aiuto veloce</link>
 		<text align="middle">&#160;- Aiuti fondamentali per usare PeerProject</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
+		<text align="middle">&#160;- Vai al forum di discussione in lingua Italiana</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -2362,7 +2367,8 @@
 	<tip id="ID_HELP_CODEC" message="Informazioni sui codec e sui problemi video."/>
 	<tip id="ID_HELP_FAQ" message="Visualizza le FAQ di PeerProject."/>
 	<tip id="ID_HELP_ROUTER" message="Visualizza la guida per configurare il tuo router o firewall."/>
-	<tip id="ID_HELP_FORUMS" message="Visita il forum di discussioni di PeerProject."/>
+	<tip id="ID_HELP_FORUMS" message="Visita il forums di discussioni di PeerProject."/>
+	<tip id="ID_HELP_FORUMS_LOCAL" message="Visita il forum di discussioni di Italiano."/>
 	<tip id="ID_HELP_GUIDE" message="Visita la guida per utenti di PeerProject."/>
 	<tip id="ID_HELP_HOMEPAGE" message="Visita il sito di PeerProject."/>
 	<tip id="ID_HELP_SECURITY" message="Aiuta il tuo sistema a proteggersi da programmi pericolosi."/>
@@ -3432,7 +3438,7 @@
 		<control caption="Filtra i messaggi chat dallo spam"/>
 		<control caption="Censura contenuti profani in chat"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="null">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="null">
 		<control caption="_Opzioni client:"/>
 		<control caption="Mostra integrazione chat"/>
 		<control caption="Protezione flood:"/>
@@ -3443,17 +3449,21 @@
 		<control/>
 		<control caption="_Colori:"/>
 		<control/>
+		<control caption="Sfondo chat"/>
+		<control/>
+		<control caption="Testo"/>
+		<control/>
+		<control caption="Local Testo"/>
+		<control/>
+		<control caption="Azioni user"/>
+		<control/>
+		<control caption="Azioni canale"/>
+		<control/>
 		<control caption="Messaggi server"/>
 		<control/>
 		<control caption="Topic"/>
 		<control/>
-		<control caption="Azioni canale"/>
-		<control/>
 		<control caption="Avvisi"/>
-		<control/>
-		<control caption="Sfondo chat"/>
-		<control/>
-		<control caption="Testo"/>
 		<control caption="Impo_stazioni di connessione:"/>
 		<control caption="Nick:"/>
 		<control/>

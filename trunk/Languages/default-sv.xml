@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml -->
+<!-- Translation based on default-en.xml r35 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -148,23 +148,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Öppna eller spela upp" />
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Förhandsvisa fil" />
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Radera fil" />
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Radera fil" />
 		<button id="ID_DOWNLOADS_RESUME" text="Återuppta nedladdning" />
 		<button id="ID_DOWNLOADS_PAUSE" text="Gör paus i nedladdning" />
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Avbryt nedladdning" />
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Rensa nedladdning" />
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Information" />
 		<button id="ID_DOWNLOADS_MONITOR" text="Visa monitor" />
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Lägg till nedladdning/Torrent…" />
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Rensa färdiga" />
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Öppna eller spela upp" />
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Radera fil" />
 		<button id="ID_DOWNLOADS_LAUNCH" text="Förhandsvisa fil" />
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Radera fil" />
 		<button id="ID_DOWNLOADS_RESUME" text="Återuppta nedladdning" />
 		<button id="ID_DOWNLOADS_PAUSE" text="Gör paus i nedladdning" />
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Avbryt nedladdning" />
@@ -352,7 +352,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Chatta med användaren" />
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Inställningar" />
@@ -361,12 +361,10 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Anslut till" />
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Koppla från" />
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Visa användarens filer" />
-		<button id="ID_NEIGHBOURS_CHAT" text="Chatta med användaren" />
 		<button id="ID_SECURITY_BAN" text="Utestäng värd" />
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Inställningar" />
@@ -1725,6 +1723,10 @@
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Snabbhjälp</link>
 		<text align="middle">&#160;- Få grundläggande hjälp om PeerProject</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link>
+		<text align="middle">&#160;- Gå till din svenska språket diskussionsforum</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -3379,7 +3381,7 @@
 		<control caption="Filtrera spam från chatmeddelanden"/>
 		<control caption="Censurera chatten"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
 		<control caption="Klient_alternativ:"/>
 		<control caption="Visa den integrerade chatten"/>
 		<control caption="Överflödsskydd:"/>
@@ -3390,17 +3392,21 @@
 		<control/>
 		<control caption="_Färger:"/>
 		<control/>
-		<control caption="Servermeddelanden"/>
-		<control/>
-		<control caption="Ämnen"/>
-		<control/>
-		<control caption="Kanalhändelser"/>
-		<control/>
-		<control caption="Notiser"/>
-		<control/>
 		<control caption="Chatbakgrund"/>
 		<control/>
 		<control caption="Text"/>
+		<control/>
+		<control caption="Text local"/>
+		<control/>
+		<control caption="Userhändelser"/>
+		<control/>
+		<control caption="Kanalhändelser"/>
+		<control/>
+		<control caption="Servermeddelanden"/>
+		<control/>
+		<control caption="Notiser"/>
+		<control/>
+		<control caption="Ämnen"/>
 		<control caption="Anslutnings_inställningar:"/>
 		<control caption="Smeknamn:"/>
 		<control/>

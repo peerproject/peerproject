@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- This translation is based on default-en.xml (Shareaza 2.2.0.2) -->
+<!-- This translation is based on default-en.xml r35 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -147,23 +147,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Otvori ili Pokreni"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Pregledaj"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Obriši"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Obriši"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Nastavi Skidanje"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pauziraj Skidanje"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Prekini Skidanje"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Obriši Skinuto"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Pokaži Praćenje Prometa"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Dodaj za Skinuti/Torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Makni Gotove"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Otvori ili Pokreni"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Obriši"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="Pregledaj"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Obriši"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Nastavi Skidanje"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Pauziraj Skidanje"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Prekini Skidanje"/>
@@ -342,7 +342,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Popričaj sa Osobom"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Postavke"/>
@@ -351,12 +351,10 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Spoji se na"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Isključi"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Prikaži što djeli"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Popričaj sa Osobom"/>
 		<button id="ID_SECURITY_BAN" text="Blokiraj ga"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Postavke"/>
@@ -1608,6 +1606,10 @@
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Hitna Pomoć</link>
 		<text align="middle">&#160;- Na brzinu nauči osnove rada sa PeerProject</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Lokalni Forum</link>
+		<text align="middle">&#160;- Idi na hrvatski jezik tribini</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>

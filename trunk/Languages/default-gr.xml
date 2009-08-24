@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml -->
+<!-- Translation based on default-en.xml r35 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -149,23 +149,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Άνοιγμα"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Προεπισκόπηση"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Διαγραφή Αρχείου!"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Διαγραφή Αρχείου!"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Συνέχιση Λήψης"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Παύση Λήψης"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Διαγραφή Λήψης"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Απόσυρση Αρχείου"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Ιδιότητες"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Προβολή Εποπτείας"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Νέα Λήψη ή Torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Απόσυρση Ολοκληρωμένων"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Άνοιγμα"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Διαγραφή Αρχείου!"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="Προεπισκόπηση"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Διαγραφή Αρχείου!"/>
 		<button id="ID_DOWNLOADS_RESUME" text="Συνέχιση Λήψης"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="Παύση Λήψης"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Διαγραφή Λήψης"/>
@@ -370,8 +370,6 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Σύνδεση Με"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Αποσύνδεση"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Περιήγηση Χρήστη"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Συνομιλία με Χρήστη"/>
 		<button id="ID_SECURITY_BAN" text="Αποκλεισμός Host"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
@@ -1797,6 +1795,10 @@
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Βοήθεια</link>
 		<text align="middle">&#160;- Ιστοσελίδα βοήθειας στη χρήση του PeerProject</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Τοπική Forum</link>
+		<text align="middle">&#160;- GΜετάβαση στο ελληνικό φόρουμ συζήτησης σας γλώσσα</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -3472,7 +3474,7 @@
 		<control caption="Φιλτράρισμα ενοχλητικών μηνυμάτων"/>
 		<control caption="Φιλτράρισμα αισχρόλογων"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Συνομιλία">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Συνομιλία">
 		<control caption="_Επιλογές Client:"/>
 		<control caption="Εμφάνιση ενσωμάτωσης συνομιλίας"/>
 		<control caption="Προστασία λογοδιάρροιας:"/>
@@ -3483,17 +3485,21 @@
 		<control/>
 		<control caption="_Χρώματα:"/>
 		<control/>
-		<control caption="Μηνύματα server"/>
-		<control/>
-		<control caption="Θέματα"/>
-		<control/>
-		<control caption="Ενέργειες Καναλιών"/>
-		<control/>
-		<control caption="Σημειώσεις"/>
-		<control/>
 		<control caption="Φόντο συνομιλίας"/>
 		<control/>
 		<control caption="Κείμενο"/>
+		<control/>
+		<control caption="Κείμενο Τοπική"/>
+		<control/>
+		<control caption="Ενέργειες Καναλιών"/>
+		<control/>
+		<control caption="Ενέργειες Καναλιών"/>
+		<control/>
+		<control caption="Μηνύματα server"/>
+		<control/>
+		<control caption="Σημειώσεις"/>
+		<control/>
+		<control caption="Θέματα"/>
 		<control caption="Ρυθμίσεις _Σύνδεσης:"/>
 		<control caption="Ψευδώνυμο:"/>
 		<control/>

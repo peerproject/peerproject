@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r35 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -149,23 +149,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開く・再生"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="プレビュー"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="削除"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="削除"/>
 		<button id="ID_DOWNLOADS_RESUME" text="再開"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="一時停止"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="キャンセル"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="完了済みをクリア"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="情報"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="モニタを表示"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="ダウンロード/Torrent追加..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="完了済みをクリア"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開く・再生"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="削除"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="プレビュー"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="削除"/>
 		<button id="ID_DOWNLOADS_RESUME" text="再開"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="一時停止"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="キャンセル"/>
@@ -344,7 +344,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="チャット"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="設定"/>
@@ -353,12 +353,10 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="接続先"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="切断"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="参照"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="チャット"/>
 		<button id="ID_SECURITY_BAN" text="ホストをBAN"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="設定"/>
@@ -1664,6 +1662,10 @@
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">クイックヘルプ</link>
 		<text align="middle">&#160;- PeerProjectを使う上での基本的なヘルプを参照出来ます</text>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">ローカルフォーラム</link>
+		<text align="middle">&#160;- あなたの日本語のディスカッションフォーラムへ</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>

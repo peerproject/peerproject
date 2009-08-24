@@ -38,12 +38,14 @@ IMPLEMENT_DYNCREATE(CIRCSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CIRCSettingsPage, CSettingsPage)
 	ON_WM_DRAWITEM()
-	ON_BN_CLICKED(IDC_IRC_COLOR_SERVER, OnBnClickedIrcColorServer)
-	ON_BN_CLICKED(IDC_IRC_COLOR_TOPIC, OnBnClickedIrcColorTopic)
-	ON_BN_CLICKED(IDC_IRC_COLOR_ACTION, OnBnClickedIrcColorAction)
-	ON_BN_CLICKED(IDC_IRC_COLOR_NOTICE, OnBnClickedIrcColorNotice)
-	ON_BN_CLICKED(IDC_IRC_COLOR_BG, OnBnClickedIrcColorBg)
-	ON_BN_CLICKED(IDC_IRC_COLOR_TEXT, OnBnClickedIrcColorText)
+	ON_BN_CLICKED(IDC_IRC_COLOR_BG, OnClickIrcColorBg)
+	ON_BN_CLICKED(IDC_IRC_COLOR_TEXT, OnClickIrcColorText)
+	ON_BN_CLICKED(IDC_IRC_COLOR_TEXTLOCAL, OnClickIrcColorTextLocal)
+	ON_BN_CLICKED(IDC_IRC_COLOR_USERACTION, OnClickIrcColorUserAction)
+	ON_BN_CLICKED(IDC_IRC_COLOR_ACTION, OnClickIrcColorAction)
+	ON_BN_CLICKED(IDC_IRC_COLOR_SERVER, OnClickIrcColorServer)
+	ON_BN_CLICKED(IDC_IRC_COLOR_NOTICE, OnClickIrcColorNotice)
+	ON_BN_CLICKED(IDC_IRC_COLOR_TOPIC, OnClickIrcColorTopic)
 END_MESSAGE_MAP()
 
 
@@ -61,12 +63,14 @@ CIRCSettingsPage::~CIRCSettingsPage()
 void CIRCSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_IRC_COLOR_SERVER, m_wndColorServer);
-	DDX_Control(pDX, IDC_IRC_COLOR_TOPIC, m_wndColorTopic);
-	DDX_Control(pDX, IDC_IRC_COLOR_ACTION, m_wndColorAction);
-	DDX_Control(pDX, IDC_IRC_COLOR_NOTICE, m_wndColorNotice);
 	DDX_Control(pDX, IDC_IRC_COLOR_BG, m_wndColorBg);
 	DDX_Control(pDX, IDC_IRC_COLOR_TEXT, m_wndColorText);
+	DDX_Control(pDX, IDC_IRC_COLOR_TEXTLOCAL, m_wndColorTextLocal);
+	DDX_Control(pDX, IDC_IRC_COLOR_USERACTION, m_wndColorUserAction);
+	DDX_Control(pDX, IDC_IRC_COLOR_ACTION, m_wndColorAction);
+	DDX_Control(pDX, IDC_IRC_COLOR_SERVER, m_wndColorServer);
+	DDX_Control(pDX, IDC_IRC_COLOR_NOTICE, m_wndColorNotice);
+	DDX_Control(pDX, IDC_IRC_COLOR_TOPIC, m_wndColorTopic);
 	DDX_Check(pDX, IDC_IRC_SHOW, m_bShow);
 	DDX_Check(pDX, IDC_IRC_FLOODENABLE, m_bFloodEnable);
 	DDX_Check(pDX, IDC_IRC_TIMESTAMP, m_bTimestamp);
@@ -86,12 +90,14 @@ void CIRCSettingsPage::DoDataExchange(CDataExchange* pDX)
 BOOL CIRCSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
-	m_wndColorServer.SetButtonStyle( BS_OWNERDRAW | BS_PUSHBUTTON, 1 );
-	m_wndColorAction.SetButtonStyle( BS_OWNERDRAW | BS_PUSHBUTTON, 1 );
-	m_wndColorNotice.SetButtonStyle( BS_OWNERDRAW | BS_PUSHBUTTON, 1 );
-	m_wndColorTopic.SetButtonStyle( BS_OWNERDRAW | BS_PUSHBUTTON, 1 );
 	m_wndColorBg.SetButtonStyle( BS_OWNERDRAW | BS_PUSHBUTTON, 1 );
 	m_wndColorText.SetButtonStyle( BS_OWNERDRAW | BS_PUSHBUTTON, 1 );
+	m_wndColorTextLocal.SetButtonStyle( BS_OWNERDRAW | BS_PUSHBUTTON, 1 );
+	m_wndColorUserAction.SetButtonStyle( BS_OWNERDRAW | BS_PUSHBUTTON, 1 );
+	m_wndColorAction.SetButtonStyle( BS_OWNERDRAW | BS_PUSHBUTTON, 1 );
+	m_wndColorServer.SetButtonStyle( BS_OWNERDRAW | BS_PUSHBUTTON, 1 );
+	m_wndColorNotice.SetButtonStyle( BS_OWNERDRAW | BS_PUSHBUTTON, 1 );
+	m_wndColorTopic.SetButtonStyle( BS_OWNERDRAW | BS_PUSHBUTTON, 1 );
 	m_bShow	= Settings.IRC.Show == true;
 	m_bTimestamp = Settings.IRC.Timestamp == true;
 	m_bFloodEnable = Settings.IRC.FloodEnable == true;
@@ -99,13 +105,9 @@ BOOL CIRCSettingsPage::OnInitDialog()
 
 	CString strNick = MyProfile.GetNick();
 	if ( Settings.IRC.Nick.IsEmpty() && strNick.GetLength() )
-	{
 		Settings.IRC.Nick = m_sNick = strNick;
-	}
 	else
-	{
 		m_sNick = Settings.IRC.Nick;
-	}
 
 	m_sAlternate = Settings.IRC.Alternate;
 	m_sServerName = Settings.IRC.ServerName;
@@ -134,20 +136,26 @@ void CIRCSettingsPage::OnDrawItem(int /* nIDCtl */, LPDRAWITEMSTRUCT lpDrawItemS
 			uStyle |= DFCS_PUSHED;
 		DrawFrameControl( lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem,
 			DFC_BUTTON, uStyle);
+
 		COLORREF MsgColor = RGB(100,100,100);
 		int nID = lpDrawItemStruct->CtlID;
-		if ( nID == IDC_IRC_COLOR_SERVER )
-			MsgColor = Settings.IRC.Colors[ ID_COLOR_SERVERMSG ];
-		if ( nID == IDC_IRC_COLOR_TOPIC )
-			MsgColor = Settings.IRC.Colors[ ID_COLOR_TOPIC ];
-		if ( nID == IDC_IRC_COLOR_ACTION )
-			MsgColor = Settings.IRC.Colors[ ID_COLOR_CHANNELACTION ];
-		if ( nID == IDC_IRC_COLOR_NOTICE )
-			MsgColor = Settings.IRC.Colors[ ID_COLOR_NOTICE ];
 		if ( nID == IDC_IRC_COLOR_BG )
-			MsgColor = Settings.IRC.Colors[ ID_COLOR_CHATBACK ];
+			MsgColor = Settings.IRC.Colors[ ID_COLOR_CHATWINDOW ];
 		if ( nID == IDC_IRC_COLOR_TEXT )
 			MsgColor = Settings.IRC.Colors[ ID_COLOR_TEXT ];
+		if ( nID == IDC_IRC_COLOR_TEXTLOCAL )
+			MsgColor = Settings.IRC.Colors[ ID_COLOR_TEXTLOCAL ];
+		if ( nID == IDC_IRC_COLOR_USERACTION )
+			MsgColor = Settings.IRC.Colors[ ID_COLOR_ME ];
+		if ( nID == IDC_IRC_COLOR_ACTION )
+			MsgColor = Settings.IRC.Colors[ ID_COLOR_CHANNELACTION ];
+		if ( nID == IDC_IRC_COLOR_SERVER )
+			MsgColor = Settings.IRC.Colors[ ID_COLOR_SERVERMSG ];
+		if ( nID == IDC_IRC_COLOR_NOTICE )
+			MsgColor = Settings.IRC.Colors[ ID_COLOR_NOTICE ];
+		if ( nID == IDC_IRC_COLOR_TOPIC )
+			MsgColor = Settings.IRC.Colors[ ID_COLOR_TOPIC ];
+
 		SetTextColor( lpDrawItemStruct->hDC, MsgColor );
 		SetBkMode( lpDrawItemStruct->hDC, OPAQUE );
 		SetBkColor( lpDrawItemStruct->hDC, MsgColor );
@@ -156,73 +164,94 @@ void CIRCSettingsPage::OnDrawItem(int /* nIDCtl */, LPDRAWITEMSTRUCT lpDrawItemS
    }
 }
 
-void CIRCSettingsPage::OnBnClickedIrcColorServer()
+void CIRCSettingsPage::OnClickIrcColorBg()
 {
-	CColorDialog colorDlg( Settings.IRC.Colors[ID_COLOR_SERVERMSG ], CC_FULLOPEN );
+	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_CHATWINDOW ], CC_FULLOPEN );
 	if ( colorDlg.DoModal() != IDOK ) return;
-    Settings.IRC.Colors[ ID_COLOR_SERVERMSG ] = colorDlg.GetColor(); 
+    Settings.IRC.Colors[ ID_COLOR_CHATWINDOW ] = colorDlg.GetColor(); 
 	ReleaseCapture();
 	Invalidate();
 	UpdateWindow();
 	UpdateData( FALSE );
 }
 
-void CIRCSettingsPage::OnBnClickedIrcColorTopic()
-{
-	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_TOPIC ], CC_FULLOPEN );
-	if ( colorDlg.DoModal() != IDOK ) return;
-    Settings.IRC.Colors[ ID_COLOR_TOPIC ] = colorDlg.GetColor(); 
-	ReleaseCapture();
-	Invalidate();
-	UpdateWindow();
-	UpdateData( FALSE );
-}
-
-void CIRCSettingsPage::OnBnClickedIrcColorText()
+void CIRCSettingsPage::OnClickIrcColorText()
 {
 	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_TEXT ], 
 		CC_FULLOPEN | CC_SOLIDCOLOR | CC_RGBINIT );
 	if ( colorDlg.DoModal() != IDOK ) return;
-    Settings.IRC.Colors[ ID_COLOR_TEXT ] = colorDlg.GetColor();
+	Settings.IRC.Colors[ ID_COLOR_TEXT ] = colorDlg.GetColor();
 	ReleaseCapture();
 	Invalidate();
 	UpdateWindow();
 	UpdateData( FALSE );
 }
 
-void CIRCSettingsPage::OnBnClickedIrcColorAction()
+void CIRCSettingsPage::OnClickIrcColorTextLocal()
 {
-	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_CHANNELACTION], CC_FULLOPEN );
+	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_TEXTLOCAL ], CC_FULLOPEN );
 	if ( colorDlg.DoModal() != IDOK ) return;
-    Settings.IRC.Colors[ ID_COLOR_CHANNELACTION ] = colorDlg.GetColor(); 
+	Settings.IRC.Colors[ ID_COLOR_TEXTLOCAL ] = colorDlg.GetColor();
 	ReleaseCapture();
 	Invalidate();
 	UpdateWindow();
 	UpdateData( FALSE );
 }
 
-void CIRCSettingsPage::OnBnClickedIrcColorNotice()
+void CIRCSettingsPage::OnClickIrcColorUserAction()
 {
-	CColorDialog colorDlg( Settings.IRC.Colors[ID_COLOR_NOTICE], CC_FULLOPEN );
+	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_ME ], CC_FULLOPEN );
 	if ( colorDlg.DoModal() != IDOK ) return;
-    Settings.IRC.Colors[ ID_COLOR_NOTICE ] = colorDlg.GetColor(); 
+	Settings.IRC.Colors[ ID_COLOR_ME ] = colorDlg.GetColor(); 
 	ReleaseCapture();
 	Invalidate();
 	UpdateWindow();
 	UpdateData( FALSE );
 }
 
-void CIRCSettingsPage::OnBnClickedIrcColorBg()
+void CIRCSettingsPage::OnClickIrcColorAction()
 {
-	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_CHATBACK ], CC_FULLOPEN );
+	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_CHANNELACTION ], CC_FULLOPEN );
 	if ( colorDlg.DoModal() != IDOK ) return;
-    Settings.IRC.Colors[ ID_COLOR_CHATBACK ] = colorDlg.GetColor(); 
+	Settings.IRC.Colors[ ID_COLOR_CHANNELACTION ] = colorDlg.GetColor(); 
 	ReleaseCapture();
 	Invalidate();
 	UpdateWindow();
 	UpdateData( FALSE );
 }
 
+void CIRCSettingsPage::OnClickIrcColorServer()
+{
+	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_SERVERMSG ], CC_FULLOPEN );
+	if ( colorDlg.DoModal() != IDOK ) return;
+	Settings.IRC.Colors[ ID_COLOR_SERVERMSG ] = colorDlg.GetColor(); 
+	ReleaseCapture();
+	Invalidate();
+	UpdateWindow();
+	UpdateData( FALSE );
+}
+
+void CIRCSettingsPage::OnClickIrcColorNotice()
+{
+	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_NOTICE ], CC_FULLOPEN );
+	if ( colorDlg.DoModal() != IDOK ) return;
+	Settings.IRC.Colors[ ID_COLOR_NOTICE ] = colorDlg.GetColor(); 
+	ReleaseCapture();
+	Invalidate();
+	UpdateWindow();
+	UpdateData( FALSE );
+}
+
+void CIRCSettingsPage::OnClickIrcColorTopic()
+{
+	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_TOPIC ], CC_FULLOPEN );
+	if ( colorDlg.DoModal() != IDOK ) return;
+	Settings.IRC.Colors[ ID_COLOR_TOPIC ] = colorDlg.GetColor(); 
+	ReleaseCapture();
+	Invalidate();
+	UpdateWindow();
+	UpdateData( FALSE );
+}
 
 void CIRCSettingsPage::OnOK()
 {

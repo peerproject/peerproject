@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml -->
+<!-- Translation based on default-en.xml r35 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -148,23 +148,23 @@
 	<toolbar name="CDownloadsWnd.Basic">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Aç/Oynat"/>
 		<button id="ID_DOWNLOADS_LAUNCH_COPY" text="Dosya Ön İzleme"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Dosya Silme"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Dosya Silme"/>
 		<button id="ID_DOWNLOADS_RESUME" text="İndirmeyi Sürdür"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="İndirmeyi Duraklat"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="İndirmeden Vazgeç"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETE" text="İndirmeyi Temizle"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_EDIT" text="Torrent Bilgisi"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Ekranı Göster"/>
 		<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="İndirme/Torrent Ekle..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Temizleme Tamamlandı"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
 		<button id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Aç/Oynat"/>
-		<button id="ID_DOWNLOADS_FILE_DELETE" text="Dosya Silme"/>
 		<button id="ID_DOWNLOADS_LAUNCH" text="Dosya Ön İzleme"/>
 		<separator/>
+		<button id="ID_DOWNLOADS_FILE_DELETE" text="Dosya Silme"/>
 		<button id="ID_DOWNLOADS_RESUME" text="İndirmeyi Sürdür"/>
 		<button id="ID_DOWNLOADS_PAUSE" text="İndirmeyi Duraklat"/>
 		<button id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="İndirmeden Vazgeç"/>
@@ -353,7 +353,7 @@
 		<button id="ID_NEIGHBOURS_CHAT" text="Sohbet"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ayarlar"/>
@@ -362,12 +362,10 @@
 		<button id="ID_NETWORK_CONNECT_TO" text="Bağlan"/>
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Bağlantı Kes"/>
 		<separator/>
-		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
-		<button id="ID_NEIGHBOURS_CHAT" text="Sohbet"/>
 		<button id="ID_SECURITY_BAN" text="Yasaklı Host"/>
 		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
-		<button id="ID_NETWORK_G1" text="Gnutella1"/>
+		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ayarlar"/>
@@ -1771,6 +1769,10 @@
 		<newline gap="8" indent="42"/>
 		<text>İndirmeler klasörünü açmak için</text>
 		<link target="peer:shell:downloads">Tıklayın</link>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Yerel Forum</link>
+		<text align="middle">&#160;- Sizin türk dil tartışma forumu git</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -3416,7 +3418,7 @@
 		<control caption="Spam için sohbet mesajlarını filtrele"/>
 		<control caption="Saygısızlıkları sansürle"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Sohbet">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Sohbet">
 		<control caption="İstemci _Seçenekleri :"/>
 		<control caption="Sohbet Bütünleşmesini Göster"/>
 		<control caption="Tekrar (Flood) Koruması:"/>
@@ -3427,17 +3429,21 @@
 		<control/>
 		<control caption="_Renkler:"/>
 		<control/>
+		<control caption="Sohbet arka resmi"/>
+		<control/>
+		<control caption="Metin"/>
+		<control/>
+		<control caption="Metin local"/>
+		<control/>
+		<control caption="User etkinlikleri"/>
+		<control/>
+		<control caption="Kanal etkinlikleri"/>
+		<control/>
 		<control caption="Sunucu mesajları"/>
-		<control/>
-		<control caption="Konular"/>
-		<control/>
-		<control caption="Kanal Etkinlikleri"/>
 		<control/>
 		<control caption="Notlar"/>
 		<control/>
-		<control caption="Sohbet Arka Resmi"/>
-		<control/>
-		<control caption="Metin"/>
+		<control caption="Konular"/>
 		<control caption="Bağlantı _Seçenekleri:"/>
 		<control caption="Takma İsim:"/>
 		<control/>

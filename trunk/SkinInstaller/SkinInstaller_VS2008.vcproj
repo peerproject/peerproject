@@ -20,8 +20,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="1"
 			UseOfATL="0"
 			CharacterSet="1"
@@ -95,13 +95,13 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="1"
 			UseOfATL="0"
 			CharacterSet="1"
@@ -174,13 +174,13 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="1"
 			UseOfATL="0"
 			CharacterSet="1"
@@ -261,13 +261,13 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="$(PlatformName) $(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName) $(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName) $(PlatformName)"
+			IntermediateDirectory="$(ConfigurationName) $(PlatformName)"
 			ConfigurationType="1"
 			UseOfATL="0"
 			CharacterSet="1"
@@ -348,7 +348,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Performing registration"
-				CommandLine="copy &quot;..\Services\zlib\$(PlatformName) $(ConfigurationName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
+				CommandLine="copy &quot;..\Services\zlib\$(ConfigurationName) $(PlatformName)\zlibwapi.dll&quot; &quot;$(TargetDir)&quot; /b /y&#x0D;&#x0A;&quot;$(TargetPath)&quot; /installsilent&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

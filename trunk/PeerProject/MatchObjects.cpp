@@ -1871,6 +1871,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 			{
 				if ( ( _tcsicmp( pszExt, _T("exe") ) == 0 ) ||
 					( _tcsicmp( pszExt, _T("com") ) == 0 ) ||
+					( _tcsicmp( pszExt, _T("scr") ) == 0 ) ||
 					( _tcsicmp( pszExt, _T("avi") ) == 0 ) ||
 					( _tcsicmp( pszExt, _T("mpg") ) == 0 ) ||
 					( _tcsicmp( pszExt, _T("wmv") ) == 0 ) ||
@@ -1880,55 +1881,56 @@ void CMatchFile::Added(CQueryHit* pHit)
 				}
 			}
 
-			// Exact search hit spam
+			// Exact search hit basic spam detection
 			if ( pHit->m_bExactMatch )
 			{
 				if ( _tcsicmp( pszExt, _T("zip") ) == 0 )						//.zip
 				{
-					if ( ( m_nSize < 16 * 1024 ) ||
-						( m_nSize > 73 * 1024 && m_nSize < 75 * 1024 ) ||		// 74kb
-						( m_nSize > 88 * 1024 && m_nSize < 90 * 1024 ) ||		// 89kb
-						( m_nSize > 278 * 1024 && m_nSize < 282 * 1024 ) ||		//280kb
-						( m_nSize > 370 * 1024 && m_nSize < 372 * 1024 ) ||		//371kb
-						( m_nSize > 501 * 1024 && m_nSize < 505 * 1024 ) ||		//502kb
-						( m_nSize > 645 * 1024 && m_nSize < 655 * 1024 ) )		//650kb
+					if ( ( m_nSize < 14 * 1024 ) ||
+				//		( m_nSize > 73 * 1024 && m_nSize < 75 * 1024 ) ||		// 74kb
+				//		( m_nSize > 88 * 1024 && m_nSize < 90 * 1024 ) ||		// 89kb
+				//		( m_nSize > 278 * 1024 && m_nSize < 282 * 1024 ) ||		//280kb
+				//		( m_nSize > 370 * 1024 && m_nSize < 372 * 1024 ) ||		//371kb
+						( m_nSize > 501 * 1024 && m_nSize < 503 * 1024 ) ||		//501kb
+						( m_nSize > 649 * 1024 && m_nSize < 652 * 1024 ) ||		//651kb
+						( m_nSize > 656 * 1024 && m_nSize < 659 * 1024 ) )		//657kb
 					{
 						m_bSuspicious = TRUE;
 					}
 				}
 				else if ( _tcsicmp( pszExt, _T("wma") ) == 0 )					//.wma
 				{
-					if ( ( m_nSize > 525 * 1024 && m_nSize < 530 * 1024 ) ||	//528kb
-						( m_nSize > 575 * 1024 && m_nSize < 577 * 1024 )  ||	//576kb
-						( m_nSize > 2800 * 1024 && m_nSize < 2860 * 1024 ) ||	//2.75mb
-						( m_nSize > 3330 * 1024 && m_nSize < 3480 * 1024 ) )	//3.32mb
-					{
-						m_bSuspicious = TRUE;
-					}
+				//	if ( ( m_nSize > 525 * 1024 && m_nSize < 530 * 1024 ) ||	//528kb
+				//		( m_nSize > 575 * 1024 && m_nSize < 577 * 1024 )  ||	//576kb
+				//		( m_nSize > 2800 * 1024 && m_nSize < 2860 * 1024 ) ||	//2.75mb
+				//		( m_nSize > 3330 * 1024 && m_nSize < 3480 * 1024 ) )	//3.32mb
+				//	{
+				//		m_bSuspicious = TRUE;
+				//	}
 				}
 				else if ( _tcsicmp( pszExt, _T("mp3") ) == 0 )					//.mp3
 				{
-					if ( ( m_nSize > 3460 * 1024 && m_nSize < 3480 * 1024 ) ||	//3.38mb
-						( m_nSize > 5000 * 1024 && m_nSize < 5120 * 1024 ) ||	//4.98mb
-						( m_nSize > 5780 * 1024 && m_nSize < 5800 * 1024 ) )	//5.65mb
-					{
-						m_bSuspicious = TRUE;
-					}
+				//	if ( ( m_nSize > 3460 * 1024 && m_nSize < 3480 * 1024 ) ||	//3.38mb
+				//		( m_nSize > 5000 * 1024 && m_nSize < 5120 * 1024 ) ||	//4.98mb
+				//		( m_nSize > 5780 * 1024 && m_nSize < 5800 * 1024 ) )	//5.65mb
+				//	{
+				//		m_bSuspicious = TRUE;
+				//	}
 				}
 				else if ( _tcsicmp( pszExt, _T("mpg") ) == 0 )					//.mpg
 				{
-					if ( m_nSize > 556 * 1024 && m_nSize < 564 * 1024 )			//560kb
-					{
-						m_bSuspicious = TRUE;
-					}
+				//	if ( m_nSize > 556 * 1024 && m_nSize < 564 * 1024 )			//560kb
+				//	{
+				//		m_bSuspicious = TRUE;
+				//	}
 				}
 				else if ( ( _tcsicmp( pszExt, _T("au") ) == 0 ) ||				//.au
 					( _tcsicmp( pszExt, _T("snd") ) == 0 ) )					//.snd
 				{
-					if ( m_nSize > 3800 * 1024 && m_nSize < 5500 * 1024 )		//~4 mb
-					{
-						m_bSuspicious = TRUE;
-					}
+				//	if ( m_nSize > 3800 * 1024 && m_nSize < 5500 * 1024 )		//~4 mb
+				//	{
+				//		m_bSuspicious = TRUE;
+				//	}
 				}
 			}
 		}
