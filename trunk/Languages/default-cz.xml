@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r35 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r36 (Shareaza 2.2.5.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1899,7 +1899,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3197,20 +3197,21 @@
 	<string id="20121" value="Vytvářím"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Tracker Down"/>
-	<string id="20124" value="(Nejsou zdroje)"/>
-	<string id="20125" value="Ověřeno"/>
-	<string id="20126" value="Neověřeno"/>
-	<string id="20127" value="zdroj"/>
-	<string id="20128" value="zdrojů"/><!-- numbers 21, 31, ... -->
-	<string id="20129" value="zdrojů"/><!-- tens -->
-	<string id="20130" value="zdrojů"/><!-- from 11 to 19 -->
-	<string id="20131" value="zdroje"/><!-- from 2 to 4 -->
-	<string id="20132" value="zdrojů"/><!-- from 5 to 9 -->
-	<string id="20133" value="Nezajímavé"/>
-	<string id="20134" value="Přetížený"/>
-	<string id="20135" value="Další"/>
-	<string id="20136" value="ve frontě"/>
-	<string id="20137" value="zdrojů"/><!-- 3/10 sources, for e.g. -->
+	<string id="20124" value="Ověřeno"/>
+	<string id="20125" value="Neověřeno"/>
+	<string id="20126" value="Nezajímavé"/>
+	<string id="20127" value="Nezajímavé"/>
+	<string id="20128" value="zdroj"/>
+	<string id="20129" value="zdrojů"/> <!-- numbers 21, 31, ... -->
+	<string id="20130" value="zdrojů"/> <!-- tens -->
+	<string id="20131" value="zdrojů"/> <!-- from 11 to 19 -->
+	<string id="20132" value="zdroje"/> <!-- from 2 to 4 -->
+	<string id="20133" value="zdrojů"/> <!-- from 5 to 9 -->
+	<string id="20134" value="zdrojů"/> <!-- "3/10 sources" -->
+	<string id="20135" value="(Nejsou zdroje)"/>
+	<string id="20136" value="Přetížený"/>
+	<string id="20137" value="Další"/>
+	<string id="20138" value="ve frontě"/>
 	<string id="20200" value="Neděle"/>
 	<string id="20201" value="Pondělí"/>
 	<string id="20202" value="Úterý"/>

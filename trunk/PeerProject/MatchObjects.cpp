@@ -1881,56 +1881,49 @@ void CMatchFile::Added(CQueryHit* pHit)
 				}
 			}
 
-			// Exact search hit basic spam detection
+			// Exact search hit common spam detection  (keep updated)
 			if ( pHit->m_bExactMatch )
 			{
 				if ( _tcsicmp( pszExt, _T("zip") ) == 0 )						//.zip
 				{
 					if ( ( m_nSize < 14 * 1024 ) ||
-				//		( m_nSize > 73 * 1024 && m_nSize < 75 * 1024 ) ||		// 74kb
-				//		( m_nSize > 88 * 1024 && m_nSize < 90 * 1024 ) ||		// 89kb
-				//		( m_nSize > 278 * 1024 && m_nSize < 282 * 1024 ) ||		//280kb
-				//		( m_nSize > 370 * 1024 && m_nSize < 372 * 1024 ) ||		//371kb
+						( m_nSize > 73 * 1024 && m_nSize < 75 * 1024 ) ||		// 74kb
+						( m_nSize > 496 * 1024 && m_nSize < 498 * 1024 ) ||		//497kb
 						( m_nSize > 501 * 1024 && m_nSize < 503 * 1024 ) ||		//501kb
 						( m_nSize > 649 * 1024 && m_nSize < 652 * 1024 ) ||		//651kb
-						( m_nSize > 656 * 1024 && m_nSize < 659 * 1024 ) )		//657kb
+						( m_nSize > 656 * 1024 && m_nSize < 659 * 1024 ) ||		//657kb
+						( m_nSize > 735 * 1024 && m_nSize < 737 * 1024 ) ||		//736kb
+						( m_nSize > 3270 * 1024 && m_nSize < 3280 * 1024 ) ||	//3.20mb
+						( m_nSize > 4030 * 1024 && m_nSize < 4040 * 1024 ) )	//3.94mb
 					{
 						m_bSuspicious = TRUE;
 					}
 				}
 				else if ( _tcsicmp( pszExt, _T("wma") ) == 0 )					//.wma
 				{
-				//	if ( ( m_nSize > 525 * 1024 && m_nSize < 530 * 1024 ) ||	//528kb
-				//		( m_nSize > 575 * 1024 && m_nSize < 577 * 1024 )  ||	//576kb
-				//		( m_nSize > 2800 * 1024 && m_nSize < 2860 * 1024 ) ||	//2.75mb
-				//		( m_nSize > 3330 * 1024 && m_nSize < 3480 * 1024 ) )	//3.32mb
-				//	{
-				//		m_bSuspicious = TRUE;
-				//	}
+					if ( ( m_nSize > 525 * 1024 && m_nSize < 530 * 1024 ) ||	//528kb
+						( m_nSize > 3760 * 1024 && m_nSize < 3780 * 1024 ) ||	//3.68mb
+						( m_nSize > 4540 * 1024 && m_nSize < 4550 * 1024 ) )	//4.44mb
+					{
+						m_bSuspicious = TRUE;
+					}
 				}
 				else if ( _tcsicmp( pszExt, _T("mp3") ) == 0 )					//.mp3
 				{
-				//	if ( ( m_nSize > 3460 * 1024 && m_nSize < 3480 * 1024 ) ||	//3.38mb
-				//		( m_nSize > 5000 * 1024 && m_nSize < 5120 * 1024 ) ||	//4.98mb
-				//		( m_nSize > 5780 * 1024 && m_nSize < 5800 * 1024 ) )	//5.65mb
-				//	{
-				//		m_bSuspicious = TRUE;
-				//	}
-				}
-				else if ( _tcsicmp( pszExt, _T("mpg") ) == 0 )					//.mpg
-				{
-				//	if ( m_nSize > 556 * 1024 && m_nSize < 564 * 1024 )			//560kb
-				//	{
-				//		m_bSuspicious = TRUE;
-				//	}
+					if ( ( m_nSize > 3455 * 1024 && m_nSize < 3470 * 1024 ) ||	//3.38mb
+						( m_nSize > 4940 * 1024 && m_nSize < 4950 * 1024 ) ||	//4.83mb
+						( m_nSize > 5160 * 1024 && m_nSize < 5180 * 1024 ) )	//5.05mb
+					{
+						m_bSuspicious = TRUE;
+					}
 				}
 				else if ( ( _tcsicmp( pszExt, _T("au") ) == 0 ) ||				//.au
 					( _tcsicmp( pszExt, _T("snd") ) == 0 ) )					//.snd
 				{
-				//	if ( m_nSize > 3800 * 1024 && m_nSize < 5500 * 1024 )		//~4 mb
-				//	{
-				//		m_bSuspicious = TRUE;
-				//	}
+					if ( m_nSize > 4400 * 1024 && m_nSize < 4500 * 1024 )		//4.32 mb
+					{
+						m_bSuspicious = TRUE;
+					}
 				}
 			}
 		}
@@ -1956,12 +1949,10 @@ int CMatchFile::Compare(CMatchFile* pFile) const
 {
 	register int x, y;
 
-	/*
-	if ( m_bCollection != pFile->m_bCollection )
-	{
-		return m_bCollection ? -m_pList->m_bSortDir : m_pList->m_bSortDir;
-	}
-	*/
+	//if ( m_bCollection != pFile->m_bCollection )
+	//{
+	//	return m_bCollection ? -m_pList->m_bSortDir : m_pList->m_bSortDir;
+	//}
 
 	switch ( m_pList->m_nSortColumn )
 	{
@@ -1986,7 +1977,7 @@ int CMatchFile::Compare(CMatchFile* pFile) const
 
 	case MATCH_COL_COUNT:
 		return m_nFiltered == pFile->m_nFiltered ? 0 : ( m_nFiltered > pFile->m_nFiltered ? 1 : -1 );
-		//ToDo: Add secondary sorting value to m_nSources
+		//ToDo: Add secondary sorting value to m_nSources ?
 
 	case MATCH_COL_SPEED:
 		x = m_nFiltered ? m_nSpeed / m_nFiltered : 0;

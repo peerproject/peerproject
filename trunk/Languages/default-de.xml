@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r35 -->
+<!-- Translation based on default-en.xml r36 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2040,7 +2040,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3352,20 +3352,21 @@
 	<string id="20121" value="Erstellen"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Kein Seeder"/>
-	<string id="20124" value="(Keine Quellen)"/>
-	<string id="20125" value="Verifiziert"/>
-	<string id="20126" value="Nicht verifiziert"/>
-	<string id="20127" value="Quelle"/>
-	<string id="20128" value="Quellen"/><!-- numbers 21, 31, ... -->
-	<string id="20129" value="Quellen"/><!-- tens -->
-	<string id="20130" value="Quellen"/><!-- from 11 to 19 -->
-	<string id="20131" value="Quellen"/><!-- from 2 to 4 -->
-	<string id="20132" value="Quellen"/><!-- from 5 to 9 -->
-	<string id="20133" value="Uninteressiert"/>
-	<string id="20134" value="Choked"/>
-	<string id="20135" value="Next"/>
-	<string id="20136" value="Q"/>
-	<string id="20137" value="Quellen"/><!-- 3/10 sources, for e.g. -->
+	<string id="20124" value="Verifiziert"/>
+	<string id="20125" value="Nicht verifiziert"/>
+	<string id="20126" value="Nicht unterstützt"/>
+	<string id="20127" value="Uninteressiert"/>
+	<string id="20128" value="Quelle"/>
+	<string id="20129" value="Quellen"/> <!-- numbers 21, 31, ... -->
+	<string id="20130" value="Quellen"/> <!-- tens -->
+	<string id="20131" value="Quellen"/> <!-- from 11 to 19 -->
+	<string id="20132" value="Quellen"/> <!-- from 2 to 4 -->
+	<string id="20133" value="Quellen"/> <!-- from 5 to 9 -->
+	<string id="20134" value="Quellen"/> <!-- "3/10 sources" -->
+	<string id="20135" value="(Keine Quellen)"/>
+	<string id="20136" value="Choked"/>
+	<string id="20137" value="Next"/>
+	<string id="20138" value="Q"/>
 	<string id="20200" value="Sonntag"/>
 	<string id="20201" value="Montag"/>
 	<string id="20202" value="Dienstag"/>

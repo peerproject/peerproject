@@ -26,6 +26,7 @@
 #include "CoolInterface.h"
 #include "WndHashProgressBar.h"
 #include "Settings.h"
+#include "Skin.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -38,14 +39,16 @@ IMPLEMENT_DYNCREATE(CHashProgressBar, CWnd)
 BEGIN_MESSAGE_MAP(CHashProgressBar, CWnd)
 	//{{AFX_MSG_MAP(CHashProgressBar)
 	ON_WM_CREATE()
-	ON_WM_ERASEBKGND()
+	ON_WM_DESTROY()
 	ON_WM_PAINT()
+	ON_WM_TIMER()
+	ON_WM_ERASEBKGND()
 	ON_WM_LBUTTONDOWN()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 #define WINDOW_WIDTH		320
-#define WINDOW_HEIGHT		48
+#define WINDOW_HEIGHT		46
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -78,10 +81,9 @@ void CHashProgressBar::Run()
 		{
 			try
 			{
-				CreateEx( WS_EX_TOPMOST | WS_EX_TOOLWINDOW,
-					AfxRegisterWndClass( CS_SAVEBITS |
+				CreateEx( WS_EX_TOPMOST | WS_EX_TOOLWINDOW,	AfxRegisterWndClass( CS_SAVEBITS |
 					// Use CS_DROPSHADOW on Windows XP and above
-					( ( theApp.m_bIsWin2000 == true || theApp.m_nWindowsVersion < 5 ) ? 0 : CS_DROPSHADOW ) ),
+					( ( theApp.m_bIsWin2000 == true /*|| theApp.m_nWindowsVersion < 5*/ ) ? 0 : CS_DROPSHADOW ) ),
 					_T("PeerProject Hashing..."), WS_POPUP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
 					NULL, 0 );
 			}
@@ -121,9 +123,9 @@ void CHashProgressBar::Update()
 		nWidth = max( nWidth, WINDOW_WIDTH );
 		nWidth = min( nWidth, GetSystemMetrics( SM_CXSCREEN ) / 2 );
 		Show( nWidth, FALSE );
-	}
 
-	Invalidate( FALSE );
+		Invalidate( FALSE );
+	}
 }
 
 void CHashProgressBar::Show(int nWidth, BOOL /*bShow*/)
@@ -143,22 +145,31 @@ int CHashProgressBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	m_hIcon = (HICON)LoadImage( AfxGetResourceHandle(),
-		MAKEINTRESOURCE(IDI_SEARCH_FOLDER), IMAGE_ICON, 32, 32, 0 );
+	OnSkinChange();
 
-	m_crFill	= CoolInterface.m_crTipBack ;
-	m_crBorder	= CoolInterface.m_crTipBorder;
-	m_crText	= CoolInterface.m_crTipText;
-
-	if ( m_brFill.m_hObject != NULL ) m_brFill.DeleteObject();
-	m_brFill.CreateSolidBrush( m_crFill );
+	m_nFlash = 0;
+	SetTimer( 1, 50, NULL );
 
 	return 0;
 }
 
-BOOL CHashProgressBar::OnEraseBkgnd(CDC* /*pDC*/)
+void CHashProgressBar::OnDestroy()
 {
-	return TRUE;
+	KillTimer( 1 );
+}
+
+void CHashProgressBar::OnSkinChange()
+{
+	m_crFill	= CoolInterface.m_crTipBack;
+	m_crBorder	= CoolInterface.m_crTipBorder;
+	m_crText	= CoolInterface.m_crTipText;
+
+	HBITMAP hBitmap = Skin.GetWatermark( _T("CHashProgressBar") );
+	if ( m_bmImage.m_hObject != NULL ) m_bmImage.DeleteObject();
+	if ( hBitmap != NULL )	m_bmImage.Attach( hBitmap );
+
+	m_hIcon = (HICON)LoadImage( AfxGetResourceHandle(),
+		MAKEINTRESOURCE(IDI_SEARCH_FOLDER), IMAGE_ICON, 32, 32, 0 );
 }
 
 void CHashProgressBar::OnPaint()
@@ -170,45 +181,77 @@ void CHashProgressBar::OnPaint()
 
 	dc.Draw3dRect( &rcClient, m_crBorder, m_crBorder );
 	rcClient.DeflateRect( 1, 1 );
-	dc.FillSolidRect( &rcClient, m_crFill );
+
+	if ( ! CoolInterface.DrawWatermark( &dc, &rcClient, &m_bmImage ) )
+		dc.FillSolidRect( &rcClient, m_crFill );
 
 	dc.SetBkMode( TRANSPARENT );
-	dc.SetTextColor( ( m_nFlash++ & 1 ) ? CoolInterface.m_crTextStatus : m_crText );
 
 	// Icon
-	DrawIconEx( dc, rcClient.left + 4, rcClient.top + 4, m_hIcon, 32, 32,
-		0, m_brFill, DI_NORMAL );
+	DrawIconEx( dc, rcClient.left + 5, rcClient.top + 4, m_hIcon, 32, 32,
+		0, NULL, DI_NORMAL );
 
 	// Text
-	CString strText;
+	CFont* pOld = dc.SelectObject( &CoolInterface.m_fntNormal );
+
+	CString strText = _T("x");
+	CRect rcX( rcClient.right - 20, rcClient.top + 1,
+		rcClient.right - 5, rcClient.top + 20 );
+	dc.SetTextColor( m_crText );
+	dc.DrawText( strText, rcX, DT_RIGHT | DT_SINGLELINE );
+
+	if ( m_nFlash++ % 30 > 15 )
+		dc.SetTextColor( CoolInterface.m_crTextStatus );
+
 	strText.Format( IDS_HASH_MESSAGE, LibraryBuilder.GetRemaining() );
 
-	CFont* pOld = dc.SelectObject( &CoolInterface.m_fntNormal );
 	CSize sz = dc.GetTextExtent( strText );
-	CRect rcText( rcClient.left + 4 + 32 + 8, rcClient.top + 4,
-		rcClient.right - 8, rcClient.top + 4 + sz.cy );
-	dc.DrawText( strText, rcText, DT_LEFT | DT_VCENTER | DT_SINGLELINE );
+	CRect rcText( rcClient.left + 32 + 12, rcClient.top + 3,
+		rcClient.right - 6, rcClient.top + 3 + sz.cy );
+	dc.DrawText( strText, rcText, DT_LEFT | DT_SINGLELINE );
 
-	dc.SelectObject( &CoolInterface.m_fntCaption );
+//	dc.SelectObject( &CoolInterface.m_fntCaption );
 	rcText.top = rcText.bottom + 4;
-	rcText.bottom = rcClient.bottom - 8;
+	rcText.bottom = rcClient.bottom - 10;
 	dc.DrawText( m_sPrevious, rcText,
-		DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS );
+		DT_LEFT | DT_SINGLELINE | DT_END_ELLIPSIS );
 
 	dc.SelectObject( pOld );
 
 	// Progress bar
 	CRect rcProgress = rcClient;
-	rcProgress.DeflateRect( 1, 1 );
-	rcProgress.top = rcProgress.bottom - 3;
-	float nPercentage = LibraryBuilder.GetProgress() / 100.0f;
-	if ( ( nPercentage < 0 ) || ( nPercentage > 1 ) ) nPercentage = 1;
-	rcProgress.right = rcProgress.left + (LONG)( rcProgress.Width() * nPercentage );
-	dc.Draw3dRect( &rcProgress, m_crText, m_crText );
+	rcProgress.DeflateRect( 2, 2 );
+	rcProgress.top = rcProgress.bottom - 2;
+	float nPercentage = LibraryBuilder.GetProgress() / 100;
+	if ( nPercentage < 0 || nPercentage > 1 ) nPercentage = 1;
+	rcProgress.right = rcProgress.left + (INT)( rcProgress.Width() * nPercentage );
+
+	dc.Draw3dRect( &rcProgress, CoolInterface.m_crFragmentPass, CoolInterface.m_crFragmentPass );
+	rcProgress.top--;
+	dc.Draw3dRect( &rcProgress, CoolInterface.m_crFragmentPass, m_crText );
 }
 
-void CHashProgressBar::OnLButtonDown(UINT /*nFlags*/, CPoint /*point*/)
+BOOL CHashProgressBar::OnEraseBkgnd(CDC* /*pDC*/)
 {
-	Settings.Library.HashWindow = FALSE;
+	return TRUE;
+}
+
+void CHashProgressBar::OnTimer(UINT_PTR /*nIDEvent*/)
+{
+	CRect rcClient;
+	GetClientRect( &rcClient );
+	if ( m_nFlash % 15 == 1 )	// Cycle text 3x per 2 seconds
+		rcClient.DeflateRect( 40, 3, 2, 2 );
+	else						// Update only progress bar 20x per second
+		rcClient.DeflateRect( 3, 40, 2, 2 );
+	InvalidateRect( rcClient, FALSE );
+}
+
+void CHashProgressBar::OnLButtonDown(UINT /*nFlags*/, CPoint point)
+{
+	if ( point.y < 14 && point.x > 304 )
+		Settings.Library.HashWindow = FALSE;
+
 	ShowWindow( SW_HIDE );
+	KillTimer( 1 );
 }

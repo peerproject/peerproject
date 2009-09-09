@@ -205,22 +205,24 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 	pLock.Unlock();
 
 	m_pGraph	= new CLineGraph();
-	m_pItem		= new CGraphItem( 0, 1.0f, RGB( 0xFF, 0, 0 ) );
+	m_pItem		= new CGraphItem( 0, 1.0f, RGB( 252, 20, 10 ) );
 
 	m_pGraph->m_bShowLegend		= FALSE;
 	m_pGraph->m_bShowAxis		= FALSE;
-	m_pGraph->m_crBack			= RGB( 255, 255, 240 );
-	m_pGraph->m_crGrid			= RGB( 220, 220, 170 );
+	m_pGraph->m_crBack			= RGB( 255, 255, 242 );
+	m_pGraph->m_crGrid			= RGB( 230, 230, 180 );
 	m_pGraph->m_nMinGridVert	= 16;
 
 	m_pGraph->AddItem( m_pItem );
 
-	OnTimer( 1 );
+	OnTimer( 2 );
 
 	CenterWindow();
 	ShowWindow( SW_SHOW );
 
-	SetTimer( 1, 100, NULL );
+	SetTimer( 1, 100, NULL );	// Graph History, ~320ms = 1min
+	SetTimer( 2, Settings.General.RefreshRate, NULL );	// Text Update
+
 	EnableToolTips();
 
 	return TRUE;
@@ -229,6 +231,7 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 void CDownloadMonitorDlg::OnDestroy()
 {
 	KillTimer( 1 );
+	KillTimer( 2 );
 
 	if ( m_pDownload != NULL )
 	{
@@ -257,14 +260,42 @@ void CDownloadMonitorDlg::PostNcDestroy()
 	delete this;
 }
 
-void CDownloadMonitorDlg::OnTimer(UINT_PTR /*nIDEvent*/)
+void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 250 ) ) return;
+	if ( ! pLock.Lock( 100 ) ) return;
+
+	if ( nIDEvent == 1 )		// Rapid Refresh Graph
+	{
+		DWORD nSpeed = m_pDownload->GetMeasuredSpeed();
+		m_pItem->Add( nSpeed );
+		m_pGraph->m_nUpdates++;
+		m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
+
+		if ( nSpeed > 4000 && ! Settings.General.LanguageRTL )
+		{
+			CString strText, strOf;
+			LoadString( strOf, IDS_GENERAL_OF );
+			strText.Format( _T("%s %s %s  (%.2f%%)"),
+				Settings.SmartVolume( m_pDownload->GetVolumeComplete() ),
+				strOf,
+				Settings.SmartVolume( m_pDownload->m_nSize ),
+				m_pDownload->GetProgress() );
+
+			Update( &m_wndVolume, strText );
+		}
+
+		CClientDC dc( this );
+		DoPaint( dc );
+
+		return;
+	}
+	//else if ( nIDEvent == 2 )	// General Text Refresh Rate
 
 	if ( ! m_pDownload || ! Downloads.Check( m_pDownload ) )
 	{
 		KillTimer( 1 );
+		KillTimer( 2 );
 		PostMessage( WM_CLOSE );
 		return;
 	}
@@ -272,14 +303,10 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 	if ( m_bCompleted ) return;
 
 	bool bCompleted	= m_pDownload->IsCompleted();
-	DWORD nSpeed	= m_pDownload->GetMeasuredSpeed();
-	CString strText, strFormat, strOf;
 
+	CString strText, strFormat, strOf, strNA;
 	LoadString( strOf, IDS_GENERAL_OF );
-
-	m_pItem->Add( nSpeed );
-	m_pGraph->m_nUpdates++;
-	m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
+	LoadString( strNA, IDS_TIP_NA );
 
 	// Update file name if it was changed from the Advanced Edit dialog
 	Update( &m_wndFile, m_pDownload->m_sName );
@@ -337,9 +364,6 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 
 	int nSourceCount	= m_pDownload->GetSourceCount();
 	int nTransferCount	= m_pDownload->GetTransferCount();
-
-	CString strNA;
-	LoadString( strNA, IDS_TIP_NA );
 
 	if ( bCompleted )
 	{
@@ -468,7 +492,6 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 		Update( &m_wndVolume, strText );
 	}
 
-
 	LoadString( strText, bCompleted ? IDS_DLM_OPEN_OPEN : IDS_DLM_OPEN_PREVIEW );
 	Update( &m_wndLaunch, strText );
 	Update( &m_wndLaunch, m_pDownload->IsStarted() );
@@ -546,12 +569,16 @@ void CDownloadMonitorDlg::OnDownloadView()
 void CDownloadMonitorDlg::OnDownloadLaunch()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 250 ) || ! Downloads.Check( m_pDownload ) )
+	if ( ! pLock.Lock( 500 ) || ! Downloads.Check( m_pDownload ) )
 		return;
+
+	bool bComplete = m_pDownload->IsCompleted();
 
 	m_pDownload->Launch( -1, &pLock, FALSE );
 
-	if ( m_pDownload->IsCompleted() )
+	pLock.Unlock();
+
+	if ( bComplete )
 		PostMessage( WM_CLOSE );
 }
 

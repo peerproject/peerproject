@@ -694,14 +694,14 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Welcome to PeerProject (1/6)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	LTEXT			"For best performance, PeerProject needs to know about your connection to the Internet.",IDC_STATIC,7,10,263,18
-	LTEXT			"Select your Internet connection type:",IDC_STATIC,7,30,260,12
+	LTEXT			"For best performance, PeerProject needs to know about your connection to the Internet.",IDC_STATIC,10,10,263,18
+	LTEXT			"Select your Internet connection type:",IDC_STATIC,10,30,260,12
 	COMBOBOX 		IDC_CONNECTION_TYPE,26,44,100,178,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-	LTEXT			"Or choose the download speed:",IDC_STATIC,7,64,130,12
+	LTEXT			"Or choose the download speed:",IDC_STATIC,10,64,130,12
 	COMBOBOX		IDC_WIZARD_DOWNLOAD_SPEED,26,78,75,178,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
 	LTEXT			"and the upload speed:",IDC_STATIC,165,64,100,12
 	COMBOBOX		IDC_WIZARD_UPLOAD_SPEED,166,78,75,178,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
-	LTEXT			"Automatically setup port-forwarding using Plug'n'Play?",IDC_STATIC,7,98,410,12
+	LTEXT			"Automatically setup port-forwarding using Plug'n'Play?",IDC_STATIC,10,98,410,12
 	COMBOBOX		IDC_WIZARD_UPNP,26,112,75,178,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
 	LTEXT			"Status:",IDC_CONNECTION_STATUS,9,132,261,8
 	CONTROL			"",IDC_CONNECTION_PROGRESS,"msctls_progress32",WS_BORDER,14,143,256,7
@@ -718,7 +718,7 @@ BEGIN
 	CONTROL			"List1",IDC_SHARE_FOLDERS,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,15,82,205,55
 	PUSHBUTTON		"&Add...",IDC_SHARE_ADD,230,88,50,15
 	PUSHBUTTON		"&Remove",IDC_SHARE_REMOVE,230,115,50,15,WS_DISABLED
-	LTEXT			"CAUTION: Uploading unauthorized copyright works is liable in some countries.",IDC_STATIC,10,139,270,15,SS_CENTERIMAGE
+	LTEXT			"CAUTION!  Uploading unauthorized copyright work is liable in some countries.",IDC_STATIC,10,138,270,16,SS_CENTERIMAGE
 END
 
 IDD_WIZARD_PROFILE DIALOGEX 0, 0, 277, 174
@@ -726,7 +726,7 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Welcome to PeerProject (3/6)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	LTEXT			"PeerProject is a friendlier place when everyone shares a few basic details about themselves. Full profile is available from the Tools menu.",IDC_STATIC,10,10,265,20
+	LTEXT			"PeerProject is a friendlier place when everyone shares a few basic details about themselves.  Full profile is available from the Tools menu.",IDC_STATIC,10,10,265,20
 	RTEXT			"I use the name:",IDC_STATIC,12,48,60,12,SS_CENTERIMAGE
 	EDITTEXT		IDC_PROFILE_NICK,84,48,168,12,ES_AUTOHSCROLL
 	RTEXT			"and I'm a:",IDC_STATIC,6,72,66,12,SS_CENTERIMAGE
@@ -742,14 +742,14 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Welcome to PeerProject (4/6)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	LTEXT			"PeerProject supports a flexible user interface, so you can choose what is most comfortable for you. You can change these options at any time.",IDC_STATIC,12,7,258,20
-	GROUPBOX		"Please select user interface:",IDC_STATIC,7,27,269,83
-	CONTROL			"Basic Mode",IDC_INTERFACE_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,14,39,250,10
-	CONTROL			"Power Mode",IDC_INTERFACE_1,"Button",BS_AUTORADIOBUTTON,14,75,250,10
-	LTEXT			"Simple, easy to use menus with fewer options.\nHelpful for new users of file sharing.",IDC_DESCRIPTION_0,27,51,243,21
-	LTEXT			"Standard mode offers expert users all extra commands, windows, etc.\nMight be more confusing for new users.",IDC_DESCRIPTION_1,27,87,243,21
-	CONTROL			"Display simplified download progress bars. (Less detail for new users)",IDC_DOWNLOADS_SIMPLEBAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,120,256,10
-	CONTROL			"Handle BitTorrent links. (Associate .torrent files)",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,136,256,10
+	LTEXT			"PeerProject supports a flexible user interface, so you can choose what is most comfortable for you. You can change these options at any time.",IDC_STATIC,10,10,258,20
+	GROUPBOX		"Please select user interface:",IDC_STATIC,7,30,269,83
+	CONTROL			"Basic Mode",IDC_INTERFACE_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,14,42,250,10
+	CONTROL			"Power Mode",IDC_INTERFACE_1,"Button",BS_AUTORADIOBUTTON,14,78,250,10
+	LTEXT			"Simple, easy to use menus with fewer options.\nHelpful for new users of file sharing.",IDC_DESCRIPTION_0,27,54,243,21
+	LTEXT			"Standard mode offers expert users all extra commands, windows, etc.\nMight be more confusing for new users.",IDC_DESCRIPTION_1,27,90,243,21
+	CONTROL			"Display simplified download progress bars.  (Less detail for new users)",IDC_DOWNLOADS_SIMPLEBAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,120,256,10
+	CONTROL			"Handle BitTorrent links.  (Associate .torrent files)",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,136,256,10
 END
 
 IDD_WIZARD_NETWORKS DIALOGEX 0, 0, 277, 174
@@ -757,13 +757,13 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Welcome to PeerProject (5/6)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	LTEXT			"PeerProject is a general-purpose file-sharing application that can access many P2P networks at the same time.  Here you can select which networks you'd like to access.  Note that you can always select different networks later.",IDC_STATIC,10,10,265,30
+	LTEXT			"PeerProject is a general purpose filesharing application that can swarm multiple P2P networks on a single download, therefore all are recommended. Note you can always manage specific networks at any time.",IDC_STATIC,10,10,265,30
 	CONTROL			"Connect to Gnutella2 (Default)",IDC_G2_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,45,260,10
-	LTEXT			"The Gnutella2 network (G2) is PeerProject's premiere network, offering more features and performance than any other P2P net. (Shareaza)",IDC_STATIC,25,57,252,18
+	LTEXT			"The Gnutella2 network (G2) is PeerProject's premiere network, offering more features and performance than any other P2P net.  (Shareaza)",IDC_STATIC,25,57,252,18
 	CONTROL			"Connect to Gnutella",IDC_G1_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,79,260,10
-	LTEXT			"The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source. (LimeWire)",IDC_STATIC,25,91,252,18
+	LTEXT			"The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source.  (LimeWire)",IDC_STATIC,25,91,252,18
 	CONTROL			"Connect to eDonkey2000",IDC_ED2K_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,113,260,10
-	LTEXT			"The eDonkey network (ED2K) is a popular server-based system.  While not as feature-rich or fast as G2, ED2K has a vast file collection. (eMule)",IDC_STATIC,25,126,252,18
+	LTEXT			"The eDonkey network (ED2K) is a popular server-based system.  While not as feature-rich or fast as G2, ED2K has a vast file collection.  (eMule)",IDC_STATIC,25,126,252,18
 END
 
 IDD_WIZARD_FINISHED DIALOGEX 0, 0, 277, 174
@@ -772,15 +772,12 @@ CAPTION "Welcome to PeerProject (6/6)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
 	LTEXT			"That's it. PeerProject has been configured to work with your computer.",IDC_STATIC,10,10,265,10
-	LTEXT			"If you ever need to change your settings, you can re-run this QuickStart wizard by selecting it from the Tools menu.",IDC_STATIC,10,25,265,20
-	LTEXT			"After closing this wizard by clicking Finish, you can connect to the networks you selected and start searching and downloading content.",IDC_STATIC,10,50,265,20
-	CONTROL			"Connect to the network when I close this wizard",IDC_WIZARD_CONNECT,
-					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,80,224,10
-	CONTROL			"Connect to the network every time I start PeerProject",IDC_WIZARD_AUTO,
-					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,95,225,10
-	CONTROL			"Start PeerProject every time Windows starts",IDC_WIZARD_STARTUP,
-					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,110,225,10
-	LTEXT			"Enjoy using PeerProject P2P!",IDC_STATIC,10,130,265,10
+	LTEXT			"If you ever need to change these settings, re-run the QuickStart wizard by selecting it from the Tools menu.",IDC_STATIC,10,24,265,20
+	LTEXT			"After closing this Wizard and connecting, the first thing to do is run a 'fake' random search to catch spammers and Ban them all.  Explore toolbar tabs while waiting.",IDC_STATIC,10,48,265,25
+	CONTROL			"Connect to the networks when I close this wizard",IDC_WIZARD_CONNECT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,80,224,10
+	CONTROL			"Connect to the networks every time I start PeerProject",IDC_WIZARD_AUTO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,95,225,10
+	CONTROL			"Start PeerProject every time Windows starts",IDC_WIZARD_STARTUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,110,225,10
+	LTEXT			"Enjoy using PeerProject p2p filesharing.",IDC_STATIC,10,130,265,10
 END
 
 IDD_FOLDER_SCAN DIALOGEX 0, 0, 237, 49
@@ -819,7 +816,7 @@ CAPTION "Downloading Metadata..."
 FONT 8, "Tahoma"
 BEGIN
 	ICON			IDR_MAINFRAME,IDC_STATIC,10,10,20,20
-	LTEXT			"PeerProject is attempting to download metadata from Bitzi(TM)...",IDC_STATIC,40,10,210,10
+	LTEXT			"PeerProject is attempting to download metadata from Bitzi™...",IDC_STATIC,40,10,210,10
 	CONTROL			"Progress1",IDC_PROGRESS,"msctls_progress32",WS_BORDER,40,25,210,10
 	PUSHBUTTON		"Cancel",IDCANCEL,200,105,50,14
 	CONTROL			"List1",IDC_FILES,"SysListView32",LVS_REPORT | LVS_SHAREIMAGELISTS | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,40,40,210,60
@@ -3268,8 +3265,8 @@ END
 STRINGTABLE
 BEGIN
 	IDS_SEARCH_DETAILS_EMPTY	"This area shows more information about files you select."
-	IDS_SEARCH_DETAILS_SOURCES_ONE "One source is available (%s).		"
-	IDS_SEARCH_DETAILS_SOURCES_MANY "%i sources are available (%s).		"
+	IDS_SEARCH_DETAILS_SOURCES_ONE "One source is available (%s)."
+	IDS_SEARCH_DETAILS_SOURCES_MANY "%i sources are available (%s)."
 	IDS_SEARCH_DETAILS_REVIEWS_ONE "There is one review."
 	IDS_SEARCH_DETAILS_REVIEWS_MANY "There are %i reviews."
 	IDS_SEARCH_DETAILS_WRITES	"%s writes:"
@@ -3341,7 +3338,7 @@ END
 
 STRINGTABLE
 BEGIN
-	IDS_HASH_MESSAGE			"PeerProject is creating hashes for %Iu files:"
+	IDS_HASH_MESSAGE			"PeerProject is hashing %Iu files:"
 	IDS_DLM_TIME_DAH			"%i days %i hours"
 	IDS_DLM_TIME_HAM			"%i hours %i minutes"
 	IDS_DLM_TIME_MAS			"%i minutes %i seconds"
@@ -4131,24 +4128,25 @@ BEGIN
 	IDS_STATUS_CREATING			"Creating"
 	IDS_STATUS_TORRENT			"Torrent"
 	IDS_STATUS_TRACKERDOWN		"Tracker Down"
-	IDS_STATUS_NOSOURCES		"(No Sources)"
 	IDS_STATUS_VERIFIED			"Verified"
 	IDS_STATUS_UNVERIFIED		"Unverified"
-	IDS_STATUS_SOURCE			"source"
+	IDS_STATUS_UNSUPPORTED		"Unsupported"
+	IDS_STATUS_UNINTERESTED		"Uninterested"
 END
 
 STRINGTABLE
 BEGIN
+	IDS_STATUS_SOURCE			"source"
 	IDS_STATUS_SOURCES			"sources"
 	IDS_STATUS_SOURCESTENS		"sources"
 	IDS_STATUS_SOURCES11TO19	"sources"
 	IDS_STATUS_SOURCES2TO4		"sources"
 	IDS_STATUS_SOURCES5TO9		"sources"
-	IDS_STATUS_UNINTERESTED		"Uninterested"
+	IDS_STATUS_SOURCESOF		"sources"
+	IDS_STATUS_NOSOURCES		"(No Sources)"
 	IDS_STATUS_CHOKED			"Choked"
 	IDS_STATUS_NEXT				"Next"
 	IDS_STATUS_Q				"Q"
-	IDS_STATUS_SOURCESOF		"sources"
 END
 
 STRINGTABLE
@@ -4253,7 +4251,7 @@ BEGIN
     ID_LIBRARY_EXPLORE			"Open selected folders."
     ID_LIBRARY_SCAN				"Scan the selected folders or files for changes."
     ID_LIBRARY_SHARED_FILE		"Share or unshare the selected files."
-    ID_LIBRARY_REMOVE			"Remove the selected shared folders."
+    ID_LIBRARY_REMOVE			"Remove selected folders from the Libary."
     ID_LIBRARY_ADD				"Add a new folder to your library..."
     ID_LIBRARY_PROPERTIES		"View and edit the properties of the selected files..."
     ID_LIBRARY_COLUMNS			"Select metadata columns to be displayed..."
@@ -4291,7 +4289,7 @@ BEGIN
     ID_SEARCH_STOP				"Stop receiving results in this window."
     ID_TOOLS_DOWNLOAD			"Start downloading a new file or BitTorrent torrent..."
     ID_DOWNLOADS_ADD_SOURCE		"Add a source URL to the selected download..."
-    ID_LIBRARY_BITZI_WEB		"View the Bitzi ticket for the selected file on the web."
+    ID_LIBRARY_BITZI_WEB		"View the Bitzi™ ticket for the selected file on the web."
     ID_LIBRARY_BITZI_DOWNLOAD	"Download metadata for the selected files from Bitzi..."
     ID_VIEW_SECURITY			"Show or hide the SECURITY window."
 END

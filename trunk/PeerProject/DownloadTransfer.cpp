@@ -72,6 +72,7 @@ CDownloadTransfer::CDownloadTransfer(CDownloadSource* pSource, PROTOCOLID nProto
 
 CDownloadTransfer::~CDownloadTransfer()
 {
+	ASSUME_LOCK( Transfers.m_pSection );
 	ASSERT( m_pSource == NULL );
 }
 
@@ -90,6 +91,7 @@ void CDownloadTransfer::Close(TRISTATE bKeepSource, DWORD nRetryAfter)
 
 	SetState( dtsNull );
 
+//	if ( m_nProtocol != PROTOCOL_BT && m_nProtocol != PROTOCOL_ED2K )
 	CTransfer::Close();
 
 	if ( m_pSource != NULL )
@@ -98,13 +100,9 @@ void CDownloadTransfer::Close(TRISTATE bKeepSource, DWORD nRetryAfter)
 		{
 		case TRI_TRUE:
 			if ( m_pSource->m_bCloseConn && m_pSource->m_nGnutella )
-			{
 				m_pSource->OnResumeClosed();
-			}
 			else
-			{
 				m_pSource->OnFailure( TRUE, nRetryAfter );
-			}
 			break;
 		case TRI_UNKNOWN:
 			m_pSource->OnFailure( FALSE );
@@ -228,7 +226,8 @@ void CDownloadTransfer::SetState(int nState)
 	if ( m_pDownload != NULL )
 	{
 		if ( Settings.Downloads.SortSources )
-		{	//Proper sort
+		{
+			//Proper sort:
 
 			static BYTE StateSortOrder[13]={ 13 ,12 ,10 ,4 ,0 ,4 ,1 ,2 ,3 ,12 ,8 ,6 ,9};
 				//dtsNull, dtsConnecting, dtsRequesting, dtsHeaders, dtsDownloading, dtsFlushing,
@@ -236,49 +235,51 @@ void CDownloadTransfer::SetState(int nState)
 
 
 			//Assemble the sort order DWORD
-			m_pSource->m_nSortOrder = StateSortOrder[ min( nState, 13 ) ];          //Get state sort order
+			m_pSource->m_nSortOrder = StateSortOrder[ min( nState, 13 ) ];		//Get state sort order
 
 			if ( m_pSource->m_nSortOrder >= 13 )
-			{	//Don't bother wasting CPU sorting 'dead' sources- Simply send to bottom.
+			{
+				//Don't bother sorting 'dead' sources- send to bottom
 				m_pDownload->SortSource( m_pSource, FALSE );
 				m_pSource->m_nSortOrder = ~0u;
 			}
-			else
-			{	//All other sources should be properly sorted
-
-				if ( ( nState == dtsTorrent ) && ( m_pSource->m_pTransfer ) )    //Torrent states
-				{       //Choked torrents after queued, requesting = requesting, uninterested near end
-					CDownloadTransferBT* pBT = (CDownloadTransferBT*)m_pSource->m_pTransfer;
-					if ( ! pBT->m_bInterested ) m_pSource->m_nSortOrder = 11;
-					else if ( pBT->m_bChoked ) m_pSource->m_nSortOrder = 7;
-					else m_pSource->m_nSortOrder = 10;
+			else	// All other sources should be properly sorted
+			{
+				if ( ( nState == dtsTorrent ) &&
+					 ( m_pSource->m_pTransfer ) &&
+					 ( m_pSource->m_pTransfer->m_nProtocol == PROTOCOL_BT ) )	// Torrent states
+				{
+					// Choked torrents after queued, requesting = requesting, uninterested near end
+					CDownloadTransferBT* pBT =
+						static_cast< CDownloadTransferBT* >( m_pSource->m_pTransfer );
+					if ( ! pBT->m_bInterested )
+						m_pSource->m_nSortOrder = 11;
+					else if ( pBT->m_bChoked )
+						m_pSource->m_nSortOrder = 7;
+					else
+						m_pSource->m_nSortOrder = 10;
 				}
-				m_pSource->m_nSortOrder <<=  8;									//Sort by state
+				m_pSource->m_nSortOrder <<=  8;				// Sort by state
 
 				if ( m_nProtocol != PROTOCOL_HTTP )
 					m_pSource->m_nSortOrder += ( m_nProtocol & 0xFF );
-				m_pSource->m_nSortOrder <<=  16;								//Then protocol
+				m_pSource->m_nSortOrder <<=  16;			// Then protocol
 
-				if ( nState == dtsQueued )										//Then queue postion
+				if ( nState == dtsQueued )					// Then queue postion
 					m_pSource->m_nSortOrder += min( m_nQueuePos, 10000lu ) & 0xFFFFlu;
-				else															// or IP
+				else										// or IP
 					m_pSource->m_nSortOrder += ( ( m_pSource->m_pAddress.S_un.S_un_b.s_b1 << 8 ) |
 												 ( m_pSource->m_pAddress.S_un.S_un_b.s_b2      ) );
 
-				//Do the sort
-				m_pDownload->SortSource( m_pSource );
+				m_pDownload->SortSource( m_pSource );		// Do the sort
 			}
 		}
-		else
-		{	//Simple sort.
+		else	// Simple sort:
+		{
 			if ( nState == dtsDownloading && m_nState != dtsDownloading )
-			{	 //Downloading sources go to the top
-				m_pDownload->SortSource( m_pSource, TRUE );
-			}
+				m_pDownload->SortSource( m_pSource, TRUE );	// Downloading sources go to top
 			else if ( nState != dtsDownloading && m_nState == dtsDownloading )
-			{	//Sources that have stopped downloading go to the bottom.
-				m_pDownload->SortSource( m_pSource, FALSE );
-			}
+				m_pDownload->SortSource( m_pSource, FALSE ); //Stopped sources go to bottom
 		}
 	}
 

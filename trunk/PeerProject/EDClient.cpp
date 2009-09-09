@@ -2135,9 +2135,9 @@ BOOL CEDClient::OnPreviewAnswer(CEDPacket* pPacket)
 	pPacket->Read( oHash );
 	CDownload* pDownload = NULL;
 
-	if ( pPacket->GetRemaining() > 1 + 4 ) // The file has preview
+	if ( pPacket->GetRemaining() > 1 + 4 ) // File has preview
 	{
-		// Check only downloads. Previews become unneeded when the download is completed.
+		// Check only downloads. Previews become unneeded when download is completed.
 		if ( ( pDownload = Downloads.FindByED2K( oHash ) ) != NULL )
 		{
 			int nFrames = 0;
@@ -2185,11 +2185,8 @@ BOOL CEDClient::OnPreviewAnswer(CEDPacket* pPacket)
 			if ( oLock.Lock( 1000 ) )
 			{
 				CLibraryFile* pFile = LibraryMaps.LookupFileByED2K( oHash );
-				if ( pFile == NULL )
-				{
-					// Someone tried to spam us with ads
+				if ( pFile == NULL )	// Likely spam
 					Security.Ban( &m_pHost.sin_addr, banWeek, FALSE );
-				}
 			}
 		}
 	}
@@ -2216,8 +2213,10 @@ BOOL CEDClient::OnSourceRequest(CEDPacket* pPacket)
 
 	if ( CDownload* pDownload = Downloads.FindByED2K( oHash, TRUE ))
 	{
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 			if ( pSource->m_nProtocol == PROTOCOL_ED2K && pSource->m_bReadContent )
 			{
 				pReply->WriteLongLE( pSource->m_pAddress.S_un.S_addr );
@@ -2278,7 +2277,7 @@ BOOL CEDClient::OnSourceAnswer(CEDPacket* pPacket)
 
 	if ( CDownload* pDownload = Downloads.FindByED2K( oHash ))
 	{
-		// Don't bother adding sources if this download has finished
+		// Don't bother adding sources if download has finished
 		if ( pDownload->IsMoving() ) return TRUE;
 
 		while ( nCount-- > 0 )
@@ -2368,9 +2367,7 @@ void CEDClient::WritePartStatus(CEDPacket* pPacket, CDownload* pDownload)
 				QWORD nLength = min( ED2K_PART_SIZE, pDownload->m_nSize - nOffset );
 
 				if ( pDownload->IsRangeUseful( nOffset, nLength ) == FALSE )
-				{
 					nByte |= ( 1 << nBit );
-				}
 			}
 
 			pPacket->WriteByte( nByte );

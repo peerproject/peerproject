@@ -22,7 +22,7 @@
 #include <tchar.h>
 #include "Resource.h"
 
-#define SKIN_RAZA_HWND	L"PeerProjectMainWnd"
+#define SKIN_MAIN_HWND	L"PeerProjectMainWnd"
 #define SKIN_SKIN_TITLE	L"PeerProject Skin Installer"
 #define SKIN_LANG_TITLE L"PeerProject Language Installer"
 #define VERSION         L"1.0.0"

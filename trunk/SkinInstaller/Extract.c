@@ -50,9 +50,9 @@ int GetInstallDirectory() {
     dwBufLen=MAX_PATH;
     lRet = RegQueryValueEx( hKey, L"Path", NULL, NULL,
            (LPBYTE) prefix, &dwBufLen);
-    if (dwBufLen > MAX_PATH) {
+    if (dwBufLen > MAX_PATH)
         return 0;
-        }
+
     RegCloseKey( hKey );
     wcscat(prefix, L"\\Skins\\");
     return 1;

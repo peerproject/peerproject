@@ -140,18 +140,6 @@ void CSearchDetailPanel::SetFile(CMatchFile* pFile)
 		m_sStatus += strPart;
 	}
 
-	if ( m_pReviews.GetCount() > 1 )
-	{
-		strPart.Format( IDS_SEARCH_DETAILS_REVIEWS_MANY,
-			m_pReviews.GetCount() );
-		m_sStatus += strPart;
-	}
-	else if ( m_pReviews.GetCount() == 1 )
-	{
-		LoadString( strPart, IDS_SEARCH_DETAILS_REVIEWS_ONE );
-		m_sStatus += strPart;
-	}
-
 	if ( pFile->m_pPreview != NULL && pFile->m_nPreview > 0 )
 	{
 		CImageFile pImage;
@@ -334,17 +322,34 @@ void CSearchDetailPanel::OnPaint()
 	dc.SetBkColor( CoolInterface.m_crWindow );
 	rcWork.top += 4;
 
-	dc.SelectObject( &CoolInterface.m_fntBold );
-	LoadString( str, IDS_TIP_SIZE );
-	DrawText( &dc, rcWork.right - 125, rcWork.top, str + ':' );
 	dc.SelectObject( &CoolInterface.m_fntNormal );
-	DrawText( &dc, rcWork.right - 60, rcWork.top, m_sSize );
+	{
+		CString sSize;
+		sSize.Format( _T("%s   (%I64i bytes)"), m_sSize, m_pFile->m_nSize );
+		CSize sz = dc.GetTextExtent( sSize );
+		int nOffset = sz.cx + 2;
+		DrawText( &dc, rcWork.right - nOffset, rcWork.top, sSize );
+		dc.SelectObject( &CoolInterface.m_fntBold );
+		LoadString( str, IDS_TIP_SIZE );
+		sz = dc.GetTextExtent( str );
+		nOffset += sz.cx + 18;
+		DrawText( &dc, rcWork.right - nOffset, rcWork.top, str + _T(":    ") );
+	}
+
+	dc.SelectObject( &CoolInterface.m_fntNormal );
+	DrawText( &dc, rcWork.left, rcWork.top, m_sStatus, &m_rcStatus );
+
 	if ( m_pReviews.GetCount() )
 	{
 		dc.SelectObject( &CoolInterface.m_fntUnder );
 		dc.SetTextColor( CoolInterface.m_crTextLink );
+		CSize sz = dc.GetTextExtent( m_sStatus );	
+		CString sReviews;
+		LoadString( sReviews, m_pReviews.GetCount() == 1 ?
+			IDS_SEARCH_DETAILS_REVIEWS_ONE : IDS_SEARCH_DETAILS_REVIEWS_MANY );
+		DrawText( &dc, rcWork.left + sz.cx + 8, rcWork.top, sReviews, &m_rcStatus );
 	}
-	DrawText( &dc, rcWork.left, rcWork.top, m_sStatus, &m_rcStatus );
+
 	rcWork.top += 18;
 
 	m_pMetadata.Paint( &dc, &rcWork );

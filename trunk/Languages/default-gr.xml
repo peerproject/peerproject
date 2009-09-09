@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r35 -->
+<!-- Translation based on default-en.xml r36 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -75,8 +75,7 @@
 		<button id="ID_WINDOW_TILE_VERT"/>
 		<separator/>
 		<button id="ID_TOOLS_SETTINGS"/>
-		<button id="ID_TOOLS_DOWNLOAD"/>INDOW_TILE_VERT"/>
-		<separator/>
+		<button id="ID_TOOLS_DOWNLOAD"/>
 		<button id="ID_NETWORK_SEARCH" text="Αναζήτηση"/>
 	</toolbar>
 	<!-- SEARCH WINDOW -->
@@ -2027,7 +2026,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3340,20 +3339,21 @@
 	<string id="20121" value="Δημιουργία"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Πεσμένος Tracker"/>
-	<string id="20124" value="(Καμία Πηγή)"/>
-	<string id="20125" value="Επαληθευμένο"/>
-	<string id="20126" value="Μη Επαληθευμένο"/>
-	<string id="20127" value="πηγή"/>
-	<string id="20128" value="πηγές"/><!-- numbers 21, 31, ... -->
-	<string id="20129" value="πηγές"/><!-- tens -->
-	<string id="20130" value="πηγές"/><!-- from 11 to 19 -->
-	<string id="20131" value="πηγές"/><!-- from 2 to 4 -->
-	<string id="20132" value="πηγές"/><!-- from 5 to 9 -->
-	<string id="20133" value="Αδιάφορο"/>
-	<string id="20134" value="Πλήρες"/>
-	<string id="20135" value="Επόμενο"/>
-	<string id="20136" value="Q"/>
-	<string id="20137" value="πηγές"/><!-- 3/10 sources, for e.g. -->
+	<string id="20124" value="Επαληθευμένο"/>
+	<string id="20125" value="Μη Επαληθευμένο"/>
+	<string id="20126" value="Αδιάφορο"/>
+	<string id="20127" value="Αδιάφορο"/>
+	<string id="20128" value="πηγή"/>
+	<string id="20129" value="πηγές"/> <!-- numbers 21, 31, ... -->
+	<string id="20130" value="πηγές"/> <!-- tens -->
+	<string id="20131" value="πηγές"/> <!-- from 11 to 19 -->
+	<string id="20132" value="πηγές"/> <!-- from 2 to 4 -->
+	<string id="20133" value="πηγές"/> <!-- from 5 to 9 -->
+	<string id="20134" value="πηγές"/> <!-- "3/10 sources" -->
+	<string id="20135" value="(Καμία Πηγή)"/>
+	<string id="20136" value="Πλήρες"/>
+	<string id="20137" value="Επόμενο"/>
+	<string id="20138" value="Q"/>
 	<string id="20200" value="Κυριακή"/>
 	<string id="20201" value="Δευτέρα"/>
 	<string id="20202" value="Τρίτη"/>

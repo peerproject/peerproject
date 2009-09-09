@@ -195,7 +195,7 @@ size_t CLibraryBuilder::GetRemaining() const
 	return m_pFiles.size();
 }
 
-DWORD CLibraryBuilder::GetProgress() const
+float CLibraryBuilder::GetProgress() const
 {
 	CQuickLock oLock( m_pSection );
 	return m_nProgress;
@@ -513,10 +513,9 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 		nBlock	= (DWORD)min( nLength, MAX_HASH_BUFFER_SIZE );
 
 		{
-			// Calculate % done (nResult = 0 -> 100)
+			// Calculate % done (nResult = 0.00 -> 100.00)
 			CQuickLock pLock( m_pSection );
-			QWORD nResult = ( ( nFileSize - nLength ) * 100ull ) / nFileSize;
-			m_nProgress = static_cast< DWORD >( nResult );
+			m_nProgress = ( ( nFileSize - nLength ) * 100.00f ) / nFileSize;
 		}
 
 		if ( ! IsThreadEnabled() || m_bSkip )

@@ -31,10 +31,10 @@ public:
 
 protected:
 	CWnd*		m_pParent;
+	COLORREF	m_crText;
 	COLORREF	m_crBorder;
 	COLORREF	m_crFill;
-	COLORREF	m_crText;
-	CBrush		m_brFill;
+	CBitmap		m_bmImage;
 	HICON		m_hIcon;
 	int			m_nFlash;
 	CString		m_sCurrent;				// Name of file currently hashing
@@ -44,13 +44,16 @@ public:
 	void	Create(CWnd* pParent);
 	void	Run();
 	void	Update();
+	void	OnSkinChange();
 
 protected:
 	void	Show(int nWidth, BOOL bShow);
 
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 
 	DECLARE_MESSAGE_MAP()

@@ -154,6 +154,7 @@
   <watermark target="CCoolMenuBar"			path="Seven\RibbonMenubar.png"/>
   <watermark target="CWndTabBar"			path="Seven\RibbonBaseline.png"/>
   <watermark target="CMonitorBar"			path="Seven\RibbonMonitorBkg.png"/>
+  <watermark target="CHashProgressBar"			path="Seven\HashWnd.png"/>
   <watermark target="CMainWnd.Toolbar"			path="Seven\RibbonTabsBkg.png"/>
   <watermark target="CMediaFrame.Toolbar"		path="Mediabar.png"/>
   <!--watermark target="CMediaList.Toolbar"		path="ToolbarLt.png"-->

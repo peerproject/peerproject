@@ -140,6 +140,7 @@
   <watermark target="CCoolMenu" path="Vista\MenuBkg.png"/>
   <watermark target="CCoolMenu.Hover" path="Vista\MenuHover.png"/>
   <watermark target="CMonitorBar" path="Vista\RibbonMonitorBkg.png"/>
+  <watermark target="CHashProgressBar" path="Vista\HashWnd.png"/>
   <watermark target="CMainWnd.Toolbar" path="Vista\RibbonTabsBkg.png"/>
   <watermark target="CMediaFrame.Toolbar" path="Mediabar.png"/>
   <watermark target="CDownloadTabBar" path="DownloadgroupsToolbar.png"/>

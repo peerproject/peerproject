@@ -2661,7 +2661,7 @@ void CMainWnd::OnHelpUpdate()
 	const CString strWebSite(WEB_SITE_T);
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
-		Settings.VersionCheck.UpdateCheckURL + _T("?Version=") + theApp.m_sVersion + _T("?Language=") + Settings.General.Language.Left(2),
+		Settings.VersionCheck.UpdateCheckURL + _T("?Version=") + theApp.m_sVersion + _T("&Language=") + Settings.General.Language.Left(2),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 

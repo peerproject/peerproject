@@ -735,10 +735,12 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 							// Store HTTP tracker
 							pTrackers.AddTail( strTracker );
 						}
-						//else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
-						//{
-							// TODO: UDP tracker
-						//}
+						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
+						{
+							// ToDo: Add UDP tracker support
+							// Store non-functional UDP tracker for display
+							pTrackers.AddTail( strTracker );
+						}
 						//else unknown tracker
 					}
 				}
@@ -801,14 +803,11 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 				SetTracker( strTracker );
 			}
 		}
-		// else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
+		//else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
 		//{
-			// TODO: UDP Tracker
+			// ToDo: Add UDP tracker support
 		//}
-		//else
-		//{
-			// TODO: Torrents should always have a valid announce node.
-		//}
+		//else	// Torrents should always have a valid announce node.
 	}
 
 	// Get the info node

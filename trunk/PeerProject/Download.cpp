@@ -21,23 +21,24 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "Settings.h"
+#include "BTTrackerRequest.h"
 #include "Download.h"
-#include "Downloads.h"
-#include "DownloadTask.h"
-#include "DownloadSource.h"
-#include "DownloadTransfer.h"
 #include "DownloadGroups.h"
+#include "DownloadSource.h"
+#include "DownloadTask.h"
+#include "DownloadTransfer.h"
+#include "Downloads.h"
 #include "FileExecutor.h"
-#include "Uploads.h"
-#include "Statistics.h"
-#include "SharedFile.h"
+#include "FragmentedFile.h"
 #include "Library.h"
 #include "LibraryBuilder.h"
 #include "LibraryHistory.h"
-#include "FragmentedFile.h"
-#include "BTTrackerRequest.h"
 #include "Network.h"
+#include "Settings.h"
+#include "SharedFile.h"
+#include "Statistics.h"
+#include "Transfers.h"
+#include "Uploads.h"
 #include "XML.h"
 
 #ifdef _DEBUG
@@ -119,8 +120,10 @@ void CDownload::Resume()
 
 	if ( IsFileOpen() )
 	{
-		for ( CDownloadSource* pSource = GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = GetIterator(); posSource ; )
 		{
+			CDownloadSource* pSource = GetNext( posSource );
+
 			pSource->OnResume();
 		}
 	}
@@ -631,6 +634,8 @@ BOOL CDownload::Load(LPCTSTR pszName)
 
 BOOL CDownload::Save(BOOL bFlush)
 {
+	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
+
 	if ( m_sPath.IsEmpty() )
 	{
 		// From incomplete folder

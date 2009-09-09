@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r35 -->
+<!-- Translation based on default-en.xml r36 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1992,7 +1992,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3298,20 +3298,21 @@
 	<string id="20121" value="Skep Lêer"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Verwyser Af"/>
-	<string id="20124" value="(Geen Bronne)"/>
-	<string id="20125" value="Gekontroleer"/>
-	<string id="20126" value="Nie Gekontroleer"/>
+	<string id="20124" value="Gekontroleer"/>
+	<string id="20125" value="Nie Gekontroleer"/>
+	<string id="20126" value="Nie Geïntreseerd"/>
+	<string id="20126" value="Nie Geïntreseerd"/>
 	<string id="20127" value="bron"/>
-	<string id="20128" value="bronne"/><!-- numbers 21, 31, ... -->
-	<string id="20129" value="bronne"/><!-- tens -->
-	<string id="20130" value="bronne"/><!-- from 11 to 19 -->
-	<string id="20131" value="bronne"/><!-- from 2 to 4 -->
-	<string id="20132" value="bronne"/><!-- from 5 to 9 -->
-	<string id="20133" value="Nie Geïntreseerd"/>
-	<string id="20134" value="Beset"/>
-	<string id="20135" value="Volgende"/>
-	<string id="20136" value="Q"/>
-	<string id="20137" value="sources"/> <!--"3/10 sources"-->
+	<string id="20128" value="bronne"/> <!-- numbers 21, 31, ... -->
+	<string id="20129" value="bronne"/> <!-- tens -->
+	<string id="20131" value="bronne"/> <!-- from 11 to 19 -->
+	<string id="20132" value="bronne"/> <!-- from 2 to 4 -->
+	<string id="20133" value="bronne"/> <!-- from 5 to 9 -->
+	<string id="20134" value="bronne"/> <!--"3/10 sources"-->
+	<string id="20135" value="(Geen Bronne)"/>
+	<string id="20136" value="Beset"/>
+	<string id="20137" value="Volgende"/>
+	<string id="20138" value="Q"/>
 	<string id="20200" value="Sondag"/>
 	<string id="20201" value="Maandag"/>
 	<string id="20202" value="Dinsdag"/>

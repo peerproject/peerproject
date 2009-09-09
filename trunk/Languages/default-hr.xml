@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- This translation is based on default-en.xml r35 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r36 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1832,7 +1832,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3083,19 +3083,21 @@
 	<string id="20121" value="Stvaram"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Tracker Down"/>
-	<string id="20124" value="(Nema Izvora)"/>
-	<string id="20125" value="Potvrđeno"/>
-	<string id="20126" value="Nepotvrđeno"/>
-	<string id="20127" value="izvor"/>
-	<string id="20128" value="izvor"/>  <!-- numbers 21, 31, ... -->
-	<string id="20129" value="izvora"/> <!-- tens -->
-	<string id="20130" value="izvora"/> <!-- from 11 to 19 -->
-	<string id="20131" value="izvora"/> <!-- from 2 to 4 -->
-	<string id="20132" value="izvora"/> <!-- from 5 to 9 -->
-	<string id="20133" value="Nezainteresiran"/>
-	<string id="20134" value="Zagušen"/>
-	<string id="20135" value="Slijedeći"/>
-	<string id="20136" value="Q"/>
+	<string id="20124" value="Potvrđeno"/>
+	<string id="20125" value="Nepotvrđeno"/>
+	<string id="20126" value="Nezainteresiran"/>
+	<string id="20127" value="Nezainteresiran"/>
+	<string id="20128" value="izvor"/>
+	<string id="20129" value="izvor"/>  <!-- numbers 21, 31, ... -->
+	<string id="20130" value="izvora"/> <!-- tens -->
+	<string id="20131" value="izvora"/> <!-- from 11 to 19 -->
+	<string id="20132" value="izvora"/> <!-- from 2 to 4 -->
+	<string id="20133" value="izvora"/> <!-- from 5 to 9 -->
+	<string id="20134" value="izvora"/> <!-- /numbers -->
+	<string id="20135" value="(Nema Izvora)"/>
+	<string id="20136" value="Zagušen"/>
+	<string id="20137" value="Slijedeći"/>
+	<string id="20138" value="Q"/>
 	<string id="20200" value="Nedjelja"/>
 	<string id="20201" value="Ponedjeljek"/>
 	<string id="20202" value="Utorak"/>

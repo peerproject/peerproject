@@ -149,9 +149,9 @@ STDMETHODIMP CPlugin::InsertCommands()
 		VARIANT_FALSE, &pFileMenu ) ) && pFileMenu )
 	{
 		CComPtr< ISMenu > pWebMenu;
-		if ( SUCCEEDED( pFileMenu->get_Item( CComVariant( 9 ), &pWebMenu ) ) && pWebMenu )
+		if ( SUCCEEDED( pFileMenu->get_Item( CComVariant( 12 ), &pWebMenu ) ) && pWebMenu )
 		{
-			InsertCommand( pWebMenu, 2, m_nCmdCheck, VIRUSTOTAL_CHECK );
+			InsertCommand( pWebMenu, 3, m_nCmdCheck, VIRUSTOTAL_CHECK );
 		}
 	}
 
@@ -160,9 +160,9 @@ STDMETHODIMP CPlugin::InsertCommands()
 		VARIANT_FALSE, &pVirtualMenu ) ) && pVirtualMenu )
 	{
 		CComPtr< ISMenu > pWebMenu;
-		if ( SUCCEEDED( pVirtualMenu->get_Item( CComVariant( 9 ), &pWebMenu ) ) && pWebMenu )
+		if ( SUCCEEDED( pVirtualMenu->get_Item( CComVariant( 12 ), &pWebMenu ) ) && pWebMenu )
 		{
-			InsertCommand( pWebMenu, 2, m_nCmdCheck, VIRUSTOTAL_CHECK );
+			InsertCommand( pWebMenu, 3, m_nCmdCheck, VIRUSTOTAL_CHECK );
 		}
 	}
 

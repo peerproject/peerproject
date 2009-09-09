@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r35 -->
+<!-- Translation based on default-en.xml r36 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1194,6 +1194,7 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open File"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
+		<item id="ID_DOWNLOADS_FILE_DELETE" text="Delete Files"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent _Properties..."/>
@@ -1272,7 +1273,7 @@
 		<item id="ID_LIBRARY_SHARED_FOLDER" text="_Shared"/>
 		<item id="ID_LIBRARY_REMOVE" text="_Remove"/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
+		<item id="ID_LIBRARY_FOLDERS" text="Share More _Files..."/>
 	</menu>
 	<menu name="CLibraryTree.Physical">
 		<item id="ID_LIBRARY_EXPLORE" text="_Explore"/>
@@ -1282,16 +1283,19 @@
 		<separator/>
 		<item id="ID_LIBRARY_SCAN" text="S_can"/>
 		<item id="ID_LIBRARY_REBUILD" text="Re_build"/>
-		<item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
+		<item id="ID_LIBRARY_FOLDERS" text="Share _Folders..."/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="File _Properties"/>
+    <item id="ID_SHELL_MENU" text="S_hell menu"/>
+		<separator/>
+		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="Meta _Properties"/>
 	</menu>
 	<menu name="CLibraryTree.Virtual.Basic">
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Play Album"/>
 		<item id="ID_LIBRARY_FOLDER_DELETE" text="_Delete"/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="_File Properties"/>
-		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="_Album Properties"/>
+		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="_Group Properties"/>
+		<separator/>
+		<item id="ID_LIBRARY_FOLDERS" text="Share More _Files..."/>
 	</menu>
 	<menu name="CLibraryTree.Virtual">
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Play Album"/>
@@ -1300,10 +1304,10 @@
 		<item id="ID_LIBRARY_REBUILD" text="_Rebuild"/>
 		<item id="ID_LIBRARY_EXPORT_COLLECTION" text="_Export Collection..."/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_NEW" text="_New Folder..."/>
+		<item id="ID_LIBRARY_FOLDER_NEW" text="_New Group Folder..."/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="_File Properties"/>
-		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="_Album Properties"/>
+		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="Meta _Properties"/>
+		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="_Group Properties"/>
 	</menu>
 	<!-- LIBRARY VIEWS -->
 	<menu name="CLibraryTileView">
@@ -1704,6 +1708,7 @@
 			<item id="ID_IRC_BANKICKWHY" text="Kick+Ban (why?)"/>
 		</menu>
 	</menu>
+	<!-- WEBSERVICES -->
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
@@ -1756,7 +1761,7 @@
 			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
 			<text>&#160;downloading a new file or torrent link.</text>
 			<newline gap="4" indent="42"/>
-			<text>Or open your completed </text>
+			<text>Or open your default completed </text>
 			<link target="peer:shell:downloads">downloads folder.</link>
 			<newline gap="20" indent="0"/>
 		</group>
@@ -1813,7 +1818,7 @@
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
-		<text align="middle">&#160;- Change PeerProject's visual appearance</text>
+		<text align="middle">&#160;- Mix&apos;n&apos;match changes to visual appearances</text>
 		<newline gap="8"/>
 		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
@@ -2055,7 +2060,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -2478,8 +2483,8 @@
 	<tip id="ID_LIBRARY_ALBUM_DELETE" message="Delete the selected album folder."/>
 	<tip id="ID_LIBRARY_ALBUM_OPEN" message="Open the selected album folder."/>
 	<tip id="ID_LIBRARY_ALBUM_PROPERTIES" message="View and edit the properties of the selected album folder..."/>
-	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Download metadata for the selected file(s) from Bitzi(TM)..."/>
-	<tip id="ID_LIBRARY_BITZI_WEB" message="View the Bitzi(TM) ticket for the selected file on the web."/>
+	<tip id="ID_LIBRARY_BITZI_DOWNLOAD" message="Download metadata for selected files from Bitzi™..."/>
+	<tip id="ID_LIBRARY_BITZI_WEB" message="View Bitzi™ ticket for the selected file on the web."/>
 	<tip id="ID_LIBRARY_COLUMNS" message="Select metadata columns to be displayed..."/>
 	<tip id="ID_LIBRARY_COPY" message="Copy the selected files to another library folder..."/>
 	<tip id="ID_LIBRARY_CREATETORRENT" message="Create a .torrent for this file to upload to a website."/>
@@ -2488,8 +2493,8 @@
 	<tip id="ID_LIBRARY_EXPLORE" message="Open selected folders."/>
 	<tip id="ID_LIBRARY_EXPORT_COLLECTION" message="Export the selected album folder to collection files..."/>
 	<tip id="ID_LIBRARY_FOLDER_DOWNLOAD" message="Download all files in the selected collection."/>
-	<tip id="ID_LIBRARY_FOLDER_ENQUEUE" message="Add every file in the selected album folder(s) to your playlist."/>
-	<tip id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" message="View and edit the properties of all files in the selected folder(s)..."/>
+	<tip id="ID_LIBRARY_FOLDER_ENQUEUE" message="Add every file in selected album folders to your playlist."/>
+	<tip id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" message="View and edit the properties of all files in selected folders..."/>
 	<tip id="ID_LIBRARY_FOLDER_METADATA" message="Apply common metadata from the album folder to all of its files."/>
 	<tip id="ID_LIBRARY_FOLDER_NEW" message="Create a new album folder here..."/>
 	<tip id="ID_LIBRARY_FOLDER_PROPERTIES" message="View and edit the properties of the selected album folder..."/>
@@ -2503,7 +2508,7 @@
 	<tip id="ID_LIBRARY_REBUILD" message="Rebuild metadata and hashes for the selected folders or files."/>
 	<tip id="ID_LIBRARY_REBUILD_ANSI" message="Rebuild metadata using other language."/>
 	<tip id="ID_LIBRARY_REFRESH" message="Refresh the library view."/>
-	<tip id="ID_LIBRARY_REMOVE" message="Remove the selected shared folders."/>
+	<tip id="ID_LIBRARY_REMOVE" message="Remove selected folders from the Library."/>
 	<tip id="ID_LIBRARY_RENAME" message="Rename the selected file in-place."/>
 	<tip id="ID_LIBRARY_SCAN" message="Scan the selected folders or files for changes."/>
 	<tip id="ID_LIBRARY_SEARCH" message="Search your file library..."/>
@@ -3377,20 +3382,21 @@
 	<string id="20121" value="Creating"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Tracker Down"/>
-	<string id="20124" value="(No Sources)"/>
-	<string id="20125" value="Verified"/>
-	<string id="20126" value="Unverified"/>
-	<string id="20127" value="source"/>  <!-- one -->
-	<string id="20128" value="sources"/> <!-- numbers 21,31,... -->
-	<string id="20129" value="sources"/> <!-- tens -->
-	<string id="20130" value="sources"/> <!-- from 11 to 19 -->
-	<string id="20131" value="sources"/> <!-- from 2 to 4 -->
-	<string id="20132" value="sources"/> <!-- from 5 to 9 -->
-	<string id="20133" value="Uninterested"/>
-	<string id="20134" value="Choked"/>
-	<string id="20135" value="Next"/>
-	<string id="20136" value="Q"/>
-	<string id="20137" value="sources"/> <!-- "3/10 sources" -->
+	<string id="20124" value="Verified"/>
+	<string id="20125" value="Unverified"/>
+	<string id="20126" value="Unsupported"/>
+	<string id="20127" value="Uninterested"/>
+	<string id="20128" value="source"/>  <!-- one -->
+	<string id="20129" value="sources"/> <!-- numbers 21,22,31,... -->
+	<string id="20130" value="sources"/> <!-- tens -->
+	<string id="20131" value="sources"/> <!-- from 11 to 19 -->
+	<string id="20132" value="sources"/> <!-- from 2 to 4 -->
+	<string id="20133" value="sources"/> <!-- from 5 to 9 -->
+	<string id="20134" value="sources"/> <!-- "3/10 sources" -->
+	<string id="20135" value="(No Sources)"/>
+	<string id="20136" value="Choked"/>
+	<string id="20137" value="Next"/>
+	<string id="20138" value="Q"/>
 	<string id="20200" value="Sunday"/>
 	<string id="20201" value="Monday"/>
 	<string id="20202" value="Tuesday"/>
@@ -3927,7 +3933,7 @@
 		<control caption="Handle BitTorrent links. (Associate .torrent files)"/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Welcome to PeerProject (5/6)">
-		<control caption="PeerProject is a general-purpose file-sharing application that can access many P2P networks at the same time.  Here you can select which networks you&apos;d like to access.  Note that you can always select different networks later."/>
+		<control caption="PeerProject is a general purpose filesharing application that can swarm multiple P2P networks on a single download, therefore all are recommended. Note you can always manage specific networks at any time."/>
 		<control caption="Connect to Gnutella2 (Default)"/>
 		<control caption="The Gnutella2 network (G2) is PeerProject&apos;s premiere network, offering more features and performance than any other P2P net. (Shareaza)"/>
 		<control caption="Connect to Gnutella"/>
@@ -3945,8 +3951,8 @@
 	</dialog>
 	<dialog name="CWizardFinishedPage" cookie="StStStBuBuBuSt" caption="Welcome to PeerProject (6/6)">
 		<control caption="That&apos;s it.  PeerProject has been configured to work with your computer."/>
-		<control caption="If you ever need to change your settings, you can re-run this QuickStart wizard by selecting it from the Tools menu."/>
-		<control caption="After closing this wizard by clicking Finish, you can connect to the networks you selected and start searching and downloading content."/>
+		<control caption="If you ever need to change these settings, re-run the QuickStart wizard by selecting it from the Tools menu."/>
+		<control caption="AAfter closing this Wizard and connecting, the first thing to do is run a 'fake' random search to catch spammers and Ban them all. Explore toolbar tabs while waiting."/>
 		<control caption="Connect to the network when I close this wizard"/>
 		<control caption="Connect to the network every time I start PeerProject"/>
 		<control caption="Start PeerProject every time Windows starts"/>
@@ -4333,7 +4339,7 @@
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Downloading Metadata...">
 		<control/>
-		<control caption="PeerProject is attempting to download metadata from Bitzi(TM)..."/>
+		<control caption="PeerProject is attempting to download metadata from Bitzi™..."/>
 		<control/>
 		<control caption="Cancel"/>
 		<control/>

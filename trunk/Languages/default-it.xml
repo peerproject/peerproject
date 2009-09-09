@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r35 -->
+<!-- Translation based on default-en.xml r36 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1973,7 +1973,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3298,20 +3298,21 @@
 	<string id="20121" value="Creazione"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Tracker scollegato"/>
-	<string id="20124" value="(Nessuna fonte)"/>
-	<string id="20125" value="Verificato"/>
-	<string id="20126" value="Non verificato"/>
-	<string id="20127" value="fonte"/>
-	<string id="20128" value="fonti"/> <!-- numbers 21, 31, ... -->
-	<string id="20129" value="fonti"/> <!-- tens -->
-	<string id="20130" value="fonti"/> <!-- from 11 to 19 -->
-	<string id="20131" value="fonti"/> <!-- from 2 to 4 -->
-	<string id="20132" value="fonti"/> <!-- from 5 to 9 -->
-	<string id="20133" value="Non interessato"/>
-	<string id="20134" value="Occupato"/>
-	<string id="20135" value="Successivo"/>
-	<string id="20136" value="C"/>
-	<string id="20137" value="fonti"/> <!-- 3/10 sources, for e.g. -->
+	<string id="20124" value="Verificato"/>
+	<string id="20125" value="Non verificato"/>
+	<string id="20126" value="Non interessato"/>
+	<string id="20127" value="Non interessato"/>
+	<string id="20128" value="fonte"/>
+	<string id="20129" value="fonti"/> <!-- numbers 21, 31, ... -->
+	<string id="20130" value="fonti"/> <!-- tens -->
+	<string id="20131" value="fonti"/> <!-- from 11 to 19 -->
+	<string id="20132" value="fonti"/> <!-- from 2 to 4 -->
+	<string id="20133" value="fonti"/> <!-- from 5 to 9 -->
+	<string id="20134" value="fonti"/> <!-- "3/10 sources" -->
+	<string id="20135" value="(Nessuna fonte)"/>
+	<string id="20136" value="Occupato"/>
+	<string id="20137" value="Successivo"/>
+	<string id="20138" value="C"/>
 	<string id="20200" value="Domenica"/>
 	<string id="20201" value="Lunedì"/>
 	<string id="20202" value="Martedì"/>

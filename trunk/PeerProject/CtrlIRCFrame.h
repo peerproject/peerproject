@@ -31,11 +31,11 @@
 class CIRCNewMessage
 {
 public:
-	BOOL operator =(const CIRCNewMessage &rhs );
-public:
-	int             nColorID;
+	int             m_nColorID;
 	CString         m_sTargetName;
     CStringArray    m_pMessages;
+
+	BOOL operator =(const CIRCNewMessage &rhs );
 };
 
 class CIRCTabCtrl : public CTabCtrl

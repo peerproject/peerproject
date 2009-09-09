@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+
+<manifest
+ name="SkinSeven.Menubar"
+ author="SkinVista"
+ description="Add Classic XP-Style Menu to SkinSeven"
+ link="http://PeerProject.org"
+ email="Contact(at)PeerProject.org"
+ path="SkinTest"
+ version="1.0"
+ type="Skin"
+/>
+
+<options>
+ <option name="DropMenu" value="false"/>
+</options>
+
+<watermarks> 
+ <watermark target="CCoolMenuBar" path="Seven\RibbonMenubarBlank.png"/>
+ <watermark target="CCoolMenuItem.Hover" path="Seven\MenuButtonState.png"/>
+ <watermark target="CCoolMenuItem.Down"  path="Seven\MenuButtonState.png"/>
+</watermarks>
+
+</skin>

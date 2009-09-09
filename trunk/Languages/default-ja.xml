@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r35 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r36 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1869,7 +1869,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3152,20 +3152,21 @@
 	<string id="20121" value="作成中"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="トラッカーダウン"/>
-	<string id="20124" value="(ソース無し)"/>
-	<string id="20125" value="検証済"/>
-	<string id="20126" value="未検証"/>
-	<string id="20127" value="ソース"/>
-	<string id="20128" value="ソース"/> <!-- numbers 21, 31, etc. -->
-	<string id="20129" value="ソース"/> <!-- tens -->
-	<string id="20130" value="ソース"/> <!-- from 11 to 19 -->
-	<string id="20131" value="ソース"/> <!-- from 2 to 4 -->
-	<string id="20132" value="ソース"/> <!-- from 5 to 9 -->
-	<string id="20133" value="非インタレスト"/>
-	<string id="20134" value="チョーク済"/>
-	<string id="20135" value="次へ"/>
-	<string id="20136" value="Q"/>
-	<string id="20137" value="ソース"/> <!-- "1/10 sources" -->
+	<string id="20124" value="検証済"/>
+	<string id="20125" value="未検証"/>
+	<string id="20126" value="非インタレスト"/>
+	<string id="20127" value="非インタレスト"/>
+	<string id="20128" value="ソース"/>
+	<string id="20129" value="ソース"/> <!-- numbers 21, 31, etc. -->
+	<string id="20130" value="ソース"/> <!-- tens -->
+	<string id="20131" value="ソース"/> <!-- from 11 to 19 -->
+	<string id="20132" value="ソース"/> <!-- from 2 to 4 -->
+	<string id="20133" value="ソース"/> <!-- from 5 to 9 -->
+	<string id="20134" value="ソース"/> <!-- "1/10 sources" -->
+	<string id="20135" value="(ソース無し)"/>
+	<string id="20136" value="チョーク済"/>
+	<string id="20137" value="次へ"/>
+	<string id="20138" value="Q"/>
 	<string id="20200" value="日曜"/>
 	<string id="20201" value="月曜"/>
 	<string id="20202" value="火曜"/>

@@ -627,13 +627,9 @@ void CRemote::PageSearch()
 		if ( pSearchWnd->m_pMatches->m_nSortColumn == nColumn )
 		{
 			if ( pSearchWnd->m_pMatches->m_bSortDir == 1 )
-			{
 				pSearchWnd->m_pMatches->SetSortColumn( nColumn, TRUE );
-			}
 			else
-			{
 				pSearchWnd->m_pMatches->SetSortColumn( nColumn, FALSE );
-			}
 		}
 		else
 		{
@@ -1071,9 +1067,10 @@ void CRemote::PageDownloads()
 
 		if ( pDownload->m_bExpanded && CDownloadsCtrl::IsExpandable( pDownload ) )
 		{
-			for ( CDownloadSource* pSource = pDownload->GetFirstSource(), *pNext = NULL ; pSource != NULL ; pSource = pNext )
+			for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 			{
-				pNext = pSource->m_pNext;
+				CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 				str.Format( _T("%i"), pSource );
 
 				if ( GetKey( _T("modify_id") ) == str )
@@ -1398,7 +1395,7 @@ void CRemote::PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName)
 
 		if ( pNeighbour->m_nProtocol == PROTOCOL_G1 )
 		{
-//			CG1Neighbour* pG1 = reinterpret_cast<CG1Neighbour*>(pNeighbour);
+		//	CG1Neighbour* pG1 = reinterpret_cast<CG1Neighbour*>(pNeighbour);
 
 			switch ( pNeighbour->m_nNodeType )
 			{
@@ -1438,13 +1435,9 @@ void CRemote::PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName)
 			if ( pG2->m_nLeafCount > 0 )
 			{
 				if ( pG2->m_nLeafLimit > 0 )
-				{
 					str.Format( _T("%i/%i"), pG2->m_nLeafCount, pG2->m_nLeafLimit );
-				}
 				else
-				{
 					str.Format( _T("%i"), pG2->m_nLeafCount );
-				}
 
 				Add( _T("row_leaves"), str );
 			}
@@ -1459,13 +1452,9 @@ void CRemote::PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName)
 			if ( pED2K->m_nClientID > 0 )
 			{
 				if ( pED2K->m_nUserLimit > 0 )
-				{
 					str.Format( _T("%i/%i"), pED2K->m_nUserCount, pED2K->m_nUserLimit );
-				}
 				else
-				{
 					str.Format( _T("%i"), pED2K->m_nUserCount );
-				}
 
 				Add( _T("row_leaves"), str );
 				CString strText1, strText2;
