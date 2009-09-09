@@ -255,9 +255,10 @@ int CIRCChannelsBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_REPORT |
 		LVS_NOCOLUMNHEADER | LVS_SORTASCENDING | LVS_NOLABELWRAP,
 		rc, this, IDC_IRC_CHANNELS );
+	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
 	m_wndChanList.ModifyStyleEx( 0, WS_EX_CLIENTEDGE );
-	m_wndChanList.InsertColumn( 0, _T("Channels"), LVCFMT_LEFT, 1 );
-	m_wndChanList.InsertColumn( 1, _T("UserCount"), LVCFMT_RIGHT, -1 );
+	m_wndChanList.InsertColumn( 0, _T("Channels"), LVCFMT_LEFT, rc.right - 20 );
+	m_wndChanList.InsertColumn( 1, _T("UserCount"), LVCFMT_RIGHT, 20 );
 
 	m_wndAddChannel.Create( rc, this, IDC_IRC_ADDCHANNEL, WS_TABSTOP | BS_DEFPUSHBUTTON );
 	m_wndAddChannel.SetHandCursor( TRUE );
@@ -337,7 +338,7 @@ void CIRCChannelsBox::OnAddChannel()
 		{
 			if ( strChannel.CompareNoCase( m_wndChanList.GetItemText( nChannel, 0 ) ) == 0 )
 			{
-				AfxMessageBox( _T("Channel is already in the list."), MB_OK );
+				AfxMessageBox( _T("Channel already in list."), MB_OK );
 				return;
 			}
 		}
@@ -353,4 +354,3 @@ void CIRCChannelsBox::OnRemoveChannel()
 {
 	GetOwner()->GetOwner()->PostMessage( WM_REMOVECHANNEL, IDC_IRC_CHANNELS );
 }
-

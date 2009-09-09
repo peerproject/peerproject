@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r35 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r36 (Shareaza 2.2.2.9) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1845,7 +1845,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3110,20 +3110,21 @@
 	<string id="20121" value="Loon"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Jälitajata"/>
-	<string id="20124" value="(Allikateta)"/>
-	<string id="20125" value="Kinnitatud"/>
-	<string id="20126" value="Kinnitamata"/>
-	<string id="20127" value="allikas"/>
-	<string id="20128" value="allikat"/><!-- numbers 21, 31, ... -->
-	<string id="20129" value="allikat"/><!-- tens -->
-	<string id="20130" value="allikat"/><!-- from 11 to 19 -->
-	<string id="20131" value="allikat"/><!-- from 2 to 4 -->
-	<string id="20132" value="allikat"/><!-- from 5 to 9 -->
-	<string id="20133" value="Mitte Huvitatud"/>
-	<string id="20134" value="Umbes"/>
-	<string id="20135" value="Järgmine"/>
-	<string id="20136" value="Q"/>
-	<string id="20137" value="allikast"/><!-- 3/10 sources, for e.g. -->
+	<string id="20124" value="Kinnitatud"/>
+	<string id="20125" value="Kinnitamata"/>
+	<string id="20126" value="Mitte Huvitatud"/>
+	<string id="20127" value="Mitte Huvitatud"/>
+	<string id="20128" value="allikas"/>
+	<string id="20129" value="allikat"/> <!-- numbers 21, 31, ... -->
+	<string id="20130" value="allikat"/> <!-- tens -->
+	<string id="20131" value="allikat"/> <!-- from 11 to 19 -->
+	<string id="20132" value="allikat"/> <!-- from 2 to 4 -->
+	<string id="20133" value="allikat"/> <!-- from 5 to 9 -->
+	<string id="20134" value="allikast"/><!-- "3/10 sources" -->
+	<string id="20135" value="(Allikateta)"/>
+	<string id="20136" value="Umbes"/>
+	<string id="20137" value="Järgmine"/>
+	<string id="20138" value="Q"/>
 	<string id="20200" value="Pühapäev"/>
 	<string id="20201" value="Esmaspäev"/>
 	<string id="20202" value="Teisipäev"/>

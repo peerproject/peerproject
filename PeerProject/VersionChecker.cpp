@@ -143,11 +143,12 @@ BOOL CVersionChecker::ExecuteRequest()
 {
 	m_pRequest.SetURL( Settings.VersionCheck.UpdateCheckURL
 		+ _T("?Version=") + theApp.m_sVersion
-#ifdef _WIN64
-		+ _T("&Platform=Win64")
+#ifdef WIN64
+		+ _T("&Platform=x64")
 #else
 		+ _T("&Platform=Win32")
 #endif	//WIN64
+		+ _T("&Language=") + Settings.General.Language.Left(2)
 	);
 
 	if ( ! m_pRequest.Execute( FALSE ) ) return FALSE;

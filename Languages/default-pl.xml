@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r35 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r36 (Shareaza 2.1.2.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1745,7 +1745,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3047,20 +3047,21 @@
 	<string id="20121" value="Tworzenie"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Tracker wyłączony"/>
-	<string id="20124" value="(Brak źródeł)"/>
-	<string id="20125" value="Zweryfikowano"/>
-	<string id="20126" value="Nie zweryfikowano"/>
-	<string id="20127" value="źródło"/>
-	<string id="20128" value="źródeł"/> <!-- numbers 21,31,... -->
-	<string id="20129" value="źródeł"/> <!-- tens -->
-	<string id="20130" value="źródeł"/> <!-- from 11 to 19 -->
-	<string id="20131" value="źródła"/> <!-- from 2 to 4 -->
-	<string id="20132" value="źródeł"/> <!-- from 5 to 9 -->
-	<string id="20133" value="Niezainteresowany"/>
-	<string id="20134" value="Zdławiony"/>
-	<string id="20135" value="Następny"/>
-	<string id="20136" value="Kolejka"/><!-- ?? "Q" to kolejka? -->
-	<string id="20137" value="źródeł"/> <!-- 3/10 sources -->
+	<string id="20124" value="Zweryfikowano"/>
+	<string id="20125" value="Nie zweryfikowano"/>
+	<string id="20126" value="Niezainteresowany"/>
+	<string id="20127" value="Niezainteresowany"/>
+	<string id="20128" value="źródło"/>
+	<string id="20129" value="źródeł"/> <!-- numbers 21,31,... -->
+	<string id="20120" value="źródeł"/> <!-- tens -->
+	<string id="20131" value="źródeł"/> <!-- from 11 to 19 -->
+	<string id="20132" value="źródła"/> <!-- from 2 to 4 -->
+	<string id="20133" value="źródeł"/> <!-- from 5 to 9 -->
+	<string id="20134" value="źródeł"/> <!-- 3/10 sources -->
+	<string id="20135" value="(Brak źródeł)"/>
+	<string id="20136" value="Zdławiony"/>
+	<string id="20137" value="Następny"/>
+	<string id="20138" value="Kolejka"/><!-- ?? "Q" to kolejka? -->
 	<string id="20200" value="Niedziela"/>
 	<string id="20201" value="Poniedziałek"/>
 	<string id="20202" value="Wtorek"/>

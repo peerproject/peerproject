@@ -209,12 +209,12 @@ BOOL CBTClient::OnRun()
 			Close();
 			return FALSE;
 		}
-		/*else if ( tNow - m_mOutput.tLast > Settings.BitTorrent.LinkPing / 2 && m_pOutput->m_nLength == 0 )
-		{
-			DWORD dwZero = 0;
-			Write( &dwZero, 4 );			// wtf???
-			OnWrite();
-		}*/
+		//else if ( tNow - m_mOutput.tLast > Settings.BitTorrent.LinkPing / 2 && m_pOutput->m_nLength == 0 )
+		//{
+		//	DWORD dwZero = 0;
+		//	Write( &dwZero, 4 );	// wtf?
+		//	OnWrite();
+		//}
 		else if ( tNow - m_tLastKeepAlive > Settings.BitTorrent.LinkPing )
 		{
 			Send( CBTPacket::New( BT_PACKET_KEEPALIVE ) );
@@ -999,8 +999,10 @@ BOOL CBTClient::OnSourceRequest(CBTPacket* /*pPacket*/)
 	CBENode pRoot;
 	CBENode* pPeers = pRoot.Add( "peers" );
 
-	for ( CDownloadSource* pSource = m_pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+	for ( POSITION posSource = m_pDownload->GetIterator(); posSource ; )
 	{
+		CDownloadSource* pSource = m_pDownload->GetNext( posSource );
+
 		if ( pSource->m_pTransfer == NULL ) continue;
 		if ( pSource->m_pTransfer->m_nState < dtsRequesting ) continue;
 

@@ -343,65 +343,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\ED2K.cpp"
+				RelativePath="ED2K.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\HashLib.cpp"
+				RelativePath="HashLib.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MD4.cpp"
+				RelativePath="MD4.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MD4_asm.asm"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-						Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-						Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-						Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-						Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\MD5.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MD5_asm.asm"
+				RelativePath="MD4_asm.asm"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -443,11 +397,11 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\SHA.cpp"
+				RelativePath="MD5.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\SHA_asm.asm"
+				RelativePath="MD5_asm.asm"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -489,7 +443,53 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\stdafx.cpp"
+				RelativePath="SHA.cpp"
+				>
+			</File>
+			<File
+				RelativePath="SHA_asm.asm"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="ml.exe /c /Cx /coff /Zi /nologo /Fo &quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)$(IntDir)\$(InputName).obj&quot;"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="stdafx.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -525,7 +525,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Tiger_asm.asm"
+				RelativePath="Tiger_asm.asm"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -567,7 +567,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\TigerTree.cpp"
+				RelativePath="TigerTree.cpp"
 				>
 			</File>
 		</Filter>
@@ -577,39 +577,39 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\ED2K.h"
+				RelativePath="ED2K.h"
 				>
 			</File>
 			<File
-				RelativePath=".\HashLib.h"
+				RelativePath="HashLib.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MD4.h"
+				RelativePath="MD4.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MD5.h"
+				RelativePath="MD5.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Resource.h"
+				RelativePath="Resource.h"
 				>
 			</File>
 			<File
-				RelativePath=".\SHA.h"
+				RelativePath="SHA.h"
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.h"
+				RelativePath="stdafx.h"
 				>
 			</File>
 			<File
-				RelativePath=".\TigerTree.h"
+				RelativePath="TigerTree.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Utility.hpp"
+				RelativePath="Utility.hpp"
 				>
 			</File>
 		</Filter>
@@ -619,7 +619,7 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\HashLib.rc"
+				RelativePath="HashLib.rc"
 				>
 			</File>
 		</Filter>

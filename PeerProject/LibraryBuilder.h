@@ -66,7 +66,7 @@ public:
 
 	CString		GetCurrent() const;					// Hashing filename
 	size_t		GetRemaining() const;				// Hashing queue size
-	DWORD		GetProgress() const;				// Hashing file progress (0..100%)
+	float		GetProgress() const;				// Hashing file progress (0..100%)
 
 	int			SubmitMetadata(DWORD nIndex, LPCTSTR pszSchemaURI, CXMLElement*& pXML);
 	bool		SubmitCorrupted(DWORD nIndex);
@@ -98,9 +98,9 @@ private:
 
 	mutable CMutex				m_pSection;			// Guarding
 	CFileInfoList				m_pFiles;			// File list
-	bool						m_bPriority;
 	CString						m_sPath;			// Hashing filename
-	DWORD						m_nProgress;		// Hashing file progress (0..100%)
+	bool						m_bPriority;		// Fast/Slow Hash Speed
+	float						m_nProgress;		// Hashing file progress (0.-100.0%)
 	LARGE_INTEGER				m_nLastCall;		// (ticks)
 	LARGE_INTEGER				m_nFreq;			// (Hz)
 	QWORD						m_nReaded;			// (bytes)

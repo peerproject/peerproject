@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r35 -->
+<!-- Translation based on default-en.xml r36 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -124,7 +124,7 @@
 		<button id="ID_LIBRARY_TREE_VIRTUAL" text="Organiseren"/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd.Basic">
-		<button id="ID_SEARCH_DOWNLOAD" text="Bestand downloaden"/>
+		<button id="ID_SEARCH_DOWNLOAD" text="Downloaden"/>
 		<button id="ID_SEARCH_CHAT" text="Chatten"/>
 		<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
@@ -133,7 +133,7 @@
 		<button id="ID_SEARCH_DETAILS" text="Details tonen"/>
 	</toolbar>
 	<toolbar name="CBrowseHostWnd">
-		<button id="ID_SEARCH_DOWNLOAD" text="Bestand downloaden"/>
+		<button id="ID_SEARCH_DOWNLOAD" text="Downloaden"/>
 		<button id="ID_BROWSE_STOP" text="Stoppen"/>
 		<button id="ID_BROWSE_REFRESH" text="Vernieuwen"/>
 		<separator/>
@@ -222,7 +222,7 @@
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details tonen"/>
 	</toolbar>
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Album maken..."/>
@@ -231,7 +231,7 @@
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details tonen"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Openen of afspelen"/>
@@ -240,13 +240,14 @@
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details tonen"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Physical">
 		<button id="ID_LIBRARY_LAUNCH" text="Openen of afspelen"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Toevoegen aan afspeellijst"/>
 		<separator/>
-		<button id="ID_LIBRARY_PROPERTIES" text="Eigenschappen"/>
+		<button id="ID_LIBRARY_PROPERTIES" text="Informatie"/>
+		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
 		<separator/>
 		<button id="ID_LIBRARY_MOVE" text="Verplaatsen"/>
@@ -256,7 +257,7 @@
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details tonen"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Openen of afspelen"/>
@@ -266,30 +267,31 @@
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details tonen"/>
 	</toolbar>
 	<toolbar name="CLibraryFileView.Virtual">
 		<button id="ID_LIBRARY_LAUNCH" text="Openen of afspelen"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Toevoegen aan afspeellijst"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Album afspelen"/>
 		<separator/>
-		<button id="ID_LIBRARY_PROPERTIES" text="Eigenschappen"/>
+		<button id="ID_LIBRARY_PROPERTIES" text="Informatie"/>
+		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Paslaugos Internete"/>
 		<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details tonen"/>
 	</toolbar>
 	<toolbar name="CLibraryCollectionView.Virtual">
-		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Volledig album afspelen"/>
+		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Album afspelen"/>
 		<separator/>
-		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Alle bestanden downloaden"/>
+		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Alle downloaden"/>
 		<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
-		<button id="ID_LIBRARY_PANEL" text="Details bekijken"/>
+		<button id="ID_LIBRARY_PANEL" text="Details tonen"/>
 	</toolbar>
 	<!-- MEDIA WINDOW -->
 	<toolbar name="CMediaFrame.Basic">
@@ -341,7 +343,7 @@
 	</toolbar>
 	 <!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_CONNECT" text="Connect" tip="Connect to IRC"/>
+		<button id="ID_IRC_CONNECT" text="Verbinden" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Disconnect" tip="Disconnect from IRC"/>
 		<rightAlign/>
 		<button id="ID_IRC_SETTINGS" text="Settings" tip="Configure IRC Settings"/>
@@ -369,18 +371,32 @@
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Instellingen"/>
 	</toolbar>
+	<!-- SECURITY WINDOW -->
+	<toolbar name="CSecurityWnd">
+		<button id="ID_SECURITY_ADD" text="Regel Toevoegen"/>
+		<separator/>
+		<button id="ID_SECURITY_EDIT" text="Wijzig Regel"/>
+		<button id="ID_SECURITY_REMOVE" text="Regel Verwijderen"/>
+		<separator/>
+		<button id="ID_SECURITY_MOVE_UP" text="Verplaats Omhoog"/>
+		<button id="ID_SECURITY_MOVE_DOWN" text="Verplaats Omlaag"/>
+		<rightAlign/>
+		<button id="ID_SECURITY_RESET" text="Hits Herinitialiseren"/>
+		<button id="ID_SECURITY_IMPORT" text="Lijst Importeren"/>
+		<button id="ID_SECURITY_EXPORT" text="Lijst Exporteren"/>
+	</toolbar>
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Downloaden"/>
-		<button id="ID_HITMONITOR_SEARCH" text="Heropvragen"/>
 		<separator/>
+		<button id="ID_HITMONITOR_SEARCH" text="Heropvragen"/>
 		<button id="ID_HITMONITOR_PAUSE" text="Pauzeren"/>
-		<button id="ID_SEARCH_CLEAR" text="Wissen"/>
+		<button id="ID_HITMONITOR_CLEAR" text="Wissen"/>
 		<rightAlign/>
-		<label text="Filteren:" tip="Geef een paar woorden op om het resultaat mee te filteren"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filteren:" tip="Geef een paar woorden op om het resultaat mee te filteren"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Meer..."/>
 	</toolbar>
+	<!-- DISCOVERY SERVICES WINDOW -->
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd.Basic">
 		<button id="ID_HOSTCACHE_CONNECT" text="Verbinden met..."/>
@@ -415,10 +431,37 @@
 		<button id="ID_CHAT_DISCONNECT" text="Verbinding verbreken"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
+	<toolbar name="WebServices.ShareMonkey">
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Verkrijg Data"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Vorige"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="Volgende"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PRICES" text="Verkrijg Prijzen"/>
+		<button id="ID_SHAREMONKEY_COMPARE" text="Vergelijken"/>
+		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
+	</toolbar>
+	<toolbar name="WebServices.ShareMonkey.WithSave">
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Verkrijg Data"/>
+		<button id="ID_SHAREMONKEY_SAVE" text="Opslaan"/>
+		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Voorvertoning Opslaan" width="100" checked="true"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Vorige"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="Volgende"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PRICES" text="Verkrijg Prijzen"/>
+		<button id="ID_SHAREMONKEY_COMPARE" text="Vergelijken"/>
+		<button id="ID_SHAREMONKEY_BUY" text="Buy It"/>
+	</toolbar>
+	<toolbar name="WebServices.MusicBrainz">
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Toon Album Resultaten"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Toon Alle Albums"/>
+		<separator/>
+	</toolbar>
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
 	<toolbar name="ImageViewerWnd">
-		<button id="ImageViewer_BestFit" text="Passende grootte"/>
 		<button id="ImageViewer_ActualSize" text="Echte grootte"/>
+		<button id="ImageViewer_BestFit" text="Passende grootte"/>
 		<separator/>
 		<button id="ImageViewer_Refresh" text="Vernieuwen"/>
 		<rightAlign/>
@@ -899,6 +942,7 @@
 	<menu name="CHostCacheWnd">
 		<item id="ID_HOSTCACHE_CONNECT" text="Nu _verbinden"/>
 		<item id="ID_HOSTCACHE_DISCONNECT" text="Verbinding ver_breken"/>
+		<item id="ID_NEIGHBOURS_URI" text="_URI kopiëren"/>
 		<item id="ID_HOSTCACHE_PRIORITY" text="Voorrangs_server"/>
 		<separator/>
 		<item id="ID_HOSTCACHE_REMOVE" text="Gastheer ver_wijderen"/>
@@ -1244,7 +1288,7 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Metadata _downloaden"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
+			<item id="ID_LIBRARY_URI" text="_URI kopiëren"/>
 		</menu>
 		<menu text="_Organiseren">
 			<item id="ID_LIBRARY_RENAME" text="Bestand _hernoemen"/>
@@ -1252,6 +1296,7 @@
 			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschappen"/>
 	</menu>
@@ -1284,6 +1329,7 @@
 			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="Kolommen uit_kiezen..."/>
 		<separator/>
@@ -1312,7 +1358,7 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metadata downloaden"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
+			<item id="ID_LIBRARY_URI" text="_URI kopiëren"/>
 		</menu>
 		<menu text="O_rganiseren">
 			<item id="ID_LIBRARY_RENAME" text="Bestand _hernoemen"/>
@@ -1322,6 +1368,7 @@
 			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschappen"/>
 	</menu>
@@ -1331,7 +1378,7 @@
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Delen"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
+		<item id="ID_LIBRARY_URI" text="_URI kopiëren"/>
 		<item id="ID_LIBRARY_DELETE" text="Ver_wijderen"/>
 		<separator/>
 		<menu text="_Zoeken naar">
@@ -1356,6 +1403,7 @@
 			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
 		</menu>
 		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
+		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_COLUMNS" text="_Kolommen uitkiezen..."/>
 		<separator/>
@@ -1469,7 +1517,13 @@
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
-		<item id="ID_SYSTEM_VERBOSE" text="_Verbose Modus"/>
+		<menu id="ID_SYSTEM_VERBOSE" text="_Verbose Modus">
+			<item id="ID_SYSTEM_VERBOSE_ERROR" text="_Fout"/>
+			<item id="ID_SYSTEM_VERBOSE_WARNING" text="_Waarschuwing"/>
+			<item id="ID_SYSTEM_VERBOSE_NOTICE" text="_Opmerking"/>
+			<item id="ID_SYSTEM_VERBOSE_INFO" text="_Info"/>
+			<item id="ID_SYSTEM_VERBOSE_DEBUG" text="_Debuggen"/>
+		</menu>
 		<item id="ID_SYSTEM_TIMESTAMP" text="_Tijdstempel"/>
 		<separator/>
 		<item id="ID_SYSTEM_COPY" text="_Kopieer" shortcut="Ctrl+C"/>
@@ -1499,13 +1553,18 @@
 			<item id="ID_NETWORK_DISCONNECT" text="Ver_breek verbinding"/>
 			<separator/>
 			<item id="ID_NETWORK_G2" text="_Gnutella2"/>
-			<item id="ID_NETWORK_G1" text="Gnutella_1"/>
+			<item id="ID_NETWORK_G1" text="Gnutella"/>
 			<item id="ID_NETWORK_ED2K" text="_eDonkey"/>
+			<separator/>
+			<item id="ID_VIEW_DISCOVERY" text="_Discovery Services"/>
+			<item id="ID_VIEW_HOSTS" text="_Host Server Cache"/>
 		</menu>
 		<menu text="_Monitor">
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="_Al het verkeer tonen"/>
 			<item id="ID_NEIGHBOURS_VIEW_INCOMING" text="_Binnenkomend verkeer tonen"/>
 			<item id="ID_NEIGHBOURS_VIEW_OUTGOING" text="_Uitgaand verkeer tonen"/>
+			<separator/>
+			<item id="ID_VIEW_TRAFFIC" text="View Advanced Gra_ph"/>
 		</menu>
 	</menu>
 	<!-- SEARCH MONITOR WINDOW -->
@@ -1514,6 +1573,8 @@
 		<separator/>
 		<item id="ID_SEARCHMONITOR_PAUSE" text="_Pauzeer weergave"/>
 		<item id="ID_SEARCHMONITOR_CLEAR" text="_Wis buffer"/>
+		<separator/>
+		<item id="ID_SECURITY_BAN" text="Gebruiker _verbannen"/>
 	</menu>
 	<!-- GRAPH/TRAFFIC WINDOW -->
 	<menu name="CTrafficWnd">
@@ -1611,6 +1672,21 @@
 			<item id="ID_IRC_BANKICKWHY" text="Kick+Ban (reden?)"/>
 		</menu>
 	</menu>
+	<!-- WEBSERVICES -->
+	<menu name="WebServices.List.Menu">
+		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
+		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
+		<item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey"/>
+	</menu>
+	<!-- PLUGIN MENUS -->
+	<menu name="ImageViewer_Context">
+		<item id="ImageViewer_ActualSize" text="_Huidige Grootte"/>
+		<item id="ImageViewer_BestFit" text="_Beste Verhouding"/>
+		<separator/>
+		<item id="ImageViewer_Refresh" text="_Verversen"/>
+		<separator/>
+		<item id="ImageViewer_Close" text="_Sluiten"/>
+	</menu>
 </menus>
 <!-- Documents -->
 <documents>
@@ -1701,8 +1777,8 @@
 		<text align="middle">&#160;- PeerProject's uiterlijk veranderen</text>
 		<newline gap="8"/>
 		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
-		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
-		<text align="middle">&#160;- Update blocklist to avoid bad search results</text>
+		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Beveiligingsfilters</link>
+		<text align="middle">&#160;- Voeg toe/Verwijder filters om je zoekresultaten te verbeteren</text>
 		<newline gap="8"/>
 		<icon res="317" width="16" height="16" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
 		<link target="peer:command:ID_TOOLS_WIZARD" align="middle">SnelStart wizard</link>
@@ -1938,7 +2014,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -2005,6 +2081,12 @@
 		<text>Je kunt dit commando ook gebruiken om help informatie te krijgen over een download. Selecteer
 		simpelweg een download en kies dit commando nogmaals.</text>
 	</document>
+		<document name="DownloadHelp.Seeding">
+			<text format="b">Deze Torrent is aan het Seeden</text>
+			<newline gap="8"/>
+			<text>Shareaza heeft deze complete download geverifieerd, en is het actief aan het
+ 			verspreiden met andere downloaders via BitTorrent. Verspreid het alstublieft ten miste 100% </text>
+	</document>
 	<document name="DownloadHelp.Completed">
 		<text format="b">Download is voltooid</text>
 		<newline gap="8"/>
@@ -2029,8 +2111,7 @@
 		<text>PeerProject heeft deze download automatisch gepauzeerd omdat de harde schijf
 		vol lijkt te zijn, of er kan niet naar het downloadbestand worden geschreven. Als je verder wilt
 		gaan met downloaden, dien je eerst wat ruimte vrij te maken op je harde schijf en/of na te kijken of
-		de map met incomplete bestanden toegankelijk is. Vervolgens kun je de download
-		hervatten.</text>
+		de map met incomplete bestanden toegankelijk is. Vervolgens kun je de download hervatten.</text>
 	</document>
 	<document name="DownloadHelp.Verifying">
 		<text format="b">Download wordt gecontroleerd</text>
@@ -2559,6 +2640,7 @@
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 <controlTips>
 	<tip id="IDC_THROTTLE_MODE" message="In de maximale modus, zal de uploadsnelheid de ingevulde waarde nooit voorbijgaan. Wanneer de modus Ongeveer is, zal de uploadsnelheid rond de ingevulde snelheid schommelen.."/>
+	<tip id="IDC_REGEXP" message="Voer regiere expressies in in perl syntaxis.{n}De zoek woorden kunnen worden gespecificeerd in een voor van &lt;n&gt;, waar n is het aantal tussen 1 en 9. Als je alle zoekwoorden achter elkaar wilt, gebruik &lt;_&gt; opmaak."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Deze instelling heeft geen effect op reeds gestarte downloads, bestanden waarvan men de eDonkeyhash weet en op torrents.{n}Maar toch wordt deze instelling gerespecteerd als je download gepauzeerd is.{n}{n}WAARSCHUWING: Gebruik deze optie alleen als het echt nodig is. Misbruik hiervan kan ervoor zorgen dat u wordt uitgesloten."/>
 </controlTips>
 <!-- Localized Strings -->
@@ -3236,20 +3318,21 @@
 	<string id="20121" value="Maakt..."/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Tracker plat"/>
-	<string id="20124" value="(Geen bronnen)"/>
-	<string id="20125" value="Gecontroleerd"/>
-	<string id="20126" value="Niet decontroleerd"/>
-	<string id="20127" value="bron"/>
-	<string id="20128" value="bronnen"/> <!-- numbers 21, 31, etc. -->
-	<string id="20129" value="bronnen"/> <!-- tens -->
-	<string id="20130" value="bronnen"/> <!-- from 11 to 19 -->
-	<string id="20131" value="bronnen"/> <!-- from 2 to 4 -->
-	<string id="20132" value="bronnen"/> <!-- from 5 to 9 -->
-	<string id="20133" value="Ongeïnteresseerd"/>
-	<string id="20134" value="Versperd"/>
-	<string id="20135" value="Volgende"/>
-	<string id="20136" value="Q"/>
-	<string id="20137" value="bronnen"/> <!-- "1/10 sources" -->
+	<string id="20124" value="Gecontroleerd"/>
+	<string id="20125" value="Niet decontroleerd"/>
+	<string id="20126" value="Ongeïnteresseerd"/>
+	<string id="20127" value="Ongeïnteresseerd"/>
+	<string id="20128" value="bron"/>
+	<string id="20129" value="bronnen"/> <!-- numbers 21, 31, etc. -->
+	<string id="20130" value="bronnen"/> <!-- tens -->
+	<string id="20131" value="bronnen"/> <!-- from 11 to 19 -->
+	<string id="20132" value="bronnen"/> <!-- from 2 to 4 -->
+	<string id="20133" value="bronnen"/> <!-- from 5 to 9 -->
+	<string id="20134" value="bronnen"/> <!-- "1/10 sources" -->
+	<string id="20135" value="(Geen bronnen)"/>
+	<string id="20136" value="Versperd"/>
+	<string id="20137" value="Volgende"/>
+	<string id="20138" value="Q"/>
 	<string id="20200" value="Zondag"/>
 	<string id="20201" value="Maandag"/>
 	<string id="20202" value="Dinsdag"/>

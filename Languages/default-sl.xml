@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r35 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r36 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1838,7 +1838,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3109,19 +3109,21 @@
 	<string id="20121" value="Ustvarjam"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Sledilnik ne deluje"/>
-	<string id="20124" value="(Ni virov)"/>
-	<string id="20125" value="Preverjen"/>
-	<string id="20126" value="Nepreverjen"/>
-	<string id="20127" value="vir"/>
-	<string id="20128" value="virov"/> <!-- numbers 21, 31, etc. -->
-	<string id="20129" value="virov"/> <!-- tens -->
-	<string id="20130" value="virov"/> <!-- from 11 to 19 -->
-	<string id="20131" value="viri"/>  <!-- from 2 to 4 -->
-	<string id="20132" value="virov"/> <!-- from 5 to 9 -->
-	<string id="20133" value="Me ne zanima"/>
-	<string id="20134" value="Zadušen (choked)"/>
-	<string id="20135" value="Naslednji"/>
-	<string id="20136" value="Q"/>
+	<string id="20124" value="Preverjen"/>
+	<string id="20125" value="Nepreverjen"/>
+	<string id="20126" value="Me ne zanima"/>
+	<string id="20127" value="Me ne zanima"/>
+	<string id="20128" value="vir"/>
+	<string id="20129" value="virov"/> <!-- numbers 21, 31,... -->
+	<string id="20130" value="virov"/> <!-- tens -->
+	<string id="20131" value="virov"/> <!-- from 11 to 19 -->
+	<string id="20132" value="viri"/>  <!-- from 2 to 4 -->
+	<string id="20133" value="virov"/> <!-- from 5 to 9 -->
+	<string id="20134" value="virov"/> <!-- 3/10 sources -->
+	<string id="20135" value="(Ni virov)"/>
+	<string id="20136" value="Zadušen (choked)"/>
+	<string id="20137" value="Naslednji"/>
+	<string id="20138" value="Q"/>
 	<string id="20200" value="nedelja"/>
 	<string id="20201" value="ponedeljek"/>
 	<string id="20202" value="torek"/>

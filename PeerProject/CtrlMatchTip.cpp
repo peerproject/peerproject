@@ -310,29 +310,19 @@ void CMatchTipCtrl::LoadFromFile()
 	m_pFile->GetUser( m_sUser );
 
 	if (m_pFile->m_bBusy == 2)
-	{
 		LoadString( m_sBusy, IDS_TIP_FILE_BUSY );
-	}
 	else
-	{
 		m_sBusy.Empty();
-	}
+
 	if (m_pFile->m_bPush == 2)
-	{
 		LoadString( m_sPush, IDS_TIP_FILE_FIREWALLED );
-	}
 	else
-	{
 		m_sPush.Empty();
-	}
+
 	if (m_pFile->m_bStable == 1)
-	{
 		LoadString( m_sUnstable, IDS_TIP_FILE_UNSTABLE );
-	}
 	else
-	{
 		m_sUnstable.Empty();
-	}
 }
 
 void CMatchTipCtrl::LoadFromHit()
@@ -388,9 +378,7 @@ void CMatchTipCtrl::LoadFromHit()
 	if ( m_pSchema != NULL )
 	{
 		if ( m_pHit->m_pXML && m_pSchema->CheckURI( m_pHit->m_sSchemaURI ) )
-		{
 			m_pMetadata.Combine( m_pHit->m_pXML );
-		}
 		m_pMetadata.Clean( 72 );
 	}
 
@@ -723,8 +711,7 @@ void CMatchTipCtrl::OnPaint()
 	}
 
 	pt.y += 5;
-	dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1,
-		m_crBorder, m_crBorder );
+	dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, m_crBorder, m_crBorder );
 	dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 	pt.y += 6;
 
@@ -738,8 +725,7 @@ void CMatchTipCtrl::OnPaint()
 		pt.y += TIP_TEXTHEIGHT;
 
 		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1,
-			m_crBorder, m_crBorder );
+		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, m_crBorder, m_crBorder );
 		dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 		pt.y += 6;
 	}
@@ -767,6 +753,15 @@ void CMatchTipCtrl::OnPaint()
 	pt.x += sz.cx;
 	DrawText( dc, pt, m_sSize );
 	pt.x -= sz.cx;
+	if ( m_sSize.Find( _T(" B") ) < 1 && m_nRating < 2 )
+	{
+		CString sSize;
+		sSize.Format( _T("(%I64i bytes)"), m_pFile->m_nSize );
+		sz = dc.GetTextExtent( sSize );
+		pt.x += ( rc.Width() - sz.cx - 50 );
+		DrawText( dc, pt, sSize );
+		pt.x -= ( rc.Width() - sz.cx - 50 );
+	}
 	pt.y += 16;
 	LoadString( str, IDS_TIP_TYPE );
 	str.Append( _T(": ") );
@@ -774,8 +769,7 @@ void CMatchTipCtrl::OnPaint()
 	sz = dc.GetTextExtent( str );
 	pt.x += sz.cx;
 	DrawText( dc, pt, m_sType );
-	pt.x -= sz.cx;
-	pt.x -= 40;
+	pt.x -= sz.cx + 40;
 	pt.y += 16;
 
 	//Hashes
@@ -783,8 +777,7 @@ void CMatchTipCtrl::OnPaint()
 		m_sBTH.GetLength() || m_sMD5.GetLength() )
 	{
 		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1,
-			m_crBorder, m_crBorder );
+		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, m_crBorder, m_crBorder );
 		dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 		pt.y += 6;
 
@@ -823,8 +816,7 @@ void CMatchTipCtrl::OnPaint()
 	if (m_sBusy.GetLength() || m_sPush.GetLength() || m_sUnstable.GetLength() || m_sQueue.GetLength())
 	{
 		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1,
-			m_crBorder, m_crBorder );
+		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, m_crBorder, m_crBorder );
 		dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 		pt.y += 6;
 
@@ -900,8 +892,7 @@ void CMatchTipCtrl::OnPaint()
 	if ( m_sPartial.GetLength() )
 	{
 		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1,
-			m_crBorder, m_crBorder );
+		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, m_crBorder, m_crBorder );
 		dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 		pt.y += 6;
 
@@ -913,8 +904,7 @@ void CMatchTipCtrl::OnPaint()
 	if ( m_pMetadata.GetCount() )
 	{
 		pt.y += 5;
-		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1,
-			m_crBorder, m_crBorder );
+		dc.Draw3dRect( rc.left + 2, pt.y, rc.Width() - 4, 1, m_crBorder, m_crBorder );
 		dc.ExcludeClipRect( rc.left + 2, pt.y, rc.right - 2, pt.y + 1 );
 		pt.y += 6;
 

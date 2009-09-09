@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r35 -->
+<!-- Translation based on default-en.xml r36 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1983,7 +1983,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3263,20 +3263,21 @@
 	<string id="20121" value="Létrehozás"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Tracker üzemen kívül"/>
-	<string id="20124" value="(Nincs forrás)"/>
-	<string id="20125" value="Ellenőrizve"/>
-	<string id="20126" value="Ellenőrizetlen"/>
-	<string id="20127" value="forrás"/>
-	<string id="20128" value="forrás"/> <!-- numbers 21, 31, ...  -->
-	<string id="20129" value="forrás"/> <!-- tens -->
-	<string id="20130" value="forrás"/> <!-- from 11 to 19 -->
-	<string id="20131" value="forrás"/> <!-- from 2 to 4 -->
-	<string id="20132" value="forrás"/> <!-- from 5 to 9 -->
-	<string id="20133" value="Érdektelen"/>
-	<string id="20134" value="Elakadva"/>
-	<string id="20135" value="Következő"/>
-	<string id="20136" value="S"/>
-	<string id="20137" value="forrás"/> <!-- 3/10 sources, for e.g. -->
+	<string id="20124" value="Ellenőrizve"/>
+	<string id="20125" value="Ellenőrizetlen"/>
+	<string id="20126" value="Érdektelen"/>
+	<string id="20127" value="Érdektelen"/>
+	<string id="20128" value="forrás"/>
+	<string id="20129" value="forrás"/> <!-- numbers 21, 31, ...  -->
+	<string id="20130" value="forrás"/> <!-- tens -->
+	<string id="20131" value="forrás"/> <!-- from 11 to 19 -->
+	<string id="20132" value="forrás"/> <!-- from 2 to 4 -->
+	<string id="20133" value="forrás"/> <!-- from 5 to 9 -->
+	<string id="20134" value="forrás"/> <!-- "3/10 sources" -->
+	<string id="20135" value="(Nincs forrás)"/>
+	<string id="20136" value="Elakadva"/>
+	<string id="20137" value="Következő"/>
+	<string id="20138" value="S"/>
 	<string id="20200" value="Vasárnap"/>
 	<string id="20201" value="Hétfő"/>
 	<string id="20202" value="Kedd"/>

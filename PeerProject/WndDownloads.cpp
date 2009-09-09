@@ -483,8 +483,10 @@ BOOL CDownloadsWnd::Select(CDownload* pSelect)
 			pDownload->m_bSelected = FALSE;
 		}
 
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource != NULL ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 			pSource->m_bSelected = FALSE;
 		}
 	}
@@ -577,8 +579,10 @@ void CDownloadsWnd::Prepare()
 
 		pDownload->m_bRemotePreviewCapable = FALSE;
 
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 			if ( pSource->m_bSelected )
 			{
 				m_bSelAny = TRUE;
@@ -895,8 +899,10 @@ void CDownloadsWnd::OnDownloadsRemotePreview()
 			break;
 
 		// Find first client which supports previews
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 			if ( !pSource->m_bPreviewRequestSent && pSource->IsOnline() )
 			{
 				if ( pSource->m_nProtocol == PROTOCOL_ED2K )
@@ -1184,8 +1190,11 @@ void CDownloadsWnd::OnDownloadsURI()
 
 			pList.AddTail( pFile );
 		}
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 			if ( pSource->m_bSelected )
 			{
 				CPeerProjectFile* pFile = new CPeerProjectFile();
@@ -1367,9 +1376,10 @@ void CDownloadsWnd::OnTransfersConnect()
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource != NULL ; )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
-			CDownloadSource* pNext = pSource->m_pNext;
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 			if ( pSource->m_bSelected && pSource->m_pTransfer == NULL )
 			{
 				if ( pSource->m_nProtocol != PROTOCOL_ED2K )
@@ -1377,16 +1387,11 @@ void CDownloadsWnd::OnTransfersConnect()
 					pSource->m_pDownload->Resume();
 
 					if ( pSource->m_bPushOnly )
-					{
 						pSource->PushRequest();
-					}
 					else if ( CDownloadTransfer* pTransfer = pSource->CreateTransfer() )
-					{
 						pTransfer->Initiate();
-					}
 				}
 			}
-			pSource = pNext;
 		}
 	}
 
@@ -1407,16 +1412,12 @@ void CDownloadsWnd::OnTransfersDisconnect()
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource != NULL ; )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
-			CDownloadSource* pNext = pSource->m_pNext;
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
 			if ( pSource->m_bSelected && pSource->m_pTransfer != NULL )
-			{
 				pSource->m_pTransfer->Close( TRI_TRUE );
-			}
-
-			pSource = pNext;
 		}
 	}
 
@@ -1437,11 +1438,12 @@ void CDownloadsWnd::OnTransfersForget()
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource != NULL ; )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
-			CDownloadSource* pNext = pSource->m_pNext;
-			if ( pSource->m_bSelected ) pSource->Remove( TRUE, TRUE );
-			pSource = pNext;
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
+			if ( pSource->m_bSelected )
+				pSource->Remove( TRUE, TRUE );
 		}
 	}
 
@@ -1462,8 +1464,10 @@ void CDownloadsWnd::OnTransfersChat()
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource != NULL ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 			if ( pSource->m_bSelected )
 			{
 				if ( pSource->m_nProtocol == PROTOCOL_HTTP )						// HTTP chat
@@ -1493,8 +1497,10 @@ void CDownloadsWnd::OnBrowseLaunch()
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource != NULL ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 			if ( pSource->m_bSelected )
 			{
 				if ( pSource->m_nProtocol == PROTOCOL_HTTP || pSource->m_nProtocol == PROTOCOL_ED2K )	// Many HTTP clients support this

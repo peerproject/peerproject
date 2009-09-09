@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r35 -->
+<!-- Translation based on default-en.xml r36 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2003,7 +2003,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3311,20 +3311,21 @@
 	<string id="20121" value="Создается"/>
 	<string id="20122" value="Торрент"/>
 	<string id="20123" value="Трекер не отвечает"/>
-	<string id="20124" value="(нет источников)"/>
-	<string id="20125" value="Проверено"/>
-	<string id="20126" value="Без проверки"/>
-	<string id="20127" value="источник"/>
-	<string id="20128" value="источник"/>   <!-- numbers 21, 31, etc. -->
-	<string id="20129" value="источников"/> <!-- tens -->
-	<string id="20130" value="источников"/> <!-- from 11 to 19 -->
-	<string id="20131" value="источника"/>  <!-- from 2 to 4 -->
-	<string id="20132" value="источников"/> <!-- from 5 to 9 -->
-	<string id="20133" value="Бесполезен"/>
-	<string id="20134" value="Заморожен"/>
-	<string id="20135" value="Следующий"/>
-	<string id="20136" value="Оч."/>
-	<string id="20137" value="источников"/> <!-- "1/10 sources" -->
+	<string id="20124" value="Проверено"/>
+	<string id="20125" value="Без проверки"/>
+	<string id="20126" value="Бесполезен"/>
+	<string id="20127" value="Бесполезен"/>
+	<string id="20128" value="источник"/>
+	<string id="20129" value="источник"/>   <!-- numbers 21, 31, etc. -->
+	<string id="20130" value="источников"/> <!-- tens -->
+	<string id="20131" value="источников"/> <!-- from 11 to 19 -->
+	<string id="20132" value="источника"/>  <!-- from 2 to 4 -->
+	<string id="20133" value="источников"/> <!-- from 5 to 9 -->
+	<string id="20134" value="источников"/> <!-- "1/10 sources" -->
+	<string id="20135" value="(нет источников)"/>
+	<string id="20136" value="Заморожен"/>
+	<string id="20137" value="Следующий"/>
+	<string id="20138" value="Оч."/>
 	<string id="20200" value="Воскресенье"/>
 	<string id="20201" value="Понедельник"/>
 	<string id="20202" value="Вторник"/>

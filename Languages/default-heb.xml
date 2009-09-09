@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 <
-<!-- Translation based on default-en.xml r35 -->
+<!-- Translation based on default-en.xml r36 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2008,7 +2008,7 @@ gap i newline
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -2887,20 +2887,21 @@ gap i newline
 	<string id="20121" value="‪יוצר"/>
 	<string id="20122" value="‪טורנט"/>
 	<string id="20123" value="‪תקלה בגשש"/>
-	<string id="20124" value="‪(ללא מקורות)"/>
-	<string id="20125" value="‪מאומת"/>
-	<string id="20126" value="‪לא מאומת"/>
-	<string id="20127" value=" :מקורות"/>
-	<string id="20128" value=" :מקורות"/> <!-- numbers 21, 31, ... -->
-	<string id="20129" value="‪:מקורות"/> <!-- tens -->
-	<string id="20130" value="‪:מקורות"/> <!-- from 11 to 19 -->
-	<string id="20131" value="‪:מקורות"/> <!-- from 2 to 4 -->
-	<string id="20132" value="‪:מקורות"/> <!-- from 5 to 9 -->
-	<string id="20133" value="‪לא מעוניין"/>
-	<string id="20134" value="‪Choked"/>
-	<string id="20135" value="‪הבא"/>
-	<string id="20136" value="בתור"/>
-	<string id="20137" value="sources"/> <!-- "3/10 sources" -->
+	<string id="20124" value="‪מאומת"/>
+	<string id="20125" value="‪לא מאומת"/>
+	<string id="20126" value="‪לא מעוניין"/>
+	<string id="20127" value="‪לא מעוניין"/>
+	<string id="20128" value=" :מקורות"/>
+	<string id="20129" value=" :מקורות"/> <!-- numbers 21, 31, ... -->
+	<string id="20130" value="‪:מקורות"/> <!-- tens -->
+	<string id="20131" value="‪:מקורות"/> <!-- from 11 to 19 -->
+	<string id="20132" value="‪:מקורות"/> <!-- from 2 to 4 -->
+	<string id="20133" value="‪:מקורות"/> <!-- from 5 to 9 -->
+	<string id="20134" value="‪:מקורות"/> <!-- "3/10 sources" -->
+	<string id="20135" value="‪(ללא מקורות)"/>
+	<string id="20136" value="‪Choked"/>
+	<string id="20137" value="‪הבא"/>
+	<string id="20138" value="בתור"/>
 	<string id="20200" value="‪ראשון"/>
 	<string id="20201" value="‪שני"/>
 	<string id="20202" value="‪שלישי"/>

@@ -346,9 +346,9 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 	// Store if this is a regular update or not
 	bool bRegularUpdate = tNow > m_tTorrentTracker;
 
-	// Check if an update needs to be sent to the tracker. This can either be a
-	// regular update or a request for more sources if the number of known
-	// sources is getting too low.
+	// Check if an update needs to be sent to the tracker.
+	// This can be either a regular update or a request for more sources
+	// if the number of known sources is getting too low.
 	if ( bRegularUpdate
 		|| tNow - m_tTorrentSources > Settings.BitTorrent.DefaultTrackerPeriod )
 	{
@@ -592,10 +592,14 @@ CDownloadTransferBT* CDownloadWithTorrent::CreateTorrentTransfer(CBTClient* pCli
 	CDownloadSource* pSource = NULL;
 
 	Hashes::Guid tmp = transformGuid( pClient->m_oGUID );
-	for ( pSource = GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+	for ( POSITION posSource = GetIterator(); posSource ; )
 	{
+		pSource = GetNext( posSource );
+
 		if ( pSource->m_nProtocol == PROTOCOL_BT &&
 			validAndEqual( pSource->m_oGUID, tmp ) ) break;
+
+		pSource = NULL;
 	}
 
 	if ( pSource == NULL )

@@ -174,8 +174,10 @@ void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, CDownload* pDownload, C
 			pFragment->begin(), pFragment->size(), crNatural, FALSE );
 	}
 
-	for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+	for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 	{
+		CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 		DrawSourceImpl( pDC, prcBar, pSource );
 	}
 
@@ -280,13 +282,9 @@ void CFragmentBar::DrawSourceImpl(CDC* pDC, CRect* prcBar, CDownloadSource* pSou
 	COLORREF crTransfer;
 
 	if ( pSource->m_bReadContent )
-	{
 		crTransfer = crFill[ pSource->GetColor() ];
-	}
 	else
-	{
 		crTransfer = CoolInterface.m_crFragmentComplete;
-	}
 
 	crTransfer = CCoolInterface::CalculateColor( crTransfer, CoolInterface.m_crHighlight, 90 );
 

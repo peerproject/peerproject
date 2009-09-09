@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r35 -->
+<!-- Translation based on default-en.xml r36 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2003,7 +2003,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3310,20 +3310,21 @@
 	<string id="20121" value="Kuriama"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Seklys atsijungęs"/>
-	<string id="20124" value="(Nėra šaltinių)"/>
-	<string id="20125" value="Patikrinta"/>
-	<string id="20126" value="Nepatikrinta"/>
-	<string id="20127" value="šaltinis"/>
-	<string id="20128" value="šaltinis"/>  <!-- numbers 21, 31, ... -->
-	<string id="20129" value="šaltinių"/>  <!-- tens -->
-	<string id="20130" value="šaltinių"/>  <!-- from 11 to 19 -->
-	<string id="20131" value="šaltiniai"/> <!-- from 2 to 4 -->
-	<string id="20132" value="šaltiniai"/> <!-- from 5 to 9 -->
-	<string id="20133" value="Nedomina"/>
-	<string id="20134" value="Apkrautas"/>
-	<string id="20135" value="Sekantis"/>
-	<string id="20136" value="Eil."/>
-	<string id="20137" value="šaltinių"/> <!-- "1/10 sources" -->
+	<string id="20124" value="Patikrinta"/>
+	<string id="20125" value="Nepatikrinta"/>
+	<string id="20126" value="Nedomina"/>
+	<string id="20127" value="Nedomina"/>
+	<string id="20128" value="šaltinis"/>
+	<string id="20129" value="šaltinis"/>  <!-- numbers 21, 31, ... -->
+	<string id="20130" value="šaltinių"/>  <!-- tens -->
+	<string id="20131" value="šaltinių"/>  <!-- from 11 to 19 -->
+	<string id="20132" value="šaltiniai"/> <!-- from 2 to 4 -->
+	<string id="20133" value="šaltiniai"/> <!-- from 5 to 9 -->
+	<string id="20134" value="šaltinių"/> <!-- "1/10 sources" -->
+	<string id="20135" value="(Nėra šaltinių)"/>
+	<string id="20136" value="Apkrautas"/>
+	<string id="20137" value="Sekantis"/>
+	<string id="20138" value="Eil."/>
 	<string id="20200" value="Sekmadienis"/>
 	<string id="20201" value="Pirmadienis"/>
 	<string id="20202" value="Antradienis"/>

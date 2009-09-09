@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
 <!-- Toolbar Definitions -->
@@ -1160,11 +1159,12 @@
 		<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Properties..."/>
-	</menu>
+  </menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open File"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
  		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
+		<item id="ID_DOWNLOADS_FILE_DELETE" text="Delete Files"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent _Properties..."/>
@@ -1243,7 +1243,7 @@
 		<item id="ID_LIBRARY_SHARED_FOLDER" text="_Shared"/>
 		<item id="ID_LIBRARY_REMOVE" text="_Remove"/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
+		<item id="ID_LIBRARY_FOLDERS" text="Share More _Files..."/>
 	</menu>
 	<menu name="CLibraryTree.Physical">
 		<item id="ID_LIBRARY_EXPLORE" text="_Explore"/>
@@ -1253,16 +1253,19 @@
 		<separator/>
 		<item id="ID_LIBRARY_SCAN" text="S_can"/>
 		<item id="ID_LIBRARY_REBUILD" text="Re_build"/>
-		<item id="ID_LIBRARY_FOLDERS" text="Share _Files..."/>
+		<item id="ID_LIBRARY_FOLDERS" text="Share _Folders..."/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="File _Properties"/>
+		<item id="ID_SHELL_MENU" text="S_hell menu"/>
+		<separator/>
+		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="Meta _Properties"/>
 	</menu>
 	<menu name="CLibraryTree.Virtual.Basic">
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Play Album"/>
 		<item id="ID_LIBRARY_FOLDER_DELETE" text="_Delete"/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="_File Properties"/>
-		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="_Album Properties"/>
+		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="_Group Properties"/>
+		<separator/>
+		<item id="ID_LIBRARY_FOLDERS" text="Share More _Files..."/>
 	</menu>
 	<menu name="CLibraryTree.Virtual">
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Play Album"/>
@@ -1271,10 +1274,10 @@
 		<item id="ID_LIBRARY_REBUILD" text="_Rebuild"/>
 		<item id="ID_LIBRARY_EXPORT_COLLECTION" text="_Export Collection..."/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_NEW" text="_New Folder..."/>
+		<item id="ID_LIBRARY_FOLDER_NEW" text="_New Group Folder..."/>
 		<separator/>
-		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="_File Properties"/>
-		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="_Album Properties"/>
+		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="Meta _Properties"/>
+		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="_Group Properties"/>
 	</menu>
 	<!-- LIBRARY VIEWS -->
 	<menu name="CLibraryTileView">
@@ -1719,7 +1722,7 @@
 			<link target="peer:command:ID_TOOLS_DOWNLOAD" format="bu">Click here to start</link>
 			<text>&#160;downloading a new file or torrent link.</text>
 			<newline gap="4" indent="42"/>
-			<text>Or open your completed </text>
+			<text>Or open your default completed </text>
 			<link target="peer:shell:downloads">downloads folder.</link>
 			<newline gap="20" indent="0"/>
 		</group>
@@ -1776,7 +1779,7 @@
 		<newline gap="12" indent="42"/>
 		<icon res="182" width="16" height="16" target="peer:command:ID_TOOLS_SKIN"/><gap size="8"/>
 		<link target="peer:command:ID_TOOLS_SKIN" align="middle" format="bu">Skins</link>
-		<text align="middle">&#160;- Change PeerProject's visual appearance</text>
+		<text align="middle">&#160;- Mix&apos;n&apos;match changes to visual appearances</text>
 		<newline gap="8"/>
 		<icon res="141" width="16" height="16" target="peer:command:ID_VIEW_SECURITY"/><gap size="8"/>
 		<link target="peer:command:ID_VIEW_SECURITY" align="middle">Security Filters</link>
@@ -2018,7 +2021,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">

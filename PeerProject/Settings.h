@@ -575,6 +575,7 @@ public:
 		CString			ServerPort;
 		CString			FloodLimit;
 		CString			ScreenFont;
+		DWORD			FontSize;
 		bool			Updated;
 	} IRC;
 
@@ -854,10 +855,6 @@ protected:
 public:
 	// CSettings configurable user agent (Client Name + Version)
 	CString SmartAgent() const throw() { return theApp.m_sSmartAgent; }
-
-	bool	IsG1Allowed() const { return Gnutella1.EnableToday || !Connection.RequireForTransfers; }
-	bool	IsG2Allowed() const { return Gnutella2.EnableToday || !Connection.RequireForTransfers; }
-	bool	IsEdAllowed() const { return eDonkey.EnableToday || !Connection.RequireForTransfers; }
 };
 
 extern CSettings Settings;

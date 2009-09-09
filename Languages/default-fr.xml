@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r35 -->
+<!-- Translation based on default-en.xml r36 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2014,7 +2014,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3331,20 +3331,21 @@
 	<string id="20121" value="Crée"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Traqueur hors ligne"/>
-	<string id="20124" value="(Pas de sources)"/>
-	<string id="20125" value="Vérifié"/>
-	<string id="20126" value="Non vérifié"/>
-	<string id="20127" value="source"/>
-	<string id="20128" value="sources"/>
-	<string id="20129" value="sources"/> <!-- tens -->
-	<string id="20130" value="sources"/> <!-- from 11 to 19 -->
-	<string id="20131" value="sources"/> <!-- from 2 to 4 -->
-	<string id="20132" value="sources"/> <!-- from 5 to 9 -->
-	<string id="20133" value="N'est pas intéressé"/>
-	<string id="20134" value="Occupé"/>
-	<string id="20135" value="Suivant"/>
-	<string id="20136" value="Q"/>
-	<string id="20137" value="sources"/>
+	<string id="20124" value="Vérifié"/>
+	<string id="20125" value="Non vérifié"/>
+	<string id="20127" value="Pas appuyé"/>
+	<string id="20127" value="N'est pas intéressé"/>
+	<string id="20128" value="source"/>
+	<string id="20129" value="sources"/>
+	<string id="20130" value="sources"/> <!-- tens -->
+	<string id="20131" value="sources"/> <!-- from 11 to 19 -->
+	<string id="20132" value="sources"/> <!-- from 2 to 4 -->
+	<string id="20133" value="sources"/> <!-- from 5 to 9 -->
+	<string id="20134" value="sources"/> <!-- "3/10 sources" -->
+	<string id="20135" value="(Pas de sources)"/>
+	<string id="20136" value="Occupé"/>
+	<string id="20137" value="Suivant"/>
+	<string id="20138" value="Q"/>
 	<string id="20200" value="Dimanche"/>
 	<string id="20201" value="Lundi"/>
 	<string id="20202" value="Mardi"/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Mexican Spanish Skin File -->
 
-<!-- Translation based on default-en.xml r35 -->
+<!-- Translation based on default-en.xml r36 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1911,7 +1911,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3209,20 +3209,21 @@
 	<string id="20121" value="Creando"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Tracker Caído"/>
-	<string id="20124" value="(No Hay Fuentes)"/>
-	<string id="20125" value="Verificado"/>
-	<string id="20126" value="No Verificado"/>
-	<string id="20127" value="fuente"/>
-	<string id="20128" value="fuentes"/> <!-- numbers 21, 31, ... -->
-	<string id="20129" value="fuentes"/> <!-- tens -->
-	<string id="20130" value="fuentes"/> <!-- from 11 to 19 -->
-	<string id="20131" value="fuentes"/> <!-- from 2 to 4 -->
-	<string id="20132" value="fuentes"/> <!-- from 5 to 9 -->
-	<string id="20133" value="Desinteresado"/>
-	<string id="20134" value="Cortado"/>
-	<string id="20135" value="Siguiente"/>
-	<string id="20136" value="C"/>
-	<string id="20137" value="fuentes"/><!-- 3/10 sources, for e.g. -->
+	<string id="20124" value="Verificado"/>
+	<string id="20125" value="No Verificado"/>
+	<string id="20126" value="No admitido"/>
+	<string id="20127" value="Desinteresado"/>
+	<string id="20128" value="fuente"/>
+	<string id="20129" value="fuentes"/> <!-- numbers 21, 31, ... -->
+	<string id="20130" value="fuentes"/> <!-- tens -->
+	<string id="20131" value="fuentes"/> <!-- from 11 to 19 -->
+	<string id="20132" value="fuentes"/> <!-- from 2 to 4 -->
+	<string id="20133" value="fuentes"/> <!-- from 5 to 9 -->
+	<string id="20134" value="fuentes"/> <!-- "3/10 sources" -->
+	<string id="20135" value="(No hay fuentes)"/>
+	<string id="20136" value="Cortado"/>
+	<string id="20137" value="Siguiente"/>
+	<string id="20138" value="C"/>
 	<string id="20200" value="Domingo"/>
 	<string id="20201" value="Lunes"/>
 	<string id="20202" value="Martes"/>

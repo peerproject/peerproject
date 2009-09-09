@@ -34,19 +34,21 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 			SendMessage(hBanner, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBannerBmp);
 			SendDlgItemMessage(hwndDlg, IDC_PROGRESS, PBM_SETRANGE, 0, MAKELPARAM(0,maxPos));
 			SendDlgItemMessage(hwndDlg, IDC_PROGRESS, PBM_SETSTEP, 1, 0);
+
 			if (!ValidateSkin(szFile, hwndDlg)) {
 				SendDlgItemMessage(hwndDlg, IDC_PROGRESS, PBM_SETPOS, maxPos, 0);
-				SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"Please verify the skin is a valid PeerProject Skin and try again.");
+				SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"Please verify this file is a valid PeerProject Skin and try again.");
 				EnableWindow(GetDlgItem(hwndDlg, IDOK), TRUE);
 				EnableWindow(GetDlgItem(hwndDlg, IDC_INSTALL), FALSE);
 			}
-			if (skinType==1) {
+			else if (skinType==1) {
 				SetWindowText(hwndDlg, SKIN_LANG_TITLE);
 				SetWindowText(GetDlgItem(hwndDlg, IDC_CONFIG), L"Configure &Language...");
 			}
 			else {
 				SetWindowText(hwndDlg, SKIN_SKIN_TITLE);
 			}
+
 			{	LOGFONT lf;
 				HFONT hFont;
 				hFont=(HFONT)SendDlgItemMessage(hwndDlg,IDC_NAME,WM_GETFONT,0,0);
@@ -141,12 +143,12 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 					else SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), L"Skin successfully installed.");
 					EnableWindow(GetDlgItem(hwndDlg, IDOK), TRUE);
 					EnableWindow(GetDlgItem(hwndDlg, IDC_INSTALL), FALSE);
-					if (FindWindow(SKIN_RAZA_HWND,NULL)) EnableWindow(GetDlgItem(hwndDlg, IDC_CONFIG), TRUE);
+					if (FindWindow(SKIN_MAIN_HWND,NULL)) EnableWindow(GetDlgItem(hwndDlg, IDC_CONFIG), TRUE);
 					break;
 				}
 				case IDC_CONFIG:
 				{
-					HWND app = FindWindow(SKIN_RAZA_HWND,NULL);
+					HWND app = FindWindow(SKIN_MAIN_HWND,NULL);
 					if (app) {
 						if (!IsZoomed(app)) {
 							PostMessage(app,WM_SYSCOMMAND,SC_RESTORE,0);

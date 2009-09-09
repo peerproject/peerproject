@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r35 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r36 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1822,7 +1822,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -3031,19 +3031,21 @@
 	<string id="20121" value="製作中"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Tracker 斷線了"/>
-	<string id="20124" value="(沒有來源)"/>
-	<string id="20125" value="已驗證"/>
-	<string id="20126" value="未驗證"/>
-	<string id="20127" value="來源"/>
-	<string id="20128" value="來源"/> <!-- numbers 21, 31, etc. -->
-	<string id="20129" value="來源"/> <!-- tens -->
-	<string id="20130" value="來源"/> <!-- from 11 to 19 -->
-	<string id="20131" value="來源"/> <!-- from 2 to 4 -->
-	<string id="20132" value="來源"/> <!-- from 5 to 9 -->
-	<string id="20133" value="沒有需要的部分"/>
-	<string id="20134" value="組塞"/>
-	<string id="20135" value="下一個"/>
-	<string id="20136" value="Q"/>
+	<string id="20124" value="已驗證"/>
+	<string id="20125" value="未驗證"/>
+	<string id="20126" value="沒有需要的部分"/>
+	<string id="20127" value="沒有需要的部分"/>
+	<string id="20128" value="來源"/>
+	<string id="20129" value="來源"/> <!-- numbers 21, 31, etc. -->
+	<string id="20120" value="來源"/> <!-- tens -->
+	<string id="20131" value="來源"/> <!-- from 11 to 19 -->
+	<string id="20132" value="來源"/> <!-- from 2 to 4 -->
+	<string id="20133" value="來源"/> <!-- from 5 to 9 -->
+	<string id="20134" value="來源"/> <!-- 3/10 -->
+	<string id="20135" value="(沒有來源)"/>
+	<string id="20136" value="組塞"/>
+	<string id="20137" value="下一個"/>
+	<string id="20138" value="Q"/>
 	<string id="20200" value="星期日"/>
 	<string id="20201" value="星期一"/>
 	<string id="20202" value="星期二"/>

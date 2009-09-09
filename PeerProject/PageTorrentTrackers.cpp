@@ -112,8 +112,8 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
 	CoolInterface.SetImageListTo( m_wndTrackers, LVSIL_SMALL );
 	m_wndTrackers.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
-	m_wndTrackers.InsertColumn( 0, _T("Tracker"), LVCFMT_LEFT, rc.right - 70, -1 );
-	m_wndTrackers.InsertColumn( 1, _T("Status"), LVCFMT_CENTER, 70, 0 );
+	m_wndTrackers.InsertColumn( 0, _T("Tracker"), LVCFMT_LEFT, rc.right - 74, -1 );
+	m_wndTrackers.InsertColumn( 1, _T("Status"), LVCFMT_CENTER, 74, 0 );
 	m_wndTrackers.InsertColumn( 2, _T("Type"), LVCFMT_CENTER, 0, 0 );
 	Skin.Translate( _T("CTorrentTrackerList"), m_wndTrackers.GetHeaderCtrl() );
 
@@ -134,27 +134,35 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 		pItem.iItem		= m_wndTrackers.InsertItem( &pItem );
 
 		// Display status
-		CString sStatus;
-		switch ( oInfo.GetTrackerStatus( nTracker ) )
+		CString sStatus, sType = _T("Announce");
+		if ( oInfo.GetTrackerAddress( nTracker ).Left(6) == _T("udp://") )
 		{
-		case TRI_UNKNOWN:
-			LoadString( sStatus, IDS_STATUS_UNKNOWN );
-			break;
-		case TRI_FALSE:
-			LoadString( sStatus, IDS_STATUS_TRACKERDOWN );
-			break;
-		case TRI_TRUE:
-			LoadString( sStatus, IDS_STATUS_ACTIVE );
-			break;
+			sType = _T("UDP");
+			// ToDo: Add UDP tracker support
+			LoadString( sStatus, IDS_STATUS_UNSUPPORTED );
 		}
+		else
+		{
+			switch ( oInfo.GetTrackerStatus( nTracker ) )
+			{
+			case TRI_UNKNOWN:
+				LoadString( sStatus, IDS_STATUS_UNKNOWN );
+				break;
+			case TRI_FALSE:
+				LoadString( sStatus, IDS_STATUS_TRACKERDOWN );
+				break;
+			case TRI_TRUE:
+				LoadString( sStatus, IDS_STATUS_ACTIVE );
+				break;
+			}
+		}
+
 		m_wndTrackers.SetItemText( pItem.iItem, 1, sStatus );
 
 		// Display type
-		CString sType;
-		if ( oInfo.IsMultiTracker() )
+		if ( sType != _T("UDP") && oInfo.IsMultiTracker() )
 			sType.Format( _T("Tier %i"), oInfo.GetTrackerTier( nTracker ) );
-		else
-			sType = _T("Announce");
+			
 		m_wndTrackers.SetItemText( pItem.iItem, 2, sType );
 	}
 

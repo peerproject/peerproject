@@ -297,8 +297,10 @@ BOOL CDownloadsCtrl::IsExpandable(CDownload* pDownload)
 	}
 	else
 	{
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 			if ( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting )
 			{
 				return TRUE;
@@ -417,13 +419,17 @@ void CDownloadsCtrl::SelectAll(CDownload* /*pDownload*/, CDownloadSource* /*pSou
 		}
 
 		// If a source is selected, select all sources for that download
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource != NULL ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
-			if ( pSource != NULL && pSource->m_bSelected )
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
+			if ( pSource->m_bSelected )
 			{
-				for ( CDownloadSource* pSource2 = pDownload->GetFirstSource() ; pSource2 != NULL ; pSource2 = pSource2->m_pNext )
+				for ( POSITION posSource2 = pDownload->GetIterator(); posSource2 ; )
 				{
-					if ( pSource2 != NULL ) pSource2->m_bSelected = TRUE;
+					CDownloadSource* pSource2 = pDownload->GetNext( posSource2 );
+
+					pSource2->m_bSelected = TRUE;
 				}
 
 				bSelected = TRUE;
@@ -456,9 +462,12 @@ void CDownloadsCtrl::DeselectAll(CDownload* pExcept1, CDownloadSource* pExcept2)
 
 		if ( pDownload != pExcept1 ) pDownload->m_bSelected = FALSE;
 
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource != NULL ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
-			if ( pSource != pExcept2 ) pSource->m_bSelected = FALSE;
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
+			if ( pSource != pExcept2 )
+				pSource->m_bSelected = FALSE;
 		}
 	}
 
@@ -474,8 +483,13 @@ int CDownloadsCtrl::GetSelectedCount()
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 		if ( pDownload->m_bSelected ) nCount ++;
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
-			if ( pSource->m_bSelected ) nCount ++;
+
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+		{
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
+			if ( pSource->m_bSelected )	nCount ++;
+		}
 	}
 
 	pLock.Unlock();
@@ -538,9 +552,12 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 			}
 		}
 
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
-			if ( Settings.Downloads.ShowSources || ( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting ) )
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
+			if ( Settings.Downloads.ShowSources ||
+				( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting ) )
 			{
 				if ( nScroll > 0 )
 				{
@@ -593,9 +610,12 @@ BOOL CDownloadsCtrl::GetAt(int nSelect, CDownload** ppDownload, CDownloadSource*
 		if ( !pDownload->m_bExpanded || ( pDownload->IsSeeding() && !Settings.General.DebugBTSources ) )
 			continue;
 
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
-			if ( Settings.Downloads.ShowSources || ( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting ) )
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
+			if ( Settings.Downloads.ShowSources ||
+				( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting ) )
 			{
 				if ( nIndex++ == nSelect )
 				{
@@ -650,9 +670,12 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 			continue;
 		}
 
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
-			if ( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting )
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
+			if ( pSource->m_pTransfer != NULL &&
+				 pSource->m_pTransfer->m_nState > dtsConnecting )
 			{
 				rcItem.OffsetRect( 0, ITEM_HEIGHT );
 			}
@@ -687,6 +710,8 @@ void CDownloadsCtrl::MoveSelected(int nDelta)
 
 BOOL CDownloadsCtrl::DropShowTarget(CList< CDownload* >* /*pSel*/, const CPoint& ptScreen)
 {
+	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+
 	CPoint ptLocal( ptScreen );
 	CRect rcClient;
 
@@ -780,8 +805,13 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie || IsFiltered( pDownload ) )
 		{
 			pDownload->m_bSelected = FALSE;
-			for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+
+			for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+			{
+				CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 				pSource->m_bSelected = FALSE;
+			}
 			continue;
 		}
 
@@ -795,9 +825,12 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 		}
 		else
 		{
-			for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource ; pSource = pSource->m_pNext )
+			for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 			{
-				if ( Settings.Downloads.ShowSources || ( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting ) )
+				CDownloadSource* pSource = pDownload->GetNext( posSource );
+
+				if ( Settings.Downloads.ShowSources ||
+					( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting ) )
 				{
 					nHeight ++;
 				}
@@ -825,7 +858,10 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 
 void CDownloadsCtrl::OnPaint()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pTransfersLock( &Transfers.m_pSection, FALSE );
+	if ( ! pTransfersLock.Lock( 250 ) )
+		return;
+
 	CRect rcClient, rcItem;
 	CPaintDC dc( this );
 	DWORD tNow = GetTickCount();
@@ -884,9 +920,12 @@ void CDownloadsCtrl::OnPaint()
 			}
 		}
 
-		for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource && rcItem.top < rcClient.bottom ; pSource = pSource->m_pNext )
+		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
 		{
-			if ( Settings.Downloads.ShowSources || ( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting ) )
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
+			if ( Settings.Downloads.ShowSources ||
+				( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting ) )
 			{
 				if ( nScroll > 0 )
 				{
@@ -964,16 +1003,15 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 
 	pColumn.mask = HDI_FORMAT | HDI_LPARAM;
 
-	//int nTransfers	= pDownload->GetTransferCount();
+	int nTransfers		= pDownload->GetTransferCount();
 	int nSources		= pDownload->GetEffectiveSourceCount();
-	int nTotalSources	= pDownload->GetSourceCount();
+	//int nTotalSources	= pDownload->GetSourceCount();
 	int nRating			= pDownload->GetReviewAverage();
 
-	if ( ( nRating == 0 ) && ( pDownload->GetReviewCount() > 0 ) )
-	{
-		// There are reviews but no ratings- give it an "average" rating
-		nRating = 3;
-	}
+	//if ( nSources < nTransfers ) nSources = nTransfers;
+
+	if ( pDownload->GetReviewCount() > 0 && nRating == 0 )
+		nRating = 3;	// There are reviews but no ratings- give it an "average" rating
 
 	for ( int nColumn = 0 ; m_wndHeader.GetItem( nColumn, &pColumn ) ; nColumn++ )
 	{
@@ -1110,17 +1148,19 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 				else if ( pDownload->m_bVerify == TRI_FALSE )
 					LoadString( strText, IDS_STATUS_UNVERIFIED );
 			}
-			else if ( nTotalSources == 0 )
-				LoadString( strText, IDS_STATUS_NOSOURCES );
-			else if ( nSources == nTotalSources )
+			else if ( nSources == 0 )
 			{
-				LoadSourcesString( strSource,  nSources );
-				strText.Format( _T("(%i %s)"), nSources, strSource );
+				LoadString( strText, IDS_STATUS_NOSOURCES );
+			}
+			else if ( nTransfers == 0 )
+			{
+				LoadSourcesString( strSource, nSources );
+				strText.Format( _T("%i %s"), nSources, strSource );
 			}
 			else
 			{
-				LoadSourcesString( strSource,  nTotalSources, true );
-				strText.Format( _T("(%i/%i %s)"), nSources, nTotalSources, strSource );
+				LoadSourcesString( strSource, nSources, true );
+				strText.Format( _T("%i/%i %s"), nTransfers, nSources, strSource );
 			}
 			break;
 
@@ -1261,17 +1301,13 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 					CString( inet_ntoa( pSource->m_pServerAddress ) ),
 					pSource->m_nServerPort );
 			}
-
-			// Or an active transfer
-			else if ( pSource->m_pTransfer != NULL )
+			else if ( pSource->m_pTransfer != NULL )	// Or an active transfer
 			{
 				strText.Format( _T("%s:%u"),
 					pSource->m_pTransfer->m_sAddress,
 					ntohs( pSource->m_pTransfer->m_pHost.sin_port ) );
 			}
-
-			// Or just queued
-			else
+			else	// Or just queued
 			{
 				strText.Format( _T("%s:%u"),
 					CString( inet_ntoa( pSource->m_pAddress ) ),
@@ -1929,8 +1965,12 @@ void CDownloadsCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 
 				if ( ! pDownload->m_bExpanded )
 				{
-					for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource != NULL ; pSource = pSource->m_pNext )
+					for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+					{
+						CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 						pSource->m_bSelected = FALSE;
+					}
 				}
 
 				Update();
@@ -2000,8 +2040,12 @@ void CDownloadsCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 				if ( ! pDownload->m_bExpanded )
 				{
-					for ( CDownloadSource* pSource = pDownload->GetFirstSource() ; pSource != NULL ; pSource = pSource->m_pNext )
+					for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
+					{
+						CDownloadSource* pSource = pDownload->GetNext( posSource );
+
 						pSource->m_bSelected = FALSE;
+					}
 				}
 
 				Update();
@@ -2032,6 +2076,8 @@ void CDownloadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 		CDownloadSource* pSource;
 		CDownload* pDownload;
 		CRect rcItem;
+
+		CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
 		if ( HitTest( point, &pDownload, &pSource, NULL, &rcItem ) )
 		{
@@ -2122,6 +2168,7 @@ void CDownloadsCtrl::OnBeginDrag(CPoint ptAction)
 	m_pDeselect1 = NULL;
 	m_pDeselect2 = NULL;
 
+	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CList< CDownload* >* pSel = new CList< CDownload* >;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )

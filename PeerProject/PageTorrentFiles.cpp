@@ -153,24 +153,28 @@ void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
 		return;
 
 	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 250 ) )
+	if ( ! oLock.Lock( 500 ) )
 		return;
 
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
 
-	if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
-		pFragFile->SetPriority( pNMListView->iItem, bChecked ? CFragmentedFile::prNormal : CFragmentedFile::prDiscarded );
+	CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile();
+
+	pFragFile->SetPriority( pNMListView->iItem, bChecked ? CFragmentedFile::prNormal : CFragmentedFile::prDiscarded );
 
 	oLock.Unlock();
 
 	// Multiple highlighted items group handling
 	if ( m_wndFiles.GetItemState( pNMListView->iItem, LVIS_SELECTED ) )
 	{
-		int nItem = -1;
-		while ( ( nItem = m_wndFiles.GetNextItem( nItem, LVNI_ALL|LVNI_SELECTED ) ) > -1 )
+		int nItem;
+		while ( ( nItem = m_wndFiles.GetNextItem( nItem, LVNI_SELECTED ) ) > -1 )
 		{
 			if ( m_wndFiles.GetCheck(nItem) != bChecked )
+			{
+				pFragFile->SetPriority( nItem, bChecked ? CFragmentedFile::prNormal : CFragmentedFile::prDiscarded );
 				m_wndFiles.SetCheck(nItem, bChecked ? BST_CHECKED : BST_UNCHECKED );
+			}
 		}
 	}
 }

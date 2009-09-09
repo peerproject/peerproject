@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r35 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r36 --> <!--Machine Translated!-->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1862,7 +1862,7 @@
 		</group>
 		<group id="44">
 			<newline gap="1"/>
-			<icon res="1007"/><gap size="5"/>
+			<icon res="1008"/><gap size="5"/>
 			<link id="ContactMSN"/>
 		</group>
 		<group id="41">
@@ -2599,33 +2599,34 @@
 	<string id="20108" value="Enqueue"/>
 	<string id="20109" value="Queued"/>
 	<string id="20110" value="Unknown"/>
-	<string id="20111" value="Completed"/>
+	<string id="20111" value="완성됨"/>
 	<string id="20112" value="Seeding"/>
 	<string id="20113" value="Moving"/>
 	<string id="20114" value="Paused"/>
 	<string id="20115" value="File Error"/>
 	<string id="20116" value="Can't Move"/>
 	<string id="20117" value="Verifying"/>
-	<string id="20118" value="Active"/>
+	<string id="20118" value="액티브"/>
 	<string id="20119" value="Pending"/>
 	<string id="20120" value="Searching"/>
 	<string id="20121" value="Creating"/>
 	<string id="20122" value="Torrent"/>
 	<string id="20123" value="Tracker Down"/>
-	<string id="20124" value="(No Sources)"/>
-	<string id="20125" value="Verified"/>
-	<string id="20126" value="Unverified"/>
-	<string id="20127" value="소스"/>  <!-- one -->
-	<string id="20128" value="소스 "/> <!-- numbers 21, 31, ... -->
-	<string id="20129" value="소스 "/> <!-- tens -->
-	<string id="20130" value="소스 "/> <!-- from 11 to 19 -->
-	<string id="20131" value="소스 "/> <!-- from 2 to 4 -->
-	<string id="20132" value="소스 "/> <!-- from 5 to 9 -->
-	<string id="20133" value="관심"/>
-	<string id="20134" value="숨막혀"/>
-	<string id="20135" value="다음"/>
-	<string id="20136" value="Q"/>
-	<string id="20137" value="소스 "/> <!-- "3/10 sources" -->
+	<string id="20124" value="Verified"/>
+	<string id="20125" value="Unverified"/>
+	<string id="20126" value="지원되지 않는"/>
+	<string id="20127" value="관심"/>
+	<string id="20128" value="소스"/> <!-- one -->
+	<string id="20129" value="소스"/> <!-- numbers 21, 31, ... -->
+	<string id="20130" value="소스"/> <!-- tens -->
+	<string id="20131" value="소스"/> <!-- from 11 to 19 -->
+	<string id="20132" value="소스"/> <!-- from 2 to 4 -->
+	<string id="20133" value="소스"/> <!-- from 5 to 9 -->
+	<string id="20134" value="소스"/> <!-- "3/10 sources" -->
+	<string id="20125" value="(아니 소스)"/>
+	<string id="20136" value="숨막혀"/>
+	<string id="20137" value="다음"/>
+	<string id="20138" value="Q"/>
 	<string id="20200" value="일요일"/>
 	<string id="20201" value="월요일"/>
 	<string id="20202" value="화요일"/>
