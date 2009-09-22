@@ -451,12 +451,17 @@
 <menus>
 	<!-- SIMPLE POPUP MENU -->
 	<menu name="Simple">
+		<item id="ID_MOVETAB_LEFT" text="Mou a l'esquerra"/>
+		<item id="ID_MOVETAB_RIGHT" text="Mou a la dreta"/>
+		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Tanca la finestra"/>
 	</menu>
 	<!-- CHILD POPUP MENU -->
 	<menu name="Child">
-		<item id="ID_CHILD_MAXIMISE" text="_Pantalla completa"/>
+		<item id="ID_MOVETAB_LEFT" text="Mou a l'esquerra"/>
+		<item id="ID_MOVETAB_RIGHT" text="Mou a la dreta"/>
 		<separator/>
+		<item id="ID_CHILD_MAXIMISE" text="_Pantalla completa"/>
 		<item id="ID_CHILD_RESTORE" text="_Restaura"/>
 		<item id="ID_CHILD_MINIMISE" text="_Minimitza"/>
 		<separator/>
@@ -1147,7 +1152,8 @@
 		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Mostra grups"/>
 		<separator/> -->
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="Moure grup restant "/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="Moure grup dret"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Esborra grup"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="Crea _grup..."/>
 		<separator/>
@@ -3705,7 +3711,7 @@
 		<control/>
 		<control caption="Començar a utilitzar PeerProject..."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Benvingut/uda a PeerProject (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Benvingut/uda a PeerProject (1/6)">
 		<control caption="Per a un rendiment óptim, PeerProject necessita saber un mica més sobre la teva connexió a Internet."/>
 		<control caption="Tria el tipus de la teva connexió a Internet:"/>
 		<control caption="Mòdem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem/SDSL|T1|T3|LAN|OC3"/>
@@ -3713,8 +3719,11 @@
 		<control/>
 		<control caption="i de pujada:"/>
 		<control/>
-		<control caption="Vols configurar automàticament el readreçament de ports amb UPnP?"/>
+		<control caption="Configurar el readreçament de ports amb UPnP?"/>
 		<control/>
+		<control caption="Port: (Any 4-5 digit number)"/>
+		<control/>
+		<control caption="Random"/>
 		<control caption="Estat:"/>
 		<control/>
 	</dialog>

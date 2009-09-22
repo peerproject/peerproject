@@ -125,10 +125,7 @@ BOOL CThumbCache::Load(LPCTSTR pszPath, CImageFile* pImage)
 	}
 
 	if ( ! loaded )
-	{
-		// Remove outdated or bad thumbnail
-		Delete( pszPath );
-	}
+		Delete( pszPath );		// Remove outdated or bad thumbnail
 
 	return loaded;
 }
@@ -147,13 +144,9 @@ void CThumbCache::Delete(LPCTSTR pszPath)
 
 	SQLite::CStatement st( db, _T("DELETE FROM Files WHERE Filename == ?;") );
 	if ( ! st.Bind( 1, sPath ) )
-	{
 		TRACE( _T("CThumbCache::Load : Database error: %s\n"), db.GetLastErrorMessage() );
-	}
 	else
-	{
 		st.Step();
-	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -248,13 +241,12 @@ BOOL CThumbCache::Cache(LPCTSTR pszPath, CImageFile* pImage, BOOL bLoadFromFile)
 		return FALSE;
 
 	// Load from file
-	if ( ! pImage->LoadFromFile( pszPath, FALSE, TRUE ) || ! pImage->EnsureRGB() ||
-		pImage->m_nHeight <= 0 || pImage->m_nWidth <= 0 )
-		return FALSE;
+	if ( ! pImage->LoadFromFile( pszPath, FALSE, TRUE ) || ! pImage->EnsureRGB() )
+		return FALSE;	// Failed
 
 	// Resample to desired size
 	if ( ! pImage->FitTo( THUMB_STORE_SIZE, THUMB_STORE_SIZE ) )
-		return FALSE;
+		return FALSE;	// Failed
 
 	// Save to cache
 	CThumbCache::Store( pszPath, pImage );

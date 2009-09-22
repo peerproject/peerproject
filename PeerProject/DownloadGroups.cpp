@@ -119,6 +119,25 @@ void CDownloadGroups::Remove(CDownloadGroup* pGroup)
 //////////////////////////////////////////////////////////////////////
 // CDownloadGroups move group
 
+void CDownloadGroups::MoveLeft(CDownloadGroup* pGroup)
+{
+	CQuickLock pLock( m_pSection );
+
+	if ( POSITION pos = m_pList.Find( pGroup ) )
+	{
+		if ( pGroup == m_pSuper ) return;
+		if ( pGroup == m_pList.GetAt( m_pList.FindIndex(1) ) ) return;
+
+		POSITION pos2 = pos;
+		m_pList.GetPrev( pos2 );
+		m_pList.InsertBefore( pos2, pGroup );
+		m_pList.RemoveAt( pos );
+
+		Save();
+		Load();
+	}
+}
+
 void CDownloadGroups::MoveRight(CDownloadGroup* pGroup)
 {
 	CQuickLock pLock( m_pSection );
@@ -126,36 +145,21 @@ void CDownloadGroups::MoveRight(CDownloadGroup* pGroup)
 	if ( POSITION pos = m_pList.Find( pGroup ) )
 	{
 		if ( pGroup == m_pSuper ) return;
-		m_pList.AddTail( pGroup );
+		if ( pGroup == m_pList.GetTail() ) return;
+
+		// Simple move to end of list:
+		//m_pList.AddTail( pGroup );
+		//m_pList.RemoveAt( pos );
+
+		POSITION pos2 = pos;
+		m_pList.GetNext( pos2 );
+		m_pList.InsertAfter( pos2, pGroup );
 		m_pList.RemoveAt( pos );
+
+		Save();
+		Load();
 	}
-
-	Save();
-	Load();
 }
-
-// ToDo: Enable Left/Right Group Shift
-//void CDownloadGroups::MoveLeft(CDownloadGroup* pGroup)
-//{
-//	CQuickLock pLock( m_pSection );
-
-//	if ( POSITION pos = m_pList.Find( pGroup ) )
-//	{
-//		if ( pGroup == m_pSuper ) return;
-
-//		if ( POSITION pos2 = m_pList.GetTailPosition() )
-//		{
-//			CDownloadGroup* pGroup2 = m_pList.GetAt( pos2 );
-//			if ( pGroup2 == m_pSuper ) return;
-
-//			m_pList.SetAt( pos, pGroup2 );
-//			m_pList.SetAt( pos2, pGroup );
-//		}
-
-//		Save();
-//		Load();
-//	}
-//}
 
 
 //////////////////////////////////////////////////////////////////////

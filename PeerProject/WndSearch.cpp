@@ -169,13 +169,9 @@ void CSearchWnd::OnDestroy()
 	if ( pSearch && pSearch->m_pSchema == NULL )
 	{
 		if ( m_wndList.m_pSchema != NULL )
-		{
 			Settings.Search.BlankSchemaURI = m_wndList.m_pSchema->GetURI();
-		}
 		else
-		{
 			Settings.Search.BlankSchemaURI.Empty();
-		}
 	}
 
 	SaveState( _T("CSearchWnd") );
@@ -229,9 +225,7 @@ void CSearchWnd::OnSkinChange()
 	m_wndToolBar.Clear();
 
 	if ( ! Skin.CreateToolBar( m_bPanel ? _T("CSearchWnd.Panel") : _T("CSearchWnd.Full"), &m_wndToolBar ) )
-	{
 		Skin.CreateToolBar( _T("CSearchWnd"), &m_wndToolBar );
-	}
 
 	OnSize( SIZE_INTERNAL, 0, 0 );
 	UpdateMessages();
@@ -243,13 +237,9 @@ void CSearchWnd::OnSkinChange()
 void CSearchWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 {
 	if ( m_bContextMenu )
-	{
 		Skin.TrackPopupMenu( _T("CSearchWnd"), point, ID_SEARCH_DOWNLOAD );
-	}
 	else
-	{
 		CBaseMatchWnd::OnContextMenu( pWnd, point );
-	}
 }
 
 void CSearchWnd::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd)
@@ -536,9 +526,7 @@ void CSearchWnd::OnSearchSearch()
 		CQuickLock oLock( m_pMatches->m_pSection );
 
 		if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0x8000 )
-		{
 			for_each( begin(), end(), std::mem_fun_ref( &CManagedSearch::Stop ) );
-		}
 
 		m_oSearches.push_back( pSearch.release() );
 	}
@@ -574,16 +562,14 @@ void CSearchWnd::OnSearchStop()
 {
 	if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0x8000 )
 	{
-		if ( ( !m_bPaused ) && ( !m_bWaitMore ) )
-		{	//Pause search
-			if ( !empty() )
-			{
-				theApp.Message( MSG_DEBUG, _T("Pausing Search") );
-				m_oSearches.back().m_bActive = FALSE;
-				m_bWaitMore = TRUE;
-				m_bUpdate = TRUE;
-				return;
-			}
+		if ( ! m_bPaused && ! m_bWaitMore && ! empty() )
+		{
+			//Pause search
+			theApp.Message( MSG_DEBUG, _T("Pausing Search") );
+			m_oSearches.back().m_bActive = FALSE;
+			m_bWaitMore = TRUE;
+			m_bUpdate = TRUE;
+			return;
 		}
 	}
 
@@ -633,13 +619,9 @@ void CSearchWnd::OnSearchDetails()
 void CSearchWnd::OnSysCommand(UINT nID, LPARAM lParam)
 {
 	if ( ( ( nID & 0xFFF0 ) == SC_MAXIMIZE ) && m_bPanelMode )
-	{
 		PostMessage( WM_COMMAND, ID_SEARCH_SEARCH );
-	}
 	else
-	{
 		CBaseMatchWnd::OnSysCommand( nID, lParam );
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -720,38 +702,22 @@ void CSearchWnd::UpdateMessages(BOOL bActive, CManagedSearch* pManaged)
 		if ( Settings.General.LanguageRTL ) strCaption += _T("\x202B");
 
 		if ( pSearch->m_sSearch.GetLength() )
-		{
 			strCaption += pSearch->m_sSearch;
-		}
 		else if ( pSearch->m_oSHA1 )
-		{
 			strCaption += pSearch->m_oSHA1.toUrn();
-		}
 		else if ( pSearch->m_oTiger )
-		{
 			strCaption += pSearch->m_oTiger.toUrn();
-		}
 		else if ( pSearch->m_oED2K )
-		{
 			strCaption += pSearch->m_oED2K.toUrn();
-		}
 		else if ( pSearch->m_oBTH )
-		{
 			strCaption += pSearch->m_oBTH.toUrn();
-		}
 		else if ( pSearch->m_oMD5 )
-		{
 			strCaption += pSearch->m_oMD5.toUrn();
-		}
 		else if ( pSearch->m_pSchema && pSearch->m_pXML )
-		{
 			strCaption += pSearch->m_pSchema->GetIndexedWords( pSearch->m_pXML->GetFirstElement() );
-		}
 
 		if ( pSearch->m_pSchema )
-		{
 			strCaption += _T(" (") + pSearch->m_pSchema->m_sTitle + _T(")");
-		}
 
 		if ( m_pMatches->m_nFilteredFiles || m_pMatches->m_nFilteredHits )
 		{
@@ -801,21 +767,13 @@ void CSearchWnd::UpdateMessages(BOOL bActive, CManagedSearch* pManaged)
 	if ( m_pMatches->m_nFilteredFiles == 0 )
 	{
 		if ( m_pMatches->m_nFiles > 0 )
-		{
 			m_wndList.SetMessage( IDS_SEARCH_FILTERED, ! m_bPanel );
-		}
 		else if ( m_bPaused )
-		{
 			m_wndList.SetMessage( IDS_SEARCH_NONE, ! m_bPanel );
-		}
 		else if ( GetTickCount() - m_tSearch < 16000 )
-		{
 			m_wndList.SetMessage( IDS_SEARCH_WORKING, FALSE );
-		}
 		else
-		{
 			m_wndList.SetMessage( IDS_SEARCH_EMPTY, ! m_bPanel );
-		}
 	}
 }
 

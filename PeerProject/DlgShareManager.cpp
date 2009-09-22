@@ -75,7 +75,7 @@ BOOL CShareManagerDlg::OnInitDialog()
 
 	CRect rc;
 	m_wndList.GetClientRect( &rc );
-	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
+	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
 	m_wndList.InsertColumn( 0, _T("Folder"), LVCFMT_LEFT, rc.right - GetSystemMetrics( SM_CXVSCROLL ) );
 	m_wndList.SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
 

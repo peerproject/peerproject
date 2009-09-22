@@ -149,7 +149,7 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 	CLiveItem* pDefault = pLiveList.Add( (LPVOID)0 );
 	pDefault->Set( 0, _T("Default Policy") );
 	pDefault->Set( 2, Security.m_bDenyPolicy ? _T("Deny") : _T("Accept") );
-	pDefault->Set( 4, _T("X") );
+	pDefault->Set( 4, _T(" X ") );
 	pDefault->m_nImage = Security.m_bDenyPolicy ? Settings.General.LanguageRTL ? 0 : 2 : 1;
 
 	Security.Expire();

@@ -91,9 +91,6 @@ void CUploadsSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_QUEUES, m_wndQueues);
 	DDX_Control(pDX, IDC_QUEUE_EDIT, m_wndQueueEdit);
 	DDX_Control(pDX, IDC_QUEUE_DELETE, m_wndQueueDelete);
-
-
-
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -108,15 +105,14 @@ BOOL CUploadsSettingsPage::OnInitDialog()
 	rcList.right -= GetSystemMetrics( SM_CXVSCROLL );
 
 	CoolInterface.SetImageListTo( m_wndQueues, LVSIL_SMALL );
-	m_wndQueues.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, rcList.right - 100 - 70 - 70, -1 );
-	m_wndQueues.InsertColumn( 1, _T("Criteria"), LVCFMT_LEFT, 100, 0 );
-	m_wndQueues.InsertColumn( 2, _T("Bandwidth"), LVCFMT_CENTER, 70, 1 );
-	m_wndQueues.InsertColumn( 3, _T("Transfers"), LVCFMT_CENTER, 70, 2 );
-	m_wndQueues.InsertColumn( 4, _T("Order"), LVCFMT_CENTER, 0, 3 );
+	m_wndQueues.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
+	m_wndQueues.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, rcList.right - 104 - 74 - 60, -1 );
+	m_wndQueues.InsertColumn( 1, _T("Criteria"), LVCFMT_LEFT, 104, 0 );
+	m_wndQueues.InsertColumn( 2, _T("Minimum"), LVCFMT_CENTER, 74, 1 );
+	m_wndQueues.InsertColumn( 3, _T("Slots"), LVCFMT_CENTER, 60, 2 );
+	m_wndQueues.InsertColumn( 4, _T("Priority"), LVCFMT_CENTER, 0, 3 );
 	Skin.Translate( _T("CUploadQueueList"), m_wndQueues.GetHeaderCtrl() );
 
-	m_wndQueues.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP, LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 	m_wndQueues.EnableToolTips();
 
 	CLiveList::Sort( &m_wndQueues, 4, FALSE );
@@ -202,7 +198,7 @@ void CUploadsSettingsPage::UpdateQueues()
 		{
 			QWORD nBandwidth = nLimit * pQueue->m_nBandwidthPoints / max( 1, UploadQueues.GetTotalBandwidthPoints( TRUE ) );
 			pItem->Set( 2, Settings.SmartSpeed( nBandwidth ) + '+' );
-			pItem->Format( 3, _T("%i-%i"), pQueue->m_nMinTransfers, pQueue->m_nMaxTransfers );
+			pItem->Format( 3, _T("%i-%i /%i"), pQueue->m_nMinTransfers, pQueue->m_nMaxTransfers, pQueue->m_nCapacity );
 
 			pItem->m_nImage = CoolInterface.ImageForID( ID_VIEW_UPLOADS );
 		}
@@ -443,7 +439,7 @@ void CUploadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 			Settings.Connection.OutSpeed / 4,			//  25%
 			Settings.Connection.OutSpeed / 2,			//  50%
 			( Settings.Connection.OutSpeed * 3 ) / 4,	//  75%
-			( Settings.Connection.OutSpeed * 17 ) / 20,	//  85%
+			( Settings.Connection.OutSpeed * 9 ) / 10,	//  90%
 			Settings.Connection.OutSpeed				// 100%
 		};
 		for ( int nSpeed = 0 ; nSpeed < sizeof( nSpeeds ) / sizeof( DWORD ) ; nSpeed++ )

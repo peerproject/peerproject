@@ -531,7 +531,7 @@
 				>
 			</File>
 			<File
-				RelativePath="resource.h"
+				RelativePath="Resource.h"
 				>
 			</File>
 			<File
@@ -573,15 +573,15 @@
 				>
 			</File>
 			<File
-				RelativePath="Res\Uninstall.ICO"
-				>
-			</File>
-			<File
 				RelativePath="Res\Wizard.bmp"
 				>
 			</File>
 		</Filter>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="TorrentWizard.rc"
+		/>
 	</Globals>
 </VisualStudioProject>

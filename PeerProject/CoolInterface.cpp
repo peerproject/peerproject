@@ -79,21 +79,15 @@ void CCoolInterface::Clear()
 
 	m_pImageMap16.RemoveAll();
 	if ( m_pImages16.m_hImageList )
-	{
 		m_pImages16.DeleteImageList();
-	}
 
 	m_pImageMap32.RemoveAll();
 	if ( m_pImages32.m_hImageList )
-	{
 		m_pImages32.DeleteImageList();
-	}
 
 	m_pImageMap48.RemoveAll();
 	if ( m_pImages48.m_hImageList )
-	{
 		m_pImages48.DeleteImageList();
-	}
 
 	if ( m_bmBuffer.m_hObject != NULL )
 	{
@@ -266,42 +260,42 @@ void CCoolInterface::SetIcon(HICON hIcon, BOOL bMirrored, BOOL bBigIcon, CWnd* p
 	}
 }
 
-/*BOOL CCoolInterface::AddImagesFromToolbar(UINT nIDToolBar, COLORREF crBack)
-{
-	VERIFY( ConfirmImageList() );
+//BOOL CCoolInterface::AddImagesFromToolbar(UINT nIDToolBar, COLORREF crBack)
+//{
+//	VERIFY( ConfirmImageList() );
 
-	CBitmap pBmp;
-	if ( ! pBmp.LoadBitmap( nIDToolBar ) ) return FALSE;
-	int nBase = m_pImages.Add( &pBmp, crBack );
-	pBmp.DeleteObject();
+//	CBitmap pBmp;
+//	if ( ! pBmp.LoadBitmap( nIDToolBar ) ) return FALSE;
+//	int nBase = m_pImages.Add( &pBmp, crBack );
+//	pBmp.DeleteObject();
 
-	if ( nBase < 0 ) return FALSE;
+//	if ( nBase < 0 ) return FALSE;
 
-	BOOL bRet = FALSE;
-	HRSRC hRsrc = FindResource( AfxGetResourceHandle(), MAKEINTRESOURCE(nIDToolBar), RT_TOOLBAR );
-	if ( hRsrc )
-	{
-		HGLOBAL hGlobal = LoadResource( AfxGetResourceHandle(), hRsrc );
-		if ( hGlobal )
-		{
-			TOOLBAR_RES* pData = (TOOLBAR_RES*)LockResource( hGlobal );
-			if ( pData )
-			{
-				for ( WORD nItem = 0 ; nItem < pData->wItemCount ; nItem++ )
-				{
-					if ( pData->items()[ nItem ] != ID_SEPARATOR )
-					{
-						m_pImageMap.SetAt( pData->items()[ nItem ], nBase );
-						nBase++;
-					}
-				}
-				bRet = TRUE;
-			}
-			FreeResource( hGlobal );
-		}
-	}
-	return bRet;
-}*/
+//	BOOL bRet = FALSE;
+//	HRSRC hRsrc = FindResource( AfxGetResourceHandle(), MAKEINTRESOURCE(nIDToolBar), RT_TOOLBAR );
+//	if ( hRsrc )
+//	{
+//		HGLOBAL hGlobal = LoadResource( AfxGetResourceHandle(), hRsrc );
+//		if ( hGlobal )
+//		{
+//			TOOLBAR_RES* pData = (TOOLBAR_RES*)LockResource( hGlobal );
+//			if ( pData )
+//			{
+//				for ( WORD nItem = 0 ; nItem < pData->wItemCount ; nItem++ )
+//				{
+//					if ( pData->items()[ nItem ] != ID_SEPARATOR )
+//					{
+//						m_pImageMap.SetAt( pData->items()[ nItem ], nBase );
+//						nBase++;
+//					}
+//				}
+//				bRet = TRUE;
+//			}
+//			FreeResource( hGlobal );
+//		}
+//	}
+//	return bRet;
+//}
 
 BOOL CCoolInterface::ConfirmImageList()
 {

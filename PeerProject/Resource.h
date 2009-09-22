@@ -307,7 +307,6 @@
 #define IDC_CHAT_FILTER             	1086
 #define IDC_CHAT_CENSOR             	1087
 #define IDC_SHARE_FOLDERS           	1088
-#define IDC_WIZARD_UPLOAD_SPEED     	1089
 #define IDC_SHARE_REMOVE            	1090
 #define IDC_AUTO_CONNECT            	1091
 #define IDC_TITLE                   	1092
@@ -352,7 +351,6 @@
 #define IDC_MESSAGE_2               	1131
 #define IDC_MESSAGE_3               	1132
 #define IDC_MESSAGE_4               	1133
-#define IDC_WIZARD_AUTO             	1134
 #define IDC_URL_MAGNET              	1135
 #define IDC_URL_GNUTELLA            	1136
 #define IDC_URL_HOST                	1137
@@ -623,7 +621,6 @@
 #define IDC_SCHEDULER_LIMITED_NETWORKS  1403
 #define IDC_SCHEDULER_ALLOWHUB      	1404
 #define IDC_SCHEDULER_DISPLAY       	1405
-#define IDC_WIZARD_DOWNLOAD_SPEED   	1406
 #define IDC_LINKS_SPIN              	1407
 #define IDC_MINIMUM_VALUE           	1408
 #define IDC_G2_ALWAYS               	1409
@@ -678,8 +675,6 @@
 #define IDC_RULE_TYPE               	1458
 #define IDC_DESCRIPTION_0           	1459
 #define IDC_DESCRIPTION_1           	1460
-#define IDC_WIZARD_CONNECT          	1461
-#define IDC_WIZARD_STARTUP          	1462
 #define IDC_PROFILE_NICK            	1463
 #define IDC_OUT_TOTAL               	1464
 #define IDC_LIN_LIMIT               	1465
@@ -735,7 +730,6 @@
 #define IDC_HIGHLIGHT_NEW           	1515
 #define IDC_SHARE_ADD               	1516
 #define IDC_CLOSE_MODE              	1517
-#define IDC_WIZARD_UPNP             	1518
 #define IDC_WEB                     	1519
 #define IDC_TEMPLATES_EXPLAIN       	1520
 #define IDC_TEMPLATES_DELETE        	1521
@@ -801,13 +795,21 @@
 #define IDC_LABEL_SUB_ACTION        	1583
 #define IDC_SUB_EVENT               	1584
 #define IDC_PROGRESS_SUB_EVENT      	1585
-#define IDC_REGEXP                  	1591
-#define IDS_FILTER_DELETE_CONFIRM   	7000
+#define IDC_REGEXP                  	1590
+#define IDC_WIZARD_AUTO             	1592
+#define IDC_WIZARD_DOWNLOAD_SPEED   	1593
+#define IDC_WIZARD_UPLOAD_SPEED     	1594
+#define IDC_WIZARD_CONNECT          	1595
+#define IDC_WIZARD_STARTUP          	1596
+#define IDC_WIZARD_UPNP             	1597
+#define IDC_WIZARD_PORT             	1598
+#define IDC_WIZARD_RANDOM             	1599
 #define IDS_SCHEMAS                 	7001
 #define IDS_MULTIPLE_VALUES         	7002
 #define IDS_MULTIPLE                	7003
 #define IDS_FILTER_REPLACE          	7004
 #define IDS_FILTER_NO_NAME          	7005
+#define IDS_FILTER_DELETE_CONFIRM   	7006
 #define IDS_COLLECTION_WIZARD_NOTVALID  7100
 #define IDS_COLLECTION_WIZARD_NOCUSTOM  7101
 #define IDS_TEMPLATE_DELETE         	7102
@@ -1626,10 +1628,14 @@
 #define ID_CHILD_CLOSE              	32870
 #define ID_CHILD_MAXIMISE           	32871
 #define ID_CHILD_MINIMISE           	32872
-#define ID_TRANSFERS_CHAT           	32876
+#define ID_MOVETAB_LEFT              	32873
+#define ID_MOVETAB_RIGHT              	32874
+#define ID_MOVETAB_FIRST              	32875
+#define ID_MOVETAB_LAST              	32876
 #define ID_UPLOADS_CHAT             	32877
-#define ID_SEARCH_CLEAR             	32878
-#define ID_TRAY_OPEN                	32879
+#define ID_TRANSFERS_CHAT           	32878
+#define ID_SEARCH_CLEAR             	32879
+#define ID_TRAY_OPEN                	32880
 #define ID_NETWORK_AUTO_CLOSE       	32881
 #define ID_UPLOADS_AUTO_CLEAR       	32882
 #define ID_LIBRARY_SEARCH           	32883
@@ -1925,7 +1931,7 @@
 #define _APS_3D_CONTROLS            	1
 #define _APS_NEXT_RESOURCE_VALUE    	325
 #define _APS_NEXT_COMMAND_VALUE         33322
-#define _APS_NEXT_CONTROL_VALUE     	1590
+#define _APS_NEXT_CONTROL_VALUE     	1600
 #define _APS_NEXT_SYMED_VALUE       	104
 #endif
 #endif

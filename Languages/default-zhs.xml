@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r36 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r37 (Shareaza r6092) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -420,12 +420,17 @@
 <menus>
 	<!-- SIMPLE POPUP MENU -->
 	<menu name="Simple">
+		<item id="ID_MOVETAB_LEFT" text="左移(_L)"/>
+		<item id="ID_MOVETAB_RIGHT" text="右移(_R)"/>
+		<separator/>
 		<item id="ID_CHILD_CLOSE" text="关闭窗口(_C)"/>
 	</menu>
 	<!-- CHILD POPUP MENU -->
 	<menu name="Child">
-		<item id="ID_CHILD_MAXIMISE" text="全屏(_F)"/>
+		<item id="ID_MOVETAB_LEFT" text="左移(_L)"/>
+		<item id="ID_MOVETAB_RIGHT" text="右移(_R)"/>
 		<separator/>
+		<item id="ID_CHILD_MAXIMISE" text="全屏(_F)"/>
 		<item id="ID_CHILD_RESTORE" text="重置(_R)"/>
 		<item id="ID_CHILD_MINIMISE" text="最小化(_M)"/>
 		<separator/>
@@ -1089,13 +1094,14 @@
 	<menu name="CDownloadTabBar">
 		<item id="ID_DOWNLOAD_GROUP_OPEN" text="打开 Folder(_F)"/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全部续传(_R)"/>
+		<item id="ID_DOWNLOAD_GROUP_RESUME" text="全部续传(_E)"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="全部暂停(_A)"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="全部清除(_C)"/>
 		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="显示群组(_S)"/>
 		<separator/> -->
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="移动组左(_L)"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="移动组权(_R)"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="移除群组(_G)"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="新建群组(_N)..."/>
 		<separator/>
@@ -3548,7 +3554,7 @@
 		<control/>
 		<control caption="开始使用 PeerProject。"/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="欢迎使用 PeerProject (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="欢迎使用 PeerProject (1/6)">
 		<control caption="为获得最佳效果，PeerProject 必须知道您的互联网连接。"/>
 		<control caption="如果您知道互联网连接速度，请在下面做出选择:"/>
 		<control caption="|调制解调器拨号|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
@@ -3556,9 +3562,12 @@
 		<control/>
 		<control caption="状态:"/>
 		<control/>
-		<control caption="Automatically setup port-forwarding using Plug'n'Play?"/>
+		<control caption="Do auto port-forwarding with Plug&apos;n&apos;Play?"/>
 		<control/>
-		<control caption="Status:"/>
+		<control caption="Port: &#160; (任何4-5位数)"/>
+		<control/>
+		<control caption="随机"/>
+		<control caption="身份:"/>
 		<control/>
 	</dialog>
 	<dialog name="CWizardSharePage" cookie="StStStSyBuBuSt" caption="欢迎使用 PeerProject (2/6)">

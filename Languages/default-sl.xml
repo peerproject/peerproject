@@ -411,12 +411,17 @@
 <menus>
 	<!-- SIMPLE POPUP MENU -->
 	<menu name="Simple">
+		<item id="ID_MOVETAB_LEFT" text="Move Tab _Left"/>
+		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Right"/>
+		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
 	<!-- CHILD POPUP MENU -->
 	<menu name="Child">
-		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
+		<item id="ID_MOVETAB_LEFT" text="Move Tab _Left"/>
+		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Right"/>
 		<separator/>
+		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
 		<item id="ID_CHILD_RESTORE" text="_Restore"/>
 		<item id="ID_CHILD_MINIMISE" text="_Minimise"/>
 		<separator/>
@@ -1086,7 +1091,8 @@
 		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="Po_kaži skupine"/>
 		<separator/> -->
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="Move Group _Left"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="Move Group R_ight"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Ods_trani skupino"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="N_ova skupina..."/>
 		<separator/>
@@ -3547,7 +3553,7 @@
 		<control/>
 		<control caption="Kako začeti uporabljati program PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Dobrodošli v PeerProject (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Dobrodošli v PeerProject (1/6)">
 		<control caption="For optimum performance, PeerProject needs to know a little bit about your connection to the Internet."/>
 		<control caption="Če poznate hitrost vaše povezave v medmrežje, jo izberite iz spodnjega seznama:"/>
 		<control caption="|Modemska povezava|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)| Kabelski modem/SDSL| T1| T3| LAN| OC3"/>
@@ -3557,6 +3563,9 @@
 		<control/>
 		<control caption="Vendar bom nastavil usmerjanje vrat (UPnP) za PeerProject?"/>
 		<control/>
+		<control caption="Port: &#160; (Any 4-5 digit number)"/>
+		<control/>
+		<control caption="Random"/>
 		<control caption="Status"/>
 		<control/>
 	</dialog>

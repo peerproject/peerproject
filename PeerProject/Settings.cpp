@@ -32,7 +32,17 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-#define SMART_VERSION	59
+#define SMART_VERSION	1000	// 1.0.0.0
+
+#define KiloByte		( 1024 )
+#define MegaByte		( KiloByte * 1024 )
+//#define GigaByte		( MegaByte * 1024 )
+#define KiloFloat		( 1024.0f )
+#define MegaFloat		( KiloFloat * 1024.0f )
+#define GigaFloat		( MegaFloat * 1024.0f )
+#define TeraFloat		( GigaFloat * 1024.0f )
+#define PetaFloat		( TeraFloat * 1024.0f )
+#define ExaFloat		( PetaFloat * 1024.0f )
 
 CSettings Settings;
 
@@ -42,20 +52,20 @@ CSettings Settings;
 CSettings::CSettings()
 {
 	// Reset 'live' values.
+	Live.FirstRun					= false;
+	Live.AutoClose					= false;
+	Live.AdultWarning				= false;
+	Live.MaliciousWarning			= false;
+	Live.DiskSpaceStop				= false;
 	Live.DiskSpaceWarning			= false;
 	Live.DiskWriteWarning			= false;
-	Live.AdultWarning				= false;
-	Live.QueueLimitWarning			= false;
-	Live.DefaultED2KServersLoaded	= false;
-	Live.DonkeyServerWarning		= false;
 	Live.UploadLimitWarning			= false;
-	Live.DiskSpaceStop				= false;
-	Live.BandwidthScale				= 100;
+	Live.QueueLimitWarning			= false;
+	Live.DonkeyServerWarning		= false;
+	Live.DefaultED2KServersLoaded	= false;
 	Live.LoadWindowState			= false;
-	Live.AutoClose					= false;
-	Live.FirstRun					= false;
+	Live.BandwidthScale				= 100;
 	Live.LastDuplicateHash			= L"";
-	Live.MaliciousWarning			= false;
 }
 
 CSettings::~CSettings()
@@ -78,7 +88,7 @@ void CSettings::Load()
 	Add( _T(""), _T("DiskSpaceWarning"), &General.DiskSpaceWarning, 500, 1, 5, 2000 , _T(" M") );
 	Add( _T(""), _T("HashIntegrity"), &General.HashIntegrity, true );
 	Add( _T(""), _T("ItWasLimited"), &General.ItWasLimited, false, true );
-	Add( _T(""), _T("MaxDebugLogSize"), &General.MaxDebugLogSize, 10*1024*1024, 1024*1024, 0, 100, _T(" MB") );
+	Add( _T(""), _T("MaxDebugLogSize"), &General.MaxDebugLogSize, 10*MegaByte, MegaByte, 0, 100, _T(" MB") );
 	Add( _T(""), _T("MinTransfersRest"), &General.MinTransfersRest, 15, 1, 1, 100, _T(" ms") );
 	Add( _T(""), _T("MultiUser"), &General.MultiUser, false, true );
 	Add( _T(""), _T("Path"), &General.Path );
@@ -150,12 +160,12 @@ void CSettings::Load()
 	Add( _T("Library"), _T("LastUsedView"), &Library.LastUsedView );
 	Add( _T("Library"), _T("LowPriorityHashing"), &Library.LowPriorityHashing, 4, 1, 1, 50, _T(" MB/s") );
 	Add( _T("Library"), _T("MarkFileAsDownload"), &Library.MarkFileAsDownload, true );
-	Add( _T("Library"), _T("MaxMaliciousFileSize"), &Library.MaxMaliciousFileSize, 1024, 1, 1024, 1024*5, _T(" B") );
+	Add( _T("Library"), _T("MaxMaliciousFileSize"), &Library.MaxMaliciousFileSize, KiloByte, 1, KiloByte, 10*KiloByte, _T(" B") );
 	Add( _T("Library"), _T("PanelSize"), &Library.PanelSize, 120, 1, 0, 1024, _T(" px") );
 	Add( _T("Library"), _T("PreferAPETags"), &Library.PreferAPETags, true );
 	Add( _T("Library"), _T("PrivateTypes"), &Library.PrivateTypes, _T("|vbs|js|jc!|fb!|bc!|!ut|dbx|part|partial|pst|reget|getright|pif|lnk|sd|url|wab|m4p|infodb|racestats|svn|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|") );
 	Add( _T("Library"), _T("QueryRouteSize"), &Library.QueryRouteSize, 20, 1, 8, 24 );
-	Add( _T("Library"), _T("SafeExecute"), &Library.SafeExecute, _T("|3gp|7z|aac|ace|ape|asf|avi|bmp|cbr|cbz|co|collection|flv|gif|iso|jpg|jpeg|lit|mid|mov|m1v|m2v|m3u|m4a|mkv|mp2|mp3|mp4|mpa|mpe|mpg|mpeg|ogg|ogm|pdf|png|psk|qt|rar|rm|sks|swf|rtf|tar|tgz|torrent|txt|wav|zip|") );
+	Add( _T("Library"), _T("SafeExecute"), &Library.SafeExecute, _T("|3gp|7z|aac|ace|ape|asf|avi|bmp|cbr|cbz|co|collection|divx|flv|gif|iso|jpg|jpeg|lit|mid|mov|m1v|m2v|m3u|m4a|mka|mkv|mp2|mp3|mp4|mpa|mpe|mpg|mpeg|ogg|ogm|pdf|png|psk|qt|rar|rm|sks|swf|rtf|tar|tgz|torrent|txt|wav|zip|") );
 	Add( _T("Library"), _T("ScanAPE"), &Library.ScanAPE, true );
 	Add( _T("Library"), _T("ScanASF"), &Library.ScanASF, true );
 	Add( _T("Library"), _T("ScanAVI"), &Library.ScanAVI, true );
@@ -208,7 +218,7 @@ void CSettings::Load()
 	Add( _T("Search"), _T("HideSearchPanel"), &Search.HideSearchPanel, false );
 	Add( _T("Search"), _T("HighlightNew"), &Search.HighlightNew, true );
 	Add( _T("Search"), _T("LastSchemaURI"), &Search.LastSchemaURI );
-	Add( _T("Search"), _T("MaxPreviewLength"), &Search.MaxPreviewLength, 20*1024, 1024, 1, 4096, _T(" KB") );
+	Add( _T("Search"), _T("MaxPreviewLength"), &Search.MaxPreviewLength, 20*KiloByte, KiloByte, 1, 5*KiloByte, _T(" KB") );
 	Add( _T("Search"), _T("MonitorFilter"), &Search.MonitorFilter );
 	Add( _T("Search"), _T("MonitorQueue"), &Search.MonitorQueue, 128, 1, 1, 4096 );
 	Add( _T("Search"), _T("MonitorSchemaURI"), &Search.MonitorSchemaURI, CSchema::uriAudio );
@@ -273,7 +283,7 @@ void CSettings::Load()
 	Add( _T("Connection"), _T("OutSpeed"), &Connection.OutSpeed, 768, 15000 );
 	Add( _T("Connection"), _T("RandomPort"), &Connection.RandomPort, false );
 	Add( _T("Connection"), _T("RequireForTransfers"), &Connection.RequireForTransfers, true );
-	Add( _T("Connection"), _T("SendBuffer"), &Connection.SendBuffer, 2048, 1, 64, 10240 );
+	Add( _T("Connection"), _T("SendBuffer"), &Connection.SendBuffer, 2*KiloByte, 1, 64, 10*KiloByte );
 	Add( _T("Connection"), _T("SkipWANIPSetup"), &Connection.SkipWANIPSetup, false );
 	Add( _T("Connection"), _T("SkipWANPPPSetup"), &Connection.SkipWANPPPSetup, false );
 	Add( _T("Connection"), _T("SlowConnect"), &Connection.SlowConnect, false );
@@ -321,12 +331,12 @@ void CSettings::Load()
 	Add( _T("Gnutella"), _T("HostCacheSize"), &Gnutella.HostCacheSize, 1024, 1, 32, 16384, _T(" hosts") );
 	Add( _T("Gnutella"), _T("HostCacheView"), &Gnutella.HostCacheView, PROTOCOL_ED2K );
 	Add( _T("Gnutella"), _T("MaxHits"), &Gnutella.MaxHits, 64, 1, 0, 4096, _T(" files") );
-	Add( _T("Gnutella"), _T("MaximumPacket"), &Gnutella.MaximumPacket, 64 * 1024, 1024, 32, 256, _T(" KB") );
+	Add( _T("Gnutella"), _T("MaximumPacket"), &Gnutella.MaximumPacket, 64*KiloByte, KiloByte, 32, 256, _T(" KB") );
 	Add( _T("Gnutella"), _T("MaxResults"), &Gnutella.MaxResults, 150, 1, 1, 300, _T(" hits") );
 	Add( _T("Gnutella"), _T("RouteCache"), &Gnutella.RouteCache, 600, 60, 1, 120, _T(" m") );
 	Add( _T("Gnutella"), _T("SpecifyProtocol"), &Gnutella.SpecifyProtocol, true );
 
-	Add( _T("Gnutella1"), _T("ClientMode"), &Gnutella1.ClientMode, MODE_AUTO, 1, MODE_AUTO, MODE_HUB );	// MODE_LEAF
+	Add( _T("Gnutella1"), _T("ClientMode"), &Gnutella1.ClientMode, MODE_LEAF, 1, MODE_AUTO, MODE_HUB );	// ToDo: MODE_LEAF only until Ultrapeer updated/validated
 	Add( _T("Gnutella1"), _T("DefaultTTL"), &Gnutella1.DefaultTTL, 3, 1, 1, 3 );
 	Add( _T("Gnutella1"), _T("EnableAlways"), &Gnutella1.EnableAlways, true );
 	Add( _T("Gnutella1"), _T("EnableGGEP"), &Gnutella1.EnableGGEP, true );
@@ -387,7 +397,7 @@ void CSettings::Load()
 	Add( _T("Gnutella2"), _T("UdpGlobalThrottle"), &Gnutella2.UdpGlobalThrottle, 1, 1, 0, 10000 );
 	Add( _T("Gnutella2"), _T("UdpInExpire"), &Gnutella2.UdpInExpire, 30000, 1000, 1, 300, _T(" s") );
 	Add( _T("Gnutella2"), _T("UdpInFrames"), &Gnutella2.UdpInFrames, 256, 1, 16, 2048 );
-	Add( _T("Gnutella2"), _T("UdpMTU"), &Gnutella2.UdpMTU, 500, 1, 16, 10240 );
+	Add( _T("Gnutella2"), _T("UdpMTU"), &Gnutella2.UdpMTU, 500, 1, 16, 10*KiloByte );
 	Add( _T("Gnutella2"), _T("UdpOutExpire"), &Gnutella2.UdpOutExpire, 26000, 1000, 1, 300, _T(" s") );
 	Add( _T("Gnutella2"), _T("UdpOutFrames"), &Gnutella2.UdpOutFrames, 256, 1, 16, 2048 );
 	Add( _T("Gnutella2"), _T("UdpOutResend"), &Gnutella2.UdpOutResend, 6000, 1000, 1, 300, _T(" s") );
@@ -399,7 +409,7 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("ExtendedRequest"), &eDonkey.ExtendedRequest, 2, 1, 0, 2 );
 	Add( _T("eDonkey"), _T("FastConnect"), &eDonkey.FastConnect, false );
 	Add( _T("eDonkey"), _T("ForceHighID"), &eDonkey.ForceHighID, true );
-	Add( _T("eDonkey"), _T("FrameSize"), &eDonkey.FrameSize, 10240, 1024, 1, 500, _T(" KB") );
+	Add( _T("eDonkey"), _T("FrameSize"), &eDonkey.FrameSize, 10*KiloByte, KiloByte, 1, 500, _T(" KB") );
 	Add( _T("eDonkey"), _T("GetSourcesThrottle"), &eDonkey.GetSourcesThrottle, 8*60*60*1000, 60*60*1000, 1, 24, _T(" h") );
 	Add( _T("eDonkey"), _T("LargeFileSupport"), &eDonkey.LargeFileSupport, true );
 	Add( _T("eDonkey"), _T("LearnNewServers"), &eDonkey.LearnNewServers, false );
@@ -418,7 +428,7 @@ void CSettings::Load()
 	Add( _T("eDonkey"), _T("QueueRankThrottle"), &eDonkey.QueueRankThrottle, 2*60*1000, 1000, 60, 600, _T(" s") );
 	Add( _T("eDonkey"), _T("ReAskTime"), &eDonkey.ReAskTime, 29*60, 60, 20, 360, _T(" m") );
 	Add( _T("eDonkey"), _T("RequestPipe"), &eDonkey.RequestPipe, 3, 1, 1, 10 );
-	Add( _T("eDonkey"), _T("RequestSize"), &eDonkey.RequestSize, 180*1024/2, 1024, 10, 1000, _T(" KB") );
+	Add( _T("eDonkey"), _T("RequestSize"), &eDonkey.RequestSize, 90*KiloByte, KiloByte, 10, 1000, _T(" KB") );
 	Add( _T("eDonkey"), _T("SendPortServer"), &eDonkey.SendPortServer, false );
 	Add( _T("eDonkey"), _T("ServerListURL"), &eDonkey.ServerListURL, _T("http://peerates.net/servers.php") );
 	Add( _T("eDonkey"), _T("ServerWalk"), &eDonkey.ServerWalk, true );
@@ -448,9 +458,9 @@ void CSettings::Load()
 	Add( _T("BitTorrent"), _T("LinkTimeout"), &BitTorrent.LinkTimeout, 180*1000, 1000, 10, 60*10, _T(" s") );
 	Add( _T("BitTorrent"), _T("PreferenceBTSources"), &BitTorrent.PreferenceBTSources, true );
 	Add( _T("BitTorrent"), _T("RandomPeriod"), &BitTorrent.RandomPeriod, 30*1000, 1000, 1, 60*5, _T(" s") );
-	Add( _T("BitTorrent"), _T("RequestLimit"), &BitTorrent.RequestLimit, 128*1024, 1024, 1, 1024, _T(" KB") );
+	Add( _T("BitTorrent"), _T("RequestLimit"), &BitTorrent.RequestLimit, 128*KiloByte, KiloByte, 1, KiloByte, _T(" KB") );
 	Add( _T("BitTorrent"), _T("RequestPipe"), &BitTorrent.RequestPipe, 4, 1, 1, 10 );
-	Add( _T("BitTorrent"), _T("RequestSize"), &BitTorrent.RequestSize, 16*1024, 1024, 8, 128, _T(" KB") );
+	Add( _T("BitTorrent"), _T("RequestSize"), &BitTorrent.RequestSize, 16*KiloByte, KiloByte, 8, 128, _T(" KB") );
 	Add( _T("BitTorrent"), _T("SourceExchangePeriod"), &BitTorrent.SourceExchangePeriod, 10, 1, 1, 60*5, _T(" m") );
 	Add( _T("BitTorrent"), _T("TorrentCodePage"), &BitTorrent.TorrentCodePage, 0, 1, 0, 9999999 );
 	Add( _T("BitTorrent"), _T("TorrentCreatorPath"), &BitTorrent.TorrentCreatorPath );
@@ -461,9 +471,9 @@ void CSettings::Load()
 	Add( _T("Downloads"), _T("AllowBackwards"), &Downloads.AllowBackwards, true );
 	Add( _T("Downloads"), _T("AutoClear"), &Downloads.AutoClear, false );
 	Add( _T("Downloads"), _T("AutoExpand"), &Downloads.AutoExpand, false );
-	Add( _T("Downloads"), _T("BufferSize"), &Downloads.BufferSize, 80*1024, 1024, 0, 512, _T(" KB") );
-	Add( _T("Downloads"), _T("ChunkSize"), &Downloads.ChunkSize, 512*1024, 1024, 0, 10240, _T(" KB") );
-	Add( _T("Downloads"), _T("ChunkStrap"), &Downloads.ChunkStrap, 128*1024, 1024, 0, 10240, _T(" KB") );
+	Add( _T("Downloads"), _T("BufferSize"), &Downloads.BufferSize, 80*KiloByte, KiloByte, 0, 512, _T(" KB") );
+	Add( _T("Downloads"), _T("ChunkSize"), &Downloads.ChunkSize, 512*KiloByte, KiloByte, 0, 10*KiloByte, _T(" KB") );
+	Add( _T("Downloads"), _T("ChunkStrap"), &Downloads.ChunkStrap, 128*KiloByte, KiloByte, 0, 10*KiloByte, _T(" KB") );
 	Add( _T("Downloads"), _T("ClearDelay"), &Downloads.ClearDelay, 60*1000, 1000, 1, 30*60, _T(" s") );
 	Add( _T("Downloads"), _T("ConnectThrottle"), &Downloads.ConnectThrottle, 250, 1, 0, 5000, _T(" ms") );
 	Add( _T("Downloads"), _T("CollectionPath"), &Downloads.CollectionPath );
@@ -498,7 +508,7 @@ void CSettings::Load()
 	Add( _T("Downloads"), _T("SortColumns"), &Downloads.SortColumns, true );
 	Add( _T("Downloads"), _T("SortSources"), &Downloads.SortSources, true );
 	Add( _T("Downloads"), _T("SourcesWanted"), &Downloads.SourcesWanted, 500, 1, 0, 2000 );
-	Add( _T("Downloads"), _T("SparseThreshold"), &Downloads.SparseThreshold, 8*1024, 1024, 0, 256, _T(" MB") );
+	Add( _T("Downloads"), _T("SparseThreshold"), &Downloads.SparseThreshold, 8*KiloByte, KiloByte, 0, 256, _T(" MB") );
 	Add( _T("Downloads"), _T("StaggardStart"), &Downloads.StaggardStart, false );
 	Add( _T("Downloads"), _T("StartDroppingFailedSourcesNumber"), &Downloads.StartDroppingFailedSourcesNumber, 20, 1, 0, 50 );
 	Add( _T("Downloads"), _T("StarveGiveUp"), &Downloads.StarveGiveUp, 3, 1, 3, 120, _T(" h") );
@@ -519,7 +529,7 @@ void CSettings::Load()
 	Add( _T("Uploads"), _T("DynamicPreviews"), &Uploads.DynamicPreviews, true );
 	Add( _T("Uploads"), _T("FairUseMode"), &Uploads.FairUseMode, false );
 	Add( _T("Uploads"), _T("FilterMask"), &Uploads.FilterMask, 0xFFFFFFFD );
-	Add( _T("Uploads"), _T("FreeBandwidthFactor"), &Uploads.FreeBandwidthFactor, 15, 1, 0, 100, _T("%") );
+	Add( _T("Uploads"), _T("FreeBandwidthFactor"), &Uploads.FreeBandwidthFactor, 10, 1, 0, 100, _T("%") );
 	Add( _T("Uploads"), _T("FreeBandwidthValue"), &Uploads.FreeBandwidthValue, 20*128, 128, 0, 4096, _T(" Kb/s") );
 	Add( _T("Uploads"), _T("HubUnshare"), &Uploads.HubUnshare, true );
 	Add( _T("Uploads"), _T("MaxPerHost"), &Uploads.MaxPerHost, 2, 1, 1, 64 );
@@ -528,7 +538,7 @@ void CSettings::Load()
 	Add( _T("Uploads"), _T("QueuePollMax"), &Uploads.QueuePollMax, 120*1000, 1000, 30, 180, _T(" s") );
 	Add( _T("Uploads"), _T("QueuePollMin"), &Uploads.QueuePollMin, 45*1000, 1000, 0, 60, _T(" s") );
 	Add( _T("Uploads"), _T("RewardQueuePercentage"), &Uploads.RewardQueuePercentage, 10, 1, 0, 99, _T("%") );
-	Add( _T("Uploads"), _T("RotateChunkLimit"), &Uploads.RotateChunkLimit, 1024*1024, 1024, 0, 10*1024, _T(" KB") );
+	Add( _T("Uploads"), _T("RotateChunkLimit"), &Uploads.RotateChunkLimit, MegaByte, KiloByte, 0, 10*KiloByte, _T(" KB") );
 	Add( _T("Uploads"), _T("ShareHashset"), &Uploads.ShareHashset, true );
 	Add( _T("Uploads"), _T("ShareMetadata"), &Uploads.ShareMetadata, true );
 	Add( _T("Uploads"), _T("SharePartials"), &Uploads.SharePartials, true );
@@ -640,13 +650,7 @@ void CSettings::Load()
 	SmartUpgrade();
 
 	//if ( General.Running )
-	// ToDo: Detect PeerProject restarted after a crash
-
-	// Set current networks
-	Gnutella1.EnableToday		= Gnutella1.EnableAlways;
-	Gnutella2.EnableToday		= Gnutella2.EnableAlways;
-	eDonkey.EnableToday			= eDonkey.EnableAlways;
-	BitTorrent.EnableToday		= BitTorrent.EnableAlways;
+	// ToDo: Detect PeerProject restarted after a crash ?
 
 	// Make sure some needed paths exist
 	CreateDirectory( General.Path + _T("\\Data") );
@@ -658,10 +662,16 @@ void CSettings::Load()
 
 	// Set interface
 	Interface.LowResMode		= ! ( GetSystemMetrics( SM_CYSCREEN ) > 600 );
-	if ( Live.FirstRun ) Search.AdvancedPanel = ! Interface.LowResMode;
+	if ( Live.FirstRun )
+		Search.AdvancedPanel	= ! Interface.LowResMode;
 
-	// Reset certain network variables if bandwidth is too low
-	// Set ed2k and G1
+	// Set current networks
+	Gnutella1.EnableToday		= Gnutella1.EnableAlways;
+	Gnutella2.EnableToday		= Gnutella2.EnableAlways;
+	eDonkey.EnableToday			= eDonkey.EnableAlways;
+	BitTorrent.EnableToday		= BitTorrent.EnableAlways;
+
+	// Reset certain ed2k/G1 network variables if bandwidth is too low
 	if ( GetOutgoingBandwidth() < 2 )
 	{
 		eDonkey.EnableToday		= false;
@@ -669,6 +679,10 @@ void CSettings::Load()
 		Gnutella1.EnableToday	= false;
 		Gnutella1.EnableAlways	= false;
 	}
+
+	// ToDo: Temporary until G1 ultrapeer has been updated
+	//	Gnutella1.ClientMode = MODE_LEAF;
+
 	// Set number of torrents
 	BitTorrent.DownloadTorrents = min( BitTorrent.DownloadTorrents, ( GetOutgoingBandwidth() / 2u + 2u ) );
 
@@ -683,9 +697,6 @@ void CSettings::Load()
 		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 		// Downloads.IncompletePath = General.Path + _T("\\Incomplete");
 	}
-
-	// Temporary until G1 ultrapeer has been updated
-	Gnutella1.ClientMode = MODE_LEAF;
 
 	// UPnP is not supported on servers
 	if ( theApp.m_bIsServer )
@@ -802,21 +813,18 @@ void CSettings::SmartUpgrade()
 	{
 		// 'SmartUpgrade' setting updates: 
 		// Change any settings that were mis-set in previous versions
-		// Prior to Version 60 is obsolete Shareaza code
+		// Starts at 1000, Prior to Version 60 is obsolete Shareaza code
 
 	//	Uploads.SharePartials = true;
 
 	//	if ( General.SmartVersion < 20 )
 	//	{
-	//		Gnutella2.UdpOutResend			= 6000;
-	//		Gnutella2.UdpOutExpire			= 26000;
-	//		Library.TigerHeight 			= 9;
-
-	//		Downloads.AutoExpand			= false;
-
-	//		Uploads.MaxPerHost				= 2;
-	//		Uploads.ShareTiger				= true;
-
+	//		Gnutella2.UdpOutResend		= 6000;
+	//		Gnutella2.UdpOutExpire		= 26000;
+	//		Downloads.AutoExpand		= false;
+	//		Uploads.MaxPerHost			= 2;
+	//		Uploads.ShareTiger			= true;
+	//		Library.TigerHeight 		= 9;
 	//		Library.PrivateTypes.erase( _T("nfo") );
 
 	//		// Remove dots
@@ -831,68 +839,58 @@ void CSettings::SmartUpgrade()
 
 	//	if ( General.SmartVersion < 21 )
 	//	{
-	//		Library.ThumbSize				= 96;
-	//		Library.SourceExpire			= 86400;
-	//		Gnutella1.TranslateTTL			= 2;
+	//		Library.ThumbSize			= 96;
+	//		Library.SourceExpire		= 86400;
+	//		Gnutella1.TranslateTTL		= 2;
 	//	}
 
 	//	if ( General.SmartVersion < 24 )
 	//	{
-	//		General.CloseMode				= 0;
-
-	//		Connection.TimeoutConnect		= 16000;
-	//		Connection.TimeoutHandshake		= 45000;
-
-	//		Downloads.RetryDelay			= 10*60000;
-	//		Uploads.FilterMask				= 0xFFFFFFFD;
+	//		General.CloseMode			= 0;
+	//		Connection.TimeoutConnect	= 16000;
+	//		Connection.TimeoutHandshake	= 45000;
+	//		Downloads.RetryDelay		= 10*60000;
+	//		Uploads.FilterMask			= 0xFFFFFFFD;
 	//	}
 
 	//	if ( General.SmartVersion < 25 )
 	//	{
-	//		Connection.TimeoutTraffic		= 140000;
-	//		Gnutella2.NumPeers				= 6;
+	//		Connection.TimeoutTraffic	= 140000;
+	//		Gnutella2.NumPeers			= 6;
 	//	}
 
 	//	if ( General.SmartVersion < 28 )
-	//	{
-	//		BitTorrent.Endgame		= true;		// Endgame on
-	//	}
+	//		BitTorrent.Endgame			= true;		// Endgame on
 
 	//	if ( General.SmartVersion < 29 )
 	//	{
-	//		Downloads.MinSources	= 1;		// Lower Max value- should reset it in case
-	//		Downloads.StarveTimeout = 2700;		// Increased due to ed2k queues (Tripping too often)
-	//		Gnutella2.RequeryDelay	= 4*3600;	// Longer delay between sending same search to G2 hub
+	//		Downloads.MinSources		= 1;		// Lower Max value- should reset it in case
+	//		Downloads.StarveTimeout		= 2700;		// Increased due to ed2k queues (Tripping too often)
+	//		Gnutella2.RequeryDelay		= 4*3600;	// Longer delay between sending same search to G2 hub
 	//	}
 
 	//	if ( General.SmartVersion < 30 )
-	//	{
-	//		BitTorrent.RequestSize	= 16384;	// Other BT clients have changed this value (undocumented)
-	//	}
+	//		BitTorrent.RequestSize		= 16384;	// Other BT clients have changed this value (undocumented)
 
 	//	if ( General.SmartVersion < 31 )
 	//	{
-	//		Downloads.SearchPeriod			= 120000;
-	//		Gnutella1.MaximumTTL			= 10;
-	//		Gnutella2.QueryGlobalThrottle	= 125;
+	//		Downloads.SearchPeriod		= 120000;
+	//		Gnutella1.MaximumTTL		= 10;
+	//		Gnutella2.QueryGlobalThrottle = 125;
 
-	//		Uploads.QueuePollMin	= 45000;	// Lower values for re-ask times- a dynamic multiplier
-	//		Uploads.QueuePollMax	= 120000;	// Is now applied based on Q# (from 1x to 5x)
-	//		eDonkey.PacketThrottle	= 500;		// Second throttle added for finer control
+	//		Uploads.QueuePollMin		= 45000;	// Lower values for re-ask times- a dynamic multiplier
+	//		Uploads.QueuePollMax		= 120000;	// Is now applied based on Q# (from 1x to 5x)
+	//		eDonkey.PacketThrottle		= 500;		// Second throttle added for finer control
 	//	}
 
 	//	if ( General.SmartVersion < 32 )
-	//	{
 	//		theApp.WriteProfileString( _T("Interface"), _T("SchemaColumns.audio"), _T("(EMPTY)") );
-	//	}
 
 	//	if ( General.SmartVersion < 33 )
-	//	{
 	//		RegDeleteKey( HKEY_CURRENT_USER, _T("Software\\PeerProject\\PeerProject\\Plugins\\LibraryBuilder") );
-	//	}
 
 	//	if ( General.SmartVersion < 34 )
-	//		BitTorrent.LinkPing				= 120 * 1000;
+	//		BitTorrent.LinkPing			= 120 * 1000;
 
 	//	if ( General.SmartVersion < 35 )
 	//	{
@@ -902,7 +900,7 @@ void CSettings::SmartUpgrade()
 
 	//	if ( General.SmartVersion < 36 )
 	//	{
-	//		//Library.VirtualFiles	= true;		// Virtual files (stripping) on
+	//		//Library.VirtualFiles = true;		// Virtual files (stripping) on
 	//		Library.VirtualFiles = false;
 	//	}
 
@@ -914,9 +912,7 @@ void CSettings::SmartUpgrade()
 	//	}
 
 	//	if ( General.SmartVersion < 39 )
-	//	{
 	//		General.RatesInBytes = true;
-	//	}
 
 	//	if ( General.SmartVersion < 40 )
 	//	{
@@ -938,14 +934,10 @@ void CSettings::SmartUpgrade()
 	//	}
 
 	//	if ( General.SmartVersion < 43 )
-	//	{
 	//		eDonkey.MetAutoQuery = true;
-	//	}
 
 	//	if ( General.SmartVersion < 44 )
-	//	{
 	//		BitTorrent.AutoSeed = true;
-	//	}
 
 	//	if ( General.SmartVersion < 45 )
 	//	{
@@ -978,9 +970,7 @@ void CSettings::SmartUpgrade()
 	//	}
 
 	//	if ( General.SmartVersion < 49 )
-	//	{
 	//		eDonkey.SendPortServer = false;
-	//	}
 
 	//	if ( General.SmartVersion < 50 )
 	//	{
@@ -1100,9 +1090,7 @@ void CSettings::SmartUpgrade()
 	//	}
 
 	//	if ( General.SmartVersion < 56 )
-	//	{
 	//		WebServices.BitziXML = _T("http://bitzi.com/rdf/(SHA1)");
-	//	}
 
 	//	if ( General.SmartVersion < 57 )
 	//	{
@@ -1112,9 +1100,7 @@ void CSettings::SmartUpgrade()
 	//	}
 
 	//	if ( General.SmartVersion < 58 )
-	//	{
 	//		eDonkey.LargeFileSupport = true;
-	//	}
 
 	//	if ( General.SmartVersion < 59 )
 	//	{
@@ -1123,10 +1109,10 @@ void CSettings::SmartUpgrade()
 	//		Fonts.FontSize = 11;
 	//	}
 
-	//	// BEGIN PEERPROJECT UPDATES:
 	//	if ( General.SmartVersion < 60 )
-	//	{
-	//	}
+	//		SetDefault( &eDonkey.ServerListURL );
+
+	//	// BEGIN PEERPROJECT UPDATES @ 60 (1000):
 	}
 
 	General.SmartVersion = SMART_VERSION;
@@ -1255,13 +1241,9 @@ BOOL CSettings::LoadWindow(LPCTSTR pszName, CWnd* pWindow)
 	}
 
 	if ( Live.LoadWindowState && nShowCmd == SW_SHOWMINIMIZED )
-	{
 		pWindow->PostMessage( WM_SYSCOMMAND, SC_MINIMIZE );
-	}
 	else if ( ! Live.LoadWindowState && nShowCmd == SW_SHOWMAXIMIZED )
-	{
 		pWindow->PostMessage( WM_SYSCOMMAND, SC_MAXIMIZE );
-	}
 
 	return TRUE;
 }
@@ -1443,12 +1425,12 @@ const CString CSettings::SmartSpeed(QWORD nVolume, int nVolumeUnits, bool bTrunc
 
 	// Kilobits - KiloBytes
 	case 2:
-		strVolume.Format( _T("%.2lf K%s"), nVolume / 1024.0f, strUnit );
+		strVolume.Format( _T("%.2lf K%s"), nVolume / KiloFloat, strUnit );
 		break;
 
 	// Megabits - MegaBytes
 	case 3:
-		strVolume.Format( _T("%.2lf M%s"), nVolume / pow( 1024.0f, 2 ), strUnit );
+		strVolume.Format( _T("%.2lf M%s"), nVolume / MegaFloat, strUnit );
 		break;
 
 	default:
@@ -1479,45 +1461,45 @@ const CString CSettings::SmartVolume(QWORD nVolume, int nVolumeUnits, bool bTrun
 	// nVolume is in bits - Bytes
 	case bits:
 	case Bytes:
-		if ( nVolume < 1024 )						// bits - Bytes
+		if ( nVolume < KiloByte )					// bits - Bytes
 		{
 			strVolume.Format( _T("%I64i %s"), nVolume, strUnit );
 			break;
 		}
-		else if ( nVolume < 10 * 1024 )				// 10 Kilobits - KiloBytes
+		else if ( nVolume < 10*KiloByte )				// 10 Kilobits - KiloBytes
 		{
 			if ( !bTruncate )
 				strTruncate = _T("%.2f");
-			strVolume.Format( strTruncate + _T(" K%s"), nVolume / 1024.0f, strUnit );
+			strVolume.Format( strTruncate + _T(" K%s"), nVolume / KiloFloat, strUnit );
 			break;
 		}
 
 		// Convert to KiloBytes and drop through to next case
-		nVolume /= 1024;
+		nVolume /= KiloByte;
 
 	// nVolume is in Kilobits - Kilobytes
 	case Kilobits:
 	case KiloBytes:
-		if ( nVolume < 1024 )						// Kilo
+		if ( nVolume < KiloByte )					// Kilo
 			strVolume.Format( _T("%I64i K%s"), nVolume, strUnit );
-		else if ( nVolume < pow( 1024.0f, 2 ) )		// Mega
+		else if ( nVolume < MegaFloat )				// Mega
 		{
 			if ( !bTruncate )
 				strTruncate = _T("%.2f");
-			strVolume.Format( strTruncate + _T(" M%s"), nVolume / 1024.0f, strUnit );
+			strVolume.Format( strTruncate + _T(" M%s"), nVolume / KiloFloat, strUnit );
 		}
 		else
 		{
 			if ( !bTruncate )
 				strTruncate = _T("%.2f");
-			if ( nVolume < pow( 1024.0f, 3 ) )		// Giga
-				strVolume.Format( strTruncate + _T(" G%s"), nVolume / pow( 1024.0f, 2 ), strUnit );
-			else if ( nVolume < pow( 1024.0f, 4 ) )	// Tera
-				strVolume.Format( strTruncate + _T(" T%s"), nVolume / pow( 1024.0f, 3 ), strUnit );
-			else if ( nVolume < pow( 1024.0f, 5 ) )	// Peta
-				strVolume.Format( strTruncate + _T(" P%s"), nVolume / pow( 1024.0f, 4 ), strUnit );
+			if ( nVolume < GigaFloat )				// Giga
+				strVolume.Format( strTruncate + _T(" G%s"), nVolume / MegaFloat, strUnit );
+			else if ( nVolume < TeraFloat )			// Tera
+				strVolume.Format( strTruncate + _T(" T%s"), nVolume / GigaFloat, strUnit );
+			else if ( nVolume < PetaFloat )			// Peta
+				strVolume.Format( strTruncate + _T(" P%s"), nVolume / TeraFloat, strUnit );
 			else									// Exa
-				strVolume.Format( strTruncate + _T(" E%s"), nVolume / pow( 1024.0f, 5 ), strUnit );
+				strVolume.Format( strTruncate + _T(" E%s"), nVolume / PetaFloat, strUnit );
 		}
 	}
 
@@ -1539,26 +1521,26 @@ const QWORD CSettings::ParseVolume(const CString& strVolume, int nReturnUnits) c
 	// Return early if the number is negative
 	if ( val < 0 ) return 0ul;
 
+	// Convert to bits if Bytes were passed in
 	if ( _tcsstr( strSize, _T("B") ) )
-		// Convert to bits if Bytes were passed in
 		val *= 8.0f;
+	// If bits or Bytes are not indicated return 0
 	else if ( !_tcsstr( strSize, _T("b") ) )
-		// If bits or Bytes are not indicated return 0
 		return 0ul;
 
 	// Work out what units are represented in the string
 	if ( _tcsstr( strSize, _T("K") ) || _tcsstr( strSize, _T("k") ) )		// Kilo
-		val *= 1024.0f;
+		val *= KiloFloat;
 	else if ( _tcsstr( strSize, _T("M") ) || _tcsstr( strSize, _T("m") ) )	// Mega
-		val *= pow( 1024.0f, 2 );
+		val *= MegaFloat;
 	else if ( _tcsstr( strSize, _T("G") ) || _tcsstr( strSize, _T("g") ) )	// Giga
-		val *= pow( 1024.0f, 3 );
+		val *= GigaFloat;
 	else if ( _tcsstr( strSize, _T("T") ) || _tcsstr( strSize, _T("t") ) )	// Tera
-		val *= pow( 1024.0f, 4 );
+		val *= TeraFloat;
 	else if ( _tcsstr( strSize, _T("P") ) || _tcsstr( strSize, _T("p") ) )	// Peta
-		val *= pow( 1024.0f, 5 );
+		val *= PetaFloat;
 	else if ( _tcsstr( strSize, _T("E") ) || _tcsstr( strSize, _T("e") ) )	// Exa
-		val *= pow( 1024.0f, 6 );
+		val *= ExaFloat;
 
 	// Convert to required Units
 	val /= nReturnUnits;
@@ -1575,7 +1557,7 @@ DWORD CSettings::GetOutgoingBandwidth() const
 	if ( Settings.Bandwidth.Uploads == 0 )
 		return ( Settings.Connection.OutSpeed / 8 );
 
-	return ( min( ( Settings.Connection.OutSpeed / 8 ), ( Settings.Bandwidth.Uploads / 1024 ) ) );
+	return ( min( ( Settings.Connection.OutSpeed / 8 ), ( Settings.Bandwidth.Uploads / KiloByte ) ) );
 }
 
 bool CSettings::GetValue(LPCTSTR pszPath, VARIANT* value)
@@ -1663,25 +1645,15 @@ void CSettings::Item::Load()
 void CSettings::Item::Save() const
 {
 	if ( m_pBool )
-	{
 		CRegistry::SetBool( m_szSection, m_szName, *m_pBool );
-	}
 	else if ( m_pDword )
-	{
 		CRegistry::SetDword( m_szSection, m_szName, *m_pDword );
-	}
 	else if ( m_pFloat )
-	{
 		CRegistry::SetFloat( m_szSection, m_szName, *m_pFloat );
-	}
 	else if ( m_pString )
-	{
 		CRegistry::SetString( m_szSection, m_szName, *m_pString );
-	}
 	else
-	{
 		CRegistry::SetString( m_szSection, m_szName, SaveSet( m_pSet ) );
-	}
 }
 
 void CSettings::LoadSet(string_set* pSet, LPCTSTR pszString)
@@ -1720,9 +1692,7 @@ CString CSettings::SaveSet(const string_set* pSet)
 void CSettings::Item::Normalize()
 {
 	if ( m_pDword && m_nScale && m_nMin < m_nMax )
-	{
 		*m_pDword = max( min( *m_pDword, m_nMax * m_nScale ), m_nMin * m_nScale );
-	}
 }
 
 bool CSettings::Item::IsDefault() const
@@ -1757,24 +1727,16 @@ template<>
 void CSettings::Item::SetRange< CSpinButtonCtrl >(CSpinButtonCtrl& pCtrl)
 {
 	if ( m_pBool )
-	{
 		pCtrl.SetRange32( 0, 1 );
-	}
 	else if ( m_pDword )
-	{
 		pCtrl.SetRange32( m_nMin, m_nMax );
-	}
 }
 
 template<>
 void CSettings::Item::SetRange< CSliderCtrl >(CSliderCtrl& pCtrl)
 {
 	if ( m_pBool )
-	{
 		pCtrl.SetRange( 0, 1 );
-	}
 	else if ( m_pDword )
-	{
 		pCtrl.SetRange( m_nMin, m_nMax );
-	}
 }

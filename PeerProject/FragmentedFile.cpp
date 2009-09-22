@@ -573,8 +573,7 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 	CString strTargetDir = strTarget.Left( strTarget.ReverseFind( _T('\\') ) + 1 );
 
 	if ( ! strTarget.CompareNoCase( sPath ) )
-		// Already moved
-		return ERROR_SUCCESS;
+		return ERROR_SUCCESS;		// Already moved
 
 	if ( bSkip )
 		theApp.Message( MSG_DEBUG, _T("Skipping \"%s\"..."), sPath );
@@ -586,17 +585,21 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 	theApp.OnRename( sPath );
 
 	// Create directory for file recursively
-	BOOL bSuccess = CreateDirectory( strTargetDir );
+	BOOL bSuccess = CreateDirectory( strTarget.Left( strTarget.ReverseFind( _T('\\') ) ) );
 	DWORD dwError = ::GetLastError();
 	if ( bSuccess )
 	{
 		if ( bSkip )
+		{
 			bSuccess = DeleteFileEx( sPath, FALSE, TRUE, TRUE );
+		}
 		else
+		{
 			// Move/copy file using very long filenames
 			bSuccess = MoveFileWithProgress( CString( _T("\\\\?\\") ) + sPath,
 				CString( _T("\\\\?\\") ) + strTarget, lpProgressRoutine, lpData,
 				MOVEFILE_REPLACE_EXISTING | MOVEFILE_COPY_ALLOWED | MOVEFILE_WRITE_THROUGH );
+		}
 
 		dwError = ::GetLastError();
 	}

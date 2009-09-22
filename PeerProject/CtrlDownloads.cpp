@@ -100,9 +100,7 @@ CDownloadsCtrl::CDownloadsCtrl() :
 {
 	// Try to get the number of lines to scroll when the mouse wheel is rotated
 	if( !SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0) )
-	{
 		m_nScrollWheelLines = 3;
-	}
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -302,9 +300,7 @@ BOOL CDownloadsCtrl::IsExpandable(CDownload* pDownload)
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
 			if ( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting )
-			{
 				return TRUE;
-			}
 		}
 	}
 	return FALSE;
@@ -314,9 +310,9 @@ void CDownloadsCtrl::SelectTo(int nIndex)
 {
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
-	BOOL bShift		= GetAsyncKeyState( VK_SHIFT ) & 0x8000;
-	BOOL bControl	= GetAsyncKeyState( VK_CONTROL ) & 0x8000;
 	BOOL bRight		= GetAsyncKeyState( VK_RBUTTON ) & 0x8000;
+	BOOL bControl	= GetAsyncKeyState( VK_CONTROL ) & 0x8000;
+	BOOL bShift		= GetAsyncKeyState( VK_SHIFT ) & 0x8000;
 
 	if ( ! bShift && ! bControl && ! bRight )
 	{
@@ -360,7 +356,8 @@ void CDownloadsCtrl::SelectTo(int nIndex)
 		m_nFocus = nIndex;
 		GetAt( m_nFocus, &pDownload, &pSource );
 
-		if ( bControl )
+		if ( bControl &&
+			! ( GetAsyncKeyState( VK_HOME ) & 0x8000 || GetAsyncKeyState( VK_END ) & 0x8000 ) )
 		{
 			if ( pDownload != NULL ) pDownload->m_bSelected = ! pDownload->m_bSelected;
 			if ( pSource != NULL ) pSource->m_bSelected = ! pSource->m_bSelected;
@@ -757,9 +754,7 @@ BOOL CDownloadsCtrl::DropObjects(CList< CDownload* >* pSel, const CPoint& ptScre
 		CDownload* pDownload = (CDownload*)pSel->GetNext( pos );
 
 		if ( Downloads.Check( pDownload ) && pDownload != pHit )
-		{
 			Downloads.Reorder( pDownload, pHit );
-		}
 	}
 
 	return TRUE;
@@ -1828,20 +1823,49 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	case VK_HOME:
 		if ( bControl )
 		{
-			GetAt( m_nFocus, &pDownload, &pSource );
-			Downloads.Move( pDownload, -2 );
+		//	GetAt( m_nFocus, &pDownload, &pSource );
+			CQuickLock oLock( Transfers.m_pSection );
+
+			for ( POSITION pos = Downloads.GetIterator() ; pos ; )
+			{
+				CDownload* pDownload = Downloads.GetNext( pos );
+				if ( pDownload->m_bSelected )
+					Downloads.Move( pDownload, -2 );
+			}
+			// Workaround to Correct Order
+			for ( POSITION pos = Downloads.GetIterator() ; pos ; )
+			{
+				CDownload* pDownload = Downloads.GetNext( pos );
+				if ( pDownload->m_bSelected )
+					Downloads.Move( pDownload, -2 );
+			}
 		}
 		SelectTo( 0 );
 		return;
 	case VK_END:
+		int nMin, nMax;
+		GetScrollRange( SB_VERT, &nMin, &nMax );
+		if ( nMax < 2 ) return;
 		if ( bControl )
 		{
-			GetAt( m_nFocus, &pDownload, &pSource );
-			Downloads.Move( pDownload, 2 );
+		//	GetAt( m_nFocus, &pDownload, &pSource );
+			CQuickLock oLock( Transfers.m_pSection );
+
+			for ( POSITION pos = Downloads.GetReverseIterator() ; pos ; )
+			{
+				CDownload* pDownload = Downloads.GetPrevious( pos );
+				if ( pDownload->m_bSelected )
+					Downloads.Move( pDownload, 2 );
+			}
+			// Workaround to Correct Order
+			for ( POSITION pos = Downloads.GetReverseIterator() ; pos ; )
+			{
+				CDownload* pDownload = Downloads.GetPrevious( pos );
+				if ( pDownload->m_bSelected )
+					Downloads.Move( pDownload, 2 );
+			}
 		}
-		INT nMin, nMax;
-		GetScrollRange( SB_VERT, &nMin, &nMax );
-		SelectTo( max( 0, nMax - 1 ) );
+		SelectTo( nMax - 1 );
 		return;
 	case VK_UP:
 		if ( bControl )
@@ -1926,17 +1950,14 @@ void CDownloadsCtrl::OnEnterKey()
 		CDownloadSource* pSource;
 		CDownload* pDownload;
 
-		GetAt( m_nFocus, &pDownload, &pSource );								// Get the data for the current focus
-		if ( pDownload != NULL )												// If the selected object is a download...
+		GetAt( m_nFocus, &pDownload, &pSource );								// Get data for the current focus
+		if ( pDownload != NULL )												// Selected object is a download...
 		{
-			if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 )						// And the control key is pressed...
-			{
-				GetOwner()->PostMessage( WM_TIMER, 5 );
-				GetOwner()->PostMessage( WM_COMMAND, pDownload->IsCompleted() ?
-					ID_DOWNLOADS_LAUNCH_COMPLETE : ID_DOWNLOADS_LAUNCH_COPY );	// Launch the current file
-			}
+			GetOwner()->PostMessage( WM_TIMER, 5 );
+			GetOwner()->PostMessage( WM_COMMAND, pDownload->IsCompleted() ?
+				ID_DOWNLOADS_LAUNCH_COMPLETE : ID_DOWNLOADS_LAUNCH_COPY );		// Launch current file/partial
 		}
-		else if ( pSource != NULL )												// If the selected object is a download source...
+		else if ( pSource != NULL )												// Selected object is a download source...
 		{
 			GetOwner()->PostMessage( WM_TIMER, 5 );
 			GetOwner()->PostMessage( WM_COMMAND, ID_TRANSFERS_CONNECT );		// Connect to the source
@@ -1981,16 +2002,12 @@ void CDownloadsCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 			if ( pDownload != NULL && pDownload->m_bSelected )
 			{
 				if ( ( nFlags & ( MK_SHIFT | MK_CONTROL | MK_RBUTTON ) ) == 0 )
-				{
 					m_pDeselect1 = pDownload;
-				}
 			}
 			else if ( pSource != NULL && pSource->m_bSelected )
 			{
 				if ( ( nFlags & ( MK_SHIFT | MK_CONTROL | MK_RBUTTON ) ) == 0 )
-				{
 					m_pDeselect2 = pSource;
-				}
 			}
 			else if ( nFlags & MK_RBUTTON )
 			{

@@ -465,7 +465,7 @@ inline BOOL atoip (LPCTSTR c, DWORD& addr)
 			{
 				if ( *c == _T('.') )
 					break;			// too long
-		else
+				else
 					return TRUE;	// it's IP!
 			}
 			if ( *c == _T('\0') || *c == _T('/') )
@@ -478,8 +478,10 @@ inline BOOL atoip (LPCTSTR c, DWORD& addr)
 	return FALSE;					// invalid symbol
 }
 
-int CLiveList::SortProc(LPCTSTR sA, LPCTSTR sB, BOOL bNumeric)
+int CLiveList::SortProc(LPCTSTR sB, LPCTSTR sA, BOOL bNumeric)
 {
+	//ToDo: Fix Click-order properly (Revert sB-sA workaround)
+
 	DWORD ipA, ipB;
 	if ( atoip( sA, ipA ) && atoip( sB, ipB ) )
 	{
@@ -523,9 +525,9 @@ int CLiveList::SortProc(LPCTSTR sA, LPCTSTR sB, BOOL bNumeric)
 			if ( _tcsstr( sB, _T(" G") ) ) nB *= 1024*1024*1024;
 			if ( _tcsstr( sB, _T(" T") ) ) nB *= 1099511627776.0f;
 
-		if ( nA < nB )
+		if ( nB < nA )
 			return -1;
-		else if ( nA > nB )
+		else if ( nB > nA )
 			return 1;
 		else
 			return 0;
@@ -787,25 +789,25 @@ void CLiveListCtrl::Apply()
 void CLiveListCtrl::Sort(int nColumn)
 {
 	int nOldColumn	= (int)GetWindowLongPtr( GetSafeHwnd(), GWLP_USERDATA );
+
 	if ( nColumn == -1 )
 	{
 		nColumn = nOldColumn;
 	}
 	else
 	{
-		if ( nColumn == abs( nOldColumn ) - 1 )
+		nColumn++;
+
+		if ( nColumn == abs( nOldColumn ) )
 		{
 			if ( nOldColumn > 0 )
 				nColumn = 0 - nOldColumn;
 			else
 				nColumn = 0;
 		}
-		else
-		{
-			nColumn++;
-		}
+
 		SetWindowLongPtr( GetSafeHwnd(), GWLP_USERDATA, nColumn );
-	}
+	} 
 
 #ifdef IDB_SORT_ASC
 	if ( CLiveList::m_bmSortAsc.m_hObject == NULL )

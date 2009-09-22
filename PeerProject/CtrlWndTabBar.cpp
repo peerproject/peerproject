@@ -38,16 +38,16 @@ static char THIS_FILE[] = __FILE__;
 
 BEGIN_MESSAGE_MAP(CWndTabBar, CControlBar)
 	ON_WM_LBUTTONDOWN()
-	ON_WM_RBUTTONUP()
 	ON_WM_LBUTTONDBLCLK()
+	ON_WM_LBUTTONUP()
+	ON_WM_RBUTTONUP()
+	ON_WM_MBUTTONUP()
 	ON_WM_MOUSEMOVE()
 	ON_WM_TIMER()
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_MEASUREITEM()
 	ON_WM_DRAWITEM()
-	ON_WM_MBUTTONUP()
-	ON_WM_LBUTTONUP()
 	ON_WM_SETCURSOR()
 END_MESSAGE_MAP()
 
@@ -129,6 +129,61 @@ void CWndTabBar::SetWatermark(HBITMAP hBitmap)
 	m_pImages.DeleteImageList();
 	m_pImages.Create( 16, 16, ILC_COLOR32|ILC_MASK, 1, 1 );
 }
+
+void CWndTabBar::MoveLeft( TabItem* pItem )
+{
+	if ( m_pItems.GetCount() < 2 ) return;
+
+	if ( POSITION pos = m_pItems.Find( pItem ) )
+	{
+		POSITION pos2 = pos;
+		m_pItems.GetPrev( pos2 );
+		m_pItems.InsertBefore( pos2, pItem );
+		m_pItems.RemoveAt( pos );
+		Invalidate();
+	}
+}
+
+void CWndTabBar::MoveRight( TabItem* pItem )
+{
+	if ( m_pItems.GetCount() < 2 ) return;
+
+	if ( POSITION pos = m_pItems.Find( pItem ) )
+	{
+		POSITION pos2 = pos;
+		m_pItems.GetNext( pos2 );
+		m_pItems.InsertAfter( pos2, pItem );
+		m_pItems.RemoveAt( pos );
+		Invalidate();
+	}
+}
+
+void CWndTabBar::MoveFirst( TabItem* pItem )
+{
+	if ( m_pItems.GetCount() < 2 ) return;
+
+	if ( POSITION pos = m_pItems.Find( pItem ) )
+	{
+		m_pItems.RemoveAt( pos );
+		m_pItems.AddHead( pItem );
+
+		Invalidate();
+	}
+}
+
+void CWndTabBar::MoveLast( TabItem* pItem )
+{
+	if ( m_pItems.GetCount() < 2 ) return;
+
+	if ( POSITION pos = m_pItems.Find( pItem ) )
+	{
+		m_pItems.AddTail( pItem );
+		m_pItems.RemoveAt( pos );
+
+		Invalidate();
+	}
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CWndTabBar message handlers
@@ -529,9 +584,7 @@ void CWndTabBar::OnLButtonDown(UINT nFlags, CPoint point)
 	else if ( m_nMessage == IDS_TABBAR_CONNECTED )
 	{
 		if ( m_pItems.GetCount() == 0 && m_rcMessage.PtInRect( point ) )
-		{
 			return;
-		}
 	}
 
 	CControlBar::OnLButtonDown( nFlags, point );
@@ -539,14 +592,12 @@ void CWndTabBar::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CWndTabBar::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-	/*
-	if ( TabItem* pItem = HitTest( point ) )
-	{
-		CMDIChildWnd* pChild = (CMDIChildWnd*)CWnd::FromHandle( pItem->m_hWnd );
-		pChild->PostMessage( WM_SYSCOMMAND, pChild->IsZoomed() ? SC_RESTORE : SC_MAXIMIZE );
-		return;
-	}
-	*/
+	//if ( TabItem* pItem = HitTest( point ) )
+	//{
+	//	CMDIChildWnd* pChild = (CMDIChildWnd*)CWnd::FromHandle( pItem->m_hWnd );
+	//	pChild->PostMessage( WM_SYSCOMMAND, pChild->IsZoomed() ? SC_RESTORE : SC_MAXIMIZE );
+	//	return;
+	//}
 
 	OnLButtonDown( nFlags, point );
 }
@@ -561,9 +612,7 @@ void CWndTabBar::OnLButtonUp(UINT nFlags, CPoint point)
 	else if ( m_nMessage == IDS_TABBAR_CONNECTED )
 	{
 		if ( m_pItems.GetCount() == 0 && m_rcMessage.PtInRect( point ) )
-		{
 			GetOwner()->PostMessage( WM_COMMAND, ID_NETWORK_SEARCH );
-		}
 	}
 
 	CControlBar::OnLButtonUp( nFlags, point );
@@ -596,21 +645,23 @@ void CWndTabBar::OnRButtonUp(UINT nFlags, CPoint point)
 		BOOL bCanRestore	= pChild->IsIconic() || pChild->IsZoomed();
 		UINT nCommand		= 0;
 
-		/*
-		MENUITEMINFO pInfo;
-		pInfo.cbSize	= sizeof(pInfo);
-		pInfo.fMask		= MIIM_STATE;
-		GetMenuItemInfo( pMenu->GetSafeHmenu(), ID_CHILD_RESTORE, FALSE, &pInfo );
-		pInfo.fState = ( pInfo.fState & (~MFS_DEFAULT) ) | ( bCanRestore ? MFS_DEFAULT : 0 );
-		SetMenuItemInfo( pMenu->GetSafeHmenu(), ID_CHILD_RESTORE, FALSE, &pInfo );
-		*/
+		//MENUITEMINFO pInfo;
+		//pInfo.cbSize	= sizeof(pInfo);
+		//pInfo.fMask	= MIIM_STATE;
+		//GetMenuItemInfo( pMenu->GetSafeHmenu(), ID_CHILD_RESTORE, FALSE, &pInfo );
+		//pInfo.fState = ( pInfo.fState & (~MFS_DEFAULT) ) | ( bCanRestore ? MFS_DEFAULT : 0 );
+		//SetMenuItemInfo( pMenu->GetSafeHmenu(), ID_CHILD_RESTORE, FALSE, &pInfo );
 
-		pMenu->EnableMenuItem( ID_CHILD_RESTORE, MF_BYCOMMAND |
-			( bCanRestore ? 0 : MF_GRAYED ) );
 		pMenu->EnableMenuItem( ID_CHILD_MINIMISE, MF_BYCOMMAND |
 			( pChild->IsIconic() ? MF_GRAYED : 0 ) );
 		pMenu->EnableMenuItem( ID_CHILD_MAXIMISE, MF_BYCOMMAND |
 			( pChild->IsZoomed() ? MF_GRAYED : 0 ) );
+		pMenu->EnableMenuItem( ID_CHILD_RESTORE, MF_BYCOMMAND |
+			( bCanRestore ? 0 : MF_GRAYED ) );
+		pMenu->EnableMenuItem( ID_MOVETAB_LEFT, MF_BYCOMMAND |
+			( m_pItems.GetCount() > 1 ? 0 : MF_GRAYED ) );
+		pMenu->EnableMenuItem( ID_MOVETAB_RIGHT, MF_BYCOMMAND |
+			( m_pItems.GetCount() > 1 ? 0 : MF_GRAYED ) );
 
 		m_bMenuGray = TRUE;
 		Invalidate();
@@ -631,11 +682,20 @@ void CWndTabBar::OnRButtonUp(UINT nFlags, CPoint point)
 				rcItem.bottom - 1, this );
 		}
 
-		m_bMenuGray = FALSE;
-		Invalidate();
-
 		switch ( nCommand )
 		{
+		case ID_MOVETAB_LEFT:
+			MoveLeft( pItem );
+			break;
+		case ID_MOVETAB_RIGHT:
+			MoveRight( pItem );
+			break;
+		case ID_MOVETAB_FIRST:
+			MoveFirst( pItem );
+			break;
+		case ID_MOVETAB_LAST:
+			MoveLast( pItem );
+			break;
 		case ID_CHILD_RESTORE:
 			pChild->PostMessage( WM_SYSCOMMAND, SC_RESTORE, 0 );
 			break;
@@ -649,6 +709,9 @@ void CWndTabBar::OnRButtonUp(UINT nFlags, CPoint point)
 			pChild->PostMessage( WM_SYSCOMMAND, SC_CLOSE, 0 );
 			break;
 		}
+
+		m_bMenuGray = FALSE;
+		Invalidate();
 
 		return;
 	}
@@ -671,7 +734,7 @@ void CWndTabBar::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 IMPLEMENT_DROP(CWndTabBar, CControlBar)
 
-BOOL CWndTabBar::OnDrop(IDataObject* pDataObj, DWORD /* grfKeyState */, POINT ptScreen, DWORD* /* pdwEffect */, BOOL /* bDrop */)
+BOOL CWndTabBar::OnDrop(IDataObject* pDataObj, DWORD /*grfKeyState*/, POINT ptScreen, DWORD* /*pdwEffect*/, BOOL /*bDrop*/)
 {
 	// Mouse move imitation during dragging
 	CPoint pt( ptScreen );
@@ -758,7 +821,7 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 		pDC->Draw3dRect( &rc, CoolInterface.m_crDisabled, CoolInterface.m_crDisabled );
 	}
 
-	else if ( bHot && bSelected )
+	else if ( bSelected && ( bHot || pBar->m_bMenuGray ) )
 		SetTabmark( Skin.GetWatermark( _T("CWndTabBar.Active.Hover") ) );
 	else if ( bSelected )
 		SetTabmark( Skin.GetWatermark( _T("CWndTabBar.Active") ) );
@@ -836,8 +899,7 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 	{
 		ptImage.x = rc.right - 18;
 		CoolInterface.DrawEx( pDC, pBar->m_nCloseImage,
-			ptImage, CSize( 0, 0 ), crBack, CoolInterface.m_crShadow,
-			ILD_BLEND50 );
+			ptImage, CSize( 0, 0 ), crBack, CoolInterface.m_crShadow, ILD_BLEND50 );
 		pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 		rc.right -= 20;
 		if ( crBack != CLR_NONE ) pDC->FillSolidRect( rc.right, rc.top, 20, rc.Height(), crBack );
@@ -860,21 +922,13 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 	if ( crBack != CLR_NONE ) pDC->SetBkColor( crBack );
 
 	if ( m_bAlert )
-	{
 		pDC->SetTextColor( CoolInterface.m_crTextAlert );
-	}
 	else if ( ! m_bVisible && ! bHot )
-	{
 		pDC->SetTextColor( CoolInterface.m_crDisabled );
-	}
 	else if ( bSelected || bHot )
-	{
 		pDC->SetTextColor( CoolInterface.m_crCmdTextSel );
-	}
 	else
-	{
 		pDC->SetTextColor( CoolInterface.m_crCmdText );
-	}
 
 	if ( crBack != CLR_NONE )
 	{

@@ -466,12 +466,17 @@ gap i newline
 <menus>
 	<!-- SIMPLE POPUP MENU -->
 	<menu name="Simple">
+		<item id="ID_MOVETAB_LEFT" text="העבר שמאלה"/>
+		<item id="ID_MOVETAB_RIGHT" text="העבר ימינה"/>
+		<separator/>
 		<item id="ID_CHILD_CLOSE" text="סגור חלון_"/>
 	</menu>
 	<!-- CHILD POPUP MENU -->
 	<menu name="Child">
-		<item id="ID_CHILD_MAXIMISE" text="מסך מלא_"/>
+		<item id="ID_MOVETAB_LEFT" text="העבר שמאלה"/>
+		<item id="ID_MOVETAB_RIGHT" text="העבר ימינה"/>
 		<separator/>
+		<item id="ID_CHILD_MAXIMISE" text="מסך מלא_"/>
 		<item id="ID_CHILD_RESTORE" text="שחזר_"/>
 		<item id="ID_CHILD_MINIMISE" text="מ_זער"/>
 		<separator/>
@@ -1172,7 +1177,8 @@ gap i newline
 		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="‪הצג קבוצות"/>
 		<separator/> -->
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="העבר הקבוצה נותר"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="קבוצת העבר העכבר"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="‪...הסר קבוצה"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="‪_קבוצה חדשה"/>
 		<separator/>
@@ -3377,7 +3383,7 @@ gap i newline
 		<control/>
 		<control caption="התחלת השימוש בשרזה"/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="(1/6) ברוכים הבאים לשרזה">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="(1/6) ברוכים הבאים לשרזה">
 		<control caption="לביצועים מירביים, שרזה צריכה לדעת קצת יותר על החיבור שלך לאינטרנט"/>
 		<control caption="&#160;אנא בחר|אני משתמש באינטרנט בביתי|אני משתמש באינטרנט בקו קבוע במכללה|אני משתמש באינטרנט בקו קבוע במשרד|אני משתמש באינטרנט במלון או בשדה תעופה"/>
 		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
@@ -3387,6 +3393,9 @@ gap i newline
 		<control/>
 		<control caption="?UPnP-ברצונך להגדיר פתחה (פורט) אוטומטית עי שימוש ב"/>
 		<control/>
+		<control caption="Port: (4-5 digit number)"/>
+		<control/>
+		<control caption="אקראיים"/>
 		<control caption="מצב:"/>
 		<control/>
 	</dialog>

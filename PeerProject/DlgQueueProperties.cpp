@@ -160,6 +160,7 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 	m_wndProtocols.SetImageList( &m_gdiProtocols, LVSIL_SMALL );
 	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 0, _T("HTTP"), 0, 0, PROTOCOL_HTTP, PROTOCOL_HTTP );
 	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 1, _T("ED2K"), 0, 0, PROTOCOL_ED2K, PROTOCOL_ED2K );
+	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 2, _T("BitTorrent"), 0, 0, PROTOCOL_BT, PROTOCOL_BT );
 
 	CSingleLock pLock( &UploadQueues.m_pSection, TRUE );
 
@@ -216,6 +217,8 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 		m_wndProtocols.SetItemState( 0, INDEXTOSTATEIMAGEMASK(2), LVIS_STATEIMAGEMASK );
 	if ( ! m_bProtocols || ( m_pQueue->m_nProtocols & (1<<PROTOCOL_ED2K) ) )
 		m_wndProtocols.SetItemState( 1, INDEXTOSTATEIMAGEMASK(2), LVIS_STATEIMAGEMASK );
+	if ( ! m_bProtocols || ( m_pQueue->m_nProtocols & (1<<PROTOCOL_BT) ) )
+		m_wndProtocols.SetItemState( 2, INDEXTOSTATEIMAGEMASK(2), LVIS_STATEIMAGEMASK );
 
 	m_bEnable		= m_pQueue->m_bEnable || m_bEnableOverride;
 
@@ -411,15 +414,17 @@ void CQueuePropertiesDlg::OnOK()
 			m_pQueue->m_nProtocols |= (1<<PROTOCOL_HTTP);
 		if ( m_wndProtocols.GetItemState( 1, LVIS_STATEIMAGEMASK ) == INDEXTOSTATEIMAGEMASK(2) )
 			m_pQueue->m_nProtocols |= (1<<PROTOCOL_ED2K);
+		if ( m_wndProtocols.GetItemState( 2, LVIS_STATEIMAGEMASK ) == INDEXTOSTATEIMAGEMASK(2) )
+			m_pQueue->m_nProtocols |= (1<<PROTOCOL_BT);
 
-		if ( m_pQueue->m_nProtocols == ( (1<<PROTOCOL_HTTP)|(1<<PROTOCOL_ED2K) ) )
+		if ( m_pQueue->m_nProtocols == ( (1<<PROTOCOL_HTTP)|(1<<PROTOCOL_ED2K)|(1<<PROTOCOL_BT) ) )
 			m_pQueue->m_nProtocols = 0;
 	}
 
 	if ( ( m_pQueue->m_nProtocols & (1<<PROTOCOL_ED2K) ) )
-		m_pQueue->m_nCapacity		= min( (int)m_nCapacity, 4096 );
+		m_pQueue->m_nCapacity	= min( (int)m_nCapacity, 4096 );
 	else
-		m_pQueue->m_nCapacity		= min( (int)m_nCapacity, 64 );
+		m_pQueue->m_nCapacity	= min( (int)m_nCapacity, 64 );
 
 	m_pQueue->m_bEnable			= m_bEnable;
 	m_pQueue->m_nMinTransfers	= max( 1, (int)m_nTransfersMin );

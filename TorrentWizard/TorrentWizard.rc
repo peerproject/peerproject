@@ -84,7 +84,7 @@ BEGIN
             VALUE "FileDescription", "PeerProject Torrent Wizard"
             VALUE "FileVersion", "1. 0. 0. 0"
             VALUE "InternalName", "TorrentWizard"
-            VALUE "LegalCopyright", "Copyright © 2008 PeerProject Development Team"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
             VALUE "OriginalFilename", "TorrentWizard.exe"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1. 0. 0. 0"
@@ -103,21 +103,21 @@ END
 // Icon with lowest ID value placed first to ensure
 // application icon remains consistent on all systems.
 
-IDR_MAINFRAME           ICON                    "Res\\TorrentWizard.ico"
+IDR_MAINFRAME		ICON			"Res\\TorrentWizard.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Cursor
 //
 
-IDC_HAND                CURSOR                  "Res\\Hand.cur"
+IDC_HAND		CURSOR			"Res\\Hand.cur"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Bitmap
 //
 
-IDB_WIZARD              BITMAP                  "Res\\Wizard.bmp"
+IDB_WIZARD		BITMAP			"Res\\Wizard.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -161,26 +161,48 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT
 // Dialog
 //
 
-IDD_WELCOME_PAGE DIALOGEX 0, 0, 322, 225
+//IDD_EXPERT_PAGE DIALOGEX 0, 0, 320, 222
+//STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+//CAPTION "PeerProject Torrent Wizard"
+//FONT 8, "Tahoma", 0, 0, 0x0
+//BEGIN
+//  LTEXT           ".Torrent Name:",IDC_TITLE,18,24,300,10
+//  LTEXT           "Save Location:",IDC_STATIC,18,56,300,20
+//  LTEXT           "Tracker URL:",IDC_STATIC,18,88,300,10
+//  LTEXT           "Alternate URL:",IDC_STATIC,18,120,300,10
+//  LTEXT           "Comments:",IDC_STATIC,18,80,152,10
+//  EDITTEXT        IDC_FILE_NAME,118,18,360,12,ES_AUTOHSCROLL
+//  COMBOBOX        IDC_FOLDER,118,50,280,140,CBS_DROPDOWN|CBS_AUTOHSCROLL|CBS_SORT|WS_VSCROLL|WS_TABSTOP
+//  PUSHBUTTON      "&Browse...",IDC_ADD_FOLDER,400,48,70,15,WS_GROUP
+//  COMBOBOX        IDC_TRACKER,118,82,360,140,CBS_DROPDOWN|CBS_AUTOHSCROLL|CBS_SORT|WS_VSCROLL|WS_TABSTOP
+//  COMBOBOX        IDC_TRACKER2,118,124,360,140,CBS_DROPDOWN|CBS_AUTOHSCROLL|CBS_SORT|WS_VSCROLL|WS_TABSTOP
+//  EDITTEXT        IDC_COMMENT,118,156,360,12,ES_WANTRETURN|ES_TABSTOP
+//  PUSHBUTTON      "Add &Folder...",IDC_ADD_FOLDER,18,200,80,15,WS_GROUP
+//  PUSHBUTTON      "&Add File...",IDC_ADD_FILE,18,238,80,15
+//  PUSHBUTTON      "&Remove",IDC_REMOVE_FILE,18,276,80,15
+//  CONTROL         "List1",IDC_FILE_LIST,"SysListView32",LVS_REPORT|LVS_SHOWSELALWAYS|LVS_SORTASCENDING|LVS_SHAREIMAGELISTS|WS_BORDER|WS_GROUP|WS_TABSTOP, 118,175,190,80
+//END
+
+IDD_WELCOME_PAGE DIALOGEX 0, 0, 320, 222
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "PeerProject Torrent Wizard - Choose Torrent Type"
 FONT 8, "Tahoma", 0, 0, 0x0
 BEGIN
-    LTEXT           "Welcome to PeerProject's Torrent Wizard",IDC_TITLE,15,15,300,10
+    LTEXT           "Welcome to PeerProject's BitTorrent Creator",IDC_TITLE,15,15,300,10
     LTEXT           "This tool will guide you through creating a .torrent file,\nthe small meta-file that defines a BitTorrent download.",IDC_STATIC,15,35,300,20
-    LTEXT           "What kind of Torrent would you like to create?",IDC_STATIC,15,80,300,10
+    LTEXT           "What type of Torrent would you like to create?",IDC_STATIC,15,80,300,10
     CONTROL         "Single File  (Preferred)",IDC_TYPE_SINGLE,"Button",BS_AUTORADIOBUTTON | WS_GROUP,35,105,280,10
     CONTROL         "Multiple Files  (Standard Package)",IDC_TYPE_PACKAGE,"Button",BS_AUTORADIOBUTTON,35,125,280,10
     LTEXT           "1/5 Click Next to choose which files to include in the Torrent.",IDC_STATIC,15,190,300,20
 END
 
-IDD_SINGLE_PAGE DIALOGEX 0, 0, 322, 225
+IDD_SINGLE_PAGE DIALOGEX 0, 0, 320, 222
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "PeerProject Torrent Wizard - Select File"
 FONT 8, "Tahoma", 0, 0, 0x0
 BEGIN
     LTEXT           "Select a File",IDC_TITLE,15,15,300,10
-    LTEXT           "You have chosen to create a single file Torrent.\nPlease select the file you want to include in the Torrent using the browse button below:",IDC_STATIC,15,35,300,20
+    LTEXT           "You have chosen to create a single file Torrent.\nPlease select or Drag'n'Drop the file you wish to create a Torrent for.",IDC_STATIC,15,35,300,20
     PUSHBUTTON      "&Browse...",IDC_BROWSE_FILE,250,115,65,15
     LTEXT           "Include this file:",IDC_STATIC,15,80,300,10
     EDITTEXT        IDC_FILE_NAME,15,95,300,12,ES_AUTOHSCROLL | ES_READONLY
@@ -189,22 +211,23 @@ BEGIN
     LTEXT           "2/5 Click Next to choose a BitTorrent tracker.",IDC_STATIC,15,190,300,10
 END
 
-IDD_PACKAGE_PAGE DIALOGEX 0, 0, 322, 225
+IDD_PACKAGE_PAGE DIALOGEX 0, 0, 320, 222
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "PeerProject Torrent Wizard - Create Package"
 FONT 8, "Tahoma", 0, 0, 0x0
 BEGIN
     LTEXT           "Create File Package",IDC_TITLE,15,15,300,10
-    LTEXT           "You have chosen to create a package Torrent, which includes more than one file.\nUse the Add and Remove buttons below to select the files to include in the package.", -1,15,35,300,20
-    LTEXT           "Files in this Torrent package:",-1,15,64,290,10
+    LTEXT           "You have chosen to create a package Torrent, which includes more than one file.\nUse the buttons below or Drag'n'Drop files to include in the package.", -1,15,35,300,20
+    LTEXT           "Files in this Torrent package:",IDC_FILECOUNT,15,64,160,10
+    RTEXT           "0 KB",IDC_TOTAL_SIZE,229,64,60,10
     CONTROL         "List1",IDC_FILE_LIST,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_SORTASCENDING | LVS_SHAREIMAGELISTS | WS_BORDER | WS_GROUP | WS_TABSTOP, 15,75,290,85
     PUSHBUTTON      "Choose &Folder...",IDC_ADD_FOLDER,15,165,70,15,WS_GROUP
-    PUSHBUTTON      "Add &File...",IDC_ADD_FILE,210,165,45,15
-    PUSHBUTTON      "&Remove",IDC_REMOVE_FILE,260,165,45,15
-    LTEXT           "2/5 Click Next to choose a BitTorrent tracker.", -1,15,190,300,10
+    PUSHBUTTON      "&Add File...",IDC_ADD_FILE,200,165,50,15
+    PUSHBUTTON      "&Remove",IDC_REMOVE_FILE,255,165,50,15
+    LTEXT           "2/5 Click Next to choose a BitTorrent tracker.",-1,15,190,300,10
 END
 
-IDD_TRACKER_PAGE DIALOGEX 0, 0, 322, 225
+IDD_TRACKER_PAGE DIALOGEX 0, 0, 320, 222
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "PeerProject Torrent Wizard - Tracker Selection"
 FONT 8, "Tahoma", 0, 0, 0x0
@@ -217,11 +240,11 @@ BEGIN
     COMBOBOX        IDC_TRACKER,15,131,300,140,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Add an optional secondary tracker URL:",IDC_STATIC,15,150,300,10
     COMBOBOX        IDC_TRACKER2,15,161,300,140,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "&Clear History",IDC_CLEAR_TRACKERS,260,185,55,15
+    PUSHBUTTON      "&Clear History",IDC_CLEAR_TRACKERS,260,184,55,15
     LTEXT           "3/5 Click Next to add comments to your Torrent file.",IDC_STATIC,15,190,220,10
 END
 
-IDD_COMMENT_PAGE DIALOGEX 0, 0, 322, 225
+IDD_COMMENT_PAGE DIALOGEX 0, 0, 320, 222
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "PeerProject Torrent Wizard - Add Comments"
 FONT 8, "Tahoma", 0, 0, 0x0
@@ -233,7 +256,7 @@ BEGIN
     LTEXT           "4/5 Click Next to choose where to save your completed Torrent file.",IDC_STATIC, 15,190,300,20
 END
 
-IDD_OUTPUT_PAGE DIALOGEX 0, 0, 322, 225
+IDD_OUTPUT_PAGE DIALOGEX 0, 0, 320, 222
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "PeerProject Torrent Wizard - Save Torrent File"
 FONT 8, "Tahoma", 0, 0, 0x0
@@ -256,15 +279,15 @@ BEGIN
     LTEXT           "5/5 Click Next to create the Torrent.",IDC_STATIC,15,190,300,10
 END
 
-IDD_FINISHED_PAGE DIALOGEX 0, 0, 322, 225
+IDD_FINISHED_PAGE DIALOGEX 0, 0, 320, 222
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "PeerProject Torrent Wizard - Creating Torrent"
 FONT 8, "Tahoma", 0, 0, 0x0
 BEGIN
     LTEXT           "Creating Torrent File",IDC_TITLE,15,15,300,10
     LTEXT           "The Torrent Wizard is processing the files you selected and creating a Torrent file:",IDC_STATIC,15,35,300,10
-    LTEXT           "The Torrent Wizard has now created your .torrent file. It's been saved as:",IDC_DONE_1,15,105,300,20,NOT WS_VISIBLE
-    CONTROL         "Progress1",IDC_PROGRESS,"msctls_progress32",WS_BORDER, 15,60,305,10
+    LTEXT           "Your newly created .torrent file has been saved as:",IDC_DONE_1,15,105,300,20,NOT WS_VISIBLE
+    CONTROL         "Progress1",IDC_PROGRESS,"msctls_progress32",WS_BORDER, 15,60,300,10
     LTEXT           "File:",IDC_STATIC,15,76,30,10
     CONTROL         "Ready",IDC_FILE_NAME,"Static",SS_LEFTNOWORDWRAP | WS_GROUP, 50,76,265,10
     PUSHBUTTON      "&Abort",IDC_ABORT,270,130,45,15,NOT WS_VISIBLE
@@ -274,12 +297,12 @@ BEGIN
     LTEXT           "Fast",IDC_SPEED_FAST,185,130,25,15,SS_CENTERIMAGE | NOT WS_VISIBLE
     EDITTEXT        IDC_TORRENT_NAME,15,130,300,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_VISIBLE
     PUSHBUTTON      "&Copy",IDC_TORRENT_COPY,170,150,45,15,NOT WS_VISIBLE
-    PUSHBUTTON      "&Open",IDC_TORRENT_OPEN,220,150,45,15,NOT WS_VISIBLE
+    PUSHBUTTON      "&View",IDC_TORRENT_OPEN,220,150,45,15,NOT WS_VISIBLE
     PUSHBUTTON      "&Seed",IDC_TORRENT_SEED,270,150,45,15,NOT WS_VISIBLE
     LTEXT           "5/5 Click Finish to close the Torrent Wizard, or click Back to create another Torrent.",IDC_DONE_2,15,190,300,20,NOT WS_VISIBLE
 END
 
-IDD_COMMANDLINE_PAGE DIALOGEX 0, 0, 322, 225
+IDD_COMMANDLINE_PAGE DIALOGEX 0, 0, 320, 222
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "PeerProject Torrent Wizard - Creating Torrent"
 FONT 8, "Tahoma", 0, 0, 0x0
@@ -342,7 +365,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 315
         TOPMARGIN, 7
-        BOTTOMMARGIN, 218
+        BOTTOMMARGIN, 215
     END
 
     IDD_SINGLE_PAGE, DIALOG
@@ -350,7 +373,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 315
         TOPMARGIN, 7
-        BOTTOMMARGIN, 218
+        BOTTOMMARGIN, 215
     END
 
     IDD_PACKAGE_PAGE, DIALOG
@@ -358,7 +381,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 315
         TOPMARGIN, 7
-        BOTTOMMARGIN, 218
+        BOTTOMMARGIN, 215
     END
 
     IDD_TRACKER_PAGE, DIALOG
@@ -366,7 +389,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 315
         TOPMARGIN, 7
-        BOTTOMMARGIN, 218
+        BOTTOMMARGIN, 215
     END
 
     IDD_COMMENT_PAGE, DIALOG
@@ -374,7 +397,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 315
         TOPMARGIN, 7
-        BOTTOMMARGIN, 218
+        BOTTOMMARGIN, 215
     END
 
     IDD_OUTPUT_PAGE, DIALOG
@@ -382,7 +405,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 315
         TOPMARGIN, 7
-        BOTTOMMARGIN, 218
+        BOTTOMMARGIN, 215
     END
 
     IDD_FINISHED_PAGE, DIALOG
@@ -390,7 +413,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 315
         TOPMARGIN, 7
-        BOTTOMMARGIN, 218
+        BOTTOMMARGIN, 215
     END
 
     IDD_COMMANDLINE_PAGE, DIALOG
@@ -398,7 +421,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 315
         TOPMARGIN, 7
-        BOTTOMMARGIN, 218
+        BOTTOMMARGIN, 215
     END
 END
 #endif    // APSTUDIO_INVOKED

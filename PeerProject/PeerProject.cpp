@@ -439,14 +439,9 @@ BOOL CPeerProjectApp::InitInstance()
 		// First run will do UPnP discovery in the QuickStart Wizard
 		if ( ! Settings.Live.FirstRun )
 		{
-			try
-			{
-				m_pUPnPFinder.Attach( new CUPnPFinder );
-				if ( m_pUPnPFinder->AreServicesHealthy() )
-					m_pUPnPFinder->StartDiscovery();
-			}
-			catch ( CUPnPFinder::UPnPError& ) {}
-			catch ( CException* e ) { e->Delete(); }
+			m_pUPnPFinder.Attach( new CUPnPFinder );
+			if ( m_pUPnPFinder->AreServicesHealthy() )
+				m_pUPnPFinder->StartDiscovery();
 		}
 	}
 

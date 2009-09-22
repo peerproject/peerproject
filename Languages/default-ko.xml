@@ -478,12 +478,17 @@
 <menus>
 	<!-- SIMPLE POPUP MENU -->
 	<menu name="Simple">
+		<item id="ID_MOVETAB_LEFT" text="탭 왼쪽으로 이동"/>
+		<item id="ID_MOVETAB_RIGHT" text="탭 오른쪽으로 이동"/>
+		<separator/>
 		<item id="ID_CHILD_CLOSE" text="창 닫기"/>
 	</menu>
 	<!-- CHILD POPUP MENU -->
 	<menu name="Child">
-		<item id="ID_CHILD_MAXIMISE" text="전체 화면"/>
+		<item id="ID_MOVETAB_LEFT" text="탭 왼쪽으로 이동"/>
+		<item id="ID_MOVETAB_RIGHT" text="탭 오른쪽으로 이동"/>
 		<separator/>
+		<item id="ID_CHILD_MAXIMISE" text="전체 화면"/>
 		<item id="ID_CHILD_RESTORE" text="복원"/>
 		<item id="ID_CHILD_MINIMISE" text="최소화"/>
 		<separator/>
@@ -1200,14 +1205,15 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Resume All"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Pa_use All"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Clear All"/>
-		<separator/> <1--
+		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Hide Groups"/>
 		<separator/> -->
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="그룹 왼쪽으로 이동"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="그룹을 오른쪽으로 이동"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="R_emove Group"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_New Group..."/>
 		<separator/>
-		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Properties"/>
+		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Properties..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Filter">
 		<item id="ID_DOWNLOADS_FILTER_ALL" text="Show _All"/>
@@ -3110,16 +3116,19 @@
 		<control/>
 		<control caption="Get started using PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="피어 프로젝트에 오신 것을 환영합니다 (1/6)">
-		<control caption="For optimum performance, PeerProject needs to know a little bit about your connection to the Internet."/>
-		<control caption="Choose the type of your Internet connection:"/>
-		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="피어 프로젝트에 오신 것을 환영합니다 (1/6)">
+		<control caption="For best performance, PeerProject needs to know your internet connection."/>
+		<control caption="You may select the Internet connection type:"/>
+		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
 		<control caption="Or choose the download speed:"/>
 		<control/>
-		<control caption="and the upload speed:"/>
+		<control caption="...and upload speed:"/>
 		<control/>
-		<control caption="Do you want to automatically setup port-forwarding by using UPnP?"/>
+		<control caption="Do auto port-forwarding with Plug&apos;n&apos;Play?"/>
 		<control/>
+		<control caption="Port: &#160; (Any 4-5 digit number)"/>
+		<control/>
+		<control caption="Random"/>
 		<control caption="Status:"/>
 		<control/>
 	</dialog>

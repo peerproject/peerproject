@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r36 -->
+<!-- Translation based on default-en.xml r37 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -458,12 +458,17 @@
 <menus>
 	<!-- SIMPLE POPUP MENU -->
 	<menu name="Simple">
+		<item id="ID_MOVETAB_LEFT" text="Переместить влево"/>
+		<item id="ID_MOVETAB_RIGHT" text="Переместить вправо"/>
+		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Закрыть"/>
 	</menu>
 	<!-- CHILD POPUP MENU -->
 	<menu name="Child">
-		<item id="ID_CHILD_MAXIMISE" text="Во весь _экран"/>
+		<item id="ID_MOVETAB_LEFT" text="Переместить влево"/>
+		<item id="ID_MOVETAB_RIGHT" text="Переместить вправо"/>
 		<separator/>
+		<item id="ID_CHILD_MAXIMISE" text="Во весь _экран"/>
 		<item id="ID_CHILD_RESTORE" text="_Восстановить"/>
 		<item id="ID_CHILD_MINIMISE" text="_Минимизировать"/>
 		<separator/>
@@ -1165,7 +1170,8 @@
 		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Показывать группы"/>
 		<separator/> -->
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="Перемещение группы левых"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="Перемещение группы Право"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Удалить _группу"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Новая группа..."/>
 		<separator/>
@@ -3808,7 +3814,7 @@
 		<control/>
 		<control caption="Начать пользоваться PeerProject'ой."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Добро пожаловать в PeerProject (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Добро пожаловать в PeerProject (1/6)">
 		<control caption="Для оптимальной работы PeerProject должна знать о вашем соединении с Интернетом."/>
 		<control caption="Выберите тип подключения к интернету:"/>
 		<control caption="Коммутир. соединение|ИСДН (128 К)|ДСЛ (768 К)|ДСЛ (1,5 М)|ДСЛ (4,0 M)|ДСЛ2 (8,0 M)|ДСЛ2 (10,0 M)|ДСЛ2 (12,0 M)|ДСЛ2+ (20,0 M)|ДСЛ2+ (24,0 M)|Кабельный модем|Т1|Т3|Локальная сеть|OC3"/>
@@ -3818,6 +3824,9 @@
 		<control/>
 		<control caption="Хотите ли Вы перенаправить порт используя UPnP?"/>
 		<control/>
+		<control caption="Порт: &#160; (Любая 4-5 цифр)"/>
+		<control/>
+		<control caption="Случайные"/>
 		<control caption="Статус:"/>
 		<control/>
 	</dialog>

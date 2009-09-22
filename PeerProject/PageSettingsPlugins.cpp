@@ -79,7 +79,9 @@ BOOL CPluginsSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
-	m_gdiImageList.Create( 16, 16, ILC_COLOR32|ILC_MASK, 2, 1 );
+	m_gdiImageList.Create( 16, 16, ILC_COLOR32|ILC_MASK, 2, 1 ) ||
+	m_gdiImageList.Create( 16, 16, ILC_COLOR24|ILC_MASK, 6, 1 ) ||
+	m_gdiImageList.Create( 16, 16, ILC_COLOR16|ILC_MASK, 6, 1 );
 	AddIcon( IDI_FILE, m_gdiImageList );
 	AddIcon( IDI_EXECUTABLE, m_gdiImageList );
 
@@ -90,15 +92,13 @@ BOOL CPluginsSettingsPage::OnInitDialog()
 
 	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES );
 
-	/*
-	LVGROUP pGroup;
-	pGroup.cbSize		= sizeof(pGroup);
-	pGroup.mask			= LVGF_ALIGN|LVGF_GROUPID|LVGF_HEADER;
-	pGroup.uAlign		= LVGA_HEADER_LEFT;
-	pGroup.pszHeader	= _T("General Plugins");
-	pGroup.cchHeader	= _tcslen( pGroup.pszHeader );
-	m_wndList.InsertGroup( 0, &pGroup );
-	*/
+	//LVGROUP pGroup;
+	//pGroup.cbSize		= sizeof(pGroup);
+	//pGroup.mask			= LVGF_ALIGN|LVGF_GROUPID|LVGF_HEADER;
+	//pGroup.uAlign		= LVGA_HEADER_LEFT;
+	//pGroup.pszHeader	= _T("General Plugins");
+	//pGroup.cchHeader	= _tcslen( pGroup.pszHeader );
+	//m_wndList.InsertGroup( 0, &pGroup );
 
 	SetTimer( 1, 100, NULL );
 	m_wndSetup.EnableWindow( FALSE );
@@ -186,13 +186,9 @@ void CPluginsSettingsPage::OnCustomDrawPlugins(NMHDR *pNMHDR, LRESULT *pResult)
 	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
 	{
 		if ( pDraw->nmcd.lItemlParam != 0 )
-		{
-			pDraw->clrText = CoolInterface.m_crText ;			//Interface Elements (Temp Color, was ACTIVECAPTION)
-		}
+			pDraw->clrText = CoolInterface.m_crText ;			//Interface Elements
 		else
-		{
-			pDraw->clrText = CoolInterface.m_crNetworkNull ;	//Hidden Plugin (Temp Color, was 3DDKSHADOW)
-		}
+			pDraw->clrText = CoolInterface.m_crNetworkNull ;	//Hidden Plugin
 	}
 }
 
@@ -229,7 +225,8 @@ void CPluginsSettingsPage::OnOK()
 {
 	BOOL bChanged = FALSE;
 
-	for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
+	int nCount = m_wndList.GetItemCount();
+	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
 		CPlugin* pPlugin = (CPlugin*)m_wndList.GetItemData( nItem );
 		CString strCLSID = m_wndList.GetItemText( nItem, 1 );
@@ -267,7 +264,8 @@ void CPluginsSettingsPage::InsertPlugin(LPCTSTR pszCLSID, LPCTSTR pszName, int n
     int nItem = 0;
 	CString strCurrAssoc, strAssocAdd;
 
-	for ( ; nItem < m_wndList.GetItemCount() ; nItem++ )
+	int nCount = m_wndList.GetItemCount();
+	for ( ; nItem < nCount ; nItem++ )
 	{
 		LPVOID pExisting = (LPVOID)m_wndList.GetItemData( nItem );
 		CString strExisting = m_wndList.GetItemText( nItem, 0 );
@@ -306,9 +304,7 @@ void CPluginsSettingsPage::InsertPlugin(LPCTSTR pszCLSID, LPCTSTR pszName, int n
 	else m_wndList.SetItemText( nItem, 2, bEnabled < TRI_TRUE ? _T("-") : _T("") );
 
 	if ( bEnabled != TRI_UNKNOWN )
-	{
 		m_wndList.SetItemState( nItem, bEnabled << 12, LVIS_STATEIMAGEMASK );
-	}
 }
 
 void CPluginsSettingsPage::EnumerateGenericPlugins()
@@ -447,8 +443,8 @@ void CPluginsSettingsPage::AddMiscPlugin(LPCTSTR /*pszType*/, LPCTSTR pszCLSID, 
 
 	if ( ERROR_SUCCESS == RegOpenKeyEx( HKEY_CLASSES_ROOT, strClass, 0, KEY_READ, &hClass ) )
 	{
-		DWORD nValue = 256 * sizeof(TCHAR), nType = REG_SZ;
-		TCHAR szValue[256];
+		DWORD nValue = MAX_PATH * sizeof(TCHAR), nType = REG_SZ;
+		TCHAR szValue[ MAX_PATH ];
 
 		if ( ERROR_SUCCESS == RegQueryValueEx( hClass, NULL, NULL, &nType,
 			(LPBYTE)szValue, &nValue ) )
@@ -465,7 +461,7 @@ void CPluginsSettingsPage::AddMiscPlugin(LPCTSTR /*pszType*/, LPCTSTR pszCLSID, 
 	}
 }
 
-// Plugin description have to be put to Comments in its code resources.
+// Plugin descriptions are taken from Comments in its code resources.
 // Authors can put any information here.
 CString CPluginsSettingsPage::GetPluginComments(LPCTSTR pszCLSID) const
 {
@@ -534,6 +530,8 @@ void CPluginsSettingsPage::UpdateList()
 	if ( ! IsWindowVisible() || m_wndList.GetItemCount() == 0 )
 	{
 		m_bRunning = FALSE;
+
+		CWaitCursor wc;
 
 		m_wndList.DeleteAllItems();
 		EnumerateGenericPlugins();

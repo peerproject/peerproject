@@ -464,12 +464,17 @@
 <menus>
 	<!-- SIMPLE POPUP MENU -->
 	<menu name="Simple">
+		<item id="ID_MOVETAB_LEFT" text="Μετακίνηση _Aριστερά"/>
+		<item id="ID_MOVETAB_RIGHT" text="Μετακίνηση _Oεξιά"/>
+		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Κλείσιμο"/>
 	</menu>
 	<!-- CHILD POPUP MENU -->
 	<menu name="Child">
-		<item id="ID_CHILD_MAXIMISE" text="_Πλήρης Οθόνη"/>
+		<item id="ID_MOVETAB_LEFT" text="Μετακίνηση _Aριστερά"/>
+		<item id="ID_MOVETAB_RIGHT" text="Μετακίνηση _Oεξιά"/>
 		<separator/>
+		<item id="ID_CHILD_MAXIMISE" text="_Πλήρης Οθόνη"/>
 		<item id="ID_CHILD_RESTORE" text="_Επαναφορά"/>
 		<item id="ID_CHILD_MINIMISE" text="_Σμίκρυνση"/>
 		<separator/>
@@ -1188,7 +1193,8 @@
 		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Προβολή Ομάδων"/>
 		<separator/> -->
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="Μετακίνηση Ομάδα Αριστερά"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="Μετακίνηση Ομάδα Oεξιά"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Αφαίρεση Ομάδας"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Νέα Ομάδα..."/>
 		<separator/>
@@ -3830,7 +3836,7 @@
 		<control/>
 		<control caption="Εκκίνηση της χρήσης του PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Δήλωση Σύνδεσης (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Δήλωση Σύνδεσης (1/6)">
 		<control caption="Για βέλτιστη απόδοση, το PeerProject χρειάζεται να ξέρει λίγα πράγματα για τη σύνδεσή σας στο Διαδίκτυο."/>
 		<control caption="Διαλέξτε τον τύπο της σύνδεσής σας στο Διαδίκτυο:"/>
 		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
@@ -3840,6 +3846,9 @@
 		<control/>
 		<control caption="Θέλετε αυτόματη ρύθμιση της προώθησης θυρών με χρήση UPnP;"/>
 		<control/>
+		<control caption="Port: (Any 4-5 digit number)"/>
+		<control/>
+		<control caption="Τυχαία"/>
 		<control caption="Κατάσταση:"/>
 		<control/>
 	</dialog>

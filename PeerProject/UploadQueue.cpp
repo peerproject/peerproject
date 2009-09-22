@@ -99,6 +99,11 @@ CString CUploadQueue::GetCriteriaString() const
 			if ( str1.GetLength() ) str1 += _T(", ");
 			str1 += _T("ED2K");
 		}
+		if ( m_nProtocols & (1<<PROTOCOL_BT) )
+		{
+			if ( str1.GetLength() ) str1 += _T(", ");
+			str1 += _T("BT");
+		}
 	}
 
 	if ( m_nMinSize > 0 )
@@ -128,7 +133,7 @@ CString CUploadQueue::GetCriteriaString() const
 		str1 += str2;
 	}
 
-	// ADD: Release states
+	// ToDo: Add Release States Queue!
 
 	return str1;
 }

@@ -38,8 +38,7 @@ public:
 protected:
 	CComboListCtrl	m_wndFiles;
 
-	// Update interface
-	void Update();
+	void Update();		// Refresh interface
 
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual BOOL OnInitDialog();
@@ -48,6 +47,7 @@ protected:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnDestroy();
 	afx_msg void OnCheckbox(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnSortColumn(NMHDR* pNotifyStruct, LRESULT* pResult);
 	afx_msg void OnNMDblclkTorrentFiles(NMHDR *pNMHDR, LRESULT *pResult);
 
 	DECLARE_MESSAGE_MAP()

@@ -3,11 +3,11 @@
 /* this ALWAYS GENERATED file contains the definitions for the interfaces */
 
 
-/* File created by MIDL compiler version 7.00.0500 */
-/* at Fri Sep 12 10:00:01 2008
-*/
+ /* File created by MIDL compiler version 7.00.0500 */
+/* at Fri Sep 11 13:15:13 2009
+ */
 /* Compiler settings for .\ImageViewer.idl:
-    Oicf, W1, Zp8, env=Win32 (32b run)
+    Oicf, W1, Zp8, env=Win64 (32b run)
     protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
@@ -84,7 +84,7 @@ EXTERN_C const CLSID CLSID_ImageViewerPlugin;
 
 #ifdef __cplusplus
 
-class DECLSPEC_UUID("2EE9D739-7726-41cf-8F18-4B1B8763BC63")
+class DECLSPEC_UUID("CFFA98CB-08D4-402B-8595-1E067D563060")
 ImageViewerPlugin;
 #endif
 
