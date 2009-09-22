@@ -44,8 +44,10 @@ public:
 	CComboBox	m_wndDownloadSpeed;
 	CComboBox	m_wndUploadSpeed;
 	CComboBox	m_wndUPnP;
-	CProgressCtrl m_wndProgress;
+	CEdit		m_wndPort;
+	CButton		m_wndRandom;
 	CStatic		m_wndStatus;
+	CProgressCtrl m_wndProgress;
 	//}}AFX_DATA
 
 // Operations
@@ -68,6 +70,7 @@ protected:
 	afx_msg void OnSelChangeConnectionType();
 	afx_msg void OnChangeConnectionSpeed();
 	afx_msg void OnSelChangeUPnP();
+	afx_msg void OnBnClickedRandom();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
@@ -76,5 +79,7 @@ private:
 	bool	m_bQueryDiscoveries;
 	bool	m_bUpdateDonkeyServers;
 	bool	m_bUPnPForward;
+	BOOL	m_bRandom;
+	DWORD	m_nPort;
 	short	m_nProgressSteps;
 };

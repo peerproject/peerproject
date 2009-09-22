@@ -559,28 +559,32 @@ void CLibraryFileView::OnUpdateLibraryCreateTorrent(CCmdUI* pCmdUI)
 	if ( m_bGhostFolder )
 		pCmdUI->Enable( FALSE );
 	else
-		pCmdUI->Enable( GetSelectedCount() == 1 && ( Settings.BitTorrent.DefaultTracker.GetLength() > 5 )
-						&& ( Settings.BitTorrent.TorrentCreatorPath.GetLength() > 5 ) );
+		pCmdUI->Enable( GetSelectedCount() < 2 && Settings.BitTorrent.TorrentCreatorPath.GetLength() > 6 );
 }
 
 void CLibraryFileView::OnLibraryCreateTorrent()
 {
-	CSingleLock pLock( &Library.m_pSection, TRUE );
-
-	if ( CLibraryFile* pFile = GetSelectedFile() )
+	if ( GetSelectedCount() == 1 && Settings.BitTorrent.DefaultTracker.GetLength() > 10 )
 	{
-		CString sCommandLine, sPath = pFile->GetPath();
-		pLock.Unlock();
+		CSingleLock pLock( &Library.m_pSection, TRUE );
 
-		if ( sPath.GetLength() > 0 )
+		if ( CLibraryFile* pFile = GetSelectedFile() )
 		{
-			sCommandLine = _T(" -sourcefile \"") + sPath + _T("\" -destination \"") + Settings.Downloads.TorrentPath + _T("\" -tracker \"" + Settings.BitTorrent.DefaultTracker + "\"" );
+			CString sCommandLine, sPath = pFile->GetPath();
+			pLock.Unlock();
 
-			ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, sCommandLine, NULL, SW_SHOWNORMAL );
+			if ( sPath.GetLength() > 0 )
+			{
+				sCommandLine = _T(" -sourcefile \"") + sPath + _T("\" -destination \"") + Settings.Downloads.TorrentPath + _T("\" -tracker \"" + Settings.BitTorrent.DefaultTracker + "\"" );
 
+				ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, sCommandLine, NULL, SW_SHOWNORMAL );
+
+				return;
+			}
 		}
-
 	}
+
+	ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CLibraryFileView::OnUpdateLibraryRebuildAnsi(CCmdUI* pCmdUI)

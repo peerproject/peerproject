@@ -415,12 +415,17 @@
 <menus>
 	<!-- SIMPLE POPUP MENU -->
 	<menu name="Simple">
+		<item id="ID_MOVETAB_LEFT" text="Siirrä Vasen"/>
+		<item id="ID_MOVETAB_RIGHT" text="Siirrä Oikea"/>
+		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
 	<!-- CHILD POPUP MENU -->
 	<menu name="Child">
-		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
+		<item id="ID_MOVETAB_LEFT" text="Siirrä Vasen"/>
+		<item id="ID_MOVETAB_RIGHT" text="Siirrä Oikea"/>
 		<separator/>
+		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
 		<item id="ID_CHILD_RESTORE" text="_Restore"/>
 		<item id="ID_CHILD_MINIMISE" text="_Minimise"/>
 		<separator/>
@@ -1091,8 +1096,9 @@
 		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Näytä Ryhmät"/>
 		<separator/> -->
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
-		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Poista _Ryhmä"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="Siirrä Ryhmä _Vasen"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="Siirrä Ryhmä _Oikea"/>
+		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="_Poista Ryhmä"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Uusi Ryhmä..."/>
 		<separator/>
 		<item id="ID_DOWNLOAD_GROUP_PROPERTIES" text="_Ominaisuudet"/>

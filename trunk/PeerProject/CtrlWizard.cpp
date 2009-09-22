@@ -350,6 +350,8 @@ void CWizardCtrl::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 
 		// Sort Files
 		// TODO: make sure all CLibraryFile*s remain valid throughout
+		CQuickLock oLibraryLock( Library.m_pSection );
+
 		std::vector< CLibraryFile* > pList;
 		pList.reserve( m_pFolder->GetFolderCount() );
 		for ( POSITION pos = m_pFolder->GetFileIterator(); pos; )
@@ -360,10 +362,9 @@ void CWizardCtrl::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 		std::sort( pList.begin(), pList.end(), CompareFiles() );
 
 		MakeControls( pBase, pList );
-
 		if ( pBase ) delete pBase;
-		// in case when there was no multi-pickers in the XML
-		// we need to prepare docs separately
+
+		// When no multi-pickers in XML prepare docs separately
 		if ( m_pFileDocs.GetCount() == 0 )
 		{
 			int nFileCount = 1;

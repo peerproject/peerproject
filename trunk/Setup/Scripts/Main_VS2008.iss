@@ -290,6 +290,7 @@ Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_basicmode})"; Filename: "{a
 Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_tabbedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-tabbed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
 Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_windowedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-windowed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
 Name: "{commondesktop}\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: desktopicon
+Name: "{commondesktop}\TorrentWizard"; Filename: "{app}\TorrentWizard.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: desktopicon
 Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: quicklaunch
 
 ; Other icons in user language
@@ -624,7 +625,6 @@ Begin
         Result := DirExists(CurrentPath)
     else
         Result := False;
-
 End;
 
 Function OpenServiceManager(): HANDLE;
@@ -761,10 +761,10 @@ Begin
 
   // Malware check
   Result := NOT MalwareCheck( ExpandConstant('{win}\vgraph.dll') );
-  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{win}\pxwma.dll') ); End;
-  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{sys}\pxwma.dll') ); End;
-  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{win}\PeerProject.exe') ); End;
-  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{sys}\PeerProject.exe') ); End;
+  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{win}\Shareaza*') ); End;
+  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{sys}\Shareaza*') ); End;
+  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{win}\PeerProject*') ); End;
+  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{sys}\PeerProject*') ); End;
   if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{pf}\PeerProject\vc2.dll') ); End;
 End;
 

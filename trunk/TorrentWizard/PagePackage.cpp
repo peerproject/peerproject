@@ -37,6 +37,7 @@ BEGIN_MESSAGE_MAP(CPackagePage, CWizardPage)
 	ON_BN_CLICKED(IDC_ADD_FOLDER, OnAddFolder)
 	ON_BN_CLICKED(IDC_ADD_FILE, OnAddFile)
 	ON_BN_CLICKED(IDC_REMOVE_FILE, OnRemoveFile)
+	ON_WM_DROPFILES()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -47,8 +48,11 @@ END_MESSAGE_MAP()
 CPackagePage::CPackagePage() : CWizardPage(CPackagePage::IDD)
 {
 	//{{AFX_DATA_INIT(CPackagePage)
-	//}}AFX_DATA_INIT
 	m_hImageList = NULL;
+	m_nTotalSize = 0;
+	m_sTotalSize = _T("");
+	m_sFileCount = _T("Files in this Torrent package:");
+	//}}AFX_DATA_INIT
 }
 
 CPackagePage::~CPackagePage()
@@ -61,6 +65,8 @@ void CPackagePage::DoDataExchange(CDataExchange* pDX)
 	//{{AFX_DATA_MAP(CPackagePage)
 	DDX_Control(pDX, IDC_REMOVE_FILE, m_wndRemove);
 	DDX_Control(pDX, IDC_FILE_LIST, m_wndList);
+	DDX_Text(pDX, IDC_FILECOUNT, m_sFileCount);
+	DDX_Text(pDX, IDC_TOTAL_SIZE, m_sTotalSize);
 	//}}AFX_DATA_MAP
 }
 
@@ -74,8 +80,12 @@ BOOL CPackagePage::OnInitDialog()
 	CRect rc;
 	m_wndList.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
-	m_wndList.InsertColumn( 0, _T("Filename"), LVCFMT_LEFT, rc.right - 80, -1 );
-	m_wndList.InsertColumn( 1, _T("Size"), LVCFMT_RIGHT, 80, 0 );
+	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_LABELTIP|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP );
+	m_wndList.InsertColumn( 0, _T("Filename"), LVCFMT_LEFT, rc.right - 64, -1 );
+	m_wndList.InsertColumn( 1, _T("Size"), LVCFMT_RIGHT, 64, 0 );
+	m_wndList.InsertColumn( 2, _T("Bytes"), LVCFMT_RIGHT, 0, 0 );
+
+	this->DragAcceptFiles(TRUE);
 
 	return TRUE;
 }
@@ -112,6 +122,25 @@ void CPackagePage::OnItemChangedFileList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 //	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	*pResult = 0;
 	m_wndRemove.EnableWindow( m_wndList.GetSelectedCount() > 0 );
+}
+
+void CPackagePage::OnDropFiles( HDROP hDropInfo )
+{
+	CString sFilename;
+
+	int nFiles = DragQueryFile( hDropInfo, (UINT)-1, NULL, 0 );
+	for ( int i = 0; i < nFiles; i++ )
+	{
+		LPWSTR pszFile = sFilename.GetBuffer( _MAX_PATH );
+		DragQueryFile( hDropInfo, i, pszFile, _MAX_PATH );
+
+		if ( PathIsDirectory( sFilename ) )
+			AddFolder( (LPCTSTR)pszFile, 2 );
+		else
+			AddFile( (LPCTSTR)pszFile );
+	}
+
+	DragFinish( hDropInfo );
 }
 
 void CPackagePage::OnAddFolder()
@@ -177,11 +206,46 @@ void CPackagePage::OnRemoveFile()
 	{
 		if ( m_wndList.GetItemState( nItem, LVIS_SELECTED ) )
 		{
+			CString strSize = m_wndList.GetItemText( nItem, 2 );
+
 			m_wndList.DeleteItem( nItem );
+
+			if ( m_wndList.GetItemCount() )
+			{
+				m_nTotalSize -= _wtoi( strSize );
+				m_sFileCount.Format( _T("%i Files in this Torrent package:"), m_wndList.GetItemCount() );
+				m_sTotalSize.Format( _T("%s"), SmartSize( m_nTotalSize ) );
+			}
+			else
+			{
+				m_sFileCount = _T("Files in this Torrent package:");
+				m_sTotalSize = _T("");
+				m_nTotalSize = 0;
+			}
+
+			UpdateData( FALSE );
 			UpdateWindow();
 		}
 	}
 }
+
+BOOL CPackagePage::PreTranslateMessage(MSG* pMsg)
+{
+	if ( pMsg->message == WM_KEYDOWN )
+	{
+		if ( pMsg->wParam == VK_DELETE )
+		{
+			OnRemoveFile();
+			return TRUE;
+		}
+	}
+
+	return CWnd::PreTranslateMessage( pMsg );
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//	Add Files (and Folders)
 
 void CPackagePage::AddFile(LPCTSTR pszFile)
 {
@@ -189,10 +253,23 @@ void CPackagePage::AddFile(LPCTSTR pszFile)
 
 	if ( hFile == INVALID_HANDLE_VALUE )
 	{
-		CString strFormat, strMessage;
-		strFormat.LoadString( IDS_PACKAGE_CANT_OPEN );
-		strMessage.Format( strFormat, pszFile );
+		CString strMessage;
+		strMessage.LoadString( IDS_PACKAGE_CANT_OPEN );
+		strMessage.Format( strMessage, pszFile );
 		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		return;
+	}
+
+	// Duplicate Check
+	LVFINDINFO lvInfo;
+	lvInfo.flags = LVFI_STRING;
+	lvInfo.psz = pszFile;
+	if( m_wndList.FindItem( &lvInfo, -1 ) != -1 )
+	{
+		//CString strMessage;
+		//strMessage.Format( _T("Duplicate filename denied:  %s"), pszFile );
+		//AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		CloseHandle( hFile );
 		return;
 	}
 
@@ -219,8 +296,17 @@ void CPackagePage::AddFile(LPCTSTR pszFile)
 	int nItem = m_wndList.InsertItem( LVIF_TEXT|LVIF_IMAGE, m_wndList.GetItemCount(),
 		pszFile, 0, 0, pInfo.iIcon, NULL );
 
-	m_wndList.SetItemText( nItem, 1, SmartSize( nSize ) );
+	CString sBytes;
+	sBytes.Format( _T("%i"), nSize );
 
+	m_wndList.SetItemText( nItem, 1, SmartSize( nSize ) );
+	m_wndList.SetItemText( nItem, 2, sBytes );
+
+	m_nTotalSize += nSize;
+	m_sTotalSize.Format( _T("%s"), SmartSize( m_nTotalSize ) );
+	m_sFileCount.Format( _T("%i Files in this Torrent package:"), m_wndList.GetItemCount() );
+
+	UpdateData( FALSE );
 	UpdateWindow();
 }
 

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r36 -->
+<!-- Translation based on default-en.xml r37 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -497,13 +497,22 @@
 <menus>
 	<!-- SIMPLE POPUP MENU -->
 	<menu name="Simple">
+		<item id="ID_MOVETAB_LEFT" text="Move Tab _Left"/>
+		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Right"/>
+	<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
+	<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
+		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
 	<!-- CHILD POPUP MENU -->
 	<menu name="Child">
-		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
+		<item id="ID_MOVETAB_LEFT" text="Move Tab _Left"/>
+		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Right"/>
+	<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
+	<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
 		<separator/>
-		<item id="ID_CHILD_RESTORE" text="_Restore"/>
+		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
+ 		<item id="ID_CHILD_RESTORE" text="_Restore"/>
 		<item id="ID_CHILD_MINIMISE" text="_Minimize"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
@@ -1215,7 +1224,8 @@
 		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Hide Groups"/>
 		<separator/> -->
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="Move Group _Left"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="Move Group R_ight"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="R_emove Group"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_New Group..."/>
 		<separator/>
@@ -2405,7 +2415,8 @@
 	<tip id="ID_DISCOVERY_REMOVE" message="Remove the selected discovery services."/>
 	<tip id="ID_DISCOVERY_SERVERMET" message="Show eDonkey Server.met services in the Discovery window."/>
 	<tip id="ID_DISCOVERY_WEBCACHE" message="Show GWebCache services in the Discovery window."/>
-	<tip id="ID_DOWNLOAD_GROUP_MOVERIGHT" message="Move this group to the far right. (Favor other group filters)"/>
+	<tip id="ID_DOWNLOAD_GROUP_MOVELEFT" message="Reposition tab to the left. (More filter priority)"/>
+	<tip id="ID_DOWNLOAD_GROUP_MOVERIGHT" message="Reposition tab to the right. (Less filter priority)"/>
 	<tip id="ID_DOWNLOAD_GROUP_NEW" message="Create a new download group..."/>
 	<tip id="ID_DOWNLOAD_GROUP_PAUSE" message="Pause all downloads in this group."/>
 	<tip id="ID_DOWNLOAD_GROUP_PROPERTIES" message="Edit the properties of the selected download group."/>
@@ -3657,7 +3668,7 @@
 		<control caption="_New..."/>
 		<control caption="_Edit..."/>
 		<control caption="_Delete"/>
-		<control caption="(changes take effect immediately)"/>
+		<control caption="(Drag'n'drop priority)"/>
 	</dialog>
 	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Remote Access">
 		<control caption="_Guide:"/>
@@ -3817,7 +3828,7 @@
 		<control/>
 		<control caption="Restore Default"/>
 		<control caption="Setting Properties:"/>
-		<control caption=" Value:"/>
+		<control caption="Value:"/>
 		<control caption="Description:"/>
 		<control/>
 	</dialog>
@@ -3880,16 +3891,19 @@
 		<control/>
 		<control caption="Get started using PeerProject."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Welcome to PeerProject (1/6)">
-		<control caption="For best performance, PeerProject needs to know about your connection to the Internet."/>
-		<control caption="Select your Internet connection type:"/>
-		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2+ (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Welcome to PeerProject (1/6)">
+		<control caption="For best performance, PeerProject needs to know your internet connection."/>
+		<control caption="You may select the Internet connection type:"/>
+		<control caption="|Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Cable Modem|T1|T3|LAN|OC3"/>
 		<control caption="Or choose the download speed:"/>
 		<control/>
-		<control caption="and the upload speed:"/>
+		<control caption="...and upload speed:"/>
 		<control/>
-		<control caption="Automatically setup port-forwarding using Plug&apos;n&apos;Play?"/>
+		<control caption="Do auto port-forwarding with Plug&apos;n&apos;Play?"/>
 		<control/>
+		<control caption="Port: &#160; (Any 4-5 digit number)"/>
+		<control/>
+		<control caption="Random"/>
 		<control caption="Status:"/>
 		<control/>
 	</dialog>
@@ -4711,9 +4725,9 @@
 	<list name="CUploadQueueList">
 		<column from="Name" to=""/>
 		<column from="Criteria" to=""/>
-		<column from="Bandwidth" to=""/>
+		<column from="Minimum" to=""/>
 		<column from="Transfers" to=""/>
-		<column from="Order" to=""/>
+		<column from="Priority" to=""/>
 	</list>
 	<list name="CAdvancedSettingsList">
 		<column from="Setting" to=""/>
@@ -4731,6 +4745,7 @@
 		<column from="Filename" to=""/>
 		<column from="Size" to=""/>
 		<column from="Status" to=""/>
+		<column from="Index" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

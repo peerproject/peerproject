@@ -264,16 +264,11 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 	}
 
 	if ( strURL.Find( _T("http://") ) == 0 )
-	{
-	}
+		;
 	else if ( strURL.Find( _T("www.") ) == 0 )
-	{
 		strURL = _T("http://") + strURL;
-	}
 	else
-	{
 		strURL.Empty();
-	}
 
 	if ( strEmail.Find( '@' ) < 0 ) strEmail.Empty();
 
@@ -281,13 +276,9 @@ BOOL CCollectionExportDlg::AddTemplate(LPCTSTR pszPath, LPCTSTR pszName)
 	HICON hIcon;
 
 	if ( ExtractIconEx( strIcon, 0, NULL, &hIcon, 1 ) != NULL && hIcon != NULL )
-	{
 		pItem.m_nImage = AddIcon( hIcon, m_gdiImageList );
-	}
 	else
-	{
 		pItem.m_nImage = 0;
-	}
 
 	pItem.Set( 0, strName );
 	pItem.Set( 1, strAuthor );
@@ -352,8 +343,12 @@ void CCollectionExportDlg::OnOK()
 				pCursor.Restore();
 			}
 			else
+			{
 				m_wndWizard.ShowWindow( TRUE );
-			if ( ! m_wndWizard.m_bValid ) m_wndOK.EnableWindow( FALSE );
+			}
+
+			if ( ! m_wndWizard.m_bValid )
+				m_wndOK.EnableWindow( FALSE );
 		}
 		break;
 		case 2: // the second wizard screen
@@ -400,11 +395,15 @@ void CCollectionExportDlg::OnOK()
 
 					CString strTemplatePath;
 					if ( strTemplateName != "index.htm" )
+					{
 						strTemplatePath = DirFromPath( m_wndWizard.m_sXMLPath ) +
 							_T("\\") + strTemplateName;
+					}
 					else
+					{
 						strTemplatePath = DirFromPath( m_wndWizard.m_sXMLPath ) +
 							_T("\\") + m_wndWizard.m_sMainFilePath;
+					}
 					strSource = m_wndWizard.ReadFile( strTemplatePath );
 				}
 				else continue;
@@ -494,7 +493,7 @@ void CCollectionExportDlg::OnOK()
 								if ( GetFileAttributes( strTarget ) == 0xFFFFFFFF )
 								{
 									// create dirs recursively
-									CreateDirectory( strTarget );
+									CreateDirectory( strTarget.Left( strTarget.ReverseFind( _T('\\') ) ) );
 									if ( ! CopyFile( strSourceFile, strTarget, TRUE ) )
 										AfxMessageBox( _T("TODO: File disappeared: \n") + strReplace );
 								}
@@ -555,7 +554,7 @@ void CCollectionExportDlg::OnOK()
 					if ( GetFileAttributes( strSource ) != 0xFFFFFFFF )
 					{
 						// create dirs recursively
-						CreateDirectory( strTarget );
+						CreateDirectory( strTarget.Left( strTarget.ReverseFind( _T('\\') ) ) );
 						if ( ! CopyFile( strSource, strTarget, TRUE ) )
 							AfxMessageBox( _T("ToDo: Can't write to ") + strFile );
 					}

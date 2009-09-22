@@ -1197,9 +1197,7 @@ LRESULT CMainWnd::OnHandleCollection(WPARAM wParam, LPARAM /*lParam*/)
 	delete [] pszPath;
 
 	if ( CLibraryWnd* pLibrary = (CLibraryWnd*)m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) )
-	{
 		pLibrary->OnCollection( strPath );
-	}
 
 	return 0;
 }
@@ -1211,8 +1209,12 @@ LRESULT CMainWnd::OnHandleTorrent(WPARAM wParam, LPARAM /*lParam*/)
 	delete [] pszPath;
 
 	CTorrentSeedDlg dlg( strPath );
-	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 || ! dlg.LoadTorrent( strPath ) )
+	// Shift Key or Active Hashing (crashbug) bypass Torrent Loading Attempt straight to Dialog
+	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 || LibraryBuilder.GetRemaining() ||
+		! dlg.LoadTorrent( strPath ) )
+	{
 		dlg.DoModal();	// Try again manually
+	}
 
 	return 0;
 }
@@ -1220,15 +1222,15 @@ LRESULT CMainWnd::OnHandleTorrent(WPARAM wParam, LPARAM /*lParam*/)
 LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 {
 	if ( wParam == VC_MESSAGE_AND_CONFIRM && VersionChecker.m_sMessage.GetLength() )
-	{
 		AfxMessageBox( VersionChecker.m_sMessage, MB_ICONINFORMATION );
-	}
 
 	if ( wParam == VC_MESSAGE_AND_CONFIRM || wParam == VC_CONFIRM )
 	{
 		// Check for already downloaded file
 		if ( VersionChecker.CheckUpgradeHash() )
-			;
+		{
+			;	// Do nothing
+		}
 		else if ( VersionChecker.IsUpgradeAvailable() )
 		{
 			CUpgradeDlg dlg;
@@ -1254,8 +1256,10 @@ LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 			PostMessage( WM_CLOSE );
 		}
 		else
+		{
 			// Postponed till next session
 			Settings.VersionCheck.NextCheck = 0;
+		}
 	}
 
 	return 0;
@@ -1280,27 +1284,24 @@ LRESULT CMainWnd::OnOpenSearch(WPARAM wParam, LPARAM /*lParam*/)
 LRESULT CMainWnd::OnMediaKey(WPARAM /*wParam*/, LPARAM lParam)
 {
 	if ( CMediaWnd* pWnd = (CMediaWnd*)m_pWindows.Find( RUNTIME_CLASS(CMediaWnd) ) )
-	{
 		return pWnd->SendMessage( 0x0319, 1, lParam );
-	}
+
 	return 0;
 }
 
 LRESULT CMainWnd::OnDevModeChange(WPARAM wParam, LPARAM lParam)
 {
 	if ( CMediaWnd* pWnd = (CMediaWnd*)m_pWindows.Find( RUNTIME_CLASS(CMediaWnd) ) )
-	{
 		return pWnd->SendMessage( WM_DEVMODECHANGE, wParam, lParam );
-	}
+
 	return 0;
 }
 
 LRESULT CMainWnd::OnDisplayChange(WPARAM wParam, LPARAM lParam)
 {
 	if ( CMediaWnd* pWnd = (CMediaWnd*)m_pWindows.Find( RUNTIME_CLASS(CMediaWnd) ) )
-	{
 		return pWnd->SendMessage( WM_DISPLAYCHANGE, wParam, lParam );
-	}
+
 	return 0;
 }
 
@@ -1333,10 +1334,8 @@ LRESULT CMainWnd::OnSetMessageString(WPARAM wParam, LPARAM lParam)
 		m_nIDLastMessage = m_nIDTracking = static_cast< UINT >( wParam );
 		return 0;
 	}
-	else
-	{
-		return CMDIFrameWnd::OnSetMessageString( wParam, lParam );
-	}
+
+	return CMDIFrameWnd::OnSetMessageString( wParam, lParam );
 }
 
 void CMainWnd::GetMessageString(UINT nID, CString& rMessage) const
@@ -1390,11 +1389,14 @@ void CMainWnd::UpdateMessages()
 				m_bNoNetWarningShowed = TRUE;
 			}
 		}
-		else	//Trying to connect
+		else
+		{
+			//Trying to connect
 			LoadString( strMessage, IDS_STATUS_BAR_CONNECTING );
+		}
 	}
-	else
-	{	//Idle
+	else	//Idle
+	{
 		LoadString( strMessage, IDS_STATUS_BAR_DISCONNECTED );
 		m_bNoNetWarningShowed = FALSE;
 	}
@@ -1420,7 +1422,8 @@ void CMainWnd::UpdateMessages()
 		CGraphItem::GetValue( GRC_UPLOADS_TRANSFERS ) );
 
 	m_wndStatusBar.GetPaneText( 1, strOld );
-	if ( strOld != strMessage ) m_wndStatusBar.SetPaneText( 1, strMessage );
+	if ( strOld != strMessage )
+		m_wndStatusBar.SetPaneText( 1, strMessage );
 
 	if ( m_bTrayIcon )
 	{
@@ -1675,9 +1678,7 @@ void CMainWnd::OnNetworkBrowseTo()
 	SOCKADDR_IN pAddress;
 
 	if ( Network.Resolve( dlg.m_sHost, dlg.m_nPort, &pAddress ) )
-	{
 		new CBrowseHostWnd( PROTOCOLID( dlg.m_nProtocol + 1 ), &pAddress );
-	}
 }
 
 void CMainWnd::OnUpdateNetworkG2(CCmdUI* pCmdUI)
@@ -1782,8 +1783,7 @@ void CMainWnd::OnNetworkED2K()
 void CMainWnd::OnUpdateNetworkAutoClose(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( Settings.Connection.RequireForTransfers &&
-					( Settings.Live.AutoClose || ( Transfers.GetActiveCount() > 0 ) )
-				  );
+		( Settings.Live.AutoClose || ( Transfers.GetActiveCount() > 0 ) ) );
 	pCmdUI->SetCheck( Settings.Connection.RequireForTransfers && Settings.Live.AutoClose );
 }
 
@@ -1892,13 +1892,10 @@ void CMainWnd::OnUpdateViewTraffic(CCmdUI* pCmdUI)
 void CMainWnd::OnViewTraffic()
 {
 	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 )
-	{
 		new CTrafficWnd();
-	}
 	else
-	{
 		m_pWindows.Open( RUNTIME_CLASS(CTrafficWnd), TRUE );
-	}
+
 	OpenFromTray();
 }
 
@@ -1943,13 +1940,10 @@ void CMainWnd::OnUpdateViewMedia(CCmdUI* pCmdUI)
 void CMainWnd::OnViewMedia()
 {
 	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 )
-	{
 		new CMediaWnd();
-	}
 	else
-	{
 		m_pWindows.Open( RUNTIME_CLASS(CMediaWnd), TRUE );
-	}
+
 	OpenFromTray();
 }
 
@@ -1983,13 +1977,10 @@ void CMainWnd::OnUpdateViewPackets(CCmdUI* pCmdUI)
 void CMainWnd::OnViewPackets()
 {
 	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 )
-	{
 		new CPacketWnd();
-	}
 	else
-	{
 		m_pWindows.Open( RUNTIME_CLASS(CPacketWnd), TRUE );
-	}
+
 	OpenFromTray();
 }
 
@@ -2096,9 +2087,7 @@ void CMainWnd::OnTabConnect()
 		CChildWnd* pActive = m_pWindows.GetActive();
 
 		if ( ! pActive || ! pActive->IsKindOf( RUNTIME_CLASS(CHomeWnd) ) )
-		{
 			m_pWindows.Open( RUNTIME_CLASS(CNeighboursWnd) );
-		}
 	}
 }
 
@@ -2149,13 +2138,9 @@ void CMainWnd::OnUpdateTabMedia(CCmdUI* pCmdUI)
 	if ( CCoolBarItem* pItem = m_wndToolBar.GetID( ID_TAB_MEDIA ) )
 	{
 		if ( ( pChild = (CMediaWnd*)m_pWindows.Find( RUNTIME_CLASS(CMediaWnd) ) ) != NULL )
-		{
 			pItem->SetTextColor( pChild->IsPlaying() ? CoolInterface.m_crTextStatus : CoolInterface.m_crCmdText );
-		}
 		else
-		{
 			pItem->SetTextColor( CoolInterface.m_crCmdText );
-		}
 	}
 }
 
@@ -2460,10 +2445,13 @@ void CMainWnd::OnWindowNavBar()
 	ShowControlBar( &m_wndNavBar, ! m_wndNavBar.IsVisible(), FALSE );
 	if ( m_wndToolBar.IsVisible() )
 	{
-		if ( ! Network.IsConnected() ) m_wndTabBar.SetMessage( IDS_TABBAR_NOT_CONNECTED );
+		if ( ! Network.IsConnected() )
+			m_wndTabBar.SetMessage( IDS_TABBAR_NOT_CONNECTED );
 	}
 	else
+	{
 		m_wndTabBar.SetMessage( _T("") );
+	}
 }
 
 void CMainWnd::OnUpdateWindowToolBar(CCmdUI* pCmdUI)
@@ -2477,10 +2465,13 @@ void CMainWnd::OnWindowToolBar()
 	ShowControlBar( &m_wndToolBar, ! m_wndToolBar.IsVisible(), FALSE );
 	if ( m_wndToolBar.IsVisible() )
 	{
-		if ( ! Network.IsConnected() ) m_wndTabBar.SetMessage( IDS_TABBAR_NOT_CONNECTED );
+		if ( ! Network.IsConnected() )
+			m_wndTabBar.SetMessage( IDS_TABBAR_NOT_CONNECTED );
 	}
 	else
+	{
 		m_wndTabBar.SetMessage( _T("") );
+	}
 }
 
 void CMainWnd::OnUpdateWindowTabBar(CCmdUI* pCmdUI)
@@ -2520,7 +2511,8 @@ void CMainWnd::OnWindowRemote()
 
 void CMainWnd::OnRemoteClose()
 {
-	if ( m_wndRemoteWnd.IsVisible() ) m_wndRemoteWnd.DestroyWindow();
+	if ( m_wndRemoteWnd.IsVisible() )
+		m_wndRemoteWnd.DestroyWindow();
 }
 
 void CMainWnd::OnUpdateMediaCommand(CCmdUI *pCmdUI)
@@ -2772,10 +2764,8 @@ BOOL CMainWnd::OnNcActivate(BOOL bActive)
 		m_pSkin->OnNcActivate( this, IsWindowEnabled() && ( bActive || ( m_nFlags & WF_STAYACTIVE ) ) );
 		return TRUE;
 	}
-	else
-	{
-		return CMDIFrameWnd::OnNcActivate( bActive );
-	}
+
+	return CMDIFrameWnd::OnNcActivate( bActive );
 }
 
 void CMainWnd::OnNcMouseMove(UINT nHitTest, CPoint point)
@@ -2816,10 +2806,8 @@ LRESULT CMainWnd::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 		if ( m_pSkin ) m_pSkin->OnSetText( this );
 		return lResult;
 	}
-	else
-	{
-		return Default();
-	}
+
+	return Default();
 }
 
 LRESULT CMainWnd::OnSanityCheck(WPARAM /*wParam*/, LPARAM /*lParam*/)
@@ -2831,7 +2819,6 @@ LRESULT CMainWnd::OnSanityCheck(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	HostCache.SanityCheck();
 
 	// ToDo: Downloads.SanityCheck();
-
 	// ToDo: Uploads.SanityCheck();
 
 	CQuickLock pLock( theApp.m_pSection );

@@ -509,6 +509,8 @@ void CBTInfo::ConvertOldTorrents()
 
 void CBTInfo::CBTFile::Serialize(CArchive& ar, int nVersion)
 {
+	// ToDo: What nVersions are necessary for PeerProject?
+
 	if ( ar.IsStoring() )
 	{
 		ar << m_nSize;
@@ -536,8 +538,7 @@ void CBTInfo::CBTFile::Serialize(CArchive& ar, int nVersion)
 
 		if ( nVersion >= 9 )
 			ar >> m_sName;
-		else
-			// Upgrade
+		else // Upgrade
 			m_sName = PathFindFileName( m_sPath );
 
 		SerializeIn( ar, m_oSHA1, nVersion );
@@ -734,6 +735,18 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 						{
 							// Store HTTP tracker
 							pTrackers.AddTail( strTracker );
+
+							// Backup defunct PirateBay tracker
+							if ( nTracker < 3 && strTracker.Find( _T("piratebay") ) > 6 )
+							{
+								strTracker = _T("http://tracker.openbittorrent.com/announce");
+								pTrackers.AddTail( strTracker );
+							}
+						}
+						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("https://"), 8 ) == 0 )
+						{
+							// ToDo: Verify if we can handle https trackers natively, or try converting to http
+							pTrackers.AddTail( strTracker );
 						}
 						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
 						{
@@ -741,7 +754,7 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 							// Store non-functional UDP tracker for display
 							pTrackers.AddTail( strTracker );
 						}
-						//else unknown tracker
+						//else unknown tracker protocol
 					}
 				}
 
@@ -785,29 +798,25 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 		SetTrackerNext();
 	}
 
-	// Get announce
-	CBENode* pAnnounce = pRoot->GetNode( "announce" );
-	if ( pAnnounce && pAnnounce->IsType( CBENode::beString ) )
+	// Announce node is ignored by multi-tracker torrents
+	if ( m_oTrackers.IsEmpty() )
 	{
-		// Get the tracker
-		CString strTracker = pAnnounce->GetString();
-
-		// Store it if it's valid. (Some torrents have invalid trackers)
-		if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) == 0 )
+		// Get announce
+		CBENode* pAnnounce = pRoot->GetNode( "announce" );
+		if ( pAnnounce && pAnnounce->IsType( CBENode::beString ) )
 		{
-			// Announce node is ignored by multi-tracker torrents
-			if ( m_oTrackers.IsEmpty() )
+			// Get the tracker
+			CString strTracker = pAnnounce->GetString();
+
+			// Store it if it's valid. (Some torrents have invalid trackers)
+			if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) == 0 )
 			{
 				// Set the torrent to be a single-tracker torrent
 				m_nTrackerMode = tSingle;
 				SetTracker( strTracker );
 			}
+			//else	// Torrents should always have a valid announce node, udp:// is unlikely.
 		}
-		//else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
-		//{
-			// ToDo: Add UDP tracker support
-		//}
-		//else	// Torrents should always have a valid announce node.
 	}
 
 	// Get the info node
@@ -899,8 +908,7 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 		if ( ! m_nTotalSize ) return FALSE;
 
 		CAutoPtr< CBTFile >pBTFile( new CBTFile( this ) );
-		if ( ! pBTFile )
-			// Out of memory
+		if ( ! pBTFile )		// Out of memory
 			return FALSE;
 
 		pBTFile->m_sPath = m_sName;
@@ -939,8 +947,7 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 		for ( int nFile = 0 ; nFile < nFiles ; nFile++ )
 		{
 			CAutoPtr< CBTFile > pBTFile( new CBTFile( this ) );
-			if ( ! pBTFile )
-				// Out of Memory
+			if ( ! pBTFile )		// Out of Memory
 				return FALSE;
 
 			CBENode* pFile = pFiles->GetNode( nFile );
@@ -978,8 +985,7 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 			{
 				if ( ! IsValid( strPath ) )
 				{
-					// Get the path
-					strPath = pPart->GetString();
+					strPath = pPart->GetString();	// Get the path
 				}
 				else
 				{

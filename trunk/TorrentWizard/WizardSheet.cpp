@@ -49,6 +49,7 @@ BEGIN_MESSAGE_MAP(CWizardSheet, CPropertySheet)
 	ON_WM_SIZE()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
+	ON_WM_NCLBUTTONUP()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -77,8 +78,8 @@ BOOL CWizardSheet::Run(CWnd* pParent)
 		pSheet.AddPage( &pSingle );
 		pSheet.AddPage( &pPackage );
 		pSheet.AddPage( &pTracker );
-		pSheet.AddPage( &pOutput );
 		pSheet.AddPage( &pComment );
+		pSheet.AddPage( &pOutput );
 		pSheet.AddPage( &pFinished );
 	}
 
@@ -139,6 +140,7 @@ BOOL CWizardSheet::OnInitDialog()
 	SetIcon( theApp.LoadIcon( IDR_MAINFRAME ), TRUE );
 	SetFont( &theApp.m_fntNormal );
 
+	// ToDo: Fix Minimize Button Properly
 	ModifyStyle( 0, WS_MINIMIZEBOX );
 
 	GetDlgItem( 0x3023 )->GetWindowRect( &rc );
@@ -191,14 +193,9 @@ BOOL CWizardSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRE
 		GetClassName( pWnd->GetSafeHwnd(), szName, 32 );
 
 		if ( !_tcscmp( szName, _T("Static") ) )
-		{
 			pWnd->SetFont( &theApp.m_fntNormal, FALSE );
-
-		}
 		else if ( _tcscmp( szName, _T("RICHEDIT") ) )
-		{
 			pWnd->SetFont( &theApp.m_fntNormal, TRUE );
-		}
 
 		pWnd = pWnd->GetNextWindow();
 	}
@@ -281,10 +278,18 @@ BOOL CWizardSheet::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 void CWizardSheet::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 {
 	if ( point.y <= 50 )
-	{
-		ShellExecute( NULL, NULL, _T("http://PeerProject.org/TorrentAid/"), NULL, NULL, SW_SHOWNORMAL );
-	}
+		ShellExecute( NULL, NULL, _T("http://PeerProject.org/TorrentWizard/"), NULL, NULL, SW_SHOWNORMAL );
 }
+
+void CWizardSheet::OnNcLButtonUp(UINT nHitTest, CPoint /*point*/)
+{
+	// Broken Minimize Button Workaround.  ToDo: Remove this & fix properly
+	if ( nHitTest == HTCLOSE )
+		PostMessage( WM_SYSCOMMAND, SC_CLOSE );
+	else if ( nHitTest == HTMINBUTTON )
+		ShowWindow( SW_MINIMIZE );
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CWizardPage
@@ -318,9 +323,7 @@ CWizardPage::~CWizardPage()
 HBRUSH CWizardPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT /*nCtlColor*/)
 {
 	if ( pWnd != NULL && pWnd->GetDlgCtrlID() == IDC_TITLE )
-	{
 		pDC->SelectObject( &theApp.m_fntBold );
-	}
 
 	pDC->SetBkColor( m_crWhite );
 	return (HBRUSH)m_brWhite.GetSafeHandle();
@@ -333,9 +336,7 @@ void CWizardPage::OnSize(UINT nType, int cx, int cy)
 	CWizardSheet* pSheet = (CWizardSheet*)GetParent();
 
 	if ( cx != pSheet->m_rcPage.Width() )
-	{
 		MoveWindow( &pSheet->m_rcPage );
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////

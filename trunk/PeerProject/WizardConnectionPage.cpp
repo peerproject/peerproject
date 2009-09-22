@@ -48,6 +48,7 @@ BEGIN_MESSAGE_MAP(CWizardConnectionPage, CWizardPage)
 	ON_CBN_EDITCHANGE(IDC_WIZARD_UPLOAD_SPEED, OnChangeConnectionSpeed)
 	ON_CBN_SELCHANGE(IDC_WIZARD_UPLOAD_SPEED, OnChangeConnectionSpeed)
 	ON_CBN_SELCHANGE(IDC_WIZARD_UPNP, OnSelChangeUPnP)
+	ON_BN_CLICKED(IDC_WIZARD_RANDOM, OnBnClickedRandom)
 	ON_WM_TIMER()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -60,6 +61,8 @@ CWizardConnectionPage::CWizardConnectionPage() : CWizardPage(CWizardConnectionPa
 , m_bQueryDiscoveries(false)
 , m_bUpdateDonkeyServers(false)
 , m_bUPnPForward(false)
+, m_bRandom(false)
+, m_nPort(0)
 , m_nProgressSteps(0)
 {
 }
@@ -72,12 +75,16 @@ void CWizardConnectionPage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CWizardConnectionPage)
+	DDX_Control(pDX, IDC_CONNECTION_PROGRESS, m_wndProgress);
+	DDX_Control(pDX, IDC_CONNECTION_STATUS, m_wndStatus);
 	DDX_Control(pDX, IDC_CONNECTION_TYPE, m_wndType);
 	DDX_Control(pDX, IDC_WIZARD_DOWNLOAD_SPEED, m_wndDownloadSpeed);
 	DDX_Control(pDX, IDC_WIZARD_UPLOAD_SPEED, m_wndUploadSpeed);
 	DDX_Control(pDX, IDC_WIZARD_UPNP, m_wndUPnP);
-	DDX_Control(pDX, IDC_CONNECTION_PROGRESS, m_wndProgress);
-	DDX_Control(pDX, IDC_CONNECTION_STATUS, m_wndStatus);
+	DDX_Control(pDX, IDC_WIZARD_PORT, m_wndPort);
+	DDX_Control(pDX, IDC_WIZARD_RANDOM, m_wndRandom);
+	DDX_Check(pDX, IDC_WIZARD_RANDOM, m_bRandom);
+	DDX_Text(pDX, IDC_WIZARD_PORT, m_nPort);
 	//}}AFX_DATA_MAP
 }
 
@@ -110,10 +117,15 @@ BOOL CWizardConnectionPage::OnInitDialog()
 	m_wndType.SetCurSel( -1 );
 	//Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Cable Modem|T1|T3|LAN|OC3
 
-	const double nSpeeds[] = { 28.8, 33.6, 56, 64, 128, 256, 384, 512, 640, 768, 1024, 1536, 1544, 1550, 2048, 3072, 4096, 5120, 8192, 10240, 12288, 20480, 24576, 45000, 102400, 155000, 0 };
+	const double nSpeeds[] = { 28.8, 33.6, 56, 64, 128, 256, 384, 512, 640, 768, 1024, 1536, 1550, 2048, 3072, 4096, 5120, 7200, 8192, 10240, 12288, 16384, 20480, 24576, 45050, 102400, 155000, 0 };
 	for ( int nSpeed = 0 ; nSpeeds[ nSpeed ] ; nSpeed++ )
 	{
-		strTemp.Format( _T("%lg kbps"), nSpeeds[ nSpeed ] );
+		if ( nSpeeds[ nSpeed ] < 100 )
+			strTemp.Format( _T("%.1f kbps    (%.1f KB/s)"), nSpeeds[ nSpeed ], nSpeeds[ nSpeed ] / 8 );
+		else if ( nSpeeds[ nSpeed ] < 8190 )
+			strTemp.Format( _T("%.0f kbps    (%.0f KB/s)"), nSpeeds[ nSpeed ], nSpeeds[ nSpeed ] / 8 );
+		else
+			strTemp.Format( _T("%.0f kbps    (%.2f MB/s)"), nSpeeds[ nSpeed ], nSpeeds[ nSpeed ] / 8 / 1024 );
 		m_wndDownloadSpeed.AddString( strTemp );
 		m_wndUploadSpeed.AddString( strTemp );
 	}
@@ -130,11 +142,16 @@ BOOL CWizardConnectionPage::OnInitDialog()
 	m_wndUPnP.SetCurSel( (Settings.Connection.EnableUPnP) ? 0 : 1 );
 	OnSelChangeUPnP();
 
+	m_nPort	= Settings.Connection.InPort;
+	m_bRandom = ( Settings.Connection.RandomPort == true );
+
 	// 3 steps with 30 sub-steps each
 	m_wndProgress.SetRange( 0, 90 );
 	m_wndProgress.SetPos( 0 );
 
 	m_wndStatus.SetWindowText( L"" );
+
+	UpdateData( FALSE );
 
 	return TRUE;
 }
@@ -168,18 +185,37 @@ void CWizardConnectionPage::OnSelChangeUPnP()
 		int nIndex = m_wndUPnP.GetCurSel();
 
 		if ( nIndex == 0 )
+		{
 			m_bUPnPForward = TRUE;
+			m_wndRandom.EnableWindow( TRUE );
+			m_wndPort.EnableWindow( ! m_bRandom );
+		}
 		else
+		{
 			m_bUPnPForward = FALSE;
+			m_wndRandom.EnableWindow( FALSE );
+			m_wndPort.EnableWindow( TRUE );
+		}
+}
+
+void CWizardConnectionPage::OnBnClickedRandom()
+{
+	UpdateData();
+	m_wndPort.EnableWindow( ! m_bRandom );
 }
 
 LRESULT CWizardConnectionPage::OnWizardNext()
 {
 	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) return 0;
 
-	DWORD nDownloadSpeed = 0, nUploadSpeed = 0;
-	DWORD nSpeed	= 0;
-	int nIndex		= m_wndType.GetCurSel();
+	UpdateData();
+
+	if ( m_nPort > 1000 )
+		Settings.Connection.InPort = m_nPort;
+	Settings.Connection.RandomPort = ( m_bRandom == TRUE );
+
+	DWORD nSpeed = 0, nDownloadSpeed = 0, nUploadSpeed = 0;
+	int nIndex = m_wndType.GetCurSel();
 
 	if ( nIndex >= 0 )
 	{
@@ -235,10 +271,10 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 	Settings.Connection.OutSpeed = nUploadSpeed;
 
 	// Set upload limit to 90% of capacity, trimmed down to nearest KB.
-	Settings.Bandwidth.Uploads = ( ( ( nUploadSpeed * 
-		( 100 - Settings.Uploads.FreeBandwidthFactor ) ) / 100 ) / 8 ) * 1024;
+	Settings.Bandwidth.Uploads = ( Settings.Connection.OutSpeed / 8 ) *
+		( ( 100 - Settings.Uploads.FreeBandwidthFactor ) / 100 ) * 1024;
 
-	Settings.eDonkey.MaxLinks = nSpeed < 100 ? 35 : 250;
+	Settings.eDonkey.MaxLinks = nSpeed < 100 ? 100 : 250;
 	Settings.OnChangeConnectionSpeed();
 	UploadQueues.CreateDefault();
 
@@ -261,15 +297,10 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 		m_nProgressSteps += 30;	// UPnP device detection
 
 		// Create UPnP finder object if it doesn't exist
-		try
-		{
-			if ( !theApp.m_pUPnPFinder )
-				theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
-			if ( theApp.m_pUPnPFinder->AreServicesHealthy() )
-				theApp.m_pUPnPFinder->StartDiscovery();
-		}
-		catch ( CUPnPFinder::UPnPError& ) {}
-		catch ( CException* e ) { e->Delete(); }
+		if ( !theApp.m_pUPnPFinder )
+			theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
+		if ( theApp.m_pUPnPFinder->AreServicesHealthy() )
+			theApp.m_pUPnPFinder->StartDiscovery();
 	}
 
 	BeginThread( "WizardConnectionPage" );

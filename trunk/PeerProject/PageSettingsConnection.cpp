@@ -276,22 +276,16 @@ void CConnectionSettingsPage::OnOK()
 
 	if ( !bRandomForwarded || m_nInPort != 0 || !m_bInRandom )
 	{
+		Settings.Connection.InPort = m_nInPort;
+
 		if ( m_bEnableUPnP && ( (DWORD)m_nInPort != Settings.Connection.InPort ||
 			!Settings.Connection.EnableUPnP ) )
 		{
-			Settings.Connection.InPort = m_nInPort;
-			try
-			{
-				if ( !theApp.m_pUPnPFinder )
-					theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
-				if ( theApp.m_pUPnPFinder->AreServicesHealthy() )
-					theApp.m_pUPnPFinder->StartDiscovery();
-			}
-			catch ( CUPnPFinder::UPnPError& ) {}
-			catch ( CException* e ) { e->Delete(); }
+			if ( !theApp.m_pUPnPFinder )
+				theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
+			if ( theApp.m_pUPnPFinder->AreServicesHealthy() )
+				theApp.m_pUPnPFinder->StartDiscovery();
 		}
-		else
-			Settings.Connection.InPort = m_nInPort;
 	}
 
 	DWORD nPriorOutSpeed					= Settings.Connection.OutSpeed;
@@ -309,8 +303,8 @@ void CConnectionSettingsPage::OnOK()
 	if ( Settings.Connection.OutSpeed != nPriorOutSpeed )
 	{
 		// Reset upload limit to 90% of capacity, trimmed down to nearest KB.
-		Settings.Bandwidth.Uploads = ( ( ( Settings.Connection.OutSpeed *
-			( 100 - Settings.Uploads.FreeBandwidthFactor ) ) / 100 ) / 8 ) * 1024;
+		Settings.Bandwidth.Uploads = ( Settings.Connection.OutSpeed / 8 ) *
+			( ( 100 - Settings.Uploads.FreeBandwidthFactor ) / 100 ) * 1024;
 	}
 
 	UpdateData();
@@ -342,7 +336,7 @@ CString CConnectionSettingsPage::GetInOutHostTranslation()
 	CComboBox* pOutHost = (CComboBox*) GetDlgItem( IDC_OUTBOUND_HOST );
 	pOutHost->GetLBText( 0, strOutCombo );
 
-	// get non-english string if any
+	// Get non-english string, if any
 	strNew = strInCombo.CompareNoCase( _T("Automatic") ) == 0 ? strOutCombo : strInCombo;
 	return strAutomatic.CompareNoCase( _T("Automatic") ) == 0 ? strNew : strAutomatic;
 }
@@ -387,27 +381,22 @@ void CConnectionSettingsPage::OnClickedEnableUpnp()
 {
 	if ( !m_bEnableUPnP )
 	{
-		try
+		if ( !theApp.m_pUPnPFinder )
+			theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
+
+		// If the UPnP Device Host service is not running ask the user to start it.
+		// It is not wise to have a delay up to 1 minute, especially that we would
+		// need to wait until this and SSDP service are started.
+		// If the upnphost service can not be started PeerProject will lock up.
+
+		if ( !theApp.m_pUPnPFinder->AreServicesHealthy() )
 		{
-			if ( !theApp.m_pUPnPFinder )
-				theApp.m_pUPnPFinder.Attach( new CUPnPFinder );
-
-			// If the UPnP Device Host service is not running ask the user to start it.
-			// It is not wise to have a delay up to 1 minute, especially that we would
-			// need to wait until this and SSDP service are started.
-			// If the upnphost service can not be started PeerProject will lock up.
-			if ( !theApp.m_pUPnPFinder->AreServicesHealthy() )
-			{
-				CString strMessage;
-				LoadString( strMessage, IDS_UPNP_SERVICES_ERROR );
-				CButton* pBox =  (CButton*)GetDlgItem( IDC_ENABLE_UPNP );
-				pBox->SetCheck( BST_UNCHECKED );
-				AfxMessageBox( strMessage, MB_OK | MB_ICONEXCLAMATION );
-			}
+			CString strMessage;
+			LoadString( strMessage, IDS_UPNP_SERVICES_ERROR );
+			CButton* pBox =  (CButton*)GetDlgItem( IDC_ENABLE_UPNP );
+			pBox->SetCheck( BST_UNCHECKED );
+			AfxMessageBox( strMessage, MB_OK | MB_ICONEXCLAMATION );
 		}
-		catch ( CUPnPFinder::UPnPError& ) {}
-		catch ( CException* e ) { e->Delete(); }
-
 	}
 	UpdateData();
 }

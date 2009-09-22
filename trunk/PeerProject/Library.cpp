@@ -539,42 +539,60 @@ BOOL CLibrary::ThreadScan()
 
 BOOL CLibrary::IsBadFile(LPCTSTR pszFilenameOnly, LPCTSTR pszPathOnly, DWORD dwFileAttributes)
 {
-	ASSERT( pszFilenameOnly );
+	// Ignore error files (Access denied)
+	if ( dwFileAttributes == INVALID_FILE_ATTRIBUTES ) return TRUE;
 
 	// Ignore files or folders begins from dot
-	if ( pszFilenameOnly[0] == _T('.') ) return TRUE;
+	if ( pszFilenameOnly && pszFilenameOnly[0] == _T('.') ) return TRUE;
 	// Ignore hidden or system files or folders
 	if ( dwFileAttributes & (FILE_ATTRIBUTE_HIDDEN|FILE_ATTRIBUTE_SYSTEM) ) return TRUE;
 	// Ignore metadata file or folder
-	if ( _tcsicmp( pszFilenameOnly, _T("Metadata") ) == 0 ) return TRUE;
+	if ( pszFilenameOnly && _tcsicmp( pszFilenameOnly, _T("Metadata") ) == 0 ) return TRUE;
 
 	if ( ! ( dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) )
 	{
 		// Ignore encrypted files
-		if ( dwFileAttributes & (FILE_ATTRIBUTE_ENCRYPTED) ) return TRUE;
-		// Ignore our thumbnail database
-		if ( _tcsicmp( pszFilenameOnly, _T("SThumbs.dat") ) == 0 ) return TRUE;
-		// Ignore windows thumbnail database
-		if ( _tcsicmp( pszFilenameOnly, _T("Thumbs.db") ) == 0 ) return TRUE;
-		// Ignore video tag-file
-		if ( _tcsicmp( pszFilenameOnly, _T("dxva_sig.txt") ) == 0 ) return TRUE;
-		// uTorrent part files
-		if ( _tcsnicmp( pszFilenameOnly, _T("~uTorrentPartFile_"), 18 ) == 0 ) return TRUE;
-		// Ares Galaxy partials
-		if ( _tcsnicmp( pszFilenameOnly, _T("___ARESTRA___"), 13 ) == 0 ) return TRUE;
+		if ( (dwFileAttributes & FILE_ATTRIBUTE_ENCRYPTED) ) return TRUE;
 
-		LPCTSTR pszExt = _tcsrchr( pszFilenameOnly, _T('.') );
-		if ( pszExt++ )
+		if ( pszFilenameOnly )
 		{
-			// Ignore private type files
-			if ( IsIn( Settings.Library.PrivateTypes, pszExt ) )
-				return TRUE;
-			// Ignore .dat files in Kazaa folder
-			if ( pszPathOnly && _tcsistr( pszPathOnly, _T("kazaa") ) != NULL &&
-				_tcsicmp( pszExt, _T("dat") ) == 0 )
-				return TRUE;
+			if (
+				// Ignore our thumbnail database
+				_tcsicmp( pszFilenameOnly, _T("SThumbs.dat") ) == 0 ||
+				// Ignore windows thumbnail database
+				_tcsicmp( pszFilenameOnly, _T("Thumbs.db") ) == 0 ||
+				// Ignore video tag-file
+				_tcsicmp( pszFilenameOnly, _T("dxva_sig.txt") ) == 0 ||
+				// uTorrent part files
+				_tcsnicmp( pszFilenameOnly, _T("~uTorrentPartFile_"), 18 ) == 0 ||
+				// Ares Galaxy partials
+				 _tcsnicmp( pszFilenameOnly, _T("___ARESTRA___"), 13 ) == 0 ||
+				// FireFox Password files "signons3.txt" 
+				 _tcsicmp( pszFilenameOnly, _T("signons") ) == 0 )
+			{
+				 return TRUE;
+			}
+
+			if ( LPCTSTR pszExt = _tcsrchr( pszFilenameOnly, _T('.') ) )
+			{
+				pszExt++;
+
+				// Ignore private type files
+				if ( IsIn( Settings.Library.PrivateTypes, pszExt ) )
+					return TRUE;
+				// Ignore .dat files in Kazaa folder
+
+				if ( pszPathOnly )
+					if ( _tcsistr( pszPathOnly, _T("kazaa") ) && _tcsicmp( pszExt, _T("dat") ) == 0 )
+						return TRUE;
+			}
 		}
 	}
+
+	if ( pszPathOnly && (
+		// Ignore Internet Explorer folder
+		_tcsistr( pszPathOnly, _T("\\Temporary Internet Files") ) ) )
+		return TRUE;
 
 	return FALSE;
 }

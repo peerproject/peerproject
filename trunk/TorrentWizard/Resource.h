@@ -38,10 +38,12 @@
 #define IDC_SPEED_SLOW                  1016
 #define IDC_SPEED_FAST                  1017
 #define IDC_DONE_1                      1018
+#define IDC_DONE_2                      1022
 #define IDC_TORRENT_COPY                1020
 #define IDC_TORRENT_OPEN                1021
-#define IDC_DONE_2                      1022
-#define IDC_TITLE                       1023
+#define IDC_FILECOUNT                   1022
+#define IDC_TOTAL_SIZE                  1023
+#define IDC_TITLE                       1024
 #define IDC_COMMENT                     1025
 #define IDC_AUTO_PIECE_SIZE             1026
 #define IDC_EDIT1                       1027

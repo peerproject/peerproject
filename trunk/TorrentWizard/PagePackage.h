@@ -26,6 +26,8 @@
 
 #include "WizardSheet.h"
 
+#define LVS_EX_LABELTIP			0x00004000
+#define LVS_EX_DOUBLEBUFFER 	0x00010000
 
 class CPackagePage : public CWizardPage
 {
@@ -40,7 +42,10 @@ public:
 public:
 	//{{AFX_DATA(CPackagePage)
 	enum { IDD = IDD_PACKAGE_PAGE };
-	CButton	m_wndRemove;
+	QWORD 	 	m_nTotalSize;
+	CString 	m_sTotalSize;
+	CString 	m_sFileCount;
+	CButton 	m_wndRemove;
 	CListCtrl	m_wndList;
 	//}}AFX_DATA
 
@@ -50,23 +55,24 @@ public:
 protected:
 	void	AddFile(LPCTSTR pszFile);
 	void	AddFolder(LPCTSTR pszPath, int nRecursive);
-	
+
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CPackagePage)
 	public:
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnSetActive();
 	virtual LRESULT OnWizardBack();
 	virtual LRESULT OnWizardNext();
 	virtual void OnReset();
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
 	//{{AFX_MSG(CPackagePage)
 	virtual BOOL OnInitDialog();
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	afx_msg void OnDropFiles(HDROP hDropInfo);
 	afx_msg void OnItemChangedFileList(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnAddFolder();
 	afx_msg void OnAddFile();

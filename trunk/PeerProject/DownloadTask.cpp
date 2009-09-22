@@ -81,9 +81,7 @@ CDownloadTask::CDownloadTask(CDownload* pDownload, dtask nTask, LPCTSTR szParam1
 	}
 
 	if ( m_pDownload->IsTorrent() )
-	{
 		m_posTorrentFile = m_pDownload->m_pTorrent.m_pFiles.GetHeadPosition();
-	}
 
 	m_bAutoDelete = TRUE;
 	CreateThread( "Download Task" );
@@ -443,13 +441,10 @@ CString CDownloadTask::SafeFilename(LPCTSTR pszName)
 
 		if ( (DWORD)cChar > 128 )
 			continue;
-		else
-		{
-			if ( IsCharacter( cChar ) )
-				continue;
-			if ( _tcschr( pszValid, cChar ) != NULL )
-				continue;
-		}
+		else if ( IsCharacter( cChar ) )
+			continue;
+		else if ( _tcschr( pszValid, cChar ) != NULL )
+			continue;
 
 		strName.SetAt( nChar, '_' );
 	}
@@ -461,9 +456,9 @@ CString CDownloadTask::SafeFilename(LPCTSTR pszName)
 			strName += _T("x");
 	}
 
-	// Maximum filepath length is
-	// <Windows limit = 256 - 1> - <length of path to download directory> - <length of hash = 39(tiger)> -<space = 1> - <length of ".sd.sav" = 7>
-	int nMaxFilenameLength = 256 - 1 - Settings.Downloads.IncompletePath.GetLength() - 47;
+	// Maximum filepath length is:
+	// <Windows limit = 256 - 1> - <length of path to download directory> - <length of hash = 39(tiger)> - <space = 1> - <length of ".sd.sav" = 7>
+	int nMaxFilenameLength = 208 - Settings.Downloads.IncompletePath.GetLength();
 	if ( strName.GetLength() > nMaxFilenameLength )
 	{
 		int nExtLen = pszExt ? static_cast< int >( _tcslen( pszExt ) ) : 0;
@@ -478,16 +473,8 @@ CString CDownloadTask::SafeFilename(LPCTSTR pszName)
 
 void CDownloadTask::CreatePathForFile(const CString& strBase, const CString& strPath)
 {
-	CreateDirectory( strBase );
-
-	for ( int nPos = 0 ; nPos < strPath.GetLength() ; nPos++ )
-	{
-		if ( strPath.GetAt( nPos ) == '\\' )
-		{
-			CString strFolder = strBase + '\\' + strPath.Left( nPos );
-			CreateDirectory( strFolder );
-		}
-	}
+	CString strFolder = strBase + _T('\\') + strPath;
+	CreateDirectory( strFolder.Left( strFolder.ReverseFind( _T('\\') ) ) );
 }
 
 CBuffer* CDownloadTask::IsPreviewAnswerValid()

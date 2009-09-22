@@ -164,10 +164,14 @@
 	<resource code="32870" id="ID_CHILD_CLOSE"/>
 	<resource code="32871" id="ID_CHILD_MAXIMISE"/>
 	<resource code="32872" id="ID_CHILD_MINIMISE"/>
-	<resource code="32876" id="ID_TRANSFERS_CHAT"/>
+  <resource code="32873" id="ID_MOVETAB_LEFT"/>
+  <resource code="32874" id="ID_MOVETAB_RIGHT"/>
+  <resource code="32875" id="ID_MOVETAB_FIRST"/>
+  <resource code="32876" id="ID_MOVETAB_LAST"/>
 	<resource code="32877" id="ID_UPLOADS_CHAT"/>
-	<resource code="32878" id="ID_SEARCH_CLEAR"/>
-	<resource code="32879" id="ID_TRAY_OPEN"/>
+  <resource code="32878" id="ID_TRANSFERS_CHAT"/>
+  <resource code="32879" id="ID_SEARCH_CLEAR"/>
+	<resource code="32880" id="ID_TRAY_OPEN"/>
 	<resource code="32881" id="ID_NETWORK_AUTO_CLOSE"/>
 	<resource code="32882" id="ID_UPLOADS_AUTO_CLEAR"/>
 	<resource code="32883" id="ID_LIBRARY_SEARCH"/>

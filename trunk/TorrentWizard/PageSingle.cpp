@@ -34,6 +34,7 @@ IMPLEMENT_DYNCREATE(CSinglePage, CWizardPage)
 BEGIN_MESSAGE_MAP(CSinglePage, CWizardPage)
 	//{{AFX_MSG_MAP(CSinglePage)
 	ON_BN_CLICKED(IDC_BROWSE_FILE, OnBrowseFile)
+	ON_WM_DROPFILES()
 	ON_WM_TIMER()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -77,6 +78,8 @@ BOOL CSinglePage::OnSetActive()
 {
 	if ( m_sFileName.IsEmpty() ) SetTimer( 1, 25, NULL );
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
+	this->DragAcceptFiles(TRUE);
+
 	return CWizardPage::OnSetActive();
 }
 
@@ -84,6 +87,32 @@ void CSinglePage::OnTimer(UINT_PTR /*nIDEvent*/)
 {
 	KillTimer( 1 );	
 	PostMessage( WM_COMMAND, MAKELONG( IDC_BROWSE_FILE, BN_CLICKED ) );
+}
+
+void CSinglePage::OnDropFiles( HDROP hDropInfo )
+{
+	CString sFilename;
+
+	LPWSTR pszFile = sFilename.GetBuffer( _MAX_PATH );
+	DragQueryFile( hDropInfo, 0, pszFile, _MAX_PATH );
+
+	m_sFileName = sFilename;
+
+	DragFinish( hDropInfo );
+
+	HANDLE hFile = CreateFile( m_sFileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
+
+	if ( hFile != INVALID_HANDLE_VALUE )
+	{
+		DWORD nLow, nHigh;
+		nLow = GetFileSize( hFile, &nHigh );
+		CloseHandle( hFile );
+		
+		QWORD nSize = ( (QWORD)nHigh << 32 ) + (QWORD)nLow;
+		m_sFileSize = SmartSize( nSize );
+
+		UpdateData( FALSE );
+	}
 }
 
 void CSinglePage::OnBrowseFile() 

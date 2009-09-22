@@ -465,13 +465,22 @@
 <menus>
 	<!-- SIMPLE POPUP MENU -->
 	<menu name="Simple">
+		<item id="ID_MOVETAB_LEFT" text="Move Tab _Left"/>
+		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Right"/>
+	<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
+	<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
+		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
 	<!-- CHILD POPUP MENU -->
 	<menu name="Child">
-		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
+		<item id="ID_MOVETAB_LEFT" text="Move Tab _Left"/>
+		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Right"/>
+	<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
+	<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
 		<separator/>
-		<item id="ID_CHILD_RESTORE" text="_Restore"/>
+		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
+ 		<item id="ID_CHILD_RESTORE" text="_Restore"/>
 		<item id="ID_CHILD_MINIMISE" text="_Minimize"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
@@ -807,9 +816,9 @@
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads Folder"/>
 			<separator/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
-			<!--item id="ID_TOOLS_RESEEDTORRENT" 	text="_Reseed Prior Torrent..."-->
-			<item id="ID_TOOLS_SEEDTORRENT" 	text="_Seed New Torrent..."/>
-			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+			<!--item id="ID_TOOLS_RESEEDTORRENT" text="_Reseed Prior Torrent..."-->
+			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
 			<item id="IDC_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
@@ -1184,8 +1193,8 @@
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Clear All"/>
 		<separator/>
 	<!--<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Hide Groups"/>-->
-	<!--<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="Move Group _Left"/>-->
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="Move Group _Left"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="Move Group R_ight"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="R_emove Group"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_New Group..."/>
 		<separator/>
@@ -2464,58 +2473,58 @@
 		<shape type="rectangle" combine="or"	rect="73,1,76,2"/>
 	</region>
 	<anchors>
-		<anchor name="StatusText"             rect="86,8,254,11"/>
-		<anchor name="MediaSeekTrack"         rect="16,28,396,5"/>
-		<anchor name="MediaVolTrack"	      	rect="330,52,70,13"/>
-		<!--anchor name="MediaStatePlaying"   rect=""-->
-		<!--anchor name="MediaStatePaused"  	rect=""-->
-		<!--anchor name="MediaStateStopped"   rect=""-->
-		<!--anchor name="ScalerTrack"	      	rect=""-->
-		<!--anchor name="History"		        	rect=""-->
-		<anchor name="_ID_MONITOR_CLOSE"    	rect="370,2,52,22"/>
-		<anchor name="_ID_MEDIA_PLAY"		      rect="190,34,46,48"/>
-		<anchor name="_ID_MEDIA_PAUSE"	    	rect="190,34,46,48"/>
-		<anchor name="_ID_MEDIA_STOP"		      rect="107,46,25,25"/>
-		<anchor name="_ID_MEDIA_PREVIOUS"   	rect="141,46,49,25"/>
-		<anchor name="_ID_MEDIA_NEXT"	      	rect="236,46,49,25"/>
-		<anchor name="_ID_MEDIA_MUTE"	      	rect="300,51,20,15"/>
-		<anchor name="_ID_MEDIA_RANDOM"     	rect="36,50,17,17"/>
-		<anchor name="_ID_MEDIA_REPEAT"     	rect="66,50,17,17"/>
-		<anchor name="_ID_MEDIA_ADD"	       	rect="4,1,82,20"/>
+		<anchor name="StatusText"				rect="86,8,254,11"/>
+		<anchor name="MediaSeekTrack"			rect="16,28,396,5"/>
+		<anchor name="MediaVolTrack"			rect="330,52,70,13"/>
+		<!--anchor name="MediaStatePlaying"		rect=""-->
+		<!--anchor name="MediaStatePaused"		rect=""-->
+		<!--anchor name="MediaStateStopped"		rect=""-->
+		<!--anchor name="ScalerTrack"			rect=""-->
+		<!--anchor name="History"				rect=""-->
+		<anchor name="_ID_MONITOR_CLOSE"		rect="370,2,52,22"/>
+		<anchor name="_ID_MEDIA_PLAY"			rect="190,34,46,48"/>
+		<anchor name="_ID_MEDIA_PAUSE"			rect="190,34,46,48"/>
+		<anchor name="_ID_MEDIA_STOP"			rect="107,46,25,25"/>
+		<anchor name="_ID_MEDIA_PREVIOUS"		rect="141,46,49,25"/>
+		<anchor name="_ID_MEDIA_NEXT"			rect="236,46,49,25"/>
+		<anchor name="_ID_MEDIA_MUTE"			rect="300,51,20,15"/>
+		<anchor name="_ID_MEDIA_RANDOM"			rect="36,50,17,17"/>
+		<anchor name="_ID_MEDIA_REPEAT"			rect="66,50,17,17"/>
+		<anchor name="_ID_MEDIA_ADD"			rect="4,1,82,20"/>
 	</anchors>
 	<parts>
-		<part name="Background"               rect="0,0,426,90"/>
-		<part name="MediaSeekBar"             rect="17,118,396,5"/>
-		<part name="MediaSeekTab"             rect="402,118,10,5"/>
-		<part name="MediaVolBar"              rect="330,142,70,13"/>
-		<part name="MediaVolTab"              rect="389,142,12,13"/>
-		<!--part name="MediaStatePlaying"     rect=""-->
-		<!--part name="MediaStatePaused"      rect=""-->
-		<!--part name="MediaStateStopped"     rect=""-->
-		<!--part name="HistoryTx1"            rect=""-->
-		<!--part name="HistoryRx1"            rect=""-->
-		<!--part name="ScalerTab"             rect=""-->
-		<part name="_ID_MONITOR_CLOSE.Hover"  rect="370,92,52,22"/>
-		<part name="_ID_MONITOR_CLOSE.Down"   rect="318,92,52,22"/>
-		<part name="_ID_MEDIA_PLAY.Up"			  rect="190,34,46,48"/>
-		<part name="_ID_MEDIA_PLAY.Hover"		  rect="190,124,46,48"/>
-		<part name="_ID_MEDIA_PLAY.Down"		  rect="380,158,46,48"/>
-		<part name="_ID_MEDIA_PAUSE.Up" 		  rect="46,158,45,48"/>
-		<part name="_ID_MEDIA_PAUSE.Hover"	  rect="0,158,46,48"/>
-		<part name="_ID_MEDIA_PAUSE.Down"		  rect="334,158,46,48"/>
-		<part name="_ID_MEDIA_STOP.Hover"	  	rect="116,136,25,25"/>
-		<part name="_ID_MEDIA_STOP.Down"	  	rect="200,181,25,25"/>
+		<part name="Background"					rect="0,0,426,90"/>
+		<part name="MediaSeekBar"				rect="17,118,396,5"/>
+		<part name="MediaSeekTab"				rect="402,118,10,5"/>
+		<part name="MediaVolBar"				rect="330,142,70,13"/>
+		<part name="MediaVolTab"				rect="389,142,12,13"/>
+		<!--part name="MediaStatePlaying"		rect=""-->
+		<!--part name="MediaStatePaused"		rect=""-->
+		<!--part name="MediaStateStopped"		rect=""-->
+		<!--part name="HistoryTx1"				rect=""-->
+		<!--part name="HistoryRx1"				rect=""-->
+		<!--part name="ScalerTab"				rect=""-->
+		<part name="_ID_MONITOR_CLOSE.Hover"	rect="370,92,52,22"/>
+		<part name="_ID_MONITOR_CLOSE.Down"		rect="318,92,52,22"/>
+		<part name="_ID_MEDIA_PLAY.Up"			rect="190,34,46,48"/>
+		<part name="_ID_MEDIA_PLAY.Hover"		rect="190,124,46,48"/>
+		<part name="_ID_MEDIA_PLAY.Down"		rect="380,158,46,48"/>
+		<part name="_ID_MEDIA_PAUSE.Up"			rect="46,158,45,48"/>
+		<part name="_ID_MEDIA_PAUSE.Hover"		rect="0,158,46,48"/>
+		<part name="_ID_MEDIA_PAUSE.Down"		rect="334,158,46,48"/>
+		<part name="_ID_MEDIA_STOP.Hover"		rect="116,136,25,25"/>
+		<part name="_ID_MEDIA_STOP.Down"		rect="200,181,25,25"/>
 		<part name="_ID_MEDIA_STOP.Disabled"	rect="91,136,25,25"/>
 		<part name="_ID_MEDIA_PREVIOUS.Hover"	rect="144,181,49,25"/>
 		<part name="_ID_MEDIA_PREVIOUS.Down"	rect="92,181,49,25"/>
 		<part name="_ID_MEDIA_PREVIOUS.Disabled" rect="141,136,49,25"/>
-		<part name="_ID_MEDIA_NEXT.Hover"	  	rect="233,181,49,25"/>
-		<part name="_ID_MEDIA_NEXT.Down"	  	rect="285,181,49,25"/>
+		<part name="_ID_MEDIA_NEXT.Hover"		rect="233,181,49,25"/>
+		<part name="_ID_MEDIA_NEXT.Down"		rect="285,181,49,25"/>
 		<part name="_ID_MEDIA_NEXT.Disabled"	rect="236,136,49,25"/>
-		<part name="_ID_MEDIA_MUTE.Checked" 	rect="300,141,20,15"/>
+		<part name="_ID_MEDIA_MUTE.Checked"		rect="300,141,20,15"/>
 		<part name="_ID_MEDIA_RANDOM.Checked"	rect="36,140,17,17"/>
 		<part name="_ID_MEDIA_REPEAT.Checked"	rect="66,140,17,17"/>
-		<part name="_ID_MEDIA_ADD.Hover"		  rect="4,91,82,20"/>
+		<part name="_ID_MEDIA_ADD.Hover"		rect="4,91,82,20"/>
 	</parts>
 	</windowSkin>
 </windowSkins>
@@ -2524,8 +2533,8 @@
 <commandImages>
 	<bitmap id="IDB_MENUBAR">
 		<image /> <!--Logo-->
-		<image id="ID_MEDIA_PREVIOUS" id1="ID_SHAREMONKEY_PREVIOUS" id2="ID_LIBRARY_PARENT"/>
-		<image id="ID_MEDIA_NEXT" id1="ID_SHAREMONKEY_NEXT" id2="ID_CHAT_PRIORITY"/>
+		<image id="ID_MEDIA_PREVIOUS" id1="ID_SHAREMONKEY_PREVIOUS" id2="ID_LIBRARY_PARENT" id3="ID_MOVETAB_LEFT" id4="ID_MOVETAB_FIRST"/>
+		<image id="ID_MEDIA_NEXT" id1="ID_SHAREMONKEY_NEXT" id2="ID_CHAT_PRIORITY" id3="ID_MOVETAB_RIGHT" id4="ID_MOVETAB_LAST"/>
 		<image id="ID_SEARCH_DOWNLOAD" id1="ID_DOWNLOADS_RESUME" id2="ID_DOWNLOAD_GROUP_RESUME" id3="ID_UPLOADS_START" id4="ID_DISCOVERY_QUERY"
 			id5="ID_HOSTCACHE_CONNECT" id6="ID_NETWORK_CONNECT" id7="ID_NETWORK_CONNECT_TO" id8="ID_TRANSFERS_CONNECT" id9="ID_TOOLS_SETTINGS"/>
 		<image id="ID_CHAT_CONNECT" id1="ID_IRC_CONNECT" id2="ID_SEARCH_DOWNLOADNOW" id3="ID_DOWNLOADS_BOOST" id4="ID_SHAREMONKEY_BUY"/>
@@ -2540,7 +2549,7 @@
 		<image id="ID_MEDIA_FULLSCREEN"/>
 		<image id="ID_MEDIA_ADD" id1="ID_DOWNLOADS_MOVE_UP" id2="ID_DOWNLOADS_ENQUEUE" id3="ID_LIBRARY_ENQUEUE" id4="ID_TOOLS_DOWNLOAD" id5="ID_IRC_ADD"
 			id6="ID_SECURITY_MOVE_UP" id7="ID_DISCOVERY_ADD" id8="ID_DOWNLOAD_GROUP_MOVELEFT"/>
-		<image id="ID_MEDIA_REMOVE" id1="ID_DOWNLOADS_MOVE_DOWN" id2="ID_VIEW_MEDIA" id3="ID_TAB_MEDIA" id4="ID_IRC_REMOVE" id5="ID_SECURITY_MOVE_DOWN" id6="ID_DOWNLOAD_GROUP_MOVERIGHT"/>
+		<image id="ID_MEDIA_REMOVE" id1="ID_DOWNLOADS_MOVE_DOWN" id2="ID_VIEW_MEDIA" id3="ID_TAB_MEDIA" id4="ID_IRC_REMOVE" id5="ID_SECURITY_MOVE_DOWN"	id6="ID_DOWNLOAD_GROUP_MOVERIGHT"/>
 		<!--Cancel/Stars-->
 		<image id="ID_NEIGHBOURS_DISCONNECT" id1="ID_NETWORK_DISCONNECT" id2="ID_TRANSFERS_DISCONNECT" id3="ID_MONITOR_CLOSE" id4="ID_NETWORK_EXIT"	id5="ID_SEARCH_CLEAR" id6="ID_SYSTEM_CLEAR"/>
 		<image id="ID_DOWNLOADS_CLEAR_INCOMPLETE" id1="ID_UPLOADS_CLEAR" id2="ID_DOWNLOADS_FILE_DELETE" id3="ID_SECURITY_REMOVE"

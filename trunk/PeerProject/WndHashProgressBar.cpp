@@ -47,7 +47,7 @@ BEGIN_MESSAGE_MAP(CHashProgressBar, CWnd)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-#define WINDOW_WIDTH		320
+#define WINDOW_WIDTH		310
 #define WINDOW_HEIGHT		46
 
 
@@ -119,7 +119,7 @@ void CHashProgressBar::Update()
 		CSize sz = dc.GetTextExtent( m_sPrevious );
 		dc.SelectObject( pOld );
 
-		int nWidth = 4 + 32 + sz.cx + 4;
+		int nWidth = 4 + 32 + sz.cx + 3;
 		nWidth = max( nWidth, WINDOW_WIDTH );
 		nWidth = min( nWidth, GetSystemMetrics( SM_CXSCREEN ) / 2 );
 		Show( nWidth, FALSE );
@@ -132,9 +132,9 @@ void CHashProgressBar::Show(int nWidth, BOOL /*bShow*/)
 {
 	CRect rc;
 	SystemParametersInfo( SPI_GETWORKAREA, 0, &rc, 0 );
-	rc.left	= rc.right - nWidth;
-	rc.top	= rc.bottom - WINDOW_HEIGHT;
-	SetWindowPos( &wndTopMost, rc.left - 4, rc.top - 4, rc.Width(), rc.Height(),
+	rc.left	= rc.right - nWidth - 4;
+	rc.top	= rc.bottom - WINDOW_HEIGHT - 4;
+	SetWindowPos( &wndTopMost, rc.left, rc.top, nWidth, WINDOW_HEIGHT,
 		SWP_SHOWWINDOW | SWP_NOACTIVATE );
 }
 
@@ -220,7 +220,7 @@ void CHashProgressBar::OnPaint()
 
 	// Progress bar
 	CRect rcProgress = rcClient;
-	rcProgress.DeflateRect( 2, 2 );
+	rcProgress.DeflateRect( 3, 40, 2, 2 );
 	rcProgress.top = rcProgress.bottom - 2;
 	float nPercentage = LibraryBuilder.GetProgress() / 100;
 	if ( nPercentage < 0 || nPercentage > 1 ) nPercentage = 1;
@@ -243,13 +243,13 @@ void CHashProgressBar::OnTimer(UINT_PTR /*nIDEvent*/)
 	if ( m_nFlash % 15 == 1 )	// Cycle text 3x per 2 seconds
 		rcClient.DeflateRect( 40, 3, 2, 2 );
 	else						// Update only progress bar 20x per second
-		rcClient.DeflateRect( 3, 40, 2, 2 );
+		rcClient.DeflateRect( 4, 40, 2, 2 );
 	InvalidateRect( rcClient, FALSE );
 }
 
 void CHashProgressBar::OnLButtonDown(UINT /*nFlags*/, CPoint point)
 {
-	if ( point.y < 14 && point.x > 304 )
+	if ( point.y < 14 && point.x > 296 )
 		Settings.Library.HashWindow = FALSE;
 
 	ShowWindow( SW_HIDE );

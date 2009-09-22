@@ -84,13 +84,9 @@ void CSkin::Apply()
 	m_brDialog.CreateSolidBrush( m_crDialog );
 
 	if ( HBITMAP hPanelMark = GetWatermark( _T("CPanelWnd.Caption") ) )
-	{
 		m_bmPanelMark.Attach( hPanelMark );
-	}
 	else if ( m_crPanelBack == RGB( 60, 60, 60 ) )
-	{
 		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );
-	}
 
 	CoolMenu.SetWatermark( GetWatermark( _T("CCoolMenu") ) );
 
@@ -318,9 +314,7 @@ void CSkin::ApplyRecursive(LPCTSTR pszPath)
 				strPath.Format( L"%s%s", pszPath ? pszPath : L"", pFind.cFileName );
 
 				if ( theApp.GetProfileInt( L"Skins", strPath, FALSE ) )
-				{
 					LoadFromFile( Settings.General.Path + L"\\Skins\\" + strPath );
-				}
 			}
 		}
 		while ( FindNextFile( hSearch, &pFind ) );
@@ -374,7 +368,8 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 {
 	if ( ! pXML->IsNamed( _T("skin") ) )
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [skin] element"), pXML->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+			_T("Unknown [skin] element"), pXML->ToString() );
 		return FALSE;
 	}
 
@@ -464,10 +459,16 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 				theApp.Message( MSG_NOTICE, IDS_SKIN_LOAD, strSkinName );
 			}
 			else
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [type] attribute in [manifest] element"), pSub->ToString() );
+			{
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+					_T("Unknown [type] attribute in [manifest] element"), pSub->ToString() );
+			}
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [skin] element"), pSub->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [skin] element"), pSub->ToString() );
+		}
 
 		bSuccess = TRUE;
 	}
@@ -539,7 +540,10 @@ BOOL CSkin::LoadStrings(CXMLElement* pBase)
 				m_pStrings.SetAt( nID, strValue );
 			}
 			else
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [string] element"), pXML->ToString() );
+			{
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+					_T("Unknown [id] attribute in [string] element"), pXML->ToString() );
+			}
 		}
 		else if ( pXML->IsNamed( _T("tip") ) )
 		{
@@ -551,10 +555,16 @@ BOOL CSkin::LoadStrings(CXMLElement* pBase)
 				m_pStrings.SetAt( nID, strMessage );
 			}
 			else
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [tip] element"), pXML->ToString() );
+			{
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+					_T("Unknown [id] attribute in [tip] element"), pXML->ToString() );
+			}
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [strings] element"), pXML->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [strings] element"), pXML->ToString() );
+		}
 	}
 
 	return TRUE;
@@ -620,7 +630,10 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			}
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in skin [Options]"), pXML->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in skin [Options]"), pXML->ToString() );
+		}
 	}
 
 	return TRUE;
@@ -640,17 +653,11 @@ BOOL CSkin::LoadNavBar(CXMLElement* pBase)
 		strValue = pBase->GetAttributeValue( _T("case") );
 
 	if ( strValue.CompareNoCase( _T("upper") ) == 0 )
-	{
 		m_NavBarMode = NavBarUpper;
-	}
 	else if ( strValue.CompareNoCase( _T("lower") ) == 0 )
-	{
 		m_NavBarMode = NavBarLower;
-	}
 	else
-	{
 		m_NavBarMode = NavBarNormal;
-	}
 
 	return TRUE;
 }
@@ -722,7 +729,10 @@ BOOL CSkin::LoadMenus(CXMLElement* pBase)
 				return FALSE;
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [menu] element"), pXML->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [menu] element"), pXML->ToString() );
+		}
 	}
 
 	return TRUE;
@@ -733,7 +743,8 @@ BOOL CSkin::LoadMenu(CXMLElement* pXML)
 	CString strName = pXML->GetAttributeValue( _T("name") );
 	if ( strName.IsEmpty() )
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("No [name] attribute in [menu] element"), pXML->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+			_T("No [name] attribute in [menu] element"), pXML->ToString() );
 		return FALSE;
 	}
 
@@ -754,17 +765,16 @@ BOOL CSkin::LoadMenu(CXMLElement* pXML)
 	{
 		if( ! pMenu->CreateMenu() )
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Cannot create menu"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Cannot create menu"), pXML->ToString() );
 			return FALSE;
 		}
 	}
-	else
+	else if( ! pMenu->CreatePopupMenu() )
 	{
-		if( ! pMenu->CreatePopupMenu() )
-		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Cannot create popup menu"), pXML->ToString() );
-			return FALSE;
-		}
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+			_T("Cannot create popup menu"), pXML->ToString() );
+		return FALSE;
 	}
 
 	if ( ! CreateMenu( pXML, pMenu->GetSafeHmenu() ) )
@@ -811,7 +821,10 @@ BOOL CSkin::CreateMenu(CXMLElement* pRoot, HMENU hMenu)
 				VERIFY( AppendMenu( hMenu, MF_STRING, nID, strText ) );
 			}
 			else
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in menu [item] element"), pXML->ToString() );
+			{
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+					_T("Unknown [id] attribute in menu [item] element"), pXML->ToString() );
+			}
 		}
 		else if ( pXML->IsNamed( _T("menu") ) )
 		{
@@ -830,7 +843,10 @@ BOOL CSkin::CreateMenu(CXMLElement* pRoot, HMENU hMenu)
 			VERIFY( AppendMenu( hMenu, MF_SEPARATOR, ID_SEPARATOR, NULL ) );
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [menu] element"), pXML->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [menu] element"), pXML->ToString() );
+		}
 	}
 
 	return TRUE;
@@ -918,7 +934,10 @@ BOOL CSkin::LoadToolbars(CXMLElement* pBase)
 				return FALSE;
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [toolbars] element"), pXML->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [toolbars] element"), pXML->ToString() );
+		}
 	}
 
 	return TRUE;
@@ -970,7 +989,10 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 					pItem->Show( FALSE );
 			}
 			else
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [button] element"), pXML->ToString() );
+			{
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+					_T("Unknown [id] attribute in [button] element"), pXML->ToString() );
+			}
 		}
 		else if ( pXML->IsNamed( _T("separator") ) )
 		{
@@ -1013,7 +1035,10 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 				}
 			}
 			else
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [control] element"), pXML->ToString() );
+			{
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+					_T("Unknown [id] attribute in [control] element"), pXML->ToString() );
+			}
 
 		}
 		else if ( pXML->IsNamed( _T("label") ) )
@@ -1023,7 +1048,10 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 			pItem->SetTip( pXML->GetAttributeValue( _T("tip") ) );
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [toolbar] element"), pXML->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [toolbar] element"), pXML->ToString() );
+		}
 	}
 
 	CString strName = pBase->GetAttributeValue( _T("name") );
@@ -1055,7 +1083,10 @@ BOOL CSkin::LoadDocuments(CXMLElement* pBase)
 			m_pDocuments.SetAt( strName, pDoc->Detach() );
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [documents] element"), pDoc->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [documents] element"), pDoc->ToString() );
+		}
 	}
 
 	return TRUE;
@@ -1106,10 +1137,16 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 				m_pWatermarks.SetAt( strName, strFile );
 			}
 			else
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Missed [target] and/or [path] attributes in [watermark] element"), pMark->ToString() );
+			{
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+					_T("Missed [target] and/or [path] attributes in [watermark] element"), pMark->ToString() );
+			}
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [watermarks] element"), pMark->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [watermarks] element"), pMark->ToString() );
+		}
 	}
 
 	return TRUE;
@@ -1205,13 +1242,19 @@ BOOL CSkin::LoadListColumns(CXMLElement* pBase)
 					strEdit += strTo;
 				}
 				else
-					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [list] element"), pCol->ToString() );
+				{
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+						_T("Unknown element in [list] element"), pCol->ToString() );
+				}
 			}
 
 			m_pLists.SetAt( strName, strEdit );
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [listColumns] element"), pXML->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [listColumns] element"), pXML->ToString() );
+		}
 	}
 
 	return TRUE;
@@ -1223,9 +1266,7 @@ BOOL CSkin::LoadListColumns(CXMLElement* pBase)
 BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl* pWndTooltips)
 {
 	if ( nIconID )
-	{
 		CoolInterface.SetIcon( nIconID, FALSE, FALSE, pDialog );
-	}
 
 	CString strName;
 
@@ -1383,7 +1424,8 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 
 	if ( strCaption != pBase->GetAttributeValue( _T("cookie") ) )
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Invalid [cookie] attribute in [dialog] element"), pBase->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+			_T("Invalid [cookie] attribute in [dialog] element"), pBase->ToString() );
 		return FALSE;
 	}
 
@@ -1480,7 +1522,10 @@ BOOL CSkin::LoadDialogs(CXMLElement* pBase)
 			m_pDialogs.SetAt( strName, pXML );
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [dialogs] element"), pXML->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [dialogs] element"), pXML->ToString() );
+		}
 	}
 
 	return TRUE;
@@ -1518,7 +1563,8 @@ CSkinWindow* CSkin::GetWindowSkin(CWnd* pWnd)
 		CChildWnd* pChild = (CChildWnd*)pWnd;
 		bPanel = pChild->m_bPanelMode;
 	}
-	#ifdef _AFXDLL
+
+	#ifdef _AFXDLL	// ToDo: Clean this up?
 	for ( CRuntimeClass* pClass = pWnd->GetRuntimeClass() ; pClass && pClass->m_pfnGetBaseClass ; pClass = pClass->m_pfnGetBaseClass() )
 	#else
 	for ( CRuntimeClass* pClass = pWnd->GetRuntimeClass() ; pClass ; pClass = pClass->m_pBaseClass )
@@ -1555,16 +1601,15 @@ BOOL CSkin::LoadWindowSkins(CXMLElement* pSub, const CString& strPath)
 			CSkinWindow* pSkin = new CSkinWindow();
 
 			if ( pSkin->Parse( pSkinElement, strPath ) )
-			{
 				m_pSkins.AddHead( pSkin );
-			}
 			else
-			{
 				delete pSkin;
-			}
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [windowSkins] element"), pSkinElement->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [windowSkins] element"),	pSkinElement->ToString() );
+		}
 	}
 
 	return TRUE;
@@ -1616,7 +1661,7 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	pColors.SetAt( _T("schema.row1"), &m_crSchemaRow[0] );
 	pColors.SetAt( _T("schema.row2"), &m_crSchemaRow[1] );
 
-//	Active window color is controlled by media player plugin, thus we can not skin it.
+//	Active window color is controlled by media player plugin, thus we can not skin it?
 	pColors.SetAt( _T("media.window"), &CoolInterface.m_crMediaWindowBack );
 	pColors.SetAt( _T("media.window.back"), &CoolInterface.m_crMediaWindowBack );
 	pColors.SetAt( _T("media.window.text"), &CoolInterface.m_crMediaWindowText );
@@ -1781,10 +1826,16 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 				}
 			}
 			else
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [name] attribute in [colorScheme] element"), pXML->ToString() );
+			{
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+					_T("Unknown [name] attribute in [colorScheme] element"), pXML->ToString() );
+			}
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [colorScheme] element"), pXML->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [colorScheme] element"), pXML->ToString() );
+		}
 	}
 
 	if ( bSystem && ! bNonBase ) CoolInterface.CalculateColors( TRUE );
@@ -1822,7 +1873,10 @@ BOOL CSkin::LoadResourceMap(CXMLElement* pBase)
 			CoolInterface.NameCommand( nID, pXML->GetAttributeValue( _T("id") ) );
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [...Map] element"), pXML->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [...Map] element"), pXML->ToString() );
+		}
 	}
 
 	return TRUE;
@@ -1876,7 +1930,8 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				}
 				else
 				{
-					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown Font"), pXML->ToString() );
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+						_T("Unknown Font"), pXML->ToString() );
 					continue;
 				}
 
@@ -1939,10 +1994,14 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 			if ( bSuccess )
 				m_pFontPaths.AddTail( strFile );
 			else
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed to import font"), pXML->ToString() );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+					_T("Failed to import font"), pXML->ToString() );
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [fonts] element"), pXML->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [fonts] element"), pXML->ToString() );
+		}
 	}
 
 	return TRUE;
@@ -1976,7 +2035,10 @@ BOOL CSkin::LoadCommandImages(CXMLElement* pBase, const CString& strPath)
 				return FALSE;
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [commandImages] element"), pXML->ToString() );
+		{
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Unknown element in [commandImages] element"), pXML->ToString() );
+		}
 	}
 
 	return TRUE;
@@ -2000,7 +2062,8 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 	UINT nID = LookupCommandID( pXML );
 	if ( nID == 0 )
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [icon] element"), pXML->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+			_T("Unknown [id] attribute in [icon] element"), pXML->ToString() );
 		return FALSE;
 	}
 
@@ -2027,7 +2090,8 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 			nType = LVSIL_BIG;
 			break;
 		default:
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Icon has invalid size"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Icon has invalid size"), pXML->ToString() );
 			return FALSE;
 		}
 
@@ -2056,7 +2120,8 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed to load icon"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+				_T("Failed to load icon"), pXML->ToString() );
 			return FALSE;
 		}
 	}
@@ -2087,14 +2152,16 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 	}
 	else
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Image has invalid mask"), pBase->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+			_T("Image has invalid mask"), pBase->ToString() );
 		return FALSE;
 	}
 
 	HBITMAP hBitmap = LoadBitmap( strFile );
 	if ( hBitmap == NULL )
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed to load image"), pBase->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+			_T("Failed to load image"), pBase->ToString() );
 		return FALSE;
 	}
 	if ( Settings.General.LanguageRTL )
@@ -2104,7 +2171,8 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 	DeleteObject( hBitmap );
 	if ( ! bResult )
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed to add image"), pBase->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,
+			_T("Failed to add image"), pBase->ToString() );
 		return FALSE;
 	}
 
@@ -2122,9 +2190,7 @@ UINT_PTR CSkin::TrackPopupMenu(LPCTSTR pszMenu, const CPoint& point,
 		return 0;
 
 	if ( nDefaultID != 0 )
-	{
 		pPopup->SetDefaultItem( nDefaultID );
-	}
 
 	if ( oFiles.GetCount() )
 	{

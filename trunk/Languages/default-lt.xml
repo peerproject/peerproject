@@ -456,12 +456,17 @@
 <menus>
 	<!-- SIMPLE POPUP MENU -->
 	<menu name="Simple">
+		<item id="ID_MOVETAB_LEFT" text="Perkelti Kairėn"/>
+		<item id="ID_MOVETAB_RIGHT" text="Perkelti Teisė"/>
+		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Užverti langą"/>
 	</menu>
 	<!-- CHILD POPUP MENU -->
 	<menu name="Child">
-		<item id="ID_CHILD_MAXIMISE" text="_Visas ekranas"/>
+		<item id="ID_MOVETAB_LEFT" text="Perkelti Kairėn"/>
+		<item id="ID_MOVETAB_RIGHT" text="Perkelti Teisė"/>
 		<separator/>
+		<item id="ID_CHILD_MAXIMISE" text="_Visas ekranas"/>
 		<item id="ID_CHILD_RESTORE" text="Su_mažinti"/>
 		<item id="ID_CHILD_MINIMISE" text="_Suskleisti"/>
 		<separator/>
@@ -1161,7 +1166,8 @@
 		<separator/> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Rodyti grupes"/>
 		<separator/> -->
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="Perkelti grupė Kairėn"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="Perkelti grupė Teisė"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="Š_alinti grupę"/>
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_Nauja grupė..."/>
 		<separator/>
@@ -3801,7 +3807,7 @@
 		<control/>
 		<control caption="pradėti naudotis „PeerProject“ programa."/>
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="Sveiki! Čia „PeerProject“ (1/6)">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="Sveiki! Čia „PeerProject“ (1/6)">
 		<control caption="Optimaliam darbui „PeerProjecti“ reikia žinoti šiek tiek apie Jūsų interneto ryšį."/>
 		<control caption="Pasirinkite prisijungimo prie interneto tipą:"/>
 		<control caption="Telefono ryšys|ISDN (128 K)|DSL (768 K)|DSL (1,5 M)|DSL (4,0 M)|DSL2 (8,0 M)|DSL2 (10,0 M)|DSL2 (12,0 M)|DSL2 (20,0 M)|DSL2+ (24,0 M)|Kabelinis modemas|T1|T3|Vietinis tinklas|OC3"/>
@@ -3811,6 +3817,9 @@
 		<control/>
 		<control caption="Ar Jūs norite automatiškai peradresuoti prievadą naudojant UPnP?"/>
 		<control/>
+		<control caption="Port: &#160; (4-5 skaitmenų numeris)"/>
+		<control/>
+		<control caption="Atsitiktiniai"/>
 		<control caption="Būklė:"/>
 		<control/>
 	</dialog>

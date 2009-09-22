@@ -173,29 +173,29 @@ BOOL CImageFile::SaveToMemory(LPCTSTR pszType, int nQuality, LPBYTE* ppBuffer, D
 	return ImageServices.SaveToMemory( this, pszType, nQuality, ppBuffer, pnLength );
 }
 
-/*BOOL CImageFile::SaveToFile(LPCTSTR pszType, int nQuality, HANDLE hFile, DWORD* pnLength)
-{
-	if ( ! m_bLoaded ) return FALSE;
-	return ImageServices.SaveToFile( this, pszType, nQuality, hFile, pnLength );
-}
+//BOOL CImageFile::SaveToFile(LPCTSTR pszType, int nQuality, HANDLE hFile, DWORD* pnLength)
+//{
+//	if ( ! m_bLoaded ) return FALSE;
+//	return ImageServices.SaveToFile( this, pszType, nQuality, hFile, pnLength );
+//}
 
-BOOL CImageFile::SaveToFile(LPCTSTR pszFile, int nQuality)
-{
-	if ( ! m_bLoaded ) return FALSE;
-
-	HANDLE hFile = CreateFile( pszFile, GENERIC_WRITE, 0,
-		NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL );
-
-	if ( hFile == INVALID_HANDLE_VALUE ) return FALSE;
-
-	BOOL bResult = ImageServices.SaveToFile( this, pszFile, nQuality, hFile );
-
-	CloseHandle( hFile );
-
-	if ( ! bResult ) DeleteFile( pszFile );
-
-	return bResult;
-}*/
+//BOOL CImageFile::SaveToFile(LPCTSTR pszFile, int nQuality)
+//{
+//	if ( ! m_bLoaded ) return FALSE;
+//
+//	HANDLE hFile = CreateFile( pszFile, GENERIC_WRITE, 0,
+//		NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL );
+//
+//	if ( hFile == INVALID_HANDLE_VALUE ) return FALSE;
+//
+//	BOOL bResult = ImageServices.SaveToFile( this, pszFile, nQuality, hFile );
+//
+//	CloseHandle( hFile );
+//
+//	if ( ! bResult ) DeleteFile( pszFile );
+//
+//	return bResult;
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CImageFile serialization
@@ -265,7 +265,7 @@ HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 	pV5Header.bV5Compression	= BI_RGB;
 	pV5Header.bV5SizeImage		= m_nWidth * m_nHeight * 3;
 
-	// The following mask specification specifies a supported 32 BPP alpha format for Windows XP.
+	// ToDo: The following mask specification specifies a supported 32 BPP alpha format for Windows XP.
 	// pV5Header.bV5RedMask   =  0x00FF0000;
 	// pV5Header.bV5GreenMask =  0x0000FF00;
 	// pV5Header.bV5BlueMask  =  0x000000FF;
@@ -420,68 +420,53 @@ BOOL CImageFile::Resample(int nNewWidth, int nNewHeight)
 	return TRUE;
 }
 
-/*BOOL CImageFile::FastResample(int nNewWidth, int nNewHeight)
-{
-	if ( ! m_bLoaded ) return FALSE;
-	if ( m_nComponents != 3 ) return FALSE;
-	if ( nNewWidth == m_nWidth && nNewHeight == m_nHeight ) return TRUE;
+//BOOL CImageFile::FastResample(int nNewWidth, int nNewHeight)
+//{
+//	if ( ! m_bLoaded ) return FALSE;
+//	if ( m_nComponents != 3 ) return FALSE;
+//	if ( nNewWidth == m_nWidth && nNewHeight == m_nHeight ) return TRUE;
 
-	DWORD nInPitch	= ( m_nWidth * 3 + 3 ) & ~3u;
-	DWORD nOutPitch	= ( nNewWidth * 3 + 3 ) & ~3u;
+//	DWORD nInPitch	= ( m_nWidth * 3 + 3 ) & ~3u;
+//	DWORD nOutPitch	= ( nNewWidth * 3 + 3 ) & ~3u;
+//	BYTE *pNew, *pRow, *pIn, *pOut;
+//	pOut = pNew = new BYTE[ nOutPitch * nNewHeight ];
 
-	BYTE *pNew, *pRow, *pIn, *pOut;
+//	for ( int nY = 0 ; nY < nNewHeight ; nY++ )
+//	{
+//		pRow = m_pImage + nInPitch * ( nY * m_nHeight / nNewHeight );
 
-	pOut = pNew = new BYTE[ nOutPitch * nNewHeight ];
+//		for ( int nX = 0 ; nX < nNewWidth ; nX++ )
+//		{
+//			pIn = pRow + 3 * ( nX * m_nWidth / nNewWidth );
+//			*pOut++ = *pIn++;
+//			*pOut++ = *pIn++;
+//			*pOut++ = *pIn++;
+//		}
+//		pOut += ( nOutPitch - nNewWidth * 3 );
+//	}
 
-	for ( int nY = 0 ; nY < nNewHeight ; nY++ )
-	{
-		pRow = m_pImage + nInPitch * ( nY * m_nHeight / nNewHeight );
-
-		for ( int nX = 0 ; nX < nNewWidth ; nX++ )
-		{
-			pIn = pRow + 3 * ( nX * m_nWidth / nNewWidth );
-			*pOut++ = *pIn++;
-			*pOut++ = *pIn++;
-			*pOut++ = *pIn++;
-		}
-
-		pOut += ( nOutPitch - nNewWidth * 3 );
-	}
-
-	delete [] m_pImage;
-
-	m_pImage	= pNew;
-	m_nWidth	= nNewWidth;
-	m_nHeight	= nNewHeight;
-
-	return TRUE;
-}*/
+//	delete [] m_pImage;
+//	m_pImage	= pNew;
+//	m_nWidth	= nNewWidth;
+//	m_nHeight	= nNewHeight;
+//	return TRUE;
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CImageFile image component modification
 
 BOOL CImageFile::EnsureRGB(COLORREF crBack)
 {
-	if ( ! m_bLoaded || m_nWidth <= 0 || m_nHeight <= 0 )
-	{
+	if ( ! m_bLoaded || ! m_pImage || m_nWidth < 1 || m_nHeight < 1 )
 		return FALSE;
-	}
 	else if ( m_nComponents == 3 )
-	{
 		return TRUE;
-	}
 	else if ( m_nComponents == 1 )
-	{
 		return MonoToRGB();
-	}
 	else if ( m_nComponents == 4 )
-	{
 		return AlphaToRGB( crBack );
-	}
 	else
-	{
 		return FALSE;
-	}
 }
 
 BOOL CImageFile::MonoToRGB()

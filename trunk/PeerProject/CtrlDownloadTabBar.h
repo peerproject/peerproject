@@ -101,12 +101,12 @@ public:
 // Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnMeasureItem(int nIDCtl, LPMEASUREITEMSTRUCT lpMeasureItemStruct);
 	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
 	afx_msg void OnDownloadGroupNew();
@@ -114,8 +114,8 @@ protected:
 	afx_msg void OnDownloadGroupRemove();
 	afx_msg void OnUpdateDownloadGroupMoveRight(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadGroupMoveRight();
-//	afx_msg void OnUpdateDownloadGroupMoveLeft(CCmdUI* pCmdUI);
-//	afx_msg void OnDownloadGroupMoveLeft();
+	afx_msg void OnUpdateDownloadGroupMoveLeft(CCmdUI* pCmdUI);
+	afx_msg void OnDownloadGroupMoveLeft();
 	afx_msg void OnUpdateDownloadGroupProperties(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadGroupProperties();
 	afx_msg void OnUpdateDownloadGroupResume(CCmdUI* pCmdUI);

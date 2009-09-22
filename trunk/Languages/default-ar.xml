@@ -451,12 +451,17 @@
 <menus>
 	<!-- SIMPLE POPUP MENU -->
 	<menu name="عينة">
+		<item id="ID_MOVETAB_LEFT" text="تحرك تبويب اليسار"/>
+		<item id="ID_MOVETAB_RIGHT" text="بويب تحرك بزر"/>
+		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_إغلاق النافذة" />
 	</menu>
 	<!-- CHILD POPUP MENU -->
 	<menu name="Child">
+		<item id="ID_MOVETAB_LEFT" text="تحرك تبويب اليسار"/>
+		<item id="ID_MOVETAB_RIGHT" text="بويب تحرك بزر"/>
+		<separator/>
 		<item id="ID_CHILD_MAXIMISE" text="_شاشة كاملة" />
-		<separator />
 		<item id="ID_CHILD_RESTORE" text="_إستعادة" />
 		<item id="ID_CHILD_MINIMISE" text="_تصغير" />
 		<separator />
@@ -1140,7 +1145,8 @@
 		<separator /> <!--
 		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_عرض المجموعات" />
 		<separator /> -->
-		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="_Drop Priority" />
+		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="تحرك فريق من الزمن"/>
+		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="تحرك الفريق بز"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="مجموعه _حذف" />
 		<item id="ID_DOWNLOAD_GROUP_NEW" text="_مجموعه جديدة..." />
 		<separator />
@@ -3759,7 +3765,7 @@
 		<control />
 		<control caption="PeerProject إبدأ الإستعمال" />
 	</dialog>
-	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStms" caption="(1/6) _ PeerProject مرحبا بكم في">
+	<dialog name="CWizardConnectionPage" cookie="StStCoStCoStCoStCoStEdBuStms" caption="(1/6) _ PeerProject مرحبا بكم في">
 		<control caption="للإتصال بالإنترنت PeerProject لأداء مثالي ، يجب إعداد" />
 		<control caption=":إختر نوع إتصال الإنترنت" />
 		<control caption="مودم طلب هاتفي|ISDN (128ك)|DSL (768ك)|DSL (1.5م)|DSL (4.0م)|DSL2 (8.0م)|FIOS (10.0م)|DSL2 (12.0م)|FIOS (20.0م)|DSL2+ (24.0)|مودم كيبل|T1|T3|LAN|OC3" />
@@ -3769,6 +3775,9 @@
 		<control />
 		<control caption="؟ UPnP هل تريد إعداد المنفذ تلقائيا بواسطة" />
 		<control />
+		<control caption="Port: (Any 4-5 digit number)"/>
+		<control/>
+		<control caption="Random"/>
 		<control caption=":الحالة" />
 		<control />
 	</dialog>

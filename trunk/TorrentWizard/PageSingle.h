@@ -61,14 +61,13 @@ public:
 protected:
 	// Generated message map functions
 	//{{AFX_MSG(CSinglePage)
-	afx_msg void OnBrowseFile();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnDropFiles(HDROP hDropInfo);
+	afx_msg void OnBrowseFile();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
-
 };
 
 //{{AFX_INSERT_LOCATION}}
-// Microsoft Developer Studio will insert additional declarations immediately before the previous line.
 
 #endif // !defined(AFX_PAGESINGLE_H__48CC1296_B18B_489B_B046_389F70A940B5__INCLUDED_)

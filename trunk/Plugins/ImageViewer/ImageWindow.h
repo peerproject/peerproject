@@ -41,6 +41,8 @@ public:
 	POINTS				m_ptOffset;
 	float				m_nZoomFactor;
 	int					m_nZoomIndex;
+	int					m_nPaddingWidth;
+	int					m_nPaddingHeight;
 
 // Operations
 public:

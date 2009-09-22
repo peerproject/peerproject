@@ -21,7 +21,7 @@
 
 #pragma warning( push, 0 )
 
-#include "resource.h"
+#include "Resource.h"
 
 #include <atlbase.h>
 extern CComModule _Module;

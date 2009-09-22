@@ -1,6 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
-#include "resource.h"
+#include "Resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
@@ -74,7 +74,7 @@ BEGIN
             VALUE "FileDescription", "PeerProject Image Viewer Plugin"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "ImageViewer"
-            VALUE "LegalCopyright", "© 2002-2008 PeerProject Development Team. All rights reserved."
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
             VALUE "OriginalFilename", "ImageViewer.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"
@@ -98,9 +98,9 @@ IDR_IMAGEVIEWER         REGISTRY                "ImageViewer.rgs"
 //
 // Icon
 //
+// Icon with lowest ID value placed first to ensure
+// application icon remains consistent on all systems.
 
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
 IDI_IMAGE               ICON                    "Image.ico"
 
 /////////////////////////////////////////////////////////////////////////////

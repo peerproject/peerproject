@@ -62,6 +62,7 @@ public:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnNcLButtonUp( UINT nHitTest, CPoint point );
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
