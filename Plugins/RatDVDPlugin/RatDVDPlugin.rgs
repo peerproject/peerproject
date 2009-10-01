@@ -1,17 +1,17 @@
 HKCR
 {
-	ForceRemove PeerProject.RatDVDReader.1 = s 'RatDVD Metadata Reader and Thumbnailer'
+	ForceRemove PeerProject.RatDVDReader.1 = s 'RatDVD Reader'
 	{
 		CLSID = s '{C4E7FDB7-C085-465B-AC72-3AB28A20C353}'
 	}
-	ForceRemove PeerProject.RatDVDReader = s 'RatDVD Metadata Reader and Thumbnailer'
+	ForceRemove PeerProject.RatDVDReader = s 'RatDVD Reader'
 	{
 		CLSID = s '{C4E7FDB7-C085-465B-AC72-3AB28A20C353}'
 		CurVer = s 'PeerProject.RatDVDReader.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {C4E7FDB7-C085-465B-AC72-3AB28A20C353} = s 'RatDVD Metadata Reader and Thumbnailer'
+		ForceRemove {C4E7FDB7-C085-465B-AC72-3AB28A20C353} = s 'RatDVD Reader'
 		{
 			ProgID = s 'PeerProject.RatDVDReader.1'
 			VersionIndependentProgID = s 'PeerProject.RatDVDReader'

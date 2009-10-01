@@ -90,6 +90,7 @@ CLibraryBuilder::CLibraryBuilder() :
 	m_nElapsed( 0 ),
 	m_nProgress( 0 ),
 	m_bSkip( false )
+//	,m_bBusy( false )
 {
 	QueryPerformanceFrequency( &m_nFreq );
 	QueryPerformanceCounter( &m_nLastCall );
@@ -108,7 +109,7 @@ bool CLibraryBuilder::Add(CLibraryFile* pFile)
 	ASSERT( pFile );
 	ASSERT( pFile->m_nIndex );
 
-	if ( pFile->IsReadable() )
+	if ( pFile->IsReadable() /*&& ! m_bBusy*/ )
 	{
 		CQuickLock pLock( m_pSection );
 
@@ -136,9 +137,7 @@ void CLibraryBuilder::Remove(DWORD nIndex)
 	CQuickLock oLock( m_pSection );
 	CFileInfoList::iterator i = std::find( m_pFiles.begin(), m_pFiles.end(), nIndex );
 	if ( i != m_pFiles.end() )
-	{
 		m_pFiles.erase( i );
-	}
 }
 
 void CLibraryBuilder::Remove(CLibraryFile* pFile)

@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "CtrlBrowseTree.h"
 #include "PeerProjectThread.h"
@@ -666,7 +667,7 @@ void CBrowseTreeCtrl::OnPaint()
 
 	dc.SelectObject( pOldFont );
 
-	dc.FillSolidRect( &rcClient, CoolInterface.m_crWindow );
+	dc.FillSolidRect( &rcClient, Colors.m_crWindow );
 }
 
 void CBrowseTreeCtrl::Paint(CDC& dc, CRect& rcClient, CPoint& pt, CBrowseTreeItem* pItem)
@@ -1114,7 +1115,7 @@ void CBrowseTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) c
 	if ( dc.GetWindow()!= NULL )
 		dc.GetWindow()->ScreenToClient( &ptHover );
 
-	if ( crBack == CLR_NONE ) crBack = CoolInterface.m_crWindow;
+	if ( crBack == CLR_NONE ) crBack = Colors.m_crWindow;
 	dc.FillSolidRect( rc.left, rc.top, 32, 17, crBack );
 
 	if ( m_bExpanded )
@@ -1138,8 +1139,8 @@ void CBrowseTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) c
 			( ( m_bExpanded && m_nCount ) ? IDI_FOLDER_OPEN : IDI_FOLDER_CLOSED ),
 			16, rc.left + 16, rc.top, crBack, ( m_bSelected || bTarget ) );
 
-	crBack = ( m_bSelected || bTarget ) ? CoolInterface.m_crHighlight : crBack;
-	COLORREF crText = ( m_bSelected || bTarget ) ? CoolInterface.m_crHiText : CoolInterface.m_crText;
+	crBack = ( m_bSelected || bTarget ) ? Colors.m_crHighlight : crBack;
+	COLORREF crText = ( m_bSelected || bTarget ) ? Colors.m_crHiText : Colors.m_crText;
 
 	dc.SetTextColor( crText );
 	dc.SetBkColor( crBack );

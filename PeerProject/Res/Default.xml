@@ -463,26 +463,31 @@
 
 <!-- Menu Definitions -->
 <menus>
-	<!-- SIMPLE POPUP MENU -->
-	<menu name="Simple">
+	<!-- TAB BAR POPUP MENUS -->
+	<menu name="CTabBar">
 		<item id="ID_MOVETAB_LEFT" text="Move Tab _Left"/>
 		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Right"/>
-	<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
-	<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
+		<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
+		<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
-	<!-- CHILD POPUP MENU -->
-	<menu name="Child">
+	<menu name="CTabBar.Child">
 		<item id="ID_MOVETAB_LEFT" text="Move Tab _Left"/>
 		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Right"/>
-	<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
-	<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
+		<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
+		<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
 		<separator/>
 		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
  		<item id="ID_CHILD_RESTORE" text="_Restore"/>
 		<item id="ID_CHILD_MINIMISE" text="_Minimize"/>
 		<separator/>
+		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
+	</menu>
+	<menu name="CTabBar.Basic">
+		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
+	</menu>
+	<menu name="CTabBar.Child.Basic">
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
 	<!-- TRAY MENU -->
@@ -1022,6 +1027,7 @@
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filter Results..."/>
 		<item id="ID_SEARCH_FILTER_REMOVE" text="_Remove Filter"/>
+		<separator/>
 		<item id="ID_SEARCH_CLEAR" text="C_lear Results"/>
 		<separator/>
 		<item id="ID_SEARCH_COLUMNS" text="Edit C_olumns..."/>
@@ -1114,8 +1120,8 @@
 	<menu name="CDownloadsWnd.Download">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Preview Partial File"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Pre_view File Copy"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
-		<item id="ID_DOWNLOADS_ENQUEUE" text="Add to Pla_ylist"/>
+    <item id="ID_DOWNLOADS_ENQUEUE" text="Add to Pla_ylist"/>
+    <item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Vie_w Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
@@ -1132,9 +1138,11 @@
 			<item id="ID_DOWNLOADS_MONITOR" text="_Monitor Window"/>
 			<item id="ID_DOWNLOADS_BOOST" text="_Ignore Bandwidth Limit"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Move Up" shortcut="Ctrl+Up"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move Down" shortcut="Ctrl+Dn"/>
-		</menu>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Move _Up" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move _Down" shortcut="Ctrl+Dn"/>
+      <item id="ID_DOWNLOADS_MOVE_TOP" text="Move to _Top" shortcut="Ctrl+Home"/>
+      <item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Move to _Bottom" shortcut="Ctrl+End"/>
+    </menu>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>

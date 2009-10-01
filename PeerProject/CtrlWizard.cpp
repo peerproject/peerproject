@@ -24,17 +24,17 @@
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "AlbumFolder.h"
-#include "SharedFile.h"
-#include "XML.h"
-#include "Settings.h"
-#include "Skin.h"
-#include "CoolInterface.h"
 #include "CtrlIconButton.h"
+#include "SharedFile.h"
+#include "Settings.h"
+#include "Colors.h"
+#include "Skin.h"
+#include "XML.h"
 
 #include "Transfer.h"
 #include "CtrlWizard.h"
 
-#include "RegExp\regexpr2.h"
+#include "RegExp\Regexpr2.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -164,7 +164,7 @@ void CWizardCtrl::OnPaint()
 
 	GetClientRect( &rcClient );
 	rcItem.CopyRect( &rcClient );
-	dc.FillSolidRect( &rcItem, CoolInterface.m_crWindow );
+	dc.FillSolidRect( &rcItem, Colors.m_crWindow );
 	CFont* pOldFont = (CFont*)dc.SelectObject( &theApp.m_gdiFont );
 	dc.SetBkMode( OPAQUE );
 
@@ -192,7 +192,7 @@ void CWizardCtrl::OnPaint()
 					rcItem.bottom += (int)(m_nItemHeight * nFactor);
 				}
 
-				dc.SetBkColor( Skin.m_crSchemaRow[ nRows & 1 ] );
+				dc.SetBkColor( Colors.m_crSchemaRow[ nRows & 1 ] );
 				// draw row label
 				dc.ExtTextOut( rcItem.left + 6, rcItem.top + nOffsetY, ETO_OPAQUE|ETO_CLIPPED,
 					&rcItem, m_pCaptions.GetAt( nControl ), NULL );
@@ -261,7 +261,7 @@ void CWizardCtrl::OnNcPaint()
 
 		GetWindowRect( &rc );
 		rc.OffsetRect( -rc.left, -rc.top );
-		dc.Draw3dRect( &rc, CoolInterface.m_crSysActiveCaption, CoolInterface.m_crSysActiveCaption );
+		dc.Draw3dRect( &rc, Colors.m_crSysActiveCaption, Colors.m_crSysActiveCaption );
 	}
 }
 

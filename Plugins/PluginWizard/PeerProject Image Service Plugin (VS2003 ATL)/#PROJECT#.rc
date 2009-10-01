@@ -1,6 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
-#include "resource.h"
+#include "Resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
@@ -66,8 +66,19 @@ END
 // REGISTRY
 //
 
-IDR_APP         REGISTRY                "#PROJECT#.rgs"
-IDR_CLASS       REGISTRY                "Class.rgs"
+IDR_APP			REGISTRY		"#PROJECT#.rgs"
+IDR_CLASS		REGISTRY		"Class.rgs"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icons
+//
+// Icon with lowest ID value placed first to ensure
+// application icon remains consistent on all systems.
+
+//IDI_ICON		ICON			"Icon.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -76,7 +87,7 @@ IDR_CLASS       REGISTRY                "Class.rgs"
 
 STRINGTABLE 
 BEGIN
-    IDS_PROJNAME            "#PROJECT#"
+    IDS_PROJNAME	"#PROJECT#"
 END
 
 #endif    // Neutral resources

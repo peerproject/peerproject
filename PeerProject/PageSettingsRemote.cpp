@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 #include "Network.h"
 #include "Handshakes.h"
 #include "PageSettingsRemote.h"
@@ -168,7 +168,7 @@ HBRUSH CRemoteSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	if ( pWnd == &m_wndURL && m_wndURL.IsWindowEnabled() )
 	{
 		pDC->SelectObject( &theApp.m_gdiFontLine );
-		pDC->SetTextColor( CoolInterface.m_crTextLink );
+		pDC->SetTextColor( Colors.m_crTextLink );
 	}
 
 	return hbr;

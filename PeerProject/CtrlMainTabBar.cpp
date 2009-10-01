@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "CtrlMainTabBar.h"
 #include "CtrlCoolBar.h"
@@ -95,11 +96,11 @@ void CMainTabBarCtrl::OnSkinChange()
 	if ( m_pItems.GetCount() == 0 )
 	{
 		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_HOME") ) );
-		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_LIBRARY") ) );
-		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_MEDIA") ) );
 		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_SEARCH") ) );
 		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_TRANSFERS") ) );
 		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_NETWORK") ) );
+		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_LIBRARY") ) );
+		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_MEDIA") ) );
 		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_IRC") ) );
 	}
 
@@ -192,9 +193,7 @@ CSize CMainTabBarCtrl::CalcFixedLayout(BOOL bStretch, BOOL /*bHorz*/)
 	CSize size( 0, Skin.m_nToolbarHeight );	//ToDo: Use Unique Size
 
 	if ( m_pSkin != NULL && m_pSkin->GetAnchor( _T("Background"), rcBackground ) )
-	{
 		size = rcBackground.Size();
-	}
 
 	if ( bStretch )
 	{
@@ -277,7 +276,7 @@ void CMainTabBarCtrl::DoPaint(CDC* pDC)
 	if ( m_pSkin == NULL )
 	{
 		DrawBorders( pDC, rc );
-		pDC->FillSolidRect( &rc, CoolInterface.m_crMidtone );
+		pDC->FillSolidRect( &rc, Colors.m_crMidtone );
 		return;
 	}
 	else if ( m_hOldSkin == NULL )
@@ -300,9 +299,7 @@ void CMainTabBarCtrl::DoPaint(CDC* pDC)
 		rc.DeflateRect(2,2,0,0);
 
 	if ( ! CoolInterface.DrawWatermark( pBuffer, &rc, &m_pSkin->m_bmWatermark ) )
-	{
-		pBuffer->FillSolidRect( &rc, CoolInterface.m_crMidtone );
-	}
+		pBuffer->FillSolidRect( &rc, Colors.m_crMidtone );
 
 	CPoint ptOffset = rc.TopLeft();
 
@@ -364,18 +361,12 @@ void CMainTabBarCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 	m_pHover = HitTest( point );
 
 	if ( m_pHover != NULL && m_pHover->m_bEnabled )
-	{
 		m_pDown = m_pHover;
-	}
 
 	if ( m_pHover == NULL )
-	{
 		CControlBar::OnLButtonDown( nFlags, point );
-	}
 	else
-	{
     	SetCapture();
-	}
 
 	Invalidate();
 }
@@ -383,15 +374,14 @@ void CMainTabBarCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 void CMainTabBarCtrl::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	if ( m_pDown != NULL && m_pHover == m_pDown )
-	{
 		GetOwner()->PostMessage( WM_COMMAND, m_pDown->m_nID );
-	}
 
 	m_pDown = NULL;
 	ReleaseCapture();
 	Invalidate();
 
-	if ( m_pHover == NULL ) CControlBar::OnLButtonUp( nFlags, point );
+	if ( m_pHover == NULL )
+		CControlBar::OnLButtonUp( nFlags, point );
 }
 
 void CMainTabBarCtrl::OnRButtonDown(UINT nFlags, CPoint point)
@@ -527,7 +517,7 @@ void CMainTabBarCtrl::TabItem::OnSkinChange(CSkinWindow* pSkin, CDC* pdcCache, C
 			}
 			else
 			{
-				pdcCache->FillSolidRect( pRect, CoolInterface.m_crMidtone );
+				pdcCache->FillSolidRect( pRect, Colors.m_crMidtone );
 			}
 
 			pdcCache->SelectObject( pOld );
@@ -577,8 +567,7 @@ void CMainTabBarCtrl::TabItem::Paint(CDC* pDstDC, CDC* pSrcDC, const CPoint& ptO
 		pPart = &m_rcSrc[3];
 
 	if ( m_rc.Width() == 0 || m_rc.Height() == 0 )
-		// No button
-		return;
+		return;		// No button
 
 	CRect rcTarget( m_rc );
 	rcTarget += ptOffset;
@@ -589,55 +578,50 @@ void CMainTabBarCtrl::TabItem::Paint(CDC* pDstDC, CDC* pSrcDC, const CPoint& ptO
 	// Draw button label
 
 	if ( m_sTitle.IsEmpty() )
-		// No label
-		return;
+		return;		// No label
 
-	if ( Skin.m_crNavBarText == CLR_NONE
-		&& Skin.m_crNavBarTextUp == CLR_NONE
-		&& Skin.m_crNavBarTextHover == CLR_NONE
-		&& Skin.m_crNavBarTextChecked == CLR_NONE )
+	if ( Colors.m_crNavBarText == CLR_NONE
+		&& Colors.m_crNavBarTextUp == CLR_NONE
+		&& Colors.m_crNavBarTextHover == CLR_NONE
+		&& Colors.m_crNavBarTextChecked == CLR_NONE )
 	{
-		// No caption text
-		return;
+		return;		// No caption text
 	}
 
-	COLORREF crNavBarText = Skin.m_crNavBarText;
-	COLORREF crNavBarShadow = Skin.m_crNavBarShadow;
-	COLORREF crNavBarOutline = Skin.m_crNavBarOutline;
+	COLORREF crNavBarText = Colors.m_crNavBarText;
+	COLORREF crNavBarShadow = Colors.m_crNavBarShadow;
+	COLORREF crNavBarOutline = Colors.m_crNavBarOutline;
 
 	if ( bDown )
 	{
-		crNavBarText = Skin.m_crNavBarTextDown != CLR_NONE ? Skin.m_crNavBarTextDown : Skin.m_crNavBarText ;
-		crNavBarShadow = Skin.m_crNavBarShadowDown != CLR_NONE ? Skin.m_crNavBarShadowDown : Skin.m_crNavBarShadow ;
-		crNavBarOutline = Skin.m_crNavBarOutlineDown != CLR_NONE ? Skin.m_crNavBarOutlineDown : Skin.m_crNavBarOutline ;
+		crNavBarText = Colors.m_crNavBarTextDown != CLR_NONE ? Colors.m_crNavBarTextDown : Colors.m_crNavBarText ;
+		crNavBarShadow = Colors.m_crNavBarShadowDown != CLR_NONE ? Colors.m_crNavBarShadowDown : Colors.m_crNavBarShadow ;
+		crNavBarOutline = Colors.m_crNavBarOutlineDown != CLR_NONE ? Colors.m_crNavBarOutlineDown : Colors.m_crNavBarOutline ;
 	}
 	else if ( m_bSelected )
 	{
-		crNavBarText = Skin.m_crNavBarTextChecked != CLR_NONE ? Skin.m_crNavBarTextChecked : Skin.m_crNavBarText ;
-		crNavBarShadow = Skin.m_crNavBarShadowChecked != CLR_NONE ? Skin.m_crNavBarShadowChecked : Skin.m_crNavBarShadow ;
-		crNavBarOutline = Skin.m_crNavBarOutlineChecked != CLR_NONE ? Skin.m_crNavBarOutlineChecked : Skin.m_crNavBarOutline ;
+		crNavBarText = Colors.m_crNavBarTextChecked != CLR_NONE ? Colors.m_crNavBarTextChecked : Colors.m_crNavBarText ;
+		crNavBarShadow = Colors.m_crNavBarShadowChecked != CLR_NONE ? Colors.m_crNavBarShadowChecked : Colors.m_crNavBarShadow ;
+		crNavBarOutline = Colors.m_crNavBarOutlineChecked != CLR_NONE ? Colors.m_crNavBarOutlineChecked : Colors.m_crNavBarOutline ;
 	}
 	else if ( bHover )
 	{
-		crNavBarText = Skin.m_crNavBarTextHover != CLR_NONE ? Skin.m_crNavBarTextHover : Skin.m_crNavBarText ;
-		crNavBarShadow = Skin.m_crNavBarShadowHover != CLR_NONE ? Skin.m_crNavBarShadowHover : Skin.m_crNavBarShadow ;
-		crNavBarOutline = Skin.m_crNavBarOutlineHover != CLR_NONE ? Skin.m_crNavBarOutlineHover : Skin.m_crNavBarOutline ;
+		crNavBarText = Colors.m_crNavBarTextHover != CLR_NONE ? Colors.m_crNavBarTextHover : Colors.m_crNavBarText ;
+		crNavBarShadow = Colors.m_crNavBarShadowHover != CLR_NONE ? Colors.m_crNavBarShadowHover : Colors.m_crNavBarShadow ;
+		crNavBarOutline = Colors.m_crNavBarOutlineHover != CLR_NONE ? Colors.m_crNavBarOutlineHover : Colors.m_crNavBarOutline ;
 	}
-	else if ( Skin.m_crNavBarTextUp != CLR_NONE )
+	else if ( Colors.m_crNavBarTextUp != CLR_NONE )
 	{
-		crNavBarText = Skin.m_crNavBarTextUp ;
-		crNavBarShadow = Skin.m_crNavBarShadowUp != CLR_NONE ? Skin.m_crNavBarShadowUp : Skin.m_crNavBarShadow ;
-		crNavBarOutline = Skin.m_crNavBarOutlineUp != CLR_NONE ? Skin.m_crNavBarOutlineUp : Skin.m_crNavBarOutline ;
+		crNavBarText = Colors.m_crNavBarTextUp ;
+		crNavBarShadow = Colors.m_crNavBarShadowUp != CLR_NONE ? Colors.m_crNavBarShadowUp : Colors.m_crNavBarShadow ;
+		crNavBarOutline = Colors.m_crNavBarOutlineUp != CLR_NONE ? Colors.m_crNavBarOutlineUp : Colors.m_crNavBarOutline ;
 	}
 
 	if ( Settings.General.LanguageRTL )
-	{
 		rcTarget.left += Skin.m_rcNavBarOffset.right;
-	}
 	else
-	{
 		rcTarget.left += Skin.m_rcNavBarOffset.left;
-	}
+
 	rcTarget.top += Skin.m_rcNavBarOffset.top;
 
 	CFont* pOldFont = pDstDC->SelectObject( &CoolInterface.m_fntNavBar );

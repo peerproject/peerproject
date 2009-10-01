@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r36 -->
+<!-- Translation based on default-en.xml r38 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -425,15 +425,14 @@
 </toolbars>
 <!-- Menu Definitions -->
 <menus>
-	<!-- SIMPLE POPUP MENU -->
-	<menu name="Simple">
+	<!-- TAB BAR POPUP MENUS -->
+	<menu name="CTabBar">
 		<item id="ID_MOVETAB_LEFT" text="Flytta Tab Vänster"/>
 		<item id="ID_MOVETAB_RIGHT" text="Flytta Tab Höger"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="Stäng _fönster"/>
 	</menu>
-	<!-- CHILD POPUP MENU -->
-	<menu name="Child">
+	<menu name="CTabBar.Child">
 		<item id="ID_MOVETAB_LEFT" text="Flytta Tab Vänster"/>
 		<item id="ID_MOVETAB_RIGHT" text="Flytta Tab Höger"/>
 		<separator/>
@@ -1056,9 +1055,9 @@
 	</menu>
 	<menu name="CDownloadsWnd.Download">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Förhandsvisa" />
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Fjärrförhandsvisning"/>
-		<!-- <item id="ID_DOWNLOADS_LAUNCH_COPY" text="Förhandsvisa _kopia"/> -->
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Förhandsvisa _kopia"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Lägg till i spellista"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Fjärrförhandsvisning"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Visa recensioner"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Återuppta nedladdning" />
@@ -1074,10 +1073,12 @@
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Lägg till källa…" />
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Monitor_fönster" />
+			<item id="ID_DOWNLOADS_BOOST" text="_Ignorera bandbreddsbegränsning" />
 			<separator/>
 			<item id="ID_DOWNLOADS_MOVE_UP" text="Flytta _upp" />
 			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Flytta _ned" />
-			<item id="ID_DOWNLOADS_BOOST" text="_Ignorera bandbreddsbegränsning" />
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Flytta _upp!" />
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Flytta _ned!" />
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Hjälp…" />
 		<separator/>

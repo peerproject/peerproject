@@ -61,6 +61,7 @@ public:
 protected:
 	// Generated message map functions
 	//{{AFX_MSG(CSinglePage)
+	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnDropFiles(HDROP hDropInfo);
 	afx_msg void OnBrowseFile();

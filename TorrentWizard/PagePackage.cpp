@@ -37,6 +37,7 @@ BEGIN_MESSAGE_MAP(CPackagePage, CWizardPage)
 	ON_BN_CLICKED(IDC_ADD_FOLDER, OnAddFolder)
 	ON_BN_CLICKED(IDC_ADD_FILE, OnAddFile)
 	ON_BN_CLICKED(IDC_REMOVE_FILE, OnRemoveFile)
+	ON_WM_XBUTTONDOWN()
 	ON_WM_DROPFILES()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -115,6 +116,14 @@ LRESULT CPackagePage::OnWizardNext()
 	}
 
 	return IDD_TRACKER_PAGE;
+}
+
+void CPackagePage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetSheet()->PressButton( PSBTN_BACK );
+	else if ( nButton == 2 )
+		GetSheet()->PressButton( PSBTN_NEXT );
 }
 
 void CPackagePage::OnItemChangedFileList(NMHDR* /*pNMHDR*/, LRESULT* pResult)

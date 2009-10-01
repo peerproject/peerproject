@@ -149,9 +149,9 @@ int CIRCUsersBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CRect rc( 0, 0, 0, 0 );
 	m_wndUserList.Create( WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_TABSTOP |
 		LBS_NOTIFY | LBS_NOINTEGRALHEIGHT, rc, this, IDC_IRC_USERS );
+	//m_wndUserList.ModifyStyleEx( 0, WS_EX_CLIENTEDGE );
 	if ( Settings.General.LanguageRTL )
 		m_wndUserList.ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
-	m_wndUserList.ModifyStyleEx( 0, WS_EX_CLIENTEDGE );
 
 	OnSkinChange();
 
@@ -175,7 +175,7 @@ void CIRCUsersBox::OnSize(UINT nType, int cx, int cy)
 {
 	CTaskBox::OnSize( nType, cx, cy );
 
-	m_wndUserList.SetWindowPos( NULL, 1, 1, cx - 2, cy - 2,
+	m_wndUserList.SetWindowPos( NULL, 6, 1, cx - 6, cy - 2,
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 }
 
@@ -256,9 +256,9 @@ int CIRCChannelsBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		LVS_NOCOLUMNHEADER | LVS_SORTASCENDING | LVS_NOLABELWRAP,
 		rc, this, IDC_IRC_CHANNELS );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
-	m_wndChanList.ModifyStyleEx( 0, WS_EX_CLIENTEDGE );
-	m_wndChanList.InsertColumn( 0, _T("Channels"), LVCFMT_LEFT, rc.right - 20 );
-	m_wndChanList.InsertColumn( 1, _T("UserCount"), LVCFMT_RIGHT, 20 );
+	m_wndChanList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
+	m_wndChanList.InsertColumn( 0, _T("Channels"), LVCFMT_LEFT, rc.right - 36 );
+	m_wndChanList.InsertColumn( 1, _T("UserCount"), LVCFMT_RIGHT, 36 );
 
 	m_wndAddChannel.Create( rc, this, IDC_IRC_ADDCHANNEL, WS_TABSTOP | BS_DEFPUSHBUTTON );
 	m_wndAddChannel.SetHandCursor( TRUE );
@@ -284,6 +284,8 @@ void CIRCChannelsBox::OnSkinChange()
 	LoadString( strCaption, IDS_IRC_PANEL_REMOVECHANNEL );
 	m_wndRemoveChannel.SetWindowText( strCaption );
 	m_wndRemoveChannel.SetCoolIcon( ID_IRC_REMOVE, Settings.General.LanguageRTL );
+
+	m_wndChanList.SetBkImage( Skin.GetWatermark( _T("CIRCChannelsBox") ) );
 }
 
 void CIRCChannelsBox::OnSize(UINT nType, int cx, int cy)
@@ -292,20 +294,19 @@ void CIRCChannelsBox::OnSize(UINT nType, int cx, int cy)
 
 	HDWP hDWP = BeginDeferWindowPos( 3 );
 
-	DeferWindowPos( hDWP, m_wndChanList, NULL, 1, 1, cx - 2, cy - 24 - 10 - 10 - 2,
+	int nButton = ( cx - 24 ) / 2;
+
+	DeferWindowPos( hDWP, m_wndChanList, NULL, 2, 2, cx - 2, cy - 24 - 18,
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-	DeferWindowPos( hDWP, m_wndAddChannel, NULL, 8, cy - 24 - 10, 76, 24,
+	DeferWindowPos( hDWP, m_wndAddChannel, NULL, 9, cy - 24 - 8, nButton, 24,
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-	DeferWindowPos( hDWP, m_wndRemoveChannel, NULL, cx - 76 - 10, cy - 24 - 10, 76, 24,
+	DeferWindowPos( hDWP, m_wndRemoveChannel, NULL, cx - nButton - 9, cy - 24 - 8, nButton, 24,
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 
 	EndDeferWindowPos( hDWP );
 
-	int nScrollbarWidth = 17;
-	int nUserCountWidth = 36;
-	int nChanCountWidth = cx - 2 - nUserCountWidth - nScrollbarWidth;
-	m_wndChanList.SetColumnWidth( 0, nChanCountWidth );
-	m_wndChanList.SetColumnWidth( 1, nUserCountWidth );
+	m_wndChanList.SetColumnWidth( 0, cx - 40 - GetSystemMetrics( SM_CXVSCROLL ) );
+	m_wndChanList.SetColumnWidth( 1, 36 );
 }
 
 void CIRCChannelsBox::OnPaint()

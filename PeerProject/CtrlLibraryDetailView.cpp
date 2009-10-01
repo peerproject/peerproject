@@ -31,6 +31,7 @@
 #include "Schema.h"
 #include "SchemaCache.h"
 
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
 #include "CoolMenu.h"
@@ -931,12 +932,12 @@ void CLibraryDetailView::OnCustomDraw(NMHDR* pNotify, LRESULT* pResult)
 
 		if ( pItem->nState & LDVI_SELECTED )
 		{
-			((NMLVCUSTOMDRAW*) pNotify)->clrText = CoolInterface.m_crHiText;
-			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk = CoolInterface.m_crHighlight;
+			((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crHiText;
+			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk = Colors.m_crHighlight;
 		}
-		else if ( pItem->nState & LDVI_UNSAFE )		((NMLVCUSTOMDRAW*) pNotify)->clrText = CoolInterface.m_crTextAlert;
-		else if ( pItem->nState & LDVI_UNSCANNED )	((NMLVCUSTOMDRAW*) pNotify)->clrText = CoolInterface.m_crDisabled;
-		else if ( pItem->nState & LDVI_PRIVATE )	((NMLVCUSTOMDRAW*) pNotify)->clrText = CoolInterface.m_crNetworkNull;
+		else if ( pItem->nState & LDVI_UNSAFE )		((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crTextAlert;
+		else if ( pItem->nState & LDVI_UNSCANNED )	((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crDisabled;
+		else if ( pItem->nState & LDVI_PRIVATE )	((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crNetworkNull;
 
 		if ( m_bCreateDragImage )
 		{

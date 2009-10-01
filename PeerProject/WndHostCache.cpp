@@ -33,6 +33,7 @@
 #include "DlgURLCopy.h"
 #include "LiveList.h"
 #include "Skin.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 
 #ifdef _DEBUG
@@ -313,7 +314,7 @@ void CHostCacheWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
 	{
 		if ( m_wndList.GetItemOverlayMask( (int)pDraw->nmcd.dwItemSpec ) )
-			pDraw->clrText = CoolInterface.m_crSysActiveCaption ;
+			pDraw->clrText = Colors.m_crSysActiveCaption ;
 
 		*pResult = CDRF_DODEFAULT;
 	}

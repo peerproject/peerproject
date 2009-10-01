@@ -29,6 +29,7 @@
 
 #include "ShellIcons.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 #include "Skin.h"
 
 #include "CtrlLibraryFrame.h"
@@ -124,10 +125,9 @@ int CLibraryHeaderPanel::Update()
 
 	if (m_hWnd) Invalidate();
 
-	//Set Header Height 64px
-	//ToDo: Add Skin-Defined Option
+	//Set Skinable Header Height (64px)
 	int nHeight = static_cast< int >( m_pMetadata.GetCount() * 12 + 8 );
-	nHeight = max( 64, nHeight );
+	nHeight = max( Skin.m_nTitlebarHeight, nHeight );
 
 	//Set Home View Header Differently
 	//if ( pFolder->m_pParent != NULL ) nHeight = 56;
@@ -140,13 +140,11 @@ void CLibraryHeaderPanel::OnSkinChange()
 	if ( m_bmWatermark.m_hObject != NULL ) m_bmWatermark.DeleteObject();
 
 	if ( HBITMAP hMark = Skin.GetWatermark( _T("CLibraryHeaderPanel") ) )
-	{
 		m_bmWatermark.Attach( hMark );
-	}
-	else if ( Skin.m_crBannerBack == RGB( 122, 161, 230 ) )
-	{
+	else if ( Colors.m_crBannerBack == RGB( 122, 160, 230 ) )
 		m_bmWatermark.LoadBitmap( IDB_BANNER_MARK );
-	}
+
+	Update();
 }
 
 CAlbumFolder* CLibraryHeaderPanel::GetSelectedAlbum() const
@@ -218,7 +216,7 @@ void CLibraryHeaderPanel::OnPaint()
 
 	if ( ! CoolInterface.DrawWatermark( &m_dcBuffer, &rcClient, &m_bmWatermark, 0, 0 ) )
 	{
-		m_dcBuffer.FillSolidRect( &rcClient, Skin.m_crBannerBack );
+		m_dcBuffer.FillSolidRect( &rcClient, Colors.m_crBannerBack );
 	}
 
 	DoPaint( &m_dcBuffer, rcClient );
@@ -243,7 +241,7 @@ void CLibraryHeaderPanel::DoPaint(CDC* pDC, CRect& rcClient)
 		ShellIcons.Draw( pDC, m_nIcon32, 32, ptIcon.x, ptIcon.y );
 	}
 
-	pDC->SetTextColor( Skin.m_crBannerText );
+	pDC->SetTextColor( Colors.m_crBannerText );
 	pDC->SetBkMode( TRANSPARENT );
 
 	CRect rcWork( &rcClient );

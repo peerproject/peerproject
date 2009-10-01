@@ -51,7 +51,7 @@ BEGIN
             VALUE "FileDescription", "VirusTotal plugin for PeerProject"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "VirusTotal.dll"
-            VALUE "LegalCopyright", "Copyiright (C) Nikolay Raspopov, 2009."
+            VALUE "LegalCopyright", "© Nikolay Raspopov, 2009"
             VALUE "OriginalFilename", "VirusTotal.dll"
             VALUE "ProductName", "VirusTotal plugin for PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"
@@ -69,17 +69,17 @@ END
 // REGISTRY
 //
 
-IDR_VIRUSTOTAL          REGISTRY                "VirusTotal.rgs"
-IDR_PLUGIN              REGISTRY                "Plugin.rgs"
+IDR_VIRUSTOTAL		REGISTRY		"VirusTotal.rgs"
+IDR_PLUGIN		REGISTRY		"Plugin.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Icon
 //
-
 // Icon with lowest ID value placed first to ensure
 // application icon remains consistent on all systems.
-IDI_ICON                ICON                    "VirusTotal.ico"
+
+IDI_ICON		ICON			"VirusTotal.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -88,7 +88,7 @@ IDI_ICON                ICON                    "VirusTotal.ico"
 
 STRINGTABLE
 BEGIN
-    IDS_PROJNAME            "VirusTotal Plugin"
+    IDS_PROJNAME	"VirusTotal Plugin"
 END
 
 #endif    // Neutral resources

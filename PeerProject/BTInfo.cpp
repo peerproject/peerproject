@@ -737,11 +737,11 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 							pTrackers.AddTail( strTracker );
 
 							// Backup defunct PirateBay tracker
-							if ( nTracker < 3 && strTracker.Find( _T("piratebay") ) > 6 )
-							{
-								strTracker = _T("http://tracker.openbittorrent.com/announce");
-								pTrackers.AddTail( strTracker );
-							}
+						//	if ( nTracker < 3 && strTracker.Find( _T("piratebay") ) > 6 )
+						//	{
+						//		strTracker = _T("http://tracker.openbittorrent.com/announce");
+						//		pTrackers.AddTail( strTracker );
+						//	}
 						}
 						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("https://"), 8 ) == 0 )
 						{
@@ -814,6 +814,16 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 				// Set the torrent to be a single-tracker torrent
 				m_nTrackerMode = tSingle;
 				SetTracker( strTracker );
+
+				// Backup defunct PirateBay tracker
+				if ( strTracker.Find( _T("piratebay") ) > 6 )
+				{
+					CBTTracker oTracker;
+					oTracker.m_sAddress	= _T("http://tracker.openbittorrent.com/announce");
+					oTracker.m_nTier	= 0;
+					m_nTrackerMode = tMultiFinding;
+					AddTracker( oTracker );
+				}
 			}
 			//else	// Torrents should always have a valid announce node, udp:// is unlikely.
 		}

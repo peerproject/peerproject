@@ -409,6 +409,10 @@
 				>
 			</File>
 			<File
+				RelativePath="PageExpert.cpp"
+				>
+			</File>
+			<File
 				RelativePath="PageFinished.cpp"
 				>
 			</File>
@@ -504,6 +508,10 @@
 			</File>
 			<File
 				RelativePath="PageComment.h"
+				>
+			</File>
+			<File
+				RelativePath="PageExpert.h"
 				>
 			</File>
 			<File

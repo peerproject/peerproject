@@ -38,6 +38,7 @@ IMPLEMENT_DYNCREATE(CWizardInterfacePage, CWizardPage)
 BEGIN_MESSAGE_MAP(CWizardInterfacePage, CWizardPage)
 	//{{AFX_MSG_MAP(CWizardInterfacePage)
 	ON_WM_LBUTTONDOWN()
+	ON_WM_XBUTTONDOWN()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -102,6 +103,14 @@ BOOL CWizardInterfacePage::OnSetActive()
 
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
 	return CWizardPage::OnSetActive();
+}
+
+void CWizardInterfacePage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetSheet()->PressButton( PSBTN_BACK );
+	else if ( nButton == 2 )
+		GetSheet()->PressButton( PSBTN_NEXT );
 }
 
 void CWizardInterfacePage::OnLButtonDown(UINT nFlags, CPoint point)

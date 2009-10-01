@@ -34,6 +34,7 @@ IMPLEMENT_DYNCREATE(CSinglePage, CWizardPage)
 BEGIN_MESSAGE_MAP(CSinglePage, CWizardPage)
 	//{{AFX_MSG_MAP(CSinglePage)
 	ON_BN_CLICKED(IDC_BROWSE_FILE, OnBrowseFile)
+	ON_WM_XBUTTONDOWN()
 	ON_WM_DROPFILES()
 	ON_WM_TIMER()
 	//}}AFX_MSG_MAP
@@ -165,4 +166,12 @@ LRESULT CSinglePage::OnWizardNext()
 	}
 	
 	return IDD_TRACKER_PAGE;
+}
+
+void CSinglePage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetSheet()->PressButton( PSBTN_BACK );
+	else if ( nButton == 2 )
+		GetSheet()->PressButton( PSBTN_NEXT );
 }

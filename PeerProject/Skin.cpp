@@ -25,14 +25,15 @@
 #include "CoolInterface.h"
 #include "CoolMenu.h"
 #include "CtrlCoolBar.h"
+#include "Colors.h"
 #include "Skin.h"
 #include "SkinWindow.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
 #include "Plugins.h"
-#include "XML.h"
 #include "WndChild.h"
 #include "Buffer.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -58,8 +59,6 @@ CSkin::CSkin()
 	m_pDialogs.InitHashTable( 127 );
 
 	CreateDefaultColors();
-
-	m_brDialog.CreateSolidBrush( m_crDialog );
 }
 
 CSkin::~CSkin()
@@ -81,11 +80,17 @@ void CSkin::Apply()
 	ApplyRecursive( L"Languages\\" );
 	ApplyRecursive( NULL );
 
-	m_brDialog.CreateSolidBrush( m_crDialog );
+	Colors.m_brDialog.CreateSolidBrush( Colors.m_crDialog );
+
+	// ToDo: Dialog backgrounds should be skinnable?
+	//CBitmap* bmDialog = NULL;
+	//GetWatermark( bmDialog, _T("CDialog") );
+	//if ( bmDialog != NULL )
+	//	Colors.m_brDialog.CreatePatternBrush( bmDialog );
 
 	if ( HBITMAP hPanelMark = GetWatermark( _T("CPanelWnd.Caption") ) )
 		m_bmPanelMark.Attach( hPanelMark );
-	else if ( m_crPanelBack == RGB( 60, 60, 60 ) )
+	else if ( Colors.m_crPanelBack == RGB( 60, 60, 60 ) )
 		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );
 
 	CoolMenu.SetWatermark( GetWatermark( _T("CCoolMenu") ) );
@@ -105,6 +110,7 @@ void CSkin::CreateDefault()
 	// Default Options
 
 	m_nToolbarHeight = 28;
+	m_nTitlebarHeight = 64;
 	m_nSidebarWidth = 200;
 	m_bMenuBorders = TRUE;
 	m_bMenuGripper = TRUE;
@@ -144,40 +150,31 @@ void CSkin::CreateDefault()
 
 void CSkin::CreateDefaultColors()
 {
-	CoolInterface.CalculateColors( FALSE );
+	Colors.CalculateColors( FALSE );
 
 	// Colour Scheme
 
-	m_crDialog					= CoolInterface.CalculateColor(
+	Colors.m_crDialog				= Colors.CalculateColor(
 		GetSysColor( COLOR_BTNFACE ), GetSysColor( COLOR_WINDOW ), 200 );
 
-	m_crPanelBack				= RGB( 60, 60, 60 );
-	m_crPanelText				= RGB( 255, 255, 255 );
-	m_crPanelBorder				= RGB( 0, 0, 0 );
+	Colors.m_brDialog.CreateSolidBrush( Colors.m_crDialog );
 
-	m_crBannerBack				= RGB( 122, 161, 230 );
-	m_crBannerText				= RGB( 250, 250, 255 );
-
-	m_crSchemaRow[0]			= RGB( 245, 245, 255 );
-	m_crSchemaRow[1]			= RGB( 214, 223, 247 );
-
-	// NavBar
-
-	m_crNavBarText				= CLR_NONE;
-	m_crNavBarTextUp			= m_crNavBarText;
-	m_crNavBarTextDown			= m_crNavBarText;
-	m_crNavBarTextHover			= m_crNavBarText;
-	m_crNavBarTextChecked		= m_crNavBarText;
-	m_crNavBarShadow			= CLR_NONE;
-	m_crNavBarShadowUp			= m_crNavBarShadow;
-	m_crNavBarShadowDown		= m_crNavBarShadow;
-	m_crNavBarShadowHover		= m_crNavBarShadow;
-	m_crNavBarShadowChecked		= m_crNavBarShadow;
-	m_crNavBarOutline			= CLR_NONE;
-	m_crNavBarOutlineUp			= m_crNavBarOutline;
-	m_crNavBarOutlineDown		= m_crNavBarOutline;
-	m_crNavBarOutlineHover		= m_crNavBarOutline;
-	m_crNavBarOutlineChecked	= m_crNavBarOutline;
+	// Blank NavBar Workaround (Initialize here only)
+	Colors.m_crNavBarText			= CLR_NONE;
+	Colors.m_crNavBarTextUp			= CLR_NONE;
+	Colors.m_crNavBarTextDown		= CLR_NONE;
+	Colors.m_crNavBarTextHover		= CLR_NONE;
+	Colors.m_crNavBarTextChecked	= CLR_NONE;
+	Colors.m_crNavBarShadow			= CLR_NONE;
+	Colors.m_crNavBarShadowUp		= CLR_NONE;
+	Colors.m_crNavBarShadowDown		= CLR_NONE;
+	Colors.m_crNavBarShadowHover	= CLR_NONE;
+	Colors.m_crNavBarShadowChecked	= CLR_NONE;
+	Colors.m_crNavBarOutline		= CLR_NONE;
+	Colors.m_crNavBarOutlineUp		= CLR_NONE;
+	Colors.m_crNavBarOutlineDown	= CLR_NONE;
+	Colors.m_crNavBarOutlineHover	= CLR_NONE;
+	Colors.m_crNavBarOutlineChecked	= CLR_NONE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -238,7 +235,7 @@ void CSkin::Clear()
 	m_pFontPaths.RemoveAll();
 	m_pImages.RemoveAll();
 
-	if ( m_brDialog.m_hObject != NULL ) m_brDialog.DeleteObject();
+	if ( Colors.m_brDialog.m_hObject != NULL ) Colors.m_brDialog.DeleteObject();
 	if ( m_bmPanelMark.m_hObject != NULL ) m_bmPanelMark.DeleteObject();
 
 	CoolInterface.Clear();
@@ -627,6 +624,13 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 					m_nSidebarWidth = _wtoi(strValue);
 				else if ( strWidth.GetLength() )
 					m_nSidebarWidth = _wtoi(strWidth);
+			}
+			else if ( strName.CompareNoCase( _T("titlebar") ) == 0 || strName.CompareNoCase( _T("headerpanel") ) == 0 )
+			{
+				if ( strValue.GetLength() )
+					m_nTitlebarHeight = _wtoi(strValue);
+				else if ( strHeight.GetLength() )
+					m_nTitlebarHeight = _wtoi(strHeight);
 			}
 		}
 		else
@@ -1622,166 +1626,166 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 {
 	CMapStringToPtr pColors;
 
-	pColors.SetAt( _T("system.base.window"), &CoolInterface.m_crWindow );
-	pColors.SetAt( _T("system.base.midtone"), &CoolInterface.m_crMidtone );
-	pColors.SetAt( _T("system.base.text"), &CoolInterface.m_crText );
-	pColors.SetAt( _T("system.base.hitext"), &CoolInterface.m_crHiText );
-	pColors.SetAt( _T("system.base.hiborder"), &CoolInterface.m_crHiBorder );
-	pColors.SetAt( _T("system.base.highlight"), &CoolInterface.m_crHighlight );
-	pColors.SetAt( _T("system.back.normal"), &CoolInterface.m_crBackNormal );
-	pColors.SetAt( _T("system.back.selected"), &CoolInterface.m_crBackSel );
-	pColors.SetAt( _T("system.back.checked"), &CoolInterface.m_crBackCheck );
-	pColors.SetAt( _T("system.back.checked.selected"), &CoolInterface.m_crBackCheckSel );
-	pColors.SetAt( _T("system.margin"), &CoolInterface.m_crMargin );
-	pColors.SetAt( _T("system.border"), &CoolInterface.m_crBorder );
-	pColors.SetAt( _T("system.shadow"), &CoolInterface.m_crShadow );
-	pColors.SetAt( _T("system.text"), &CoolInterface.m_crCmdText );
-	pColors.SetAt( _T("system.text.selected"), &CoolInterface.m_crCmdTextSel );
-	pColors.SetAt( _T("system.disabled"), &CoolInterface.m_crDisabled );
+	pColors.SetAt( _T("system.base.window"), &Colors.m_crWindow );
+	pColors.SetAt( _T("system.base.midtone"), &Colors.m_crMidtone );
+	pColors.SetAt( _T("system.base.text"), &Colors.m_crText );
+	pColors.SetAt( _T("system.base.hitext"), &Colors.m_crHiText );
+	pColors.SetAt( _T("system.base.hiborder"), &Colors.m_crHiBorder );
+	pColors.SetAt( _T("system.base.highlight"), &Colors.m_crHighlight );
+	pColors.SetAt( _T("system.back.normal"), &Colors.m_crBackNormal );
+	pColors.SetAt( _T("system.back.selected"), &Colors.m_crBackSel );
+	pColors.SetAt( _T("system.back.checked"), &Colors.m_crBackCheck );
+	pColors.SetAt( _T("system.back.checked.selected"), &Colors.m_crBackCheckSel );
+	pColors.SetAt( _T("system.margin"), &Colors.m_crMargin );
+	pColors.SetAt( _T("system.border"), &Colors.m_crBorder );
+	pColors.SetAt( _T("system.shadow"), &Colors.m_crShadow );
+	pColors.SetAt( _T("system.text"), &Colors.m_crCmdText );
+	pColors.SetAt( _T("system.text.selected"), &Colors.m_crCmdTextSel );
+	pColors.SetAt( _T("system.disabled"), &Colors.m_crDisabled );
 
-	pColors.SetAt( _T("tooltip.back"), &CoolInterface.m_crTipBack );
-	pColors.SetAt( _T("tooltip.text"), &CoolInterface.m_crTipText );
-	pColors.SetAt( _T("tooltip.border"), &CoolInterface.m_crTipBorder );
-	pColors.SetAt( _T("tooltip.warnings"), &CoolInterface.m_crTipWarnings );
+	pColors.SetAt( _T("tooltip.back"), &Colors.m_crTipBack );
+	pColors.SetAt( _T("tooltip.text"), &Colors.m_crTipText );
+	pColors.SetAt( _T("tooltip.border"), &Colors.m_crTipBorder );
+	pColors.SetAt( _T("tooltip.warnings"), &Colors.m_crTipWarnings );
 
-	pColors.SetAt( _T("taskpanel.back"), &CoolInterface.m_crTaskPanelBack );
-	pColors.SetAt( _T("taskbox.caption.back"), &CoolInterface.m_crTaskBoxCaptionBack );
-	pColors.SetAt( _T("taskbox.caption.text"), &CoolInterface.m_crTaskBoxCaptionText );
-	pColors.SetAt( _T("taskbox.primary.back"), &CoolInterface.m_crTaskBoxPrimaryBack );
-	pColors.SetAt( _T("taskbox.primary.text"), &CoolInterface.m_crTaskBoxPrimaryText );
-	pColors.SetAt( _T("taskbox.caption.hover"), &CoolInterface.m_crTaskBoxCaptionHover );
-	pColors.SetAt( _T("taskbox.client"), &CoolInterface.m_crTaskBoxClient );
+	pColors.SetAt( _T("taskpanel.back"), &Colors.m_crTaskPanelBack );
+	pColors.SetAt( _T("taskbox.caption.back"), &Colors.m_crTaskBoxCaptionBack );
+	pColors.SetAt( _T("taskbox.caption.text"), &Colors.m_crTaskBoxCaptionText );
+	pColors.SetAt( _T("taskbox.primary.back"), &Colors.m_crTaskBoxPrimaryBack );
+	pColors.SetAt( _T("taskbox.primary.text"), &Colors.m_crTaskBoxPrimaryText );
+	pColors.SetAt( _T("taskbox.caption.hover"), &Colors.m_crTaskBoxCaptionHover );
+	pColors.SetAt( _T("taskbox.client"), &Colors.m_crTaskBoxClient );
 
-	pColors.SetAt( _T("dialog.back"), &m_crDialog );
-	pColors.SetAt( _T("panel.caption.back"), &m_crPanelBack );
-	pColors.SetAt( _T("panel.caption.text"), &m_crPanelText );
-	pColors.SetAt( _T("panel.caption.border"), &m_crPanelBorder );
-	pColors.SetAt( _T("banner.back"), &m_crBannerBack );
-	pColors.SetAt( _T("banner.text"), &m_crBannerText );
-	pColors.SetAt( _T("schema.row1"), &m_crSchemaRow[0] );
-	pColors.SetAt( _T("schema.row2"), &m_crSchemaRow[1] );
+	pColors.SetAt( _T("dialog.back"), &Colors.m_crDialog );
+	pColors.SetAt( _T("panel.caption.back"), &Colors.m_crPanelBack );
+	pColors.SetAt( _T("panel.caption.text"), &Colors.m_crPanelText );
+	pColors.SetAt( _T("panel.caption.border"), &Colors.m_crPanelBorder );
+	pColors.SetAt( _T("banner.back"), &Colors.m_crBannerBack );
+	pColors.SetAt( _T("banner.text"), &Colors.m_crBannerText );
+	pColors.SetAt( _T("schema.row1"), &Colors.m_crSchemaRow[0] );
+	pColors.SetAt( _T("schema.row2"), &Colors.m_crSchemaRow[1] );
 
 //	Active window color is controlled by media player plugin, thus we can not skin it?
-	pColors.SetAt( _T("media.window"), &CoolInterface.m_crMediaWindowBack );
-	pColors.SetAt( _T("media.window.back"), &CoolInterface.m_crMediaWindowBack );
-	pColors.SetAt( _T("media.window.text"), &CoolInterface.m_crMediaWindowText );
-	pColors.SetAt( _T("media.status"), &CoolInterface.m_crMediaStatusBack );
-	pColors.SetAt( _T("media.status.back"), &CoolInterface.m_crMediaStatusBack );
-	pColors.SetAt( _T("media.status.text"), &CoolInterface.m_crMediaStatusText );
-	pColors.SetAt( _T("media.panel"), &CoolInterface.m_crMediaPanelBack );
-	pColors.SetAt( _T("media.panel.back"), &CoolInterface.m_crMediaPanelBack );
-	pColors.SetAt( _T("media.panel.text"), &CoolInterface.m_crMediaPanelText );
-	pColors.SetAt( _T("media.panel.active"), &CoolInterface.m_crMediaPanelActiveBack );
-	pColors.SetAt( _T("media.panel.active.back"), &CoolInterface.m_crMediaPanelActiveBack );
-	pColors.SetAt( _T("media.panel.active.text"), &CoolInterface.m_crMediaPanelActiveText );
-	pColors.SetAt( _T("media.panel.caption"), &CoolInterface.m_crMediaPanelCaptionBack );
-	pColors.SetAt( _T("media.panel.caption.back"), &CoolInterface.m_crMediaPanelCaptionBack );
-	pColors.SetAt( _T("media.panel.caption.text"), &CoolInterface.m_crMediaPanelCaptionText );
+	pColors.SetAt( _T("media.window"), &Colors.m_crMediaWindowBack );
+	pColors.SetAt( _T("media.window.back"), &Colors.m_crMediaWindowBack );
+	pColors.SetAt( _T("media.window.text"), &Colors.m_crMediaWindowText );
+	pColors.SetAt( _T("media.status"), &Colors.m_crMediaStatusBack );
+	pColors.SetAt( _T("media.status.back"), &Colors.m_crMediaStatusBack );
+	pColors.SetAt( _T("media.status.text"), &Colors.m_crMediaStatusText );
+	pColors.SetAt( _T("media.panel"), &Colors.m_crMediaPanelBack );
+	pColors.SetAt( _T("media.panel.back"), &Colors.m_crMediaPanelBack );
+	pColors.SetAt( _T("media.panel.text"), &Colors.m_crMediaPanelText );
+	pColors.SetAt( _T("media.panel.active"), &Colors.m_crMediaPanelActiveBack );
+	pColors.SetAt( _T("media.panel.active.back"), &Colors.m_crMediaPanelActiveBack );
+	pColors.SetAt( _T("media.panel.active.text"), &Colors.m_crMediaPanelActiveText );
+	pColors.SetAt( _T("media.panel.caption"), &Colors.m_crMediaPanelCaptionBack );
+	pColors.SetAt( _T("media.panel.caption.back"), &Colors.m_crMediaPanelCaptionBack );
+	pColors.SetAt( _T("media.panel.caption.text"), &Colors.m_crMediaPanelCaptionText );
 
-	pColors.SetAt( _T("traffic.window.back"), &CoolInterface.m_crTrafficWindowBack );
-	pColors.SetAt( _T("traffic.window.text"), &CoolInterface.m_crTrafficWindowText );
-	pColors.SetAt( _T("traffic.window.grid"), &CoolInterface.m_crTrafficWindowGrid );
+	pColors.SetAt( _T("traffic.window.back"), &Colors.m_crTrafficWindowBack );
+	pColors.SetAt( _T("traffic.window.text"), &Colors.m_crTrafficWindowText );
+	pColors.SetAt( _T("traffic.window.grid"), &Colors.m_crTrafficWindowGrid );
 
-	pColors.SetAt( _T("monitor.history.back"), &CoolInterface.m_crMonitorHistoryBack );
-	pColors.SetAt( _T("monitor.history.back.max"), &CoolInterface.m_crMonitorHistoryBackMax );
-	pColors.SetAt( _T("monitor.history.text"), &CoolInterface.m_crMonitorHistoryText );
-	pColors.SetAt( _T("monitor.download.line"), &CoolInterface.m_crMonitorDownloadLine );
-	pColors.SetAt( _T("monitor.upload.line"), &CoolInterface.m_crMonitorUploadLine );
-	pColors.SetAt( _T("monitor.download.bar"), &CoolInterface.m_crMonitorDownloadBar );
-	pColors.SetAt( _T("monitor.upload.bar"), &CoolInterface.m_crMonitorUploadBar );
+	pColors.SetAt( _T("monitor.history.back"), &Colors.m_crMonitorHistoryBack );
+	pColors.SetAt( _T("monitor.history.back.max"), &Colors.m_crMonitorHistoryBackMax );
+	pColors.SetAt( _T("monitor.history.text"), &Colors.m_crMonitorHistoryText );
+	pColors.SetAt( _T("monitor.download.line"), &Colors.m_crMonitorDownloadLine );
+	pColors.SetAt( _T("monitor.upload.line"), &Colors.m_crMonitorUploadLine );
+	pColors.SetAt( _T("monitor.download.bar"), &Colors.m_crMonitorDownloadBar );
+	pColors.SetAt( _T("monitor.upload.bar"), &Colors.m_crMonitorUploadBar );
 
-	pColors.SetAt( _T("schema.rating"), &CoolInterface.m_crRatingNull );
-	pColors.SetAt( _T("schema.rating0"), &CoolInterface.m_crRating0 );
-	pColors.SetAt( _T("schema.rating1"), &CoolInterface.m_crRating1 );
-	pColors.SetAt( _T("schema.rating2"), &CoolInterface.m_crRating2 );
-	pColors.SetAt( _T("schema.rating3"), &CoolInterface.m_crRating3 );
-	pColors.SetAt( _T("schema.rating4"), &CoolInterface.m_crRating4 );
-	pColors.SetAt( _T("schema.rating5"), &CoolInterface.m_crRating5 );
+	pColors.SetAt( _T("schema.rating"), &Colors.m_crRatingNull );
+	pColors.SetAt( _T("schema.rating0"), &Colors.m_crRating0 );
+	pColors.SetAt( _T("schema.rating1"), &Colors.m_crRating1 );
+	pColors.SetAt( _T("schema.rating2"), &Colors.m_crRating2 );
+	pColors.SetAt( _T("schema.rating3"), &Colors.m_crRating3 );
+	pColors.SetAt( _T("schema.rating4"), &Colors.m_crRating4 );
+	pColors.SetAt( _T("schema.rating5"), &Colors.m_crRating5 );
 
-	pColors.SetAt( _T("richdoc.back"), &CoolInterface.m_crRichdocBack );
-	pColors.SetAt( _T("richdoc.text"), &CoolInterface.m_crRichdocText );
-	pColors.SetAt( _T("richdoc.heading"), &CoolInterface.m_crRichdocHeading );
+	pColors.SetAt( _T("richdoc.back"), &Colors.m_crRichdocBack );
+	pColors.SetAt( _T("richdoc.text"), &Colors.m_crRichdocText );
+	pColors.SetAt( _T("richdoc.heading"), &Colors.m_crRichdocHeading );
 
-	pColors.SetAt( _T("system.textalert"), &CoolInterface.m_crTextAlert );
-	pColors.SetAt( _T("system.textstatus"), &CoolInterface.m_crTextStatus );
-	pColors.SetAt( _T("system.textlink"), &CoolInterface.m_crTextLink );
-	pColors.SetAt( _T("system.textlink.selected"), &CoolInterface.m_crTextLinkHot );
+	pColors.SetAt( _T("system.textalert"), &Colors.m_crTextAlert );
+	pColors.SetAt( _T("system.textstatus"), &Colors.m_crTextStatus );
+	pColors.SetAt( _T("system.textlink"), &Colors.m_crTextLink );
+	pColors.SetAt( _T("system.textlink.selected"), &Colors.m_crTextLinkHot );
 
-	pColors.SetAt( _T("system.base.chat.in"), &CoolInterface.m_crChatIn );
-	pColors.SetAt( _T("system.base.chat.out"), &CoolInterface.m_crChatOut );
-	pColors.SetAt( _T("system.base.chat.null"), &CoolInterface.m_crChatNull );
-	pColors.SetAt( _T("system.base.search.null"), &CoolInterface.m_crSearchNull );
-	pColors.SetAt( _T("system.base.search.exists"), &CoolInterface.m_crSearchExists );
-	pColors.SetAt( _T("system.base.search.exists.hit"), &CoolInterface.m_crSearchExistsHit );
-	pColors.SetAt( _T("system.base.search.exists.selected"), &CoolInterface.m_crSearchExistsSelected );
-	pColors.SetAt( _T("system.base.search.queued"), &CoolInterface.m_crSearchQueued );
-	pColors.SetAt( _T("system.base.search.queued.hit"), &CoolInterface.m_crSearchQueuedHit );
-	pColors.SetAt( _T("system.base.search.queued.selected"), &CoolInterface.m_crSearchQueuedSelected );
-	pColors.SetAt( _T("system.base.search.ghostrated"), &CoolInterface.m_crSearchGhostrated );
-	pColors.SetAt( _T("system.base.search.highrated"), &CoolInterface.m_crSearchHighrated );
-	pColors.SetAt( _T("system.base.search.collection"), &CoolInterface.m_crSearchCollection );
-	pColors.SetAt( _T("system.base.search.torrent"), &CoolInterface.m_crSearchTorrent );
-	pColors.SetAt( _T("system.base.transfer.source"), &CoolInterface.m_crTransferSource );
-	pColors.SetAt( _T("system.base.transfer.ranges"), &CoolInterface.m_crTransferRanges );
-	pColors.SetAt( _T("system.base.transfer.completed"), &CoolInterface.m_crTransferCompleted );
-	pColors.SetAt( _T("system.base.transfer.seeding"), &CoolInterface.m_crTransferVerifyPass );
-	pColors.SetAt( _T("system.base.transfer.failed"), &CoolInterface.m_crTransferVerifyFail );
-	pColors.SetAt( _T("system.base.transfer.completed.selected"), &CoolInterface.m_crTransferCompletedSelected );
-	pColors.SetAt( _T("system.base.transfer.seeding.selected"), &CoolInterface.m_crTransferVerifyPassSelected );
-	pColors.SetAt( _T("system.base.transfer.failed.selected"), &CoolInterface.m_crTransferVerifyFailSelected );
-	pColors.SetAt( _T("system.base.network.null"), &CoolInterface.m_crNetworkNull );
-	pColors.SetAt( _T("system.base.network.g1"), &CoolInterface.m_crNetworkG1 );
-	pColors.SetAt( _T("system.base.network.g2"), &CoolInterface.m_crNetworkG2 );
-	pColors.SetAt( _T("system.base.network.ed2k"), &CoolInterface.m_crNetworkED2K );
-	pColors.SetAt( _T("system.base.network.up"), &CoolInterface.m_crNetworkUp );
-	pColors.SetAt( _T("system.base.network.down"), &CoolInterface.m_crNetworkDown );
-	pColors.SetAt( _T("system.base.security.allow"), &CoolInterface.m_crSecurityAllow );
-	pColors.SetAt( _T("system.base.security.deny"), &CoolInterface.m_crSecurityDeny );
+	pColors.SetAt( _T("system.base.chat.in"), &Colors.m_crChatIn );
+	pColors.SetAt( _T("system.base.chat.out"), &Colors.m_crChatOut );
+	pColors.SetAt( _T("system.base.chat.null"), &Colors.m_crChatNull );
+	pColors.SetAt( _T("system.base.search.null"), &Colors.m_crSearchNull );
+	pColors.SetAt( _T("system.base.search.exists"), &Colors.m_crSearchExists );
+	pColors.SetAt( _T("system.base.search.exists.hit"), &Colors.m_crSearchExistsHit );
+	pColors.SetAt( _T("system.base.search.exists.selected"), &Colors.m_crSearchExistsSelected );
+	pColors.SetAt( _T("system.base.search.queued"), &Colors.m_crSearchQueued );
+	pColors.SetAt( _T("system.base.search.queued.hit"), &Colors.m_crSearchQueuedHit );
+	pColors.SetAt( _T("system.base.search.queued.selected"), &Colors.m_crSearchQueuedSelected );
+	pColors.SetAt( _T("system.base.search.ghostrated"), &Colors.m_crSearchGhostrated );
+	pColors.SetAt( _T("system.base.search.highrated"), &Colors.m_crSearchHighrated );
+	pColors.SetAt( _T("system.base.search.collection"), &Colors.m_crSearchCollection );
+	pColors.SetAt( _T("system.base.search.torrent"), &Colors.m_crSearchTorrent );
+	pColors.SetAt( _T("system.base.transfer.source"), &Colors.m_crTransferSource );
+	pColors.SetAt( _T("system.base.transfer.ranges"), &Colors.m_crTransferRanges );
+	pColors.SetAt( _T("system.base.transfer.completed"), &Colors.m_crTransferCompleted );
+	pColors.SetAt( _T("system.base.transfer.seeding"), &Colors.m_crTransferVerifyPass );
+	pColors.SetAt( _T("system.base.transfer.failed"), &Colors.m_crTransferVerifyFail );
+	pColors.SetAt( _T("system.base.transfer.completed.selected"), &Colors.m_crTransferCompletedSelected );
+	pColors.SetAt( _T("system.base.transfer.seeding.selected"), &Colors.m_crTransferVerifyPassSelected );
+	pColors.SetAt( _T("system.base.transfer.failed.selected"), &Colors.m_crTransferVerifyFailSelected );
+	pColors.SetAt( _T("system.base.network.null"), &Colors.m_crNetworkNull );
+	pColors.SetAt( _T("system.base.network.g1"), &Colors.m_crNetworkG1 );
+	pColors.SetAt( _T("system.base.network.g2"), &Colors.m_crNetworkG2 );
+	pColors.SetAt( _T("system.base.network.ed2k"), &Colors.m_crNetworkED2K );
+	pColors.SetAt( _T("system.base.network.up"), &Colors.m_crNetworkUp );
+	pColors.SetAt( _T("system.base.network.down"), &Colors.m_crNetworkDown );
+	pColors.SetAt( _T("system.base.security.allow"), &Colors.m_crSecurityAllow );
+	pColors.SetAt( _T("system.base.security.deny"), &Colors.m_crSecurityDeny );
 
-	pColors.SetAt( _T("dropdownbox.back"), &CoolInterface.m_crDropdownBox );
-	pColors.SetAt( _T("dropdownbox.text"), &CoolInterface.m_crDropdownText );
-	pColors.SetAt( _T("resizebar.edge"), &CoolInterface.m_crResizebarEdge );
-	pColors.SetAt( _T("resizebar.face"), &CoolInterface.m_crResizebarFace );
-	pColors.SetAt( _T("resizebar.shadow"), &CoolInterface.m_crResizebarShadow );
-	pColors.SetAt( _T("resizebar.highlight"), &CoolInterface.m_crResizebarHighlight );
-	pColors.SetAt( _T("fragmentbar.shaded"), &CoolInterface.m_crFragmentShaded );
-	pColors.SetAt( _T("fragmentbar.complete"), &CoolInterface.m_crFragmentComplete );
-	pColors.SetAt( _T("fragmentbar.source1"), &CoolInterface.m_crFragmentSource1 );
-	pColors.SetAt( _T("fragmentbar.source2"), &CoolInterface.m_crFragmentSource2 );
-	pColors.SetAt( _T("fragmentbar.source3"), &CoolInterface.m_crFragmentSource3 );
-	pColors.SetAt( _T("fragmentbar.source4"), &CoolInterface.m_crFragmentSource4 );
-	pColors.SetAt( _T("fragmentbar.source5"), &CoolInterface.m_crFragmentSource5 );
-	pColors.SetAt( _T("fragmentbar.source6"), &CoolInterface.m_crFragmentSource6 );
-	pColors.SetAt( _T("fragmentbar.pass"), &CoolInterface.m_crFragmentPass );
-	pColors.SetAt( _T("fragmentbar.fail"), &CoolInterface.m_crFragmentFail );
-	pColors.SetAt( _T("fragmentbar.request"), &CoolInterface.m_crFragmentRequest );
-	pColors.SetAt( _T("fragmentbar.border"), &CoolInterface.m_crFragmentBorder );
-	pColors.SetAt( _T("fragmentbar.border.selected"), &CoolInterface.m_crFragmentBorderSelected );
-	pColors.SetAt( _T("fragmentbar.border.simplebar"), &CoolInterface.m_crFragmentBorderSimpleBar );
-	pColors.SetAt( _T("fragmentbar.border.simplebar.selected"), &CoolInterface.m_crFragmentBorderSimpleBarSelected );
+	pColors.SetAt( _T("dropdownbox.back"), &Colors.m_crDropdownBox );
+	pColors.SetAt( _T("dropdownbox.text"), &Colors.m_crDropdownText );
+	pColors.SetAt( _T("resizebar.edge"), &Colors.m_crResizebarEdge );
+	pColors.SetAt( _T("resizebar.face"), &Colors.m_crResizebarFace );
+	pColors.SetAt( _T("resizebar.shadow"), &Colors.m_crResizebarShadow );
+	pColors.SetAt( _T("resizebar.highlight"), &Colors.m_crResizebarHighlight );
+	pColors.SetAt( _T("fragmentbar.shaded"), &Colors.m_crFragmentShaded );
+	pColors.SetAt( _T("fragmentbar.complete"), &Colors.m_crFragmentComplete );
+	pColors.SetAt( _T("fragmentbar.source1"), &Colors.m_crFragmentSource1 );
+	pColors.SetAt( _T("fragmentbar.source2"), &Colors.m_crFragmentSource2 );
+	pColors.SetAt( _T("fragmentbar.source3"), &Colors.m_crFragmentSource3 );
+	pColors.SetAt( _T("fragmentbar.source4"), &Colors.m_crFragmentSource4 );
+	pColors.SetAt( _T("fragmentbar.source5"), &Colors.m_crFragmentSource5 );
+	pColors.SetAt( _T("fragmentbar.source6"), &Colors.m_crFragmentSource6 );
+	pColors.SetAt( _T("fragmentbar.pass"), &Colors.m_crFragmentPass );
+	pColors.SetAt( _T("fragmentbar.fail"), &Colors.m_crFragmentFail );
+	pColors.SetAt( _T("fragmentbar.request"), &Colors.m_crFragmentRequest );
+	pColors.SetAt( _T("fragmentbar.border"), &Colors.m_crFragmentBorder );
+	pColors.SetAt( _T("fragmentbar.border.selected"), &Colors.m_crFragmentBorderSelected );
+	pColors.SetAt( _T("fragmentbar.border.simplebar"), &Colors.m_crFragmentBorderSimpleBar );
+	pColors.SetAt( _T("fragmentbar.border.simplebar.selected"), &Colors.m_crFragmentBorderSimpleBarSelected );
 
-	pColors.SetAt( _T("system.environment.borders"), &CoolInterface.m_crSysBorders );
-	pColors.SetAt( _T("system.environment.window"), &CoolInterface.m_crSysWindow );
-	pColors.SetAt( _T("system.environment.btnface"), &CoolInterface.m_crSysBtnFace );
-	pColors.SetAt( _T("system.environment.3dshadow"), &CoolInterface.m_crSys3DShadow );
-	pColors.SetAt( _T("system.environment.3dhighlight"), &CoolInterface.m_crSys3DHighlight );
-	pColors.SetAt( _T("system.environment.activecaption"), &CoolInterface.m_crSysActiveCaption );
+	pColors.SetAt( _T("system.environment.borders"), &Colors.m_crSysBorders );
+	pColors.SetAt( _T("system.environment.window"), &Colors.m_crSysWindow );
+	pColors.SetAt( _T("system.environment.btnface"), &Colors.m_crSysBtnFace );
+	pColors.SetAt( _T("system.environment.3dshadow"), &Colors.m_crSys3DShadow );
+	pColors.SetAt( _T("system.environment.3dhighlight"), &Colors.m_crSys3DHighlight );
+	pColors.SetAt( _T("system.environment.activecaption"), &Colors.m_crSysActiveCaption );
 
-	pColors.SetAt( _T("navbar.text"), &m_crNavBarText );
-	pColors.SetAt( _T("navbar.text.up"), &m_crNavBarTextUp );
-	pColors.SetAt( _T("navbar.text.down"), &m_crNavBarTextDown );
-	pColors.SetAt( _T("navbar.text.hover"), &m_crNavBarTextHover );
-	pColors.SetAt( _T("navbar.text.checked"), &m_crNavBarTextChecked );
-	pColors.SetAt( _T("navbar.shadow"), &m_crNavBarShadow );
-	pColors.SetAt( _T("navbar.shadow.up"), &m_crNavBarShadowUp );
-	pColors.SetAt( _T("navbar.shadow.down"), &m_crNavBarShadowDown );
-	pColors.SetAt( _T("navbar.shadow.hover"), &m_crNavBarShadowHover );
-	pColors.SetAt( _T("navbar.shadow.checked"), &m_crNavBarShadowChecked );
-	pColors.SetAt( _T("navbar.outline"), &m_crNavBarOutline );
-	pColors.SetAt( _T("navbar.outline.up"), &m_crNavBarOutlineUp );
-	pColors.SetAt( _T("navbar.outline.down"), &m_crNavBarOutlineDown );
-	pColors.SetAt( _T("navbar.outline.hover"), &m_crNavBarOutlineHover );
-	pColors.SetAt( _T("navbar.outline.checked"), &m_crNavBarOutlineChecked );
+	pColors.SetAt( _T("navbar.text"), &Colors.m_crNavBarText );
+	pColors.SetAt( _T("navbar.text.up"), &Colors.m_crNavBarTextUp );
+	pColors.SetAt( _T("navbar.text.down"), &Colors.m_crNavBarTextDown );
+	pColors.SetAt( _T("navbar.text.hover"), &Colors.m_crNavBarTextHover );
+	pColors.SetAt( _T("navbar.text.checked"), &Colors.m_crNavBarTextChecked );
+	pColors.SetAt( _T("navbar.shadow"), &Colors.m_crNavBarShadow );
+	pColors.SetAt( _T("navbar.shadow.up"), &Colors.m_crNavBarShadowUp );
+	pColors.SetAt( _T("navbar.shadow.down"), &Colors.m_crNavBarShadowDown );
+	pColors.SetAt( _T("navbar.shadow.hover"), &Colors.m_crNavBarShadowHover );
+	pColors.SetAt( _T("navbar.shadow.checked"), &Colors.m_crNavBarShadowChecked );
+	pColors.SetAt( _T("navbar.outline"), &Colors.m_crNavBarOutline );
+	pColors.SetAt( _T("navbar.outline.up"), &Colors.m_crNavBarOutlineUp );
+	pColors.SetAt( _T("navbar.outline.down"), &Colors.m_crNavBarOutlineDown );
+	pColors.SetAt( _T("navbar.outline.hover"), &Colors.m_crNavBarOutlineHover );
+	pColors.SetAt( _T("navbar.outline.checked"), &Colors.m_crNavBarOutlineChecked );
 
 	BOOL bSystem = FALSE, bNonBase = FALSE;
 
@@ -1814,7 +1818,7 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 						if ( ! bNonBase && strName.Find( _T(".base.") ) < 0 )
 						{
 							bNonBase = TRUE;
-							CoolInterface.CalculateColors( TRUE );
+							Colors.CalculateColors( TRUE );
 						}
 					}
 
@@ -1838,7 +1842,7 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 		}
 	}
 
-	if ( bSystem && ! bNonBase ) CoolInterface.CalculateColors( TRUE );
+	if ( bSystem && ! bNonBase ) Colors.CalculateColors( TRUE );
 
 	return TRUE;
 }

@@ -34,7 +34,7 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPWSTR cmdParam, int c
 	szUpdates = NULL;
 	szXML     = NULL;
 
-	if (wcslen(cmdParam)==0) MessageBox(NULL,L"PeerProject Skin Installer " VERSION L"\n\nDouble-click on a PeerProject Skin File (.psk) to use this PeerProject Skin Installer.",L"PeerProject Skin Installer",MB_OK | MB_ICONINFORMATION);
+	if (wcslen(cmdParam)==0) MessageBox(NULL,L"PeerProject Skin Installer " VERSION L"\n\nDouble-click on a PeerProject Skin File (.psk) to use this tool.",L"PeerProject Skin Installer",MB_OK | MB_ICONINFORMATION);
 	else if (!wcscmp(cmdParam, L"/install") || !wcscmp(cmdParam, L"/installsilent")) CreateSkinKeys();
 	else if (!wcscmp(cmdParam, L"/uninstall") || !wcscmp(cmdParam, L"/uninstallsilent")) DeleteSkinKeys();
 	else ExtractSkinFile(cmdParam);

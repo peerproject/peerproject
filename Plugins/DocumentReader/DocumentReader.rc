@@ -69,12 +69,12 @@ BEGIN
     BEGIN
         BLOCK "000004e9"
         BEGIN
-            VALUE "Comments", "PeerProject Document Reader Plugin"
+            VALUE "Comments", "Extract metadata & previews from Office files."
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "PeerProject Document Reader Plugin"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "DocumentReader"
-            VALUE "LegalCopyright", "© PeerProject 2008 (Shareaza Development Team 2002-2005)"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
             VALUE "OriginalFilename", "DocumentReader.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"
@@ -92,8 +92,19 @@ END
 // REGISTRY
 //
 
-IDR_DOCUMENTREADER      REGISTRY                "DocumentReader.rgs"
-IDR_DOCREADER           REGISTRY                "DocReader.rgs"
+IDR_DOCUMENTREADER	REGISTRY		"DocumentReader.rgs"
+IDR_DOCREADER		REGISTRY		"DocReader.rgs"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icons
+//
+// Icon with lowest ID value placed first to ensure
+// application icon remains consistent on all systems.
+
+//IDI_ICON		ICON			"Icon.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -102,7 +113,7 @@ IDR_DOCREADER           REGISTRY                "DocReader.rgs"
 
 STRINGTABLE
 BEGIN
-    IDS_PROJNAME            "DocumentReader"
+    IDS_PROJNAME	"DocumentReader"
 END
 
 #endif    // English (United States) resources

@@ -82,6 +82,7 @@ protected:
 	afx_msg void OnTorrentSeed();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	DECLARE_MESSAGE_MAP()
 };
 

@@ -25,6 +25,7 @@
 #include "Library.h"
 #include "SharedFile.h"
 #include "ShellIcons.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "PageFileComments.h"
 
@@ -132,9 +133,9 @@ void CFileCommentsPage::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemSt
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( nRating > 0 ? &theApp.m_gdiFontBold : &theApp.m_gdiFont );
 	dc.SetTextColor( ( lpDrawItemStruct->itemState & ODS_SELECTED )
-		? CoolInterface.m_crHiText : CoolInterface.m_crText );
+		? Colors.m_crHiText : Colors.m_crText );
 	dc.FillSolidRect( &rcItem, ( lpDrawItemStruct->itemState & ODS_SELECTED )
-		? CoolInterface.m_crHighlight : CoolInterface.m_crSysWindow );
+		? Colors.m_crHighlight : Colors.m_crSysWindow );
 	dc.SetBkMode( TRANSPARENT );
 
 	rcItem.DeflateRect( 4, 1 );
@@ -160,13 +161,13 @@ void CFileCommentsPage::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemSt
 	{
 		static COLORREF crRating[7] =
 		{
-			CoolInterface.m_crRatingNull,	// Unrated
-			CoolInterface.m_crRating0,		// Fake
-			CoolInterface.m_crRating1,		// Poor
-			CoolInterface.m_crRating2,		// Average
-			CoolInterface.m_crRating3,		// Good
-			CoolInterface.m_crRating4,		// Very good
-			CoolInterface.m_crRating5,		// Excellent
+			Colors.m_crRatingNull,	// Unrated
+			Colors.m_crRating0,		// Fake
+			Colors.m_crRating1,		// Poor
+			Colors.m_crRating2,		// Average
+			Colors.m_crRating3,		// Good
+			Colors.m_crRating4,		// Very good
+			Colors.m_crRating5,		// Excellent
 		};
 
 		dc.SetTextColor( crRating[ nRating ] );

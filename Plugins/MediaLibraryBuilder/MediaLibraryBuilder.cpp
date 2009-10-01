@@ -2,7 +2,7 @@
 // MediaLibraryBuilder.cpp : Implementation of DLL Exports.
 //
 // This file is part of PeerProject (peerproject.org) © 2008
-// Copyright (c) Nikolay Raspopov, 2005.
+// Portions copyright (c) Nikolay Raspopov, 2005.
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -20,7 +20,7 @@
 //
 
 #include "stdafx.h"
-#include "resource.h"
+#include "Resource.h"
 #include "MediaLibraryBuilder.h"
 
 class CMediaLibraryBuilderModule : public CAtlDllModuleT< CMediaLibraryBuilderModule >

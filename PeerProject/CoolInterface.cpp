@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
 #include "XML.h"
@@ -67,7 +68,6 @@ CCoolInterface::~CCoolInterface()
 void CCoolInterface::Load()
 {
 	CreateFonts();
-	CalculateColors();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -433,7 +433,7 @@ void CCoolInterface::DrawThumbnail(CDC* pDC, const CRect& rcThumb,
 
 			ImageList_DrawEx( ShellIcons.GetHandle( size ),
 				( ( nIcon48 >= 0 ) ? nIcon48 : nIcon32 ), pDC->GetSafeHdc(),
-				x, y, size, size, ( bWaiting ? m_crWindow : m_crBackNormal ),
+				x, y, size, size, ( bWaiting ? Colors.m_crWindow : Colors.m_crBackNormal ),
 				CLR_NONE, ILD_NORMAL );
 
 			pDC->ExcludeClipRect( x, y, x + size, y + size );
@@ -445,9 +445,9 @@ void CCoolInterface::DrawThumbnail(CDC* pDC, const CRect& rcThumb,
 				rcFrame.right - 2, rcFrame.bottom - 2 );
 
 			CFont* pOldFont = pDC->SelectObject( bWaiting ? &m_fntBold : &m_fntUnder );
-			pDC->SetBkColor( bWaiting ? m_crWindow : m_crBackNormal );
-			pDC->SetTextColor( bWaiting ? m_crTextAlert : m_crTextLink );
-			pDC->FillSolidRect( &rcLabel, ( bWaiting ? m_crWindow : m_crBackNormal ) );
+			pDC->SetBkColor( bWaiting ? Colors.m_crWindow : Colors.m_crBackNormal );
+			pDC->SetTextColor( bWaiting ? Colors.m_crTextAlert : Colors.m_crTextLink );
+			pDC->FillSolidRect( &rcLabel, ( bWaiting ? Colors.m_crWindow : Colors.m_crBackNormal ) );
 			pDC->DrawText( strLabel, &rcLabel, DT_CENTER | DT_VCENTER | DT_WORDBREAK |
 				DT_EDITCONTROL | DT_NOPREFIX | DT_END_ELLIPSIS );
 			pDC->ExcludeClipRect( &rcLabel );
@@ -455,18 +455,18 @@ void CCoolInterface::DrawThumbnail(CDC* pDC, const CRect& rcThumb,
 		}
 	}
 
-	pDC->FillSolidRect( &rcFrame, ( bWaiting ? m_crWindow : m_crBackNormal ) );
-	pDC->Draw3dRect( &rcThumb, m_crMargin, m_crMargin );
+	pDC->FillSolidRect( &rcFrame, ( bWaiting ? Colors.m_crWindow : Colors.m_crBackNormal ) );
+	pDC->Draw3dRect( &rcThumb, Colors.m_crMargin, Colors.m_crMargin );
 	pDC->ExcludeClipRect( &rcThumb );
 
 	if ( bSelected )
 	{
 		rcFrame.InflateRect( 2, 2 );
-		pDC->Draw3dRect( &rcFrame, CoolInterface.m_crBackCheck, CoolInterface.m_crBackCheck );
+		pDC->Draw3dRect( &rcFrame, Colors.m_crBackCheck, Colors.m_crBackCheck );
 		rcFrame.InflateRect( 1, 1 );
-		pDC->Draw3dRect( &rcFrame, CoolInterface.m_crHighlight, CoolInterface.m_crHighlight );
+		pDC->Draw3dRect( &rcFrame, Colors.m_crHighlight, Colors.m_crHighlight );
 		rcFrame.InflateRect( 1, 1 );
-		pDC->Draw3dRect( &rcFrame, CoolInterface.m_crBackCheck, CoolInterface.m_crBackCheck );
+		pDC->Draw3dRect( &rcFrame, Colors.m_crBackCheck, Colors.m_crBackCheck );
 		pDC->ExcludeClipRect( &rcFrame );
 	}
 }
@@ -528,156 +528,6 @@ void CCoolInterface::CreateFonts(LPCTSTR pszFace, int nSize)
 		DEFAULT_PITCH|FF_DONTCARE, pszFace );
 }
 
-//////////////////////////////////////////////////////////////////////
-// CCoolInterface Colors
-
-void CCoolInterface::CalculateColors(BOOL bCustom)
-{
-	if ( ( m_bCustom = bCustom ) == FALSE )
-	{
-		m_crWindow		= GetSysColor( COLOR_WINDOW );
-		m_crMidtone		= GetSysColor( COLOR_BTNFACE );
-		m_crText		= GetSysColor( COLOR_WINDOWTEXT );
-		m_crHiText		= GetSysColor( COLOR_HIGHLIGHTTEXT );
-		m_crHiBorder	= GetSysColor( COLOR_HIGHLIGHT );
-		m_crHighlight	= GetSysColor( COLOR_HIGHLIGHT );
-	}
-
-	m_crBackNormal			= CalculateColor( m_crMidtone, m_crWindow, 215 );
-	m_crBackSel				= CalculateColor( m_crHighlight, m_crWindow, 178 );
-	m_crBackCheck			= CalculateColor( m_crHighlight, m_crWindow, 200 );
-	m_crBackCheckSel		= CalculateColor( m_crHighlight, m_crWindow, 127 );
-	m_crMargin				= CalculateColor( m_crMidtone, m_crWindow, 39 );
-	m_crShadow				= CalculateColor( m_crHighlight, GetSysColor( COLOR_3DSHADOW ), 200 );
-	m_crBorder				= m_crHighlight;
-	m_crCmdText				= GetSysColor( COLOR_MENUTEXT );
-	m_crCmdTextSel			= GetSysColor( COLOR_MENUTEXT );
-	m_crDisabled			= GetSysColor( COLOR_GRAYTEXT );
-
-	m_crTipBack				= GetSysColor( COLOR_INFOBK );
-	m_crTipText				= GetSysColor( COLOR_INFOTEXT );
-	m_crTipBorder			= CalculateColor( m_crTipBack, (COLORREF)0, 100 );
-	m_crTipWarnings			= RGB( 64, 64, 64 ); // Color of warning messages (Grey)
-
-	m_crTaskPanelBack		= RGB( 122, 161, 230 );
-	m_crTaskBoxCaptionBack	= RGB( 250, 250, 255 );
-	m_crTaskBoxPrimaryBack	= RGB( 30, 87, 199 );
-	m_crTaskBoxCaptionText	= RGB( 34, 93, 217 );
-	m_crTaskBoxPrimaryText	= RGB( 255, 255, 255 );
-	m_crTaskBoxCaptionHover	= RGB( 84, 143, 255 );
-	m_crTaskBoxClient		= RGB( 214, 223, 247 );
-
-	m_crMediaWindowBack		= RGB( 0, 0, 0 );
-	m_crMediaWindowText		= RGB( 0xDD, 0xDD, 0xDD );
-	m_crMediaStatusBack		= RGB( 0x1B, 0x1D, 0x20 );
-	m_crMediaStatusText		= RGB( 254, 254, 254 );
-	m_crMediaPanelBack 		= RGB( 0x1A, 0x18, 0x16 );
-	m_crMediaPanelText  	= RGB( 0x68, 0x62, 0x5A );
-	m_crMediaPanelActiveBack = RGB( 0x1C, 0x1B, 0x1A );
-	m_crMediaPanelActiveText = RGB( 255, 255, 255 );
-	m_crMediaPanelCaptionBack = RGB( 0x34, 0x32, 0x32 );
-	m_crMediaPanelCaptionText = RGB( 0xFD, 0xFC, 0xFA );
-
-	m_crTrafficWindowBack	= RGB( 0, 0, 0 );
-	m_crTrafficWindowText	= RGB( 193, 196, 255 );
-	m_crTrafficWindowGrid	= RGB( 0, 0, 128 );
-
-	m_crMonitorHistoryBack	= RGB( 0, 0, 0 );
-	m_crMonitorHistoryBackMax = RGB( 80, 0, 0 );
-	m_crMonitorHistoryText	= RGB( 255, 0, 0 );
-	m_crMonitorDownloadLine	= RGB( 0, 0xFF, 0 );
-	m_crMonitorUploadLine	= RGB( 0xFF, 0xFF, 0 );
-	m_crMonitorDownloadBar	= RGB( 0, 0xBB, 0 );
-	m_crMonitorUploadBar	= RGB( 0xBB, 0xBB, 0 );
-
-	m_crRatingNull			= RGB( 0x4A, 0x44, 0x40 );
-	m_crRating0				= RGB( 0xEA, 0x4A, 0x60 );
-	m_crRating1	 			= RGB( 0xC8, 0xC4, 0xC0 );
-	m_crRating2				= RGB( 0xB4, 0xB2, 0xB0 );
-	m_crRating3				= RGB( 0x84, 0x82, 0x80 );
-	m_crRating4				= RGB( 0x60, 0x5A, 0x55 );
-	m_crRating5				= RGB( 0, 0, 0 );
-
-	m_crRichdocBack			= RGB( 255, 255, 255 );
-	m_crRichdocText  		= RGB( 0, 0, 0 );
-	m_crRichdocHeading 		= RGB( 180, 50, 10 );
-	m_crTextAlert 			= RGB( 255, 0, 0 );
-	m_crTextStatus 			= RGB( 0, 128, 0 );
-	m_crTextLink  			= RGB( 0, 0, 255 );
-	m_crTextLinkHot			= RGB( 255, 0, 0 );
-
-	m_crChatIn				= RGB( 0, 0, 255 );
-	m_crChatOut				= RGB( 255, 0, 0 );
-	m_crChatNull	  		= RGB( 128, 128, 128 );
-	m_crSearchExists  		= RGB( 0, 127, 0 );
-	m_crSearchExistsHit		= RGB( 0, 64, 0 );
-	m_crSearchExistsSelected	= RGB( 0, 255, 0 );
-	m_crSearchQueued 		= RGB( 0, 0, 160 );
-	m_crSearchQueuedHit		= RGB( 0, 0, 100 );
-	m_crSearchQueuedSelected	= GetSysColor( COLOR_HIGHLIGHTTEXT );
-	m_crSearchGhostrated	= RGB( 200, 90, 0 );
-	m_crSearchNull  		= GetSysColor( COLOR_3DSHADOW );
-	m_crTransferSource		= RGB( 30, 30, 30 );
-	m_crTransferRanges		= RGB( 220, 240, 220 );
-	m_crTransferCompleted	= RGB( 0, 127, 0 );
-	m_crTransferVerifyPass	= RGB( 0, 0, 127 );
-	m_crTransferVerifyFail	= RGB( 255, 0, 0 );
-	m_crTransferCompletedSelected	= RGB( 0, 255, 0 );
-	m_crTransferVerifyPassSelected	= RGB( 0, 255, 0 );
-	m_crTransferVerifyFailSelected	= RGB( 255, 0, 0 );
-	m_crNetworkNull  		= RGB( 192, 192, 192 );
-	m_crNetworkG1  			= RGB( 80, 80, 80 );
-	m_crNetworkG2  			= RGB( 100, 100, 255 );
-	m_crNetworkED2K  		= RGB( 128, 128, 0 );
-	m_crNetworkUp			= RGB( 127, 0, 0 );
-	m_crNetworkDown			= RGB( 0, 0, 127 );
-	m_crSecurityAllow		= RGB( 0, 127, 0 );
-	m_crSecurityDeny		= RGB( 255, 0, 0 );
-
-	m_crDropdownText		= GetSysColor( COLOR_MENUTEXT );
-	m_crDropdownBox			= GetSysColor( COLOR_WINDOW );
-	m_crResizebarEdge		= GetSysColor( COLOR_BTNFACE );
-	m_crResizebarFace		= GetSysColor( COLOR_BTNFACE );
-	m_crResizebarShadow		= GetSysColor( COLOR_3DSHADOW );
-	m_crResizebarHighlight	= GetSysColor( COLOR_3DHIGHLIGHT );
-	m_crFragmentShaded		= GetSysColor( COLOR_BTNFACE );
-	m_crFragmentComplete	= GetSysColor( COLOR_ACTIVECAPTION );
-	m_crFragmentSource1		= RGB( 0, 153, 255 );
-	m_crFragmentSource2 	= RGB( 0, 153, 0 );
-	m_crFragmentSource3 	= RGB( 255, 51, 0 );
-	m_crFragmentSource4 	= RGB( 255, 204, 0 );
-	m_crFragmentSource5 	= RGB( 153, 153, 255 );
-	m_crFragmentSource6 	= RGB( 204, 153, 0 );
-	m_crFragmentPass		= RGB( 0, 220, 0 );
-	m_crFragmentFail		= RGB( 220, 0, 0 );
-	m_crFragmentRequest		= RGB( 255, 255, 0 );
-	m_crFragmentBorder		= RGB( 50, 50, 50 );
-	m_crFragmentBorderSelected	= RGB( 50, 50, 50 );
-	m_crFragmentBorderSimpleBar	= RGB( 50, 50, 50 );
-	m_crFragmentBorderSimpleBarSelected	= RGB( 255, 255, 255 );
-
-	m_crSysWindow			= GetSysColor( COLOR_WINDOW );
-	m_crSysBtnFace			= GetSysColor( COLOR_BTNFACE );
-	m_crSysBorders			= GetSysColor( COLOR_GRAYTEXT );
-	m_crSys3DShadow 		= GetSysColor( COLOR_3DSHADOW );
-	m_crSys3DHighlight		= GetSysColor( COLOR_3DHIGHLIGHT );
-	m_crSysActiveCaption	= GetSysColor( COLOR_ACTIVECAPTION );
-}
-
-void CCoolInterface::OnSysColorChange()
-{
-	if ( ! m_bCustom ) CalculateColors();
-}
-
-COLORREF CCoolInterface::CalculateColor(COLORREF crFore, COLORREF crBack, int nAlpha)
-{
-	int nRed	= GetRValue( crFore ) * ( 255 - nAlpha ) / 255 + GetRValue( crBack ) * nAlpha / 255;
-	int nGreen	= GetGValue( crFore ) * ( 255 - nAlpha ) / 255 + GetGValue( crBack ) * nAlpha / 255;
-	int nBlue	= GetBValue( crFore ) * ( 255 - nAlpha ) / 255 + GetBValue( crBack ) * nAlpha / 255;
-
-	return RGB( nRed, nGreen, nBlue );
-}
-
 
 //////////////////////////////////////////////////////////////////////
 // CCoolInterface Windows XP+ themes
@@ -689,13 +539,9 @@ BOOL CCoolInterface::EnableTheme(CWnd* pWnd, BOOL bEnable)
 	if ( theApp.m_pfnSetWindowTheme )
 	{
 		if ( bEnable )
-		{
 			bResult = SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), NULL, NULL ) );
-		}
 		else
-		{
 			bResult = SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), L" ", L" " ) );
-		}
 	}
 
 	return bResult;

@@ -44,27 +44,25 @@ public:
 	virtual ~CRichViewCtrl();
 
 // Attributes
-public:
-	TCHAR*			m_szSign;
 protected:
 	CSyncObject*	m_pSyncRoot;
 	BOOL			m_bSelectable;
 	BOOL			m_bFollowBottom;
 	BOOL			m_bDefaultLink;
-protected:
+
 	CRichDocument*	m_pDocument;
-	DWORD			m_nCookie;
 	CArray< CRichFragment* > m_pFragments;
+	DWORD			m_nCookie;
 	int				m_nLength;
 	int				m_nScrollWheelLines;
-protected:
-	CRichElement*	m_pHover;
+
 	BOOL			m_bSelecting;
+	CRichElement*	m_pHover;
 	RICHPOSITION	m_pSelStart;
 	RICHPOSITION	m_pSelEnd;
 	RICHPOSITION	m_pSelAbsStart;
 	RICHPOSITION	m_pSelAbsEnd;
-protected:
+
 	HCURSOR			m_hcHand;
 	HCURSOR			m_hcText;
 	CBrush			m_pBrush;

@@ -560,6 +560,7 @@ void CDownload::OnMoved()
 	// Download finalized, tracker notified, set flags that we completed
 	m_bComplete		= true;
 	m_tCompleted	= GetTickCount();
+//	LibraryBuilder.m_bBusy = false;
 	SetMoving( false );
 }
 

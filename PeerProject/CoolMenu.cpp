@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "CoolMenu.h"
 #include "Skin.h"
@@ -44,7 +45,6 @@ CCoolMenu CoolMenu;
 // CCoolMenu construction
 
 CCoolMenu::CCoolMenu() :
-	m_bEnable( TRUE ),
 	m_bUnhook( FALSE )
 {
 }
@@ -56,7 +56,7 @@ CCoolMenu::~CCoolMenu()
 
 void CCoolMenu::Clear()
 {
-	// TODO: Find why sometimes raza crashes inside Windows Shell SetSite() function
+	// ToDo: Determine if it still crashes inside Windows Shell SetSite() function
 	SafeRelease( m_pContextMenuCache );
 
 	SetWatermark( NULL );
@@ -64,23 +64,11 @@ void CCoolMenu::Clear()
 }
 
 //////////////////////////////////////////////////////////////////////
-// CCoolMenu modern version check
-
-BOOL CCoolMenu::IsModernVersion()
-{
-	OSVERSIONINFO pVersion;
-	pVersion.dwOSVersionInfoSize = sizeof(pVersion);
-	GetVersionEx( &pVersion );
-
-	return Settings.General.CoolMenuEnable &&
-		( pVersion.dwMajorVersion >= 5 ||
-		( pVersion.dwMajorVersion == 4 && pVersion.dwMinorVersion >= 10 ) );
-}
+// CCoolMenu initialize
 
 void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 {
-	if ( bSysMenu )
-		return;
+	if ( bSysMenu )	return;
 
 	if ( m_pContextMenu2 )
 	{
@@ -92,7 +80,7 @@ void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 			if ( pPopupMenu->GetMenuItemInfo( i, &mii, TRUE ) &&
 				mii.wID >= ID_SHELL_MENU_MIN && mii.wID <= ID_SHELL_MENU_MAX )
 			{
-				// Its shell menu
+				// Shell menu
 				CString strHelp;
 				HRESULT hr = m_pContextMenu2->GetCommandString( mii.wID - ID_SHELL_MENU_MIN,
 					GCS_HELPTEXTW, NULL, (LPSTR)strHelp.GetBuffer( 256 ), 256 );
@@ -108,14 +96,12 @@ void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 				continue;
 			if ( mii.wID >= ID_SHELL_MENU_MIN && mii.wID <= ID_SHELL_MENU_MAX )
 			{
-				// Its shell menu
 				m_pContextMenu2->HandleMenuMsg( WM_INITMENUPOPUP,
 					(WPARAM)pPopupMenu->GetSafeHmenu(),
 					(LPARAM)MAKELONG( nIndex, TRUE ) );
-				return;
+				return;	// Shell menu
 			}
-			// Its regular menu
-			break;
+			break;	// Regular menu
 		}
 	}
 
@@ -127,8 +113,6 @@ void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 
 BOOL CCoolMenu::AddMenu(CMenu* pMenu, BOOL bChild)
 {
-	if ( ! m_bEnable ) return FALSE;
-
 	for ( int i = 0 ; i < (int)pMenu->GetMenuItemCount() ; i++ )
 	{
 		TCHAR szBuffer[128] = {};
@@ -143,8 +127,7 @@ BOOL CCoolMenu::AddMenu(CMenu* pMenu, BOOL bChild)
 		GetMenuItemInfo( pMenu->GetSafeHmenu(), i, TRUE, &mii );
 
 		if ( mii.wID >= ID_SHELL_MENU_MIN && mii.wID <= ID_SHELL_MENU_MAX )
-			// Bypass shell menu items
-			break;
+			break;	// Bypass shell menu items
 
 		// Non-XML parsed menu items
 		int nItemID = pMenu->GetMenuItemID( i );
@@ -234,8 +217,7 @@ BOOL CCoolMenu::ReplaceMenuText(CMenu* pMenu, int nPosition, MENUITEMINFO FAR* m
 
 	int nItemID = pMenu->GetMenuItemID( nPosition );
 
-	if ( ! ModifyMenu( pMenu->GetSafeHmenu(), nPosition, MF_BYPOSITION|MF_STRING,
-					 nItemID, pszText ) )
+	if ( ! ModifyMenu( pMenu->GetSafeHmenu(), nPosition, MF_BYPOSITION|MF_STRING, nItemID, pszText ) )
 		return FALSE;
 
 	mii->dwTypeData = (LPTSTR)pszText;
@@ -414,15 +396,15 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	}
 	else
 	{
-		pDC->FillSolidRect( rcItem.left, rcItem.top, 24, rcItem.Height(), CoolInterface.m_crMargin );
-		pDC->FillSolidRect( rcItem.left + 24, rcItem.top, rcItem.Width() - 24, rcItem.Height(), CoolInterface.m_crBackNormal );
+		pDC->FillSolidRect( rcItem.left, rcItem.top, 24, rcItem.Height(), Colors.m_crMargin );
+		pDC->FillSolidRect( rcItem.left + 24, rcItem.top, rcItem.Width() - 24, rcItem.Height(), Colors.m_crBackNormal );
 	}
 
 	if ( m_pStrings.Lookup( lpDrawItemStruct->itemData, strText ) == FALSE )
 	{
 		int nMiddle = rcText.top + 1;
 
-		pDC->FillSolidRect( rcText.left, nMiddle, rcText.Width() + 2, 1, CoolInterface.m_crDisabled );
+		pDC->FillSolidRect( rcText.left, nMiddle, rcText.Width() + 2, 1, Colors.m_crDisabled );
 
 		dc.BitBlt( lpDrawItemStruct->rcItem.left, lpDrawItemStruct->rcItem.top,
 			rcItem.Width(), rcItem.Height(), pDC, 0, 0, SRCCOPY );
@@ -442,36 +424,36 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		{
 			pDC->Draw3dRect( rcItem.left + 1, rcItem.top + 1,
 				rcItem.Width() - 2, rcItem.Height() - 1 - bEdge,
-				CoolInterface.m_crBorder, CoolInterface.m_crBorder );
+				Colors.m_crBorder, Colors.m_crBorder );
 			pDC->FillSolidRect( rcItem.left + 2, rcItem.top + 2,
 				rcItem.Width() - 4, rcItem.Height() - 3 - bEdge,
-				CoolInterface.m_crBackSel );
+				Colors.m_crBackSel );
 
-			pDC->SetBkColor( CoolInterface.m_crBackSel );
+			pDC->SetBkColor( Colors.m_crBackSel );
 		}
 		else if ( bKeyboard )
 		{
 			pDC->Draw3dRect( rcItem.left + 1, rcItem.top + 1,
 				rcItem.Width() - 2, rcItem.Height() - 1 - bEdge,
-				CoolInterface.m_crBorder, CoolInterface.m_crBorder );
+				Colors.m_crBorder, Colors.m_crBorder );
 			pDC->FillSolidRect( rcItem.left + 2, rcItem.top + 2,
 				rcItem.Width() - 4, rcItem.Height() - 3 - bEdge,
-				CoolInterface.m_crBackNormal );
+				Colors.m_crBackNormal );
 
-			pDC->SetBkColor( CoolInterface.m_crBackNormal );
+			pDC->SetBkColor( Colors.m_crBackNormal );
 		}
 	}
 	else
 	{
-		pDC->SetBkColor( CoolInterface.m_crBackNormal );
+		pDC->SetBkColor( Colors.m_crBackNormal );
 	}
 
 	if ( bChecked )
 	{
 		pDC->Draw3dRect( rcItem.left + 2, rcItem.top + 2, 20, rcItem.Height() - 3 - bEdge,
-			CoolInterface.m_crBorder, CoolInterface.m_crBorder );
+			Colors.m_crBorder, Colors.m_crBorder );
 		pDC->FillSolidRect( rcItem.left + 3, rcItem.top + 3, 18, rcItem.Height() - 5 - bEdge,
-			( bSelected && !bDisabled ) ? CoolInterface.m_crBackCheckSel : CoolInterface.m_crBackCheck );
+			( bSelected && !bDisabled ) ? Colors.m_crBackCheckSel : Colors.m_crBackCheck );
 	}
 
 	nIcon = CoolInterface.ImageForID( (DWORD)lpDrawItemStruct->itemID );
@@ -485,7 +467,7 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		if ( bDisabled )
 		{
 			CoolInterface.DrawEx( pDC, nIcon,
-				pt, CSize( 0, 0 ), CLR_NONE, CoolInterface.m_crDisabled, ILD_BLEND50 );
+				pt, CSize( 0, 0 ), CLR_NONE, Colors.m_crDisabled, ILD_BLEND50 );
 		}
 		else if ( bChecked )
 		{
@@ -494,7 +476,7 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		else if ( bSelected )
 		{
 			pt.Offset( 1, 1 );
-			pDC->SetTextColor( CoolInterface.m_crShadow );
+			pDC->SetTextColor( Colors.m_crShadow );
 			CoolInterface.Draw( pDC, nIcon, pt, ILD_MASK );
 			pt.Offset( -2, -2 );
 			CoolInterface.Draw( pDC, nIcon, pt, ILD_NORMAL );
@@ -502,7 +484,7 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		else
 		{
 			CoolInterface.DrawEx( pDC, nIcon,
-				pt, CSize( 0, 0 ), CLR_NONE, CoolInterface.m_crMargin, ILD_NORMAL );
+				pt, CSize( 0, 0 ), CLR_NONE, Colors.m_crMargin, ILD_NORMAL );
 		}
 	}
 
@@ -511,8 +493,8 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 					&CoolInterface.m_fntBold : &CoolInterface.m_fntNormal );
 
 	pDC->SetBkMode( TRANSPARENT );
-	pDC->SetTextColor( bDisabled ? CoolInterface.m_crDisabled :
-		( bSelected ? CoolInterface.m_crCmdTextSel : CoolInterface.m_crCmdText ) );
+	pDC->SetTextColor( bDisabled ? Colors.m_crDisabled :
+		( bSelected ? Colors.m_crCmdTextSel : Colors.m_crCmdText ) );
 	DrawMenuText( pDC, &rcText, strText );
 
 	pDC->SelectObject( pOld );
@@ -587,9 +569,6 @@ void CCoolMenu::EnableHook()
 {
 	ASSERT( m_hMsgHook == NULL );
 	ASSERT( m_bUnhook == FALSE );
-
-	m_bEnable = IsModernVersion();
-	if ( ! m_bEnable ) return;
 
 	m_bUnhook = TRUE;
 	EnableHook( TRUE );
@@ -757,8 +736,8 @@ LRESULT CALLBACK CCoolMenu::MenuProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM
 			BOOL bEdge = ( rc.left == m_nEdgeLeft && rc.top == m_nEdgeTop );
 			rc.OffsetRect( -rc.left, -rc.top );
 
-			pDC->Draw3dRect( &rc, CoolInterface.m_crDisabled, CoolInterface.m_crDisabled );
-			if ( bEdge ) pDC->FillSolidRect( rc.left + 1, rc.top, min( rc.Width(), m_nEdgeSize ) - 2, 1, CoolInterface.m_crBackNormal );
+			pDC->Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
+			if ( bEdge ) pDC->FillSolidRect( rc.left + 1, rc.top, min( rc.Width(), m_nEdgeSize ) - 2, 1, Colors.m_crBackNormal );
 		}
 		if ( lParam & PRF_CLIENT )
 		{
@@ -792,8 +771,8 @@ LRESULT CALLBACK CCoolMenu::MenuProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM
 			BOOL bEdge = ( rc.left == m_nEdgeLeft && rc.top == m_nEdgeTop );
 			rc.OffsetRect( -rc.left, -rc.top );
 
-			dc.Draw3dRect( &rc, CoolInterface.m_crDisabled, CoolInterface.m_crDisabled );
-			if ( bEdge ) dc.FillSolidRect( rc.left + 1, rc.top, min( rc.Width(), m_nEdgeSize ) - 2, 1, CoolInterface.m_crBackNormal );
+			dc.Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
+			if ( bEdge ) dc.FillSolidRect( rc.left + 1, rc.top, min( rc.Width(), m_nEdgeSize ) - 2, 1, Colors.m_crBackNormal );
 		}
 		return 0;
 

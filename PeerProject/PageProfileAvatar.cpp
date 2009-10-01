@@ -23,10 +23,10 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "GProfile.h"
+#include "PageProfileAvatar.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
-#include "PageProfileAvatar.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 #include "XML.h"
 
 #ifdef _DEBUG
@@ -121,7 +121,7 @@ void CAvatarProfilePage::OnPaint()
 	else
 	{
 		rc.InflateRect( 1, 1 );
-		dc.Draw3dRect( &rc, CoolInterface.m_crSysActiveCaption, CoolInterface.m_crSysActiveCaption );
+		dc.Draw3dRect( &rc, Colors.m_crSysActiveCaption, Colors.m_crSysActiveCaption );
 	}
 }
 

@@ -21,7 +21,7 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 #include "DlgURLCopy.h"
 #include "Transfer.h"
 #include "Network.h"
@@ -197,7 +197,7 @@ HBRUSH CURLCopyDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 		if ( ! _tcsicmp( szName, _T("Static") ) )
 		{
-			pDC->SetTextColor( CoolInterface.m_crTextLink );
+			pDC->SetTextColor( Colors.m_crTextLink );
 			pDC->SelectObject( &theApp.m_gdiFontLine );
 		}
 	}

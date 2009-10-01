@@ -6,7 +6,7 @@
 	ProjectGUID="{7030A905-13CF-40FF-A7CC-9FBA3B6EDF92}"
 	RootNamespace="WebHook"
 	Keyword="AtlProj"
-	TargetFrameworkVersion="196613"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -76,7 +76,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
+				RegisterOutput="false"
 				IgnoreImportLibrary="true"
 				OutputFile="$(OutDir)\$(ProjectName)32.dll"
 				ModuleDefinitionFile="WebHook.def"
@@ -162,7 +162,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
+				RegisterOutput="false"
 				IgnoreImportLibrary="true"
 				OutputFile="$(OutDir)\$(ProjectName)64.dll"
 				ModuleDefinitionFile="WebHook.def"
@@ -251,7 +251,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
+				RegisterOutput="false"
 				IgnoreImportLibrary="true"
 				OutputFile="$(OutDir)\$(ProjectName)32.dll"
 				ModuleDefinitionFile="WebHook.def"
@@ -342,7 +342,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
+				RegisterOutput="false"
 				IgnoreImportLibrary="true"
 				OutputFile="$(OutDir)\$(ProjectName)64.dll"
 				ModuleDefinitionFile="WebHook.def"

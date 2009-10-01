@@ -117,6 +117,8 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 	m_wndTrackers.InsertColumn( 2, _T("Type"), LVCFMT_CENTER, 0, 0 );
 	Skin.Translate( _T("CTorrentTrackerList"), m_wndTrackers.GetHeaderCtrl() );
 
+	m_wndTrackers.SetBkImage( Skin.GetWatermark( _T("CTorrentList") ) );
+
 	int nTracker = 0;
 	for ( nTracker = 0 ; nTracker < nCount; nTracker++ )
 	{

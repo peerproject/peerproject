@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include "resource.h"
+#include "Resource.h"
 #include "GFLImageServices.h"
 
 class ATL_NO_VTABLE CGFLReader : 

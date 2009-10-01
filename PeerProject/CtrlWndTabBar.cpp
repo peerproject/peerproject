@@ -25,6 +25,7 @@
 #include "CtrlWndTabBar.h"
 #include "CoolInterface.h"
 #include "CoolMenu.h"
+#include "Colors.h"
 #include "Skin.h"
 
 #include "WndMain.h"
@@ -450,7 +451,7 @@ void CWndTabBar::DoPaint(CDC* pDC)
 			rcItem.OffsetRect( rcItem.Width() + 3, 0 );
 		}
 
-		if ( pDC == pOutDC ) pDC->FillSolidRect( &rc, CoolInterface.m_crMidtone );
+		if ( pDC == pOutDC ) pDC->FillSolidRect( &rc, Colors.m_crMidtone );
 	}
 	else
 	{
@@ -458,8 +459,8 @@ void CWndTabBar::DoPaint(CDC* pDC)
 		CPoint pt = rc.CenterPoint();
 		pt.x -= sz.cx / 2; pt.y -= sz.cy / 2 + 1;
 
-		pDC->SetBkColor( CoolInterface.m_crMidtone );
-		pDC->SetTextColor( CoolInterface.m_crDisabled );
+		pDC->SetBkColor( Colors.m_crMidtone );
+		pDC->SetTextColor( Colors.m_crDisabled );
 
 		if ( pDC == pOutDC )
 		{
@@ -640,7 +641,7 @@ void CWndTabBar::OnRButtonUp(UINT nFlags, CPoint point)
 
 		ClientToScreen( &rcItem );
 
-		CMenu* pMenu = Skin.GetMenu( pChild->m_bPanelMode ? L"Simple" : L"Child" );
+		CMenu* pMenu = Skin.GetMenu( pChild->m_bPanelMode ? L"CTabBar" : L"CTabBar.Child" );
 
 		BOOL bCanRestore	= pChild->IsIconic() || pChild->IsZoomed();
 		UINT nCommand		= 0;
@@ -811,14 +812,14 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 	if ( ! Skin.m_bMenuBorders )
 	{
 		if ( ! bTransparent )
-			pDC->FillSolidRect( rc , CoolInterface.m_crMidtone );
+			pDC->FillSolidRect( rc , Colors.m_crMidtone );
 		rc.DeflateRect(0,2);
 	}
 
 	if ( bSelected && pBar->m_bMenuGray )
 	{
-		crBack = CoolInterface.m_crBackNormal;
-		pDC->Draw3dRect( &rc, CoolInterface.m_crDisabled, CoolInterface.m_crDisabled );
+		crBack = Colors.m_crBackNormal;
+		pDC->Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
 	}
 
 	else if ( bSelected && ( bHot || pBar->m_bMenuGray ) )
@@ -838,12 +839,12 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 	{
 		if ( bHot || ( bSelected && m_bVisible ) )
 		{
-			crBack = ( bHot && bSelected ) ? CoolInterface.m_crBackCheckSel : CoolInterface.m_crBackSel;
-			pDC->Draw3dRect( &rc, CoolInterface.m_crBorder, CoolInterface.m_crBorder );
+			crBack = ( bHot && bSelected ) ? Colors.m_crBackCheckSel : Colors.m_crBackSel;
+			pDC->Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
 		}
 		else
 		{
-			crBack = bTransparent ? CLR_NONE : CoolInterface.m_crMidtone;
+			crBack = bTransparent ? CLR_NONE : Colors.m_crMidtone;
 			if ( crBack != CLR_NONE ) pDC->Draw3dRect( &rc, crBack, crBack );
 		}
 
@@ -873,7 +874,7 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 			}
 
 			ptImage.Offset( 2, 2 );
-			pDC->SetTextColor( CoolInterface.m_crShadow );
+			pDC->SetTextColor( Colors.m_crShadow );
 			ImageList_DrawEx( pBar->m_pImages.GetSafeHandle(), m_nImage, pDC->GetSafeHdc(),
 				ptImage.x, ptImage.y, 0, 0, crBack, CLR_NONE, ILD_MASK );
 
@@ -888,7 +889,7 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 		else
 		{
 			ImageList_DrawEx( pBar->m_pImages.GetSafeHandle(), m_nImage, pDC->GetSafeHdc(),
-				ptImage.x, ptImage.y, 0, 0, crBack, CoolInterface.m_crShadow, ILD_BLEND50 );
+				ptImage.x, ptImage.y, 0, 0, crBack, Colors.m_crShadow, ILD_BLEND50 );
 			pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 		}
 	}
@@ -899,7 +900,7 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 	{
 		ptImage.x = rc.right - 18;
 		CoolInterface.DrawEx( pDC, pBar->m_nCloseImage,
-			ptImage, CSize( 0, 0 ), crBack, CoolInterface.m_crShadow, ILD_BLEND50 );
+			ptImage, CSize( 0, 0 ), crBack, Colors.m_crShadow, ILD_BLEND50 );
 		pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 		rc.right -= 20;
 		if ( crBack != CLR_NONE ) pDC->FillSolidRect( rc.right, rc.top, 20, rc.Height(), crBack );
@@ -922,13 +923,13 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 	if ( crBack != CLR_NONE ) pDC->SetBkColor( crBack );
 
 	if ( m_bAlert )
-		pDC->SetTextColor( CoolInterface.m_crTextAlert );
+		pDC->SetTextColor( Colors.m_crTextAlert );
 	else if ( ! m_bVisible && ! bHot )
-		pDC->SetTextColor( CoolInterface.m_crDisabled );
+		pDC->SetTextColor( Colors.m_crDisabled );
 	else if ( bSelected || bHot )
-		pDC->SetTextColor( CoolInterface.m_crCmdTextSel );
+		pDC->SetTextColor( Colors.m_crCmdTextSel );
 	else
-		pDC->SetTextColor( CoolInterface.m_crCmdText );
+		pDC->SetTextColor( Colors.m_crCmdText );
 
 	if ( crBack != CLR_NONE )
 	{

@@ -26,6 +26,7 @@
 #include "LibraryFolders.h"
 #include "AlbumFolder.h"
 #include "Schema.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
 #include "CtrlTipAlbum.h"
@@ -49,7 +50,7 @@ END_MESSAGE_MAP()
 
 CAlbumTipCtrl::CAlbumTipCtrl()
 {
-	m_crLight = CCoolInterface::CalculateColor( CoolInterface.m_crTipBack, RGB( 255, 255, 255 ), 128 );
+	m_crLight = CColors::CalculateColor( Colors.m_crTipBack, RGB( 255, 255, 255 ), 128 );
 }
 
 CAlbumTipCtrl::~CAlbumTipCtrl()
@@ -173,7 +174,7 @@ void CAlbumTipCtrl::OnPaint(CDC* pDC)
 
 void CAlbumTipCtrl::DrawThumb(CDC* pDC, CRect& rcThumb)
 {
-	pDC->Draw3dRect( &rcThumb, CoolInterface.m_crTipBorder, CoolInterface.m_crTipBorder );
+	pDC->Draw3dRect( &rcThumb, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rcThumb.DeflateRect( 1, 1 );
 
 	CPoint pt(	( rcThumb.left + rcThumb.right ) / 2 - 24,

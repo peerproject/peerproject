@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 #include "DlgAbout.h"
 #include "Revision.h"
 
@@ -122,7 +123,7 @@ HBRUSH CAboutDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	}
 	else if ( pWnd == &m_wndWeb )
 	{
-		pDC->SetTextColor( CoolInterface.m_crTextLink );
+		pDC->SetTextColor( Colors.m_crTextLink );
 		pDC->SelectObject( &CoolInterface.m_fntUnder );
 	}
 

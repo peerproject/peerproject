@@ -24,6 +24,7 @@
 #include "Settings.h"
 #include "CtrlCoolBar.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
@@ -584,7 +585,7 @@ void CCoolBarCtrl::DoPaint(CDC* pDC)
 	{
 		DrawBorders( pDC, rc );
 		DoPaint( pDC, rc, FALSE );
-		pDC->FillSolidRect( &rc, CoolInterface.m_crMidtone );
+		pDC->FillSolidRect( &rc, Colors.m_crMidtone );
 	}
 }
 
@@ -600,7 +601,7 @@ void CCoolBarCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 			for ( int nY = rcClient.top + 4 ; nY < rcClient.bottom - 4 ; nY += 2 )
 			{
 				pDC->Draw3dRect( rcClient.left + 3, nY, GRIPPER_WIDTH, 1,
-					CoolInterface.m_crDisabled, CoolInterface.m_crDisabled );
+					Colors.m_crDisabled, Colors.m_crDisabled );
 			}
 		}
 		else
@@ -608,7 +609,7 @@ void CCoolBarCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 			for ( int nY = rcClient.top + 4 ; nY < rcClient.bottom - 4 ; nY += 2 )
 			{
 				pDC->Draw3dRect( rcClient.left + 3, nY, GRIPPER_WIDTH, 2,
-					CoolInterface.m_crDisabled, CoolInterface.m_crMidtone );
+					Colors.m_crDisabled, Colors.m_crMidtone );
 			}
 
 			pDC->ExcludeClipRect( rcClient.left + 3, rcClient.top + 4, rcClient.left + GRIPPER_WIDTH + 2, rcClient.bottom - 4 );
@@ -692,12 +693,12 @@ HBRUSH CCoolBarCtrl::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	if ( nCtlColor == CTLCOLOR_STATIC )
 	{
-		pDC->SetBkColor( CoolInterface.m_crMidtone );
+		pDC->SetBkColor( Colors.m_crMidtone );
 
-		if ( m_crBack != CoolInterface.m_crMidtone )
+		if ( m_crBack != Colors.m_crMidtone )
 		{
 			if ( m_brBack.m_hObject ) m_brBack.DeleteObject();
-			m_brBack.CreateSolidBrush( m_crBack = CoolInterface.m_crMidtone );
+			m_brBack.CreateSolidBrush( m_crBack = Colors.m_crMidtone );
 		}
 
 		hbr = m_brBack;
@@ -1115,11 +1116,11 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		else
 		{
 			if ( !bTransparent )
-				pDC->FillSolidRect( rc.left, rc.top, 3, rc.Height(), CoolInterface.m_crMidtone );
+				pDC->FillSolidRect( rc.left, rc.top, 3, rc.Height(), Colors.m_crMidtone );
 			pDC->Draw3dRect( rc.left + 3, rc.top, 1, rc.Height(),
-							 CoolInterface.m_crDisabled, CoolInterface.m_crDisabled );
+							 Colors.m_crDisabled, Colors.m_crDisabled );
 			if ( !bTransparent )
-				pDC->FillSolidRect( rc.left + 4, rc.top, 3, rc.Height(), CoolInterface.m_crMidtone );
+				pDC->FillSolidRect( rc.left + 4, rc.top, 3, rc.Height(), Colors.m_crMidtone );
 		}
 		return;
 	}
@@ -1129,7 +1130,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		for ( int nShrink = rc.Height() - m_nCtrlHeight ; nShrink > 0 ; nShrink -= 2 )
 		{
 			if ( !bTransparent )
-				pDC->Draw3dRect( &rc, CoolInterface.m_crMidtone, CoolInterface.m_crMidtone );
+				pDC->Draw3dRect( &rc, Colors.m_crMidtone, Colors.m_crMidtone );
 			rc.DeflateRect( 0, 1 );
 		}
 		rc.DeflateRect( 1, 0 );
@@ -1142,7 +1143,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	else
 	{
 		if ( !bTransparent )
-			pDC->Draw3dRect( &rc, CoolInterface.m_crMidtone, CoolInterface.m_crMidtone );
+			pDC->Draw3dRect( &rc, Colors.m_crMidtone, Colors.m_crMidtone );
 		rc.DeflateRect( 1, 1 );
 	}
 
@@ -1194,27 +1195,27 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		pDC->SetBkMode( OPAQUE );
 		if ( bMenuGray && bDown )
 		{
-			pDC->Draw3dRect( &rc, CoolInterface.m_crDisabled, CoolInterface.m_crDisabled );
+			pDC->Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
 		}
 		else
 		{
 			// Draw border around the control
-			pDC->Draw3dRect( &rc, CoolInterface.m_crBorder, CoolInterface.m_crBorder );
+			pDC->Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
 		}
 
 		rc.DeflateRect( 1, 1 );
 
 		if ( bMenuGray && bDown )
 		{
-			crBackground = CoolInterface.m_crBackNormal;
+			crBackground = Colors.m_crBackNormal;
 		}
 		else if ( m_bChecked )
 		{
-			crBackground = bHot ? CoolInterface.m_crBackCheckSel : CoolInterface.m_crBackCheck;
+			crBackground = bHot ? Colors.m_crBackCheckSel : Colors.m_crBackCheck;
 		}
 		else
 		{
-			crBackground = bDown && bHot ? CoolInterface.m_crBackCheckSel : CoolInterface.m_crBackSel;
+			crBackground = bDown && bHot ? Colors.m_crBackCheckSel : Colors.m_crBackSel;
 		}
 	}
 	else
@@ -1225,7 +1226,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		}
 		else
 		{
-			crBackground = CoolInterface.m_crMidtone;
+			crBackground = Colors.m_crMidtone;
 			pDC->Draw3dRect( &rc, crBackground, crBackground );
 		}
 
@@ -1236,7 +1237,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	{
 		if ( m_nCtrlHeight == CONTROL_HEIGHT )
 		{
-			pDC->Draw3dRect( &rc, CoolInterface.m_crWindow, CoolInterface.m_crWindow );
+			pDC->Draw3dRect( &rc, Colors.m_crWindow, Colors.m_crWindow );
 			rc.DeflateRect( 1, 1 );
 		}
 		return;
@@ -1261,7 +1262,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		if ( !m_bEnabled )
 		{
 			CoolInterface.DrawEx( pDC, m_nImage,
-				ptImage, CSize( 0, 0 ), crBackground, CoolInterface.m_crShadow, ILD_BLEND50 );
+				ptImage, CSize( 0, 0 ), crBackground, Colors.m_crShadow, ILD_BLEND50 );
 			pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 		}
 		else if ( m_bChecked )
@@ -1273,7 +1274,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		else if ( ( bHot && !bDown ) || ( bDown && !bHot ) )
 		{
 			ptImage.Offset( 1, 1 );
-			pDC->SetTextColor( CoolInterface.m_crShadow );
+			pDC->SetTextColor( Colors.m_crShadow );
 			CoolInterface.DrawEx( pDC, m_nImage,
 				ptImage, CSize( 0, 0 ), crBackground, CLR_NONE, ILD_MASK );
 
@@ -1293,7 +1294,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		else
 		{
 			CoolInterface.DrawEx( pDC, m_nImage,
-				ptImage, CSize( 0, 0 ), crBackground, CoolInterface.m_crBackNormal,
+				ptImage, CSize( 0, 0 ), crBackground, Colors.m_crBackNormal,
 				bDown ? ILD_BLEND25 : ILD_NORMAL );
 			pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 		}
@@ -1310,11 +1311,11 @@ void CCoolBarItem::DrawText(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMe
 		if ( m_crText != 0xFFFFFFFF )
 			pDC->SetTextColor( m_crText );
 		else if ( !m_bEnabled )
-			pDC->SetTextColor( CoolInterface.m_crDisabled );
+			pDC->SetTextColor( Colors.m_crDisabled );
 		else if ( ( bHot || bDown || m_bChecked ) && ( !bMenuGray || !bDown ) )
-			pDC->SetTextColor( CoolInterface.m_crCmdTextSel );
+			pDC->SetTextColor( Colors.m_crCmdTextSel );
 		else
-			pDC->SetTextColor( CoolInterface.m_crCmdText );
+			pDC->SetTextColor( Colors.m_crCmdText );
 
 		rc.left += ( m_nImage >= 0 ) ? 20 : 1;
 		int nY = ( rc.top + rc.bottom ) / 2 - pDC->GetTextExtent( m_sText ).cy / 2 - 1;

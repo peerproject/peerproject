@@ -29,6 +29,7 @@
 #include "CtrlLibraryFrame.h"
 #include "CtrlLibraryTileView.h"
 #include "DlgFolderProperties.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
 #include "Skin.h"
@@ -538,8 +539,8 @@ void CLibraryTileView::OnPaint()
 
 	CFont* pOldFont = (CFont*)pBuffer->SelectObject( &CoolInterface.m_fntNormal );
 	pBuffer->SetBkMode( OPAQUE );
-	pBuffer->SetBkColor( CoolInterface.m_crWindow );
-	pBuffer->SetTextColor( CoolInterface.m_crText );
+	pBuffer->SetBkColor( Colors.m_crWindow );
+	pBuffer->SetTextColor( Colors.m_crText );
 
 	CDC dcMem;
 	dcMem.CreateCompatibleDC( &dc );
@@ -554,7 +555,7 @@ void CLibraryTileView::OnPaint()
 
 		if ( rcBlock.bottom >= rcClient.top && dc.RectVisible( &rcBlock ) )
 		{
-			pBuffer->FillSolidRect( &rcBuffer, CoolInterface.m_crWindow );
+			pBuffer->FillSolidRect( &rcBuffer, Colors.m_crWindow );
 			bool bSelected = pTile->m_bSelected;
 			if ( m_oDropItem == CLibraryListItem ( pTile->m_pFolder ) )
 			{
@@ -577,7 +578,7 @@ void CLibraryTileView::OnPaint()
 	}
 
 	pBuffer->SelectObject( pOldFont );
-	dc.FillSolidRect( &rcClient, CoolInterface.m_crWindow );
+	dc.FillSolidRect( &rcClient, Colors.m_crWindow );
 }
 
 CLibraryTileView::iterator CLibraryTileView::HitTest(const CPoint& point)
@@ -948,14 +949,14 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/)
 
 	if ( m_bSelected )
 	{
-		pDC->SetBkColor( CoolInterface.m_crHighlight );
-		pDC->SetTextColor( CoolInterface.m_crHiText );
+		pDC->SetBkColor( Colors.m_crHighlight );
+		pDC->SetTextColor( Colors.m_crHiText );
 		pDC->SetBkMode( OPAQUE );
 	}
 	else
 	{
-		pDC->SetBkColor( CoolInterface.m_crWindow );
-		pDC->SetTextColor( CoolInterface.m_crText );
+		pDC->SetBkColor( Colors.m_crWindow );
+		pDC->SetTextColor( Colors.m_crText );
 		pDC->SetBkMode( TRANSPARENT );
 	}
 
@@ -973,7 +974,7 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/)
 			if ( m_bCollection ) pDC->SelectObject( &CoolInterface.m_fntBold );
 			DrawText( pDC, &rc, nX, nY, m_sTitle, &rcUnion );
 			if ( m_bCollection ) pDC->SelectObject( &CoolInterface.m_fntNormal );
-			if ( ! m_bSelected ) pDC->SetTextColor( CoolInterface.m_crDisabled );
+			if ( ! m_bSelected ) pDC->SetTextColor( Colors.m_crDisabled );
 			DrawText( pDC, &rc, nX, nY + nH, m_sSubtitle1, &rcUnion );
 			DrawText( pDC, &rc, nX, nY + nH + nH, m_sSubtitle2, &rcUnion );
 		}
@@ -982,7 +983,7 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/)
 			if ( m_bCollection ) pDC->SelectObject( &CoolInterface.m_fntBold );
 			DrawText( pDC, &rc, nX, nY - nH, m_sTitle, &rcUnion );
 			if ( m_bCollection ) pDC->SelectObject( &CoolInterface.m_fntNormal );
-			if ( ! m_bSelected ) pDC->SetTextColor( CoolInterface.m_crDisabled );
+			if ( ! m_bSelected ) pDC->SetTextColor( Colors.m_crDisabled );
 			DrawText( pDC, &rc, nX, nY, m_sSubtitle1, &rcUnion );
 		}
 

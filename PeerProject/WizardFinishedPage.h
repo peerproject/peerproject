@@ -61,8 +61,10 @@ protected:
 	//{{AFX_MSG(CWizardFinishedPage)
 	virtual BOOL OnInitDialog();
 	//}}AFX_MSG
-	DECLARE_MESSAGE_MAP()
 
+	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
+
+	DECLARE_MESSAGE_MAP()
 };
 
 //{{AFX_INSERT_LOCATION}}

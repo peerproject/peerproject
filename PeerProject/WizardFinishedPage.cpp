@@ -39,6 +39,7 @@ IMPLEMENT_DYNCREATE(CWizardFinishedPage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CWizardFinishedPage, CWizardPage)
 	//{{AFX_MSG_MAP(CWizardFinishedPage)
+	ON_WM_XBUTTONDOWN()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -99,6 +100,12 @@ BOOL CWizardFinishedPage::OnSetActive()
 
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_FINISH );
 	return CWizardPage::OnSetActive();
+}
+
+void CWizardFinishedPage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetSheet()->PressButton( PSBTN_BACK );
 }
 
 LRESULT CWizardFinishedPage::OnWizardBack()

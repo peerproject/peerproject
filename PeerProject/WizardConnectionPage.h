@@ -72,6 +72,7 @@ protected:
 	afx_msg void OnSelChangeUPnP();
 	afx_msg void OnBnClickedRandom();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 

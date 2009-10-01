@@ -41,10 +41,14 @@
 </toolbars>
 <!-- Menu Definitions -->
 <menus>
-	<!-- CHILD POPUP MENU -->
-	<menu name="Child">
-		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
+	<!-- TAB BAR POPUP MENUS -->
+	<menu name="CTabBar.Child">
+		<item id="ID_MOVETAB_LEFT" text="Move Tab _Left"/>
+		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Right"/>
+		<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
+		<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
 		<separator/>
+		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
 		<item id="ID_CHILD_RESTORE" text="_Restore"/>
 		<item id="ID_CHILD_MINIMISE" text="_Minimise"/>
 		<separator/>

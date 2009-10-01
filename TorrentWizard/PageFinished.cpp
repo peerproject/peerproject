@@ -28,6 +28,7 @@
 #include "PageTracker.h"
 #include "PagePackage.h"
 #include "PageSingle.h"
+#include "PageExpert.h"
 #include "PageWelcome.h"
 
 #ifdef _DEBUG
@@ -44,6 +45,7 @@ BEGIN_MESSAGE_MAP(CFinishedPage, CWizardPage)
 	ON_BN_CLICKED(IDC_TORRENT_COPY, OnTorrentCopy)
 	ON_BN_CLICKED(IDC_TORRENT_OPEN, OnTorrentOpen)
 	ON_BN_CLICKED(IDC_TORRENT_SEED, OnTorrentSeed)
+	ON_WM_XBUTTONDOWN()
 	ON_WM_TIMER()
 	ON_WM_HSCROLL()
 	//}}AFX_MSG_MAP
@@ -129,13 +131,22 @@ void CFinishedPage::Start()
 		GET_PAGE( CSinglePage, pSingle );
 		m_pBuilder->AddFile( pSingle->m_sFileName );
 	}
-	else
+	else if ( pWelcome->m_nType == 1 )
 	{
 		GET_PAGE( CPackagePage, pPackage );
 
 		for ( int nFile = 0 ; nFile < pPackage->m_wndList.GetItemCount() ; nFile++ )
 		{
 			m_pBuilder->AddFile( pPackage->m_wndList.GetItemText( nFile, 0 ) );
+		}
+	}
+	else
+	{
+		GET_PAGE( CExpertPage, pExpert );
+
+		for ( int nFile = 0 ; nFile < pExpert->m_wndList.GetItemCount() ; nFile++ )
+		{
+			m_pBuilder->AddFile( pExpert->m_wndList.GetItemText( nFile, 0 ) );
 		}
 	}
 
@@ -261,6 +272,12 @@ void CFinishedPage::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	}
 
 	CWizardPage::OnHScroll( nSBCode, nPos, pScrollBar );
+}
+
+void CFinishedPage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetSheet()->PressButton( PSBTN_BACK );
 }
 
 LRESULT CFinishedPage::OnWizardBack()

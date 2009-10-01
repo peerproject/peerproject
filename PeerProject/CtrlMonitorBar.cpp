@@ -23,6 +23,7 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "GraphItem.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "CtrlMonitorBar.h"
 #include "Skin.h"
@@ -48,8 +49,8 @@ END_MESSAGE_MAP()
 
 CMonitorBarCtrl::CMonitorBarCtrl()
 {
-	m_pRxItem		= new CGraphItem( GRC_TOTAL_BANDWIDTH_IN, 1.0f, CoolInterface.m_crMonitorDownloadBar );
-	m_pTxItem		= new CGraphItem( GRC_TOTAL_BANDWIDTH_OUT, 2.0f, CoolInterface.m_crMonitorUploadBar );	//ToDo: Adjust Multiplier
+	m_pRxItem		= new CGraphItem( GRC_TOTAL_BANDWIDTH_IN, 1.0f, Colors.m_crMonitorDownloadBar );
+	m_pTxItem		= new CGraphItem( GRC_TOTAL_BANDWIDTH_OUT, 2.0f, Colors.m_crMonitorUploadBar );	//ToDo: Adjust Multiplier
 	m_pSnapBar[0]	= NULL;
 	m_pSnapBar[1]	= NULL;
 	m_nMaximum		= 0;
@@ -168,8 +169,8 @@ void CMonitorBarCtrl::OnSkinChange()
 	if ( m_hUpDown ) DestroyIcon( m_hUpDown );
 	m_hUpDown = CoolInterface.ExtractIcon( IDI_UPDOWN_ARROW, Settings.General.LanguageRTL );
 
-	m_pRxItem->m_nColor = CoolInterface.m_crMonitorDownloadBar;
-	m_pTxItem->m_nColor = CoolInterface.m_crMonitorUploadBar;
+	m_pRxItem->m_nColor = Colors.m_crMonitorDownloadBar;
+	m_pTxItem->m_nColor = Colors.m_crMonitorUploadBar;
 
 	if ( m_hWnd != NULL && IsWindowVisible() )
 	{
@@ -189,7 +190,7 @@ void CMonitorBarCtrl::DoPaint(CDC* pDC)
 		SetLayout( pMemDC->m_hDC, 0 );
 
 	if ( ! CoolInterface.DrawWatermark( pMemDC, &rcClient, &m_bmWatermark ) )
-		pMemDC->FillSolidRect( &rcClient, CoolInterface.m_crMidtone );
+		pMemDC->FillSolidRect( &rcClient, Colors.m_crMidtone );
 
 	if ( Skin.m_bMenuBorders )
 		DrawBorders( pMemDC, rcClient );
@@ -199,7 +200,7 @@ void CMonitorBarCtrl::DoPaint(CDC* pDC)
 	for ( int nY = rcClient.top + 4 ; nY < rcClient.bottom - 4 ; nY += 2 )
 	{
 		pMemDC->Draw3dRect( rcClient.left + 3, nY, 4, 1,
-			CoolInterface.m_crDisabled, CoolInterface.m_crDisabled );
+			Colors.m_crDisabled, Colors.m_crDisabled );
 	}
 
 	m_pTxItem->SetHistory( rcClient.Width(), TRUE );
@@ -232,9 +233,9 @@ void CMonitorBarCtrl::PaintHistory(CDC* pDC, CRect* prc)
 {
 	CRect rc( prc );
 
-	pDC->Draw3dRect( &rc, CoolInterface.m_crSys3DShadow, CoolInterface.m_crSys3DHighlight );
+	pDC->Draw3dRect( &rc, Colors.m_crSys3DShadow, Colors.m_crSys3DHighlight );
 	rc.DeflateRect( 1, 1 );
-	pDC->FillSolidRect( &rc, Settings.Live.BandwidthScale > 100 ? CoolInterface.m_crMonitorHistoryBackMax : CoolInterface.m_crMonitorHistoryBack );
+	pDC->FillSolidRect( &rc, Settings.Live.BandwidthScale > 100 ? Colors.m_crMonitorHistoryBackMax : Colors.m_crMonitorHistoryBack );
 
 	if ( m_bTab )
 	{
@@ -255,7 +256,7 @@ void CMonitorBarCtrl::PaintHistory(CDC* pDC, CRect* prc)
 
 		CFont* pfOld = (CFont*)pDC->SelectObject( &CoolInterface.m_fntNormal );
 		pDC->SetBkMode( TRANSPARENT );
-		pDC->SetTextColor( CoolInterface.m_crMonitorHistoryText );
+		pDC->SetTextColor( Colors.m_crMonitorHistoryText );
 		pDC->DrawText( str, &rc, DT_CENTER|DT_VCENTER|DT_SINGLELINE );
 		pDC->SelectObject( pfOld );
 		return;
@@ -278,26 +279,26 @@ void CMonitorBarCtrl::PaintHistory(CDC* pDC, CRect* prc)
 		{
 			if ( nTxValue < (DWORD)rc.bottom )
 			{
-				pDC->FillSolidRect( nX, nTxValue + 1, 1, rc.bottom - nTxValue - 1, CoolInterface.m_crMonitorUploadBar );
-				pDC->SetPixel( nX, nTxValue, CoolInterface.m_crMonitorUploadLine );
+				pDC->FillSolidRect( nX, nTxValue + 1, 1, rc.bottom - nTxValue - 1, Colors.m_crMonitorUploadBar );
+				pDC->SetPixel( nX, nTxValue, Colors.m_crMonitorUploadLine );
 			}
 			if ( nRxValue < (DWORD)rc.bottom )
 			{
-				pDC->FillSolidRect( nX, nRxValue + 1, 1, rc.bottom - nRxValue - 1, CoolInterface.m_crMonitorDownloadBar );
-				pDC->SetPixel( nX, nRxValue, CoolInterface.m_crMonitorDownloadLine );
+				pDC->FillSolidRect( nX, nRxValue + 1, 1, rc.bottom - nRxValue - 1, Colors.m_crMonitorDownloadBar );
+				pDC->SetPixel( nX, nRxValue, Colors.m_crMonitorDownloadLine );
 			}
 		}
 		else
 		{
 			if ( nRxValue < (DWORD)rc.bottom )
 			{
-				pDC->FillSolidRect( nX, nRxValue + 1, 1, rc.bottom - nRxValue - 1, CoolInterface.m_crMonitorDownloadBar );
-				pDC->SetPixel( nX, nRxValue, CoolInterface.m_crMonitorDownloadLine );
+				pDC->FillSolidRect( nX, nRxValue + 1, 1, rc.bottom - nRxValue - 1, Colors.m_crMonitorDownloadBar );
+				pDC->SetPixel( nX, nRxValue, Colors.m_crMonitorDownloadLine );
 			}
 			if ( nTxValue < (DWORD)rc.bottom )
 			{
-				pDC->FillSolidRect( nX, nTxValue + 1, 1, rc.bottom - nTxValue - 1, CoolInterface.m_crMonitorUploadBar );
-				pDC->SetPixel( nX, nTxValue, CoolInterface.m_crMonitorUploadLine );
+				pDC->FillSolidRect( nX, nTxValue + 1, 1, rc.bottom - nTxValue - 1, Colors.m_crMonitorUploadBar );
+				pDC->SetPixel( nX, nTxValue, Colors.m_crMonitorUploadLine );
 			}
 		}
 	}
@@ -307,9 +308,9 @@ void CMonitorBarCtrl::PaintCurrent(CDC* pDC, CRect* prc, CGraphItem* pItem)
 {
 	CRect rc( prc );
 
-	pDC->Draw3dRect( &rc, CoolInterface.m_crSys3DShadow, CoolInterface.m_crSys3DHighlight );
+	pDC->Draw3dRect( &rc, Colors.m_crSys3DShadow, Colors.m_crSys3DHighlight );
 	rc.DeflateRect( 1, 1 );
-	pDC->FillSolidRect( &rc, Settings.Live.BandwidthScale > 100 ? CoolInterface.m_crMonitorHistoryBackMax : CoolInterface.m_crMonitorHistoryBack );
+	pDC->FillSolidRect( &rc, Settings.Live.BandwidthScale > 100 ? Colors.m_crMonitorHistoryBackMax : Colors.m_crMonitorHistoryBack );
 
 	if ( m_nMaximum == 0 || pItem->m_nLength < 1 ) return;
 
@@ -318,7 +319,7 @@ void CMonitorBarCtrl::PaintCurrent(CDC* pDC, CRect* prc, CGraphItem* pItem)
 	pDC->FillSolidRect( rc.left, rc.bottom - nValue, rc.Width(), nValue, pItem->m_nColor );
 
 	//Icon Hover Bug Workaround  (ToDo: Also Fix in Proper Place)
-	pDC->SetBkColor( CoolInterface.m_crMidtone );
+	pDC->SetBkColor( Colors.m_crMidtone );
 }
 
 void CMonitorBarCtrl::PaintTab(CDC* pDC)

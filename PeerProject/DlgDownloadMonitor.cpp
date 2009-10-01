@@ -35,6 +35,7 @@
 #include "CoolMenu.h"
 #include "ShellIcons.h"
 #include "Plugins.h"
+#include "Colors.h"
 #include "Skin.h"
 #include "DlgDownloadMonitor.h"
 #include "WndMain.h"
@@ -551,7 +552,7 @@ void CDownloadMonitorDlg::DrawProgressBar(CDC* pDC, CRect* pRect)
 	if ( Transfers.m_pSection.Lock( 50 ) )
 	{
 		if ( Downloads.Check( m_pDownload ) )
-			CFragmentBar::DrawDownload( pDC, &rcCell, m_pDownload, Skin.m_crDialog );
+			CFragmentBar::DrawDownload( pDC, &rcCell, m_pDownload, Colors.m_crDialog );
 		Transfers.m_pSection.Unlock();
 	}
 }

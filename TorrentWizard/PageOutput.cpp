@@ -35,10 +35,11 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(COutputPage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(COutputPage, CWizardPage)
-	ON_BN_CLICKED(IDC_CLEAR_FOLDERS, OnClearFolders)
 	ON_BN_CLICKED(IDC_BROWSE_FOLDER, OnBrowseFolder)
+	ON_BN_CLICKED(IDC_CLEAR_FOLDERS, OnClearFolders)
 	ON_BN_CLICKED(IDC_AUTO_PIECE_SIZE, OnClickedAutoPieceSize)
 	ON_CBN_CLOSEUP(IDC_PIECE_SIZE, OnCloseupPieceSize)
+	ON_WM_XBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -108,25 +109,25 @@ void COutputPage::OnReset()
 
 BOOL COutputPage::OnSetActive()
 {
-		GET_PAGE( CWelcomePage, pWelcome );
+	GET_PAGE( CWelcomePage, pWelcome );
 
-		if ( pWelcome->m_nType == 0 )
+	if ( pWelcome->m_nType == 0 )
+	{
+		GET_PAGE( CSinglePage, pSingle );
+
+		CString strFile = pSingle->m_sFileName;
+
+		if ( LPCTSTR pszSlash = _tcsrchr( strFile, '\\' ) )
 		{
-			GET_PAGE( CSinglePage, pSingle );
+			m_sName = pszSlash + 1;
+			m_sName += _T(".torrent");
 
-			CString strFile = pSingle->m_sFileName;
-
-			if ( LPCTSTR pszSlash = _tcsrchr( strFile, '\\' ) )
-			{
-				m_sName = pszSlash + 1;
-				m_sName += _T(".torrent");
-
-				if ( m_sFolder.IsEmpty() )
-					m_sFolder = strFile.Left( (int)( pszSlash - strFile ) );
-			}
+			if ( m_sFolder.IsEmpty() )
+				m_sFolder = strFile.Left( (int)( pszSlash - strFile ) );
 		}
-		else
-		{
+	}
+	else
+	{
 		GET_PAGE( CPackagePage, pPackage );
 
 		CString sName = pPackage->m_wndList.GetItemText( 0, 0 );
@@ -155,13 +156,12 @@ BOOL COutputPage::OnSetActive()
 			sName = sName.Left( nSlash );
 			nSlash = sName.ReverseFind( _T('\\') );
 			if ( nSlash != -1 )
-			{
 				m_sName = sName.Mid( nSlash + 1 ) + _T(".torrent");
-			}
 		}
 
-			if ( m_sFolder.IsEmpty() )
-				m_sFolder = theApp.GetProfileString( _T("Folders"), _T("Last") );
+		if ( m_sFolder.IsEmpty() )
+			m_sFolder = theApp.GetProfileString( _T("Folders"), _T("Last") );
+
 		if ( ! m_sFolder.IsEmpty() && m_sName.IsEmpty() )
 		{
 			m_sName = PathFindFileName( m_sFolder );
@@ -281,10 +281,9 @@ LRESULT COutputPage::OnWizardNext()
 
 	if ( GetFileAttributes( strPath ) != INVALID_FILE_ATTRIBUTES )
 	{
-		CString strFormat, strMessage;
-
-		strFormat.LoadString( IDS_OUTPUT_REPLACE_FILE );
-		strMessage.Format( strFormat, (LPCTSTR)strPath );
+		CString strMessage;
+		strMessage.LoadString( IDS_OUTPUT_REPLACE_FILE );
+		strMessage.Format( strMessage, (LPCTSTR)strPath );
 
 		if ( IDYES != AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) )
 			return -1;
@@ -311,6 +310,14 @@ LRESULT COutputPage::OnWizardNext()
 	theApp.WriteProfileInt( _T("Folders"), _T("PieceSize"), m_nPieceIndex );
 
 	return IDD_FINISHED_PAGE;
+}
+
+void COutputPage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetSheet()->PressButton( PSBTN_BACK );
+	else if ( nButton == 2 )
+		GetSheet()->PressButton( PSBTN_NEXT );
 }
 
 void COutputPage::OnClickedAutoPieceSize()

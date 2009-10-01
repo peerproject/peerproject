@@ -25,7 +25,7 @@
 #include "Plugins.h"
 #include "PageSettingsPlugins.h"
 #include "DlgPluginExtSetup.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -186,9 +186,9 @@ void CPluginsSettingsPage::OnCustomDrawPlugins(NMHDR *pNMHDR, LRESULT *pResult)
 	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
 	{
 		if ( pDraw->nmcd.lItemlParam != 0 )
-			pDraw->clrText = CoolInterface.m_crText ;			//Interface Elements
+			pDraw->clrText = Colors.m_crText ;			//Interface Elements
 		else
-			pDraw->clrText = CoolInterface.m_crNetworkNull ;	//Hidden Plugin
+			pDraw->clrText = Colors.m_crNetworkNull ;	//Hidden Plugin
 	}
 }
 

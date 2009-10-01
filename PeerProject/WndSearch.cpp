@@ -30,6 +30,7 @@
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "ManagedSearch.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
 #include "Skin.h"
@@ -274,10 +275,10 @@ void CSearchWnd::OnPaint()
 
 		if ( m_bPanel ) rcBar.left += Skin.m_nSidebarWidth;
 
-		dc.FillSolidRect( rcBar.left, rcBar.top, rcBar.Width(), 1, CoolInterface.m_crResizebarEdge );
-		dc.FillSolidRect( rcBar.left, rcBar.top + 1, rcBar.Width(), 1, CoolInterface.m_crResizebarHighlight );
-		dc.FillSolidRect( rcBar.left, rcBar.bottom - 1, rcBar.Width(), 1, CoolInterface.m_crResizebarShadow );
-		dc.FillSolidRect( rcBar.left, rcBar.top + 2, rcBar.Width(), rcBar.Height() - 3, CoolInterface.m_crResizebarFace );
+		dc.FillSolidRect( rcBar.left, rcBar.top, rcBar.Width(), 1, Colors.m_crResizebarEdge );
+		dc.FillSolidRect( rcBar.left, rcBar.top + 1, rcBar.Width(), 1, Colors.m_crResizebarHighlight );
+		dc.FillSolidRect( rcBar.left, rcBar.bottom - 1, rcBar.Width(), 1, Colors.m_crResizebarShadow );
+		dc.FillSolidRect( rcBar.left, rcBar.top + 2, rcBar.Width(), rcBar.Height() - 3, Colors.m_crResizebarFace );
 	}
 
 	if ( m_bPaused || m_bWaitMore) return;
@@ -293,13 +294,13 @@ void CSearchWnd::OnPaint()
 		rc.bottom --;
 		dc.FillSolidRect( rc.left, rc.bottom, rc.Width(), 1, RGB( 255, 255, 255 ) );
 		dc.Draw3dRect( &rc,
-			CCoolInterface::CalculateColor( Skin.m_crBannerBack, RGB(255,255,255), 100 ),
-			CCoolInterface::CalculateColor( Skin.m_crBannerBack, 0, 150 ) );
+			CColors::CalculateColor( Colors.m_crBannerBack, RGB(255,255,255), 100 ),
+			CColors::CalculateColor( Colors.m_crBannerBack, 0, 150 ) );
 		rc.DeflateRect( 1, 1 );
 		nTop --;
 	}
 
-	CoolInterface.Draw( &dc, IDR_SEARCHFRAME, 16, rc.left + 4, nTop, Skin.m_crBannerBack );
+	CoolInterface.Draw( &dc, IDR_SEARCHFRAME, 16, rc.left + 4, nTop, Colors.m_crBannerBack );
 	dc.ExcludeClipRect( rc.left + 4, nTop, rc.left + 4 + 16, nTop + 16 );
 
 	CFont* pFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntNormal );
@@ -307,8 +308,8 @@ void CSearchWnd::OnPaint()
 	CString str;
 	LoadString( str, IDS_SEARCH_ACTIVE );
 
-	dc.SetBkColor( Skin.m_crBannerBack );
-	dc.SetTextColor( Skin.m_crBannerText );
+	dc.SetBkColor( Colors.m_crBannerBack );
+	dc.SetTextColor( Colors.m_crBannerText );
 	dc.ExtTextOut( rc.left + 8 + 16, nTop + 1, ETO_CLIPPED|ETO_OPAQUE,
 		&rc, str, NULL );
 

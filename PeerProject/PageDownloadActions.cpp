@@ -29,7 +29,7 @@
 #include "DownloadTask.h"
 #include "Transfers.h"
 #include "FragmentedFile.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -85,7 +85,7 @@ HBRUSH CDownloadActionsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		 pWnd == &m_wndCancelDownload )
 	{
 		pDC->SelectObject( &theApp.m_gdiFontLine );
-		pDC->SetTextColor( CoolInterface.m_crTextLink );
+		pDC->SetTextColor( Colors.m_crTextLink );
 	}
 
 	return hbr;

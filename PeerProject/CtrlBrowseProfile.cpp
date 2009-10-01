@@ -29,8 +29,8 @@
 
 #include "RichElement.h"
 #include "RichDocument.h"
-#include "CoolInterface.h"
 #include "CtrlBrowseProfile.h"
+#include "Colors.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
@@ -388,7 +388,7 @@ void CBrowseProfileCtrl::OnHeadPacket(CG2Packet* pPacket)
 		{
 			if ( m_imgHead.LoadFromMemory( strFile,
 				 (LPCVOID)( pPacket->m_pBuffer + pPacket->m_nPosition ), nLength ) &&
-				 m_imgHead.EnsureRGB( CoolInterface.m_crWindow ) &&
+				 m_imgHead.EnsureRGB( Colors.m_crWindow ) &&
 				 m_imgHead.Resample( 128, 128 ) )
 			{
 				// Ok
@@ -408,7 +408,7 @@ void CBrowseProfileCtrl::LoadDefaultHead()
 	if ( m_imgHead.m_bLoaded ) return;
 
 	if ( m_imgHead.LoadFromFile( Settings.General.Path + _T("\\Data\\DefaultAvatar.png") ) &&
-		m_imgHead.EnsureRGB( CoolInterface.m_crWindow ) &&
+		m_imgHead.EnsureRGB( Colors.m_crWindow ) &&
 		m_imgHead.Resample( 128, 128 ) )
 	{
 		Invalidate();
@@ -484,7 +484,7 @@ void CBrowseProfileCtrl::OnPaint()
 		rcPanel.right = rcPanel.left + 148;
 	}
 
-	dc.FillSolidRect( &rcPanel, CoolInterface.m_crWindow );
+	dc.FillSolidRect( &rcPanel, Colors.m_crWindow );
 }
 
 void CBrowseProfileCtrl::OnTimer(UINT_PTR nIDEvent)

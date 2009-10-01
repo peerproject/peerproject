@@ -2,7 +2,7 @@
 // SWFPlugin.cpp : Implementation of DLL Exports.
 //
 // This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright Nikolay Raspopov, 2005.
+// Portions copyright Nikolay Raspopov, 2005.
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -20,7 +20,7 @@
 //
 
 #include "stdafx.h"
-#include "resource.h"
+#include "Resource.h"
 #include "SWFPlugin.h"
 
 class CSWFPluginModule : public CAtlDllModuleT< CSWFPluginModule >

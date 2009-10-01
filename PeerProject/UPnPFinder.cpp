@@ -193,9 +193,7 @@ void CUPnPFinder::ProcessAsyncFind(BSTR bsSearchType) throw()
 		}
 
 		if ( FAILED( hr ) )
-		{
 			theApp.Message( MSG_ERROR, L"CancelAsyncFind failed in UPnP finder." );
-		}
 
 		m_bAsyncFindRunning = false;
 	}
@@ -669,14 +667,14 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 		{
 			// It returned in the following format and order:
 			//
-			// VT_BSTR	RemoteHost = "" (i.e. any)
+			// VT_BSTR	RemoteHost = "" (any)
 			// VT_UI2	ExternalPort = 6346
 			// VT_BSTR	PortMappingProtocol = "TCP"
 			// VT_UI2	InternalPort = 6346
 			// VT_BSTR	InternalClient = "192.168.0.1"
 			// VT_BOOL	PortMappingEnabled = True
 			// VT_BSTR	PortMappingDescription = "PeerProject TCP"
-			// VT_UI4	PortMappingLeaseDuration = 0 (i.e. any)
+			// VT_UI4	PortMappingLeaseDuration = 0 (any)
 
 			// DeletePortMapping action takes 3 arguments:
 			//		RemoteHost, ExternalPort and PortMappingProtocol
@@ -743,9 +741,10 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 			nEntry++; // Entries are pushed from bottom to top after success
 		if ( nEntry > 30 )
 		{
-			// FIXME: this is a sanitize check, since some routers seem to reponse to invalid GetGenericPortMappingEntry numbers
-			// proper way would be to get the actualy portmapping count, but needs testing before
-			theApp.Message( MSG_INFO, L"GetGenericPortMappingEntry maximal count exceeded, quiting." );
+			// ToDo: FIXME. This is a sanitize check,
+			// since some routers seem to repond to invalid GetGenericPortMappingEntry numbers.
+			// Proper way would be to get the actual portmapping count, but needs testing.
+			theApp.Message( MSG_INFO, L"UPnP GetGenericPortMappingEntry maximum count exceeded, quitting." );
 			break;
 		}
 	}
@@ -764,9 +763,8 @@ void CUPnPFinder::CreatePortMappings(ServicePointer pService)
 		L"VT_BOOL=True|VT_BSTR=PeerProject %s|VT_UI4=0|";
 
 	if ( Settings.Connection.InPort == 0 ) // random port
-	{
 		Settings.Connection.InPort = Network.RandomPort();
-	}
+
 	strPort.Format( L"%hu", Settings.Connection.InPort );
 
 	// First map UDP if some buggy router overwrites TCP on top

@@ -20,7 +20,7 @@
 //
 
 #include "stdafx.h"
-#include "resource.h"
+#include "Resource.h"
 #include "MediaImageServices.h"
 
 class CMediaImageServicesModule : public CAtlDllModuleT< CMediaImageServicesModule >

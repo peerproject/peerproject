@@ -26,6 +26,7 @@
 #include "Neighbour.h"
 #include "Network.h"
 #include "GProfile.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "CtrlNeighbourTip.h"
 #include "GraphLine.h"
@@ -224,7 +225,7 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 		if ( nFlagIndex >= 0 )
 		{
 			ImageList_DrawEx( Flags.m_pImage, nFlagIndex, pDC->GetSafeHdc(),
-				pt.x, pt.y, 16, 16, CoolInterface.m_crTipBack, CLR_NONE, ILD_NORMAL );
+				pt.x, pt.y, 16, 16, Colors.m_crTipBack, CLR_NONE, ILD_NORMAL );
 			pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
 			pt.x += 25;
@@ -360,7 +361,7 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 	pt.y += TIP_TEXTHEIGHT;
 
 	CRect rc( pt.x, pt.y, m_sz.cx, pt.y + 40 );
-	pDC->Draw3dRect( &rc, CoolInterface.m_crTipBorder, CoolInterface.m_crTipBorder );
+	pDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rc.DeflateRect( 1, 1 );
 	m_pGraph->BufferedPaint( pDC, &rc );
 	rc.InflateRect( 1, 1 );

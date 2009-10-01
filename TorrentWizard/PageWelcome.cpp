@@ -33,6 +33,8 @@ IMPLEMENT_DYNCREATE(CWelcomePage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CWelcomePage, CWizardPage)
 	//{{AFX_MSG_MAP(CWelcomePage)
+	//ON_BN_CLICKED(IDC_EXPERT_MODE, OnExpertMode)
+	ON_WM_XBUTTONDOWN()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -43,7 +45,7 @@ END_MESSAGE_MAP()
 CWelcomePage::CWelcomePage() : CWizardPage(CWelcomePage::IDD)
 {
 	//{{AFX_DATA_INIT(CWelcomePage)
-	m_nType = 0;
+	m_nType = theApp.GetProfileInt( _T(""), _T("Mode"), 0 );
 	//}}AFX_DATA_INIT
 }
 
@@ -64,7 +66,7 @@ void CWelcomePage::DoDataExchange(CDataExchange* pDX)
 
 void CWelcomePage::OnReset()
 {
-	m_nType = 0;
+	m_nType = theApp.GetProfileInt( _T(""), _T("Mode"), 0 );
 	UpdateData( FALSE );
 }
 
@@ -74,16 +76,34 @@ BOOL CWelcomePage::OnSetActive()
 	return CWizardPage::OnSetActive();
 }
 
+void CWelcomePage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 2 )
+		GetSheet()->PressButton( PSBTN_NEXT );
+}
+
 LRESULT CWelcomePage::OnWizardNext() 
 {
 	UpdateData();
+
+	theApp.WriteProfileInt( _T(""), _T("Mode"), m_nType );
 	
-	if ( m_nType < 0 )
-	{
-		AfxMessageBox( IDS_WELCOME_NEED_TYPE, MB_ICONEXCLAMATION );
-		return -1;
-	}
-	
-	return m_nType ? IDD_PACKAGE_PAGE : IDD_SINGLE_PAGE;
+	if ( m_nType == 0 )
+		return IDD_SINGLE_PAGE;
+	if ( m_nType == 1 )
+		return IDD_PACKAGE_PAGE;
+	if ( m_nType == 2 )
+		return IDD_EXPERT_PAGE;
+
+	return -1;
+	//	AfxMessageBox( IDS_WELCOME_NEED_TYPE, MB_ICONEXCLAMATION );
 }
 
+//LRESULT CWelcomePage::OnExpertMode()
+//{
+//	UpdateData();
+	
+//	m_nType = 2;
+
+//	return IDD_EXPERT_PAGE;
+//}

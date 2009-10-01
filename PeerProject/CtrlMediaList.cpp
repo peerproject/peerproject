@@ -28,11 +28,12 @@
 #include "ShellIcons.h"
 #include "LiveList.h"
 #include "Skin.h"
+#include "Colors.h"
 #include "Buffer.h"
 #include "CtrlMediaList.h"
 #include "DlgCollectionExport.h"
 #include "DlgFilePropertiesSheet.h"
-#include "CoolInterface.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -371,7 +372,7 @@ int CMediaListCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	InsertColumn( 0, _T("Name"), LVCFMT_LEFT, 100, -1 );
 	InsertColumn( 1, _T("Path"), LVCFMT_LEFT, 0, 0 );
 
-	SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_LABELTIP );
+	SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_LABELTIP|LVS_EX_FULLROWSELECT );
 
 	m_wndTip.Create( this, &Settings.Interface.TipMedia );
 
@@ -402,13 +403,13 @@ void CMediaListCtrl::OnCustomDraw(NMHDR* pNotify, LRESULT* pResult)
 		if (	GetItemState( static_cast< int >( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwItemSpec ), LVIS_SELECTED ) == 0 &&
 				GetItemState( static_cast< int >( ((NMLVCUSTOMDRAW*) pNotify)->nmcd.dwItemSpec ), STATE_CURRENT ) != 0 )
 		{
-			((NMLVCUSTOMDRAW*) pNotify)->clrText	= CoolInterface.m_crMediaPanelActiveText;
-			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk	= CoolInterface.m_crMediaPanelActiveBack;
+			((NMLVCUSTOMDRAW*) pNotify)->clrText	= Colors.m_crMediaPanelActiveText;
+			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk	= Colors.m_crMediaPanelActiveBack;
 		}
 		else
 		{
-			((NMLVCUSTOMDRAW*) pNotify)->clrText	= CoolInterface.m_crMediaPanelText;
-			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk	= CoolInterface.m_crMediaPanelBack;
+			((NMLVCUSTOMDRAW*) pNotify)->clrText	= Colors.m_crMediaPanelText;
+			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk	= Colors.m_crMediaPanelBack;
 		}
 
 		if ( m_bCreateDragImage ) ((NMLVCUSTOMDRAW*) pNotify)->clrTextBk = DRAG_COLOR_KEY;
@@ -813,7 +814,7 @@ void CMediaListCtrl::OnUpdateMediaCollection(CCmdUI* pCmdUI)
 void CMediaListCtrl::OnMediaCollection()
 {
 	// The album title name is a collection folder name
-	// We leave it empty to have the collection mounted under collections folder
+	// Leave it empty to have the collection mounted under collections folder
 
 	CAlbumFolder* pCollection = new CAlbumFolder( NULL, NULL, _T(""), TRUE );
 
@@ -823,9 +824,7 @@ void CMediaListCtrl::OnMediaCollection()
 		{
 			CString strPath = GetPath( nItem );
 			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strPath, FALSE, TRUE ) )
-			{
 				pCollection->AddFile( pFile );
-			}
 		}
 	}
 
@@ -836,5 +835,6 @@ void CMediaListCtrl::OnMediaCollection()
 
 void CMediaListCtrl::OnSkinChange()
 {
-	SetBkColor( CoolInterface.m_crMediaPanelBack );
+	SetBkColor( Colors.m_crMediaPanelBack );
+	SetBkImage( Skin.GetWatermark( _T("CMediaList") ) );
 }

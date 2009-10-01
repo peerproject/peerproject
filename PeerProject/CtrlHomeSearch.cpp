@@ -26,6 +26,7 @@
 #include "SchemaCache.h"
 #include "QuerySearch.h"
 #include "WndSearch.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "CtrlHomeSearch.h"
 #include "DlgNewSearch.h"
@@ -103,7 +104,7 @@ int CHomeSearchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndAdvanced.Create( rc, this, IDC_SEARCH_ADVANCED, WS_TABSTOP );
 	m_wndAdvanced.SetHandCursor( TRUE );
 
-	OnSkinChange( CoolInterface.m_crWindow );
+	OnSkinChange( Colors.m_crWindow );
 
 	return 0;
 }

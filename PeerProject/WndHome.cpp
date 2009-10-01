@@ -33,11 +33,11 @@
 #include "GraphItem.h"
 #include "Statistics.h"
 
+#include "Skin.h"
 #include "WndHome.h"
 #include "WndSearch.h"
 #include "WndBrowseHost.h"
 #include "WindowManager.h"
-#include "Skin.h"
 #include "XML.h"
 
 
@@ -93,7 +93,10 @@ void CHomeWnd::OnDestroy()
 
 void CHomeWnd::OnSkinChange()
 {
-	OnSize( 0, 0, 0 );
+	CRect rc;
+	GetClientRect( &rc );
+	OnSize( 0, rc.Width(), rc.Height() );
+
 	CPanelWnd::OnSkinChange();
 
 	m_wndView.OnSkinChange();

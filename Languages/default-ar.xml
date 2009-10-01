@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r36 -->
+<!-- Translation based on default-en.xml r38 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -449,15 +449,14 @@
 </toolbars>
 <!-- Menu Definitions -->
 <menus>
-	<!-- SIMPLE POPUP MENU -->
-	<menu name="عينة">
+	<!-- TAB BAR POPUP MENUS -->
+	<menu name="CTabBar">
 		<item id="ID_MOVETAB_LEFT" text="تحرك تبويب اليسار"/>
 		<item id="ID_MOVETAB_RIGHT" text="بويب تحرك بزر"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_إغلاق النافذة" />
 	</menu>
-	<!-- CHILD POPUP MENU -->
-	<menu name="Child">
+	<menu name="CTabBar.Child">
 		<item id="ID_MOVETAB_LEFT" text="تحرك تبويب اليسار"/>
 		<item id="ID_MOVETAB_RIGHT" text="بويب تحرك بزر"/>
 		<separator/>
@@ -1065,9 +1064,9 @@
 	</menu>
 	<menu name="CDownloadsWnd.Download">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_معاينة" />
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="م_عاينة عن بعد" />
-		<!-- <item id="ID_DOWNLOADS_LAUNCH_COPY" text="معا_ينة النسخة"/> -->
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="معا_ينة النسخة"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="إضافة إلى _قائمة التشغيل" />
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="م_عاينة عن بعد" />
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_عرض معاينات" />
 		<separator />
 		<item id="ID_DOWNLOADS_RESUME" text="_متابعة" />
@@ -1083,10 +1082,12 @@
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_اضف مصدر..." />
 			<separator />
 			<item id="ID_DOWNLOADS_MONITOR" text="نافذة _الشاشه" />
+			<item id="ID_DOWNLOADS_BOOST" text="السرعة _زيادة" />
 			<separator />
 			<item id="ID_DOWNLOADS_MOVE_UP" text="نقل _للاعلى" />
 			<item id="ID_DOWNLOADS_MOVE_DOWN" text="نقل _للاسفل" />
-			<item id="ID_DOWNLOADS_BOOST" text="السرعة _زيادة" />
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="نقل _للاعلى" />
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="نقل _للاسفل" />
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_تعليمات..." />
 		<separator />

@@ -44,6 +44,7 @@ BEGIN_MESSAGE_MAP(CWizardSharePage, CWizardPage)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_SHARE_FOLDERS, OnItemChangedShareFolders)
 	ON_BN_CLICKED(IDC_SHARE_ADD, OnShareAdd)
 	ON_BN_CLICKED(IDC_SHARE_REMOVE, OnShareRemove)
+	ON_WM_XBUTTONDOWN()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -84,7 +85,7 @@ BOOL CWizardSharePage::OnInitDialog()
 
 	CRect rc;
 	m_wndList.GetClientRect( &rc );
-	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
+	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
 	m_wndList.InsertColumn( 0, _T("Folder"), LVCFMT_LEFT, rc.Width() - GetSystemMetrics( SM_CXVSCROLL ) );
 	m_wndList.SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
 	m_wndList.EnableToolTips( TRUE );
@@ -134,6 +135,14 @@ BOOL CWizardSharePage::OnInitDialog()
 	}
 
 	return TRUE;
+}
+
+void CWizardSharePage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetSheet()->PressButton( PSBTN_BACK );
+	else if ( nButton == 2 )
+		GetSheet()->PressButton( PSBTN_NEXT );
 }
 
 BOOL CWizardSharePage::OnSetActive()

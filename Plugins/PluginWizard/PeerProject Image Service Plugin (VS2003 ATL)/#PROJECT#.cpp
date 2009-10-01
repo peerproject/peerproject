@@ -1,8 +1,8 @@
 //
 // #PROJECT#.cpp : Implementation of DLL Exports.
 //
-// #COPYRIGHT#
 // This file is part of PeerProject (peerproject.org) © 2008
+// #COPYRIGHT#
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -20,7 +20,7 @@
 //
 
 #include "stdafx.h"
-#include "resource.h"
+#include "Resource.h"
 #include "#PROJECT#.h"
 
 class CModule : public CAtlDllModuleT< CModule >

@@ -22,8 +22,8 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "ShellIcons.h"
-#include "CoolInterface.h"
 #include "BitziDownloader.h"
 #include "DlgBitziDownload.h"
 
@@ -162,7 +162,7 @@ HBRUSH CBitziDownloadDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	if ( pWnd == &m_wndWeb )
 	{
 		pDC->SelectObject( &theApp.m_gdiFontLine );
-		pDC->SetTextColor( CoolInterface.m_crTextLink );
+		pDC->SetTextColor( Colors.m_crTextLink );
 	}
 
 	return hbr;

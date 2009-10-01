@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "Transfers.h"
 #include "UploadFile.h"
@@ -184,7 +185,7 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	if ( nFlagIndex >= 0 )
 	{
 		ImageList_DrawEx( Flags.m_pImage, nFlagIndex, pDC->GetSafeHdc(),
-			pt.x, pt.y, 16, 16, CoolInterface.m_crTipBack, CLR_NONE, ILD_NORMAL );
+			pt.x, pt.y, 16, 16, Colors.m_crTipBack, CLR_NONE, ILD_NORMAL );
 		pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 	}
 
@@ -259,7 +260,7 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	pt.y += TIP_GAP;
 
 	CRect rc( pt.x, pt.y, m_sz.cx, pt.y + 40 );
-	pDC->Draw3dRect( &rc, CoolInterface.m_crTipBorder, CoolInterface.m_crTipBorder );
+	pDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rc.DeflateRect( 1, 1 );
 	m_pGraph->BufferedPaint( pDC, &rc );
 	rc.InflateRect( 1, 1 );
@@ -283,10 +284,10 @@ void CUploadTipCtrl::DrawProgressBar(CDC* pDC, CPoint* pPoint, CUploadFile* pFil
 	CRect rcCell( pPoint->x, pPoint->y, m_sz.cx, pPoint->y + TIP_TEXTHEIGHT );
 	pPoint->y += TIP_TEXTHEIGHT;
 
-	pDC->Draw3dRect( &rcCell, CoolInterface.m_crTipBorder, CoolInterface.m_crTipBorder );
+	pDC->Draw3dRect( &rcCell, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rcCell.DeflateRect( 1, 1 );
 
-	CFragmentBar::DrawUpload( pDC, &rcCell, pFile, CoolInterface.m_crTipBack );
+	CFragmentBar::DrawUpload( pDC, &rcCell, pFile, Colors.m_crTipBack );
 
 	rcCell.InflateRect( 1, 1 );
 	pDC->ExcludeClipRect( &rcCell );

@@ -43,6 +43,7 @@
 #include "RichElement.h"
 #include "FragmentBar.h"
 #include "FileExecutor.h"
+#include "Colors.h"
 #include "Skin.h"
 #include "XML.h"
 
@@ -139,15 +140,14 @@ void CHomePanel::OnSkinChange()
 	m_boxLibrary.OnSkinChange();
 	m_boxDownloads.OnSkinChange();
 	m_boxUploads.OnSkinChange();
-
 	Update();
 	Invalidate();
 
+	// ToDo: Fix need for duplicate code
 	m_boxConnection.OnSkinChange();
 	m_boxLibrary.OnSkinChange();
 	m_boxDownloads.OnSkinChange();
 	m_boxUploads.OnSkinChange();
-
 	Update();
 	Invalidate();
 }
@@ -201,8 +201,7 @@ void CHomeConnectionBox::OnSkinChange()
 
 	SetCaption( pXML->GetAttributeValue( _T("title"), _T("Connection") ) );
 	HICON hIcon = CoolInterface.ExtractIcon( IDR_NEIGHBOURSFRAME, Settings.General.LanguageRTL );
-	if ( hIcon )
-		SetIcon( hIcon );
+	if ( hIcon ) SetIcon( hIcon );
 
 	m_pDocument = new CRichDocument();
 
@@ -227,9 +226,7 @@ void CHomeConnectionBox::OnSkinChange()
 		for ( int nT = 0 ; nT < 3 ; nT++ )
 		{
 			if ( m_pdCount[ nP ][ nT ] != NULL )
-			{
 				m_sCount[ nP ][ nT ] = m_pdCount[ nP ][ nT ]->m_sText;
-			}
 		}
 	}
 
@@ -418,8 +415,7 @@ void CHomeLibraryBox::OnSkinChange()
 
 	SetCaption( pXML->GetAttributeValue( _T("title"), _T("Library") ) );
 	HICON hIcon = CoolInterface.ExtractIcon( IDR_LIBRARYFRAME, Settings.General.LanguageRTL );
-	if ( hIcon )
-		SetIcon( hIcon );
+	if ( hIcon ) SetIcon( hIcon );
 
 	m_pDocument = new CRichDocument();
 
@@ -607,8 +603,8 @@ void CHomeLibraryBox::OnPaint()
 	rcText.SetRect( rcIcon.right, rcIcon.top, rcClient.right - 4, rcIcon.bottom );
 
 	dc.SetBkMode( OPAQUE );
-	dc.SetBkColor( CoolInterface.m_crWindow );
-	dc.SetTextColor( CoolInterface.m_crTextLink );
+	dc.SetBkColor( Colors.m_crWindow );
+	dc.SetTextColor( Colors.m_crTextLink );
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &m_pFont );
 
@@ -617,7 +613,7 @@ void CHomeLibraryBox::OnPaint()
 		Item* pItem = m_pList.GetAt( nItem );
 
 		ShellIcons.Draw( &dc, pItem->m_nIcon16, 16, rcIcon.left, rcIcon.top,
-			CoolInterface.m_crWindow );
+			Colors.m_crWindow );
 
 		CString str = pItem->m_sText;
 
@@ -630,7 +626,7 @@ void CHomeLibraryBox::OnPaint()
 			str += _T('\x2026');
 		}
 
-		dc.SetTextColor( m_pHover == pItem ? CoolInterface.m_crTextLinkHot : CoolInterface.m_crTextLink );
+		dc.SetTextColor( m_pHover == pItem ? Colors.m_crTextLinkHot : Colors.m_crTextLink );
 		dc.ExtTextOut( rcText.left + 4, rcText.top + 2, ETO_CLIPPED|ETO_OPAQUE,
 			&rcText, str, NULL );
 
@@ -642,7 +638,7 @@ void CHomeLibraryBox::OnPaint()
 	}
 
 	rcClient.top = 0;
-	dc.FillSolidRect( &rcClient, CoolInterface.m_crWindow );
+	dc.FillSolidRect( &rcClient, Colors.m_crWindow );
 	dc.SelectObject( pOldFont );
 }
 
@@ -802,8 +798,7 @@ void CHomeDownloadsBox::OnSkinChange()
 
 	SetCaption( pXML->GetAttributeValue( _T("title"), _T("Downloads") ) );
 	HICON hIcon = CoolInterface.ExtractIcon( IDR_DOWNLOADSFRAME, Settings.General.LanguageRTL );
-	if ( hIcon )
-		SetIcon( hIcon );
+	if ( hIcon ) SetIcon( hIcon );
 
 	m_pDocument = new CRichDocument();
 
@@ -1023,12 +1018,12 @@ void CHomeDownloadsBox::OnPaint()
 	rcIcon.DeflateRect( 0, 2 );
 
 	dc.SetBkMode( OPAQUE );
-	dc.SetBkColor( CoolInterface.m_crRichdocBack );
-	dc.SetTextColor( CoolInterface.m_crTextLink );
+	dc.SetBkColor( Colors.m_crRichdocBack );
+	dc.SetTextColor( Colors.m_crTextLink );
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &m_pFont );
 
-	COLORREF crAlt[3] = { RGB( 0, 153, 255 ), RGB( 190, 0, 0 ), RGB( 0, 153, 0 ) };
+	COLORREF crAlt[3] = { RGB( 0, 150, 255 ), RGB( 190, 0, 0 ), RGB( 0, 150, 0 ) };
 
 	for ( int nItem = 0 ; nItem < m_pList.GetSize() ; nItem++ )
 	{
@@ -1038,16 +1033,16 @@ void CHomeDownloadsBox::OnPaint()
 		{
 			CRect rc( rcIcon.left, rcIcon.top, rcIcon.left + 16, rcIcon.top + 16 );
 			ShellIcons.Draw( &dc, pItem->m_nIcon16, 16, rc.left, rc.top,
-				CoolInterface.m_crWindow );
+				Colors.m_crWindow );
 			dc.ExcludeClipRect( &rc );
 		}
 		else
 		{
-			COLORREF cr = pItem->m_bPaused ? CoolInterface.m_crNetworkNull : crAlt[ nItem % 3 ];
-			dc.Draw3dRect( &rcIcon, CoolInterface.m_crFragmentBorder, CoolInterface.m_crFragmentBorder );
+			COLORREF cr = pItem->m_bPaused ? Colors.m_crNetworkNull : crAlt[ nItem % 3 ];
+			dc.Draw3dRect( &rcIcon, Colors.m_crFragmentBorder, Colors.m_crFragmentBorder );
 			rcIcon.DeflateRect( 1, 1 );
 			CFragmentBar::DrawFragment( &dc, &rcIcon, pItem->m_nSize, 0, pItem->m_nComplete, cr, TRUE );
-			dc.FillSolidRect( &rcIcon, CoolInterface.m_crWindow );
+			dc.FillSolidRect( &rcIcon, Colors.m_crWindow );
 			rcIcon.InflateRect( 1, 1 );
 			dc.ExcludeClipRect( &rcIcon );
 		}
@@ -1063,7 +1058,7 @@ void CHomeDownloadsBox::OnPaint()
 			str += _T('\x2026');
 		}
 
-		dc.SetTextColor( m_pHover == pItem ? CoolInterface.m_crTextLinkHot : CoolInterface.m_crTextLink );
+		dc.SetTextColor( m_pHover == pItem ? Colors.m_crTextLinkHot : Colors.m_crTextLink );
 		dc.ExtTextOut( rcText.left + 4, rcText.top + 2, ETO_CLIPPED|ETO_OPAQUE,
 			&rcText, str, NULL );
 
@@ -1075,7 +1070,7 @@ void CHomeDownloadsBox::OnPaint()
 
 
 	rcClient.top = 0;
-	dc.FillSolidRect( &rcClient, CoolInterface.m_crWindow );
+	dc.FillSolidRect( &rcClient, Colors.m_crWindow );
 	dc.SelectObject( pOldFont );
 }
 
@@ -1221,8 +1216,7 @@ void CHomeUploadsBox::OnSkinChange()
 
 	SetCaption( pXML->GetAttributeValue( _T("title"), _T("Uploads") ) );
 	HICON hIcon = CoolInterface.ExtractIcon( IDR_UPLOADSFRAME, Settings.General.LanguageRTL );
-	if ( hIcon )
-		SetIcon( hIcon );
+	if ( hIcon ) SetIcon( hIcon );
 
 	m_pDocument = new CRichDocument();
 

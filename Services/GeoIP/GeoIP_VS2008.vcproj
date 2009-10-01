@@ -29,9 +29,6 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying $(ProjectName) files..."
-				CommandLine="copy &quot;..\..\Data\GeoIP.dat&quot; &quot;$(OutDir)GeoIP.dat&quot;&#x0D;&#x0A;"
-				Outputs="&quot;$(OutDir)GeoIP.dat&quot;"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -51,8 +48,9 @@
 				SmallerTypeCheck="true"
 				RuntimeLibrary="1"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
-				WarningLevel="3"
+				AdditionalIncludeDirectories="..\..\Data"
 				DebugInformationFormat="4"
+				WarningLevel="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -106,9 +104,6 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying $(ProjectName) files..."
-				CommandLine="copy &quot;..\..\Data\GeoIP.dat&quot; &quot;$(OutDir)GeoIP.dat&quot;&#x0D;&#x0A;"
-				Outputs="&quot;$(OutDir)GeoIP.dat&quot;"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -128,6 +123,7 @@
 				SmallerTypeCheck="true"
 				RuntimeLibrary="1"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
+				AdditionalIncludeDirectories="..\..\Data"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -185,9 +181,6 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying $(ProjectName) files..."
-				CommandLine="copy &quot;..\..\Data\GeoIP.dat&quot; &quot;$(OutDir)GeoIP.dat&quot;&#x0D;&#x0A;"
-				Outputs="&quot;$(OutDir)GeoIP.dat&quot;"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -201,8 +194,9 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;DLL;_CRT_SECURE_NO_DEPRECATE"
-				RuntimeLibrary="2"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
+				AdditionalIncludeDirectories="..\..\Data"
+				RuntimeLibrary="2"
 				WarningLevel="3"
 			/>
 			<Tool
@@ -258,9 +252,6 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying $(ProjectName) files..."
-				CommandLine="copy &quot;..\..\Data\GeoIP.dat&quot; &quot;$(OutDir)GeoIP.dat&quot;&#x0D;&#x0A;"
-				Outputs="&quot;$(OutDir)GeoIP.dat&quot;"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -275,6 +266,7 @@
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN64;WIN32;NDEBUG;_WINDOWS;_USRDLL;DLL;_CRT_SECURE_NO_DEPRECATE"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
+				AdditionalIncludeDirectories="..\..\Data"
 				WarningLevel="3"
 			/>
 			<Tool

@@ -1,17 +1,17 @@
 HKCR
 {
-	ForceRemove PeerProject.DocReader.1 = s 'Document Metadata Reader and Thumbnailer'
+	ForceRemove PeerProject.DocReader.1 = s 'Document Reader'
 	{
 		CLSID = s '{C4CBDA0D-CAD2-44E5-92CD-9F6E76BC56BC}'
 	}
-	ForceRemove PeerProject.DocReader = s 'Document Metadata Reader and Thumbnailer'
+	ForceRemove PeerProject.DocReader = s 'Document Reader'
 	{
 		CLSID = s '{C4CBDA0D-CAD2-44E5-92CD-9F6E76BC56BC}'
 		CurVer = s 'PeerProject.DocReader.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {C4CBDA0D-CAD2-44E5-92CD-9F6E76BC56BC} = s 'Document Metadata Reader and Thumbnailer'
+		ForceRemove {C4CBDA0D-CAD2-44E5-92CD-9F6E76BC56BC} = s 'Document Reader'
 		{
 			ProgID = s 'PeerProject.DocReader.1'
 			VersionIndependentProgID = s 'PeerProject.DocReader'

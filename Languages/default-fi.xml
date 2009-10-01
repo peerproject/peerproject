@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Finnish Skin File -->
 
-<!-- Translation based on default-en.xml r36 (Shareaza 2.1.3.7) -->
+<!-- Translation based on default-en.xml r38 (Shareaza 2.1.3.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -413,15 +413,14 @@
 </toolbars>
 <!-- Menu Definitions -->
 <menus>
-	<!-- SIMPLE POPUP MENU -->
-	<menu name="Simple">
+	<!-- TAB BAR POPUP MENUS -->
+	<menu name="CTabBar">
 		<item id="ID_MOVETAB_LEFT" text="Siirrä Vasen"/>
 		<item id="ID_MOVETAB_RIGHT" text="Siirrä Oikea"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
-	<!-- CHILD POPUP MENU -->
-	<menu name="Child">
+	<menu name="CTabBar.Child">
 		<item id="ID_MOVETAB_LEFT" text="Siirrä Vasen"/>
 		<item id="ID_MOVETAB_RIGHT" text="Siirrä Oikea"/>
 		<separator/>
@@ -1016,9 +1015,9 @@
 	</menu>
 	<menu name="CDownloadsWnd.Download">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Esikatsele"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<!-- <item id="ID_DOWNLOADS_LAUNCH_COPY" text="Esi_katsele Kopio"/> -->
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Esi_katsele Kopio"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Lisää Soi_ttolistaan"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Näytä Arvostelut"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Palaa"/>
@@ -1034,10 +1033,12 @@
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Lisää Lähde..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Monitori _Ikkuna"/>
+			<item id="ID_DOWNLOADS_BOOST" text="_Hylkää Kaista Rajoitus"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MOVE_UP" text="Siirrä _Ylös"/>
 			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Siirrä _Alas"/>
-			<item id="ID_DOWNLOADS_BOOST" text="_Hylkää Kaista Rajoitus"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Siirrä _Ylös!"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Siirrä _Alas!"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Ohje..."/>
 		<separator/>

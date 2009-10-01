@@ -28,7 +28,7 @@
 #include "UploadTransfer.h"
 #include "CtrlPrivateChatFrame.h"
 #include "WndBrowseHost.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 #include "Skin.h"
 #include "Security.h"
 #include "Settings.h"
@@ -155,7 +155,7 @@ void CPrivateChatFrame::OnProfileReceived()
 	CString str;
 
 	LoadString( str, IDS_CHAT_PROFILE_ACCEPTED );
-	m_pContent.Add( retText, str, NULL, retfColor )->m_cColor = CoolInterface.m_crChatNull ;
+	m_pContent.Add( retText, str, NULL, retfColor )->m_cColor = Colors.m_crChatNull ;
 
 	m_sNick = m_pSession->m_sUserNick;
 	m_pContent.Add( retLink, m_sNick, _T("peer:command:ID_CHAT_BROWSE") );

@@ -27,10 +27,12 @@
 #include "WizardSheet.h"
 #include "WizardConnectionPage.h"
 #include "UploadQueues.h"
+#include "Registry.h"
 #include "DlgHelp.h"
 #include "HostCache.h"
 #include "DiscoveryServices.h"
 #include "UPnPFinder.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -49,6 +51,7 @@ BEGIN_MESSAGE_MAP(CWizardConnectionPage, CWizardPage)
 	ON_CBN_SELCHANGE(IDC_WIZARD_UPLOAD_SPEED, OnChangeConnectionSpeed)
 	ON_CBN_SELCHANGE(IDC_WIZARD_UPNP, OnSelChangeUPnP)
 	ON_BN_CLICKED(IDC_WIZARD_RANDOM, OnBnClickedRandom)
+	ON_WM_XBUTTONDOWN()
 	ON_WM_TIMER()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -117,7 +120,7 @@ BOOL CWizardConnectionPage::OnInitDialog()
 	m_wndType.SetCurSel( -1 );
 	//Dial-up Modem|ISDN (128K)|DSL (768K)|DSL (1.5M)|DSL (4.0M)|DSL2 (8.0M)|FIOS (10.0M)|DSL2 (12.0M)|FIOS (20.0M)|DSL2 (24.0M)|Cable Modem|T1|T3|LAN|OC3
 
-	const double nSpeeds[] = { 28.8, 33.6, 56, 64, 128, 256, 384, 512, 640, 768, 1024, 1536, 1550, 2048, 3072, 4096, 5120, 7200, 8192, 10240, 12288, 16384, 20480, 24576, 45050, 102400, 155000, 0 };
+	const double nSpeeds[] = { 28.8, 33.6, 56, 64, 128, 256, 384, 512, 640, 768, 1024, 1536, 1550, 2048, 3072, 4096, 5120, 7200, 8192, 10240, 12288, 16384, 20480, 24576, 45050, 102400, 0 };
 	for ( int nSpeed = 0 ; nSpeeds[ nSpeed ] ; nSpeed++ )
 	{
 		if ( nSpeeds[ nSpeed ] < 100 )
@@ -142,8 +145,29 @@ BOOL CWizardConnectionPage::OnInitDialog()
 	m_wndUPnP.SetCurSel( (Settings.Connection.EnableUPnP) ? 0 : 1 );
 	OnSelChangeUPnP();
 
-	m_nPort	= Settings.Connection.InPort;
 	m_bRandom = ( Settings.Connection.RandomPort == true );
+	m_nPort	= Settings.Connection.InPort;
+
+	if ( m_nPort == GNUTELLA_DEFAULT_PORT )
+	{
+		CString sRegName = _T("InPort");
+		CString sRegPath = _T("Connection");
+		DWORD nPort = CRegistry::GetDword( (LPCTSTR)sRegPath, (LPCTSTR)sRegName );
+		if ( nPort < 1030 )
+		{
+			m_nPort	= 6480;		// Substitute Non-standard Port
+
+			// On first run, try using Shareaza's port to accomodate possible UPnP
+			sRegPath = _T("Software\\Shareaza\\Shareaza\\Connection");
+			DWORD nType = 0, nSize = sizeof( nPort );
+			LONG nErrorCode = SHRegGetUSValue( (LPCTSTR)sRegPath, (LPCTSTR)sRegName,
+				&nType, (PBYTE)&nPort, &nSize, FALSE, NULL, 0 );
+
+			if ( nErrorCode == ERROR_SUCCESS && nType == REG_DWORD && nSize == sizeof( nPort ) )
+				if ( nPort > 1030 && nPort < 65535 )
+					m_nPort	= nPort;
+		}
+	}
 
 	// 3 steps with 30 sub-steps each
 	m_wndProgress.SetRange( 0, 90 );
@@ -167,6 +191,14 @@ BOOL CWizardConnectionPage::OnSetActive()
 	m_wndProgress.SetPos( 0 );
 	m_wndStatus.SetWindowText( L"" );
 	return CWizardPage::OnSetActive();
+}
+
+void CWizardConnectionPage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetSheet()->PressButton( PSBTN_BACK );
+	else if ( nButton == 2 )
+		GetSheet()->PressButton( PSBTN_NEXT );
 }
 
 void CWizardConnectionPage::OnSelChangeConnectionType()
@@ -210,8 +242,10 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 
 	UpdateData();
 
-	if ( m_nPort > 1000 )
+	if ( m_nPort > 1022 && m_nPort < 65535 )
 		Settings.Connection.InPort = m_nPort;
+	else
+		AfxMessageBox( L"Port number ignored.  ( Use 1030 - 65530 )" );
 	Settings.Connection.RandomPort = ( m_bRandom == TRUE );
 
 	DWORD nSpeed = 0, nDownloadSpeed = 0, nUploadSpeed = 0;

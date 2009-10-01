@@ -23,6 +23,7 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "MetaPanel.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "SchemaMember.h"
 #include "Skin.h"
@@ -151,7 +152,7 @@ void CMetaPanel::Paint(CDC* pDC, const CRect* prcArea)
 	if ( m_bMusicBrainz )
 	{
 		pDC->FillSolidRect( rcWork.left, rcWork.top, rcWork.Width(), MUSICBRAINZ_HEIGHT + 4,
-			CoolInterface.m_crWindow );
+			Colors.m_crWindow );
 
 		CDC dcMem;
 		dcMem.CreateCompatibleDC( pDC );
@@ -171,7 +172,7 @@ void CMetaPanel::Paint(CDC* pDC, const CRect* prcArea)
 
 	for ( int nRow = 0 ; pos ; nRow++ )
 	{
-		pDC->SetBkColor( Skin.m_crSchemaRow[ nRow & 1 ] );
+		pDC->SetBkColor( Colors.m_crSchemaRow[ nRow & 1 ] );
 		int nHeight = 0;
 
 		for ( int nColumn = 0 ; nColumn < 2 && pos ; nColumn++ )
@@ -199,7 +200,7 @@ void CMetaPanel::Paint(CDC* pDC, const CRect* prcArea)
 			CRect rcKey( rcValue.left, rcValue.top, rcValue.left + METAPANEL_KEY_WIDTH, rcValue.bottom );
 			rcValue.left = rcKey.right;
 
-			pDC->SetTextColor( CoolInterface.m_crText );
+			pDC->SetTextColor( Colors.m_crText );
 			pDC->SelectObject( &CoolInterface.m_fntBold );
 
 			CString strKey( pItem->m_sKey );
@@ -208,7 +209,7 @@ void CMetaPanel::Paint(CDC* pDC, const CRect* prcArea)
 
 			if ( pItem->m_bLink )
 			{
-				pDC->SetTextColor( CoolInterface.m_crTextLink );
+				pDC->SetTextColor( Colors.m_crTextLink );
 				pDC->SelectObject( &CoolInterface.m_fntUnder );
 			}
 			else

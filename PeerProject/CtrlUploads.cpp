@@ -23,6 +23,7 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "Transfers.h"
+#include "CtrlUploads.h"
 #include "UploadQueues.h"
 #include "UploadQueue.h"
 #include "UploadFiles.h"
@@ -32,8 +33,8 @@
 #include "CoolInterface.h"
 #include "ShellIcons.h"
 #include "FragmentBar.h"
+#include "Colors.h"
 #include "Skin.h"
-#include "CtrlUploads.h"
 #include "Flags.h"
 
 #include "Downloads.h"
@@ -574,17 +575,13 @@ POSITION CUploadsCtrl::GetFileIterator(CUploadQueue* pQueue)
 		if ( Settings.Uploads.FilterMask & ULF_ACTIVE )
 		{
 			if ( pQueue->m_pActive.GetCount() > 0 )
-			{
 				return pQueue->m_pActive.GetHeadPosition();
-			}
 		}
 
 		if ( Settings.Uploads.FilterMask & ULF_QUEUED )
 		{
 			if ( pQueue->m_pQueued.GetCount() > 0 )
-			{
 				return (POSITION)1;
-			}
 		}
 
 		return NULL;
@@ -649,9 +646,7 @@ CUploadFile* CUploadsCtrl::GetNextFile(CUploadQueue* pQueue, POSITION& pos, int*
 			if ( Settings.Uploads.FilterMask & ULF_QUEUED )
 			{
 				if ( pQueue->m_pQueued.GetCount() > 0 )
-				{
 					pos = (POSITION)1;
-				}
 			}
 		}
 
@@ -816,24 +811,24 @@ void CUploadsCtrl::OnPaint()
 
 	rcClient.top = rcItem.top;
 	if ( rcClient.top < rcClient.bottom )
-		dc.FillSolidRect( &rcClient, CoolInterface.m_crWindow );
+		dc.FillSolidRect( &rcClient, Colors.m_crWindow );
 }
 
 void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue, BOOL bFocus)
 {
 	ASSUME_LOCK( UploadQueues.m_pSection );
 
-	COLORREF crNatural	= CoolInterface.m_crWindow;
-	COLORREF crBack		= pQueue->m_bSelected ? CoolInterface.m_crHighlight : crNatural;
+	COLORREF crNatural	= Colors.m_crWindow;
+	COLORREF crBack		= pQueue->m_bSelected ? Colors.m_crHighlight : crNatural;
 	COLORREF crLeftAligned = crBack ;
 
 	dc.SetBkColor( crBack );
 	dc.SetBkMode( OPAQUE );
 
 	if ( pQueue->m_bSelected )
-		dc.SetTextColor( CoolInterface.m_crHiText );
+		dc.SetTextColor( Colors.m_crHiText );
 	else
-		dc.SetTextColor( CoolInterface.m_crText );
+		dc.SetTextColor( Colors.m_crText );
 
 	int nTextLeft = rcRow.right, nTextRight = rcRow.left;
 	HDITEM pColumn = {};
@@ -966,27 +961,27 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 	if ( bFocus )
 	{
 		CRect rcFocus( nTextLeft, rcRow.top, max( rcRow.right, nTextRight ), rcRow.bottom );
-		dc.Draw3dRect( &rcFocus, CoolInterface.m_crHiBorder, CoolInterface.m_crHiBorder );
+		dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
 	}
 }
 
 void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue*/, CUploadFile* pFile, int nPosition, BOOL bFocus)
 {
 	CUploadTransfer* pTransfer = pFile->GetActive();
-	COLORREF crNatural		= CoolInterface.m_crWindow;
-	COLORREF crBack			= pFile->m_bSelected ? CoolInterface.m_crHighlight : crNatural;
+	COLORREF crNatural		= Colors.m_crWindow;
+	COLORREF crBack			= pFile->m_bSelected ? Colors.m_crHighlight : crNatural;
 	COLORREF crLeftAligned	= crBack;
-	COLORREF crBorder		= pFile->m_bSelected ? CoolInterface.m_crFragmentBorderSelected : CoolInterface.m_crFragmentBorder;
+	COLORREF crBorder		= pFile->m_bSelected ? Colors.m_crFragmentBorderSelected : Colors.m_crFragmentBorder;
 
 	dc.SetBkColor( crBack );
 	dc.SetBkMode( OPAQUE );
 
 	if ( pFile->m_bSelected )
-		dc.SetTextColor( CoolInterface.m_crHiText );
+		dc.SetTextColor( Colors.m_crHiText );
 	else if ( pTransfer == NULL || pTransfer->m_nState == upsNull )
-		dc.SetTextColor( CoolInterface.m_crDisabled );
+		dc.SetTextColor( Colors.m_crDisabled );
 	else
-		dc.SetTextColor( CoolInterface.m_crText );
+		dc.SetTextColor( Colors.m_crText );
 
 	int nTextLeft = rcRow.right, nTextRight = rcRow.left;
 	HDITEM pColumn = {};
@@ -1152,7 +1147,7 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 	if ( bFocus )
 	{
 		CRect rcFocus( nTextLeft, rcRow.top, max( rcRow.right, nTextRight ), rcRow.bottom );
-		dc.Draw3dRect( &rcFocus, CoolInterface.m_crHiBorder, CoolInterface.m_crHiBorder );
+		dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
 	}
 }
 
@@ -1379,9 +1374,7 @@ void CUploadsCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 			if ( pFile != NULL && pFile->m_bSelected )
 			{
 				if ( ( nFlags & ( MK_SHIFT | MK_CONTROL | MK_RBUTTON ) ) == 0 )
-				{
 					m_pDeselect = pFile;
-				}
 			}
 			else if ( nFlags & MK_RBUTTON )
 			{

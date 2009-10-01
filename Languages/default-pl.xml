@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r36 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r38 (Shareaza 2.1.2.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -408,15 +408,14 @@
 
 <!-- Menu Definitions -->
 <menus>
-	<!-- SIMPLE POPUP MENU -->
-	<menu name="Simple">
+	<!-- TAB BAR POPUP MENUS -->
+	<menu name="CTabBar">
 		<item id="ID_MOVETAB_LEFT" text="Przesuń w lewo"/>
 		<item id="ID_MOVETAB_RIGHT" text="Przenieś w prawo"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
-	<!-- CHILD POPUP MENU -->
-	<menu name="Child">
+	<menu name="CTabBar.Child">
 		<item id="ID_MOVETAB_LEFT" text="Przesuń w lewo"/>
 		<item id="ID_MOVETAB_RIGHT" text="Przenieś w prawo"/>
 		<separator/>
@@ -919,9 +918,9 @@
 	</menu>
 	<menu name="CDownloadsWnd.Download">
 		<item id="ID_DOWNLOADS_LAUNCH" text="Podgląd"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<!-- <item id="ID_DOWNLOADS_LAUNCH_COPY" text="Preview Copy"/> -->
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Preview Copy"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Dodaj do listy odtwarzania"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Pokaż recenzje"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="Wznów"/>
@@ -937,10 +936,12 @@
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="Dodaj źródło..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Okno monitora"/>
+			<item id="ID_DOWNLOADS_BOOST" text="Ignoruj limit szerokości pasma"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MOVE_UP" text="Przenieś w górę"/>
 			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Przenieś w dół"/>
-			<item id="ID_DOWNLOADS_BOOST" text="Ignoruj limit szerokości pasma"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Przenieś w górę!"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Przenieś w dół!"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="Pomoc..."/>
 		<separator/>

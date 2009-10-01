@@ -53,10 +53,12 @@ protected:
     void		DeselectAll(CDownload* pExcept1 = NULL, CDownloadSource* pExcept2 = NULL);
 	void		SelectAll(CDownload* pExcept1 = NULL, CDownloadSource* pExcept2 = NULL);
 	int			GetSelectedCount();
+	void		MoveSelected(int nDelta);
+	void		MoveToTop();
+	void		MoveToEnd();
 	BOOL		HitTest(const CPoint& point, CDownload** ppDownload, CDownloadSource** ppSource, int* pnIndex, RECT* prcItem);
 	BOOL		GetAt(int nSelect, CDownload** ppDownload, CDownloadSource** ppSource);
 	BOOL		GetRect(CDownload* pSelect, RECT* prcItem);
-	void		MoveSelected(int nDelta);
 	CString		GetDownloadStatus(CDownload *pDownload);
 	int			GetClientStatus(CDownload *pDownload);
 	void		PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDownload, BOOL bFocus, BOOL bDrop);

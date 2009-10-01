@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include "resource.h"
+#include "Resource.h"
 #include "ZIPBuilder.h"
 
 class ATL_NO_VTABLE CZIPBuilder :

@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
 #include "Transfers.h"
@@ -277,7 +278,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	DrawRule( pDC, &pt );
 
 	ImageList_DrawEx( ShellIcons.GetHandle( 32 ), m_nIcon, pDC->GetSafeHdc(),
-		pt.x, pt.y, 32, 32, CoolInterface.m_crTipBack, CLR_NONE, ILD_NORMAL );
+		pt.x, pt.y, 32, 32, Colors.m_crTipBack, CLR_NONE, ILD_NORMAL );
 	pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 32, pt.y + 32 );
 
 	pt.y += 2;
@@ -487,7 +488,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	if ( m_bDrawGraph )
 	{	// Don't draw empty graph.
 		CRect rc( pt.x, pt.y, m_sz.cx, pt.y + 40 );
-		pDC->Draw3dRect( &rc, CoolInterface.m_crTipBorder, CoolInterface.m_crTipBorder );
+		pDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 		rc.DeflateRect( 1, 1 );
 		m_pGraph->BufferedPaint( pDC, &rc );
 		rc.InflateRect( 1, 1 );
@@ -740,7 +741,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 	if ( nFlagIndex >= 0 )
 	{
 		ImageList_DrawEx( Flags.m_pImage, nFlagIndex, pDC->GetSafeHdc(),
-			pt.x, pt.y, 16, 16, CoolInterface.m_crTipBack, CLR_NONE, ILD_NORMAL );
+			pt.x, pt.y, 16, 16, Colors.m_crTipBack, CLR_NONE, ILD_NORMAL );
 		pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 	}
 
@@ -813,7 +814,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 	pt.y += TIP_GAP;
 
 	CRect rc( pt.x, pt.y, m_sz.cx, pt.y + 40 );
-	pDC->Draw3dRect( &rc, CoolInterface.m_crTipBorder, CoolInterface.m_crTipBorder );
+	pDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rc.DeflateRect( 1, 1 );
 	m_pGraph->BufferedPaint( pDC, &rc );
 	rc.InflateRect( 1, 1 );
@@ -840,10 +841,10 @@ void CDownloadTipCtrl::DrawProgressBar(CDC* pDC, CPoint* pPoint, CDownload* pDow
 	CRect rcCell( pPoint->x, pPoint->y, m_sz.cx, pPoint->y + TIP_TEXTHEIGHT );
 	pPoint->y += TIP_TEXTHEIGHT;
 
-	pDC->Draw3dRect( &rcCell, CoolInterface.m_crTipBorder, CoolInterface.m_crTipBorder );
+	pDC->Draw3dRect( &rcCell, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rcCell.DeflateRect( 1, 1 );
 
-	CFragmentBar::DrawDownload( pDC, &rcCell, pDownload, CoolInterface.m_crTipBack );
+	CFragmentBar::DrawDownload( pDC, &rcCell, pDownload, Colors.m_crTipBack );
 
 	rcCell.InflateRect( 1, 1 );
 	pDC->ExcludeClipRect( &rcCell );
@@ -854,10 +855,10 @@ void CDownloadTipCtrl::DrawProgressBar(CDC* pDC, CPoint* pPoint, CDownloadSource
 	CRect rcCell( pPoint->x, pPoint->y, m_sz.cx, pPoint->y + TIP_TEXTHEIGHT );
 	pPoint->y += TIP_TEXTHEIGHT;
 
-	pDC->Draw3dRect( &rcCell, CoolInterface.m_crTipBorder, CoolInterface.m_crTipBorder );
+	pDC->Draw3dRect( &rcCell, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rcCell.DeflateRect( 1, 1 );
 
-	CFragmentBar::DrawSource( pDC, &rcCell, pSource, CoolInterface.m_crTransferRanges );
+	CFragmentBar::DrawSource( pDC, &rcCell, pSource, Colors.m_crTransferRanges );
 
 	rcCell.InflateRect( 1, 1 );
 	pDC->ExcludeClipRect( &rcCell );

@@ -33,6 +33,7 @@ IMPLEMENT_DYNCREATE(CCommentPage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CCommentPage, CWizardPage)
 	//{{AFX_MSG_MAP(CCommentPage)
+	ON_WM_XBUTTONDOWN()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -81,4 +82,12 @@ LRESULT CCommentPage::OnWizardBack()
 LRESULT CCommentPage::OnWizardNext() 
 {
 	return IDD_OUTPUT_PAGE;
+}
+
+void CCommentPage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetSheet()->PressButton( PSBTN_BACK );
+	else if ( nButton == 2 )
+		GetSheet()->PressButton( PSBTN_NEXT );
 }

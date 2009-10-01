@@ -24,6 +24,7 @@
 #include "Settings.h"
 #include "WndPanel.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 #include "Skin.h"
 #include "SkinWindow.h"
 
@@ -199,9 +200,7 @@ void CPanelWnd::PaintCaption(CDC& dc)
 	CDC* pBuffer = CoolInterface.GetBuffer( dc, size );
 
 	if ( ! CoolInterface.DrawWatermark( pBuffer, &rc, &Skin.m_bmPanelMark, 0, 0 ) )
-	{
-		pBuffer->FillSolidRect( &rc, Skin.m_crPanelBack );
-	}
+		pBuffer->FillSolidRect( &rc, Colors.m_crPanelBack );
 
 	int nIconY = rc.Height() / 2 - 8;
 	DrawIconEx( pBuffer->GetSafeHdc(), 4, nIconY,
@@ -212,9 +211,9 @@ void CPanelWnd::PaintCaption(CDC& dc)
 
 	pBuffer->SetBkMode( TRANSPARENT );
 
-	if ( Skin.m_crPanelBorder != CLR_NONE )
+	if ( Colors.m_crPanelBorder != CLR_NONE )
 	{
-		pBuffer->SetTextColor( Skin.m_crPanelBorder );
+		pBuffer->SetTextColor( Colors.m_crPanelBorder );
 		pBuffer->ExtTextOut( 8 + 16 - 1, rc.Height() / 2 - szCaption.cy / 2 - 1,
 			ETO_CLIPPED, &rc, strCaption, NULL );
 		pBuffer->ExtTextOut( 8 + 16 + 1, rc.Height() / 2 - szCaption.cy / 2 - 1,
@@ -225,7 +224,7 @@ void CPanelWnd::PaintCaption(CDC& dc)
 			ETO_CLIPPED, &rc, strCaption, NULL );
 	}
 
-	pBuffer->SetTextColor( Skin.m_crPanelText );
+	pBuffer->SetTextColor( Colors.m_crPanelText );
 	pBuffer->ExtTextOut( 8 + 16, rc.Height() / 2 - szCaption.cy / 2 - 1,
 		ETO_CLIPPED, &rc, strCaption, NULL );
 

@@ -61,8 +61,7 @@ void CPlugins::Register()
 		CString sDllPath = finder.GetFilePath().MakeLower();
 
 		if ( sDllPath.Find( _T("WebHook.dll") ) != -1 )
-			// Skip WebHook Integration
-			continue;
+			continue;	// Skip WebHook Integration
 
 		if ( HINSTANCE hDll = LoadLibrary( sDllPath ) )
 		{
@@ -79,9 +78,7 @@ void CPlugins::Register()
 				HRESULT (WINAPI *pfnDllRegisterServer)(void);
 				(FARPROC&)pfnDllRegisterServer = GetProcAddress( hDll, "DllRegisterServer" );
 				if ( pfnDllRegisterServer )
-				{
 					hr = pfnDllRegisterServer();
-				}
 			}
 
 			if ( hr == S_OK )
@@ -115,9 +112,7 @@ void CPlugins::Register()
 				HRESULT (WINAPI *pfnDllRegisterServer)(void);
 				(FARPROC&)pfnDllRegisterServer = GetProcAddress( hDll, "DllRegisterServer" );
 				if ( pfnDllRegisterServer )
-				{
 					hr = pfnDllRegisterServer();
-				}
 			}
 
 			if ( hr == S_OK )
