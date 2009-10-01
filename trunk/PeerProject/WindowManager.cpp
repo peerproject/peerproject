@@ -23,8 +23,9 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "WindowManager.h"
-#include "Skin.h"
 #include "CtrlWndTabBar.h"
+#include "Colors.h"
+#include "Skin.h"
 
 #include "WndHome.h"
 #include "WndSystem.h"
@@ -632,7 +633,7 @@ BOOL CWindowManager::OnEraseBkgnd(CDC* pDC)
 {
 	CRect rc;
 	GetClientRect( &rc );
-	pDC->FillSolidRect( &rc, Skin.m_crPanelBack );
+	pDC->FillSolidRect( &rc, Colors.m_crPanelBack );
 
 	return TRUE;
 }

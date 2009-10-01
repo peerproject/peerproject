@@ -47,6 +47,7 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 
+	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 };
 
 #endif // !defined(AFX_WIZARDWELCOMEPAGE_H__BCED7BDA_0D4D_4CF2_835A_55F0A6CF0AC8__INCLUDED_)

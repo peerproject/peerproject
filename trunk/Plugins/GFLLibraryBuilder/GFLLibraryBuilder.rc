@@ -81,12 +81,12 @@ BEGIN
     BEGIN
         BLOCK "000004b0"
         BEGIN
-            VALUE "Comments", "GFL Library Builder Plugin"
+            VALUE "Comments", "Extract matadata from images."
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "GFL Library Builder Plugin"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "GFLLibraryBuilder"
-            VALUE "LegalCopyright", "Copyright © Nikolay Raspopov, 2005-2007."
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
             VALUE "OriginalFilename", "GFLLibraryBuilder.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"
@@ -104,8 +104,19 @@ END
 // REGISTRY
 //
 
-IDR_GFLLIBRARYBUILDER   REGISTRY                "GFLLibraryBuilder.rgs"
-IDR_BUILDER             REGISTRY                "Builder.rgs"
+IDR_GFLLIBRARYBUILDER	REGISTRY		"GFLLibraryBuilder.rgs"
+IDR_BUILDER		REGISTRY		"Builder.rgs"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icons
+//
+// Icon with lowest ID value placed first to ensure
+// application icon remains consistent on all systems.
+
+//IDI_ICON		ICON			"Icon.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -114,7 +125,7 @@ IDR_BUILDER             REGISTRY                "Builder.rgs"
 
 STRINGTABLE
 BEGIN
-    IDS_PROJNAME            "GFLLibraryBuilder"
+    IDS_PROJNAME	"GFLLibraryBuilder"
 END
 
 #endif    // Neutral resources

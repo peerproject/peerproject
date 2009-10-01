@@ -69,12 +69,12 @@ BEGIN
     BEGIN
         BLOCK "00000000"
         BEGIN
-            VALUE "Comments", "PeerProject RatDVD Reader Plugin"
+            VALUE "Comments", "Extract metadata & previews from RatDVD files."
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "PeerProject RatDVD Reader Plugin"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "RatDVDReader"
-            VALUE "LegalCopyright", "Copyright © PeerProject Development Team, 2006-2007. All rights reserved."
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
             VALUE "OriginalFilename", "RatDVDReader.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"
@@ -92,17 +92,17 @@ END
 // REGISTRY
 //
 
-IDR_RATDVDREADER        REGISTRY                "RatDVDReader.rgs"
-IDR_RATDVDPLUGIN        REGISTRY                "RatDVDPlugin.rgs"
+IDR_RATDVDREADER	REGISTRY		"RatDVDReader.rgs"
+IDR_RATDVDPLUGIN	REGISTRY		"RatDVDPlugin.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Icon
 //
-
 // Icon with lowest ID value placed first to ensure
 // application icon remains consistent on all systems.
-IDI_ICON                ICON                    "RatDVD.ico"
+
+IDI_ICON		ICON			"RatDVD.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -111,7 +111,7 @@ IDI_ICON                ICON                    "RatDVD.ico"
 
 STRINGTABLE
 BEGIN
-    IDS_PROJNAME        "RatDVDReader"
+    IDS_PROJNAME	"RatDVDReader"
 END
 
 #endif    // Neutral resources

@@ -30,6 +30,7 @@
 #include "SchemaCache.h"
 #include "Library.h"
 
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "ImageServices.h"
 #include "ImageFile.h"
@@ -255,9 +256,9 @@ void CSearchDetailPanel::OnPaint()
 	GetClientRect( &rcClient );
 
 	CFont* pOldFont = dc.GetCurrentFont();
-	dc.SetBkColor( CoolInterface.m_crWindow );
+	dc.SetBkColor( Colors.m_crWindow );
 	dc.SetBkMode( OPAQUE );
-	dc.SetTextColor( CoolInterface.m_crText );
+	dc.SetTextColor( Colors.m_crText );
 
 	if ( ! m_bValid )
 	{
@@ -290,8 +291,8 @@ void CSearchDetailPanel::OnPaint()
 
 	dc.SetViewportOrg( 0, -GetScrollPos( SB_VERT ) );
 
-	dc.SetBkColor( CoolInterface.m_crWindow );
-	dc.SetTextColor( CoolInterface.m_crText );
+	dc.SetBkColor( Colors.m_crWindow );
+	dc.SetTextColor( Colors.m_crText );
 
 	CPoint ptStar( rcWork.right - 3, rcWork.top - 2 );
 
@@ -300,14 +301,14 @@ void CSearchDetailPanel::OnPaint()
 		for ( int nRating = m_nRating - 1 ; nRating ; nRating-- )
 		{
 			ptStar.x -= 16;
-			CoolInterface.Draw( &dc, IDI_STAR, 16, ptStar.x, ptStar.y, CoolInterface.m_crWindow );
+			CoolInterface.Draw( &dc, IDI_STAR, 16, ptStar.x, ptStar.y, Colors.m_crWindow );
 			dc.ExcludeClipRect( ptStar.x, ptStar.y, ptStar.x + 16, ptStar.y + 16 );
 		}
 	}
 	else if ( m_nRating == 1 )
 	{
 		ptStar.x -= 16;
-		CoolInterface.Draw( &dc, IDI_FAKE, 16, ptStar.x, ptStar.y, CoolInterface.m_crWindow );
+		CoolInterface.Draw( &dc, IDI_FAKE, 16, ptStar.x, ptStar.y, Colors.m_crWindow );
 		dc.ExcludeClipRect( ptStar.x, ptStar.y, ptStar.x + 16, ptStar.y + 16 );
 	}
 
@@ -317,9 +318,9 @@ void CSearchDetailPanel::OnPaint()
 
 	rcWork.top += 20;
 
-	dc.FillSolidRect( rcWork.left, rcWork.top, rcWork.Width(), 1, CoolInterface.m_crMargin );
+	dc.FillSolidRect( rcWork.left, rcWork.top, rcWork.Width(), 1, Colors.m_crMargin );
 	dc.ExcludeClipRect( rcWork.left, rcWork.top, rcWork.right, rcWork.top + 1 );
-	dc.SetBkColor( CoolInterface.m_crWindow );
+	dc.SetBkColor( Colors.m_crWindow );
 	rcWork.top += 4;
 
 	dc.SelectObject( &CoolInterface.m_fntNormal );
@@ -342,7 +343,7 @@ void CSearchDetailPanel::OnPaint()
 	if ( m_pReviews.GetCount() )
 	{
 		dc.SelectObject( &CoolInterface.m_fntUnder );
-		dc.SetTextColor( CoolInterface.m_crTextLink );
+		dc.SetTextColor( Colors.m_crTextLink );
 		CSize sz = dc.GetTextExtent( m_sStatus );	
 		CString sReviews;
 		LoadString( sReviews, m_pReviews.GetCount() == 1 ?
@@ -356,7 +357,7 @@ void CSearchDetailPanel::OnPaint()
 
 	dc.SetViewportOrg( 0, 0 );
 	dc.SelectObject( &CoolInterface.m_fntCaption );
-	dc.SetBkColor( CoolInterface.m_crWindow );
+	dc.SetBkColor( Colors.m_crWindow );
 	dc.SetTextColor( 0 );
 
 	for ( POSITION pos = m_pReviews.GetHeadPosition() ; pos ; )
@@ -366,7 +367,7 @@ void CSearchDetailPanel::OnPaint()
 	}
 
 	dc.SelectObject( pOldFont );
-	dc.FillSolidRect( &rcClient, CoolInterface.m_crWindow );
+	dc.FillSolidRect( &rcClient, Colors.m_crWindow );
 }
 
 void CSearchDetailPanel::DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, RECT* pRect, int nMaxWidth)
@@ -506,7 +507,7 @@ void Review::Paint(CDC* pDC, int nScroll)
 	CRect rc( &m_rc );
 	rc.OffsetRect( 0, -nScroll );
 
-	pDC->FillSolidRect( rc.left, rc.top, rc.Width(), 1, CoolInterface.m_crMargin );
+	pDC->FillSolidRect( rc.left, rc.top, rc.Width(), 1, Colors.m_crMargin );
 	pDC->ExcludeClipRect( rc.left, rc.top, rc.right, rc.top + 1 );
 	rc.top += 4;
 
@@ -515,7 +516,7 @@ void Review::Paint(CDC* pDC, int nScroll)
 	LoadString( strFormat, m_pComments.GetCount() > 0 ? IDS_SEARCH_DETAILS_WRITES : IDS_SEARCH_DETAILS_RATES );
 	strCaption.Format( strFormat, (LPCTSTR)m_sNick );
 
-	pDC->SetBkColor( CoolInterface.m_crWindow );
+	pDC->SetBkColor( Colors.m_crWindow );
 	CSearchDetailPanel::DrawText( pDC, rc.left, rc.top, strCaption );
 
 	CPoint ptStar( rc.right - 3, rc.top );
@@ -525,14 +526,14 @@ void Review::Paint(CDC* pDC, int nScroll)
 		for ( int nRating = m_nRating - 1 ; nRating ; nRating-- )
 		{
 			ptStar.x -= 16;
-			CoolInterface.Draw( pDC, IDI_STAR, 16, ptStar.x, ptStar.y, CoolInterface.m_crWindow );
+			CoolInterface.Draw( pDC, IDI_STAR, 16, ptStar.x, ptStar.y, Colors.m_crWindow );
 			pDC->ExcludeClipRect( ptStar.x, ptStar.y, ptStar.x + 16, ptStar.y + 16 );
 		}
 	}
 	else if ( m_nRating == 1 )
 	{
 		ptStar.x -= 16;
-		CoolInterface.Draw( pDC, IDI_FAKE, 16, ptStar.x, ptStar.y, CoolInterface.m_crWindow );
+		CoolInterface.Draw( pDC, IDI_FAKE, 16, ptStar.x, ptStar.y, Colors.m_crWindow );
 		pDC->ExcludeClipRect( ptStar.x, ptStar.y, ptStar.x + 16, ptStar.y + 16 );
 	}
 

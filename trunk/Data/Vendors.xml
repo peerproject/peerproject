@@ -8,6 +8,10 @@
 		<capability name="htmlHostBrowse"/>
 		<capability name="chatFlag"/>
 		<capability name="extended"/>
+		<capability name="g1"/>
+		<capability name="g2"/>
+		<capability name="ed2k"/>
+		<capability name="bt"/>
 	</vendor>
 
 	<vendor code="RAZA">
@@ -16,6 +20,10 @@
 		<capability name="htmlHostBrowse"/>
 		<capability name="chatFlag"/>
 		<capability name="extended"/>
+		<capability name="g1"/>
+		<capability name="g2"/>
+		<capability name="ed2k"/>
+		<capability name="bt"/>
 	</vendor>
 
 	<vendor code="RAZB">
@@ -24,14 +32,46 @@
 		<capability name="htmlHostBrowse"/>
 		<capability name="chatFlag"/>
 		<capability name="extended"/>
+		<capability name="g1"/>
+		<capability name="g2"/>
+		<capability name="ed2k"/>
+		<capability name="bt"/>
+	</vendor>
+
+	<vendor code="RZCA">
+		<title>ShareazaPlus Alpha</title>
+		<link>http://sourceforge.net/projects/ShareazaPlus/</link>
+		<capability name="htmlHostBrowse"/>
+		<capability name="chatFlag"/>
+		<capability name="extended"/>
+		<capability name="g1"/>
+		<capability name="g2"/>
+		<capability name="ed2k"/>
+		<capability name="bt"/>
 	</vendor>
 
 	<vendor code="RZCB">
+		<title>ShareazaPlus Beta</title>
+		<link>http://sourceforge.net/projects/ShareazaPlus/</link>
+		<capability name="htmlHostBrowse"/>
+		<capability name="chatFlag"/>
+		<capability name="extended"/>
+		<capability name="g1"/>
+		<capability name="g2"/>
+		<capability name="ed2k"/>
+		<capability name="bt"/>
+	</vendor>
+
+	<vendor code="RZCC">
 		<title>ShareazaPlus</title>
 		<link>http://sourceforge.net/projects/ShareazaPlus/</link>
 		<capability name="htmlHostBrowse"/>
 		<capability name="chatFlag"/>
 		<capability name="extended"/>
+		<capability name="g1"/>
+		<capability name="g2"/>
+		<capability name="ed2k"/>
+		<capability name="bt"/>
 	</vendor>
 
 	<vendor code="ACQL">
@@ -56,7 +96,7 @@
 
 	<vendor code="ARES">
 		<title>Ares</title>
-		<link>http://www.aresgalaxy.org/</link>
+		<link>http://aresgalaxy.sourceforge.net/</link>
 	</vendor>
 
 	<vendor code="ATOM">
@@ -69,6 +109,7 @@
 		<link>http://www.bearshare.com/</link>
 		<capability name="htmlHostBrowse"/>
 		<capability name="chatFlag"/>
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="CULT">
@@ -81,11 +122,14 @@
 		<link>http://emule-project.net/</link>
 		<capability name="edonkey2000"/>
 		<capability name="chatFlag"/>
+		<capability name="ed2k"/>
 	</vendor>
 
 	<vendor code="FOXY">
 		<title>Foxy</title>
 		<link>http://www.gofoxy.net/</link>
+		<capability name="g1"/>
+		<capability name="g2"/>
 	</vendor>
 
 	<vendor code="FUST">
@@ -96,11 +140,14 @@
 	<vendor code="GDNA">
 		<title>GnucDNA</title>
 		<link>http://www.gnucleus.com/GnucDNA/</link>
+		<capability name="g1"/>
+		<capability name="g2"/>
 	</vendor>
 
 	<vendor code="GIFT">
 		<title>giFT-Gnutella</title>
 		<link>http://gift.sourceforge.net/</link>
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="GNEW">
@@ -116,6 +163,7 @@
 	<vendor code="GNTD">
 		<title>Gtk-Gnutella</title>
 		<link>http://gtk-gnutella.sourceforge.net/</link>
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="GNTG">
@@ -126,6 +174,8 @@
 	<vendor code="GNUC">
 		<title>Gnucleus</title>
 		<link>http://www.gnucleus.com/Gnucleus/</link>
+		<capability name="g1"/>
+		<capability name="g2"/>
 	</vendor>
 
 	<vendor code="GNUT">
@@ -143,6 +193,7 @@
 		<title>Gtk-Gnutella</title>
 		<link>http://gtk-gnutella.sourceforge.net/</link>
 		<capability name="htmlHostBrowse"/>
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="HSLG">
@@ -166,11 +217,12 @@
 		<link>http://www.limewire.com/</link>
 		<capability name="htmlHostBrowse"/>
 		<capability name="chatFlag"/>
+		<capability name="g1"/>
+		<capability name="bt"/>
 	</vendor>
 
 	<vendor code="MACT">
 		<title>Mactella</title>
-		<link>http://www.cxc.com/</link>
 	</vendor>
 
 	<vendor code="MESH">
@@ -180,8 +232,10 @@
 
 	<vendor code="MLDK">
 		<title>MLdonkey</title>
-		<link>http://www.mldonkey.net/</link>
+		<link>http://mldonkey.sourceforge.net</link>
 		<capability name="chatFlag"/>
+		<capability name="ed2k"/>
+		<capability name="bt"/>
 	</vendor>
 
 	<vendor code="MMMM">
@@ -207,6 +261,7 @@
 	<vendor code="MUTE">
 		<title>Mutella</title>
 		<link>http://mutella.sourceforge.net/</link>
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="MXIE">
@@ -232,6 +287,7 @@
 	<vendor code="PHEX">
 		<title>Phex</title>
 		<link>http://phex.kouk.de/mambo/</link>
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="QTEL">
@@ -239,11 +295,19 @@
 		<link>http://qtella.sourceforge.net/</link>
 	</vendor>
 
+	<vendor code="SHLN">
+		<title>Sharelin</title>
+		<link>http://sharelin.sourceforge.net/</link>
+		<capability name="htmlHostBrowse"/>
+		<capability name="g2"/>
+	</vendor>
+
 	<vendor code="SNOW">
 		<title>FrostWire</title>
 		<link>http://www.frostwire.com/</link>
 		<capability name="htmlHostBrowse"/>
 		<capability name="chatFlag"/>
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="SNUT">
@@ -259,11 +323,6 @@
 	<vendor code="SWFT">
 		<title>SwiftPeer</title>
 		<link>http://www.swiftsoftwaregroup.com/</link>
-	</vendor>
-
-	<vendor code="TFLS">
-		<title>TrustyFiles</title>
-		<link>http://www.trustyfiles.com/</link>
 	</vendor>
 
 	<vendor code="TOAD">

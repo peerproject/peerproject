@@ -21,16 +21,17 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
+#include "CtrlBrowseHeader.h"
 #include "Settings.h"
 #include "GProfile.h"
 #include "Hostbrowser.h"
 #include "SchemaCache.h"
 #include "Schema.h"
-#include "Skin.h"
-#include "XML.h"
 #include "ShellIcons.h"
 #include "CoolInterface.h"
-#include "CtrlBrowseHeader.h"
+#include "Colors.h"
+#include "Skin.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -154,7 +155,7 @@ void CBrowseHeaderCtrl::OnSkinChange()
 	Skin.CreateToolBar( _T("CBrowseHeaderCtrl"), this );
 
 	if ( m_bmImage.m_hObject == NULL &&
-		 Skin.m_crBannerBack == RGB( 122, 161, 230 ) )
+		 Colors.m_crBannerBack == RGB( 122, 160, 230 ) )
 	{
 		m_bmImage.LoadBitmap( IDB_BANNER_MARK );
 	}
@@ -177,7 +178,7 @@ void CBrowseHeaderCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 	if ( ! CoolInterface.DrawWatermark( pDC, &rcClient, &m_bmImage ) )
 	{
 		pDC->FillSolidRect( rcClient.left, rcClient.top,
-			rcClient.Width(), rcClient.Height(), Skin.m_crBannerBack );
+			rcClient.Width(), rcClient.Height(), Colors.m_crBannerBack );
 	}
 
 	CRect rcBar;
@@ -204,7 +205,7 @@ void CBrowseHeaderCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 		ShellIcons.Draw( pDC, m_nIcon32, 32, ptIcon.x, ptIcon.y );
 	}
 
-	pDC->SetTextColor( Skin.m_crBannerText );
+	pDC->SetTextColor( Colors.m_crBannerText );
 	pDC->SetBkMode( TRANSPARENT );
 
 	CRect rcWork( &rcClient );

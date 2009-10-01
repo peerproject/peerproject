@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 #include "WndSettingsSheet.h"
 #include "WndSettingsPage.h"
 
@@ -391,16 +391,16 @@ void CSettingsSheet::DoPaint(CDC& dc)
 	rc.right	= rc.left + m_nListMargin;
 	rc.bottom	= rc.top  + m_szPages.cy + 1;
 
-	dc.FillSolidRect( rc.left, rc.top, 1, rc.Height(), CoolInterface.m_crResizebarEdge );
-	dc.FillSolidRect( rc.left + 1, rc.top, 1, rc.Height(), CoolInterface.m_crResizebarHighlight );
-	dc.FillSolidRect( rc.right - 1, rc.top, 1, rc.Height(), CoolInterface.m_crResizebarShadow );
-	dc.FillSolidRect( rc.left + 2, rc.top, rc.Width() - 3, rc.Height(), CoolInterface.m_crResizebarFace );
+	dc.FillSolidRect( rc.left, rc.top, 1, rc.Height(), Colors.m_crResizebarEdge );
+	dc.FillSolidRect( rc.left + 1, rc.top, 1, rc.Height(), Colors.m_crResizebarHighlight );
+	dc.FillSolidRect( rc.right - 1, rc.top, 1, rc.Height(), Colors.m_crResizebarShadow );
+	dc.FillSolidRect( rc.left + 2, rc.top, rc.Width() - 3, rc.Height(), Colors.m_crResizebarFace );
 
 	GetClientRect( &rc );
 	rc.top = rc.bottom - ( m_nButtonHeight + 16 );
 
-	dc.FillSolidRect( rc.left, rc.top, rc.Width(), 1, CoolInterface.m_crSysBtnFace );
-	dc.FillSolidRect( rc.left, rc.top + 1, rc.Width(), 1, CoolInterface.m_crSys3DHighlight );
+	dc.FillSolidRect( rc.left, rc.top, rc.Width(), 1, Colors.m_crSysBtnFace );
+	dc.FillSolidRect( rc.left, rc.top + 1, rc.Width(), 1, Colors.m_crSys3DHighlight );
 }
 
 void CSettingsSheet::OnOK()

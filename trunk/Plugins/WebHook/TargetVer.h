@@ -37,7 +37,7 @@
 #endif
 
 #ifndef _WIN32_WINDOWS			// Specifies that the minimum required platform is Windows 98.
-#define _WIN32_WINDOWS 0x0410	// Change this to the appropriate value to target Windows Me or later.
+#define _WIN32_WINDOWS 0x0500	// Change this to the appropriate value to target Windows Me or later.
 #endif
 
 #ifndef _WIN32_IE				// Specifies that the minimum required platform is Internet Explorer 7.0.

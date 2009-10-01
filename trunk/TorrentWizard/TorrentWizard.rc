@@ -127,21 +127,21 @@ IDB_WIZARD		BITMAP			"Res\\Wizard.bmp"
 
 STRINGTABLE
 BEGIN
-    IDS_WELCOME_NEED_TYPE   "You have not selected the type of Torrent file you want to create.  Please select from one of the two options."
-    IDS_SINGLE_NEED_FILE    "You have not selected a file to include in the Torrent.  Please click the Browse button and choose a file."
-    IDS_PACKAGE_NEED_FILES  "You have not selected any files to include in the Torrent.  Please click the Add Folder button to choose a folder of files to add."
-    IDS_PACKAGE_RECURSIVE   "This folder contains one or more sub-folders.  Should the wizard include all files recursively?"
+    IDS_WELCOME_NEED_TYPE   "You have not selected the type of Torrent file you want to create. \nPlease select one of the options."
+    IDS_SINGLE_NEED_FILE    "You have not selected a file to include in the Torrent. \nPlease choose a file with the Browse button, or simply Drag'n'Drop."
+    IDS_PACKAGE_NEED_FILES  "You have not selected any files to include in the Torrent. \nPlease click the Add Folder button or Drag'n'Drop specific files."
+    IDS_PACKAGE_RECURSIVE   "This folder contains one or more sub-folders. \nShould the wizard include all files recursively?"
+    IDS_OUTPUT_NEED_FILE    "You have not provided a name for the Torrent file. \nPlease type a name for the file before clicking Next."
+    IDS_OUTPUT_NEED_FOLDER  "You have not selected a folder to save the Torrent file to. \nPlease click the Browse button and select a folder, or choose one from the recently used list."
     IDS_TRACKER_NEED_URL    "You have not typed or selected a tracker URL.\n\nAlthough some BitTorrent software such as PeerProject can download torrents without a centralized tracker, other BitTorrent software depends on trackers to work properly.\n\nAre you sure you want to make a trackerless torrent?"
-    IDS_OUTPUT_NEED_FOLDER  "You have not selected a folder to save the Torrent file to.  Please click the Browse button and select a folder, or choose one from the recently used list."
-    IDS_OUTPUT_NEED_FILE    "You have not provided a name for the Torrent file.  Please type a name for the file before clicking Next."
-    IDS_OUTPUT_CREATE_FOLDER "The folder ""%s"" does not exist.  Would you like to create it?"
+    IDS_OUTPUT_EXTENSION    "The Torrent filename does not end with "".torrent"" \nAdd it automatically?"
+    IDS_OUTPUT_CREATE_FOLDER "The folder ""%s"" does not exist. \nWould you like to create it?"
     IDS_OUTPUT_CANT_CREATE_FOLDER "Unable to create folder ""%s""."
-    IDS_OUTPUT_REPLACE_FILE "The file ""%s"" exists.  Would you like to replace it?"
+    IDS_OUTPUT_REPLACE_FILE "The file ""%s"" exists. \nWould you like to replace it?"
     IDS_SINGLE_CANT_OPEN    "Unable to open ""%s""."
     IDS_PACKAGE_CANT_OPEN   "Unable to open ""%s""."
     IDS_BUILDER_CANT_OPEN   "Unable to open ""%s"" while building Torrent."
     IDS_BUILDER_CANT_SAVE   "Unable to save Torrent file ""%s""."
-    IDS_OUTPUT_EXTENSION    "The Torrent filename you selected does not end with "".torrent"".  Would you like to add it automatically?"
 END
 
 #endif    // English (United States) resources
@@ -161,39 +161,41 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT
 // Dialog
 //
 
-//IDD_EXPERT_PAGE DIALOGEX 0, 0, 320, 222
-//STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-//CAPTION "PeerProject Torrent Wizard"
-//FONT 8, "Tahoma", 0, 0, 0x0
-//BEGIN
-//  LTEXT           ".Torrent Name:",IDC_TITLE,18,24,300,10
-//  LTEXT           "Save Location:",IDC_STATIC,18,56,300,20
-//  LTEXT           "Tracker URL:",IDC_STATIC,18,88,300,10
-//  LTEXT           "Alternate URL:",IDC_STATIC,18,120,300,10
-//  LTEXT           "Comments:",IDC_STATIC,18,80,152,10
-//  EDITTEXT        IDC_FILE_NAME,118,18,360,12,ES_AUTOHSCROLL
-//  COMBOBOX        IDC_FOLDER,118,50,280,140,CBS_DROPDOWN|CBS_AUTOHSCROLL|CBS_SORT|WS_VSCROLL|WS_TABSTOP
-//  PUSHBUTTON      "&Browse...",IDC_ADD_FOLDER,400,48,70,15,WS_GROUP
-//  COMBOBOX        IDC_TRACKER,118,82,360,140,CBS_DROPDOWN|CBS_AUTOHSCROLL|CBS_SORT|WS_VSCROLL|WS_TABSTOP
-//  COMBOBOX        IDC_TRACKER2,118,124,360,140,CBS_DROPDOWN|CBS_AUTOHSCROLL|CBS_SORT|WS_VSCROLL|WS_TABSTOP
-//  EDITTEXT        IDC_COMMENT,118,156,360,12,ES_WANTRETURN|ES_TABSTOP
-//  PUSHBUTTON      "Add &Folder...",IDC_ADD_FOLDER,18,200,80,15,WS_GROUP
-//  PUSHBUTTON      "&Add File...",IDC_ADD_FILE,18,238,80,15
-//  PUSHBUTTON      "&Remove",IDC_REMOVE_FILE,18,276,80,15
-//  CONTROL         "List1",IDC_FILE_LIST,"SysListView32",LVS_REPORT|LVS_SHOWSELALWAYS|LVS_SORTASCENDING|LVS_SHAREIMAGELISTS|WS_BORDER|WS_GROUP|WS_TABSTOP, 118,175,190,80
-//END
+IDD_EXPERT_PAGE DIALOGEX 0, 0, 320, 222
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "PeerProject Torrent Wizard"
+FONT 8, "Tahoma", 0, 0, 0x0
+BEGIN
+    RTEXT           ".Torrent Name:",IDC_STATIC,7,12,60,10
+    RTEXT           "Save Location:",IDC_STATIC,7,32,60,20
+    RTEXT           "Tracker URL:",IDC_STATIC,7,52,60,10
+    RTEXT           "Alt Tracker URL:",IDC_STATIC,7,72,60,10
+    RTEXT           "Comments:",IDC_STATIC,7,91,60,10
+    EDITTEXT        IDC_TORRENT_NAME,78,11,240,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_FOLDER,78,30,192,140,CBS_DROPDOWN|CBS_AUTOHSCROLL|CBS_SORT|WS_VSCROLL|WS_TABSTOP
+    PUSHBUTTON      "&Browse...",IDC_BROWSE_FOLDER,272,29,46,15,WS_GROUP
+    COMBOBOX        IDC_TRACKER,78,50,240,140,CBS_DROPDOWN|CBS_AUTOHSCROLL|CBS_SORT|WS_VSCROLL|WS_TABSTOP
+    COMBOBOX        IDC_TRACKER2,78,70,240,140,CBS_DROPDOWN|CBS_AUTOHSCROLL|CBS_SORT|WS_VSCROLL|WS_TABSTOP
+    EDITTEXT        IDC_COMMENT,78,90,240,12,ES_AUTOHSCROLL //ES_WANTRETURN
+    CTEXT           "No Files.",IDC_FILECOUNT,2,116,76,10
+    PUSHBUTTON      "Add &Folder...",IDC_ADD_FOLDER,9,131,58,15,WS_GROUP
+    PUSHBUTTON      "&Add File...",IDC_ADD_FILE,9,152,58,15
+    PUSHBUTTON      "&Remove",IDC_REMOVE_FILE,9,173,58,15
+    CONTROL         "List",IDC_FILE_LIST,"SysListView32",LVS_REPORT|LVS_SHOWSELALWAYS|LVS_SORTASCENDING|LVS_SHAREIMAGELISTS|WS_BORDER|WS_GROUP|WS_TABSTOP,78,112,240,80
+END
 
 IDD_WELCOME_PAGE DIALOGEX 0, 0, 320, 222
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "PeerProject Torrent Wizard - Choose Torrent Type"
 FONT 8, "Tahoma", 0, 0, 0x0
 BEGIN
-    LTEXT           "Welcome to PeerProject's BitTorrent Creator",IDC_TITLE,15,15,300,10
+    LTEXT           "Welcome to PeerProject's BitTorrent Creator",IDC_TITLE,15,15,200,10
     LTEXT           "This tool will guide you through creating a .torrent file,\nthe small meta-file that defines a BitTorrent download.",IDC_STATIC,15,35,300,20
-    LTEXT           "What type of Torrent would you like to create?",IDC_STATIC,15,80,300,10
-    CONTROL         "Single File  (Preferred)",IDC_TYPE_SINGLE,"Button",BS_AUTORADIOBUTTON | WS_GROUP,35,105,280,10
-    CONTROL         "Multiple Files  (Standard Package)",IDC_TYPE_PACKAGE,"Button",BS_AUTORADIOBUTTON,35,125,280,10
-    LTEXT           "1/5 Click Next to choose which files to include in the Torrent.",IDC_STATIC,15,190,300,20
+    LTEXT           "What type of Torrent would you like to create?",IDC_STATIC,15,80,200,10
+    CONTROL         "Single File  (Preferred)",IDC_TYPE_SINGLE,"Button",BS_AUTORADIOBUTTON | WS_GROUP,38,100,140,10
+    CONTROL         "Multiple Files  (Standard Package)",IDC_TYPE_PACKAGE,"Button",BS_AUTORADIOBUTTON,38,120,140,10
+    CONTROL         "Expert Mode",IDC_EXPERT_MODE,"Button",BS_AUTORADIOBUTTON,38,155,100,10
+    LTEXT           "1/5 Click Next to choose which files to include in the Torrent.",IDC_STATIC,15,190,280,20
 END
 
 IDD_SINGLE_PAGE DIALOGEX 0, 0, 320, 222
@@ -360,7 +362,7 @@ END
 #ifdef APSTUDIO_INVOKED
 GUIDELINES DESIGNINFO
 BEGIN
-    IDD_WELCOME_PAGE, DIALOG
+    IDD_EXPERT_PAGE, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 315

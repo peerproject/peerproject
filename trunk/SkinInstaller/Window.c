@@ -42,7 +42,7 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 				EnableWindow(GetDlgItem(hwndDlg, IDC_INSTALL), FALSE);
 			}
 			else if (skinType==1) {
-				SetWindowText(hwndDlg, SKIN_LANG_TITLE);
+				SetWindowText(hwndDlg, SKIN_ADDON_TITLE);
 				SetWindowText(GetDlgItem(hwndDlg, IDC_CONFIG), L"Configure &Language...");
 			}
 			else {
@@ -59,8 +59,8 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 			}
 			if (szPath) {
 				TCHAR buf[256], tbuf[256];
-				_snwprintf(buf, sizeof(buf), L"%s %s", skinType? szName : szPath, szVersion?szVersion:L"");
-				_snwprintf(tbuf, sizeof(tbuf), L"%s - %s", buf, skinType? SKIN_LANG_TITLE : SKIN_SKIN_TITLE);
+				_snwprintf(buf, sizeof(buf), L"%s %s", szName, szVersion?szVersion:L"");
+				_snwprintf(tbuf, sizeof(tbuf), L"%s - %s", szName, skinType? SKIN_ADDON_TITLE : SKIN_SKIN_TITLE);
 				SetDlgItemText(hwndDlg, IDC_NAME, buf);
 				SetWindowText(hwndDlg, tbuf);
 			}
@@ -72,12 +72,23 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 			if ( szUpdates && wcscmp( szAuthor, szUpdates ) != 0 ) {
 				TCHAR updbuf[256], buf[256];
 				if (szAuthor) {
-					_snwprintf(updbuf, sizeof(updbuf), L"; Updated by %s", szUpdates);
+					_snwprintf(updbuf, sizeof(updbuf), L",  Updated by %s", szUpdates);
 					GetDlgItemText(hwndDlg, IDC_AUTH, buf, 256 );
 					wcsncat( buf, updbuf, 256 - wcslen(buf) );
 				}
 				else
 					_snwprintf(buf, sizeof(buf), L"Updated by %s", szUpdates);
+				SetDlgItemText(hwndDlg, IDC_AUTH, buf);
+			}
+			if (szPath) {
+				TCHAR updbuf[256], buf[256];
+				if (szAuthor) {
+					_snwprintf(updbuf, sizeof(updbuf), L"        (%s Folder)", szPath);
+					GetDlgItemText(hwndDlg, IDC_AUTH, buf, 256 );
+					wcsncat( buf, updbuf, 256 - wcslen(buf) );
+				}
+				else
+					_snwprintf(buf, sizeof(buf), L"(%s Folder)", szPath);
 				SetDlgItemText(hwndDlg, IDC_AUTH, buf);
 			}
 			SetWindowLongPtr( GetDlgItem(hwndDlg,IDC_WHITERECT), GWL_STYLE, WS_VISIBLE|WS_CHILD|SS_LEFT|SS_OWNERDRAW );

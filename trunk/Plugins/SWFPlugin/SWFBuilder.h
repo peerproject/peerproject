@@ -2,7 +2,7 @@
 // SWFBuilder.h : Declaration of the CSWFBuilder
 //
 // This file is part of PeerProject (peerproject.org) © 2008
-// Copyright (c) Nikolay Raspopov, 2005.
+// Portions copyright (c) Nikolay Raspopov, 2005.
 //
 // GFL Library, GFL SDK and XnView
 // Copyright (c) 1991-2004 Pierre-E Gougelet
@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "resource.h"
+#include "Resource.h"
 #include "SWFPlugin.h"
 
 class ATL_NO_VTABLE CSWFBuilder : 

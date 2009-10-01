@@ -69,7 +69,7 @@ BEGIN
     BEGIN
         BLOCK "0c0904b0"
         BEGIN
-            VALUE "Comments", "PeerProject Image Viewer Plugin"
+            VALUE "Comments", "Internal Image Viewing Support."
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "PeerProject Image Viewer Plugin"
             VALUE "FileVersion", "1, 0, 0, 0"
@@ -92,7 +92,7 @@ END
 // REGISTRY
 //
 
-IDR_IMAGEVIEWER         REGISTRY                "ImageViewer.rgs"
+IDR_IMAGEVIEWER		REGISTRY		"ImageViewer.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -101,28 +101,28 @@ IDR_IMAGEVIEWER         REGISTRY                "ImageViewer.rgs"
 // Icon with lowest ID value placed first to ensure
 // application icon remains consistent on all systems.
 
-IDI_IMAGE               ICON                    "Image.ico"
+IDI_IMAGE			ICON			"Image.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Cursor
 //
 
-IDC_GRABMOVE            CURSOR                  "GrabMove.cur"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// HTML
-//
-
-IDR_SKIN                HTML                    "Skin.xml"
+IDC_GRABMOVE		CURSOR			"GrabMove.cur"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Bitmap
 //
 
-IDB_COMMANDS            BITMAP                  "Commands.bmp"
+IDB_COMMANDS		BITMAP			"Commands.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// HTML
+//
+
+IDR_SKIN		HTML			"Skin.xml"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -131,13 +131,12 @@ IDB_COMMANDS            BITMAP                  "Commands.bmp"
 
 STRINGTABLE 
 BEGIN
-    IDS_PROJNAME            "ImageViewer"
-    IDS_ABOUT               "PeerProject Image Viewer Plugin\n© 2002-2008 PeerProject Development Team"
+    IDS_PROJNAME	"ImageViewer"
+    IDS_ABOUT		"PeerProject Image Viewer Plugin\n© PeerProject Development Team, 2008\n(Portions © Michael Stokes, 2002) "
 END
 
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
-
 
 
 #ifndef APSTUDIO_INVOKED
@@ -149,4 +148,3 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
-

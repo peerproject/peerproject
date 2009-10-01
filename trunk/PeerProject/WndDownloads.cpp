@@ -40,6 +40,7 @@
 #include "PeerProjectURL.h"
 #include "ChatWindows.h"
 
+#include "Skin.h"
 #include "WindowManager.h"
 #include "WndDownloads.h"
 #include "WndUploads.h"
@@ -54,7 +55,6 @@
 #include "DlgURLExport.h"
 #include "DlgHelp.h"
 #include "Network.h"
-#include "Skin.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -125,10 +125,14 @@ BEGIN_MESSAGE_MAP(CDownloadsWnd, CPanelWnd)
 	ON_COMMAND(ID_DOWNLOADS_FILE_DELETE, OnDownloadsFileDelete)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_RATE, OnUpdateDownloadsRate)
 	ON_COMMAND(ID_DOWNLOADS_RATE, OnDownloadsRate)
-	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_MOVE_UP, OnUpdateDownloadsMoveUp)
+	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_MOVE_UP, OnUpdateDownloadsMove)
 	ON_COMMAND(ID_DOWNLOADS_MOVE_UP, OnDownloadsMoveUp)
-	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_MOVE_DOWN, OnUpdateDownloadsMoveDown)
+	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_MOVE_DOWN, OnUpdateDownloadsMove)
 	ON_COMMAND(ID_DOWNLOADS_MOVE_DOWN, OnDownloadsMoveDown)
+	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_MOVE_TOP, OnUpdateDownloadsMove)
+	ON_COMMAND(ID_DOWNLOADS_MOVE_TOP, OnDownloadsMoveTop)
+	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_MOVE_BOTTOM, OnUpdateDownloadsMove)
+	ON_COMMAND(ID_DOWNLOADS_MOVE_BOTTOM, OnDownloadsMoveBottom)
 	ON_COMMAND(ID_DOWNLOADS_SETTINGS, OnDownloadsSettings)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_FILTER_ALL, OnUpdateDownloadsFilterAll)
 	ON_COMMAND(ID_DOWNLOADS_FILTER_ALL, OnDownloadsFilterAll)
@@ -226,7 +230,10 @@ void CDownloadsWnd::OnDestroy()
 
 void CDownloadsWnd::OnSkinChange()
 {
-	OnSize( 0, 0, 0 );
+	CRect rc;
+	GetClientRect( &rc );
+	OnSize( 0, rc.Width(), rc.Height() );
+
 	CPanelWnd::OnSkinChange();
 	Skin.Translate( _T("CDownloadCtrl"), &m_wndDownloads.m_wndHeader);
 	Skin.CreateToolBar( _T("CDownloadsWnd"), &m_wndToolBar );
@@ -263,12 +270,14 @@ BOOL CDownloadsWnd::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERIN
 {
 	if ( m_wndToolBar.m_hWnd )
 	{
-		if ( m_wndToolBar.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) ) return TRUE;
+		if ( m_wndToolBar.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) )
+			return TRUE;
 	}
 
 	if ( m_wndTabBar.m_hWnd )
 	{
-		if ( m_wndTabBar.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) ) return TRUE;
+		if ( m_wndTabBar.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) )
+			return TRUE;
 	}
 
 	return CPanelWnd::OnCmdMsg(nID, nCode, pExtra, pHandlerInfo);
@@ -1340,7 +1349,7 @@ void CDownloadsWnd::OnDownloadsEdit()
 	Update();
 }
 
-void CDownloadsWnd::OnUpdateDownloadsMoveUp(CCmdUI* pCmdUI)
+void CDownloadsWnd::OnUpdateDownloadsMove(CCmdUI* pCmdUI)
 {
 	Prepare();
 	pCmdUI->Enable( m_bSelDownload );
@@ -1351,16 +1360,21 @@ void CDownloadsWnd::OnDownloadsMoveUp()
 	m_wndDownloads.MoveSelected( -1 );
 }
 
-void CDownloadsWnd::OnUpdateDownloadsMoveDown(CCmdUI* pCmdUI)
-{
-	Prepare();
-	pCmdUI->Enable( m_bSelDownload );
-}
-
 void CDownloadsWnd::OnDownloadsMoveDown()
 {
 	m_wndDownloads.MoveSelected( 1 );
 }
+
+void CDownloadsWnd::OnDownloadsMoveTop()
+{
+	m_wndDownloads.MoveToTop();
+}
+
+void CDownloadsWnd::OnDownloadsMoveBottom()
+{
+	m_wndDownloads.MoveToEnd();
+}
+
 
 void CDownloadsWnd::OnUpdateTransfersConnect(CCmdUI* pCmdUI)
 {

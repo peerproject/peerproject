@@ -29,6 +29,7 @@
 #include "ShellIcons.h"
 #include "Settings.h"
 #include "Skin.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 
 #ifdef _DEBUG
@@ -132,7 +133,7 @@ HBRUSH CDeleteFileDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		CDC* pPromptDC = m_wndPrompt.GetDC();
 		if ( m_bCreateGhost || pPromptDC->GetTextColor() != RGB(255, 0, 0 ) )
 		{
-			pDC->SetTextColor( CoolInterface.m_crTextAlert );
+			pDC->SetTextColor( Colors.m_crTextAlert );
 		}
 	}
 
@@ -253,15 +254,15 @@ void CDeleteFileDlg::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruc
 
 	if ( bDisabled )
 	{
-		dc.SetTextColor( CoolInterface.m_crDisabled );
-		dc.FillSolidRect( &rcItem, Skin.m_crDialog );
+		dc.SetTextColor( Colors.m_crDisabled );
+		dc.FillSolidRect( &rcItem, Colors.m_crDialog );
 	}
 	else
 	{
 		dc.SetTextColor( ( lpDrawItemStruct->itemState & ODS_SELECTED )
-			? CoolInterface.m_crHiText : CoolInterface.m_crText );
+			? Colors.m_crHiText : Colors.m_crText );
 		dc.FillSolidRect( &rcItem, ( lpDrawItemStruct->itemState & ODS_SELECTED )
-			? CoolInterface.m_crHighlight : CoolInterface.m_crSysWindow );
+			? Colors.m_crHighlight : Colors.m_crSysWindow );
 	}
 
 	dc.SetBkMode( TRANSPARENT );
@@ -289,16 +290,16 @@ void CDeleteFileDlg::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruc
 	{
 		static COLORREF crRating[7] =
 		{
-			CoolInterface.m_crRatingNull,	// Unrated
-			CoolInterface.m_crRating0,		// Fake
-			CoolInterface.m_crRating1,		// Poor
-			CoolInterface.m_crRating2,		// Average
-			CoolInterface.m_crRating3,		// Good
-			CoolInterface.m_crRating4,		// Very good
-			CoolInterface.m_crRating5,		// Excellent
+			Colors.m_crRatingNull,	// Unrated
+			Colors.m_crRating0,		// Fake
+			Colors.m_crRating1,		// Poor
+			Colors.m_crRating2,		// Average
+			Colors.m_crRating3,		// Good
+			Colors.m_crRating4,		// Very good
+			Colors.m_crRating5,		// Excellent
 		};
 
-		dc.SetTextColor( bDisabled ? CoolInterface.m_crDisabled : crRating[ nRating ] );
+		dc.SetTextColor( bDisabled ? Colors.m_crDisabled : crRating[ nRating ] );
 	}
 
 	CString str;

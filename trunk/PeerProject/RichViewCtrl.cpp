@@ -27,6 +27,7 @@
 #include "RichElement.h"
 #include "RichFragment.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 #include "Emoticons.h"
 
 #ifdef _DEBUG
@@ -60,22 +61,25 @@ END_MESSAGE_MAP()
 // CRichViewCtrl construction
 
 CRichViewCtrl::CRichViewCtrl()
+	: m_pSyncRoot( NULL )
+	, m_bSelectable( FALSE )
+	, m_bFollowBottom( FALSE )
+	, m_bDefaultLink( TRUE )
+	, m_pDocument( NULL )
+	, m_nCookie( 0 )
+	, m_nLength( 0 )
+	, m_nScrollWheelLines( 3 )
+	, m_pHover( NULL )
+	, m_bSelecting( FALSE )
+	, m_pSelStart()
+	, m_pSelEnd()
+	, m_pSelAbsStart()
+	, m_pSelAbsEnd()
+	, m_hcHand( NULL )
+	, m_hcText( NULL )
 {
-	m_bSelectable	= FALSE;
-	m_bFollowBottom	= FALSE;
-	m_bDefaultLink	= TRUE;
-
-	m_pDocument		= NULL;
-	m_nLength		= 0;
-	m_pHover		= NULL;
-	m_bSelecting	= FALSE;
-	m_szSign		= _T("\x200D");
-
-	// Try to get the number of lines to scroll when the mouse wheel is rotated
-	if( !SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0) )
-	{
-		m_nScrollWheelLines = 3;
-	}
+	// Get number of lines to scroll with mouse
+	SystemParametersInfo( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0);
 }
 
 CRichViewCtrl::~CRichViewCtrl()
@@ -206,7 +210,7 @@ void CRichViewCtrl::OnPaint()
 
 	if ( m_pDocument == NULL )
 	{
-		dc.FillSolidRect( &rc, CoolInterface.m_crSysWindow );
+		dc.FillSolidRect( &rc, Colors.m_crSysWindow );
 		return;
 	}
 
@@ -563,17 +567,11 @@ void CRichViewCtrl::Layout(CDC* pDC, CRect* pRect)
 			WrapLineHelper( pLine, pt, nLineHeight, nWidth, nAlign );
 
 			if ( pElement->m_sText.CompareNoCase( _T("center") ) == 0 )
-			{
 				nAlign = reaCenter;
-			}
 			else if ( pElement->m_sText.CompareNoCase( _T("right") ) == 0 )
-			{
 				nAlign = reaRight;
-			}
 			else
-			{
 				nAlign = reaLeft;
-			}
 
 			continue;
 		}
@@ -637,10 +635,9 @@ void CRichViewCtrl::Layout(CDC* pDC, CRect* pRect)
 				if ( nWordStart >= 0 )
 				{
 					if ( pt.x + szWord.cx + ( pFrag ? nSpace : 0 ) > nWidth )
-					{
 						WrapLineHelper( pLine, pt, nLineHeight, nWidth, nAlign );
-					}
-					else if ( pFrag != NULL ) pt.x += nSpace;
+					else if ( pFrag != NULL )
+						pt.x += nSpace;
 
 					pFrag = new CRichFragment( pElement, nWordStart, nChar - nWordStart, &pt, &szWord );
 					pszLast = pszWord;
@@ -699,26 +696,18 @@ void CRichViewCtrl::WrapLineHelper(CList< CRichFragment* >& pLine, CPoint& pt, i
 	int nHorz = 0;
 
 	if ( nAlign == reaCenter )
-	{
 		nHorz = nWidth / 2 - ( pt.x - nLeft ) / 2;
-	}
 	else if ( nAlign == reaRight )
-	{
 		nHorz = nWidth - pt.x;
-	}
 
 	for ( POSITION posAlign = pLine.GetHeadPosition() ; posAlign ; )
 	{
 		CRichFragment* pAlign = (CRichFragment*)pLine.GetNext( posAlign );
 
 		if ( pAlign->m_pElement->m_nFlags & retfMiddle )
-		{
 			pAlign->m_pt.y += ( nLineHeight / 2 - pAlign->m_sz.cy / 2 );
-		}
 		else
-		{
 			pAlign->m_pt.y += ( nLineHeight - pAlign->m_sz.cy );
-		}
 
 		pAlign->m_pt.x += nHorz;
 	}
@@ -816,7 +805,7 @@ CPoint CRichViewCtrl::PositionToPoint(RICHPOSITION& pos)
 	BOOL bOverload = pos.nFragment >= m_pFragments.GetSize();
 
 	CRichFragment* pFragment = m_pFragments.GetAt(
-								bOverload ? m_pFragments.GetSize() - 1 : pos.nFragment );
+		bOverload ? m_pFragments.GetSize() - 1 : pos.nFragment );
 
 	pt.x = pFragment->m_pt.x;
 	pt.y += pFragment->m_pt.y;
@@ -906,14 +895,10 @@ void CRichViewCtrl::CopySelection()
 			int nCharStart = 0, nCharEnd = pFragment->m_nLength;
 
 			if ( m_pSelAbsStart.nFragment == nFragment )
-			{
 				nCharStart = m_pSelAbsStart.nOffset;
-			}
 
 			if ( m_pSelAbsEnd.nFragment == nFragment )
-			{
 				nCharEnd = m_pSelAbsEnd.nOffset;
-			}
 
 			if ( nCharEnd > nCharStart )
 			{
@@ -941,18 +926,20 @@ void CRichViewCtrl::CopySelection()
 		}
 	}
 
-	// the following block is required for IRC functionality
-	if ( _tcscmp( m_szSign, _T("\x200D") ) == 0 )
+	// Following block required for IRC functionality:
 	{
 		CString strTemp;
-		for ( int nPos = 1 ; nPos < str.GetLength() ; nPos++ )
-			if ( _tcscmp( str.Mid( nPos, 1 ), m_szSign ) != 0 )
-				strTemp += str.Mid( nPos, 1 );
+		for ( int nPos = 1; nPos < str.GetLength(); nPos++ )
+		{
+			TCHAR ñ = str.GetAt( nPos );
+			if ( ñ != _T('\x200D') )	// Zero Width Joiner
+				strTemp += ñ;
 			else
 				nPos += 2;
+		}
 		str = strTemp;
 	}
-	// end of block
+	// End IRC block
 
 	if ( str.GetLength() && AfxGetMainWnd()->OpenClipboard() )
 	{

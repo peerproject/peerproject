@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r37 -->
+<!-- Translation based on default-en.xml r38 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -455,15 +455,14 @@
 </toolbars>
 <!-- Menu Definitions -->
 <menus>
-	<!-- SIMPLE POPUP MENU -->
-	<menu name="Sade">
+	<!-- TAB BAR POPUP MENUS -->
+	<menu name="CTabBar">
 		<item id="ID_MOVETAB_LEFT" text="Sekmesi Sola Taşı"/>
 		<item id="ID_MOVETAB_RIGHT" text="Sekmesi Sağa Taşı"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Pencereyi Kapat"/>
 	</menu>
-	<!-- CHILD POPUP MENU -->
-	<menu name="Child">
+	<menu name="CTabBar.Child">
 		<item id="ID_MOVETAB_LEFT" text="Sekmesi Sola Taşı"/>
 		<item id="ID_MOVETAB_RIGHT" text="Sekmesi Sağa Taşı"/>
 		<separator/>
@@ -1084,9 +1083,9 @@
 	</menu>
 	<menu name="CDownloadsWnd.Download">
 		<item id="ID_DOWNLOADS_LAUNCH" text="Ö_n İzleme"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<!-- <item id="ID_DOWNLOADS_LAUNCH_COPY" text="Kop_ya Önizle"/> -->
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Kop_ya Önizle"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Oynatma Listesine Ekle"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Görüntü Önizleme"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Sürdür"/>
@@ -1102,10 +1101,12 @@
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="Ka_ynak Ekle..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Ekran _Penceresi"/>
+			<item id="ID_DOWNLOADS_BOOST" text="Ya_sakları Yok Say"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MOVE_UP" text="Yuka_rı Taşı"/>
 			<item id="ID_DOWNLOADS_MOVE_DOWN" text="_Aşağı Taşı"/>
-			<item id="ID_DOWNLOADS_BOOST" text="Ya_sakları Yok Say"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Yuka_rı Taşı!"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="_Aşağı Taşı!"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Yardım..."/>
 		<separator/>

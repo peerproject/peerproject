@@ -33,6 +33,7 @@
 #include "DlgSettingsManager.h"
 #include "DlgMediaVis.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -534,10 +535,10 @@ void CMediaFrame::OnPaint()
 						rcClient.right - m_nListSize,
 						rcClient.bottom );
 
-		dc.FillSolidRect( rcBar.left, rcBar.top, 1, rcBar.Height(), CoolInterface.m_crResizebarEdge );
-		dc.FillSolidRect( rcBar.left + 1, rcBar.top, 1, rcBar.Height(), CoolInterface.m_crResizebarHighlight );
-		dc.FillSolidRect( rcBar.right - 1, rcBar.top, 1, rcBar.Height(), CoolInterface.m_crResizebarShadow );
-		dc.FillSolidRect( rcBar.left + 2, rcBar.top, rcBar.Width() - 3, rcBar.Height(), CoolInterface.m_crResizebarFace );
+		dc.FillSolidRect( rcBar.left, rcBar.top, 1, rcBar.Height(), Colors.m_crResizebarEdge );
+		dc.FillSolidRect( rcBar.left + 1, rcBar.top, 1, rcBar.Height(), Colors.m_crResizebarHighlight );
+		dc.FillSolidRect( rcBar.right - 1, rcBar.top, 1, rcBar.Height(), Colors.m_crResizebarShadow );
+		dc.FillSolidRect( rcBar.left + 2, rcBar.top, rcBar.Width() - 3, rcBar.Height(), Colors.m_crResizebarFace );
 		dc.ExcludeClipRect( &rcBar );
 
 		rcBar.SetRect( rcBar.right, rcClient.top,
@@ -556,7 +557,7 @@ void CMediaFrame::OnPaint()
 	if ( dc.RectVisible( &m_rcVideo ) /* &&  m_pPlayer == NULL */ )
 		PaintSplash( dc, m_rcVideo );
 	// else
-	//	dc.FillSolidRect( &m_rcVideo, CoolInterface.m_crMediaWindowBack );
+	//	dc.FillSolidRect( &m_rcVideo, Colors.m_crMediaWindowBack );
 	// Mediaplayer plugin handles painting of m_rcVideo rectangular itself
 	// ToDo: Fix unhandled audio files display
 
@@ -567,7 +568,7 @@ void CMediaFrame::PaintSplash(CDC& dc, CRect& /*rcBar*/)
 {
 	if ( m_bmLogo.m_hObject == NULL )
 	{
-		dc.FillSolidRect( &m_rcVideo, CoolInterface.m_crMediaWindowBack );
+		dc.FillSolidRect( &m_rcVideo, Colors.m_crMediaWindowBack );
 		return;
 	}
 
@@ -586,7 +587,7 @@ void CMediaFrame::PaintSplash(CDC& dc, CRect& /*rcBar*/)
 	dcMem.SelectObject( pOldBmp );
 
 	dc.ExcludeClipRect( pt.x, pt.y, pt.x + pInfo.bmWidth, pt.y + pInfo.bmHeight );
-	dc.FillSolidRect( &m_rcVideo, CoolInterface.m_crMediaWindowBack );
+	dc.FillSolidRect( &m_rcVideo, Colors.m_crMediaWindowBack );
 
 	// Splash Sub-Text Display
 
@@ -598,8 +599,8 @@ void CMediaFrame::PaintSplash(CDC& dc, CRect& /*rcBar*/)
 	pt.x = ( m_rcVideo.left + m_rcVideo.right ) / 2 - dc.GetTextExtent( strText ).cx / 2;
 	pt.y = rcText.top + 8;
 
-	dc.SetBkColor( CoolInterface.m_crMediaWindowBack );
-	dc.SetTextColor( CoolInterface.m_crMediaWindowText );
+	dc.SetBkColor( Colors.m_crMediaWindowBack );
+	dc.SetTextColor( Colors.m_crMediaWindowText );
 	dc.ExtTextOut( pt.x, pt.y, ETO_OPAQUE, &m_rcVideo, strText, NULL );
 	// dc.ExcludeClipRect( &rcText );
 }
@@ -612,15 +613,15 @@ void CMediaFrame::PaintListHeader(CDC& dc, CRect& rcBar)
 	CSize szText = dc.GetTextExtent( strText );
 	pt.x -= szText.cx / 2; pt.y -= szText.cy / 2;
 	dc.SetBkMode( OPAQUE );
-	dc.SetBkColor( CoolInterface.m_crMediaPanelCaptionBack );
-	dc.SetTextColor( CoolInterface.m_crMediaPanelCaptionText );
+	dc.SetBkColor( Colors.m_crMediaPanelCaptionBack );
+	dc.SetTextColor( Colors.m_crMediaPanelCaptionText );
 	dc.ExtTextOut( pt.x, pt.y, ETO_OPAQUE|ETO_CLIPPED, &rcBar, strText, NULL );
 }
 
 void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 {
-	COLORREF crBack = CoolInterface.m_crMediaStatusBack;
-	COLORREF crText = CoolInterface.m_crMediaStatusText;
+	COLORREF crBack = Colors.m_crMediaStatusBack;
+	COLORREF crText = Colors.m_crMediaStatusText;
 
 	dc.SelectObject( &m_pFontValue );
 	DWORD dwOptions = Settings.General.LanguageRTL ? ETO_RTLREADING : 0;

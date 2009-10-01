@@ -24,6 +24,7 @@
 #include "Settings.h"
 #include "CtrlNetworkCombo.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -153,19 +154,19 @@ void CNetworkCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		&CoolInterface.m_fntBold : &CoolInterface.m_fntNormal );
 
 	dc.SetTextColor( ( lpDrawItemStruct->itemState & ODS_SELECTED )
-		? CoolInterface.m_crHiText : CoolInterface.m_crText );
+		? Colors.m_crHiText : Colors.m_crText );
 
 	/*dc.FillSolidRect( &rcItem, GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED )
 			? COLOR_HIGHLIGHT : COLOR_WINDOW ) );*/
 	if ( IsWindowEnabled() )
 	{
 		if ( lpDrawItemStruct->itemState & ODS_SELECTED )
-			dc.FillSolidRect( &rcItem, CoolInterface.m_crHighlight );
+			dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
 		else
-			dc.FillSolidRect( &rcItem, CoolInterface.m_crWindow );
+			dc.FillSolidRect( &rcItem, Colors.m_crWindow );
 	}
 	else
-		dc.FillSolidRect( &rcItem, CoolInterface.m_crWindow /*GetBkColor(lpDrawItemStruct->hDC)*/ );
+		dc.FillSolidRect( &rcItem, Colors.m_crWindow /*GetBkColor(lpDrawItemStruct->hDC)*/ );
 
 	dc.SetBkMode( TRANSPARENT );
 

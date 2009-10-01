@@ -64,24 +64,26 @@ public:
 	void DrawXPTabItem(HDC dc, int nItem, const RECT& rcItem, UINT flags);
 	void DrawTabItem(HDC dc, int nItem, const RECT& rcItem, UINT flags);
 
-	DECLARE_MESSAGE_MAP()
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 //	virtual BOOL OnEraseBkgnd(CDC* pDC);
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+
+	DECLARE_MESSAGE_MAP()
 };
 
 class CIRCChannelList
 {
 // Operations
 public:
-	void			AddChannel(CString strDisplayName, CString strName, BOOL bUserDefined = FALSE );
-	void			RemoveChannel(CString strDisplayName);
+	void			AddChannel(LPCTSTR strDisplayName, LPCTSTR strName, BOOL bUserDefined = FALSE);
+	void			RemoveChannel(const CString strDisplayName);
 	void			RemoveAll(int nType = -1);
-	int				GetCount(int nType = -1);
-	BOOL			GetType(CString strDisplayName);
-	int				GetIndexOfDisplay(CString strDisplayName);
-	int				GetIndexOfName(CString strName);
+	int				GetCount(int nType = -1) const;
+	int				GetIndexOfDisplay(const CString strDisplayName) const;
+	int				GetIndexOfName(const CString strName) const;
+	BOOL			GetType(const CString strDisplayName) const;
 	void			Initialize();
 	CString			GetDisplayOfIndex(int nIndex) const;
 	CString			GetNameOfIndex(int nIndex) const;
@@ -98,13 +100,13 @@ class CIRCFrame : public CWnd
 {
 // IRC Window Dimensions
 protected:
-	static const int STATUSBOX_WIDTH	= 330;
-	static const int IRCHEADER_HEIGHT   = 64;
+	//Predefined int Skin.m_nTitlebarHeight = 64;
 	static const int SMALLHEADER_HEIGHT = 22;
 	static const int SEPERATOR_HEIGHT	= 3;
 	static const int EDITBOX_HEIGHT		= 20;
 	static const int TABBAR_HEIGHT	    = 24;
 	//Predefined int Skin.m_nToolbarHeight = 28;
+	static const int STATUSBOX_WIDTH	= 330;
 
 // Construction
 public:
@@ -141,10 +143,10 @@ protected:
 	CString			m_sFile;
 	CString			m_sNickname;
 	CStringArray	m_pIrcBuffer[ MAX_CHANNELS ];
-	int				m_nBufferCount;
 	int				m_nCurrentPosLineBuffer[ MAX_CHANNELS ];
 	CStringArray	m_pIrcUsersBuffer[ MAX_CHANNELS ];
 	CStringArray	m_pLastLineBuffer[ MAX_CHANNELS ];
+	int				m_nBufferCount;
 	CIRCChannelList	m_pChanList;
 protected:
 	// Header
@@ -154,7 +156,6 @@ protected:
 	CBitmap			m_bmBuffer;
 	HBITMAP			m_hBuffer;
 	CIRCPanel		m_wndPanel;
-	TCHAR*			m_pszLineJoiner;
 	// Controls
 	CEdit			m_wndEdit;
 	CRichDocument	m_pContent;
@@ -181,36 +182,36 @@ public:
 	static CIRCFrame* g_pIrcFrame;
 	void			ConnectIrc();
 	void			SetFonts();
+	void			OnSettings();
 	void            SendString(CString strMessage);
 	BOOL            OnNewMessage(CString strMessage);
 	int				FindParsedItem(CString strMessage, int nFirst = 0);
-	int				IsTabExist(CString strTabName);
+	int				IsTabExist(const CString strTabName) const;
 	void            LoadBufferForWindow(int nTab);
 	void			ParseString(CString strMessage, CIRCNewMessage* oNewMessage);
 	CString			TrimString(CString strMessage) const;
 	CString			GetStringAfterParsedItem(int nItem) const;
-	void			OnSettings();
 	CString			GetTargetName(CString strRecieverName, int nRecieverType, CString strSenderName, int nSenderType) const;
 	int				AddTab(CString TabName, int nKindOfTab);
 	void			TabClick();
 	void			SortUserList();
-	int				CompareUsers(CString strUser1, CString strUser2);
+	int				CompareUsers(const CString strUser1, const CString strUser2) const;
+	CString			GetTabText(int nTabIndex = -1) const;
 	void			ReloadViewText();
-	CString			GetTabText(int nTabIndex = -1);
 	int				FindInList(CString strName, int nList=0, int nTab=0);
 protected:
 	CStringArray	m_pWords;
 	int				ParseMessageID();
 	void			ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMessage, int nMessageID);
 	CString			GetTextFromRichPoint();
-	int				IsUserInList(CString strUser);
+	CString			RemoveModeOfNick(CString strNick) const;
 	void			UserListDblClick();
 	void			ChanListDblClick();
 	void			FillChanList();
-	void			FillCountChanList(CString strUserCount, CString strChannelName);
+	void			FillCountChanList(const CString strUserCount, const CString strChannelName);
+	int				IsUserInList(CString strUser) const;
 	void			PaintHeader(CRect rcHeader, CDC &dc);
 	void			DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText);
-	CString			RemoveModeOfNick(CString strNick) const;
 	BOOL			ShowTrayPopup(LPCTSTR szText, LPCTSTR szTitle, DWORD dwIcon, UINT uTimeout);
 // Operations
 	CString         m_sUser;
@@ -239,11 +240,9 @@ protected:
 	afx_msg void OnIrcShowSettings();
 	afx_msg void OnIrcChanCmdOpen();
 
-	afx_msg void OnIrcUserCmdWhois();
 	afx_msg void OnUpdateIrcUserCmd(CCmdUI* pCmdUI);
-
+	afx_msg void OnIrcUserCmdWhois();
 	afx_msg void OnIrcUserCmdTime();
-
 	afx_msg void OnIrcUserCmdVersion();
 	afx_msg void OnIrcUserCmdIgnore();
 	afx_msg void OnIrcUserCmdUnignore();

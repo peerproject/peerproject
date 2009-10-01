@@ -20,7 +20,7 @@
 //
 
 #include "stdafx.h"
-#include "resource.h"
+#include "Resource.h"
 #include "ZIPBuilder.h"
 
 class CModule : public CAtlDllModuleT< CModule >

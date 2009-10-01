@@ -28,6 +28,7 @@
   <option name="MenuBorders" value="false"/>
 <!--<option name="MenuGripper" value="false"/>-->
 <!--<option name="Toolbar" value="28"/>-->
+<!--<option name="Titlebar" value="64"/>-->
 <!--<option name="Sidebar" value="200"/>-->
 </options>
 
@@ -42,7 +43,7 @@
   <color name="System.Base.Text" 			value="1A100A"/>
   <color name="System.Base.HiText" 			value="000000"/>
   <color name="System.Base.HiBorder"	  		value="90B8E6"/>
-  <color name="System.Base.Highlight"    		value="DFEDFE"/>   e0eefe  E4F0FE
+  <color name="System.Base.Highlight"    		value="DFEDFE"/>
   <color name="System.Back.Checked"			value="F8F6F4"/>
   <color name="System.Back.Selected"			value="F8F6F4"/>   <!--button hover-->
   <color name="System.Back.Checked.Selected"		value="F8F6F4"/>
@@ -208,11 +209,17 @@
   <watermark target="CSearchSchemaBox.Caption"  	path="Seven\SidebarCaption.png"/>
   <watermark target="CSearchResultsBox.Caption" 	path="Seven\SidebarCaption.png"/>
   <watermark target="CSearchResultsBox"  		path="Seven\SideBlock.png"/>
-  <!--watermark target="CSearchInputBox"  		path="SideBlock.png"-->
-  <!--watermark target="CSearchAdvancedBox"		path="SideBlock.png"-->
-  <!--watermark target="CSearchSchemaBox"  		path="SideBlock.png"-->
+  <!--watermark target="CSearchInputBox"  		path="Seven\SideBlock.png"-->
+  <!--watermark target="CSearchAdvancedBox"		path="Seven\SideBlock.png"-->
+  <!--watermark target="CSearchSchemaBox"  		path="Seven\SideBlock.png"-->
+  <!--watermark target="CIRCChannelsBox"		path="Seven\SideBlock.png"-->
   <!--watermark target="CHomeViewCtrl.Header1"		path="###.png"-->
   <!--watermark target="CHomeViewCtrl.Header2"		path="###.png"-->
+
+  <!--watermark target="CNeighboursWnd"  		path="Seven\SideBlock.png"-->
+  <!--watermark target="CSecurityWnd"  			path="Seven\SideBlock.png"-->
+  <!--watermark target="CMediaList"	  		path="Seven\SideBlock.png"-->
+  <!--watermark target="CTorrentList"	  		path="Seven\SideBlock.png"-->
 
   <watermark target="CWndTabBar.Active" 		path="Seven\RibbonBaselineTabActive.png"/>
   <watermark target="CWndTabBar.Hover"  		path="Seven\RibbonBaselineTabActive.png"/>

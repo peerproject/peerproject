@@ -24,6 +24,7 @@
 #include "Settings.h"
 #include "CtrlCoolTip.h"
 #include "CtrlMatchTip.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
 #include "Library.h"
@@ -75,10 +76,10 @@ CMatchTipCtrl::CMatchTipCtrl()
 
 	if ( ! m_hClass ) m_hClass = AfxRegisterWndClass( CS_SAVEBITS );
 
-	m_crBack	= CoolInterface.m_crTipBack;
-	m_crText	= CoolInterface.m_crTipText;
-	m_crBorder	= CCoolInterface::CalculateColor( m_crBack, (COLORREF)0, 100 );
-	m_crWarnings = CoolInterface.m_crTipWarnings; // Set color of warning messages
+	m_crBack	= Colors.m_crTipBack;
+	m_crText	= Colors.m_crTipText;
+	m_crBorder	= CColors::CalculateColor( m_crBack, (COLORREF)0, 100 );
+	m_crWarnings = Colors.m_crTipWarnings; // Set color of warning messages
 
 	if ( m_brBack.m_hObject ) m_brBack.DeleteObject();
 	m_brBack.CreateSolidBrush( m_crBack );
@@ -389,29 +390,29 @@ void CMatchTipCtrl::LoadFromHit()
 	if ( m_pFile->GetLibraryStatus() == TRI_FALSE )
 	{
 		LoadString( m_sStatus, IDS_TIP_EXISTS_LIBRARY );
-		m_crStatus = CoolInterface.m_crTextStatus ;
+		m_crStatus = Colors.m_crTextStatus ;
 	}
 	else if ( m_pFile->m_bDownload || m_pHit->m_bDownload )
 	{
 		LoadString( m_sStatus, IDS_TIP_EXISTS_DOWNLOAD );
-		m_crStatus = CoolInterface.m_crTextStatus ;
+		m_crStatus = Colors.m_crTextStatus ;
 	}
 	else if ( m_pHit->m_bBogus )
 	{
 		LoadString( m_sStatus, IDS_TIP_BOGUS );
-		m_crStatus = CoolInterface.m_crTextAlert ;
+		m_crStatus = Colors.m_crTextAlert ;
 	}
 	else if ( m_pHit->m_sComments.GetLength() )
 	{
 		if ( m_pHit->m_nRating == 1 )
 			LoadString( m_sStatus, IDS_TIP_EXISTS_BLACKLISTED );
 		m_sStatus += m_pHit->m_sComments;
-		m_crStatus = CoolInterface.m_crTextAlert ;
+		m_crStatus = Colors.m_crTextAlert ;
 	}
 	else if ( m_pFile->GetLibraryStatus() == TRI_TRUE )  // ghost rated
 	{
 		LoadString( m_sStatus, IDS_TIP_EXISTS_DELETED );
-		m_crStatus = CoolInterface.m_crTextAlert ;
+		m_crStatus = Colors.m_crTextAlert ;
 	}
 
 	// Is this a firewalled eDonkey client

@@ -21,11 +21,11 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "Settings.h"
-#include "CoolInterface.h"
 #include "DlgLanguage.h"
-#include "XML.h"
+#include "Settings.h"
+#include "Colors.h"
 #include "SkinWindow.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -187,7 +187,7 @@ void CLanguageDlg::OnPaint()
 			}
 			else
 			{
-				dc.FillSolidRect( &rc, CoolInterface.m_crBackNormal );
+				dc.FillSolidRect( &rc, Colors.m_crBackNormal );
 			}
 			rc.OffsetRect( ITEM_WIDTH, 0 );
 			if ( nCount + 2 < m_pPaths.GetSize() )
@@ -196,7 +196,7 @@ void CLanguageDlg::OnPaint()
 			}
 			else
 			{
-				dc.FillSolidRect( &rc, CoolInterface.m_crBackNormal );
+				dc.FillSolidRect( &rc, Colors.m_crBackNormal );
 			}
 			rc.OffsetRect( -ITEM_WIDTH * 2, 0 );
 			rc.OffsetRect( 0, rc.Height() );
@@ -204,7 +204,7 @@ void CLanguageDlg::OnPaint()
 	}
 
 	rcDlg.top = rc.top;
-	dc.FillSolidRect( &rcDlg, CoolInterface.m_crBackNormal );
+	dc.FillSolidRect( &rcDlg, Colors.m_crBackNormal );
 	dc.SelectObject( pOldFont );
 }
 
@@ -217,20 +217,20 @@ void CLanguageDlg::PaintItem(int nItem, CDC* pDC, CRect* pRect)
 
 	CRect rc( pRect );
 
-	pDC->Draw3dRect( &rc, CoolInterface.m_crBackNormal, CoolInterface.m_crBackNormal );
+	pDC->Draw3dRect( &rc, Colors.m_crBackNormal, Colors.m_crBackNormal );
 	rc.DeflateRect( 1, 1 );
 
 	COLORREF crBack;
 
 	if ( bHover || bDown )
 	{
-		pDC->Draw3dRect( &rc, CoolInterface.m_crBorder, CoolInterface.m_crBorder );
-		pDC->SetBkColor( crBack = ( bDown && bHover ? CoolInterface.m_crBackCheckSel : CoolInterface.m_crBackSel ) );
+		pDC->Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
+		pDC->SetBkColor( crBack = ( bDown && bHover ? Colors.m_crBackCheckSel : Colors.m_crBackSel ) );
 	}
 	else
 	{
-		pDC->Draw3dRect( &rc, CoolInterface.m_crBackNormal, CoolInterface.m_crBackNormal );
-		pDC->SetBkColor( crBack = CoolInterface.m_crBackNormal );
+		pDC->Draw3dRect( &rc, Colors.m_crBackNormal, Colors.m_crBackNormal );
+		pDC->SetBkColor( crBack = Colors.m_crBackNormal );
 	}
 
 	rc.DeflateRect( 1, 1 );
@@ -244,7 +244,7 @@ void CLanguageDlg::PaintItem(int nItem, CDC* pDC, CRect* pRect)
 
 		ptIcon.Offset( 1, 1 );
 
-		pDC->SetTextColor( CoolInterface.m_crShadow );
+		pDC->SetTextColor( Colors.m_crShadow );
 		ImageList_DrawEx( m_pImages.GetSafeHandle(), nItem,
 			pDC->GetSafeHdc(), ptIcon.x, ptIcon.y, 32, 32, crBack, CLR_NONE,
 			ILD_MASK );
@@ -270,7 +270,7 @@ void CLanguageDlg::PaintItem(int nItem, CDC* pDC, CRect* pRect)
 					rc.right - TEXT_MARGIN, rc.top + 20 + TEXT_MARGIN );
 
 	rcText.OffsetRect( 0, 6 );
-	pDC->SetTextColor( bHover || bDown ? CoolInterface.m_crCmdTextSel : CoolInterface.m_crCmdText );
+	pDC->SetTextColor( bHover || bDown ? Colors.m_crCmdTextSel : Colors.m_crCmdText );
 	pDC->SelectObject( &m_fntBold );
 	pDC->ExtTextOut( rcText.left + 1, rcText.top + 1, ETO_CLIPPED|ETO_OPAQUE, &rcText,
 		m_pTitles.GetAt( nItem ), NULL );

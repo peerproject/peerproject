@@ -29,9 +29,10 @@
 #include "CtrlSearchPanel.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
-#include "XML.h"
-#include "Skin.h"
 #include "WndSearch.h"
+#include "Colors.h"
+#include "Skin.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -594,7 +595,7 @@ void CSearchInputBox::OnPaint()
 	else
 	{
 		pDC->SetBkMode( OPAQUE );
-		pDC->SetBkColor( CoolInterface.m_crTaskBoxClient );
+		pDC->SetBkColor( Colors.m_crTaskBoxClient );
 		nFlags |= ETO_OPAQUE;
 	}
 
@@ -621,7 +622,7 @@ void CSearchInputBox::OnPaint()
 	}
 	else
 	{
-		pDC->FillSolidRect( &rc, CoolInterface.m_crTaskBoxClient );
+		pDC->FillSolidRect( &rc, Colors.m_crTaskBoxClient );
 	}
 }
 
@@ -921,7 +922,7 @@ void CSearchAdvancedBox::OnPaint()
 	{
 		// Paints the background behind controls except checkboxes (see OnCtlColorStatic)
 		pDC->SetBkMode( OPAQUE );
-		pDC->SetBkColor( CoolInterface.m_crTaskBoxClient );
+		pDC->SetBkColor( Colors.m_crTaskBoxClient );
 		nFlags |= ETO_OPAQUE;
 	}
 
@@ -954,7 +955,7 @@ void CSearchAdvancedBox::OnPaint()
 	else
 	{
 		// Fills the background of the advanced box
-		pDC->FillSolidRect( &rc, CoolInterface.m_crTaskBoxClient );
+		pDC->FillSolidRect( &rc, Colors.m_crTaskBoxClient );
 	}
 
 	int nStartPos = Settings.General.LanguageRTL ? -m_gdiImageList.GetImageCount() + 1 : 0;
@@ -970,10 +971,10 @@ LRESULT CSearchAdvancedBox::OnCtlColorStatic(WPARAM wParam, LPARAM /*lParam*/)
 
 	SetBkMode( hDCStatic, TRANSPARENT );
 
-	if ( m_crBack != CoolInterface.m_crTaskBoxClient )
+	if ( m_crBack != Colors.m_crTaskBoxClient )
 	{
 		if ( m_brBack.m_hObject ) m_brBack.DeleteObject();
-		m_brBack.CreateSolidBrush( m_crBack = CoolInterface.m_crTaskBoxClient );
+		m_brBack.CreateSolidBrush( m_crBack = Colors.m_crTaskBoxClient );
 	}
 	hbr = m_brBack;
 
@@ -1089,7 +1090,7 @@ void CSearchResultsBox::OnPaint()
 	else
 	{
 		pDC->SetBkMode( OPAQUE );
-		pDC->SetBkColor( CoolInterface.m_crTaskBoxClient );
+		pDC->SetBkColor( Colors.m_crTaskBoxClient );
 		nFlags |= ETO_OPAQUE;
 	}
 
@@ -1174,7 +1175,7 @@ void CSearchResultsBox::OnPaint()
 	}
 	else
 	{
-		pDC->FillSolidRect( &rc, CoolInterface.m_crTaskBoxClient );
+		pDC->FillSolidRect( &rc, Colors.m_crTaskBoxClient );
 	}
 }
 

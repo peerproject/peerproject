@@ -95,8 +95,8 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::Configure()
 HRESULT STDMETHODCALLTYPE CImageViewerPlugin::OnSkinChanged()
 {
 	// This method is invoked to allow the plugin to handle a "skin changed" event.
-	// The plugin should destroy any skin-based resources it has acquired, and
-	// re-acquire them from the user interface manager.  Also invoked when
+	// The plugin should destroy any skin-based resources it has acquired,
+	// and re-acquire them from the user interface manager.  Also invoked when
 	// a new langauge is selected and after plugins have been loaded/unloaded.
 
 	return S_OK;
@@ -319,8 +319,7 @@ BOOL CImageViewerPlugin::OpenNewWindow(LPCTSTR pszFilePath)
 		}
 	}
 
-	// If we did not find the window..
-
+	// If we did not find the window...
 	if ( pWindow == NULL )
 	{
 		// Create a new one, and add it to the linked list.
@@ -330,12 +329,10 @@ BOOL CImageViewerPlugin::OpenNewWindow(LPCTSTR pszFilePath)
 		m_pWindow = pWindow;
 
 		// Invoke the Create() method, to pass a reference to this plugin object, and the filename.
-
 		pWindow->Create( this, pszFilePath );
 	}
 
 	// Tell the window (old or new) to refresh its image
-
 	pWindow->Refresh();
 
 	// Show and activate the window

@@ -473,6 +473,10 @@
 				>
 			</File>
 			<File
+				RelativePath="Colors.cpp"
+				>
+			</File>
+			<File
 				RelativePath="ComboListCtrl.cpp"
 				>
 			</File>
@@ -2727,6 +2731,10 @@
 			</File>
 			<File
 				RelativePath="CollectionFile.h"
+				>
+			</File>
+			<File
+				RelativePath="Colors.h"
 				>
 			</File>
 			<File

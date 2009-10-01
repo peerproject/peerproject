@@ -25,6 +25,7 @@
 #include "CtrlLibraryFrame.h"
 #include "CtrlLibraryHistoryPanel.h"
 #include "ShellIcons.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -158,12 +159,12 @@ void CLibraryHistoryPanel::OnPaint()
 	int nY = ( rcItem.top + rcItem.bottom + 1 ) / 2 - szText.cy / 2;
 
 	dc.SetBkMode( OPAQUE );
-	dc.SetBkColor( Skin.m_crBannerBack );
-	dc.SetTextColor( Skin.m_crBannerText );
+	dc.SetBkColor( Colors.m_crBannerBack );
+	dc.SetTextColor( Colors.m_crBannerText );
 	dc.ExtTextOut( 4, nY, ETO_CLIPPED|ETO_OPAQUE, &rcItem, str, NULL );
 	dc.ExcludeClipRect( &rcItem );
 
-	dc.SetBkColor( CoolInterface.m_crWindow );
+	dc.SetBkColor( Colors.m_crWindow );
 	dc.SetViewportOrg( 0, -GetScrollPos( SB_VERT ) );
 
 	CRect rcWork( &rcClient );
@@ -171,7 +172,7 @@ void CLibraryHistoryPanel::OnPaint()
 
 	for ( int nRow = 0, nItem = 0 ; nItem < m_pList.GetSize() ; nRow++ )
 	{
-		dc.SetBkColor( Skin.m_crSchemaRow[ nRow & 1 ] );
+		dc.SetBkColor( Colors.m_crSchemaRow[ nRow & 1 ] );
 
 		for ( int nColumn = 0 ; nColumn < m_nColumns ; nColumn++ )
 		{
@@ -190,7 +191,7 @@ void CLibraryHistoryPanel::OnPaint()
 					rcItem.left + 3 + 16, rcItem.top + 3 + 16 );
 
 				dc.SelectObject( &CoolInterface.m_fntNormal );
-				dc.SetTextColor( CoolInterface.m_crDisabled );
+				dc.SetTextColor( Colors.m_crDisabled );
 
 				szText = dc.GetTextExtent( pItem->m_sTime );
 				nY = ( rcItem.top + rcItem.bottom ) / 2 - szText.cy / 2;
@@ -201,7 +202,7 @@ void CLibraryHistoryPanel::OnPaint()
 					ETO_CLIPPED|ETO_OPAQUE, &rcText, pItem->m_sTime, NULL );
 				dc.ExcludeClipRect( &rcText );
 
-				dc.SetTextColor( CoolInterface.m_crTextLink );
+				dc.SetTextColor( Colors.m_crTextLink );
 				dc.SelectObject( &CoolInterface.m_fntUnder );
 
 				rcText.right	= rcText.left;
@@ -242,7 +243,7 @@ void CLibraryHistoryPanel::OnPaint()
 
 	dc.SetViewportOrg( 0, 0 );
 	dc.SelectObject( pFontOld );
-	dc.FillSolidRect( &rcClient, CoolInterface.m_crWindow );
+	dc.FillSolidRect( &rcClient, Colors.m_crWindow );
 }
 
 BOOL CLibraryHistoryPanel::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)

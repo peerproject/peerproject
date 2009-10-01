@@ -69,15 +69,27 @@ END
 // REGISTRY
 //
 
-IDR_WebHook             REGISTRY                "WebHook.rgs"
-IDR_OBJECT              REGISTRY                "Object.rgs"
+IDR_WEBHOOK		REGISTRY		"WebHook.rgs"
+IDR_OBJECT		REGISTRY		"Object.rgs"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icons
+//
+// Icon with lowest ID value placed first to ensure
+// application icon remains consistent on all systems.
+
+//IDI_ICON		ICON			"Icon.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // HTML
 //
 
-3000                    HTML                    "3000.html"
+3000			HTML			"3000.html"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -86,7 +98,7 @@ IDR_OBJECT              REGISTRY                "Object.rgs"
 
 STRINGTABLE
 BEGIN
-    IDS_PROJNAME            "WebHook"
+    IDS_PROJNAME	"WebHook"
 END
 
 #endif    // Neutral resources

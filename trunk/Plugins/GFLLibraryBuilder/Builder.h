@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "resource.h"
+#include "Resource.h"
 #include "GFLLibraryBuilder.h"
 
 class ATL_NO_VTABLE CBuilder : 

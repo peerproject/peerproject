@@ -28,6 +28,7 @@
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "ShellIcons.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "CtrlLibraryAlbumView.h"
 #include "CtrlLibraryFrame.h"
@@ -598,11 +599,11 @@ void CLibraryAlbumView::OnPaint()
 
 	CFont* pOldFont = (CFont*)pBuffer->SelectObject( &CoolInterface.m_fntNormal );
 	pBuffer->SetBkMode( OPAQUE );
-	pBuffer->SetBkColor( CoolInterface.m_crWindow );
-	pBuffer->SetTextColor( CoolInterface.m_crText );
+	pBuffer->SetBkColor( Colors.m_crWindow );
+	pBuffer->SetTextColor( Colors.m_crText );
 
-	m_crRows[0] = CCoolInterface::CalculateColor( CoolInterface.m_crWindow, Skin.m_crSchemaRow[0], 128 );
-	m_crRows[1] = CCoolInterface::CalculateColor( CoolInterface.m_crWindow, Skin.m_crSchemaRow[1], 128 );
+	m_crRows[0] = CColors::CalculateColor( Colors.m_crWindow, Colors.m_crSchemaRow[0], 128 );
+	m_crRows[1] = CColors::CalculateColor( Colors.m_crWindow, Colors.m_crSchemaRow[1], 128 );
 
 	CRect rcClient, rcTrack;
 	GetClientRect( &rcClient );
@@ -616,7 +617,7 @@ void CLibraryAlbumView::OnPaint()
 	CRect rcLine(rcTrack);
 	rcLine.left += 22;
 	rcLine.right -= 78;
-	pBuffer->FillSolidRect( &rcBuffer, CoolInterface.m_crWindow );
+	pBuffer->FillSolidRect( &rcBuffer, Colors.m_crWindow );
 	if ( m_pStyle == CSchema::uriMusicAlbum )
 	{
 		// Track, Title, Length, Bitrate
@@ -669,7 +670,7 @@ void CLibraryAlbumView::OnPaint()
 
 		if ( rcTrack.bottom >= rcClient.top && dc.RectVisible( &rcTrack ) )
 		{
-			pBuffer->FillSolidRect( &rcBuffer, CoolInterface.m_crWindow );
+			pBuffer->FillSolidRect( &rcBuffer, Colors.m_crWindow );
 			pTrack->Paint( this, pBuffer, rcBuffer, nItem );
 			dc.BitBlt( rcTrack.left, rcTrack.top, rcBuffer.right, rcBuffer.bottom,
 				pBuffer, 0, 0, SRCCOPY );
@@ -680,7 +681,7 @@ void CLibraryAlbumView::OnPaint()
 	}
 
 	pBuffer->SelectObject( pOldFont );
-	dc.FillSolidRect( &rcClient, CoolInterface.m_crWindow );
+	dc.FillSolidRect( &rcClient, Colors.m_crWindow );
 }
 
 CLibraryAlbumTrack* CLibraryAlbumView::HitTest(const CPoint& point, CRect* pRect) const
@@ -1103,7 +1104,7 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 void CLibraryAlbumTrack::Paint(CLibraryAlbumView* pView, CDC* pDC, const CRect& rcTrack, int nCount)
 {
 	COLORREF crBack1 = CLibraryAlbumView::m_crRows[ nCount & 1 ];
-	COLORREF crBack2 = m_bSelected ? CoolInterface.m_crHighlight : crBack1;
+	COLORREF crBack2 = m_bSelected ? Colors.m_crHighlight : crBack1;
 
 	CRect rcLine( &rcTrack );
 	rcLine.DeflateRect( 1, 1 );
@@ -1119,7 +1120,7 @@ void CLibraryAlbumTrack::Paint(CLibraryAlbumView* pView, CDC* pDC, const CRect& 
 	ShellIcons.Draw( pDC, m_nShell, 16, rcTemp.left + 3,
 		( rcTemp.top + rcTemp.bottom ) / 2 - 8, CLR_NONE, m_bSelected );
 
-	pDC->SetTextColor( m_bSelected ? CoolInterface.m_crHiText : CoolInterface.m_crText );
+	pDC->SetTextColor( m_bSelected ? Colors.m_crHiText : Colors.m_crText );
 
 	rcTemp.SetRect( rcLine.right - 78, rcLine.top, rcLine.right, rcLine.bottom );
 	rcLine.right -= 78;

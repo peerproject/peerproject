@@ -25,6 +25,7 @@
 #include "WndSettingsSheet.h"
 #include "WndSettingsPage.h"
 
+#include "Colors.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
@@ -73,31 +74,19 @@ BOOL CSettingsPage::LoadDefaultCaption()
 	pData = (DLGTEMPLATE*)GlobalLock( pTemplate.m_hTemplate );
 
 	if ( ((DLGTEMPLATEEX*)pData)->signature == 0xFFFF )
-	{
 		pWord = (WORD*)( (DLGTEMPLATEEX*)pData + 1 );
-	}
 	else
-	{
 		pWord = (WORD*)( pData + 1 );
-	}
 
 	if ( *pWord == 0xFFFF )
-	{
 		pWord += 2;
-	}
 	else
-	{
 		while ( *pWord++ );
-	}
 
 	if ( *pWord == 0xFFFF )
-	{
 		pWord += 2;
-	}
 	else
-	{
 		while ( *pWord++ );
-	}
 
 	m_sCaption = (wchar_t*)pWord;
 
@@ -216,7 +205,7 @@ BOOL CSettingsPage::OnEraseBkgnd(CDC* pDC)
 {
 	CRect rc;
 	GetClientRect( &rc );
-	pDC->FillSolidRect( &rc, Skin.m_crDialog );
+	pDC->FillSolidRect( &rc, Colors.m_crDialog );
 	return TRUE;
 }
 
@@ -226,8 +215,8 @@ HBRUSH CSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	if ( nCtlColor == CTLCOLOR_DLG || nCtlColor == CTLCOLOR_STATIC )
 	{
-		pDC->SetBkColor( Skin.m_crDialog );
-		hbr = Skin.m_brDialog;
+		pDC->SetBkColor( Colors.m_crDialog );
+		hbr = Colors.m_brDialog;
 	}
 
 	return hbr;

@@ -21,12 +21,12 @@
 
 #pragma once
 
-#define VC_EXTRALEAN		// Exclude rarely-used stuff from Windows headers
-#define WINVER 0x0400
-#define _WIN32_WINNT 0x0400
-#define _WIN32_WINDOWS 0x0410
-#define _WIN32_IE 0x0400
+#define WINVER			0x0500
+#define _WIN32_WINNT	0x0500
+#define _WIN32_WINDOWS	0x0500
+#define _WIN32_IE		0x0500
 #define BOOST_USE_WINDOWS_H
+#define VC_EXTRALEAN		// Exclude rarely-used stuff from Windows headers
 
 #include <afxwin.h>         // MFC core and standard components
 #include <afxext.h>         // MFC extensions

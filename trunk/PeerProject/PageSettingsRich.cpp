@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 #include "Skin.h"
 #include "XML.h"
 #include "Skin.h"
@@ -64,7 +64,7 @@ CRichSettingsPage::CRichSettingsPage(LPCTSTR pszName) : CSettingsPage(CRichSetti
 
 		m_pDocument = new CRichDocument();
 	//	m_pDocument->CreateFonts( Settings.Fonts.DefaultFont, Settings.Fonts.FontSize );
-		m_pDocument->m_crBackground = Skin.m_crDialog;
+		m_pDocument->m_crBackground = Colors.m_crDialog;
 		m_pDocument->LoadXML( pXML );
 	}
 }
@@ -91,7 +91,7 @@ BOOL CRichSettingsPage::OnInitDialog()
 	SetWindowText( m_sCaption );
 	Skin.Apply( m_sName, this );
 
-	m_pDocument->m_crBackground = Skin.m_crDialog;
+	m_pDocument->m_crBackground = Colors.m_crDialog;
 
 	CRect rc;
 	GetClientRect( &rc );

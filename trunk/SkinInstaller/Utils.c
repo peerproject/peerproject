@@ -34,6 +34,13 @@ void LoadManifestInfo(char *buf)
 		if (!_wcsicmp(p, L"language")) {
 			skinType = 1;
 		}
+		if (!_wcsicmp(p, L"plugin")) {
+			skinType = 2;
+		}
+	//	if (!_wcsicmp(p, L"template")) {
+	//		skinType = 0;
+	//	}
+	//	else skinType = 0; //("skin")
 		free(p);
 	}
 	if ((p=(TCHAR*)GetManifestValue(pszBuf, L"name"))!=NULL) {
@@ -54,7 +61,11 @@ void LoadManifestInfo(char *buf)
 	}
 
 	if ((p=(TCHAR*)GetManifestValue(pszBuf, L"path"))!=NULL) {
-		szPath = _wcsdup(p);
+		if (wcsstr(p, _T(":")) || wcsstr(p, _T("..\\..\\")) || wcsstr(p, _T("../../")))
+			szPath = szName;
+		else
+			szPath = _wcsdup(p);
+
 		free(p);
 	}
 	else {

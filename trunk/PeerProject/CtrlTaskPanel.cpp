@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "CtrlTaskPanel.h"
 
@@ -165,7 +166,7 @@ void CTaskPanel::SetFooter(HBITMAP hBitmap, BOOL bDefault)
 
 	if ( hBitmap != NULL)
 		m_bmFooter.Attach( hBitmap );
-	else if ( bDefault && CoolInterface.m_crTaskPanelBack == RGB( 122, 161, 230 ) )
+	else if ( bDefault && Colors.m_crTaskPanelBack == RGB( 122, 160, 230 ) )
 		m_bmFooter.LoadBitmap( IDB_TASKPANEL_FOOTER );
 }
 
@@ -217,7 +218,7 @@ void CTaskPanel::OnPaint()
 
 	if ( ! CoolInterface.DrawWatermark( &dc, &rc, &m_bmWatermark ) )
 	{
-		dc.FillSolidRect( &rc, CoolInterface.m_crTaskPanelBack );
+		dc.FillSolidRect( &rc, Colors.m_crTaskPanelBack );
 		CRect rcShadow( rc );
 		rcShadow.bottom = rcShadow.top + 1;
 		dc.FillSolidRect( &rcShadow, RGB( 92, 131, 200 ) ); // The top pixel row from BannerMark.bmp
@@ -404,7 +405,7 @@ void CTaskBox::SetCaptionmark(HBITMAP hBitmap, BOOL bDefault)
 
 	if ( hBitmap != NULL )
 		m_bmCaptionmark.Attach( hBitmap );
-	else if ( bDefault && m_bPrimary && CoolInterface.m_crTaskBoxPrimaryBack == RGB( 30, 87, 199 ) )
+	else if ( bDefault && m_bPrimary && Colors.m_crTaskBoxPrimaryBack == RGB( 30, 87, 199 ) )
 		m_bmCaptionmark.LoadBitmap( IDB_TASKBOX_CAPTION );
 
 	m_bCaptionCurve = TRUE;
@@ -534,12 +535,12 @@ void CTaskBox::PaintBorders()
 
 	if ( m_pPanel->m_nCurve != 0 && m_bCaptionCurve )
 	{
-		dc.SetPixel( 0, 0, CoolInterface.m_crTaskPanelBack );
-		dc.SetPixel( 1, 0, CoolInterface.m_crTaskPanelBack );
-		dc.SetPixel( 0, 1, CoolInterface.m_crTaskPanelBack );
-		dc.SetPixel( rc.right - 1, 0, CoolInterface.m_crTaskPanelBack );
-		dc.SetPixel( rc.right - 2, 0, CoolInterface.m_crTaskPanelBack );
-		dc.SetPixel( rc.right - 1, 1, CoolInterface.m_crTaskPanelBack );
+		dc.SetPixel( 0, 0, Colors.m_crTaskPanelBack );
+		dc.SetPixel( 1, 0, Colors.m_crTaskPanelBack );
+		dc.SetPixel( 0, 1, Colors.m_crTaskPanelBack );
+		dc.SetPixel( rc.right - 1, 0, Colors.m_crTaskPanelBack );
+		dc.SetPixel( rc.right - 2, 0, Colors.m_crTaskPanelBack );
+		dc.SetPixel( rc.right - 1, 1, Colors.m_crTaskPanelBack );
 
 		dc.ExcludeClipRect( 0, 0, 2, 1 );
 		dc.ExcludeClipRect( 0, 1, 1, 2 );
@@ -559,7 +560,7 @@ void CTaskBox::PaintBorders()
 	else
 	{
 		pBuffer->FillSolidRect( &rcc, m_bPrimary ?
-			CoolInterface.m_crTaskBoxPrimaryBack : CoolInterface.m_crTaskBoxCaptionBack );
+			Colors.m_crTaskBoxPrimaryBack : Colors.m_crTaskBoxCaptionBack );
 	}
 
 	CPoint ptIcon( 6, rcc.Height() / 2 - 7 );
@@ -573,8 +574,8 @@ void CTaskBox::PaintBorders()
 	CSize sz		= pBuffer->GetTextExtent( strCaption );
 
 	pBuffer->SetBkMode( TRANSPARENT );
-	pBuffer->SetTextColor( m_bHover ? CoolInterface.m_crTaskBoxCaptionHover :
-		( m_bPrimary ? CoolInterface.m_crTaskBoxPrimaryText : CoolInterface.m_crTaskBoxCaptionText ) );
+	pBuffer->SetTextColor( m_bHover ? Colors.m_crTaskBoxCaptionHover :
+		( m_bPrimary ? Colors.m_crTaskBoxPrimaryText : Colors.m_crTaskBoxCaptionText ) );
 
 	pBuffer->ExtTextOut( ptIcon.x * 2 + 16 + 1, rcc.Height() / 2 - sz.cy / 2,
 		ETO_CLIPPED, &rcc, strCaption, NULL );
@@ -588,8 +589,8 @@ void CTaskBox::PaintBorders()
 	if ( m_bOpen )
 	{
 		rc.top = rcc.bottom - 1;
-		dc.Draw3dRect( &rc, CoolInterface.m_crTaskBoxCaptionBack,
-			CoolInterface.m_crTaskBoxCaptionBack );
+		dc.Draw3dRect( &rc, Colors.m_crTaskBoxCaptionBack,
+			Colors.m_crTaskBoxCaptionBack );
 	}
 }
 
@@ -614,7 +615,7 @@ void CTaskBox::OnPaint()
 
 	if ( ! CoolInterface.DrawWatermark( &dc, &rc, &m_bmWatermark ) )
 	{
-		dc.FillSolidRect( &rc, CoolInterface.m_crTaskBoxClient );
+		dc.FillSolidRect( &rc, Colors.m_crTaskBoxClient );
 	}
 }
 

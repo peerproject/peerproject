@@ -61,6 +61,7 @@ public:
 protected:
 	//{{AFX_MSG(CWizardSharePage)
 	virtual BOOL OnInitDialog();
+	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	afx_msg void OnItemChangedShareFolders(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnShareAdd();
 	afx_msg void OnShareRemove();

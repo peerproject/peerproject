@@ -22,10 +22,11 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
-#include "ImageServices.h"
-#include "Skin.h"
 #include "WndMedia.h"
+#include "ImageServices.h"
 #include "CoolInterface.h"
+#include "Colors.h"
+#include "Skin.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -181,7 +182,7 @@ void CMediaWnd::OnPaint()
 	{
 		CRect rc;
 		GetClientRect( &rc );
-		dc.FillSolidRect( &rc, CoolInterface.m_crMediaWindowBack );
+		dc.FillSolidRect( &rc, Colors.m_crMediaWindowBack );
 	}
 }
 

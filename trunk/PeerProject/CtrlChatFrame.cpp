@@ -29,7 +29,7 @@
 #include "ChatWindows.h"
 #include "ChatCore.h"
 #include "ChatSession.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 #include "Emoticons.h"
 #include "WndChat.h"
 
@@ -356,12 +356,12 @@ void CChatFrame::AddText(BOOL bSelf, BOOL bAction, LPCTSTR pszNick, LPCTSTR pszB
 
 		str.Format( _T("[%.2i:%.2i] "),
 			tNow.GetHour(), tNow.GetMinute() );
-		m_pContent.Add( retText, str, NULL, retfColor )->m_cColor = CoolInterface.m_crChatNull;
+		m_pContent.Add( retText, str, NULL, retfColor )->m_cColor = Colors.m_crChatNull;
 	}
 
 	str.Format( bAction ? _T("* %s ") : _T("%s: "), pszNick );
 	m_pContent.Add( retText, str, NULL, retfBold | retfColor )->m_cColor
-		= ( bSelf ? CoolInterface.m_crChatOut : CoolInterface.m_crChatIn );
+		= ( bSelf ? Colors.m_crChatOut : Colors.m_crChatIn );
 
 	Emoticons.FormatText( &m_pContent, pszBody );
 
@@ -375,7 +375,7 @@ void CChatFrame::AddText(BOOL bSelf, BOOL bAction, LPCTSTR pszNick, LPCTSTR pszB
 void CChatFrame::OnStatusMessage(int nFlags, LPCTSTR pszText)
 {
 	m_pContent.Add( retText, pszText, NULL, retfColor )->m_cColor
-		= nFlags == 1 ? CoolInterface.m_crChatOut : CoolInterface.m_crChatNull;
+		= nFlags == 1 ? Colors.m_crChatOut : Colors.m_crChatNull;
 	m_pContent.Add( retNewline, NEWLINE_FORMAT );
 	m_wndView.InvalidateIfModified();
 }
@@ -610,15 +610,15 @@ void CChatFrame::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	if ( lpDrawItemStruct->itemState & ODS_SELECTED )
 	{
-		pDC->Draw3dRect( &rc, CoolInterface.m_crHighlight, CoolInterface.m_crHighlight );
+		pDC->Draw3dRect( &rc, Colors.m_crHighlight, Colors.m_crHighlight );
 		rc.DeflateRect( 1, 1 );
-		pDC->Draw3dRect( &rc, CoolInterface.m_crHighlight, CoolInterface.m_crHighlight );
+		pDC->Draw3dRect( &rc, Colors.m_crHighlight, Colors.m_crHighlight );
 	}
 	else
 	{
-		pDC->Draw3dRect( &rc, CoolInterface.m_crWindow, CoolInterface.m_crWindow );
+		pDC->Draw3dRect( &rc, Colors.m_crWindow, Colors.m_crWindow );
 		rc.DeflateRect( 1, 1 );
-		pDC->Draw3dRect( &rc, CoolInterface.m_crWindow, CoolInterface.m_crWindow );
+		pDC->Draw3dRect( &rc, Colors.m_crWindow, Colors.m_crWindow );
 	}
 }
 

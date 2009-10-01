@@ -1,8 +1,8 @@
 //
 // Builder.h : Declaration of the CBuilder
 //
-// Copyright (c) Nikolay Raspopov, 2005.
 // This file is part of PeerProject (peerproject.org) © 2008
+// Portions copyright (c) Nikolay Raspopov, 2005.
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include "resource.h"
+#include "Resource.h"
 #include "MediaLibraryBuilder.h"
 
 class ATL_NO_VTABLE CBuilder : 

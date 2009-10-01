@@ -26,7 +26,7 @@
 #include "LiveList.h"
 #include "WndSecurity.h"
 #include "DlgSecureRule.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 #include "XML.h"
 
 #ifdef _DEBUG
@@ -94,11 +94,9 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
 		rectDefault, this, IDC_RULES );
 
-	m_pSizer.Attach( &m_wndList );
+	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
-	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP,
-		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
+	m_pSizer.Attach( &m_wndList );
 
 	CBitmap bmBase;
 	bmBase.LoadBitmap( IDB_SECURITY );
@@ -285,10 +283,10 @@ void CSecurityWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 		switch ( Settings.General.LanguageRTL ? 2 - pItem.iImage : pItem.iImage )
 		{
 		case CSecureRule::srAccept:
-			pDraw->clrText = CoolInterface.m_crSecurityAllow ;
+			pDraw->clrText = Colors.m_crSecurityAllow ;
 			break;
 		case CSecureRule::srDeny:
-			pDraw->clrText = CoolInterface.m_crSecurityDeny ;
+			pDraw->clrText = Colors.m_crSecurityDeny ;
 			break;
 		}
 
@@ -544,6 +542,8 @@ void CSecurityWnd::OnSkinChange()
 	CPanelWnd::OnSkinChange();
 	Settings.LoadList( _T("CSecurityWnd"), &m_wndList, -5 );
 	Skin.CreateToolBar( _T("CSecurityWnd"), &m_wndToolBar );
+
+	m_wndList.SetBkImage( Skin.GetWatermark( _T("CSecurityWnd") ) );
 }
 
 void CSecurityWnd::OnUpdateSecurityPolicyAccept(CCmdUI* pCmdUI)

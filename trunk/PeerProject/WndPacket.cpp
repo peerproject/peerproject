@@ -27,7 +27,7 @@
 #include "Neighbour.h"
 #include "EDPacket.h"
 #include "WndPacket.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 #include "CoolMenu.h"
 #include "LiveList.h"
 #include "Skin.h"
@@ -341,9 +341,9 @@ void CPacketWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 		if ( m_nInputFilter != 1 && m_nOutputFilter != 1 )
 		{
 			if ( pDraw->nmcd.lItemlParam )
-				pDraw->clrText = CoolInterface.m_crNetworkUp ;
+				pDraw->clrText = Colors.m_crNetworkUp ;
 			else
-				pDraw->clrText = CoolInterface.m_crNetworkDown ;
+				pDraw->clrText = Colors.m_crNetworkDown ;
 		}
 		*pResult = CDRF_DODEFAULT;
 	}

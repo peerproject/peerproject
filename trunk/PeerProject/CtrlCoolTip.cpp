@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "CtrlCoolTip.h"
 #include "GraphLine.h"
@@ -262,7 +263,7 @@ void CCoolTipCtrl::DrawText(CDC* pDC, POINT* pPoint, LPCTSTR pszText, SIZE* pTex
 	}
 	rcText.MoveToXY( pPoint->x, pPoint->y );
 	pDC->SetBkMode( TRANSPARENT );
-	pDC->FillSolidRect( &rcText, CoolInterface.m_crTipBack );
+	pDC->FillSolidRect( &rcText, Colors.m_crTipBack );
 	pDC->DrawText( pszText, -1, &rcText, dwFlags | DT_END_ELLIPSIS );
 	pDC->ExcludeClipRect( &rcText );
 }
@@ -273,16 +274,16 @@ void CCoolTipCtrl::DrawRule(CDC* pDC, POINT* pPoint, BOOL bPos)
 	if ( bPos )
 	{
 		pDC->Draw3dRect( pPoint->x, pPoint->y,
-			m_sz.cx + ( TIP_MARGIN - 3 ) - pPoint->x, 1, CoolInterface.m_crTipBorder,
-			CoolInterface.m_crTipBorder );
+			m_sz.cx + ( TIP_MARGIN - 3 ) - pPoint->x, 1, Colors.m_crTipBorder,
+			Colors.m_crTipBorder );
 		pDC->ExcludeClipRect( pPoint->x, pPoint->y,
 			m_sz.cx + ( TIP_MARGIN - 3 ), pPoint->y + 1 );
 	}
 	else
 	{
 		pDC->Draw3dRect( -( TIP_MARGIN - 3 ), pPoint->y,
-			m_sz.cx + ( TIP_MARGIN - 3 ) * 2, 1, CoolInterface.m_crTipBorder,
-			CoolInterface.m_crTipBorder );
+			m_sz.cx + ( TIP_MARGIN - 3 ) * 2, 1, Colors.m_crTipBorder,
+			Colors.m_crTipBorder );
 		pDC->ExcludeClipRect( -( TIP_MARGIN - 3 ), pPoint->y,
 			m_sz.cx + ( TIP_MARGIN - 3 ), pPoint->y + 1 );
 	}
@@ -317,10 +318,10 @@ CLineGraph* CCoolTipCtrl::CreateLineGraph()
 	pGraph->m_bShowAxis		= FALSE;
 	pGraph->m_nMinGridVert	= 16;
 
-	pGraph->m_crBack = CoolInterface.CalculateColor(
-		RGB( 255, 255, 255 ), CoolInterface.m_crTipBack, 80 );
-	pGraph->m_crGrid = CoolInterface.CalculateColor(
-		CoolInterface.m_crTipBorder, pGraph->m_crBack, 180 );
+	pGraph->m_crBack = Colors.CalculateColor(
+		RGB( 255, 255, 255 ), Colors.m_crTipBack, 80 );
+	pGraph->m_crGrid = Colors.CalculateColor(
+		Colors.m_crTipBorder, pGraph->m_crBack, 180 );
 
 	return pGraph;
 }
@@ -359,14 +360,14 @@ void CCoolTipCtrl::OnPaint()
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntBold );
 
-	dc.Draw3dRect( &rc, CoolInterface.m_crTipBorder, CoolInterface.m_crTipBorder );
+	dc.Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	dc.SetViewportOrg( TIP_MARGIN, TIP_MARGIN );
 	rc.DeflateRect( 1, 1 );
 
 	OnPaint( &dc );
 
 	dc.SetViewportOrg( 0, 0 );
-	dc.FillSolidRect( &rc, CoolInterface.m_crTipBack );
+	dc.FillSolidRect( &rc, Colors.m_crTipBack );
 	dc.SelectObject( pOldFont );
 }
 

@@ -26,7 +26,7 @@
 #include "Schema.h"
 #include "XML.h"
 #include "Skin.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -424,7 +424,7 @@ void CSchemaCtrl::OnNcPaint()
 		CWindowDC dc( this );
 		CRect rc;
 
-		COLORREF crBorder = CoolInterface.m_crSysActiveCaption ;
+		COLORREF crBorder = Colors.m_crSysActiveCaption ;
 
 		GetWindowRect( &rc );
 		rc.OffsetRect( -rc.left, -rc.top );
@@ -455,7 +455,7 @@ void CSchemaCtrl::OnPaint()
 	for ( INT_PTR nControl = 0 ; nControl < m_pControls.GetSize() ; nControl++ )
 	{
 		// dc.SetBkColor( nControl & 1 ? RGB( 240, 240, 255 ) : RGB( 255, 255, 255 ) );
-		dc.SetBkColor( Skin.m_crSchemaRow[ nControl & 1 ] );
+		dc.SetBkColor( Colors.m_crSchemaRow[ nControl & 1 ] );
 
 		dc.ExtTextOut( rcItem.left + 4, rcItem.top + nOffset, ETO_OPAQUE|ETO_CLIPPED,
 			&rcItem, m_pCaptions.GetAt( nControl ), NULL );
@@ -466,7 +466,7 @@ void CSchemaCtrl::OnPaint()
 	if ( rcItem.top < rcClient.bottom )
 	{
 		rcItem.SetRect( rcClient.left, rcItem.top, rcClient.right, rcClient.bottom );
-		dc.FillSolidRect( &rcItem, CoolInterface.m_crDropdownBox );
+		dc.FillSolidRect( &rcItem, Colors.m_crDropdownBox );
 	}
 
 	dc.SelectObject( pOldFont );

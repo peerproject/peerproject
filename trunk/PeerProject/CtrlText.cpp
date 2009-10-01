@@ -23,7 +23,7 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "CtrlText.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -58,17 +58,17 @@ CTextCtrl::CTextCtrl() :
 	m_nScrollWheelLines( 3 ),
 	m_nLastClicked( -1 )
 {
-	// TODO: Add new log color codes to CoolInterface
+	// ToDo: Add new log color codes to CColors.m_cr...
 
 	// Severity
-	m_crText[0] = RGB( 255, 0, 0 );				// red			- MSG_ERROR
-	m_crText[1] = RGB( 255, 128, 64 );			// orange		- MSG_WARNING
-	m_crText[2] = RGB( 0, 0, 128 );				// dark blue	- MSG_NOTICE
-	m_crText[3] = RGB( 0, 0, 0 );				// black		- MSG_INFO
-	m_crText[4] = RGB( 128, 128, 128 );			// gray			- MSG_DEBUG
+	m_crText[0] = RGB( 255, 0, 0 );			// red		- MSG_ERROR
+	m_crText[1] = RGB( 255, 128, 64 );		// orange	- MSG_WARNING
+	m_crText[2] = RGB( 0, 0, 128 );			// dark blue	- MSG_NOTICE
+	m_crText[3] = RGB( 0, 0, 0 );			// black	- MSG_INFO
+	m_crText[4] = RGB( 128, 128, 128 );		// gray		- MSG_DEBUG
 
 	// Facility
-	m_crBackground[0] = RGB( 255, 255, 255 );	// white		- MSG_FACILITY_DEFAULT
+	m_crBackground[0] = RGB( 255, 255, 255 );	// white	- MSG_FACILITY_DEFAULT
 	m_crBackground[1] = RGB( 255, 255, 224 );	// light yellow	- MSG_FACILITY_SEARCH
 	m_crBackground[2] = RGB( 224, 255, 224 );	// light green	- MSG_FACILITY_INCOMING
 	m_crBackground[3] = RGB( 224, 240, 255 );	// light blue	- MSG_FACILITY_OUTGOING
@@ -295,9 +295,9 @@ void CTextCtrl::OnPaint()
 	for ( INT_PTR nLine = m_pLines.GetSize() - 1 ; nLine >= 0 && rcLine.bottom > 0 ; nLine-- )
 	{
 		CTextLine* pLine = m_pLines.GetAt( nLine );
-		dc.SetTextColor( pLine->m_bSelected ? CoolInterface.m_crHiText :
+		dc.SetTextColor( pLine->m_bSelected ? Colors.m_crHiText :
 			m_crText[ pLine->m_nType & MSG_SEVERITY_MASK ] );
-		dc.SetBkColor( pLine->m_bSelected ? CoolInterface.m_crHighlight :
+		dc.SetBkColor( pLine->m_bSelected ? Colors.m_crHighlight :
 			m_crBackground[ ( pLine->m_nType & MSG_FACILITY_MASK ) >> 8 ] );
 		pLine->Paint( &dc, &rcLine );
 	}

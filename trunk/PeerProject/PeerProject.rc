@@ -1874,7 +1874,7 @@ STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	LTEXT			"WARNING: This dialog provides advanced download editing features for power users, which will cause corruption if used incorrectly.",IDC_STATIC,7,7,286,18
+	LTEXT			"WARNING: This dialog provides advanced download editing features for \npower users, which will cause corruption when used incorrectly.",IDC_STATIC,7,7,286,18
 	GROUPBOX		"Details:",IDC_STATIC,6,28,286,69
 	LTEXT			"Filename:",IDC_STATIC,14,44,60,10
 	LTEXT			"Location:",IDC_STATIC,14,62,60,10
@@ -1901,7 +1901,7 @@ STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Download Properties"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	LTEXT			"WARNING: This dialog provides advanced download editing features for power users, which will cause corruption if used incorrectly.",IDC_STATIC,7,7,286,18
+	LTEXT			"WARNING: This dialog provides advanced download editing features for \npower users, which will cause corruption when used incorrectly.",IDC_STATIC,7,7,286,18
 	LTEXT			"Forget all known sources",IDC_FORGET_SOURCES,20,44,264,8
 	LTEXT			"Forget current verification status and reverify",IDC_FORGET_VERIFY,20,58,264,8
 	LTEXT			"Assume file is 100% complete and reverify",IDC_COMPLETE_AND_VERIFY,20,72,264,8
@@ -3247,7 +3247,7 @@ BEGIN
 	IDS_UPGRADE_LAUNCH			"PeerProject has finished downloading the next PeerProject version (%s).  Would you like to upgrade now?\n\nIf you select Yes, PeerProject will close temporarily while the upgrade is installed."
 	IDS_SKIN_DELETE				"Are you sure you want to delete the ""%s"" skin?  This cannot be undone."
 	IDS_BETA_EXPIRED			"This is a pre-release version of PeerProject, and the beta testing period has ended.  Please download the full, official release from http://peerproject.org/."
-	IDS_VIEW_MODE_CONFIRM		"Changing views may close windows you have open.  Would you like to change now?"
+	IDS_VIEW_MODE_CONFIRM		"Changing views may close some windows. \nWould you like to proceed now?"
 	IDS_UPGRADE_NO_NEW			"No new PeerProject version detected."
 	IDS_DOWNLOAD_PROPERTIES 	"Download Properties"
 END

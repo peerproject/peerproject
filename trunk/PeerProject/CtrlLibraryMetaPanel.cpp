@@ -28,6 +28,7 @@
 #include "SharedFile.h"
 #include "AlbumFolder.h"
 #include "Schema.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
 #include "Skin.h"
@@ -254,8 +255,8 @@ void CLibraryMetaPanel::OnPaint()
 	GetClientRect( &rcClient );
 
 	CFont* pOldFont = dc.GetCurrentFont();
-	dc.SetTextColor( CoolInterface.m_crText );
-	dc.SetBkColor( CoolInterface.m_crWindow );
+	dc.SetTextColor( Colors.m_crText );
+	dc.SetBkColor( Colors.m_crWindow );
 	dc.SetBkMode( OPAQUE );
 
 	if ( m_nSelected == 0 )
@@ -280,7 +281,7 @@ void CLibraryMetaPanel::OnPaint()
 
 	dc.SetViewportOrg( 0, -GetScrollPos( SB_VERT ) );
 
-	dc.SetBkColor( CoolInterface.m_crWindow );
+	dc.SetBkColor( Colors.m_crWindow );
 
 	if ( m_nRating > 1 )
 	{
@@ -290,7 +291,7 @@ void CLibraryMetaPanel::OnPaint()
 		for ( int nRating = m_nRating - 1 ; nRating ; nRating-- )
 		{
 			ptStar.x -= 16;
-			CoolInterface.Draw( &dc, IDI_STAR, 16, ptStar.x, ptStar.y, CoolInterface.m_crWindow );
+			CoolInterface.Draw( &dc, IDI_STAR, 16, ptStar.x, ptStar.y, Colors.m_crWindow );
 			dc.ExcludeClipRect( ptStar.x, ptStar.y, ptStar.x + 16, ptStar.y + 16 );
 			m_rcRating.UnionRect( &m_rcRating, CRect( ptStar.x, ptStar.y, ptStar.x + 16, ptStar.y + 16 ) );
 		}
@@ -300,7 +301,7 @@ void CLibraryMetaPanel::OnPaint()
 		CPoint ptStar( rcWork.right - 3, rcWork.top - 2 );
 		m_rcRating.SetRectEmpty();
 		ptStar.x -= 16;
-		CoolInterface.Draw( &dc, IDI_FAKE, 16, ptStar.x, ptStar.y, CoolInterface.m_crWindow );
+		CoolInterface.Draw( &dc, IDI_FAKE, 16, ptStar.x, ptStar.y, Colors.m_crWindow );
 		dc.ExcludeClipRect( ptStar.x, ptStar.y, ptStar.x + 16, ptStar.y + 16 );
 		m_rcRating.UnionRect( &m_rcRating, CRect( ptStar.x, ptStar.y, ptStar.x + 16, ptStar.y + 16 ) );
 	}
@@ -308,21 +309,21 @@ void CLibraryMetaPanel::OnPaint()
 	{
 		m_rcRating.SetRectEmpty();
 		dc.SelectObject( &CoolInterface.m_fntUnder );
-		dc.SetTextColor( CoolInterface.m_crTextLink );
+		dc.SetTextColor( Colors.m_crTextLink );
 		LoadString( str, IDS_LIBPANEL_RATE_FILE );
 		CSize szText = dc.GetTextExtent( str );
 		DrawText( &dc, rcWork.right - szText.cx, rcWork.top, str, &m_rcRating );
 	}
 
 	dc.SelectObject( &CoolInterface.m_fntCaption );
-	dc.SetTextColor( CoolInterface.m_crText );
+	dc.SetTextColor( Colors.m_crText );
 	DrawText( &dc, rcWork.left, rcWork.top, m_sName, NULL, rcWork.Width() - m_rcRating.Width() - 4 );
 
 	rcWork.top += 20;
-	dc.FillSolidRect( rcWork.left, rcWork.top, rcWork.Width(), 1, CoolInterface.m_crMargin );
+	dc.FillSolidRect( rcWork.left, rcWork.top, rcWork.Width(), 1, Colors.m_crMargin );
 	dc.ExcludeClipRect( rcWork.left, rcWork.top, rcWork.right, rcWork.top + 1 );
-	dc.SetBkColor( CoolInterface.m_crWindow );
-	dc.SetTextColor( CoolInterface.m_crText );
+	dc.SetBkColor( Colors.m_crWindow );
+	dc.SetTextColor( Colors.m_crText );
 	rcWork.top += 4;
 
 	dc.SelectObject( &CoolInterface.m_fntBold );
@@ -339,7 +340,7 @@ void CLibraryMetaPanel::OnPaint()
 	if ( m_sFolder.Find( '\\' ) >= 0 )
 	{
 		dc.SelectObject( &CoolInterface.m_fntUnder );
-		dc.SetTextColor( CoolInterface.m_crTextLink );
+		dc.SetTextColor( Colors.m_crTextLink );
 		str = m_sFolder;
 		long nTextLength = dc.GetTextExtent( str + _T('\x2026') ).cx;
 		const long nLimit = rcWork.Width() - 125 - 68 - 10;
@@ -366,7 +367,7 @@ void CLibraryMetaPanel::OnPaint()
 	dc.SetViewportOrg( 0, 0 );
 
 	dc.SelectObject( pOldFont );
-	dc.FillSolidRect( &rcClient, CoolInterface.m_crWindow );
+	dc.FillSolidRect( &rcClient, Colors.m_crWindow );
 }
 
 void CLibraryMetaPanel::DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, RECT* pRect, int nMaxWidth)

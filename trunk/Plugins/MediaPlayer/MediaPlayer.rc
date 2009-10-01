@@ -46,12 +46,12 @@ BEGIN
     BEGIN
         BLOCK "000004b0"
         BEGIN
-            VALUE "Comments", "PeerProject Media Services Plugin"
+            VALUE "Comments", "Default internal Mediaplayer for Audio/Video files."
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "PeerProject Media Services Plugin"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "MediaPlayer"
-            VALUE "LegalCopyright", "Copyright © PeerProject Development Team, 2009. All rights reserved."
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
             VALUE "OriginalFilename", "MediaPlayer.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"
@@ -69,8 +69,19 @@ END
 // REGISTRY
 //
 
-IDR_MEDIAPLAYER         REGISTRY                "MediaPlayer.rgs"
-IDR_PLAYER              REGISTRY                "Player.rgs"
+IDR_MEDIAPLAYER		REGISTRY		"MediaPlayer.rgs"
+IDR_PLAYER		REGISTRY		"Player.rgs"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icons
+//
+// Icon with lowest ID value placed first to ensure
+// application icon remains consistent on all systems.
+
+//IDI_ICON		ICON			"Icon.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -79,7 +90,8 @@ IDR_PLAYER              REGISTRY                "Player.rgs"
 
 STRINGTABLE
 BEGIN
-    IDS_PROJNAME            "MediaPlayer"
+    IDS_PROJNAME	"MediaPlayer"
+//  IDS_ABOUT		"PeerProject Media Services Plugin\n© PeerProject Development Team, 2008\n(Configure via MediaPlayer)"
 END
 
 
@@ -97,7 +109,7 @@ END
 2 TEXTINCLUDE
 BEGIN
     "#ifndef APSTUDIO_INVOKED\r\n"
-    "#include ""targetver.h""\r\n"
+    "#include ""TargetVer.h""\r\n"
     "#endif\r\n"
     "#include ""winres.h""\r\n"
     "\0"

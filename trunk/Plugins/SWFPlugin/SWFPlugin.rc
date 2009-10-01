@@ -1,6 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
-#include "resource.h"
+#include "Resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
@@ -81,12 +81,12 @@ BEGIN
     BEGIN
         BLOCK "000004b0"
         BEGIN
-            VALUE "Comments", "SWF Library Builder & Image Service Plugins"
+            VALUE "Comments", "Extract metadata & previews from Flash files."
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "SWF Library Builder & Image Service Plugins"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "SWFPlugin"
-            VALUE "LegalCopyright", "Copyright © Nikolay Raspopov, 2005-2007."
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
             VALUE "OriginalFilename", "SWFPlugin.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"
@@ -104,9 +104,20 @@ END
 // REGISTRY
 //
 
-IDR_SWFPLUGIN           REGISTRY                "SWFPlugin.rgs"
-IDR_SWFREADER           REGISTRY                "SWFReader.rgs"
-IDR_SWFBUILDER          REGISTRY                "SWFBuilder.rgs"
+IDR_SWFPLUGIN		REGISTRY		"SWFPlugin.rgs"
+IDR_SWFREADER		REGISTRY		"SWFReader.rgs"
+IDR_SWFBUILDER		REGISTRY		"SWFBuilder.rgs"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icons
+//
+// Icon with lowest ID value placed first to ensure
+// application icon remains consistent on all systems.
+
+//IDI_ICON		ICON			"Icon.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -115,7 +126,7 @@ IDR_SWFBUILDER          REGISTRY                "SWFBuilder.rgs"
 
 STRINGTABLE 
 BEGIN
-    IDS_PROJNAME            "SWFPlugin"
+    IDS_PROJNAME	"SWFPlugin"
 END
 
 #endif    // Neutral resources

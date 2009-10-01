@@ -62,10 +62,10 @@ protected:
 	//{{AFX_MSG(CTrackerPage)
 	virtual BOOL OnInitDialog();
 	afx_msg void OnClearTrackers();
+	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
-
 };
 
 //{{AFX_INSERT_LOCATION}}

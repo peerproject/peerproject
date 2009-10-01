@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "CoolMenu.h"
 #include "Transfers.h"
@@ -290,7 +291,7 @@ void CDownloadTabBar::DoPaint(CDC* pDC)
 			rcItem.OffsetRect( rcItem.Width() + 3, 0 );
 		}
 
-		if ( pDC == pOutDC ) pDC->FillSolidRect( &rc, CoolInterface.m_crMidtone );
+		if ( pDC == pOutDC ) pDC->FillSolidRect( &rc, Colors.m_crMidtone );
 	}
 	else
 	{
@@ -298,8 +299,8 @@ void CDownloadTabBar::DoPaint(CDC* pDC)
 		CPoint pt = rc.CenterPoint();
 		pt.x -= sz.cx / 2; pt.y -= sz.cy / 2 + 1;
 
-		pDC->SetBkColor( CoolInterface.m_crMidtone );
-		pDC->SetTextColor( CoolInterface.m_crDisabled );
+		pDC->SetBkColor( Colors.m_crMidtone );
+		pDC->SetTextColor( Colors.m_crDisabled );
 
 		if ( pDC == pOutDC )
 		{
@@ -824,8 +825,8 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 
 	if ( m_bSelected && pBar->m_bMenuGray )
 	{
-		crBack = CoolInterface.m_crBackNormal;
-		pDC->Draw3dRect( &rc, CoolInterface.m_crDisabled, CoolInterface.m_crDisabled );
+		crBack = Colors.m_crBackNormal;
+		pDC->Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
 	}
 	else if ( bHot && m_bSelected )
 		SetTabmark( Skin.GetWatermark( _T("CDownloadTabBar.Active.Hover") ) );
@@ -844,12 +845,12 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 	{
 		if ( bHot || m_bSelected )
 		{
-			crBack = ( bHot && m_bSelected ) ? CoolInterface.m_crBackCheckSel : CoolInterface.m_crBackSel;
-			pDC->Draw3dRect( &rc, CoolInterface.m_crBorder, CoolInterface.m_crBorder );
+			crBack = ( bHot && m_bSelected ) ? Colors.m_crBackCheckSel : Colors.m_crBackSel;
+			pDC->Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
 		}
 		else
 		{
-			crBack = bTransparent ? CLR_NONE : CoolInterface.m_crMidtone;
+			crBack = bTransparent ? CLR_NONE : Colors.m_crMidtone;
 			if ( crBack != CLR_NONE ) pDC->Draw3dRect( &rc, crBack, crBack );
 		}
 
@@ -877,7 +878,7 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 		}
 
 		ptImage.Offset( 2, 2 );
-		pDC->SetTextColor( CoolInterface.m_crShadow );
+		pDC->SetTextColor( Colors.m_crShadow );
 		ImageList_DrawEx( ShellIcons.GetHandle( 16 ), m_nImage, pDC->GetSafeHdc(),
 			ptImage.x, ptImage.y, 0, 0, crBack, CLR_NONE, ILD_MASK );
 
@@ -892,7 +893,7 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 	else
 	{
 		ImageList_DrawEx( ShellIcons.GetHandle( 16 ), m_nImage, pDC->GetSafeHdc(),
-			ptImage.x, ptImage.y, 0, 0, crBack, CoolInterface.m_crShadow, ILD_BLEND50 );
+			ptImage.x, ptImage.y, 0, 0, crBack, Colors.m_crShadow, ILD_BLEND50 );
 		pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 	}
 
@@ -919,15 +920,15 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 	}
 	if ( m_bSelected || bHot )
 	{
-		pDC->SetTextColor( CoolInterface.m_crCmdTextSel );
+		pDC->SetTextColor( Colors.m_crCmdTextSel );
 	}
 	else if ( ! bPopulated )
 	{
-		pDC->SetTextColor( CoolInterface.m_crDisabled );
+		pDC->SetTextColor( Colors.m_crDisabled );
 	}
 	else
 	{
-		pDC->SetTextColor( CoolInterface.m_crCmdText );
+		pDC->SetTextColor( Colors.m_crCmdText );
 	}
 
 	if ( crBack != CLR_NONE )

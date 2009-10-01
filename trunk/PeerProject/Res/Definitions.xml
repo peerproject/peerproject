@@ -233,7 +233,8 @@
 	<resource code="32952" id="ID_SECURITY_IMPORT"/>
 	<resource code="32953" id="ID_SEARCH_FILTER_RAW"/>
 	<resource code="32954" id="ID_SEARCH_PANEL"/>
-	<resource code="32956" id="ID_SYSTEM_TIMESTAMP"/>
+  <resource code="32955" id="ID_TOOLS_SKIN"/>
+  <resource code="32956" id="ID_SYSTEM_TIMESTAMP"/>
 	<resource code="32957" id="ID_LIBRARY_LAUNCH"/>
 	<resource code="32958" id="ID_NEIGHBOURS_URI"/>
 	<resource code="32959" id="ID_TOOLS_RESKIN"/>
@@ -242,8 +243,9 @@
 	<resource code="32962" id="ID_WINDOW_TABBAR"/>
 	<resource code="32963" id="ID_WINDOW_MONITOR"/>
 	<resource code="32964" id="ID_NETWORK_BROWSE_TO"/>
-	<resource code="32965" id="ID_TOOLS_SKIN"/>
-	<resource code="32967" id="ID_LIBRARY_HASH_PRIORITY"/>
+  <resource code="32965" id="ID_DOWNLOADS_MOVE_TOP"/>
+  <resource code="32966" id="ID_DOWNLOADS_MOVE_BOTTOM"/>
+  <resource code="32967" id="ID_LIBRARY_HASH_PRIORITY"/>
 	<resource code="32968" id="ID_DOWNLOADS_FILE_DELETE"/>
 	<resource code="32969" id="ID_NEIGHBOURS_SETTINGS"/>
 	<resource code="32970" id="ID_LIBRARY_RENAME"/>

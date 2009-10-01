@@ -37,30 +37,30 @@ public:
 
 // Operations
 public:
-	void	Apply();
-	void	Clear();
-	BOOL	LoadFromFile(LPCTSTR pszFile);
-	BOOL	LoadFromResource(HINSTANCE hInstance, UINT nResourceID);
-	BOOL	LoadFromString(const CString& strXML, const CString& strPath);
-	BOOL	LoadFromXML(CXMLElement* pXML, const CString& strPath);
-	BOOL	SelectCaption(CWnd* pWnd, int nIndex);
-	BOOL	SelectCaption(CString& strCaption, int nIndex);
-	void	DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptStart, BOOL bExclude = TRUE);
+	void		Apply();
+	void		Clear();
+	BOOL		LoadFromFile(LPCTSTR pszFile);
+	BOOL		LoadFromResource(HINSTANCE hInstance, UINT nResourceID);
+	BOOL		LoadFromString(const CString& strXML, const CString& strPath);
+	BOOL		LoadFromXML(CXMLElement* pXML, const CString& strPath);
+	BOOL		SelectCaption(CWnd* pWnd, int nIndex);
+	BOOL		SelectCaption(CString& strCaption, int nIndex);
+	void		DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptStart, BOOL bExclude = TRUE);
 protected:
-	void	ApplyRecursive(LPCTSTR pszPath);
-	void	CreateDefault();
-	void	CreateDefaultColors();
-	HBITMAP	LoadBitmap(const CString& strName);
+	void		ApplyRecursive(LPCTSTR pszPath);
+	void		CreateDefault();
+	void		CreateDefaultColors();
+	HBITMAP		LoadBitmap(const CString& strName);
 
 // Strings
 public:
-	void	AddString(const CString& strString, UINT nStringID);
-	BOOL	LoadString(CString& str, UINT nStringID) const;
-	BOOL	LoadControlTip(CString& str, UINT nCtrlID);
-	int		GetTextFlowChange(LPCTSTR pszText, BOOL* bIsRTL);
+	void		AddString(const CString& strString, UINT nStringID);
+	BOOL		LoadString(CString& str, UINT nStringID) const;
+	BOOL		LoadControlTip(CString& str, UINT nCtrlID);
+	int			GetTextFlowChange(LPCTSTR pszText, BOOL* bIsRTL);
 protected:
-	BOOL	LoadStrings(CXMLElement* pBase);
-	BOOL	LoadControlTips(CXMLElement* pBase);
+	BOOL		LoadStrings(CXMLElement* pBase);
+	BOOL		LoadControlTips(CXMLElement* pBase);
 	CMap<UINT, UINT, CString, const CString&>	m_pStrings;
 	CMap<UINT, UINT, CString, const CString&>	m_pControlTips;
 
@@ -71,89 +71,81 @@ public:
 	CMenu*		CreatePopupMenu(LPCTSTR pszName);
 protected:
 	CMap< CString, const CString&, CMenu*, CMenu* > m_pMenus;
-	BOOL	LoadMenus(CXMLElement* pBase);
-	BOOL	LoadMenu(CXMLElement* pXML);
-	BOOL	CreateMenu(CXMLElement* pXML, HMENU hMenu);
+	BOOL		LoadMenus(CXMLElement* pBase);
+	BOOL		LoadMenu(CXMLElement* pXML);
+	BOOL		CreateMenu(CXMLElement* pXML, HMENU hMenu);
 
 // Toolbars
 public:
-	BOOL			CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar);
-	CCoolBarCtrl*	CreateToolBar(LPCTSTR pszName);
-	CCoolBarCtrl*	GetToolBar(LPCTSTR pszName) const;
+	BOOL		CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar);
+	CCoolBarCtrl* CreateToolBar(LPCTSTR pszName);
+	CCoolBarCtrl* GetToolBar(LPCTSTR pszName) const;
 protected:
 	CMap< CString, const CString&, CCoolBarCtrl*, CCoolBarCtrl* > m_pToolbars;
-	BOOL	LoadToolbars(CXMLElement* pBase);
-	BOOL	CreateToolBar(CXMLElement* pElement);
+	BOOL		LoadToolbars(CXMLElement* pBase);
+	BOOL		CreateToolBar(CXMLElement* pElement);
 
 // Documents
 public:
-	CXMLElement*	GetDocument(LPCTSTR pszName);
+	CXMLElement* GetDocument(LPCTSTR pszName);
 protected:
-	BOOL			LoadDocuments(CXMLElement* pBase);
+	BOOL		LoadDocuments(CXMLElement* pBase);
 	CMap< CString, const CString&, CXMLElement*, CXMLElement* > m_pDocuments;
 
 // Watermarks
 public:
-	HBITMAP	GetWatermark(LPCTSTR pszName);
-	BOOL	GetWatermark(CBitmap* pBitmap, LPCTSTR pszName);
+	HBITMAP		GetWatermark(LPCTSTR pszName);
+	BOOL		GetWatermark(CBitmap* pBitmap, LPCTSTR pszName);
 protected:
-	BOOL	LoadWatermarks(CXMLElement* pSub, const CString& strPath);
+	BOOL		LoadWatermarks(CXMLElement* pSub, const CString& strPath);
 	CMap< CString, const CString&, CString, CString& > m_pWatermarks;
 
 // Translate
 public:
-	BOOL	Translate(LPCTSTR pszName, CHeaderCtrl* pCtrl);
-	CString GetHeaderTranslation(LPCTSTR pszClassName, LPCTSTR pszHeaderName);
+	BOOL		Translate(LPCTSTR pszName, CHeaderCtrl* pCtrl);
+	CString		GetHeaderTranslation(LPCTSTR pszClassName, LPCTSTR pszHeaderName);
 protected:
-	BOOL	LoadListColumns(CXMLElement* pBase);
+	BOOL		LoadListColumns(CXMLElement* pBase);
 	CMap< CString, const CString&, CString, CString& > m_pLists;
 
 // Dialogs
 public:
-	BOOL	Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID = 0, CToolTipCtrl* pWndTooltips = NULL);
+	BOOL		Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID = 0, CToolTipCtrl* pWndTooltips = NULL);
 	CString	GetDialogCaption(LPCTSTR pszName);
 protected:
-	BOOL	LoadDialogs(CXMLElement* pBase);
+	BOOL		LoadDialogs(CXMLElement* pBase);
 	CMap< CString, const CString&, CXMLElement*, CXMLElement* >	m_pDialogs;
 
 // Window Skins
 public:
-	CSkinWindow*	GetWindowSkin(LPCTSTR pszWindow, LPCTSTR pszAppend = NULL);
-	CSkinWindow*	GetWindowSkin(CWnd* pWnd);
+	CSkinWindow* GetWindowSkin(LPCTSTR pszWindow, LPCTSTR pszAppend = NULL);
+	CSkinWindow* GetWindowSkin(CWnd* pWnd);
 protected:
-	BOOL			LoadWindowSkins(CXMLElement* pSub, const CString& strPath);
+	BOOL		LoadWindowSkins(CXMLElement* pSub, const CString& strPath);
 	CList< CSkinWindow* > m_pSkins;
 
-// Color Scheme
+// Color Scheme / Watermarks
 public:
-	COLORREF	m_crDialog;
-	CBrush		m_brDialog;
-	COLORREF	m_crPanelBack;
 	CBitmap		m_bmPanelMark;
-	COLORREF	m_crPanelText;
-	COLORREF	m_crPanelBorder;
-	COLORREF	m_crBannerBack;
-	COLORREF	m_crBannerText;
-	COLORREF	m_crSchemaRow[2];
 protected:
 	BOOL		LoadColorScheme(CXMLElement* pBase);
 
 // Fonts
 protected:
-	CList< CString >	m_pFontPaths;
+	CList< CString > m_pFontPaths;
 protected:
 	BOOL		LoadFonts(CXMLElement* pBase, const CString& strPath);
 
 // Other
 public:
-	UINT	LookupCommandID(CXMLElement* pXML, LPCTSTR pszName = _T("id")) const;
+	UINT		LookupCommandID(CXMLElement* pXML, LPCTSTR pszName = _T("id")) const;
 	CString	GetImagePath(UINT nImageID) const;
 protected:
 	CMap< UINT, const UINT&, CString, const CString& > m_pImages;
-	BOOL	LoadResourceMap(CXMLElement* pBase);
-	BOOL	LoadCommandImages(CXMLElement* pBase, const CString& strPath);
-	BOOL	LoadCommandIcon(CXMLElement* pXML, const CString& strPath);
-	BOOL	LoadCommandBitmap(CXMLElement* pBase, const CString& strPath);
+	BOOL		LoadResourceMap(CXMLElement* pBase);
+	BOOL		LoadCommandImages(CXMLElement* pBase, const CString& strPath);
+	BOOL		LoadCommandIcon(CXMLElement* pXML, const CString& strPath);
+	BOOL		LoadCommandBitmap(CXMLElement* pBase, const CString& strPath);
 
 // Mode Suffixes
 protected:
@@ -161,34 +153,20 @@ protected:
 
 // NavBar
 public:
-	COLORREF	m_crNavBarText;
-	COLORREF	m_crNavBarTextUp;
-	COLORREF	m_crNavBarTextDown;
-	COLORREF	m_crNavBarTextHover;
-	COLORREF	m_crNavBarTextChecked;
-	COLORREF	m_crNavBarShadow;
-	COLORREF	m_crNavBarShadowUp;
-	COLORREF	m_crNavBarShadowDown;
-	COLORREF	m_crNavBarShadowHover;
-	COLORREF	m_crNavBarShadowChecked;
-	COLORREF	m_crNavBarOutline;
-	COLORREF	m_crNavBarOutlineUp;
-	COLORREF	m_crNavBarOutlineDown;
-	COLORREF	m_crNavBarOutlineHover;
-	COLORREF	m_crNavBarOutlineChecked;
 	CRect		m_rcNavBarOffset;
 	enum { NavBarNormal, NavBarUpper, NavBarLower } m_NavBarMode;
 protected:
-	BOOL	LoadNavBar(CXMLElement* pBase);
-	BOOL	LoadOptions(CXMLElement* pBase);
+	BOOL		LoadNavBar(CXMLElement* pBase);
+	BOOL		LoadOptions(CXMLElement* pBase);
 
 // Option Settings
 public:
 	BOOL		m_bDropMenu;
 	BOOL		m_bMenuBorders;
 	BOOL		m_bMenuGripper;
-	INT			m_nToolbarHeight;
-	INT			m_nSidebarWidth;
+	int			m_nToolbarHeight;
+	int			m_nTitlebarHeight;
+	int			m_nSidebarWidth;
 
 
 private:

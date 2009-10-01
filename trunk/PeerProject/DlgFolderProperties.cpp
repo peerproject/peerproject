@@ -21,6 +21,7 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
+#include "DlgFolderProperties.h"
 #include "Settings.h"
 #include "Library.h"
 #include "LibraryFolders.h"
@@ -28,10 +29,10 @@
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "SchemaChild.h"
-#include "XML.h"
 #include "ShellIcons.h"
 #include "CoolInterface.h"
-#include "DlgFolderProperties.h"
+#include "Colors.h"
+#include "XML.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -195,10 +196,10 @@ void CFolderPropertiesDlg::OnPaint()
 	CPaintDC dc( this );
 	CRect rc( 8, 6, 8 + 98, 6 + 98 );
 
-	COLORREF crBack =  CCoolInterface::CalculateColor(
-						CoolInterface.m_crTipBack, RGB( 255, 255, 255 ), 128 );
+	COLORREF crBack =  CColors::CalculateColor(
+						Colors.m_crTipBack, RGB( 255, 255, 255 ), 128 );
 
-	dc.Draw3dRect( &rc, CoolInterface.m_crSysActiveCaption, CoolInterface.m_crSysActiveCaption );
+	dc.Draw3dRect( &rc, Colors.m_crSysActiveCaption, Colors.m_crSysActiveCaption );
 	rc.DeflateRect( 1, 1 );
 
 	{
@@ -237,7 +238,7 @@ HBRUSH CFolderPropertiesDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	if ( pWnd == &m_wndApply )
 	{
-		pDC->SetTextColor( CoolInterface.m_crTextLink );
+		pDC->SetTextColor( Colors.m_crTextLink );
 		pDC->SelectObject( &theApp.m_gdiFontLine );
 	}
 

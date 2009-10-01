@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "DlgHelp.h"
+#include "Colors.h"
 #include "Skin.h"
 #include "RichElement.h"
 
@@ -76,15 +77,11 @@ BOOL CHelpDlg::OnInitDialog()
 	CSkinDialog::OnInitDialog();
 
 	if ( CXMLElement* pXML = Skin.GetDocument( m_sDocument ) )
-	{
 		m_pDocument.LoadXML( pXML );
-	}
 	else
-	{
 		PostMessage( WM_CLOSE );
-	}
 
-	m_pDocument.m_crBackground = Skin.m_crDialog;
+	m_pDocument.m_crBackground = Colors.m_crDialog;
 
 	CRect rect( 0, 0, 0, 0 );
 	m_wndView.Create( WS_CHILD, rect, this, IDC_HELP_VIEW );

@@ -24,6 +24,7 @@
 #include "WizardSheet.h"
 
 #include "PageWelcome.h"
+#include "PageExpert.h"
 #include "PageSingle.h"
 #include "PagePackage.h"
 #include "PageTracker.h"
@@ -45,11 +46,12 @@ static char THIS_FILE[] = __FILE__;
 BEGIN_MESSAGE_MAP(CWizardSheet, CPropertySheet)
 	//{{AFX_MSG_MAP(CWizardSheet)
 	ON_WM_PAINT()
-	ON_WM_ERASEBKGND()
 	ON_WM_SIZE()
+	ON_WM_ERASEBKGND()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
 	ON_WM_NCLBUTTONUP()
+	ON_WM_XBUTTONDOWN()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -60,6 +62,7 @@ BOOL CWizardSheet::Run(CWnd* pParent)
 {
 	CWizardSheet		pSheet( pParent, 0 );
 	CWelcomePage		pWelcome;
+	CExpertPage			pExpert;
 	CSinglePage			pSingle;
 	CPackagePage		pPackage;
 	CTrackerPage		pTracker;
@@ -75,6 +78,7 @@ BOOL CWizardSheet::Run(CWnd* pParent)
 	else
 	{
 		pSheet.AddPage( &pWelcome );
+		pSheet.AddPage( &pExpert );
 		pSheet.AddPage( &pSingle );
 		pSheet.AddPage( &pPackage );
 		pSheet.AddPage( &pTracker );
@@ -211,17 +215,12 @@ void CWizardSheet::OnSize(UINT nType, int cx, int cy)
 	{
 		GetClientRect( &m_rcPage );
 
-		m_rcPage.top += 51;	// 50
+		m_rcPage.top += 51;	// 50px
 		m_rcPage.bottom -= 48;
 
 		pWnd->SetWindowPos( NULL, m_rcPage.left, m_rcPage.top, m_rcPage.Width(),
 			m_rcPage.Height(), SWP_NOSIZE );
 	}
-}
-
-BOOL CWizardSheet::OnEraseBkgnd(CDC* /*pDC*/)
-{
-	return TRUE;
 }
 
 void CWizardSheet::OnPaint()
@@ -257,6 +256,11 @@ void CWizardSheet::OnPaint()
 	dc.SelectObject( pOldFont );
 }
 
+BOOL CWizardSheet::OnEraseBkgnd(CDC* /*pDC*/)
+{
+	return TRUE;
+}
+
 BOOL CWizardSheet::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
 	CPoint pt;
@@ -288,6 +292,14 @@ void CWizardSheet::OnNcLButtonUp(UINT nHitTest, CPoint /*point*/)
 		PostMessage( WM_SYSCOMMAND, SC_CLOSE );
 	else if ( nHitTest == HTMINBUTTON )
 		ShowWindow( SW_MINIMIZE );
+}
+
+void CWizardSheet::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		this->PressButton( PSBTN_BACK );
+	else if ( nButton == 2 )
+		this->PressButton( PSBTN_NEXT );
 }
 
 

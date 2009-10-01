@@ -49,7 +49,7 @@ bool CWebHook::IsEnabled() const
 {
 	DWORD dwWebHookEnable = FALSE;
 	DWORD dwLength = sizeof( dwWebHookEnable );
-	SHRegGetUSValue( _T("Software\\Shareaza\\Shareaza\\Downloads"),
+	SHRegGetUSValue( _T("Software\\PeerProject\\PeerProject\\Downloads"),
 		_T("WebHookEnable"), NULL, &dwWebHookEnable,
 		&dwLength, FALSE, &dwWebHookEnable, sizeof( dwWebHookEnable ) );
 	return ( dwWebHookEnable != FALSE );
@@ -59,7 +59,7 @@ bool CWebHook::IsHooked(const CString& sExt) const
 {
 	CString sWebHookExtensions;
 	DWORD dwLength = 1024;
-	SHRegGetUSValue( _T("Software\\Shareaza\\Shareaza\\Downloads"),
+	SHRegGetUSValue( _T("Software\\PeerProject\\PeerProject\\Downloads"),
 		_T("WebHookExtensions"), NULL, sWebHookExtensions.GetBuffer( dwLength ),
 		&dwLength, FALSE, _T(""), sizeof( TCHAR ) );
 	sWebHookExtensions.ReleaseBuffer();
@@ -104,7 +104,7 @@ void CWebHook::Disconnect()
 
 void CWebHook::AddLink(const CString& sURL)
 {
-	ShellExecute( NULL, NULL, CString( _T("shareaza://url:") ) + sURL,
+	ShellExecute( NULL, NULL, CString( _T("peerproject://url:") ) + sURL,
 		NULL, NULL, SW_SHOWDEFAULT );
 }
 

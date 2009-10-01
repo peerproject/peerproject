@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r36 -->
+<!-- Translation based on default-en.xml r38 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -464,15 +464,14 @@
 </toolbars>
 <!-- Menu Definitions -->
 <menus>
-	<!-- SIMPLE POPUP MENU -->
-	<menu name="Simple">
+	<!-- TAB BAR POPUP MENUS -->
+	<menu name="CTabBar">
 		<item id="ID_MOVETAB_LEFT" text="Move Tab _Majtë"/>
 		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Drejtën"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Mbylle Dritaren"/>
 	</menu>
-	<!-- CHILD POPUP MENU -->
-	<menu name="Child">
+	<menu name="CTabBar.Child">
 		<item id="ID_MOVETAB_LEFT" text="Move Tab _Majtë"/>
 		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Drejtën"/>
 		<separator/>
@@ -1083,8 +1082,8 @@
 	<menu name="CDownloadsWnd.Download">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Parashiko"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Para_shiko Kopjen"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Parashikim i L_argët"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Shtoje në _Listë"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Parashikim i L_argët"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Shiko Pasqyrat"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Rimerre"/>
@@ -1100,10 +1099,12 @@
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Shto një Burim..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="_Monitoroni"/>
+			<item id="ID_DOWNLOADS_BOOST" text="_Përbuze Kufirin e Shtrirjes së Bandës"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MOVE_UP" text="Lëvize _Sipër"/>
 			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Lëvize _Poshtë"/>
-			<item id="ID_DOWNLOADS_BOOST" text="_Përbuze Kufirin e Shtrirjes së Bandës"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Lëvize _Sipër!"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Lëvize _Poshtë!"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Ndihmë..."/>
 		<separator/>

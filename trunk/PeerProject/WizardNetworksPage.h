@@ -61,6 +61,7 @@ public:
 protected:
 	//{{AFX_MSG(CWizardNetworksPage)
 	virtual BOOL OnInitDialog();
+	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

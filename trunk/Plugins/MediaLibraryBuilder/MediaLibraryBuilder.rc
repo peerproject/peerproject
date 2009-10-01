@@ -1,6 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
-#include "resource.h"
+#include "Resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
@@ -13,11 +13,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Russian resources
+// Neutral resources
 
-#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
 #ifdef _WIN32
-LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 #pragma code_page(1251)
 #endif //_WIN32
 
@@ -29,7 +29,7 @@ LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
 
 1 TEXTINCLUDE 
 BEGIN
-    "resource.h\0"
+    "Resource.h\0"
 END
 
 2 TEXTINCLUDE 
@@ -46,18 +46,6 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
-#endif    // Russian resources
-/////////////////////////////////////////////////////////////////////////////
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Neutral resources
-
-#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
-#ifdef _WIN32
-LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
-#pragma code_page(1257)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -81,12 +69,12 @@ BEGIN
     BEGIN
         BLOCK "000004b0"
         BEGIN
-            VALUE "Comments", "Media Library Builder Plugin"
+            VALUE "Comments", "Extract metadata from video files."
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "Media Library Builder Plugin"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "MediaLibraryBuilder"
-            VALUE "LegalCopyright", "Copyright © PeerProject Development Team, 2005-2007. All rights reserved."
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
             VALUE "OriginalFilename", "MediaLibraryBuilder.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"
@@ -104,8 +92,19 @@ END
 // REGISTRY
 //
 
-IDR_MEDIALIBRARYBUILDER REGISTRY                "MediaLibraryBuilder.rgs"
-IDR_BUILDER             REGISTRY                "Builder.rgs"
+IDR_MEDIALIBRARYBUILDER	REGISTRY		"MediaLibraryBuilder.rgs"
+IDR_BUILDER				REGISTRY		"Builder.rgs"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icons
+//
+// Icon with lowest ID value placed first to ensure
+// application icon remains consistent on all systems.
+
+//IDI_ICON				ICON			"Icon.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -114,12 +113,11 @@ IDR_BUILDER             REGISTRY                "Builder.rgs"
 
 STRINGTABLE 
 BEGIN
-    IDS_PROJNAME            "MediaLibraryBuilder"
+    IDS_PROJNAME		"MediaLibraryBuilder"
 END
 
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
-
 
 
 #ifndef APSTUDIO_INVOKED

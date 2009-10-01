@@ -26,7 +26,7 @@
 #include "PageSettingsNetworks.h"
 #include "PageSettingsGnutella.h"
 #include "PageSettingsDonkey.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -110,7 +110,7 @@ HBRUSH CNetworksSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	{
 		if ( pWnd->IsWindowEnabled() )
 		{
-			pDC->SetTextColor( CoolInterface.m_crTextLink );
+			pDC->SetTextColor( Colors.m_crTextLink );
 			pDC->SelectObject( &theApp.m_gdiFontLine );
 		}
 	}

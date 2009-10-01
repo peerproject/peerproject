@@ -21,11 +21,12 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
+#include "WndHashProgressBar.h"
+#include "Settings.h"
 #include "Library.h"
 #include "LibraryBuilder.h"
 #include "CoolInterface.h"
-#include "WndHashProgressBar.h"
-#include "Settings.h"
+#include "Colors.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
@@ -160,9 +161,9 @@ void CHashProgressBar::OnDestroy()
 
 void CHashProgressBar::OnSkinChange()
 {
-	m_crFill	= CoolInterface.m_crTipBack;
-	m_crBorder	= CoolInterface.m_crTipBorder;
-	m_crText	= CoolInterface.m_crTipText;
+	m_crFill	= Colors.m_crTipBack;
+	m_crBorder	= Colors.m_crTipBorder;
+	m_crText	= Colors.m_crTipText;
 
 	HBITMAP hBitmap = Skin.GetWatermark( _T("CHashProgressBar") );
 	if ( m_bmImage.m_hObject != NULL ) m_bmImage.DeleteObject();
@@ -201,7 +202,7 @@ void CHashProgressBar::OnPaint()
 	dc.DrawText( strText, rcX, DT_RIGHT | DT_SINGLELINE );
 
 	if ( m_nFlash++ % 30 > 15 )
-		dc.SetTextColor( CoolInterface.m_crTextStatus );
+		dc.SetTextColor( Colors.m_crTextStatus );
 
 	strText.Format( IDS_HASH_MESSAGE, LibraryBuilder.GetRemaining() );
 
@@ -226,9 +227,9 @@ void CHashProgressBar::OnPaint()
 	if ( nPercentage < 0 || nPercentage > 1 ) nPercentage = 1;
 	rcProgress.right = rcProgress.left + (INT)( rcProgress.Width() * nPercentage );
 
-	dc.Draw3dRect( &rcProgress, CoolInterface.m_crFragmentPass, CoolInterface.m_crFragmentPass );
+	dc.Draw3dRect( &rcProgress, Colors.m_crFragmentPass, Colors.m_crFragmentPass );
 	rcProgress.top--;
-	dc.Draw3dRect( &rcProgress, CoolInterface.m_crFragmentPass, m_crText );
+	dc.Draw3dRect( &rcProgress, Colors.m_crFragmentPass, m_crText );
 }
 
 BOOL CHashProgressBar::OnEraseBkgnd(CDC* /*pDC*/)

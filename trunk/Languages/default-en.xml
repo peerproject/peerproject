@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r37 -->
+<!-- Translation based on default-en.xml r38 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -495,26 +495,31 @@
 </toolbars>
 <!-- Menu Definitions -->
 <menus>
-	<!-- SIMPLE POPUP MENU -->
-	<menu name="Simple">
+	<!-- TAB BAR POPUP MENUS -->
+	<menu name="CTabBar">
 		<item id="ID_MOVETAB_LEFT" text="Move Tab _Left"/>
 		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Right"/>
-	<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
-	<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
+		<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
+		<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
-	<!-- CHILD POPUP MENU -->
-	<menu name="Child">
+	<menu name="CTabBar.Child">
 		<item id="ID_MOVETAB_LEFT" text="Move Tab _Left"/>
 		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Right"/>
-	<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
-	<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
+		<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
+		<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
 		<separator/>
 		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
  		<item id="ID_CHILD_RESTORE" text="_Restore"/>
 		<item id="ID_CHILD_MINIMISE" text="_Minimize"/>
 		<separator/>
+		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
+	</menu>
+	<menu name="CTabBar.Basic">
+		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
+	</menu>
+	<menu name="CTabBar.Child.Basic">
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
 	<!-- TRAY MENU -->
@@ -1052,6 +1057,7 @@
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filter Results..."/>
 		<item id="ID_SEARCH_FILTER_REMOVE" text="_Remove Filter"/>
+		<separator/>
 		<item id="ID_SEARCH_CLEAR" text="C_lear Results"/>
 		<separator/>
 		<item id="ID_SEARCH_COLUMNS" text="Edit C_olumns..."/>
@@ -1144,8 +1150,8 @@
 	<menu name="CDownloadsWnd.Download">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Preview Partial File"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Pre_view File Copy"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Add to Pla_ylist"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Vie_w Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
@@ -1162,8 +1168,10 @@
 			<item id="ID_DOWNLOADS_MONITOR" text="_Monitor Window"/>
 			<item id="ID_DOWNLOADS_BOOST" text="_Ignore Bandwidth Limit"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Move Up" shortcut="Ctrl+Up"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move Down" shortcut="Ctrl+Dn"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Move _Up" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move _Down" shortcut="Ctrl+Dn"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Move to _Top" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Move to _Bottom" shortcut="Ctrl+End"/>
 		</menu>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
@@ -3645,7 +3653,7 @@
 		<control/>
 		<control caption="Only download and upload to networks which are connected."/>
 	</dialog>
-	<dialog name="CUploadsSettingsPage" cookie="BuBuBuBuBuStEdmsBuCoBuBuBuStCoStCoBuSyBuBuBuSt" caption="Uploads"> <!--Variant-->
+	<dialog name="CUploadsSettingsPage" cookie="BuBuBuBuBuStEdmsBuCoBuBuBuStCoStCoBuSyBuBuBuSt" caption="Uploads">
 		<control caption="_Options:"/>
 		<control caption="Limit sharing in hub mode"/>
 		<control caption="Share new partial downloads"/>
@@ -4470,7 +4478,7 @@
 	<dialog name="CTorrentFilesPage" cookie="Sy" caption="Files">
 		<control/>
 	</dialog>
-	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">	<!--Variant-->
+	<dialog name="CTorrentTrackersPage" cookie="EdEdEdSyStBuStStStCoBu" caption="Trackers">
 		<control/>
 		<control/>
 		<control/>
@@ -4502,7 +4510,7 @@
 		<control caption="Notes:"/>
 	</dialog>
 	<dialog name="CDownloadEditPage" cookie="StBuStStStBuStEdEdEdBuEdBuEdBuEdBuEdBuEd" caption="Download Properties">
-		<control caption="WARNING: This dialog provides advanced download editing features for power users, which will cause corruption if used incorrectly."/>
+		<control caption="WARNING: This dialog provides advanced download editing features for power users, which will cause corruption when used incorrectly."/>
 		<control caption="Details:"/>
 		<control caption="Filename:"/>
 		<control caption="Location:"/>
@@ -4523,8 +4531,8 @@
 		<control caption="&#160;BitTorrent:"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Actions">	<!--Variant-->
-		<control caption="WARNING: This dialog provides advanced download editing features for power users which if used incorrectly can and probably will cause corruption."/>
+	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Actions">
+		<control caption="WARNING: This dialog provides advanced download editing features for power users, which will cause corruption when used incorrectly."/>
 		<control caption="Forget all known sources"/>
 		<control caption="Forget current verification status and reverify"/>
 		<control caption="Assume file is 100% complete and reverify"/>

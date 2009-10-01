@@ -31,12 +31,12 @@
 #include "SchemaCache.h"
 #include "Security.h"
 #include "ShellIcons.h"
-#include "CoolInterface.h"
 #include "VendorCache.h"
+#include "Download.h"
 #include "Downloads.h"
 #include "Transfers.h"
+#include "Colors.h"
 #include "XML.h"
-#include "Download.h"
 
 #include "CtrlMatch.h"
 #include "LiveList.h"
@@ -2529,12 +2529,12 @@ void CMatchFile::GetStatusTip( CString& sStatus, COLORREF& crStatus)
 			if ( pExisting->IsAvailable() )
 			{
 				LoadString( sStatus, IDS_TIP_EXISTS_LIBRARY );
-				crStatus = CoolInterface.m_crTextStatus ;
+				crStatus = Colors.m_crTextStatus ;
 			}
 			else
 			{
 				LoadString( sStatus, IDS_TIP_EXISTS_DELETED );
-				crStatus = CoolInterface.m_crTextAlert ;
+				crStatus = Colors.m_crTextAlert ;
 
 				if ( pExisting->m_sComments.GetLength() )
 				{
@@ -2564,12 +2564,12 @@ void CMatchFile::GetStatusTip( CString& sStatus, COLORREF& crStatus)
 	else if ( m_bDownload || m_pBest->m_bDownload )
 	{
 		LoadString( sStatus, IDS_TIP_EXISTS_DOWNLOAD );
-		crStatus = CoolInterface.m_crSearchQueued ;
+		crStatus = Colors.m_crSearchQueued ;
 	}
 	else if ( m_pBest->m_bBogus || ! m_bOneValid )
 	{
 		LoadString( sStatus, IDS_TIP_BOGUS );
-		crStatus = CoolInterface.m_crTextAlert ;
+		crStatus = Colors.m_crTextAlert ;
 	}
 }
 

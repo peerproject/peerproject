@@ -33,17 +33,18 @@
 #include "LiveList.h"
 #include "GProfile.h"
 #include "ChatWindows.h"
+#include "CoolInterface.h"
+#include "Colors.h"
 #include "Skin.h"
 
 #include "WndMain.h"
 #include "WndNeighbours.h"
 #include "WndPacket.h"
 #include "WndBrowseHost.h"
-#include "DlgURLCopy.h"
-#include "DlgSettingsManager.h"
-#include "CoolInterface.h"
 #include "WindowManager.h"
 #include "WndSystem.h"
+#include "DlgURLCopy.h"
+#include "DlgSettingsManager.h"
 
 #include "Flags.h"
 
@@ -285,13 +286,9 @@ void CNeighboursWnd::Update()
 				if ( pG2->m_nLeafCount > 0 )
 				{
 					if ( pG2->m_nLeafLimit > 0 )
-					{
 						pItem->Format( 7, _T("%u/%u"), pG2->m_nLeafCount, pG2->m_nLeafLimit );
-					}
 					else
-					{
 						pItem->Format( 7, _T("%u"), pG2->m_nLeafCount );
-					}
 				}
 				else if ( pG2->m_nNodeType != ntLeaf )
 				{
@@ -311,13 +308,9 @@ void CNeighboursWnd::Update()
 				if ( pED2K->m_nClientID > 0 )
 				{
 					if ( pED2K->m_nUserLimit > 0 )
-					{
 						pItem->Format( 7, _T("%u/%u"), pED2K->m_nUserCount, pED2K->m_nUserLimit );
-					}
 					else
-					{
 						pItem->Format( 7, _T("%u"), pED2K->m_nUserCount );
-					}
 
 					LoadString( str, CEDPacket::IsLowID( pED2K->m_nClientID ) ? IDS_NEIGHBOUR_ED2K_LOWID : IDS_NEIGHBOUR_ED2K_HIGHID );
 					pItem->Set( 9, str );
@@ -355,9 +348,7 @@ void CNeighboursWnd::Update()
 CNeighbour* CNeighboursWnd::GetItem(int nItem)
 {
 	if ( m_wndList.GetItemState( nItem, LVIS_SELECTED ) )
-	{
 		return Neighbours.Get( m_wndList.GetItemData( nItem ) );
-	}
 
 	return NULL;
 }
@@ -368,6 +359,7 @@ void CNeighboursWnd::OnSkinChange()
 	CPanelWnd::OnSkinChange();
 	Settings.LoadList( _T("CNeighboursWnd"), &m_wndList );
 	Skin.CreateToolBar( _T("CNeighboursWnd"), &m_wndToolBar );
+	m_wndList.SetBkImage( Skin.GetWatermark( _T("CNeighboursWnd") ) );
 
 	for ( int nImage = 0 ; nImage < 4 ; nImage++ )
 	{
@@ -387,7 +379,8 @@ BOOL CNeighboursWnd::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERI
 {
 	if ( m_wndToolBar.m_hWnd )
 	{
-		if ( m_wndToolBar.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) ) return TRUE;
+		if ( m_wndToolBar.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) )
+			return TRUE;
 	}
 
 	return CPanelWnd::OnCmdMsg( nID, nCode, pExtra, pHandlerInfo );
@@ -437,9 +430,7 @@ void CNeighboursWnd::OnNeighboursDisconnect()
 	for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVNI_SELECTED ) ) >= 0 ; )
 	{
 		if ( CNeighbour* pNeighbour = GetItem( nItem ) )
-		{
 			pNeighbour->Close( IDS_CONNECTION_CLOSED );
-		}
 	}
 }
 
@@ -652,16 +643,16 @@ void CNeighboursWnd::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 		switch ( nImage )
 		{
 		case PROTOCOL_NULL:
-			pDraw->clrText = CoolInterface.m_crNetworkNull ;
+			pDraw->clrText = Colors.m_crNetworkNull ;
 			break;
 		case PROTOCOL_G1:
-			pDraw->clrText = CoolInterface.m_crNetworkG1 ;
+			pDraw->clrText = Colors.m_crNetworkG1 ;
 			break;
 		case PROTOCOL_G2:
-			pDraw->clrText = CoolInterface.m_crNetworkG2 ;
+			pDraw->clrText = Colors.m_crNetworkG2 ;
 			break;
 		case PROTOCOL_ED2K:
-			pDraw->clrText = CoolInterface.m_crNetworkED2K ;
+			pDraw->clrText = Colors.m_crNetworkED2K ;
 			break;
 		}
 
@@ -688,7 +679,7 @@ void CNeighboursWnd::DrawEmptyMessage(CDC* pDC)
 
 	pDC->SetBkMode( TRANSPARENT );
 	CFont* pOldFont = (CFont*)pDC->SelectObject( &theApp.m_gdiFont );
-	pDC->SetTextColor( CoolInterface.m_crText );
+	pDC->SetTextColor( Colors.m_crText );
 	LoadString( strText, IDS_NEIGHBOURS_NOT_CONNECTED );
 	pDC->DrawText( strText, &rcText, DT_SINGLELINE|DT_CENTER|DT_VCENTER|DT_NOPREFIX );
 

@@ -21,8 +21,9 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
-#include "Settings.h"
 #include "PagePropertyAdv.h"
+#include "Settings.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
 
@@ -96,7 +97,7 @@ void CPropertyPageAdv::OnPaint()
 			PaintStaticHeader( &dc, &rc, str );
 	}
 
-	dc.SetBkColor( Skin.m_crDialog );
+	dc.SetBkColor( Colors.m_crDialog );
 }
 
 void CPropertyPageAdv::PaintStaticHeader(CDC* pDC, CRect* prc, LPCTSTR psz)
@@ -105,8 +106,8 @@ void CPropertyPageAdv::PaintStaticHeader(CDC* pDC, CRect* prc, LPCTSTR psz)
 	CSize sz = pDC->GetTextExtent( psz );
 
 	pDC->SetBkMode( OPAQUE );
-	pDC->SetBkColor( Skin.m_crBannerBack );
-	pDC->SetTextColor( Skin.m_crBannerText );
+	pDC->SetBkColor( Colors.m_crBannerBack );
+	pDC->SetTextColor( Colors.m_crBannerText );
 
 	CRect rc( prc );
 	rc.bottom	= rc.top + min( rc.Height(), 16 );
@@ -128,7 +129,7 @@ BOOL CPropertyPageAdv::OnEraseBkgnd(CDC* pDC)
 
 	CRect rc;
 	GetClientRect( &rc );
-	pDC->FillSolidRect( &rc, Skin.m_crDialog );
+	pDC->FillSolidRect( &rc, Colors.m_crDialog );
 
 	return TRUE;
 }
@@ -139,8 +140,8 @@ HBRUSH CPropertyPageAdv::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	if ( nCtlColor == CTLCOLOR_DLG || nCtlColor == CTLCOLOR_STATIC )
 	{
-		pDC->SetBkColor( Skin.m_crDialog );
-		hbr = Skin.m_brDialog;
+		pDC->SetBkColor( Colors.m_crDialog );
+		hbr = Colors.m_brDialog;
 	}
 
 	return hbr;
@@ -185,7 +186,7 @@ BOOL CPropertySheetAdv::OnInitDialog()
 		CRect rc;
 		GetClientRect( &rc );
 		m_pSkin->CalcWindowRect( &rc );
-		m_brDialog.CreateSolidBrush( Skin.m_crDialog );
+		m_brDialog.CreateSolidBrush( Colors.m_crDialog );
 		SetWindowPos( NULL, 0, 0, rc.Width(), rc.Height(), SWP_NOMOVE|SWP_NOZORDER|SWP_NOACTIVATE|SWP_FRAMECHANGED );
 		OnSize( 1982, 0, 0 );
 	}
@@ -293,7 +294,7 @@ LRESULT CPropertySheetAdv::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 //
 //	CRect rc;
 //	GetClientRect( &rc );
-//	pDC->FillSolidRect( &rc, Skin.m_crDialog );
+//	pDC->FillSolidRect( &rc, Colors.m_crDialog );
 //
 //	return TRUE;
 //}

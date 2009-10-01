@@ -1,17 +1,17 @@
 HKCR
 {
-	ForceRemove PeerProject.SkinInfoExtractor.1 = s 'PeerProject Skin Metadata Extractor'
+	ForceRemove PeerProject.SkinInfoExtractor.1 = s 'PeerProject Skin Scanner'
 	{
 		CLSID = s '{C5594A56-ED24-44C8-B6DA-BDC1BCF809DD}'
 	}
-	ForceRemove PeerProject.SkinInfoExtractor = s 'PeerProject Skin Metadata Extractor'
+	ForceRemove PeerProject.SkinInfoExtractor = s 'PeerProject Skin Scanner'
 	{
 		CLSID = s '{C5594A56-ED24-44C8-B6DA-BDC1BCF809DD}'
 		CurVer = s 'PeerProject.SkinInfoExtractor.1'
 	}
 	NoRemove CLSID
 	{
-		ForceRemove {C5594A56-ED24-44C8-B6DA-BDC1BCF809DD} = s 'PeerProject Skin Metadata Extractor'
+		ForceRemove {C5594A56-ED24-44C8-B6DA-BDC1BCF809DD} = s 'PeerProject Skin Scanner'
 		{
 			ProgID = s 'PeerProject.SkinInfoExtractor.1'
 			VersionIndependentProgID = s 'PeerProject.SkinInfoExtractor'

@@ -23,6 +23,7 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "GraphItem.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "SkinWindow.h"
 #include "Skin.h"
@@ -334,7 +335,7 @@ void CRemoteWnd::OnPaint()
 
 	if ( m_pSkin == NULL )
 	{
-		dc.FillSolidRect( &rcClient, CoolInterface.m_crSysBtnFace );
+		dc.FillSolidRect( &rcClient, Colors.m_crSysBtnFace );
 		return;
 	}
 

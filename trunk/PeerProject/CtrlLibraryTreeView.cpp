@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
 #include "Library.h"
@@ -855,7 +856,7 @@ void CLibraryTreeView::OnPaint()
 
 	dc.SelectObject( pOldFont );
 
-	dc.FillSolidRect( &rcClient, CoolInterface.m_crWindow );
+	dc.FillSolidRect( &rcClient, Colors.m_crWindow );
 }
 
 void CLibraryTreeView::Paint(CDC& dc, CRect& rcClient, CPoint& pt, CLibraryTreeItem* pItem)
@@ -1224,7 +1225,7 @@ void CLibraryTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) 
 	if ( dc.GetWindow()!= NULL )
 		dc.GetWindow()->ScreenToClient( &ptHover );
 
-	if ( crBack == CLR_NONE ) crBack = CoolInterface.m_crWindow;
+	if ( crBack == CLR_NONE ) crBack = Colors.m_crWindow;
 	dc.FillSolidRect( rc.left, rc.top, 32, 17, crBack );
 
 	if ( !empty() )
@@ -1255,8 +1256,8 @@ void CLibraryTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) 
 		CoolInterface.Draw( &dc, IDI_COLLECTION_MASK, 16,
 			rc.left + 16, rc.top, CLR_NONE, ( m_bSelected || bTarget ), FALSE );
 
-	crBack = ( m_bSelected || bTarget ) ? CoolInterface.m_crHighlight : crBack;
-	COLORREF crText = ( m_bSelected || bTarget ) ? CoolInterface.m_crHiText : CoolInterface.m_crText;
+	crBack = ( m_bSelected || bTarget ) ? Colors.m_crHighlight : crBack;
+	COLORREF crText = ( m_bSelected || bTarget ) ? Colors.m_crHiText : Colors.m_crText;
 
 	dc.SetTextColor( crText );
 	dc.SetBkColor( crBack );

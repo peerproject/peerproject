@@ -23,6 +23,7 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "Library.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "ShellIcons.h"
 #include "Skin.h"
@@ -112,7 +113,7 @@ void CLibraryHeaderBar::PrepareRect(CRect* pRect) const
 void CLibraryHeaderBar::DoPaint(CDC* pDC, CRect& rcBar, BOOL bTransparent)
 {
 	pDC->FillSolidRect( rcBar.left, rcBar.bottom - 1, rcBar.Width(), 1,
-		CoolInterface.m_crSys3DShadow );
+		Colors.m_crSys3DShadow );
 	rcBar.bottom --;
 
 	if ( m_czLast.cx < rcBar.Width() - 22 )
@@ -131,8 +132,8 @@ void CLibraryHeaderBar::PaintHeader(CDC* pDC, CRect& rcBar, BOOL bTransparent)
 
 	CSize szText = pDC->GetTextExtent( m_sTitle );
 
-	pDC->SetTextColor( CoolInterface.m_crCmdText );
-	pDC->SetBkColor( CoolInterface.m_crMidtone );
+	pDC->SetTextColor( Colors.m_crCmdText );
+	pDC->SetBkColor( Colors.m_crMidtone );
 
 	int nMiddle = ( rcBar.top + rcBar.bottom ) / 2;
 
@@ -168,14 +169,14 @@ void CLibraryHeaderBar::PaintHeader(CDC* pDC, CRect& rcBar, BOOL bTransparent)
 		if ( m_nImage )
 		{
 			ImageList_DrawEx( ShellIcons.GetHandle( 16 ), m_nImage, pDC->GetSafeHdc(),
-				rcBar.left + 4, nMiddle - 8, 16, 16, CoolInterface.m_crMidtone, CLR_NONE,
+				rcBar.left + 4, nMiddle - 8, 16, 16, Colors.m_crMidtone, CLR_NONE,
 				ILD_NORMAL );
 
 			pDC->ExcludeClipRect( rcBar.left + 4, nMiddle - 8, rcBar.left + 20, nMiddle + 8 );
 		}
 
 		pDC->FillSolidRect( rcBar.left, rcBar.top, 20, rcBar.Height(),
-			CoolInterface.m_crMidtone );
+			Colors.m_crMidtone );
 
 		rcBar.left += 20;
 		pDC->ExtTextOut( rcBar.left + 2, nMiddle - szText.cy / 2,

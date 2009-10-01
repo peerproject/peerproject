@@ -76,7 +76,6 @@ protected:
 	CSize		m_czWatermark;
 	HBITMAP		m_hOldMark;
 protected:
-	BOOL		m_bEnable;
 	BOOL		m_bUnhook;
 	CString		m_sFilterString;
 	CString		m_sOldFilterString;
@@ -86,7 +85,6 @@ public:
 	void			EnableHook();
 	static void		EnableHook(BOOL bEnable);
 	static void		RegisterEdge(int nLeft, int nTop, int nLength);
-	static BOOL		IsModernVersion();
 protected:
 	static LRESULT	CALLBACK MsgHook(int nCode, WPARAM wParam, LPARAM lParam);
 	static LRESULT	CALLBACK MenuProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

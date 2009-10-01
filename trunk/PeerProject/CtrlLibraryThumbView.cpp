@@ -30,6 +30,7 @@
 #include "ThumbCache.h"
 #include "ShellIcons.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "CtrlLibraryThumbView.h"
@@ -564,7 +565,7 @@ void CLibraryThumbView::OnPaint()
 		}
 	}
 
-	dc.FillSolidRect( &rcClient, CoolInterface.m_crWindow );
+	dc.FillSolidRect( &rcClient, Colors.m_crWindow );
 }
 
 CLibraryThumbItem* CLibraryThumbView::HitTest(const CPoint& point) const
@@ -984,8 +985,8 @@ void CLibraryThumbItem::Paint(CDC* pDC, const CRect& rcBlock)
 		rcBlock.right - 4, rcBlock.bottom );
 	if ( m_bSelected )
 	{
-		pDC->SetBkColor( CoolInterface.m_crHighlight );
-		pDC->SetTextColor( CoolInterface.m_crHiText );
+		pDC->SetBkColor( Colors.m_crHighlight );
+		pDC->SetTextColor( Colors.m_crHiText );
 
 		CRect rcCalc( rcText );
 		int nHeight = pDC->DrawText( m_sText, &rcCalc, nStyle | DT_CALCRECT );
@@ -994,13 +995,13 @@ void CLibraryThumbItem::Paint(CDC* pDC, const CRect& rcBlock)
 	}
 	else if ( ! m_bShared )
 	{
-		pDC->SetBkColor( CoolInterface.m_crWindow );
-		pDC->SetTextColor( CoolInterface.m_crHighlight );
+		pDC->SetBkColor( Colors.m_crWindow );
+		pDC->SetTextColor( Colors.m_crHighlight );
 	}
 	else
 	{
-		pDC->SetBkColor( CoolInterface.m_crWindow );
-		pDC->SetTextColor( CoolInterface.m_crText );
+		pDC->SetBkColor( Colors.m_crWindow );
+		pDC->SetTextColor( Colors.m_crText );
 	}
 	pDC->FillSolidRect( &rcText, pDC->GetBkColor() );
 	pDC->DrawText( m_sText, &rcText, nStyle );
@@ -1009,7 +1010,7 @@ void CLibraryThumbItem::Paint(CDC* pDC, const CRect& rcBlock)
 
 	// Draw Background
 
-	pDC->FillSolidRect( &rcBlock, CoolInterface.m_crWindow );
+	pDC->FillSolidRect( &rcBlock, Colors.m_crWindow );
 	pDC->ExcludeClipRect( &rcBlock );
 }
 

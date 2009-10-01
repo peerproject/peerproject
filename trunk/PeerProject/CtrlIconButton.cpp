@@ -23,6 +23,7 @@
 #include "PeerProject.h"
 #include "CtrlIconButton.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -229,8 +230,8 @@ void CIconButtonCtrl::OnPaint()
 
 	if ( m_bDown && m_bCapture )
 	{
-		crBack = CoolInterface.m_crBackCheckSel;
-		dc.Draw3dRect( &rc, CoolInterface.m_crBorder, CoolInterface.m_crBorder );
+		crBack = Colors.m_crBackCheckSel;
+		dc.Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
 		rc.DeflateRect( 1, 1 );
 
 		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
@@ -239,8 +240,8 @@ void CIconButtonCtrl::OnPaint()
 	}
 	else if ( m_bDown != m_bCapture )
 	{
-		crBack = CoolInterface.m_crBackSel;
-		dc.Draw3dRect( &rc, CoolInterface.m_crBorder, CoolInterface.m_crBorder );
+		crBack = Colors.m_crBackSel;
+		dc.Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
 		rc.DeflateRect( 1, 1 );
 
 		ptIcon.Offset( -1, -1 );
@@ -248,7 +249,7 @@ void CIconButtonCtrl::OnPaint()
 		dc.FillSolidRect( ptIcon.x, ptIcon.y + 2, 2, 16, crBack );
 
 		ptIcon.Offset( 2, 2 );
-		dc.SetTextColor( CoolInterface.m_crShadow );
+		dc.SetTextColor( Colors.m_crShadow );
 		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
 			ptIcon.x, ptIcon.y, 0, 0, crBack, CLR_NONE, ILD_MASK );
 
@@ -261,8 +262,8 @@ void CIconButtonCtrl::OnPaint()
 	}
 	else if ( GetFocus() == this && IsWindowEnabled() )
 	{
-		crBack = CoolInterface.m_crBackNormal;
-		dc.Draw3dRect( &rc, CoolInterface.m_crBorder, CoolInterface.m_crBorder );
+		crBack = Colors.m_crBackNormal;
+		dc.Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
 		rc.DeflateRect( 1, 1 );
 
 		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
@@ -271,28 +272,28 @@ void CIconButtonCtrl::OnPaint()
 	}
 	else if ( IsWindowEnabled() )
 	{
-		crBack = CoolInterface.m_crBackNormal;
-		dc.Draw3dRect( &rc, CoolInterface.m_crShadow, CoolInterface.m_crShadow );
+		crBack = Colors.m_crBackNormal;
+		dc.Draw3dRect( &rc, Colors.m_crShadow, Colors.m_crShadow );
 		rc.DeflateRect( 1, 1 );
 
 		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
-			ptIcon.x, ptIcon.y, 0, 0, crBack, CoolInterface.m_crShadow, ILD_BLEND50 );
+			ptIcon.x, ptIcon.y, 0, 0, crBack, Colors.m_crShadow, ILD_BLEND50 );
 		dc.ExcludeClipRect( ptIcon.x, ptIcon.y, ptIcon.x + 16, ptIcon.y + 16 );
 	}
 	else
 	{
-		crBack = CoolInterface.m_crMidtone;
-		dc.Draw3dRect( &rc, CoolInterface.m_crShadow, CoolInterface.m_crShadow );
+		crBack = Colors.m_crMidtone;
+		dc.Draw3dRect( &rc, Colors.m_crShadow, Colors.m_crShadow );
 		rc.DeflateRect( 1, 1 );
 
-		dc.SetTextColor( CoolInterface.m_crDisabled );
+		dc.SetTextColor( Colors.m_crDisabled );
 		dc.SetBkColor( crBack );
 
 //		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
 //			ptIcon.x, ptIcon.y, 0, 0, crBack, CLR_NONE, ILD_MASK );
 
 		ImageList_DrawEx( m_pImageList.m_hImageList, 0, dc.GetSafeHdc(),
-			ptIcon.x, ptIcon.y, 0, 0, crBack, CoolInterface.m_crDisabled, ILD_BLEND50 );
+			ptIcon.x, ptIcon.y, 0, 0, crBack, Colors.m_crDisabled, ILD_BLEND50 );
 
 		dc.ExcludeClipRect( ptIcon.x, ptIcon.y, ptIcon.x + 16, ptIcon.y + 16 );
 	}
@@ -304,7 +305,7 @@ void CIconButtonCtrl::OnPaint()
 		CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntNormal );
 
 		dc.SetBkColor( crBack );
-		dc.SetTextColor( IsWindowEnabled() ? CoolInterface.m_crCmdText : CoolInterface.m_crDisabled );
+		dc.SetTextColor( IsWindowEnabled() ? Colors.m_crCmdText : Colors.m_crDisabled );
 		dc.ExtTextOut( rc.left + 2, ptIcon.y + 1, ETO_CLIPPED|ETO_OPAQUE, &rc, strText, NULL );
 		dc.SelectObject( pOldFont );
 

@@ -35,6 +35,7 @@ IMPLEMENT_DYNCREATE(CTrackerPage, CWizardPage)
 BEGIN_MESSAGE_MAP(CTrackerPage, CWizardPage)
 	//{{AFX_MSG_MAP(CTrackerPage)
 	ON_BN_CLICKED(IDC_CLEAR_TRACKERS, OnClearTrackers)
+	ON_WM_XBUTTONDOWN()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -155,3 +156,10 @@ LRESULT CTrackerPage::OnWizardNext()
 	return IDD_COMMENT_PAGE;
 }
 
+void CTrackerPage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetSheet()->PressButton( PSBTN_BACK );
+	else if ( nButton == 2 )
+		GetSheet()->PressButton( PSBTN_NEXT );
+}

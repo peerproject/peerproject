@@ -1697,6 +1697,7 @@
 #define ID_SECURITY_IMPORT          	32952
 #define ID_SEARCH_FILTER_RAW        	32953
 #define ID_SEARCH_PANEL             	32954
+#define ID_TOOLS_SKIN               	32955
 #define ID_SYSTEM_TIMESTAMP         	32956
 #define ID_LIBRARY_LAUNCH           	32957
 #define ID_NEIGHBOURS_URI          		32958
@@ -1706,7 +1707,8 @@
 #define ID_WINDOW_TABBAR            	32962
 #define ID_WINDOW_MONITOR           	32963
 #define ID_NETWORK_BROWSE_TO        	32964
-#define ID_TOOLS_SKIN               	32965
+#define ID_DOWNLOADS_MOVE_TOP        	32965
+#define ID_DOWNLOADS_MOVE_BOTTOM    	32966
 #define ID_LIBRARY_HASH_PRIORITY    	32967
 #define ID_DOWNLOADS_FILE_DELETE    	32968
 #define ID_NEIGHBOURS_SETTINGS      	32969

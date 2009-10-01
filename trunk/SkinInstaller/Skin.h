@@ -22,10 +22,10 @@
 #include <tchar.h>
 #include "Resource.h"
 
+#define VERSION         L"1.0.0.0"
 #define SKIN_MAIN_HWND	L"PeerProjectMainWnd"
 #define SKIN_SKIN_TITLE	L"PeerProject Skin Installer"
-#define SKIN_LANG_TITLE L"PeerProject Language Installer"
-#define VERSION         L"1.0.0"
+#define SKIN_ADDON_TITLE L"PeerProject Add-on Installer"
 
 // Globals
 extern int   skinType;

@@ -20,14 +20,13 @@
 //
 
 #include "StdAfx.h"
+#include "PageSettingsSkins.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "LiveList.h"
+#include "Colors.h"
 #include "Skin.h"
 #include "XML.h"
-#include "LiveList.h"
-#include "Skin.h"
-#include "PageSettingsSkins.h"
-#include "CoolInterface.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -199,9 +198,7 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	else
 	{
 		if ( nByte >= 3 && pByte[0] == 0xEF && pByte[1] == 0xBB && pByte[2] == 0xBF )
-		{
 			pByte += 3; nByte -= 3;
-		}
 
 		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
 	}
@@ -369,7 +366,7 @@ HBRUSH CSkinsSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		{
 			if ( m_wndList.GetItemText( m_nSelected, 4 ).GetLength() )
 			{
-				pDC->SetTextColor( CoolInterface.m_crTextLink );
+				pDC->SetTextColor( Colors.m_crTextLink );
 				pDC->SelectObject( &theApp.m_gdiFontLine );
 			}
 		}
@@ -377,7 +374,7 @@ HBRUSH CSkinsSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		{
 			if ( m_wndList.GetItemText( m_nSelected, 5 ).GetLength() )
 			{
-				pDC->SetTextColor( CoolInterface.m_crTextLink );
+				pDC->SetTextColor( Colors.m_crTextLink );
 				pDC->SelectObject( &theApp.m_gdiFontLine );
 			}
 		}
@@ -488,14 +485,14 @@ void CSkinsSettingsPage::OnOK()
 		BOOL bOn = m_wndList.GetItemState( nItem, LVIS_STATEIMAGEMASK ) == ( 2 << 12 );
 
 		if ( theApp.GetProfileInt( _T("Skins"), strSkin, FALSE ) != (UINT)bOn )
-		{
 			bChanged = TRUE;
-		}
 
 		theApp.WriteProfileInt( _T("Skins"), strSkin, bOn );
 	}
 
-	if ( bChanged ) PostMainWndMessage( WM_SKINCHANGED );
+	if ( bChanged ) 
+		PostMainWndMessage( WM_SKINCHANGED );
+
 
 	CSettingsPage::OnOK();
 }

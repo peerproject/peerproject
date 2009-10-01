@@ -24,6 +24,7 @@
 #include "Settings.h"
 #include "DlgSkinDialog.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 #include "Skin.h"
 #include "SkinWindow.h"
 
@@ -94,13 +95,10 @@ BOOL CSkinDialog::SkinMe(LPCTSTR pszSkin, UINT nIcon, BOOL bLanguage)
 	if ( NULL == m_pSkin ) m_pSkin = ::Skin.GetWindowSkin( this );
 
 	if ( bLanguage )
-	{
 		bSuccess = ::Skin.Apply( strSkin, this, nIcon );
-	}
+
 	if ( nIcon )
-	{
 		CoolInterface.SetIcon( nIcon, m_pSkin && Settings.General.LanguageRTL, FALSE, this );
-	}
 
 	CoolInterface.EnableTheme( this, ( m_pSkin == NULL ) );
 
@@ -230,7 +228,7 @@ BOOL CSkinDialog::OnEraseBkgnd(CDC* pDC)
 
 	CRect rc;
 	GetClientRect( &rc );
-	pDC->FillSolidRect( &rc, Skin.m_crDialog );
+	pDC->FillSolidRect( &rc, Colors.m_crDialog );
 
 	return TRUE;
 }
@@ -241,8 +239,8 @@ HBRUSH CSkinDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	if ( nCtlColor == CTLCOLOR_DLG || nCtlColor == CTLCOLOR_STATIC )
 	{
-		pDC->SetBkColor( Skin.m_crDialog );
-		hbr = Skin.m_brDialog;
+		pDC->SetBkColor( Colors.m_crDialog );
+		hbr = Colors.m_brDialog;
 	}
 
 	return hbr;

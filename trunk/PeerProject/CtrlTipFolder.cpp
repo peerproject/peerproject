@@ -27,6 +27,7 @@
 #include "SharedFolder.h"
 #include "ShellIcons.h"
 #include "CtrlTipFolder.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -117,7 +118,7 @@ void CFolderTipCtrl::OnPaint(CDC* pDC)
 
 	DrawRule( pDC, &pt );
 
-	CoolInterface.Draw( pDC, IDI_FOLDER_OPEN, 32, pt.x, pt.y, CoolInterface.m_crTipBack );
+	CoolInterface.Draw( pDC, IDI_FOLDER_OPEN, 32, pt.x, pt.y, Colors.m_crTipBack );
 	pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 32, pt.y + 32 );
 
 	CString strText;

@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "GProfile.h"
 #include "WizardSheet.h"
@@ -222,7 +223,7 @@ void CWizardSheet::OnPaint()
 	dc.Draw3dRect( 0, rc.bottom - 48, rc.Width() + 1, 2,
 		RGB( 128, 128, 128 ), RGB( 255, 255, 255 ) );
 
-	dc.FillSolidRect( rc.left, rc.bottom - 46, rc.Width(), 46, CoolInterface.m_crSysBtnFace );
+	dc.FillSolidRect( rc.left, rc.bottom - 46, rc.Width(), 46, Colors.m_crSysBtnFace );
 }
 
 /////////////////////////////////////////////////////////////////////////////

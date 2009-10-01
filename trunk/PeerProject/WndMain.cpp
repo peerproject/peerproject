@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "CoolInterface.h"
 #include "CoolMenu.h"
 #include "Network.h"
@@ -543,8 +544,8 @@ void CMainWnd::OnClose()
 	}
 
 	if ( theApp.m_bClosing )
-		// Already closing
-		return;
+		return;	// Already closing
+
 	theApp.m_bClosing = true;
 
 	theApp.m_pSafeWnd = NULL;
@@ -722,7 +723,7 @@ LRESULT CMainWnd::OnMenuChar(UINT nChar, UINT nFlags, CMenu* pMenu)
 void CMainWnd::OnSysColorChange()
 {
 	CMDIFrameWnd::OnSysColorChange();
-	CoolInterface.OnSysColorChange();
+	Colors.OnSysColorChange();
 }
 
 void CMainWnd::OnUpdateFrameTitle(BOOL /*bAddToTitle*/)
@@ -874,9 +875,7 @@ void CMainWnd::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
 	if ( nState != WA_INACTIVE )
 	{
 		if ( CChildWnd* pChildWnd = m_pWindows.GetActive() )
-		{
 			pChildWnd->SendMessage( WM_MDIACTIVATE, NULL, (LPARAM)pChildWnd->GetSafeHwnd() );
-		}
 	}
 }
 
@@ -1107,7 +1106,7 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	if ( CWnd* pDockBar = GetDlgItem( AFX_IDW_DOCKBAR_TOP ) )
 	{
 		m_brshDockbar.DeleteObject();
-		m_brshDockbar.CreateSolidBrush( CoolInterface.m_crMidtone );
+		m_brshDockbar.CreateSolidBrush( Colors.m_crMidtone );
 		SetClassLongPtr( pDockBar->GetSafeHwnd(), GCLP_HBRBACKGROUND,
 			(LONG)(LONG_PTR)(HBRUSH)m_brshDockbar );
 	}
@@ -1229,7 +1228,7 @@ LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 		// Check for already downloaded file
 		if ( VersionChecker.CheckUpgradeHash() )
 		{
-			;	// Do nothing
+			// Do nothing
 		}
 		else if ( VersionChecker.IsUpgradeAvailable() )
 		{
@@ -1825,9 +1824,9 @@ void CMainWnd::OnUpdateViewBasic(CCmdUI* pCmdUI)
 void CMainWnd::OnViewBasic()
 {
 	if ( Settings.General.GUIMode == GUI_BASIC ) return;
-	CString strMessage;
-	LoadString( strMessage, IDS_VIEW_MODE_CONFIRM );
-	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	//CString strMessage;
+	//LoadString( strMessage, IDS_VIEW_MODE_CONFIRM );
+	//if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 	CWaitCursor pCursor;
 	SetGUIMode( GUI_BASIC );
 }
@@ -1840,9 +1839,9 @@ void CMainWnd::OnUpdateViewTabbed(CCmdUI* pCmdUI)
 void CMainWnd::OnViewTabbed()
 {
 	if ( Settings.General.GUIMode == GUI_TABBED ) return;
-	CString strMessage;
-	LoadString( strMessage, IDS_VIEW_MODE_CONFIRM );
-	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	//CString strMessage;
+	//LoadString( strMessage, IDS_VIEW_MODE_CONFIRM );
+	//if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 	CWaitCursor pCursor;
 	SetGUIMode( GUI_TABBED );
 }
@@ -1855,9 +1854,9 @@ void CMainWnd::OnUpdateViewWindowed(CCmdUI* pCmdUI)
 void CMainWnd::OnViewWindowed()
 {
 	if ( Settings.General.GUIMode == GUI_WINDOWED ) return;
-	CString strMessage;
-	LoadString( strMessage, IDS_VIEW_MODE_CONFIRM );
-	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+	//CString strMessage;
+	//LoadString( strMessage, IDS_VIEW_MODE_CONFIRM );
+	//if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 	CWaitCursor pCursor;
 	SetGUIMode( GUI_WINDOWED );
 }
@@ -2041,7 +2040,7 @@ void CMainWnd::OnUpdateTabConnect(CCmdUI* /*pCmdUI*/)
 	else if ( Network.IsConnected() )
 	{
 		if ( pItem ) pItem->SetCheck( TRUE );
-		if ( pItem ) pItem->SetTextColor( CoolInterface.m_crCmdText == 0 ?  CoolInterface.m_crTextStatus : CoolInterface.m_crCmdText );
+		if ( pItem ) pItem->SetTextColor( Colors.m_crCmdText == 0 ?  Colors.m_crTextStatus : Colors.m_crCmdText );
 		m_wndTabBar.SetMessage( (UINT)0 );
 		nTextID	= IDS_NETWORK_CONNECTING;
 		nTipID	= ID_NETWORK_DISCONNECT;
@@ -2049,7 +2048,7 @@ void CMainWnd::OnUpdateTabConnect(CCmdUI* /*pCmdUI*/)
 	else
 	{
 		if ( pItem ) pItem->SetCheck( FALSE );
-		if ( pItem ) pItem->SetTextColor( CoolInterface.m_crCmdText == 0 ?  CoolInterface.m_crTextStatus : CoolInterface.m_crCmdText );
+		if ( pItem ) pItem->SetTextColor( Colors.m_crCmdText == 0 ?  Colors.m_crTextStatus : Colors.m_crCmdText );
 		if ( m_wndToolBar.IsVisible() ) m_wndTabBar.SetMessage( IDS_TABBAR_NOT_CONNECTED );
 		nTextID	= IDS_NETWORK_CONNECT;
 		nTipID	= ID_NETWORK_CONNECT;
@@ -2138,9 +2137,9 @@ void CMainWnd::OnUpdateTabMedia(CCmdUI* pCmdUI)
 	if ( CCoolBarItem* pItem = m_wndToolBar.GetID( ID_TAB_MEDIA ) )
 	{
 		if ( ( pChild = (CMediaWnd*)m_pWindows.Find( RUNTIME_CLASS(CMediaWnd) ) ) != NULL )
-			pItem->SetTextColor( pChild->IsPlaying() ? CoolInterface.m_crTextStatus : CoolInterface.m_crCmdText );
+			pItem->SetTextColor( pChild->IsPlaying() ? Colors.m_crTextStatus : Colors.m_crCmdText );
 		else
-			pItem->SetTextColor( CoolInterface.m_crCmdText );
+			pItem->SetTextColor( Colors.m_crCmdText );
 	}
 }
 

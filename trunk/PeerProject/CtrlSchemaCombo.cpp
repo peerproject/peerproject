@@ -27,6 +27,7 @@
 #include "ShellIcons.h"
 #include "CtrlSchemaCombo.h"
 #include "CoolInterface.h"
+#include "Colors.h"
 #include "XML.h"
 
 #ifdef _DEBUG
@@ -221,7 +222,7 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		SetLayout( dc.m_hDC, LAYOUT_RTL );
 
 	dc.SetTextColor( ( lpDrawItemStruct->itemState & ODS_SELECTED )
-		? CoolInterface.m_crHiText : CoolInterface.m_crDropdownText );
+		? Colors.m_crHiText : Colors.m_crDropdownText );
 
 	CSchema* pSchema = (CSchema*)lpDrawItemStruct->itemData;
 
@@ -232,9 +233,9 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		if ( IsWindowEnabled() )
 		{
 			if ( lpDrawItemStruct->itemState & ODS_SELECTED )
-				dc.FillSolidRect( &rcItem, CoolInterface.m_crHighlight );
+				dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
 			else
-				dc.FillSolidRect( &rcItem, CoolInterface.m_crDropdownBox );
+				dc.FillSolidRect( &rcItem, Colors.m_crDropdownBox );
 		}
 		else
 			dc.FillSolidRect( &rcItem, GetBkColor(lpDrawItemStruct->hDC) );
@@ -280,9 +281,9 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		if ( IsWindowEnabled() )
 		{
 			if ( lpDrawItemStruct->itemState & ODS_SELECTED )
-				dc.FillSolidRect( &rcItem, CoolInterface.m_crHighlight );
+				dc.FillSolidRect( &rcItem, Colors.m_crHighlight );
 			else
-				dc.FillSolidRect( &rcItem, CoolInterface.m_crDropdownBox );
+				dc.FillSolidRect( &rcItem, Colors.m_crDropdownBox );
 		}
 		else
 			dc.FillSolidRect( &rcItem, GetBkColor(lpDrawItemStruct->hDC) );
@@ -299,14 +300,14 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	}
 	else
 	{
-		dc.Draw3dRect( &rcItem, CoolInterface.m_crDropdownBox , CoolInterface.m_crDropdownBox );
+		dc.Draw3dRect( &rcItem, Colors.m_crDropdownBox , Colors.m_crDropdownBox );
 		rcItem.DeflateRect( 1, 1 );
 
 		if ( lpDrawItemStruct->itemState & ODS_SELECTED )
 		{
-			dc.Draw3dRect( &rcItem, CoolInterface.m_crBorder, CoolInterface.m_crBorder );
+			dc.Draw3dRect( &rcItem, Colors.m_crBorder, Colors.m_crBorder );
 			rcItem.DeflateRect( 1, 1 );
-			dc.FillSolidRect( &rcItem, CoolInterface.m_crBackSel );
+			dc.FillSolidRect( &rcItem, Colors.m_crBackSel );
 		}
 		else
 		{

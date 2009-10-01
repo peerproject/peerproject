@@ -27,7 +27,7 @@
 #include "SharedFolder.h"
 #include "ShellIcons.h"
 #include "CtrlSharedFolder.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
@@ -597,8 +597,8 @@ void CLibraryFolderCtrl::OnCustomDraw(NMHDR* pNMHDR, LRESULT* pResult)
 	else if ( pDraw->nmcd.dwDrawStage == (CDDS_ITEM|CDDS_PREPAINT) )
 	{
 		BOOL bSelected		= GetItemState( (HTREEITEM)pDraw->nmcd.dwItemSpec, TVIS_SELECTED ) & TVIS_SELECTED ? TRUE : FALSE;
-		pDraw->clrText		= ( bSelected ? CoolInterface.m_crHiText : CoolInterface.m_crText );
-		pDraw->clrTextBk	= ( bSelected ? CoolInterface.m_crHighlight : CoolInterface.m_crWindow );
+		pDraw->clrText		= ( bSelected ? Colors.m_crHiText : Colors.m_crText );
+		pDraw->clrTextBk	= ( bSelected ? Colors.m_crHighlight : Colors.m_crWindow );
 		*pResult = CDRF_DODEFAULT;
 	}
 }
@@ -612,7 +612,7 @@ void CLibraryFolderCtrl::OnNcPaint()
 		CWindowDC dc( this );
 		CRect rc;
 
-		COLORREF crBorder = CoolInterface.m_crSysActiveCaption ;
+		COLORREF crBorder = Colors.m_crSysActiveCaption ;
 
 		GetWindowRect( &rc );
 		rc.OffsetRect( -rc.left, -rc.top );

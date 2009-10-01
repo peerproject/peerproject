@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r37 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r38 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -418,15 +418,14 @@
 
 <!-- Menu Definitions -->
 <menus>
-	<!-- SIMPLE POPUP MENU -->
-	<menu name="Simple">
+	<!-- TAB BAR POPUP MENUS -->
+	<menu name="CTabBar">
 		<item id="ID_MOVETAB_LEFT" text="左移"/>
 		<item id="ID_MOVETAB_RIGHT" text="右移"/>
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="关闭窗口"/>
 	</menu>
-	<!-- CHILD POPUP MENU -->
-	<menu name="Child">
+	<menu name="CTabBar.Child">
 		<item id="ID_MOVETAB_LEFT" text="左移"/>
 		<item id="ID_MOVETAB_RIGHT" text="右移"/>
 		<separator/>
@@ -1019,9 +1018,9 @@
 	</menu>
 	<menu name="CDownloadsWnd.Download">
 		<item id="ID_DOWNLOADS_LAUNCH" text="預覽"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<!-- <item id="ID_DOWNLOADS_LAUNCH_COPY" text="Pre_view Copy"/> -->
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Pre_view Copy"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="新增至播放清單"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="檢視評論"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="繼續"/>
@@ -1037,10 +1036,12 @@
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="新增來源..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Monitor 視窗"/>
+			<item id="ID_DOWNLOADS_BOOST" text="忽略頻寬限制"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MOVE_UP" text="上移"/>
 			<item id="ID_DOWNLOADS_MOVE_DOWN" text="下移"/>
-			<item id="ID_DOWNLOADS_BOOST" text="忽略頻寬限制"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="上移!"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="下移!"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="說明..."/>
 		<separator/>

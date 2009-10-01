@@ -151,10 +151,11 @@ protected:
 	afx_msg void OnDownloadsFileDelete();
 	afx_msg void OnUpdateDownloadsRate(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsRate();
-	afx_msg void OnUpdateDownloadsMoveUp(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateDownloadsMove(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsMoveUp();
-	afx_msg void OnUpdateDownloadsMoveDown(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsMoveDown();
+	afx_msg void OnDownloadsMoveTop();
+	afx_msg void OnDownloadsMoveBottom();
 	afx_msg void OnDownloadsSettings();
 	afx_msg void OnUpdateDownloadsFilterAll(CCmdUI* pCmdUI);
 	afx_msg void OnDownloadsFilterAll();

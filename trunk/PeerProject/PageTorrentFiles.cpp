@@ -100,6 +100,8 @@ BOOL CTorrentFilesPage::OnInitDialog()
 //	m_wndFiles.InsertColumn( 4, _T("Priority"), LVCFMT_RIGHT, 52, 0 );
 	Skin.Translate( _T("CTorrentFileList"), m_wndFiles.GetHeaderCtrl() );
 
+	m_wndFiles.SetBkImage( Skin.GetWatermark( _T("CTorrentList") ) );
+
 // Priority Column Combobox:
 //	BEGIN_COLUMN_MAP()
 //		COLUMN_MAP( CFragmentedFile::prHigh,		LoadString( IDS_PRIORITY_HIGH ) )

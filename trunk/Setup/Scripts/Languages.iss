@@ -251,7 +251,7 @@ Source: "Setup\Filter\Chinese-Simpl.dat"; DestDir: "{app}\Data"; DestName: "Adul
 [Messages]
 ; This section overrides existing phrases specified in Inno's Default.isl file
 
-SelectLanguageLabel=%nSelect a language to use during installation:
+SelectLanguageLabel=%nSelect a default language:
 WelcomeLabel1=%nWelcome to the%n[name] Setup Wizard
 WelcomeLabel2=This will install [name/ver]%nP2P filesharing on your computer.%n%nIt is recommended to close applications before continuing.
 FinishedHeadingLabel=%nCompleting the [name]%nSetup Wizard

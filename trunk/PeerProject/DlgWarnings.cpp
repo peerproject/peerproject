@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "DlgWarnings.h"
-#include "CoolInterface.h"
+#include "Colors.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -80,7 +80,7 @@ HBRUSH CWarningsDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	}
 	else if ( pWnd == &m_wndWeb )
 	{
-		pDC->SetTextColor( CoolInterface.m_crTextLink );
+		pDC->SetTextColor( Colors.m_crTextLink );
 		pDC->SelectObject( &theApp.m_gdiFontLine );
 	}
 

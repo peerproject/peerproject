@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include "resource.h"
+#include "Resource.h"
 #include "SWFPlugin.h"
 
 class ATL_NO_VTABLE CSWFReader : 
