@@ -494,12 +494,13 @@ BOOL CDownloadWithFile::GetFragment(CDownloadTransfer* pTransfer)
 		{
 			if ( pOther->m_bRecvBackwards )
 			{
-				if ( pOther->m_nOffset + pOther->m_nLength - pOther->m_nPosition
-					 != oLargest.end() ) continue;
+				if ( pOther->m_nOffset + pOther->m_nLength - pOther->m_nPosition != oLargest.end() )
+					 continue;
 			}
 			else
 			{
-				if ( pOther->m_nOffset + pOther->m_nPosition != oLargest.begin() ) continue;
+				if ( pOther->m_nOffset + pOther->m_nPosition != oLargest.begin() )
+					continue;
 			}
 
 			pExisting = pOther;
@@ -604,20 +605,15 @@ CString CDownloadWithFile::GetAvailableRanges() const
 		pFragment != oAvailable.end(); ++pFragment )
 	{
 		if ( strRanges.IsEmpty() )
-		{
 			strRanges = _T("bytes ");
-		}
 		else
-		{
 			strRanges += ',';
-		}
 
 		strRange.Format( _T("%I64i-%I64i"), pFragment->begin(), pFragment->end() - 1 );
 		strRanges += strRange;
 
 		if ( strRanges.GetLength() > HTTP_HEADER_MAX_LINE - 256 )
-			// Prevent too long line
-			break;
+			break;	// Prevent too long line
 	}
 
 	return strRanges;
@@ -823,35 +819,33 @@ void CDownloadWithFile::Serialize(CArchive& ar, int nVersion)
 				}
 			}
 			else
+			{
 				if ( m_pFile->GetName( nIndex ).IsEmpty() )
 					m_pFile->SetName( nIndex, m_sName );
+			}
 		}
 
 		SerializeFile( ar, nVersion );
 	}
 	else
 	{
-		if ( nVersion < 28 )
-		{
-			CString strLocalName;
-			ar >> strLocalName;
+	//	if ( nVersion < 28 )
+	//	{
+	//		CString strLocalName;
+	//		ar >> strLocalName;
 
-			if ( strLocalName.GetLength() )
-			{
-				if ( m_sPath.GetLength() )
-					::MoveFile( m_sPath, strLocalName + _T(".sd") );
-				m_sPath = strLocalName + _T(".sd");
-			}
-		}
+	//		if ( strLocalName.GetLength() )
+	//		{
+	//			if ( m_sPath.GetLength() )
+	//				::MoveFile( m_sPath, strLocalName + _T(".sd") );
+	//			m_sPath = strLocalName + _T(".sd");
+	//		}
+	//	}
 
-		if ( nVersion < 25 || ar.ReadCount() )
-		{
+		if ( ar.ReadCount() /*|| nVersion < 25*/ )
 			SerializeFile( ar, nVersion );
-		}
 		else
-		{
 			CloseFile();
-		}
 	}
 }
 

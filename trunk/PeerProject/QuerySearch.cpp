@@ -1938,11 +1938,14 @@ void CQuerySearch::BuildWordTable()
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch serialization
 
+#define QUERYSEARCH_SER_VERSION		1000	//8
+// nVersion History:
+// 8 - Added m_nMinSize & m_nMaxSize - Shareaza 2.2 (ryo-oh-ki)
+// 1000 - (PeerProject 1.0) (8)
+
 void CQuerySearch::Serialize(CArchive& ar)
 {
-	// History:
-	// 8 - added m_nMinSize and m_nMaxSize (ryo-oh-ki)
-	int nVersion = 8;
+	int nVersion = QUERYSEARCH_SER_VERSION;
 
 	CString strURI;
 
@@ -1981,7 +1984,7 @@ void CQuerySearch::Serialize(CArchive& ar)
 	else
 	{
 		ar >> nVersion;
-		if ( nVersion < 4 ) AfxThrowUserException();
+		if ( nVersion < 8 ) AfxThrowUserException();
 
 		ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
 
@@ -1991,11 +1994,7 @@ void CQuerySearch::Serialize(CArchive& ar)
 		SerializeIn( ar, m_oTiger, nVersion );
 		SerializeIn( ar, m_oED2K, nVersion );
 		SerializeIn( ar, m_oBTH, nVersion );
-
-		if ( nVersion >= 7 )
-		{
-			SerializeIn( ar, m_oMD5, nVersion );
-		}
+		SerializeIn( ar, m_oMD5, nVersion );
 
 		ar >> strURI;
 
@@ -2006,20 +2005,20 @@ void CQuerySearch::Serialize(CArchive& ar)
 			m_pXML->Serialize( ar );
 		}
 
-		if ( nVersion >= 5 )
-		{
+		//if ( nVersion >= 5 )
+		//{
 			ar >> m_bWantURL;
 			ar >> m_bWantDN;
 			ar >> m_bWantXML;
 			ar >> m_bWantCOM;
 			ar >> m_bWantPFS;
-		}
+		//}
 
-		if ( nVersion >= 8 )
-		{
+		//if ( nVersion >= 8 )
+		//{
 			ar >> m_nMinSize;
 			ar >> m_nMaxSize;
-		}
+		//}
 
 		BuildWordList();
 	}
@@ -2031,13 +2030,9 @@ void CQuerySearch::Serialize(CArchive& ar)
 CSearchWnd* CQuerySearch::OpenWindow(auto_ptr< CQuerySearch > pSearch)
 {
 	if ( pSearch.get() && pSearch->CheckValid( false ) )
-	{
 		return new CSearchWnd( pSearch );
-	}
 	else
-	{
 		return NULL;
-	}
 }
 
 void CQuerySearch::PrepareCheck()

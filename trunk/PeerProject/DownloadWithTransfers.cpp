@@ -68,9 +68,7 @@ bool CDownloadWithTransfers::HasActiveTransfers() const
 		// ToDo: Fix why	static_cast< CConnection* >( pTransfer )->m_bConnected
 		// is always FALSE when status is dtsDownloading.
 		if ( pTransfer->m_nState == dtsDownloading )
-		{
 			return true;
-		}
 	}
 	return false;
 }
@@ -309,7 +307,8 @@ BOOL CDownloadWithTransfers::StartNewTransfer(DWORD tNow)
 			}
 			else if ( pSource->m_tAttempt > 0 && pSource->m_tAttempt <= tNow )
 			{
-				if ( pConnectHead == NULL && pSource->CanInitiate( bConnected, FALSE ) ) pConnectHead = pSource;
+				if ( pConnectHead == NULL && pSource->CanInitiate( bConnected, FALSE ) )
+					pConnectHead = pSource;
 			}
 		}
 		else if ( Network.GetStableTime() >= 15 )
@@ -334,17 +333,11 @@ BOOL CDownloadWithTransfers::StartNewTransfer(DWORD tNow)
 		if ( pConnectHead->m_bPushOnly && ! ( pConnectHead->m_nProtocol == PROTOCOL_ED2K ) )
 		{
 			if ( pConnectHead->PushRequest() )
-			{
 				return TRUE;
-			}
 			else if ( ! Settings.Downloads.NeverDrop )
-			{
 				pConnectHead->Remove( TRUE, FALSE );
-			}
 			else
-			{
 				SortSource( pConnectHead, FALSE );
-			}
 		}
 		else
 		{
@@ -390,7 +383,8 @@ DWORD CDownloadWithTransfers::GetAverageSpeed() const
 
 	for ( CDownloadTransfer* pTransfer = m_pTransferFirst ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
 	{
-		if ( pTransfer->m_nState == dtsDownloading ) nSpeed += pTransfer->GetAverageSpeed();
+		if ( pTransfer->m_nState == dtsDownloading )
+			nSpeed += pTransfer->GetAverageSpeed();
 	}
 
 	return nSpeed;
@@ -405,7 +399,7 @@ DWORD CDownloadWithTransfers::GetMeasuredSpeed() const
 
 	for ( CDownloadTransfer* pTransfer = m_pTransferFirst ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
 	{
-		if ( pTransfer->m_nState == dtsDownloading )
+		if ( pTransfer->m_nState == dtsDownloading )	// Crash?
 			nSpeed += pTransfer->GetMeasuredSpeed();
 	}
 

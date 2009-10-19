@@ -259,13 +259,9 @@ void CMatchList::AddHits(const CQueryHit* pHits, CQuerySearch* pFilter)
 			if ( Settings.Search.SchemaTypes && pFilter->m_pSchema )
 			{
 				if ( !pHit->m_bMatched && pFilter->m_pSchema->CheckURI( pHit->m_sSchemaURI ) )
-				{
 					pHit->m_bBogus = TRUE;
-				}
 				else
-				{
 					pHit->m_bBogus = !pFilter->m_pSchema->FilterType( pHit->m_sName, TRUE );
-				}
 			}
 		}
 		else
@@ -279,25 +275,15 @@ void CMatchList::AddHits(const CQueryHit* pHits, CQuerySearch* pFilter)
 		FILESTATS Stats = {};
 
 		if ( pHit->m_oSHA1 )
-		{
 			pFile = FindFileAndAddHit( pHit, fSHA1, &Stats );
-		}
 		if ( pFile == NULL && pHit->m_oTiger )
-		{
 			pFile = FindFileAndAddHit( pHit, fTiger, &Stats );
-		}
 		if ( pFile == NULL && pHit->m_oED2K )
-		{
 			pFile = FindFileAndAddHit( pHit, fED2K, &Stats );
-		}
 		if ( pFile == NULL && pHit->m_oBTH )
-		{
 			pFile = FindFileAndAddHit( pHit, fBTH, &Stats );
-		}
 		if ( pFile == NULL && pHit->m_oMD5 )
-		{
 			pFile = FindFileAndAddHit( pHit, fMD5, &Stats );
-		}
 
 		if ( pFile == NULL
 			&& ( ( ! pHit->m_oSHA1 && ! pHit->m_oTiger && ! pHit->m_oED2K && ! pHit->m_oBTH && ! pHit->m_oMD5 )
@@ -519,13 +505,9 @@ void CMatchList::InsertSorted(CMatchFile* pFile)
 		DWORD nMiddle = ( nFirst + nLast ) >> 1;
 
 		if ( pFile->Compare( m_pFiles[ nMiddle ] ) == m_bSortDir )
-		{
 			nFirst = nMiddle + 1;
-		}
 		else
-		{
 			nLast = nMiddle - 1;
-		}
 	}
 
 	MoveMemory( m_pFiles + nFirst + 1, m_pFiles + nFirst, ( m_nFiles - nFirst ) * sizeof *m_pFiles );
@@ -669,9 +651,7 @@ BOOL CMatchList::ClearSelection()
 	{
 		bChanged = (*pLoop)->ClearSelection();
 		if ( bChanged )
-		{
 			UpdateRange( nCount, nCount );
-		}
 	}
 
 	m_pSelectedFiles.RemoveAll();
@@ -834,13 +814,9 @@ void CMatchList::Filter()
 					nStart = nPos + 1;
 
 					if ( *pszPtr == '\"' )
-					{
 						bQuote = ! bQuote;
-					}
 					else if ( *pszPtr == '-' && ! bQuote )
-					{
 						bNot = TRUE;
-					}
 
 					if ( bNot && ! bQuote && *pszPtr != '-' ) bNot = FALSE;
 				}
@@ -937,11 +913,13 @@ BOOL CMatchList::FilterHit(CQueryHit* pHit)
 		{
 			if ( *pszFilter == '-' )
 			{
-				if ( _tcsistr( pszName, pszFilter + 1 ) != NULL ) return FALSE;
+				if ( _tcsistr( pszName, pszFilter + 1 ) != NULL )
+					return FALSE;
 			}
 			else
 			{
-				if ( _tcsistr( pszName, pszFilter + 1 ) == NULL ) return FALSE;
+				if ( _tcsistr( pszName, pszFilter + 1 ) == NULL )
+					return FALSE;
 			}
 
 			pszFilter += _tcslen( pszFilter + 1 ) + 2;
@@ -1033,9 +1011,7 @@ void CMatchList::SetSortColumn(int nColumn, BOOL bDirection)
 						CMatchFile* pTemp = m_pFiles[ nIndex2 - 1 ];
 
 						if ( pTemp->Compare( pCurrent ) == m_bSortDir )
-						{
 							m_pFiles[ nIndex2-- ] = pTemp;
-						}
 						else break;
 					}
 					m_pFiles[ nIndex2 ] = pCurrent;
@@ -1056,19 +1032,22 @@ void CMatchList::SetSortColumn(int nColumn, BOOL bDirection)
 				pTemp = m_pFiles[ nFirst ];
 				if ( pTemp->Compare( m_pFiles[ nLast ] ) == m_bSortDir )
 				{
-					m_pFiles[ nFirst ] = m_pFiles[ nLast ]; m_pFiles[ nLast ] = pTemp;
+					m_pFiles[ nFirst ] = m_pFiles[ nLast ];
+					m_pFiles[ nLast ] = pTemp;
 				}
 
 				pTemp = m_pFiles[ nMiddle ];
 				if ( m_pFiles[ nFirst ]->Compare( pTemp ) == m_bSortDir )
 				{
-					m_pFiles[ nMiddle ] = m_pFiles[ nFirst ]; m_pFiles[ nFirst ] = pTemp;
+					m_pFiles[ nMiddle ] = m_pFiles[ nFirst ];
+					m_pFiles[ nFirst ] = pTemp;
 				}
 
 				pTemp = m_pFiles[ nLast ];
 				if ( m_pFiles[ nMiddle ]->Compare( pTemp ) == m_bSortDir )
 				{
-					m_pFiles[ nLast ] = m_pFiles[ nMiddle ]; m_pFiles[ nMiddle ] = pTemp;
+					m_pFiles[ nLast ] = m_pFiles[ nMiddle ];
+					m_pFiles[ nMiddle ] = pTemp;
 				}
 				pPivot = m_pFiles[ nMiddle ];
 			}
@@ -1157,7 +1136,8 @@ void CMatchList::ClearNew()
 
 	for ( DWORD nFile = 0 ; nFile < m_nFiles ; nFile++ )
 	{
-		if ( m_pFiles[ nFile ] ) m_pFiles[ nFile ]->ClearNew();
+		if ( m_pFiles[ nFile ] )
+			m_pFiles[ nFile ]->ClearNew();
 	}
 
 	m_bNew = TRUE;
@@ -1166,9 +1146,16 @@ void CMatchList::ClearNew()
 //////////////////////////////////////////////////////////////////////
 // CMatchList serialize
 
+#define MATCHLIST_SER_VERSION	1000	//14
+// nVersion History:
+// 12 - Shareaza 2.2 (Rolandas)
+// 13 - Shareaza 2.3 (ryo-oh-ki)
+// 14 - Share1za 2.4 (ryo-oh-ki)
+// 1000 - (PeerProject 1.0) (14)
+
 void CMatchList::Serialize(CArchive& ar)
 {
-	int nVersion = 14;
+	int nVersion = MATCHLIST_SER_VERSION;
 
 	if ( ar.IsStoring() )
 	{
@@ -1203,7 +1190,7 @@ void CMatchList::Serialize(CArchive& ar)
 	else
 	{
 		ar >> nVersion;
-		if ( nVersion < 8 ) AfxThrowUserException();
+		if ( nVersion < 12 ) AfxThrowUserException();
 
 		ar >> m_sFilter;
 		ar >> m_bFilterBusy;
@@ -1213,25 +1200,22 @@ void CMatchList::Serialize(CArchive& ar)
 		ar >> m_bFilterLocal;
 		ar >> m_bFilterBogus;
 
-		if ( nVersion >= 12 )
-		{
-			ar >> m_bFilterDRM;
-			ar >> m_bFilterAdult;
-			ar >> m_bFilterSuspicious;
-			ar >> m_bRegExp;
-		}
+		ar >> m_bFilterDRM;
+		ar >> m_bFilterAdult;
+		ar >> m_bFilterSuspicious;
+		ar >> m_bRegExp;
 
-		if ( nVersion >= 10 )
-		{
+		//if ( nVersion >= 10 )
+		//{
 			ar >> m_nFilterMinSize;
 			ar >> m_nFilterMaxSize;
-		}
-		else
-		{
-			DWORD nInt32;
-			ar >> nInt32; m_nFilterMinSize = nInt32;
-			ar >> nInt32; m_nFilterMaxSize = nInt32;
-		}
+		//}
+		//else
+		//{
+		//	DWORD nInt32;
+		//	ar >> nInt32; m_nFilterMinSize = nInt32;
+		//	ar >> nInt32; m_nFilterMaxSize = nInt32;
+		//}
 
 		ar >> m_nFilterSources;
 		ar >> m_nSortColumn;
@@ -1531,13 +1515,9 @@ void CMatchFile::RefreshStatus()
 BOOL CMatchFile::Add(CQueryHit* pHit, BOOL bForce)
 {
 	if ( m_nSize == 0 && pHit->m_bSize )
-	{
 		m_nSize = pHit->m_nSize;
-	}
 	else if ( m_nSize != 0 && pHit->m_bSize && m_nSize != pHit->m_nSize )
-	{
 		return FALSE;
-	}
 
 	if ( ! bForce )
 	{
@@ -1596,29 +1576,19 @@ BOOL CMatchFile::Add(CQueryHit* pHit, BOOL bForce)
 	}
 
 	if ( ! m_oSHA1 && pHit->m_oSHA1 )
-	{
 		m_oSHA1 = pHit->m_oSHA1;
-	}
 
 	if ( ! m_oTiger && pHit->m_oTiger )
-	{
 		m_oTiger = pHit->m_oTiger;
-	}
 
 	if ( ! m_oED2K && pHit->m_oED2K )
-	{
 		m_oED2K = pHit->m_oED2K;
-	}
 
 	if ( ! m_oBTH && pHit->m_oBTH )
-	{
 		m_oBTH = pHit->m_oBTH;
-	}
 
 	if ( ! m_oMD5 && pHit->m_oMD5 )
-	{
 		m_oMD5 = pHit->m_oMD5;
-	}
 
 	if ( ! m_bDownload && GetLibraryStatus() == TRI_UNKNOWN && IsHashed() )
 	{
@@ -1627,31 +1597,23 @@ BOOL CMatchFile::Add(CQueryHit* pHit, BOOL bForce)
 		if ( pLock2.Lock( 50 ) )
 		{
 			if ( ! m_bDownload && m_oSHA1 && Downloads.FindBySHA1( m_oSHA1 ) != NULL )
-			{
 				m_bDownload = TRUE;
-			}
-			if ( ! m_bDownload && m_oTiger && Downloads.FindByTiger( m_oTiger ) != NULL )
-			{
+			else if ( ! m_bDownload && m_oTiger && Downloads.FindByTiger( m_oTiger ) != NULL )
 				m_bDownload = TRUE;
-			}
-			if ( ! m_bDownload && m_oED2K && Downloads.FindByED2K( m_oED2K ) != NULL )
-			{
+			else if ( ! m_bDownload && m_oED2K && Downloads.FindByED2K( m_oED2K ) != NULL )
 				m_bDownload = TRUE;
-			}
-			if ( ! m_bDownload && m_oBTH && Downloads.FindByBTH( m_oBTH ) != NULL )
-			{
+			else if ( ! m_bDownload && m_oBTH && Downloads.FindByBTH( m_oBTH ) != NULL )
 				m_bDownload = TRUE;
-			}
-			if ( ! m_bDownload && m_oMD5 && Downloads.FindByMD5( m_oMD5 ) != NULL )
-			{
+			else if ( ! m_bDownload && m_oMD5 && Downloads.FindByMD5( m_oMD5 ) != NULL )
 				m_bDownload = TRUE;
-			}
 		}
 	}
 
-	if ( pHit->m_bFiltered ) Added( pHit );
+	if ( pHit->m_bFiltered )
+		Added( pHit );
 
-	if ( ! m_bOneValid && ! pHit->m_bBogus && pHit->m_bMatched ) m_bOneValid = TRUE;
+	if ( ! m_bOneValid && ! pHit->m_bBogus && pHit->m_bMatched )
+		m_bOneValid = TRUE;
 
 	RefreshStatus();
 
@@ -1665,7 +1627,8 @@ BOOL CMatchFile::Check(CQueryHit* pHit) const
 {
 	for ( CQueryHit* pOld = m_pHits ; pOld ; pOld = pOld->m_pNext )
 	{
-		if ( pOld == pHit ) return TRUE;
+		if ( pOld == pHit )
+			return TRUE;
 	}
 
 	return FALSE;
@@ -1686,7 +1649,8 @@ BOOL CMatchFile::Expand(BOOL bExpand)
 	{
 		for ( CQueryHit* pHit = m_pHits ; pHit ; pHit = pHit->m_pNext )
 		{
-			if ( pHit->m_bSelected ) m_pList->Select( this, pHit, FALSE );
+			if ( pHit->m_bSelected )
+				m_pList->Select( this, pHit, FALSE );
 		}
 	}
 
@@ -1719,13 +1683,9 @@ DWORD CMatchFile::Filter()
 	for ( CQueryHit* pHit = m_pHits ; pHit ; pHit = pHit->m_pNext )
 	{
 		if ( m_pList->FilterHit( pHit ) )
-		{
 			Added( pHit );
-		}
 		else if ( pHit->m_bSelected )
-		{
 			m_pList->Select( this, pHit, FALSE );
-		}
 	}
 
 	return GetItemCount();
@@ -1767,7 +1727,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 		m_bPreview |= pHit->m_bPreview;
 	}
 
-	m_bCollection	|= ( pHit->m_bCollection && ! pHit->m_bBogus );
+	m_bCollection |= ( pHit->m_bCollection && ! pHit->m_bBogus );
 
 	if ( pHit->m_nRating )
 	{
@@ -1799,14 +1759,13 @@ void CMatchFile::Added(CQueryHit* pHit)
 			if ( _tcsicmp( (*pMember)->m_sName, _T("SHA1") ) == 0 )
 			{
 				if ( pHit->m_oSHA1 )
-				{
 					m_pColumns[ nCount ] = m_oSHA1.toString();
-				}
 			}
 			else if ( bSchema )
 			{
 				strValue = (*pMember)->GetValueFrom( pHit->m_pXML, NULL, TRUE );
-				if ( strValue.GetLength() ) m_pColumns[ nCount ] = strValue;
+				if ( strValue.GetLength() )
+					m_pColumns[ nCount ] = strValue;
 			}
 		}
 	}
@@ -1842,9 +1801,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 
 	// Unshared files are suspicious. (A user is assumed to want to exclude these entirely)
 	if ( CLibrary::IsBadFile( m_sName ) )
-	{
 		m_bSuspicious = TRUE;
-	}
 
 	// Get extention
 	if ( int nExt = pHit->m_sName.ReverseFind( _T('.') ) + 1 )
@@ -1882,19 +1839,26 @@ void CMatchFile::Added(CQueryHit* pHit)
 			}
 
 			// Exact search hit common spam detection  (keep updated)
-			if ( pHit->m_bExactMatch )
+			if ( pHit->m_bExactMatch && m_nFiltered < 12 )
 			{
 				if ( _tcsicmp( pszExt, _T("zip") ) == 0 )						//.zip
 				{
-					if ( ( m_nSize < 14 * 1024 ) ||
-						( m_nSize > 73 * 1024 && m_nSize < 75 * 1024 ) ||		// 74kb
-						( m_nSize > 496 * 1024 && m_nSize < 498 * 1024 ) ||		//497kb
+					if ( m_nFiltered > 1 && pHit->GetSources() > 4 && pHit->GetSources() < 10 &&
+						m_nSize > 200 * 1024 && m_nSize < 501 * 1024 )			//Cluster
+					{
+						m_bSuspicious = TRUE;
+					}
+
+					if ( ( m_nSize < 4 * 1024 ) ||
+						( m_nSize > 210 * 1024 && m_nSize < 215 * 1024 ) ||		//211kb
+						( m_nSize > 396 * 1024 && m_nSize < 404 * 1024 ) ||		//397kb-402kb
+						( m_nSize > 426 * 1024 && m_nSize < 428 * 1024 ) ||		//427kb
 						( m_nSize > 501 * 1024 && m_nSize < 503 * 1024 ) ||		//501kb
-						( m_nSize > 649 * 1024 && m_nSize < 652 * 1024 ) ||		//651kb
+						( m_nSize > 648 * 1024 && m_nSize < 652 * 1024 ) ||		//651kb
 						( m_nSize > 656 * 1024 && m_nSize < 659 * 1024 ) ||		//657kb
+						( m_nSize > 697 * 1024 && m_nSize < 699 * 1024 ) ||		//698kb
 						( m_nSize > 735 * 1024 && m_nSize < 737 * 1024 ) ||		//736kb
-						( m_nSize > 3270 * 1024 && m_nSize < 3280 * 1024 ) ||	//3.20mb
-						( m_nSize > 4030 * 1024 && m_nSize < 4040 * 1024 ) )	//3.94mb
+						( m_nSize > 3490 * 1024 && m_nSize < 3500 * 1024 ) )	//3.41mb
 					{
 						m_bSuspicious = TRUE;
 					}
@@ -1902,17 +1866,16 @@ void CMatchFile::Added(CQueryHit* pHit)
 				else if ( _tcsicmp( pszExt, _T("wma") ) == 0 )					//.wma
 				{
 					if ( ( m_nSize > 525 * 1024 && m_nSize < 530 * 1024 ) ||	//528kb
-						( m_nSize > 3760 * 1024 && m_nSize < 3780 * 1024 ) ||	//3.68mb
-						( m_nSize > 4540 * 1024 && m_nSize < 4550 * 1024 ) )	//4.44mb
+						( m_nSize > 1054 * 1024 && m_nSize < 1064 * 1024 ) ||	//1.03mb
+						( m_nSize > 4690 * 1024 && m_nSize < 4694 * 1024 ) )	//4.58mb
 					{
 						m_bSuspicious = TRUE;
 					}
 				}
-				else if ( _tcsicmp( pszExt, _T("mp3") ) == 0 )					//.mp3
+				else if ( _tcsicmp( pszExt, _T("mov") ) == 0 )					//.mov
 				{
-					if ( ( m_nSize > 3455 * 1024 && m_nSize < 3470 * 1024 ) ||	//3.38mb
-						( m_nSize > 4940 * 1024 && m_nSize < 4950 * 1024 ) ||	//4.83mb
-						( m_nSize > 5160 * 1024 && m_nSize < 5180 * 1024 ) )	//5.05mb
+					if ( ( m_nSize > 206 * 1024 && m_nSize < 208 * 1024 ) ||	//207kb
+						( m_nSize > 3333 * 1024 && m_nSize < 3344 * 1024 ) )	//3.26mb
 					{
 						m_bSuspicious = TRUE;
 					}
@@ -1920,7 +1883,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 				else if ( ( _tcsicmp( pszExt, _T("au") ) == 0 ) ||				//.au
 					( _tcsicmp( pszExt, _T("snd") ) == 0 ) )					//.snd
 				{
-					if ( m_nSize > 4400 * 1024 && m_nSize < 4500 * 1024 )		//4.32 mb
+					if ( m_nSize > 4400 * 1024 && m_nSize < 5800 * 1024 )		//4-5 mb
 					{
 						m_bSuspicious = TRUE;
 					}
@@ -1929,7 +1892,8 @@ void CMatchFile::Added(CQueryHit* pHit)
 		}
 	}
 
-	if ( m_bDownload ) pHit->m_bDownload = TRUE;
+	if ( m_bDownload )
+		pHit->m_bDownload = TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -2010,8 +1974,6 @@ int CMatchFile::Compare(CMatchFile* pFile) const
 			return x > 0 ? 1 : -1;
 		}
 
-
-
 	case MATCH_COL_COUNTRY:
 		{
 			LPCTSTR pszType1 = ( m_nFiltered == 1 ) ? (LPCTSTR)m_pHits->m_sCountry : NULL;
@@ -2038,7 +2000,6 @@ int CMatchFile::Compare(CMatchFile* pFile) const
 		{
 			LPCTSTR pszA = m_pColumns[ m_pList->m_nSortColumn - MATCH_COL_MAX ];
 			LPCTSTR pszB = pFile->m_pColumns[ m_pList->m_nSortColumn - MATCH_COL_MAX ];
-
 #if 0
 			if ( *pszA && *pszB &&
 				( pszA[ _tcslen( pszA ) - 1 ] == 'k' || pszA[ _tcslen( pszA ) - 1 ] == '~' )
@@ -2069,31 +2030,17 @@ CString CMatchFile::GetURN() const
 	CString strURN;
 
 	if ( m_oSHA1 && m_oTiger )
-	{
-		strURN	= _T("urn:bitprint:")
-				+ m_oSHA1.toString() + '.'
-				+ m_oTiger.toString();
-	}
+		strURN	= _T("urn:bitprint:") + m_oSHA1.toString() + '.' + m_oTiger.toString();
 	else if ( m_oSHA1 )
-	{
 		strURN = m_oSHA1.toUrn();
-	}
 	else if ( m_oTiger )
-	{
 		strURN = m_oTiger.toUrn();
-	}
 	else if ( m_oED2K )
-	{
 		strURN = m_oED2K.toUrn();
-	}
 	else if ( m_oBTH )
-	{
 		strURN = m_oBTH.toUrn();
-	}
 	else if ( m_oMD5 )
-	{
 		strURN = m_oMD5.toUrn();
-	}
 
 	return strURN;
 }
@@ -2146,17 +2093,7 @@ void CMatchFile::Serialize(CArchive& ar, int nVersion)
 	}
 	else
 	{
-		if ( nVersion >= 10 )
-		{
-			ar >> m_nSize;
-		}
-		else
-		{
-			DWORD nSize;
-			ar >> nSize;
-			m_nSize = nSize;
-		}
-
+		ar >> m_nSize;
 		ar >> m_sSize;
 		SerializeIn( ar, m_oSHA1, nVersion );
 		SerializeIn( ar, m_oTiger, nVersion );
@@ -2195,9 +2132,7 @@ void CMatchFile::Serialize(CArchive& ar, int nVersion)
 		}
 
 		if ( nVersion >= 14 )
-		{
 			ar >> m_pTime;
-		}
 
 		RefreshStatus();
 	}
@@ -2213,16 +2148,16 @@ CQueryHit*	CMatchFile::GetBest() const
 	return m_pBest;
 }
 
-/*int CMatchFile::GetRating() const
-{
-	int nRating = 0;
+//int CMatchFile::GetRating() const
+//{
+//	int nRating = 0;
 
-	if ( m_bPush != TRI_TRUE ) nRating += 4;
-	if ( m_bBusy != TRI_TRUE ) nRating += 2;
-	if ( m_bStable == TRI_TRUE ) nRating ++;
+//	if ( m_bPush != TRI_TRUE ) nRating += 4;
+//	if ( m_bBusy != TRI_TRUE ) nRating += 2;
+//	if ( m_bStable == TRI_TRUE ) nRating ++;
 
-	return nRating;
-}*/
+//	return nRating;
+//}
 
 DWORD CMatchFile::GetBogusHitsCount() const
 {
@@ -2254,9 +2189,7 @@ void CMatchFile::AddHitsToDownload(CDownload* pDownload, BOOL bForce) const
 {
 	// Best goes first if forced
 	if ( bForce && m_pBest != NULL )
-	{
 		pDownload->AddSourceHit( m_pBest, TRUE );
-	}
 
 	for ( CQueryHit* pHit = m_pHits ; pHit ; pHit = pHit->m_pNext )
 	{
@@ -2264,9 +2197,7 @@ void CMatchFile::AddHitsToDownload(CDownload* pDownload, BOOL bForce) const
 		{
 			// Best already added
 			if ( pHit != m_pBest )
-			{
 				pDownload->AddSourceHit( pHit, TRUE );
-			}
 		}
 		else
 		{
@@ -2317,9 +2248,7 @@ CSchema* CMatchFile::AddHitsToMetadata(CMetaList& oMetadata) const
 		for ( CQueryHit* pHit = m_pHits ; pHit ; pHit = pHit->m_pNext )
 		{
 			if ( pHit->m_pXML && pSchema->CheckURI( pHit->m_sSchemaURI ) )
-			{
 				oMetadata.Combine( pHit->m_pXML );
-			}
 		}
 	}
 	return pSchema;

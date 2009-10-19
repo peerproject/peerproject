@@ -3192,8 +3192,9 @@
 		<control caption="Create ghost files when deleting"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuBuBuBuCoBuBuBuBuBuCo" caption="Media Player">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media Player">
 		<control caption="_Opcije:"/>
+		<control caption="Odaberi Media..."/>
 		<control caption="Koristi Media Player za POKRETANJE datoteka samo ovih vrsta"/>
 		<control caption="Koristi Media Player za DODAVANJE datoteka samo ovih vrsta"/>
 		<control caption="Vrs_te Datoteka:"/>
@@ -3202,8 +3203,7 @@
 		<control caption="Makni"/>
 		<control caption="Audio _Vizualizacijski Pluginovi:"/>
 		<control caption="Odaberi Plugin..."/>
-		<control caption="Media Services _Plugin:"/>
-		<control/>
+		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Zajednica">
 		<control caption="Moj _Profil:"/>

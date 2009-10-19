@@ -316,8 +316,8 @@ void CDownloadTransferBT::ShowInterest()
 {
 	BOOL bInterested = FALSE;
 
-	// TODO: Use an algorithm similar to CDownloadWithTiger::FindNext.., rather
-	// than relying on that algorithm to complete verifications here.
+	// TODO: Use an algorithm similar to CDownloadWithTiger::FindNext..,
+	// rather than relying on that algorithm to complete verifications here.
 
 	if ( m_pAvailable == NULL )
 	{
@@ -350,9 +350,7 @@ void CDownloadTransferBT::ShowInterest()
 		Send( CBTPacket::New( bInterested ? BT_PACKET_INTERESTED : BT_PACKET_NOT_INTERESTED ) );
 
 		if ( ! bInterested )
-		{
             m_oRequested.clear();
-		}
 	}
 }
 
@@ -365,15 +363,15 @@ BOOL CDownloadTransferBT::OnChoked(CBTPacket* /*pPacket*/)
 	m_bChoked = TRUE;
 	SetState( dtsTorrent );
 	theApp.Message( MSG_DEBUG, _T("Download from %s was choked."), (LPCTSTR)m_sAddress );
-	/*for ( Fragments::Queue::const_iterator pFragment = m_oRequested.begin();
-		pFragment != m_oRequested.end() ; ++pFragment )
-	{
-		CBTPacket* pPacket = CBTPacket::New( BT_PACKET_CANCEL );
-		pPacket->WriteLongBE( (DWORD)( pFragment->begin() / m_pDownload->m_pTorrent.m_nBlockSize ) );
-		pPacket->WriteLongBE( (DWORD)( pFragment->begin() % m_pDownload->m_pTorrent.m_nBlockSize ) );
-		pPacket->WriteLongBE( (DWORD)pFragment->size() );
-		Send( pPacket );
-	}*/
+	//for ( Fragments::Queue::const_iterator pFragment = m_oRequested.begin();
+	//	pFragment != m_oRequested.end() ; ++pFragment )
+	//{
+	//	CBTPacket* pPacket = CBTPacket::New( BT_PACKET_CANCEL );
+	//	pPacket->WriteLongBE( (DWORD)( pFragment->begin() / m_pDownload->m_pTorrent.m_nBlockSize ) );
+	//	pPacket->WriteLongBE( (DWORD)( pFragment->begin() % m_pDownload->m_pTorrent.m_nBlockSize ) );
+	//	pPacket->WriteLongBE( (DWORD)pFragment->size() );
+	//	Send( pPacket );
+	//}
 	m_oRequested.clear();
 	return TRUE;
 }
@@ -434,11 +432,12 @@ BOOL CDownloadTransferBT::SendRequests()
 
 			m_oRequested.push_back( Selected );
 
-			int nType	= ( m_nDownloaded == 0 || ( nOffset % nBlockSize ) == 0 )
-						? MSG_INFO : MSG_DEBUG;
-			theApp.Message( (WORD)nType, IDS_DOWNLOAD_FRAGMENT_REQUEST,
+			if ( m_nDownloaded == 0 || ( nOffset % nBlockSize ) == 0 )
+			{
+				theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_REQUEST,
 				nOffset, nOffset + nLength - 1,
 				(LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
+			}
 #ifdef _DEBUG
 			DWORD ndBlock1 = (DWORD)( nOffset / nBlockSize );
 			DWORD ndBlock2 = (DWORD)( ( nOffset + nLength - 1 ) / nBlockSize );

@@ -72,9 +72,11 @@ public:
 	WORD				m_nVersion[4];
 	BYTE				m_pBTVersion[4];			// PExx
 	CString				m_sVersion;					// x.x.x.x
+	CString				m_sVersionLong;				// x.x.x.x 32/64-bit (date rXXXX) Debug
 	CString				m_sSmartAgent;				// PeerProject x.x.x.x
 	CString				m_sBuildDate;
 	CString				m_strBinaryPath;			// PeerProject.exe path
+	BYTE				m_nFontQuality;				// DEFAULT_QUALITY
 	CFont				m_gdiFont;
 	CFont				m_gdiFontBold;
 	CFont				m_gdiFontLine;
@@ -396,6 +398,8 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 //#define PANEL_WIDTH			200				// Skin.m_nSidebarWidth
 //#define TOOLBAR_HEIGHT		28				// Skin.m_nToolbarHeight
 #define THUMB_STORE_SIZE		128
+
+#define REGISTRY_KEY			"Software\\PeerProject\\PeerProject"
 
 
 // Network ID's:

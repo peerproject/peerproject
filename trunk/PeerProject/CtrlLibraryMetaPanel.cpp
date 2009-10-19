@@ -79,7 +79,9 @@ CLibraryMetaPanel::~CLibraryMetaPanel()
 
 CLibraryList* CLibraryMetaPanel::GetViewSelection()
 {
+	if ( ! m_hWnd ) return NULL;
 	CLibraryFrame* pFrame = (CLibraryFrame*)GetOwner();
+	if ( ! pFrame ) return NULL;
 	ASSERT_KINDOF(CLibraryFrame, pFrame);
 	return pFrame->GetViewSelection();
 }
@@ -90,7 +92,7 @@ void CLibraryMetaPanel::Update()
 	CSingleLock pLock2( &m_pSection, TRUE );
 
 	CLibraryList* pSel = GetViewSelection();
-	m_nSelected = static_cast< int >( pSel->GetCount() );
+	m_nSelected = pSel ? static_cast< int >( pSel->GetCount() ) : 0;
 
 	CLibraryFile* pFirst = m_nSelected ? Library.LookupFile( pSel->GetHead() ) : NULL;
 	if ( pFirst == NULL ) m_nSelected = 0;
@@ -132,9 +134,7 @@ void CLibraryMetaPanel::Update()
 			nSize += pFile->GetSize() / 1024;
 
 			if ( pFile->m_pFolder != NULL && pFile->m_pFolder->m_sPath != m_sFolder )
-			{
 				LoadString( m_sFolder, IDS_LIBPANEL_MULTIPLE_FOLDERS );
-			}
 
 			int nIcon = ShellIcons.Get( pFile->m_sName, 48 );
 			if ( nIcon != m_nIcon48 ) m_nIcon48 = -1;
@@ -149,12 +149,15 @@ void CLibraryMetaPanel::Update()
 
 	m_pSchema = NULL;
 
-	for ( POSITION pos = pSel->GetHeadPosition() ; pos ; )
+	if ( pSel )
 	{
-		CLibraryFile* pFile = Library.LookupFile( pSel->GetNext( pos ) );
-		if ( pFile == NULL ) continue;
-		m_pSchema = pFile->m_pSchema;
-		if ( m_pSchema ) break;
+		for ( POSITION pos = pSel->GetHeadPosition() ; pos ; )
+		{
+			CLibraryFile* pFile = Library.LookupFile( pSel->GetNext( pos ) );
+			if ( pFile == NULL ) continue;
+			m_pSchema = pFile->m_pSchema;
+			if ( m_pSchema ) break;
+		}
 	}
 
 	if ( m_pServiceData )
@@ -165,7 +168,7 @@ void CLibraryMetaPanel::Update()
 	{
 		m_pMetadata->Setup( m_pSchema );
 
-		if ( m_pSchema != NULL )
+		if ( m_pSchema && pSel )
 		{
 			for ( POSITION pos = pSel->GetHeadPosition() ; pos ; )
 			{
@@ -377,9 +380,7 @@ void CLibraryMetaPanel::DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, RECT
 
 	int nWidth = sz.cx;
 	if ( nMaxWidth > 0 )
-	{
 		nWidth = min( sz.cx, nMaxWidth );
-	}
 
 	CRect rc( nX - 2, nY - 2, nX + nWidth + 2, nY + sz.cy + 2 );
 

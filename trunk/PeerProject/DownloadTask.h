@@ -22,31 +22,43 @@
 #pragma once
 
 #include "PeerProjectThread.h"
+#include "FileFragments.hpp"
 
 class CDownload;
 class CHttpRequest;
 
-class CDownloadTask : public CRazaThread
+class CDownloadTask : public CAppThread
 {
+	DECLARE_DYNAMIC(CDownloadTask)
+
 public:
 	enum dtask
 	{
-//		dtaskAllocate,
+	//	dtaskAllocate,
 		dtaskCopy,
 		dtaskPreviewRequest,
-		dtaskCheckHash,
 		dtaskMergeFile
 	};
 
-// Construction
-public:
-	CDownloadTask(CDownload* pDownload, dtask nTask, LPCTSTR szParam1 = NULL);
+	static void			Copy(CDownload* pDownload);
+	static void			PreviewRequest(CDownload* pDownload, LPCTSTR szURL);
+	static void			MergeFile(CDownload* pDownload, LPCTSTR szPath,
+						BOOL bValidation = TRUE, const Fragments::List* pGaps = NULL);
+
+	static CString		SafeFilename(LPCTSTR pszName);
+
+	bool				HasSucceeded() const;
+	void				Abort();
+	bool				WasAborted() const;
+	DWORD				GetFileError() const;
+	DWORD				GetTaskType() const;
+	const CHttpRequest*	GetRequest() const;
+	CBuffer*			IsPreviewAnswerValid();
+
+protected:
+	CDownloadTask(CDownload* pDownload, dtask nTask);
 	virtual ~CDownloadTask();
 
-	DECLARE_DYNAMIC(CDownloadTask)
-
-// Attributes
-private:
 	dtask			m_nTask;
 	CHttpRequest*	m_pRequest;
 	bool			m_bSuccess;
@@ -55,41 +67,28 @@ private:
 	DWORD			m_nFileError;
 	CDownload*		m_pDownload;
 	QWORD			m_nSize;
-	CString			m_sMergeFilename;
+	CString			m_sMergeFilename;	// Source filename
+	Fragments::List	m_oMergeGaps;		// Missed ranges in source file
+	BOOL			m_bMergeValidation;	// Run validation after merging
 	POSITION		m_posTorrentFile;	// Torrent file list current position
 	CEvent*			m_pEvent;
 
-// Statics
-public:
-	static CString	SafeFilename(LPCTSTR pszName);
 	static DWORD	CALLBACK CopyProgressRoutine(LARGE_INTEGER TotalFileSize,
 		LARGE_INTEGER TotalBytesTransferred, LARGE_INTEGER StreamSize,
 		LARGE_INTEGER StreamBytesTransferred, DWORD dwStreamNumber,
 		DWORD dwCallbackReason, HANDLE hSourceFile, HANDLE hDestinationFile,
 		LPVOID lpData);
 
-// Operations
-public:
-	bool				HasSucceeded() const;
-	void				Abort();
-	bool				WasAborted() const;
-	DWORD				GetFileError() const;
-	DWORD				GetTaskType() const;
-	const CHttpRequest*	GetRequest() const;
-	CBuffer*			IsPreviewAnswerValid();
-private:
 	void				Construct(CDownload* pDownload);
-//	void				RunAllocate();
 	void				RunCopy();
 	void				RunPreviewRequest();
 	void				RunMerge();
-	BOOL				CopyFile(HANDLE hSource, LPCTSTR pszTarget, QWORD nLength);
+//	void				RunAllocate();
 	void				CreatePathForFile(const CString& strBase, const CString& strPath);
-	BOOL				MakeBatchTorrent();
+	BOOL				CopyFile(HANDLE hSource, LPCTSTR pszTarget, QWORD nLength);
 	BOOL				CopyFileToBatch(HANDLE hSource, QWORD nOffset, QWORD nLength, LPCTSTR pszPath);
+	BOOL				MakeBatchTorrent();
 
-// Overrides
-protected:
 	virtual int			Run();
 
 	DECLARE_MESSAGE_MAP()

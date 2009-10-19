@@ -3139,8 +3139,9 @@
 		<control caption="当删除时建立回收文件"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="多媒體播放程式">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="多媒體播放程式">
 		<control caption="多媒體服務:"/>
+		<control caption="选择媒体滤镜:"/>
 		<control/>
 		<control caption="使用 PeerProject 多媒體播放程式 播放以下的檔案"/>
 		<control caption="讓 PeerProject 多媒體播放程式與下列的檔案類型產生關聯"/>
@@ -3150,9 +3151,7 @@
 		<control caption="移除"/>
 		<control caption="音訊視覺效果外掛:"/>
 		<control caption="選擇外掛..."/>
-		<control caption="媒体滤镜"/>
-		<control caption="选择媒体滤镜:"/>
-		<control caption="警告: 选择一个额外的媒体滤镜将自动禁用所有的媒体和可视化插件！"/>
+		<control caption="警告: 选择一个额外的媒体滤镜将自动禁用所有的媒体和可视化插件."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="社群">
 		<control caption="我的個人檔案:"/>

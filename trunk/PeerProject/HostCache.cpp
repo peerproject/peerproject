@@ -119,14 +119,17 @@ BOOL CHostCache::Save()
 	return TRUE;
 }
 
+#define HOSTCACHE_SER_VERSION		1000	//17
+// nVersion History:
+// 14 - Added m_sCountry
+// 15 - Added m_bDHT and m_oBtGUID (Ryo-oh-ki)
+// 16 - Added m_nUDPPort, m_oGUID and m_nKADVersion (Ryo-oh-ki)
+// 17 - Added m_tConnect (Ryo-oh-ki)
+// 1000 - (PeerProject 1.0) (17)
+
 void CHostCache::Serialize(CArchive& ar)
 {
-	// History:
-	// 14 - Added m_sCountry
-	// 15 - Added m_bDHT and m_oBtGUID (Ryo-oh-ki)
-	// 16 - Added m_nUDPPort, m_oGUID and m_nKADVersion (Ryo-oh-ki)
-	// 17 - Added m_tConnect (Ryo-oh-ki)
-	int nVersion = 17;
+	int nVersion = HOSTCACHE_SER_VERSION;
 
 	if ( ar.IsStoring() )
 	{
@@ -143,7 +146,7 @@ void CHostCache::Serialize(CArchive& ar)
 	else
 	{
 		ar >> nVersion;
-		if ( nVersion < 6 ) return;
+		if ( nVersion < 14 ) return;
 
 		for ( DWORD_PTR nCount = ar.ReadCount() ; nCount > 0 ; nCount-- )
 		{
@@ -718,25 +721,15 @@ int CHostCache::ImportMET(CFile* pFile)
 			if ( pServer == NULL ) continue;
 
 			if ( pTag.Check( ED2K_ST_SERVERNAME, ED2K_TAG_STRING ) )
-			{
 				pServer->m_sName = pTag.m_sValue;
-			}
 			else if ( pTag.Check( ED2K_ST_DESCRIPTION, ED2K_TAG_STRING ) )
-			{
 				pServer->m_sDescription = pTag.m_sValue;
-			}
 			else if ( pTag.Check( ED2K_ST_MAXUSERS, ED2K_TAG_INT ) )
-			{
 				pServer->m_nUserLimit = (DWORD)pTag.m_nValue;
-			}
 			else if ( pTag.Check( ED2K_ST_MAXFILES, ED2K_TAG_INT ) )
-			{
 				pServer->m_nFileLimit = (DWORD)pTag.m_nValue;
-			}
 			else if ( pTag.Check( ED2K_ST_UDPFLAGS, ED2K_TAG_INT ) )
-			{
 				pServer->m_nUDPFlags = (DWORD)pTag.m_nValue;
-			}
 		}
 
 		nServers++;
@@ -1049,8 +1042,8 @@ void CHostCacheHost::Serialize(CArchive& ar, int nVersion)
 			m_pVendor = VendorCache.Lookup( szVendor );
 		}
 
-		if ( nVersion >= 10 )
-		{
+		//if ( nVersion >= 10 )
+		//{
 			ar >> m_sName;
 			if ( m_sName.GetLength() ) ar >> m_sDescription;
 
@@ -1062,24 +1055,24 @@ void CHostCacheHost::Serialize(CArchive& ar, int nVersion)
 			ar >> m_nTCPFlags;
 			ar >> m_nUDPFlags;
 			ar >> m_tStats;
-		}
-		else if ( nVersion >= 7 )
-		{
+		//}
+		//else if ( nVersion >= 7 )
+		//{
 			ar >> m_sName;
 			if ( m_sName.GetLength() )
 			{
 				ar >> m_sDescription;
 				ar >> m_nUserCount;
-				if ( nVersion >= 8 ) ar >> m_nUserLimit;
-				if ( nVersion >= 9 ) ar >> m_bPriority;
-				if ( nVersion >= 10 )
-				{
+				//if ( nVersion >= 8 ) ar >> m_nUserLimit;
+				//if ( nVersion >= 9 ) ar >> m_bPriority;
+				//if ( nVersion >= 10 )
+				//{
 					ar >> m_nFileLimit;
 					ar >> m_nTCPFlags;
 					ar >> m_nUDPFlags;
-				}
+				//}
 			}
-		}
+		//}
 
 		ar >> m_nKeyValue;
 		if ( m_nKeyValue != 0 )
@@ -1088,30 +1081,30 @@ void CHostCacheHost::Serialize(CArchive& ar, int nVersion)
 			ar >> m_nKeyHost;
 		}
 
-		if ( nVersion >= 11 )
-		{
+		//if ( nVersion >= 11 )
+		//{
 			ar >> m_tFailure;
 			ar >> m_nFailures;
-		}
+		//}
 
-		if ( nVersion >= 12 )
-		{
+		//if ( nVersion >= 12 )
+		//{
 			ar >> m_bCheckedLocally;
 			ar >> m_nDailyUptime;
-		}
-		if ( nVersion >= 14 )
-		{
+		//}
+		//if ( nVersion >= 14 )
+		//{
 			ar >> m_sCountry;
-		}
-		else
-			m_sCountry = theApp.GetCountryCode( m_pAddress );
+		//}
+		//else
+		//	m_sCountry = theApp.GetCountryCode( m_pAddress );
 
-		if ( nVersion >= 15 )
-		{
+		//if ( nVersion >= 15 )
+		//{
 			ar >> m_bDHT;
 			ReadArchive( ar, &m_oBtGUID[0], m_oBtGUID.byteCount );
 			m_oBtGUID.validate();
-		}
+		//}
 
 		if ( nVersion >= 16 )
 		{
@@ -1136,14 +1129,11 @@ bool CHostCacheHost::Update(WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nU
 	bool bChanged = FALSE;
 
 	if ( nPort )
-	{
 		m_nUDPPort = m_nPort = nPort;
-	}
 
 	if ( ! tSeen )
-	{
 		tSeen = static_cast< DWORD >( time( NULL ) );
-	}
+
 	if ( m_tSeen < tSeen )
 	{
 		m_tSeen = tSeen;
@@ -1151,19 +1141,13 @@ bool CHostCacheHost::Update(WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nU
 	}
 
 	if ( nUptime )
-	{
 		m_nDailyUptime = nUptime;
-	}
 
 	if ( nCurrentLeaves )
-	{
 		m_nUserCount = nCurrentLeaves;
-	}
 
 	if ( nLeafLimit )
-	{
 		m_nUserLimit = nLeafLimit;
-	}
 
 	if ( pszVendor != NULL )
 	{
@@ -1177,9 +1161,7 @@ bool CHostCacheHost::Update(WORD nPort, DWORD tSeen, LPCTSTR pszVendor, DWORD nU
 	}
 
 	if ( m_sCountry.IsEmpty() )
-	{
 		m_sCountry = theApp.GetCountryCode( m_pAddress );
-	}
 
 	return bChanged;
 }

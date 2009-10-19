@@ -199,9 +199,7 @@ BOOL CChildWnd::LoadState(LPCTSTR pszName, BOOL bDefaultMaximise)
 		}
 
 		if ( rcParent.Width() > 64 && rcParent.Height() > 32 )
-		{
 			MoveWindow( &rcParent );
-		}
 	}
 
 	OnSkinChange();
@@ -363,16 +361,14 @@ void CChildWnd::OnSysCommand(UINT nID, LPARAM lParam)
 
 void CChildWnd::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd)
 {
-	if ( GetManager()->m_bIgnoreActivate ) return;
+	if ( theApp.m_bClosing || GetManager()->m_bIgnoreActivate ) return;
 
 	if ( bActivate && m_bAlert ) SetAlert( FALSE );
 
 	CMDIChildWnd::OnMDIActivate( bActivate, pActivateWnd, pDeactivateWnd );
 
 	if ( bActivate && m_bGroupMode )
-	{
 		GetManager()->ActivateGrouped( this );
-	}
 }
 
 void CChildWnd::OnNcRButtonUp(UINT nHitTest, CPoint point)

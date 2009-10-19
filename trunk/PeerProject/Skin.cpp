@@ -80,18 +80,29 @@ void CSkin::Apply()
 	ApplyRecursive( L"Languages\\" );
 	ApplyRecursive( NULL );
 
+	if ( Colors.m_brDialog.m_hObject != NULL ) Colors.m_brDialog.DeleteObject();
 	Colors.m_brDialog.CreateSolidBrush( Colors.m_crDialog );
 
 	// ToDo: Dialog backgrounds should be skinnable?
 	//CBitmap* bmDialog = NULL;
 	//GetWatermark( bmDialog, _T("CDialog") );
 	//if ( bmDialog != NULL )
+	//{
+	//	Colors.m_brDialog.DeleteObject();
 	//	Colors.m_brDialog.CreatePatternBrush( bmDialog );
+	//}
 
 	if ( HBITMAP hPanelMark = GetWatermark( _T("CPanelWnd.Caption") ) )
+	{
+		if ( m_bmPanelMark.m_hObject != NULL )
+			m_bmPanelMark.DeleteObject();
 		m_bmPanelMark.Attach( hPanelMark );
+	}
 	else if ( Colors.m_crPanelBack == RGB( 60, 60, 60 ) )
+	{
+		// Special-case default resource handling
 		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );
+	}
 
 	CoolMenu.SetWatermark( GetWatermark( _T("CCoolMenu") ) );
 
@@ -108,17 +119,16 @@ void CSkin::CreateDefault()
 	CoolInterface.CreateFonts();
 
 	// Default Options
-
 	m_nToolbarHeight = 28;
-	m_nTitlebarHeight = 64;
+	m_nHeaderbarHeight = 64;
 	m_nSidebarWidth = 200;
+	m_nSplitter = 6;
 	m_bMenuBorders = TRUE;
 	m_bMenuGripper = TRUE;
 	m_bDropMenu = FALSE;
 	m_rcNavBarOffset = CRect( 0, 0, 0, 0 );
 
 	// Command Icons
-
 	HICON hIcon = theApp.LoadIcon( IDI_CHECKMARK );
 	if ( hIcon )
 	{
@@ -128,7 +138,6 @@ void CSkin::CreateDefault()
 	}
 
 	// Load Definitions
-
 	LoadFromResource( NULL, IDR_XML_DEFINITIONS );
 	LoadFromResource( NULL, IDR_XML_DEFAULT );
 
@@ -151,13 +160,6 @@ void CSkin::CreateDefault()
 void CSkin::CreateDefaultColors()
 {
 	Colors.CalculateColors( FALSE );
-
-	// Colour Scheme
-
-	Colors.m_crDialog				= Colors.CalculateColor(
-		GetSysColor( COLOR_BTNFACE ), GetSysColor( COLOR_WINDOW ), 200 );
-
-	Colors.m_brDialog.CreateSolidBrush( Colors.m_crDialog );
 
 	// Blank NavBar Workaround (Initialize here only)
 	Colors.m_crNavBarText			= CLR_NONE;
@@ -484,8 +486,7 @@ void CSkin::AddString(const CString& strString, UINT nStringID)
 BOOL CSkin::LoadString(CString& str, UINT nStringID) const
 {
 	if ( nStringID < 10 )
-		// Popup menus
-		return FALSE;
+		return FALSE;	// Popup menus
 
 	if ( m_pStrings.Lookup( nStringID, str ) ||
 		( IS_INTRESOURCE( nStringID ) && str.LoadString( nStringID ) ) )
@@ -628,9 +629,16 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			else if ( strName.CompareNoCase( _T("titlebar") ) == 0 || strName.CompareNoCase( _T("headerpanel") ) == 0 )
 			{
 				if ( strValue.GetLength() )
-					m_nTitlebarHeight = _wtoi(strValue);
+					m_nHeaderbarHeight = _wtoi(strValue);
 				else if ( strHeight.GetLength() )
-					m_nTitlebarHeight = _wtoi(strHeight);
+					m_nHeaderbarHeight = _wtoi(strHeight);
+			}
+			else if ( strName.CompareNoCase( _T("dragbar") ) == 0 || strName.CompareNoCase( _T("splitter") ) == 0 )
+			{
+				if ( strValue.GetLength() )
+					m_nSplitter = _wtoi(strValue);
+				else if ( strWidth.GetLength() )
+					m_nSplitter = _wtoi(strWidth);
 			}
 		}
 		else
@@ -1502,9 +1510,7 @@ CString CSkin::GetDialogCaption(LPCTSTR pszName)
 	CString strCaption;
 
 	if ( m_pDialogs.Lookup( pszName, pBase ) )
-	{
 		strCaption = pBase->GetAttributeValue( _T("caption") );
-	}
 
 	return strCaption;
 }
@@ -1909,29 +1915,17 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				CFont* pFont = NULL;
 
 				if ( strName.CompareNoCase( _T("system.plain") ) == 0 )
-				{
 					pFont = &CoolInterface.m_fntNormal;
-				}
 				else if ( strName.CompareNoCase( _T("system.bold") ) == 0 )
-				{
 					pFont = &CoolInterface.m_fntBold;
-				}
 				else if ( strName.CompareNoCase( _T("panel.caption") ) == 0 )
-				{
 					pFont = &CoolInterface.m_fntCaption;
-				}
 				else if ( strName.CompareNoCase( _T("navbar.caption") ) == 0 )
-				{
 					pFont = &CoolInterface.m_fntNavBar;
-				}
 				else if ( strName.CompareNoCase( _T("richdoc.default") ) == 0 || strName.CompareNoCase( _T("rich.default") ) == 0 )
-				{
 					pFont = &CoolInterface.m_fntRichDefault;
-				}
 				else if ( strName.CompareNoCase( _T("richdoc.heading") ) == 0 || strName.CompareNoCase( _T("rich.heading") ) == 0 )
-				{
 					pFont = &CoolInterface.m_fntRichHeading;
-				}
 				else
 				{
 					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR,

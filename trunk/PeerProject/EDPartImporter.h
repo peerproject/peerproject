@@ -23,7 +23,7 @@
 
 #include "PeerProjectThread.h"
 
-class CEDPartImporter : public CRazaThread
+class CEDPartImporter : public CAppThread
 {
 public:
 	CEDPartImporter();

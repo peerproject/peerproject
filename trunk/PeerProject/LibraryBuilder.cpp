@@ -89,8 +89,8 @@ CLibraryBuilder::CLibraryBuilder() :
 	m_nReaded( 0 ),
 	m_nElapsed( 0 ),
 	m_nProgress( 0 ),
-	m_bSkip( false )
-//	,m_bBusy( false )
+	m_bSkip( false ),
+	m_bBusy( false )
 {
 	QueryPerformanceFrequency( &m_nFreq );
 	QueryPerformanceCounter( &m_nLastCall );
@@ -109,7 +109,7 @@ bool CLibraryBuilder::Add(CLibraryFile* pFile)
 	ASSERT( pFile );
 	ASSERT( pFile->m_nIndex );
 
-	if ( pFile->IsReadable() /*&& ! m_bBusy*/ )
+	if ( pFile->IsReadable() && ! m_bBusy )
 	{
 		CQuickLock pLock( m_pSection );
 

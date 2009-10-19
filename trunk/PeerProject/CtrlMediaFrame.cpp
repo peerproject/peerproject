@@ -114,7 +114,7 @@ BEGIN_MESSAGE_MAP(CMediaFrame, CWnd)
 	ON_MESSAGE(WM_APPCOMMAND, OnMediaKey)
 END_MESSAGE_MAP()
 
-#define SPLIT_SIZE		6
+//#define SPLIT_SIZE	6		// Skin.m_nSplitter
 #define HEADER_HEIGHT	16
 #define STATUS_HEIGHT	18
 #define SIZE_INTERNAL	1982
@@ -404,9 +404,9 @@ void CMediaFrame::OnSize(UINT nType, int cx, int cy)
 
 	if ( rc.Width() < 32 || rc.Height() < 32 ) return;
 
-	if ( rc.Width() < m_nListSize + SPLIT_SIZE )
+	if ( rc.Width() < m_nListSize + Skin.m_nSplitter )
 	{
-		m_nListSize = max( 0, rc.Width() - SPLIT_SIZE );
+		m_nListSize = max( 0, rc.Width() - Skin.m_nSplitter );
 	}
 
 	if ( m_bListVisible || ! m_bFullScreen )
@@ -422,7 +422,7 @@ void CMediaFrame::OnSize(UINT nType, int cx, int cy)
 				rc.bottom - Skin.m_nToolbarHeight - HEADER_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
 			m_wndListBar.SetWindowPos( NULL, rc.right, rc.bottom - Skin.m_nToolbarHeight,
 				m_nListSize, Skin.m_nToolbarHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
-			rc.right -= SPLIT_SIZE;
+			rc.right -= Skin.m_nSplitter;
 		}
 		else if ( m_wndList.IsWindowVisible() )
 		{
@@ -530,7 +530,7 @@ void CMediaFrame::OnPaint()
 
 	if ( m_bListVisible )
 	{
-		CRect rcBar(	rcClient.right - m_nListSize - SPLIT_SIZE,
+		CRect rcBar(	rcClient.right - m_nListSize - Skin.m_nSplitter,
 						rcClient.top,
 						rcClient.right - m_nListSize,
 						rcClient.bottom );
@@ -829,9 +829,9 @@ BOOL CMediaFrame::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		ClientToScreen( &rcClient );
 
 		rc.SetRect(	Settings.General.LanguageRTL ? rcClient.left + m_nListSize :
-					rcClient.right - m_nListSize - SPLIT_SIZE,
+					rcClient.right - m_nListSize - Skin.m_nSplitter,
 					rcClient.top,
-					Settings.General.LanguageRTL ? rcClient.left + m_nListSize + SPLIT_SIZE :
+					Settings.General.LanguageRTL ? rcClient.left + m_nListSize + Skin.m_nSplitter :
 					rcClient.right - m_nListSize,
 					rcClient.bottom - Skin.m_nToolbarHeight );
 
@@ -866,7 +866,7 @@ void CMediaFrame::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 	if ( m_bListVisible )
 	{
-		CRect rcBar(	rcClient.right - m_nListSize - SPLIT_SIZE,
+		CRect rcBar(	rcClient.right - m_nListSize - Skin.m_nSplitter,
 						rcClient.top,
 						rcClient.right - m_nListSize,
 						rcClient.bottom );
@@ -885,9 +885,9 @@ void CMediaFrame::OnLButtonDown(UINT nFlags, CPoint point)
 		return;
 	}
 
-	CRect rcSenseLess(	rcClient.right - m_nListSize - SPLIT_SIZE - 30,
+	CRect rcSenseLess(	rcClient.right - m_nListSize - Skin.m_nSplitter - 30,
 						rcClient.top,
-						rcClient.right - m_nListSize - SPLIT_SIZE,
+						rcClient.right - m_nListSize - Skin.m_nSplitter,
 						rcClient.bottom );
 
 	if ( rcSenseLess.PtInRect( point ) )
@@ -947,12 +947,12 @@ BOOL CMediaFrame::DoSizeList()
 		nSplit += nOffset;
 
 		nSplit = max( nSplit, 0 );
-		nSplit = min( nSplit, rcClient.right - SPLIT_SIZE );
+		nSplit = min( nSplit, rcClient.right - Skin.m_nSplitter );
 
 		if ( nSplit < 8 )
 			nSplit = 0;
-		if ( nSplit > rcClient.right - SPLIT_SIZE - 8 )
-			nSplit = rcClient.right - SPLIT_SIZE;
+		if ( nSplit > rcClient.right - Skin.m_nSplitter - 8 )
+			nSplit = rcClient.right - Skin.m_nSplitter;
 
 		if ( nSplit != m_nListSize )
 		{

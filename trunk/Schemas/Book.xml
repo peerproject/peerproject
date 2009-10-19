@@ -767,11 +767,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<type extension="chm"/>
 		<type extension="djvu"/>
 		<type extension="doc"/>
+		<type extension="docx"/>
 		<type extension="fb2"/>
 		<type extension="htm"/>
 		<type extension="html"/>
 		<type extension="kml"/>
 		<type extension="lit"/>
+		<type extension="lrf"/>
+		<type extension="nfo"/>
 		<type extension="odt"/>
 		<type extension="pdb"/>
 		<type extension="pdf"/>
@@ -785,6 +788,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<type extension="txt"/>
 		<type extension="wpd"/>
 		<type extension="wri"/>
+		<type extension="xps"/>
 		<type extension="xml"/>
 	</typeFilter>
 </schemaDescriptor>

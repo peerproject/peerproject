@@ -369,16 +369,13 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;
 
 	// Tray
-
 	m_pTray.hWnd = GetSafeHwnd();
 	m_pTray.hIcon = CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE );
 
 	// Icon
-
 	SetIcon( CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE ), FALSE );
 
 	// Status Bar
-
 	UINT wID[2] = { ID_SEPARATOR, ID_SEPARATOR };
 	if ( ! m_wndStatusBar.Create( this ) ) return -1;
 	m_wndStatusBar.SetIndicators( wID, 2 );
@@ -388,16 +385,13 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	EnableDocking( CBRS_ALIGN_ANY );
 
 	// Menu Bar
-
 	SetMenu( NULL );
-
 	if ( ! m_wndMenuBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_TOP, IDW_MENU_BAR ) ) return -1;
 	m_wndMenuBar.SetWindowText( _T("Menubar") );
 	m_wndMenuBar.EnableDocking( CBRS_ALIGN_TOP | CBRS_ALIGN_BOTTOM );
 	DockControlBar( &m_wndMenuBar, AFX_IDW_DOCKBAR_TOP );
 
 	// Tab Bar
-
 	if ( ! m_wndTabBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_BOTTOM, IDW_TAB_BAR ) ) return -1;
 	m_wndTabBar.SetWindowText( _T("Windows") );
 	m_wndTabBar.EnableDocking( CBRS_ALIGN_TOP | CBRS_ALIGN_BOTTOM );
@@ -405,7 +399,6 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	DockControlBar( &m_wndTabBar, AFX_IDW_DOCKBAR_TOP );
 
 	// Nav Bar
-
 	if ( ! m_wndNavBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_TOP, IDW_NAV_BAR ) ) return -1;
 	m_wndNavBar.SetWindowText( _T("Navigation Bar") );
 	m_wndNavBar.EnableDocking( CBRS_ALIGN_TOP | CBRS_ALIGN_BOTTOM );
@@ -414,7 +407,6 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	ShowControlBar( &m_wndNavBar, FALSE, FALSE );
 
 	// Tool Bar
-
 	m_wndToolBar.EnableDrop();
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|CBRS_TOP, IDW_TOOL_BAR ) ) return -1;
 	m_wndToolBar.SetWindowText( _T("Toolbar") );
@@ -425,7 +417,6 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	ShowControlBar( &m_wndToolBar, FALSE, FALSE );
 
 	// Monitor Bar
-
 	if ( ! m_wndMonitorBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_BOTTOM, IDW_MONITOR_BAR ) ) return -1;
 	m_wndMonitorBar.m_pSnapBar[0] = &m_wndNavBar;
 	m_wndMonitorBar.m_pSnapBar[1] = &m_wndToolBar;
@@ -467,13 +458,10 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 
 	// Plugins
-
 	Plugins.Enumerate();
 
 	// Window Setup
-
 	Settings.LoadWindow( _T("CMainWnd"), this );
-
 	LoadBarState( _T("Toolbars\\CoolBar") );
 
 	if ( ! m_wndMenuBar.IsVisible() ) ShowControlBar( &m_wndMenuBar, TRUE, TRUE );
@@ -493,17 +481,11 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// Boot
 
 	if ( ! Settings.Windows.RunWizard )
-	{
 		PostMessage( WM_COMMAND, ID_TOOLS_WIZARD );
-	}
 	else if ( ! Settings.Windows.RunWarnings )
-	{
 		PostMessage( WM_COMMAND, ID_HELP_WARNINGS );
-	}
 	else if ( ! Settings.Windows.RunPromote )
-	{
 		PostMessage( WM_COMMAND, ID_HELP_PROMOTE );
-	}
 
 	// If it is the first run we will connect only in the QuickStart Wizard
 	if ( Settings.Connection.AutoConnect && !Settings.Live.FirstRun )
@@ -782,15 +764,12 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 	}
 
 	// Fix resource handle
-
 	ASSERT( AfxGetResourceHandle() == m_hInstance );
 	//if ( AfxGetResourceHandle() != m_hInstance )
 	//	AfxSetResourceHandle( m_hInstance );
 
 	// Propagate to children
-
-	if ( m_bTimer )
-		return;
+	if ( m_bTimer )	return;
 	m_bTimer = TRUE;
 
 	for ( POSITION pos = m_pWindows.GetIterator() ; pos ; )
@@ -803,15 +782,12 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 	Settings.Live.LoadWindowState = FALSE;
 
 	// Statistics
-
 	Statistics.Update();
 
 	// Hashing progress window
-
 	m_wndHashProgressBar.Run();
 
 	// Switch tray icon
-
 	BOOL bNeedTrayIcon = m_bTrayHide || Settings.General.TrayMinimise || Settings.General.CloseMode == 1;
 
 	if ( bNeedTrayIcon && ! m_bTrayIcon )
@@ -833,24 +809,19 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 	}
 
 	// Menu Bar
-
 	if ( m_wndMenuBar.IsWindowVisible() == FALSE )
 		ShowControlBar( &m_wndMenuBar, TRUE, FALSE );
 
 	// Scheduler
-
 	if ( Settings.Scheduler.Enable ) Schedule.Update();
 
 	// Network / disk space / directory checks
-
 	LocalSystemChecks();
 
 	// Update messages
-
 	UpdateMessages();
 
 	// Periodic saves
-
 	static DWORD tLastSave = static_cast< DWORD >( time( NULL ) );
 	if ( tNow - tLastSave > 60 )
 	{
@@ -859,7 +830,6 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 	}
 
 	// Periodic cleanup
-
 	static DWORD tLastPurge = static_cast< DWORD >( time( NULL ) );
 	if ( tNow - tLastPurge > 5 )
 	{
@@ -1363,17 +1333,13 @@ void CMainWnd::UpdateMessages()
 		{	//Display node type and number of neighbours
 			if (  Neighbours.IsG2Hub() )
 			{
-				if (  Neighbours.IsG1Ultrapeer() )
-					LoadString( strFormat, IDS_STATUS_BAR_CONNECTED_HUB_UP );
-				else
-					LoadString( strFormat, IDS_STATUS_BAR_CONNECTED_HUB );
+				LoadString( strFormat, Neighbours.IsG1Ultrapeer() ?
+					IDS_STATUS_BAR_CONNECTED_HUB_UP : IDS_STATUS_BAR_CONNECTED_HUB );
 			}
 			else
 			{
-				if (  Neighbours.IsG1Ultrapeer() )
-					LoadString( strFormat, IDS_STATUS_BAR_CONNECTED_UP );
-				else
-					LoadString( strFormat, IDS_STATUS_BAR_CONNECTED );
+				LoadString( strFormat, Neighbours.IsG1Ultrapeer() ?
+					IDS_STATUS_BAR_CONNECTED_UP : IDS_STATUS_BAR_CONNECTED );
 			}
 			strMessage.Format( strFormat, Neighbours.GetStableCount(), Settings.SmartVolume( nLocalVolume, KiloBytes ) );
 		}
@@ -1383,10 +1349,8 @@ void CMainWnd::UpdateMessages()
 		if( !Settings.Gnutella1.EnableToday && !Settings.Gnutella2.EnableToday && !Settings.eDonkey.EnableToday )
 		{
 			LoadString( strFormat, IDS_STATUS_BAR_CONNECTED_SIMPLE );
-			if( !m_bNoNetWarningShowed )
-			{
+			if( ! m_bNoNetWarningShowed )
 				m_bNoNetWarningShowed = TRUE;
-			}
 		}
 		else
 		{
@@ -1409,7 +1373,8 @@ void CMainWnd::UpdateMessages()
 	if ( m_nIDLastMessage == AFX_IDS_IDLEMESSAGE )
 	{
 		m_wndStatusBar.GetWindowText( strOld );
-		if ( strOld != strMessage ) m_wndStatusBar.SetWindowText( strMessage );
+		if ( strOld != strMessage )
+			m_wndStatusBar.SetWindowText( strMessage );
 	}
 
 	m_sMsgStatus = strMessage;
@@ -1620,8 +1585,7 @@ void CMainWnd::OnUpdateNetworkConnect(CCmdUI* pCmdUI)
 	bool bNetworksEnabled = ( Settings.Gnutella1.EnableToday || Settings.Gnutella2.EnableToday || Settings.eDonkey.EnableToday );
 
 	if ( Network.IsConnected() &&
-		( Network.IsWellConnected() || !bNetworksEnabled )	// If Network.IsWellConnected() or G1, G2, eDonkey are disabled and only BitTorrent is enabled say connected
-	)
+		( Network.IsWellConnected() || ! bNetworksEnabled ) )	// If Network.IsWellConnected() or G1, G2, eDonkey are disabled and only BitTorrent is enabled say connected
 	{
 		nTextID = IDS_NETWORK_CONNECTED;
 		pCmdUI->SetCheck( TRUE );
@@ -1700,7 +1664,7 @@ void CMainWnd::OnNetworkG2()
 
 	if ( Settings.Gnutella2.EnableToday )
 	{
-		if( !Network.IsConnected() )
+		if( ! Network.IsConnected() )
 			Network.Connect( TRUE );
 		else
 			DiscoveryServices.Execute( FALSE, PROTOCOL_G2, FALSE );
@@ -1725,7 +1689,7 @@ void CMainWnd::OnNetworkG1()
 	if ( Settings.Gnutella1.EnableToday )
 	{
 		if ( Settings.Scheduler.Enable &&
-			 ( !Settings.Gnutella1.EnableAlways || Settings.Scheduler.LimitedNetworks ) )
+			 ( ! Settings.Gnutella1.EnableAlways || Settings.Scheduler.LimitedNetworks ) )
 		{
 			CString strMessage;
 			LoadString( strMessage, IDS_NETWORK_UNLIMIT );
@@ -1736,7 +1700,7 @@ void CMainWnd::OnNetworkG1()
 			}
 		}
 
-		if ( !Network.IsConnected() )
+		if ( ! Network.IsConnected() )
 			Network.Connect( TRUE );
 		else
 			DiscoveryServices.Execute( FALSE, PROTOCOL_G1, FALSE );
@@ -1799,7 +1763,8 @@ void CMainWnd::OnNetworkAutoClose()
 
 		if ( Settings.Live.AutoClose )
 		{
-			if ( ! m_bTrayHide ) CloseToTray();
+			if ( ! m_bTrayHide )
+				CloseToTray();
 		}
 		else
 		{
@@ -2028,8 +1993,7 @@ void CMainWnd::OnUpdateTabConnect(CCmdUI* /*pCmdUI*/)
 	bool bNetworksEnabled = ( Settings.Gnutella1.EnableToday || Settings.Gnutella2.EnableToday || Settings.eDonkey.EnableToday );
 
 	if ( Network.IsConnected() &&
-		( Network.IsWellConnected() || !bNetworksEnabled )	// If Network.IsWellConnected() or G1, G2, eDonkey are disabled and only BitTorrent is enabled say connected
-	)
+		( Network.IsWellConnected() || !bNetworksEnabled ) )	// If Network.IsWellConnected() or G1, G2, eDonkey are disabled and only BitTorrent is enabled say connected
 	{
 		if ( pItem ) pItem->SetCheck( FALSE );
 		if ( pItem ) pItem->SetTextColor( RGB( 255, 0, 0 ) );
@@ -2242,8 +2206,7 @@ void CMainWnd::OnToolsDownload()
 				break;
 			}
 			else if ( action != CExistingFileDlg::Download )
-				// Skip this file
-				continue;
+				continue;	// Skip this file
 
 			if ( pURL.m_nAction == CPeerProjectURL::uriDownload ||
 				 pURL.m_nAction == CPeerProjectURL::uriSource )
@@ -2779,7 +2742,7 @@ void CMainWnd::OnNcLButtonDown(UINT nHitTest, CPoint point)
 	CMDIFrameWnd::OnNcLButtonDown( nHitTest, point );
 
 	// Windows Vista skinning workaround (system caption buttons over skin drawing)
-	if ( m_pSkin && ::IsWindow( m_hWnd ) ) m_pSkin->OnNcPaint( this );
+	if ( m_pSkin && ! theApp.m_bClosing ) m_pSkin->OnNcPaint( this );
 }
 
 void CMainWnd::OnNcLButtonUp(UINT nHitTest, CPoint point)

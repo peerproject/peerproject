@@ -103,19 +103,17 @@ void CHttpRequest::AddHeader(LPCTSTR pszKey, LPCTSTR pszValue)
 	m_sRequestHeaders += _T("\r\n");
 }
 
-/*void CHttpRequest::SetPostData(LPCVOID pBody, DWORD nBody)
-{
-	if ( IsPending() ) return;
-
-	if ( m_pPost != NULL ) delete m_pPost;
-	m_pPost = NULL;
-
-	if ( pBody != NULL && nBody > 0 )
-	{
-		m_pPost = new CBuffer();
-		m_pPost->Add( pBody, nBody );
-	}
-}*/
+//void CHttpRequest::SetPostData(LPCVOID pBody, DWORD nBody)
+//{
+//	if ( IsPending() ) return;
+//	if ( m_pPost != NULL ) delete m_pPost;
+//	m_pPost = NULL;
+//	if ( pBody != NULL && nBody > 0 )
+//	{
+//		m_pPost = new CBuffer();
+//		m_pPost->Add( pBody, nBody );
+//	}
+//}
 
 void CHttpRequest::SetUserAgent(LPCTSTR pszUserAgent)
 {
@@ -181,13 +179,9 @@ BOOL CHttpRequest::InflateResponse()
 	CString strEncoding( GetHeader( _T("Content-Encoding") ) );
 
 	if ( strEncoding.CompareNoCase( _T("deflate") ) == 0 )
-	{
 		return m_pResponse->Inflate();
-	}
 	else if ( strEncoding.CompareNoCase( _T("gzip") ) == 0 )
-	{
 		return m_pResponse->Ungzip();
-	}
 
 	return TRUE;
 }
@@ -200,7 +194,10 @@ bool CHttpRequest::Execute(bool bBackground)
 	if ( IsPending() )
 		return false;
 
-	ASSERT( m_sURL.GetLength() );
+	// m_sURL fails often from CBTTrackerRequest.  ToDo: Track this down
+	// ASSERT( m_sURL.GetLength() );
+	//if ( ! m_sURL.GetLength() )
+	//	return false;
 
 	m_hInternet = NULL;
 	m_nStatusCode = 0;
@@ -257,7 +254,7 @@ void CHttpRequest::Cancel()
 void CHttpRequest::OnRun()
 {
 	ASSERT( m_sUserAgent.GetLength() );
-	ASSERT( m_sURL.GetLength() );
+	ASSERT( m_sURL.GetLength() );	// Fails
 	ASSERT( m_pResponse == NULL );
 
 	m_hInternet = InternetOpen( m_sUserAgent, INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0 );
@@ -270,6 +267,7 @@ void CHttpRequest::OnRun()
 			INTERNET_FLAG_PRAGMA_NOCACHE |
 			( m_bUseCookie ? 0 : INTERNET_FLAG_NO_COOKIES ) |
 			INTERNET_FLAG_NO_CACHE_WRITE, NULL );
+
 		if ( hURL )
 		{
 			DWORD nLength = 255;
@@ -327,6 +325,7 @@ void CHttpRequest::OnRun()
 			}
 			InternetCloseHandle( hURL );
 		}
+
 		if ( m_hInternet )
 		{
 			InternetCloseHandle( m_hInternet );
@@ -335,9 +334,7 @@ void CHttpRequest::OnRun()
 	}
 
 	if ( m_hNotifyWnd )
-	{
 		PostMessage( m_hNotifyWnd, m_nNotifyMsg, m_nNotifyParam, 0 );
-	}
 }
 
 void CHttpRequest::EnableCookie(bool bEnable)

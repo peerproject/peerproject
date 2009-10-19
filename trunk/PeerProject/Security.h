@@ -27,10 +27,10 @@ class CSecureRule;
 class CXMLElement;
 
 
-#define SECURITY_SER_VERSION	5
-// History:
+#define SECURITY_SER_VERSION	1000	//5
+// nVersion History:
 // 5 - extended security rule type (ryo-oh-ki)
-// 5B- added banCustom (PeerProject 1.0)
+// 1000 - Added banCustom (PeerProject 1.0) (5B)
 
 enum
 {

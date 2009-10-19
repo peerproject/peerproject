@@ -3003,10 +3003,11 @@ gap i newline
 		<control caption="Create ghost files when deleting"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="נגן המדיה">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="נגן המדיה">
 		<control caption=":א_פשררויות"/>
-        <control/>
-        <control caption="השתמש בנגן המדיה של שרזה לניגון סוגי הקבצים שרשומים להלן"/>
+		<control caption=":בחר תוסף לשירותי מדיה"/>
+		<control/>
+		<control caption="השתמש בנגן המדיה של שרזה לניגון סוגי הקבצים שרשומים להלן"/>
 		<control caption="השתמש בנגן המדיה של שרזה לזיהוי סוגי הקבצים שרשומים להלן"/>
 		<control caption=":סוגי קבצים"/>
 		<control/>
@@ -3014,9 +3015,7 @@ gap i newline
 		<control caption="הסר"/>
 		<control caption=":תוסף אפקטים ויזואליים"/>
 		<control caption="...בחר תוסף"/>
-		<control caption="_Media Handling"/>
-		<control caption=":בחר תוסף לשירותי מדיה"/>
-		<control caption="Warning: Choosing an external Media Handler will automatically disable all Media and Visualisation Plugins!"/>
+		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="קהילה">
 		<control caption="הפרופיל שלי"/>
@@ -3105,7 +3104,7 @@ gap i newline
 		<control/>
 		<control caption="מקומיות/פרטיות IP התעלם מכתובות"/>
 		<control caption="Enable UPnP connection devices setup"/>
-	    <control caption=":זמן המתנה לתשובה"/>
+		<control caption=":זמן המתנה לתשובה"/>
 		<control caption="חיבור"/>
 		<control/>
 		<control/>
@@ -3198,7 +3197,7 @@ gap i newline
 		<control caption="אשף התזמונים מאפשר לך לקבוע את הזמנים בהם שרזה יתנתק ויוריד קבצים {n}{n}{n} הערה: אם תפתח את שרזה בזמן שהאשף פעיל אתה עלול לראות אותו משנה הגדרות אך זה מצב רגיל"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="רשתות">
-        <control caption="שרזה היא תוכנת שיתוף לשימוש כללי שמסוגלת לגשת למספר רשתות שיתוף קבצים בו זמנית. כאן אתה יכול לבחור לאילו רשתות תרצה לגשת ולקבוע הגדרות ספציפיות לכל רשת"/>
+		<control caption="שרזה היא תוכנת שיתוף לשימוש כללי שמסוגלת לגשת למספר רשתות שיתוף קבצים בו זמנית. כאן אתה יכול לבחור לאילו רשתות תרצה לגשת ולקבוע הגדרות ספציפיות לכל רשת"/>
 		<control caption=":רשת גנוטלה2"/>
 		<control caption="רשת גנוטלה2 היא הרשת הראשית של שרזה, המציעה יותר אופציות וביצועים מכל רשת שיתוף אחרת - מאוד מומלץ"/>
 		<control caption="התחבר לגנוטלה2 (G2)"/>
@@ -3336,7 +3335,7 @@ gap i newline
 		<control caption="קבצים שהורדו חלקית בלבד"/>
 		<control caption="Shared Library files only"/>
 		<control caption="Both partial and library files"/>
-        <control caption="גודל קובץ מקור מינימלי"/>
+		<control caption="גודל קובץ מקור מינימלי"/>
 		<control/>
 		<control caption="גודל קובץ מקור מקסימלי"/>
 		<control/>

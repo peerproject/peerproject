@@ -357,18 +357,14 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 						{
 							// If we're seeding and have reached the required ratio
 							if ( pDownload->IsSeeding() && ( Settings.BitTorrent.ClearRatio < pDownload->GetRatio() ) )
-							{
 								pDownload->Remove();
-							}
 						}
 					}
-					else										// Or it's a normal download
+					else // A normal download
 					{
 						// Check the general auto clear setting
 						if ( Settings.Downloads.AutoClear )
-						{
 							pDownload->Remove();
-						}
 					}
 				}
 			}
@@ -391,10 +387,7 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 
 		// If the window is visible or hasn't been updated in 10 seconds
 		if ( ( IsWindowVisible() && IsActive( FALSE ) ) || ( ( GetTickCount() - m_tLastUpdate ) > 10*1000 ) )
-		{
-			// Update the window
-			Update();
-		}
+			Update();	// Refresh the window
 	}
 }
 
@@ -617,9 +610,7 @@ void CDownloadsWnd::Prepare()
 				{
 					// m_pTransfer is checked for validity by pSource->IsOnline()
 					if ( static_cast< CDownloadTransferED2K* >( pSource->m_pTransfer )->m_pClient->m_bEmPreview )
-					{
 						pDownload->m_bRemotePreviewCapable = TRUE;
-					}
 				}
 				else if ( pSource->m_nProtocol == PROTOCOL_HTTP && pSource->m_bPreview )
 				{
@@ -661,9 +652,7 @@ void CDownloadsWnd::OnDownloadsResume()
 		CDownload* pDownload = Downloads.GetNext( pos );
 
 		if ( pDownload->m_bSelected )
-		{
 			pDownload->Resume();
-		}
 	}
 
 	Update();
@@ -687,7 +676,8 @@ void CDownloadsWnd::OnDownloadsPause()
 
 		if ( pDownload->m_bSelected )
 		{
-			if ( ! pDownload->IsPaused() && ! pDownload->IsMoving() ) pDownload->Pause( TRUE );
+			if ( ! pDownload->IsPaused() && ! pDownload->IsMoving() )
+				pDownload->Pause( TRUE );
 		}
 	}
 
@@ -827,9 +817,7 @@ void CDownloadsWnd::OnDownloadsClearComplete()
 		if ( pDownload->m_bSelected )
 		{
 			if ( pDownload->IsCompleted() && ! pDownload->IsPreviewVisible() )
-			{
 				pDownload->Remove();
-			}
 		}
 	}
 
@@ -875,9 +863,7 @@ void CDownloadsWnd::OnUpdateDownloadsRemotePreview(CCmdUI* pCmdUI)
 	}
 
 	if ( nSelected == 1 && !pDownload->IsTasking() )
-	{
 		Prepare();
-	}
 	else
 		m_bSelRemotePreviewCapable = FALSE;
 
@@ -936,8 +922,7 @@ void CDownloadsWnd::OnDownloadsRemotePreview()
 							(LPCTSTR)CString( inet_ntoa( pSource->m_pAddress ) ), pSource->m_nPort,
 							(LPCTSTR)pDownload->m_oSHA1.toUrn() );
 					}
-					pDownload->SetTask( new CDownloadTask( pDownload,
-						CDownloadTask::dtaskPreviewRequest, pSource->m_sPreview ) );
+					CDownloadTask::PreviewRequest( pDownload, pSource->m_sPreview );
 					pDownload->m_bWaitingPreview = TRUE;
 					pSource->m_bPreviewRequestSent = TRUE;
 					break;
@@ -975,8 +960,10 @@ void CDownloadsWnd::OnDownloadsLaunch()
 		CDownload* pDownload = pList.RemoveHead();
 
 		if ( Downloads.Check( pDownload ) )
+		{
 			if ( ! pDownload->Launch( -1, &pLock, TRUE ) )
 				break;
+		}
 	}
 }
 
@@ -1017,8 +1004,10 @@ void CDownloadsWnd::OnDownloadsLaunchCopy()
 		CDownload* pDownload = pList.RemoveHead();
 
 		if ( Downloads.Check( pDownload ) )
+		{
 			if ( ! pDownload->Launch( -1, &pLock, FALSE ) )
 				break;
+		}
 	}
 }
 
@@ -1163,9 +1152,7 @@ void CDownloadsWnd::OnDownloadsBoost()
 		if ( pDownload->m_bSelected )
 		{
 			if ( pDownload->HasActiveTransfers() && ! pDownload->IsBoosted() )
-			{
 				pDownload->Boost();
-			}
 		}
 	}
 
@@ -1266,9 +1253,7 @@ void CDownloadsWnd::OnDownloadsShare()
 		CDownload* pDownload = Downloads.GetNext( pos );
 
 		if ( pDownload->m_bSelected )
-		{
 			pDownload->Share( ! pDownload->IsShared() );
-		}
 	}
 
 	Update();
@@ -1298,9 +1283,7 @@ void CDownloadsWnd::OnDownloadsMonitor()
 		CDownload* pDownload = pList.RemoveHead();
 
 		if ( Downloads.Check( pDownload ) && ! pDownload->IsMoving() )
-		{
 			pDownload->ShowMonitor( &pLock );
-		}
 	}
 }
 
@@ -1534,7 +1517,9 @@ void CDownloadsWnd::OnUpdateDownloadsFolder(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsFolder()
 {
-//	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+//	CSingleLock pLock( &Transfers.m_pSection );
+//	if ( ! pLock.Lock( 500 ) return;
+
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
@@ -1585,9 +1570,7 @@ void CDownloadsWnd::OnDownloadsFileDelete()
 			{
 				CString strPath	= pDownload->GetPath( i );
 				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strPath ) )
-				{
 					pList.AddTail( pFile );
-				}
 			}
 		}
 	}
@@ -1650,9 +1633,7 @@ void CDownloadsWnd::OnDownloadsRate()
 				CString strPath	= pDownload->GetPath( i );
 				CQuickLock oLibraryLock( Library.m_pSection );
 				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strPath ) )
-				{
 					dlg.Add( pFile );
-				}
 			}
 		}
 	}

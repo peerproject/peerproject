@@ -181,13 +181,13 @@ Source: "Setup\License\Albanian.rtf"; DestDir: "{app}\Uninstall"; DestName: "GPL
 
 
 ; Install default filter
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: not language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: not language
 
 ; Install localized filter
 ; English
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en; Tasks: language
 ; English
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en_uk; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en_uk; Tasks: language
 ; Dutch
 Source: "Setup\Filter\Dutch.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: nl; Tasks: language
 ; Lithuanian
@@ -197,9 +197,9 @@ Source: "Setup\Filter\German.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter
 ; Italian
 Source: "Setup\Filter\Italian.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: it; Tasks: language
 ; Norwegian
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: no; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: no; Tasks: language
 ; Afrikaans
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: af; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: af; Tasks: language
 ; Portuguese std
 Source: "Setup\Filter\Portuguese-br.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt; Tasks: language
 ; Portuguese Braz
@@ -215,31 +215,31 @@ Source: "Setup\Filter\Russian.dat"; DestDir: "{app}\Data"; DestName: "AdultFilte
 ; Greek
 Source: "Setup\Filter\Greek.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: gr; Tasks: language
 ; Hungarian
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu; Tasks: language
 ; Swedish
 Source: "Setup\Filter\Swedish.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sv; Tasks: language
 ; Finnish
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fi; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fi; Tasks: language
 ; Hebrew
 Source: "Setup\Filter\Hebrew.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: heb; Tasks: language
 ; Polish
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pl; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pl; Tasks: language
 ; Czech
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: cz; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: cz; Tasks: language
 ; Serbian
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr; Tasks: language
 ; Arabic
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar; Tasks: language
 ; Estonian
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee; Tasks: language
 ; Slovenian
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl; Tasks: language
 ; Albanian
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq; Tasks: language
+Source: "Setup\Filter\Albanian.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq; Tasks: language
 ; Turkish
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr; Tasks: language
 ; Japanese
-Source: "Setup\Filter\Default.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja; Tasks: language
+Source: "Setup\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja; Tasks: language
 ; Catalan
 Source: "Setup\Filter\Catalan.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca; Tasks: language
 ; Chinese Simp
@@ -943,34 +943,34 @@ sl.page_viruswarning_subtitle=Ali imate namešèen protivirusni program?
 sl.CreateDesktopIcon=Prikaži ikono &namizja
 sl.CreateQuickLaunchIcon=Prikaži ikono &Hitrega zaganjalnika
 ; Albanian
-sq.components_plugins=Prizat
-sq.components_skins=Lëvoret
-sq.tasks_languages=Gjuhët
-sq.tasks_allusers=Gjithë përdoruesit
+sq.components_plugins=Spina
+sq.components_skins=Veshje
+sq.tasks_languages=Shumë gjuhë
+sq.tasks_allusers=Tërë përdoruesit
 sq.tasks_selectusers=Instalo %1 për:
 sq.tasks_currentuser=%1 vetëm
-sq.tasks_multisetup=Lejo përkrahjen me shumë përdorues
-sq.tasks_firewall=Shto një përjashtim në Fajruollin e Windows
-sq.tasks_upnp=Lejo zbulimin e mjeteve Plug'n'Play
+sq.tasks_multisetup=Lejo përkrahjen më shumë përdorues
+sq.tasks_firewall=Shto një përjashtim te Fajruolli i Windows-it
+sq.tasks_upnp=Lejo zbulimin e pajisjeve Plug'n'Play
 sq.tasks_deleteoldsetup=Fshiji instaluesit e vjetër
-sq.tasks_resetdiscoveryhostcache=Rivendose Zbulimin dhe Depon me Hostet
-sq.run_skinexe=Po vepron instalimi i lëvores...
-sq.reg_incomingchat=Mesazhi i ardhur në chat
-sq.reg_apptitle=PeerProject - Shpërndarja Bazë e Skedave
-sq.icons_license=Licensë
+sq.tasks_resetdiscoveryhostcache=Rivendos Zbulimin dhe Depon me Hostet
+sq.run_skinexe=Vepron instalimi i veshjes...
+sq.reg_incomingchat=Mesazh hyrës në chat
+sq.reg_apptitle=Shpërndarja më e Lartë e Skedave me PeerProject
+sq.icons_license=Licencë
 sq.icons_uninstall=Çinstalo
-sq.icons_downloads=Shkarkesat
-sq.icons_basicmode=Mënyrë e Thjeshtë
-sq.icons_tabbedmode=Mënyrë e Lidhur
-sq.icons_windowedmode=Mënyrë e Hapur
-sq.dialog_shutdown=%1 aktualisht po vepron. A doni të mbyllet %1, që të vijoni me instalimin?
-sq.dialog_firewall=Ndërtimi dështoi ta shtojë PeerProject-n në Fajruollin e Windows.%nJu lutemi shtoni PeerProject-n vetë në listën me përjashtimet.
-sq.dialog_malwaredetected=Te sistemi juaj në %1 diktohet një keqbërës. Ju lutemi fshijeni atë me një skanues virusi/keqbërësi para se PeerProject të instalohet. A doni të dilni tani?
-sq.page_viruswarning_text=Kur përdorni internetin duhet të siguroheni që keni një skanues virusi të ridatuar, në mënyrë që të mbroheni nga trojanet, krimbat dhe programe të tjera keqbërëse. Duke ndjekur këtë link mund të gjeni një listë me skanuesa virusi të mirë dhe këshilla të tjera sigurie se si të mbroni kompjuterin:
-sq.page_viruswarning_title=Kujdes Viruset
-sq.page_viruswarning_subtitle=A keni instaluar një program AntiVirus?
-sq.CreateDesktopIcon=Shfaqe një ikonë në &desktop
-sq.CreateQuickLaunchIcon=Shfaqe një ikonën në &Quick Launch
+sq.icons_downloads=Shkarkesa
+sq.icons_basicmode=Mënyrë me Thjeshtë
+sq.icons_tabbedmode=Mënyrë me Fusha
+sq.icons_windowedmode=Mënyrë me Dritare
+sq.dialog_shutdown=%1 aktualisht po vepron. A do e mbyllësh %1, që të vijosh me instalimin?
+sq.dialog_firewall=Sistemimi dështoi ta shtojë PeerProject-n te Fajruolli i Windows-it.%nTë lutem shtoje vetë PeerProject-n te lista e përjashtimeve.
+sq.dialog_malwaredetected=Te sistemi yt në %1 diktohet një keqbërës. Të lutem fshije atë me një skanues virusi/keqbërësi para se të instalohet PeerProject. Do e mbyllësh tani?
+sq.page_viruswarning_text=Kur përdor internetin duhet të sigurohesh që ke një skanues virusi të ridatuar që të mbrohesh nga trojanët, krimbat dhe programet e tjera keqbërëse. Nëse ndjek këtë link mund të gjesh një listë me skanuesa virusi të mirë dhe këshilla të tjera sigurie se si mbrohet kompjuteri:
+sq.page_viruswarning_title=Lajmërim Virusi
+sq.page_viruswarning_subtitle=A ke instaluar një program AntiVirus?
+sq.CreateDesktopIcon=Trego një ikonë në &tryezë
+sq.CreateQuickLaunchIcon=Trego një ikonë në &Quick Launch
 sq.PathNotExist=Gabim, shtegu i dosjes së %1 nuk ekziston!
 ; Serbian
 sr.components_plugins=Pluginovi

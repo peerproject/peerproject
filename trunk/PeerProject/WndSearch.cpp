@@ -82,8 +82,8 @@ END_MESSAGE_MAP()
 
 #define SIZE_INTERNAL	1982
 #define STATUS_HEIGHT	24
-#define SPLIT_SIZE		6
-//define Skin.m_nToolbarHeight	28
+//#define SPLIT_SIZE		6	//  Skin.m_nSplitter
+//#define TOOLBAR_HEIGHT	28	//  Skin.m_nToolbarHeight
 
 /////////////////////////////////////////////////////////////////////////////
 // CSearchWnd construction
@@ -104,9 +104,7 @@ CSearchWnd::CSearchWnd(auto_ptr< CQuerySearch > pSearch) :
 	m_nMaxQueryCount( 0 )
 {
 	if ( pSearch.get() )
-	{
 		m_oSearches.push_back( new CManagedSearch( pSearch ) );
-	}
 
 	Create( IDR_SEARCHFRAME );
 }
@@ -184,14 +182,18 @@ void CSearchWnd::OnSize(UINT nType, int cx, int cy)
 {
 	if ( nType != SIZE_INTERNAL ) CPanelWnd::OnSize( nType, cx, cy );
 
+	if ( ! m_wndToolBar ) return;	// Initial window creation detection (debug workaround)
+
 	CRect rc;
 	GetClientRect( &rc );
 
 	if ( m_bPanel )
 	{
-		m_wndPanel.SetWindowPos( NULL, rc.left, rc.top, Skin.m_nSidebarWidth, rc.Height(),
+		const int nSidepanel = Skin.m_nSidebarWidth;
+
+		m_wndPanel.SetWindowPos( NULL, rc.left, rc.top, nSidepanel, rc.Height(),
 			SWP_NOZORDER|SWP_SHOWWINDOW );
-		rc.left += Skin.m_nSidebarWidth;
+		rc.left += nSidepanel;
 	}
 	else if ( m_wndPanel.IsWindowVisible() )
 	{
@@ -200,14 +202,14 @@ void CSearchWnd::OnSize(UINT nType, int cx, int cy)
 
 	if ( ! (m_bPaused||m_bWaitMore) ) rc.top += STATUS_HEIGHT;
 
-	m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom - Skin.m_nToolbarHeight, rc.Width(), Skin.m_nToolbarHeight, SWP_NOZORDER );
+	m_wndToolBar.SetWindowPos( NULL, rc.left, rc.bottom - Skin.m_nToolbarHeight, rc.Width(), Skin.m_nToolbarHeight,	SWP_NOZORDER );
 	rc.bottom -= Skin.m_nToolbarHeight;
 
 	if ( m_bDetails )
 	{
 		m_wndDetails.SetWindowPos( NULL, rc.left, rc.bottom - m_nDetails, rc.Width(),
 			m_nDetails, SWP_NOZORDER|SWP_SHOWWINDOW );
-		rc.bottom -= m_nDetails + SPLIT_SIZE;
+		rc.bottom -= m_nDetails + Skin.m_nSplitter;
 	}
 	else if ( m_wndDetails.IsWindowVisible() )
 	{
@@ -266,10 +268,10 @@ void CSearchWnd::OnPaint()
 	GetClientRect( &rcClient );
 	rcClient.bottom -= Skin.m_nToolbarHeight;
 
-	if ( m_wndDetails.IsWindowVisible() )
+	if ( m_wndDetails && m_wndDetails.IsWindowVisible() )
 	{
 		CRect rcBar(	rcClient.left,
-						rcClient.bottom - m_nDetails - SPLIT_SIZE,
+						rcClient.bottom - m_nDetails - Skin.m_nSplitter,
 						rcClient.right,
 						rcClient.bottom - m_nDetails );
 
@@ -328,7 +330,7 @@ BOOL CSearchWnd::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		ClientToScreen( &rcClient );
 
 		rc.SetRect(	rcClient.left,
-					rcClient.bottom - Skin.m_nToolbarHeight - m_nDetails - SPLIT_SIZE,
+					rcClient.bottom - Skin.m_nToolbarHeight - m_nDetails - Skin.m_nSplitter,
 					rcClient.right,
 					rcClient.bottom - Skin.m_nToolbarHeight - m_nDetails );
 
@@ -356,7 +358,7 @@ void CSearchWnd::OnLButtonDown(UINT nFlags, CPoint point)
 	GetClientRect( &rcClient );
 
 	rc.SetRect(	rcClient.left,
-				rcClient.bottom - Skin.m_nToolbarHeight - m_nDetails - SPLIT_SIZE,
+				rcClient.bottom - Skin.m_nToolbarHeight - m_nDetails - Skin.m_nSplitter,
 				rcClient.right,
 				rcClient.bottom - Skin.m_nToolbarHeight - m_nDetails );
 
@@ -409,8 +411,8 @@ BOOL CSearchWnd::DoSizeDetails()
 
 		if ( nSplit < 8 )
 			nSplit = 0;
-		if ( nSplit > rcClient.Height() - SPLIT_SIZE - 8 )
-			nSplit = rcClient.Height() - SPLIT_SIZE;
+		if ( nSplit > rcClient.Height() - Skin.m_nSplitter - 8 )
+			nSplit = rcClient.Height() - Skin.m_nSplitter;
 
 		if ( nSplit != m_nDetails )
 		{

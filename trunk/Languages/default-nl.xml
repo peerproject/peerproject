@@ -3435,8 +3435,9 @@
 		<control caption="Maak een spookbestand aan tijdens verwijderen"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Media Player">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media Player">
 		<control caption="_Opties:"/>
+		<control caption="Kies een Mediaspeler:"/>
 		<control/>
 		<control caption="Gebruik de PeerProject Mediaspeler om volgende extensies AF TE SPELEN"/>
 		<control caption="Gebruik de PeerProject Mediaspeler om volgende extensies AF TE WACHTEN"/>
@@ -3446,9 +3447,7 @@
 		<control caption="_Verwijdernen"/>
 		<control caption="Audio _Visualisatie Plugin:"/>
 		<control caption="_Selecteer Plugin..."/>
-		<control caption="_Mediaspeler"/>
-		<control caption="Kies een Mediaspeler:"/>
-		<control caption="Opgepast: Een externe Mediaspeler kiezen zal alle Media en Visualisate Plugins uitschakelen!"/>
+		<control caption="Opgepast: Een externe Mediaspeler kiezen zal alle Media en Visualisate Plugins uitschakelen."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Gemeenschap">
 		<control caption="Gnutella gebruikersprofiel:"/>

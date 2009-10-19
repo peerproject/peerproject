@@ -168,10 +168,12 @@ void CBrowseHostWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CPanelWnd::OnSize( nType, cx, cy );
 
+	if ( ! m_wndHeader ) return;	// Initial Load Debug Assert Workaround
+
 	CRect rc;
 	GetClientRect( &rc );
 
-	rc.top += 64;
+	rc.top += Skin.m_nHeaderbarHeight;
 	rc.bottom -= Skin.m_nToolbarHeight;
 
 	m_wndHeader.SetWindowPos( NULL, rc.left, 0, rc.Width(), rc.top, SWP_NOZORDER );
@@ -183,13 +185,9 @@ void CBrowseHostWnd::OnSize(UINT nType, int cx, int cy)
 void CBrowseHostWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 {
 	if ( m_bContextMenu )
-	{
 		Skin.TrackPopupMenu( _T("CBrowseHostWnd"), point, ID_SEARCH_DOWNLOAD );
-	}
 	else
-	{
 		CBaseMatchWnd::OnContextMenu( pWnd, point );
-	}
 }
 
 void CBrowseHostWnd::OnUpdateBrowseProfile(CCmdUI* pCmdUI)
@@ -338,9 +336,7 @@ void CBrowseHostWnd::OnProfileReceived()
 	if ( ! m_bPaused && m_hWnd != NULL && m_wndProfile.m_hWnd != NULL)
 	{
 		if ( m_bOnFiles == FALSE || m_wndProfile.IsWindowVisible() )
-		{
 			PostMessage( WM_COMMAND, ID_BROWSE_PROFILE );
-		}
 
 		m_bUpdate = TRUE;
 	}

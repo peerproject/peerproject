@@ -508,11 +508,16 @@ BOOL CUploadQueues::Save()
 //////////////////////////////////////////////////////////////////////
 // CUploadQueues serialize
 
+#define UPLOADQUEUES_SER_VERSION	1000	//6
+// nVersion History:
+// 6 - Shareaza 2.3 (ryo-oh-ki)
+// 1000 - (PeerProject 1.0) (6)
+
 void CUploadQueues::Serialize(CArchive& ar)
 {
 	ASSUME_LOCK( m_pSection );
 
-	int nVersion = 6;
+	int nVersion = UPLOADQUEUES_SER_VERSION;
 
 	if ( ar.IsStoring() )
 	{
@@ -996,19 +1001,15 @@ void CUploadQueues::Validate()
 	}
 
 	if ( GetMinimumDonkeyBandwidth() < 10240 )
-	{
 		m_bDonkeyLimited = TRUE;
-	}
 	else
-	{
 		m_bDonkeyLimited = FALSE;
-	}
 
 	// Display warning if needed
 	if ( Settings.eDonkey.EnableToday || Settings.eDonkey.EnableAlways )
 	{
 		if ( m_bDonkeyLimited )
-			theApp.Message( MSG_NOTICE, _T("eDonkey upload ratio active- Low upload may slow downloads.")  );
+			theApp.Message( MSG_NOTICE, _T("eDonkey upload ratio active: Low uploads may slow downloads.")  );
 		else
 			theApp.Message( MSG_DEBUG, _T("eDonkey upload ratio is OK.")  );
 	}

@@ -3427,8 +3427,9 @@
 		<control caption="Kurti šešėlinius failus trinant"/>
 		<control caption="Gudrus video serialų aptikimas"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Grotuvas">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Grotuvas">
 		<control caption="Pa_rinktys:"/>
+		<control caption="Pasirinkite medija failų valdiklį:"/>
 		<control/>
 		<control caption="Naudoti „PeerProject“ grotuvą žemiau pateiktų failų tipams GROTI"/>
 		<control caption="... taip pat ĮTRAUKIANT į grojaraščio eilę"/>
@@ -3438,8 +3439,6 @@
 		<control caption="Š_alinti"/>
 		<control caption="Muzikos _vaizdo papildinys:"/>
 		<control caption="Pasirinkti _papildinį..."/>
-		<control caption="_Grotuvo programa"/>
-		<control caption="Pasirinkite medija failų valdiklį:"/>
 		<control caption="Įspėjimas: Pasirinkus išorinę grotuvo programą, bus atjungti medija ir muzikos vaizdo papildiniai!"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Bendrija">

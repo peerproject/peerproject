@@ -224,21 +224,11 @@ CPeerProjectApp::CPeerProjectApp() :
 
 BOOL CPeerProjectApp::InitInstance()
 {
-	// Set Build Date
-	COleDateTime tCompileTime;
-	tCompileTime.ParseDateTime( _T(__DATE__), LOCALE_NOUSEROVERRIDE, 1033 );
-	m_sBuildDate = tCompileTime.Format( _T("%Y%m%d") );
-
 	CWinApp::InitInstance();
 
-	SetRegistryKey( _T("PeerProject") );
+	SetRegistryKey( _T(CLIENT_NAME) );
+
 	GetVersionNumber();
-#ifdef _DEBUG
-	CString strVersion;
-	BT_SetAppName( _T(CLIENT_NAME) );
-	strVersion.Format( _T("%s (r%s %s)"), m_sVersion, _T(__REVISION__),	m_sBuildDate );
-	BT_SetAppVersion( strVersion );
-#endif
 	Settings.Load();			// Loads settings. Depends on GetVersionNumber()
 	InitResources();			// Loads theApp settings. Depends on Settings::Load()
 	CoolInterface.Load();		// Loads colors and fonts. Depends on InitResources()
@@ -335,8 +325,13 @@ BOOL CPeerProjectApp::InitInstance()
 	// BETA EXPIRATION. Remember to re-compile to update the time,
 	// and remove this section for final releases and public betas.
 	COleDateTime tCurrent = COleDateTime::GetCurrentTime();
-	//COleDateTimeSpan tTimeOut( 31 * 2, 0, 0, 0);	// Betas that aren't on sourceforge
-	COleDateTimeSpan tTimeOut( 14, 0, 0, 0);		// Daily debug builds
+	COleDateTime tCompileTime;
+	tCompileTime.ParseDateTime( _T(__DATE__), LOCALE_NOUSEROVERRIDE, 1033 );
+//#ifdef _DEBUG
+	COleDateTimeSpan tTimeOut( 21, 0, 0, 0);		// Daily debug builds
+//#else
+//	COleDateTimeSpan tTimeOut( 60, 0, 0, 0);		// Forum Betas (Non sourceforge release)
+//#endif
 	if ( ( tCompileTime + tTimeOut )  < tCurrent )
 	{
 		CString strMessage;
@@ -348,6 +343,7 @@ BOOL CPeerProjectApp::InitInstance()
 
 	//*
 	// ALPHA WARNING. Remember to remove this section for final releases and public betas.
+//#ifdef _DEBUG
 	if ( ! m_ocmdInfo.m_bNoAlphaWarning && m_ocmdInfo.m_bShowSplash )
 	{
 	if ( AfxMessageBox(
@@ -356,7 +352,7 @@ BOOL CPeerProjectApp::InitInstance()
 		L", r" _T(__REVISION__)
 #endif
 		L".\n\nNOT FOR GENERAL USE, it is intended for pre-release testing in controlled environments.  "
-		L"It may stop running or display debug info to assist testing.\n\n"
+		L"It may stop running or display Debug info for testing.\n\n"
 		L"If you wish to simply use this software, then download the current\n"
 		L"stable release from PeerProject.org.  If you continue past this point,\n"
 		L"you may experience system instability or lose files.  Be aware of\n"
@@ -364,9 +360,10 @@ BOOL CPeerProjectApp::InitInstance()
 		L"Do you wish to continue?", MB_ICONEXCLAMATION|MB_YESNO|MB_SETFOREGROUND ) == IDNO )
 		return FALSE;
 	}
+//#endif
 	//*/
 
-	// NO PUBLIC RELEASE
+	// END NO PUBLIC RELEASE
 	// ***********
 
 	int nSplashSteps = 18
@@ -543,10 +540,7 @@ int CPeerProjectApp::ExitInstance()
 			SplashStep( L"Closing Windows Firewall Access" );
 			CFirewall firewall;
 			if ( firewall.AccessWindowsFirewall() )
-			{
-				// Remove application from the firewall exception list
 				firewall.SetupProgram( m_strBinaryPath, theApp.m_pszAppName, TRUE );
-			}
 		}
 
 		SplashStep( L"Finalizing" );
@@ -755,6 +749,11 @@ BOOL CPeerProjectApp::OpenURL(LPCTSTR lpszFileName, BOOL bDoIt, BOOL bSilent)
 
 void CPeerProjectApp::GetVersionNumber()
 {
+	// Set Build Date
+	COleDateTime tCompileTime;
+	tCompileTime.ParseDateTime( _T(__DATE__), LOCALE_NOUSEROVERRIDE, 1033 );
+	m_sBuildDate = tCompileTime.Format( _T("%Y%m%d") );
+
 	DWORD dwSize;
 
 	m_nVersion[0] = m_nVersion[1] = m_nVersion[2] = m_nVersion[3] = 0;
@@ -790,14 +789,43 @@ void CPeerProjectApp::GetVersionNumber()
 		m_nVersion[0], m_nVersion[1],
 		m_nVersion[2], m_nVersion[3] );
 
-	m_sSmartAgent = _T( CLIENT_NAME );
-	m_sSmartAgent += _T(" ");
+	m_sSmartAgent = _T( CLIENT_NAME ) _T(" ");
 	m_sSmartAgent += m_sVersion;
 
 	m_pBTVersion[ 0 ] = BT_ID1;
 	m_pBTVersion[ 1 ] = BT_ID2;
 	m_pBTVersion[ 2 ] = (BYTE)m_nVersion[ 0 ];
 	m_pBTVersion[ 3 ] = (BYTE)m_nVersion[ 1 ];
+
+	// PeerProject 1.X.X.X  32/64-bit  (date rXXXX)  Debug
+
+	m_sVersionLong = m_sSmartAgent +
+#ifdef _WIN64
+	_T("  64-bit  ") +
+#else
+	_T("  32-bit  ") +
+#endif
+	_T("(") + m_sBuildDate + 
+#ifdef __REVISION__
+	_T(" r") _T(__REVISION__) _T(")") +
+#else
+	_T(")") +
+#endif
+#ifdef __MODAUTHOR__
+	_T("  ") _T(__MODAUTHOR__);	// YOUR NAME (Edit in Revision.h)
+#elif defined(LAN_MODE)
+	_T("  LAN Mod");
+#elif defined(_DEBUG)
+	_T("  Debug");
+#else
+	_T("");
+#endif
+
+#ifdef _DEBUG	// BugTrack
+	BT_SetAppName( _T(CLIENT_NAME) );
+	BT_SetAppVersion( m_sVersionLong );
+#endif
+
 
 	//Determine the version of Windows
 	OSVERSIONINFOEX pVersion;
@@ -889,6 +917,11 @@ void CPeerProjectApp::GetVersionNumber()
 
 void CPeerProjectApp::InitResources()
 {
+	// Get .exe-file name
+	GetModuleFileName( NULL, m_strBinaryPath.GetBuffer( MAX_PATH ), MAX_PATH );
+	m_strBinaryPath.ReleaseBuffer( MAX_PATH );
+
+
 	// Get pointers to some functions that require Windows Vista or greater
 	if ( HMODULE hKernel32 = GetModuleHandle( _T("kernel32.dll") ) )
 	{
@@ -962,11 +995,10 @@ void CPeerProjectApp::InitResources()
 		{
 			LOGFONT pFont = {};
 			if ( m_pfnGetThemeSysFont( NULL, TMT_MENUFONT, &pFont ) == S_OK )
-			{
 				Settings.Fonts.DefaultFont = pFont.lfFaceName;
-			}
 		}
 	}
+
 	if ( Settings.Fonts.DefaultFont.IsEmpty() )
 	{
 		// Get font by legacy method
@@ -975,14 +1007,12 @@ void CPeerProjectApp::InitResources()
 			&pMetrics, 0 );
 		Settings.Fonts.DefaultFont = pMetrics.lfMenuFont.lfFaceName;
 	}
+
 	if ( Settings.Fonts.SystemLogFont.IsEmpty() )
-	{
 		Settings.Fonts.SystemLogFont = Settings.Fonts.DefaultFont;
-	}
+
 	if ( Settings.Fonts.PacketDumpFont.IsEmpty() )
-	{
 		Settings.Fonts.PacketDumpFont = _T("Lucida Console");
-	}
 
 	m_gdiFont.CreateFont( -(int)Settings.Fonts.FontSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
@@ -1261,9 +1291,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 	if ( strURI.Find( _T("peer:command:") ) == 0 )
 	{
 		if ( UINT nCmdID = CoolInterface.NameToID( pszURI + 13 ) )
-		{
 			pMainWnd->PostMessage( WM_COMMAND, nCmdID );
-		}
 	}
 	else if ( strURI.Find( _T("peer:windowptr:") ) == 0 )
 	{
@@ -1940,9 +1968,7 @@ CString CPeerProjectApp::GetWindowsFolder() const
 			sWindows.GetBuffer( MAX_PATH ) );
 		sWindows.ReleaseBuffer();
 		if ( SUCCEEDED( hr  ) && ! sWindows.IsEmpty() )
-		{
 			return sWindows;
-		}
 	}
 
 	// Legacy
@@ -2020,9 +2046,7 @@ CString CPeerProjectApp::GetDocumentsFolder() const
 			sDocuments.GetBuffer( MAX_PATH ) );
 		sDocuments.ReleaseBuffer();
 		if ( SUCCEEDED( hr  ) && ! sDocuments.IsEmpty() )
-		{
 			return sDocuments;
-		}
 	}
 
 	// Legacy
@@ -2130,9 +2154,7 @@ CString CPeerProjectApp::GetLocalAppDataFolder() const
 			sLocalAppData.GetBuffer( MAX_PATH ) );
 		sLocalAppData.ReleaseBuffer();
 		if ( SUCCEEDED( hr ) && ! sLocalAppData.IsEmpty() )
-		{
 			return sLocalAppData;
-		}
 	}
 
 	// Legacy
@@ -2275,9 +2297,7 @@ void PurgeDeletes()
 			BOOL bShared = ( nType == REG_SZ ) && ( szMode[ 0 ] == '1' );
 			BOOL bToRecycleBin = ( nType == REG_SZ ) && ( szMode[ 1 ] == '1' );
 			if ( DeleteFileEx( szPath, bShared, bToRecycleBin, TRUE ) )
-			{
 				pRemove.AddTail( szPath );
-			}
 		}
 
 		while ( ! pRemove.IsEmpty() )

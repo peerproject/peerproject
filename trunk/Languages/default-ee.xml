@@ -3218,8 +3218,9 @@
 		<control caption="Create ghost files when deleting"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Meedia">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Meedia">
 		<control caption="_Meedia Teenused:"/>
+		<control caption="Choose Meedia Handler:"/>
 		<control/>
 		<control caption="Kasuta PeerProject Meedia Player-it, et avada allpool loetletud failitüübid"/>
 		<control caption="Kasuta PeerProject Meedia Player-it, et reastada mängimiseks loetletud failitüübid"/>
@@ -3229,9 +3230,7 @@
 		<control caption="_Remove"/>
 		<control caption="Audio _Visualisation Plugin:"/>
 		<control caption="_Select Plugin..."/>
-		<control caption="_Meedia Handling"/>
-		<control caption="Choose Meedia Handler:"/>
-		<control caption="Warning: Choosing an external Meedia Handler will automatically disable all Meedia and Visualisation Plugins"/>
+		<control caption="Note: Choosing an external Meedia Handler will automatically disable all Meedia and Visualisation Plugins"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Kogukond">
 		<control caption="Minu _Profiil:"/>

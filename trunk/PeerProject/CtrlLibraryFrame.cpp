@@ -80,8 +80,8 @@ BEGIN_MESSAGE_MAP(CLibraryFrame, CWnd)
 	ON_WM_SETFOCUS()
 END_MESSAGE_MAP()
 
-#define SPLIT_SIZE		6
-//define TOOLBAR_HEIGHT 28	 // Skin.m_nToolbarHeight
+//#define SPLIT_SIZE		6	// Skin.m_nSplitter
+//#define TOOLBAR_HEIGHT	28	// Skin.m_nToolbarHeight
 
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryFrame construction
@@ -155,9 +155,9 @@ int CLibraryFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndBottomDynamic.SetBarStyle( m_wndBottomDynamic.GetBarStyle() | CBRS_TOOLTIPS|CBRS_BORDER_TOP );
 	m_wndBottomDynamic.SetOwner( GetOwner() );
 
-	if ( ! m_wndSearch.Create( WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|ES_AUTOHSCROLL, rcTypes, &m_wndViewBottom, IDC_SEARCH_BOX ) ) return -1;
+	if ( ! m_wndSearch.Create( WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|ES_AUTOHSCROLL, rcTypes, &m_wndViewBottom, IDC_SEARCH_BOX, _T("Search"), _T("Search.%.2i") ) ) return -1;
 	m_wndSearch.SetFont( &CoolInterface.m_fntNormal );
-	m_wndSearch.SetRegistryKey( _T("Search"), _T("Search.%.2i") );
+	//m_wndSearch.SetRegistryKey( _T("Search"), _T("Search.%.2i") );
 
 	if ( ! m_wndSaveOption.Create( NULL, WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|BS_AUTOCHECKBOX, rcTypes, &m_wndBottomDynamic,
 		ID_SHAREMONKEY_SAVE_OPTION ) ) return -1;
@@ -274,14 +274,11 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 
 	if ( rc.Width() < 32 || rc.Height() < 32 ) return;
 
-	if ( rc.Width() < m_nTreeSize + SPLIT_SIZE )
-	{
-		m_nTreeSize = max( 0, rc.Width() - SPLIT_SIZE );
-	}
-	if ( rc.Height() - Skin.m_nToolbarHeight * 2 - m_nHeaderSize < m_nPanelSize + SPLIT_SIZE )
-	{
-		m_nPanelSize = max( 0, rc.Height() - Skin.m_nToolbarHeight * 2 - m_nHeaderSize - SPLIT_SIZE );
-	}
+	if ( rc.Width() < m_nTreeSize + Skin.m_nSplitter )
+		m_nTreeSize = max( 0, rc.Width() - Skin.m_nSplitter );
+
+	if ( rc.Height() - Skin.m_nToolbarHeight * 2 - m_nHeaderSize < m_nPanelSize + Skin.m_nSplitter )
+		m_nPanelSize = max( 0, rc.Height() - Skin.m_nToolbarHeight * 2 - m_nHeaderSize - Skin.m_nSplitter );
 
 	HDWP hDWP = BeginDeferWindowPos(
 		7 + ( m_pView != NULL ) + ( m_pPanel != NULL ) + ( m_nHeaderSize > 0 ) );
@@ -296,16 +293,16 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 		rc.left, rc.bottom - m_nTreeTypesHeight, m_nTreeSize, 256, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndViewTop.GetSafeHwnd(), NULL,
-		rc.left + m_nTreeSize + SPLIT_SIZE, rc.top,
-		rc.Width() - m_nTreeSize - SPLIT_SIZE, Skin.m_nToolbarHeight - 1, SWP_NOZORDER );
+		rc.left + m_nTreeSize + Skin.m_nSplitter, rc.top,
+		rc.Width() - m_nTreeSize - Skin.m_nSplitter, Skin.m_nToolbarHeight - 1, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndViewBottom.GetSafeHwnd(), NULL,
-		rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - Skin.m_nToolbarHeight,
-		rc.Width() - m_nTreeSize - SPLIT_SIZE, Skin.m_nToolbarHeight, SWP_NOZORDER );
+		rc.left + m_nTreeSize + Skin.m_nSplitter, rc.bottom - Skin.m_nToolbarHeight,
+		rc.Width() - m_nTreeSize - Skin.m_nSplitter, Skin.m_nToolbarHeight, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndBottomDynamic.GetSafeHwnd(), NULL,
-		rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - Skin.m_nToolbarHeight * 2,
-		rc.Width() - m_nTreeSize - SPLIT_SIZE, Skin.m_nToolbarHeight, SWP_NOZORDER );
+		rc.left + m_nTreeSize + Skin.m_nSplitter, rc.bottom - Skin.m_nToolbarHeight * 2,
+		rc.Width() - m_nTreeSize - Skin.m_nSplitter, Skin.m_nToolbarHeight, SWP_NOZORDER );
 
 	DeferWindowPos( hDWP, m_wndTree.GetSafeHwnd(), NULL,
 		rc.left, rc.top + Skin.m_nToolbarHeight, m_nTreeSize, rc.Height() - Skin.m_nToolbarHeight * 2, SWP_NOZORDER );
@@ -317,25 +314,25 @@ void CLibraryFrame::OnSize(UINT nType, int cx, int cy)
 		if ( m_nHeaderSize > 0 )
 		{
 			DeferWindowPos( hDWP, m_wndHeader.GetSafeHwnd(), NULL,
-				rc.left + m_nTreeSize + SPLIT_SIZE, nTop,
-				rc.Width() - m_nTreeSize - SPLIT_SIZE, m_nHeaderSize,
+				rc.left + m_nTreeSize + Skin.m_nSplitter, nTop,
+				rc.Width() - m_nTreeSize - Skin.m_nSplitter, m_nHeaderSize,
 				SWP_NOZORDER|SWP_SHOWWINDOW );
 			nTop += m_nHeaderSize + 1;
 		}
 
 		int nHeight = rc.bottom - Skin.m_nToolbarHeight - nTop;
-		if ( m_pPanel ) nHeight -= m_nPanelSize + SPLIT_SIZE;
+		if ( m_pPanel ) nHeight -= m_nPanelSize + Skin.m_nSplitter;
 
 		DeferWindowPos( hDWP, m_pView->GetSafeHwnd(), NULL,
-			rc.left + m_nTreeSize + SPLIT_SIZE, nTop,
-			rc.Width() - m_nTreeSize - SPLIT_SIZE, nHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
+			rc.left + m_nTreeSize + Skin.m_nSplitter, nTop,
+			rc.Width() - m_nTreeSize - Skin.m_nSplitter, nHeight, SWP_NOZORDER|SWP_SHOWWINDOW );
 	}
 
 	if ( m_pPanel != NULL )
 	{
 		DeferWindowPos( hDWP, m_pPanel->GetSafeHwnd(), NULL,
-			rc.left + m_nTreeSize + SPLIT_SIZE, rc.bottom - Skin.m_nToolbarHeight - m_nPanelSize,
-			rc.Width() - m_nTreeSize - SPLIT_SIZE, m_nPanelSize, SWP_NOZORDER|SWP_SHOWWINDOW );
+			rc.left + m_nTreeSize + Skin.m_nSplitter, rc.bottom - Skin.m_nToolbarHeight - m_nPanelSize,
+			rc.Width() - m_nTreeSize - Skin.m_nSplitter, m_nPanelSize, SWP_NOZORDER|SWP_SHOWWINDOW );
 	}
 
 	EndDeferWindowPos( hDWP );
@@ -350,7 +347,7 @@ void CLibraryFrame::OnPaint()
 
 	rc.SetRect(	rcClient.left + m_nTreeSize,
 				rcClient.top,
-				rcClient.left + m_nTreeSize + SPLIT_SIZE,
+				rcClient.left + m_nTreeSize + Skin.m_nSplitter,
 				rcClient.bottom );
 
 	dc.FillSolidRect( rc.left, rc.top, 1, rc.Height(), Colors.m_crResizebarEdge );
@@ -375,8 +372,8 @@ void CLibraryFrame::OnPaint()
 
 	if ( m_pPanel != NULL )
 	{
-		rc.SetRect(	rcClient.left + m_nTreeSize + SPLIT_SIZE,
-					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize - SPLIT_SIZE,
+		rc.SetRect(	rcClient.left + m_nTreeSize + Skin.m_nSplitter,
+					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize - Skin.m_nSplitter,
 					rcClient.right,
 					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize );
 
@@ -410,11 +407,11 @@ BOOL CLibraryFrame::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	ClientToScreen( &rcClient );
 
 
-	rc.SetRect(	Settings.General.LanguageRTL ? rcClient.right - m_nTreeSize - SPLIT_SIZE :
+	rc.SetRect(	Settings.General.LanguageRTL ? rcClient.right - m_nTreeSize - Skin.m_nSplitter :
 				rcClient.left + m_nTreeSize,
 				rcClient.top,
 				Settings.General.LanguageRTL ? rcClient.right - m_nTreeSize :
-				rcClient.left + m_nTreeSize + SPLIT_SIZE,
+				rcClient.left + m_nTreeSize + Skin.m_nSplitter,
 				rcClient.bottom );
 
 	if ( rc.PtInRect( point ) )
@@ -426,8 +423,8 @@ BOOL CLibraryFrame::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	if ( m_pPanel != NULL )
 	{
 		rc.SetRect(	Settings.General.LanguageRTL ? rcClient.left :
-					rcClient.left + m_nTreeSize + SPLIT_SIZE,
-					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize - SPLIT_SIZE,
+					rcClient.left + m_nTreeSize + Skin.m_nSplitter,
+					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize - Skin.m_nSplitter,
 					Settings.General.LanguageRTL ? rcClient.right - m_nTreeSize : rcClient.right,
 					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize );
 
@@ -449,7 +446,7 @@ void CLibraryFrame::OnLButtonDown(UINT nFlags, CPoint point)
 
 	rc.SetRect(	rcClient.left + m_nTreeSize,
 				rcClient.top,
-				rcClient.left + m_nTreeSize + SPLIT_SIZE,
+				rcClient.left + m_nTreeSize + Skin.m_nSplitter,
 				rcClient.bottom );
 
 	if ( rc.PtInRect( point ) )
@@ -460,8 +457,8 @@ void CLibraryFrame::OnLButtonDown(UINT nFlags, CPoint point)
 
 	if ( m_pPanel != NULL )
 	{
-		rc.SetRect(	rcClient.left + m_nTreeSize + SPLIT_SIZE,
-					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize - SPLIT_SIZE,
+		rc.SetRect(	rcClient.left + m_nTreeSize + Skin.m_nSplitter,
+					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize - Skin.m_nSplitter,
 					rcClient.right,
 					rcClient.bottom - Skin.m_nToolbarHeight - m_nPanelSize );
 
@@ -509,12 +506,12 @@ BOOL CLibraryFrame::DoSizeTree()
 		nSplit += nOffset;
 
 		nSplit = max( nSplit, 0 );
-		nSplit = min( nSplit, int(rcClient.right - SPLIT_SIZE) );
+		nSplit = min( nSplit, int(rcClient.right - Skin.m_nSplitter) );
 
 		if ( nSplit < 8 )
 			nSplit = 0;
-		if ( nSplit > rcClient.right - SPLIT_SIZE - 8 )
-			nSplit = rcClient.right - SPLIT_SIZE;
+		if ( nSplit > rcClient.right - Skin.m_nSplitter - 8 )
+			nSplit = rcClient.right - Skin.m_nSplitter;
 
 		if ( nSplit != m_nTreeSize )
 		{
@@ -537,7 +534,7 @@ BOOL CLibraryFrame::DoSizePanel()
 	CPoint point;
 
 	GetClientRect( &rcClient );
-	rcClient.left += m_nTreeSize + SPLIT_SIZE;
+	rcClient.left += m_nTreeSize + Skin.m_nSplitter;
 	rcClient.top += Skin.m_nToolbarHeight + m_nHeaderSize;
 	rcClient.bottom -= Skin.m_nToolbarHeight;
 	ClientToScreen( &rcClient );
@@ -568,8 +565,8 @@ BOOL CLibraryFrame::DoSizePanel()
 
 		if ( nSplit < 8 )
 			nSplit = 0;
-		if ( nSplit > rcClient.Height() - SPLIT_SIZE - 8 )
-			nSplit = rcClient.Height() - SPLIT_SIZE;
+		if ( nSplit > rcClient.Height() - Skin.m_nSplitter - 8 )
+			nSplit = rcClient.Height() - Skin.m_nSplitter;
 
 		if ( nSplit != m_nPanelSize )
 		{
@@ -606,9 +603,7 @@ void CLibraryFrame::SetView(CLibraryView* pView, BOOL bUpdate, BOOL bUser)
 				pItem = pItem->m_pSelNext )
 		{
 			if ( pItem->m_pVirtual != NULL )
-			{
 				pItem->m_pVirtual->m_sBestView = pView->GetRuntimeClass()->m_lpszClassName;
-			}
 		}
 	}
 
@@ -698,10 +693,12 @@ void CLibraryFrame::SetPanel(CPanelCtrl* pPanel)
 	if ( m_pPanel )
 		m_pPanel->Update();
 
-	if ( pOld ) pOld->ShowWindow( SW_HIDE );
+	if ( pOld && pOld != m_pPanel )
+		pOld->ShowWindow( SW_HIDE );
 	if ( m_pPanel )
 		m_pPanel->ShowWindow( SW_SHOW );
-	if ( pOld ) pOld->DestroyWindow();
+	if ( pOld && pOld != m_pPanel )
+		pOld->DestroyWindow();
 }
 
 CMetaPanel*	CLibraryFrame::GetPanelData()
@@ -712,9 +709,7 @@ CMetaPanel*	CLibraryFrame::GetPanelData()
 	{
 		CLibraryMetaPanel* pDataPanel = static_cast< CLibraryMetaPanel* >( m_pPanel );
 		if ( pDataPanel != NULL )
-		{
 			return pDataPanel->GetServicePanel();
-		}
 	}
 	return NULL;
 }
@@ -796,22 +791,14 @@ BOOL CLibraryFrame::Update(BOOL bForce, BOOL bBestView)
 	}
 
 	if ( pFirstView == NULL )
-	{
 		pFirstView = m_pViews.GetTail();
-	}
 
 	if ( pBestView != NULL && bBestView )
-	{
 		SetView( pBestView, FALSE, FALSE );
-	}
 	else if ( m_pView == NULL || m_pView->m_bAvailable == FALSE )
-	{
 		SetView( pFirstView, FALSE, FALSE );
-	}
 	else
-	{
 		SetView( m_pView, FALSE, FALSE );
-	}
 
 	UpdatePanel( TRUE );
 
@@ -827,7 +814,7 @@ void CLibraryFrame::UpdatePanel(BOOL bForce)
 	if ( ! bForce && ! m_bViewSelection ) return;
 	m_bViewSelection = FALSE;
 
-	m_pViewSelection			= m_pView ? &m_pView->m_pSelection : &m_pViewEmpty;
+	m_pViewSelection = m_pView ? &m_pView->m_pSelection : &m_pViewEmpty;
 
 	CLibraryTreeItem* pFolders = m_wndTree.GetFirstSelected();
 	BOOL bMetaPanelAvailable = pFolders &&
@@ -873,13 +860,9 @@ BOOL CLibraryFrame::Display(CLibraryFile* pFile)
 	if ( Settings.Library.ShowVirtual )
 	{
 		if ( CAlbumFolder* pFolder = Library.GetAlbumRoot()->FindFile( pFile ) )
-		{
 			Display( pFolder );
-		}
 		else
-		{
 			Display( pFile->m_pFolder );
-		}
 	}
 	else
 	{
@@ -922,13 +905,9 @@ void CLibraryFrame::OnTimer(UINT_PTR /*nIDEvent*/)
 void CLibraryFrame::OnFilterTypes()
 {
 	if ( CSchema* pSchema = m_wndTreeTypes.GetSelected() )
-	{
 		Settings.Library.FilterURI = pSchema->GetURI();
-	}
 	else
-	{
 		Settings.Library.FilterURI.Empty();
-	}
 
 	Update();
 }
@@ -984,9 +963,7 @@ void CLibraryFrame::OnLibraryPanel()
 		m_bPanelShow = FALSE;
 		SetDynamicBar( NULL );
 		if ( m_pView )
-		{
 			m_pView->SendMessage( WM_METADATA );
-		}
 		SetPanel( NULL );
 	}
 	else
@@ -1001,9 +978,7 @@ void CLibraryFrame::OnLibrarySearch()
 	CNewSearchDlg dlg( NULL, auto_ptr< CQuerySearch >(), TRUE );
 
 	if ( dlg.DoModal() == IDOK )
-	{
 		RunLocalSearch( dlg.GetSearch() );
-	}
 }
 
 void CLibraryFrame::OnLibrarySearchQuick()
@@ -1067,9 +1042,7 @@ BOOL CLibraryFrame::SetDynamicBar(LPCTSTR pszName)
 	else
 	{
 		if ( !m_bDynamicBarHidden )
-		{
 			m_wndBottomDynamic.ShowWindow( SW_HIDE );
-		}
 		m_bShowDynamicBar = FALSE;
 		m_bDynamicBarHidden = TRUE;
 		if ( pszName != NULL && m_sDynamicBarName != pszName )
@@ -1081,9 +1054,7 @@ BOOL CLibraryFrame::SetDynamicBar(LPCTSTR pszName)
 void CLibraryFrame::HideDynamicBar()
 {
 	if ( m_wndBottomDynamic.IsWindowVisible() )
-	{
 		m_wndBottomDynamic.ShowWindow( SW_HIDE );
-	}
 }
 
 void CLibraryFrame::RunLocalSearch(auto_ptr< CQuerySearch > pSearch)
@@ -1113,9 +1084,7 @@ void CLibraryFrame::RunLocalSearch(auto_ptr< CQuerySearch > pSearch)
 		if ( nColon >= 0 )
 			strFolderName = pFolder->m_pSchema->m_sTitle.Mid( nColon + 1 );
 		if ( !strFolderName.IsEmpty() )
-		{
 			pFolder	= pRoot->GetFolder( strFolderName );
-		}
 
 		if ( pFolder == NULL )
 		{

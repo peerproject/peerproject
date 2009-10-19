@@ -3260,8 +3260,9 @@
 		<control caption="ファイル削除時にゴーストを作成する"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="メディアプレーヤー">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="メディアプレーヤー">
 		<control caption="オプション(_O):"/>
+		<control caption="メディア･プレーヤーの選択:"/>
 		<control/>
 		<control caption="下のﾘｽﾄ内のﾌｧｲﾙﾀｲﾌﾟの再生にPeerProjectﾒﾃﾞｨｱﾌﾟﾚｰﾔｰを使用"/>
 		<control caption="下のﾘｽﾄ内のﾌｧｲﾙﾀｲﾌﾟのPeerProjectﾒﾃﾞｨｱﾌﾟﾚｰﾔｰ再生ﾘｽﾄへの追加を許可"/>
@@ -3271,8 +3272,6 @@
 		<control caption="削除(_R)"/>
 		<control caption="オーディオ視覚プラグイン(_V):"/>
 		<control caption="プラグインを選択(_S)..."/>
-		<control caption="メディア･ハンドラー(_M)"/>
-		<control caption="メディア･プレーヤーの選択:"/>
 		<control caption="注意:外部のメディアプレーヤーを選択すると内臓のPeerProjectﾒﾃﾞｨｱﾌﾟﾚｰﾔｰ、オーディオ視覚プラグインは共に自動的に無効になります。"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="コミュニティ">

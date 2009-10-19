@@ -189,6 +189,8 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crSys3DShadow 			= GetSysColor( COLOR_3DSHADOW );
 	m_crSys3DHighlight			= GetSysColor( COLOR_3DHIGHLIGHT );
 	m_crSysActiveCaption		= GetSysColor( COLOR_ACTIVECAPTION );
+
+	m_crDialog					= CalculateColor( m_crSysBtnFace, m_crSysWindow, 200 );
 }
 
 void CColors::OnSysColorChange()

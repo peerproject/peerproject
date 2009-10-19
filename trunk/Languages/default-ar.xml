@@ -3385,8 +3385,9 @@
 		<control caption="إنشاء ملفات وهمية عند الحذف" />
 		<control caption="" />
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="مشغل الوسائط">
-		<control caption="_:خصائص" />
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="مشغل الوسائط">
+		<control caption="_معالجة الوسائط" />
+		<control caption=":تحديد معالج الوسائط" />
 		<control />
 		<control caption="لتشغيل أنواع الملفات التالية PeerProject إستخدام مشغل" />
 		<control caption="لوضع أنواع الملفات التالية بالإنتظار PeerProject إستخدام مشغل" />
@@ -3396,8 +3397,6 @@
 		<control caption="_إزالة" />
 		<control caption="_:وظيفة المرئيات الصوتية الإضافية" />
 		<control caption="_حدد الاضافات..." />
-		<control caption="_معالجة الوسائط" />
-		<control caption=":تحديد معالج الوسائط" />
 		<control caption="تحذير : عند إختيار معالج وسائط خارجي سيتم التعطيل تلقائيا لجميع وظائف المرئيات الصوتية الإضافية" />
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="المجتمع">

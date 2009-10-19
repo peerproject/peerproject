@@ -313,8 +313,7 @@ void CDownloadActionsPage::OnMergeAndVerify()
 			return;
 		}
 
-		new CDownloadTask( pDownload, CDownloadTask::dtaskMergeFile,
-			dlgSelectFile.GetPathName() );
+		CDownloadTask::MergeFile( pDownload, dlgSelectFile.GetPathName() );
 
 		pLock.Unlock();
 	}

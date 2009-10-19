@@ -3364,8 +3364,9 @@
 		<control caption="Skapa skuggfil vid radering"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Mediaspelare">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Mediaspelare">
 		<control caption="_Alternativ:" />
+		<control caption="Välj mediahanterare"/>
 		<control/>
 		<control caption="Använd PeerProjects mediaspelare för att SPELA UPP filtyper som visas nedan" />
 		<control caption="Använd PeerProjects mediaspelare för att KÖLÄGGA filtyper som visas nedan" />
@@ -3375,9 +3376,7 @@
 		<control caption="_Radera" />
 		<control caption="Insticksprogram för ljudvisualisering:" />
 		<control caption="_Välj insticksprogram…" />
-		<control caption="Insticksprogram för medietjänster:" />
-		<control caption="Välj mediahanterare"/>
-		<control caption="Varning: En extern mediahanterare hindrar automatiskt samtliga insticksprogram för media och visualisering!"/>
+		<control caption="Varning: En extern mediahanterare hindrar automatiskt samtliga insticksprogram för media och visualisering."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Gemenskap">
 		<control caption="Min _profil:" />

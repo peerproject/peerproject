@@ -3372,8 +3372,9 @@
 		<control caption="Crea arxius fantasma a l'esborrar descàrregues"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Reproductor">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Reproductor">
 		<control caption="_Opcions:"/>
+		<control caption="Tria un manejador de multimèdia:"/>
 		<control/>
 		<control caption="Usa el reproductor de PeerProject per a reproduir"/>
 		<control caption="Usa el reproductor de PeerProject per a posar en cua"/>
@@ -3383,8 +3384,6 @@
 		<control caption="_Treu"/>
 		<control caption="Visualitzacions d'àudio:"/>
 		<control caption="_Selecciona component..."/>
-		<control caption="_Manejador de multimèdia"/>
-		<control caption="Tria un manejador de multimèdia:"/>
 		<control caption="Advertència: Triar un manejador de multimèdia extern deshabilitarà tots els efectes de so i les visualitzacions d'aquest programa!"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Comunitat">

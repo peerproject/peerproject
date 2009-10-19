@@ -24,23 +24,23 @@
 #include "PeerProjectThread.h"
 
 
-IMPLEMENT_DYNAMIC(CRazaThread, CWinThread)
+IMPLEMENT_DYNAMIC(CAppThread, CWinThread)
 
-CCriticalSection		CRazaThread::m_ThreadMapSection;
-CRazaThread::CThreadMap	CRazaThread::m_ThreadMap;
+CCriticalSection		CAppThread::m_ThreadMapSection;
+CAppThread::CThreadMap	CAppThread::m_ThreadMap;
 
-CRazaThread::CRazaThread(AFX_THREADPROC pfnThreadProc /*= NULL*/, LPVOID pParam /*= NULL*/) :
+CAppThread::CAppThread(AFX_THREADPROC pfnThreadProc /*= NULL*/, LPVOID pParam /*= NULL*/) :
 	CWinThread( NULL, pParam ),
 	m_pfnThreadProcExt( pfnThreadProc )
 {
 }
 
-CRazaThread::~CRazaThread()
+CAppThread::~CAppThread()
 {
 	Remove( m_hThread );
 }
 
-HANDLE CRazaThread::CreateThread(LPCSTR pszName, int nPriority /*= THREAD_PRIORITY_NORMAL*/,
+HANDLE CAppThread::CreateThread(LPCSTR pszName, int nPriority /*= THREAD_PRIORITY_NORMAL*/,
 	DWORD dwCreateFlags /*= 0*/, UINT nStackSize /*= 0*/,
 	LPSECURITY_ATTRIBUTES lpSecurityAttrs /*= NULL*/)
 {
@@ -62,14 +62,14 @@ HANDLE CRazaThread::CreateThread(LPCSTR pszName, int nPriority /*= THREAD_PRIORI
 	return NULL;
 }
 
-BOOL CRazaThread::InitInstance()
+BOOL CAppThread::InitInstance()
 {
 	CWinThread::InitInstance();
 
 	return TRUE;
 }
 
-int CRazaThread::Run()
+int CAppThread::Run()
 {
 	BOOL bCOM = SUCCEEDED( OleInitialize( NULL ) );
 
@@ -85,14 +85,12 @@ int CRazaThread::Run()
 	return ret;
 }
 
-void CRazaThread::Add(CRazaThread* pThread, LPCSTR pszName)
+void CAppThread::Add(CAppThread* pThread, LPCSTR pszName)
 {
 	CSingleLock oLock( &m_ThreadMapSection, TRUE );
 
 	if ( pszName )
-	{
 		SetThreadName( pThread->m_nThreadID, pszName );
-	}
 
 	CThreadTag tag = { pThread, pszName };
 	m_ThreadMap.SetAt( pThread->m_hThread, tag );
@@ -101,7 +99,7 @@ void CRazaThread::Add(CRazaThread* pThread, LPCSTR pszName)
 		( pszName ? pszName : "unnamed" ), pThread->m_hThread, m_ThreadMap.GetCount() );
 }
 
-void CRazaThread::Remove(HANDLE hThread)
+void CAppThread::Remove(HANDLE hThread)
 {
 	CSingleLock oLock( &m_ThreadMapSection, TRUE );
 
@@ -116,7 +114,7 @@ void CRazaThread::Remove(HANDLE hThread)
 	}
 }
 
-void CRazaThread::Terminate(HANDLE hThread)
+void CAppThread::Terminate(HANDLE hThread)
 {
 	// Very dangerous function produces 100% urecoverable TLS leaks/deadlocks
 	if ( TerminateThread( hThread, 0 ) )
@@ -179,7 +177,7 @@ HANDLE BeginThread(LPCSTR pszName, AFX_THREADPROC pfnThreadProc,
 	LPVOID pParam, int nPriority, UINT nStackSize, DWORD dwCreateFlags,
 	LPSECURITY_ATTRIBUTES lpSecurityAttrs)
 {
-	CRazaThread* pThread = new CRazaThread( pfnThreadProc, pParam );
+	CAppThread* pThread = new CAppThread( pfnThreadProc, pParam );
 	ASSERT_VALID( pThread );
 	if ( pThread )
 	{
@@ -204,15 +202,19 @@ void CloseThread(HANDLE* phThread, DWORD dwTimeout)
 				DWORD res = MsgWaitForMultipleObjects( 1, phThread,
 					FALSE, dwTimeout, QS_ALLINPUT | QS_ALLPOSTMESSAGE );
 				if ( res == WAIT_OBJECT_0 + 1 )
+				{
 					// Handle messages
 					continue;
+				}
 				else if ( res != WAIT_TIMEOUT )
+				{
 					// Handle signaled state or errors
 					break;
+				}
 				else
 				{
 					// Timeout
-					CRazaThread::Terminate( *phThread );
+					CAppThread::Terminate( *phThread );
 					break;
 				}
 			}
@@ -222,7 +224,7 @@ void CloseThread(HANDLE* phThread, DWORD dwTimeout)
 			// Thread already ended
 		}
 
-		CRazaThread::Remove( *phThread );
+		CAppThread::Remove( *phThread );
 
 		*phThread = NULL;
 	}
