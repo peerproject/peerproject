@@ -165,8 +165,9 @@ public:
 	BOOL		m_bMenuBorders;
 	BOOL		m_bMenuGripper;
 	int			m_nToolbarHeight;
-	int			m_nTitlebarHeight;
+	int			m_nHeaderbarHeight;
 	int			m_nSidebarWidth;
+	int			m_nSplitter;
 
 
 private:

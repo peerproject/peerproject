@@ -486,9 +486,9 @@ void CDownload::OnDownloaded()
 	}
 
 	SetMoving( true );
+	LibraryBuilder.m_bBusy = true;
 
-	ASSERT( !IsTasking() );
-	SetTask( new CDownloadTask( this, CDownloadTask::dtaskCopy ) );
+	CDownloadTask::Copy( this );
 
 	Statistics.Current.Downloads.Files++;
 
@@ -513,6 +513,8 @@ void CDownload::OnTaskComplete(CDownloadTask* pTask)
 	}
 	else if ( pTask->GetTaskType() == CDownloadTask::dtaskCopy )
 	{
+		LibraryBuilder.m_bBusy = false;
+
 		if ( !pTask->HasSucceeded() )
 			SetFileError( pTask->GetFileError() );
 		else
@@ -560,7 +562,6 @@ void CDownload::OnMoved()
 	// Download finalized, tracker notified, set flags that we completed
 	m_bComplete		= true;
 	m_tCompleted	= GetTickCount();
-//	LibraryBuilder.m_bBusy = false;
 	SetMoving( false );
 }
 
@@ -585,10 +586,7 @@ BOOL CDownload::Load(LPCTSTR pszName)
 		CATCH( CFileException, pException )
 		{
 			if ( pException->m_cause == CFileException::fileNotFound )
-			{
-				// Subfile missing
-				return FALSE;
-			}
+				return FALSE;	// Subfile missing
 		}
 		AND_CATCH_ALL( pException )
 		{
@@ -610,10 +608,7 @@ BOOL CDownload::Load(LPCTSTR pszName)
 		CATCH( CFileException, pException )
 		{
 			if ( pException->m_cause == CFileException::fileNotFound )
-			{
-				// Subfile missing
-				return FALSE;
-			}
+				return FALSE;	// Subfile missing
 		}
 		AND_CATCH_ALL( pException )
 		{
@@ -637,11 +632,8 @@ BOOL CDownload::Save(BOOL bFlush)
 {
 	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
 
-	if ( m_sPath.IsEmpty() )
-	{
-		// From incomplete folder
+	if ( m_sPath.IsEmpty() )	// From incomplete folder
 		m_sPath = Settings.Downloads.IncompletePath + _T("\\") + GetFilename() + _T(".sd");
-	}
 
 	m_nSaveCookie = m_nCookie;
 	m_tSaved = GetTickCount();
@@ -712,7 +704,7 @@ void CDownload::Serialize(CArchive& ar, int nVersion)
 	if ( !Settings.BitTorrent.AutoSeed && m_bSeeding )
 		return;
 
-	if ( nVersion == 0 )
+	if ( nVersion < 2 )		// NULL
 	{
 		nVersion = DOWNLOAD_SER_VERSION;
 
@@ -730,11 +722,11 @@ void CDownload::Serialize(CArchive& ar, int nVersion)
 			if ( nVersion <= 0 || nVersion > DOWNLOAD_SER_VERSION ) AfxThrowUserException();
 		}
 	}
-	else if ( nVersion < 11 && ar.IsLoading() )
-	{
-		SerializeOld( ar, nVersion );
-		return;
-	}
+//	else if ( nVersion < 11 && ar.IsLoading() )	// Very old Shareaza!
+//	{
+//		SerializeOld( ar, nVersion );
+//		return;
+//	}
 
 	CDownloadWithExtras::Serialize( ar, nVersion );
 
@@ -753,58 +745,59 @@ void CDownload::Serialize(CArchive& ar, int nVersion)
 		ar >> m_bPaused;
 		m_bTempPaused = m_bPaused;
 		ar >> m_bBoosted;
-		if ( nVersion >= 14 ) ar >> m_bShared;
-		if ( nVersion >= 26 ) ar >> m_nSerID;
+		ar >> m_bShared;
+		ar >> m_nSerID;
 
 		DownloadGroups.Link( this );
 
-		if ( nVersion == 32 )
-		{ // Compatibility for CB Branch.
-			if ( ! ar.IsBufferEmpty() )
-			{
-				ar >> m_sSearchKeyword;
-			}
-		}
+	//	if ( nVersion == 32 )	//ShareazaPlus = 38
+	//	{
+	//		// Compatibility for CB Branch.
+	//		if ( ! ar.IsBufferEmpty() )
+	//			ar >> m_sSearchKeyword;
+	//	}
 	}
 }
 
-void CDownload::SerializeOld(CArchive& ar, int nVersion)
-{
-	ASSERT( ar.IsLoading() );
+//void CDownload::SerializeOld(CArchive& ar, int nVersion)
+//{
+//	// nVersion < 11 (Very old Shareaza!)
 
-	ar >> m_sPath;
-	m_sPath += _T(".sd");
-	ar >> m_sName;
+//	ASSERT( ar.IsLoading() );
 
-	DWORD nSize;
-	ar >> nSize;
-	m_nSize = nSize;
+//	ar >> m_sPath;
+//	m_sPath += _T(".sd");
+//	ar >> m_sName;
 
-	Hashes::Sha1Hash oSHA1;
-	SerializeIn( ar, oSHA1, nVersion );
-	m_oSHA1 = oSHA1;
-	m_bSHA1Trusted = true;
+//	DWORD nSize;
+//	ar >> nSize;
+//	m_nSize = nSize;
 
-	ar >> m_bPaused;
-	ar >> m_bExpanded;
-	if ( nVersion >= 6 ) ar >> m_bBoosted;
+//	Hashes::Sha1Hash oSHA1;
+//	SerializeIn( ar, oSHA1, nVersion );
+//	m_oSHA1 = oSHA1;
+//	m_bSHA1Trusted = true;
 
-	CDownloadWithFile::SerializeFile( ar, nVersion );
+//	ar >> m_bPaused;
+//	ar >> m_bExpanded;
+//	if ( nVersion >= 6 ) ar >> m_bBoosted;
 
-	for ( DWORD_PTR nSources = ar.ReadCount() ; nSources ; nSources-- )
-	{
-		CDownloadSource* pSource = new CDownloadSource( this );
-		pSource->Serialize( ar, nVersion );
-		AddSourceInternal( pSource );
-	}
+//	CDownloadWithFile::SerializeFile( ar, nVersion );
 
-	if ( nVersion >= 3 && ar.ReadCount() )
-	{
-		auto_ptr< CXMLElement > pXML( new CXMLElement() );
-		pXML->Serialize( ar );
-		MergeMetadata( pXML.get() );
-	}
-}
+//	for ( DWORD_PTR nSources = ar.ReadCount() ; nSources ; nSources-- )
+//	{
+//		CDownloadSource* pSource = new CDownloadSource( this );
+//		pSource->Serialize( ar, nVersion );
+//		AddSourceInternal( pSource );
+//	}
+
+//	if ( nVersion >= 3 && ar.ReadCount() )
+//	{
+//		auto_ptr< CXMLElement > pXML( new CXMLElement() );
+//		pXML->Serialize( ar );
+//		MergeMetadata( pXML.get() );
+//	}
+//}
 
 void CDownload::ForceComplete()
 {
@@ -819,6 +812,15 @@ void CDownload::ForceComplete()
 
 BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal)
 {
+	if ( nIndex < 0 && IsCompleted() && ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0 )
+	{
+		// Shift key opens folder on multifile torrents
+		CString strPath = GetPath( 0 );
+		ShellExecute( AfxGetMainWnd()->GetSafeHwnd(),
+			_T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
+		return TRUE;
+	}
+
 	if ( nIndex < 0 )
 		nIndex = SelectFile( pLock );
 	if ( nIndex < 0 || ! Downloads.Check( this ) )

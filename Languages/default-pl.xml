@@ -3164,8 +3164,9 @@
 		<control caption="Create ghost files when deleting"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Media Player">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media Player">
 		<control caption="Opcje:"/>
+		<control caption="Wybierz wtyczkę mediów:"/>
 		<control/>
 		<control caption="Użyj Media player'a PeerProject do odtwarzania typów plików wymienionych poniżej"/>
 		<control caption="Użyj Media player'a PeerProject do zakolejkowania typów plików wymienionych poniżej"/>
@@ -3175,9 +3176,7 @@
 		<control caption="Usuń"/>
 		<control caption="Wtyczka wizualizacji:"/>
 		<control caption="Wybierz wtyczkę..."/>
-		<control caption="_Media Handling"/>
-		<control caption="Wybierz wtyczkę mediów:"/>
-		<control caption="Ostrzeżenie: Wybranie zewnętrzngo Media Handler (wtyczki mediów) spowoduje automatycznie wyłączenie wszystkich wtyczek mediów i wizualizacji!"/>
+		<control caption="Ostrzeżenie: Wybranie zewnętrzngo Media Handler (wtyczki mediów) spowoduje automatycznie wyłączenie wszystkich wtyczek mediów i wizualizacji."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Społeczność">
 		<control caption="Mój profil:"/>

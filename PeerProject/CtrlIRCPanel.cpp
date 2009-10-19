@@ -43,16 +43,6 @@ BEGIN_MESSAGE_MAP(CIRCPanel, CTaskPanel)
 	ON_WM_CREATE()
 END_MESSAGE_MAP()
 
-IMPLEMENT_DYNAMIC(CIRCUsersBox, CTaskBox)
-BEGIN_MESSAGE_MAP(CIRCUsersBox, CTaskBox)
-	ON_WM_CREATE()
-	ON_WM_SIZE()
-	ON_WM_PAINT()
-	ON_WM_CONTEXTMENU()
-	ON_LBN_DBLCLK(IDC_IRC_USERS, OnUsersDoubleClick)
-END_MESSAGE_MAP()
-
-
 IMPLEMENT_DYNAMIC(CIRCChannelsBox, CTaskBox)
 BEGIN_MESSAGE_MAP(CIRCChannelsBox, CTaskBox)
 	ON_WM_CREATE()
@@ -62,6 +52,17 @@ BEGIN_MESSAGE_MAP(CIRCChannelsBox, CTaskBox)
 	ON_COMMAND(IDC_IRC_ADDCHANNEL, OnAddChannel)
 	ON_COMMAND(IDC_IRC_REMOVECHANNEL, OnRemoveChannel)
 END_MESSAGE_MAP()
+
+IMPLEMENT_DYNAMIC(CIRCUsersBox, CTaskBox)
+BEGIN_MESSAGE_MAP(CIRCUsersBox, CTaskBox)
+	ON_WM_CREATE()
+	ON_WM_SIZE()
+	ON_WM_PAINT()
+	ON_WM_CONTEXTMENU()
+	ON_WM_COMPAREITEM()
+	ON_LBN_DBLCLK(IDC_IRC_USERS, OnUsersDoubleClick)
+END_MESSAGE_MAP()
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CIRCPanel construction
@@ -128,6 +129,135 @@ void CIRCPanel::OnSkinChange()
 	Invalidate();
 }
 
+
+/////////////////////////////////////////////////////////////////////////////
+// CIRCChannelsBox construction
+
+CIRCChannelsBox::CIRCChannelsBox()
+{
+}
+
+CIRCChannelsBox::~CIRCChannelsBox()
+{
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// CIRCChannelsBox message handlers
+
+int CIRCChannelsBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if ( CTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
+
+	SetOwner( GetParent() );
+
+	CRect rc( 0, 0, 0, 0 );
+
+	m_wndChanList.Create( WS_CHILD | WS_VSCROLL | WS_TABSTOP | WS_GROUP | WS_VISIBLE |
+		LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_REPORT |
+		LVS_NOCOLUMNHEADER | LVS_SORTASCENDING | LVS_NOLABELWRAP,
+		rc, this, IDC_IRC_CHANNELS );
+	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
+	m_wndChanList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
+	m_wndChanList.InsertColumn( 0, _T("Channels"), LVCFMT_LEFT, rc.right - 36 );
+	m_wndChanList.InsertColumn( 1, _T("UserCount"), LVCFMT_RIGHT, 36 );
+
+	m_wndAddChannel.Create( rc, this, IDC_IRC_ADDCHANNEL, WS_TABSTOP | BS_DEFPUSHBUTTON );
+	m_wndAddChannel.SetHandCursor( TRUE );
+
+	m_wndRemoveChannel.Create( rc, this, IDC_IRC_REMOVECHANNEL, WS_TABSTOP );
+	m_wndRemoveChannel.SetHandCursor( TRUE );
+
+	OnSkinChange();
+
+	SetPrimary( TRUE );
+
+	return 0;
+}
+
+void CIRCChannelsBox::OnPaint()
+{
+	CTaskBox::OnPaint();
+}
+
+void CIRCChannelsBox::OnSkinChange()
+{
+	CString strCaption;
+
+	LoadString( strCaption, IDS_IRC_PANEL_ADDCHANNEL );
+	m_wndAddChannel.SetWindowText( strCaption );
+	m_wndAddChannel.SetCoolIcon( ID_IRC_ADD, Settings.General.LanguageRTL );
+
+	LoadString( strCaption, IDS_IRC_PANEL_REMOVECHANNEL );
+	m_wndRemoveChannel.SetWindowText( strCaption );
+	m_wndRemoveChannel.SetCoolIcon( ID_IRC_REMOVE, Settings.General.LanguageRTL );
+
+	m_wndChanList.SetBkImage( Skin.GetWatermark( _T("CIRCChannelsBox") ) );
+}
+
+void CIRCChannelsBox::OnSize(UINT nType, int cx, int cy)
+{
+	CTaskBox::OnSize( nType, cx, cy );
+
+	HDWP hDWP = BeginDeferWindowPos( 3 );
+
+	int nButton = ( cx - 24 ) / 2;
+
+	DeferWindowPos( hDWP, m_wndChanList, NULL, 2, 2, cx - 2, cy - 24 - 18,
+		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
+	DeferWindowPos( hDWP, m_wndAddChannel, NULL, 9, cy - 24 - 8, nButton, 24,
+		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
+	DeferWindowPos( hDWP, m_wndRemoveChannel, NULL, cx - nButton - 9, cy - 24 - 8, nButton, 24,
+		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
+
+	EndDeferWindowPos( hDWP );
+
+	m_wndChanList.SetColumnWidth( 0, cx - 40 - GetSystemMetrics( SM_CXVSCROLL ) );
+	m_wndChanList.SetColumnWidth( 1, 36 );
+}
+
+void CIRCChannelsBox::OnChansDoubleClick(NMHDR* /* pNMHDR */, LRESULT* pResult)
+{
+	IRC_PANELEVENT pNotify;
+	pNotify.hdr.hwndFrom	= GetSafeHwnd();
+	pNotify.hdr.idFrom		= IDC_IRC_DBLCLKCHANNELS;
+	pNotify.hdr.code		= NM_DBLCLK;
+	CWnd* m_wndFrame = GetOwner()->GetOwner();
+	m_wndFrame->PostMessage( WM_NOTIFY, pNotify.hdr.idFrom, (LPARAM)&pNotify );
+	*pResult = 0;
+}
+
+void CIRCChannelsBox::OnAddChannel()
+{
+	CIrcInputDlg dlg( this, 0, FALSE );	// 0 = select the first caption
+
+	if ( dlg.DoModal() != IDOK ) return;
+
+	CString strChannel = dlg.m_sAnswer;
+	if ( ! strChannel.IsEmpty() )
+	{
+		if ( strChannel.GetAt( 0 ) != '#' ) strChannel = '#' + strChannel;
+		for ( int nChannel=0 ; nChannel < m_wndChanList.GetItemCount() ; nChannel++ )
+		{
+			if ( strChannel.CompareNoCase( m_wndChanList.GetItemText( nChannel, 0 ) ) == 0 )
+			{
+				AfxMessageBox( _T("Channel already in list."), MB_OK );
+				return;
+			}
+		}
+		if ( strChannel.GetAt( 0 ) == '#' ) strChannel = strChannel.Mid( 1 );
+		strChannel = strChannel.Left( 1 ).MakeUpper() + strChannel.Mid( 1 );
+		m_wndChanList.InsertItem( -1, strChannel );
+		m_sPassedChannel = strChannel;
+		GetOwner()->GetOwner()->PostMessage( WM_ADDCHANNEL, IDC_IRC_CHANNELS );
+	}
+}
+
+void CIRCChannelsBox::OnRemoveChannel()
+{
+	GetOwner()->GetOwner()->PostMessage( WM_REMOVECHANNEL, IDC_IRC_CHANNELS );
+}
+
+
 /////////////////////////////////////////////////////////////////////////////
 // CIRCUsersBox construction
 
@@ -148,7 +278,8 @@ int CIRCUsersBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	CRect rc( 0, 0, 0, 0 );
 	m_wndUserList.Create( WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_TABSTOP |
-		LBS_NOTIFY | LBS_NOINTEGRALHEIGHT, rc, this, IDC_IRC_USERS );
+		LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | LBS_SORT | LBS_HASSTRINGS,
+		rc, this, IDC_IRC_USERS );
 	//m_wndUserList.ModifyStyleEx( 0, WS_EX_CLIENTEDGE );
 	if ( Settings.General.LanguageRTL )
 		m_wndUserList.ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
@@ -162,13 +293,9 @@ void CIRCUsersBox::OnSkinChange()
 {
 }
 
-void CIRCUsersBox::UpdateCaptionCount()
+void CIRCUsersBox::OnPaint()
 {
-	CString strCaption;
-	LoadString( strCaption, IDS_IRC_PANEL_USERS_CAPTION );
-	CString strCount;
-	strCount.Format( _T(" (%d)"), m_wndUserList.GetCount() );
-	SetCaption( strCaption + strCount );
+	CTaskBox::OnPaint();
 }
 
 void CIRCUsersBox::OnSize(UINT nType, int cx, int cy)
@@ -177,11 +304,6 @@ void CIRCUsersBox::OnSize(UINT nType, int cx, int cy)
 
 	m_wndUserList.SetWindowPos( NULL, 6, 1, cx - 6, cy - 2,
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-}
-
-void CIRCUsersBox::OnPaint()
-{
-	CTaskBox::OnPaint();
 }
 
 void CIRCUsersBox::OnUsersDoubleClick()
@@ -229,129 +351,48 @@ int CIRCUsersBox::HitTest(const CPoint& pt) const
 	return -1;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// CIRCChannelsBox construction
-
-CIRCChannelsBox::CIRCChannelsBox()
-{
-}
-
-CIRCChannelsBox::~CIRCChannelsBox()
-{
-}
-
-/////////////////////////////////////////////////////////////////////////////
-// CIRCUsersBox message handlers
-
-int CIRCChannelsBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
-{
-	if ( CTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
-
-	SetOwner( GetParent() );
-
-	CRect rc( 0, 0, 0, 0 );
-
-	m_wndChanList.Create( WS_CHILD | WS_VSCROLL | WS_TABSTOP | WS_GROUP | WS_VISIBLE |
-		LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_REPORT |
-		LVS_NOCOLUMNHEADER | LVS_SORTASCENDING | LVS_NOLABELWRAP,
-		rc, this, IDC_IRC_CHANNELS );
-	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
-	m_wndChanList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
-	m_wndChanList.InsertColumn( 0, _T("Channels"), LVCFMT_LEFT, rc.right - 36 );
-	m_wndChanList.InsertColumn( 1, _T("UserCount"), LVCFMT_RIGHT, 36 );
-
-	m_wndAddChannel.Create( rc, this, IDC_IRC_ADDCHANNEL, WS_TABSTOP | BS_DEFPUSHBUTTON );
-	m_wndAddChannel.SetHandCursor( TRUE );
-
-	m_wndRemoveChannel.Create( rc, this, IDC_IRC_REMOVECHANNEL, WS_TABSTOP );
-	m_wndRemoveChannel.SetHandCursor( TRUE );
-
-	OnSkinChange();
-
-	SetPrimary( TRUE );
-
-	return 0;
-}
-
-void CIRCChannelsBox::OnSkinChange()
+void CIRCUsersBox::UpdateCaptionCount()
 {
 	CString strCaption;
-
-	LoadString( strCaption, IDS_IRC_PANEL_ADDCHANNEL );
-	m_wndAddChannel.SetWindowText( strCaption );
-	m_wndAddChannel.SetCoolIcon( ID_IRC_ADD, Settings.General.LanguageRTL );
-
-	LoadString( strCaption, IDS_IRC_PANEL_REMOVECHANNEL );
-	m_wndRemoveChannel.SetWindowText( strCaption );
-	m_wndRemoveChannel.SetCoolIcon( ID_IRC_REMOVE, Settings.General.LanguageRTL );
-
-	m_wndChanList.SetBkImage( Skin.GetWatermark( _T("CIRCChannelsBox") ) );
+	LoadString( strCaption, IDS_IRC_PANEL_USERS_CAPTION );
+	CString strCount;
+	strCount.Format( _T(" (%d)"), m_wndUserList.GetCount() );
+	SetCaption( strCaption + strCount );
 }
 
-void CIRCChannelsBox::OnSize(UINT nType, int cx, int cy)
+int CIRCUsersBox::OnCompareItem(int nIDCtl, LPCOMPAREITEMSTRUCT lpCompareItemStruct)
 {
-	CTaskBox::OnSize( nType, cx, cy );
+	if ( nIDCtl != IDC_IRC_USERS )
+		return CTaskBox::OnCompareItem( nIDCtl, lpCompareItemStruct );
 
-	HDWP hDWP = BeginDeferWindowPos( 3 );
+	ASSERT( lpCompareItemStruct->CtlType == ODT_LISTBOX );
+	LPCTSTR lpszUser1 = (LPCTSTR) lpCompareItemStruct->itemData1;
+	ASSERT( lpszUser1 != NULL );
+	LPCTSTR lpszUser2 = (LPCTSTR) lpCompareItemStruct->itemData2;
+	ASSERT( lpszUser2 != NULL );
 
-	int nButton = ( cx - 24 ) / 2;
-
-	DeferWindowPos( hDWP, m_wndChanList, NULL, 2, 2, cx - 2, cy - 24 - 18,
-		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-	DeferWindowPos( hDWP, m_wndAddChannel, NULL, 9, cy - 24 - 8, nButton, 24,
-		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-	DeferWindowPos( hDWP, m_wndRemoveChannel, NULL, cx - nButton - 9, cy - 24 - 8, nButton, 24,
-		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
-
-	EndDeferWindowPos( hDWP );
-
-	m_wndChanList.SetColumnWidth( 0, cx - 40 - GetSystemMetrics( SM_CXVSCROLL ) );
-	m_wndChanList.SetColumnWidth( 1, 36 );
-}
-
-void CIRCChannelsBox::OnPaint()
-{
-	CTaskBox::OnPaint();
-}
-
-void CIRCChannelsBox::OnChansDoubleClick(NMHDR* /* pNMHDR */, LRESULT* pResult)
-{
-	IRC_PANELEVENT pNotify;
-	pNotify.hdr.hwndFrom	= GetSafeHwnd();
-	pNotify.hdr.idFrom		= IDC_IRC_DBLCLKCHANNELS;
-	pNotify.hdr.code		= NM_DBLCLK;
-	CWnd* m_wndFrame = GetOwner()->GetOwner();
-	m_wndFrame->PostMessage( WM_NOTIFY, pNotify.hdr.idFrom, (LPARAM)&pNotify );
-	*pResult = 0;
-}
-
-void CIRCChannelsBox::OnAddChannel()
-{
-	CIrcInputDlg dlg( this, 0, FALSE );	// 0 = select the first caption
-
-	if ( dlg.DoModal() != IDOK ) return;
-
-	CString strChannel = dlg.m_sAnswer;
-	if ( ! strChannel.IsEmpty() )
+	// Sort by user status
+	int nModeColumn1 = 0, nModeColumn2 = 0;
+	switch ( *lpszUser1 )
 	{
-		if ( strChannel.GetAt( 0 ) != '#' ) strChannel = '#' + strChannel;
-		for ( int nChannel=0 ; nChannel < m_wndChanList.GetItemCount() ; nChannel++ )
-		{
-			if ( strChannel.CompareNoCase( m_wndChanList.GetItemText( nChannel, 0 ) ) == 0 )
-			{
-				AfxMessageBox( _T("Channel already in list."), MB_OK );
-				return;
-			}
-		}
-		if ( strChannel.GetAt( 0 ) == '#' ) strChannel = strChannel.Mid( 1 );
-		strChannel = strChannel.Left( 1 ).MakeUpper() + strChannel.Mid( 1 );
-		m_wndChanList.InsertItem( -1, strChannel );
-		m_sPassedChannel = strChannel;
-		GetOwner()->GetOwner()->PostMessage( WM_ADDCHANNEL, IDC_IRC_CHANNELS );
+		case _T('+'): nModeColumn1 = 1; break;
+		case _T('%'): nModeColumn1 = 2; break;
+		case _T('@'): nModeColumn1 = 3; break;
+		case _T('&'): nModeColumn1 = 4;
 	}
-}
-
-void CIRCChannelsBox::OnRemoveChannel()
-{
-	GetOwner()->GetOwner()->PostMessage( WM_REMOVECHANNEL, IDC_IRC_CHANNELS );
+	switch ( *lpszUser2 )
+	{
+		case _T('+'): nModeColumn2 = 1; break;
+		case _T('%'): nModeColumn2 = 2; break;
+		case _T('@'): nModeColumn2 = 3; break;
+		case _T('&'): nModeColumn2 = 4;
+	}
+	if ( nModeColumn1 == nModeColumn2 )
+	{
+		// Sort by user name
+		if ( nModeColumn1 ) lpszUser1++;
+		if ( nModeColumn2 ) lpszUser2++;
+		return _tcsicmp( lpszUser1, lpszUser2 );
+	}
+	return ( nModeColumn2 - nModeColumn1 );
 }

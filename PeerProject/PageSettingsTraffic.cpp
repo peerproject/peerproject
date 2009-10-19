@@ -155,7 +155,7 @@ void CAdvancedSettingsPage::UpdateListItem(int nItem)
 	else if ( pItem->m_pItem->m_pDword )
 	{
 		ASSERT( pItem->m_pItem->m_nScale &&
-			pItem->m_pItem->m_nMin < pItem->m_pItem->m_nMax );
+			pItem->m_pItem->m_nMin <= pItem->m_pItem->m_nMax );
 		strValue.Format( _T("%lu"), pItem->m_nValue / pItem->m_pItem->m_nScale );
 		if ( Settings.General.LanguageRTL )
 			strValue = _T("\x200E") + strValue + pItem->m_pItem->m_szSuffix;

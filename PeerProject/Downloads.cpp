@@ -370,7 +370,8 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 
 void CDownloads::PauseAll()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 1000 ) ) return;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -380,18 +381,21 @@ void CDownloads::PauseAll()
 
 void CDownloads::ClearCompleted()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 1000 ) ) return;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
-		if ( ( pDownload->IsCompleted() ) && ( !pDownload->IsSeeding() ) ) pDownload->Remove();
+		if ( ( pDownload->IsCompleted() ) && ( ! pDownload->IsSeeding() ) )
+			pDownload->Remove();
 	}
 }
 
 void CDownloads::ClearPaused()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 1000 ) ) return;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -402,7 +406,8 @@ void CDownloads::ClearPaused()
 
 void CDownloads::Clear(bool bShutdown)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 1000 ) ) return;
 	m_bClosing = true;
 
 	for ( POSITION pos = GetIterator() ; pos ; )

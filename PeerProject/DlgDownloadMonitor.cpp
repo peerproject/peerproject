@@ -130,9 +130,7 @@ BOOL CDownloadMonitorDlg::CreateReal(UINT nID)
 		{
 			LPCDLGTEMPLATE lpDialogTemplate = (LPCDLGTEMPLATE)LockResource( hTemplate );
 			if ( lpDialogTemplate )
-			{
 				bResult = CreateDlgIndirect( lpDialogTemplate, NULL, hInst );
-			}
 			FreeResource( hTemplate );
 		}
 	}
@@ -195,7 +193,8 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 
 			if ( ShellIcons.Lookup( strType, NULL, &hIcon, NULL, NULL ) )
 			{
-				if ( Settings.General.LanguageRTL ) hIcon = CreateMirroredIcon( hIcon );
+				if ( Settings.General.LanguageRTL )
+					hIcon = CreateMirroredIcon( hIcon );
 				m_wndIcon.SetIcon( hIcon );
 			}
 		}
@@ -648,13 +647,9 @@ void CDownloadMonitorDlg::OnSysCommand(UINT nID, LPARAM lParam)
 	else if ( nCommand == SC_NEXTWINDOW )
 	{
 		if ( GetExStyle() & WS_EX_TOPMOST )
-		{
 			SetWindowPos( &wndNoTopMost, 0, 0, 0, 0, SWP_NOMOVE|SWP_NOSIZE );
-		}
 		else
-		{
 			SetWindowPos( &wndTopMost, 0, 0, 0, 0, SWP_NOMOVE|SWP_NOSIZE );
-		}
 		return;
 	}
 
@@ -679,9 +674,7 @@ HBRUSH CDownloadMonitorDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CSkinDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 
 	if ( pWnd == &m_wndFile )
-	{
 		pDC->SelectObject( &theApp.m_gdiFontBold );
-	}
 
 	return hbr;
 }
@@ -714,9 +707,7 @@ void CDownloadMonitorDlg::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		point.x, point.y, pDownWnd );
 
 	if ( nID && pDownWnd->Select( m_pDownload ) )
-	{
 		pDownWnd->SendMessage( WM_COMMAND, nID );
-	}
 }
 
 BOOL CDownloadMonitorDlg::OnNeedText(UINT /*nID*/, NMHDR* pTTTH, LRESULT* /*pResult*/)

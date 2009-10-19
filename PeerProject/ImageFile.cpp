@@ -164,6 +164,69 @@ BOOL CImageFile::LoadFromURL(LPCTSTR pszURL)
 	return FALSE;
 }
 
+BOOL CImageFile::LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly)
+{
+	BITMAP bmInfo;
+	if ( ! GetObject( hBitmap, sizeof( BITMAP ), &bmInfo ) )
+		return FALSE;
+
+	if ( bmInfo.bmType != 0 || bmInfo.bmPlanes != 1 || ! bmInfo.bmBits ||
+		bmInfo.bmWidth < 1 || bmInfo.bmHeight < 1 )
+		return FALSE;	// Unsupported format
+
+	m_bScanned = TRUE;
+	m_nWidth = bmInfo.bmWidth;
+	m_nHeight = bmInfo.bmHeight;
+	//if ( bmInfo.bmBitsPixel == 32 )
+	//	m_nComponents = 4;
+	//else //if ( bmInfo.bmBitsPixel == 24 )
+	m_nComponents = 3;
+
+	if ( bScanOnly )
+		return TRUE;
+
+	DWORD line_size = ( m_nWidth * m_nComponents + 3 ) & ~3;
+	m_pImage = new BYTE[ line_size * m_nHeight ];
+	if ( ! m_pImage )
+		return FALSE;	// Out of memory
+
+	HDC hDC = GetDC( NULL );
+	BITMAPINFOHEADER bmi = { sizeof( BITMAPINFOHEADER ), bmInfo.bmWidth, - bmInfo.bmHeight, 1, 24, BI_RGB };
+	GetDIBits( hDC, hBitmap, 0, bmInfo.bmHeight, m_pImage, (BITMAPINFO*)&bmi, DIB_RGB_COLORS );
+	ReleaseDC( NULL, hDC );
+
+	// BGR -> RGB
+	LPBYTE dst = m_pImage;
+	for ( LONG j = 0; j < bmInfo.bmHeight; ++j, dst += line_size )
+	{
+		BYTE c;
+	//	if ( m_nComponents = 3 )
+	//	{
+			for ( LONG i = 0; i < bmInfo.bmWidth * 3; i += 3 )
+			{
+				c = dst[i + 0];
+				dst[i + 0] = dst[i + 2];
+				dst[i + 2] = c;
+			}
+	//	}
+	//	else if ( m_nComponents = 4 )
+	//	{
+	//		for ( LONG i = 0; i < bmInfo.bmWidth * 3; i += 3 )
+	//		{
+	//			c = dst[i + 0];
+	//			dst[i + 0] = dst[i + 2];
+	//			dst[i + 2] = dst[i + 3];
+	//			dst[i + 3] = c;
+	//		}
+	//	}
+	}
+
+	m_bLoaded = TRUE;
+
+	return TRUE;
+}
+
+
 /////////////////////////////////////////////////////////////////////////////
 // CImageFile save operations
 

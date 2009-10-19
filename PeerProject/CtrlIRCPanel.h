@@ -27,32 +27,17 @@
 #include "CtrlCoolBar.h"
 #include "CtrlIconButton.h"
 
-class CIRCUsersBox : public CTaskBox
-{
-public:
-	CIRCUsersBox();
-	virtual ~CIRCUsersBox();
-	DECLARE_DYNAMIC(CIRCUsersBox)
+#define	ID_COLOR_LISTTEXT				6
+#define IDC_IRC_USERS					121
+#define IDC_IRC_CHANNELS				122
+#define IDC_IRC_DBLCLKCHANNELS			200
+#define IDC_IRC_DBLCLKUSERS				201
+#define	IDC_IRC_MENUUSERS				202
+#define IDC_IRC_ADDCHANNEL				203
+#define IDC_IRC_REMOVECHANNEL			204
 
-	CListBox			m_wndUserList;
-	CBitmap				m_bmWatermark;
-	CDC					m_dcBuffer;
-	CBitmap				m_bmBuffer;
-	HBITMAP				m_hBuffer;
-
-	void	OnSkinChange();
-	void	UpdateCaptionCount();
-
-protected:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg void OnPaint();
-	afx_msg void OnUsersDoubleClick();
-	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
-	int			 HitTest(const CPoint& pt) const;
-
-	DECLARE_MESSAGE_MAP()
-};
+#define	WM_REMOVECHANNEL				20933
+#define	WM_ADDCHANNEL					20934
 
 class CIRCChannelsBox : public CTaskBox
 {
@@ -84,10 +69,34 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
-typedef struct
+class CIRCUsersBox : public CTaskBox
 {
-	NMHDR			hdr;
-} IRC_PANELEVENT;
+public:
+	CIRCUsersBox();
+	virtual ~CIRCUsersBox();
+	DECLARE_DYNAMIC(CIRCUsersBox)
+
+	CListBox			m_wndUserList;
+	CBitmap				m_bmWatermark;
+	CDC					m_dcBuffer;
+	CBitmap				m_bmBuffer;
+	HBITMAP				m_hBuffer;
+
+	void	OnSkinChange();
+	void	UpdateCaptionCount();
+
+protected:
+	int		HitTest(const CPoint& pt) const;
+
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnPaint();
+	afx_msg void OnUsersDoubleClick();
+	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg int OnCompareItem(int nIDCtl, LPCOMPAREITEMSTRUCT lpCompareItemStruct);
+
+	DECLARE_MESSAGE_MAP()
+};
 
 class CIRCPanel : public CTaskPanel
 {
@@ -103,21 +112,14 @@ public:
 	virtual BOOL Create(CWnd* pParentWnd);
 
 protected:
-	CFont			m_pFont;
+	CFont	m_pFont;
 
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 
 	DECLARE_MESSAGE_MAP()
 };
 
-#define	ID_COLOR_LISTTEXT				6
-#define IDC_IRC_USERS					121
-#define IDC_IRC_CHANNELS				122
-#define IDC_IRC_DBLCLKCHANNELS			200
-#define IDC_IRC_DBLCLKUSERS				201
-#define	IDC_IRC_MENUUSERS				202
-#define IDC_IRC_ADDCHANNEL				203
-#define IDC_IRC_REMOVECHANNEL			204
-
-#define	WM_REMOVECHANNEL				20933
-#define	WM_ADDCHANNEL					20934
+typedef struct
+{
+	NMHDR	hdr;
+} IRC_PANELEVENT;

@@ -3380,8 +3380,9 @@
 		<control caption="Szellemfájl készítése törléskor"/>
 		<control caption="Okos epizódérzékelés"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Medialejátszó">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Medialejátszó">
 		<control caption="_Beállítások"/>
+		<control caption="Médialejátszó kiválasztása:"/>
 		<control/>
 		<control caption="A listában lévő fájltípusok lejátszása"/>
 		<control caption="A listában lévő fájltípusok lejátszólistába való helyezése"/>
@@ -3391,8 +3392,6 @@
 		<control caption="_Eltávolít"/>
 		<control caption="_Képi megjelenítés plugin"/>
 		<control caption="_Plugin kiválasztása..."/>
-		<control caption="Média _lejátszása"/>
-		<control caption="Médialejátszó kiválasztása:"/>
 		<control caption="Figyelem: külső médialejátszó használatakor az összes belső plugin és képi megjelenítő kikapcsol!"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Közösség">

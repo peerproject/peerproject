@@ -332,10 +332,10 @@ Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\PeerPro
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\PeerProject.exe"; ValueType: string; ValueName: "Path"; ValueData: "{app}"; Flags: uninsdeletekey deletevalue
 
 ; Install chat notify sound
-Root: HKCU; Subkey: "AppEvents\EventLabels\RAZA_IncomingChat"; ValueType: string; ValueName: ; ValueData: "{cm:reg_incomingchat}"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "AppEvents\EventLabels\Sound_IncomingChat"; ValueType: string; ValueName: ; ValueData: "{cm:reg_incomingchat}"; Flags: uninsdeletekey
 Root: HKCU; Subkey: "AppEvents\Schemes\Apps\PeerProject"; ValueType: string; ValueName: ; ValueData: "{cm:reg_apptitle}"; Flags: uninsdeletekey
-Root: HKCU; Subkey: "AppEvents\Schemes\Apps\PeerProject\RAZA_IncomingChat\.current"; ValueType: string; ValueName: ; ValueData: "%SystemRoot%\Media\notify.wav"; Flags: uninsdeletekey
-Root: HKCU; Subkey: "AppEvents\Schemes\Apps\PeerProject\RAZA_IncomingChat\.default"; ValueType: string; ValueName: ; ValueData: "%SystemRoot%\Media\notify.wav"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "AppEvents\Schemes\Apps\PeerProject\Sound_IncomingChat\.current"; ValueType: string; ValueName: ; ValueData: "%SystemRoot%\Media\notify.wav"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "AppEvents\Schemes\Apps\PeerProject\Sound_IncomingChat\.default"; ValueType: string; ValueName: ; ValueData: "%SystemRoot%\Media\notify.wav"; Flags: uninsdeletekey
 
 ; Set UPNP as choosed during the setup
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Connection"; ValueType: dword; ValueName: "EnableUPnP"; ValueData: 1; Flags: deletevalue; Tasks: upnp
@@ -449,6 +449,8 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: st
 ; Disable extensions for plugins which make trouble
 ; Since it is image services plugin we need to add extensions required for the first run
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; ValueType: string; ValueName: "{{C9314782-CB91-40B8-B375-F631FF30C1C8}"; ValueData: "|-.pdf||.bmp||.png||.jpg|"; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; Flags: dontcreatekey uninsdeletekey
+
 
 [Dirs]
 ; Make complete, incomplete, torrent and collection dir

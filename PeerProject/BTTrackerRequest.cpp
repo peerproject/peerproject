@@ -185,15 +185,9 @@ void CBTTrackerRequest::OnRun()
 {
 	// Check if the request return needs to be parsed
 	if ( m_bProcess )
-	{
-		// Parse the result if there is one
-		Process( m_pRequest.Execute( false ) );
-	}
+		Process( m_pRequest.Execute( false ) );	// Parse result if there is one (ToDo: need to verify m_sURL)
 	else
-	{
-		// Don't wait for a result, just send the request
-		m_pRequest.Execute( false );
-	}
+		m_pRequest.Execute( false );			// Don't wait for result, just send the request
 
 	delete this;
 }

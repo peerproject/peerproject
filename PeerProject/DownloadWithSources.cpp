@@ -79,21 +79,21 @@ CDownloadWithSources::~CDownloadWithSources()
 
 POSITION CDownloadWithSources::GetIterator() const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pSources.GetHeadPosition();
 }
 
 CDownloadSource* CDownloadWithSources::GetNext(POSITION& rPosition) const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pSources.GetNext( rPosition );
 }
 
 INT_PTR CDownloadWithSources::GetCount() const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pSources.GetCount();
 }
@@ -217,7 +217,8 @@ BOOL CDownloadWithSources::CheckSource(CDownloadSource* pCheck) const
 
 void CDownloadWithSources::ClearSources()
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+//	ASSUME_LOCK( Transfers.m_pSection );
+	CQuickLock( Transfers.m_pSection );
 
 	for ( POSITION posSource = GetIterator() ; posSource ; )
 	{
@@ -271,7 +272,7 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 			if ( m_oMD5 != pHit->m_oMD5 ) return FALSE;
 			bHash = TRUE;
 		}
-		// BTH check is a last chance
+		// BTH check is last chance
 		if ( ! bHash && m_oBTH && pHit->m_oBTH )
 		{
 			if ( m_oBTH != pHit->m_oBTH ) return FALSE;
@@ -317,18 +318,12 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 	}
 
 	if ( m_nSize == SIZE_UNKNOWN && pHit->m_bSize )
-	{
 		m_nSize = pHit->m_nSize;
-	}
 	else if ( m_nSize != SIZE_UNKNOWN && pHit->m_bSize && m_nSize != pHit->m_nSize )
-	{
 		return FALSE;
-	}
 
 	if ( m_sName.IsEmpty() && pHit->m_sName.GetLength() )
-	{
 		m_sName = pHit->m_sName;
-	}
 
 	if ( Settings.Downloads.Metadata && m_pXML == NULL )
 	{
@@ -340,27 +335,21 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 			m_pXML->AddElement( pHit->m_pXML->Clone() );
 
 			if ( CSchema* pSchema = SchemaCache.Get( pHit->m_sSchemaURI ) )
-			{
 				pSchema->Validate( m_pXML, TRUE );
-			}
 		}
 	}
 
-	/*
-	if ( pHit->m_nProtocol == PROTOCOL_ED2K )
-	{
-		Neighbours.FindDonkeySources( pHit->m_oED2K,
-			(IN_ADDR*)pHit->m_oClientID.begin(), (WORD)pHit->m_oClientID.begin()[1] );
-	}
-	*/
+	//if ( pHit->m_nProtocol == PROTOCOL_ED2K )
+	//{
+	//	Neighbours.FindDonkeySources( pHit->m_oED2K,
+	//		(IN_ADDR*)pHit->m_oClientID.begin(), (WORD)pHit->m_oClientID.begin()[1] );
+	//}
 
 	// No URL, stop now with success
 	if ( ! pHit->m_sURL.IsEmpty() )
 	{
 		if ( ! AddSourceInternal( new CDownloadSource( (CDownload*)this, pHit ) ) )
-		{
 			return FALSE;
-		}
 	}
 
 	if ( bUpdated )	QueryHashMaster.Invalidate();
@@ -473,40 +462,32 @@ BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLa
 
 	// Get SHA1
 	if ( pURL.m_oSHA1 && ! m_oSHA1 )
-	{
 		m_oSHA1 = pURL.m_oSHA1;
-	}
+
 	// Get Tiger
 	if ( pURL.m_oTiger && ! m_oTiger )
-	{
 		m_oTiger = pURL.m_oTiger;
-	}
+
 	// Get ED2K
 	if ( pURL.m_oED2K && ! m_oED2K )
-	{
 		m_oED2K = pURL.m_oED2K;
-	}
+
 	// Get MD5
 	if ( pURL.m_oMD5 && ! m_oMD5 )
-	{
 		m_oMD5 = pURL.m_oMD5;
-	}
+
 	// Get BTH
 	if ( pURL.m_oBTH && ! m_oBTH )
-	{
 		m_oBTH = pURL.m_oBTH;
-	}
+
 	// Get size
-	if ( m_nSize == SIZE_UNKNOWN &&
-		pURL.m_bSize && pURL.m_nSize && pURL.m_nSize != SIZE_UNKNOWN )
-	{
+	if ( m_nSize == SIZE_UNKNOWN &&	pURL.m_bSize && pURL.m_nSize && pURL.m_nSize != SIZE_UNKNOWN )
 		m_nSize = pURL.m_nSize;
-	}
+
 	// Get name
 	if ( m_sName.IsEmpty() && pURL.m_sName.GetLength() )
-	{
 		m_sName = pURL.m_sName;
-	}
+
 
 	return AddSourceInternal( new CDownloadSource( static_cast< const CDownload* >( this ),
 		pszURL, bURN, bHashAuth, pLastSeen, nRedirectionCount ) );
@@ -540,13 +521,9 @@ int CDownloadWithSources::AddSourceURLs(LPCTSTR pszURLs, BOOL bURN, BOOL bFailed
 			( tSeen.dwLowDateTime | tSeen.dwHighDateTime ) ? &tSeen : NULL, 0, bFailed ) )
 		{
 			if ( bFailed )
-			{
 				theApp.Message( MSG_DEBUG, L"Adding X-NAlt: %s", (LPCTSTR)strURL );
-			}
 			else
-			{
 				theApp.Message( MSG_DEBUG, L"Adding X-Alt: %s", (LPCTSTR)strURL );
-			}
 			nCount++;
 		}
 	}
@@ -633,13 +610,13 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 						// Set connection delay the same as for the old source
 						pSource->m_tAttempt = pExisting->m_tAttempt;
 							pExisting->Remove( TRUE, FALSE );
-						}
 					}
 				}
 			}
+		}
 
 		if ( bDeleteSource )
-	{
+		{
 			delete pSource;
 
 			SetModified();
@@ -843,8 +820,8 @@ CFailedSource* CDownloadWithSources::LookupFailedSource(LPCTSTR pszUrl, bool bRe
 				if ( nTotalVotes > 20 && pResult->m_nNegativeVotes / nTotalVotes > 2 / 3 )
 					break;
 			}
-			break; // temp solution to have the same source not added more than once
-				   // we should check IPs which add these sources though, since voting takes place
+			break; // Temp solution to ensure same source not added more than once
+				   // We should check IPs which add these sources, since voting takes place, etc.
 		}
 		else
 			pResult = NULL;
@@ -1009,9 +986,7 @@ void CDownloadWithSources::RemoveSource(CDownloadSource* pSource, BOOL bBan)
 	InternalRemove( pSource );
 
 	if ( bBan && pSource->m_sURL.GetLength() )
-	{
 		AddFailedSource( pSource );
-	}
 
 	delete pSource;
 
@@ -1175,9 +1150,7 @@ void CDownloadWithSources::MergeMetadata(const CXMLElement* pXML)
 			CXMLElement* pElement1 = m_pXML->GetFirstElement();
 			CXMLElement* pElement2 = pXML->GetFirstElement();
 			if ( pElement1 && pElement2 )
-			{
 				pElement1->Merge( pElement2 );
-			}
 		}
 	}
 	else

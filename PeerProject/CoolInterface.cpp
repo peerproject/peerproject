@@ -263,12 +263,10 @@ void CCoolInterface::SetIcon(HICON hIcon, BOOL bMirrored, BOOL bBigIcon, CWnd* p
 //BOOL CCoolInterface::AddImagesFromToolbar(UINT nIDToolBar, COLORREF crBack)
 //{
 //	VERIFY( ConfirmImageList() );
-
 //	CBitmap pBmp;
 //	if ( ! pBmp.LoadBitmap( nIDToolBar ) ) return FALSE;
 //	int nBase = m_pImages.Add( &pBmp, crBack );
 //	pBmp.DeleteObject();
-
 //	if ( nBase < 0 ) return FALSE;
 
 //	BOOL bRet = FALSE;
@@ -412,7 +410,7 @@ void CCoolInterface::DrawThumbnail(CDC* pDC, const CRect& rcThumb,
 		if ( info.bmWidth > info.bmHeight )
 			cy = ( cx * info.bmHeight ) / info.bmWidth;
 		else
-			cx = ( cx * info.bmWidth ) / info.bmHeight;
+			cx = ( cy * info.bmWidth ) / info.bmHeight;
 
 		int x = rcFrame.left + ( rcFrame.Width() - cx ) / 2;
 		int y = rcFrame.top + ( rcFrame.Height() - cy ) / 2;
@@ -579,9 +577,7 @@ BOOL CCoolInterface::Add(CSkin* pSkin, CXMLElement* pBase, HBITMAP hbmImage, COL
 		break;
 	}
 	if ( nBase < 0 )
-	{
 		return FALSE;
-	}
 
 	const LPCTSTR pszNames[] = {
 		_T("id"),  _T("id1"), _T("id2"), _T("id3"), _T("id4"), _T("id5"),

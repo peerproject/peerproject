@@ -3421,8 +3421,9 @@
 		<control caption="Crea file fantasma durante la cancellazione"/>
 		<control caption="Rilevamento intelligente serie di video"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Media player">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media player">
 		<control caption="_Opzioni:"/>
+		<control caption="Scegli il media player:"/>
 		<control/>
 		<control caption="Usa PeerProject media player per RIPRODURRE i tipi di file elencati di seguito"/>
 		<control caption="Usa PeerProject media player per ACCODARE i tipi di file elencati di seguito"/>
@@ -3432,9 +3433,7 @@
 		<control caption="_Rimuovi"/>
 		<control caption="Plugin di _visualizzazione audio:"/>
 		<control caption="_Seleziona plugin..."/>
-		<control caption="Gestione dei file _multimediali"/>
-		<control caption="Scegli il media player:"/>
-		<control caption="Avvertimento: Scegliendo un media player esterno saranno automaticamente disabilitati tutti i plugin di visualizzazione e multimediali!"/>
+		<control caption="Avvertimento: Scegliendo un media player esterno saranno automaticamente disabilitati tutti i plugin di visualizzazione e multimediali."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Comunità">
 		<control caption="Il mio _profilo:"/>

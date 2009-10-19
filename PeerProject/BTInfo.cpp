@@ -263,11 +263,12 @@ CBTInfo& CBTInfo::Copy(const CBTInfo& oSource)
 //////////////////////////////////////////////////////////////////////
 // CBTInfo serialize
 
-#define BTINFO_SER_VERSION 9
-// History:
+#define BTINFO_SER_VERSION	1000	//9
+// nVersion History:
 // 7 - redesigned tracker list (ryo-oh-ki)
 // 8 - removed m_nFilePriority (ryo-oh-ki)
 // 9 - added m_sName (ryo-oh-ki)
+// 1000 - (PeerProject 1.0) (9)
 
 void CBTInfo::Serialize(CArchive& ar)
 {
@@ -315,23 +316,15 @@ void CBTInfo::Serialize(CArchive& ar)
 	}
 	else
 	{
+		// ToDo: What BTINFO_SER_VERSION nVersions are necessary for PeerProject? (Imports)
+
 		ar >> nVersion;
-		if ( nVersion < 1 ) AfxThrowUserException();
+		if ( nVersion < 5 ) AfxThrowUserException();
 
 		SerializeIn( ar, m_oBTH, nVersion );
 		if ( !m_oBTH ) return;
 
-		if ( nVersion >= 2 )
-		{
-			ar >> m_nTotalSize;
-		}
-		else
-		{
-			DWORD nTotalSize;
-			ar >> nTotalSize;
-			m_nTotalSize = nTotalSize;
-		}
-
+		ar >> m_nTotalSize;
 		ar >> m_nBlockSize;
 		ar >> m_nBlockCount;
 
@@ -341,20 +334,17 @@ void CBTInfo::Serialize(CArchive& ar)
 			ReadArchive( ar, m_pBlockBTH[ i ].begin(), Hashes::BtPureHash::byteCount );
 		}
 
-		if ( nVersion >= 4 ) ar >> m_nTotalUpload;
-		if ( nVersion >= 6 ) ar >> m_nTotalDownload;
+		ar >> m_nTotalUpload;
+		ar >> m_nTotalDownload;
 
 		ar >> m_sName;
 
-		if ( nVersion >= 3 )
-		{
-			ar >> m_nEncoding;
-			ar >> m_sComment;
-			ar >> m_tCreationDate;
-			ar >> m_sCreatedBy;
-		}
+		ar >> m_nEncoding;
+		ar >> m_sComment;
+		ar >> m_tCreationDate;
+		ar >> m_sCreatedBy;
 
-		if ( nVersion >= 5 ) ar >> m_bPrivate;
+		ar >> m_bPrivate;
 
 		int nFiles = (int)ar.ReadCount();
 		QWORD nOffset = 0;
@@ -362,8 +352,7 @@ void CBTInfo::Serialize(CArchive& ar)
 		{
 			CAutoPtr< CBTFile >pBTFile( new CBTFile( this ) );
 			if ( ! pBTFile )
-				// Out Of Memory
-				AfxThrowUserException();
+				AfxThrowUserException();	// Out Of Memory
 
 			pBTFile->Serialize( ar, nVersion );
 
@@ -373,51 +362,50 @@ void CBTInfo::Serialize(CArchive& ar)
 			m_pFiles.AddTail( pBTFile.Detach() );
 		}
 
-		if ( nVersion < 7 )
+		if ( nVersion < 7 )	// Shareaza 2.3 Import?
 		{
 			CString sTracker;
 			ar >> sTracker;
 			SetTracker( sTracker );
 		}
 
-		if ( nVersion >= 4 )
+		ar >> m_nTrackerIndex;
+		ar >> m_nTrackerMode;
+
+		if ( nVersion < 7 )	// Shareaza 2.3 Import?
 		{
-			ar >> m_nTrackerIndex;
-			ar >> m_nTrackerMode;
-
-			if ( nVersion < 7 )
-			{
-				int nTrackers = (int)ar.ReadCount();
-				if ( nTrackers )
-				{
-					CBTTracker oTracker;
-					oTracker.Serialize( ar, nVersion );
-					AddTracker( oTracker );
-				}
-			}
-
 			int nTrackers = (int)ar.ReadCount();
 			if ( nTrackers )
 			{
-				for ( int nTracker = 0 ; nTracker < nTrackers ; nTracker++ )
-				{
-					CBTTracker oTracker;
-					oTracker.Serialize( ar, nVersion );
-					AddTracker( oTracker );
-				}
+				CBTTracker oTracker;
+				oTracker.Serialize( ar, nVersion );
+				AddTracker( oTracker );
+			}
+		}
+
+		int nTrackers = (int)ar.ReadCount();
+		if ( nTrackers )
+		{
+			for ( int nTracker = 0 ; nTracker < nTrackers ; nTracker++ )
+			{
+				CBTTracker oTracker;
+				oTracker.Serialize( ar, nVersion );
+				AddTracker( oTracker );
 			}
 		}
 
 		SetTrackerNext();
 
+		//Imported Partial from Shareaza 2.4
 		if ( nVersion < 8 )
-			//Imported Partial from Shareaza
 			ConvertOldTorrents();
 	}
 }
 
 void CBTInfo::ConvertOldTorrents()
 {
+	//For Importing Shareaza 2.4 Multifile Partial Only
+
 	if ( m_pFiles.GetCount() < 2 )
 		return;
 
@@ -509,7 +497,7 @@ void CBTInfo::ConvertOldTorrents()
 
 void CBTInfo::CBTFile::Serialize(CArchive& ar, int nVersion)
 {
-	// ToDo: What nVersions are necessary for PeerProject?
+	// ToDo: What BTINFO_SER_VERSION nVersions are necessary for PeerProject? (Imports)
 
 	if ( ar.IsStoring() )
 	{
@@ -523,28 +511,18 @@ void CBTInfo::CBTFile::Serialize(CArchive& ar, int nVersion)
 	}
 	else
 	{
-		if ( nVersion >= 2 )
-		{
-			ar >> m_nSize;
-		}
-		else
-		{
-			DWORD nSize;
-			ar >> nSize;
-			m_nSize = nSize;
-		}
-
+		ar >> m_nSize;
 		ar >> m_sPath;
 
 		if ( nVersion >= 9 )
 			ar >> m_sName;
-		else // Upgrade
+		else // Upgrade Shareaza Import
 			m_sName = PathFindFileName( m_sPath );
 
 		SerializeIn( ar, m_oSHA1, nVersion );
 
-		if ( nVersion >= 4 )
-		{
+	//	if ( nVersion >= 4 )
+	//	{
 			SerializeIn( ar, m_oED2K, nVersion );
 			SerializeIn( ar, m_oTiger, nVersion );
 			if ( nVersion < 8 )
@@ -552,12 +530,10 @@ void CBTInfo::CBTFile::Serialize(CArchive& ar, int nVersion)
 				int nFilePriority;
 				ar >> nFilePriority;
 			}
-		}
+	//	}
 
 		if ( nVersion >= 6 )
-		{
 			SerializeIn( ar, m_oMD5, nVersion );
-		}
 	}
 }
 
@@ -677,18 +653,14 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 				UINT nEncoding = 0;
 				strEncoding = strEncoding.Mid( 8 );
 				if ( ( _stscanf( strEncoding, _T("%u"), &nEncoding ) == 1 ) && ( nEncoding > 0 ) )
-				{
 					m_nEncoding = nEncoding;
-				}
 			}
 			else if ( _tcsnicmp( strEncoding.GetString() , _T("CP"), 2 ) == 0 )
 			{
 				UINT nEncoding = 0;
 				strEncoding = strEncoding.Mid( 2 );
 				if ( ( _stscanf( strEncoding, _T("%u"), &nEncoding ) == 1 ) && ( nEncoding > 0 ) )
-				{
 					m_nEncoding = nEncoding;
-				}
 			}
 		}
 	}
@@ -1113,40 +1085,24 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 
 			// Set data/file hashes (if they aren't)
 			if ( m_pFiles.GetHead()->m_oSHA1 )
-			{
 				m_oSHA1 = m_pFiles.GetHead()->m_oSHA1;
-			}
 			else if ( m_oSHA1 )
-			{
 				m_pFiles.GetHead()->m_oSHA1 = m_oSHA1;
-			}
 
 			if ( m_pFiles.GetHead()->m_oED2K )
-			{
 				m_oED2K = m_pFiles.GetHead()->m_oED2K;
-			}
 			else if ( m_oED2K )
-			{
 				m_pFiles.GetHead()->m_oED2K = m_oED2K;
-			}
 
 			if ( m_pFiles.GetHead()->m_oMD5 )
-			{
 				m_oMD5 = m_pFiles.GetHead()->m_oMD5;
-			}
 			else if ( m_oMD5 )
-			{
 				m_pFiles.GetHead()->m_oMD5 = m_oMD5;
-			}
 
 			if ( m_pFiles.GetHead()->m_oTiger )
-			{
 				m_oTiger = m_pFiles.GetHead()->m_oTiger;
-			}
 			else if ( m_oTiger )
-			{
 				m_pFiles.GetHead()->m_oTiger = m_oTiger;
-			}
 		}
 	}
 	else

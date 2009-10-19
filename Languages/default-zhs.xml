@@ -3214,8 +3214,9 @@
 		<control caption="当删除时建立回收文件"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="媒体">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="媒体">
 		<control caption="媒体服务(_M):"/>
+		<control caption="选择媒体滤镜:"/>
 		<control/>
 		<control caption="使用 PeerProject 媒体播放器播放下列文件类型"/>
 		<control caption="使用 PeerProject 媒体播放器排队下列文件类型"/>
@@ -3225,8 +3226,6 @@
 		<control caption="移除(_R)"/>
 		<control caption="可视化音频插件(_V):"/>
 		<control caption="选择插件(_S)..."/>
-		<control caption="媒体滤镜(_M)"/>
-		<control caption="选择媒体滤镜:"/>
 		<control caption="警告: 选择一个额外的媒体滤镜将自动禁用所有的媒体和可视化插件！"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="社区">

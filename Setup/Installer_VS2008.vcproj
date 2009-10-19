@@ -155,7 +155,15 @@
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath="Scripts\Readme.txt"
+			RelativePath="Scripts\Languages.iss"
+			>
+		</File>
+		<File
+			RelativePath="Scripts\Settings.iss"
+			>
+		</File>
+		<File
+			RelativePath="..\ReadMe.txt"
 			>
 		</File>
 	</Files>

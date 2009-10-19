@@ -123,24 +123,20 @@ void CSplashDlg::Step(LPCTSTR pszText)
 void CSplashDlg::Topmost()
 {
 	if ( IsWindowVisible() )
-	{
 		SetWindowPos( &wndTop, 0, 0, 0, 0, SWP_NOMOVE|SWP_NOSIZE|SWP_SHOWWINDOW );
-	}
 }
 
 void CSplashDlg::Hide()
 {
 	// Check if m_nMax was set too high during construction, or if not enough steps were run
-	ASSERT( m_nPos == m_nMax );
+	//ASSERT( m_nPos == m_nMax );
 
 	m_sState = _T("Ready");
 	SetWindowText( m_sState );
 	Invalidate();
 
 	if ( m_pfnAnimateWindow != NULL )
-	{
 		(*m_pfnAnimateWindow)( GetSafeHwnd(), 250, AW_HIDE|AW_BLEND );
-	}
 
 	::DestroyWindow( m_hWnd );
 	delete this;

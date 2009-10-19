@@ -121,7 +121,8 @@ CFilePreviewDlg::CFilePreviewDlg(CDownloadWithExtras* pDownload, DWORD nIndex, C
 
 		if ( ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0x8000 )
 		{
-			while ( m_pRanges.GetSize() > 2 ) m_pRanges.RemoveAt( 2 );
+			while ( m_pRanges.GetSize() > 2 )
+				m_pRanges.RemoveAt( 2 );
 		}
 	}
 }
@@ -162,9 +163,8 @@ BOOL CFilePreviewDlg::Create()
 		{
 			LPCDLGTEMPLATE lpDialogTemplate = (LPCDLGTEMPLATE)LockResource( hTemplate );
 			if ( lpDialogTemplate )
-			{
 				bResult = CreateDlgIndirect( lpDialogTemplate, NULL, hInst );
-			}
+
 			FreeResource( hTemplate );
 		}
 	}
@@ -258,7 +258,8 @@ void CFilePreviewDlg::OnTimer(UINT_PTR nIDEvent)
 		m_sOldStatus = m_sStatus;
 	}
 
-	if ( ! m_wndCancel.IsWindowEnabled() ) m_wndCancel.EnableWindow( TRUE );
+	if ( ! m_wndCancel.IsWindowEnabled() )
+		m_wndCancel.EnableWindow( TRUE );
 }
 
 void CFilePreviewDlg::OnClose()
@@ -282,13 +283,10 @@ void CFilePreviewDlg::OnDestroy()
 
 	if ( m_pDownload != NULL )
 	{
-		CSingleLock oLock( &Transfers.m_pSection, FALSE );
-		if ( oLock.Lock( 1500 ) )
-		{
-			if ( Downloads.Check( (CDownload*)m_pDownload ) )
-				m_pDownload->m_pPreviewWnd = NULL;
-			oLock.Unlock();
-		}
+		CQuickLock pLock( Transfers.m_pSection );
+
+		if ( Downloads.Check( (CDownload*)m_pDownload ) )
+			m_pDownload->m_pPreviewWnd = NULL;
 
 		m_pDownload = NULL;
 	}
@@ -441,8 +439,7 @@ BOOL CFilePreviewDlg::RunManual(HANDLE hFile)
 BOOL CFilePreviewDlg::QueueDeleteFile(LPCTSTR pszFile)
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-
-	if ( pLock.Lock( 500 ) )
+	if ( pLock.Lock( 1000 ) )
 	{
 		if ( Downloads.Check( (CDownload*)m_pDownload ) )
 		{

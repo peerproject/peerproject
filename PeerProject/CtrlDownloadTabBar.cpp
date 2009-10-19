@@ -132,7 +132,8 @@ CSize CDownloadTabBar::CalcFixedLayout(BOOL /*bStretch*/, BOOL /*bHorz*/)
 	{
 		CRect rc;
 		pParent->GetWindowRect( &rc );
-		if ( rc.Width() > 32 ) size.cx = rc.Width() + 2;
+		if ( rc.Width() > 32 )
+			size.cx = rc.Width() + 2;
 	}
 
 	return size;
@@ -380,17 +381,11 @@ void CDownloadTabBar::OnLButtonDown(UINT nFlags, CPoint point)
 		BOOL bChanged	= FALSE;
 
 		if ( bControl )
-		{
 			bChanged |= pHit->Select( ! pHit->m_bSelected );
-		}
 		else if ( bShift )
-		{
 			bChanged |= pHit->Select( TRUE );
-		}
 		else
-		{
 			bChanged |= Select( pHit );
-		}
 
 		if ( bChanged ) NotifySelection();
 
@@ -511,9 +506,7 @@ void CDownloadTabBar::GetSelectedDownloads(CList< CDownload* >* pDownloads)
 		TabItem* pItem = m_pItems.GetNext( pos );
 
 		if ( pItem->m_bSelected && DownloadGroups.Check( pItem->m_pGroup ) )
-		{
 			pItem->m_pGroup->CopyList( *pDownloads );
-		}
 	}
 }
 
@@ -726,9 +719,7 @@ BOOL CDownloadTabBar::DropObjects(CList< CDownload* >* pList, const CPoint& ptSc
 			if ( Downloads.Check( pDownload ) )
 			{
 				if ( bMove )
-				{
 					DownloadGroups.Unlink( pDownload, FALSE );
-				}
 
 				pItem->m_pGroup->Add( pDownload );
 			}
@@ -786,9 +777,7 @@ BOOL CDownloadTabBar::TabItem::Update(int nCookie)
 	}
 
 	if ( bChanged )
-	{
 		m_sCaption.Format( _T("%s (%i)"), (LPCTSTR)m_sName, m_nCount );
-	}
 
 	return bChanged;
 }
@@ -915,21 +904,13 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 	rc.left -= 20;
 
 	if ( crBack != CLR_NONE )
-	{
 		pDC->SetBkColor( crBack );
-	}
 	if ( m_bSelected || bHot )
-	{
 		pDC->SetTextColor( Colors.m_crCmdTextSel );
-	}
 	else if ( ! bPopulated )
-	{
 		pDC->SetTextColor( Colors.m_crDisabled );
-	}
 	else
-	{
 		pDC->SetTextColor( Colors.m_crCmdText );
-	}
 
 	if ( crBack != CLR_NONE )
 	{
@@ -942,4 +923,3 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 		pDC->ExtTextOut( rc.left + 20, rc.top + 2, ETO_CLIPPED, &rc, strText, NULL );
 	}
 }
-

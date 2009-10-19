@@ -3217,8 +3217,9 @@
 		<control caption="Create ghost files when deleting"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBu" caption="Predvajalnik">
+	<dialog name="CMediaSettingsPage" cookie="CMediaSettingsPage" caption="Predvajalnik">
 		<control caption="_Medijske storitve:"/>
+		<control caption="Izberi Medijske Handler:"/>
 		<control/>
 		<control caption="Uporabi PeerProject predvajalnik za PREDVAJANJE spodaj navedenih datotečnih tipov"/>
 		<control caption="Uporabi PeerProject predvajalnik za POSTAVITEV V VRSTO spodaj navedenih datotečnih tipov"/>
@@ -3226,8 +3227,9 @@
 		<control/>
 		<control caption="_Dodaj"/>
 		<control caption="_Odstrani"/>
-		<control caption="Zvokovni _vizualizacijski vtičnik (plugin):"/>
+		<control caption="Zvokovni _vizualizacijski vtičnik:"/>
 		<control caption="_Izberi vtičnik..."/>
+		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Družba">
 		<control caption="Moj _Profil:"/>

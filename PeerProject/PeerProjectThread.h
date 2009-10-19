@@ -30,13 +30,13 @@
 #endif
 
 
-class CRazaThread : public CWinThread
+class CAppThread : public CWinThread
 {
-	DECLARE_DYNAMIC(CRazaThread)
+	DECLARE_DYNAMIC(CAppThread)
 
 public:
-	CRazaThread(AFX_THREADPROC pfnThreadProc = NULL, LPVOID pParam = NULL);
-	virtual ~CRazaThread();
+	CAppThread(AFX_THREADPROC pfnThreadProc = NULL, LPVOID pParam = NULL);
+	virtual ~CAppThread();
 
 	virtual HANDLE CreateThread(LPCSTR pszName, int nPriority = THREAD_PRIORITY_NORMAL,
 		DWORD dwCreateFlags = 0, UINT nStackSize = 0,
@@ -44,14 +44,14 @@ public:
 	virtual BOOL InitInstance();
 	virtual int Run();
 
-	static void Add(CRazaThread* pThread, LPCSTR pszName);
+	static void Add(CAppThread* pThread, LPCSTR pszName);
 	static void Remove(HANDLE hThread);
 	static void Terminate(HANDLE hThread);
 
 protected:
 	typedef struct
 	{
-		CRazaThread*	pThread;	// Thread object
+		CAppThread*	pThread;	// Thread object
 		LPCSTR			pszName;	// Thread name
 	} CThreadTag;
 

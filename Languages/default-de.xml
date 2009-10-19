@@ -3476,8 +3476,9 @@
 		<control caption="Erst. Ghost-Dateien beim Löschen"/>
 		<control caption="Smart video series detection"/> <!-- ToDo -->
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Medienwiedergabe">
-		<control caption="_Optionen:"/>
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Medienwiedergabe">
+		<control caption="_Medienverwaltung:"/>
+		<control caption="Media Player wählen:"/>
 		<control/>
 		<control caption="Di_e Medienwiedergabe benutzen um folgende Dateitypen wiederzugeben"/>
 		<control caption="_Die Wiedergabeliste für folgende Dateitypen benutzen"/>
@@ -3487,9 +3488,7 @@
 		<control caption="_Entfernen"/>
 		<control caption="_Visualisierungsplugin:"/>
 		<control caption="Plugin _wählen..."/>
-		<control caption="_Medienverwaltung:"/>
-		<control caption="Media Player wählen:"/>
-		<control caption="Warnung: Wenn Sie ihre Medien durch einen externen Player verwalten lassen, deaktiviert dies automatisch alle Medien- und Visualisierungsplugins!"/>
+		<control caption="Wenn Sie ihre Medien durch einen externen Player verwalten lassen, deaktiviert dies automatisch alle Medien- und Visualisierungsplugins!"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Community">
 		<control caption="Mein _Profil:"/>

@@ -4499,6 +4499,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Data\Splash.png"
+				>
+			</File>
+			<File
+				RelativePath="..\Data\DefaultServices.dat"
+				>
+			</File>
+			<File
 				RelativePath="Res\Default.xml"
 				>
 				<FileConfiguration
@@ -4540,10 +4548,6 @@
 			</File>
 			<File
 				RelativePath="Res\Default.xml.gz"
-				>
-			</File>
-			<File
-				RelativePath="..\Data\DefaultServices.dat"
 				>
 			</File>
 			<File
@@ -4904,10 +4908,6 @@
 			</File>
 			<File
 				RelativePath="Res\SortDesc.bmp"
-				>
-			</File>
-			<File
-				RelativePath="..\Data\Splash.png"
 				>
 			</File>
 			<File

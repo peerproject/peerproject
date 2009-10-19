@@ -3456,8 +3456,9 @@
 		<control caption="Δημιουργία αρχείων φαντασμάτων"/>
 		<control caption="Εντόπιση σειρών έξυπνων video"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Πολυμέσα">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Πολυμέσα">
 		<control caption="_Επιλογές:"/>
+		<control caption="Επιλογή Χειρισμού Πολυμέσων:"/>
 		<control/>
 		<control caption="Χρήση Αναπαρ. Πολυμέσων για ΑΝΑΠΑΡΑΓΩΓΗ αρχείων των εξής τύπων"/>
 		<control caption="Χρήση Αναπαρ. Πολυμέσων για ΑΝΑΡΤΗΣΗ αρχείων των εξής τύπων"/>
@@ -3467,8 +3468,6 @@
 		<control caption="_Αφαίρεση"/>
 		<control caption="Πρόσθετο (plugin) _Ηχητικής Απεικόνισης:"/>
 		<control caption="_Επιλογή..."/>
-		<control caption="_Χειρισμός Πολυμέσων"/>
-		<control caption="Επιλογή Χειρισμού Πολυμέσων:"/>
 		<control caption="Προειδοποίηση: Η επιλογή εξωτερικού Χειρισμού Πολυμέσων αυτομάτως θα απενεργοποιήσει όλα τα Πρόσθετα (plugins) Πολυμέσων και Απεικόνισης!"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Κοινότητα">

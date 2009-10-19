@@ -3401,8 +3401,9 @@
 		<control caption="Silerken hayalet dosya yarat"/>
 		<control caption="Zeki video serileri tespiti"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Ortam Oynatıcısı">
-		<control caption="_Seçenekler:"/>
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Ortam Oynatıcısı">
+		<control caption="_Medya Yönetimi"/>
+		<control caption="Ortam Servisleri Eklentisi:"/>
 		<control/>
 		<control caption="PeerProject Ortam Oynatıcısı aşağıda listelenen dosya türlerini OYNATIR"/>
 		<control caption="PeerProject Ortam Oynatıcısı aşağıda listelenen dosya türlerini SIRALAR"/>
@@ -3412,9 +3413,7 @@
 		<control caption="_Kaldır"/>
 		<control caption="Ses _canlandırma Eklentisi:"/>
 		<control caption="Eklenti _Seç..."/>
-		<control caption="_Medya Yönetimi"/>
-		<control caption="Ortam Servisleri Eklentisi:"/>
-		<control caption="Uyarı: Başka bir medya oynatıcısı seçmeniz tüm medya ve görüntüleme eklentilerini etkisizleştirir!"/>
+		<control caption="Uyarı: Başka bir medya oynatıcısı seçmeniz tüm medya ve görüntüleme eklentilerini etkisizleştirir."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Camia">
 		<control caption="_Profilim:"/>

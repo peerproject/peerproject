@@ -184,14 +184,11 @@ TRISTATE CFileExecutor::IsSafeExecute(LPCTSTR szExt, LPCTSTR szFile)
 			MB_ICONQUESTION | MB_YESNOCANCEL | MB_DEFBUTTON2 ) )
 		{
 		case IDYES:
-			// Run it
-			return TRI_TRUE;
-		case IDNO:
-			// Skip it
-			return TRI_FALSE;
+			return TRI_TRUE;	// Run it
+		case IDNO:	
+			return TRI_FALSE;	// Skip it
 		default:
-			// Cancel file operation
-			return TRI_UNKNOWN;
+			return TRI_UNKNOWN;	// Cancel file operation
 		}
 	}
 
@@ -212,20 +209,16 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck, LPCTSTR ps
 		 strType == _T(".emulecollection") )
 	{
 		if ( CLibraryWnd* pWnd = GetLibraryWindow() )
-		{
 			pWnd->OnCollection( pszFile );
-		}
-		// Skip file
-		return TRUE;
+		return TRUE;	// Skip file
 	}
 
 	// Open known file types
 	if ( theApp.Open( pszFile, FALSE ) )
 	{
 		theApp.Open( pszFile, TRUE );
-
-		// Skip file
-		return TRUE;
+	
+		return TRUE;	// Skip file
 	}
 
 	// Prepare partials

@@ -73,26 +73,7 @@ BOOL CAboutDlg::OnInitDialog()
 	strCaption += _T(" v");
 	strCaption += theApp.m_sVersion;
 	SetWindowText( strCaption );
-
-	m_wndTitle.GetWindowText( strCaption );
-	strCaption += theApp.m_sVersion;
-#ifdef _WIN64
-	strCaption += _T("  64-bit  (") + theApp.m_sBuildDate;
-#else
-	strCaption += _T("  32-bit  (") + theApp.m_sBuildDate;
-#endif
-#ifdef __REVISION__
-	strCaption += _T(" r") _T(__REVISION__) _T(")");
-#else
-	strCaption += _T(")");
-#endif
-#ifdef __MODAUTHOR__
-	strCaption += _T(" ") _T(__MODAUTHOR__);	// YOUR NAME (Edit in Revision.h)
-#endif
-#ifdef LAN_MODE
-	strCaption += _T(" LAN Mod");
-#endif
-	m_wndTitle.SetWindowText( strCaption );
+	m_wndTitle.SetWindowText( theApp.m_sVersionLong );	// PeerProject 1.x.x.x 32/64-bit (date rXXXX) Debug
 
 	DWORD dwSize = GetFileVersionInfoSize( theApp.m_strBinaryPath, &dwSize );
 	BYTE* pBuffer = new BYTE[ dwSize ];
@@ -102,7 +83,7 @@ BOOL CAboutDlg::OnInitDialog()
 	CString strCopyRight;
 
 	if ( VerQueryValue( pBuffer, L"\\StringFileInfo\\000004b0\\LegalCopyright",
-		 (void**)&pValue, (UINT*)&dwSize ) )
+		(void**)&pValue, (UINT*)&dwSize ) )
 		strCopyRight = (LPCTSTR)pValue;
 
 	delete [] pBuffer;
@@ -160,8 +141,7 @@ void CAboutDlg::OnLButtonDown(UINT nFlags, CPoint point)
 		const CString strWebSite(WEB_SITE_T);
 
 		ShellExecute( GetSafeHwnd(), _T("open"),
-			strWebSite + _T("?Version=") + theApp.m_sVersion,
-			NULL, NULL, SW_SHOWNORMAL );
+			strWebSite + _T("?Version=") + theApp.m_sVersion, NULL, NULL, SW_SHOWNORMAL );
 	}
 }
 

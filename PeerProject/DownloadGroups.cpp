@@ -86,9 +86,7 @@ CDownloadGroup* CDownloadGroups::Add(LPCTSTR pszName, BOOL bTemporary, BOOL bUse
 		{
 			CDownloadGroup* pGroup = m_pList.GetNext( pos );
 			if ( ! pGroup->m_sName.CompareNoCase( pszName ) )
-			{
 				return pGroup;
-			}
 		}
 	}
 
@@ -121,7 +119,7 @@ void CDownloadGroups::Remove(CDownloadGroup* pGroup)
 
 void CDownloadGroups::MoveLeft(CDownloadGroup* pGroup)
 {
-	CQuickLock pLock( m_pSection );
+	CSingleLock pLock( &m_pSection, TRUE );
 
 	if ( POSITION pos = m_pList.Find( pGroup ) )
 	{
@@ -140,7 +138,7 @@ void CDownloadGroups::MoveLeft(CDownloadGroup* pGroup)
 
 void CDownloadGroups::MoveRight(CDownloadGroup* pGroup)
 {
-	CQuickLock pLock( m_pSection );
+	CSingleLock pLock( &m_pSection, TRUE );
 
 	if ( POSITION pos = m_pList.Find( pGroup ) )
 	{
@@ -333,12 +331,13 @@ BOOL CDownloadGroups::Save(BOOL bForce)
 //////////////////////////////////////////////////////////////////////
 // CDownloadGroups serialize
 
-#define GROUPS_SER_VERSION	7
-// History:
+#define GROUPS_SER_VERSION	1000	//7
+// nVersion History:
 // 4 - Added m_bTemporary (ryo-oh-ki)
 // 5 - New download groups added (Image, Collection, etc.)
-// 6 - ???
+// 6 - ?
 // 7 - Added m_bTorrent (ryo-oh-ki), fixed collection schema
+// 1000 - (PeerProject 1.0) (7)
 
 void CDownloadGroups::Serialize(CArchive& ar)
 {
@@ -373,7 +372,7 @@ void CDownloadGroups::Serialize(CArchive& ar)
 	else
 	{
 		ar >> nVersion;
-		if ( nVersion <= 1 || nVersion > GROUPS_SER_VERSION ) AfxThrowUserException();
+		if ( nVersion < 2 || nVersion > GROUPS_SER_VERSION ) AfxThrowUserException();
 
 		DWORD_PTR nCount = ar.ReadCount();
 

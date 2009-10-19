@@ -233,12 +233,12 @@ BOOL CManagedSearch::ExecuteNeighbours(DWORD tTicks, DWORD tSecs)
 		if ( pNeighbour->m_nProtocol == PROTOCOL_G1 )
 		{
 			if ( tSecs - pNeighbour->m_tLastQuery <
-					Settings.Gnutella1.QueryThrottle ) continue;
+				Settings.Gnutella1.QueryThrottle ) continue;
 		}
 		else if ( pNeighbour->m_nProtocol == PROTOCOL_G2 )
 		{
 			if ( tSecs - pNeighbour->m_tLastQuery <
-					Settings.Gnutella2.QueryHostThrottle ) continue;
+				Settings.Gnutella2.QueryHostThrottle ) continue;
 		}
 
 		// Lookup the host
@@ -274,8 +274,7 @@ BOOL CManagedSearch::ExecuteNeighbours(DWORD tTicks, DWORD tSecs)
 					}
 				}
 
-				// Don't search this neighbour again.
-				continue;
+				continue;	// Don't search this neighbour again.
 			}
 		}
 
@@ -291,11 +290,9 @@ BOOL CManagedSearch::ExecuteNeighbours(DWORD tTicks, DWORD tSecs)
 				if ( bKnownHost )
 				{
 					if ( nTTL >= pNeighbour->GetMaxTTL() )
-						// X-Max-TTL reached
-						continue;
+						continue;	// X-Max-TTL reached
 					if ( m_nG1Hits >= Settings.Gnutella.MaxResults )
-						// Maximum hits reached
-						continue;
+						continue;	// Maximum hits reached
 					nTTL++;
 				}
 				else
@@ -305,11 +302,9 @@ BOOL CManagedSearch::ExecuteNeighbours(DWORD tTicks, DWORD tSecs)
 			else
 			{
 				if ( bKnownHost )
-					// We under pledge of X-Requeries
-					continue;
+					continue;	// We under pledge of X-Requeries
 				else
-					// Single query with max available TTL
-					nTTL = pNeighbour->GetMaxTTL();
+					nTTL = pNeighbour->GetMaxTTL();	// Single query with max available TTL
 			}
 
 			m_pG1Nodes.SetAt( nAddress, nTTL );
@@ -350,9 +345,7 @@ BOOL CManagedSearch::ExecuteNeighbours(DWORD tTicks, DWORD tSecs)
 
 					// Set the "last ED2K search" value if we sent a text search (to find the search later).
 					if ( ! m_pSearch->m_oED2K )
-					{
 						SearchManager.m_oLastED2KSearch = m_pSearch->m_oGUID;
-					}
 				}
 			}
 			pPacket->Release();
@@ -377,17 +370,15 @@ BOOL CManagedSearch::ExecuteG2Mesh(DWORD /*tTicks*/, DWORD tSecs)
 		i != HostCache.Gnutella2.End();	++i )
 	{
 		CHostCacheHost* pHost = (*i);
-		// Must be Gnutella2
 
+		// Must be Gnutella2
 		ASSERT( pHost->m_nProtocol == PROTOCOL_G2 );
 		if ( pHost->m_nProtocol != PROTOCOL_G2 ) continue;
 
 		// If this host is a neighbour, don't UDP to it
-
 		if ( NULL != Neighbours.Get( &pHost->m_pAddress ) ) continue;
 
 		// If this host can't be queried now, don't query it
-
 		if ( ! pHost->CanQuery( tSecs ) ) continue;
 
 		// Check if we have an appropriate query key for this host,
@@ -397,7 +388,7 @@ BOOL CManagedSearch::ExecuteG2Mesh(DWORD /*tTicks*/, DWORD tSecs)
 
 		if ( pHost->m_nKeyValue == 0 )
 		{
-			// Well, we already know we don't have a key.. pretty simple
+			// We already know we don't have a key... pretty simple
 		}
 		else if ( !Network.IsFirewalled(CHECK_UDP) )
 		{
@@ -456,21 +447,17 @@ BOOL CManagedSearch::ExecuteG2Mesh(DWORD /*tTicks*/, DWORD tSecs)
 			}
 
 			// Set the last query time for this host for this search
-
 			m_pNodes.SetAt( nAddress, tSecs );
 
 			// Record the query time on the host, for all searches
-
 			pHost->m_tQuery = tSecs;
 			if ( pHost->m_tAck == 0 ) pHost->m_tAck = tSecs;
 
 			// Try to create a packet
-
 			m_pSearch->m_bAndG1 = ( Settings.Gnutella1.EnableToday && m_bAllowG1 );
 			CPacket* pPacket = m_pSearch->ToG2Packet( pReceiver, pHost->m_nKeyValue );
 
 			// Send the packet if it was created
-
 			if ( pPacket != NULL )
 			{
 				Datagrams.Send( &pHost->m_pAddress, pHost->m_nPort, pPacket, TRUE, this, TRUE );
@@ -497,7 +484,6 @@ BOOL CManagedSearch::ExecuteG2Mesh(DWORD /*tTicks*/, DWORD tSecs)
 			else
 			{
 				// Otherwise, we need to find a neighbour G2 hub who has acked this query already
-
 				for ( POSITION pos = Neighbours.GetIterator() ; pos ; pCacheHub = NULL )
 				{
 					pCacheHub = Neighbours.GetNext( pos );
@@ -565,7 +551,6 @@ BOOL CManagedSearch::ExecuteG2Mesh(DWORD /*tTicks*/, DWORD tSecs)
 				}
 
 				// Send
-
 				Datagrams.Send( &pHost->m_pAddress, pHost->m_nPort, pPacket, TRUE, NULL, FALSE );
 
 				if ( pHost->m_tAck == 0 ) pHost->m_tAck = tSecs;
@@ -594,44 +579,33 @@ BOOL CManagedSearch::ExecuteDonkeyMesh(DWORD /*tTicks*/, DWORD tSecs)
 		ASSERT( pHost->m_nProtocol == PROTOCOL_ED2K );
 
 		// If this host is a neighbour, don't UDP to it
-
 		if ( Neighbours.Get( &pHost->m_pAddress ) ) continue;
 
 		// Make sure this host can be queried (now)
-
 		if ( pHost->CanQuery( tSecs ) )
 		{
 			DWORD nAddress = pHost->m_pAddress.S_un.S_addr;
 			DWORD tLastQuery;
 
 			// Never requery eDonkey2000 servers
-
 			if ( m_pNodes.Lookup( nAddress, tLastQuery ) ) continue;
 
 			// Set the last query time for this host for this search
-
 			m_pNodes.SetAt( nAddress, tSecs );
 
 			// Record the query time on the host, for all searches
-
 			pHost->m_tQuery = tSecs;
 			if ( pHost->m_tAck == 0 ) pHost->m_tAck = tSecs;
 
 			// Create a packet in the appropriate format
-
 			CPacket* pPacket = NULL;
 
 			if ( pHost->m_nProtocol == PROTOCOL_ED2K )
-			{
 				pPacket = m_pSearch->ToEDPacket( TRUE, pHost->m_nUDPFlags );
-			}
 			else
-			{
 				ASSERT( FALSE );
-			}
 
 			// Send the datagram if possible
-
 			if ( pPacket != NULL )
 			{
 				Datagrams.Send( &pHost->m_pAddress, pHost->m_nPort + 4, pPacket, TRUE );

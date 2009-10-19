@@ -3434,8 +3434,9 @@
 		<control caption="Теневые файлы при стирании"/>
 		<control caption="Определение номеров серий у видео"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Проигрыватель">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Проигрыватель">
 		<control caption="_Опции:"/>
+		<control caption="Выбрать менеджер мультимедии:"/>
 		<control/>
 		<control caption="Открывать следующие типы файлов в проигрывателе PeerProject"/>
 		<control caption="Брать в очередь проигрывателя файлы перечисленных ниже типов"/>
@@ -3445,8 +3446,6 @@
 		<control caption="_Удалить"/>
 		<control caption="Модуль аудио визуализации:"/>
 		<control caption="Выбрать _модуль..."/>
-		<control caption="У_правление мультимедии"/>
-		<control caption="Выбрать менеджер мультимедии:"/>
 		<control caption="Внимание: Если выберите внешний менеджер мультимедии, все модули мультимедии и визуализации будут отключенны!"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Сообщество">

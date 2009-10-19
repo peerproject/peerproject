@@ -26,10 +26,11 @@
   <option name="Navbar" offset="18,0"/>
   <option name="DropMenu" value="true"/>
   <option name="MenuBorders" value="false"/>
-<!--<option name="MenuGripper" value="false"/>-->
+<!--<option name="MenuGripper" value="true"/>-->
 <!--<option name="Toolbar" value="28"/>-->
 <!--<option name="Titlebar" value="64"/>-->
 <!--<option name="Sidebar" value="200"/>-->
+<!--<option name="Splitter" value="6"/>-->
 </options>
 
 <colorScheme>
@@ -594,8 +595,8 @@
  <image id="ID_MEDIA_PLAY"/>
  <image id="ID_MEDIA_PAUSE"/>
  <image id="ID_MEDIA_STOP"/>
- <image id="ID_MEDIA_PREVIOUS"/>
- <image id="ID_MEDIA_NEXT"/>
+ <image id="ID_MEDIA_PREVIOUS" id1="ID_DOWNLOAD_GROUP_MOVELEFT" id2="ID_DOWNLOADS_MOVE_UP" id3="ID_DOWNLOADS_MOVE_TOP"/>
+ <image id="ID_MEDIA_NEXT" id1="ID_DOWNLOAD_GROUP_MOVERIGHT" id2="ID_DOWNLOADS_MOVE_DOWN" id3="ID_DOWNLOADS_MOVE_BOTTOM"/>
  <image id="ID_CHILD_CLOSE" id1="ID_NETWORK_EXIT"/>
  <image id="ID_SEARCH_SEARCH" id1="ID_TAB_SEARCH" id2="ID_NETWORK_SEARCH" id3="ID_LIBRARY_SEARCH_QUICK" id4="IDR_SEARCHFRAME"
 	id5="ID_VIEW_SEARCH_MONITOR" id6="ID_HITMONITOR_SEARCH" id7="ID_VIEW_RESULTS_MONITOR" id8="ID_DOWNLOADS_SOURCES"/>

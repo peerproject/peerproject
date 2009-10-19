@@ -472,12 +472,14 @@ BOOL CDiscoveryServices::Save()
 //////////////////////////////////////////////////////////////////////
 // CDiscoveryServices serialize
 
+#define DISCOVERY_SER_VERSION		1000	//7
+// nVersion History:
+// 7 - Added m_nTotalHosts, m_nURLs, m_nTotalURLs and m_sPong (BeaconCache)
+// 1000 - (PeerProject 1.0) (7)
+
 void CDiscoveryServices::Serialize(CArchive& ar)
 {
-	int nVersion = 7;
-	// History:
-	// 7 - Added m_nTotalHosts, m_nURLs, m_nTotalURLs and m_sPong (BeaconCache)
-
+	int nVersion = DISCOVERY_SER_VERSION;
 
 	if ( ar.IsStoring() )
 	{
@@ -610,24 +612,23 @@ void CDiscoveryServices::AddDefaults()
 	if ( !EnoughServices() )
 	{
 		theApp.Message( MSG_ERROR, _T("Default discovery service load failed") );
-		/*
-		CString strServices;
-		strServices.LoadString( IDS_DISCOVERY_DEFAULTS );
 
-		for ( strServices += '\n' ; strServices.GetLength() ; )
-		{
-			CString strService = strServices.SpanExcluding( _T("\r\n") );
-			strServices = strServices.Mid( strService.GetLength() + 1 );
+		//CString strServices;
+		//strServices.LoadString( IDS_DISCOVERY_DEFAULTS );
 
-			if ( strService.GetLength() > 0 )
-			{
-				if ( _tcsistr( strService, _T("server.met") ) == NULL )
-					Add( strService, CDiscoveryService::dsWebCache );
-				else
-					Add( strService, CDiscoveryService::dsServerMet, PROTOCOL_ED2K );
-			}
-		}
-		*/
+		//for ( strServices += '\n' ; strServices.GetLength() ; )
+		//{
+		//	CString strService = strServices.SpanExcluding( _T("\r\n") );
+		//	strServices = strServices.Mid( strService.GetLength() + 1 );
+
+		//	if ( strService.GetLength() > 0 )
+		//	{
+		//		if ( _tcsistr( strService, _T("server.met") ) == NULL )
+		//			Add( strService, CDiscoveryService::dsWebCache );
+		//		else
+		//			Add( strService, CDiscoveryService::dsServerMet, PROTOCOL_ED2K );
+		//	}
+		//}
 	}
 }
 
@@ -645,17 +646,11 @@ void CDiscoveryServices::MergeURLs()
 		if ( pService->m_nType == CDiscoveryService::dsWebCache )
 		{
 			if ( pService->m_bGnutella1 && pService->m_bGnutella2 )
-			{
 				MultiURLs.Add( pService );	//Multi-network array
-			}
 			else if ( pService->m_bGnutella1 )
-			{
 				G1URLs.Add( pService );	//Gnutella array
-			}
 			else if ( pService->m_bGnutella2 )
-			{
 				G2URLs.Add( pService );	//Gnutella2 array
-			}
 		}
 		else
 		{
@@ -855,20 +850,18 @@ BOOL CDiscoveryServices::Update()
 
 BOOL CDiscoveryServices::Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT nForceDiscovery)
 {
-	/*
-		bDiscovery:
-			TRUE	- Want Discovery(GEC, UHC, MET)
-			FALSE	- Want Bootstrap connection.
-		nProtocol:
-			PROTOCOL_NULL	- Auto Detection
-			PROTOCOL_G1		- Execute entry for G1
-			PROTOCOL_G2		- Execute entry for G2
-			PROTOCOL_ED2K	- Execute entry for ED2K
-		nForceDiscovery:
-			FALSE - Normal discovery. There is a time limit and a check if it is needed
-			1 - Forced discovery. Partial time limit and withOUT check if it is needed ( Used inside CNeighboursWithConnect::Maintain() )
-			2 - Unlimited discovery. No time limit but there is the check if it is needed ( Only from QuickStart Wizard )
-	*/
+	//	bDiscovery:
+	//		TRUE	- Want Discovery(GEC, UHC, MET)
+	//		FALSE	- Want Bootstrap connection.
+	//	nProtocol:
+	//		PROTOCOL_NULL	- Auto Detection
+	//		PROTOCOL_G1		- Execute entry for G1
+	//		PROTOCOL_G2		- Execute entry for G2
+	//		PROTOCOL_ED2K	- Execute entry for ED2K
+	//	nForceDiscovery:
+	//		FALSE - Normal discovery. There is a time limit and a check if it is needed
+	//		1 - Forced discovery. Partial time limit and withOUT check if it is needed ( Used inside CNeighboursWithConnect::Maintain() )
+	//		2 - Unlimited discovery. No time limit but there is the check if it is needed ( Only from QuickStart Wizard )
 
 	CSingleLock pLock( &Network.m_pSection, FALSE );
 	if ( ! pLock.Lock( 250 ) )
@@ -1031,17 +1024,11 @@ BOOL CDiscoveryServices::RequestRandomService(PROTOCOLID nProtocol)
 	if ( CDiscoveryService* pService = GetRandomService( nProtocol ) )
 	{
 		if ( pService->m_nType == CDiscoveryService::dsGnutella )
-		{
 			return pService->ResolveGnutella();
-		}
 		else if ( pService->m_nType == CDiscoveryService::dsServerMet )
-		{
 			return RequestWebCache( pService, wcmServerMet, nProtocol );
-		}
 		else
-		{
 			return RequestWebCache( pService, wcmHosts, nProtocol );
-		}
 	}
 	return FALSE;
 }
@@ -1093,15 +1080,9 @@ CDiscoveryService* CDiscoveryServices::GetRandomService(PROTOCOLID nProtocol)
 
 	// Select a random service from the list of possible ones.
 	if ( pServices.GetSize() > 0 )	// If the list of possible ones isn't empty
-	{
-		// return a random service
-		return pServices.GetAt( GetRandomNum< INT_PTR >( 0, pServices.GetSize() - 1 ) );
-	}
-	else							// else (No services available)
-	{
-		// return NULL to indicate none available
-		return NULL;
-	}
+		return pServices.GetAt( GetRandomNum< INT_PTR >( 0, pServices.GetSize() - 1 ) );	// A random service
+	else							// else (No services available)		
+		return NULL;				// return NULL to indicate none available
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1147,15 +1128,9 @@ CDiscoveryService* CDiscoveryServices::GetRandomWebCache(PROTOCOLID nProtocol, B
 
 	// If there are any available web caches
 	if ( pWebCaches.GetSize() > 0 )
-	{
-		// Select a random one
-		return pWebCaches.GetAt( GetRandomNum< INT_PTR >( 0, pWebCaches.GetSize() - 1 ) );
-	}
+		return pWebCaches.GetAt( GetRandomNum< INT_PTR >( 0, pWebCaches.GetSize() - 1 ) );	// Select a random one
 	else
-	{
-		// return null to indicate none available
-		return NULL;
-	}
+		return NULL;	// return null to indicate none available
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1776,13 +1751,9 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 	if ( m_pSubmit != NULL && Check( m_pSubmit, CDiscoveryService::dsWebCache ) )
 	{
 		if ( strURL.IsEmpty() )
-		{
 			strURL.Format( _T("%s?url="), (LPCTSTR)m_pWebCache->m_sAddress );
-		}
 		else
-		{
 			strURL += _T("&url=");
-		}
 
 		CString strSubmit( m_pSubmit->m_sAddress );
 
@@ -1840,16 +1811,16 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 		theApp.Message( MSG_DEBUG, _T("GWebCache(update) %s : %s"),
 			(LPCTSTR)m_pWebCache->m_sAddress, (LPCTSTR)strLine );
 
-/*		// Split line to parts
-		CArray< CString > oParts;
-		for ( int i = 0 ; ; )
-		{
-			CString sPart = strLine.Tokenize( _T("|"), i ).MakeLower();
-			if ( i == -1 )
-				break;
-			oParts.Add( sPart );
-		}
-*/
+	//	// Split line to parts
+	//	CArray< CString > oParts;
+	//	for ( int i = 0 ; ; )
+	//	{
+	//		CString sPart = strLine.Tokenize( _T("|"), i ).MakeLower();
+	//		if ( i == -1 )
+	//			break;
+	//		oParts.Add( sPart );
+	//	}
+
 		if ( _tcsstr( strLine, _T("OK") ) != NULL )
 		{
 			m_pWebCache->m_tUpdated = (DWORD)time( NULL );

@@ -264,25 +264,15 @@ BOOL CDownloadsCtrl::IsFiltered(CDownload* pDownload)
 	if ( Settings.General.GUIMode == GUI_BASIC ) nFilterMask = 0xFFFFFFFF;
 
 	if ( pDownload->IsPaused() )
-	{
 		return ( ( nFilterMask & DLF_PAUSED ) == 0 );
-	}
 	else if ( pDownload->IsSeeding() )
-	{
 		return ( ( nFilterMask & DLF_SEED ) == 0 );
-	}
 	else if ( pDownload->IsDownloading() || pDownload->IsMoving() )
-	{
 		return ( ( nFilterMask & DLF_ACTIVE ) == 0 );
-	}
 	else if ( pDownload->GetEffectiveSourceCount() > 0 )
-	{
 		return ( ( nFilterMask & DLF_QUEUED ) == 0 );
-	}
 	else //if ( pDownload->m_nSize == SIZE_UNKNOWN )
-	{
 		return ( ( nFilterMask & DLF_SOURCES ) == 0 );
-	}
 }
 
 BOOL CDownloadsCtrl::IsExpandable(CDownload* pDownload)
@@ -309,7 +299,7 @@ BOOL CDownloadsCtrl::IsExpandable(CDownload* pDownload)
 
 void CDownloadsCtrl::SelectTo(int nIndex)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	BOOL bRight		= GetAsyncKeyState( VK_RBUTTON ) & 0x8000;
 	BOOL bControl	= GetAsyncKeyState( VK_CONTROL ) & 0x8000;
@@ -395,7 +385,7 @@ void CDownloadsCtrl::SelectTo(int nIndex)
 
 void CDownloadsCtrl::SelectAll(CDownload* /*pDownload*/, CDownloadSource* /*pSource*/)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	BOOL bSelected = FALSE;
 
@@ -452,7 +442,8 @@ void CDownloadsCtrl::SelectAll(CDownload* /*pDownload*/, CDownloadSource* /*pSou
 
 void CDownloadsCtrl::DeselectAll(CDownload* pExcept1, CDownloadSource* pExcept2)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 300 ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos != NULL ; )
 	{
@@ -474,7 +465,7 @@ void CDownloadsCtrl::DeselectAll(CDownload* pExcept1, CDownloadSource* pExcept2)
 
 int CDownloadsCtrl::GetSelectedCount()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	ASSUME_LOCK( Transfers.m_pSection );
 	int nCount = 0;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
@@ -489,8 +480,6 @@ int CDownloadsCtrl::GetSelectedCount()
 			if ( pSource->m_bSelected )	nCount ++;
 		}
 	}
-
-	pLock.Unlock();
 
 	return nCount;
 }
@@ -508,6 +497,8 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 
 	int nScroll = GetScrollPos( SB_VERT );
 	int nIndex = 0;
+
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	if ( ppDownload != NULL ) *ppDownload = NULL;
 	if ( ppSource != NULL ) *ppSource = NULL;
@@ -586,6 +577,8 @@ BOOL CDownloadsCtrl::GetAt(int nSelect, CDownload** ppDownload, CDownloadSource*
 	/*int nScroll =*/ GetScrollPos( SB_VERT );
 	int nIndex = 0;
 
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	if ( ppDownload != NULL ) *ppDownload = NULL;
 	if ( ppSource != NULL ) *ppSource = NULL;
 
@@ -640,6 +633,8 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 
 	int nScroll = GetScrollPos( SB_VERT );
 	rcItem.OffsetRect( 0, ITEM_HEIGHT * -nScroll );
+
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION posDownload = Downloads.GetIterator() ; posDownload ; )
 	{
@@ -1154,10 +1149,12 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 				}
 			}
 			else if ( ( pDownload->m_nSize < SIZE_UNKNOWN ) && ( pDownload->m_nSize > 0 ) )
+			{
 				if ( rcCell.Width() > 50 )
 					strText.Format( _T("%.2f%%"), pDownload->GetProgress() );
   				else
 					strText.Format( _T("%i%%"), int( pDownload->GetProgress() ) );
+			}
 			break;
 
 		case DOWNLOAD_COLUMN_SPEED:
@@ -1630,22 +1627,16 @@ CString CDownloadsCtrl::GetDownloadStatus(CDownload *pDownload)
 	int nSources = pDownload->GetEffectiveSourceCount();
 
 	if ( pDownload->IsCompleted() )
+	{
 		if ( pDownload->IsSeeding() )
-		{
-			if ( pDownload->m_bTorrentTrackerError )
-				LoadString( strText, IDS_STATUS_TRACKERDOWN );
-			else
-				LoadString( strText, IDS_STATUS_SEEDING );
-		}
+			LoadString( strText, pDownload->m_bTorrentTrackerError ? IDS_STATUS_TRACKERDOWN : IDS_STATUS_SEEDING );
 		else
 			LoadString( strText, IDS_STATUS_COMPLETED );
+	}
 	else if ( pDownload->IsPaused() )
 	{
 		if ( pDownload->GetFileError() != ERROR_SUCCESS )
-			if ( pDownload->IsMoving() )
-				LoadString( strText, IDS_STATUS_CANTMOVE );
-			else
-				LoadString( strText, IDS_STATUS_FILEERROR );
+			LoadString( strText, pDownload->IsMoving() ? IDS_STATUS_CANTMOVE : IDS_STATUS_FILEERROR );
 		else
 			LoadString( strText, IDS_STATUS_PAUSED );
 	}
@@ -1850,7 +1841,9 @@ void CDownloadsCtrl::OnSortPanelItems(NMHDR* pNotifyStruct, LRESULT* /*pResult*/
 
 void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 300 ) ) return;
+
 	CDownloadSource* pSource;
 	CDownload* pDownload;
 
@@ -1974,7 +1967,9 @@ void CDownloadsCtrl::OnEnterKey()
 
 void CDownloadsCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 300 ) ) return;
+
 	CDownloadSource* pSource;
 	CDownload* pDownload;
 	CRect rcItem;
@@ -2047,7 +2042,9 @@ void CDownloadsCtrl::OnRButtonDown(UINT nFlags, CPoint point)
 
 void CDownloadsCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 250 ) ) return;
+
 	CDownloadSource* pSource;
 	CDownload* pDownload;
 	CRect rcItem;
@@ -2098,11 +2095,13 @@ void CDownloadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 
 	if ( ( nFlags & ( MK_LBUTTON|MK_RBUTTON) ) == 0 )
 	{
-		CDownloadSource* pSource;
-		CDownload* pDownload;
 		CRect rcItem;
 
-		CSingleLock pLock( &Transfers.m_pSection, TRUE );
+		CSingleLock pLock( &Transfers.m_pSection );
+		if ( ! pLock.Lock( 100 ) ) return;
+
+		CDownloadSource* pSource;
+		CDownload* pDownload;
 
 		if ( HitTest( point, &pDownload, &pSource, NULL, &rcItem ) )
 		{
@@ -2132,7 +2131,6 @@ void CDownloadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 		{
 			OnBeginDrag( point );
 			m_bDrag = FALSE;
-
 		}
 	}
 
@@ -2189,11 +2187,13 @@ void CDownloadsCtrl::OnKillFocus(CWnd* pNewWnd)
 
 void CDownloadsCtrl::OnBeginDrag(CPoint ptAction)
 {
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 300 ) ) return;
+
 	m_wndTip.Hide();
 	m_pDeselect1 = NULL;
 	m_pDeselect2 = NULL;
 
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CList< CDownload* >* pSel = new CList< CDownload* >;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
@@ -2230,10 +2230,11 @@ void CDownloadsCtrl::OnBeginDrag(CPoint ptAction)
 
 CImageList* CDownloadsCtrl::CreateDragImage(CList< CDownload* >* pSel, const CPoint& ptMouse)
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CRect rcClient, rcOne, rcAll( 32000, 32000, -32000, -32000 );
 
 	GetClientRect( &rcClient );
+
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = pSel->GetHeadPosition() ; pos ; )
 	{
@@ -2311,8 +2312,6 @@ CImageList* CDownloadsCtrl::CreateDragImage(CList< CDownload* >* pSel, const CPo
 	pAll->Add( &bmDrag, DRAG_COLOR_KEY );
 
 	bmDrag.DeleteObject();
-
-	pLock.Unlock();
 
 	pAll->BeginDrag( 0, ptMouse - rcAll.TopLeft() );
 

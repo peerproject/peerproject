@@ -21,17 +21,18 @@
 
 #pragma once
 
-#define DOWNLOAD_SER_VERSION	41
-// History:
+#define DOWNLOAD_SER_VERSION	1000	//41
+// nVersion History:
 // 33 - added m_sSearchKeyword to CDownloadBase (CyberBob)
 // 34 - added m_bSeeding and m_sServingFileName to CDownloadWithTorrent (Rolandas)
 // 35 - added m_sCountry to CDownloadSource (dcat)
-// 36 - nothing (Rolandas)
+// 36 - nothing (Rolandas) (Shareaza 2.2.4.0?)
 // 37 - added m_oBTH to CDownloadBase, m_bBTH and m_bMD5 to CDownloadSource (Ryo-oh-ki)
 // 38 - added m_sCountryName to CDownloadSource (dcat)
 // 39 - added m_bClientExtended to CDownloadSource (Ryo-oh-ki)
 // 40 - added virtual fragmented file (Ryo-oh-ki)
 // 41 - added m_sName to CFragmentedFile (Ryo-oh-ki)
+// 1000 - (PeerProject 1.0) (41)
 
 #include "DownloadWithExtras.h"
 #include "Settings.h"
@@ -88,7 +89,7 @@ private:
 	DWORD		GetStartTimer() const;
 	void		OnDownloaded();
 	void		OnMoved();
-	void		SerializeOld(CArchive& ar, int nVersion);
+//	void		SerializeOld(CArchive& ar, int nVersion);	// For nVersion < 11
 
 // Overrides
 public:

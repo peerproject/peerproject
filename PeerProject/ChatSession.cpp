@@ -267,8 +267,8 @@ BOOL CChatSession::OnConnected()
 		CConnection::OnConnected();
 
 		Write( _P("CHAT CONNECT/0.2\r\n"
-							 "Accept: text/plain,application/x-gnutella2\r\n"
-							 "User-Agent: ") );
+			"Accept: text/plain,application/x-gnutella2\r\n"
+			"User-Agent: ") );
 		Write( Settings.SmartAgent() );
 		Write( _P("\r\n") );
 		if ( m_bInitiated ) SendMyAddress();
@@ -310,8 +310,7 @@ BOOL CChatSession::OnRun()
 {
 	if ( m_nProtocol == PROTOCOL_ED2K )
 	{
-		// ed2k chat sessions don't have real connections, ED2K Client just puts the packets into
-		// the buffer.
+		// ed2k chat sessions don't have real connections, ED2K Client just puts the packets into the buffer.
 		return ( ReadPacketsED2K() && SendPacketsED2K() );
 	}
 	else if ( m_nState > cssNull && m_nState < cssActive )
@@ -418,9 +417,7 @@ BOOL CChatSession::OnHeaderLine(CString& strHeader, CString& strValue)
 		return FALSE;
 
 	if ( strHeader.CompareNoCase( _T("X-Nickname") ) == 0 )
-	{
 		m_sUserNick = strValue;
-	}
 
 	return TRUE;
 }
@@ -629,7 +626,7 @@ BOOL CChatSession::SendChatMessage(CEDPacket* pPacket)
 		else
 		{	// We found a client but couldn't start a connection.
 
-			if ( m_nState == cssConnecting )		// If we are connecting
+			if ( m_nState == cssConnecting )	// We are connecting
 			{
 				// Check time-out
 				if ( ( GetTickCount() - m_tConnected ) >= Settings.Connection.TimeoutConnect )
@@ -645,7 +642,7 @@ BOOL CChatSession::SendChatMessage(CEDPacket* pPacket)
 					return FALSE;
 				}
 			}
-			else									// We can't connect
+			else								// We can't connect
 			{
 				// There is a problem.  Inform the user and drop the message.
 				StatusMessage( 1, IDS_CHAT_CANT_CONNECT, (LPCTSTR)pClient->m_sAddress );
@@ -747,24 +744,16 @@ BOOL CChatSession::OnText(const CString& str)
 	if ( m_bOld )
 	{
 		if ( ::StartsWith( str, _PT("\001ACTION ") ) )
-		{
 			m_pWndPrivate->OnRemoteMessage( true, str.Mid( 8 ) );
-		}
 		else
-		{
 			m_pWndPrivate->OnRemoteMessage( false, str );
-		}
 	}
 	else if ( ::StartsWith( str, _PT("MESSAGE ") ) )
 	{
 		if ( ::StartsWith( str, _PT("MESSAGE \001ACTION ") ) )
-		{
 			m_pWndPrivate->OnRemoteMessage( true, str.Mid( 16 ) );
-		}
 		else
-		{
 			m_pWndPrivate->OnRemoteMessage( false, str.Mid( 8 ) );
-		}
 	}
 	else if ( ::StartsWith( str, _PT("NICK ") ) )
 	{
@@ -974,9 +963,7 @@ BOOL CChatSession::OnChatRequest(CG2Packet* pPacket)
 		DWORD nOffset = pPacket->m_nPosition + nLength;
 
 		if ( nType == G2_PACKET_USER_GUID && nLength >= 16 )
-		{
 			pPacket->Read( oGUID );
-		}
 
 		pPacket->m_nPosition = nOffset;
 	}
@@ -1227,15 +1214,11 @@ void CChatSession::OnOpenWindow()
 	ASSERT( m_pWndPrivate == NULL && m_pWndPublic == NULL );
 
 	if ( m_oGUID )
-	{
 		m_pWndPrivate = ChatWindows.FindPrivate( m_oGUID );
-	}
 	else
-	{
 		m_pWndPrivate = ChatWindows.FindPrivate( &m_pHost.sin_addr );
-	}
 
-	if ( ( m_pWndPrivate == NULL ) && ( m_nProtocol == PROTOCOL_ED2K ) )
+	if ( m_pWndPrivate == NULL && m_nProtocol == PROTOCOL_ED2K )
 	{
 		if ( m_bMustPush )
 			m_pWndPrivate = ChatWindows.FindED2KFrame( m_nClientID, &m_pServer );
@@ -1244,9 +1227,7 @@ void CChatSession::OnOpenWindow()
 	}
 
 	if ( m_pWndPrivate == NULL )
-	{
 		m_pWndPrivate = new CPrivateChatFrame();
-	}
 
 	if ( ! m_pWndPrivate->Accept( this ) )
 	{
@@ -1259,7 +1240,7 @@ void CChatSession::OnOpenWindow()
 	StatusMessage( 2, IDS_CHAT_PRIVATE_ONLINE, (LPCTSTR)m_sUserNick );
 	StatusMessage( 0, 0 );
 
-	PlaySound( _T("RAZA_IncomingChat"), NULL, SND_APPLICATION|SND_ALIAS|SND_ASYNC );
+	PlaySound( _T("Sound_IncomingChat"), NULL, SND_APPLICATION|SND_ALIAS|SND_ASYNC );
 
 	m_nState = cssActive;
 

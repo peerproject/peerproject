@@ -764,20 +764,19 @@
 		<control caption="Minimise button behaviour:"/>
 		<control caption="Normal Taskbar|Minimise to Tray"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Media Player">
-		<control caption="_Options:"/>
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media Player">
+		<control caption="_Media Handling"/>
+		<control caption="Choose Media Handler:"/>
 		<control/>
-		<control caption="Use the PeerProject Media Player to PLAY the file types listed below"/>
-		<control caption="Use the PeerProject Media Player to ENQUEUE the file types listed below"/>
+		<control caption="Use PeerProject Media Player to PLAY the file types listed below"/>
+		<control caption="Use PeerProject Media Player to ENQUEUE the file types listed below"/>
 		<control caption="File _Types:"/>
 		<control/>
 		<control caption="_Add"/>
 		<control caption="_Remove"/>
 		<control caption="Audio _Visualisation Plugin:"/>
 		<control caption="_Select Plugin..."/>
-		<control caption="_Media Handling"/>
-		<control caption="Choose Media Handler:"/>
-		<control caption="Warning: Choosing an external Media Handler will automatically disable all Media and Visualisation Plugins!"/>
+		<control caption="Note: Choosing an external Media Handler will disable Media/Visualisation Plugins."/>
 	</dialog>
 	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
 		<control caption="Client _Options:"/>

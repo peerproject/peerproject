@@ -49,6 +49,7 @@ IMPLEMENT_DYNAMIC(CWizardSheet, CPropertySheetAdv)
 BEGIN_MESSAGE_MAP(CWizardSheet, CPropertySheetAdv)
 	ON_WM_PAINT()
 	ON_WM_SIZE()
+	ON_WM_XBUTTONDOWN()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -225,6 +226,15 @@ void CWizardSheet::OnPaint()
 
 	dc.FillSolidRect( rc.left, rc.bottom - 46, rc.Width(), 46, Colors.m_crSysBtnFace );
 }
+
+void CWizardSheet::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		this->PressButton( PSBTN_BACK );
+	else if ( nButton == 2 )
+		this->PressButton( PSBTN_NEXT );
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CWizardPage

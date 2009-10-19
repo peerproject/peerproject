@@ -3314,8 +3314,9 @@
 		<control caption="Ukládat informace o smazaných souborech"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Přehrávač">
-		<control caption="_Nastavení:"/>
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Přehrávač">
+		<control caption="_Přehrávač multimédií"/>
+		<control caption="Zvolte přehrávač:"/>
 		<control/>
 		<control caption="Použít přehrávač PeerProject pro PŘEHRÁVÁNÍ souborů podle přípon níže"/>
 		<control caption="Použít přehrávač PeerProject pro frontu souborů podle přípon níže"/>
@@ -3325,8 +3326,6 @@
 		<control caption="_Odebrat"/>
 		<control caption="Vizualiazace:"/>
 		<control caption="_Vybrat vizualizaci..."/>
-		<control caption="_Přehrávač multimédií"/>
-		<control caption="Zvolte přehrávač:"/>
 		<control caption="Pozor: Pokud je vybraný externí přehrávač multimédii nebudou dostupné rozšíření a vizualiazace PeerProject."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Komunita">

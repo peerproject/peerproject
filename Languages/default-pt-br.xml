@@ -3460,8 +3460,9 @@
 		<control caption="Criar arquivos ghost quando apagar"/>
 		<control caption="Detecção das séries de vídeos"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Media Player">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media Player">
 		<control caption="_Opções:"/>
+		<control caption="Escolha o Gerenciador de Mídia:"/>
 		<control/>
 		<control caption="Usar o Media Player do PeerProject pra TOCAR os tipos listados abaixo"/>
 		<control caption="Usar o Media Player do PeerProject pra PÔR NA FILA os tipos listados abaixo"/>
@@ -3471,8 +3472,6 @@
 		<control caption="_Remover"/>
 		<control caption="Plugin de _Visualização de Áudio:"/>
 		<control caption="_Selecionar Plugin..."/>
-		<control caption="_Gerenciamento de Mídia"/>
-		<control caption="Escolha o Gerenciador de Mídia:"/>
 		<control caption="Aviso: Escolher um Gerenciador de Mídia externo desativará automaticamente todos os Plugins de Mídia e Visualização."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Comunidade">

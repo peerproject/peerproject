@@ -18,7 +18,7 @@
 // along with PeerProject; if not, write to Free Software Foundation, Inc.
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
-// Author: peer_l_@hotmail.com
+// Original Author: peer_l_@hotmail.com
 //
 
 #pragma once
@@ -30,12 +30,45 @@
 
 class CIRCNewMessage
 {
-public:
-	int             m_nColorID;
-	CString         m_sTargetName;
-    CStringArray    m_pMessages;
+protected:
+	class CIRCMessage
+	{
+	public:
+		CIRCMessage(LPCTSTR szMessage = _T(""), LPCTSTR szTargetName = _T(""), int nColor = 0)
+			: sMessage( szMessage )
+			, sTargetName( szTargetName )
+			, nColorID( nColor )
+		{
+		}
 
-	BOOL operator =(const CIRCNewMessage &rhs );
+		CIRCMessage(const CIRCMessage& msg)
+			: sMessage( msg.sMessage )
+			, sTargetName( msg.sTargetName )
+			, nColorID( msg.nColorID )
+		{
+		}
+
+		CIRCMessage& operator=(const CIRCMessage& msg)
+		{
+			sMessage = msg.sMessage;
+			sTargetName = msg.sTargetName;
+			nColorID = msg.nColorID;
+			return *this;
+		}
+
+		CString	sMessage;
+		CString	sTargetName;
+		int		nColorID;
+	};
+
+public:
+	inline void Add(LPCTSTR szMessage, LPCTSTR szTargetName, int nColor)
+	{
+		CIRCMessage msg( szMessage, szTargetName, nColor );
+		m_pMessages.Add( msg );
+	}
+
+	CArray< CIRCMessage > m_pMessages;
 };
 
 class CIRCTabCtrl : public CTabCtrl
@@ -56,6 +89,8 @@ public:
 protected:
 	HANDLE	m_hTheme;
 public:
+	int		m_nHoverTab;
+
 	void			SetTabColor(int nItem, COLORREF cRGB);
 	COLORREF		GetTabColor(int nItem);
 
@@ -66,9 +101,10 @@ public:
 
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 //	virtual BOOL OnEraseBkgnd(CDC* pDC);
-	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+//	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnPaint();
 
 	DECLARE_MESSAGE_MAP()
 };
@@ -77,14 +113,15 @@ class CIRCChannelList
 {
 // Operations
 public:
-	void			AddChannel(LPCTSTR strDisplayName, LPCTSTR strName, BOOL bUserDefined = FALSE);
-	void			RemoveChannel(const CString strDisplayName);
+	CIRCChannelList();
+
+	void			AddChannel(LPCTSTR strDisplayName, LPCTSTR strName, BOOL bUserDefined = FALSE );
+	void			RemoveChannel(const CString& strDisplayName);
 	void			RemoveAll(int nType = -1);
 	int				GetCount(int nType = -1) const;
-	int				GetIndexOfDisplay(const CString strDisplayName) const;
-	int				GetIndexOfName(const CString strName) const;
-	BOOL			GetType(const CString strDisplayName) const;
-	void			Initialize();
+	BOOL			GetType(const CString& strDisplayName) const;
+	int				GetIndexOfDisplay(const CString& strDisplayName) const;
+	int				GetIndexOfName(const CString& strName) const;
 	CString			GetDisplayOfIndex(int nIndex) const;
 	CString			GetNameOfIndex(int nIndex) const;
 // Attributes
@@ -98,33 +135,33 @@ protected:
 
 class CIRCFrame : public CWnd
 {
-// IRC Window Dimensions
-protected:
-	//Predefined int Skin.m_nTitlebarHeight = 64;
-	static const int SMALLHEADER_HEIGHT = 22;
-	static const int SEPERATOR_HEIGHT	= 3;
-	static const int EDITBOX_HEIGHT		= 20;
-	static const int TABBAR_HEIGHT	    = 24;
-	//Predefined int Skin.m_nToolbarHeight = 28;
-	static const int STATUSBOX_WIDTH	= 330;
+	DECLARE_DYNAMIC(CIRCFrame)
 
 // Construction
 public:
 	CIRCFrame();
 	virtual ~CIRCFrame();
-	DECLARE_DYNAMIC(CIRCFrame)
-// Operations
-public:
+
+	static CIRCFrame*	g_pIrcFrame;
+
+	virtual BOOL	Create(CWnd* pParentWnd);
+	virtual BOOL	PreTranslateMessage(MSG* pMsg);
+
 	void	OnSkinChange();
 	void	OnUpdateCmdUI();
 protected:
-	void	PaintListHeader(CDC& dc, CRect& rcBar, CString strText);
-public:
+	// IRC Window Dimensions
+	//Predefined int Skin.m_nHeaderbarHeight = 64;
+	static const int TABBAR_HEIGHT	    = 24;
+	static const int SEPERATOR_HEIGHT	= 3;
+	static const int SMALLHEADER_HEIGHT = 20;
+	static const int EDITBOX_HEIGHT		= 22;
+	//Predefined int Skin.m_nToolbarHeight = 28;
+	static const int STATUSBOX_WIDTH	= 330;
+
+	#define			 MAX_CHANNELS		  12
+
 	BOOL			m_bConnected;
-// Attributes
-protected:
-	#define			MAX_CHANNELS					10
-	NOTIFYICONDATA	m_pTray;
 	int             m_nSelectedTab;
 	CString			m_sStatus;
 	int				m_nMsgsInSec;
@@ -135,11 +172,10 @@ protected:
 	int				m_nFloodLimit;
 	int				m_nFloodingDelay;
 	int				m_nUpdateFrequency;
-	int				m_nUpdateChanListFreq;
+//	int				m_nUpdateChanListFreq;
 	CString			m_sDestinationIP;
 	CString			m_sDestinationPort;
-	int				m_nBuiltInChanCount;
-protected:
+
 	CString			m_sFile;
 	CString			m_sNickname;
 	CStringArray	m_pIrcBuffer[ MAX_CHANNELS ];
@@ -148,7 +184,7 @@ protected:
 	CStringArray	m_pLastLineBuffer[ MAX_CHANNELS ];
 	int				m_nBufferCount;
 	CIRCChannelList	m_pChanList;
-protected:
+
 	// Header
 	CBitmap			m_bmWatermark;
 	int				m_nHeaderIcon;
@@ -156,76 +192,106 @@ protected:
 	CBitmap			m_bmBuffer;
 	HBITMAP			m_hBuffer;
 	CIRCPanel		m_wndPanel;
-	// Controls
-	CEdit			m_wndEdit;
+
 	CRichDocument	m_pContent;
-	CRichViewCtrl	m_wndView;
 	CRichDocument	m_pContentStatus;
+	CRichViewCtrl	m_wndView;
 	CRichViewCtrl	m_wndViewStatus;
+	CEdit			m_wndEdit;
 	CIRCTabCtrl		m_wndTab;
 	CCoolBarCtrl	m_wndMainBar;
-protected:
+
 	CString			m_sCurrent;
-	CPoint			m_ptCursor;
+//	CPoint			m_ptCursor;
 	int				m_nListWidth;
-	int				m_nUserListHeight;
-	int				m_nChanListHeight;
 	SOCKET			m_nSocket;
 	int				m_nLocalTextLimit;
 	int				m_nLocalLinesLimit;
 	CEvent 			m_pWakeup;
 	CString         m_sWsaBuffer;
-	CMutex			m_pSection;
-protected:
+
 	CFont			m_fntEdit;
-public:
-	static CIRCFrame* g_pIrcFrame;
+	CStringArray	m_pWords;
+	CString         m_sUser;
+
 	void			ConnectIrc();
 	void			SetFonts();
 	void			OnSettings();
-	void            SendString(CString strMessage);
-	BOOL            OnNewMessage(CString strMessage);
-	int				FindParsedItem(CString strMessage, int nFirst = 0);
-	int				IsTabExist(const CString strTabName) const;
+	BOOL            OnNewMessage(const CString& strMessage);
+	void            SendString(const CString& strMessage);
+	int				FindParsedItem(LPCTSTR szMessage, int nFirst = 0);
+	int				IsTabExist(const CString& strTabName) const;
 	void            LoadBufferForWindow(int nTab);
-	void			ParseString(CString strMessage, CIRCNewMessage* oNewMessage);
+	void			ParseString(const CString& strMessage, CIRCNewMessage& oNewMessage);
 	CString			TrimString(CString strMessage) const;
 	CString			GetStringAfterParsedItem(int nItem) const;
 	CString			GetTargetName(CString strRecieverName, int nRecieverType, CString strSenderName, int nSenderType) const;
 	int				AddTab(CString TabName, int nKindOfTab);
 	void			TabClick();
 	void			SortUserList();
-	int				CompareUsers(const CString strUser1, const CString strUser2) const;
+//	int				CompareUsers(const CString& strUser1, const CString& strUser2) const;
 	CString			GetTabText(int nTabIndex = -1) const;
-	void			ReloadViewText();
 	int				FindInList(CString strName, int nList=0, int nTab=0);
-protected:
-	CStringArray	m_pWords;
+	void			ReloadViewText();
+
 	int				ParseMessageID();
-	void			ActivateMessageByID(CString strMessage, CIRCNewMessage* oNewMessage, int nMessageID);
+	void			ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageID);
 	CString			GetTextFromRichPoint();
 	CString			RemoveModeOfNick(CString strNick) const;
 	void			UserListDblClick();
 	void			ChanListDblClick();
 	void			FillChanList();
-	void			FillCountChanList(const CString strUserCount, const CString strChannelName);
+	void			FillCountChanList(const CString& strUserCount, const CString& strChannelName);
 	int				IsUserInList(CString strUser) const;
+	void			PaintListHeader(CDC& dc, CRect& rcBar, CString strText);
 	void			PaintHeader(CRect rcHeader, CDC &dc);
 	void			DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText);
-	BOOL			ShowTrayPopup(LPCTSTR szText, LPCTSTR szTitle, DWORD dwIcon, UINT uTimeout);
-// Operations
-	CString         m_sUser;
-public:
+//	BOOL			ShowTrayPopup(LPCTSTR szText, LPCTSTR szTitle, DWORD dwIcon, UINT uTimeout);
+
+	inline CString GetSelectedUser() const
+	{
+		CString strUser;
+		int nItem = m_wndPanel.m_boxUsers.m_wndUserList.GetCurSel();
+		if ( nItem >= 0 )
+			m_wndPanel.m_boxUsers.m_wndUserList.GetText( nItem, strUser );
+		return strUser;
+	}
+
+	inline void SetSelectedUser(int nIndex)
+	{
+		m_wndPanel.m_boxUsers.m_wndUserList.SetCurSel( nIndex );
+	}
+
+	inline void ClearUserList()
+	{
+		m_wndPanel.m_boxUsers.m_wndUserList.ResetContent();
+	}
+
+	inline void AddUser(LPCTSTR szUser)
+	{
+		m_wndPanel.m_boxUsers.m_wndUserList.AddString( szUser );
+	}
+
+	inline void DeleteUser(int nIndex)
+	{
+		m_wndPanel.m_boxUsers.m_wndUserList.DeleteString( nIndex );
+	}
+
+	inline int GetUserCount() const
+	{
+		return m_wndPanel.m_boxUsers.m_wndUserList.GetCount();
+	}
+
+	inline CString GetUser(int nIndex) const
+	{
+		CString strUser;
+		m_wndPanel.m_boxUsers.m_wndUserList.GetText( nIndex, strUser );
+		return strUser;
+	}
+
 	virtual void OnLocalText(LPCTSTR pszText);
-// Overrides
-public:
-	virtual BOOL Create(CWnd* pParentWnd);
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual void OnStatusMessage(LPCTSTR pszText, int nFlags);
 
-// Implementation
-protected:
-	DECLARE_MESSAGE_MAP()
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnRichCursorMove(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnRichClk(NMHDR* pNMHDR, LRESULT* pResult);
@@ -267,6 +333,7 @@ protected:
 	afx_msg void OnUpdateIrcCloseTab(CCmdUI* pCmdUI);
 	afx_msg void OnIrcCloseTab();
 
+	DECLARE_MESSAGE_MAP()
 };
 
 //{{AFX_INSERT_LOCATION}}
@@ -298,6 +365,7 @@ protected:
 #define	ID_MESSAGE_CHANNEL_LIST			230
 #define	ID_MESSAGE_CHANNEL_ME           231
 #define	ID_MESSAGE_CHANNEL_LISTEND      232
+#define ID_MESSAGE_CHANNEL_PART_FORCED  244
 
 #define	ID_MESSAGE_USER_MESSAGE			233
 #define	ID_MESSAGE_USER_CTCPTIME		234
@@ -343,4 +411,3 @@ protected:
 
 #define	WM_REMOVECHANNEL				20933
 #define	WM_ADDCHANNEL					20934
-

@@ -3454,8 +3454,9 @@
 		<control caption="Créer des fichiers fantômes"/>
 		<control caption="Détection intelligente des séries vidéo"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Lecteur multimédia">
-		<control caption="_Options&#160;:"/>
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Lecteur multimédia">
+		<control caption="_MultiMédia"/>
+		<control caption="_Choissisez un logiciel"/>	<!--should end with  pour les services Multimédia&#160;: but we lack window space -->
 		<control/>
 		<control caption="Lire dans PeerProject les types de fichier ci-dessous"/>
 		<control caption="Mettre en file d'attente dans PeerProject les types de fichier ci-dessous"/>
@@ -3465,8 +3466,6 @@
 		<control caption="Enleve_r"/>
 		<control caption="Plugin de _Visualisation Audio&#160;:"/>
 		<control caption="_Sélectionner un Plugin..."/>
-		<control caption="_MultiMédia"/>
-		<control caption="_Choissisez un logiciel"/><!--should end with  pour les services Multimédia&#160;: but we lack window space -->
 		<control caption="Attention&#160;: L'utilisation d'un logiciel externe pour jouer les fichiers MultiMédia désactivera les extensions multimédia de PeerProject&#160;!"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Communauté">

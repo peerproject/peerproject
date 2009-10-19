@@ -3327,8 +3327,9 @@
 		<control caption="Crear huellas de archivos (ghost files) cuando sean borrados"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuStSt" caption="Reproductor">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Reproductor">
 		<control caption="_Opciones:"/>
+		<control caption="Seleccionar un programa de medios:"/>
 		<control/>
 		<control caption="Usar el reproductor de PeerProject para reproducir los archivos"/>
 		<control caption="Usar el reproductor de PeerProject para poner en cola los archivos"/>
@@ -3338,8 +3339,6 @@
 		<control caption="_Eliminar"/>
 		<control caption="Plugin de _Visualización de Audio:"/>
 		<control caption="_Seleccionar Plugin..."/>
-		<control caption="Programador de _Media"/>
-		<control caption="Seleccionar un programa de medios:"/>
 		<control caption="Nota: Seleccionar un programa de medios externo va a automaticamente deshabilitar todos los Plugins de Visualización y de Medios!"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Comunidad">

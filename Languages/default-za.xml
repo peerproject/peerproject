@@ -3413,8 +3413,9 @@
 		<control caption="Create ghost files when deleting"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Media Speler">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media Speler">
 		<control caption="_Verstellings:"/>
+		<control caption="_Mediadienste Inpropprogram:"/>
 		<control/>
 		<control caption="Gebruik die PeerProject Media Speler om die volgende tipes lêers te SPEEL"/>
 		<control caption="Gebruik die PeerProject Media Speler om die volgende tipes lêers te LYS"/>
@@ -3424,9 +3425,7 @@
 		<control caption="V_erwyder"/>
 		<control caption="Klankvisualiserings _inpropprogram:"/>
 		<control caption="_Selekteer Inpropprogram..."/>
-		<control caption="_Mediadienste Inpropprogram:"/>
-		<control caption="Choose Media Handler:"/>
-		<control caption="Warning: Choosing an external Media Handler will automatically disable all Media and Visualisation Plugins!"/>
+		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Gemeenskap">
 		<control caption="My _Profiel:"/>

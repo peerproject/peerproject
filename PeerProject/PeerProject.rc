@@ -246,11 +246,11 @@ IDR_LARGE_LOGO			PNG 		"Res\\LargeLogo.png"
 // HTML
 //
 
-IDR_HTML_FILENOTFOUND	HTML		"Res\\FileNotFound.htm"
-IDR_HTML_HASHMISMATCH	HTML		"Res\\HashMismatch.htm"
 IDR_HTML_BUSY			HTML		"Res\\Busy.htm"
 IDR_HTML_BADRANGE		HTML		"Res\\BadRange.htm"
 IDR_HTML_DISABLED		HTML		"Res\\Disabled.htm"
+IDR_HTML_FILENOTFOUND	HTML		"Res\\FileNotFound.htm"
+IDR_HTML_HASHMISMATCH	HTML		"Res\\HashMismatch.htm"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -745,12 +745,12 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Welcome to PeerProject (4/6)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	LTEXT			"PeerProject supports a flexible user interface, so you can choose what is most comfortable for you. You can change these options at any time.",IDC_STATIC,10,10,258,20
+	LTEXT			"PeerProject supports a flexible user interface, so you can choose what is most comfortable for you.  You can change these options at any time.",IDC_STATIC,10,10,258,20
 	GROUPBOX		"Please select user interface:",IDC_STATIC,7,30,269,83
 	CONTROL			"Basic Mode",IDC_INTERFACE_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,14,42,250,10
 	CONTROL			"Power Mode",IDC_INTERFACE_1,"Button",BS_AUTORADIOBUTTON,14,78,250,10
 	LTEXT			"Simple, easy to use menus with fewer options.\nHelpful for new users of file sharing.",IDC_DESCRIPTION_0,27,54,243,21
-	LTEXT			"Standard mode offers users all available commands, windows, etc.\nMight be more confusing for new users.",IDC_DESCRIPTION_1,27,90,243,21
+	LTEXT			"Standard mode offers users all available commands, windows, etc.\nMight be more confusing for brand new users.",IDC_DESCRIPTION_1,27,90,243,21
 	CONTROL			"Display simplified download progress bars.  (Less detail for new users)",IDC_DOWNLOADS_SIMPLEBAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,120,256,10
 	CONTROL			"Handle BitTorrent links.  (Associate .torrent files)",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,136,256,10
 END
@@ -907,7 +907,7 @@ END
 
 IDD_URL_COPY DIALOGEX 0, 0, 292, 149
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Copy URI (P2P Link)"
+CAPTION "Copy URI  (P2P Link)"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
 	CONTROL			154,IDC_BANNER,"Static",SS_BITMAP,0,0,293,172
@@ -1158,21 +1158,20 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Media Player"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	GROUPBOX		"&Options:",IDC_STATIC,5,5,270,48,WS_GROUP
-	COMBOBOX		IDC_MEDIA_SERVICE,133,67,135,60,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-	CONTROL			"Use the PeerProject Media Player to PLAY the file types listed below",IDC_MEDIA_PLAY,
-					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,22,250,10
-	CONTROL			"Use the PeerProject Media Player to ENQUEUE the file types listed below",IDC_MEDIA_ENQUEUE,
-					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,35,250,10
-	GROUPBOX		"File &Types:",IDC_STATIC,5,107,125,108,WS_GROUP
-	COMBOBOX		IDC_MEDIA_TYPES,15,117,60,93,CBS_SIMPLE | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-	PUSHBUTTON		"&Add",IDC_MEDIA_ADD,79,117,40,15
-	PUSHBUTTON		"&Remove",IDC_MEDIA_REMOVE,79,135,40,15
-	GROUPBOX		"Audio &Visualization Plugin:",IDC_STATIC,140,107,135,50
-	PUSHBUTTON		"&Select Plugin...",IDC_MEDIA_VIS,160,126,95,15
-	GROUPBOX		"&Media Handling",IDC_STATIC,6,56,270,48,WS_GROUP
-	LTEXT			"Choose Media Handler:",IDC_STATIC,17,70,107,10
-	CTEXT			"Note: Choosing an external Media Handler will disable Media/Visualization Plugins.",IDC_STATIC,15,83,251,16
+	GROUPBOX		"&Media Handling:",IDC_STATIC,5,5,270,72,WS_GROUP
+	LTEXT			"Choose Media Handler:",IDC_STATIC,15,22,100,10
+	COMBOBOX		IDC_MEDIA_SERVICE,130,20,130,60,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+	CONTROL			"Use PeerProject Media Player to PLAY the file types listed below",IDC_MEDIA_PLAY,
+					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,42,250,10
+	CONTROL			"Use PeerProject Media Player to ENQUEUE the file types listed below",IDC_MEDIA_ENQUEUE,
+					"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,56,252,10
+	GROUPBOX		"File &Types:",IDC_STATIC,5,82,125,112,WS_GROUP
+	COMBOBOX		IDC_MEDIA_TYPES,15,96,60,94,CBS_SIMPLE | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+	PUSHBUTTON		"&Add",IDC_MEDIA_ADD,81,95,40,15
+	PUSHBUTTON		"&Remove",IDC_MEDIA_REMOVE,81,114,40,15
+	GROUPBOX		"Audio &Visualization Plugins:",IDC_STATIC,140,80,135,112
+	PUSHBUTTON		"&Select Plugin...",IDC_MEDIA_VIS,160,105,95,15
+	LTEXT			"Note:  For playback problems,\ninstall an updated 'Codec Pack'\n(Try Codecs.com)",IDC_STATIC,154,154,112,34
 END
 
 IDD_SETTINGS_LIBRARY DIALOGEX 0, 0, 282, 220
@@ -1263,20 +1262,21 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Web Links"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	GROUPBOX		"&Peer to Peer Link Handling:",IDC_STATIC,5,5,270,85,WS_GROUP
+	GROUPBOX		"&Peer-to-Peer Link Handling:",IDC_STATIC,5,5,270,85,WS_GROUP
 	LTEXT			"Use PeerProject to open these types of links:",IDC_STATIC,15,20,250,10
 	CONTROL			"Magnet ( magnet: )",IDC_URI_MAGNET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,35,105,12
 	CONTROL			"Gnutella ( gnutella: )",IDC_URI_GNUTELLA,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,50,105,12
 	CONTROL			"eDonkey ( ed2k: )",IDC_URI_ED2K,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,65,105,12
 	CONTROL			"Piolet ( mp2p: )",IDC_URI_PIOLET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,35,105,12
 	CONTROL			"BitTorrent ( .torrent )",IDC_URI_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,50,105,12
-	GROUPBOX		"&Download Manager:",IDC_STATIC,5,95,270,120,WS_GROUP
-	CONTROL			"Use PeerProject to manage all my web downloads:",IDC_WEB_HOOK,
-					"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,15,110,245,15
+	GROUPBOX		"&Download Manager:",IDC_STATIC,5,95,130,120,WS_GROUP
+	CONTROL			"Manage all web downloads:",IDC_WEB_HOOK,
+					"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,12,110,112,15
 	COMBOBOX		IDC_EXT_LIST,20,130,60,80,CBS_SIMPLE | CBS_AUTOHSCROLL | CBS_SORT | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-	PUSHBUTTON		"&Add",IDC_EXT_ADD,85,130,40,15
-	PUSHBUTTON		"&Remove",IDC_EXT_REMOVE,85,148,40,15
-	LTEXT			"The download manager plugin will only attempt to download file types listed here.  Other file types will be handled by your web browser.  PeerProject must be running to manage downloads.",IDC_STATIC,135,130,130,70
+	PUSHBUTTON		"&Add",IDC_EXT_ADD,85,129,44,15
+	PUSHBUTTON		"&Remove",IDC_EXT_REMOVE,85,148,44,15
+	GROUPBOX		"&WebHook Plugin:",IDC_STATIC,140,95,130,120,WS_GROUP
+	LTEXT			"The webhook download manager plugin will only attempt to download file types listed here.  Other file types will be handled by your web browser.  (PeerProject must be running to manage downloads.)",IDC_STATIC,145,130,120,70
 END
 
 IDD_PROFILE_IDENTITY DIALOG  0, 0, 282, 159
@@ -1359,7 +1359,7 @@ END
 
 IDD_PROFILE_BIO DIALOG  0, 0, 282, 159
 STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Bio"
+CAPTION "Comments"
 FONT 8, "Tahoma"
 BEGIN
 	EDITTEXT		IDC_PROFILE_BIO,5,5,270,150,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN | WS_VSCROLL
@@ -1382,8 +1382,8 @@ FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
 	LTEXT			"Users are identified by a globally unique identifier and a corresponding public and private key pair.  Normally there is no need to generate a new ID, however PeerProject provides this option for advanced users.",IDC_STATIC,5,5,270,35,NOT WS_VISIBLE
 	GROUPBOX		"&Globally Unique Identification Certificate:",IDC_STATIC,5,45,270,50
-	LTEXT			"GUID:",IDC_STATIC,15,60,50,11,SS_CENTERIMAGE
-	LTEXT			"8A87AD8B-8511-418b-9ED6-BB7CAAE8CF4C",IDC_GUID,75,60,190,10,SS_CENTERIMAGE
+	LTEXT			"GUID:",IDC_STATIC,15,64,50,11,SS_CENTERIMAGE
+	LTEXT			"8A87AD8B-8511-418b-9ED6-BB7CAAE8CF4C",IDC_GUID,75,64,190,10,SS_CENTERIMAGE
 	LTEXT			"Created:",IDC_STATIC,15,75,50,11,SS_CENTERIMAGE | NOT WS_VISIBLE
 	LTEXT			"12:00, 01 September 2002",IDC_GUID_TIME,75,75,190,11,SS_CENTERIMAGE | NOT WS_VISIBLE
 	PUSHBUTTON		"Generate New",IDC_GUID_CREATE,105,105,70,15

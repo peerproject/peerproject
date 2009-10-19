@@ -43,8 +43,8 @@
 		<separator/>
 		<button id="ID_TAB_HOME" text="Shtëpi"/>
 		<button id="ID_TAB_SEARCH" text="Kërko"/>
-		<button id="ID_TAB_TRANSFERS" text="Transferimi"/>
-		<button id="ID_TAB_NETWORK" text="Rrjeti"/>
+		<button id="ID_TAB_TRANSFERS" text="Transferim"/>
+		<button id="ID_TAB_NETWORK" text="Rrjet"/>
 		<button id="ID_TAB_LIBRARY" text="Librari"/>
 		<button id="ID_TAB_MEDIA" text="Media"/>
 		<button id="ID_TAB_IRC" text="IRC"/>
@@ -377,7 +377,7 @@
 		<button id="ID_SECURITY_MOVE_UP" text="Lëvize Sipër"/>
 		<button id="ID_SECURITY_MOVE_DOWN" text="Lëvize Poshtë"/>
 		<rightAlign/>
-		<button id="ID_SECURITY_RESET" text="Rivendose"/>
+		<button id="ID_SECURITY_RESET" text="Rivendose Hite"/>
 		<button id="ID_SECURITY_IMPORT" text="Importo Listën"/>
 		<button id="ID_SECURITY_EXPORT" text="Eksporto Listën"/>
 	</toolbar>
@@ -2553,8 +2553,8 @@
 	<tip id="ID_SECURITY_IMPORT" message="Importon nga një skedë rregullat e sigurisë..."/>
 	<tip id="ID_SECURITY_MOVE_DOWN" message="Lëviz poshtë në listën e përparësive rregullat e zgjedhur të sigurisë."/>
 	<tip id="ID_SECURITY_MOVE_UP" message="Lëviz lart në listën e përparësive rregullat e zgjedhur të sigurisë."/>
-	<tip id="ID_SECURITY_POLICY_ACCEPT" message="Vendos dëftesën e sigurisë tipike për të lejuar gjithë hostet."/>
-	<tip id="ID_SECURITY_POLICY_DENY" message="Vendos dëftesën e sigurisë tipike për të mohuar gjithë hostet."/>
+	<tip id="ID_SECURITY_POLICY_ACCEPT" message="Vendos dëftesën e sigurisë tipike për të lejuar tërë hostet."/>
+	<tip id="ID_SECURITY_POLICY_DENY" message="Vendos dëftesën e sigurisë tipike për të mohuar tërë hostet."/>
 	<tip id="ID_SECURITY_REMOVE" message="Fshin rregullin e zgjedhur të sigurisë."/>
 	<tip id="ID_SECURITY_RESET" message="Rivendos numërimin e hiteve në rregullin e zgjedhur."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Pastron ditarin e statusit."/>
@@ -2833,6 +2833,7 @@
 	<string id="16077" value="Adresa %s po bllokohet që më parë për rregulla sigurie."/>
 	<string id="16078" value="Shtova një rregull sigurie për bllokimin e %s."/>
 	<string id="16079" value="A jeni i sigurt se doni të shkëputeni?"/>
+	<string id="16080" value="Planifikuesi vepron sipas mënyrës 'Vetëm G2'. Do e fikësh këtë mënyrë që tërë rrjetet aktive të mbeten të lidhura?"/>
 	<string id="16081" value="Po dërgoj hetim për &quot;%s&quot; tek %s."/>
 	<string id="16083" value="Detyrimi i PC-së tuaj drejt mënyrës Nyje mund të ketë pasoja të kundërta në efektshmërinë dhe rrjetin P2P. Është më e sigurt nëse PeerProject vendos a duhet përdorur mënyra Nyje.\n\nMënyra Nyje NUK jep rezultate kërkimi më të mira, ose nuk ka ndonjë avantazh tjetër.\n\nVërtet doni ta bëni këtë, pavarësisht dizavantazheve?"/>
 	<string id="16084" value="Moslejimi i përkrahjes për protokollet Gnutella-1 mund t'i kufizojë rezultatet e kërkimit, madje nëse veproni si Nyje mund të prekë edhe rezultatet e përdoruesve të tjerë. A jeni i sigurt se doni ta bëni këtë?"/>
@@ -2858,26 +2859,28 @@
 	<string id="16148" value="Lidhja te %s mohohet (%s)."/>
 	<string id="16150" value="Mbyllet lidhja tepricë nga %s."/>
 	<string id="16151" value="Refuzohet lidhja nga %s sepse është një gjethe nyje me mburojë."/>
-	<string id="16152" value="Fqinji nyje %s nuk na pranon si nyje, po mbyll lidhjen."/>
+	<string id="16152" value="Fqinji nyjë %s nuk na pranon si nyje, po mbyll lidhjen."/>
 	<string id="16153" value="Fqinji në lidhje %s po kthehet pas në gjethe nyje me mburojë."/>
 	<string id="16154" value="Vendosa lidhjen nyje, po mbyll lidhjet e pikës."/>
-	<string id="16155" value="Veprim si nyje për fqinjin gjethe %s."/>
-	<string id="16156" value="Fqinji %s do të jetë nyje, mbyllje e lidhjes."/>
-	<string id="16157" value="Fqinji %s nuk është nyje, mbyllje e lidhjes."/>
+	<string id="16155" value="Veprim si nyjë për fqinjin gjethe %s."/>
+	<string id="16156" value="Fqinji %s do të jetë nyjë, mbyllje e lidhjes."/>
+	<string id="16157" value="Fqinji %s nuk është nyjë, mbyllje e lidhjes."/>
 	<string id="16158" value="Lidhja Gnutella2 me fqinjin %s u vendos me sukses (%s)."/>
 	<string id="16159" value="Po mbyll lidhjen me fqinjin jo-Gnutella2 %s."/>
-	<string id="16192" value="Fqinji %s përparoi një paketë me masë të tepërt, lëshim i lidhjes."/>
-	<string id="16193" value="Fqinji %s përparoi një paketë TTL zero, përbuzje."/>
-	<string id="16194" value="Fqinji %s përparoi një paketë me TTL të tepërt, lëshim i paketës (TTL=%i, Hops=%i)."/>
-	<string id="16195" value="Fqinji %s përparoi një paketë ping me gjatësi invalide, përbuzje."/>
-	<string id="16196" value="Fqinji %s përparoi një paketë pong me gjatësi invalide, përbuzje."/>
+	<string id="16192" value="Fqinji %s përcolli një paketë me masë të tepërt, lëshim i lidhjes."/>
+	<string id="16193" value="Fqinji %s përcolli një paketë TTL zero, përbuzje."/>
+	<string id="16194" value="Fqinji %s përcolli një paketë me TTL të tepërt, lëshim i paketës (TTL=%i, Hops=%i)."/>
+	<string id="16195" value="Fqinji %s përcolli një paketë ping me gjatësi invalide, përbuzje."/>
+	<string id="16196" value="Fqinji %s përcolli një paketë pong me gjatësi invalide, përbuzje."/>
 	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
 	<string id="16198" value="Fqinji gjethe %s po përparon hetime, lëshim i lidhjes."/>
-	<string id="16199" value="Fqinji %s përparoi një paketë të panjohur (0x%.2x), përbuzje."/>
-	<string id="16200" value="Fqinji %s përparoi një pong me të dhëna adrese invalide, përbuzje."/>
+	<string id="16199" value="Fqinji %s përcolli një paketë të panjohur (0x%.2x), përbuzje."/>
+	<string id="16200" value="Fqinji %s përcolli një pong me të dhëna adrese invalide, përbuzje."/>
 	<!--MISSING STRINGS-->
 	<string id="16391" value="Ju nuk jeni i lidhur në rrjet."/>
 	<string id="16392" value="Shtype butonin Lidhu që të fillosh."/>
+	<string id="16391" value="Nuk je i lidhur në rrjet."/>
+	<string id="16392" value="Shtype butonin Lidhu që të nisësh."/>
 	<string id="16393" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download.  Are you sure you want to open it?"/>
 	<string id="16394" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
 	<string id="16395" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
@@ -2965,6 +2968,15 @@
 	<string id="16997" value="There is no file playing.  Double-click a media file in your library to play it."/>
 	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="LISTA:"/>
+	<string id="17017" value="Dërgo:"/>
+	<string id="17018" value="Mirë se erdhe te Chat-i i PeerProject-s."/>
+	<string id="17019" value="Të lutem respekto të tjerët kur e përdor këtë shërbim"/>
+	<string id="17020" value="Shto"/>
+	<string id="17021" value="Fshije"/>
+	<string id="17022" value="Përdorues"/>
+	<string id="17023" value="Kanale"/>
+	<string id="17024" value="Nis një lidhje te %s..."/>
+	<string id="17025" value="E pamundur të krijohet një lidhje te %s."/>
 	<!--MISSING STRINGS-->
 	<string id="17038" value="Lidhja u mbyll."/>
 	<string id="17494" value="Ky torrent përfshin skedën &quot;%s&quot;, të cilën PeerProject nuk e gjen dot në librarinë tuaj.  Nëse mundeni, lëvizeni skedën në të njëjtën dosje me torrentin dhe provoni përsëri."/>
@@ -2978,7 +2990,7 @@
 	<string id="17513" value="Gabim kodimi"/>
 	<string id="17514" value="Ridatim i Shkarkesave Bittorrent..."/>
 	<string id="17515" value="Konvertim i Torrentit:"/>
-	<string id="18496" value="Ju kryet ndryshime në fushën e emrit.  A jeni i sigurt se doni të riemërtoni shkarkesën?"/>
+	<string id="18496" value="Ju kryet ndryshime te fusha e emrit.  A jeni i sigurt se doni të riemërtoni shkarkesën?"/>
 	<string id="18497" value="Ju shkruat një vlerë SHA1, gjithsesi nuk ka vlerë.  Ju lutemi rishikoni dhe provoni përsëri."/>
 	<string id="18498" value="Ju shkruat një vlerë-rrënjë tiger-tree, gjithsesi nuk ka vlerë.  Ju lutemi rishikoni dhe provoni përsëri."/>
 	<string id="18499" value="Ju shkruat një vlerë hashi për eDonkey, gjithsesi nuk ka vlerë.  Ju lutemi rishikoni dhe provoni përsëri."/>
@@ -3117,7 +3129,7 @@
 		<control caption="_Brezi:"/>
 		<control caption="Kur klikoj mbylle:"/>
 		<control caption="Më Pyet|Minimizohu në Brez|Mbylle Menjëherë|Mbylle Pas Transferimit"/>
-		<control caption="Kur klikoj 'minimizo':"/>
+		<control caption="Kur klikoj minimizo:"/>
 		<control caption="Normale|Minimizohu në Brez"/>
 	</dialog>
 	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Librari">
@@ -3150,8 +3162,9 @@
 		<control caption="Krijo skeda fantazmë kur fshin"/>
 		<control caption="Diktim inteligjent i serive filmike"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="MediaLuajtësi">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="MediaLuajtësi">
 		<control caption="_Mundësi:"/>
+		<control caption="Zgjidheni Trajtuesin e Medias:"/>
 		<control/>
 		<control caption="MediaLuajtësi në PeerProject do të LEXOJË llojet e skedave më poshtë"/>
 		<control caption="MediaLuajtësi në PeerProject do të vë në radhë llojet e skedave më poshtë"/>
@@ -3161,8 +3174,6 @@
 		<control caption="_Fshije"/>
 		<control caption="Prizat e _Vegimit Zanor:"/>
 		<control caption="_Zgjidhi Prizat..."/>
-		<control caption="Trajtimi i _Medias"/>
-		<control caption="Zgjidheni Trajtuesin e Medias:"/>
 		<control caption="Kujdes: Nëse zgjidhet një Trajtues i jashtëm i Medias do të çaktivizohen automatikisht gjithë Prizat e Medias dhe të Vegimit!"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Komuniteti">
@@ -3439,7 +3450,7 @@
 	</dialog>
 	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Lëvoret">
 		<control/>
-		<control caption="Informacioni i Lëvores:"/>
+		<control caption="Informacioni i Veshjes:"/>
 		<control caption="Emri:"/>
 		<control caption="..."/>
 		<control caption="Autori:"/>
@@ -3452,7 +3463,7 @@
 	</dialog>
 	<dialog name="CPluginsSettingsPage" cookie="SyBuStStStEdBuBu" caption="Prizat">
 		<control/>
-		<control caption="Informacioni i Prizës:"/>
+		<control caption="Informacioni i Spinës:"/>
 		<control caption="Emri:"/>
 		<control caption="..."/>
 		<control caption="Përshkrimi:"/>
@@ -3499,7 +3510,7 @@
 		<control caption="Numri maksimal i transfertave:"/>
 		<control/>
 		<control/>
-		<control caption="Numri maks. i pritjeve në radhë:"/>
+		<control caption="Numri maksimal i pritjeve në radhë:"/>
 		<control/>
 		<control/>
 		<control caption="Parametra të _Shërbimit:"/>
@@ -3650,13 +3661,13 @@
 		<control/>
 		<control caption="ICQ UIN:"/>
 		<control/>
-		<control caption="Emri në ekran në AOL:"/>
+		<control caption="Emri në AOL:"/>
 		<control/>
 		<control caption="ID në Jabber:"/>
 		<control/>
 	</dialog>
 	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profili">
-		<control caption="_Vendndodhja:"/>
+		<control caption="_Vendndodhje:"/>
 		<control caption="Shteti:"/>
 		<control/>
 		<control caption="Qyteti:"/>
@@ -3935,7 +3946,7 @@
 		<control/>
 		<control caption="d"/>
 		<control/>
-		<control caption="h"/>
+		<control caption="o"/>
 		<control/>
 		<control caption="m"/>
 		<control caption="OK"/>
@@ -3965,23 +3976,23 @@
 		<control/>
 		<control caption="Fusni Dallimin:"/>
 		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|Emër skede|Emër skede (URI)|Emër skede bazë|Shtojcë skede|Përmasë skede|Përmasë skede (bajte)|Shteg dosjeje|Host Lokal|Port Lokal"/>
-		<control caption="Zgjidhni një paraprake:"/>
+		<control caption="Zgjidhe paravendosjen:"/>
 		<control caption="Magnet|eDonkey|Magnet HTML|eDonkey HTML"/>
-		<control caption="_Kopjoje"/>
+		<control caption="_Kopjo"/>
 		<control caption="Ruaje..."/>
 		<control/>
 		<control caption="Anulo"/>
 	</dialog>
 	<dialog name="CURLActionDlg" cookie="StStStStStEdStEdStBuBuBuBuBuSt" caption="Menaxheri i URI-ve në PeerProject">
 		<control/>
-		<control caption="Ju klikuat një URI me fuqi në PeerProject, i cili lidhet në rrjet me këtë përmbajtje:"/>
-		<control caption="Ju klikuat një URL me fuqi në PeerProject, i cili do të lidhet te hosti ose serveri më poshtë:"/>
-		<control caption="Ju klikuat një URI me fuqi në PeerProject, i cili do t'ju lejojë të shfletoni skedat e shpërndara të vlefshme në hostin më poshtë:"/>
+		<control caption="Klikuat një URI me fuqi në PeerProject, i cili lidhet në rrjet me këtë përmbajtje:"/>
+		<control caption="Klikuat një URL me fuqi në PeerProject, i cili do të lidhet te hosti ose serveri më poshtë:"/>
+		<control caption="Klikuat një URI me fuqi në PeerProject, i cili do t'ju lejojë të shfletoni skedat e shpërndara të vlefshme në hostin më poshtë:"/>
 		<control/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Ju lutemi zgjidhni si doni të veprojë PeerProject:"/>
+		<control caption="Të lutem zgjidhe si të veprojë PeerProject:"/>
 		<control caption="_Shkarko Tani"/>
 		<control caption="_Kërko Skedën"/>
 		<control caption="Anulo"/>
@@ -3991,7 +4002,7 @@
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Po shkarkoj Metadatat...">
 		<control/>
-		<control caption="PeerProject po orvatet të shkarkojë metadatat me Bitzi(TM)..."/>
+		<control caption="PeerProject orvatet të shkarkojë metadatat me Bitzi..."/>
 		<control/>
 		<control caption="Anulo"/>
 		<control/>
@@ -4037,7 +4048,7 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 		<control caption="Këtë skedë e keni shkarkuar dhe e keni fshirë më parë. Çfarë mendoni të bëni?"/>
-		<control caption="Kujdes!!! Po diktohet një skedë dyfishe. Një softuer keqbërës mund të infektojë Librarinë tuaj. Sigurohuni që këtë skedë e keni shkarkuar dhe vendosur vetë. Përndryshe, mbylleni PeerProject-n dhe skanoni kompjuterin me një antivirus."/>
+		<control caption="Kujdes! Po diktohet një skedë dyfishe. Një softuer keqbërës mund të infektojë Librarinë tuaj. Sigurohuni që këtë skedë e keni shkarkuar dhe vendosur vetë. Përndryshe, mbylleni PeerProject-n dhe skanoni kompjuterin me një antivirus."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StStBuBuBuBuBu" caption="Butoni i Mbylljes">
 		<control/>
@@ -4077,9 +4088,9 @@
 		<control/>
 		<control caption="Informacioni i Tempujkës:"/>
 		<control caption="Emri:"/>
-		<control/>
+		<control caption="..."/>
 		<control caption="Autori:"/>
-		<control/>
+		<control caption="..."/>
 		<control caption="Përshkrimi:"/>
 		<control/>
 		<control caption="Fshije|_Pas"/>
@@ -4201,9 +4212,9 @@
 		<control caption="Mos Përmirëso"/>
 	</dialog>
 	<dialog name="CDecodeMetadataDlg" cookie="StCoBuBuBuStStBuBu" caption="Vendndodhja e Metadatave">
-		<control caption="Ju lutemi zgjidhni metodën e rikodimit"/>
+		<control caption="Të lutem zgjidhe metodën e rikodimit"/>
 		<control caption="Arabe|Baltike|Europa Qendrore|Kineze e thjeshtë|Kineze tradicionale|Cirilike|Greke|Hebraike|Japoneze|Koreane|Tailandeze|Turke|Vietnameze"/>
-		<control caption="Preview:"/>
+		<control caption="Parashiko:"/>
 		<control/>
 		<control/>
 		<control/>
@@ -4222,7 +4233,7 @@
 		<control/>
 		<control caption="OK"/>
 		<control caption="Anulo"/>
-		<control caption="Enter channel you want to add:|Enter kick/ban reason:"/>
+		<control caption="Shkruaj kanalin që do të shtosh:|Shkruaj arsyen e gjuajtjes/dëbimit:"/>
 	</dialog>
 	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Pasqyrimet e Shkarkesës">
 		<control/>
@@ -4266,7 +4277,7 @@
 		<column from="Size" to="Përmasë"/>
 		<column from="Folder" to="Dosje"/>
 		<column from="Hits" to="Hitet"/>
-		<column from="Uploads" to="Ngarkimi"/>
+		<column from="Uploads" to="Ngarkesa"/>
 		<column from="Modified" to="Modifikimi"/>
 	</list>
 	<list name="CNeighboursWnd">
@@ -4343,7 +4354,7 @@
 		<column from="Name" to="Emri"/>
 		<column from="Criteria" to="Kriteri"/>
 		<column from="Bandwidth" to="Shtrirja e Bandës"/>
-		<column from="Transfers" to="Transferta"/>
+		<column from="Transfers" to="Transferime"/>
 		<column from="Order" to="Rendi"/>
 	</list>
 	<list name="CAdvancedSettingsList">

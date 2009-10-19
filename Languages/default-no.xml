@@ -3101,8 +3101,9 @@
 		<control caption="Create ghost files when deleting"/>
 		<control caption="Smart video series detection"/>
 	</dialog>
-	<dialog name="CMediaSettingsPage" cookie="BuCoBuBuBuCoBuBuBuBuBuStSt" caption="Mediaspiller">
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Mediaspiller">
 		<control caption="_Valg:"/>
+		<control caption="Mediatjeneste-_plugin:"/>
 		<control/>
 		<control caption="Bruk PeerProject mediaspiller til å spille av disse filtypene"/>
 		<control caption="Bruk PeerProject mediaspiller til å sette i kø disse filtypene"/>
@@ -3112,9 +3113,7 @@
 		<control caption="_Fjern"/>
 		<control caption="Legg til visuell plugin:"/>
 		<control caption="_Velg plugin..."/>
-		<control caption="_Media Handling"/>
-		<control caption="Mediatjeneste-_plugin:"/>
-		<control caption="Warning: Choosing an external Media Handler will automatically disable all Media and Visualisation Plugins."/>
+		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Min profil">
 		<control caption="Min profil:"/>
