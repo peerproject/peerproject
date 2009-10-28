@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_DOWNLOADTRANSFERED2K_H__C03CF64E_8944_4C5C_BB14_C61C3F37E19E__INCLUDED_)
-#define AFX_DOWNLOADTRANSFERED2K_H__C03CF64E_8944_4C5C_BB14_C61C3F37E19E__INCLUDED_
-
 #pragma once
 
 #include "DownloadTransfer.h"
@@ -86,10 +83,7 @@ protected:
 	void	ClearRequests();
 	BOOL	SelectFragment(const Fragments::List& oPossible, QWORD& nOffset, QWORD& nLength);
 	BOOL	RunQueued(DWORD tNow);
-
 public:		// 64bit Large file support
 	BOOL	OnSendingPart64(CEDPacket* pPacket);
 	BOOL	OnCompressedPart64(CEDPacket* pPacket);
 };
-
-#endif // !defined(AFX_DOWNLOADTRANSFERED2K_H__C03CF64E_8944_4C5C_BB14_C61C3F37E19E__INCLUDED_)

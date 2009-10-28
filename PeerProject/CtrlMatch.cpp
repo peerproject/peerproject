@@ -96,9 +96,7 @@ CMatchCtrl::CMatchCtrl()
 
 	// Try to get the number of lines to scroll when the mouse wheel is rotated
 	if( !SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0) )
-	{
 		m_nScrollWheelLines = 3;
-	}
 }
 
 CMatchCtrl::~CMatchCtrl()
@@ -544,11 +542,8 @@ BOOL CMatchCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 	{
 		if ( pWnd != this )
 		{
-			if ( pWnd == FindWindowEx(
-				GetParent()->GetSafeHwnd(), NULL, NULL, _T("CPanelCtrl") ) )
-			{
+			if ( pWnd == FindWindowEx( GetParent()->GetSafeHwnd(), NULL, NULL, _T("CPanelCtrl") ) )
 				return pWnd->PostMessage( WM_MOUSEWHEEL, MAKEWPARAM( nFlags, zDelta ), MAKELPARAM( pt.x, pt.y ) );
-			}
 		}
 	}
 
@@ -660,9 +655,7 @@ void CMatchCtrl::OnPaint()
 		if ( ! nCount ) continue;
 
 		if ( rcItem.top >= rcClient.top && dc.RectVisible( &rcItem ) )
-		{
 			DrawItem( dc, rcItem, pFile, NULL, bFocus && ( nIndex == m_nFocus ) );
-		}
 
 		rcItem.top += ITEM_HEIGHT;
 		rcItem.bottom += ITEM_HEIGHT;
@@ -675,9 +668,7 @@ void CMatchCtrl::OnPaint()
 				if ( ! pHit->m_bFiltered ) continue;
 
 				if ( rcItem.top >= rcClient.top && dc.RectVisible( &rcItem ) )
-				{
 					DrawItem( dc, rcItem, pFile, pHit, FALSE );
-				}
 
 				rcItem.top += ITEM_HEIGHT;
 				rcItem.bottom += ITEM_HEIGHT;
@@ -702,9 +693,7 @@ void CMatchCtrl::OnPaint()
 	rcItem.bottom = rcClient.bottom;
 
 	if ( dc.RectVisible( &rcItem ) )
-	{
 		dc.FillSolidRect( &rcItem, Colors.m_crWindow );
-	}
 }
 
 void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* pHit, BOOL bFocus)
@@ -735,16 +724,16 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	{	// Pale blue background for torrents, if the extra torrent options are enabled
 		if ( Colors.m_crSearchTorrent ) crWnd = crBack = Colors.m_crSearchTorrent ;
 		else crWnd = crBack = CColors::CalculateColor( crBack, RGB( 10, 40, 254 ), 10 );
-	}/*
-	else if ( pFile->m_bDRM )
-	{	// Pale gree background if DRM
-		crWnd = crBack = CColors::CalculateColor( crBack, RGB( 0, 255, 0 ), 10 );
-	}*/
+	}
 	else if ( ( pFile->m_nRated > 1 ) && ( ( pFile->m_nRating / pFile->m_nRated ) >= 5 ) )
 	{	// Gold highlight for highly rated files
 		if ( Colors.m_crSearchHighrated ) crWnd = crBack = Colors.m_crSearchHighrated ;
 		else crWnd = crBack = CColors::CalculateColor( crBack, RGB( 255, 250, 50 ), 20 );
 	}
+	///else if ( pFile->m_bDRM )
+	//{	// Pale gree background if DRM
+	//	crWnd = crBack = CColors::CalculateColor( crBack, RGB( 0, 255, 0 ), 10 );
+	//}
 
 	if ( pFile->GetLibraryStatus() == TRI_FALSE )
 	{
@@ -861,13 +850,12 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				rcCol.left += 16;
 			}
 
-			if ( pFile->m_bDRM )
-				// Draw DRM status
+			if ( pFile->m_bDRM )	// Draw DRM status
 				CoolInterface.Draw( &dc, IDI_COMMERCIAL, 16,
 					rcCol.left - 16, rcCol.top, CLR_NONE, bSelected );
 
 			dc.FillSolidRect( rcCol.left, rcCol.top, 1, ITEM_HEIGHT, crLeftAligned );
-			rcCol.left += 1;
+			rcCol.left++;
 
 			if ( bSelected && bFocus )
 			{
@@ -1178,13 +1166,9 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 	if ( nPos + 16 < rcCol.right )
 	{
 		if ( pHit ? pHit->m_bPreview : pFile->m_bPreview )
-		{
 			CoolInterface.Draw( &dc, IDI_PREVIEW, 16, nPos, rcCol.top, crBack, bSelected );
-		}
 		else
-		{
 			dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
-		}
 
 		nPos += 16;
 	}
@@ -1192,13 +1176,9 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 	if ( nPos + 16 < rcCol.right && pHit )
 	{
 		if ( pHit->m_bBrowseHost )
-		{
 			CoolInterface.Draw( &dc, IDI_BROWSE, 16, nPos, rcCol.top, crBack, bSelected );
-		}
 		else
-		{
 			dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
-		}
 
 		nPos += 16;
 	}
@@ -1206,14 +1186,9 @@ void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit*
 	if ( nPos + 16 < rcCol.right && pHit )
 	{
 		if ( pHit->m_bChat )
-		{
-			CoolInterface.Draw( &dc, IDR_CHATFRAME, 16,
-				nPos, rcCol.top, crBack, bSelected );
-		}
+			CoolInterface.Draw( &dc, IDR_CHATFRAME, 16,	nPos, rcCol.top, crBack, bSelected );
 		else
-		{
 			dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
-		}
 
 		nPos += 16;
 	}
@@ -1517,9 +1492,7 @@ void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 			else if ( m_pLastSelectedFile )
 			{
 				if ( ! m_pLastSelectedFile->m_bExpanded )
-				{
 					m_pLastSelectedHit = NULL;
-				}
 
 				bChanged |= m_pMatches->ClearSelection();
 				m_nFocus = nIndex;
@@ -1536,9 +1509,8 @@ void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 							 ( *ppCurFile == pFile && ! pHit ) )
 						{
 							if ( bFileFound )
-							{
 								bEnd = TRUE;
-							}
+
 							bHitFound = TRUE;
 						}
 						bFileFound = TRUE;
@@ -1557,19 +1529,15 @@ void CMatchCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 								if ( pCurHit == pHit || pCurHit == m_pLastSelectedHit )
 								{
 									if ( bHitFound || pHit == m_pLastSelectedHit )
-									{
 										bEnd = TRUE;
-									}
+
 									bHitFound = TRUE;
 								}
 								if ( bFileFound && bHitFound && pCurHit->m_bFiltered )
-								{
 									m_pMatches->Select( *ppCurFile, pCurHit, TRUE );
-								}
+
 								if ( bEnd )
-								{
 									break;
-								}
 							}
 						}
 					}
@@ -1816,9 +1784,7 @@ void CMatchCtrl::MoveFocus(int nDelta, BOOL bShift)
 	if ( m_pMatches->m_nFiles == 0 || nDelta == 0 ) return;
 
 	if ( m_nFocus >= m_pMatches->m_nFiles )
-	{
 		m_nFocus = nDelta > 0 ? 0 : m_pMatches->m_nFiles - 1;
-	}
 
 	CMatchFile** ppFile = m_pMatches->m_pFiles + m_nFocus;
 	int nSign = ( nDelta > 0 ) ? 1 : -1;
@@ -1867,13 +1833,9 @@ void CMatchCtrl::MoveFocus(int nDelta, BOOL bShift)
 			rcClient.top += HEADER_HEIGHT;
 
 			if ( rcItem.top < rcClient.top )
-			{
 				ScrollBy( ( rcItem.top - rcClient.top - ITEM_HEIGHT + 1 ) / ITEM_HEIGHT );
-			}
 			else if ( rcItem.bottom > rcClient.bottom )
-			{
 				ScrollBy( ( rcItem.bottom - rcClient.bottom + ITEM_HEIGHT - 1 ) / ITEM_HEIGHT );
-			}
 		}
 
 		if ( bChanged ) NotifySelection();
@@ -1946,9 +1908,7 @@ void CMatchCtrl::SelectAll()
 					pCurHit = pCurHit->m_pNext )
 				{
 					if ( pCurHit->m_bFiltered )
-					{
 						m_pMatches->Select( *ppCurFile, pCurHit, TRUE );
-					}
 				}
 			}
 		}
@@ -1974,13 +1934,9 @@ void CMatchCtrl::OnClickHeader(NMHDR* pNotifyStruct, LRESULT* /*pResult*/)
 	if ( m_pMatches->m_nSortColumn == pNotify->iItem )
 	{
 		if ( m_pMatches->m_bSortDir == 1 )
-		{
 			SetSortColumn( -1 );
-		}
 		else
-		{
 			SetSortColumn( pNotify->iItem, FALSE );
-		}
 	}
 	else
 	{

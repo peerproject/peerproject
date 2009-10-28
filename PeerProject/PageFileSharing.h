@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_PAGEFILESHARING_H__483C6B26_E29E_4CCD_9524_2704C3EA0A03__INCLUDED_)
-#define AFX_PAGEFILESHARING_H__483C6B26_E29E_4CCD_9524_2704C3EA0A03__INCLUDED_
-
 #pragma once
 
 #include "DlgFilePropertiesPage.h"
@@ -54,7 +51,7 @@ public:
 	public:
 	virtual void OnOK();
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
 // Implementation
@@ -64,10 +61,6 @@ protected:
 	afx_msg void OnShareOverride0();
 	afx_msg void OnShareOverride1();
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
-
 };
-
-//{{AFX_INSERT_LOCATION}}
-
-#endif // !defined(AFX_PAGEFILESHARING_H__483C6B26_E29E_4CCD_9524_2704C3EA0A03__INCLUDED_)

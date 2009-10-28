@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -343,9 +343,13 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Conversar" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Conectar" tip="Conectar ao IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Desconectar" tip="Desconectar do IRC"/>
-		<rightAlign/>
+		<separator/>
 		<button id="ID_IRC_SETTINGS" text="Configurações" tip="Configurar as Configurações do IRC"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
@@ -3160,11 +3164,11 @@
 	<string id="16995" value="Este arquivo pode estar danificado, ou você pode não ter os codecs necessários para rodá-lo."/>
 	<string id="16996" value="Parte deste arquivo não pôde ser executado, você pode precisar baixar codecs adicionais."/>
 	<string id="16997" value="Não há arquivo tocando. Clique duas vezes num arquivo de mídia na sua biblioteca para tocá-lo."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="LISTA	DE EXECUÇÕES"/>
-	<string id="17017" value="Chat:"/>
-	<string id="17018" value="Bem-Vindo ao Chat do PeerProject."/>
-	<string id="17019" value="Por favor respeite os outros enquanto usar este serviço"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="Lista de Execuções"/>
+	<string id="17016" value="Bem-Vindo ao Chat do PeerProject."/>
+	<string id="17017" value="Por favor respeite os outros enquanto usar este serviço"/>
+	<string id="17018" value="Chat:"/>
 	<string id="17020" value="Adicionar"/>
 	<string id="17021" value="Remover"/>
 	<string id="17022" value="Usuários"/>
@@ -3391,7 +3395,7 @@
 	<string id="20243" value="Continuar"/>
 	<string id="20244" value="&amp;Lembrar da minha seleção da próxima vez"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Geral">
 	</dialog>
@@ -4020,24 +4024,24 @@
 		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey2000"/>
 		<control caption="_Suprimir Ultrapeer"/>
 		<control caption="Conectar"/>
-		<control caption="Cancelar"/>
+		<control caption="_Cancelar"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Baixar Arquivo ou Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Baixar Arquivo ou Torrent">
 		<control/>
 		<control/>
-		<control caption="Baixar qualquer arquivo com o PeerProject é fácil.  Simplesmente digite ou cole a URL ou URI descrevendo o arquivo na caixa abaixo e pressione Enter."/>
+		<control caption="Pode baixar arquivos da rede, e automaticamente procurar e baixar links P2P.  Simplesmente digite ou cole a URL ou URI descrevendo o arquivo na caixa abaixo e pressione Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="Também baixa arquivos BitTorrent. Um Torrent é descrito por um arquivo .torrent ou um link HTTP para o arquivo .torrent. Para baixar um link HTTP de torrent cole-o na caixa acima. Se você tem um arquivo .torrent, clique em Abrir Torrent:"/>
 		<control/>
-		<control caption="Baixar"/>
-		<control caption="Cancelar"/>
-		<control caption="O PeerProject pode baixar arquivos da rede (HTTP), e automaticamente procurar e baixar links P2P (Magnet, Gnutella, eDonkey, mP2P)."/>
-		<control caption="O PeerProject também baixa arquivos BitTorrent. Um Torrent é descrito por um arquivo .torrent ou um link HTTP para o arquivo .torrent. Para baixar um link HTTP de torrent cole-o na caixa acima. Se você tem um arquivo .torrent, clique em Abrir Torrent:"/>
-		<control caption="Abrir _Torrent..."/>
+		<control/>
+		<control caption="_Baixar"/>
+		<control caption="_Cancelar"/>
+		<control caption="_Abrir Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Nova Busca|Procurar de Novo|Achar na Biblioteca">
 		<control/>
 		<control/>
-		<control caption="Procurar"/>
-		<control caption="Cancelar"/>
+		<control caption="_Procurar"/>
+		<control caption="_Cancelar"/>
 	</dialog>
 	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtrar Combinações">
 		<control caption="Só mostrar combinações que incluam as _palavras:"/>
@@ -4367,20 +4371,21 @@
 		<control caption="OK"/>
 		<control caption="Cancelar"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Apagar Arquivo">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Apagar Arquivo">
 		<control caption="Você tem certeza que você quer apagar:"/>
 		<control/>
 		<control caption="Apagar"/>
 		<control caption="Apagar Todos"/>
 		<control caption="Cancelar"/>
 		<control/>
-		<control caption="O PeerProject pode se lembrar deste arquivo e avisar você se você encontrá-lo de novo em uma outra busca. Ele criará um arquivo ghost com os seus comentários e classificação:"/>
 		<control caption="Criar um arquivo ghost"/>
-		<control caption="A razão para apagá-lo:"/>
-		<control caption="Só apagando, mantenha os meus comentários|Este arquivo está nomeado incorretamente, e é ilusório|Este arquivo é de qualidade muito pobre|Este arquivo é falso, ou está corrompido ou de algum modo inutilizável|Substitua os meus comentários com os novos"/>
+		<control caption="O PeerProject pode se lembrar deste arquivo e avisar você se você encontrá-lo de novo em uma outra busca. Ele criará um arquivo ghost com os seus comentários e classificação:"/>
 		<control caption="Classificação do arquivo:"/>
+		<control caption="A razão para apagá-lo:"/>
+		<control caption="!"/>
 		<control caption="(Sem Classificação)|Falso/Corrompido/Ilusório|Pobre|Médio|Bom|Muito Bom|Excelente"/>
-		<control caption="Você pode digitar uma nota curta dizendo por que você está apagando o arquivo:"/>
+		<control caption="Só apagando, mantenha os meus comentários|Este arquivo é de qualidade muito pobre|Este arquivo está nomeado incorretamente, e é ilusório|Este arquivo é falso, ou está corrompido ou de algum modo inutilizável|Restricted copyright material|Substitua os meus comentários com os novos..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Exportação da Coleção">

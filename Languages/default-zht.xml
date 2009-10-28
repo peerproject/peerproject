@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r38 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r40 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -337,6 +337,17 @@
 		<rightAlign/>
 		<button id="ID_MEDIA_CLEAR" text="清除"/>
 		<button id="ID_MEDIA_SAVE" text="儲存"/>
+	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="連線" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="中斷連線" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="設定" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -3070,7 +3081,7 @@
 	<string id="20237" value="確定"/>
 	<string id="20238" value="取消"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="一般">
 	</dialog>
@@ -3661,15 +3672,15 @@
 		<control caption="連線"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="下載檔案或 Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="下載檔案或 Torrent">
 		<control/>
 		<control/>
-		<control caption="使用 PeerProject 下載檔案很簡單. 只要在下方的框框鍵入或是貼上 指向檔案的 URL/URI ,然後按 Enter."/>
+		<control caption="PeerProject 可以由網際網路 下載檔案, 以及自動搜尋與下載 P2P 連結. 使用 PeerProject 下載檔案很簡單. 只要在下方的框框鍵入或是貼上 指向檔案的 URL/URI. (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="PeerProject 也可以下載 BitTorrent 檔案.  xyz.torrent 檔 敘述了一個 torrent 的樣子;  或是連接到 .torrent 檔的 HTTP 超連結.  想要下載一個 torrent HTTP 連結, 就將它貼在上方的框框.  如果您手上已經有一個 .torrent 檔, 點選 開啟 Torrent:"/>
+		<control/>
 		<control/>
 		<control caption="下載"/>
 		<control caption="取消"/>
-		<control caption="PeerProject 可以由網際網路(HTTP)下載檔案, 以及自動搜尋與下載 P2P 連結 (Magnet, Gnutella, eDonkey2000, mP2P)."/>
-		<control caption="PeerProject 也可以下載 BitTorrent 檔案.  xyz.torrent 檔 敘述了一個 torrent 的樣子;  或是連接到 .torrent 檔的 HTTP 超連結.  想要下載一個 torrent HTTP 連結, 就將它貼在上方的框框.  如果您手上已經有一個 .torrent 檔, 點選 開啟 Torrent:"/>
 		<control caption="開啟 Torrent..."/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="新的搜尋|再次搜尋|搜尋收藏">
@@ -4005,20 +4016,21 @@
 		<control caption="確定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="刪除">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="刪除">
 		<control caption="你確定您要刪除:"/>
 		<control/>
 		<control caption="刪除"/>
 		<control caption="全部刪除"/>
 		<control caption="取消"/>
 		<control/>
+		<control caption="Create Ghost File"/>
 		<control caption="PeerProject 可以為您記憶這個檔案; 在另一次搜尋時, 如果您又再次發現這個檔案, 我們可以通知您. 請告訴我們為什麼您要刪除這個檔案:"/>
-		<control caption="Create a ghost file"/>
-		<control caption="The reason for deleting:"/>
-		<control caption="Just deleting, keep my comments|This file is named incorrectly, and could be misleading|This file is of very poor quality|This file is a fake, or is corrupt or somehow unusable|Replace my comments with the new ones"/>
 		<control caption="File rating:"/>
+		<control caption="Reason for deleting:"/>
+		<control caption="!"/>
 		<control caption="(No Rating)|Fake/Corrupt/Misleading|Poor|Average|Good|Very Good|Excellent"/>
-		<control caption="你可以鍵入短篇文章, 說明為何這個檔案不良:"/>
+		<control caption="Just deleting, keep any current comments|File is very low quality or outdated|File is named incorrectly or misleading|File is fake, infected, corrupt, or unusable|File is restricted copyright material|File needs custom comments below..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="組檔匯出">

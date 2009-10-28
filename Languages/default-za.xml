@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -344,10 +344,14 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_CONNECT" text="Connect" tip="Connect to IRC"/>
-		<button id="ID_IRC_DISCONNECT" text="Disconnect" tip="Disconnect from IRC"/>
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign/>
-		<button id="ID_IRC_SETTINGS" text="Settings" tip="Configure IRC Settings"/>
+		<button id="ID_IRC_CONNECT" text="Konnekteer" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Diskonnekteer" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Verstellings" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -3126,8 +3130,8 @@
 	<string id="16995" value="Die lêer mag dalk beskadig wees, of jy het nie die nodige kodeks om dit te speel nie."/>
 	<string id="16996" value="Dele van hierdie lêer kan nie gespeel word nie, jy mag dalk addisionele kodeks moet aflaai."/>
 	<string id="16997" value="Daar is geen lêers wat speel nie.  Dubbelkliek 'n medialêer in jou biblioteek om dit te speel, of kliek op Open"/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="M E D I A L Y S"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="Medialys:"/>
 	<string id="17024" value="'n Konneksie aan %s word bewerkstellig..."/>
 	<string id="17025" value="Kan nie 'n konneksie aan %s bewerkstellig nie."/>
 	<string id="17026" value="Versoek 'n drukkonneksie agter 'n netskans vanaf %s..."/>
@@ -3344,7 +3348,7 @@
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Kanselleer"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Algemeen">
 	</dialog>
@@ -3975,16 +3979,16 @@
 		<control caption="Konnekteer"/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Laai Lêer of Torrent Af">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Laai Lêer of Torrent Af">
 		<control/>
 		<control/>
-		<control caption="Dit is eenvoudig om enige lêer met PeerProject af te laai.  Plaas net eenvoudig die URL of URI van die lêer in die spasie hieronder en druk Enter."/>
+		<control caption="PeerProject kan lêers van die Web aflaai, en outomaties P2P skakels soek en aflaai.  Plaas net eenvoudig die URL of URI van die lêer in die spasie hieronder en druk Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="PeerProject kan ook BitTorrent lêers aflaai.  'n Torrent kan beskryf word as 'n xyz.torrent lêer, of 'n HTTP-skakel na die .torrent lêer.  Om 'n torrent HTTP-skakel af te laai, plaas dit in die spasie hierbo.  As jy alreeds 'n .torrent lêer het, kliek Open Torrent:"/>
+		<control/>
 		<control/>
 		<control caption="Laai Af"/>
 		<control caption="Kanselleer"/>
-		<control caption="PeerProject kan lêers van die Web (HTTP) aflaai, en outomaties P2P skakels soek en aflaai (Magneet, Gnutella, eDonkey2000, mP2P)."/>
-		<control caption="PeerProject kan ook BitTorrent lêers aflaai.  'n Torrent kan beskryf word as 'n xyz.torrent lêer, of 'n HTTP-skakel na die .torrent lêer.  Om 'n torrent HTTP-skakel af te laai, plaas dit in die spasie hierbo.  As jy alreeds 'n .torrent lêer het, kliek Open Torrent:"/>
-		<control caption="Open _Torrent..."/>
+		<control caption="Open _Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Nuwe Soektog|Soek weer|Soek in Biblioteek">
 		<control/>
@@ -4321,20 +4325,21 @@
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Skrap Lêer">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Skrap Lêer">
 		<control caption="Is jy seker dat jy die volgende lêer wil skrap:"/>
 		<control/>
 		<control caption="Skrap"/>
 		<control caption="Skrap Alles"/>
 		<control caption="Kanselleer"/>
 		<control/>
+		<control caption="Create Ghost File"/>
 		<control caption="PeerProject kan hierdie lêer onthou en jou waarsku as jy dit weer teëkom in 'n ander soektog.  Selekteer asseblief die rede waarom jy die lêer skrap:"/>
-		<control caption="Create a ghost file"/>
-		<control caption="Ek wil nie kommentaar byvoeg nie."/>
-		<control caption="Hierdie lêer is verkeerdelik genoem en kan misleidend wees."/>
-		<control caption="Hierdie lêer is van swak gehalte."/>
-		<control caption="Hierdie lêer is vals, korrup of andersinds onbruikbaar."/>
-		<control caption="Jy kan 'n kort nota skryf om te verduidelik hoekom die lêer sleg is:"/>
+		<control caption="File rating:"/>
+		<control caption="Reason for deleting:"/>
+		<control caption="!"/>
+		<control caption="(No Rating)|Fake/Corrupt/Misleading|Poor|Average|Good|Very Good|Excellent"/>
+		<control caption="Just deleting, keep any current comments|File is very low quality or outdated|File is named incorrectly or misleading|File is fake, infected, corrupt, or unusable|File is restricted copyright material|File needs custom comments below..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Voer Gids Uit">

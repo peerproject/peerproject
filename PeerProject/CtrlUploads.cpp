@@ -453,7 +453,8 @@ BOOL CUploadsCtrl::GetAt(int nSelect, CUploadQueue** ppQueue, CUploadFile** ppFi
 
 			if ( nIndex++ == nSelect )
 			{
-				if ( ppFile != NULL ) *ppFile = pFile;
+				if ( ppFile != NULL )
+					*ppFile = pFile;
 				return TRUE;
 			}
 		}
@@ -470,21 +471,13 @@ POSITION CUploadsCtrl::GetQueueIterator()
 	ASSUME_LOCK( UploadQueues.m_pSection );
 
 	if ( Settings.Uploads.FilterMask & ULF_TORRENT )
-	{
 		return (POSITION)UploadQueues.m_pTorrentQueue;
-	}
 	else if ( Settings.Uploads.FilterMask & ( ULF_ACTIVE | ULF_QUEUED ) )
-	{
 		return UploadQueues.GetIterator();
-	}
 	else if ( Settings.Uploads.FilterMask & ULF_HISTORY )
-	{
 		return (POSITION)UploadQueues.m_pHistoryQueue;
-	}
 	else
-	{
 		return NULL;
-	}
 }
 
 CUploadQueue* CUploadsCtrl::GetNextQueue(POSITION& pos)
@@ -519,13 +512,8 @@ CUploadQueue* CUploadsCtrl::GetNextQueue(POSITION& pos)
 	{
 		CUploadQueue* pQueue = UploadQueues.GetNext( pos );
 
-		if ( pos == NULL )
-		{
-			if ( Settings.Uploads.FilterMask & ULF_HISTORY )
-			{
-				pos = (POSITION)UploadQueues.m_pHistoryQueue;
-			}
-		}
+		if ( pos == NULL && ( Settings.Uploads.FilterMask & ULF_HISTORY ) )
+			pos = (POSITION)UploadQueues.m_pHistoryQueue;
 
 		return pQueue;
 	}
@@ -895,7 +883,7 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, CUploadQueue* pQueue,
 			}
 			rcCell.left += 16;
 			dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crLeftAligned );
-			rcCell.left += 1;
+			rcCell.left++;
 
 			strText = pQueue->m_sName;
 			break;
@@ -1011,7 +999,7 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, CUploadQueue* /*pQueue
 					rcCell.left, rcCell.top, 16, 16, crBack, CLR_DEFAULT, pFile->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
 			rcCell.left += 16;
 			dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crLeftAligned );
-			rcCell.left += 1;
+			rcCell.left++;
 			strText = pFile->m_sName;
 			break;
 

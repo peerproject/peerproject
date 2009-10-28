@@ -614,9 +614,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 		pHit->m_bPreview	&= pHit->m_bPush == TRI_FALSE;
 
 		if ( pHit->m_nUpSlots > 0 )
-		{
 			pHit->m_bBusy = ( pHit->m_nUpSlots <= pHit->m_nUpQueue ) ? TRI_TRUE : TRI_FALSE;
-		}
 
 		pHit->Resolve();
 
@@ -1022,13 +1020,9 @@ void CQueryHit::ReadG1Packet(CG1Packet* pPacket)
 	m_bSize		= TRUE;
 
 	if ( Settings.Gnutella1.QueryHitUTF8 ) //Support UTF-8 Query
-	{
 		m_sName	= pPacket->ReadStringUTF8();
-	}
 	else
-	{
 		m_sName	= pPacket->ReadStringASCII();
-	}
 
 	while ( pPacket->GetRemaining() )
 	{
@@ -1356,13 +1350,9 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 
 			case G2_PACKET_URL:
 				if ( nPacket == 0 )
-				{
 					m_bResolveURL = TRUE;
-				}
 				else
-				{
 					m_sURL = pPacket->ReadString( nPacket );
-				}
 				break;
 
 			case G2_PACKET_DESCRIPTIVE_NAME:
@@ -1458,27 +1448,21 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 
 			case G2_PACKET_OBJECT_ID:
 				if ( nPacket >= 4 )
-				{
 					m_nIndex = pPacket->ReadLongBE();
-				}
 				else
 					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid object id") );
 				break;
 
 			case G2_PACKET_CACHED_SOURCES:
 				if ( nPacket >= 2 )
-				{
 					m_nHitSources += pPacket->ReadShortBE();
-				}
 				else
 					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid cached sources") );
 				break;
 
 			case G2_PACKET_PARTIAL:
 				if ( nPacket >= 4 )
-				{
 					m_nPartial = pPacket->ReadLongBE();
-				}
 				else
 					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid partial") );
 				break;
@@ -1604,16 +1588,12 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 		}
 		else if ( pTag.m_nKey == ED2K_FT_COMPLETE_SOURCES )
 		{
+			//Assume this file is 50% complete. (we can't tell yet, but at least this will warn the user)
 			if ( ! pTag.m_nValue && m_bSize ) //If there are no complete sources
-			{
-				//Assume this file is 50% complete. (we can't tell yet, but at least this will warn the user)
 				m_nPartial = (DWORD)m_nSize >> 2;
 				//theApp.Message( MSG_NOTICE, _T("ED2K_FT_COMPLETESOURCES tag reports no complete sources.") );
-			}
-			else
-			{
+			//else
 				//theApp.Message( MSG_NOTICE, _T("ED2K_FT_COMPLETESOURCES tag reports complete sources present.") );
-			}
 		}
 		else if ( pTag.m_nKey == ED2K_FT_LENGTH )
 		{	//Length- new style (DWORD)
@@ -1660,17 +1640,11 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 			DWORD nSecs = 0, nMins = 0, nHours = 0;
 
 			if ( pTag.m_sValue.GetLength() < 3 )
-			{
 				_stscanf( pTag.m_sValue, _T("%i"), &nSecs );
-			}
 			else if ( pTag.m_sValue.GetLength() < 6 )
-			{
 				_stscanf( pTag.m_sValue, _T("%i:%i"), &nMins, &nSecs );
-			}
 			else
-			{
 				_stscanf( pTag.m_sValue, _T("%i:%i:%i"), &nHours, &nMins, &nSecs );
-			}
 
 			nLength = (nHours * 60 * 60) + (nMins * 60) + (nSecs);
 		}
@@ -1686,21 +1660,18 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 		{	//Codec - old style
 			strCodec = pTag.m_sValue;
 		}
-		else
-		{
-			/*
-			//*** Debug check. Remove this when it's working
-			CString s;
-			s.Format ( _T("Tag: %u sTag: %s Type: %u"), pTag.m_nKey, pTag.m_sKey, pTag.m_nType );
-			theApp.Message( MSG_NOTICE, s );
+		//else	//*** Debug check. Remove this when it's working
+		//{
+		//	CString s;
+		//	s.Format ( _T("Tag: %u sTag: %s Type: %u"), pTag.m_nKey, pTag.m_sKey, pTag.m_nType );
+		//	theApp.Message( MSG_NOTICE, s );
 
-			if ( pTag.m_nType == 2 )
-				s.Format ( _T("Value: %s"), pTag.m_sValue);
-			else
-				s.Format ( _T("Value: %d"), pTag.m_nValue);
-			theApp.Message( MSG_NOTICE, s );
-			*/
-		}
+		//	if ( pTag.m_nType == 2 )
+		//		s.Format ( _T("Value: %s"), pTag.m_sValue);
+		//	else
+		//		s.Format ( _T("Value: %d"), pTag.m_nValue);
+		//	theApp.Message( MSG_NOTICE, s );
+		//}
 	}
 
 	if ( nSize.QuadPart )
@@ -1756,13 +1727,13 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 			{
 				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("audio") );
 				m_pXML->AddAttribute( _T("bitrate"), strBitrate );
-			}/*
-			if ( strCodec.GetLength() )
-			{
-				m_sSchemaURI = CSchema::uriVideo;
-				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("audio") );
-				m_pXML->AddAttribute( _T("codec"), strCodec );
-			}*/
+			}
+			//if ( strCodec.GetLength() )
+			//{
+			//	m_sSchemaURI = CSchema::uriVideo;
+			//	if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("audio") );
+			//	m_pXML->AddAttribute( _T("codec"), strCodec );
+			//}
 		}
 		else if ( ( pSchema = SchemaCache.Get( CSchema::uriVideo ) ) != NULL &&
 				  pSchema->FilterType( strType ) )
@@ -1776,12 +1747,12 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 				strLength.Format( _T("%.3f"), nMins );
 				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("video") );
 				m_pXML->AddAttribute( _T("minutes"), strLength );
-			}/*
-			if ( strBitrate.GetLength() )
-			{
-				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("video") );
-				m_pXML->AddAttribute( _T("bitrate"), strBitrate );
-			}*/
+			}
+			//if ( strBitrate.GetLength() )
+			//{
+			//	if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("video") );
+			//	m_pXML->AddAttribute( _T("bitrate"), strBitrate );
+			//}
 			if ( strCodec.GetLength() )
 			{
 				if ( m_pXML == NULL ) m_pXML = new CXMLElement( NULL, _T("video") );

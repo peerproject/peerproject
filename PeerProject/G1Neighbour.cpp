@@ -396,9 +396,8 @@ BOOL CG1Neighbour::SendPing(DWORD dwNow, const Hashes::Guid& oGUID)
 		CGGEPBlock pBlock;
 		CGGEPItem* pItem = pBlock.Add( GGEP_HEADER_SUPPORT_CACHE_PONGS );
 		if ( Settings.Experimental.EnableDIPPSupport )
-		{
 			pItem = pBlock.Add( GGEP_HEADER_SUPPORT_GDNA );
-		}
+
 		pBlock.Write( pPacket );
 	}
 
@@ -466,13 +465,11 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 		if ( pGGEP.ReadFromPacket( pPacket ) )
 		{
 			if ( CGGEPItem* pItem = pGGEP.Find( GGEP_HEADER_SUPPORT_CACHE_PONGS ) )
-			{
 				bSCP = true;
-			}
+
 			if ( CGGEPItem* pItem = pGGEP.Find( GGEP_HEADER_SUPPORT_GDNA ) )
-			{
 				bDNA = true;
-			}
+
 			if ( pPacket->Hop() ) // Calling Hop makes sure TTL is 2+ and then moves a count from TTL to hops
 			{
 				// Broadcast the packet to the computers we are connected to
@@ -500,16 +497,10 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 
 	CGGEPBlock pGGEP;
 	if ( bSCP )
-	{
 		CG1Packet::GGEPWriteRandomCache( pGGEP.Add( GGEP_HEADER_PACKED_IPPORTS ) );
-	}
-	if ( Settings.Experimental.EnableDIPPSupport )
-	{
-		if ( bDNA )
-		{
+
+	if ( bDNA && Settings.Experimental.EnableDIPPSupport )
 			CG1Packet::GGEPWriteRandomCache( pGGEP.Add( GGEP_HEADER_GDNA_PACKED_IPPORTS ) );
-		}
-	}
 
 	// Get statistics about how many files we are sharing
 	QWORD nMyVolume = 0;
@@ -686,21 +677,15 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 
 			// Read daily uptime
 			if ( CGGEPItem* pDU = pGGEP.Find( GGEP_HEADER_DAILY_AVERAGE_UPTIME, 1 ) )
-			{
 				pDU->Read( (void*)&nUptime, 4 );
-			}
 
 			CG1Packet::GGEPReadCachedHosts( pGGEP );
 
 			if ( CGGEPItem* pUP = pGGEP.Find( GGEP_HEADER_UP_SUPPORT ) )
-			{
 				bUltrapeer = true;
-			}
 
 			if ( CGGEPItem* pGDNA = pGGEP.Find( GGEP_HEADER_SUPPORT_GDNA ) )
-			{
 				bGDNA = true;
-			}
 
 			if ( pPacket->Hop() ) // Calling Hop makes sure TTL is 2+ and then moves a count from TTL to hops
 			{
@@ -1016,9 +1001,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 		case 0x0004:
 
 			if ( nVersion <= 1 && pPacket->GetRemaining() >= 1 )
-			{
 				m_nHopsFlow = pPacket->ReadByte();
-			}
 
 			break;
 
@@ -1056,18 +1039,16 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 		}
 	}
 
-	/*	ToDo: Other Vendors
-
-	else if ( nVendor == 'LIME' || nVendor == 'SNOW' )
-	{
-	}
-	else if ( nVendor == 'GTKG' )
-	{
-	}
-	else if ( nVendor == 'GNUC' )
-	{
-	}
-	*/
+	//	ToDo: Other Vendors
+	//else if ( nVendor == 'LIME' || nVendor == 'SNOW' )
+	//{
+	//}
+	//else if ( nVendor == 'GTKG' )
+	//{
+	//}
+	//else if ( nVendor == 'GNUC' )
+	//{
+	//}
 
 	// Always return true to stay connected to the remote computer
 	return TRUE;

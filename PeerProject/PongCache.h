@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_PONGCACHE_H__0F9B689A_5132_49EB_8F13_670563C80A1D__INCLUDED_)
-#define AFX_PONGCACHE_H__0F9B689A_5132_49EB_8F13_670563C80A1D__INCLUDED_
-
 #pragma once
 
 class CPongItem;
@@ -52,7 +49,6 @@ public:
 public:
 	POSITION	GetIterator() const;
 	CPongItem*	GetNext(POSITION& pos) const;
-
 };
 
 
@@ -75,7 +71,4 @@ public:
 // Operations
 public:
 	CG1Packet*		ToPacket(int nTTL, const Hashes::Guid& oGUID);
-
 };
-
-#endif // !defined(AFX_PONGCACHE_H__0F9B689A_5132_49EB_8F13_670563C80A1D__INCLUDED_)

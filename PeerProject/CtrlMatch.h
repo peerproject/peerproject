@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_CTRLMATCH_H__7AF5A040_15D1_4BC1_A384_3C27F226F878__INCLUDED_)
-#define AFX_CTRLMATCH_H__7AF5A040_15D1_4BC1_A384_3C27F226F878__INCLUDED_
-
 #pragma once
 
 #include "CtrlMatchTip.h"
@@ -151,5 +148,3 @@ public:
 
 #define IDC_MATCHES			100
 #define IDC_MATCH_HEADER	115
-
-#endif // !defined(AFX_CTRLMATCH_H__7AF5A040_15D1_4BC1_A384_3C27F226F878__INCLUDED_)

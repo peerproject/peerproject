@@ -18,7 +18,7 @@
 // along with PeerProject; if not, write to Free Software Foundation, Inc.
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
-// Author: peer_l_@hotmail.com
+// Original Author: peer_l_@hotmail.com
 //
 
 #include "StdAfx.h"
@@ -91,6 +91,9 @@ int CIRCPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_boxChans.Create( this, 200, _T("Channels"), IDR_CHANSFRAME );
 	m_boxUsers.Create( this, 200, _T("Users"), IDR_USERSFRAME );
+	
+	if ( ! theApp.m_bIsWin2000 )
+		m_boxUsers.ModifyStyleEx( 0, WS_EX_COMPOSITED );	//Stop control flickering XP+
 
 	m_pFont.Attach( theApp.m_gdiFontBold );
 	m_boxChans.m_wndChanList.SetFont( &m_pFont );
@@ -215,7 +218,7 @@ void CIRCChannelsBox::OnSize(UINT nType, int cx, int cy)
 	m_wndChanList.SetColumnWidth( 1, 36 );
 }
 
-void CIRCChannelsBox::OnChansDoubleClick(NMHDR* /* pNMHDR */, LRESULT* pResult)
+void CIRCChannelsBox::OnChansDoubleClick(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 {
 	IRC_PANELEVENT pNotify;
 	pNotify.hdr.hwndFrom	= GetSafeHwnd();
@@ -322,7 +325,7 @@ void CIRCUsersBox::OnUsersDoubleClick()
 	}
 }
 
-void CIRCUsersBox::OnContextMenu(CWnd* /* pWnd */, CPoint point)
+void CIRCUsersBox::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
 	int nItem = HitTest( point );
 	if ( nItem >= 0 )

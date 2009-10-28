@@ -49,6 +49,7 @@ CSinglePage::CSinglePage() : CWizardPage(CSinglePage::IDD)
 	//{{AFX_DATA_INIT(CSinglePage)
 	m_sFileName = _T("");
 	m_sFileSize = _T("");
+	//m_sMagnet = _T("");
 	//}}AFX_DATA_INIT
 }
 
@@ -148,6 +149,8 @@ void CSinglePage::OnBrowseFile()
 	
 	UpdateData( FALSE );
 }
+
+// ToDo: Display Magnet Link in new textbox on file-load
 
 LRESULT CSinglePage::OnWizardBack() 
 {

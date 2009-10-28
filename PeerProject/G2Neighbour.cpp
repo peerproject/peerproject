@@ -358,7 +358,7 @@ BOOL CG2Neighbour::ProcessPackets()
 		catch ( CException* pException )
 		{
 			pException->Delete();
-			// bSuccess = FALSE;		// SHOULD THIS BE LIKE THIS?
+			// bSuccess = FALSE;	// ToDo: Should this be like this?
 			bSuccess = TRUE;
 		}
 
@@ -471,8 +471,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 		{
 			// This is a direct ping packet
 			if ( tNow - m_tLastPingIn < Settings.Gnutella1.PingFlood )
-				// We are flooded
-				return TRUE;
+				return TRUE;	// We are flooded
 			m_tLastPingIn = tNow;
 			m_nCountPingIn++;
 			if ( bTCP )
@@ -500,8 +499,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 	{
 		// This is a TCP relayed ping packet
 		if ( tNow - m_tLastRelayedPingIn < Settings.Gnutella1.PingFlood )
-			// We are flooded
-			return TRUE;
+			return TRUE;	// We are flooded
 		m_tLastRelayedPingIn = tNow;
 		m_nCountRelayedPingIn++;
 
@@ -1115,9 +1113,7 @@ BOOL CG2Neighbour::OnHAW(CG2Packet* pPacket)
 		pPtr[1] = nHops + 1;
 
 		if ( CG2Neighbour* pNeighbour = Neighbours.GetRandomHub( this, oGUID ) )
-		{
 			pNeighbour->Send( pPacket, FALSE, TRUE );
-		}
 	}
 
 	return TRUE;
@@ -1208,23 +1204,22 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 
 	if ( m_nNodeType != ntHub )
 	{
-		/*
-		if ( pPacket->IsType( G2_PACKET_QUERY_WRAP ) )
-		{
-			if ( ! pPacket->SeekToWrapped() ) return TRUE;
-			GNUTELLAPACKET* pG1 = (GNUTELLAPACKET*)( pPacket->m_pBuffer + pPacket->m_nPosition );
+		//if ( pPacket->IsType( G2_PACKET_QUERY_WRAP ) )
+		//{
+		//	if ( ! pPacket->SeekToWrapped() ) return TRUE;
+		//	GNUTELLAPACKET* pG1 = (GNUTELLAPACKET*)( pPacket->m_pBuffer + pPacket->m_nPosition );
 
-			if ( pG1->m_nTTL > 1 )
-			{
-				pG1->m_nTTL--;
-				pG1->m_nHops++;
-				Neighbours.RouteQuery( pSearch, pPacket, this, TRUE );
-			}
-		}
-		else
-		{
-			Neighbours.RouteQuery( pSearch, pPacket, this, m_nNodeType == ntLeaf );
-		}*/
+		//	if ( pG1->m_nTTL > 1 )
+		//	{
+		//		pG1->m_nTTL--;
+		//		pG1->m_nHops++;
+		//		Neighbours.RouteQuery( pSearch, pPacket, this, TRUE );
+		//	}
+		//}
+		//else
+		//{
+		//	Neighbours.RouteQuery( pSearch, pPacket, this, m_nNodeType == ntLeaf );
+		//}
 
 		Neighbours.RouteQuery( pSearch, pPacket, this, m_nNodeType == ntLeaf );
 	}
@@ -1239,15 +1234,12 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 	}
 	else
 	{
-		/*
-		BOOL bIsG1 = pPacket->IsType( G2_PACKET_QUERY_WRAP );
-
-		if ( ! bIsG1 || Settings.Gnutella1.EnableToday )
-		{
-			CLocalSearch pLocal( pSearch, this, bIsG1 );
-			pLocal.Execute();
-		}
-		*/
+		//BOOL bIsG1 = pPacket->IsType( G2_PACKET_QUERY_WRAP );
+		//if ( ! bIsG1 || Settings.Gnutella1.EnableToday )
+		//{
+		//	CLocalSearch pLocal( pSearch, this, bIsG1 );
+		//	pLocal.Execute();
+		//}
 		CLocalSearch pLocal( pSearch, this, FALSE );
 		pLocal.Execute();
 	}

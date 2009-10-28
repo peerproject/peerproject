@@ -235,7 +235,7 @@ void CConnectToDlg::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct
 	if ( Settings.General.LanguageRTL )
 		nImage = m_pImages.GetImageCount() - nImage - 2;
 	else
-		nImage += 1;
+		nImage++;
 
 	m_pImages.Draw( &dc, nImage, pt,
 		( lpDrawItemStruct->itemState & ODS_SELECTED ) ? ILD_SELECTED : ILD_NORMAL );

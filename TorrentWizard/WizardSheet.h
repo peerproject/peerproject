@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_WIZARDSHEET_H__E2500C10_98B2_48B0_9165_975E5444679A__INCLUDED_)
-#define AFX_WIZARDSHEET_H__E2500C10_98B2_48B0_9165_975E5444679A__INCLUDED_
-
 #pragma once
 
 class CWizardPage;
@@ -80,8 +77,8 @@ public:
 
 // Attributes
 public:
-	COLORREF	m_crWhite;
-	CBrush		m_brWhite;
+	COLORREF		m_crWhite;
+	CBrush			m_brWhite;
 
 // Operations
 public:
@@ -96,11 +93,8 @@ protected:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
 
-//{{AFX_INSERT_LOCATION}}
-
 #define GET_PAGE(gpClass, gpVar)	gpClass * gpVar = ( gpClass * )GetPage( RUNTIME_CLASS( gpClass ) )
-
-#endif // !defined(AFX_WIZARDSHEET_H__E2500C10_98B2_48B0_9165_975E5444679A__INCLUDED_)

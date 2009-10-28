@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r38 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r40 (Shareaza 2.2.5.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -337,6 +337,17 @@
 		<rightAlign/>
 		<button id="ID_MEDIA_CLEAR" text="Smazat"/>
 		<button id="ID_MEDIA_SAVE" text="Uložit"/>
+	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="Připojit" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Odpojit" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Nastavení" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -3027,7 +3038,7 @@
 	<string id="16995" value="Soubor může být poškozený, nebo nemáte potřebný kodetek pro přehrávání."/>
 	<string id="16996" value="Část tohoto souboru nemohla být přehraná, možná bude třeba stáhnout další kodetek."/>
 	<string id="16997" value="Nepřehrává se žádný soubor. Dvojitým kliknutím soubor ve vaší knihovně přehrajete."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Playlist:"/>
 	<string id="17024" value="Připojuji se k %s..."/>
 	<string id="17025" value="Nemohu navázat spojení do %s."/>
@@ -3245,7 +3256,7 @@
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Zrušit"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Hlavní">
 	</dialog>
@@ -3836,16 +3847,16 @@
 		<control caption="Připojit"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Stažení souboru/Torrentu">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Stažení souboru/Torrentu">
 		<control/>
 		<control/>
-		<control caption="Stahování jakéhokoliv souboru programem PeerProject je snadné. Do následujícího pole napište neob vložte ze schránky URL nebo URI souboru a stiskněte Enter."/>
+		<control caption="Může stahovat soubory také z webu tak, že automaticky vyhledá a stáhne linky P2P. Stahování jakéhokoliv souboru programem PeerProject je snadné. Do následujícího pole napište neob vložte ze schránky URL nebo URI souboru. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="Také stahovat soubory BitTorrent. Torrent může být např. soubor s příponou torrent (xyz.torrent), nebo HTTP odkaz na torrent soubor. Pokud máte HTTP odkaz na torrent soubor vložte jej do pole nahoře a stiskněte Enter. Pokud již máte torrent soubor otevřte jej kliknutím na tlačítko Otevřít Torrent."/>
+		<control/>
 		<control/>
 		<control caption="Stáhnout"/>
 		<control caption="Zrušit"/>
-		<control caption="PeerProject může stahovat soubory také z webu (HTTP) tak, že automaticky vyhledá a stáhne linky P2P (Magnet, Gnutella, eDonkey, mP2P)."/>
-		<control caption="PeerProject umí také stahovat soubory BitTorrent. Torrent může být např. soubor s příponou torrent (xyz.torrent), nebo HTTP odkaz na torrent soubor. Pokud máte HTTP odkaz na torrent soubor vložte jej do pole nahoře a stiskněte Enter. Pokud již máte torrent soubor otevřte jej kliknutím na tlačítko Otevřít Torrent."/>
-		<control caption="Otevřít _Torrent..."/>
+		<control caption="Otevřít _Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Nové hledání|Hledat znovu|Hledat v Knihovně">
 		<control/>
@@ -4181,20 +4192,21 @@
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Odstranění souboru">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Odstranění souboru">
 		<control caption="Opravdu chcete smazat-odstranit tento soubor:"/>
 		<control/>
 		<control caption="Vymazat"/>
 		<control caption="Vymazat vše"/>
 		<control caption="Zrušit"/>
 		<control/>
-		<control caption="PeerProject si může pamatovat tento soubor a upozornit vás pokud byste na něj narazili znovu při dalším hledání. Vyberte důvod pro odstranění tohoto souboru:"/>
 		<control caption="Uložit informace o souboru"/>
-		<control caption="Důvod vymazání:"/>
-		<control caption="Nechci ho|Nepřesně pojmenovaný, matoucí|Kvalita souboru je špatná|Soubor je poškozený, nečitelný nebo jinak nepoužitelný|Nahradit mé předchozí komentáře"/>
+		<control caption="PeerProject si může pamatovat tento soubor a upozornit vás pokud byste na něj narazili znovu při dalším hledání. Vyberte důvod pro odstranění tohoto souboru:"/>
 		<control caption="Hodnocení souboru:"/>
+		<control caption="Důvod vymazání:"/>
+		<control caption="!"/>
 		<control caption="(žádné)|poškozený/podvodný/matoucí|špatný|průměrný|dobrý|velmi dobrý|vynikající"/>
-		<control caption="Můžete napsat krátkou poznámku, která upřesňuje důvod smazání:"/>
+		<control caption="Nechci ho|Kvalita souboru je špatná|Nepřesně pojmenovaný, matoucí|Soubor je poškozený, nečitelný nebo jinak nepoužitelný|Restricted copyright material|Nahradit mé předchozí komentáře..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Collection Export">

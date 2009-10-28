@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r38 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r40 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -338,6 +338,17 @@
 		<button id="ID_MEDIA_CLEAR" text="クリア"/>
 		<button id="ID_MEDIA_SAVE" text="保存"/>
 	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="チャット" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="削除" tip="Exit Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="接続先" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="切断" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="設定" tip="Configure IRC Settings"/>
+	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="参照"/>
@@ -369,9 +380,8 @@
 		<button id="ID_HITMONITOR_PAUSE" text="一時停止"/>
 		<button id="ID_HITMONITOR_CLEAR" text="クリア"/>
 		<rightAlign/>
-		<label text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="フィルタ:" tip="検索結果をフィルタリングしたい場合はここにフィルタ文字列を入力して下さい"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="詳細設定..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd.Basic">
@@ -3191,7 +3201,7 @@
 	<string id="20237" value="OK"/>
 	<string id="20238" value="キャンセル"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="一般">
 	</dialog>
@@ -3782,16 +3792,16 @@
 		<control caption="接続"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="ファイル・Torrentダウンロード">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="ファイル・Torrentダウンロード">
 		<control/>
 		<control/>
-		<control caption="PeerProjectではどんなファイルをダウンロードするのも簡単です。ファイルへのURLかURIを入力するか、貼り付けてEnterキーを押して下さい"/>
+		<control caption="PeerProjectはウェブ からファイルをダウンロードすることができ、P2Pリンク で自動的に検索・ダウンロードできます. PeerProjectではどんなファイルをダウンロードするのも簡単です。ファイルへのURLかURIを入力するか、貼り付けてEnterキーを押して下さい (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="PeerProjectはBitTorrentファイルのダウンロードもできます。 torrentは拡張子.torrentファイルへのHTTPリンクで記述されています。 torrentのHTTPリンクをダウンロードするには上のボックスにそれを貼り付けます。.torrentファイルがある場合はそれを開いて下さい:"/>
+		<control/>
 		<control/>
 		<control caption="ダウンロード"/>
 		<control caption="キャンセル"/>
-		<control caption="PeerProjectはウェブ(HTTP)からファイルをダウンロードすることができ、P2Pリンク(Magnet, Gnutella, eDonkey2000, mP2P)で自動的に検索・ダウンロードできます"/>
-		<control caption="PeerProjectはBitTorrentファイルのダウンロードもできます。 torrentは拡張子.torrentファイルへのHTTPリンクで記述されています。 torrentのHTTPリンクをダウンロードするには上のボックスにそれを貼り付けます。.torrentファイルがある場合はそれを開いて下さい:"/>
-		<control caption="Torrentを開く(_T)..."/>
+		<control caption="Torrentを開く(_T)"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="新規検索|再検索|ライブラリ検索">
 		<control/>
@@ -4126,20 +4136,21 @@
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="ファイル削除">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="ファイル削除">
 		<control caption="本当に削除してよろしいですか？:"/>
 		<control/>
 		<control caption="削除"/>
 		<control caption="全て削除"/>
 		<control caption="キャンセル"/>
 		<control/>
-		<control caption="PeerProjectはこのファイルを記録して、別の機会に同じファイルに遭遇した時にあなたに警告を行うことが出来ます。 このファイルを削除する理由を選択して下さい:"/>
 		<control caption="ゴーストを作成"/>
-		<control caption="削除理由:"/>
-		<control caption="削除(コメントを保持)|名前が間違っている(内容と合っていない、紛らわしい)|このファイルの品質が非常に悪い|このファイルは偽物であるか、破損しているなどの理由で使用できない|最新のコメントと置き換える"/>
+		<control caption="PeerProjectはこのファイルを記録して、別の機会に同じファイルに遭遇した時にあなたに警告を行うことが出来ます。 このファイルを削除する理由を選択して下さい:"/>
 		<control caption="ファイルの評価："/>
+		<control caption="削除理由:"/>
+		<control caption="!"/>
 		<control caption="(評価なし)|偽者、破損、紛らわしい|悪い|普通|良い|とても良い|素薔薇しい"/>
-		<control caption="このファイルが何故悪いかを説明する短いメモを入力することができます:"/>
+		<control caption="削除(コメントを保持)|このファイルの品質が非常に悪い|名前が間違っている(内容と合っていない、紛らわしい)|このファイルは偽物であるか、破損しているなどの理由で使用できない|Restricted copyright material|最新のコメントと置き換える"/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="コレクションをエクスポート">

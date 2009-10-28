@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_WNDPACKET_H__83132A9A_A3A0_4850_A3D9_DCF825D2F273__INCLUDED_)
-#define AFX_WNDPACKET_H__83132A9A_A3A0_4850_A3D9_DCF825D2F273__INCLUDED_
-
 #pragma once
 
 #include "WndPanel.h"
@@ -80,8 +77,4 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
-//{{AFX_INSERT_LOCATION}}
-
 #define IDC_PACKETS		100
-
-#endif // !defined(AFX_WNDPACKET_H__83132A9A_A3A0_4850_A3D9_DCF825D2F273__INCLUDED_)

@@ -19,16 +19,12 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_CTRLLIBRARYALBUMVIEW_H__19FB3DBB_8526_4E9D_A647_75DF07BAE7E2__INCLUDED_)
-#define AFX_CTRLLIBRARYALBUMVIEW_H__19FB3DBB_8526_4E9D_A647_75DF07BAE7E2__INCLUDED_
-
 #pragma once
 
 #include "CtrlLibraryFileView.h"
 
 class CLibraryFile;
 class CLibraryAlbumTrack;
-
 
 class CLibraryAlbumView : public CLibraryFileView
 {
@@ -151,7 +147,3 @@ public:
 	static void	PaintText(CDC* pDC, const CRect& rcTrack, int nFrom, int nTo, const CString* pstr, BOOL bCenter = FALSE);
 	static void	PaintText(CDC* pDC, const CRect& rcTrack, int nFrom, int nTo, int nID, BOOL bCenter = FALSE);
 };
-
-//{{AFX_INSERT_LOCATION}}
-
-#endif // !defined(AFX_CTRLLIBRARYALBUMVIEW_H__19FB3DBB_8526_4E9D_A647_75DF07BAE7E2__INCLUDED_)

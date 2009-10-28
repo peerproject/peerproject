@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_GRAPHITEM_H__6C5709B5_EB88_4CAB_B61E_74F11AAB9F65__INCLUDED_)
-#define AFX_GRAPHITEM_H__6C5709B5_EB88_4CAB_B61E_74F11AAB9F65__INCLUDED_
-
 #pragma once
 
 typedef struct
@@ -106,5 +103,3 @@ public:
 #define GRC_CONNECTION_ERRORS			61
 
 #define GRC_RANDOM						100
-
-#endif // !defined(AFX_GRAPHITEM_H__6C5709B5_EB88_4CAB_B61E_74F11AAB9F65__INCLUDED_)

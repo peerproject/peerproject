@@ -71,8 +71,8 @@ public:	//Client capabilities
 	BOOL		m_bEmLargeFile;		// Large file support
 public:
 	BOOL		m_bLogin;
-	Hashes::Ed2kHash m_oUpED2K;
 	QWORD		m_nUpSize;
+	Hashes::Ed2kHash m_oUpED2K;
 public:
 	CDownloadTransferED2K*	m_pDownload;
 	CUploadTransferED2K*	m_pUpload;

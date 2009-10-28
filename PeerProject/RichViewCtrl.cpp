@@ -366,13 +366,9 @@ void CRichViewCtrl::OnMouseMove(UINT nFlags, CPoint point)
 	GetClientRect( &rc );
 
 	if ( point.y < 0 )
-	{
 		PostMessage( WM_VSCROLL, SB_LINEUP );
-	}
 	else if ( point.y >= rc.bottom )
-	{
 		PostMessage( WM_VSCROLL, SB_LINEDOWN );
-	}
 
 	CWnd::OnMouseMove( nFlags, point );
 }
@@ -758,6 +754,8 @@ RICHPOSITION CRichViewCtrl::PointToPosition(CPoint& pt)
 	{
 		CRichFragment* pFragment = m_pFragments.GetAt( nFragment );
 
+		// ToDo: Fix Wrapped Multiline Detection (IRC?)
+
 		if ( pt.x >= pFragment->m_pt.x && pt.y >= pFragment->m_pt.y &&
 			 pt.x < pFragment->m_pt.x + pFragment->m_sz.cx &&
 			 pt.y < pFragment->m_pt.y + pFragment->m_sz.cy )
@@ -774,7 +772,7 @@ RICHPOSITION CRichViewCtrl::PointToPosition(CPoint& pt)
 				pszText += pFragment->m_nOffset;
 				int nX = pt.x - pFragment->m_pt.x;
 
-				for ( pos.nOffset = 0 ; pos.nOffset < pFragment->m_nLength ; pszText ++ )
+				for ( pos.nOffset = 0 ; pos.nOffset < pFragment->m_nLength ; pszText++ )
 				{
 					int nWidth = dc.GetTextExtent( pszText, 1 ).cx;
 					if ( nX < ( nWidth >> 1 ) ) break;
@@ -929,7 +927,7 @@ void CRichViewCtrl::CopySelection()
 	// Following block required for IRC functionality:
 	{
 		CString strTemp;
-		for ( int nPos = 1; nPos < str.GetLength(); nPos++ )
+		for ( int nPos = 0; nPos < str.GetLength(); nPos++ )
 		{
 			TCHAR ñ = str.GetAt( nPos );
 			if ( ñ != _T('\x200D') )	// Zero Width Joiner

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r38 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r40 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -336,6 +336,17 @@
 		<rightAlign/>
 		<button id="ID_MEDIA_CLEAR" text="Počisti"/>
 		<button id="ID_MEDIA_SAVE" text="Shrani"/>
+	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Kramljanje" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="Poveži" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Prekini povezavo" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Nastavitve" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -2944,7 +2955,7 @@
 	<string id="16996" value="Dela te datoteke ni bilo mogoče predvajati. Morda boste morali prenesti dodatne kodeke."/>
 	<string id="16997" value="Trenutno se ne predvaja nobena datoteka. Dvokliknite na datoteko v svoji knjižnici za njeno predvajanje."/>
 	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; J &#160;&#160; S &#160;&#160; K &#160;&#160; I &#160;&#160; &#160;&#160; S &#160;&#160; I &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="SEZNAM PREDVAJANJA:"/>
+	<string id="16999" value="Senzam Predvajanja:"/>
 	<string id="17024" value="Začenjam povezavo z %s..."/>
 	<string id="17025" value="Povezave z %s ni uspelo ustvariti."/>
 	<string id="17026" value="Naprošam po potisni povezavi za požarnim zidom od %s..."/>
@@ -3148,7 +3159,7 @@
 	<string id="20237" value="V redu"/>
 	<string id="20238" value="Prekliči"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Splošno">
 	</dialog>
@@ -3736,24 +3747,24 @@
 		<control caption="Gnutella1 (samodejno)|Gnutella2 (samodejno)|eDonkey2000"/>
 		<control caption="_Zatri ultravrstnika"/>
 		<control caption="Poveži"/>
-		<control caption="Prekliči"/>
+		<control caption="_Prekliči"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Prenesi datoteko kot Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Prenesi datoteko kot Torrent">
 		<control/>
 		<control/>
-		<control caption="Prenašanje katerekoli datoteke s PeerProject je popolnoma enostavno. Vtipkajte ali prilepite URL ali URI naslov v spodnje okence in pritisnite Enter."/>
+		<control caption="Prenese datoteke iz spleta in samodejno išče in prenese P2P povezave. Vtipkajte ali prilepite URL ali URI naslov v spodnje okence in pritisnite Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="Prav tako prenese datoteke BitTorrent. Torrent lahko opišemo, kot neko xyz.torrent datoteko ali povezavo tipa HTTP to .torrent datoteke. Za prenos torrent HTTP povezave prilepite naslov s zgornje okence. Če .torrent datoteko že imate, kliknite na Odpri Torrent:"/>
 		<control/>
-		<control caption="Prenesi"/>
-		<control caption="Prekliči"/>
-		<control caption="PeerProject lahko prenese datoteke iz spleta (HTTP) in samodejno išče in prenese P2P povezave (Magnet, Gnutella, eDonkey2000, mP2P)."/>
-		<control caption="PeerProject lahko prav tako prenese datoteke BitTorrent. Torrent lahko opišemo, kot neko xyz.torrent datoteko ali povezavo tipa HTTP to .torrent datoteke. Za prenos torrent HTTP povezave prilepite naslov s zgornje okence. Če .torrent datoteko že imate, kliknite na Odpri Torrent:"/>
-		<control caption="Odpri _Torrent..."/>
+		<control/>
+		<control caption="_Prenesi"/>
+		<control caption="_Prekliči"/>
+		<control caption="_Odpri Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Novo iskanje|Ponovno iskanje|Išči v knjižnici">
 		<control/>
 		<control/>
-		<control caption="Išči"/>
-		<control caption="Prekliči"/>
+		<control caption="_Išči"/>
+		<control caption="_Prekliči"/>
 	</dialog>
 	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filter rezultatov">
 		<control caption="Pokaži samo rezultate, ki vsebujejo samo _besede:"/>
@@ -4082,20 +4093,21 @@
 		<control caption="V redu"/>
 		<control caption="Prekliči"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Brisanje datoteke">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Brisanje datoteke">
 		<control caption="Ste prepričani, da želite izvesti brisanje:"/>
 		<control/>
 		<control caption="Da, briši"/>
 		<control caption="Da, briši vse"/>
 		<control caption="Ne, prekliči"/>
 		<control/>
+		<control caption="Create Ghost File"/>
 		<control caption="PeerProject si lahko zapomni to datoteko in vas opomni, če boste nanjo ponovno naleteli v nekem drugem iskanju. Izberite vzrok za brisanje te datoteke:"/>
-		<control caption="Create a ghost file"/>
-		<control caption="The reason for deleting:"/>
-		<control caption="Just deleting, keep my comments|This file is named incorrectly, and could be misleading|This file is of very poor quality|This file is a fake, or is corrupt or somehow unusable|Replace my comments with the new ones"/>
 		<control caption="File rating:"/>
+		<control caption="Reason for deleting:"/>
+		<control caption="!"/>
 		<control caption="(No Rating)|Fake/Corrupt/Misleading|Poor|Average|Good|Very Good|Excellent"/>
-		<control caption="Vnesete lahko kratko sporočilo, ki opisuje zakaj je datoteka zanič:"/>
+		<control caption="Just deleting, keep any current comments|File is very low quality or outdated|File is named incorrectly or misleading|File is fake, infected, corrupt, or unusable|File is restricted copyright material|File needs custom comments below..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Izvoz kolekcije">

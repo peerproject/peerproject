@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_DLGDONKEYIMPORT_H__4B7375BD_FA9B_4BEA_BC0E_2989145B240A__INCLUDED_)
-#define AFX_DLGDONKEYIMPORT_H__4B7375BD_FA9B_4BEA_BC0E_2989145B240A__INCLUDED_
-
 #pragma once
 
 #include "DlgSkinDialog.h"
@@ -51,7 +48,7 @@ public:
 public:
 	//{{AFX_VIRTUAL(CDonkeyImportDlg)
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
 // Implementation
@@ -65,10 +62,4 @@ protected:
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
-
 };
-
-//{{AFX_INSERT_LOCATION}}
-// Microsoft Developer Studio will insert additional declarations immediately before the previous line.
-
-#endif // !defined(AFX_DLGDONKEYIMPORT_H__4B7375BD_FA9B_4BEA_BC0E_2989145B240A__INCLUDED_)

@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_LIVELIST_H__D1A833C9_1477_43C7_9644_DB0C85370511__INCLUDED_)
-#define AFX_LIVELIST_H__D1A833C9_1477_43C7_9644_DB0C85370511__INCLUDED_
-
 #pragma once
 
 
@@ -133,19 +130,17 @@ protected:
         (BOOL)SNDMSG((hwnd), LVM_GETSUBITEMRECT, (WPARAM)(int)(iItem), \
                 ((prc) ? ((((LPRECT)(prc))->top = iSubItem), (((LPRECT)(prc))->left = code), (LPARAM)(prc)) : (LPARAM)(LPRECT)NULL))
 
-/*
-typedef struct tagLVHITTESTINFOEX
-{
-    POINT pt;
-    UINT flags;
-    int iItem;
-    int iSubItem;
-} LVHITTESTINFOEX, FAR* LPLVHITTESTINFOEX;
+//typedef struct tagLVHITTESTINFOEX
+//{
+//	POINT pt;
+//	UINT flags;
+//	int iItem;
+//	int iSubItem;
+//} LVHITTESTINFOEX, FAR* LPLVHITTESTINFOEX;
 
-#define LVM_SUBITEMHITTEST      (LVM_FIRST + 57)
-#define ListView_SubItemHitTest(hwnd, plvhti) \
-        (int)SNDMSG((hwnd), LVM_SUBITEMHITTEST, 0, (LPARAM)(LPLVHITTESTINFOEX)(plvhti))
-*/
+//#define LVM_SUBITEMHITTEST      (LVM_FIRST + 57)
+//#define ListView_SubItemHitTest(hwnd, plvhti) \
+//	(int)SNDMSG((hwnd), LVM_SUBITEMHITTEST, 0, (LPARAM)(LPLVHITTESTINFOEX)(plvhti))
 
 #endif
 
@@ -185,5 +180,3 @@ protected:
 	afx_msg void OnLvnOdfinditemA(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnLvnOdcachehint(NMHDR *pNMHDR, LRESULT *pResult);
 };
-
-#endif // !defined(AFX_LIVELIST_H__D1A833C9_1477_43C7_9644_DB0C85370511__INCLUDED_)

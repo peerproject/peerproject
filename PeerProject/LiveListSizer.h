@@ -19,11 +19,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_LIVELISTSIZER_H__22F38637_F279_48B6_A0A4_1B3CD5E27F76__INCLUDED_)
-#define AFX_LIVELISTSIZER_H__22F38637_F279_48B6_A0A4_1B3CD5E27F76__INCLUDED_
-
 #pragma once
-
 
 class CLiveListSizer
 {
@@ -45,7 +41,4 @@ public:
 	void	Attach(CListCtrl* pCtrl, BOOL bScale = FALSE);
 	void	Detach();
 	BOOL	Resize(int nWidth = 0, BOOL bScale = FALSE);
-
 };
-
-#endif // !defined(AFX_LIVELISTSIZER_H__22F38637_F279_48B6_A0A4_1B3CD5E27F76__INCLUDED_)

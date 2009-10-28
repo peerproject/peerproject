@@ -266,6 +266,8 @@ void CDiscoveryWnd::OnSkinChange()
 
 void CDiscoveryWnd::OnSize(UINT nType, int cx, int cy)
 {
+	if ( ! m_wndList ) return;
+
 	CPanelWnd::OnSize(nType, cx, cy);
 	SizeListAndBar( &m_wndList, &m_wndToolBar );
 	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy - Skin.m_nToolbarHeight, SWP_NOZORDER );
@@ -353,9 +355,7 @@ void CDiscoveryWnd::OnDiscoveryAdvertise()
 	CDiscoveryService* pService = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
 
 	if ( pService )
-	{
 		DiscoveryServices.Execute( pService, CDiscoveryServices::wcmSubmit );
-	}
 }
 
 void CDiscoveryWnd::OnUpdateDiscoveryBrowse(CCmdUI* pCmdUI)
@@ -378,9 +378,7 @@ void CDiscoveryWnd::OnDiscoveryBrowse()
 	pLock.Unlock();
 
 	if ( strURL.GetLength() )
-	{
 		ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
-	}
 }
 
 void CDiscoveryWnd::OnUpdateDiscoveryRemove(CCmdUI* pCmdUI)

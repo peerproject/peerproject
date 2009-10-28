@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r38 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r40 (Shareaza 2.1.2.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -335,6 +335,17 @@
 		<rightAlign/>
 		<button id="ID_MEDIA_CLEAR" text="Wyczyść"/>
 		<button id="ID_MEDIA_SAVE" text="Zapisz"/>
+	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Rozmowa" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="Połącz" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Rozłącz" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Ustawienia" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -2870,11 +2881,11 @@
 	<string id="16995" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
 	<string id="16996" value="Part of this file could not be played, you may need to download additional codecs."/>
 	<string id="16997" value="There is no file playing.  Double-click a media file in your library to play it."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="LISTA ODTWARZANIA:"/>
-	<string id="17017" value="Czat:"/>
-	<string id="17018" value="Witamy w Czacie PeerProject!"/>
-	<string id="17019" value="Proszę szanować innych podczas korzystania z tej usługi"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="Lista Odtwarzania:"/>
+	<string id="17016" value="Witamy w Czacie PeerProject!"/>
+	<string id="17017" value="Proszę szanować innych podczas korzystania z tej usługi"/>
+	<string id="17018" value="Czat:"/>
 	<string id="17020" value="Dodaj"/>
 	<string id="17021" value="Usuń"/>
 	<string id="17022" value="Użytkownicy"/>
@@ -3095,7 +3106,7 @@
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Anuluj"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Ogólne">
 	</dialog>
@@ -3724,24 +3735,24 @@
 		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey2000"/>
 		<control caption="Stłum Ultrapeer'a"/>
 		<control caption="Połącz"/>
-		<control caption="Anuluj"/>
+		<control caption="_Anuluj"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Pobierz plik lub torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Pobierz plik lub torrent">
 		<control/>
 		<control/>
-		<control caption="Pobieranie dowolnego pliku Shareazą jest łatwe. Po prostu wpisz lub wklej URL lub URI opisujące ten plik w miejsce poniżej i wciśnij Enter."/>
-		<control/>
-		<control caption="Pobierz"/>
-		<control caption="Anuluj"/>
-		<control caption="PeerProject może pobierać pliki z Internetu (HTTP) oraz automatycznie szukać i pobierać linki P2P (Magnet, Gnutella, eDonkey, mP2P)."/>
+		<control caption="PeerProject może pobierać pliki z Internetu oraz automatycznie szukać i pobierać linki P2P. Po prostu wpisz lub wklej URL lub URI opisujące ten plik w miejsce poniżej i wciśnij Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject może także pobierać pliki BitTorrentowe. Torrent może być opisany jak jakiś plik .torrent, lub jako link HTTP do pliku .torrent. Aby pobrać link HTTP do torrentu, wklej go do miejsca powyżej. Jeżeli już masz plik .torrent, kliknij Otwórz Torrent:"/>
-		<control caption="Otwórz Torrent..."/>
+		<control/>
+		<control/>
+		<control caption="_Pobierz"/>
+		<control caption="_Anuluj"/>
+		<control caption="_Otwórz Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Nowe wyszukiwanie|Szukaj ponownie|Znajdź w Bibliotece (zasobach)">
 		<control/>
 		<control/>
-		<control caption="Szukaj"/>
-		<control caption="Anuluj"/>
+		<control caption="_Szukaj"/>
+		<control caption="_Anuluj"/>
 	</dialog>
 	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtruj pasujące wyniki">
 		<control caption="Pokaż tylko te wyniki, które zawierają słowa:"/>
@@ -4071,20 +4082,21 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Usuń plik">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Usuń plik">
 		<control caption="Czy napewno chcesz usunąć ten plik:"/>
 		<control/>
 		<control caption="Usuń"/>
 		<control caption="Usuń wszystkie"/>
 		<control caption="Anuluj"/>
 		<control/>
-		<control caption="PeerProject może zapamiętać ten plik i ostrzec Cię jeżeli natrafisz na niego ponownie w innym wyszukiwaniu (będziesz go chciał pobrać ponownie). Zostanie utworzony plik ghost file z Twoim komentarzem i oceną."/>
 		<control caption="Utwórz plik ghost file"/>
-		<control caption="Powód usunięcia:"/>
-		<control caption="Zwykłe usunięcie, zachowaj moje komentarze|Ten plik jest nieprawidłowo nazwany i może wprowadzć w błąd|Ten plik jest bardzo kiepskiej jakości|Ten plik to fake, lub jest uszkodzony albo niestabilny|Zastąp moje komentarze nowymi."/>
+		<control caption="PeerProject może zapamiętać ten plik i ostrzec Cię jeżeli natrafisz na niego ponownie w innym wyszukiwaniu (będziesz go chciał pobrać ponownie). Zostanie utworzony plik ghost file z Twoim komentarzem i oceną."/>
 		<control caption="Ocena pliku:"/>
+		<control caption="Powód usunięcia:"/>
+		<control caption="!"/>
 		<control caption="(Bez oceny)|Fake/Uszkodzony/Wprowadza w błąd|Kiepski|Średni|Dobry|Bardzo dobry|Wyśmienity"/>
-		<control caption="Możesz napisać krótki komentarz dlaczego ten plik jest zły:"/>
+		<control caption="Zwykłe usunięcie, zachowaj moje komentarze|Ten plik jest bardzo kiepskiej jakości|Ten plik jest nieprawidłowo nazwany i może wprowadzć w błąd|Ten plik to fake, lub jest uszkodzony albo niestabilny|Restricted copyright material|Zastąp moje komentarze nowymi..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Eksportuj kolekcję">

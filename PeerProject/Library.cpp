@@ -61,14 +61,14 @@ CLibrary Library;
 //////////////////////////////////////////////////////////////////////
 // CLibrary construction
 
-CLibrary::CLibrary() :
-	m_nUpdateCookie				( 0ul )
-,	m_nForcedUpdateCookie		( 0ul )
-,	m_nScanCount				( 0ul )
-,	m_nScanCookie				( 1ul )
-,	m_nScanTime					( 0ul )
-,	m_nUpdateSaved				( 0ul )
-,	m_nFileSwitch				( 0 )
+CLibrary::CLibrary() 
+	:	m_nUpdateCookie				( 0ul )
+	,	m_nForcedUpdateCookie		( 0ul )
+	,	m_nScanCount				( 0ul )
+	,	m_nScanCookie				( 1ul )
+	,	m_nScanTime					( 0ul )
+	,	m_nUpdateSaved				( 0ul )
+	,	m_nFileSwitch				( 0 )
 {
 	EnableDispatch( IID_ILibrary );
 }
@@ -256,9 +256,7 @@ CList< const CLibraryFile* >* CLibrary::Search(CQuerySearch* pSearch, int nMaxim
 	CList< const CLibraryFile* >* pHits = LibraryMaps.Search( pSearch, nMaximum, bLocal, bAvailableOnly );
 
 	if ( pHits == NULL && pSearch != NULL )
-	{
 		pHits = LibraryDictionary.Search( *pSearch, nMaximum, bLocal, bAvailableOnly );
-	}
 
 	return pHits;
 }
@@ -505,13 +503,9 @@ BOOL CLibrary::ThreadScan()
 	DWORD tNow = GetTickCount();
 
 	if ( !Settings.Library.WatchFolders )
-	{
 		bForcedScan = ( m_nForcedUpdateCookie == 0 );
-	}
 	else
-	{
 		bPeriodicScan = ( m_nScanTime < tNow - Settings.Library.WatchFoldersTimeout * 1000 );
-	}
 
 	BOOL bChanged = LibraryFolders.ThreadScan( bPeriodicScan || bForcedScan );
 

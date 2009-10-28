@@ -1,11 +1,30 @@
-// Plugin.cpp : Implementation of CPlugin
+//
+// Plugin.cpp : Implementation of CPlugin for SearchExport
+//
+// This file is part of PeerProject (peerproject.org) © 2009
+// Portions Previously Copyright Nikolay Raspopov, 2009.
+//
+// PeerProject is free software; you can redistribute it
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 3
+// of the License, or later version (at your option).
+//
+// PeerProject is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License 3.0
+// along with PeerProject; if not, write to Free Software Foundation, Inc.
+// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+//
 
 #include "StdAfx.h"
 #include "Plugin.h"
 
 static const LPCWSTR SearchExport_CHECK	= L"&Export Results...";
 
-// Insert menu item if no item present only
+// Insert menu item, if no item present
 void InsertCommand(ISMenu* pMenu, int nPos, UINT nID, LPCWSTR szItem)
 {
 	LONG nCount;
@@ -17,8 +36,7 @@ void InsertCommand(ISMenu* pMenu, int nPos, UINT nID, LPCWSTR szItem)
 			LONG nItemID;	// note: -1 - submenu, 0 - separator
 			if ( SUCCEEDED( pMenu->get_Item( CComVariant( i ), &pItem ) ) && pItem &&
 				 SUCCEEDED( pItem->get_CommandID( &nItemID ) ) && (UINT)nItemID == nID )
-				// Already in place
-				return;
+				return;		// Already in place
 		}
 	}
 
@@ -41,9 +59,9 @@ CString SmartVolume(ULONGLONG nVolume)
 {
 	CString strVolume;
 
-	if ( nVolume < KiloBytes )				// Bytes
+	if ( nVolume < KiloBytes )					// Bytes
 		strVolume.Format( _T("%I64i B"), nVolume );
-	else if ( nVolume < 10 * KiloBytes )			// 1..10 KiloBytes
+	else if ( nVolume < 10 * KiloBytes )		// 1..10 KiloBytes
 		strVolume.Format( _T("%.2f KB"), nVolume / KiloFloat );
 	else if ( nVolume < MegaBytes )				// 10..1024 KiloBytes
 		strVolume.Format( _T("%I64i KB"), nVolume / KiloBytes );
@@ -63,7 +81,7 @@ CString SmartVolume(ULONGLONG nVolume)
 	return strVolume;
 }
 
-// Encodes unsafe characters in a string, turning "hello world" into "hello%20world", for instance
+// Encodes unsafe characters in a string ("hello world" to "hello%20world")
 CString URLEncode(LPCTSTR pszInputT)
 {
 	static LPCTSTR pszHex	= _T("0123456789ABCDEF");
@@ -179,7 +197,7 @@ public:
 		CString strHeader;
 		strHeader.Format( 
 			_T("From: <Saved by PeerProject>\r\n")
-			_T("Subject: Search results\r\n")
+			_T("Subject: Search Results\r\n")
 			_T("MIME-Version: 1.0\r\n")
 			_T("Content-Type: multipart/related;\r\n")
 			_T("\ttype=\"text/html\";\r\n")
@@ -229,8 +247,8 @@ public:
 	}
 
 protected:
-	CString				m_sRoot;	// Root URL (fake)
-	CAtlList< CStringA >		m_Parts;	// Base64 encoded parts
+	CString					m_sRoot;	// Root URL (fake)
+	CAtlList< CStringA >	m_Parts;	// Base64 encoded parts
 	CAtlList< CString >		m_URIs;		// Part's filenames
 };
 
@@ -368,11 +386,8 @@ HRESULT CPlugin::Export(IGenericView* pGenericView, LONG nCount)
 	CMultipartFile fileExport;
 	fileExport.Add( sHTML, _T("index.html") );
 	fileExport.AddFolder( sPath );
-	if ( fileExport.Save( ofn.lpstrFile ) )
-	{
-		// Show result
+	if ( fileExport.Save( ofn.lpstrFile ) )	// Show result
 		ShellExecute ( hWnd, NULL, ofn.lpstrFile, NULL, NULL, SW_SHOWNORMAL);
-	}
 
 	return S_OK;
 }
@@ -380,7 +395,7 @@ HRESULT CPlugin::Export(IGenericView* pGenericView, LONG nCount)
 // IGeneralPlugin
 
 STDMETHODIMP CPlugin::SetApplication( 
-	/* [in] */ IApplication __RPC_FAR *pApplication)
+	/*[in]*/ IApplication __RPC_FAR *pApplication)
 {
 	if ( ! pApplication )
 		return E_POINTER;
@@ -390,7 +405,7 @@ STDMETHODIMP CPlugin::SetApplication(
 }
 
 STDMETHODIMP CPlugin::QueryCapabilities(
-	/* [in] */ DWORD __RPC_FAR *pnCaps)
+	/*[in]*/ DWORD __RPC_FAR *pnCaps)
 {
 	if ( ! pnCaps )
 		return E_POINTER;
@@ -420,9 +435,7 @@ STDMETHODIMP CPlugin::RegisterCommands()
 		LoadIcon( _AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE( IDI_ICON ) ),
 		&m_nCmdCheck );
 	if ( SUCCEEDED( hr ) )
-	{
 		return S_OK;
-	}
 
 	return E_FAIL;
 }
@@ -443,10 +456,10 @@ STDMETHODIMP CPlugin::InsertCommands()
 }
 
 STDMETHODIMP CPlugin::OnUpdate( 
-    /* [in] */ UINT nCommandID,
-    /* [out][in] */ TRISTATE __RPC_FAR *pbVisible,
-    /* [out][in] */ TRISTATE __RPC_FAR *pbEnabled,
-    /* [out][in] */ TRISTATE __RPC_FAR *pbChecked)
+    /*[in]*/ UINT nCommandID,
+    /*[out][in]*/ TRISTATE __RPC_FAR *pbVisible,
+    /*[out][in]*/ TRISTATE __RPC_FAR *pbEnabled,
+    /*[out][in]*/ TRISTATE __RPC_FAR *pbChecked)
 {
 	if ( ! pbVisible || ! pbEnabled || ! pbChecked )
 		return E_POINTER;
@@ -467,9 +480,7 @@ STDMETHODIMP CPlugin::OnUpdate(
 			LONG nCount = 0;
 			hr = pGenericView->get_Count( &nCount );
 			if ( SUCCEEDED( hr ) && nCount )
-			{
 				*pbEnabled = TRI_TRUE;
-			}
 		}
 		return S_OK;
 	}
@@ -478,7 +489,7 @@ STDMETHODIMP CPlugin::OnUpdate(
 }
 
 STDMETHODIMP CPlugin::OnCommand( 
-	/* [in] */ UINT nCommandID)
+	/*[in]*/ UINT nCommandID)
 {
 	if ( ! m_pUserInterface )
 		return E_UNEXPECTED;
@@ -492,9 +503,7 @@ STDMETHODIMP CPlugin::OnCommand(
 			LONG nCount = 0;
 			hr = pGenericView->get_Count( &nCount );
 			if ( SUCCEEDED( hr ) && nCount )
-			{
 				return Export( pGenericView, nCount );
-			}
 		}
 	}
 

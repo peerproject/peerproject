@@ -168,7 +168,7 @@ void CLibraryHistoryPanel::OnPaint()
 	dc.SetViewportOrg( 0, -GetScrollPos( SB_VERT ) );
 
 	CRect rcWork( &rcClient );
-	rcWork.top += 1;
+	rcWork.top++;
 
 	for ( int nRow = 0, nItem = 0 ; nItem < m_pList.GetSize() ; nRow++ )
 	{
@@ -180,8 +180,8 @@ void CLibraryHistoryPanel::OnPaint()
 
 			rcItem.SetRect( rcWork.left, rcWork.top, rcWork.left, rcWork.top + 22 );
 
-			rcItem.left		+= nColumn * rcWork.Width() / m_nColumns + 1;
-			rcItem.right	+= ( nColumn + 1 ) * rcWork.Width() / m_nColumns - 1;
+			rcItem.left += nColumn * rcWork.Width() / m_nColumns + 1;
+			rcItem.right += ( nColumn + 1 ) * rcWork.Width() / m_nColumns - 1;
 
 			if ( pItem != NULL )
 			{

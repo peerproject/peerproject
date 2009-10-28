@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_DLGDONKEYSERVERS_H__F0BCB926_4529_469D_B132_000122735D9F__INCLUDED_)
-#define AFX_DLGDONKEYSERVERS_H__F0BCB926_4529_469D_B132_000122735D9F__INCLUDED_
-
 #pragma once
 
 #include "ThreadImpl.h"
@@ -59,7 +56,7 @@ protected:
 public:
 	//{{AFX_VIRTUAL(CDonkeyServersDlg)
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
 // Implementation
@@ -73,9 +70,4 @@ protected:
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
-
 };
-
-//{{AFX_INSERT_LOCATION}}
-
-#endif // !defined(AFX_DLGDONKEYSERVERS_H__F0BCB926_4529_469D_B132_000122735D9F__INCLUDED_)

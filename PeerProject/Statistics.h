@@ -19,11 +19,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_STATISTICS_H__58CE4F23_CE39_4AAF_B3DE_1A77B801D9AC__INCLUDED_)
-#define AFX_STATISTICS_H__58CE4F23_CE39_4AAF_B3DE_1A77B801D9AC__INCLUDED_
-
 #pragma once
-
 
 class CStatistics
 {
@@ -99,9 +95,6 @@ public:
 	void	Update();
 protected:
 	static void Add(LPVOID pTarget, LPCVOID pSource, int nCount);
-
 };
 
 extern CStatistics Statistics;
-
-#endif // !defined(AFX_STATISTICS_H__58CE4F23_CE39_4AAF_B3DE_1A77B801D9AC__INCLUDED_)

@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include "CtrlPanelClass.h"
+#include "CtrlPanel.h"
 #include "MetaPanel.h"
 #include "RichDocument.h"
 #include "RichViewCtrl.h"

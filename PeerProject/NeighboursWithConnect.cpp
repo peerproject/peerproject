@@ -22,7 +22,6 @@
 // Determine our hub or leaf role, count connections for each, and make new ones or close them to have the right number
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithConnect
 
-// Copy in the contents of these files here before compiling
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
@@ -146,7 +145,7 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 			CloseDonkeys();
 			break;
 		default:
-//			ASSERT( 0 )
+		//	ASSERT( 0 )
 			;
 		}
 	}
@@ -157,10 +156,8 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 		// Make a new CEDNeighbour object, connect it to the IP address, and return a pointer to it
 		CEDNeighbour* pNeighbour = new CEDNeighbour();
 		if ( pNeighbour->ConnectTo( pAddress, nPort, bAutomatic ) )
-		{
-			// Started connecting to an ed2k neighbour
-			return pNeighbour;
-		}
+			return pNeighbour;		// Started connecting to an ed2k neighbour
+
 		delete pNeighbour;
 
 	} // The computer at the IP address we have is running Gnutella or Gnutella2 software
@@ -174,9 +171,8 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 
 			// If we only want G1 connections now, specify that to begin with.
 			if ( Settings.Gnutella.SpecifyProtocol )
-			{
 				pNeighbour->m_nProtocol = nProtocol;
-			}
+
 			return pNeighbour;
 		}
 
@@ -1015,16 +1011,14 @@ void CNeighboursWithConnect::Maintain()
 			} // This connection is to a hub above us, or a hub just like us
 			else if ( pNeighbour->m_nNodeType != ntLeaf )
 			{
-				// If we've been connected for more than 8 seconds
+				// If we've been connected for more than 8 seconds,
+				// Count one more hub for this connection's protocol
 				if ( tNow - pNeighbour->m_tConnected > 8000 )
-				{
-					// Count one more hub for this connection's protocol
 					nCount[ pNeighbour->m_nProtocol ][ ntHub ]++;
-				}
-
-			} // We must be a hub, and this connection must be down to a leaf
+			}
 			else
 			{
+				// We must be a hub, and this connection must be down to a leaf
 				// Count one more leaf for this connection's protocol
 				nCount[ pNeighbour->m_nProtocol ][ ntLeaf ]++;
 			}
@@ -1050,12 +1044,10 @@ void CNeighboursWithConnect::Maintain()
 		// If we have been a hub for at least 8 hours
 		if ( ( tNow - m_tHubG2Promotion ) > ( 8 * 60 * 60 ) )
 		{
-			// And we're loaded ( 75% capacity )
+			// And we're loaded ( 75% capacity ),
+			// Then we probably make a pretty good hub
 			if ( ( nCount[ PROTOCOL_G2 ][ ntHub ] ) > ( Settings.Gnutella2.NumLeafs * 3 / 4 ) )
-			{
-				// Then we probably make a pretty good hub
 				Settings.Gnutella2.HubVerified = TRUE;
-			}
 		}
 	}
 
@@ -1296,12 +1288,14 @@ void CNeighboursWithConnect::Maintain()
 				if ( pNeighbour->m_nNodeType == ntLeaf && pNeighbour->m_nProtocol == nProtocol )
 				{
 					// If we haven't found the newest yet, or this connection is younger than the current newest, this is it
-					if ( pNewest == NULL || pNeighbour->m_tConnected > pNewest->m_tConnected ) pNewest = pNeighbour;
+					if ( pNewest == NULL || pNeighbour->m_tConnected > pNewest->m_tConnected )
+						pNewest = pNeighbour;
 				}
 			}
 
 			// Disconnect from one leaf
-			if ( pNewest != NULL ) pNewest->Close(); // Close the connection
+			if ( pNewest != NULL )
+				pNewest->Close(); // Close the connection
 		}
 	}
 }

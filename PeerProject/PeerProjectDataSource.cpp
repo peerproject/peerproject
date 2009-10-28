@@ -916,16 +916,14 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 		size_t size_Text = ( buf_Text.GetLength() + 1 ) * sizeof( CHAR );
 		CHGlobal < TCHAR > oText( size_Text );
 		if ( ! oText.IsValid() )
-		{
 			return E_OUTOFMEMORY;
-		}
+
 		CopyMemory( (LPTSTR)oText, (LPCSTR)CT2CA( buf_Text ), size_Text );
 		medium_Text.hGlobal = oText;
 		HRESULT hr = pIDataObject->SetData( &formatetc_Text, &medium_Text, FALSE );
 		if ( FAILED ( hr ) )
-		{
 			return hr;
-		}
+
 	}
 
 	// Finalize CF_HDROP and optional CFSTR_PREFERREDDROPEFFECT
@@ -936,17 +934,14 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 		medium_HDROP.hGlobal = oHDROP;
 		HRESULT hr = pIDataObject->SetData( &formatetc_HDROP, &medium_HDROP, FALSE );
 		if ( FAILED ( hr ) )
-		{
 			return hr;
-		}
 
 		STGMEDIUM medium_PDS = { TYMED_HGLOBAL, NULL, NULL };
 		FORMATETC formatetc_PDS = { (CLIPFORMAT) RegisterClipboardFormat( CFSTR_PREFERREDDROPEFFECT ), NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
 		CHGlobal < DWORD > oPDS;
 		if ( ! oPDS.IsValid() )
-		{
 			return E_OUTOFMEMORY;
-		}
+
 		*(DWORD*)oPDS = DROPEFFECT_NONE; // Let's Explorer choose
 		medium_PDS.hGlobal = oPDS;
 		pIDataObject->SetData( &formatetc_PDS, &medium_PDS, FALSE );
@@ -961,9 +956,7 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 		medium_Archive.pstm = buf_Archive;
 		HRESULT hr = pIDataObject->SetData( &formatetc_Archive, &medium_Archive, FALSE );
 		if ( FAILED ( hr ) )
-		{
 			return hr;
-		}
 	}
 
 	// Finalize CF_PEERPROJECT_FILES
@@ -974,9 +967,7 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 		medium_Files.hGlobal = oFiles;
 		HRESULT hr = pIDataObject->SetData( &formatetc_Files, &medium_Files, FALSE );
 		if ( FAILED ( hr ) )
-		{
 			return hr;
-		}
 	}
 
 	return S_OK;
@@ -1012,7 +1003,9 @@ HRESULT CPeerProjectDataSource::FindFORMATETC(FORMATETC *pfe, LPDATAENTRY *ppde,
 			{
 				*ppde = &m_rgde[ide];
 				return S_FALSE;
-			} else {
+			}
+			else
+			{
 				return DV_E_TYMED;
 			}
 		}
@@ -1352,14 +1345,10 @@ void CPeerProjectDataSource::GetTotalLength(const CLibraryList* pList, size_t& s
 				{
 					int len = pFile->GetPath().GetLength();
 					if ( len )
-					{
 						size_HDROP += ( len + 1 ) * sizeof( TCHAR );
-					}
 
 					if ( bRoot )
-					{
 						size_Files++;
-					}
 				}
 			}
 			break;
@@ -1388,9 +1377,7 @@ void CPeerProjectDataSource::GetTotalLength(const CLibraryList* pList, size_t& s
 				{
 					int len = pFolder->m_sPath.GetLength();
 					if ( len )
-					{
 						size_HDROP += ( len + 1 ) * sizeof( TCHAR );
-					}
 				}
 			}
 			break;
@@ -1425,10 +1412,8 @@ void CPeerProjectDataSource::GetTotalLength(const CLibraryTreeItem* pSelFirst, s
 		{
 			// Add physical folder
 			if ( ! pItem->m_pPhysical->m_sPath.IsEmpty() )
-			{
 				size_HDROP += ( pItem->m_pPhysical->m_sPath.GetLength() + 1 ) * sizeof( TCHAR );
 			}
-		}
 	}
 }
 

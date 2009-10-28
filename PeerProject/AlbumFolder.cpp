@@ -914,15 +914,11 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 
 					CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( _T("seriesnumber") );
 					if ( pAttribute == NULL )
-					{
 						pFile->m_pMetadata->AddAttribute( _T("seriesnumber"), results[2].c_str() );
-					}
 
 					pAttribute = pFile->m_pMetadata->GetAttribute( _T("episodenumber") );
 					if ( pAttribute == NULL )
-					{
 						pFile->m_pMetadata->AddAttribute( _T("episodenumber"), results[3].c_str() );
-					}
 				}
 				else
 				{
@@ -937,13 +933,9 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 			CAlbumFolder* pAlbum = GetNextFolder( pos );
 
 			if ( pAlbum->m_sName.CompareNoCase( strSeries ) == 0 )
-			{
 				bResult = pAlbum->OrganiseFile( pFile );
-			}
 			else if ( pAlbum->m_bAutoDelete )
-			{
 				pAlbum->RemoveFile( pFile );
-			}
 		}
 
 		if ( bResult ) return TRUE;
@@ -981,13 +973,9 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 			CAlbumFolder* pAlbum = GetNextFolder( pos );
 
 			if ( pAlbum->m_sName.CompareNoCase( strTitle ) == 0 )
-			{
 				bResult = pAlbum->OrganiseFile( pFile );
-			}
 			else if ( pAlbum->m_bAutoDelete )
-			{
 				pAlbum->RemoveFile( pFile );
-			}
 		}
 
 		if ( bResult ) return TRUE;
@@ -1176,9 +1164,7 @@ void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 		}
 
 		if ( nVersion >= 24 )
-		{
 			SerializeIn( ar, m_oGUID, nVersion );
-		}
 
 		ar >> m_sName;
 		ar >> m_bExpanded;

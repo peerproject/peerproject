@@ -298,24 +298,18 @@ void CPacketWnd::OnTimer(UINT_PTR nIDEvent)
 		pLock.Unlock();
 
 		if ( ! bAny )
-		{
 			bAny = TRUE;
-		}
 
 		if ( (DWORD)m_wndList.GetItemCount() >= Settings.Search.MonitorQueue && Settings.Search.MonitorQueue > 0 )
-		{
 			m_wndList.DeleteItem( 0 );
-		}
 
-		/*int nItem =*/ pItem->Add( &m_wndList, -1, 8 );
+		pItem->Add( &m_wndList, -1, 8 );
 
 		delete pItem;
 	}
 
-	if ( bAny )
-	{
-		if ( bScroll ) m_wndList.EnsureVisible( m_wndList.GetItemCount() - 1, FALSE );
-	}
+	if ( bAny && bScroll )
+		m_wndList.EnsureVisible( m_wndList.GetItemCount() - 1, FALSE );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -323,6 +317,8 @@ void CPacketWnd::OnTimer(UINT_PTR nIDEvent)
 
 void CPacketWnd::OnSize(UINT nType, int cx, int cy)
 {
+	if ( ! m_wndList ) return;
+
 	CPanelWnd::OnSize( nType, cx, cy );
 	m_pSizer.Resize( cx );
 	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy, SWP_NOZORDER );

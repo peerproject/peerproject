@@ -389,6 +389,83 @@
 			<File
 				RelativePath="SearchExport.idl"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						InterfaceIdentifierFileName="$(InputName)_i.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						InterfaceIdentifierFileName="$(InputName)_i.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						InterfaceIdentifierFileName="$(InputName)_i.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						InterfaceIdentifierFileName="$(InputName)_i.c"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\PeerProject\PeerProject.idl"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						TypeLibraryName="$(IntDir)/PeerProject.tlb"
+						HeaderFileName="PeerProject.h"
+						InterfaceIdentifierFileName="PeerProject_i.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						TypeLibraryName="$(IntDir)/PeerProject.tlb"
+						HeaderFileName="PeerProject.h"
+						InterfaceIdentifierFileName="PeerProject_i.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						TypeLibraryName="$(IntDir)/PeerProject.tlb"
+						HeaderFileName="PeerProject.h"
+						InterfaceIdentifierFileName="PeerProject_i.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						TypeLibraryName="$(IntDir)/PeerProject.tlb"
+						HeaderFileName="PeerProject.h"
+						InterfaceIdentifierFileName="PeerProject_i.c"
+					/>
+				</FileConfiguration>
+
 			</File>
 			<File
 				RelativePath="StdAfx.cpp"
@@ -438,10 +515,6 @@
 			</File>
 			<File
 				RelativePath="Resource.h"
-				>
-			</File>
-			<File
-				RelativePath="PeerProject.h"
 				>
 			</File>
 			<File
@@ -527,7 +600,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\PeerProject\PeerProject_i.c"
+				RelativePath="PeerProject_i.c"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"

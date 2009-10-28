@@ -96,7 +96,7 @@ public:
 
 	void DrawTabControl(CDC* pDC);
 	HRESULT DrawThemesPart(HDC dc, int nPartID, int nStateID, LPRECT prcBox);
-	void DrawXPTabItem(HDC dc, int nItem, const RECT& rcItem, UINT flags);
+	void DrawTabThemed(HDC dc, int nItem, const RECT& rcItem, UINT flags);
 	void DrawTabItem(HDC dc, int nItem, const RECT& rcItem, UINT flags);
 
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
@@ -162,8 +162,8 @@ protected:
 	#define			 MAX_CHANNELS		  12
 
 	BOOL			m_bConnected;
-	int             m_nSelectedTab;
 	CString			m_sStatus;
+	int             m_nSelectedTab;
 	int				m_nMsgsInSec;
 	int				m_nTimerVal;
 	int             m_nSelectedTabType;
@@ -179,9 +179,9 @@ protected:
 	CString			m_sFile;
 	CString			m_sNickname;
 	CStringArray	m_pIrcBuffer[ MAX_CHANNELS ];
-	int				m_nCurrentPosLineBuffer[ MAX_CHANNELS ];
 	CStringArray	m_pIrcUsersBuffer[ MAX_CHANNELS ];
 	CStringArray	m_pLastLineBuffer[ MAX_CHANNELS ];
+	int				m_nCurrentPosLineBuffer[ MAX_CHANNELS ];
 	int				m_nBufferCount;
 	CIRCChannelList	m_pChanList;
 
@@ -196,17 +196,16 @@ protected:
 	CRichDocument	m_pContent;
 	CRichDocument	m_pContentStatus;
 	CRichViewCtrl	m_wndView;
-	CRichViewCtrl	m_wndViewStatus;
 	CEdit			m_wndEdit;
 	CIRCTabCtrl		m_wndTab;
 	CCoolBarCtrl	m_wndMainBar;
 
 	CString			m_sCurrent;
 //	CPoint			m_ptCursor;
-	int				m_nListWidth;
-	SOCKET			m_nSocket;
+//	int				m_nListWidth;
 	int				m_nLocalTextLimit;
 	int				m_nLocalLinesLimit;
+	SOCKET			m_nSocket;
 	CEvent 			m_pWakeup;
 	CString         m_sWsaBuffer;
 
@@ -220,7 +219,7 @@ protected:
 	BOOL            OnNewMessage(const CString& strMessage);
 	void            SendString(const CString& strMessage);
 	int				FindParsedItem(LPCTSTR szMessage, int nFirst = 0);
-	int				IsTabExist(const CString& strTabName) const;
+	int				GetTabIndex(const CString& strTabName) const;
 	void            LoadBufferForWindow(int nTab);
 	void			ParseString(const CString& strMessage, CIRCNewMessage& oNewMessage);
 	CString			TrimString(CString strMessage) const;
@@ -229,7 +228,6 @@ protected:
 	int				AddTab(CString TabName, int nKindOfTab);
 	void			TabClick();
 	void			SortUserList();
-//	int				CompareUsers(const CString& strUser1, const CString& strUser2) const;
 	CString			GetTabText(int nTabIndex = -1) const;
 	int				FindInList(CString strName, int nList=0, int nTab=0);
 	void			ReloadViewText();
@@ -302,7 +300,6 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	afx_msg void OnUpdateIrcConnect(CCmdUI* pCmdUI);
 	afx_msg void OnIrcShowSettings();
 	afx_msg void OnIrcChanCmdOpen();
 
@@ -327,11 +324,14 @@ protected:
 
 	afx_msg void OnIrcChanCmdSave();
 
+	afx_msg void OnUpdateIrcConnect(CCmdUI* pCmdUI);
 	afx_msg void OnIrcConnect();
 	afx_msg void OnUpdateIrcDisconnect(CCmdUI* pCmdUI);
 	afx_msg void OnIrcDisconnect();
 	afx_msg void OnUpdateIrcCloseTab(CCmdUI* pCmdUI);
 	afx_msg void OnIrcCloseTab();
+	afx_msg void OnUpdateIrcSendText(CCmdUI* pCmdUI);
+	afx_msg void OnIrcSendText();
 
 	DECLARE_MESSAGE_MAP()
 };

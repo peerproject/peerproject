@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_UPLOADFILES_H__0F70ABF7_91B7_436B_A235_C3D01DB0D7F6__INCLUDED_)
-#define AFX_UPLOADFILES_H__0F70ABF7_91B7_436B_A235_C3D01DB0D7F6__INCLUDED_
-
 #pragma once
 
 class CUploadFile;
@@ -68,9 +65,6 @@ public:
 	{
 		return m_pList.Find( pFile ) != NULL;
 	}
-
 };
 
 extern CUploadFiles UploadFiles;
-
-#endif // !defined(AFX_UPLOADFILES_H__0F70ABF7_91B7_436B_A235_C3D01DB0D7F6__INCLUDED_)

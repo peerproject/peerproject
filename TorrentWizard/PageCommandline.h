@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_PAGECOMMANDLINE__INCLUDED_)
-#define AFX_PAGECOMMANDLINE__INCLUDED_
-
 #pragma once
 
 #include "WizardSheet.h"
@@ -85,12 +82,9 @@ protected:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 
 public:
 	afx_msg void OnStnClickedDone2();
 };
-
-//{{AFX_INSERT_LOCATION}}
-
-#endif // !defined(AFX_PAGECOMMANDLINE__INCLUDED_)

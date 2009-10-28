@@ -78,7 +78,8 @@ CUploadTransfer* CUploadFile::GetActive() const
 	for ( POSITION pos = m_pTransfers.GetHeadPosition() ; pos ; )
 	{
 		CUploadTransfer* pUpload = m_pTransfers.GetNext( pos );
-		if ( pUpload->m_nState != upsNull ) return pUpload;
+		if ( pUpload->m_nState != upsNull )
+			return pUpload;
 	}
 
 	return m_pTransfers.GetTail();
@@ -99,9 +100,7 @@ void CUploadFile::Remove()
 void CUploadFile::AddFragment(QWORD nOffset, QWORD nLength)
 {
 	if ( m_oFragments.empty() )
-	{
 		Statistics.Current.Uploads.Files++;
-	}
 	
 	m_oFragments.insert( Fragments::Fragment( nOffset, nOffset + nLength ) );
 }

@@ -113,7 +113,7 @@ int CUploadQueues::GetPosition(CUploadTransfer* pUpload, BOOL bStart)
 	ASSERT( pUpload != NULL );
 
 	CSingleLock oLock1( &Network.m_pSection );
-	if ( oLock1.Lock( 1000 ) )
+	if ( oLock1.Lock( 500 ) )
 	{
 		CQuickLock oLock2( m_pSection );
 
@@ -122,6 +122,12 @@ int CUploadQueues::GetPosition(CUploadTransfer* pUpload, BOOL bStart)
 		else
 			pUpload->m_pQueue = NULL;
 	}
+	else
+	{
+		theApp.Message( MSG_ERROR, _T("Rejecting Upload connection to %s, network core overloaded."),
+			(LPCTSTR)pUpload->m_sAddress );
+	}
+
 
 	// Upload has no valid queue, or network core overloaded, or shutdown
 	return -1;
@@ -390,11 +396,10 @@ BOOL CUploadQueues::CanUpload(PROTOCOLID nProtocol, CLibraryFile const * const p
 		CUploadQueue* pQueue = GetNext( pos );
 
 		if ( pQueue->CanAccept(	nProtocol, pFile->m_sName, pFile->m_nSize, CUploadQueue::ulqLibrary, pFile->m_sShareTags ) )
-		{	// If this queue will accept this file
+		{
+			// If this queue will accept this file, and we don't care if there is space now, or the queue isn't full
 			if ( ( ! bCanQueue ) || ( pQueue->GetQueueRemaining() > 0 ) )
-			{	// And we don't care if there is space now, or the queue isn't full)
 				return TRUE; // Then this file can be uploaded
-			}
 		}
 	}
 
@@ -405,24 +410,19 @@ BOOL CUploadQueues::CanUpload(PROTOCOLID nProtocol, CLibraryFile const * const p
 //DWORD CUploadQueues::QueueRank(PROTOCOLID nProtocol, CLibraryFile const * const pFile )
 //{	// if the specified file was requested now, what queue position would it be in?
 //	// 0x7FFF (max int) indicates the file cannot be downloaded
-
 //	// Don't bother with 0 byte files
 //	if ( pFile->m_nSize == 0 ) return 0x7FFF;
-
 //	// Detect Ghosts
 //	if ( pFile->IsGhost() ) return 0x7FFF;
-
 //	// G1 and G2 both use HTTP transfers, PeerProject doesn't consider them different.
 //	if ( ( nProtocol == PROTOCOL_G1 ) || ( nProtocol == PROTOCOL_G2 ) )
 //		nProtocol = PROTOCOL_HTTP;
 
 //	CSingleLock pLock( &m_pSection, TRUE );
-
 //	//Check each queue
 //	for ( POSITION pos = GetIterator() ; pos ; )
 //	{
 //		CUploadQueue* pQueue = GetNext( pos );
-
 //		if ( pQueue->CanAccept(	nProtocol, pFile->m_sName, pFile->m_nSize, CUploadQueue::ulqLibrary, pFile->m_sShareTags ) )
 //		{
 //			// If this queue will accept this file
@@ -430,7 +430,6 @@ BOOL CUploadQueues::CanUpload(PROTOCOLID nProtocol, CLibraryFile const * const p
 //				return pQueue->GetQueuedCount();
 //		}
 //	}
-
 //	return 0x7FFF;	//This file is not uploadable with the current queue setup
 //}
 

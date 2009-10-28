@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_DLGFILEPROPERTIES_H__AAD90EC0_F939_459D_90EF_F416A1E72D08__INCLUDED_)
-#define AFX_DLGFILEPROPERTIES_H__AAD90EC0_F939_459D_90EF_F416A1E72D08__INCLUDED_
-
 #pragma once
 
 #include "DlgSkinDialog.h"
@@ -56,7 +53,7 @@ protected:
 	BOOL		m_bHexHash;
 	int			m_nWidth;
 
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI);
@@ -70,8 +67,4 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
-//{{AFX_INSERT_LOCATION}}
-
 #define IDC_METADATA		100
-
-#endif // !defined(AFX_DLGFILEPROPERTIES_H__AAD90EC0_F939_459D_90EF_F416A1E72D08__INCLUDED_)

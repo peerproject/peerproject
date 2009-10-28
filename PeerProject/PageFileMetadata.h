@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_PAGEFILEMETADATA_H__77265CC6_6566_4120_BF95_563EADCC326D__INCLUDED_)
-#define AFX_PAGEFILEMETADATA_H__77265CC6_6566_4120_BF95_563EADCC326D__INCLUDED_
-
 #pragma once
 
 #include "DlgFilePropertiesPage.h"
@@ -45,7 +42,7 @@ protected:
 	CXMLElement*	m_pSchemaContainer;
 
 	void AddCrossAttributes(CXMLElement* pXML, LPCTSTR pszTargetURI);
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual void OnOK();
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSelChangeSchemas();
@@ -55,5 +52,3 @@ protected:
 };
 
 #define IDC_METADATA	100
-
-#endif // !defined(AFX_PAGEFILEMETADATA_H__77265CC6_6566_4120_BF95_563EADCC326D__INCLUDED_)

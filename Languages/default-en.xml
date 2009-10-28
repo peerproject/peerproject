@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -180,7 +180,7 @@
 		<button id="ID_DOWNLOADS_EDIT" text="Details"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Status Monitor"/>
 			<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Add Target"/>
+		<button id="ID_TOOLS_DOWNLOAD" text="Add File"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Clear List"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILTER_MENU" text="Filter"/>
@@ -351,12 +351,14 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SETTINGS" text="Settings" tip="Configure IRC Settings"/>
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Leave Current Channel Window"/>
 			<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Connect" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Disconnect" tip="Disconnect from IRC"/>
 		<separator/>
-		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<button id="ID_IRC_SETTINGS" text="Settings" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- NEIGHBORS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -843,7 +845,7 @@
 			<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
 			<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
 			<item id="ID_VIEW_RESULTS_MONITOR" text="H_it Monitor" shortcut="Ctrl+F3"/>
-			<item id="ID_VIEW_SEARCH" text="New _Search" shortcut="Ctrl+S"/>
+			<item id="ID_TAB_SEARCH" text="New _Search" shortcut="Ctrl+S"/>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="Basic Mode"/>
 			<item id="ID_VIEW_TABBED" text="Tabbed Mode"/>
@@ -1231,9 +1233,8 @@
 		<item id="ID_DOWNLOAD_GROUP_RESUME" text="_Resume All"/>
 		<item id="ID_DOWNLOAD_GROUP_PAUSE" text="Pa_use All"/>
 		<item id="ID_DOWNLOAD_GROUP_CLEAR" text="_Clear All"/>
-		<separator/> <!--
-		<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Hide Groups"/>
-		<separator/> -->
+		<separator/>
+	<!--<item id="ID_DOWNLOAD_GROUP_SHOW" text="_Hide Groups"/>-->
 		<item id="ID_DOWNLOAD_GROUP_MOVELEFT" text="Move Group _Left"/>
 		<item id="ID_DOWNLOAD_GROUP_MOVERIGHT" text="Move Group R_ight"/>
 		<item id="ID_DOWNLOAD_GROUP_REMOVE" text="R_emove Group"/>
@@ -3219,12 +3220,12 @@
 	<string id="16995" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
 	<string id="16996" value="Part of this file could not be played, you may need to download additional codecs."/>
 	<string id="16997" value="There is no file playing. Double-click a media file in your library to play it."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Playlist:"/>
-	<string id="17017" value="Chat:"/>
-	<string id="17018" value="Welcome to the PeerProject IRC Chatrooms"/>
-	<string id="17019" value="Please respect others while using this service"/>
-	<string id="17020" value="Add"/>
+	<string id="17016" value="Welcome to the PeerProject IRC Chatrooms"/>
+	<string id="17017" value="Please respect others while using this service"/>
+	<string id="17018" value="Chat:"/>
+	<string id="17020" value="Add..."/>
 	<string id="17021" value="Remove"/>
 	<string id="17022" value="Users"/>
 	<string id="17023" value="Channels"/>
@@ -3450,8 +3451,8 @@
 	<string id="20243" value="Continue"/>
 	<string id="20244" value="&amp;Remember my selection next time"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
-<!-- DialogScan: C:\Dialog.xml -HKEY_CURRENT_USER\Software\PeerProject\PeerProject DWORD DialogScan = 1 -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
+<!-- DialogScan: Write Dialogs.xml -HKEY_CURRENT_USER\Software\PeerProject\PeerProject DWORD DialogScan = 1 -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="General">
 	</dialog>
@@ -4082,16 +4083,16 @@
 		<control caption="Connect"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Download File or Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Download File from Link">
 		<control/>
 		<control/>
-		<control caption="Downloading any file with PeerProject is easy.  Simply type or paste the URL or URI describing the file into the box below and press Enter."/>
+		<control caption="New files can be downloaded directly from Web and P2P links.  Simply copy/paste the URL or URI link for the file into the box below. (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="A small .torrent file is needed to begin BitTorrent downloads.  Paste the .torrent's direct link above, or select a local .torrent file. (Use drag'n'drop any time.)"/>
 		<control/>
-		<control caption="Download"/>
-		<control caption="Cancel"/>
-		<control caption="PeerProject can download files from the web (HTTP), and automatically search and download P2P links (Magnet, Gnutella, eDonkey, mP2P)."/>
-		<control caption="PeerProject can also download BitTorrent files.  A torrent can be described by a .torrent file, or a HTTP link to the .torrent file.  To download a torrent HTTP link, paste it in the box above.  If you already have a .torrent file, click Open Torrent:"/>
-		<control caption="Open _Torrent..."/>
+		<control/>
+		<control caption="_Download"/>
+		<control caption="_Cancel"/>
+		<control caption="_Open Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="New Search|Search Again|Find in Library">
 		<control/>
@@ -4427,20 +4428,21 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Delete File">
-		<control caption="Are you sure that you want to delete:"/>
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Delete File">
+		<control caption="Confirm deletion of this file:"/>
 		<control/>
 		<control caption="Delete"/>
 		<control caption="Delete All"/>
 		<control caption="Cancel"/>
 		<control/>
-		<control caption="PeerProject can remember this file and warn you if you come across it again in another search. It will create a ghost file with your comments and rating."/>
-		<control caption="Create a ghost file"/>
-		<control caption="The reason for deleting:"/>
-		<control caption="Just deleting, keep my comments|This file is named incorrectly, and could be misleading|This file is of very poor quality|This file is a fake, or is corrupt or somehow unusable|Replace my comments with the new ones"/>
+		<control caption="Create Ghost File"/>
+		<control caption="PeerProject can remember files to warn you and others in the future. A new 'ghost file' will save your comments and rating with file info."/>
 		<control caption="File rating:"/>
+		<control caption="Reason for deleting:"/>
+		<control caption="!"/>
 		<control caption="(No Rating)|Fake/Corrupt/Misleading|Poor|Average|Good|Very Good|Excellent"/>
-		<control caption="You can type a short note describing why you are deleting the file:"/>
+		<control caption="Just deleting, keep any current comments|File is very low quality or outdated|File is named incorrectly or misleading|File is fake, infected, corrupt, or unusable|File is restricted copyright material|File needs custom comments below..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Collection Export">
@@ -4604,7 +4606,7 @@
 		<control/>
 		<control caption="OK"/>
 		<control caption="Cancel"/>
-		<control caption="Add a channel name:|Enter kick/ban reason:"/>
+		<control caption="Add new channel to the list:|Enter kick/ban reason:"/>
 	</dialog>
 	<dialog name="CDownloadReviewDlg" cookie="StBuSyEd" caption="Download Reviews">
 		<control/>

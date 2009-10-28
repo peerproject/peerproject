@@ -461,15 +461,13 @@ BOOL CBTClient::OnHandshake2()
 	{
 		m_pDownloadTransfer->m_pSource->m_oGUID = transformGuid( m_oGUID );
 
-		/*
 		//ToDo: This seems to trip when it shouldn't. Should be investigated...
-		if ( memcmp( &m_pGUID, &m_pDownloadTransfer->m_pSource->m_pGUID, 16 ) != 0 )
-		{
-			theApp.Message( MSG_ERROR, IDS_BT_CLIENT_WRONG_GUID, (LPCTSTR)m_sAddress );
-			Close();
-			return FALSE;
-		}
-		*/
+		//if ( memcmp( &m_pGUID, &pSource->m_pGUID, 16 ) != 0 )
+		//{
+		//	theApp.Message( MSG_ERROR, IDS_BT_CLIENT_WRONG_GUID, (LPCTSTR)m_sAddress );
+		//	Close();
+		//	return FALSE;
+		//}
 	}
 	else	// no transfer exist, so must be initiated from other side.
 	{
@@ -958,9 +956,7 @@ BOOL CBTClient::OnBeHandshake(CBTPacket* pPacket)
 	if ( pNick->IsType( CBENode::beString ) )
 	{
 		if ( m_pDownloadTransfer != NULL )
-		{
 			m_pDownloadTransfer->m_pSource->m_sNick = pNick->GetString();
-		}
 	}
 
 	if ( CBENode* pExchange = pRoot->GetNode( "source-exchange" ) )
@@ -1012,9 +1008,7 @@ BOOL CBTClient::OnSourceRequest(CBTPacket* /*pPacket*/)
 			CPeerProjectURL pURL;
 
 			if ( pURL.Parse( pSource->m_sURL ) && pURL.m_oBTC )
-			{
                 pPeer->Add( "peer id" )->SetString( pURL.m_oBTC.begin(), Hashes::BtGuid::byteCount );
-			}
 
 			pPeer->Add( "ip" )->SetString( CString( inet_ntoa( pSource->m_pAddress ) ) );
 			pPeer->Add( "port" )->SetInt( pSource->m_nPort );
@@ -1045,12 +1039,13 @@ BOOL CBTClient::OnSourceRequest(CBTPacket* /*pPacket*/)
 
 BOOL CBTClient::OnDHTPort(CBTPacket* pPacket)
 {
+	//ToDo: Enable DHT?
 	if ( pPacket && pPacket->GetRemaining() == 2 )
 	{
-//		WORD nPort = pPacket->ReadShortBE();
-//		SOCKADDR_IN addr = m_pHost;
-//		addr.sin_port = nPort;
-//		Datagrams.DHTPing( &addr );
+	//	WORD nPort = pPacket->ReadShortBE();
+	//	SOCKADDR_IN addr = m_pHost;
+	//	addr.sin_port = nPort;
+	//	Datagrams.DHTPing( &addr );
 	}
 	return TRUE;
 }

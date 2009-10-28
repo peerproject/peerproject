@@ -640,10 +640,8 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 	{
 		CDownload* pDownload = Downloads.GetNext( posDownload );
 
-		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie )
-			continue;
-		if ( IsFiltered( pDownload ) )
-			continue;
+		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie ) continue;
+		if ( IsFiltered( pDownload ) ) continue;
 
 		if ( pDownload == pSelect )
 		{
@@ -653,8 +651,7 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 
 		rcItem.OffsetRect( 0, ITEM_HEIGHT );
 
-		if ( ! pDownload->m_bExpanded )
-			continue;
+		if ( ! pDownload->m_bExpanded ) continue;
 
 		if ( Settings.Downloads.ShowSources )
 		{
@@ -1114,7 +1111,7 @@ void CDownloadsCtrl::PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDown
 
 			rcCell.left += 16;
 			dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crLeftAligned );
-			rcCell.left += 1;
+			rcCell.left++;
 
 			strText = pDownload->GetDisplayName();
 			break;
@@ -1324,7 +1321,7 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 					rcCell.left, rcCell.top, 16, 16, crLeftAligned, CLR_DEFAULT, pSource->m_bSelected ? ILD_SELECTED : ILD_NORMAL );
 			rcCell.left += 16;
 			dc.FillSolidRect( rcCell.left, rcCell.top, 1, rcCell.Height(), crLeftAligned );
-			rcCell.left += 1;
+			rcCell.left++;
 
 			// Is this a firewalled eDonkey client
 			if ( pSource->m_nProtocol == PROTOCOL_ED2K && pSource->m_bPushOnly == TRUE )

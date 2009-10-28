@@ -51,23 +51,23 @@ protected:
 		CFTPLIST() {}
 		virtual ~CFTPLIST() {}
 
-/*		virtual void Close()
-		{
-			Handshakes.Remove( this );
-			CTransfer::Close();
-		}*/
-
 		virtual BOOL ConnectTo(SOCKADDR_IN* pHost)
 		{
 			m_sData.Empty ();
 			return CConnection::ConnectTo( pHost );
 		}
 
-/*		virtual void AttachTo(CConnection* pConnection)
-		{
-			m_sData.Empty ();
-			CTransfer::AttachTo( pConnection );
-		}*/
+		//virtual void AttachTo(CConnection* pConnection)
+		//{
+		//	m_sData.Empty ();
+		//	CTransfer::AttachTo( pConnection );
+		//}
+
+		//virtual void Close()
+		//{
+		//	Handshakes.Remove( this );
+		//	CTransfer::Close();
+		//}
 
 		virtual BOOL OnRead()
 		{
@@ -123,7 +123,8 @@ protected:
 			{
 				out = in.Mid( p + 1 );
 				in = in.Mid( 0, p );
-			} else
+			}
+			else
 			{
 				out = in;
 				in.Empty();
@@ -144,12 +145,6 @@ protected:
 			m_pOwner = pOwner;
 		}
 
-/*		virtual void Close()
-		{
-			Handshakes.Remove( this );
-			CTransfer::Close();
-		}*/
-
 		virtual BOOL ConnectTo(SOCKADDR_IN* pHost)
 		{
 			m_tContent = GetTickCount();
@@ -157,12 +152,18 @@ protected:
 			return CConnection::ConnectTo( pHost );
 		}
 
-/*		virtual void AttachTo(CConnection* pConnection)
-		{
-			m_tContent = GetTickCount();
-			m_nTotal = 0;
-			CTransfer::AttachTo( pConnection );
-		}*/
+		//virtual void AttachTo(CConnection* pConnection)
+		//{
+		//	m_tContent = GetTickCount();
+		//	m_nTotal = 0;
+		//	CTransfer::AttachTo( pConnection );
+		//}
+
+		//virtual void Close()
+		//{
+		//	Handshakes.Remove( this );
+		//	CTransfer::Close();
+		//}
 
 		virtual BOOL OnRead()
 		{
@@ -187,7 +188,8 @@ protected:
 							( nCurrent - m_tContent ) ) * 1000 );
 						m_tContent = nCurrent;
 						m_nTotal = 0;
-					} else
+					}
+					else
 						m_nTotal += pInput->m_nLength;
 					pInput->Clear();
 					if ( m_pOwner->m_nPosition >= m_pOwner->m_nLength )
@@ -236,8 +238,6 @@ protected:
 	CString			m_sMultiNumber;	// Multiline number
 	CString			m_sMultiReply;	// Multiline reply
 
-	// Connecting or file size getting or download starting
-	BOOL			StartNextFragment();
-	// Sending command to FTP server
-	BOOL			SendCommand(LPCTSTR args = NULL);
+	BOOL			StartNextFragment();	// Connecting or file size getting or download starting
+	BOOL			SendCommand(LPCTSTR args = NULL);	// Sending command to FTP server
 };

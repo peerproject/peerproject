@@ -154,7 +154,7 @@
 		<button id="ID_DOWNLOADS_EDIT" text="Details"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Status Monitor"/>
 			<rightAlign/>
-		<button id="ID_TOOLS_DOWNLOAD" text="Add Target"/>
+		<button id="ID_TOOLS_DOWNLOAD" text="Add File"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Clear List"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_FILTER_MENU" text="Filter"/>
@@ -325,12 +325,14 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_SETTINGS" text="Settings" tip="Configure IRC Settings"/>
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Leave Current Channel Window"/>
 			<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Connect" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Disconnect" tip="Disconnect from IRC"/>
 		<separator/>
-		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<button id="ID_IRC_SETTINGS" text="Settings" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- NEIGHBORS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -812,7 +814,7 @@
 			<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
 			<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
 			<item id="ID_VIEW_RESULTS_MONITOR" text="H_it Monitor" shortcut="Ctrl+F3"/>
-			<item id="ID_VIEW_SEARCH" text="New _Search" shortcut="Ctrl+S"/>
+			<item id="ID_TAB_SEARCH" text="New _Search" shortcut="Ctrl+S"/>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="Basic Mode"/>
 			<item id="ID_VIEW_TABBED" text="Tabbed Mode"/>
@@ -1122,8 +1124,8 @@
 	<menu name="CDownloadsWnd.Download">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Preview Partial File"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Pre_view File Copy"/>
-    <item id="ID_DOWNLOADS_ENQUEUE" text="Add to Pla_ylist"/>
-    <item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
+		<item id="ID_DOWNLOADS_ENQUEUE" text="Add to Pla_ylist"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Re_mote Preview"/>
 		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Vie_w Reviews"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Resume"/>
@@ -1142,9 +1144,9 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_MOVE_UP" text="Move _Up" shortcut="Ctrl+Up"/>
 			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Move _Down" shortcut="Ctrl+Dn"/>
-      <item id="ID_DOWNLOADS_MOVE_TOP" text="Move to _Top" shortcut="Ctrl+Home"/>
-      <item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Move to _Bottom" shortcut="Ctrl+End"/>
-    </menu>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Move to _Top" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Move to _Bottom" shortcut="Ctrl+End"/>
+		</menu>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
@@ -1697,6 +1699,7 @@
 			<item id="ID_IRC_BANKICKWHY" text="Kick+Ban (why?)"/>
 		</menu>
 	</menu>
+	<!-- WEBSERVICES -->
 	<menu name="WebServices.List.Menu">
 		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Bitzi"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
@@ -2071,7 +2074,7 @@
 		</group>
 		<group id="6">
 			<newline gap="8" indent="0"/>
-			<text format="b">Bio Comments</text>
+			<text format="b">Bio/Comments</text>
 			<newline gap="2" indent="8"/>
 			<text id="BioText"/>
 		</group>
@@ -2626,7 +2629,7 @@
 		<image id="ID_TAB_HOME" id1="ID_LIBRARY_VIEW_HOME"/>
 		<image id="ID_VIEW_SYSTEM" id1="ID_VIEW_NEIGHBOURS"/>
 		<image id="ID_DOWNLOADS_REMOTE_PREVIEW"/>
-		<image id="ID_UPLOADS_CHAT" id1="ID_SEARCH_CHAT" id2="ID_NEIGHBOURS_CHAT" id3="ID_TRANSFERS_CHAT" id4="ID_TAB_IRC"/>
+		<image id="ID_UPLOADS_CHAT" id1="ID_SEARCH_CHAT" id2="ID_NEIGHBOURS_CHAT" id3="ID_TRANSFERS_CHAT" id4="ID_IRC_SENDTEXT" id5="ID_TAB_IRC"/>
 		<!--SystemViews-->
 		<image id="ID_WINDOW_CASCADE"/>
 		<image id="ID_WINDOW_TILE_HORZ"/>

@@ -58,8 +58,7 @@ void CImageServices::OnRun()
 	{
 		Doze();
 
-		if ( ! IsThreadEnabled() )
-			break;
+		if ( ! IsThreadEnabled() ) break;
 
 		// Revoke interface
 		services_map::iterator i = m_services.find( m_inCLSID );
@@ -159,7 +158,7 @@ BOOL CImageServices::LoadFromFile(CImageFile* pFile, LPCTSTR szFilename, BOOL bS
 	BOOL bSuccess = FALSE;
 
 	// Get file extension
-	CString strType( PathFindExtension( szFilename ) ); // ".ext"
+	CString strType( PathFindExtension( szFilename ) );	// ".ext"
 	strType.MakeLower();
 
 	CComPtr< IImageServicePlugin> pService;
@@ -232,10 +231,7 @@ BOOL CImageServices::PostLoad(CImageFile* pFile, const IMAGESERVICEDATA* pParams
 	pFile->m_nHeight		= pParams->nHeight;
 	pFile->m_nComponents	= pParams->nComponents;
 	if ( pArray == NULL )
-	{
-		// Scanned only
-		return TRUE;
-	}
+		return TRUE;		// Scanned only
 
 	LONG nArray = 0;
 	if ( SUCCEEDED( SafeArrayGetUBound( pArray, 1, &nArray ) ) )
@@ -312,39 +308,38 @@ BOOL CImageServices::SaveToMemory(CImageFile* pFile, LPCTSTR pszType, int nQuali
 	return TRUE;
 }
 
-/*BOOL CImageServices::SaveToFile(CImageFile* pFile, LPCTSTR pszType, int nQuality, HANDLE hFile, DWORD* pnLength)
-{
-	if ( pnLength ) *pnLength = 0;
+//BOOL CImageServices::SaveToFile(CImageFile* pFile, LPCTSTR pszType, int nQuality, HANDLE hFile, DWORD* pnLength)
+//{
+//	if ( pnLength ) *pnLength = 0;
 
-	IImageServicePlugin* pService = GetService( pszType );
-	if ( pService == NULL ) return FALSE;
+//	IImageServicePlugin* pService = GetService( pszType );
+//	if ( pService == NULL ) return FALSE;
 
-	SAFEARRAY* pSource = ImageToArray( pFile );
-	if ( pSource == NULL ) return FALSE;
+//	SAFEARRAY* pSource = ImageToArray( pFile );
+//	if ( pSource == NULL ) return FALSE;
 
-	IMAGESERVICEDATA pParams = {};
-	pParams.cbSize		= sizeof(pParams);
-	pParams.nWidth		= pFile->m_nWidth;
-	pParams.nHeight		= pFile->m_nHeight;
-	pParams.nComponents	= pFile->m_nComponents;
-	pParams.nQuality	= nQuality;
+//	IMAGESERVICEDATA pParams = {};
+//	pParams.cbSize		= sizeof(pParams);
+//	pParams.nWidth		= pFile->m_nWidth;
+//	pParams.nHeight		= pFile->m_nHeight;
+//	pParams.nComponents	= pFile->m_nComponents;
+//	pParams.nQuality	= nQuality;
 
-	DWORD nBefore = SetFilePointer( hFile, 0, NULL, FILE_CURRENT );
+//	DWORD nBefore = SetFilePointer( hFile, 0, NULL, FILE_CURRENT );
+//	HINSTANCE hRes = AfxGetResourceHandle();
+//	BOOL bSuccess = SUCCEEDED( pService->SaveToFile( hFile, &pParams, pSource ) );
+//	AfxSetResourceHandle( hRes );
 
-	HINSTANCE hRes = AfxGetResourceHandle();
-	BOOL bSuccess = SUCCEEDED( pService->SaveToFile( hFile, &pParams, pSource ) );
-	AfxSetResourceHandle( hRes );
+//	SafeArrayDestroy( pSource );
 
-	SafeArrayDestroy( pSource );
+//	if ( pnLength )
+//	{
+//		DWORD nAfter = SetFilePointer( hFile, 0, NULL, FILE_CURRENT );
+//		*pnLength = nAfter - nBefore;
+//	}
 
-	if ( pnLength )
-	{
-		DWORD nAfter = SetFilePointer( hFile, 0, NULL, FILE_CURRENT );
-		*pnLength = nAfter - nBefore;
-	}
-
-	return bSuccess;
-}*/
+//	return bSuccess;
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CImageServices pre save utility
@@ -379,8 +374,7 @@ BOOL CImageServices::IsFileViewable(LPCTSTR pszPath)
 {
 	// Get file extension
 	CString strType( PathFindExtension( pszPath ) );
-	if ( strType.IsEmpty() )
-		return FALSE;
+	if ( strType.IsEmpty() ) return FALSE;
 	strType.MakeLower();
 
 	CLSID oCLSID;
@@ -400,18 +394,16 @@ bool CImageServices::GetService(LPCTSTR pszType, IImageServicePlugin** ppIImageS
 	// Get plugin CLSID
 	CLSID oCLSID;
 		if ( ! Plugins.LookupCLSID( L"ImageService", pszType, oCLSID ) )
-		// Unknown or disabled extension
-		return false;
+			return false;	// Unknown or disabled extension
 
 		services_map::iterator i = m_services.find( oCLSID );
 		if ( i == m_services.end() )
 		{
 			LoadService( pszType );
 
-			i = m_services.find( oCLSID );				// Get result
+			i = m_services.find( oCLSID );		// Get result
 			if ( i == m_services.end() )
-				// No plugin
-				return false;
+				return false;		// No plugin
 		}
 
 		dwCachedIndex = (*i).second;

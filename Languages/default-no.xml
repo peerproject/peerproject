@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r38 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r40 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -334,6 +334,17 @@
 		<rightAlign/>
 		<button id="ID_MEDIA_CLEAR" text="Oppdater"/>
 		<button id="ID_MEDIA_SAVE" text="Lagre"/>
+	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="Koble til" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Koble fra" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Innstillinger" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -2839,7 +2850,7 @@
 	<string id="16995" value="Denne filen kan være ødelagt, eller så kan det være at du ikke har rett codec til å spille den av med."/>
 	<string id="16996" value="Deler av denne filen kunne ikke spilles av, du bør kanskje laste ned ekstra codec."/>
 	<string id="16997" value="Det er ingen filer som spilles av. Dobbelt-klikk på en av dine filer for å spille av."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Spilleliste"/>
 	<string id="17024" value="Starter kobling til %s..."/>
 	<string id="17025" value="Klarte ikke å starte kobling til %s."/>
@@ -3032,7 +3043,7 @@
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Avbryt"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Generelt">
 	</dialog>
@@ -3623,16 +3634,16 @@
 		<control caption="Koble til"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Last ned fil eller torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Last ned fil eller torrent">
 		<control/>
 		<control/>
-		<control caption="Å laste ned filer med PeerProject er lett. Bare skriv inn URL eller URI som beskriver filen i vinduet under og trykk Enter."/>
+		<control caption="PeerProject kan laste ned filer fra nettet, og automatisk søke og laste ned P2P linker. Bare skriv inn URL eller URI som beskriver filen i vinduet under og trykk Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="PeerProject kan også laste ned BitTorrent filer.  En torrent kan bli beskrevet av en xyz.torrent fil, eller en HTTP-link til .torrent-filen.  For å laste ned en torrent HTTP-link, lim den inn i vinduet over.  Hvis du allerede har en .torrent-fil, Klikk Åpne Torrent:"/>
+		<control/>
 		<control/>
 		<control caption="Last ned"/>
 		<control caption="Avbryt"/>
-		<control caption="PeerProject kan laste ned filer fra nettet (HTTP), og automatisk søke og laste ned P2P linker (Magnet, Gnutella, eDonkey2000, mP2P)."/>
-		<control caption="PeerProject kan også laste ned BitTorrent filer.  En torrent kan bli beskrevet av en xyz.torrent fil, eller en HTTP-link til .torrent-filen.  For å laste ned en torrent HTTP-link, lim den inn i vinduet over.  Hvis du allerede har en .torrent-fil, Klikk Åpne Torrent:"/>
-		<control caption="Åpne _torrent..."/>
+		<control caption="Åpne _torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Nytt søk|Søk på nytt|Finn i mine filer">
 		<control/>
@@ -3968,20 +3979,21 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Slett fil">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Slett fil">
 		<control caption="Er du sikker på at du vil slette:"/>
 		<control/>
 		<control caption="Slett"/>
 		<control caption="Slett alt"/>
 		<control caption="Avbryt"/>
 		<control/>
-		<control caption="PeerProject kan huske denne filen og varsle deg om du skulle komme over den p nytt i et annet søk.  Vennligst velg hvorfor du vil slette denne filen:"/>
 		<control caption="Ingen kommentar."/>
-		<control caption="Denne filen har feil navn, og kan være misvisende."/>
-		<control caption="Denne filen har veldig lav kvalitet."/>
-		<control caption="Denne filen er falsk, ødelagt eller ubrukelig."/>
-		<control caption="Du kan skrive en kort melding for å beskrive hvorfor denne filen er feil:"/>
-		<control caption=""/>
+		<control caption="PeerProject kan huske denne filen og varsle deg om du skulle komme over den p nytt i et annet søk.  Vennligst velg hvorfor du vil slette denne filen:"/>
+		<control caption="File rating:"/>
+		<control caption="Reason for deleting:"/>
+		<control caption="!"/>
+		<control caption="(No Rating)|Fake/Corrupt/Misleading|Poor|Average|Good|Very Good|Excellent"/>
+		<control caption="Just deleting, keep any current comments|File is very low quality or outdated|File is named incorrectly or misleading|File is fake, infected, corrupt, or unusable|File is restricted copyright material|File needs custom comments below..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Eksporter mappe">

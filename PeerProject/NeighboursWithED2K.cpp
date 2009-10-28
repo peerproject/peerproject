@@ -120,12 +120,9 @@ void CNeighboursWithED2K::SendDonkeyDownload(CDownload* pDownload)
 		// Get the neighbour under the current position, and move to the next position
 		CEDNeighbour* pNeighbour = (CEDNeighbour*)GetNext( pos );
 
-		// If this neighbour is running eDonkey2000 software
+		// If this neighbour is running eDonkey2000 software, Tell it about this download
 		if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
-		{
-			// Tell it about this download
 			pNeighbour->SendSharedDownload( pDownload );
-		}
 	}
 }
 
@@ -157,15 +154,13 @@ BOOL CNeighboursWithED2K::PushDonkey(DWORD nClientID, IN_ADDR* pServerAddress, W
 		return TRUE;
 	}
 
-	/*
-	lugdunum requests no more of this
-	CEDPacket* pPacket = CEDPacket::New( ED2K_C2SG_CALLBACKREQUEST );
-	pPacket->WriteLongLE( Network.m_pHost.sin_addr.S_un.S_addr );
-	pPacket->WriteShortLE( htons( Network.m_pHost.sin_port ) );
-	pPacket->WriteLongLE( nClientID );
-	Datagrams.Send( pServerAddress, nServerPort + 4, pPacket );
-	return TRUE;
-	*/
+	//lugdunum (ed2k server) requests no more of this
+	//CEDPacket* pPacket = CEDPacket::New( ED2K_C2SG_CALLBACKREQUEST );
+	//pPacket->WriteLongLE( Network.m_pHost.sin_addr.S_un.S_addr );
+	//pPacket->WriteShortLE( htons( Network.m_pHost.sin_port ) );
+	//pPacket->WriteLongLE( nClientID );
+	//Datagrams.Send( pServerAddress, nServerPort + 4, pPacket );
+	//return TRUE;
 
 	return FALSE;
 }

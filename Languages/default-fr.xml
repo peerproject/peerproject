@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -349,9 +349,13 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Discuter" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Fermer" tip="Exit Current Channel Window"/>
+		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Connexion" tip="Connexion au salon IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Disconnect" tip="Déconnexion du salon IRC"/>
-		<rightAlign/>
+		<separator/>
 		<button id="ID_IRC_SETTINGS" text="Réglages" tip="Configurer les réglages IRC"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
@@ -3162,9 +3166,9 @@
 	<string id="16997" value="Aucun fichier en lecture. Double-cliquez un fichier média dans votre bibliothèque pour le lire."/>
 	<string id="16998" value="L &#160; E &#160; C &#160; T &#160; E &#160; U &#160; R &#160; &#160; M &#160; U &#160; L &#160; T &#160; I &#160; M &#160; E &#160; D &#160; I &#160; A &#160; &#160; P &#160; E &#160; E &#160; R &#160; P &#160; R &#160; O &#160; J &#160; E &#160; C &#160; T"/>
 	<string id="16999" value="Liste de Lecture"/>
-	<string id="17017" value="C'est parti&#160;:"/>
-	<string id="17018" value="Bienvenue au salon IRC de PeerProject&#160;!"/>
-	<string id="17019" value="Veuillez respecter les autres lors de l'utilisation de ce service"/>
+	<string id="17016" value="Bienvenue au salon IRC de PeerProject&#160;!"/>
+	<string id="17017" value="Veuillez respecter les autres lors de l'utilisation de ce service"/>
+	<string id="17018" value="C'est parti :"/>
 	<string id="17020" value="Ajouter"/>
 	<string id="17021" value="Enlever"/>
 	<string id="17022" value="Utilisateurs"/>
@@ -3385,7 +3389,7 @@
 	<string id="20237" value="Valider"/>
 	<string id="20238" value="Annuler"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="General">
 	</dialog>
@@ -4016,16 +4020,16 @@
 		<control caption="Se connecter"/>
 		<control caption="Annuler"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Télécharger un fichier ou un Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Télécharger un fichier ou un Torrent">
 		<control/>
 		<control/>
-		<control caption="Télécharger un fichier est très facile. Tapez ou collez simplement l'URI correspondant au fichier ci-dessous et cliquez sur &#171;&#160;Télécharger&#160;&#187;."/>
+		<control caption="Peut télécharger les fichiers depuis le web, et automatiquement chercher et télécharger les liens P2P. Tapez ou collez simplement l'URI correspondant au fichier ci-dessous. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="Aussi télécharger les fichiers BitTorrent. Un torrent peut être un fichier 'xyz.torrent', ou un lien HTTP vers ce fichier '.torrent'. Copiez le dans la boîte ci-dessus. Si vous avez déjà un fichier '.torrent', Cliquez."/>
+		<control/>
 		<control/>
 		<control caption="Télécharger"/>
 		<control caption="Annuler"/>
-		<control caption="PeerProject peut télécharger les fichiers depuis le web (HTTP), et automatiquement chercher et télécharger les liens P2P (Magnet, Gnutella, eDonkey, mp2p)."/>
-		<control caption="PeerProject peut aussi télécharger les fichiers BitTorrent. Un torrent peut être un fichier 'xyz.torrent', ou un lien HTTP vers ce fichier '.torrent'. Copiez le dans la boîte ci-dessus. Si vous avez déjà un fichier '.torrent', Cliquez sur &#171;&#160;Ouvrir un Torrent...&#160;&#187;"/>
-		<control caption="Ouvrir un _Torrent..."/>
+		<control caption="Ouvrir un _Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Nouvelle recherche|Chercher encore|Trouver dans la bibliothèque">
 		<control/>
@@ -4361,20 +4365,21 @@
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Supprimer un fichier">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Supprimer un fichier">
 		<control caption="Êtes-vous certain de vouloir supprimer ce fichier&#160;?"/>
 		<control/>
 		<control caption="Supprimer"/>
 		<control caption="Tout suppr."/>
 		<control caption="Annuler"/>
 		<control/>
-		<control caption="PeerProject peut mémoriser ce fichier et vous avertir si vous le rencontrez à nouveau lors d'une autre recherche. Un fichier fantôme sera créé avec vos commentaires:"/>
 		<control caption="Créér un fichier fantôme."/>
-		<control caption="Raisons de la suppression&#160;:"/>
-		<control caption="Je supprime, mais garder mes commentaires|Ce fichier est mal nommé|Ce fichier est de pauvre qualité|Ce fichier est un faux, est corrompu ou inutilisable|Éditer mes anciens commentaires"/>
+		<control caption="PeerProject peut mémoriser ce fichier et vous avertir si vous le rencontrez à nouveau lors d'une autre recherche. Un fichier fantôme sera créé avec vos commentaires:"/>
 		<control caption="Évaluation&#160;:"/>
+		<control caption="Raisons de la suppression&#160;:"/>
+		<control caption="!"/>
 		<control caption="(Pas d'évaluation)|Faux/Corrompu/Trompeur|Pauvre|Moyen|Bon|Très bon|Excellent"/>
-		<control caption="Vous pouvez ajouter une note de précision&#160;:"/>
+		<control caption="Je supprime, mais garder mes commentaires|Ce fichier est de pauvre qualité|Ce fichier est mal nommé|Ce fichier est un faux, est corrompu ou inutilisable|Restricted copyright material|Éditer mes anciens commentaires..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Exporter un dossier">

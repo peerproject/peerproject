@@ -116,7 +116,9 @@ BOOL CDatagrams::Listen()
 	{
 		// Inbound resolved
 		if ( ! Settings.Connection.InBind )
+		{
 			saHost.sin_addr.S_un.S_addr = 0;
+		}
 		else
 		{
 			// Set the exclusive address option
@@ -132,7 +134,9 @@ BOOL CDatagrams::Listen()
 	{
 		saHost = Network.m_pHost;
 		if ( ! Settings.Connection.InBind )
+		{
 			saHost.sin_addr.S_un.S_addr = 0;
+		}
 		else
 		{
 			// Set the exclusive address option
@@ -244,9 +248,7 @@ BOOL CDatagrams::Send(SOCKADDR_IN* pHost, const CBuffer& pOutput)
 	ASSERT( pHost != NULL && pOutput.m_pBuffer != NULL );
 
 	if ( ! IsValid() || Security.IsDenied( &pHost->sin_addr ) )
-	{
 		return FALSE;
-	}
 
 	sendto( m_hSocket, (const char*)pOutput.m_pBuffer, pOutput.m_nLength,
 		0, (SOCKADDR*)pHost, sizeof(SOCKADDR_IN) );
@@ -465,16 +467,15 @@ BOOL CDatagrams::TryWrite()
 
 		for ( int nSeek = METER_LENGTH ; nSeek ; nSeek--, pHistory++, pTime++ )
 		{
-			if ( *pTime >= tCutoff ) nUsed += *pHistory;
+			if ( *pTime >= tCutoff )
+				nUsed += *pHistory;
 		}
 
 		nLimit = Settings.Connection.OutSpeed * 128;
 		if ( Settings.Bandwidth.UdpOut != 0 ) nLimit = Settings.Bandwidth.UdpOut;
 
 		if ( Settings.Live.BandwidthScale < 100 )
-		{
 			nLimit = nLimit * Settings.Live.BandwidthScale / 100;
-		}
 
 		nLimit = ( nUsed >= nLimit ) ? 0 : ( nLimit - nUsed );
 	}
@@ -558,9 +559,7 @@ void CDatagrams::ManageOutput()
 		CDatagramOut* pNext = pDG->m_pNextTime;
 
 		if ( tNow - pDG->m_tSent > Settings.Gnutella2.UdpOutExpire )
-		{
 			Remove( pDG );
-		}
 
 		pDG = pNext;
 	}
@@ -580,7 +579,8 @@ void CDatagrams::Remove(CDatagramOut* pDG)
 		m_nBufferFree++;
 	}
 
-	if ( pDG->m_pNextHash ) pDG->m_pNextHash->m_pPrevHash = pDG->m_pPrevHash;
+	if ( pDG->m_pNextHash )
+		pDG->m_pNextHash->m_pPrevHash = pDG->m_pPrevHash;
 	*(pDG->m_pPrevHash) = pDG->m_pNextHash;
 
 	if ( pDG->m_pNextTime )
@@ -684,13 +684,9 @@ BOOL CDatagrams::OnDatagram(SOCKADDR_IN* pHost, BYTE* pBuffer, DWORD nLength)
 			pSGP->nPart && ( ! pSGP->nCount || pSGP->nPart <= pSGP->nCount ) )
 		{
 			if ( pSGP->nCount )
-			{
 				bHandled = OnReceiveSGP( pHost, pSGP, nLength - sizeof(SGP_HEADER) );
-			}
 			else
-			{
 				bHandled = OnAcknowledgeSGP( pHost, pSGP, nLength - sizeof(SGP_HEADER) );
-			}
 
 			if ( bHandled )
 				return TRUE;
@@ -949,9 +945,7 @@ void CDatagrams::ManagePartials()
 		CDatagramIn* pNext = pDG->m_pNextTime;
 
 		if ( tNow - pDG->m_tStarted > Settings.Gnutella2.UdpInExpire )
-		{
 			Remove( pDG );
-		}
 
 		pDG = pNext;
 	}
@@ -976,7 +970,8 @@ void CDatagrams::Remove(CDatagramIn* pDG, BOOL bReclaimOnly)
 
 	if ( bReclaimOnly ) return;
 
-	if ( pDG->m_pNextHash ) pDG->m_pNextHash->m_pPrevHash = pDG->m_pPrevHash;
+	if ( pDG->m_pNextHash )
+		pDG->m_pNextHash->m_pPrevHash = pDG->m_pPrevHash;
 	*(pDG->m_pPrevHash) = pDG->m_pNextHash;
 
 	if ( pDG->m_pNextTime )
@@ -1116,13 +1111,10 @@ BOOL CDatagrams::OnPing(SOCKADDR_IN* pHost, CG1Packet* pPacket)
 		if ( pGGEP.ReadFromPacket( pPacket ) )
 		{
 			if ( CGGEPItem* pItem = pGGEP.Find( GGEP_HEADER_SUPPORT_CACHE_PONGS ) )
-			{
 				bSCP = true;
-			}
+
 			if ( CGGEPItem* pItem = pGGEP.Find( GGEP_HEADER_SUPPORT_GDNA ) )
-			{
 				bDNA = true;
-			}
 		}
 		else
 		{
@@ -1135,16 +1127,10 @@ BOOL CDatagrams::OnPing(SOCKADDR_IN* pHost, CG1Packet* pPacket)
 
 	CGGEPBlock pGGEP;
 	if ( bSCP )
-	{
 		CG1Packet::GGEPWriteRandomCache( pGGEP.Add( GGEP_HEADER_PACKED_IPPORTS ) );
-	}
-	if ( Settings.Experimental.EnableDIPPSupport )
-	{
-		if ( bDNA )
-		{
+
+	if ( bDNA && Settings.Experimental.EnableDIPPSupport )
 			CG1Packet::GGEPWriteRandomCache( pGGEP.Add( GGEP_HEADER_GDNA_PACKED_IPPORTS ) );
-		}
-	}
 
 	// Make a new pong packet, the response to a ping
 	CG1Packet* pPong = CG1Packet::New(			// Gets it quickly from the Gnutella packet pool
@@ -1401,16 +1387,12 @@ BOOL CDatagrams::OnQueryAck(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 
 		if ( Network.QueryRoute->Lookup( oGUID, &pNeighbour, &pEndpoint ) )
 		{
-			// TODO: Add a "FR" from tag
+			// ToDo: Add an "FR" from tag
 
 			if ( pNeighbour != NULL && pNeighbour->m_nNodeType == ntLeaf )
-			{
 				pNeighbour->Send( pPacket, FALSE, FALSE );
-			}
-			else
-			{
+			//else
 				// Don't route it on via UDP
-			}
 		}
 	}
 
@@ -1556,13 +1538,9 @@ BOOL CDatagrams::OnQueryKeyAnswer(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 		DWORD nOffset = pPacket->m_nPosition + nLength;
 
 		if ( nType == G2_PACKET_QUERY_KEY && nLength >= 4 )
-		{
 			nKey = pPacket->ReadLongBE();
-		}
 		else if ( nType == G2_PACKET_SEND_ADDRESS && nLength >= 4 )
-		{
 			nAddress = pPacket->ReadLongLE();
-		}
 
 		pPacket->m_nPosition = nOffset;
 	}
@@ -1673,21 +1651,13 @@ BOOL CDatagrams::OnCrawlRequest(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 		DWORD nNext = pPacket->m_nPosition + nLength;
 
 		if ( nType == G2_PACKET_CRAWL_RLEAF )
-		{
 			bWantLeaves = TRUE;
-		}
 		else if ( nType == G2_PACKET_CRAWL_RNAME )
-		{
 			bWantNames = TRUE;
-		}
 		else if ( nType == G2_PACKET_CRAWL_RGPS )
-		{
 			bWantGPS = TRUE;
-		}
 		else if ( nType == G2_PACKET_CRAWL_REXT )
-		{
 			bWantREXT = TRUE;
-		}
 
 		pPacket->m_nPosition = nNext;
 	}
@@ -1920,9 +1890,7 @@ BOOL CDatagrams::OnKHLA(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 			CHostCacheHost* pCached = HostCache.Gnutella2.Add(
 				(IN_ADDR*)&nAddress, nPort, tSeen, strVendor );
 			if ( pCached != NULL )
-			{
 				nCount++;
-			}
 
 		}
 		else if ( nType == G2_PACKET_TIMESTAMP && nLength >= 4 )
@@ -2023,7 +1991,6 @@ BOOL CDatagrams::OnKHLR(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 				pCHPacket->WriteLongBE( pCachedHost->Seen() );									// 4
 				pKHLA->WritePacket( pCHPacket );
 				pCHPacket->Release();
-
 
 				nCount--;
 			}

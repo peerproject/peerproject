@@ -272,10 +272,7 @@ int CLibraryBuilderInternals::LookupID3v1Genre(const CString& strGenre) const
 	{
 		// Compare with listed genre
 		if ( strGenre.CompareNoCase( pszID3Genre[ nGenre ] ) == 0 )
-		{
-			// Return matching genre
-			return nGenre;
-		}
+			return nGenre;	// Return matching genre
 	}
 
 	// Return no match found
@@ -512,13 +509,9 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 					else if ( _stscanf( strValue, _T("%i"), &nGenre ) == 1 && nGenre < ID3_GENRES )
 					{
 						if ( _tcsistr( strGenre, pszID3Genre[ nGenre ] ) == NULL )
-						{
 							strValue = pszID3Genre[ nGenre ];
-						}
 						else
-						{
 							strValue.Empty();
-						}
 					}
 					else
 					{
@@ -602,8 +595,8 @@ bool CLibraryBuilderInternals::CopyID3v2Field(CXMLElement* pXML, LPCTSTR pszAttr
 		nLength -= 3;
 		if ( nLength > 0 && pBuffer[ 0 ] == 0 )
 		{
-			pBuffer += 1;
-			nLength -= 1;
+			pBuffer++;
+			nLength--;
 		}
 	}
 
@@ -1056,13 +1049,9 @@ bool CLibraryBuilderInternals::CopyVersionField(CXMLElement* pXML, LPCTSTR pszAt
 	{
 		bool bStartOk = nPos == 0, bEndOk = strValue.GetLength() == nPos + 8;
 		if ( !bStartOk && strValue.GetAt( nPos - 1 ) == ' ' )
-		{
 			bStartOk = true;
-		}
 		if ( !bEndOk && strValue.GetLength() > nPos + 8 && strValue.GetAt( nPos + 8 ) != ' ' )
-		{
-			// ShareazaPlus etc.
-		}
+			;	// ShareazaPlus etc.
 		else
 			bEndOk = true;
 
@@ -1700,13 +1689,11 @@ bool CLibraryBuilderInternals::ReadASF(DWORD nIndex, HANDLE hFile)
 			if ( pGUID == asfVideo2 )
 			{
 				bVideo = true;
-				/*
-				SetFilePointer( hFile, 68, NULL, FILE_CURRENT );
-				ReadFile( hFile, &nVideoWidth, sizeof(nVideoWidth), &nRead, NULL );
-				if ( nRead != sizeof(nVideoWidth) ) return false;
-				nVideoHeight = nVideoWidth >> 16;
-				nVideoWidth &= 0xFFFF;
-				*/
+			//	SetFilePointer( hFile, 68, NULL, FILE_CURRENT );
+			//	ReadFile( hFile, &nVideoWidth, sizeof(nVideoWidth), &nRead, NULL );
+			//	if ( nRead != sizeof(nVideoWidth) ) return false;
+			//	nVideoHeight = nVideoWidth >> 16;
+			//	nVideoWidth &= 0xFFFF;
 			}
 		}
 		else if ( pGUID == asfContent1 )
@@ -2022,61 +2009,33 @@ bool CLibraryBuilderInternals::ReadOGG(DWORD nIndex, HANDLE hFile)
 			continue;
 
 		if ( strKey == L"TITLE" )
-		{
 			pXML->AddAttribute( L"title", strValue );
-		}
 		else if ( strKey == L"ALBUM" )
-		{
 			pXML->AddAttribute( L"album", strValue );
-		}
 		else if ( strKey == L"ORIGINALALBUM" )
-		{
 			pXML->AddAttribute( L"origAlbum", strValue );
-		}
 		else if ( strKey == L"TRACKNUMBER" )
-		{
 			pXML->AddAttribute( L"track", strValue );
-		}
 		else if ( strKey == L"ARTIST" )
-		{
 			pXML->AddAttribute( L"artist", strValue );
-		}
 		else if ( strKey == L"ORIGINALARTIST" )
-		{
 			pXML->AddAttribute( L"origArtist", strValue );
-		}
 		else if ( strKey == L"DESCRIPTION" || strKey == L"COMMENT" )
-		{
 			pXML->AddAttribute( L"description", strValue );
-		}
 		else if ( strKey == L"GENRE" )
-		{
 			pXML->AddAttribute( L"genre", strValue );
-		}
 		else if ( strKey == L"DATE" )
-		{
 			pXML->AddAttribute( L"year", strValue );
-		}
 		else if ( strKey == L"COPYRIGHT" )
-		{
 			pXML->AddAttribute( L"copyright", strValue );
-		}
 		else if ( strKey == L"ENCODED-BY" || strKey == L"ENCODEDBY" || strKey == L"ENCODED BY" )
-		{
 			pXML->AddAttribute( L"encodedby", strValue );
-		}
 		else if ( strKey == L"COMPOSER" )
-		{
 			pXML->AddAttribute( L"composer", strValue );
-		}
 		else if ( strKey == L"ENCODERSETTINGS" || strKey == L"ENCODER" || strKey == L"ENCODING" )
-		{
 			pXML->AddAttribute( L"qualitynotes", strValue );
-		}
 		else if ( strKey == L"USERURL" || strKey == L"USER DEFINED URL LINK" )
-		{
 			pXML->AddAttribute( L"link", strValue );
-		}
 	}
 
 	delete [] prOGG;
@@ -2236,9 +2195,9 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 	if ( nRead != sizeof(pFooter) || strncmp( pFooter.cID, "APETAGEX", 8 ) ||
 		( pFooter.nVersion != 1000 && pFooter.nVersion != 2000 ) )
 	{
-		if ( bPreferFooter )
-			// Invalid footer, try to validate header only
+		if ( bPreferFooter )	// Invalid footer, try to validate header only
 			pFooter.nFields = -1;
+		
 	}
 
 	SetFilePointer( hFile, -(LONG)pFooter.nSize, NULL, FILE_END );
@@ -2631,13 +2590,11 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 		nBitsPerSample = pNewAPE.nBitsPerSample;
 
 		// ToDo: We need MD5 hash of the file without tags...
-/*
-		if ( validAndUnequal( oApeMD5, oMD5 ) )
-		{
-			delete pXML;
-			return LibraryBuilder.SubmitCorrupted( nIndex );
-		}
-*/
+	//	if ( validAndUnequal( oApeMD5, oMD5 ) )
+	//	{
+	//		delete pXML;
+	//		return LibraryBuilder.SubmitCorrupted( nIndex );
+	//	}
 	}
 	else
 	{
@@ -3094,10 +3051,10 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		}
 	}
 
-	if ( !bLinearized )
-	{
-		// TODO: find total number of non-deleted objects
-	}
+	//if ( !bLinearized )
+	//{
+	//	;	// ToDo: find total number of non-deleted objects
+	//}
 
 	DWORD* pOffset = NULL;
 	try
@@ -3447,9 +3404,7 @@ CString	CLibraryBuilderInternals::DecodePDFText(CString& strInput)
 	DWORD nByte = strInput.GetLength() / nFactor; // string length in bytes
 
 	if ( bHex && strInput.Left( 4 ) == L"FEFF" )
-	{
 		bWide = true;
-	}
 
 	U_CHAR* pByte = new U_CHAR[ nByte + 1 ];
 
@@ -3459,13 +3414,10 @@ CString	CLibraryBuilderInternals::DecodePDFText(CString& strInput)
 		{
 			int nChar = 0;
 			if ( bWide )
-			{
 				_stscanf( strInput.Mid( nHex * 4, 4 ), _T("%x"), &nChar );
-			}
 			else
-			{
 				_stscanf( strInput.Mid( nHex * 2, 2 ), _T("%x"), &nChar );
-			}
+
 			pByte[ nHex ].w = (WCHAR)nChar;
 		}
 		pByte[ nByte / ( bWide ? 2 : 1 ) ].w = 0;
@@ -3840,14 +3792,12 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 			}
 		}
 	}
+
 	if ( bCorrupted )
-	{
 		return LibraryBuilder.SubmitCorrupted( nIndex );
-	}
+
 	if ( strncmp( szFragment, "HA Version", 10 ) && nPos == MAX_LENGTH_ALLOWED + 1 )
-	{
 		return false;
-	}
 
 	// Collect author, title if file name contains "book" keyword
 	CString strLine;

@@ -122,20 +122,16 @@ HBRUSH CDeleteFileDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CSkinDialog::OnCtlColor( pDC, pWnd, nCtlColor );
 
-	if ( pWnd == &m_wndName )
-	{
+	if ( pWnd == &m_wndName || pWnd == &m_wndPrompt )
 		pDC->SelectObject( &theApp.m_gdiFontBold );
-	}
-	else if ( pWnd == &m_wndPrompt && m_wndPrompt.IsWindowEnabled() &&
-			  m_nOption > 0 &&
-			  m_sComments.GetLength() == 0 && m_nRateValue == 0 )
+
+	if ( pWnd == &m_wndPrompt && m_wndPrompt.IsWindowEnabled() &&
+		m_nOption > 0 && m_sComments.GetLength() == 0 && m_nRateValue == 0 )
 	{
 		CDC* pPromptDC = m_wndPrompt.GetDC();
 		if ( m_bCreateGhost || pPromptDC->GetTextColor() != RGB(255, 0, 0 ) )
-		{
 			pDC->SetTextColor( Colors.m_crTextAlert );
 		}
-	}
 
 	return hbr;
 }
@@ -143,7 +139,8 @@ HBRUSH CDeleteFileDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 void CDeleteFileDlg::OnDeleteAll()
 {
 	UpdateData( TRUE );
-	if ( m_nOption != 1 ) m_bAll = TRUE; // Can't all if misnamed
+	if ( m_nOption != 1 )
+		m_bAll = TRUE; // Can't all if misnamed
 	CDialog::OnOK();
 }
 
@@ -171,13 +168,10 @@ void CDeleteFileDlg::Apply(CLibraryFile* pFile)
 		CString strUntransl = L"Ghost File";
 		LoadString( strTransl, IDS_LIBRARY_GHOST_FILE );
 		if ( strTransl == strUntransl )
-		{
-			pFile->m_sComments	= m_sComments = strUntransl;
-		}
+			pFile->m_sComments = m_sComments = strUntransl;
 		else
-		{
-			pFile->m_sComments	= m_sComments = strTransl + L" (" + strUntransl + L")";
-		}
+			pFile->m_sComments = m_sComments = strTransl + L" (" + strUntransl + L")";
+
 		pFile->m_bShared = TRI_FALSE;
 		pFile->ModifyMetadata();
 	}
@@ -320,19 +314,23 @@ void CDeleteFileDlg::OnCbnChangeOptions()
 		m_sComments = m_sOriginalComments;
 		m_nRateValue = m_nOriginalRating;
 		break;
-	case 1:	// Misnamed
-		m_sComments = _T("Incorrectly named \"") + m_sName + _T("\"");
-		m_nRateValue = 1;
-		break;
-	case 2:	// Poor Quality
-		m_sComments = _T("Very poor quality");
+	case 1:	// Poor quality
+		m_sComments = _T("Very poor quality or outdated");
 		m_nRateValue = 2;
 		break;
-	case 3:	// Fake
-		m_sComments = _T("Fake/corrupt");
+	case 2:	// Misnamed
+		m_sComments = _T("Misnamed \"") + m_sName + _T("\"");
 		m_nRateValue = 1;
 		break;
-	case 4: // New comments
+	case 3:	// Fake
+		m_sComments = _T("File is Fake/Corrupt");
+		m_nRateValue = 1;
+		break;
+	case 4: // Copyright
+		m_sComments = _T("Restricted Copyright Material  (Promote an alternative)");
+		m_nRateValue = 2;
+		break;
+	case 5: // New comments
 		m_sComments = m_sOriginalComments;
 		m_nRateValue = m_nOriginalRating;
 		break;

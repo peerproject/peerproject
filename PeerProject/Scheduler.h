@@ -18,8 +18,6 @@
 // along with PeerProject; if not, write to Free Software Foundation, Inc.
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
-#if !defined(AFX_SCHEDULER_H__INCLUDED_)
-#define AFX_SCHEDULER_H__INCLUDED_
 
 #pragma once
 
@@ -37,7 +35,6 @@ protected:
 	BYTE			m_nCurrentHour;
 	DWORD			m_tLastCheck;
 
-
 // Operations
 public:
 	BOOL			Load();
@@ -54,5 +51,3 @@ enum
 };
 
 extern CScheduler Schedule;
-
-#endif // !defined(AFX_SCHEDULER_H__INCLUDED_)

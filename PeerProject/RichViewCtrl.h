@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_RICHVIEWCTRL_H__EB7BD9A6_8F32_48F1_ACAA_3503B8A61769__INCLUDED_)
-#define AFX_RICHVIEWCTRL_H__EB7BD9A6_8F32_48F1_ACAA_3503B8A61769__INCLUDED_
-
 #pragma once
 
 class CRichDocument;
@@ -132,7 +129,3 @@ typedef struct
 #define RVN_CLICK		100
 #define RVN_DBLCLICK	101
 #define RVN_SETCURSOR	102
-
-//{{AFX_INSERT_LOCATION}}
-
-#endif // !defined(AFX_RICHVIEWCTRL_H__EB7BD9A6_8F32_48F1_ACAA_3503B8A61769__INCLUDED_)

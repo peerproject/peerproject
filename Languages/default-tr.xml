@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -342,9 +342,13 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Sohbet" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Bağlan" tip="IRC'ye Bağlan"/>
 		<button id="ID_IRC_DISCONNECT" text="Bağlantı kes" tip="IRC'den çık"/>
-		<rightAlign/>
+		<separator/>
 		<button id="ID_IRC_SETTINGS" text="Ayarlar" tip="IRC Ayarları"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
@@ -3108,11 +3112,11 @@
 	<string id="16996" value="Dosyanın bir parçası oynatılamadı, indirim için ek codec'e ihtiyacınız olabilir."/>
 	<string id="16997" value="Oynayacak dosya yok. Kütüphanenizdeki bir ortam dosyasını oynatmak için çift-tıklın."/>
 	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; O &#160;&#160; R &#160;&#160; T &#160;&#160; A &#160;&#160; M &#160;&#160; &#160;&#160; S &#160;&#160; İ &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M &#160;&#160; İ"/>
-	<string id="16999" value="OYNATMA  LİSTESİ"/>
-	<string id="17017" value="Sohbet:"/>
-	<string id="17018" value="PeerProject Sohbetine Hoşgeldiniz!"/>
-	<string id="17019" value="Bu servisi kullanırken diğer kullanıcılara saygı göstermeniz gerektiğini unutmayın"/>
-	<string id="17020" value="Ekle"/>
+	<string id="16999" value="Oynatma Listesi:"/>
+	<string id="17016" value="PeerProject Sohbetine Hoşgeldiniz."/>
+	<string id="17017" value="Bu servisi kullanırken diğer kullanıcılara saygı göstermeniz gerektiğini unutmayın"/>
+	<string id="17018" value="Sohbet:"/>
+	<string id="17020" value="Ekle..."/>
 	<string id="17021" value="Kaldır"/>
 	<string id="17022" value="Kullanıcılar"/>
 	<string id="17023" value="Kanallar"/>
@@ -3332,7 +3336,7 @@
 	<string id="20237" value="Tamam"/>
 	<string id="20238" value="İptal"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Genel">
 	</dialog>
@@ -3963,15 +3967,15 @@
 		<control caption="Bağlan"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="İndirme Dosyası ya da Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="İndirme Dosyası ya da Torrent">
 		<control/>
 		<control/>
-		<control caption="PeerProject ile bir dosyayı indirmek etmek çok kolay. Basit bir şekilde URL ya da URI dosya tanımlamasını yukardaki kutuya yazın ya da yapıştırın ve Enter'a basın."/>
+		<control caption="PeerProject web 'den dosya indirebilir, P2P bağlantılarıyla otomatik arama ve indirebilir. Basit bir şekilde URL ya da URI dosya tanımlamasını yukardaki kutuya yazın ya da yapıştırın ve Enter'a basın. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="PeerProject ayrıca BitTorrent dosyaları indiriyor. Bir torrent xyz.torrent dosyası ya da .torrent dosyası HTTP bağlantısı ile tanımlanabilir. Bir torrent HTTP indirme bağlantısını yukarıdaki kutuya yapıştırın. Bir .torrent dosyası varsa, Torrent Aç tıklayın: "/>
+		<control/>
 		<control/>
 		<control caption="İndir"/>
 		<control caption="İptal"/>
-		<control caption="PeerProject web (HTTP)'den dosya indirebilir, P2P bağlantılarıyla (Magnet, Gnutella, eDonkey2000, mP2P) otomatik arama ve indirebilir."/>
-		<control caption="PeerProject ayrıca BitTorrent dosyaları indiriyor. Bir torrent xyz.torrent dosyası ya da .torrent dosyası HTTP bağlantısı ile tanımlanabilir. Bir torrent HTTP indirme bağlantısını yukarıdaki kutuya yapıştırın. Bir .torrent dosyası varsa, Torrent Aç tıklayın: "/>
 		<control caption="Torrent'ı Aç..."/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Yeni Arama|Tekrar Ara|Kütüphanede Bul">
@@ -4308,20 +4312,20 @@
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Dosya Sil">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Dosya Sil">
 		<control caption="Silmek istediğinizden emin misiniz?"/>
 		<control/>
 		<control caption="Sil"/>
 		<control caption="Tümünü Sil"/>
 		<control caption="İptal"/>
 		<control/>
-		<control caption="Eğer başka bir aramaya geçerseniz PeerProject bu dosyayı hatırlar ve sizi uyarır. Lütfen bu dosyayı neden silmek istediğinizi seçiniz:"/>
 		<control caption="Hayalet dosya yarat"/>
-		<control caption="Silme nedeni açıklaması:"/>
-		<control caption="Sadece sil ve açıklamalarımı koru|Bu dosya yanlış isimlendirilmiş ve yanıltabilir.|Bu dosya çok düşük kalitededir.|Bu dosya sahte, bozuk ya da nedense kullanışsız.|Yeni açıklamamı eskisinin yerine geçir."/>
+		<control caption="Eğer başka bir aramaya geçerseniz PeerProject bu dosyayı hatırlar ve sizi uyarır. Lütfen bu dosyayı neden silmek istediğinizi seçiniz:"/>
 		<control caption="Dosya reytingi:"/>
+		<control caption="Silme nedeni açıklaması:"/>
 		<control caption="(Henüz değerlendirilmedi)|Sahte/Bozuk/Yanıltıcı|Kötü|Orta|İyi|Çok iyi|Mükemmel"/>
-		<control caption="Bu dosyanın neden bozuk oldugunu küçük bir açıklama notu ile bildirebilirsiniz:"/>
+		<control caption="Sadece sil ve açıklamalarımı koru|Bu dosya çok düşük kalitededir.|Bu dosya yanlış isimlendirilmiş ve yanıltabilir.|Bu dosya sahte, bozuk ya da nedense kullanışsız.|Restricted copyright material.|Yeni açıklamamı eskisinin yerine geçir..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Klasör Gönder">

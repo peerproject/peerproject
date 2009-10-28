@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_TORRENTWIZARD_H__5756891D_0476_49ED_A2B2_4889DE191BA3__INCLUDED_)
-#define AFX_TORRENTWIZARD_H__5756891D_0476_49ED_A2B2_4889DE191BA3__INCLUDED_
-
 #pragma once
 
 #include "Resource.h"
@@ -64,13 +61,10 @@ public:
 protected:
 	//{{AFX_MSG(CTorrentWizardApp)
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
-
-//{{AFX_INSERT_LOCATION}}
 
 extern CTorrentWizardApp theApp;
 
 CString SmartSize(QWORD nVolume);
-
-#endif // !defined(AFX_TORRENTWIZARD_H__5756891D_0476_49ED_A2B2_4889DE191BA3__INCLUDED_)

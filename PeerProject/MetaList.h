@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_METALIST_H__63101F7C_1387_4218_9B61_753EF0F5EB20__INCLUDED_)
-#define AFX_METALIST_H__63101F7C_1387_4218_9B61_753EF0F5EB20__INCLUDED_
-
 #pragma once
 
 class CMetaList;
@@ -137,6 +134,3 @@ public:
 		return m_sValue;
 	}
 };
-
-
-#endif // !defined(AFX_METALIST_H__63101F7C_1387_4218_9B61_753EF0F5EB20__INCLUDED_)

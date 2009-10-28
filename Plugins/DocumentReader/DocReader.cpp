@@ -891,7 +891,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 	hr = SafeArrayGetUBound( va.parray, 1, &nSize );
 	hr = SafeArrayAccessData( va.parray, (void**)&pclp );
 
-	nSize += 1;
+	nSize++;
 	SEH_TRY
 	// Most MS documents have thumbnails in WMF format
 	if ( (DWORD)*pclp == CF_METAFILEPICT )
@@ -934,8 +934,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 			SetStdPalette( (void*)pPalette, pBI->bmiHeader.biBitCount );
 		}
 	}
-	// They say MS supports such formats. Couldn't find anywhere.
-	// NOT TESTED !!!
+	// MS may support such formats, couldn't verify. NOT TESTED!
 	else if ( (DWORD)*pclp == CF_DIB || (DWORD)*pclp == CF_BITMAP )
 	{
 		BITMAP bm;
@@ -1008,7 +1007,6 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 	if ( hBitmap == NULL ) return S_FALSE;
 
 	// Get bitmap byte buffer from the handle
-
 	BYTE* pBytes = new BYTE[ pBI->bmiHeader.biSizeImage ];
 
 	BITMAP stBitmap;
@@ -1652,9 +1650,7 @@ HRESULT CDocReader::
 	{
 		hr = get_SummaryProperties( &m_pSummProps );
 		if ( FAILED(hr) )
-		{
 			delete m_pSummProps;
-		}
 	}
 
     return hr;
@@ -2675,7 +2671,6 @@ void CDocReader::CDocumentProperties::
         pnext = m_pDocPropList->GetNextProperty();
         m_pDocPropList->Disconnect(); m_pDocPropList = pnext;
     }
-
 
  // We are now dead ourselves (release prop storage ref)...
     m_pPropSetStg = NULL;

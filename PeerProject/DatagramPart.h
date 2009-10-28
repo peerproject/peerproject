@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_DATAGRAMPART_H__293C0502_E9B1_4C85_9E8C_9C641318B939__INCLUDED_)
-#define AFX_DATAGRAMPART_H__293C0502_E9B1_4C85_9E8C_9C641318B939__INCLUDED_
-
 #pragma once
 
 class CBuffer;
@@ -60,7 +57,4 @@ public:
 	void	Create(SOCKADDR_IN* pHost, CG2Packet* pPacket, WORD nSequence, CBuffer* pBuffer, BOOL bAck);
 	BOOL	GetPacket(DWORD tNow, BYTE** ppPacket, DWORD* pnPacket, BOOL bResend);
 	BOOL	Acknowledge(BYTE nPart);
-
 };
-
-#endif // !defined(AFX_DATAGRAMPART_H__293C0502_E9B1_4C85_9E8C_9C641318B939__INCLUDED_)
