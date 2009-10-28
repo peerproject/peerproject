@@ -622,10 +622,10 @@ STDAPI_(void) MemFree(LPVOID ptr)
     if ((v_hPrivateHeap) && (ptr))
         HeapFree(v_hPrivateHeap, 0, ptr);
 }
-/*
-void * _cdecl operator new(size_t size){ return MemAlloc(size);}
-void  _cdecl operator delete(void *ptr){ MemFree(ptr); }
-*/
+
+//void * _cdecl operator new(size_t size){ return MemAlloc(size);}
+//void  _cdecl operator delete(void *ptr){ MemFree(ptr); }
+
 ////////////////////////////////////////////////////////////////////////
 // String Manipulation Functions
 //
@@ -753,9 +753,9 @@ STDAPI_(BSTR) ConvertToBSTR(LPCSTR pszAnsiString, WORD wCodePage)
 ///////////////////////////////////////////////////////////////////////////////////
 // CompareStrings
 //
-//  Calls CompareString API using Unicode version (if available on OS). Otherwise,
-//  we have to thunk strings down to MBCS to compare. This is fairly inefficient for
-//  Win9x systems that don't handle Unicode, but hey...this is only a sample.
+//  Calls CompareString API using Unicode version, if available on OS. (Old OS are unsupported.)
+//  Otherwise, we have to thunk strings down to MBCS to compare. This is fairly inefficient for
+//  Win9x systems that don't handle Unicode, but hey...this is only a sample. 9
 //
 STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 {
@@ -799,22 +799,21 @@ STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 			return CSTR_EQUAL;
 	}
 
- // Now ask the OS to check the strings and give us its read. (We prefer checking
- // in Unicode since this is faster and we may have strings that can't be thunked
- // down to the local ANSI code page)...
-	if (v_fRunningOnNT)
-    {
+ // Now ask the OS to check the strings and give us its read.
+ // (Prefer checking in Unicode, it is faster and the may be
+ // strings that can't be thunked down to the local ANSI code page)
+
+	//if (v_fRunningOnNT)
 		iret = CompareStringW(lcid, NORM_IGNORECASE | NORM_IGNOREWIDTH, pwsz1, cblen1, pwsz2, cblen2);
-	}
-	else
-	{
-	 // If we are on Win9x, we don't have much of choice (thunk the call)...
-		LPTSTR psz1 = ConvertToMBCS(pwsz1, CP_ACP);
-		LPTSTR psz2 = ConvertToMBCS(pwsz2, CP_ACP);
-		iret = CompareString(lcid, NORM_IGNORECASE,	psz1, -1, psz2, -1);
-		CoTaskMemFree(psz2);
-		CoTaskMemFree(psz1);
-	}
+	//else
+	//{
+	//If we are on Win9x, we don't have much of choice (thunk the call)...
+	//	LPTSTR psz1 = ConvertToMBCS(pwsz1, CP_ACP);
+	//	LPTSTR psz2 = ConvertToMBCS(pwsz2, CP_ACP);
+	//	iret = CompareString(lcid, NORM_IGNORECASE,	psz1, -1, psz2, -1);
+	//	CoTaskMemFree(psz2);
+	//	CoTaskMemFree(psz1);
+	//}
 
 	return iret;
 }
@@ -829,31 +828,33 @@ STDAPI_(BOOL) FFindQualifiedFileName(LPCWSTR pwszFile, LPWSTR pwszPath, ULONG *p
 {
     DWORD dwRet = 0;
 
-	if ( v_fRunningOnNT )  // Windows NT/2000/XP
-	{
+	//if ( v_fRunningOnNT )  // Windows NT/2000/XP
+	//{
 		LPWSTR lpwszFilePart = NULL;
 		SEH_TRY
 		dwRet = SearchPathW( NULL, pwszFile, NULL, MAX_PATH, pwszPath, &lpwszFilePart );
 		SEH_EXCEPT_NULL
-        if ( ( 0 == dwRet || dwRet > MAX_PATH ) ) return FALSE;
-        if ( pcPathIdx ) *pcPathIdx = (ULONG)( ( (ULONG_PTR)lpwszFilePart - (ULONG_PTR)pwszPath ) / 2 );
-	}
-	else
-	{
-        TCHAR szBuffer[MAX_PATH];
-		LPSTR lpszFilePart = NULL;
+		if ( ( 0 == dwRet || dwRet > MAX_PATH ) )
+			return FALSE;
+		if ( pcPathIdx )
+			*pcPathIdx = (ULONG)( ( (ULONG_PTR)lpwszFilePart - (ULONG_PTR)pwszPath ) / 2 );
+	//}
+	//else	// Win98
+	//{
+	//	TCHAR szBuffer[MAX_PATH];
+	//	LPSTR lpszFilePart = NULL;
 
-		LPSTR szFile = ConvertToMBCS(pwszFile, CP_ACP);
-		CHECK_NULL_RETURN(szFile, E_OUTOFMEMORY);
+	//	LPSTR szFile = ConvertToMBCS(pwszFile, CP_ACP);
+	//	CHECK_NULL_RETURN(szFile, E_OUTOFMEMORY);
 
-        szBuffer[0] = '\0';
-		dwRet = SearchPathA( NULL, szFile, NULL, MAX_PATH, szBuffer, &lpszFilePart );
-        if ( ( 0 == dwRet || dwRet > MAX_PATH ) ) return FALSE;
+	//	szBuffer[0] = '\0';
+	//	dwRet = SearchPathA( NULL, szFile, NULL, MAX_PATH, szBuffer, &lpszFilePart );
+	//	if ( ( 0 == dwRet || dwRet > MAX_PATH ) ) return FALSE;
 
-        if ( pcPathIdx ) *pcPathIdx = (ULONG)( (ULONG_PTR)lpszFilePart - (ULONG_PTR)&szBuffer );
-        if ( FAILED(ConvertToUnicodeEx( szBuffer, lstrlen(szBuffer), pwszPath, MAX_PATH, (WORD)GetACP() )) )
-            return FALSE;
-	}
+	//	if ( pcPathIdx ) *pcPathIdx = (ULONG)( (ULONG_PTR)lpszFilePart - (ULONG_PTR)&szBuffer );
+	//	if ( FAILED(ConvertToUnicodeEx( szBuffer, lstrlen(szBuffer), pwszPath, MAX_PATH, (WORD)GetACP() )) )
+	//		return FALSE;
+	//}
 
     return TRUE;
 }
@@ -873,40 +874,38 @@ STDAPI_(BOOL) FGetModuleFileName(HMODULE hModule, WCHAR** wzFileName)
     CHECK_NULL_RETURN(pwsz, FALSE);
 
  // Call GetModuleFileNameW on Win NT/2000/XP/2003 systems...
-	if (v_fRunningOnNT)
-    {
+	//if (v_fRunningOnNT)
+	//{
 		dw = GetModuleFileNameW( hModule, pwsz, MAX_PATH );
-        if (dw == 0)
-        {
-            MemFree(pwsz);
-            return FALSE;
-        }
-	}
-	else
-	{
-	 // If we are on Win9x, we don't have much of choice (thunk the call)...
-        dw = GetModuleFileName( hModule, (LPTSTR)pwsz, MAX_PATH );
-        if (dw == 0)
-        {
-            MemFree(pwsz);
-            return FALSE;
-        }
+		if (dw == 0)
+		{
+			MemFree(pwsz);
+			return FALSE;
+		}
+	//}
+	//else	// Win98
+	//{
+	//If we are on Win9x, we don't have much of choice (thunk the call)...
+	//	dw = GetModuleFileName( hModule, (LPTSTR)pwsz, MAX_PATH );
+	//	if (dw == 0)
+	//	{
+	//		MemFree(pwsz);
+	//		return FALSE;
+	//	}
 
-        pwsz2 = (LPWSTR)MemAlloc( MAX_PATH * 2 );
-        if ( pwsz2 == 0 )
-        {
-            MemFree(pwsz);
-            return FALSE;
-        }
+	//	pwsz2 = (LPWSTR)MemAlloc( MAX_PATH * 2 );
+	//	if ( pwsz2 == 0 )
+	//	{
+	//		MemFree(pwsz);
+	//		return FALSE;
+	//	}
 
-        if ( FAILED(ConvertToUnicodeEx( (LPSTR)pwsz, dw, pwsz2, MAX_PATH, CP_ACP )) )
-        {
-            MemFree(pwsz2); pwsz2 = NULL;
-        }
+	//	if ( FAILED(ConvertToUnicodeEx( (LPSTR)pwsz, dw, pwsz2, MAX_PATH, CP_ACP )) )
+	//		MemFree(pwsz2); pwsz2 = NULL;
 
-        MemFree(pwsz);
-        pwsz = pwsz2;
-    }
+	//	MemFree(pwsz);
+	//	pwsz = pwsz2;
+	//}
 
     *wzFileName = pwsz;
     return TRUE;
@@ -936,8 +935,8 @@ STDAPI_(BOOL) FGetIconForFile(LPCWSTR pwszFile, HICON *pico)
 
     memset(rgBuffer, 0, sizeof(rgBuffer));
 
-	if (v_fRunningOnNT)
-    {
+	//if (v_fRunningOnNT)
+	//{
         if (s_pfnExtractAssociatedIconW == NULL)
         {
             s_pfnExtractAssociatedIconW = (PFN_ExtractAssociatedIconW)GetProcAddress(s_hShell32, "ExtractAssociatedIconW");
@@ -947,25 +946,25 @@ STDAPI_(BOOL) FGetIconForFile(LPCWSTR pwszFile, HICON *pico)
         idx = (WORD)(lstrlenW(pwszFile) * 2);
         memcpy((BYTE*)rgBuffer, (BYTE*)pwszFile, idx); idx = 0;
         *pico = s_pfnExtractAssociatedIconW(DllModuleHandle(), (LPWSTR)rgBuffer, &idx);
-    }
-    else
-	{
-		LPTSTR psz;
-        if (s_pfnExtractAssociatedIconA == NULL)
-        {
-            s_pfnExtractAssociatedIconA = (PFN_ExtractAssociatedIconA)GetProcAddress(s_hShell32, "ExtractAssociatedIconA");
-            CHECK_NULL_RETURN(s_pfnExtractAssociatedIconA, FALSE);
-        }
+	//}
+	//else	// Win98
+	//{
+	//	LPTSTR psz;
+	//	if (s_pfnExtractAssociatedIconA == NULL)
+	//	{
+	//		s_pfnExtractAssociatedIconA = (PFN_ExtractAssociatedIconA)GetProcAddress(s_hShell32, "ExtractAssociatedIconA");
+	//		CHECK_NULL_RETURN(s_pfnExtractAssociatedIconA, FALSE);
+	//	}
 
-        psz = ConvertToMBCS(pwszFile, CP_ACP);
-        if (psz)
-        {
-            idx = (WORD)lstrlen(psz);
-            memcpy((BYTE*)rgBuffer, (BYTE*)psz, idx); idx = 0;
-            *pico = s_pfnExtractAssociatedIconA(DllModuleHandle(), (LPSTR)rgBuffer, &idx);
-		    CoTaskMemFree(psz);
-        }
-	}
+	//	psz = ConvertToMBCS(pwszFile, CP_ACP);
+	//	if (psz)
+	//	{
+	//		idx = (WORD)lstrlen(psz);
+	//		memcpy((BYTE*)rgBuffer, (BYTE*)psz, idx); idx = 0;
+	//		*pico = s_pfnExtractAssociatedIconA(DllModuleHandle(), (LPSTR)rgBuffer, &idx);
+	//		CoTaskMemFree(psz);
+	//	}
+	//}
 
 	return (*pico != NULL);
 }

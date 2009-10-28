@@ -68,10 +68,9 @@ FinderPointer CUPnPFinder::CreateFinderInstance() throw()
 {
 	FinderPointer pNewDeviceFinder;
 	if ( FAILED( pNewDeviceFinder.CoCreateInstance( CLSID_UPnPDeviceFinder ) ) )
-	{
+		theApp.Message( MSG_INFO, L"Plug'n'Play discovery is not supported by your system." );
 		// Should we ask to disable auto-detection?
-		theApp.Message( MSG_INFO, L"UPnP discovery is not supported or not installed." );
-	}
+
 	return pNewDeviceFinder;
 }
 

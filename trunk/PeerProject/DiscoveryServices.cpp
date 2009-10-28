@@ -794,8 +794,8 @@ BOOL CDiscoveryServices::Update()
 	if ( tNow - m_tUpdated < Settings.Discovery.UpdatePeriod )
 		return FALSE;
 
+	// Don't run concurrent request
 	if ( m_hInternet )
-		// Don't run concurrent request
 		return FALSE;
 
 	StopWebRequest();
@@ -1423,8 +1423,10 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 							nCurrentLeaves = nCurrentLeavesTmp;
 						}
 						else
+						{
 							// Bad current leaves format
 							return FALSE;
+						}
 					}
 
 					// Get vendor field
@@ -1445,8 +1447,10 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 							tUptime = tUptimeTmp;
 						}
 						else
+						{
 							// Bad uptime format
 							return FALSE;
+						}
 					}
 
 					// Get leaf limit field
@@ -1460,8 +1464,10 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 							nLeafLimit = nLeafLimitTmp;
 						}
 						else
-							// Bad leaf limit format
+						{
+							// Bad uptime format
 							return FALSE;
+						}
 					}
 
 					if ( ( m_nLastQueryProtocol == PROTOCOL_G2 ) ?
@@ -1477,12 +1483,10 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 					}
 				}
 				else
-					// Invalid format
-					return FALSE;
+					return FALSE;	// Invalid format
 			}
 			else
-				// Empty
-				return FALSE;
+				return FALSE;		// Empty
 		}
 		else if ( ! oParts[ 0 ].CompareNoCase( _T("u") ) )
 		{
@@ -1508,8 +1512,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 				}
 			}
 			else
-				// Empty
-				return FALSE;
+				return FALSE;		// Empty
 		}
 		else if ( ! oParts[ 0 ].CompareNoCase( _T("UHC") ) )
 		{
@@ -1526,8 +1529,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 				}
 			}
 			else
-				// Empty
-				return FALSE;
+				return FALSE;		// Empty
 		}
 		else if ( ! oParts[ 0 ].CompareNoCase( _T("UKHL") ) )
 		{
@@ -1544,8 +1546,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 				}
 			}
 			else
-				// Empty
-				return FALSE;
+				return FALSE;		// Empty
 		}
 		else if ( ! oParts[ 0 ].CompareNoCase( _T("i") ) )
 		{
@@ -1595,9 +1596,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 						// "i|access|period|access period"
 						DWORD nAccessPeriod;
 						if ( _stscanf( oParts[ 3 ], _T("%u"), &nAccessPeriod ) == 1 )
-						{
 							m_pWebCache->m_nAccessPeriod = nAccessPeriod;
-						}
 					}
 				}
 				else if ( ! oParts[ 1 ].CompareNoCase( _T("force") ) )
@@ -1835,12 +1834,10 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 		}
 		else if ( _tcsistr( strLine, _T("ERROR") ) != NULL )
 		{
+			//GhostWhiteCrab type flood warning.
 			if ( _tcsistr( strLine, _T("ERROR: Client returned too early") ) != NULL )
-			{
-				//GhostWhiteCrab type flood warning.
 				theApp.Message( MSG_ERROR, _T("GWebCache(update) Too many connection attempts") );
-			}
-			// else Misc error. (Often CGI limits error)
+			//else Misc error. (Often CGI limits error)
 			return FALSE;
 		}
 		else if ( _tcsnicmp( strLine, _T("i|access|period|"), 16 ) == 0 )
@@ -2042,7 +2039,6 @@ void CDiscoveryService::Remove(BOOL bCheck)
 
 void CDiscoveryService::Serialize(CArchive& ar, int nVersion)
 {
-
 	if ( ar.IsStoring() )
 	{
 		ar << m_nType;

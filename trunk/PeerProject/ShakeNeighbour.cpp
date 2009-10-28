@@ -1264,18 +1264,11 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 		else if ( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable() )
 		{
 			if ( m_bUltraPeerSet == TRI_FALSE )		// The remote computer sent us the header "X-Ultrapeer: False"
-			{
 				m_nNodeType = ntLeaf;				// This connection is to a leaf below us
-			}
 			else if ( m_bUltraPeerSet == TRI_TRUE ) // The remote computer sent us the header "X-Ultrapeer: True"
-			{
 				m_nNodeType = ntNode;				// Record that we are both hubs
-			}
 			else if ( m_bUltraPeerSet == TRI_UNKNOWN )
-			{
 				m_nNodeType = ntLeaf;				// Record that remote Node type is Unknown
-			}
-
 		} // The remote computer is an ultrapeer, and we are not running in hub mode
 		else if ( m_bUltraPeerSet == TRI_TRUE && ( Settings.Gnutella2.ClientMode != MODE_HUB ) )
 		{
@@ -1515,19 +1508,11 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 		} // We are an ultrapeer, or at least we are capable of becoming one
 		else if ( Neighbours.IsG1Ultrapeer() || Neighbours.IsG1UltrapeerCapable() )
 		{
-			// The remote computer told us it is a leaf
+			// The remote computer told us it is a leaf or an ultrapeer
 			if ( m_bUltraPeerSet == TRI_FALSE )
-			{
-				// This connection is to a leaf below us
-				m_nNodeType = ntLeaf;
-
-			} // The remote computer told us it is an ultrapeer
+				m_nNodeType = ntLeaf;	// This connection is to a leaf below us
 			else if ( m_bUltraPeerSet == TRI_TRUE )
-			{
-				// Record that we are both ultrapeers
-				m_nNodeType = ntNode;
-			}
-
+				m_nNodeType = ntNode;	// Record that we are both ultrapeers
 		} // The remote computer is an ultrapeer, but we are just a leaf
 		else if ( m_bUltraPeerSet == TRI_TRUE && ( Settings.Gnutella1.ClientMode != MODE_ULTRAPEER ) )
 		{
@@ -1642,18 +1627,14 @@ void CShakeNeighbour::OnHandshakeComplete()
 
 	// Remove leaf from host cache
 	if ( m_nNodeType == ntLeaf )
-	{
 		HostCache.OnFailure( &m_pHost.sin_addr, htons( m_pHost.sin_port ), m_nProtocol, true );
-	}
 
 	// If the remote computer is G2, or can send and understand Gnutella2 packets and isn't G1
 	if ( m_bG2Send && m_bG2Accept && m_nProtocol != PROTOCOL_G1 )
 	{
 		// Add good hub to host cache
 		if ( m_nNodeType == ntHub || m_nNodeType == ntNode )
-		{
 			HostCache.OnSuccess( &m_pHost.sin_addr, htons( m_pHost.sin_port ), m_nProtocol, true );
-		}
 
 		// check if this connection is still needed at this point
 		if ( ! m_bAutomatic &&
@@ -1682,9 +1663,7 @@ void CShakeNeighbour::OnHandshakeComplete()
 	{
 		// Add good hub to host cache
 		if ( m_nNodeType == ntHub || m_nNodeType == ntNode )
-		{
 			HostCache.OnSuccess( &m_pHost.sin_addr, htons( m_pHost.sin_port ), m_nProtocol, true );
-		}
 
 		// check if this connection is still needed at this point
 		if ( ! m_bAutomatic &&

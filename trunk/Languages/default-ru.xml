@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -343,9 +343,13 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Чат" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Подключиться" tip="Подключиться к IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Отключиться" tip="Отключиться от IRC"/>
-		<rightAlign/>
+		<separator/>
 		<button id="ID_IRC_SETTINGS" text="Настройки" tip="Настроить IRC"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
@@ -3136,9 +3140,9 @@
 	<string id="16997" value="Нет воспроизводимых файлов.  Щелкните дважды на медиа файле в Вашем хранилище для его проигрывания."/>
 	<string id="16998" value="М &#160;&#160; Е &#160;&#160; Д &#160;&#160; И &#160;&#160; А &#160;&#160; &#160;&#160; С &#160;&#160; И &#160;&#160; С &#160;&#160; Т &#160;&#160; Е &#160;&#160; М &#160;&#160; А &#160;&#160; &#160;&#160; P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T"/>
 	<string id="16999" value="Список Воспроизведения"/>
-	<string id="17017" value="Послать:"/>
-	<string id="17018" value="Добро пожаловать в чат PeerProject"/>
-	<string id="17019" value="Пожалуйста уважайте других, когда пользуетесь этим сервисом"/>
+	<string id="17016" value="Добро пожаловать в чат PeerProject"/>
+	<string id="17017" value="Пожалуйста уважайте других, когда пользуетесь этим сервисом"/>
+	<string id="17018" value="Послать:"/>
 	<string id="17020" value="Добавить"/>
 	<string id="17021" value="Удалить"/>
 	<string id="17022" value="Юзера"/>
@@ -3365,7 +3369,7 @@
 	<string id="20243" value="Продолжить"/>
 	<string id="20244" value="&amp;Запомнить мой выбор на будущее"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Главное">
 	</dialog>
@@ -3996,16 +4000,16 @@
 		<control caption="Соединиться"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Загрузить файл или торрент">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Загрузить файл или торрент">
 		<control/>
 		<control/>
-		<control caption="С PeerProject загрузить любой файл легко! Просто введите или вставьте ссылку HTTP или P2P ссылку в окно ниже и нажмите «Загрузить»."/>
+		<control caption="PeerProject может загружать файлы из веба, и автоматически искать и загружать файлы по P2P ссылкам. Просто введите или вставьте ссылку HTTP или P2P ссылку в окно ниже и нажмите «Загрузить». &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="PeerProject может загружать и BitTorrent файлы. Torrent представляет собой xyz.torrent файл или HTTP ссылку на '.torrent' файл.  Для загрузки HTTP Torrent ссылки введите её выше.  Если у Вас уже есть '.torrent' файл, нажмите кнопку"/>
+		<control/>
 		<control/>
 		<control caption="Загрузить"/>
 		<control caption="Отмена"/>
-		<control caption="PeerProject может загружать файлы из веба (HTTP), и автоматически искать и загружать файлы по P2P ссылкам (Magnet, Gnutella, eDonkey, mP2P)."/>
-		<control caption="PeerProject может загружать и BitTorrent файлы. Torrent представляет собой xyz.torrent файл или HTTP ссылку на '.torrent' файл.  Для загрузки HTTP Torrent ссылки введите её выше.  Если у Вас уже есть '.torrent' файл, нажмите кнопку"/>
-		<control caption="Открыть _Torrent..."/>
+		<control caption="_Открыть Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Новый поиск|Искать снова|Поиск в хранилище">
 		<control/>
@@ -4341,20 +4345,21 @@
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Удалить файл">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Удалить файл">
 		<control caption="Вы уверенны, что хотите удалить?:"/>
 		<control/>
 		<control caption="Удалить"/>
 		<control caption="Удалить все"/>
 		<control caption="Отмена"/>
 		<control/>
-		<control caption="PeerProject может запомнить этот файл и предупредить Вас, если Вы натолкнетесь на него снова. Программа создаст теневой файл с коментариями и оценкой."/>
 		<control caption="Создавать теневой файл"/>
-		<control caption="Причина удаления:"/>
-		<control caption="Просто удаляю, оставить мои коментарии|Файл назван неправильно, это вводит в заблуждение|Файл имеет очень низкое качество|Файл - фальшивка, или испорчен или так или иначе непригоден|Редактировать мои коментарии"/>
+		<control caption="PeerProject может запомнить этот файл и предупредить Вас, если Вы натолкнетесь на него снова. Программа создаст теневой файл с коментариями и оценкой."/>
 		<control caption="Оценка файла:"/>
+		<control caption="Причина удаления:"/>
+		<control caption="!"/>
 		<control caption="(Без оценки)|Фальшивка/Испорчен/Обман|Плохой|Средний|Хороший|Очень хороший|Отменный"/>
-		<control caption="Вы можете добавить короткое примечание о причине удаления:"/>
+		<control caption="Просто удаляю, оставить мои коментарии|Файл имеет очень низкое качество|Файл назван неправильно, это вводит в заблуждение|Файл - фальшивка, или испорчен или так или иначе непригоден|Restricted copyright material|Редактировать мои коментарии..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Экспорт коллекции">

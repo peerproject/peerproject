@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 <
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -352,9 +352,13 @@ gap i newline
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="התחבר" tip="התחבר לחדר שיחה"/>
 		<button id="ID_IRC_DISCONNECT" text="התנתק" tip="התנתק מחדר שיחה"/>
-		<rightAlign/>
+		<separator/>
 		<button id="ID_IRC_SETTINGS" text="הגדרות" tip="כוון הגדרות חדר השיחה"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
@@ -2935,7 +2939,7 @@ gap i newline
 	<string id="20237" value="אישור"/>
 	<string id="20238" value="ביטול"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="כללי"/>
 	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="הגדרות שרזה">
@@ -3565,15 +3569,15 @@ gap i newline
 		<control caption="התחבר"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="הורד קובץ או טורנט">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="הורד קובץ או טורנט">
 		<control/>
 		<control/>
-		<control caption="Enter ‏והקש‎‎ ‏לתא URI/URL כתובת‎ ‏הדבק‎/‏רשום‎ ‏‎.בשרזה קל להוריד קבצים"/>
+		<control caption="אוטמטי‎ ‏ובאופן ,(HTTP) ‏מהרשת‎ ‏קבצים‎ ‏להוריד‎ ‏יכול‎ ‏שרזה(http:, ftp:, ed2k:, magnet:, etc.) ‏שיתוף‎ ‏לרשתות‎ ‏קישורים‎ ‏ולהוריד‎ ‏לחפש‎. Enter ‏והקש‎‎ ‏לתא URI/URL כתובת‎ ‏הדבק‎/‏רשום‎ ‏‎.בשרזה קל להוריד קבצים"/>
+		<control caption="שרזה יכול להורד קבצים של טורנט-ביט. טורנט הוא למעשה קובץ לינק / ניווט 'torrent' לקבצי"/>
+		<control/>
 		<control/>
 		<control caption="הורד"/>
 		<control caption="ביטול"/>
-		<control caption="אוטמטי‎ ‏ובאופן ,(HTTP) ‏מהרשת‎ ‏קבצים‎ ‏להוריד‎ ‏יכול‎ ‏שרזה{n}(Magnet,Gnutella,eDonkey2000,mP2P) ‏שיתוף‎ ‏לרשתות‎ ‏קישורים‎ ‏ולהוריד‎ ‏לחפש‎"/>
-		<control caption="שרזה יכול להורד קבצים של טורנט-ביט. טורנט הוא למעשה קובץ לינק / ניווט 'torrent' לקבצי"/>
 		<control caption="...פתח טורנט"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="חיפוש חדש|חפש שוב|מצא בספריה">
@@ -3910,20 +3914,20 @@ gap i newline
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="מחק קובץ">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="מחק קובץ">
 		<control caption=":האם אתה בטוח שברצונך למחוק"/>
 		<control/>
 		<control caption="מחק"/>
 		<control caption="מחק הכל"/>
 		<control caption="ביטול"/>
 		<control/>
+		<control caption="Create Ghost File"/>
 		<control caption=":שרזה יכול לזכור את קובץ זה ולהזהיר אותך במקרה שתתקל בו שוב בחיפוש אחר,"/>
-		<control caption="Create a ghost file"/>
-		<control caption="The reason for deleting:"/>
-		<control caption="Just deleting, keep my comments|This file is named incorrectly, and could be misleading|This file is of very poor quality|This file is a fake, or is corrupt or somehow unusable|Replace my comments with the new ones"/>
 		<control caption="File rating:"/>
-		<control caption="קובץ זה מזוייף, פגום, או אינו ניתן לשימוש"/>
-		<control caption=":הינך יכול לכתוב הערה קצרה המתארת מדוע הקובץ לא טוב"/>
+		<control caption="Reason for deleting:"/>
+		<control caption="!"/>
+		<control caption="(No Rating)|Fake/Corrupt/Misleading|Poor|Average|Good|Very Good|Excellent"/>
+		<control caption="Just deleting, keep any current comments|File is very low quality or outdated|File is named incorrectly or misleading|File is fake, infected, corrupt, or unusable|File is restricted copyright material|File needs custom comments below..."/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="ייצא ספריה">

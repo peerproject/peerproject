@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -343,10 +343,14 @@
 	</toolbar>
 	 <!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Chatten" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Verbinden" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Disconnect" tip="Disconnect from IRC"/>
-		<rightAlign/>
-		<button id="ID_IRC_SETTINGS" text="Settings" tip="Configure IRC Settings"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Instellingen" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -3148,7 +3152,7 @@
 	<string id="16995" value="Het bestand is misschien beschadigd, of je hebt de noodzakelijke codecs niet om het af te spelen."/>
 	<string id="16996" value="Een deel van dit bestand kon niet worden afgespeeld, je moet misschien extra codecs downloaden."/>
 	<string id="16997" value="Er is geen bestand aan het afspelen. Dubbelklik op een mediabestand uit je bibliotheek om het af te spelen."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="AFSPEELLIJST:"/>
 	<string id="17024" value="Verbinding met %s wordt aangemaakt..."/>
 	<string id="17025" value="Niet mogelijk om verbinding te maken met %s."/>
@@ -3366,7 +3370,7 @@
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Annuleren"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Algemeen">
 	</dialog>
@@ -3997,16 +4001,16 @@
 		<control caption="Verbinden"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Bestand/torrent downloaden">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Bestand/torrent downloaden">
 		<control/>
 		<control/>
-		<control caption="Het downloaden van bestanden met PeerProject is gemakkelijk. Simpelweg de desbetreffende URL of URI in het veld hieronder intypen of plakken."/>
+		<control caption="PeerProject kan bestanden downloaden vanaf het internet en automatisch P2P snelkoppelingen zoeken en downloaden. Simpelweg de desbetreffende URL of URI in het veld hieronder intypen of plakken. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="PeerProject kan ook BitTorrent bestanden downloaden. Om een torrent HTTP snelkoppeling te downloaden, plak je het in het veld hierboven. Als je al een torrent bestand hebt, klik dan op &quot;Torrent openen&quot;"/>
+		<control/>
 		<control/>
 		<control caption="Downloaden"/>
 		<control caption="Annuleren"/>
-		<control caption="PeerProject kan bestanden downloaden vanaf het internet (HTTP) en automatisch P2P snelkoppelingen zoeken en downloaden (Magnet, Gnutella, eDonkey, mP2P)."/>
-		<control caption="PeerProject kan ook BitTorrent bestanden downloaden. Om een torrent HTTP snelkoppeling te downloaden, plak je het in het veld hierboven. Als je al een torrent bestand hebt, klik dan op &quot;Torrent openen...&quot;"/>
-		<control caption="_Torrent openen..."/>
+		<control caption="_Torrent openen"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Nieuwe zoekopdracht|Opnieuw zoeken|Zoeken in bibliotheek">
 		<control/>
@@ -4342,20 +4346,21 @@
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Bestand verwijderen">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Bestand verwijderen">
 		<control caption="Weet je zeker dat je dit bestand wilt verwijderen:"/>
 		<control/>
 		<control caption="Verwijderen"/>
 		<control caption="Alles wissen"/>
 		<control caption="Annuleren"/>
 		<control/>
-		<control caption="PeerProject kan dit bestand onthouden en je waarschuwen als je ergens dit bestand weer tegenkomt. Het zal een spookbastand maken die je commentaar en beoordeling bevat."/>
 		<control caption="Maak een spookbestand"/>
-		<control caption="Waarom verwijder je dit bestand:"/>
-		<control caption="Enkel verwijderen, geen commentaar|Dit bestand is verkeerd benoemd en kan misleidend zijn|Dit bestand is van heel slechte kwaliteit|Dit bestand is corrupt en/of onbruikbaar|Vervang mijn commentaar met nieuwere"/>
+		<control caption="PeerProject kan dit bestand onthouden en je waarschuwen als je ergens dit bestand weer tegenkomt. Het zal een spookbastand maken die je commentaar en beoordeling bevat."/>
 		<control caption="Beoordeling:"/>
+		<control caption="Waarom verwijder je dit bestand:"/>
+		<control caption="!"/>
 		<control caption="(Geen)|Corrupt/Onbruikbaar|Slecht|Voldoende|Goed|Heel Goed|Fantastisch!"/>
-		<control caption="Je kan een kleine beschrijving geven waarom je dit bestand verwijdert:"/>
+		<control caption="Enkel verwijderen, geen commentaar|Dit bestand is van heel slechte kwaliteit|Dit bestand is verkeerd benoemd en kan misleidend zijn|Dit bestand is corrupt en/of onbruikbaar|Restricted copyright material|Vervang mijn commentaar met nieuwere"/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Collectie maken">

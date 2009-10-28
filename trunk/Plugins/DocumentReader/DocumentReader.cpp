@@ -29,12 +29,12 @@
 ////////////////////////////////////////////////////////////////////////
 // Globals for this module.
 //
-HINSTANCE         v_hModule;             // DLL module handle
-ULONG             v_cLocks;              // Count of server locks
-CRITICAL_SECTION  v_csSynch;             // Critical Section
-HANDLE            v_hPrivateHeap;        // Private Heap for Component
-BOOL              v_fRunningOnNT;        // Flag Set When on Unicode OS
-PFN_STGOPENSTGEX  v_pfnStgOpenStorageEx; // StgOpenStorageEx (Win2K/XP only)
+HINSTANCE         v_hModule;				// DLL module handle
+ULONG             v_cLocks;					// Count of server locks
+CRITICAL_SECTION  v_csSynch;				// Critical Section
+HANDLE            v_hPrivateHeap;			// Private Heap for Component
+BOOL              v_fRunningOnNT;			// Flag Set When on Unicode OS
+PFN_STGOPENSTGEX  v_pfnStgOpenStorageEx;	// StgOpenStorageEx (Win2K/XP only)
 
 class CDocumentReaderModule : public CAtlDllModuleT< CDocumentReaderModule >
 {
@@ -59,28 +59,28 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpRes
 	case DLL_PROCESS_ATTACH:
 		ODS(_T("DllMain - Attach\n"));
 		v_hModule = hInstance; v_cLocks = 0;
-        v_hPrivateHeap = HeapCreate(0, 0x1000, 0);
-        v_fRunningOnNT = ( ( GetVersion() & 0x80000000 ) != 0x80000000 );
-        v_pfnStgOpenStorageEx = ( ( v_fRunningOnNT ) ?
-			(PFN_STGOPENSTGEX)GetProcAddress( GetModuleHandle( _T("OLE32") ), "StgOpenStorageEx" ) : NULL );
+		v_hPrivateHeap = HeapCreate(0, 0x1000, 0);
+		v_fRunningOnNT = TRUE;	// ( ( GetVersion() & 0x80000000 ) != 0x80000000 );	// Windows9X is unsupported
+		v_pfnStgOpenStorageEx = ( (PFN_STGOPENSTGEX)GetProcAddress( GetModuleHandle( _T("OLE32") ),
+			"StgOpenStorageEx" ) );
 		InitializeCriticalSection( &v_csSynch );
 		DisableThreadLibraryCalls( hInstance );
 		break;
 
 	case DLL_PROCESS_DETACH:
 		ODS(_T("DllMain - Detach\n"));
-        if ( v_hPrivateHeap ) HeapDestroy( v_hPrivateHeap );
-        DeleteCriticalSection( &v_csSynch );
+		if ( v_hPrivateHeap ) HeapDestroy( v_hPrivateHeap );
+		DeleteCriticalSection( &v_csSynch );
 		break;
 	}
 
-    return _AtlModule.DllMain( dwReason, lpReserved );
+	return _AtlModule.DllMain( dwReason, lpReserved );
 }
 
 // Used to determine whether the DLL can be unloaded by OLE
 STDAPI DllCanUnloadNow(void)
 {
-    return ( _AtlModule.GetLockCount() == 0 ) ? S_OK : S_FALSE;
+	return ( _AtlModule.GetLockCount() == 0 ) ? S_OK : S_FALSE;
 }
 
 // DllRegisterServer - Adds entries to the system registry
@@ -92,8 +92,8 @@ STDAPI DllRegisterServer(void)
 	if (!FGetModuleFileName( v_hModule, &pwszModule) )
 		return E_UNEXPECTED;
 
-    // registers object, typelib and all interfaces in typelib
-    HRESULT hr = _AtlModule.DllRegisterServer();
+	// registers object, typelib and all interfaces in typelib
+	HRESULT hr = _AtlModule.DllRegisterServer();
 
 	return hr;
 }
@@ -130,9 +130,9 @@ HRESULT CDocumentReaderModule::DllGetClassObject(REFCLSID rclsid, REFIID riid, L
 
  // Get requested interface.
 	if ( SUCCEEDED(hr = pcf->QueryInterface(rclsid, ppv)) )
-        { pcf->LockServer(TRUE); }
-    else
-        { *ppv = NULL; delete pcf; }
+		{ pcf->LockServer(TRUE); }
+	else
+		{ *ppv = NULL; delete pcf; }
 
 	return hr;
 }

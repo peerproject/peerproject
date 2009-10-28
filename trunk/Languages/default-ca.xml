@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -341,6 +341,17 @@
 		<rightAlign/>
 		<button id="ID_MEDIA_CLEAR" text="Neteja"/>
 		<button id="ID_MEDIA_SAVE" text="Enregistra"/>
+	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Cerrar" tip="Exit Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="Connectar" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Desconnectar" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Configuració" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -3085,8 +3096,8 @@
 	<string id="16995" value="Pot estar corrupte, o no tens els Còdecs necesaris per a la seva reproducció."/>
 	<string id="16996" value="part d'aquest arxiu no ha pogut ser reproduït. Pots necessitar Codecs adicionals."/>
 	<string id="16997" value="No hi ha cap arxiu reproduïnt-se.  Fes doble clic a un arxiu de media en la teva biblioteca per a reproduir-lo."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="L L I S T A"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="LLISTA:"/>
 	<string id="17024" value="Iniciant Connexió a %s..."/>
 	<string id="17025" value="ha estat imposible connectar amb %s."/>
 	<string id="17026" value="Demanant un push de %s..."/>
@@ -3303,7 +3314,7 @@
 	<string id="20237" value="Accepta"/>
 	<string id="20238" value="Cancel·la"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="General">
 	</dialog>
@@ -3893,16 +3904,16 @@
 		<control caption="Connecta"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Descarrega arxiu o torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Descarrega arxiu o torrent">
 		<control/>
 		<control/>
-		<control caption="Descarregar arxius amb PeerProject és fàcil. Simplement escriu o enganxa l'URI o URL de l'arxiu al requadre, i fes clic a descarregar."/>
+		<control caption="Pot descarregar arxius de la web o enllaços de P2P. Simplement escriu o enganxa l'URI o URL de l'arxiu al requadre. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="També pot descarregar i compartir arxius de BitTorrent. Els torrent poden ser un arxiu o un URL. Per a descarregar-lo d'un enllaç, posa'l al requadre. Si ja tens l'arxiu del torrent, fes clic."/>
+		<control/>
 		<control/>
 		<control caption="Descarrega"/>
 		<control caption="Cancel·la"/>
-		<control caption="PeerProject pot descarregar arxius de la web (HTTP) o  enllaços de P2P (Magnet, Gnutella, eDonkey, mP2P)."/>
-		<control caption="PeerProject també pot descarregar i compartir arxius de BitTorrent. Els torrent poden ser un arxiu o un URL. Per a descarregar-lo d'un enllaç, posa'l al requadre. Si ja tens l'arxiu del torrent, fes clic en &quot;Obre Torrent&quot;:"/>
-		<control caption="Obre _Torrent..."/>
+		<control caption="Obre _Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Cerca|Cercar de nou|Cerca a la col·lecció">
 		<control/>
@@ -4238,24 +4249,25 @@
 		<control caption="Accepta"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Esborra arxiu">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Esborra arxiu">
 		<control caption="Estàs segur d'esborrar...?"/>
 		<control/>
 		<control caption="Esborra"/>
 		<control caption="Esborra tots"/>
 		<control caption="Cancel·la"/>
 		<control/>
-		<control caption="PeerProject pot recordar aquest arxiu i advertir si apareix de nou en una cerca. Per favor, tria la raó d'esborrar aquest arxiu:"/>
 		<control caption="Crea un arxiu fantasma"/>
-		<control caption="La raó de l'esborrat:."/>
-		<control caption="Esborrat, deixa el meu comentari|Aquest arxiu té un nom incorrecte i enganyós|Aquest arxiu té molt poca qualitat|Aquest arxiu és fals, corrupte o no utilitzable|Substitueix els meus comentaris amb aquests"/>
+		<control caption="PeerProject pot recordar aquest arxiu i advertir si apareix de nou en una cerca. Per favor, tria la raó d'esborrar aquest arxiu:"/>
 		<control caption="Valoració de l'arxiu:"/>
+		<control caption="La raó de l'esborrat:"/>
+		<control caption="!"/>
 		<control caption="(Sense valorar)|Fals/Corrupte/Enganyós|Pobre|Qualitat mitjana|Bo|Molt bo|Excel·lent"/>
-		<control caption="Pots escriure una petita descripció de per què esborres l'arxiu."/>
+		<control caption="Esborrat, deixa el meu comentari|Aquest arxiu té molt poca qualitat|Aquest arxiu té un nom incorrecte i enganyós|Aquest arxiu és fals, corrupte o no utilitzable|Restricted copyright material|Substitueix els meus comentaris amb aquests"/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Exportació de col·lecció">
-		<control caption="Aquesta opció ajuda a exportar el contingut d'un àlbum o carpeta com una col·lecció de PeerProject. Per favor, selecciona una plantilla i prem següent per contiunar.|Personalitza la col·lecció indicant aquestes dades:"/>
+		<control caption="Aquesta opció ajuda a exportar el contingut d'un àlbum o carpeta com una col·lecció de PeerProject. Per favor, selecciona una plantilla i prem següent per contiunar.|File is restricted copyright material|Personalitza la col·lecció indicant aquestes dades:"/>
 		<control/>
 		<control caption="Informació de la plantilla:"/>
 		<control caption="Nom:"/>

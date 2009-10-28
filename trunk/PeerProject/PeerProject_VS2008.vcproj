@@ -1980,7 +1980,7 @@
 					>
 				</File>
 				<File
-					RelativePath="CtrlPanelClass.cpp"
+					RelativePath="CtrlPanel.cpp"
 					>
 				</File>
 				<File
@@ -3609,7 +3609,7 @@
 					>
 				</File>
 				<File
-					RelativePath="CtrlPanelClass.h"
+					RelativePath="CtrlPanel.h"
 					>
 				</File>
 				<File

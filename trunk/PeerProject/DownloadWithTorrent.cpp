@@ -169,13 +169,10 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 {
 	CDownloadWithFile::Serialize( ar, nVersion );
 
-	if ( nVersion < 22 )
+	if ( nVersion < 23 )
 		return;
 
 	m_pTorrent.Serialize( ar );
-
-	if ( nVersion < 23 )
-		return;
 
 	if ( !IsTorrent() )
 		return;
@@ -627,9 +624,7 @@ void CDownloadWithTorrent::OnFinishedTorrentBlock(DWORD nBlock)
 	for ( CDownloadTransferBT* pTransfer = (CDownloadTransferBT*)GetFirstTransfer() ; pTransfer ; pTransfer = (CDownloadTransferBT*)pTransfer->m_pDlNext )
 	{
 		if ( pTransfer->m_nProtocol == PROTOCOL_BT )
-		{
 			pTransfer->SendFinishedBlock( nBlock );
-		}
 	}
 }
 
@@ -725,13 +720,9 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 		if ( pTransfer->m_nRandomUnchoke == 2 )
 		{
 			if ( tNow - pTransfer->m_tRandomUnchoke >= Settings.BitTorrent.RandomPeriod )
-			{
 				pTransfer->m_nRandomUnchoke = 1;
-			}
 			else
-			{
 				bChooseRandom = FALSE;
-			}
 		}
 
 		if ( pTransfer->m_bInterested )

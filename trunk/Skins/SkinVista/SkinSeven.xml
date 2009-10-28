@@ -18,19 +18,19 @@
   <font name="System.Bold"   face="Segoe UI" size="11" weight="Bold"/>
   <font name="Panel.Caption" face="Segoe UI" size="12" weight="Normal"/>
   <font name="Navbar.Caption" face="Segoe UI" size="12" weight="Normal"/>
-<!--font name="RichDoc.Default" face="Segoe UI" size="13" weight="Normal"-->
-<!--font name="RichDoc.Heading" face="Segoe UI" size="18" weight="400"-->
+  <!--font name="RichDoc.Default" face="Segoe UI" size="13" weight="Normal"-->
+  <!--font name="RichDoc.Heading" face="Segoe UI" size="18" weight="400"-->
 </fonts>
 
 <options>
   <option name="Navbar" offset="18,0"/>
   <option name="DropMenu" value="true"/>
   <option name="MenuBorders" value="false"/>
-<!--<option name="MenuGripper" value="true"/>-->
-<!--<option name="Toolbar" value="28"/>-->
-<!--<option name="Titlebar" value="64"/>-->
-<!--<option name="Sidebar" value="200"/>-->
-<!--<option name="Splitter" value="6"/>-->
+  <!--<option name="MenuGripper" value="true"/>-->
+  <!--<option name="Toolbar" value="28"/>-->
+  <!--<option name="Titlebar" value="64"/>-->
+  <!--<option name="Sidebar" value="200"/>-->
+  <!--<option name="Splitter" value="6"/>-->
 </options>
 
 <colorScheme>
@@ -38,19 +38,19 @@
   <color name="Navbar.Text.Hover"			value="203D5B"/>
   <color name="Navbar.Text.Checked"			value="1E3C5A"/>
   <color name="Navbar.Shadow.Down"			value="1E3C5A"/>
-
-  <color name="System.Base.Window"			value="FEFEFE"/>   <!--whitespace-->
-  <color name="System.Base.Midtone"			value="FCFBFA"/>   <!--toolbars-->
+u88sssswc
+  <color name="System.Base.Window"			value="FEFEFE"/>  <!--whitespace-->
+  <color name="System.Base.Midtone"			value="FCFBFA"/>  <!--toolbars-->
   <color name="System.Base.Text" 			value="1A100A"/>
   <color name="System.Base.HiText" 			value="000000"/>
   <color name="System.Base.HiBorder"	  		value="90B8E6"/>
   <color name="System.Base.Highlight"    		value="DFEDFE"/>
   <color name="System.Back.Checked"			value="F8F6F4"/>
-  <color name="System.Back.Selected"			value="F8F6F4"/>   <!--button hover-->
+  <color name="System.Back.Selected"			value="F8F6F4"/>  <!--button hover-->
   <color name="System.Back.Checked.Selected"		value="F8F6F4"/>
   <color name="System.Border"				value="F8F6F4"/>
   <color name="System.Margin"				value="F8F6F4"/>
-  <color name="System.Shadow"				value="E4E2E0"/>   <!--icon alpha blend-->
+  <color name="System.Shadow"				value="E4E2E0"/>  <!--icon blend-->
   <color name="System.Disabled" 			value="DDDEDE"/>
   <color name="System.Text"				value="4A4440"/>
   <color name="System.Text.Selected"			value="303030"/>
@@ -69,9 +69,9 @@
   <color name="TaskBox.Client"				value="FDFDFD"/>
   <color name="ToolTip.Back"				value="FCFBFA"/>
   <color name="ToolTip.Text"				value="A0A0A0"/>
-  <color name="Dialog.Back"				value="F8F7F6"/>   <!--settings window-->
+  <color name="Dialog.Back"				value="F8F7F6"/>  <!--settings window-->
   <color name="Banner.Text"				value="FFFFFF"/>
-  <color name="Banner.Back"				value="C4D6FE"/>   <!--library/profile headers-->
+  <color name="Banner.Back"				value="C4D6FE"/>  <!--library/profile headers-->
 
   <color name="Media.Window.Back"			value="080400"/>
   <color name="Media.Window.Text"			value="DDDDDB"/>

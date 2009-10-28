@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -341,9 +341,13 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Chatta" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Anslut" tip="Anslut till IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Koppla från" tip="Koppla ifrån IRC"/>
-		<rightAlign/>
+		<separator/>
 		<button id="ID_IRC_SETTINGS" text="Inställningar" tip="Konfigurera IRC inställningar"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
@@ -3077,8 +3081,8 @@
 	<string id="16995" value="Filen kan vara skadad eller du kanske inte har nödvändig codec för att spela upp den." />
 	<string id="16996" value="Delar av filen kan inte spelas upp. Du kanske måste ladda ned ytterligare codecs." />
 	<string id="16997" value="Ingen fil spelas. Dubbelklicka på en mediafil i ditt bibliotek för att spela den." />
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="SPELLISTA:"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="Spellista:"/>
 	<string id="17024" value="Initierar en anslutning till %s…" />
 	<string id="17025" value="Kan inte skapa en anslutning till %s." />
 	<string id="17026" value="Begär en anslutningsbegäran från %s…" />
@@ -3295,7 +3299,7 @@
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Avbryt"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Generellt">
 	</dialog>
@@ -3926,15 +3930,15 @@
 		<control caption="Anslut" />
 		<control caption="Avbryt" />
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Ladda ned fil eller Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Ladda ned fil eller Torrent">
 		<control/>
 		<control/>
-		<control caption="Att ladda ned nya filer med PeerProject är enkelt. Skriv eller klista in den URL eller URI som beskriver filen du vill ladda ned i rutan nedanför och tryck enter." />
+		<control caption="PeerProject kan ladda ned filer från webben och automatiskt söka och ladda ned länkar till filer på fildelningsnätverk. Skriv eller klista in den URL eller URI som beskriver filen du vill ladda ned i rutan nedanför och tryck enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)" />
+		<control caption="PeerProject kan också ladda ned BitTorrent-filer. En torrent kan bli beskriven med en fil som har .torrent som filändelse lagrad på din dator eller en HTTP-server. För att ladda ned en torrent via en HTTP-länk klistrar du in länken i rutan nedanför. Om du redan har en .torrent-fil kan du klicka på Öppna Torrent." />
+		<control/>
 		<control/>
 		<control caption="Ladda ned" />
 		<control caption="Avbryt" />
-		<control caption="PeerProject kan ladda ned filer från webben (HTTP) och automatiskt söka och ladda ned länkar till filer på fildelningsnätverk (Magnet, Gnutella, eDonkey, mP2P)." />
-		<control caption="PeerProject kan också ladda ned BitTorrent-filer. En torrent kan bli beskriven med en fil som har .torrent som filändelse lagrad på din dator eller en HTTP-server. För att ladda ned en torrent via en HTTP-länk klistrar du in länken i rutan nedanför. Om du redan har en .torrent-fil kan du klicka på Öppna Torrent." />
 		<control caption="Öppna _Torrent…" />
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Ny sökning|Sök igen|Sök i bibliotek">
@@ -4271,20 +4275,21 @@
 		<control caption="OK"/>
 		<control caption="Avbryt" />
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Radera fil">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Radera fil">
 		<control caption="Är du säker på att du vill radera:" />
 		<control/>
 		<control caption="Radera" />
 		<control caption="Radera alla" />
 		<control caption="Avbryt" />
 		<control/>
-		<control caption="PeerProject kan komma ihg den här filen och varna dig om du träffar på den igen i en ny sökning. Den kommer att skapa en skuggfil med dina kommentarer och betyg."/>
 		<control caption="Skapa skuggfil"/>
-		<control caption="Anledningen till varför filen är dålig:"/>
-		<control caption="Raderar bara, behåll mina kommentarer|Filen har ett felaktigt namn och/eller felaktig beskrivning|Filen är av låg kvalitet|Filen är falsk, skadad eller oanvändbar|Ersätt mina kommentarer med nya"/>
+		<control caption="PeerProject kan komma ihg den här filen och varna dig om du träffar på den igen i en ny sökning. Den kommer att skapa en skuggfil med dina kommentarer och betyg."/>
 		<control caption="Filbetyg:"/>
+		<control caption="Anledningen till varför filen är dålig:"/>
+		<control caption="!"/>
 		<control caption="(Inget betyg)|Falsk/Skadad/Missvisande|Dålig|Medel|Bra|Mycket bra|Utmärkt"/>
-		<control caption="Du kan skriva en kort anledning till varför filen är dålig:" />
+		<control caption="Raderar bara, behåll mina kommentarer|Filen är av låg kvalitet|Filen har ett felaktigt namn och/eller felaktig beskrivning|Filen är falsk, skadad eller oanvändbar|Restricted copyright material|Ersätt mina kommentarer med nya…"/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Export av samling">

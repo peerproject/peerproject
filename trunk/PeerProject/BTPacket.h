@@ -19,16 +19,11 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_BTPACKET_H__F3CA41D9_F0E8_4996_A551_F7EEE8D509B3__INCLUDED_)
-#define AFX_BTPACKET_H__F3CA41D9_F0E8_4996_A551_F7EEE8D509B3__INCLUDED_
-
 #pragma once
 
 #include "Packet.h"
 
-//
 // Packet
-//
 
 class CBTPacket : public CPacket
 {
@@ -121,5 +116,3 @@ typedef struct
 } BT_PIECE_HEADER;
 
 #pragma pack()
-
-#endif // !defined(AFX_BTPACKET_H__F3CA41D9_F0E8_4996_A551_F7EEE8D509B3__INCLUDED_)

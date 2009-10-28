@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_DLGBITZIDOWNLOAD_H__14C3A521_9E56_42DE_A449_75BAD986DFFC__INCLUDED_)
-#define AFX_DLGBITZIDOWNLOAD_H__14C3A521_9E56_42DE_A449_75BAD986DFFC__INCLUDED_
-
 #pragma once
 
 #include "DlgSkinDialog.h"
@@ -62,7 +59,7 @@ public:
 public:
 	//{{AFX_VIRTUAL(CBitziDownloadDlg)
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
 // Implementation
@@ -75,9 +72,6 @@ protected:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
-
-//{{AFX_INSERT_LOCATION}}
-
-#endif // !defined(AFX_DLGBITZIDOWNLOAD_H__14C3A521_9E56_42DE_A449_75BAD986DFFC__INCLUDED_)

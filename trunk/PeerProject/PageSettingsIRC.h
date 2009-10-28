@@ -18,11 +18,8 @@
 // along with PeerProject; if not, write to Free Software Foundation, Inc.
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
-// Author: peer_l_@hotmail.com
+// Original Author: peer_l_@hotmail.com
 //
-
-#if !defined(AFX_PAGESETTINGSIRC__INCLUDED_)
-#define AFX_PAGESETTINGSIRC__INCLUDED_
 
 #pragma once
 
@@ -63,9 +60,9 @@ public:
 
 // Overrides
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
-	virtual void OnDrawItem(int /* nIDCtl */, LPDRAWITEMSTRUCT lpDrawItemStruct);
+	virtual void OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct);
 
 public:
 	virtual void OnOK();
@@ -85,8 +82,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
-#endif // !defined(AFX_PAGESETTINGSIRC__INCLUDED_)
- 
 #define	ID_COLOR_CHATWINDOW				0
 #define ID_COLOR_TEXT					1
 #define ID_COLOR_TEXTLOCAL				2

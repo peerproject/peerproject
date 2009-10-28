@@ -582,14 +582,13 @@ BOOL CShareMonkeyData::ImportData(CXMLElement* pRoot)
 		pAttribute->SetValue( m_sDescription );
 		pXML->AddAttribute( pAttribute );
 
-/*
-		if ( m_sBuyURL.GetLength() )
-		{
-			pAttribute = new CXMLAttribute( NULL, L"distributerLink" );
-			pAttribute->SetValue( m_sBuyURL );
-			pXML->AddAttribute( pAttribute );
-		}
-*/
+		//if ( m_sBuyURL.GetLength() )
+		//{
+		//	pAttribute = new CXMLAttribute( NULL, L"distributerLink" );
+		//	pAttribute->SetValue( m_sBuyURL );
+		//	pXML->AddAttribute( pAttribute );
+		//}
+
 		Combine( pXML );
 
 		delete m_pRazaXML;

@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_SCHEMAMEMBER_H__0168BCBB_F511_4752_A529_78BF75A74777__INCLUDED_)
-#define AFX_SCHEMAMEMBER_H__0168BCBB_F511_4752_A529_78BF75A74777__INCLUDED_
-
 #pragma once
 
 class CSchema;
@@ -88,5 +85,3 @@ enum
 {
 	smfNone, smfTimeMMSS, smfBitrate, smfFrequency, smfTimeHHMMSSdec
 };
-
-#endif // !defined(AFX_SCHEMAMEMBER_H__0168BCBB_F511_4752_A529_78BF75A74777__INCLUDED_)

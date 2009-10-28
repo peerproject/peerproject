@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_HASHDATABASE_H__01733EE8_54F0_440D_BAD9_59EE0272DD1C__INCLUDED_)
-#define AFX_HASHDATABASE_H__01733EE8_54F0_440D_BAD9_59EE0272DD1C__INCLUDED_
-
 #pragma once
 
 typedef struct
@@ -87,5 +84,3 @@ public:
 };
 
 extern CHashDatabase LibraryHashDB;
-
-#endif // !defined(AFX_HASHDATABASE_H__01733EE8_54F0_440D_BAD9_59EE0272DD1C__INCLUDED_)

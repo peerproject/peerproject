@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_COMOBJECT_H__FC590F3A_2FC9_4CF2_A1CB_9F8B9C89CA4F__INCLUDED_)
-#define AFX_COMOBJECT_H__FC590F3A_2FC9_4CF2_A1CB_9F8B9C89CA4F__INCLUDED_
-
 #pragma once
 
 class CComObject : public CCmdTarget
@@ -123,5 +120,3 @@ private:
 
 #define INTERFACE_TO_CLASS(icClass, icInterface, icIn, icOut)	\
 	icClass * icOut = (icClass *)( (BYTE*) icIn - offsetof( icClass, m_x##icInterface ) );
-
-#endif // !defined(AFX_COMOBJECT_H__FC590F3A_2FC9_4CF2_A1CB_9F8B9C89CA4F__INCLUDED_)

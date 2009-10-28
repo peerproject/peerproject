@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -341,9 +341,13 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Užverti" tip="Exit Current Channel Window"/>
+		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Jungtis" tip="Jungtis prie IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Atsijungti" tip="Atsijungti nuo IRC"/>
-		<rightAlign/>
+		<separator/>
 		<button id="ID_IRC_SETTINGS" text="Nuostatos" tip="Keisti IRC nuostatas"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
@@ -3136,9 +3140,9 @@
 	<string id="16997" value="Joks failas negrojamas. Grojimui spragtelkite grotuvo failą savo kolekcijoje."/>
 	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; J &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; I &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M &#160;&#160; A"/>
 	<string id="16999" value="GROJARAŠTIS:"/>
-	<string id="17017" value="Kalbėk:"/>
-	<string id="17018" value="Sveiki. Čia PeerProject pokalbiai."/>
-	<string id="17019" value="Gerbkite kitus naudodamiesi šia paslauga"/>
+	<string id="17016" value="Sveiki. Čia PeerProject pokalbiai."/>
+	<string id="17017" value="Gerbkite kitus naudodamiesi šia paslauga"/>
+	<string id="17018" value="Kalbėk:"/>
 	<string id="17020" value="Pridėti"/>
 	<string id="17021" value="Šalinti"/>
 	<string id="17022" value="Naudotojai"/>
@@ -3358,7 +3362,7 @@
 	<string id="20237" value="Gerai"/>
 	<string id="20238" value="Atšaukti"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Bendra">
 	</dialog>
@@ -3989,16 +3993,16 @@
 		<control caption="Jungtis"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Parsisiųsti failą ar Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Parsisiųsti failą ar Torrent">
 		<control/>
 		<control/>
-		<control caption="Su „PeerProject“ parsisiųsti failus lengva. Tiesiog įrašykite arba įterpkite nukopijuotą failo nuorodą į langelį apačioje ir paspauskite „Parsisiųsti“."/>
+		<control caption="„PeerProject“ gali parsiųsti failus iš žiniatinklio ir automatiškai surasti ir parsisiųsti P2P nuorodas. Tiesiog įrašykite arba įterpkite nukopijuotą failo nuorodą į langelį apačioje ir paspauskite „Parsisiųsti“. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="Jūs taip pat galite parsisiųsti BitTorrent failus. Tai gali būti failas su .torrent plėtiniu arba HTTP nuoroda į tokį failą. Torrent atsisiuntimui įterpkite nukopijuotą nuorodą į aukščiau esantį langelį. Jei Jūs jau turite .torrent failą, spauskite „Atverti Torrent:“"/>
+		<control/>
 		<control/>
 		<control caption="_Parsisiųsti"/>
 		<control caption="_Atšaukti"/>
-		<control caption="„PeerProject“ gali parsiųsti failus iš žiniatinklio (HTTP) ir automatiškai surasti ir parsisiųsti P2P nuorodas (Magnet, Gnutella, eDonkey, mP2P)."/>
-		<control caption="Jūs taip pat galite parsisiųsti BitTorrent failus. Tai gali būti failas su .torrent plėtiniu arba HTTP nuoroda į tokį failą. Torrent atsisiuntimui įterpkite nukopijuotą nuorodą į aukščiau esantį langelį. Jei Jūs jau turite .torrent failą, spauskite „Atverti Torrent:“"/>
-		<control caption="Atverti _Torrent..."/>
+		<control caption="Atverti _Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Nauja paieška|Ieškoti dar kartą|Ieškoti kolekcijoje">
 		<control/>
@@ -4334,20 +4338,21 @@
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Trinti failą">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Trinti failą">
 		<control caption="Ar tikrai norite ištrinti:"/>
 		<control/>
 		<control caption="Trinti"/>
 		<control caption="Trinti viską"/>
 		<control caption="Atšaukti"/>
 		<control/>
-		<control caption="„PeerProject“ gali įsiminti šį failą(-us) ir įspėti Jus, jei vėliau susidursite su juo radiniuose. Programa sukurs šešėlinį failą su komentarais ir įvertinimu."/>
 		<control caption="Kurti šešėlinį failą"/>
-		<control caption="Trinimo priežastis:"/>
-		<control caption="Tiesiog trinu, palikti mano komentarus|Šis failas neteisingai pavadintas ir gali klaidinti|Šis failas yra labai blogos kokybės|Tai klastotė, sugadintas ar netinkamas naudojimui failas|Pakeisti mano komentarus į kitus"/>
+		<control caption="„PeerProject“ gali įsiminti šį failą(-us) ir įspėti Jus, jei vėliau susidursite su juo radiniuose. Programa sukurs šešėlinį failą su komentarais ir įvertinimu."/>
 		<control caption="Failo įvertinimas:"/>
+		<control caption="Trinimo priežastis:"/>
+		<control caption="!"/>
 		<control caption="(Be įvertinimo)|Klastotė/Sugadinta/Klaidinanti|Prasta|Vidutinė|Gera|Labai gera|Puiki"/>
-		<control caption="Jūs galite įrašyti pastabą, paaiškinančią dėl ko trinate šį failą:"/>
+		<control caption="Tiesiog trinu, palikti mano komentarus|Šis failas yra labai blogos kokybės|Šis failas neteisingai pavadintas ir gali klaidinti|Tai klastotė, sugadintas ar netinkamas naudojimui failas|Restricted copyright material|Pakeisti mano komentarus į kitus"/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Eksportuoti rinkinį">

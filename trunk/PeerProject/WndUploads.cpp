@@ -192,9 +192,7 @@ void CUploadsWnd::OnTimer(UINT_PTR nIDEvent)
 				 tNow - pUpload->m_tConnected > Settings.Uploads.ClearDelay )
 			{
 				if ( Settings.Uploads.AutoClear || pUpload->m_nUploaded == 0 || bCull )
-				{
 					pUpload->Remove( FALSE );
-				}
 			}
 		}
 	}
@@ -216,6 +214,9 @@ void CUploadsWnd::OnTimer(UINT_PTR nIDEvent)
 void CUploadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
 	CSingleLock pLock( &UploadQueues.m_pSection, TRUE );
+	if ( ! pLock.Lock( 500 ) )
+		return;
+
 	CUploadQueue* pQueue;
 	CUploadFile* pUpload;
 
@@ -227,8 +228,6 @@ void CUploadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		Skin.TrackPopupMenu( _T("CUploadsWnd.Upload"), point, ID_UPLOADS_LAUNCH );
 	else
 		Skin.TrackPopupMenu( _T("CUploadsWnd.Default"), point, ID_UPLOADS_HELP );
-
-	pLock.Unlock();
 }
 
 void CUploadsWnd::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd)
@@ -392,9 +391,7 @@ void CUploadsWnd::OnUploadsStart()
 		CUploadFile* pFile = UploadFiles.GetNext( pos );
 
 		if ( IsSelected( pFile ) && pFile->GetActive() != NULL )
-		{
 			pFile->GetActive()->Promote();
-		}
 	}
 }
 

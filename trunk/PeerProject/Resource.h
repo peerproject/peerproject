@@ -1297,9 +1297,9 @@
 #define IDS_MEDIA_EMPTY             	16997
 #define IDS_MEDIA_TITLE             	16998
 #define IDS_MEDIA_PLAYLIST          	16999
-#define IDS_IRC_INPUT_CAPTION       	17017
-#define IDS_IRC_PANEL_TITLE         	17018
-#define IDS_IRC_PANEL_SUBTITLE      	17019
+#define IDS_IRC_FRAME_TITLE         	17016
+#define IDS_IRC_FRAME_SUBTITLE      	17017
+#define IDS_IRC_FRAME_INPUT         	17018
 #define IDS_IRC_PANEL_ADDCHANNEL    	17020
 #define IDS_IRC_PANEL_REMOVECHANNEL 	17021
 #define IDS_IRC_PANEL_USERS_CAPTION 	17022
@@ -1902,7 +1902,8 @@
 #define ID_IRC_SLAP                 	33226
 #define ID_IRC_CLOSETAB             	33227
 #define ID_IRC_SETTINGS             	33228
-#define ID_TAB_IRC                  	33229
+#define ID_IRC_SENDTEXT                	33229
+#define ID_TAB_IRC                  	33230
 #define ID_WEBSERVICES_LIST         	33300
 #define ID_WEBSERVICES_SHAREMONKEY  	33301
 #define ID_SHAREMONKEY_DOWNLOAD     	33302

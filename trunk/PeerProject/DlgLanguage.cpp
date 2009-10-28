@@ -182,22 +182,16 @@ void CLanguageDlg::OnPaint()
 			PaintItem( nCount, &dc, &rc );
 			rc.OffsetRect( ITEM_WIDTH, 0 );
 			if ( nCount + 1 < m_pPaths.GetSize() )
-			{
 				PaintItem( nCount + 1, &dc, &rc );
-			}
 			else
-			{
 				dc.FillSolidRect( &rc, Colors.m_crBackNormal );
-			}
+
 			rc.OffsetRect( ITEM_WIDTH, 0 );
 			if ( nCount + 2 < m_pPaths.GetSize() )
-			{
 				PaintItem( nCount + 2, &dc, &rc );
-			}
 			else
-			{
 				dc.FillSolidRect( &rc, Colors.m_crBackNormal );
-			}
+
 			rc.OffsetRect( -ITEM_WIDTH * 2, 0 );
 			rc.OffsetRect( 0, rc.Height() );
 		}
@@ -449,7 +443,7 @@ void CLanguageDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			}
 			else if ( m_nHover % 3 == 0 && m_nHover / 3 <= pInfo.nPos )
 			{
-				pInfo.nPos -= 1;
+				pInfo.nPos--;
 				SetScrollInfo( SB_VERT, &pInfo, TRUE );
 			}
 
@@ -475,7 +469,7 @@ void CLanguageDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			}
 			else if ( ( m_nHover - 1 ) / 3 > pInfo.nPos + ITEM_ROWS - 1 )
 			{
-				pInfo.nPos += 1;
+				pInfo.nPos++;
 				SetScrollInfo( SB_VERT, &pInfo, TRUE );
 			}
 
@@ -582,9 +576,7 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	else
 	{
 		if ( nByte >= 3 && pByte[0] == 0xEF && pByte[1] == 0xBB && pByte[2] == 0xBF )
-		{
 			pByte += 3; nByte -= 3;
-		}
 
 		strXML = UTF8Decode( (LPCSTR)pByte, nByte );
 	}

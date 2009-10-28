@@ -384,13 +384,9 @@ CLibraryFile* CLibraryMaps::LookupFileByED2K(const Hashes::Ed2kHash& oED2K, BOOL
 		if ( validAndEqual( oED2K, pFile->m_oED2K ) )
 		{
 			if ( ( ! bSharedOnly || pFile->IsShared() ) && ( ! bAvailableOnly || pFile->IsAvailable() ) )
-			{
 				return pFile;
-			}
 			else
-			{
 				return NULL;
-			}
 		}
 	}
 
@@ -410,13 +406,9 @@ CLibraryFile* CLibraryMaps::LookupFileByBTH(const Hashes::BtHash& oBTH, BOOL bSh
 		if ( validAndEqual( oBTH, pFile->m_oBTH ) )
 		{
 			if ( ( ! bSharedOnly || pFile->IsShared() ) && ( ! bAvailableOnly || pFile->IsAvailable() ) )
-			{
 				return pFile;
-			}
 			else
-			{
 				return NULL;
-			}
 		}
 	}
 
@@ -436,13 +428,9 @@ CLibraryFile* CLibraryMaps::LookupFileByMD5(const Hashes::Md5Hash& oMD5, BOOL bS
 		if ( validAndEqual( oMD5, pFile->m_oMD5 ) )
 		{
 			if ( ( ! bSharedOnly || pFile->IsShared() ) && ( ! bAvailableOnly || pFile->IsAvailable() ) )
-			{
 				return pFile;
-			}
 			else
-			{
 				return NULL;
-			}
 		}
 	}
 

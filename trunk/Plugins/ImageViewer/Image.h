@@ -6,11 +6,7 @@
 // You are free to redistribute and modify this page without any restrictions.
 //
 
-#if !defined(AFX_IMAGE_H__7C2E1D58_91A7_4C3B_A9FA_34A5768C82DC__INCLUDED_)
-#define AFX_IMAGE_H__7C2E1D58_91A7_4C3B_A9FA_34A5768C82DC__INCLUDED_
-
 #pragma once
-
 
 class CImage  
 {
@@ -39,7 +35,4 @@ public:
 // Internal Helpers
 protected:
 	IImageServicePlugin*	LoadService(LPCTSTR pszFile);
-	
 };
-
-#endif // !defined(AFX_IMAGE_H__7C2E1D58_91A7_4C3B_A9FA_34A5768C82DC__INCLUDED_)

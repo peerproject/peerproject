@@ -1,5 +1,5 @@
 //
-// CtrlPanelClass.cpp
+// CtrlPanel.cpp (Library)
 //
 // This file is part of PeerProject (peerproject.org) © 2008-2009
 // Portions Copyright Shareaza Development Team, 2002-2007.
@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "CtrlPanelClass.h"
+#include "CtrlPanel.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r38 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r40 (Shareaza 2.2.2.9) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -347,6 +347,17 @@
 		<button id="ID_MEDIA_CLEAR" text="Puhasta"/>
 		<button id="ID_MEDIA_SAVE" text="Salvesta"/>
 	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Eemalda" tip="Exit Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="Ühenda" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Katkesta" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Seaded" tip="Configure IRC Settings"/>
+	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Sirvi kasutajat"/>
@@ -378,9 +389,8 @@
 		<button id="ID_HITMONITOR_PAUSE" text="Paus"/>
 		<button id="ID_HITMONITOR_CLEAR" text="Puhasta"/>
 		<rightAlign/>
-		<label text="Filter:" tip="Trüki märksõna"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Trüki märksõna"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Veel..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd.Basic">
@@ -2944,7 +2954,7 @@
 	<string id="16995" value="Fail võib olla kahjustunud või ei ole sul selle mängimiseks vajalikke koodekeid."/>
 	<string id="16996" value="Ühte osa failist ei ole võimalik avada, sa pead tõmbama lisa koodekeid."/>
 	<string id="16997" value="Ühtegi faili ei mängi hetkel.  Topeltklikk failil, et alustada meediafaili mängimist."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Playlist:"/>
 	<string id="17024" value="Alustan ühendust %s..."/>
 	<string id="17025" value="Ei saa luu ühendust %s."/>
@@ -3149,7 +3159,7 @@
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Tühista"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="General">
 	</dialog>
@@ -3738,16 +3748,16 @@
 		<control caption="Ühenda"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Tõmba Fail või Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Tõmba Fail või Torrent">
 		<control/>
 		<control/>
-		<control caption="Failide allalaadimine PeerProjectga on lihtne.  Lihtsalt trüki või kleebi faili URL või URI all asuvasse kasti ja vajuta Enter oma klaviatuuril."/>
+		<control caption="Suudab tõmmata faile weebist, automaatselt otsida ja tõmmata P2P linke. Failide allalaadimine PeerProjectga on lihtne.  Lihtsalt trüki või kleebi faili URL või URI all asuvasse kasti ja vajuta Enter oma klaviatuuril. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="PeerProject tõmbab samuti ka BitTorrenti faile. Torrenti saab kirjeldada kui xyz.torrent faili, või HTTP linki .torrent failile.  Et tõmmata torrenti HTTP lingilt, kleebi see üleval olevasse kasti.  Kui sul juba on .torrent fail, kliki Ava Torrent:"/>
+		<control/>
 		<control/>
 		<control caption="Tõmba"/>
 		<control caption="Tühista"/>
-		<control caption="PeerProject suudab tõmmata faile weebist (HTTP), automaatselt otsida ja tõmmata P2P linke (Magnet, Gnutella, eDonkey2000, mP2P)."/>
-		<control caption="PeerProject tõmbab samuti ka BitTorrenti faile. Torrenti saab kirjeldada kui xyz.torrent faili, või HTTP linki .torrent failile.  Et tõmmata torrenti HTTP lingilt, kleebi see üleval olevasse kasti.  Kui sul juba on .torrent fail, kliki Ava Torrent:"/>
-		<control caption="Ava _Torrent..."/>
+		<control caption="Ava _Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Uus Otsing|Korda Otsingut|Otsi Raamatukogust">
 		<control/>
@@ -4080,19 +4090,21 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuBuBuBuStEd" caption="Kustuta Fail">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Kustuta Fail">
 		<control caption="Oled kindel, et tahad kustutada:"/>
 		<control/>
 		<control caption="Kustuta"/>
 		<control caption="Kustuta Kõik"/>
 		<control caption="Tühista"/>
 		<control/>
-		<control caption="PeerProject jätab selle faili meelde ja hoiatab sind kui proovid seda faili uuesti allalaadida.  Vali faili kustutamiseks põhjus:"/>
 		<control caption="Ma ei taha kommentaari lisada."/>
-		<control caption="See fail on vale nimega ja võib olla eksitav."/>
-		<control caption="See fail on väga halva kvaliteediga."/>
-		<control caption="See fail on vale või vigane või mõnel muul moel kasutu."/>
-		<control caption="Trüki siia lühike kirjeldus, mis failil viga on:"/>
+		<control caption="PeerProject jätab selle faili meelde ja hoiatab sind kui proovid seda faili uuesti allalaadida.  Vali faili kustutamiseks põhjus:"/>
+		<control caption="File rating:"/>
+		<control caption="Reason for deleting:"/>
+		<control caption="!"/>
+		<control caption="(No Rating)|Fake/Corrupt/Misleading|Poor|Average|Good|Very Good|Excellent"/>
+		<control caption="Just deleting, keep any current comments|File is very low quality or outdated|File is named incorrectly or misleading|File is fake, infected, corrupt, or unusable|File is restricted copyright material|File needs custom comments below..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Kollektsiooni Eksport">

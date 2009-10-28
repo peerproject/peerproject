@@ -832,7 +832,7 @@ void CMatchTipCtrl::OnPaint()
 
 			CPoint ptTextWithIcon = pt;
 			ptTextWithIcon.x += 20;
-			ptTextWithIcon.y += 1;
+			ptTextWithIcon.y++;
 
 			DrawText ( dc, ptTextWithIcon, m_sBusy);
 			pt.y += TIP_ICONHEIGHT;
@@ -866,7 +866,7 @@ void CMatchTipCtrl::OnPaint()
 
 			CPoint ptTextWithIcon = pt;
 			ptTextWithIcon.x += 20;
-			ptTextWithIcon.y += 1;
+			ptTextWithIcon.y++;
 
 			DrawText ( dc, ptTextWithIcon, m_sPush);
 			pt.y += TIP_ICONHEIGHT;
@@ -880,7 +880,7 @@ void CMatchTipCtrl::OnPaint()
 
 			CPoint ptTextWithIcon = pt;
 			ptTextWithIcon.x += 20;
-			ptTextWithIcon.y += 1;
+			ptTextWithIcon.y++;
 
 			DrawText ( dc, ptTextWithIcon, m_sUnstable);
 			pt.y += TIP_ICONHEIGHT;

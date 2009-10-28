@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -338,6 +338,17 @@
 		<button id="ID_MEDIA_CLEAR" text="Svuota"/>
 		<button id="ID_MEDIA_SAVE" text="Salva"/>
 	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Rimuovi" tip="Exit Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="Connetti" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Disconnetti" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Opzioni" tip="Configure IRC Settings"/>
+	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Esplora utente"/>
@@ -369,9 +380,8 @@
 		<button id="ID_HITMONITOR_PAUSE" text="Pausa"/>
 		<button id="ID_HITMONITOR_CLEAR" text="Rimuovi"/>
 		<rightAlign/>
-		<label text="Filtro:" tip="Inserisci le parole con cui vuoi filtrare i risultati"/>
+		<button id="ID_SEARCH_FILTER_RAW" text="Filtro:" tip="Inserisci le parole con cui vuoi filtrare i risultati"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
-		<button id="ID_SEARCH_FILTER_RAW" text="Altro..."/>
 	</toolbar>
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd.Basic">
@@ -3119,11 +3129,11 @@
 	<string id="16995" value="Il file potrebbe essere danneggiato, o potresti aver bisogno dei codec necessari per eseguirlo."/>
 	<string id="16996" value="Parte di questo file potrebbe non essere riproducibile, potresti aver bisogno di scaricare codec aggiuntivi."/>
 	<string id="16997" value="Nessun file in riproduzione. Fai doppio click su un file multimediale della tua libreria per riprodurlo."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Playlist:"/>
-	<string id="17017" value="Invia:"/>
-	<string id="17018" value="Benvenuto sulla Chat IRC di PeerProject!"/>
-	<string id="17019" value="Per favore rispetta gli altri quando usi questo servizio"/>
+	<string id="17016" value="Benvenuto sulla Chat IRC di PeerProject!"/>
+	<string id="17017" value="Per favore rispetta gli altri quando usi questo servizio"/>
+	<string id="17018" value="Invia:"/>
 	<string id="17020" value="Aggiungi"/>
 	<string id="17021" value="Rimuovi"/>
 	<string id="17022" value="Utenti"/>
@@ -3352,7 +3362,7 @@
 	<string id="20243" value="Continua"/>
 	<string id="20244" value="&amp;Ricorda le mie impostazioni la prossima volta"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Generale">
 	</dialog>
@@ -3983,16 +3993,16 @@
 		<control caption="Connetti"/>
 		<control caption="Annulla"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Scarica file o torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Scarica file o torrent">
 		<control/>
 		<control/>
-		<control caption="Scaricare qualsiasi file con PeerProject è semplice. Scrivi o incolla l'URL o URI che descrive il file nello spazio seguente e premi Invio."/>
+		<control caption="PeerProject può scaricare file dal web, cercare e scaricare automaticamente link P2P. Scaricare qualsiasi file con PeerProject è semplice. Scrivi o incolla l'URL o URI che descrive il file nello spazio seguente e premi Invio. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="PeerProject può anche scaricare file BitTorrent. Un torrent può essere scaricato con un file xyz.torrent o con un link HTTP al file .torrent. Per scaricare un torrent con il link, incollalo nello spazio sopra. Se hai già un file .torrent, clicca su Apri torrent:"/>
+		<control/>
 		<control/>
 		<control caption="Scarica"/>
 		<control caption="Annulla"/>
-		<control caption="PeerProject può scaricare file dal web (HTTP), cercare e scaricare automaticamente link P2P (Magnet, Gnutella, eDonkey, mP2P)."/>
-		<control caption="PeerProject può anche scaricare file BitTorrent. Un torrent può essere scaricato con un file xyz.torrent o con un link HTTP al file .torrent. Per scaricare un torrent con il link, incollalo nello spazio sopra. Se hai già un file .torrent, clicca su Apri torrent:"/>
-		<control caption="Apri _torrent..."/>
+		<control caption="Apri _torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Nuova ricerca|Cerca ancora|Cerca nella libreria">
 		<control/>
@@ -4328,20 +4338,21 @@
 		<control caption="OK"/>
 		<control caption="Annulla"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Elimina file">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Elimina file">
 		<control caption="Sei sicuro di voler eliminare:"/>
 		<control/>
 		<control caption="Elimina"/>
 		<control caption="Elimina tutti"/>
 		<control caption="Annulla"/>
 		<control/>
-		<control caption="PeerProject può memorizzare questo file e avvisarti se lo ritrovi per caso in un'altra ricerca. Verrà creato un file fantasma con i tuoi commenti e la tua valutazione."/>
 		<control caption="Crea un file fantasma"/>
-		<control caption="Motivo della cancellazione:"/>
-		<control caption="Cancella soltanto, mantieni i miei commenti|Questo file ha un nome non corretto e potrebbe essere ingannevole|Questo file è di scarsa qualità|Questo file è falso, corrotto o in qualche modo inutilizzabile|Sostituisci i miei commenti con i nuovi"/>
+		<control caption="PeerProject può memorizzare questo file e avvisarti se lo ritrovi per caso in un'altra ricerca. Verrà creato un file fantasma con i tuoi commenti e la tua valutazione."/>
 		<control caption="Valutazione del file:"/>
+		<control caption="Motivo della cancellazione:"/>
+		<control caption="!"/>
 		<control caption="(Nessuna valutazione)|Falso/Corrotto/Fuorviante|Scarso|Medio|Buono|Molto buono|Eccellente"/>
-		<control caption="Puoi inserire una breve nota che descrive perchè stai cancellando il file:"/>
+		<control caption="Cancella soltanto, mantieni i miei commenti|Questo file è di scarsa qualità|Questo file ha un nome non corretto e ingannevole|Questo file è falso, corrotto o in qualche modo inutilizzabile|Restricted copyright material|Sostituisci i miei commenti con i nuovi"/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Esporta collezione">

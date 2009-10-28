@@ -1,0 +1,56 @@
+20 September 2009: dht-0.9
+
+  * Fixed incorrect computation of number of nodes.
+  * Made the initial bucket split eagerly (speeds up bootstrapping).
+  * Fixed initial filling of search buckets (speeds up searches).
+
+28 July 2009: dht-0.8
+
+  * Fixed a crash when expiring the first search on the list.
+  * Fixed freeing of the search list when uniniting with dofree = 1.
+
+24 June 2009: dht-0.7
+
+  * Removed the fixed limit on the number of concurrent searches, we now
+    use a linked list.
+  * Fixed build on FreeBSD (thanks to Humihara and Charles Kerr).
+
+22 May 2009: dht-0.6
+
+  * Fixed a buffer overflow (when reading) in parse_message.
+  * Fixed slightly inacurrate metric computation when searching.
+  * Removed a slightly inaccurate shortcut when responding to find_nodes.
+  * Relaxed the rate-limiting parameters to 4 requests per second.
+
+19 May 2009: dht-0.5
+
+  * Made reading of /dev/urandom a function provided by the user.
+  * Implemented the ``v'' extension that identifies node implementations.
+
+18 May 2009: dht-0.4
+
+  * Fixed the handling of tokens in announce_peer messages.
+  * Implemented backtracking during search when nodes turn out to be dead.
+
+17 May 2009: dht-0.3
+
+  * Fixed a number of incorrectly formatted messages.
+  * Changed reply to find_peers to spread the load more uniformly.
+  * Fixed a bug that could cause premature splitting.
+  * Implemented rate limiting.
+  * Changed some time constants to be less chatty.
+  * When determining if a bucket is fresh enough, we now only take replies
+    into account.
+  * dht_get_nodes now returns nodes starting with our own bucket.
+  * Tweaked the memory allocation strategy for stored peers.
+
+17 May 2009: dht-0.2
+
+  * Fixed a crash in dht_uninit.
+  * Added support for saving the list of known-good nodes.
+  * Changed the interface of dht_nodes to provide the number of nodes that
+    recently sent incoming requests.
+
+13 May 2009: dht-0.1
+
+  * Initial public release.

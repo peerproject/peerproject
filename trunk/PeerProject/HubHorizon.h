@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_HUBHORIZON_H__CDEFE0F8_036F_4647_9A85_CE2E41984B01__INCLUDED_)
-#define AFX_HUBHORIZON_H__CDEFE0F8_036F_4647_9A85_CE2E41984B01__INCLUDED_
-
 #pragma once
 
 class CG2Packet;
@@ -54,7 +51,6 @@ protected:
 public:
 	void		Add(IN_ADDR* pAddress, WORD nPort);
 	void		Clear();
-
 };
 
 
@@ -81,9 +77,6 @@ public:
 	void				Remove(CHubHorizonHub* pHub);
 	CHubHorizonHub*		Find(IN_ADDR* pAddress);
 	int					AddHorizonHubs(CG2Packet* pPacket);
-
 };
 
 extern CHubHorizonPool	HubHorizonPool;
-
-#endif // !defined(AFX_HUBHORIZON_H__CDEFE0F8_036F_4647_9A85_CE2E41984B01__INCLUDED_)

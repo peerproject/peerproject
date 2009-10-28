@@ -1297,9 +1297,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 		LoadControlTip( strTip, pWnd->GetDlgCtrlID() );
 
 		if ( pWndTooltips && strTip.GetLength() )
-		{
 			pWndTooltips->AddTool( pWnd, strTip );
-		}
 
 		GetClassName( pWnd->GetSafeHwnd(), szClass, 3 );
 
@@ -1316,14 +1314,10 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 	{
 		CFile pFile;
 
-		if ( pFile.Open( _T("\\Dialogs.xml"), CFile::modeReadWrite ) )
-		{
+		if ( pFile.Open( Settings.General.Path + _T("\\Dialogs.xml"), CFile::modeReadWrite ) )
 			pFile.Seek( 0, CFile::end );
-		}
-		else if ( ! pFile.Open( _T("\\Dialogs.xml"), CFile::modeWrite|CFile::modeCreate ) )
-		{
+		else if ( ! pFile.Open( Settings.General.Path + _T("\\Dialogs.xml"), CFile::modeWrite|CFile::modeCreate ) )
 			return FALSE;
-		}
 		else
 			pFile.Write( "<dialogs>\r\n", 11 );
 
@@ -1428,11 +1422,11 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 
 		return TRUE;
 	}
+	// End DialogScan
 
 	CXMLElement* pBase = NULL;
 	if ( ! m_pDialogs.Lookup( strName, pBase ) )
-		// Naked dialog
-		return FALSE;
+		return FALSE;	// Naked dialog
 
 	if ( strCaption != pBase->GetAttributeValue( _T("cookie") ) )
 	{
@@ -1462,9 +1456,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 			strCaption = pXML->GetAttributeValue( _T("caption") );
 			strTip = pXML->GetAttributeValue( L"tip" );
 			if ( pWndTooltips && strTip.GetLength() )
-			{
 				pWndTooltips->AddTool( pWnd, strTip );
-			}
 
 			strCaption.Replace( _T("{n}"), _T("\r\n") );
 

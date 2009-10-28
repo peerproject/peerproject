@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -338,10 +338,14 @@
 	</toolbar>
 	<!--نافذة الجوار-->
 	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign />
 		<button id="ID_IRC_CONNECT" text="إتصال" tip="الإتصال بـ IRC" />
 		<button id="ID_IRC_DISCONNECT" text="قطع الإتصال" tip="قطع الإتصال من IRC" />
-		<rightAlign />
-	<button id="ID_IRC_SETTINGS" text="إعدادات" tip="تكوين إعدادات IRC" />
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="إعدادات" tip="تكوين إعدادات IRC" />
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -361,7 +365,7 @@
 		<button id="ID_SECURITY_BAN" text="حظر مضيف" />
 		<rightAlign />
 		<button id="ID_NETWORK_G2" text="Gnutella2" />
-		<button id="ID_NETWORK_G1" text="Gnutella1" />
+		<button id="ID_NETWORK_G1" text="Gnutella" />
 		<button id="ID_NETWORK_ED2K" text="eDonkey" />
 		<separator />
 		<button id="ID_NEIGHBOURS_SETTINGS" text="إعدادات" />
@@ -3097,8 +3101,15 @@
 	<string id="16995" value="The file may be damaged, or you may not have the necessary codecs to play it." />
 	<string id="16996" value="Part of this file could not be played, you may need to download additional codecs." />
 	<string id="16997" value="There is no file playing.  Double-click a media file in your library to play it." />
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="P L A Y L I S T" />
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="Playlist:" />
+	<string id="17016" value="Welcome to the PeerProject IRC Chatrooms"/>
+	<string id="17017" value="Please respect others while using this service"/>
+	<string id="17018" value="Chat:"/>
+	<string id="17020" value="Add..."/>
+	<string id="17021" value="إزالة" />
+	<string id="17022" value="Users"/>
+	<string id="17023" value="Channels"/>
 	<string id="17024" value="Initiating a connection to %s..." />
 	<string id="17025" value="Unable to create a connection to %s." />
 	<string id="17026" value="Requesting a firewalled push connection from %s..." />
@@ -3316,7 +3327,7 @@
 	<string id="20237" value="حسنا"/>
 	<string id="20238" value="إلغاء الأمر"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="عام" >
 	</dialog>
@@ -3947,16 +3958,16 @@
 		<control caption="إتصال" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="تحميل ملف أو Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="تحميل ملف أو Torrent">
 		<control />
 		<control />
-		<control caption="تحميل أي ملف بواسطة شير-أزا يعتبر أمر سهل . ببساطة أكتب أو ألصق الرابط للملف المراد تحميله أو وصفا عنه في الخانة بالأسفل ثم إضغط &quot;إنتر&quot; ـ" />
+		<control caption="شير-أزا يمكنه تحميل الملفات من الويب و البحث تلقائيا عنها و تحميل روابط نظير إلى نظير تحميل أي ملف بواسطة شير-أزا يعتبر أمر سهل . ببساطة أكتب أو ألصق الرابط للملف المراد تحميله أو وصفا عنه في الخانة بالأسفل ثم إضغط &quot;إنتر&quot;ـ {n}(http: و ftp: و ed2k: و magnet:)" />
+		<control caption="شير-أزا يمكنه أيضا تحميل ملفات بيت-تورينت . يمكن وصف أي ملف تورينت بملف{n}torrent لملف HTTP لتحميل رابط , torrent إلى ملف HTTP أو رابط xyz.torrent{n}:&quot;Torrent أنقر على زر &quot;فتح torrent ألصقه فوق . إذا كان لديك مسبقا ملف" />
+		<control />
 		<control />
 		<control caption="تحميل" />
 		<control caption="إلغاء الأمر" />
-		<control caption="شير-أزا يمكنه تحميل الملفات من الويب و البحث تلقائيا عنها و تحميل روابط نظير إلى نظير{n}(Magnet و Gnutella و eDonkey2000 و mP2P)" />
-		<control caption="شير-أزا يمكنه أيضا تحميل ملفات بيت-تورينت . يمكن وصف أي ملف تورينت بملف{n}torrent لملف HTTP لتحميل رابط , torrent إلى ملف HTTP أو رابط xyz.torrent{n}:&quot;Torrent أنقر على زر &quot;فتح torrent ألصقه فوق . إذا كان لديك مسبقا ملف" />
-		<control caption="Torrent _فتح..." />
+		<control caption="_Torrent فتح" />
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="بحث جديد|البحث مره اخرى|البحث في المكتبة">
 		<control />
@@ -4290,20 +4301,21 @@
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuBuBuBuStEd" caption="حذف ملف">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="حذف ملف">
 		<control caption="أنت متأكّد بأنك تريد الحذف:" />
 		<control />
 		<control caption="حذف" />
 		<control caption="حذف الكل" />
 		<control caption="إلغاء الأمر" />
 		<control />
-		<control caption="يمكن للاشيرازا ان يتذكر هذا الملف ويحذرك اذا صادفة في البحث مرة اخرى . رجاء تحديد سبب لحذف هذا الملف:" />
 		<control caption="Create a ghost file" />
-		<control caption="لا اريد إضافة اي تعليق." />
-		<control caption="هذا الملف يسمى باسم خطاء . ويمكن ان يكون مظلل." />
+		<control caption="يمكن للاشيرازا ان يتذكر هذا الملف ويحذرك اذا صادفة في البحث مرة اخرى . رجاء تحديد سبب لحذف هذا الملف:" />
 		<control caption="هذا الملف من النوعية الرديئة جدا." />
-		<control caption="هذا الملف يوجود به مشاكل او غير صالح للاستعمال." />
-		<control caption="بامكانك كتابة ملاحظة صغيرة تصف لماذا الملف سيئ:" />
+		<control caption="لا اريد إضافة اي تعليق." />
+		<control caption="!"/>
+		<control caption="(No Rating)|Fake/Corrupt/Misleading|Poor|Average|Good|Very Good|Excellent"/>
+		<control caption="Just deleting, keep any current comments|File is very low quality or outdated|File is named incorrectly or misleading|File is fake, infected, corrupt, or unusable|File is restricted copyright material|File needs custom comments below..."/>
+		<control />
 		<control />
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Collection Export">

@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_CTRLSEARCHPANEL_H__EAFFA7F3_526D_45C3_8C17_17A265ED3240__INCLUDED_)
-#define AFX_CTRLSEARCHPANEL_H__EAFFA7F3_526D_45C3_8C17_17A265ED3240__INCLUDED_
-
 #pragma once
 
 #include "AutocompleteEdit.h"
@@ -168,7 +165,6 @@ public:
 	DWORD	m_nHits;
 	DWORD	m_nBadHits;
 
-
 // Operations
 public:
 	void	Update(BOOL bSearching, DWORD nHubs, DWORD nLeaves, DWORD nFiles, DWORD nHits, DWORD nBadHits);
@@ -250,5 +246,3 @@ protected:
 #define IDC_SEARCH_GNUTELLA1			277
 #define IDC_SEARCH_GNUTELLA2			278
 #define IDC_SEARCH_EDONKEY				279
-
-#endif // !defined(AFX_CTRLSEARCHPANEL_H__EAFFA7F3_526D_45C3_8C17_17A265ED3240__INCLUDED_)

@@ -1,5 +1,5 @@
 //
-// CtrlLibraryPanel.h
+// CtrlPanel.h (Library)
 //
 // This file is part of PeerProject (peerproject.org) © 2008
 // Portions Copyright Shareaza Development Team, 2002-2007.

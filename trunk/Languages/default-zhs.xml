@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r38 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r40 (Shareaza r6092) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -337,6 +337,17 @@
 		<rightAlign/>
 		<button id="ID_MEDIA_CLEAR" text="清除"/>
 		<button id="ID_MEDIA_SAVE" text="保存"/>
+	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="连接到" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="断开" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="设置" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -2938,8 +2949,8 @@
 	<string id="16995" value="此文件可能已损坏，或者您可能没有安装合适的编码解码器。"/>
 	<string id="16996" value="此文件的某一部分不能播放，您可能需要下载额外的编码解码器。"/>
 	<string id="16997" value="没有文件被播放。请在您的收藏中双击媒体文件进行播放。"/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160;  媒&#160;&#160;&#160;&#160;系&#160;&#160;统"/>
-	<string id="16999" value="播 放 列 表"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160;  媒&#160;&#160;&#160;&#160;系&#160;&#160;统"/>
+	<string id="16999" value="播放列表"/>
 	<string id="17024" value="初始化连接到 %s..."/>
 	<string id="17025" value="未能创建到 %s 的连接。"/>
 	<string id="17026" value="向  %s 请求获取连接..."/>
@@ -3145,7 +3156,7 @@
 	<string id="20237" value="确定"/>
 	<string id="20238" value="取消"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="常规">
 	</dialog>
@@ -3736,16 +3747,16 @@
 		<control caption="连接"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="下载文件或 Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="下载文件或 Torrent">
 		<control/>
 		<control/>
-		<control caption="使用 PeerProject 下载任何文件都很容易。只需要输入或粘贴链接地址或者 URI 描述到以下的方框中，然后按下回车。"/>
+		<control caption="PeerProject 可以从 web 下载文件，并且支持自动搜索和下载以下类型的 P2P 链接。 使用 PeerProject 下载任何文件都很容易。只需要输入或粘贴链接地址或者 URI 描述到以下的方框中，然后按下回车。 (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="PeerProject 也可以下载 BitTorrent 文件。Torrent 可以被描述成 xyz.torrent 文件，或者到 .torrent 文件的 HTTP 链接。只需粘贴 Torrent 的 HTTP 的地址到上面的方框就可以进行下载。如果已经拥有 .torrent 文件，点击打开 Torrent:"/>
+		<control/>
 		<control/>
 		<control caption="下载"/>
 		<control caption="取消"/>
-		<control caption="PeerProject 可以从 web (HTTP) 下载文件，并且支持自动搜索和下载以下类型的 P2P 链接 (Magnet，Gnutella，edonkey，mP2P)。"/>
-		<control caption="PeerProject 也可以下载 BitTorrent 文件。Torrent 可以被描述成 xyz.torrent 文件，或者到 .torrent 文件的 HTTP 链接。只需粘贴 Torrent 的 HTTP 的地址到上面的方框就可以进行下载。如果已经拥有 .torrent 文件，点击打开 Torrent:"/>
-		<control caption="打开 Torrent(_T)..."/>
+		<control caption="打开 _Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="新建搜索|重新搜索|在收藏中查找">
 		<control/>
@@ -4080,20 +4091,21 @@
 		<control caption="确定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="删除文件">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="删除文件">
 		<control caption="您确定要删除:"/>
 		<control/>
 		<control caption="删除"/>
 		<control caption="删除全部"/>
 		<control caption="取消"/>
 		<control/>
+		<control caption="Create Ghost File"/>
 		<control caption="PeerProject 能够记住此文件，当您再次搜索到它时将会给予提示。请选择删除此文件的原因:"/>
-		<control caption="Create a ghost file"/>
-		<control caption="The reason for deleting:"/>
-		<control caption="Just deleting, keep my comments|This file is named incorrectly, and could be misleading|This file is of very poor quality|This file is a fake, or is corrupt or somehow unusable|Replace my comments with the new ones"/>
 		<control caption="File rating:"/>
+		<control caption="Reason for deleting:"/>
+		<control caption="!"/>
 		<control caption="(No Rating)|Fake/Corrupt/Misleading|Poor|Average|Good|Very Good|Excellent"/>
-		<control caption="您可以输入短的注释描述为什么文件是坏的:"/>
+		<control caption="Just deleting, keep any current comments|File is very low quality or outdated|File is named incorrectly or misleading|File is fake, infected, corrupt, or unusable|File is restricted copyright material|File needs custom comments below..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="收集导出">

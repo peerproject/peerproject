@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -344,10 +344,14 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
-		<button id="ID_IRC_CONNECT" text="Connect" tip="Kapcsolódás a IRC hálózathoz"/>
-		<button id="ID_IRC_DISCONNECT" text="Disconnect" tip="Lekapcsolódás az IRC hálózatról"/>
+		<button id="ID_IRC_SENDTEXT" text="Csevegés" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign/>
-		<button id="ID_IRC_SETTINGS" text="Settings" tip="IRC beállítások"/>
+		<button id="ID_IRC_CONNECT" text="Kapcsolódás" tip="Kapcsolódás a IRC hálózathoz"/>
+		<button id="ID_IRC_DISCONNECT" text="Lekapcsolódás" tip="Lekapcsolódás az IRC hálózatról"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Beállítások" tip="IRC beállítások"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -3311,7 +3315,7 @@
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Mégse"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Általános">
 	</dialog>
@@ -3942,15 +3946,15 @@
 		<control caption="Kapcsolódás"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Torrent vagy fájl letöltése">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Torrent vagy fájl letöltése">
 		<control/>
 		<control/>
-		<control caption="Írja ide a letöltendő fájl elérési útvonalát és nyomjon Entert."/>
+		<control caption="A weboldalakról is le tud tölteni és a p2p linkeket is kezeli. Írja ide a letöltendő fájl elérési útvonalát. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="BitTorrent fájlok: Egy torrent lehet egy .torrent fájl vagy egy HTTP link, ami elvezet a .torrent fájlhoz. A torrent elérési útvonalát csak másolja be a felső ablakba. Ha már rendelkezik .torrent fájllal, kattintson a Torrent megnyitása gombra:"/>
+		<control/>
 		<control/>
 		<control caption="Letöltés"/>
 		<control caption="Mégse"/>
-		<control caption="A PeerProject a weboldalakról is le tud tölteni (HTTP) és a p2p linkeket is kezeli (Magnet, Gnutella, eDonkey, mP2P)."/>
-		<control caption="BitTorrent fájlok: Egy torrent lehet egy .torrent fájl vagy egy HTTP link, ami elvezet a .torrent fájlhoz. A torrent elérési útvonalát csak másolja be a felső ablakba. Ha már rendelkezik .torrent fájllal, kattintson a Torrent megnyitása gombra:"/>
 		<control caption="Torrent megnyitása"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Új keresés|Újra keres|Könyvtárban keres">
@@ -4287,20 +4291,21 @@
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Fájl törlése">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Fájl törlése">
 		<control caption="Biztos törölni akarja ezt:"/>
 		<control/>
 		<control caption="Töröl"/>
 		<control caption="Mindet töröl"/>
 		<control caption="Mégse"/>
 		<control/>
-		<control caption="A PeerProject megjegyzi ezt a beállítást és figyelmeztet, amikor újra találkozna vele a keresés során:"/>
 		<control caption="Szellemfájl készítése"/>
-		<control caption="A törlés oka:"/>
-		<control caption="Törlés, de a megjegyzésem maradjon|Hibás az elnevezése, félrevezető|Gyenge a fájl minősége|Ez egy hamisítvány vagy simán használhatatlan|A régi megjegyzés cseréje egy újra"/>
+		<control caption="A PeerProject megjegyzi ezt a beállítást és figyelmeztet, amikor újra találkozna vele a keresés során:"/>
 		<control caption="Osztályozás:"/>
+		<control caption="A törlés oka:"/>
+		<control caption="!"/>
 		<control caption="(Nincs osztályzat)|Hamis/Hibás/Félrevezető|Gyenge|Átlagos|Jó|Remek|Kiváló"/>
-		<control caption="Rövid megjegyzés hozzáfűzése:"/>
+		<control caption="Törlés, de a megjegyzésem maradjon|Gyenge a fájl minősége|Hibás az elnevezése, félrevezető|Ez egy hamisítvány vagy simán használhatatlan|Restricted copyright material|A régi megjegyzés cseréje egy újra"/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Gyűjtemény exportálása">

@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_METAPANEL_H__D5B8BC2C_86FB_4B82_B0B9_F82623F9CB3F__INCLUDED_)
-#define AFX_METAPANEL_H__D5B8BC2C_86FB_4B82_B0B9_F82623F9CB3F__INCLUDED_
-
 #pragma once
 
 #include "MetaList.h"
@@ -55,5 +52,3 @@ public:
 protected:
     CBitmap m_bmMusicBrainz;
 };
-
-#endif // !defined(AFX_METAPANEL_H__D5B8BC2C_86FB_4B82_B0B9_F82623F9CB3F__INCLUDED_)

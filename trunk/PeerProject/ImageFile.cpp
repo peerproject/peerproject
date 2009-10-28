@@ -284,7 +284,7 @@ void CImageFile::Serialize(CArchive& ar)
 		DWORD nCompositeValue = ( m_nFlags << 16 ) | ( m_nComponents );
 		ar << nCompositeValue;
 
-		ar.Write( m_pImage, ( ( m_nWidth * m_nComponents + 3) & ~3 ) * m_nHeight );
+		ar.Write( m_pImage, ( ( m_nWidth * m_nComponents + 3 ) & ~3 ) * m_nHeight );
 	}
 	else
 	{
@@ -301,7 +301,7 @@ void CImageFile::Serialize(CArchive& ar)
 		// Clear high bits for components
 		m_nComponents = nCompositeValue & 0x0000FFFF;
 
-		int nPitch = ( ( m_nWidth * m_nComponents+ 3 ) & ~3 ) * m_nHeight;
+		int nPitch = ( ( m_nWidth * m_nComponents + 3 ) & ~3 ) * m_nHeight;
 
 		m_pImage = new BYTE[ nPitch  ];
 		ReadArchive( ar, m_pImage, nPitch );

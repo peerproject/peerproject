@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_PAGEPROFILEIDENTITY_H__C5556B79_CE0F_4636_93B4_2F4D0ECD6A11__INCLUDED_)
-#define AFX_PAGEPROFILEIDENTITY_H__C5556B79_CE0F_4636_93B4_2F4D0ECD6A11__INCLUDED_
-
 #pragma once
 
 #include "WndSettingsPage.h"
@@ -53,7 +50,7 @@ public:
 public:
 	//{{AFX_VIRTUAL(CIdentityProfilePage)
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual void OnOK();
 	//}}AFX_VIRTUAL
 
@@ -65,9 +62,4 @@ protected:
 	void GetGenderTranslations(CString& pMale, CString& pFemale);
 
 	DECLARE_MESSAGE_MAP()
-
 };
-
-//{{AFX_INSERT_LOCATION}}
-
-#endif // !defined(AFX_PAGEPROFILEIDENTITY_H__C5556B79_CE0F_4636_93B4_2F4D0ECD6A11__INCLUDED_)

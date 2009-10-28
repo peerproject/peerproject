@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default-en.xml r38 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r40 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -335,6 +335,17 @@
 		<rightAlign/>
 		<button id="ID_MEDIA_CLEAR" text="Očisti"/>
 		<button id="ID_MEDIA_SAVE" text="Spremi"/>
+	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="Spoji" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Isključi" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Postavke" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -2928,7 +2939,7 @@
 	<string id="16995" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
 	<string id="16996" value="Part of this file could not be played, you may need to download additional codecs."/>
 	<string id="16997" value="There is no file playing.Double-click a media file in your library to play it."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Playlista:"/>
 	<string id="17024" value="Započinjem spajanje na %s..."/>
 	<string id="17025" value="Ne mogu se spojiti sa %s."/>
@@ -3123,7 +3134,7 @@
 	<string id="20238" value="Odustani"/>
 </strings>
 
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Općenito">
 	</dialog>
@@ -3712,16 +3723,16 @@
 		<control caption="Spoji"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Skini Datoteku ili Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Skini Datoteku ili Torrent">
 		<control/>
 		<control/>
-		<control caption="Ako želite nešto skinuti s interneta PeerProject je prava stvar za vas. Samo upišite ili zalijepite URL ili URI u polje i pretisnite Enter."/>
+		<control caption="PeerProject može skinuti datoteku sa weba, i automatski potražiti i skinuti P2P linkove. Samo upišite ili zalijepite URL ili URI u polje. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="PeerProject još može skinuti BitTorrent datoteke.Torrent može biti xyz.torrent datoteka, ili HTTP link na .torrent datoteku.Za skinuti torrent HTTP link, zalijepi ga u gornji prostor.Ako već imate .torrent datoteku, kliknite na Otvori Torrent:"/>
+		<control/>
 		<control/>
 		<control caption="Skini"/>
 		<control caption="Odustani"/>
-		<control caption="PeerProject može skinuti datoteku sa weba (HTTP), i automatski potražiti i skinuti P2P linkove (Magnet, Gnutella, eDonkey2000, mP2P)."/>
-		<control caption="PeerProject još može skinuti BitTorrent datoteke.Torrent može biti xyz.torrent datoteka, ili HTTP link na .torrent datoteku.Za skinuti torrent HTTP link, zalijepi ga u gornji prostor.Ako već imate .torrent datoteku, kliknite na Otvori Torrent:"/>
-		<control caption="Otvori _Torrent..."/>
+		<control caption="Otvori _Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Nova Potraga|Ponovi Potragu|Nađi u Kolekciji">
 		<control/>
@@ -4054,19 +4065,21 @@
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuBuBuBuStEd" caption="Obriši Datoteku">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Obriši Datoteku">
 		<control caption="Jeste li sigurni da želite obrisati:"/>
 		<control/>
 		<control caption="Obriši"/>
 		<control caption="Obriši Sve"/>
 		<control caption="Odustani"/>
 		<control/>
-		<control caption="PeerProject može zapamtiti ovu datoteku i upozoriti vas ako ponovno naiđete na nju. Odaberite razlog zašto želite obrisati ovu datoteku:"/>
 		<control caption="Ne želim reći razlog."/>
-		<control caption="Datoteka ima krivo ime, i može zavesti korisnike."/>
-		<control caption="Jako je loše kvalitete."/>
-		<control caption="Ova datoteka je lažnjak ili ima grešku, uglavnom nekorisna je."/>
-		<control caption="Možete napisati kratki opis zašto je ova datoteka loša:"/>
+		<control caption="PeerProject može zapamtiti ovu datoteku i upozoriti vas ako ponovno naiđete na nju. Odaberite razlog zašto želite obrisati ovu datoteku:"/>
+		<control caption="File rating:"/>
+		<control caption="Reason for deleting:"/>
+		<control caption="!"/>
+		<control caption="(No Rating)|Fake/Corrupt/Misleading|Poor|Average|Good|Very Good|Excellent"/>
+		<control caption="Just deleting, keep any current comments|File is very low quality or outdated|File is named incorrectly or misleading|File is fake, infected, corrupt, or unusable|File is restricted copyright material|File needs custom comments below..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Export Folder">

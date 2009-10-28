@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -339,9 +339,13 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Bisedo" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Lidhu" tip="Lidhu te IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Shkëputu" tip="Shkëputu nga IRC"/>
-		<rightAlign/>
+		<separator/>
 		<button id="ID_IRC_SETTINGS" text="Vendosje" tip="Konfiguro Vendosjet e IRC"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
@@ -2966,12 +2970,12 @@
 	<string id="16995" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
 	<string id="16996" value="Part of this file could not be played, you may need to download additional codecs."/>
 	<string id="16997" value="There is no file playing.  Double-click a media file in your library to play it."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="LISTA:"/>
-	<string id="17017" value="Dërgo:"/>
-	<string id="17018" value="Mirë se erdhe te Chat-i i PeerProject-s."/>
-	<string id="17019" value="Të lutem respekto të tjerët kur e përdor këtë shërbim"/>
-	<string id="17020" value="Shto"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="Lista:"/>
+	<string id="17016" value="Mirë se erdhe te Chat-i i PeerProject-s."/>
+	<string id="17017" value="Të lutem respekto të tjerët kur e përdor këtë shërbim"/>
+	<string id="17018" value="Dërgo:"/>
+	<string id="17020" value="Shto..."/>
 	<string id="17021" value="Fshije"/>
 	<string id="17022" value="Përdorues"/>
 	<string id="17023" value="Kanale"/>
@@ -3093,7 +3097,7 @@
 	<string id="20243" value="Vijo"/>
 	<string id="20244" value="&amp;Mbaj mend zgjedhjen time herën tjetër"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Përgjithësi">
 	</dialog>
@@ -3720,24 +3724,24 @@
 		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey"/>
 		<control caption="_Shtype Ultrapikën"/>
 		<control caption="Lidhu"/>
-		<control caption="Anulo"/>
+		<control caption="_Anulo"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Shkarkoni një Skedë ose Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Shkarkoni një Skedë ose Torrent">
 		<control/>
 		<control/>
-		<control caption="Shkarkimi i skedave me PeerProject është mjaft i lehtë. Thjesht shkruani ose ngjisni më poshtë një URL/URI që përshkruan skedën dhe shtypni Enter."/>
-		<control/>
-		<control caption="Shkarko"/>
-		<control caption="Anulo"/>
-		<control caption="PeerProject mund të shkarkojë skedat nga rrjeti (HTTP), dhe automatikisht të kërkojë e shkarkojë nga linket P2P (Magnet, Gnutella, eDonkey, mP2P)."/>
+		<control caption="PeerProject mund të shkarkojë skedat nga rrjeti, dhe automatikisht të kërkojë e shkarkojë nga linket P2P. Thjesht shkruani ose ngjisni më poshtë një URL/URI që përshkruan skedën dhe shtypni Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
 		<control caption="PeerProject mund të shkarkojë edhe skedat e BitTorrent. Torrenti përshkruhet nga një skedë .torrent, ose një link HTTP i skedës .torrent. Që të shkarkoni torrent nga një link HTTP, vendoseni atë më sipër. Nëse keni një skedë .torrent, klikoni Hap Torrent."/>
-		<control caption="Hap _Torrent..."/>
+		<control/>
+		<control/>
+		<control caption="_Shkarko"/>
+		<control caption="_Anulo"/>
+		<control caption="_Hap Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Kërkim i Ri|Kërko Përsëri|Gjej në Librari">
 		<control/>
 		<control/>
-		<control caption="Kërko"/>
-		<control caption="Anulo"/>
+		<control caption="_Kërko"/>
+		<control caption="_Anulo"/>
 	</dialog>
 	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filtroni Krahasimet">
 		<control caption="Trego vetëm krahasimet me _fjalët:"/>
@@ -4067,20 +4071,21 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Fshije Skedën">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Fshije Skedën">
 		<control caption="A jeni i sigurt se doni të fshini:"/>
 		<control/>
 		<control caption="Fshije"/>
 		<control caption="Fshije Gjith."/>
 		<control caption="Anulo"/>
 		<control/>
-		<control caption="PeerProject mund ta mbajë mend këtë skedë dhe t'ju lajmërojë nëse haset përsëri në një tjetër kërkim. Ajo krijon një skedë fantazmë me komentet dhe vlerësimin tuaj."/>
 		<control caption="Krijo një skedë fantazmë"/>
-		<control caption="Arsyeja e fshirjes:"/>
-		<control caption="Thjesht po e fshij, mbaji komentet|Kjo skedë është emërtuar jokorrekt, dhe mund të jetë keqprijëse|Kjo skedë ka cilësi shumë të dobët|Kjo skedë është false ose e korruptuar, apo disi e papërdorshme|Zëvendëso komentet e mia me të rejat"/>
+		<control caption="PeerProject mund ta mbajë mend këtë skedë dhe t'ju lajmërojë nëse haset përsëri në një tjetër kërkim. Ajo krijon një skedë fantazmë me komentet dhe vlerësimin tuaj."/>
 		<control caption="Vlerësimi i skedës:"/>
+		<control caption="Arsyeja e fshirjes:"/>
+		<control caption="!"/>
 		<control caption="(Pa vlerësim)|False/Korruptuar/Keqprijëse|Dobët|Mesatar|Mirë|Shumë mirë|Shkëlqyer"/>
-		<control caption="Shkruani një shënim të shkurtër që të përshkruajë pse kjo skedë po fshihet:"/>
+		<control caption="Thjesht po e fshij, mbaji komentet|Kjo skedë ka cilësi shumë të dobët|Kjo skedë është emërtuar jokorrekt, dhe mund të jetë keqprijëse|Kjo skedë është false ose e korruptuar, apo disi e papërdorshme|Restricted copyright material|Zëvendëso komentet e mia me të rejat..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Eksporto Koleksionin">

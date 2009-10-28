@@ -91,16 +91,14 @@ protected:
 	void			OnFinishedTorrentBlock(DWORD nBlock);
 	virtual void	Serialize(CArchive& ar, int nVersion);
 private:
-	BOOL			GenerateTorrentDownloadID();	//Generate Peer ID
+	BOOL			GenerateTorrentDownloadID();			//Generate Peer ID
+	TCHAR			GenerateCharacter() const;
 	DWORD			GetRetryTime() const;
 	void			SendStarted(DWORD nNumWant);
 	void			SendUpdate(DWORD nNumWant);
 	void			SendStopped();
-	TCHAR			GenerateCharacter() const;
-	// Add tracker request for counting
-	void			Add(CBTTrackerRequest* pRequest);
-	// Remove tracker request
-	void			Remove(CBTTrackerRequest* pRequest);
+	void			Add(CBTTrackerRequest* pRequest);		// Add tracker request for counting
+	void			Remove(CBTTrackerRequest* pRequest);	// Remove tracker request
 
 	friend class CBTTrackerRequest;	// Add(),Remove()
 };

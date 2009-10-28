@@ -24,9 +24,9 @@
 #include "Settings.h"
 #include "Application.h"
 #include "CoolInterface.h"
+#include "Skin.h"
 #include "Library.h"
 #include "Plugins.h"
-#include "Skin.h"
 #include "ComMenu.h"
 #include "ComToolbar.h"
 #include "WndMain.h"
@@ -45,7 +45,7 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CApplication, CComObject)
 
 // {E9B2EF9B-4A0C-451e-801F-257861B87FAD}
-IMPLEMENT_OLECREATE_FLAGS(CApplication, "Shareaza.Application", afxRegFreeThreading|afxRegApartmentThreading, 0xe9b2ef9b, 0x4a0c, 0x451e, 0x80, 0x1f, 0x25, 0x78, 0x61, 0xb8, 0x7f, 0xad);
+IMPLEMENT_OLECREATE_FLAGS(CApplication, "PeerProject.Application", afxRegFreeThreading|afxRegApartmentThreading, 0xe9b2ef9b, 0x4a0c, 0x451e, 0x80, 0x1f, 0x25, 0x78, 0x61, 0xb8, 0x7f, 0xad);
 
 BEGIN_MESSAGE_MAP(CApplication, CComObject)
 END_MESSAGE_MAP()
@@ -123,7 +123,7 @@ STDMETHODIMP CApplication::XApplication::CheckVersion(BSTR sVersion)
 	if ( swscanf( sVersion, L"%i.%i.%i.%i", &nDesired[3], &nDesired[2],
 		&nDesired[1], &nDesired[0] ) != 4 ) return E_INVALIDARG;
 
-	// NOTE: Assumes each version component is 8 bit
+	// Note: Assumes each version component is 8 bit
 	BOOL bOk = ( theApp.m_nVersion[0] << 24 ) + ( theApp.m_nVersion[1] << 16 ) + ( theApp.m_nVersion[2] << 8 ) + theApp.m_nVersion[3]
 			>= ( nDesired[3] << 24 ) + ( nDesired[2] << 16 ) + ( nDesired[1] << 8 ) + nDesired[0];
 
@@ -323,4 +323,3 @@ STDMETHODIMP CApplication::XUserInterface::GetToolbar(BSTR bsName, VARIANT_BOOL 
 
 	return S_OK;
 }
-

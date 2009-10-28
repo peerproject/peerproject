@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_UPLOADTRANSFERHTTP_H__FFC5B664_6827_41EC_87E2_033318A36E0A__INCLUDED_)
-#define AFX_UPLOADTRANSFERHTTP_H__FFC5B664_6827_41EC_87E2_033318A36E0A__INCLUDED_
-
 #pragma once
 
 #include "UploadTransfer.h"
@@ -98,5 +95,3 @@ protected:
 public:
 	inline BOOL IsBackwards() const { return m_bBackwards; }
 };
-
-#endif // !defined(AFX_UPLOADTRANSFERHTTP_H__FFC5B664_6827_41EC_87E2_033318A36E0A__INCLUDED_)

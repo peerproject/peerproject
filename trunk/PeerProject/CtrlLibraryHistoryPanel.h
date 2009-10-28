@@ -22,7 +22,7 @@
 #pragma once
 
 #include "SharedFile.h"
-#include "CtrlPanelClass.h"
+#include "CtrlPanel.h"
 
 
 class CLibraryHistoryPanel : public CPanelCtrl

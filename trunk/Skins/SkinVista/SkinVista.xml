@@ -133,7 +133,7 @@
   <color name="ResizeBar.Highlight"			value="FDFCFB"/>
   <color name="System.Environment.3DShadow" 		value="D8D7D6"/>
   <color name="System.Environment.3DHighlight"		value="FFFFFF"/>
-  <color name="System.Environment.Borders" 		value=" "/>
+  <!--color name="System.Environment.Borders" 		value=" "-->
 </colorScheme>
 
 <watermarks>
@@ -173,17 +173,17 @@
   <watermark target="CSearchWnd.Full.Toolbar"		path="ToolbarLt.png"/>
   <watermark target="CSearchWnd.Panel.Toolbar"		path="Toolbar.png"/>
   <watermark target="CSearchPanel"			path="Vista\SidebarHeader.png"/>
-  <watermark target="CSearchPanel.Footer"		path="Vista\SidebarFooter.png"/>
+  <watermark target="CSearchPanel.Footer"		path="Vista\SidebarFooter.jpg"/>
   <watermark target="CHomePanel"			path="Vista\SidebarHeader.png"/>
-  <watermark target="CHomePanel.Footer" 		path="Vista\SidebarFooter.png"/>
+  <watermark target="CHomePanel.Footer" 		path="Vista\SidebarFooter.jpg"/>
   <!--watermark target="CHomeBox"			path=""-->
   <watermark target="CIRCPanel"				path="Vista\SidebarHeader.png"/>
-  <watermark target="CIRCPanel.Footer" 			path="Vista\SidebarFooter.png"/>
+  <watermark target="CIRCPanel.Footer" 			path="Vista\SidebarFooter.jpg"/>
   <watermark target="CIRCWaterMarkPanel"		path="Vista\MenuBkg.png"/>
   <watermark target="CIRCHeaderPanel"			path="BrowseBanner.png"/>
   <watermark target="CLibraryHeaderPanel"		path="BrowseBanner.png"/>
   <watermark target="CBrowseHeaderCtrl.Toolbar" 	path="BrowseBanner.png"/>
-  <!--watermark target="CPanelWnd.Caption" 		path="Footer.png"-->
+  <!--watermark target="CPanelWnd.Caption" 		path=""-->
   <watermark target="CIRCUsersBox.Caption"		path="Vista\SidebarCaption.png"/>
   <watermark target="CIRCChannelsBox.Caption"		path="Vista\SidebarCaptionAlt.png"/>
   <watermark target="CHomeConnectionBox.Caption" 	path="Vista\SidebarCaptionAlt.png"/>
@@ -1682,13 +1682,13 @@
  <part name="_ID_TAB_LIBRARY.Checked"	rect="304,24,86,24"/>
  <part name="_ID_TAB_LIBRARY.Hover"	rect="304,48,86,24"/>
  <part name="_ID_TAB_LIBRARY.Down"	rect="304,72,86,24"/>
- <part name="_ID_TAB_MEDIA.Up"  	rect="390,0,70,24"/>
- <part name="_ID_TAB_MEDIA.Checked"	rect="390,24,70,24"/>
- <part name="_ID_TAB_MEDIA.Hover"	rect="390,48,70,24"/>
- <part name="_ID_TAB_MEDIA.Down"	rect="390,72,70,24"/>
+ <part name="_ID_TAB_MEDIA.Up"  	rect="390,0,74,24"/>
+ <part name="_ID_TAB_MEDIA.Checked"	rect="390,24,74,24"/>
+ <part name="_ID_TAB_MEDIA.Hover"	rect="390,48,74,24"/>
+ <part name="_ID_TAB_MEDIA.Down"	rect="390,72,74,24"/>
 </parts>
 <anchors>
- <anchor name="Background"		rect="0,0,476,28"/>
+ <anchor name="Background"		rect="0,0,472,28"/>
  <anchor name="_ID_TAB_HOME"		rect="6,2,70,24"/>
  <anchor name="_ID_TAB_SEARCH"		rect="76,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS"	rect="146,2,70,24"/>
@@ -1733,7 +1733,7 @@
  <part name="_ID_TAB_MEDIA.Down"	rect="356,72,68,24"/>
 </parts>
 <anchors>
- <anchor name="Background"		rect="0,0,476,28"/>
+ <anchor name="Background"		rect="0,0,432,28"/>
  <anchor name="_ID_TAB_HOME"		rect="6,2,68,24"/>
  <anchor name="_ID_TAB_SEARCH"		rect="74,2,68,24"/>
  <anchor name="_ID_TAB_TRANSFERS"	rect="142,2,68,24"/>
@@ -1746,7 +1746,7 @@
 <!-- Chinese Simple -->
 
 <windowSkin>
-<image type="image" language="zhs" path="Vista\RibbonTabs_chs.png"/>
+<image type="image" language="zhs" path="Vista\RibbonTabs_zhs.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>
@@ -1791,7 +1791,7 @@
 <!-- Chinese Traditional -->
 
 <windowSkin>
-<image type="image" language="zht" path="Vista\RibbonTabs_tw.png"/>
+<image type="image" language="zht" path="Vista\RibbonTabs_zht.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Windowed"/>

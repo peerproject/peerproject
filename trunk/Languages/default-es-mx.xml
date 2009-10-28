@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
-<!-- PeerProject Default Mexican Spanish Skin File -->
+<!-- PeerProject Default Spanish (Mexican) Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -342,6 +342,17 @@
 		<rightAlign/>
 		<button id="ID_MEDIA_CLEAR" text="Limpiar"/>
 		<button id="ID_MEDIA_SAVE" text="Guardar"/>
+	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Enviar" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Cerrar" tip="Exit Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="Conectar" tip="Connect to IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Desconectar" tip="Disconnect from IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Configuración" tip="Configure IRC Settings"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
 	<toolbar name="CNeighboursWnd.Basic">
@@ -3039,8 +3050,8 @@
 	<string id="16995" value="Puede estar corrupto, o usted no tiene los Codecs necesarios para su reproducción."/>
 	<string id="16996" value="Parte de este archivo no pudo ser reproducido. Usted puede necesitar Codecs adicionales."/>
 	<string id="16997" value="No hay ningún archivo reproduciendose.  Haz doble click a un archivo de media en tu librería para reproducirlo."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
-	<string id="16999" value="LISTA DE REPRODUCCIÓN"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16999" value="Lista de Reproducción"/>
 	<string id="17024" value="Iniciando conexión a %s..."/>
 	<string id="17025" value="Fué imposible conectar con %s."/>
 	<string id="17026" value="Pidiendo un push de %s..."/>
@@ -3257,7 +3268,7 @@
 	<string id="20237" value="Aceptar"/>
 	<string id="20238" value="Cancelar"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="General">
 	</dialog>
@@ -3849,16 +3860,16 @@
 		<control caption="Conectar"/>
 		<control caption="Cancelar"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Descargar Archivo O Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Descargar Archivo O Torrent">
 		<control/>
 		<control/>
-		<control caption="Descargar archivos con PeerProject es fácil. Simplemente escriba o pegue el URI del archivo en le recuadro, y haz click en Descargar."/>
+		<control caption="Puede descargar archivos de la web, o usando enlaces de P2P para buscarlos en la red.  Simplemente escriba o pegue el URI del archivo en le recuadro, y haz click en Descargar. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="Para descargar y compartir archivos de BitTorrent, los torrent pueden ser un archivo o un URL(link HTTP). Para decargarlo de un enlace, póngalo en el recuadro anterior. Si ya tienes el archivo del torrent, haz click aqui."/>
+		<control/>
 		<control/>
 		<control caption="Descargar"/>
 		<control caption="Cancelar"/>
-		<control caption="PeerProject puede descargar archivos de la web (HTTP), o usando enlaces de P2P para buscarlos en la red (Magnet, Gnutella, eDonkey2000, mP2P)."/>
-		<control caption="PeerProject también puede descargar y compartir archivos de BitTorrent. Los torrent pueden ser un archivo o un URL. Para decargarlo de un enlace, póngalo en el recuadro. Si ya tienes el archivo del torrent, haz click en Abrir Torrent:"/>
-		<control caption="Abrir _Torrent..."/>
+		<control caption="Abrir _Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Buscar|Buscar de nuevo|Buscar en Colección">
 		<control/>
@@ -4194,20 +4205,21 @@
 		<control caption="Aceptar"/>
 		<control caption="Cancelar"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Eliminar Archivo">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Eliminar Archivo">
 		<control caption="¿Estás seguro de eliminar?"/>
 		<control/>
 		<control caption="Eliminar"/>
 		<control caption="Eliminar Todos"/>
 		<control caption="Cancelar"/>
 		<control/>
-		<control caption="PeerProject puede recordarse de este archivo, y advertirle si aparece de nuevo en una búsqueda.  Por favor seleccione la razó de eliminar este archivo:"/>
 		<control caption="Crear un archivo fantasma (informativo)"/>
-		<control caption="La razón para el borrado"/>
-		<control caption="Suprimir, manteniendo mis comentarios|Este archivo tiene un nombre incorrecto, puede inducir a errores|Este archivo es de muy mala calidad|Este archivo es falso, está dañado o es inutilizable|Suprimir mis comentarios con estos nuevos"/>
+		<control caption="PeerProject puede recordar este archivo, y advertirle si aparece de nuevo en una búsqueda. Creará un archivo fantasma con tus comentarios y puntuaciones:"/>
 		<control caption="Valoración del archivo:"/>
+		<control caption="La razón para el borrado"/>
+		<control caption="!"/>
 		<control caption="(Sin valoración)|Falso/Corrupto/Erroneo|Malo|Promedio|Bueno|Muy Bueno|Excelente."/>
-		<control caption="Puedes escribir una pequeña descripción de porque el archivo es malo:"/>
+		<control caption="Suprimir, manteniendo mis comentarios|Este archivo es de muy mala calidad|Este archivo tiene un nombre incorrecto|Este archivo es falso, dañado, o inutilizable|Restricted copyright material|Suprimir mis comentarios con estos nuevos..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Exportar Carpeta">

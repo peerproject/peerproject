@@ -435,8 +435,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			return StartNextFragment();
 		}
 		else if ( FTPisOK( strHeader ) )		// Extra headers
-			// Bypass
-			return TRUE;
+			return TRUE;	// Bypass
 		// Wrong login, password or other errors
 		// 530: This FTP server is anonymous only.
 		// 530: Login incorrect.
@@ -665,12 +664,12 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			// Downloading
 			return TRUE;
 		}
-		else if ( strHeader == _T("226") )			// Transfer completed
+		else if ( strHeader == _T("226") )		// Transfer completed
 		{
 			// Waiting for last chunk
 			return TRUE;
 		}
-		else if ( strHeader == _T("426") )			// Transfer completed
+		else if ( strHeader == _T("426") )		// Transfer completed
 		{
 			// Aborting
 			m_RETR.Close();
@@ -730,20 +729,20 @@ BOOL CDownloadTransferFTP::SendCommand(LPCTSTR /*args*/)
 		// Selecting passive or active mode
 		if ( m_bPassive )
 			strLine = _T("PASV");
-/*		else
-		{
-			SOCKADDR_IN host;
-			if ( !Handshakes.Add( &m_LIST, host ) )
-			{
-				// Unexpected errors
-				Close();
-				return FALSE;
-			}
-			CString args;
-			MakePORTArgs( host, args );
-			strLine = _T("PORT ");
-			strLine += args;
-		}*/
+		//else
+		//{
+		//	SOCKADDR_IN host;
+		//	if ( !Handshakes.Add( &m_LIST, host ) )
+		//	{
+		//		// Unexpected errors
+		//		Close();
+		//		return FALSE;
+		//	}
+		//	CString args;
+		//	MakePORTArgs( host, args );
+		//	strLine = _T("PORT ");
+		//	strLine += args;
+		//}
 		break;
 
 	case ftpSIZE:
@@ -773,20 +772,20 @@ BOOL CDownloadTransferFTP::SendCommand(LPCTSTR /*args*/)
 		// Selecting passive or active mode
 		if ( m_bPassive )
 			strLine = _T("PASV");
-/*		else
-		{
-			SOCKADDR_IN host;
-			if ( !Handshakes.Add( &m_RETR, host ) )
-			{
-				// Unexpected errors
-				Close();
-				return FALSE;
-			}
-			CString args;
-			MakePORTArgs( host, args );
-			strLine = _T("PORT ");
-			strLine += args;
-		}*/
+		//else
+		//{
+		//	SOCKADDR_IN host;
+		//	if ( !Handshakes.Add( &m_RETR, host ) )
+		//	{
+		//		// Unexpected errors
+		//		Close();
+		//		return FALSE;
+		//	}
+		//	CString args;
+		//	MakePORTArgs( host, args );
+		//	strLine = _T("PORT ");
+		//	strLine += args;
+		//}
 		break;
 
 	case ftpRETR_REST:

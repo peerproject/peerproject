@@ -19,17 +19,10 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-// Make the compiler only include the lines here once, this is the same thing as pragma once
-#if !defined(AFX_NEIGHBOURSWITHED2K_H__0165D8B7_0351_4EF7_B669_73D0072F5107__INCLUDED_)
-#define AFX_NEIGHBOURSWITHED2K_H__0165D8B7_0351_4EF7_B669_73D0072F5107__INCLUDED_
-
-// Only include the lines beneath this one once
 #pragma once
 
-// Copy in the contents of these files here before compiling
 #include "NeighboursWithG2.h"
 
-// Tell the compiler these classes exist, and it will find out more about them soon
 class CEDNeighbour;
 class CDownload;
 
@@ -38,13 +31,11 @@ class CNeighboursWithED2K : public CNeighboursWithG2 // Continue the inheritance
 {
 
 public:
-
 	// Set up and clean up anything CNeighboursWithED2K adds to the CNeighbours class
 	CNeighboursWithED2K(); // Zero the memory of the sources arrays
 	virtual ~CNeighboursWithED2K();
 
 public:
-
 	// Get an eDonkey2000 neighbour from the list that's through the handshake and has a client ID
 	CEDNeighbour* GetDonkeyServer() const;
 
@@ -58,11 +49,7 @@ public:
 
 // Classes that inherit from this one can get to protected members, but unrelated classes can't
 protected:
-
 	// Hash arrays used by FindDonkeySources
 	DWORD            m_tEDSources[256]; // 256 MD4 hashes
     Hashes::Ed2kHash m_oEDSources[256];
 };
-
-// End the group of lines to only include once, pragma once doesn't require an endif at the bottom
-#endif // !defined(AFX_NEIGHBOURSWITHED2K_H__0165D8B7_0351_4EF7_B669_73D0072F5107__INCLUDED_)

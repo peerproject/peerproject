@@ -61,7 +61,7 @@ HKCU
 						ForceRemove val '.sxc' = s '{C4CBDA0D-CAD2-44E5-92CD-9F6E76BC56BC}'
 						ForceRemove val '.stc' = s '{C4CBDA0D-CAD2-44E5-92CD-9F6E76BC56BC}'
 					}
-					LibraryBuilder
+					NoRemove LibraryBuilder
 					{
 						ForceRemove val '.doc' = s '{C4CBDA0D-CAD2-44E5-92CD-9F6E76BC56BC}'
 						ForceRemove val '.docx' = s '{C4CBDA0D-CAD2-44E5-92CD-9F6E76BC56BC}'

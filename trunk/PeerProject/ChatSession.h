@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_CHATSESSION_H__F75BAA22_513A_4569_9BFB_90A053662CDB__INCLUDED_)
-#define AFX_CHATSESSION_H__F75BAA22_513A_4569_9BFB_90A053662CDB__INCLUDED_
-
 #pragma once
 
 #include "Connection.h"
@@ -91,7 +88,6 @@ protected:
 	BOOL	ReadPackets();
 	void	PostOpenWindow();
 protected:
-
 	BOOL	SendChatMessage(CEDPacket* pPacket);
 	BOOL	OnChatMessage(CEDPacket* pPacket);
 	BOOL	OnEstablished();
@@ -102,7 +98,6 @@ protected:
 	BOOL	OnChatRequest(CG2Packet* pPacket);
 	bool	OnChatAnswer(CG2Packet* pPacket);
 	bool	OnChatMessage(CG2Packet* pPacket);
-
 };
 
 enum
@@ -110,5 +105,3 @@ enum
 	cssNull, cssConnecting, cssRequest1, cssHeaders1, cssRequest2, cssHeaders2,
 	cssRequest3, cssHeaders3, cssHandshake, cssActive, cssAway
 };
-
-#endif // !defined(AFX_CHATSESSION_H__F75BAA22_513A_4569_9BFB_90A053662CDB__INCLUDED_)

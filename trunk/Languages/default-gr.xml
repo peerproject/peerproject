@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -349,9 +349,13 @@
 	-->
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Συνομιλία" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Σύνδεση" tip="Σύνδεση στο IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Αποσύνδεση" tip="Αποσύνδεση από το IRC"/>
-		<rightAlign/>
+		<separator/>
 		<button id="ID_IRC_SETTINGS" text="Ρυθμίσεις" tip="Ρυθμίσεις του IRC"/>
 	</toolbar>
 	<!-- NEIGHBOURS WINDOW -->
@@ -3169,7 +3173,7 @@
 	<string id="16995" value="Το αρχείο ίσως είναι κατεστραμμένο ή ίσως δεν έχετε τους αναγκαίους codecs για την αναπαραγωγή."/>
 	<string id="16996" value="Αδυναμία αναπαραγωγής τμήματος αυτού του αρχείου, ίσως να χρειάζεται να λάβετε επιπλέον codecs."/>
 	<string id="16997" value="Κανένα αρχείο υπό αναπαραγωγή. Για αναπαραγωγή, διπλό κλικ σε ένα αρχείο στη Βιβλιοθήκη."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="ΛΙΣΤΑ ΑΝΑΠΑΡΑΓΩΓΗΣ"/>
 	<string id="17024" value="Εγκαινίαση σύνδεσης με %s..."/>
 	<string id="17025" value="Αδυναμία δημιουργίας σύνδεσης με %s."/>
@@ -3387,7 +3391,7 @@
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Άκυρο"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Γενικά">
 	</dialog>
@@ -4018,16 +4022,16 @@
 		<control caption="Σύνδεση"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Λήψη Αρχείου ή Torrent">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Λήψη Αρχείου ή Torrent">
 		<control/>
 		<control/>
-		<control caption="Η λήψη οποιουδήποτε αρχείου με το PeerProject είναι εύκολη. Απλά εισάγετε ή επικολλήστε στο πεδίο το URL ή URI του αρχείου και πατήστε Enter."/>
+		<control caption="Το PeerProject μπορεί να λάβει αρχεία από τον Ιστό και αυτόματα να ψάξει και να κατεβάσει συνδέσμους P2P. Απλά εισάγετε ή επικολλήστε στο πεδίο το URL ή URI του αρχείου και πατήστε Enter. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="Μπορεί επίσης να λάβει αρχεία BitTorrent. Ένα torrent δηλώνετε με ένα αρχείο τύπου .torrent ή έναν HTTP σύνδεσμο προς αυτό. Αν έχετε τον σύνδεσμο, επικολλήστε τον στο παραπάνω πεδίο. Αν έχετε το αρχείο, κλικ στο Άνοιγμα Torrent:"/>
+		<control/>
 		<control/>
 		<control caption="Λήψη"/>
 		<control caption="Άκυρο"/>
-		<control caption="Το PeerProject μπορεί να λάβει αρχεία από τον Ιστό (HTTP) και αυτόματα να ψάξει και να κατεβάσει συνδέσμους P2P (Magnet, Gnutella, eDonkey, mP2P)."/>
-		<control caption="Μπορεί επίσης να λάβει αρχεία BitTorrent. Ένα torrent δηλώνετε με ένα αρχείο τύπου .torrent ή έναν HTTP σύνδεσμο προς αυτό. Αν έχετε τον σύνδεσμο, επικολλήστε τον στο παραπάνω πεδίο. Αν έχετε το αρχείο, κλικ στο Άνοιγμα Torrent:"/>
-		<control caption="Άνοιγμα _Torrent..."/>
+		<control caption="Άνοιγμα _Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Νέα Αναζήτηση|Επαναζήτηση|Εύρεση στη Βιβλιοθήκη">
 		<control/>
@@ -4363,20 +4367,21 @@
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Διαγραφή αρχείου">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Διαγραφή αρχείου">
 		<control caption="Θέλετε σίγουρα να διαγράψετε αυτό το αρχείο;"/>
 		<control/>
 		<control caption="Διαγραφή"/>
 		<control caption="Διαγραφή Όλων"/>
 		<control caption="Άκυρο"/>
 		<control/>
-		<control caption="Το PeerProject μπορεί να απομνημονεύσει αυτό το αρχείο και να σας προειδοποιήσει αν το ξανασυναντήσετε σε αναζήτηση. Θα δημιουργήσει ένα αρχείο φάντασμα με τα παρακάτω σχόλια και τη βαθμολογία σας."/>
 		<control caption="Δημιουργία αρχείου φαντάσματος"/>
-		<control caption="Ο λόγος της διαγραφής:"/>
-		<control caption="Διαγραφή, αλλά διατήρηση σχολίων|Αυτό το αρχείο έχει λάθος όνομα που παραπλανά|Αυτό το αρχείο είναι πολύ χαμηλής ποιότητας|Αυτό το αρχείο είναι ψεύτικο ή φθαρμένο ή για άλλον λόγο μη χρησιμοποιήσιμο|Αντικατάσταση των σχολίων με τα νέα"/>
+		<control caption="Το PeerProject μπορεί να απομνημονεύσει αυτό το αρχείο και να σας προειδοποιήσει αν το ξανασυναντήσετε σε αναζήτηση. Θα δημιουργήσει ένα αρχείο φάντασμα με τα παρακάτω σχόλια και τη βαθμολογία σας."/>
 		<control caption="Βαθμολόγηση αρχείου:"/>
+		<control caption="Ο λόγος της διαγραφής:"/>
+		<control caption="!"/>
 		<control caption="(Χωρίς Βαθμολόγηση)|Ψεύτικο/Φθαρμένο/Παραπλαν.|Φτωχό|Μέτριο|Καλό|Πολύ Καλό|Έξοχο"/>
-		<control caption="Μπορείτε να εξηγήσετε σύντομα γιατί διαγράφετε αυτό το αρχείο:"/>
+		<control caption="Διαγραφή, αλλά διατήρηση σχολίων|Αυτό το αρχείο είναι πολύ χαμηλής ποιότητας|Αυτό το αρχείο έχει λάθος όνομα που παραπλανά|Αυτό το αρχείο είναι ψεύτικο ή φθαρμένο ή για άλλον λόγο μη χρησιμοποιήσιμο|Restricted copyright material|Αντικατάσταση των σχολίων με τα νέα"/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Εξαγωγή Συλλογής">

@@ -172,22 +172,22 @@ void CSplashDlg::DoPaint(CDC* pDC)
 	UINT nFormat = DT_LEFT|DT_SINGLELINE|DT_VCENTER|DT_NOPREFIX;
 
 	m_dcBuffer2.SetTextColor( RGB( 120, 40, 10 ) );				// Text Outline/Fade
-	rc.left -= 1;
-	rc.top  += 2;
+	rc.left--;
+	rc.top += 2;
 	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
-	rc.top  -= 4;
+	rc.top -= 4;
 	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
 	rc.left += 2;
 	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
-	rc.left += 1;
-	rc.top  += 5;
+	rc.left++;
+	rc.top += 5;
 	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
-	rc.left -= 1;
-	rc.top  -= 1;
+	rc.left--;
+	rc.top--;
 	m_dcBuffer2.SetTextColor( RGB( 40, 10, 0 ) );				// Text Outline/Shadow
 	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
-	rc.left -= 1;
-	rc.top  -= 2;
+	rc.left--;
+	rc.top -= 2;
 
 	m_dcBuffer2.SetTextColor( RGB( 255, 255, 255 ) );			// Text Color
 	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );

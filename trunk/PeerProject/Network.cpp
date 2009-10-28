@@ -101,17 +101,14 @@ BOOL CNetwork::IsSelfIP(IN_ADDR nAddress) const
 		return TRUE;
 
 	if ( nAddress.s_addr == INADDR_ANY || nAddress.s_addr == INADDR_NONE )
-	{
 		return FALSE;
-	}
+
 	if ( nAddress.s_addr == m_pHost.sin_addr.s_addr )
-	{
 		return TRUE;
-	}
+
 	if ( nAddress.s_net == 127 )
-	{
 		return TRUE;
-	}
+
 	return ( m_pHostAddresses.Find( nAddress.s_addr ) != NULL );
 }
 
@@ -231,9 +228,7 @@ BOOL CNetwork::Connect(BOOL bAutoConnect)
 	Settings.Live.AutoClose = FALSE;
 
 	if ( bAutoConnect )
-	{
 		m_bAutoConnect = TRUE;
-	}
 
 	// If we are already connected exit.
 	if ( IsConnected() )
@@ -341,9 +336,7 @@ BOOL CNetwork::Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNam
 	if ( nColon >= 0 )
 	{
 		if ( _stscanf( strHost.Mid( nColon + 1 ), _T("%i"), &nPort ) == 1 )
-		{
 			pHost->sin_port = htons( u_short( nPort ) );
-		}
 
 		strHost = strHost.Left( nColon );
 	}
@@ -1014,17 +1007,13 @@ void CNetwork::RunQueryHits()
 		case 0:
 			// Update downloads
 			if ( Downloads.OnQueryHits( oQHT.m_pHits ) )
-			{
 				oQHT.m_nStage++;
-			}
 			break;
 
 		case 1:
 			// Update library files alternate sources
 			if ( Library.OnQueryHits( oQHT.m_pHits ) )
-			{
 				oQHT.m_nStage++;
-			}
 			break;
 
 		case 2:

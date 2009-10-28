@@ -563,6 +563,9 @@ void CDownloadTabBar::OnUpdateDownloadGroupMoveLeft(CCmdUI* pCmdUI)
 
 void CDownloadTabBar::OnDownloadGroupMoveLeft()
 {
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 1000 ) ) return;
+
 	DownloadGroups.MoveLeft( GetSelectedGroup() );
 	NotifySelection();
 }
@@ -574,6 +577,9 @@ void CDownloadTabBar::OnUpdateDownloadGroupMoveRight(CCmdUI* pCmdUI)
 
 void CDownloadTabBar::OnDownloadGroupMoveRight()
 {
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 1000 ) ) return;
+
 	DownloadGroups.MoveRight( GetSelectedGroup() );
 	NotifySelection();
 }

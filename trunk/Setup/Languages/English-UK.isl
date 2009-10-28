@@ -78,7 +78,7 @@ ButtonNewFolder=&Make New Folder
 
 ; *** "Select Language" dialog messages
 SelectLanguageTitle=Select Setup Language
-SelectLanguageLabel=%nSelect a language to use during installation:
+SelectLanguageLabel=%nSelect a default language:
 
 ; *** Common wizard text
 ClickNext=Click Next to continue, or Cancel to exit Setup.

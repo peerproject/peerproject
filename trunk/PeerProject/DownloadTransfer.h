@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_DOWNLOADTRANSFER_H__DB393F56_C75B_424C_85E5_FF44300E255B__INCLUDED_)
-#define AFX_DOWNLOADTRANSFER_H__DB393F56_C75B_424C_85E5_FF44300E255B__INCLUDED_
-
 #pragma once
 
 #include "Transfer.h"
@@ -74,7 +71,6 @@ protected:
 	CTimeAverage< DWORD, 2000 > m_AverageSpeed;
 
 	void	ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, QWORD nChunk, BOOL bVerifyLock);
-
 };
 
 enum
@@ -88,6 +84,3 @@ enum
 	dtsCountNotConnecting = -3,
 	dtsCountTorrentAndActive = -4
 };
-
-
-#endif // !defined(AFX_DOWNLOADTRANSFER_H__DB393F56_C75B_424C_85E5_FF44300E255B__INCLUDED_)

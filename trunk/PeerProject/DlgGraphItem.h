@@ -19,9 +19,6 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(AFX_DLGGRAPHITEM_H__C643EFD4_C72F_431A_B0B5_97F6D8FBC3A1__INCLUDED_)
-#define AFX_DLGGRAPHITEM_H__C643EFD4_C72F_431A_B0B5_97F6D8FBC3A1__INCLUDED_
-
 #pragma once
 
 #include "DlgSkinDialog.h"
@@ -69,11 +66,8 @@ protected:
 	afx_msg void OnMeasureItem(int nIDCtl, LPMEASUREITEMSTRUCT lpMeasureItemStruct);
 	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
 	//}}AFX_MSG
+
 	DECLARE_MESSAGE_MAP()
 };
 
 void PASCAL DDX_Float(CDataExchange* pDX, int nIDC, float& nValue);
-
-//{{AFX_INSERT_LOCATION}}
-
-#endif // !defined(AFX_DLGGRAPHITEM_H__C643EFD4_C72F_431A_B0B5_97F6D8FBC3A1__INCLUDED_)

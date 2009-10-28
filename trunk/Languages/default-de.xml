@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r38 -->
+<!-- Translation based on default-en.xml r40 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -347,9 +347,13 @@
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
+		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Verbinden" tip="Mit IRC verbinden"/>
 		<button id="ID_IRC_DISCONNECT" text="Verbindung trennen" tip="Verbindung mit IRC-Chat trennen"/>
-		<rightAlign/>
+		<separator/>
 		<button id="ID_IRC_SETTINGS" text="Einstellungen" tip="IRC-Einstellungen konfigurieren"/>
 	</toolbar>
 	<!-- NEIGHBORS WINDOW -->
@@ -3182,12 +3186,12 @@
 	<string id="16995" value="Die Datei ist möglicherweise beschädigt, oder die Datei benutzt einen Codec, den Sie nicht installiert haben."/>
 	<string id="16996" value="Ein Teil dieser Datei kann nicht abgespielt werden. Möglicherweise mûssen Sie zusätzliche Decoder herunterladen."/>
 	<string id="16997" value="Es wird keine Datei wiedergegeben. Doppelklicken Sie eine Datei in Ihrer Bibliothek an, um sie abzuspielen."/>
-	<string id="16998" value="P &#160;&#160;  E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; K &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="16998" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; K &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
 	<string id="16999" value="Playlist:"/>
-	<string id="17017" value="Nachricht:"/>
-	<string id="17018" value="Wilkommen beim PeerProjekt-Chat"/>
-	<string id="17019" value="Bitte gehen Sie respektvoll mit anderen um und drücken sich in einer angemessenen Sprache aus."/>
-	<string id="17020" value="Neu"/>
+	<string id="17016" value="Wilkommen beim PeerProjekt-Chat IRC"/>
+	<string id="17017" value="Bitte gehen Sie respektvoll mit anderen um und drücken sich in einer angemessenen Sprache aus."/>
+	<string id="17018" value="Nachricht:"/>
+	<string id="17020" value="Neu..."/>
 	<string id="17021" value="Entfernen"/>
 	<string id="17022" value="Benutzer"/>
 	<string id="17023" value="Channels"/>
@@ -3407,7 +3411,7 @@
 	<string id="20237" value="OK"/>
 	<string id="20238" value="Abbrechen"/>
 </strings>
-<!-- Localized Dialog Text, "cookie" verifies that the skin matches the dialog -->
+<!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
 	<dialog name="CGeneralSettingsGroup" cookie="" caption="Allgemein">
 	</dialog>
@@ -4038,15 +4042,15 @@
 		<control caption="Verbinden"/>
 		<control caption="Abbrechen"/>
 	</dialog>
-	<dialog name="CDownloadDlg" cookie="StStStEdBuBuStStBu" caption="Datei oder Torrent herunterladen">
+	<dialog name="CDownloadDlg" cookie="StStStStEdStBuBuBu" caption="Datei oder Torrent herunterladen">
 		<control/>
 		<control/>
-		<control caption="Das Herunterladen von Dateien mit PeerProjekt ist einfach. Geben Sie die URL oder URI in das Textfeld ein und drücken Sie &lt;Enter&gt;."/>
+		<control caption="PeerProjekt kann Dateien aus dem Internet herunterladen und automatisch nach P2P-Links suchen und diese herunterladen. Geben Sie die URL oder URI in das Textfeld. &#160; (http:, ftp:, ed2k:, magnet:, etc.)"/>
+		<control caption="BitTorrent:  Ein Torrent kann als .torrent-Datei oder als HTTP-Link angegeben werden. Um eine .torrent-Datei via HTTP herunterzuladen fügen Sie den Link in das obige Textfeld ein. Wenn Sie bereits eine *.torrent-Datei haben, klicken Sie auf."/>
+		<control/>
 		<control/>
 		<control caption="Herunterladen"/>
 		<control caption="Abbrechen"/>
-		<control caption="PeerProjekt kann Dateien aus dem Internet herunterladen (HTTP) und automatisch nach P2P-Links suchen und diese herunterladen (Magnet, Gnutella, eDonkey, mP2P)."/>
-		<control caption="BitTorrent:  Ein Torrent kann als .torrent-Datei oder als HTTP-Link angegeben werden. Um eine .torrent-Datei via HTTP herunterzuladen fügen Sie den Link in das obige Textfeld ein. Wenn Sie bereits eine *.torrent-Datei haben, klicken Sie auf "/>
 		<control caption="_Torrent öffnen..."/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="Neue Suche|Erneut Suchen|In Bibliothek suchen">
@@ -4383,20 +4387,21 @@
 		<control caption="OK"/>
 		<control caption="Abbrechen"/>
 	</dialog>
-	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStStBuStCoStCoStEd" caption="Datei löschen">
+	<dialog name="CDeleteFileDlg" cookie="StStBuBuBuStBuStStStStCoCoEd" caption="Datei löschen">
 		<control caption="Möchten Sie diese Datei wirklich löschen?"/>
 		<control/>
 		<control caption="Löschen"/>
 		<control caption="Alle löschen"/>
 		<control caption="Abbrechen"/>
 		<control/>
-		<control caption="PeerProjekt kann sich diese Datei merken und Sie darauf hinweisen, wenn sie in einer Suche auftaucht. Sie können eine Ghost-Datei mit  Kommentaren und Bewertung erstellen."/>
 		<control caption="Eine Ghost-Datei erstellen"/>
-		<control caption="Löschgrund:"/>
-		<control caption="Kein spezieller (Kommentar beibehalten)|Die Datei ist falsch benannt|Die Datei ist von sehr schlechter Qualität|Die Datei ist gefälscht, unbrauchbar, etc...|Einen neuen Kommentar eingeben"/>
+		<control caption="PeerProjekt kann sich diese Datei merken und Sie darauf hinweisen, wenn sie in einer Suche auftaucht. Sie können eine Ghost-Datei mit  Kommentaren und Bewertung erstellen."/>
 		<control caption="Bewertung:"/>
+		<control caption="Löschgrund:"/>
+		<control caption="!"/>
 		<control caption="(Keine Bewertung)|Gefälscht/Beschädigt/Irreführend|Schlecht|Durchschnittlich|Gut|Sehr Gut|Exzellent"/>
-		<control caption="Sie können eine kurze Bemerkung zu dieser Datei eingeben:"/>
+		<control caption="Kein spezieller (Kommentar beibehalten)|Die Datei ist von sehr schlechter Qualität|Die Datei ist falsch benannt|Die Datei ist gefälscht, unbrauchbar, etc.|Restricted copyright material|Einen neuen Kommentar eingeben..."/>
+		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CCollectionExportDlg" cookie="StSyBuStStStStStEdBuBuBu" caption="Kollektion exportieren">

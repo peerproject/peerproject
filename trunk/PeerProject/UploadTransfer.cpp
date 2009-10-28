@@ -44,28 +44,28 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CUploadTransfer construction
 
-CUploadTransfer::CUploadTransfer(PROTOCOLID nProtocol) :
-	m_nState( upsNull ),
-	m_pQueue( NULL ),
-	m_pBaseFile( NULL ),
-	m_nBandwidth( Settings.Bandwidth.Request ),
-	m_nUserRating( urNew ),
-	m_nFileBase( 0 ),
-	m_bFilePartial( FALSE ),
-	m_bLive( TRUE ),
-	m_nRequests( 0 ),
-	m_nUploaded( 0 ),
-	m_tContent( 0 ),
-	m_nOffset( 0 ),
-	m_nPosition( 0 ),
-	m_nLength( SIZE_UNKNOWN ),
-	m_bStopTransfer( FALSE ),
-	m_tRotateTime( 0 ),
-	m_tAverageTime( 0 ),
-	m_nAveragePos( 0 ),
-	m_tRatingTime( 0 ),
-	m_nMaxRate( 0 ),
-	m_pFile( NULL )
+CUploadTransfer::CUploadTransfer(PROTOCOLID nProtocol)
+	: m_nState( upsNull )
+	, m_pQueue( NULL )
+	, m_pBaseFile( NULL )
+	, m_nBandwidth( Settings.Bandwidth.Request )
+	, m_nUserRating( urNew )
+	, m_nFileBase( 0 )
+	, m_bFilePartial( FALSE )
+	, m_bLive( TRUE )
+	, m_nRequests( 0 )
+	, m_nUploaded( 0 )
+	, m_tContent( 0 )
+	, m_nOffset( 0 )
+	, m_nPosition( 0 )
+	, m_nLength( SIZE_UNKNOWN )
+	, m_bStopTransfer( FALSE )
+	, m_tRotateTime( 0 )
+	, m_tAverageTime( 0 )
+	, m_nAveragePos( 0 )
+	, m_tRatingTime( 0 )
+	, m_nMaxRate( 0 )
+	, m_pFile( NULL )
 {
 	m_nProtocol = nProtocol;
 	ZeroMemory( m_nAverageRate, sizeof( m_nAverageRate ) );
@@ -131,8 +131,7 @@ BOOL CUploadTransfer::Promote()
 BOOL CUploadTransfer::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 {
 	if ( ! m_pFile.get() || ! m_pFile->FindByPath( pszSource ) )
-		// Unknown name
-		return FALSE;
+		return FALSE;	// Unknown name
 
 	if ( pszTarget == NULL )
 	{
@@ -310,7 +309,9 @@ void CUploadTransfer::LongTermAverage(DWORD tNow)
 
 void CUploadTransfer::RotatingQueue(DWORD tNow)
 {
-	CSingleLock pLock( &UploadQueues.m_pSection, TRUE );
+	CSingleLock pLock( &UploadQueues.m_pSection );
+	if ( ! pLock.Lock( 350 ) )
+		 return;
 
 	if ( m_pQueue != NULL && UploadQueues.Check( m_pQueue ) &&	//Is this queue able to rotate?
 		 m_pQueue->m_bRotate && m_pQueue->IsActive( this ) && ! m_bStopTransfer )
