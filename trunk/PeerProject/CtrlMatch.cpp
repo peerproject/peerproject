@@ -716,17 +716,20 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 	COLORREF crLeftAligned = crBack ;
 
 	if ( pFile->m_bCollection )
-	{	// Pale red background for collections
+	{
+		// Pale red background for collections
 		if ( Colors.m_crSearchCollection ) crWnd = crBack = Colors.m_crSearchCollection ;
 		else crWnd = crBack = CColors::CalculateColor( crBack, RGB( 254, 120, 10 ), 25 );
 	}
 	else if ( Settings.BitTorrent.AdvancedInterface && pFile->m_bTorrent )
-	{	// Pale blue background for torrents, if the extra torrent options are enabled
+	{
+		// Pale grey background for torrents, if extra torrent option is enabled
 		if ( Colors.m_crSearchTorrent ) crWnd = crBack = Colors.m_crSearchTorrent ;
-		else crWnd = crBack = CColors::CalculateColor( crBack, RGB( 10, 40, 254 ), 10 );
+		else crWnd = crBack = CColors::CalculateColor( crBack, RGB( 244, 242, 240 ), 10 );
 	}
-	else if ( ( pFile->m_nRated > 1 ) && ( ( pFile->m_nRating / pFile->m_nRated ) >= 5 ) )
-	{	// Gold highlight for highly rated files
+	else if ( ( pFile->m_nRated > 1 ) && ( ( pFile->m_nRating / pFile->m_nRated ) > 4 ) )
+	{
+		// Gold highlight for highly rated files
 		if ( Colors.m_crSearchHighrated ) crWnd = crBack = Colors.m_crSearchHighrated ;
 		else crWnd = crBack = CColors::CalculateColor( crBack, RGB( 255, 250, 50 ), 20 );
 	}

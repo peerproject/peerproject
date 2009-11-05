@@ -82,11 +82,13 @@ BOOL CFileGeneralPage::OnInitDialog()
 
 	{
 		CQuickLock oLock( Library.m_pSection );
+
 		CLibraryFile* pFile = GetFile();
 		if ( ! pFile ) return TRUE;
 
-		if ( pFile->m_pFolder != NULL ) m_sPath = pFile->m_pFolder->m_sPath;
-		m_sSize = Settings.SmartVolume( pFile->GetSize() );
+		if ( pFile->m_pFolder != NULL )
+			m_sPath = pFile->m_pFolder->m_sPath;
+		m_sSize.Format( _T("%s  (%I64i)"), Settings.SmartVolume( pFile->GetSize() ), pFile->GetSize() );
 		m_sType = ShellIcons.GetTypeString( pFile->m_sName );
 		m_sIndex.Format( _T("# %lu"), pFile->m_nIndex );
 
@@ -96,9 +98,7 @@ BOOL CFileGeneralPage::OnInitDialog()
 		m_sED2K = pFile->m_oED2K.toShortUrn();
 
 		if ( m_sSHA1.IsEmpty() && m_sED2K.IsEmpty() && m_sTiger.IsEmpty() && m_sMD5.IsEmpty() )
-		{
 			LoadString(m_sSHA1, IDS_GENERAL_NOURNAVAILABLE );
-		}
 
 		CString strDate, strTime;
 		SYSTEMTIME pTime;
@@ -120,10 +120,9 @@ BOOL CFileGeneralPage::OnInitDialog()
 
 void CFileGeneralPage::OnOK()
 {
-	UpdateData();
-
 	// Nothing to update now
+
+	UpdateData();
 
 	CFilePropertiesPage::OnOK();
 }
-

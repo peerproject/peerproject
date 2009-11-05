@@ -130,7 +130,7 @@ void CUploadTipCtrl::OnCalcSize(CDC* pDC)
 
 	m_sz.cy += TIP_TEXTHEIGHT * 3 + 4;
 	m_sz.cy += TIP_RULE;
-	m_sz.cy += TIP_TEXTHEIGHT * 3;
+	m_sz.cy += TIP_TEXTHEIGHT * 4;
 	m_sz.cy += TIP_GAP;
 	m_sz.cy += TIP_TEXTHEIGHT;
 	m_sz.cy += TIP_GAP;
@@ -198,15 +198,37 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 
 	DrawRule( pDC, &pt );
 
-	CString strStatus, strSpeed, strText;
-	CString strOf;
+	CString strStatus, strSpeed, strTransfer, strText, strOf;
 	LoadString( strOf, IDS_GENERAL_OF );
 
-	strSpeed.Format( _T("%s %s %s (%s)"),
-		Settings.SmartSpeed( pUpload->GetMeasuredSpeed() ),
-		strOf,
-		Settings.SmartSpeed( pUpload->m_nBandwidth ),
-		Settings.SmartSpeed( pUpload->GetMaxSpeed() ) );
+	if ( pUpload->GetMaxSpeed() > 10 )
+	{
+		strSpeed.Format( _T("%s %s %s  (%s)"),
+			Settings.SmartSpeed( pUpload->GetMeasuredSpeed() ),
+			strOf,
+			Settings.SmartSpeed( pUpload->m_nBandwidth ),
+			Settings.SmartSpeed( pUpload->GetMaxSpeed() ) );
+	}
+	else
+	{
+		strSpeed.Format( _T("%s %s %s"),
+			Settings.SmartSpeed( pUpload->GetMeasuredSpeed() ),
+			strOf,
+			Settings.SmartSpeed( pUpload->m_nBandwidth ) );
+	}
+
+	if ( pUpload->m_nSize > 1 )
+	{
+		strTransfer.Format( _T("%s %s %s  (%.2f%%)"),
+			Settings.SmartVolume( pUpload->m_nUploaded ),
+			strOf,
+			Settings.SmartVolume( pUpload->m_nSize ),
+			float( pUpload->m_nUploaded * 10240 / pUpload->m_nSize ) / 100.00f );
+	}
+	else
+	{
+		strTransfer = Settings.SmartVolume( pUpload->m_nSize );
+	}
 
 	int nQueue = UploadQueues.GetPosition( pUpload, FALSE );
 	if ( pFile != pUpload->m_pBaseFile || pUpload->m_nState == upsNull )
@@ -244,14 +266,19 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	DrawText( pDC, &pt, strStatus, 80 );
 	pt.y += TIP_TEXTHEIGHT;
 
+	LoadString( strText, IDS_TIP_USERAGENT );
+	DrawText( pDC, &pt, strText );
+	DrawText( pDC, &pt, pUpload->m_sUserAgent, 80 );
+	pt.y += TIP_TEXTHEIGHT;
+
 	LoadString( strText, IDS_TIP_SPEED );
 	DrawText( pDC, &pt, strText );
 	DrawText( pDC, &pt, strSpeed, 80 );
 	pt.y += TIP_TEXTHEIGHT;
 
-	LoadString( strText, IDS_TIP_USERAGENT );
+	LoadString( strText, IDS_TIP_TRANSFER );
 	DrawText( pDC, &pt, strText );
-	DrawText( pDC, &pt, pUpload->m_sUserAgent, 80 );
+	DrawText( pDC, &pt, strTransfer, 80 );
 	pt.y += TIP_TEXTHEIGHT;
 
 	pt.y += TIP_GAP;
@@ -319,6 +346,14 @@ void CUploadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 		m_pItem->Add( nSpeed );
 		m_pGraph->m_nUpdates++;
 		m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
-		Invalidate();
+
+		if ( pUpload->m_nState != upsNull || m_pGraph->m_nMaximum > 10 )
+		{
+			CRect rcWndTip;
+			SystemParametersInfo( SPI_GETWORKAREA, 0, rcWndTip, 0 );
+			if ( rcWndTip.bottom > 190 ) rcWndTip.bottom = 190;
+			rcWndTip.top += 62;
+			InvalidateRect( &rcWndTip );
+		}
 	}
 }

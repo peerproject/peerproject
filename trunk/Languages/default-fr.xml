@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1801,7 +1801,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Aide Rapide</link>
-		<text align="middle">&#160;- Obtenez de l'aide dans l'utilisation de PeerProject.</text>
+		<text align="middle">&#160;- Obtenez de l'aide dans l'utilisation de PeerProject, ou </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Forums Locaux</link>
@@ -1961,11 +1962,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Lecteur Multimédia :</link>
 		<text>&#160;Quand et où utiliser le Lecteur Multimédia de PeerProject.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC :</link>
+		<text>&#160;Paramètres de connexion et visuelle du salon IRC.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Communauté :</link>
 		<text>&#160;Votre profil, vos préférences pour les sessions de discussion et la messagerie instantanée.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC :</link>
-		<text>&#160;Apparence visuelle du salon IRC et paramètres de connexion.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web :</link>
 		<text>&#160;Intégrez PeerProject dans votre navigateur Web pour accepter les liens p2p (URI) et télécharger du contenu.</text>
@@ -2818,11 +2819,11 @@
 	<string id="8316" value="Accès"/>
 	<string id="8317" value="Envois"/>
 	<string id="8318" value="%lu aujourd'hui, %lu total"/>
-	<string id="8319" value=" (Aucun Hashset)"/>
-	<string id="8320" value="Statut&#160;:"/>
-	<string id="8321" value="Vitesse&#160;:"/>
-	<string id="8322" value="URL&#160;:"/>
-	<string id="8323" value="Agent util.&#160;:"/>
+	<string id="8319" value="Envois :"/>
+	<string id="8320" value="Statut :"/>
+	<string id="8321" value="Vitesse :"/>
+	<string id="8322" value="URL :"/>
+	<string id="8323" value="Agent util. :"/>
 	<string id="8324" value="Inactif"/>
 	<string id="8325" value="Actif"/>
 	<string id="8326" value="Prochain dans la file d'attente"/>
@@ -2837,6 +2838,7 @@
 	<string id="8335" value="Les sources pour ce fichier sont derrière un pare-feu"/>
 	<string id="8336" value="Les sources pour ce fichier sont peut-être instables"/>
 	<string id="8337" value="Non fiable"/>
+	<string id="8338" value="&#160;(Aucun Hashset)"/>
 	<string id="13000" value="Êtes-vous certain de vouloir supprimer ces règles&#160;?"/>
 	<string id="13001" value="Fichiers partagés sur Internet"/>
 	<string id="16063" value="Au bout de dix essais, PeerProject n'a pas réussi à configurer votre pare-feu ou routeur avec l'UPnP"/>
@@ -3482,14 +3484,16 @@
 		<control caption="Filtrer le spam sur les messages de discussion"/>
 		<control caption="Censurer les grossièretés dans les discussions"/>
 	</dialog>
-		<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="IRC">
+		<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="IRC">
 		<control caption="_Options du client :"/>
+		<control caption="Afficher l'horodateur"/>
 		<control caption="Montrer l'intégration IRC"/>
 		<control caption="Protection contre le flood&#160;:"/>
+		<control caption="Lignes"/>
 		<control/>
-		<control caption="lignes par seconde"/>
-		<control caption="Afficher l'horodateur"/>
-		<control caption="Police&#160;:"/>
+		<control caption="Font&#160;:"/>
+		<control caption="Taille"/>
+		<control/>
 		<control/>
 		<control caption="_Couleurs&#160;:"/>
 		<control/>
@@ -3520,6 +3524,8 @@
 		<control caption="Serveur&#160;:"/>
 		<control/>
 		<control caption="Port&#160;:"/>
+		<control/>
+		<control caption="Commande exécuter dans le cadre"/>
 		<control/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
@@ -3629,13 +3635,8 @@
 		<control caption="Mot de passe&#160;:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Planificateur">
-		<control caption="_Options&#160;:"/>
-		<control caption="_Activer le planificateur"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planificateur">
 		<control/>
-		<control/>
-		<control caption="Sauf G2 sur connexion limitée"/>
-		<control caption="Clé&#160;:"/>
 		<control caption="Dim"/>
 		<control caption="Lun"/>
 		<control caption="Mar"/>
@@ -3643,10 +3644,15 @@
 		<control caption="Jeu"/>
 		<control caption="Ven"/>
 		<control caption="Sam"/>
+		<control caption="Clé&#160;:"/>
 		<control caption="Ne pas se connecter"/>
 		<control caption="Connexion limitée"/>
 		<control caption="Se connecter à pleine vitesse"/>
+		<control caption="_Options&#160;:"/>
+		<control caption="_Activer le planificateur"/>
+		<control caption="Sauf G2 sur connexion limitée"/>
 		<control caption="% de b-p lorsque limitée"/>
+		<control/>
 		<control/>
 		<control caption="Aide"/>
 		<control caption="Le planificateur est conçu pour vous permettre de mettre en place des périodes où PeerProject se connectera et téléchargera les fichiers. {n}{n}{n}Note: Si PeerProject est ouvert lorsque le prog. est actif, vous pourrez le voir changer des réglages - C'est normal&#160;!"/>
@@ -3877,23 +3883,23 @@
 		<control caption="J'utilise le nom&#160;:"/>
 		<control/>
 		<control caption="et je suis&#160;:"/>
-		<control caption=" (choisir)"/>
-		<control caption=" (choisir)| un garçon| une fille| un homme| une femme"/>
+		<control caption="&#160;(choisir)"/>
+		<control caption="&#160;(choisir)| un homme| une femme| un garçon| une fille"/>
 		<control caption="résidant à&#160;:"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="PeerProject vous souhaite la bienvenue (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="PeerProject vous souhaite la bienvenue (4/6)">
 		<control caption="PeerProject offre une interface utilisateur flexible, vous pouvez ainsi choisir ce qui vous paraît le plus confortable."/>
 		<control caption="Veuillez sélectionner l'interface utilisateur&#160;:"/>
 		<control caption="Mode Normal"/>
 		<control caption="Mode Expert"/>
 		<control caption="Simple, facile d'utilisation. Il sera familier pour les utilisateurs d'autres clients P2P."/>
 		<control caption="Le mode Expert propose aux utilisateurs initiés plus de fonctionnalités."/>
-		<control caption="Afficher des barres de progression simplifiées (sollicite moins le µprocesseur)."/>
-		<control caption="Prendre en charge les liens torrent."/>
+		<control caption="Afficher des barres de progression simplifiées."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="PeerProject vous souhaite la bienvenue (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="PeerProject vous souhaite la bienvenue (5/6)">
 		<control caption="PeerProject est une application d'échange de fichier à usage universel qui peut accéder à de nombreux réseaux P2P simultanément. Choisissez ci-dessous à quels réseaux se connecter, vous pourrez en sélectionner de différents à tout moment."/>
 		<control caption="Connexion à Gnutella2  (Recommandé)"/>
 		<control caption="Le réseau Gnutella2 (G2) est le réseau de prédilection de PeerProject, il est le plus performant des réseaux P2P. (Shareaza)"/>
@@ -3901,6 +3907,7 @@
 		<control caption="Le réseau Gnutella original (G1) possède moins de fichiers qu'eDonkey, mais il reste une ressource non négligeable. (LimeWire)"/>
 		<control caption="Connexion à eDonkey2000"/>
 		<control caption="Le réseau eDonkey (ED2K) est un réseau populaire basé sur des serveurs. Il peut être moins performant que G2, mais possède plus de contenu. (eMule)"/>
+		<control caption="Prendre en charge les liens torrent."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importer des téléchargements eDonkey">
 		<control/>
@@ -4104,20 +4111,20 @@
 		<control caption="Fermer"/>
 		<control caption="Fermer cette fenêtre à la fin du téléchargement"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Général">
-		<control caption="Universal Resource Names (URN)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Général">
 		<control/>
 		<control caption="Attributs du fichier"/>
 		<control caption="Origine&#160;:"/>
-		<control/>
 		<control caption="Type&#160;:"/>
-		<control/>
 		<control caption="Modifié le&#160;:"/>
-		<control/>
 		<control caption="Taille&#160;:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Universal Resource Names (URN)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4126,7 +4133,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Ma description">
+	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Description">
 		<control caption="Mon évaluation"/>
 		<control caption="J'évalue ce fichier&#160;:"/>
 		<control caption="(Pas d'évaluation)|Faux/Corrompu/Trompeur|Pauvre|Moyen|Bon|Très bon|Excellent"/>
@@ -4134,15 +4141,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Partage">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Partage">
+		<control/>
 		<control caption="Partage simple"/>
 		<control caption="Partager ce fichier si le dossier parent est partagé"/>
 		<control caption="Paramètres personnalisés pour ce fichier&#160;:"/>
 		<control caption="Laisser ce fichier disponible aux autres utilisateurs"/>
 		<control caption="Tag de file d'attente"/>
-		<control/>
-		<control caption="-Partager sur les réseaux"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Sources">
@@ -4155,14 +4160,14 @@
 		<control/>
 	</dialog>
 	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Copier des fichiers|Déplacer des fichiers">
-		<control caption="Vous avez sélectionné %i fichier(s) à copier dans ce dossier&#160;:"/>
+		<control caption="Vous avez sélectionné %i fichiers à copier dans ce dossier&#160;:"/>
 		<control/>
 		<control/>
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
 		<control/>
 		<control caption="Prêt..."/>
-		<control caption="Vous avez sélectionné %i fichier(s) à déplacer dans ce dossier&#160;:"/>
+		<control caption="Vous avez sélectionné %i fichiers à déplacer dans ce dossier&#160;:"/>
 	</dialog>
 	<dialog name="CFolderPropertiesDlg" cookie="StEdStCoBuStBuBu" caption="Propriétés du dossier">
 		<control caption="Titre du dossier&#160;:"/>

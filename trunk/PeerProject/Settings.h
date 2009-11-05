@@ -54,6 +54,7 @@ public:
 		DWORD		DiskSpaceWarning;			// Value at which to warn the user about low disk space
 		DWORD		DiskSpaceStop;				// Value at which to pause all downloads due to low disk space
 		DWORD		MinTransfersRest;			// For how long at least to suspend Transfers each round
+		DWORD		SmartVersion;				// Settings version
 		DWORD		GUIMode;
 		DWORD		CloseMode;
 		bool		TrayMinimise;
@@ -71,7 +72,6 @@ public:
 		bool		ItWasLimited;				// If user patches half-open connection limit change settings back to full speed
 		bool		DebugBTSources;				// Display received sources for BT download when seeding
 		bool		AlwaysOpenURLs;
-		DWORD		SmartVersion;				// Settings version
 		bool		CoolMenuEnable;				// Use skinned menus
 		bool		FirstRun;					// Original installation
 		bool		Running;					// ToDo: detect abnormal shutdown on startup
@@ -81,8 +81,8 @@ public:
 	{
 		DWORD		NextCheck;
 		CString		Quote;
+		//CString	UpdateCheckURL;				// UPDATE_URL (PeerProject.h)
 		bool		UpdateCheck;				// Does PeerProject check for new versions?
-		CString		UpdateCheckURL;
 		CString		UpgradePrompt;
 		CString		UpgradeFile;
 		CString		UpgradeSHA1;
@@ -567,6 +567,7 @@ public:
 		bool			Show;
 		bool			FloodEnable;
 		bool			Timestamp;
+		CString			OnConnect;
 		CString			UserName;
 		CString			RealName;
 		CString			Nick;

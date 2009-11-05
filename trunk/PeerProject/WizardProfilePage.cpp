@@ -38,8 +38,9 @@ IMPLEMENT_DYNCREATE(CWizardProfilePage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CWizardProfilePage, CWizardPage)
 	//{{AFX_MSG_MAP(CWizardProfilePage)
-	ON_CBN_SELCHANGE(IDC_LOC_COUNTRY, OnSelChangeCountry)
 	ON_WM_XBUTTONDOWN()
+	ON_CBN_SELCHANGE(IDC_LOC_COUNTRY, OnSelChangeCountry)
+	ON_CBN_SELCHANGE(IDC_PROFILE_AGE, &CWizardProfilePage::OnCbnSelchangeProfileAge)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -52,8 +53,8 @@ CWizardProfilePage::CWizardProfilePage() : CWizardPage(CWizardProfilePage::IDD)
 	//{{AFX_DATA_INIT(CWizardProfilePage)
 	m_nGender = 0;
 	m_nAge = 0;
-	//}}AFX_DATA_INIT
 	m_pWorld = NULL;
+	//}}AFX_DATA_INIT
 }
 
 CWizardProfilePage::~CWizardProfilePage()
@@ -85,7 +86,7 @@ BOOL CWizardProfilePage::OnInitDialog()
 
 	Skin.Apply( _T("CWizardProfilePage"), this );
 
-	for ( int nAge = 13 ; nAge <= 110 ; nAge++ )
+	for ( int nAge = 13 ; nAge < 101 ; nAge++ )
 	{
 		CString str, strYearsOld;
 		LoadString( strYearsOld, IDS_WIZARD_YEARS_OLD );
@@ -130,13 +131,9 @@ BOOL CWizardProfilePage::OnSetActive()
 		CString strAge		= pVitals->GetAttributeValue( _T("age") );
 
 		if ( strGender.CompareNoCase( _T("male") ) == 0 )
-		{
 			m_nGender = 1;
-		}
 		else if ( strGender.CompareNoCase( _T("female") ) == 0 )
-		{
 			m_nGender = 2;
-		}
 
 		int nAge = 0;
 		_stscanf( strAge, _T("%i"), &nAge );
@@ -192,21 +189,15 @@ void CWizardProfilePage::OnSelChangeCountry()
 
 	for ( int nCity = pCountry->m_nCity ; nCity ; nCity--, pCity++ )
 	{
-		if ( pCity->m_sName.GetLength() )
-		{
-			if ( pCity->m_sState.GetLength() )
-				strCity = pCity->m_sName + _T(", ") + pCity->m_sState;
-			else
-				strCity = pCity->m_sName;
-		}
+		if ( pCity->m_sName.GetLength() && pCity->m_sState.GetLength() )
+			strCity = pCity->m_sName + _T(", ") + pCity->m_sState;
+		else if ( pCity->m_sName.GetLength() )
+			strCity = pCity->m_sName;
 		else if ( pCity->m_sState.GetLength() )
-		{
 			strCity = pCity->m_sState;
-		}
 		else
-		{
 			continue;
-		}
+
 		m_wndCity.SetItemData( m_wndCity.AddString( strCity ), (LPARAM)pCity );
 	}
 }
@@ -233,15 +224,15 @@ LRESULT CWizardProfilePage::OnWizardNext()
 
 	if ( CXMLElement* pVitals = MyProfile.GetXML( _T("vitals"), TRUE ) )
 	{
-		if ( m_nAge > 0 )
+		if ( m_nAge < 10 )
+		{
+			pVitals->DeleteAttribute( _T("age") );
+		}
+		else
 		{
 			CString strAge;
 			strAge.Format( _T("%i"), m_wndAge.GetItemData( m_nAge ) );
 			pVitals->AddAttribute( _T("age"), strAge );
-		}
-		else
-		{
-			pVitals->DeleteAttribute( _T("age") );
 		}
 
 		if ( m_nGender == 1 || m_nGender == 3 )
@@ -260,13 +251,9 @@ LRESULT CWizardProfilePage::OnWizardNext()
 		if ( CXMLElement* pPolitical = pLocation->GetElementByName( _T("political"), TRUE ) )
 		{
 			if ( m_sLocCountry.GetLength() )
-			{
 				pPolitical->AddAttribute( _T("country"), m_sLocCountry );
-			}
 			else
-			{
 				pPolitical->DeleteAttribute( _T("country") );
-			}
 
 			int nPos = m_sLocCity.Find( _T(", ") );
 
@@ -311,33 +298,38 @@ LRESULT CWizardProfilePage::OnWizardNext()
 			}
 		}
 
-		if ( pLocation->GetElementCount() == 0 ) pLocation->Delete();
+		if ( pLocation->GetElementCount() == 0 )
+			pLocation->Delete();
 	}
 
-	/* These popups are pretty annoying. Since this information is underutilized let's
-	   not put so much emphasis on it at this time.
+	// These popups are pretty annoying. Since this information is underutilized 
+	// do not put so much emphasis on it at this time.
 
-	if ( MyProfile.GetNick().IsEmpty() )
-	{
-		LoadString( strMessage, IDS_PROFILE_NO_NICK );
-		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
-		return -1;
-	}
+	//if ( MyProfile.GetNick().IsEmpty() )
+	//{
+	//	LoadString( strMessage, IDS_PROFILE_NO_NICK );
+	//	AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+	//	return -1;
+	//}
 
-	if ( MyProfile.GetXML( _T("vitals") ) == NULL )
-	{
-		LoadString( strMessage, IDS_PROFILE_NO_VITALS );
-		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
-	}
+	//if ( MyProfile.GetXML( _T("vitals") ) == NULL )
+	//{
+	//	LoadString( strMessage, IDS_PROFILE_NO_VITALS );
+	//	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
+	//}
 
-	if ( MyProfile.GetLocation().IsEmpty() )
-	{
-		LoadString( strMessage, IDS_PROFILE_NO_LOCATION );
-		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
-	}
-	*/
+	//if ( MyProfile.GetLocation().IsEmpty() )
+	//{
+	//	LoadString( strMessage, IDS_PROFILE_NO_LOCATION );
+	//	if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
+	//}
 
 	MyProfile.Save();
 
 	return 0;
+}
+
+void CWizardProfilePage::OnCbnSelchangeProfileAge()
+{
+	// ToDo: Add some control notification handler code here, or remove ?
 }

@@ -116,7 +116,7 @@ BOOL CUploadsSettingsPage::OnInitDialog()
 	m_wndQueues.EnableToolTips();
 
 	CLiveList::Sort( &m_wndQueues, 4, FALSE );
-	CLiveList::Sort( &m_wndQueues, 4, FALSE );
+	//CLiveList::Sort( &m_wndQueues, 4, FALSE );	//Repeat
 
 	m_nMaxPerHost		= Settings.Uploads.MaxPerHost;
 	m_bHubUnshare		= Settings.Uploads.HubUnshare;
@@ -182,11 +182,10 @@ void CUploadsSettingsPage::UpdateQueues()
 
 		CUploadQueue* pQueue = UploadQueues.GetNext( pos );
 
-		// If this queue is for ed2k only and we have to be connected to upload
+		// If queue is ed2k only and we need to be connected to upload, Then queue is inactive ed2k isn't enabled
 		if ( ( ( pQueue->m_nProtocols & ( 1 << PROTOCOL_ED2K ) ) != 0 ) && ( Settings.Connection.RequireForTransfers ) )
-		{	// Then the queue is inactive if we haven't got ed2k enabled
 			bDonkeyOnlyDisabled = !( Settings.eDonkey.EnableAlways | Settings.eDonkey.EnableToday );
-		}
+			
 
 		// If the queue is inactive and we're in basic GUI mode
 		if ( ( bDonkeyOnlyDisabled ) && (Settings.General.GUIMode == GUI_BASIC) )
@@ -329,9 +328,7 @@ void CUploadsSettingsPage::OnQueueDrop(NMHDR* pNMHDR, LRESULT* pResult)
 		CUploadQueue* pQueue = (CUploadQueue*)m_wndQueues.GetItemData( nItem );
 
 		if ( UploadQueues.Check( pQueue ) && pQueue != pTarget )
-		{
 			UploadQueues.Reorder( pQueue, pTarget );
-		}
 	}
 
 	UploadQueues.Save();

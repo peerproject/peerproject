@@ -2508,7 +2508,7 @@ void CMainWnd::OnHelpVersionCheck()
 
 void CMainWnd::OnHelpHomepage()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
 		strWebSite + _T("?Version=") + theApp.m_sVersion,
@@ -2517,7 +2517,7 @@ void CMainWnd::OnHelpHomepage()
 
 void CMainWnd::OnHelpWeb1()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/external/?link1"),
 		NULL, NULL, SW_SHOWNORMAL );
@@ -2525,7 +2525,7 @@ void CMainWnd::OnHelpWeb1()
 
 void CMainWnd::OnHelpWeb2()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/external/?link2"),
 		NULL, NULL, SW_SHOWNORMAL );
@@ -2533,7 +2533,7 @@ void CMainWnd::OnHelpWeb2()
 
 void CMainWnd::OnHelpWeb3()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/external/?link3"),
 		NULL, NULL, SW_SHOWNORMAL );
@@ -2541,7 +2541,7 @@ void CMainWnd::OnHelpWeb3()
 
 void CMainWnd::OnHelpWeb4()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/external/?link4"),
 		NULL, NULL, SW_SHOWNORMAL );
@@ -2549,7 +2549,7 @@ void CMainWnd::OnHelpWeb4()
 
 void CMainWnd::OnHelpWeb5()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/external/?link5"),
 		NULL, NULL, SW_SHOWNORMAL );
@@ -2557,7 +2557,7 @@ void CMainWnd::OnHelpWeb5()
 
 void CMainWnd::OnHelpWeb6()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/external/?link6"),
 		NULL, NULL, SW_SHOWNORMAL );
@@ -2565,7 +2565,7 @@ void CMainWnd::OnHelpWeb6()
 
 void CMainWnd::OnHelpFaq()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
 		strWebSite + _T("help/?faq"),
@@ -2574,7 +2574,7 @@ void CMainWnd::OnHelpFaq()
 
 void CMainWnd::OnHelpConnectiontest()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 	CString strTestUrl;
 
 	strTestUrl.Format( strWebSite + _T("help/test/?port=%d&lang=%s&Version=") + theApp.m_sVersion, Settings.Connection.InPort, Settings.General.Language );
@@ -2585,7 +2585,7 @@ void CMainWnd::OnHelpConnectiontest()
 
 void CMainWnd::OnHelpGuide()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
 		strWebSite + _T("help/?guide"),
@@ -2594,7 +2594,7 @@ void CMainWnd::OnHelpGuide()
 
 void CMainWnd::OnHelpForums()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
 		strWebSite + _T("help/?forum"),
@@ -2603,7 +2603,7 @@ void CMainWnd::OnHelpForums()
 
 void CMainWnd::OnHelpForumsLocal()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
 		strWebSite + _T("forums/local/") + Settings.General.Language.Left(2),
@@ -2612,16 +2612,16 @@ void CMainWnd::OnHelpForumsLocal()
 
 void CMainWnd::OnHelpUpdate()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strUpdateSite(UPDATE_URL);
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
-		Settings.VersionCheck.UpdateCheckURL + _T("?Version=") + theApp.m_sVersion + _T("&Language=") + Settings.General.Language.Left(2),
+		strUpdateSite + _T("?Version=") + theApp.m_sVersion + _T("&Language=") + Settings.General.Language.Left(2),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CMainWnd::OnHelpRouter()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/?router"),
 		NULL, NULL, SW_SHOWNORMAL );
@@ -2629,7 +2629,7 @@ void CMainWnd::OnHelpRouter()
 
 void CMainWnd::OnHelpSecurity()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/?security"),
 		NULL, NULL, SW_SHOWNORMAL );
@@ -2637,7 +2637,7 @@ void CMainWnd::OnHelpSecurity()
 
 void CMainWnd::OnHelpCodec()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/?codec"),
 		NULL, NULL, SW_SHOWNORMAL );
@@ -2645,7 +2645,7 @@ void CMainWnd::OnHelpCodec()
 
 void CMainWnd::OnHelpDonate()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("donations"),
 		NULL, NULL, SW_SHOWNORMAL );

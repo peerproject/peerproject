@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r40 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r41 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1678,7 +1678,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">クイックヘルプ</link>
-		<text align="middle">&#160;- PeerProjectを使う上での基本的なヘルプを参照出来ます</text>
+		<text align="middle">&#160;- PeerProjectを使う上での基本的なヘルプを参照出来ます, or </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">ローカルフォーラム</link>
@@ -1816,11 +1817,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">メディアプレーヤー:</link>
 		<text>&#160;内蔵PeerProjectメディアセンターを何時何処で使用するかを設定します。</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<text>&#160;IRC chatroom connection settings and display options.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">コミュニティ:</link>
 		<text>&#160;プロフィール、チャット、そしてインスタントメッセージの設定を行います。</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
-		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">ウェブ:</link>
 		<text>&#160;PeerProjectとウェブブラウザを統合してピア・ツー・ピアリンクを受け付け、その内容を ダウンロードすることが出来ます。</text>
@@ -2655,7 +2656,7 @@
 	<string id="8316" value="ヒット"/>
 	<string id="8317" value="アップロード"/>
 	<string id="8318" value="今日: %lu, 合計: %lu"/>
-	<string id="8319" value="ハッシュセット無し"/>
+	<string id="8319" value="アップロード:"/>
 	<string id="8320" value="状態:"/>
 	<string id="8321" value="速度:"/>
 	<string id="8322" value="URL:"/>
@@ -2674,6 +2675,7 @@
 	<string id="8335" value="このファイル用のソースはファイアーウォールされています"/>
 	<string id="8336" value="このファイル用のソースは不安定である可能性があります"/>
 	<string id="8337" value="未検証"/>
+	<string id="8338" value="ハッシュセット無し"/>
 	<string id="16064" value="PeerProjectネットワークコアを開始しています..."/>
 	<string id="16065" value="入力接続用に %s ポート %i をバインドできませんでした。入力接続はサポートされません"/>
 	<string id="16066" value="PeerProjectネットワークコアを終了しています..."/>
@@ -3294,6 +3296,7 @@
 		<control caption="スパム用のチャットメッセージをフィルタリングする"/>
 		<control caption="差別・侮辱発言を監視する"/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="ウェブ">
 		<control caption="ピア・ツー・ピアリンク処理(_P):"/>
 		<control caption="これらの種類のリンクをPeerProjectを使って開く:"/>
@@ -3401,13 +3404,8 @@
 		<control caption="パスワード:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="スケジューラ">
-		<control caption="オプション(_O):"/>
-		<control caption="スケジューラを有効にする(_E)"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuStt" caption="スケジューラ">
 		<control/>
-		<control/>
-		<control caption="制限時にだけG2に接続する(_C)"/>
-		<control caption="キー:"/>
 		<control caption="日"/>
 		<control caption="月"/>
 		<control caption="火"/>
@@ -3415,10 +3413,15 @@
 		<control caption="木"/>
 		<control caption="金"/>
 		<control caption="土"/>
+		<control caption="キー:"/>
 		<control caption="接続しない"/>
 		<control caption="帯域制限を行う"/>
 		<control caption="帯域制限無し"/>
+		<control caption="オプション(_O):"/>
+		<control caption="スケジューラを有効にする(_E)"/>
+		<control caption="制限時にだけG2に接続する(_C)"/>
 		<control caption="% 帯域制限(_B)"/>
+		<control/>
 		<control/>
 		<control caption="ヘルプ"/>
 		<control caption="スケジューラはPeerProjectがネットワークに接続し、ファイルをダウンロードする時間を設定することが出来るように設計されています。 {n}{n}{n}注意: スケジューラ有効時にPeerProjectを開いた場合、設定が変更されている可能性がありますが、これは正常な動作ですので心配する必要はありません。"/>
@@ -3655,17 +3658,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="PeerProjectへようこそ (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="PeerProjectへようこそ (4/6)">
 		<control caption="PeerProjectは複数のユーザーインターフェースをサポートしている為、 その中からあなたに相応しいものを選択することができ、これらのオプションは後で何時でも変更することができます"/>
 		<control caption="ユーザーインターフェースを選択して下さい:"/>
 		<control caption="素人モード"/>
 		<control caption="玄人モード"/>
 		<control caption="メニューとボタンによる単純なインターフェースです。{n}他のファイル共有プログラムとよく似た操作感で使用することが出来ます。"/>
 		<control caption="玄人モードは多くの拡張コマンドやウィンドウ等を熟練ユーザーへ提供します。{n}初心者ユーザーには判りづらいかもしれません!"/>
-		<control caption="ダウンロード進行バーの表示を簡素化 (CPUの使用率を抑えることができます)"/>
-		<control caption="BitTorrentリンクを処理する"/>
+		<control caption="ダウンロード進行バーの表示を簡素化"/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="PeerProjectへようこそ (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="PeerProjectへようこそ (5/6)">
 		<control caption="PeerProjectは複数のP2Pネットワークへ同時にアクセスできる汎用ファイル共有アプリケーションです。 このページではあなたがどのP2Pネットワークに接続するかを選択することができます。 ここで選択しなかったとしても、後でいつでも別のネットワークを選択できることを覚えておいて下さい。"/>
 		<control caption="Gnutella2に接続 (推奨)"/>
 		<control caption="Gnutella2ネットワークは他のどんなP2Pネットワークよりも機能・処理能力があり、PeerProjectの主力ネットワークとなっています"/>
@@ -3673,6 +3676,7 @@
 		<control caption="オリジナルGnutellaネットワークはGnutella程機能もなく、eDonkey2000より共有量も少ないですが、それでもまだ貴重なリソースを得ることができます。"/>
 		<control caption="eDonkey2000に接続"/>
 		<control caption="eDonkeyネットワークは典型的なサーバーベースのネットワークです。 機能的にはGnutella2ほど豊富ではありませんが、興味深いファイルの共有があります。"/>
+		<control caption="BitTorrentリンクを処理する"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey2000ダウンロードのインポート">
 		<control/>
@@ -3875,20 +3879,20 @@
 		<control caption="非表示"/>
 		<control caption="ダウンロード完了時にこのウィンドウを閉じる"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="一般">
-		<control caption="ユニバーサルリソース名(URN)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="一般">
 		<control/>
 		<control caption="ファイル属性"/>
 		<control caption="場所:"/>
-		<control/>
 		<control caption="種類:"/>
-		<control/>
 		<control caption="最終更新日:"/>
-		<control/>
 		<control caption="サイズ:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="ユニバーサルリソース名(URN)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -3905,15 +3909,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="共有">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="共有">
+		<control/>
 		<control caption="共有設定"/>
 		<control caption="親フォルダが共有されている場合にこのファイルを共有する"/>
 		<control caption="このファイルの共有設定を上書き"/>
 		<control caption="他のユーザーがこのファイルを利用できるようにする"/>
 		<control caption="アップロードキュー選択タグ"/>
-		<control/>
-		<control caption="-共有するネットワーク"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="ソース">

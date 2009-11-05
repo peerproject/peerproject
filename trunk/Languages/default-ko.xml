@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r40 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r41 --> <!--Machine Translated!-->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1803,11 +1803,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
 		<text>&#160;Set when to use the internal PeerProject Media System.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link>
+		<text>&#160;IRC chatroom connection settings and display options.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Community:</link>
 		<text>&#160;Your profile and direct chat settings.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link>
-		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
 		<text>&#160;Integrate PeerProject with your web browser to accept peer-to-peer links and download content.</text>
@@ -2092,7 +2092,7 @@
 	<string id="8316" value="Hits"/>
 	<string id="8317" value="업로드"/>
 	<string id="8318" value="%lu today, %lu total"/>
-	<string id="8319" value="No Hashset"/>
+	<string id="8319" value="Transfer:"/>
 	<string id="8320" value="Status:"/>
 	<string id="8321" value="Speed:"/>
 	<string id="8322" value="URL:"/>
@@ -2111,6 +2111,7 @@
 	<string id="8335" value="Sources for this file are firewalled"/>
 	<string id="8336" value="Sources for this file may be unstable"/>
 	<string id="8337" value="Untrusted"/>
+	<string id="8338" value="No Hashset"/>
 	<string id="13000" value="Are you sure you want to delete the selected security rules? This cannot be undone."/>
 	<string id="13001" value="Files shared over the Internet"/>
 	<string id="16063" value="UPnP port mapping failed after 10 attempts."/>
@@ -2763,18 +2764,20 @@
 		<control caption="Filter chat messages for spam"/>
 		<control caption="Censor profanity in chat"/>
 	</dialog> -->
-<!--	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
+<!--	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="IRC Chat">
 		<control caption="Client _Options:"/>
 		<control caption="Show chat integration"/>
-		<control caption="Flood protection:"/>
-		<control/>
-		<control caption="lines per second"/>
 		<control caption="Show timestamp"/>
+		<control caption="Flood protection:"/>
+		<control caption="Lines"/>
+		<control/>
 		<control caption="Screen Font:"/>
+		<control caption="Size"/>
+		<control/>
 		<control/>
 		<control caption="_Colors:"/>
 		<control/>
-		<control caption="Chat background"/>
+		<control caption="Window"/>
 		<control/>
 		<control caption="Text"/>
 		<control/>
@@ -2790,17 +2793,19 @@
 		<control/>
 		<control caption="Topics"/>
 		<control caption="Connection _Settings:"/>
-		<control caption="Nickname:"/>
+		<control caption="Screen name:"/>
 		<control/>
 		<control caption="User name:"/>
 		<control/>
-		<control caption="Alternate Nickname:"/>
+		<control caption="Alt screen name:"/>
 		<control/>
 		<control caption="Real name:"/>
 		<control/>
 		<control caption="Server:"/>
 		<control/>
 		<control caption="Port:"/>
+		<control/>
+		<control caption="Run command on connect"/>
 		<control/>
 	</dialog> -->
 <!--	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
@@ -2910,13 +2915,8 @@
 		<control caption="Choose a Password:"/>
 		<control/>
 	</dialog> -->
-<!--	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Scheduler">
-		<control caption="_Options:"/>
-		<control caption="_Enable Scheduler"/>
+<!--	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Scheduler">
 		<control/>
-		<control/>
-		<control caption="_Connect to only G2 when limited"/>
-		<control caption="Key:"/>
 		<control caption="Sun"/>
 		<control caption="Mon"/>
 		<control caption="Tue"/>
@@ -2924,13 +2924,18 @@
 		<control caption="Thu"/>
 		<control caption="Fri"/>
 		<control caption="Sat"/>
+		<control caption="Key:"/>
 		<control caption="Do not connect"/>
 		<control caption="Limited connection"/>
-		<control caption="Connect at full speed"/>
-		<control caption="% of _bandwidth when limited"/>
+		<control caption="Connect full speed"/>
+		<control caption="_Options:"/>
+		<control caption=" _Enable scheduler"/>
+		<control caption=" _Connect only G2 when limited"/>
+		<control caption="% _Bandwidth when limited"/>
+		<control/>
 		<control/>
 		<control caption="Help"/>
-		<control caption="The scheduler is designed to allow you to set times when PeerProject will connect and download files. {n}{n}{n}Note: If you have PeerProject open while the scheduler is active, you may see it changing settings- This is normal."/>
+		<control caption="This scheduler enables you to set times when PeerProject will connect and download files. {n}{n}{n}Note, it is normal to see PeerProject change settings when scheduling is active."/>
 	</dialog> -->
 <!--	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Networks">
 		<control caption="PeerProject is a general-purpose file-sharing application that can access many P2P networks at the same time. On this page you can select which P2P networks you want to connect to, and then adjust specific settings for each network."/>
@@ -3158,36 +3163,37 @@
 		<control caption="I use the name:"/>
 		<control/>
 		<control caption="and I&apos;m a:"/>
-		<control caption=" (choose)"/>
-		<control caption=" (choose)| guy| girl| man| woman"/>
+		<control caption="&#160;(choose)"/>
+		<control caption="&#160;(choose)| Man| Woman| Boy| Girl"/>
 		<control caption="from:"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="피어 프로젝트에 오신 것을 환영합니다 (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="피어 프로젝트에 오신 것을 환영합니다 (4/6)">
 		<control caption="PeerProject supports a flexible user interface, so you can choose what is most comfortable for you. You can change these options at any time."/>
 		<control caption="Please select user interface:"/>
 		<control caption="Basic Mode"/>
-		<control caption="Tabbed Mode"/>
-		<control caption="Simple, easy to use menus and buttons.{n}Familiar to users of other file sharing programs."/>
-		<control caption="Power mode offers expert users lots of extra commands, windows, etc.{n}It may be a little confusing for new users!"/>
-		<control caption="Display simplified download progress bars. (Reduces CPU use)"/>
-		<control caption="Handle BitTorrent links. (.torrent files)"/>
+		<control caption="Standard Mode"/>
+		<control caption="Simple, easy to use menus with fewer options.{n}Helpful for new users of file sharing."/>
+		<control caption="Normal mode offers users all extra commands, windows, etc.{n}Might be more confusing for new users."/>
+		<control caption="Display simplified download progress bars. (May be less confusing)"/>
+		<control caption="Try mixing multiple skins to further add/remove capabilities."/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="피어 프로젝트에 오신 것을 환영합니다 (5/6)">
-		<control caption="PeerProject is a general-purpose file-sharing application that can access many P2P networks at the same time.  Here you can select which networks you&apos;d like to access.  Note that you can always select different networks later."/>
-		<control caption="Connect to Gnutella2 (Highly Recommended)"/>
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="피어 프로젝트에 오신 것을 환영합니다 (5/6)">
+		<control caption="PeerProject is a general purpose filesharing application that can swarm multiple P2P networks on a single download, therefore all are recommended. Note you can always manage specific networks at any time."/>
+		<control caption="Connect to Gnutella2 (Default)"/>
 		<control caption="The Gnutella2 network (G2) is PeerProject&apos;s premiere network, offering more features and performance than any other P2P net. (Shareaza)"/>
 		<control caption="Connect to Gnutella"/>
-		<control caption="The original Gnutella network (G1) is less feature-rich than Gnutella2, and has fewer files than ED2K, yet remains a valuable source. (LimeWire)"/>
-		<control caption="Connect to eDonkey"/>
-		<control caption="The eDonkey network (ED2K) is a popular server-based network.  While not as feature-rich or fast as G2, ED2K has an impressive file collection. (eMule)"/>
+		<control caption="The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source. (LimeWire)"/>
+		<control caption="Connect to eDonkey2000"/>
+		<control caption="The eDonkey network (ED2K) is a popular server-based network.  While not as feature-rich or fast as G2, ED2K has a vast file collection. (eMule)"/>
+		<control caption="Associate .Torrent Files  (Handle BitTorrent links by default)"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Import eDonkey Downloads">
 		<control/>
 		<control caption="PeerProject has detected that you have another eDonkey program installed on your computer. Would you like to import any unfinished downloads into PeerProject?"/>
 		<control caption="예"/>
-		<control caption="아니오|Cancel"/>
+		<control caption="아니오|취소"/>
 		<control/>
 		<control caption="닫기"/>
 	</dialog>
@@ -3381,52 +3387,50 @@
 		<control caption="..."/>
 		<control caption="Show"/>
 		<control caption="Open"/>
-		<control caption="Cancel"/>
+		<control caption="취소"/>
 		<control caption="Close"/>
 		<control caption="Close window when completed"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="General">
-		<control caption="Universal Resource Names (URNs)"/>
+<!--	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="General">
 		<control/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="File Attributes"/>
+		<control caption="File Info"/>
 		<control caption="Location:"/>
-		<control/>
 		<control caption="Type:"/>
-		<control/>
 		<control caption="Modified:"/>
-		<control/>
 		<control caption="Size:"/>
 		<control/>
 		<control/>
 		<control/>
-	</dialog>
-	<dialog name="CFileMetadataPage" cookie="CoEd" caption="Metadata">
 		<control/>
 		<control/>
-	</dialog>
-	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="My Review">
+		<control caption="Universal Resource Names (URN Hashes)"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+	</dialog> -->
+<!--	<dialog name="CFileMetadataPage" cookie="CoEd" caption="Metadata">
+		<control/>
+		<control/>
+	</dialog> -->
+<!--	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Comments">
 		<control caption="My Rating"/>
 		<control caption="I rate this file:"/>
 		<control caption="(No Rating)|Fake/Corrupt/Misleading|Poor|Average|Good|Very Good|Excellent"/>
 		<control caption="My Review and Comments"/>
 		<control/>
 		<control/>
-	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Sharing">
+	</dialog> -->
+<!--	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Sharing">
+		<control/>
 		<control caption="Simple Sharing"/>
-		<control caption="Share this file if the parent folder is shared"/>
-		<control caption="Override sharing setting for this file:"/>
-		<control caption="Make this file available to other users"/>
-		<control caption="Upload Queue Selection Tag(s)"/>
+		<control caption="Default sharing (if parent folder is shared)"/>
+		<control caption="Override default sharing for this file:"/>
+		<control caption="Publicly share this file"/>
+		<control caption="Upload Queue Selection Tags"/>
 		<control/>
-		<control caption="-Networks to Share On"/>
-		<control/>
-		<control/>
-	</dialog>
-	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Sources">
+	</dialog> -->
+<!--	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Sources">
 		<control caption="Known Sources"/>
 		<control caption="Add New Source"/>
 		<control/>
@@ -3434,7 +3438,7 @@
 		<control caption="_Add"/>
 		<control caption="_Remove"/>
 		<control/>
-	</dialog>
+	</dialog> -->
 	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Copy Files|Move Files">
 		<control caption="You have selected %i file(s) to copy to the following folder:"/>
 		<control/>

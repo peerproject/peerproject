@@ -81,6 +81,8 @@ void CIRCSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_IRC_SERVERPORT, m_sServerPort);
 	DDX_Text(pDX, IDC_IRC_REALNAME, m_sRealName);
 	DDX_Text(pDX, IDC_IRC_USERNAME, m_sUserName);
+	DDX_Text(pDX, IDC_IRC_ONCONNECT, m_sOnConnect);
+	DDX_Text(pDX, IDC_IRC_FONTSIZE, m_sFontSize);
 	DDX_FontCombo(pDX, IDC_IRC_TEXTFONT, m_sScreenFont);
 }
 
@@ -114,7 +116,9 @@ BOOL CIRCSettingsPage::OnInitDialog()
 	m_sServerPort = Settings.IRC.ServerPort;
 	m_sRealName = Settings.IRC.RealName;
 	m_sUserName = Settings.IRC.UserName;
+	m_sOnConnect = Settings.IRC.OnConnect;
 	m_sScreenFont = Settings.IRC.ScreenFont;
+	m_sFontSize.Format( _T("%i"), Settings.IRC.FontSize );
 	m_wndFonts.SubclassDlgItem( IDC_IRC_TEXTFONT, this );
 
 	UpdateData( FALSE );
@@ -122,7 +126,7 @@ BOOL CIRCSettingsPage::OnInitDialog()
 	return TRUE;
 }
 
-void CIRCSettingsPage::OnDrawItem(int /* nIDCtl */, LPDRAWITEMSTRUCT lpDrawItemStruct)
+void CIRCSettingsPage::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
    UINT uStyle = DFCS_BUTTONPUSH;
    if ( lpDrawItemStruct->CtlType == ODT_COMBOBOX )
@@ -270,12 +274,16 @@ void CIRCSettingsPage::OnOK()
 	Settings.IRC.ServerPort	 = m_sServerPort;
 	Settings.IRC.RealName	 = m_sRealName;
 	Settings.IRC.UserName	 = m_sUserName;
+	Settings.IRC.OnConnect	 = m_sOnConnect;
 	Settings.IRC.Timestamp	 = m_bTimestamp == TRUE;
 	Settings.IRC.Updated	 = TRUE;
+	Settings.IRC.FontSize	 = _wtoi( m_sFontSize );
 	Settings.IRC.ScreenFont	 = m_sScreenFont;
+
 	UpdateData( FALSE );
-	CWnd* pWnd = CWnd::FindWindow( _T("CIRCFrame"), NULL );
-	if ( pWnd ) pWnd->RedrawWindow( 0, 0, RDW_INTERNALPAINT|RDW_UPDATENOW|RDW_ALLCHILDREN );
+	m_wndFonts.Invalidate();
+	if ( CWnd* pWnd = (CWnd*)CIRCFrame::g_pIrcFrame )
+		pWnd->RedrawWindow( 0, 0, RDW_INTERNALPAINT|RDW_UPDATENOW|RDW_ALLCHILDREN );
 	CSettingsPage::OnOK();
 }
 
@@ -296,12 +304,15 @@ BOOL CIRCSettingsPage::OnApply()
 	Settings.IRC.ServerPort	 = m_sServerPort;
 	Settings.IRC.RealName	 = m_sRealName;
 	Settings.IRC.UserName	 = m_sUserName;
+	Settings.IRC.OnConnect	 = m_sOnConnect;
 	Settings.IRC.Timestamp	 = m_bTimestamp == TRUE;
 	Settings.IRC.Updated	 = TRUE;
+	Settings.IRC.FontSize	 = _wtoi( m_sFontSize );
 	Settings.IRC.ScreenFont	 = m_sScreenFont;
+
 	UpdateData( FALSE );
 	m_wndFonts.Invalidate();
-	CWnd* pWnd = (CWnd*)CIRCFrame::g_pIrcFrame;
-	if ( pWnd ) pWnd->RedrawWindow( 0, 0, RDW_INTERNALPAINT|RDW_UPDATENOW|RDW_ALLCHILDREN );
+	if ( CWnd* pWnd = (CWnd*)CIRCFrame::g_pIrcFrame )
+		pWnd->RedrawWindow( 0, 0, RDW_INTERNALPAINT|RDW_UPDATENOW|RDW_ALLCHILDREN );
 	return CSettingsPage::OnApply();
 }

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r40 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r41 (Shareaza 2.2.2.9) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1610,8 +1610,8 @@
 			<icon res="252" width="32" height="32" target="peer:command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">HOIATUS - SA OLED TULEMÜÜRITUD</heading>
 			<newline gap="8" indent="42"/>
-			<text color="FF0000">PeerProject tuvastas, et  sinu arvuti on NAT ruuteri või tulemüüri poolt suletud ja ei ole
-			  suuteline sissetulevaid ühendusi vastu võtma . &#160;</text>
+			<text color="FF0000">PeerProject tuvastas, et sinu arvuti on NAT ruuteri või tulemüüri poolt suletud ja ei ole
+			  suuteline sissetulevaid ühendusi vastu võtma. &#160;</text>
 			<text color="FF0000" format="b">See võib põhjustada kehva allalaadimist.</text>
 			<newline gap="6"/>
 			<link target="peer:command:ID_HELP_ROUTER">Kliki siia, et abi saada.</link>
@@ -1634,7 +1634,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Kiire Abi</link>
-		<text align="middle">&#160;- PeerProject kasutusõpetused.</text>
+		<text align="middle">&#160;- PeerProject kasutusõpetused, o </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Kohalik Foorum</link>
@@ -1792,11 +1793,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Meedia:</link>
 		<text>&#160;Kuidas ja millal kasutada PeerProject Meediakeskust.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">Chat:</link>
+		<text>&#160;IRC chatroom connection settings and display options.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Kogukond:</link>
 		<text>&#160;Sinu profiili, vestluse ja sõnumite seaded.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">Chat:</link>
-		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Weeb:</link>
 		<text>&#160;Integreeri PeerProject oma weebi browseriga ja ühenda peer-to-peer lingid ja allalaadimised browserist.</text>
@@ -2621,7 +2622,7 @@
 	<string id="8316" value="Vaatamisi"/>
 	<string id="8317" value="Üleslaadimisi"/>
 	<string id="8318" value="%lu täna, %lu kokku"/>
-	<string id="8319" value="Ei ole Hashset"/>
+	<string id="8319" value="Üleslaadimisi:"/>
 	<string id="8320" value="Olek:"/>
 	<string id="8321" value="Kiirus:"/>
 	<string id="8322" value="URL:"/>
@@ -2640,6 +2641,7 @@
 	<string id="8335" value="Selle faili allikad on tulemüüri taga"/>
 	<string id="8336" value="Selle faili allikad on ebastabiilsed"/>
 	<string id="8337" value="Ebausaldatav"/>
+	<string id="8338" value="Ei ole Hashset"/>
 	<string id="16064" value="Käivitan PeerProject võrgu tuuma..."/>
 	<string id="16065" value="Ei saa kasutada %s porti %i sissetulevateks ühendusteks.  Sissetulevaid ühendusi ei toetata"/>
 	<string id="16066" value="Sulgen PeerProject võrgu tuuma..."/>
@@ -3252,6 +3254,7 @@
 		<control caption="Filtreeri Spämm"/>
 		<control caption="Praagi labased väljendid"/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Weeb">
 		<control caption="_P2P linkide käsitlus:"/>
 		<control caption="Kasuta PeerProjectt, et avada seda tüüpi faile:"/>
@@ -3358,13 +3361,8 @@
 		<control caption="Vali Salasõna:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Planeerija">
-		<control caption="_Seaded:"/>
-		<control caption="_Võimalda Planeerija"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planeerija">
 		<control/>
-		<control/>
-		<control caption="_Ühenda G2-te ainult limiteeritult"/>
-		<control caption="Võti:"/>
 		<control caption="Püh"/>
 		<control caption="Esm"/>
 		<control caption="Tei"/>
@@ -3372,10 +3370,15 @@
 		<control caption="Nel"/>
 		<control caption="Ree"/>
 		<control caption="Lau"/>
+		<control caption="Võti:"/>
 		<control caption="Ära ühenda"/>
 		<control caption="Piiratud ühendus"/>
 		<control caption="Ühenda täiel võimsusel"/>
+		<control caption="_Seaded:"/>
+		<control caption="_Võimalda Planeerija"/>
+		<control caption="_Ühenda G2-te ainult limiteeritult"/>
 		<control caption="% _alla ülekandepiirangut"/>
+		<control/>
 		<control/>
 		<control caption="Abi"/>
 		<control caption="Planeerija on disainitud lubama sul seada ajad millal PeerProject ühendab ja hakkab faile allalaadima. {n}{n}{n}Vihje: Kui PeerProject on planeerija käivitudes töös, võid näha seda seadeid muutmas- See on normaalne!-"/>
@@ -3610,18 +3613,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBuBu" caption="Teretulemast PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Teretulemast PeerProject (4/6)">
 		<control caption="PeerProject toetab paindlikku kasutajaliidest, nii et saad valida just endale sobiva. Sa saad neid seadeid igal ajal muuta."/>
 		<control caption="Vali kasutajaliides:"/>
 		<control caption="Tavaline Vaade"/>
 		<control caption="Arenenud Vaade"/>
 		<control caption="Lihtne, kergelt kasutatavate nuppude ja vaatega.{n}Sarnane teiste failijagamis programmidega."/>
 		<control caption="Arenenud Vaade pakub kogenud kasutajatele palju lisa aknaid, käsklusi, jne.{n}See võib uutele kasutajatele veidi segadusseajav olla!"/>
-		<control caption="Kuva lihtsustatud allalaadimisriba. (Vähendab CPU kasutust)"/>
-		<control caption="Kuva täiendavaid torrent liidese elemente."/>
-		<control caption="Käsitle torrent linke."/>
+		<control caption="Kuva lihtsustatud allalaadimisriba."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Teretulemast PeerProject (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Teretulemast PeerProject (5/6)">
 		<control caption="PeerProject on üldptstarbeline failijagamisprogramm, mis suudab ühenduda paljudesse P2P võrkudesse samaegselt.  Siin saad sa valida, millistesse võrkudesse sa tahad ühendada.  Sa saad ka hiljem valida erinevadi võrke."/>
 		<control caption="Ühenda Gnutella2 (Soovituslik)"/>
 		<control caption="Gnutella2 võrk (G2) on PeerProject's peamine töö võrk, pakkudes rohkem võimalusi ja paremat esitust, kui mõni teine P2P võrk."/>
@@ -3629,6 +3631,7 @@
 		<control caption="Samuti algne Gnutella võrk (G1), ei ole küll nii võimaluste rohke kui Gnutella2 ja on vähem faile kui eDonkey-l, aga on siiski väärtuslik failijagamise allikas."/>
 		<control caption="Ühenda eDonkey2000"/>
 		<control caption="eDonkey (ED2K) on levinud srerveritel baseeruv võrk.  Küll mitte nii võimaluste rohke, kui Gnutella2, on eDonkey-l muljetavaldav kogus faile ringluses."/>
+		<control caption="Käsitle .torrent linke."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Impordi eDonkey2000 Allalaadimised">
 		<control/>
@@ -3831,20 +3834,20 @@
 		<control caption="Peida"/>
 		<control caption="Sulge see aken, kui allalaadimine lõpeb"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Üldist">
-		<control caption="Universal Resource Names (URNs)(Levinud ressursside nimed) "/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Üldist">
 		<control/>
 		<control caption="Faili Omadused"/>
 		<control caption="Asukoht:"/>
-		<control/>
 		<control caption="Tüüp:"/>
-		<control/>
 		<control caption="Muudetud:"/>
-		<control/>
 		<control caption="Suurus:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Levinud Ressursside Nimed (URN Hashes)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -3861,15 +3864,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Jagamine">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Jagamine">
+		<control/>
 		<control caption="Lihtne Jagamine"/>
 		<control caption="Jaga seda faili kui algkaust on jagatud"/>
 		<control caption="Kirjuta jagamisseaded selle faili jaoks üle:"/>
 		<control caption="Tee see fail teistele kättesaadavaks"/>
 		<control caption="Järjekorra Valiku Märksõna"/>
-		<control/>
-		<control caption="-Võrk milles jagada"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Allikad">

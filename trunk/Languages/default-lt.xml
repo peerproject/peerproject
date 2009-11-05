@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1777,7 +1777,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Trumpas žinynas</link>
-		<text align="middle">&#160;- Sužinokite esminius dalykus apie „PeerProject“</text>
+		<text align="middle">&#160;- Sužinokite esminius dalykus apie „PeerProject“ or </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Vietinis Forumai</link>
@@ -1931,8 +1932,7 @@
 			„PeerProject“ darbą prie savęs. Nuostatoms keisti skyriuje
 		</text>
 		<text format="b">Bendra </text>
-		<text>	tereikia turėti tik patirties.
-		</text>
+		<text>tereikia turėti tik patirties.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">Bendra:</link>
 		<text>&#160;Bendros naudotojo sąsajos nuostatos tokios, kaip patarimų kortelės, lango sumažinimo elgesys, skaičių formatai, užuominos ir t.t.</text>
@@ -1943,11 +1943,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Grotuvas:</link>
 		<text>&#160;Kada ir kur naudoti įmontuotą „PeerProject“ Grotuvo Centrą.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Bendrija:</link>
-		<text>&#160;Jūsų profilio, pokalbių ir skubiųjų žinučių nuostatos.</text>
-		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">Pokalbiai:</link>
 		<text>&#160;IRC pokalbių kanalų išvaizda ir susijugimo nuostatos.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CCommunitySettingsPage" format="b">Bendrija:</link>
+		<text>&#160;Jūsų profilio, pokalbių ir skubiųjų žinučių nuostatos.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Žiniatinklis:</link>
 		<text>&#160;„PeerProject“ integravimas į Jūsų naršyklę, siekiant priimti lygiaverčio susijungimo tinklo nuorodas ir parsisiuntimo vertus failus.</text>
@@ -2793,7 +2793,7 @@
 	<string id="8316" value="Kreipinių"/>
 	<string id="8317" value="Išsiųsta"/>
 	<string id="8318" value="%lu šiandien, %lu iš viso"/>
-	<string id="8319" value="Be maišos rinkinio"/>
+	<string id="8319" value="Išsiųsta:"/>
 	<string id="8320" value="Būklė:"/>
 	<string id="8321" value="Sparta:"/>
 	<string id="8322" value="URL adresas:"/>
@@ -2812,6 +2812,7 @@
 	<string id="8335" value="Šio failo šaltiniai yra už užkardos"/>
 	<string id="8336" value="Šio failo šaltiniai gali siųsti nestabiliai"/>
 	<string id="8337" value="Patikimas"/>
+	<string id="8338" value="Be maišos rinkinio"/>
 	<string id="13000" value="Ar tikrai norite ištrinti pasirinktas saugos taisykles? Šio žingsnio negalėsite atšaukti."/>
 	<string id="13001" value="Failai, bendrinami internetu"/>
 	<string id="16063" value="Prievado peradresavimas naudojant UPnP buvo nesėkmingas po 10 bandymų."/>
@@ -3455,14 +3456,16 @@
 		<control caption="Filtruoti pokalbio tekstus nuo informacinių šiukšlių"/>
 		<control caption="Filtruoti nešvankybes pokalbiuose"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Pokalbiai">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Pokalbiai">
 		<control caption="_Kliento nuostatos:"/>
 		<control caption="Rodyti sąsajos integraciją"/>
-		<control caption="Srauto apsauga:"/>
-		<control/>
-		<control caption="Eilučių per sek."/>
 		<control caption="Rodyti laiką"/>
+		<control caption="Srauto apsauga:"/>
+		<control caption="Eilučių"/>
+		<control/>
 		<control caption="Ekrano šriftas:"/>
+		<control caption="#"/>
+		<control/>
 		<control/>
 		<control caption="_Spalvos:"/>
 		<control/>
@@ -3493,6 +3496,8 @@
 		<control caption="Serveris:"/>
 		<control/>
 		<control caption="Prievadas:"/>
+		<control/>
+		<control caption="On-connect"/>
 		<control/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Žiniatinklis">
@@ -3602,13 +3607,8 @@
 		<control caption="Slaptažodis:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Planuotojas">
-		<control caption="_Parinktys:"/>
-		<control caption="Į_galinti planuotoją"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planuotojas">
 		<control/>
-		<control/>
-		<control caption="_Jungtis tik prie G2, kai ribojama"/>
-		<control caption="Raktai:"/>
 		<control caption="Sek"/>
 		<control caption="Pir"/>
 		<control caption="Ant"/>
@@ -3616,10 +3616,15 @@
 		<control caption="Ket"/>
 		<control caption="Pen"/>
 		<control caption="Šeš"/>
+		<control caption="Raktai:"/>
 		<control caption="Nesijungti"/>
 		<control caption="Apribotas susijungimas"/>
 		<control caption="Jungtis pilna sparta"/>
+		<control caption="_Parinktys:"/>
+		<control caption="Į_galinti planuotoją"/>
+		<control caption="_Jungtis tik prie G2, kai ribojama"/>
 		<control caption="% greitaveikos, kai ribojama"/>
+		<control/>
 		<control/>
 		<control caption="Pagalba"/>
 		<control caption="Planuotojas yra sukurtas tam, kad leistų Jums nustatyti, kada „PeerProject“ prisijungs ir siųsis failus.{n}{n}{n}Pastaba: Jei esate atvėrę „PeerProject“ tuo metu, kai planuotojas veikia, Jūs galite pastebėti, jog nuostatos keičiasi — tai normalu!"/>
@@ -3856,17 +3861,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Sveiki! Čia „PeerProject“">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Sveiki! Čia „PeerProject“">
 		<control caption="„PeerProject“ palaiko dvi skirtingas naudotojo sąsajas, todėl galite pasirinkti, kuri iš jų labiausiai Jums patogi. Jūs galėsite vėliau pakeisti šias nuostatas."/>
 		<control caption="Pasirinkite vieną naudotojo sąsają:"/>
 		<control caption="Įprastinė veiksena"/>
 		<control caption="Eksperto veiksena"/>
 		<control caption="Paprasta, lengva naudotis meniu ir mygtukais.{n}Naudotojams pažįstama iš daugelio kitų failų dalinimosi programų."/>
 		<control caption="Eksperto veiksena siūlo patyrusiems naudotojams daug papildomų komandų, langų ir t.t. Naujokus gali šiek tiek klaidinti!"/>
-		<control caption="Rodyti supaprastintas eigos juostas. (Sumažina procesoriaus apkrovimą)"/>
-		<control caption="Susieti torrent nuorodas su programa."/>
+		<control caption="Rodyti supaprastintas eigos juostas."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Sveiki! Čia „PeerProject“ (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Sveiki! Čia „PeerProject“ (5/6)">
 		<control caption="„PeerProject“ - tai bendros paskirties failų apsikeitimo programa, kuri gali prisijungti prie kelių lygiaverčio tarptinklinio susijungimo (P2P) tinklų vienu metu. Pasirinkite, prie kurių P2P tinklų norite jungtis, o po to derinkite kiekvieną tinklą atskirai."/>
 		<control caption="Jungtis prie Gnutella2 (Labai rekomenduojama)"/>
 		<control caption="Gnutella2 tinklas - tai pagrindinis „PeerProject“ tinklas, siūlantis daugiau galimybių ir našumo nei kiti P2P tinklai. Ypač rekomenduojama."/>
@@ -3874,6 +3879,7 @@
 		<control caption="Nors pirminis Gnutella tinklas turi mažiau galimybių, nei Gnutella2, ir mažiau failų, nei eDonkey, šis tinklas pasilieka vertingu ištekliumi."/>
 		<control caption="Jungtis prie eDonkey"/>
 		<control caption="eDonkey tinklas - tai populiarus tinklas su serveriais. Nors neturi tiek galimybių kaip Gnutella2, eDonkey tinkle yra įspūdinga failų kolekcija."/>
+		<control caption="Susieti torrent nuorodas su programa."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey dalinių failų importas">
 		<control/>
@@ -4077,20 +4083,20 @@
 		<control caption="Slėpti"/>
 		<control caption="Užverti šį langą, kai parsisiuntimas bus baigtas"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Bendra">
-		<control caption="Universalūs ištekliaus vardai (URNs)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Bendra">
 		<control/>
 		<control caption="Failo savybės"/>
 		<control caption="Vieta:"/>
-		<control/>
 		<control caption="Tipas:"/>
-		<control/>
 		<control caption="Modifikuota:"/>
-		<control/>
 		<control caption="Dydis:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Universalūs ištekliaus vardai (URNs)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4099,7 +4105,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Mano apžvalga">
+	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Apžvalga">
 		<control caption="Mano įvertinimas"/>
 		<control caption="Įvertinu šį failą(-us):"/>
 		<control caption="(Be įvertinimo)|Klastotė/Sugadinta/Klaidinanti|Prasta|Vidutinė|Gera|Labai gera|Puiki"/>
@@ -4107,15 +4113,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Bendrinimas">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Bendrinimas">
+		<control/>
 		<control caption="Paprastas bendrinimas"/>
 		<control caption="Bendrinti šį failą(-us), jei aplankas, kuriame jis yra, yra bendrintas"/>
 		<control caption="Nustatyti šio failo(-ų) bendrinimą rankiniu būdu:"/>
 		<control caption="Tegul šis failas būna pasiekiamas(-i) kitiems naudotojams"/>
-		<control caption="Žymė(s) išsiuntimų eilės parinkimui"/>
-		<control/>
-		<control caption="-Bendrinti šiuose tinkluose"/>
-		<control/>
+		<control caption="Žymės išsiuntimų eilės parinkimui"/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Šaltiniai">

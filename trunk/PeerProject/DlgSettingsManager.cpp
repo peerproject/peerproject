@@ -44,7 +44,7 @@
 #include "PageSettingsProtocols.h"
 #include "PageSettingsPlugins.h"
 #include "PageSettingsSkins.h"
-#include "PageSettingsTraffic.h"
+#include "PageSettingsAdvanced.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -95,9 +95,8 @@ void CSettingsManagerDlg::OnSkinChange(BOOL bSet)
 	{
 		m_pThis->SkinMe( _T("CSettingSheet"), IDR_MAINFRAME );
 		if ( CSettingsPage* pPage = m_pThis->GetActivePage() )
-		{
 			Skin.Apply( NULL, pPage, 0, &pPage->m_wndToolTip );
-		}
+
 		m_pThis->Invalidate();
 	}
 	else
@@ -114,6 +113,7 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 	CGeneralSettingsPage	pGeneral;
 	CLibrarySettingsPage	pLibrary;
 	CMediaSettingsPage		pMedia;
+	CIRCSettingsPage		pIRC;
 	CCommunitySettingsPage	pCommunity;
 	CWebSettingsPage		pWeb;
 	CRichSettingsPage		gInternet( _T("CInternetSettingsGroup") );
@@ -130,22 +130,21 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 	CPluginsSettingsPage	pPlugins;
 	CAdvancedSettingsPage	pAdvanced;
 	CProtocolsSettingsPage	pProtocols;
-	CIRCSettingsPage		pIRC;
 
 	AddGroup( &gGeneral );
 	AddPage( &pGeneral );
 	AddPage( &pLibrary );
 	AddPage( &pMedia );
-	AddPage( &pCommunity );
 	AddPage( &pIRC );
+	AddPage( &pCommunity );
 	AddPage( &pWeb );
 	AddGroup( &gInternet );
 	AddPage( &pConnection );
 	AddPage( &pDownloads );
 	AddPage( &pUploads );
-	AddPage( &pRemote );
 	if ( bAdvanced )
 	{
+		AddPage( &pRemote );
 		AddPage( &pScheduler );
 		AddGroup( &gNetworks );
 		AddPage( &pGnutella );
@@ -159,23 +158,18 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 	if ( bAdvanced )
 	{
 		AddGroup( &pAdvanced );
-		AddPage( &pProtocols ); //ToDo: Remove or Improve
+		AddPage( &pProtocols ); //ToDo: Remove or Improve Protocol Page
 	}
+
 	if ( pszWindow != NULL )
-	{
 		SetActivePage( GetPage( pszWindow ) );
-	}
 	else
-	{
 		SetActivePage( GetPage( Settings.General.LastSettingsPage ) );
-	}
 
 	INT_PTR nReturn = CSettingsSheet::DoModal();
 
 	if ( m_pFirst )
-	{
 		Settings.General.LastSettingsPage = m_pFirst->GetRuntimeClass()->m_lpszClassName;
-	}
 
 	return nReturn;
 }
@@ -230,15 +224,10 @@ void CSettingsManagerDlg::DoPaint(CDC& dc)
 	mdc.SelectObject( pOldBitmap );
 	mdc.DeleteDC();
 
-	/* //ToDo: Remove This?
-	dc.FillSolidRect( 438, 0, rc.right - 438, 48, RGB( 0xBE, 0, 0 ) );
-
-	dc.Draw3dRect( 438, 48, rc.right - 437, 2,
-		RGB( 169, 0, 0 ), RGB( 110, 59, 59 ) );
-
-	dc.Draw3dRect( 0, 50, rc.Width() + 1, 1,
-		RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );
-	*/
+	//ToDo: Remove This?
+	//dc.FillSolidRect( 438, 0, rc.right - 438, 48, RGB( 0xBE, 0, 0 ) );
+	//dc.Draw3dRect( 438, 48, rc.right - 437, 2, RGB( 169, 0, 0 ), RGB( 110, 59, 59 ) );
+	//dc.Draw3dRect( 0, 50, rc.Width() + 1, 1, RGB( 128, 128, 128 ), RGB( 128, 128, 128 ) );
 
 	CSettingsSheet::DoPaint( dc );
 }

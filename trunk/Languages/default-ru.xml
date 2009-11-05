@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1783,7 +1783,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Быстрaя Помoщь</link>
-		<text align="middle">&#160;- Онлайновая Справочная Система Wiki</text>
+		<text align="middle">&#160;- Онлайновая Справочная Система Wiki, or </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Местных форумах</link>
@@ -1943,11 +1944,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Проигрыватель:</link>
 		<text>&#160;Когда и где использовать встроенный в PeerProject Медиа Центр.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<text>&#160;IRC Czat.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Сообщество:</link>
 		<text>&#160;Ваш профиль, чат и установки быстрых сообщений (пейджер).</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
-		<text>&#160;IRC.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Веб:</link>
 		<text>&#160;Интегрируйте PeerProject с вашим веб обозревателем для приема P2P ссылок и другого содержимого.</text>
@@ -2792,7 +2793,7 @@
 	<string id="8316" value="Обращений"/>
 	<string id="8317" value="Раздач"/>
 	<string id="8318" value="%lu сегодня, %lu в сумме"/>
-	<string id="8319" value="Без набора хеша"/>
+	<string id="8319" value="Раздач:"/>
 	<string id="8320" value="Статус:"/>
 	<string id="8321" value="Скорость:"/>
 	<string id="8322" value="Ссылка:"/>
@@ -2811,6 +2812,7 @@
 	<string id="8335" value="Источники этого файла находятся за брандмауэром"/>
 	<string id="8336" value="Источники этого файла могут раздавать нестабильно"/>
 	<string id="8337" value="Недоверяемый"/>
+	<string id="8338" value="Без набора хеша"/>
 	<string id="13000" value="Уверены, что хотите удалить выбранные правила безопасности? Действие будет необратимое."/>
 	<string id="13001" value="Файлы, открытые для общего доступа"/>
 	<string id="16063" value="После 10 попыток переадресация порта при помощи UPnP, была неуспешна."/>
@@ -3462,14 +3464,16 @@
 		<control caption="Фильтровать текст чата от спама"/>
 		<control caption="Фильтровать нецензурные слова в чате"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Чат">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Чат">
 		<control caption="Настройки _чата:"/>
-		<control caption="Show chat  integration"/>
-		<control caption="Flood protection:"/>
-		<control/>
-		<control caption="lines per second"/>
+		<control caption="Метки chat integration"/>
 		<control caption="Метки времени"/>
+		<control caption="Flood protection:"/>
+		<control caption="#"/>
+		<control/>
 		<control caption="Шрифт:"/>
+		<control caption="#"/>
+		<control/>
 		<control/>
 		<control caption="_Цвета:"/>
 		<control/>
@@ -3500,6 +3504,8 @@
 		<control caption="Сервер:"/>
 		<control/>
 		<control caption="Порт:"/>
+		<control/>
+		<control caption="On-connect"/>
 		<control/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Веб">
@@ -3609,13 +3615,8 @@
 		<control caption="Введите пароль:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Планировщик">
-		<control caption="_Опции:"/>
-		<control caption="_Включить планировщик"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Планировщик">
 		<control/>
-		<control/>
-		<control caption="_Соединиться только с G2 при лимите"/>
-		<control caption="Ключ:"/>
 		<control caption="Вос"/>
 		<control caption="Пон"/>
 		<control caption="Вто"/>
@@ -3623,10 +3624,15 @@
 		<control caption="Чет"/>
 		<control caption="Пят"/>
 		<control caption="Суб"/>
+		<control caption="Ключ:"/>
 		<control caption="Не соединяться"/>
 		<control caption="Лимитированное соединение"/>
 		<control caption="Соедин. с полной скоростью"/>
+		<control caption="_Опции:"/>
+		<control caption="_Включить планировщик"/>
+		<control caption="_Соединиться только с G2 при лимите"/>
 		<control caption="% полосы пропуск. при лимите"/>
+		<control/>
 		<control/>
 		<control caption="Справка"/>
 		<control caption="Планировщик создан для того, чтобы позволить Вам установить, когда PeerProject должна соединиться и начать загрузку файлов.{n}{n}Замечание: Если Вы открыли PeerProject во время работы планировщика, Вы можете заметить, что установки меняются - это нормально!"/>
@@ -3863,17 +3869,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Добро пожаловать в PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Добро пожаловать в PeerProject (4/6)">
 		<control caption="PeerProject поддерживает два типа интерфейса, так что Вы можете выбрать наиболее удобный. Вы сможете изменить эти опции и позже."/>
 		<control caption="Выберите один пользовательский интерфейс:"/>
 		<control caption="Обычный режим"/>
 		<control caption="Режим опытным"/>
 		<control caption="Обычный - удобные меню и кнопки.{n}Знакомый пользователям других программ файлообмена."/>
 		<control caption="Опытным - предлагает много дополнительных команд, окон, и т.д. Он может несколько смутить новичков!"/>
-		<control caption="Показывать упрощенную полосу прогресса. (Уменьшает нагрузку ЦПУ)"/>
-		<control caption="Ассоциировать файлы торрентов с программой."/>
+		<control caption="Показывать упрощенную полосу прогресса."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Добро пожаловать в PeerProject (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Добро пожаловать в PeerProject (5/6)">
 		<control caption="PeerProject - многоцелевая программа обмена файлами, с доступом ко многим P2P сетям одновременно. Здесь Вы можете выбрать, какие P2P сети Вы хотите использовать. Отметьте, что Вы можете выбрать их позже."/>
 		<control caption="Соединяться с Gnutella2 (рекомендуется)"/>
 		<control caption="Gnutella2 (G2) - основная сеть PeerProject, она предлагает больше особенностей и опций работы чем любая другая P2P сеть."/>
@@ -3881,6 +3887,7 @@
 		<control caption="Хотя оригинальная Gnutella (G1) менее богата возможностями чем Gnutella2, и имеет меньше файлов чем eDonkey, всё равно это ценный ресурс."/>
 		<control caption="Соединяться с eDonkey"/>
 		<control caption="eDonkey (ED2K) популярная сеть с использованием серверов.  Не столь богата возможностями как Gnutella2, но содержит больше файлов."/>
+		<control caption="Ассоциировать файлы торрентов с программой."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Импорт eDonkey Загрузок">
 		<control/>
@@ -4084,20 +4091,20 @@
 		<control caption="Закрыть"/>
 		<control caption="Закрыть окно по завершению загрузки"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Основное">
-		<control caption="Унифицированные имена ресурсов (URNs)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Основное">
 		<control/>
 		<control caption="Атрибуты файла"/>
 		<control caption="Путь:"/>
-		<control/>
 		<control caption="Тип:"/>
-		<control/>
 		<control caption="Изменено:"/>
-		<control/>
 		<control caption="Размер:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Унифицированные имена ресурсов (URNs)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4106,7 +4113,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Мой отзыв">
+	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="комментарии">
 		<control caption="Моя оценка"/>
 		<control caption="Я оцениваю файл:"/>
 		<control caption="(Без оценки)|Фальшивка/Испорчен|Плохой|Средний|Хороший|Очень хороший|Отменный"/>
@@ -4114,15 +4121,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Общий доступ">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Общий доступ">
+		<control/>
 		<control caption="Режим доступа"/>
 		<control caption="Наследовать доступ от родительской папки"/>
 		<control caption="Использовать независимую настройку доступа:"/>
 		<control caption="Открыть общий доступ к файлу"/>
 		<control caption="Метка для выбора очереди раздачи"/>
-		<control/>
-		<control caption="-Сети, в которых разделять"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Источники">

@@ -1,5 +1,5 @@
 //
-// PageSettingsTraffic.cpp
+// PageSettingsAdvanced.cpp
 //
 // This file is part of PeerProject (peerproject.org) © 2008
 // Portions Copyright Shareaza Development Team, 2002-2008.
@@ -23,7 +23,7 @@
 #include "PeerProject.h"
 #include "Settings.h"
 #include "LiveList.h"
-#include "PageSettingsTraffic.h"
+#include "PageSettingsAdvanced.h"
 #include "Skin.h"
 
 #ifdef _DEBUG
@@ -74,16 +74,14 @@ BOOL CAdvancedSettingsPage::OnInitDialog()
 
 	m_wndList.InsertColumn( 0, _T("Setting"), LVCFMT_LEFT, rc.right - 80, 0 );
 	m_wndList.InsertColumn( 1, _T("Value"), LVCFMT_LEFT, 80, 1 );
-
-	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT );
+	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
 	Skin.Translate( _T("CAdvancedSettingsList"), m_wndList.GetHeaderCtrl() );
 
 	AddSettings();
 
 	CLiveList::Sort( &m_wndList, 0 );
-	CLiveList::Sort( &m_wndList, 0 );
+	//CLiveList::Sort( &m_wndList, 0 );	//Repeat
 
 	UpdateInputArea();
 
@@ -202,13 +200,10 @@ void CAdvancedSettingsPage::UpdateInputArea()
 
 		pItem->m_pItem->SetRange( m_wndValueSpin );
 		if ( pItem->m_pItem->m_pDword )
-		{
 			strValue.Format( _T("%lu"), pItem->m_nValue / pItem->m_pItem->m_nScale );
-		}
 		else
-		{
 			strValue = pItem->m_bValue ? _T("1") : _T("0");
-		}
+
 		m_wndValue.SetWindowText( strValue );
 		m_wndValue.EnableWindow( TRUE );
 		m_wndValueSpin.EnableWindow( TRUE );

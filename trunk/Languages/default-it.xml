@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1762,7 +1762,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Aiuto veloce</link>
-		<text align="middle">&#160;- Aiuti fondamentali per usare PeerProject</text>
+		<text align="middle">&#160;- Aiuti fondamentali per usare PeerProject, o </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
@@ -1920,11 +1921,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Media player:</link>
 		<text>&#160;Quando e dove usare lo PeerProject Media Centre integrato.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<text>&#160;IRC chatroom connection settings and display options.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Comunità:</link>
 		<text>&#160;Il tuo profilo, chat e le configurazioni per la messaggeria istantanea.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
-		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
 		<text>&#160;Integra PeerProject con il tuo browser Internet in modo da accettare i collegamenti peer-to-peer e scaricarne i contenuti.</text>
@@ -2783,7 +2784,7 @@
 	<string id="8316" value="Hits"/>
 	<string id="8317" value="Upload"/>
 	<string id="8318" value="%lu oggi, %lu totale"/>
-	<string id="8319" value="No hashset"/>
+	<string id="8319" value="Volume Totale:"/>
 	<string id="8320" value="Stato:"/>
 	<string id="8321" value="Velocità:"/>
 	<string id="8322" value="URL:"/>
@@ -2802,6 +2803,7 @@
 	<string id="8335" value="I sorgenti di questo file sono firewallati"/>
 	<string id="8336" value="I sorgenti di questo file possono essere instabili"/>
 	<string id="8337" value="Non sicuro"/>
+	<string id="8338" value="Non Hashset"/>
 	<string id="13000" value="Sei sicuro di voler cancellare le regole di sicurezza selezionate?  Ciò non può essere annullato."/>
 	<string id="13001" value="File condivisi su internet"/>
 	<string id="16063" value="La mappatura delle porta UPnP è fallita dopo 10 tentativi."/>
@@ -3455,14 +3457,16 @@
 		<control caption="Filtra i messaggi chat dallo spam"/>
 		<control caption="Censura contenuti profani in chat"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="null">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="IRC">
 		<control caption="_Opzioni client:"/>
 		<control caption="Mostra integrazione chat"/>
-		<control caption="Protezione flood:"/>
-		<control/>
-		<control caption="linee al secondo"/>
 		<control caption="Mostra timestamp"/>
+		<control caption="Protezione flood:"/>
+		<control caption="Linee"/>
+		<control/>
 		<control caption="Font schermo:"/>
+		<control caption="Size"/>
+		<control/>
 		<control/>
 		<control caption="_Colori:"/>
 		<control/>
@@ -3493,6 +3497,8 @@
 		<control caption="Server:"/>
 		<control/>
 		<control caption="Porta:"/>
+		<control/>
+		<control caption="A connessione"/>
 		<control/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
@@ -3602,13 +3608,8 @@
 		<control caption="Scegli una password:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Scheduler">
-		<control caption="Opzioni:"/>
-		<control caption="_Abilita schedulatore"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Scheduler">
 		<control/>
-		<control/>
-		<control caption="_Connetti solo a G2 quando limitato"/>
-		<control caption="Chiave:"/>
 		<control caption="Dom"/>
 		<control caption="Lun"/>
 		<control caption="Mar"/>
@@ -3616,10 +3617,15 @@
 		<control caption="Gio"/>
 		<control caption="Ven"/>
 		<control caption="Sab"/>
+		<control caption="Chiave:"/>
 		<control caption="Non connetterti"/>
 		<control caption="Connessione limitata"/>
 		<control caption="Connettiti alla massima velocità"/>
+		<control caption="Opzioni:"/>
+		<control caption="_Abilita schedulatore"/>
+		<control caption="_Connetti solo a G2 quando limitato"/>
 		<control caption="% della _banda quando limitato"/>
+		<control/>
 		<control/>
 		<control caption="Aiuto"/>
 		<control caption="Lo schedulatore è stato previsto per permetterti di scegliere quando PeerProject si connetterà per scaricare i file. {n}{n}{n}Nota: Sei hai PeerProject aperto quando questo è attivo, puoi vederlo cambiare le impostazioni - Questo è normale! -"/>
@@ -3863,8 +3869,8 @@
 		<control caption="Modalità avanzata"/>
 		<control caption="Semplice con menu e pulsanti facili da usare.{n}Familiare agli utenti di altri programmi di condivisione file."/>
 		<control caption="La modalità avanzata offre agli utenti esperti comandi extra, finestre, ecc.{n}Può confondere i nuovi utenti!"/>
-		<control caption="Visualizza le barre dei progressi semplificate. (Riduce l'uso della CPU)"/>
-		<control caption="Gestisci collegamenti ai torrent."/>
+		<control caption="Visualizza le barre dei progressi semplificate."/>
+		<control caption=""/>
 	</dialog>
 	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Benvenuto su PeerProject (5/6)">
 		<control caption="PeerProject è un'applicazione generica per la condivisione dei file che può accedere a molte reti P2P nello stesso momento. Qui puoi selezionare a quali reti vuoi accedere. Da notare che puoi sempre selezionare differenti reti successivamente."/>
@@ -3874,6 +3880,7 @@
 		<control caption="Sebbene la rete originale Gnutella (G1) abbia meno funzionalità rispetto a Gnutella2, ed abbia meno file di eDonkey, è sempre una notevole risorsa. (LimeWire)"/>
 		<control caption="Connetti a eDonkey2000"/>
 		<control caption="La rete eDonkey (ED2K) è una rete popolare basata su server. Non possiede molte funzionalità come G2, ma è molto più vasta. (eMule)"/>
+		<control caption="Gestisci collegamenti ai torrent."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importa download di eDonkey">
 		<control/>
@@ -4077,20 +4084,20 @@
 		<control caption="Chiudi"/>
 		<control caption="Chiudi questa finestra al termine del download"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Generale">
-		<control caption="Nome universale delle risorse (URN)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Generale">
 		<control/>
 		<control caption="Attributi file"/>
 		<control caption="Percorso:"/>
-		<control/>
 		<control caption="Tipo:"/>
-		<control/>
 		<control caption="Modificato:"/>
-		<control/>
 		<control caption="Dimensione:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Nome universale delle risorse (URN)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4107,15 +4114,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Condivisione">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Condivisione">
+		<control/>
 		<control caption="Condivisione semplice"/>
 		<control caption="Condividi questo file se la cartella relativa è condivisa"/>
 		<control caption="Sovrascrivi la configurazione di condivisione per questo file:"/>
 		<control caption="Rendi questo file disponibile ad altri utenti"/>
 		<control caption="Selezione coda upload"/>
-		<control/>
-		<control caption="-Reti su cui condividere"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Fonti">

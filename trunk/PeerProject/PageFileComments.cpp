@@ -97,9 +97,7 @@ BOOL CFileCommentsPage::OnInitDialog()
 		for ( POSITION pos = pFiles->GetIterator() ; pos ; )
 		{
 			if ( CLibraryFile* pFile = pFiles->GetNextFile( pos ) )
-			{
 				m_nRating = pFile->m_nRating;
-			}
 		}
 
 	}
@@ -208,9 +206,7 @@ void CFileCommentsPage::OnOK()
 		for ( POSITION pos = pFiles->GetIterator() ; pos ; )
 		{
 			if ( CLibraryFile* pFile = pFiles->GetNextFile( pos ) )
-			{
 				pFile->m_nRating = m_nRating;
-			}
 		}
 
 		Library.Update();

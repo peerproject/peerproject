@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r40 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r41 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1628,7 +1628,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Hitra pomoč</link>
-		<text align="middle">&#160;- Osnovna pomoč za uporabo PeerProject</text>
+		<text align="middle">&#160;- Osnovna pomoč za uporabo PeerProject, or </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Lokalna Forums</link>
@@ -1786,11 +1787,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Medijski predvajalnik:</link>
 		<text>&#160;Kdaj in kako uporabiti vgrajen PeerProject medijski predvajalnik.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<text>&#160;IRC chatroom connection settings and display options.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Družba:</link>
 		<text>&#160;Nastavitve vašega profila, kramljanja (chat) in takojšnjega sporočanja (instant messaging).</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
-		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Splet:</link>
 		<text>&#160;Povežite PeerProject z vašim spletnim brskalnikom. Tako boste lahko prejemali P2P povezave in druge vsebine prenosov.</text>
@@ -2621,7 +2622,7 @@
 	<string id="8316" value="Zadetki"/>
 	<string id="8317" value="Naložki"/>
 	<string id="8318" value="%lu danes, skupno %lu"/>
-	<string id="8319" value="Manjka nabor izvlečkov (hashset)"/>
+	<string id="8319" value="Naložki:"/>
 	<string id="8320" value="Status:"/>
 	<string id="8321" value="Hitrost:"/>
 	<string id="8322" value="URL:"/>
@@ -2640,6 +2641,7 @@
 	<string id="8335" value="Viri za to datoteko so za požarnim zidom"/>
 	<string id="8336" value="Viri za to datoteko so morda nestabilni"/>
 	<string id="8337" value="Ni vreden zaupanja"/>
+	<string id="8338" value="No Hashset"/> <--Manjka nabor izvlečkov-->
 	<string id="16064" value="Zaganjam omrežno jedro PeerProject..."/>
 	<string id="16065" value="Vezava na %s vrata %i, za vhodne povezave, ni uspela. Vhodne povezave ne bodo mogoče."/>
 	<string id="16066" value="Zapiram omrežno jedro PeerProject..."/>
@@ -3252,6 +3254,7 @@
 		<control caption="Filtriraj e-slamo (spam) v klepetalniških sporočilih"/>
 		<control caption="Cenzuriraj psovke v klepetalnici"/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Splet">
 		<control caption="_P2P obdelava povezav:"/>
 		<control caption="Uporabi PeerProject za odpiranje naslednjih vrst povezav:"/>
@@ -3359,13 +3362,8 @@
 		<control caption="Geslo:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Razpored">
-		<control caption="_Možnosti:"/>
-		<control caption="_Vklopi razpored"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Razpored">
 		<control/>
-		<control/>
-		<control caption="_Poveži se z G2 ob omejitvah"/>
-		<control caption="Ključ:"/>
 		<control caption="ned"/>
 		<control caption="pon"/>
 		<control caption="tor"/>
@@ -3373,10 +3371,15 @@
 		<control caption="čet"/>
 		<control caption="pet"/>
 		<control caption="sob"/>
+		<control caption="Ključ:"/>
 		<control caption="Brez povezave"/>
 		<control caption="Omejena povezava"/>
 		<control caption="Povezava s polno hitrostjo"/>
+		<control caption="_Možnosti:"/>
+		<control caption="_Vklopi razpored"/>
+		<control caption="_Poveži se z G2 ob omejitvah"/>
 		<control caption="% _pasovne širine z omejitvijo"/>
+		<control/>
 		<control/>
 		<control caption="Pomoč"/>
 		<control caption="Razpored vam omogoča, da PeerProject ob določenem času prenese datoteke. {n}{n}Opomba: Če boste imeli PeerProject odprto med tem, ko bo Razpored aktiven, boste morda opazili spreminjanje nastavitev. Brez panike, to je predvideno. Skuliraj se in pojdi na pivo :-)"/>
@@ -3612,17 +3615,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Dobrodošli v PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Dobrodošli v PeerProject (4/6)">
 		<control caption="PeerProject uporablja prilagodljiv uporabniški vmesnik, ki vam omogoča delo po vaši meri. Te nastavitve lahko kasneje tudi spremenite."/>
 		<control caption="Izberite uporabniški vmesnik:"/>
 		<control caption="Navadni način"/>
 		<control caption="Napredni način"/>
 		<control caption="Enostavni meniji in gumbi.{n}Ti so dobro znani uporabnikom drugih programov za deljenje datotek."/>
 		<control caption="Napredni način omogoča uporabniku uporabo dodatnih ukazov, oken, itd.{n}Vmesnik se lahko novincem zdi precej zapleten!"/>
-		<control caption="Prikaži poenostavljene kazalce napredka. (Zmanjša požrešnost enote CPU)"/>
-		<control caption="Uporabljaj torrent povezave."/>
+		<control caption="Prikaži poenostavljene kazalce napredka."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Dobrodošli v PeerProject (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Dobrodošli v PeerProject (5/6)">
 		<control caption="PeerProject je večnamenski program za deljenje datotek, ki lahko hkrati dostopa do več P2P omrežij naenkrat. Tu lahko določite omrežja do katerih želite dostopati. Te nastavitve lahko kadarkoli kasneje tudi poljubno spremenite."/>
 		<control caption="Poveži se z Gnutello2 (Zelo priporočljivo)"/>
 		<control caption="Omrežje Gnutella2 je osrednje PeerProject omrežje, ki ponuja več storitev in boljše zmogljivosti, kot katerokoli drugo P2P omrežje."/>
@@ -3630,6 +3633,7 @@
 		<control caption="Čeprav ima izvorno Gnutella omrežje manj storitev od Gnutelle2 in ima tudi manj datotek v skupni rabi od eDonkey2000, ostaja še vedno pomemben vir vsebin."/>
 		<control caption="Poveži se z eDonkey2000"/>
 		<control caption="Omrežje eDonkey je zelo priljubljeno omrežje, ki sloni na osrednjih strežnikih. Čeprav nima na voljo toliko storitev, kot Gnutella2, ima to omrežje velik nabor vsebin v skupni rabi."/>
+		<control caption="Uporabljaj torrent povezave."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Uvozi eDonkey2000 prenose">
 		<control/>
@@ -3832,20 +3836,20 @@
 		<control caption="Skrij"/>
 		<control caption="Po končanem prenosu zapri to okno"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Splošno">
-		<control caption="Univerzalna imena sredstev (URN-ji)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Splošno">
 		<control/>
 		<control caption="Lastnosti datoteke"/>
 		<control caption="Lokacija:"/>
-		<control/>
 		<control caption="Tip:"/>
-		<control/>
 		<control caption="Spremenjeno:"/>
-		<control/>
 		<control caption="Velikost:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Univerzalna imena sredstev (URN-ji)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -3854,7 +3858,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Moja ocena">
+	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Komentarji">
 		<control caption="Moja ocena"/>
 		<control caption="Moja ocena datoteke:"/>
 		<control caption="(neocenjeno)|Lažno/V okvari/Zavajajoče|Slaba|Zadostna|Dobra|Prav dobra|Odlična"/>
@@ -3862,15 +3866,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Deljenje">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Deljenje">
+		<control/>
 		<control caption="enostavno deljenje"/>
 		<control caption="Deli to datoteko, če je deljena tudi nadrejena mapa"/>
 		<control caption="Povozi nastavitve za deljenje za datoteko:"/>
 		<control caption="Daj datoteko na voljo drugim uporabnikom"/>
 		<control caption="Pošlji značko mesta v čakalni vrsti"/>
-		<control/>
-		<control caption="-Deli na omrežjih"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Viri">

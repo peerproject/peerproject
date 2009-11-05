@@ -281,16 +281,11 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	}
 
 	if ( strURL.Find( _T("http://") ) == 0 )
-	{
-	}
+		; // Do nothing
 	else if ( strURL.Find( _T("www.") ) == 0 )
-	{
 		strURL = _T("http://") + strURL;
-	}
 	else
-	{
 		strURL.Empty();
-	}
 
 	if ( strEmail.Find( '@' ) < 0 ) strEmail.Empty();
 
@@ -320,13 +315,9 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	int nItem = pItem.Add( &m_wndList, -1, 7 );
 
 	if ( theApp.GetProfileInt( _T("Skins"), strName, FALSE ) )
-	{
 		m_wndList.SetItemState( nItem, 2 << 12, LVIS_STATEIMAGEMASK );
-	}
 	else
-	{
 		m_wndList.SetItemState( nItem, 1 << 12, LVIS_STATEIMAGEMASK );
-	}
 
 	return TRUE;
 }
@@ -467,7 +458,7 @@ void CSkinsSettingsPage::OnSkinsBrowse()
 
 void CSkinsSettingsPage::OnSkinsWeb()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
 		strWebSite + _T("?id=addon&Version=") + theApp.m_sVersion,
@@ -559,5 +550,3 @@ void CSkinsSettingsPage::OnSkinsDelete()
 	m_wndDelete.EnableWindow( FALSE );
 	m_nSelected = -1;
 }
-
-

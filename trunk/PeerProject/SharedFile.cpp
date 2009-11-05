@@ -88,6 +88,7 @@ CLibraryFile::CLibraryFile(CLibraryFolder* pFolder, LPCTSTR pszName) :
 ,	m_bCachedPreview	( FALSE )
 ,	m_bBogus			( FALSE )
 ,	m_nRating			( 0 )
+//,	m_nPeerTag			( 0 )
 ,	m_nHitsToday		( 0ul )
 ,	m_nHitsTotal		( 0ul )
 ,	m_nUploadsToday		( 0ul )
@@ -212,8 +213,8 @@ void CLibraryFile::SetShared(bool bShared, bool bOverride)
 
 	bool bFolderShared = ! m_pFolder || m_pFolder->IsShared();
 
+	// Use folder default shared flag
 	if ( bNewShare == TRI_UNKNOWN )
-		// Use folder default shared flag
 		bNewShare = bShared ?
 			( bFolderShared ? TRI_UNKNOWN : TRI_TRUE ) :
 			( bFolderShared ? TRI_FALSE : TRI_UNKNOWN );
@@ -233,30 +234,29 @@ void CLibraryFile::SetShared(bool bShared, bool bOverride)
 BOOL CLibraryFile::IsSchemaURI(LPCTSTR pszURI) const
 {
 	if ( m_pSchema == NULL )
-	{
 		return ( pszURI == NULL || *pszURI == NULL );
-	}
 	else
-	{
 		return m_pSchema->CheckURI( pszURI );
-	}
 }
 
 //////////////////////////////////////////////////////////////////////
-// CLibraryFile rated (or commented)
+// CLibraryFile rated or commented (or no metadata)
 
 BOOL CLibraryFile::IsRated() const
 {
 	return ( m_nRating || m_sComments.GetLength() );
 }
 
-//////////////////////////////////////////////////////////////////////
-// CLibraryFile rated but have no metadata
-
 BOOL CLibraryFile::IsRatedOnly() const
 {
 	return IsRated() && ( m_pSchema == NULL || m_pMetadata == NULL );
 }
+
+//ToDo: Implement PeerTags (Permissiveness)
+//BOOL CLibraryFile::IsPeerTagged() const
+//{
+//	return ( m_nPeerTag );
+//}
 
 BOOL CLibraryFile::IsHashed() const
 {
@@ -321,14 +321,14 @@ BOOL CLibraryFile::Rename(LPCTSTR pszName)
 		return FALSE;
 	}
 
-/*	if ( m_pMetadata != NULL )
-	{
-		CString strMetaFolder	= m_pFolder->m_sPath + _T("\\Metadata");
-		CString strMetaOld		= strMetaFolder + '\\' + m_sName + _T(".xml");
-		CString strMetaNew		= strMetaFolder + '\\' + pszName + _T(".xml");
+	//if ( m_pMetadata != NULL )
+	//{
+	//	CString strMetaFolder	= m_pFolder->m_sPath + _T("\\Metadata");
+	//	CString strMetaOld		= strMetaFolder + '\\' + m_sName + _T(".xml");
+	//	CString strMetaNew		= strMetaFolder + '\\' + pszName + _T(".xml");
 
-		MoveFile( strMetaOld, strMetaNew );
-	}*/
+	//	MoveFile( strMetaOld, strMetaNew );
+	//}
 
 	Library.RemoveFile( this );
 
@@ -355,16 +355,16 @@ BOOL CLibraryFile::Delete(BOOL bDeleteGhost)
 		CQuickLock pLock( Transfers.m_pSection );
 		CDownload* pDownload = Downloads.FindByPath( GetPath() );
 		if ( pDownload )
+		{
 			// Also deletes file and closes upload handlers
 			pDownload->Remove( true );
+		}
 		else
 		{
 			// Delete file and close upload handlers
 			BOOL bToRecycleBin = ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 );
 			if ( ! DeleteFileEx( GetPath(), TRUE, bToRecycleBin, TRUE ) )
-			{
 				return FALSE;
-			}
 		}
 	}
 
@@ -433,18 +433,14 @@ BOOL CLibraryFile::SetMetadata(CXMLElement*& pXML, BOOL bMerge, BOOL bOverwrite)
 		}
 
 		if ( pSchema == NULL || ! pSchema->Validate( pXML, TRUE ) )
-			// Invalid XML
-			return FALSE;
+			return FALSE;	// Invalid XML
 
 		if ( m_pMetadata && bMerge )
-		{
 			pXML->GetFirstElement()->Merge( m_pMetadata, ! bOverwrite );
-		}
 
 		if ( m_pMetadata && m_pSchema == pSchema &&
 			m_pMetadata->Equals( pXML->GetFirstElement() ) )
-			// No need
-			return TRUE;
+			return TRUE;	// No need
 	}
 
 	Library.RemoveFile( this );
@@ -485,13 +481,9 @@ void CLibraryFile::ModifyMetadata()
 CString CLibraryFile::GetMetadataWords() const
 {
 	if ( m_pSchema != NULL && m_pMetadata != NULL )
-	{
 		return m_pSchema->GetIndexedWords( m_pMetadata );
-	}
 	else
-	{
 		return CString();
-	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -566,9 +558,7 @@ CSharedSource* CLibraryFile::AddAlternateSources(LPCTSTR pszURLs)
 		FILETIME tSeen = {};
 		oUrls.GetNextAssoc( pos, strURL, tSeen );
 		if ( CSharedSource* pSource = AddAlternateSource( strURL, &tSeen ) )
-		{
 			pFirst = pSource;
-		}
 	}
 
 	return pFirst;
@@ -644,7 +634,8 @@ CString CLibraryFile::GetAlternateSources(CList< CString >* pState, int nMaximum
 			if ( ( nProtocol == PROTOCOL_HTTP ) && ( _tcsncmp( pSource->m_sURL, _T("http://"), 7 ) != 0 ) )
 				continue;
 
-			if ( pState != NULL ) pState->AddTail( pSource->m_sURL );
+			if ( pState != NULL )
+				pState->AddTail( pSource->m_sURL );
 
 			if ( pSource->m_sURL.Find( _T("Zhttp://") ) >= 0 ||
 				pSource->m_sURL.Find( _T("Z%2C http://") ) >= 0 )
@@ -663,8 +654,10 @@ CString CLibraryFile::GetAlternateSources(CList< CString >* pState, int nMaximum
 				strSources += TimeToString( &pSource->m_pTime );
 			}
 
-			if ( nMaximum == 1 ) break;
-			else if ( nMaximum > 1 ) nMaximum --;
+			if ( nMaximum == 1 )
+				break;
+			else if ( nMaximum > 1 )
+				nMaximum--;
 		}
 	}
 
@@ -709,6 +702,19 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 		ar << m_nRating;
 		ar << m_sComments;
 		ar << m_sShareTags;
+		//ar << m_nPeerTag;
+
+		//if ( nVersion > 1000 )
+		//{
+		//	// PeerTags Support above PeerProject r40 
+		//	ar << m_nPeerTag;
+		//}
+		//else
+		//{
+		//	DWORD nPeerTag;
+		//	ar >> nPeerTag;
+		//	m_nPeerTag = nPeerTag;
+		//}
 
 		ar << m_bMetadataAuto;
 		ar.Write( &m_pMetadataTime, sizeof( m_pMetadataTime ) );
@@ -734,85 +740,72 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 
 		ar >> m_nIndex;
 
-		if ( nVersion >= 17 )
-		{
+		//if ( nVersion >= 17 )
+		//{
 			ar >> m_nSize;
-		}
-		else
-		{
-			DWORD nSize;
-			ar >> nSize;
-			m_nSize = nSize;
-		}
+		//}
+		//else
+		//{
+		//	DWORD nSize;
+		//	ar >> nSize;
+		//	m_nSize = nSize;
+		//}
 
 		ReadArchive( ar, &m_pTime, sizeof(m_pTime) );
 
-		if ( nVersion >= 5 )
-		{
+		//if ( nVersion >= 5 )
+		//{
 			ar >> m_bShared;
-		}
-		else
-		{
-			BYTE bShared;
-			ar >> bShared;
-			m_bShared = bShared ? TRI_UNKNOWN : TRI_FALSE;
-		}
+		//}
+		//else
+		//{
+		//	BYTE bShared;
+		//	ar >> bShared;
+		//	m_bShared = bShared ? TRI_UNKNOWN : TRI_FALSE;
+		//}
 
-		if ( nVersion >= 21 )
-		{
+		//if ( nVersion >= 21 )
+		//{
 			ar >> m_nVirtualSize;
 			if ( m_nVirtualSize > 0 ) ar >> m_nVirtualBase;
-		}
+		//}
 
 		SerializeIn( ar, m_oSHA1, nVersion );
-		if ( nVersion >= 8 )
-		{
-			SerializeIn( ar, m_oTiger, nVersion );
-		}
-		else
-		{
-			m_oTiger.clear();
-		}
-		if ( nVersion >= 11 )
-		{
-			SerializeIn( ar, m_oMD5, nVersion );
-		}
-		else
-		{
-			m_oMD5.clear();
-		}
-		if ( nVersion >= 11 )
-		{
-			SerializeIn( ar, m_oED2K, nVersion );
-		}
-		else
-		{
-			m_oED2K.clear();
-		}
-		if ( nVersion >= 26 )
-		{
-			SerializeIn( ar, m_oBTH, nVersion );
-		}
-		else
-		{
-			m_oBTH.clear();
-		}
 
-		if ( nVersion >= 4 ) ar >> m_bVerify;
+		//if ( nVersion >= 8 )
+			SerializeIn( ar, m_oTiger, nVersion );
+		//else
+		//	m_oTiger.clear();
+
+		//if ( nVersion >= 11 )
+			SerializeIn( ar, m_oMD5, nVersion );
+		//else
+		//	m_oMD5.clear();
+
+		//if ( nVersion >= 11 )
+			SerializeIn( ar, m_oED2K, nVersion );
+		//else
+		//	m_oED2K.clear();
+
+		if ( nVersion >= 26 )
+			SerializeIn( ar, m_oBTH, nVersion );
+		else
+			m_oBTH.clear();
+
+		//if ( nVersion >= 4 )
+			ar >> m_bVerify;
 
 		CString strURI;
 		ar >> strURI;
 
 		if ( strURI.GetLength() )
 		{
-			if ( nVersion < 27 )
-			{
-				ar >> m_bMetadataAuto;
-				if ( ! m_bMetadataAuto )
-				{
-					ReadArchive( ar, &m_pMetadataTime, sizeof(m_pMetadataTime) );
-				}
-			}
+			//if ( nVersion < 27 )
+			//{
+			//	ar >> m_bMetadataAuto;
+			//	if ( ! m_bMetadataAuto )
+			//		ReadArchive( ar, &m_pMetadataTime, sizeof(m_pMetadataTime) );
+			//}
 			m_pMetadata = new CXMLElement();
 			m_pMetadata->Serialize( ar );
 			m_pSchema = SchemaCache.Get( strURI );
@@ -823,30 +816,30 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 			}
 		}
 
-		if ( nVersion >= 13 )
-		{
-			ar >> m_nRating;
-			ar >> m_sComments;
-			if ( nVersion >= 16 ) ar >> m_sShareTags;
-			if ( nVersion >= 27 )
-			{
-				ar >> m_bMetadataAuto;
-				ReadArchive( ar, &m_pMetadataTime, sizeof(m_pMetadataTime) );
-			}
-			else
-			{
-				if ( m_bMetadataAuto && IsRated() )
-				{
-					ReadArchive( ar, &m_pMetadataTime, sizeof(m_pMetadataTime) );
-				}
-			}
-		}
+		ar >> m_nRating;
+		ar >> m_sComments;
+		ar >> m_sShareTags;
+		//ar >> m_nPeerTag;
+
+		//if ( nVersion >= 27 )
+		//{
+			ar >> m_bMetadataAuto;
+			ReadArchive( ar, &m_pMetadataTime, sizeof(m_pMetadataTime) );
+		//}
+		//else
+		//{
+		//	if ( m_bMetadataAuto && IsRated() )
+		//		ReadArchive( ar, &m_pMetadataTime, sizeof(m_pMetadataTime) );
+		//}
+
 		m_bMetadataModified = FALSE;
 
 		ar >> m_nHitsTotal;
 		ar >> m_nUploadsTotal;
-		if ( nVersion >= 14 ) ar >> m_bCachedPreview;
-		if ( nVersion >= 20 ) ar >> m_bBogus;
+		//if ( nVersion >= 14 ) 
+			ar >> m_bCachedPreview;
+		//if ( nVersion >= 20 )
+			ar >> m_bBogus;
 
 		if ( nVersion >= 2 )
 		{
@@ -874,14 +867,13 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 		}
 
 		// Rehash pre-version-22 audio files
-
-		if ( nVersion < 22 && m_pSchema != NULL && m_pSchema->CheckURI( CSchema::uriAudio ) )
-		{
-			m_oSHA1.clear();
-			m_oTiger.clear();
-			m_oMD5.clear();
-			m_oED2K.clear();
-		}
+		//if ( nVersion < 22 && m_pSchema != NULL && m_pSchema->CheckURI( CSchema::uriAudio ) )
+		//{
+		//	m_oSHA1.clear();
+		//	m_oTiger.clear();
+		//	m_oMD5.clear();
+		//	m_oED2K.clear();
+		//}
 
 		Library.AddFile( this );
 	}
@@ -925,9 +917,7 @@ BOOL CLibraryFile::ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize
 	{
 		// If file is already in library but hashing was delayed - hash it again
 		if ( m_nIndex && ! IsHashed() )
-		{
 			LibraryBuilder.Add( this );
-		}
 
 		CFolderScanDlg::Update( m_sName,
 			( m_nSize == SIZE_UNKNOWN ) ? 0 : (DWORD)( m_nSize / 1024 ) );
@@ -972,13 +962,9 @@ void CLibraryFile::OnDelete(BOOL bDeleteGhost, TRISTATE bCreateGhost)
 				CString strUntransl = L"Ghost File";
 				LoadString( strTransl, IDS_LIBRARY_GHOST_FILE );
 				if ( strTransl == strUntransl )
-				{
 					m_sComments = strUntransl;
-				}
 				else
-				{
 					m_sComments = strTransl + L" (" + strUntransl + L")";
-				}
 			}
 			Ghost();
 			return;
@@ -1041,25 +1027,19 @@ BOOL CLibraryFile::OnVerifyDownload(
 	if ( Settings.Downloads.VerifyFiles && m_bVerify == TRI_UNKNOWN && m_nVirtualSize == 0 )
 	{
 		if ( (bool)m_oSHA1 && (bool)oSHA1 && oSHA1.isTrusted() )
-		{
 			m_bVerify = ( m_oSHA1 == oSHA1 ) ? TRI_TRUE : TRI_FALSE;
-		}
+
 		if ( (bool)m_oTiger && (bool)oTiger && oTiger.isTrusted() )
-		{
 			m_bVerify = ( m_oTiger == oTiger ) ? TRI_TRUE : TRI_FALSE;
-		}
+
 		if ( (bool)m_oED2K && (bool)oED2K && oED2K.isTrusted() )
-		{
 			m_bVerify = ( m_oED2K == oED2K ) ? TRI_TRUE : TRI_FALSE;
-		}
+
 		if ( (bool)m_oMD5 && (bool)oMD5 && oMD5.isTrusted() )
-		{
 			m_bVerify = ( m_oMD5 == oMD5 ) ? TRI_TRUE : TRI_FALSE;
-		}
+
 		if ( (bool)m_oBTH && (bool)oBTH && oBTH.isTrusted() )
-		{
 			m_bVerify = ( m_oBTH == oBTH ) ? TRI_TRUE : TRI_FALSE;
-		}
 
 		if ( m_bVerify == TRI_TRUE )
 		{
@@ -1078,9 +1058,7 @@ BOOL CLibraryFile::OnVerifyDownload(
 	}
 
 	if ( m_oSHA1 && m_nVirtualSize == 0 )
-	{
 		VersionChecker.CheckUpgradeHash( m_oSHA1, GetPath() );
-	}
 
 	AddAlternateSources( pszSources );
 
@@ -1102,7 +1080,7 @@ CSharedSource::CSharedSource(LPCTSTR pszURL, FILETIME* pTime)
 	}
 }
 
-void CSharedSource::Serialize(CArchive& ar, int nVersion)
+void CSharedSource::Serialize(CArchive& ar, int /*nVersion*/)
 {
 	if ( ar.IsStoring() )
 	{
@@ -1112,17 +1090,14 @@ void CSharedSource::Serialize(CArchive& ar, int nVersion)
 	else
 	{
 		ar >> m_sURL;
+		ReadArchive( ar, &m_pTime, sizeof(FILETIME) );
 
-		if ( nVersion >= 10 )
-		{
-			ReadArchive( ar, &m_pTime, sizeof(FILETIME) );
-		}
-		else
-		{
-			DWORD nTemp;
-			ar >> nTemp;
-			Freshen();
-		}
+		//if ( nVersion < 10 )
+		//{
+		//	DWORD nTemp;
+		//	ar >> nTemp;
+		//	Freshen();
+		//}
 	}
 }
 
@@ -1139,13 +1114,9 @@ void CSharedSource::Freshen(FILETIME* pTime)
 		(LONGLONG&)tNow2 += 10000000;
 
 		if ( CompareFileTime( pTime, &tNow2 ) <= 0 )
-		{
 			m_pTime = *pTime;
-		}
 		else
-		{
 			SystemTimeToFileTime( &tNow1, &m_pTime );
-		}
 	}
 	else
 	{

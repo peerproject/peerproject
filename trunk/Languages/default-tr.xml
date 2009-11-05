@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1772,7 +1772,12 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Hızlı Yardım</link>
-		<text align="middle">&#160;- PeerProject'nın temel kullanımı ile ilgili yardım</text>
+		<text align="middle">&#160;- PeerProject'nın temel kullanımı ile ilgili yardım, or </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
+		<newline gap="8"/>
+		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
+		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Yerel Forum</link>
+		<text align="middle">&#160;- Sizin türk dil tartışma forumu git</text>
 		<newline gap="18" indent="0"/>
 		<icon res="136" width="32" height="32" target="peer:shell:downloads"/>
 		<gap size="8"/>
@@ -1780,10 +1785,6 @@
 		<newline gap="8" indent="42"/>
 		<text>İndirmeler klasörünü açmak için</text>
 		<link target="peer:shell:downloads">Tıklayın</link>
-		<newline gap="8"/>
-		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
-		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Yerel Forum</link>
-		<text align="middle">&#160;- Sizin türk dil tartışma forumu git</text>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="128" width="32" height="32"/><gap size="8"/>
@@ -1936,11 +1937,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
 		<text>&#160;PeerProject Medya Merkezi yapısı nerede ve ne zaman kullanılır.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">İletişim:</link>
-		<text>&#160;Profil, sohbet ve mesaj ayarları.</text>
-		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;IRC sohbet odasının görünümü ve bağlantı ayarları.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CCommunitySettingsPage" format="b">İletişim:</link>
+		<text>&#160;Profil, sohbet ve mesaj ayarları.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Bütünleşmesi:</link>
 		<text>&#160;PeerProject tarayıcınızın kabul ettiği linkler ve İndirilmiş içeriklerle bütünleşir.</text>
@@ -2763,7 +2764,7 @@
 	<string id="8316" value="Ulaşılanlar"/>
 	<string id="8317" value="Aktarılanlar"/>
 	<string id="8318" value="%lu bugün, %lu toplam"/>
-	<string id="8319" value="&#160;(Hashset yok)"/>
+	<string id="8319" value="Aktarılanlar:"/>
 	<string id="8320" value="Durum:"/>
 	<string id="8321" value="Hız:"/>
 	<string id="8322" value="URL:"/>
@@ -2782,6 +2783,7 @@
 	<string id="8335" value="Bu dosya için kaynaklar güvenlik duvarı arkasında"/>
 	<string id="8336" value="Bu dosya için kaynaklar değişken olabilir"/>
 	<string id="8337" value="Güvenliği garanti olmayan"/>
+	<string id="8338" value="&#160;(Hashset yok)"/>
 	<string id="13000" value="Seçilen güvenlik kuralını silmek istediğinizden emin misiniz? Geri dönüş mümkün olmayacaktır."/>
 	<string id="13001" value="İnternet üzerinden paylaşılan dosyalar"/>
 	<string id="16063" value="UPnP port açılışı 10 denemeye rağmen başarısız olmuştur."/>
@@ -3429,14 +3431,16 @@
 		<control caption="Spam için sohbet mesajlarını filtrele"/>
 		<control caption="Saygısızlıkları sansürle"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Sohbet">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Sohbet">
 		<control caption="İstemci _Seçenekleri :"/>
 		<control caption="Sohbet Bütünleşmesini Göster"/>
-		<control caption="Tekrar (Flood) Koruması:"/>
-		<control/>
-		<control caption="satır/saniye"/>
 		<control caption="Zaman Etiketlerini Göster"/>
+		<control caption="Tekrar (Flood) Koruması:"/>
+		<control caption="satır/saniye"/>
+		<control/>
 		<control caption="Ekran Yazıtipi:"/>
+		<control caption="#"/>
+		<control/>
 		<control/>
 		<control caption="_Renkler:"/>
 		<control/>
@@ -3467,6 +3471,8 @@
 		<control caption="Sunucu:"/>
 		<control/>
 		<control caption="Port:"/>
+		<control/>
+		<control caption="on-connect"/>
 		<control/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
@@ -3576,13 +3582,8 @@
 		<control caption="Şifre Seçiniz:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Planlayıcı">
-		<control caption="_Seçenekler:"/>
-		<control caption="_Planlayıcı Etkin"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planlayıcı">
 		<control/>
-		<control/>
-		<control caption="_Kısıtladığında sadece G2'ye bağlan"/>
-		<control caption="Anahtar:"/>
 		<control caption="Pzr"/>
 		<control caption="Pzrt"/>
 		<control caption="Salı"/>
@@ -3590,10 +3591,15 @@
 		<control caption="Prş"/>
 		<control caption="Cuma"/>
 		<control caption="Cmrt"/>
+		<control caption="Anahtar:"/>
 		<control caption="Bağlanma"/>
 		<control caption="Bağlantı kısıtlandı"/>
 		<control caption="Tam hızla bağlan"/>
+		<control caption="_Seçenekler:"/>
+		<control caption="_Planlayıcı Etkin"/>
+		<control caption="_Kısıtladığında sadece G2'ye bağlan"/>
 		<control caption="_Limitin altında % bantgenişliği"/>
+		<control/>
 		<control/>
 		<control caption="Yardım"/>
 		<control caption="PeerProject bağlandığında ve dosyaları indireceğinde size izin verilen süre planlanır. {n}{n}{n}Not: PeerProject açık iken planlayıcı aktif ise, ayarlarınızın değiştiğini görebilirsiniz -Bu normaldir!-"/>
@@ -3830,17 +3836,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="PeerProject'ya Hoşgeldiniz (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="PeerProject'ya Hoşgeldiniz (4/6)">
 		<control caption="PeerProject esnek bir kullanıcı arayüzü destekler, sizin için rahat olanı seçebilirsiniz. Bu seçenekleri her hangi bir zamanda değiştirebilirsiniz."/>
 		<control caption="Lütfen kullanıcı arayüzü seçin:"/>
-		<control caption="Normal Mod"/>
+		<control caption="Basic Mod"/>
 		<control caption="Güçlü Mod"/>
 		<control caption="Menülerin ve butonların kullanımı kolaydır.{n}Diğer dosya paylaşım programlarının kullanıcılarına tanıdıktır."/>
 		<control caption="Güçlü mod uzman kullanıcılara ekstra komut, pencere vb. sunar.{n}Bu yeni kullanıcılar için biraz karmaşık olabilir!"/>
-		<control caption="İndirme ilerleme çubuğunu basitçe görüntüle. (CPU kullanımını düşürür)"/>
-		<control caption="Torrent bağlantılarını yönet."/>
+		<control caption="İndirme ilerleme çubuğunu basitçe görüntüle."/>
+		<control caption="."/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="PeerProject'ya Hoşgeldiniz (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="PeerProject'ya Hoşgeldiniz (5/6)">
 		<control caption="PeerProject aynı zamanda birçok P2P ağa erişebilen genel bir dosya paylaşımı programıdır. Bu sayfada bağlamayı istediğiniz P2P ağları seçebilirsiniz, ve sonra her ağ için belirli ayarları ayarlayabilirsiniz."/>
 		<control caption="Gnutella2'ya Bağlan (hararetle önerilir)"/>
 		<control caption="Gnutella2 ağı PeerProject'nın ana ağıdır, diğer P2P netlerden daha fazla performans ve özellik sunmaktadır."/>
@@ -3848,6 +3854,7 @@
 		<control caption="Orijinal Gnutella ağı Gnutella2 den daha zengin özellikleri olmasına ve eDonkey'den daha az dosya olmasına karşın değerli bir kaynak olarak kalacaktır."/>
 		<control caption="eDonkey2000'ye Bağlan"/>
 		<control caption="eDonkey ağı popüler bir sunucu tabanlı ağdır.	Gnutella2 kadar zengin özellikte olmasa da, eDonkey etkileyici dosya kolleksiyonuna sahiptir."/>
+		<control caption="Torrent bağlantılarını yönet."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey2000 İndirimlerini Gönder">
 		<control/>
@@ -4051,20 +4058,20 @@
 		<control caption="Kapat"/>
 		<control caption="İndirme tamamlandığında pencereyi kapat"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Genel">
-		<control caption="Universal Resource Names(URNs) - Genel Kaynak İsimleri"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Genel">
 		<control/>
 		<control caption="Dosya Nitelikleri"/>
 		<control caption="Konum:"/>
-		<control/>
 		<control caption="Tür:"/>
-		<control/>
 		<control caption="Değiştirildi:"/>
-		<control/>
 		<control caption="Boyut:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Universal Resource Names(URNs) - Genel Kaynak İsimleri"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4073,7 +4080,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Eleştirilerim">
+	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Yorumlarım">
 		<control caption="Beğendiklerim"/>
 		<control caption="Bu dosyayı değerlendiririm:"/>
 		<control caption="(Henüz değerlendirilmedi)|Sahte/Bozuk/Yanıltıcı|Kalitesiz|Orta|İyi|Çok İyi|Mükemmel"/>
@@ -4081,15 +4088,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Paylaşım">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Paylaşım">
+		<control/>
 		<control caption="Basit Paylaşım"/>
 		<control caption="Ana dosya paylaştırıldı ise bu dosyayı paylaştır"/>
 		<control caption="Bu dosya için paylaşım ayarları önemsenmiyor:"/>
 		<control caption="Bu dosyayı diğer kullanıcılar için kullanılabilir yap"/>
 		<control caption="Sıra Aktarım Seçimi Etiketi(leri)"/>
-		<control/>
-		<control caption="Paylaşılan Ağ"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Kaynaklar">

@@ -40,6 +40,7 @@ public:
 	BOOL	m_bG2Enable;
 	BOOL	m_bG1Enable;
 	BOOL	m_bEDEnable;
+	BOOL	m_bHandleTorrents;
 	//}}AFX_DATA
 
 	void DoDonkeyImport();

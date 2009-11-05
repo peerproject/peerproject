@@ -170,18 +170,14 @@ BOOL CSettingsSheet::SetActivePage(CSettingsPage* pPage)
 		if ( m_wndTree.GetItemData( hGroup ) == (DWORD_PTR)m_pPage )
 		{
 			if ( ( m_wndTree.GetItemState( hGroup, TVIS_SELECTED ) & TVIS_SELECTED ) == 0 )
-			{
 				m_wndTree.SelectItem( hGroup );
-			}
 		}
 		for ( HTREEITEM hItem = m_wndTree.GetChildItem( hGroup ) ; hItem ; hItem = m_wndTree.GetNextItem( hItem, TVGN_NEXT ) )
 		{
 			if ( m_wndTree.GetItemData( hItem ) == (DWORD_PTR)m_pPage )
 			{
 				if ( ( m_wndTree.GetItemState( hItem, TVIS_SELECTED ) & TVIS_SELECTED ) == 0 )
-				{
 					m_wndTree.SelectItem( hItem );
-				}
 			}
 		}
 	}
@@ -253,8 +249,9 @@ BOOL CSettingsSheet::OnInitDialog()
 
 	CRect rect;
 	m_wndTree.Create( WS_CHILD|WS_TABSTOP|WS_VISIBLE|/*TVS_PRIVATEIMAGELISTS|*/
-		TVS_HASLINES|TVS_SHOWSELALWAYS|TVS_TRACKSELECT|TVS_NOSCROLL, rect, this, IDC_SETTINGS_TREE );
-		// ToDo: Use TVS_NOHSCROLL instead to add vertical scrollbar to Settings Tree
+		TVS_FULLROWSELECT |TVS_SHOWSELALWAYS|TVS_TRACKSELECT|TVS_NOSCROLL, rect, this, IDC_SETTINGS_TREE );
+		// ToDo: Use TVS_NOHSCROLL instead to add vertical scrollbar to Settings TreeView
+	m_wndTree.SetIndent( 16 );
 
 	m_wndOK.Create( _T("OK"), WS_CHILD|WS_TABSTOP|WS_VISIBLE|BS_DEFPUSHBUTTON, rect, this, IDOK );
 	m_wndOK.SetFont( &theApp.m_gdiFont );

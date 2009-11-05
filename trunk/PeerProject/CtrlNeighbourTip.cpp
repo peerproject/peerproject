@@ -396,5 +396,8 @@ void CNeighbourTipCtrl::OnTimer(UINT_PTR nIDEvent)
 	m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nOut );
 	m_pGraph->m_nUpdates++;
 
-	Invalidate();
+	CRect rcWndTip;
+	SystemParametersInfo( SPI_GETWORKAREA, 0, rcWndTip, 0 );
+	rcWndTip.top += 90;
+	InvalidateRect( &rcWndTip );
 }

@@ -62,6 +62,7 @@ public:
 	BOOL			m_bMetadataAuto;		// Metadata is auto-generated
 	FILETIME		m_pMetadataTime;		// Metadata time
 	BOOL			m_bMetadataModified;	// Metadata must be saved
+	//int			m_nPeerTag;				// Permissiveness
 	int				m_nRating;
 	CString			m_sComments;
 	CString			m_sShareTags;
@@ -88,8 +89,9 @@ public:
 	inline BOOL		IsGhost() const { return m_pFolder == NULL; }
 	inline BOOL		IsAvailable() const { return m_pFolder != NULL; }
 	BOOL			IsSchemaURI(LPCTSTR pszURI) const;
-	BOOL			IsRated() const;		// File rated (or commented)
-	BOOL			IsRatedOnly() const;	// File rated but have no metadata
+	BOOL			IsRated() const;		// File rated or commented
+	BOOL			IsRatedOnly() const;	// File rated but has no metadata
+	//BOOL			IsPeerTagged() const;	// Permissiveness
 	BOOL			IsHashed() const;
 	BOOL			IsNewFile() const;
 	BOOL			IsReadable() const;
@@ -185,13 +187,12 @@ public:
 
 // Attributes
 public:
-	CString		m_sURL;						// The URL
-	FILETIME	m_pTime;					// Time last seen
+	CString		m_sURL;					// The URL
+	FILETIME	m_pTime;				// Time last seen
 
 // Operations
 public:
 	void	Serialize(CArchive& ar, int nVersion);
 	void	Freshen(FILETIME* pTime = NULL);
 	BOOL	IsExpired(FILETIME& tNow);
-
 };

@@ -47,10 +47,10 @@ END_MESSAGE_MAP()
 
 CFilePropertiesSheet::CFilePropertiesSheet(CLibraryListItem oObject) :
 	m_sGeneralTitle( L"General" ),
+	m_sCommentsTitle( L"Comments" ),
 	m_sMetadataTitle( L"Metadata" ),
-	m_sCommentsTitle( L"My Review" ),
-	m_sSharingTitle( L"Sharing" ),
-	m_sSourcesTitle( L"Sources" )
+	m_sSourcesTitle( L"Sources" ),
+	m_sSharingTitle( L"Sharing" )
 {
 	if ( oObject.Type != CLibraryListItem::Empty )
 		m_pList.AddTail( oObject );
@@ -73,10 +73,10 @@ void CFilePropertiesSheet::Add(CLibraryList* pList)
 INT_PTR CFilePropertiesSheet::DoModal(int nPage)
 {
 	CFileGeneralPage	pGeneral;
-	CFileMetadataPage	pMetadata;
 	CFileCommentsPage	pComments;
-	CFileSharingPage	pSharing;
+	CFileMetadataPage	pMetadata;
 	CFileSourcesPage	pSources;
+	CFileSharingPage	pSharing;
 
 	CString strTabLabel;
 
@@ -87,20 +87,20 @@ INT_PTR CFilePropertiesSheet::DoModal(int nPage)
 	case 1:
 		SetTabTitle( &pGeneral, m_sGeneralTitle );
 		AddPage( &pGeneral );
-		SetTabTitle( &pMetadata, m_sMetadataTitle );
-		AddPage( &pMetadata );
 		SetTabTitle( &pComments, m_sCommentsTitle );
 		AddPage( &pComments );
-		SetTabTitle( &pSharing, m_sSharingTitle );
-		AddPage( &pSharing );
+		SetTabTitle( &pMetadata, m_sMetadataTitle );
+		AddPage( &pMetadata );
 		SetTabTitle( &pSources, m_sSourcesTitle );
 		AddPage( &pSources );
+		SetTabTitle( &pSharing, m_sSharingTitle );
+		AddPage( &pSharing );
 		break;
 	default:
-		SetTabTitle( &pMetadata, m_sMetadataTitle );
-		AddPage( &pMetadata );
 		SetTabTitle( &pComments, m_sCommentsTitle );
 		AddPage( &pComments );
+		SetTabTitle( &pMetadata, m_sMetadataTitle );
+		AddPage( &pMetadata );
 		SetTabTitle( &pSharing, m_sSharingTitle );
 		AddPage( &pSharing );
 		if ( nPage == 1 ) nPage = 0;

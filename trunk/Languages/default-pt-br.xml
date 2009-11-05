@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1800,7 +1800,8 @@
 	  <newline gap="8"/>
 	  <icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 	  <link target="peer:command:ID_HELP_FAQ" align="middle">Ajuda Rápida</link>
-	  <text align="middle">&#160;- Obtenha um pouco de ajuda básica sobre como usar o PeerProject</text>
+	  <text align="middle">&#160;- Obtenha um pouco de ajuda básica sobre como usar o PeerProject, ou </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 	  <newline gap="8"/>
 	  <icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 	  <link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Fóruns</link>
@@ -1960,11 +1961,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
 		<text>&#160;Quando e onde usar o Centro de Mídia Embutido do PeerProject.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<text>&#160;Configurações da conexão e visual da sala de chat do IRC.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Comunidade:</link>
 		<text>&#160;Seu perfil, configurações de conversa e de mensagens instantâneas.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">Web:</link>
-		<text>&#160;Aparência visual da sala de chat do IRC e configurações da conexão.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
 		<text>&#160;Integrar o PeerProject ao seu navegador da web para aceitar links peer-to-peer e baixar conteúdo.</text>
@@ -2816,7 +2817,7 @@
 	<string id="8314" value="Você já baixou e apagou este arquivo antes."/>
 	<string id="8315" value="Na Lista Negra:"/>
 	<string id="8316" value="Acertos"/>
-	<string id="8317" value="Uploads"/>
+	<string id="8317" value="Volume Total:"/>
 	<string id="8318" value="%lu hoje, %lu total"/>
 	<string id="8319" value="Sem Hashset"/>
 	<string id="8320" value="Status:"/>
@@ -2837,6 +2838,7 @@
 	<string id="8335" value="As fontes para este arquivo estão atrás de um firewall"/>
 	<string id="8336" value="As fontes para este arquivo podem ser instáveis"/>
 	<string id="8337" value="Não confiável"/>
+	<string id="8338" value="Sem Hashset"/>
 	<string id="13000" value="Você tem certeza de que você quer apagar as regras de segurança selecionadas?  Isto não pode ser desfeito."/>
 	<string id="13001" value="Arquivos compartilhados pela Internet"/>
 	<string id="16063" value="O mapamento de portas UPnP falhou após 10 tentativas."/>
@@ -3488,14 +3490,16 @@
 		<control caption="Filtrar mensagens de chat com spam"/>
 		<control caption="Censurar obscenidades no chat"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Chat">
 		<control caption="Opções do _Cliente:"/>
 		<control caption="Mostrar a integração com o chat"/>
-		<control caption="Proteção contra flood:"/>
-		<control/>
-		<control caption="linhas por segundo"/>
 		<control caption="Mostrar tempo"/>
+		<control caption="Proteção contra flood:"/>
+		<control caption="Linhas"/>
+		<control/>
 		<control caption="Fonte da Tela:"/>
+		<control caption="Tamanho"/>
+		<control/>
 		<control/>
 		<control caption="_Cores:"/>
 		<control/>
@@ -3526,6 +3530,8 @@
 		<control caption="Servidor:"/>
 		<control/>
 		<control caption="Porta:"/>
+		<control/>
+		<control caption="A Conexão"/>
 		<control/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
@@ -3635,13 +3641,8 @@
 		<control caption="Escolha uma Senha:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Agendador">
-		<control caption="_Opções:"/>
-		<control caption=" _Ativar o Agendador"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Agendador">
 		<control/>
-		  <control/>
-		<control caption="_Conectar na G2 só quando limitado"/>
-		<control caption="Chave:"/>
 		<control caption="Dom"/>
 		<control caption="Seg"/>
 		<control caption="Ter"/>
@@ -3649,10 +3650,15 @@
 		<control caption="Qui"/>
 		<control caption="Sex"/>
 		<control caption="Sab"/>
+		<control caption="Chave:"/>
 		<control caption="Não conectar"/>
 		<control caption="Conexão limitada"/>
 		<control caption="Conectar na velocidade máxima"/>
+		<control caption="_Opções:"/>
+		<control caption=" _Ativar o Agendador"/>
+		<control caption="_Conectar na G2 só quando limitado"/>
 		<control caption="% da _banda sob o limite"/>
+		<control/>
 		<control/>
 		<control caption="Ajuda"/>
 		<control caption="A agenda é designada para permitir a você definir os horários quando o PeerProject conectará e baixará arquivos. {n}{n}{n}Nota: Se você tem o PeerProject aberto enquanto o agendador está ativo, você pode vê-lo mudando as configurações- Isto é normal!"/>
@@ -3889,17 +3895,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Bem-Vindo ao PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Bem-Vindo ao PeerProject (4/6)">
 		<control caption="PeerProject suporta uma interface do usuário flexível, assim você pode escolher o que é mais confortável para você. Você pode mudar estas opções a qualquer hora."/>
 		<control caption="Por favor selecione a interface do usuário:"/>
 		<control caption="Modo Básico"/>
 		<control caption="Modo Power"/>
-		<control caption="Menus e botões simples, fáceis de usar.{n}Familiar aos usuários de outros programas de compartilhamento de arquivos."/>
+		<control caption="Menus e botões simples, fáceis de usar. Familiar aos usuários de outros programas de compartilhamento de arquivos."/>
 		<control caption="O modo Power oferece aos usuários expert muitos comandos extras, janelas, etc.{n}Pode ser um pouco confuso para novos usuários!"/>
-		<control caption="Exibir barras de progresso do download simplificadas. (Reduz o uso da CPU)"/>
-		<control caption="Gerenciar os links torrent."/>
+		<control caption="Exibir barras de progresso do download simplificadas."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Bem-Vindo ao PeerProject (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Bem-Vindo ao PeerProject (5/6)">
 		<control caption="O PeerProject é um aplicativo de compartilhamento de arquivos de propósito geral que pode acessar muitas redes P2p ao mesmo tempo.  Aqui você pode selecionar quais redes você gostaria de acessar.  Note que você pode sempre selecionar diferentes redes mais tarde."/>
 		<control caption="Conectar a Gnutella2 (Altamente Recomendado)"/>
 		<control caption="A rede Gnutella2 é a rede premiere do PeerProject, oferecendo mais funções e performance do que qualquer outra rede P2P."/>
@@ -3907,6 +3913,7 @@
 		<control caption="Embora a rede Gnutella original é menos rica em funções do que a Gnutella2, e tenha menos arquivos do que o eDonkey, ela permanece um recurso valioso."/>
 		<control caption="Conectar ao eDonkey"/>
 		<control caption="A rede eDonkey é uma rede popular baseada em servidores. Enquanto não tão rica em funções como Gnutella2, eDonkey tem uma impressionante coleção de arquivos."/>
+		<control caption="Gerenciar os links torrent."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importar Downloads do eDonkey">
 		<control/>
@@ -4110,20 +4117,20 @@
 		<control caption="Fechar"/>
 		<control caption="Fechar esta janela quando o download completar"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Geral">
-		<control caption="Nomes Universais de Recursos (URNs)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Geral">
 		<control/>
 		<control caption="Atributos do Arquivo"/>
 		<control caption="Local:"/>
-		<control/>
 		<control caption="Tipo:"/>
-		<control/>
 		<control caption="Modificado:"/>
-		<control/>
 		<control caption="Tamanho:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Nomes Universais de Recursos (URNs)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4132,7 +4139,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Minha Análise">
+	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Comentário">
 		<control caption="Minha Classificação"/>
 		<control caption="Eu classifico este arq.:"/>
 		<control caption="(Sem Classificação)|Falso/Corrompido/Ilusório|Pobre|Médio|Bom|Muito Bom|Excelente"/>
@@ -4140,15 +4147,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Compartilhando">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Compartilhando">
+		<control/>
 		<control caption="Compartilhamento Simples"/>
 		<control caption="Compartilhar este arquivo se a pasta acima estiver compartilhada"/>
 		<control caption="Ignorar configuração de compartilhamento para este arquivo:"/>
 		<control caption="Tornar este arquivo disponível para outros usuários"/>
-		<control caption="Etiqueta(s) de Seleção da Fila de Espera do Upload"/>
-		<control/>
-		<control caption="-Redes nas quais compartilhar"/>
-		<control/>
+		<control caption="Etiquetas de Seleção da Fila de Espera do Upload"/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Fontes">

@@ -139,11 +139,14 @@ void CColors::CalculateColors(BOOL bCustom)
 	m_crSearchExists  			= RGB( 0, 128, 0 );
 	m_crSearchExistsHit			= RGB( 0, 64, 0 );
 	m_crSearchExistsSelected	= RGB( 0, 255, 0 );
+	m_crSearchGhostrated		= RGB( 200, 90, 0 );
 	m_crSearchQueued 			= RGB( 0, 0, 160 );
 	m_crSearchQueuedHit			= RGB( 0, 0, 100 );
 	m_crSearchQueuedSelected	= GetSysColor( COLOR_HIGHLIGHTTEXT );
-	m_crSearchGhostrated		= RGB( 200, 90, 0 );
 	m_crSearchNull  			= GetSysColor( COLOR_3DSHADOW );
+	//m_crSearchTorrent  		= CalculateColor( m_crWindow, RGB( 244, 242, 240 ), 10 );
+	//m_crSearchCollection 		= CalculateColor( m_crWindow, RGB( 254, 120, 10 ), 25 );
+	//m_crSearchHighrated 		= CalculateColor( m_crWindow, RGB( 255, 250, 50 ), 20 );
 	m_crTransferSource			= RGB( 30, 30, 30 );
 	m_crTransferRanges			= RGB( 220, 240, 220 );
 	m_crTransferCompleted		= RGB( 0, 128, 0 );

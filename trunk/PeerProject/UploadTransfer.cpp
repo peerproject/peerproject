@@ -150,8 +150,7 @@ BOOL CUploadTransfer::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 	{
 		// Reopen file
 		m_sPath = pszTarget;
-		if ( OpenFile() )
-			return TRUE;
+		if ( OpenFile() ) return TRUE;
 
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_DELETED, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 		Close();
@@ -165,18 +164,24 @@ BOOL CUploadTransfer::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 float CUploadTransfer::GetProgress() const
 {
 	if ( m_nState != upsUploading || m_nLength == 0 || m_nLength == SIZE_UNKNOWN ) return 0;
+
 	return (float)m_nPosition / (float)m_nLength;
 }
 
 DWORD CUploadTransfer::GetAverageSpeed()
 {
-	if ( m_nState != upsUploading || m_nLength == 0 || m_nLength == SIZE_UNKNOWN ) return GetMeasuredSpeed();
+	if ( m_nState != upsUploading || m_nLength == 0 || m_nLength == SIZE_UNKNOWN )
+		return GetMeasuredSpeed();
+
 	DWORD nTime = ( GetTickCount() - m_tContent ) / 1000;
 	return nTime ? (DWORD)( m_nPosition / nTime ) : 0;
 }
 
-DWORD CUploadTransfer::GetMaxSpeed() const
+DWORD CUploadTransfer::GetMaxSpeed() //const
 {
+ 	// Workaround so GetMaxSpeed doesn't always return 0
+	m_nMaxRate = max( m_nMaxRate, GetMeasuredSpeed() );
+
 	return m_nMaxRate;
 }
 
@@ -324,12 +329,12 @@ void CUploadTransfer::RotatingQueue(DWORD tNow)
 
 		pLock.Unlock();
 
-		if ( m_tRotateTime == 0 )									//If the upload hasn't started yet
+		if ( m_tRotateTime == 0 )								//If the upload hasn't started yet
 		{
 			if ( m_nState == upsUploading )
-				m_tRotateTime = tNow;								//Set the upload as having started
+				m_tRotateTime = tNow;							//Set the upload as having started
 		}
-		else if ( tNow - m_tRotateTime >= tRotationLength )			//Otherwise check if it should rotate
+		else if ( tNow - m_tRotateTime >= tRotationLength )		//Otherwise check if it should rotate
 		{
 			m_bStopTransfer	= TRUE;
 		}

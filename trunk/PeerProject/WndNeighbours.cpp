@@ -161,6 +161,8 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
 
+	//CLiveList::Sort( &m_wndList, 8 );
+
 	LoadState( _T("CNeighboursWnd"), FALSE );
 
 	m_tLastUpdate = 0;

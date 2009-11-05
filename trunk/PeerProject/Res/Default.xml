@@ -230,7 +230,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Open File"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="To Playlist"/>
 		<separator/>
-		<button id="ID_LIBRARY_PROPERTIES" text="Meta Properties"/>
+		<button id="ID_LIBRARY_PROPERTIES" text="Details"/>
 		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
 		<separator/>
 		<button id="ID_LIBRARY_MOVE"/>
@@ -257,7 +257,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Open File"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="To Playlist"/>
 		<separator/>
-		<button id="ID_LIBRARY_PROPERTIES" text="Meta Properties"/>
+		<button id="ID_LIBRARY_PROPERTIES" text="Details"/>
 		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
 			<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
@@ -1813,8 +1813,9 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Quick Help</link>
-		<text align="middle">&#160;- Get online support using PeerProject</text>
-	<!--<newline gap="8"/>
+		<text align="middle">&#160;- Get online support using PeerProject, or </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">live chat.</link>
+	<!--	<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
 		<text align="middle">&#160;- Go to the English local forum</text>
@@ -1973,11 +1974,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
 		<text>&#160;Set when to use the internal PeerProject Media System.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link>
+		<text>&#160;IRC chatroom connection settings and display options.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Community:</link>
 		<text>&#160;Your profile and direct chat settings.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link>
-		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
 		<text>&#160;Integrate PeerProject with your web browser to accept peer-to-peer links and download content.</text>

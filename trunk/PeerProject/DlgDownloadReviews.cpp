@@ -77,18 +77,17 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 	CoolInterface.SetImageListTo( m_wndReviews, LVSIL_SMALL );
 	m_wndReviews.InsertColumn( 0, _T("User"), LVCFMT_LEFT, 100, -1 );
 	m_wndReviews.InsertColumn( 1, _T("Rating"), LVCFMT_CENTER, 90, 0 );
-	m_wndReviews.InsertColumn( 2, _T("Comments"), LVCFMT_CENTER, rcList.right- 100 - 80, 1 );
+	m_wndReviews.InsertColumn( 2, _T("Comments"), LVCFMT_CENTER, rcList.right - 100 - 80, 1 );
 	m_wndReviews.InsertColumn( 3, _T("Order"), LVCFMT_CENTER, 0, 2 );
-	Skin.Translate( _T("CReviewList"), m_wndReviews.GetHeaderCtrl() );
-	
-	m_wndReviews.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP, LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
+
+	m_wndReviews.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 	m_wndReviews.EnableToolTips();
-	
+
+	Skin.Translate( _T("CReviewList"), m_wndReviews.GetHeaderCtrl() );
+
 	// Sort by order added- first at the top
 	CLiveList::Sort( &m_wndReviews, 3, FALSE );
-	CLiveList::Sort( &m_wndReviews, 3, FALSE );
-
+	//CLiveList::Sort( &m_wndReviews, 3, FALSE );	//Repeat
 
 	CLiveList pReviews( 4 );
 	int nIndex = 1;
@@ -104,10 +103,10 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 	while ( pReview )
 	{
 		CLiveItem* pItem = pReviews.Add( pReview );
-	
+
 		// Client picture
-		// Note: We don't have pictures yet. Currently, it uses a star for a G2 
-		// review, and a little person for everyone else
+		// ToDo: We don't have pictures yet.  Currently, it uses
+		// a star for a G2 review, and a little person for everyone else
 		switch ( pReview->m_nUserPicture )
 		{
 		case 0:
@@ -157,12 +156,9 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 	return TRUE;
 }
 
-
-
 void CDownloadReviewDlg::OnOK() 
 {
 	UpdateData( TRUE );
 	
 	CSkinDialog::OnOK();
 }
-

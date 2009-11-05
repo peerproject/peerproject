@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r40 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r41 (Shareaza r6092) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1634,7 +1634,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">快速帮助</link>
-		<text align="middle">&#160;- 获取使用 PeerProject 的基本帮助</text>
+		<text align="middle">&#160;- 获取使用 PeerProject 的基本帮助, or </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">本地论坛</link>
@@ -1792,11 +1793,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">媒体:</link>
 		<text>&#160;何时何地使用内置的媒体播放器。</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">社区:</link>
-		<text>&#160;个人资料，聊天和及时讯息的设置。</text>
-		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;IRC.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CCommunitySettingsPage" format="b">社区:</link>
+		<text>&#160;个人资料，聊天和及时讯息的设置。</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">网页:</link>
 		<text>&#160;集成 PeerProject 到浏览器以便允许对等连接和下载。</text>
@@ -2610,7 +2611,7 @@
 	<string id="8316" value="命中"/>
 	<string id="8317" value="上传"/>
 	<string id="8318" value="%lu 今天，%lu 总计"/>
-	<string id="8319" value="无 Hashset"/>
+	<string id="8319" value="上传:"/>
 	<string id="8320" value="状态:"/>
 	<string id="8321" value="速度:"/>
 	<string id="8322" value="链接:"/>
@@ -2629,6 +2630,7 @@
 	<string id="8335" value="此文件来源有防火墙"/>
 	<string id="8336" value="此文件来源可能不稳定"/>
 	<string id="8337" value="未受信任"/>
+	<string id="8338" value="无 Hashset"/>
 	<string id="16064" value="启动 PeerProject 网络内核..."/>
 	<string id="16065" value="不能绑定正进入连接的主机 %s 的 %i 端口。不支持进入的连接。"/>
 	<string id="16066" value="关闭 PeerProject 网络内核..."/>
@@ -3249,6 +3251,7 @@
 		<control caption="过滤垃圾聊天消息"/>
 		<control caption="在聊天中检查粗俗用语"/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="网页">
 		<control caption="P2P 链接控制(_P):"/>
 		<control caption="使用 PeerProject 打开下列类型的链接:"/>
@@ -3356,13 +3359,8 @@
 		<control caption="选择一个密码:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="计划">
-		<control caption="选项(_O):"/>
-		<control caption="启用计划(_E)"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="计划">
 		<control/>
-		<control/>
-		<control caption="仅在受到限制时连接到 G2(_C)"/>
-		<control caption="关键词:"/>
 		<control caption="周日"/>
 		<control caption="周一"/>
 		<control caption="周二"/>
@@ -3370,10 +3368,15 @@
 		<control caption="周四"/>
 		<control caption="周五"/>
 		<control caption="周六"/>
+		<control caption="关键词:"/>
 		<control caption="不要连接"/>
 		<control caption="限制连接"/>
 		<control caption="全速连接"/>
+		<control caption="选项(_O):"/>
+		<control caption="启用计划(_E)"/>
+		<control caption="仅在受到限制时连接到 G2(_C)"/>
 		<control caption="% 带宽受到限制(_B)"/>
+		<control/>
 		<control/>
 		<control caption="帮助"/>
 		<control caption="计划功能可以用来让您制定 PeerProject 连接和下载文件的时间。{n}{n}{n}注意: 如果您在计划功能激活的状态下打开 PeerProject，您会发现它正在改变设置 - 这是正常的！"/>
@@ -3610,17 +3613,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="欢迎使用 PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="欢迎使用 PeerProject (4/6)">
 		<control caption="PeerProject 支持不同的用户界面，因此您可以选择最适合您的界面。您可以在任何时候改变这些选项"/>
 		<control caption="请选择用户界面:"/>
 		<control caption="普通模式"/>
 		<control caption="增强模式"/>
 		<control caption="简单，易用的菜单和按钮。{n}与其他的文件共享程序相似的界面。"/>
 		<control caption="增强模式提供给专家用户更多的命令和窗口等。{n}可能对新用户来说有点困难！"/>
-		<control caption="显示简单的下载进程栏。(减小 CPU 负荷)"/>
-		<control caption="监视 Torrent 链接"/>
+		<control caption="显示简单的下载进程栏。"/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="欢迎使用 PeerProject (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="欢迎使用 PeerProject (5/6)">
 		<control caption="PeerProject 是能够同时连接多个 P2P 网络的多用途的文件共享软件。在此您可以选择想要连接的网络。您总是可以在以后选择不同的网络。"/>
 		<control caption="连接到 Gnutella2(强烈推荐)"/>
 		<control caption="Gnutella2 网络是 PeerProject 的主网络，相对其他 P2P 网提供了更多的特性和更具优点。强烈推荐。"/>
@@ -3628,6 +3631,7 @@
 		<control caption="尽管原始 Gnutella 网络比 Gnutella2 特性少，文件比 edonkey 要少，但依旧保留了可观的资源。"/>
 		<control caption="连接到 eDonkey"/>
 		<control caption="eDonkey 网络是广泛使用的基于服务器的网络。虽不像 Gnutella2 特性极多，eDonkey 的文件搜集方式令人印象深刻。"/>
+		<control caption="监视 Torrent 链接"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="导入 edonkey 下载">
 		<control/>
@@ -3830,20 +3834,20 @@
 		<control caption="隐藏"/>
 		<control caption="下载完毕后关闭此窗口"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="常规">
-		<control caption="通用资源名称 (URN)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="常规">
 		<control/>
 		<control caption="文件属性"/>
 		<control caption="位置:"/>
-		<control/>
 		<control caption="类型:"/>
-		<control/>
 		<control caption="修改:"/>
-		<control/>
 		<control caption="大小:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="通用资源名称 (URN)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -3860,15 +3864,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="共享">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="共享">
+		<control/>
 		<control caption="简单共享"/>
 		<control caption="如果上级文件夹已共享则共享此文件"/>
 		<control caption="忽略此文件的共享:"/>
 		<control caption="使此文件对其他用户可用"/>
 		<control caption="上传队列选择标签"/>
-		<control/>
-		<control caption="-共享的网络"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="资源">

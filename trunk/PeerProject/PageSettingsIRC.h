@@ -55,6 +55,8 @@ public:
 	CString m_sRealName;
 	CString	m_sServerPort;
 	CString	m_sFloodLimit;
+	CString	m_sOnConnect;
+	CString m_sFontSize;
 	CString m_sScreenFont;
 	CFontCombo m_wndFonts;
 
