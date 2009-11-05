@@ -214,7 +214,7 @@ void CPluginsSettingsPage::OnPluginsSetup()
 
 void CPluginsSettingsPage::OnPluginsWeb()
 {
-	const CString strWebSite(WEB_SITE_T);
+	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
 		strWebSite + _T("?id=addon&Version=") + theApp.m_sVersion,
@@ -235,9 +235,7 @@ void CPluginsSettingsPage::OnOK()
 			m_wndList.GetItemState( nItem, LVIS_STATEIMAGEMASK ) >> 12 );
 
 		if ( bEnabled != TRI_UNKNOWN && IsWindowVisible() )
-		{
 			theApp.WriteProfileString( _T("Plugins"), strCLSID, m_wndList.GetItemText( nItem, 2 ) );
-		}
 
 		if ( pPlugin != NULL && ( bEnabled == TRI_TRUE ) != ( pPlugin->m_pPlugin != NULL ) )
 		{

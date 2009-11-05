@@ -79,9 +79,7 @@ void CVersionChecker::ClearVersionCheck()
 BOOL CVersionChecker::NeedToCheck()
 {
 	if ( theApp.m_sVersion.Compare( Settings.VersionCheck.UpgradeVersion ) >= 0 ) // user manually upgraded
-	{
 		ClearVersionCheck();
-	}
 
 	if ( ! Settings.VersionCheck.UpdateCheck ) return FALSE;
 	if ( ! Settings.VersionCheck.NextCheck ) return TRUE;
@@ -123,13 +121,9 @@ void CVersionChecker::OnRun()
 	if ( NeedToCheck() )
 	{
 		if ( ExecuteRequest() )
-		{
 			ProcessResponse();
-		}
 		else
-		{
 			SetNextCheck( VERSIONCHECKER_FREQUENCY );
-		}
 
 		if ( IsThreadEnabled() )
 			PostMainWndMessage( WM_VERSIONCHECK, VC_MESSAGE_AND_CONFIRM );
@@ -141,8 +135,9 @@ void CVersionChecker::OnRun()
 
 BOOL CVersionChecker::ExecuteRequest()
 {
-	m_pRequest.SetURL( Settings.VersionCheck.UpdateCheckURL
-		+ _T("?Version=") + theApp.m_sVersion
+	const CString strUpdateURL( UPDATE_URL );
+
+	m_pRequest.SetURL( strUpdateURL + _T("?Version=") + theApp.m_sVersion
 #ifdef WIN64
 		+ _T("&Platform=x64")
 #else

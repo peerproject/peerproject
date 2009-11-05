@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 <
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1947,11 +1947,11 @@ gap i newline
 		<link target="peer:page:CMediaSettingsPage" format="b">נגן המדיה:</link>
 		<text>&#160;מתי ואיפה להשתמש בנגן המדיה הפנימי של שרזה</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">קהילה:</link>
-		<text>&#160;הגדרות תצוגה וחיבור של חדר השיחה</text>
-		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">חדר שיחה:</link>
 		<text>&#160;הגדרות הפרופיל שלך, הצ'אט והמסרים מיידים</text>
+		<newline gap="10"/>
+		<link target="peer:page:CCommunitySettingsPage" format="b">קהילה:</link>
+		<text>&#160;הגדרות תצוגה וחיבור של חדר השיחה</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">האינטרנט:</link>
 		<text>&#160;מזג את שרזה עם הדפדפן לקבלת לינקים ותוכן להורדה בתקשורת ישירה בין משתמשים</text>
@@ -2641,20 +2641,20 @@ gap i newline
 	<string id="8313" value="‪קובץ זה נראה כקובץ זדוני להצפה"/>
 	<string id="8314" value="‪אתה הורדת ומחקת את קובץ זה בעבר"/>
 	<string id="8315" value="‪‪:ברשימה שחורה"/>
-	<string id="8316" value="‪‫תוצאות"/>
-	<string id="8317" value="‪‫העלאות"/>
+	<string id="8316" value="תוצאות"/>
+	<string id="8317" value="העלאות"/>
 	<string id="8318" value="‪.היום %lu , בסך הכל %lu"/>
-	<string id="8319" value="No Hashset"/>
-	<string id="8320" value="‪‪:מצב"/>
-	<string id="8321" value="‪‪:מהירות"/>
-	<string id="8322" value="‪‪:URL כתובת"/>
-	<string id="8323" value="‪‪:‪סוכן משתמש"/>
+	<string id="8319" value=":העלאות"/>
+	<string id="8320" value="‪:מצב"/>
+	<string id="8321" value="‪:מהירות"/>
+	<string id="8322" value="‪:URL כתובת"/>
+	<string id="8323" value="‪:‪סוכן משתמש"/>
 	<string id="8324" value="‪לא פעיל"/>
 	<string id="8325" value="‪פעיל"/>
 	<string id="8326" value="‪הבא בתור"/>
-	<string id="8327" value="‪‪:מספר הקבצים"/>
-	<string id="8328" value="‪‪:גודל כולל"/>
-	<string id="8329" value="‪‪:מהווה מהספריה"/>
+	<string id="8327" value="‪:מספר הקבצים"/>
+	<string id="8328" value="‪:גודל כולל"/>
+	<string id="8329" value="‪:מהווה מהספריה"/>
 	<string id="8330" value="‪מחיצת"/>
 	<string id="8331" value="‪המקור כרגע עסוק"/>
 	<string id="8332" value="‪המקור מוגן בחומת אש"/>
@@ -2663,6 +2663,7 @@ gap i newline
 	<string id="8335" value="‪המקורות לקובץ כרגע מוגנים בחומת אש"/>
 	<string id="8336" value="‪המקורות לקובץ כרגע במצב לא יציב"/>
 	<string id="8337" value="Untrusted"/>
+	<string id="8338" value="No Hashset"/>
 	<string id="13000" value="Are you sure you want to delete the selected security rules? This cannot be undone."/>
 	<string id="13001" value="Files shared over the Internet"/>
 	<string id="16063" value="UPnP port mapping failed after 10 attempts."/>
@@ -3031,46 +3032,7 @@ gap i newline
 		<control caption="...סינון הודעות זבל"/>
 		<control caption="צינזור חומר פוגעני בצ'אט"/>
 	</dialog>
-<!--	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="חדר שיחה">
-		<control caption="Client _Options:"/>
-		<control caption="Show chat integration"/>
-		<control caption="Flood protection:"/>
-		<control/>
-		<control caption="lines per second"/>
-		<control caption="Show timestamp"/>
-		<control caption="Screen Font:"/>
-		<control/>
-		<control caption="_Colors:"/>
-		<control/>
-		<control caption="Window"/>
-		<control/>
-		<control caption="Text"/>
-		<control/>
-		<control caption="Local text"/>
-		<control/>
-		<control caption="User action"/>
-		<control/>
-		<control caption="Channel actions"/>
-		<control/>
-		<control caption="Server messages"/>
-		<control/>
-		<control caption="Notices"/>
-		<control/>
-		<control caption="Topics"/>
-		<control caption="Connection _Settings:"/>
-		<control caption="Nickname:"/>
-		<control/>
-		<control caption="User name:"/>
-		<control/>
-		<control caption="Alternate Nickname:"/>
-		<control/>
-		<control caption="Real name:"/>
-		<control/>
-		<control caption="Server:"/>
-		<control/>
-		<control caption="Port:"/>
-		<control/>
-	</dialog> -->
+	<!--dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="חדר שיחה"-->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="רשת">
 		<control caption=":צורת השימוש בלינקים לתקשורת ישירה"/>
 		<control caption=":השתמש בשרזה לפתיחת סוגי הלינקים הבאים"/>
@@ -3178,13 +3140,8 @@ gap i newline
 		<control caption=":בחר סיסמא"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="תזמונים">
-		<control caption=":אפשרויות"/>
-		<control caption="אפשר לוח תזמונים"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="תזמונים">
 		<control/>
-		<control/>
-		<control caption="התחבר לגונטלה2 רק כאשר בהגבלות"/>
-		<control caption=":מפתח"/>
 		<control caption="ראשון"/>
 		<control caption="שני"/>
 		<control caption="שלישי"/>
@@ -3192,10 +3149,15 @@ gap i newline
 		<control caption="חמישי"/>
 		<control caption="שישי"/>
 		<control caption="שבת"/>
+		<control caption=":מפתח"/>
 		<control caption="אל תתחבר"/>
 		<control caption="חיבור מוגבל"/>
 		<control caption="התחבר במהירות מלאה"/>
+		<control caption=":אפשרויות"/>
+		<control caption="אפשר לוח תזמונים"/>
+		<control caption="התחבר לגונטלה2 רק כאשר בהגבלות"/>
 		<control caption="של רוחב פס תחת הגבלה %"/>
+		<control/>
 		<control/>
 		<control caption="עזרה"/>
 		<control caption="אשף התזמונים מאפשר לך לקבוע את הזמנים בהם שרזה יתנתק ויוריד קבצים {n}{n}{n} הערה: אם תפתח את שרזה בזמן שהאשף פעיל אתה עלול לראות אותו משנה הגדרות אך זה מצב רגיל"/>
@@ -3432,7 +3394,7 @@ gap i newline
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="(4/6) ברוכים הבאים לשרזה">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="(4/6) ברוכים הבאים לשרזה">
 		<control caption="שרזה תומך בשתי ממשקי משתמש, כך שאתה יכול לבחור את האחד שהכי נוח בשבילך"/>
 		<control caption=":אנא בחר אחד משני הממשקים"/>
 		<control caption="מצב רגיל"/>
@@ -3440,9 +3402,9 @@ gap i newline
 		<control caption="פשוט - קל להשתמש בתפריטים ובכפתורים. מוכר למשתמשים של תוכנות שיתוף אחרות"/>
 		<control caption="מצב מתקדם - מציע למשתמשים מתקדמים המון פקודות נוספות, חלונות ועוד ( עלול להיות מבלבל למשתמשים חדשים)"/>
 		<control caption="הצג פסי התקדמות פשוטים (מפחית שימוש במעבד)"/>
-		<control caption=".טפל בקישורי טורנטים"/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="(5/6) ברוכים הבאים לשרזה">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="(5/6) ברוכים הבאים לשרזה">
 		<control caption="שרזה היא תוכנת שיתוף לשימוש כללי שמסוגלת לגשת למספר רשתות שיתוף קבצים בו זמנית. כאן אתה יכול לבחור לאילו רשתות תרצה לגשת. שים לב שאתה יכול תמיד לבחור רשתות אחרות מאוחר יותר"/>
 		<control caption="(החתבר לגנוטלה2 (מומלץ מאוד"/>
 		<control caption="רשת גנוטלה2 היא הרשת הראשית של שרזה, המציעה יותר אופציות וביצועים מכל רשת שיתוף אחרת"/>
@@ -3450,6 +3412,7 @@ gap i newline
 		<control caption="רשת אידונקי היא רשת מבוססת שרת פופלרית. יש בה פחות אופציות מגונטלה2 אבל עם כמות קבצים מרשימה"/>
 		<control caption="התחבר לגנוטלה המקורי"/>
 		<control caption="למרוח שרשת גנוטלה המקורית היא עם פחות אופציות מגנוטלה2 ועם פחות קבצים מאידונקי היא עדיין מקור בעל ערך"/>
+		<control caption=".טפל בקישורי טורנטים"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="ייבא הורדות של אידונקי">
 		<control/>
@@ -3653,20 +3616,20 @@ gap i newline
 		<control caption="הסתר"/>
 		<control caption="סגור את חלון זה כשההורדה מסתיימת"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="כללי">
-		<control caption="שמות משאבים אוניברסליים (URNs)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="כללי">
 		<control/>
 		<control caption="מאפייני קובץ"/>
 		<control caption=":מיקום"/>
-		<control/>
 		<control caption=":סוג"/>
-		<control/>
 		<control caption=":השתנה"/>
-		<control/>
 		<control caption=":גודל"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="שמות משאבים אוניברסליים (URNs)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -3683,15 +3646,13 @@ gap i newline
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="שיתוף קבצים">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="שיתוף קבצים">
+		<control/>
 		<control caption="שיתוף קבצים פשוט"/>
 		<control caption="שתף את קובץ זה אם התיקייה המכילה משותפת"/>
 		<control caption="כפה הגדרות שיתוף על קובץ זה"/>
 		<control caption="הגדר את קובץ זה כזמין למשתמשים אחרים"/>
 		<control caption="העלה תגים לבחירת תורות"/>
-		<control/>
-		<control caption="-רשתות לשיתוף"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="מקורות">

@@ -84,8 +84,8 @@ void CSettings::Load()
 	// Add all settings
 	Add( _T(""), _T("DebugBTSources"), &General.DebugBTSources, false );
 	Add( _T(""), _T("DebugLog"), &General.DebugLog, false );
-	Add( _T(""), _T("DiskSpaceStop"), &General.DiskSpaceStop, 25, 1, 0, 1000 , _T(" M") );
-	Add( _T(""), _T("DiskSpaceWarning"), &General.DiskSpaceWarning, 500, 1, 5, 2000 , _T(" M") );
+	Add( _T(""), _T("DiskSpaceStop"), &General.DiskSpaceStop, 50, 1, 0, 1000 , _T(" MB") );
+	Add( _T(""), _T("DiskSpaceWarning"), &General.DiskSpaceWarning, 550, 1, 1, 2000 , _T(" MB") );
 	Add( _T(""), _T("HashIntegrity"), &General.HashIntegrity, true );
 	Add( _T(""), _T("ItWasLimited"), &General.ItWasLimited, false, true );
 	Add( _T(""), _T("MaxDebugLogSize"), &General.MaxDebugLogSize, 10*MegaByte, MegaByte, 0, 100, _T(" MB") );
@@ -119,7 +119,6 @@ void CSettings::Load()
 	Add( _T("VersionCheck"), _T("NextCheck"), &VersionCheck.NextCheck, 0 );
 	Add( _T("VersionCheck"), _T("Quote"), &VersionCheck.Quote );
 	Add( _T("VersionCheck"), _T("UpdateCheck"), &VersionCheck.UpdateCheck, true );
-	Add( _T("VersionCheck"), _T("UpdateCheckURL"), &VersionCheck.UpdateCheckURL, _T("http://peerproject.sourceforge.net/update") );
 	Add( _T("VersionCheck"), _T("UpgradeFile"), &VersionCheck.UpgradeFile );
 	Add( _T("VersionCheck"), _T("UpgradePrompt"), &VersionCheck.UpgradePrompt );
 	Add( _T("VersionCheck"), _T("UpgradeSHA1"), &VersionCheck.UpgradeSHA1 );
@@ -155,7 +154,7 @@ void CSettings::Load()
 	Add( _T("Library"), _T("HashWindow"), &Library.HashWindow, true );
 	Add( _T("Library"), _T("HighPriorityHash"), &Library.HighPriorityHash, true );
 	Add( _T("Library"), _T("HighPriorityHashing"), &Library.HighPriorityHashing, 24, 1, 2, 100, _T(" MB/s") );
-	Add( _T("Library"), _T("HistoryDays"), &Library.HistoryDays, 5, 1, 0, 365, _T(" days") );
+	Add( _T("Library"), _T("HistoryDays"), &Library.HistoryDays, 5, 1, 0, 365, _T(" d") );
 	Add( _T("Library"), _T("HistoryTotal"), &Library.HistoryTotal, 32, 1, 0, 100, _T(" files") );
 	Add( _T("Library"), _T("LastUsedView"), &Library.LastUsedView );
 	Add( _T("Library"), _T("LowPriorityHashing"), &Library.LowPriorityHashing, 4, 1, 1, 50, _T(" MB/s") );
@@ -522,7 +521,7 @@ void CSettings::Load()
 
 	Add( _T("Uploads"), _T("AllowBackwards"), &Uploads.AllowBackwards, true );
 	Add( _T("Uploads"), _T("AutoClear"), &Uploads.AutoClear, false );
-	Add( _T("Uploads"), _T("BlockAgents"), &Uploads.BlockAgents, _T("|Mozilla|") );
+	Add( _T("Uploads"), _T("BlockAgents"), &Uploads.BlockAgents, _T("|Foxy|Mozilla|") );
 	Add( _T("Uploads"), _T("ClampdownFactor"), &Uploads.ClampdownFactor, 20, 1, 0, 100, _T("%") );
 	Add( _T("Uploads"), _T("ClampdownFloor"), &Uploads.ClampdownFloor, 8*128, 128, 0, 4096, _T(" Kb/s") );
 	Add( _T("Uploads"), _T("ClearDelay"), &Uploads.ClearDelay, 60*1000, 1000, 1, 1800, _T(" s") );
@@ -570,6 +569,7 @@ void CSettings::Load()
 	Add( _T("IRC"), _T("RealName"), &IRC.RealName, _T("PeerIRC") );
 	Add( _T("IRC"), _T("ScreenFont"), &IRC.ScreenFont );
 	Add( _T("IRC"), _T("FontSize"), &IRC.FontSize, 0, 1, 0, 50 );
+	Add( _T("IRC"), _T("OnConnect"), &IRC.OnConnect, _T("") );
 	Add( _T("IRC"), _T("Updated"), &IRC.Updated, FALSE );
 
 	Add( _T("Remote"), _T("Enable"), &Remote.Enable, false );
@@ -581,7 +581,7 @@ void CSettings::Load()
 	Add( _T("Scheduler"), _T("LimitedBandwidth"), &Scheduler.LimitedBandwidth, 50, 1, 0, 100, _T(" %") );
 	Add( _T("Scheduler"), _T("LimitedNetworks"), &Scheduler.LimitedNetworks, true );
 
-	Add( _T("Security"), _T("DefaultBan"), &Security.DefaultBan, 100*24*3600, 24*3600, 1, 1000, _T(" days") );
+	Add( _T("Security"), _T("DefaultBan"), &Security.DefaultBan, 100*24*3600, 24*3600, 1, 1000, _T(" d") );
 
 	Add( _T("Experimental"), _T("EnableDIPPSupport"), &Experimental.EnableDIPPSupport, false );
 	Add( _T("Experimental"), _T("TestBTPartials"), &Experimental.TestBTPartials, false );
@@ -954,9 +954,8 @@ void CSettings::SmartUpgrade()
 	//			Library.PrivateTypes.insert( _T("bc!") );
 	//	}
 
-	//	if ( General.SmartVersion < 46 )
+	//	if ( General.SmartVersion < 46 )	// ReGet
 	//	{
-	//		// ReGet
 	//		if ( ! IsIn( Library.PrivateTypes, _T("reget") ) )
 	//			Library.PrivateTypes.insert( _T("reget") );
 	//	}
@@ -974,8 +973,7 @@ void CSettings::SmartUpgrade()
 
 	//	if ( General.SmartVersion < 50 )
 	//	{
-	//		CString strExts =
-	//			theApp.GetProfileString( L"Plugins", L"{C88A4A9E-17C4-429D-86BA-3327CED6DE62}" );
+	//		CString strExts = theApp.GetProfileString( L"Plugins", L"{C88A4A9E-17C4-429D-86BA-3327CED6DE62}" );
 	//		if ( strExts.GetLength() > 0 && strExts.GetAt( 0 ) == '|' )
 	//		{
 	//			if ( _tcsistr( strExts, L"|.3gp|" ) == NULL && _tcsistr( strExts, L"|-.3gp|" ) == NULL )
@@ -1008,8 +1006,7 @@ void CSettings::SmartUpgrade()
 	//			strExts = L"|.asf||.asx||.avi||.divx||.m2v||.m2p||.mkv||.mov||.mpeg||.mpg||.ogm||.qt||.ram||.rm||.vob||.wmv||.xvid||.mp4||.rmvb||.3gp||.3gpp||.3g2||.dv||.flv||.ivf||.gvi||.mpe||.nsv||.wm|";
 	//			theApp.WriteProfileString( L"Plugins", L"{C88A4A9E-17C4-429D-86BA-3327CED6DE62}", strExts );
 	//		}
-	//		strExts =
-	//			theApp.GetProfileString( L"Plugins", L"{C8613374-9313-4E34-AD6C-A6F7FA317D3A}" );
+	//		strExts = theApp.GetProfileString( L"Plugins", L"{C8613374-9313-4E34-AD6C-A6F7FA317D3A}" );
 	//		if ( strExts.GetLength() > 0 && strExts.GetAt( 0 ) == '|' )
 	//		{
 	//			if ( _tcsistr( strExts, L"|.3gp|" ) == NULL && _tcsistr( strExts, L"|-.3gp|" ) == NULL )

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1742,23 +1742,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Ajuda ràpida</link>
-		<text align="middle">&#160;- Rep ajuda ràpida de com usar PeerProject</text>
-		<newline gap="18" indent="0"/>
-		<!--new adition-->
-		<icon res="185" width="25" height="25"/><gap size="8"/>
-		<heading align="middle">PROGRAMARI EN CATALÀ</heading>
-		<newline gap="8" indent="42"/>
-		<gap size="8"/>
-		<link target="http://tradu.feshocat.cat/" align="middle" format="bu">TraduCAT</link>
-		<text align="middle">&#160;- TraduCAT és l'equip de traducció del PeerProject.</text>
-		<newline gap="8" indent="42"/>
-		<gap size="8"/>
-		<link target="http://www.softcatala.cat" align="middle" format="bu">SoftCatalà</link>
-		<text align="middle">&#160;- Associació sense ànim de lucre que fomenta l'ús del català a les noves tecnologies.</text>
-		<newline gap="8" indent="42"/>
-		<gap size="8"/>
-		<link target="http://www.catmidia.cat" align="middle" format="bu">CATMidia</link>
-		<text align="middle">&#160;- Comunitat que es preocupa, entre molts altres continguts, pel programari lliure així com per la seva traducció i adaptació al català.</text>
+		<text align="middle">&#160;- Rep ajuda ràpida de com usar PeerProject, o </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Fòrum Local</link>
@@ -1916,11 +1901,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Reproductor:</link>
 		<text>&#160;Quan i com usar el Centre de Media de PeerProject.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">Chat:</link>
+		<text>&#160;IRC chatroom connection settings and display options.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Comunitat:</link>
 		<text>&#160;Configura el teu perfil, xat i serveis de missatgeria.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">Chat:</link>
-		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
 		<text>&#160;Integra PeerProject amb el teu navegador d'internet, per a acceptar enllaços peer-to-peer i controlar les descàrregues.</text>
@@ -2751,7 +2736,7 @@
 	<string id="8316" value="Encerts"/>
 	<string id="8317" value="Pujades"/>
 	<string id="8318" value="%lu avui, %lu en total"/>
-	<string id="8319" value="Sense Hashset"/>
+	<string id="8319" value="Pujades:"/>
 	<string id="8320" value="Estat:"/>
 	<string id="8321" value="Velocitat:"/>
 	<string id="8322" value="URL:"/>
@@ -2770,6 +2755,7 @@
 	<string id="8335" value="Les fonts estan sota tallafocs"/>
 	<string id="8336" value="Les fonts poden ser inestables"/>
 	<string id="8337" value="Amb desconfiança"/>
+	<string id="8338" value="Sense Hashset"/>
 	<string id="13000" value="Estàs segur de esborrar les normes de seguretat seleccionades? Aquesta operació no pot ser desfeta."/>
 	<string id="13001" value="Arxius compartits a Internet"/>
 	<string id="16063" value="El mapegi de ports UPnP ha fallat després de 10 intents."/>
@@ -3407,6 +3393,7 @@
 		<control caption="Filtra els missatges de xat per a spam"/>
 		<control caption="Censura coses obscenes al xat"/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Controla enllaços avançats:"/>
 		<control caption="Usa PeerProject per a obrir aquests enllaços:"/>
@@ -3513,13 +3500,8 @@
 		<control caption="Tria un mot de pas:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Programador">
-		<control caption="_Opcions:"/>
-		<control caption="_Habilita el calendari"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Programador">
 		<control/>
-		<control/>
-		<control caption="_Connecta a Gnutella2 únicament quan s'està limitat"/>
-		<control caption="Clau:"/>
 		<control caption="Diu"/>
 		<control caption="Dil"/>
 		<control caption="Dim"/>
@@ -3527,10 +3509,15 @@
 		<control caption="Dij"/>
 		<control caption="Div"/>
 		<control caption="Dis"/>
+		<control caption="Clau:"/>
 		<control caption="No permetis connectar"/>
 		<control caption="Connexió limitada"/>
 		<control caption="Connecta a alta velocitat"/>
+		<control caption="_Opcions:"/>
+		<control caption="_Habilita el calendari"/>
+		<control caption="_Connecta a G2 únicament quan s'està limitat"/>
 		<control caption="% de _banda ampla sota el límit"/>
+		<control/>
 		<control/>
 		<control caption="Ajuda"/>
 		<control caption="El calendari està dissenyat per a que puguis asignar temps de quant PeerProject s'ha de connectar i descarregar arxius. {n}{n}{n}Nota: Si tens PeerProject obert quan el calendari està actiu, pot ser que vegis que aquest canvia configuracions - això és normal."/>
@@ -3761,23 +3748,23 @@
 		<control caption="El meu pseudònim:"/>
 		<control/>
 		<control caption="i tinc:"/>
-		<control caption="&#160;(tria)"/>
-		<control caption="&#160;(tria)| jove| adult| home| dona"/>
+		<control caption="(tria)"/>
+		<control caption="(tria)| Home| Dona| Male| Female"/>
 		<control caption="de:"/>
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBuBu" caption="Benvingut/uda a PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Benvingut/uda a PeerProject (4/6)">
 		<control caption="PeerProject soporta una interfícies flexible, així que pots escollir la que millor et vagi. Pots canviar aquestes opcions en qualsevol moment"/>
 		<control caption="Si us plau, selecciona alguna d'aquestes interfícies:"/>
-		<control caption="Mode normal"/>
+		<control caption="Mode basico"/>
 		<control caption="Mode avançat"/>
-		<control caption="Simple, botons i menus fàcils d'utilitzar.     Familiar per a usuaris que han utilitzat altres programes per a compartir arxius."/>
+		<control caption="Simple, botons i menus fàcils d'utilitzar. Familiar per a usuaris que han utilitzat altres programes per a compartir arxius."/>
 		<control caption="El mode avançat dóna accés a més comandes, finestres, etc.{n}Pot resultar complicat i confús a nous usuaris."/>
 		<control caption="Mostra barres de progrés de descàrrega simplificades. (Redueix la càrrega del processador)"/>
-		<control caption="Maneja enllaços BitTorrent."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Benvingut/uda a PeerProject (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Benvingut/uda a PeerProject (5/6)">
 		<control caption="PeerProject és una aplicació per a compartir arxius de forma general que pot accedir a diverses xarxes P2P al mateix temps.  Aquí pots seleccionar a quines xarxes et vols connectar. Recorda que després pots seleccionar altres xarxes."/>
 		<control caption="Connecta a Gnutella2 (altament recomanat)"/>
 		<control caption="La xarxa Gnutella2 és la xarxa preferida per PeerProject, ofrerint més característiques i rendiment que lees altres."/>
@@ -3785,6 +3772,7 @@
 		<control caption="Tot i que la xarxa Gnutella original (Gnutella1) no té tantes característiques com Gnutella2 ni tants arxius com eDonkey, continua essent un recurs valuós."/>
 		<control caption="Connecta a eDonkey"/>
 		<control caption="La xarxa eDonkey és una xarxa molt popular basada en servidors. No és tan rica en característiques com Gnutella2, però eDonkey té una gran quantitat d'arxius disponibles."/>
+		<control caption="Maneja enllaços BitTorrent."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importa transferències d'eDonkey o eMule">
 		<control/>
@@ -3988,20 +3976,20 @@
 		<control caption="Tanca"/>
 		<control caption="Tanca aquesta finestra al finalitzar"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="General">
-		<control caption="Universal Resource Names (URNs)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="General">
 		<control/>
 		<control caption="Atributs d'arxiu"/>
 		<control caption="Ubicació:"/>
-		<control/>
 		<control caption="Tipus:"/>
-		<control/>
 		<control caption="Modificat:"/>
-		<control/>
 		<control caption="Mida:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Universal Resource Names (URNs)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4018,15 +4006,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Compartició">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Compartició">
+		<control/>
 		<control caption="Compartició simple"/>
 		<control caption="Comparteix si la carpeta està compartida"/>
 		<control caption="Reemplaça el compartiment per a aquest arxiu:"/>
 		<control caption="Comparteix aquest arxiu"/>
 		<control caption="Etiquetes de selecció per a la cua de pujada"/>
-		<control/>
-		<control caption="-Comparteix a les xarxes"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Fonts">

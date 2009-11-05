@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1652,7 +1652,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Hitna Pomoć</link>
-		<text align="middle">&#160;- Na brzinu nauči osnove rada sa PeerProject</text>
+		<text align="middle">&#160;- Na brzinu nauči osnove rada sa PeerProject, or </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Локално Форуми</link>
@@ -1810,11 +1811,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
 		<text>&#160;Kada i gde će PeerProject koristiti njen Media Centar.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<text>&#160;IRC chatroom connection settings and display options.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Zajednica:</link>
 		<text>&#160;Vaš profil, podešavanja vezane uz chat i instant messaging.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
-		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
 		<text>&#160;Povežite PeerProject sa preglednikom interneta da prihvata skidanje i P2P linkove.</text>
@@ -2637,7 +2638,7 @@
 	<string id="8316" value="Pogodaka"/>
 	<string id="8317" value="Deljenja"/>
 	<string id="8318" value="%lu danas, %lu ukupno"/>
-	<string id="8319" value="&#160;(No Hashset)"/>
+	<string id="8319" value="Deljenja:"/>
 	<string id="8320" value="Stanje:"/>
 	<string id="8321" value="Brzina:"/>
 	<string id="8322" value="URL:"/>
@@ -3233,6 +3234,7 @@
 		<control caption="Filtriraj poruke koje sadrže smeće"/>
 		<control caption="Cenzuriši prostačenje"/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Upravljanje _Peer to Peer Linkovima:"/>
 		<control caption="Koristi PeerProject za otvaranje ovih vrsta linkova:"/>
@@ -3339,13 +3341,8 @@
 		<control caption="Odaberi Lozinku:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Plan Skidanja">
-		<control caption="_Opcije:"/>
-		<control caption="Uključi Plan"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Plan Skidanja">
 		<control/>
-		<control/>
-		<control caption="Spoji se na G2 samo pod ograničenjem"/>
-		<control caption="Legenda:"/>
 		<control caption="Ned"/>
 		<control caption="Pon"/>
 		<control caption="Uto"/>
@@ -3353,10 +3350,15 @@
 		<control caption="Čet"/>
 		<control caption="Pet"/>
 		<control caption="Sub"/>
+		<control caption="Legenda:"/>
 		<control caption="Nemoj se spajati"/>
 		<control caption="Ograničenom brzinom"/>
 		<control caption="Spoji se punom brzinom"/>
+		<control caption="_Opcije:"/>
+		<control caption="Uključi Plan"/>
+		<control caption="Spoji se na G2 samo pod ograničenjem"/>
 		<control caption="% _brzine je ograničenje"/>
+		<control/>
 		<control/>
 		<control caption="Pomoć"/>
 		<control caption="Planer skidanja je osmišljen da omoguči PeerProject spajanje i skidanje u određeno doba dana. {n}{n}{n}Napomena: Ako je PeerProject pokrenuta i plan uključen, možete videti promene podešavanja- to je normalno!-"/>
@@ -3589,7 +3591,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Dobrodošli u PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Dobrodošli u PeerProject (4/6)">
 		<control caption="PeerProject podržava dva korisnička izgleda, ovde možete izabrati koji vam više odgovara."/>
 		<control caption="Molim odaberite korisničko izgled:"/>
 		<control caption="Basic Izgled(interface)"/>
@@ -3597,9 +3599,9 @@
 		<control caption="Jednostavno, lagano za korištenje.{n}Za korisnike koji su već radili sa sličnim programima."/>
 		<control caption="Power izgled naprednim korisnicima nudi više naredbi, prozora i sl."/>
 		<control caption="Pokaži jednostavni pokazivač napretka."/>
-		<control caption="Preuzmi torrent linkove."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Dobrodošli u PeerProject (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Dobrodošli u PeerProject (5/6)">
 		<control caption="PeerProject je program za deljenje i skidanje datoteka opšteg sadržaja, i može se istovremeno spojiti na više P2P mreža.Ovde možete odabrati kojim mrežama želite pristupiti.Posle možete promeniti odabrane mreže."/>
 		<control caption="Spoji se na Gnutellu2 (Preporučeno)"/>
 		<control caption="Gnutella2 mreža je PeerProject osnovna mreža, nudi najviše opcija i najbrža je od svih ostalih P2P mreža."/>
@@ -3607,6 +3609,7 @@
 		<control caption="Iako originalna Gnutellina mreža ima manje mogućnosti od Gnutelle2,manje datoteka od eDonkey2000, i dalje je vredan izvor datoteka."/>
 		<control caption="Spoji se na eDonkey2000"/>
 		<control caption="eDonkey2000 mreža je popularna server-bazirana mreža.Iako nema mogućnosti kao Gnutella2, poseduje impresivnu zbirku datoteka."/>
+		<control caption="Preuzmi torrent linkove."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Ubaci eDonkey2000 Skidanje">
 		<control/>
@@ -3809,20 +3812,20 @@
 		<control caption="Sakrij"/>
 		<control caption="Zatvori ovaj prozor kad završi skidanje"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Opšti">
-		<control caption="Universal Resource Names (URNs)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Opšti">
 		<control/>
 		<control caption="Atributi Datoteke"/>
 		<control caption="Lokacija:"/>
-		<control/>
 		<control caption="Tip:"/>
-		<control/>
 		<control caption="Menjano:"/>
-		<control/>
 		<control caption="Veličina:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Universal Resource Names (URNs)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -3839,15 +3842,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Deljenje">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Deljenje">
+		<control/>
 		<control caption="Jednostavno Deljenje"/>
 		<control caption="Deli datoteku ako je gornja fascikla deljena"/>
 		<control caption="Prebriši podešavanja o deljenju za ovu datoteku:"/>
 		<control caption="Neka ova datoteka bude dostupna drugima"/>
-		<control caption="Upload Queue Selection Tag(s)"/>
-		<control/>
-		<control caption="-Mreže za deljenje"/>
-		<control/>
+		<control caption="Upload Queue Selection Tags"/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Izvori">

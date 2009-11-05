@@ -60,7 +60,7 @@ public:
 	QWORD			m_nPosition;	// Send position
 
 protected:
-	BOOL			m_bStopTransfer;// Should this transfer stop? (to allow queue rotation, etc)
+	BOOL			m_bStopTransfer; // Should this transfer stop? (to allow queue rotation, etc)
 	DWORD			m_tRotateTime;
 	DWORD			m_tAverageTime;
 	int				m_nAveragePos;
@@ -80,7 +80,7 @@ public:
 	virtual float	GetProgress() const;
 	virtual DWORD	GetAverageSpeed();
 	virtual DWORD	GetMeasuredSpeed();
-	virtual DWORD	GetMaxSpeed() const;
+	virtual DWORD	GetMaxSpeed(); //const;
 	virtual void	SetSpeedLimit(DWORD nLimit);
 
 protected:
@@ -89,16 +89,16 @@ protected:
 	virtual BOOL	OnWrite();
 	virtual void	OnQueueKick() {};
 
-	void		LongTermAverage(DWORD tNow);
-	void		RotatingQueue(DWORD tNow);
-	void		CalculateRating(DWORD tNow);
-	void		ClearHashes();
-	BOOL		HashesFromURN(LPCTSTR pszURN);
-	void		ClearRequest();
-	BOOL		RequestComplete(CLibraryFile* pFile);
-	BOOL		RequestPartial(CDownload* pFile);
-	void		StartSending(int nState);
-	void		AllocateBaseFile();
+	void			LongTermAverage(DWORD tNow);
+	void			RotatingQueue(DWORD tNow);
+	void			CalculateRating(DWORD tNow);
+	void			ClearHashes();
+	void			ClearRequest();
+	BOOL			HashesFromURN(LPCTSTR pszURN);
+	BOOL			RequestComplete(CLibraryFile* pFile);
+	BOOL			RequestPartial(CDownload* pFile);
+	void			StartSending(int nState);
+	void			AllocateBaseFile();
 
 	virtual BOOL	IsFileOpen() const;
 	virtual BOOL	OpenFile();
@@ -116,7 +116,6 @@ enum UserRating
 	// 3 = New user ()
 	// 4 = Known user who has not uploaded (May simply not have anything we want)
 };
-
 
 enum UploadState
 {

@@ -64,7 +64,7 @@ void CFileSharingPage::DoDataExchange(CDataExchange* pDX)
 	//{{AFX_DATA_MAP(CFileSharingPage)
 	DDX_Control(pDX, IDC_FILE_TAGS, m_wndTags);
 	DDX_Control(pDX, IDC_FILE_SHARE, m_wndShare);
-	DDX_Control(pDX, IDC_FILE_NETWORKS, m_wndNetworks);
+	//DDX_Control(pDX, IDC_FILE_NETWORKS, m_wndNetworks);
 	DDX_Radio(pDX, IDC_SHARE_OVERRIDE_0, m_bOverride);
 	DDX_Check(pDX, IDC_FILE_SHARE, m_bShare);
 	DDX_CBString(pDX, IDC_FILE_TAGS, m_sTags);
@@ -126,7 +126,6 @@ BOOL CFileSharingPage::OnInitDialog()
 					m_sTags		= pFile->m_sShareTags;
 				}
 			}
-
 		}
 	}
 
@@ -176,7 +175,6 @@ void CFileSharingPage::OnOK()
 				pFile->m_sShareTags = m_sTags;
 			}
 		}
-
 	}
 
 	CFilePropertiesPage::OnOK();

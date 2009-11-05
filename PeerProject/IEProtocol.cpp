@@ -180,9 +180,7 @@ HRESULT CIEProtocolRequest::OnStart(LPCTSTR pszURL, IInternetProtocolSink* pSink
 		( dwFlags & PI_PARSE_URL ) != 0 );
 
 	if ( ( dwFlags & PI_PARSE_URL ) || ( hr == INET_E_INVALID_URL ) )
-	{
 		return hr;
-	}
 
 	m_pSink = pSink;
 
@@ -332,9 +330,9 @@ STDMETHODIMP CIEProtocolRequest::XInternetProtocolInfo::ParseUrl(LPCWSTR pwzUrl,
 	{
 	case PARSE_SECURITY_URL:
 	case PARSE_SECURITY_DOMAIN:
-		*pcchResult = lstrlen( _T(WEB_SITE) ) + 1;
+		*pcchResult = lstrlen( WEB_SITE ) + 1;
 		if ( cchResult < *pcchResult || pwzResult == NULL ) return S_FALSE;
-		lstrcpy( pwzResult, _T(WEB_SITE) );
+		lstrcpy( pwzResult, WEB_SITE );
 		return S_OK;
 	default:
 		return INET_E_DEFAULT_ACTION;
@@ -370,20 +368,12 @@ HRESULT CIEProtocol::OnRequest(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeT
 
 	TRACE( _T("Requested URL: %s\n"), pszURL );
 
-	if ( _tcsnicmp( pszURL, _T("p2p-col://"), 10 ) == 0 )
-	{
-		// p2p-col://{SHA1}/{relative path inside zip}
+	if ( _tcsnicmp( pszURL, _T("p2p-col://"), 10 ) == 0 )		// p2p-col://{SHA1}/{relative path inside zip}
 		return OnRequestRAZACOL( pszURL + 10, oBuffer, sMimeType, bParseOnly );
-	}
-	else if ( _tcsnicmp( pszURL, _T("p2p-file://"), 11 ) == 0 )
-	{
-		// p2p-file://{SHA1}/{preview|meta}
+	else if ( _tcsnicmp( pszURL, _T("p2p-file://"), 11 ) == 0 )	// p2p-file://{SHA1}/{preview|meta}
 		return OnRequestRAZAFILE( pszURL + 11, oBuffer, sMimeType, bParseOnly );
-	}
 	else
-	{
 		return INET_E_INVALID_URL;
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////

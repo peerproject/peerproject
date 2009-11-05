@@ -1,5 +1,5 @@
 //
-// CoolMenu.cpp
+// Shell.h
 //
 // This file is part of PeerProject (peerproject.org) © 2008
 // Portions Copyright Shareaza Development Team, 2002-2008.
@@ -57,7 +57,7 @@ public:
 		}
 	}
 
-	~CShellItem()
+	virtual ~CShellItem()
 	{
 		if ( m_pidl )
 			CoTaskMemFree( m_pidl );
@@ -88,25 +88,22 @@ public:
 			if ( pItemIDList->m_pidl )
 				AddTail( pItemIDList );
 			else
-				// Bad path
-				delete pItemIDList;
+				delete pItemIDList;	// Bad path
 		}
 
 		if ( GetCount() == 0 )
-			// No files
-			return;
+			return;		// No files
 
 		m_pID.reset( new LPCITEMIDLIST [ GetCount() ] );
 		if ( ! m_pID.get() )
-			// Out of memory
-			return;
+			return;		// Out of memory
 
 		int i = 0;
 		for ( POSITION pos = GetHeadPosition(); pos; i++)
 			m_pID[ i ] = GetNext( pos )->m_pLastId;
 	}
 
-	~CShellList()
+	virtual ~CShellList()
 	{
 		for ( POSITION pos = GetHeadPosition(); pos; )
 			delete GetNext( pos );
@@ -114,10 +111,10 @@ public:
 	}
 
 	// Creates menu from file paths list
-	bool GetMenu(HWND hWnd, void** ppContextMenu)
+	bool GetMenu(HWND hWnd, void** ppContextMenu) const
 	{
-		return SUCCEEDED( m_pFolder->GetUIObjectOf( hWnd, (UINT)GetCount(),
-			m_pID.get(), IID_IContextMenu, NULL, ppContextMenu ) );
+		return ( GetCount() && m_pFolder && SUCCEEDED( m_pFolder->GetUIObjectOf(
+			hWnd, (UINT)GetCount(), m_pID.get(), IID_IContextMenu, NULL, ppContextMenu ) ) );
 	}
 
 protected:

@@ -273,7 +273,7 @@
 			<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
 			<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
 			<item id="ID_VIEW_RESULTS_MONITOR" text="H_it Monitor" shortcut="Ctrl+F3"/>
-			<item id="ID_VIEW_SEARCH" text="New _Search" shortcut="Ctrl+S"/>
+			<item id="ID_TAB_SEARCH" text="New _Search" shortcut="Ctrl+S"/>
 			<separator/>
 			<item id="ID_VIEW_BASIC" text="Basic Mode"/>
 			<item id="ID_VIEW_TABBED" text="Tabbed Mode"/>
@@ -627,11 +627,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
 		<text>&#160;Set when to use the internal PeerProject Media Center.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link>
+		<text>&#160;IRC chatroom connection settings and display options.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Community:</link>
 		<text>&#160;Your profile and direct chat settings.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link>
-		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
 		<text>&#160;Integrate PeerProject with your web browser to accept peer-to-peer links and download content.</text>
@@ -654,7 +654,7 @@
 		<text>&#160;Upload capacity, queuing, banning, timeouts and special requests.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">Remote:</link>
-		<text>&#160;Set up the ability to control PeerProject remotely through a web browser.</text>
+		<text>&#160;Setup the ability to control PeerProject remotely through a web browser.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
@@ -777,24 +777,26 @@
 		<control caption="_Select Plugin..."/>
 		<control caption="Note: Choosing an external Media Handler will disable Media/Visualisation Plugins."/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Chat">
 		<control caption="Client _Options:"/>
 		<control caption="Show chat integration"/>
-		<control caption="Flood protection:"/>
-		<control/>
-		<control caption="lines per second"/>
 		<control caption="Show timestamp"/>
+		<control caption="Flood protection:"/>
+		<control caption="Lines"/>
+		<control/>
 		<control caption="Screen Font:"/>
+		<control caption="Size"/>
+		<control/>
 		<control/>
 		<control caption="_Colours:"/>
 		<control/>
-		<control caption="Chat background"/>
+		<control caption="Window"/>
 		<control/>
 		<control caption="Text"/>
 		<control/>
 		<control caption="Local text"/>
 		<control/>
-		<control caption="User action"/>
+		<control caption="User actions"/>
 		<control/>
 		<control caption="Channel actions"/>
 		<control/>
@@ -804,17 +806,19 @@
 		<control/>
 		<control caption="Topics"/>
 		<control caption="Connection _Settings:"/>
-		<control caption="Nickname:"/>
+		<control caption="Screen name:"/>
 		<control/>
 		<control caption="User name:"/>
 		<control/>
-		<control caption="Alternate Nickname:"/>
+		<control caption="Alt screen name:"/>
 		<control/>
 		<control caption="Real name:"/>
 		<control/>
 		<control caption="Server:"/>
 		<control/>
 		<control caption="Port:"/>
+		<control/>
+		<control caption="Run command on connect"/>
 		<control/>
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favourites">

@@ -152,21 +152,21 @@ public:
 protected:
 	// IRC Window Dimensions
 	//Predefined int Skin.m_nHeaderbarHeight = 64;
-	static const int TABBAR_HEIGHT	    = 24;
+	static const int TABBAR_HEIGHT		= 24;
 	static const int SEPERATOR_HEIGHT	= 3;
-	static const int SMALLHEADER_HEIGHT = 20;
+	static const int SMALLHEADER_HEIGHT	= 20;
 	static const int EDITBOX_HEIGHT		= 22;
 	//Predefined int Skin.m_nToolbarHeight = 28;
 	static const int STATUSBOX_WIDTH	= 330;
 
-	#define			 MAX_CHANNELS		  12
+	#define			MAX_CHANNELS		12
 
 	BOOL			m_bConnected;
 	CString			m_sStatus;
-	int             m_nSelectedTab;
+	int				m_nSelectedTab;
 	int				m_nMsgsInSec;
 	int				m_nTimerVal;
-	int             m_nSelectedTabType;
+	int				m_nSelectedTabType;
 	int				m_nRSelectedTab;
 	BOOL			m_bFloodProtectionRunning;
 	int				m_nFloodLimit;
@@ -186,11 +186,11 @@ protected:
 	CIRCChannelList	m_pChanList;
 
 	// Header
-	CBitmap			m_bmWatermark;
 	int				m_nHeaderIcon;
-	CDC				m_dcBuffer;
+	CBitmap			m_bmWatermark;
 	CBitmap			m_bmBuffer;
 	HBITMAP			m_hBuffer;
+	CDC				m_dcBuffer;
 	CIRCPanel		m_wndPanel;
 
 	CRichDocument	m_pContent;
@@ -206,21 +206,21 @@ protected:
 	int				m_nLocalTextLimit;
 	int				m_nLocalLinesLimit;
 	SOCKET			m_nSocket;
-	CEvent 			m_pWakeup;
-	CString         m_sWsaBuffer;
+	CEvent			m_pWakeup;
+	CStringA		m_sWsaBuffer;
 
 	CFont			m_fntEdit;
 	CStringArray	m_pWords;
-	CString         m_sUser;
+	CString			m_sUser;
 
 	void			ConnectIrc();
 	void			SetFonts();
 	void			OnSettings();
-	BOOL            OnNewMessage(const CString& strMessage);
-	void            SendString(const CString& strMessage);
+	BOOL			OnNewMessage(const CString& strMessage);
+	void			SendString(const CString& strMessage);
 	int				FindParsedItem(LPCTSTR szMessage, int nFirst = 0);
 	int				GetTabIndex(const CString& strTabName) const;
-	void            LoadBufferForWindow(int nTab);
+	void			LoadBufferForWindow(int nTab);
 	void			ParseString(const CString& strMessage, CIRCNewMessage& oNewMessage);
 	CString			TrimString(CString strMessage) const;
 	CString			GetStringAfterParsedItem(int nItem) const;
@@ -338,34 +338,34 @@ protected:
 
 //{{AFX_INSERT_LOCATION}}
 
-#define	ID_MESSAGE_SERVER_DISCONNECT    209
-#define ID_MESSAGE_SERVER_PING          210
-#define ID_MESSAGE_SERVER_NOTICE        211
+#define	ID_MESSAGE_SERVER_DISCONNECT	209
+#define ID_MESSAGE_SERVER_PING			210
+#define ID_MESSAGE_SERVER_NOTICE		211
 #define	ID_MESSAGE_SERVER_ERROR			212
 #define	ID_MESSAGE_SERVER_CONNECTED		213
 #define	ID_MESSAGE_SERVER_MSG			214
 
 
-#define ID_MESSAGE_CLIENT_JOIN_USERLIST 215
-#define ID_MESSAGE_CLIENT_JOIN_ENDNAMES 216
-#define ID_MESSAGE_CLIENT_JOIN          217
+#define ID_MESSAGE_CLIENT_JOIN_USERLIST	215
+#define ID_MESSAGE_CLIENT_JOIN_ENDNAMES	216
+#define ID_MESSAGE_CLIENT_JOIN			217
 #define	ID_MESSAGE_CLIENT_NOTICE		218
-#define	ID_MESSAGE_CLIENT_INVITE        219
+#define	ID_MESSAGE_CLIENT_INVITE		219
 #define	ID_MESSAGE_CLIENT_WHOWAS		220
-#define	ID_MESSAGE_CLIENT_WHOIS         221
+#define	ID_MESSAGE_CLIENT_WHOIS			221
 
-#define ID_MESSAGE_CHANNEL_TOPICSETBY   222
-#define ID_MESSAGE_CHANNEL_TOPICSHOW    223
-#define ID_MESSAGE_CHANNEL_PART         224
-#define ID_MESSAGE_CHANNEL_QUIT         225
-#define ID_MESSAGE_CHANNEL_JOIN         226
-#define ID_MESSAGE_CHANNEL_SETMODE      227
+#define ID_MESSAGE_CHANNEL_TOPICSETBY	222
+#define ID_MESSAGE_CHANNEL_TOPICSHOW	223
+#define ID_MESSAGE_CHANNEL_PART			224
+#define ID_MESSAGE_CHANNEL_QUIT			225
+#define ID_MESSAGE_CHANNEL_JOIN			226
+#define ID_MESSAGE_CHANNEL_SETMODE		227
 #define	ID_MESSAGE_CHANNEL_NOTICE		228
 #define	ID_MESSAGE_CHANNEL_MESSAGE		229
 #define	ID_MESSAGE_CHANNEL_LIST			230
-#define	ID_MESSAGE_CHANNEL_ME           231
-#define	ID_MESSAGE_CHANNEL_LISTEND      232
-#define ID_MESSAGE_CHANNEL_PART_FORCED  244
+#define	ID_MESSAGE_CHANNEL_ME			231
+#define	ID_MESSAGE_CHANNEL_LISTEND		232
+#define ID_MESSAGE_CHANNEL_PART_FORCED	244
 
 #define	ID_MESSAGE_USER_MESSAGE			233
 #define	ID_MESSAGE_USER_CTCPTIME		234

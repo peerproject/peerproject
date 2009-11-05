@@ -37,9 +37,9 @@ public:
 public:
 	//{{AFX_DATA(CFileSharingPage)
 	enum { IDD = IDD_FILE_SHARING };
+	//CListCtrl	m_wndNetworks;
 	CComboBox	m_wndTags;
 	CButton	m_wndShare;
-	CListCtrl	m_wndNetworks;
 	int		m_bOverride;
 	BOOL	m_bShare;
 	CString	m_sTags;

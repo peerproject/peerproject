@@ -399,8 +399,6 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 //#define TOOLBAR_HEIGHT		28				// Skin.m_nToolbarHeight
 #define THUMB_STORE_SIZE		128
 
-#define REGISTRY_KEY			"Software\\PeerProject\\PeerProject"
-
 
 // Network ID's:
 
@@ -421,9 +419,10 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 #define BT_ID1					'P'
 #define BT_ID2					'E'
 
-#define WEB_SITE				"http://PeerProject.org/"
-#define WEB_SITE_T				_T( WEB_SITE )
+#define WEB_SITE				_T( "http://PeerProject.org/" )
+#define UPDATE_URL				_T( "http://peerproject.sourceforge.net/update" )
 
+#define REGISTRY_KEY			"Software\\PeerProject\\PeerProject"
 
 extern const LPCTSTR RT_BMP;
 extern const LPCTSTR RT_PNG;

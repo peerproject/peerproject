@@ -24,9 +24,10 @@
 #include "Settings.h"
 #include "HostCache.h"
 #include "WizardNetworksPage.h"
+#include "PeerProjectURL.h"
 #include "DlgDonkeyImport.h"
-#include "Skin.h"
 #include "DlgHelp.h"
+#include "Skin.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -66,6 +67,7 @@ void CWizardNetworksPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_G2_ENABLE, m_bG2Enable);
 	DDX_Check(pDX, IDC_G1_ENABLE, m_bG1Enable);
 	DDX_Check(pDX, IDC_ED2K_ENABLE, m_bEDEnable);
+	DDX_Check(pDX, IDC_URI_TORRENT, m_bHandleTorrents);
 	//}}AFX_DATA_MAP
 }
 
@@ -81,9 +83,9 @@ BOOL CWizardNetworksPage::OnInitDialog()
 	m_bG2Enable = Settings.Gnutella2.EnableAlways;
 	m_bG1Enable = Settings.Gnutella1.EnableAlways;
 	m_bEDEnable = Settings.eDonkey.EnableAlways;
+	m_bHandleTorrents = Settings.Web.Torrent;
 
 #ifdef LAN_MODE
-//	GetDlgItem( IDC_G2_ENABLE )->EnableWindow( FALSE );
 	GetDlgItem( IDC_G1_ENABLE )->EnableWindow( FALSE );
 	GetDlgItem( IDC_ED2K_ENABLE )->EnableWindow( FALSE );
 #endif // LAN_MOD
@@ -126,6 +128,12 @@ LRESULT CWizardNetworksPage::OnWizardNext()
 			m_bG2Enable = TRUE;
 			UpdateData( FALSE );
 		}
+	}
+
+	if ( Settings.Web.Torrent != ( m_bHandleTorrents != FALSE ) )
+	{
+		Settings.Web.Torrent = m_bHandleTorrents != FALSE;
+		CPeerProjectURL::Register();
 	}
 
 	Settings.Gnutella2.EnableAlways	= m_bG2Enable != FALSE;

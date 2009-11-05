@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1779,7 +1779,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Ndihmë e Shpejtë</link>
-		<text align="middle">&#160;- Merrni ndihmën kryesore mbi përdorimin e PeerProject-s</text>
+		<text align="middle">&#160;- Merrni ndihmën kryesore mbi përdorimin e PeerProject-s, or </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
@@ -1936,11 +1937,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Lexuesi:</link>
 		<text>&#160;Ku/kur përdoret qendra mediatike si pjesë e PeerProject-s.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Komuniteti:</link>
-		<text>&#160;Kuadrot e profilit, chat-it dhe e mesazheve tuaja të çastit.</text>
-		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;Pamje figurative të dhomës IRC dhe vendosjet e lidhjes.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CCommunitySettingsPage" format="b">Komuniteti:</link>
+		<text>&#160;Kuadrot e profilit, chat-it dhe e mesazheve tuaja të çastit.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Rrjeti:</link>
 		<text>&#160;Integroni PeerProject-n me shfletuesin e rrjetit që të pranojë linket pikë-më-pikë dhe të shkarkojë përmbajtjen.</text>
@@ -2799,7 +2800,7 @@
 	<string id="8316" value="Hite"/>
 	<string id="8317" value="Ngarkime"/>
 	<string id="8318" value="%lu sot, %lu në total"/>
-	<string id="8319" value="Pa Hashset"/>
+	<string id="8319" value="Ngarkime:"/>
 	<string id="8320" value="Statusi:"/>
 	<string id="8321" value="Shpejtësi:"/>
 	<string id="8322" value="URLi:"/>
@@ -2818,6 +2819,7 @@
 	<string id="8335" value="Burimet për këtë skedë kanë fajruoll"/>
 	<string id="8336" value="Burimet për këtë skedë mund të jenë të paqëndrueshme"/>
 	<string id="8337" value="I pasigurt"/>
+	<string id="8338" value="Pa Hashset"/>
 	<string id="13000" value="A jeni i sigurt se doni të fshini rregullat e zgjedhur të sigurisë?  Kjo nuk mund të çbëhet."/>
 	<string id="13001" value="Skedat që shpërndahen në Internet"/>
 	<string id="16063" value="Përparimi UPnP i portit dështoi pas 10 orvatjesh."/>
@@ -3190,14 +3192,16 @@
 		<control caption="Filtro mesazhet me spame"/>
 		<control caption="Censuro blasfeminë në chat"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Chat">
 		<control caption="_Mundësitë e Klientit:"/>
 		<control caption="Trego intregimin e chat-it"/>
-		<control caption="Mbrojtja nga përmbytjet:"/>
-		<control/>
-		<control caption="vija për sekondë"/>
 		<control caption="Trego orën"/>
+		<control caption="Mbrojtja nga përmbytjet:"/>
+		<control caption="vija"/>
+		<control/>
 		<control caption="Shkrimi i Ekranit:"/>
+		<control caption="#"/>
+		<control/>
 		<control/>
 		<control caption="_Ngjyra:"/>
 		<control/>
@@ -3226,6 +3230,8 @@
 		<control caption="Serveri:"/>
 		<control/>
 		<control caption="Porti:"/>
+		<control/>
+		<control caption="On-connect"/>
 		<control/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Rrjeti">
@@ -3335,13 +3341,8 @@
 		<control caption="Fjalëkalimi:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Planifikimi">
-		<control caption="_Mundësi:"/>
-		<control caption="_Lejo Planifikuesin"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planifikimi">
 		<control/>
-		<control/>
-		<control caption="Kur ka kufizime _Lidhu vetëm tek G2"/>
-		<control caption="Legjendë:"/>
 		<control caption="Die"/>
 		<control caption="Hën"/>
 		<control caption="Mar"/>
@@ -3349,10 +3350,15 @@
 		<control caption="Enj"/>
 		<control caption="Pre"/>
 		<control caption="Sht"/>
+		<control caption="Legjendë:"/>
 		<control caption="Mos u lidh"/>
 		<control caption="Lidhje e kufizuar"/>
 		<control caption="Lidhje me shpejtësi të plotë"/>
+		<control caption="_Mundësi:"/>
+		<control caption="_Lejo Planifikuesin"/>
+		<control caption="Kur ka kufizime _Lidhu vetëm tek G2"/>
 		<control caption="% e _shtrirjes së bandës nën kufi"/>
+		<control/>
 		<control/>
 		<control caption="Ndihmë"/>
 		<control caption="Planifikuesi është projektuar që të lejojë vendosjen e kohës kur PeerProject do të lidhet dhe do të shkarkojë skeda. {n}{n}{n}Shënim: Nëse PeerProject hapet me planifikuesin si aktiv, mund t'i shikoni kuadrot të ndryshuar - Kjo është normale!-"/>
@@ -3589,17 +3595,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Mirë se erdhe te PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Mirë se erdhe te PeerProject (4/6)">
 		<control caption="PeerProject ka një ndërfaqe që mund të ndryshohet, pra ju mund të zgjidhni atë që ju përshtatet më shumë. Këto mundësi mund të ndryshohen në çdo kohë."/>
 		<control caption="Ju lutemi zgjidhni ndërfaqen tuaj:"/>
 		<control caption="E Thjeshtë"/>
 		<control caption="E Avancuar"/>
 		<control caption="E lehtë për të përdorur menytë dhe butonat.{n}Ngjan me programet e tjera skedëshpërndarëse."/>
 		<control caption="Ofron mjaft komanda, dritare ekstra etj. për përdoruesit ekspertë.{n}Përdoruesit e rinj mund t'i hutojë disi!"/>
-		<control caption="Shfaqe progresin në shufër të thjeshtë. (Zbute përdorimin e CPU-së)"/>
-		<control caption="Përkrahi linket torrente."/>
+		<control caption="Shfaqe progresin në shufër të thjeshtë."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Mirë se erdhët në PeerProject (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Mirë se erdhët në PeerProject (5/6)">
 		<control caption="PeerProject është një aplikim skedë-shpërndarës me synim të përgjithshëm hyrjen në sa shumë rrjete P2P në të njëjtën kohë. Këtu mund të zgjidhni në cilat rrjete doni të hyni. Vëreni se gjithmonë mund të zgjidhni rrjete të ndryshme, edhe më vonë."/>
 		<control caption="Lidhu tek Gnutella2 (Rekomandohet Fort)"/>
 		<control caption="Rrjeti Gnutella2 është rrjeti parësor i PeerProject-s, i cili ofron më tepër veçori dhe efektshmëri se çdo rrjet P2P."/>
@@ -3607,6 +3613,7 @@
 		<control caption="Edhe pse rrjeti origjinal Gnutella ka më pak veçori se Gnutella2, dhe ka më pak skeda se eDonkey, ai mbetet një burim me vlerë."/>
 		<control caption="Lidhu tek eDonkey"/>
 		<control caption="Rrjeti eDonkey është një rrjet i famshëm me bazë serverin. Ndonëse nuk ka aq veçori sa Gnutella2, eDonkey ka një koleksion skedash mahnitës."/>
+		<control caption="Përkrahi linket torrente."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importoni Shkarkesa nga eDonkey">
 		<control/>
@@ -3810,20 +3817,20 @@
 		<control caption="Fshehe"/>
 		<control caption="Mbylle dritaren kur shkarkimi përfundon"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Përgjithësi">
-		<control caption="Emri Burimor Universal (URN)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Përgjithësi">
 		<control/>
 		<control caption="Atributet e Skedës"/>
 		<control caption="Vendi:"/>
-		<control/>
 		<control caption="Lloji:"/>
-		<control/>
 		<control caption="Modifikimi:"/>
-		<control/>
 		<control caption="Masa:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Emri Burimor Universal (URN)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -3840,15 +3847,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Shpërndarja">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Shpërndarja">
+		<control/>
 		<control caption="Shpërndarje e Thjeshtë"/>
 		<control caption="Shpërndaje skedën nëse dosja mëmë shpërndahet"/>
 		<control caption="Refuzo kuadrot për shpërndarjen e skedës:"/>
 		<control caption="Bëje skedën të vlefshme për përdoruesit e tjerë"/>
 		<control caption="Ngarko Etiketat për të Zgjedhur Punët në Radhë"/>
-		<control/>
-		<control caption="-Rrjetet ku do Shpërndani"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Burimi">

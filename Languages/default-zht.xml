@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r40 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r41 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1633,7 +1633,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">快速說明</link>
-		<text align="middle">&#160;︰查看 PeerProject 入門使用說明</text>
+		<text align="middle">&#160;︰查看 PeerProject 入門使用說明, or </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">本地論壇</link>
@@ -1770,11 +1771,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">多媒體播放程式:</link>
 		<text>&#160;何時何處使用內建的PeerProject 多媒體結點.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">社群:</link>
-		<text>&#160;您的個人檔案, 聊天與即時通訊的設定.</text>
-		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
 		<text>&#160;IRC.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CCommunitySettingsPage" format="b">社群:</link>
+		<text>&#160;您的個人檔案, 聊天與即時通訊的設定.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">網際網路:</link>
 		<text>&#160;PeerProject 崁入您的瀏覽器, 處理 P2P 連結與下載內容.</text>
@@ -2542,7 +2543,7 @@
 	<string id="8316" value="Hits"/>
 	<string id="8317" value="上傳"/>
 	<string id="8318" value="%lu 本日, %lu 總計"/>
-	<string id="8319" value="無 Hashset"/>
+	<string id="8319" value="上傳:"/>
 	<string id="8320" value="狀態:"/>
 	<string id="8321" value="速度:"/>
 	<string id="8322" value="URL:"/>
@@ -2561,6 +2562,7 @@
 	<string id="8335" value="這個檔案的來源受到防火牆保護"/>
 	<string id="8336" value="這個檔案的來源可能不穩定"/>
 	<string id="8337" value="不可靠的"/>
+	<string id="8338" value="無 Hashset"/>
 	<string id="16064" value="正在啟動 PeerProject 網路核心..."/>
 	<string id="16065" value="無法 bind to %s 連接埠 %i 用於輸入的連線.  將不支援輸入連線."/>
 	<string id="16066" value="正在關閉 PeerProject 網路核心..."/>
@@ -3174,6 +3176,7 @@
 		<control caption="過濾垃圾訊息"/>
 		<control caption="聊天時過濾不雅字眼"/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="網際網路">
 		<control caption="P2P 連結處理:"/>
 		<control caption="使用 PeerProject 開啟下列類型的連結:"/>
@@ -3281,13 +3284,8 @@
 		<control caption="選擇一個密碼:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="預定表">
-		<control caption="選項:"/>
-		<control caption="啟用預定表"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="預定表">
 		<control/>
-		<control/>
-		<control caption="只要在受到限制時才連線至 G2"/>
-		<control caption="Key:"/>
 		<control caption="日"/>
 		<control caption="一"/>
 		<control caption="二"/>
@@ -3295,10 +3293,15 @@
 		<control caption="四"/>
 		<control caption="五"/>
 		<control caption="六"/>
+		<control caption="Key:"/>
 		<control caption="不要連線"/>
 		<control caption="限制的連線"/>
 		<control caption="以全速連線"/>
-		<control caption="在限制之下 幾 % 的頻寬"/>
+		<control caption="選項:"/>
+		<control caption="啟用預定表"/>
+		<control caption="只要在受到限制時才連線至 G2"/>
+		<control caption="% 在限制之下 幾 的頻寬"/>
+		<control/>
 		<control/>
 		<control caption="說明"/>
 		<control caption="您可以使用預定表設定PeerProject什麼時候應該連線下載檔案. {n}{n}{n}注意: 在 PeerProject 運作時, 如果預定表正在執行它的工作, 您會發覺設定被更改. 此為正常現象!"/>
@@ -3535,17 +3538,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="歡迎使用 PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="歡迎使用 PeerProject (4/6)">
 		<control caption="PeerProject 支援十分彈性化的使用介面, 所以請選擇您最感到順手的介面吧. 您可以隨時更改這些設定."/>
 		<control caption="請選擇使用者介面:"/>
 		<control caption="標準模式"/>
 		<control caption="進階模式"/>
 		<control caption="簡單明瞭的選單與按鈕.{n}其他檔案分享軟體的使用者會感到十分熟悉."/>
 		<control caption="進階模式提供進階使用者更多的指令與視窗顯示...等等.{n}新手可能會感到困惑!"/>
-		<control caption="顯示簡化的下載進度棒. (減低 CPU 資源的消耗)"/>
-		<control caption="管理 torrent 連結."/>
+		<control caption="顯示簡化的下載進度棒."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="歡迎來到 PeerProject (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="歡迎來到 PeerProject (5/6)">
 		<control caption="PeerProject 為萬用型檔案交換程式, 可同時連線至多種 P2P 網路.  您可在這邊選擇要連線的網路. 您可稍後任意調整這些設定."/>
 		<control caption="連線至 Gnutella2 (強烈建議)"/>
 		<control caption=" Gnutella2 網路是 PeerProject 首次推出的網路, 比其他P2P 網路提供更多的功能與更佳的效能."/>
@@ -3553,6 +3556,7 @@
 		<control caption="雖然原始的 Gnutella 網路比 Gnutella2 網路的功能還少, 以及比起eDonkey2000 有更少的檔案, 它仍是寶貴的資源."/>
 		<control caption="連線至 eDonkey2000"/>
 		<control caption="eDonkey2000 網路依賴伺服器運作. 盡管功能比 Gnutella2 少, 但是 eDonkey2000 流通的檔案數量卻十分驚人."/>
+		<control caption="管理 torrent 連結."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="匯入eDonkey2000 下載檔">
 		<control/>
@@ -3755,20 +3759,20 @@
 		<control caption="隱藏"/>
 		<control caption="下載完成後關閉這個視窗"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="一般">
-		<control caption="萬用資源名稱 (URNs)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="一般">
 		<control/>
 		<control caption="檔案屬性"/>
 		<control caption="位置:"/>
-		<control/>
 		<control caption="類型:"/>
-		<control/>
 		<control caption="修改日期:"/>
-		<control/>
 		<control caption="大小:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="萬用資源名稱 (URNs)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -3785,15 +3789,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="分享">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="分享">
+		<control/>
 		<control caption="簡易分享"/>
 		<control caption="分享這個檔案, 如果它的母目錄已經被分享"/>
 		<control caption="忽視這個檔案的分享設定:"/>
 		<control caption="與其他使用者分享這個檔案"/>
 		<control caption="上傳排隊隊伍選擇標籤"/>
-		<control/>
-		<control caption="-您要在那些網路分享"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="來源">

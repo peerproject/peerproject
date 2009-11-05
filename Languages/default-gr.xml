@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1804,7 +1804,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Βοήθεια</link>
-		<text align="middle">&#160;- Ιστοσελίδα βοήθειας στη χρήση του PeerProject</text>
+		<text align="middle">&#160;- Ιστοσελίδα βοήθειας στη χρήση του PeerProject, or </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Τοπική Forum</link>
@@ -1966,11 +1967,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Πολυμέσα:</link>
 		<text>&#160;Πότε και πού θα χρησιμοποιείται η ενσωματωμένη Αναπαραγωγή Πολυμέσων του PeerProject.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Κοινότητα:</link>
-		<text>&#160;Οι ρυθμίσεις για το προφίλ σας, τις συνομιλίες και τα άμεσα μηνύματα.</text>
-		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">Συνομιλία με Χρήστη:</link>
 		<text>&#160;Οπτική εμφάνιση του Δωματίου Συνομιλιών IRC και ρυθμίσεις σύνδεσης.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CCommunitySettingsPage" format="b">Κοινότητα:</link>
+		<text>&#160;Οι ρυθμίσεις για το προφίλ σας, τις συνομιλίες και τα άμεσα μηνύματα.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Ιστός:</link>
 		<text>&#160;Κάντε το πρόγραμμα περιήγησής σας να αναθέτει στο PeerProject τους συνδέσμους peer-to-peer και τη λήψη αρχείων.</text>
@@ -2827,7 +2828,7 @@
 	<string id="8316" value="Ευρέσεις"/>
 	<string id="8317" value="Αποστολές"/>
 	<string id="8318" value="%lu σήμερα, %lu συνολικά"/>
-	<string id="8319" value="Κανένα Hashset"/>
+	<string id="8319" value="Αποστολές:"/>
 	<string id="8320" value="Κατάσταση:"/>
 	<string id="8321" value="Ταχύτητα:"/>
 	<string id="8322" value="URL:"/>
@@ -2846,6 +2847,7 @@
 	<string id="8335" value="Οι πηγές αυτού του αρχείου είναι πίσω απο firewall"/>
 	<string id="8336" value="Οι πηγές αυτού του αρχείου δείχνουν ασταθείς"/>
 	<string id="8337" value="Αφερέγγυο"/>
+	<string id="8338" value="Κανένα Hashset"/>
 	<string id="13000" value="Θέλετε σίγουρα να διαγράψετε τους επιλεγμένους κανόνες ασφαλείας; Αυτό δεν μπορεί να αναιρεθεί!"/>
 	<string id="13001" value="Αρχεία κοινοποιημένα στο Διαδίκτυο"/>
 	<string id="16063" value="Η αντιστοίχηση θυρών UPnP εγκαταλήφθηκε μετά από 10 προσπάθειες."/>
@@ -3484,14 +3486,16 @@
 		<control caption="Φιλτράρισμα ενοχλητικών μηνυμάτων"/>
 		<control caption="Φιλτράρισμα αισχρόλογων"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Συνομιλία">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Συνομιλία">
 		<control caption="_Επιλογές Client:"/>
 		<control caption="Εμφάνιση ενσωμάτωσης συνομιλίας"/>
-		<control caption="Προστασία λογοδιάρροιας:"/>
-		<control/>
-		<control caption="γραμμές ανά δευτερόλεπτο"/>
 		<control caption="Προβολή χρονικών επισημάνσεων"/>
+		<control caption="Προστασία λογοδιάρροιας:"/>
+		<control caption="γραμμές"/>
+		<control/>
 		<control caption="Γραμματοσειρά Οθόνης:"/>
+		<control caption="#"/>
+		<control/>
 		<control/>
 		<control caption="_Χρώματα:"/>
 		<control/>
@@ -3522,6 +3526,8 @@
 		<control caption="Server:"/>
 		<control/>
 		<control caption="Θύρα:"/>
+		<control/>
+		<control caption="On-connect"/>
 		<control/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Ιστός">
@@ -3631,13 +3637,8 @@
 		<control caption="Κωδικός (Password):"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Χρονοδιάγραμμα">
-		<control caption="_Ενεργοποίηση και Επιλογές ΔΛ:"/>
-		<control caption="_Ενεργοποίηση Χρονοδιαγράμματος"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Χρονοδιάγραμμα">
 		<control/>
-		<control/>
-		<control caption="Σε ώρα ΔΛ, σύνδεση μόνο στο G2"/>
-		<control caption="Υπόμνημα:"/>
 		<control caption="Κυρ"/>
 		<control caption="Δευ"/>
 		<control caption="Τρί"/>
@@ -3645,10 +3646,15 @@
 		<control caption="Πέμ"/>
 		<control caption="Παρ"/>
 		<control caption="Σάβ"/>
+		<control caption="Υπόμνημα:"/>
 		<control caption="Μη σύνδεση"/>
 		<control caption="Διακριτική Λειτουργία (ΔΛ)"/>
 		<control caption="Πλήρης Λειτουργία"/>
+		<control caption="_Επιλογές:"/>
+		<control caption="_Ενεργοποίηση Χρονοδιαγράμματος"/>
+		<control caption="Σε ώρα ΔΛ, σύνδεση μόνο στο G2"/>
 		<control caption="% εύρους ζώνης, σε ώρα ΔΛ"/>
+		<control/>
 		<control/>
 		<control caption="Περιγραφή:"/>
 		<control caption="Το Χρονοδιάγραμμα σχεδιάστηκε για να σας επιτρέπει να ορίζεται τις ώρες που το PeerProject θα συνδέεται και θα λαμβάνει αρχεία.{n}Σημείωση: Όταν είναι ενεργό και κατά την είσοδο σε/έξοδο από ώρες ΔΛ, ίσως το δείτε να αλλάζει τις ρυθμίσεις (σύμφωνα με τις Επιλογές ΔΛ). Αυτό είναι φυσιολογικό!"/>
@@ -3885,17 +3891,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Επιλογή Μορφής (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Επιλογή Μορφής (4/6)">
 		<control caption="Το PeerProject υποστηρίζει ένα ευέλικτο περιβάλλον, όπου επιλέγετε ό,τι σας βολεύει περισσότερο. Μπορείτε να αλλάξετε αυτές τις επιλογές ανά πάσα στιγμή."/>
 		<control caption="Παρακαλώ επιλέξτε μορφή:"/>
 		<control caption="Απλοποιημένη Μορφή"/>
 		<control caption="Ενισχυμένη Μορφή"/>
 		<control caption="Απλά, εύχρηστα μενού και κουμπιά.{n}Οικείο σε χρήστες άλλων προγραμμάτων ανταλλαγής αρχείων."/>
 		<control caption="Η ενισχυμένη μορφή προσφέρει στους εξειδικευμένους χρήστες πολλές επιπλεόν εντολές, παράθυρα κτλ. Ίσως σαστίσει τους νέους χρήστες!"/>
-		<control caption="Εμφάνιση απλοποιημένης μπάρας προόδου λήψης. (Μειωμένη χρήση CPU)"/>
-		<control caption="Χειρισμός συνδέσμων torrent."/>
+		<control caption="Εμφάνιση απλοποιημένης μπάρας προόδου λήψης."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Επιλογή Δικτύων (5/6)]">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Επιλογή Δικτύων (5/6)]">
 		<control caption="Το PeerProject είναι ένα γενικού σκοπού πρόγραμμα ανταλλαγής αρχείων που συνδέεται σε πολλά P2P δίκτυα ταυτόχρονα. Εδώ μπορείτε να επιλέξετε σε ποια δίκτυα θέλετε να συνδέεστε. Σημειώστε ότι μπορείτε να επιλέξετε διαφορετικά δίκτυα αργότερα."/>
 		<control caption="Σύνδεση στο Gnutella2 (Συστείνεται Ανεπιφύλακτα)"/>
 		<control caption="Το πρωτεύον δίκτυο του PeerProject, που προσφέρει τα περισσότερα χαρακτηριστικά και επιδόσεις από κάθε άλλο."/>
@@ -3903,6 +3909,7 @@
 		<control caption="Όχι τόσο προχωρημένο όσο το Gnutella2 και με λιγότερα αρχεία από το ED2K, αλλά παραμένει μια πολύτιμη πηγή, κυρίως μουσικής."/>
 		<control caption="Σύνδεση στο ED2K"/>
 		<control caption="Δημοφιλές δίκτυο, βασισμένο σε server. Δεν είναι τόσο προχωρημένο όσο το Gnutella2, αλλά διαθέτει τα περισσότερα αρχεία."/>
+		<control caption="Χειρισμός συνδέσμων .torrent"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Εισαγωγή Ημιτελών Αρχείων του eDonkey">
 		<control/>
@@ -4106,20 +4113,20 @@
 		<control caption="Απόκρυψη"/>
 		<control caption="Μετά την ολοκλήρωση της λήψης, κλείσιμο παραθύρου."/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Γενικά">
-		<control caption="Universal Resource Names (URNs)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Γενικά">
 		<control/>
 		<control caption="Ιδιότητες Αρχείου"/>
 		<control caption="Θέση:"/>
-		<control/>
 		<control caption="Τύπος:"/>
-		<control/>
 		<control caption="Τροποποίηση:"/>
-		<control/>
 		<control caption="Μέγεθος:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Universal Resource Names (URNs)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4136,15 +4143,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Κοινοποίηση">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Κοινοποίηση">
+		<control/>
 		<control caption="Απλή Κοινοποίηση"/>
 		<control caption="Εφόσον κοινοποιείται ο γονικός φάκελος"/>
 		<control caption="Ανεξάρτητα από τον γονικό φάκελο:"/>
 		<control caption="Κοινοποίηση αυτού του αρχείου σε άλλους χρήστες"/>
 		<control caption="Ετικέτες Επιλογής από Ουρές Αποστολών"/>
-		<control/>
-		<control caption="-Δίκτυα Κοινοποίησης"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Πηγές">

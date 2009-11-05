@@ -86,13 +86,10 @@ BOOL CDownloadTipCtrl::OnPrepare()
 void CDownloadTipCtrl::OnCalcSize(CDC* pDC)
 {
 	if ( Downloads.Check( (CDownload*)m_pContext ) )
-	{
 		OnCalcSize( pDC, (CDownload*)m_pContext );
-	}
 	else if ( Downloads.Check( (CDownloadSource*)m_pContext ) )
-	{
 		OnCalcSize( pDC, (CDownloadSource*)m_pContext );
-	}
+
 	m_sz.cx = min( max( m_sz.cx, 400 ), GetSystemMetrics( SM_CXSCREEN ) / 2 );
 }
 
@@ -118,17 +115,11 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC)
 	if ( ! pLock.Lock( 100 ) ) return;
 
 	if ( Downloads.Check( (CDownload*)m_pContext ) )
-	{
 		OnPaint( pDC, (CDownload*)m_pContext );
-	}
 	else if ( Downloads.Check( (CDownloadSource*)m_pContext ) )
-	{
 		OnPaint( pDC, (CDownloadSource*)m_pContext );
-	}
 	else
-	{
 		Hide();
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -186,21 +177,15 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 		m_bDrawError = FALSE;
 
 
-	if ( pDownload->IsTorrent() )
-	{	//Torrent ratio
+	if ( pDownload->IsTorrent() )	//Torrent ratio
 		m_sz.cy += TIP_TEXTHEIGHT;
-	}
 
-	if ( ! pDownload->IsSeeding() )
-	{	// Seeding torrent display none of this
-		if ( pDownload->IsCompleted() )
-		{	// ETA and downloaded
+	if ( ! pDownload->IsSeeding() )	// Seeding torrent display none of this
+	{
+		if ( pDownload->IsCompleted() )	// ETA and downloaded
 			m_sz.cy += TIP_TEXTHEIGHT * 2;
-		}
-		else
-		{	// Speed, ETA, Downloaded, No. Sources
+		else	// Speed, ETA, Downloaded, No. Sources
 			m_sz.cy += TIP_TEXTHEIGHT * 4;
-		}
 	}
 
 	// Number of reviews
@@ -511,13 +496,8 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	LoadString( strUntrusted, IDS_TIP_UNTRUSTED );
 
 	m_sSHA1 = pDownload->m_oSHA1.toShortUrn();
-	if ( m_sSHA1.GetLength() )
-	{
-		if ( ! pDownload->m_bSHA1Trusted )
-		{
-			m_sSHA1 += _T(" (") + strUntrusted + _T(")");
-		}
-	}
+	if ( m_sSHA1.GetLength() && ! pDownload->m_bSHA1Trusted )
+		m_sSHA1 += _T(" (") + strUntrusted + _T(")");
 
 	m_sTiger = pDownload->m_oTiger.toShortUrn();
 	if ( m_sTiger.GetLength() )
@@ -525,13 +505,9 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 		if ( ! pDownload->m_pTigerBlock )
 		{
 			if ( pDownload->m_bTigerTrusted )
-			{
 				m_sTiger += _T(" (") + strNoHashset + _T(")");
-			}
 			else
-			{
 				m_sTiger += _T(" (") + strNoHashset + _T(", ") + strUntrusted + _T(")");
-			}
 		}
 		else if ( ! pDownload->m_bTigerTrusted )
 		{
@@ -545,13 +521,9 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 		if ( ! pDownload->m_pHashsetBlock )
 		{
 			if ( pDownload->m_bED2KTrusted )
-			{
 				m_sED2K += _T(" (") + strNoHashset + _T(")");
-			}
 			else
-			{
 				m_sED2K += _T(" (") + strNoHashset + _T(", ") + strUntrusted + _T(")");
-			}
 		}
 		else if ( ! pDownload->m_bED2KTrusted )
 		{
@@ -565,13 +537,9 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 		if ( ! pDownload->m_pTorrentBlock )
 		{
 			if ( pDownload->m_bBTHTrusted )
-			{
 				m_sBTH += _T(" (") + strNoHashset + _T(")");
-			}
 			else
-			{
 				m_sBTH += _T(" (") + strNoHashset + _T(", ") + strUntrusted + _T(")");
-			}
 		}
 		else if ( ! pDownload->m_bBTHTrusted )
 		{
@@ -586,9 +554,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	if ( m_sMD5.GetLength() )
 	{
 		if ( ! pDownload->m_bMD5Trusted )
-		{
 			m_sMD5+= _T(" (") + strUntrusted + _T(")");
-		}
 	}
 }
 
@@ -647,17 +613,13 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownloadSource* pSource)
 			CString( inet_ntoa( pSource->m_pServerAddress ) ),
 			pSource->m_nServerPort );
 	}
-
-	// Or an active transfer
-	else if ( pSource->m_pTransfer != NULL )
+	else if ( pSource->m_pTransfer != NULL )	// Or an active transfer
 	{
 		m_sName.Format( _T("%s:%u"),
 			pSource->m_pTransfer->m_sAddress,
 			ntohs( pSource->m_pTransfer->m_pHost.sin_port ) );
 	}
-
-	// Or just queued
-	else
+	else	// Or just queued
 	{
 		m_sName.Format( _T("%s:%u"),
 			CString( inet_ntoa( pSource->m_pAddress ) ),
@@ -883,7 +845,11 @@ void CDownloadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 		m_pItem->Add( nSpeed );
 		m_pGraph->m_nUpdates++;
 		m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
-		Invalidate();
+
+		CRect rcWndTip;
+		SystemParametersInfo( SPI_GETWORKAREA, 0, rcWndTip, 0 );
+		rcWndTip.top += 90;
+		InvalidateRect( &rcWndTip );
 	}
 	else if ( Downloads.Check( (CDownloadSource*)m_pContext ) )
 	{
@@ -895,7 +861,11 @@ void CDownloadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 			m_pItem->Add( nSpeed );
 			m_pGraph->m_nUpdates++;
 			m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
-			Invalidate();
+
+			CRect rcWndTip;
+			SystemParametersInfo( SPI_GETWORKAREA, 0, rcWndTip, 0 );
+			rcWndTip.top += 90;
+			InvalidateRect( &rcWndTip );
 		}
 	}
 }

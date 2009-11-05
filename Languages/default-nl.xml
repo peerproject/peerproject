@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1797,7 +1797,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Help</link>
-		<text align="middle">&#160;- PeerProject's gebruikerhandleiding en FAQ</text>
+		<text align="middle">&#160;- PeerProject's gebruikerhandleiding en FAQ, o </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link>
@@ -1955,11 +1956,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Media:</link>
 		<text>&#160;Wanneer en waar het ingebouwde PeerProject mediacentrum moet worden gebruikt.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<text>&#160;IRC chatroom connection settings and display options..</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Gemeenschap:</link>
 		<text>&#160;Beheer je profiel en je instelllingen voor het chatten en instant messaging.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">Chat:</link>
-		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Internet:</link>
 		<text>&#160;Integreer PeerProject met je internetbrowser zodat P2P snelkoppelingen worden geaccepteerd en inhoud wordt gedownload.</text>
@@ -2805,7 +2806,7 @@
 	<string id="8314" value="Je hebt dit bestand al eens gedownload en verwijderd."/>
 	<string id="8315" value="Op de zwarte lijst: "/>
 	<string id="8316" value="Hits"/>
-	<string id="8317" value="Uploads"/>
+	<string id="8317" value="Totale volume:"/>
 	<string id="8318" value="%lu nu, %lu totaal"/>
 	<string id="8319" value="Geen hashset"/>
 	<string id="8320" value="Status:"/>
@@ -2826,6 +2827,7 @@
 	<string id="8335" value="Bronnen voor dit bestand zitten achter een firewall"/>
 	<string id="8336" value="Bronnen voor dit bestand kunnen instabiel zijn"/>
 	<string id="8337" value="Niet betrouwbaar"/>
+	<string id="8338" value="Geen hashset"/>
 	<string id="13000" value="Ben je zeker dat je deze veiligheidsregels wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
 	<string id="13001" value="Bestanden gedeeld over het internet"/>
 	<string id="16063" value="Je router automatisch instellen mislukte na 10 pogingen."/>
@@ -3463,14 +3465,16 @@
 		<control caption="Filter chatberichten op spam"/>
 		<control caption="Verberg scheldwoorden in chatberichten"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="IRC/Chat">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="IRC/Chat">
 		<control caption="Client _Opties:"/>
 		<control caption="Toon de chat integratie"/>
-		<control caption="Vloed verdediging:"/>
-		<control/>
-		<control caption="lijnen per seconde"/>
 		<control caption="Toon tijdsaanduiding"/>
+		<control caption="Vloed verdediging:"/>
+		<control caption="Lijnen"/>
+		<control/>
 		<control caption="Scherm lettertype:"/>
+		<control caption="#"/>
+		<control/>
 		<control/>
 		<control caption="_Kleuren:"/>
 		<control/>
@@ -3501,6 +3505,8 @@
 		<control caption="Server:"/>
 		<control/>
 		<control caption="Poort:"/>
+		<control/>
+		<control caption="On-connect"/>
 		<control/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Internet">
@@ -3610,13 +3616,8 @@
 		<control caption="Kies een wachtwoord:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Planner">
-		<control caption="_Opties:"/>
-		<control caption="_Activeer planner"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planner">
 		<control/>
-		<control/>
-		<control caption="_Verbind alleen met G2 indien gelimiteerd."/>
-		<control caption="Legenda:"/>
 		<control caption="Zon "/>
 		<control caption="Maa "/>
 		<control caption="Din "/>
@@ -3624,10 +3625,15 @@
 		<control caption="Don "/>
 		<control caption="Vri "/>
 		<control caption="Zat "/>
+		<control caption="Legenda:"/>
 		<control caption="Niet verbinden"/>
 		<control caption="Beperk verbinding"/>
 		<control caption="Verbinding op volle snelheid"/>
+		<control caption="_Opties:"/>
+		<control caption="_Activeer planner"/>
+		<control caption="_Verbind alleen met G2 indien gelimiteerd."/>
 		<control caption="% van _bandbreedte indien beperkt"/>
+		<control/>
 		<control/>
 		<control caption="Help"/>
 		<control caption="De planner is ontworpen om in te kunnen stellen wanneer PeerProject verbindt en bestanden downloadt.{n}{n}{n}Opmerking: Als PeerProject geopend is terwijl de planner ingesteld is, kan je instellingen zien veranderen. Dit is normaal!-"/>
@@ -3864,17 +3870,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Welkom bij PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Welkom bij PeerProject (4/6)">
 		<control caption="PeerProject ondersteund een flexibele gebruikersomgeving, zodat je kunt kiezen wat het meest comfortabele voor jou is. Je kunt deze opties altijd veranderen."/>
 		<control caption="Selecteer alsjeblieft de gebruikersomgeving:"/>
 		<control caption="Normale Modus"/>
 		<control caption="Tabbladstijl"/>
 		<control caption="Simpele en gemakkelijk te gebruiken menu's en knoppen.{n}Komt bekend voor bij gebruikers van andere bestanddelingsprogramma's."/>
 		<control caption="Tabblad stijl biedt gebruikers tal van extra commando's, schermen, enz.{n}Het kan een beetje verwarrend zijn voor nieuwe gebruikers!"/>
-		<control caption="Toon simpele downloadvooruitgangsbalken (verminderd CPU gebruik)."/>
-		<control caption="Toon additionele torrent gebruikersomgevingselementen."/>
+		<control caption="Toon simpele downloadvooruitgangsbalken."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Welkom bij PeerProject (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Welkom bij PeerProject (5/6)">
 		<control caption="PeerProject is een programma voor algemeen gebruik om bestanden uit te wisselen. Het kan meerdere P2P netwerken tegelijkertijd bereiken. Hier kun je selecteren welke netwerken je wilt gebruiken. Je kunt later altijd nog je keuze veranderen."/>
 		<control caption="Verbinden met Gnutella2 (zeer aanbevolen)"/>
 		<control caption="Het Gnutella2 netwerk (G2) is PeerProject's voornaamste netwerk. Het biedt meer opties en prestatie dan enig ander P2P netwerk."/>
@@ -3882,6 +3888,7 @@
 		<control caption="Hoewel het originele Gnutella netwerk (G1) minder opties heeft dan Gnutella2, en minder bestanden dan eDonkey, blijft het toch een waardevolle bron."/>
 		<control caption="Verbinden met eDonkey2000"/>
 		<control caption="Het eDonkey netwerk (ED2K) is een populair netwerk, op servers gebaseerd. Hoewel met minder rijk aan opties als G2, heeft ED2K een omvangrijke bestandsverzameling."/>
+		<control caption="Verbinden met BitTorrent (.Torrents)"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey downloads importeren">
 		<control/>
@@ -4085,20 +4092,20 @@
 		<control caption="Sluiten"/>
 		<control caption="Dit venster sluiten als de download voltooid is"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Algemeen">
-		<control caption="Universele bronnamen (URNs)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Algemeen">
 		<control/>
 		<control caption="Bestandseigenschappen"/>
 		<control caption="Locatie:"/>
-		<control/>
 		<control caption="Type:"/>
-		<control/>
 		<control caption="Gewijzigd:"/>
-		<control/>
 		<control caption="Grootte:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Universele bronnamen (URNs)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4107,7 +4114,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Mijn recensie">
+	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Recensie">
 		<control caption="Mijn beoordeling"/>
 		<control caption="Dit bestand is:"/>
 		<control caption="(Geen beoordeling)|Nep/corrupt/misleidend|Slecht|Redelijk|Goed|Erg goed|Uitstekend"/>
@@ -4115,15 +4122,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Delen">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Delen">
+		<control/>
 		<control caption="Delen"/>
 		<control caption="Dit bestand delen als de bovenliggende map ook vrijgegeven is"/>
 		<control caption="Overschrijf de vrijgaveinstelling voor dit bestand:"/>
 		<control caption="Dit bestand beschikbaar stellen aan andere gebruikers"/>
 		<control caption="Selecteer een label voor de uploadwachtrij"/>
-		<control/>
-		<control caption="-Netwerken om op uit te wisselen"/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Bronnen">

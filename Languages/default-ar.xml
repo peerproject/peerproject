@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1863,64 +1863,52 @@
 	</document>
 	<!--صفحات إعدادات-->
 	<document name="CGeneralSettingsGroup" title="إعدادات عامة" rightMargin="8" topMargin="8">
-	<text format="b">اهلا بك في مدير إعدادات PeerProject</text>
-	<newline gap="16" />
-	<text>يسمح مدير إعدادات PeerProject للمستخدمين المتقدمين بالتخصيص كيفية عمل
+		<text format="b">اهلا بك في مدير إعدادات PeerProject</text>
+		<newline gap="16" />
+		<text>يسمح مدير إعدادات PeerProject للمستخدمين المتقدمين بالتخصيص كيفية عمل
 		بالكامل . الإعدادات في قسم</text>
-	<text format="b">عام</text>
-	<text>يتعلق بتجربة المستخدم</text>
-	<newline gap="16" indent="16" />
-	<link target="peer:page:CGeneralSettingsPage" format="b">عام:</link>
-	<gap size="4" />
-	<text>إعدادات واجهة المستخدم المشتركة مثل التلميحات و إجراءات التصغير و صيغ الأرقام و المطالبات الخ</text>
-	<newline gap="10" />
-	<link target="peer:page:CLibrarySettingsPage" format="b">المكتبة:</link>
-	<gap size="4" />
-	<text>تحتوي المكتبة على ملفات الخاصة و الملفات التي قيد التحميل</text>
-	<newline gap="10" />
-	<link target="peer:page:CMediaSettingsPage" format="b">مشغل الوسائط:</link>
-	<gap size="4" />
-	<text>يستعمل مركز مشغل الوسائط PeerProject </text>
-	<newline gap="10" />
-	<link target="peer:page:CCommunitySettingsPage" format="b">المنتديات:</link>
-	<gap size="4" />
-	<text>ملف الإعدادات الخاص بك و مراسله منتدى الدعم الفني</text>
-	<newline gap="10" />
-	<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-	<gap size="4"/>
-	<text>Limit bandwidth on a periodic schedule.</text>
-	<newline gap="10" />
-	<link target="peer:page:CWebSettingsPage" format="b">الانترنت:</link>
-	<gap size="4" />
-	<text>إندماج هذا البرنامج مع متصفحك لقبول إرتباطات النظير إلى النظير و من ثم تحميل المحتوى</text>
+		<text format="b">عام</text>
+		<text>يتعلق بتجربة المستخدم</text>
+		<newline gap="16" indent="16" />
+		<link target="peer:page:CGeneralSettingsPage" format="b">عام:</link> <gap size="4" />
+		<text>إعدادات واجهة المستخدم المشتركة مثل التلميحات و إجراءات التصغير و صيغ الأرقام و المطالبات الخ</text>
+		<newline gap="10" />
+		<link target="peer:page:CLibrarySettingsPage" format="b">المكتبة:</link> <gap size="4" />
+		<text>تحتوي المكتبة على ملفات الخاصة و الملفات التي قيد التحميل</text>
+		<newline gap="10" />
+		<link target="peer:page:CMediaSettingsPage" format="b">مشغل الوسائط:</link> <gap size="4" />
+		<text>يستعمل مركز مشغل الوسائط PeerProject </text>
+		<newline gap="10" />
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC Chat:</link> <gap size="4" />
+		<text>&#160;IRC chatroom connection settings and display options.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CCommunitySettingsPage" format="b">المنتديات:</link> <gap size="4" />
+		<text>ملف الإعدادات الخاص بك و مراسله منتدى الدعم الفني</text>
+		<newline gap="10" />
+		<link target="peer:page:CWebSettingsPage" format="b">الانترنت:</link> <gap size="4" />
+		<text>إندماج هذا البرنامج مع متصفحك لقبول إرتباطات النظير إلى النظير و من ثم تحميل المحتوى</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="الانترنت" rightMargin="8" topMargin="8">
-	<text format="b">اهلا بك في مدير إعدادات PeerProject</text>
-	<newline gap="16" />
-	<text>يسمح مدير إعدادات شير-أزا للمستخدمين المتقدمين بتخصيص كيفية
-			عمل شير-أزا بالكامل . الإعدادات في قسم</text>
-	<text format="b">انترنت </text>
-	<text>للتحكم بكيفية تفاعل PeerProject مع العقد الأخرى ضمن شبكة نظير إلى إلى نظير</text>
-	<newline gap="16" indent="16" />
-	<link target="peer:page:CConnectionSettingsPage" format="b">الإتصال :</link>
-	<gap size="4" />
-	<text>السرعة و إمكانات الإتصال بالإنترنت</text>
-	<newline gap="10" />
-	<link target="peer:page:CDownloadsSettingsPage" format="b">مكتبة الملفات:</link>
-	<gap size="4" />
-	<text>طاقة التحميل الإنتاجية و الجدولة و التحقق و مهلة الوقت و الإدارة</text>
-	<newline gap="10" />
-	<link target="peer:page:CUploadsSettingsPage" format="b">رفع الملفات:</link>
-	<gap size="4" />
-	<text>قدرة عملية الرفع و قائمة الإنتظار و الخظر و المهلة الوقتية و طلبات خاصة</text>
-	<newline gap="10" />
-	<link target="peer:page:CRemoteSettingsPage" format="b">التحكم عن بعد:</link>
-	<gap size="4" />
-	<text>عملية القدرة للتحكم بالبرنامج عن بعد من خلال المتصفح الخاص بك</text>
-	<newline gap="10" />
-	<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
-	<gap size="4"/>
-	<text>Limit bandwidth on a periodic schedule.</text>
+		<text format="b">اهلا بك في مدير إعدادات PeerProject</text>
+		<newline gap="16" />
+		<text>يسمح مدير إعدادات شير-أزا للمستخدمين المتقدمين بتخصيص كيفية عمل شير-أزا بالكامل . الإعدادات في قسم</text>
+		<text format="b">انترنت </text>
+		<text>للتحكم بكيفية تفاعل PeerProject مع العقد الأخرى ضمن شبكة نظير إلى إلى نظير</text>
+		<newline gap="16" indent="16" />
+		<link target="peer:page:CConnectionSettingsPage" format="b">الإتصال :</link> <gap size="4" />
+		<text>السرعة و إمكانات الإتصال بالإنترنت</text>
+		<newline gap="10" />
+		<link target="peer:page:CDownloadsSettingsPage" format="b">مكتبة الملفات:</link> <gap size="4" />
+		<text>طاقة التحميل الإنتاجية و الجدولة و التحقق و مهلة الوقت و الإدارة</text>
+		<newline gap="10" />
+		<link target="peer:page:CUploadsSettingsPage" format="b">رفع الملفات:</link> <gap size="4" />
+		<text>قدرة عملية الرفع و قائمة الإنتظار و الخظر و المهلة الوقتية و طلبات خاصة</text>
+		<newline gap="10" />
+		<link target="peer:page:CRemoteSettingsPage" format="b">التحكم عن بعد:</link> <gap size="4" />
+		<text>عملية القدرة للتحكم بالبرنامج عن بعد من خلال المتصفح الخاص بك</text>
+		<newline gap="10" />
+		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link> <gap size="4"/>
+		<text>Limit bandwidth on a periodic schedule.</text>
 	</document>
 	<!--تصفح وضعية المستخدم-->
 	<document name="CBrowseHostProfile.1">
@@ -2754,7 +2742,7 @@
 	<string id="8316" value="Hits" />
 	<string id="8317" value="Uploads" />
 	<string id="8318" value="%lu today, %lu total" />
-	<string id="8319" value="No Hashset" />
+	<string id="8319" value="Transfer:" />
 	<string id="8320" value="Status:" />
 	<string id="8321" value="Speed:" />
 	<string id="8322" value="URL:" />
@@ -2773,6 +2761,7 @@
 	<string id="8335" value="Sources for this file are firewalled" />
 	<string id="8336" value="Sources for this file may be unstable" />
 	<string id="8337" value="Untrusted" />
+	<string id="8338" value="No Hashset" />
 	<string id="13000" value="Are you sure you want to delete the selected security rules? This cannot be undone." />
 	<string id="13001" value="Files shared over the Internet" />
 	<string id="16063" value="UPnP port mapping failed after 10 attempts." />
@@ -3420,14 +3409,16 @@
 		<control caption="فرز رسائل المحادثة من الرسائل العشوائية" />
 		<control caption="حساسية عبارات المحادثة" />
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="محادثة">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="محادثة">
 		<control caption="خيارات ال_تابع :" />
 		<control caption="إظهار تكامل المحادثة" />
-		<control caption="الحماية من الفيضان :" />
-		<control />
-		<control caption="السطور بالثانية" />
 		<control caption="إظهار طابع الوقت" />
+		<control caption="الحماية من الفيضان :" />
+		<control caption="السطور بالثانية" />
+		<control />
 		<control caption="خط الشاشة :" />
+		<control caption="Size"/>
+		<control/>
 		<control />
 		<control caption="الألوان :" />
 		<control />
@@ -3459,6 +3450,8 @@
 		<control />
 		<control caption="المنفذ:" />
 		<control />
+		<control caption="On-connect"/>
+		<control/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="ويب">
 		<control caption="معالجة رابط _نظير إلى نظر:" />
@@ -3567,13 +3560,8 @@
 		<control caption="إختر كلمة مرور:" />
 		<control />
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="الجدولة">
-		<control caption=":ال_خيارات" />
-		<control caption=" ت_مكين الجدولة" />
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="الجدولة">
 		<control />
-		<control />
-		<control caption="عند وجود حدود G2 ال_إتصال فقط إلى" />
-		<control caption=":المفتاح" />
 		<control caption="أحد" />
 		<control caption="إثنبن" />
 		<control caption="ثلاثاء" />
@@ -3581,10 +3569,15 @@
 		<control caption="خميس" />
 		<control caption="جمعة" />
 		<control caption="سبت" />
+		<control caption=":المفتاح" />
 		<control caption="عدم إتصال" />
 		<control caption="إتصالات محدودة" />
 		<control caption="الإتصال بسرعة كاملة" />
+		<control caption=":ال_خيارات" />
+		<control caption=" ت_مكين الجدولة" />
+		<control caption="عند وجود حدود G2 ال_إتصال فقط إلى" />
 		<control caption="% إذا _نطاق العرض أقل من الحد" />
+		<control />
 		<control />
 		<control caption="تعليمات" />
 		<control caption="تم تصميم الجدولة للسماح لك بجدولة الإتصال و تحميل الملفات لشير-أزا{n}{n}{n}ملاحظة : إذا كان شير-أزا مفتوحا و الجدولة في الوضع النشط فقد ترى بأنه يقوم بتغيير الإعدادات - هذا طبيعي" />
@@ -3821,7 +3814,7 @@
 		<control />
 		<control />
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="(4/6) _ PeerProject مرحبا بك مع">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="(4/6) _ PeerProject مرحبا بك مع">
 		<control caption="شير-أزا يدعم واجهة المستخدم المرنة ، لذا يمكنك أن تختار الواجهة التي تريحك . يمكنك أن تغير هذه الخيارات في أي وقت كان" />
 		<control caption=":الرجاء تحديد الواجهة" />
 		<control caption="النمط العادي" />
@@ -3829,9 +3822,9 @@
 		<control caption="القوائم و الأزرار سهلة الإستعمال و بسيطة .{n}مألوفة للمستخدمين الذين لديهم برامج مشاركة أخرى" />
 		<control caption="النمط المتقدم للمستخدمين الخبراء بالأوامر المتعددة{n}ربما يكون هذا النمط صعبا نوعا للمستخدمين الجدد" />
 		<control caption="عرض أشرطة بسيطة لتقدم التحميل . (تخفض من إستعمال وحدة المعالج المركزية) ـ" />
-		<control caption="torrent معالجة روابط" />
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="(5/6) _ PeerProject مرحبا بكم في">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="(5/6) _ PeerProject مرحبا بكم في">
 		<control caption="شير-أزا هو تطبيق لمشاركة الملفات بشكا عام حيث يمكنه الدخول على العديد من شبكات النظير إلى النظبر في نفس الوقت . هنا يمكنك أن تختار الشبكات المراد الدخول إليها . ملاحظة : يمكنك أن تختار شبكات مختلفة دائما فيما بعد" />
 		<control caption="(مهم جدا) Gnutella2 الإتصال بـ" />
 		<control caption="شبكة نيتيللاGnutella هي الشبكة الرئيسية لبرنامج شير-أزا ، فهي تقدم مميزات و أداء أكثر من أي شبكة أخرى" />
@@ -3839,6 +3832,7 @@
 		<control caption="أيضا شبكة نيتيللا الأصلية أقل من حيث المميزات من شبكة نيتيللا2 و ملفاتها أقل أيضا من أيدونكي و مع ذلك تبقى مصدر للملفات لا غنى عنه" />
 		<control caption="eDonkey الإتصال بـ" />
 		<control caption="شبكة إدونكي هي شبكة تعتمد على ملقم عام . لكنها ليست بمميزات نيتيللا2 . إدونكي تملك مجموعة ملفات لا يستهان بها" />
+		<control caption=".torrent معالجة روابط" />
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey2000 تحميل و تصدير ">
 		<control />
@@ -4041,20 +4035,20 @@
 		<control caption="اخفاء" />
 		<control caption="إغلاق هذه النافذة عند إنتهاء التحميل" />
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="عام">
-		<control caption="أسماء المصادر العالمية (URNs)" />
-		<control />
-		<control />
-		<control />
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="عام">
 		<control />
 		<control caption="خواص الملف" />
 		<control caption=":الموضع" />
-		<control />
 		<control caption=":النوع" />
-		<control />
 		<control caption=":التعديل" />
-		<control />
 		<control caption=":الحجم" />
+		<control />
+		<control />
+		<control />
+		<control />
+		<control />
+		<control caption="أسماء المصادر العالمية (URNs)" />
+		<control />
 		<control />
 		<control />
 		<control />
@@ -4071,15 +4065,13 @@
 		<control />
 		<control />
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="مشاركة">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="مشاركة">
+		<control />
 		<control caption="مشاركة بسيطة" />
 		<control caption="وضع مشاركة على الملف اذا كان على المجلد الاصل عليه مشاركة" />
 		<control caption="تجاز وضع مشاركة على إعدادات هذا الملف:" />
 		<control caption="ضع هذا الملف متواجد للمستخدمين الاخرين" />
 		<control caption="بطاقة إختيار قائمة إنتظار الإرسال " />
-		<control />
-		<control caption="ال_شبكات للمشاركة منها" />
-		<control />
 		<control />
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="المصادر">

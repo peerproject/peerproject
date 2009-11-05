@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r40 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r41 (Shareaza 2.2.5.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1689,7 +1689,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Rychlá Nápověda</link>
-		<text align="middle">&#160;- Otevře Nápovědu jak používat PeerProject</text>
+		<text align="middle">&#160;- Otevře Nápovědu jak používat PeerProject, o </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Místní Fórum</link>
@@ -1847,11 +1848,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Media Player:</link>
 		<text>&#160;Prezentace a správa souborů knihovny, otevření souborů.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<text>&#160;IRC chatroom connection settings and display options.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Společenství:</link>
 		<text>&#160;Váš profil, pokec a rychlé nastavení zpráv.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
-		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
 		<text>&#160;Integrace PeerProject s vaším webovým prohlížečem akceptuje spojení peer-to-peer a tím podporuje vaše stahování.</text>
@@ -2694,7 +2695,7 @@
 	<string id="8316" value="Výsledky"/>
 	<string id="8317" value="Odesílání"/>
 	<string id="8318" value="%lu dnes, %lu celkem"/>
-	<string id="8319" value="&#160;(Žádný Hashset)"/>
+	<string id="8319" value="Odesílání:"/>
 	<string id="8320" value="Stav:"/>
 	<string id="8321" value="Rychlost:"/>
 	<string id="8322" value="URL:"/>
@@ -2713,6 +2714,7 @@
 	<string id="8335" value="Zdroje pro tento soubor jsou za firewallem"/>
 	<string id="8336" value="Zdroje pro tento soubor mohou být nestabilní"/>
 	<string id="8337" value="Nedůvěryhodný"/>
+	<string id="8338" value="&#160;(Žádný Hashset)"/>
 	<string id="13000" value="Checte smazat vybraná bezpoečnostní pravidla? Tato operace je nevratná."/>
 	<string id="13001" value="Soubory sdílené v Internetu"/>
 	<string id="16063" value="Mapování UPnP portu selhalo po 10 pokusech."/>
@@ -3349,6 +3351,7 @@
 		<control caption="Filtrovat zprávy chatu na spam"/>
 		<control caption="Cenzurovat vulgárnost v chatu"/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="Odkazy _Peer to Peer (P2P):"/>
 		<control caption="Použít PeerProject k otevření těchto odkazů:"/>
@@ -3456,13 +3459,8 @@
 		<control caption="Zadejte heslo:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Plánovač">
-		<control caption="M_ožnosti:"/>
-		<control caption="_Zapnout plánovač"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Plánovač">
 		<control/>
-		<control/>
-		<control caption="_Připojit ke G2 jen když je limitována"/>
-		<control caption="Legenda:"/>
 		<control caption="Ne"/>
 		<control caption="Po"/>
 		<control caption="Út"/>
@@ -3470,10 +3468,15 @@
 		<control caption="Čt"/>
 		<control caption="Pá"/>
 		<control caption="So"/>
+		<control caption="Legenda:"/>
 		<control caption="Zakázat připojeni"/>
 		<control caption="Omezené připojení"/>
 		<control caption="Připojit se plnou rychlostí"/>
+		<control caption="M_ožnosti:"/>
+		<control caption="_Zapnout plánovač"/>
+		<control caption="_Připojit ke G2 jen když je limitována"/>
 		<control caption="% _šířky pásma pod limitem"/>
+		<control/>
 		<control/>
 		<control caption="Nápověda:"/>
 		<control caption="Plánovač umožňuje nastavit období, kdy PeerProject smí stahovat soubory. Plán nastavíte kliknutím na rozvrh nahoře. {n}{n}{n}Poznámka: pokud máte PeerProject otevřenou a je plánovač aktivní, může se měnit nastavení rychlosti - to je normální."/>
@@ -3710,7 +3713,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Vítejte v PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Vítejte v PeerProject (4/6)">
 		<control caption="PeerProject podporuje dvě různá rozhraní uživatele, můžete si tak vybrat které rozhraní vám nejvíce vyhovuje."/>
 		<control caption="Prosím vyberte si jedno z těchto dvou rozhraní pro uživatele:"/>
 		<control caption="Normální režim"/>
@@ -3718,9 +3721,9 @@
 		<control caption="Normální, snadné používání nabídky a tlačítek.	Známé uživatelům ostatních programů pro sdílení souborů."/>
 		<control caption="Speciální režim nabízí zkušeným uživatelům mnoho dodatečných příkazů, oken atd."/>
 		<control caption="Zobrazovat zjednodušený stav stahování. (snižuje zátěž CPU)"/>
-		<control caption="Handle torrent links."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Vítejte v PeerProject (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Vítejte v PeerProject (5/6)">
 		<control caption="PeerProject je univerzální aplikace ke sdílení souborů která může zpřístupnit souběžně více sítí P2P. Zde si můžete vybrat které sítě chcete zpřístupnit. Ovšem můžete si také vybrat a nastavit různé sítě později."/>
 		<control caption="Připojit ke Gnutelle2 (velmi doporučeno)"/>
 		<control caption="Síť Gnutella2 je hlavní síť PeerProject, nabízí více možností a výkonu než kterákoli jiná síť P2P."/>
@@ -3728,6 +3731,7 @@
 		<control caption="Ačkoli původní síť Gnutella má méně možností než Gnutella2, a má méně souborů než eDonkey, zůstává cenným rezervním zdrojem."/>
 		<control caption="Připojit k eDonkey"/>
 		<control caption="eDonkey je také oblíbená síť. Zatím nemá tak bohaté možnosti jako Gnutella2, eDonkey má ale impozantní sbírku souborů."/>
+		<control caption="Associate .Torrent Files  (Handle BitTorrent links)"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Import stahování eDonkey">
 		<control/>
@@ -3931,20 +3935,20 @@
 		<control caption="Skrýt"/>
 		<control caption="Zavřít toto okno po dokončení stahování"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Hlavní">
-		<control caption="Jméno univerzálního zdroje (URNs)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Hlavní">
 		<control/>
 		<control caption="Atributy souboru"/>
 		<control caption="Umístění:"/>
-		<control/>
 		<control caption="Type:"/>
-		<control/>
 		<control caption="Změněno:"/>
-		<control/>
 		<control caption="Velikost:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Jméno univerzálního zdroje (URNs)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -3961,15 +3965,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Sdílení">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Sdílení">
+		<control/>
 		<control caption="Jednotné sdílení"/>
-	<control caption="Sdílet tento soubor jestliže je hlavní složka sdílená"/>
-	<control caption="Vyřadit nastavení pro sdílení tohoto souboru:"/>
-	<control caption="Zpřístupnit tento soubor dalším uživatelům"/>
-	<control caption="Fronta pro odesílání podle nastavení přípony"/>
-		<control/>
-		<control caption="-sítě ke sdílení na"/>
-		<control/>
+		<control caption="Sdílet tento soubor jestliže je hlavní složka sdílená"/>
+		<control caption="Vyřadit nastavení pro sdílení tohoto souboru:"/>
+		<control caption="Zpřístupnit tento soubor dalším uživatelům"/>
+		<control caption="Fronta pro odesílání podle nastavení přípony"/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Zdroje">

@@ -296,10 +296,12 @@ void CLibraryHistoryPanel::OnLButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 void CLibraryHistoryPanel::OnClickFile(DWORD nFile)
 {
 	CQuickLock oLock( Library.m_pSection );
-	CLibraryFile* pFile = Library.LookupFile( nFile );
 
-	CLibraryFrame* pFrame = (CLibraryFrame*)GetParent();
-	ASSERT_KINDOF(CLibraryFrame, pFrame);
+	if ( CLibraryFile* pFile = Library.LookupFile( nFile ) )
+	{
+		CLibraryFrame* pFrame = (CLibraryFrame*)GetParent();
+		ASSERT_KINDOF(CLibraryFrame, pFrame);
 
-	pFrame->Display( pFile );
+		pFrame->Display( pFile );
+	}
 }

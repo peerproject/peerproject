@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r40 -->
+<!-- Translation based on default-en.xml r41 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1767,7 +1767,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Súgó</link>
-		<text align="middle">&#160;- Segítség a program használatához.</text>
+		<text align="middle">&#160;- Segítség a program használatához, or </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Helyi Fórum</link>
@@ -1924,11 +1925,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Médialejátszó:</link>
 		<text>&#160;Mikor és hogyan működjön a Médialejátszó.</text>
 		<newline gap="10"/>
-		<link target="peer:page:CCommunitySettingsPage" format="b">Közösség:</link>
-		<text>&#160;Saját adatlap beállítása, üzenetküldő szolgáltatások.</text>
-		<newline gap="10"/>
 		<link target="peer:page:CIRCSettingsPage" format="b">Csevegés:</link>
 		<text>&#160;Az IRC kliens kinézeti és hálózati beállításai.</text>
+		<newline gap="10"/>
+		<link target="peer:page:CCommunitySettingsPage" format="b">Közösség:</link>
+		<text>&#160;Saját adatlap beállítása, üzenetküldő szolgáltatások.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web:</link>
 		<text>&#160;P2P linkek és letöltésmenedzser.</text>
@@ -2751,7 +2752,7 @@
 	<string id="8316" value="Találatok"/>
 	<string id="8317" value="Feltöltések"/>
 	<string id="8318" value="%lu ma, %lu teljes"/>
-	<string id="8319" value="&#160;(Nincs Hash)"/>
+	<string id="8319" value="Feltöltések:"/>
 	<string id="8320" value="Státusz:"/>
 	<string id="8321" value="Sebesség:"/>
 	<string id="8322" value="URL:"/>
@@ -2770,6 +2771,7 @@
 	<string id="8335" value="A források ehhez a fájlhoz passzívak"/>
 	<string id="8336" value="A források ehhez a fájlhoz bizonytalanok"/>
 	<string id="8337" value="Megbízhatatlan"/>
+	<string id="8338" value="&#160;(Nincs Hash)"/>
 	<string id="13000" value="Biztosan törölni akarja a kiválasztott biztonsági szabályokat? Később már nem lehet visszavonni."/>
 	<string id="13001" value="Az interneten megosztott fájlok"/>
 	<string id="16063" value="Az UPnP port hozzárendelés a 10 próbálkozás után sem sikerült."/>
@@ -3408,14 +3410,16 @@
 		<control caption="Kéretlen üzenetek kiszűrése"/>
 		<control caption="Trágár szövegek kiszűrése"/>
 	</dialog>
-	<dialog name="CIRCSettingsPage" cookie="BuBuBuEdStBuStCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEd" caption="Csevegés">
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="Csevegés">
 		<control caption="_Kliens beállítások"/>
 		<control caption="Csevegés intergrálása"/>
-		<control caption="Elárasztás elleni védelem:"/>
-		<control/>
-		<control caption="sor másodpercenként"/>
 		<control caption="Időbélyeg megjelenítése"/>
+		<control caption="Elárasztás elleni védelem:"/>
+		<control caption="#"/>
+		<control/>
 		<control caption="Betűtípus:"/>
+		<control caption="#"/>
+		<control/>
 		<control/>
 		<control caption="_Színek:"/>
 		<control/>
@@ -3446,6 +3450,8 @@
 		<control caption="Szerver:"/>
 		<control/>
 		<control caption="Port:"/>
+		<control/>
+		<control caption="On-connect"/>
 		<control/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
@@ -3555,13 +3561,8 @@
 		<control caption="Felhasználó jelszava:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Ütemező">
-		<control caption="_Beállítások"/>
-		<control caption="Ü_temező bekapcsolása"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Ütemező">
 		<control/>
-		<control/>
-		<control caption="_Korlátozáskor csak a G2-höz kapcsolódik"/>
-		<control caption="Jelmagyarázat"/>
 		<control caption="V"/>
 		<control caption="H"/>
 		<control caption="K"/>
@@ -3569,10 +3570,15 @@
 		<control caption="Cs"/>
 		<control caption="P"/>
 		<control caption="Szo"/>
+		<control caption="Jelmagyarázat"/>
 		<control caption="Ne kapcsolódjon"/>
 		<control caption="Csökkentett sebességgel"/>
 		<control caption="Teljes sebességgel"/>
+		<control caption="_Beállítások"/>
+		<control caption="Ü_temező bekapcsolása"/>
+		<control caption="_Korlátozáskor csak a G2-höz kapcsolódik"/>
 		<control caption="% sávszél korlátozott módban"/>
+		<control/>
 		<control/>
 		<control caption="Súgó"/>
 		<control caption="Az ütemezővel beállíthatja, hogy a PeerProject mikor kapcsolódjon és&#13;&#10;mikor töltse le a fájlokat. &#13;&#10;&#13;&#10;Megjegyzés: Ha a PeerProject éppen nyitva van és az ütemező is be van kapcsolva, láthatja, hogy megváltoztatja a beállításokat.&#13;&#10;Ez teljesen normális!"/>
@@ -3809,17 +3815,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Köszöntöm a PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Köszöntöm a PeerProject (4/6)">
 		<control caption="A PeerProject több felhasználói felülettel rendelkezik. Válassza ki az önnek legmegfelelőbbet."/>
 		<control caption="Lehetőségek:"/>
 		<control caption="Egyszerű nézet"/>
 		<control caption="Összetett nézet"/>
 		<control caption="Könnyen használható, hasonló a többi fájlmegosztóhoz."/>
 		<control caption="Több lehetőség a tapasztaltabb felhasználóknak."/>
-		<control caption="Egyszerűsített letöltési folyamatcsík. (Kevesebb CPU használat)"/>
-		<control caption="Torrentfájlok kezelése"/>
+		<control caption="Egyszerűsített letöltési folyamatcsík."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Köszöntöm a PeerProject (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Köszöntöm a PeerProject (5/6)">
 		<control caption="A PeerProject egy fájlmegosztó program, ami egyszerre több p2p hálózathoz is tud csatlakozni. Ezen az oldalon beállíthatja, hogy melyik hálózathoz akar kapcsolódni."/>
 		<control caption="Kapcsolódás a Gnutella2-höz (erősen ajánlott)"/>
 		<control caption="A Gnutella2 a PeerProject fő hálózata, p2p rendszerű. Rengeteg szolgáltatás és nagy sebesség jellemzi."/>
@@ -3827,6 +3833,7 @@
 		<control caption="A Gnutella elődje. Kevesebb fájlt tartalmaz, mint az eD2k, de azért sokminden megtalálható rajta."/>
 		<control caption="Kapcsolódás az eDonkey-hoz"/>
 		<control caption="Az eDonkey egy népszerű kliens-szerver rendszerű hálózat. Nincs annyi szolgáltatása, mint a G2-nek, de gyakorlatilag minden megtalálható rajta."/>
+		<control caption="Torrentfájlok kezelése"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="eDonkey letöltések importálása">
 		<control/>
@@ -4030,20 +4037,20 @@
 		<control caption="Elrejt"/>
 		<control caption="A letöltés végeztével zárja be ezt az ablakot"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Általános">
-		<control caption="Universal Resource Names (URN)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Általános">
 		<control/>
 		<control caption="Adatok"/>
 		<control caption="Hely:"/>
-		<control/>
 		<control caption="Típus:"/>
-		<control/>
 		<control caption="Módosítva:"/>
-		<control/>
 		<control caption="Méret:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Universal Resource Names (URN)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -4060,15 +4067,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Megosztás">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Megosztás">
+		<control/>
 		<control caption="Egyszerű megosztás"/>
 		<control caption="Ossza meg a fájlt, ha a fölötte lévő mappa is meg van osztva"/>
 		<control caption="Megosztási beállítás felülbírálása:"/>
 		<control caption="Legyen elérhető mindenki számára"/>
 		<control caption="Feltöltési sor címke"/>
-		<control/>
-		<control caption="-A kiválasztott hálózaton való megosztás."/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Források">

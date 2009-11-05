@@ -138,7 +138,7 @@ void CAboutDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 	if ( rc.PtInRect( point ) )
 	{
-		const CString strWebSite(WEB_SITE_T);
+		const CString strWebSite( WEB_SITE );
 
 		ShellExecute( GetSafeHwnd(), _T("open"),
 			strWebSite + _T("?Version=") + theApp.m_sVersion, NULL, NULL, SW_SHOWNORMAL );

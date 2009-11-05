@@ -42,9 +42,8 @@ public:
 	CStatic	m_wndDescription0;
 	CButton	m_wndInterface1;
 	CButton	m_wndInterface0;
-	int		m_bExpert;
 	BOOL	m_bSimpleDownloadBars;
-	BOOL	m_bHandleTorrents;
+	int		m_bExpert;
 	//}}AFX_DATA
 
 // Overrides

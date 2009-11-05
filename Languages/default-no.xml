@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r40 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r41 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1531,7 +1531,8 @@
 		<newline gap="8"/>
 		<icon res="147" width="16" height="16" target="peer:command:ID_HELP_FAQ"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FAQ" align="middle">Hjelp</link>
-		<text align="middle">&#160;- Få grunnleggende hjelp til å bruke PeerProject</text>
+		<text align="middle">&#160;- Få grunnleggende hjelp til å bruke PeerProject, or </text>
+		<link target="peer:command:ID_TAB_IRC" align="middle">IRC.</link>
 		<newline gap="8"/>
 		<icon res="175" width="16" height="16" target="peer:command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="peer:command:ID_HELP_FORUMS_LOCAL" align="middle">Lokal Forum</link>
@@ -1689,11 +1690,11 @@
 		<link target="peer:page:CMediaSettingsPage" format="b">Mediaspiller:</link>
 		<text>&#160;Når og hvordan du vil bruke PeerProject mediaspiller.</text>
 		<newline gap="10"/>
+		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
+		<text>&#160;IRC chatroom connection settings and display options.</text>
+		<newline gap="10"/>
 		<link target="peer:page:CCommunitySettingsPage" format="b">Min profil:</link>
 		<text>&#160;Din profil. Egenskaper for samtale og meldinger.</text>
-		<newline gap="10"/>
-		<link target="peer:page:CIRCSettingsPage" format="b">IRC:</link>
-		<text>&#160;IRC chatroom visual appearance and connection settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Internett:</link>
 		<text>&#160;Endre PeerProject slik at du automatisk starter nedlastinger fra Internett Explorer.</text>
@@ -2517,7 +2518,7 @@
 	<string id="8316" value="Treff"/>
 	<string id="8317" value="opplastinger"/>
 	<string id="8318" value="%lu i dag, %lu totalt"/>
-	<string id="8319" value="&#160;(Intet hashsett)"/>
+	<string id="8319" value="Opplastinger:"/>
 	<string id="8320" value="Status:"/>
 	<string id="8321" value="Hastighet:"/>
 	<string id="8322" value="URL:"/>
@@ -2535,6 +2536,7 @@
 	<string id="8334" value="Kilder til denne filen er for tiden opptatt"/>
 	<string id="8335" value="Kilder til denne filen er bak brannmurer"/>
 	<string id="8336" value="Kilder til denne filen kan være ustabile"/>
+	<string id="8338" value="&#160;(Intet hashsett)"/>
 	<string id="16064" value="Starter PeerProjects nettverkskjerne..."/>
 	<string id="16065" value="Klarer ikke å binde %s port %i for innkommende koblinger. Innkommende koblinger kan ikke støttes."/>
 	<string id="16066" value="Skrur av PeerProjects nettverkkjerne..."/>
@@ -3136,6 +3138,7 @@
 		<control caption="Filtrer chat-meldinger for spam"/>
 		<control caption="Sensurer krenkende meldinger i chat"/>
 	</dialog>
+	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Internett">
 		<control caption="_Bruk av peer to peer linker:"/>
 		<control caption="Bruk PeerProject til å åpne denne typen linker:"/>
@@ -3243,13 +3246,8 @@
 		<control caption="Velg passord:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSchedulerSettingsPage" cookie="BuBuEdmsBuBuStStStStStStStStStStStEdBuSt" caption="Planlegger">
-		<control caption="_Innstillinger:"/>
-		<control caption="_Aktiver planlegger"/>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planlegger">
 		<control/>
-		<control/>
-		<control caption="Koble kun til G2 når begrenset"/>
-		<control caption="Valg:"/>
 		<control caption="Søn"/>
 		<control caption="Man"/>
 		<control caption="Tir"/>
@@ -3257,10 +3255,15 @@
 		<control caption="Tor"/>
 		<control caption="Fre"/>
 		<control caption="Lør"/>
+		<control caption="Valg:"/>
 		<control caption="Ikke koble til"/>
 		<control caption="Begrenset tilkobling"/>
 		<control caption="Koble til i full hastighet"/>
+		<control caption="_Innstillinger:"/>
+		<control caption="_Aktiver planlegger"/>
+		<control caption="Koble kun til G2 når begrenset"/>
 		<control caption="% av _båndbredde ved begrensing"/>
+		<control/>
 		<control/>
 		<control caption="Hjelp"/>
 		<control caption="Planlegger lar deg velge når PeerProject skal koble til og laste ned filer.{n}{n}{n}Obs: Hvis du har PeerProject åpent når planleggeren er aktiv, kan det hende du ser at innstillingene forandres - dette er normalt!"/>
@@ -3497,17 +3500,17 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuBu" caption="Velkommen til PeerProject (4/6)">
+	<dialog name="CWizardInterfacePage" cookie="StBuBuBuStStBuSt" caption="Velkommen til PeerProject (4/6)">
 		<control caption="PeerProject støtter to forskjellige brukergrensesnitt, så du selv kan velge det du liker best"/>
 		<control caption="Vennligst velg et av disse grensesnittene:"/>
 		<control caption="Normalmodus"/>
 		<control caption="Powermodus"/>
 		<control caption="Enkle menyer og store knapper. Liknende andre fildelingsprogrammer."/>
 		<control caption="Powermodus gir ekspertene mange ekstra kommandoer og vinduer o.l."/>
-		<control caption="Vis enkel fremgangsindikator for nedlasninger. (Reduserer bruk av CPU)"/>
-		<control caption="Åpne torrent linker."/>
+		<control caption="Vis enkel fremgangsindikator for nedlasninger."/>
+		<control caption=""/>
 	</dialog>
-	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuSt" caption="Velkommen til PeerProject (5/6)">
+	<dialog name="CWizardNetworksPage" cookie="StBuStBuStBuStBu" caption="Velkommen til PeerProject (5/6)">
 		<control caption="PeerProject er et avansert fildelingsprogram som kan koble seg til flere P2P nettverk på en gang.  Her kan du velge hvilke nettverk du vil koble til. Husk at du kan endre dette senere også."/>
 		<control caption="Koble til Gnutella2 (høyst anbefalt)"/>
 		<control caption="Gnutella2 nettverket er hovednettverket til PeerProject, et nettverk som har flere egenskaper og høyere utnyttelse en noen andre P2P nett."/>
@@ -3515,6 +3518,7 @@
 		<control caption="Gnutella har færre egenskaper enn Gnutella2, færre filer enn eDonkey2000, men er likevel en verdifull resurs."/>
 		<control caption="Koble til eDonkey2000"/>
 		<control caption="eDonkey er et tjener-basert nettverk. Selv om det ikke har like mange egenskaper som Gnutella2 inneholder det enorme mengder filer."/>
+		<control caption="Åpne torrent linker."/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Importer eDonkey2000 nedlastinger">
 		<control/>
@@ -3718,20 +3722,20 @@
 		<control caption="Skjul"/>
 		<control caption="Lukk dette vinduet når filen er ferdig"/>
 	</dialog>
-	<dialog name="CFileGeneralPage" cookie="StEdEdEdEdStStEdStEdStEdStEdEdEd" caption="Generelt">
-		<control caption="Universelt Ressurs Navn (URN)"/>
-		<control/>
-		<control/>
-		<control/>
+	<dialog name="CFileGeneralPage" cookie="EdStStStStStEdEdEdEdEdStEdEdEdEd" caption="Generelt">
 		<control/>
 		<control caption="Egenskaper"/>
 		<control caption="Plassering:"/>
-		<control/>
 		<control caption="Type:"/>
-		<control/>
 		<control caption="Endret:"/>
-		<control/>
 		<control caption="Størrelse:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="Universelt Ressurs Navn (URN)"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
@@ -3740,7 +3744,7 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Min karakter">
+	<dialog name="CFileCommentsPage" cookie="StStCoStEdEd" caption="Karakter">
 		<control caption="Mine karakter"/>
 		<control caption="Karakter:"/>
 		<control caption="(Ingen karakter)|Falsk/Korrupt/Missvisende|Dårlig|Moddels|God|Veldig god|Utmerket"/>
@@ -3748,15 +3752,13 @@
 		<control/>
 		<control/>
 	</dialog>
-	<dialog name="CFileSharingPage" cookie="StBuBuBuStCoStSyEd" caption="Deling">
+	<dialog name="CFileSharingPage" cookie="EdStBuBuBuStCo" caption="Deling">
+		<control/>
 		<control caption="Enkel deling"/>
 		<control caption="Del denne filen hvis mappen er delt"/>
 		<control caption="Start deling av denne filen:"/>
 		<control caption="Del denne filen med andre brukere"/>
 		<control caption="Opplastingskø-karakteristikk"/>
-		<control/>
-		<control caption="Skal deles på nettverkene "/>
-		<control/>
 		<control/>
 	</dialog>
 	<dialog name="CFileSourcesPage" cookie="StStEdSyBuBuEd" caption="Kilder">
