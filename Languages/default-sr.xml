@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3152,16 +3152,17 @@
 		<control caption="Potvrdi"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Opšta">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Opšta">
 		<control caption="Opšta:"/>
 		<control caption="Spoji se kad pokrenem PeerProject"/>
 		<control caption="Pokreni PeerProject sa Windowsom"/>
 		<control caption="Pitaj potvrdu pre otvaranja URI-ja"/>
-		<control caption="Pokaži brzinu u:"/>
-		<control caption="bitova na sekundu|bajtova na sekundu|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="Ski_danje:"/>
 		<control caption="Uvek raširi nova skidanja"/>
 		<control caption="Pokaži jednostavni pokazivač napretka"/>
+		<control caption="Pokaži brzinu u:"/>
+		<control caption="bitova na sekundu|bajtova na sekundu|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="Traži:"/>
 		<control caption="Uvek pokaži sve izvore"/>
 		<control caption="Prebaci na Razmenu kad krenem da skidam"/>
@@ -3174,19 +3175,22 @@
 		<control/>
 		<control caption="Prozirnost:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="_Tray:"/>
 		<control caption="Kada pritisnem zatvori:"/>
 		<control caption="Pitaj|Spusti u Tray|Odmah Zatvori|Zatvori tek kada završiš"/>
 		<control caption="Kada pritisnem spusti:"/>
 		<control caption="Normalno|Spusti u Tray"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Kolekcija">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Kolekcija">
 		<control caption="_Opcije:"/>
-		<control caption="Zapamti fascikle"/>
+		<control caption="Dopusti drugima da vide šta delite"/>
 		<control caption="Prati fascikle moje kolekcije"/>
 		<control caption="Brzi hashing (Koristi više CPU-a)"/>
-		<control caption="Dopusti drugima da vide šta delite"/>
-		<control caption="Ko_rištene Datoteke:"/>
+		<control caption="Smart media series detection"/>
+		<control caption="Create ghost files when deleting"/>
+		<control caption="Zapamti fascikle"/>
+		<control caption="Korištene Datoteke:"/>
 		<control caption="Pamti:"/>
 		<control/>
 		<control/>
@@ -3207,8 +3211,6 @@
 		<control caption="Ovde Sačuvaj Kolek_cije:"/>
 		<control/>
 		<control/>
-		<control caption="Create ghost files when deleting"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media Player">
 		<control caption="_Opcije:"/>
@@ -3329,17 +3331,17 @@
 		<control caption="Obriši"/>
 		<control caption="(promene deluju odmah)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Pristup na Daljinu">
-		<control caption="Vodič:"/>
-		<control caption="PeerProject pristup na daljinu vam omogućava da ostavite upaljen PC sa pokrenutom PeerProject, i njome upravljate sa druge lokacije. Da bi ste koristili ovu opciju morate biti u mogućnosti primati dolazeće veze(npr. podešen ruter, itd)."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Pristup na Daljinu">
 		<control caption="Omogući:"/>
 		<control caption="Omogući Daljinski Pristup PeerProject"/>
 		<control/>
 		<control caption="Uverenja:"/>
 		<control caption="Odaberi Ime:"/>
-		<control/>
 		<control caption="Odaberi Lozinku:"/>
 		<control/>
+		<control/>
+		<control caption="Pomoć:"/>
+		<control caption="PeerProject pristup na daljinu vam omogućava da ostavite upaljen PC sa pokrenutom PeerProject, i njome upravljate sa druge lokacije. Da bi ste koristili ovu opciju morate biti u mogućnosti primati dolazeće veze(npr. podešen ruter, itd)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Plan Skidanja">
 		<control/>
@@ -3360,7 +3362,7 @@
 		<control caption="% _brzine je ograničenje"/>
 		<control/>
 		<control/>
-		<control caption="Pomoć"/>
+		<control caption="Pomoć:"/>
 		<control caption="Planer skidanja je osmišljen da omoguči PeerProject spajanje i skidanje u određeno doba dana. {n}{n}{n}Napomena: Ako je PeerProject pokrenuta i plan uključen, možete videti promene podešavanja- to je normalno!-"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Mreže">
@@ -3380,8 +3382,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Mreža:"/>
-		<control caption="Uvek se spoji na Gnutellu2"/>
-		<control caption="Spoji se na Gnutellu2"/>
+		<control caption="Spoji se na G2"/>
+		<control caption="Uvek se spoji na G2"/>
 		<control caption="Način Spajanja:"/>
 		<control caption="Optimalno|Leaf|Hub"/>
 		<control caption="G_2 Veze:"/>
@@ -3394,9 +3396,9 @@
 		<control caption="Hub u Hub:"/>
 		<control/>
 		<control/>
-		<control caption="Gnutella1 Mreža:"/>
-		<control caption="Uvek se spoji na Gnutellu1"/>
-		<control caption="Spoji se na Gnutellu1"/>
+		<control caption="Gnutella Mreža:"/>
+		<control caption="Spoji se na Gnutellu"/>
+		<control caption="Uvek se spoji na Gnutellu"/>
 		<control caption="Način Spajanja:"/>
 		<control caption="Optimalno|Leaf|Ultrapeer"/>
 		<control caption="G_1 Veze:"/>
@@ -3414,26 +3416,27 @@
 		<control caption="Leaf u Hub"/>
 		<control caption="Hub u Hub"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey2000">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey2000">
 		<control caption="_eDonkey2000 Mreža:"/>
 		<control caption="Spoji se na eDonkey2000"/>
-		<control caption="Spoji se svaki put(Automatski)"/>
+		<control caption="Spoji se svaki put (Automatski)"/>
+		<control caption="_Client Link Veze:"/>
+		<control caption="Ne spajaj se na više od:"/>
+		<control/>
+		<control/>
+		<control caption="drugih eDonkey klijenta."/>
 		<control caption="Kod pretraživanja:"/>
 		<control caption="Traži samo u poznatim serverima u server cachu:"/>
 		<control caption="Zaustavi potragu nakon:"/>
 		<control/>
 		<control/>
 		<control caption="rezultata potrage."/>
-		<control caption="_Client Link Veze:"/>
-		<control caption="Ne spajaj se na više od:"/>
-		<control/>
-		<control/>
-		<control caption="drugih eDonkey klijenta."/>
+		<control caption="Update global server list from the connected server"/>
 		<control caption="eDonkey2000 Ala_ti:"/>
-		<control caption="Skini eDonkey2000 listu servera sa neta:"/>
 		<control caption="Skini..."/>
+		<control caption="Skini eDonkey2000 listu servera sa neta"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Podešavanja ski_danja:"/>
 		<control/>
 		<control/>
@@ -3441,31 +3444,32 @@
 		<control/>
 		<control/>
 		<control caption="Klijent veze"/>
-		<control caption="&#160;Ukloni skinunte torrente&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Kada omer deljenja dođe do"/>
-        <control/>
-		<control/>
-		<control/>
-		<control caption="&#160;Preferiraj torrent izvore"/>
+		<control caption="Preferiraj torrent izvore"/>
 		<control caption="_EndGame:"/>
 		<control caption="Omogući EndGame način prilikom dovršenja torrentsa"/>
-		<control caption="Ovde _Sačuvaj Torrente::"/>
+		<control caption="Ukloni skinunte torrente Kada omer deljenja dođe do:"/>
 		<control/>
 		<control/>
-		<control caption="_Torrent Creator"/>
+		<control caption="%"/>
+		<control caption="Ovde _Sačuvaj Torrente:"/>
+		<control/>
+		<control/>
+		<control caption="_Torrent Creator:"/>
 		<control/>
 		<control/>
 		<control caption="Default Tracker:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skinovi">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Skinovi">
 		<control/>
 		<control caption="Informacije o Skinu:"/>
 		<control caption="Ime:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Autor:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Opis:"/>
 		<control/>
+		<control caption="*Mix"/>
 		<control caption="Obriši"/>
 		<control caption="Instaliraj..."/>
 		<control caption="Stavi Više"/>
@@ -3474,7 +3478,7 @@
 		<control/>
 		<control caption="Informacije o Pluginu:"/>
 		<control caption="Ime:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Opis:"/>
 		<control/>
 		<control caption="_Podesi..."/>

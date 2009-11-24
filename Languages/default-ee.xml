@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r41 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r42 (Shareaza 2.2.2.9) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3172,16 +3172,17 @@
 		<control caption="Kinnita"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Üldiselt">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Üldiselt">
 		<control caption="_Üldiselt:"/>
 		<control caption="Ühenda automaatselt PeerProject käivitudes"/>
 		<control caption="Käivita PeerProject koos Windowsiga"/>
 		<control caption="Näita enne URI avamist hoitust"/>
-		<control caption="Näita kiiruseid:"/>
-		<control caption="bitti/sekundis|baiti/sekundis|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_Allalaadimised:"/>
 		<control caption="Laienda uued allalaadimised vaikimisi"/>
 		<control caption="Kuva lihtne edenemisriba"/>
+		<control caption="Näita kiiruseid:"/>
+		<control caption="bitti/sekundis|baiti/sekundis|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Otsing:"/>
 		<control caption="Laienda mitme allikaga failid vaikimisi"/>
 		<control caption="Vaheta Ülekannete vaatesse"/>
@@ -3194,18 +3195,21 @@
 		<control/>
 		<control caption="Ulatus:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="_Tööriistariba:"/>
 		<control caption="Kui ma klikin Sulge:"/>
 		<control caption="Küsi|Vähenda Tööriistaribale|Sule Kohe|Sule peale ülekandeid"/>
 		<control caption="Kui klikin minimeeri:"/>
 		<control caption="Tavaline|Vähenda Tööriistaribale"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Raamatukogu">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Raamatukogu">
 		<control caption="_Seaded:"/>
-		<control caption="Pea meeles kaustade vaated"/>
+		<control caption="Luba teistel oma faile vaadata"/>
 		<control caption="Vaata raamatukogu kaustu"/>
 		<control caption="Kiire paigutamine (Kasutab rohkem CPU-d)"/>
-		<control caption="Luba teistel oma faile vaadata"/>
+		<control caption="Smart media series detection"/>
+		<control caption="Create ghost files when deleting"/>
+		<control caption="Pea meeles kaustade vaated"/>
 		<control caption="_Hiljutised Failid:"/>
 		<control caption="Pea Meeles:"/>
 		<control/>
@@ -3227,8 +3231,6 @@
 		<control caption="Siia _Salvesta Kollektsioonid:"/>
 		<control/>
 		<control/>
-		<control caption="Create ghost files when deleting"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Meedia">
 		<control caption="_Meedia Teenused:"/>
@@ -3349,17 +3351,17 @@
 		<control caption="_Kustuta"/>
 		<control caption="(muutused toimivad kohe)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Kaugtöö">
-		<control caption="_Giid:"/>
-		<control caption="PeerProject Kaugtöö laseb sul jätta PeerProject tööle ja kontrollida seda eemalt, kasutades weebibrauserit.  Sa pead selle võimaluse kasutamiseks lubama sissetulevad ühendused (näiteks: seadistama ruuteri, jne.)."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Kaugtöö">
 		<control caption="_Käivitus:"/>
 		<control caption="Võimalda PeerProject Kaugtöö:"/>
 		<control/>
 		<control caption="_Andmed:"/>
 		<control caption="Vali Kasutajanimi:"/>
-		<control/>
 		<control caption="Vali Salasõna:"/>
 		<control/>
+		<control/>
+		<control caption="Abi:"/>
+		<control caption="PeerProject Kaugtöö laseb sul jätta PeerProject tööle ja kontrollida seda eemalt, kasutades weebibrauserit.  Sa pead selle võimaluse kasutamiseks lubama sissetulevad ühendused (näiteks: seadistama ruuteri, jne.)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planeerija">
 		<control/>
@@ -3380,7 +3382,7 @@
 		<control caption="% _alla ülekandepiirangut"/>
 		<control/>
 		<control/>
-		<control caption="Abi"/>
+		<control caption="Abi:"/>
 		<control caption="Planeerija on disainitud lubama sul seada ajad millal PeerProject ühendab ja hakkab faile allalaadima. {n}{n}{n}Vihje: Kui PeerProject on planeerija käivitudes töös, võid näha seda seadeid muutmas- See on normaalne!-"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Võrgud">
@@ -3392,7 +3394,7 @@
 		<control caption="Algupärane Gnutella Võrgustik:"/>
 		<control caption="Algupärane Gnutella võrk ei ole nii võimaluste rohke kui     Gnutella2 ja omab vähem faile kui eDonkey2000 on see siiski arvestatav allikas failijagamiseks."/>
 		<control caption="Ühenda Gnutella (G1)"/>
-		<control caption="Seadista Gnutella1 -te"/>
+		<control caption="Seadista Gnutella -te"/>
 		<control caption="eDonkey Võrgustik:"/>
 		<control caption="eDonkey on populaarne serveritel baseeruv võrgustik.  Kuigi, mitte nii võimaluste rohke kui Gnutella2 on eDonkey-l muljetavaldav failide valik."/>
 		<control caption="Ühenda eDonkey2000 -e (ED2K)"/>
@@ -3400,8 +3402,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Võrgustik:"/>
-		<control caption="Ühenda alati Gnutella2-e"/>
-		<control caption="Ühenda täna Gnutella2-e "/>
+		<control caption="Ühenda täna G2-e "/>
+		<control caption="Ühenda alati G2-e"/>
 		<control caption="Rešiim:"/>
 		<control caption="Optimaalne|Leaf|Hub"/>
 		<control caption="G_2 Ühendused:"/>
@@ -3415,8 +3417,8 @@
 		<control/>
 		<control/>
 		<control caption="Gnutella1 Võrgustik:"/>
-		<control caption="Ühenda alati Gnutella1-e"/>
-		<control caption="Ühenda täna Gnutella1-e"/>
+		<control caption="Ühenda täna Gnutella-e"/>
+		<control caption="Ühenda alati Gnutella-e"/>
 		<control caption="Rešiim:"/>
 		<control caption="Optimal|Leaf|Ultrapeer"/>
 		<control caption="G_1 Connections:"/>
@@ -3434,10 +3436,15 @@
 		<control caption="Leaf to Hub"/>
 		<control caption="Hub to Hub"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey2000">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="_eDonkey2000 Võrgustik:"/>
-		<control caption="Ühenda eDonkey2000-ga täna"/>
 		<control caption="Ühenda automaatselt iga kord"/>
+		<control caption="Ühenda eDonkey2000-ga täna"/>
+		<control caption="_Kliendipoolsed Ühendused:"/>
+		<control caption="Ühenda kõige rohkem:"/>
+		<control/>
+		<control/>
+		<control caption="teise eDonkey kliendiga."/>
 		<control caption="_Üldine Otsing:"/>
 		<control caption="Otsi tuntud servereid, serverite võrgustikust:"/>
 		<control caption="Lõpeta otsing pärast:"/>
@@ -3445,16 +3452,11 @@
 		<control/>
 		<control caption="tulemust."/>
 		<control caption="Receive and update server list from the connected server"/>
-		<control caption="_Kliendipoolsed Ühendused:"/>
-		<control caption="Ühenda kõige rohkem:"/>
-		<control/>
-		<control/>
-		<control caption="teise eDonkey kliendiga."/>
-		<control caption="eDonkey2000 _Tööriistad:"/>
-		<control caption="Tõmba weebist eDonkey2000 serverite nimekiri:"/>
+		<control caption="eDonkey _Tööriistad:"/>
 		<control caption="Tõmba..."/>
+		<control caption="Tõmba weebist eDonkey serverite nimekiri"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Allalaadimisühendused:"/>
 		<control/>
 		<control/>
@@ -3462,13 +3464,13 @@
 		<control/>
 		<control/>
 		<control caption="Kliendi ühendust"/>
-		<control caption="&#160;Puhasta allalaaditud torrentid&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Kui jagamissuhe jõuab"/>
-		<control/>
-		<control/>
-		<control caption="%"/>
 		<control caption="&#160;Eelista torrenti allikaid"/>
 		<control caption="_EndGame:"/>
 		<control caption="Võimalda EndGame rešiim kui lõpetad torrente"/>
+		<control caption="Puhasta allalaaditud torrentid kui jagamissuhe jõuab:"/>
+		<control/>
+		<control/>
+		<control caption="%"/>
 		<control caption="_Salvesta Torrentid Siia:"/>
 		<control/>
 		<control/>
@@ -3478,15 +3480,16 @@
 		<control caption="Vaikimisi Jälitaja: "/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Nahad">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Nahad">
 		<control/>
 		<control caption="Naha Teave:"/>
 		<control caption="Nimi:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Autor:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Kirjeldus:"/>
 		<control/>
+		<control caption="*Mix nahad"/>
 		<control caption="Kustuta"/>
 		<control caption="Installi..."/>
 		<control caption="Otsi lisa"/>
@@ -3495,10 +3498,10 @@
 		<control/>
 		<control caption="Plugina teave:"/>
 		<control caption="Nimi:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Kirjeldus:"/>
 		<control/>
-		<control caption="_Seade..."/>
+		<control caption="Seade..."/>
 		<control caption="Otsi lisaks"/>
 	</dialog>
 	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Täpsem">

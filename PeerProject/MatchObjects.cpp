@@ -1867,6 +1867,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 				{
 					if ( ( m_nSize > 525 * 1024 && m_nSize < 530 * 1024 ) ||	//528kb
 						( m_nSize > 1054 * 1024 && m_nSize < 1064 * 1024 ) ||	//1.03mb
+						( m_nSize > 1088 * 1024 && m_nSize < 1092 * 1024 ) ||	//1.06mb
 						( m_nSize > 4690 * 1024 && m_nSize < 4694 * 1024 ) )	//4.58mb
 					{
 						m_bSuspicious = TRUE;

@@ -139,13 +139,9 @@ void CDownloadTransferHTTP::Close( TRISTATE bKeepSource, DWORD nRetryAfter )
 	if ( m_pSource != NULL && m_nState == dtsDownloading && m_nPosition )
 	{
 		if ( m_bRecvBackwards )
-		{
 			m_pSource->AddFragment( m_nOffset + m_nLength - m_nPosition, m_nPosition );
-		}
 		else
-		{
 			m_pSource->AddFragment( m_nOffset, m_nPosition );
-		}
 	}
 
 	CDownloadTransfer::Close( bKeepSource, nRetryAfter );
@@ -334,13 +330,10 @@ BOOL CDownloadTransferHTTP::SendRequest()
 	if ( m_nOffset != SIZE_UNKNOWN && ! m_bTigerFetch && ! m_bMetaFetch )
 	{
 		if ( m_nOffset + m_nLength == m_pDownload->m_nSize )
-		{
 			strLine.Format( _T("Range: bytes=%I64i-\r\n"), m_nOffset );
-		}
 		else
-		{
 			strLine.Format( _T("Range: bytes=%I64i-%I64i\r\n"), m_nOffset, m_nOffset + m_nLength - 1 );
-		}
+
 		Write( strLine );
 	}
 	else
@@ -482,14 +475,14 @@ BOOL CDownloadTransferHTTP::SendRequest()
 	m_bGotRange			= FALSE;
 	m_bGotRanges		= FALSE;
 	m_bQueueFlag		= FALSE;
-	m_nContentLength	= SIZE_UNKNOWN;
-	m_sContentType.Empty();
 	m_bGzip				= FALSE;
 	m_bCompress			= FALSE;
 	m_bDeflate			= FALSE;
 	m_bChunked			= FALSE;
 	m_ChunkState		= Header;
 	m_nChunkLength		= SIZE_UNKNOWN;
+	m_nContentLength	= SIZE_UNKNOWN;
+	m_sContentType.Empty();
 
 	m_sTigerTree.Empty();
 	m_nRequests++;
@@ -954,15 +947,11 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 
 		nPos = strValue.Find( _T("pollmin=") );
 		if ( nPos >= 0 && _stscanf( strValue.Mid( nPos + 8 ), _T("%u"), &nLimit ) == 1 )
-		{
 			m_nRetryDelay = max( m_nRetryDelay, nLimit * 1000 + 3000  );
-		}
 
 		nPos = strValue.Find( _T("pollmax=") );
 		if ( nPos >= 0 && _stscanf( strValue.Mid( nPos + 8 ), _T("%u"), &nLimit ) == 1 )
-		{
 			m_nRetryDelay = min( m_nRetryDelay, nLimit * 1000 - 8000 );
-		}
 
 		nPos = strValue.Find( _T("id=") );
 		if ( nPos >= 0 )
@@ -970,15 +959,14 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 			m_sQueueName = strValue.Mid( nPos + 3 );
 			m_sQueueName.TrimLeft();
 			if ( m_sQueueName.Find( '\"' ) == 0 )
-			{
 				m_sQueueName = m_sQueueName.Mid( 1 ).SpanExcluding( _T("\"") );
-			}
 			else
-			{
 				m_sQueueName = m_sQueueName.SpanExcluding( _T("\" ") );
-			}
-			if ( m_sQueueName == _T("s") ) m_sQueueName = _T("Small Queue");
-			else if ( m_sQueueName == _T("l") ) m_sQueueName = _T("Large Queue");
+
+			if ( m_sQueueName == _T("s") )
+				m_sQueueName = _T("Small Queue");
+			else if ( m_sQueueName == _T("l") )
+				m_sQueueName = _T("Large Queue");
 		}
 	}
 	else if ( strHeader.CompareNoCase( _T("Retry-After") ) == 0 )
@@ -986,9 +974,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		DWORD nLimit = 0;
 
 		if ( _stscanf( strValue, _T("%u"), &nLimit ) == 1 )
-		{
 			m_nRetryAfter = nLimit;
-		}
 	}
 	else if (	strHeader.CompareNoCase( _T("X-PerHost") ) == 0 ||
 				strHeader.CompareNoCase( _T("X-Gnutella-maxSlotsPerHost") ) == 0 )
@@ -996,9 +982,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		DWORD nLimit = 0;
 
 		if ( _stscanf( strValue, _T("%u"), &nLimit ) != 1 )
-		{
 			Downloads.SetPerHostLimit( &m_pHost.sin_addr, nLimit );
-		}
 	}
 	else if ( strHeader.CompareNoCase( _T("X-Delete-Source") ) == 0 )
 	{
@@ -1457,7 +1441,7 @@ BOOL CDownloadTransferHTTP::ReadContent()
 			BOOL bUseful = m_pDownload->IsRangeUsefulEnough( this,
 				m_bRecvBackwards ? m_nOffset : m_nOffset + m_nPosition,
 				m_nLength - m_nPosition );
-			if ( /* m_bInitiated || */ ! bUseful )
+			if ( ! bUseful /*|| m_bInitiated*/ )
 			{
 				theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_OVERLAP, (LPCTSTR)m_sAddress );
 				Close( TRI_TRUE );
@@ -1549,9 +1533,7 @@ BOOL CDownloadTransferHTTP::ReadTiger()
 						if ( CXMLElement* pxDigest = pXML->GetElementByName( _T("digest") ) )
 						{
 							if ( pxDigest->GetAttributeValue( _T("algorithm") ).CompareNoCase( _T("http://open-content.net/spec/digest/tiger") ) == 0 )
-							{
 								bDigest = ( pxDigest->GetAttributeValue( _T("outputsize") ) == _T("24") );
-							}
 						}
 						if ( CXMLElement* pxTree = pXML->GetElementByName( _T("serializedtree") ) )
 						{
@@ -1622,17 +1604,17 @@ BOOL CDownloadTransferHTTP::ReadFlush()
 		}
 		else if ( m_bRangeFault && !m_bGotRanges )
         {
-			/* we got a "requested range unavailable" error but the source doesn't
-			advertise available ranges; don't start to guess, try again later */
+			// A "requested range unavailable" error but the source doesn't
+			// advertise available ranges: don't guess, try again later
 			theApp.Message( MSG_INFO, IDS_DOWNLOAD_416_WITHOUT_RANGE, (LPCTSTR)m_sAddress );
 			Close( TRI_TRUE );
 			return FALSE;
         }
 		else if ( m_bRangeFault && m_bGotRanges && m_nRequests >= 2 )
 		{
-			/* we made two requests already and the source does advertise available
-            ranges, but we still managed to request a wrong one */
-			// TODO: find the reason why this is happening
+			// Made two requests already and the source does advertise available ranges,
+            // but we still managed to request a wrong one
+			// ToDo: Determine if/why this is still happening
 			theApp.Message( MSG_ERROR, _T("BUG: PeerProject requested a fragment from host %s, although it knew that the host doesn't have that fragment") , (LPCTSTR)m_sAddress );
 			Close( TRI_TRUE );
 			return FALSE;

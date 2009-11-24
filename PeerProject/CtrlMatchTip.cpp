@@ -75,14 +75,6 @@ CMatchTipCtrl::CMatchTipCtrl()
 	m_nIcon		= 0;
 
 	if ( ! m_hClass ) m_hClass = AfxRegisterWndClass( CS_SAVEBITS );
-
-	m_crBack	= Colors.m_crTipBack;
-	m_crText	= Colors.m_crTipText;
-	m_crBorder	= CColors::CalculateColor( m_crBack, (COLORREF)0, 100 );
-	m_crWarnings = Colors.m_crTipWarnings; // Set color of warning messages
-
-	if ( m_brBack.m_hObject ) m_brBack.DeleteObject();
-	m_brBack.CreateSolidBrush( m_crBack );
 }
 
 CMatchTipCtrl::~CMatchTipCtrl()
@@ -111,6 +103,14 @@ void CMatchTipCtrl::Show(CMatchFile* pFile, CQueryHit* pHit)
 {
 	if ( AfxGetMainWnd() != GetForegroundWindow() ) return;
 	if ( ! Settings.Interface.TipSearch ) return;
+
+	m_crBack	= Colors.m_crTipBack;
+	m_crText	= Colors.m_crTipText;
+	m_crBorder	= CColors::CalculateColor( m_crBack, (COLORREF)0, 100 );
+	m_crWarnings = Colors.m_crTipWarnings; // Set color of warning messages
+
+	if ( m_brBack.m_hObject ) m_brBack.DeleteObject();
+	m_brBack.CreateSolidBrush( m_crBack );
 
 	CPoint point;
 	GetCursorPos( &point );
@@ -204,17 +204,11 @@ void CMatchTipCtrl::ShowInternal()
 		return;
 
 	if ( m_pHit != NULL )
-	{
 		LoadFromHit();
-	}
 	else if ( m_pFile != NULL )
-	{
 		LoadFromFile();
-	}
 	else
-	{
 		return;
-	}
 
 	if ( m_sName.GetLength() > 128 )
 		m_sName = m_sName.Left( 128 );
@@ -234,14 +228,10 @@ void CMatchTipCtrl::ShowInternal()
 	GetMonitorInfo( hMonitor, &oMonitor );
 
 	if ( rc.right >= oMonitor.rcWork.right)
-	{
 		rc.OffsetRect( oMonitor.rcWork.right - rc.right - 4, 0 );
-	}
 
 	if ( rc.bottom >= oMonitor.rcWork.bottom )
-	{
 		rc.OffsetRect( 0, -sz.cy - TIP_OFFSET_Y - 4 );
-	}
 
 	if ( Settings.Interface.TipAlpha == 255 )
 	{
@@ -439,29 +429,19 @@ void CMatchTipCtrl::LoadFromHit()
 	m_sCountry = theApp.GetCountryName( m_pHit->m_pAddress );
 
 	if (m_pHit->m_bBusy == 2)
-	{
 		LoadString( m_sBusy, IDS_TIP_SOURCE_BUSY );
-	}
 	else
-	{
 		m_sBusy.Empty();
-	}
+
 	if (m_pHit->m_bPush == 2)
-	{
 		LoadString( m_sPush, IDS_TIP_SOURCE_FIREWALLED );
-	}
 	else
-	{
 		m_sPush.Empty();
-	}
+
 	if (m_pHit->m_bStable == 1)
-	{
 		LoadString( m_sUnstable, IDS_TIP_SOURCE_UNSTABLE );
-	}
 	else
-	{
 		m_sUnstable.Empty();
-	}
 }
 
 BOOL CMatchTipCtrl::LoadTypeInfo()

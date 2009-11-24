@@ -270,7 +270,7 @@ tasks_allusers=All users
 tasks_selectusers=Install %1 for:
 tasks_currentuser=%1 only
 tasks_languages=Install multi-language support
-tasks_multisetup=Setup Windows user's default folder locations
+tasks_multisetup=Setup Windows User's default folder locations
 tasks_upnp=Enable Plug'n'Play network devices for port-forwarding
 tasks_firewall=Add an exception to the Windows Firewall
 tasks_resetdiscoveryhostcache=Reset Discovery and Hostcache
@@ -284,8 +284,9 @@ icons_downloads=Downloads
 icons_basicmode=Basic Mode
 icons_tabbedmode=Tabbed Mode
 icons_windowedmode=Windowed Mode
-CreateDesktopIcon=Add a &desktop shortcut icon
-CreateQuickLaunchIcon=Add a &Quick Launch icon
+CreateQuickLaunchIcon=Add a PeerProject &quick launch icon
+CreateDesktopIcon=Add a PeerProject &desktop shortcut icon
+CreateDesktopIconWizard=Add a TorrentWizard &desktop shortcut icon
 PathNotExist=Error, the path of the %1 folder doesn't exist
 dialog_shutdown=%1 is currently running. Would you like %1 to be shutdown so the installation can continue?
 dialog_firewall=Setup failed to add PeerProject to the Windows Firewall.%nPlease add PeerProject to the exception list manually.
@@ -296,6 +297,9 @@ page_viruswarning_text=Filesharing is a home server with browser to find others 
 ; Don't copy these last 2 messages, they are just links.
 page_viruswarning_link=http://Security.PeerProject.org/
 page_viruswarning_destination=http://Security.PeerProject.org/
+
+; English Alt Spellings
+;en_uk.
 
 ; Afrikaans
 af.components_plugins=Inpropprogramme
@@ -473,10 +477,10 @@ ee.page_viruswarning_title=Viiruse Hoiatus
 ee.page_viruswarning_subtitle=Kas sul on AntiVirus programm installeeeritud?
 ee.CreateDesktopIcon=Loo &Töölaua ikoon
 ee.CreateQuickLaunchIcon=Loo &Quick Launch ikoon
-; Spanish std
+; Spanish
 es.components_plugins=Plugins
 es.components_skins=Skins
-es.tasks_languages=Idiomas
+es.tasks_languages=Instalar multi-idiomas
 es.tasks_allusers=Todos los usuarios
 es.tasks_selectusers=Instalar %1 para:
 es.tasks_currentuser=%1 solamente
@@ -500,12 +504,12 @@ es.dialog_malwaredetected=Malware has been detected on your system at %1, please
 es.page_viruswarning_text=Cuando estas usando Internet, debes siempre asegurarte que tienes un antivirus actualizado hasta la fecha para protegerte de troyanos, gusanos, y otros programas maliciosos. Puedes encontrar una lista de buenos antivirus y sugerencias de seguridad para proteger tu computadora en la siguiente dirección:
 es.page_viruswarning_title=Peligro de Virus
 es.page_viruswarning_subtitle=¿Tienes un programa antivirus instalado?
-es.CreateDesktopIcon=Mostrar/Quitar icono de &Escritorio
-es.CreateQuickLaunchIcon=Mostrar/Quitar icono de &Inicio Rápido
+es.CreateDesktopIcon=Mostrar icono de &Escritorio
+es.CreateQuickLaunchIcon=Mostrar icono de &Inicio Rápido
 ; Spanish Mexican
 es_mx.components_plugins=Plugins
 es_mx.components_skins=Skins
-es_mx.tasks_languages=Idiomas
+es_mx.tasks_languages=Instalar multi-idiomas
 es_mx.tasks_allusers=Todos los usuarios
 es_mx.tasks_selectusers=Instalar %1 para:
 es_mx.tasks_currentuser=%1 solamente
@@ -529,8 +533,8 @@ es_mx.dialog_malwaredetected=Malware has been detected on your system at %1, ple
 es_mx.page_viruswarning_text=Cuando estas usando Internet, debes siempre asegurarte que tienes un antivirus actualizado hasta la fecha para protegerte de troyanos, gusanos, y otros programas maliciosos. Puedes encontrar una lista de buenos antivirus y sugerencias de seguridad para proteger tu computadora en la siguiente dirección:
 es_mx.page_viruswarning_title=Peligro de Virus
 es_mx.page_viruswarning_subtitle=¿Tienes un programa antivirus instalado?
-es_mx.CreateDesktopIcon=Mostrar/Quitar icono de &Escritorio
-es_mx.CreateQuickLaunchIcon=Mostrar/Quitar icono de &Inicio Rápido
+es_mx.CreateDesktopIcon=Mostrar icono de &Escritorio
+es_mx.CreateQuickLaunchIcon=Mostrar icono de &Inicio Rápido
 ; French
 fr.components_plugins=Plugins
 fr.components_skins=Skins

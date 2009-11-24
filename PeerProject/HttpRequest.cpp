@@ -83,7 +83,9 @@ BOOL CHttpRequest::SetURL(LPCTSTR pszURL)
 {
 	if ( IsPending() )
 		return FALSE;
-	if ( pszURL == NULL || _tcsncmp( pszURL, _T("http"), 4 ) ) return FALSE;
+	if ( pszURL == NULL || _tcsncmp( pszURL, _T("http"), 4 ) )
+		return FALSE;
+
 	m_sURL = pszURL;
 	return TRUE;
 }
@@ -254,8 +256,11 @@ void CHttpRequest::Cancel()
 void CHttpRequest::OnRun()
 {
 	ASSERT( m_sUserAgent.GetLength() );
-	ASSERT( m_sURL.GetLength() );	// Fails
+	ASSERT( m_sURL.GetLength() );	// ToDo: Track Failures from CBTTrackerRequest::OnRun()
 	ASSERT( m_pResponse == NULL );
+
+	if ( m_sURL.GetLength() < 14 )
+		return;	// Torrent Crash Prevention
 
 	m_hInternet = InternetOpen( m_sUserAgent, INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0 );
 	if ( m_hInternet )

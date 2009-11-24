@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1247,10 +1247,9 @@
 	<menu name="CLibraryFileView.Physical.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="Apri/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Aggiungi alla playlist"/>
+		<item id="ID_LIBRARY_DELETE" text="Elimina"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Condividi"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="Elimina"/>
 		<separator/>
 		<menu text="Cerca">
 			<item id="ID_SEARCH_FOR_THIS" text="_Questo file"/>
@@ -1264,26 +1263,24 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Scarica metadata"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
 		</menu>
 		<menu text="Organizza">
 			<item id="ID_LIBRARY_RENAME" text="Rinomina file"/>
 			<item id="ID_LIBRARY_MOVE" text="Sposta i file..."/>
 			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizza metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="Aggiorna _metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Proprietà"/>
 	</menu>
 	<menu name="CLibraryFileView.Physical">
 		<item id="ID_LIBRARY_LAUNCH" text="Apri/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Aggiungi alla playlist"/>
+		<item id="ID_LIBRARY_DELETE" text="Elimina"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Condividi"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="Elimina"/>
+		<item id="ID_LIBRARY_URI" text="URI"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Crea File ._torrent"/>
 		<separator/>
 		<menu text="Cerca">
 			<item id="ID_SEARCH_FOR_THIS" text="_Questo file"/>
@@ -1297,30 +1294,28 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su _Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Acquisisci metadata"/>
 			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Crea File ._torrent"/>
 		</menu>
 		<menu text="Organizza">
 			<item id="ID_LIBRARY_RENAME" text="Rinomina file"/>
 			<item id="ID_LIBRARY_MOVE" text="Sposta i file..."/>
 			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizza metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="Aggiorna _metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Modifica colonne..."/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizza metadata"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="Aggiorna _metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Modifica colonne..."/>
+		</menu>
 		<separator/>
 		<item id="ID_SHELL_MENU" text="Menu s_hell"/>
-		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Proprietà"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="Apri/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Aggiungi alla playlist"/>
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Esegui album"/>
+		<item id="ID_LIBRARY_DELETE" text="Elimina"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Condividi"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="Elimina"/>
 		<separator/>
 		<menu text="Cerca">
 			<item id="ID_SEARCH_FOR_THIS" text="_Questo file"/>
@@ -1334,28 +1329,26 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Acquisisci metadata"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
 		</menu>
 		<menu text="Organizza">
-			<item id="ID_LIBRARY_RENAME" text="Rinomina file"/>
 			<item id="ID_LIBRARY_UNLINK" text="Rimuovi i file"/>
 			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="Rinomina file"/>
 			<item id="ID_LIBRARY_MOVE" text="Sposta i file..."/>
 			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizza metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="Aggiorna _metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Proprietà"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual">
 		<item id="ID_LIBRARY_LAUNCH" text="Apri/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Aggiungi alla playlist"/>
+		<item id="ID_LIBRARY_DELETE" text="Elimina"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Condividi"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="Elimina"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Crea File ._torrent"/>
 		<separator/>
 		<menu text="Cerca">
 			<item id="ID_SEARCH_FOR_THIS" text="_Questo file"/>
@@ -1369,7 +1362,6 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Visualizza la ricerca su _Bitzi"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Acquisisci metadata"/>
 			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Crea File ._torrent"/>
 		</menu>
 		<menu text="Organizza">
 			<item id="ID_LIBRARY_UNLINK" text="Rimuovi i file"/>
@@ -1378,11 +1370,13 @@
 			<item id="ID_LIBRARY_MOVE" text="Sposta i file..."/>
 			<item id="ID_LIBRARY_COPY" text="Copia i file..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizza metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="Aggiorna _metadata"/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizza metadata"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="Aggiorna _metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Modifica colonne..."/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Modifica colonne..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Proprietà"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -3375,40 +3369,44 @@
 		<control caption="Applica"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Generale">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Generale">
 		<control caption="_Generale:"/>
 		<control caption="Connetti all'avvio di PeerProject"/>
 		<control caption="Esegui PeerProject all'avvio di Windows"/>
 		<control caption="Mostra messaggio prima di aprire gli URI"/>
-		<control caption="Mostra valori in:"/>
-		<control caption="bit/secondo|byte/secondo|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_Download:"/>
 		<control caption="Espandi nuovi download"/>
 		<control caption="Mostra barra dei progressi semplice"/>
+		<control caption="Mostra valori in:"/>
+		<control caption="bit/secondo|byte/secondo|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Ricerca:"/>
 		<control caption="Espandi file con più fonti"/>
 		<control caption="Passa a Trasferimenti al download"/>
 		<control caption="Nascondi barra a lato durante la ricerca"/>
 		<control caption="Filtra contenuto per adulti dalle ricerche"/>
-		<control caption="T_ooltip:"/>
+		<control caption="_Tooltip:"/>
 		<control/>
 		<control caption="Ritardo (ms):"/>
 		<control/>
 		<control/>
 		<control caption="Opacità:"/>
 		<control/>
+		<control caption="Un'ombra (riavviare)"/>
 		<control caption="_Barra:"/>
 		<control caption="Quando clicco chiudi:"/>
 		<control caption="Chiedi|Minimizza nell'area di notifica|Esci immediatamente|Esci al termine dei trasferimenti"/>
 		<control caption="Quando clicco minimizza:"/>
 		<control caption="Normale|Minimizza nell'area di notifica"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Libreria">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Libreria">
 		<control caption="_Opzioni:"/>
-		<control caption="Salva visualizzazione cartelle"/>
-		<control caption="Visualizza cartelle nella libreria"/>
-		<control caption="Hash veloce (Usa molta CPU)"/>
 		<control caption="Permetti di vedere i tuoi file"/>
+		<control caption="Visualizza cartelle nella libreria"/>
+		<control caption="Hash veloce (molta CPU)"/>
+		<control caption="Rilevamento serie di video"/>
+		<control caption="Crea file fantasma di cancellazione"/>
+		<control caption="Salva visualizzazione cartelle"/>
 		<control caption="_File recenti:"/>
 		<control caption="Memorizza:"/>
 		<control/>
@@ -3430,8 +3428,6 @@
 		<control caption="Salva _collezioni qui:"/>
 		<control/>
 		<control/>
-		<control caption="Crea file fantasma durante la cancellazione"/>
-		<control caption="Rilevamento intelligente serie di video"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media player">
 		<control caption="_Opzioni:"/>
@@ -3596,17 +3592,17 @@
 		<control caption="_Elimina"/>
 		<control caption="(modifiche con effetto immediato)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Accesso remoto">
-		<control caption="_Guida:"/>
-		<control caption="L'accesso remoto di PeerProject ti permette di lasciare in esecuzione PeerProject sul tuo PC e controllarlo in remoto utilizzando un browser Internet. Sarà necessario essere abilitati ad accettare le connessioni in entrata per usare questa caratteristica (es. router configurato correttamente, ecc)."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Accesso remoto">
 		<control caption="A_bilita:"/>
 		<control caption="Abilita l'accesso remoto di PeerProject:"/>
 		<control/>
 		<control caption="_Autenticazione:"/>
 		<control caption="Scegli un nome utente:"/>
-		<control/>
 		<control caption="Scegli una password:"/>
 		<control/>
+		<control/>
+		<control caption="Aiuto:"/>
+		<control caption="L'accesso remoto di PeerProject ti permette di lasciare in esecuzione PeerProject sul tuo PC e controllarlo in remoto utilizzando un browser Internet. Sarà necessario essere abilitati ad accettare le connessioni in entrata per usare questa caratteristica (es. router configurato correttamente, ecc)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Scheduler">
 		<control/>
@@ -3627,7 +3623,7 @@
 		<control caption="% della _banda quando limitato"/>
 		<control/>
 		<control/>
-		<control caption="Aiuto"/>
+		<control caption="Aiuto:"/>
 		<control caption="Lo schedulatore è stato previsto per permetterti di scegliere quando PeerProject si connetterà per scaricare i file. {n}{n}{n}Nota: Sei hai PeerProject aperto quando questo è attivo, puoi vederlo cambiare le impostazioni - Questo è normale! -"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Reti">
@@ -3647,8 +3643,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Rete Gnutella2:"/>
-		<control caption="Connetti sempre a Gnutella2"/>
-		<control caption="Connetti a Gnutella2 oggi"/>
+		<control caption="Connetti a G2 oggi"/>
+		<control caption="Connetti sempre a G2"/>
 		<control caption="Modalità:"/>
 		<control caption="Ottimale|Leaf|Hub"/>
 		<control caption="Connessioni G_2:"/>
@@ -3661,9 +3657,9 @@
 		<control caption="Hub a Hub:"/>
 		<control/>
 		<control/>
-		<control caption="Rete Gnutella1:"/>
-		<control caption="Connetti sempre a Gnutella1"/>
-		<control caption="Connetti a Gnutella1 oggi"/>
+		<control caption="Rete Gnutella:"/>
+		<control caption="Connetti a Gnutella oggi"/>
+		<control caption="Connetti sempre a Gnutella"/>
 		<control caption="Modalità:"/>
 		<control caption="Ottimale|Leaf|Ultrapeer"/>
 		<control caption="Connessioni G_1:"/>
@@ -3681,10 +3677,15 @@
 		<control caption="Leaf a Hub"/>
 		<control caption="Hub a Hub"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="Rete _eDonkey:"/>
 		<control caption="Connetti sempre a eDonkey"/>
 		<control caption="Connetti a eDonkey oggi"/>
+		<control caption="_Connessioni al client:"/>
+		<control caption="Connetti a meno di:"/>
+		<control/>
+		<control/>
+		<control caption="client di eDonkey."/>
 		<control caption="Ricerca _globale:"/>
 		<control caption="Cerca server remoti conosciuti nella cache dei server:"/>
 		<control caption="Termina la ricerca dopo:"/>
@@ -3692,16 +3693,11 @@
 		<control/>
 		<control caption="risultati di ricerca."/>
 		<control caption="Ricevi una lista di server aggiornata dal server connesso"/>
-		<control caption="_Connessioni al client:"/>
-		<control caption="Connetti a meno di:"/>
-		<control/>
-		<control/>
-		<control caption="client di eDonkey."/>
 		<control caption="_Strumenti eDonkey:"/>
-		<control caption="Scarica la lista dei server eDonkey dal web:"/>
 		<control caption="Scarica..."/>
+		<control caption="Scarica la lista dei server eDonkey dal web:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Connessioni di download:"/>
 		<control/>
 		<control/>
@@ -3709,31 +3705,32 @@
 		<control/>
 		<control/>
 		<control caption="Connessioni del client"/>
-		<control caption="&#160;Nascondi torrent completati&#160;&#160;&#160;&#160;&#160;&#160;&#160;Quando il rapporto di cond. è"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="&#160;Priorità alle fonti torrent"/>
+		<control caption="Priorità alle fonti torrent"/>
 		<control caption="_EndGame:"/>
 		<control caption="Abilita modalità EndGame nel completare il torrent"/>
+		<control caption="Nascondi torrent completati Quando il rapporto di cond. è"/>
+		<control/>
+		<control/>
+		<control caption="%"/>
 		<control caption="_Salva torrent qui:"/>
 		<control/>
 		<control/>
-		<control caption="_Generatore di torrent"/>
+		<control caption="_Generatore di torrent:"/>
 		<control/>
 		<control/>
 		<control caption="Tracker di default:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skin">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Skin">
 		<control/>
 		<control caption="Informazioni sulla skin:"/>
 		<control caption="Nome:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Autore:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Descrizione:"/>
 		<control/>
+		<control caption="*Pelli Selezionare più di mescolare"/>
 		<control caption="Elimina"/>
 		<control caption="Installa..."/>
 		<control caption="Altre skin"/>
@@ -3742,7 +3739,7 @@
 		<control/>
 		<control caption="Informazioni sul plugin:"/>
 		<control caption="Nome:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Descrizione:"/>
 		<control/>
 		<control caption="_Installa..."/>

@@ -128,14 +128,15 @@ void CSettings::Load()
 	Add( _T("VersionCheck"), _T("UpgradeVersion"), &VersionCheck.UpgradeVersion );
 
 	Add( _T("Interface"), _T("LowResMode"), &Interface.LowResMode, false );
-	Add( _T("Interface"), _T("TipAlpha"), &Interface.TipAlpha, 230, 1, 0, 255 );
-	Add( _T("Interface"), _T("TipDelay"), &Interface.TipDelay, 600, 1, 100, 5000, _T(" ms") );
+	Add( _T("Interface"), _T("TipAlpha"), &Interface.TipAlpha, 220, 1, 50, 255 );
+	Add( _T("Interface"), _T("TipDelay"), &Interface.TipDelay, 500, 1, 100, 5000, _T(" ms") );
 	Add( _T("Interface"), _T("TipDownloads"), &Interface.TipDownloads, true );
-	Add( _T("Interface"), _T("TipLibrary"), &Interface.TipLibrary, true );
-	Add( _T("Interface"), _T("TipMedia"), &Interface.TipMedia, true );
-	Add( _T("Interface"), _T("TipNeighbours"), &Interface.TipNeighbours, true );
-	Add( _T("Interface"), _T("TipSearch"), &Interface.TipSearch, true );
 	Add( _T("Interface"), _T("TipUploads"), &Interface.TipUploads, true );
+	Add( _T("Interface"), _T("TipLibrary"), &Interface.TipLibrary, true );
+	Add( _T("Interface"), _T("TipNeighbours"), &Interface.TipNeighbours, true );
+	Add( _T("Interface"), _T("TipMedia"), &Interface.TipMedia, true );
+	Add( _T("Interface"), _T("TipSearch"), &Interface.TipSearch, true );
+	Add( _T("Interface"), _T("TipShadow"), &Interface.TipShadow, true );
 
 	Add( _T("Windows"), _T("RunWizard"), &Windows.RunWizard, false );
 	Add( _T("Windows"), _T("RunWarnings"), &Windows.RunWarnings, false );
@@ -193,7 +194,7 @@ void CSettings::Load()
 	Add( _T("Library"), _T("VirtualFiles"), &Library.VirtualFiles, false );
 	Add( _T("Library"), _T("WatchFolders"), &Library.WatchFolders, true );
 	Add( _T("Library"), _T("WatchFoldersTimeout"), &Library.WatchFoldersTimeout, 5, 1, 1, 60, _T(" s") );
-	Add( _T("Library"), _T("SmartSeriesDetection"), &Library.SmartSeriesDetection, false );
+	Add( _T("Library"), _T("SmartSeriesDetection"), &Library.SmartSeriesDetection, true );
 
 	Add( _T("WebServices"), _T("BitziAgent"), &WebServices.BitziAgent, _T(".") );
 	Add( _T("WebServices"), _T("BitziOkay"), &WebServices.BitziOkay, false, true );
@@ -245,13 +246,13 @@ void CSettings::Load()
 	Add( _T("MediaPlayer"), _T("ServicePath"), &MediaPlayer.ServicePath );
 	Add( _T("MediaPlayer"), _T("ShortPaths"), &MediaPlayer.ShortPaths, false );
 	Add( _T("MediaPlayer"), _T("StatusVisible"), &MediaPlayer.StatusVisible, true );
-	Add( _T("MediaPlayer"), _T("VisCLSID"), &MediaPlayer.VisCLSID, _T("{591A5CFF-3172-4020-A067-238542DDE9C2}") );
 	Add( _T("MediaPlayer"), _T("VisPath"), &MediaPlayer.VisPath );
 	Add( _T("MediaPlayer"), _T("VisSize"), &MediaPlayer.VisSize, 1 );
+	Add( _T("MediaPlayer"), _T("VisCLSID"), &MediaPlayer.VisCLSID, _T("{591A5CFF-3172-4020-A067-238542DDE9C2}") );
 	Add( _T("MediaPlayer"), _T("VisWrapperCLSID"), &MediaPlayer.VisWrapperCLSID, _T("{C3B7B25C-6B8B-481A-BC48-59F9A6F7B69A}") );
 //	Add( _T("MediaPlayer"), _T("VisSoniqueCLSID"), &MediaPlayer.VisSoniqueCLSID, _T("{D07E630D-A850-4f11-AD29-3D3848B67EFE}") );
 	Add( _T("MediaPlayer"), _T("Volume"), &MediaPlayer.Volume, 1.0f );
-	Add( _T("MediaPlayer"), _T("Zoom"), (DWORD*)&MediaPlayer.Zoom, smzFill );
+	Add( _T("MediaPlayer"), _T("Zoom"), (DWORD*)&MediaPlayer.Zoom, smzOne );
 
 	Add( _T("Web"), _T("ED2K"), &Web.ED2K, true );
 	Add( _T("Web"), _T("Gnutella"), &Web.Gnutella, true );
@@ -521,7 +522,7 @@ void CSettings::Load()
 
 	Add( _T("Uploads"), _T("AllowBackwards"), &Uploads.AllowBackwards, true );
 	Add( _T("Uploads"), _T("AutoClear"), &Uploads.AutoClear, false );
-	Add( _T("Uploads"), _T("BlockAgents"), &Uploads.BlockAgents, _T("|Foxy|Mozilla|") );
+	Add( _T("Uploads"), _T("BlockAgents"), &Uploads.BlockAgents, _T("|Mozilla|Foxy") );
 	Add( _T("Uploads"), _T("ClampdownFactor"), &Uploads.ClampdownFactor, 20, 1, 0, 100, _T("%") );
 	Add( _T("Uploads"), _T("ClampdownFloor"), &Uploads.ClampdownFloor, 8*128, 128, 0, 4096, _T(" Kb/s") );
 	Add( _T("Uploads"), _T("ClearDelay"), &Uploads.ClearDelay, 60*1000, 1000, 1, 1800, _T(" s") );
@@ -561,9 +562,9 @@ void CSettings::Load()
 	Add( _T("IRC"), _T("Nick"), &IRC.Nick );
 	Add( _T("IRC"), _T("Alternate"), &IRC.Alternate );
 	Add( _T("IRC"), _T("ServerName"), &IRC.ServerName, _T("irc.p2pchat.net") );
-	Add( _T("IRC"), _T("ServerPort"), &IRC.ServerPort, _T("6667") );
+	Add( _T("IRC"), _T("ServerPort"), &IRC.ServerPort, 6667, 1, 1024, 65530 );
 	Add( _T("IRC"), _T("FloodEnable"), &IRC.FloodEnable, TRUE );
-	Add( _T("IRC"), _T("FloodLimit"), &IRC.FloodLimit, _T("24") );
+	Add( _T("IRC"), _T("FloodLimit"), &IRC.FloodLimit, 24, 1, 2, 100 );
 	Add( _T("IRC"), _T("Timestamp"), &IRC.Timestamp, FALSE );
 	Add( _T("IRC"), _T("UserName"), &IRC.UserName, _T("PeerIRC") );
 	Add( _T("IRC"), _T("RealName"), &IRC.RealName, _T("PeerIRC") );

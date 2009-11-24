@@ -843,12 +843,12 @@ DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime, bool /*bShort
 	DWORD slot = METER_LENGTH;	// Start at the last slot
 	while ( slot-- )
 	{
-		if ( pTimes[ slot ] > tTime )	// Is this within the time period
-			nData += pHistory[ slot ];	//   It was, add it to #bytes
-		else if ( slot > nPosition )	// It wasn't, did we start with the latest reading
-			slot = nPosition + 1;		//   We didn't, jump to our latest reading and continue
+		if ( pTimes[ slot ] > tTime )	// Is this within the time period?
+			nData += pHistory[ slot ];	// Add it to #bytes
+		else if ( slot > nPosition )	// Or did we start with the latest reading ?
+			slot = nPosition + 1;		//	Jump to our latest reading and continue
 		else
-			break;						//   We did, no need to check the rest
+			break;						//	We did, no need to check the rest
 	}
 
 	// return the #bytes in time period

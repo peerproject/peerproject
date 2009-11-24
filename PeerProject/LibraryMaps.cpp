@@ -193,7 +193,7 @@ CLibraryFile* CLibraryMaps::LookupFileByURN(LPCTSTR pszURN, BOOL bSharedOnly, BO
 		if ( ( pFile = LookupFileByED2K( oED2K, bSharedOnly, bAvailableOnly ) ) != NULL ) return pFile;
 	}
 
-	if ( oBTH.fromUrn( pszURN ) )
+	if ( oBTH.fromUrn( pszURN ) || oBTH.fromUrn< Hashes::base16Encoding >( pszURN ) )
 	{
 		if ( ( pFile = LookupFileByBTH( oBTH, bSharedOnly, bAvailableOnly ) ) != NULL ) return pFile;
 	}
@@ -332,15 +332,11 @@ CLibraryFile* CLibraryMaps::LookupFileBySHA1(const Hashes::Sha1Hash& oSHA1, BOOL
 		if ( validAndEqual( oSHA1, pFile->m_oSHA1 ) )
 		{
 			if ( ( ! bSharedOnly || pFile->IsShared() ) && ( ! bAvailableOnly || pFile->IsAvailable() ) )
-			{
 				return pFile;
-			}
 			else
-			{
 				return NULL;
 			}
 		}
-	}
 
 	return NULL;
 }
@@ -358,13 +354,9 @@ CLibraryFile* CLibraryMaps::LookupFileByTiger(const Hashes::TigerHash& oTiger, B
 		if ( validAndEqual( oTiger, pFile->m_oTiger ) )
 		{
 			if ( ( ! bSharedOnly || pFile->IsShared() ) && ( ! bAvailableOnly || pFile->IsAvailable() ) )
-			{
 				return pFile;
-			}
 			else
-			{
 				return NULL;
-			}
 		}
 	}
 
@@ -879,7 +871,7 @@ BOOL CLibraryMaps::CheckFileAttributes(CLibraryFile* pFile, bool bMinSize, bool 
 //////////////////////////////////////////////////////////////////////
 // CLibraryMaps serialize
 
-void CLibraryMaps::Serialize1(CArchive& ar, int nVersion)
+void CLibraryMaps::Serialize1(CArchive& ar, int /*nVersion*/)
 {
 	if ( ar.IsStoring() )
 	{
@@ -895,8 +887,8 @@ void CLibraryMaps::Serialize1(CArchive& ar, int nVersion)
 		ar >> nNextIndex;
 		m_nNextIndex = nNextIndex;
 
-		if ( nVersion >= 28 )
-		{
+		//if ( nVersion >= 28 )
+		//{
 			UINT nIndexMapCount = 0;
 			ar >> nIndexMapCount;
 			m_pIndexMap.InitHashTable( GetBestHashTableSize( nIndexMapCount ) );
@@ -908,13 +900,13 @@ void CLibraryMaps::Serialize1(CArchive& ar, int nVersion)
 			UINT nPathMapCount = 0;
 			ar >> nPathMapCount;
 			m_pPathMap.InitHashTable( GetBestHashTableSize( nPathMapCount ) );
-		}
+		//}
 	}
 }
 
 void CLibraryMaps::Serialize2(CArchive& ar, int nVersion)
 {
-	if ( nVersion < 18 ) return;
+	//if ( nVersion < 18 ) return;
 
 	if ( ar.IsStoring() )
 	{

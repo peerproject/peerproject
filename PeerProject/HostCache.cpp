@@ -87,7 +87,7 @@ BOOL CHostCache::Load()
 
 	try
 	{
-		CArchive ar( &pFile, CArchive::load );
+		CArchive ar( &pFile, CArchive::load, 262144 );  // 256 KB buffer
 		Serialize( ar );
 		ar.Close();
 	}
@@ -112,7 +112,7 @@ BOOL CHostCache::Save()
 
 	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) ) return FALSE;
 
-	CArchive ar( &pFile, CArchive::store );
+	CArchive ar( &pFile, CArchive::store, 262144 );  // 256 KB buffer
 	Serialize( ar );
 	ar.Close();
 
@@ -675,8 +675,10 @@ void CHostCacheList::Serialize(CArchive& ar, int nVersion)
 					m_HostsTime.insert( pHost );
 				}
 				else
+				{
 					// Remove bad or duplicated host
 					delete pHost;
+				}
 			}
 		}
 
@@ -760,8 +762,10 @@ int CHostCache::ImportNodes(CFile* pFile)
 				return 0;
 		}
 		else
+		{
 			// Unknown format
 			return 0;
+		}
 	}
 	while ( nCount-- > 0 )
 	{
@@ -965,7 +969,7 @@ CHostCacheHost::CHostCacheHost(PROTOCOLID nProtocol) :
 //////////////////////////////////////////////////////////////////////
 // CHostCacheHost serialize
 
-void CHostCacheHost::Serialize(CArchive& ar, int nVersion)
+void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)
 {
 	if ( ar.IsStoring() )
 	{
@@ -1063,8 +1067,10 @@ void CHostCacheHost::Serialize(CArchive& ar, int nVersion)
 			{
 				ar >> m_sDescription;
 				ar >> m_nUserCount;
-				//if ( nVersion >= 8 ) ar >> m_nUserLimit;
-				//if ( nVersion >= 9 ) ar >> m_bPriority;
+				//if ( nVersion >= 8 )
+					ar >> m_nUserLimit;
+				//if ( nVersion >= 9 )
+					ar >> m_bPriority;
 				//if ( nVersion >= 10 )
 				//{
 					ar >> m_nFileLimit;
@@ -1106,18 +1112,18 @@ void CHostCacheHost::Serialize(CArchive& ar, int nVersion)
 			m_oBtGUID.validate();
 		//}
 
-		if ( nVersion >= 16 )
-		{
+		//if ( nVersion >= 16 )
+		//{
 			ar >> m_nUDPPort;
 			ReadArchive( ar, &m_oGUID[0], m_oGUID.byteCount );
 			m_oGUID.validate();
 			ar >> m_nKADVersion;
-		}
+		//}
 
-		if ( nVersion >= 17 )
-		{
+		//if ( nVersion >= 17 )
+		//{
 			ar >> m_tConnect;
-		}
+		//}
 	}
 }
 
@@ -1263,13 +1269,13 @@ BOOL CHostCacheHost::CanConnect(DWORD tNow) const
 	return
 		// Let failed host rest some time...
 		( ! m_tFailure || ( tNow - m_tFailure >= Settings.Connection.FailurePenalty ) ) &&
-		// ...and we lost no hope on this host...
+		// ...and we haven't lost hope on this host...
 		( m_nFailures <= Settings.Connection.FailureLimit ) &&
 		// ...and host isn't expired...
 		( ! IsExpired( tNow ) ) &&
-		// ...and make sure we reconnect not too fast...
+		// ...and don't reconnect too fast...
 		( ! IsThrottled( tNow ) );
-		// ...then we can connect!
+		// ...now we can connect.
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1354,7 +1360,7 @@ BOOL CHostCacheHost::CanQuery(DWORD tNow) const
 	}
 	else if ( m_nProtocol == PROTOCOL_KAD )
 	{
-		return TRUE; // ToDo: Fix it
+		return TRUE; // ToDo: Fix KAD
 	}
 	return FALSE;
 }

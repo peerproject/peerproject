@@ -312,7 +312,7 @@
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="NDEBUG"
 				AdditionalIncludeDirectories="..\..\PeerProject"
-				WarningLevel="4"
+				WarningLevel="2"
 				TargetEnvironment="3"
 				DLLDataFileName=""
 				ProxyFileName=""

@@ -58,9 +58,10 @@ public:
 	void		EnableCookie(bool bEnable);
 
 // Data
+public:
+	CString		m_sURL;
 protected:
 	HINTERNET	m_hInternet;
-	CString		m_sURL;
 	CString		m_sUserAgent;
 	CString		m_sRequestHeaders;
 	DWORD		m_nLimit;

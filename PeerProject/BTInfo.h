@@ -34,9 +34,10 @@ class CBTInfo : public CPeerProjectFile
 public:
 	CBTInfo();
 	CBTInfo(const CBTInfo& oSource);
+	//CBTInfo& operator=(const CBTInfo& oSource);
 	virtual ~CBTInfo();
 
-	// Tracker status/types
+	// Tracker status/types (SetTrackerMode)
 	enum
 	{
 		tNull,			// No tracker
@@ -49,7 +50,7 @@ public:
 	enum
 	{
 		dtAlways,			// Whenever wanted
-		dtWhenRatio,		// When download ratio > 100%
+		dtWhenRatio,		// Download ratio > 100%
 		dtWhenRequested,	// Only when another client requests
 		dtNever				// Never
 	};
@@ -59,8 +60,7 @@ public:
 	class CBTFile : public CPeerProjectFile
 	{
 	public:
-		// Find file on disk
-		CString	FindFile();
+		CString	FindFile();	// Find file on disk
 
 	private:
 		const CBTInfo*	m_pInfo;			// Parent torrent handler
@@ -119,6 +119,8 @@ private:
 	CSHA		m_pTestSHA1;
 	DWORD		m_nTestByte;
 	CBuffer		m_pSource;
+	DWORD		m_nInfoStart;
+	DWORD		m_nInfoSize;
 
 	BOOL		CheckFiles();
 	int			AddTracker(const CBTTracker& oTracker);
@@ -130,6 +132,8 @@ public:
 	void		Serialize(CArchive& ar);
 	void		ConvertOldTorrents();
 
+	int 		NextInfoPiece();
+	BOOL		AddInfoPiece(DWORD nInfoSize, DWORD nInfoPiece, BYTE *pPacketBuffer, DWORD nPacketLength);
 	BOOL		LoadTorrentFile(LPCTSTR pszFile);
 	BOOL		LoadTorrentBuffer(CBuffer* pBuffer);
 	BOOL		LoadTorrentTree(CBENode* pRoot);
@@ -159,6 +163,11 @@ public:
 	inline bool IsAvailable() const
 	{
 		return m_oBTH;
+	}
+
+	inline bool IsAvailableInfo() const
+	{
+		return IsAvailable() && m_nBlockSize && m_nBlockCount;
 	}
 
 	inline bool HasEncodingError() const

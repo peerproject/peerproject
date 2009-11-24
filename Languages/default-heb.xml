@@ -2,8 +2,8 @@
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Hebrew Skin File -->
-<
-<!-- Translation based on default-en.xml r41 -->
+
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2756,7 +2756,7 @@ gap i newline
 	<string id="16536" value="Gnutella Ratio of Received/Sent Pings"/>
 	<string id="16537" value="Gnutella Ratio of Received/Sent Pongs"/>
 	<string id="16538" value="Connection Errors (%)"/>
-    <string id="16768" value="‪&quot;%s&quot; URL קבלת כתובת"/>
+	<string id="16768" value="‪&quot;%s&quot; URL קבלת כתובת"/>
 	<string id="16769" value="‪.שרזה לא מבין את כתובת אינטרנט זו ,URL נכשל לפענח את הכתובת"/>
 	<string id="16770" value="‪.כיוון ששרזה עסוק URL נכשל להציג את חלון הדו-שיח לפעולות"/>
 	<string id="16771" value="‪&#8234;.‏בספרייתך‎ %s ‏הקובץ‎ ‏את‎ ‏לך‎ ‏יש‎ ‏כבר &#13;&#10; ?‏מקרה‎ ‏בכל‎ ‏מחדש‎ ‏להורידו‎ ‏רוצה‎ ‏אתה‎ ‏האם‎ "/>
@@ -2950,16 +2950,17 @@ gap i newline
 		<control caption="החל"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="כללי">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="כללי">
 		<control caption="‪:כללי"/>
 		<control caption="‪התחבר אוטמטית באתחול של שרזה"/>
 		<control caption="‪הפעל את שרזה עם אתחול חלונות"/>
 		<control caption="‪URI הראה הודעה לפני פתיחת"/>
-		<control caption="‪:הצגת מהירות"/>
-		<control caption="‪bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="‪:הורדות"/>
 		<control caption="‪הרחב הורדות חדשות כברירת מחדל"/>
 		<control caption="‪הצג מד התקדמות פשוט"/>
+		<control caption="‪:הצגת מהירות"/>
+		<control caption="‪bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="‪:חיפוש"/>
 		<control caption="‪הרחב קבצים עם כמה מקורות אוטמטית"/>
 		<control caption="‪עבור לחלון ההעברות בתחילת הורדה"/>
@@ -2972,18 +2973,21 @@ gap i newline
 		<control/>
 		<control caption="‪:אטימות"/>
 		<control/>
+		<control caption="הצל (מחדש)"/>
 		<control caption="‪:שורת משימות"/>
 		<control caption=":כשאני לוחצ/ת סגור"/>
 		<control caption="‪שאל אותי|מזער|סגור מיד|סגור בסיום פעולה"/>
 		<control caption="‪:כשאני לוחצ/ת מזער"/>
 		<control caption="‪רגיל|מזער"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="ספריה">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="ספריה">
 		<control caption=":אפשרויות"/>
-		<control caption="זכור את תצוגות התיקייה"/>
+		<control caption="אפשר לסייר בקבצי המשותפים"/>
 		<control caption="צפה בתיקיות הספריה"/>
 		<control caption="&#8234;(עומס למעבד)‎ ‏מהיר‎ ‏האשינג"/>
-		<control caption="אפשר לסייר בקבצי המשותפים"/>
+		<control caption="Create ghost files when deleting"/>
+		<control caption="Smart media series detection"/>
+		<control caption="זכור את תצוגות התיקייה"/>
 		<control caption=":קבצים אחרונים"/>
 		<control caption=":זכור"/>
 		<control/>
@@ -3005,8 +3009,6 @@ gap i newline
 		<control caption=":אגור כאן את האוספים"/>
 		<control/>
 		<control/>
-		<control caption="Create ghost files when deleting"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="נגן המדיה">
 		<control caption=":א_פשררויות"/>
@@ -3128,17 +3130,17 @@ gap i newline
 		<control caption="מחק"/>
 		<control caption="(השינויים משפיעים מייד)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="גישה מרחוק">
-		<control caption=":מדריך"/>
-		<control caption="אפשרות השליטה מרחוק של שרזה מאפשרת לך להשאיר את שרזה פועלת על המחשב, ולשלוט בה מרחוק בעזרת דפדפן האינטרנט, יהיה עלייך לדאוג שתוכל לקבל התקשרויות נכנסות - ראוטר מוגדר וכדומה"/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="גישה מרחוק">
 		<control caption=":אפשר"/>
 		<control caption=".אפשר גישה מרחוק לשרזה"/>
 		<control/>
 		<control caption=":פרטי חשבון"/>
 		<control caption=":בחר שם משתמש"/>
-		<control/>
 		<control caption=":בחר סיסמא"/>
 		<control/>
+		<control/>
+		<control caption=":מדריך"/>
+		<control caption="אפשרות השליטה מרחוק של שרזה מאפשרת לך להשאיר את שרזה פועלת על המחשב, ולשלוט בה מרחוק בעזרת דפדפן האינטרנט, יהיה עלייך לדאוג שתוכל לקבל התקשרויות נכנסות - ראוטר מוגדר וכדומה"/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="תזמונים">
 		<control/>
@@ -3179,8 +3181,8 @@ gap i newline
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="גונטלה">
 		<control caption=":רשת גנוטלה2"/>
-		<control caption="תמיד התחבר לגנוטלה2"/>
 		<control caption="התחבר אל גנוטלה2 היום"/>
+		<control caption="תמיד התחבר לגנוטלה2"/>
 		<control caption=":מצב"/>
 		<control caption="אופטימלי|קו ענף|מוקד"/>
 		<control caption=":חיבורי גנוטלה2"/>
@@ -3193,12 +3195,12 @@ gap i newline
 		<control caption="מוקד אל מוקד"/>
 		<control/>
 		<control/>
-		<control caption=":רשת גנוטלה1"/>
-		<control caption="תמיד התחבר לגנוטלה1"/>
-		<control caption="התחבר אל גנוטלה1 היום"/>
+		<control caption=":רשת גנוטלה"/>
+		<control caption="התחבר אל גנוטלה היום"/>
+		<control caption="תמיד התחבר לגנוטלה"/>
 		<control caption=":מצב"/>
 		<control caption="אופימלי|קו ענף|Ultrapeer"/>
-		<control caption=":חיבורי גנוטלה1"/>
+		<control caption=":חיבורי גנוטלה"/>
 		<control caption="Ultrapeer קו ענף אל"/>
 		<control/>
 		<control/>
@@ -3213,27 +3215,27 @@ gap i newline
 		<control caption="קו ענף אל מוקד"/>
 		<control caption="מוקד אל מוקד"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="אי-דונקי 2000">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="אי-דונקי 2000">
 		<control caption=":רשת אידונקי"/>
-		<control caption="התחבר לרשת אידונקי"/>
 		<control caption="חיבור אוטמטי בכל הפעלה"/>
+		<control caption="התחבר לרשת אידונקי"/>
+		<control caption=":חיבורי קישור מהתוכנה"/>
+		<control caption="אל תתחבר ליותר מאשר"/>
+		<control/>
+		<control/>
+		<control caption=".משתמשי אידונקי אחרים"/>
 		<control caption=":חיפוש גלובלי"/>
 		<control caption=":חפש שרתים מרוחקים ברשימות של אידונקי"/>
 		<control caption="עצור לחפש לאחר"/>
 		<control/>
 		<control/>
 		<control caption="תוצאות חיפוש"/>
-		<control caption="Receive and update server list from the connected server"/>
-		<control caption=":חיבורי קישור מהתוכנה"/>
-		<control caption="אל תתחבר ליותר מאשר"/>
-		<control/>
-		<control/>
-		<control caption=".משתמשי אידונקי אחרים"/>
+		<control caption="Update global server list from the connected server"/>
 		<control caption=":כלים של אי-דונקי 2000"/>
-		<control caption="הורד רשימת שרתים של אידונקי מהרשת"/>
 		<control caption="...הורד"/>
+		<control caption="הורד רשימת שרתים של אידונקי מהרשת"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="ביט-טורנט">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="ביט-טורנט">
 		<control caption=":הגדרות הורדה בביט-טורנט"/>
 		<control/>
 		<control/>
@@ -3241,13 +3243,13 @@ gap i newline
 		<control/>
 		<control/>
 		<control caption="מקסימום חיבורים"/>
-		<control caption="&#160;נקה טורנטים שהורדו&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;כשרמת השיתוף תגיע אל"/>
-		<control/>
-		<control/>
-		<control caption="%"/>
 		<control caption="&#160;תן עדיפות למקורות של טורנטים"/>
 		<control caption=":EndGame (האצה)"/>
 		<control caption="כשמסיימים הורדת טורנטים EndGame אפשר אופציית"/>
+		<control caption="נקה טורנטים שהורדו    כשרמת השיתוף תגיע אל"/>
+		<control/>
+		<control/>
+		<control caption="%"/>
 		<control caption=":אכסן טורנטים כאן"/>
 		<control/>
 		<control/>
@@ -3257,15 +3259,16 @@ gap i newline
 		<control caption=" :עוקב הטורנטים"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="מעטפות">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="מעטפות">
 		<control/>
 		<control caption=":מידע על המעטפות"/>
 		<control caption=" - תוסף"/>
-		<control caption="..."/>
+		<control/>
 		<control caption=" - עורך"/>
-		<control caption="..."/>
+		<control/>
 		<control caption=":מידע נוסף"/>
 		<control/>
+		<control caption="*"/>
 		<control caption="מחק"/>
 		<control caption="...התקן"/>
 		<control caption=":מידע נוסף"/>
@@ -3274,7 +3277,7 @@ gap i newline
 		<control/>
 		<control caption=":מידע על התוסף"/>
 		<control caption=":שם התוסף"/>
-		<control caption="..."/>
+		<control/>
 		<control caption=":מידע נוסף"/>
 		<control/>
 		<control caption="...התקנה"/>

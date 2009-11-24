@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1268,10 +1268,9 @@
 	<menu name="CLibraryFileView.Physical.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Aç/Oynat"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Oynatma Listesine Ekle"/>
+		<item id="ID_LIBRARY_DELETE" text="_Sil"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Paylaşılanlar"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Sil"/>
 		<separator/>
 		<menu text="A_rama">
 			<item id="ID_SEARCH_FOR_THIS" text="_Bu Dosya"/>
@@ -1285,26 +1284,24 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Veri İndir"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
 		</menu>
 		<menu text="_Düzenle">
 			<item id="ID_LIBRARY_RENAME" text="_Dosya Adı Değiştir"/>
 			<item id="ID_LIBRARY_MOVE" text="Dosyaları _Taşı..."/>
 			<item id="ID_LIBRARY_COPY" text="Dosyaları _Kopyala..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Sı_nırlı Veri"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Meta Verileri Tazele"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Ö_zellikler"/>
 	</menu>
 	<menu name="CLibraryFileView.Physical">
 		<item id="ID_LIBRARY_LAUNCH" text="_Aç/Oynat"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Oynatma Listesine Ekle"/>
+		<item id="ID_LIBRARY_DELETE" text="_Sil"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Paylaşılanlar"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="_Sil"/>
+		<item id="ID_LIBRARY_URI" text="URI"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent Dosyası Oluştur"/>
 		<separator/>
 		<menu text="A_rama">
 			<item id="ID_SEARCH_FOR_THIS" text="_Bu Dosya"/>
@@ -1318,30 +1315,28 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Veri Edinmek"/>
 			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="._torrent Dosyası Oluştur"/>
 		</menu>
 		<menu text="_Düzenle">
 			<item id="ID_LIBRARY_RENAME" text="_Dosya Adı Değiştir"/>
 			<item id="ID_LIBRARY_MOVE" text="Dosyaları _Taşı..."/>
 			<item id="ID_LIBRARY_COPY" text="Dosyaları _Kopyala..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Sınırlı Veri"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Meta Verileri Tazele"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Sü_tun Seç..."/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Sınırlı Veri"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Meta Verileri Tazele"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Sü_tun Seç..."/>
+		</menu>
 		<separator/>
 		<item id="ID_SHELL_MENU" text="İş_letim Sistemi Menüsü"/>
-		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Ö_zellikler"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Aç/Oynat"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Oynatma Listesine Ekle"/>
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="A_lbüm Oynat"/>
+		<item id="ID_LIBRARY_DELETE" text="_Sil"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Paylaşılanlar"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Sil"/>
 		<separator/>
 		<menu text="A_rama">
 			<item id="ID_SEARCH_FOR_THIS" text="_Bu Dosya"/>
@@ -1355,28 +1350,26 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Veri Edinmek"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
 		</menu>
 		<menu text="_Düzenle">
-			<item id="ID_LIBRARY_RENAME" text="_Dosya Adı Değiştir"/>
 			<item id="ID_LIBRARY_UNLINK" text="Dosyaları _Kaldır"/>
 			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="_Dosya Adı Değiştir"/>
 			<item id="ID_LIBRARY_MOVE" text="Dosyaları _Taşı..."/>
 			<item id="ID_LIBRARY_COPY" text="Do_syaları Kopyala..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Sı_nırlı Veri"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Meta Verileri Tazele"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Ö_zellikler"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual">
 		<item id="ID_LIBRARY_LAUNCH" text="_Aç/Oynat"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Oynatma Listesine Ekle"/>
+		<item id="ID_LIBRARY_DELETE" text="_Sil"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Paylaşılanlar"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="_Sil"/>
+		<item id="ID_LIBRARY_URI" text="URI"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent Dosyası Oluştur"/>
 		<separator/>
 		<menu text="A_rama">
 			<item id="ID_SEARCH_FOR_THIS" text="_Bu Dosya"/>
@@ -1390,7 +1383,6 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Etiketi Göster"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Veri Edinmek"/>
 			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="._torrent Dosyası Oluştur"/>
 		</menu>
 		<menu text="_Düzenle">
 			<item id="ID_LIBRARY_UNLINK" text="Dosyaları _Kaldır"/>
@@ -1399,11 +1391,13 @@
 			<item id="ID_LIBRARY_MOVE" text="Dosyaları _Taşı..."/>
 			<item id="ID_LIBRARY_COPY" text="Do_syaları Kopyala..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Sı_nırlı Veri"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Meta Verileri Tazele"/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="Sı_nırlı Veri"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Meta Verileri Tazele"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Sü_tun Seç..."/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Sü_tun Seç..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Ö_zellikler"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -3349,16 +3343,17 @@
 		<control caption="Uygula"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Genel">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Genel">
 		<control caption="_Genel:"/>
 		<control caption="PeerProject'yı çalıştırmak için otomatik bağlan"/>
 		<control caption="PeerProject'yı Windows çalıştırıldığında başlat"/>
 		<control caption="URIler açılmadan önce uyarı göster"/>
-		<control caption="Oranları Göster:"/>
-		<control caption="bit/saniye|byte/saniye|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_İndirmeler:"/>
 		<control caption="Varsayılandan yeni indirmeleri genişlet"/>
 		<control caption="Kaydırma Çubuğu Görüntüle"/>
+		<control caption="Oranları Göster:"/>
+		<control caption="bit/saniye|byte/saniye|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Ara:"/>
 		<control caption="Varsayılan çoklu kaynak dosyalarını genişlet"/>
 		<control caption="İndirmede transfer anahtarlarını görüntüle "/>
@@ -3371,18 +3366,21 @@
 		<control/>
 		<control caption="Opaklık:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="_Boyut:"/>
 		<control caption="Kapattığımda:"/>
 		<control caption="Bana Sor|Boyutu Küçült|Hemen Kapat|Transferden sonra Kapat"/>
 		<control caption="Tıklandığında Küçült:"/>
 		<control caption="Normal|Boyut Küçült"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Kütüphane">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Kütüphane">
 		<control caption="_Seçenekler:"/>
-		<control caption="Klasör görünümlerini hatırla"/>
+		<control caption="Diğerlerinin paylaşımlara gözatmasına izin ver"/>
 		<control caption="Kütüphane klasörlerini izle"/>
 		<control caption="Hızlı tarama (Daha fazla CPU kullanır)"/>
-		<control caption="Diğerlerinin paylaşımlara gözatmasına izin ver"/>
+		<control caption="Zeki video serileri tespiti"/>
+		<control caption="Silerken hayalet dosya yarat"/>
+		<control caption="Klasör görünümlerini hatırla"/>
 		<control caption="_Güncel Dosyalar:"/>
 		<control caption="Hatırla:"/>
 		<control/>
@@ -3404,8 +3402,6 @@
 		<control caption="Tüm K_olleksiyonlar Burada:"/>
 		<control/>
 		<control/>
-		<control caption="Silerken hayalet dosya yarat"/>
-		<control caption="Zeki video serileri tespiti"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Ortam Oynatıcısı">
 		<control caption="_Medya Yönetimi"/>
@@ -3570,17 +3566,17 @@
 		<control caption="Si_l"/>
 		<control caption="Değişimler hemen yürürlüğe girecek"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Uzaktan Erişim">
-		<control caption="_Rehber:"/>
-		<control caption="PeerProject Uzaktan Erişim PC'nizde çalışan PeerProject'dan ayrılmanıza ve uzaktaki web tarayıcısını kontrol etmenize izin verir. Gelen bağlantıları kabul etmek için bu özellikleri kullanmaya ihtiyaç duyacaksınız(i.e. düzgün yönlendirme yapılandırması, vb) ."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Uzaktan Erişim">
 		<control caption="_Olanak Ver:"/>
 		<control caption="PeerProject Uzaktan Erişime olanak ver:"/>
-		<control caption="URL"/>
+		<control/>
 		<control caption="_Güven Belgesi:"/>
 		<control caption="Kullanıcı Adı Seçin:"/>
-		<control/>
 		<control caption="Şifre Seçiniz:"/>
 		<control/>
+		<control/>
+		<control caption="Yardım:"/>
+		<control caption="PeerProject Uzaktan Erişim PC'nizde çalışan PeerProject'dan ayrılmanıza ve uzaktaki web tarayıcısını kontrol etmenize izin verir. Gelen bağlantıları kabul etmek için bu özellikleri kullanmaya ihtiyaç duyacaksınız(i.e. düzgün yönlendirme yapılandırması, vb) ."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planlayıcı">
 		<control/>
@@ -3601,7 +3597,7 @@
 		<control caption="_Limitin altında % bantgenişliği"/>
 		<control/>
 		<control/>
-		<control caption="Yardım"/>
+		<control caption="Yardım:"/>
 		<control caption="PeerProject bağlandığında ve dosyaları indireceğinde size izin verilen süre planlanır. {n}{n}{n}Not: PeerProject açık iken planlayıcı aktif ise, ayarlarınızın değiştiğini görebilirsiniz -Bu normaldir!-"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Ağlar">
@@ -3621,8 +3617,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Ağı:"/>
-		<control caption="Daima Gnutella2'ye Bağlan"/>
-		<control caption="Bugün Gnutella2'ye Bağlan"/>
+		<control caption="Bugün G2'ye Bağlan"/>
+		<control caption="Daima G2'ye Bağlan"/>
 		<control caption="Mod:"/>
 		<control caption="Optimal|Leaf|Hub"/>
 		<control caption="G_2 Bağlantıları:"/>
@@ -3635,9 +3631,9 @@
 		<control caption="Hub - Hub:"/>
 		<control/>
 		<control/>
-		<control caption="Gnutella1 Ağı:"/>
-		<control caption="Daima Gnutella1'e Bağlan"/>
-		<control caption="Bugün Gnutella1'e Bağlan"/>
+		<control caption="Gnutella Ağı:"/>
+		<control caption="Bugün Gnutella'e Bağlan"/>
+		<control caption="Daima Gnutella'e Bağlan"/>
 		<control caption="Mod:"/>
 		<control caption="Optimal|Leaf|Ultrapeer"/>
 		<control caption="G_1 Bağlantıları:"/>
@@ -3655,10 +3651,15 @@
 		<control caption="Leaf - Hub"/>
 		<control caption="Hub - Hub"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey2000">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey2000">
 		<control caption="_eDonkey2000 Ağı:"/>
 		<control caption="Bugün eDonkey2000'e Bağlan"/>
 		<control caption="Her oturumda otomatik bağlan"/>
+		<control caption="_İstemci Bağlantıları:"/>
+		<control caption="Daha fazla bağlanma:"/>
+		<control/>
+		<control/>
+		<control caption="Diğer eDonkey istemcileri."/>
 		<control caption="_Ayrıntılı Aranıyor:"/>
 		<control caption="Server belleğinde, uzaktaki bilinmeyen sunucuları ara:"/>
 		<control caption="Sonra aramayı durdur:"/>
@@ -3666,16 +3667,11 @@
 		<control/>
 		<control caption="Sonuçları ara."/>
 		<control caption="Bağlanılmış olunan sunucudan sunucu listesi al ve listeyi güncelle"/>
-		<control caption="_İstemci Bağlantıları:"/>
-		<control caption="Daha fazla bağlanma:"/>
-		<control/>
-		<control/>
-		<control caption="Diğer eDonkey istemcileri."/>
 		<control caption="eDonkey2000 _Araçları:"/>
-		<control caption="Webden eDonkey2000 server listesini indir:"/>
 		<control caption="İndir..."/>
+		<control caption="Webden eDonkey2000 server listesini indir:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_İndirme Bağlantıları:"/>
 		<control/>
 		<control/>
@@ -3683,31 +3679,32 @@
 		<control/>
 		<control/>
 		<control caption="İstemci bağlantıları"/>
-		<control caption="&#160;Paylaşım oranları genişletildiğinde &#160;Torrent indirmelerini temizle"/>
+		<control caption="Torrent kaynakları tercih et"/>
+		<control caption="_EndGame:"/>
+		<control caption="Torrentlar tamamlandığında EndGame modunu etkinleşir"/>
+		<control caption="Paylaşım oranları genişletildiğinde Torrent indirmelerini temizle"/>
 		<control/>
 		<control/>
 		<control caption="%"/>
-		<control caption="&#160;Torrent kaynakları tercih et"/>
-		<control caption="_EndGame:"/>
-		<control caption="Torrentlar tamamlandığında EndGame modunu etkinleşir"/>
 		<control caption="Torrentlar burada _saklanıyor:"/>
 		<control/>
 		<control/>
-		<control caption="_Torrent Yaratıcısı"/>
+		<control caption="_Torrent Yaratıcısı:"/>
 		<control/>
 		<control/>
-		<control caption="Varsayılan Tracker: "/>
+		<control caption="Varsayılan Tracker:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Arayüzler">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Arayüzler">
 		<control/>
 		<control caption="Arayüz Bilgileri:"/>
 		<control caption="Adı:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Yaratıcı:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Açıklama:"/>
 		<control/>
+		<control caption="*Mix arayüzler"/>
 		<control caption="Sil"/>
 		<control caption="Yükle..."/>
 		<control caption="Dahası"/>
@@ -3716,7 +3713,7 @@
 		<control/>
 		<control caption="Eklenti Bilgileri:"/>
 		<control caption="Adı:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Açıklama:"/>
 		<control/>
 		<control caption="_Kur..."/>

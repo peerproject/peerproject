@@ -46,8 +46,8 @@ IMPLEMENT_DYNAMIC(CProfileManagerDlg, CSettingsSheet)
 
 BEGIN_MESSAGE_MAP(CProfileManagerDlg, CSettingsSheet)
 	//{{AFX_MSG_MAP(CProfileManagerDlg)
-	//}}AFX_MSG_MAP
 	ON_COMMAND(IDRETRY, OnApply)
+	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -56,7 +56,6 @@ END_MESSAGE_MAP()
 
 CProfileManagerDlg::CProfileManagerDlg(CWnd* pParent) : CSettingsSheet( pParent, IDS_USER_PROFILE )
 {
-	m_nTopMargin = 52;
 }
 
 CProfileManagerDlg::~CProfileManagerDlg()

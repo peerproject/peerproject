@@ -195,12 +195,12 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		{
 			ar >> m_bSeeding;
 
-			if ( nVersion < 41 )
-			{
-				CString strServingFileName;
-				ar >> strServingFileName;
-				GetFile()->Delete();
-			}
+			//if ( nVersion < 41 )
+			//{
+			//	CString strServingFileName;
+			//	ar >> strServingFileName;
+			//	GetFile()->Delete();
+			//}
 		}
 		GenerateTorrentDownloadID();
 
@@ -226,6 +226,86 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 			m_oMD5 = m_pTorrent.m_oMD5;
 			m_bMD5Trusted = true;
 		}
+
+		// Convert old Shareaza multifile torrents (Shareaza < 2.4.0.4)
+		//if ( nVersion < 40 )
+		//{
+		//	// Get old file name
+		//	ASSERT( GetFileCount() == 1 );
+		//	CString sPath = GetPath( 0 );
+		//	if ( sServingFileName.IsEmpty() )	// sServingFileName = sPath;
+		//
+		//	CProgressBarDlg oProgress( AfxGetMainWnd() );
+		//	oProgress.SetWindowText( LoadString( IDS_BT_UPDATE_TITLE ) );
+		//	oProgress.SetActionText( LoadString( IDS_BT_UPDATE_CONVERTING ) );
+		//	oProgress.SetEventText( m_sName );
+		//	oProgress.SetEventRange( 0, (int)( m_pTorrent.m_nTotalSize / 1024ull ) );
+		//	oProgress.SetSubEventText( sServingFileName );
+		//	oProgress.SetSubEventRange( 0, (int)( m_pTorrent.m_nTotalSize / 1024ull ) );
+		//
+		//	oProgress.CenterWindow();
+		//	oProgress.ShowWindow( SW_SHOW );
+		//	oProgress.UpdateWindow();
+		//	oProgress.UpdateData( FALSE );
+		//
+		//	ClearFile();	// Close old files
+		//
+		//	// Create a bunch of new empty files
+		//	CString sErrorMessage;
+		//	CComPtr< CFragmentedFile > pFragFile = GetFile();
+		//	if ( ! pFragFile )
+		//		AfxThrowMemoryException();
+		//	if ( ! pFragFile->Open( m_pTorrent, ! IsSeeding(), sErrorMessage ) )
+		//		AfxThrowFileException( CFileException::genericException );
+		//
+		//	if ( ! IsSeeding() )
+		//	{
+		//		// Check for free space
+		//		if ( ! Downloads.IsSpaceAvailable( m_pTorrent.m_nTotalSize,
+		//			Downloads.dlPathIncomplete ) )
+		//			AfxThrowFileException( CFileException::diskFull );
+		//		// Open old file
+		//		CFile oSource( sServingFileName,
+		//			CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan );
+		//
+		//		// Copy data from old file to new files
+		//		const QWORD BUFFER_SIZE = 4ul * 1024ul * 1024ul;	// 4 MB
+		//		auto_array< BYTE > pBuffer( new BYTE[ BUFFER_SIZE ] );
+		//		if ( ! pBuffer.get() ) AfxThrowMemoryException();
+		//		// Optimize this by reading only available data
+		//		QWORD nTotal = 0ull;
+		//		for ( QWORD nLength = m_pTorrent.m_nTotalSize; nLength; )
+		//		{
+		//			DWORD nBuffer = (DWORD)min( nLength, BUFFER_SIZE );
+		//			nBuffer = oSource.Read( pBuffer.get(), nBuffer );
+		//			if ( nBuffer )
+		//			{
+		//				if ( ! pFragFile->Write( nTotal, pBuffer.get(), nBuffer ) )
+		//					AfxThrowFileException( CFileException::genericException );
+		//			}
+		//			nLength -= nBuffer;
+		//			nTotal += nBuffer;
+		//
+		//			CString strText;
+		//			strText.Format( _T("%s %s %s"),
+		//				Settings.SmartVolume( nTotal, KiloBytes ),
+		//				LoadString( IDS_GENERAL_OF ),
+		//				Settings.SmartVolume( m_pTorrent.m_nTotalSize, KiloBytes ) );
+		//			oProgress.SetSubActionText( strText );
+		//			oProgress.StepSubEvent( (int)( nBuffer / 1024ul ) );
+		//			oProgress.SetEventPos( (int)( nTotal / 1024ull ) );
+		//			oProgress.UpdateWindow();
+		//
+		//			AfxGetMainWnd()->UpdateWindow();
+		//			Sleep( 50 );
+		//		}
+		//	}
+		//
+		//	// Delete old files
+		//	DeleteFileEx( sServingFileName, FALSE, FALSE, TRUE );
+		//	if ( sServingFileName != sPath )
+		//		DeleteFileEx( sPath, FALSE, FALSE, TRUE );
+		//}
 	}
 }
 
@@ -373,15 +453,9 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 
 		// Check if an update needs to be sent
 		if ( bRegularUpdate || nSourcesWanted )
-		{
-			// Send tracker update
-			SendUpdate( nSourcesWanted );
-		}
+			SendUpdate( nSourcesWanted );	// Send tracker update
 		else
-		{
-			// Record the time that source counts checked even if no update was sent
-			m_tTorrentSources = tNow;
-		}
+			m_tTorrentSources = tNow;		// Record time that source counts checked even if no update sent
 	}
 
 	// Report that the torrent checks have run successfully
@@ -914,8 +988,9 @@ void CDownloadWithTorrent::CloseTorrent()
 
 float CDownloadWithTorrent::GetRatio() const
 {
-	if ( m_pTorrent.m_nTotalUpload == 0 || m_pTorrent.m_nTotalDownload == 0 ) return 0;
-	return float( m_pTorrent.m_nTotalUpload * 10000 / m_pTorrent.m_nTotalDownload ) / 100.0f;
+	return float( m_pTorrent.m_nTotalUpload * 10000 / 
+		( m_pTorrent.m_nTotalDownload ? m_pTorrent.m_nTotalDownload :
+		m_pTorrent.m_nTotalSize ) ) / 100.0f;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -925,7 +1000,7 @@ BOOL CDownloadWithTorrent::CheckTorrentRatio() const
 {
 	if ( ! IsTorrent() ) return TRUE;									// Not a torrent
 
-	if ( m_pTorrent.m_nStartDownloads == CBTInfo::dtAlways ) return TRUE;// Torrent is set to download as needed
+	if ( m_pTorrent.m_nStartDownloads == CBTInfo::dtAlways ) return TRUE; // Torrent is set to download as needed
 
 	if ( m_pTorrent.m_nStartDownloads == CBTInfo::dtWhenRatio )			// Torrent is set to download only when ratio is okay
 	{

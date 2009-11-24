@@ -479,6 +479,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\PeerProject\Colors.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\PeerProject\ComboListCtrl.cpp"
 				>
 			</File>
@@ -1286,7 +1290,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\CtrlPanelClass.cpp"
+					RelativePath="..\PeerProject\CtrlPanel.cpp"
 					>
 				</File>
 				<File
@@ -1342,7 +1346,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\CtrlPanelClass.cpp"
+					RelativePath="..\PeerProject\CtrlPanel.cpp"
 					DeploymentContent="true"
 					>
 				</File>
@@ -1579,7 +1583,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\DlgSelectClass.cpp"
+					RelativePath="..\PeerProject\DlgSelect.cpp"
 					>
 				</File>
 				<File
@@ -1983,7 +1987,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\PageSettingsTraffic.cpp"
+					RelativePath="..\PeerProject\PageSettingsAdvanced.cpp"
 					>
 				</File>
 				<File
@@ -2083,6 +2087,10 @@
 			</File>
 			<File
 				RelativePath="..\PeerProject\CollectionFile.h"
+				>
+			</File>
+			<File
+				RelativePath="..\PeerProject\Colors.h"
 				>
 			</File>
 			<File
@@ -2913,7 +2921,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\CtrlPanelClass.h"
+					RelativePath="..\PeerProject\CtrlPanel.h"
 					>
 				</File>
 				<File
@@ -3261,7 +3269,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\DlgSelectClass.h"
+					RelativePath="..\PeerProject\DlgSelect.h"
 					>
 				</File>
 				<File
@@ -3517,7 +3525,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\PeerProject\PageSettingsTraffic.h"
+					RelativePath="..\PeerProject\PageSettingsAdvanced.h"
 					>
 				</File>
 				<File

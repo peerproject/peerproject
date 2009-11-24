@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r41 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r42 (Shareaza 2.1.2.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1110,10 +1110,9 @@
 	<menu name="CLibraryFileView.Physical.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="Otwórz lub odtwarzaj"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Dodaj do listy odtwarzania"/>
+		<item id="ID_LIBRARY_DELETE" text="Usuń"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Udostępnione"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="Usuń"/>
 		<separator/>
 		<menu text="Szukaj">
 			<item id="ID_SEARCH_FOR_THIS" text="Tego pliku"/>
@@ -1127,25 +1126,24 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Pobierz Metadane"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
 		</menu>
 		<menu text="Organizuj">
 			<item id="ID_LIBRARY_RENAME" text="Zmień nazwę pliku"/>
 			<item id="ID_LIBRARY_MOVE" text="Przenieś pliki..."/>
 			<item id="ID_LIBRARY_COPY" text="Kopiuj pliki..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokalizuj Metadane"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Właściwości"/>
 	</menu>
 	<menu name="CLibraryFileView.Physical">
 		<item id="ID_LIBRARY_LAUNCH" text="Otwórz lub odtwarzaj"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Dodaj do listy odtwarzania"/>
+		<item id="ID_LIBRARY_DELETE" text="Usuń"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Udostępnione"/>
 		<separator/>
-		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="Usuń"/>
+		<item id="ID_LIBRARY_URI" text="URI"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Stwórz plik .torrent"/>
 		<separator/>
 		<menu text="Szukaj">
 			<item id="ID_SEARCH_FOR_THIS" text="Tego pliku"/>
@@ -1159,16 +1157,17 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Pobierz Metadane"/>
 			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="Stwórz plik .torrent"/>
 		</menu>
 		<menu text="Organizuj">
 			<item id="ID_LIBRARY_RENAME" text="Zmień nazwę pliku"/>
 			<item id="ID_LIBRARY_MOVE" text="Przenieś pliki..."/>
 			<item id="ID_LIBRARY_COPY" text="Kopiuj pliki..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokalizuj Metadane"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Wybierz kolumny..."/>
+		<menu text="_Metadane">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadane"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokalizuj Metadane"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Wybierz kolumny..."/>
+		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Właściwości"/>
 	</menu>
@@ -1176,10 +1175,9 @@
 		<item id="ID_LIBRARY_LAUNCH" text="Otwórz lub odtwarzaj"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Dodaj do listy odtwarzania"/>
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Odtwórz album"/>
+		<item id="ID_LIBRARY_DELETE" text="Usuń"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Udostępnione"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="Usuń"/>
 		<separator/>
 		<menu text="Szukaj">
 			<item id="ID_SEARCH_FOR_THIS" text="Tego pliku"/>
@@ -1193,27 +1191,25 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Zobacz Bitzi ticket"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Pobierz Metadane"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text=""/>
 		</menu>
 		<menu text="Organizuj">
-			<item id="ID_LIBRARY_RENAME" text="Zmień nazwę pliku"/>
 			<item id="ID_LIBRARY_UNLINK" text="Usuń pliki"/>
 			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="Zmień nazwę pliku"/>
 			<item id="ID_LIBRARY_MOVE" text="Przenieś pliki..."/>
 			<item id="ID_LIBRARY_COPY" text="Kopiuj pliki..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokalizuj Metadane"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Właściwości"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual">
 		<item id="ID_LIBRARY_LAUNCH" text="Otwórz lub odtwarzaj"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Dodaj do listy odtwarzania"/>
+		<item id="ID_LIBRARY_DELETE" text="Usuń"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="Udostępnione"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="Usuń"/>
 		<separator/>
 		<menu text="Szukaj">
 			<item id="ID_SEARCH_FOR_THIS" text="Tego pliku"/>
@@ -1236,10 +1232,13 @@
 			<item id="ID_LIBRARY_MOVE" text="Przenieś pliki..."/>
 			<item id="ID_LIBRARY_COPY" text="Kopiuj pliki..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokalizuj Metadane"/>
+		<menu text="_Metadane">
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadane"/>
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="Lokalizuj Metadane"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Wybierz kolumny..."/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Wybierz kolumny..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="Właściwości"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -3119,16 +3118,17 @@
 		<control caption="Zastosuj"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Ogólne">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Ogólne">
 		<control caption="Ogólne:"/>
 		<control caption="Połącz automatycznie przy starcie PeerProject"/>
 		<control caption="Uruchom PeerProject razem z Windowsem"/>
 		<control caption="Pokaż a podpowieź przed otwarciem URI-ów"/>
-		<control caption="Pokaż prędkości w:"/><!-- rates to są predkości?? -->
-		<control caption="bity/sekundę|bajty/sekundę|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="Pobierania:"/>
 		<control caption="Domyślnie rozszerz nowe pobierania"/>
 		<control caption="Pokaż prosty pasek postępu"/>
+		<control caption="Pokaż prędkości w:"/>	<!-- rates to są predkości?? -->
+		<control caption="bity/sekundę|bajty/sekundę|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="Szukanie:"/>
 		<control caption="Domyślnie rozszerz wieloźródłowe pliki"/>
 		<control caption="Przełącz do widoku Transferów po rozpoczęciu pobierania"/>
@@ -3141,18 +3141,21 @@
 		<control/>
 		<control caption="Przezroczystość:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="Zasobnik systemowy:"/>
 		<control caption="Kiedy kliknę zamknij:"/>
 		<control caption="Spytaj mnie|Minimalizuj do zasobnika|Od razu zamknij|Zamknij po zakończeniu transferów"/>
 		<control caption="Kiedy kliknę minimalizuj:"/>
 		<control caption="Normalnie|Minimalizuj do zasobnika"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Biblioteka (Zasobów)">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Biblioteka (Zasobów)">
 		<control caption="Opcje:"/>
-		<control caption="Zapamiętaj widok folderów"/>
+		<control caption="Pozwól innym na przeglądanie udostępnionych"/>
 		<control caption="Pilnuj folderów biblioteki (zasobów)"/>
 		<control caption="Szybkie hashowanie (używa więcej CPU)"/>
-		<control caption="Pozwól innym na przeglądanie udostępnionych"/>
+		<control caption="Smart media series detection"/>
+		<control caption="Create ghost files when deleting"/>
+		<control caption="Zapamiętaj widok folderów"/>
 		<control caption="Ostatnie pliki:"/>
 		<control caption="Pamiętaj:"/>
 		<control/>
@@ -3174,8 +3177,6 @@
 		<control caption="Przechowuj kolekcje tutaj:"/>
 		<control/>
 		<control/>
-		<control caption="Create ghost files when deleting"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media Player">
 		<control caption="Opcje:"/>
@@ -3340,17 +3341,17 @@
 		<control caption="Usuń"/>
 		<control caption="(zmiany dają efekt natychmiastowy)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Zdalny dostęp">
-		<control caption="Objaśnienie:"/>
-		<control caption="Zdalny dostęp do Shareazy pozwala ci na zostawienie włączonej Shareazy na Twoim komputerze i zdalne sterowanie nią za pomocą przeglądarki internetowej. Aby używać tej funkcji musisz być w stanie przyjmować połączenia przychodzące (np. właściwie skonfigurowany router, itp.)."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Zdalny dostęp">
 		<control caption="Włącz:"/>
 		<control caption="Włącz zdalny dostęp do Shareazy:"/>
-		<control caption="URL"/>
+		<control/>
 		<control caption="Szczegóły:"/>
 		<control caption="Wybierz nazwę użytkownika:"/>
-		<control/>
 		<control caption="Wybierz hasło:"/>
 		<control/>
+		<control/>
+		<control caption="Pomoc:"/>
+		<control caption="Zdalny dostęp do Shareazy pozwala ci na zostawienie włączonej Shareazy na Twoim komputerze i zdalne sterowanie nią za pomocą przeglądarki internetowej. Aby używać tej funkcji musisz być w stanie przyjmować połączenia przychodzące (np. właściwie skonfigurowany router, itp.)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Kalendarz">
 		<control/>
@@ -3371,7 +3372,7 @@
 		<control caption="% szerokości pasma łącza gdy jest limitowana"/>
 		<control/>
 		<control/>
-		<control caption="Pomoc"/>
+		<control caption="Pomoc:"/>
 		<control caption="Kalendarz został zaprojektowany, abyś mógł ustawić pory, kiedy PeerProject się połączy i będzie pobierać pliki. {n}{n}{n}Zauważ: Jeżeli masz PeerProject otwartą gdy kalendarz jest aktywny, możesz zobaczyć, jak zmieniają się ustawienia - TO JEST NORMALNE!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Sieci">
@@ -3391,8 +3392,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Sieć Gnutella2:"/>
-		<control caption="Zawsze włączaj się do Gnutella2"/>
-		<control caption="Włącz się do Gnutella2 teraz"/>
+		<control caption="Włącz się do G2 teraz"/>
+		<control caption="Zawsze włączaj się do G2"/>
 		<control caption="Tryb:"/>
 		<control caption="Optymalny|Liść|Hub"/>
 		<control caption="Połączenia G_2:"/>
@@ -3405,9 +3406,9 @@
 		<control caption="Hub z Hubami:"/>
 		<control/>
 		<control/>
-		<control caption="Sieć Gnutella1:"/>
-		<control caption="Zawsze włączaj się do Gnutella1"/>
-		<control caption="Włącz się do Gnutella1 teraz"/>
+		<control caption="Sieć Gnutella:"/>
+		<control caption="Włącz się do Gnutella teraz"/>
+		<control caption="Zawsze włączaj się do Gnutella"/>
 		<control caption="Tryb:"/>
 		<control caption="Optymalny|Liść|Ultrapeer"/>
 		<control caption="Połączenia G_1:"/>
@@ -3425,10 +3426,15 @@
 		<control caption="Liść z Hubem"/>
 		<control caption="Hub z Hubem"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="Sieć eDonkey:"/>
 		<control caption="Zawsze włączaj się do eDonkey"/>
 		<control caption="Włącz się do eDonkey dzisiaj"/>
+		<control caption="Połączenia łącza klienta:"/>
+		<control caption="Nie łącz z więcej niż:"/>
+		<control/>
+		<control/>
+		<control caption="innymi klientami eDonkey."/>
 		<control caption="Globalne Wyszukiwanie:"/>
 		<control caption="Przeszukaj znane zdalne serwery w cache'u serwera:"/>
 		<control caption="Zatrzymaj wyszukiwanie po:"/>
@@ -3436,16 +3442,11 @@
 		<control/>
 		<control caption="wynikach."/>
 		<control caption="Połączenia z innymi klientami:"/>
-		<control caption="Połączenia łącza klienta:"/><!--_w orygunale: "_Client Link Connections:"/>" -->
-		<control caption="Nie łącz z więcej niż:"/>
-		<control/>
-		<control/>
-		<control caption="innymi klientami eDonkey."/>
 		<control caption="Narzędzia eDonkey:"/>
-		<control caption="Pobierz listę serwerów eDonkey z sieci:"/>
 		<control caption="Pobierz..."/>
+		<control caption="Pobierz listę serwerów eDonkey z sieci:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Połączenia pobierające:"/>
 		<control/>
 		<control/>
@@ -3453,31 +3454,32 @@
 		<control/>
 		<control/>
 		<control caption="Połączeń z innymi klientami"/>
-		<control caption="Wyczyść pobrane torrenty&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Kiedy share ratio osiągnie"/>
-		<control/>
-		<control/>
-		<control caption="%"/>
 		<control caption="Preferuj źródła torrentu"/>
 		<control caption="GraKońcowa:"/>
 		<control caption="Włącz tryb GryKońcowej, gdy PeerProject kończy pobierać torrenty"/>
+		<control caption="Wyczyść pobrane torrenty Kiedy share ratio osiągnie:"/>
+		<control/>
+		<control/>
+		<control caption="%"/>
 		<control caption="Przechowuj Torrenty tutaj:"/>
 		<control/>
 		<control/>
-		<control caption="Twórca Torrentów"/>
+		<control caption="Twórca Torrentów:"/>
 		<control/>
 		<control/>
 		<control caption="Domyślny Tracker:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skórki">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Skórki">
 		<control/>
 		<control caption="Informacje o skórce:"/>
 		<control caption="Nazwa:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Autor:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Opis:"/>
 		<control/>
+		<control caption="*Mix"/>
 		<control caption="Usuń"/>
 		<control caption="Zainstaluj..."/>
 		<control caption="Zdobądź więcej"/>
@@ -3486,7 +3488,7 @@
 		<control/>
 		<control caption="Informacje o wtyczce:"/>
 		<control caption="Nazwa:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Opis:"/>
 		<control/>
 		<control caption="Ustaw..."/>

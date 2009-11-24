@@ -1160,8 +1160,10 @@ void CLibraryFrame::OnUpdateShowWebServices(CCmdUI* pCmdUI)
 {
 	m_bShowDynamicBar = m_pViewSelection != NULL && m_pViewSelection->GetCount() == 1;
 
-	if ( !m_bShowDynamicBar )
+	if ( ! m_bShowDynamicBar )
+	{
 		SetDynamicBar( NULL );
+	}
 	else if ( !m_bDynamicBarHidden && !m_wndBottomDynamic.IsWindowVisible() )
 	{
 		CRect rc;

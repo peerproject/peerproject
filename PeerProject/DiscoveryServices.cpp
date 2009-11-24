@@ -129,12 +129,10 @@ BOOL CDiscoveryServices::Add(LPCTSTR pszAddress, int nType, PROTOCOLID nProtocol
 	if ( bEndSlash ) strAddress.Append( L"/" );
 
 	if ( strAddress.GetLength() < 8 )
-		// Reject impossibly short services
-		return FALSE;
+		return FALSE;	// Reject impossibly short services
 
 	if ( GetByAddress( strAddress ) != NULL )
-		// Already in list
-		return TRUE;
+		return TRUE;	// Already in list
 
 	CDiscoveryService* pService = NULL;
 
@@ -424,7 +422,7 @@ BOOL CDiscoveryServices::Load()
 
 	try
 	{
-		CArchive ar( &pFile, CArchive::load );
+		CArchive ar( &pFile, CArchive::load, 16384 );   // 16 KB buffer
 		Serialize( ar );
 		ar.Close();
 	}
@@ -462,7 +460,7 @@ BOOL CDiscoveryServices::Save()
 	if ( !pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
 		return FALSE;
 
-	CArchive ar( &pFile, CArchive::store );
+	CArchive ar( &pFile, CArchive::store, 16384 );   // 16 KB buffer
 	Serialize( ar );
 	ar.Close();
 
@@ -2037,7 +2035,7 @@ void CDiscoveryService::Remove(BOOL bCheck)
 //////////////////////////////////////////////////////////////////////
 // CDiscoveryService serialize
 
-void CDiscoveryService::Serialize(CArchive& ar, int nVersion)
+void CDiscoveryService::Serialize(CArchive& ar, int /*nVersion*/)
 {
 	if ( ar.IsStoring() )
 	{
@@ -2072,18 +2070,18 @@ void CDiscoveryService::Serialize(CArchive& ar, int nVersion)
 		ar >> m_nUpdates;
 		ar >> m_nFailures;
 		ar >> m_nHosts;
-		if ( nVersion > 6 )
-		{
+		//if ( nVersion > 6 )
+		//{
 			ar >> m_nTotalHosts;
 			ar >> m_nURLs;
 			ar >> m_nTotalURLs;
-		}
+		//}
 		ar >> m_nAccessPeriod;
 		ar >> m_nUpdatePeriod;
-		if ( nVersion > 6 )
-		{
+		//if ( nVersion > 6 )
+		//{
 			ar >> m_sPong;
-		}
+		//}
 
 		// Check it has a valid protocol
 		if ( _tcsnicmp( m_sAddress, _T("gnutella1:host:"),  15 ) == 0 )

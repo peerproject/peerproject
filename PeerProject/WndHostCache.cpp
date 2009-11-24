@@ -115,10 +115,6 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		);
 	m_pSizer.Attach( &m_wndList );
 
-	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP,
-		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
-
 	CBitmap bmImages;
 	bmImages.LoadBitmap( IDB_PROTOCOLS );
 	if ( Settings.General.LanguageRTL )
@@ -130,6 +126,7 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_gdiImageList.Add( &bmImages, RGB( 0, 255, 0 ) );
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
+	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
 	m_wndList.InsertColumn( 0, _T("Address"), LVCFMT_LEFT, 140, -1 );
 	m_wndList.InsertColumn( 1, _T("Port"), LVCFMT_CENTER, 60, 0 );
 	m_wndList.InsertColumn( 2, _T("Client"), LVCFMT_CENTER, 100, 1 );
@@ -259,9 +256,7 @@ void CHostCacheWnd::OnSkinChange()
 	Settings.LoadList( _T("CHostCacheWnd"), &m_wndList );
 	Skin.CreateToolBar( _T("CHostCacheWnd"), &m_wndToolBar );
 	if ( Settings.General.GUIMode == GUI_BASIC)
-	{
 		Settings.Gnutella.HostCacheView = m_nMode = PROTOCOL_G2;
-	}
 
 	for ( int nImage = 1 ; nImage < 6 ; nImage++ )
 	{
@@ -299,7 +294,8 @@ void CHostCacheWnd::OnTimer(UINT_PTR nIDEvent)
 		DWORD tTicks = GetTickCount();
 
 		// Wait 10 seconds before refreshing; do not force updates
-		if ( ( pCache->m_nCookie != m_nCookie ) && ( ( tTicks - tLastUpdate ) > 10000 ) ) Update();
+		if ( ( pCache->m_nCookie != m_nCookie ) && ( ( tTicks - tLastUpdate ) > 10000 ) )
+			Update();
 	}
 }
 
@@ -372,9 +368,7 @@ void CHostCacheWnd::OnHostCacheConnect()
 		{
 			int nItem = m_wndList.GetNextSelectedItem( pos );
 			if ( CHostCacheHost* pHost = GetItem( nItem ) )
-			{
 				pHost->ConnectTo();
-			}
 		}
 	}
 }
@@ -481,9 +475,7 @@ void CHostCacheWnd::OnHostcachePriority()
 	{
 		int nItem = m_wndList.GetNextSelectedItem( pos );
 		if ( CHostCacheHost* pHost = GetItem( nItem ) )
-		{
 			pHost->m_bPriority = ! pHost->m_bPriority;
-		}
 	}
 
 	HostCache.eDonkey.m_nCookie ++;
@@ -539,9 +531,7 @@ void CHostCacheWnd::OnHostCacheRemove()
 	{
 		int nItem = m_wndList.GetNextSelectedItem( pos );
 		if ( CHostCacheHost* pHost = GetItem( nItem ) )
-		{
 			HostCache.Remove( pHost );
-		}
 	}
 
 	HostCache.CheckMinimumED2KServers();

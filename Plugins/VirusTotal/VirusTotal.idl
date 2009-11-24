@@ -1,8 +1,8 @@
-// VirusTotal.idl : IDL source for VirusTotal
 //
-
-// This file will be processed by the MIDL tool to
-// produce the type library (VirusTotal.tlb) and marshalling code.
+// VirusTotal.idl
+//
+// This file will be processed by the MIDL tool to produce
+// the type library (VirusTotal.tlb) and marshalling code.
 
 import "oaidl.idl";
 import "ocidl.idl";

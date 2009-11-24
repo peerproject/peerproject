@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3404,16 +3404,17 @@
 		<control caption="Εφαρμογή"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Γενικά">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Γενικά">
 		<control caption="_Γενικά:"/>
 		<control caption="Αυτόματη σύνδεση κατά την έναρξη"/>
 		<control caption="Εκκίνηση κατά την έναρξη των Windows"/>
 		<control caption="Προβολή προτροπής πριν το άνοιγμα URIs"/>
-		<control caption="Μονάδα μέτρησ.:"/>
-		<control caption="bits/δευτερόλεπτο|Bytes/δευτερόλεπτο|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_Λήψεις:"/>
 		<control caption="Προεπιλεγμένη επέκταση νέων λήψεων"/>
 		<control caption="Εμφάνιση απλής μπάρας προόδου"/>
+		<control caption="Μονάδα μέτρησ.:"/>
+		<control caption="bits/δευτερόλεπτο|Bytes/δευτερόλεπτο|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="Ανα_ζήτηση:"/>
 		<control caption="Επέκταση λήψεων πολλών πηγών"/>
 		<control caption="Με εντολή λήψης, προβολή Μεταφορών"/>
@@ -3426,18 +3427,21 @@
 		<control/>
 		<control caption="Αδιαφάν.:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="_Γραμμή Συστήματος:"/>
 		<control caption="Με εντολή κλεισίματος:"/>
 		<control caption="Ερώτηση|Ελαχιστ. στη Γραμμή Συστήματος|Άμεσο Κλείσιμο|Κλείσιμο Μετά τις Μεταφορές"/>
 		<control caption="Με εντολή ελαχιστοποίησης:"/>
 		<control caption="Ελαχιστ. στην Μπάρα Έναρξης|Ελαχιστ. στη Γραμμή Συστήματος"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Βιβλιοθήκη">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Βιβλιοθήκη">
 		<control caption="_Επιλογές:"/>
-		<control caption="Απομνημόν. προβολών φακέλων"/>
+		<control caption="Επίτρεψη περιήγησης κοινοποιημέν."/>
 		<control caption="Παρακολούθ. φακέλων Βιβλιοθήκης"/>
 		<control caption="Γρήγορη σάρωση (Αυξημένη CPU)"/>
-		<control caption="Επίτρεψη περιήγησης κοινοποιημέν."/>
+		<control caption="Εντόπιση σειρών έξυπνων media"/>
+		<control caption="Δημιουργία αρχείων φαντασμάτων"/>
+		<control caption="Απομνημόν. προβολών φακέλων"/>
 		<control caption="Εμφάνιση _Πρόσφατων:"/>
 		<control caption="Τελευταίων"/>
 		<control/>
@@ -3459,8 +3463,6 @@
 		<control caption="Αποθήκευση Συλλογών Σε:"/>
 		<control/>
 		<control/>
-		<control caption="Δημιουργία αρχείων φαντασμάτων"/>
-		<control caption="Εντόπιση σειρών έξυπνων video"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Πολυμέσα">
 		<control caption="_Επιλογές:"/>
@@ -3625,17 +3627,17 @@
 		<control caption="_Διαγραφή"/>
 		<control caption="(Οι αλλαγές επιδρούν αμέσως!)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Απομακρυσμένη Πρόσβαση">
-		<control caption="_Περιγραφή:"/>
-		<control caption="Η Απομακρυσμένη Πρόσβαση επιτρέπει, κατά την εκτέλεση του PeerProject στον υπολογιστή σας, τον χειρισμό του από απομακρυσμένα προγράμματα περιήγησης. Για να χρησιμοποιήσετε αυτήν τη δυνατότητα, πρέπει να δέχεστε εισερχόμενες συνδέσεις (π.χ. κατάλληλα ρυθμισμένο router κτλ)."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Απομακρυσμένη Πρόσβαση">
 		<control caption="_Ενεργοποίηση:"/>
 		<control caption="Ενεργοποίηση Απομακρυσμένης Πρόσβασης PeerProject:"/>
 		<control caption="URL"/>
 		<control caption="_Στοιχεία Εισόδου:"/>
 		<control caption="Όνομα (Username):"/>
-		<control/>
 		<control caption="Κωδικός (Password):"/>
 		<control/>
+		<control/>
+		<control caption="Περιγραφή:"/>
+		<control caption="Η Απομακρυσμένη Πρόσβαση επιτρέπει, κατά την εκτέλεση του PeerProject στον υπολογιστή σας, τον χειρισμό του από απομακρυσμένα προγράμματα περιήγησης. Για να χρησιμοποιήσετε αυτήν τη δυνατότητα, πρέπει να δέχεστε εισερχόμενες συνδέσεις (π.χ. κατάλληλα ρυθμισμένο router κτλ)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Χρονοδιάγραμμα">
 		<control/>
@@ -3676,8 +3678,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella 1 &amp; 2">
 		<control caption="Δίκτυο Gnutella2:"/>
-		<control caption="Πάντα σύνδεση στο Gnutella2"/>
 		<control caption="Σύνδεση στο Gnutella2 σήμερα"/>
+		<control caption="Πάντα σύνδεση στο Gnutella2"/>
 		<control caption="Λειτουργία:"/>
 		<control caption="Βέλτιστη|Φύλλου|Κόμβου"/>
 		<control caption="Όριο αριθμού συνδέσεων G_2:"/>
@@ -3691,8 +3693,8 @@
 		<control/>
 		<control/>
 		<control caption="Δίκτυο Gnutella:"/>
-		<control caption="Πάντα σύνδεση στο Gnutella"/>
 		<control caption="Σύνδεση στο Gnutella σήμερα"/>
+		<control caption="Πάντα σύνδεση στο Gnutella"/>
 		<control caption="Λειτουργία:"/>
 		<control caption="Βέλτιστη|Φύλλου|Ultrapeer"/>
 		<control caption="Όριο αριθμού συνδέσεων G_1:"/>
@@ -3710,10 +3712,15 @@
 		<control caption="Φύλλου σε  Κόμβο"/>
 		<control caption="Κόμβου σε Κόμβο"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="ED2K">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="ED2K">
 		<control caption="Δίκτυο _ED2K:"/>
 		<control caption="Πάντα σύνδεση στο ED2K"/>
 		<control caption="Σύνδεση στο ED2K σήμερα"/>
+		<control caption="_Client Link Συνδέσεις:"/>
+		<control caption="Σύνδεση σε έως:"/>
+		<control/>
+		<control/>
+		<control caption="ED2K clients."/>
 		<control caption="_Παγκόσμια Αναζήτηση:"/>
 		<control caption="Αναζήτηση στους γνωστούς απομακρυσμένους servers στη server cache:"/>
 		<control caption="Διακοπή αναζήτ. μετά από:"/>
@@ -3721,16 +3728,11 @@
 		<control/>
 		<control caption="αποτελέσματα αναζήτησης."/>
 		<control caption="Παραλαβή και ενημέρωση λίστας servers από τον ενωμένο server"/>
-		<control caption="_Client Link Συνδέσεις:"/>
-		<control caption="Σύνδεση σε έως:"/>
-		<control/>
-		<control/>
-		<control caption="ED2K clients."/>
 		<control caption="_Εργαλεία ED2K:"/>
 		<control caption="Λήψη λίστας servers του ED2K από τον Ιστό:"/>
 		<control caption="Λήψη..."/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Συνδέσεις _Λήψης:"/>
 		<control/>
 		<control/>
@@ -3738,31 +3740,32 @@
 		<control/>
 		<control/>
 		<control caption="Συνδέσεις Client"/>
-		<control caption=" Απόσυρση ληφθέντων torrents με αναλογία ανταλλαγής &gt;"/>
-		<control/>
-		<control/>
-		<control caption="%"/>
 		<control caption="Προτίμηση πηγών torrent"/>
 		<control caption="_Παιχνίδι Τέλους:"/>
 		<control caption="Με την ολοκλήρωση ενός torrent, ενεργ. λειτουργίας Παιχνιδιού Τέλους"/>
+		<control caption="Απόσυρση ληφθέντων torrents με αναλογία ανταλλαγής &gt;"/>
+		<control/>
+		<control/>
+		<control caption="%"/>
 		<control caption="_Αποθήκευση Torrents Σε:"/>
 		<control/>
 		<control/>
-		<control caption="_Δημιουργία Torrent"/>
+		<control caption="_Δημιουργία Torrent:"/>
 		<control/>
 		<control/>
-		<control caption="Προεπιλογή Tracker: "/>
+		<control caption="Προεπιλογή Tracker:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Φλοιοί">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Φλοιοί">
 		<control/>
 		<control caption="Πληροφορίες Φλοιού:"/>
 		<control caption="Όνομα:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Από:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Περιγραφή:"/>
 		<control/>
+		<control caption="*Mix Φλοιοί"/>
 		<control caption="Διαγραφή"/>
 		<control caption="Εγκατάσταση..."/>
 		<control caption="Λήψη επιπλέων"/>
@@ -3771,7 +3774,7 @@
 		<control/>
 		<control caption="Πληρφορίες Πρόσθετου (plugin):"/>
 		<control caption="Όνομα:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Περιγραφή:"/>
 		<control/>
 		<control caption="_Εγκατάσταση..."/>

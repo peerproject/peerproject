@@ -469,7 +469,7 @@ BOOL CUploadQueues::Load()
 
 	try
 	{
-		CArchive ar( &pFile, CArchive::load );
+		CArchive ar( &pFile, CArchive::load );	// 4 KB buffer
 		Serialize( ar );
 		ar.Close();
 	}
@@ -497,7 +497,7 @@ BOOL CUploadQueues::Save()
 	if ( !pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
 		return FALSE;
 
-	CArchive ar( &pFile, CArchive::store );
+	CArchive ar( &pFile, CArchive::store );	// 4 KB buffer
 	Serialize( ar );
 	ar.Close();
 

@@ -146,7 +146,7 @@
   <color name="ResizeBar.Highlight"			value="FDFCFB"/>
   <color name="System.Environment.3DShadow" 		value="D8D7D6"/>
   <color name="System.Environment.3DHighlight"		value="FFFFFF"/>
-  <color name="System.Environment.Borders" 		value=" "/>
+  <!--color name="System.Environment.Borders" 		value=" "-->
 </colorScheme>
 
 <watermarks>
@@ -250,9 +250,9 @@
 <image 	path="FrameVista.png"/>
 <target window="CMainWnd"/>
 <parts>
- <part name="TopLeftIA" 	rect="1,0,380,32"/>
- <part name="TopIA"		rect="240,0,30,32"/>
- <part name="TopRightIA"	rect="419,0,220,32"/>
+ <part name="TopLeftAlt" 	rect="1,0,380,32"/>
+ <part name="TopAlt"		rect="240,0,30,32"/>
+ <part name="TopRightAlt"	rect="419,0,220,32"/>
  <part name="TopLeft"		rect="1,32,380,32"/>
  <part name="Top"		rect="240,32,2,32"/>
  <part name="TopRight"		rect="419,32,220,32"/>
@@ -621,7 +621,7 @@
 <image type="image" path="Seven\RibbonTabs.png"/>
 <image type="watermark" path="Seven\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Basic"/>
+<target window="CMainTabBarCtrl.Tabbed"/>
 <target window="CMainTabBarCtrl.Windowed"/>
 <parts>
  <part name="_ID_TAB_HOME.Up"		rect="0,0,68,24"/>
@@ -657,6 +657,44 @@
  <anchor name="_ID_TAB_NETWORK"		rect="218,2,74,24"/>
  <anchor name="_ID_TAB_LIBRARY"		rect="292,2,70,24"/>
  <anchor name="_ID_TAB_MEDIA"		rect="362,2,70,24"/>
+</anchors>
+</windowSkin>
+
+<!-- English Basic -->
+
+<windowSkin>
+<image type="image" path="Seven\RibbonTabs.png"/>
+<image type="watermark" path="Seven\RibbonTabsBkg.png"/>
+<target window="CMainTabBarCtrl.Basic"/>
+<parts>
+ <part name="_ID_TAB_HOME.Up"		rect="0,0,68,24"/>
+ <part name="_ID_TAB_HOME.Checked"	rect="0,24,68,24"/>
+ <part name="_ID_TAB_HOME.Hover"	rect="0,48,68,24"/>
+ <part name="_ID_TAB_HOME.Down" 	rect="0,72,68,24"/>
+ <part name="_ID_TAB_SEARCH.Up" 	rect="68,0,66,24"/>
+ <part name="_ID_TAB_SEARCH.Checked"	rect="68,24,66,24"/>
+ <part name="_ID_TAB_SEARCH.Hover"	rect="68,48,66,24"/>
+ <part name="_ID_TAB_SEARCH.Down"	rect="68,72,66,24"/>
+ <part name="_ID_TAB_TRANSFERS.Up"	rect="134,0,78,24"/>
+ <part name="_ID_TAB_TRANSFERS.Checked" rect="134,24,78,24"/>
+ <part name="_ID_TAB_TRANSFERS.Hover"	rect="134,48,78,24"/>
+ <part name="_ID_TAB_TRANSFERS.Down"	rect="134,72,78,24"/>
+ <part name="_ID_TAB_LIBRARY.Up"	rect="286,0,70,24"/>
+ <part name="_ID_TAB_LIBRARY.Checked"	rect="286,24,70,24"/>
+ <part name="_ID_TAB_LIBRARY.Hover"	rect="286,48,70,24"/>
+ <part name="_ID_TAB_LIBRARY.Down"	rect="286,72,70,24"/>
+ <part name="_ID_TAB_MEDIA.Up"  	rect="356,0,70,24"/>
+ <part name="_ID_TAB_MEDIA.Checked"	rect="356,24,70,24"/>
+ <part name="_ID_TAB_MEDIA.Hover"	rect="356,48,70,24"/>
+ <part name="_ID_TAB_MEDIA.Down"	rect="356,72,70,24"/>
+</parts>
+<anchors>
+ <anchor name="Background"		rect="0,0,370,28"/>
+ <anchor name="_ID_TAB_HOME"		rect="6,2,68,24"/>
+ <anchor name="_ID_TAB_SEARCH"		rect="74,2,66,24"/>
+ <anchor name="_ID_TAB_TRANSFERS"	rect="140,2,78,24"/>
+ <anchor name="_ID_TAB_LIBRARY"		rect="218,2,70,24"/>
+ <anchor name="_ID_TAB_MEDIA"		rect="298,2,70,24"/>
 </anchors>
 </windowSkin>
 
@@ -1775,7 +1813,7 @@
  <part name="_ID_TAB_MEDIA.Down"	rect="356,72,68,24"/>
 </parts>
 <anchors>
- <anchor name="Background"		rect="0,0,476,28"/>
+ <anchor name="Background"		rect="0,0,436,28"/>
  <anchor name="_ID_TAB_HOME"		rect="6,2,68,24"/>
  <anchor name="_ID_TAB_SEARCH"		rect="74,2,68,24"/>
  <anchor name="_ID_TAB_TRANSFERS"	rect="142,2,68,24"/>

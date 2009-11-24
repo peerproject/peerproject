@@ -161,7 +161,8 @@ CChildWnd* CWindowManager::Open(CRuntimeClass* pClass, BOOL bToggle, BOOL bFocus
 		bToggle = FALSE;
 	}
 
-	if ( pChild && pChild->m_bTabMode ) bToggle = FALSE;
+	if ( pChild && pChild->m_bTabMode )
+		bToggle = FALSE;
 
 	if ( pChild && bToggle && GetActive() == pChild )
 	{
@@ -171,9 +172,11 @@ CChildWnd* CWindowManager::Open(CRuntimeClass* pClass, BOOL bToggle, BOOL bFocus
 
 	pLock.Unlock();
 
-	if ( ! pChild ) pChild = (CChildWnd*)pClass->CreateObject();
+	if ( ! pChild )
+		pChild = static_cast< CChildWnd* >( pClass->CreateObject() );
 
-	if ( bFocus ) pChild->BringWindowToTop();
+	if ( bFocus )
+		pChild->BringWindowToTop();
 
 	return pChild;
 }
@@ -342,13 +345,9 @@ void CWindowManager::SetGUIMode(int nMode, BOOL bSaveState)
 	Settings.Save();
 
 	if ( Settings.General.GUIMode != GUI_WINDOWED )
-	{
 		CreateTabbedWindows();
-	}
 	else
-	{
 		LoadWindowStates();
-	}
 
 	LoadSearchWindows();
 	LoadBrowseHostWindows();
@@ -397,18 +396,14 @@ void CWindowManager::LoadWindowStates()
 			DWORD nUnique;
 
 			if ( _stscanf( (LPCTSTR)strClass + 3, _T("%lu"), &nUnique ) == 1 )
-			{
 				new CTrafficWnd( nUnique );
-			}
 		}
 		else if ( strClass.GetLength() )
 		{
 			CRuntimeClass* pClass = AfxClassForName( strClass );
 
 			if ( pClass && pClass->IsDerivedFrom( RUNTIME_CLASS(CChildWnd) ) )
-			{
 				Open( pClass );
-			}
 		}
 	}
 }
@@ -456,7 +451,7 @@ BOOL CWindowManager::LoadSearchWindows()
 
 	if ( ! pFile.Open( strFile, CFile::modeRead ) ) return FALSE;
 
-	CArchive ar( &pFile, CArchive::load );
+	CArchive ar( &pFile, CArchive::load, 262144 );  // 256 KB buffer
 	CWaitCursor pCursor;
 	BOOL bSuccess = TRUE;
 
@@ -486,7 +481,7 @@ void CWindowManager::SaveSearchWindows()
 
 	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) ) return;
 
-	CArchive ar( &pFile, CArchive::store );
+	CArchive ar( &pFile, CArchive::store, 262144 );  // 256 KB buffer
 	int nCount = 0;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
@@ -521,7 +516,7 @@ BOOL CWindowManager::LoadBrowseHostWindows()
 
 	if ( ! pFile.Open( strFile, CFile::modeRead ) ) return FALSE;
 
-	CArchive ar( &pFile, CArchive::load );
+	CArchive ar( &pFile, CArchive::load, 262144 );  // 256 KB buffer
 	CWaitCursor pCursor;
 	BOOL bSuccess = TRUE;
 
@@ -551,7 +546,7 @@ void CWindowManager::SaveBrowseHostWindows()
 
 	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) ) return;
 
-	CArchive ar( &pFile, CArchive::store );
+	CArchive ar( &pFile, CArchive::store, 262144 );  // 256 KB buffer
 	int nCount = 0;
 
 	for ( POSITION pos = GetIterator() ; pos ; )

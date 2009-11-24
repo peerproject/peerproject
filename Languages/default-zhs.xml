@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r41 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r42 (Shareaza r6092) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3169,41 +3169,45 @@
 		<control caption="应用"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="常规">
-		<control caption="用户界面(_U):"/>
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="常规">
+		<control caption="用户界面:"/>
 		<control caption="PeerProject 启动后自动连接"/>
 		<control caption="系统启动后运行 PeerProject"/>
 		<control caption="打开 URI 前弹出提示窗口"/>
-		<control caption="速率显示单位:"/>
-		<control caption="bits/s|bytes/s|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
-		<control caption="下载(_D):"/>
+		<control caption="Check for updates"/>
+		<control caption="下载:"/>
 		<control caption="默认展开新的下载"/>
 		<control caption="显示简易的进度栏"/>
-		<control caption="搜索(_S):"/>
+		<control caption="速率显示单位:"/>
+		<control caption="bits/s|bytes/s|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="搜索:"/>
 		<control caption="默认展开多个资源文件"/>
 		<control caption="下载时切换到传输视图"/>
 		<control caption="启动搜索时隐藏侧边栏"/>
 		<control caption="过滤搜索中的成人内容"/>
-		<control caption="工具提示(_T):"/>
+		<control caption="工具提示:"/>
 		<control/>
 		<control caption="迟延(ms):"/>
 		<control/>
 		<control/>
 		<control caption="透明度:"/>
 		<control/>
-		<control caption="系统托盘(_T):"/>
+		<control caption="Shadow (restart)"/>
+		<control caption="系统托盘:"/>
 		<control caption="点击关闭时:"/>
 		<control caption="询问我|最小化到系统托盘|立即关闭|传输完毕后关闭"/>
 		<control caption="点击最小化时:"/>
 		<control caption="标准|最小化到系统托盘"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="收藏">
-		<control caption="选项(_O):"/>
-		<control caption="记住文件夹视图"/>
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="收藏">
+		<control caption="选项:"/>
+		<control caption="允许他人浏览共享"/>
 		<control caption="监视收藏文件夹"/>
 		<control caption="快速 Hash(占用更多 CPU 资源)"/>
-		<control caption="允许他人浏览共享"/>
-		<control caption="近期文件(_R):"/>
+		<control caption="Smart media series detection"/>
+		<control caption="当删除时建立回收文件"/>
+		<control caption="记住文件夹视图"/>
+		<control caption="近期文件:"/>
 		<control caption="记住:"/>
 		<control/>
 		<control/>
@@ -3213,22 +3217,20 @@
 		<control/>
 		<control caption="天"/>
 		<control caption="立即清除历史"/>
-		<control caption="安全的扩展名(_S):"/>
+		<control caption="安全的扩展名:"/>
 		<control/>
 		<control caption="添加(_A)"/>
 		<control caption="移除(_R)"/>
-		<control caption="不共享扩展名(_N):"/>
+		<control caption="不共享扩展名:"/>
 		<control/>
 		<control caption="添加(_A)"/>
 		<control caption="移除(_R)"/>
-		<control caption="在这里储存收集(_C):"/>
+		<control caption="在这里储存收集:"/>
 		<control/>
 		<control/>
-		<control caption="当删除时建立回收文件"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="媒体">
-		<control caption="媒体服务(_M):"/>
+		<control caption="媒体服务:"/>
 		<control caption="选择媒体滤镜:"/>
 		<control/>
 		<control caption="使用 PeerProject 媒体播放器播放下列文件类型"/>
@@ -3237,15 +3239,15 @@
 		<control/>
 		<control caption="添加(_A)"/>
 		<control caption="移除(_R)"/>
-		<control caption="可视化音频插件(_V):"/>
+		<control caption="可视化音频插件:"/>
 		<control caption="选择插件(_S)..."/>
 		<control caption="警告: 选择一个额外的媒体滤镜将自动禁用所有的媒体和可视化插件！"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="社区">
-		<control caption="我的个人资料(_P):"/>
+		<control caption="我的个人资料:"/>
 		<control caption="您可以使用您的 Gnutella 用户个人资料来和别人共享信息，比如您的个人资料，您的兴趣，推荐的文件。"/>
 		<control caption="编辑个人资料"/>
-		<control caption="聊天(_C):"/>
+		<control caption="聊天:"/>
 		<control caption="允许和兼容用户进行点对点聊天"/>
 		<control caption="在所有网络中启用聊天功能"/>
 		<control caption="过滤垃圾聊天消息"/>
@@ -3253,14 +3255,14 @@
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="网页">
-		<control caption="P2P 链接控制(_P):"/>
+		<control caption="P2P 链接控制:"/>
 		<control caption="使用 PeerProject 打开下列类型的链接:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="edonkey ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
-		<control caption="下载管理器(_D):"/>
+		<control caption="下载管理器:"/>
 		<control caption="使用 PeerProject 管理所有的网页下载:"/>
 		<control/>
 		<control caption="添加(_A)"/>
@@ -3270,7 +3272,7 @@
 	<dialog name="CInternetSettingsGroup" caption="Internet">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="连接">
-		<control caption="传入地址(_I):"/>
+		<control caption="传入地址:"/>
 		<control caption="地址:"/>
 		<control caption="自动"/>
 		<control caption="速度:"/>
@@ -3279,17 +3281,17 @@
 		<control/>
 		<control caption="随机"/>
 		<control caption="强制绑定到此地址"/>
-		<control caption="传出地址(_O):"/>
+		<control caption="传出地址:"/>
 		<control caption="地址:"/>
 		<control caption="自动"/>
 		<control caption="速度:"/>
 		<control/>
-		<control caption="选项(_O):"/>
+		<control caption="选项:"/>
 		<control caption="我可以接收传入连接"/>
 		<control/>
 		<control caption="忽略 私用/本地 IP 地址"/>
 		<control caption="启用 UPnP 连接驱动器设置"/>
-		<control caption="超时(_T):"/>
+		<control caption="超时:"/>
 		<control caption="连接:"/>
 		<control/>
 		<control/>
@@ -3298,13 +3300,13 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadsSettingsPage" cookie="BuEdBuBuEdBuBuStEdmsStEdmsStEdmsBuStCoStCoBuBu" caption="下载">
-		<control caption="在这里保存已完成文件(_C):"/>
+		<control caption="在这里保存已完成文件:"/>
 		<control/>
 		<control/>
-		<control caption="在这里保存未完成文件(_I):"/>
+		<control caption="在这里保存未完成文件:"/>
 		<control/>
 		<control/>
-		<control caption="下载数值(_N):"/>
+		<control caption="下载数值:"/>
 		<control caption="最大文件数目:"/>
 		<control/>
 		<control/>
@@ -3314,7 +3316,7 @@
 		<control caption="每个文件传送数:"/>
 		<control/>
 		<control/>
-		<control caption="限制(_L):"/>
+		<control caption="限制:"/>
 		<control caption="全部下载带宽:"/>
 		<control/>
 		<control caption="最大排队长度:"/>
@@ -3323,7 +3325,7 @@
 		<control caption="只在已连接的网络下载和上传。"/>
 	</dialog>
 	<dialog name="CUploadsSettingsPage" cookie="BuBuBuBuBuStEdmsBuCoBuBuBuStCoStCoBuSyBuBuBuSt" caption="上传">
-		<control caption="选项(_O):"/>
+		<control caption="选项:"/>
 		<control caption="集端模式下限制共享"/>
 		<control caption="共享新的部分下载文件"/>
 		<control caption="共享预览文件"/>
@@ -3331,33 +3333,33 @@
 		<control caption="对唯一的主机进行限制:"/>
 		<control/>
 		<control/>
-		<control caption="用户代理过滤(_U):"/>
+		<control caption="用户代理过滤:"/>
 		<control/>
 		<control caption="+"/>
 		<control caption="-"/>
-		<control caption="带宽(_B):"/>
+		<control caption="带宽:"/>
 		<control caption="限制:"/>
 		<control/>
 		<control caption="模式:"/>
 		<control caption="最大|平均"/>
-		<control caption="队列(_Q):"/>
+		<control caption="队列:"/>
 		<control/>
 		<control caption="新建(_N)..."/>
 		<control caption="编辑(_E)..."/>
 		<control caption="删除(_D)"/>
 		<control caption="(变更立即生效)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="远程">
-		<control caption="指南(_G):"/>
-		<control caption="PeerProject 远程访问允许您让 PeerProject 在您的计算机上运行，并使用网页浏览器对它进行远程控制。您将需要能够接受传入连接以使用此功能(也就是正确地配置路由器，等等)。"/>
-		<control caption="启用(_E):"/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="远程">
+		<control caption="启用:"/>
 		<control caption="启用 PeerProject 远程访问:"/>
 		<control/>
-		<control caption="验证(_C):"/>
+		<control caption="验证:"/>
 		<control caption="选择一个用户名:"/>
-		<control/>
 		<control caption="选择一个密码:"/>
 		<control/>
+		<control/>
+		<control caption="帮助:"/>
+		<control caption="PeerProject 远程访问允许您让 PeerProject 在您的计算机上运行，并使用网页浏览器对它进行远程控制。您将需要能够接受传入连接以使用此功能(也就是正确地配置路由器，等等)。"/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="计划">
 		<control/>
@@ -3372,13 +3374,13 @@
 		<control caption="不要连接"/>
 		<control caption="限制连接"/>
 		<control caption="全速连接"/>
-		<control caption="选项(_O):"/>
+		<control caption="选项:"/>
 		<control caption="启用计划(_E)"/>
-		<control caption="仅在受到限制时连接到 G2(_C)"/>
+		<control caption="仅在受到限制时连接到 _G2"/>
 		<control caption="% 带宽受到限制(_B)"/>
 		<control/>
 		<control/>
-		<control caption="帮助"/>
+		<control caption="帮助:"/>
 		<control caption="计划功能可以用来让您制定 PeerProject 连接和下载文件的时间。{n}{n}{n}注意: 如果您在计划功能激活的状态下打开 PeerProject，您会发现它正在改变设置 - 这是正常的！"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="网络">
@@ -3398,11 +3400,11 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 网络:"/>
-		<control caption="总是连接到 Gnutella2"/>
-		<control caption="今天连接到 Gnutella2"/>
+		<control caption="今天连接到 G2"/>
+		<control caption="总是连接到 G2"/>
 		<control caption="模式:"/>
 		<control caption="最优|子端|集端"/>
-		<control caption="G2 连接(_2):"/>
+		<control caption="G_2 连接:"/>
 		<control caption="子端到集端:"/>
 		<control/>
 		<control/>
@@ -3412,12 +3414,12 @@
 		<control caption="集端到集端:"/>
 		<control/>
 		<control/>
-		<control caption="Gnutella1 网络:"/>
-		<control caption="总是连接到 Gnutella1"/>
-		<control caption="今天连接到 Gnutella1"/>
+		<control caption="Gnutella 网络:"/>
+		<control caption="今天连接到 Gnutella"/>
+		<control caption="总是连接到 Gnutella"/>
 		<control caption="模式:"/>
 		<control caption="最优|子端|超对等"/>
-		<control caption="G1 连接(_1):"/>
+		<control caption="G_1 连接:"/>
 		<control caption="子端到超对等:"/>
 		<control/>
 		<control/>
@@ -3427,64 +3429,65 @@
 		<control caption="对等到对等:"/>
 		<control/>
 		<control/>
-		<control caption="链接压缩(_L):"/>
+		<control caption="链接压缩:"/>
 		<control caption="集端到子端"/>
 		<control caption="子端到集端"/>
 		<control caption="集端到集端"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
-		<control caption="eDonkey 网络(_E):"/>
-		<control caption="连接到 eDonkey 今天"/>
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
+		<control caption="eDonkey 网络:"/>
 		<control caption="自动连接到每个会话"/>
-		<control caption="全局搜索(_G):"/>
+		<control caption="连接到 eDonkey 今天"/>
+		<control caption="客户端链接连接:"/>
+		<control caption="连接不多于:"/>
+		<control/>
+		<control/>
+		<control caption="其他 eDonkey 客户端。"/>
+		<control caption="全局搜索:"/>
 		<control caption="在服务器缓存中搜索已知远程服务器:"/>
 		<control caption="搜索停止于:"/>
 		<control/>
 		<control/>
 		<control caption="个搜索结果。"/>
-        <control caption="从连接接收和更新服务器列表"/>
-		<control caption="客户端链接连接(_C):"/>
-		<control caption="连接不多于:"/>
-		<control/>
-		<control/>
-		<control caption="其他 eDonkey 客户端。"/>
-		<control caption="eDonkey 工具(_T):"/>
-		<control caption="从网络上下载 eDonkey 服务器列表:"/>
+		<control caption="从连接接收和更新服务器列表"/>
+		<control caption="eDonkey 工具:"/>
 		<control caption="下载..."/>
+		<control caption="从网络上下载 eDonkey 服务器列表:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="下载连接(_D):"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEdd" caption="BitTorrent">
+		<control caption="下载连接:"/>
 		<control/>
 		<control/>
 		<control caption="个 Torrent 一次"/>
 		<control/>
 		<control/>
 		<control caption="个客户端连接"/>
-		<control caption="&#160;清除已下载的 Torrent&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;当共享比率达到"/>
-		<control/>
-		<control/>
-		<control/>
 		<control caption="&#160;Torrent 资源优先"/>
-		<control caption="最终阶段(_E):"/>
+		<control caption="最终阶段:"/>
 		<control caption="在完成 Torrent 时启用最终阶段模式"/>
-		<control caption="在这里保存 Torrent(_S):"/>
+		<control caption="&#160;清除已下载的 Torrent &#160; 当共享比率达到:"/>
 		<control/>
 		<control/>
-		<control caption="Torrent 制作工具(_T)"/>
+		<control caption="%"/>
+		<control caption="在这里保存 Torrent:"/>
+		<control/>
+		<control/>
+		<control caption="_Torrent 制作工具:"/>
 		<control/>
 		<control/>
 		<control caption="默认 Tracker:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="皮肤">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="皮肤">
 		<control/>
 		<control caption="皮肤信息:"/>
 		<control caption="名称:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="作者:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="描述:"/>
 		<control/>
+		<control caption="*Mix"/>
 		<control caption="删除"/>
 		<control caption="安装..."/>
 		<control caption="获取更多"/>
@@ -3493,10 +3496,10 @@
 		<control/>
 		<control caption="插件信息:"/>
 		<control caption="名称:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="描述:"/>
 		<control/>
-		<control caption="安装(_S)..."/>
+		<control caption="安装..."/>
 		<control caption="获取更多"/>
 	</dialog>
 	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="高级">
@@ -3514,12 +3517,12 @@
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="上传队列属性">
-		<control caption="名称(_N):"/>
+		<control caption="名称:"/>
 		<control/>
-		<control caption="项目条件(_E):"/>
+		<control caption="项目条件:"/>
 		<control caption="只部分下载的文件"/>
-        <control caption="只共享库中的文件"/>
-        <control caption="部分和库中的文件"/>
+		<control caption="只共享库中的文件"/>
+		<control caption="部分和库中的文件"/>
 		<control caption="最小资源文件大小:"/>
 		<control/>
 		<control caption="最大资源文件大小:"/>
@@ -3530,7 +3533,7 @@
 		<control/>
 		<control caption="协议:"/>
 		<control/>
-		<control caption="容量(_C):"/>
+		<control caption="容量:"/>
 		<control caption="启用此队列"/>
 		<control caption="最小传送数目:"/>
 		<control/>
@@ -3541,7 +3544,7 @@
 		<control caption="队列中等待的最大数目:"/>
 		<control/>
 		<control/>
-		<control caption="服务参数(_S):"/>
+		<control caption="服务参数:"/>
 		<control caption="带宽饱和百分比:"/>
 		<control/>
 		<control caption="此队列的上传带宽:"/>
@@ -3658,13 +3661,13 @@
 		<control/>
 	</dialog>
 	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="标识">
-		<control caption="名称(_N):"/>
+		<control caption="名称:"/>
 		<control caption="屏显名称:"/>
 		<control/>
 		<control caption="真实姓名:"/>
 		<control/>
 		<control/>
-		<control caption="基本信息(_V):"/>
+		<control caption="基本信息:"/>
 		<control caption="|男|女"/>
 		<control caption="性别:"/>
 		<control/>
@@ -3672,18 +3675,18 @@
 		<control caption="允许他人浏览我的个人资料"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="头像">
-		<control caption="预览(_P):"/>
+		<control caption="预览:"/>
 		<control/>
-		<control caption="选择(_S):"/>
+		<control caption="选择:"/>
 		<control caption="其他 Gnutella 用户浏览您的个人资料时将会看到您的头像。定制的头像应当是 128x128 象素，可以使用您电脑上的任何图片格式。"/>
 		<control caption="浏览(_B)..."/>
 		<control caption="移除(_R)"/>
 	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="联系">
-		<control caption="Email 地址(_E):"/>
+		<control caption="Email 地址:"/>
 		<control caption="主要地址:"/>
 		<control/>
-		<control caption="即时消息(_I):"/>
+		<control caption="即时消息:"/>
 		<control caption="MSN/.NET Passport:"/>
 		<control/>
 		<control caption="Yahoo ID:"/>
@@ -3696,17 +3699,17 @@
 		<control/>
 	</dialog>
 	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="个人资料">
-		<control caption="位置(_L):"/>
+		<control caption="位置:"/>
 		<control caption="国家:"/>
 		<control/>
 		<control caption="城市:"/>
 		<control/>
-		<control caption="地图(_M):"/>
+		<control caption="地图:"/>
 		<control caption="纬度:"/>
 		<control/>
 		<control caption="经度:"/>
 		<control/>
-		<control caption="兴趣(_I):"/>
+		<control caption="兴趣:"/>
 		<control/>
 		<control caption="&lt; 添加"/>
 		<control caption="移除 &gt;"/>
@@ -3717,7 +3720,7 @@
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="最爱">
 		<control/>
-		<control caption="编辑(_E):"/>
+		<control caption="编辑:"/>
 		<control caption="标题:"/>
 		<control/>
 		<control caption="链接:"/>
@@ -3726,7 +3729,7 @@
 		<control caption="移除"/>
 	</dialog>
 	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="文件">
-		<control caption="最爱文件(_F):"/>
+		<control caption="最爱文件:"/>
 		<control caption="以下最爱文件将被推荐给浏览您个人资料的用户。您可以通过添加文件到 &quot;Favourites(最爱)&quot; 文件夹创建最爱文件。"/>
 		<control/>
 	</dialog>
@@ -3745,7 +3748,7 @@
 		<control caption="初始化新的连接到主机或服务器:|浏览该用户:"/>
 		<control/>
 		<control/>
-		<control caption="网络协议(_P):"/>
+		<control caption="网络协议:"/>
 		<control caption="Gnutella1 (自动)|Gnutella2 (自动)|edonkey"/>
 		<control caption="抑制超对等(_S)"/>
 		<control caption="连接"/>
@@ -3773,7 +3776,7 @@
 		<control/>
 		<control caption="Reg. Exp."/>
 		<control caption="( 您也可以通过 - 来排除字词 )"/>
-		<control caption="以及大小(_S):"/>
+		<control caption="以及大小:"/>
 		<control caption="最小:"/>
 		<control/>
 		<control caption="最大:"/>
@@ -3807,7 +3810,7 @@
 		<control caption="保存当前过滤为"/>
 	</dialog>
 	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="探索服务">
-		<control caption="服务地址(_A):"/>
+		<control caption="服务地址:"/>
 		<control/>
 		<control caption="探索服务类型:"/>
 		<control caption="Gnutella Bootstrap|GWebCache|Server.met 链接"/>
@@ -3907,11 +3910,11 @@
 		<control caption="添加(_A)"/>
 		<control caption="编辑(_E)"/>
 		<control caption="移除(_R)"/>
-		<control caption="显示(_S):"/>
+		<control caption="显示:"/>
 		<control caption="网格线"/>
 		<control caption="垂直轴线"/>
 		<control caption="图例"/>
-		<control caption="采样频率(_F):"/>
+		<control caption="采样频率:"/>
 		<control caption="采样周期:"/>
 		<control/>
 		<control/>
@@ -3924,13 +3927,13 @@
 	<dialog name="CGraphItemDlg" cookie="BuBuBuCoStEdStEdBuBuStBu" caption="图表项目属性">
 		<control caption="确定"/>
 		<control caption="取消"/>
-		<control caption="资源(_S):"/>
+		<control caption="资源:"/>
 		<control/>
 		<control caption="参数:"/>
 		<control/>
 		<control caption="单位:"/>
 		<control/>
-		<control caption="显示(_D):"/>
+		<control caption="显示:"/>
 		<control caption="选择颜色..."/>
 		<control/>
 		<control caption="移除(_R)"/>
@@ -3943,12 +3946,12 @@
 		<control caption="从列表中选择种类，然后选择要显示的项目。"/>
 	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="安全策略">
-		<control caption="规则(_R):"/>
+		<control caption="规则:"/>
 		<control caption="类型:"/>
 		<control caption="网络 (IP) 地址|内容过滤"/>
 		<control caption="注释:"/>
 		<control/>
-		<control caption="网络地址(_N):"/>
+		<control caption="网络地址:"/>
 		<control caption="IP 地址:"/>
 		<control/>
 		<control/>
@@ -3959,12 +3962,12 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="内容过滤(_C):"/>
+		<control caption="内容过滤:"/>
 		<control/>
 		<control caption="任意匹配"/>
 		<control caption="完全匹配"/>
 		<control caption="Reg. Exp."/>
-		<control caption="选项(_O):"/>
+		<control caption="选项:"/>
 		<control caption="操作:"/>
 		<control caption="无|接受|拒绝"/>
 		<control caption="过期:"/>
@@ -4142,7 +4145,7 @@
 		<control/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control caption="当前 Tracker(_C):"/>
+		<control caption="当前 Tracker:"/>
 		<control caption="种子(已完成):"/>
 		<control caption="(未完成):"/>
 		<control caption="Tracker 模式:"/>
@@ -4157,7 +4160,7 @@
 		<control/>
 		<control caption="&#160;需要时| 当比率大于 100% 时| 被请求时| 从不"/>
 		<control/>
-		<control caption="Torrent 信息(_I):"/>
+		<control caption="Torrent 信息:"/>
 		<control caption="名称:"/>
 		<control caption="创建:"/>
 		<control caption="制作:"/>
@@ -4216,9 +4219,9 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="名称(_N):"/>
-		<control caption="过滤_F):"/>
-		<control caption="已完成文件文件夹(_F):"/>
+		<control caption="名称:"/>
+		<control caption="过滤:"/>
+		<control caption="已完成文件文件夹:"/>
 		<control caption="文件类型:"/>
 		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>

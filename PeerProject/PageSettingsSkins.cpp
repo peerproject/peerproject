@@ -94,9 +94,7 @@ BOOL CSkinsSettingsPage::OnInitDialog()
 	m_wndList.InsertColumn( 4, _T("URL"), LVCFMT_LEFT, 0, 4 );
 	m_wndList.InsertColumn( 5, _T("Email"), LVCFMT_LEFT, 0, 5 );
 	m_wndList.InsertColumn( 6, _T("Description"), LVCFMT_LEFT, 0, 6 );
-
-	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES, LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES );
+	m_wndList.SetExtendedStyle( LVS_EX_CHECKBOXES|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
 	if ( Settings.General.LanguageRTL )
 		m_wndDesc.ModifyStyleEx( WS_EX_RTLREADING|WS_EX_RIGHT|WS_EX_LEFTSCROLLBAR,
@@ -461,7 +459,7 @@ void CSkinsSettingsPage::OnSkinsWeb()
 	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("?id=addon&Version=") + theApp.m_sVersion,
+		strWebSite + _T("Skins?Version=") + theApp.m_sVersion,
 		NULL, NULL, SW_SHOWNORMAL );
 }
 

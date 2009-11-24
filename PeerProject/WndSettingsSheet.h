@@ -51,10 +51,6 @@ protected:
 protected:
 	DLGTEMPLATE*	m_pTemplate;
 	CString			m_sCaption;
-	int				m_nLeftMargin;
-	int				m_nTopMargin;
-	int				m_nListWidth;
-	int				m_nListMargin;
 	int				m_nButtonHeight;
 
 // Operations
@@ -76,24 +72,23 @@ protected:
 	void			BuildTree();
 	void			Layout();
 	BOOL			CreatePage(CSettingsPage* pPage);
-	virtual void	DoPaint(CDC& dc);
 
 // Overrides
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	virtual BOOL OnInitDialog();
-	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
+	virtual void	DoPaint(CDC& dc);
+	virtual void	DoDataExchange(CDataExchange* pDX);
+	virtual BOOL	OnInitDialog();
+	virtual BOOL	OnCommand(WPARAM wParam, LPARAM lParam);
 
 // Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
-	afx_msg void OnPaint();
-	virtual void OnOK();
-	virtual void OnCancel();
-	afx_msg void OnApply();
-	afx_msg void OnTreeExpanding(NMHDR* pNotify, LRESULT *pResult);
-	afx_msg void OnSelectPage(NMHDR* pNotify, LRESULT *pResult);
-
+	virtual void	OnOK();
+	virtual void	OnCancel();
+	afx_msg void	OnApply();
+	afx_msg void	OnPaint();
+	afx_msg void	OnSelectPage(NMHDR* pNotify, LRESULT *pResult);
+	//afx_msg void	OnTreeExpanding(NMHDR* pNotify, LRESULT *pResult);
 };
 
 #define IDC_SETTINGS_TREE	100

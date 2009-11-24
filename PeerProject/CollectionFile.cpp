@@ -112,7 +112,7 @@ CCollectionFile::File* CCollectionFile::FindByURN(LPCTSTR pszURN)
     oMD5.fromUrn( pszURN );
     oTiger.fromUrn( pszURN );
     oED2K.fromUrn( pszURN );
-	oBTH.fromUrn( pszURN );
+	oBTH.fromUrn( pszURN ) || oBTH.fromUrn< Hashes::base16Encoding >( pszURN );
 
 	for ( POSITION pos = GetFileIterator() ; pos ; )
 	{
@@ -215,20 +215,15 @@ BOOL CCollectionFile::LoadCollection(LPCTSTR pszFile)
 	}
 
 	if ( CXMLElement* pTitle = pProperties->GetElementByName( _T("title") ) )
-	{
 		m_sTitle = pTitle->GetValue();
-	}
 
 	if ( CXMLElement* pMounting = pProperties->GetElementByName( _T("mounting") ) )
 	{
 		if ( CXMLElement* pParent = pMounting->GetElementByName( _T("parent") ) )
-		{
 			m_sParentURI = pParent->GetAttributeValue( _T("uri") );
-		}
+
 		if ( CXMLElement* pThis = pMounting->GetElementByName( _T("this") ) )
-		{
 			m_sThisURI = pThis->GetAttributeValue( _T("uri") );
-		}
 	}
 
 	if ( m_sThisURI.IsEmpty() )
@@ -296,9 +291,7 @@ BOOL CCollectionFile::LoadEMule(LPCTSTR pszFile)
 				{
 					auto_ptr< File > pCollectionFile( new File( this ) );
 					if ( pCollectionFile.get() && pCollectionFile->Parse( pFile ) )
-					{
 						m_pFiles.AddTail( pCollectionFile.release() );
-					}
 					else
 						break;
 				}
@@ -461,18 +454,18 @@ BOOL CCollectionFile::File::Parse(CXMLElement* pRoot)
 
 		if ( pXML->IsNamed( _T("id") ) )
 		{
-			if ( !m_oSHA1 ) m_oSHA1.fromUrn( pXML->GetValue() );
-            if ( !m_oMD5 ) m_oMD5.fromUrn( pXML->GetValue() );
+			if ( !m_oSHA1 )	m_oSHA1.fromUrn( pXML->GetValue() );
+            if ( !m_oMD5 )	m_oMD5.fromUrn( pXML->GetValue() );
 			if ( !m_oTiger ) m_oTiger.fromUrn( pXML->GetValue() );
-			if ( !m_oED2K ) m_oED2K.fromUrn( pXML->GetValue() );
-			if ( !m_oBTH ) m_oBTH.fromUrn( pXML->GetValue() );
+			if ( !m_oED2K )	m_oED2K.fromUrn( pXML->GetValue() );
+			if ( !m_oBTH )	m_oBTH.fromUrn( pXML->GetValue() );
+			if ( !m_oBTH )	m_oBTH.fromUrn< Hashes::base16Encoding >( pXML->GetValue() );
 		}
 		else if ( pXML->IsNamed( _T("description") ) )
 		{
 			if ( CXMLElement* pName = pXML->GetElementByName( _T("name") ) )
-			{
 				m_sName = pName->GetValue();
-			}
+
 			if ( CXMLElement* pSize = pXML->GetElementByName( _T("size") ) )
 			{
 				if ( _stscanf( pSize->GetValue(), _T("%I64i"), &m_nSize ) != 1 )
@@ -487,9 +480,7 @@ BOOL CCollectionFile::File::Parse(CXMLElement* pRoot)
 		else if ( pXML->IsNamed( _T("packaged") ) )
 		{
 			if ( CXMLElement* pSource = pXML->GetElementByName( _T("source") ) )
-			{
 				/* m_sSource =*/ pSource->GetValue();
-			}
 		}
 	}
 
@@ -509,29 +500,17 @@ BOOL CCollectionFile::File::Parse(CFile& pFile)
 				break;
 
 			if ( pTag.Check( ED2K_FT_FILEHASH, ED2K_TAG_HASH ) )
-			{
 				m_oED2K = pTag.m_oValue;
-			}
 			else if ( pTag.Check( ED2K_FT_FILESIZE, ED2K_TAG_INT ) )
-			{
 				m_nSize = pTag.m_nValue;
-			}
 			else if ( pTag.Check( ED2K_FT_FILENAME, ED2K_TAG_STRING ) )
-			{
 				m_sName = pTag.m_sValue;
-			}
-			else if ( pTag.Check( ED2K_FT_FILETYPE, ED2K_TAG_STRING ) )
-			{
-				// TODO: ED2K_FT_FILETYPE
-			}
-			else if ( pTag.Check( ED2K_FT_FILECOMMENT, ED2K_TAG_STRING ) )
-			{
-				// TODO: ED2K_FT_FILECOMMENT
-			}
-			else if ( pTag.Check( ED2K_FT_FILERATING, ED2K_TAG_INT ) )
-			{
-				// TODO: ED2K_FT_FILERATING
-			}
+			//else if ( pTag.Check( ED2K_FT_FILETYPE, ED2K_TAG_STRING ) )
+				// ToDo: ED2K_FT_FILETYPE
+			//else if ( pTag.Check( ED2K_FT_FILECOMMENT, ED2K_TAG_STRING ) )
+				// ToDo: ED2K_FT_FILECOMMENT
+			//else if ( pTag.Check( ED2K_FT_FILERATING, ED2K_TAG_INT ) )
+				// ToDo: ED2K_FT_FILERATING
 		}
 	}
 	return ! m_sName.IsEmpty() && m_oED2K && m_nSize != SIZE_UNKNOWN;

@@ -1,16 +1,13 @@
 // Microsoft Visual C++ generated resource script.
 //
-#include "Resrc1.h"
+#include "Resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#define APSTUDIO_HIDDEN_SYMBOLS
-#include "windows.h"
-#undef APSTUDIO_HIDDEN_SYMBOLS
-#include "Resource.h"
+#include "afxres.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -73,7 +70,7 @@ END
 IDR_MANIFEST RT_MANIFEST
 {
     "<assembly xmlns=""urn:schemas-microsoft-com:asm.v1"" manifestVersion=""1.0"">
-       <assemblyIdentity type=""win32"" name=""PeerProject.SkinInstaller"" version=""1.0.12.5""
+       <assemblyIdentity type=""win32"" name=""PeerProject.SkinInstaller"" version=""1.0.0.0""
 #ifdef WIN64
 		 processorArchitecture=""amd64""
 #else
@@ -116,14 +113,14 @@ VS_VERSION_INFO VERSIONINFO
 BEGIN
     BLOCK "StringFileInfo"
     BEGIN
-        BLOCK "040904b0"
+        BLOCK "000004b0"
         BEGIN
             VALUE "Comments", "PeerProject Skin Installer"
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "PeerProject Skin Installer"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "SkinInstaller"
-            VALUE "LegalCopyright", "PeerProject Development Team © 2002-2008"
+            VALUE "LegalCopyright", "© PeerProject Development Team 2002-2008"
             VALUE "OriginalFilename", "SkinInstaller.exe"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"
@@ -131,7 +128,7 @@ BEGIN
     END
     BLOCK "VarFileInfo"
     BEGIN
-        VALUE "Translation", 0x409, 1200
+        VALUE "Translation", 0x0, 1200
     END
 END
 
@@ -144,21 +141,27 @@ END
 
 1 TEXTINCLUDE 
 BEGIN
-    "Resrc1.h\0"
+    "Resource.h\0"
 END
 
 2 TEXTINCLUDE 
 BEGIN
-    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
-    "#include ""windows.h""\r\n"
-    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
-    "#include ""Resource.h""\r\n"
+    "#include ""afxres.h""\r\n"
     "\0"
 END
 
 3 TEXTINCLUDE 
 BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
     "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
     "\0"
 END
 
@@ -174,7 +177,16 @@ END
 //
 // Generated from the TEXTINCLUDE 3 resource.
 //
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
 
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "afxres.rc"     // Standard components
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED

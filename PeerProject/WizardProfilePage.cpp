@@ -40,7 +40,6 @@ BEGIN_MESSAGE_MAP(CWizardProfilePage, CWizardPage)
 	//{{AFX_MSG_MAP(CWizardProfilePage)
 	ON_WM_XBUTTONDOWN()
 	ON_CBN_SELCHANGE(IDC_LOC_COUNTRY, OnSelChangeCountry)
-	ON_CBN_SELCHANGE(IDC_PROFILE_AGE, &CWizardProfilePage::OnCbnSelchangeProfileAge)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -327,9 +326,4 @@ LRESULT CWizardProfilePage::OnWizardNext()
 	MyProfile.Save();
 
 	return 0;
-}
-
-void CWizardProfilePage::OnCbnSelchangeProfileAge()
-{
-	// ToDo: Add some control notification handler code here, or remove ?
 }

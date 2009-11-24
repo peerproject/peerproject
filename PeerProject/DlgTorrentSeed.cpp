@@ -107,9 +107,7 @@ void CTorrentSeedDlg::OnDownload()
 	if ( pTorrent->LoadTorrentFile( m_sTorrent ) )
 	{
 		if ( pTorrent->HasEncodingError() )		// Check the torrent is valid
-		{
 			CHelpDlg::Show( _T("GeneralHelp.BadTorrentEncoding") );
-		}
 
 		CPeerProjectURL oURL( pTorrent );
 
@@ -167,9 +165,8 @@ void CTorrentSeedDlg::OnSeed()
 	if ( m_pInfo.LoadTorrentFile( m_sTorrent ) )
 	{
 		if ( m_pInfo.HasEncodingError() )		// Check the torrent is valid
-		{
 			CHelpDlg::Show( _T("GeneralHelp.BadTorrentEncoding") );
-		}
+
 		if ( Downloads.FindByBTH( m_pInfo.m_oBTH ) == NULL || m_pInfo.GetCount() == 1 )
 		{
 			// Connect if (we aren't)
@@ -218,13 +215,9 @@ void CTorrentSeedDlg::OnSeed()
 void CTorrentSeedDlg::OnCancel()
 {
 	if ( m_wndDownload.IsWindowEnabled() || m_bCancel )
-	{
 		CSkinDialog::OnCancel();
-	}
 	else
-	{
 		m_bCancel = TRUE;
-	}
 }
 
 void CTorrentSeedDlg::OnDestroy()
@@ -336,13 +329,9 @@ BOOL CTorrentSeedDlg::LoadTorrent(CString strPath)
 void CTorrentSeedDlg::OnRun()
 {
 	if ( CreateDownload() )
-	{
 		PostMessage( WM_TIMER, 1 );
-	}
 	else
-	{
 		PostMessage( WM_TIMER, 2 );
-	}
 }
 
 BOOL CTorrentSeedDlg::CreateDownload()
@@ -361,9 +350,8 @@ BOOL CTorrentSeedDlg::CreateDownload()
 		{
 			CDownload* pDownload = Downloads.Add( CPeerProjectURL( new CBTInfo( m_pInfo ) ) );
 			if ( pDownload && pDownload->SeedTorrent( m_sMessage ) )
-			{
 				return TRUE;
-			}
+
 			pDownload->Remove();
 		}
 	}

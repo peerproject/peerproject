@@ -107,11 +107,11 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_WM_DRAWITEM()
 	ON_WM_INITMENUPOPUP()
 	ON_WM_SYSCOLORCHANGE()
-	ON_WM_TIMER()
 	ON_WM_CONTEXTMENU()
 	ON_WM_SYSCOMMAND()
 	ON_WM_ACTIVATE()
-	ON_WM_NCLBUTTONDBLCLK()
+	ON_WM_TIMER()
+	ON_WM_SIZE()
 	ON_WM_NCCALCSIZE()
 	ON_WM_NCHITTEST()
 	ON_WM_NCPAINT()
@@ -119,7 +119,7 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_WM_NCMOUSEMOVE()
 	ON_WM_NCLBUTTONDOWN()
 	ON_WM_NCLBUTTONUP()
-	ON_WM_SIZE()
+	ON_WM_NCLBUTTONDBLCLK()
 	ON_WM_GETMINMAXINFO()
 	ON_WM_ENDSESSION()
 	ON_WM_WINDOWPOSCHANGING()
@@ -347,7 +347,7 @@ BOOL CMainWnd::PreCreateWindow(CREATESTRUCT& cs)
 {
 	WNDCLASS wndcls = {};
 
-	wndcls.style			= CS_PARENTDC | CS_DBLCLKS;
+	wndcls.style			= CS_PARENTDC | CS_DBLCLKS;	// CS_HREDRAW | CS_VREDRAW
 	wndcls.lpfnWndProc		= AfxWndProc;
 	wndcls.hInstance		= AfxGetInstanceHandle();
 	wndcls.hIcon			= CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE, LVSIL_NORMAL );
@@ -646,7 +646,8 @@ BOOL CMainWnd::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* p
 {
 	if ( m_wndMonitorBar.m_hWnd != NULL )
 	{
-		if ( m_wndMonitorBar.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) ) return TRUE;
+		if ( m_wndMonitorBar.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) )
+			return TRUE;
 	}
 
 	if ( CMediaFrame::g_pMediaFrame != NULL )
@@ -666,7 +667,8 @@ BOOL CMainWnd::OnCommand(WPARAM wParam, LPARAM lParam)
 
 void CMainWnd::OnUpdatePluginRange(CCmdUI* pCmdUI)
 {
-	if ( ! Plugins.OnUpdate( m_pWindows.GetActive(), pCmdUI ) ) pCmdUI->Enable( FALSE );
+	if ( ! Plugins.OnUpdate( m_pWindows.GetActive(), pCmdUI ) )
+		pCmdUI->Enable( FALSE );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1055,6 +1057,8 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 	Skin.Apply();
 
+	//ModifyStyleEx( 0, WS_EX_COMPOSITED ); // Counter-productive
+
 	if ( Skin.m_bDropMenu )
 	{
 		if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.DropMenu") ) )
@@ -1415,12 +1419,11 @@ void CMainWnd::UpdateMessages()
 	}
 
 	if ( _tcsistr( strMessage, _T(CLIENT_NAME) ) == NULL )
-	{
 		strMessage = _T(CLIENT_NAME) _T(" ") + strMessage;
-	}
 
 	GetWindowText( strOld );
-	if ( strOld != strMessage ) SetWindowText( strMessage );
+	if ( strOld != strMessage )
+		SetWindowText( strMessage );
 }
 
 // This function runs some basic checks that everything is okay: disks, directories, local network, etc.
@@ -1445,7 +1448,6 @@ void CMainWnd::LocalSystemChecks()
 					Settings.Live.DiskSpaceStop = TRUE;
 					Downloads.PauseAll();
 				}
-
 			}
 		}
 		if ( Settings.Live.DiskSpaceWarning == FALSE )
@@ -1456,7 +1458,6 @@ void CMainWnd::LocalSystemChecks()
 				PostMessage( WM_COMMAND, ID_HELP_DISKSPACE );
 			}
 		}
-
 
 		// Check disk/directory exists and isn't read-only
 		if ( Settings.Live.DiskWriteWarning == FALSE )
@@ -2691,8 +2692,8 @@ void CMainWnd::OnHelpFakeShareaza()
 
 void CMainWnd::OnSize(UINT nType, int cx, int cy)
 {
-	if ( m_pSkin ) m_pSkin->OnSize( this );
 	CMDIFrameWnd::OnSize( nType, cx, cy );
+	if ( m_pSkin ) m_pSkin->OnSize( this );
 }
 
 void CMainWnd::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp)
@@ -2771,6 +2772,9 @@ LRESULT CMainWnd::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 	return Default();
 }
+
+/////////////////////////////////////////////////////////////////////////////
+// CMainWnd Security etc.
 
 LRESULT CMainWnd::OnSanityCheck(WPARAM /*wParam*/, LPARAM /*lParam*/)
 {

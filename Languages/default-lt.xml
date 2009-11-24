@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3374,16 +3374,17 @@
 		<control caption="Pritaikyti"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Bendra">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Bendra">
 		<control caption="_Bendra:"/>
 		<control caption="Paleidus „PeerProject“, jungtis prie tinklo"/>
 		<control caption="Paleisti „PeerProject“ startuojant Windows"/>
 		<control caption="Klausti prieš pridedant nuorodas"/>
-		<control caption="Spartą rodyti:"/>
-		<control caption="bitai/sek.|baitai/sek.|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_Atsisiuntimai:"/>
 		<control caption="Visada išskleisti naujų failų šaltinių medį"/>
 		<control caption="Rodyti supaprastintą eigos juostą"/>
+		<control caption="Spartą rodyti:"/>
+		<control caption="bitai/sek.|baitai/sek.|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Paieška:"/>
 		<control caption="Visada išskleisti šaltinių medį"/>
 		<control caption="Eiti prie siuntimų pridėjus naują failą"/>
@@ -3396,18 +3397,21 @@
 		<control/>
 		<control caption="Ryškis:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="_Sistemos juostelė:"/>
 		<control caption="Kai paspaudžiu baigti:"/>
 		<control caption="Paklausti|Patalpinti juostelėn|Iškart užverti|Baigti atsisiuntus"/>
 		<control caption="Kai paspaudžiu sutraukti:"/>
 		<control caption="Įprastas veiksmas|Patalpinti juostelėn"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Kolekcija">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Kolekcija">
 		<control caption="Pa_rinktys:"/>
-		<control caption="Prisiminti aplankų peržiūros būdą"/>
+		<control caption="Leisti peržiūrėti bendrintus failus"/>
 		<control caption="Stebėti kolekcijos katalogus"/>
 		<control caption="Greita maiša (daugiau CPU)"/>
-		<control caption="Leisti peržiūrėti bendrintus failus"/>
+		<control caption="Gudrus video serialų aptikimas"/>
+		<control caption="Kurti šešėlinius failus trinant"/>
+		<control caption="Prisiminti aplankų peržiūros būdą"/>
 		<control caption="Paskutiniai _failai:"/>
 		<control caption="Prisiminti:"/>
 		<control/>
@@ -3429,8 +3433,6 @@
 		<control caption="_Laikyti rinkinius čia:"/>
 		<control/>
 		<control/>
-		<control caption="Kurti šešėlinius failus trinant"/>
-		<control caption="Gudrus video serialų aptikimas"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Grotuvas">
 		<control caption="Pa_rinktys:"/>
@@ -3595,17 +3597,17 @@
 		<control caption="Š_alinti"/>
 		<control caption="(pokyčiai įsigalioja tuoj pat)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Nuotolinė prieiga">
-		<control caption="_Gidas:"/>
-		<control caption="„PeerProject“ nuotolinės prieigos funkcija leidžia jums, naudojantis naršykle, kontroliuoti nuotoliniu būdu „PeerProject“ programą, paliktą veikiančią savo kompiuteryje. Šios funkcijos naudojimuisi reikia, kad kompiuteris priimtų įeinančius susijungimus (t.y. teisingai suderintas maršrutizatorius ir t.t.)."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Nuotolinė prieiga">
 		<control caption="Įg_alinti:"/>
 		<control caption="Įgalinti nuotolinę prieigą prie „PeerProject“ programos"/>
 		<control/>
 		<control caption="Autentifikacijos _duomenys:"/>
 		<control caption="Naudotojo vardas:"/>
-		<control/>
 		<control caption="Slaptažodis:"/>
 		<control/>
+		<control/>
+		<control caption="Pagalba:"/>
+		<control caption="„PeerProject“ nuotolinės prieigos funkcija leidžia jums, naudojantis naršykle, kontroliuoti nuotoliniu būdu „PeerProject“ programą, paliktą veikiančią savo kompiuteryje. Šios funkcijos naudojimuisi reikia, kad kompiuteris priimtų įeinančius susijungimus (t.y. teisingai suderintas maršrutizatorius ir t.t.)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planuotojas">
 		<control/>
@@ -3626,7 +3628,7 @@
 		<control caption="% greitaveikos, kai ribojama"/>
 		<control/>
 		<control/>
-		<control caption="Pagalba"/>
+		<control caption="Pagalba:"/>
 		<control caption="Planuotojas yra sukurtas tam, kad leistų Jums nustatyti, kada „PeerProject“ prisijungs ir siųsis failus.{n}{n}{n}Pastaba: Jei esate atvėrę „PeerProject“ tuo metu, kai planuotojas veikia, Jūs galite pastebėti, jog nuostatos keičiasi — tai normalu!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Tinklai">
@@ -3646,8 +3648,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 tinklas:"/>
-		<control caption="Visada jungtis prie Gnutella2"/>
-		<control caption="Jungtis prie Gnutella2 šiandien"/>
+		<control caption="Visada jungtis prie G2"/>
+		<control caption="Jungtis prie G2 šiandien"/>
 		<control caption="Veiksena:"/>
 		<control caption="Optimali|Atšaka|Mazgas"/>
 		<control caption="G_2 susijungimai:"/>
@@ -3660,9 +3662,9 @@
 		<control caption="Mazgų į mazgą:"/>
 		<control/>
 		<control/>
-		<control caption="Gnutella1 tinklas:"/>
-		<control caption="Visada jungtis prie Gnutella1"/>
-		<control caption="Jungtis prie Gnutella1 šiandien"/>
+		<control caption="Gnutella tinklas:"/>
+		<control caption="Visada jungtis prie Gnutella"/>
+		<control caption="Jungtis prie Gnutella šiandien"/>
 		<control caption="Veiksena:"/>
 		<control caption="Optimali|Atšaka|Vedantysis"/>
 		<control caption="G_1 susijungimai:"/>
@@ -3680,10 +3682,15 @@
 		<control caption="Atšakos į mazgą"/>
 		<control caption="Mazgo į mazgą"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="_eDonkey tinklas:"/>
 		<control caption="Visada jungtis prie eDonkey"/>
 		<control caption="Jungtis prie eDonkey šiandien"/>
+		<control caption="_Kliento susijungimai:"/>
+		<control caption="Jungtis nedaugiau kaip prie:"/>
+		<control/>
+		<control/>
+		<control caption="kitų eDonkey klientų(-o)."/>
 		<control caption="_Globalinė paieška:"/>
 		<control caption="Ieškoti žinomų nutolusių serverių serverio laikinojoje talpykloje:"/>
 		<control caption="Stabdyti paieška po:"/>
@@ -3691,16 +3698,11 @@
 		<control/>
 		<control caption="radinių(-io)."/>
 		<control caption="Gauti ir atnaujinti serverių sąrašą iš susijungusio serverio"/>
-		<control caption="_Kliento susijungimai:"/>
-		<control caption="Jungtis nedaugiau kaip prie:"/>
-		<control/>
-		<control/>
-		<control caption="kitų eDonkey klientų(-o)."/>
 		<control caption="eDonkey į_rankiai:"/>
-		<control caption="eDonkey serverių sąrašo parsisiuntimas iš interneto:"/>
 		<control caption="Parsisiųsti..."/>
+		<control caption="eDonkey serverių sąrašo parsisiuntimas iš interneto:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Atsisiuntimų susijungimai:"/>
 		<control/>
 		<control/>
@@ -3708,31 +3710,32 @@
 		<control/>
 		<control/>
 		<control caption="Klientų susijungimų"/>
-		<control caption="&#160;Valyti parsisiųstus torrent,&#160;&#160;&#160;&#160;&#160;&#160;&#160;kai bendrinimo santykis pasiekia"/>
+		<control caption="Teikti pirmenybę torrent šaltiniams"/>
+		<control caption="_EndGame (paspartinimas):"/>
+		<control caption="Įgalinti BitTorrent „EndGame“ veikseną baigiant siųstis failus"/>
+		<control caption="Valyti parsisiųstus torrent, kai bendrinimo santykis pasiekia"/>
 		<control/>
 		<control/>
 		<control caption="%"/>
-		<control caption="&#160;Teikti pirmenybę torrent šaltiniams"/>
-		<control caption="_EndGame (paspartinimas):"/>
-		<control caption="Įgalinti BitTorrent „EndGame“ veikseną baigiant siųstis failus"/>
 		<control caption="_Laikyti torrent failus čia:"/>
 		<control/>
 		<control/>
-		<control caption="_Torrent failų kūrimo programa"/>
+		<control caption="_Torrent failų kūrimo programa:"/>
 		<control/>
 		<control/>
-		<control caption="Numatytasis seklys: "/>
+		<control caption="Numatytasis seklys:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Apvalkalai">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Apvalkalai">
 		<control/>
 		<control caption="Informacija apie apvalkalą:"/>
 		<control caption="Pavadinimas:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Autorius:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Aprašas:"/>
 		<control/>
+		<control caption="*Mix"/>
 		<control caption="Šalinti"/>
 		<control caption="Įdiegti..."/>
 		<control caption="Gauti daugiau"/>
@@ -3741,7 +3744,7 @@
 		<control/>
 		<control caption="Informacija apie papildinį:"/>
 		<control caption="Pavadinimas:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Aprašas:"/>
 		<control/>
 		<control caption="_Nustatyti..."/>

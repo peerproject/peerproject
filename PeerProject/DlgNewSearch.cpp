@@ -85,20 +85,14 @@ BOOL CNewSearchDlg::OnInitDialog()
 	m_wndSchemas.Load( Settings.Search.LastSchemaURI );
 
 	if ( m_pSearch.get() )
-	{
 		m_wndSchemas.Select( m_pSearch->m_pSchema );
-	}
 	else
-	{
 		m_pSearch.reset( new CQuerySearch() );
-	}
 
 	OnSelChangeSchemas();
 
 	if ( m_pSearch->m_pXML )
-	{
 		m_wndSchema.UpdateData( m_pSearch->m_pXML->GetFirstElement(), FALSE );
-	}
 
 	Settings.LoadWindow( _T("NewSearch"), this );
 
@@ -173,9 +167,8 @@ void CNewSearchDlg::OnCloseUpSchemas()
 	if ( pSchema != NULL )
 	{
 		if ( rcWindow.Height() <= 200 )
-		{
 			SetWindowPos( NULL, 0, 0, rcWindow.Width(), 264, SWP_NOMOVE|SWP_NOZORDER );
-		}
+
 		PostMessage( WM_KEYDOWN, VK_TAB );
 	}
 	else
@@ -193,15 +186,18 @@ void CNewSearchDlg::OnChangeSearch()
     Hashes::TigerHash oTiger;
     Hashes::Sha1Hash oSHA1;
     Hashes::Ed2kHash oED2K;
+	Hashes::Md5Hash oMD5;
+	Hashes::BtHash oBTH;
 
 	bHash |= static_cast< BOOL >( oSHA1.fromUrn( strSearch ) );
 	bHash |= static_cast< BOOL >( oTiger.fromUrn( strSearch ) );
 	bHash |= static_cast< BOOL >( oED2K.fromUrn( strSearch ) );
+	bHash |= static_cast< BOOL >( oMD5.fromUrn( strSearch ) );
+	bHash |= static_cast< BOOL >( oBTH.fromUrn( strSearch ) ||
+		oBTH.fromUrn< Hashes::base16Encoding >( strSearch ) );
 
 	if ( m_wndSchema.IsWindowVisible() == bHash )
-	{
 		m_wndSchema.ShowWindow( bHash ? SW_HIDE : SW_SHOW );
-	}
 }
 
 void CNewSearchDlg::OnOK()
@@ -239,4 +235,3 @@ void CNewSearchDlg::OnOK()
 
 	CSkinDialog::OnOK();
 }
-

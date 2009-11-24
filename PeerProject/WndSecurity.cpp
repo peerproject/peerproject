@@ -96,6 +96,13 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
+	m_wndList.InsertColumn( 0, _T("Address / Content"), LVCFMT_LEFT, 200, -1 );
+	m_wndList.InsertColumn( 1, _T("Hits"), LVCFMT_CENTER, 60, 0 );
+	m_wndList.InsertColumn( 2, _T("#"), LVCFMT_CENTER, 30, 1 );
+	m_wndList.InsertColumn( 3, _T("Action"), LVCFMT_CENTER, 60, 2 );
+	m_wndList.InsertColumn( 4, _T("Expires"), LVCFMT_CENTER, 60, 3 );
+	m_wndList.InsertColumn( 5, _T("Comment"), LVCFMT_LEFT, 180, 4 );
+
 	m_pSizer.Attach( &m_wndList );
 
 	CBitmap bmBase;
@@ -108,13 +115,6 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR16, 3, 1 );
 	m_gdiImageList.Add( &bmBase, RGB( 0, 255, 0 ) );
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
-
-	m_wndList.InsertColumn( 0, _T("Address / Content"), LVCFMT_LEFT, 190, -1 );
-	m_wndList.InsertColumn( 1, _T("Hits"), LVCFMT_CENTER, 60, 0 );
-	m_wndList.InsertColumn( 2, _T("Action"), LVCFMT_CENTER, 60, 1 );
-	m_wndList.InsertColumn( 3, _T("Expires"), LVCFMT_CENTER, 60, 2 );
-	m_wndList.InsertColumn( 4, _T("#"), LVCFMT_CENTER, 30, 3 );
-	m_wndList.InsertColumn( 5, _T("Comment"), LVCFMT_LEFT, 140, 4 );
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
 
@@ -146,8 +146,8 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 
 	CLiveItem* pDefault = pLiveList.Add( (LPVOID)0 );
 	pDefault->Set( 0, _T("Default Policy") );
-	pDefault->Set( 2, Security.m_bDenyPolicy ? _T("Deny") : _T("Accept") );
-	pDefault->Set( 4, _T(" X ") );
+	pDefault->Set( 3, Security.m_bDenyPolicy ? _T("Deny") : _T("Accept") );
+	pDefault->Set( 2, _T(" X ") );
 	pDefault->m_nImage = Security.m_bDenyPolicy ? Settings.General.LanguageRTL ? 0 : 2 : 1;
 
 	Security.Expire();
@@ -188,40 +188,38 @@ void CSecurityWnd::Update(int nColumn, BOOL bSort)
 		switch ( pRule->m_nAction )
 		{
 		case CSecureRule::srNull:
-			pItem->Set( 2, _T("N/A") );
+			pItem->Set( 3, _T("N/A") );
 			break;
 		case CSecureRule::srAccept:
-			pItem->Set( 2, _T("Accept") );
+			pItem->Set( 3, _T("Accept") );
 			break;
 		case CSecureRule::srDeny:
-			pItem->Set( 2, _T("Deny") );
+			pItem->Set( 3, _T("Deny") );
 			break;
 		}
 
 		if ( pRule->m_nExpire == CSecureRule::srIndefinite )
 		{
-			pItem->Set( 3, _T("Never") );
+			pItem->Set( 4, _T("Never") );
 		}
 		else if ( pRule->m_nExpire == CSecureRule::srSession )
 		{
-			pItem->Set( 3, _T("Session") );
+			pItem->Set( 4, _T("Session") );
 		}
 		else if ( pRule->m_nExpire >= nNow )
 		{
 			DWORD nTime = ( pRule->m_nExpire - nNow );
-			pItem->Format( 3, _T("%ud %uh %um"), nTime / 86400u, (nTime % 86400u) / 3600u, ( nTime % 3600u ) / 60u );
-			//pItem->Format( 3, _T("%i:%.2i:%.2i"), nTime / 3600, ( nTime % 3600 ) / 60, nTime % 60 );
+			pItem->Format( 4, _T("%ud %uh %um"), nTime / 86400u, (nTime % 86400u) / 3600u, ( nTime % 3600u ) / 60u );
+			//pItem->Format( 4, _T("%i:%.2i:%.2i"), nTime / 3600, ( nTime % 3600 ) / 60, nTime % 60 );
 		}
 
 		pItem->Format( 1, _T("%u (%u)"), pRule->m_nToday, pRule->m_nEver );
-		pItem->Format( 4, _T("%i"), nCount );
+		pItem->Format( 2, _T("%i"), nCount );
 		pItem->Set( 5, pRule->m_sComment );
 	}
 
 	if ( nColumn >= 0 )
-	{
 		SetWindowLongPtr( m_wndList.GetSafeHwnd(), GWLP_USERDATA, 0 - nColumn - 1 );
-	}
 
 	pLiveList.Apply( &m_wndList, bSort );
 
@@ -352,9 +350,7 @@ void CSecurityWnd::OnSecurityReset()
 		CQuickLock oLock( Security.m_pSection );
 
 		if ( CSecureRule* pRule = GetItem( nItem ) )
-		{
 			pRule->Reset();
-		}
 	}
 
 	Security.Save();
@@ -402,7 +398,7 @@ void CSecurityWnd::OnSecurityMoveUp()
 	}
 
 	Security.Save();
-	Update( 4 );
+	Update( 2 );
 }
 
 void CSecurityWnd::OnUpdateSecurityMoveDown(CCmdUI* pCmdUI)
@@ -428,7 +424,7 @@ void CSecurityWnd::OnSecurityMoveDown()
 	}
 
 	Security.Save();
-	Update( 4 );
+	Update( 2 );
 }
 
 void CSecurityWnd::OnSecurityAdd()
@@ -485,7 +481,6 @@ void CSecurityWnd::OnSecurityExport()
 					WideCharToMultiByte( CP_ACP, 0, strText, strText.GetLength(), pBytes, nBytes, NULL, NULL );
 					pFile.Write( pBytes, nBytes );
 					delete [] pBytes;
-
 				}
 			}
 		}

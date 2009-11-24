@@ -214,10 +214,7 @@ CString CBENode::GetStringFromSubNode(LPCSTR pszKey, UINT nEncoding, bool& bEnco
 		// We found a back-up node
 		// If it exists and is a string, try reading it
 		if ( ( pSubNode ) && ( pSubNode->m_nType == CBENode::beString ) )
-		{
-			// Assumed to be UTF-8
-			strValue = pSubNode->GetString();
-		}
+			strValue = pSubNode->GetString();	// Assumed to be UTF-8
 	}
 
 	// Open the supplied sub-node
@@ -267,12 +264,9 @@ CString CBENode::GetStringFromSubNode(int nItem, UINT nEncoding, bool& bEncoding
 	// Open the supplied list/dictionary item
 	pSubNode = GetNode( nItem );
 
-	// If it exists and is a string, try reading it
-	if ( ( pSubNode ) && ( pSubNode->m_nType == CBENode::beString ) )
-	{
-		// Read the string using the correct encoding. (UTF-8)
-		strValue = pSubNode->GetString();
-	}
+	// If it exists and is a string, try reading it (using the correct UTF-8 encoding).
+	if ( pSubNode && ( pSubNode->m_nType == CBENode::beString ) )
+		strValue = pSubNode->GetString();	// Read the string 
 
 	// If it wasn't valid, try a decode by forcing the code page.
 	if ( ! IsValid( strValue ) )
@@ -372,9 +366,12 @@ const CString CBENode::Encode() const
 	case beString:
 		{
 			sOutput += _T('\"');
-			for ( QWORD n = 0; n < m_nValue; n++ )
+			QWORD nLen = min( m_nValue, 100ull );
+			for ( QWORD n = 0; n < nLen; n++ )
+			{
 				sOutput += ( ( ( (LPSTR)m_pValue )[ n ] < ' ' ) ?
-				'.' : ( (LPSTR)m_pValue )[ n ] );
+					'.' : ( (LPSTR)m_pValue )[ n ] );
+			}
 			sOutput += _T('\"');
 			sTmp.Format( _T("[%I64i]"), m_nValue );
 			sOutput += sTmp;
@@ -431,13 +428,10 @@ CBENode* CBENode::Decode(CBuffer* pBuffer)
 		LPBYTE pInput	= pBuffer->m_pBuffer;
 		DWORD nInput	= pBuffer->m_nLength;
 
+		// IIS based trackers may insert unneeded EOL at the beginning
+		// of the torrent files or scrape responses, due to IIS bug.  Skip it.
 		if ( nInput > 1 && pInput[0] == '\r' && pInput[1] == '\n' )
-		{
-			// IIS based trackers may insert unneeded EOL at the beginning
-			// of the torrent files or scrape responses, due to IIS bug.
-			// We will skip it.
 			INC( 2 );
-		}
 
 		pNode->Decode( pInput, nInput );
 		return pNode.release();

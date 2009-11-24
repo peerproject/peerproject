@@ -118,10 +118,13 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 	static LPCTSTR pszPart[] =
 	{
 		_T("TopLeft"), _T("Top"), _T("TopRight"),
-		_T("TopLeftIA"), _T("TopIA"), _T("TopRightIA"),
 		_T("LeftTop"), _T("Left"), _T("LeftBottom"),
 		_T("RightTop"), _T("Right"), _T("RightBottom"),
 		_T("BottomLeft"), _T("Bottom"), _T("BottomRight"),
+		_T("TopLeftAlt"), _T("TopAlt"), _T("TopRightAlt"),
+		_T("LeftTopAlt"), _T("LeftAlt"), _T("LeftBottomAlt"),
+		_T("RightTopAlt"), _T("RightAlt"), _T("RightBottomAlt"),
+		_T("BottomLeftAlt"), _T("BottomAlt"), _T("BottomRightAlt"),
 		_T("System"), _T("SystemHover"), _T("SystemDown"),
 		_T("Minimise"), _T("MinimiseHover"), _T("MinimiseDown"),
 		_T("Maximise"), _T("MaximiseHover"), _T("MaximiseDown"),
@@ -247,16 +250,13 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 						pRect = new CRect( &rc );
 						m_pAnchorList.SetAt( strName, pRect );
 					}
+
+					m_rcMirror = pRect;
+
 					if ( strName == "Mirror" )
-					{
 						m_nMirror = 1;
-						m_rcMirror = pRect;
-					}
-					if ( strName == "MirrorFull" )
-					{
+					else if ( strName == "MirrorFull" )
 						m_nMirror = 2;
-						m_rcMirror = pRect;
-					}
 				}
 			}
 		}
@@ -361,7 +361,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				strFile = strPath + strFile;
 				hBitmap = CImageFile::LoadBitmapFromFile( strFile );
 
-			// ToDo: Alternate Alpha Handling
+			// ToDo: Alternate PNG Alpha Handling
 			//	if ( strFile.Right( 4 ) == ".bmp" )
 			//	{
 			//		hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(), strFile,
@@ -524,7 +524,6 @@ void CSkinWindow::CalcWindowRect(RECT* pRect, BOOL bToClient, BOOL /*bZoomed*/)
 
 	if ( m_bPart[ SKINPART_LEFT ] )
 		rcAdjust.left = max( rcAdjust.left, m_rcPart[ SKINPART_LEFT ].Width() );
-
 	if ( m_bPart[ SKINPART_RIGHT ] )
 		rcAdjust.right = max( rcAdjust.right, m_rcPart[ SKINPART_RIGHT ].Width() );
 
@@ -636,7 +635,9 @@ UINT CSkinWindow::OnNcHitTest(CWnd* pWnd, CPoint point, BOOL bResizable)
 		if ( rcAnchor.PtInRect( point ) ) return HTCLOSE;
 	}
 
-	if ( Settings.General.LanguageRTL ) point.x = nPointX;
+	if ( Settings.General.LanguageRTL )
+		point.x = nPointX;
+
 	if ( bResizable && ! pWnd->IsZoomed() )
 	{
 		if ( point.x >= rc.right - SIZEBOX_WIDTH && point.y >= rc.bottom - SIZEBOX_WIDTH )
@@ -696,7 +697,7 @@ void CSkinWindow::OnSize(CWnd* pWnd)
 {
 	if ( pWnd->IsIconic() ) return;
 
-	if ( pWnd->IsZoomed() )
+	if ( pWnd->IsZoomed() )	// Fullscreen Resize
 	{
 		CRect rcWnd;
 		SystemParametersInfo( SPI_GETWORKAREA, 0, rcWnd, 0 );
@@ -718,7 +719,7 @@ void CSkinWindow::OnSize(CWnd* pWnd)
 	}
 	else if ( m_pRegionXML )
 	{
-		SelectRegion( pWnd );
+		SelectRegion( pWnd );				// Redraw = true
 	}
 	else if ( ! theApp.m_bIsWin2000 )
 	{
@@ -729,7 +730,7 @@ void CSkinWindow::OnSize(CWnd* pWnd)
 		rcWnd.right++; rcWnd.bottom++;
 
 		HRGN hRgn = CreateRectRgnIndirect( &rcWnd );
-		pWnd->SetWindowRgn( hRgn, TRUE );
+		pWnd->SetWindowRgn( hRgn, TRUE );	// Redraw = true
 	}
 }
 
@@ -878,6 +879,8 @@ void CSkinWindow::Prepare(CDC* pDC)
 
 void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 {
+	// ToDo: Should most of this work be moved to OnSkin/OnSize?
+
 	HICON hIcon = NULL;
 	CString strCaption;
 	CRect rc, rcItem;
@@ -907,6 +910,8 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 
 	//	BOOL bZoomed = pWnd->IsZoomed();
 
+	// Caption Bar Setup:
+
 	if ( m_bCaption )
 	{
 		pWnd->GetWindowText( strCaption );
@@ -922,14 +927,17 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 		hIcon = pWnd->GetIcon( FALSE );
 		if ( hIcon == NULL ) hIcon = pWnd->GetIcon( TRUE );
 	}
-	int nCaptionHeight = 0;
 
-	if ( m_bPart[ SKINPART_TOP_LEFT ] ) nCaptionHeight = max( nCaptionHeight, m_rcPart[ SKINPART_TOP_LEFT ].Height() );
+	int nCaptionHeight = 0;
 	if ( m_bPart[ SKINPART_TOP ] ) nCaptionHeight = max( nCaptionHeight, m_rcPart[ SKINPART_TOP ].Height() );
-	if ( m_bPart[ SKINPART_TOP_RIGHT ] ) nCaptionHeight = max( nCaptionHeight, m_rcPart[ SKINPART_TOP_RIGHT ].Height() );
+	if ( m_bPart[ SKINPART_TOP_LEFT ] ) nCaptionHeight = max( nCaptionHeight, m_rcPart[ SKINPART_TOP_LEFT ].Height() );
+	else if ( m_bPart[ SKINPART_TOP_RIGHT ] ) nCaptionHeight = max( nCaptionHeight, m_rcPart[ SKINPART_TOP_RIGHT ].Height() );
+
 	CSize size( rc.Width(), nCaptionHeight );
 	CDC* pDC = CoolInterface.GetBuffer( dc, size );
 	COLORREF crOldTextColor = pDC->GetTextColor();
+
+	// Window Buttons
 
 	for ( int nAnchor = SKINANCHOR_SYSTEM ; nAnchor <= SKINANCHOR_CLOSE ; nAnchor++ )
 	{
@@ -945,11 +953,12 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 			if ( m_bPart[ nPart ] )
 			{
 				ResolveAnchor( rc, rcItem, nAnchor );
-				// ToDo: Buttons like "Close" are mirrored for RTL layout
-				// Maybe <anchor name="Close" rect="-31,5,23,23" rtl="true"/>
-				// should be used instead? Small design flaws appear sometimes with current
-				// implementation if all buttons in caption are mirrored although often barely noticeable.
-				if ( m_bPart[ SKINPART_TOP ] && Settings.General.LanguageRTL && nAnchor == SKINANCHOR_CLOSE )
+
+				// ToDo: Buttons like "Close" are all mirrored for RTL layout
+				// Maybe <anchor name="Close" rect="-30,5,20,20" rtl="true"/>
+				// should be used instead? Small design flaws appear sometimes with current implementation.
+
+				if ( Settings.General.LanguageRTL && m_bPart[ SKINPART_TOP ] && nAnchor == SKINANCHOR_CLOSE )
 					pDC->StretchBlt( m_rcPart[ nPart ].Width() + rcItem.left - 1, rcItem.top,
 						-m_rcPart[ nPart ].Width(), m_rcPart[ nPart ].Height(),
 						&m_dcSkin, m_rcPart[ nPart ].left, m_rcPart[ nPart ].top,
@@ -962,9 +971,13 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 				pDC->ExcludeClipRect( rcItem.left, rcItem.top,
 					rcItem.left + m_rcPart[ nPart ].Width(),
 					rcItem.top + m_rcPart[ nPart ].Height() );
+
+				// ToDo: Add other button support? (mediaplayer etc.)
 			}
 		}
 	}
+
+	// Frames (Active/Inactive):
 
 	CRect rcLeft( &rc ), rcTop( &rc ), rcRight( &rc ), rcBottom( &rc );
 	int nTotalWidth, nCaptionWidth, nSystemOffset;
@@ -974,33 +987,34 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 	nSystemOffset = m_rcMirror.right - m_rcMirror.left;
 	nSystemWidth = m_rcMirror.bottom - m_rcMirror.top;
 
-	if ( bActive == TRI_FALSE && m_bPart[ SKINPART_IA_TOP_LEFT ] )
+	if ( bActive == TRI_FALSE && m_bPart[ SKINPART_TOP_LEFT_ALT ] )
 	{
-		pDC->BitBlt( 0, 0, m_rcPart[ SKINPART_IA_TOP_LEFT ].Width(),
-			m_rcPart[ SKINPART_IA_TOP_LEFT ].Height(), &m_dcSkin,
-			m_rcPart[ SKINPART_IA_TOP_LEFT ].left,
-			m_rcPart[ SKINPART_IA_TOP_LEFT ].top, SRCCOPY );
+		pDC->BitBlt( 0, 0, m_rcPart[ SKINPART_TOP_LEFT_ALT ].Width(),
+			m_rcPart[ SKINPART_TOP_LEFT_ALT ].Height(), &m_dcSkin,
+			m_rcPart[ SKINPART_TOP_LEFT_ALT ].left,
+			m_rcPart[ SKINPART_TOP_LEFT_ALT ].top, SRCCOPY );
 
-		nTotalWidth = m_rcPart[ SKINPART_IA_TOP_LEFT ].Width();
+		nTotalWidth = m_rcPart[ SKINPART_TOP_LEFT_ALT ].Width();
 		nRestOffset = nTotalWidth - nSystemWidth - nSystemOffset - nCaptionWidth - nCaptionOffset;
 
 		// Inactive main window caption mirroring for RTL
 		if ( Settings.General.LanguageRTL && m_sTargets == "|CMainWnd|" && m_nMirror != 0 )
 		{
 			pDC->StretchBlt( nTotalWidth - nCaptionOffset, 0, -nCaptionWidth,
-				m_rcPart[ SKINPART_IA_TOP_LEFT ].Height(), &m_dcSkin,
-				m_rcPart[ SKINPART_IA_TOP_LEFT ].left + nRestOffset + nSystemWidth + nSystemOffset,
-				m_rcPart[ SKINPART_IA_TOP_LEFT ].top, nCaptionWidth,
-				m_rcPart[ SKINPART_IA_TOP_LEFT ].Height(), SRCCOPY );
+				m_rcPart[ SKINPART_TOP_LEFT_ALT ].Height(), &m_dcSkin,
+				m_rcPart[ SKINPART_TOP_LEFT_ALT ].left + nRestOffset + nSystemWidth + nSystemOffset,
+				m_rcPart[ SKINPART_TOP_LEFT_ALT ].top, nCaptionWidth,
+				m_rcPart[ SKINPART_TOP_LEFT_ALT ].Height(), SRCCOPY );
 			if ( m_nMirror == 2 )
 				pDC->StretchBlt( nRestOffset + nSystemWidth, 0, -nSystemWidth,
-				m_rcPart[ SKINPART_IA_TOP_LEFT ].Height(), &m_dcSkin,
-				m_rcPart[ SKINPART_IA_TOP_LEFT ].left + nRestOffset,
-				m_rcPart[ SKINPART_IA_TOP_LEFT ].top, nSystemWidth,
-				m_rcPart[ SKINPART_IA_TOP_LEFT ].Height(), SRCCOPY );
+				m_rcPart[ SKINPART_TOP_LEFT_ALT ].Height(), &m_dcSkin,
+				m_rcPart[ SKINPART_TOP_LEFT_ALT ].left + nRestOffset,
+				m_rcPart[ SKINPART_TOP_LEFT_ALT ].top, nSystemWidth,
+				m_rcPart[ SKINPART_TOP_LEFT_ALT ].Height(), SRCCOPY );
 		}
-		rcLeft.top += m_rcPart[ SKINPART_IA_TOP_LEFT ].Height();
-		rcTop.left += m_rcPart[ SKINPART_IA_TOP_LEFT ].Width();
+
+		rcLeft.top += m_rcPart[ SKINPART_TOP_LEFT_ALT ].Height();
+		rcTop.left += m_rcPart[ SKINPART_TOP_LEFT_ALT ].Width();
 	}
 	else if ( m_bPart[ SKINPART_TOP_LEFT ] )
 	{
@@ -1026,19 +1040,21 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 				m_rcPart[ SKINPART_TOP_LEFT ].top, nSystemWidth,
 				m_rcPart[ SKINPART_TOP_LEFT ].Height(), SRCCOPY );
 		}
+
 		rcLeft.top += m_rcPart[ SKINPART_TOP_LEFT ].Height();
 		rcTop.left += m_rcPart[ SKINPART_TOP_LEFT ].Width();
 	}
 
-	if ( bActive == TRI_FALSE && m_bPart[ SKINPART_IA_TOP_RIGHT ] )
+	if ( bActive == TRI_FALSE && m_bPart[ SKINPART_TOP_RIGHT_ALT ] )
 	{
-		pDC->BitBlt( rc.Width() - m_rcPart[ SKINPART_IA_TOP_RIGHT ].Width(), 0,
-			m_rcPart[ SKINPART_IA_TOP_RIGHT ].Width(),
-			m_rcPart[ SKINPART_IA_TOP_RIGHT ].Height(), &m_dcSkin,
-			m_rcPart[ SKINPART_IA_TOP_RIGHT ].left,
-			m_rcPart[ SKINPART_IA_TOP_RIGHT ].top, SRCCOPY );
-		rcTop.right -= m_rcPart[ SKINPART_IA_TOP_RIGHT ].Width();
-		rcRight.top += m_rcPart[ SKINPART_IA_TOP_RIGHT ].Height();
+		pDC->BitBlt( rc.Width() - m_rcPart[ SKINPART_TOP_RIGHT_ALT ].Width(), 0,
+			m_rcPart[ SKINPART_TOP_RIGHT_ALT ].Width(),
+			m_rcPart[ SKINPART_TOP_RIGHT_ALT ].Height(), &m_dcSkin,
+			m_rcPart[ SKINPART_TOP_RIGHT_ALT ].left,
+			m_rcPart[ SKINPART_TOP_RIGHT_ALT ].top, SRCCOPY );
+
+		rcTop.right -= m_rcPart[ SKINPART_TOP_RIGHT_ALT ].Width();
+		rcRight.top += m_rcPart[ SKINPART_TOP_RIGHT_ALT ].Height();
 	}
 	else if ( m_bPart[ SKINPART_TOP_RIGHT ] )
 	{
@@ -1047,22 +1063,46 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 			m_rcPart[ SKINPART_TOP_RIGHT ].Height(), &m_dcSkin,
 			m_rcPart[ SKINPART_TOP_RIGHT ].left,
 			m_rcPart[ SKINPART_TOP_RIGHT ].top, SRCCOPY );
+
 		rcTop.right -= m_rcPart[ SKINPART_TOP_RIGHT ].Width();
 		rcRight.top += m_rcPart[ SKINPART_TOP_RIGHT ].Height();
 	}
 
-	if ( m_bPart[ SKINPART_BOTTOM_LEFT ] )
+	if ( bActive == TRI_FALSE && m_bPart[ SKINPART_BOTTOM_LEFT_ALT ] )
+	{
+		dc.BitBlt( 0, rc.Height() - m_rcPart[ SKINPART_BOTTOM_LEFT_ALT ].Height(),
+			m_rcPart[ SKINPART_BOTTOM_LEFT_ALT ].Width(),
+			m_rcPart[ SKINPART_BOTTOM_LEFT_ALT ].Height(), &m_dcSkin,
+			m_rcPart[ SKINPART_BOTTOM_LEFT_ALT ].left,
+			m_rcPart[ SKINPART_BOTTOM_LEFT_ALT ].top, SRCCOPY );
+
+		rcBottom.left += m_rcPart[ SKINPART_BOTTOM_LEFT_ALT ].Width();
+		rcLeft.bottom -= m_rcPart[ SKINPART_BOTTOM_LEFT_ALT ].Height();
+	}
+	else if ( m_bPart[ SKINPART_BOTTOM_LEFT ] )
 	{
 		dc.BitBlt( 0, rc.Height() - m_rcPart[ SKINPART_BOTTOM_LEFT ].Height(),
 			m_rcPart[ SKINPART_BOTTOM_LEFT ].Width(),
 			m_rcPart[ SKINPART_BOTTOM_LEFT ].Height(), &m_dcSkin,
 			m_rcPart[ SKINPART_BOTTOM_LEFT ].left,
 			m_rcPart[ SKINPART_BOTTOM_LEFT ].top, SRCCOPY );
+
 		rcBottom.left += m_rcPart[ SKINPART_BOTTOM_LEFT ].Width();
 		rcLeft.bottom -= m_rcPart[ SKINPART_BOTTOM_LEFT ].Height();
 	}
 
-	if ( m_bPart[ SKINPART_BOTTOM_RIGHT ] )
+	if ( bActive == TRI_FALSE && m_bPart[ SKINPART_BOTTOM_RIGHT_ALT ] )
+	{
+		dc.BitBlt( 0, rc.Height() - m_rcPart[ SKINPART_BOTTOM_LEFT_ALT ].Height(),
+			m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].Width(),
+			m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].Height(), &m_dcSkin,
+			m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].left,
+			m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].top, SRCCOPY );
+
+		rcBottom.left += m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].Width();
+		rcLeft.bottom -= m_rcPart[ SKINPART_BOTTOM_RIGHT_ALT ].Height();
+	}
+	else if ( m_bPart[ SKINPART_BOTTOM_RIGHT ] )
 	{
 		dc.BitBlt( rc.Width() - m_rcPart[ SKINPART_BOTTOM_RIGHT ].Width(),
 			rc.Height() - m_rcPart[ SKINPART_BOTTOM_RIGHT ].Height(),
@@ -1070,40 +1110,84 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 			m_rcPart[ SKINPART_BOTTOM_RIGHT ].Height(), &m_dcSkin,
 			m_rcPart[ SKINPART_BOTTOM_RIGHT ].left,
 			m_rcPart[ SKINPART_BOTTOM_RIGHT ].top, SRCCOPY );
+
 		rcRight.bottom -= m_rcPart[ SKINPART_BOTTOM_RIGHT ].Height();
 		rcBottom.right -= m_rcPart[ SKINPART_BOTTOM_RIGHT ].Width();
 	}
 
-	if ( m_bPart[ SKINPART_LEFT_TOP ] )
+	if ( bActive == TRI_FALSE && m_bPart[ SKINPART_LEFT_TOP_ALT ] )
+	{
+		dc.BitBlt( 0, rcLeft.top, m_rcPart[ SKINPART_LEFT_TOP_ALT ].Width(),
+			m_rcPart[ SKINPART_LEFT_TOP_ALT ].Height(), &m_dcSkin,
+			m_rcPart[ SKINPART_LEFT_TOP_ALT ].left,
+			m_rcPart[ SKINPART_LEFT_TOP_ALT ].top, SRCCOPY );
+
+		rcLeft.top += m_rcPart[ SKINPART_LEFT_TOP ].Height();
+	}
+	else if ( m_bPart[ SKINPART_LEFT_TOP ] )
 	{
 		dc.BitBlt( 0, rcLeft.top, m_rcPart[ SKINPART_LEFT_TOP ].Width(),
 			m_rcPart[ SKINPART_LEFT_TOP ].Height(), &m_dcSkin,
 			m_rcPart[ SKINPART_LEFT_TOP ].left,
 			m_rcPart[ SKINPART_LEFT_TOP ].top, SRCCOPY );
+
 		rcLeft.top += m_rcPart[ SKINPART_LEFT_TOP ].Height();
 	}
 
-	if ( m_bPart[ SKINPART_LEFT_BOTTOM ] )
+	if ( bActive == TRI_FALSE && m_bPart[ SKINPART_LEFT_BOTTOM_ALT ] )
+	{
+		dc.BitBlt( 0, rcLeft.bottom - m_rcPart[ SKINPART_LEFT_BOTTOM_ALT ].Height(),
+			m_rcPart[ SKINPART_LEFT_BOTTOM_ALT ].Width(),
+			m_rcPart[ SKINPART_LEFT_BOTTOM_ALT ].Height(), &m_dcSkin,
+			m_rcPart[ SKINPART_LEFT_BOTTOM_ALT ].left,
+			m_rcPart[ SKINPART_LEFT_BOTTOM_ALT ].top, SRCCOPY );
+
+		rcLeft.bottom -= m_rcPart[ SKINPART_LEFT_BOTTOM_ALT ].Height();
+	}
+	else if ( m_bPart[ SKINPART_LEFT_BOTTOM ] )
 	{
 		dc.BitBlt( 0, rcLeft.bottom - m_rcPart[ SKINPART_LEFT_BOTTOM ].Height(),
 			m_rcPart[ SKINPART_LEFT_BOTTOM ].Width(),
 			m_rcPart[ SKINPART_LEFT_BOTTOM ].Height(), &m_dcSkin,
 			m_rcPart[ SKINPART_LEFT_BOTTOM ].left,
 			m_rcPart[ SKINPART_LEFT_BOTTOM ].top, SRCCOPY );
+
 		rcLeft.bottom -= m_rcPart[ SKINPART_LEFT_BOTTOM ].Height();
 	}
 
-	if ( m_bPart[ SKINPART_RIGHT_TOP ] )
+	if ( bActive == TRI_FALSE && m_bPart[ SKINPART_RIGHT_TOP_ALT ] )
+	{
+		dc.BitBlt( rcRight.right - m_rcPart[ SKINPART_RIGHT_TOP_ALT ].Width(),
+			rcRight.top, m_rcPart[ SKINPART_RIGHT_TOP_ALT ].Width(),
+			m_rcPart[ SKINPART_RIGHT_TOP_ALT ].Height(), &m_dcSkin,
+			m_rcPart[ SKINPART_RIGHT_TOP_ALT ].left,
+			m_rcPart[ SKINPART_RIGHT_TOP_ALT ].top, SRCCOPY );
+
+		rcRight.top += m_rcPart[ SKINPART_RIGHT_TOP_ALT ].Height();
+	}
+	else if ( m_bPart[ SKINPART_RIGHT_TOP ] )
 	{
 		dc.BitBlt( rcRight.right - m_rcPart[ SKINPART_RIGHT_TOP ].Width(),
 			rcRight.top, m_rcPart[ SKINPART_RIGHT_TOP ].Width(),
 			m_rcPart[ SKINPART_RIGHT_TOP ].Height(), &m_dcSkin,
 			m_rcPart[ SKINPART_RIGHT_TOP ].left,
 			m_rcPart[ SKINPART_RIGHT_TOP ].top, SRCCOPY );
+
 		rcRight.top += m_rcPart[ SKINPART_RIGHT_TOP ].Height();
 	}
 
-	if ( m_bPart[ SKINPART_RIGHT_BOTTOM ] )
+	if ( bActive == TRI_FALSE && m_bPart[ SKINPART_RIGHT_BOTTOM_ALT ] )
+	{
+		dc.BitBlt( rcRight.right - m_rcPart[ SKINPART_RIGHT_BOTTOM_ALT ].Width(),
+			rcRight.bottom - m_rcPart[ SKINPART_RIGHT_BOTTOM_ALT ].Height(),
+			m_rcPart[ SKINPART_RIGHT_BOTTOM_ALT ].Width(),
+			m_rcPart[ SKINPART_RIGHT_BOTTOM_ALT ].Height(), &m_dcSkin,
+			m_rcPart[ SKINPART_RIGHT_BOTTOM_ALT ].left,
+			m_rcPart[ SKINPART_RIGHT_BOTTOM_ALT ].top, SRCCOPY );
+
+		rcRight.bottom -= m_rcPart[ SKINPART_RIGHT_BOTTOM_ALT ].Height();
+	}
+	else if ( m_bPart[ SKINPART_RIGHT_BOTTOM ] )
 	{
 		dc.BitBlt( rcRight.right - m_rcPart[ SKINPART_RIGHT_BOTTOM ].Width(),
 			rcRight.bottom - m_rcPart[ SKINPART_RIGHT_BOTTOM ].Height(),
@@ -1111,115 +1195,193 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 			m_rcPart[ SKINPART_RIGHT_BOTTOM ].Height(), &m_dcSkin,
 			m_rcPart[ SKINPART_RIGHT_BOTTOM ].left,
 			m_rcPart[ SKINPART_RIGHT_BOTTOM ].top, SRCCOPY );
+
 		rcRight.bottom -= m_rcPart[ SKINPART_RIGHT_BOTTOM ].Height();
 	}
 
-	if ( m_bPart[ SKINPART_LEFT ] && rcLeft.top < rcLeft.bottom )
+	if ( rcTop.left < rcTop.right )
 	{
-		CRect* pRect = &m_rcPart[ SKINPART_LEFT ];
+		if ( bActive == TRI_FALSE && m_bPart[ SKINPART_TOP_ALT ] )
+		{
+			CRect* pRect = &m_rcPart[ SKINPART_TOP_ALT ];
 
-		if ( m_nPart[ SKINPART_LEFT ] == SKINPARTMODE_STRETCH )
-		{
-			dc.SetStretchBltMode( STRETCH_DELETESCANS );
-			dc.StretchBlt( 0, rcLeft.top, pRect->Width(), rcLeft.Height(),
-				&m_dcSkin, pRect->left, pRect->top,
-				pRect->Width(), pRect->Height(), SRCCOPY );
-		}
-		else
-		{
-			for ( int nY = rcLeft.top ; nY < rcLeft.bottom ; nY += pRect->Height() )
+			if ( m_nPart[ SKINPART_TOP_ALT ] == SKINPARTMODE_STRETCH )
 			{
-				dc.BitBlt( 0, nY, pRect->Width(), min( pRect->Height(), int(rcLeft.bottom - nY) ),
-					&m_dcSkin, pRect->left, pRect->top, SRCCOPY );
+				pDC->SetStretchBltMode( STRETCH_DELETESCANS );
+				pDC->StretchBlt( rcTop.left, 0, rcTop.Width(), pRect->Height(),
+					&m_dcSkin, pRect->left, pRect->top,
+					pRect->Width(), pRect->Height(), SRCCOPY );
+			}
+			else
+			{
+				for ( int nX = rcTop.left ; nX < rcTop.right ; nX += pRect->Width() )
+				{
+					pDC->BitBlt( nX, 0, min( pRect->Width(), rcTop.right - nX ),
+						pRect->Height(), &m_dcSkin, pRect->left, pRect->top, SRCCOPY );
+				}
+			}
+		}
+		else if ( m_bPart[ SKINPART_TOP ] )
+		{
+			CRect* pRect = &m_rcPart[ SKINPART_TOP ];
+
+			if ( m_nPart[ SKINPART_TOP ] == SKINPARTMODE_STRETCH )
+			{
+				pDC->SetStretchBltMode( STRETCH_DELETESCANS );
+				pDC->StretchBlt( rcTop.left, 0, rcTop.Width(), pRect->Height(),
+					&m_dcSkin, pRect->left, pRect->top,
+					pRect->Width(), pRect->Height(), SRCCOPY );
+			}
+			else
+			{
+				for ( int nX = rcTop.left ; nX < rcTop.right ; nX += pRect->Width() )
+				{
+					pDC->BitBlt( nX, 0, min( pRect->Width(), rcTop.right - nX ),
+						pRect->Height(), &m_dcSkin, pRect->left, pRect->top, SRCCOPY );
+				}
 			}
 		}
 	}
 
-	if ( bActive == TRI_FALSE && m_bPart[ SKINPART_IA_TOP ] && rcTop.left < rcTop.right )
+	if ( rcLeft.top < rcLeft.bottom )
 	{
-		CRect* pRect = &m_rcPart[ SKINPART_IA_TOP ];
+		if ( bActive == TRI_FALSE && m_bPart[ SKINPART_LEFT_ALT ] )
+		{
+			CRect* pRect = &m_rcPart[ SKINPART_LEFT_ALT ];
 
-		if ( m_nPart[ SKINPART_IA_TOP ] == SKINPARTMODE_STRETCH )
-		{
-			pDC->SetStretchBltMode( STRETCH_DELETESCANS );
-			pDC->StretchBlt( rcTop.left, 0, rcTop.Width(), pRect->Height(),
-				&m_dcSkin, pRect->left, pRect->top,
-				pRect->Width(), pRect->Height(), SRCCOPY );
-		}
-		else
-		{
-			for ( int nX = rcTop.left ; nX < rcTop.right ; nX += pRect->Width() )
+			if ( m_nPart[ SKINPART_LEFT_ALT ] == SKINPARTMODE_STRETCH )
 			{
-				pDC->BitBlt( nX, 0, min( pRect->Width(), rcTop.right - nX ),
-					pRect->Height(), &m_dcSkin, pRect->left, pRect->top, SRCCOPY );
+				dc.SetStretchBltMode( STRETCH_DELETESCANS );
+				dc.StretchBlt( 0, rcLeft.top, pRect->Width(), rcLeft.Height(),
+					&m_dcSkin, pRect->left, pRect->top,
+					pRect->Width(), pRect->Height(), SRCCOPY );
+			}
+			else
+			{
+				for ( int nY = rcLeft.top ; nY < rcLeft.bottom ; nY += pRect->Height() )
+				{
+					dc.BitBlt( 0, nY, pRect->Width(), min( pRect->Height(), int(rcLeft.bottom - nY) ),
+						&m_dcSkin, pRect->left, pRect->top, SRCCOPY );
+				}
 			}
 		}
-	}
-	else if ( m_bPart[ SKINPART_TOP ] && rcTop.left < rcTop.right )
-	{
-		CRect* pRect = &m_rcPart[ SKINPART_TOP ];
+		else if ( m_bPart[ SKINPART_LEFT ] )
+		{
+			CRect* pRect = &m_rcPart[ SKINPART_LEFT ];
 
-		if ( m_nPart[ SKINPART_TOP ] == SKINPARTMODE_STRETCH )
-		{
-			pDC->SetStretchBltMode( STRETCH_DELETESCANS );
-			pDC->StretchBlt( rcTop.left, 0, rcTop.Width(), pRect->Height(),
-				&m_dcSkin, pRect->left, pRect->top,
-				pRect->Width(), pRect->Height(), SRCCOPY );
-		}
-		else
-		{
-			for ( int nX = rcTop.left ; nX < rcTop.right ; nX += pRect->Width() )
+			if ( m_nPart[ SKINPART_LEFT ] == SKINPARTMODE_STRETCH )
 			{
-				pDC->BitBlt( nX, 0, min( pRect->Width(), rcTop.right - nX ),
-					pRect->Height(), &m_dcSkin, pRect->left, pRect->top, SRCCOPY );
+				dc.SetStretchBltMode( STRETCH_DELETESCANS );
+				dc.StretchBlt( 0, rcLeft.top, pRect->Width(), rcLeft.Height(),
+					&m_dcSkin, pRect->left, pRect->top,
+					pRect->Width(), pRect->Height(), SRCCOPY );
 			}
-		}
-	}
-
-	if ( m_bPart[ SKINPART_RIGHT ] && rcRight.top < rcRight.bottom )
-	{
-		CRect* pRect = &m_rcPart[ SKINPART_RIGHT ];
-
-		if ( m_nPart[ SKINPART_RIGHT ] == SKINPARTMODE_STRETCH )
-		{
-			dc.SetStretchBltMode( STRETCH_DELETESCANS );
-			dc.StretchBlt( rc.right - pRect->Width(), rcRight.top, pRect->Width(),
-				rcRight.Height(), &m_dcSkin, pRect->left, pRect->top,
-				pRect->Width(), pRect->Height(), SRCCOPY );
-		}
-		else
-		{
-			for ( int nY = rcRight.top ; nY < rcRight.bottom ; nY += pRect->Height() )
+			else
 			{
-				dc.BitBlt( rc.right - pRect->Width(), nY, pRect->Width(),
-					min( pRect->Height(), rcRight.bottom - nY ),
-					&m_dcSkin, 	pRect->left, pRect->top, SRCCOPY );
+				for ( int nY = rcLeft.top ; nY < rcLeft.bottom ; nY += pRect->Height() )
+				{
+					dc.BitBlt( 0, nY, pRect->Width(), min( pRect->Height(), int(rcLeft.bottom - nY) ),
+						&m_dcSkin, pRect->left, pRect->top, SRCCOPY );
+				}
 			}
 		}
 	}
 
-	if ( m_bPart[ SKINPART_BOTTOM ] && rcTop.left < rcTop.right )
+	if ( rcRight.top < rcRight.bottom )
 	{
-		CRect* pRect = &m_rcPart[ SKINPART_BOTTOM ];
+		if ( bActive == TRI_FALSE && m_bPart[ SKINPART_RIGHT_ALT ] )
+		{
+			CRect* pRect = &m_rcPart[ SKINPART_RIGHT_ALT ];
 
-		if ( m_nPart[ SKINPART_TOP ] == SKINPARTMODE_STRETCH )
-		{
-			dc.SetStretchBltMode( STRETCH_DELETESCANS );
-			dc.StretchBlt( rcBottom.left, rc.bottom - pRect->Height(),
-				rcBottom.Width(), pRect->Height(),
-				&m_dcSkin, pRect->left, pRect->top,
-				pRect->Width(), pRect->Height(), SRCCOPY );
-		}
-		else
-		{
-			for ( int nX = rcBottom.left ; nX < rcBottom.right ; nX += pRect->Width() )
+			if ( m_nPart[ SKINPART_RIGHT_ALT ] == SKINPARTMODE_STRETCH )
 			{
-				dc.BitBlt( nX, rc.bottom - pRect->Height(),
-					min( pRect->Width(), rcBottom.right - nX ), pRect->Height(),
-					&m_dcSkin, pRect->left, pRect->top, SRCCOPY );
+				dc.SetStretchBltMode( STRETCH_DELETESCANS );
+				dc.StretchBlt( rc.right - pRect->Width(), rcRight.top, pRect->Width(),
+					rcRight.Height(), &m_dcSkin, pRect->left, pRect->top,
+					pRect->Width(), pRect->Height(), SRCCOPY );
+			}
+			else
+			{
+				for ( int nY = rcRight.top ; nY < rcRight.bottom ; nY += pRect->Height() )
+				{
+					dc.BitBlt( rc.right - pRect->Width(), nY, pRect->Width(),
+						min( pRect->Height(), rcRight.bottom - nY ),
+						&m_dcSkin, 	pRect->left, pRect->top, SRCCOPY );
+				}
+			}
+		}
+		else if ( m_bPart[ SKINPART_RIGHT ] && rcRight.top < rcRight.bottom )
+		{
+			CRect* pRect = &m_rcPart[ SKINPART_RIGHT ];
+
+			if ( m_nPart[ SKINPART_RIGHT ] == SKINPARTMODE_STRETCH )
+			{
+				dc.SetStretchBltMode( STRETCH_DELETESCANS );
+				dc.StretchBlt( rc.right - pRect->Width(), rcRight.top, pRect->Width(),
+					rcRight.Height(), &m_dcSkin, pRect->left, pRect->top,
+					pRect->Width(), pRect->Height(), SRCCOPY );
+			}
+			else
+			{
+				for ( int nY = rcRight.top ; nY < rcRight.bottom ; nY += pRect->Height() )
+				{
+					dc.BitBlt( rc.right - pRect->Width(), nY, pRect->Width(),
+						min( pRect->Height(), rcRight.bottom - nY ),
+						&m_dcSkin, 	pRect->left, pRect->top, SRCCOPY );
+				}
 			}
 		}
 	}
+
+	if ( rcBottom.left < rcBottom.right )
+	{
+		if ( bActive == TRI_FALSE && m_bPart[ SKINPART_BOTTOM_ALT ] )
+		{
+			CRect* pRect = &m_rcPart[ SKINPART_BOTTOM_ALT ];
+
+			if ( m_nPart[ SKINPART_BOTTOM_ALT ] == SKINPARTMODE_STRETCH )
+			{
+				dc.SetStretchBltMode( STRETCH_DELETESCANS );
+				dc.StretchBlt( rcBottom.left, rc.bottom - pRect->Height(),
+					rcBottom.Width(), pRect->Height(),
+					&m_dcSkin, pRect->left, pRect->top,
+					pRect->Width(), pRect->Height(), SRCCOPY );
+			}
+			else
+			{
+				for ( int nX = rcBottom.left ; nX < rcBottom.right ; nX += pRect->Width() )
+				{
+					dc.BitBlt( nX, rc.bottom - pRect->Height(),
+						min( pRect->Width(), rcBottom.right - nX ), pRect->Height(),
+						&m_dcSkin, pRect->left, pRect->top, SRCCOPY );
+				}
+			}
+		}
+		else if ( m_bPart[ SKINPART_BOTTOM ] )
+		{
+			CRect* pRect = &m_rcPart[ SKINPART_BOTTOM ];
+
+			if ( m_nPart[ SKINPART_BOTTOM ] == SKINPARTMODE_STRETCH )
+			{
+				dc.SetStretchBltMode( STRETCH_DELETESCANS );
+				dc.StretchBlt( rcBottom.left, rc.bottom - pRect->Height(),
+					rcBottom.Width(), pRect->Height(),
+					&m_dcSkin, pRect->left, pRect->top,
+					pRect->Width(), pRect->Height(), SRCCOPY );
+			}
+			else
+			{
+				for ( int nX = rcBottom.left ; nX < rcBottom.right ; nX += pRect->Width() )
+				{
+					dc.BitBlt( nX, rc.bottom - pRect->Height(),
+						min( pRect->Width(), rcBottom.right - nX ), pRect->Height(),
+						&m_dcSkin, pRect->left, pRect->top, SRCCOPY );
+				}
+			}
+		}
+	}
+
+	// Caption Text:
 
 	if ( hIcon != NULL )
 	{
@@ -1426,7 +1588,7 @@ void CSkinWindow::SelectRegion(CWnd* pWnd)
 		}
 	}
 
-	if ( hRgn ) pWnd->SetWindowRgn( hRgn, TRUE );
+	if ( hRgn ) pWnd->SetWindowRgn( hRgn, TRUE );	// Redraw = true
 }
 
 CSize CSkinWindow::GetRegionSize()
@@ -1452,20 +1614,23 @@ CSize CSkinWindow::GetRegionSize()
 
 BOOL CSkinWindow::PreBlend(CBitmap* pbmTarget, const CRect& rcTarget, const CRect& rcSource)
 {
-	BITMAPINFO pTargeInfo = {};
+	// Currently Navbar transparency only 
+	// ToDo: Add transparency support for PNGs and frames, etc.?
+
 	BITMAPINFO pImageInfo = {};
 	BITMAPINFO pAlphaInfo = {};
+	BITMAPINFO pCacheInfo = {};
 
-	pTargeInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	pImageInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	pAlphaInfo.bmiHeader.biSize	= sizeof(BITMAPINFOHEADER);
+	pCacheInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 
 	HDC hDC = ::GetDC( 0 );
 	if ( Settings.General.LanguageRTL )
 		SetLayout( hDC, LAYOUT_BITMAPORIENTATIONPRESERVED );
 
 	if ( 0 == GetDIBits( hDC, m_bmSkin, 0, 0, NULL, &pImageInfo, DIB_RGB_COLORS ) ||
-		 0 == GetDIBits( hDC, *pbmTarget, 0, 0, NULL, &pTargeInfo, DIB_RGB_COLORS ) )
+		 0 == GetDIBits( hDC, *pbmTarget, 0, 0, NULL, &pCacheInfo, DIB_RGB_COLORS ) )
 	{
 		::ReleaseDC( 0, hDC );
 		return FALSE;
@@ -1473,16 +1638,13 @@ BOOL CSkinWindow::PreBlend(CBitmap* pbmTarget, const CRect& rcTarget, const CRec
 
 	BOOL bAlpha = m_bmAlpha.m_hObject &&
 		GetDIBits( hDC, m_bmAlpha, 0, 0, NULL, &pAlphaInfo, DIB_RGB_COLORS );
-	if ( ! bAlpha ) CopyMemory( &pAlphaInfo, &pImageInfo, sizeof(pAlphaInfo) );
+	if ( ! bAlpha )
+		CopyMemory( &pAlphaInfo, &pImageInfo, sizeof(pAlphaInfo) );
 
-	int nTargePitch = ( ( pTargeInfo.bmiHeader.biWidth * 3 ) + 3 ) & ~3;
 	int nImagePitch = ( ( pImageInfo.bmiHeader.biWidth * 3 ) + 3 ) & ~3;
 	int nAlphaPitch = ( ( pAlphaInfo.bmiHeader.biWidth * 3 ) + 3 ) & ~3;
+	int nCachePitch = ( ( pCacheInfo.bmiHeader.biWidth * 3 ) + 3 ) & ~3;
 
-	pTargeInfo.bmiHeader.biHeight		= -abs( pTargeInfo.bmiHeader.biHeight );
-	pTargeInfo.bmiHeader.biBitCount		= 24;
-	pTargeInfo.bmiHeader.biCompression	= BI_RGB;
-	pTargeInfo.bmiHeader.biSizeImage	= -pTargeInfo.bmiHeader.biHeight * nTargePitch;
 	pImageInfo.bmiHeader.biHeight		= -abs( pImageInfo.bmiHeader.biHeight );
 	pImageInfo.bmiHeader.biBitCount		= 24;
 	pImageInfo.bmiHeader.biCompression	= BI_RGB;
@@ -1491,30 +1653,35 @@ BOOL CSkinWindow::PreBlend(CBitmap* pbmTarget, const CRect& rcTarget, const CRec
 	pAlphaInfo.bmiHeader.biBitCount		= 24;
 	pAlphaInfo.bmiHeader.biCompression	= BI_RGB;
 	pAlphaInfo.bmiHeader.biSizeImage	= -pAlphaInfo.bmiHeader.biHeight * nAlphaPitch;
+	pCacheInfo.bmiHeader.biHeight		= -abs( pCacheInfo.bmiHeader.biHeight );
+	pCacheInfo.bmiHeader.biBitCount		= 24;
+	pCacheInfo.bmiHeader.biCompression	= BI_RGB;
+	pCacheInfo.bmiHeader.biSizeImage	= -pCacheInfo.bmiHeader.biHeight * nCachePitch;
 
-	auto_array< BYTE > pTargeData( new BYTE[ pTargeInfo.bmiHeader.biSizeImage ] );
+	auto_array< BYTE > pCacheData( new BYTE[ pCacheInfo.bmiHeader.biSizeImage ] );
 	auto_array< BYTE > pImageData( new BYTE[ pImageInfo.bmiHeader.biSizeImage ] );
 	auto_array< BYTE > pAlphaData( bAlpha ? new BYTE[ pAlphaInfo.bmiHeader.biSizeImage ] : NULL );
 
-	GetDIBits( hDC, *pbmTarget, 0, -pTargeInfo.bmiHeader.biHeight, pTargeData.get(), &pTargeInfo, DIB_RGB_COLORS );
+	GetDIBits( hDC, *pbmTarget, 0, -pCacheInfo.bmiHeader.biHeight, pCacheData.get(), &pCacheInfo, DIB_RGB_COLORS );
 	GetDIBits( hDC, m_bmSkin, 0, -pImageInfo.bmiHeader.biHeight, pImageData.get(), &pImageInfo, DIB_RGB_COLORS );
-	if ( bAlpha ) GetDIBits( hDC, m_bmAlpha, 0, -pAlphaInfo.bmiHeader.biHeight, pAlphaData.get(), &pAlphaInfo, DIB_RGB_COLORS );
+	if ( bAlpha )
+		GetDIBits( hDC, m_bmAlpha, 0, -pAlphaInfo.bmiHeader.biHeight, pAlphaData.get(), &pAlphaInfo, DIB_RGB_COLORS );
 
 	int nSrcY = rcSource.top, nSrcLeft = rcSource.left * 3;
 	int nDstY = rcTarget.top, nDstLeft = rcTarget.left * 3;
 
 	int nWidth = min( rcSource.Width(), rcTarget.Width() );
-	nWidth = min( nWidth, pTargeInfo.bmiHeader.biWidth - rcTarget.left );
 	nWidth = min( nWidth, pImageInfo.bmiHeader.biWidth - rcSource.left );
 	nWidth = min( nWidth, pAlphaInfo.bmiHeader.biWidth - rcSource.left );
+	nWidth = min( nWidth, pCacheInfo.bmiHeader.biWidth - rcTarget.left );
 	if ( nWidth > 0 )
 	{
 		for ( int nY = min( rcTarget.Height(), rcSource.Height() ) ; nY ; nY--, nSrcY++, nDstY++ )
 		{
-			BYTE* pTargePtr = pTargeData.get() + nDstY * nTargePitch + nDstLeft;
+			BYTE* pCachePtr = pCacheData.get() + nDstY * nCachePitch + nDstLeft;
 			BYTE* pImagePtr = pImageData.get() + nSrcY * nImagePitch + nSrcLeft;
 
-			if ( nDstY < 0 || nDstY >= -pTargeInfo.bmiHeader.biHeight )
+			if ( nDstY < 0 || nDstY >= -pCacheInfo.bmiHeader.biHeight )
 			{
 				// Out of bounds on destination
 			}
@@ -1528,23 +1695,23 @@ BOOL CSkinWindow::PreBlend(CBitmap* pbmTarget, const CRect& rcTarget, const CRec
 				for ( int nX = nWidth ; nX ; nX-- )
 				{
 					register BYTE nAlpha = *pAlphaPtr; pAlphaPtr += 3;
-					*pTargePtr = (BYTE)( ( (DWORD)(*pTargePtr) * ( 255 - nAlpha ) + (*pImagePtr) * nAlpha ) / 255 );
-					pTargePtr++; pImagePtr++;
-					*pTargePtr = (BYTE)( ( (DWORD)(*pTargePtr) * ( 255 - nAlpha ) + (*pImagePtr) * nAlpha ) / 255 );
-					pTargePtr++; pImagePtr++;
-					*pTargePtr = (BYTE)( ( (DWORD)(*pTargePtr) * ( 255 - nAlpha ) + (*pImagePtr) * nAlpha ) / 255 );
-					pTargePtr++; pImagePtr++;
+					*pCachePtr = (BYTE)( ( (DWORD)(*pCachePtr) * ( 255 - nAlpha ) + (*pImagePtr) * nAlpha ) / 255 );
+					pCachePtr++; pImagePtr++;
+					*pCachePtr = (BYTE)( ( (DWORD)(*pCachePtr) * ( 255 - nAlpha ) + (*pImagePtr) * nAlpha ) / 255 );
+					pCachePtr++; pImagePtr++;
+					*pCachePtr = (BYTE)( ( (DWORD)(*pCachePtr) * ( 255 - nAlpha ) + (*pImagePtr) * nAlpha ) / 255 );
+					pCachePtr++; pImagePtr++;
 				}
 			}
 			else
 			{
-				CopyMemory( pTargePtr, pImagePtr, nWidth * 3 );
+				CopyMemory( pCachePtr, pImagePtr, nWidth * 3 );
 			}
 		}
 	}
 
-	SetDIBits( hDC, *pbmTarget, 0, -pTargeInfo.bmiHeader.biHeight, pTargeData.get(),
-		&pTargeInfo, DIB_RGB_COLORS );
+	SetDIBits( hDC, *pbmTarget, 0, -pCacheInfo.bmiHeader.biHeight, pCacheData.get(),
+		&pCacheInfo, DIB_RGB_COLORS );
 
 	::ReleaseDC( 0, hDC );
 

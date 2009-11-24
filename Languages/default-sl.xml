@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r41 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r42 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -415,9 +415,8 @@
 		<button id="ID_CHAT_DISCONNECT" text="Prekinitev povezave"/>
 	</toolbar>
 	<!-- WEBSERVICES -->
-	<!-- IMAGE VIEWER ? -->
+	<!-- IMAGE VIEWER -->
 </toolbars>
-
 <!-- Menu Definitions -->
 <menus>
 	<!-- TAB BAR POPUP MENUS -->
@@ -1964,7 +1963,7 @@
 		<text>Prenos te datoteke je trenutno v teku. Če prenos poteka prepočasi,
 		vam priporočamo iskanje drugih virov na omrežju s klikom na ukaz '</text>
 		<text format="b">Najdi dodatne vire</text><text>'. Če se hitrost kljub temu ne izboljša
-    je mogoče razlog v počasnosti v omejeni hitrosti prenosa uporabnikov od koder prenašate datoteko.
+		je mogoče razlog v počasnosti v omejeni hitrosti prenosa uporabnikov od koder prenašate datoteko.
 		Hitrosti prenosa se ponavadi sčasoma povišajo.</text>
 	</document>
 	<document name="DownloadHelp.Pending">
@@ -2073,8 +2072,7 @@
 		<newline gap="8"/>
 		<link target="http://peerproject.org/help/?torrentencoding">Kliknite sem za dodatno pomoč</link>
 		<text> ali za iskanje programov za popravilo torrenta.</text>
-</document>
-
+	</document>
 	<document name="GeneralHelp.DonkeyServerList">
 		<text format="b">Vaš eDonkey strežniški seznam je prazen</text>
 		<newline gap="8"/>
@@ -2641,7 +2639,7 @@
 	<string id="8335" value="Viri za to datoteko so za požarnim zidom"/>
 	<string id="8336" value="Viri za to datoteko so morda nestabilni"/>
 	<string id="8337" value="Ni vreden zaupanja"/>
-	<string id="8338" value="No Hashset"/> <--Manjka nabor izvlečkov-->
+	<string id="8338" value="No Hashset"/> <!--Manjka nabor izvlečkov-->
 	<string id="16064" value="Zaganjam omrežno jedro PeerProject..."/>
 	<string id="16065" value="Vezava na %s vrata %i, za vhodne povezave, ni uspela. Vhodne povezave ne bodo mogoče."/>
 	<string id="16066" value="Zapiram omrežno jedro PeerProject..."/>
@@ -3172,16 +3170,17 @@
 		<control caption="Uporabi"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Splošno">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Splošno">
 		<control caption="_Splošno:"/>
 		<control caption="Samodejno poveži ob zagonu programa"/>
 		<control caption="Zaženi program, ko se postavi oper. sistem."/>
 		<control caption="Opozori pred odpiranjem URI-jev"/>
-		<control caption="Pokaži ocene v :"/>
-		<control caption="bitih/sekundah|bajtih-ih/sekundah|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_Prenosi:"/>
 		<control caption="Širjanje novih prenosov naj bo privzeto"/>
 		<control caption="Prikaži preprosto vrstico napredka"/>
+		<control caption="Pokaži ocene v :"/>
+		<control caption="bitih/sekundah|bajtih-ih/sekundah|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Iskanje:"/>
 		<control caption="Širjanje večvirnih datotek naj bo privzeto"/>
 		<control caption="Pri prenašanju preklopi na pogled 'Prenosi'"/>
@@ -3194,18 +3193,21 @@
 		<control/>
 		<control caption="Motnost:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="_Opravilna vrstica:"/>
 		<control caption="Ko kliknem zapri:"/>
 		<control caption="Vprašaj me|Minimiziraj v opravilno vrstico|Takoj zapri|Zapri po prenosih"/>
 		<control caption="Ko izberem minimizranje:"/>
 		<control caption="Navadno|Minimiziraj v opravilno vrstico"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Knjižnica">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Knjižnica">
 		<control caption="_Možnosti:"/>
-		<control caption="Zapomni si poglede map"/>
+		<control caption="Dovoljuj brskanje drugim"/>
 		<control caption="Opazuj knjižnične mape"/>
 		<control caption="Hitro zgoščevanje (obremenjuje procesor)"/>
-		<control caption="Dovoljuj brskanje drugim"/>
+		<control caption="Smart video series detection"/>
+		<control caption="Create ghost files when deleting"/>
+		<control caption="Zapomni si poglede map"/>
 		<control caption="_Nedavne datoteke:"/>
 		<control caption="Zapomnite si:"/>
 		<control/>
@@ -3227,8 +3229,6 @@
 		<control caption="Shrani _zbirke na tem mestu:"/>
 		<control/>
 		<control/>
-		<control caption="Create ghost files when deleting"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="CMediaSettingsPage" caption="Predvajalnik">
 		<control caption="_Medijske storitve:"/>
@@ -3350,17 +3350,17 @@
 		<control caption="_Briši"/>
 		<control caption="(spremembe pridejo v veljavo takoj)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Oddaljen dostop">
-		<control caption="_Vodič:"/>
-		<control caption="PeerProject oddaljen dostop vam omogoča, da z zagnanim programom upravljate oddaljeno s pomočjo spletnega brskalnika. Za to boste morali najprej dovoliti vhodne povezave (npr. ustrezno nastavljen usmerjevalnik in požarni zid, itd.)."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Oddaljen dostop">
 		<control caption="_Omogoči:"/>
 		<control caption="Omogoči oddaljen dostop do programa PeerProject:"/>
-		<control caption="URL"/>
+		<control/>
 		<control caption="_Uporabniški dostop:"/>
 		<control caption="Uporabniško ime:"/>
-		<control/>
 		<control caption="Geslo:"/>
 		<control/>
+		<control/>
+		<control caption="Pomoč:"/>
+		<control caption="PeerProject oddaljen dostop vam omogoča, da z zagnanim programom upravljate oddaljeno s pomočjo spletnega brskalnika. Za to boste morali najprej dovoliti vhodne povezave (npr. ustrezno nastavljen usmerjevalnik in požarni zid, itd.)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Razpored">
 		<control/>
@@ -3381,7 +3381,7 @@
 		<control caption="% _pasovne širine z omejitvijo"/>
 		<control/>
 		<control/>
-		<control caption="Pomoč"/>
+		<control caption="Pomoč:"/>
 		<control caption="Razpored vam omogoča, da PeerProject ob določenem času prenese datoteke. {n}{n}Opomba: Če boste imeli PeerProject odprto med tem, ko bo Razpored aktiven, boste morda opazili spreminjanje nastavitev. Brez panike, to je predvideno. Skuliraj se in pojdi na pivo :-)"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Omrežja">
@@ -3401,8 +3401,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 omrežje:"/>
-		<control caption="Vedno se poveži v Gnutella2"/>
-		<control caption="Poveži se v Gnutello2 takoj"/>
+		<control caption="Poveži se v G2 takoj"/>
+		<control caption="Vedno se poveži v G2"/>
 		<control caption="Način:"/>
 		<control caption="Optimalni|Listnati|Zvezdišče"/>
 		<control caption="G_2 povezave:"/>
@@ -3415,9 +3415,9 @@
 		<control caption="Zvezdišče do zvezd.:"/>
 		<control/>
 		<control/>
-		<control caption="Gnutella1 omrežje:"/>
-		<control caption="Vedno se poveži v Gnutella1"/>
-		<control caption="Poveži se v Gnutello1 takoj"/>
+		<control caption="Gnutella omrežje:"/>
+		<control caption="Poveži se v Gnutello takoj"/>
+		<control caption="Vedno se poveži v Gnutella"/>
 		<control caption="Način:"/>
 		<control caption="Optimalni|Listnati (leaf)|Ultravrstnik (ultrapeer)"/>
 		<control caption="G_1 povezave:"/>
@@ -3435,26 +3435,27 @@
 		<control caption="List do zvezdišča"/>
 		<control caption="Zvezdišče do zvezd."/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey2000">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="_eDonkey2000 omrežje:"/>
 		<control caption="Poveži se v eDonkey2000 takoj"/>
 		<control caption="Samodejno poveži v vsaki seji"/>
+		<control caption="_Odjemalčeve povezave:"/>
+		<control caption="Poveži se z največ"/>
+		<control/>
+		<control/>
+		<control caption="ostalimi eDonkey odjemalci."/>
 		<control caption="_Univerzalno iskanje:"/>
 		<control caption="Išči poznane oddaljene strežnike v strežniškem medpomnilniku:"/>
 		<control caption="Prekini iskanje po"/>
 		<control/>
 		<control/>
 		<control caption="iskanih rezultatih."/>
-		<control caption="_Odjemalčeve povezave:"/>
-		<control caption="Poveži se z največ"/>
-		<control/>
-		<control/>
-		<control caption="ostalimi eDonkey odjemalci."/>
+		<control caption="Update global server list from the connected server"/>
 		<control caption="eDonkey2000 _Orodja:"/>
-		<control caption="Prenesi eDonkey2000 seznam strežnikov iz spleta:"/>
 		<control caption="Prenesi..."/>
+		<control caption="Prenesi eDonkey seznam strežnikov iz spleta:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Prenosne povezave:"/>
 		<control/>
 		<control/>
@@ -3462,31 +3463,32 @@
 		<control/>
 		<control/>
 		<control caption="Povezave odjemalca"/>
-		<control caption="&#160;Počisti prenešene torrente&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;... ko deljeni delež doseže"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="&#160;Daj prednost torrent virom"/>
+		<control caption="Daj prednost torrent virom"/>
 		<control caption="_EndGame:"/>
 		<control caption="Omogoči EndGame način pri zaključevanju torrentov"/>
+		<control caption="Počisti prenešene torrente ...ko deljeni delež doseže:"/>
+		<control/>
+		<control/>
+		<control caption="%"/>
 		<control caption="_Shrani Torrente na tem mestu:"/>
 		<control/>
 		<control/>
-		<control caption="_Ustvarjalec Torrentov"/>
+		<control caption="_Ustvarjalec Torrentov:"/>
 		<control/>
 		<control/>
-		<control caption="Privzeti sledilnik: "/>
+		<control caption="Privzeti sledilnik:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Preobleke">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Preobleke">
 		<control/>
 		<control caption="Podatki preobleke:"/>
 		<control caption="Naziv:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Avtor:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Opis:"/>
 		<control/>
+		<control caption="*Mix"/>
 		<control caption="Briši"/>
 		<control caption="Namesti..."/>
 		<control caption="Več"/>
@@ -3495,7 +3497,7 @@
 		<control/>
 		<control caption="Podatki vtćnika:"/>
 		<control caption="Naziv:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Opis:"/>
 		<control/>
 		<control caption="_Namestitev..."/>

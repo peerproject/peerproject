@@ -364,7 +364,10 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 						AfxThrowUserException();
 				}
 				else
-					theApp.Message( MSG_DEBUG, _T("[G2 Hit] Error: Got hit descriptor without compound flag") );
+				{
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+						_T("[G2 Hit] Error: Got hit descriptor without compound flag") );
+				}
 				break;
 
 			case G2_PACKET_HIT_GROUP:
@@ -402,7 +405,10 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 					}
 				}
 				else
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got hit group without compound flag") );
+				{
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+						_T("[G2] Hit Error: Got hit group without compound flag") );
+				}
 				break;
 
 			case G2_PACKET_PROFILE:
@@ -429,7 +435,10 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 					}
 				}
 				else
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got profile without compound flag") );
+				{
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+						_T("[G2] Hit Error: Got profile without compound flag") );
+				}
 				break;
 
 			case G2_PACKET_NEIGHBOUR_HUB:
@@ -441,13 +450,13 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 					nodeTested = pTestNodeList.insert(
 						AddrPortPair( pHub.sin_addr.S_un.S_addr, pHub.sin_port ) );
 					if ( ! nodeTested.second )
-					{
-						// Not a unique IP and port pair
-						bSpam = true;
-					}
+						bSpam = true;	// Not a unique IP and port pair
 				}
 				else
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got neighbour hub with invalid length (%u bytes)"), nLength );
+				{
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+						_T("[G2] Hit Error: Got neighbour hub with invalid length (%u bytes)"), nLength );
+				}
 				break;
 
 			case G2_PACKET_NODE_GUID:
@@ -457,7 +466,10 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 					oClientID.validate();
 				}
 				else
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got node guid with invalid length (%u bytes)"), nLength );
+				{
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+						_T("[G2] Hit Error: Got node guid with invalid length (%u bytes)"), nLength );
+				}
 				break;
 
 			case G2_PACKET_NODE_ADDRESS:
@@ -471,7 +483,10 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 					nPort = pPacket->ReadShortBE();
 				}
 				else
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got node address with invalid length (%u bytes)"), nLength );
+				{
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+						_T("[G2] Hit Error: Got node address with invalid length (%u bytes)"), nLength );
+				}
 				break;
 
 			case G2_PACKET_VENDOR:
@@ -483,7 +498,10 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 						pVendor = VendorCache.m_pNull;
 				}
 				else
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got vendor with invalid length (%u bytes)"), nLength );
+				{
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+						_T("[G2] Hit Error: Got vendor with invalid length (%u bytes)"), nLength );
+				}
 				break;
 
 			case G2_PACKET_METADATA:
@@ -548,11 +566,15 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 					}
 				}
 				else
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got peer status with invalid length (%u bytes)"), nLength );
+				{
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+						_T("[G2] Hit Error: Got peer status with invalid length (%u bytes)"), nLength );
+				}
 				break;
 
 			default:
-				theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got unknown type (0x%08I64x +%u)"), nType, pPacket->m_nPosition - 8 );
+				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+					_T("[G2] Hit Error: Got unknown type (0x%08I64x +%u)"), nType, pPacket->m_nPosition - 8 );
 			}
 
 			pPacket->m_nPosition = nSkip;
@@ -560,12 +582,14 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 
 		if ( ! oClientID )
 		{
-			theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Node guid missed") );
+			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+				_T("[G2] Hit Error: Node guid missed") );
 			AfxThrowUserException();
 		}
 		if ( pPacket->GetRemaining() < 17 )
 		{
-			theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Too short packet (remaining %u bytes)"), pPacket->GetRemaining() );
+			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+				_T("[G2] Hit Error: Too short packet (remaining %u bytes)"), pPacket->GetRemaining() );
 			AfxThrowUserException();
 		}
 
@@ -637,15 +661,15 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 
 	if ( bSpam )
 	{
+#ifndef LAN_MODE
 		if ( pFirstHit )
 		{
-#ifndef LAN_MODE
 			for ( CQueryHit* pHit = pFirstHit ; pHit ; pHit = pHit->m_pNext )
 			{
 				pHit->m_bBogus = TRUE;
 			}
-#endif // LAN_MODE
 		}
+#endif // LAN_MODE
 	}
 	else if ( !CheckBogus( pFirstHit ) )
 	{
@@ -707,10 +731,8 @@ CQueryHit* CQueryHit::FromEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOO
 				pHit->Resolve();
 
 				if ( pHit->m_bPush == TRI_TRUE )
-				{
-					//pHit->m_sNick		= _T("(Low ID)");
 					pHit->m_nPort		= 0;
-				}
+					//pHit->m_sNick		= _T("(Low ID)");
 
 				if ( pFirstHit )
 					pLastHit->m_pNext = pHit.get();
@@ -951,16 +973,13 @@ CXMLElement* CQueryHit::ReadXML(CG1Packet* pPacket, int nSize)
 			pszXML += 4;
 			nSize -= 4;
 
-			if ( ! pXML )
-				// Invalid XML
-				break;
+			if ( ! pXML ) break;		// Invalid XML
+			
 
 			if ( ! pRoot )
 			{
 				pRoot = new CXMLElement( NULL, _T("Metadata") );
-				if ( ! pRoot )
-					// Out of memory
-					break;
+				if ( ! pRoot ) break;	// Out of memory
 			}
 
 			pRoot->AddElement( pXML );
@@ -1120,8 +1139,7 @@ void CQueryHit::ReadGGEP(CG1Packet* pPacket)
 					break;
 
 				case GGEP_H_UUID:
-					// Unsupported
-					break;
+					break;	// Unsupported
 
 				default:
 					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with GGEP \"H\" unknown type %d (%d bytes)"), pItemPos->m_pBuffer[0], pItemPos->m_nLength );
@@ -1133,22 +1151,26 @@ void CQueryHit::ReadGGEP(CG1Packet* pPacket)
 				if (      oSHA1.fromUrn(  strURN ) );	// Got SHA1
 				else if ( oTiger.fromUrn( strURN ) );	// Got Tiger
 				else if ( oED2K.fromUrn(  strURN ) );	// Got ED2K
-				else if ( oBTH.fromUrn(   strURN ) );	// Got BTH
 				else if ( oMD5.fromUrn(   strURN ) );	// Got MD5
+				else if ( oBTH.fromUrn(   strURN ) );	// Got BTH base32
+				else if ( oBTH.fromUrn< Hashes::base16Encoding >( strURN ) );	// Got BTH base16
 				else
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with unknown GGEP URN: \"%s\""), strURN );
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+						_T("[G1] Got hit packet with unknown GGEP URN: \"%s\""), strURN );
 			}
 			else if ( pItemPos->IsNamed( GGEP_HEADER_TTROOT ) )
 			{
 				if ( pItemPos->m_nLength == 24 ||
-					// Fix
-					pItemPos->m_nLength == 25 )
+					pItemPos->m_nLength == 25 )	// Fix
 				{
 					oTiger = reinterpret_cast< Hashes::TigerHash::RawStorage& >(
 						pItemPos->m_pBuffer[ 0 ] );
 				}
 				else
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with GGEP \"TT\" unknown size (%d bytes)"), pItemPos->m_nLength );
+				{
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+						_T("[G1] Got hit packet with GGEP \"TT\" unknown size (%d bytes)"), pItemPos->m_nLength );
+				}
 			}
 			else if ( pItemPos->IsNamed( GGEP_HEADER_LARGE_FILE ) )
 			{
@@ -1164,27 +1186,36 @@ void CQueryHit::ReadGGEP(CG1Packet* pPacket)
 						m_nSize = SIZE_UNKNOWN;
 				}
 				else
-					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with GGEP \"LF\" unknown size (%d bytes)"), pItemPos->m_nLength );
+				{
+					theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+						_T("[G1] Got hit packet with GGEP \"LF\" unknown size (%d bytes)"), pItemPos->m_nLength );
+				}
 			}
 			else if ( pItemPos->IsNamed( GGEP_HEADER_ALTS ) )
 			{
 				// IP-addresses need not be stored, as they are sent upon download request in the ALT-loc header
 				m_nHitSources += pItemPos->m_nLength / 6;
 			}
-			else if ( pItemPos->IsNamed( GGEP_HEADER_CREATE_TIME ) );
+			else if ( pItemPos->IsNamed( GGEP_HEADER_CREATE_TIME ) )
+			{
 				// Creation time not supported yet
-			else if ( pItemPos->IsNamed( GGEP_HEADER_ALTS_TLS ) );
+			}
+			else if ( pItemPos->IsNamed( GGEP_HEADER_ALTS_TLS ) )
+			{
 				// AlternateLocations that support TLS not supported yet
+			}
 			else
-				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with unknown GGEP \"%s\" (%d bytes)"), pItemPos->m_sID, pItemPos->m_nLength );
+			{
+				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+					_T("[G1] Got hit packet with unknown GGEP \"%s\" (%d bytes)"), pItemPos->m_sID, pItemPos->m_nLength );
+			}
 
 			if ( validAndUnequal( oSHA1, m_oSHA1 ) ||
 				 validAndUnequal( oTiger, m_oTiger ) ||
 				 validAndUnequal( oED2K, m_oED2K ) ||
 				 validAndUnequal( oMD5, m_oMD5 ) ||
 				 validAndUnequal( oBTH, m_oBTH ) )
-				// Hash mess
-				m_bBogus = TRUE;
+				m_bBogus = TRUE;	// Hash mess
 		}
 
 		if ( oSHA1  && ! m_oSHA1 )  m_oSHA1  = oSHA1;
@@ -1233,8 +1264,9 @@ void CQueryHit::ReadExtension(CG1Packet* pPacket)
 		else if ( oSHA1.fromUrn(  strURN ) );	// Got SHA1
 		else if ( oTiger.fromUrn( strURN ) );	// Got Tiger
 		else if ( oED2K.fromUrn(  strURN ) );	// Got ED2K
-		else if ( oBTH.fromUrn(   strURN ) );	// Got BTH
 		else if ( oMD5.fromUrn(   strURN ) );	// Got MD5
+		else if ( oBTH.fromUrn(   strURN ) );	// Got BTH base32
+		else if ( oBTH.fromUrn< Hashes::base16Encoding >( strURN ) );	// Got BTH base16
 		else
 			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with unknown URN \"%s\" (%d bytes)"), strURN, nLength );
 
@@ -1254,10 +1286,16 @@ void CQueryHit::ReadExtension(CG1Packet* pPacket)
 			m_sSchemaURI = pSchema->GetURI();
 		}
 		else
-			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with malformed XML \"%hs\" (%d bytes)"), pszData.get(), nLength );
+		{
+			theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+				_T("[G1] Got hit packet with malformed XML \"%hs\" (%d bytes)"), pszData.get(), nLength );
+		}
 	}
 	else
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got hit packet with unknown part \"%hs\" (%d bytes)"), pszData.get(), nLength );
+	{
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+			_T("[G1] Got hit packet with unknown part \"%hs\" (%d bytes)"), pszData.get(), nLength );
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1406,18 +1444,23 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 						}
 						else
 						{
-							theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got unknown metadata schema (%s)"), (LPCTSTR)strXML );
+							theApp.Message( MSG_DEBUG,
+								_T("[G2] Hit Error: Got unknown metadata schema (%s)"), (LPCTSTR)strXML );
 						}
 						pXML->Delete();
 					}
 					else
 					{
-						theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid metadata (%s)"), (LPCTSTR)strXML );
+						theApp.Message( MSG_DEBUG,
+							_T("[G2] Hit Error: Got invalid metadata (%s)"), (LPCTSTR)strXML );
 						AfxThrowUserException();
 					}
 				}
 				else
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got empty metadata") );
+				{
+					theApp.Message( MSG_DEBUG,
+						_T("[G2] Hit Error: Got empty metadata") );
+				}
 				break;
 
 			case G2_PACKET_SIZE:
@@ -1443,7 +1486,10 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 					if ( m_nGroup > 7 ) m_nGroup = 7;
 				}
 				else
-					theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got invalid group id") );
+				{
+					theApp.Message( MSG_DEBUG,
+						_T("[G2] Hit Error: Got invalid group id") );
+				}
 				break;
 
 			case G2_PACKET_OBJECT_ID:
@@ -1495,9 +1541,7 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 			case G2_PACKET_PREVIEW_URL:
 				m_bPreview = TRUE;
 				if ( nPacket != 0 )
-				{
 					m_sPreview = pPacket->ReadString( nPacket );
-				}
 				break;
 
 			case G2_PACKET_BOGUS:
@@ -1511,7 +1555,8 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 				break;
 
 			default:
-				theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: Got unknown type (0x%08I64x +%u)"), nType, pPacket->m_nPosition - 8 );
+				theApp.Message( MSG_DEBUG,
+					_T("[G2] Hit Error: Got unknown type (0x%08I64x +%u)"), nType, pPacket->m_nPosition - 8 );
 			}
 
 			pPacket->m_nPosition = nSkip;
@@ -1660,7 +1705,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 		{	//Codec - old style
 			strCodec = pTag.m_sValue;
 		}
-		//else	//*** Debug check. Remove this when it's working
+		//else	//*** Debug check. Todo: Remove this when it's working
 		//{
 		//	CString s;
 		//	s.Format ( _T("Tag: %u sTag: %s Type: %u"), pTag.m_nKey, pTag.m_sKey, pTag.m_nType );
@@ -1682,8 +1727,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 	else
 	{
 		// eMule doesn't share 0 byte files, thus it should mean the file size is unknown.
-		// It means also a hit for the currently downloaded file but such files have empty
-		// file names.
+		// It means also a hit for the currently downloaded file but such files have empty file names.
 		m_nSize = SIZE_UNKNOWN;
 	}
 
@@ -2069,10 +2113,12 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 		ar << m_sPreview;
 		ar << m_bCollection;
 
-		if ( m_pXML == NULL ) m_sSchemaURI.Empty();
+		if ( m_pXML == NULL )
+			m_sSchemaURI.Empty();
 		ar << m_sSchemaURI;
 		ar << m_sSchemaPlural;
-		if ( m_sSchemaURI.GetLength() ) m_pXML->Serialize( ar );
+		if ( m_sSchemaURI.GetLength() )
+			m_pXML->Serialize( ar );
 		ar << m_nRating;
 		ar << m_sComments;
 
@@ -2086,7 +2132,8 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 		ReadArchive( ar, &m_oSearchID[ 0 ], Hashes::Guid::byteCount );
 		m_oSearchID.validate();
 
-		if ( nVersion >= 9 ) ar >> m_nProtocol;
+		//if ( nVersion >= 9 )
+			ar >> m_nProtocol;
 		ReadArchive( ar, &m_oClientID[ 0 ], Hashes::Guid::byteCount );
 		m_oClientID.validate();
 		ReadArchive( ar, &m_pAddress, sizeof(IN_ADDR) );
@@ -2112,33 +2159,34 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
         SerializeIn( ar, m_oTiger, nVersion );
         SerializeIn( ar, m_oED2K, nVersion );
 
-		if ( nVersion >= 13 )
-		{
+		//if ( nVersion >= 13 )
+		//{
 			SerializeIn( ar, m_oBTH, nVersion );
 			SerializeIn( ar, m_oMD5, nVersion );
-		}
+		//}
 
 		ar >> m_sURL;
 		ar >> m_sName;
 		ar >> m_nIndex;
 		ar >> m_bSize;
 
-		if ( nVersion >= 10 )
-		{
+		//if ( nVersion >= 10 )
+		//{
 			ar >> m_nSize;
-		}
-		else
-		{
-			DWORD nSize;
-			ar >> nSize;
-			m_nSize = nSize;
-		}
+		//}
+		//else
+		//{
+		//	DWORD nSize;
+		//	ar >> nSize;
+		//	m_nSize = nSize;
+		//}
 
 		ar >> m_nHitSources;
 		ar >> m_nPartial;
 		ar >> m_bPreview;
 		ar >> m_sPreview;
-		if ( nVersion >= 11 ) ar >> m_bCollection;
+		//if ( nVersion >= 11 )
+			ar >> m_bCollection;
 
 		ar >> m_sSchemaURI;
 		ar >> m_sSchemaPlural;
@@ -2153,11 +2201,13 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 		ar >> m_sComments;
 
 		ar >> m_bMatched;
-		if ( nVersion >= 12 ) ar >> m_bExactMatch;
+		//if ( nVersion >= 12 )
+			ar >> m_bExactMatch;
 		ar >> m_bBogus;
 		ar >> m_bDownload;
 
-		if ( m_nHitSources == 0 && m_sURL.GetLength() ) m_nHitSources = 1;
+		if ( m_nHitSources == 0 && m_sURL.GetLength() )
+			m_nHitSources = 1;
 	}
 }
 

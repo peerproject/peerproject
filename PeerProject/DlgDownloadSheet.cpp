@@ -106,14 +106,18 @@ BOOL CDownloadSheet::OnInitDialog()
 	if ( GetDlgItem( IDOK ) )
 	{
 		CRect rc;
-		GetDlgItem( IDOK )->GetWindowRect( &rc );
+
+		GetDlgItem( 0x3021 )->GetWindowRect( &rc );	// Apply Position for OK
 		ScreenToClient( &rc );
-		GetDlgItem( IDOK )->SetWindowPos( NULL, 6, rc.top, 0, 0, SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE );
-		GetDlgItem( IDCANCEL )->SetWindowPos( NULL, 11 + rc.Width(), rc.top, 0, 0, SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE );
+		GetDlgItem( IDOK )->SetWindowPos( NULL, rc.left + 1, rc.top, 0, 0, SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE );
+
+		GetDlgItem( 0x0009 )->GetWindowRect( &rc );	// Help Position for Cancel
+		ScreenToClient( &rc );
+		GetDlgItem( IDCANCEL )->SetWindowPos( NULL, rc.left, rc.top, 0, 0, SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE );
 	}
 
-	if ( GetDlgItem( 0x3021 ) ) GetDlgItem( 0x3021 )->ShowWindow( SW_HIDE );
-	if ( GetDlgItem( 0x0009 ) ) GetDlgItem( 0x0009 )->ShowWindow( SW_HIDE );
+	if ( GetDlgItem( 0x3021 ) ) GetDlgItem( 0x3021 )->ShowWindow( SW_HIDE );	// No Apply
+	if ( GetDlgItem( 0x0009 ) ) GetDlgItem( 0x0009 )->ShowWindow( SW_HIDE );	// No Help
 
 	return bResult;
 }

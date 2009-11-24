@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1274,10 +1274,9 @@
 	<menu name="CLibraryFileView.Physical.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Открыть"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Добавить в список"/>
+		<item id="ID_LIBRARY_DELETE" text="_Удалить"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Общий доступ"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Удалить"/>
 		<separator/>
 		<menu text="_Искать">
 			<item id="ID_SEARCH_FOR_THIS" text="Этот файл"/>
@@ -1291,26 +1290,24 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Загрузить метаданные"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text="Копировать _ссылку"/>
 		</menu>
 		<menu text="О_перации">
 			<item id="ID_LIBRARY_RENAME" text="_Переименовать файл"/>
 			<item id="ID_LIBRARY_MOVE" text="П_ереместить файлы..."/>
 			<item id="ID_LIBRARY_COPY" text="_Копировать файлы..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Локализировать метаданные"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Обновить метаданные"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Свойства"/>
 	</menu>
 	<menu name="CLibraryFileView.Physical">
 		<item id="ID_LIBRARY_LAUNCH" text="_Открыть"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Добавить в список"/>
+		<item id="ID_LIBRARY_DELETE" text="_Удалить"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Общий доступ"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="Копировать сс_ылку"/>
-		<item id="ID_LIBRARY_DELETE" text="_Удалить"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="_Создать .torrent файл"/>
 		<separator/>
 		<menu text="_Искать">
 			<item id="ID_SEARCH_FOR_THIS" text="Этот файл"/>
@@ -1324,30 +1321,28 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Загрузить метаданные"/>
 			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="_Создать .torrent файл"/>
 		</menu>
 		<menu text="О_перации">
 			<item id="ID_LIBRARY_RENAME" text="_Переименовать файл"/>
 			<item id="ID_LIBRARY_MOVE" text="Пере_местить файлы..."/>
 			<item id="ID_LIBRARY_COPY" text="_Копировать файлы..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Локализировать метаданные"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Обновить метаданные"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Выбрать _колонки..."/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Локализировать метаданные"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Обновить метаданные"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Выбрать _колонки..."/>
+		</menu>
 		<separator/>
 		<item id="ID_SHELL_MENU" text="Меню Windows"/>
-		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Свойства"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Открыть"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Добавить в список"/>
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Добавить _альбом в список"/>
+		<item id="ID_LIBRARY_DELETE" text="_Удалить"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Общий доступ"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Удалить"/>
 		<separator/>
 		<menu text="_Искать">
 			<item id="ID_SEARCH_FOR_THIS" text="Этот файл"/>
@@ -1361,28 +1356,26 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Загрузить метаданные"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text="URI"/>
 		</menu>
 		<menu text="О_перации">
-			<item id="ID_LIBRARY_RENAME" text="_Переименовать файл"/>
 			<item id="ID_LIBRARY_UNLINK" text="_Удалить файлы"/>
 			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="_Переименовать файл"/>
 			<item id="ID_LIBRARY_MOVE" text="Пере_местить файлы..."/>
 			<item id="ID_LIBRARY_COPY" text="_Копировать файлы..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Локализировать метаданные"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Обновить метаданные"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Свойства"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual">
 		<item id="ID_LIBRARY_LAUNCH" text="_Открыть"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Добавить в список"/>
+		<item id="ID_LIBRARY_DELETE" text="_Удалить"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Общий доступ"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="URI"/>
-		<item id="ID_LIBRARY_DELETE" text="_Удалить"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="_Создать .torrent файл"/>
 		<separator/>
 		<menu text="_Искать">
 			<item id="ID_SEARCH_FOR_THIS" text="Этот файл"/>
@@ -1396,7 +1389,6 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="Посмотреть _Bitzi этикетку"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Загрузить метаданные"/>
 			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="_Создать .torrent файл"/>
 		</menu>
 		<menu text="О_перации">
 			<item id="ID_LIBRARY_UNLINK" text="_Удалить файлы"/>
@@ -1405,11 +1397,13 @@
 			<item id="ID_LIBRARY_MOVE" text="Пере_местить файлы..."/>
 			<item id="ID_LIBRARY_COPY" text="_Копировать файлы..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Локализировать метаданные"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Обновить метаданные"/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Локализировать метаданные"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Обновить метаданные"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Выбрать ко_лонки..."/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Выбрать ко_лонки..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Windows men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Свойства"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -3382,16 +3376,17 @@
 		<control caption="Применить"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Основное">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Основное">
 		<control caption="_Основное:"/>
 		<control caption="Соединяться с сетями при старте"/>
 		<control caption="Запуск PeerProject вместе с Windows"/>
 		<control caption="Спрашивать о перехвате ссылок"/>
-		<control caption="Скорость в:"/>
-		<control caption="бит/сек.|байт/сек.|б/с|Б/с|Кб/с|КБ/с|Мб/с|МБ/с"/>
+		<control caption="Проверка обновлений"/>
 		<control caption="_Загрузки:"/>
 		<control caption="Раскрывать дерево новых эагрузок"/>
 		<control caption="Упрощенная полоса прогресса"/>
+		<control caption="Скорость в:"/>
+		<control caption="бит/сек.|байт/сек.|б/с|Б/с|Кб/с|КБ/с|Мб/с|МБ/с"/>
 		<control caption="_Поиск:"/>
 		<control caption="Раскрывать дерево источн. поиска"/>
 		<control caption="При загрузке перейти к пересылкам"/>
@@ -3404,18 +3399,21 @@
 		<control/>
 		<control caption="Прозрач.:"/>
 		<control/>
+		<control caption="тень"/>
 		<control caption="_Трей:"/>
 		<control caption="Когда щелкаю закрыть:"/>
 		<control caption="Спрашивать|Отправить в трей|Сразу закрыть|Закрыть после пересылок"/>
 		<control caption="Когда щелкаю свернуть:"/>
 		<control caption="Обычное действие|Отправить в трей"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Хранилище">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Хранилище">
 		<control caption="_Опции:"/>
-		<control caption="Запоминать вид папок"/>
+		<control caption="Открыть общий доступ"/>
 		<control caption="Следить за хранилищем"/>
 		<control caption="Быстрое хеширование"/>
-		<control caption="Открыть общий доступ"/>
+		<control caption="Определение номеров серий у видео"/>
+		<control caption="Теневые файлы при стирании"/>
+		<control caption="Запоминать вид папок"/>
 		<control caption="_Последние файлы:"/>
 		<control caption="Помнить:"/>
 		<control/>
@@ -3437,8 +3435,6 @@
 		<control caption="Держать _коллекции в папке:"/>
 		<control/>
 		<control/>
-		<control caption="Теневые файлы при стирании"/>
-		<control caption="Определение номеров серий у видео"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Проигрыватель">
 		<control caption="_Опции:"/>
@@ -3603,17 +3599,17 @@
 		<control caption="_Удалить"/>
 		<control caption="(изменения применяются сразу)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Удалённый доступ">
-		<control caption="_Описание:"/>
-		<control caption="Удаленный доступ к PeerProject позволит Вам оставить PeerProject запущенной и контролировать её удаленно из веб браузера.  Для использования этого Вам понадобится иметь возможность принимать входящие соединения (и правильно настроить брандмауэр)."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Удалённый доступ">
 		<control caption="_Разрешение:"/>
 		<control caption="Разрешить удаленный доступ к PeerProject:"/>
 		<control caption="URL"/>
 		<control caption="_Безопасность:"/>
 		<control caption="Введите имя:"/>
-		<control/>
 		<control caption="Введите пароль:"/>
 		<control/>
+		<control/>
+		<control caption="Справка:"/>
+		<control caption="Удаленный доступ к PeerProject позволит Вам оставить PeerProject запущенной и контролировать её удаленно из веб браузера.  Для использования этого Вам понадобится иметь возможность принимать входящие соединения (и правильно настроить брандмауэр)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Планировщик">
 		<control/>
@@ -3634,7 +3630,7 @@
 		<control caption="% полосы пропуск. при лимите"/>
 		<control/>
 		<control/>
-		<control caption="Справка"/>
+		<control caption="Справка:"/>
 		<control caption="Планировщик создан для того, чтобы позволить Вам установить, когда PeerProject должна соединиться и начать загрузку файлов.{n}{n}Замечание: Если Вы открыли PeerProject во время работы планировщика, Вы можете заметить, что установки меняются - это нормально!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Сети">
@@ -3654,8 +3650,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Сеть Gnutella2:"/>
-		<control caption="Всегда соединяться с G2"/>
 		<control caption="Соединиться с G2 сегодня"/>
+		<control caption="Всегда соединяться с G2"/>
 		<control caption="Режим:"/>
 		<control caption="Оптимальный|Ветвь|Узел"/>
 		<control caption="G_2 соединения:"/>
@@ -3669,8 +3665,8 @@
 		<control/>
 		<control/>
 		<control caption="Сеть Gnutella1:"/>
-		<control caption="Всегда соединяться с G1"/>
 		<control caption="Соединиться с G1 сегодня"/>
+		<control caption="Всегда соединяться с G1"/>
 		<control caption="Режим:"/>
 		<control caption="Оптимальный|Ветвь|Ведущий"/>
 		<control caption="G_1 соединения:"/>
@@ -3688,10 +3684,15 @@
 		<control caption="Ветвь к узлу"/>
 		<control caption="Узел к узлу"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="_Сеть eDonkey:"/>
-		<control caption="Соединиться с eDonkey сегодня"/>
 		<control caption="Всегда соединяться с eDonkey"/>
+		<control caption="Соединиться с eDonkey сегодня"/>
+		<control caption="С_оединения с клиентами:"/>
+		<control caption="Соединять не более чем с:"/>
+		<control/>
+		<control/>
+		<control caption="другими eDonkey клиентами."/>
 		<control caption="_Глобальный поиск:"/>
 		<control caption="Поиск в кэше известных удаленных серверов:"/>
 		<control caption="Стоп поиска после:"/>
@@ -3699,16 +3700,11 @@
 		<control/>
 		<control caption="результатов."/>
 		<control caption="Получать и обновлять список серверов с соединенного сервера"/>
-		<control caption="С_оединения с клиентами:"/>
-		<control caption="Соединять не более чем с:"/>
-		<control/>
-		<control/>
-		<control caption="другими eDonkey клиентами."/>
 		<control caption="eDonkey _утилиты:"/>
-		<control caption="Загрузить список серверов из вба:"/>
 		<control caption="Загрузить..."/>
+		<control caption="Загрузить список серверов из вба:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Соединений для загрузки:"/>
 		<control/>
 		<control/>
@@ -3716,40 +3712,41 @@
 		<control/>
 		<control/>
 		<control caption="Клиентских соединений"/>
+		<control caption=" Предпочитать источники торрентов"/>
+		<control caption="_ЕndGame (ускорение):"/>
+		<control caption="Переходить в режим EndGame при завершении торрентов"/>
 		<control caption=" Убрать загружен. торренты при достижении соотношения"/>
 		<control/>
 		<control/>
 		<control caption="%"/>
-		<control caption=" Предпочитать источники торрентов"/>
-		<control caption="_ЕndGame (ускорение):"/>
-		<control caption="Переходить в режим EndGame при завершении торрентов"/>
 		<control caption="_Держать торренты в папке:"/>
 		<control/>
 		<control/>
-		<control caption="_Программа для создания торрентов"/>
+		<control caption="_Программа для создания торрентов:"/>
 		<control/>
 		<control/>
-		<control caption="Трекер по умолч.: "/>
+		<control caption="Трекер по умолч.:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Шкурки">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Шкурки">
 		<control/>
 		<control caption="Информация о шкурке:"/>
 		<control caption="Название:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Автор:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Описание:"/>
 		<control/>
+		<control caption="*Выберите несколько шкур Mix"/>
 		<control caption="Удалить"/>
 		<control caption="Установить..."/>
-		<control caption="_Хочу ещё..."/>
+		<control caption="Хочу ещё"/>
 	</dialog>
 	<dialog name="CPluginsSettingsPage" cookie="SyBuStStStEdBuBu" caption="Модули">
 		<control/>
 		<control caption="Информация о модуле:"/>
 		<control caption="Название:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Описание:"/>
 		<control/>
 		<control caption="_Установки..."/>

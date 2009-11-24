@@ -545,9 +545,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		DWORD nDepth	= 0;
 
 		if ( LPCTSTR pszDepth = _tcsistr( m_sRequest, _T("depth=") ) )
-		{
 			_stscanf( pszDepth + 6, _T("%i"), &nDepth );
-		}
 
 		BOOL bHashset = ( _tcsistr( m_sRequest, _T("ed2k=1") ) != NULL );
 
@@ -786,16 +784,13 @@ BOOL CUploadTransferHTTP::RequestPartialFile(CDownload* pDownload)
 	m_sRanges = pDownload->GetAvailableRanges();
 
 	if ( m_bRange && m_nOffset == 0 && m_nLength == SIZE_UNKNOWN )
-	{
 		pDownload->GetRandomRange( m_nOffset, m_nLength );
-	}
 
-	if ( m_nLength == SIZE_UNKNOWN ) m_nLength = m_nSize - m_nOffset;
+	if ( m_nLength == SIZE_UNKNOWN )
+		m_nLength = m_nSize - m_nOffset;
 
 	if ( pDownload->ClipUploadRange( m_nOffset, m_nLength ) )
-	{
 		return QueueRequest();
-	}
 
 	if ( pDownload->IsMoving() )
 	{
@@ -1336,13 +1331,9 @@ void CUploadTransferHTTP::OnDropped()
 	if ( m_nState == upsUploading && m_pBaseFile != NULL )
 	{
 		if ( m_bBackwards )
-		{
 			m_pBaseFile->AddFragment( m_nOffset + m_nLength - m_nPosition, m_nPosition );
-		}
 		else
-		{
 			m_pBaseFile->AddFragment( m_nOffset, m_nPosition );
-		}
 
 		m_pBaseFile = NULL;
 	}
@@ -1561,9 +1552,7 @@ BOOL CUploadTransferHTTP::RequestTigerTreeDIME(CTigerTree* pTigerTree, int nDept
 		Write( _P("\r\n") );
 
 		if ( ! m_bHead )
-		{
 			Write( pDIME.m_pBuffer + m_nOffset, (DWORD)m_nLength );
-		}
 
 		StartSending( upsTigerTree );
 
@@ -1670,9 +1659,7 @@ BOOL CUploadTransferHTTP::RequestPreview(CLibraryFile* pFile, CSingleLock& oLibr
 	Write( _P("\r\n") );
 
 	if ( ! m_bHead )
-	{
 		Write( pBuffer, nLength );
-	}
 
 	delete [] pBuffer;
 
@@ -1741,13 +1728,9 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 	SendDefaultHeaders();
 
 	if ( m_bHostBrowse < 2 )
-	{
 		Write( _P("Content-Type: application/x-gnutella-packets\r\n") );
-	}
 	else
-	{
 		Write( _P("Content-Type: application/x-gnutella2\r\n") );
-	}
 
 	m_bDeflate = m_bDeflate && pBuffer.Deflate( TRUE );
 
@@ -1757,7 +1740,8 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 	strLength.Format( _T("Content-Length: %lu\r\n\r\n"), pBuffer.m_nLength );
 	Write( strLength );
 
-	if ( ! m_bHead ) Write( &pBuffer );
+	if ( ! m_bHead )
+		Write( &pBuffer );
 
 	StartSending( upsBrowse );
 
@@ -1817,7 +1801,8 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 					(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
 					htons( Network.m_pHost.sin_port ) );
 			}
-			else strReplace.Empty();
+			else 
+				strReplace.Empty();
 		}
 
 		strBody = strBody.Left( nStart ) + strReplace + strBody.Mid( nEnd + 2 );
@@ -1840,7 +1825,8 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 	strResponse.Format( _T("Content-Length: %lu\r\n\r\n"), strBodyUTF8.GetLength() );
 	Write( strResponse );
 
-	if ( ! m_bHead ) Write( (LPCSTR)strBodyUTF8, strBodyUTF8.GetLength() );
+	if ( ! m_bHead )
+		Write( (LPCSTR)strBodyUTF8, strBodyUTF8.GetLength() );
 
 	StartSending( upsResponse );
 }

@@ -184,8 +184,10 @@ UINT CBTTrackerRequest::ThreadStart(LPVOID pParam)
 void CBTTrackerRequest::OnRun()
 {
 	// Check if the request return needs to be parsed
-	if ( m_bProcess )
-		Process( m_pRequest.Execute( false ) );	// Parse result if there is one (ToDo: need to verify m_sURL)
+	if ( m_pRequest.m_sURL.GetLength() < 14 )	// Need to verify m_sURL! Crash in CHttpRequest::OnRun()
+		; // Why no m_sURL? Do nothing
+	else if ( m_bProcess )
+		Process( m_pRequest.Execute( false ) );	// Parse result if there is one
 	else
 		m_pRequest.Execute( false );			// Don't wait for result, just send the request
 
@@ -203,8 +205,7 @@ void CBTTrackerRequest::Process(bool bRequest)
 		return;
 	}
 
-	// Abort if the download has been paused after the request was sent
-	// but before a reply was received
+	// Abort if download has been paused after the request was sent, but before a reply was received
 	if ( !m_pDownload->m_bTorrentRequested )
 		return;
 

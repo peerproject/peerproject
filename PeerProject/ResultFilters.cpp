@@ -152,7 +152,7 @@ void CResultFilters::Load()
 
 	if ( f.Open( strFile, CFile::modeRead ) )
 	{
-		CArchive ar( &f, CArchive::load );
+		CArchive ar( &f, CArchive::load );	// 4 KB buffer
 		Serialize(ar);
 		ar.Close();
 		f.Close();
@@ -168,7 +168,7 @@ void CResultFilters::Save()
 
 	if (f.Open(strFile, CFile::modeCreate | CFile::modeWrite))
 	{
-		CArchive ar( &f, CArchive::store );
+		CArchive ar( &f, CArchive::store );	// 4 KB buffer
 		Serialize( ar );
 		ar.Close();
 		f.Close();

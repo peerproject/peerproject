@@ -164,13 +164,13 @@
 	<resource code="32870" id="ID_CHILD_CLOSE"/>
 	<resource code="32871" id="ID_CHILD_MAXIMISE"/>
 	<resource code="32872" id="ID_CHILD_MINIMISE"/>
-  <resource code="32873" id="ID_MOVETAB_LEFT"/>
-  <resource code="32874" id="ID_MOVETAB_RIGHT"/>
-  <resource code="32875" id="ID_MOVETAB_FIRST"/>
-  <resource code="32876" id="ID_MOVETAB_LAST"/>
+	<resource code="32873" id="ID_MOVETAB_LEFT"/>
+	<resource code="32874" id="ID_MOVETAB_RIGHT"/>
+	<resource code="32875" id="ID_MOVETAB_FIRST"/>
+	<resource code="32876" id="ID_MOVETAB_LAST"/>
 	<resource code="32877" id="ID_UPLOADS_CHAT"/>
-  <resource code="32878" id="ID_TRANSFERS_CHAT"/>
-  <resource code="32879" id="ID_SEARCH_CLEAR"/>
+	<resource code="32878" id="ID_TRANSFERS_CHAT"/>
+	<resource code="32879" id="ID_SEARCH_CLEAR"/>
 	<resource code="32880" id="ID_TRAY_OPEN"/>
 	<resource code="32881" id="ID_NETWORK_AUTO_CLOSE"/>
 	<resource code="32882" id="ID_UPLOADS_AUTO_CLEAR"/>
@@ -233,8 +233,8 @@
 	<resource code="32952" id="ID_SECURITY_IMPORT"/>
 	<resource code="32953" id="ID_SEARCH_FILTER_RAW"/>
 	<resource code="32954" id="ID_SEARCH_PANEL"/>
-  <resource code="32955" id="ID_TOOLS_SKIN"/>
-  <resource code="32956" id="ID_SYSTEM_TIMESTAMP"/>
+	<resource code="32955" id="ID_TOOLS_SKIN"/>
+	<resource code="32956" id="ID_SYSTEM_TIMESTAMP"/>
 	<resource code="32957" id="ID_LIBRARY_LAUNCH"/>
 	<resource code="32958" id="ID_NEIGHBOURS_URI"/>
 	<resource code="32959" id="ID_TOOLS_RESKIN"/>
@@ -243,9 +243,9 @@
 	<resource code="32962" id="ID_WINDOW_TABBAR"/>
 	<resource code="32963" id="ID_WINDOW_MONITOR"/>
 	<resource code="32964" id="ID_NETWORK_BROWSE_TO"/>
-  <resource code="32965" id="ID_DOWNLOADS_MOVE_TOP"/>
-  <resource code="32966" id="ID_DOWNLOADS_MOVE_BOTTOM"/>
-  <resource code="32967" id="ID_LIBRARY_HASH_PRIORITY"/>
+	<resource code="32965" id="ID_DOWNLOADS_MOVE_TOP"/>
+	<resource code="32966" id="ID_DOWNLOADS_MOVE_BOTTOM"/>
+	<resource code="32967" id="ID_LIBRARY_HASH_PRIORITY"/>
 	<resource code="32968" id="ID_DOWNLOADS_FILE_DELETE"/>
 	<resource code="32969" id="ID_NEIGHBOURS_SETTINGS"/>
 	<resource code="32970" id="ID_LIBRARY_RENAME"/>
@@ -266,11 +266,11 @@
 	<resource code="32985" id="ID_LIBRARY_SHARED_FOLDER"/>
 	<resource code="32986" id="ID_LIBRARY_VIEW"/>
 	<resource code="32987" id="ID_LIBRARY_VIEW_DETAIL"/>
-	<resource code="32988" id="ID_LIBRARY_VIEW_HOME"/>
-	<resource code="32989" id="ID_LIBRARY_VIEW_LIST"/>
-	<resource code="32990" id="ID_LIBRARY_VIEW_ICON"/>
-	<resource code="32991" id="ID_LIBRARY_VIEW_THUMBNAIL"/>
-	<resource code="32992" id="ID_LIBRARY_PARENT"/>
+	<resource code="32988" id="ID_LIBRARY_VIEW_LIST"/>
+	<resource code="32989" id="ID_LIBRARY_VIEW_ICON"/>
+	<resource code="32990" id="ID_LIBRARY_VIEW_THUMBNAIL"/>
+  <resource code="32991" id="ID_LIBRARY_VIEW_ALBUM"/>
+  <resource code="32992" id="ID_LIBRARY_PARENT"/>
 	<resource code="32993" id="ID_LIBRARY_PANEL"/>
 	<resource code="32994" id="ID_LIBRARY_FOLDER_PROPERTIES"/>
 	<resource code="32995" id="ID_LIBRARY_FOLDER_DELETE"/>
@@ -337,7 +337,7 @@
 	<resource code="33058" id="ID_NETWORK_NULL"/>
 	<resource code="33059" id="ID_SHELL_MENU"/>
 	<resource code="33060" id="ID_DOWNLOADS_URI"/>
-	<resource code="33061" id="ID_LIBRARY_VIEW_ALBUM"/>
+	<resource code="33061" id="ID_LIBRARY_VIEW_HOME"/>
 	<resource code="33062" id="ID_SEARCH_DETAILS"/>
 	<resource code="33063" id="ID_HELP_WARNINGS"/>
 	<resource code="33064" id="ID_HELP_PROMOTE"/>

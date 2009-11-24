@@ -592,7 +592,7 @@ CDownload* CDownloads::FindByURN(LPCTSTR pszURN, BOOL bSharedOnly) const
 		if ( ( pDownload = FindByED2K( oED2K, bSharedOnly ) ) != NULL ) return pDownload;
 	}
 
-	if ( oBTH.fromUrn( pszURN ) )
+	if ( oBTH.fromUrn( pszURN ) || oBTH.fromUrn< Hashes::base16Encoding >( pszURN ) )
 	{
 		if ( ( pDownload = FindByBTH( oBTH, bSharedOnly ) ) != NULL ) return pDownload;
 	}
@@ -1058,10 +1058,10 @@ void CDownloads::OnRun()
 		} 	// End of transfers section lock
 
 		// Update limit assigned to new transfers
-//		if ( nBandwidthAvailable > nTotalBandwidth )
-//			m_nLimitNew = nBandwidthAvailable - nTotalBandwidth;
-//		else
-//			m_nLimitNew = Settings.Bandwidth.Request;
+	//	if ( nBandwidthAvailable > nTotalBandwidth )
+	//		m_nLimitNew = nBandwidthAvailable - nTotalBandwidth;
+	//	else
+	//		m_nLimitNew = Settings.Bandwidth.Request;
 
 		// Save bandwidth stats, Update allows
 		m_nTransfers = nActiveTransfers;
@@ -1272,7 +1272,7 @@ BOOL CDownloads::LoadFromCompoundFile(LPCTSTR pszFile)
 	if ( ! pFile.Open( pszFile, CFile::modeRead ) )
 		return FALSE;
 
-	CArchive ar( &pFile, CArchive::load );
+	CArchive ar( &pFile, CArchive::load );	// 4 KB buffer?
 
 	try
 	{
@@ -1314,7 +1314,7 @@ BOOL CDownloads::LoadFromTimePair()
 
 	try
 	{
-		CArchive ar( pNewest, CArchive::load );
+		CArchive ar( pNewest, CArchive::load );	// 4 KB buffer?
 		SerializeCompound( ar );
 		ar.Close();
 	}
@@ -1334,7 +1334,7 @@ BOOL CDownloads::LoadFromTimePair()
 		{
 			try
 			{
-				CArchive ar( pNewest, CArchive::load );
+				CArchive ar( pNewest, CArchive::load );	// 4 KB buffer?
 				SerializeCompound( ar );
 				ar.Close();
 			}

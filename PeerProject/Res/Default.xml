@@ -553,7 +553,7 @@
 				<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 				<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
 				<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
-				<item id="ID_TAB_IRC" text="_IRC" shortcut="F12"/>
+				<item id="ID_TAB_IRC" text="_IRC Chat" shortcut="F12"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
@@ -1311,10 +1311,10 @@
 	<menu name="CLibraryFileView.Physical.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="Play or _Open"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Add to Playlist"/>
+		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<menu text="Move/Copy/Rename">
 			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
 			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
@@ -1335,7 +1335,6 @@
 	<menu name="CLibraryFileView.Physical">
 		<item id="ID_LIBRARY_LAUNCH" text="_Open/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
 		<separator/>
@@ -1363,11 +1362,12 @@
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localize Metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Choose Detail _Columns..."/>
+			<separator/>
 		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Choose _Columns..."/>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="S_hell menu"/>
+		<item id="ID_SHELL_MENU" text="_Windows Menu"/>
+		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="Play or _Open"/>
@@ -1399,13 +1399,12 @@
 	<menu name="CLibraryFileView.Virtual">
 		<item id="ID_LIBRARY_LAUNCH" text="_Open/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
+		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
-		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<menu text="O_rganize">
 			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
 			<separator/>
@@ -1430,11 +1429,11 @@
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localize Metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Choose Detail _Columns..."/>
 		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Choose _Columns..."/>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="S_hell menu"/>
+		<item id="ID_SHELL_MENU" text="_Windows Menu"/>
+		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
 	<menu name="CMediaFrame.Basic">
@@ -1491,11 +1490,11 @@
 			<item id="ID_MEDIA_PLAYLIST" text="Show _Playlist"/>
 		</menu>
 		<menu text="Video Si_ze">
-			<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
+			<item id="ID_MEDIA_SIZE_FILL" text="_Best Fit"/>
+ 			<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
 			<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
-			<item id="ID_MEDIA_SIZE_DISTORT" text="Fill _Window"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="Stretch to _Fill"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
@@ -1513,15 +1512,15 @@
 		</menu>
 	</menu>
 	<menu name="CMediaFrame.Zoom">
+		<item id="ID_MEDIA_SIZE_FILL" text="_Best Fit"/>
 		<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
 		<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
-		<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
-		<item id="ID_MEDIA_SIZE_DISTORT" text="Fill _Window"/>
+		<item id="ID_MEDIA_SIZE_DISTORT" text="Stretch to _Fill"/>
 		<separator/>
-		<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
+		<item id="ID_MEDIA_ASPECT_DEFAULT" text="D_efault Aspect"/>
 		<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
-		<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 Ratio (Film)"/>
+		<item id="ID_MEDIA_ASPECT_16_9" text="1_6:9 Ratio (Film)"/>
 	</menu>
 	<menu name="CMediaList">
 		<item id="ID_MEDIA_SELECT" text="_Play"/>
@@ -1540,7 +1539,7 @@
 		<item id="ID_MEDIA_RANDOM" text="Ra_ndom Mode"/>
 		<item id="ID_MEDIA_REPEAT" text="Rep_eat Mode"/>
 		<separator/>
-		<item id="ID_MEDIA_PLAYLIST" text="Hide Pla_ylist"/>
+		<item id="ID_MEDIA_PLAYLIST" text="Hide Play_list"/>
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">
@@ -1960,13 +1959,13 @@
 	<document name="CGeneralSettingsGroup" title="General" leftMargin="8" topMargin="8">
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
-		<text>The PeerProject Settings Manager allows advanced users to completely customize how PeerProject works.
-			&#160;The settings in the </text>
+		<text>These option pages allow advanced users to customize how PeerProject works.
+		&#160;Settings in the </text>
 		<text format="b">General </text>
-		<text>section relate to the user experience.</text>
+		<text>section relate to user experience.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">General:</link>
-		<text>&#160;Common user interface settings like tooltips, minimize behavior, number formats, prompts, etc.</text>
+		<text>&#160;Adjust common user interface behaviors, etc.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">Library:</link>
 		<text>&#160;Presentation, file access, and management of the file library.</text>
@@ -1981,27 +1980,27 @@
 		<text>&#160;Your profile and direct chat settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
-		<text>&#160;Integrate PeerProject with your web browser to accept peer-to-peer links and download content.</text>
+		<text>&#160;Enable your web browser to use PeerProject for peer-to-peer links and as general download manager.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
-		<text>The PeerProject Settings Manager allows advanced users to completely customize how PeerProject works.
-			&#160;The settings in the </text>
+		<text>These option pages allow advanced users to customize how PeerProject works.
+			&#160;Settings in the </text>
 		<text format="b">Internet </text>
 		<text>section control how PeerProject interacts with other nodes in distributed peer-to-peer networks.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Connection:</link>
-		<text>&#160;The speeds and capabilities of your Internet connection.</text>
+		<text>&#160;Indicate speed and capabilities of your internet access.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">Downloads:</link>
-		<text>&#160;Download throughput, scheduling, verification, timeouts and management.</text>
+		<text>&#160;Manage bandwidth-in, limits, and folder locations.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads:</link>
-		<text>&#160;Upload capacity, queuing, banning, timeouts and special requests.</text>
+		<text>&#160;Manage bandwidth-out, limits, and queues.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">Remote:</link>
-		<text>&#160;Setup the ability to control PeerProject remotely through a web browser.</text>
+		<text>&#160;Setup PeerProject to be controlled from a web browser.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>

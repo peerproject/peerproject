@@ -64,26 +64,26 @@ public:
 	BOOL		OnNcLButtonDblClk(CWnd* pWnd, UINT nHitTest, CPoint point);
 
 protected:
-	CBitmap			m_bmAlpha;
-	HBITMAP			m_hoSkin;
-	BOOL*			m_bPart;
-	int*			m_nPart;
-	CRect*			m_rcPart;
-	BOOL*			m_bAnchor;
-	CRect*			m_rcAnchor;
 	CMap< CString, const CString&, CRect*, CRect* > m_pPartList;
-	CSize			m_szMinSize;
-	CRect			m_rcMaximise;
-	CRect			m_rcResize;
-	BOOL			m_bCaption;
-	BOOL			m_bCaptionCaps;
-	CRect			m_rcCaption;
-	CXMLElement*	m_pRegionXML;
-	int				m_nHoverAnchor;
-	int				m_nDownAnchor;
-	int             m_nMirror;
-	CRect           m_rcMirror;
-	int				m_nCaptionAlign;
+	CBitmap		m_bmAlpha;
+	HBITMAP		m_hoSkin;
+	BOOL*		m_bPart;
+	int*		m_nPart;
+	CRect*		m_rcPart;
+	BOOL*		m_bAnchor;
+	CRect*		m_rcAnchor;
+	CSize		m_szMinSize;
+	CRect		m_rcMaximise;
+	CRect		m_rcResize;
+	BOOL		m_bCaption;
+	BOOL		m_bCaptionCaps;
+	CRect		m_rcCaption;
+	int			m_nCaptionAlign;
+	int			m_nHoverAnchor;
+	int			m_nDownAnchor;
+	int			m_nMirror;
+	CRect		m_rcMirror;
+	CXMLElement* m_pRegionXML;
 
 	CSize		GetRegionSize();
 	void		Paint(CWnd* pWnd, TRISTATE bActive = TRI_UNKNOWN);
@@ -96,10 +96,13 @@ protected:
 enum
 {
 	SKINPART_TOP_LEFT, SKINPART_TOP, SKINPART_TOP_RIGHT,
-	SKINPART_IA_TOP_LEFT, SKINPART_IA_TOP, SKINPART_IA_TOP_RIGHT,
 	SKINPART_LEFT_TOP, SKINPART_LEFT, SKINPART_LEFT_BOTTOM,
 	SKINPART_RIGHT_TOP, SKINPART_RIGHT, SKINPART_RIGHT_BOTTOM,
 	SKINPART_BOTTOM_LEFT, SKINPART_BOTTOM, SKINPART_BOTTOM_RIGHT,
+	SKINPART_TOP_LEFT_ALT, SKINPART_TOP_ALT, SKINPART_TOP_RIGHT_ALT,
+	SKINPART_LEFT_TOP_ALT, SKINPART_LEFT_ALT, SKINPART_LEFT_BOTTOM_ALT,
+	SKINPART_RIGHT_TOP_ALT, SKINPART_RIGHT_ALT, SKINPART_RIGHT_BOTTOM_ALT,
+	SKINPART_BOTTOM_LEFT_ALT, SKINPART_BOTTOM_ALT, SKINPART_BOTTOM_RIGHT_ALT,
 
 	SKINPART_SYSTEM, SKINPART_SYSTEM_HOT, SKINPART_SYSTEM_DOWN,
 	SKINPART_MINIMISE, SKINPART_MINIMISE_HOT, SKINPART_MINIMISE_DOWN,

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -405,7 +405,6 @@
 		<control id="IDC_FILTER_BOX" width="80"/>
 	</toolbar>
 	<!-- DISCOVERY SERVICES WINDOW -->
-	</toolbar>
 	<!-- HOST CACHE WINDOW -->
 	<toolbar name="CHostCacheWnd.Basic">
 		<button id="ID_HOSTCACHE_CONNECT" text="Verbinden mit..."/>
@@ -1331,11 +1330,12 @@
 	<menu name="CLibraryFileView.Physical">
 		<item id="ID_LIBRARY_LAUNCH" text="_Öffnen"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_In Wiedergabeliste aufnehmen"/>
+		<item id="ID_LIBRARY_DELETE" text="Datei(en) _löschen"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Freigegeben"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="_URI kopieren"/>
-		<item id="ID_LIBRARY_DELETE" text="Datei(en) _löschen"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent-Datei erstellen"/>
 		<separator/>
 		<menu text="_Suchen nach">
 			<item id="ID_SEARCH_FOR_THIS" text="_Dieser Datei"/>
@@ -1349,20 +1349,19 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi-Ticket anzeigen"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Meta_daten suchen"/>
 			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="._torrent-Datei erstellen"/>
 		</menu>
 		<menu text="_Verwalten">
 			<item id="ID_LIBRARY_RENAME" text="Datei _umbenennen"/>
 			<item id="ID_LIBRARY_MOVE" text="Datei(en) _verschieben..."/>
 			<item id="ID_LIBRARY_COPY" text="Datei(en) _kopieren..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Metadaten _lokalisieren"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="Metadaten _aktualisieren"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="S_palteneinstellungen..."/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="Metadaten _lokalisieren"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="Metadaten _aktualisieren"/>
+			<item id="ID_LIBRARY_COLUMNS" text="S_palteneinstellungen..."/>
+		</menu>
 		<separator/>
 		<item id="ID_SHELL_MENU" text="_Kontextmenü"/>
-		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschaften"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual.Basic">
@@ -1403,11 +1402,12 @@
 	<menu name="CLibraryFileView.Virtual">
 		<item id="ID_LIBRARY_LAUNCH" text="_Öffnen"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_In Wiedergabeliste aufnehmen"/>
+		<item id="ID_LIBRARY_DELETE" text="_Löschen"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Freigegeben"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="_URI kopieren"/>
-		<item id="ID_LIBRARY_DELETE" text="_Löschen"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent-Datei erstellen"/>
 		<separator/>
 		<menu text="_Suchen nach">
 			<item id="ID_SEARCH_FOR_THIS" text="Dieser Da_tei"/>
@@ -1421,7 +1421,6 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi-Ticket anzeigen"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Met_adaten suchen"/>
 			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="._torrent-Datei erstellen"/>
 		</menu>
 		<menu text="_Verwalten">
 			<item id="ID_LIBRARY_UNLINK" text="Datei(en) _entfernen"/>
@@ -1430,11 +1429,13 @@
 			<item id="ID_LIBRARY_MOVE" text="Datei(en) _verschieben..."/>
 			<item id="ID_LIBRARY_COPY" text="Datei(en) _kopieren..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="Metadaten _lokalisieren"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="Metadaten _aktualisieren"/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="Metadaten _lokalisieren"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="Metadaten _aktualisieren"/>
+			<item id="ID_LIBRARY_COLUMNS" text="S_palteneinstellungen..."/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="S_palteneinstellungen..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="_Kontextmenü"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschaften"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -3403,7 +3404,7 @@
 	<string id="20216" value="Exzellent"/>
 	<string id="20217" value="Wählen sie den temporären Ordner von eDonkey/eMule:"/>
 	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/><!-- Track number -->
+	<string id="20230" value="#"/> <!-- Track number -->
 	<string id="20231" value="Titel"/>
 	<string id="20232" value="Dauer"/>
 	<string id="20233" value="Bitrate"/>
@@ -3424,16 +3425,17 @@
 		<control caption="Übernehmen"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Allgemein">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Allgemein">
 		<control caption="_Allgemein:"/>
 		<control caption="Bei Programmstart verbinden"/>
 		<control caption="PeerProjekt mit Windows starten"/>
 		<control caption="Dialog vor dem Öffnen von URIs"/>
-		<control caption="Datenraten in:"/>
-		<control caption="bits/Sekunde|Bytes/Sekunde|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_Downloads:"/>
 		<control caption="Neue Downloads automatisch erweitern"/>
 		<control caption="Einfache Fortschrittsanzeige verwenden"/>
+		<control caption="Datenraten in:"/>
+		<control caption="bits/Sekunde|Bytes/Sekunde|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Suche:"/>
 		<control caption="Multi-Source-Dateien erweitern"/>
 		<control caption="Bei Download zu Transfers wechseln"/>
@@ -3446,18 +3448,21 @@
 		<control/>
 		<control caption="Transp.:"/>
 		<control/>
+		<control caption="Schatten (restarten)"/>
 		<control caption="_Tray:"/>
 		<control caption="Bei Klick auf [X]:"/>
 		<control caption="Fragen|In den Tray minimieren|Sofort beenden|Nach Transfers beenden"/>
 		<control caption="Bei Klick auf [-]:"/>
 		<control caption="Minimieren (normal)|In den Tray minimieren"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Bibliothek">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliothek">
 		<control caption="_Optionen:"/>
-		<control caption="Ansichtoptionen speichern"/>
-		<control caption="Ordner überwachen"/>
-		<control caption="Schnell hashen (Mehr CPU)"/>
 		<control caption="Durchsuchen erlauben"/>
+		<control caption="Ordner überwachen"/>
+		<control caption="Schnell hashen (mehr CPU)"/>
+		<control caption="Smart media series detection"/>
+		<control caption="Erst. Ghost-Dateien beim Löschen"/>
+		<control caption="Ansichtoptionen speichern"/>
 		<control caption="_Neue Dateien:"/>
 		<control caption="Merken:"/>
 		<control/>
@@ -3479,8 +3484,6 @@
 		<control caption="_Kollektionen hier speichern:"/>
 		<control/>
 		<control/>
-		<control caption="Erst. Ghost-Dateien beim Löschen"/>
-		<control caption="Smart video series detection"/> <!-- ToDo -->
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Medienwiedergabe">
 		<control caption="_Medienverwaltung:"/>
@@ -3645,17 +3648,17 @@
 		<control caption="_Löschen"/>
 		<control caption="Änderungen treten sofort in Kraft"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Remote-Access">
-		<control caption="_Erklärung:"/>
-		<control caption="PeerProjekt's Remote-Access erlaubt es Ihnen, PeerProjekt auf ihrem PC laufen zu lassen und es über einen Webbrowser zu bedienen. Sie müssen eingehende Verbindungen akzeptieren können, um diese Funktion zu benutzen. (Korrekt konfigurierter Router, usw.)"/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Remote-Access">
 		<control caption="_Aktivieren:"/>
 		<control caption="Remote-Access aktivieren:"/>
-		<control/>
+		<control caption="URL"/>
 		<control caption="_Zugangsdaten:"/>
 		<control caption="Benutzername:"/>
-		<control/>
 		<control caption="Passwort:"/>
 		<control/>
+		<control/>
+		<control caption="Hilfe:"/>
+		<control caption="PeerProjekt's Remote-Access erlaubt es Ihnen, PeerProjekt auf ihrem PC laufen zu lassen und es über einen Webbrowser zu bedienen. Sie müssen eingehende Verbindungen akzeptieren können, um diese Funktion zu benutzen. (Korrekt konfigurierter Router, usw.)"/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Zeitsteuerung">
 		<control/>
@@ -3676,7 +3679,7 @@
 		<control caption="% der _Bandbreite benutzen"/>
 		<control/>
 		<control/>
-		<control caption="Hilfe"/>
+		<control caption="Hilfe:"/>
 		<control caption="Bei geöffnetem PeerProjekt und aktivierter Zeitsteuerung sehen Sie, wie sich die Einstellungen ändern - Das ist normal!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Netzwerke">
@@ -3696,8 +3699,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2-Netzwerk:"/>
-		<control caption="Immer zu Gnutella2 verbinden"/>
-		<control caption="Heute zu Gnutella2 verbinden"/>
+		<control caption="Heute zu G2 verbinden"/>
+		<control caption="Immer zu G2 verbinden"/>
 		<control caption="Modus:"/>
 		<control caption="Optimal|Leaf|Hub"/>
 		<control caption="G_2-Verbindungen:"/>
@@ -3710,9 +3713,9 @@
 		<control caption="Hub zu Hub:"/>
 		<control/>
 		<control/>
-		<control caption="Gnutella1-Netzwerk:"/>
-		<control caption="Immer zu Gnutella1 verbinden"/>
-		<control caption="Heute zu Gnutella1 verbinden"/>
+		<control caption="Gnutella-Netzwerk:"/>
+		<control caption="Heute zu Gnutella verbinden"/>
+		<control caption="Immer zu Gnutella verbinden"/>
 		<control caption="Modus:"/>
 		<control caption="Optimal|Leaf|Ultrapeer"/>
 		<control caption="G_1-Verbindungen:"/>
@@ -3730,10 +3733,15 @@
 		<control caption="Leaf zu Hub"/>
 		<control caption="Hub zu Hub"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="_eDonkey-Netzwerk:"/>
-		<control caption="Immer zu eD2k verbinden"/>
 		<control caption="Heute zu eD2k verbinden"/>
+		<control caption="Immer zu eD2k verbinden"/>
+		<control caption="Client-_Verbindungen:"/>
+		<control caption="Mit maximal"/>
+		<control/>
+		<control/>
+		<control caption="anderen Clients verbinden."/>
 		<control caption="_Globale Suche:"/>
 		<control caption="Auf bekannten Servern aus dem Server-Cache suchen."/>
 		<control caption="Suche stoppen nach:"/>
@@ -3741,16 +3749,11 @@
 		<control/>
 		<control caption="Suchergebnissen."/>
 		<control caption="Serverlisten-Aktualisierungen vom verbundenem eD2k-Server erhalten"/>
-		<control caption="Client-_Verbindungen:"/>
-		<control caption="Mit maximal"/>
-		<control/>
-		<control/>
-		<control caption="anderen Clients verbinden."/>
 		<control caption="eDonkey-_Tools:"/>
-		<control caption="Serverliste aus dem Internet herunterladen:"/>
 		<control caption="Herunterladen..."/>
+		<control caption="Serverliste aus dem Internet herunterladen"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download-Verbindungen:"/>
 		<control/>
 		<control/>
@@ -3758,13 +3761,13 @@
 		<control/>
 		<control/>
 		<control caption="Client-Verbindungen"/>
-		<control caption=" Torrents entfernen bei Up- / Downloadverhältnis von"/>
+		<control caption="Torrentquellen bevorzugen"/>
+		<control caption="_End-Game:"/>
+		<control caption="End-Game-Modus am Ende von Torrent-Downloads aktivieren"/>
+		<control caption="Torrents entfernen bei Up-/Downloadverhältnis von"/>
 		<control/>
 		<control/>
 		<control caption="%"/>
-		<control caption=" Torrentquellen bevorzugen"/>
-		<control caption="_End-Game:"/>
-		<control caption="End-Game-Modus am Ende von Torrent-Downloads aktivieren"/>
 		<control caption="Torrents hier _speichern:"/>
 		<control/>
 		<control/>
@@ -3774,24 +3777,25 @@
 		<control caption="St_andardtracker:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skins">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Skins">
 		<control/>
 		<control caption="Informationen:"/>
 		<control caption="Name:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Autor:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Info:"/>
 		<control/>
+		<control caption="*Wählen Sie mehrere Skins zu mischen"/>
 		<control caption="Löschen"/>
-		<control caption="Installieren..."/>
+		<control caption="Installieren"/>
 		<control caption="Mehr..."/>
 	</dialog>
 	<dialog name="CPluginsSettingsPage" cookie="SyBuStStStEdBuBu" caption="Plugins">
 		<control/>
 		<control caption="Informationen:"/>
 		<control caption="Name:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Info:"/>
 		<control/>
 		<control caption="_Einstellungen..."/>

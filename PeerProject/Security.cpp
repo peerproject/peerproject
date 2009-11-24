@@ -197,22 +197,14 @@ void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile
 			if ( pRule->m_nAction == CSecureRule::srDeny )
 			{
 				if ( ( nBanLength == banWeek ) && ( pRule->m_nExpire < tNow + 604000 ) )
-				{
 					pRule->m_nExpire = static_cast< DWORD >( time( NULL ) + 604800 );
-				}
 				else if ( ( nBanLength == banCustom ) && ( pRule->m_nExpire < tNow + Settings.Security.DefaultBan + 3600 ) )
-				{
 					pRule->m_nExpire = static_cast< DWORD >( time( NULL ) + Settings.Security.DefaultBan + 3600 );
-				}
 				else if ( ( nBanLength == banForever ) && ( pRule->m_nExpire != CSecureRule::srIndefinite ) )
-				{
 					pRule->m_nExpire = CSecureRule::srIndefinite;
-				}
 				else if ( bMessage && pAddress )
-				{
 					theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_ALREADY_BLOCKED,
 						(LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
-				}
 				return;
 			}
 		}
@@ -503,7 +495,7 @@ BOOL CSecurity::Load()
 
 	try
 	{
-		CArchive ar( &pFile, CArchive::load );
+		CArchive ar( &pFile, CArchive::load, 131072 );  // 128 KB buffer
 		Serialize( ar );
 		ar.Close();
 	}
@@ -527,7 +519,7 @@ BOOL CSecurity::Save()
 
 	if ( pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
 	{
-		CArchive ar( &pFile, CArchive::store );
+		CArchive ar( &pFile, CArchive::store, 131072 );  // 128 KB buffer
 		Serialize( ar );
 		ar.Close();
 	}

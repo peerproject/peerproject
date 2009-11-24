@@ -120,6 +120,9 @@ int CUploadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndUploads.Create( this, IDC_UPLOADS );
 
+	//if ( ! theApp.m_bIsWin2000 )
+	//	m_wndUploads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop rare flicker XP+
+
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
 	m_wndToolBar.SetSyncObject( &Transfers.m_pSection );
@@ -157,8 +160,8 @@ BOOL CUploadsWnd::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO
 
 void CUploadsWnd::OnSize(UINT nType, int cx, int cy)
 {
-	CPanelWnd::OnSize( nType, cx, cy );
 	SizeListAndBar( &m_wndUploads, &m_wndToolBar );
+	CPanelWnd::OnSize( nType, cx, cy );
 }
 
 void CUploadsWnd::OnSkinChange()
@@ -213,7 +216,7 @@ void CUploadsWnd::OnTimer(UINT_PTR nIDEvent)
 
 void CUploadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
-	CSingleLock pLock( &UploadQueues.m_pSection, TRUE );
+	CSingleLock pLock( &UploadQueues.m_pSection );
 	if ( ! pLock.Lock( 500 ) )
 		return;
 

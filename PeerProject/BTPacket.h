@@ -23,7 +23,9 @@
 
 #include "Packet.h"
 
+//
 // Packet
+//
 
 class CBTPacket : public CPacket
 {
@@ -98,6 +100,7 @@ inline void CBTPacket::CBTPacketPool::FreePoolImpl(CPacket* pPacket)
 #define BT_PACKET_PIECE				7
 #define BT_PACKET_CANCEL			8
 #define BT_PACKET_DHT_PORT			9
+#define BT_PACKET_EXTENSION 		20	// http://www.bittorrent.org/beps/bep_0010.html
 
 #define BT_PACKET_HANDSHAKE			128
 #define BT_PACKET_SOURCE_REQUEST	129
