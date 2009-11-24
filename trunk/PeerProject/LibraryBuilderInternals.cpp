@@ -1235,15 +1235,11 @@ bool CLibraryBuilderInternals::ReadMSI(DWORD nIndex, LPCTSTR pszPath)
 
 	str = GetSummaryField( hSummaryInfo, PID_KEYWORDS );
 	if ( str.Find( _T("Installer,MSI,Database") ) == -1  )
-	{
 		pXML->AddAttribute( _T("keywords"), str );
-	}
 
 	str = GetSummaryField( hSummaryInfo, PID_COMMENTS );
 	if ( str != strSubject )
-	{
 		pXML->AddAttribute( _T("releaseNotes"), str );
-	}
 
 	return LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriApplication, pXML ) != 0;
 }
@@ -1477,13 +1473,9 @@ bool CLibraryBuilderInternals::ReadPNG(DWORD nIndex, HANDLE hFile)
 	strItem.Format( _T("%lu"), nHeight );
 	pXML->AddAttribute( _T("height"), strItem );
 
-	/*
-	if ( nColors == 2 || nColors == 4 )
-	{
-		pXML->AddAttribute( _T("colors"), _T("Greyscale") );
-	}
-	else
-	*/
+	//if ( nColors == 2 || nColors == 4 )
+	//	pXML->AddAttribute( _T("colors"), _T("Greyscale") );
+	//else
 	{
 		switch ( nBits )
 		{
@@ -2197,7 +2189,6 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 	{
 		if ( bPreferFooter )	// Invalid footer, try to validate header only
 			pFooter.nFields = -1;
-		
 	}
 
 	SetFilePointer( hFile, -(LONG)pFooter.nSize, NULL, FILE_END );

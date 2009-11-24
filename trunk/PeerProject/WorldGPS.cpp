@@ -75,7 +75,7 @@ BOOL CWorldGPS::Load()
 
 	if ( !bImport )
 	{
-		CArchive ar( &pFile, CArchive::load );
+		CArchive ar( &pFile, CArchive::load, 262144 );  // 256 KB buffer
 		Serialize( ar );
 		ar.Close();
 		pFile.Close();

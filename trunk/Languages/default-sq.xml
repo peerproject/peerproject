@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3110,16 +3110,17 @@
 		<control caption="Zbato"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Përgjithësi">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Përgjithësi">
 		<control caption="_Përgjithësi:"/>
 		<control caption="Autolidhu kur nis PeerProject"/>
 		<control caption="Nise PeerProject-n kur nis Windows-i"/>
 		<control caption="Lajmëro përpara hapjes së URI-ve"/>
-		<control caption="Raporto në:"/>
-		<control caption="bajt/sekondë|bajte/sekondë|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_Shkarkimi:"/>
 		<control caption="Zgjero automatikisht shkarkesat e reja"/>
 		<control caption="Shfaqe të thjeshtë shufrën e progresit"/>
+		<control caption="Raporto në:"/>
+		<control caption="bajt/sekondë|bajte/sekondë|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Kërkimi:"/>
 		<control caption="Zgjero skedat me shumë burime"/>
 		<control caption="Kalo tek pamja Transferimi kur shkarkon"/>
@@ -3132,19 +3133,22 @@
 		<control/>
 		<control caption="Opaciteti:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="_Brezi:"/>
 		<control caption="Kur klikoj mbylle:"/>
 		<control caption="Më Pyet|Minimizohu në Brez|Mbylle Menjëherë|Mbylle Pas Transferimit"/>
 		<control caption="Kur klikoj minimizo:"/>
 		<control caption="Normale|Minimizohu në Brez"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Librari">
-		<control caption="_Mundësi:"/>
-		<control caption="Mbaje mend pamjen e dosjes"/>
-		<control caption="Shiko dosjet në librari"/>
-		<control caption="Grirje e shpejtë (përdor mjaft CPU)"/>
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Librari">
+		<control caption="Mundësi:"/>
 		<control caption="Të tjerët i shfletojnë shpërndarjet"/>
-		<control caption="_Skedat e Fundit:"/>
+		<control caption="Shiko dosjet në librari"/>
+		<control caption="Grirje e shpejtë (mjaft CPU)"/>
+		<control caption="Diktim inteligjent i serive filmike"/>
+		<control caption="Krijo skeda fantazmë kur fshin"/>
+		<control caption="Mbaje mend pamjen e dosjes"/>
+		<control caption="Skedat e Fundit:"/>
 		<control caption="Mbaj mend:"/>
 		<control/>
 		<control/>
@@ -3165,8 +3169,6 @@
 		<control caption="Depozito Këtu _Koleksionet:"/>
 		<control/>
 		<control/>
-		<control caption="Krijo skeda fantazmë kur fshin"/>
-		<control caption="Diktim inteligjent i serive filmike"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="MediaLuajtësi">
 		<control caption="_Mundësi:"/>
@@ -3329,17 +3331,17 @@
 		<control caption="_Fshije"/>
 		<control caption="(ndryshimet kanë efekt menjëherë)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Largësi">
-		<control caption="_Guidë:"/>
-		<control caption="Hyrja në Largësi bën që PeerProject të lihet të veprojë në PC e të kontrollohet me një shfletues rrjeti të jashtëm. Që kjo veçori të përdoret, duhet të jeni i aftë të pranoni lidhjet hyrëse (d.m.th. konfiguroni routerin si duhet etj.)."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Largësi">
 		<control caption="_Aktivizo:"/>
 		<control caption="Lejo Hyrjen në Largësi të PeerProject-s:"/>
 		<control/>
 		<control caption="_Kredencialet:"/>
 		<control caption="Përdoruesi:"/>
-		<control/>
 		<control caption="Fjalëkalimi:"/>
 		<control/>
+		<control/>
+		<control caption="Ndihmë:"/>
+		<control caption="Hyrja në Largësi bën që PeerProject të lihet të veprojë në PC e të kontrollohet me një shfletues rrjeti të jashtëm. Që kjo veçori të përdoret, duhet të jeni i aftë të pranoni lidhjet hyrëse (d.m.th. konfiguroni routerin si duhet etj.)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planifikimi">
 		<control/>
@@ -3360,7 +3362,7 @@
 		<control caption="% e _shtrirjes së bandës nën kufi"/>
 		<control/>
 		<control/>
-		<control caption="Ndihmë"/>
+		<control caption="Ndihmë:"/>
 		<control caption="Planifikuesi është projektuar që të lejojë vendosjen e kohës kur PeerProject do të lidhet dhe do të shkarkojë skeda. {n}{n}{n}Shënim: Nëse PeerProject hapet me planifikuesin si aktiv, mund t'i shikoni kuadrot të ndryshuar - Kjo është normale!-"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Rrjeti">
@@ -3380,8 +3382,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Rrjeti Gnutella2:"/>
-		<control caption="Gjithmonë lidhu te Gnutella2"/>
-		<control caption="Lidhu sot te Gnutella2"/>
+		<control caption="Lidhu sot te G2"/>
+		<control caption="Gjithmonë lidhu te G2"/>
 		<control caption="Mënyra:"/>
 		<control caption="Optimale|Gjethe|Nyje"/>
 		<control caption="Lidhje G_2:"/>
@@ -3394,9 +3396,9 @@
 		<control caption="Nyje në Nyje:"/>
 		<control/>
 		<control/>
-		<control caption="Rrjeti Gnutella1:"/>
-		<control caption="Gjithmonë lidhu te Gnutella1"/>
-		<control caption="Lidhu sot te Gnutella1"/>
+		<control caption="Rrjeti Gnutella:"/>
+		<control caption="Lidhu sot te Gnutella"/>
+		<control caption="Gjithmonë lidhu te Gnutella"/>
 		<control caption="Mënyra:"/>
 		<control caption="Optimale|Gjethe|Ultrapikë"/>
 		<control caption="Lidhje G_1:"/>
@@ -3414,10 +3416,15 @@
 		<control caption="Gjethe në Nyje"/>
 		<control caption="Nyje në Nyje"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="Rrjeti _eDonkey:"/>
-		<control caption="Lidhu përherë te eDonkey"/>
 		<control caption="Lidhu sot te eDonkey"/>
+		<control caption="Lidhu përherë te eDonkey"/>
+		<control caption="Linku për Lidhjet e _Klientit:"/>
+		<control caption="Mos u lidh në më tepër se:"/>
+		<control/>
+		<control/>
+		<control caption="klientë të tjerë në eDonkey."/>
 		<control caption="Kërkimi _Global:"/>
 		<control caption="Kërko serverat e njohur të largët në depon e serverave:"/>
 		<control caption="Ndale kërkimin pas:"/>
@@ -3425,16 +3432,11 @@
 		<control/>
 		<control caption="rezultatesh."/>
 		<control caption="Merre dhe ridato server-listën nga serveri i lidhur"/>
-		<control caption="Linku për Lidhjet e _Klientit:"/>
-		<control caption="Mos u lidh në më tepër se:"/>
-		<control/>
-		<control/>
-		<control caption="klientë të tjerë në eDonkey."/>
 		<control caption="_Mjetet e eDonkey:"/>
-		<control caption="Shkarko server-listën e eDonkey në rrjet:"/>
 		<control caption="Shkarko..."/>
+		<control caption="Shkarko server-listën e eDonkey në rrjet:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="Lidhjet për _Shkarkim:"/>
 		<control/>
 		<control/>
@@ -3442,31 +3444,32 @@
 		<control/>
 		<control/>
 		<control caption="lidhje me klientë"/>
-		<control caption="&#160;Pastro torrentet e shkarkuara&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Kur shpërndarja arrin"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="&#160;Parapëlqe burime nga torrenti"/>
+		<control caption="Parapëlqe burime nga torrenti"/>
 		<control caption="_FundLojë:"/>
 		<control caption="Lejo mënyrën FundLojë kur torrentet përfundojnë"/>
+		<control caption="Pastro torrentet e shkarkuara Kur shpërndarja arrin:"/>
+		<control/>
+		<control/>
+		<control caption="%"/>
 		<control caption="_Depozitimi për Torrentet:"/>
 		<control/>
 		<control/>
-		<control caption="Krijuesi i _Torrenteve"/>
+		<control caption="Krijuesi i _Torrenteve:"/>
 		<control/>
 		<control/>
 		<control caption="Gjurmuesi Tipik:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Lëvoret">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Lëvoret">
 		<control/>
 		<control caption="Informacioni i Veshjes:"/>
 		<control caption="Emri:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Autori:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Përshkrimi:"/>
 		<control/>
+		<control caption="*Mix"/>
 		<control caption="Fshije"/>
 		<control caption="Instalo..."/>
 		<control caption="Gjej më Shumë"/>
@@ -3475,7 +3478,7 @@
 		<control/>
 		<control caption="Informacioni i Spinës:"/>
 		<control caption="Emri:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Përshkrimi:"/>
 		<control/>
 		<control caption="_Ndërto..."/>

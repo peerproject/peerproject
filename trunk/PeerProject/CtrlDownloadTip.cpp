@@ -470,7 +470,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		pt.y += TIP_GAP;
 	}
 
-	if ( m_bDrawGraph )
+	if ( m_bDrawGraph && m_pGraph )
 	{	// Don't draw empty graph.
 		CRect rc( pt.x, pt.y, m_sz.cx, pt.y + 40 );
 		pDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
@@ -769,7 +769,6 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 	DrawText( pDC, &pt, strText );
 	DrawText( pDC, &pt, pSource->m_sServer, 80 );
 	pt.y += TIP_TEXTHEIGHT;
-
 	pt.y += TIP_GAP;
 
 	DrawProgressBar( pDC, &pt, pSource );
@@ -777,10 +776,13 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 
 	CRect rc( pt.x, pt.y, m_sz.cx, pt.y + 40 );
 	pDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
-	rc.DeflateRect( 1, 1 );
-	m_pGraph->BufferedPaint( pDC, &rc );
-	rc.InflateRect( 1, 1 );
-	pDC->ExcludeClipRect( &rc );
+	if ( m_pGraph )
+	{
+		rc.DeflateRect( 1, 1 );
+		m_pGraph->BufferedPaint( pDC, &rc );
+		rc.InflateRect( 1, 1 );
+		pDC->ExcludeClipRect( &rc );
+	}
 	pt.y += 40;
 	pt.y += TIP_GAP;
 

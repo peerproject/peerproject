@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1282,10 +1282,9 @@
 	<menu name="CLibraryFileView.Physical.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Abrir/Tocar"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Adicionar a lista de execuções"/>
+		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartilhado"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
 		<separator/>
 		<menu text="P_rocurar Por">
 		  <item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
@@ -1298,54 +1297,51 @@
 		<menu text="_Serviços da Rede">
 		  <item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
 		  <item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="Copiar _URI"/>
+		  <separator/>
 		</menu>
 		<menu text="O_rganizar">
 		  <item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
 		  <item id="ID_LIBRARY_MOVE" text="_Mover Arquivos..."/>
 		  <item id="ID_LIBRARY_COPY" text="_Copiar Arquivos..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizar Metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Atualizar Metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
 	</menu>
 	<menu name="CLibraryFileView.Physical">
 		<item id="ID_LIBRARY_LAUNCH" text="_Abrir/Tocar"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Adicionar a lis_ta de execuções"/>
+		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
 	 	<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartilhado"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="Copiar _URI"/>
-		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Criar _Arquivo .torrent"/>
+		<menu text="O_rganizar">
+			<item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
+			<item id="ID_LIBRARY_MOVE" text="_Mover Arquivos..."/>
+			<item id="ID_LIBRARY_COPY" text="_Copiar Arquivos..."/>
+		</menu>
 		<separator/>
 		<menu text="P_rocurar Por">
-		  <item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
-		  <item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
-		  <separator/>
-		  <item id="ID_SEARCH_FOR_ARTIST" text="_Música do mesmo Artista"/>
-		  <item id="ID_SEARCH_FOR_ALBUM" text="_Música do mesmo Álbum"/>
-		  <item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
+			<item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="_Música do mesmo Artista"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="_Música do mesmo Álbum"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Serviços da Rede">
-		  <item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
-		  <item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
-		  <separator/>
-		  <item id="ID_LIBRARY_CREATETORRENT" text="Criar _Arquivo .torrent"/>
+			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
+			<separator/>
 		</menu>
-		<menu text="O_rganizar">
-		  <item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
-		  <item id="ID_LIBRARY_MOVE" text="_Mover Arquivos..."/>
-		  <item id="ID_LIBRARY_COPY" text="_Copiar Arquivos..."/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizar Metadata"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Atualizar Metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Escolher _Colunas..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizar Metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Atualizar Metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Escolher _Colunas..."/>
 		<separator/>
 		<item id="ID_SHELL_MENU" text="M_enu de contexto"/>
-		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual.Basic">
@@ -1356,69 +1352,71 @@
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartilhado"/>
 		<separator/>
 		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
+	 	<menu text="O_rganizar">
+			<item id="ID_LIBRARY_UNLINK" text="Remover _Arquivos"/>
+			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
+			<item id="ID_LIBRARY_MOVE" text="_Mover Arquivos..."/>
+			<item id="ID_LIBRARY_COPY" text="_Copiar Arquivos..."/>
+		</menu>
 		<separator/>
 		<menu text="P_rocurar Por">
-		  <item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
-		  <item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
-		  <separator/>
-		  <item id="ID_SEARCH_FOR_ARTIST" text="_Música do mesmo Artista"/>
-		  <item id="ID_SEARCH_FOR_ALBUM" text="_Música do mesmo Álbum"/>
-		  <item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
+			<item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="_Música do mesmo Artista"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="_Música do mesmo Álbum"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Serviços da Rede">
-		  <item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
-		  <item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_URI" text="Copiar _URI"/>
-	  </menu>
-	  <menu text="O_rganizar">
-		<item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
-		<item id="ID_LIBRARY_UNLINK" text="Remover _Arquivos"/>
-		<separator/>
-		<item id="ID_LIBRARY_MOVE" text="_Mover Arquivos..."/>
-		<item id="ID_LIBRARY_COPY" text="_Copiar Arquivos..."/>
-	  </menu>
-	  <item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizar Metadata"/>
-	  <item id="ID_LIBRARY_REFRESH_METADATA" text="_Atualizar Metadata"/>
-	  <separator/>
-	  <item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
+			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
+			<separator/>
+			<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
+	  	</menu>
+		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizar Metadata"/>
+	 	<item id="ID_LIBRARY_REFRESH_METADATA" text="_Atualizar Metadata"/>
+	 	<separator/>
+		<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual">
-	  <item id="ID_LIBRARY_LAUNCH" text="_Abrir/Tocar"/>
-	  <item id="ID_LIBRARY_ENQUEUE" text="Adicionar a lis_ta de execuções"/>
-	  <separator/>
-	  <item id="ID_LIBRARY_SHARED_FILE" text="_Compartilhado"/>
-	  <separator/>
-	  <item id="ID_LIBRARY_URI" text="Copiar _URI"/>
-	  <item id="ID_LIBRARY_DELETE" text="_Apagar"/>
-	  <separator/>
-	  <menu text="P_rocurar Por">
-		<item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
-		<item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
+		<item id="ID_LIBRARY_LAUNCH" text="_Abrir/Tocar"/>
+		<item id="ID_LIBRARY_ENQUEUE" text="Adicionar a lis_ta de execuções"/>
+		<item id="ID_LIBRARY_DELETE" text="_Apagar"/>
 		<separator/>
-		<item id="ID_SEARCH_FOR_ARTIST" text="_Música do mesmo Artista"/>
-		<item id="ID_SEARCH_FOR_ALBUM" text="Música do mesmo Álb_um"/>
-		<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
+		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartilhado"/>
+		<separator/>
+		<item id="ID_LIBRARY_URI" text="Copiar _URI"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="Criar _Arquivo .torrent"/>
+		<separator/>
+		<menu text="P_rocurar Por">
+			<item id="ID_SEARCH_FOR_THIS" text="_Este Arquivo"/>
+			<item id="ID_SEARCH_FOR_SIMILAR" text="_Arquivos Similares"/>
+			<separator/>
+			<item id="ID_SEARCH_FOR_ARTIST" text="_Música do mesmo Artista"/>
+			<item id="ID_SEARCH_FOR_ALBUM" text="Música do mesmo Álb_um"/>
+			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
 		<menu text="_Serviços da Rede">
-		<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
-		<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
+			<item id="ID_LIBRARY_BITZI_WEB" text="Ver o _Ticket do Bitzi"/>
+			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Baixar Metadata"/>
+			<separator/>
+	 	</menu>
+		<menu text="_Organizar">
+			<item id="ID_LIBRARY_UNLINK" text="Remover _Arquivos"/>
+			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
+			<item id="ID_LIBRARY_MOVE" text="_Mover Arquivos..."/>
+			<item id="ID_LIBRARY_COPY" text="_Copiar Arquivos..."/>
+		</menu>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizar Metadata"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Atualizar Metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Escolher _Colunas..."/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_CREATETORRENT" text="Criar _Arquivo .torrent"/>
-	  </menu>
-	  <menu text="_Organizar">
-		<item id="ID_LIBRARY_UNLINK" text="Remover _Arquivos"/>
-		<separator/>
-		<item id="ID_LIBRARY_RENAME" text="_Renomear Arquivo"/>
-		<item id="ID_LIBRARY_MOVE" text="_Mover Arquivos..."/>
-		<item id="ID_LIBRARY_COPY" text="_Copiar Arquivos..."/>
-	  </menu>
-	  <item id="ID_LIBRARY_REBUILD_ANSI" text="_Localizar Metadata"/>
-	  <item id="ID_LIBRARY_REFRESH_METADATA" text="_Atualizar Metadata"/>
-	  <separator/>
-	  <item id="ID_LIBRARY_COLUMNS" text="Escolher _Colunas..."/>
-	  <separator/>
-	  <item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
+		<item id="ID_SHELL_MENU" text="Windows men_u"/>
+		<item id="ID_LIBRARY_PROPERTIES" text="_Propriedades"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
 	<menu name="CMediaFrame.Basic">
@@ -3408,16 +3406,17 @@
 		<control caption="Aplicar"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Geral">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Geral">
 		<control caption="_Geral:"/>
 		<control caption="Auto-Conectar ao iniciar o PeerProject"/>
 		<control caption="Iniciar o PeerProject ao iniciar o Windows"/>
 		<control caption="Mostrar um alerta antes de abrir URIs"/>
-		<control caption="Mostrar a veloc:"/>
-		<control caption="bits/segundo|bytes/segundo|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Verificar atualizações"/>
 		<control caption="_Downloads:"/>
 		<control caption="Expandir novos downloads por padrão"/>
 		<control caption="Exibir barra de progresso simples"/>
+		<control caption="Mostrar a veloc:"/>
+		<control caption="bits/segundo|bytes/segundo|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Busca:"/>
 		<control caption="Expandir arquivos multi-fonte por padrão"/>
 		<control caption="Trocar para Tranferências ao baixar"/>
@@ -3428,20 +3427,23 @@
 		<control caption="Atraso (ms):"/>
 		<control/>
 		<control/>
-	  <control caption="Opacidade:"/>
+		<control caption="Opacidade:"/>
 		<control/>
+		<control caption="Sombra (reiniciar)"/>
 		<control caption="_Tray:"/>
 		<control caption="Quando clicar em fechar:"/>
 		<control caption="Me Perguntar|Minimizar pro Tray|Fechar de Imediato|Fechar Após Transferências"/>
 		<control caption="Quando clicar em minimizar:"/>
 		<control caption="Normal|Minimizar pro Tray"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Biblioteca">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Biblioteca">
 		<control caption="_Opções:"/>
-		<control caption="Lembrar a exibição das pastas"/>
+		<control caption="Permitir navegar pelos arquivos"/>
 		<control caption="Observar as pastas da biblioteca"/>
 		<control caption="Hashing Rápido (Usa mais CPU)"/>
-		<control caption="Permitir navegar pelos arquivos"/>
+		<control caption="Detecção das séries de vídeos"/>
+		<control caption="Criar arquivos ghost quando apagar"/>
+		<control caption="Lembrar a exibição das pastas"/>
 		<control caption="_Arquivos Recentes:"/>
 		<control caption="Lembrar de:"/>
 		<control/>
@@ -3463,8 +3465,6 @@
 		<control caption="Armazenar as _Coleções Aqui:"/>
 		<control/>
 		<control/>
-		<control caption="Criar arquivos ghost quando apagar"/>
-		<control caption="Detecção das séries de vídeos"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media Player">
 		<control caption="_Opções:"/>
@@ -3629,17 +3629,17 @@
 		<control caption="_Apagar"/>
 		<control caption="(As mudanças são de imediato)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Acesso Remoto">
-		<control caption="_Guia:"/>
-		<control caption="O Acesso Remoto do PeerProject permite a você deixar o PeerProject rodando no seu PC, e controlá-lo remotamente usando um navegador da rede. Você precisará ser capaz de aceitar conexões de entrada para usar esta função (i.e. roteador apropriadamente configurado, etc)"/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Acesso Remoto">
 		<control caption="_Ativar:"/>
 		<control caption="Ativar o Acesso Remoto do PeerProject:"/>
 		<control caption="URL"/>
 		<control caption="_Credenciais:"/>
 		<control caption="Escolha um Nome:"/>
-		<control/>
 		<control caption="Escolha uma Senha:"/>
 		<control/>
+		<control/>
+		<control caption="Ajuda:"/>
+		<control caption="O Acesso Remoto do PeerProject permite a você deixar o PeerProject rodando no seu PC, e controlá-lo remotamente usando um navegador da rede. Você precisará ser capaz de aceitar conexões de entrada para usar esta função. (Roteador apropriadamente configurado, etc.)"/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Agendador">
 		<control/>
@@ -3660,7 +3660,7 @@
 		<control caption="% da _banda sob o limite"/>
 		<control/>
 		<control/>
-		<control caption="Ajuda"/>
+		<control caption="Ajuda:"/>
 		<control caption="A agenda é designada para permitir a você definir os horários quando o PeerProject conectará e baixará arquivos. {n}{n}{n}Nota: Se você tem o PeerProject aberto enquanto o agendador está ativo, você pode vê-lo mudando as configurações- Isto é normal!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Redes">
@@ -3680,8 +3680,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Rede Gnutella2:"/>
-		<control caption="Sempre conectar a Gnutella2"/>
-		<control caption="Conectar a Gnutella2 hoje"/>
+		<control caption="Conectar a G2 agora"/>
+		<control caption="Sempre conectar a G2"/>
 		<control caption="Modo:"/>
 		<control caption="Otimizado|Leaf|Hub"/>
 		<control caption="C_onexões G2:"/>
@@ -3694,9 +3694,9 @@
 		<control caption="Hub para Hub:"/>
 		<control/>
 		<control/>
-		<control caption="Rede Gnutella1:"/>
-		<control caption="Sempre conectar a Gnutella1"/>
-		<control caption="Conectar a Gnutella1 hoje"/>
+		<control caption="Rede Gnutella:"/>
+		<control caption="Conectar a Gnutella agora"/>
+		<control caption="Sempre conectar a Gnutella"/>
 		<control caption="Modo:"/>
 		<control caption="Otimizado|Leaf|Ultrapeer"/>
 		<control caption="C_onexões G1:"/>
@@ -3714,10 +3714,15 @@
 		<control caption="Leaf para Hub"/>
 		<control caption="Hub para Hub"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BBuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="_Rede eDonkey:"/>
-		<control caption="Sempre conectar no eDonkey"/>
-		<control caption="Conectar no eDonkey hoje"/>
+		<control caption="Conectar no eDonkey agora"/>
+		<control caption="Sempre conectar no eDonkey na inicialização"/>
+		<control caption="_Conexões com os Links do Clientes:"/>
+		<control caption="Conectar a não mais do que:"/>
+		<control/>
+		<control/>
+		<control caption="outros clientes eDonkey."/>
 		<control caption="_Busca Global:"/>
 		<control caption="Procurar em servidores remotos conhecidos no cache do servidor:"/>
 		<control caption="Parar de procurar após:"/>
@@ -3725,16 +3730,11 @@
 		<control/>
 		<control caption="resultados da busca."/>
 		<control caption="Receber e atualizar a lista de servidores através do servidor conectado"/>
-		<control caption="_Conexões com os Links do Clientes:"/>
-		<control caption="Conectar a não mais do que:"/>
-		<control/>
-		<control/>
-		<control caption="outros clientes eDonkey."/>
 		<control caption="Ferramentas do eDonkey"/>
-		<control caption="Baixar lista de servidores eDonkey da rede:"/>
 		<control caption="Baixar..."/>
+		<control caption="Baixar lista de servidores eDonkey da rede:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Conexões de Download:"/>
 		<control/>
 		<control/>
@@ -3742,13 +3742,13 @@
 		<control/>
 		<control/>
 		<control caption="Conexões com clientes"/>
-		<control caption="&#160;Limpar torrents baixados&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Qdo compartilharmento alcançar"/>
-		<control/>
-		<control/>
-		<control caption="%"/>
 		<control caption="Preferir fontes torrent"/>
 		<control caption="_EndGame:"/>
 		<control caption="Ativar o modo EndGame quando completar os torrents"/>
+		<control caption="Limpar torrents baixados Qdo compartilharmento alcançar:"/>
+		<control/>
+		<control/>
+		<control caption="%"/>
 		<control caption="_Armazenar Torrents Aqui:"/>
 		<control/>
 		<control/>
@@ -3758,15 +3758,16 @@
 		<control caption="Tracker Padrão: "/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skins">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Skins">
 		<control/>
-		<control caption="Informação da Skin:"/>
+		<control caption="Informação da Skin (Pele):"/>
 		<control caption="Nome:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Autor:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Descrição:"/>
 		<control/>
+		<control caption="*Selecione várias skins para misturar"/>
 		<control caption="Apagar"/>
 		<control caption="Instalar..."/>
 		<control caption="Obter Mais"/>
@@ -3775,7 +3776,7 @@
 		<control/>
 		<control caption="Informação do Plugin:"/>
 		<control caption="Nome:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Descrição:"/>
 		<control/>
 		<control caption="_Configuração..."/>

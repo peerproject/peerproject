@@ -154,11 +154,8 @@ CString	CBTInfo::CBTFile::FindFile()
 						pShared = LibraryMaps.LookupFileByName( m_sName, FALSE, TRUE );
 						if ( pShared )
 							strFile = pShared->GetPath();
-						if ( ! pShared ||
-							 GetFileSize( CString( _T("\\\\?\\") ) + strFile ) != m_nSize )
-						{
+						if ( ! pShared || GetFileSize( CString( _T("\\\\?\\") ) + strFile ) != m_nSize )
 							return m_sPath;
-						}
 					}
 				}
 			}
@@ -588,6 +585,45 @@ BOOL CBTInfo::SaveTorrentFile(LPCTSTR pszPath) const
 	return TRUE;
 }
 
+#define MAX_PIECE_SIZE (16 * 1024)
+BOOL CBTInfo::AddInfoPiece(DWORD nInfoSize, DWORD nInfoPiece, BYTE *pPacketBuffer, DWORD nPacketLength)
+{
+	if (m_pSource.m_nLength == 0 && nInfoPiece == 0)
+	{
+		m_pSource.Add("d4:info", 7);
+		m_nInfoSize = nInfoSize;
+		m_nInfoStart = m_pSource.m_nLength;
+	}
+
+	ASSERT( m_nInfoSize == nInfoSize );
+
+	QWORD nPieceStart = nInfoPiece * MAX_PIECE_SIZE;
+	QWORD nPieceSize = m_nInfoSize - nPieceStart;
+	if (nPieceSize > MAX_PIECE_SIZE) nPieceSize = MAX_PIECE_SIZE;
+
+	if ( nPieceStart == (m_pSource.m_nLength - m_nInfoStart) && nPacketLength > nPieceSize )
+	{
+		m_pSource.Add(&pPacketBuffer[nPacketLength - nPieceSize], nPieceSize);
+
+		if ( m_pSource.m_nLength - m_nInfoStart == m_nInfoSize )
+		{
+			m_pSource.Add("e", 1);
+			return LoadTorrentBuffer(&m_pSource);
+		}
+	}
+	return FALSE;
+}
+
+int CBTInfo::NextInfoPiece()
+{
+	if ( m_pSource.m_nLength == 0 )
+		return 0; 
+	else if ( m_nInfoSize > ( m_pSource.m_nLength - m_nInfoStart ) )
+		return ( m_pSource.m_nLength - m_nInfoStart ) / MAX_PIECE_SIZE;
+
+	return -1;
+}
+
 //////////////////////////////////////////////////////////////////////
 // CBTInfo load torrent info from buffer
 
@@ -605,9 +641,21 @@ BOOL CBTInfo::LoadTorrentBuffer(CBuffer* pBuffer)
 
 BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 {
-	Clear();
+	//ASSERT( m_sName.IsEmpty() && m_nSize == SIZE_UNKNOWN );	// Assume empty object
+	ASSERT( !m_pBlockBTH );
 
 	if ( ! pRoot->IsType( CBENode::beDict ) ) return FALSE;
+
+	// Get the info node
+	CBENode* pInfo = pRoot->GetNode( "info" );
+	if ( ! pInfo || ! pInfo->IsType( CBENode::beDict ) ) return FALSE;
+
+	if ( m_oBTH )
+	{
+		Hashes::BtHash oBTH;
+		pInfo->GetBth( oBTH );
+		if ( oBTH != m_oBTH ) return FALSE;
+	}
 
 	// Get the encoding (from torrents that have it)
 	m_nEncoding = 0;
@@ -621,7 +669,7 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 	{
 		// "encoding" style (String representing the encoding to use)
 		pEncoding = pRoot->GetNode( "encoding" );
-		if ( ( pEncoding ) &&  ( pEncoding->IsType( CBENode::beString )  ) )
+		if ( pEncoding && pEncoding->IsType( CBENode::beString ) )
 		{
 			CString strEncoding = pEncoding->GetString();
 
@@ -686,6 +734,8 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 	{
 		m_nTrackerMode = tMultiFinding;
 
+		bool bUnsupported = false;	// UDP tracker display
+
 		// Loop through all the tiers
 		for ( int nTier = 0 ; nTier < pAnnounceList->GetCount() ; nTier++ )
 		{
@@ -697,35 +747,17 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 				for ( int nTracker = 0 ; nTracker < pSubList->GetCount() ; nTracker++ )
 				{
 					CBENode* pTracker = pSubList->GetNode( nTracker );
-					if ( ( pTracker ) &&  ( pTracker->IsType( CBENode::beString )  ) )
+					if ( ( pTracker ) && ( pTracker->IsType( CBENode::beString ) ) )
 					{
-						// Get the tracker
-						CString strTracker = pTracker->GetString();
+						CString strTracker = pTracker->GetString();	// Get the tracker
 
 						// Check tracker is valid
 						if ( _tcsncicmp( (LPCTSTR)strTracker, _T("http://"), 7 ) == 0 )
-						{
-							// Store HTTP tracker
-							pTrackers.AddTail( strTracker );
-
-							// Backup defunct PirateBay tracker
-						//	if ( nTracker < 3 && strTracker.Find( _T("piratebay") ) > 6 )
-						//	{
-						//		strTracker = _T("http://tracker.openbittorrent.com/announce");
-						//		pTrackers.AddTail( strTracker );
-						//	}
-						}
-						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("https://"), 8 ) == 0 )
-						{
-							// ToDo: Verify if we can handle https trackers natively, or try converting to http
-							pTrackers.AddTail( strTracker );
-						}
+							pTrackers.AddTail( strTracker );		// Store HTTP tracker
 						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
-						{
-							// ToDo: Add UDP tracker support
-							// Store non-functional UDP tracker for display
-							pTrackers.AddTail( strTracker );
-						}
+							bUnsupported = true;		// Store below for display, ToDo: Add UDP tracker support
+						else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("https://"), 8 ) == 0 )
+							bUnsupported = true;		// Store below, ToDo: Verify https or try converting to http?
 						//else unknown tracker protocol
 					}
 				}
@@ -758,10 +790,49 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 						// Create the tracker and add it to the list
 						CBTTracker oTracker;
 						oTracker.m_sAddress	= pTrackers.GetNext( pos );
-						oTracker.m_nTier	= nTier;
+						oTracker.m_nTier = nTier;
 						AddTracker( oTracker );
 					}
 					// Delete temporary storage
+					pTrackers.RemoveAll();
+				}
+			}
+		}
+
+		// ToDo: Remove this when UDP trackers are supported!
+		// Catch unsupported trackers for display at end of list.
+		if ( bUnsupported == true )
+		{
+			// Loop through all tiers again
+			for ( int nTier = 0 ; nTier < pAnnounceList->GetCount() ; nTier++ )
+			{
+				CBENode* pSubList = pAnnounceList->GetNode( nTier );
+				if ( ( pSubList ) && ( pSubList->IsType( CBENode::beList ) ) )
+				{
+					CList< CString > pTrackers;
+					for ( int nTracker = 0 ; nTracker < pSubList->GetCount() ; nTracker++ )
+					{
+						CBENode* pTracker = pSubList->GetNode( nTracker );
+						if ( ( pTracker ) && ( pTracker->IsType( CBENode::beString ) ) )
+						{
+							CString strTracker = pTracker->GetString();
+
+							if ( _tcsncicmp( (LPCTSTR)strTracker, _T("udp://"), 6 ) == 0 )
+								pTrackers.AddTail( strTracker );		// Store for display, ToDo: Add UDP tracker support
+							else if ( _tcsncicmp( (LPCTSTR)strTracker, _T("https://"), 8 ) == 0 )
+								pTrackers.AddTail( strTracker );		// Rare for display, ToDo: Verify https or try converting to http?
+						}
+					}
+
+					// Store unsupported trackers at end of list
+					for ( POSITION pos = pTrackers.GetHeadPosition() ; pos ; )
+					{
+						CBTTracker oTracker;
+						oTracker.m_sAddress	= pTrackers.GetNext( pos );
+						oTracker.m_nTier = nTier + 10;
+						AddTracker( oTracker );
+					}
+					// Delete temporary storage again
 					pTrackers.RemoveAll();
 				}
 			}
@@ -802,8 +873,8 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 	}
 
 	// Get the info node
-	CBENode* pInfo = pRoot->GetNode( "info" );
-	if ( ! pInfo || ! pInfo->IsType( CBENode::beDict ) ) return FALSE;
+	//CBENode* pInfo = pRoot->GetNode( "info" );
+	//if ( ! pInfo || ! pInfo->IsType( CBENode::beDict ) ) return FALSE;
 
 	// Get the private flag (if present)
 	CBENode* pPrivate = pInfo->GetNode( "private" );

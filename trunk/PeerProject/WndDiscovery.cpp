@@ -94,11 +94,8 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS,
 		rectDefault, this, IDC_SERVICES );
+	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
 	m_pSizer.Attach( &m_wndList );
-
-	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP,
-		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
 
 	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 4, 1 );
 	AddIcon( IDR_HOSTCACHEFRAME, m_gdiImageList );
@@ -234,7 +231,8 @@ void CDiscoveryWnd::Update()
 				pItem->Format( 5, _T("%u"), pService->m_nURLs );
 				pItem->Format( 6, _T("%u"), pService->m_nTotalURLs );
 
-				if ( ( ! pService->m_sPong.IsEmpty() ) && pService->m_nType == CDiscoveryService::dsWebCache && pService->m_bGnutella2 )
+				if ( ! pService->m_sPong.IsEmpty() &&
+					pService->m_nType == CDiscoveryService::dsWebCache && pService->m_bGnutella2 )
 				{
 					pItem->Set( 10, pService->m_sPong );
 				}

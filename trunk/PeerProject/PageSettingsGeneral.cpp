@@ -49,18 +49,20 @@ END_MESSAGE_MAP()
 CGeneralSettingsPage::CGeneralSettingsPage() : CSettingsPage(CGeneralSettingsPage::IDD)
 {
 	//{{AFX_DATA_INIT(CGeneralSettingsPage)
-	m_bRatesInBytes = -1;
-	m_bExpandMatches = FALSE;
+	m_nRatesInBytes = -1;
 	m_bAutoConnect = FALSE;
-	m_nCloseMode = -1;
-	m_bTrayMinimise = -1;
-	m_bSwitchToTransfers = FALSE;
-	m_bExpandDownloads = FALSE;
-	m_bSimpleBar = FALSE;
 	m_bStartup = FALSE;
 	m_bPromptURLs = FALSE;
+	m_bUpdateCheck = TRUE;
+	m_bExpandDownloads = FALSE;
+	m_bSimpleBar = FALSE;
+	m_bExpandMatches = FALSE;
+	m_bSwitchToTransfers = FALSE;
 	m_bHideSearch = FALSE;
 	m_bAdultFilter = FALSE;
+	m_bTipShadow = TRUE;
+	m_bTrayMinimise = -1;
+	m_nCloseMode = -1;
 	m_nTipDelay = 0;
 	//}}AFX_DATA_INIT
 }
@@ -73,24 +75,26 @@ void CGeneralSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CGeneralSettingsPage)
-	DDX_CBIndex(pDX, IDC_RATES_IN_BYTES, m_bRatesInBytes);
-	DDX_Check(pDX, IDC_EXPAND_MATCHES, m_bExpandMatches);
 	DDX_Check(pDX, IDC_AUTO_CONNECT, m_bAutoConnect);
-	DDX_CBIndex(pDX, IDC_CLOSE_MODE, m_nCloseMode);
-	DDX_CBIndex(pDX, IDC_TRAY_MINIMISE, m_bTrayMinimise);
-	DDX_Check(pDX, IDC_SWITCH_TO_TRANSFERS, m_bSwitchToTransfers);
-	DDX_Check(pDX, IDC_EXPAND_DOWNLOAD, m_bExpandDownloads);
-	DDX_Check(pDX, IDC_DOWNLOADS_SIMPLEBAR, m_bSimpleBar);
 	DDX_Check(pDX, IDC_AUTO_START, m_bStartup);
 	DDX_Check(pDX, IDC_PROMPT_URLS, m_bPromptURLs);
+	DDX_Check(pDX, IDC_UPDATE_CHECK, m_bUpdateCheck);
+	DDX_Check(pDX, IDC_EXPAND_DOWNLOAD, m_bExpandDownloads);
+	DDX_Check(pDX, IDC_DOWNLOADS_SIMPLEBAR, m_bSimpleBar);
+	DDX_Check(pDX, IDC_EXPAND_MATCHES, m_bExpandMatches);
+	DDX_Check(pDX, IDC_SWITCH_TO_TRANSFERS, m_bSwitchToTransfers);
 	DDX_Check(pDX, IDC_HIDE_SEARCH, m_bHideSearch);
 	DDX_Check(pDX, IDC_ADULT_FILTER, m_bAdultFilter);
+	DDX_Check(pDX, IDC_TIP_SHADOW, m_bTipShadow);
+	DDX_Text(pDX, IDC_TIP_DELAY, m_nTipDelay);
 	DDX_Control(pDX, IDC_TIP_DELAY_SPIN, m_wndTipSpin);
 	DDX_Control(pDX, IDC_TIP_DISPLAY, m_wndTips);
 	DDX_Control(pDX, IDC_TIP_ALPHA, m_wndTipAlpha);
-	DDX_Text(pDX, IDC_TIP_DELAY, m_nTipDelay);
 	DDX_Control(pDX, IDC_CLOSE_MODE, m_wndCloseMode);
 	DDX_Control(pDX, IDC_TRAY_MINIMISE, m_wndTrayMinimise);
+	DDX_CBIndex(pDX, IDC_CLOSE_MODE, m_nCloseMode);
+	DDX_CBIndex(pDX, IDC_TRAY_MINIMISE, m_bTrayMinimise);
+	DDX_CBIndex(pDX, IDC_RATES_IN_BYTES, m_nRatesInBytes);
 	//}}AFX_DATA_MAP
 }
 
@@ -103,29 +107,29 @@ BOOL CGeneralSettingsPage::OnInitDialog()
 
 	m_bStartup				= Settings.CheckStartup();
 	m_bAutoConnect			= Settings.Connection.AutoConnect;
-	m_nCloseMode			= Settings.General.CloseMode;
-	m_bTrayMinimise			= Settings.General.TrayMinimise;
-	m_bExpandMatches		= Settings.Search.ExpandMatches;
-	m_bSwitchToTransfers	= Settings.Search.SwitchToTransfers;
+	m_bPromptURLs			= ! Settings.General.AlwaysOpenURLs;
+	m_bUpdateCheck			= Settings.VersionCheck.UpdateCheck;
 	m_bExpandDownloads		= Settings.Downloads.AutoExpand;
 	m_bSimpleBar			= Settings.Downloads.SimpleBar;
-	m_bPromptURLs			= ! Settings.General.AlwaysOpenURLs;
+	m_bExpandMatches		= Settings.Search.ExpandMatches;
+	m_bSwitchToTransfers	= Settings.Search.SwitchToTransfers;
 	m_bHideSearch			= Settings.Search.HideSearchPanel;
 	m_bAdultFilter			= Settings.Search.AdultFilter;
+	m_bTipShadow			= Settings.Interface.TipShadow;
+	m_bTrayMinimise			= Settings.General.TrayMinimise;
+	m_nCloseMode			= Settings.General.CloseMode;
 
-	m_bRatesInBytes			= Settings.General.RatesInBytes
+	m_nRatesInBytes			= Settings.General.RatesInBytes
 							+ Settings.General.RatesUnit * 2;
 
 	CRect rc;
-	CString strTitle( _T("Search Results") );
-
 	m_wndTips.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL ) + 1;
 
 	m_wndTips.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, rc.right, 0 );
-	m_wndTips.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-		LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_LABELTIP,
-		LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_LABELTIP );
+	m_wndTips.SetExtendedStyle( LVS_EX_CHECKBOXES|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
+
+	CString strTitle( _T("Search Results") );
 
 	if ( CSchema* pSchema = SchemaCache.Get( CSchema::uriSearchFolder ) )
 	{
@@ -136,12 +140,12 @@ BOOL CGeneralSettingsPage::OnInitDialog()
 	}
 
 	Add( strTitle, Settings.Interface.TipSearch );
-	LoadString( strTitle, IDR_LIBRARYFRAME );
-	Add( strTitle, Settings.Interface.TipLibrary );
 	LoadString( strTitle, IDR_DOWNLOADSFRAME );
 	Add( strTitle, Settings.Interface.TipDownloads );
 	LoadString( strTitle, IDR_UPLOADSFRAME );
 	Add( strTitle, Settings.Interface.TipUploads );
+	LoadString( strTitle, IDR_LIBRARYFRAME );
+	Add( strTitle, Settings.Interface.TipLibrary );
 	LoadString( strTitle, IDR_NEIGHBOURSFRAME );
 	Add( strTitle, Settings.Interface.TipNeighbours );
 	LoadString( strTitle, IDR_MEDIAFRAME );
@@ -167,12 +171,21 @@ void CGeneralSettingsPage::Add(LPCTSTR pszName, BOOL bState)
 		m_wndTips.SetItemState( nItem, 2 << 12, LVIS_STATEIMAGEMASK );
 }
 
+void CGeneralSettingsPage::OnDropdownCloseMode()
+{
+	RecalcDropWidth( &m_wndCloseMode );
+}
+
+void CGeneralSettingsPage::OnDropdownTrayMinimise()
+{
+	RecalcDropWidth( &m_wndTrayMinimise );
+}
+
 void CGeneralSettingsPage::OnOK()
 {
 	UpdateData();
 
-	if ( ( Settings.Search.AdultFilter == FALSE ) && ( m_bAdultFilter == TRUE )
-		&& ( Settings.Live.AdultWarning == FALSE ) )
+	if ( Settings.Search.AdultFilter == FALSE && m_bAdultFilter == TRUE && Settings.Live.AdultWarning == FALSE )
 	{
 		Settings.Live.AdultWarning = TRUE;
 		CHelpDlg::Show( _T("GeneralHelp.AdultFilter") );
@@ -180,18 +193,19 @@ void CGeneralSettingsPage::OnOK()
 
 	Settings.SetStartup( m_bStartup );
 	Settings.Connection.AutoConnect		= m_bAutoConnect != FALSE;
-	Settings.General.CloseMode			= m_nCloseMode;
-	Settings.General.TrayMinimise		= m_bTrayMinimise != FALSE;
-	Settings.Search.ExpandMatches		= m_bExpandMatches != FALSE;
-	Settings.Search.SwitchToTransfers	= m_bSwitchToTransfers != FALSE;
+	Settings.General.AlwaysOpenURLs		= ! m_bPromptURLs;
+	Settings.VersionCheck.UpdateCheck	= m_bUpdateCheck != FALSE;
 	Settings.Downloads.AutoExpand		= m_bExpandDownloads != FALSE;
 	Settings.Downloads.SimpleBar		= m_bSimpleBar != FALSE;
-	Settings.General.AlwaysOpenURLs		= ! m_bPromptURLs;
+	Settings.Search.ExpandMatches		= m_bExpandMatches != FALSE;
+	Settings.Search.SwitchToTransfers	= m_bSwitchToTransfers != FALSE;
 	Settings.Search.HideSearchPanel		= m_bHideSearch != FALSE;
 	Settings.Search.AdultFilter			= m_bAdultFilter != FALSE;
+	Settings.General.TrayMinimise		= m_bTrayMinimise != FALSE;
+	Settings.General.CloseMode			= m_nCloseMode;
 
-	Settings.General.RatesInBytes		= m_bRatesInBytes % 2 == 1;
-	Settings.General.RatesUnit			= m_bRatesInBytes / 2;
+	Settings.General.RatesInBytes		= m_nRatesInBytes % 2 == 1;
+	Settings.General.RatesUnit			= m_nRatesInBytes / 2;
 
 	Settings.Interface.TipSearch		= m_wndTips.GetItemState( 0, LVIS_STATEIMAGEMASK ) == ( 2 << 12 );
 	Settings.Interface.TipLibrary		= m_wndTips.GetItemState( 1, LVIS_STATEIMAGEMASK ) == ( 2 << 12 );
@@ -202,17 +216,18 @@ void CGeneralSettingsPage::OnOK()
 
 	Settings.Interface.TipDelay	= m_nTipDelay;
 	Settings.Interface.TipAlpha	= m_wndTipAlpha.GetPos();
+	Settings.Interface.TipShadow		= m_bTipShadow != FALSE;
+
+	//ToDo: Fix Realtime DropShadow Changes
+	//if ( m_bTipShadow != (BOOL)Settings.Interface.TipShadow && ! theApp.m_bIsWin2000 )
+	//{
+	//	Settings.Interface.TipShadow	= m_bTipShadow != FALSE;
+	//
+	//	CCoolTipCtrl::m_hClass = AfxRegisterWndClass( CS_SAVEBITS |
+	//		( m_bTipShadow == FALSE ? 0 : CS_DROPSHADOW ) );
+	//	CMatchTipCtrl::m_hClass = AfxRegisterWndClass( CS_SAVEBITS |
+	//		( m_bTipShadow == FALSE ? 0 : CS_DROPSHADOW ) );
+	//}
 
 	CSettingsPage::OnOK();
-}
-
-
-void CGeneralSettingsPage::OnDropdownCloseMode()
-{
-	RecalcDropWidth( &m_wndCloseMode );
-}
-
-void CGeneralSettingsPage::OnDropdownTrayMinimise()
-{
-	RecalcDropWidth( &m_wndTrayMinimise );
 }

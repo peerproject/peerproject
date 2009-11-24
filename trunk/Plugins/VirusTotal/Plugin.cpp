@@ -1,5 +1,5 @@
 //
-// Plugin.cpp : Implementation of CPlugin
+// Plugin.cpp : Implementation of CPlugin for VirusTotal
 //
 // This file is part of PeerProject (peerproject.org) © 2009
 // Portions Copyright Shareaza Development Team, 2009.
@@ -37,8 +37,7 @@ void CPlugin::InsertCommand(ISMenu* pWebMenu, int nPos, UINT nID, LPCWSTR szItem
 			LONG nItemID;	// note: -1 - submenu, 0 - separator
 			if ( SUCCEEDED( pWebMenu->get_Item( CComVariant( i ), &pItem ) ) && pItem &&
 				 SUCCEEDED( pItem->get_CommandID( &nItemID ) ) && (UINT)nItemID == nID )
-				// Already in place
-				return;
+				return;		// Already in place
 		}
 	}
 
@@ -66,9 +65,17 @@ HRESULT CPlugin::Request(LPCWSTR szHash)
 		vPost.vt = VT_ARRAY | VT_UI1;
 		vPost.parray = pPost;
 		CComVariant vHeaders( CComBSTR( L"Content-Type: application/x-www-form-urlencoded\r\n") );
+
 		hr = pWebBrowserApp->Navigate( bstrURL, &vFlags, &vFrame, &vPost, &vHeaders );
-		if ( FAILED( hr ) )
+		if ( SUCCEEDED( hr ) )
+		{
+			pWebBrowserApp->put_Visible( VARIANT_TRUE );
+		}
+		else
+		{
+			pWebBrowserApp->Quit();
 			ATLTRACE( _T("CPlugin::Request() : Internet Explorer navigate error: 0x%08x\n"), hr );
+		}
 	}
 	else
 		ATLTRACE( _T("CPlugin::Request() : Create Internet Explorer instance error: 0x%08x\n"), hr );
@@ -79,7 +86,7 @@ HRESULT CPlugin::Request(LPCWSTR szHash)
 // IGeneralPlugin
 
 STDMETHODIMP CPlugin::SetApplication(
-	/* [in] */ IApplication __RPC_FAR *pApplication)
+	/*[in]*/ IApplication __RPC_FAR *pApplication)
 {
 	if ( ! pApplication )
 		return E_POINTER;
@@ -89,7 +96,7 @@ STDMETHODIMP CPlugin::SetApplication(
 }
 
 STDMETHODIMP CPlugin::QueryCapabilities(
-	/* [in] */ DWORD __RPC_FAR *pnCaps)
+	/*[in]*/ DWORD __RPC_FAR *pnCaps)
 {
 	if ( ! pnCaps )
 		return E_POINTER;
@@ -121,9 +128,7 @@ STDMETHODIMP CPlugin::RegisterCommands()
 		LoadIcon( _AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE( IDI_ICON ) ),
 		&m_nCmdCheck );
 	if ( SUCCEEDED( hr ) )
-	{
 		return S_OK;
-	}
 
 	return E_FAIL;
 }
@@ -139,9 +144,7 @@ STDMETHODIMP CPlugin::InsertCommands()
 	{
 		CComPtr< ISMenu > pWebMenu;
 		if ( SUCCEEDED( pSearchMenu->get_Item( CComVariant( 9 ), &pWebMenu ) ) && pWebMenu )
-		{
 			InsertCommand( pWebMenu, 1, m_nCmdCheck, VIRUSTOTAL_CHECK );
-		}
 	}
 
 	CComPtr< ISMenu > pFileMenu;
@@ -150,9 +153,7 @@ STDMETHODIMP CPlugin::InsertCommands()
 	{
 		CComPtr< ISMenu > pWebMenu;
 		if ( SUCCEEDED( pFileMenu->get_Item( CComVariant( 12 ), &pWebMenu ) ) && pWebMenu )
-		{
 			InsertCommand( pWebMenu, 3, m_nCmdCheck, VIRUSTOTAL_CHECK );
-		}
 	}
 
 	CComPtr< ISMenu > pVirtualMenu;
@@ -161,9 +162,7 @@ STDMETHODIMP CPlugin::InsertCommands()
 	{
 		CComPtr< ISMenu > pWebMenu;
 		if ( SUCCEEDED( pVirtualMenu->get_Item( CComVariant( 12 ), &pWebMenu ) ) && pWebMenu )
-		{
 			InsertCommand( pWebMenu, 3, m_nCmdCheck, VIRUSTOTAL_CHECK );
-		}
 	}
 
 	CComPtr< ISMenu > pListMenu;
@@ -177,10 +176,10 @@ STDMETHODIMP CPlugin::InsertCommands()
 }
 
 STDMETHODIMP CPlugin::OnUpdate(
-    /* [in] */ UINT nCommandID,
-    /* [out][in] */ TRISTATE __RPC_FAR *pbVisible,
-    /* [out][in] */ TRISTATE __RPC_FAR *pbEnabled,
-    /* [out][in] */ TRISTATE __RPC_FAR *pbChecked)
+    /*[in]*/ UINT nCommandID,
+    /*[out][in]*/ TRISTATE __RPC_FAR *pbVisible,
+    /*[out][in]*/ TRISTATE __RPC_FAR *pbEnabled,
+    /*[out][in]*/ TRISTATE __RPC_FAR *pbChecked)
 {
 	if ( ! pbVisible || ! pbEnabled || ! pbChecked )
 		return E_POINTER;
@@ -201,9 +200,7 @@ STDMETHODIMP CPlugin::OnUpdate(
 			LONG nCount = 0;
 			hr = pGenericView->get_Count( &nCount );
 			if ( SUCCEEDED( hr ) && nCount )
-			{
 				*pbEnabled = TRI_TRUE;
-			}
 		}
 		return S_OK;
 	}
@@ -212,7 +209,7 @@ STDMETHODIMP CPlugin::OnUpdate(
 }
 
 STDMETHODIMP CPlugin::OnCommand(
-	/* [in] */ UINT nCommandID)
+	/*[in]*/ UINT nCommandID)
 {
 	ATLTRACE( _T("CPlugin::OnCommand( %d )\n"), nCommandID );
 
@@ -277,13 +274,9 @@ STDMETHODIMP CPlugin::OnCommand(
 						ATLTRACE( _T("CPlugin::OnCommand() : Unknown item data.\n") );
 
 					if ( pMD5.Length() )
-					{
 						Request( pMD5 );
-					}
 					else if ( pSHA1.Length() )
-					{
 						Request( pSHA1 );
-					}
 					else
 						ATLTRACE( _T("CPlugin::OnCommand() : No compatible hashes found.\n") );
 				}

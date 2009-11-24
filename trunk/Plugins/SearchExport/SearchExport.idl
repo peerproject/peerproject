@@ -1,6 +1,6 @@
-// SearchExport.idl : IDL source for SearchExport
 //
-
+// SearchExport.idl
+//
 // This file will be processed by the MIDL tool to produce
 // the type library (SearchExport.tlb) and marshalling code.
 

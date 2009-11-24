@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1282,10 +1282,9 @@
 	<menu name="CLibraryFileView.Physical.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Openen of afspelen"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Toevoegen aan _afspeellijst"/>
+		<item id="ID_LIBRARY_DELETE" text="Ver_wijderen"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Delen"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="Ver_wijderen"/>
 		<separator/>
 		<menu text="_Zoeken naar">
 			<item id="ID_SEARCH_FOR_THIS" text="_Dit bestand"/>
@@ -1299,26 +1298,24 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="Metadata _downloaden"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text="_URI kopiëren"/>
 		</menu>
 		<menu text="_Organiseren">
 			<item id="ID_LIBRARY_RENAME" text="Bestand _hernoemen"/>
 			<item id="ID_LIBRARY_MOVE" text="Bestanden ver_plaatsen..."/>
 			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschappen"/>
 	</menu>
 	<menu name="CLibraryFileView.Physical">
 		<item id="ID_LIBRARY_LAUNCH" text="_Openen of afspelen"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Toevoegen aan _afspeellijst"/>
+		<item id="ID_LIBRARY_DELETE" text="Ver_wijderen"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Delen"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="_URI kopiëren"/>
-		<item id="ID_LIBRARY_DELETE" text="Ver_wijderen"/>
+			<item id="ID_LIBRARY_CREATETORRENT" text="._Torrent maken"/>
 		<separator/>
 		<menu text="_Zoeken naar">
 			<item id="ID_SEARCH_FOR_THIS" text="_Dit bestand"/>
@@ -1332,30 +1329,28 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metadata downloaden"/>
 			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="._Torrent maken"/>
 		</menu>
 		<menu text="O_rganiseren">
 			<item id="ID_LIBRARY_RENAME" text="Bestand _hernoemen"/>
 			<item id="ID_LIBRARY_MOVE" text="Bestanden ver_plaatsen..."/>
 			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Kolommen uit_kiezen..."/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Kolommen uit_kiezen..."/>
+		</menu>
 		<separator/>
 		<item id="ID_SHELL_MENU" text="Conte_xtmenu"/>
-		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschappen"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Openen of afspelen"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Toevoegen aan afspeellijst"/>
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="_Album afspelen"/>
+		<item id="ID_LIBRARY_DELETE" text="Ver_wijderen"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Delen"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="Ver_wijderen"/>
 		<separator/>
 		<menu text="_Zoeken naar">
 			<item id="ID_SEARCH_FOR_THIS" text="_Dit bestand"/>
@@ -1369,28 +1364,26 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metadata downloaden"/>
 			<separator/>
-			<item id="ID_LIBRARY_URI" text="_URI kopiëren"/>
 		</menu>
 		<menu text="O_rganiseren">
-			<item id="ID_LIBRARY_RENAME" text="Bestand _hernoemen"/>
 			<item id="ID_LIBRARY_UNLINK" text="_Bestanden verwijderen"/>
 			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="Bestand _hernoemen"/>
 			<item id="ID_LIBRARY_MOVE" text="Bestanden ver_plaatsen..."/>
 			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschappen"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual">
 		<item id="ID_LIBRARY_LAUNCH" text="_Openen of afspelen"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Toevoegen aan afspeellijst"/>
+		<item id="ID_LIBRARY_DELETE" text="Ver_wijderen"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Delen"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="_URI kopiëren"/>
-		<item id="ID_LIBRARY_DELETE" text="Ver_wijderen"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="._Torrent maken"/>
 		<separator/>
 		<menu text="_Zoeken naar">
 			<item id="ID_SEARCH_FOR_THIS" text="_Dit bestand"/>
@@ -1404,7 +1397,6 @@
 			<item id="ID_LIBRARY_BITZI_WEB" text="_Bitzi Ticket bekijken"/>
 			<item id="ID_LIBRARY_BITZI_DOWNLOAD" text="_Metadata downloaden"/>
 			<separator/>
-			<item id="ID_LIBRARY_CREATETORRENT" text="._Torrent maken"/>
 		</menu>
 		<menu text="O_rganiseren">
 			<item id="ID_LIBRARY_UNLINK" text="_Bestanden verwijderen"/>
@@ -1413,10 +1405,11 @@
 			<item id="ID_LIBRARY_MOVE" text="Bestanden ver_plaatsen..."/>
 			<item id="ID_LIBRARY_COPY" text="Bestanden _kopiëren..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="_Kolommen uitkiezen..."/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Lokaliseer metadata"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="_Kolommen uitkiezen..."/>
+		</menu>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Eigenschappen"/>
 	</menu>
@@ -3383,16 +3376,17 @@
 		<control caption="Toepassen"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Algemeen">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Algemeen">
 		<control caption="_Algemeen:"/>
 		<control caption="Verbind bij opstarten van PeerProject"/>
 		<control caption="Start PeerProject als Windows opstart "/>
 		<control caption="Waarschuw mij als ik een URI open"/>
-		<control caption="Snelheden in:"/>
-		<control caption="Bits/seconde|Bytes/seconde|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_Downloads:"/>
 		<control caption="Vouw nieuwe downloads standaard uit"/>
 		<control caption="Toon een simpele vooruitgangsbalk"/>
+		<control caption="Snelheden in:"/>
+		<control caption="Bits/seconde|Bytes/seconde|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Zoeken:"/>
 		<control caption="Multibron bestanden altijd uitbreiden"/>
 		<control caption="Ga bij download naar het venster Verkeer"/>
@@ -3405,18 +3399,21 @@
 		<control/>
 		<control caption="Opaciteit:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="_Systeembalk:"/>
 		<control caption="Als ik op Afsluiten klik:"/>
 		<control caption="Vraag me|Minimaliseer|Sluit direct|Sluit na verzenden"/>
 		<control caption="Als ik minimaliseer:"/>
 		<control caption="Normaal|Minimaliseer"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Bibliotheek">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliotheek">
 		<control caption="_Opties:"/>
-		<control caption="Herinner de mappenweergave"/>
+		<control caption="Toon anderen mijn bestanden"/>
 		<control caption="Bewaak bibliotheekmappen"/>
 		<control caption="Snel hashen (gebruikt meer CPU)"/>
-		<control caption="Toon anderen mijn bestanden"/>
+		<control caption="Smart media series detection"/>
+		<control caption="Maak een spookbestand"/>
+		<control caption="Herinner de mappenweergave"/>
 		<control caption="_Recente bestanden:"/>
 		<control caption="Onthoud:"/>
 		<control/>
@@ -3438,8 +3435,6 @@
 		<control caption="_Verzamelingen hier opslaan:"/>
 		<control/>
 		<control/>
-		<control caption="Maak een spookbestand aan tijdens verwijderen"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media Player">
 		<control caption="_Opties:"/>
@@ -3604,17 +3599,17 @@
 		<control caption="_Wissen"/>
 		<control caption="(Aanpassingen werken meteen)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Web Interface">
-		<control caption="_Handleiding:"/>
-		<control caption="PeerProject's Web Interface maakt het mogelijk om PeerProject op je PC te laten draaien, en het op afstand te bedienen via een browser. Je moet wel binnenkomende verbindingen kunnen ontvangen om gebruik te kunnen maken van deze functie zoals een goed ingestelde router."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Web Interface">
 		<control caption="_Inschakelen:"/>
 		<control caption="PeerProject's Web Interface inschakelen:"/>
 		<control/>
 		<control caption="_Gegevens:"/>
 		<control caption="Kies een schuilnaam:"/>
-		<control/>
 		<control caption="Kies een wachtwoord:"/>
 		<control/>
+		<control/>
+		<control caption="Handleiding:"/>
+		<control caption="PeerProject's Web Interface maakt het mogelijk om PeerProject op je PC te laten draaien, en het op afstand te bedienen via een browser. Je moet wel binnenkomende verbindingen kunnen ontvangen om gebruik te kunnen maken van deze functie zoals een goed ingestelde router."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Planner">
 		<control/>
@@ -3635,7 +3630,7 @@
 		<control caption="% van _bandbreedte indien beperkt"/>
 		<control/>
 		<control/>
-		<control caption="Help"/>
+		<control caption="Help:"/>
 		<control caption="De planner is ontworpen om in te kunnen stellen wanneer PeerProject verbindt en bestanden downloadt.{n}{n}{n}Opmerking: Als PeerProject geopend is terwijl de planner ingesteld is, kan je instellingen zien veranderen. Dit is normaal!-"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Netwerken">
@@ -3655,8 +3650,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 netwerk:"/>
-		<control caption="Altijd verbinden met Gnutella2"/>
-		<control caption="Nu verbinden met Gnutella2"/>
+		<control caption="Nu verbinden met G2"/>
+		<control caption="Altijd verbinden met G2"/>
 		<control caption="Modus:"/>
 		<control caption="Optimaal|Leaf|Hub"/>
 		<control caption="G_2 verbindingen:"/>
@@ -3670,8 +3665,8 @@
 		<control/>
 		<control/>
 		<control caption="Gnutella1 netwerk:"/>
-		<control caption="Altijd verbinden met Gnutella1"/>
-		<control caption="Nu verbinden met Gnutella1"/>
+		<control caption="Nu verbinden met Gnutella"/>
+		<control caption="Altijd verbinden met Gnutella"/>
 		<control caption="Modus:"/>
 		<control caption="Optimaal|Leaf|Ultrapeer"/>
 		<control caption="G_1 verbindingen:"/>
@@ -3689,10 +3684,15 @@
 		<control caption="Leaf naar Hub"/>
 		<control caption="Hub naar Hub"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="_eDonkey netwerk:"/>
-		<control caption="Altijd verbinden"/>
 		<control caption="Nu verbinden met eDonkey"/>
+		<control caption="Altijd verbinden met eDonkey"/>
+		<control caption="_eDonkey Connecties:"/>
+		<control caption="Verbindt met niet meer dan:"/>
+		<control/>
+		<control/>
+		<control caption="andere eDonkey cliënten."/>
 		<control caption="_Server instellingen:"/>
 		<control caption="Zoek bekende verre servers in de servercache:"/>
 		<control caption="Stop met zoeken na:"/>
@@ -3700,16 +3700,11 @@
 		<control/>
 		<control caption="zoekresultaten."/>
 		<control caption="Ontvang en werk de server lijst bij via de verbonden server."/>
-		<control caption="_eDonkey Connecties:"/>
-		<control caption="Verbindt met niet meer dan:"/>
-		<control/>
-		<control/>
-		<control caption="andere eDonkey cliënten."/>
 		<control caption="eDonkey _hulpmiddelen:"/>
-		<control caption="eDonkey Serverlijst downloaden van het internet:"/>
 		<control caption="Downloaden"/>
+		<control caption="eDonkey Serverlijst downloaden van het internet:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download verbindingen:"/>
 		<control/>
 		<control/>
@@ -3717,43 +3712,44 @@
 		<control/>
 		<control/>
 		<control caption="cliënt verbindingen"/>
-		<control caption="&#160;Wis gedownloade torrents&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Wanneer deze deelverhouding is bereikt"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="&#160;Verkies torrent bronnen"/>
+		<control caption="Verkies torrent bronnen"/>
 		<control caption="_EndGame:"/>
 		<control caption="Activeer EndGame Modus bij het afmaken van torrents"/>
+		<control caption="Wis gedownloade torrents Wanneer deze deelverhouding is bereikt:"/>
+		<control/>
+		<control/>
+		<control caption="%"/>
 		<control caption="_Bewaar torrents hier:"/>
 		<control/>
 		<control/>
-		<control caption="_Torrent maker"/>
+		<control caption="_Torrent maker:"/>
 		<control/>
 		<control/>
-		<control caption="Standaard tracker: "/>
+		<control caption="Standaard tracker:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skins">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Skins">
 		<control/>
 		<control caption="Skin informatie:"/>
 		<control caption="Naam:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Auteur:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Beschrijving:"/>
 		<control/>
+		<control caption="*Selecteer meerdere skins te mengen"/>
 		<control caption="Verwijderen"/>
-		<control caption="Installeren..."/>
+		<control caption="Installeren"/>
 		<control caption="Meer..."/>
 	</dialog>
 	<dialog name="CPluginsSettingsPage" cookie="SyBuStStStEdBuBu" caption="Plugins">
 		<control/>
 		<control caption="Plugin informatie:"/>
 		<control caption="Naam:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Beschrijving:"/>
 		<control/>
-		<control caption="_Instellingen..."/>
+		<control caption="Instellingen..."/>
 		<control caption="Meer..."/>
 	</dialog>
 	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Uitgebreid">

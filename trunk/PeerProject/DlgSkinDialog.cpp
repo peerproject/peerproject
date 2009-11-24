@@ -139,7 +139,7 @@ BOOL CSkinDialog::SelectCaption(CWnd* pWnd, int nIndex)
 
 void CSkinDialog::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp)
 {
-	if ( m_pSkin )
+	if ( m_pSkin && ! theApp.m_bClosing )
 		m_pSkin->OnNcCalcSize( this, bCalcValidRects, lpncsp );
 	else
 		CDialog::OnNcCalcSize( bCalcValidRects, lpncsp );
@@ -147,7 +147,7 @@ void CSkinDialog::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpnc
 
 LRESULT CSkinDialog::OnNcHitTest(CPoint point)
 {
-	if ( m_pSkin )
+	if ( m_pSkin && ! theApp.m_bClosing )
 		return m_pSkin->OnNcHitTest( this, point, ( GetStyle() & WS_THICKFRAME ) ? TRUE : FALSE );
 	else
 		return CDialog::OnNcHitTest( point );
@@ -155,20 +155,17 @@ LRESULT CSkinDialog::OnNcHitTest(CPoint point)
 
 BOOL CSkinDialog::OnNcActivate(BOOL bActive)
 {
-	if ( m_pSkin )
-	{
+	if ( m_pSkin && ! theApp.m_bClosing )
 		m_pSkin->OnNcActivate( this, IsWindowEnabled() && ( bActive || ( m_nFlags & WF_STAYACTIVE ) ) );
-		return TRUE;
-	}
 	else
-	{
 		return CDialog::OnNcActivate( bActive );
-	}
+
+	return TRUE;
 }
 
 void CSkinDialog::OnNcPaint()
 {
-	if ( m_pSkin )
+	if ( m_pSkin && ! theApp.m_bClosing )
 		m_pSkin->OnNcPaint( this );
 	else
 		CDialog::OnNcPaint();
@@ -224,7 +221,7 @@ LRESULT CSkinDialog::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 BOOL CSkinDialog::OnEraseBkgnd(CDC* pDC)
 {
-	if ( m_pSkin && m_pSkin->OnEraseBkgnd( this, pDC ) ) return TRUE;
+	if ( m_pSkin && ! theApp.m_bClosing && m_pSkin->OnEraseBkgnd( this, pDC ) ) return TRUE;
 
 	CRect rc;
 	GetClientRect( &rc );

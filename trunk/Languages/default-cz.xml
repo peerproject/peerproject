@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r41 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r42 (Shareaza 2.2.5.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1257,11 +1257,12 @@
 	<menu name="CLibraryFileView.Physical">
 		<item id="ID_LIBRARY_LAUNCH" text="_Otevřít nebo přehrát"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Přidat do Pla_ylistu"/>
+		<item id="ID_LIBRARY_DELETE" text="_Vymazat"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Sdílené"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="_Vymazat"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent"/>
 		<separator/>
 		<menu text="S_earch For">
 			<item id="ID_SEARCH_FOR_THIS" text="Tento soubor"/>
@@ -1282,10 +1283,12 @@
 			<item id="ID_LIBRARY_MOVE" text="P_řesunout soubory..."/>
 			<item id="ID_LIBRARY_COPY" text="_Kopírovat soubory..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Místní popisky"/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Místní popisky"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Vyberte _sloupce..."/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Vyberte _sloupce..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Shell men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Vlastnosti"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual.Basic">
@@ -1325,11 +1328,12 @@
 	<menu name="CLibraryFileView.Virtual">
 		<item id="ID_LIBRARY_LAUNCH" text="_Otevřít nebo přehrát"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Přidat do Pla_ylistu"/>
+		<item id="ID_LIBRARY_DELETE" text="_Vymazat"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Sdílené"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="_Vymazat"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent"/>
 		<separator/>
 		<menu text="_Vyhledat">
 			<item id="ID_SEARCH_FOR_THIS" text="Tento soubor"/>
@@ -1352,10 +1356,12 @@
 			<item id="ID_LIBRARY_MOVE" text="P_řesunout soubory..."/>
 			<item id="ID_LIBRARY_COPY" text="_Kopírovat soubory..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Místní popisky"/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Místní popisky"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Vyberte _sloupce..."/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Vyberte _sloupce..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="Shell men_u"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Vlastnosti"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -3269,16 +3275,17 @@
 		<control caption="Použít"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Hlavní">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Hlavní">
 		<control caption="_Hlavní:"/>
 		<control caption="Automat. se připojit při startu PeerProject"/>
 		<control caption="Spustit PeerProject při startu Windows"/>
 		<control caption="Upozornit před otevřením URL"/>
-		<control caption="Ukaž rychlost v:"/>
-		<control caption="bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_Stahování:"/>
 		<control caption="Vždy rozbalit nová stahování"/>
 		<control caption="Zobrazit jednoduchou lištu přenosu"/>
+		<control caption="Ukaž rychlost v:"/>
+		<control caption="bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Hledat:"/>
 		<control caption="Rozbalit nalezené soubory s více zdroji"/>
 		<control caption="Přejít do okna Přenos a stahování"/>
@@ -3291,18 +3298,21 @@
 		<control/>
 		<control caption="Transp:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="_Lišta:"/>
 		<control caption="Když kliknu zavřít:"/>
 		<control caption="Zeptej se mě|Shodit do lišty|Ihned zavřít|Zavít po dokončení přenosu"/>
 		<control caption="Když kliknu minimalizovat:"/>
 		<control caption="Normálně na lištu|Shodit do ikony v liště"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Knihovna">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Knihovna">
 		<control caption="_Nastavení:"/>
-		<control caption="Pamatovat si vzhled složky"/>
+		<control caption="Povolit ostatním prohlížet sdílené"/>
 		<control caption="Sledovat složky knihovny"/>
 		<control caption="Rychlý hashing (používá více CPU)"/>
-		<control caption="Povolit ostatním prohlížet sdílené"/>
+		<control caption="Smart media series detection"/>
+		<control caption="Ukládat informace o smazaných souborech"/>
+		<control caption="Pamatovat si vzhled složky"/>
 		<control caption="_Poslední soubory:"/>
 		<control caption="Pamatuj si:"/>
 		<control/>
@@ -3324,8 +3334,6 @@
 		<control caption="Sbírky _ukládat do adresáře:"/>
 		<control/>
 		<control/>
-		<control caption="Ukládat informace o smazaných souborech"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Přehrávač">
 		<control caption="_Přehrávač multimédií"/>
@@ -3447,17 +3455,17 @@
 		<control caption="_Vymazat"/>
 		<control caption="(změny mají okamžitý účinek)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Vzdálený přístup">
-		<control caption="_Rádce:"/>
-		<control caption="Pokud zrovna nejste u svého počítače, mužete PeerProject ovládat vzdáleně po internetu. Abyste mohli používat tuto možnost a přijímat příchozí spojení, musíte především správně nastavit router (směrovač), dále musíte nastavit heslo a povolit vzdálený přístup."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Vzdálený přístup">
 		<control caption="_Povolit přístup:"/>
 		<control caption="Povolit vzdálený přístup k PeerProject:"/>
 		<control/>
 		<control caption="_Osobní data:"/>
 		<control caption="Zadejte login:"/>
-		<control/>
 		<control caption="Zadejte heslo:"/>
 		<control/>
+		<control/>
+		<control caption="Nápověda:"/>
+		<control caption="Pokud zrovna nejste u svého počítače, mužete PeerProject ovládat vzdáleně po internetu. Abyste mohli používat tuto možnost a přijímat příchozí spojení, musíte především správně nastavit router (směrovač), dále musíte nastavit heslo a povolit vzdálený přístup."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Plánovač">
 		<control/>
@@ -3498,8 +3506,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Síť Gnutella2:"/>
-		<control caption="Vždy připojit ke Gnutella2"/>
-		<control caption="Připojit se teď ke Gnutella2"/>
+		<control caption="Připojit se teď ke G2"/>
+		<control caption="Vždy připojit ke G2"/>
 		<control caption="Režim:"/>
 		<control caption="Optimální|Leaf|Uzel"/>
 		<control caption="Připojení G_2:"/>
@@ -3512,12 +3520,12 @@
 		<control caption="Hub to Hub:"/>
 		<control/>
 		<control/>
-		<control caption="Síť Gnutella1:"/>
-		<control caption="Vždy připojit ke Gnutella1"/>
-		<control caption="Připojit se teď ke Gnutella1"/>
+		<control caption="Síť Gnutella:"/>
+		<control caption="Připojit se teď ke Gnutella"/>
+		<control caption="Vždy připojit ke Gnutella"/>
 		<control caption="Režim:"/>
 		<control caption="Optimal|Leaf|Ultrapeer"/>
-		<control caption="Připojení G_1:"/>
+		<control caption="Připojení _Gnutella:"/>
 		<control caption="Leaf to Ultrapeer:"/>
 		<control/>
 		<control/>
@@ -3532,10 +3540,15 @@
 		<control caption="Leaf to Hub"/>
 		<control caption="Hub to Hub"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="Síť _eDonkey:"/>
-		<control caption="Připojit se teď k eDonkey"/>
 		<control caption="Automaticky se připojit při spuštění"/>
+		<control caption="Připojit se teď k eDonkey"/>
+		<control caption="Připojení _klienta:"/>
+		<control caption="Nepřipojovat se více než k:"/>
+		<control/>
+		<control/>
+		<control caption="ostatním klientům eDonkey."/>
 		<control caption="_Vyhledávací servery:"/>
 		<control caption="Vyhledat známé vzdálené servery v cache:"/>
 		<control caption="Zastav hledání po:"/>
@@ -3543,16 +3556,11 @@
 		<control/>
 		<control caption="nalezených výsledcích."/>
 		<control caption="Získat aktualizovaný seznam serverů z připojeného serveru"/>
-		<control caption="Připojení _klienta:"/>
-		<control caption="Nepřipojovat se více než k:"/>
-		<control/>
-		<control/>
-		<control caption="ostatním klientům eDonkey."/>
 		<control caption="Nás_troje eDonkey:"/>
-		<control caption="Stáhnout seznam serverů eDonkey z webu:"/>
 		<control caption="Stáhnout..."/>
+		<control caption="Stáhnout seznam serverů eDonkey z webu"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Připojená stahování:"/>
 		<control/>
 		<control/>
@@ -3560,13 +3568,13 @@
 		<control/>
 		<control/>
 		<control caption="připojených klientů"/>
-		<control caption="&#160;Vymazat stažené torrenty&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Když procento sdílení dosáhne"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="&#160;Dávat přednost zdrojům torrent"/>
+		<control caption="Dávat přednost zdrojům torrent"/>
 		<control caption="_EndGame:"/>
 		<control caption="Po dokončení torrentů umožnit režim EndGame"/>
+		<control caption="Vymazat stažené torrenty Když procento sdílení dosáhne:"/>
+		<control/>
+		<control/>
+		<control caption="%"/>
 		<control caption="_Torrenty skladovat zde:"/>
 		<control/>
 		<control/>
@@ -3576,15 +3584,16 @@
 		<control caption="_Standardní Tracker: "/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skiny">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Skiny">
 		<control/>
 		<control caption="Informace o Skinu:"/>
 		<control caption="Název:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Autor:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Popis:"/>
 		<control/>
+		<control caption="*Mix skiny"/>
 		<control caption="Vymazat"/>
 		<control caption="Nainstalovat..."/>
 		<control caption="Stáhnout další"/>
@@ -3593,7 +3602,7 @@
 		<control/>
 		<control caption="Informace o Pluginu:"/>
 		<control caption="Název:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Popis:"/>
 		<control/>
 		<control caption="Na_stavení..."/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r41 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r42 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3214,41 +3214,45 @@
 		<control caption="適用"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="一般">
-		<control caption="一般(_G):"/>
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="一般">
+		<control caption="一般:"/>
 		<control caption="PeerProject起動時に自動接続する"/>
 		<control caption="Windows起動時にPeerProjectを開始"/>
 		<control caption="URIを開く前に確認する"/>
-		<control caption="レート表示:"/>
-		<control caption="ビット/秒|バイト/秒|b/秒|B/秒|Kb/秒|KB/秒|Mb/秒|MB/秒"/>
-		<control caption="ダウンロード(_D):"/>
+		<control caption="Check for updates"/>
+		<control caption="ダウンロード:"/>
 		<control caption="新しいダウンロードをデフォルトで展開する"/>
 		<control caption="簡単な進行バーを表示する"/>
-		<control caption="検索(_S):"/>
+		<control caption="レート表示:"/>
+		<control caption="ビット/秒|バイト/秒|b/秒|B/秒|Kb/秒|KB/秒|Mb/秒|MB/秒"/>
+		<control caption="検索:"/>
 		<control caption="複数ソースファイルをデフォルトで展開する"/>
 		<control caption="ダウンロードで転送画面に切り替える"/>
 		<control caption="検索開始時にサイドバーを非表示にする"/>
 		<control caption="検索結果に18禁フィルタを適用する"/>
-		<control caption="ツールチップ(_O):"/>
+		<control caption="ツールチップ:"/>
 		<control/>
 		<control caption="遅延(㍉秒):"/>
 		<control/>
 		<control/>
 		<control caption="透明度:"/>
 		<control/>
-		<control caption="トレイ(_T):"/>
+		<control caption="Shadow (restart)"/>
+		<control caption="トレイ:"/>
 		<control caption="閉じるをクリックした時:"/>
 		<control caption="確認する|タスクトレイに最小化|直ぐに終了|転送後に終了"/>
 		<control caption="最小化をクリックした時:"/>
 		<control caption="通常|タスクトレイに最小化"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="ライブラリ">
-		<control caption="オプション(_O):"/>
-		<control caption="フォルダ表示を記録する"/>
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="ライブラリ">
+		<control caption="オプション:"/>
+		<control caption="共有ファイルの参照を許可する"/>
 		<control caption="ライブラリフォルダを監視する"/>
 		<control caption="高速ハッシュ (CPU負荷が掛ります)"/>
-		<control caption="共有ファイルの参照を許可する"/>
-		<control caption="ファイル履歴(_R):"/>
+		<control caption="Smart media series detection"/>
+		<control caption="ファイル削除時にゴーストを作成する"/>
+		<control caption="フォルダ表示を記録する"/>
+		<control caption="ファイル履歴:"/>
 		<control caption="記録:"/>
 		<control/>
 		<control/>
@@ -3258,39 +3262,37 @@
 		<control/>
 		<control caption="日"/>
 		<control caption="履歴をクリア"/>
-		<control caption="安全な拡張子(_S):"/>
+		<control caption="安全な拡張子:"/>
 		<control/>
 		<control caption="追加(_A)"/>
 		<control caption="削除(_R)"/>
-		<control caption="共有しない拡張子(_N):"/>
+		<control caption="共有しない拡張子:"/>
 		<control/>
 		<control caption="追加(_A)"/>
 		<control caption="削除(_R)"/>
-		<control caption="コレクションの格納先(_C):"/>
+		<control caption="コレクションの格納先:"/>
 		<control/>
 		<control/>
-		<control caption="ファイル削除時にゴーストを作成する"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="メディアプレーヤー">
-		<control caption="オプション(_O):"/>
+		<control caption="オプション:"/>
 		<control caption="メディア･プレーヤーの選択:"/>
 		<control/>
 		<control caption="下のﾘｽﾄ内のﾌｧｲﾙﾀｲﾌﾟの再生にPeerProjectﾒﾃﾞｨｱﾌﾟﾚｰﾔｰを使用"/>
 		<control caption="下のﾘｽﾄ内のﾌｧｲﾙﾀｲﾌﾟのPeerProjectﾒﾃﾞｨｱﾌﾟﾚｰﾔｰ再生ﾘｽﾄへの追加を許可"/>
-		<control caption="ファイルタイプ(_T):"/>
+		<control caption="ファイルタイプ:"/>
 		<control/>
 		<control caption="追加(_A)"/>
 		<control caption="削除(_R)"/>
-		<control caption="オーディオ視覚プラグイン(_V):"/>
+		<control caption="オーディオ視覚プラグイン:"/>
 		<control caption="プラグインを選択(_S)..."/>
 		<control caption="注意:外部のメディアプレーヤーを選択すると内臓のPeerProjectﾒﾃﾞｨｱﾌﾟﾚｰﾔｰ、オーディオ視覚プラグインは共に自動的に無効になります。"/>
 	</dialog>
 	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="コミュニティ">
-		<control caption="プロフィール(_P):"/>
+		<control caption="プロフィール:"/>
 		<control caption="Gnutellaユーザプロフィールを共有することによって、あなたについての情報やあなたの興味、お勧めのファイルやウェブサイトを他の人に公開することができます"/>
 		<control caption="プロフィールを編集"/>
-		<control caption="チャット(_C):"/>
+		<control caption="チャット:"/>
 		<control caption="互換性のあるクライアントとピア・ツー・ピアチャットを行う"/>
 		<control caption="全てのネットワークでチャットを有効にする"/>
 		<control caption="スパム用のチャットメッセージをフィルタリングする"/>
@@ -3298,14 +3300,14 @@
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="ウェブ">
-		<control caption="ピア・ツー・ピアリンク処理(_P):"/>
+		<control caption="ピア・ツー・ピアリンク処理:"/>
 		<control caption="これらの種類のリンクをPeerProjectを使って開く:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey2000 ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
-		<control caption="ダウンロードマネージャ(_D):"/>
+		<control caption="ダウンロードマネージャ:"/>
 		<control caption="全てのウェブダウンロードにPeerProjectを使用する:"/>
 		<control/>
 		<control caption="追加(_A)"/>
@@ -3315,7 +3317,7 @@
 	<dialog name="CInternetSettingsGroup" caption="インターネット">
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="接続">
-		<control caption="入力アドレス(_I):"/>
+		<control caption="入力アドレス:"/>
 		<control caption="アドレス:"/>
 		<control caption="自動"/>
 		<control caption="速度:"/>
@@ -3324,17 +3326,17 @@
 		<control/>
 		<control caption="ランダム"/>
 		<control caption="強制的にこのアドレスに割当"/>
-		<control caption="出力アドレス(_O):"/>
+		<control caption="出力アドレス:"/>
 		<control caption="アドレス:"/>
 		<control caption="自動"/>
 		<control caption="速度:"/>
 		<control/>
-		<control caption="オプション(_P):"/>
+		<control caption="オプション:"/>
 		<control caption="入力接続を受け付ける"/>
 		<control/>
 		<control caption="プライベート/ローカルIPアドレスを無視"/>
 		<control caption="UPnP接続デバイスの設定を有効にする"/>
-		<control caption="タイムアウト(_T):"/>
+		<control caption="タイムアウト:"/>
 		<control caption="接続:"/>
 		<control/>
 		<control/>
@@ -3343,13 +3345,13 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadsSettingsPage" cookie="BuEdBuBuEdBuBuStEdmsStEdmsStEdmsBuStCoStCoBuBu" caption="ダウンロード">
-		<control caption="完了ファイルの保存先(_C):"/>
+		<control caption="完了ファイルの保存先:"/>
 		<control/>
 		<control/>
-		<control caption="未完了ファイルの保存先(_I):"/>
+		<control caption="未完了ファイルの保存先:"/>
 		<control/>
 		<control/>
-		<control caption="ダウンロード数(_N):"/>
+		<control caption="ダウンロード数:"/>
 		<control caption="最大ファイル数:"/>
 		<control/>
 		<control/>
@@ -3359,7 +3361,7 @@
 		<control caption="転送/ファイル:"/>
 		<control/>
 		<control/>
-		<control caption="制限(_L):"/>
+		<control caption="制限:"/>
 		<control caption="総ダウンロード帯域幅:"/>
 		<control/>
 		<control caption="最大キュー数:"/>
@@ -3368,7 +3370,7 @@
 		<control caption="接続済みのネットワークでしかアップロード・ダウンロードしない"/>
 	</dialog>
 	<dialog name="CUploadsSettingsPage" cookie="BuBuBuBuBuStEdmsBuCoBuBuBuStCoStCoBuSyBuBuBuSt" caption="アップロード">
-		<control caption="オプション(_O):"/>
+		<control caption="オプション:"/>
 		<control caption="ハブモードでは共有を制限する"/>
 		<control caption="新規部分ダウンロードを共有する"/>
 		<control caption="プレビューファイルを共有する"/>
@@ -3376,33 +3378,33 @@
 		<control caption="制限/ユニークホスト:"/>
 		<control/>
 		<control/>
-		<control caption="ユーザエージェントフィルタ(_U):"/>
+		<control caption="ユーザエージェントフィルタ:"/>
 		<control/>
 		<control caption="+"/>
 		<control caption="-"/>
-		<control caption="帯域幅(_B):"/>
+		<control caption="帯域幅:"/>
 		<control caption="制限:"/>
 		<control/>
 		<control caption="モード:"/>
 		<control caption="最大|平均"/>
-		<control caption="キュー(_Q):"/>
+		<control caption="キュー:"/>
 		<control/>
 		<control caption="新規(_N)..."/>
 		<control caption="編集(_E)..."/>
 		<control caption="削除(_D)"/>
 		<control caption="(変更は即座に適用されます)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="リモートアクセス">
-		<control caption="ガイド(_G):"/>
-		<control caption="PeerProjectリモートアクセスはあなたがPCの前を離れていても、ウェブブラウザを使用してPeerProjectを遠隔操作することができるようにします。この機能を利用するには(ルータを適切に設定する等して)入力接続を受け付けることができるようにする必要があります"/>
-		<control caption="有効(_E):"/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuStd" caption="リモートアクセス">
+		<control caption="有効:"/>
 		<control caption="PeerProjectリモートアクセスを有効にする:"/>
-		<control caption="URL"/>
-		<control caption="認証(_C):"/>
-		<control caption="ユーザ名:"/>
 		<control/>
+		<control caption="認証:"/>
+		<control caption="ユーザ名:"/>
 		<control caption="パスワード:"/>
 		<control/>
+		<control/>
+		<control caption="ガイド:"/>
+		<control caption="PeerProjectリモートアクセスはあなたがPCの前を離れていても、ウェブブラウザを使用してPeerProjectを遠隔操作することができるようにします。この機能を利用するには(ルータを適切に設定する等して)入力接続を受け付けることができるようにする必要があります"/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuStt" caption="スケジューラ">
 		<control/>
@@ -3417,13 +3419,13 @@
 		<control caption="接続しない"/>
 		<control caption="帯域制限を行う"/>
 		<control caption="帯域制限無し"/>
-		<control caption="オプション(_O):"/>
+		<control caption="オプション:"/>
 		<control caption="スケジューラを有効にする(_E)"/>
 		<control caption="制限時にだけG2に接続する(_C)"/>
 		<control caption="% 帯域制限(_B)"/>
 		<control/>
 		<control/>
-		<control caption="ヘルプ"/>
+		<control caption="ヘルプ:"/>
 		<control caption="スケジューラはPeerProjectがネットワークに接続し、ファイルをダウンロードする時間を設定することが出来るように設計されています。 {n}{n}{n}注意: スケジューラ有効時にPeerProjectを開いた場合、設定が変更されている可能性がありますが、これは正常な動作ですので心配する必要はありません。"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="ネットワーク">
@@ -3443,11 +3445,11 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2ネットワーク:"/>
-		<control caption="常時Gnutella2に接続する"/>
-		<control caption="今回Gnutella2に接続する"/>
+		<control caption="今回G2に接続する"/>
+		<control caption="常時G2に接続する"/>
 		<control caption="モード:"/>
 		<control caption="自動|リーフ|ハブ"/>
-		<control caption="G2接続(_2):"/>
+		<control caption="G_2接続:"/>
 		<control caption="リーフ → ハブ:"/>
 		<control/>
 		<control/>
@@ -3457,12 +3459,12 @@
 		<control caption="ハブ → ハブ:"/>
 		<control/>
 		<control/>
-		<control caption="Gnutella1ネットワーク:"/>
-		<control caption="常時Gnutella1に接続する"/>
-		<control caption="今回Gnutella1に接続する"/>
+		<control caption="Gnutellaネットワーク:"/>
+		<control caption="今回Gnutellaに接続する"/>
+		<control caption="常時Gnutellaに接続する"/>
 		<control caption="モード:"/>
 		<control caption="自動|リーフ|ウルトラピア"/>
-		<control caption="G1接続(_1):"/>
+		<control caption="G_1接続:"/>
 		<control caption="リーフ → ウルトラピア:"/>
 		<control/>
 		<control/>
@@ -3472,64 +3474,65 @@
 		<control caption="ピア → ピア:"/>
 		<control/>
 		<control/>
-		<control caption="リンク圧縮(_L):"/>
+		<control caption="リンク圧縮:"/>
 		<control caption="ハブ → リーフ"/>
 		<control caption="リーフ → ハブ"/>
 		<control caption="ハブ → ハブ"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey2000">
-		<control caption="eDonkey2000ネットワーク(_E):"/>
-		<control caption="今回eDonkey2000に接続"/>
-		<control caption="常時eDonkey2000に接続"/>
-		<control caption="グローバル検索(_G):"/>
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey2000">
+		<control caption="_eDonkeyネットワーク:"/>
+		<control caption="今回eDonkeyに接続"/>
+		<control caption="常時eDonkeyに接続"/>
+		<control caption="クライアントリンク接続:"/>
+		<control caption="最大接続数:"/>
+		<control/>
+		<control/>
+		<control caption="eDonkeyクライアント"/>
+		<control caption="グローバル検索:"/>
 		<control caption="サーバーキャッシュ内の既知のリモートサーバーを検索:"/>
 		<control caption="検索を終了するタイミング:"/>
 		<control/>
 		<control/>
 		<control caption="検索結果"/>
-		<control/>
-		<control caption="クライアントリンク接続(_C):"/>
-		<control caption="最大接続数:"/>
-		<control/>
-		<control/>
-		<control caption="eDonkeyクライアント"/>
-		<control caption="eDonkey2000ツール(_T):"/>
-		<control caption="ウェブからeDonkey2000サーバーリストをダウンロード:"/>
+		<control caption="Update global server list from the connected server"/>
+		<control caption="eDonkey0ツール:"/>
 		<control caption="ダウンロード..."/>
+		<control caption="ウェブからeDonkeyサーバーリストをダウンロード:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
-		<control caption="ダウンロード接続数(_D):"/>
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
+		<control caption="ダウンロード接続数:"/>
 		<control/>
 		<control/>
 		<control caption="同時Torrent数"/>
 		<control/>
 		<control/>
 		<control caption="クライアント接続数"/>
-		<control caption="&#160;次の共有比率になればダウンロードしたTorrentを自動クリアする:"/>
+		<control caption="Torrentソースを優先する"/>
+		<control caption="_EndGame:"/>
+		<control caption="Torrent完了時にEndGameモードを有効にする"/>
+		<control caption="次の共有比率になればダウンロードしたTorrentを自動クリアする:"/>
 		<control/>
 		<control/>
 		<control caption="%"/>
-		<control caption="&#160;Torrentソースを優先する"/>
-		<control caption="EndGame(_E):"/>
-		<control caption="Torrent完了時にEndGameモードを有効にする"/>
-		<control caption="Torrentの保存先(_S):"/>
+		<control caption="Torrentの保存先:"/>
 		<control/>
 		<control/>
-		<control caption="Torrent Creator(_T)"/>
+		<control caption="Torrent Creator:"/>
 		<control/>
 		<control/>
-		<control caption="デフォルトのトラッカー: "/>
+		<control caption="デフォルトのトラッカー:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="スキン">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="スキン">
 		<control/>
 		<control caption="スキン情報:"/>
 		<control caption="名前:"/>
-		<control caption="..."/>
+		<control />
 		<control caption="作者:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="説明:"/>
 		<control/>
+		<control caption="*Mix"/>
 		<control caption="削除"/>
 		<control caption="インストール..."/>
 		<control caption="更に追加"/>
@@ -3538,10 +3541,10 @@
 		<control/>
 		<control caption="プラグイン情報:"/>
 		<control caption="名前:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="説明:"/>
 		<control/>
-		<control caption="設定(_S)..."/>
+		<control caption="設定..."/>
 		<control caption="更に追加"/>
 	</dialog>
 	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="高度設定">
@@ -3559,9 +3562,9 @@
 		<control/>
 	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="アップロードキュープロパティ">
-		<control caption="名前(_N):"/>
+		<control caption="名前:"/>
 		<control/>
-		<control caption="適用対象(_E):"/>
+		<control caption="適用対象:"/>
 		<control caption="部分ダウンロードファイルのみ"/>
 		<control caption="共有ライブラリファイルのみ"/>
 		<control caption="部分ダウロードと共有ファイルの両方"/>
@@ -3575,7 +3578,7 @@
 		<control/>
 		<control caption="プロトコル:"/>
 		<control/>
-		<control caption="制限(_C):"/>
+		<control caption="制限:"/>
 		<control caption="このキューで有効にする"/>
 		<control caption="最小転送数:"/>
 		<control/>
@@ -3586,7 +3589,7 @@
 		<control caption="最大待機キュー数:"/>
 		<control/>
 		<control/>
-		<control caption="サービスパラメータ(_S):"/>
+		<control caption="サービスパラメータ:"/>
 		<control caption="飽和帯域割合:"/>
 		<control/>
 		<control caption="このキューのアップロード帯域幅:"/>
@@ -3703,13 +3706,13 @@
 		<control/>
 	</dialog>
 	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="個人情報">
-		<control caption="名前(_N):"/>
+		<control caption="名前:"/>
 		<control caption="ニックネーム:"/>
 		<control/>
 		<control caption="本名:"/>
 		<control/>
 		<control/>
-		<control caption="身体(_V):"/>
+		<control caption="身体:"/>
 		<control caption="|男性|女性"/>
 		<control caption="性別:"/>
 		<control/>
@@ -3717,18 +3720,18 @@
 		<control caption="他のユーザーからの参照を許可する"/>
 	</dialog>
 	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="近影">
-		<control caption="プレビュー(_P):"/>
+		<control caption="プレビュー:"/>
 		<control/>
-		<control caption="選択(_S):"/>
+		<control caption="選択:"/>
 		<control caption="他のGnutellaユーザがあなたのプロフィールや共有ファイルを参照し、近影を見ることになります。 近影をカスタマイズするには128x128ピクセルで、 サポートしている画像ファイルの形式ならどんなものでも構いません。"/>
 		<control caption="参照(_B)..."/>
 		<control caption="削除(_R)"/>
 	</dialog>
 	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="連絡先">
-		<control caption="Eメールアドレス(_E):"/>
+		<control caption="Eメールアドレス:"/>
 		<control caption="常時使用:"/>
 		<control/>
-		<control caption="メッセージングサービス(_I):"/>
+		<control caption="メッセージングサービス:"/>
 		<control caption="MSN/.NET Passport:"/>
 		<control/>
 		<control caption="Yahoo ID:"/>
@@ -3741,17 +3744,17 @@
 		<control/>
 	</dialog>
 	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="プロフィール">
-		<control caption="住所(_L):"/>
+		<control caption="住所:"/>
 		<control caption="国:"/>
 		<control/>
 		<control caption="町:"/>
 		<control/>
-		<control caption="地図(_M):"/>
+		<control caption="地図:"/>
 		<control caption="緯度:"/>
 		<control/>
 		<control caption="経度:"/>
 		<control/>
-		<control caption="興味(_I):"/>
+		<control caption="興味:"/>
 		<control/>
 		<control caption="&lt; 追加"/>
 		<control caption="削除 &gt;"/>
@@ -3762,7 +3765,7 @@
 	</dialog>
 	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="お気に入り">
 		<control/>
-		<control caption="編集(_E):"/>
+		<control caption="編集:"/>
 		<control caption="タイトル:"/>
 		<control/>
 		<control caption="URL:"/>
@@ -3771,13 +3774,13 @@
 		<control caption="削除"/>
 	</dialog>
 	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="ファイル">
-		<control caption="お気に入りのファイル(_F):"/>
+		<control caption="お気に入りのファイル:"/>
 		<control caption="お気に入りに指定することでプロフィールを参照したユーザーにお勧めを紹介できます。&quot;Favourites&quot;ライブラリフォルダに追加すればお気に入りを作成できます"/>
 		<control/>
 	</dialog>
 	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="証明書">
 		<control caption="Gnutellaユーザーはグローバルでユニーク(一意)な識別子と、それに対応する公開・秘密鍵によって特定することが出来ます。 通常は新しいIDを作成する必要はありませんが、PeerProjectはこのオプションを熟練したユーザに提供します"/>
-		<control caption="Gnutellaグローバルユニーク識別証明(_G):"/>
+		<control caption="Gnutellaグローバルユニーク識別証明:"/>
 		<control caption="GUID:"/>
 		<control/>
 		<control caption="作成:"/>
@@ -3790,7 +3793,7 @@
 		<control caption="ホスト又はサーバへの新規接続を開始:|このホストを参照:"/>
 		<control/>
 		<control/>
-		<control caption="ネットワークプロトコル(_P):"/>
+		<control caption="ネットワークプロトコル:"/>
 		<control caption="Gnutella1 (自動)|Gnutella2 (自動)|eDonkey2000"/>
 		<control caption="ウルトラピア圧縮(_U)"/>
 		<control caption="接続"/>
@@ -3814,11 +3817,11 @@
 		<control caption="キャンセル"/>
 	</dialog>
 	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="フィルタ一致">
-		<control caption="フィルタに一致させようとする単語を入力して下さい(_W):"/>
+		<control caption="フィルタに一致させようとする単語を入力して下さい:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
 		<control caption="( -単語 で除外設定を行うことが出来ます )"/>
-		<control caption="サイズ指定(_S):"/>
+		<control caption="サイズ指定:"/>
 		<control caption="最小:"/>
 		<control/>
 		<control caption="最大:"/>
@@ -3827,7 +3830,7 @@
 		<control/>
 		<control/>
 		<control caption="ソース"/>
-		<control caption="非表示(_H):"/>
+		<control caption="非表示:"/>
 		<control caption="ビジー状態のホスト"/>
 		<control caption="FW/プッシュ ホスト"/>
 		<control caption="不安定なホスト"/>
@@ -3852,7 +3855,7 @@
 		<control caption="現在のフィルタに名前を付けて保存:"/>
 	</dialog>
 	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBu" caption="ディスカバリサービス">
-		<control caption="サービスのアドレス(_A):"/>
+		<control caption="サービスのアドレス:"/>
 		<control/>
 		<control caption="ディスカバリサービス種類:"/>
 		<control caption="Gnutellaブートストラップ|GWebCache|Server.met URL|ブロック"/>
@@ -3952,16 +3955,16 @@
 		<control caption="追加(_A)..."/>
 		<control caption="編集(_E)..."/>
 		<control caption="削除(_R)"/>
-		<control caption="表示(_S):"/>
+		<control caption="表示:"/>
 		<control caption="グリッド線"/>
 		<control caption="縦軸"/>
 		<control caption="表示説明"/>
-		<control caption="サンプリング周波数(_F):"/>
+		<control caption="サンプリング周波数:"/>
 		<control caption="サンプリング周期:"/>
 		<control/>
 		<control/>
 		<control caption="ﾐﾘ秒"/>
-		<control caption="名前(_N):"/>
+		<control caption="名前:"/>
 		<control/>
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
@@ -3969,13 +3972,13 @@
 	<dialog name="CGraphItemDlg" cookie="BuBuBuCoStEdStEdBuBuStBu" caption="グラフアイテムプロパティ">
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
-		<control caption="ソース(_S):"/>
+		<control caption="ソース:"/>
 		<control/>
 		<control caption="パラメータ:"/>
 		<control/>
 		<control caption="単位:"/>
 		<control/>
-		<control caption="表示(_D):"/>
+		<control caption="表示:"/>
 		<control caption="色選択..."/>
 		<control/>
 		<control caption="削除(_R)"/>
@@ -3988,12 +3991,12 @@
 		<control caption="リストからスキーマを選択し、その後カラムとして表示するフィールドを選択して下さい"/>
 	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="セキュリティ規則">
-		<control caption="規則(_R):"/>
+		<control caption="規則:"/>
 		<control caption="種類:"/>
 		<control caption="ネットワーク(IP) アドレス|内容フィルタ"/>
 		<control caption="コメント:"/>
 		<control/>
-		<control caption="ネットワークアドレス(_N):"/>
+		<control caption="ネットワークアドレス:"/>
 		<control caption="IPアドレス:"/>
 		<control/>
 		<control/>
@@ -4004,12 +4007,12 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="内容フィルタ(_C):"/>
+		<control caption="内容フィルタ:"/>
 		<control/>
 		<control caption="何れかに一致"/>
 		<control caption="全て一致"/>
 		<control caption="Reg. Exp."/>
-		<control caption="オプション(_O):"/>
+		<control caption="オプション:"/>
 		<control caption="動作:"/>
 		<control caption="無し|受理|拒否"/>
 		<control caption="期限:"/>
@@ -4187,7 +4190,7 @@
 		<control/>
 		<control/>
 		<control caption="トラッカー:"/>
-		<control caption="現在のトラッカー(_D):"/>
+		<control caption="現在のトラッカー:"/>
 		<control caption="シード(完了済み):"/>
 		<control caption="(未完了):"/>
 		<control caption="トラッカー形態:"/>
@@ -4244,7 +4247,7 @@
 		<control/>
 		<control/>
 		<control caption="操作"/>
-		<control caption="データ消去(_E):"/>
+		<control caption="データ消去:"/>
 		<control caption="バイト範囲:"/>
 		<control caption="→"/>
 		<control caption="消去"/>
@@ -4261,10 +4264,10 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="名前(_N):"/>
-		<control caption="フィルタ(_F):"/>
-		<control caption="完了フォルダ(_F):"/>
-		<control caption="全てのファイルタイプ(_T):"/>
+		<control caption="名前:"/>
+		<control caption="フィルタ:"/>
+		<control caption="完了フォルダ:"/>
+		<control caption="全てのファイルタイプ:"/>
 		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="視覚効果を選択">

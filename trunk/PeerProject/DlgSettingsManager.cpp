@@ -54,8 +54,8 @@ static char THIS_FILE[] = __FILE__;
 
 BEGIN_MESSAGE_MAP(CSettingsManagerDlg, CSettingsSheet)
 	//{{AFX_MSG_MAP(CSettingsManagerDlg)
-	//}}AFX_MSG_MAP
 	ON_COMMAND(IDRETRY, OnApply)
+	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -64,7 +64,6 @@ END_MESSAGE_MAP()
 
 CSettingsManagerDlg::CSettingsManagerDlg(CWnd* pParent) : CSettingsSheet( pParent, IDS_SETTINGS )
 {
-	m_nTopMargin = 52;
 }
 
 void CSettingsManagerDlg::DoDataExchange(CDataExchange* pDX)

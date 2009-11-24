@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -36,7 +36,7 @@
 		<button id="ID_TAB_SEARCH" text="Keresés"/>
 		<button id="ID_TAB_TRANSFERS" text="Letöltések"/>
 		<button id="ID_TAB_LIBRARY" text="Könyvtár"/>
-		<button id="ID_TAB_MEDIA" text="Médialejátszó"/>
+		<button id="ID_TAB_MEDIA" text="Média"/>
 	</toolbar>
 	<toolbar name="CMainWnd.Tabbed">
 		<button id="ID_TAB_CONNECT" text="Kapcsolódás"/>
@@ -3328,16 +3328,17 @@
 		<control caption="Alkalmaz"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Általános">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Általános">
 		<control caption="Ál_talános"/>
 		<control caption="Automatikus kapcsolódás indításkor"/>
 		<control caption="Együtt töltődik be a Windows-al"/>
 		<control caption="Ablak megjelenítése URL megyitása előtt"/>
-		<control caption="Sebességérték:"/>
-		<control caption="bit/másodperc|bájt/másodperc|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_Letöltések"/>
 		<control caption="Új letöltések kibontása"/>
 		<control caption="Egyszerű folyamatábra megjelenítése"/>
+		<control caption="Sebességérték:"/>
+		<control caption="bit/másodperc|bájt/másodperc|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Keresés"/>
 		<control caption="Többforrásos fájlok kibontása"/>
 		<control caption="Letöltésnél átkapcsol Forgalom ablakba"/>
@@ -3350,19 +3351,22 @@
 		<control/>
 		<control caption="Átlátszó:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="_Tálca"/>
 		<control caption="Bezárás gomb:"/>
 		<control caption="Rákérdez|Leküldi az óra mellé|Azonnal bezár|Forgalom után bezár"/>
 		<control caption="Kis méret gomb:"/>
 		<control caption="Normál|Leküldi az óra mellé"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Könyvtár">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Könyvtár">
 		<control caption="_Beállítások"/>
-		<control caption="Utolsó mappa megjegyzése"/>
+		<control caption="Mások is lássák a megosztásom"/>
 		<control caption="Mappák figyelése"/>
 		<control caption="Gyors hash (nagy CPU használat)"/>
-		<control caption="Mások is lássák a megosztásom"/>
-		<control caption="_Legutóbbi fájlok"/>
+		<control caption="Okos epizódérzékelés"/>
+		<control caption="Szellemfájl készítése törléskor"/>
+		<control caption="Utolsó mappa megjegyzése"/>
+		<control caption="_Legutóbbi fájlok:"/>
 		<control caption="Megjegyez"/>
 		<control/>
 		<control/>
@@ -3383,8 +3387,6 @@
 		<control caption="_Gyűjtemények tárolása"/>
 		<control/>
 		<control/>
-		<control caption="Szellemfájl készítése törléskor"/>
-		<control caption="Okos epizódérzékelés"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Medialejátszó">
 		<control caption="_Beállítások"/>
@@ -3549,17 +3551,17 @@
 		<control caption="_Törlés"/>
 		<control caption="A változások azonnal életbe lépnek!"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Távoli elérés">
-		<control caption="_Leírás"/>
-		<control caption="Ezzel a szolgáltatással egy webböngészőn keresztül távolról is irányíthatja a PeerProject. Ehhez azonban a PeerProject futtató gépnek tudnia kell fogadni a bejövő kapcsolatokat."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Távoli elérés">
 		<control caption="_Engedélyezés"/>
 		<control caption="Távoli használat engedélyezése"/>
 		<control caption="URL"/>
 		<control caption="_Belépési adatok"/>
 		<control caption="Felhasználó neve:"/>
-		<control/>
 		<control caption="Felhasználó jelszava:"/>
 		<control/>
+		<control/>
+		<control caption="Súgó:"/>
+		<control caption="Ezzel a szolgáltatással egy webböngészőn keresztül távolról is irányíthatja a PeerProject. Ehhez azonban a PeerProject futtató gépnek tudnia kell fogadni a bejövő kapcsolatokat."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Ütemező">
 		<control/>
@@ -3580,7 +3582,7 @@
 		<control caption="% sávszél korlátozott módban"/>
 		<control/>
 		<control/>
-		<control caption="Súgó"/>
+		<control caption="Súgó:"/>
 		<control caption="Az ütemezővel beállíthatja, hogy a PeerProject mikor kapcsolódjon és&#13;&#10;mikor töltse le a fájlokat. &#13;&#10;&#13;&#10;Megjegyzés: Ha a PeerProject éppen nyitva van és az ütemező is be van kapcsolva, láthatja, hogy megváltoztatja a beállításokat.&#13;&#10;Ez teljesen normális!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Hálózatok">
@@ -3600,8 +3602,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 hálózat"/>
-		<control caption="Mindig kapcsolódjon a G2-höz"/>
 		<control caption="Kapcsolódás a G2-höz"/>
+		<control caption="Mindig kapcsolódjon a G2-höz"/>
 		<control caption="Mód:"/>
 		<control caption="Optimális|Leaf|Hub"/>
 		<control caption="G_2 kapcsolódások száma"/>
@@ -3615,8 +3617,8 @@
 		<control/>
 		<control/>
 		<control caption="Gnutella1 hálózat"/>
-		<control caption="Mindig kapcsolódjon a G1-hez"/>
 		<control caption="Egyszer kapcsolódjon a G1-hez"/>
+		<control caption="Mindig kapcsolódjon a G1-hez"/>
 		<control caption="Mód:"/>
 		<control caption="Optimális|Leaf|Ultrapeer"/>
 		<control caption="G_1 kapcsolódások száma"/>
@@ -3634,10 +3636,15 @@
 		<control caption="Leaf a Hubhoz"/>
 		<control caption="Hub a Hubhoz"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="_eDonkey hálózat"/>
 		<control caption="Egyszer kapcsolódjon az eD2k-hez"/>
 		<control caption="Mindig kapcsolódjon"/>
+		<control caption="_Kliens kapcsolódása"/>
+		<control caption="Maximum"/>
+		<control/>
+		<control/>
+		<control caption="másik klienshez kapcsolódhat."/>
 		<control caption="_Globális keresés"/>
 		<control caption="Ismert szervereken való keresés a Kiszolgálók listájából:"/>
 		<control caption="Keresés befejezése"/>
@@ -3645,16 +3652,11 @@
 		<control/>
 		<control caption="eredmény után."/>
 		<control caption="Szerverlista lekérése a kapcsolatban lévő szervertől"/>
-		<control caption="_Kliens kapcsolódása"/>
-		<control caption="Maximum"/>
-		<control/>
-		<control/>
-		<control caption="másik klienshez kapcsolódhat."/>
 		<control caption="eDonkey e_szközök"/>
-		<control caption="eDonkey szerverlista letöltése az internetről:"/>
 		<control caption="Letöltés..."/>
+		<control caption="eDonkey szerverlista letöltése az internetről:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Letöltési kapcsolatok"/>
 		<control/>
 		<control/>
@@ -3662,31 +3664,32 @@
 		<control/>
 		<control/>
 		<control caption="kliens kapcsolódhat hozzám egyszerre"/>
-		<control caption="&#160;Letöltött torrentek törlése, ha a megosztási arány ezt eléri:"/>
+		<control caption="Előbb a torrentforrásokat használja"/>
+		<control caption="EndGame"/>
+		<control caption="A letöltés végének gyorsítása (EndGame mód)"/>
+		<control caption="Letöltött torrentek törlése, ha a megosztási arány ezt eléri:"/>
 		<control/>
 		<control/>
 		<control caption="%"/>
-		<control caption="&#160;Előbb a torrentforrásokat használja"/>
-		<control caption="EndGame"/>
-		<control caption="A letöltés végének gyorsítása (EndGame mód)"/>
-		<control caption="_Torrentfájlok mappája"/>
+		<control caption="_Torrentfájlok mappája:"/>
 		<control/>
 		<control/>
-		<control caption="T_orrentkészítő program"/>
+		<control caption="Torrentkészítő _program:"/>
 		<control/>
 		<control/>
-		<control caption="Alapértelm. tracker: "/>
+		<control caption="Alapértelm. tracker:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Kinézetek">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Kinézetek">
 		<control/>
 		<control caption="Kinézet adatai"/>
 		<control caption="Név:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Készítő:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Leírás:"/>
 		<control/>
+		<control caption="*Mix"/>
 		<control caption="Törlés"/>
 		<control caption="Telepít..."/>
 		<control caption="Többet akarok"/>
@@ -3695,7 +3698,7 @@
 		<control/>
 		<control caption="Plugin adatok"/>
 		<control caption="Név:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Leírás:"/>
 		<control/>
 		<control caption="_Beállít..."/>

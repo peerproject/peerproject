@@ -96,6 +96,7 @@ public:
 	{
 		DWORD		TipDelay;
 		DWORD		TipAlpha;
+		bool		TipShadow;
 		bool		TipSearch;
 		bool		TipLibrary;
 		bool		TipDownloads;
@@ -534,6 +535,8 @@ public:
 
 	struct sUploads
 	{
+		//string_set BlockAgents;
+		CString 	BlockAgents;
 		DWORD		MaxPerHost;					// Simultaneous uploads per remote client
 		DWORD		FreeBandwidthValue;
 		DWORD		FreeBandwidthFactor;
@@ -554,7 +557,6 @@ public:
 		DWORD		PreviewTransfers;
 		bool		AllowBackwards;				// Data sent from end of range to begining where supported
 		bool		HubUnshare;
-		CString		BlockAgents;
 		bool		AutoClear;					// Remove completed uploads
 		DWORD		ClearDelay;					// Delay between auto-clears
 		DWORD		FilterMask;
@@ -565,18 +567,18 @@ public:
 	{
 		COLORREF		Colors[12];
 		bool			Show;
-		bool			FloodEnable;
 		bool			Timestamp;
+		bool			FloodEnable;
+		DWORD			FloodLimit;
 		CString			OnConnect;
 		CString			UserName;
 		CString			RealName;
 		CString			Nick;
 		CString			Alternate;
 		CString			ServerName;
-		CString			ServerPort;
-		CString			FloodLimit;
-		CString			ScreenFont;
+		DWORD			ServerPort;
 		DWORD			FontSize;
+		CString			ScreenFont;
 		bool			Updated;
 	} IRC;
 

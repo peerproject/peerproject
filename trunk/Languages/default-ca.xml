@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1287,19 +1287,17 @@
 			<item id="ID_LIBRARY_MOVE" text="_Mou arxiu..."/>
 			<item id="ID_LIBRARY_COPY" text="_Copia arxiu..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propietats"/>
 	</menu>
 	<menu name="CLibraryFileView.Physical">
 		<item id="ID_LIBRARY_LAUNCH" text="_Obre o reprodueix"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Afegeix a la llista de reproducció"/>
+		<item id="ID_LIBRARY_DELETE" text="_Esborra"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Comparteix"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="_Esborra"/>
 		<separator/>
 		<menu text="Cerca">
 			<item id="ID_SEARCH_FOR_THIS" text="Aquest arxiu"/>
@@ -1320,23 +1318,22 @@
 			<item id="ID_LIBRARY_MOVE" text="_Mou arxius..."/>
 			<item id="ID_LIBRARY_COPY" text="_Copia arxius..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
-		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Tria _columnes..."/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Tria _columnes..."/>
+		</menu>
 		<separator/>
 		<item id="ID_SHELL_MENU" text="S_hell menu"/>
-		<separator/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propietats"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="_Obre o reprodueix"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Afegeix al reproductor"/>
 		<item id="ID_LIBRARY_FOLDER_ENQUEUE" text="Reprodueix àlbum"/>
+		<item id="ID_LIBRARY_DELETE" text="_Esborra"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Compartit"/>
-		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Esborra"/>
 		<separator/>
 		<menu text="Cerca">
 			<item id="ID_SEARCH_FOR_THIS" text="Aquest arxiu"/>
@@ -1353,25 +1350,25 @@
 			<item id="ID_LIBRARY_URI" text=""/>
 		</menu>
 		<menu text="O_rganitza">
-			<item id="ID_LIBRARY_RENAME" text="_Reanomena arxiu"/>
 			<item id="ID_LIBRARY_UNLINK" text="Esborra _arxius"/>
 			<separator/>
+			<item id="ID_LIBRARY_RENAME" text="_Reanomena arxiu"/>
 			<item id="ID_LIBRARY_MOVE" text="_Mou arxius..."/>
 			<item id="ID_LIBRARY_COPY" text="_Copia arxius..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 		<separator/>
+		<item id="ID_SHELL_MENU" text="S_hell menu"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propietats"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual">
 		<item id="ID_LIBRARY_LAUNCH" text="_Obre o reprodueix"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Afegeix a la llista de reproducció"/>
+		<item id="ID_LIBRARY_DELETE" text="_Esborra"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Comparteix"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text=""/>
-		<item id="ID_LIBRARY_DELETE" text="_Esborra"/>
+		<item id="ID_LIBRARY_CREATETORRENT" text="._torrent"/>
 		<separator/>
 		<menu text="C_erca...">
 			<item id="ID_SEARCH_FOR_THIS" text="Aquest arxiu"/>
@@ -1394,11 +1391,13 @@
 			<item id="ID_LIBRARY_MOVE" text="_Mou arxius..."/>
 			<item id="ID_LIBRARY_COPY" text="_Copia arxius..."/>
 		</menu>
-		<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
-		<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+		<menu text="_Metadata">
+			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localitza la metainformació"/>
+			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Tria _columnes..."/>
+		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Tria _columnes..."/>
-		<separator/>
+		<item id="ID_SHELL_MENU" text="S_hell menu"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Propietats"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -3311,16 +3310,17 @@
 		<control caption="Aplica"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="General">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="General">
 		<control caption="_General:"/>
 		<control caption="Connexió automàtica a l'iniciar PeerProject"/>
 		<control caption="Inicia el PeerProject amb Windows"/>
 		<control caption="Mostra confirmació abans d'obrir URIs"/>
-		<control caption="Mostra tassa de transferència en:"/>
-		<control caption="bits/segon|bytes/segon|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_Descàrregues:"/>
 		<control caption="Expansió de les noves transferències per defecte"/>
 		<control caption="Mostra la barra de progrés simplificada"/>
+		<control caption="Mostra tassa de transferència en:"/>
+		<control caption="bits/segon|bytes/segon|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Cerca:"/>
 		<control caption="Expansió de multiples fonts per defecte"/>
 		<control caption="Canvi a vista de transferències en descàrrega"/>
@@ -3333,18 +3333,21 @@
 		<control/>
 		<control caption="Opacitat:"/>
 		<control/>
+		<control caption="L'ombra (reiniciar)"/>
 		<control caption="_Barra de tasques:"/>
 		<control caption="Quant fas clic al botó de tancament:"/>
 		<control caption="Pregunta|Minimitza a barra de tasques|Tanca inmediatament|Tanca després de les transferències"/>
 		<control caption="Quant es fa clic a minimitzar:"/>
 		<control caption="Normal|Minimitza a la barra de tasques"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Col·lecció">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Col·lecció">
 		<control caption="_Opcions:"/>
-		<control caption="Recordar les vistes de carpetes"/>
+		<control caption="Permet que altres exploren"/>
 		<control caption="Mostra les carpetes de la col·lecció"/>
 		<control caption="Hashing ràpid (utilitza més CPU)"/>
-		<control caption="Permet que altres exploren el teu perfil i arxius"/>
+		<control caption="Smart media series detection"/>
+		<control caption="Crea arxius fantasma a l'esborrar"/>
+		<control caption="Recordar les vistes de carpetes"/>
 		<control caption="Arxius _recents:"/>
 		<control caption="Recorda:"/>
 		<control/>
@@ -3366,8 +3369,6 @@
 		<control caption="Desa les _col·leccions aquí:"/>
 		<control/>
 		<control/>
-		<control caption="Crea arxius fantasma a l'esborrar descàrregues"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Reproductor">
 		<control caption="_Opcions:"/>
@@ -3488,17 +3489,17 @@
 		<control caption="_Esborra"/>
 		<control caption="(Els canvis són inmmediats)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Accès Remot">
-		<control caption="_Guia:"/>
-		<control caption="L'accès remot de PeerProject et permet deixar PeerProject executant-se al teu PC, i controlar-lo usant un navegador. Necessitaràs acceptar connexions entrants per a usar aquesta característica (ex: Configurar el teu router, etc)."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Accès Remot">
 		<control caption="_Habilita:"/>
 		<control caption="Habilita l'accès remot de PeerProject:"/>
-		<control caption="URL"/>
+		<control/>
 		<control caption="_Credencials:"/>
 		<control caption="Tria un usuari:"/>
-		<control/>
 		<control caption="Tria un mot de pas:"/>
 		<control/>
+		<control/>
+		<control caption="Ajuda:"/>
+		<control caption="L'accès remot de PeerProject et permet deixar PeerProject executant-se al teu PC, i controlar-lo usant un navegador. Necessitaràs acceptar connexions entrants per a usar aquesta característica (ex: Configurar el teu router, etc)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Programador">
 		<control/>
@@ -3519,7 +3520,7 @@
 		<control caption="% de _banda ampla sota el límit"/>
 		<control/>
 		<control/>
-		<control caption="Ajuda"/>
+		<control caption="Ajuda:"/>
 		<control caption="El calendari està dissenyat per a que puguis asignar temps de quant PeerProject s'ha de connectar i descarregar arxius. {n}{n}{n}Nota: Si tens PeerProject obert quan el calendari està actiu, pot ser que vegis que aquest canvia configuracions - això és normal."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Xarxes">
@@ -3539,8 +3540,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Xarxa Gnutella2:"/>
-		<control caption="Connecta sempre a Gnutella2"/>
-		<control caption="Connecta a Gnutella 2 en aquesta sessió"/>
+		<control caption="Connecta a G2 ara"/>
+		<control caption="Connecta a G2 en l'inici"/>
 		<control caption="Mode:"/>
 		<control caption="Óptim|Leaf|Concentrador"/>
 		<control caption="Connexions G_2:"/>
@@ -3553,12 +3554,12 @@
 		<control caption="Concentrador a Concentrador:"/>
 		<control/>
 		<control/>
-		<control caption="Xarxa Gnutella1:"/>
-		<control caption="Connecta sempre a Gnutella1"/>
-		<control caption="Connecta a Gnutella1 en aquesta sessió"/>
+		<control caption="Xarxa Gnutella:"/>
+		<control caption="Connecta a Gnutella ara"/>
+		<control caption="Connecta a Gnutella en l'inici"/>
 		<control caption="Mode:"/>
 		<control caption="Óptim|Leaf|Ultrapeer"/>
-		<control caption="Connexions G_1:"/>
+		<control caption="Connexions _Gnutella:"/>
 		<control caption="Leaf a Ultrapeer:"/>
 		<control/>
 		<control/>
@@ -3573,10 +3574,15 @@
 		<control caption="Leaf a Concentrador"/>
 		<control caption="Concentrador a Concentrador"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="Xarxa _eDonkey:"/>
-		<control caption="Connecta a eDonkey per aquesta sessió"/>
-		<control caption="Connecta sempre a eDonkey"/>
+		<control caption="Connecta a eDonkey ara"/>
+		<control caption="Connecta sempre a eDonkey en l'inici"/>
+		<control caption="Límit de _connexions amb altres clients:"/>
+		<control caption="No connectar amb més de:"/>
+		<control/>
+		<control/>
+		<control caption="clients de eDonkey a la vegada."/>
 		<control caption="Cerques _globals:"/>
 		<control caption="Cerca servidors coneguts (del caxè):"/>
 		<control caption="Atura després de:"/>
@@ -3584,16 +3590,11 @@
 		<control/>
 		<control caption="resultats."/>
 		<control caption="Rebre i actualitzar la llista de servidors des dels servidors connectats."/>
-		<control caption="Límit de _connexions amb altres clients:"/>
-		<control caption="No connectar amb més de:"/>
-		<control/>
-		<control/>
-		<control caption="clients de eDonkey a la vegada."/>
 		<control caption="_Eines d'eDonkey:"/>
-		<control caption="Descarrega una llista de servidors de eDonkey de la web:"/>
 		<control caption="Descarrega..."/>
+		<control caption="Descarrega una llista de servidors de eDonkey de la web"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Connexions de descàrrega:"/>
 		<control/>
 		<control/>
@@ -3601,40 +3602,41 @@
 		<control/>
 		<control/>
 		<control caption="Connexions de clients"/>
-		<control caption=" Neteja els torrents descarregats&#160;&#160;quan la ràtio de compartició sigui 1"/>
-		<control/>
-		<control/>
-		<control caption="%"/>
 		<control caption="&#160;Prefereix fonts torrent"/>
 		<control caption="_EndGame:"/>
 		<control caption="Habilita el mode EndGame al completar torrents"/>
-		<control caption="_Desa els torrents aquí "/>
+		<control caption="Neteja els torrents descarregats quan la ràtio de compartició sigui:"/>
 		<control/>
 		<control/>
-		<control caption="_Creador de Torrents"/>
+		<control caption="%"/>
+		<control caption="_Desa els torrents aquí:"/>
+		<control/>
+		<control/>
+		<control caption="_Creador de Torrents:"/>
 		<control/>
 		<control/>
 		<control caption="_Rastrejador per defecte (&quot;Tracker&quot;):"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Interfície">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Interfície">
 		<control/>
 		<control caption="Informació de la pell (skin):"/>
 		<control caption="Nom:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Autor:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Descripció:"/>
 		<control/>
+		<control caption="*Mix skins"/>
 		<control caption="Esborra"/>
 		<control caption="Instal·la..."/>
-		<control caption="Obtén més..."/>
+		<control caption="Obtén més"/>
 	</dialog>
 	<dialog name="CPluginsSettingsPage" cookie="SyBuStStStEdBuBu" caption="Components">
 		<control/>
 		<control caption="Informació de components:"/>
 		<control caption="Nom:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Descripció:"/>
 		<control/>
 		<control caption="_Configura..."/>

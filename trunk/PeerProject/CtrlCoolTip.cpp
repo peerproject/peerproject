@@ -176,14 +176,10 @@ void CCoolTipCtrl::ShowImpl()
 	GetMonitorInfo( hMonitor, &oMonitor );
 
 	if ( rc.right >= oMonitor.rcWork.right)
-	{
 		rc.OffsetRect( oMonitor.rcWork.right - rc.right - 4, 0 );
-	}
 
 	if ( rc.bottom >= oMonitor.rcWork.bottom )
-	{
 		rc.OffsetRect( 0, - ( m_sz.cy + TIP_MARGIN * 2 + TIP_OFFSET_Y + 4 ) );
-	}
 
 
 	m_bVisible = TRUE;

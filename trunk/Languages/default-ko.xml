@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r41 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r42 --> <!--Machine Translated!-->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2673,7 +2673,7 @@
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
-	<dialog name="CGeneralSettingsGroup" cookie="" caption="General">
+	<dialog name="CGeneralSettingsGroup" cookie="" caption="일반">
 	</dialog>
 	<dialog name="CSettingSheet" cookie="SyBuBuBu#3" caption="PeerProject Settings">
 		<control/>
@@ -2682,41 +2682,45 @@
 		<control caption="적용"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="General">
-		<control caption="_General:"/>
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="일반">
+		<control caption="일반:"/>
 		<control caption="Auto-connect on PeerProject startup"/>
 		<control caption="Start PeerProject at Windows startup"/>
 		<control caption="Show a prompt before opening URIs"/>
-		<control caption="Show rates in:"/>
-		<control caption="bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
-		<control caption="_Downloads:"/>
+		<control caption="Check for updates monthly"/>
+		<control caption="Downloads:"/>
 		<control caption="Expand new downloads by default"/>
 		<control caption="Display simple progress bar"/>
-		<control caption="_찾기:"/>
+		<control caption="Show rates in:"/>
+		<control caption="bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Search:"/>
 		<control caption="Expand multi-source files by default"/>
 		<control caption="Switch to Transfers view on download"/>
 		<control caption="Hide side bar when starting search"/>
 		<control caption="Filter adult content from searches"/>
-		<control caption="_Tooltips:"/>
+		<control caption="Tooltips:"/>
 		<control/>
 		<control caption="Delay (ms):"/>
 		<control/>
 		<control/>
 		<control caption="Opacity:"/>
 		<control/>
-		<control caption="_Tray:"/>
-		<control caption="Close Button Behavior:"/>
-		<control caption="Ask Me|Minimize to Tray|Close Immediately|Close After Transfers"/>
-		<control caption="Minimize Button Behavior:"/>
-		<control caption="Normal|Minimize to Tray"/>
+		<control caption="Shadow (restart)"/>
+		<control caption="Tray:"/>
+		<control caption="Close button behavior:"/>
+		<control caption="Ask Me|Minimize to Tray|Exit Immediately|Exit After Transfers"/>
+		<control caption="Minimize button behavior:"/>
+		<control caption="Normal Taskbar|Minimize to Tray"/>
 	</dialog>
-<!--	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="도서관">
-		<control caption="_Options:"/>
-		<control caption="Remember folder views"/>
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="도서관">
+		<control caption="옵션:"/>
+		<control caption="Allow others to browse"/>
 		<control caption="Watch library folders"/>
-		<control caption="Quick hashing (Uses more CPU)"/>
-		<control caption="Allow others to browse shares"/>
-		<control caption="_Recent Files:"/>
+		<control caption="Quick hashing  (more CPU)"/>
+		<control caption="Smart media series detection"/>
+		<control caption="Create ghost files when deleting"/>
+		<control caption="Remember folder views"/>
+		<control caption="Recent Files:"/>
 		<control caption="Remember:"/>
 		<control/>
 		<control/>
@@ -2726,46 +2730,44 @@
 		<control/>
 		<control caption="days"/>
 		<control caption="Clear History Now"/>
-		<control caption="_Safe to Open:"/>
+		<control caption="Safe to Open Types:"/>
 		<control/>
-		<control caption="_Add"/>
-		<control caption="_Remove"/>
-		<control caption="_Never Share:"/>
+		<control caption="추가"/>
+		<control caption="제거"/>
+		<control caption="Never Share Types:"/>
 		<control/>
-		<control caption="_Add"/>
-		<control caption="_Remove"/>
-		<control caption="Store _Collections Here:"/>
+		<control caption="추가"/>
+		<control caption="제거"/>
+		<control caption="Store Collections Here:"/>
 		<control/>
 		<control/>
-		<control caption="Create ghost files when deleting"/>
-		<control caption="Smart video series detection"/>
-	</dialog> -->
-<!--	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media Player">
-		<control caption="_Media Handling"/>
+	</dialog>
+	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="미디어">
+		<control caption="Media Handling"/>
 		<control caption="Choose Media Handler:"/>
 		<control/>
 		<control caption="Use PeerProject Media Player to PLAY the file types listed below"/>
 		<control caption="Use PeerProject Media Player to ENQUEUE the file types listed below"/>
-		<control caption="File _Types:"/>
+		<control caption="File Types:"/>
 		<control/>
-		<control caption="_Add"/>
-		<control caption="_Remove"/>
-		<control caption="Audio _Visualization Plugin:"/>
-		<control caption="_Select Plugin..."/>
+		<control caption="추가"/>
+		<control caption="제거"/>
+		<control caption="Audio Visualization Plugin:"/>
+		<control caption="Select Plugin..."/>
 		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
-	</dialog> -->
-<!--	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Community">
-		<control caption="My _Profile:"/>
+	</dialog>
+	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="커뮤니티">
+		<control caption="My Profile:"/>
 		<control caption="You can use your Gnutella User Profile to share information about yourself, your interests and recommended files and websites with others."/>
 		<control caption="Edit My Profile"/>
-		<control caption="_Chat:"/>
+		<control caption="Chat:"/>
 		<control caption="Enable peer to peer chat with compatible clients"/>
 		<control caption="Enable chat on all protocols where possible"/>
 		<control caption="Filter chat messages for spam"/>
 		<control caption="Censor profanity in chat"/>
-	</dialog> -->
-<!--	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="IRC Chat">
-		<control caption="Client _Options:"/>
+	</dialog>
+	<dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdStStEdCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStEdStEdStEd" caption="채팅 IRC">
+		<control caption="Client Options:"/>
 		<control caption="Show chat integration"/>
 		<control caption="Show timestamp"/>
 		<control caption="Flood protection:"/>
@@ -2775,7 +2777,7 @@
 		<control caption="Size"/>
 		<control/>
 		<control/>
-		<control caption="_Colors:"/>
+		<control caption="Colors:"/>
 		<control/>
 		<control caption="Window"/>
 		<control/>
@@ -2792,7 +2794,7 @@
 		<control caption="Notices"/>
 		<control/>
 		<control caption="Topics"/>
-		<control caption="Connection _Settings:"/>
+		<control caption="Connection Settings:"/>
 		<control caption="Screen name:"/>
 		<control/>
 		<control caption="User name:"/>
@@ -2807,26 +2809,26 @@
 		<control/>
 		<control caption="Run command on connect"/>
 		<control/>
-	</dialog> -->
-<!--	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
-		<control caption="_Peer to Peer Link Handling:"/>
+	</dialog>
+	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuCoBuBuSt" caption="웹 링크">
+		<control caption="Peer to Peer Link Handling:"/>
 		<control caption="Use PeerProject to open these types of links:"/>
 		<control caption="Magnet ( magnet: )"/>
 		<control caption="Gnutella ( gnutella: )"/>
 		<control caption="eDonkey ( ed2k: )"/>
 		<control caption="Piolet ( mp2p: )"/>
 		<control caption="BitTorrent ( .torrent )"/>
-		<control caption="_Download Manager:"/>
+		<control caption="Download Manager:"/>
 		<control caption="Use PeerProject to manage all my web downloads:"/>
 		<control/>
-		<control caption="_Add"/>
-		<control caption="_Remove"/>
+		<control caption="추가"/>
+		<control caption="제거"/>
 		<control caption="The download manager plugin will only attempt to download file types listed here. Other file types will be handled by your web browser. PeerProject must be running to manage downloads."/>
-	</dialog> -->
-<!--	<dialog name="CInternetSettingsGroup" cookie="" caption="Internet">
-	</dialog> -->
-<!--	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="Connection">
-		<control caption="_Inbound Address:"/>
+	</dialog>
+	<dialog name="CInternetSettingsGroup" cookie="" caption="인터넷">
+	</dialog>
+	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="연결">
+		<control caption="Inbound Address:"/>
 		<control caption="Address:"/>
 		<control caption="Automatic"/>
 		<control caption="Speed:"/>
@@ -2835,32 +2837,32 @@
 		<control/>
 		<control caption="Random"/>
 		<control caption="Force binding to this address"/>
-		<control caption="_Outbound Address:"/>
+		<control caption="Outbound Address:"/>
 		<control caption="Address:"/>
 		<control caption="Automatic"/>
 		<control caption="Speed:"/>
 		<control/>
-		<control caption="O_ptions:"/>
+		<control caption="옵션:"/>
 		<control caption="Can accept incoming connections"/>
 		<control/>
 		<control caption="Ignore private/local IP addresses "/>
 		<control caption="Enable UPnP connection devices setup"/>
-		<control caption="_Timeouts:"/>
-		<control caption="Connection:"/>
+		<control caption="Timeouts:"/>
+		<control caption="연결:"/>
 		<control/>
 		<control/>
 		<control caption="Handshake:"/>
 		<control/>
 		<control/>
-	</dialog> -->
-<!--	<dialog name="CDownloadsSettingsPage" cookie="BuEdBuBuEdBuBuStEdmsStEdmsStEdmsBuStCoStCoBuBu" caption="다운로드">
-		<control caption="Save _Completed Files Here:"/>
+	</dialog>
+	<dialog name="CDownloadsSettingsPage" cookie="BuEdBuBuEdBuBuStEdmsStEdmsStEdmsBuStCoStCoBuBu" caption="다운로드">
+		<control caption="Save Completed Files Here:"/>
 		<control/>
 		<control/>
-		<control caption="Store Temporary _Incomplete Files Here:"/>
+		<control caption="Store Temporary Incomplete Files Here:"/>
 		<control/>
 		<control/>
-		<control caption="_Number of Downloads:"/>
+		<control caption="Number of Downloads:"/>
 		<control caption="Maximum Files:"/>
 		<control/>
 		<control/>
@@ -2870,16 +2872,16 @@
 		<control caption="Transfers per File:"/>
 		<control/>
 		<control/>
-		<control caption="_Limits:"/>
+		<control caption="Limits:"/>
 		<control caption="Total Download Bandwidth:"/>
 		<control/>
 		<control caption="Maximum Queue Length:"/>
 		<control/>
 		<control/>
 		<control caption="Only download and upload to networks which are connected."/>
-	</dialog> -->
-<!--	<dialog name="CUploadsSettingsPage" cookie="BuBuBuBuBuStEdmsBuCoBuBuBuStCoStCoBuSyBuBuBuSt" caption="업로드"> <!--Variant-->
-		<control caption="_Options:"/>
+	</dialog>
+	<dialog name="CUploadsSettingsPage" cookie="BuBuBuBuBuStEdmsBuCoBuBuBuStCoStCoBuSyBuBuBuSt" caption="업로드">
+		<control caption="Options:"/>
 		<control caption="Limit sharing in hub mode"/>
 		<control caption="Share new partial downloads"/>
 		<control caption="Share preview files"/>
@@ -2887,35 +2889,35 @@
 		<control caption="Limit per unique host:"/>
 		<control/>
 		<control/>
-		<control caption="_User-Agent Filter:"/>
+		<control caption="User-Agent Filter:"/>
 		<control/>
 		<control caption="+"/>
 		<control caption="-"/>
-		<control caption="_Bandwidth:"/>
+		<control caption="Bandwidth:"/>
 		<control caption="Limit:"/>
 		<control/>
 		<control caption="Mode:"/>
 		<control caption="Maximum|Average"/>
-		<control caption="_Queues:"/>
+		<control caption="Queues:"/>
 		<control/>
-		<control caption="_New..."/>
-		<control caption="_Edit..."/>
-		<control caption="_Delete"/>
+		<control caption="New..."/>
+		<control caption="Edit..."/>
+		<control caption="Delete"/>
 		<control caption="(changes take effect immediately)"/>
-	</dialog> -->
-<!--	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Remote Access">
-		<control caption="_Guide:"/>
-		<control caption="PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser. You will need to be able to accept incoming connections to use this feature (i.e. properly configured router, etc)."/>
-		<control caption="_Enable:"/>
-		<control caption="Enable PeerProject Remote Access:"/>
-		<control caption="URL"/>
-		<control caption="_Credentials:"/>
-		<control caption="Choose a Username:"/>
+	</dialog>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="원격 액세스">
+		<control caption="Activation:"/>
+		<control caption="원격 웹 액세스 활성화:"/>
 		<control/>
+		<control caption="Credentials:"/>
+		<control caption="Choose a Username:"/>
 		<control caption="Choose a Password:"/>
 		<control/>
-	</dialog> -->
-<!--	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Scheduler">
+		<control/>
+		<control caption="도움:"/>
+		<control caption="PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser.  You will need to be able to accept incoming connections to use this feature.  (Ensure port-forwarding.)"/>
+	</dialog>
+	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="스케줄러">
 		<control/>
 		<control caption="Sun"/>
 		<control caption="Mon"/>
@@ -2928,16 +2930,16 @@
 		<control caption="Do not connect"/>
 		<control caption="Limited connection"/>
 		<control caption="Connect full speed"/>
-		<control caption="_Options:"/>
-		<control caption=" _Enable scheduler"/>
-		<control caption=" _Connect only G2 when limited"/>
-		<control caption="% _Bandwidth when limited"/>
+		<control caption="Options:"/>
+		<control caption=" Enable scheduler"/>
+		<control caption=" Connect only G2 when limited"/>
+		<control caption="% Bandwidth when limited"/>
 		<control/>
 		<control/>
-		<control caption="Help"/>
+		<control caption="도움:"/>
 		<control caption="This scheduler enables you to set times when PeerProject will connect and download files. {n}{n}{n}Note, it is normal to see PeerProject change settings when scheduling is active."/>
-	</dialog> -->
-<!--	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Networks">
+	</dialog>
+<!--	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="네트워크">
 		<control caption="PeerProject is a general-purpose file-sharing application that can access many P2P networks at the same time. On this page you can select which P2P networks you want to connect to, and then adjust specific settings for each network."/>
 		<control caption="Gnutella2 Network:"/>
 		<control caption="The Gnutella2 network is PeerProject&apos;s premiere network, offering more features and performance than any other P2P net.  Highly recommended."/>
@@ -2954,11 +2956,11 @@
 	</dialog> -->
 <!--	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Network:"/>
-		<control caption="Always connect to Gnutella2"/>
-		<control caption="Connect to Gnutella2 today"/>
+		<control caption="Connect to G2 now"/>
+		<control caption="Connect to G2 at starup"/>
 		<control caption="Mode: "/>
 		<control caption="Optimal|Leaf|Hub"/>
-		<control caption="G_2 Connections:"/>
+		<control caption="G2 Connections:"/>
 		<control caption="Leaf to Hub:"/>
 		<control/>
 		<control/>
@@ -2969,11 +2971,11 @@
 		<control/>
 		<control/>
 		<control caption="Gnutella Network:"/>
-		<control caption="Always connect to Gnutella"/>
-		<control caption="Connect to Gnutella today"/>
+		<control caption="Connect to Gnutella now"/>
+		<control caption="Connect to Gnutella at starup"/>
 		<control caption="Mode: "/>
 		<control caption="Optimal|Leaf|Ultrapeer"/>
-		<control caption="G_1 Connections:"/>
+		<control caption="G1 Connections:"/>
 		<control caption="Leaf to Ultrapeer:"/>
 		<control/>
 		<control/>
@@ -2983,32 +2985,32 @@
 		<control caption="Peer to Peer:"/>
 		<control/>
 		<control/>
-		<control caption="_Link Compression:"/>
+		<control caption="Link Compression:"/>
 		<control caption="Hub to Leaf"/>
 		<control caption="Leaf to Hub"/>
 		<control caption="Hub to Hub"/>
 	</dialog> -->
-<!--	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+<!--	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="_eDonkey Network:"/>
-		<control caption="Always connect to eDonkey"/>
-		<control caption="Connect to eDonkey today"/>
+		<control caption="Connect to eDonkey2000 now"/>
+		<control caption="Connect to eDonkey2000 at starup"/>
+		<control caption="_Client Link Connections:"/>
+		<control caption="Connect to no more than:"/>
+		<control/>
+		<control/>
+		<control caption="other eDonkey clients."/>
 		<control caption="_Global Searching:"/>
 		<control caption="Search known remote servers in the server cache:"/>
 		<control caption="Stop searching after:"/>
 		<control/>
 		<control/>
 		<control caption="search results."/>
-		<control caption="Receive and update server list from the connected server"/>
-		<control caption="_Client Link Connections:"/>
-		<control caption="Connect to no more than:"/>
-		<control/>
-		<control/>
-		<control caption="other eDonkey clients."/>
+		<control caption="Update global server list from the connected server"/>
 		<control caption="eDonkey _Tools:"/>
-		<control caption="Download eDonkey server list from the web:"/>
 		<control caption="Download..."/>
+		<control caption="Update eDonkey server list MET from the web."/>
 	</dialog> -->
-<!--	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+<!--	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download Connections:"/>
 		<control/>
 		<control/>
@@ -3016,13 +3018,13 @@
 		<control/>
 		<control/>
 		<control caption="Client connections"/>
+		<control caption="Prefer torrent sources"/>
+		<control caption="_EndGame:"/>
+		<control caption="Enable EndGame mode when completing torrents  (multi-source)"/>
 		<control caption="Clear downloaded torrents when share ratio reaches:"/>
 		<control/>
 		<control/>
 		<control caption="%"/>
-		<control caption="Prefer torrent sources"/>
-		<control caption="_EndGame:"/>
-		<control caption="Enable EndGame mode when completing torrents (multi-source)"/>
 		<control caption="_Store Torrents Here:"/>
 		<control/>
 		<control/>
@@ -3032,30 +3034,31 @@
 		<control caption="Default Tracker: "/>
 		<control/>
 	</dialog> -->
-<!--	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skins">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="테마">
 		<control/>
-		<control caption="Skin Information:"/>
-		<control caption="Name:"/>
-		<control caption="..."/>
+		<control caption="테마 정보:"/>
+		<control caption="이름:"/>
+		<control/>
 		<control caption="Author:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Description:"/>
 		<control/>
+		<control caption="*Select multiple skins to mix"/>
 		<control caption="Delete"/>
 		<control caption="Install..."/>
 		<control caption="Get More"/>
-	</dialog> -->
-<!--	<dialog name="CPluginsSettingsPage" cookie="SyBuStStStEdBuBu" caption="Plugins">
+	</dialog>
+	<dialog name="CPluginsSettingsPage" cookie="SyBuStStStEdBuBu" caption="플러그인">
 		<control/>
-		<control caption="Plugin Information:"/>
-		<control caption="Name:"/>
-		<control caption="..."/>
+		<control caption="러그인 정보:"/>
+		<control caption="이름:"/>
+		<control/>
 		<control caption="Description:"/>
 		<control/>
-		<control caption="_Setup..."/>
+		<control caption="Setup..."/>
 		<control caption="Get More"/>
-	</dialog> -->
-<!--	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="Advanced">
+	</dialog>
+	<dialog name="CAdvancedSettingsPage" cookie="SyEdmsBuBuStStEd" caption="고급">
 		<control/>
 		<control/>
 		<control/>
@@ -3064,15 +3067,15 @@
 		<control caption="Value:"/>
 		<control caption="Description:"/>
 		<control/>
-	</dialog> -->
-<!--	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="Protocols">
+	</dialog>
+	<dialog name="CProtocolsSettingsPage" cookie="BuSy" caption="프로토콜">
 		<control caption="PeerProject Common Architecture Protocol Explorer:"/>
 		<control/>
-	</dialog> -->
+	</dialog>
 	<dialog name="CQueuePropertiesDlg" cookie="BuEdBuBuBuBuBuEdBuEdBuCoBuEdBuSyBuBuStEdmsStEdmsStEdmsBuStEdStEdmsBuEdmsBuBuBu" caption="Upload Queue Properties">
-		<control caption="_Name:"/>
+		<control caption="Name:"/>
 		<control/>
-		<control caption="_Entry Criteria:"/>
+		<control caption="Entry Criteria:"/>
 		<control caption="Partially downloaded files only"/>
 		<control caption="Shared Library files only"/>
 		<control caption="Both partial and library files"/>
@@ -3086,7 +3089,7 @@
 		<control/>
 		<control caption="Protocols:"/>
 		<control/>
-		<control caption="_Capacity:"/>
+		<control caption="Capacity:"/>
 		<control caption="Enable this queue"/>
 		<control caption="Minimum number of transfers:"/>
 		<control/>
@@ -3097,7 +3100,7 @@
 		<control caption="Maximum number waiting in queue:"/>
 		<control/>
 		<control/>
-		<control caption="_Service Parameters:"/>
+		<control caption="Service Parameters:"/>
 		<control caption="Saturated bandwidth percentage:"/>
 		<control/>
 		<control caption="Upload bandwidth for this queue:"/>
@@ -3145,8 +3148,8 @@
 		<control caption="You do not have to share content to use PeerProject, however some software will behave differently to users who are not sharing anything."/>
 		<control caption="Please indicate which folders, if any, you wish to share. Simply click the Add button to add a new folder."/>
 		<control/>
-		<control caption="_Add..."/>
-		<control caption="_Remove"/>
+		<control caption="Add..."/>
+		<control caption="Remove"/>
 		<control caption="WARNING: Distributing copyrighted works is an offence in most countries."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Scanning Folder...">
@@ -3213,33 +3216,33 @@
 		<control caption="적용"/>
 		<control/>
 	</dialog>
-	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identity">
-		<control caption="_Name:"/>
+<!--	<dialog name="CIdentityProfilePage" cookie="BuStEdStEdEdBuCoStCoStBu" caption="Identity">
+		<control caption="Name:"/>
 		<control caption="Screen Name:"/>
 		<control/>
 		<control caption="Real Name:"/>
 		<control/>
 		<control/>
-		<control caption="_Vitals:"/>
+		<control caption="Vitals:"/>
 		<control caption="|Male|Female"/>
 		<control caption="Gender:"/>
 		<control/>
 		<control caption="Age:"/>
 		<control caption="Allow others to browse my user profile"/>
-	</dialog>
-	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
-		<control caption="_Preview:"/>
+	</dialog> -->
+<!--	<dialog name="CAvatarProfilePage" cookie="BuStBuStBuBu" caption="Avatar">
+		<control caption="Preview:"/>
 		<control/>
-		<control caption="_Select:"/>
+		<control caption="Select:"/>
 		<control caption="Other users browsing your profile and shared files will see your avatar.  Custom avatars should be 128x128 pixels, and can be in any supported image file on your PC."/>
-		<control caption="_Browse..."/>
-		<control caption="_Remove"/>
-	</dialog>
-	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Contact">
-		<control caption="_Email Addresses:"/>
+		<control caption="Browse..."/>
+		<control caption="Remove"/>
+	</dialog> -->
+<!--	<dialog name="CContactProfilePage" cookie="BuStEdBuStEdStEdStEdStEdStEd" caption="Contact">
+		<control caption="Email Addresses:"/>
 		<control caption="Primary:"/>
 		<control/>
-		<control caption="_Instant Messaging:"/>
+		<control caption="Instant Messaging:"/>
 		<control caption="MSN/.NET Passport:"/>
 		<control/>
 		<control caption="Yahoo ID:"/>
@@ -3250,60 +3253,60 @@
 		<control/>
 		<control caption="Jabber ID:"/>
 		<control/>
-	</dialog>
-	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profile">
-		<control caption="_Location:"/>
+	</dialog> -->
+<!--	<dialog name="CProfileProfilePage" cookie="BuStCoStCoBuStEdStEdBuLiBuBuCo" caption="Profile">
+		<control caption="Location:"/>
 		<control caption="Country:"/>
 		<control/>
 		<control caption="City:"/>
 		<control/>
-		<control caption="_Mapping:"/>
+		<control caption="Mapping:"/>
 		<control caption="Latitude:"/>
 		<control/>
 		<control caption="Longitude:"/>
 		<control/>
-		<control caption="_Interests:"/>
+		<control caption="Interests:"/>
 		<control/>
 		<control caption="&lt; Add"/>
 		<control caption="Remove &gt;"/>
 		<control/>
-	</dialog>
-	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
+	</dialog> -->
+<!--	<dialog name="CBioProfilePage" cookie="Ed" caption="Bio">
 		<control/>
-	</dialog>
-	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favourites">
+	</dialog> -->
+<!--	<dialog name="CFavouritesProfilePage" cookie="SyBuStEdStEdBuBu" caption="Favorites">
 		<control/>
-		<control caption="_Edit:"/>
+		<control caption="Edit:"/>
 		<control caption="Title:"/>
 		<control/>
 		<control caption="URL:"/>
 		<control/>
 		<control caption="New"/>
 		<control caption="Remove"/>
-	</dialog>
-	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Files">
-		<control caption="_Favourite Files:"/>
+	</dialog> -->
+<!--	<dialog name="CFilesProfilePage" cookie="BuStSy" caption="Files">
+		<control caption="Favourite Files:"/>
 		<control caption="Favourite files are recommended to users who browse your profile. You can create favourite files by adding them to the &quot;Favourites&quot; library folder."/>
 		<control/>
-	</dialog>
-	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certificate">
+	</dialog> -->
+<!--	<dialog name="CCertificateProfilePage" cookie="StBuStStStStBu" caption="Certificate">
 		<control caption="Users are identified by a globally unique identifier and a corresponding public and private key pair.  Normally there is no need to generate a new ID, however PeerProject provides this option for advanced users."/>
-		<control caption="_Globally Unique Identification Certificate:"/>
+		<control caption="Globally Unique Identification Certificate:"/>
 		<control caption="GUID:"/>
 		<control/>
 		<control caption="Created:"/>
 		<control/>
 		<control caption="Generate New"/>
-	</dialog>
-	<dialog name="CLanguageDlg" cookie="" caption="Select Language">
+	</dialog> -->
+	<dialog name="CLanguageDlg" cookie="" caption="언어 선택">
 	</dialog>
 	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Connect To|Browse Host">
 		<control caption="Initiate a new connection to host or server:|Browse this host:"/>
 		<control/>
 		<control/>
-		<control caption="Network _Protocol:"/>
+		<control caption="Network Protocol:"/>
 		<control caption="Gnutella1 (auto)|Gnutella2 (auto)|eDonkey"/>
-		<control caption="_Suppress Ultrapeer"/>
+		<control caption="Suppress Ultrapeer"/>
 		<control caption="Connect"/>
 		<control caption="취소"/>
 	</dialog>
@@ -3316,7 +3319,7 @@
 		<control/>
 		<control caption="다운로드"/>
 		<control caption="취소"/>
-		<control caption="_Open Torrent"/>
+		<control caption="Open Torrent"/>
 	</dialog>
 	<dialog name="CNewSearchDlg" cookie="EdCoBuBu" caption="New Search|Search Again|Find in Library">
 		<control/>
@@ -3325,11 +3328,11 @@
 		<control caption="취소"/>
 	</dialog>
 	<dialog name="CFilterSearchDlg" cookie="BuEdBuStBuStEdStEdStEdmsStBuBuBuBuBuBuBuBuBuBuBuCoBuBuBuBuBu" caption="Filter Matches">
-		<control caption="Only show matches which include the _words:"/>
+		<control caption="Only show matches which include the words:"/>
 		<control/>
 		<control caption="Reg. Exp."/>
-		<control caption="( you can also exclude words with -word )"/>
-		<control caption="And are of _size:"/>
+		<control caption="( exclude words with -word )"/>
+		<control caption="And are of size:"/>
 		<control caption="Minimum:"/>
 		<control/>
 		<control caption="Maximum:"/>
@@ -3338,7 +3341,7 @@
 		<control/>
 		<control/>
 		<control caption="sources."/>
-		<control caption="_Hide:"/>
+		<control caption="Hide:"/>
 		<control caption="Busy hosts"/>
 		<control caption="Non-matching files"/>
 		<control caption="Firewalled/push hosts"/>
@@ -3351,8 +3354,8 @@
 		<control caption="Filters:"/>
 		<control/>
 		<control caption="Set as default"/>
-		<control caption="_Save as"/>
-		<control caption="_Delete"/>
+		<control caption="Save as"/>
+		<control caption="Delete"/>
 		<control caption="Filter"/>
 		<control caption="취소"/>
 	</dialog>
@@ -3363,7 +3366,7 @@
 		<control caption="Save the current filter as"/>
 	</dialog>
 	<dialog name="CDiscoveryServiceDlg" cookie="BuEdStCoBuBuSt" caption="Discovery Service">
-		<control caption="Service _Address:"/>
+		<control caption="Service Address:"/>
 		<control/>
 		<control caption="Discovery Service Type:"/>
 		<control caption="Gnutella Bootstrap|G1-WebCache|G2-WebCache|G1+G2-WebCache|Server.met URL|Blocked"/>
@@ -3435,8 +3438,8 @@
 		<control caption="Add New Source"/>
 		<control/>
 		<control/>
-		<control caption="_Add"/>
-		<control caption="_Remove"/>
+		<control caption="Add"/>
+		<control caption="Remove"/>
 		<control/>
 	</dialog> -->
 	<dialog name="CFileCopyDlg" cookie="StStmsBuBumsStSt" caption="Copy Files|Move Files">
@@ -3461,19 +3464,19 @@
 	</dialog>
 	<dialog name="CGraphListDlg" cookie="SyBuBuBuBuBuBuBuBuStEdmsStBuEdBuBu" caption="Traffic Graphs">
 		<control/>
-		<control caption="_Add..."/>
-		<control caption="_Edit..."/>
-		<control caption="_Remove"/>
-		<control caption="_Show:"/>
+		<control caption="Add..."/>
+		<control caption="Edit..."/>
+		<control caption="Remove"/>
+		<control caption="Show:"/>
 		<control caption="Grid Lines"/>
 		<control caption="Vertical Axis"/>
 		<control caption="Legend"/>
-		<control caption="Sampling _Frequency:"/>
+		<control caption="Sampling Frequency:"/>
 		<control caption="Period between samples:"/>
 		<control/>
 		<control/>
 		<control caption="ms"/>
-		<control caption="_Name:"/>
+		<control caption="Name:"/>
 		<control/>
 		<control caption="OK"/>
 		<control caption="취소"/>
@@ -3481,16 +3484,16 @@
 	<dialog name="CGraphItemDlg" cookie="BuBuBuCoStEdStEdBuBuStBu" caption="Graph Item Properties">
 		<control caption="OK"/>
 		<control caption="취소"/>
-		<control caption="_Source:"/>
+		<control caption="Source:"/>
 		<control/>
 		<control caption="Multiplier:"/>
 		<control/>
 		<control caption="Units:"/>
 		<control/>
-		<control caption="_Display:"/>
+		<control caption="Display:"/>
 		<control caption="Select Color..."/>
 		<control/>
-		<control caption="_Remove"/>
+		<control caption="Remove"/>
 	</dialog>
 	<dialog name="CSchemaColumnsDlg" cookie="CoSyBuBuSt" caption="Select Columns from Schema">
 		<control/>
@@ -3500,12 +3503,12 @@
 		<control caption="Select a schema from the list, then select the fields to display as columns."/>
 	</dialog>
 	<dialog name="CSecureRuleDlg" cookie="BuStCoStEdBuStEdEdEdEdStEdEdEdEdBuEdBuBuBuBuStCoStCoEdStEdStEdStBuBu" caption="Security Rule">
-		<control caption="_Rule:"/>
+		<control caption="Rule:"/>
 		<control caption="Type:"/>
 		<control caption="Network (IP) Address|Content Filter"/>
 		<control caption="Comment:"/>
 		<control/>
-		<control caption="_Network Address:"/>
+		<control caption="Network Address:"/>
 		<control caption="IP Address:"/>
 		<control/>
 		<control/>
@@ -3516,12 +3519,12 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="_Content Filter:"/>
+		<control caption="Content Filter:"/>
 		<control/>
 		<control caption="Match Any"/>
 		<control caption="Match All"/>
 		<control caption="Reg. Exp."/>
-		<control caption="_Options:"/>
+		<control caption="Options:"/>
 		<control caption="Action:"/>
 		<control caption="None|Accept|Deny"/>
 		<control caption="Expire:"/>
@@ -3539,8 +3542,8 @@
 		<control/>
 		<control caption="This is a list of folders in your library. You can add and remove folders using the buttons on the left. When you add a new folder it is initially shared with other users, however you can unshare it from the PeerProject library if you wish."/>
 		<control/>
-		<control caption="_Add..."/>
-		<control caption="_Remove"/>
+		<control caption="Add..."/>
+		<control caption="Remove"/>
 		<control caption="OK"/>
 		<control caption="취소"/>
 	</dialog>
@@ -3550,7 +3553,7 @@
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Include _myself as a fixed source in the URL"/>
+		<control caption="Include myself as a fixed source in the URL"/>
 		<control caption="취소"/>
 	</dialog>
 	<dialog name="CURLExportDlg" cookie="StStEdStCoStCoBuBumsBu" caption="Export URIs (P2P Links)">
@@ -3561,8 +3564,8 @@
 		<control caption="Tiger Root|SHA1|MD5|ED2K (CMD4)|BitTorrent|Filename|Filename (URI)|Base Filename|File Extension|File Size|File Size (bytes)|Folder Path|Local Host|Local Port|Link|Link (URI)"/>
 		<control caption="Select preset:"/>
 		<control caption="Magnet|eDonkey|Magnet HTML|eDonkey HTML"/>
-		<control caption="_Copy"/>
-		<control caption="_Save..."/>
+		<control caption="Copy"/>
+		<control caption="Save..."/>
 		<control/>
 		<control caption="취소"/>
 	</dialog>
@@ -3576,11 +3579,11 @@
 		<control/>
 		<control/>
 		<control caption="Please select the action you would like PeerProject to take:"/>
-		<control caption="_Download Now"/>
-		<control caption="_Search for File"/>
+		<control caption="Download Now"/>
+		<control caption="Search for File"/>
 		<control caption="취소"/>
-		<control caption="_Remember my selection next time"/>
-		<control caption="Open a download _monitor window"/>
+		<control caption="Remember my selection next time"/>
+		<control caption="Open a download monitor window"/>
 		<control caption="You have clicked on a PeerProject-powered URI which will add the following Discovery Service to your Discovery Services cache."/>
 	</dialog>
 	<dialog name="CBitziDownloadDlg" cookie="StStmsBuSySt" caption="Downloading Metadata...">
@@ -3677,9 +3680,9 @@
 		<control caption="..."/>
 		<control caption="Description:"/>
 		<control/>
-		<control caption="Delete|_Back"/>
-		<control caption="_Next|_Export..."/>
-		<control caption="_Cancel"/>
+		<control caption="Delete|Back"/>
+		<control caption="Next|Export..."/>
+		<control caption="Cancel"/>
 	</dialog>
 	<dialog name="CTorrentSeedDlg" cookie="StStBuBuBuStms" caption="Open Torrent File">
 		<control/>
@@ -3699,12 +3702,12 @@
 		<control/>
 		<control/>
 		<control caption="Tracker:"/>
-		<control caption="_Current Tracker:"/>
+		<control caption="Current Tracker:"/>
 		<control caption="Seeds (Complete):"/>
 		<control caption="Peers (Incomplete):"/>
 		<control caption="Tracker Mode:"/>
 		<control caption="Disabled|Custom|Single Tracker|Multi-tracker|Multi-tracker (locked)"/>
-		<control caption="_Refresh"/>
+		<control caption="Refresh"/>
 	</dialog>
 	<dialog name="CTorrentGeneralPage" cookie="EdEdEdEdEdCoEdBuStStStStBuStStSt" caption="Torrent">
 		<control/>
@@ -3714,7 +3717,7 @@
 		<control/>
 		<control caption=" As needed| When ratio over 100%| Only when requested| Never"/>
 		<control/>
-		<control caption="Torrent _Information:"/>
+		<control caption="Torrent Information:"/>
 		<control caption="Name:"/>
 		<control caption="Created:"/>
 		<control caption="By:"/>
@@ -3756,7 +3759,7 @@
 		<control/>
 		<control/>
 		<control caption="Actions:"/>
-		<control caption="Data _Eraser:"/>
+		<control caption="Data Eraser:"/>
 		<control caption="Byte range:"/>
 		<control caption="to"/>
 		<control caption="Erase"/>
@@ -3766,25 +3769,25 @@
 		<control caption="취소"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent Downloads"/>
+		<control caption="BitTorrent Downloads"/>
 		<control/>
-		<control caption="_Add"/>
-		<control caption="_Remove"/>
+		<control caption="Add"/>
+		<control caption="Remove"/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Group _Name:"/>
-		<control caption="Auto-_Filters:"/>
-		<control caption="_Completed File Folder:"/>
-		<control caption="_Type of Files:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control caption="Group Name:"/>
+		<control caption="Auto-Filters:"/>
+		<control caption="Completed File Folder:"/>
+		<control caption="Type of Files:"/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Select Visualisation">
 		<control/>
 		<control caption="Select an audio visualisation from the list:"/>
 		<control/>
 		<control caption="Footer Display|Full Size Display|Large Display|Medium Display|Small Display"/>
-		<control caption="_Setup..."/>
+		<control caption="Setup..."/>
 		<control caption="OK"/>
 		<control caption="취소"/>
 	</dialog>
@@ -3792,7 +3795,7 @@
 		<control/>
 		<control caption="A new version of PeerProject is now available. Would you like to upgrade?"/>
 		<control caption="If you select Upgrade Now, PeerProject will add the upgrade to your download queue and automatically begin downloading it."/>
-		<control caption="_Upgrade Now"/>
+		<control caption="Upgrade Now"/>
 		<control caption="Don't check for new versions"/>
 		<control caption="Don't Upgrade"/>
 	</dialog>

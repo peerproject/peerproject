@@ -112,8 +112,8 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
 	CoolInterface.SetImageListTo( m_wndTrackers, LVSIL_SMALL );
 	m_wndTrackers.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
-	m_wndTrackers.InsertColumn( 0, _T("Tracker"), LVCFMT_LEFT, rc.right - 74, -1 );
-	m_wndTrackers.InsertColumn( 1, _T("Status"), LVCFMT_CENTER, 74, 0 );
+	m_wndTrackers.InsertColumn( 0, _T("Tracker"), LVCFMT_LEFT, rc.right - 78, -1 );
+	m_wndTrackers.InsertColumn( 1, _T("Status"), LVCFMT_CENTER, 78, 0 );
 	m_wndTrackers.InsertColumn( 2, _T("Type"), LVCFMT_CENTER, 0, 0 );
 	Skin.Translate( _T("CTorrentTrackerList"), m_wndTrackers.GetHeaderCtrl() );
 
@@ -283,7 +283,8 @@ void CTorrentTrackersPage::OnRun()
 			m_pRequest.Clear();
 
 			CString strURL = m_sTracker;
-			if ( strURL.Replace( _T("/announce"), _T("/scrape") ) == 1 )
+			if ( strURL.Find( _T("http") ) == 0 &&	// ToDo: Support UDP Trackers
+				strURL.Replace( _T("/announce"), _T("/scrape") ) == 1 )
 			{
 				// Fetch scrape only for the given info hash
 				strURL = strURL.TrimRight( _T('&') ) +

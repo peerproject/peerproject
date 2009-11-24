@@ -870,6 +870,8 @@ BOOL CBTClient::OnPacket(CBTPacket* pPacket)
 		return m_pUpload->OnCancel( pPacket );
 	case BT_PACKET_DHT_PORT:
 		return OnDHTPort( pPacket );
+	//case BT_PACKET_EXTENSION:
+	//	return OnExtended( pPacket );
 	case BT_PACKET_HANDSHAKE:
 		if ( ! m_bClientExtended )
 			break;
@@ -1049,3 +1051,146 @@ BOOL CBTClient::OnDHTPort(CBTPacket* pPacket)
 	}
 	return TRUE;
 }
+
+//////////////////////////////////////////////////////////////////////
+// CBTClient Extension
+//
+
+//#define EXTENDED_PACKET_HANDSHAKE 0
+//#define EXTENDED_PACKET_UT_METADATA 1
+//#define UT_METADATA_REQUEST 0
+//#define UT_METADATA_DATA 1
+//#define UT_METADATA_REJECT 2
+
+//void CBTClient::SendExtendedPacket(BYTE Type, CBuffer *pOutput)
+//{
+//	CBTPacket *pResponse = CBTPacket::New(BT_PACKET_EXTENSION);
+//	pResponse->WriteByte(Type);
+//	pResponse->Write( pOutput->m_pBuffer, pOutput->m_nLength );
+//	Send( pResponse );
+//}
+
+//void CBTClient::SendExtendedHandshake()
+//{
+//	CBENode pRoot;
+//
+//	pRoot.Add( "m" )->Add( "ut_metadata" )->SetInt( EXTENDED_PACKET_UT_METADATA );
+//	if ( m_pDownload->IsTorrent() && !m_pDownload->m_pTorrent.m_bPrivate)
+//		pRoot.Add( "metadata_size" )->SetInt( m_pDownload->m_pTorrent.GetInfoSize() );
+//
+//	pRoot.Add( "p" )->SetInt( Settings.Connection.InPort );
+//	pRoot.Add( "v" )->SetString( Settings.SmartAgent() );
+//
+//	CBuffer pOutput;
+//	pRoot.Encode( &pOutput );
+//	pRoot.Clear();
+//	
+//	SendExtendedPacket(EXTENDED_PACKET_HANDSHAKE, &pOutput);
+//}
+
+//BOOL CBTClient::OnExtended(CBTPacket* pPacket)
+//{
+//	ASSUME_LOCK( Transfers.m_pSection );
+//
+//	if ( pPacket->GetRemaining() > 100 * 1024) return TRUE;
+//	if ( m_bClosing ) return TRUE;
+//
+//	BYTE nPacketID = pPacket->ReadByte();
+//		CBuffer pInput;
+//
+//	pInput.Add( &pPacket->m_pBuffer[pPacket->m_nPosition], pPacket->GetRemaining() );
+//		CBENode* pRoot = CBENode::Decode( &pInput );
+//
+//	if ( pRoot == NULL ) return TRUE;
+//
+//	if ( nPacketID == EXTENDED_PACKET_HANDSHAKE )
+//	{
+//		CBENode* pMetadata = pRoot->GetNode( "m" );
+//
+//		if (pMetadata)
+//		{
+//			CBENode* pUtMetadata = pMetadata->GetNode( "ut_metadata" );
+//			if ( ! m_dUtMetadataID && pUtMetadata )
+//			{
+//				m_dUtMetadataID = pUtMetadata->GetInt();
+//				if ( m_dUtMetadataID > 0 && !m_pDownload->m_pTorrent.m_pBlockBTH ) // Send first info request
+//				{
+//					int nNextPiece = m_pDownload->m_pTorrent.NextInfoPiece();
+//					if ( nNextPiece >= 0 )
+//						SendInfoRequest( nNextPiece );
+//				}
+//			}
+//			
+//			if ( CBENode* pUtMetadataSize = pMetadata->GetNode( "metadata_size" ) )
+//				m_dUtMetadataSize = pUtMetadata->GetInt();
+//		}
+//	}
+//	else if( nPacketID == EXTENDED_PACKET_UT_METADATA ) 
+//	{ 
+//		QWORD nMsgType	= pRoot->GetNode( "msg_type" )->GetInt();
+//		QWORD nPiece	= pRoot->GetNode( "piece" )->GetInt();
+//
+//		if ( nMsgType == UT_METADATA_REQUEST )
+//		{
+//			CBENode pRoot2;
+//			pRoot2.Add( "piece" )->SetInt( nPiece );
+//		
+//			CBuffer pOutput;
+//		
+//			BYTE *InfoPiece;
+//			DWORD InfoLen = m_pDownload->m_pTorrent.GetInfoPiece( nPiece, InfoPiece );
+//
+//			if ( InfoLen == 0 || m_pDownload->m_pTorrent.m_bPrivate)
+//			{
+//				pRoot2.Add( "msg_type" )->SetInt( UT_METADATA_REJECT );
+//				pRoot2.Encode( &pOutput );
+//			}
+//			else
+//			{
+//				pRoot2.Add( "msg_type"		)->SetInt( UT_METADATA_DATA );
+//				pRoot2.Add( "total_size"	)->SetInt( m_pDownload->m_pTorrent.GetInfoSize() );
+//				pRoot2.Encode( &pOutput );
+//				pOutput.Add( InfoPiece, InfoLen );
+//			}
+//
+//			SendExtendedPacket(m_dUtMetadataID, &pOutput);
+//		}
+//		else if ( nMsgType == UT_METADATA_DATA  && !m_pDownload->m_pTorrent.m_pBlockBTH )
+//		{
+//			QWORD nTotalSize = pRoot->GetNode("total_size")->GetInt();
+//
+//			if ( m_pDownload->m_pTorrent.LoadInfoPiece( nTotalSize, nPiece, pPacket->m_pBuffer, pPacket->m_nLength) ) // If full info loaded
+//			{
+//				m_pDownload->SetTorrent( m_pDownload->m_pTorrent );
+//				m_pDownload->Resume();
+//			}
+//			else
+//			{
+//				int nNextPiece = m_pDownload->m_pTorrent.NextInfoPiece();
+//				if ( nNextPiece >= 0 && m_dUtMetadataID > 0 )
+//					SendInfoRequest( nNextPiece );
+//			}
+//		}
+//	}
+//	else
+//	{
+//		ASSERT( nPacketID );
+//	}
+//
+//	delete pRoot;
+//	return TRUE;
+//}
+
+//void CBTClient::SendInfoRequest(QWORD nPiece)
+//{
+//	ASSERT( m_dUtMetadataID );
+//
+//	CBENode pRoot;
+//	pRoot.Add("msg_type")->SetInt(UT_METADATA_REQUEST); //Request
+//	pRoot.Add("piece")->SetInt(nPiece);
+//	
+//	CBuffer pOutput;
+//	pRoot.Encode( &pOutput );
+//
+//	SendExtendedPacket(m_dUtMetadataID, &pOutput);
+//}

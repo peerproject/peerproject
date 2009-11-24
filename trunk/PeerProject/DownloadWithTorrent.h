@@ -41,6 +41,7 @@ protected:
 // Attributes
 public:
 	CBTInfo		m_pTorrent;
+	BOOL		m_bTorrentEndgame;
 	BOOL		m_bTorrentRequested;
 	BOOL		m_bTorrentStarted;
 	DWORD		m_tTorrentTracker;
@@ -49,9 +50,8 @@ public:
 	QWORD		m_nTorrentDownloaded;
 	BOOL		m_bTorrentTrackerError;
 	CString		m_sTorrentTrackerError;
-	Hashes::BtGuid m_pPeerID;
 	CString		m_sKey;
-	BOOL		m_bTorrentEndgame;
+	Hashes::BtGuid m_pPeerID;
 protected:
 	BOOL		m_bSeeding;
 	DWORD		m_nTorrentBlock;
@@ -81,6 +81,7 @@ public:
 	CDownloadTransferBT*	CreateTorrentTransfer(CBTClient* pClient);
 	CBTPacket*		CreateBitfieldPacket();
 	BOOL			SetTorrent(const CBTInfo& oTorrent);
+	BOOL			GenerateTorrentDownloadID();			//Generate Peer ID
 protected:
 	bool			RunTorrent(DWORD tNow);
 	void			SendCompleted();
@@ -91,7 +92,6 @@ protected:
 	void			OnFinishedTorrentBlock(DWORD nBlock);
 	virtual void	Serialize(CArchive& ar, int nVersion);
 private:
-	BOOL			GenerateTorrentDownloadID();			//Generate Peer ID
 	TCHAR			GenerateCharacter() const;
 	DWORD			GetRetryTime() const;
 	void			SendStarted(DWORD nNumWant);

@@ -706,7 +706,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 
 		//if ( nVersion > 1000 )
 		//{
-		//	// PeerTags Support above PeerProject r40 
+		//	// PeerTags Support above PeerProject r44? 
 		//	ar << m_nPeerTag;
 		//}
 		//else
@@ -787,13 +787,12 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 		//else
 		//	m_oED2K.clear();
 
-		if ( nVersion >= 26 )
+		//if ( nVersion >= 26 )
 			SerializeIn( ar, m_oBTH, nVersion );
-		else
-			m_oBTH.clear();
+		//else
+		//	m_oBTH.clear();
 
-		//if ( nVersion >= 4 )
-			ar >> m_bVerify;
+		ar >> m_bVerify;
 
 		CString strURI;
 		ar >> strURI;

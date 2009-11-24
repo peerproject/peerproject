@@ -864,20 +864,16 @@ STDAPI_(BOOL) FFindQualifiedFileName(LPCWSTR pwszFile, LPWSTR pwszPath, ULONG *p
 //
 STDAPI_(BOOL) FGetModuleFileName(HMODULE hModule, WCHAR** wzFileName)
 {
-    LPWSTR pwsz, pwsz2;
-    DWORD dw;
-
     CHECK_NULL_RETURN(wzFileName, FALSE);
     *wzFileName = NULL;
 
-    pwsz = (LPWSTR)MemAlloc( MAX_PATH * 2 );
+    LPWSTR pwsz = (LPWSTR)MemAlloc( MAX_PATH * 2 );
     CHECK_NULL_RETURN(pwsz, FALSE);
 
  // Call GetModuleFileNameW on Win NT/2000/XP/2003 systems...
 	//if (v_fRunningOnNT)
 	//{
-		dw = GetModuleFileNameW( hModule, pwsz, MAX_PATH );
-		if (dw == 0)
+		if ( GetModuleFileNameW( hModule, pwsz, MAX_PATH ) == 0 )
 		{
 			MemFree(pwsz);
 			return FALSE;
@@ -892,17 +888,15 @@ STDAPI_(BOOL) FGetModuleFileName(HMODULE hModule, WCHAR** wzFileName)
 	//		MemFree(pwsz);
 	//		return FALSE;
 	//	}
-
-	//	pwsz2 = (LPWSTR)MemAlloc( MAX_PATH * 2 );
+	//	LPWSTR pwsz2 = (LPWSTR)MemAlloc( MAX_PATH * 2 );
 	//	if ( pwsz2 == 0 )
 	//	{
 	//		MemFree(pwsz);
 	//		return FALSE;
 	//	}
-
 	//	if ( FAILED(ConvertToUnicodeEx( (LPSTR)pwsz, dw, pwsz2, MAX_PATH, CP_ACP )) )
 	//		MemFree(pwsz2); pwsz2 = NULL;
-
+	//
 	//	MemFree(pwsz);
 	//	pwsz = pwsz2;
 	//}

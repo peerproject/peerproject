@@ -141,18 +141,15 @@ void CTransfers::OnRun()
 
 		EDClients.OnRun();
 
-		if ( !IsThreadEnabled() )
-			break;
+		if ( ! IsThreadEnabled() ) break;
 
 		OnRunTransfers();
 
-		if ( !IsThreadEnabled() )
-			break;
+		if ( ! IsThreadEnabled() ) break;
 
 		Downloads.OnRun();
 
-		if ( !IsThreadEnabled() )
-			break;
+		if ( ! IsThreadEnabled() ) break;
 
 			Uploads.OnRun();
 
@@ -194,8 +191,6 @@ void CTransfers::OnCheckExit()
 	if ( Settings.Live.AutoClose && GetActiveCount() == 0 )
 	{
 		if ( PostMainWndMessage( WM_CLOSE ) )
-		{
 			Settings.Live.AutoClose = FALSE;
-		}
 	}
 }

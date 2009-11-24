@@ -50,7 +50,7 @@
 				RuntimeLibrary="1"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="skin.h"
+				PrecompiledHeaderThrough="Skin.h"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -136,7 +136,7 @@
 				RuntimeLibrary="1"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="skin.h"
+				PrecompiledHeaderThrough="Skin.h"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -218,7 +218,7 @@
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="skin.h"
+				PrecompiledHeaderThrough="Skin.h"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -304,7 +304,7 @@
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="skin.h"
+				PrecompiledHeaderThrough="Skin.h"
 				ProgramDataBaseFileName="$(TargetDir)$(TargetName).pdb"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -426,10 +426,6 @@
 			>
 			<File
 				RelativePath="..\SkinInstaller\Resource.h"
-				>
-			</File>
-			<File
-				RelativePath="..\SkinInstaller\Resrc1.h"
 				>
 			</File>
 			<File

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3312,16 +3312,17 @@
 		<control caption="Verkställ"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Generellt">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Generellt">
 		<control caption="_Generellt:"/>
 		<control caption="Anslut automatiskt vid PeerProjects start"/>
 		<control caption="Starta PeerProject när Windows startas"/>
 		<control caption="Visa en dialogruta innan en URL öppnas"/>
-		<control caption="Visa hastighet i:"/>
-		<control caption="bitar/sekund|bytes/sekund|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_Nedladdningar:"/>
 		<control caption="Expandera nya nedladdningar automatiskt"/>
 		<control caption="Visa förenklad nedladdningsindikator"/>
+		<control caption="Visa hastighet i:"/>
+		<control caption="bitar/sekund|bytes/sekund|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Sök:"/>
 		<control caption="Expandera filer med flera källor automatiskt"/>
 		<control caption="Växla till överföringsvyn vid nedladdning"/>
@@ -3334,18 +3335,21 @@
 		<control/>
 		<control caption="Synlig:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="A_ktivitetsfält:"/>
 		<control caption="När jag klickar stäng:"/>
 		<control caption="Fråga mig|Minimera till aktivitetsfältet|Stäng omedelbart|Stäng efter överföringar"/>
 		<control caption="När jag klickar minimera."/>
 		<control caption="Normal|Minimera till aktivitetsfltet"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Bibliotek">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliotek">
 		<control caption="_Alternativ:"/>
-		<control caption="Kom ihåg mappvyer"/>
-		<control caption="Bevaka biblioteksmappar"/>
-		<control caption="Snabb hashing (Använder mer processorkraft)"/>
 		<control caption="Tillåt andra användare att se fillistan"/>
+		<control caption="Bevaka biblioteksmappar"/>
+		<control caption="Snabb hashing (mer processorkraft)"/>
+		<control caption="Smart video series detection"/>
+		<control caption="Skapa skuggfil vid radering"/>
+		<control caption="Kom ihåg mappvyer"/>
 		<control caption="_Senast använda filer:"/>
 		<control caption="Kom ihåg:"/>
 		<control/>
@@ -3367,8 +3371,6 @@
 		<control caption="Lagra _samlingar här:"/>
 		<control/>
 		<control/>
-		<control caption="Skapa skuggfil vid radering"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Mediaspelare">
 		<control caption="_Alternativ:"/>
@@ -3533,17 +3535,17 @@
 		<control caption="_Radera"/>
 		<control caption="(ändringar genomförs direkt)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Fjärråtkomst">
-		<control caption="_Guide:"/>
-		<control caption="PeerProjects fjärråtkomst tillåter dig att lämna PeerProject igång på din PC och kontrollera det med en webbläsare. Du måste kunna acceptera inkommande anslutningar för att använda denna funktion (d.v.s. en ordentligt anpassad router eller dylikt)."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Fjärråtkomst">
 		<control caption="_Aktivera:"/>
 		<control caption="Aktivera PeerProjects fjärråtkomst:"/>
 		<control/>
 		<control caption="_Inloggning:"/>
 		<control caption="Användarnamn:"/>
-		<control/>
 		<control caption="Lösenord:"/>
 		<control/>
+		<control/>
+		<control caption="Hjälp:"/>
+		<control caption="PeerProjects fjärråtkomst tillåter dig att lämna PeerProject igång på din PC och kontrollera det med en webbläsare. Du måste kunna acceptera inkommande anslutningar för att använda denna funktion (d.v.s. en ordentligt anpassad router eller dylikt)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuStt" caption="Schemaläggare">
 		<control/>
@@ -3564,7 +3566,7 @@
 		<control caption="% av _bandbredden vid begränsning"/>
 		<control/>
 		<control/>
-		<control caption="Hjälp"/>
+		<control caption="Hjälp:"/>
 		<control caption="Denna schemaläggare är gjord för att låta dig välja de tider du vill att PeerProject ska ansluta och ladda ned filer. &#13;&#10;&#13;&#10;&#13;&#10;Notera: Om du har PeerProject öppnad medan schemaläggaren är aktiverad kan du se den ändra inställningar. Detta är normalt!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Nätverk">
@@ -3584,8 +3586,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2-nätverk:"/>
-		<control caption="(G2 rekommenderad)"/>
-		<control caption="Anslut till Gnutella2 idag"/>
+		<control caption="Anslut till G2 nu"/>
+		<control caption="Anslut till G2 vid starten"/>
 		<control caption="Läge:"/>
 		<control caption="Optimal|Löv|Nav"/>
 		<control caption="G_2-anslutningar:"/>
@@ -3598,9 +3600,9 @@
 		<control caption="Nav till nav:"/>
 		<control/>
 		<control/>
-		<control caption="Gnutella1-nätverk:"/>
-		<control caption="Anslut alltid till Gnutella1"/>
-		<control caption="Anslut till Gnutella1 idag"/>
+		<control caption="Gnutella-nätverk:"/>
+		<control caption="Anslut till Gnutella nu"/>
+		<control caption="Anslut till Gnutella vid starten"/>
 		<control caption="Läge:"/>
 		<control caption="Optimal|Löv|Nav"/>
 		<control caption="G_1-anslutningar:"/>
@@ -3618,10 +3620,15 @@
 		<control caption="Löv till nav"/>
 		<control caption="Nav till nav"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="_eDonkey-nätverk"/>
 		<control caption="Anslut till eDonkey idag"/>
 		<control caption="Anslut alltid automatiskt"/>
+		<control caption="_Länkanslutningar:"/>
+		<control caption="Anslut inte till fler än:"/>
+		<control/>
+		<control/>
+		<control caption="andra eDonkey-klienter."/>
 		<control caption="_Globala sökningar:"/>
 		<control caption="Sök efter kända fjärrservrar i denna servercache:"/>
 		<control caption="Sluta söka efter:"/>
@@ -3629,16 +3636,11 @@
 		<control/>
 		<control caption="sökresultat."/>
 		<control caption="Ta emot och uppdatera serverlistan frn den anslutana servern"/>
-		<control caption="_Länkanslutningar:"/>
-		<control caption="Anslut inte till fler än:"/>
-		<control/>
-		<control/>
-		<control caption="andra eDonkey-klienter."/>
 		<control caption="eDonkey-_verktyg:"/>
-		<control caption="Ladda ned serverlista för eDonkey från webben:"/>
 		<control caption="Ladda ned…"/>
+		<control caption="Ladda ned serverlista MET för eDonkey från webben"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Nedladdningsanslutning:"/>
 		<control/>
 		<control/>
@@ -3646,31 +3648,32 @@
 		<control/>
 		<control/>
 		<control caption="Klientanslutningar"/>
-		<control caption="&#160;Radera frdiga torrents&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;När delningsproportionen uppnår"/>
+		<control caption="Föredra torrentkällor"/>
+		<control caption="_Slutspel:"/>
+		<control caption="Aktivera slutspelsläge när nedladdning av torrents slutförs"/>
+		<control caption="Radera frdiga torrents är delningsproportionen uppnår:"/>
 		<control/>
 		<control/>
 		<control caption="%"/>
-		<control caption="&#160;Föredra torrentkällor"/>
-		<control caption="_Slutspel:"/>
-		<control caption="Aktivera slutspelsläge när nedladdning av torrents slutförs"/>
 		<control caption="_Lagra torrents här:"/>
 		<control/>
 		<control/>
-		<control caption="_Torrentskapare"/>
+		<control caption="_Torrentskapare:"/>
 		<control/>
 		<control/>
 		<control caption="Förvald spårare:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skinn">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Skinn">
 		<control/>
 		<control caption="Skinninformation:"/>
 		<control caption="Namn:"/>
-		<control caption="…"/>
+		<control/>
 		<control caption="Skapare:"/>
-		<control caption="…"/>
+		<control/>
 		<control caption="Beskrivning:"/>
 		<control/>
+		<control caption="*Mix skinns"/>
 		<control caption="Radera"/>
 		<control caption="Installera…"/>
 		<control caption="Skaffa fler"/>
@@ -3679,7 +3682,7 @@
 		<control/>
 		<control caption="Information om insticksprogram:"/>
 		<control caption="Namn:"/>
-		<control caption="…"/>
+		<control/>
 		<control caption="Beskrivning:"/>
 		<control/>
 		<control caption="_Inställningar…"/>

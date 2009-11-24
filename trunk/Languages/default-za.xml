@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3361,16 +3361,17 @@
 		<control caption="Pas Toe"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="Algemeen">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="Algemeen">
 		<control caption="_Algemeen:"/>
 		<control caption="Konnekteer outomaties as begin"/>
 		<control caption="Begin PeerProject as Windows begin"/>
 		<control caption="Vra voor URIs oopgemaak word"/>
-		<control caption="Wys Spoed in:"/>
-		<control caption="bits/sekonde|bytes/sekonde|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates"/>
 		<control caption="_Aflaaie:"/>
 		<control caption="Vou nuwe aflaaie normaalweg uit"/>
 		<control caption="Gebruik eenvoudige vorderingsbalk"/>
+		<control caption="Wys Spoed in:"/>
+		<control caption="bits/sekonde|bytes/sekonde|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Soek:"/>
 		<control caption="Vou multi-bron aflaaie normaalweg uit"/>
 		<control caption="Verander na Oordragte aansig as aflaai"/>
@@ -3383,18 +3384,21 @@
 		<control/>
 		<control caption="Deursig:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="_Taakbalk:"/>
 		<control caption="As ek sluit kliek:"/>
 		<control caption="Vra My|Minimeer na Taakbalk|Sluit Dadelik|Sluit Na Oordragte"/>
 		<control caption="As ek minimeer kliek:"/>
 		<control caption="Normaal|Minimeer na Taakbalk"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Biblioteek">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Biblioteek">
 		<control caption="_Verstellings:"/>
-		<control caption="Onthou gidsaansigte"/>
+		<control caption="Lys jou gedeelde lêers vir ander"/>
 		<control caption="Hou biblioteekgidse dop"/>
 		<control caption="Vinnige hashing (Meer CPU)"/>
-		<control caption="Lys jou gedeelde lêers vir ander"/>
+		<control caption="Smart media series detection"/>
+		<control caption="Create ghost files when deleting"/>
+		<control caption="Onthou gidsaansigte"/>
 		<control caption="_Onlangse Lêers:"/>
 		<control caption="Onthou:"/>
 		<control/>
@@ -3416,8 +3420,6 @@
 		<control caption="Stoor Ve_rsamelings Hier:"/>
 		<control/>
 		<control/>
-		<control caption="Create ghost files when deleting"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media Speler">
 		<control caption="_Verstellings:"/>
@@ -3539,17 +3541,17 @@
 		<control caption="_Skrap"/>
 		<control caption="(veranderings neem dadelik effek)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Web Toegang">
-		<control caption="_Gids:"/>
-		<control caption="PeerProject Web Toegang laat jou toe om PeerProject op jou rekenaar aan te los en dit vanaf 'n afgeleë plek te beheer deur middel van 'n web blaaier. Jy sal inkomende konneksies moet kan ontvang om hierdie funksie te gebruik ('n korrek opgestelde roeteerder, ens)."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Web Toegang">
 		<control caption="_Aanskakel:"/>
 		<control caption="_Skakel PeerProject Web Toegang aan:"/>
-		<control caption="URL"/>
+		<control/>
 		<control caption="_Identifikasie:"/>
 		<control caption="Kies Gebruikersnaam:"/>
-		<control/>
 		<control caption="Kies Wagwoord:"/>
 		<control/>
+		<control/>
+		<control caption="Hulp:"/>
+		<control caption="PeerProject Web Toegang laat jou toe om PeerProject op jou rekenaar aan te los en dit vanaf 'n afgeleë plek te beheer deur middel van 'n web blaaier. Jy sal inkomende konneksies moet kan ontvang om hierdie funksie te gebruik ('n korrek opgestelde roeteerder, ens)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Tydsbeplanner">
 		<control/>
@@ -3570,7 +3572,7 @@
 		<control caption="% van _bandwydte onder maksimum"/>
 		<control/>
 		<control/>
-		<control caption="Hulp"/>
+		<control caption="Hulp:"/>
 		<control caption="Die Tydsbeplanner is ontwerp om jou toe te laat om tye te spesifiseer wanneer PeerProject moet konnekteer en lêers aflaai. {n}{n}{n}Nota: As jy PeerProject oop het terwyl die tydsbeplanner aktief is, mag jy die instellings sien verander - Dit is normaal!-"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Netwerke">
@@ -3590,8 +3592,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Netwerk:"/>
-		<control caption="Konnekteer altyd aan Gnutella2"/>
-		<control caption="Konnekteer vandag aan Gnutella2"/>
+		<control caption="Konnekteer vandag aan G2"/>
+		<control caption="Konnekteer altyd aan G2"/>
 		<control caption="Modus:"/>
 		<control caption="Optimaal|Leaf|Hub"/>
 		<control caption="G_2 Konneksies:"/>
@@ -3604,9 +3606,9 @@
 		<control caption="Hub na Hub:"/>
 		<control/>
 		<control/>
-		<control caption="Gnutella1 Netwerk:"/>
-		<control caption="Konnekteer altyd aan Gnutella1"/>
-		<control caption="Konnekteer vandag aan Gnutella1"/>
+		<control caption="Gnutella Netwerk:"/>
+		<control caption="Konnekteer vandag aan Gnutella"/>
+		<control caption="Konnekteer altyd aan Gnutella"/>
 		<control caption="Modus:"/>
 		<control caption="Optimaal|Leaf|Ultrapeer"/>
 		<control caption="G_1 Konneksies:"/>
@@ -3624,10 +3626,15 @@
 		<control caption="Leaf na Hub"/>
 		<control caption="Hub na Hub"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey2000">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="_eDonkey2000 Netwerk:"/>
-		<control caption="Konnekteer aan eDonkey2000"/>
 		<control caption="Konnekteer elke sessie"/>
+		<control caption="Konnekteer aan eDonkey2000"/>
+		<control caption="_Kliëntkoppeling Konneksies:"/>
+		<control caption="Konnekteer aan nie meer as:"/>
+		<control/>
+		<control/>
+		<control caption="ander eDonkey kliënte."/>
 		<control caption="_Globale Soek:"/>
 		<control caption="Soek bekende afgeleë bedieners in die bedienerskasgeheue:"/>
 		<control caption="Staak soektog na:"/>
@@ -3635,16 +3642,11 @@
 		<control/>
 		<control caption="soekresultate."/>
 		<control caption="Update server list"/>
-		<control caption="_Kliëntkoppeling Konneksies:"/>
-		<control caption="Konnekteer aan nie meer as:"/>
-		<control/>
-		<control/>
-		<control caption="ander eDonkey kliënte."/>
 		<control caption="eDonkey2000 _Opsies:"/>
-		<control caption="Laai eDonkey2000 bedienerlys van die web af:"/>
 		<control caption="Laai Af..."/>
+		<control caption="Laai eDonkey bedienerlys van die web af"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Aflaai Koppellings:"/>
 		<control/>
 		<control/>
@@ -3652,31 +3654,32 @@
 		<control/>
 		<control/>
 		<control caption="Kliënt koppellings"/>
-		<control caption=" Verwyder voltooide torrents&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Wanneer die deelverhouding bereik word"/>
-		<control/>
-		<control/>
-		<control caption="%"/>
 		<control caption="Prefer torrent sources"/>
 		<control caption="_EndGame:"/>
 		<control caption="Skakel 'Endgame'-modus aan wanneer torrent-lêers voltooi word"/>
+		<control caption="Verwyder voltooide torrents Wanneer die deelverhouding bereik word:"/>
+		<control/>
+		<control/>
+		<control caption="%"/>
 		<control caption="_Stoor Torrents Hier:"/>
 		<control/>
 		<control/>
-		<control caption="_Torrent Skepper"/>
+		<control caption="_Torrent Skepper:"/>
 		<control/>
 		<control/>
-		<control caption="_Verstek Verwyser: "/>
+		<control caption="_Verstek Verwyser:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Omslae">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Omslae">
 		<control/>
 		<control caption="Omslag Inligting:"/>
 		<control caption="Naam:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Outeur:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Beskrywing:"/>
 		<control/>
+		<control caption="*Mix omslae"/>
 		<control caption="Skrap"/>
 		<control caption="Installeer..."/>
 		<control caption="Kry meer"/>
@@ -3685,7 +3688,7 @@
 		<control/>
 		<control caption="Inpropprogramme Inligting:"/>
 		<control caption="Naam:"/>
-		<control caption="..."/>
+		<control/>
 		<control caption="Beskrywing:"/>
 		<control/>
 		<control caption="_Verstel..."/>

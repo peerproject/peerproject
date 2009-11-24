@@ -37,18 +37,20 @@ public:
 public:
 	//{{AFX_DATA(CGeneralSettingsPage)
 	enum { IDD = IDD_SETTINGS_GENERAL };
-	int		m_bRatesInBytes;
-	BOOL	m_bExpandMatches;
 	BOOL	m_bAutoConnect;
-	int		m_nCloseMode;
-	int		m_bTrayMinimise;
-	BOOL	m_bSwitchToTransfers;
-	BOOL	m_bExpandDownloads;
-	BOOL	m_bSimpleBar;
 	BOOL	m_bStartup;
 	BOOL	m_bPromptURLs;
+	BOOL	m_bUpdateCheck;
+	BOOL	m_bExpandDownloads;
+	BOOL	m_bSimpleBar;
+	BOOL	m_bExpandMatches;
+	BOOL	m_bSwitchToTransfers;
 	BOOL	m_bHideSearch;
 	BOOL	m_bAdultFilter;
+	BOOL	m_bTipShadow;
+	int		m_nCloseMode;
+	int		m_bTrayMinimise;
+	int		m_nRatesInBytes;
 	CSpinButtonCtrl	m_wndTipSpin;
 	CListCtrl	m_wndTips;
 	CSliderCtrl	m_wndTipAlpha;

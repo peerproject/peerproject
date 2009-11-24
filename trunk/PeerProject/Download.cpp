@@ -315,11 +315,8 @@ bool CDownload::IsShared() const
 	if ( Settings.eDonkey.EnableToday && m_oED2K )
 		return true;
 
-	if ( Settings.BitTorrent.EnableToday && IsTorrent()
-		&& ( IsSeeding() || IsStarted() ) )
-	{
+	if ( IsTorrent() && ( IsSeeding() || IsStarted() ) && Settings.BitTorrent.EnableToday )
 		return true;
-	}
 
 	return false;
 }
@@ -390,15 +387,12 @@ void CDownload::OnRun()
 						m_bExpanded = FALSE;
 
 					RunValidation();
-					if ( Settings.BitTorrent.AutoSeed )
+					if ( Settings.BitTorrent.AutoSeed && m_tBegan == 0 )
 					{
-						if ( m_tBegan == 0 )
-						{
-							if ( !Network.IsConnected() )
-								Network.Connect( TRUE );
+						if ( ! Network.IsConnected() )
+							Network.Connect( TRUE );
 
-							m_tBegan = GetTickCount();
-						}
+						m_tBegan = GetTickCount();
 					}
 					SetModified();
 				}
@@ -579,7 +573,7 @@ BOOL CDownload::Load(LPCTSTR pszName)
 	{
 		TRY
 		{
-			CArchive ar( &pFile, CArchive::load );
+			CArchive ar( &pFile, CArchive::load, 32768 );   // 32 KB buffer
 			Serialize( ar, 0 );
 			bSuccess = TRUE;
 		}
@@ -601,7 +595,7 @@ BOOL CDownload::Load(LPCTSTR pszName)
 	{
 		TRY
 		{
-			CArchive ar( &pFile, CArchive::load );
+			CArchive ar( &pFile, CArchive::load, 32768 );   // 32 KB buffer
 			Serialize( ar, 0 );
 			bSuccess = TRUE;
 		}
@@ -652,10 +646,7 @@ BOOL CDownload::Save(BOOL bFlush)
 		return FALSE;
 
 	{
-		const int nBufferLength = 65536;
-
-		auto_array< BYTE > pBuffer( new BYTE[ nBufferLength ] );
-		CArchive ar( &pFile, CArchive::store, nBufferLength, pBuffer.get() );
+		CArchive ar( &pFile, CArchive::store, 32768 );   // 32 KB buffer
 		try
 		{
 			Serialize( ar, 0 );

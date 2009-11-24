@@ -46,6 +46,7 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="../Services/zlib"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;NOCRYPT;ZLIB_DLL;ZLIB_WINAPI;_CRT_SECURE_NO_DEPRECATE"
+				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				EnableFunctionLevelLinking="true"
@@ -67,8 +68,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="comctl32.lib"
-				AdditionalLibraryDirectories="..\Services\zlib"
+				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
+				GenerateManifest="false"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 				KeyFile=""
@@ -78,7 +80,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				InputResourceManifests="$(TargetPath)"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -127,6 +128,7 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="../Services/zlib"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;NOCRYPT;ZLIB_DLL;ZLIB_WINAPI;_CRT_SECURE_NO_DEPRECATE"
+				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				RuntimeTypeInfo="false"
@@ -147,8 +149,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="comctl32.lib"
-				AdditionalLibraryDirectories="..\Services\zlib"
+				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
+				GenerateManifest="false"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
 			/>
@@ -157,7 +160,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				InputResourceManifests="$(TargetPath)"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -208,10 +210,10 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
-				EnableFiberSafeOptimizations="true"
 				AdditionalIncludeDirectories="../Services/zlib"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;NOCRYPT;ZLIB_DLL;ZLIB_WINAPI;_CRT_SECURE_NO_DEPRECATE"
 				StringPooling="true"
+				ExceptionHandling="0"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
 				WarningLevel="4"
@@ -230,8 +232,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="comctl32.lib"
-				AdditionalLibraryDirectories="..\Services\zlib"
+				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
+				GenerateManifest="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -244,7 +247,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				InputResourceManifests="$(TargetPath)"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -296,10 +298,10 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
-				EnableFiberSafeOptimizations="true"
 				AdditionalIncludeDirectories="../Services/zlib"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;NOCRYPT;ZLIB_DLL;ZLIB_WINAPI;_CRT_SECURE_NO_DEPRECATE"
 				StringPooling="true"
+				ExceptionHandling="0"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
 				WarningLevel="4"
@@ -318,8 +320,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="comctl32.lib"
-				AdditionalLibraryDirectories="..\Services\zlib"
+				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
+				GenerateManifest="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -331,7 +334,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				InputResourceManifests="$(TargetPath)"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -388,10 +390,6 @@
 			>
 			<File
 				RelativePath="Resource.h"
-				>
-			</File>
-			<File
-				RelativePath="Resrc1.h"
 				>
 			</File>
 			<File

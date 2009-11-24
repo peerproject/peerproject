@@ -2632,7 +2632,7 @@
 					>
 				</File>
 				<File
-					RelativePath="PageSettingsTraffic.cpp"
+					RelativePath="PageSettingsAdvanced.cpp"
 					>
 				</File>
 				<File
@@ -4213,7 +4213,7 @@
 					>
 				</File>
 				<File
-					RelativePath="PageSettingsTraffic.h"
+					RelativePath="PageSettingsAdvanced.h"
 					>
 				</File>
 				<File

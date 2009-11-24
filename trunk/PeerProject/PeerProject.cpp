@@ -271,16 +271,13 @@ BOOL CPeerProjectApp::InitInstance()
 		return FALSE;
 	}
 	if ( m_ocmdInfo.m_nShellCommand == CCommandLineInfo::AppRegister )
-	{
 		ProcessShellCommand( m_ocmdInfo );
-	}
+
 	AfxOleRegisterTypeLib( AfxGetInstanceHandle(), _tlid );
 	COleTemplateServer::RegisterAll();
 	COleObjectFactory::UpdateRegistryAll( TRUE );
 	if ( m_ocmdInfo.m_nShellCommand == CCommandLineInfo::AppRegister )
-	{
 		return FALSE;
-	}
 
 	m_pMutex = CreateMutex( NULL, FALSE, _T("Global\\PeerProject") );
 	if ( m_pMutex == NULL )
@@ -1955,10 +1952,9 @@ CString CPeerProjectApp::GetWindowsFolder() const
 			sWindows = pPath;
 			CoTaskMemFree( pPath );
 		}
+
 		if ( SUCCEEDED( hr ) && ! sWindows.IsEmpty() )
-		{
 			return sWindows;
-		}
 	}
 
 	// XP
@@ -1993,10 +1989,9 @@ CString CPeerProjectApp::GetProgramFilesFolder() const
 			sProgramFiles = pPath;
 			CoTaskMemFree( pPath );
 		}
+
 		if ( SUCCEEDED( hr ) && ! sProgramFiles.IsEmpty() )
-		{
 			return sProgramFiles;
-		}
 	}
 
 	// XP
@@ -2006,9 +2001,7 @@ CString CPeerProjectApp::GetProgramFilesFolder() const
 			sProgramFiles.GetBuffer( MAX_PATH ) );
 		sProgramFiles.ReleaseBuffer();
 		if ( SUCCEEDED( hr  ) && ! sProgramFiles.IsEmpty() )
-		{
 			return sProgramFiles;
-		}
 	}
 
 	// Legacy
@@ -2033,10 +2026,9 @@ CString CPeerProjectApp::GetDocumentsFolder() const
 			sDocuments = pPath;
 			CoTaskMemFree( pPath );
 		}
+
 		if ( SUCCEEDED( hr ) && ! sDocuments.IsEmpty() )
-		{
 			return sDocuments;
-		}
 	}
 
 	// XP
@@ -2072,10 +2064,9 @@ CString CPeerProjectApp::GetDownloadsFolder() const
 			sDownloads = pPath;
 			CoTaskMemFree( pPath );
 		}
+
 		if ( SUCCEEDED( hr ) && ! sDownloads.IsEmpty() )
-		{
 			return sDownloads;
-		}
 	}
 
 	// XP/Legacy
@@ -2100,10 +2091,9 @@ CString CPeerProjectApp::GetAppDataFolder() const
 			sAppData = pPath;
 			CoTaskMemFree( pPath );
 		}
+
 		if ( SUCCEEDED( hr ) && ! sAppData.IsEmpty() )
-		{
 			return sAppData;
-		}
 	}
 
 	// XP
@@ -2113,9 +2103,7 @@ CString CPeerProjectApp::GetAppDataFolder() const
 			sAppData.GetBuffer( MAX_PATH ) );
 		sAppData.ReleaseBuffer();
 		if ( SUCCEEDED( hr ) && ! sAppData.IsEmpty() )
-		{
 			return sAppData;
-		}
 	}
 
 	// Legacy
@@ -2142,9 +2130,7 @@ CString CPeerProjectApp::GetLocalAppDataFolder() const
 			CoTaskMemFree( pPath );
 		}
 		if ( SUCCEEDED( hr ) && ! sLocalAppData.IsEmpty() )
-		{
 			return sLocalAppData;
-		}
 	}
 
 	// XP
@@ -2161,9 +2147,7 @@ CString CPeerProjectApp::GetLocalAppDataFolder() const
 	sLocalAppData = CRegistry::GetString( _T("Shell Folders"), _T("Local AppData"),
 		_T(""), _T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer") );
 	if ( ! sLocalAppData.IsEmpty() )
-	{
 		return sLocalAppData;
-	}
 
 	// Failsafe
 	return GetAppDataFolder();
@@ -2195,12 +2179,15 @@ void CPeerProjectApp::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 
 BOOL CreateDirectory(LPCTSTR szPath)
 {
-	DWORD dwAttr = GetFileAttributes( CString( _T("\\\\?\\") ) + szPath );
-	if ( ( dwAttr != INVALID_FILE_ATTRIBUTES ) &&
-		( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) )
+	CString strDir = szPath;
+
+	DWORD dwAttr = ( strDir.GetLength() == 2 ) ?
+		GetFileAttributes( strDir + _T("\\") ) :	// Root Drive
+		GetFileAttributes( CString( _T("\\\\?\\") ) + strDir );
+
+	if ( dwAttr != INVALID_FILE_ATTRIBUTES && ( dwAttr & FILE_ATTRIBUTE_DIRECTORY ) )
 		return TRUE;
 
-	CString strDir( szPath );
 	for ( int nStart = 3; ; )
 	{
 		int nSlash = strDir.Find( _T('\\'), nStart );

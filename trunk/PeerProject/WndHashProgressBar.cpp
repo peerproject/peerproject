@@ -83,10 +83,8 @@ void CHashProgressBar::Run()
 			try
 			{
 				CreateEx( WS_EX_TOPMOST | WS_EX_TOOLWINDOW,	AfxRegisterWndClass( CS_SAVEBITS |
-					// Use CS_DROPSHADOW on Windows XP and above
-					( ( theApp.m_bIsWin2000 == true /*|| theApp.m_nWindowsVersion < 5*/ ) ? 0 : CS_DROPSHADOW ) ),
-					_T("PeerProject Hashing..."), WS_POPUP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
-					NULL, 0 );
+					( ! Settings.Interface.TipShadow || theApp.m_bIsWin2000 ? 0 : CS_DROPSHADOW ) ),
+					_T("PeerProject Hashing..."), WS_POPUP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, NULL, 0 );
 			}
 			catch (CResourceException* pEx)
 			{

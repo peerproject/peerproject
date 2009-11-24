@@ -304,14 +304,14 @@ void CChildWnd::SizeListAndBar(CWnd* pList, CWnd* pBar)
 {
 	CRect rc;
 	GetClientRect( &rc );
-
 	rc.bottom -= Skin.m_nToolbarHeight;
+
 	HDWP hPos = BeginDeferWindowPos( 2 );
-	DeferWindowPos( hPos, pBar->GetSafeHwnd(), NULL,
-		rc.left, rc.bottom, rc.Width(), Skin.m_nToolbarHeight,
-		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 	DeferWindowPos( hPos, pList->GetSafeHwnd(), NULL,
 		rc.left, rc.top, rc.Width(), rc.Height(),
+		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
+	DeferWindowPos( hPos, pBar->GetSafeHwnd(), NULL,
+		rc.left, rc.bottom, rc.Width(), Skin.m_nToolbarHeight,
 		SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOZORDER );
 	EndDeferWindowPos( hPos );
 }

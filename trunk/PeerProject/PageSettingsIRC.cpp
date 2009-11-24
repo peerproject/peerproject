@@ -71,6 +71,8 @@ void CIRCSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_IRC_COLOR_SERVER, m_wndColorServer);
 	DDX_Control(pDX, IDC_IRC_COLOR_NOTICE, m_wndColorNotice);
 	DDX_Control(pDX, IDC_IRC_COLOR_TOPIC, m_wndColorTopic);
+	DDX_Control(pDX, IDC_IRC_FLOODLIMIT_SPIN, m_wndFloodLimitSpin);
+	DDX_Control(pDX, IDC_IRC_FONTSIZE_SPIN, m_wndFontSizeSpin);
 	DDX_Check(pDX, IDC_IRC_SHOW, m_bShow);
 	DDX_Check(pDX, IDC_IRC_FLOODENABLE, m_bFloodEnable);
 	DDX_Check(pDX, IDC_IRC_TIMESTAMP, m_bTimestamp);
@@ -103,7 +105,8 @@ BOOL CIRCSettingsPage::OnInitDialog()
 	m_bShow	= Settings.IRC.Show == true;
 	m_bTimestamp = Settings.IRC.Timestamp == true;
 	m_bFloodEnable = Settings.IRC.FloodEnable == true;
-	m_sFloodLimit = Settings.IRC.FloodLimit;
+	m_sFloodLimit.Format( _T("%i"), Settings.IRC.FloodLimit );
+	m_wndFloodLimitSpin.SetRange( 4, 100 );
 
 	CString strNick = MyProfile.GetNick();
 	if ( Settings.IRC.Nick.IsEmpty() && strNick.GetLength() )
@@ -112,14 +115,15 @@ BOOL CIRCSettingsPage::OnInitDialog()
 		m_sNick = Settings.IRC.Nick;
 
 	m_sAlternate = Settings.IRC.Alternate;
-	m_sServerName = Settings.IRC.ServerName;
-	m_sServerPort = Settings.IRC.ServerPort;
 	m_sRealName = Settings.IRC.RealName;
 	m_sUserName = Settings.IRC.UserName;
+	m_sServerName = Settings.IRC.ServerName;
+	m_sServerPort.Format( _T("%i"), Settings.IRC.ServerPort );
 	m_sOnConnect = Settings.IRC.OnConnect;
 	m_sScreenFont = Settings.IRC.ScreenFont;
 	m_sFontSize.Format( _T("%i"), Settings.IRC.FontSize );
 	m_wndFonts.SubclassDlgItem( IDC_IRC_TEXTFONT, this );
+	m_wndFontSizeSpin.SetRange( 0, 50 );
 
 	UpdateData( FALSE );
 
@@ -261,7 +265,7 @@ void CIRCSettingsPage::OnOK()
 {
 	Settings.IRC.Show		 = m_bShow == TRUE;
 	Settings.IRC.FloodEnable = m_bFloodEnable == TRUE;
-	Settings.IRC.FloodLimit	 = m_sFloodLimit;
+	Settings.IRC.FloodLimit	 = _tstoi( m_sFloodLimit );
 
 	CString strNick = MyProfile.GetNick();
 	if ( m_sNick.IsEmpty() && strNick.GetLength() )
@@ -270,14 +274,14 @@ void CIRCSettingsPage::OnOK()
 		Settings.IRC.Nick = m_sNick;
 	
 	Settings.IRC.Alternate	 = m_sAlternate;
-	Settings.IRC.ServerName	 = m_sServerName;
-	Settings.IRC.ServerPort	 = m_sServerPort;
 	Settings.IRC.RealName	 = m_sRealName;
 	Settings.IRC.UserName	 = m_sUserName;
+	Settings.IRC.ServerName	 = m_sServerName;
+	Settings.IRC.ServerPort	 = _tstoi( m_sServerPort );
 	Settings.IRC.OnConnect	 = m_sOnConnect;
 	Settings.IRC.Timestamp	 = m_bTimestamp == TRUE;
 	Settings.IRC.Updated	 = TRUE;
-	Settings.IRC.FontSize	 = _wtoi( m_sFontSize );
+	Settings.IRC.FontSize	 = _tstoi( m_sFontSize );
 	Settings.IRC.ScreenFont	 = m_sScreenFont;
 
 	UpdateData( FALSE );
@@ -291,7 +295,7 @@ BOOL CIRCSettingsPage::OnApply()
 {
 	Settings.IRC.Show		 = m_bShow == TRUE;
 	Settings.IRC.FloodEnable = m_bFloodEnable == TRUE;
-	Settings.IRC.FloodLimit	 = m_sFloodLimit;
+	Settings.IRC.FloodLimit	 = _tstoi( m_sFloodLimit );
 
 	CString strNick = MyProfile.GetNick();
 	if ( m_sNick.IsEmpty() && strNick.GetLength() )
@@ -300,14 +304,14 @@ BOOL CIRCSettingsPage::OnApply()
 		Settings.IRC.Nick = m_sNick;
 
 	Settings.IRC.Alternate	 = m_sAlternate;
-	Settings.IRC.ServerName	 = m_sServerName;
-	Settings.IRC.ServerPort	 = m_sServerPort;
 	Settings.IRC.RealName	 = m_sRealName;
 	Settings.IRC.UserName	 = m_sUserName;
+	Settings.IRC.ServerName	 = m_sServerName;
+	Settings.IRC.ServerPort	 = _tstoi( m_sServerPort );
 	Settings.IRC.OnConnect	 = m_sOnConnect;
 	Settings.IRC.Timestamp	 = m_bTimestamp == TRUE;
 	Settings.IRC.Updated	 = TRUE;
-	Settings.IRC.FontSize	 = _wtoi( m_sFontSize );
+	Settings.IRC.FontSize	 = _tstoi( m_sFontSize );
 	Settings.IRC.ScreenFont	 = m_sScreenFont;
 
 	UpdateData( FALSE );

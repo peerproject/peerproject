@@ -54,8 +54,8 @@ void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 	if ( Settings.General.LanguageRTL )
 		nOffset = nTotal - nOffset - nLength;
 
-	rcArea.left		= prcBar->left + (int)( (double)( prcBar->Width() + 1 ) / (double)nTotal * (double)nOffset );
-	rcArea.right	= prcBar->left + (int)( (double)( prcBar->Width() + 1 ) / (double)nTotal * (double)( nOffset + nLength ) );
+	rcArea.left		= prcBar->left + (int)( (float)( prcBar->Width() + 1 ) / (float)nTotal * (float)nOffset );
+	rcArea.right	= prcBar->left + (int)( (float)( prcBar->Width() + 1 ) / (float)nTotal * (float)( nOffset + nLength ) );
 
 	rcArea.top		= prcBar->top;
 	rcArea.bottom	= prcBar->bottom;
@@ -88,15 +88,15 @@ void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 void CFragmentBar::DrawStateBar(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOffset, QWORD nLength, COLORREF crFill, BOOL bTop)
 {
 	CRect rcArea;
-	// Investigate why nLength is greater than nTotal !!!
+	// Investigate why nLength is greater than nTotal !
 	if ( nLength > nTotal - nOffset )
 		nLength = nTotal - nOffset;
 
 	if ( Settings.General.LanguageRTL )
 		nOffset = nTotal - nOffset - nLength;
 
-	rcArea.left		= prcBar->left + (int)( (double)( prcBar->Width() + 1 ) / (double)nTotal * (double)nOffset );
-	rcArea.right	= prcBar->left + (int)( (double)( prcBar->Width() + 1 ) / (double)nTotal * (double)( nOffset + nLength ) );
+	rcArea.left		= prcBar->left + (int)( (float)( prcBar->Width() + 1 ) / (float)nTotal * (float)nOffset );
+	rcArea.right	= prcBar->left + (int)( (float)( prcBar->Width() + 1 ) / (float)nTotal * (float)( nOffset + nLength ) );
 	rcArea.left		= max( rcArea.left, prcBar->left );
 	rcArea.right	= min( rcArea.right, prcBar->right );
 
@@ -217,8 +217,7 @@ void CFragmentBar::DrawSource(CDC* pDC, CRect* prcBar, CDownloadSource* pSource,
 		case PROTOCOL_G2:
 		case PROTOCOL_HTTP:
 		case PROTOCOL_FTP:
-			// Do nothing more
-			break;
+			break;	// Do nothing more
 		case PROTOCOL_ED2K:
 			for ( Fragments::Queue::const_iterator pRequested
 				= static_cast< CDownloadTransferED2K* >( pSource->m_pTransfer )->m_oRequested.begin();
@@ -358,5 +357,3 @@ void CFragmentBar::DrawUpload(CDC* pDC, CRect* prcBar, CUploadFile* pFile, COLOR
 	pDC->FillSolidRect( prcBar, ( pFile == pUpload->m_pBaseFile )
 		? Colors.m_crFragmentShaded : crNatural );
 }
-
-

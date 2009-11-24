@@ -173,8 +173,6 @@ protected:
 	int				m_nFloodingDelay;
 	int				m_nUpdateFrequency;
 //	int				m_nUpdateChanListFreq;
-	CString			m_sDestinationIP;
-	CString			m_sDestinationPort;
 
 	CString			m_sFile;
 	CString			m_sNickname;
@@ -225,12 +223,12 @@ protected:
 	CString			TrimString(CString strMessage) const;
 	CString			GetStringAfterParsedItem(int nItem) const;
 	CString			GetTargetName(CString strRecieverName, int nRecieverType, CString strSenderName, int nSenderType) const;
+	CString			GetTabText(int nTabIndex = -1) const;
 	int				AddTab(CString TabName, int nKindOfTab);
 	void			TabClick();
-	void			SortUserList();
-	CString			GetTabText(int nTabIndex = -1) const;
-	int				FindInList(CString strName, int nList=0, int nTab=0);
 	void			ReloadViewText();
+	//void			SortUserList();
+	int				FindInList(CString strName, int nList=0, int nTab=0);
 
 	int				ParseMessageID();
 	void			ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageID);

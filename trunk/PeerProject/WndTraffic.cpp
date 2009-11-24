@@ -79,11 +79,14 @@ CTrafficWnd::~CTrafficWnd()
 
 int CTrafficWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if ( CChildWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
+	if ( CChildWnd::OnCreate( lpCreateStruct ) == -1 )
+		return -1;
 
-	if ( m_nUnique == 0 ) FindFreeUnique();
+	if ( m_nUnique == 0 )
+		FindFreeUnique();
 
-	if ( ! Serialize( FALSE ) && m_nUnique == 1 ) m_pGraph->CreateDefaults();
+	if ( ! Serialize( FALSE ) && m_nUnique == 1 )
+		m_pGraph->CreateDefaults();
 
 	UpdateCaption();
 
@@ -237,7 +240,7 @@ BOOL CTrafficWnd::Serialize(BOOL bSave)
 	if ( ! pFile.Open( strFile, bSave ? ( CFile::modeWrite | CFile::modeCreate ) : CFile::modeRead ) )
 		return FALSE;
 
-	CArchive ar( &pFile, bSave ? CArchive::store : CArchive::load );
+	CArchive ar( &pFile, bSave ? CArchive::store : CArchive::load );	// 4 KB buffer
 	int nVersion = 0;
 
 	if ( ar.IsStoring() )

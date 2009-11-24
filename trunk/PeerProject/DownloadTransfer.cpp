@@ -136,11 +136,9 @@ DWORD CDownloadTransfer::GetAverageSpeed()
 
 DWORD CDownloadTransfer::GetMeasuredSpeed()
 {
-	// Calculate Input
-	MeasureIn();
+	MeasureIn();				// Calculate Input
 
-	// Return calculated speed
-	return m_mInput.nMeasure;
+	return m_mInput.nMeasure;	// Return calculated speed
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -225,14 +223,12 @@ void CDownloadTransfer::SetState(int nState)
 
 	if ( m_pDownload != NULL )
 	{
+		//Proper sort:
 		if ( Settings.Downloads.SortSources )
 		{
-			//Proper sort:
-
 			static BYTE StateSortOrder[13]={ 13 ,12 ,10 ,4 ,0 ,4 ,1 ,2 ,3 ,12 ,8 ,6 ,9};
 				//dtsNull, dtsConnecting, dtsRequesting, dtsHeaders, dtsDownloading, dtsFlushing,
 				//dtsTiger, dtsHashset, dtsMetadata, dtsBusy, dtsEnqueue, dtsQueued, dtsTorrent
-
 
 			//Assemble the sort order DWORD
 			m_pSource->m_nSortOrder = StateSortOrder[ min( nState, 13 ) ];		//Get state sort order

@@ -41,12 +41,12 @@ IMPLEMENT_DYNAMIC(CFilePropertiesDlg, CSkinDialog)
 BEGIN_MESSAGE_MAP(CFilePropertiesDlg, CSkinDialog)
 	//{{AFX_MSG_MAP(CFilePropertiesDlg)
 	ON_WM_SIZE()
+	ON_WM_TIMER()
+	ON_WM_DESTROY()
+	ON_WM_LBUTTONUP()
 	ON_WM_GETMINMAXINFO()
 	ON_CBN_SELCHANGE(IDC_SCHEMAS, OnSelChangeSchemas)
-	ON_WM_DESTROY()
 	ON_CBN_CLOSEUP(IDC_SCHEMAS, OnCloseUpSchemas)
-	ON_WM_LBUTTONUP()
-	ON_WM_TIMER()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -109,7 +109,6 @@ BOOL CFilePropertiesDlg::OnInitDialog()
 
 	if ( ! Settings.LoadWindow( _T("CFilePropertiesDlg"), this ) )
 	{
-		CRect rc;
 		GetWindowRect( &rc );
 		rc.bottom++;
 		MoveWindow( &rc );
@@ -182,7 +181,6 @@ void CFilePropertiesDlg::Update()
 
 		delete pXML;
 	}
-
 }
 
 void CFilePropertiesDlg::OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI)
@@ -234,9 +232,7 @@ void CFilePropertiesDlg::OnSelChangeSchemas()
 void CFilePropertiesDlg::OnCloseUpSchemas()
 {
 	if ( CSchema* pSchema = m_wndSchemas.GetSelected() )
-	{
 		PostMessage( WM_KEYDOWN, VK_TAB );
-	}
 }
 
 void CFilePropertiesDlg::OnLButtonUp(UINT nFlags, CPoint point)
@@ -292,4 +288,3 @@ void CFilePropertiesDlg::OnDestroy()
 	Settings.SaveWindow( _T("CFilePropertiesDlg"), this );
 	CSkinDialog::OnDestroy();
 }
-

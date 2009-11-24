@@ -59,6 +59,8 @@ public:
 	CString m_sFontSize;
 	CString m_sScreenFont;
 	CFontCombo m_wndFonts;
+	CSpinButtonCtrl	m_wndFontSizeSpin;
+	CSpinButtonCtrl	m_wndFloodLimitSpin;
 
 // Overrides
 protected:

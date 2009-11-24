@@ -62,6 +62,9 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+#define GROUPSBAR	24	// ToDo: Make Download Groups Bar skinnable?
+
+
 IMPLEMENT_SERIAL(CDownloadsWnd, CPanelWnd, 0)
 
 BEGIN_MESSAGE_MAP(CDownloadsWnd, CPanelWnd)
@@ -195,6 +198,9 @@ int CDownloadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndDownloads.Create( this, IDC_DOWNLOADS );
 
+	if ( ! theApp.m_bIsWin2000 )
+		m_wndDownloads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop rare flicker XP+ (high CPU?)
+
 	LoadState( NULL, TRUE );
 
 	SetTimer( 2, Settings.General.RefreshRate, NULL );
@@ -285,25 +291,25 @@ BOOL CDownloadsWnd::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERIN
 
 void CDownloadsWnd::OnSize(UINT nType, int cx, int cy)
 {
-	CPanelWnd::OnSize( nType, cx, cy );
-
 	CRect rc( 0, 0, cx, cy - Skin.m_nToolbarHeight );
 
-	BOOL bTabs = ( Settings.General.GUIMode != GUI_BASIC ) && Settings.Downloads.ShowGroups;
+	BOOL bTabs = Settings.Downloads.ShowGroups && ( Settings.General.GUIMode != GUI_BASIC );
 
 	if ( bTabs )
-		rc.top += 24;
+		rc.top += GROUPSBAR;
 	else
 		m_wndTabBar.ShowWindow( SW_HIDE );
 
 	HDWP hPos = BeginDeferWindowPos( bTabs ? 3 : 2 );
 	DeferWindowPos( hPos, m_wndDownloads, NULL,
-		rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOZORDER|SWP_SHOWWINDOW );
-	if ( bTabs ) DeferWindowPos( hPos, m_wndTabBar, NULL,
-		rc.left, 0, rc.Width(), 24, SWP_NOZORDER|SWP_SHOWWINDOW );
+		0, rc.top, cx, rc.Height(), SWP_SHOWWINDOW|SWP_NOZORDER );
 	DeferWindowPos( hPos, m_wndToolBar, NULL,
-		rc.left, rc.bottom, rc.Width(), Skin.m_nToolbarHeight, SWP_NOZORDER );
+		0, rc.bottom, cx, Skin.m_nToolbarHeight, SWP_SHOWWINDOW|SWP_NOZORDER );
+	if ( bTabs ) DeferWindowPos( hPos, m_wndTabBar, NULL,
+		0, 0, cx, GROUPSBAR, SWP_SHOWWINDOW|SWP_NOZORDER );
 	EndDeferWindowPos( hPos );
+
+	CPanelWnd::OnSize( nType, cx, cy );
 }
 
 void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)

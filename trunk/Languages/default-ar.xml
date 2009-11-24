@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3327,16 +3327,17 @@
 		<control caption="تطبيق" />
 		<control />
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="عام">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="عام">
 		<control caption=":_عام" />
 		<control caption="PeerProject إتصال تلقائي عند بدء تشغيل" />
 		<control caption="Windows مع بدء الـ PeerProject تشغيل" />
 		<control caption="إظهار مطالبة قبل فتح الروابط" />
-		<control caption="إظهار التصنيفات بـ" />
-		<control caption="بت/ثانية|بايت/ثانية|بت/ث|ب/ث|كبت/ث|كب/ث|مبت/ث|مب/ث" />
+		<control caption="التحقق من التحديثات"/>
 		<control caption=":_التحميلات" />
 		<control caption="توسيع التحميلات الجديدة إفتراضيا" />
 		<control caption="عرض شريط تقدم بسيط" />
+		<control caption="إظهار التصنيفات بـ" />
+		<control caption="بت/ثانية|بايت/ثانية|بت/ث|ب/ث|كبت/ث|كب/ث|مبت/ث|مب/ث" />
 		<control caption="_بحث:" />
 		<control caption="توسيع الملفات المتعددة المصادر إفتراضيا" />
 		<control caption="التبديل إلى عرض عمليات النقل مع التحميل" />
@@ -3349,18 +3350,21 @@
 		<control />
 		<control caption=":العتامة" />
 		<control />
+		<control caption="الظل (إعادة)"/>
 		<control caption="_جوار الساعة:" />
 		<control caption=":عند النقر على إغلاق" />
 		<control caption="السؤال|الإغلاق فورا|التصغير إلى جوار الساعة|الإغلاق بعد عمليات النقل" />
 		<control caption=":عند النقر على تصغير" />
 		<control caption="تصغير عادي|تصغير إلى جوار الساعة" />
 	</dialog>
-    <dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="المكتبة">
+    <dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="المكتبة">
 		<control caption=":_خيارات" />
-		<control caption="تذكر طرق عرض المجلدات" />
+		<control caption="السماح للآخرين بتصفح الملفات المشاركة" />
 		<control caption="مشاهدة مجلدات المكتبة" />
 		<control caption="(CPU تجزئة سريعة (إستهلاك أكثر لـ" />
-		<control caption="السماح للآخرين بتصفح الملفات المشاركة" />
+		<control caption="Smart media" />
+		<control caption="إنشاء ملفات وهمية عند الحذف" />
+		<control caption="تذكر طرق عرض المجلدات" />
 		<control caption=":ال_ملفات الأخيرة" />
 		<control caption=":تذكر" />
 		<control />
@@ -3382,8 +3386,6 @@
 		<control caption=":تخزين التجميعات _هنا" />
 		<control />
 		<control />
-		<control caption="إنشاء ملفات وهمية عند الحذف" />
-		<control caption="" />
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="مشغل الوسائط">
 		<control caption="_معالجة الوسائط" />
@@ -3548,17 +3550,17 @@
 		<control caption="_حذف" />
 		<control caption="(التغييرات تصبح سارية المفعول فورا)" />
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="الوصول البعيد">
-		<control caption="_:الدليل" />
-		<control caption="يسمح لك الوصول البعيد لشير-أزا بترك &quot;شير-أزا&quot; يعمل في كمبيوترك و من ثم التحكم فيه عن بعد عن طريق متصفح ويب . لكن يجب قبول الإتصالات الواردة لإستخدام هذه الميزة" />
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="الوصول البعيد">
 		<control caption="_:ممكن" />
 		<control caption=" :من التحكم عن بعد Shareaza تمكين" />
 		<control caption="الرابط" />
 		<control caption="الإ&amp;عتمادات:" />
 		<control caption="إختر إسم مستخدم:" />
 		<control />
-		<control caption="إختر كلمة مرور:" />
 		<control />
+		<control caption="إختر كلمة مرور:" />
+		<control caption=":الدليل" />
+		<control caption="يسمح لك الوصول البعيد لشير-أزا بترك &quot;شير-أزا&quot; يعمل في كمبيوترك و من ثم التحكم فيه عن بعد عن طريق متصفح ويب . لكن يجب قبول الإتصالات الواردة لإستخدام هذه الميزة" />
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="الجدولة">
 		<control />
@@ -3599,8 +3601,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption=":Gnutella2 شبكة" />
-		<control caption="Gnutella2 الإتصال دائما بـ" />
 		<control caption="Gnutella2 الإتصال اليوم بـ" />
+		<control caption="Gnutella2 الإتصال دائما بـ" />
 		<control caption="النمط:" />
 		<control caption="مثالي|طرفي|محوري" />
 		<control caption="G_2 Connections:" />
@@ -3613,9 +3615,9 @@
 		<control caption=":محوري إلى محوري" />
 		<control />
 		<control />
-		<control caption=":Gnutella1 شبكة" />
-		<control caption="Gnutella1 الإتصال دائما بـ" />
-		<control caption="Gnutella1 الإتصال اليوم بـ" />
+		<control caption=":Gnutella شبكة" />
+		<control caption="Gnutella الإتصال اليوم بـ" />
+		<control caption="Gnutella الإتصال دائما بـ" />
 		<control caption="النمط:" />
 		<control caption="مثالي|طرفي|نظير-فائق" />
 		<control caption=":G_1 إتصالات" />
@@ -3633,10 +3635,15 @@
 		<control caption="طرفي إلى محوري" />
 		<control caption="محوري إلى محوري" />
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption=":_eDonkey شبكة" />
 		<control caption="eDonkey الإتصال دائما بـ" />
 		<control caption="eDonkey الإتصال اليوم بـ" />
+		<control caption=":_إتصالات إرتباط العميل" />
+		<control caption=":الإتصال باكثر من" />
+		<control />
+		<control />
+		<control caption=" eDonkey عميل آخر لبرنامج" />
 		<control caption=":_البحث العالمي" />
 		<control caption="البحث في الملقمات البعيدة في مخزون الملقم المؤقت:" />
 		<control caption=":توقف عن البحث بعد" />
@@ -3644,16 +3651,11 @@
 		<control />
 		<control caption="نتيجة بحث" />
 		<control caption="إستقبال و تحديث قائمة الملقم من الملقم المتصل" />
-		<control caption=":_إتصالات إرتباط العميل" />
-		<control caption=":الإتصال باكثر من" />
-		<control />
-		<control />
-		<control caption=" eDonkey عميل آخر لبرنامج" />
 		<control caption=":eDonkey _أدوات" />
-		<control caption=":من الانترنت eDonkey تحميل قائمة ملقم" />
 		<control caption="تحميل..." />
+		<control caption=":من الانترنت eDonkey تحميل قائمة ملقم" />
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption=":إ_تصالات التحميل" />
 		<control />
 		<control />
@@ -3661,13 +3663,13 @@
 		<control />
 		<control />
 		<control caption="إتصالات العميل" />
+		<control caption=" المفضلة torrent مصادر" />
+		<control caption=":المرحلة ال_ختامية" />
+		<control caption="torrent تمكين نمط المرحلة الختامية عند إكتمال ملفات" />
 		<control caption="المحملة        عندما يصل معدل المشاركة torrent مسح ملفات" />
 		<control />
 		<control />
 		<control caption="%" />
-		<control caption=" المفضلة torrent مصادر" />
-		<control caption=":المرحلة ال_ختامية" />
-		<control caption="torrent تمكين نمط المرحلة الختامية عند إكتمال ملفات" />
 		<control caption=": هنا Torrent ت_خزين ملفات" />
 		<control />
 		<control />
@@ -3677,15 +3679,16 @@
 		<control caption="متتبع إفتراضي" />
 		<control />
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="الغلاف">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="الغلاف">
 		<control />
 		<control caption=":معلومات الغلاف" />
 		<control caption=":الاسم" />
-		<control caption="..." />
+		<control />
 		<control caption=":المصمم" />
-		<control caption="..." />
+		<control />
 		<control caption=":نبذة عنه" />
 		<control />
+		<control caption="*Mix"/>
 		<control caption="حذف" />
 		<control caption="تثبيت..." />
 		<control caption="أحضر المزيد" />
@@ -3694,7 +3697,7 @@
 		<control />
 		<control caption=":معلومات الإضافات" />
 		<control caption=":الاسم" />
-		<control caption="..." />
+		<control />
 		<control caption=":نبذة عنها" />
 		<control />
 		<control caption="_تثبيت..." />

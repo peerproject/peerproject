@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r41 -->
+<!-- Translation based on default-en.xml r42 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -585,7 +585,7 @@
 				<item id="ID_VIEW_UPLOADS" text="_Uploads" shortcut="F4"/>
 				<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
 				<item id="ID_VIEW_MEDIA" text="_Media" shortcut="F6"/>
-				<item id="ID_TAB_IRC" text="_IRC" shortcut="F12"/>
+				<item id="ID_TAB_IRC" text="_IRC Chat" shortcut="F12"/>
 				<separator/>
 				<item id="ID_VIEW_SECURITY" text="Se_curity" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
@@ -1341,10 +1341,10 @@
 	<menu name="CLibraryFileView.Physical.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="Play or _Open"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="_Add to Playlist"/>
+		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
 		<separator/>
-		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<menu text="Move/Copy/Rename">
 			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
 			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
@@ -1365,7 +1365,6 @@
 	<menu name="CLibraryFileView.Physical">
 		<item id="ID_LIBRARY_LAUNCH" text="_Open/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
 		<separator/>
@@ -1393,11 +1392,11 @@
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localize Metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Choose Detail _Columns..."/>
 		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Choose _Columns..."/>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="S_hell menu"/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
+		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual.Basic">
 		<item id="ID_LIBRARY_LAUNCH" text="Play or _Open"/>
@@ -1429,13 +1428,12 @@
 	<menu name="CLibraryFileView.Virtual">
 		<item id="ID_LIBRARY_LAUNCH" text="_Open/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
-		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
+		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
-		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<menu text="O_rganize">
 			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
 			<separator/>
@@ -1460,11 +1458,11 @@
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localize Metadata"/>
+			<item id="ID_LIBRARY_COLUMNS" text="Choose Detail _Columns..."/>
 		</menu>
 		<separator/>
-		<item id="ID_LIBRARY_COLUMNS" text="Choose _Columns..."/>
-		<separator/>
-		<item id="ID_SHELL_MENU" text="S_hell menu"/>
+		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
+		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
 	<menu name="CMediaFrame.Basic">
@@ -1521,11 +1519,11 @@
 			<item id="ID_MEDIA_PLAYLIST" text="Show _Playlist"/>
 		</menu>
 		<menu text="Video Si_ze">
+			<item id="ID_MEDIA_SIZE_FILL" text="_Best Fit"/>
 			<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
 			<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
-			<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
-			<item id="ID_MEDIA_SIZE_DISTORT" text="Fill _Window"/>
+			<item id="ID_MEDIA_SIZE_DISTORT" text="Stretch to _Fill"/>
 			<separator/>
 			<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
 			<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
@@ -1543,11 +1541,11 @@
 		</menu>
 	</menu>
 	<menu name="CMediaFrame.Zoom">
+		<item id="ID_MEDIA_SIZE_FILL" text="_Best Fit"/>
 		<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 		<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
 		<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
-		<item id="ID_MEDIA_SIZE_FILL" text="Best _Fit"/>
-		<item id="ID_MEDIA_SIZE_DISTORT" text="Fill _Window"/>
+		<item id="ID_MEDIA_SIZE_DISTORT" text="Stretch to _Fill"/>
 		<separator/>
 		<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
 		<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
@@ -1887,7 +1885,7 @@
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
 		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
-		<text group="21" align="middle">Disconnected</text>
+		<text group="21" align="middle">Disconnected </text>
 		<text group="22" align="middle">Connecting...</text>
 		<text group="23" align="middle" id="G2Peers">Hub mode</text>
 		<text group="24" align="middle" id="G2Hubs">%i Hubs</text>
@@ -1895,7 +1893,7 @@
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
 		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
-		<text group="11" align="middle">Disconnected</text>
+		<text group="11" align="middle">Disconnected </text>
 		<text group="12" align="middle">Connecting...</text>
 		<text group="13" align="middle" id="G1Peers">Ultrapeer</text>
 		<text group="14" align="middle" id="G1Hubs">%i Peers</text>
@@ -1903,7 +1901,7 @@
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
-		<text group="31" align="middle">Disconnected</text>
+		<text group="31" align="middle">Disconnected </text>
 		<text group="32" align="middle">Connecting...</text>
 		<text group="33" align="middle" id="ED2KServers">1 Server</text>
 		<newline group="30" gap="2"/>
@@ -1998,13 +1996,13 @@
 	<document name="CGeneralSettingsGroup" title="General" leftMargin="8" topMargin="8">
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
-		<text>The PeerProject Settings Manager allows advanced users to completely customize how PeerProject works.
-			&#160;The settings in the </text>
+		<text>These option pages allow advanced users to customize how PeerProject works.
+			&#160;Settings in the </text>
 		<text format="b">General </text>
-		<text>section relate to the user experience.</text>
+		<text>section relate to user experience.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CGeneralSettingsPage" format="b">General:</link>
-		<text>&#160;Common user interface settings like tooltips, minimize behavior, number formats, prompts, etc.</text>
+		<text>&#160;Adjust common user interface behaviors, etc.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CLibrarySettingsPage" format="b">Library:</link>
 		<text>&#160;Presentation, file access, and management of the file library.</text>
@@ -2019,27 +2017,27 @@
 		<text>&#160;Your profile and direct chat settings.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CWebSettingsPage" format="b">Web Integration:</link>
-		<text>&#160;Integrate PeerProject with your web browser to accept peer-to-peer links and download content.</text>
+		<text>&#160;Enable your web browser to use PeerProject for peer-to-peer links and as general download manager.</text>
 	</document>
 	<document name="CInternetSettingsGroup" title="Internet" leftMargin="8" topMargin="8">
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
-		<text>The PeerProject Settings Manager allows advanced users to completely customize how PeerProject works.
-			&#160;The settings in the </text>
+		<text>These option pages allow advanced users to customize how PeerProject works.
+			&#160;Settings in the </text>
 		<text format="b">Internet </text>
 		<text>section control how PeerProject interacts with other nodes in distributed peer-to-peer networks.</text>
 		<newline gap="16" indent="16"/>
 		<link target="peer:page:CConnectionSettingsPage" format="b">Connection:</link>
-		<text>&#160;The speeds and capabilities of your Internet connection.</text>
+		<text>&#160;Indicate speed and capabilities of your internet access.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CDownloadsSettingsPage" format="b">Downloads:</link>
-		<text>&#160;Download throughput, scheduling, verification, timeouts and management.</text>
+		<text>&#160;Manage bandwidth-in, limits, and folder locations.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CUploadsSettingsPage" format="b">Uploads:</link>
-		<text>&#160;Upload capacity, queuing, banning, timeouts and special requests.</text>
+		<text>&#160;Manage bandwidth-out, limits, and queues.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CRemoteSettingsPage" format="b">Remote:</link>
-		<text>&#160;Setup the ability to control PeerProject remotely through a web browser.</text>
+		<text>&#160;Setup PeerProject to be controlled from a web browser.</text>
 		<newline gap="10"/>
 		<link target="peer:page:CSchedulerSettingsPage" format="b">Scheduler:</link>
 		<text>&#160;Limit download connections based on a periodic schedule.</text>
@@ -3465,16 +3463,17 @@
 		<control caption="Apply"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="General">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="General">
 		<control caption="_General:"/>
 		<control caption="Auto-connect on PeerProject startup"/>
 		<control caption="Start PeerProject at Windows startup"/>
 		<control caption="Show a prompt before opening URIs"/>
-		<control caption="Show rates in:"/>
-		<control caption="bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
+		<control caption="Check for updates monthly"/>
 		<control caption="_Downloads:"/>
 		<control caption="Expand new downloads by default"/>
 		<control caption="Display simple progress bar"/>
+		<control caption="Show rates in:"/>
+		<control caption="bits/second|bytes/second|b/s|B/s|Kb/s|KB/s|Mb/s|MB/s"/>
 		<control caption="_Search:"/>
 		<control caption="Expand multi-source files by default"/>
 		<control caption="Switch to Transfers view on download"/>
@@ -3487,18 +3486,21 @@
 		<control/>
 		<control caption="Opacity:"/>
 		<control/>
+		<control caption="DropShadow (restart)"/>
 		<control caption="_Tray:"/>
-		<control caption="Close button:"/>
-		<control caption="Ask Me|Minimize to Tray|Close Immediately|Close After Transfers"/>
-		<control caption="Minimize button:"/>
-		<control caption="Normal|Minimize to Tray"/>
+		<control caption="Close button behavior:"/>
+		<control caption="Ask Me|Minimize to Tray|Exit Immediately|Exit After Transfers"/>
+		<control caption="Minimize button behavior:"/>
+		<control caption="Normal Taskbar|Minimize to Tray"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="Library">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Library">
 		<control caption="_Options:"/>
-		<control caption="Remember folder views"/>
+		<control caption="Allow others to browse"/>
 		<control caption="Watch library folders"/>
-		<control caption="Quick hashing (Uses more CPU)"/>
-		<control caption="Allow others to browse shares"/>
+		<control caption="Quick hashing  (more CPU)"/>
+		<control caption="Smart media series detection"/>
+		<control caption="Create ghost files when deleting"/>
+		<control caption="Remember folder views"/>
 		<control caption="_Recent Files:"/>
 		<control caption="Remember:"/>
 		<control/>
@@ -3509,19 +3511,17 @@
 		<control/>
 		<control caption="days"/>
 		<control caption="Clear History Now"/>
-		<control caption="_Safe to Open:"/>
+		<control caption="_Safe to Open Types:"/>
 		<control/>
 		<control caption="_Add"/>
 		<control caption="_Remove"/>
-		<control caption="_Never Share:"/>
+		<control caption="_Never Share Types:"/>
 		<control/>
 		<control caption="_Add"/>
 		<control caption="_Remove"/>
 		<control caption="Store _Collections Here:"/>
 		<control/>
 		<control/>
-		<control caption="Create ghost files when deleting"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="Media Player">
 		<control caption="_Media Handling"/>
@@ -3673,7 +3673,7 @@
 		<control caption="_User-Agent Filter:"/>
 		<control/>
 		<control caption="+"/>
-		<control caption="-"/>
+		<control caption="X"/>
 		<control caption="_Bandwidth:"/>
 		<control caption="Limit:"/>
 		<control/>
@@ -3686,17 +3686,17 @@
 		<control caption="_Delete"/>
 		<control caption="(Drag'n'drop priority)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="Remote Access">
-		<control caption="_Guide:"/>
-		<control caption="PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser. You will need to be able to accept incoming connections to use this feature (i.e. properly configured router, etc)."/>
-		<control caption="_Enable:"/>
-		<control caption="Enable PeerProject Remote Access:"/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Remote Access">
+		<control caption="_Activation:"/>
+		<control caption="_Enable PeerProject Remote Web Access:"/>
 		<control caption="URL"/>
 		<control caption="_Credentials:"/>
 		<control caption="Choose a Username:"/>
-		<control/>
 		<control caption="Choose a Password:"/>
 		<control/>
+		<control/>
+		<control caption="Help:"/>
+		<control caption="PeerProject Remote Access allows you to leave PeerProject running on your PC, and control it remotely using a web browser.  You will need to be able to accept incoming connections to use this feature.  (Ensure port-forwarding.)"/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="Scheduler">
 		<control/>
@@ -3717,7 +3717,7 @@
 		<control caption="% _Bandwidth when limited"/>
 		<control/>
 		<control/>
-		<control caption="Help"/>
+		<control caption="Help:"/>
 		<control caption="This scheduler enables you to set times when PeerProject will connect and download files. {n}{n}{n}Note, it is normal to see PeerProject change settings when scheduling is active."/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="Networks">
@@ -3737,8 +3737,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 Network:"/>
-		<control caption="Always connect to G2"/>
-		<control caption="Connect to G2 today"/>
+		<control caption="Connect to G2 now"/>
+		<control caption="Connect to G2 at startup"/>
 		<control caption="Mode: "/>
 		<control caption="Optimal|Leaf|Hub"/>
 		<control caption="G_2 Connections:"/>
@@ -3752,8 +3752,8 @@
 		<control/>
 		<control/>
 		<control caption="Gnutella Network:"/>
-		<control caption="Always connect to Gnutella"/>
-		<control caption="Connect to Gnutella today"/>
+		<control caption="Connect to Gnutella now"/>
+		<control caption="Connect to Gnutella at startup"/>
 		<control caption="Mode: "/>
 		<control caption="Optimal|Leaf|Ultrapeer"/>
 		<control caption="_Gnutella Connections:"/>
@@ -3771,27 +3771,27 @@
 		<control caption="Leaf to Hub"/>
 		<control caption="Hub to Hub"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuBuStEdmsStBuStBu" caption="eDonkey">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey">
 		<control caption="_eDonkey Network:"/>
-		<control caption="Always connect to eDonkey"/>
-		<control caption="Connect to eDonkey today"/>
+		<control caption="Connect to eDonkey2000 now"/>
+		<control caption="Connect to eDonkey2000 at startup"/>
+		<control caption="_Client Link Connections:"/>
+		<control caption="Connect to no more than:"/>
+		<control/>
+		<control/>
+		<control caption="other eDonkey clients."/>
 		<control caption="_Global Searching:"/>
 		<control caption="Search known remote servers in the server cache:"/>
 		<control caption="Stop searching after:"/>
 		<control/>
 		<control/>
 		<control caption="search results."/>
-		<control caption="Receive and update server list from the connected server"/>
-		<control caption="_Client Link Connections:"/>
-		<control caption="Connect to no more than:"/>
-		<control/>
-		<control/>
-		<control caption="other eDonkey clients."/>
+		<control caption="Update global server list from the connected server"/>
 		<control caption="eDonkey _Tools:"/>
-		<control caption="Download eDonkey server list from the web:"/>
 		<control caption="Download..."/>
+		<control caption="Update eDonkey server list from the web.  (MET file)"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="_Download Connections:"/>
 		<control/>
 		<control/>
@@ -3799,23 +3799,23 @@
 		<control/>
 		<control/>
 		<control caption="Client connections"/>
+		<control caption="Prefer torrent sources"/>
+		<control caption="_EndGame:"/>
+		<control caption="Enable EndGame mode when completing torrents  (multi-source)"/>
 		<control caption="Clear downloaded torrents when share ratio reaches:"/>
 		<control/>
 		<control/>
 		<control caption="%"/>
-		<control caption="Prefer torrent sources"/>
-		<control caption="_EndGame:"/>
-		<control caption="Enable EndGame mode when completing torrents (multi-source)"/>
 		<control caption="_Store Torrents Here:"/>
 		<control/>
 		<control/>
 		<control caption="_Torrent Creator:"/>
 		<control/>
 		<control/>
-		<control caption="Default Tracker: "/>
+		<control caption="Default Tracker:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="Skins">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="Skins">
 		<control/>
 		<control caption="Skin Information:"/>
 		<control caption="Name:"/>
@@ -3824,6 +3824,7 @@
 		<control caption="..."/>
 		<control caption="Description:"/>
 		<control/>
+		<control caption="*Select multiple skins to mix"/>
 		<control caption="Delete"/>
 		<control caption="Install..."/>
 		<control caption="Get More"/>
@@ -3903,7 +3904,7 @@
 		<control/>
 		<control caption="Choose which files to share"/>
 		<control/>
-		<control caption="Connect to your choice of P2P networks, and"/>
+		<control caption="Connect to your choice of P2P networks"/>
 		<control/>
 		<control caption="Get started using PeerProject."/>
 	</dialog>
@@ -3970,7 +3971,7 @@
 		<control caption="The original Gnutella network (G1) is less feature-rich than Gnutella2, with less files than ED2K, yet remains a valuable source. (LimeWire)"/>
 		<control caption="Connect to eDonkey2000"/>
 		<control caption="The eDonkey network (ED2K) is a popular server-based network.  While not as feature-rich or fast as G2, ED2K has a vast file collection. (eMule)"/>
-		<control caption="Associate .Torrent Files  (Handle BitTorrent links by default)"/>
+		<control caption="Handle BitTorrent by default (Associate .torrent files)"/>
 	</dialog>
 	<dialog name="CDonkeyImportDlg" cookie="StStBuBuEdBu" caption="Import eDonkey Downloads">
 		<control/>
@@ -4385,7 +4386,7 @@
 	<dialog name="CWarningsDlg" cookie="StStStStStStStBu" caption="PeerProject Respects its Users">
 		<control/>
 		<control caption="Did you know PeerProject is 100% free software?"/>
-		<control caption="PeerProject does not contain any spyware, adware or bundled software;{n}it does not display any advertisements, popups, or other bad behavior.{n}{n}If you ever see such activity be assured that it is not coming from this program."/>
+		<control caption="PeerProject does not contain any spyware, adware or bundled software;{n}it does not display any advertisements, popups, or other bad behavior.{n}{n}If you ever see such activity be assured that it is not coming from a genuine version of this program."/>
 		<control caption="PeerProject is proud to be Free and Open-Source Software.  A non-profit team of passionate volunteers shares this product with all the freedoms of GPL and Creative Commons Licenses, in the hope that it might be useful."/>
 		<control caption="You must not have paid any money to obtain this program.  PeerProject can be freely downloaded from PeerProject.org, if you've paid anyone for this demand a full refund immediately."/>
 		<control caption="PeerProject respects and appreciates its users."/>

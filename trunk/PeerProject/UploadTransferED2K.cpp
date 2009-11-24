@@ -159,9 +159,7 @@ void CUploadTransferED2K::Close(BOOL bMessage)
 	if ( m_pBaseFile != NULL && m_pClient->IsOnline() )
 	{
 		if ( m_nState == upsUploading || m_nState == upsQueued )
-		{
 			Send( CEDPacket::New( ED2K_C2C_FINISHUPLOAD ) );
-		}
 
 		CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_FILENOTFOUND );
 		pPacket->Write( m_oED2K );
@@ -299,9 +297,7 @@ void CUploadTransferED2K::OnQueueKick()
 		if ( UploadQueues.GetPosition( this, TRUE ) == 0 ) return;
 
 		if ( m_pBaseFile != NULL && m_pClient->IsOnline() )
-		{
 			Send( CEDPacket::New( ED2K_C2C_FINISHUPLOAD ) );
-		}
 
 		Cleanup( FALSE );
 	}
@@ -370,12 +366,9 @@ BOOL CUploadTransferED2K::OnRequestParts(CEDPacket* pPacket)
 	{
 		if ( nOffset[1][nRequest] <= m_nSize )
 		{
-			// Valid (or null) request
+			// Valid (or null) request, Add non-null ranges to the list
 			if ( nOffset[0][nRequest] < nOffset[1][nRequest] )
-			{
-				// Add non-null ranges to the list
 				AddRequest( nOffset[0][nRequest], nOffset[1][nRequest] - nOffset[0][nRequest] );
-			}
 		}
 		else
 		{
@@ -440,9 +433,7 @@ void CUploadTransferED2K::AddRequest(QWORD nOffset, QWORD nLength)
 	Fragments::Fragment oRequest( nOffset, nOffset + nLength );
 
 	if ( std::find( m_oRequested.begin(), m_oRequested.end(), oRequest ) == m_oRequested.end() )
-	{
 		m_oRequested.push_back( oRequest );
-	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -474,9 +465,7 @@ BOOL CUploadTransferED2K::ServeRequests()
 			if ( nQpos != 0 )
 			{
 				if ( m_pBaseFile != NULL && m_pClient->IsOnline() )
-				{
 					Send( CEDPacket::New( ED2K_C2C_FINISHUPLOAD ) );
-				}
 
 				if ( nQpos > 0 )	// If we aren't uploading any more (the queue wasn't empty)
 				{
@@ -885,12 +874,9 @@ BOOL CUploadTransferED2K::OnRequestParts64(CEDPacket* pPacket)
 	{
 		if ( nOffset[1][nRequest] <= m_nSize )
 		{
-			// Valid (or null) request
+			// Valid (or null) request, Add non-null ranges to the list
 			if ( nOffset[0][nRequest] < nOffset[1][nRequest] )
-			{
-				// Add non-null ranges to the list
 				AddRequest( nOffset[0][nRequest], nOffset[1][nRequest] - nOffset[0][nRequest] );
-			}
 		}
 		else
 		{

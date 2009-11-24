@@ -45,27 +45,27 @@ static char THIS_FILE[]=__FILE__;
 // CUploadTransfer construction
 
 CUploadTransfer::CUploadTransfer(PROTOCOLID nProtocol)
-	: m_nState( upsNull )
-	, m_pQueue( NULL )
-	, m_pBaseFile( NULL )
-	, m_nBandwidth( Settings.Bandwidth.Request )
-	, m_nUserRating( urNew )
-	, m_nFileBase( 0 )
-	, m_bFilePartial( FALSE )
-	, m_bLive( TRUE )
-	, m_nRequests( 0 )
-	, m_nUploaded( 0 )
-	, m_tContent( 0 )
-	, m_nOffset( 0 )
-	, m_nPosition( 0 )
-	, m_nLength( SIZE_UNKNOWN )
-	, m_bStopTransfer( FALSE )
-	, m_tRotateTime( 0 )
-	, m_tAverageTime( 0 )
-	, m_nAveragePos( 0 )
-	, m_tRatingTime( 0 )
-	, m_nMaxRate( 0 )
-	, m_pFile( NULL )
+	: m_nState			( upsNull )
+	, m_pQueue			( NULL )
+	, m_pBaseFile		( NULL )
+	, m_nBandwidth		( Settings.Bandwidth.Request )
+	, m_nUserRating		( urNew )
+	, m_nFileBase		( 0 )
+	, m_bFilePartial	( FALSE )
+	, m_bLive			( TRUE )
+	, m_nRequests		( 0 )
+	, m_nUploaded		( 0 )
+	, m_tContent		( 0 )
+	, m_nOffset			( 0 )
+	, m_nPosition		( 0 )
+	, m_nLength			( SIZE_UNKNOWN )
+	, m_bStopTransfer	( FALSE )
+	, m_tRotateTime		( 0 )
+	, m_tAverageTime	( 0 )
+	, m_nAveragePos		( 0 )
+	, m_tRatingTime		( 0 )
+	, m_nMaxRate		( 0 )
+	, m_pFile			( NULL )
 {
 	m_nProtocol = nProtocol;
 	ZeroMemory( m_nAverageRate, sizeof( m_nAverageRate ) );
@@ -390,8 +390,9 @@ BOOL CUploadTransfer::HashesFromURN(LPCTSTR pszURN)
 	if ( !m_oSHA1 ) m_oSHA1.fromUrn( pszURN );
 	if ( !m_oTiger ) m_oTiger.fromUrn( pszURN );
 	if ( !m_oED2K ) m_oED2K.fromUrn( pszURN );
-	if ( !m_oBTH ) m_oBTH.fromUrn( pszURN );
 	if ( !m_oMD5 ) m_oMD5.fromUrn( pszURN );
+	if ( !m_oBTH ) m_oBTH.fromUrn( pszURN );
+	if ( !m_oBTH ) m_oBTH.fromUrn< Hashes::base16Encoding >( pszURN );
 	return TRUE;
 }
 

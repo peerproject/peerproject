@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r41 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r42 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3094,16 +3094,17 @@
 		<control caption="套用"/>
 		<control/>
 	</dialog>
-	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuStCoBuBuBuBuBuBuBuBuBuSyStEdmsStmsBuStCoStCo" caption="一般">
+	<dialog name="CGeneralSettingsPage" cookie="BuBuBuBuBuBuBuBuStCoBuBuBuBuBuBuSyStEdmsStmsBuBuStCoStCo" caption="一般">
 		<control caption="一般:"/>
 		<control caption="PeerProject 啟動時自動連接"/>
 		<control caption="系統啟動時,自動啟動 PeerProject"/>
 		<control caption="開啟URIs 前提示我"/>
-		<control caption="使用速度單位:"/>
-		<control caption="bits/每秒|bytes/每秒|b/每秒|B/每秒|Kb/每秒|KB/每秒|Mb/每秒|MB/每秒"/>
+		<control caption="Check for updates"/>
 		<control caption="下載:"/>
 		<control caption="自動展開新增的下載"/>
 		<control caption="顯示簡易進度棒"/>
+		<control caption="使用速度單位:"/>
+		<control caption="bits/每秒|bytes/每秒|b/每秒|B/每秒|Kb/每秒|KB/每秒|Mb/每秒|MB/每秒"/>
 		<control caption="搜尋:"/>
 		<control caption="自動展開具有多重來源的檔案"/>
 		<control caption="下載時切換至傳輸視窗"/>
@@ -3116,18 +3117,21 @@
 		<control/>
 		<control caption="不透明度:"/>
 		<control/>
+		<control caption="Shadow (restart)"/>
 		<control caption="系統列:"/>
 		<control caption="當我點選關閉鈕時:"/>
 		<control caption="詢問我|最小化至系統列|立刻關閉程式|傳輸後關閉"/>
 		<control caption="當我點選最小化時:"/>
 		<control caption="標準|最小化至系統列"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBuBuBu" caption="收藏">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="收藏">
 		<control caption="選項:"/>
-		<control caption="記住資料夾檢視方式"/>
+		<control caption="允許其他人瀏覽我分享的檔案"/>
 		<control caption="監視收藏的資料夾"/>
 		<control caption="快速切細(消耗更多CPU 資源)"/>
-		<control caption="允許其他人瀏覽我分享的檔案"/>
+		<control caption="Smart media series detection"/>
+		<control caption="当删除时建立回收文件"/>
+		<control caption="記住資料夾檢視方式"/>
 		<control caption="最近的檔案:"/>
 		<control caption="記住:"/>
 		<control/>
@@ -3149,8 +3153,6 @@
 		<control caption="將組檔存放在這個位置:"/>
 		<control/>
 		<control/>
-		<control caption="当删除时建立回收文件"/>
-		<control caption="Smart video series detection"/>
 	</dialog>
 	<dialog name="CMediaSettingsPage" cookie="BuStCoBuBuBuCoBuBuBuBuSt" caption="多媒體播放程式">
 		<control caption="多媒體服務:"/>
@@ -3272,17 +3274,17 @@
 		<control caption="刪除"/>
 		<control caption="(變更即刻生效!)"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuStBuBuStBuStEdStEd" caption="遠端操控">
-		<control caption="指南:"/>
-		<control caption="PeerProject 在您的電腦上運作時, 您可以從遠端使用瀏覽器操控它. 您的電腦必須能夠啟用輸入連線以使用這個功能(例: 正確設定的路由器...等等)."/>
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="遠端操控">
 		<control caption="啟用:"/>
 		<control caption="啟用 PeerProject 遠端操控:"/>
 		<control/>
 		<control caption="憑證:"/>
 		<control caption="選擇一個使用者名稱:"/>
-		<control/>
 		<control caption="選擇一個密碼:"/>
 		<control/>
+		<control/>
+		<control caption="說明:"/>
+		<control caption="PeerProject 在您的電腦上運作時, 您可以從遠端使用瀏覽器操控它. 您的電腦必須能夠啟用輸入連線以使用這個功能(例: 正確設定的路由器...等等)."/>
 	</dialog>
 	<dialog name="CSchedulerSettingsPage" cookie="EdStStStStStStStBuStStStBuBuBuStEdmsBuSt" caption="預定表">
 		<control/>
@@ -3303,7 +3305,7 @@
 		<control caption="% 在限制之下 幾 的頻寬"/>
 		<control/>
 		<control/>
-		<control caption="說明"/>
+		<control caption="說明:"/>
 		<control caption="您可以使用預定表設定PeerProject什麼時候應該連線下載檔案. {n}{n}{n}注意: 在 PeerProject 運作時, 如果預定表正在執行它的工作, 您會發覺設定被更改. 此為正常現象!"/>
 	</dialog>
 	<dialog name="CNetworksSettingsPage" cookie="StBuStBuStBuStBuStBuStBuSt" caption="網路">
@@ -3323,8 +3325,8 @@
 	</dialog>
 	<dialog name="CGnutellaSettingsPage" cookie="BuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuStCoBuStEdmsStEdmsStEdmsBuBuBuBu" caption="Gnutella">
 		<control caption="Gnutella2 網路:"/>
-		<control caption="總是連線至 Gnutella2"/>
-		<control caption="這次連線至 Gnutella2"/>
+		<control caption="這次連線至 G2"/>
+		<control caption="總是連線至 G2"/>
 		<control caption="模式:"/>
 		<control caption="自動偵測|葉節點|結點"/>
 		<control caption="G2 連線:"/>
@@ -3337,9 +3339,9 @@
 		<control caption="結點對結點:"/>
 		<control/>
 		<control/>
-		<control caption="Gnutella1 網路:"/>
-		<control caption="總是連線至 Gnutella1"/>
-		<control caption="本次連線至 Gnutella1"/>
+		<control caption="Gnutella 網路:"/>
+		<control caption="本次連線至 Gnutella"/>
+		<control caption="總是連線至 Gnutella"/>
 		<control caption="模式:"/>
 		<control caption="自動|葉節點|超級用戶"/>
 		<control caption="G1 連線:"/>
@@ -3357,10 +3359,15 @@
 		<control caption="葉節點對結點"/>
 		<control caption="結點對結點"/>
 	</dialog>
-	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuBuStEdmsStBuStEdmsStBuStBuStBu" caption="eDonkey2000">
+	<dialog name="CDonkeySettingsPage" cookie="BuBuBuBuStEdmsStBuBuStEdmsStBuBuBuSt" caption="eDonkey2000">
 		<control caption="eDonkey2000 網路:"/>
-		<control caption="本次連線至 eDonkey 2000 網路"/>
+		<control caption="本次連線至 eDonkey 網路"/>
 		<control caption="自動連線"/>
+		<control caption="客戶端連結的連線:"/>
+		<control caption="...的連線數不超過:"/>
+		<control/>
+		<control/>
+		<control caption="其他的 eDonkey 客戶端."/>
 		<control caption="全球搜尋:"/>
 		<control caption="從伺服器快取搜尋已知的遠端伺服器:"/>
 		<control caption="在...之後停止搜尋:"/>
@@ -3368,16 +3375,11 @@
 		<control/>
 		<control caption="搜尋結果."/>
 		<control caption="从连接接收和更新服务器列表"/>
-		<control caption="客戶端連結的連線:"/>
-		<control caption="....的連線數不超過:"/>
-		<control/>
-		<control/>
-		<control caption="其他的 eDonkey 客戶端."/>
-		<control caption="eDonkey2000 工具箱:"/>
-		<control caption="從網際網路下載 eDonkey2000 伺服器清單:"/>
+		<control caption="eDonkey 工具箱:"/>
 		<control caption="下載..."/>
+		<control caption="從網際網路下載 eDonkey 伺服器清單:"/>
 	</dialog>
-	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuEdmsStBuBuBuBuEdBuBuEdBuStEd" caption="BitTorrent">
+	<dialog name="CBitTorrentSettingsPage" cookie="BuEdmsStEdmsStBuBuBuBuEdmsStBuEdBuBuEdBuStEd" caption="BitTorrent">
 		<control caption="下載連線:"/>
 		<control/>
 		<control/>
@@ -3385,31 +3387,32 @@
 		<control/>
 		<control/>
 		<control caption="客戶端連線"/>
-		<control caption="&#160;清除下載的 torrents&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;在分享率達到後"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="&#160;偏好 torrent 來源"/>
+		<control caption="偏好 torrent 來源"/>
 		<control caption="終場模式:"/>
 		<control caption="在 torrent 即將完成時啟用終場模式"/>
+		<control caption="清除下載的 torrents &#160; 在分享率達到後:"/>
+		<control/>
+		<control/>
+		<control caption="%"/>
 		<control caption="Torrents 存放於此:"/>
 		<control/>
 		<control/>
-		<control caption="Torrent 製作程式"/>
+		<control caption="Torrent 製作程式:"/>
 		<control/>
 		<control/>
-		<control caption="預設伺服器: "/>
+		<control caption="預設伺服器:"/>
 		<control/>
 	</dialog>
-	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdBuBuBu" caption="外觀">
+	<dialog name="CSkinsSettingsPage" cookie="SyBuStStStStStEdStBuBuBu" caption="外觀">
 		<control/>
 		<control caption="外觀資訊:"/>
 		<control caption="名稱:"/>
-		<control caption="無"/>
+		<control/>
 		<control caption="作者:"/>
-		<control caption="無"/>
+		<control/>
 		<control caption="敘述:"/>
 		<control/>
+		<control caption="*Mix"/>
 		<control caption="刪除"/>
 		<control caption="安裝..."/>
 		<control caption="更多外觀"/>
@@ -3418,7 +3421,7 @@
 		<control/>
 		<control caption="外掛資訊:"/>
 		<control caption="名稱:"/>
-		<control caption="無"/>
+		<control/>
 		<control caption="敘述:"/>
 		<control/>
 		<control caption="設定..."/>

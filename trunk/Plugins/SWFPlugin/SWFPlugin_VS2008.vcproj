@@ -4,7 +4,7 @@
 	Version="9.00"
 	Name="SWFPlugin"
 	ProjectGUID="{4491782A-4BD5-45E3-AD2F-F03EE6CE3F9E}"
-	RootNamespace="SWFPlugin_9"
+	RootNamespace="SWFPlugin"
 	Keyword="AtlProj"
 	TargetFrameworkVersion="131072"
 	>
@@ -447,7 +447,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\stdafx.cpp"
+				RelativePath="stdafx.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -483,19 +483,19 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\SWFBuilder.cpp"
+				RelativePath="SWFBuilder.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\SWFPlugin.cpp"
+				RelativePath="SWFPlugin.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\SWFPlugin.def"
+				RelativePath="SWFPlugin.def"
 				>
 			</File>
 			<File
-				RelativePath=".\SWFPlugin.idl"
+				RelativePath="SWFPlugin.idl"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -531,7 +531,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\SWFReader.cpp"
+				RelativePath="SWFReader.cpp"
 				>
 			</File>
 		</Filter>
@@ -541,19 +541,19 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\Resource.h"
+				RelativePath="Resource.h"
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.h"
+				RelativePath="stdafx.h"
 				>
 			</File>
 			<File
-				RelativePath=".\SWFBuilder.h"
+				RelativePath="SWFBuilder.h"
 				>
 			</File>
 			<File
-				RelativePath=".\SWFReader.h"
+				RelativePath="SWFReader.h"
 				>
 			</File>
 		</Filter>
@@ -563,19 +563,19 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\SWFBuilder.rgs"
+				RelativePath="SWFBuilder.rgs"
 				>
 			</File>
 			<File
-				RelativePath=".\SWFPlugin.rc"
+				RelativePath="SWFPlugin.rc"
 				>
 			</File>
 			<File
-				RelativePath=".\SWFPlugin.rgs"
+				RelativePath="SWFPlugin.rgs"
 				>
 			</File>
 			<File
-				RelativePath=".\SWFReader.rgs"
+				RelativePath="SWFReader.rgs"
 				>
 			</File>
 		</Filter>
@@ -584,7 +584,7 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath=".\SWFPlugin_i.c"
+				RelativePath="SWFPlugin_i.c"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
