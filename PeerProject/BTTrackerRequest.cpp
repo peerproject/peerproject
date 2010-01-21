@@ -1,7 +1,7 @@
 //
 // BTTrackerRequest.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -46,9 +46,11 @@ CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR ps
 	ASSERT( pDownload != NULL );
 	ASSERT( pDownload->IsTorrent() );
 
-	CString strURL;
-	// Create the basic URL
-	CString strAddress = pDownload->m_pTorrent.GetTrackerAddress();
+	QWORD nRemaining = pDownload->GetVolumeRemaining();
+	if ( nRemaining == SIZE_UNKNOWN ) nLeft = 0;
+
+	// Create basic URL  http://wiki.theory.org/BitTorrentSpecification#Tracker_HTTP.2FHTTPS_Protocol
+	CString strURL, strAddress = pDownload->m_pTorrent.GetTrackerAddress();
 	strURL.Format( _T("%s%cinfo_hash=%s&peer_id=%s&port=%i&uploaded=%I64i&downloaded=%I64i&left=%I64i&compact=1"),
 		strAddress.TrimRight( _T('&') ),
 		( ( strAddress.Find( _T('?') ) != -1 ) ? _T('&') : _T('?') ),
@@ -57,7 +59,7 @@ CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR ps
 		Network.m_pHost.sin_port ? (int)htons( Network.m_pHost.sin_port ) : (int)Settings.Connection.InPort,
 		pDownload->m_nTorrentUploaded,
 		pDownload->m_nTorrentDownloaded,
-		pDownload->GetVolumeRemaining() );
+		nRemaining );
 
 	// If an event was specified, add it.
 	if ( pszVerb != NULL )
@@ -206,17 +208,17 @@ void CBTTrackerRequest::Process(bool bRequest)
 	}
 
 	// Abort if download has been paused after the request was sent, but before a reply was received
-	if ( !m_pDownload->m_bTorrentRequested )
+	if ( ! m_pDownload->m_bTorrentRequested )
 		return;
 
-	if ( !bRequest )
+	if ( ! bRequest )
 	{
 		LoadString( strError, IDS_BT_TRACKER_DOWN );
 		m_pDownload->OnTrackerEvent( false, strError );
 		return;
 	}
 
-	if ( !m_pRequest.InflateResponse() )
+	if ( ! m_pRequest.InflateResponse() )
 	{
 		LoadString( strError, IDS_BT_TRACK_PARSE_ERROR );
 		m_pDownload->OnTrackerEvent( false, strError );

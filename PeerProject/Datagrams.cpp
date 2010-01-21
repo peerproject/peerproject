@@ -1,7 +1,7 @@
 //
 // Datagrams.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -1497,7 +1497,7 @@ BOOL CDatagrams::OnQueryKeyRequest(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 	theApp.Message( MSG_DEBUG, _T("Node %s asked for a query key for node %s:%i"),
 		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), (LPCTSTR)strNode, nRequestedPort );
 
-	if ( Network.IsFirewalledAddress( &nRequestedAddress, TRUE ) || 0 == nRequestedPort ) return TRUE;
+	if ( Network.IsFirewalledAddress( (IN_ADDR*)&nRequestedAddress, TRUE ) || 0 == nRequestedPort ) return TRUE;
 
 	DWORD nKey = Network.QueryKeys->Create( nRequestedAddress );
 
@@ -1615,7 +1615,7 @@ BOOL CDatagrams::OnPush(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 	WORD nPort		= pPacket->ReadShortBE();
 
 	if ( Security.IsDenied( (IN_ADDR*)&nAddress ) ||
-		 Network.IsFirewalledAddress( &nAddress ) )
+		 Network.IsFirewalledAddress( (IN_ADDR*)&nAddress ) )
 	{
 		Statistics.Current.Gnutella2.Dropped++;
 		return TRUE;
@@ -1669,9 +1669,11 @@ BOOL CDatagrams::OnCrawlRequest(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 	CString vendorCode;
 	CString currentVersion;
 
-	if ( bWantNames ) strNick = MyProfile.GetNick().Left( 255 ); //trim if over 255 characters
+	if ( bWantNames )
+		strNick = MyProfile.GetNick().Left( 255 ); //trim if over 255 characters
 
-	if ( bWantGPS ) nGPS = MyProfile.GetPackedGPS();
+	if ( bWantGPS )
+		nGPS = MyProfile.GetPackedGPS();
 
 	if ( bWantREXT )
 	{
@@ -1801,7 +1803,26 @@ BOOL CDatagrams::OnCrawlAnswer(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 
 BOOL CDatagrams::OnDiscovery(SOCKADDR_IN* pHost, CG2Packet* /*pPacket*/)
 {
-	Send( pHost, CG2Neighbour::CreateKHLPacket( NULL, TRUE ), TRUE, 0, FALSE );
+	if ( CG2Packet* pKHL = CG2Neighbour::CreateKHLPacket() )
+	{
+		// Add myself
+		if ( ! Neighbours.IsG2Leaf() && Network.IsListening() &&
+			( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable( HostCache.Gnutella2.IsEmpty() ) ) )
+		{
+			pKHL->WritePacket( G2_PACKET_CACHED_HUB, 18, TRUE );			// 4
+			pKHL->WritePacket( G2_PACKET_VENDOR, 4 );						// 3
+			pKHL->WriteString( VENDOR_CODE, FALSE );						// 4
+			pKHL->WriteByte( 0 );											// 1
+			pKHL->WriteLongLE( Network.m_pHost.sin_addr.S_un.S_addr );		// 4
+			pKHL->WriteShortBE( htons( Network.m_pHost.sin_port ) );		// 2
+			pKHL->WriteLongBE( static_cast< DWORD >( time( NULL ) ) );		// 4
+		}
+
+		pKHL->WritePacket( G2_PACKET_YOURIP, 4 );
+		pKHL->WriteLongLE( pHost->sin_addr.S_un.S_addr );					// 4
+
+		Send( pHost, pKHL, TRUE, 0, FALSE );
+	}
 
 	return TRUE;
 }
@@ -1825,7 +1846,7 @@ BOOL CDatagrams::OnKHLA(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 		&(pHost->sin_addr) , ntohs(pHost->sin_port), CDiscoveryService::dsGnutella2UDPKHL );
 
 	if (	pService == NULL &&
-		(	Network.IsFirewalledAddress( (LPVOID*)&pHost->sin_addr, TRUE ) ||
+		(	Network.IsFirewalledAddress( &pHost->sin_addr, TRUE ) ||
 			Network.IsReserved( &pHost->sin_addr ) ||
 			Security.IsDenied( &pHost->sin_addr ) )
 		)
@@ -1891,11 +1912,17 @@ BOOL CDatagrams::OnKHLA(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 				(IN_ADDR*)&nAddress, nPort, tSeen, strVendor );
 			if ( pCached != NULL )
 				nCount++;
-
 		}
 		else if ( nType == G2_PACKET_TIMESTAMP && nLength >= 4 )
 		{
 			tAdjust = (LONG)tNow - (LONG)pPacket->ReadLongBE();
+		}
+		else if ( nType == G2_PACKET_YOURIP && nLength >= 4 )
+		{
+			IN_ADDR pMyAddress;
+			pMyAddress.s_addr = pPacket->ReadLongLE();
+			if ( Network.m_pHost.sin_addr.s_addr == 0 )
+				Network.AcquireLocalAddress( pMyAddress );
 		}
 
 		pPacket->m_nPosition = nNext;
@@ -1915,7 +1942,8 @@ BOOL CDatagrams::OnKHLR(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 {
 	UNUSED_ALWAYS(pPacket);
 
-	if ( Security.IsDenied( &pHost->sin_addr ) || Network.IsFirewalledAddress( (LPVOID*)&pHost->sin_addr, TRUE ) ||
+	if ( Security.IsDenied( &pHost->sin_addr ) ||
+		Network.IsFirewalledAddress( &pHost->sin_addr, TRUE ) ||
 		Network.IsReserved( &pHost->sin_addr ) )
 	{
 		Statistics.Current.Gnutella2.Dropped++;
@@ -1996,6 +2024,10 @@ BOOL CDatagrams::OnKHLR(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 			}
 		}
 	}
+
+	pKHLA->WritePacket( G2_PACKET_YOURIP, 4 );
+	pKHLA->WriteLongLE( pHost->sin_addr.S_un.S_addr );		// 4
+
 	Send( pHost, pKHLA );
 
 	return TRUE;

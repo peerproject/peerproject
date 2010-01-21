@@ -1,7 +1,7 @@
 //
 // QueryHit.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -249,7 +249,7 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 			}
 		}
 
-		if ( ! nPort || Network.IsFirewalledAddress( &nAddress ) )
+		if ( ! nPort || Network.IsFirewalledAddress( (IN_ADDR*)&nAddress ) )
 		{
 			nFlags[0] |= G1_QHD_PUSH;
 			nFlags[1] |= G1_QHD_PUSH;
@@ -611,7 +611,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 	}
 
 	if ( !bPush )
-		bPush = ( nPort == 0 || Network.IsFirewalledAddress( &nAddress ) );
+		bPush = ( nPort == 0 || Network.IsFirewalledAddress( (IN_ADDR*)&nAddress ) );
 
 	DWORD nIndex = 0;
 	for ( CQueryHit* pHit = pFirstHit ; pHit ; pHit = pHit->m_pNext, nIndex++ )
@@ -912,13 +912,11 @@ BOOL CQueryHit::HasBogusMetadata()
 CXMLElement* CQueryHit::ReadXML(CG1Packet* pPacket, int nSize)
 {
 	if ( nSize < 2 )
-		// Empty packet
-		return NULL;
+		return NULL;	// Empty packet
 
 	auto_array< BYTE > pRaw( new BYTE[ nSize ] );
 	if ( ! pRaw.get() )
-		// Out of memory
-		return NULL;
+		return NULL;	// Out of memory
 
 	pPacket->Read( pRaw.get(), nSize );
 
@@ -1867,7 +1865,7 @@ void CQueryHit::ReadEDAddress(CEDPacket* pPacket, SOCKADDR_IN* pServer)
 		m_bPush = TRI_UNKNOWN;
 	}
 	else if ( CEDPacket::IsLowID( nAddress ) ||
-		Network.IsFirewalledAddress( &nAddress ) || ! m_nPort )
+		Network.IsFirewalledAddress( (IN_ADDR*)&nAddress ) || ! m_nPort )
 	{
 		m_bPush = TRI_TRUE;
 	}

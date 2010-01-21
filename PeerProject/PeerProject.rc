@@ -88,7 +88,7 @@ BEGIN
     		VALUE "CompanyName", "PeerProject Development Team"
     		VALUE "FileDescription", "PeerProject P2P"
     		VALUE "FileVersion", "1.0.0.0"
-    		VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2009"
+    		VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2010"
     		VALUE "OriginalFilename", "PeerProject.exe"
     		VALUE "InternalName", "PeerProject"
     		VALUE "ProductName", "PeerProject"

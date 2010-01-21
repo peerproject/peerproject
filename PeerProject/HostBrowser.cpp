@@ -1,7 +1,7 @@
 //
 // HostBrowser.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -107,9 +107,7 @@ BOOL CHostBrowser::Browse()
 		{
 			// Send browse request
 			if ( CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_ASKSHAREDDIRS ) )
-			{
 				pClient->Send( pPacket );
-			}
 		}
 		else if ( ! pClient || ! pClient->Connect() )
 		{
@@ -175,9 +173,9 @@ void CHostBrowser::Stop(BOOL bCompleted)
 	m_nState	= hbsNull;
 	m_tPushed	= 0;
 
-	// ED2K connections aren't handled here- they are in ED2KClient
 	if ( m_nProtocol != PROTOCOL_ED2K )
 	{
+		// ED2K connections aren't handled here- they are in ED2KClient
 		CTransfer::Close();
 	}
 
@@ -360,12 +358,9 @@ BOOL CHostBrowser::SendPush(BOOL bMessage)
 BOOL CHostBrowser::OnPush(const Hashes::Guid& oClientID, CConnection* pConnection)
 {
 	// ED2K connections aren't handled here- they are in ED2KClient
-	if ( m_nProtocol == PROTOCOL_ED2K ) return FALSE;
-
-	if ( m_tPushed == 0 ) return FALSE;
-	if ( IsValid() ) return FALSE;
-
-	if ( !validAndEqual( m_oClientID, oClientID ) ) return FALSE;
+	if ( m_nProtocol == PROTOCOL_ED2K || m_tPushed == 0 ) return FALSE;
+	if ( IsValid() || ! pConnection->IsValid() ) return FALSE;
+	if ( ! validAndEqual( m_oClientID, oClientID ) ) return FALSE;
 
 	AttachTo( pConnection );
 
@@ -837,14 +832,10 @@ BOOL CHostBrowser::StreamHTML()
 			int nPosName = strLine.Find( _T(">") );
 
 			if ( nPosName >= 0 )
-			{
 				strName = strLine.Mid( nPosName + 1 ).SpanExcluding( _T("<>") );
-			}
 
 			if ( strName.IsEmpty() && ( nPosName = strURI.ReverseFind( '/' ) ) > 0 )
-			{
 				strName = URLDecode( strURI.Mid( nPosName + 1 ) );
-			}
 
 			CQueryHit* pHit = new CQueryHit( PROTOCOL_NULL );
 
@@ -858,7 +849,8 @@ BOOL CHostBrowser::StreamHTML()
 			pHit->m_sName		= strName;
 			pHit->m_sURL		= strURI;
 
-			if ( m_bCanPush ) pHit->m_oClientID = m_oClientID;
+			if ( m_bCanPush )
+				pHit->m_oClientID = m_oClientID;
 
 			pHit->Resolve();
 
@@ -870,9 +862,7 @@ BOOL CHostBrowser::StreamHTML()
 	}
 
 	if ( pHits != NULL )
-	{
 		OnQueryHits( pHits );
-	}
 
 	return TRUE;
 }

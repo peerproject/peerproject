@@ -1,7 +1,7 @@
 //
 // Player.cpp : Implementation of CPlayer
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2009
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -285,6 +285,18 @@ STDMETHODIMP CPlayer::SetAspect(
 //	return E_FAIL;
 //}
 
+HRESULT SafeRenderFile(IGraphBuilder* pGraph, BSTR sFilename) throw()
+{
+	__try
+	{
+		return pGraph->RenderFile( sFilename, NULL );
+	}
+	_except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		return E_FAIL;
+	}
+}
+
 STDMETHODIMP CPlayer::Open(
 	/* [in] */ BSTR sFilename)
 {
@@ -297,7 +309,7 @@ STDMETHODIMP CPlayer::Open(
 	if ( ! m_pGraph )
 		return E_INVALIDARG;
 
-	hr = m_pGraph->RenderFile( sFilename, NULL );
+	hr = SafeRenderFile( m_pGraph, sFilename );
 	if ( FAILED( hr ) )
 		return hr;
 
