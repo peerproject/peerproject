@@ -1,7 +1,7 @@
 //
 // Network.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -282,7 +282,7 @@ BOOL CNetwork::ConnectTo(LPCTSTR pszAddress, int nPort, PROTOCOLID nProtocol, BO
 //////////////////////////////////////////////////////////////////////
 // CNetwork local IP acquisition and sending
 
-void CNetwork::AcquireLocalAddress(LPCTSTR pszHeader)
+BOOL CNetwork::AcquireLocalAddress(LPCTSTR pszHeader)
 {
 	int nIPb1, nIPb2, nIPb3, nIPb4;
 
@@ -291,7 +291,7 @@ void CNetwork::AcquireLocalAddress(LPCTSTR pszHeader)
 		nIPb2 < 0 || nIPb2 > 255 ||
 		nIPb3 < 0 || nIPb3 > 255 ||
 		nIPb4 < 0 || nIPb4 > 255 )
-		return;
+		return FALSE;
 
 	IN_ADDR pAddress;
 
@@ -300,13 +300,21 @@ void CNetwork::AcquireLocalAddress(LPCTSTR pszHeader)
 	pAddress.S_un.S_un_b.s_b3 = (BYTE)nIPb3;
 	pAddress.S_un.S_un_b.s_b4 = (BYTE)nIPb4;
 
-	if ( IsFirewalledAddress( &pAddress ) ) return;
+	return AcquireLocalAddress( pAddress );
+}
+
+BOOL CNetwork::AcquireLocalAddress(const IN_ADDR& pAddress)
+{
+	if ( IsFirewalledAddress( &pAddress, TRUE ) )
+		return FALSE;
 
 	// Add new address to address list
 	if ( ! m_pHostAddresses.Find( pAddress.s_addr ) )
 		m_pHostAddresses.AddTail( pAddress.s_addr );
 
 	m_pHost.sin_addr = pAddress;
+
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -393,7 +401,7 @@ BOOL CNetwork::AsyncResolve(LPCTSTR pszAddress, WORD nPort, PROTOCOLID nProtocol
 //////////////////////////////////////////////////////////////////////
 // CNetwork firewalled address checking
 
-BOOL CNetwork::IsFirewalledAddress(LPVOID pAddress, BOOL bIncludeSelf)
+BOOL CNetwork::IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf)
 {
 	if ( ! pAddress ) return TRUE;
 	if ( bIncludeSelf && IsSelfIP( *(IN_ADDR*)pAddress ) ) return TRUE;
@@ -401,12 +409,14 @@ BOOL CNetwork::IsFirewalledAddress(LPVOID pAddress, BOOL bIncludeSelf)
 #ifdef LAN_MODE
 	if ( ( *(DWORD*)pAddress & 0xFFFF ) == 0xA8C0 ) return FALSE;	// 192.168.0.0/16
 	if ( ( *(DWORD*)pAddress & 0xF0FF ) == 0x10AC ) return FALSE;	// 172.16.0.0/12
+	if ( ( *(DWORD*)pAddress & 0xFFFF ) == 0xFEA9 ) return FALSE;	// 169.254.0.0/16
 	if ( ( *(DWORD*)pAddress & 0xFF ) == 0x0A ) return FALSE;		// 10.0.0.0/8
 	return TRUE;
 #else // No LAN_MODE
 	if ( ! Settings.Connection.IgnoreLocalIP ) return FALSE;
 	if ( ( *(DWORD*)pAddress & 0xFFFF ) == 0xA8C0 ) return TRUE;	// 192.168.0.0/16
 	if ( ( *(DWORD*)pAddress & 0xF0FF ) == 0x10AC ) return TRUE;	// 172.16.0.0/12
+	if ( ( *(DWORD*)pAddress & 0xFFFF ) == 0xFEA9 ) return TRUE;	// 169.254.0.0/16
 	if ( ( *(DWORD*)pAddress & 0xFF ) == 0x0A ) return TRUE;		// 10.0.0.0/8
 	if ( ( *(DWORD*)pAddress & 0xFF ) == 0x7F ) return TRUE;		// 127.0.0.0/8
 	return FALSE;

@@ -1,7 +1,7 @@
 //
 // WndDownloads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -62,7 +62,7 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-#define GROUPSBAR	24	// ToDo: Make Download Groups Bar skinnable?
+#define GROUPSBAR	24	// ToDo: Make Download Groups height skinnable?
 
 
 IMPLEMENT_SERIAL(CDownloadsWnd, CPanelWnd, 0)

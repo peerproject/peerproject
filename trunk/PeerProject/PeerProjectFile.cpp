@@ -1,7 +1,7 @@
 //
 // PeerProjectFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -187,7 +187,7 @@ bool CPeerProjectFile::SplitStringToURLs(LPCTSTR pszURLs, CMapStringToFILETIME& 
 			_stscanf( strURL.Mid( nPos + 1 ), _T("%i"), &nPort );
 			DWORD nAddress = inet_addr( CT2CA( strURL.Left( nPos ) ) );
 			if ( nPort > 0 && nPort <= USHRT_MAX && nAddress != INADDR_NONE &&
-				! Network.IsFirewalledAddress( &nAddress, TRUE ) &&
+				! Network.IsFirewalledAddress( (IN_ADDR*)&nAddress, TRUE ) &&
 				! Network.IsReserved( (IN_ADDR*)&nAddress ) )
 			{
 				strURL = GetURL( *(IN_ADDR*)&nAddress, static_cast< WORD >( nPort ) );

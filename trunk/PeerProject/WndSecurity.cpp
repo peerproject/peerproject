@@ -1,7 +1,7 @@
 //
 // WndSecurity.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -373,9 +373,7 @@ void CSecurityWnd::OnSecurityRemove()
 		CQuickLock oLock( Security.m_pSection );
 
 		if ( CSecureRule* pRule = GetItem( nItem ) )
-		{
 			Security.Remove( pRule );
-		}
 	}
 
 	Security.Save();
@@ -523,21 +521,16 @@ void CSecurityWnd::OnSecurityImport()
 	CWaitCursor pCursor;
 
 	if ( Security.Import( dlg.GetPathName() ) )
-	{
 		Security.Save();
-	}
 	else
-	{
-		// ToDo: Error message, unable to import rules
-		AfxMessageBox( _T("Error") );
-	}
+		AfxMessageBox( _T("Error") );	// ToDo: Error message, unable to import rules
 }
 
 void CSecurityWnd::OnSkinChange()
 {
 	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
-	Settings.LoadList( _T("CSecurityWnd"), &m_wndList, -5 );
+	Settings.LoadList( _T("CSecurityWnd"), &m_wndList, -3 );
 	Skin.CreateToolBar( _T("CSecurityWnd"), &m_wndToolBar );
 
 	m_wndList.SetBkImage( Skin.GetWatermark( _T("CSecurityWnd") ) );

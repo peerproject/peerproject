@@ -1,7 +1,7 @@
 //
 // G2Neighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -58,13 +58,13 @@ static char THIS_FILE[]=__FILE__;
 
 CG2Neighbour::CG2Neighbour(CNeighbour* pBase) :
 	CNeighbour( PROTOCOL_G2, pBase ),
-	m_nLeafCount		( 0 ),
-	m_nLeafLimit		( 0 ),
-	m_bCachedKeys		( FALSE ),
-	m_pGUIDCache		( new CRouteCache() ),
-	m_pHubGroup			( new CHubHorizonGroup() ),
-	m_tLastRun			( 0 ),
-	m_tAdjust			( 0 ),
+	m_nLeafCount			( 0 ),
+	m_nLeafLimit			( 0 ),
+	m_bCachedKeys			( FALSE ),
+	m_pGUIDCache			( new CRouteCache() ),
+	m_pHubGroup				( new CHubHorizonGroup() ),
+	m_tLastRun				( 0 ),
+	m_tAdjust				( 0 ),
 	m_tLastPingIn			( 0 ),
 	m_tLastPingOut			( 0 ),
 	m_nCountPingIn			( 0 ),
@@ -77,21 +77,21 @@ CG2Neighbour::CG2Neighbour(CNeighbour* pBase) :
 	m_tLastRelayedPingOut	( 0 ),
 	m_nCountRelayedPingIn	( 0 ),
 	m_nCountRelayedPingOut	( 0 ),
-	m_tLastKHLIn		( 0 ),
-	m_tLastKHLOut		( 0 ),
-	m_nCountKHLIn		( 0 ),
-	m_nCountKHLOut		( 0 ),
-	m_tLastLNIIn		( 0 ),
-	m_tLastLNIOut		( 0 ),
-	m_nCountLNIIn		( 0 ),
-	m_nCountLNIOut		( 0 ),
-	m_tLastHAWIn		( 0 ),
-	m_tLastHAWOut		( 0 ),
-	m_nCountHAWIn		( 0 ),
-	m_nCountHAWOut		( 0 ),
-	m_nQueryLimiter		( 40 ),
-	m_tQueryTimer		( 0 ),
-	m_bBlacklisted		( FALSE )
+	m_tLastKHLIn			( 0 ),
+	m_tLastKHLOut			( 0 ),
+	m_nCountKHLIn			( 0 ),
+	m_nCountKHLOut			( 0 ),
+	m_tLastLNIIn			( 0 ),
+	m_tLastLNIOut			( 0 ),
+	m_nCountLNIIn			( 0 ),
+	m_nCountLNIOut			( 0 ),
+	m_tLastHAWIn			( 0 ),
+	m_tLastHAWOut			( 0 ),
+	m_nCountHAWIn			( 0 ),
+	m_nCountHAWOut			( 0 ),
+	m_nQueryLimiter			( 40 ),
+	m_tQueryTimer			( 0 ),
+	m_bBlacklisted			( FALSE )
 {
 	theApp.Message( MSG_INFO, IDS_HANDSHAKE_ONLINE_G2, (LPCTSTR)m_sAddress,
 		m_sUserAgent.IsEmpty() ? _T("Unknown") : (LPCTSTR)m_sUserAgent );
@@ -186,22 +186,16 @@ BOOL CG2Neighbour::OnRun()
 
 	// Is it time to send LNI?
 	if ( tNow - m_tLastLNIOut > Settings.Gnutella2.LNIPeriod )
-	{
 		SendLNI();
-	}
 
 	// Is it time to send KHL?
 	if ( tNow - m_tLastKHLOut > Settings.Gnutella2.KHLPeriod * ( Neighbours.IsG2Leaf() ? 3 : 1 ) )
-	{
 		SendKHL();
-	}
 
 	// Is it time to send HAW?
 	if ( tNow - m_tLastHAWOut > Settings.Gnutella2.HAWPeriod &&
-		m_nNodeType != ntLeaf && ! Neighbours.IsG2Leaf() )
-	{
+			m_nNodeType != ntLeaf && ! Neighbours.IsG2Leaf() )
 		SendHAW();
-	}
 
 	// Update allowed queries based on the node type
 	if ( m_nNodeType == ntLeaf )
@@ -403,8 +397,7 @@ BOOL CG2Neighbour::OnPacket(CG2Packet* pPacket)
 	case G2_PACKET_QUERY:
 		return OnQuery( pPacket );
 	case G2_PACKET_QUERY_WRAP:
-		// G2_PACKET_QUERY_WRAP deprecated and ignored
-		break;
+		break;		// G2_PACKET_QUERY_WRAP deprecated and ignored
 	case G2_PACKET_HIT:
 		return OnCommonHit( pPacket );
 	case G2_PACKET_HIT_WRAP:
@@ -488,7 +481,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 		}
 	}
 	else if ( ! nPort ||
-		 Network.IsFirewalledAddress( &nAddress ) ||
+		 Network.IsFirewalledAddress( (IN_ADDR*)&nAddress ) ||
 		 Network.IsReserved( (IN_ADDR*)&nAddress ) ||
 		 Security.IsDenied( (IN_ADDR*)&nAddress ) )
 	{
@@ -620,9 +613,9 @@ CG2Packet* CG2Neighbour::CreateLNIPacket(CG2Neighbour* pOwner)
 	{
 		CNeighbour* pNeighbour = Neighbours.GetNext( pos );
 
-		if (	pNeighbour != pOwner &&
-				pNeighbour->m_nState == nrsConnected &&
-				pNeighbour->m_nNodeType == ntLeaf )
+		if ( pNeighbour != pOwner &&
+			pNeighbour->m_nState == nrsConnected &&
+			pNeighbour->m_nNodeType == ntLeaf )
 		{
 			nMyFiles += pNeighbour->m_nFileCount;
 			nMyVolume += pNeighbour->m_nFileVolume;
@@ -748,34 +741,22 @@ void CG2Neighbour::SendKHL()
 	m_nCountKHLOut ++;
 }
 
-CG2Packet* CG2Neighbour::CreateKHLPacket(CG2Neighbour* pOwner, BOOL nIncludeSelf)
+CG2Packet* CG2Neighbour::CreateKHLPacket(CG2Neighbour* pOwner)
 {
 	CG2Packet* pPacket = CG2Packet::New( G2_PACKET_KHL, TRUE );
 	int nCount = Settings.Gnutella2.KHLHubCount;
 	DWORD tNow = static_cast< DWORD >( time( NULL ) );
-	BOOL bIsHub = ( ! Neighbours.IsG2Leaf() ) && ( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable() );
-
-	if ( nIncludeSelf && bIsHub )
-	{
-		// For DIS reply
-		pPacket->WritePacket( G2_PACKET_CACHED_HUB, 18, TRUE );			// 4
-		pPacket->WritePacket( G2_PACKET_VENDOR, 4 );					// 3
-		pPacket->WriteString( VENDOR_CODE );							// 5
-		pPacket->WriteLongLE( Network.m_pHost.sin_addr.S_un.S_addr );	// 4
-		pPacket->WriteShortBE( htons( Network.m_pHost.sin_port ) );		// 2
-		pPacket->WriteLongBE( tNow );									// 4
-		nCount--;
-	}
+	//BOOL bIsHub = ( ! Neighbours.IsG2Leaf() ) && ( Neighbours.IsG2Hub() || Neighbours.IsG2HubCapable() );
 
 	for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
 	{
 		CG2Neighbour* pNeighbour = (CG2Neighbour*)Neighbours.GetNext( pos );
 
-		if (	pNeighbour != pOwner &&
-				pNeighbour->m_nProtocol == PROTOCOL_G2 &&
-				pNeighbour->m_nState == nrsConnected &&
-				pNeighbour->m_nNodeType != ntLeaf &&
-				! Network.IsSelfIP( pNeighbour->m_pHost.sin_addr ) )
+		if ( pNeighbour != pOwner &&
+			pNeighbour->m_nProtocol == PROTOCOL_G2 &&
+			pNeighbour->m_nState == nrsConnected &&
+			pNeighbour->m_nNodeType != ntLeaf &&
+			! Network.IsSelfIP( pNeighbour->m_pHost.sin_addr ) )
 		{
 			if ( pNeighbour->m_pVendor && pNeighbour->m_pVendor->m_sCode.GetLength() == 4 )
 			{
@@ -932,7 +913,9 @@ BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, SOCKADDR_IN* pHost)
 							nFileVolume	= pPacket->ReadLongBE();
 						}
 						else
+						{
 							bInvalid = TRUE;
+						}
 
 						pPacket->m_nPosition = nNextX;
 					}
@@ -948,7 +931,7 @@ BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, SOCKADDR_IN* pHost)
 				}
 
 				if ( nPort &&
-					! Network.IsFirewalledAddress( &nAddress, TRUE ) &&
+					! Network.IsFirewalledAddress( (IN_ADDR*)&nAddress, TRUE ) &&
 					! Network.IsReserved( (IN_ADDR*)&nAddress ) &&
 					! Security.IsDenied( (IN_ADDR*)&nAddress ) )
 				{
@@ -973,13 +956,10 @@ BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, SOCKADDR_IN* pHost)
 						}
 					}
 
-					if ( nType == G2_PACKET_NEIGHBOUR_HUB )
+					if ( nType == G2_PACKET_NEIGHBOUR_HUB && pOwner )
 					{
-						if ( pOwner )
-						{
-							if ( pOwner->m_pHubGroup )
-								pOwner->m_pHubGroup->Add( (IN_ADDR*)&nAddress, nPort );
-						}
+						if ( pOwner->m_pHubGroup )
+							pOwner->m_pHubGroup->Add( (IN_ADDR*)&nAddress, nPort );
 					}
 
 					HostCache.Gnutella2.m_nCookie++;
@@ -989,8 +969,17 @@ BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, SOCKADDR_IN* pHost)
 			{
 				tAdjust = (LONG)tNow - (LONG)pPacket->ReadLongBE();
 			}
+			else if ( nType == G2_PACKET_YOURIP && nLength >= 4 )
+			{
+				IN_ADDR pMyAddress;
+				pMyAddress.s_addr = pPacket->ReadLongLE();
+				if ( Network.m_pHost.sin_addr.s_addr == 0 )
+					Network.AcquireLocalAddress( pMyAddress );
+			}
 			else
+			{
 				bInvalid = TRUE;
+			}
 
 			pPacket->m_nPosition = nNext;
 		}
@@ -1025,9 +1014,9 @@ void CG2Neighbour::SendHAW()
 	{
 		CNeighbour* pNeighbour = Neighbours.GetNext( pos );
 
-		if (	pNeighbour != this &&
-				pNeighbour->m_nState == nrsConnected &&
-				pNeighbour->m_nNodeType == ntLeaf )
+		if ( pNeighbour != this &&
+			pNeighbour->m_nState == nrsConnected &&
+			pNeighbour->m_nNodeType == ntLeaf )
 		{
 			nLeafs++;
 		}
@@ -1092,7 +1081,7 @@ BOOL CG2Neighbour::OnHAW(CG2Packet* pPacket)
 	if ( pPacket->GetRemaining() < 2 + 16 ) return TRUE;
 
 	if ( ! nPort ||
-		Network.IsFirewalledAddress( &nAddress, TRUE ) ||
+		Network.IsFirewalledAddress( (IN_ADDR*)&nAddress, TRUE ) ||
 		Network.IsReserved( (IN_ADDR*)&nAddress ) ||
 		Security.IsDenied( (IN_ADDR*)&nAddress ) ) return TRUE;
 
@@ -1292,7 +1281,7 @@ BOOL CG2Neighbour::OnQueryKeyReq(CG2Packet* pPacket)
 	}
 
 	if ( ! nPort ||
-		Network.IsFirewalledAddress( &nAddress, TRUE ) ||
+		Network.IsFirewalledAddress( (IN_ADDR*)&nAddress, TRUE ) ||
 		Network.IsReserved( (IN_ADDR*)&nAddress ) ||
 		Security.IsDenied( (IN_ADDR*)&nAddress ) ) return TRUE;
 
@@ -1408,7 +1397,7 @@ bool CG2Neighbour::OnPush(CG2Packet* pPacket)
 
 	// Check that remote client has a port number, isn't firewalled or using reserved address
 	if ( !nPort
-		|| Network.IsFirewalledAddress( &nAddress )
+		|| Network.IsFirewalledAddress( (IN_ADDR*)&nAddress )
 		|| Network.IsReserved( (IN_ADDR*)&nAddress ) )
 	{
 		// Can't push open connection, ignore packet and return that it was handled

@@ -22,17 +22,17 @@
 #pragma once
 
 #define WINVER			0x0500
-#define _WIN32_WINNT	0x0500
-#define _WIN32_WINDOWS	0x0500
+#define _WIN32_WINNT		0x0500
+#define _WIN32_WINDOWS		0x0500
 #define _WIN32_IE		0x0500
 #define BOOST_USE_WINDOWS_H
 #define VC_EXTRALEAN		// Exclude rarely-used stuff from Windows headers
 
-#include <afxwin.h>         // MFC core and standard components
-#include <afxext.h>         // MFC extensions
-#include <afxcmn.h>			// MFC support for Windows Common Controls
-#include <afxmt.h>			// MFC multithreading
-#include <shlobj.h>			// Shell objects
+#include <afxwin.h>		// MFC core and standard components
+#include <afxext.h>		// MFC extensions
+#include <afxcmn.h>		// MFC support for Windows Common Controls
+#include <afxmt.h>		// MFC multithreading
+#include <shlobj.h>		// Shell objects
 #include <shlwapi.h>
 
 #include <Boost\type_traits\is_same.hpp>
@@ -44,7 +44,9 @@
 
 typedef unsigned __int64 QWORD;
 
-#define BIF_NEWDIALOGSTYLE	0x00000040
-#define OFN_ENABLESIZING	0x00800000
+#define OFN_ENABLESIZING		0x00800000
+#ifndef BIF_NEWDIALOGSTYLE
+	#define BIF_NEWDIALOGSTYLE	0x00000040
+#endif
 
 using namespace augment;

@@ -1,7 +1,7 @@
 //
 // DownloadTransfer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -223,9 +223,10 @@ void CDownloadTransfer::SetState(int nState)
 
 	if ( m_pDownload != NULL )
 	{
-		//Proper sort:
 		if ( Settings.Downloads.SortSources )
 		{
+			//Proper sort:
+
 			static BYTE StateSortOrder[13]={ 13 ,12 ,10 ,4 ,0 ,4 ,1 ,2 ,3 ,12 ,8 ,6 ,9};
 				//dtsNull, dtsConnecting, dtsRequesting, dtsHeaders, dtsDownloading, dtsFlushing,
 				//dtsTiger, dtsHashset, dtsMetadata, dtsBusy, dtsEnqueue, dtsQueued, dtsTorrent
@@ -304,9 +305,7 @@ void CDownloadTransfer::ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, QWORD 
 		}
 
 		if ( Settings.Downloads.ChunkStrap > 0 && m_nDownloaded == 0 )
-		{
 			nChunk = Settings.Downloads.ChunkStrap;
-		}
 	}
 
 	if ( nChunk == 0 || *pnLength <= nChunk ) return;
@@ -325,7 +324,7 @@ void CDownloadTransfer::ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, QWORD 
 		QWORD nCount = *pnLength / nChunk;
 		if ( *pnLength % nChunk ) nCount++;
 		nCount = GetRandomNum( 0ui64, nCount - 1 );
-	//ToDo: Streaming Download and Rarest Piece Selection
+	// ToDo: Streaming Download and Rarest Piece Selection
 	//	nCount = (Settings.Downloads.NoRandomFragments ? 0ui64 : GetRandomNum( 0ui64, nCount - 1 ));
 
 		QWORD nStart = *pnOffset + nChunk * nCount;

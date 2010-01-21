@@ -1,7 +1,7 @@
 //
 // PeerProjectURL.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -66,7 +66,7 @@ CPeerProjectURL::CPeerProjectURL(CBTInfo* pTorrent)
 	m_oED2K		= pTorrent->m_oED2K;
 	m_oTiger	= pTorrent->m_oTiger;
 	m_sName		= pTorrent->m_sName;
-	m_nSize		= pTorrent->m_nSize;
+	m_nSize		= pTorrent->m_nTotalSize;
 	m_bSize		= TRUE;
 }
 
@@ -1170,7 +1170,7 @@ void CPeerProjectURL::Register(BOOL bOnStartup)
 	else
 		UnregisterShellType( _T("Classes"), _T("mp2p") );
 
-	if ( ( ! bOnStartup ) || ( ! Settings.Live.FirstRun ) )
+	if ( ! bOnStartup || ! Settings.Live.FirstRun )
 	{
 		if ( Settings.Web.Torrent )
 		{

@@ -1,7 +1,7 @@
 //
 // G2Neighbour.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -54,7 +54,7 @@ public:
 	BOOL			OnProfileDelivery(CG2Packet* pPacket);
 
 	static CG2Packet* CreateLNIPacket(CG2Neighbour* pOwner = NULL);
-	static CG2Packet* CreateKHLPacket(CG2Neighbour* pOwner = NULL, BOOL nIncludeSelf = FALSE);
+	static CG2Packet* CreateKHLPacket(CG2Neighbour* pOwner = NULL);
 	static BOOL		ParseKHLPacket(CG2Packet* pPacket, SOCKADDR_IN* pHost);
 
 public:

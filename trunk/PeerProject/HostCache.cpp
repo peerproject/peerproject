@@ -1,7 +1,7 @@
 //
 // HostCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -315,7 +315,7 @@ CHostCacheHostPtr CHostCacheList::Add(IN_ADDR* pAddress, WORD nPort, DWORD tSeen
 		return NULL;
 
 	// Don't add own firewalled IPs
-	if ( Network.IsFirewalledAddress( &pAddress->S_un.S_addr, TRUE ) )
+	if ( Network.IsFirewalledAddress( pAddress, TRUE ) )
 		return NULL;
 
 	// check against IANA Reserved address.
