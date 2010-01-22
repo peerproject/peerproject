@@ -4306,7 +4306,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4315,7 +4315,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4324,7 +4324,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4333,7 +4333,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4370,7 +4370,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4379,7 +4379,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4388,7 +4388,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4397,7 +4397,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4514,7 +4514,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4523,7 +4523,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4532,7 +4532,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4541,7 +4541,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4558,7 +4558,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4567,7 +4567,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4576,7 +4576,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4585,7 +4585,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4834,7 +4834,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4843,7 +4843,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4852,7 +4852,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>
@@ -4861,7 +4861,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="gzip -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
+						CommandLine="$(InputDir)gzip.exe -c &quot;$(InputDir)$(InputFileName)&quot; &gt;&quot;$(InputDir)$(InputFileName).gz&quot;&#x0D;&#x0A;"
 						Outputs="$(InputDir)$(InputFileName).gz"
 					/>
 				</FileConfiguration>

@@ -51,7 +51,7 @@ BEGIN
             VALUE "FileDescription", "PeerProject Web Hook"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "WebHook"
-            VALUE "LegalCopyright", "© PeerProject Development Team, 2009"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2009-2010"
             VALUE "OriginalFilename", "WebHook.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"

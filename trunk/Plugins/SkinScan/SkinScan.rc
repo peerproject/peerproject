@@ -48,7 +48,7 @@ BEGIN
             VALUE "FileDescription", "PeerProject Skin Metadata Extractor"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "SkinScan"
-            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2010"
             VALUE "OriginalFilename", "SkinScan.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"

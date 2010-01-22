@@ -120,7 +120,7 @@ BEGIN
             VALUE "FileDescription", "PeerProject Skin Installer"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "SkinInstaller"
-            VALUE "LegalCopyright", "© PeerProject Development Team 2002-2008"
+            VALUE "LegalCopyright", "© PeerProject Development Team 2002-2010"
             VALUE "OriginalFilename", "SkinInstaller.exe"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"
