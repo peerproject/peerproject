@@ -74,7 +74,7 @@ BEGIN
             VALUE "FileDescription", "PeerProject RatDVD Reader Plugin"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "RatDVDReader"
-            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2010"
             VALUE "OriginalFilename", "RatDVDReader.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"

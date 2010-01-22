@@ -86,7 +86,7 @@ BEGIN
             VALUE "FileDescription", "SWF Library Builder & Image Service Plugins"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "SWFPlugin"
-            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2010"
             VALUE "OriginalFilename", "SWFPlugin.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"

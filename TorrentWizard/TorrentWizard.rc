@@ -84,7 +84,7 @@ BEGIN
             VALUE "FileDescription", "PeerProject Torrent Wizard"
             VALUE "FileVersion", "1. 0. 0. 0"
             VALUE "InternalName", "TorrentWizard"
-            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2010"
             VALUE "OriginalFilename", "TorrentWizard.exe"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1. 0. 0. 0"

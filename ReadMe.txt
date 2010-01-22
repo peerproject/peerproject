@@ -5,19 +5,16 @@ ___________________________
 0. This sourcecode package is self-contained.
 
 
-1. Install Microsoft Visual Studio
-	(2008/2010 or Visual C++ Express)
+1. Install Microsoft Visual Studio 2008
+	(Or Visual C++ Express. 2005/2010 available but unsupported.)
 
-2. Install Windows 2008 SDK	(6.1 compiler is required)
+2. Install Windows 2008 SDK	(Win7 SDK is insufficient.)
 	(http://www.microsoft.com/downloads/details.aspx?FamilyID=E6E1C3DF-A74F-4207-8586-711EBE331CDC)
 
 3. Install Inno Setup QuickStart Pack
 	(http://files.jrsoftware.org/ispack/isdl.htm)
 
-4. Make gzip available to Visual Studio
-	(Copy \Repository\gzip.exe to C:\Program Files\<Visual Studio Installation>)
-
-5. Open \VS2008\PeerProject.sln and "Build Solution"
+4. Open \VS2008\PeerProject.sln and "Build Solution"
 	(Expect some tweaking, read the Build Log for trouble shooting.)
 
 

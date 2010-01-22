@@ -86,7 +86,7 @@ BEGIN
             VALUE "FileDescription", "GFL Image Service Plugin"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "GFLImageServices"
-            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2010"
             VALUE "OriginalFilename", "GFLImageServices.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"

@@ -86,7 +86,7 @@ BEGIN
             VALUE "FileDescription", "GFL Library Builder Plugin"
             VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "GFLLibraryBuilder"
-            VALUE "LegalCopyright", "© PeerProject Development Team, 2008"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2010"
             VALUE "OriginalFilename", "GFLLibraryBuilder.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1, 0, 0, 0"
