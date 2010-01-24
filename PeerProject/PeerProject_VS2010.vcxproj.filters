@@ -933,10 +933,10 @@
     <ClCompile Include="QuerySearch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RegExp\regexpr2.cpp">
+    <ClCompile Include="..\Services\RegExp\RegExpr2.cpp">
       <Filter>Source Files\RegExp</Filter>
     </ClCompile>
-    <ClCompile Include="RegExp\syntax2.cpp">
+    <ClCompile Include="..\Services\RegExp\Syntax2.cpp">
       <Filter>Source Files\RegExp</Filter>
     </ClCompile>
     <ClCompile Include="Registry.cpp">
@@ -2474,16 +2474,16 @@
     <ClInclude Include="QuerySearch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RegExp\regexpr2.h">
+    <ClInclude Include="..\Services\RegExp\RegExpr2.h">
       <Filter>Header Files\RegExp</Filter>
     </ClInclude>
-    <ClInclude Include="RegExp\reimpl2.h">
+    <ClInclude Include="..\Services\RegExp\Reimpl2.h">
       <Filter>Header Files\RegExp</Filter>
     </ClInclude>
-    <ClInclude Include="RegExp\restack.h">
+    <ClInclude Include="..\Services\RegExp\Restack.h">
       <Filter>Header Files\RegExp</Filter>
     </ClInclude>
-    <ClInclude Include="RegExp\syntax2.h">
+    <ClInclude Include="..\Services\RegExp\Syntax2.h">
       <Filter>Header Files\RegExp</Filter>
     </ClInclude>
     <ClInclude Include="Registry.h">

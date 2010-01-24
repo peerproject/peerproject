@@ -1,0 +1,8 @@
+Inno Setup 5.3.7 Components
+Copyright Jordan Russell
+Redistributed as per License.txt
+
+http://www.jrsoftware.org/isdl.php
+http://ispp.sourceforge.net
+
+Source: ispack-5.3.7.exe

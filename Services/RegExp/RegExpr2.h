@@ -19,25 +19,21 @@
 //
 //----------------------------------------------------------------------------
 
-#ifndef REGEXPR_H
-#define REGEXPR_H
+#pragma once
 
-#ifdef _MSC_VER
+#pragma warning( push )
+#pragma warning( disable : 4189 4702 4710 4786 )
   // warning C4189: local variable is initialized but not referenced
   // warning C4702: unreachable code
   // warning C4710: function 'blah' not inlined
   // warning C4786: identifier was truncated to '255' characters in the debug information
-# pragma warning( push )
-# pragma warning( disable : 4189 4702 4710 4786 )
-// warning C4061: enumerate 'x' in switch of enum 'y' is not explicitly handled by a case label
-#pragma warning( disable : 4061 )
-// warning C4640: 'x' : construction of local static object is not thread-safe
-#pragma warning( disable : 4640 )
+#pragma warning( disable : 4061 4640 )
+  // warning C4061: enumerate 'x' in switch of enum 'y' is not explicitly handled by a case label
+  // warning C4640: 'x' : construction of local static object is not thread-safe
 
 # define REGEX_SEH_STACK_OVERFLOW 0xC00000FDL
 # include <malloc.h> // for _resetstkoflw
 extern "C" unsigned long __cdecl _exception_code(void);
-#endif	//_MSC_VER
 
 #include <list>
 #include <iosfwd>
@@ -45,8 +41,8 @@ extern "C" unsigned long __cdecl _exception_code(void);
 #include <vector>
 #include <memory>
 #include <cwctype>
-#include "syntax2.h"
-#include "restack.h"
+#include "Syntax2.h"
+#include "Restack.h"
 
 namespace regex
 {
@@ -563,11 +559,8 @@ enum REGEX_MODE
     // MS VC++ has structured exception handling, which makes the
     // consequences of a stack overflow much less severe. Because of this,
     // it is possible to use the "fast" algorithm always on MS platforms,
-#ifdef _MSC_VER
-    MODE_DEFAULT = MODE_FAST
-#else
-    MODE_DEFAULT = MODE_MIXED
-#endif
+
+	MODE_DEFAULT = MODE_FAST
 };
 
 //
@@ -579,7 +572,7 @@ void reset_intrinsic_charsets( CharT ch = CharT( 0 ) );
 
 // This is for implementation details that really belong in the
 // cpp file, but can't go there because of template strangeness.
-#include "reimpl2.h"
+#include "Reimpl2.h"
 
 // --------------------------------------------------------------------------
 //
@@ -1144,12 +1137,7 @@ public:
 };
 
 
-
-#if defined(UNICODE) | defined(_UNICODE)
 typedef wchar_t rechar_t;
-#else
-typedef char    rechar_t;
-#endif
 
 typedef std::basic_string<rechar_t> restring;
 
@@ -1193,12 +1181,10 @@ typedef basic_match_results<lpctstr_t>                match_results_c;
 typedef basic_subst_results<rechar_t>                 subst_results;
 typedef basic_split_results<rechar_t>                 split_results;
 
-#ifdef _MSC_VER
 // These are no longer useful, and will go away in a future release
 // You should be using the version without the _c
 # pragma deprecated( basic_rpattern_c )
 # pragma deprecated( basic_match_results_c )
-#endif
 
 #define STATIC_RPATTERN_EX( type, var, params ) \
     static type const var params;
@@ -1209,9 +1195,7 @@ typedef basic_split_results<rechar_t>                 split_results;
 #define STATIC_RPATTERN_C( var, params ) \
     STATIC_RPATTERN_EX( regex::rpattern_c, var, params )
 
-#ifdef _MSC_VER
 #pragma deprecated(STATIC_RPATTERN_EX)
-#endif
 
 //
 // ostream inserter operator for back-references
@@ -1227,7 +1211,6 @@ inline std::basic_ostream<CharT, TraitsT> & operator<<
 }
 
 } // namespace regex
-
 
 //
 // specializations for std::swap
@@ -1247,8 +1230,4 @@ namespace std
     }
 }
 
-#ifdef _MSC_VER
 #pragma warning( pop )
-#endif
-
-#endif

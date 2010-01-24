@@ -1,7 +1,7 @@
 //
 // DownloadTask.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -365,8 +365,7 @@ void CDownloadTask::RunMerge()
 
 		if ( qwOffset + qwLength <= qwSourceOffset ||
 			 qwSourceOffset + qwSourceLength <= qwOffset )
-			 // No overlapped fragments
-			 continue;
+			 continue;	 // No overlapped fragments
 
 		// Calculate overlapped range end offset
 		QWORD qwEnd = min( qwOffset + qwLength, qwSourceOffset + qwSourceLength );
@@ -399,7 +398,7 @@ void CDownloadTask::RunMerge()
 			}
 			else
 			{
-				// File error or end of file. Not Fatal
+				// File error or end of file. Non-Fatal
 				break;
 			}
 		}
@@ -484,12 +483,14 @@ CString CDownloadTask::SafeFilename(LPCTSTR pszName)
 	LPCTSTR pszExt = _tcsrchr( strName, '.' );
 	if ( pszExt )
 	{
-		if ( _tcsicmp( pszExt, _T(".sd") ) == 0 )
+		if ( _tcsicmp( pszExt, _T(".pd") ) == 0 )
+			strName += _T("x");
+		else if ( _tcsicmp( pszExt, _T(".sd") ) == 0 )
 			strName += _T("x");
 	}
 
 	// Maximum filepath length is:
-	// <Windows limit = 256 - 1> - <length of path to download directory> - <length of hash = 39(tiger)> - <space = 1> - <length of ".sd.sav" = 7>
+	// <Windows limit = 256 - 1> - <length of path to download directory> - <length of hash = 39(tiger)> - <space = 1> - <length of ".pd.sav" = 7>
 	int nMaxFilenameLength = 208 - Settings.Downloads.IncompletePath.GetLength();
 	if ( strName.GetLength() > nMaxFilenameLength )
 	{

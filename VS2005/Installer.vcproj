@@ -110,11 +110,11 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\Setup\Scripts\Main_VS2005.iss"
+			RelativePath="..\Installer\Scripts\Main_VS2005.iss"
 			>
 		</File>
 		<File
-			RelativePath=".\MakeInstaller.bat"
+			RelativePath="MakeInstaller.bat"
 			>
 		</File>
 	</Files>

@@ -1,6 +1,6 @@
 // RegExpDlg.cpp : implementation file
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,7 +22,7 @@
 #include "RegExp.h"
 #include "RegExpDlg.h"
 
-#include "regexpr2.h"
+#include "RegExpr2.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -56,8 +56,8 @@ BOOL CRegExpDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	SetIcon(m_hIcon, TRUE);			// Set big icon
-	SetIcon(m_hIcon, FALSE);		// Set small icon
+	SetIcon(m_hIcon, TRUE);		// Set big icon
+	SetIcon(m_hIcon, FALSE);	// Set small icon
 
 	DoIt();
 
@@ -112,15 +112,26 @@ void CRegExpDlg::DoIt()
 
 	try
 	{
-		regex::rpattern pat( std::wstring( (LPCTSTR)m_strRegExp ), regex::NOCASE );
-		regex::split_results res;
-		size_t nCount = pat.split( std::wstring( (LPCTSTR)m_strInput ), res, 0 );
+		const std::wstring exp( (LPCTSTR)m_strRegExp );
+		const std::wstring input( (LPCTSTR)m_strInput );
+		const regex::rpattern pat( exp, regex::NOCASE, regex::MODE_SAFE );
+
+		regex::match_results res1;
+		regex::rpattern::backref_type matches = pat.match( input, res1 );
+		if ( matches.matched )
+			m_oResult.AddString( _T("Matches.") );
+		else
+			m_oResult.AddString( _T("No matches.") );
+
+		regex::split_results res2;
+		size_t nCount = pat.split( input, res2, 0 );
+
 		if ( nCount )
 		{
+			m_oResult.AddString( _T("Split strings:") );
 			int n = 1;
-			std::vector< std::wstring > str = res.strings();
-			for ( std::vector< std::wstring >::iterator i = str.begin();
-				i != str.end(); ++i, ++n )
+			const std::vector< std::wstring > str = res2.strings();
+			for ( std::vector< std::wstring >::const_iterator i = str.begin(); i != str.end(); ++i, ++n )
 			{
 				CString msg;
 				msg.Format( _T("%d. %s"), n, (*i).c_str() );
@@ -128,11 +139,11 @@ void CRegExpDlg::DoIt()
 			}
 		}
 		else
-			m_oResult.AddString( _T("<No matches>") );
+			m_oResult.AddString( _T("No split strings.") );
 	}
 	catch(...)
 	{
-		m_oResult.AddString( _T("<Exception>") );
+		m_oResult.AddString( _T("Bad regular expression.") );
 	}
 
 	AfxGetApp()->WriteProfileString( _T("RegExp"), _T("Input"), m_strInput );

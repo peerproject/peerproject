@@ -1,7 +1,7 @@
 //
 // MatchObjects.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,12 +19,10 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(MATCHOBJECTS_H)
-#define MATCHOBJECTS_H
-
 #pragma once
 
 #include "PeerProjectFile.h"
+
 
 class CSchema;
 class CSchemaMember;
@@ -197,13 +195,12 @@ public:
 
 	inline DWORD GetFilteredCount()
 	{
-		if ( ( m_pList->m_bFilterDRM && m_bDRM ) ||
+		 return ( ! m_pList || ! m_pBest ||
+			( m_pList->m_bFilterDRM && m_bDRM ) ||
 			( m_pList->m_bFilterSuspicious && m_bSuspicious ) ||
-			( m_nSources < m_pList->m_nFilterSources ) ||
-			( m_pBest == NULL ) ||
-			( m_pList->m_bFilterLocal && GetLibraryStatus() == TRI_FALSE ) ) return 0;
-
-		return m_nFiltered;
+			( m_pList->m_nFilterSources > m_nSources ) ||
+			( m_pList->m_bFilterLocal && GetLibraryStatus() == TRI_FALSE ) ) ?
+			0 : m_nFiltered;
 	}
 
 	inline DWORD GetItemCount()
@@ -222,65 +219,28 @@ public:
 	void		Added(CQueryHit* pHit);
 	void		ClearNew();
 
-	// Access to Hits list first element.
-	// Use with CAUTION. If Hit was changed then certainly call RefreshStatus().
-	CQueryHit*	GetHits() const;
+	CQueryHit*	GetHits() const;			// Access to Hits list first element.  Use with CAUTION, if Hit was changed call RefreshStatus().
+	CQueryHit*	GetBest() const;			// Access to best Hit.  Use with CAUTION, if Hit was changed call RefreshStatus().
+	void		RefreshStatus();			// Refresh file status (name, uri, etc.) in accord with Hits list
+	DWORD		GetBogusHitsCount() const;	// Count bogus status setted Hits
+	DWORD		GetTotalHitsCount() const;	// Count Hits
+	DWORD		GetTotalHitsSpeed() const;	// Sum Hits speeds
+	CSchema*	GetHitsSchema() const;		// Get first available Hits Schema
+	void		SetBogus( BOOL bBogus = TRUE );	// Change Hits bogus status
+	BOOL		ClearSelection();			// Clear selection of file itself and all Hits
+	BOOL		IsValid() const;			// File has hits
+	DWORD		GetBestPartial() const;		// Get partial count of best Hit
+	int			GetBestRating() const;		// Get rating of best Hit
+	IN_ADDR		GetBestAddress() const;		// Get address of best Hit
+	LPCTSTR		GetBestVendorName() const;	// Get vendor name of best Hit
+	LPCTSTR		GetBestCountry() const;		// Get country code of best Hit
+	LPCTSTR		GetBestSchemaURI() const;	// Get schema of best Hit
+	TRISTATE	GetBestMeasured() const;	// Get measured of best Hit
+	BOOL		GetBestBrowseHost() const;	// Get browse host flag of best Hit
 
-	// Access to best Hit.
-	// Use with CAUTION. If Hit was changed then certainly call RefreshStatus().
-	CQueryHit*	GetBest() const;
-
-	// Refresh file status (name, uri, etc.) in accord with Hits list
-	void		RefreshStatus();
-
-	// Count bogus status setted Hits
-	DWORD		GetBogusHitsCount() const;
-
-	// Count Hits
-	DWORD		GetTotalHitsCount() const;
-
-	// Sum Hits speeds
-	DWORD		GetTotalHitsSpeed() const;
-
-	// Get first available Hits Schema
-	CSchema*	GetHitsSchema() const;
-
-	// Change Hits bogus status
-	void		SetBogus( BOOL bBogus = TRUE );
-
-	// Clear selection of file itself and all Hits
-	BOOL		ClearSelection();
-
-	// File has hits
-	BOOL		IsValid() const;
-
-	// Get partial count of best Hit
-	DWORD		GetBestPartial() const;
-
-	// Get rating of best Hit
-	int			GetBestRating() const;
-
-	// Get address of best Hit
-	IN_ADDR		GetBestAddress() const;
-
-	// Get vendor name of best Hit
-	LPCTSTR		GetBestVendorName() const;
-
-	// Get country code of best Hit
-	LPCTSTR		GetBestCountry() const;
-
-	// Get schema of best Hit
-	LPCTSTR		GetBestSchemaURI() const;
-
-	// Get measured of best Hit
-	TRISTATE	GetBestMeasured() const;
-
-	// Get browse host flag of best Hit
-	BOOL		GetBestBrowseHost() const;
-
-	// Is this file known (i.e. exist in Library)?
+	// Is this file known (Exists in Library)?
 	// TRI_UNKNOWN	- Not
-	// TRI_FALSE		- Yes
+	// TRI_FALSE	- Yes
 	// TRI_TRUE		- Yes, Ghost
 	TRISTATE	GetLibraryStatus();
 
@@ -307,6 +267,3 @@ protected:
 protected:
 	TRISTATE	m_bExisting;
 };
-
-
-#endif // !defined(MATCHOBJECTS_H)

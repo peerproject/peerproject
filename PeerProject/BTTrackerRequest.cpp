@@ -47,7 +47,7 @@ CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR ps
 	ASSERT( pDownload->IsTorrent() );
 
 	QWORD nRemaining = pDownload->GetVolumeRemaining();
-	if ( nRemaining == SIZE_UNKNOWN ) nLeft = 0;
+	if ( nRemaining == SIZE_UNKNOWN ) nRemaining = 0;
 
 	// Create basic URL  http://wiki.theory.org/BitTorrentSpecification#Tracker_HTTP.2FHTTPS_Protocol
 	CString strURL, strAddress = pDownload->m_pTorrent.GetTrackerAddress();

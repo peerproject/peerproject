@@ -1,7 +1,7 @@
 //
 // Remote.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -259,7 +259,7 @@ BOOL CRemote::CheckCookie()
 			CString strValue( m_pHeaderValue.GetAt( nHeader ) );
 			ToLower( strValue );
 
-			int nPos = strValue.Find( _T("shareazaremote=") );
+			int nPos = strValue.Find( _T("shareazaremote=") ); // ToDo: Why can't this name be fixed?
 
 			if ( nPos >= 0 )
 			{
@@ -285,7 +285,7 @@ BOOL CRemote::RemoveCookie()
 			CString strValue( m_pHeaderValue.GetAt( nHeader ) );
 			ToLower( strValue );
 
-			int nPos = strValue.Find( _T("shareazaremote=") );
+			int nPos = strValue.Find( _T("shareazaremote=") );	// ToDo: Why can't this name be fixed?
 
 			if ( nPos >= 0 )
 			{
@@ -439,53 +439,29 @@ void CRemote::Output(LPCTSTR pszName)
 void CRemote::PageSwitch(CString& strPath)
 {
 	if ( strPath == _T("/") || strPath == _T("/remote") )
-	{
 		m_sRedirect = _T("/remote/");
-	}
 	else if ( strPath == _T("/remote/") )
-	{
 		PageLogin();
-	}
 	else if ( strPath == _T("/remote/logout") )
-	{
 		PageLogout();
-	}
 	else if ( strPath == _T("/remote/home") )
-	{
 		PageHome();
-	}
 	else if ( strPath == _T("/remote/search") )
-	{
 		PageSearch();
-	}
 	else if ( strPath == _T("/remote/newsearch") )
-	{
 		PageNewSearch();
-	}
 	else if ( strPath == _T("/remote/downloads") )
-	{
 		PageDownloads();
-	}
 	else if ( strPath == _T("/remote/newdownload") )
-	{
 		PageNewDownload();
-	}
 	else if ( strPath == _T("/remote/uploads") )
-	{
 		PageUploads();
-	}
 	else if ( strPath == _T("/remote/network") )
-	{
 		PageNetwork();
-	}
 	else if ( strPath.Find( _T("/remote/resources/") ) == 0 )
-	{
 		PageImage( strPath );
-	}
 	else
-	{
 		PageBanner( strPath );
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -513,7 +489,7 @@ void CRemote::PageLogin()
 	{
 		__int32 nCookie = GetRandomNum( 0i32, _I32_MAX );
 		m_pCookies.AddTail( nCookie );
-		m_sHeader.Format( _T("Set-Cookie: ShareazaRemote=%i; path=/remote\r\n"), nCookie );
+		m_sHeader.Format( _T("Set-Cookie: ShareazaRemote=%i; path=/remote\r\n"), nCookie );	//ToDo: Why can't this name be fixed?
 		m_sRedirect.Format( _T("/remote/home?%i"), GetRandomNum( 0i32, _I32_MAX ) );
 	}
 	else
@@ -529,7 +505,7 @@ void CRemote::PageLogout()
 	// Clear server-side session cookie
 	RemoveCookie();
 	// Clear client-side session cookie
-	m_sHeader.Format( _T("Set-Cookie: ShareazaRemote=0; path=/remote; Max-Age=0\r\n") );
+	m_sHeader.Format( _T("Set-Cookie: ShareazaRemote=0; path=/remote; Max-Age=0\r\n") );	//ToDo: Why can't this name be fixed?
 	m_sRedirect.Format( _T("/remote/") );
 }
 
@@ -934,7 +910,8 @@ void CRemote::PageDownloads()
 			}
 			else if ( str == _T("pause") )
 			{
-				if ( ! pDownload->IsPaused() && ! pDownload->IsMoving() ) pDownload->Pause();
+				if ( ! pDownload->IsPaused() && ! pDownload->IsMoving() )
+					pDownload->Pause();
 			}
 			else if ( str == _T("cancel") )
 			{
@@ -949,9 +926,9 @@ void CRemote::PageDownloads()
 					continue;
 				}
 			}
-			// roo_koo_too improvement
 			else if ( str == _T("more_sources"))
 			{
+				// roo_koo_too improvement
 				pDownload->FindMoreSources();
 			}
 			str.Format( _T("%i"), pDownload );
@@ -1071,6 +1048,8 @@ void CRemote::PageDownloads()
 			{
 				CDownloadSource* pSource = pDownload->GetNext( posSource );
 
+				ASSERT( pSource->m_pDownload == pDownload );
+
 				str.Format( _T("%i"), pSource );
 
 				if ( GetKey( _T("modify_id") ) == str )
@@ -1080,13 +1059,21 @@ void CRemote::PageDownloads()
 
 					if ( str == _T("access") )
 					{
-						pDownload->Resume();
-						if ( pSource->m_bPushOnly )
-							pSource->PushRequest();
-						else if ( pSource->m_pTransfer == NULL ) // Only create a new Transfer if there isn't already one
+						// Only create a new Transfer if there isn't already one
+						if ( pSource->m_pTransfer == NULL && pSource->m_nProtocol != PROTOCOL_ED2K )
 						{
-							if ( CDownloadTransfer* pTransfer = pSource->CreateTransfer() )
-								pTransfer->Initiate();
+							if ( pDownload->IsPaused() )
+								pDownload->Resume();	// Workaround duplicate
+
+							pDownload->Resume();
+
+							if ( pSource->m_bPushOnly )
+								pSource->PushRequest();
+							else 
+							{
+								CDownloadTransfer* pTransfer = pSource->CreateTransfer();
+								if ( pTransfer ) pTransfer->Initiate();
+							}
 						}
 					}
 					else if ( str == _T("forget") )
@@ -1153,7 +1140,8 @@ void CRemote::PageNewDownload()
 	if ( CheckCookie() ) return;
 
 	CPeerProjectURL pURI;
-	if ( pURI.Parse( GetKey( _T("uri") ) ) ) Downloads.Add( pURI );
+	if ( pURI.Parse( GetKey( _T("uri") ) ) )
+		Downloads.Add( pURI );
 
 	m_sRedirect = _T("downloads?group_reveal=all");
 }
@@ -1191,7 +1179,8 @@ void CRemote::PageUploads()
 		Prepare();
 		Add( _T("queue_id"), str );
 		Add( _T("queue_caption"), pQueue->m_sName );
-		if ( pQueue->m_bExpanded ) Add( _T("queue_expanded"), _T("true") );
+		if ( pQueue->m_bExpanded )
+			Add( _T("queue_expanded"), _T("true") );
 
 		if ( pQueue != UploadQueues.m_pTorrentQueue && pQueue != UploadQueues.m_pHistoryQueue )
 		{
@@ -1297,9 +1286,7 @@ void CRemote::PageNetwork()
 	if ( nNeighbourID != 0 )
 	{
 		if ( CNeighbour* pNeighbour = Neighbours.Get( nNeighbourID ) )
-		{
 			pNeighbour->Close();
-		}
 	}
 
 	CString str;

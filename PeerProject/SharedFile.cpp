@@ -1,7 +1,7 @@
 //
 // SharedFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -88,7 +88,7 @@ CLibraryFile::CLibraryFile(CLibraryFolder* pFolder, LPCTSTR pszName) :
 ,	m_bCachedPreview	( FALSE )
 ,	m_bBogus			( FALSE )
 ,	m_nRating			( 0 )
-//,	m_nPeerTag			( 0 )
+//,	m_nPeerTag			( 0 )	// ToDo: Implement PeerTag Ratings
 ,	m_nHitsToday		( 0ul )
 ,	m_nHitsTotal		( 0ul )
 ,	m_nUploadsToday		( 0ul )
@@ -406,8 +406,7 @@ void CLibraryFile::UpdateMetadata(const CDownload* pDownload)
 BOOL CLibraryFile::SetMetadata(CXMLElement*& pXML, BOOL bMerge, BOOL bOverwrite)
 {
 	if ( m_pMetadata == NULL && pXML == NULL )
-		// No need
-		return TRUE;
+		return TRUE;	// No need
 
 	CSchema* pSchema = NULL;
 
@@ -742,7 +741,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 
 		//if ( nVersion >= 17 )
 		//{
-			ar >> m_nSize;
+		ar >> m_nSize;
 		//}
 		//else
 		//{
@@ -836,9 +835,9 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 		ar >> m_nHitsTotal;
 		ar >> m_nUploadsTotal;
 		//if ( nVersion >= 14 ) 
-			ar >> m_bCachedPreview;
+		ar >> m_bCachedPreview;
 		//if ( nVersion >= 20 )
-			ar >> m_bBogus;
+		ar >> m_bBogus;
 
 		if ( nVersion >= 2 )
 		{
@@ -1028,16 +1027,16 @@ BOOL CLibraryFile::OnVerifyDownload(
 		if ( (bool)m_oSHA1 && (bool)oSHA1 && oSHA1.isTrusted() )
 			m_bVerify = ( m_oSHA1 == oSHA1 ) ? TRI_TRUE : TRI_FALSE;
 
-		if ( (bool)m_oTiger && (bool)oTiger && oTiger.isTrusted() )
+		if ( m_bVerify != TRI_FALSE && (bool)m_oTiger && (bool)oTiger && oTiger.isTrusted() )
 			m_bVerify = ( m_oTiger == oTiger ) ? TRI_TRUE : TRI_FALSE;
 
-		if ( (bool)m_oED2K && (bool)oED2K && oED2K.isTrusted() )
+		if ( m_bVerify != TRI_FALSE && (bool)m_oED2K && (bool)oED2K && oED2K.isTrusted() )
 			m_bVerify = ( m_oED2K == oED2K ) ? TRI_TRUE : TRI_FALSE;
 
-		if ( (bool)m_oMD5 && (bool)oMD5 && oMD5.isTrusted() )
+		if ( m_bVerify != TRI_FALSE && (bool)m_oMD5 && (bool)oMD5 && oMD5.isTrusted() )
 			m_bVerify = ( m_oMD5 == oMD5 ) ? TRI_TRUE : TRI_FALSE;
 
-		if ( (bool)m_oBTH && (bool)oBTH && oBTH.isTrusted() )
+		if ( m_bVerify != TRI_FALSE && (bool)m_oBTH && (bool)oBTH && oBTH.isTrusted() )
 			m_bVerify = ( m_oBTH == oBTH ) ? TRI_TRUE : TRI_FALSE;
 
 		if ( m_bVerify == TRI_TRUE )
@@ -1235,7 +1234,8 @@ STDMETHODIMP CLibraryFile::XLibraryFile::get_Metadata(ISXMLElement FAR* FAR* ppX
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
 	*ppXML = NULL;
 
-	if ( pThis->m_pSchema == NULL || pThis->m_pMetadata == NULL ) return S_OK;
+	if ( pThis->m_pSchema == NULL || pThis->m_pMetadata == NULL )
+		return S_OK;
 
 	CXMLElement* pXML	= pThis->m_pSchema->Instantiate( TRUE );
 	*ppXML				= (ISXMLElement*)CXMLCOM::Wrap( pXML, IID_ISXMLElement );

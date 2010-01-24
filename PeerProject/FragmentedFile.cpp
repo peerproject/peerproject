@@ -1,7 +1,7 @@
 //
 // FragmentedFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -143,7 +143,7 @@ void CFragmentedFile::Dump(CDumpContext& dc) const
 			<< _T(" \"") << (*i).m_sPath << _T("\"\n");
 }
 
-#endif
+#endif // Debug
 
 //////////////////////////////////////////////////////////////////////
 // CFragmentedFile open
@@ -263,6 +263,11 @@ BOOL CFragmentedFile::Open(const CPeerProjectFile& oSHFile, BOOL bWrite)
 		strSource.Format( _T("%s\\%s.partial"),
 			Settings.Downloads.IncompletePath, sUniqueName );
 	}
+	else if ( GetFileAttributes( oSHFile.m_sPath ) != INVALID_FILE_ATTRIBUTES )
+	{
+		// Use specified file path
+		strSource = oSHFile.m_sPath;
+	}
 	else
 	{
 		// Open existing file from library
@@ -275,6 +280,8 @@ BOOL CFragmentedFile::Open(const CPeerProjectFile& oSHFile, BOOL bWrite)
 			strSource = pFile->GetPath();
 		}
 	}
+
+	ASSERT( lstrcmpi( PathFindExtension( strSource ), _T(".pd") ) != 0 );	// .sd?
 
 	if ( ! Open( strSource, 0, oSHFile.m_nSize, bWrite, oSHFile.m_sName ) )
 	{

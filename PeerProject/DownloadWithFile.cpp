@@ -1,7 +1,7 @@
 //
 // DownloadWithFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -180,7 +180,7 @@ BOOL CDownloadWithFile::OpenFile()
 
 	SetModified();
 
-	CDownload* pThis = static_cast< CDownload* >( this );
+	CDownload* pThis = static_cast< CDownload* >( this );	// ToDo: Fix bad inheritance
 	if ( m_pFile.get() )
 	{
 		ClearFileError();
@@ -267,7 +267,8 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 	if ( ! m_pFile.get() )
 		return ERROR_FILE_NOT_FOUND;
 
-	for( DWORD nIndex = 0; nIndex < m_pFile->GetCount(); ++nIndex )
+	const DWORD nCount = m_pFile->GetCount();
+	for( DWORD nIndex = 0; nIndex < nCount; ++nIndex )
 	{
 		DWORD dwError = m_pFile->Move( nIndex, pszDestination, lpProgressRoutine, lpData );
 
@@ -284,32 +285,39 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 		// Save download every move
 		static_cast< CDownload* >( this )->Save();
 
-		CString sPath = m_pFile->GetPath( nIndex );
+		const CString sPath = m_pFile->GetPath( nIndex );
 
 		MarkFileAsDownload( sPath );
 
 		LibraryBuilder.RequestPriority( sPath );
 
+		// ToDo: Get hashes for all files of download
+		if ( nCount == 1 )
 		{
 			Hashes::Sha1ManagedHash oSHA1( m_oSHA1 );
-			if ( m_bSHA1Trusted )
-				oSHA1.signalTrusted();
+			if ( m_bSHA1Trusted )		oSHA1.signalTrusted();
 			Hashes::TigerManagedHash oTiger( m_oTiger );
-			if ( m_bTigerTrusted )
-				oTiger.signalTrusted();
+			if ( m_bTigerTrusted )		oTiger.signalTrusted();
 			Hashes::Ed2kManagedHash oED2K( m_oED2K );
-			if ( m_bED2KTrusted )
-				oED2K.signalTrusted();
+			if ( m_bED2KTrusted )		oED2K.signalTrusted();
 			Hashes::BtManagedHash oBTH( m_oBTH );
-			if ( m_bBTHTrusted )
-				oBTH.signalTrusted();
+			if ( m_bBTHTrusted )		oBTH.signalTrusted();
 			Hashes::Md5ManagedHash oMD5( m_oMD5 );
-			if ( m_bMD5Trusted )
-				oMD5.signalTrusted();
+			if ( m_bMD5Trusted )		oMD5.signalTrusted();
 			LibraryHistory.Add( sPath, oSHA1, oTiger, oED2K, oBTH, oMD5,
 				GetSourceURLs( NULL, 0, PROTOCOL_NULL, NULL ) );
 		}
+		else // Multifile torrent
+		{
+			Hashes::Sha1ManagedHash		oSHA1;
+			Hashes::TigerManagedHash	oTiger;
+			Hashes::Ed2kManagedHash		oED2K;
+			Hashes::Md5ManagedHash		oMD5;
+			Hashes::BtManagedHash		oBTH;
+			LibraryHistory.Add( sPath, oSHA1, oTiger, oED2K, oBTH, oMD5 );
+		}
 
+		// Early metadata update
 		CQuickLock oLibraryLock( Library.m_pSection );
 		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( sPath ) )
 			pFile->UpdateMetadata( static_cast< CDownload* >( this ) );
@@ -476,8 +484,7 @@ BOOL CDownloadWithFile::GetFragment(CDownloadTransfer* pTransfer)
 	if ( !oPossible.empty() )
 	{
 		Fragments::List::const_iterator pRandom = oPossible.begin()->begin() == 0
-			? oPossible.begin()
-			: oPossible.random_range();
+			? oPossible.begin() : oPossible.random_range();
 		//ToDo: Streaming Download and Rarest Piece Selection
 		//	: (Settings.Downloads.NoRandomFragments ? oPossible.begin() : oPossible.random_range());
 
@@ -583,7 +590,8 @@ BOOL CDownloadWithFile::IsRangeUsefulEnough(CDownloadTransfer* pTransfer, QWORD 
 	DWORD nLength2 = 5 * pTransfer->GetAverageSpeed();
 	if ( nLength2 < nLength )
 	{
-		if ( !pTransfer->m_bRecvBackwards ) nOffset += nLength - nLength2;
+		if ( !pTransfer->m_bRecvBackwards )
+			nOffset += nLength - nLength2;
 		nLength = nLength2;
 	}
 	return GetWantedFragmentList().overlaps( Fragments::Fragment( nOffset, nOffset + nLength ) );
@@ -678,7 +686,7 @@ BOOL CDownloadWithFile::SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength)
 	SetModified();
 	m_tReceived = GetTickCount();
 
-	if ( static_cast< CDownload* >( this )->IsTorrent() )	// Hack: Only do this for BitTorrent
+	if ( static_cast< CDownload* >( this )->IsTorrent() )	// Hack: Only do for BitTorrent.  ToDo: Fix bad inheritance
 	{
 		for ( CDownloadTransfer* pTransfer = GetFirstTransfer() ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
 		{
@@ -732,9 +740,7 @@ BOOL CDownloadWithFile::MakeComplete()
 //	if ( CheckURI( strURI, CSchema::uriAudio ) )
 //	{
 //		if ( _tcsistr( m_sPath, _T(".mp3") ) != NULL )
-//		{
 //			bSuccess |= AppendMetadataID3v1( hFile, pXML );
-//		}
 //	}
 
 //	CloseHandle( hFile );
@@ -751,14 +757,12 @@ BOOL CDownloadWithFile::MakeComplete()
 //	SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
 
 //	if ( !::ReadFile( hFile, &pID3, 3, &nBytes, NULL ) ) return FALSE;
-
 //	if ( memcmp( pID3.szTag, ID3V2_TAG, 3 ) == 0 ) return FALSE;
 
 //	ZeroMemory( &pID3, sizeof(pID3) );
 //	SetFilePointer( hFile, -(int)sizeof(pID3), NULL, FILE_END );
 
 //	if ( !::ReadFile( hFile, &pID3, sizeof(pID3), &nBytes, NULL ) ) return FALSE;
-
 //	if ( memcmp( pID3.szTag, ID3V1_TAG, 3 ) == 0 ) return FALSE;
 
 //	ZeroMemory( &pID3, sizeof(pID3) );
@@ -837,7 +841,7 @@ void CDownloadWithFile::Serialize(CArchive& ar, int nVersion)
 	//		if ( strLocalName.GetLength() )
 	//		{
 	//			if ( m_sPath.GetLength() )
-	//				::MoveFile( m_sPath, strLocalName + _T(".sd") );
+	//				::MoveFile( m_sPath, strLocalName + _T(".sd") );	// Imported .pd?
 	//			m_sPath = strLocalName + _T(".sd");
 	//		}
 	//	}
@@ -855,23 +859,17 @@ void CDownloadWithFile::SerializeFile(CArchive& ar, int nVersion)
 		m_pFile->Serialize( ar, nVersion );
 }
 
-void CDownloadWithFile::SetVerifyStatus(TRISTATE bVerify)
-{
-	m_bVerify = bVerify;
-	SetModified();
-}
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithFile verification handler
 
 BOOL CDownloadWithFile::OnVerify(LPCTSTR pszPath, BOOL bVerified)
 {
-	if ( m_bVerify != TRI_UNKNOWN ) return FALSE;
-	if ( m_pFile.get() ) return FALSE;
-
-	if ( ! m_pFile->FindByPath( pszPath ) ) return FALSE;
+	if ( ! m_pFile.get() || ! m_pFile->FindByPath( pszPath ) )
+		return FALSE;
 
 	m_bVerify = bVerified ? TRI_TRUE : TRI_FALSE;
+
 	SetModified();
 
 	return TRUE;

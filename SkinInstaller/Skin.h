@@ -1,7 +1,7 @@
 //
 // Skin.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 //
 // Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
@@ -10,19 +10,20 @@
 // The Zlib library is Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
 // The Unzip library is Copyright (C) 1998-2003 Gilles Vollant.
 
-#ifndef SKIN_H
-#define SKIN_H
+#pragma once
 
 #include <stddef.h>
 #include <windows.h>
+#include <tchar.h>
+#include <shlwapi.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <commctrl.h>
 #include <unzip.h>
 #include <errno.h>
-#include <tchar.h>
 #include "Resource.h"
 
-#define VERSION         L"1.0.0.0"
+#define VERSION			L"1.0.0.0"
 #define SKIN_MAIN_HWND	L"PeerProjectMainWnd"
 #define SKIN_SKIN_TITLE	L"PeerProject Skin Installer"
 #define SKIN_ADDON_TITLE L"PeerProject Add-on Installer"
@@ -35,11 +36,11 @@ extern TCHAR* szVersion;
 extern TCHAR* szAuthor;
 extern TCHAR* szUpdates;
 extern TCHAR* szXML;
-extern TCHAR prefix[MAX_PATH];
+extern TCHAR skins_dir[MAX_PATH];	// Full path to Skin folder
 
 // Extract.c
 void ExtractSkinFile(LPCTSTR pszFile);
-int GetInstallDirectory();
+void GetInstallDirectory();
 int GetSkinFileCount(LPTSTR pszFile);
 int ValidateSkin(LPTSTR pszFile, HWND hwndDlg);
 int ExtractSkin(LPTSTR pszFile, HWND hwndDlg);
@@ -56,5 +57,3 @@ int MakeDirectory(LPCTSTR newdir);
 
 // Window.c
 INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
-
-#endif

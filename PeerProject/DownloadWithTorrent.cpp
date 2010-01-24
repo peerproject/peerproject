@@ -1,7 +1,7 @@
 //
 // DownloadWithTorrent.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -920,11 +920,11 @@ BOOL CDownloadWithTorrent::SeedTorrent(CString& sErrorMessage)
 
 	GenerateTorrentDownloadID();
 
-	CDownload* pDownload	= static_cast< CDownload* >( this );
-	m_bSeeding	= TRUE;
+	CDownload* pDownload	= static_cast< CDownload* >( this );	// ToDo: Fix bad inheritance
+	pDownload->m_bSeeding	= TRUE;
 	pDownload->m_bComplete	= true;
 	pDownload->m_tCompleted	= GetTickCount();
-	pDownload->SetVerifyStatus( TRI_TRUE );
+	pDownload->m_bVerify	= TRI_TRUE;
 
 	memset( m_pTorrentBlock, TRI_TRUE, m_nTorrentBlock );
 	m_nTorrentSuccess = m_nTorrentBlock;

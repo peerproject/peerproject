@@ -67,7 +67,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="comctl32.lib"
+				AdditionalDependencies="comctl32.lib shlwapi.lib"
 				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
 				GenerateManifest="false"
@@ -148,7 +148,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="comctl32.lib"
+				AdditionalDependencies="comctl32.lib shlwapi.lib"
 				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
 				GenerateManifest="false"
@@ -231,7 +231,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="comctl32.lib"
+				AdditionalDependencies="comctl32.lib shlwapi.lib"
 				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
 				GenerateManifest="false"
@@ -319,7 +319,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="comctl32.lib"
+				AdditionalDependencies="comctl32.lib shlwapi.lib"
 				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames=""
 				GenerateManifest="false"

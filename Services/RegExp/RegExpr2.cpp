@@ -38,7 +38,7 @@
 # define REGEXPR_H_INLINE inline
 #else
 # define REGEXPR_H_INLINE
-# include "regexpr2.h"
+# include "RegExpr2.h"
 #endif
 
 #ifdef REGEX_TO_INCLUDE
@@ -51,22 +51,20 @@
 # define alloca _alloca
 #endif
 
-#ifdef _MSC_VER
 // unlimited inline expansion ( compile with /Ob1 or /Ob2 )
 # pragma inline_recursion( on )
 # pragma inline_depth( 255 )
+# pragma warning( push )
+# pragma warning( disable : 4127 4355 4702 4710 4786 )
 // warning C4127: conditional expression is constant
 // warning C4355: 'this' : used in base member initializer list
 // warning C4702: unreachable code
 // warning C4710: function 'blah' not inlined
 // warning C4786: identifier was truncated to '255' characters in the debug information
-# pragma warning( push )
-# pragma warning( disable : 4127 4355 4702 4710 4786 )
+# pragma warning( disable : 4061 4640 )
 // warning C4061: enumerate 'x' in switch of enum 'y' is not explicitly handled by a case label
-#pragma warning( disable : 4061 )
 // warning C4640: 'x' : construction of local static object is not thread-safe
-#pragma warning( disable : 4640 )
-#endif
+
 
 namespace regex
 {
@@ -84,60 +82,7 @@ namespace
 {
 
 #ifdef __GLIBC__
-struct regex_ctype_t
-{
-    int      m_ctype;
-    wctype_t m_wctype;
-};
-
-#define REGEX_DECL_CTYPE(desc)                                                  \
-    inline regex_ctype_t const & wct_ ## desc()                                 \
-    {                                                                           \
-        static regex_ctype_t const s_wct = { _IS ## desc, regex_wctype(#desc) };\
-        return s_wct;                                                           \
-    }
-
-REGEX_DECL_CTYPE(alnum)
-REGEX_DECL_CTYPE(alpha)
-REGEX_DECL_CTYPE(blank)
-REGEX_DECL_CTYPE(cntrl)
-REGEX_DECL_CTYPE(digit)
-REGEX_DECL_CTYPE(graph)
-REGEX_DECL_CTYPE(lower)
-REGEX_DECL_CTYPE(print)
-REGEX_DECL_CTYPE(punct)
-REGEX_DECL_CTYPE(space)
-REGEX_DECL_CTYPE(upper)
-REGEX_DECL_CTYPE(xdigit)
-regex_ctype_t const wct_zero = { 0,  0 };
-
-inline regex_ctype_t & operator |= ( regex_ctype_t & lhs, regex_ctype_t const & rhs )
-{
-    lhs.m_ctype  |= rhs.m_ctype;
-    lhs.m_wctype |= rhs.m_wctype;
-    return lhs;
-}
-inline regex_ctype_t operator | ( regex_ctype_t lhs, regex_ctype_t const & rhs )
-{
-    return lhs |= rhs;
-}
-inline int REGEX_CDECL regex_isctype( int ch, regex_ctype_t const & desc )
-{
-    return __isctype( ch, desc.m_ctype );
-}
-inline int REGEX_CDECL regex_iswctype( wint_t wc, regex_ctype_t desc )
-{
-    using namespace std;
-    return iswctype( wc, desc.m_wctype );
-}
-inline bool operator == ( regex_ctype_t const & lhs, regex_ctype_t const & rhs )
-{
-    return lhs.m_ctype == rhs.m_ctype && lhs.m_wctype == rhs.m_wctype;
-}
-inline bool operator != ( regex_ctype_t const & lhs, regex_ctype_t const & rhs )
-{
-    return lhs.m_ctype != rhs.m_ctype || lhs.m_wctype != rhs.m_wctype;
-}
+  // Nothing
 #else
 typedef wctype_t regex_ctype_t;
 
@@ -6295,6 +6240,4 @@ instantiator const posix_inst = regex_instantiate( regex_typelist(), posix_type(
 
 } // namespace regex
 
-#ifdef _MSC_VER
 # pragma warning( pop )
-#endif
