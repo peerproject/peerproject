@@ -1383,16 +1383,27 @@ void CDownloadsWnd::OnTransfersConnect()
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
-			if ( pSource->m_bSelected && pSource->m_pTransfer == NULL )
+			ASSERT( pSource->m_pDownload == pDownload );
+
+			// Only create a new Transfer if there isn't already one
+			if ( pSource->m_bSelected && pSource->m_pTransfer == NULL )	//pSource->IsIdle()
 			{
 				if ( pSource->m_nProtocol != PROTOCOL_ED2K )
 				{
+					if ( pDownload->IsPaused() )
+						pDownload->Resume();	// Workaround duplicate
+
 					pSource->m_pDownload->Resume();
 
 					if ( pSource->m_bPushOnly )
+					{
 						pSource->PushRequest();
-					else if ( CDownloadTransfer* pTransfer = pSource->CreateTransfer() )
-						pTransfer->Initiate();
+					}
+					else 
+					{
+						CDownloadTransfer* pTransfer = pSource->CreateTransfer();
+						if ( pTransfer ) pTransfer->Initiate();
+					}
 				}
 			}
 		}

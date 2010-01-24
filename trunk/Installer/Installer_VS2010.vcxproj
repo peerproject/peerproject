@@ -80,25 +80,25 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="Scripts\Main_VS2008.iss">
+    <CustomBuild Include="Scripts\Main_VS2010.iss">
       <FileType>Document</FileType>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Performing Installer Build</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"%ProgramFiles%\Inno Setup 5\ISCC.exe" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"InnoSetup\ISCC.exe" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
 </Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\PeerProject\$(Platform) $(Configuration)\PeerProject.exe;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Scripts\Preprocessed.iss;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Performing Installer Build</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"%ProgramFiles%\Inno Setup 5\ISCC.exe" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"InnoSetup\ISCC.exe" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
 </Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\PeerProject\$(Platform) $(Configuration)\PeerProject.exe;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Scripts\Preprocessed.iss;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Installer Build</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"..\..\Inno Setup\ISCC.exe" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"InnoSetup\ISCC.exe" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
 </Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\PeerProject\$(Platform) $(Configuration)\PeerProject.exe;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Scripts\Preprocessed.iss;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Installer Build</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"..\..\Inno Setup\ISCC.exe" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"InnoSetup\ISCC.exe" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
 </Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\PeerProject\$(Platform) $(Configuration)\PeerProject.exe;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Scripts\Preprocessed.iss;%(Outputs)</Outputs>

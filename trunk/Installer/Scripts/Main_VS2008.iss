@@ -59,10 +59,10 @@ AppModifyPath="{app}\Uninstall\Setup.exe"
 UninstallDisplayIcon={app}\Uninstall\Setup.exe
 UninstallDisplayName={#internal_name} {#version}
 UninstallFilesDir={app}\Uninstall
-SetupIconFile=Setup\Res\Install.ico
+SetupIconFile=Installer\Res\Install.ico
+WizardImageFile=Installer\Res\Sidebar.bmp
+WizardSmallImageFile=Installer\Res\CornerLogo.bmp
 ShowComponentSizes=no
-WizardImageFile=Setup\Res\Sidebar.bmp
-WizardSmallImageFile=Setup\Res\CornerLogo.bmp
 ChangesAssociations=yes
 ChangesEnvironment=yes
 OutputManifestFile=Manifest_{#ConfigurationName}{#PlatformName}.txt
@@ -204,7 +204,7 @@ Source: "Services\BugTrap\dbghelp.dll"; DestDir: "{sys}"; DestName: "dbghelp.dll
 Source: "Data\*.*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.url,GPL*,GeoIP.*"
 
 ; Icons
-Source: "Setup\Res\Uninstall.ico"; DestDir: "{app}\Uninstall"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
+Source: "Installer\Res\Uninstall.ico"; DestDir: "{app}\Uninstall"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
 
 ; Schemas
 Source: "Schemas\*"; DestDir: "{app}\Schemas"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak"
@@ -216,7 +216,7 @@ Source: "Skins\*"; DestDir: "{app}\Skins"; Flags: ignoreversion overwritereadonl
 Source: "Templates\*"; DestDir: "{app}\Templates"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn,*.bak"
 
 ; Languages
-Source: "Languages\*"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: "language"; Excludes: ".svn,*.bak,default-en.*"
+;Source: "Languages\*"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: "language"; Excludes: ".svn,*.bak,default-en.*"
 
 ; Visualizations
 ;Source: "Plugins\MediaVis\*"; DestDir: "{app}\Vis"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn"
@@ -226,8 +226,8 @@ Source: "Languages\*"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion ov
 ;Source: "Repository\Pilo Torrent Tempfile Splitter.exe"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; Licenses
-; Source: "Setup\License\LICENSE-GeoIP.txt"; DestDir: "{app}"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
-Source: "Setup\License\License (GPL 3.0).html"; DestDir: "{app}"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
+; Source: "Installer\License\LICENSE-GeoIP.txt"; DestDir: "{app}"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
+Source: "Installer\License\License (GPL 3.0).html"; DestDir: "{app}"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
 
 ;--== Copy files ==--
 ; Copy skins back from {userappdata}\PeerProject\Skins
@@ -283,7 +283,7 @@ Source: "{srcexe}"; DestDir: "{ini:{param:SETTINGS|},Locations,CompletePath|{reg
 Source: "{srcexe}"; DestDir: "{app}\Uninstall"; DestName: "setup.exe"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension external
 
 ; Copy repair installer
-;Source: "Setup\Builds\repair.exe"; DestDir: "{app}\Uninstall"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension; Check: not WizardSilent
+;Source: "Installer\Builds\repair.exe"; DestDir: "{app}\Uninstall"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension; Check: not WizardSilent
 
 ; Copy default security rules
 Source: "Data\DefaultSecurity.dat"; DestDir: "{userappdata}\PeerProject\Data"; DestName: "Security.dat"; Flags: onlyifdoesntexist uninsremovereadonly sortfilesbyextension; Tasks: multiuser

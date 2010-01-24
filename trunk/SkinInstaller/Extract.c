@@ -1,7 +1,7 @@
 //
 // Extract.c
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 //
 // Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
@@ -13,7 +13,8 @@
 #include "Skin.h"
 
 // EXPORT BEGIN
-void ExtractSkinFile(LPCTSTR szFile) {
+void ExtractSkinFile(LPCTSTR szFile)
+{
 	TCHAR* szRealFile = _wcsdup( szFile );
 	TCHAR* tmp;
 
@@ -33,29 +34,29 @@ void ExtractSkinFile(LPCTSTR szFile) {
 	// free(szRealFile);
 }
 
-int GetInstallDirectory() {
-    // Registry Variables
-	HKEY hKey;
-    DWORD dwBufLen;
-    LONG lRet;
+void GetInstallDirectory()
+{
+	DWORD dwBufLen;
+	DWORD dwType;
+	LSTATUS lRet;
+	TCHAR* tmp;
 
-    // Get the PeerProject install directory from the registry
-    // Check for "Path hack" first @ http://shareazawiki.anenga.com/tiki-index.php?page=FAQ%3AMiscellaneous
-    lRet = RegOpenKeyEx( HKEY_CURRENT_USER,
-           L"Software\\PeerProject\\PeerProject",
-           0, KEY_QUERY_VALUE, &hKey );
-    if( lRet != ERROR_SUCCESS )
-        return 0;
+	// Get the PeerProject install directory from the registry
+	// Check for "Path hack" first @ http://shareazawiki.anenga.com/tiki-index.php?page=FAQ%3AMiscellaneous
+	//lRet = RegOpenKeyEx( HKEY_CURRENT_USER, L"Software\\PeerProject\\PeerProject", 0, KEY_QUERY_VALUE, &hKey );
 
-    dwBufLen=MAX_PATH;
-    lRet = RegQueryValueEx( hKey, L"Path", NULL, NULL,
-           (LPBYTE) prefix, &dwBufLen);
-    if (dwBufLen > MAX_PATH)
-        return 0;
+	dwBufLen=MAX_PATH;
+	lRet = SHGetValue( HKEY_CURRENT_USER, L"Software\\PeerProject\\PeerProject", L"Path",
+		&dwType, (LPBYTE)skins_dir, &dwBufLen );
+	if ( lRet != ERROR_SUCCESS )
+	{
+		GetModuleFileName( NULL, skins_dir, MAX_PATH );
+		tmp = wcsrchr( skins_dir, L'\\' );
+		if ( tmp ) *tmp = 0;
+	}
 
-    RegCloseKey( hKey );
-    wcscat(prefix, L"\\Skins\\");
-    return 1;
+	wcscat( skins_dir, L"\\Skins\\" );
+	SetCurrentDirectory( skins_dir );
 }
 
 int GetSkinFileCount(LPTSTR pszFile)
@@ -124,76 +125,85 @@ int ValidateSkin(LPTSTR pszFile, HWND hwndDlg) {
 	if ( !ufile ) return 0;
 
 	err = unzGetGlobalInfo(ufile, &gi);
-	if (err!=UNZ_OK) return 0;
-	for (i=0;i<gi.number_entry;i++) {
+	if ( err != UNZ_OK ) return 0;
+	for ( i=0; i < gi.number_entry; i++ )
+	{
 		unz_file_info fi;
 		char fn_zip[MAX_PATH];
 		char *p, *filename_withoutpath;
 
-		err = unzGetCurrentFileInfo(ufile, &fi, fn_zip, sizeof(fn_zip), NULL, 0, NULL, 0);
-		if (err!=UNZ_OK) {
+		err = unzGetCurrentFileInfo( ufile, &fi, fn_zip, sizeof(fn_zip), NULL, 0, NULL, 0 );
+		if (err!=UNZ_OK)
+		{
 			unzClose(ufile);
 			return 0;
 		}
-		if (strstr(fn_zip, "../") || strstr(fn_zip, "..\\") || fn_zip[0]=='.') {
+		if ( strstr(fn_zip, "../") || strstr(fn_zip, "..\\") || fn_zip[0]=='.' )
+		{
 			unzClose(ufile);
 			return 0;
 		}
-		// Only allow .xml and .XML (who would say .Xml anyway?)
-		if (strstr(fn_zip, ".xml") || strstr(fn_zip, ".XML") && !xmlFile) {
+		if ( _strcmpi( PathFindExtensionA( fn_zip ), ".xml" ) == 0 && ! xmlFile )
+		{
 			xmlFile = 1;
+
+			buf = (char*)malloc(fi.uncompressed_size+1);
+			err = unzOpenCurrentFile(ufile);
+			if (err!=UNZ_OK) return 0;
+			do
 			{
-				buf = (char*)malloc(fi.uncompressed_size+1);
-				err = unzOpenCurrentFile(ufile);
-				if (err!=UNZ_OK) return 0;
-				do {
-					err = unzReadCurrentFile(ufile, buf, fi.uncompressed_size);
-					if (err<0) {
-						free(buf);
-						unzCloseCurrentFile(ufile);
-						unzClose(ufile);
-						return 0;
-					}
-					else {
-						// Make sure the string is NULL terminated
-						buf[err] = '\0';
+				err = unzReadCurrentFile(ufile, buf, fi.uncompressed_size);
+				if (err<0)
+				{
+					free(buf);
+					unzCloseCurrentFile(ufile);
+					unzClose(ufile);
+					return 0;
+				}
+				else
+				{
+					// Make sure the string is NULL terminated
+					buf[err] = '\0';
 
-						if ((tmp=strstr(buf, "<manifest"))!=NULL) {
-							LoadManifestInfo(tmp);
-						}
-					}
-				} while (err);
-				free(buf);
-				unzCloseCurrentFile(ufile);
-
-				p = filename_withoutpath = fn_zip;
-				while ((*p) != '\0')
-        		{
-            		if (((*p)=='/') || ((*p)=='\\'))
-                	filename_withoutpath = p+1;
-            		p++;
-        		}
-				if ( szXML ) free(szXML);
-				szXML = (TCHAR*)GetUnicodeString(filename_withoutpath);
+					if ((tmp=strstr(buf, "<manifest"))!=NULL)
+						LoadManifestInfo(tmp);
+				}
 			}
+			while (err);
+			free(buf);
+			unzCloseCurrentFile(ufile);
+
+			p = filename_withoutpath = fn_zip;
+			while ( (*p) != '\0' )
+    		{
+        		if ( (*p) == '/' || (*p) == '\\' )
+            	filename_withoutpath = p+1;
+        		p++;
+    		}
+			if ( szXML ) free(szXML);
+			szXML = (TCHAR*)GetUnicodeString(filename_withoutpath);
 		}
-		if ((i+1)<gi.number_entry) {
+		if ( (i+1) < gi.number_entry )
+		{
 			err = unzGoToNextFile(ufile);
-			if (err!=UNZ_OK) {
+			if ( err != UNZ_OK )
+			{
 				unzClose(ufile);
 				return 0;
 			}
 		}
 	}
 	unzClose(ufile);
-	if (!xmlFile) return 0;
+	if ( !xmlFile ) return 0;
 	return 1;
 }
 
-int ExtractSkin(LPTSTR pszFile, HWND hwndDlg) {
+int ExtractSkin(LPTSTR pszFile, HWND hwndDlg)
+{
+	TCHAR prefix[MAX_PATH];         // Full path to installing skin sub-folder inside Skin folder
 	unz_global_info gi;
 	UINT i = 0;
-	int err; /* xmlFile = 0; */
+	int err; // xmlFile = 0;
 	unzFile ufile;
 	DWORD nBytesWritten = 0;
 	HANDLE hFile = INVALID_HANDLE_VALUE;
@@ -225,28 +235,33 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg) {
 
 	free(tmp);
 
-	err = unzGetGlobalInfo(ufile, &gi);
-	if (err!=UNZ_OK) return 0;
+	err = unzGetGlobalInfo( ufile, &gi );
+	if ( err != UNZ_OK ) return 0;
 
-    if (skinType == 1) {
+	wcscpy(prefix, skins_dir );
+    if ( skinType == 1 )
+	{
     	wcscat(prefix, L"Languages\\");
 	}
-    else {
+    else
+	{
         wcscat(prefix, szPath);
         //Create Directory for the new skin
-        if (!MakeDirectory((LPCTSTR)prefix)) {
+        if (!MakeDirectory((LPCTSTR)prefix))
+		{
     		unzClose(ufile);
 			return 0;
 		}
 	}
 
-	for (i=0;i<gi.number_entry;i++) {
+	for ( i=0; i < gi.number_entry; i++ )
+	{
 		err = unzGetCurrentFileInfo(ufile, &fi, fn_zip, sizeof(fn_zip), NULL, 0, NULL, 0);
 
 		zippedName = p = filename_withoutpath = (TCHAR*)GetUnicodeString(fn_zip);
-        while ((*p) != '\0')
+        while ( (*p) != '\0' )
         {
-            if (((*p)=='/') || ((*p)=='\\'))
+            if ( (*p) == '/' || (*p) == '\\' )
                 filename_withoutpath = p+1;
             p++;
         }
@@ -257,49 +272,60 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg) {
 			_snwprintf(pb, sizeof(pb), L"Installing (%s)...", (TCHAR*)filename_withoutpath);
 			SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), pb);
 		}
-		if (err!=UNZ_OK) {
+		if ( err != UNZ_OK )
+		{
 			unzClose(ufile);
 			free(zippedName);
 			return 0;
 		}
 
-        if ((*filename_withoutpath) != '\0') {
-            if (skinType == 1) {
+        if ( (*filename_withoutpath) != '\0' )
+		{
+            if ( skinType == 1 )
+			{
             	wcscpy(fn_fs, (LPCTSTR)prefix);
                 wcscat(fn_fs, filename_withoutpath);
             }
-            else {
+            else
+			{
             	wcscpy(fn_fs, (LPCTSTR)prefix);
                 wcscat(fn_fs, L"\\");
                 wcscat(fn_fs, filename_withoutpath);
             }
 
     		err = unzOpenCurrentFile(ufile);
-			if (err!=UNZ_OK) {
+			if ( err != UNZ_OK )
+			{
 				free(zippedName);
 				return 0;
 			}
 			hFile = CreateFile( fn_fs, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
 				FILE_ATTRIBUTE_NORMAL | FILE_ATTRIBUTE_ARCHIVE, NULL );
 
-			if (!hFile) {
+			if ( hFile == INVALID_HANDLE_VALUE )
+			{
     			unzCloseCurrentFile(ufile);
     			unzClose(ufile);
 				free(zippedName);
     			return 0;
     		}
-    		do {
+
+    		do
+			{
     			err = unzReadCurrentFile(ufile, buf, sizeof(buf));
-    			if ( err < 0 ) {
+    			if ( err < 0 )
+				{
     				unzCloseCurrentFile(ufile);
     				unzClose(ufile);
 					free(zippedName);
 					CloseHandle( hFile );
     				return 0;
     			}
-    			else if ( err > 0 ) {
+    			else if ( err > 0 )
+				{
     				if ( WriteFile( hFile, (LPCVOID)buf, err, &nBytesWritten, NULL ) != TRUE ||
-						err != (int)nBytesWritten ) {
+						err != (int)nBytesWritten )
+					{
     					unzCloseCurrentFile(ufile);
     					unzClose(ufile);
 						free(zippedName);
@@ -311,16 +337,19 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg) {
     	}
     	unzCloseCurrentFile(ufile);
 		CloseHandle( hFile );
+		hFile = INVALID_HANDLE_VALUE;
 
-   		if ((i+1)<gi.number_entry) {
+   		if ( (i+1) < gi.number_entry )
+		{
    			err = unzGoToNextFile(ufile);
-   			if (err!=UNZ_OK) {
+   			if ( err != UNZ_OK )
+			{
    				unzClose(ufile);
 				free(zippedName);
    				return 0;
    			}
-   		}
-        free(zippedName);
+		}
+		free(zippedName);
 	}
 	unzClose(ufile);
 	return 1;

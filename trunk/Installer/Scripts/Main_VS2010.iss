@@ -10,35 +10,26 @@
   #error PreProcessor version 5.2.0.0 or higher is needed for this script
 #endif
 
-; Select file source root
-#ifexist "..\VS2005\" + ConfigurationName + PlatformName + "\PeerProject.exe"
-  #define root "VS2005\" + ConfigurationName + PlatformName
-#endif
-#ifndef root
-  #error You must compile PeerProject and all plugins before compiling Setup
-#endif
-
-; Project definitions
-#define peerproject      "..\" + root + "\PeerProject.exe"
-#define internal_name GetStringFileInfo(peerproject, INTERNAL_NAME);
-#if ConfigurationName == "Debug"
-  #define name internal_name + " Debug Build"
-#else
-  #define name internal_name
-#endif
-#define version       GetFileVersion(peerproject)
+#define internal_name GetStringFileInfo("..\PeerProject\" + ConfigurationName + " " + PlatformName + "\PeerProject.exe", INTERNAL_NAME);
+#define name          internal_name
+#define build         PlatformName + " " + ConfigurationName + " Build"
+#define version       GetFileVersion("..\PeerProject\" + ConfigurationName + " " + PlatformName + "\PeerProject.exe")
 #define Publisher     "PeerProject Development Team"
 #define Description   internal_name + " Filesharing System"
 #define date          GetDateTimeString('yyyy/mm/dd', '-', '')
 
 #if ConfigurationName == "Debug"
-  #define output_name internal_name + "_" + version + "_" + date + "_" + PlatformName + "_" + ConfigurationName
+  #define output_name	internal_name + "_" + version + "_" + date + "_" + ConfigurationName + "_" + PlatformName
 #elif alpha == "Yes"
-  #define output_name internal_name + "_" + version + "_" + date + "_VS2005"
+  #if PlatformName == "x64"
+    #define output_name	internal_name + "_" + version + "_" + date + "_" + PlatformName
+  #else
+    #define output_name	internal_name + "_" + version + "_" + date
+  #endif
 #elif PlatformName == "x64"
-  #define output_name internal_name + "_" + version + "_" + PlatformName
+  #define output_name	internal_name + "_" + version + "_" + PlatformName
 #else
-  #define output_name internal_name + "_" + version
+  #define output_name	internal_name + "_" + version
 #endif
 
 [Setup]
@@ -46,7 +37,7 @@ AppComments={#Description}
 AppId={#internal_name}
 AppName={#name}
 AppVersion={#version}
-AppVerName={#name} {#version}
+AppVerName={#internal_name} {#build} {#version}
 AppMutex={#internal_name},Global\TorrentWizard
 DefaultDirName={ini:{param:SETTINGS|},Locations,Path|{reg:HKLM\SOFTWARE\{#internal_name},|{pf}\{#internal_name}}}
 DirExistsWarning=no
@@ -55,7 +46,7 @@ DefaultGroupName={#internal_name}
   DisableProgramGroupPage=auto
 #endif
 AllowNoIcons=yes
-OutputDir=VS2005\Installer
+OutputDir=VS2010
 OutputBaseFilename={#output_name}
 SolidCompression=yes
 Compression=lzma/max
@@ -68,10 +59,10 @@ AppModifyPath="{app}\Uninstall\Setup.exe"
 UninstallDisplayIcon={app}\Uninstall\Setup.exe
 UninstallDisplayName={#internal_name} {#version}
 UninstallFilesDir={app}\Uninstall
-SetupIconFile=Setup\Res\Install.ico
+SetupIconFile=Installer\Res\Install.ico
+WizardImageFile=Installer\Res\Sidebar.bmp
+WizardSmallImageFile=Installer\Res\CornerLogo.bmp
 ShowComponentSizes=no
-WizardImageFile=Setup\Res\Sidebar.bmp
-WizardSmallImageFile=Setup\Res\CornerLogo.bmp
 ChangesAssociations=yes
 ChangesEnvironment=yes
 OutputManifestFile=Manifest_{#ConfigurationName}{#PlatformName}.txt
@@ -95,32 +86,32 @@ AppSupportURL=http://support.peerproject.org/
 AppUpdatesURL=http://download.peerproject.org/
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"
-Name: "quicklaunch"; Description: "{cm:CreateQuickLaunchIcon}"
+Name: "quicklaunch"; Description: "{cm:CreateQuickLaunchIcon}"; OnlyBelowVersion: 6.1,6.01;
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}";
+Name: "desktopiconwizard"; Description: "{cm:CreateDesktopIconWizard}"; Languages: en en_uk;
 Name: "language"; Description: "{cm:tasks_languages}";
 Name: "multiuser"; Description: "{cm:tasks_multisetup}";
 Name: "upnp"; Description: "{cm:tasks_upnp}"; MinVersion: 0,5.01; Check: CanUserModifyServices;
-;Name: "firewall"; Description: "{cm:tasks_firewall}"; MinVersion: 0,5.01sp2
-Name: "resetdiscoveryhostcache"; Description: "{cm:tasks_resetdiscoveryhostcache}"; Flags: unchecked
+;Name: "firewall"; Description: "{cm:tasks_firewall}"; MinVersion: 0,5.01sp2;
+Name: "resetdiscoveryhostcache"; Description: "{cm:tasks_resetdiscoveryhostcache}"; Check: EnableDeleteOldSetup; Flags: unchecked; 
 #if alpha == "No"
-Name: "deleteoldsetup"; Description: "{cm:tasks_deleteoldsetup}"; Check: EnableDeleteOldSetup
+Name: "deleteoldsetup"; Description: "{cm:tasks_deleteoldsetup}"; Check: EnableDeleteOldSetup;
 #endif
 
 [Files]
 ; Main files
-Source: "{#root}\PeerProject.exe"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-Source: "{#root}\SkinInstaller.exe";     DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-Source: "{#root}\TorrentWizard.exe";     DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "PeerProject\{#ConfigurationName} {#PlatformName}\PeerProject.exe"; 	DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "TorrentWizard\{#ConfigurationName} {#PlatformName}\TorrentWizard.exe";	DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "SkinInstaller\{#ConfigurationName} {#PlatformName}\SkinInstaller.exe";	DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+;Source: "SkinBuilder\{#ConfigurationName} {#PlatformName}\SkinBuilder.exe"; 	DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; Save/Restore scripts
 Source: "Services\SaveSettings.bat"; DestDir: "{app}"; DestName: "SaveSettings.bat"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension skipifsourcedoesntexist
 Source: "Services\RestoreSettings.bat"; DestDir: "{app}"; DestName: "RestoreSettings.bat"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension skipifsourcedoesntexist
 
-;--== Dynamic Link Libraries ==--
-; Main files
-Source: "{#root}\*.dll"; DestDir: "{app}";         Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-
 ; ZLib
+;Source: "Services\zlib\{#ConfigurationName} {#PlatformName}\zlibwapi.dll"; DestDir: "{app}"; DestName: "zlibwapi.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+;Source: "Services\zlib\{#ConfigurationName} {#PlatformName}\zlibwapi.dll"; DestDir: "{app}\Plugins"; DestName: "zlibwapi.dll"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
 #if PlatformName == "Win32"
 Source: "Services\zlibwapi.dll"; DestDir: "{app}";         DestName: "zlibwapi.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 Source: "Services\zlibwapi.dll"; DestDir: "{app}\Plugins"; DestName: "zlibwapi.dll"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
@@ -129,30 +120,80 @@ Source: "Services\zlibwapi-x64.dll"; DestDir: "{app}";         DestName: "zlibwa
 Source: "Services\zlibwapi-x64.dll"; DestDir: "{app}\Plugins"; DestName: "zlibwapi.dll"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
 #endif
 
+; HashLib
+Source: "HashLib\{#ConfigurationName} {#PlatformName}\HashLib.dll"; DestDir: "{app}"; DestName: "HashLib.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+
+; SQLite
+Source: "Services\SQLite\{#ConfigurationName} {#PlatformName}\SQLite.dll"; DestDir: "{app}"; DestName: "SQLite.dll"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+
+; GeoIP
+Source: "Services\GeoIP\{#ConfigurationName} {#PlatformName}\GeoIP.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Data\GeoIP.dat";  DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+
 ; Plugins
-Source: "{#root}\Plugins\*.dll";   DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver; Excludes: "LibGFL*.dll,zlibwapi.dll,Unrar.dll,Unrar64.dll,7zxr.dll"
-Source: "{#root}\Plugins\*.dll";   DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension;           Excludes: "libgfl*.dll,zlibwapi.dll"
-Source: "Plugins\MediaPlayer.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\DocumentReader\{#ConfigurationName} {#PlatformName}\DocumentReader.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-; Don't register WebHook.dll since it will setup PeerProject as download manager
-Source: "Plugins\WebHook.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Plugins\ImageViewer\{#ConfigurationName} {#PlatformName}\ImageViewer.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
+Source: "Services\LibGFL\{#PlatformName}\LibGFL290.dll"; DestDir: "{app}\Plugins";  Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
+Source: "Services\LibGFL\{#PlatformName}\LibGFL290.dll"; DestDir: "{app}";  Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Plugins\GFLImageServices\{#ConfigurationName} {#PlatformName}\GFLImageServices.dll";  DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Plugins\GFLLibraryBuilder\{#ConfigurationName} {#PlatformName}\GFLLibraryBuilder.dll";  DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+
+Source: "Plugins\MediaImageServices\{#ConfigurationName} {#PlatformName}\MediaImageServices.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\MediaLibraryBuilder\{#ConfigurationName} {#PlatformName}\MediaLibraryBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+
+Source: "Plugins\RARBuilder\{#ConfigurationName} {#PlatformName}\RARBuilder.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+#if PlatformName == "Win32"
+Source: "Plugins\RARBuilder\Unrar.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+;Source: "Plugins\RARBuilder\Unrar.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+#elif PlatformName == "x64"
+Source: "Plugins\RARBuilder\Unrar64.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+;Source: "Plugins\RARBuilder\Unrar64.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+#endif
+
+Source: "Plugins\7ZipBuilder\{#ConfigurationName} {#PlatformName}\7ZipBuilder.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+Source: "Plugins\7ZipBuilder\{#ConfigurationName} {#PlatformName}\7zxr.dll";  DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension
+;Source: "Plugins\7ZipBuilder\{#ConfigurationName} {#PlatformName}\7zxr.dll"; DestDir: "{app}";         Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension deleteafterinstall
+
+Source: "Plugins\ZIPBuilder\{#ConfigurationName} {#PlatformName}\ZIPBuilder.dll";  DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+
+Source: "Plugins\RatDVDPlugin\{#ConfigurationName} {#PlatformName}\RatDVDReader.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+
+Source: "Plugins\SkinScan\{#ConfigurationName} {#PlatformName}\SkinScan.dll";  DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+
+Source: "Plugins\SWFPlugin\{#ConfigurationName} {#PlatformName}\SWFPlugin.dll";  DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+
+Source: "Plugins\VirusTotal\{#ConfigurationName} {#PlatformName}\VirusTotal.dll";  DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+
+Source: "Plugins\SearchExport\{#ConfigurationName} {#PlatformName}\SearchExport.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+
+;Source: "Plugins\WindowsThumbnail\{#ConfigurationName} {#PlatformName}\WindowsThumbnail.exe";  DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+
+Source: "Plugins\MediaPlayer\{#ConfigurationName} {#PlatformName}\MediaPlayer.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+
+; Don't register WebHook.dll since it will setup PeerProject as download manager  (ToDo: fix WebHook.dll regserver!)
+#if PlatformName == "x64"
+  Source: "Plugins\WebHook\{#ConfigurationName} {#PlatformName}\WebHook*.dll"; DestDir: "{app}\Plugins"; Flags: noregerror overwritereadonly replacesameversion restartreplace uninsrestartdelete uninsremovereadonly sortfilesbyextension
+#else
+  Source: "Plugins\WebHook.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+#endif
 
 ;--== Debug Databases ==--
 #if ConfigurationName == "Debug"
 
-Source: "{#root}\PeerProject.pdb"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-; ** The next line can be uncommented to include geoip, skin & zlibwapi debug database files
-;Source: "{#root}\*.pdb"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "PeerProject\{#ConfigurationName} {#PlatformName}\PeerProject.pdb"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 ; ** This section can be uncommented to include the debug database files for all the plugins
-;Source: "{#root}\Plugins\*.pdb"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+;Source: "Plugins\*.pdb"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+; ** The next line can be uncommented to include geoip, skin & zlibwapi debug database files
+;Source: "Services\*.pdb"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
-#if PlatformName == "Win32"
-Source: "Services\BugTrap\BugTrapU.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-Source: "Services\BugTrap\dbghelp.dll"; DestDir: "{sys}"; DestName: "dbghelp.dll"; Flags: overwritereadonly restartreplace uninsneveruninstall sortfilesbyextension
-#elif PlatformName == "x64"
+#if PlatformName == "x64"
 Source: "Services\BugTrap\BugTrapU-x64.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 Source: "Services\BugTrap\dbghelp-x64.dll"; DestDir: "{sys}"; DestName: "dbghelp.dll"; Flags: overwritereadonly restartreplace uninsneveruninstall sortfilesbyextension
+#else
+Source: "Services\BugTrap\BugTrapU.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Services\BugTrap\dbghelp.dll"; DestDir: "{sys}"; DestName: "dbghelp.dll"; Flags: overwritereadonly restartreplace uninsneveruninstall sortfilesbyextension
 #endif
 
 #endif
@@ -160,25 +201,22 @@ Source: "Services\BugTrap\dbghelp-x64.dll"; DestDir: "{sys}"; DestName: "dbghelp
 
 ;--== Include Files ==--
 ; Main Data Files
-Source: "Data\*.*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.url,GeoIP.*"
+Source: "Data\*.*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.url,GPL*,GeoIP.*"
 
-; GeoIP
-Source: "Data\GeoIP.dat"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-
-; Icon files
-Source: "Setup\Res\Uninstall.ico"; DestDir: "{app}\Uninstall"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
+; Icons
+Source: "Installer\Res\Uninstall.ico"; DestDir: "{app}\Uninstall"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
 
 ; Schemas
-Source: "Schemas\*"; DestDir: "{app}\Schemas"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"
+Source: "Schemas\*"; DestDir: "{app}\Schemas"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak"
 
 ; Skins
-Source: "Skins\*"; DestDir: "{app}\Skins"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn,.bak"
+Source: "Skins\*"; DestDir: "{app}\Skins"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn,*.bak"
 
 ; Templates
-Source: "Templates\*"; DestDir: "{app}\Templates"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn"
+Source: "Templates\*"; DestDir: "{app}\Templates"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn,*.bak"
 
 ; Languages
-Source: "Languages\*"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: "language"; Excludes: ".svn,*.bak,default-en.*"
+;Source: "Languages\*"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: "language"; Excludes: ".svn,*.bak,default-en.*"
 
 ; Visualizations
 ;Source: "Plugins\MediaVis\*"; DestDir: "{app}\Vis"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn"
@@ -188,8 +226,8 @@ Source: "Languages\*"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion ov
 ;Source: "Repository\Pilo Torrent Tempfile Splitter.exe"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; Licenses
-; Source: "Setup\License\LICENSE-GeoIP.txt"; DestDir: "{app}"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
-Source: "Setup\License\License (GPL 3.0).html"; DestDir: "{app}"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
+; Source: "Installer\License\LICENSE-GeoIP.txt"; DestDir: "{app}"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
+Source: "Installer\License\License (GPL 3.0).html"; DestDir: "{app}"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
 
 ;--== Copy files ==--
 ; Copy skins back from {userappdata}\PeerProject\Skins
@@ -245,7 +283,7 @@ Source: "{srcexe}"; DestDir: "{ini:{param:SETTINGS|},Locations,CompletePath|{reg
 Source: "{srcexe}"; DestDir: "{app}\Uninstall"; DestName: "setup.exe"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension external
 
 ; Copy repair installer
-;Source: "Setup\Builds\repair.exe"; DestDir: "{app}\Uninstall"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension; Check: not WizardSilent
+;Source: "Installer\Builds\Repair.exe"; DestDir: "{app}\Uninstall"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension; Check: not WizardSilent
 
 ; Copy default security rules
 Source: "Data\DefaultSecurity.dat"; DestDir: "{userappdata}\PeerProject\Data"; DestName: "Security.dat"; Flags: onlyifdoesntexist uninsremovereadonly sortfilesbyextension; Tasks: multiuser
@@ -259,6 +297,7 @@ Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_basicmode})"; Filename: "{a
 Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_tabbedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-tabbed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
 Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_windowedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-windowed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
 Name: "{commondesktop}\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: desktopicon
+Name: "{commondesktop}\TorrentWizard"; Filename: "{app}\TorrentWizard.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: desktopiconwizard
 Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: quicklaunch
 
 ; Other icons in user language
@@ -268,12 +307,15 @@ Name: "{group}\{cm:icons_uninstall}"; Filename: "{uninstallexe}"; WorkingDir: "{
 ;Name: "{group}\{cm:icons_downloads}"; Filename: "{ini:{param:SETTINGS|},Locations,CompletePath|{reg:HKCU\Software\PeerProject\PeerProject\Downloads,CompletePath|{app}\Downloads}}"; WorkingDir: "{ini:{param:SETTINGS|},Locations,CompletePath|{reg:HKCU\Software\PeerProject\PeerProject\Downloads,CompletePath|{app}\Downloads}}"; Comment: "{cm:icons_downloads}"; Tasks: not multiuser; Check: not WizardNoIcons
 
 [Messages]
-; Overwrite standard ISL entries
-; DO NOT use for localized messages
-BeveledLabel=PeerProject Development Team
+; Overwrite standard ISL entries  (Do not use localized messages)
+BeveledLabel=PeerProject.org
 SetupAppTitle=Setup | {#internal_name}
 
 [Run]
+; Register EXE servers
+;Filename: "{app}\MediaImageServices.exe";  Parameters: "/RegServer"; WorkingDir: "{app}"
+;Filename: "{app}\Plugins\WindowsThumbnail.exe";  Parameters: "/RegServer"; WorkingDir: "{app}"
+
 ; Run the skin installer at end of installation
 Filename: "{app}\SkinInstaller.exe"; Parameters: "/installsilent"; WorkingDir: "{app}"; StatusMsg: "{cm:run_skinexe}"
 ; Run PeerProject at end of installation
@@ -296,10 +338,10 @@ Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\PeerPro
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\PeerProject.exe"; ValueType: string; ValueName: "Path"; ValueData: "{app}"; Flags: uninsdeletekey deletevalue
 
 ; Install chat notify sound
-Root: HKCU; Subkey: "AppEvents\EventLabels\RAZA_IncomingChat"; ValueType: string; ValueName: ; ValueData: "{cm:reg_incomingchat}"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "AppEvents\EventLabels\Sound_IncomingChat"; ValueType: string; ValueName: ; ValueData: "{cm:reg_incomingchat}"; Flags: uninsdeletekey
 Root: HKCU; Subkey: "AppEvents\Schemes\Apps\PeerProject"; ValueType: string; ValueName: ; ValueData: "{cm:reg_apptitle}"; Flags: uninsdeletekey
-Root: HKCU; Subkey: "AppEvents\Schemes\Apps\PeerProject\RAZA_IncomingChat\.current"; ValueType: string; ValueName: ; ValueData: "%SystemRoot%\Media\notify.wav"; Flags: uninsdeletekey
-Root: HKCU; Subkey: "AppEvents\Schemes\Apps\PeerProject\RAZA_IncomingChat\.default"; ValueType: string; ValueName: ; ValueData: "%SystemRoot%\Media\notify.wav"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "AppEvents\Schemes\Apps\PeerProject\Sound_IncomingChat\.current"; ValueType: string; ValueName: ; ValueData: "%SystemRoot%\Media\notify.wav"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "AppEvents\Schemes\Apps\PeerProject\Sound_IncomingChat\.default"; ValueType: string; ValueName: ; ValueData: "%SystemRoot%\Media\notify.wav"; Flags: uninsdeletekey
 
 ; Set UPNP as choosed during the setup
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Connection"; ValueType: dword; ValueName: "EnableUPnP"; ValueData: 1; Flags: deletevalue; Tasks: upnp
@@ -413,6 +455,8 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: st
 ; Disable extensions for plugins which make trouble
 ; Since it is image services plugin we need to add extensions required for the first run
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; ValueType: string; ValueName: "{{C9314782-CB91-40B8-B375-F631FF30C1C8}"; ValueData: "|-.pdf||.bmp||.png||.jpg|"; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; Flags: dontcreatekey uninsdeletekey
+
 
 [Dirs]
 ; Make complete, incomplete, torrent and collection dir
@@ -439,17 +483,13 @@ Type: files; Name: "{app}\vc2.dll"
 
 ; Clean up old files from PeerProject
 Type: files; Name: "{app}\*.pdb"
-Type: files; Name: "{app}\zlib.dll"
-Type: files; Name: "{app}\libgfl*.dll"
-Type: filesandordirs; Name: "{app}\Plugins"
-Type: files; Name: "{app}\GPL-License.txt"
-Type: files; Name: "{app}\uninstall.exe"
-Type: files; Name: "{app}\Uninstall\repair.exe"
+Type: files; Name: "{app}\LibGFL*.dll"
+Type: files; Name: "{app}\Plugins\*.pdb"
 Type: files; Name: "{app}\*.dat"
 Type: files; Name: "{app}\*.xml"
-Type: files; Name: "{app}\*.png"
-Type: files; Name: "{app}\*.bmp"
-Type: files; Name: "{app}\Data\*.url"
+;Type: files; Name: "{app}\*.png"
+;Type: files; Name: "{app}\*.bmp"
+;Type: files; Name: "{app}\Data\*.url"
 Type: filesandordirs; Name: "{userappdata}\PeerProject\Remote"
 Type: filesandordirs; Name: "{userappdata}\PeerProject\Schemas"
 Type: filesandordirs; Name: "{userappdata}\PeerProject\Skins"
@@ -457,15 +497,17 @@ Type: files; Name: "{reg:HKCU\Software\PeerProject\PeerProject\Downloads,Complet
 Type: files; Name: "{reg:HKCU\Software\PeerProject\PeerProject\Downloads,CompletePath|{app}\Downloads}\Thumbs.db"
 Type: files; Name: "{userappdata}\PeerProject\Data\DefaultAvatar.png"
 
-; Clean up old PeerProject Shortcuts
+; Clean up old/unwanted PeerProject Shortcuts
 Type: files; Name: "{userdesktop}\PeerProject.lnk"; Tasks: not desktopicon
 Type: files; Name: "{commondesktop}\PeerProject.lnk"; Tasks: not desktopicon
-Type: files; Name: "{userdesktop}\Start PeerProject.lnk"; Check: NSISUsed
-Type: files; Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\PeerProject.lnk"; Tasks: not quicklaunch
-Type: filesandordirs; Name: "{userprograms}\PeerProject"; Check: NSISUsed
-Type: filesandordirs; Name: "{commonprograms}\PeerProject"; Check: NSISUsed
+Type: files; Name: "{userdesktop}\TorrentWizard.lnk"; Tasks: not desktopiconwizard
+Type: files; Name: "{commondesktop}\TorrentWizard.lnk"; Tasks: not desktopiconwizard
+;Type: files; Name: "{userdesktop}\Start PeerProject.lnk"; Check: NSISUsed
+;Type: filesandordirs; Name: "{userprograms}\PeerProject"; Check: NSISUsed
+;Type: filesandordirs; Name: "{commonprograms}\PeerProject"; Check: NSISUsed
 Type: filesandordirs; Name: "{userprograms}\PeerProject"; Check: InnoSetupUsed
 Type: filesandordirs; Name: "{commonprograms}\PeerProject"; Check: InnoSetupUsed
+Type: files; Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\PeerProject.lnk"; Tasks: not quicklaunch
 ;Following two lines may delete data not created by PeerProject (Instead)
 ;Type: filesandordirs; Name: "{userprograms}\{reg:HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PeerProject_is1,Inno Setup: Icon Group|{groupname}}"; Check: InnoSetupUsed
 ;Type: filesandordirs; Name: "{commonprograms}\{reg:HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PeerProject_is1,Inno Setup: Icon Group|{groupname}}"; Check: InnoSetupUsed
@@ -593,7 +635,6 @@ Begin
         Result := DirExists(CurrentPath)
     else
         Result := False;
-
 End;
 
 Function OpenServiceManager(): HANDLE;
@@ -715,7 +756,7 @@ Function MalwareCheck(MalwareFile: string): Boolean;
 Begin
   Result := False;
   if FileExists( MalwareFile ) then Begin
-    if MsgBox(ExpandConstant( '{cm:dialog_malwaredetected,' + MalwareFile + '}' ), mbConfirmation, MB_OKCANCEL) = IDOK then begin
+    if MsgBox(ExpandConstant( '{cm:dialog_malwaredetected,' + MalwareFile + '}' ), mbConfirmation, MB_YESNO) = IDYES then begin
       Result := True;
     End;
     MalwareDetected := True;
@@ -730,9 +771,10 @@ Begin
 
   // Malware check
   Result := NOT MalwareCheck( ExpandConstant('{win}\vgraph.dll') );
-;
-  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{win}\PeerProject.exe') ); End;
-  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{sys}\PeerProject.exe') ); End;
+  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{win}\Shareaza*') ); End;
+  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{sys}\Shareaza*') ); End;
+  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{win}\PeerProject*') ); End;
+  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{sys}\PeerProject*') ); End;
   if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{pf}\PeerProject\vc2.dll') ); End;
 End;
 
@@ -938,7 +980,7 @@ Begin
             // change the startup type to manual if it was disabled;
             // we don't need to start it since UPnP Device Host service depends on it;
             // assuming that user didn't modify the dependencies manually.
-            // Note: probably, we could elevate user rights with AdjustTokenPrivileges(?)
+            // Note: we could probably elevate user rights with AdjustTokenPrivileges(?)
             Success := ChangeServiceStartup('SSDPSRV', SERVICE_DEMAND_START);
           end else
             Success := true;

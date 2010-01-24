@@ -1,7 +1,7 @@
 //
 // PeerProjectFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -39,17 +39,16 @@ public:
 	Hashes::Sha1Hash	m_oSHA1;	// SHA1 (Base32)
 	Hashes::TigerHash	m_oTiger;	// TigerTree Root Hash (Base32)
 	Hashes::Ed2kHash	m_oED2K;	// ED2K (MD4, Base16)
-	Hashes::BtHash		m_oBTH;		// BitTorrent Info Hash (Base32)
 	Hashes::Md5Hash		m_oMD5;		// MD5 (Base16)
-	CString				m_sPath;	/* Use:
-									 CPeerProjectURL : Path part of URL
-									 CLibraryFile : Local path without filename
-									 CBTFile      : Relative path inside .torrent
-									 CDownload    : Path of .sd-file
-									 CUploadFile  : Path of requested file
-									*/
+	Hashes::BtHash		m_oBTH;		// BitTorrent Info Hash (Base32)
 	CString				m_sURL;		// Host if any
-
+	CString				m_sPath;	// Usage:
+									// CPeerProjectURL : Path part of URL
+									// CLibraryFile : Local path without filename
+									// CBTFile      : Relative path inside .torrent
+									// CDownload    : Path of .pd file (.sd)
+									// CUploadFile  : Path of requested file
+	
 	// Returns "urn:bitprint:SHA1.TIGER" or "urn:sha1:SHA1" or "urn:tree:tiger/:TIGER"
 	CString GetBitprint() const;
 

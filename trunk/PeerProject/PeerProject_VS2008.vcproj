@@ -2660,11 +2660,11 @@
 				Name="RegExp"
 				>
 				<File
-					RelativePath="RegExp\regexpr2.cpp"
+					RelativePath="..\Services\RegExp\Regexpr2.cpp"
 					>
 				</File>
 				<File
-					RelativePath="RegExp\syntax2.cpp"
+					RelativePath="..\Services\RegExp\Syntax2.cpp"
 					>
 				</File>
 			</Filter>
@@ -4277,19 +4277,19 @@
 				Name="RegExp"
 				>
 				<File
-					RelativePath="RegExp\regexpr2.h"
+					RelativePath="..\Services\RegExp\RegExpr2.h"
 					>
 				</File>
 				<File
-					RelativePath="RegExp\reimpl2.h"
+					RelativePath="..\Services\RegExp\Reimpl2.h"
 					>
 				</File>
 				<File
-					RelativePath="RegExp\restack.h"
+					RelativePath="..\Services\RegExp\Restack.h"
 					>
 				</File>
 				<File
-					RelativePath="RegExp\syntax2.h"
+					RelativePath="..\Services\RegExp\Syntax2.h"
 					>
 				</File>
 			</Filter>

@@ -1,7 +1,7 @@
 //
 // BTInfo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -522,14 +522,14 @@ void CBTInfo::CBTFile::Serialize(CArchive& ar, int nVersion)
 	//	{
 			SerializeIn( ar, m_oED2K, nVersion );
 			SerializeIn( ar, m_oTiger, nVersion );
-			if ( nVersion < 8 )
-			{
-				int nFilePriority;
-				ar >> nFilePriority;
-			}
+			//if ( nVersion < 8 )
+			//{
+			//	int nFilePriority;
+			//	ar >> nFilePriority;
+			//}
 	//	}
 
-		if ( nVersion >= 6 )
+	//	if ( nVersion >= 6 )
 			SerializeIn( ar, m_oMD5, nVersion );
 	}
 }
@@ -590,7 +590,39 @@ BOOL CBTInfo::AddInfoPiece(DWORD nInfoSize, DWORD nInfoPiece, BYTE *pPacketBuffe
 {
 	if (m_pSource.m_nLength == 0 && nInfoPiece == 0)
 	{
-		m_pSource.Add("d4:info", 7);
+		m_pSource.Add( "d", 1 );
+		if ( GetTrackerCount() > 0 )
+		{
+			//Create .torrent file with tracker if needed
+
+			CString sAddress = GetTrackerAddress();
+			if ( sAddress.GetLength() > 0 )
+			{
+				sAddress.Format( _T("8:announce%d:%s" ), sAddress.GetLength(), sAddress );
+				CStringA sAnnounce = UTF8Encode( sAddress );
+				m_pSource.Add( sAnnounce.GetBuffer(), sAnnounce.GetLength() );
+				sAnnounce.ReleaseBuffer();
+			}
+
+			if ( GetTrackerCount() > 1 )
+			{
+				m_pSource.Add( "13:announce-listll", 18 );
+				for ( int i = 0; i < GetTrackerCount(); i++ )
+				{
+					CString sAddress = GetTrackerAddress( i );
+					if ( sAddress.GetLength() > 0 )
+					{
+						sAddress.Format( _T("%d:%s"), sAddress.GetLength(), sAddress );
+						CStringA sAnnounce = UTF8Encode( sAddress );
+						m_pSource.Add( sAnnounce.GetBuffer(), sAnnounce.GetLength() );
+						sAnnounce.ReleaseBuffer();
+					}
+				}
+				m_pSource.Add( "ee", 2 );
+			}
+		}
+
+		m_pSource.Add("d4:info", 6);
 		m_nInfoSize = nInfoSize;
 		m_nInfoStart = m_pSource.m_nLength;
 	}
@@ -643,6 +675,8 @@ BOOL CBTInfo::LoadTorrentTree(CBENode* pRoot)
 {
 	//ASSERT( m_sName.IsEmpty() && m_nSize == SIZE_UNKNOWN );	// Assume empty object
 	ASSERT( !m_pBlockBTH );
+
+	theApp.Message( MSG_DEBUG, _T("[BT] Loading torrent tree: %s"), (LPCTSTR)pRoot->Encode() );
 
 	if ( ! pRoot->IsType( CBENode::beDict ) ) return FALSE;
 
@@ -1457,8 +1491,7 @@ int CBTInfo::AddTracker(const CBTTracker& oTracker)
 {
 	for ( int i = 0; i < (int)m_oTrackers.GetCount(); ++i )
 		if ( m_oTrackers[ i ].m_sAddress == oTracker.m_sAddress )
-			// Already have
-			return i;
+			return i;	// Already have
 
 	return (int)m_oTrackers.Add( oTracker );
 }

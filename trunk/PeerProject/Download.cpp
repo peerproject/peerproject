@@ -1,7 +1,7 @@
 //
 // Download.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -521,29 +521,32 @@ void CDownload::OnTaskComplete(CDownloadTask* pTask)
 
 void CDownload::OnMoved()
 {
-	// We just completed torrent
-	if ( m_nTorrentBlock > 0 && m_nTorrentSuccess >= m_nTorrentBlock )
+	// Just completed download
+	if ( IsTorrent() && IsFullyVerified() )
 	{
-		CloseTorrentUploads();
+		// Set FALSE to prevent sending 'stop' announce to tracker
+		m_bTorrentRequested = FALSE;
+		StopTrying();
+
+		// Send 'completed' announce to tracker
 		SendCompleted();
-		if ( IsTrying() )
-			Downloads.StopTrying( IsTorrent() );
+
+		// This torrent is now seeding
 		m_bSeeding = TRUE;
-		m_tBegan = 0;
-		m_bDownloading	= false;
+		m_bVerify = TRI_TRUE;
 		m_bTorrentStarted = TRUE;
 		m_bTorrentRequested = TRUE;
-		CloseTransfers();
-		StopSearch();
 	}
-	else if ( IsTorrent() ) // Something wrong (?), since we moved the torrent
+	else if ( IsTorrent() )	// Something wrong, since we moved the torrent ?
 	{
-		// Explicitly set the flag to send stop
+		// Explicitly set flag to send stop announce to tracker
 		m_bTorrentRequested = TRUE;
 		StopTrying();
 	}
-	else
+	else	// Not torrent?
+	{
 		StopTrying();
+	}
 
 	ClearSources();
 
@@ -556,7 +559,7 @@ void CDownload::OnMoved()
 	// Download finalized, tracker notified, set flags that we completed
 	m_bComplete		= true;
 	m_tCompleted	= GetTickCount();
-	SetMoving( false );
+	//SetMoving( false );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -627,7 +630,7 @@ BOOL CDownload::Save(BOOL bFlush)
 	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
 
 	if ( m_sPath.IsEmpty() )	// From incomplete folder
-		m_sPath = Settings.Downloads.IncompletePath + _T("\\") + GetFilename() + _T(".sd");
+		m_sPath = Settings.Downloads.IncompletePath + _T("\\") + GetFilename() + _T(".pd");	//.sd
 
 	m_nSaveCookie = m_nCookie;
 	m_tSaved = GetTickCount();
@@ -757,7 +760,7 @@ void CDownload::Serialize(CArchive& ar, int nVersion)
 //	ASSERT( ar.IsLoading() );
 
 //	ar >> m_sPath;
-//	m_sPath += _T(".sd");
+//	m_sPath += _T(".sd");	// .pd?
 //	ar >> m_sName;
 
 //	DWORD nSize;
@@ -794,7 +797,7 @@ void CDownload::ForceComplete()
 {
 	m_bPaused = FALSE;
 	m_bTempPaused = FALSE;
-	SetVerifyStatus( TRI_FALSE );
+	m_bVerify = TRI_FALSE;
 	MakeComplete();
 	StopTrying();
 	Share( FALSE );

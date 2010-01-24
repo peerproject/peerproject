@@ -1,7 +1,7 @@
 //
 // Utils.c
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 //
 // Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
@@ -30,50 +30,55 @@ void LoadManifestInfo(char *buf)
 	pszBuf = (TCHAR*)malloc( nLen * sizeof(TCHAR) );
 	MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)buf, -1, pszBuf, nLen * sizeof(TCHAR) );
 
-	if ((p=(TCHAR*)GetManifestValue(pszBuf, L"type"))!=NULL) {
-		if (!_wcsicmp(p, L"language")) {
+	if ( ( p=(TCHAR*)GetManifestValue(pszBuf, L"type") ) != NULL )
+	{
+		if ( !_wcsicmp(p, L"language") )
 			skinType = 1;
-		}
-		if (!_wcsicmp(p, L"plugin")) {
+		if ( !_wcsicmp(p, L"plugin") )
 			skinType = 2;
-		}
-	//	if (!_wcsicmp(p, L"template")) {
-	//		skinType = 0;
-	//	}
+
+	//	if (!_wcsicmp(p, L"template")) skinType = 0;
 	//	else skinType = 0; //("skin")
 		free(p);
 	}
-	if ((p=(TCHAR*)GetManifestValue(pszBuf, L"name"))!=NULL) {
+	if ( (p=(TCHAR*)GetManifestValue(pszBuf, L"name")) != NULL )
+	{
 		szName = _wcsdup(p);
 		free(p);
 	}
-	if ((p=(TCHAR*)GetManifestValue(pszBuf, L"version"))!=NULL) {
+	if ( (p=(TCHAR*)GetManifestValue(pszBuf, L"version")) != NULL )
+	{
 		szVersion = _wcsdup(p);
 		free(p);
 	}
-	if ((p=(TCHAR*)GetManifestValue(pszBuf, L"author"))!=NULL) {
+	if ( (p=(TCHAR*)GetManifestValue(pszBuf, L"author")) != NULL )
+	{
 		szAuthor = _wcsdup(p);
 		free(p);
 	}
-	if ((p=(TCHAR*)GetManifestValue(pszBuf, L"updatedby"))!=NULL) {
+	if ( (p=(TCHAR*)GetManifestValue(pszBuf, L"updatedby")) != NULL )
+	{
 		szUpdates = _wcsdup(p);
 		free(p);
 	}
 
-	if ((p=(TCHAR*)GetManifestValue(pszBuf, L"path"))!=NULL) {
-		if (wcsstr(p, _T(":")) || wcsstr(p, _T("..\\..\\")) || wcsstr(p, _T("../../")))
+	if ( (p=(TCHAR*)GetManifestValue(pszBuf, L"path")) != NULL )
+	{
+		if ( wcsstr(p, _T(":")) || wcsstr(p, _T("..\\..\\")) || wcsstr(p, _T("../../")) )
 			szPath = szName;
 		else
 			szPath = _wcsdup(p);
 
 		free(p);
 	}
-	else {
+	else
+	{
 		szPath = szName;
 	}
 }
 
-int SetSkinAsDefault() {
+int SetSkinAsDefault()
+{
 	HKEY hkey;
 	TCHAR szXMLNorm[MAX_PATH];
 
@@ -82,34 +87,41 @@ int SetSkinAsDefault() {
 	wcscat(szXMLNorm, L"\\");
 	wcscat(szXMLNorm, (LPCTSTR)szXML);
 
-	if (ERROR_SUCCESS==RegOpenKeyEx(HKEY_CURRENT_USER, L"Software\\PeerProject\\PeerProject\\Skins", 0, KEY_ALL_ACCESS, &hkey)) {
+	if ( ERROR_SUCCESS == RegOpenKeyEx(HKEY_CURRENT_USER, L"Software\\PeerProject\\PeerProject\\Skins", 0, KEY_ALL_ACCESS, &hkey) )
+	{
 		int i = 0, needsKey = 1;
 		TCHAR key[256];
-		DWORD keys = sizeof(key);
+		DWORD keys;
 		DWORD dval;
 
-		for(i=0;; i++) {
-			keys = sizeof(key);
-			if (RegEnumValue(hkey, i, key, &keys, NULL, NULL, NULL, NULL)!=ERROR_SUCCESS) break;
-			if (!_wcsicmp((LPCTSTR)key, (LPCTSTR)szXMLNorm)) {
+		for( i=0;; i++ )
+		{
+			keys = 256;
+			if ( RegEnumValue(hkey, i, key, &keys, NULL, NULL, NULL, NULL) != ERROR_SUCCESS ) break;
+			if ( !_wcsicmp((LPCTSTR)key, (LPCTSTR)szXMLNorm) )
+			{
 				needsKey = 0;
 				dval = 1;
 				RegSetValueEx(hkey,key,0,REG_DWORD,(LPBYTE)&dval,sizeof(DWORD));
 			}
-			else if (wcslen((LPCTSTR)key)) {
-				if (CheckManifestForSkin(key)) {
+			else if ( wcslen((LPCTSTR)key) )
+			{
+				if ( CheckManifestForSkin(key) )
+				{
 					dval = 0;
 					RegSetValueEx(hkey,key,0,REG_DWORD,(LPBYTE)&dval,sizeof(DWORD));
 				}
 			}
 		}
-		if (needsKey) {
+		if (needsKey)
+		{
 			DWORD dval = 1;
 			RegSetValueEx(hkey,szXMLNorm,0,REG_DWORD,(LPBYTE)&dval,sizeof(DWORD));
 		}
 		RegCloseKey(hkey);
 	}
-	else {
+	else
+	{
 		free(szXMLNorm);
 		return 0;
 	}
@@ -117,7 +129,8 @@ int SetSkinAsDefault() {
 	return 1;
 }
 
-int MakeDirectory(LPCTSTR newdir) {
+int MakeDirectory(LPCTSTR newdir)
+{
 	TCHAR* buffer;
 	TCHAR* p;
 	size_t len = wcslen(newdir);
@@ -125,33 +138,38 @@ int MakeDirectory(LPCTSTR newdir) {
 	if (len<=0) return 0;
 	buffer = (TCHAR*)malloc((len+1)*sizeof(TCHAR));
 	wcscpy(buffer, newdir);
-	if (buffer[len-1]=='/') {
+	if (buffer[len-1]=='/')
+	{
 		buffer[len-1] = '\0';
 	}
-	if ( CreateDirectory((LPCTSTR)buffer, NULL) == TRUE ) {
+	if ( CreateDirectory((LPCTSTR)buffer, NULL) == TRUE )
+	{
 		free(buffer);
 		return 1;
-    }
-	p = buffer+1;
-	for ( ;; ) {
+	}
+	p = buffer + 1;
+	for ( ;; )
+	{
 		TCHAR hold;
-		while(*p&&*p!='\\'&&*p!='/') p++;
+		while( *p&&*p != '\\' && *p != '/' ) p++;
 		hold = *p;
 		*p = 0;
-		if (( CreateDirectory((LPCTSTR)buffer, NULL)==FALSE) && (GetLastError() != ERROR_ALREADY_EXISTS)) {
+		if ( ( CreateDirectory((LPCTSTR)buffer, NULL)==FALSE) && (GetLastError() != ERROR_ALREADY_EXISTS) )
+		{
 			free(buffer);
 			return 0;
-        }
-		if (hold==0)
+		}
+		if ( hold == 0 )
 			break;
 		*p++ = hold;
-    }
+	}
 	free(buffer);
 	return 1;
 }
 // EXPORT END
 
-static LPCTSTR GetManifestValue(LPCTSTR manifest, LPCTSTR searchKey) {
+static LPCTSTR GetManifestValue(LPCTSTR manifest, LPCTSTR searchKey)
+{
 	TCHAR* p;
 	LPTSTR kstart, vstart;
 	ptrdiff_t klen, vlen;
@@ -163,36 +181,37 @@ static LPCTSTR GetManifestValue(LPCTSTR manifest, LPCTSTR searchKey) {
 	size_t len = wcslen(manifest);
 
 	info = (TCHAR*)malloc((len+1)*sizeof(TCHAR));
-	memcpy(info, manifest, len);
+	memcpy(info, manifest, ( len + 1 ) * sizeof(TCHAR) );
 	start = info;
-	if ((p = wcsstr(info, L"/>"))!=NULL) {
+	if ( (p = wcsstr(info, L"/>")) != NULL )
+	{
 		info += 10;
 		*p = '\0';
-		for (p=info;;) {
-			for (;*p!='\0' && (*p==' ' || *p=='\t'); p++);
-			if (*p == '\0')
-				break;
-			kstart = p;
-			for (;*p!='\0' && *p!='=' && *p!=' ' && *p!='\t'; p++);
-			klen = p-kstart;
-			for (;*p!='\0' && (*p==' ' || *p=='\t'); p++);
+		for ( p=info;; )
+		{
+			for ( ;*p!='\0' && (*p==' ' || *p=='\t' || *p=='\r' || *p=='\n'); p++ );
 			if (*p == '\0') break;
-			if (*p != '=') continue;
+			kstart = p;
+			for ( ;*p!='\0' && *p!='=' && *p!=' ' && *p!='\t'; p++ );
+			klen = p-kstart;
+			for ( ;*p!='\0' && (*p==' ' || *p=='\t'); p++ );
+			if ( *p == '\0' ) break;
+			if ( *p != '=' ) continue;
 			p++;
-			for (;*p!='\0' && (*p==' ' || *p=='\t'); p++);
-			if (*p == '\0') {
-				break;
-			}
-			if (*p=='\'' || *p=='"') {
+			for ( ;*p!='\0' && (*p==' ' || *p=='\t'); p++ );
+			if ( *p == '\0' )	break;
+			if ( *p=='\'' || *p=='"' )
+			{
 				p++;
 				vstart = p;
-				for (;*p!='\0' && *p!=*(vstart-1); p++);
+				for ( ;*p!='\0' && *p!=*(vstart-1); p++ );
 				vlen = p-vstart;
 				if (*p != '\0') p++;
 			}
-			else {
+			else
+			{
 				vstart = p;
-				for (;*p!='\0' && *p!=' ' && *p!='\t'; p++);
+				for ( ;*p!='\0' && *p!=' ' && *p!='\t' && *p!='\r' && *p!='\n'; p++ );
 				vlen = p-vstart;
 			}
 			key = (TCHAR*) malloc((klen+1)*sizeof(TCHAR));
@@ -201,7 +220,8 @@ static LPCTSTR GetManifestValue(LPCTSTR manifest, LPCTSTR searchKey) {
 			val = (TCHAR*) malloc((vlen+1)*sizeof(TCHAR));
 			wcsncpy(val, vstart, vlen);
 			val[vlen] = '\0';
-			if (klen && !_wcsicmp(key, searchKey)) {
+			if ( klen && !_wcsicmp(key, searchKey) )
+			{
 				ret = _wcsdup(val);
 				free(key);
 				free(val);
@@ -216,8 +236,9 @@ static LPCTSTR GetManifestValue(LPCTSTR manifest, LPCTSTR searchKey) {
 	return NULL;
 }
 
-static int CheckManifestForSkin(LPCTSTR pszFile) {
-	TCHAR modDir[MAX_PATH], *tmp, *tt, *val;
+static int CheckManifestForSkin(LPCTSTR pszFile)
+{
+	TCHAR *tt, *val;
 	FILE * pFile;
 	long lSize;
 	char *buffer;
@@ -226,13 +247,10 @@ static int CheckManifestForSkin(LPCTSTR pszFile) {
 	char* p;
 	BOOL bBOM = 0;
 
-	GetModuleFileName( NULL, modDir, sizeof(modDir) );
-	tmp = wcsrchr( modDir, L'\\');
-	if (tmp) *tmp=0;
-	SetCurrentDirectory(modDir);
+	SetCurrentDirectory( skins_dir );
 
-	pFile = _wfopen( pszFile , L"rb");
-	if (pFile == NULL) return 0;
+	pFile = _wfopen(pszFile , L"rb");
+	if ( pFile == NULL ) return 0;
 
 	fseek(pFile , 0 , SEEK_END);
 	lSize = ftell(pFile);
@@ -240,7 +258,7 @@ static int CheckManifestForSkin(LPCTSTR pszFile) {
 
 	buffer = (char*) malloc(lSize);
 	p = buffer;
-	if (buffer == NULL) return 0;
+	if ( buffer == NULL ) return 0;
 	fread(buffer, 1, lSize, pFile);
 
 	if ( strlen(buffer) > 3 && (UCHAR)(*p) == 0xEF && (UCHAR)*(p+1) == 0xBB && (UCHAR)*(p+2) == 0xBF )
@@ -255,16 +273,19 @@ static int CheckManifestForSkin(LPCTSTR pszFile) {
 	if ( bBOM ) buffer -= 3;
 	free(buffer);
 
-	if ((tt = wcsstr(pszBuf, L"<manifest"))==NULL) {
+	if ( (tt = wcsstr(pszBuf, L"<manifest")) == NULL )
+	{
 		fclose(pFile);
 		free(pszBuf);
 		return 1;
 	}
 
 	val = (TCHAR*)GetManifestValue(tt, L"type");
-	if (!val) skin = 1;
-	else {
-		if (!_wcsicmp(val, L"skin")) skin = 1;
+	if (!val)
+		skin = 1;
+	else
+	{
+		if ( !_wcsicmp(val, L"skin") ) skin = 1;
 		free(val);
 	}
 	fclose(pFile);

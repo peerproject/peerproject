@@ -186,19 +186,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\RegExp.cpp"
+				RelativePath="RegExp.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\RegExpDlg.cpp"
+				RelativePath="RegExpDlg.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\regexpr2.cpp"
+				RelativePath="RegExpr2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.cpp"
+				RelativePath="stdafx.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -218,7 +218,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\syntax2.cpp"
+				RelativePath="Syntax2.cpp"
 				>
 			</File>
 		</Filter>
@@ -228,39 +228,39 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\RegExp.h"
+				RelativePath="RegExp.h"
 				>
 			</File>
 			<File
-				RelativePath=".\RegExpDlg.h"
+				RelativePath="RegExpDlg.h"
 				>
 			</File>
 			<File
-				RelativePath=".\regexpr2.h"
+				RelativePath="RegExpr2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\reimpl2.h"
+				RelativePath="Reimpl2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Resource.h"
+				RelativePath="Resource.h"
 				>
 			</File>
 			<File
-				RelativePath=".\restack.h"
+				RelativePath="Restack.h"
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.h"
+				RelativePath="stdafx.h"
 				>
 			</File>
 			<File
-				RelativePath=".\syntax2.h"
+				RelativePath="Syntax2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\targetver.h"
+				RelativePath="TargetVer.h"
 				>
 			</File>
 		</Filter>
@@ -270,15 +270,11 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\Res\RegExp.ico"
+				RelativePath="RegExp.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\RegExp.rc"
-				>
-			</File>
-			<File
-				RelativePath=".\Res\RegExp.rc2"
+				RelativePath="RegExp.rc"
 				>
 			</File>
 		</Filter>

@@ -1,7 +1,7 @@
 //
 // Downloads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -1180,8 +1180,10 @@ void CDownloads::Load()
 	LoadFromCompoundFiles();
 
 	WIN32_FIND_DATA pFind = {};
-	HANDLE hSearch = FindFirstFile(
-		Settings.Downloads.IncompletePath + _T("\\*.sd"), &pFind );
+	HANDLE hSearch = FindFirstFile( Settings.Downloads.IncompletePath + _T("\\*.pd"), &pFind );
+	if ( hSearch == INVALID_HANDLE_VALUE )	// Try imported Shareaza file
+		hSearch = FindFirstFile( Settings.Downloads.IncompletePath + _T("\\*.sd"), &pFind );
+
 	if ( hSearch != INVALID_HANDLE_VALUE )
 	{
 		do
@@ -1212,7 +1214,7 @@ void CDownloads::Load()
 			{
 				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_REMOVE,
 					( pDownload->m_sName.IsEmpty() ? strPath : pDownload->m_sName ) );
-				// Remove orphaned .sd files at startup, ToDo: Delete multipart .partials too?
+				// Remove orphaned .pd/.sd files at startup
 				DeleteFileEx( strPath, FALSE, TRUE, TRUE );
 				DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
 				DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );
@@ -1246,17 +1248,11 @@ void CDownloads::Save(BOOL bForce)
 void CDownloads::LoadFromCompoundFiles()
 {
 	if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.dat") ) )
-	{
-		// Good
-	}
+		; // Good
 	else if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.bak") ) )
-	{
-		// Good
-	}
-	else if ( LoadFromTimePair() )
-	{
-		// Good
-	}
+		; // Good
+	else 
+		LoadFromTimePair();
 
 	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.dat"), FALSE, TRUE, TRUE );
 	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.bak"), FALSE, TRUE, TRUE );

@@ -1,7 +1,7 @@
 //
 // DownloadSource.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -52,8 +52,8 @@ public:
 	Hashes::Guid		m_oGUID;
 	IN_ADDR				m_pAddress;
 	WORD				m_nPort;
-	IN_ADDR				m_pServerAddress;
 	WORD				m_nServerPort;
+	IN_ADDR				m_pServerAddress;
 	CString				m_sCountry;
 	CString				m_sCountryName;
 public:
@@ -69,20 +69,20 @@ public:
 	CString				m_sServer;
 	CString				m_sNick;
 	DWORD				m_nSpeed;
+	FILETIME			m_tLastSeen;
 	BOOL				m_bPushOnly;
 	BOOL				m_bCloseConn;
 	BOOL				m_bReadContent;
-	FILETIME			m_tLastSeen;
-	// Gnutella functionality:
-	// 0 - Pure HTTP
-	// 1 - Pure G1
-	// 2 - Pure G2
-	// 3 - Mixed G1/G2
-	int					m_nGnutella;
-	BOOL				m_bClientExtended;		// Does the user support extended (G2) functions? (In practice, this means can we use G2 chat, browse, etc...)
+	BOOL				m_bClientExtended;		// Does the user support extended G2 functions? (We can use G2 chat, browse, etc...)
+	int					m_nGnutella;			// Gnutella functionality:
+												// 0 - Pure HTTP
+												// 1 - Pure G1
+												// 2 - Pure G2
+												// 3 - Mixed G1/G2
+
 public:
-	DWORD				m_nSortOrder;			// How should this source be sorted in the list?
 	int					m_nColor;
+	DWORD				m_nSortOrder;			// How should this source be sorted in the list?
 	DWORD				m_tAttempt;
 	BOOL				m_bKeep;				// Source keeped by NeverDrop == TRUE flag
 	int					m_nFailures;			// failure count.

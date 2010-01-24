@@ -1051,8 +1051,8 @@ cscript.exe //nologo Revision.js
     <ClCompile Include="PageTorrentFiles.cpp" />
     <ClCompile Include="PageTorrentGeneral.cpp" />
     <ClCompile Include="PageTorrentTrackers.cpp" />
-    <ClCompile Include="RegExp\regexpr2.cpp" />
-    <ClCompile Include="RegExp\syntax2.cpp" />
+    <ClCompile Include="..\Services\RegExp\RegExpr2.cpp" />
+    <ClCompile Include="..\Services\RegExp\Syntax2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="PeerProject.idl" />
@@ -1645,10 +1645,10 @@ cscript.exe //nologo Revision.js
     <ClInclude Include="FileFragments\Queue.hpp" />
     <ClInclude Include="FileFragments\Range.hpp" />
     <ClInclude Include="FileFragments\Ranges.hpp" />
-    <ClInclude Include="RegExp\regexpr2.h" />
-    <ClInclude Include="RegExp\reimpl2.h" />
-    <ClInclude Include="RegExp\restack.h" />
-    <ClInclude Include="RegExp\syntax2.h" />
+    <ClInclude Include="..\Services\RegExp\Regexpr2.h" />
+    <ClInclude Include="..\Services\RegExp\Reimpl2.h" />
+    <ClInclude Include="..\Services\RegExp\Restack.h" />
+    <ClInclude Include="..\Services\RegExp\Syntax2.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\Services\BugTrap\BugTrapU-x64.lib">
