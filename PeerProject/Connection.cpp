@@ -1,7 +1,7 @@
 //
 // Connection.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -42,7 +42,7 @@ static char THIS_FILE[]=__FILE__;
 // CConnection construction
 
 // Make a new CConnection object
-CConnection::CConnection()
+CConnection::CConnection(PROTOCOLID nProtocol)
 	: m_bInitiated( FALSE )
 	, m_bConnected( FALSE )
 	, m_tConnected( 0 )
@@ -51,7 +51,7 @@ CConnection::CConnection()
 	, m_pOutput( NULL )
 	, m_bClientExtended( FALSE )
 	, m_nQueuedRun( 0 )				// DoRun sets it to 0, QueueRun sets it to 2 (do)
-	, m_nProtocol( PROTOCOL_ANY )
+	, m_nProtocol( nProtocol )
 {
 	ZeroMemory( &m_pHost, sizeof( m_pHost ) );
 	m_pHost.sin_family = AF_INET;
@@ -108,7 +108,7 @@ CConnection::~CConnection()
 // Connect this CConnection object to a remote computer on the Internet
 // Takes pHost, a pointer to a SOCKADDR_IN structure, which is MFC's way of holding an IP address and port number
 // Returns true if connected
-BOOL CConnection::ConnectTo(SOCKADDR_IN* pHost)
+BOOL CConnection::ConnectTo(const SOCKADDR_IN* pHost)
 {
 	// Call the next ConnectTo method, and return the result
 	return ConnectTo( &pHost->sin_addr, htons( pHost->sin_port ) );
@@ -117,7 +117,7 @@ BOOL CConnection::ConnectTo(SOCKADDR_IN* pHost)
 // Connect this CConnection object to a remote computer on the Internet
 // Takes pAddress, a Windows Sockets structure that holds an IP address, and takes the port number seprately
 // Returns true if connected
-BOOL CConnection::ConnectTo(IN_ADDR* pAddress, WORD nPort)
+BOOL CConnection::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 {
 	// Make sure the socket isn't already connected somehow
 	if ( IsValid() )
@@ -388,9 +388,9 @@ BOOL CConnection::DoRun()
 	m_nQueuedRun = 1;
 
 	// Write the contents of the output buffer to the remote computer, and read in data it sent us
-	if ( !OnWrite() )
+	if ( ! OnWrite() )
 		return FALSE;
-	if ( !OnRead() )
+	if ( ! OnRead() )
 		return FALSE;
 
 	// If the close event happened
@@ -403,7 +403,7 @@ BOOL CConnection::DoRun()
 	}
 
 	// Make sure the handshake doesn't take too long
-	if ( !OnRun() )
+	if ( ! OnRun() )
 		return FALSE;
 
 	// If the queued run state is 2 and OnWrite returns false, leave here with false also
@@ -429,20 +429,20 @@ void CConnection::QueueRun()
 // Objects that inherit from CConnection have OnConnected methods that do things, unlike this one
 BOOL CConnection::OnConnected()
 {
-	// Just return true
+	// Just return true ?
 	return TRUE;
 }
 
 // Objects that inherit from CConnection have OnDropped methods that do things, unlike this one
 void CConnection::OnDropped()
 {
-	// Do nothing
+	// Do nothing >
 }
 
 // Objects that inherit from CConnection have OnRun methods that do things, unlike this one
 BOOL CConnection::OnRun()
 {
-	// Just return true
+	// Just return true ?
 	return TRUE;
 }
 
@@ -507,9 +507,8 @@ BOOL CConnection::OnWrite()
 
 	// Read from the socket and record the # bytes sent
 	DWORD nTotal = m_pOutput->Send( m_hSocket, nLimit );
-
-	// If some bytes were sent, add # bytes to bandwidth meter
-	if ( nTotal ) m_mOutput.Add( nTotal, tNow );
+	if ( nTotal )
+		m_mOutput.Add( nTotal, tNow );				// Bytes were sent, add # bytes to bandwidth meter
 
 	// Report success
 	return TRUE;

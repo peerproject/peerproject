@@ -1,7 +1,7 @@
 //
 // DownloadWithTransfers.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -54,6 +54,8 @@ CDownloadWithTransfers::CDownloadWithTransfers() :
 
 CDownloadWithTransfers::~CDownloadWithTransfers()
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	CloseTransfers();
 }
 
@@ -79,7 +81,7 @@ DWORD CDownloadWithTransfers::GetTransferCount() const
 
 	for ( CDownloadTransfer* pTransfer = m_pTransferFirst; pTransfer; pTransfer = pTransfer->m_pDlNext )
 	{
-		if ( pTransfer->m_nState == dtsDownloading ||		 			// Workaround: 
+		if ( pTransfer->m_nState == dtsDownloading ||		 			// Workaround:
 			( pTransfer->m_nState > dtsNull &&
 			static_cast< CConnection* >( pTransfer )->m_bConnected ) )	// Always returns FALSE when dtsDownloading?
 		{
@@ -94,7 +96,7 @@ DWORD CDownloadWithTransfers::GetTransferCount() const
 bool CDownloadWithTransfers::ValidTransfer(IN_ADDR* const pAddress, CDownloadTransfer* const pTransfer) const
 {
 	return ( ! pAddress || pAddress->S_un.S_addr == pTransfer->m_pHost.sin_addr.S_un.S_addr ) &&
-			( pTransfer->m_nState == dtsDownloading ||		 			// Workaround: 
+			( pTransfer->m_nState == dtsDownloading ||		 			// Workaround:
 			( pTransfer->m_nState > dtsNull &&
 			static_cast< CConnection* >( pTransfer )->m_bConnected ) );	// Always returns FALSE when dtsDownloading?
 }
@@ -109,9 +111,7 @@ DWORD CDownloadWithTransfers::GetTransferCount(int nState, IN_ADDR* const pAddre
 		for ( CDownloadTransfer* pTransfer = m_pTransferFirst; pTransfer; pTransfer = pTransfer->m_pDlNext )
 		{
 			if ( ValidTransfer( pAddress, pTransfer ) )
-			{
 				++nCount;
-			}
 		}
 		return nCount;
 	case dtsCountNotQueued:
@@ -119,7 +119,6 @@ DWORD CDownloadWithTransfers::GetTransferCount(int nState, IN_ADDR* const pAddre
 		{
 			if ( ValidTransfer( pAddress, pTransfer ) && ( ( pTransfer->m_nState != dtsQueued ) &&
 				( ! ( pTransfer->m_nState == dtsTorrent && static_cast< CDownloadTransferBT* >(pTransfer)->m_bChoked ) ) ) )
-
 			{
 				++nCount;
 			}
@@ -154,9 +153,7 @@ DWORD CDownloadWithTransfers::GetTransferCount(int nState, IN_ADDR* const pAddre
 		for ( CDownloadTransfer* pTransfer = m_pTransferFirst ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
 		{
 			if ( pTransfer->m_nState == nState )
-			{
 				++nCount;
-			}
 		}
 		return nCount;
 	}
@@ -269,7 +266,7 @@ BOOL CDownloadWithTransfers::StartNewTransfer(DWORD tNow)
 		{
 			CDownloadSource* pSource = GetNext( posSource );
 
-			if ( ( pSource->m_pTransfer == NULL ) &&		// does not have a transfer
+			if (   pSource->IsIdle() &&						// does not have a transfer
 				 ( pSource->m_bPushOnly == FALSE ) &&		// Not push
 				 ( pSource->m_nProtocol == PROTOCOL_BT ) &&	// Is a BT source
 				 ( pSource->m_tAttempt == 0 ) )				// Is a "fresh" source from the tracker
@@ -287,7 +284,7 @@ BOOL CDownloadWithTransfers::StartNewTransfer(DWORD tNow)
 	{
 		CDownloadSource* pSource = GetNext( posSource );
 
-		if ( pSource->m_pTransfer != NULL )
+		if ( ! pSource->IsIdle() )
 		{
 			// Already has a transfer
 		}
@@ -344,9 +341,12 @@ BOOL CDownloadWithTransfers::StartNewTransfer(DWORD tNow)
 			CDownloadTransfer* pTransfer = pConnectHead->CreateTransfer();
 			if ( pTransfer && pTransfer->Initiate() )
 			{
-				pTransfer->m_pSource->m_sCountry = pTransfer->m_sCountry;
-				pTransfer->m_pSource->m_sCountryName = pTransfer->m_sCountryName;
-				return TRUE;
+				if ( CDownloadSource* pSource = pTransfer->GetSource() )
+				{
+					pSource->m_sCountry = pTransfer->m_sCountry;
+					pSource->m_sCountryName = pTransfer->m_sCountryName;
+					return TRUE;
+				}
 			}
 		}
 	}
@@ -359,6 +359,8 @@ BOOL CDownloadWithTransfers::StartNewTransfer(DWORD tNow)
 
 void CDownloadWithTransfers::CloseTransfers()
 {
+	//ASSUME_LOCK( Transfers.m_pSection );
+
 	bool bBackup = Downloads.m_bClosing;
 	Downloads.m_bClosing = true;
 
@@ -428,10 +430,12 @@ BOOL CDownloadWithTransfers::OnAcceptPush(const Hashes::Guid& oClientID, CConnec
 
 	if ( pSource == NULL ) return FALSE;
 
-	if ( pSource->m_pTransfer != NULL )
+	if ( ! pSource->IsIdle() )
 	{
-		if ( pSource->m_pTransfer->m_nState > dtsConnecting ) return FALSE;
-		pSource->m_pTransfer->Close( TRI_TRUE );
+		if ( pSource->IsConnected() )
+			return FALSE;
+
+		pSource->Close();
 	}
 
 	if ( ! pConnection->IsValid() ) return FALSE;
@@ -464,10 +468,12 @@ BOOL CDownloadWithTransfers::OnDonkeyCallback(CEDClient* pClient, CDownloadSourc
 
 	if ( pSource == NULL ) return FALSE;
 
-	if ( pSource->m_pTransfer != NULL )
+	if ( ! pSource->IsIdle() )
 	{
-		if ( pSource->m_pTransfer->m_nState > dtsConnecting ) return FALSE;
-		pSource->m_pTransfer->Close( TRI_TRUE );
+		if ( pSource->IsConnected() )
+			return FALSE;
+
+		pSource->Close();
 	}
 
 	CDownloadTransferED2K* pTransfer = (CDownloadTransferED2K*)pSource->CreateTransfer();
@@ -497,6 +503,8 @@ void CDownloadWithTransfers::AddTransfer(CDownloadTransfer* pTransfer)
 
 void CDownloadWithTransfers::RemoveTransfer(CDownloadTransfer* pTransfer)
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	ASSERT( m_nTransferCount > 0 );
 	m_nTransferCount --;
 

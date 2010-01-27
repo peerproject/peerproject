@@ -1,7 +1,7 @@
 //
 // UploadTransferHTTP.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -641,7 +641,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 					pFile = NULL;
 			}
 			if ( ! pFile )
-				pFile = LibraryMaps.LookupFileByName( strFile, TRUE, TRUE );
+				pFile = LibraryMaps.LookupFileByName( strFile, m_nSize, TRUE, TRUE );
 			if ( pFile )
 				return RequestSharedFile( pFile, oLock );
 		}
@@ -659,7 +659,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		CSingleLock oLock( &Library.m_pSection );
 		if ( oLock.Lock( 1000 ) )
 		{
-			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByName( strFile, TRUE, TRUE ) )
+			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByName( strFile, m_nSize, TRUE, TRUE ) )
 				return RequestSharedFile( pFile, oLock );
 		}
 		else
@@ -860,7 +860,8 @@ BOOL CUploadTransferHTTP::QueueRequest()
 			// If the queue can't accept this file
 			if ( ! m_pQueue->CanAccept( m_nProtocol, m_sName, m_nSize,
 				( m_bFilePartial ? CUploadQueue::ulqPartial: CUploadQueue::ulqLibrary ), m_sFileTags ) )
-			{	// This is probably a partial that has completed
+			{
+				// This is probably a partial that has completed
 				theApp.Message( MSG_DEBUG, _T("File queue error- Partial may have recently completed") );
 
 				// Might as well allow the upload... so don't do anything.
@@ -868,10 +869,7 @@ BOOL CUploadTransferHTTP::QueueRequest()
 			}
 
 			if ( nPosition == 0 )
-			{
-				// Queued, and ready to send
-				return OpenFileSendHeaders();
-			}
+				return OpenFileSendHeaders();	// Queued, and ready to send
 			//else	// Queued, but must wait
 		}
 		else if ( UploadQueues.Enqueue( this ) )
@@ -1801,7 +1799,7 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 					(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
 					htons( Network.m_pHost.sin_port ) );
 			}
-			else 
+			else
 				strReplace.Empty();
 		}
 

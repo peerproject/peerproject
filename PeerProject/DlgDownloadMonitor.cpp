@@ -1,7 +1,7 @@
 //
 // DlgDownloadMonitor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -314,7 +314,7 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	if ( m_pDownload->IsStarted() )
 	{
 		if ( Settings.General.LanguageRTL )
-		{ 
+		{
 			strText.Format( _T("%s %s %.2f%%"),
 				(LPCTSTR)m_pDownload->m_sName, strOf, m_pDownload->GetProgress() );
 		}
@@ -600,7 +600,7 @@ void CDownloadMonitorDlg::OnDownloadStop()
 		pLock.Lock();
 	}
 
-	if ( Downloads.Check( m_pDownload ) )
+	if ( Downloads.Check( m_pDownload ) && ! m_pDownload->IsMoving() )
 	{
 		m_pDownload->Remove();
 		PostMessage( WM_CLOSE );

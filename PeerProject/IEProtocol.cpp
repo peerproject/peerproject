@@ -1,7 +1,7 @@
 //
 // IEProtocol.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -105,7 +105,7 @@ BOOL CIEProtocol::Create()
 
 	for ( int nProtocol = 0 ; pszProtocols[ nProtocol ] != NULL ; nProtocol++ )
 	{
-		if ( FAILED( pSession->RegisterNameSpace( &m_xClassFactory, CLSID_IEProtocol,
+		if ( FAILED( pSession->RegisterNameSpace( &m_xClassFactory, CLSID_PeerProjectIEProtocol,
 			 pszProtocols[ nProtocol ], 0, NULL, 0 ) ) ) return FALSE;
 	}
 

@@ -1,7 +1,7 @@
 //
 // DlgMessage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2009
+// This file is part of PeerProject (peerproject.org) © 2009-2010
 // Portions Copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@
 
 #include "StdAfx.h"
 #include "PeerProject.h"
+#include "Settings.h"
 #include "DlgSkinDialog.h"
 #include "DlgMessage.h"
 #include "Skin.h"
@@ -103,7 +104,9 @@ BOOL CMessageDlg::OnInitDialog()
 	{
 		// Resize window to hide splitter and check box
 		m_pButton1.GetWindowRect( &rc );
-		delta_height = ( rc.bottom + rcWindow.right - rc.right ) - rcWindow.bottom;
+		int border = Settings.General.LanguageRTL ?
+			( rc.left - rcWindow.left ) : ( rcWindow.right - rc.right );
+		delta_height = ( rc.bottom + border ) - rcWindow.bottom;
 	}
 
 	SetWindowPos( NULL, 0, 0, rcWindow.Width(), rcWindow.Height() + delta_height,

@@ -717,8 +717,7 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 	}
 
 	// If the pong said it's port number is 0, or we know it's IP address is firewalled, set bLocal to true
-	BOOL bLocal =
-		! nPort ||                                // The pong specified no port number, or
+	BOOL bLocal = ! nPort ||                                // The pong specified no port number, or
 		Network.IsFirewalledAddress( (IN_ADDR*)&nAddress ); // The network object knows that the pong's IP address is firewalled
 
 	// If the packet has travelled across the Internet, but the computer that made it is firewalled

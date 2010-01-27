@@ -1,7 +1,7 @@
 //
 // DownloadWithTiger.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,6 +22,9 @@
 #pragma once
 
 #include "DownloadWithTorrent.h"
+
+class CDownloadTransfer;
+
 
 class CDownloadWithTiger : public CDownloadWithTorrent
 {
@@ -54,31 +57,44 @@ private:
 
 // Operations
 public:
-	BOOL		GetNextVerifyRange(QWORD& nOffset, QWORD& nLength, BOOL& bSuccess, int nHash = HASH_NULL) const;
-	BOOL		IsFullyVerified();
-	BOOL		NeedTigerTree() const;
-	BOOL		SetTigerTree(BYTE* pTiger, DWORD nTiger);
 	CTigerTree*	GetTigerTree();
+	BOOL		SetTigerTree(BYTE* pTiger, DWORD nTiger);
+	BOOL		NeedTigerTree() const;
 	BOOL		NeedHashset() const;
 	BOOL		SetHashset(BYTE* pSource, DWORD nSource);
 	CED2K*		GetHashset();
 	void		ResetVerification();
 	void		ClearVerification();
 	void		RunValidation();
+	BOOL		GetNextVerifyRange(QWORD& nOffset, QWORD& nLength, BOOL& bSuccess, int nHash = HASH_NULL) const;
+	QWORD		GetVerifyLength(PROTOCOLID nProtocol = PROTOCOL_ANY, int nHash = HASH_NULL) const;
+
+	virtual CString	GetAvailableRanges() const;
+
+	// Get list of possible download fragments / empty fragments we really want
+	Fragments::List GetPossibleFragments(const Fragments::List& oAvailable, Fragments::Fragment& oLargest);
+	Fragments::List GetWantedFragmentList() const;
+
+	BOOL		GetFragment(CDownloadTransfer* pTransfer);	// Select a fragment for a transfer
+	BOOL		AreRangesUseful(const Fragments::List& oAvailable) const;
+	BOOL		IsRangeUseful(QWORD nOffset, QWORD nLength) const;
+	BOOL		IsRangeUsefulEnough(CDownloadTransfer* pTransfer, QWORD nOffset, QWORD nLength) const;
+	// Check range against fragments list got from GetWantedFragmentList() call
+	// UsefulEnough() is like IsRangeUseful() but takes the amount of useful ranges,
+	// relative to the amount of garbage and source speed into account
+
 protected:
-	QWORD		GetVerifyLength(int nHash = HASH_NULL) const;
-	BOOL		ValidationCanFinish() const;
-private:
+	bool		IsFullyVerified() const;
 	DWORD		GetValidationCookie() const;
 	BOOL		FindNewValidationBlock(int nHash);
 	void		ContinueValidation();
 	void		FinishValidation();
 	void		SubtractHelper(Fragments::List& ppCorrupted, BYTE* pBlock, QWORD nBlock, QWORD nSize);
 
-// Overrides
-public:
-	virtual CString	GetAvailableRanges() const;
-protected:
+	// Get list of all fragments which must be downloaded
+	// but rounded to nearest smallest hash block (torrent, tiger or ed2k)
+	Fragments::List GetHashableFragmentList() const;
+
 	virtual void	Serialize(CArchive& ar, int nVersion);
 
 	friend class CEDClient; // AddSourceED2K && m_nHashsetBlock && m_pHashsetBlock

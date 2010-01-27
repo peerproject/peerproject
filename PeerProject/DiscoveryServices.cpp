@@ -1,7 +1,7 @@
 //
 // DiscoveryServices.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -900,20 +900,22 @@ BOOL CDiscoveryServices::Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT n
 			( nForceDiscovery == 1 || !HostCache.EnoughED2KServers() );
 #endif // LAN_MOD
 
-		// Broadcast discovery
-		if ( bG2Required && Neighbours.NeedMoreHubs( PROTOCOL_G2 ) )
-		{
-			SOCKADDR_IN addr;
-			CopyMemory( &addr, &(Network.m_pHost), sizeof( SOCKADDR_IN ) );
-			addr.sin_family = AF_INET;
-			addr.sin_addr.S_un.S_addr = INADDR_NONE;
-			Datagrams.Send( &addr, CG2Packet::New( G2_PACKET_DISCOVERY ), TRUE, 0, FALSE );
-		}
-
 		if ( bEdRequired )
 			m_tMetQueried = tNow;	// Execute this maximum one time each 60 min only when the number of eDonkey servers is too low (Very important).
 
 		pLock.Unlock();
+
+		// Broadcast discovery
+		static bool bBroadcast = true;	// test, broadcast, cache, broadcast, cache, ...
+		bBroadcast = ! bBroadcast;
+		if ( bBroadcast && bG2Required )
+		{
+			theApp.Message( MSG_NOTICE, IDS_DISCOVERY_QUERY, _T("BROADCAST") );
+			SOCKADDR_IN addr = { AF_INET, Network.m_pHost.sin_port };
+			addr.sin_addr.S_un.S_addr = INADDR_NONE;
+			return Datagrams.Send( &addr,
+				CG2Packet::New( G2_PACKET_DISCOVERY ), TRUE, 0, FALSE );
+		}
 
 		if ( nProtocol == PROTOCOL_NULL )	// G1 + G2 + Ed hosts are wanted
 			return  ( ! bG1Required || RequestRandomService( PROTOCOL_G1 ) ) &&
@@ -1079,7 +1081,7 @@ CDiscoveryService* CDiscoveryServices::GetRandomService(PROTOCOLID nProtocol)
 	// Select a random service from the list of possible ones.
 	if ( pServices.GetSize() > 0 )	// If the list of possible ones isn't empty
 		return pServices.GetAt( GetRandomNum< INT_PTR >( 0, pServices.GetSize() - 1 ) );	// A random service
-	else							// else (No services available)		
+	else							// else (No services available)
 		return NULL;				// return NULL to indicate none available
 }
 

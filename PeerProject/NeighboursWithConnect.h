@@ -1,7 +1,7 @@
 //
 // NeighboursWithConnect.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -39,7 +39,7 @@ public:
 
 public:
 	// Connect to a computer at an IP address, and accept a connection from a computer that has connected to us
-	CNeighbour* ConnectTo(IN_ADDR* pAddress, WORD nPort, PROTOCOLID nProtocol, BOOL bAutomatic = FALSE, BOOL bNoUltraPeer = FALSE);
+	CNeighbour* ConnectTo(const IN_ADDR* pAddress, WORD nPort, PROTOCOLID nProtocol, BOOL bAutomatic = FALSE, BOOL bNoUltraPeer = FALSE);
 	CNeighbour* OnAccept(CConnection* pConnection);
 
 public:

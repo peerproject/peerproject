@@ -1,7 +1,7 @@
 //
 // UploadTransfer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -45,7 +45,8 @@ static char THIS_FILE[]=__FILE__;
 // CUploadTransfer construction
 
 CUploadTransfer::CUploadTransfer(PROTOCOLID nProtocol)
-	: m_nState			( upsNull )
+	: CTransfer			( nProtocol )
+	, m_nState			( upsNull )
 	, m_pQueue			( NULL )
 	, m_pBaseFile		( NULL )
 	, m_nBandwidth		( Settings.Bandwidth.Request )

@@ -1,7 +1,7 @@
 //
 // LocalSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -142,7 +142,7 @@ bool CLocalSearch::IsValidForHit< CLibraryFile >(const CLibraryFile* pFile) cons
 bool CLocalSearch::IsValidForHitG1(CLibraryFile const * const pFile) const
 {
 	return Settings.Gnutella1.EnableToday && ( pFile->IsAvailable() || ! m_pSearch );	//Real file or browse
-}		
+}
 		//&& ( UploadQueues.QueueRank( PROTOCOL_HTTP, pFile ) <= Settings.Gnutella1.HitQueueLimit );  // Causes Deadlock?
 
 		// Check that file is actually available. (Must not return ghost hits to G1)
@@ -236,7 +236,7 @@ INT_PTR CLocalSearch::ExecuteSharedFiles(INT_PTR nMaximum)
 	if ( ! oLock.Lock( 1000 ) )
 		return 0;
 
-	CList< const CLibraryFile* >* pFiles = Library.Search(
+	CFileList* pFiles = Library.Search(
 		m_pSearch, static_cast< int >( nMaximum ), FALSE,
 		// Ghost files only for G2
 		m_nProtocol != PROTOCOL_G2 );
@@ -245,7 +245,7 @@ INT_PTR CLocalSearch::ExecuteSharedFiles(INT_PTR nMaximum)
 		return 0;
 
 	INT_PTR nHits = 0;
-	CList< const CLibraryFile* > oFilesInPacket;
+	CFileList oFilesInPacket;
 
 	for ( POSITION pos = pFiles->GetHeadPosition() ;
 		pos && ( ! nMaximum || ( nHits + oFilesInPacket.GetCount() < nMaximum ) ); )
@@ -472,7 +472,7 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 			}
 		}
 
-		if ( m_pSearch == NULL || m_pSearch->m_bWantDN )
+		if ( ! m_pSearch || m_pSearch->m_bWantDN )
 		{
 			if ( pFile->GetSize() <= 0xFFFFFFFF )
 			{
@@ -516,7 +516,7 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 			}
 		}
 
-		if ( m_pSearch == NULL || m_pSearch->m_bWantURL )
+		if ( ! m_pSearch || m_pSearch->m_bWantURL )
 		{
 			if ( bCalculate )
 				nGroup += G2_PACKET_LEN( G2_PACKET_URL, 0 );
@@ -545,7 +545,7 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 			}
 		}
 
-		if ( pFile->m_pMetadata != NULL && ( m_pSearch == NULL || m_pSearch->m_bWantXML ) )
+		if ( pFile->m_pMetadata != NULL && ( ! m_pSearch || m_pSearch->m_bWantXML ) )
 		{
 			CString strMetadata = pFile->m_pMetadata->ToString();
 			if ( bCalculate )
@@ -569,7 +569,7 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 			}
 		}
 
-		if ( m_pSearch == NULL || m_pSearch->m_bWantCOM )
+		if ( ! m_pSearch || m_pSearch->m_bWantCOM )
 		{
 			if ( pFile->IsRated() )
 			{
@@ -601,7 +601,7 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 		}
 
 
-		if ( m_pSearch == NULL )
+		if ( ! m_pSearch )
 		{
 			if ( bCalculate )
 				nGroup += G2_PACKET_LEN( G2_PACKET_OBJECT_ID, sizeof( DWORD ) );

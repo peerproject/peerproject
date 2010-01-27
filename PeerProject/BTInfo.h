@@ -1,7 +1,7 @@
 //
 // BTInfo.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -34,7 +34,7 @@ class CBTInfo : public CPeerProjectFile
 public:
 	CBTInfo();
 	CBTInfo(const CBTInfo& oSource);
-	//CBTInfo& operator=(const CBTInfo& oSource);
+	CBTInfo& operator=(const CBTInfo& oSource);
 	virtual ~CBTInfo();
 
 	// Tracker status/types (SetTrackerMode)
@@ -96,8 +96,7 @@ public:
 
 // Attributes
 public:
-	CList< CString > m_sURLs;			// Add sources from torrents - DWK
-	QWORD		m_nTotalSize;
+	CStringList	m_sURLs;			// Add sources from torrents - DWK
 	DWORD		m_nBlockSize;
 	DWORD		m_nBlockCount;
 	Hashes::BtPureHash* m_pBlockBTH;
@@ -128,16 +127,18 @@ private:
 // Operations
 public:
 	void		Clear();
-	CBTInfo&	Copy(const CBTInfo& oSource);
 	void		Serialize(CArchive& ar);
 	void		ConvertOldTorrents();
 
 	int 		NextInfoPiece();
-	BOOL		AddInfoPiece(DWORD nInfoSize, DWORD nInfoPiece, BYTE *pPacketBuffer, DWORD nPacketLength);
+	BOOL		LoadInfoPiece(DWORD nInfoSize, DWORD nInfoPiece, BYTE *pPacketBuffer, DWORD nPacketLength);
+	DWORD		GetInfoPiece(DWORD nPiece, BYTE *pInfoPiece);
+	DWORD		GetInfoSize();
+	BOOL		CheckInfoData(const CBuffer* pSource);
 	BOOL		LoadTorrentFile(LPCTSTR pszFile);
-	BOOL		LoadTorrentBuffer(CBuffer* pBuffer);
-	BOOL		LoadTorrentTree(CBENode* pRoot);
-	BOOL		SaveTorrentFile(LPCTSTR pszPath) const;
+	BOOL		LoadTorrentBuffer(const CBuffer* pBuffer);
+	BOOL		LoadTorrentTree(const CBENode* pRoot);
+	BOOL		SaveTorrentFile(LPCTSTR pszPath);
 
 	void		BeginBlockTest();
 	void		AddToTest(LPCVOID pInput, DWORD nLength);

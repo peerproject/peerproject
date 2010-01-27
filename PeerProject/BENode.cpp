@@ -1,7 +1,7 @@
 //
 // BENode.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -194,7 +194,7 @@ CBENode* CBENode::GetNode(const LPBYTE pKey, int nKey) const
 //////////////////////////////////////////////////////////////////////
 // CBENode Extract a string from a node under this one. (Checks both normal and .utf-8)
 
-CString CBENode::GetStringFromSubNode(LPCSTR pszKey, UINT nEncoding, bool& bEncodingError)
+CString CBENode::GetStringFromSubNode(LPCSTR pszKey, UINT nEncoding, bool& bEncodingError) const
 {
 	CBENode*	pSubNode;
 	CString		strValue;
@@ -253,7 +253,7 @@ CString CBENode::GetStringFromSubNode(LPCSTR pszKey, UINT nEncoding, bool& bEnco
 
 // CBENode Extract a string from a list/dictionary
 
-CString CBENode::GetStringFromSubNode(int nItem, UINT nEncoding, bool& bEncodingError)
+CString CBENode::GetStringFromSubNode(int nItem, UINT nEncoding, bool& bEncodingError) const
 {
 	CBENode*	pSubNode;
 	CString		strValue;
@@ -266,7 +266,7 @@ CString CBENode::GetStringFromSubNode(int nItem, UINT nEncoding, bool& bEncoding
 
 	// If it exists and is a string, try reading it (using the correct UTF-8 encoding).
 	if ( pSubNode && ( pSubNode->m_nType == CBENode::beString ) )
-		strValue = pSubNode->GetString();	// Read the string 
+		strValue = pSubNode->GetString();	// Read the string
 
 	// If it wasn't valid, try a decode by forcing the code page.
 	if ( ! IsValid( strValue ) )
@@ -418,7 +418,7 @@ const CString CBENode::Encode() const
 //////////////////////////////////////////////////////////////////////
 // CBENode decoding
 
-CBENode* CBENode::Decode(CBuffer* pBuffer)
+CBENode* CBENode::Decode(const CBuffer* pBuffer)
 {
 	ASSERT( pBuffer != NULL );
 

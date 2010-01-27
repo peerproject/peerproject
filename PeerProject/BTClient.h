@@ -1,7 +1,7 @@
 //
 // BTClient.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,6 +25,7 @@
 
 class CBTPacket;
 class CDownload;
+class CDownloadSource;
 class CDownloadTransferBT;
 class CUploadTransferBT;
 
@@ -40,6 +41,7 @@ public:
 public:
     Hashes::BtGuid          m_oGUID;
 	BOOL					m_bExchange;		// Exchange sources/other info (with extended client)
+	BOOL					m_bExtended;		// Extension Protocol support
 	CUploadTransferBT*		m_pUpload;
 	CDownload*				m_pDownload;
 	CDownloadTransferBT*	m_pDownloadTransfer;
@@ -49,6 +51,8 @@ protected:
 	BOOL					m_bOnline;
 	BOOL					m_bClosing;
 	DWORD					m_tLastKeepAlive;
+	DWORD					m_dUtMetadataID;
+	DWORD					m_dUtMetadataSize;
 
 // Operations
 public:
@@ -67,14 +71,20 @@ protected:
 	virtual BOOL	OnRead();
 
 	void			SendHandshake(BOOL bPart1, BOOL bPart2);
-	BOOL			OnHandshake1();								// First part of handshake
-	BOOL			OnHandshake2();								// Second part- Peer ID
-	//BOOL			OnNoHandshake2();							// If no peer ID is received
+	void			SendExtendedHandshake();
+	void			SendExtendedPacket(BYTE Type, CBuffer *pOutput);
+	void			SendInfoRequest(QWORD nPiece);
+	BOOL			OnHandshake1();						// First part of handshake
+	BOOL			OnHandshake2();						// Second part- Peer ID
+	//BOOL			OnNoHandshake2();					// If no peer ID is received
 	BOOL			OnOnline();
 	BOOL			OnPacket(CBTPacket* pPacket);
-	void			SendBeHandshake();							// Send extended client handshake
-	BOOL			OnBeHandshake(CBTPacket* pPacket);			// Process extended client handshake
+	void			SendBeHandshake();					// Send extended client handshake
+	BOOL			OnBeHandshake(CBTPacket* pPacket);	// Process extended client handshake
 	BOOL			OnSourceRequest(CBTPacket* pPacket);
 	BOOL			OnDHTPort(CBTPacket* pPacket);
-	void			DetermineUserAgent();						// Figure out the other client name/version from the peer ID
+	BOOL			OnExtended(CBTPacket* pPacket);
+	void			DetermineUserAgent();				// Figure out the other client name/version from the peer ID
+
+	CDownloadSource* GetSource() const;					// Get download transfer source
 };

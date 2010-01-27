@@ -1,7 +1,7 @@
 //
 // LibraryDictionary.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -123,7 +123,7 @@ void CLibraryDictionary::ProcessWord(
 {
 	if ( CWordMap::CPair* pPair = m_oWordMap.PLookup( strWord ) )
 	{
-		CFilePtrList* pList = pPair->value.m_pList;
+		CFileList* pList = pPair->value.m_pList;
 		if ( bAdd )
 		{
 			pPair->value.m_nCount ++;
@@ -154,7 +154,7 @@ void CLibraryDictionary::ProcessWord(
 	}
 	else if ( bAdd )
 	{
-		CWord oWord( new CFilePtrList );
+		CWord oWord( new CFileList );
 		if ( oWord.m_pList )
 		{
 			oWord.m_pList->AddTail( &oFile );
@@ -275,7 +275,7 @@ void CLibraryDictionary::Clear()
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary search
 
-CFilePtrList* CLibraryDictionary::Search(
+CFileList* CLibraryDictionary::Search(
 	const CQuerySearch& oSearch, const int nMaximum, const bool bLocal,
 	const bool bAvailableOnly)
 {
@@ -334,7 +334,7 @@ CFilePtrList* CLibraryDictionary::Search(
 	size_t nLowerBound = ( oSearch.tableSize() >= 3 )
 		? ( oSearch.tableSize() * 2 / 3 ) : oSearch.tableSize();
 
-	CFilePtrList* pHits = NULL;
+	CFileList* pHits = NULL;
 	for ( ; pHit ; pHit = pHit->m_pNextHit )
 	{
 		ASSERT( pHit->m_nSearchCookie == m_nSearchCookie );
@@ -348,7 +348,7 @@ CFilePtrList* CLibraryDictionary::Search(
 			pHit->m_oBTH, pHit->m_oMD5 ) )
 		{
 			if ( !pHits )
-				pHits = new CFilePtrList;
+				pHits = new CFileList;
 
 			pHits->AddTail( pHit );
 

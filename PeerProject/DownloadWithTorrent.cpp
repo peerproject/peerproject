@@ -191,8 +191,8 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		ar >> m_nTorrentSuccess;
 		m_pTorrentBlock = new BYTE[ m_nTorrentBlock ];
 		ReadArchive( ar, m_pTorrentBlock, sizeof(BYTE) * m_nTorrentBlock );
-		if ( nVersion >= 34 )
-		{
+		//if ( nVersion >= 34 )
+		//{
 			ar >> m_bSeeding;
 
 			//if ( nVersion < 41 )
@@ -201,7 +201,7 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 			//	ar >> strServingFileName;
 			//	GetFile()->Delete();
 			//}
-		}
+		//}
 		GenerateTorrentDownloadID();
 
 		m_oBTH = m_pTorrent.m_oBTH;
@@ -239,9 +239,9 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//	oProgress.SetWindowText( LoadString( IDS_BT_UPDATE_TITLE ) );
 		//	oProgress.SetActionText( LoadString( IDS_BT_UPDATE_CONVERTING ) );
 		//	oProgress.SetEventText( m_sName );
-		//	oProgress.SetEventRange( 0, (int)( m_pTorrent.m_nTotalSize / 1024ull ) );
+		//	oProgress.SetEventRange( 0, (int)( m_pTorrent.m_nSize / 1024ull ) );
 		//	oProgress.SetSubEventText( sServingFileName );
-		//	oProgress.SetSubEventRange( 0, (int)( m_pTorrent.m_nTotalSize / 1024ull ) );
+		//	oProgress.SetSubEventRange( 0, (int)( m_pTorrent.m_nSize / 1024ull ) );
 		//
 		//	oProgress.CenterWindow();
 		//	oProgress.ShowWindow( SW_SHOW );
@@ -261,7 +261,7 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//	if ( ! IsSeeding() )
 		//	{
 		//		// Check for free space
-		//		if ( ! Downloads.IsSpaceAvailable( m_pTorrent.m_nTotalSize,
+		//		if ( ! Downloads.IsSpaceAvailable( m_pTorrent.m_nSize,
 		//			Downloads.dlPathIncomplete ) )
 		//			AfxThrowFileException( CFileException::diskFull );
 		//		// Open old file
@@ -274,7 +274,7 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//		if ( ! pBuffer.get() ) AfxThrowMemoryException();
 		//		// Optimize this by reading only available data
 		//		QWORD nTotal = 0ull;
-		//		for ( QWORD nLength = m_pTorrent.m_nTotalSize; nLength; )
+		//		for ( QWORD nLength = m_pTorrent.m_nSize; nLength; )
 		//		{
 		//			DWORD nBuffer = (DWORD)min( nLength, BUFFER_SIZE );
 		//			nBuffer = oSource.Read( pBuffer.get(), nBuffer );
@@ -290,7 +290,7 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//			strText.Format( _T("%s %s %s"),
 		//				Settings.SmartVolume( nTotal, KiloBytes ),
 		//				LoadString( IDS_GENERAL_OF ),
-		//				Settings.SmartVolume( m_pTorrent.m_nTotalSize, KiloBytes ) );
+		//				Settings.SmartVolume( m_pTorrent.m_nSize, KiloBytes ) );
 		//			oProgress.SetSubActionText( strText );
 		//			oProgress.StepSubEvent( (int)( nBuffer / 1024ul ) );
 		//			oProgress.SetEventPos( (int)( nTotal / 1024ull ) );
@@ -314,13 +314,23 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 
 BOOL CDownloadWithTorrent::SetTorrent(const CBTInfo& oTorrent)
 {
-	if ( IsTorrent() ) return FALSE;
-	if ( ! oTorrent.IsAvailable() ) return FALSE;
+	if ( &m_pTorrent != &oTorrent )
+	{
+		if ( IsTorrent() ) return FALSE;
+		if ( ! oTorrent.IsAvailable() )	return FALSE;
 
-	m_pTorrent.Copy( oTorrent );
+		m_pTorrent = oTorrent;
+	}
+
+	if ( m_nSize == SIZE_UNKNOWN && m_pTorrent.m_nSize != SIZE_UNKNOWN )
+		m_nSize = m_pTorrent.m_nSize;
+
+	if ( m_sName.IsEmpty() && ! m_pTorrent.m_sName.IsEmpty() )
+		m_sName = m_pTorrent.m_sName;
 
 	m_oBTH = m_pTorrent.m_oBTH;
 	m_bBTHTrusted = true;
+
 	if ( ! m_oTiger && m_pTorrent.m_oTiger )
 	{
 		m_oTiger = m_pTorrent.m_oTiger;
@@ -352,7 +362,7 @@ BOOL CDownloadWithTorrent::SetTorrent(const CBTInfo& oTorrent)
 	if ( CreateDirectory( Settings.Downloads.TorrentPath ) )
 	{
 		LibraryFolders.AddFolder( Settings.Downloads.TorrentPath, FALSE );
-		oTorrent.SaveTorrentFile( Settings.Downloads.TorrentPath );
+		m_pTorrent.SaveTorrentFile( Settings.Downloads.TorrentPath );
 	}
 
 	return TRUE;
@@ -363,11 +373,10 @@ BOOL CDownloadWithTorrent::SetTorrent(const CBTInfo& oTorrent)
 
 bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 {
-	if ( ! Settings.BitTorrent.EnableToday )
-		return true;
+	//if ( ! IsTorrent() )
+	//	return true;
 
-	// Return if this isn't a torrent
-	if ( !IsTorrent() )
+	if ( ! Settings.BitTorrent.EnableToday )	// ( || ! Network.IsConnected() )
 		return true;
 
 	// Return if disk is full
@@ -400,8 +409,8 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 	{
 		// Check if download is active, isn't already waiting for a request
 		// reply and is allowed to try and contact this tracker
-		if ( !IsPaused() && IsTrying() && !m_bTorrentRequested
-			&& tNow > m_tTorrentTracker )
+		if ( ! IsPaused() && ( IsTrying() || IsSeeding() )
+			&& ! m_bTorrentRequested && tNow > m_tTorrentTracker )
 		{
 			// Get the # of sources that can be connected to
 			nSourcesCount = GetBTSourceCount( TRUE );
@@ -679,18 +688,14 @@ CDownloadTransferBT* CDownloadWithTorrent::CreateTorrentTransfer(CBTClient* pCli
 			&pClient->m_pHost.sin_addr, htons( pClient->m_pHost.sin_port ) );
 		pSource->m_bPushOnly = !(pClient->m_bInitiated);
 
-		if ( ! AddSourceInternal( pSource ) ) return NULL;
+		if ( ! AddSourceInternal( pSource ) )
+			return NULL;
 	}
 
-	if ( pSource->m_pTransfer != NULL )
-	{
-		// A download transfer already exists
-		return NULL;
-	}
+	if ( ! pSource->IsIdle() )
+		return NULL;	// A download transfer already exists
 
-	pSource->m_pTransfer = new CDownloadTransferBT( pSource, pClient );
-
-	return (CDownloadTransferBT*)pSource->m_pTransfer;
+	return (CDownloadTransferBT*)pSource->CreateTransfer( pClient );
 }
 
 void CDownloadWithTorrent::OnFinishedTorrentBlock(DWORD nBlock)
@@ -966,7 +971,7 @@ BOOL CDownloadWithTorrent::SeedTorrent(CString& sErrorMessage)
 	pDownload->MakeComplete();
 	pDownload->ResetVerification();
 
-	SendStarted( Settings.BitTorrent.UploadCount * 4ul );
+	//SendStarted( Settings.BitTorrent.UploadCount * 4ul );
 
 	return TRUE;
 }
@@ -988,9 +993,9 @@ void CDownloadWithTorrent::CloseTorrent()
 
 float CDownloadWithTorrent::GetRatio() const
 {
-	return float( m_pTorrent.m_nTotalUpload * 10000 / 
+	return float( m_pTorrent.m_nTotalUpload * 10000 /
 		( m_pTorrent.m_nTotalDownload ? m_pTorrent.m_nTotalDownload :
-		m_pTorrent.m_nTotalSize ) ) / 100.0f;
+		m_pTorrent.m_nSize ) ) / 100.0f;	// ToDo: Fix m_nSize
 }
 
 //////////////////////////////////////////////////////////////////////

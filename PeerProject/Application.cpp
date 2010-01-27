@@ -1,7 +1,7 @@
 //
 // Application.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,6 +24,7 @@
 #include "Settings.h"
 #include "Application.h"
 #include "CoolInterface.h"
+#include "ImageServices.h"
 #include "Skin.h"
 #include "Library.h"
 #include "Plugins.h"
@@ -45,7 +46,9 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CApplication, CComObject)
 
 // {E9B2EF9B-4A0C-451e-801F-257861B87FAD}
-IMPLEMENT_OLECREATE_FLAGS(CApplication, "PeerProject.Application", afxRegFreeThreading|afxRegApartmentThreading, 0xe9b2ef9b, 0x4a0c, 0x451e, 0x80, 0x1f, 0x25, 0x78, 0x61, 0xb8, 0x7f, 0xad);
+IMPLEMENT_OLECREATE_FLAGS(CApplication, "PeerProject.Application",
+	afxRegFreeThreading|afxRegApartmentThreading,
+	0xe9b2ef9b, 0x4a0c, 0x451e, 0x80, 0x1f, 0x25, 0x78, 0x61, 0xb8, 0x7f, 0xad);
 
 BEGIN_MESSAGE_MAP(CApplication, CComObject)
 END_MESSAGE_MAP()
@@ -163,6 +166,14 @@ STDMETHODIMP CApplication::XApplication::get_Settings(ISettings FAR* FAR* ppSett
 	return S_OK;
 }
 
+STDMETHODIMP CApplication::XApplication::get_ImageService(IImageServicePlugin FAR* FAR* ppIImageService)
+{
+	METHOD_PROLOGUE( CApplication, Application )
+	if ( ppIImageService == NULL ) return E_INVALIDARG;
+	*ppIImageService = (IImageServicePlugin*)ImageServices.GetInterface( IID_IImageServicePlugin, TRUE );
+	return S_OK;
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // CApplication ISettings
 
@@ -172,7 +183,7 @@ STDMETHODIMP CApplication::XSettings::GetValue(VARIANT* value)
 {
 	METHOD_PROLOGUE( CApplication, Settings )
 
-	if ( value == NULL || value->vt != VT_BSTR ) 
+	if ( value == NULL || value->vt != VT_BSTR )
 		return E_INVALIDARG;
 
 	CString strPath( value->bstrVal );
@@ -183,7 +194,7 @@ STDMETHODIMP CApplication::XSettings::GetValue(VARIANT* value)
 	SysFreeString( value->bstrVal );
 	value->vt = VT_EMPTY;
 
-	if ( Settings.GetValue( strPath, value ) ) 
+	if ( Settings.GetValue( strPath, value ) )
 		return S_OK;
 
 	return E_FAIL;

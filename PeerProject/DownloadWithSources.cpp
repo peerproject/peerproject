@@ -1,7 +1,7 @@
 //
 // DownloadWithSources.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -196,7 +196,6 @@ DWORD CDownloadWithSources::GetED2KCompleteSourceCount() const
 			 ( pSource->m_tAttempt < tNow || pSource->m_tAttempt - tNow <= 900000 ) &&	// Only count sources that are probably active
 			 ( pSource->m_nProtocol == PROTOCOL_ED2K ) &&		// Only count ed2k sources
              ( pSource->m_oAvailable.empty() && pSource->IsOnline() ) )	// Only count complete sources
-
 		{
 			nCount++;
 		}
@@ -365,7 +364,7 @@ BOOL CDownloadWithSources::AddSourceED2K(DWORD nClientID, WORD nClientPort, DWOR
 	return AddSourceInternal( new CDownloadSource( (CDownload*)this, nClientID, nClientPort, nServerIP, nServerPort, oGUID ) );
 }
 
-BOOL CDownloadWithSources::AddSourceBT(const Hashes::BtGuid& oGUID, IN_ADDR* pAddress, WORD nPort)
+BOOL CDownloadWithSources::AddSourceBT(const Hashes::BtGuid& oGUID, const IN_ADDR* pAddress, WORD nPort)
 {
 	// Unreachable (Push) BT sources should never be added.
 	if ( Network.IsFirewalledAddress( pAddress, Settings.Connection.IgnoreOwnIP ) )
@@ -596,7 +595,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 				{
 					bDeleteSource = true;			// Same protocol
 				}
-				else if ( pExisting->m_pTransfer != NULL )
+				else if ( ! pExisting->IsIdle() )
 				{
 					// Already downloading so we can remove new non-HTTP source
 					if ( bExistingHTTPSource && ! bHTTPSource )
@@ -609,7 +608,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 					{
 						// Set connection delay the same as for the old source
 						pSource->m_tAttempt = pExisting->m_tAttempt;
-							pExisting->Remove( TRUE, FALSE );
+						pExisting->Remove( TRUE, FALSE );
 					}
 				}
 			}
@@ -829,7 +828,7 @@ CFailedSource* CDownloadWithSources::LookupFailedSource(LPCTSTR pszUrl, bool bRe
 	return pResult;
 }
 
-void CDownloadWithSources::AddFailedSource(CDownloadSource* pSource, bool bLocal, bool bOffline)
+void CDownloadWithSources::AddFailedSource(const CDownloadSource* pSource, bool bLocal, bool bOffline)
 {
 	CString strURL;
 	if ( pSource->m_nProtocol == PROTOCOL_BT && pSource->m_oGUID )
@@ -1087,7 +1086,7 @@ int CDownloadWithSources::GetSourceColor()
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithSources serialize
 
-void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)
+void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 {
 	CDownloadBase::Serialize( ar, nVersion );
 

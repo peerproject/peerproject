@@ -1,7 +1,7 @@
 //
 // WorldGPS.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -66,19 +66,25 @@ BOOL CWorldGPS::Load()
 		if ( bImport )
 		{
 			strFile = Settings.General.Path + L"\\Data\\WorldGPS.dat";
-			if ( ! pFile.Open( (LPCTSTR)strFile.GetBuffer(), CFile::modeRead ) ) return FALSE;
+			if ( ! pFile.Open( (LPCTSTR)strFile.GetBuffer(), CFile::modeRead ) )
+				return FALSE;
 			bImport = false;
 		}
 		else
 			return FALSE;
 	}
 
-	if ( !bImport )
+	if ( ! bImport )
 	{
-		CArchive ar( &pFile, CArchive::load, 262144 );  // 256 KB buffer
-		Serialize( ar );
-		ar.Close();
-		pFile.Close();
+		try
+		{
+			CArchive ar( &pFile, CArchive::load );
+			Serialize( ar );
+		}
+		catch ( CException* pException )
+		{
+			pException->Delete();
+		}
 		return TRUE;
 	}
 
@@ -97,12 +103,32 @@ BOOL CWorldGPS::Load()
 	if ( ! bSuccess ) return FALSE;
 
 	strFile = Settings.General.Path + L"\\Data\\WorldGPS.dat";
-	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) ) return FALSE;
+	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
+		return FALSE;
 
-	CArchive ar( &pFile, CArchive::store );
-	Serialize( ar );
-	ar.Close();
-	pFile.Close();
+	try
+	{
+		CArchive ar( &pFile, CArchive::store );	// 4 KB buffer
+		try
+		{
+			Serialize( ar );
+			ar.Close();
+		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pFile.Abort();
+			pException->Delete();
+			return FALSE;
+		}
+		pFile.Close();
+	}
+	catch ( CException* pException )
+	{
+		pFile.Abort();
+		pException->Delete();
+		return FALSE;
+	}
 
 	return TRUE;
 }

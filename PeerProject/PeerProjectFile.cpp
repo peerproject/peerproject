@@ -174,9 +174,7 @@ bool CPeerProjectFile::SplitStringToURLs(LPCTSTR pszURLs, CMapStringToFILETIME& 
 		FILETIME tSeen = { 0, 0 };
 		int nPos = strURL.ReverseFind( ' ' );
 		if ( nPos > 8 && TimeFromString( strURL.Mid( nPos + 1 ).TrimLeft(), &tSeen ) )
-		{
 			strURL = strURL.Left( nPos ).TrimRight();
-		}
 
 		// Convert short "h.o.s.t:port" to full source URL
 		nPos = strURL.Find( ':' );

@@ -1,7 +1,7 @@
 //
 // ED2K.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,6 +22,7 @@
 #pragma once
 
 #include "MD4.h"
+
 
 class HASHLIB_API CED2K
 {
@@ -45,25 +46,24 @@ public:
 	void	BeginBlockTest();
 	void	AddToTest(LPCVOID pInput, uint32 nLength);
 	BOOL	FinishBlockTest(uint32 nBlock);
-	
-	// To free ppOutput, use the GlobalFree function
-	BOOL	ToBytes(BYTE** ppOutput, uint32* pnOutput);
+
+	BOOL	ToBytes(BYTE** ppOutput, uint32* pnOutput);	// To free ppOutput, use GlobalFree function
 	BOOL	FromBytes(BYTE* pOutput, uint32 nOutput, uint64 nSize = 0);
 	BOOL	CheckIntegrity();
-	
+
 	BOOL	IsAvailable() const;
 	void	SetSize(uint32 nSize);
 	uint32	GetSize() const;
 	uint32	GetBlockCount() const;
 
 private:
-    CMD4::Digest m_pRoot;
-    CMD4::Digest* m_pList;
+	CMD4::Digest m_pRoot;
+	CMD4::Digest* m_pList;
 	uint32	m_nList;
-	CMD4	m_pSegment;
 	uint32	m_nCurHash;
 	uint32	m_nCurByte;
+	CMD4	m_pSegment;
 	bool	m_bNullBlock;
 };
 
-const size_t ED2K_PART_SIZE	= 9500 * 1024u;
+const DWORD ED2K_PART_SIZE	= 9500 * 1024u;

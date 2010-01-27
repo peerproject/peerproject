@@ -79,7 +79,7 @@ DWORD CEDNeighbour::GetID() const
 //////////////////////////////////////////////////////////////////////
 // CEDNeighbour connect to
 
-BOOL CEDNeighbour::ConnectTo(IN_ADDR* pAddress, WORD nPort, BOOL bAutomatic)
+BOOL CEDNeighbour::ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutomatic)
 {
 	if ( CConnection::ConnectTo( pAddress, nPort ) )
 	{
@@ -156,15 +156,16 @@ BOOL CEDNeighbour::OnRun()
 			return FALSE;
 		}
 	}
-	else
-	{
-		// Temporarily commenting out this code (?) because no PING/PONG on ed2k and can cause DROP without reason.
-		//if ( tNow - m_tLastPacket > 20 * 60 * 1000 )
-		//{
-		//	Close( IDS_CONNECTION_TIMEOUT_TRAFFIC );
-		//	return FALSE;
-		//}
-	}
+	//else
+	//{
+	// Temporarily commenting out this code (ToDo: ?)
+	// because no PING/PONG on ed2k and can cause DROP without reason.
+	//	if ( tNow - m_tLastPacket > 20 * 60 * 1000 )
+	//	{
+	//		Close( IDS_CONNECTION_TIMEOUT_TRAFFIC );
+	//		return FALSE;
+	//	}
+	//}
 
 	return TRUE;
 }
@@ -209,10 +210,10 @@ BOOL CEDNeighbour::OnConnected()
 	// 4 - Software Version ('Client Version').
 	CEDTag( ED2K_CT_SOFTWAREVERSION,
 		( ( ( ED2K_CLIENT_ID & 0xFF ) << 24 ) |
-			( ( theApp.m_nVersion[0] & 0x7F ) << 17 ) |
-			( ( theApp.m_nVersion[1] & 0x7F ) << 10 ) |
-			( ( theApp.m_nVersion[2] & 0x07 ) << 7  ) |
-			( ( theApp.m_nVersion[3] & 0x7F )       ) ) ).Write( pPacket );
+		( ( theApp.m_nVersion[0] & 0x7F ) << 17 ) |
+		( ( theApp.m_nVersion[1] & 0x7F ) << 10 ) |
+		( ( theApp.m_nVersion[2] & 0x07 ) << 7  ) |
+		( ( theApp.m_nVersion[3] & 0x7F )       ) ) ).Write( pPacket );
 
 	// 5 - Port
 	if ( Settings.eDonkey.SendPortServer )

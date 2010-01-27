@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r46 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -187,7 +187,7 @@
 	</toolbar>
 	<!-- UPLOADS WINDOW -->
 	<toolbar name="CUploadsWnd.Basic">
-		<button id="ID_UPLOADS_LAUNCH" text="Open or Play File"/>
+		<button id="ID_UPLOADS_LAUNCH" text="Show File"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_UPLOADS_CHAT" text="Chat to User"/>
@@ -195,7 +195,7 @@
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Clear Completed"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
-		<button id="ID_UPLOADS_LAUNCH" text="Open File"/>
+		<button id="ID_UPLOADS_LAUNCH" text="Show File"/>
 		<separator/>
 		<button id="ID_UPLOADS_CLEAR" text="Cancel File"/>
 		<button id="ID_UPLOADS_START" text="Start Now"/>
@@ -443,6 +443,8 @@
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Servers"/>
+	<!--<button id="ID_HOSTCACHE_BT_CACHE" text="Cache"/>-->
+	<!--<button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia"/>-->
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatFrame">
@@ -687,8 +689,8 @@
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open completed download folder"/>
 			<separator/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
-			<item id="ID_TOOLS_SEEDTORRENT" 	text="_Seed New Torrent..."/>
-			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
 			<item id="IDC_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
@@ -1258,14 +1260,18 @@
 	</menu>
 	<!-- UPLOADS WINDOW -->
 	<menu name="CUploadsWnd.Upload.Basic">
+		<item id="ID_UPLOADS_LAUNCH" text="Show File in _Library"/>
+		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
 		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
+		<item id="ID_SECURITY_BAN" text="Ba_n User"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Start Now"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Clear"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Show _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Open _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
@@ -1365,13 +1371,16 @@
 	<menu name="CLibraryFileView.Physical">
 		<item id="ID_LIBRARY_LAUNCH" text="_Open/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
+		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
-		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<menu text="O_rganize">
+			<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
+			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
+			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
 			<item id="ID_LIBRARY_COPY" text="_Copy Files..."/>
 			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
@@ -1393,9 +1402,10 @@
 			<item id="ID_LIBRARY_REFRESH_METADATA" text="_Refresh Metadata"/>
 			<item id="ID_LIBRARY_REBUILD_ANSI" text="_Localize Metadata"/>
 			<item id="ID_LIBRARY_COLUMNS" text="Choose Detail _Columns..."/>
+			<separator/>
 		</menu>
 		<separator/>
-		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
+		<item id="ID_SHELL_MENU" text="_Windows Menu"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 	</menu>
 	<menu name="CLibraryFileView.Virtual.Basic">
@@ -1435,11 +1445,12 @@
 		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
 		<menu text="O_rganize">
+			<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
-			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
 			<item id="ID_LIBRARY_COPY" text="_Copy Files..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
 		</menu>
 		<separator/>
 		<menu text="S_earch For">
@@ -1461,7 +1472,7 @@
 			<item id="ID_LIBRARY_COLUMNS" text="Choose Detail _Columns..."/>
 		</menu>
 		<separator/>
-		<item id="ID_SHELL_MENU" text="Windows Men_u"/>
+		<item id="ID_SHELL_MENU" text="_Windows Menu"/>
 		<item id="ID_LIBRARY_PROPERTIES" text="_Properties"/>
 	</menu>
 	<!-- MEDIA WINDOW -->
@@ -1547,9 +1558,9 @@
 		<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
 		<item id="ID_MEDIA_SIZE_DISTORT" text="Stretch to _Fill"/>
 		<separator/>
-		<item id="ID_MEDIA_ASPECT_DEFAULT" text="Default _Aspect"/>
+		<item id="ID_MEDIA_ASPECT_DEFAULT" text="D_efault Aspect"/>
 		<item id="ID_MEDIA_ASPECT_4_3" text="_4:3 Ratio (TV)"/>
-		<item id="ID_MEDIA_ASPECT_16_9" text="_16:9 Ratio (Film)"/>
+		<item id="ID_MEDIA_ASPECT_16_9" text="1_6:9 Ratio (Film)"/>
 	</menu>
 	<menu name="CMediaList">
 		<item id="ID_MEDIA_SELECT" text="_Play"/>
@@ -1568,7 +1579,7 @@
 		<item id="ID_MEDIA_RANDOM" text="Ra_ndom Mode"/>
 		<item id="ID_MEDIA_REPEAT" text="Rep_eat Mode"/>
 		<separator/>
-		<item id="ID_MEDIA_PLAYLIST" text="Hide Pla_ylist"/>
+		<item id="ID_MEDIA_PLAYLIST" text="Hide Play_list"/>
 	</menu>
 	<!-- SYSTEM WINDOW -->
 	<menu name="CSystemWnd">

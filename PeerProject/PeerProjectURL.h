@@ -1,7 +1,7 @@
 //
 // PeerProjectURL.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -41,8 +41,8 @@ public:
 public:
 	enum URI_TYPE
 	{
-		uriNull, uriSource, uriDownload, uriSearch, uriHost, uriBrowse,
-		uriDonkeyServer, uriDiscovery
+		uriNull, uriSource, uriDownload, uriSearch,
+		uriHost, uriBrowse, uriDonkeyServer, uriDiscovery
 	};
 
 	PROTOCOLID	m_nProtocol;
@@ -50,9 +50,9 @@ public:
 	CBTInfo*	m_pTorrent;
 	CString		m_sAddress;
 	IN_ADDR		m_pAddress;
-	WORD		m_nPort;
 	IN_ADDR		m_pServerAddress;
 	WORD		m_nServerPort;
+	WORD		m_nPort;
 	BOOL		m_bSize;
 	CString		m_sLogin;
 	CString		m_sPassword;

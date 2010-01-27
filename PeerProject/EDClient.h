@@ -1,7 +1,7 @@
 //
 // EDClient.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -44,17 +44,17 @@ public:
 	CEDClient*	m_pEdNext;
 public:
 	Hashes::Guid m_oGUID;
+	SOCKADDR_IN	m_pServer;
 	DWORD		m_nClientID;
 	WORD		m_nUDP;
-	SOCKADDR_IN	m_pServer;
-public:
-	CString		m_sNick;
-	int			m_nVersion;
-	BOOL		m_bEmule;
 
+	CString		m_sNick;
+	BOOL		m_bEmule;
+	int			m_nVersion;
 	int			m_nEmVersion;
 	int			m_nEmCompatible;
 	DWORD		m_nSoftwareVersion;
+
 public:	//Client capabilities
 	BOOL		m_bEmAICH;			// Not supported
 	BOOL		m_bEmUnicode;
@@ -111,7 +111,9 @@ protected:
 	void	DetachDownload();
 	void	DetachUpload();
 	void	NotifyDropped();
+
 	CHostBrowser*	GetBrowser() const;
+	CDownloadSource* GetSource() const;			// Get download transfer source
 
 public:
 	virtual void	AttachTo(CConnection* pConnection);

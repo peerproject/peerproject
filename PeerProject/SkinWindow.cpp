@@ -1,7 +1,7 @@
 //
 // SkinWindow.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-20078.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -391,6 +391,13 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 						nResID = IDB_NAVBAR_IMAGE_RTL;
 					else if ( nResID == IDB_NAVBAR_ALPHA )
 						nResID = IDB_NAVBAR_ALPHA_RTL;
+				}
+				else // Is this check ever necessary?
+				{
+					if ( nResID == IDB_NAVBAR_IMAGE_RTL )
+						nResID = IDB_NAVBAR_IMAGE;
+					else if ( nResID == IDB_NAVBAR_ALPHA_RTL )
+						nResID = IDB_NAVBAR_ALPHA;
 				}
 
 				hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(),
@@ -887,8 +894,7 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 
 	CWindowDC dc( pWnd );
 
-	if ( Settings.General.LanguageRTL )
-		SetLayout( dc.m_hDC, LAYOUT_RTL );
+	dc.SetLayout( Settings.General.LanguageRTL ? LAYOUT_RTL : 0 );
 
 	Prepare( &dc );
 
@@ -935,6 +941,7 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 
 	CSize size( rc.Width(), nCaptionHeight );
 	CDC* pDC = CoolInterface.GetBuffer( dc, size );
+	pDC->SetLayout( Settings.General.LanguageRTL ? LAYOUT_RTL : 0 );
 	COLORREF crOldTextColor = pDC->GetTextColor();
 
 	// Window Buttons
@@ -1614,7 +1621,7 @@ CSize CSkinWindow::GetRegionSize()
 
 BOOL CSkinWindow::PreBlend(CBitmap* pbmTarget, const CRect& rcTarget, const CRect& rcSource)
 {
-	// Currently Navbar transparency only 
+	// Currently Navbar transparency only
 	// ToDo: Add transparency support for PNGs and frames, etc.?
 
 	BITMAPINFO pImageInfo = {};
@@ -1626,8 +1633,7 @@ BOOL CSkinWindow::PreBlend(CBitmap* pbmTarget, const CRect& rcTarget, const CRec
 	pCacheInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 
 	HDC hDC = ::GetDC( 0 );
-	if ( Settings.General.LanguageRTL )
-		SetLayout( hDC, LAYOUT_BITMAPORIENTATIONPRESERVED );
+	SetLayout( hDC, Settings.General.LanguageRTL ? LAYOUT_BITMAPORIENTATIONPRESERVED : 0 );
 
 	if ( 0 == GetDIBits( hDC, m_bmSkin, 0, 0, NULL, &pImageInfo, DIB_RGB_COLORS ) ||
 		 0 == GetDIBits( hDC, *pbmTarget, 0, 0, NULL, &pCacheInfo, DIB_RGB_COLORS ) )

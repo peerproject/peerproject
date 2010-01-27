@@ -1,7 +1,7 @@
 //
 // DownloadWithTiger.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,6 +24,8 @@
 #include "Settings.h"
 #include "Download.h"
 #include "Downloads.h"
+#include "DownloadSource.h"
+#include "DownloadTransfer.h"
 #include "DownloadWithTiger.h"
 #include "FragmentedFile.h"
 #include "HashDatabase.h"
@@ -44,18 +46,20 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithTiger construction
 
-CDownloadWithTiger::CDownloadWithTiger() :
-	m_pTigerBlock		( NULL )
-,	m_nTigerBlock		( 0ul )
-,	m_nTigerSuccess		( 0ul )
-
-,	m_pHashsetBlock		( NULL )
-,	m_nHashsetBlock		( 0ul )
-,	m_nHashsetSuccess	( 0ul )
-
-,	m_nVerifyCookie		( 0ul )
-,	m_nVerifyHash		( HASH_NULL )
-,	m_nVerifyBlock		( ~0ul )
+CDownloadWithTiger::CDownloadWithTiger()
+	: m_pTigerBlock		( NULL )
+	, m_nTigerBlock		( 0ul )
+	, m_nTigerSize		( 0ul )
+	, m_nTigerSuccess	( 0ul )
+	, m_pHashsetBlock	( NULL )
+	, m_nHashsetBlock	( 0ul )
+	, m_nHashsetSuccess	( 0ul )
+	, m_nVerifyCookie	( 0ul )
+	, m_nVerifyBlock	( ~0ul )
+	, m_nVerifyOffset	( 0ul )
+	, m_nVerifyLength	( 0ul )
+	, m_tVerifyLast		( 0ul )
+	, m_nVerifyHash		( HASH_NULL )
 {
 }
 
@@ -75,15 +79,18 @@ DWORD CDownloadWithTiger::GetValidationCookie() const
 	return m_nVerifyCookie;
 }
 
-QWORD CDownloadWithTiger::GetVerifyLength(int nHash) const
+QWORD CDownloadWithTiger::GetVerifyLength(PROTOCOLID nProtocol, int nHash) const
 {
 	CQuickLock oLock( m_pTigerSection );
 
 	if ( nHash == HASH_NULL )
 	{
-		if ( m_pTorrentBlock != NULL ) return m_nTorrentSize;
-		else if ( m_pTigerBlock != NULL ) return m_nTigerSize;
-		else if ( m_pHashsetBlock != NULL ) return ED2K_PART_SIZE;
+		if ( nProtocol == PROTOCOL_BT && m_pTorrentBlock )
+			return m_nTorrentSize;
+		else if ( nProtocol == PROTOCOL_ED2K && m_pHashsetBlock )
+			return ED2K_PART_SIZE;
+		else if ( m_pTigerBlock )
+			return m_nTigerSize;
 	}
 	else if ( nHash == HASH_TIGERTREE && m_pTigerBlock != NULL )
 	{
@@ -168,14 +175,76 @@ BOOL CDownloadWithTiger::GetNextVerifyRange(QWORD& nOffset, QWORD& nLength, BOOL
 	return FALSE;
 }
 
-BOOL CDownloadWithTiger::IsFullyVerified()
+bool CDownloadWithTiger::IsFullyVerified() const
 {
 	CQuickLock oLock( m_pTigerSection );
 
-	if ( m_nTorrentBlock > 0 && m_nTorrentSuccess >= m_nTorrentBlock ) return TRUE;
-	if ( m_nTigerBlock > 0 && m_nTigerSuccess >= m_nTigerBlock ) return TRUE;
-	if ( m_nHashsetBlock > 0 && m_nHashsetSuccess >= m_nHashsetBlock ) return TRUE;
-	return FALSE;
+	// Quick check
+	if ( ( m_nTorrentBlock && m_nTorrentSuccess >= m_nTorrentBlock ) ||
+		 ( m_nTigerBlock   && m_nTigerSuccess   >= m_nTigerBlock   ) ||
+		 ( m_nHashsetBlock && m_nHashsetSuccess >= m_nHashsetBlock ) )
+		 return true;
+
+	if ( ! IsComplete() )
+		return false;	// Completed only
+
+	// Full check
+	bool bAvailable = false;
+	Fragments::List oList = GetFullFragmentList();
+
+	if ( m_pTorrentBlock )
+	{
+		for ( DWORD i = 0 ; i < m_nTorrentBlock; i++ )
+		{
+			if ( m_pTorrentBlock[ i ] == TRI_TRUE )
+			{
+				QWORD nOffset = i * (QWORD)m_nTorrentSize;
+				oList.erase( Fragments::Fragment( nOffset,
+					min( nOffset + m_nTorrentSize, m_nSize ) ) );
+			}
+		}
+		if ( oList.empty() )
+			return true;	// No unverified parts left
+
+		bAvailable = true;
+	}
+
+	if ( m_pTigerBlock && Settings.Downloads.VerifyTiger )
+	{
+		for ( DWORD i = 0 ; i < m_nTigerBlock; i++ )
+		{
+			if ( m_pTigerBlock[ i ] == TRI_TRUE )
+			{
+				QWORD nOffset = i * (QWORD)m_nTigerSize;
+				oList.erase( Fragments::Fragment( nOffset,
+					min( nOffset + m_nTigerSize, m_nSize ) ) );
+			}
+		}
+		if ( oList.empty() )
+			return true;	// No unverified parts left
+
+		bAvailable = true;
+	}
+
+	if ( m_pHashsetBlock && Settings.Downloads.VerifyED2K )
+	{
+		for ( DWORD i = 0 ; i < m_nHashsetBlock; i++ )
+		{
+			if ( m_pHashsetBlock[ i ] == TRI_TRUE )
+			{
+				QWORD nOffset = i * (QWORD)ED2K_PART_SIZE;
+				oList.erase( Fragments::Fragment( nOffset,
+					min( nOffset + ED2K_PART_SIZE, m_nSize ) ) );
+			}
+		}
+		if ( oList.empty() )
+			return true;	// No unverified parts left
+
+		bAvailable = true;
+	}
+
+	// Allow unverified downloads without hashes (ex. pure HTTP, FTP)
+	return ! bAvailable;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -310,98 +379,6 @@ CED2K* CDownloadWithTiger::GetHashset()
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownloadWithTiger test if the file can finish
-
-BOOL CDownloadWithTiger::ValidationCanFinish() const
-{
-	CQuickLock oLock( m_pTigerSection );
-
-	BOOL bAvailable = FALSE;
-
-	if ( m_pTorrentBlock != NULL )
-	{
-		bAvailable = TRUE;
-
-		// Quick check
-		if ( m_nTorrentSuccess >= m_nTorrentBlock )
-			return TRUE;
-
-		// Full check
-		if ( GetFileCount() > 1 )
-		{
-			Fragments::List oList = GetWantedFragmentList();
-			for ( DWORD i = 0 ; i < m_nTorrentBlock; i++ )
-			{
-				if ( m_pTorrentBlock[ i ] == TRI_TRUE )
-				{
-					QWORD nOffset = i * (QWORD)m_nTorrentSize;
-					oList.erase( Fragments::Fragment( nOffset,
-						min( nOffset + m_nTorrentSize, m_nSize ) ) );
-				}
-			}
-			if ( oList.empty() )
-				return TRUE;
-		}
-	}
-
-	if ( m_pTigerBlock != NULL && Settings.Downloads.VerifyTiger )
-	{
-		bAvailable = TRUE;
-
-		// Quick check
-		if ( m_nTigerSuccess >= m_nTigerBlock )
-			return TRUE;
-
-		// Full check
-		if ( GetFileCount() > 1 )
-		{
-			Fragments::List oList = GetWantedFragmentList();
-			for ( DWORD i = 0 ; i < m_nTigerBlock; i++ )
-			{
-				if ( m_pTigerBlock[ i ] == TRI_TRUE )
-				{
-					QWORD nOffset = i * (QWORD)m_nTigerSize;
-					oList.erase( Fragments::Fragment( nOffset,
-						min( nOffset + m_nTigerSize, m_nSize ) ) );
-				}
-			}
-			if ( oList.empty() )
-				return TRUE;
-		}
-	}
-
-	if ( m_pHashsetBlock != NULL && Settings.Downloads.VerifyED2K )
-	{
-		bAvailable = TRUE;
-
-		// Quick check
-		if ( ( m_nSize && m_nSize % ED2K_PART_SIZE == 0 &&
-			m_nHashsetSuccess >= m_nHashsetBlock - 1 ) ||
-			( m_nHashsetSuccess >= m_nHashsetBlock ) )
-			return TRUE;
-
-		// Full check
-		if ( GetFileCount() > 1 )
-		{
-			Fragments::List oList = GetWantedFragmentList();
-			for ( DWORD i = 0 ; i < m_nHashsetBlock; i++ )
-			{
-				if ( m_pHashsetBlock[ i ] == TRI_TRUE )
-				{
-					QWORD nOffset = i * (QWORD)ED2K_PART_SIZE;
-					oList.erase( Fragments::Fragment( nOffset,
-						min( nOffset + ED2K_PART_SIZE, m_nSize ) ) );
-				}
-			}
-			if ( oList.empty() )
-				return TRUE;
-		}
-	}
-
-	return ! bAvailable;
-}
-
-//////////////////////////////////////////////////////////////////////
 // CDownloadWithTiger run validation
 
 void CDownloadWithTiger::RunValidation()
@@ -466,6 +443,9 @@ BOOL CDownloadWithTiger::FindNewValidationBlock(int nHash)
 	default:
 		return FALSE;
 	}
+
+//	if ( ! pBlockPtr || ! nBlockCount || ! nBlockSize )
+//		return FALSE;
 
 	DWORD nTarget = 0xFFFFFFFF;
 
@@ -546,28 +526,27 @@ BOOL CDownloadWithTiger::FindNewValidationBlock(int nHash)
 			}
 		}
 
-		if ( nTarget == 0xFFFFFFFF ) nTarget = nRetry;
+		if ( nTarget == 0xFFFFFFFF )
+			nTarget = nRetry;
 	}
 
-	if ( nTarget != 0xFFFFFFFF )
-	{
-		m_nVerifyHash	= nHash;
-		m_nVerifyBlock	= nTarget;
-		m_nVerifyOffset	= nTarget * nBlockSize;
-		m_nVerifyLength	= min( nBlockSize, m_nSize - m_nVerifyOffset );
-		m_tVerifyLast	= GetTickCount();
+	if ( nTarget == 0xFFFFFFFF )
+		return FALSE;
 
-		if ( m_nVerifyHash == HASH_TIGERTREE )
-			m_pTigerTree.BeginBlockTest();
-		else if ( m_nVerifyHash == HASH_ED2K )
-			m_pHashset.BeginBlockTest();
-		else if ( m_nVerifyHash == HASH_TORRENT )
-			m_pTorrent.BeginBlockTest();
+	m_nVerifyHash	= nHash;
+	m_nVerifyBlock	= nTarget;
+	m_nVerifyOffset	= nTarget * nBlockSize;
+	m_nVerifyLength	= min( nBlockSize, m_nSize - m_nVerifyOffset );
+	m_tVerifyLast	= GetTickCount();
 
-		return TRUE;
-	}
+	if ( m_nVerifyHash == HASH_TIGERTREE )
+		m_pTigerTree.BeginBlockTest();
+	else if ( m_nVerifyHash == HASH_ED2K )
+		m_pHashset.BeginBlockTest();
+	else if ( m_nVerifyHash == HASH_TORRENT )
+		m_pTorrent.BeginBlockTest();
 
-	return FALSE;
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -699,11 +678,218 @@ void CDownloadWithTiger::SubtractHelper(Fragments::List& ppCorrupted, BYTE* pBlo
 	while ( nBlock-- && !ppCorrupted.empty() )
 	{
 		if ( *pBlock++ == TRI_TRUE )
-		{
 			ppCorrupted.erase( Fragments::Fragment( nOffset, min( nOffset + nSize, m_nSize ) ) );
-		}
 
 		nOffset += nSize;
+	}
+}
+
+Fragments::List CDownloadWithTiger::GetHashableFragmentList() const
+{
+	CQuickLock oLock( m_pTigerSection );
+
+	const Fragments::List oList = GetFullFragmentList();
+
+	if ( ! oList.missing() )
+		return oList;
+
+	// Select hash with smallest parts
+	int nHash = HASH_NULL;
+	DWORD nSmallest = 0xffffffff;
+	if ( m_pTorrentBlock )
+	{
+		nHash = HASH_TORRENT;
+		nSmallest = m_nTorrentSize;
+	}
+	if ( m_pTigerBlock && Settings.Downloads.VerifyTiger &&
+		 nSmallest > m_nTigerSize )
+	{
+		nHash = HASH_TIGERTREE;
+		nSmallest = m_nTigerSize;
+	}
+	if ( m_pHashsetBlock && Settings.Downloads.VerifyED2K &&
+		 nSmallest > ED2K_PART_SIZE )
+	{
+		nHash = HASH_ED2K;
+		nSmallest = ED2K_PART_SIZE;
+	}
+
+	if ( nHash == HASH_NULL )
+		return oList;	// No verify
+
+	Fragments::List oResultList = oList;
+	Fragments::List::const_iterator pItr = oList.begin();
+	const Fragments::List::const_iterator pEnd = oList.end();
+	for ( ; pItr != pEnd ; ++pItr )
+	{
+		QWORD nStart = ( pItr->begin() / nSmallest ) * nSmallest;
+		QWORD nEnd   = min( ( ( pItr->end() - 1ull ) / nSmallest + 1ull ) * nSmallest, m_nSize );
+		oResultList.insert( Fragments::Fragment( nStart, nEnd ) );
+	}
+
+	return oResultList;
+}
+
+Fragments::List CDownloadWithTiger::GetWantedFragmentList() const
+{
+	CQuickLock oLock( m_pTigerSection );
+
+	const Fragments::List oList = inverse( GetHashableFragmentList() );
+	Fragments::List oEmptyList = GetEmptyFragmentList();
+
+	oEmptyList.erase( oList.begin(), oList.end() );
+
+	return oEmptyList;
+}
+
+BOOL CDownloadWithTiger::AreRangesUseful(const Fragments::List& oAvailable) const
+{
+	return IsValid() && GetWantedFragmentList().overlaps( oAvailable );
+}
+
+BOOL CDownloadWithTiger::IsRangeUseful(QWORD nOffset, QWORD nLength) const
+{
+	return IsValid() && GetWantedFragmentList().overlaps(
+		Fragments::Fragment( nOffset, nOffset + nLength ) );
+}
+
+BOOL CDownloadWithTiger::IsRangeUsefulEnough(CDownloadTransfer* pTransfer, QWORD nOffset, QWORD nLength) const
+{
+	if ( ! IsValid() )
+		return FALSE;
+
+	// Range is useful if at least a byte within the next amount
+	// of data transferable within the next 5 seconds is useful
+	DWORD nLength2 = 6 * pTransfer->GetAverageSpeed();
+	if ( nLength2 < nLength )
+	{
+		if ( ! pTransfer->m_bRecvBackwards )
+			nOffset += nLength - nLength2;
+		nLength = nLength2;
+	}
+	return GetWantedFragmentList().overlaps(
+		Fragments::Fragment( nOffset, nOffset + nLength ) );
+}
+
+Fragments::List CDownloadWithTiger::GetPossibleFragments(const Fragments::List& oAvailable, Fragments::Fragment& oLargest)
+{
+	if ( ! PrepareFile() )
+		return Fragments::List( oAvailable.limit() );
+
+	Fragments::List oPossible( oAvailable );
+
+	if ( oAvailable.empty() )
+	{
+		oPossible = GetWantedFragmentList();
+	}
+	else
+	{
+		Fragments::List tmp = inverse( GetWantedFragmentList() );
+		oPossible.erase( tmp.begin(), tmp.end() );
+	}
+
+	if ( oPossible.empty() )
+		return oPossible;
+
+	oLargest = *oPossible.largest_range();
+
+	for ( CDownloadTransfer* pTransfer = GetFirstTransfer();
+		! oPossible.empty() && pTransfer; pTransfer = pTransfer->m_pDlNext )
+	{
+		pTransfer->SubtractRequested( oPossible );
+	}
+
+	return oPossible;
+}
+
+BOOL CDownloadWithTiger::GetFragment(CDownloadTransfer* pTransfer)
+{
+	ASSUME_LOCK( Transfers.m_pSection );
+
+	if ( ! PrepareFile() )
+		return NULL;
+
+	Fragments::Fragment oLargest( SIZE_UNKNOWN, SIZE_UNKNOWN );
+
+	Fragments::List oPossible = GetPossibleFragments(
+		pTransfer->GetSource()->m_oAvailable, oLargest );
+
+	if ( oLargest.begin() == SIZE_UNKNOWN )
+	{
+		ASSERT( oPossible.empty() );
+		return FALSE;
+	}
+
+	if ( ! oPossible.empty() )
+	{
+		Fragments::List::const_iterator pRandom = oPossible.begin()->begin() == 0
+			? oPossible.begin()
+			: oPossible.random_range();
+
+		pTransfer->m_nOffset = pRandom->begin();
+		pTransfer->m_nLength = pRandom->size();
+
+		return TRUE;
+	}
+	else
+	{
+		CDownloadTransfer* pExisting = NULL;
+
+		for ( CDownloadTransfer* pOther = GetFirstTransfer() ; pOther ; pOther = pOther->m_pDlNext )
+		{
+			if ( pOther->m_bRecvBackwards )
+			{
+				if ( pOther->m_nOffset + pOther->m_nLength - pOther->m_nPosition
+					 != oLargest.end() ) continue;
+			}
+			else
+			{
+				if ( pOther->m_nOffset + pOther->m_nPosition != oLargest.begin() ) continue;
+			}
+
+			pExisting = pOther;
+			break;
+		}
+
+		if ( pExisting == NULL )
+		{
+			pTransfer->m_nOffset = oLargest.begin();
+			pTransfer->m_nLength = oLargest.size();
+			return TRUE;
+		}
+
+		if ( oLargest.size() < 32 )
+			return FALSE;
+
+		DWORD nOldSpeed	= pExisting->GetAverageSpeed();
+		DWORD nNewSpeed	= pTransfer->GetAverageSpeed();
+		QWORD nLength	= oLargest.size() / 2;
+
+		if ( nOldSpeed > 5 && nNewSpeed > 5 )
+		{
+			nLength = oLargest.size() * nNewSpeed / ( nNewSpeed + nOldSpeed );
+
+			if ( oLargest.size() > 102400 )
+			{
+				nLength = max( nLength, 51200ull );
+				nLength = min( nLength, oLargest.size() - 51200ull );
+			}
+		}
+
+		if ( pExisting->m_bRecvBackwards )
+		{
+			pTransfer->m_nOffset		= oLargest.begin();
+			pTransfer->m_nLength		= nLength;
+			pTransfer->m_bWantBackwards	= FALSE;
+		}
+		else
+		{
+			pTransfer->m_nOffset		= oLargest.end() - nLength;
+			pTransfer->m_nLength		= nLength;
+			pTransfer->m_bWantBackwards	= TRUE;
+		}
+
+		return TRUE;
 	}
 }
 
@@ -731,14 +917,14 @@ CString CDownloadWithTiger::GetAvailableRanges() const
 			strRanges += strRange;
 
 			if ( strRanges.GetLength() > HTTP_HEADER_MAX_LINE - 256 )
-				// Prevent too long line
-				break;
+				break;	// Prevent too long a line
 		}
 
 		nOffset += nLength;
 	}
 
-	if ( strRanges.IsEmpty() ) strRanges = CDownloadWithTorrent::GetAvailableRanges();
+	if ( strRanges.IsEmpty() )
+		strRanges = CDownloadWithTorrent::GetAvailableRanges();
 
 	return strRanges;
 }
@@ -751,17 +937,11 @@ void CDownloadWithTiger::ResetVerification()
 	CQuickLock oLock( m_pTigerSection );
 
 	if ( m_nVerifyHash == HASH_TIGERTREE )
-	{
 		m_pTigerTree.FinishBlockTest( m_nVerifyBlock );
-	}
 	else if ( m_nVerifyHash == HASH_ED2K )
-	{
 		m_pHashset.FinishBlockTest( m_nVerifyBlock );
-	}
 	else if ( m_nVerifyHash == HASH_TORRENT )
-	{
 		m_pTorrent.FinishBlockTest( m_nVerifyBlock );
-	}
 
 	if ( m_pTigerBlock != NULL ) ZeroMemory( m_pTigerBlock, m_nTigerBlock );
 	if ( m_pHashsetBlock != NULL ) ZeroMemory( m_pHashsetBlock, m_nHashsetBlock );
@@ -832,8 +1012,8 @@ void CDownloadWithTiger::Serialize(CArchive& ar, int nVersion)
 		}
 	}
 
-	if ( nVersion >= 19 )
-	{
+	//if ( nVersion >= 19 )
+	//{
 		CHashDatabase::Serialize( ar, &m_pHashset );
 
 		if ( m_pHashset.IsAvailable() )
@@ -853,13 +1033,13 @@ void CDownloadWithTiger::Serialize(CArchive& ar, int nVersion)
 				ReadArchive( ar, m_pHashsetBlock, sizeof(BYTE) * m_nHashsetBlock );
 			}
 		}
-	}
+	//}
 
-	if ( nVersion < 30 && m_oBTH )
-	{
-		ClearVerification();
-		m_oSHA1.clear();
-		m_oTiger.clear();
-		m_oED2K.clear();
-	}
+	//if ( nVersion < 30 && m_oBTH )
+	//{
+	//	ClearVerification();
+	//	m_oSHA1.clear();
+	//	m_oTiger.clear();
+	//	m_oED2K.clear();
+	//}
 }

@@ -1,7 +1,7 @@
 //
 // Handshakes.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,27 +33,27 @@ public:
 	CHandshakes();
 	virtual ~CHandshakes();
 
-	BOOL Listen();     // Listen on the socket
-	void Disconnect(); // Stop listening
+	BOOL Listen();							// Listen on the socket
+	void Disconnect();						// Stop listening
 
-	BOOL PushTo(IN_ADDR* pAddress, WORD nPort, DWORD nIndex = 0); // Connect to the given IP
-	BOOL IsConnectedTo(IN_ADDR* pAddress) const;                  // Looks for the IP in the handshake objects list
+	BOOL PushTo(IN_ADDR* pAddress, WORD nPort, DWORD nIndex = 0);	// Connect to the given IP
+	BOOL IsConnectedTo(const IN_ADDR* pAddress) const;				// Looks for the IP in the handshake objects list
 
 protected:
-	DWORD m_nStableCount;				// The number of connections our listening socket has received
-	DWORD m_tStableTime;				// The time at least one has been connected (do)
-	SOCKET m_hSocket;					// Our one listening socket
-	CList< CHandshake* > m_pList;		// The list of pointers to CHandshake objects
-	mutable CMutex m_pSection;			// Use to make sure only one thread accesses the list at a time
+	DWORD m_nStableCount;					// The number of connections our listening socket has received
+	DWORD m_tStableTime;					// The time at least one has been connected (do)
+	SOCKET m_hSocket;						// Our one listening socket
+	CList< CHandshake* > m_pList;			// The list of pointers to CHandshake objects
+	mutable CMutex m_pSection;				// Use to make sure only one thread accesses the list at a time
 
-	void Substitute(CHandshake* pOld, CHandshake* pNew); // Replace an old CHandshake object in the list with a new one
-	void Remove(CHandshake* pHandshake);                 // Remove a CHandshake object from the list
+	void Substitute(CHandshake* pOld, CHandshake* pNew);	// Replace an old CHandshake object in the list with a new one
+	void Remove(CHandshake* pHandshake);					// Remove a CHandshake object from the list
 
-	void OnRun();                           // Accept incoming connections from remote computers
-	void RunHandshakes();                   // Send and receive data with each remote computer in the list
-	BOOL AcceptConnection();                // Accept a connection, making a new CHandshake object in the list for it
+	void OnRun();							// Accept incoming connections from remote computers
+	void RunHandshakes();					// Send and receive data with each remote computer in the list
+	BOOL AcceptConnection();				// Accept a connection, making a new CHandshake object in the list for it
 	void CreateHandshake(SOCKET hSocket, SOCKADDR_IN* pHost); // Make the new CHandshake object for the new connection
-	void RunStableUpdate();                 // Update the discovery services (do)
+	void RunStableUpdate();					// Update the discovery services (do)
 
 	// Tell WSAAccept if we want to accept a connection from a computer that just called us
 	static int CALLBACK AcceptCheck(IN LPWSABUF lpCallerId, IN LPWSABUF lpCallerData, IN OUT LPQOS lpSQOS, IN OUT LPQOS lpGQOS, IN LPWSABUF lpCalleeId, IN LPWSABUF lpCalleeData, OUT GROUP FAR * g, IN DWORD_PTR dwCallbackData);

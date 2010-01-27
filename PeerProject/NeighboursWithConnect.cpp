@@ -1,7 +1,7 @@
 //
 // NeighboursWithConnect.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -73,7 +73,7 @@ CNeighboursWithConnect::~CNeighboursWithConnect()
 // Takes an IP address and port number from the host cache, and connects to it
 // Returns a pointer to the new neighbour in the connected list, or null if no connection was made
 CNeighbour* CNeighboursWithConnect::ConnectTo(
-	IN_ADDR*   pAddress,     // IP address from the host cache to connect to, like 67.163.208.23
+	const IN_ADDR* pAddress, // IP address from the host cache to connect to, like 67.163.208.23
 	WORD       nPort,        // Port number that goes with that IP address, like 6346
 	PROTOCOLID nProtocol,    // Protocol name, like PROTOCOL_G1 for Gnutella
 	BOOL       bAutomatic,   // True to (do)
@@ -244,7 +244,8 @@ void CNeighboursWithConnect::PeerPrune(PROTOCOLID nProtocol)
 			if ( pNeighbour->m_bInitiated )
 			{
 				// If we dont' need any more hubs, on any protocol, drop this connection
-				if ( !bNeedMoreAnyProtocol ) pNeighbour->Close( IDS_CONNECTION_PEERPRUNE );
+				if ( ! bNeedMoreAnyProtocol )
+					pNeighbour->Close( IDS_CONNECTION_PEERPRUNE );
 			}
 		}
 	}
@@ -603,8 +604,8 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bDebug)
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: not stable for 4 hours") );
 			return FALSE;
 
-		} // We have been connected to the Gnutella network for more than 4 hours
-		else
+		}
+		else // Connected to Gnutella network for more than 4 hours
 		{
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: stable for 4 hours") );
 		}

@@ -1,7 +1,7 @@
 //
 // SharedFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -83,15 +83,16 @@ public:
 
 	CString			GetPath() const;
 	virtual CString	GetSearchName() const;
-	bool			IsShared(bool bIgnoreOverride = false) const;
+	BOOL			CheckFileAttributes(QWORD nSize, BOOL bSharedOnly, BOOL bAvailableOnly) const;
 	void			SetShared(bool bShared, bool bOverride = false);
+	bool			IsShared(bool bIgnoreOverride = false) const;
 	inline BOOL		IsSharedOverride() const { return m_bShared != TRI_UNKNOWN; }
 	inline BOOL		IsGhost() const { return m_pFolder == NULL; }
 	inline BOOL		IsAvailable() const { return m_pFolder != NULL; }
 	BOOL			IsSchemaURI(LPCTSTR pszURI) const;
 	BOOL			IsRated() const;		// File rated or commented
 	BOOL			IsRatedOnly() const;	// File rated but has no metadata
-	//BOOL			IsPeerTagged() const;	// Permissiveness
+	//BOOL			IsPeerTagged() const;	// Permissiveness  ToDo: PeerTags
 	BOOL			IsHashed() const;
 	BOOL			IsNewFile() const;
 	BOOL			IsReadable() const;
@@ -178,6 +179,9 @@ protected:
 	friend class CDeleteFileDlg;
 };
 
+typedef CList< const CLibraryFile* > CFileList;
+typedef CMap< DWORD_PTR, DWORD_PTR, CLibraryFile*, CLibraryFile* > CIndexMap;
+typedef CMap< CString, const CString&, CLibraryFile*, CLibraryFile* > CFileMap;
 
 class CSharedSource
 {

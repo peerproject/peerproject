@@ -1,7 +1,7 @@
 //
 // Library.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -61,14 +61,14 @@ CLibrary Library;
 //////////////////////////////////////////////////////////////////////
 // CLibrary construction
 
-CLibrary::CLibrary() 
-	:	m_nUpdateCookie				( 0ul )
-	,	m_nForcedUpdateCookie		( 0ul )
-	,	m_nScanCount				( 0ul )
-	,	m_nScanCookie				( 1ul )
-	,	m_nScanTime					( 0ul )
-	,	m_nUpdateSaved				( 0ul )
-	,	m_nFileSwitch				( 0 )
+CLibrary::CLibrary()
+	: m_nUpdateCookie			( 0ul )
+	, m_nForcedUpdateCookie		( 0ul )
+	, m_nScanCount				( 0ul )
+	, m_nScanCookie				( 1ul )
+	, m_nScanTime				( 0ul )
+	, m_nUpdateSaved			( 0ul )
+	, m_nFileSwitch				( 0 )
 {
 	EnableDispatch( IID_ILibrary );
 }
@@ -95,9 +95,7 @@ void CLibrary::AddFile(CLibraryFile* pFile)
 	LibraryMaps.OnFileAdd( pFile );
 
 	if ( pFile->m_oSHA1 )
-	{
 		LibraryDictionary.AddFile( *pFile );
-	}
 
 	if ( pFile->IsAvailable() )
 	{
@@ -156,13 +154,11 @@ void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce)
 			nCount++;
 	}
 
-	if ( nCount >= 5 ) // More than 4 same files is suspicious
+	if ( nCount > 4 ) // More than 4 same files is suspicious
 	{
 		if ( Settings.Live.LastDuplicateHash == pFile->m_oMD5.toString() && !bForce )
-		{
-			// we already warned about the same file
-			return;
-		}
+			return;	// we already warned about the same file
+
 		Settings.Live.LastDuplicateHash = pFile->m_oMD5.toString();
 		if ( !theApp.m_bLive ) return;
 
@@ -232,12 +228,8 @@ bool CLibrary::OnQueryHits(const CQueryHit* pHits)
 	{
 		if ( ! pHit->m_sURL.IsEmpty() )
 		{
-			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByHash( pHit->m_oSHA1,
-				pHit->m_oTiger, pHit->m_oED2K, pHit->m_oBTH, pHit->m_oMD5,
-				pHit->m_nSize, pHit->m_nSize ) )
-			{
+			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByHash( pHit ) )
 				pFile->AddAlternateSources( pHit->m_sURL );
-			}
 		}
 	}
 
@@ -247,13 +239,13 @@ bool CLibrary::OnQueryHits(const CQueryHit* pHits)
 //////////////////////////////////////////////////////////////////////
 // CLibrary search
 
-CList< const CLibraryFile* >* CLibrary::Search(CQuerySearch* pSearch, int nMaximum, bool bLocal, bool bAvailableOnly)
+CFileList* CLibrary::Search(CQuerySearch* pSearch, int nMaximum, bool bLocal, bool bAvailableOnly)
 {
 	CSingleLock oLock( &m_pSection );
 
 	if ( !oLock.Lock( 50 ) ) return NULL;
 
-	CList< const CLibraryFile* >* pHits = LibraryMaps.Search( pSearch, nMaximum, bLocal, bAvailableOnly );
+	CFileList* pHits = LibraryMaps.Search( pSearch, nMaximum, bLocal, bAvailableOnly );
 
 	if ( pHits == NULL && pSearch != NULL )
 		pHits = LibraryDictionary.Search( *pSearch, nMaximum, bLocal, bAvailableOnly );
@@ -341,13 +333,10 @@ BOOL CLibrary::Load()
 	if ( bFile1 || bFile2 )
 	{
 		if ( bFile1 )
-		{
 			bFile1 = SafeReadTime( pFile1, &pFileTime1 );
-		}
+
 		if ( bFile2 )
-		{
 			bFile2 = SafeReadTime( pFile2, &pFileTime2 );
-		}
 	}
 	else
 	{
@@ -561,7 +550,7 @@ BOOL CLibrary::IsBadFile(LPCTSTR pszFilenameOnly, LPCTSTR pszPathOnly, DWORD dwF
 				_tcsnicmp( pszFilenameOnly, _T("~uTorrentPartFile_"), 18 ) == 0 ||
 				// Ares Galaxy partials
 				 _tcsnicmp( pszFilenameOnly, _T("___ARESTRA___"), 13 ) == 0 ||
-				// FireFox Password files "signons3.txt" 
+				// FireFox Password files "signons3.txt"
 				 _tcsicmp( pszFilenameOnly, _T("signons") ) == 0 )
 			{
 				 return TRUE;
@@ -659,7 +648,7 @@ STDMETHODIMP CLibrary::XLibrary::get_Files(ILibraryFiles FAR* FAR* ppFiles)
 STDMETHODIMP CLibrary::XLibrary::FindByName(BSTR sName, ILibraryFile FAR* FAR* ppFile)
 {
 	METHOD_PROLOGUE( CLibrary, Library )
-	CLibraryFile* pFile = LibraryMaps.LookupFileByName( CString( sName ) );
+	CLibraryFile* pFile = LibraryMaps.LookupFileByName( CString( sName ), SIZE_UNKNOWN, FALSE, FALSE );
 	*ppFile = pFile ? (ILibraryFile*)pFile->GetInterface( IID_ILibraryFile, TRUE ) : NULL;
 	return pFile ? S_OK : S_FALSE;
 }

@@ -94,9 +94,9 @@ CNetwork::~CNetwork()
 //////////////////////////////////////////////////////////////////////
 // CNetwork attributes
 
-BOOL CNetwork::IsSelfIP(IN_ADDR nAddress) const
+BOOL CNetwork::IsSelfIP(const IN_ADDR& nAddress) const
 {
-	IN_ADDR* nUPnPAddr = (IN_ADDR*)&theApp.m_nUPnPExternalAddress;
+	const IN_ADDR* nUPnPAddr = (const IN_ADDR*)&theApp.m_nUPnPExternalAddress;
 	if ( nUPnPAddr->S_un.S_addr == nAddress.S_un.S_addr )
 		return TRUE;
 
@@ -161,6 +161,10 @@ bool CNetwork::IsStable() const
 
 BOOL CNetwork::IsFirewalled(int nCheck) const
 {
+#ifdef LAN_MODE
+	UNUSED_ALWAYS( nCheck );
+	return FALSE;
+#else // No LAN_MOD
 	if ( Settings.Connection.FirewallState == CONNECTION_OPEN )	// CHECK_BOTH, CHECK_TCP, CHECK_UDP
 		return FALSE;		// We know we are not firewalled on both TCP and UDP
 	else if ( Settings.Connection.FirewallState == CONNECTION_OPEN_TCPONLY && nCheck == CHECK_TCP )
@@ -180,6 +184,7 @@ BOOL CNetwork::IsFirewalled(int nCheck) const
 	}
 
 	return TRUE;			// We know we are firewalled
+#endif // No LAN_MOD
 }
 
 DWORD CNetwork::GetStableTime() const
@@ -187,7 +192,7 @@ DWORD CNetwork::GetStableTime() const
 	return IsStable() ? Handshakes.GetStableTime() : 0;
 }
 
-BOOL CNetwork::IsConnectedTo(IN_ADDR* pAddress) const
+BOOL CNetwork::IsConnectedTo(const IN_ADDR* pAddress) const
 {
 	return IsSelfIP( *pAddress ) ||
 		Handshakes.IsConnectedTo( pAddress ) ||
@@ -197,11 +202,11 @@ BOOL CNetwork::IsConnectedTo(IN_ADDR* pAddress) const
 
 BOOL CNetwork::ReadyToTransfer(DWORD tNow) const
 {
-	if ( !Network.IsConnected() )
+	if ( ! Network.IsConnected() )
 		return FALSE;
 
 	// If a connection isn't needed for transfers, we can start any time
-	if ( !Settings.Connection.RequireForTransfers )
+	if ( ! Settings.Connection.RequireForTransfers )
 		return TRUE;
 
 	// If we have not started connecting, we're not ready to transfer.
@@ -401,24 +406,24 @@ BOOL CNetwork::AsyncResolve(LPCTSTR pszAddress, WORD nPort, PROTOCOLID nProtocol
 //////////////////////////////////////////////////////////////////////
 // CNetwork firewalled address checking
 
-BOOL CNetwork::IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf)
+BOOL CNetwork::IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf) const
 {
 	if ( ! pAddress ) return TRUE;
-	if ( bIncludeSelf && IsSelfIP( *(IN_ADDR*)pAddress ) ) return TRUE;
-	if ( ! *(DWORD*)pAddress ) return TRUE;							// 0.0.0.0
+	if ( bIncludeSelf && IsSelfIP( *pAddress ) ) return TRUE;
+	if ( ! pAddress->S_un.S_addr ) return TRUE;							// 0.0.0.0
 #ifdef LAN_MODE
-	if ( ( *(DWORD*)pAddress & 0xFFFF ) == 0xA8C0 ) return FALSE;	// 192.168.0.0/16
-	if ( ( *(DWORD*)pAddress & 0xF0FF ) == 0x10AC ) return FALSE;	// 172.16.0.0/12
-	if ( ( *(DWORD*)pAddress & 0xFFFF ) == 0xFEA9 ) return FALSE;	// 169.254.0.0/16
-	if ( ( *(DWORD*)pAddress & 0xFF ) == 0x0A ) return FALSE;		// 10.0.0.0/8
+	if ( ( pAddress->S_un.S_addr & 0xFFFF ) == 0xA8C0 ) return FALSE;	// 192.168.0.0/16
+	if ( ( pAddress->S_un.S_addr & 0xF0FF ) == 0x10AC ) return FALSE;	// 172.16.0.0/12
+	if ( ( pAddress->S_un.S_addrs & 0xFFFF ) == 0xFEA9 ) return FALSE;	// 169.254.0.0/16
+	if ( ( pAddress->S_un.S_addr & 0xFF ) == 0x0A ) return FALSE;		// 10.0.0.0/8
 	return TRUE;
 #else // No LAN_MODE
 	if ( ! Settings.Connection.IgnoreLocalIP ) return FALSE;
-	if ( ( *(DWORD*)pAddress & 0xFFFF ) == 0xA8C0 ) return TRUE;	// 192.168.0.0/16
-	if ( ( *(DWORD*)pAddress & 0xF0FF ) == 0x10AC ) return TRUE;	// 172.16.0.0/12
-	if ( ( *(DWORD*)pAddress & 0xFFFF ) == 0xFEA9 ) return TRUE;	// 169.254.0.0/16
-	if ( ( *(DWORD*)pAddress & 0xFF ) == 0x0A ) return TRUE;		// 10.0.0.0/8
-	if ( ( *(DWORD*)pAddress & 0xFF ) == 0x7F ) return TRUE;		// 127.0.0.0/8
+	if ( ( pAddress->S_un.S_addr & 0xFFFF ) == 0xA8C0 ) return TRUE;	// 192.168.0.0/16
+	if ( ( pAddress->S_un.S_addr & 0xF0FF ) == 0x10AC ) return TRUE;	// 172.16.0.0/12
+	if ( ( pAddress->S_un.S_addr & 0xFFFF ) == 0xFEA9 ) return TRUE;	// 169.254.0.0/16
+	if ( ( pAddress->S_un.S_addr & 0xFF ) == 0x0A ) return TRUE;		// 10.0.0.0/8
+	if ( ( pAddress->S_un.S_addr & 0xFF ) == 0x7F ) return TRUE;		// 127.0.0.0/8
 	return FALSE;
 #endif // LAN_MODE
 }
@@ -429,7 +434,7 @@ BOOL CNetwork::IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf)
 // http://www.cymru.com/Documents/bogon-bn-nonagg.txt
 // and http://www.iana.org/assignments/ipv4-address-space
 
-BOOL CNetwork::IsReserved(IN_ADDR* pAddress, bool bCheckLocal)
+BOOL CNetwork::IsReserved(const IN_ADDR* pAddress, bool bCheckLocal) const
 {
 	char *ip = (char*)&(pAddress->s_addr);
 	unsigned char i1 = ip[ 0 ], i2 = ip[ 1 ], i3 = ip[ 2 ], i4 = ip[ 3 ];
@@ -514,6 +519,8 @@ WORD CNetwork::RandomPort() const
 
 BOOL CNetwork::PreRun()
 {
+	//CQuickLock oLock( m_pSection );
+
 	// Begin network startup
 	theApp.Message( MSG_NOTICE, IDS_NETWORK_STARTUP );
 
@@ -1093,3 +1100,41 @@ void CNetwork::UDPKnownHubCache(IN_ADDR* pAddress, WORD nPort)
 	CG2Packet* pKHLR = CG2Packet::New( G2_PACKET_KHL_REQ );
 	Datagrams.Send( pAddress, nPort, pKHLR, TRUE, NULL, FALSE );
 }
+
+
+//SOCKET CNetwork::AcceptSocket(SOCKET hSocket, SOCKADDR_IN* addr, LPCONDITIONPROC lpfnCondition, DWORD_PTR dwCallbackData)
+//{
+//	__try	// Fix against stupid firewalls like (iS3 Anti-Spyware or Norman Virus Control)
+//	{
+//		int len = sizeof( SOCKADDR_IN );
+//		return WSAAccept( hSocket, (SOCKADDR*)addr, &len, lpfnCondition, dwCallbackData );
+//	}
+//	__except( EXCEPTION_EXECUTE_HANDLER )
+//	{
+//		return INVALID_SOCKET;
+//	}
+//}
+
+//void CNetwork::CloseSocket(SOCKET& hSocket, const bool bForce)
+//{
+//	if ( hSocket != INVALID_SOCKET )
+//	{
+//		__try	// Fix against stupid firewalls like (iS3 Anti-Spyware or Norman Virus Control)
+//		{
+//			if ( bForce )
+//			{
+//				const LINGER ls = { 1, 0 };
+//				setsockopt( hSocket, SOL_SOCKET, SO_LINGER, (char*)&ls, sizeof( ls ) );
+//			}
+//			else
+//			{
+//				shutdown( hSocket, SD_BOTH );
+//			}
+//			closesocket( hSocket );
+//		}
+//		__except( EXCEPTION_EXECUTE_HANDLER )
+//		{
+//		}
+//		hSocket = INVALID_SOCKET;
+//	}
+//}

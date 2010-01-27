@@ -1,7 +1,7 @@
 //
 // HashDatabase.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,40 +47,38 @@ public:
 	CHashDatabase();
 	virtual ~CHashDatabase();
 
-// Attributes
-protected:
-	CCriticalSection m_pSection;
-protected:
-	CString		m_sPath;
-	CFile		m_pFile;
-	BOOL		m_bOpen;
-protected:
-	DWORD			m_nOffset;
-	HASHDB_INDEX*	m_pIndex;
-	DWORD			m_nIndex;
-	DWORD			m_nBuffer;
-
 // Operations
 public:
 	BOOL	Create();
 	void	Close();
 	BOOL	DeleteAll(DWORD nIndex);
-protected:
-	HASHDB_INDEX*	Lookup(DWORD nIndex, DWORD nType);
-	HASHDB_INDEX*	PrepareToStore(DWORD nIndex, DWORD nType, DWORD nLength);
-	BOOL			Erase(DWORD nIndex, DWORD nType);
-	void			Commit();
-public:
+
 	BOOL	GetTiger(DWORD nIndex, CTigerTree* pTree);
 	BOOL	StoreTiger(DWORD nIndex, CTigerTree* pTree);
 	BOOL	DeleteTiger(DWORD nIndex);
-public:
 	BOOL	GetED2K(DWORD nIndex, CED2K* pSet);
 	BOOL	StoreED2K(DWORD nIndex, CED2K* pSet);
 	BOOL	DeleteED2K(DWORD nIndex);
 
 	static void Serialize(CArchive& ar, CTigerTree* pTree);
 	static void Serialize(CArchive& ar, CED2K* pSet);
+
+protected:
+	CCriticalSection m_pSection;
+
+	CString			m_sPath;
+	CFile			m_pFile;
+	BOOL			m_bOpen;
+
+	HASHDB_INDEX*	m_pIndex;
+	DWORD			m_nIndex;
+	DWORD			m_nOffset;
+	DWORD			m_nBuffer;
+
+	HASHDB_INDEX*	Lookup(DWORD nIndex, DWORD nType);
+	HASHDB_INDEX*	PrepareToStore(DWORD nIndex, DWORD nType, DWORD nLength);
+	BOOL			Erase(DWORD nIndex, DWORD nType);
+	BOOL			Commit();
 };
 
 extern CHashDatabase LibraryHashDB;

@@ -161,7 +161,7 @@
 	</toolbar>
 	<!-- UPLOADS WINDOW -->
 	<toolbar name="CUploadsWnd.Basic">
-		<button id="ID_UPLOADS_LAUNCH" text="Open or Play File"/>
+		<button id="ID_UPLOADS_LAUNCH" text="Show File"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_UPLOADS_CHAT" text="Chat to User"/>
@@ -169,7 +169,7 @@
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Clear Completed"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
-		<button id="ID_UPLOADS_LAUNCH" text="Open File"/>
+		<button id="ID_UPLOADS_LAUNCH" text="Show File"/>
 		<separator/>
 		<button id="ID_UPLOADS_CLEAR" text="Cancel File"/>
 		<button id="ID_UPLOADS_START" text="Start Now"/>
@@ -534,7 +534,7 @@
 				<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open Downloads Folder"/>
 				<separator/>
 				<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
-				<item id="ID_TOOLS_SEEDTORRENT"  text="_Seed a .Torrent..."/>
+				<item id="ID_TOOLS_SEEDTORRENT" text="_Seed a .Torrent..."/>
 				<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
 				<item id="IDC_IMPORT_DOWNLOADS" text="_Import eMule Partials..."/>
 				<separator/>
@@ -655,9 +655,9 @@
 			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open completed download folder"/>
 			<separator/>
 			<item id="ID_TOOLS_DOWNLOAD" text="_Download File/Torrent..."/>
-			<!--item id="ID_TOOLS_RESEEDTORRENT" 	text="_Reseed Prior Torrent..."-->
-			<item id="ID_TOOLS_SEEDTORRENT" 	text="_Seed New Torrent..."/>
-			<item id="ID_TOOLS_CREATETORRENT" 	text="_Create New .Torrent..."/>
+			<!--item id="ID_TOOLS_RESEEDTORRENT" text="_Reseed Prior Torrent..."-->
+			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
 			<item id="IDC_IMPORT_DOWNLOADS"	text="_Import eMule Partials..."/>
 			<separator/>
 			<item id="ID_TOOLS_LANGUAGE" text="Choose a _Language..."/>
@@ -712,12 +712,12 @@
 			<menu text="Choose _Networks">
 				<item id="ID_NETWORK_G2" text="Connect to Gnutella_2"/>
 				<item id="ID_NETWORK_G1" text="Connect to _Gnutella"/>
-			<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
+				<item id="ID_NETWORK_ED2K" text="Connect to _eDonkey"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Exit _After Transfers"/>
+			<item id="ID_NETWORK_EXIT" text="E_xit"/>
 		</menu>
-		<separator/>
-		<item id="ID_NETWORK_AUTO_CLOSE" text="Exit _After Transfers"/>
-		<item id="ID_NETWORK_EXIT" text="E_xit"/>
-	</menu>
 		<menu text="_View">
 			<item id="ID_TAB_HOME" text="_Home"/>
 			<item id="ID_TAB_SEARCH" text="_Search"/>
@@ -1180,11 +1180,11 @@
 		<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Properties..."/>
-  </menu>
+	</menu>
 	<menu name="CDownloadsWnd.Seeding">
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open File"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
- 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
+		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
 		<item id="ID_DOWNLOADS_FILE_DELETE" text="Delete Files"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
@@ -1228,14 +1228,18 @@
 	</menu>
 	<!-- UPLOADS WINDOW -->
 	<menu name="CUploadsWnd.Upload.Basic">
+		<item id="ID_UPLOADS_LAUNCH" text="Show File in _Library"/>
+		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
 		<item id="ID_UPLOADS_CHAT" text="_Chat to User"/>
+		<item id="ID_SECURITY_BAN" text="Ba_n User"/>
 		<separator/>
 		<item id="ID_UPLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CUploadsWnd.Upload">
 		<item id="ID_UPLOADS_START" text="_Start Now"/>
 		<item id="ID_UPLOADS_CLEAR" text="_Clear"/>
+		<item id="ID_UPLOADS_LAUNCH" text="Show _Library"/>
 		<item id="ID_UPLOADS_FOLDER" text="Open _Folder"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
@@ -1335,13 +1339,16 @@
 	<menu name="CLibraryFileView.Physical">
 		<item id="ID_LIBRARY_LAUNCH" text="_Open/Play"/>
 		<item id="ID_LIBRARY_ENQUEUE" text="Add to Pla_ylist"/>
+		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<separator/>
 		<item id="ID_LIBRARY_SHARED_FILE" text="_Shared"/>
 		<separator/>
 		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
-		<item id="ID_LIBRARY_DELETE" text="_Delete"/>
 		<menu text="O_rganize">
+			<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
+			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
+			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
 			<item id="ID_LIBRARY_COPY" text="_Copy Files..."/>
 			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
@@ -1406,11 +1413,12 @@
 		<item id="ID_LIBRARY_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_LIBRARY_CREATETORRENT" text="Create ._torrent File"/>
 		<menu text="O_rganize">
+			<item id="ID_LIBRARY_LAUNCH_FOLDER" text="Open _Folder"/>
 			<item id="ID_LIBRARY_UNLINK" text="Remove _Files"/>
 			<separator/>
 			<item id="ID_LIBRARY_RENAME" text="_Rename File"/>
-			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
 			<item id="ID_LIBRARY_COPY" text="_Copy Files..."/>
+			<item id="ID_LIBRARY_MOVE" text="_Move Files..."/>
 		</menu>
 		<separator/>
 		<menu text="S_earch For">
@@ -1491,7 +1499,7 @@
 		</menu>
 		<menu text="Video Si_ze">
 			<item id="ID_MEDIA_SIZE_FILL" text="_Best Fit"/>
- 			<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
+			<item id="ID_MEDIA_SIZE_ONE" text="_Original Size"/>
 			<item id="ID_MEDIA_SIZE_TWO" text="_Double Size"/>
 			<item id="ID_MEDIA_SIZE_HALF" text="_Half Size"/>
 			<item id="ID_MEDIA_SIZE_DISTORT" text="Stretch to _Fill"/>
@@ -2578,7 +2586,7 @@
 		<image id="ID_TOOLS_WIZARD" id1="ID_DOWNLOADS_RATE" id2="ID_MEDIA_RATE" id3="ID_DOWNLOADS_VIEW_REVIEWS"/>
 		<!--Folders-->
 		<image id="ID_DOWNLOADS_FILTER_MENU" id1="ID_UPLOADS_FILTER_MENU" id2="ID_SEARCH_FILTER" id3="ID_LIBRARY_FOLDER_PROPERTIES" id4="ID_LIBRARY_ALBUM_PROPERTIES"/>
-		<image id="ID_LIBRARY_TREE_PHYSICAL" id1="ID_DOWNLOADS_FOLDER" id2="ID_UPLOADS_FOLDER" id3="ID_OPEN_DOWNLOADS_FOLDER" id4="ID_DOWNLOAD_GROUP_OPEN" id5="ID_LIBRARY_FOLDER_OPEN"/>
+		<image id="ID_LIBRARY_TREE_PHYSICAL" id1="ID_DOWNLOADS_FOLDER" id2="ID_UPLOADS_FOLDER" id3="ID_OPEN_DOWNLOADS_FOLDER" id4="ID_DOWNLOAD_GROUP_OPEN" id5="ID_LIBRARY_LAUNCH_FOLDER"/>
 		<image /> <!--Opened-->
 		<image id="ID_LIBRARY_TREE_VIRTUAL"/>
 		<image id="SHI_FOLDER_CLOSED"/>

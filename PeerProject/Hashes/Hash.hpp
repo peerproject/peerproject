@@ -1,31 +1,29 @@
-////////////////////////////////////////////////////////////////////////////////
-//                                                                            //
-// Hashes/Hash.hpp                                                            //
-//                                                                            //
-// This file is part of PeerProject (peerproject.org) © 2008                  //
-// Portions Copyright Shareaza Development Team, 2005.                        //
-//                                                                            //
-// PeerProject is free software; you can redistribute it and/or               //
-// modify it under the terms of the GNU General Public License                //
-// as published by the Free Software Foundation; either version 3             //
-// of the License, or later version (at your option).                         //
-//                                                                            //
-// PeerProject is distributed in the hope that it will be useful,             //
-// but WITHOUT ANY WARRANTY; without even the implied warranty of             //
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                       //
-// See the See the GNU General Public License for more details.               //
-//                                                                            //
-// You should have received a copy of the GNU General Public License 3.0          //
-// along with PeerProject; if not, write to Free Software Foundation, Inc.    //
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)     //
-//                                                                            //
-////////////////////////////////////////////////////////////////////////////////
+//
+// Hashes/Hash.hpp
+//
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions Copyright Shareaza Development Team, 2005.
+//
+// PeerProject is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 3
+// of the License, or later version (at your option).
+//
+// PeerProject is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License 3.0
+// along with PeerProject; if not, write to Free Software Foundation, Inc.
+// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org
+//
 
-//! \file       Hashes/Hash.hpp
-//! \brief      Defines Hash template.
+//! \file		Hashes/Hash.hpp
+//! \brief		Defines Hash template.
 
-#ifndef HASHES_HASH_HPP_INCLUDED
-#define HASHES_HASH_HPP_INCLUDED
+#pragma once
+
 
 #include "HashStringConversion.hpp"
 
@@ -72,8 +70,8 @@ namespace Hashes
 		typedef typename StoragePolicy::const_iterator const_iterator;
 		typedef typename Descriptor::RawStorage RawStorage;
 	public:
-		//! Constructs an empty hash object. The exact semantics depends on
-		//! policy parameters.
+		//! Constructs an empty hash object.
+		//! The exact semantics depends on policy parameters.
 		Hash() : ValidationPolicy() {}
 
 		//! Constructs a new hash object using a given byte stream.
@@ -83,21 +81,19 @@ namespace Hashes
 		//! Converts a related hash object. We do so by forwarding the parameter
 		//! to each policy in turn.
 		//! \note the implicit copy constructor is still generated and used
-		//!       if the argument type matches exactly.
+		//!		if the argument type matches exactly.
 		template<
 			template<typename> class OSP,
 			template<typename> class OCP,
 			template<typename> class OVP>
 		Hash(const Hash< Descriptor, OSP, OCP, OVP >& rhs)
 			: ValidationPolicy(
-					static_cast< const OVP< OCP< OSP < Descriptor > > >& >(
-					rhs ) )
-		{}
+				static_cast< const OVP< OCP< OSP < Descriptor > > >& >( rhs ) ) {}
 
-		//! Assigns a related hash object. We do so by forwarding the parameter
-		//! to each policy in turn.
-		//! \note the implicit copy assignment operator is still generated and
-		//!       used if the argument type matches exactly.
+		//! Assigns a related hash object.
+		//! We do so by forwarding the parameter to each policy in turn.
+		//! \note the implicit copy assignment operator is still generated
+		//!		and used if the argument type matches exactly.
 		template<
 			template<typename> class OSP,
 			template<typename> class OCP,
@@ -105,16 +101,15 @@ namespace Hashes
 		Hash& operator=(const Hash< Descriptor, OSP, OCP, OVP >& rhs)
 		{
 			static_cast< ValidationPolicy& >( *this )
-					= static_cast< const OVP< OCP< OSP < Descriptor > > >& >(
-					rhs );
+					= static_cast< const OVP< OCP< OSP < Descriptor > > >& >( rhs );
 			return *this;
 		}
 
 		//! \brief Generates a hash string with the specified encoding.
 		//!
-		//! Generates a hash string with the specified encoding. The encoding
-		//! cannot be deduced and must be specified explicitly. Returns an empty
-		//! string if the hash is not valid.
+		//! Generates a hash string with the specified encoding.
+		//! The encoding cannot be deduced and must be specified explicitly.
+		//! Returns an empty string if the hash is not valid.
 		template<Encoding encoding>
 		StringType toString() const
 		{
@@ -122,22 +117,19 @@ namespace Hashes
 					? HashToString< encoding, byteCount >()( &( *this )[ 0 ] )
 					: StringType();
 		}
-		//! \brief Generates a hash string using the default encoding for
-		//!        this hash type.
+		//! \brief Generates a hash string using the default encoding for this hash type.
 		StringType toString() const
 		{
 			return toString< encoding >();
 		}
-		//! \brief Generates a urn string using the default encoding and the
-		//!        specified urn prefix.
+		//! \brief Generates a urn string using the default encoding and the specified urn prefix.
 		//!
 		//! Returns an empty string if the hash is not valid.
 		//!
 		//! \todo Add suitable compile time assertion to catch cases when we
-		//!       try to use this function with a type that has no or not this
-		//!       urn. Currently the compilation fails if the type has no urns
-		//!       but the error message does not show the point of
-		//!       instantiation.
+		//!		try to use this function with a type that has no or not this urn.
+		//!		Currently the compilation fails if the type has no urns
+		//!		but the error message does not show the point of instantiation.
 		template<size_t urn>
 		StringType toUrn() const
 		{
@@ -151,36 +143,34 @@ namespace Hashes
 		//! \brief Generates a urn string using the default short urn prefix.
 		StringType toShortUrn() const { return toUrn< 1 >(); }
 
-		//! \brief Generates hash from a hash string with the specified
-		//!        encoding.
+		//! \brief Generates hash from a hash string with the specified encoding.
 		//!
-		//! Generates hash from string with the specified encoding. The encoding
-		//! cannot be deduced and must be specified explicitly. The string
-		//! is validated afterwards. If the generation fails because either the
-		//! string is not wellformed or the hash ist blacklisted, the hash will
-		//! be cleared.
+		//! Generates hash from string with the specified encoding.
+		//! The encoding cannot be deduced and must be specified explicitly.
+		//! The string is validated afterwards. If the generation fails because
+		//! either the string is not wellformed or the hash ist blacklisted,
+		//! the hash will be cleared.
 		template<Encoding encoding>
 		bool fromString(const wchar* input)
 		{
 			if ( !HashFromString< encoding, byteCount >()( &( *this )[ 0 ], input ) )
 				return false;
-			if ( validate() ) return true;
+			if ( validate() )
+				return true;
 			clear();
 			return false;
 		}
-		//! \brief Generates hash from hash string using the default encoding
-		//!        for this hash type.
+		//! \brief Generates hash from hash string using the default encoding for this hash type.
 		bool fromString(const wchar* input)
 		{
 			return fromString< encoding >( input );
 		}
-		//! \brief Generates hash from urn using the default encoding
-		//!        for this hash type.
+		//! \brief Generates hash from urn using the default encoding for this hash type.
 		//!
 		//! \todo Add suitable compile time assertion to catch cases when we
-		//!       try to use this function with a type that has no urns.
-		//!       Currently the compilation fails but the error message does not
-		//!       show the point of instantiation.
+		//!		try to use this function with a type that has no urns.
+		//!		Currently the compilation fails but the error message does not
+		//!		show the point of instantiation.
 		template<Encoding encoding>
 		bool fromUrn(const wchar* input)
 		{
@@ -313,8 +303,7 @@ namespace Hashes
 	//! \relates Hashes::Hash
 	//! \brief Compares two related hashes for validaty and equality.
 	//!
-	//! This predicate returns true if and only if both arguments are valid
-	//! and equal.
+	//! This predicate returns true if and only if both arguments are valid and equal.
 	template
 	<
 		typename Descriptor,
@@ -331,8 +320,7 @@ namespace Hashes
 	//! \relates Hashes::Hash
 	//! \brief Compares two related hashes for validaty and unequality.
 	//!
-	//! This predicate returns true if and only if both arguments are valid
-	//! and unequal.
+	//! This predicate returns true if and only if both arguments are valid and unequal.
 	template
 	<
 		typename Descriptor,
@@ -350,5 +338,3 @@ namespace Hashes
 	//! \brief This namespace is used to locate all possible Policies for
 	//!        the Hash class template.
 } // namespace Hashes
-
-#endif // #ifndef HASHES_HASH_HPP_INCLUDED

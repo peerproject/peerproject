@@ -1,7 +1,7 @@
 //
 // ComObject.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@
 
 #pragma once
 
+
 class CComObject : public CCmdTarget
 {
 public:
@@ -37,6 +38,7 @@ protected:
 	const CLSID*	m_pCLSID;
 	CMap< LPUNKNOWN, LPUNKNOWN, const IID*, const IID* > m_pDispatchMap;
 
+public:
 	STDMETHOD_(ULONG, ComAddRef)(LPUNKNOWN);
 	STDMETHOD_(ULONG, ComRelease)(LPUNKNOWN);
 	STDMETHOD(ComQueryInterface)(LPUNKNOWN, REFIID, LPVOID*);
@@ -120,3 +122,125 @@ private:
 
 #define INTERFACE_TO_CLASS(icClass, icInterface, icIn, icOut)	\
 	icClass * icOut = (icClass *)( (BYTE*) icIn - offsetof( icClass, m_x##icInterface ) );
+
+
+// To prevent direct method calling of object held by CComObjectPtr
+template < class T >
+class _StrictCComObjectPtr : public T
+{
+private:
+	STDMETHOD_(ULONG, ComAddRef)(LPUNKNOWN) = 0;
+	STDMETHOD_(ULONG, ComRelease)(LPUNKNOWN) = 0;
+};
+
+
+// Smart pointer for CComObject class (like CComPtr)
+template < class T >
+class CComObjectPtr
+{
+public:
+	CComObjectPtr() throw()
+		: p( NULL )
+	{
+	}
+
+	CComObjectPtr(T* p2) throw()
+		: p( p2 )
+	{
+		if ( p )
+			p->ComAddRef( NULL );
+	}
+
+	CComObjectPtr(const CComObjectPtr& pObjectPtr) throw()
+		: p( pObjectPtr.p )
+	{
+		if ( p )
+			p->ComAddRef( NULL );
+	}
+
+	~CComObjectPtr() throw()
+	{
+		Release();
+	}
+
+	CComObjectPtr& operator=(const CComObjectPtr& pObjectPtr) throw()
+	{
+		if ( *this != pObjectPtr )
+		{
+			if ( pObjectPtr.p )
+				pObjectPtr.p->ComAddRef( NULL );
+			Attach( pObjectPtr.p );
+		}
+		return *this;
+	}
+
+	operator T*() const throw()
+	{
+		return p;
+	}
+
+	T& operator*() const throw()
+	{
+		ASSERT( p != NULL );
+		return *p;
+	}
+
+	_StrictCComObjectPtr< T >* operator->() const throw()
+	{
+		ASSERT( p != NULL );
+		return (_StrictCComObjectPtr< T >*)p;
+	}
+
+	operator bool() const throw()
+	{
+		return ( p != NULL );
+	}
+
+	bool operator!() const throw()
+	{
+		return ( p == NULL );
+	}
+
+	bool operator<(T* pT) const throw()
+	{
+		return ( p < pT );
+	}
+
+	bool operator!=(T* pT) const throw()
+	{
+		return ! operator==( pT );
+	}
+
+	bool operator==(_In_opt_ T* pT) const throw()
+	{
+		return ( p == pT );
+	}
+
+	// Attach to an existing interface (does not ComAddRef)
+	void Attach(T* p2) throw()
+	{
+		Release();
+		p = p2;
+	}
+
+	// Detach the interface (does not ComRelease)
+	T* Detach() throw()
+	{
+		T* pTemp = p;
+		p = NULL;
+		return pTemp;
+	}
+
+	void Release() throw()
+	{
+		T* pTemp = p;
+		if ( pTemp )
+		{
+			p = NULL;
+			pTemp->ComRelease( NULL );
+		}
+	}
+
+private:
+	T* p;
+};

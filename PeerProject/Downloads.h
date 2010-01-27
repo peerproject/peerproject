@@ -1,7 +1,7 @@
 //
 // Downloads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -43,8 +43,8 @@ public:
 
 // Attributes
 public:
-	DWORD			m_tBandwidthAtMax;			// The last time download bandwidth was all in use
-	DWORD			m_tBandwidthAtMaxED2K;		// The last time all ed2k bandwidth was used
+	DWORD			m_tBandwidthAtMax;			// Last time download bandwidth was all in use
+	DWORD			m_tBandwidthAtMaxED2K;		// Last time all ed2k bandwidth was used
 	DWORD			m_nTransfers;
 	DWORD			m_nBandwidth;
 	DWORD			m_tLastConnect;
@@ -53,7 +53,7 @@ private:
 	CList< CDownload* >	m_pList;
 	CMap< ULONG, ULONG, DWORD, DWORD > m_pHostLimits;
 	int				m_nRunCookie;
-	DWORD			m_tBandwidthLastCalc;		// The last time the bandwidth was calculated
+	DWORD			m_tBandwidthLastCalc;		// Last time the bandwidth was calculated
 	DWORD			m_nLimitGeneric;
 	DWORD			m_nLimitDonkey;
 	DWORD			m_nTryingCount;
@@ -76,7 +76,7 @@ public:
 	void		StopTrying(bool bIsTorrent = false);
 
 	int			GetSeedCount() const;
-	DWORD		GetCount(BOOL bActiveOnly = FALSE) const;
+	INT_PTR		GetCount(BOOL bActiveOnly = FALSE) const;
 	DWORD		GetTryingCount(bool bTorrentsOnly = false) const;
 	DWORD		GetConnectingTransferCount() const;
 	BOOL		Check(CDownloadSource* pSource) const;

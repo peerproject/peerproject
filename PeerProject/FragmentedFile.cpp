@@ -211,8 +211,7 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength,
 
 		m_nFileError = ::GetLastError();
 		if ( ! bWrite )
-			// Do nothing for read only files
-			break;
+			break;	// Do nothing for read only files
 
 		CString strPath( pszFile );
 		switch( nMethod )
@@ -224,7 +223,7 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength,
 				strPath.Mid( strPath.ReverseFind( _T('\\') ) );
 			break;
 
-		// TODO: Other methods
+		// ToDo: Other methods
 		}
 	}
 
@@ -272,13 +271,8 @@ BOOL CFragmentedFile::Open(const CPeerProjectFile& oSHFile, BOOL bWrite)
 	{
 		// Open existing file from library
 		CSingleLock oLock( &Library.m_pSection, TRUE );
-		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByHash(
-			oSHFile.m_oSHA1, oSHFile.m_oTiger, oSHFile.m_oED2K,
-			oSHFile.m_oBTH, oSHFile.m_oMD5, oSHFile.m_nSize,
-			oSHFile.m_nSize, TRUE, TRUE ) )
-		{
+		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByHash( &oSHFile, TRUE, TRUE ) )
 			strSource = pFile->GetPath();
-		}
 	}
 
 	ASSERT( lstrcmpi( PathFindExtension( strSource ), _T(".pd") ) != 0 );	// .sd?
@@ -428,7 +422,7 @@ int CFragmentedFile::GetPriority(DWORD nIndex) const
 {
 	CQuickLock oLock( m_pSection );
 
-	return ( nIndex < m_oFile.size() ) ? m_oFile[ nIndex ].m_nPriority : prDiscarded;
+	return ( nIndex < m_oFile.size() ) ? m_oFile[ nIndex ].m_nPriority : prUnwanted;
 }
 
 void CFragmentedFile::SetPriority(DWORD nIndex, int nPriority)
@@ -452,6 +446,22 @@ float CFragmentedFile::GetProgress(DWORD nIndex) const
 			m_oFile[ nIndex ].m_nSize ) * 100.f ) / (float)m_oFile[ nIndex ].m_nSize;
 }
 
+Fragments::List CFragmentedFile::GetFullFragmentList() const
+{
+	CQuickLock oLock( m_pSection );
+
+	Fragments::List oList( m_oFList.limit() );
+	CVirtualFile::const_iterator pItr = m_oFile.begin();
+	const CVirtualFile::const_iterator pEnd = m_oFile.end();
+	for ( ; pItr != pEnd ; ++pItr )
+	{
+		if ( (*pItr).m_nPriority != prUnwanted )
+			oList.insert( Fragments::Fragment( (*pItr).m_nOffset, (*pItr).m_nOffset + (*pItr).m_nSize ) );
+	}
+
+	return oList;
+}
+
 Fragments::List CFragmentedFile::GetWantedFragmentList() const
 {
 	CQuickLock oLock( m_pSection );
@@ -462,7 +472,7 @@ Fragments::List CFragmentedFile::GetWantedFragmentList() const
 	// Exclude unwanted files
 	Fragments::List oList( m_oFList );
 	for ( CVirtualFile::const_iterator i = m_oFile.begin(); i != m_oFile.end(); ++i )
-		if ( (*i).m_nPriority == prDiscarded )
+		if ( (*i).m_nPriority == prUnwanted )
 			oList.erase( Fragments::Fragment( (*i).m_nOffset, (*i).m_nOffset + (*i).m_nSize ) );
 
 	return oList;
@@ -490,7 +500,13 @@ QWORD CFragmentedFile::GetCompleted(DWORD nIndex) const
 
 int CFragmentedFile::SelectFile(CSingleLock* pLock) const
 {
-	if ( GetCount() > 1 )
+	int nCount = GetCount();
+	if ( nCount == 1 )
+	{
+		// Single file download
+		return 0;
+	}
+	else if ( nCount > 1 )
 	{
 		CSelectDialog dlg;
 
@@ -513,8 +529,11 @@ int CFragmentedFile::SelectFile(CSingleLock* pLock) const
 
 		return (int)dlg.Get();
 	}
-
-	return 0;
+	else
+	{
+		// File closed
+		return -1;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -565,7 +584,7 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 
 		sPath = m_oFile[ nIndex ].m_sPath;
 		sName = m_oFile[ nIndex ].m_sName;
-		bSkip = ( m_oFile[ nIndex ].m_nPriority == prDiscarded );
+		bSkip = ( m_oFile[ nIndex ].m_nPriority == prUnwanted );
 
 		// Close our handle
 		m_oFile[ nIndex ].Release();
@@ -665,6 +684,21 @@ void CFragmentedFile::Close()
 }
 
 //////////////////////////////////////////////////////////////////////
+// CFragmentedFile clear
+
+//void CFragmentedFile::Clear()
+//{
+//	if ( m_oFile.empty() )
+//		return;
+//
+//	CQuickLock oLock( m_pSection );
+//
+//	Close();
+//
+//	m_oFile.clear();
+//}
+
+//////////////////////////////////////////////////////////////////////
 // CFragmentedFile make complete
 
 BOOL CFragmentedFile::MakeComplete()
@@ -742,7 +776,7 @@ void CFragmentedFile::Serialize(CArchive& ar, int nVersion)
 
 				if ( sPath.IsEmpty() || sName.IsEmpty() ||
 					bWrite < FALSE || bWrite > TRUE ||
-					nPriority < prDiscarded || nPriority > prHigh )
+					nPriority < prUnwanted || nPriority > prHigh )
 					AfxThrowArchiveException( CArchiveException::genericException );
 
 				if ( ! Open( sPath, nOffset, nLength, bWrite, sName, nPriority ) )

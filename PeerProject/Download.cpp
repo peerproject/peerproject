@@ -87,18 +87,11 @@ void CDownload::Pause(BOOL bRealPause)
 
 	theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_PAUSED, GetDisplayName() );
 
-	if ( !bRealPause )
-	{
-		StopTrying();
-		m_bTempPaused = TRUE;
-		return;
-	}
-	else
-	{
-		StopTrying();
-		m_bTempPaused = TRUE;
+	StopTrying();
+	m_bTempPaused = TRUE;
+
+	if ( bRealPause )
 		m_bPaused = TRUE;
-	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -106,13 +99,13 @@ void CDownload::Pause(BOOL bRealPause)
 
 void CDownload::Resume()
 {
-	if ( m_bComplete ) return;
-	if ( !Network.IsConnected() && !Network.Connect( TRUE ) ) return;
-	if ( ! m_bTempPaused )
+	ASSERT( ! IsCompleted() );
+	if ( IsCompleted() )
+		return;
+
+	if ( ! IsPaused() )
 	{
-		if ( ( m_tBegan == 0 ) && ( GetEffectiveSourceCount() < Settings.Downloads.MinSources ) )
-			FindMoreSources();
-		SetStartTimer();
+		StartTrying();
 		return;
 	}
 
@@ -136,16 +129,17 @@ void CDownload::Resume()
 	// Try again
 	ClearFileError();
 
-	if ( IsTorrent() )
-	{
-		if ( Downloads.GetTryingCount( true ) < Settings.BitTorrent.DownloadTorrents )
-			SetStartTimer();
-	}
-	else
-	{
-		if ( Downloads.GetTryingCount() < ( Settings.Downloads.MaxFiles + Settings.Downloads.MaxFileSearches ) )
-			SetStartTimer();
-	}
+	// Obsolete: Remove this
+	//if ( IsTorrent() )
+	//{
+	//	if ( Downloads.GetTryingCount( true ) < Settings.BitTorrent.DownloadTorrents )
+	//		SetStartTimer();
+	//}
+	//else
+	//{
+	//	if ( Downloads.GetTryingCount() < ( Settings.Downloads.MaxFiles + Settings.Downloads.MaxFileSearches ) )
+	//		SetStartTimer();
+	//}
 
 	SetModified();
 }
@@ -155,6 +149,7 @@ void CDownload::Resume()
 
 void CDownload::Remove(bool bDelete)
 {
+	StopTrying();
 	CloseTorrent();
 	CloseTransfers();
 	AbortTask();
@@ -231,16 +226,15 @@ bool CDownload::Rename(const CString& strName)
 
 void CDownload::StopTrying()
 {
-	if ( m_bComplete )
+	if ( ! IsTrying() || ( IsCompleted() && ! IsSeeding() ) )
 		return;
 
-	if ( IsTrying() )
-		Downloads.StopTrying( IsTorrent() );
+	Downloads.StopTrying( IsTorrent() );
 
 	m_tBegan = 0;
-	m_bDownloading	= false;
+	m_bDownloading = false;
 
-	// if m_bTorrentRequested = TRUE, raza sends Stop
+	// If m_bTorrentRequested = TRUE, raza sends Stop
 	// CloseTorrent() additionally closes uploads
 	if ( IsTorrent() )
 		CloseTorrent();
@@ -252,13 +246,20 @@ void CDownload::StopTrying()
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownload control : SetStartTimer
+// CDownload control : StartTrying
 
-void CDownload::SetStartTimer()
+void CDownload::StartTrying()
 {
+	ASSERT( ! IsCompleted() || IsSeeding() );
+	ASSERT( ! IsPaused() );
+	if ( IsTrying() || IsPaused() || ( IsCompleted() && ! IsSeeding() ) )
+		return;
+
+	if ( ! Network.IsConnected() && ! Network.Connect( TRUE ) )
+		return;
+
 	Downloads.StartTrying( IsTorrent() );
 	m_tBegan = GetTickCount();
-	SetModified();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -298,13 +299,13 @@ bool CDownload::IsCompleted() const
 
 bool CDownload::IsBoosted() const
 {
-	return m_bBoosted != 0;
+	return ( m_bBoosted != 0 );
 }
 
 // Is the download currently trying to download?
 bool CDownload::IsTrying() const
 {
-	return  m_tBegan != 0 ;
+	return ( m_tBegan != 0 );
 }
 
 bool CDownload::IsShared() const
@@ -332,7 +333,7 @@ void CDownload::OnRun()
 
 	DWORD tNow = GetTickCount();
 
-	if ( ! m_bTempPaused )
+	if ( ! IsPaused() )
 	{
 		if ( GetFileError() != ERROR_SUCCESS  )
 		{
@@ -341,14 +342,14 @@ void CDownload::OnRun()
 		}
 		else if ( IsMoving() )
 		{
-			if ( !m_bComplete && !IsTasking() )
+			if ( ! IsCompleted() && ! IsTasking() )
 				OnDownloaded();
 		}
 		else if ( IsTrying() || IsSeeding() )
 		{
 			//Dead Download Check: if download appears dead, give up and allow another to start.
 			//Incomplete, and trying for at least 3 hours:
-			if ( ( ! m_bComplete ) && ( tNow - GetStartTimer() ) > ( 3 * 60 * 60 * 1000 )  )
+			if ( ! IsCompleted() && ( tNow - GetStartTimer() ) > ( 3 * 60 * 60 * 1000 )  )
 			{
 				DWORD tHoursToTry = min( ( GetEffectiveSourceCount() + 49u ) / 50u, 9lu ) + Settings.Downloads.StarveGiveUp;
 
@@ -376,9 +377,10 @@ void CDownload::OnRun()
 			//End Dead Download Check
 
 			// Run the download
-			if ( RunTorrent( tNow ) )
+			if ( ! IsTorrent() || RunTorrent( tNow ) )
 			{
 				RunSearch( tNow );
+				RunValidation();
 
 				if ( IsSeeding() )
 				{
@@ -386,23 +388,14 @@ void CDownload::OnRun()
 					if ( !Settings.General.DebugBTSources && m_bExpanded )
 						m_bExpanded = FALSE;
 
-					RunValidation();
-					if ( Settings.BitTorrent.AutoSeed && m_tBegan == 0 )
-					{
-						if ( ! Network.IsConnected() )
-							Network.Connect( TRUE );
-
-						m_tBegan = GetTickCount();
-					}
-					SetModified();
+					if ( ! Network.IsConnected() && Settings.BitTorrent.AutoSeed )
+						Network.Connect( TRUE );
 				}
 				else // if ( ! IsMoving() )
 				{
-					RunValidation();
-
 					if ( IsComplete() && IsFileOpen() )
 					{
-						if ( ValidationCanFinish() )
+						if ( IsFullyVerified() )
 							OnDownloaded();
 					}
 					else if ( CheckTorrentRatio() )
@@ -410,7 +403,10 @@ void CDownload::OnRun()
 						if ( Network.IsConnected() )
 							StartTransfersIfNeeded( tNow );
 						else
-							m_tBegan = 0;
+						{
+							StopTrying();
+							return;
+						}
 					}
 				}
 			} // if ( RunTorrent( tNow ) )
@@ -419,29 +415,30 @@ void CDownload::OnRun()
 			if( HasActiveTransfers() )
 				m_bDownloading = true;
 		}
-		else if ( ! m_bComplete && m_bVerify != TRI_TRUE )
+		else if ( ! IsCompleted() && m_bVerify != TRI_TRUE )
 		{
-			//If this download isn't trying to download, see if it can try
-			if ( IsDownloading() )
-			{	// This download was probably started by a push/etc
-				SetStartTimer();
-			}
+		//	//If this download isn't trying to download, see if it can try
+		//	if ( IsDownloading() )
+		//		SetStartTimer();	// This download was probably started by a push/etc
+
 			if ( Network.IsConnected() )
 			{
-				if ( IsTorrent() )
-				{	//Torrents only try when 'ready to go'. (Reduce tracker load)
-					if ( Downloads.GetTryingCount( true ) < Settings.BitTorrent.DownloadTorrents )
-						SetStartTimer();
-				}
-				else
-				{	//We have extra regular downloads 'trying' so when a new slot is ready,
-					//a download has sources and is ready to go.
-					if ( Downloads.GetTryingCount() < ( Settings.Downloads.MaxFiles + Settings.Downloads.MaxFileSearches ) )
-						SetStartTimer();
+				// Have extra regular downloads 'trying' so when a new slot is ready,
+				// a download has sources and is ready to go.
+				if ( Downloads.GetTryingCount() < ( Settings.Downloads.MaxFiles + Settings.Downloads.MaxFileSearches ) )
+				{
+					if ( IsTorrent() )
+					{
+						// Torrents only try when 'ready to go'. (Reduce tracker load)
+						if ( Downloads.GetTryingCount( true ) < Settings.BitTorrent.DownloadTorrents )
+							Resume();
+					}
+					else
+						Resume();
 				}
 			}
 			else
-				m_tBegan = 0;
+				ASSERT( ! IsTrying() );
 		}
 	}
 
@@ -521,7 +518,7 @@ void CDownload::OnTaskComplete(CDownloadTask* pTask)
 
 void CDownload::OnMoved()
 {
-	// Just completed download
+	// Just completed torrent
 	if ( IsTorrent() && IsFullyVerified() )
 	{
 		// Set FALSE to prevent sending 'stop' announce to tracker
@@ -572,11 +569,11 @@ BOOL CDownload::Load(LPCTSTR pszName)
 
 	BOOL bSuccess = FALSE;
 	CFile pFile;
-	if ( pFile.Open( m_sPath, CFile::modeRead ) )
+	if ( pFile.Open( m_sPath, CFile::modeRead ) )	// .pd file
 	{
 		TRY
 		{
-			CArchive ar( &pFile, CArchive::load, 32768 );   // 32 KB buffer
+			CArchive ar( &pFile, CArchive::load, 32768 );	// 32 KB buffer
 			Serialize( ar, 0 );
 			bSuccess = TRUE;
 		}
@@ -598,7 +595,7 @@ BOOL CDownload::Load(LPCTSTR pszName)
 	{
 		TRY
 		{
-			CArchive ar( &pFile, CArchive::load, 32768 );   // 32 KB buffer
+			CArchive ar( &pFile, CArchive::load, 32768 );	// 32 KB buffer
 			Serialize( ar, 0 );
 			bSuccess = TRUE;
 		}
@@ -648,8 +645,10 @@ BOOL CDownload::Save(BOOL bFlush)
 		CFile::modeReadWrite|CFile::modeCreate|CFile::osWriteThrough ) )
 		return FALSE;
 
+	CHAR szID[3] = { 0, 0, 0 };
+	try
 	{
-		CArchive ar( &pFile, CArchive::store, 32768 );   // 32 KB buffer
+		CArchive ar( &pFile, CArchive::store, 32768 );	// 32 KB buffer
 		try
 		{
 			Serialize( ar, 0 );
@@ -663,18 +662,23 @@ BOOL CDownload::Save(BOOL bFlush)
 			pException->Delete();
 			return FALSE;
 		}
+
+		if ( Settings.Downloads.FlushSD || bFlush )
+			pFile.Flush();
+
+		pFile.SeekToBegin();
+		pFile.Read( szID, 3 );
+		pFile.Close();
+	}
+	catch ( CException* pException )
+	{
+		pFile.Abort();
+		pException->Delete();
+		return FALSE;
 	}
 
-	if ( Settings.Downloads.FlushSD || bFlush )
-		pFile.Flush();
-
-	pFile.SeekToBegin();
-
-	CHAR szID[3] = { 0, 0, 0 };
-	pFile.Read( szID, 3 );
-	pFile.Close();
-
 	BOOL bSuccess = FALSE;
+	// ToDo: .pd files should start with characters PDL, legacy is SDL (Shareaza .sd)
 	if ( szID[0] == 'S' && szID[1] == 'D' && szID[2] == 'L' )
 	{
 		bSuccess = ::MoveFileEx( CString( _T("\\\\?\\") ) + m_sPath + _T(".sav"),
@@ -691,7 +695,7 @@ BOOL CDownload::Save(BOOL bFlush)
 //////////////////////////////////////////////////////////////////////
 // CDownload serialize
 
-void CDownload::Serialize(CArchive& ar, int nVersion)
+void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 {
 	ASSERT( ! m_bComplete || m_bSeeding );
 
@@ -753,7 +757,7 @@ void CDownload::Serialize(CArchive& ar, int nVersion)
 	}
 }
 
-//void CDownload::SerializeOld(CArchive& ar, int nVersion)
+//void CDownload::SerializeOld(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION < 11
 //{
 //	// nVersion < 11 (Very old Shareaza!)
 
@@ -818,7 +822,7 @@ BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal)
 	if ( nIndex < 0 )
 		nIndex = SelectFile( pLock );
 	if ( nIndex < 0 || ! Downloads.Check( this ) )
-		return TRUE;
+		return FALSE;
 
 	BOOL bResult = TRUE;
 	CString strPath = GetPath( nIndex );

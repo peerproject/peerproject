@@ -1,7 +1,7 @@
 //
 // PeerProjectDataSource.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -244,7 +244,9 @@ protected:
 IMPLEMENT_DYNCREATE(CPeerProjectDataSource, CComObject)
 
 // {34791E02-51DC-4CF4-9E34-018166D91D0E}
-IMPLEMENT_OLECREATE_FLAGS(CPeerProjectDataSource, "PeerProject.DataSource", afxRegFreeThreading|afxRegApartmentThreading, 0x34791e02, 0x51dc, 0x4cf4, 0x9e, 0x34, 0x1, 0x81, 0x66, 0xd9, 0x1d, 0xe);
+IMPLEMENT_OLECREATE_FLAGS(CPeerProjectDataSource, "PeerProject.DataSource",
+	afxRegFreeThreading|afxRegApartmentThreading,
+	0x34791e02, 0x51dc, 0x4cf4, 0x9e, 0x34, 0x1, 0x81, 0x66, 0xd9, 0x1d, 0xe);
 
 CPeerProjectDataSource::CPeerProjectDataSource() :
 	m_rgde (NULL ),
@@ -301,7 +303,7 @@ UINT CPeerProjectDataSource::DragDropThread(LPVOID param)
 			(LPVOID*)&pIDataObject );
 		if ( SUCCEEDED( hr ) )
 		{
-			// Create drag-n-drop source object							
+			// Create drag-n-drop source object
 			// TODO: next line returns E_NOINTERFACE for unknown reason
 			// CComQIPtr< IDropSource > pIDropSource( pIDataObject );
 			// therefore we used some hack since IDropSource object is
@@ -490,7 +492,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 		return FALSE;
 
 	*pdwEffect = DROPEFFECT_NONE;
-	
+
 	if ( ( grfKeyState & MK_CONTROL ) && ( grfKeyState & MK_SHIFT ) )
 		return FALSE;
 
@@ -538,15 +540,14 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 					(LPCWSTR)sFile, sizeof(WCHAR) * ( sFile.GetLength() + 1 ) );
 			}
 			if ( ! bDrop )
-				// Test only one
-				break;
+				break;	// Test only one
 		}
 	}
 	else
 	{
 		// UNICODE
 		for ( LPCWSTR pFrom = (LPCWSTR)( (char*)pdf + pdf->pFiles ); *pFrom; offset += len + 1, pFrom += len + 1 )
-		{ 
+		{
 			len = lstrlenW( pFrom );
 			if ( len > 4 && ! lstrcmpiW( pFrom + len - 4, L".lnk" ) )
 			{
@@ -680,8 +681,8 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 						if ( pFile )
 						{
 							Hashes::Guid oGUID;
-							CopyMemory( oGUID.begin(), p + sizeof( DWORD ), 16 );							
-							CAlbumFolder* pFolder = 
+							CopyMemory( oGUID.begin(), p + sizeof( DWORD ), 16 );
+							CAlbumFolder* pFolder =
 								LibraryFolders.GetAlbumRoot()->FindFolder( oGUID );
 							if ( pFolder && *pAlbumFolder == *pFolder )
 							{
@@ -699,9 +700,7 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 
 									// Remove old file
 									if ( pFolder && *pdwEffect == DROPEFFECT_MOVE )
-									{
 										pFolder->RemoveFile( pFile );
-									}
 
 									pAlbumFolder->m_nUpdateCookie++;
 								}
@@ -776,12 +775,12 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 								pAlbumFolder->m_nUpdateCookie++;
 
 								// Keep album
-								pFolder = NULL;								
+								pFolder = NULL;
 							}
 						}
 					}
 					catch (...)
-					{						
+					{
 					}
 					delete pFolder;
 				}
@@ -826,12 +825,11 @@ HRESULT CPeerProjectDataSource::Add(IDataObject* pIDataObject)
 {
 	FORMATETC formatetc = { (CLIPFORMAT) RegisterClipboardFormat( CF_PEERPROJECT ), NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
 	STGMEDIUM medium = { TYMED_HGLOBAL, NULL, NULL };
-	
+
 	CHGlobal < BOOL > oHGlobal;
 	if ( ! oHGlobal.IsValid() )
-	{
 		return E_OUTOFMEMORY;
-	}
+
 	medium.hGlobal = oHGlobal;
 	HRESULT hr = pIDataObject->SetData( &formatetc, &medium, FALSE );
 	return hr;
@@ -882,25 +880,21 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 	oHDROP->pFiles = sizeof( DROPFILES );
 	GetCursorPos( &oHDROP->pt );
 	oHDROP->fNC = TRUE;
-	oHDROP->fWide = ( sizeof( TCHAR ) != sizeof( char ) );	
+	oHDROP->fWide = ( sizeof( TCHAR ) != sizeof( char ) );
 
 	// Initialize CF_PEERPROJECT_ALBUMS
 	CStreamArchive buf_Archive ( CArchive::store );
 	if ( ! buf_Archive.IsValid() )
-	{
 		return E_OUTOFMEMORY;
-	}
+
 	if ( size_Archive )
-	{
 		buf_Archive << (DWORD) size_Archive;
-	}
 
 	// Initialize CF_PEERPROJECT_FILES
 	CHGlobal < BYTE > oFiles( size_Files * 20 );	// [DWORD 1][GUID 1]...[DWORD N][GUID N]
 	if ( ! oFiles.IsValid() )
-	{
 		return E_OUTOFMEMORY;
-	}
+
 	LPBYTE buf_Files = oFiles;
 
 	CString buf_Text;
@@ -927,7 +921,7 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 	}
 
 	// Finalize CF_HDROP and optional CFSTR_PREFERREDDROPEFFECT
-	if ( size_HDROP ) 
+	if ( size_HDROP )
 	{
 		STGMEDIUM medium_HDROP = { TYMED_HGLOBAL, NULL, NULL };
 		FORMATETC formatetc_HDROP = { CF_HDROP, NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
@@ -960,7 +954,7 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 	}
 
 	// Finalize CF_PEERPROJECT_FILES
-	if ( size_Files ) 
+	if ( size_Files )
 	{
 		STGMEDIUM medium_Files = { TYMED_HGLOBAL, NULL, NULL };
 		FORMATETC formatetc_Files = { (CLIPFORMAT) RegisterClipboardFormat( CF_PEERPROJECT_FILES ), NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
@@ -1045,9 +1039,7 @@ HRESULT CPeerProjectDataSource::AddRefStgMedium(STGMEDIUM *pstgmIn, STGMEDIUM *p
 			{
 				CHGlobal < BYTE > oHGlobal( pstgmIn->hGlobal );
 				if ( oHGlobal.IsValid() )
-				{
 					stgmOut.hGlobal = oHGlobal.Detach();
-				}
 				else
 					hr = E_OUTOFMEMORY;
 			}
@@ -1104,9 +1096,7 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::GetData(FORMATETC *pformatetc,
 	LPDATAENTRY pde = NULL;
     HRESULT hr = pThis->FindFORMATETC( pformatetc, &pde, FALSE );
     if ( SUCCEEDED ( hr ) )
-	{
         hr = pThis->AddRefStgMedium( &pde->stgm, pmedium, FALSE );
-    }
 
 #ifdef _DEBUG
 	if ( FAILED ( hr ) )
@@ -1175,14 +1165,16 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::SetData(FORMATETC* pformatetc,
 	LPDATAENTRY pde = NULL;
 	HRESULT hr = pThis->FindFORMATETC( pformatetc, &pde, TRUE );
 	if ( hr == S_FALSE )
-		// Release old data
-		ReleaseStgMedium( &pde->stgm );
+		ReleaseStgMedium( &pde->stgm );	// Release old data
 	if ( SUCCEEDED( hr ) )
 	{
-		if (fRelease) {
+		if (fRelease)
+		{
 			pde->stgm = *pmedium;
 			hr = S_OK;
-		} else {
+		}
+		else
+		{
 			hr = pThis->AddRefStgMedium( pmedium, &pde->stgm, TRUE );
 		}
 		pde->fe.tymed = pde->stgm.tymed;    // Keep in sync
@@ -1413,7 +1405,7 @@ void CPeerProjectDataSource::GetTotalLength(const CLibraryTreeItem* pSelFirst, s
 			// Add physical folder
 			if ( ! pItem->m_pPhysical->m_sPath.IsEmpty() )
 				size_HDROP += ( pItem->m_pPhysical->m_sPath.GetLength() + 1 ) * sizeof( TCHAR );
-			}
+		}
 	}
 }
 

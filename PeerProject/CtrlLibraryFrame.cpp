@@ -1,7 +1,7 @@
 //
 // CtrlLibraryFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -1099,7 +1099,7 @@ void CLibraryFrame::RunLocalSearch(auto_ptr< CQuerySearch > pSearch)
 			pFolder->Clear();
 	}
 
-	if ( pFolder->m_pSchema != NULL )
+	if ( pFolder->m_pSchema )
 	{
 		CString strDate, strTime;
 		SYSTEMTIME pTime;
@@ -1119,29 +1119,23 @@ void CLibraryFrame::RunLocalSearch(auto_ptr< CQuerySearch > pSearch)
 		delete pOuter;
 	}
 
+	if ( CFileList* pFiles = Library.Search( pSearch.get(), 0, TRUE ) )
 	{
-		CQuickLock oLock( Library.m_pSection );
-
-		CList< const CLibraryFile* >* pFiles = Library.Search( pSearch.get(), 0, TRUE );
-
-		if ( pFiles != NULL )
+		for ( POSITION pos = pFiles->GetHeadPosition() ; pos ; )
 		{
-			for ( POSITION pos = pFiles->GetHeadPosition() ; pos ; )
+			const CLibraryFile* pFile = pFiles->GetNext( pos );
+
+			if ( Settings.Search.SchemaTypes && pSearch->m_pSchema != NULL )
 			{
-				const CLibraryFile* pFile = pFiles->GetNext( pos );
-
-				if ( Settings.Search.SchemaTypes && pSearch->m_pSchema != NULL )
-				{
-					if ( pSearch->m_pSchema->FilterType( pFile->m_sName, TRUE ) == FALSE )
-						pFile = NULL;
-				}
-
-				if ( pFile != NULL && pFile->IsAvailable() )
-					pFolder->AddFile( const_cast< CLibraryFile* >( pFile ) );
+				if ( pSearch->m_pSchema->FilterType( pFile->m_sName, TRUE ) == FALSE )
+					pFile = NULL;
 			}
 
-			delete pFiles;
+			if ( pFile != NULL && pFile->IsAvailable() )
+				pFolder->AddFile( const_cast< CLibraryFile* >( pFile ) );
 		}
+
+		delete pFiles;
 	}
 
 	Update();

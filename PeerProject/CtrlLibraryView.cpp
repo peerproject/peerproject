@@ -1,7 +1,7 @@
 //
 // CtrlLibraryView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -163,13 +163,9 @@ CLibraryListItem CLibraryView::GetFolder() const
 	if ( pRoot )
 	{
 		if ( pRoot->m_pPhysical )
-		{
 			oHit = pRoot->m_pPhysical;
-		}
 		else if ( pRoot->m_pVirtual )
-		{
 			oHit = pRoot->m_pVirtual;
-		}
 	}
 	else
 	{
@@ -299,9 +295,8 @@ void CLibraryView::StartDragging(const CPoint& ptMouse)
 	Hashes::Guid oGUID;
 	CLibraryListItem oHit = GetFolder();
 	if ( oHit.Type == CLibraryListItem::AlbumFolder )
-	{
 		oGUID = ((CAlbumFolder*)oHit)->m_oGUID;
-	}
+
 	CPeerProjectDataSource::DoDragDrop( &m_pSelection, pImage, oGUID, ptMiddle );
 }
 
@@ -329,18 +324,12 @@ BOOL CLibraryView::OnDrop(IDataObject* pDataObj, DWORD grfKeyState, POINT ptScre
 	CLibraryListItem oHit = DropHitTest( pt );
 
 	if ( bDrop )
-	{
 		m_oDropItem.Type = CLibraryListItem::Empty;
-	}
 	else if ( m_oDropItem != oHit )
-	{
 		m_oDropItem = oHit;
-	}
 
 	if ( oHit.Type == CLibraryListItem::Empty )
-	{
 		oHit = GetFolder();
-	}
 
 	switch ( oHit.Type )
 	{

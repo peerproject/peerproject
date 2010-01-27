@@ -1,7 +1,7 @@
 //
 // Application.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,6 +20,7 @@
 //
 
 #pragma once
+
 
 class CApplication : public CComObject
 {
@@ -44,6 +45,7 @@ protected:
 		STDMETHOD(get_UserInterface)(IUserInterface FAR* FAR* ppUserInterface);
 		STDMETHOD(get_Library)(ILibrary FAR* FAR* ppLibrary);
 		STDMETHOD(get_Settings)(ISettings FAR* FAR* ppSettings);
+		STDMETHOD(get_ImageService)(IImageServicePlugin FAR* FAR* ppImageService);
 	END_INTERFACE_PART(Application)
 
 	BEGIN_INTERFACE_PART(UserInterface, IUserInterface)
@@ -63,7 +65,7 @@ protected:
 
 	BEGIN_INTERFACE_PART(Settings, ISettings)
 		DECLARE_DISPATCH()
-		STDMETHOD(GetValue)(VARIANT* value);	// Pass as BSTR path (e.g. Gnutella2.EnableAlways, get back the actual value
+		STDMETHOD(GetValue)(VARIANT* value);	// Pass as BSTR path (ex. Gnutella2.EnableAlways, get back the actual value
 	END_INTERFACE_PART(Settings)
 
 	DECLARE_MESSAGE_MAP()
