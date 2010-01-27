@@ -1,7 +1,7 @@
 //
 // PeerProject.idl
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -254,6 +254,12 @@ library PeerProject
 		HRESULT Cancel();
 	};
 
+	//[ uuid(7682913F-2AE7-44d6-852A-1AB1B913818C), oleautomation ]
+	//interface IDownloadPreviewPlugin2 : IDownloadPreviewPlugin
+	//{
+	//	HRESULT Preview2( [in] BSTR sSource, [in] BSTR sTarget );
+	//};
+
 	//
 	// MediaPlayer Plugin
 	//
@@ -361,6 +367,8 @@ library PeerProject
 		[id(20),propget] HRESULT UserInterface( [out,retval] IUserInterface** ppUserInterface );
 		[id(21),propget] HRESULT Library( [out,retval] ILibrary** ppLibrary );
 		[id(22),propget] HRESULT Settings( [out,retval] ISettings** ppSettings );
+
+		[id(23),propget] HRESULT ImageService( [out,retval] IImageServicePlugin** ppImageService );
 	};
 
 	//
@@ -628,6 +636,26 @@ library PeerProject
 	};
 
 	//
+	//  PeerProject XML
+	//
+
+	[ uuid(30FC662A-D72A-4f79-B63A-ACD4FBFE68A3) ]
+	coclass PeerProjectXML
+	{
+		[default] interface ISXMLNode;
+		interface ISXMLElement;
+		interface ISXMLAttribute;
+	};
+
+	[ uuid(D73ABD28-3A2A-4e36-AD6F-2AA8F011FBE3) ]
+	coclass PeerProjectXMLCollection
+	{
+		[default] interface ISXMLElements;
+		interface ISXMLAttributes;
+		interface IEnumVARIANT;
+	};
+
+	//
 	//  PeerProject Data Source
 	//
 
@@ -643,7 +671,7 @@ library PeerProject
 	//
 
 	[ uuid(18D11ED9-1264-48A1-9E14-20F2C633242B) ]
-	coclass IEProtocol
+	coclass PeerProjectIEProtocol
 	{
 		[default] interface IClassFactory;
 	};
@@ -653,10 +681,9 @@ library PeerProject
 	//
 
 	[ uuid(E1A67AE5-7041-4AE1-94F7-DE03EF759E27) ]
-	coclass IEProtocolRequest
+	coclass PeerProjectIEProtocolRequest
 	{
 		[default] interface IInternetProtocol;
 		interface IInternetProtocolInfo;
 	};
-
 };

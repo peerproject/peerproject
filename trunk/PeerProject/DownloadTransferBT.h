@@ -1,7 +1,7 @@
 //
 // DownloadTransferBT.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -40,22 +40,13 @@ public:
 	BOOL			m_bChoked;
 	BOOL			m_bInterested;
 public:
-	BYTE*			m_pAvailable;
-	Fragments::Queue m_oRequested;
+	BOOL			m_bAvailable;
+	DWORD			m_nAvailable;
 	DWORD			m_tRunThrottle;
 	DWORD			m_tSourceRequest;
+	Fragments::Queue m_oRequested;
 
 // Operations
-public:
-	virtual BOOL	Initiate();
-	virtual void	Close(TRISTATE bKeepSource, DWORD nRetryAfter = 0);
-	virtual void	Boost();
-	virtual DWORD	GetMeasuredSpeed();
-	virtual CString	GetStateText(BOOL bLong);
-	virtual BOOL	OnRun();
-	virtual BOOL	OnConnected();
-	virtual BOOL	SubtractRequested(Fragments::List& ppFragments);
-	virtual BOOL	UnrequestRange(QWORD nOffset, QWORD nLength);
 public:
 	BOOL	OnBitfield(CBTPacket* pPacket);
 	BOOL	OnHave(CBTPacket* pPacket);
@@ -67,6 +58,21 @@ public:
 protected:
 	void	Send(CBTPacket* pPacket, BOOL bRelease = TRUE);
 	void	ShowInterest();
-	BOOL	SendRequests();
-	BOOL	SelectFragment(const Fragments::List& oPossible, QWORD& nOffset, QWORD& nLength);
+// ToDo: Remove these-
+//	BOOL	SendRequests();
+//	BOOL	SelectFragment(const Fragments::List& oPossible, QWORD& nOffset, QWORD& nLength);
+
+// Overides
+public:
+	virtual BOOL	Initiate();
+	virtual BOOL	OnRun();
+	virtual BOOL	OnConnected();
+	virtual void	Boost();
+	virtual void	Close(TRISTATE bKeepSource, DWORD nRetryAfter = 0);
+	virtual DWORD	GetMeasuredSpeed();
+	virtual CString	GetStateText(BOOL bLong);
+	virtual BOOL	SubtractRequested(Fragments::List& ppFragments);
+	virtual bool	UnrequestRange(QWORD nOffset, QWORD nLength);
+protected:
+	virtual bool	SendFragmentRequests();
 };

@@ -219,7 +219,8 @@ CHostCacheHostPtr CHostCache::Find(const IN_ADDR* pAddress) const
 	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 	{
 		CHostCacheList* pCache = m_pList.GetNext( pos );
-		if ( CHostCacheHostPtr pHost = pCache->Find( pAddress ) ) return pHost;
+		if ( CHostCacheHostPtr pHost = pCache->Find( pAddress ) )
+			return pHost;
 	}
 	return NULL;
 }
@@ -229,7 +230,8 @@ BOOL CHostCache::Check(const CHostCacheHostPtr pHost) const
 	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 	{
 		CHostCacheList* pCache = m_pList.GetNext( pos );
-		if ( pCache->Check( pHost ) ) return TRUE;
+		if ( pCache->Check( pHost ) )
+			return TRUE;
 	}
 	return FALSE;
 }
@@ -311,6 +313,7 @@ CHostCacheHostPtr CHostCacheList::Add(IN_ADDR* pAddress, WORD nPort, DWORD tSeen
 	// Don't add invalid addresses
 	if ( ! nPort )
 		return NULL;
+
 	if ( ! pAddress->S_un.S_un_b.s_b1 )
 		return NULL;
 

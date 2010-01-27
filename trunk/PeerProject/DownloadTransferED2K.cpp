@@ -1,7 +1,7 @@
 //
 // DownloadTransferED2K.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,31 +47,33 @@ const DWORD BUFFER_SIZE = 8192;
 //////////////////////////////////////////////////////////////////////
 // CDownloadTransferED2K construction
 
-CDownloadTransferED2K::CDownloadTransferED2K(CDownloadSource* pSource) : CDownloadTransfer( pSource, PROTOCOL_ED2K )
+CDownloadTransferED2K::CDownloadTransferED2K(CDownloadSource* pSource)
+	: CDownloadTransfer	( pSource, PROTOCOL_ED2K )
+	, m_pClient			( NULL )
+	, m_bHashset		( false )
+	, m_tRequest		( 0ul )
+	, m_tSources		( 0ul )
+	, m_tRanking		( 0ul )
+	, m_bUDP			( false )
+	, m_pInflatePtr		( NULL )
+	, m_nInflateOffset	( 0ull )
+	, m_nInflateLength	( 0ull )
+	, m_nInflateRead	( 0ull )
+	, m_nInflateWritten	( 0ull )
+	, m_pInflateBuffer	( new CBuffer() )
 {
-	m_pClient		= NULL;
-	m_bHashset		= FALSE;
-	m_tRequest		= 0;
-	m_tSources		= 0;
-	m_tRanking		= 0;
-	m_pAvailable	= NULL;
-	m_bUDP			= FALSE;
-
-	m_pInflatePtr		= NULL;
-	m_pInflateBuffer	= new CBuffer();
-
-    ASSERT( m_pDownload->m_oED2K );
+	ASSERT( m_pDownload->m_oED2K );
 }
 
 CDownloadTransferED2K::~CDownloadTransferED2K()
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	// This never happens
 	if ( m_pClient ) m_pClient->m_mInput.pLimit = m_pClient->m_mOutput.pLimit = NULL;
 
 	ClearRequests();
 	delete m_pInflateBuffer;
-
-	if ( m_pAvailable != NULL ) delete [] m_pAvailable;
 
 	ASSERT( m_pClient == NULL );
 	ASSERT( ! EDClients.IsMyDownload( this ) );
@@ -130,6 +132,8 @@ BOOL CDownloadTransferED2K::Initiate()
 
 void CDownloadTransferED2K::Close(TRISTATE bKeepSource, DWORD nRetryAfter)
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	SetState( dtsNull );
 
 	if ( m_pClient != NULL )
@@ -241,6 +245,8 @@ BOOL CDownloadTransferED2K::OnConnected()
 
 void CDownloadTransferED2K::OnDropped()
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	if ( m_nState == dtsQueued )
 	{
 		theApp.Message( MSG_INFO, IDS_DOWNLOAD_QUEUE_DROP,
@@ -260,7 +266,7 @@ BOOL CDownloadTransferED2K::OnFileReqAnswer(CEDPacket* /*pPacket*/)
 {
 	if ( m_pDownload->m_nSize <= ED2K_PART_SIZE )
 	{
-		if ( m_pAvailable ) delete [] m_pAvailable;
+		delete [] m_pAvailable;
 		m_pAvailable = new BYTE[ 1 ];
 		m_pAvailable[ 0 ] = TRUE;
 		m_pSource->m_oAvailable.insert( m_pSource->m_oAvailable.end(),
@@ -307,7 +313,7 @@ BOOL CDownloadTransferED2K::OnFileStatus(CEDPacket* pPacket)
 	{
         m_pSource->m_oAvailable.clear();
 
-		if ( m_pAvailable != NULL ) delete [] m_pAvailable;
+		delete [] m_pAvailable;
 		m_pAvailable = new BYTE[ nBlocks ];
 		ZeroMemory( m_pAvailable, nBlocks );
 
@@ -334,7 +340,7 @@ BOOL CDownloadTransferED2K::OnFileStatus(CEDPacket* pPacket)
 	{
 		m_pSource->m_oAvailable.clear();
 
-		if ( m_pAvailable != NULL ) delete [] m_pAvailable;
+		delete [] m_pAvailable;
 		m_pAvailable = NULL;
 	}
 	else
@@ -366,9 +372,9 @@ BOOL CDownloadTransferED2K::OnHashsetAnswer(CEDPacket* pPacket)
 	if ( validAndUnequal( oED2K, m_pDownload->m_oED2K ) )
 	{
 		return TRUE;	// Hack
-//		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_HASHSET_ERROR, (LPCTSTR)m_sAddress );
-//		Close( TRI_FALSE );
-//		return FALSE;
+	//	theApp.Message( MSG_ERROR, IDS_DOWNLOAD_HASHSET_ERROR, (LPCTSTR)m_sAddress );
+	//		Close( TRI_FALSE );
+	//		return FALSE;
 	}
 
 	m_bHashset = TRUE;
@@ -464,7 +470,8 @@ BOOL CDownloadTransferED2K::OnFileComment(CEDPacket* pPacket)
 
 	if ( m_pDownload && m_pClient )
 	{
-		return m_pDownload->AddReview( &m_pClient->m_pHost.sin_addr, 3, nFileRating, m_pClient->m_sNick, sFileComment );
+		return m_pDownload->AddReview( &m_pClient->m_pHost.sin_addr,
+			3, nFileRating, m_pClient->m_sNick, sFileComment );
 	}
 
 	return FALSE;
@@ -668,14 +675,12 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 	ASSERT( m_pClient != NULL );
 	DWORD tNow = GetTickCount();
 
-	/*
-	if ( m_pDownload->GetVolumeRemaining() == 0 )
-	{
-		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_END, (LPCTSTR)m_sAddress );
-		Close( TRI_TRUE );
-		return FALSE;
-	}
-	*/
+	//if ( m_pDownload->GetVolumeRemaining() == 0 )
+	//{
+	//	theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_END, (LPCTSTR)m_sAddress );
+	//	Close( TRI_TRUE );
+	//	return FALSE;
+	//}
 
 	//This source is current requesting
 	SetState( dtsRequesting );
@@ -776,16 +781,15 @@ BOOL CDownloadTransferED2K::SendSecondaryRequest()
 //////////////////////////////////////////////////////////////////////
 // CDownloadTransferED2K fragment request manager
 
-BOOL CDownloadTransferED2K::SendFragmentRequests()
+bool CDownloadTransferED2K::SendFragmentRequests()
 {
-	//ASSERT( m_nState == dtsDownloading );
 	ASSERT( m_pClient != NULL );
 
 	if ( m_nState != dtsDownloading ) return TRUE;
 
 	if ( m_oRequested.size() >= (int)Settings.eDonkey.RequestPipe ) return TRUE;
 
-	Fragments::List oPossible( m_pDownload->GetWantedFragmentList() );
+	Fragments::List oPossible( m_pDownload->GetEmptyFragmentList() );
 
 	if ( !m_pClient->m_bEmLargeFile && ( m_pDownload->m_nSize & 0xffffffff00000000 ) )
 	{
@@ -827,9 +831,6 @@ BOOL CDownloadTransferED2K::SendFragmentRequests()
 		}
 	}
 
-	_TRequestIndex iIndex = oRequesting.begin();
-	_TRequestIndex iEnd = oRequesting.end();
-
 	while ( !oRequesting.empty() )
 	{
 		DWORD nCount=0;
@@ -838,7 +839,7 @@ BOOL CDownloadTransferED2K::SendFragmentRequests()
 
 		while ( nCount < 3 && !oRequesting.empty() )
 		{
-			iIndex = oRequesting.begin();
+			_TRequestIndex iIndex = oRequesting.begin();
 			nOffsetBegin[nCount] = QWORD((*iIndex).second.begin());
 			nOffsetEnd[nCount] = QWORD((*iIndex).second.end());
 			bI64Offset |= ( ( ( nOffsetBegin[nCount] & 0xffffffff00000000 ) ) ||
@@ -852,20 +853,19 @@ BOOL CDownloadTransferED2K::SendFragmentRequests()
 			CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_REQUESTPARTS, ED2K_PROTOCOL_EMULE );
 			pPacket->Write( m_pDownload->m_oED2K );
 
-			/* this commented out code is for BigEndian, only needed when ported to different platform.
-			pPacket->WriteLongLE( (DWORD)( nOffsetBegin[0] & 0x00000000ffffffff ) );
-			pPacket->WriteLongLE( (DWORD)( ( nOffsetBegin[0] & 0xffffffff00000000 ) >> 32 ) );
-			pPacket->WriteLongLE( (DWORD)( nOffsetBegin[1] & 0x00000000ffffffff ) );
-			pPacket->WriteLongLE( (DWORD)( ( nOffsetBegin[1] & 0xffffffff00000000 ) >> 32 ) );
-			pPacket->WriteLongLE( (DWORD)( nOffsetBegin[2] & 0x00000000ffffffff ) );
-			pPacket->WriteLongLE( (DWORD)( ( nOffsetBegin[2] & 0xffffffff00000000 ) >> 32 ) );
-			pPacket->WriteLongLE( (DWORD)( nOffsetEnd[0] & 0x00000000ffffffff ) );
-			pPacket->WriteLongLE( (DWORD)( ( nOffsetEnd[0] & 0xffffffff00000000 ) >> 32 ) );
-			pPacket->WriteLongLE( (DWORD)( nOffsetEnd[1] & 0x00000000ffffffff ) );
-			pPacket->WriteLongLE( (DWORD)( ( nOffsetEnd[1] & 0xffffffff00000000 ) >> 32 ) );
-			pPacket->WriteLongLE( (DWORD)( nOffsetEnd[2] & 0x00000000ffffffff ) );
-			pPacket->WriteLongLE( (DWORD)( ( nOffsetEnd[2] & 0xffffffff00000000 ) >> 32 ) );
-			*/
+			// This commented-out code is for BigEndian, only needed when ported to different platform.
+			//pPacket->WriteLongLE( (DWORD)( nOffsetBegin[0] & 0x00000000ffffffff ) );
+			//pPacket->WriteLongLE( (DWORD)( ( nOffsetBegin[0] & 0xffffffff00000000 ) >> 32 ) );
+			//pPacket->WriteLongLE( (DWORD)( nOffsetBegin[1] & 0x00000000ffffffff ) );
+			//pPacket->WriteLongLE( (DWORD)( ( nOffsetBegin[1] & 0xffffffff00000000 ) >> 32 ) );
+			//pPacket->WriteLongLE( (DWORD)( nOffsetBegin[2] & 0x00000000ffffffff ) );
+			//pPacket->WriteLongLE( (DWORD)( ( nOffsetBegin[2] & 0xffffffff00000000 ) >> 32 ) );
+			//pPacket->WriteLongLE( (DWORD)( nOffsetEnd[0] & 0x00000000ffffffff ) );
+			//pPacket->WriteLongLE( (DWORD)( ( nOffsetEnd[0] & 0xffffffff00000000 ) >> 32 ) );
+			//pPacket->WriteLongLE( (DWORD)( nOffsetEnd[1] & 0x00000000ffffffff ) );
+			//pPacket->WriteLongLE( (DWORD)( ( nOffsetEnd[1] & 0xffffffff00000000 ) >> 32 ) );
+			//pPacket->WriteLongLE( (DWORD)( nOffsetEnd[2] & 0x00000000ffffffff ) );
+			//pPacket->WriteLongLE( (DWORD)( ( nOffsetEnd[2] & 0xffffffff00000000 ) >> 32 ) );
 
 			// If little Endian, no need to use above code
 			pPacket->Write( &nOffsetBegin[0], 8 );
@@ -881,14 +881,13 @@ BOOL CDownloadTransferED2K::SendFragmentRequests()
 			CEDPacket* pPacket = CEDPacket::New( ED2K_C2C_REQUESTPARTS );
 			pPacket->Write( m_pDownload->m_oED2K );
 
-			/* this commented out code is for BigEndian, only needed when ported to different platform.
-			pPacket->WriteLongLE( (DWORD)( nOffsetBegin[0] & 0x00000000ffffffff ) );
-			pPacket->WriteLongLE( (DWORD)( nOffsetBegin[1] & 0x00000000ffffffff ) );
-			pPacket->WriteLongLE( (DWORD)( nOffsetBegin[2] & 0x00000000ffffffff ) );
-			pPacket->WriteLongLE( (DWORD)( nOffsetEnd[0] & 0x00000000ffffffff ) );
-			pPacket->WriteLongLE( (DWORD)( nOffsetEnd[1] & 0x00000000ffffffff ) );
-			pPacket->WriteLongLE( (DWORD)( nOffsetEnd[2] & 0x00000000ffffffff ) );
-			*/
+			// This commented-out code is for BigEndian, only needed when ported to different platform.
+			//pPacket->WriteLongLE( (DWORD)( nOffsetBegin[0] & 0x00000000ffffffff ) );
+			//pPacket->WriteLongLE( (DWORD)( nOffsetBegin[1] & 0x00000000ffffffff ) );
+			//pPacket->WriteLongLE( (DWORD)( nOffsetBegin[2] & 0x00000000ffffffff ) );
+			//pPacket->WriteLongLE( (DWORD)( nOffsetEnd[0] & 0x00000000ffffffff ) );
+			//pPacket->WriteLongLE( (DWORD)( nOffsetEnd[1] & 0x00000000ffffffff ) );
+			//pPacket->WriteLongLE( (DWORD)( nOffsetEnd[2] & 0x00000000ffffffff ) );
 
 			pPacket->Write( &nOffsetBegin[0], 4 );
 			pPacket->Write( &nOffsetBegin[1], 4 );
@@ -947,19 +946,19 @@ void CDownloadTransferED2K::ClearRequests()
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownloadTransferED2K fragment selector
+// CDownloadTransferED2K fragment selector	(Obsolete: Remove)
 
-BOOL CDownloadTransferED2K::SelectFragment(const Fragments::List& oPossible, QWORD& nOffset, QWORD& nLength)
-{
-	Fragments::Fragment oSelection( selectBlock( oPossible, ED2K_PART_SIZE, m_pAvailable ) );
-
-	if ( oSelection.size() == 0 ) return FALSE;
-
-	nOffset = oSelection.begin();
-	nLength = oSelection.size();
-
-	return TRUE;
-}
+//BOOL CDownloadTransferED2K::SelectFragment(const Fragments::List& oPossible, QWORD& nOffset, QWORD& nLength)
+//{
+//	Fragments::Fragment oSelection( selectBlock( oPossible, ED2K_PART_SIZE, m_pAvailable ) );
+//
+//	if ( oSelection.size() == 0 ) return FALSE;
+//
+//	nOffset = oSelection.begin();
+//	nLength = oSelection.size();
+//
+//	return TRUE;
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadTransferED2K subtract requested fragments

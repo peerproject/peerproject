@@ -1,7 +1,7 @@
 //
 // Transfer.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -30,25 +30,23 @@ class CTransfer : public CConnection
 {
 // Construction
 public:
-	CTransfer();
+	CTransfer(PROTOCOLID nProtocol = PROTOCOL_ANY);
 	virtual ~CTransfer();
 
 // Attributes
 public:
-	DWORD			m_nRunCookie;
-public:
-	CList< CString >		m_pSourcesSent;
+	DWORD				m_nRunCookie;
+	CList< CString >	m_pSourcesSent;
 	CArray< CString >	m_pHeaderName;
 	CArray< CString >	m_pHeaderValue;
 
 // Operations
 public:
-	virtual BOOL	ConnectTo(IN_ADDR* pAddress, WORD nPort);
+	virtual BOOL	ConnectTo(const IN_ADDR* pAddress, WORD nPort);
 	virtual void	AttachTo(CConnection* pConnection);
 	virtual void	Close();
+
 protected:
 	void			ClearHeaders();
 	virtual BOOL	OnHeaderLine(CString& strHeader, CString& strValue);
-
 };
-

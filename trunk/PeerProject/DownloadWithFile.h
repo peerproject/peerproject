@@ -48,22 +48,24 @@ public:
 	QWORD			GetVolumeRemaining() const;
 	DWORD			GetTimeRemaining() const;
 	CString			GetDisplayName() const;
+	BOOL			IsValid() const;
 	BOOL			IsFileOpen() const;
 	BOOL			IsComplete() const;
 	BOOL			PrepareFile();
-	BOOL			GetFragment(CDownloadTransfer* pTransfer);
 	BOOL			IsPositionEmpty(QWORD nOffset);
-	BOOL			AreRangesUseful(const Fragments::List& oAvailable);
-	BOOL			IsRangeUseful(QWORD nOffset, QWORD nLength);
-	BOOL			IsRangeUsefulEnough(CDownloadTransfer* pTransfer, QWORD nOffset, QWORD nLength);
+//	BOOL			GetFragment(CDownloadTransfer* pTransfer);
+//	BOOL			AreRangesUseful(const Fragments::List& oAvailable);
+//	BOOL			IsRangeUseful(QWORD nOffset, QWORD nLength);
+//	BOOL			IsRangeUsefulEnough(CDownloadTransfer* pTransfer, QWORD nOffset, QWORD nLength);
 	BOOL			ClipUploadRange(QWORD nOffset, QWORD& nLength) const;
 	BOOL			GetRandomRange(QWORD& nOffset, QWORD& nLength) const;
 	BOOL			SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength);
 	QWORD			EraseRange(QWORD nOffset, QWORD nLength);
 	BOOL			MakeComplete();
 	QWORD			InvalidateFileRange(QWORD nOffset, QWORD nLength);
-	Fragments::List	GetEmptyFragmentList() const;
-	Fragments::List	GetWantedFragmentList() const;
+	Fragments::List	GetFullFragmentList() const;	// All fragments which must be downloaded
+	Fragments::List	GetEmptyFragmentList() const;	// All empty fragments
+//	Fragments::List	GetWantedFragmentList() const;
 	CFragmentedFile* GetFile();
 	BOOL			FindByPath(const CString& sPath) const;
 	DWORD			GetFileCount() const;
@@ -88,8 +90,9 @@ protected:
 	void			SerializeFile(CArchive& ar, int nVersion);
 	BOOL			OnVerify(LPCTSTR pszPath, BOOL bVerified);
 	void			SetMoving(bool bMoving);
-private:
-	Fragments::List	GetPossibleFragments(const Fragments::List& oAvailable, Fragments::Fragment& oLargest);
+
+//private:
+//	Fragments::List	GetPossibleFragments(const Fragments::List& oAvailable, Fragments::Fragment& oLargest);
 
 	// Not supported:
 	//BOOL			AppendMetadata();

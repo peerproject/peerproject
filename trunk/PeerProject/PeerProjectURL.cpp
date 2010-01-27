@@ -66,7 +66,7 @@ CPeerProjectURL::CPeerProjectURL(CBTInfo* pTorrent)
 	m_oED2K		= pTorrent->m_oED2K;
 	m_oTiger	= pTorrent->m_oTiger;
 	m_sName		= pTorrent->m_sName;
-	m_nSize		= pTorrent->m_nTotalSize;
+	m_nSize		= pTorrent->m_nSize;
 	m_bSize		= TRUE;
 }
 
@@ -529,7 +529,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 	Clear();
 
 	CString strURL( pszURL );
-	//CBTInfo* pTorrent = new CBTInfo();
+	CBTInfo* pTorrent = new CBTInfo();
 
 	for ( strURL += '&' ; strURL.GetLength() ; )
 	{
@@ -555,17 +555,17 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 			if (	_tcsnicmp( strValue, _T("urn:"), 4 ) == 0 ||
 					_tcsnicmp( strValue, _T("sha1:"), 5 ) == 0 ||
 					_tcsnicmp( strValue, _T("bitprint:"), 9 ) == 0 ||
+					_tcsnicmp( strValue, _T("btih:"), 5 ) == 0 ||
+					_tcsnicmp( strValue, _T("ed2k:"), 5 ) == 0 ||
+					_tcsnicmp( strValue, _T("md5:"), 4 ) == 0 ||
 					_tcsnicmp( strValue, _T("tree:tiger:"), 11 ) == 0 ||
 					_tcsnicmp( strValue, _T("tree:tiger/:"), 12 ) == 0 ||
-					_tcsnicmp( strValue, _T("tree:tiger/1024:"), 16 ) == 0 ||
-					_tcsnicmp( strValue, _T("md5:"), 4 ) == 0 ||
-					_tcsnicmp( strValue, _T("btih:"), 5 ) == 0 ||
-					_tcsnicmp( strValue, _T("ed2k:"), 5 ) == 0 )
+					_tcsnicmp( strValue, _T("tree:tiger/1024:"), 16 ) == 0 )
 			{
 				if ( ! m_oSHA1 ) m_oSHA1.fromUrn( strValue );
 				if ( ! m_oTiger ) m_oTiger.fromUrn( strValue );
-				if ( ! m_oMD5 ) m_oMD5.fromUrn( strValue );
 				if ( ! m_oED2K ) m_oED2K.fromUrn( strValue );
+				if ( ! m_oMD5 ) m_oMD5.fromUrn( strValue );
 				if ( ! m_oBTH ) m_oBTH.fromUrn( strValue );
 				if ( ! m_oBTH ) m_oBTH.fromUrn< Hashes::base16Encoding >( strValue );
 			}
@@ -589,11 +589,12 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 				}
 				else if( _tcsicmp( strKey, _T("tr") ) == 0 )
 				{
-					//pTorrent->SetTracker(strValue);
+					pTorrent->SetTracker( strValue );
 				}
 				else
 				{
-					if ( m_sURL.GetLength() ) m_sURL += _T(", ");
+					if ( m_sURL.GetLength() )
+						m_sURL += _T(", ");
 					m_sURL += strValue;
 				}
 			}
@@ -612,7 +613,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 			m_oBTH.clear();
 		}
 		else if ( _tcsicmp( strKey, _T("xl") ) == 0 ||
-			_tcsicmp( strKey, _T("sz") ) == 0 ||	// Unofficial
+			_tcsicmp( strKey, _T("sz") ) == 0 ||	// Non-standard
 			_tcsicmp( strKey, _T("fs") ) == 0 )		// Foxy
 		{
 			QWORD nSize;
@@ -624,22 +625,23 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 		}
 	}
 
-	//if ( m_oBTH && ! m_pTorrent )
-	//{
-	//	pTorrent->SetTrackerMode( pTorrent->GetTrackerCount() == 1 ?
-	//		CBTInfo::tSingle : CBTInfo::tMultiFinding );
+	if ( m_oBTH && ! m_pTorrent )
+	{
+		pTorrent->SetTrackerMode( pTorrent->GetTrackerCount() == 1 ?
+			CBTInfo::tSingle : CBTInfo::tMultiFinding );
 
-	//	m_pTorrent = pTorrent;
-	//	m_pTorrent->m_nSize		= m_nSize;
-	//	m_pTorrent->m_sName		= m_sName;
-	//	m_pTorrent->m_oSHA1		= m_oSHA1;
-	//	m_pTorrent->m_oTiger	= m_oTiger;
-	//	m_pTorrent->m_oED2K		= m_oED2K;
-	//	m_pTorrent->m_oMD5		= m_oMD5;
-	//	m_pTorrent->m_oBTH		= m_oBTH;
-	//}
+		m_pTorrent = pTorrent;
+		m_pTorrent->m_nSize		= m_nSize;
+		m_pTorrent->m_sName		= m_sName;
+		m_pTorrent->m_oSHA1		= m_oSHA1;
+		m_pTorrent->m_oTiger	= m_oTiger;
+		m_pTorrent->m_oED2K		= m_oED2K;
+		m_pTorrent->m_oMD5		= m_oMD5;
+		m_pTorrent->m_oBTH		= m_oBTH;
+		pTorrent = NULL;
+	}
 
-	//delete pTorrent;
+	delete pTorrent;
 
 	if ( IsHashed() || m_sURL.GetLength() )
 	{
@@ -734,12 +736,12 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 		if (	_tcsnicmp( strPart, _T("urn:"), 4 ) == 0 ||
 				_tcsnicmp( strPart, _T("sha1:"), 5 ) == 0 ||
 				_tcsnicmp( strPart, _T("bitprint:"), 9 ) == 0 ||
+				_tcsnicmp( strPart, _T("btih:"), 5 ) == 0 ||
+				_tcsnicmp( strPart, _T("ed2k:"), 5 ) == 0 ||
+				_tcsnicmp( strPart, _T("md5:"), 4 ) == 0 ||
 				_tcsnicmp( strPart, _T("tree:tiger:"), 11 ) == 0 ||
 				_tcsnicmp( strPart, _T("tree:tiger/:"), 12 ) == 0 ||
-				_tcsnicmp( strPart, _T("tree:tiger/1024:"), 16 ) == 0 ||
-				_tcsnicmp( strPart, _T("md5:"), 4 ) == 0 ||
-				_tcsnicmp( strPart, _T("btih:"), 5 ) == 0 ||
-				_tcsnicmp( strPart, _T("ed2k:"), 5 ) == 0 )
+				_tcsnicmp( strPart, _T("tree:tiger/1024:"), 16 ) == 0 )
 		{
 			if ( ! m_oSHA1 ) m_oSHA1.fromUrn( strPart );
 			if ( ! m_oTiger ) m_oTiger.fromUrn( strPart );

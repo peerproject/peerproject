@@ -1,7 +1,7 @@
 //
 // CtrlDownloads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -290,7 +290,7 @@ BOOL CDownloadsCtrl::IsExpandable(CDownload* pDownload)
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
-			if ( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting )
+			if ( pSource->IsConnected() )
 				return TRUE;
 		}
 	}
@@ -545,8 +545,7 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
-			if ( Settings.Downloads.ShowSources ||
-				( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting ) )
+			if ( Settings.Downloads.ShowSources || pSource->IsConnected() )
 			{
 				if ( nScroll > 0 )
 				{
@@ -605,8 +604,7 @@ BOOL CDownloadsCtrl::GetAt(int nSelect, CDownload** ppDownload, CDownloadSource*
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
-			if ( Settings.Downloads.ShowSources ||
-				( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting ) )
+			if ( Settings.Downloads.ShowSources || pSource->IsConnected() )
 			{
 				if ( nIndex++ == nSelect )
 				{
@@ -664,11 +662,8 @@ BOOL CDownloadsCtrl::GetRect(CDownload* pSelect, RECT* prcItem)
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
-			if ( pSource->m_pTransfer != NULL &&
-				 pSource->m_pTransfer->m_nState > dtsConnecting )
-			{
+			if ( pSource->IsConnected() )
 				rcItem.OffsetRect( 0, ITEM_HEIGHT );
-			}
 		}
 	}
 
@@ -857,11 +852,8 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 			{
 				CDownloadSource* pSource = pDownload->GetNext( posSource );
 
-				if ( Settings.Downloads.ShowSources ||
-					( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting ) )
-				{
+				if ( Settings.Downloads.ShowSources || pSource->IsConnected() )
 					nHeight ++;
-				}
 			}
 		}
 	}
@@ -952,8 +944,7 @@ void CDownloadsCtrl::OnPaint()
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
-			if ( Settings.Downloads.ShowSources ||
-				( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting ) )
+			if ( Settings.Downloads.ShowSources || pSource->IsConnected() )
 			{
 				if ( nScroll > 0 )
 				{
@@ -1331,11 +1322,11 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 					CString( inet_ntoa( pSource->m_pServerAddress ) ),
 					pSource->m_nServerPort );
 			}
-			else if ( pSource->m_pTransfer != NULL )	// Or an active transfer
+			else if (  pSource->IsIdle() )	// Or an active transfer
 			{
 				strText.Format( _T("%s:%u"),
-					pSource->m_pTransfer->m_sAddress,
-					ntohs( pSource->m_pTransfer->m_pHost.sin_port ) );
+					pSource->GetAddress(),
+					ntohs( pSource->GetPort() ) );
 			}
 			else	// Or just queued
 			{
@@ -1355,8 +1346,8 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 			break;
 
 		case DOWNLOAD_COLUMN_SIZE:
-			if ( pSource->m_pTransfer != NULL )
-				if ( pSource->m_pTransfer->m_nState > dtsHeaders && pSource->m_oAvailable.empty() )
+			if ( ! pSource->IsIdle() )
+				if ( pSource->GetState() > dtsHeaders && pSource->m_oAvailable.empty() )
 					strText = Settings.SmartVolume( pSource->m_pDownload->m_nSize );
 				else
 					strText = Settings.SmartVolume( pSource->m_oAvailable.length_sum() );
@@ -1372,30 +1363,32 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 				rcCell.DeflateRect( 0, 1 );
 				dc.Draw3dRect( &rcCell, crBorder, crBorder );
 				rcCell.DeflateRect( 1, 1 );
-				CFragmentBar::DrawSource( &dc, &rcCell, pSource, Colors.m_crTransferRanges );
+				pSource->Draw( &dc, &rcCell, Colors.m_crTransferRanges );
 			}
-			else if ( pSource->m_pTransfer != NULL )
-				if ( pSource->m_pTransfer->m_nState > dtsHeaders && pSource->m_oAvailable.empty() )
+			else if ( ! pSource->IsIdle() )
+			{
+				if ( pSource->GetState() > dtsHeaders && pSource->m_oAvailable.empty() )
 					rcCell.Width() > 50 ? strText = _T("100.00%") : strText = _T("100%");
 				else if ( rcCell.Width() > 50 )
 					strText.Format( _T("%.2f%%"),
 						float( pSource->m_oAvailable.length_sum() * 10000 / pSource->m_pDownload->m_nSize ) / 100 );
   				else
 					strText.Format( _T("%i%%"), int( pSource->m_oAvailable.length_sum() * 100 / pSource->m_pDownload->m_nSize ) );
+			}
 			break;
 
 		case DOWNLOAD_COLUMN_SPEED:
-			if ( pSource->m_pTransfer != NULL )
+			if ( ! pSource->IsIdle() )
 			{
-				DWORD nSpeed = pSource->m_pTransfer->GetMeasuredSpeed();
+				DWORD nSpeed = pSource->GetMeasuredSpeed();
 				if ( nSpeed )
 					strText = Settings.SmartSpeed( nSpeed );
 			}
 			break;
 
 		case DOWNLOAD_COLUMN_STATUS:
-			if ( pSource->m_pTransfer != NULL )
-				strText = pSource->m_pTransfer->GetStateText( FALSE );
+			if ( ! pSource->IsIdle() )
+				strText = pSource->GetState( FALSE );
 			else if ( pSource->m_tAttempt && pDownload->IsTrying() )
 			{
 				DWORD nTime = GetTickCount();
@@ -1413,18 +1406,18 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 			break;
 
 		case DOWNLOAD_COLUMN_DOWNLOADED:
-			if ( pSource->m_pTransfer != NULL )
-				strText = Settings.SmartVolume( pSource->m_pTransfer->m_nDownloaded );
+			if ( ! pSource->IsIdle() )
+				strText = Settings.SmartVolume( pSource->GetDownloaded() );
 			break;
 
 		case DOWNLOAD_COLUMN_PERCENTAGE:
-			if ( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nDownloaded > 0 &&
+			if ( ! pSource->IsIdle() && pSource->GetDownloaded() > 0 &&
 				pDownload->m_nSize < SIZE_UNKNOWN && pDownload->m_nSize > 0 )
 			{
 				if ( rcCell.Width() > 50 )
-					strText.Format( _T("%.2f%%"), float( pSource->m_pTransfer->m_nDownloaded * 10000 / pSource->m_pDownload->m_nSize ) / 100.0f );
+					strText.Format( _T("%.2f%%"), float( pSource->GetDownloaded() * 10000 / pSource->m_pDownload->m_nSize ) / 100.0f );
 				else
-					strText.Format( _T("%i%%"), int( pSource->m_pTransfer->m_nDownloaded * 100 / pSource->m_pDownload->m_nSize ) );
+					strText.Format( _T("%i%%"), int( pSource->GetDownloaded() * 100 / pSource->m_pDownload->m_nSize ) );
 			}
 			break;
 

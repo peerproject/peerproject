@@ -1,7 +1,7 @@
 //
 // DownloadTransferHTTP.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -41,12 +41,11 @@ protected:
 	BOOL			m_bRangeFault;
 	BOOL			m_bKeepAlive;
 	BOOL			m_bHashMatch;
-	CString			m_sTigerTree;
 	BOOL			m_bTigerFetch;
 	BOOL			m_bTigerIgnore;
-	CString			m_sMetadata;
+	CString			m_sTigerTree;		// X-TigerTree-Path
+	CString			m_sMetadata;		// X-Metadata-Path
 	BOOL			m_bMetaFetch;
-	BOOL			m_bMetaIgnore;
 	BOOL			m_bGotRange;
 	BOOL			m_bGotRanges;
 	BOOL			m_bQueueFlag;
@@ -79,6 +78,7 @@ public:
 	virtual DWORD	GetAverageSpeed();
 	virtual BOOL	SubtractRequested(Fragments::List& ppFragments);
 	virtual BOOL	OnRun();
+
 protected:
 	BOOL			StartNextFragment();
 	BOOL			SendRequest();
@@ -87,7 +87,7 @@ protected:
 	BOOL			ReadTiger();
 	BOOL			ReadMetadata();
 	BOOL			ReadFlush();
-protected:
+
 	virtual BOOL	OnConnected();
 	virtual BOOL	OnRead();
 	virtual void	OnDropped();

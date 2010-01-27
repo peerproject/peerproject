@@ -1,7 +1,7 @@
 //
 // StdAfx.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -129,7 +129,7 @@
 #include <atltime.h>		// Time classes
 #include <atlenc.h>			// Base64Encode, UUEncode etc.
 
-// If this header is not found, you'll need to install the Windows XP SP2 Platform SDK or later.
+// If header is not found, you'll need to install the Windows XP SP2 Platform SDK or later.
 // from http://www.microsoft.com/msdownload/platformsdk/sdkupdate/
 
 #include <netfw.h>
@@ -141,15 +141,19 @@
 #include <Powrprof.h>		// Power policy applicator
 
 // Intrinsics (Workaround for Microsoft double declaration with Visual Studio 2005)
-#define _interlockedbittestandset _ms_set
-#define _interlockedbittestandreset _ms_reset
-#define _interlockedbittestandset64 _ms_set64
-#define _interlockedbittestandreset64 _ms_reset64
-#include <intrin.h>
-#undef _interlockedbittestandset
-#undef _interlockedbittestandreset
-#undef _interlockedbittestandset64
-#undef _interlockedbittestandreset64
+#if _MSC_VER < 1500
+	#define _interlockedbittestandset _ms_set
+	#define _interlockedbittestandreset _ms_reset
+	#define _interlockedbittestandset64 _ms_set64
+	#define _interlockedbittestandreset64 _ms_reset64
+	#include <intrin.h>
+	#undef _interlockedbittestandset
+	#undef _interlockedbittestandreset
+	#undef _interlockedbittestandset64
+	#undef _interlockedbittestandreset64
+#else
+	#include <intrin.h>
+#endif
 
 //
 // STL
@@ -200,8 +204,8 @@
 
 #include "MinMax.hpp"
 
-#if _MSC_VER >= 1500				// Work-around for VC9 where
-	#pragma warning( pop )			// a (pop) is ifdef'd out in stdio.h
+#if _MSC_VER >= 1500 && _MSC_VER < 1600		// Work-around for VC9 where
+	#pragma warning( pop )					// a (pop) is ifdef'd out in stdio.h
 #endif
 
 #pragma warning( pop )				// Restore warnings
@@ -277,9 +281,11 @@ template<> AFX_INLINE UINT AFXAPI HashKey(DWORD_PTR key)
 // Missing constants
 //
 
-#define OFN_ENABLESIZING		0x00800000
 #ifndef BIF_NEWDIALOGSTYLE
 	#define BIF_NEWDIALOGSTYLE	0x00000040
+#endif
+#ifndef OFN_ENABLESIZING
+	#define OFN_ENABLESIZING	0x00800000
 #endif
 
 //
@@ -474,6 +480,50 @@ private:
 	mutable CCriticalSection m_oSection;
 	T m_oValue;
 	CGuarded* operator&() const; // too unsafe
+};
+
+
+typedef boost::shared_ptr< CCriticalSection > CCriticalSectionPtr;
+
+template< typename T, typename L >
+class CLocked
+{
+public:
+	CLocked(const CLocked& pGB) :
+		m_oValue( pGB.m_oValue ),
+		m_oLock( pGB.m_oLock )
+	{
+		m_oLock->Lock();
+	}
+
+	CLocked(T oValue, L oLock) :
+		m_oValue( oValue ),
+		m_oLock( oLock )
+	{
+		m_oLock->Lock();
+	}
+
+	~CLocked()
+	{
+		m_oLock->Unlock();
+	}
+
+	operator T() const throw()
+	{
+		return m_oValue;
+	}
+
+	T operator->() const throw()
+	{
+		return m_oValue;
+	}
+
+private:
+	T	m_oValue;
+	L	m_oLock;
+
+	CLocked* operator&() const;
+	CLocked& operator=(const CLocked&);
 };
 
 #ifdef _DEBUG

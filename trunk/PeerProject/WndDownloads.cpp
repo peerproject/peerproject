@@ -596,7 +596,7 @@ void CDownloadsWnd::Prepare()
 				m_bSelAny = TRUE;
 				m_bSelSource = TRUE;
 				m_bSelSourceExtended = pSource->m_bClientExtended;
-				if ( pSource->m_pTransfer == NULL )
+				if ( pSource->IsIdle() )
 					m_bSelIdleSource = TRUE;
 				else
 					m_bSelActiveSource = TRUE;
@@ -609,19 +609,14 @@ void CDownloadsWnd::Prepare()
 			}
 
 			// Check if we could get remote previews (only from the connected sources for the efficiency)
-			if ( !bPreviewDone && pDownload->m_bSelected && !pDownload->m_bRemotePreviewCapable &&
-				 !pSource->m_bPreviewRequestSent && pSource->IsOnline() )
+			if ( ! bPreviewDone &&
+				   pDownload->m_bSelected &&
+				 ! pDownload->m_bRemotePreviewCapable &&
+				 ! pSource->m_bPreviewRequestSent &&
+				   pSource->IsOnline() )
 			{
-				if ( pSource->m_nProtocol == PROTOCOL_ED2K )
-				{
-					// m_pTransfer is checked for validity by pSource->IsOnline()
-					if ( static_cast< CDownloadTransferED2K* >( pSource->m_pTransfer )->m_pClient->m_bEmPreview )
-						pDownload->m_bRemotePreviewCapable = TRUE;
-				}
-				else if ( pSource->m_nProtocol == PROTOCOL_HTTP && pSource->m_bPreview )
-				{
+				if ( pSource->IsPreviewCapable() )
 					pDownload->m_bRemotePreviewCapable = TRUE;
-				}
 			}
 		}
 
@@ -632,7 +627,7 @@ void CDownloadsWnd::Prepare()
 		}
 	}
 
-	if ( ( ! Settings.Connection.RequireForTransfers ) || ( Network.IsConnected() ) )
+	if ( ! Settings.Connection.RequireForTransfers || Network.IsConnected() )
 		m_bConnectOkay = TRUE;
 
 	m_tSel = GetTickCount();
@@ -715,7 +710,7 @@ void CDownloadsWnd::OnDownloadsClear()
 	{
 		CDownload* pDownload = pList.RemoveHead();
 
-		if ( Downloads.Check( pDownload ) )
+		if ( Downloads.Check( pDownload ) && ! pDownload->IsMoving() )
 		{
 			if ( pDownload->IsPreviewVisible() )
 			{
@@ -736,7 +731,7 @@ void CDownloadsWnd::OnDownloadsClear()
 					break;
 				pLock.Lock();
 
-				if ( Downloads.Check( pDownload ) )
+				if ( Downloads.Check( pDownload ) && ! pDownload->IsMoving() )
 				{
 					dlg.Create( pDownload, bShared );
 					pDownload->Remove();
@@ -795,7 +790,7 @@ void CDownloadsWnd::OnDownloadsClearIncomplete()
 						dlg.Create( pDownload, bShared );
 				}
 
-				if ( Downloads.Check( pDownload ) )
+				if ( Downloads.Check( pDownload ) && ! pDownload->IsMoving() )
 					pDownload->Remove();
 			}
 		}
@@ -858,6 +853,13 @@ void CDownloadsWnd::OnDownloadsViewReviews()
 
 void CDownloadsWnd::OnUpdateDownloadsRemotePreview(CCmdUI* pCmdUI)
 {
+	//CSingleLock pLock( &Transfers.m_pSection );
+	//if ( ! pLock.Lock( 200 ) )
+	//{
+	//	pCmdUI->Enable( FALSE );
+	//	return;
+	//}
+
 	int nSelected = 0;
 	CDownload* pDownload = NULL;
 
@@ -909,7 +911,8 @@ void CDownloadsWnd::OnDownloadsRemotePreview()
 				if ( pSource->m_nProtocol == PROTOCOL_ED2K )
 				{
 					// m_pTransfer is checked for validity by pSource->IsOnline()
-					CDownloadTransferED2K* pEDTransfer = static_cast< CDownloadTransferED2K* >( pSource->m_pTransfer );
+					const CDownloadTransferED2K* pEDTransfer =
+						static_cast< const CDownloadTransferED2K* >( pSource->GetTransfer() );
 					if ( pEDTransfer->m_pClient->m_bEmPreview )
 					{
 						pEDTransfer->m_pClient->SendPreviewRequest( pDownload );
@@ -1309,7 +1312,7 @@ void CDownloadsWnd::OnDownloadsEdit()
 
 		if ( pDownload->m_bSelected && ! pDownload->IsMoving() )
 		{
-			if ( ! pDownload->IsComplete() || pDownload->IsSeeding() )
+			if ( ! pDownload->IsCompleted() || pDownload->IsSeeding() )
 			{
 				CDownloadSheet dlg( pDownload );
 				pLock.Unlock();
@@ -1386,7 +1389,8 @@ void CDownloadsWnd::OnTransfersConnect()
 			ASSERT( pSource->m_pDownload == pDownload );
 
 			// Only create a new Transfer if there isn't already one
-			if ( pSource->m_bSelected && pSource->m_pTransfer == NULL )	//pSource->IsIdle()
+			if ( pSource->m_bSelected && pSource->IsIdle()
+				&& pSource->m_nProtocol != PROTOCOL_ED2K )
 			{
 				if ( pSource->m_nProtocol != PROTOCOL_ED2K )
 				{
@@ -1399,7 +1403,7 @@ void CDownloadsWnd::OnTransfersConnect()
 					{
 						pSource->PushRequest();
 					}
-					else 
+					else
 					{
 						CDownloadTransfer* pTransfer = pSource->CreateTransfer();
 						if ( pTransfer ) pTransfer->Initiate();
@@ -1430,8 +1434,8 @@ void CDownloadsWnd::OnTransfersDisconnect()
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
-			if ( pSource->m_bSelected && pSource->m_pTransfer != NULL )
-				pSource->m_pTransfer->Close( TRI_TRUE );
+			if ( pSource->m_bSelected && ! pSource->IsIdle() )
+				pSource->Close();
 		}
 	}
 

@@ -1,7 +1,7 @@
 //
 // HashDatabase.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -104,9 +104,7 @@ BOOL CHashDatabase::Create()
 	else
 	{
 		if ( ! m_pFile.Open( m_sPath, CFile::modeReadWrite | CFile::modeCreate ) )
-		{
 			return FALSE;
-		}
 
 		m_nOffset = 16;
 		m_pFile.Write( "HFDB1001", 8 );
@@ -130,9 +128,9 @@ void CHashDatabase::Close()
 	if ( m_pFile.m_hFile != CFile::hFileNull ) m_pFile.Close();
 
 	m_bOpen		= FALSE;
-	m_nOffset	= 0;
 	m_pIndex	= NULL;
 	m_nIndex	= 0;
+	m_nOffset	= 0;
 	m_nBuffer	= 0;
 }
 
@@ -146,7 +144,8 @@ HASHDB_INDEX* CHashDatabase::Lookup(DWORD nIndex, DWORD nType)
 
 	for ( DWORD nCount = m_nIndex ; nCount ; nCount--, pIndex++ )
 	{
-		if ( pIndex->nIndex == nIndex && pIndex->nType == nType ) return pIndex;
+		if ( pIndex->nIndex == nIndex && pIndex->nType == nType )
+			return pIndex;
 	}
 
 	return NULL;
@@ -233,19 +232,27 @@ BOOL CHashDatabase::Erase(DWORD nIndex, DWORD nType)
 //////////////////////////////////////////////////////////////////////
 // CHashDatabase commit the changes and flush
 
-void CHashDatabase::Commit()
+BOOL CHashDatabase::Commit()
 {
 	ASSERT( m_bOpen );
 
-	m_pFile.SetLength( m_nOffset + sizeof(HASHDB_INDEX) * m_nIndex );
-	m_pFile.Seek( 0, 0 );
-	m_pFile.Write( "HFDB1001", 8 );
-	m_pFile.Write( &m_nOffset, 4 );
-	m_pFile.Write( &m_nIndex, 4 );
-	m_pFile.Seek( m_nOffset, 0 );
-	m_pFile.Write( m_pIndex, sizeof(HASHDB_INDEX) * m_nIndex );
-
-	m_pFile.Flush();
+	try
+	{
+		m_pFile.SetLength( m_nOffset + sizeof(HASHDB_INDEX) * m_nIndex );
+		m_pFile.Seek( 0, 0 );
+		m_pFile.Write( "HFDB1001", 8 );
+		m_pFile.Write( &m_nOffset, 4 );
+		m_pFile.Write( &m_nIndex, 4 );
+		m_pFile.Seek( m_nOffset, 0 );
+		m_pFile.Write( m_pIndex, sizeof(HASHDB_INDEX) * m_nIndex );
+		m_pFile.Flush();
+		return TRUE;
+	}
+	catch ( CException* pException )
+	{
+		pException->Delete();
+		return FALSE;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -289,7 +296,7 @@ BOOL CHashDatabase::GetTiger(DWORD nIndex, CTigerTree* pTree)
 	try
 	{
 		m_pFile.Seek( pIndex->nOffset, 0 );
-		CArchive ar( &m_pFile, CArchive::load, 32768 ); // 32 KB buffer
+		CArchive ar( &m_pFile, CArchive::load, 32768 );	// 32 KB buffer
 		Serialize( ar, pTree );
 	}
 	catch ( CException* pException )
@@ -339,12 +346,25 @@ BOOL CHashDatabase::StoreTiger(DWORD nIndex, CTigerTree* pTree)
 	try
 	{
 		m_pFile.Seek( pIndex->nOffset, 0 );
-		CArchive ar( &m_pFile, CArchive::store, 32768 ); // 32 KB buffer
-		Serialize( ar, pTree );
+
+		CArchive ar( &m_pFile, CArchive::store, 32768 );	// 32 KB buffer
+		try
+		{
+			Serialize( ar, pTree );
+			ar.Close();
+		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pException->Delete();
+			return FALSE;
+		}
+		m_pFile.Flush();
 	}
 	catch ( CException* pException )
 	{
 		pException->Delete();
+		return FALSE;
 	}
 
 	Commit();
@@ -375,7 +395,7 @@ BOOL CHashDatabase::GetED2K(DWORD nIndex, CED2K* pSet)
 	try
 	{
 		m_pFile.Seek( pIndex->nOffset, 0 );
-		CArchive ar( &m_pFile, CArchive::load, 32768 ); // 32 KB buffer
+		CArchive ar( &m_pFile, CArchive::load, 32768 );	// 32 KB buffer
 		Serialize( ar, pSet );
 	}
 	catch ( CException* pException )
@@ -425,12 +445,25 @@ BOOL CHashDatabase::StoreED2K(DWORD nIndex, CED2K* pSet)
 	try
 	{
 		m_pFile.Seek( pIndex->nOffset, 0 );
-		CArchive ar( &m_pFile, CArchive::store, 32768 ); // 32 KB buffer
-		Serialize( ar, pSet );
+
+		CArchive ar( &m_pFile, CArchive::store, 32768 );	// 32 KB buffer
+		try
+		{
+			Serialize( ar, pSet );
+			ar.Close();
+		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pException->Delete();
+			return FALSE;
+		}
+		m_pFile.Flush();
 	}
 	catch ( CException* pException )
 	{
 		pException->Delete();
+		return FALSE;
 	}
 
 	Commit();

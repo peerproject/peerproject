@@ -172,11 +172,8 @@ CDownload* CDownloads::Add(CQueryHit* pHit, BOOL bAddToHead)
 	DownloadGroups.Link( pDownload );
 	Transfers.StartThread();
 
-	if ( bAddToHead || GetTryingCount() < Settings.Downloads.MaxFiles )
-	{
-		pDownload->SetStartTimer();
-	}
-
+	if ( bAddToHead )
+		pDownload->Resume();
 
 	return pDownload;
 }
@@ -204,7 +201,8 @@ CDownload* CDownloads::Add(CMatchFile* pFile, BOOL bAddToHead)
 
 		pFile->AddHitsToDownload( pDownload );
 
-		pDownload->Resume();
+		if ( pDownload->IsPaused() )
+			pDownload->Resume();
 	}
 	else
 	{
@@ -228,17 +226,8 @@ CDownload* CDownloads::Add(CMatchFile* pFile, BOOL bAddToHead)
 	DownloadGroups.Link( pDownload );
 	Transfers.StartThread();
 
-	if ( bAddToHead || GetTryingCount() < Settings.Downloads.MaxFiles )
-	{
-		pDownload->SetStartTimer();
-
-		if ( ( (pDownload->GetEffectiveSourceCount() <= 1 ) ||
-			( ( pDownload->m_oED2K || pDownload->m_oBTH || pDownload->m_oMD5 ) &&
-				! pDownload->m_oSHA1 )) )
-		{
-			pDownload->FindMoreSources();
-		}
-	}
+	if ( bAddToHead )
+		pDownload->Resume();
 
 	return pDownload;
 }
@@ -350,13 +339,14 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ADDED,
 			(LPCTSTR)pDownload->GetDisplayName(), pDownload->GetEffectiveSourceCount() );
 
-		if ( ( pDownload->IsTorrent() && GetTryingCount( true ) < Settings.BitTorrent.DownloadTorrents )
-			|| ( !pDownload->IsTorrent() && GetTryingCount() < Settings.Downloads.MaxFiles ) )
-		{
-			pDownload->SetStartTimer();
-			if ( pDownload->GetEffectiveSourceCount() <= 1 )
-				pDownload->FindMoreSources();
-		}
+	// Obsolete: Remove this
+	//	if ( ( pDownload->IsTorrent() && GetTryingCount( true ) < Settings.BitTorrent.DownloadTorrents )
+	//		|| ( !pDownload->IsTorrent() && GetTryingCount() < Settings.Downloads.MaxFiles ) )
+	//	{
+	//		pDownload->SetStartTimer();
+	//		if ( pDownload->GetEffectiveSourceCount() <= 1 )
+	//			pDownload->FindMoreSources();
+	//	}
 
 		DownloadGroups.Link( pDownload );
 		Transfers.StartThread();
@@ -421,7 +411,7 @@ void CDownloads::Clear(bool bShutdown)
 
 void CDownloads::CloseTransfers()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CQuickLock pLock( Transfers.m_pSection );
 
 	m_bClosing = true;
 
@@ -442,6 +432,8 @@ int CDownloads::GetSeedCount() const
 {
 	int nCount = 0;
 
+	//CQuickLock pLock( Transfers.m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
@@ -456,6 +448,8 @@ int CDownloads::GetActiveTorrentCount() const
 {
 	int nCount = 0;
 
+	//CQuickLock pLock( Transfers.m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
@@ -469,11 +463,14 @@ int CDownloads::GetActiveTorrentCount() const
 	return nCount;
 }
 
-DWORD CDownloads::GetCount(BOOL bActiveOnly) const
+INT_PTR CDownloads::GetCount(BOOL bActiveOnly) const
 {
-	if ( ! bActiveOnly ) return (DWORD)m_pList.GetCount();
+	if ( ! bActiveOnly )
+		return (DWORD)m_pList.GetCount();
 
-	DWORD nCount = 0;
+	INT_PTR nCount = 0;
+
+	//CQuickLock pLock( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -490,6 +487,8 @@ DWORD CDownloads::GetCount(BOOL bActiveOnly) const
 DWORD CDownloads::GetTransferCount() const
 {
 	DWORD nCount = 0;
+
+	//CQuickLock pLock( Transfers.m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -511,6 +510,8 @@ DWORD CDownloads::GetConnectingTransferCount() const
 {
 	DWORD nCount = 0;
 
+	//CQuickLock pLock( Transfers.m_pSection );
+
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
@@ -523,8 +524,12 @@ DWORD CDownloads::GetConnectingTransferCount() const
 
 void CDownloads::Remove(CDownload* pDownload)
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	POSITION pos = m_pList.Find( pDownload );
-	if ( pos != NULL ) m_pList.RemoveAt( pos );
+	if ( pos != NULL )
+		m_pList.RemoveAt( pos );
+
 	delete pDownload;
 }
 
@@ -1251,7 +1256,7 @@ void CDownloads::LoadFromCompoundFiles()
 		; // Good
 	else if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.bak") ) )
 		; // Good
-	else 
+	else
 		LoadFromTimePair();
 
 	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\PeerProject Downloads.dat"), FALSE, TRUE, TRUE );

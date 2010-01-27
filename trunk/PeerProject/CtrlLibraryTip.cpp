@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -54,110 +54,110 @@ END_MESSAGE_MAP()
 // CLibraryTipCtrl construction
 
 CLibraryTipCtrl::CLibraryTipCtrl()
+//	: m_nFileIndex( 0 )
+//	, m_pFile( NULL )
+//	, m_nIcon( 0 )
+//	, m_nKeyWidth( 0 )
+//	, m_tHidden( 0 )
 {
 }
+
+//CLibraryTipCtrl::~CLibraryTipCtrl()
+//{
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryTipCtrl prepare
 
 BOOL CLibraryTipCtrl::OnPrepare()
 {
+	CSingleLock oLock( &Library.m_pSection );
+	if ( ! oLock.Lock( 300 ) )
+		return FALSE;
+
+	CLibraryFile* pLibraryFile = Library.LookupFile(
+		reinterpret_cast< DWORD_PTR >( m_pContext ) );
+
+	CPeerProjectFile* pFile = pLibraryFile ?
+		static_cast< CPeerProjectFile* >( pLibraryFile ) :
+		reinterpret_cast< CPeerProjectFile* >( m_pContext );
+
+	if ( ! pLibraryFile )
 	{
-		CQuickLock oLock( Library.m_pSection );
+		if ( CLibraryFile* pShared = LibraryMaps.LookupFileByHash( pFile, FALSE, TRUE ) )
+			pLibraryFile = pShared;
+	}
 
-		CLibraryFile* pLibraryFile = Library.LookupFile(
-			reinterpret_cast< DWORD_PTR >( m_pContext ) );
+	CSingleLock pLock( &m_pSection, TRUE );
 
-		CPeerProjectFile* pFile = pLibraryFile ?
-			static_cast< CPeerProjectFile* >( pLibraryFile ) :
-			reinterpret_cast< CPeerProjectFile* >( m_pContext );
+	// Basic data
+	m_sName = pFile->m_sName.IsEmpty() ? pFile->m_sPath : pFile->m_sName;
+	if ( pLibraryFile )
+		m_sPath = pLibraryFile->GetPath();
+//	else
+//		m_sPath.Empty();
+	m_sSize = Settings.SmartVolume( pFile->GetSize() );
+	m_nIcon = 0;
 
-		if ( ! pLibraryFile )
-			if ( CLibraryFile* pShared = LibraryMaps.LookupFileByHash(
-				pFile->m_oSHA1, pFile->m_oTiger, pFile->m_oED2K, pFile->m_oBTH,
-				pFile->m_oMD5, pFile->m_nSize, pFile->m_nSize, FALSE, TRUE ) )
-				pLibraryFile = pShared;
+	if ( pLibraryFile && pLibraryFile->m_pFolder )
+		m_sFolder = pLibraryFile->m_pFolder->m_sPath;
+	else
+		m_sFolder.Empty(); // Ghost files have no location
 
-		CSingleLock pLock( &m_pSection, TRUE );
+	// Type information and icons
+	m_sType = ShellIcons.GetTypeString( m_sName );
+	m_nIcon = ShellIcons.Get( m_sName, 48 );
 
-		// Basic data
-
-		m_sName = pFile->m_sName.IsEmpty() ? pFile->m_sPath : pFile->m_sName;
-		if ( pLibraryFile )
-			m_sPath = pLibraryFile->GetPath();
-		m_sSize = Settings.SmartVolume( pFile->GetSize() );
-		m_nIcon = 0;
-
-		if ( pLibraryFile && pLibraryFile->m_pFolder )
-			m_sFolder = pLibraryFile->m_pFolder->m_sPath;
-		else
-			m_sFolder.Empty(); // Ghost files have no location
-
-		m_sType.Empty();
+	// URN
+	if ( Settings.General.GUIMode != GUI_BASIC )
+	{
+		m_sSHA1 = pFile->m_oSHA1.toShortUrn();
+		m_sTTH = pFile->m_oTiger.toShortUrn();
+		m_sED2K = pFile->m_oED2K.toShortUrn();
+		m_sBTH = pFile->m_oBTH.toShortUrn();
+		m_sMD5 = pFile->m_oMD5.toShortUrn();
+	}
+	else // Basic Mode
+	{
 		m_sSHA1.Empty();
 		m_sTTH.Empty();
 		m_sED2K.Empty();
 		m_sBTH.Empty();
 		m_sMD5.Empty();
+	}
 
-		// Type information and icons
+	// Metadata
+	CSchema* pSchema = pLibraryFile ? pLibraryFile->m_pSchema : NULL;
+	CString str, sData, sFormat;
 
-		m_sType = ShellIcons.GetTypeString( m_sName );
-		m_nIcon = ShellIcons.Get( m_sName, 48 );
+	m_pMetadata.Clear();
 
-		// URN
-		if ( Settings.General.GUIMode != GUI_BASIC )
+	if ( ! m_sFolder.IsEmpty() )
+		m_pMetadata.Add( LoadString( IDS_TIP_LOCATION ), m_sFolder );
+
+	if ( ! m_sType.IsEmpty() )
+		m_pMetadata.Add( LoadString( IDS_TIP_TYPE ), m_sType );
+
+	if ( m_sSize )
+		m_pMetadata.Add( LoadString( IDS_TIP_SIZE ), m_sSize );
+
+	if ( pLibraryFile )
+	{
+		LoadString( sFormat, IDS_TIP_TODAYTOTAL );
+		sData.Format( sFormat, pLibraryFile->m_nHitsToday, pLibraryFile->m_nHitsTotal );
+		m_pMetadata.Add( LoadString( IDS_TIP_HITS ), sData );
+		sData.Format( sFormat, pLibraryFile->m_nUploadsToday, pLibraryFile->m_nUploadsTotal );
+		m_pMetadata.Add( LoadString( IDS_TIP_UPLOADS ), sData );
+
+		if ( pLibraryFile->m_pMetadata && pSchema )
 		{
-			m_sSHA1 = pFile->m_oSHA1.toShortUrn();
-			m_sTTH = pFile->m_oTiger.toShortUrn();
-			m_sED2K = pFile->m_oED2K.toShortUrn();
-			m_sBTH = pFile->m_oBTH.toShortUrn();
-			m_sMD5 = pFile->m_oMD5.toShortUrn();
-		}
-
-		// Metadata
-
-		CSchema* pSchema = pLibraryFile ? pLibraryFile->m_pSchema : NULL;
-		CString str, sData, sFormat;
-
-		m_pMetadata.Clear();
-
-		if ( ! m_sFolder.IsEmpty() )
-		{
-			LoadString( str, IDS_TIP_LOCATION );
-			m_pMetadata.Add( str, m_sFolder );
-		}
-
-		if ( ! m_sType.IsEmpty() )
-		{
-			LoadString( str, IDS_TIP_TYPE );
-			m_pMetadata.Add( str, m_sType );
-		}
-
-		if ( m_sSize )
-		{
-			LoadString( str, IDS_TIP_SIZE );
-			m_pMetadata.Add( str, m_sSize );
-		}
-
-		if ( pLibraryFile )
-		{
-			LoadString( sFormat, IDS_TIP_TODAYTOTAL );
-			sData.Format( sFormat, pLibraryFile->m_nHitsToday, pLibraryFile->m_nHitsTotal );
-			LoadString( str, IDS_TIP_HITS );
-			m_pMetadata.Add( str, sData );
-			sData.Format( sFormat, pLibraryFile->m_nUploadsToday, pLibraryFile->m_nUploadsTotal );
-			LoadString( str, IDS_TIP_UPLOADS );
-			m_pMetadata.Add( str, sData );
-
-			if ( pLibraryFile->m_pMetadata && pSchema )
-			{
-				m_pMetadata.Setup( pSchema, FALSE );
-				m_pMetadata.Combine( pLibraryFile->m_pMetadata );
-				m_pMetadata.Clean();
-			}
+			m_pMetadata.Setup( pSchema, FALSE );
+			m_pMetadata.Combine( pLibraryFile->m_pMetadata );
+			m_pMetadata.Clean();
 		}
 	}
+
+	oLock.Unlock();
 
 	CalcSizeHelper();
 

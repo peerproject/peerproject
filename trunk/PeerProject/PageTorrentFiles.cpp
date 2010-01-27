@@ -1,7 +1,7 @@
 //
 // PageTorrentGeneral.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -107,7 +107,7 @@ BOOL CTorrentFilesPage::OnInitDialog()
 //		COLUMN_MAP( CFragmentedFile::prHigh,		LoadString( IDS_PRIORITY_HIGH ) )
 //		COLUMN_MAP( CFragmentedFile::prNormal,		LoadString( IDS_PRIORITY_NORMAL ) )
 //		COLUMN_MAP( CFragmentedFile::prLow,			LoadString( IDS_PRIORITY_LOW ) )
-//		COLUMN_MAP( CFragmentedFile::prDiscarded,	LoadString( IDS_PRIORITY_OFF ) )
+//		COLUMN_MAP( CFragmentedFile::prUnwanted,	LoadString( IDS_PRIORITY_OFF ) )
 //	END_COLUMN_MAP( m_wndFiles, 4 )
 
 	if ( CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile() )
@@ -132,7 +132,7 @@ BOOL CTorrentFilesPage::OnInitDialog()
 			sText.Format( _T("%i"), i );
 			m_wndFiles.SetItemText( pItem.iItem, 3, sText );
 			m_wndFiles.SetItemState( i,
-				UINT( ( pFragFile->GetPriority( i ) == CFragmentedFile::prDiscarded ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
+				UINT( ( pFragFile->GetPriority( i ) == CFragmentedFile::prUnwanted ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
 		//Priority Column:
 		//	m_wndFiles.SetColumnData( pItem.iItem, 4, pFragFile->GetPriority( i ) );
 		}
@@ -151,7 +151,7 @@ void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
 	*pResult = 0;
 
 	BOOL bPrevState = (BOOL)( ( ( pNMListView->uOldState & LVIS_STATEIMAGEMASK) >> 12 ) - 1 );
-	if ( bPrevState < 0 )	// No previous state at startup 
+	if ( bPrevState < 0 )	// No previous state at startup
 		return;
 
 	BOOL bChecked = (BOOL)( ( ( pNMListView->uNewState & LVIS_STATEIMAGEMASK ) >> 12 ) - 1 );
@@ -172,7 +172,7 @@ void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
 	CComPtr< CFragmentedFile > pFragFile = pDownload->GetFile();
 
 	pFragFile->SetPriority( /*pNMListView->iItem*/ _wtoi( strIndex ),
-		bChecked ? CFragmentedFile::prNormal : CFragmentedFile::prDiscarded );
+		bChecked ? CFragmentedFile::prNormal : CFragmentedFile::prUnwanted );
 
 	oLock.Unlock();
 
@@ -185,7 +185,7 @@ void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
 			if ( m_wndFiles.GetCheck(nItem) != bChecked )
 			{
 				strIndex = m_wndFiles.GetItemText( nItem, 3 );
-				pFragFile->SetPriority( _wtoi( strIndex ), bChecked ? CFragmentedFile::prNormal : CFragmentedFile::prDiscarded );
+				pFragFile->SetPriority( _wtoi( strIndex ), bChecked ? CFragmentedFile::prNormal : CFragmentedFile::prUnwanted );
 				m_wndFiles.SetCheck(nItem, bChecked ? BST_CHECKED : BST_UNCHECKED );
 			}
 		}

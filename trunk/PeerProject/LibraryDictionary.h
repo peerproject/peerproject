@@ -1,7 +1,7 @@
 //
 // LibraryDictionary.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,11 +21,10 @@
 
 #pragma once
 
-class CLibraryFile;
+#include "SharedFile.h"
+
 class CQueryHashTable;
 class CQuerySearch;
-
-typedef CList< const CLibraryFile* > CFilePtrList;
 
 
 class CLibraryDictionary
@@ -36,28 +35,28 @@ public:
 
 	void					AddFile(const CLibraryFile& oFile);
 	void					RemoveFile(const CLibraryFile& oFile);
-	void					BuildHashTable();					// Build hash table if needed
-	void					Invalidate();						// Force dictionary and hash table to re-build
+	void					BuildHashTable();				// Build hash table if needed
+	void					Invalidate();					// Force dictionary and hash table to re-build
 	const CQueryHashTable*	GetHashTable();
 	void					Clear();
-	CFilePtrList*			Search(const CQuerySearch& oSearch, int nMaximum = 0, bool bLocal = false, bool bAvailableOnly = true);
+	CFileList*				Search(const CQuerySearch& oSearch, int nMaximum = 0, bool bLocal = false, bool bAvailableOnly = true);
 	void					Serialize(CArchive& ar, int nVersion);
 
 private:
 	class CWord
 	{
 	public:
-		CWord(CFilePtrList* pList = NULL) : m_pList( pList ), m_nCount( 1 ) {}
+		CWord(CFileList* pList = NULL) : m_pList( pList ), m_nCount( 1 ) {}
 		CWord(const CWord& oWord) : m_pList( oWord.m_pList ), m_nCount( oWord.m_nCount ) {}
-		CFilePtrList*	m_pList;
-		DWORD			m_nCount;
+		CFileList*			m_pList;
+		DWORD				m_nCount;
 	};
 	typedef CMap< CString, const CString&, CWord, CWord& > CWordMap;
 
-	CWordMap			m_oWordMap;
-	CQueryHashTable*	m_pTable;
-	bool				m_bValid;							// Table is up to date
-	DWORD				m_nSearchCookie;
+	CWordMap				m_oWordMap;
+	CQueryHashTable*		m_pTable;
+	bool					m_bValid;						// Table is up to date
+	DWORD					m_nSearchCookie;
 
 	void					ProcessFile(const CLibraryFile& oFile, bool bAdd, bool bCanUpload);
 	void					ProcessPhrase(const CLibraryFile& oFile, const CString& strPhrase, bool bAdd, bool bCanUpload);

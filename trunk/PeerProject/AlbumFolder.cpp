@@ -1,7 +1,7 @@
 //
 // AlbumFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -93,11 +93,10 @@ void CAlbumFolder::RenewGUID()
 CAlbumFolder* CAlbumFolder::AddFolder(LPCTSTR pszSchemaURI, LPCTSTR pszName, BOOL bAutoDelete)
 {
 	if ( pszSchemaURI == NULL && m_pSchema != NULL )
-	{
 		pszSchemaURI = m_pSchema->GetContainedURI( CSchema::stFolder );
-	}
 
-	if ( pszSchemaURI == NULL ) pszSchemaURI = CSchema::uriFolder;
+	if ( pszSchemaURI == NULL )
+		pszSchemaURI = CSchema::uriFolder;
 
 	CAlbumFolder* pFolder = new CAlbumFolder( this, pszSchemaURI, pszName, bAutoDelete );
 
@@ -199,10 +198,7 @@ CAlbumFolder* CAlbumFolder::FindCollection(const Hashes::Sha1Hash& oSHA1)
 CAlbumFolder* CAlbumFolder::FindFolder(const Hashes::Guid& oGUID)
 {
 	if ( m_oGUID == oGUID )
-	{
-		// Its me!
-		return this;
-	}
+		return this;	// Its me!
 
 	// Find between children
 	POSITION pos = m_pFolders.GetHeadPosition();
@@ -210,10 +206,7 @@ CAlbumFolder* CAlbumFolder::FindFolder(const Hashes::Guid& oGUID)
 	{
 		CAlbumFolder* pTemp = m_pFolders.GetNext( pos )->FindFolder( oGUID );
 		if ( pTemp )
-		{
-			// Found
-			return pTemp;
-		}
+			return pTemp;	// Found
 	}
 	return NULL;
 }
@@ -225,9 +218,8 @@ bool CAlbumFolder::OnFolderDelete(CAlbumFolder* pFolder)
 	// Find by pointer (direct)
 	POSITION pos = m_pFolders.Find( pFolder );
 	if ( pos == NULL )
-	{
 		return false;
-	}
+
 	m_pFolders.RemoveAt( pos );
 
 	ASSERT( pFolder->m_pParent == this );
@@ -258,13 +250,9 @@ void CAlbumFolder::AddFile(CLibraryFile* pFile)
 	if ( m_oCollSHA1 )
 	{
 		if ( CLibraryFile* pCollection = LibraryMaps.LookupFileBySHA1( m_oCollSHA1, FALSE, TRUE ) )
-		{
 			pFile->m_nCollIndex = pCollection->m_nIndex;
-		}
 		else
-		{
 			m_oCollSHA1.clear();
-		}
 	}
 
 	m_nUpdateCookie++;
@@ -546,7 +534,7 @@ BOOL CAlbumFolder::MountCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFil
 	{
 		CAlbumFolder* pFolder = NULL;
 
-		if ( !bForce )
+		if ( ! bForce )
 		{
 			bGoingDeeper = true;
 
@@ -558,9 +546,7 @@ BOOL CAlbumFolder::MountCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFil
 
 				// Check if the same collection exists
 				if ( validAndEqual( pSubFolder->m_oCollSHA1, oSHA1 ) )
-				{
-					pFolder = pSubFolder;
-				}
+					pFolder = pSubFolder; 
 			}
 		}
 
@@ -728,13 +714,9 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 			CAlbumFolder* pAlbum = GetNextFolder( pos );
 
 			if ( pAlbum->m_sName.CompareNoCase( strAlbum ) == 0 )
-			{
 				bResult = pAlbum->OrganiseFile( pFile );
-			}
 			else if ( pAlbum->m_bAutoDelete )
-			{
 				pAlbum->RemoveFile( pFile );
-			}
 		}
 
 		if ( bResult ) return TRUE;
@@ -754,16 +736,11 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 
 		AddFile( pFile );
 
-		if ( _tcsistr( m_sName, _T("soundtrack") ) != NULL ||
-			 _tcsistr( m_sName, _T("ost") ) != NULL )
-		{
-			// TODO: Scrap artist specific info !
+		// ToDo: Scrap artist specific info !
+		//if ( _tcsistr( m_sName, _T("soundtrack") ) != NULL || _tcsistr( m_sName, _T("ost") ) != NULL )
+		//	MetaFromFile( pFile );
+		//else
 			MetaFromFile( pFile );
-		}
-		else
-		{
-			MetaFromFile( pFile );
-		}
 
 		return TRUE;
 	}
@@ -782,13 +759,9 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 			CAlbumFolder* pAlbum = GetNextFolder( pos );
 
 			if ( pAlbum->m_sName.CompareNoCase( strArtist ) == 0 )
-			{
 				bResult = pAlbum->OrganiseFile( pFile );
-			}
 			else if ( pAlbum->m_bAutoDelete )
-			{
 				pAlbum->RemoveFile( pFile );
-			}
 		}
 
 		if ( bResult ) return TRUE;
@@ -822,13 +795,9 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 			CAlbumFolder* pAlbum = GetNextFolder( pos );
 
 			if ( pAlbum->m_sName.CompareNoCase( strGenre ) == 0 )
-			{
 				bResult = pAlbum->OrganiseFile( pFile );
-			}
 			else if ( pAlbum->m_bAutoDelete )
-			{
 				pAlbum->RemoveFile( pFile );
-			}
 		}
 
 		if ( bResult ) return TRUE;

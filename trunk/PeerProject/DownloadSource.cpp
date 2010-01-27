@@ -1,7 +1,7 @@
 //
 // DownloadSource.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,6 +22,7 @@
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
+#include "Colors.h"
 #include "Download.h"
 #include "Downloads.h"
 #include "DownloadSource.h"
@@ -29,17 +30,17 @@
 #include "DownloadTransferFTP.h"
 #include "DownloadTransferED2K.h"
 #include "DownloadTransferBT.h"
-#include "FragmentedFile.h"
-
-#include "Neighbours.h"
-#include "QueryHit.h"
-#include "Network.h"
-#include "VendorCache.h"
 #include "EDClients.h"
 #include "EDClient.h"
 #include "EDPacket.h"
-#include "PeerProjectURL.h"
+#include "FragmentBar.h"
+#include "FragmentedFile.h"
+#include "Neighbours.h"
+#include "Network.h"
+#include "QueryHit.h"
 #include "Transfers.h"
+#include "PeerProjectURL.h"
+#include "VendorCache.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -52,67 +53,18 @@ static char THIS_FILE[]=__FILE__;
 // CDownloadSource construction
 
 CDownloadSource::CDownloadSource(const CDownload* pDownload)
-: m_oAvailable( pDownload->m_nSize ), m_oPastFragments( pDownload->m_nSize )
+	: m_oAvailable		( pDownload->m_nSize )
+	, m_oPastFragments	( pDownload->m_nSize )
 {
 	Construct( pDownload );
-}
-
-void CDownloadSource::Construct(const CDownload* pDownload)
-{
-	ASSERT( pDownload != NULL );
-
-	SYSTEMTIME pTime;
-	GetSystemTime( &pTime );
-
-	m_pDownload		= const_cast< CDownload* >( pDownload );
-	m_pTransfer		= NULL;
-	m_bSelected		= FALSE;
-
-	m_nProtocol		= PROTOCOL_NULL;
-	ZeroMemory( &m_pAddress, sizeof( m_pAddress ) );
-	m_nPort			= 0;
-	ZeroMemory( &m_pServerAddress, sizeof( m_pServerAddress ) );
-	m_nServerPort	= 0;
-
-	m_nIndex		= 0;
-	m_bHashAuth		= FALSE;
-	m_bSHA1			= FALSE;
-	m_bTiger		= FALSE;
-	m_bED2K			= FALSE;
-	m_bBTH			= FALSE;
-	m_bMD5			= FALSE;
-
-	m_nSpeed		= 0;
-	m_bPushOnly		= FALSE;
-	m_bCloseConn	= FALSE;
-	m_bReadContent	= FALSE;
-
-	ASSERT( SystemTimeToFileTime( &pTime, &m_tLastSeen ) );
-
-	m_nGnutella		= 0;
-	m_bClientExtended=FALSE;
-
-	m_nSortOrder	= 0xFFFFFFFF;
-	m_nColor		= -1;
-	m_tAttempt		= 0;
-	m_bKeep			= FALSE;
-	m_nFailures		= 0;
-	m_nBusyCount	= 0;
-	m_nRedirectionCount = 0;
-	m_bPreviewRequestSent = FALSE;
-	m_bPreview = FALSE;
-}
-
-CDownloadSource::~CDownloadSource()
-{
-	ASSUME_LOCK( Transfers.m_pSection );
 }
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadSource construction from a query hit
 
 CDownloadSource::CDownloadSource(const CDownload* pDownload, const CQueryHit* pHit)
-: m_oAvailable( pDownload->m_nSize ), m_oPastFragments( pDownload->m_nSize )
+	: m_oAvailable		( pDownload->m_nSize )
+	, m_oPastFragments	( pDownload->m_nSize )
 {
 	Construct( pDownload );
 
@@ -173,8 +125,10 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const CQueryHit* pH
 //////////////////////////////////////////////////////////////////////
 // CDownloadSource construction from eDonkey source transfer
 
-CDownloadSource::CDownloadSource(const CDownload* pDownload, DWORD nClientID, WORD nClientPort, DWORD nServerIP, WORD nServerPort, const Hashes::Guid& oGUID)
-: m_oAvailable( pDownload->m_nSize ), m_oPastFragments( pDownload->m_nSize )
+CDownloadSource::CDownloadSource(const CDownload* pDownload, DWORD nClientID,
+	WORD nClientPort, DWORD nServerIP, WORD nServerPort, const Hashes::Guid& oGUID)
+	: m_oAvailable		( pDownload->m_nSize )
+	, m_oPastFragments	( pDownload->m_nSize )
 {
 	Construct( pDownload );
 
@@ -192,8 +146,7 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, DWORD nClientID, WO
             (LPCTSTR)m_pDownload->m_oED2K.toString(), m_pDownload->m_nSize );
 	}
 
-	m_oGUID = oGUID;
-
+	m_oGUID		= oGUID;
 	m_bED2K		= TRUE;
 	m_sServer	= _T("eDonkey2000");
 
@@ -203,10 +156,14 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, DWORD nClientID, WO
 //////////////////////////////////////////////////////////////////////
 // CDownloadSource construction from BitTorrent
 
-CDownloadSource::CDownloadSource(const CDownload* pDownload, const Hashes::BtGuid& oGUID, IN_ADDR* pAddress, WORD nPort)
-: m_oAvailable( pDownload->m_nSize ), m_oPastFragments( pDownload->m_nSize )
+CDownloadSource::CDownloadSource(const CDownload* pDownload,
+	const Hashes::BtGuid& oGUID, const IN_ADDR* pAddress, WORD nPort)
+	: m_oAvailable		( pDownload->m_nSize )
+	, m_oPastFragments	( pDownload->m_nSize )
 {
 	Construct( pDownload );
+
+	ASSERT( pAddress != NULL );
 
 	if ( oGUID )
 	{
@@ -223,7 +180,7 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const Hashes::BtGui
 	}
 
 	m_bBTH		= TRUE;
-	m_oGUID	= transformGuid( oGUID );
+	m_oGUID		= transformGuid( oGUID );
 	m_sServer	= _T("BitTorrent");
 
 	ResolveURL();
@@ -232,26 +189,74 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const Hashes::BtGui
 //////////////////////////////////////////////////////////////////////
 // CDownloadSource construction from URL
 
-CDownloadSource::CDownloadSource(const CDownload* pDownload, LPCTSTR pszURL, BOOL /*bSHA1*/, BOOL bHashAuth, FILETIME* pLastSeen, int nRedirectionCount)
-: m_oAvailable( pDownload->m_nSize ), m_oPastFragments( pDownload->m_nSize )
+CDownloadSource::CDownloadSource(const CDownload* pDownload, LPCTSTR pszURL,
+	BOOL /*bSHA1*/, BOOL bHashAuth, FILETIME* pLastSeen, int nRedirectionCount)
+	: m_oAvailable		( pDownload->m_nSize )
+	, m_oPastFragments	( pDownload->m_nSize )
 {
 	Construct( pDownload );
 
 	ASSERT( pszURL != NULL );
-	m_sURL = pszURL;
 
-	if ( ! ResolveURL() ) return;
-
+	m_sURL			= pszURL;
 	m_bHashAuth		= bHashAuth;
 
-	if ( pLastSeen != NULL )
+	if ( pLastSeen )
 	{
 		FILETIME tNow = m_tLastSeen;
 		(LONGLONG&)tNow += 10000000;
-		if ( CompareFileTime( pLastSeen, &tNow ) <= 0 ) m_tLastSeen = *pLastSeen;
+		if ( CompareFileTime( pLastSeen, &tNow ) <= 0 )
+			m_tLastSeen = *pLastSeen;
 	}
 
 	m_nRedirectionCount = nRedirectionCount;
+
+	ResolveURL();
+}
+
+void CDownloadSource::Construct(const CDownload* pDownload)
+{
+	ASSUME_LOCK( Transfers.m_pSection );
+	ASSERT( pDownload != NULL );
+
+	m_pTransfer				= NULL;
+	m_pDownload				= const_cast< CDownload* >( pDownload );
+	m_bSelected				= FALSE;
+	m_nProtocol				= PROTOCOL_NULL;
+	m_pAddress.s_addr		= 0;
+	m_nPort					= 0;
+	m_pServerAddress.s_addr	= 0;
+	m_nServerPort			= 0;
+	m_nIndex				= 0;
+	m_bHashAuth				= FALSE;
+	m_bSHA1					= FALSE;
+	m_bTiger				= FALSE;
+	m_bED2K					= FALSE;
+	m_bBTH					= FALSE;
+	m_bMD5					= FALSE;
+	m_nSpeed				= 0;
+	m_bPushOnly				= FALSE;
+	m_bCloseConn			= FALSE;
+	m_bReadContent			= FALSE;
+	GetSystemTimeAsFileTime( &m_tLastSeen );
+	m_bClientExtended		= FALSE;
+	m_nGnutella				= 0;
+	m_nSortOrder			= 0xFFFFFFFF;
+	m_nColor				= -1;
+	m_tAttempt				= 0;
+	m_nFailures				= 0;
+	m_nBusyCount			= 0;
+	m_nRedirectionCount		= 0;
+	m_bKeep					= FALSE;
+	m_bPreview				= FALSE;
+	m_bPreviewRequestSent	= FALSE;
+	m_bMetaIgnore			= FALSE;
+}
+
+CDownloadSource::~CDownloadSource()
+{
+	ASSUME_LOCK( Transfers.m_pSection );
+	ASSERT( m_pTransfer == NULL );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -281,14 +286,13 @@ BOOL CDownloadSource::ResolveURL()
 	{
 		m_pServerAddress	= pURL.m_pServerAddress;
 		m_nServerPort		= pURL.m_nServerPort;
-		if ( m_nServerPort ) m_bPushOnly = TRUE;
+		if ( m_nServerPort )
+			m_bPushOnly = TRUE;
 	}
 	else if ( m_nProtocol == PROTOCOL_BT )
 	{
 		if ( pURL.m_oBTC )
-		{
 			m_oGUID = transformGuid( pURL.m_oBTC );
-		}
 	}
 
 	m_sCountry		= theApp.GetCountryCode( m_pAddress );
@@ -300,7 +304,7 @@ BOOL CDownloadSource::ResolveURL()
 //////////////////////////////////////////////////////////////////////
 // CDownloadSource serialize
 
-void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSION */)
+void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 {
 	if ( ar.IsStoring() )
 	{
@@ -336,8 +340,9 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
         SerializeOut2( ar, m_oPastFragments );
 
 		ar << m_bClientExtended;
+		ar << m_bMetaIgnore;
 	}
-	else if ( nVersion >= 21 )
+	else if ( nVersion > 20 )
 	{
 		ar >> m_sURL;
 		ar >> m_nProtocol;
@@ -355,24 +360,25 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
 		ar >> m_bSHA1;
 		ar >> m_bTiger;
 		ar >> m_bED2K;
-		if ( nVersion >= 37 )
-		{
-			ar >> m_bBTH;
-			ar >> m_bMD5;
-		}
+		//if ( nVersion >= 37 )
+		//{
+		ar >> m_bBTH;
+		ar >> m_bMD5;
+		//}
 
 		ar >> m_sServer;
-		if ( nVersion >= 24 ) ar >> m_sNick;
+		//if ( nVersion >= 24 )
+		ar >> m_sNick;
 
-		if ( nVersion >= 36 )
-			ar >> m_sCountry;
-		else
-			m_sCountry = theApp.GetCountryCode( m_pAddress );
+		//if ( nVersion >= 36 )
+		ar >> m_sCountry;
+		//else
+		//	m_sCountry = theApp.GetCountryCode( m_pAddress );
 
-		if ( nVersion >= 38 )
-			ar >> m_sCountryName;
-		else
-			m_sCountryName = theApp.GetCountryName( m_pAddress );
+		//if ( nVersion >= 38 )
+		ar >> m_sCountryName;
+		//else
+		//	m_sCountryName = theApp.GetCountryName( m_pAddress );
 
 		ar >> m_nSpeed;
 		ar >> m_bPushOnly;
@@ -382,12 +388,15 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
 
         SerializeIn2( ar, m_oPastFragments, nVersion );
 
-		if ( nVersion >= 39 )
-			ar >> m_bClientExtended;
-		else
-			m_bClientExtended = VendorCache.IsExtended( m_sServer );
+		//if ( nVersion >= 39 )
+		ar >> m_bClientExtended;
+		//else
+		//	m_bClientExtended = VendorCache.IsExtended( m_sServer );
+
+		if ( nVersion >= 42 )	// 1000
+			ar >> m_bMetaIgnore;
 	}
-	else
+	else	// nVersion < 21	ToDo: Is this ever needed?
 	{
 		DWORD nIndex;
 		ReadArchive( ar, &m_pAddress, sizeof(m_pAddress) );
@@ -395,28 +404,28 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
 		ar >> m_nSpeed;
 		ar >> nIndex;
 		ar >> m_sName;
-		if ( nVersion >= 4 ) ar >> m_sURL;
-		if ( nVersion >= 21 ) ar >> m_nProtocol;
+		//if ( nVersion >= 4 ) ar >> m_sURL;
+		//if ( nVersion >= 21 ) ar >> m_nProtocol;
 		ar >> m_bSHA1;
-		if ( nVersion >= 13 ) ar >> m_bTiger;
-		if ( nVersion >= 13 ) ar >> m_bED2K;
-		if ( nVersion >= 10 ) ar >> m_bHashAuth;
+		//if ( nVersion >= 13 ) ar >> m_bTiger;
+		//if ( nVersion >= 13 ) ar >> m_bED2K;
+		//if ( nVersion >= 10 ) ar >> m_bHashAuth;
 
-		if ( nVersion == 8 )
-		{
-			DWORD nV;
-			ar >> nV;
-			m_sServer.Format( _T("%c%c%c%c"), nV & 0xFF, ( nV >> 8 ) & 0xFF, ( nV >> 16 ) & 0xFF, nV >> 24 );
-		}
-		else if ( nVersion >= 9 )
-		{
-			ar >> m_sServer;
-		}
+		//if ( nVersion == 8 )
+		//{
+		//	DWORD nV;
+		//	ar >> nV;
+		//	m_sServer.Format( _T("%c%c%c%c"), nV & 0xFF, ( nV >> 8 ) & 0xFF, ( nV >> 16 ) & 0xFF, nV >> 24 );
+		//}
+		//else if ( nVersion >= 9 )
+		//{
+		//	ar >> m_sServer;
+		//}
 
 		ar >> m_bPushOnly;
 		ar >> m_bReadContent;
-		if ( nVersion >= 7 ) ar >> m_bCloseConn;
-		if ( nVersion >= 12 ) ReadArchive( ar, &m_tLastSeen, sizeof(FILETIME) );
+		//if ( nVersion >= 7 ) ar >> m_bCloseConn;
+		//if ( nVersion >= 12 ) ReadArchive( ar, &m_tLastSeen, sizeof(FILETIME) );
 
 		ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
 		ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
@@ -431,22 +440,29 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion /* DOWNLOAD_SER_VERSI
 //////////////////////////////////////////////////////////////////////
 // CDownloadSource create transfer
 
-CDownloadTransfer* CDownloadSource::CreateTransfer()
+CDownloadTransfer* CDownloadSource::CreateTransfer(LPVOID pParam)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 	ASSERT( m_pTransfer == NULL );
 
 	switch ( m_nProtocol )
 	{
-	case PROTOCOL_G1:	return ( m_pTransfer = new CDownloadTransferHTTP( this ) );
-	case PROTOCOL_G2:	return ( m_pTransfer = new CDownloadTransferHTTP( this ) );
-	case PROTOCOL_ED2K:	return ( m_pTransfer = new CDownloadTransferED2K( this ) );
-	case PROTOCOL_HTTP:	return ( m_pTransfer = new CDownloadTransferHTTP( this ) );
-	case PROTOCOL_FTP:	return ( m_pTransfer = new CDownloadTransferFTP( this ) );
-	case PROTOCOL_BT:	return ( m_pTransfer = new CDownloadTransferBT( this, NULL ) );
+	case PROTOCOL_G1:
+		return ( m_pTransfer = new CDownloadTransferHTTP( this ) );
+	case PROTOCOL_G2:
+		return ( m_pTransfer = new CDownloadTransferHTTP( this ) );
+	case PROTOCOL_ED2K:
+		return ( m_pTransfer = new CDownloadTransferED2K( this ) );
+	case PROTOCOL_HTTP:
+		return ( m_pTransfer = new CDownloadTransferHTTP( this ) );
+	case PROTOCOL_FTP:
+		return ( m_pTransfer = new CDownloadTransferFTP( this ) );
+	case PROTOCOL_BT:
+		return ( m_pTransfer = new CDownloadTransferBT( this, (CBTClient*)pParam ) );
 	case PROTOCOL_NULL:
 	case PROTOCOL_ANY:
-	default:			return ( NULL );
+	default:
+		return NULL;
 	}
 }
 
@@ -509,7 +525,18 @@ BOOL CDownloadSource::CanInitiate(BOOL bNetwork, BOOL bEstablished)
 	{
 		// Don't try to connect to sources which we determined were bad
 		// We will check them later after 2 hours cleanup
-		RemoveIf( TRUE, !m_pDownload->IsSeeding() );
+		Close();
+
+		if ( Settings.Downloads.NeverDrop )
+		{
+			m_bKeep = TRUE;
+			m_tAttempt = CalcFailureDelay();
+
+			m_pDownload->SetModified();
+		}
+		else
+			Remove( TRUE, TRUE );
+
 		return FALSE;
 	}
 
@@ -517,6 +544,24 @@ BOOL CDownloadSource::CanInitiate(BOOL bNetwork, BOOL bEstablished)
 		return FALSE;
 
 	return bEstablished || Downloads.AllowMoreTransfers( (IN_ADDR*)&m_pAddress );
+}
+
+bool CDownloadSource::IsPreviewCapable() const
+{
+	ASSUME_LOCK( Transfers.m_pSection );
+
+	switch ( m_nProtocol )
+	{
+	case PROTOCOL_HTTP:
+		return ( m_bPreview != FALSE );
+
+	case PROTOCOL_ED2K:
+		return ( m_pTransfer &&
+			static_cast< CDownloadTransferED2K* >( m_pTransfer )->m_pClient->m_bEmPreview );
+
+	default:
+		return false;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -530,12 +575,13 @@ void CDownloadSource::Remove(BOOL bCloseTransfer, BOOL bBan)
 	{
 		if ( bCloseTransfer )
 		{
-			m_pTransfer->Close( TRI_TRUE );
+			Close();
 			ASSERT( m_pTransfer == NULL );
 		}
 		else
 		{
-			m_pTransfer->m_pSource = NULL;
+			// Transfer already closed
+			ASSERT( m_pTransfer->GetSource() == NULL );
 			m_pTransfer = NULL;
 		}
 	}
@@ -552,8 +598,8 @@ void CDownloadSource::OnFailure(BOOL bNondestructive, DWORD nRetryAfter)
 
 	if ( m_pTransfer != NULL )
 	{
-		m_pTransfer->SetState(dtsNull);
-		m_pTransfer->m_pSource = NULL;
+		// Transfer already closed
+		ASSERT( m_pTransfer->GetSource() == NULL );
 		m_pTransfer = NULL;
 	}
 
@@ -564,7 +610,9 @@ void CDownloadSource::OnFailure(BOOL bNondestructive, DWORD nRetryAfter)
 
 	int nMaxFailures = Settings.Downloads.MaxAllowedFailures;
 
-	if ( nMaxFailures < 20 && m_pDownload->GetSourceCount() > Settings.Downloads.StartDroppingFailedSourcesNumber ) nMaxFailures = 0;
+	if ( nMaxFailures < 20 &&
+		m_pDownload->GetSourceCount() > Settings.Downloads.StartDroppingFailedSourcesNumber )
+		nMaxFailures = 0;
 
 	if ( bNondestructive || ( ++m_nFailures < nMaxFailures ) )
 	{
@@ -573,39 +621,18 @@ void CDownloadSource::OnFailure(BOOL bNondestructive, DWORD nRetryAfter)
 	}
 	else
 	{
-		RemoveIf( TRUE, ! m_pDownload->IsSeeding() );
-	}
-}
-
-void CDownloadSource::RemoveIf(BOOL bCloseTransfer, BOOL bBan)
-{
-	ASSUME_LOCK( Transfers.m_pSection );
-
-	if ( m_pTransfer != NULL )
-	{
-		if ( bCloseTransfer )
+		if ( Settings.Downloads.NeverDrop )
 		{
-			m_pTransfer->Close( TRI_TRUE );
-			ASSERT( m_pTransfer == NULL );
+			// Keep source
+			m_bKeep = TRUE;
+			m_tAttempt = CalcFailureDelay();
+			m_pDownload->SetModified();
 		}
 		else
 		{
-			m_pTransfer->m_pSource = NULL;
-			m_pTransfer = NULL;
+			// Add to the bad sources list (X-NAlt) if bBan == TRUE
+			m_pDownload->RemoveSource( this, ! m_pDownload->IsSeeding() );
 		}
-	}
-
-	if ( Settings.Downloads.NeverDrop )
-	{
-		m_bKeep = TRUE;
-		m_tAttempt = CalcFailureDelay();
-
-		m_pDownload->SetModified();
-	}
-	else
-	{
-		// Add to the bad sources list (X-NAlt) if bBan == TRUE
-		m_pDownload->RemoveSource( this, bBan );
 	}
 }
 
@@ -625,9 +652,9 @@ DWORD CDownloadSource::CalcFailureDelay(DWORD nRetryAfter) const
 		{
 			if ( nDelay > 3600000 ) nDelay = 3600000;
 		}
-		else  // I think it is nasty to set 1 Day delay
+		else  // It is nasty to set 1 Day delay
 		{
-			if ( nDelay > 86400000 ) nDelay = 86400000;
+			if ( nDelay > 72000000 ) nDelay = 72000000;
 		}
 	}
 
@@ -653,8 +680,8 @@ void CDownloadSource::OnResumeClosed()
 
 	if ( m_pTransfer != NULL )
 	{
-		m_pTransfer->SetState(dtsNull);
-		m_pTransfer->m_pSource = NULL;
+		// Transfer already closed
+		ASSERT( m_pTransfer->GetSource() == NULL );
 		m_pTransfer = NULL;
 	}
 
@@ -938,4 +965,128 @@ int CDownloadSource::GetColor()
 	if ( m_nColor >= 0 ) return m_nColor;
 	m_nColor = m_pDownload->GetSourceColor();
 	return m_nColor;
+}
+
+void CDownloadSource::Close()
+{
+	ASSUME_LOCK( Transfers.m_pSection );
+
+	if ( m_pTransfer )
+	{
+		m_pTransfer->Close( TRI_TRUE );
+		ASSERT( m_pTransfer == NULL );
+	}
+}
+
+void CDownloadSource::Draw(CDC* pDC, CRect* prcBar, COLORREF crNatural)
+{
+	if ( ! IsIdle() )
+	{
+		if ( m_pTransfer->m_nLength < SIZE_UNKNOWN )
+		{
+			CFragmentBar::DrawStateBar( pDC, prcBar, m_pDownload->m_nSize,
+				m_pTransfer->m_nOffset, m_pTransfer->m_nLength,
+				Colors.m_crFragmentRequest, TRUE );
+		}
+
+		switch( GetTransferProtocol() )
+		{
+		case PROTOCOL_ED2K:
+			for ( Fragments::Queue::const_iterator pRequested
+				= static_cast< CDownloadTransferED2K* >( m_pTransfer )->m_oRequested.begin();
+				pRequested
+				!= static_cast< CDownloadTransferED2K* >( m_pTransfer )->m_oRequested.end();
+				++pRequested )
+			{
+				CFragmentBar::DrawStateBar( pDC, prcBar, m_pDownload->m_nSize,
+					pRequested->begin(), pRequested->size(), Colors.m_crFragmentRequest, TRUE );
+			}
+			break;
+
+		case PROTOCOL_BT:
+			for ( Fragments::Queue::const_iterator pRequested
+				= static_cast< CDownloadTransferBT* >( m_pTransfer )->m_oRequested.begin();
+				pRequested
+				!= static_cast< CDownloadTransferBT* >( m_pTransfer )->m_oRequested.end();
+				++pRequested )
+			{
+				CFragmentBar::DrawStateBar( pDC, prcBar, m_pDownload->m_nSize,
+					pRequested->begin(), pRequested->size(), Colors.m_crFragmentRequest, TRUE );
+			}
+			break;
+
+		default:
+			;	// Do nothing more
+		}
+	}
+
+	Draw( pDC, prcBar );
+
+	if ( ! m_oAvailable.empty() )
+	{
+		for ( Fragments::List::const_iterator pFragment = m_oAvailable.begin();
+			pFragment != m_oAvailable.end(); ++pFragment )
+		{
+			CFragmentBar::DrawFragment( pDC, prcBar, m_pDownload->m_nSize,
+				pFragment->begin(), pFragment->size(), crNatural, FALSE );
+		}
+
+		pDC->FillSolidRect( prcBar, Colors.m_crWindow );
+	}
+	else if ( IsOnline() && HasUsefulRanges() || !m_oPastFragments.empty() )
+	{
+		pDC->FillSolidRect( prcBar, crNatural );
+	}
+	else
+	{
+		pDC->FillSolidRect( prcBar, Colors.m_crWindow );
+	}
+}
+
+void CDownloadSource::Draw(CDC* pDC, CRect* prcBar)
+{
+	ASSUME_LOCK( Transfers.m_pSection );
+
+	static COLORREF crFill[] =
+	{
+		Colors.m_crFragmentSource1, Colors.m_crFragmentSource2,
+		Colors.m_crFragmentSource3, Colors.m_crFragmentSource4,
+		Colors.m_crFragmentSource5, Colors.m_crFragmentSource6
+	};
+
+	COLORREF crTransfer;
+
+	if ( m_bReadContent )
+		crTransfer = crFill[ GetColor() ];
+	else
+		crTransfer = Colors.m_crFragmentComplete;
+
+	crTransfer = CColors::CalculateColor( crTransfer, Colors.m_crHighlight, 90 );
+
+	if ( ! IsIdle() )
+	{
+		if ( GetState() == dtsDownloading &&
+			 m_pTransfer->m_nOffset < SIZE_UNKNOWN )
+		{
+			if ( m_pTransfer->m_bRecvBackwards )
+			{
+				CFragmentBar::DrawFragment( pDC, prcBar, m_pDownload->m_nSize,
+					m_pTransfer->m_nOffset + m_pTransfer->m_nLength - m_pTransfer->m_nPosition,
+					m_pTransfer->m_nPosition, crTransfer, TRUE );
+			}
+			else
+			{
+				CFragmentBar::DrawFragment( pDC, prcBar, m_pDownload->m_nSize,
+					m_pTransfer->m_nOffset,
+					m_pTransfer->m_nPosition, crTransfer, TRUE );
+			}
+		}
+	}
+
+	for ( Fragments::List::const_iterator pFragment = m_oPastFragments.begin();
+		pFragment != m_oPastFragments.end(); ++pFragment )
+	{
+		CFragmentBar::DrawFragment( pDC, prcBar, m_pDownload->m_nSize,
+			pFragment->begin(), pFragment->size(), crTransfer, TRUE );
+	}
 }

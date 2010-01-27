@@ -1,7 +1,7 @@
 //
 // NeighboursBase.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -98,7 +98,7 @@ CNeighbour* CNeighboursBase::Get(DWORD_PTR nUnique) const
 // Takes an IP address
 // Finds the neighbour object in the m_pUniques map that represents the remote computer with that address
 // Returns it, or null if not found
-CNeighbour* CNeighboursBase::Get(IN_ADDR* pAddress) const	// Saying const here means this method won't change any member variables
+CNeighbour* CNeighboursBase::Get(const IN_ADDR* pAddress) const	// Saying const here means this method won't change any member variables
 {
 	ASSUME_LOCK( Network.m_pSection );
 
@@ -115,8 +115,7 @@ CNeighbour* CNeighboursBase::Get(IN_ADDR* pAddress) const	// Saying const here m
 	return NULL; // Not found
 }
 
-// Finds the newest neighbour object
-// Returns it, or null if not found
+// Finds the newest neighbour object.
 CNeighbour* CNeighboursBase::GetNewest(PROTOCOLID nProtocol, int nState, int nNodeType) const
 {
 	ASSUME_LOCK( Network.m_pSection );
@@ -193,24 +192,21 @@ BOOL CNeighboursBase::NeighbourExists(PROTOCOLID nProtocol, int nState, int nNod
 		{
 			CNeighbour* pNeighbour = m_pNeighbours.GetNext( pos );
 
-		// If this neighbour has the protocol we are looking for, or nProtocl is negative to count them all
-		if ( nProtocol == PROTOCOL_ANY || nProtocol == pNeighbour->m_nProtocol )
-		{
-			// If this neighbour is currently in the state we are looking for, or nState is negative to count them all
-			if ( nState < 0 || nState == pNeighbour->m_nState )
+			// If this neighbour has the protocol we are looking for, or nProtocl is negative to count them all
+			if ( nProtocol == PROTOCOL_ANY || nProtocol == pNeighbour->m_nProtocol )
 			{
-				// If this neighbour is in the ultra or leaf role we are looking for, or nNodeType is null to count them all
-				if ( nNodeType < 0 || nNodeType == pNeighbour->m_nNodeType )
+				// If this neighbour is currently in the state we are looking for, or nState is negative to count them all
+				if ( nState < 0 || nState == pNeighbour->m_nState )
 				{
-					// Found one, return immediately
-					return TRUE;
+					// If this neighbour is in the ultra or leaf role we are looking for, or nNodeType is null to count them all
+					if ( nNodeType < 0 || nNodeType == pNeighbour->m_nNodeType )
+						return TRUE;	// Found one, return immediately
 				}
 			}
 		}
 	}
-	}
-	// Not found
-	return FALSE;
+
+	return FALSE;	// Not found
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -287,21 +283,21 @@ void CNeighboursBase::OnRun()
 				pNeighbour->m_nRunCookie = m_nRunCookie;
 
 				// If the socket has been open for 1.5 seconds and we've finished the handshake, count this neighbour as stable
-				if ( pNeighbour->m_nState == nrsConnected && // This neighbour has finished the handshake with us, and
-				     pNeighbour->m_tConnected < tEstablish ) // Our socket to it connected before 1.5 seconds ago
-				     nStableCount++;                         // Count this as a stable connection
+				if ( pNeighbour->m_nState == nrsConnected &&	// This neighbour has finished the handshake with us, and
+					pNeighbour->m_tConnected < tEstablish )		// Our socket to it connected before 1.5 seconds ago
+					nStableCount++;								// Count this as a stable connection
 
 				// If this connection is down to a leaf
 				if ( pNeighbour->m_nNodeType == ntLeaf )
 				{
 					// Count the leaf and add the number of bytes it's sharing to the total we're keeping of that
-					nLeafCount++;                              // Count one more leaf
-					nLeafContent += pNeighbour->m_nFileVolume; // Add the number of bytes of files this leaf is sharing to the total
+					nLeafCount++;								// Count one more leaf
+					nLeafContent += pNeighbour->m_nFileVolume;	// Add the number of bytes of files this leaf is sharing to the total
 				}
 
 				// Have this neighbour measure its bandwidth, compute the totals, and then we'll save them in the member variables
 				pNeighbour->Measure(); // Calls CConnection::Measure, which edits the values in the TCP bandwidth meter structure
-				nBandwidthIn   += pNeighbour->m_mInput.nMeasure;  // We started these out as 0, and will save the totals in the CNeighbours object
+				nBandwidthIn   += pNeighbour->m_mInput.nMeasure; // We started these out as 0, and will save the totals in the CNeighbours object
 				nBandwidthOut  += pNeighbour->m_mOutput.nMeasure;
 
 				// Send and receive data with this remote computer through the socket
@@ -336,13 +332,9 @@ void CNeighboursBase::Add(CNeighbour* pNeighbour)
 	ASSUME_LOCK( Network.m_pSection );
 
 	if ( POSITION pos = m_pNeighbours.Find( pNeighbour ) )
-		{
-		// Dup?
-	}
+		; // Dup?
 	else
-	{
 		m_pNeighbours.AddTail( pNeighbour );
-	}
 }
 
 // Takes a pointer to a neighbour object
@@ -357,7 +349,5 @@ void CNeighboursBase::Remove(CNeighbour* pNeighbour)
 
 	// Remove the neighbour object from the map
 	if ( POSITION pos = m_pNeighbours.Find( pNeighbour ) )
-	{
 		m_pNeighbours.RemoveAt( pos );
-	}
 }

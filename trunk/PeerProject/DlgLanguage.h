@@ -1,7 +1,7 @@
 //
 // DlgLanguage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,6 +36,9 @@ public:
 	enum { IDD = IDD_LANGUAGE };
 	//}}AFX_DATA
 
+	CString			m_sLanguage;
+	bool			m_bLanguageRTL;
+
 protected:
 	CArray< CString >	m_pPaths;
 	CArray< CString >	m_pTitles;
@@ -51,16 +54,7 @@ protected:
 	CFont			m_fntSmall;
 	HCURSOR			m_hArrow;
 	HCURSOR			m_hHand;
-	CBitmap			m_bmHeader;
-
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CLanguageDlg)
-	public:
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
+	//CBitmap		m_bmHeader;
 
 protected:
 	void	PaintItem(int nItem, CDC* pDC, CRect* pRect);
@@ -69,9 +63,12 @@ protected:
 	BOOL	AddSkin(LPCTSTR pszPath, LPCTSTR pszName);
 	void	Execute(int nItem);
 
+
 // Implementation
 protected:
 	//{{AFX_MSG(CLanguageDlg)
+	virtual void DoDataExchange(CDataExchange* pDX);
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnInitDialog();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnPaint();
@@ -85,7 +82,7 @@ protected:
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnDestroy();
 	afx_msg void OnClose();
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	//afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

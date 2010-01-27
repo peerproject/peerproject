@@ -1,7 +1,7 @@
 //
 // WndMain.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2009
+// This file is part of PeerProject (peerproject.org) © 2008-2010-2009
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -2271,11 +2271,20 @@ void CMainWnd::OnToolsLanguage()
 	theApp.WriteProfileInt( _T("Windows"), _T("RunLanguage"), TRUE );
 
 	CLanguageDlg dlg;
-
 	if ( dlg.DoModal() == IDOK )
 	{
+		bool bRestart = Settings.General.LanguageRTL != dlg.m_bLanguageRTL &&
+			AfxMessageBox( IDS_GENERAL_RTL_WARNING, MB_ICONQUESTION | MB_YESNO ) == IDYES;
+
 		CWaitCursor pCursor;
-		SetGUIMode( Settings.General.GUIMode );
+
+		Settings.General.Language = dlg.m_sLanguage;
+		Settings.General.LanguageRTL = dlg.m_bLanguageRTL;
+
+		if ( bRestart )
+			PostMessage( WM_CLOSE );
+		else
+			SetGUIMode( Settings.General.GUIMode );
 	}
 }
 

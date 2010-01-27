@@ -300,7 +300,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 
 	if ( ! pPacket->m_bCompound )
 	{
-		theApp.Message( MSG_DEBUG, _T("[G2] Hit Error: No compounded packet") );
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G2] Hit Error: No compounded packet") );
 		return NULL;
 	}
 
@@ -972,7 +972,7 @@ CXMLElement* CQueryHit::ReadXML(CG1Packet* pPacket, int nSize)
 			nSize -= 4;
 
 			if ( ! pXML ) break;		// Invalid XML
-			
+
 
 			if ( ! pRoot )
 			{

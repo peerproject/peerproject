@@ -1,7 +1,7 @@
 //
 // ShakeNeighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -84,9 +84,8 @@ CShakeNeighbour::~CShakeNeighbour()
 // Takes an IP address and port number to connect to, the automatic setting (do), and true if (do)
 // Connects the socket in this object to the remote computer
 // Returns false if the connection could not be made
-BOOL CShakeNeighbour::ConnectTo(IN_ADDR* pAddress, WORD nPort, BOOL bAutomatic, BOOL bNoUltraPeer)
+BOOL CShakeNeighbour::ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutomatic, BOOL bNoUltraPeer)
 {
-
 	// Connect the socket in this object to the given ip address and port number
 	if ( CConnection::ConnectTo( pAddress, nPort ) )
 	{

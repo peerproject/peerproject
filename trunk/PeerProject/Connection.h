@@ -1,7 +1,7 @@
 //
 // Connection.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,14 +27,13 @@
 #include "Buffer.h"
 #include "Packet.h"
 
-typedef boost::shared_ptr< CCriticalSection > CCriticalSectionPtr;
 
 // A socket connection to a remote computer on the Internet running peer-to-peer software
 class CConnection
 {
 // Construction
 public:
-	CConnection();
+	CConnection(PROTOCOLID nProtocol = PROTOCOL_ANY);
 	CConnection(CConnection& other);
 	virtual ~CConnection();
 
@@ -49,7 +48,7 @@ public:
 	DWORD		m_tConnected;	// The tick count when the socket connection was made
 	SOCKET		m_hSocket;		// The actual Windows socket for the Internet connection to the remote computer
 	CString		m_sUserAgent;	// The name of the program the remote computer is running
-	BOOL		m_bClientExtended; // Does the remote computer support extended functions? (Running under PeerProject/Shareaza or compatible mod.) Use chat, browse, etc...
+	BOOL		m_bClientExtended; // Does remote computer support extended functions? (Running PeerProject/Shareaza/compatible mod. for chat, browse, etc.)
 	CString		m_sLastHeader;	// The handshake header that ReadHeaders most recently read
 	int			m_nQueuedRun;	// The queued run state of 0, 1, or 2 (do)
 	PROTOCOLID	m_nProtocol;	// Detected protocol
@@ -57,44 +56,7 @@ public:
 // Buffers access
 protected:
 	// Class that looks like CBuffer* but with syncronization
-	class __declspec(novtable) CLockedBuffer
-	{
-	public:
-		inline CLockedBuffer(const CLockedBuffer& pGB) :
-			m_pBuffer( pGB.m_pBuffer ),
-			m_pLock( pGB.m_pLock )
-		{
-			m_pLock->Lock();
-		}
-
-		inline ~CLockedBuffer()
-		{
-			m_pLock->Unlock();
-		}
-
-		inline operator CBuffer*() const throw()
-		{
-			return m_pBuffer;
-		}
-
-		inline CBuffer* operator->() const throw()
-		{
-			return m_pBuffer;
-		}
-
-	protected:
-		inline explicit CLockedBuffer(CBuffer* pBuffer, CCriticalSectionPtr pLock) :
-			m_pBuffer( pBuffer ),
-			m_pLock( pLock )
-		{
-			m_pLock->Lock();
-		}
-
-		CBuffer*			m_pBuffer;
-		CCriticalSectionPtr	m_pLock;
-
-		friend class CConnection;
-	};
+	typedef CLocked< CBuffer*, CCriticalSectionPtr > CLockedBuffer;
 
 private:
 	CCriticalSectionPtr	m_pInputSection;
@@ -307,11 +269,11 @@ public:
 // Overrides
 public:
 	// Make a connection, accept a connection, copy a connection, and close a connection
-	virtual BOOL ConnectTo(SOCKADDR_IN* pHost);                  // Connect to an IP address and port number
-	virtual BOOL ConnectTo(IN_ADDR* pAddress, WORD nPort);
-	virtual void AcceptFrom(SOCKET hSocket, SOCKADDR_IN* pHost); // Accept a connection from a remote computer
-	virtual void AttachTo(CConnection* pConnection);             // Copy a connection (do)
-	virtual void Close();                                        // Disconnect from the remote computer
+	virtual BOOL ConnectTo(const SOCKADDR_IN* pHost);			// Connect to an IP address and port number
+	virtual BOOL ConnectTo(const IN_ADDR* pAddress, WORD nPort);
+	virtual void AcceptFrom(SOCKET hSocket, SOCKADDR_IN* pHost);// Accept a connection from a remote computer
+	virtual void AttachTo(CConnection* pConnection);			// Copy a connection (do)
+	virtual void Close();										// Disconnect from the remote computer
 
 	// Read and write data through the socket, and look at headers
 	virtual BOOL OnRun();                // (do) just returns true
@@ -319,8 +281,8 @@ public:
 	virtual BOOL OnRead();               // Read data waiting in the socket into the input buffer
 	virtual BOOL OnWrite();              // Move the contents of the output buffer into the socket
 	virtual void OnDropped(); 			 // (do) empty
-	virtual BOOL OnHeaderLine(CString& strHeader, CString& strValue); // Processes a single line from the headers
 	virtual BOOL OnHeadersComplete();    // (do) just returns true
+	virtual BOOL OnHeaderLine(CString& strHeader, CString& strValue);	// Processes a single line from the headers
 
 // Statics
 public:

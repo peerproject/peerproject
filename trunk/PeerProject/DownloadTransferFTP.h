@@ -1,7 +1,7 @@
 //
 // DownloadTransferFTP.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 
 // PeerProject is free software; you can redistribute it and/or
@@ -51,7 +51,7 @@ protected:
 		CFTPLIST() {}
 		virtual ~CFTPLIST() {}
 
-		virtual BOOL ConnectTo(SOCKADDR_IN* pHost)
+		virtual BOOL ConnectTo(const SOCKADDR_IN* pHost)
 		{
 			m_sData.Empty ();
 			return CConnection::ConnectTo( pHost );
@@ -145,7 +145,7 @@ protected:
 			m_pOwner = pOwner;
 		}
 
-		virtual BOOL ConnectTo(SOCKADDR_IN* pHost)
+		virtual BOOL ConnectTo(const SOCKADDR_IN* pHost)
 		{
 			m_tContent = GetTickCount();
 			m_nTotal = 0;
@@ -183,7 +183,7 @@ protected:
 					// Measuring speed
 					DWORD nCurrent = GetTickCount();
 					if ( nCurrent - m_tContent != 0) {
-						m_pOwner->m_pSource->m_nSpeed =
+						m_pOwner->GetSource()->m_nSpeed =
 							(DWORD) ( ( ( pInput->m_nLength + m_nTotal ) /
 							( nCurrent - m_tContent ) ) * 1000 );
 						m_tContent = nCurrent;
@@ -194,7 +194,7 @@ protected:
 					pInput->Clear();
 					if ( m_pOwner->m_nPosition >= m_pOwner->m_nLength )
 					{
-						m_pOwner->m_pSource->AddFragment( m_pOwner->m_nOffset,
+						m_pOwner->GetSource()->AddFragment( m_pOwner->m_nOffset,
 							m_pOwner->m_nLength );
 						Close();
 					}

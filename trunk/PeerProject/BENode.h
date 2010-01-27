@@ -1,7 +1,7 @@
 //
 // BENode.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -46,11 +46,11 @@ public:
 	CBENode*	GetNode(LPCSTR pszKey) const;
 	CBENode*	GetNode(const LPBYTE pKey, int nKey) const;
 	void		GetBth(Hashes::BtHash& oBTH) const;
-	CString		GetStringFromSubNode(LPCSTR pszKey, UINT nEncoding, bool& pEncodingError);
-	CString		GetStringFromSubNode(int nItem, UINT nEncoding, bool& pEncodingError);
+	CString		GetStringFromSubNode(LPCSTR pszKey, UINT nEncoding, bool& pEncodingError) const;
+	CString		GetStringFromSubNode(int nItem, UINT nEncoding, bool& pEncodingError) const;
 	void		Encode(CBuffer* pBuffer) const;
 public:
-	static CBENode*	Decode(CBuffer* pBuffer);
+	static CBENode*	Decode(const CBuffer* pBuffer);
 private:
 	void		Decode(LPBYTE& pInput, DWORD& nInput);
 	static int	DecodeLen(LPBYTE& pInput, DWORD& nInput);

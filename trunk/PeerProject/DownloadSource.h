@@ -24,29 +24,29 @@
 #include "FileFragments.hpp"
 #include "DownloadTransfer.h"
 #include "Download.h"
+#include "Transfers.h"
 
 class CQueryHit;
 class CEDClient;
 
 class CDownloadSource
 {
-// Construction
 public:
 	CDownloadSource(const CDownload* pDownload);
 	CDownloadSource(const CDownload* pDownload, const CQueryHit* pHit);
 	CDownloadSource(const CDownload* pDownload, DWORD nClientID, WORD nClientPort, DWORD nServerIP, WORD nServerPort, const Hashes::Guid& oGUID);
-	CDownloadSource(const CDownload* pDownload, const Hashes::BtGuid& oGUID, IN_ADDR* pAddress, WORD nPort);
+	CDownloadSource(const CDownload* pDownload, const Hashes::BtGuid& oGUID, const IN_ADDR* pAddress, WORD nPort);
 	CDownloadSource(const CDownload* pDownload, LPCTSTR pszURL, BOOL bSHA1 = FALSE, BOOL bHashAuth = FALSE, FILETIME* pLastSeen = NULL, int nRedirectionCount = 0);
-	virtual ~CDownloadSource();
+	~CDownloadSource();
+
 private:
+	CDownloadTransfer*	m_pTransfer;
+
 	inline void Construct(const CDownload* pDownload);
 
-// Attributes
 public:
 	CDownload*			m_pDownload;
-	CDownloadTransfer*	m_pTransfer;
 	BOOL				m_bSelected;
-public:
 	CString				m_sURL;
 	PROTOCOLID			m_nProtocol;
 	Hashes::Guid		m_oGUID;
@@ -56,7 +56,6 @@ public:
 	IN_ADDR				m_pServerAddress;
 	CString				m_sCountry;
 	CString				m_sCountryName;
-public:
 	CString				m_sName;
 	DWORD				m_nIndex;
 	BOOL				m_bHashAuth;
@@ -65,7 +64,6 @@ public:
 	BOOL				m_bED2K;
 	BOOL				m_bBTH;
 	BOOL				m_bMD5;
-public:
 	CString				m_sServer;
 	CString				m_sNick;
 	DWORD				m_nSpeed;
@@ -90,24 +88,24 @@ public:
 	int					m_nRedirectionCount;
 	Fragments::List		m_oAvailable;
 	Fragments::List		m_oPastFragments;
-public:
+
 	BOOL				m_bPreview;				// Does the user allow previews?
 	CString				m_sPreview;				// if empty it has the default /gnutella/preview/v1?urn:xyz format
 	BOOL				m_bPreviewRequestSent;
+	BOOL				m_bMetaIgnore;			// Ignore metadata from this source (for example already got)
 
 // Operations
 public:
 	BOOL		ResolveURL();
-	void		Serialize(CArchive& ar, int nVersion);
-public:
+	void		Serialize(CArchive& ar, int nVersion);	// DOWNLOAD_SER_VERSION
 	BOOL		CanInitiate(BOOL bNetwork, BOOL bEstablished);
-	void		Remove(BOOL bCloseTransfer, BOOL bBan);
-	void		RemoveIf(BOOL bCloseTransfer, BOOL bBan);
+	// Remove source from download, add it to failed sources if bBan == TRUE, and destroy source itself
+	void		Remove(BOOL bCloseTransfer = TRUE, BOOL bBan = FALSE);
 	void		OnFailure(BOOL bNondestructive, DWORD nRetryAfter = 0);
 	DWORD		CalcFailureDelay(DWORD nRetryAfter = 0) const;
 	void		OnResume();
 	void		OnResumeClosed();
-public:
+
 	void		SetValid();
 	void		SetLastSeen();
 	void		SetGnutella(int nGnutella);
@@ -126,12 +124,14 @@ public:
 	BOOL		HasUsefulRanges() const;
 	BOOL		TouchedRange(QWORD nOffset, QWORD nLength) const;
 	int			GetColor();
+	// Draw complete source or draw transfer bar only
+	void		Draw(CDC* pDC, CRect* prcBar, COLORREF crNatural);
+	void		Draw(CDC* pDC, CRect* prcBar);
+	void		Close();	// Close source transfer
 
-	CDownloadTransfer*	CreateTransfer();
+	CDownloadTransfer*	CreateTransfer(LPVOID pParam = NULL);
 
-// Inlines
-public:
-	inline bool CDownloadSource::Equals(CDownloadSource* pSource) const
+	inline bool Equals(const CDownloadSource* pSource) const	// Was CDownloadSource::Equals
 	{
 		if ( m_oGUID.isValid() && pSource->m_oGUID.isValid() )
 			return m_oGUID == pSource->m_oGUID;
@@ -156,11 +156,93 @@ public:
 
 	inline bool IsOnline() const
 	{
-		return m_nBusyCount || ( m_pTransfer && m_pTransfer->m_nState > dtsConnecting );
+		return m_nBusyCount || IsConnected();
 	}
 
 	inline bool IsHTTPSource() const
 	{
 		return ( m_nProtocol == PROTOCOL_HTTP || m_nProtocol == PROTOCOL_G2 );
 	}
+
+	// Source has live connection
+	inline bool IsConnected() const
+	{
+		ASSUME_LOCK( Transfers.m_pSection );
+		return ( m_pTransfer && m_pTransfer->m_nState > dtsConnecting );
+	}
+
+	// Source has no transfer
+	inline bool IsIdle() const
+	{
+		ASSUME_LOCK( Transfers.m_pSection );
+		return ( m_pTransfer == NULL );
+	}
+
+	// Source transfer state
+	inline int GetState() const
+	{
+		ASSUME_LOCK( Transfers.m_pSection );
+		return ( m_pTransfer ? m_pTransfer->m_nState : dtsNull );
+	}
+
+	// Source transfer protocol
+	inline PROTOCOLID GetTransferProtocol() const
+	{
+		ASSUME_LOCK( Transfers.m_pSection );
+		return ( m_pTransfer ? m_pTransfer->m_nProtocol : PROTOCOL_NULL );
+	};
+
+	// Source transfer speed
+	inline DWORD GetMeasuredSpeed() const
+	{
+		ASSUME_LOCK( Transfers.m_pSection );
+		return ( m_pTransfer ? m_pTransfer->GetMeasuredSpeed() : 0 );
+	}
+
+	// Source transfer host address
+	inline CString GetAddress() const
+	{
+		ASSUME_LOCK( Transfers.m_pSection );
+		return ( m_pTransfer ? m_pTransfer->m_sAddress : CString() );
+	}
+
+	// Source transfer host port (in network byte order)
+	inline WORD GetPort() const
+	{
+		ASSUME_LOCK( Transfers.m_pSection );
+		return ( m_pTransfer ? m_pTransfer->m_pHost.sin_port : 0 );
+	}
+
+	// Source transfer downloaded bytes
+	inline QWORD GetDownloaded() const
+	{
+		ASSUME_LOCK( Transfers.m_pSection );
+		return ( m_pTransfer ? m_pTransfer->m_nDownloaded : 0 );
+	}
+
+	// Source transfer state
+	inline CString GetState(BOOL bLong) const
+	{
+		ASSUME_LOCK( Transfers.m_pSection );
+		return ( m_pTransfer ? m_pTransfer->GetStateText( bLong ) :
+			LoadString( IDS_STATUS_UNKNOWN ) );
+	}
+
+	// Source transfer current limit (zero - no limit)
+	inline DWORD GetLimit() const
+	{
+		ASSUME_LOCK( Transfers.m_pSection );
+		return ( ( m_pTransfer && m_pTransfer->m_mInput.pLimit ) ?
+			*m_pTransfer->m_mInput.pLimit : 0 );
+	}
+
+	// Direct access to transfer
+	inline const CDownloadTransfer* GetTransfer() const
+	{
+		ASSUME_LOCK( Transfers.m_pSection );
+		return m_pTransfer;
+	}
+
+	// Source can be previewed
+	bool IsPreviewCapable() const;
 };

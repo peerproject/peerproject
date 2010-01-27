@@ -228,6 +228,13 @@ void CLibraryFile::SetShared(bool bShared, bool bOverride)
 	}
 }
 
+BOOL CLibraryFile::CheckFileAttributes(QWORD nSize, BOOL bSharedOnly, BOOL bAvailableOnly) const
+{
+	return ( nSize == SIZE_UNKNOWN || nSize == 0 || nSize == m_nSize ) &&
+		( ! bSharedOnly || IsShared() ) &&
+		( ! bAvailableOnly || IsAvailable() );
+}
+
 //////////////////////////////////////////////////////////////////////
 // CLibraryFile schema URI test
 
@@ -353,11 +360,11 @@ BOOL CLibraryFile::Delete(BOOL bDeleteGhost)
 
 		// Close download handler
 		CQuickLock pLock( Transfers.m_pSection );
-		CDownload* pDownload = Downloads.FindByPath( GetPath() );
-		if ( pDownload )
+		if ( CDownload* pDownload = Downloads.FindByPath( GetPath() ) )
 		{
 			// Also deletes file and closes upload handlers
-			pDownload->Remove( true );
+			if ( ! pDownload->IsMoving() )
+				pDownload->Remove( true );
 		}
 		else
 		{
@@ -705,7 +712,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 
 		//if ( nVersion > 1000 )
 		//{
-		//	// PeerTags Support above PeerProject r44? 
+		//	// PeerTags Support above PeerProject r44?
 		//	ar << m_nPeerTag;
 		//}
 		//else
@@ -834,7 +841,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 
 		ar >> m_nHitsTotal;
 		ar >> m_nUploadsTotal;
-		//if ( nVersion >= 14 ) 
+		//if ( nVersion >= 14 )
 		ar >> m_bCachedPreview;
 		//if ( nVersion >= 20 )
 		ar >> m_bBogus;

@@ -1,7 +1,7 @@
 //
 // FragmentedFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -42,9 +42,10 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
-	// Download priority settings (Sets PageTorrentFiles combobox order -unused)
+	// Multifile Download priority settings 
+	// Not used. (Sets removed PageTorrentFiles combobox order)
 	// Note: Changing this breaks torrents at startup!
-	enum { prDiscarded, prLow, prNormal, prHigh };
+	enum { prUnwanted, prLow, prNormal, prHigh };
 
 protected:
 	virtual ~CFragmentedFile();
@@ -257,6 +258,9 @@ public:
 			( m_oFList.limit() == SIZE_UNKNOWN && m_oFList.length_sum() ) ) ?
 			SIZE_UNKNOWN : m_oFList.length_sum();
 	}
+
+	// Get list of all fragments which must be downloaded
+	Fragments::List GetFullFragmentList() const;
 
 	// Get list of empty fragments
 	inline Fragments::List GetEmptyFragmentList() const

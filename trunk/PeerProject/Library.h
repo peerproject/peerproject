@@ -1,7 +1,7 @@
 //
 // Library.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,10 +23,10 @@
 
 #include "ComObject.h"
 #include "ThreadImpl.h"
+#include "SharedFile.h"
 
 class CQueryHit;
 class CQuerySearch;
-class CLibraryFile;
 class CLibraryFolder;
 class CAlbumFolder;
 
@@ -85,7 +85,7 @@ protected:
 public:
 	// Update library files alternate sources
 	bool			OnQueryHits(const CQueryHit* pHits);
-	CList< const CLibraryFile* >*	Search(CQuerySearch* pSearch, int nMaximum = 0, bool bLocal = false, bool bAvailableOnly = false);
+	CFileList*		Search(CQuerySearch* pSearch, int nMaximum = 0, bool bLocal = false, bool bAvailableOnly = false);
 	void			Clear();
 	BOOL			Load();
 	BOOL			Save();

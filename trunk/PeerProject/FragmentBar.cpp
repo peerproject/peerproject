@@ -1,7 +1,7 @@
 //
 // FragmentBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -88,7 +88,7 @@ void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 void CFragmentBar::DrawStateBar(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOffset, QWORD nLength, COLORREF crFill, BOOL bTop)
 {
 	CRect rcArea;
-	// Investigate why nLength is greater than nTotal !
+	// ToDo: Investigate why nLength is greater than nTotal !
 	if ( nLength > nTotal - nOffset )
 		nLength = nTotal - nOffset;
 
@@ -178,7 +178,7 @@ void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, CDownload* pDownload, C
 	{
 		CDownloadSource* pSource = pDownload->GetNext( posSource );
 
-		DrawSourceImpl( pDC, prcBar, pSource );
+		pSource->Draw( pDC, prcBar );
 	}
 
 	pDC->FillSolidRect( prcBar, pDownload->IsStarted() ? Colors.m_crFragmentComplete : crNatural );
@@ -198,122 +198,123 @@ void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, CDownload* pDownl
 
 
 //////////////////////////////////////////////////////////////////////
-// CFragmentBar download source
+// CFragmentBar download source	(Moved to DownloadSource)
+//
 
-void CFragmentBar::DrawSource(CDC* pDC, CRect* prcBar, CDownloadSource* pSource, COLORREF crNatural)
-{
-	if ( pSource->m_pTransfer != NULL )
-	{
-		if ( pSource->m_pTransfer->m_nLength < SIZE_UNKNOWN )
-		{
-			DrawStateBar( pDC, prcBar, pSource->m_pDownload->m_nSize,
-				pSource->m_pTransfer->m_nOffset, pSource->m_pTransfer->m_nLength,
-				Colors.m_crFragmentRequest, TRUE );
-		}
+//void CFragmentBar::DrawSource(CDC* pDC, CRect* prcBar, CDownloadSource* pSource, COLORREF crNatural)
+//{
+//	if ( pSource->m_pTransfer != NULL )
+//	{
+//		if ( pSource->m_pTransfer->m_nLength < SIZE_UNKNOWN )
+//		{
+//			DrawStateBar( pDC, prcBar, pSource->m_pDownload->m_nSize,
+//				pSource->m_pTransfer->m_nOffset, pSource->m_pTransfer->m_nLength,
+//				Colors.m_crFragmentRequest, TRUE );
+//		}
+//
+//		switch( pSource->m_pTransfer->m_nProtocol )
+//		{
+//		case PROTOCOL_G1:
+//		case PROTOCOL_G2:
+//		case PROTOCOL_HTTP:
+//		case PROTOCOL_FTP:
+//			break;	// Do nothing more
+//		case PROTOCOL_ED2K:
+//			for ( Fragments::Queue::const_iterator pRequested
+//				= static_cast< CDownloadTransferED2K* >( pSource->m_pTransfer )->m_oRequested.begin();
+//				pRequested
+//				!= static_cast< CDownloadTransferED2K* >( pSource->m_pTransfer )->m_oRequested.end();
+//				++pRequested )
+//			{
+//				DrawStateBar( pDC, prcBar, pSource->m_pDownload->m_nSize,
+//					pRequested->begin(), pRequested->size(), Colors.m_crFragmentRequest, TRUE );
+//			}
+//			break;
+//		case PROTOCOL_BT:
+//			for ( Fragments::Queue::const_iterator pRequested
+//				= static_cast< CDownloadTransferBT* >( pSource->m_pTransfer )->m_oRequested.begin();
+//				pRequested
+//				!= static_cast< CDownloadTransferBT* >( pSource->m_pTransfer )->m_oRequested.end();
+//				++pRequested )
+//			{
+//				DrawStateBar( pDC, prcBar, pSource->m_pDownload->m_nSize,
+//					pRequested->begin(), pRequested->size(), Colors.m_crFragmentRequest, TRUE );
+//			}
+//			break;
+//		case PROTOCOL_NULL:
+//		case PROTOCOL_ANY:
+//		default:
+//			;
+//		}
+//	}
+//
+//	DrawSourceImpl( pDC, prcBar, pSource );
+//
+//	if ( !pSource->m_oAvailable.empty() )
+//	{
+//		for ( Fragments::List::const_iterator pFragment = pSource->m_oAvailable.begin();
+//			pFragment != pSource->m_oAvailable.end(); ++pFragment )
+//		{
+//			DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
+//				pFragment->begin(), pFragment->size(), crNatural, FALSE );
+//		}
+//
+//		pDC->FillSolidRect( prcBar, Colors.m_crWindow );
+//	}
+//	else if ( pSource->IsOnline() && pSource->HasUsefulRanges() || !pSource->m_oPastFragments.empty() )
+//	{
+//		pDC->FillSolidRect( prcBar, crNatural );
+//	}
+//	else
+//	{
+//		pDC->FillSolidRect( prcBar, Colors.m_crWindow );
+//	}
+//}
 
-		switch( pSource->m_pTransfer->m_nProtocol )
-		{
-		case PROTOCOL_G1:
-		case PROTOCOL_G2:
-		case PROTOCOL_HTTP:
-		case PROTOCOL_FTP:
-			break;	// Do nothing more
-		case PROTOCOL_ED2K:
-			for ( Fragments::Queue::const_iterator pRequested
-				= static_cast< CDownloadTransferED2K* >( pSource->m_pTransfer )->m_oRequested.begin();
-				pRequested
-				!= static_cast< CDownloadTransferED2K* >( pSource->m_pTransfer )->m_oRequested.end();
-				++pRequested )
-			{
-				DrawStateBar( pDC, prcBar, pSource->m_pDownload->m_nSize,
-					pRequested->begin(), pRequested->size(), Colors.m_crFragmentRequest, TRUE );
-			}
-			break;
-		case PROTOCOL_BT:
-			for ( Fragments::Queue::const_iterator pRequested
-				= static_cast< CDownloadTransferBT* >( pSource->m_pTransfer )->m_oRequested.begin();
-				pRequested
-				!= static_cast< CDownloadTransferBT* >( pSource->m_pTransfer )->m_oRequested.end();
-				++pRequested )
-			{
-				DrawStateBar( pDC, prcBar, pSource->m_pDownload->m_nSize,
-					pRequested->begin(), pRequested->size(), Colors.m_crFragmentRequest, TRUE );
-			}
-			break;
-		case PROTOCOL_NULL:
-		case PROTOCOL_ANY:
-		default:
-			;
-		}
-	}
-
-	DrawSourceImpl( pDC, prcBar, pSource );
-
-	if ( !pSource->m_oAvailable.empty() )
-	{
-		for ( Fragments::List::const_iterator pFragment = pSource->m_oAvailable.begin();
-			pFragment != pSource->m_oAvailable.end(); ++pFragment )
-		{
-			DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
-				pFragment->begin(), pFragment->size(), crNatural, FALSE );
-		}
-
-		pDC->FillSolidRect( prcBar, Colors.m_crWindow );
-	}
-	else if ( pSource->IsOnline() && pSource->HasUsefulRanges() || !pSource->m_oPastFragments.empty() )
-	{
-		pDC->FillSolidRect( prcBar, crNatural );
-	}
-	else
-	{
-		pDC->FillSolidRect( prcBar, Colors.m_crWindow );
-	}
-}
-
-void CFragmentBar::DrawSourceImpl(CDC* pDC, CRect* prcBar, CDownloadSource* pSource)
-{
-	static COLORREF crFill[] =
-	{
-		Colors.m_crFragmentSource1, Colors.m_crFragmentSource2, Colors.m_crFragmentSource3,
-		Colors.m_crFragmentSource4, Colors.m_crFragmentSource5, Colors.m_crFragmentSource6
-	};
-
-	COLORREF crTransfer;
-
-	if ( pSource->m_bReadContent )
-		crTransfer = crFill[ pSource->GetColor() ];
-	else
-		crTransfer = Colors.m_crFragmentComplete;
-
-	crTransfer = CColors::CalculateColor( crTransfer, Colors.m_crHighlight, 90 );
-
-	if ( pSource->m_pTransfer != NULL )
-	{
-		if ( pSource->m_pTransfer->m_nState == dtsDownloading &&
-			 pSource->m_pTransfer->m_nOffset < SIZE_UNKNOWN )
-		{
-			if ( pSource->m_pTransfer->m_bRecvBackwards )
-			{
-				DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
-					pSource->m_pTransfer->m_nOffset + pSource->m_pTransfer->m_nLength - pSource->m_pTransfer->m_nPosition,
-					pSource->m_pTransfer->m_nPosition, crTransfer, TRUE );
-			}
-			else
-			{
-				DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
-					pSource->m_pTransfer->m_nOffset,
-					pSource->m_pTransfer->m_nPosition, crTransfer, TRUE );
-			}
-		}
-	}
-
-	for ( Fragments::List::const_iterator pFragment = pSource->m_oPastFragments.begin();
-		pFragment != pSource->m_oPastFragments.end(); ++pFragment )
-	{
-		DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
-			pFragment->begin(), pFragment->size(), crTransfer, TRUE );
-	}
-}
+//void CFragmentBar::DrawSourceImpl(CDC* pDC, CRect* prcBar, CDownloadSource* pSource)
+//{
+//	static COLORREF crFill[] =
+//	{
+//		Colors.m_crFragmentSource1, Colors.m_crFragmentSource2, Colors.m_crFragmentSource3,
+//		Colors.m_crFragmentSource4, Colors.m_crFragmentSource5, Colors.m_crFragmentSource6
+//	};
+//
+//	COLORREF crTransfer;
+//
+//	if ( pSource->m_bReadContent )
+//		crTransfer = crFill[ pSource->GetColor() ];
+//	else
+//		crTransfer = Colors.m_crFragmentComplete;
+//
+//	crTransfer = CColors::CalculateColor( crTransfer, Colors.m_crHighlight, 90 );
+//
+//	if ( pSource->m_pTransfer != NULL )
+//	{
+//		if ( pSource->m_pTransfer->m_nState == dtsDownloading &&
+//			 pSource->m_pTransfer->m_nOffset < SIZE_UNKNOWN )
+//		{
+//			if ( pSource->m_pTransfer->m_bRecvBackwards )
+//			{
+//				DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
+//					pSource->m_pTransfer->m_nOffset + pSource->m_pTransfer->m_nLength - pSource->m_pTransfer->m_nPosition,
+//					pSource->m_pTransfer->m_nPosition, crTransfer, TRUE );
+//			}
+//			else
+//			{
+//				DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
+//					pSource->m_pTransfer->m_nOffset,
+//					pSource->m_pTransfer->m_nPosition, crTransfer, TRUE );
+//			}
+//		}
+//	}
+//
+//	for ( Fragments::List::const_iterator pFragment = pSource->m_oPastFragments.begin();
+//		pFragment != pSource->m_oPastFragments.end(); ++pFragment )
+//	{
+//		DrawFragment( pDC, prcBar, pSource->m_pDownload->m_nSize,
+//			pFragment->begin(), pFragment->size(), crTransfer, TRUE );
+//	}
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CFragmentBar upload

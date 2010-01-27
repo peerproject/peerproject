@@ -1,7 +1,7 @@
 //
 // Transfer.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,9 +35,10 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CTransfer construction
 
-CTransfer::CTransfer()
+CTransfer::CTransfer(PROTOCOLID nProtocol)
+	: CConnection		( nProtocol )
+	, m_nRunCookie		( 0 )
 {
-	m_nRunCookie = 0;
 }
 
 CTransfer::~CTransfer()
@@ -49,7 +50,7 @@ CTransfer::~CTransfer()
 //////////////////////////////////////////////////////////////////////
 // CTransfer operations
 
-BOOL CTransfer::ConnectTo(IN_ADDR* pAddress, WORD nPort)
+BOOL CTransfer::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 {
 	if ( CConnection::ConnectTo( pAddress, nPort ) )
 	{

@@ -1,7 +1,7 @@
 //
 // DlgExistingFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -51,9 +51,7 @@ CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectFile*
 	if ( ! pLock.Lock( 1000 ) )
 		return Download;
 
-	CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( pFile->m_oSHA1, pFile->m_oTiger,
-		pFile->m_oED2K, pFile->m_oBTH, pFile->m_oMD5, pFile->m_nSize, pFile->m_nSize );
-
+	CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( pFile );
 	if ( pLibFile == NULL )
 		return Download;
 
@@ -74,9 +72,8 @@ CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectFile*
 			{
 				pLock.Lock();
 				if ( CLibraryFile* pLibFile = Library.LookupFile( nIndex ) )
-				{
 					pLibrary->Display( pLibFile );
-				}
+
 				pLock.Unlock();
 			}
 		}

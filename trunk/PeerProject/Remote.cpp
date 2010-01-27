@@ -915,7 +915,8 @@ void CRemote::PageDownloads()
 			}
 			else if ( str == _T("cancel") )
 			{
-				pDownload->Remove();
+				if ( ! pDownload->IsMoving() )
+					pDownload->Remove();
 				continue;
 			}
 			else if ( str == _T("clear") )
@@ -1060,7 +1061,7 @@ void CRemote::PageDownloads()
 					if ( str == _T("access") )
 					{
 						// Only create a new Transfer if there isn't already one
-						if ( pSource->m_pTransfer == NULL && pSource->m_nProtocol != PROTOCOL_ED2K )
+						if ( pSource->IsIdle() && pSource->m_nProtocol != PROTOCOL_ED2K )
 						{
 							if ( pDownload->IsPaused() )
 								pDownload->Resume();	// Workaround duplicate
@@ -1069,7 +1070,7 @@ void CRemote::PageDownloads()
 
 							if ( pSource->m_bPushOnly )
 								pSource->PushRequest();
-							else 
+							else
 							{
 								CDownloadTransfer* pTransfer = pSource->CreateTransfer();
 								if ( pTransfer ) pTransfer->Initiate();
@@ -1085,23 +1086,23 @@ void CRemote::PageDownloads()
 					str.Format( _T("%i"), pSource );
 				}
 
-				if ( Settings.Downloads.ShowSources || ( pSource->m_pTransfer != NULL && pSource->m_pTransfer->m_nState > dtsConnecting ) )
+				if ( Settings.Downloads.ShowSources || pSource->IsConnected() )
 				{
 					Add( _T("source_id"), str );
 					Add( _T("source_agent"), pSource->m_sServer );
 					Add( _T("source_nick"), pSource->m_sNick );
 
-					if ( pSource->m_pTransfer != NULL )
+					if ( ! pSource->IsIdle() )
 					{
-						Add( _T("source_status"), pSource->m_pTransfer->GetStateText( FALSE ) );
-						Add( _T("source_volume"), Settings.SmartVolume( pSource->m_pTransfer->m_nDownloaded ) );
-						DWORD nSpeed = pSource->m_pTransfer->GetMeasuredSpeed();
+						Add( _T("source_status"), pSource->GetState( FALSE ) );
+						Add( _T("source_volume"), Settings.SmartVolume( pSource->GetDownloaded() ) );
+						DWORD nSpeed = pSource->GetMeasuredSpeed();
 						if ( nSpeed )
 							Add( _T("source_speed"), Settings.SmartSpeed( nSpeed ) );
-						Add( _T("source_address"), pSource->m_pTransfer->m_sAddress );
-						Add( _T("source_caption"), pSource->m_pTransfer->m_sAddress + _T(" - ") + pSource->m_sNick );
+						Add( _T("source_address"), pSource->GetAddress() );
+						Add( _T("source_caption"), pSource->GetAddress() + _T(" - ") + pSource->m_sNick );
 					}
-					else
+					else	// No transfer
 					{
 						Add( _T("source_address"), CString( inet_ntoa( pSource->m_pAddress ) ) );
 						Add( _T("source_caption"), CString( inet_ntoa( pSource->m_pAddress ) ) + _T(" - ") + pSource->m_sNick );

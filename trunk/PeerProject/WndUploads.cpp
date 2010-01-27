@@ -1,7 +1,7 @@
 //
 // WndUploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -40,6 +40,8 @@
 #include "WindowManager.h"
 #include "WndDownloads.h"
 #include "WndUploads.h"
+#include "WndMain.h"
+#include "WndLibrary.h"
 #include "WndBrowseHost.h"
 #include "DlgSettingsManager.h"
 #include "DlgQueueProperties.h"
@@ -47,7 +49,7 @@
 #include "DlgHelp.h"
 #include "LibraryDictionary.h"
 
-#include <IO.h>	// For torrent filepath validaton
+//#include <IO.h>	// For torrent filepath validaton
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -121,7 +123,7 @@ int CUploadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndUploads.Create( this, IDC_UPLOADS );
 
 	//if ( ! theApp.m_bIsWin2000 )
-	//	m_wndUploads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop rare flicker XP+
+	//	m_wndUploads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop rare flicker XP+, CPU intensive?
 
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
@@ -290,6 +292,7 @@ void CUploadsWnd::Prepare()
 	m_bSelActive = m_bSelQueued = FALSE;
 	m_bSelChat = m_bSelBrowse = FALSE;
 	m_bSelSourceAcceptConnections = FALSE;
+	m_bSelPartial = TRUE;
 
 	for ( POSITION posFile = UploadFiles.GetIterator() ; posFile ; )
 	{
@@ -326,6 +329,16 @@ void CUploadsWnd::Prepare()
 				else if ( pTransfer->m_nState != upsNull )
 				{
 					m_bSelActive = TRUE;
+				}
+
+				if ( m_bSelPartial == TRUE )
+				{
+					CPeerProjectFile oFile = *pFile;
+					CSingleLock pLibraryLock( &Library.m_pSection, TRUE );
+					if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile, FALSE, TRUE ) )
+						m_bSelPartial = FALSE;
+					else if ( PathIsDirectory( Settings.Downloads.TorrentPath + "\\" + pFile->m_sName ) )	// Try multifile torrent
+						m_bSelPartial = FALSE;
 				}
 			}
 		}
@@ -445,42 +458,76 @@ void CUploadsWnd::OnUploadsClear()
 void CUploadsWnd::OnUpdateUploadsLaunch(CCmdUI* pCmdUI)
 {
 	Prepare();
-	pCmdUI->Enable( m_bSelFile );
+	pCmdUI->Enable( m_bSelFile && ! m_bSelPartial );
 }
 
 void CUploadsWnd::OnUploadsLaunch()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
-	CList<CUploadFile*> pList;
+	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
 
-	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
-	{
-		CUploadFile* pFile = UploadFiles.GetNext( pos );
-		if ( IsSelected( pFile ) ) pList.AddTail( pFile );
-	}
-
-	while ( ! pList.IsEmpty() )
-	{
-		CUploadFile* pFile = pList.RemoveHead();
-
-		if ( UploadFiles.Check( pFile ) )
+	// Shift key opens files directly
+	//if ( ! ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0 )
+	//{
+		// Show file in Libray:
+		for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
 		{
-			CString strPath = pFile->m_sPath;
+			CUploadFile* pFile = UploadFiles.GetNext( pos );
 
-			if ( strPath.Find( pFile->m_sName ) > 3 )	// Not Torrent
+			if ( IsSelected( pFile ) )
 			{
-				pLock.Unlock();
-				if ( CFileExecutor::Execute( strPath ) )
-					pLock.Lock();
+				CPeerProjectFile oFile = *pFile;
+				pTransfersLock.Unlock();
+
+				CSingleLock pLibraryLock( &Library.m_pSection, TRUE );
+				if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile ) )
+				{
+					if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
+					{
+						if ( CLibraryWnd* pLibrary = (CLibraryWnd*)( pMainWnd->m_pWindows.Open( RUNTIME_CLASS(CLibraryWnd) ) ) )
+							pLibrary->Display( pLibFile );
+					}
+				}
+				else if ( PathIsDirectory( Settings.Downloads.TorrentPath + "\\" + pFile->m_sName ) )	// Try default multifile torrent folder
+				{
+					ShellExecute( GetSafeHwnd(), _T("open"), 
+						Settings.Downloads.TorrentPath + "\\" + pFile->m_sName, NULL, NULL, SW_SHOWNORMAL );
+				}
 			}
 		}
-	}
+	//}
+	//else // Alternately launch files
+	//{
+	//	CList<CUploadFile*> pList;
+	//
+	//	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
+	//	{
+	//		CUploadFile* pFile = UploadFiles.GetNext( pos );
+	//		if ( IsSelected( pFile ) ) pList.AddTail( pFile );
+	//	}
+	//
+	//	while ( ! pList.IsEmpty() )
+	//	{
+	//		CUploadFile* pFile = pList.RemoveHead();
+	//
+	//		if ( UploadFiles.Check( pFile ) )
+	//		{
+	//			CString strPath = pFile->m_sPath;
+	//
+	//			if ( strPath.Find( pFile->m_sName ) > 3 )	// Not Torrent
+	//			{
+	//				pTransfersLock.Unlock();
+	//				if ( CFileExecutor::Execute( strPath ) )
+	//					pTransfersLock.Lock();
+	//			}
+	//		}
+	//	}
+	//}
 }
 
 void CUploadsWnd::OnUpdateUploadsFolder(CCmdUI* pCmdUI)
 {
 	Prepare();
-	pCmdUI->Enable( m_bSelFile );
+	pCmdUI->Enable( m_bSelFile && ! m_bSelPartial );
 }
 
 void CUploadsWnd::OnUploadsFolder()
@@ -491,27 +538,26 @@ void CUploadsWnd::OnUploadsFolder()
 		CUploadFile* pFile = UploadFiles.GetNext( pos );
 		if ( IsSelected( pFile ) )
 		{
-			CString strPath = pFile->m_sPath;
+			CString strPath;	// = *pFile->m_sPath;
+			CPeerProjectFile oFile = *pFile;
+			if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile, FALSE, TRUE ) )
+				strPath = pLibFile->GetPath();
 
 			if ( strPath.Find( pFile->m_sName ) > 3 )
 			{
-				ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), "/select, " + strPath, NULL, SW_SHOWNORMAL );
+			//	char charPath[255];
+			//	sprintf( charPath, "%S", strPath );	// CString to Char for <IO> filepath validation
+			//	if (_access (charPath, 0) == 0)
+					ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), "/select, " + strPath, NULL, SW_SHOWNORMAL );
 			}
-			else // Torrent handling, ToDo: Fix other download groups
+			else if ( PathIsDirectory( Settings.Downloads.TorrentPath + "\\" + pFile->m_sName ) )
 			{
-				strPath = Settings.Downloads.TorrentPath + "\\" + pFile->m_sName;
-				if ( PathIsDirectory( strPath ) )
-				{
-					ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
-				}
-				else
-				{
-					char charPath[255];
-					sprintf(charPath, "%S", strPath);	// CString to Char for <IO> filepath validation 
-					if (_access (charPath, 0) == 0)
-						ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), "/select, " + strPath, NULL, SW_SHOWNORMAL );
-				}
+				// ToDo: Fix non-default multifile torrents
+				ShellExecute( GetSafeHwnd(), _T("open"),
+					Settings.Downloads.TorrentPath + "\\" + pFile->m_sName, NULL, NULL, SW_SHOWNORMAL );
 			}
+
+			//AfxMessageBox( _T("Path: ") + strPath +  _T("\nName: ") + pFile->m_sName );	// TEST
 		}
 	}
 }

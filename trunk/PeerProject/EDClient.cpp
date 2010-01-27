@@ -1,7 +1,7 @@
 //
 // EDClient.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -362,7 +362,7 @@ BOOL CEDClient::AttachDownload(CDownloadTransferED2K* pDownload)
 
 void CEDClient::OnDownloadClose()
 {
-	CDownloadSource* pExcept = m_pDownload ? m_pDownload->m_pSource : NULL;
+	CDownloadSource* pExcept = GetSource();
 	m_pDownload = NULL;
 	m_mInput.pLimit = &Settings.Bandwidth.Request;
 	SeekNewDownload( pExcept );
@@ -406,6 +406,8 @@ void CEDClient::DetachUpload()
 
 BOOL CEDClient::OnRun()
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	// CTransfer::OnRun();
 
 	DWORD tNow = GetTickCount();
@@ -515,6 +517,8 @@ void CEDClient::OnDropped()
 
 void CEDClient::NotifyDropped()
 {
+	ASSUME_LOCK( Transfers.m_pSection );
+
 	m_bSeeking = TRUE;
 	if ( m_pDownload != NULL ) m_pDownload->OnDropped();
 	if ( m_pUpload != NULL ) m_pUpload->OnDropped();
@@ -622,6 +626,11 @@ CHostBrowser* CEDClient::GetBrowser() const
 		}
 	}
 	return NULL;
+}
+
+CDownloadSource* CEDClient::GetSource() const
+{
+	return m_pDownload ? m_pDownload->GetSource() : NULL;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -933,7 +942,7 @@ BOOL CEDClient::OnHello(CEDPacket* pPacket)
 				m_bEmBrowse		= ! ( ( pTag.m_nValue >> 2 ) & 0x01 );
 				m_bEmMultiPacket= (pTag.m_nValue >> 1 ) & 0x01;
 				m_bEmPreview	= (pTag.m_nValue) & 0x01;
-				if ( m_pDownload && m_pDownload->m_pSource && m_pDownload->m_pSource->m_bClientExtended )
+				if ( GetSource() && GetSource()->m_bClientExtended )
 					;
 				else
 					m_bEmPreview = m_bEmPreview && m_bEmBrowse;
@@ -1368,8 +1377,10 @@ void CEDClient::DetermineUserAgent()
 
 	//Client allows G2 browse, etc.
 	m_bClientExtended = VendorCache.IsExtended( m_sUserAgent );
-	if ( m_pUpload ) m_pUpload->m_bClientExtended = m_bClientExtended;
-	if ( m_pDownload && m_pDownload->m_pSource ) m_pDownload->m_pSource->m_bClientExtended = m_bClientExtended;
+	if ( m_pUpload )
+		m_pUpload->m_bClientExtended = m_bClientExtended;
+	if ( CDownloadSource* pSource = GetSource() )
+		pSource->m_bClientExtended = m_bClientExtended;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1635,11 +1646,14 @@ BOOL CEDClient::OnMessage(CEDPacket* pPacket)
 	if ( MessageFilter.IsED2KSpam( sMessage ) )
 	{
 		// Block L33cher mods
-		if ( m_pDownload == NULL ) Security.Ban( &m_pHost.sin_addr, banSession, FALSE );
+		if ( m_pDownload == NULL )
+			Security.Ban( &m_pHost.sin_addr, banSession, FALSE );
 		// Don't display message
 		return TRUE;
 	}
-	if ( MessageFilter.IsFiltered( sMessage ) ) return TRUE;	// General spam filter (if enabled)
+
+	if ( MessageFilter.IsFiltered( sMessage ) )
+		return TRUE;	// General spam filter (if enabled)
 
 	// Check chat settings.
 	if ( Settings.Community.ChatEnable && Settings.Community.ChatAllNetworks )
@@ -1705,9 +1719,7 @@ BOOL CEDClient::OnAskSharedDirs(CEDPacket* /*pPacket*/)
 	}
 
 	if ( CEDPacket* pReply = CEDPacket::New( ED2K_C2C_ASKSHAREDDIRSDENIED ) )
-	{
 		Send( pReply );
-	}
 
 	return TRUE;
 }
@@ -2405,7 +2417,8 @@ BOOL CEDClient::OnUdpQueueFull(CEDPacket* /*pPacket*/)
 {
 	if ( m_pDownload != NULL )
 	{
-		m_pDownload->m_pSource->m_tAttempt = GetTickCount() + Settings.eDonkey.ReAskTime * 1000;
+		if ( CDownloadSource* pSource = GetSource() )
+			pSource->m_tAttempt = GetTickCount() + Settings.eDonkey.ReAskTime * 1000;
 		m_pDownload->Close( TRI_UNKNOWN );
 	}
 

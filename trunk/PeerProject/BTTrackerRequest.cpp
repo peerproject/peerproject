@@ -39,9 +39,10 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // CBTTrackerRequest construction
 
-CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR pszVerb, DWORD nNumWant, bool bProcess) :
-	m_pDownload( pDownload ),
-	m_bProcess( bProcess )
+CBTTrackerRequest::CBTTrackerRequest(CDownloadWithTorrent* pDownload, LPCTSTR pszVerb, DWORD nNumWant, bool bProcess)
+	: m_pDownload( pDownload )
+	, m_bProcess( bProcess )
+//	, m_bCancel( false )
 {
 	ASSERT( pDownload != NULL );
 	ASSERT( pDownload->IsTorrent() );
