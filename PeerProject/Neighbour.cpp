@@ -1,7 +1,7 @@
 //
 // Neighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -59,50 +59,48 @@ static char THIS_FILE[]=__FILE__;
 
 // Make a new CNeighbour object for a certain network
 // Takes a protocol ID, like PROTOCOL_G1
-CNeighbour::CNeighbour(PROTOCOLID nProtocol) :
-	m_nRunCookie( 0 ),
-	// Set null and default values for connection state, software vendor, guid, and user profile
-	m_nState( nrsNull ),		// No state now, soon we'll connect and do the handshake
-	m_pVendor( NULL ),			// We don't know what brand software the remote computer is running yet
-	m_pProfile( NULL ),			// No profile on the person running the remote computer yet
+CNeighbour::CNeighbour(PROTOCOLID nProtocol)
+	: m_nRunCookie		( 0 )
+	, m_nState			( nrsNull )		// No connection state now, soon we'll connect and do the handshake
+	, m_pVendor 		( NULL )		// We don't know what brand software the remote computer is running yet
+	, m_pProfile		( NULL )		// No profile on the person running the remote computer yet
 	// Set handshake values to defaults
-	m_bAutomatic( FALSE ),		// Automatic setting used to maintain the connection
-	m_nNodeType( ntNode ),		// Start out assuming that we and the remote computer are both hubs
-	m_bQueryRouting( FALSE ),	// Don't start query routing or pong caching yet
-	m_bPongCaching( FALSE ),	//
-	m_bVendorMsg( FALSE ),		// The remote computer hasn't told us it supports the vendor-specific messages yet
-	m_bGGEP( FALSE ),			// The remote computer hasn't told us it supports the GGEP block yet
-	m_bBadClient( FALSE ),		//
-	m_nDegree( (DWORD)-1 ),
-	m_nMaxTTL( (DWORD)-1 ),
-	m_bDynamicQuerying( FALSE ),
-	m_bUltrapeerQueryRouting( FALSE ),
-	m_sLocalePref( _T("") ),
-	m_bRequeries( TRUE ),
-	m_bExtProbes( FALSE ),
-	// Start out time variables as 0
-	m_tLastQuery( 0 ),			// We'll set these to the current tick or seconds count when we get a query or packet
-	m_tLastPacket( 0 ),			//
-	// Zero packet and file counts
-	m_nInputCount( 0 ),
-	m_nOutputCount( 0 ),
-	m_nDropCount( 0 ),
-	m_nLostCount( 0 ),
-	m_nOutbound( 0 ),
-	m_nFileCount( 0 ),
-	m_nFileVolume( 0 ),
-	// The local and remote query tables aren't set up yet, make the pointers to them start out null
-	m_pQueryTableLocal( NULL ),
-	m_pQueryTableRemote( NULL ),
+	, m_bAutomatic		( FALSE )		// Automatic setting used to maintain the connection
+	, m_nNodeType		( ntNode )		// Start out assuming that we and the remote computer are both hubs
+	, m_bQueryRouting	( FALSE )		// Don't start query routing or pong caching yet
+	, m_bPongCaching	( FALSE )		//
+	, m_bVendorMsg		( FALSE )		// Remote computer hasn't told us it supports the vendor-specific messages yet
+	, m_bGGEP			( FALSE )		// Remote computer hasn't told us it supports the GGEP block yet
+	, m_bBadClient		( FALSE )	
+	, m_nDegree 		( (DWORD)-1 )
+	, m_nMaxTTL 		( (DWORD)-1 )
+	, m_bDynamicQuerying( FALSE )
+	, m_bUltrapeerQueryRouting( FALSE )
+	, m_sLocalePref		( _T("") )
+	, m_bRequeries		( TRUE )
+	, m_bExtProbes		( FALSE )
+	// Zero time, packet and file counts
+	, m_tLastQuery		( 0 )			// Set these to the current tick or seconds count when we get a query or packet
+	, m_tLastPacket		( 0 )			// 
+	, m_nInputCount		( 0 )
+	, m_nOutputCount	( 0 )
+	, m_nDropCount		( 0 )
+	, m_nLostCount		( 0 )
+	, m_nOutbound		( 0 )
+	, m_nFileCount		( 0 )
+	, m_nFileVolume		( 0 )
+	// Local and remote query tables aren't set up yet, make pointers to them start out null
+	, m_pQueryTableLocal( NULL )
+	, m_pQueryTableRemote( NULL )
 	// Null pointers and zero counts for zlib compression
-	m_pZInput( NULL ),
-	m_pZOutput( NULL ),
-	m_nZInput( 0 ),
-	m_nZOutput( 0 ),
-	m_pZSInput( NULL ),
-	m_pZSOutput( NULL ),
-	m_bZFlush( FALSE ),
-	m_tZOutput( 0 )
+	, m_nZInput 		( 0 )
+	, m_nZOutput		( 0 )
+	, m_pZInput 		( NULL )
+	, m_pZOutput		( NULL )
+	, m_pZSInput		( NULL )
+	, m_pZSOutput		( NULL )
+	, m_bZFlush 		( FALSE )
+	, m_tZOutput		( 0 )
 {
 	m_nProtocol = nProtocol;
 }
@@ -112,52 +110,52 @@ CNeighbour::CNeighbour(PROTOCOLID nProtocol) :
 CNeighbour::CNeighbour(PROTOCOLID nProtocol, CNeighbour* pBase)
 	: CConnection( *pBase )
 	, m_nRunCookie( 0 )
-	, m_nState( 		nrsConnected )
-	, m_pVendor(		pBase->m_pVendor )
-	, m_oGUID(			pBase->m_oGUID )
-	, m_pProfile( NULL )
+	, m_nState			( nrsConnected )
+	, m_pVendor 		( pBase->m_pVendor )
+	, m_oGUID			( pBase->m_oGUID )
 	, m_oMoreResultsGUID()
-	, m_bAutomatic(		pBase->m_bAutomatic )
-	, m_nNodeType(		pBase->m_nNodeType )
-	, m_bQueryRouting(	pBase->m_bQueryRouting )
-	, m_bPongCaching(	pBase->m_bPongCaching )
-	, m_bVendorMsg(		pBase->m_bVendorMsg )
-	, m_bGGEP(			pBase->m_bGGEP )
-	, m_tLastQuery(		pBase->m_tLastQuery )
-	, m_bBadClient( 	pBase->m_bBadClient )
-	, m_nDegree(		pBase->m_nDegree )
-	, m_nMaxTTL(		pBase->m_nMaxTTL )
+	, m_pProfile		( NULL )
+	, m_bAutomatic		( pBase->m_bAutomatic )
+	, m_nNodeType		( pBase->m_nNodeType )
+	, m_bQueryRouting	( pBase->m_bQueryRouting )
+	, m_bPongCaching	( pBase->m_bPongCaching )
+	, m_bVendorMsg		( pBase->m_bVendorMsg )
+	, m_bGGEP			( pBase->m_bGGEP )
+	, m_tLastQuery		( pBase->m_tLastQuery )
+	, m_bBadClient		( pBase->m_bBadClient )
+	, m_nDegree 		( pBase->m_nDegree )
+	, m_nMaxTTL 		( pBase->m_nMaxTTL )
 	, m_bDynamicQuerying( pBase->m_bDynamicQuerying )
 	, m_bUltrapeerQueryRouting(	pBase->m_bUltrapeerQueryRouting )
-	, m_sLocalePref(	pBase->m_sLocalePref )
-	, m_bRequeries(		pBase->m_bRequeries )
-	, m_bExtProbes(		pBase->m_bExtProbes )
-	, m_nInputCount(	pBase->m_nInputCount )
-	, m_nOutputCount(	pBase->m_nOutputCount )
-	, m_nDropCount( 	pBase->m_nDropCount )
-	, m_nLostCount( 	pBase->m_nLostCount )
-	, m_nOutbound(		pBase->m_nOutbound )
-	, m_nFileCount(		pBase->m_nFileCount )
-	, m_nFileVolume(	pBase->m_nFileVolume )
-	// If this connected computer is sending and receiving Gnutella2 packets, it will also support query routing
+	, m_sLocalePref 	( pBase->m_sLocalePref )
+	, m_bRequeries		( pBase->m_bRequeries )
+	, m_bExtProbes		( pBase->m_bExtProbes )
+	, m_nInputCount		( pBase->m_nInputCount )
+	, m_nOutputCount	( pBase->m_nOutputCount )
+	, m_nDropCount		( pBase->m_nDropCount )
+	, m_nLostCount		( pBase->m_nLostCount )
+	, m_nOutbound		( pBase->m_nOutbound )
+	, m_nFileCount		( pBase->m_nFileCount )
+	, m_nFileVolume 	( pBase->m_nFileVolume )
+	// If the connected computer is sending and receiving Gnutella2 packets, it will also support query routing
 	, m_pQueryTableRemote( m_bQueryRouting ? new CQueryHashTable : NULL )
 	, m_pQueryTableLocal(  m_bQueryRouting ? new CQueryHashTable : NULL )
-	, m_tLastPacket( GetTickCount() )
-	, m_pZInput(		pBase->m_pZInput )	// Transfer of ownership
-	, m_pZOutput(		pBase->m_pZOutput )
-	, m_nZInput(		pBase->m_nZInput )
-	, m_nZOutput(		pBase->m_nZOutput )
-	, m_pZSInput( NULL )
-	, m_pZSOutput( NULL )
-	, m_bZFlush(		pBase->m_bZFlush )
-	, m_tZOutput(		pBase->m_tZOutput )
+	, m_tLastPacket 	( GetTickCount() )
+	, m_pZInput 		( pBase->m_pZInput )	// Transfer of ownership
+	, m_pZOutput		( pBase->m_pZOutput )
+	, m_nZInput 		( pBase->m_nZInput )
+	, m_nZOutput		( pBase->m_nZOutput )
+	, m_pZSInput		( NULL )
+	, m_pZSOutput		( NULL )
+	, m_bZFlush 		( pBase->m_bZFlush )
+	, m_tZOutput		( pBase->m_tZOutput )
 {
 	m_nProtocol = nProtocol;
 	m_tConnected = m_tLastPacket;
 	pBase->m_pZInput  = NULL;
 	pBase->m_pZOutput = NULL;
 
-	Neighbours.Add( this );			// Call CNeighboursBase::Add to keep track of this newly created CNeighbours object
+	Neighbours.Add( this );		// Call CNeighboursBase::Add to keep track of this newly created CNeighbours object
 }
 
 // Delete this CNeighbour object
@@ -204,10 +202,7 @@ void CNeighbour::Close(UINT nError)
 
 	// If this Close method was called with an error, among which IDS_CONNECTION_CLOSED counts
 	if ( nError && nError != IDS_HANDSHAKE_REJECTED )
-	{
-		// Report a voluntary default close, or an error
-		theApp.Message( bVoluntary ? MSG_INFO : MSG_ERROR, nError, (LPCTSTR)m_sAddress );
-	}
+		theApp.Message( bVoluntary ? MSG_INFO : MSG_ERROR, nError, (LPCTSTR)m_sAddress );	// Report a voluntary close
 
 	// Delete this CNeighbour object, calling its destructor right now
 	delete this;
@@ -242,10 +237,10 @@ BOOL CNeighbour::Send(CPacket* pPacket, BOOL bRelease, BOOL /*bBuffered*/)
 }
 
 // CG1Neighbour, which inherits from CNeighbour, overrides this method with its own version that does something
-BOOL CNeighbour::SendQuery(CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal)
+BOOL CNeighbour::SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal)
 {
 	ASSERT( pSearch );
-	if ( !pSearch )
+	if ( ! pSearch )
 		return FALSE;
 
 	// If we're still negotiating the handshake with this remote computer, leave now
@@ -260,7 +255,7 @@ BOOL CNeighbour::SendQuery(CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal)
 	if ( m_pQueryTableRemote != NULL && m_pQueryTableRemote->m_bLive )
 	{
 		// If QHT disables search, leave now
-		if ( !m_pQueryTableRemote->Check( *pSearch ) )
+		if ( !m_pQueryTableRemote->Check( pSearch ) )
 			return FALSE;
 
 	} // If QHT doesn't exist and this connection is to a leaf below us, leave now
@@ -445,13 +440,11 @@ BOOL CNeighbour::OnWrite()
 			// Add the new block to the length, and record when this happened
 			pOutput->m_nLength += nOutput;
 			m_tZOutput = tNow;
-
-		// Zlib didn't compress anything, and the flush flag is true
 		}
 		else if ( m_bZFlush )
 		{
-			// Make the flush flag false
-			m_bZFlush = FALSE;
+			// Zlib didn't compress anything, and the flush flag is true
+			m_bZFlush = FALSE;	// Make the flush flag false
 		}
 
 		// Send the contents of the output buffer to the remote computer
@@ -471,17 +464,11 @@ BOOL CNeighbour::OnCommonHit(CPacket* pPacket)
 	int nHops = 0;
 
 	if ( pPacket->m_nProtocol == PROTOCOL_G1 )
-	{
 		pHits = CQueryHit::FromG1Packet( (CG1Packet*)pPacket, &nHops );
-	}
 	else if ( pPacket->m_nProtocol == PROTOCOL_G2 )
-	{
 		pHits = CQueryHit::FromG2Packet( (CG2Packet*)pPacket, &nHops );
-	}
 	else
-	{
 		ASSERT( FALSE );
-	}
 
 	if ( pHits == NULL )
 	{

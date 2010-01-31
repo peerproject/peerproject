@@ -42,9 +42,9 @@ public:
 	DWORD		m_nFileLimit;
 	DWORD		m_nTCPFlags;
 	DWORD		m_nUDPFlags;
+	DWORD		m_nFilesSent;
 	CString		m_sServerName;
 	CList< Hashes::Guid > m_pQueries;
-	DWORD		m_nFilesSent;
 
 // Operations
 public:
@@ -62,16 +62,16 @@ private:
 	BOOL	OnSearchResults(CEDPacket* pPacket);
 	BOOL	OnFoundSources(CEDPacket* pPacket);
 	void	SendSharedFiles();
-	bool	IsGoodSize(QWORD nFileSize) const;			// Is file has good size for current ed2k-server?
+	bool	IsGoodSize(QWORD nFileSize) const;		// File has good size for current ed2k-server
 
 // Overrides
 public:
 	virtual BOOL	ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutomatic);
 	virtual BOOL	Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
 protected:
-	virtual BOOL	SendQuery(CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal);
+	virtual BOOL	SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal);
 	virtual BOOL	OnRun();
+	virtual BOOL	OnRead();
 	virtual BOOL	OnConnected();
 	virtual void	OnDropped();
-	virtual BOOL	OnRead();
 };

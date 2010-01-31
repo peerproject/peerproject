@@ -48,42 +48,42 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CQueryHit construction
 
-CQueryHit::CQueryHit(PROTOCOLID nProtocol, const Hashes::Guid& oSearchID) :
-	m_pNext			( NULL ),
-	m_oSearchID		( oSearchID ),
-	m_nProtocol		( nProtocol ),
-	m_nPort			( 0 ),
-	m_nSpeed		( 0 ),
-	m_pVendor		( VendorCache.m_pNull ),
-	m_bPush			( TRI_UNKNOWN ),
-	m_bBusy			( TRI_UNKNOWN ),
-	m_bStable		( TRI_UNKNOWN ),
-	m_bMeasured		( TRI_UNKNOWN ),
-	m_bChat			( FALSE ),
-	m_bBrowseHost	( FALSE ),
-	m_nGroup		( 0 ),
-//	m_bSHA1			( FALSE ),
-//	m_bTiger		( FALSE ),
-//	m_bED2K			( FALSE ),
-//	m_bBTH			( FALSE ),
-	m_nIndex		( 0 ),
-	m_bSize			( FALSE ),
-	m_nHitSources	( 0 ),
-	m_nPartial		( 0 ),
-	m_bPreview		( FALSE ),
-	m_nUpSlots		( 0 ),
-	m_nUpQueue		( 0 ),
-	m_bCollection	( FALSE ),
-	m_pXML			( NULL ),
-	m_nRating		( 0 ),
-	m_bBogus		( FALSE ),
-	m_bMatched		( FALSE ),
-	m_bExactMatch	( FALSE ),
-	m_bFiltered		( FALSE ),
-	m_bDownload		( FALSE ),
-	m_bNew			( FALSE ),
-	m_bSelected		( FALSE ),
-	m_bResolveURL	( TRUE )
+CQueryHit::CQueryHit(PROTOCOLID nProtocol, const Hashes::Guid& oSearchID)
+	: m_pNext		( NULL )
+	, m_oSearchID	( oSearchID )
+	, m_nProtocol	( nProtocol )
+	, m_nPort		( 0 )
+	, m_nSpeed		( 0 )
+	, m_pVendor		( VendorCache.m_pNull )
+	, m_bPush		( TRI_UNKNOWN )
+	, m_bBusy		( TRI_UNKNOWN )
+	, m_bStable		( TRI_UNKNOWN )
+	, m_bMeasured	( TRI_UNKNOWN )
+	, m_bChat		( FALSE )
+	, m_bBrowseHost	( FALSE )
+	, m_nGroup		( 0 )
+//	, m_bSHA1		( FALSE )
+//	, m_bTiger		( FALSE )
+//	, m_bED2K		( FALSE )
+//	, m_bBTH		( FALSE )
+	, m_nIndex		( 0 )
+	, m_bSize		( FALSE )
+	, m_nHitSources	( 0 )
+	, m_nPartial	( 0 )
+	, m_bPreview	( FALSE )
+	, m_nUpSlots	( 0 )
+	, m_nUpQueue	( 0 )
+	, m_nRating		( 0 )
+	, m_pXML		( NULL )
+	, m_bCollection	( FALSE )
+	, m_bBogus		( FALSE )
+	, m_bMatched	( FALSE )
+	, m_bExactMatch	( FALSE )
+	, m_bFiltered	( FALSE )
+	, m_bDownload	( FALSE )
+	, m_bNew		( FALSE )
+	, m_bSelected	( FALSE )
+	, m_bResolveURL	( TRUE )
 {
 	m_pAddress.s_addr = 0;
 }
@@ -928,8 +928,7 @@ CXMLElement* CQueryHit::ReadXML(CG1Packet* pPacket, int nSize)
 		auto_array< BYTE > pText(
 			CZLib::Decompress( pRaw.get() + 9, nSize - 10, &nRealSize ) );
 		if ( ! pText.get() )
-			// Invalid data
-			return NULL;
+			return NULL;	// Invalid data
 		pRaw = pText;
 
 		pszXML = pRaw.get();
@@ -1276,7 +1275,7 @@ void CQueryHit::ReadExtension(CG1Packet* pPacket)
 	}
 	else if ( nLength && ! m_pXML )
 	{
-		CSchema* pSchema = NULL;
+		CSchemaPtr pSchema = NULL;
 		m_pXML = SchemaCache.Decode( pszData.get(), nLength, pSchema );
 		if ( m_pXML )
 		{
@@ -1432,7 +1431,7 @@ bool CQueryHit::ReadG2Packet(CG2Packet* pPacket, DWORD nLength)
 								m_pXML = pChild->Detach();
 							}
 						}
-						else if ( CSchema* pSchema = SchemaCache.Guess( pXML->GetName() ) )
+						else if ( CSchemaPtr pSchema = SchemaCache.Guess( pXML->GetName() ) )
 						{
 							m_pXML->Delete();
 							m_sSchemaPlural	= pSchema->m_sPlural;
@@ -1751,7 +1750,7 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, SOCKADDR_IN* pServer, BOOL bUni
 	if ( strType.GetLength() )
 	{
 		// Determine type
-		CSchema* pSchema = NULL;
+		CSchemaPtr pSchema = NULL;
 
 		if ( ( pSchema = SchemaCache.Get( CSchema::uriAudio ) ) != NULL &&
 			 pSchema->FilterType( strType ) )
@@ -2142,7 +2141,8 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 		CString sCode;
 		ar >> sCode;
 		m_pVendor = VendorCache.Lookup( sCode );
-		if ( ! m_pVendor ) m_pVendor = VendorCache.m_pNull;
+		if ( ! m_pVendor )
+			m_pVendor = VendorCache.m_pNull;
 
 		ar >> m_bPush;
 		ar >> m_bBusy;

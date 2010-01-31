@@ -1,7 +1,7 @@
 //
 // MetaList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -139,7 +139,7 @@ void CMetaList::Shuffle()
 //////////////////////////////////////////////////////////////////////
 // CMetaList setup schema
 
-void CMetaList::Setup(CSchema* pSchema, BOOL bClear)
+void CMetaList::Setup(CSchemaPtr pSchema, BOOL bClear)
 {
 	if ( bClear )
 		CMetaList::Clear();
@@ -352,13 +352,13 @@ BOOL CMetaList::OnSetCursor(CWnd* pWnd)
 // CMetaItem construction
 
 CMetaItem::CMetaItem(CSchemaMember* pMember)
-: m_rect( 0, 0, 0, 0 )
-, m_pMember( pMember )
-, m_bLink( FALSE )
-, m_bValueDefined( FALSE )
-, m_sKey( pMember ? m_pMember->m_sTitle : L"" )
-, m_bFullWidth( FALSE )
-, m_nHeight( 0 )
+	: m_rect		( 0, 0, 0, 0 )
+	, m_pMember 	( pMember )
+	, m_bLink		( FALSE )
+	, m_bValueDefined ( FALSE )
+	, m_sKey		( pMember ? m_pMember->m_sTitle : L"" )
+	, m_bFullWidth	( FALSE )
+	, m_nHeight 	( 0 )
 {
 }
 
@@ -374,13 +374,9 @@ BOOL CMetaItem::Combine(CXMLElement* pXML)
 	strValue.Trim();
 
 	if ( !m_bValueDefined )
-	{
 		m_sValue = strValue;
-	}
 	else if ( m_sValue != strValue )
-	{
 		m_sValue = g_strMultiple;
-	}
 
 	m_bValueDefined = TRUE;
 	int nVote = 1;
@@ -422,13 +418,9 @@ void CMetaItem::Vote()
 BOOL CMetaItem::Limit(int nMaxLength)
 {
 	if ( m_sValue.IsEmpty() )
-	{
 		return FALSE;
-	}
 	else if ( nMaxLength > 0 && m_sValue.GetLength() > nMaxLength )
-	{
 		m_sValue = m_sValue.Left( nMaxLength ) + _T('\x2026');
-	}
 
 	return TRUE;
 }
@@ -500,17 +492,11 @@ CString CMetaItem::GetMusicBrainzLink() const
 		return CString();
 
 	if ( m_pMember->m_sName == L"mbalbumid" )
-	{
 		return L"http://musicbrainz.org/release/" + m_sValue + L".html";
-	}
 	else if ( m_pMember->m_sName == L"mbartistid" )
-	{
 		return L"http://musicbrainz.org/artist/" + m_sValue + L".html";
-	}
 	else if ( m_pMember->m_sName == L"mbpuid" )
-	{
 		return L"http://musicbrainz.org/show/puid/?matchesonly=0&amp;puid=" + m_sValue;
-	}
 
 	return CString();
 }

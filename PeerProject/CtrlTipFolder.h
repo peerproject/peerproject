@@ -1,7 +1,7 @@
 //
 // CtrlTipFolder.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,15 +26,23 @@
 
 class CFolderTipCtrl : public CCoolTipCtrl
 {
-// Construction
+	DECLARE_DYNAMIC(CFolderTipCtrl)
+
 public:
 	CFolderTipCtrl();
 	virtual ~CFolderTipCtrl();
 
-	DECLARE_DYNAMIC(CFolderTipCtrl)
+	void Show(CLibraryFolder* pContext, HWND hAltWnd = NULL)
+	{
+		bool bChanged = ( pContext != m_pLibraryFolder );
+		m_pLibraryFolder = pContext;
+		m_hAltWnd = hAltWnd;
+		ShowImpl( bChanged );
+	}
 
 // Attributes
 protected:
+	CLibraryFolder* m_pLibraryFolder;
 	CString		m_sName;
 	CString		m_sPath;
 	CString		m_sFiles;

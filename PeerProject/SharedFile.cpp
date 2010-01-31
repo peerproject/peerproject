@@ -65,40 +65,40 @@ END_INTERFACE_MAP()
 //////////////////////////////////////////////////////////////////////
 // CLibraryFile construction
 
-CLibraryFile::CLibraryFile(CLibraryFolder* pFolder, LPCTSTR pszName) :
-	m_pNextSHA1			( NULL )
-,	m_pNextTiger		( NULL )
-,	m_pNextED2K			( NULL )
-,	m_pNextBTH			( NULL )
-,	m_pNextMD5			( NULL )
-,	m_nScanCookie		( 0ul )
-,	m_nUpdateCookie		( 0ul )
-,	m_nSelectCookie		( 0ul )
-,	m_nListCookie		( 0ul )
-,	m_pFolder			( pFolder )
-,	m_nIndex			( 0ul )
-,	m_bShared			( TRI_UNKNOWN )
-,	m_nVirtualBase		( 0ull )
-,	m_nVirtualSize		( 0ull )
-,	m_bVerify			( TRI_UNKNOWN )
-,	m_pSchema			( NULL )
-,	m_pMetadata			( NULL )
-,	m_bMetadataAuto		( FALSE )
-,	m_bMetadataModified	( FALSE )
-,	m_bCachedPreview	( FALSE )
-,	m_bBogus			( FALSE )
-,	m_nRating			( 0 )
-//,	m_nPeerTag			( 0 )	// ToDo: Implement PeerTag Ratings
-,	m_nHitsToday		( 0ul )
-,	m_nHitsTotal		( 0ul )
-,	m_nUploadsToday		( 0ul )
-,	m_nUploadsTotal		( 0ul )
-,	m_nSearchCookie		( 0ul )
-,	m_nSearchWords		( 0ul )
-,	m_pNextHit			( NULL )
-,	m_nCollIndex		( 0ul )
-,	m_nIcon16			( -1 )
-,	m_bNewFile			( FALSE )
+CLibraryFile::CLibraryFile(CLibraryFolder* pFolder, LPCTSTR pszName)
+	: m_pNextSHA1		( NULL )
+	, m_pNextTiger		( NULL )
+	, m_pNextED2K		( NULL )
+	, m_pNextBTH		( NULL )
+	, m_pNextMD5		( NULL )
+	, m_nScanCookie		( 0ul )
+	, m_nUpdateCookie	( 0ul )
+	, m_nSelectCookie	( 0ul )
+	, m_nListCookie		( 0ul )
+	, m_pFolder			( pFolder )
+	, m_nIndex			( 0ul )
+	, m_bShared			( TRI_UNKNOWN )
+	, m_nVirtualBase	( 0ull )
+	, m_nVirtualSize	( 0ull )
+	, m_bVerify			( TRI_UNKNOWN )
+	, m_pSchema			( NULL )
+	, m_pMetadata		( NULL )
+	, m_bMetadataAuto	( FALSE )
+	, m_bMetadataModified ( FALSE )
+	, m_bCachedPreview	( FALSE )
+	, m_bBogus			( FALSE )
+	, m_nRating			( 0 )
+//	, m_nPeerTag		( 0 )	// ToDo: Implement PeerTag Ratings
+	, m_nHitsToday		( 0ul )
+	, m_nHitsTotal		( 0ul )
+	, m_nUploadsToday	( 0ul )
+	, m_nUploadsTotal	( 0ul )
+	, m_nSearchCookie	( 0ul )
+	, m_nSearchWords	( 0ul )
+	, m_pNextHit		( NULL )
+	, m_nCollIndex		( 0ul )
+	, m_nIcon16			( -1 )
+	, m_bNewFile		( FALSE )
 {
 	ZeroMemory( &m_pTime, sizeof(m_pTime) );
 	ZeroMemory( &m_pMetadataTime, sizeof(m_pMetadataTime) );
@@ -106,10 +106,6 @@ CLibraryFile::CLibraryFile(CLibraryFolder* pFolder, LPCTSTR pszName) :
 		m_sName = pszName;
 	if ( pFolder )
 		m_sPath = pFolder->m_sPath;
-
-	if ( pFolder && pszName )
-		if ( CDownload* pDownload = Downloads.FindByPath( GetPath() ) )
-			UpdateMetadata( pDownload );
 
 	EnableDispatch( IID_ILibraryFile );
 }
@@ -394,28 +390,42 @@ void CLibraryFile::UpdateMetadata(const CDownload* pDownload)
 
 	// Get BTIH of recently downloaded file
 	if ( ! m_oBTH && pDownload->IsSingleFileTorrent() )
-	{
 		m_oBTH = pDownload->m_oBTH;
-	}
 
 	// Get metadata of recently downloaded file
-	if ( ! m_pSchema && ! m_pMetadata &&
-		pDownload->GetMetadata() && pDownload->GetMetadata()->GetFirstElement() )
+	if ( CXMLElement* pXML = pDownload->GetMetadata() )	// pDownload->HasMetadata()
 	{
-		m_bMetadataAuto = TRUE;
-		m_pSchema = SchemaCache.Get(
-			pDownload->GetMetadata()->GetAttributeValue( CXMLAttribute::schemaName ) );
-		m_pMetadata = pDownload->GetMetadata()->GetFirstElement()->Clone();
-		ModifyMetadata();
+		if ( m_pMetadata )
+		{
+			// Update existing
+			BOOL bMetadataAuto = m_bMetadataAuto;
+			if ( MergeMetadata( pXML, FALSE ) )
+			{
+				if ( bMetadataAuto )
+					m_bMetadataAuto = TRUE;
+			}
+		}
+		else if ( CXMLElement* pBody = pXML->GetFirstElement() )
+		{
+			// Recreate metadata
+			TRACE( _T("Using download XML:%s"), pBody->ToString( FALSE, TRUE ) );
+			m_pSchema = SchemaCache.Get( pXML->GetAttributeValue(
+				CXMLAttribute::schemaName ) );
+			m_pMetadata = pBody->Clone();
+			m_bMetadataAuto = TRUE;
+			ModifyMetadata();
+		}
 	}
 }
 
 BOOL CLibraryFile::SetMetadata(CXMLElement*& pXML, BOOL bMerge, BOOL bOverwrite)
 {
+	ASSUME_LOCK( Library.m_pSection );
+
 	if ( m_pMetadata == NULL && pXML == NULL )
 		return TRUE;	// No need
 
-	CSchema* pSchema = NULL;
+	CSchemaPtr pSchema = NULL;
 
 	if ( pXML != NULL )
 	{
@@ -739,7 +749,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 			pSource->Serialize( ar, nVersion );
 		}
 	}
-	else
+	else // Loading
 	{
 		ar >> m_sName;
 		ASSERT( m_sName.GetLength() );
@@ -1241,6 +1251,8 @@ STDMETHODIMP CLibraryFile::XLibraryFile::get_Metadata(ISXMLElement FAR* FAR* ppX
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
 	*ppXML = NULL;
 
+	CQuickLock oLock( Library.m_pSection );
+
 	if ( pThis->m_pSchema == NULL || pThis->m_pMetadata == NULL )
 		return S_OK;
 
@@ -1255,6 +1267,8 @@ STDMETHODIMP CLibraryFile::XLibraryFile::get_Metadata(ISXMLElement FAR* FAR* ppX
 STDMETHODIMP CLibraryFile::XLibraryFile::put_Metadata(ISXMLElement FAR* pXML)
 {
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
+
+	CQuickLock oLock( Library.m_pSection );
 
 	if ( CXMLElement* pReal = CXMLCOM::Unwrap( pXML ) )
 	{

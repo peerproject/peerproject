@@ -1,7 +1,7 @@
 //
 // PageSettingsGeneral.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -131,7 +131,7 @@ BOOL CGeneralSettingsPage::OnInitDialog()
 
 	CString strTitle( _T("Search Results") );
 
-	if ( CSchema* pSchema = SchemaCache.Get( CSchema::uriSearchFolder ) )
+	if ( CSchemaPtr pSchema = SchemaCache.Get( CSchema::uriSearchFolder ) )
 	{
 		strTitle = pSchema->m_sTitle;
 		int nColon = strTitle.Find( ':' );

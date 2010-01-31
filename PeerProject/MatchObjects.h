@@ -22,9 +22,8 @@
 #pragma once
 
 #include "PeerProjectFile.h"
+#include "Schema.h"
 
-
-class CSchema;
 class CSchemaMember;
 class CQuerySearch;
 class CQueryHit;
@@ -69,7 +68,7 @@ public:
 	DWORD			m_nFilterSources;
 	int				m_nSortColumn;
 	BOOL			m_bSortDir;
-	CSchema*		m_pSchema;
+	CSchemaPtr		m_pSchema;
 	BOOL			m_bNew;
 	CResultFilters*	m_pResultFilters;
 	CMatchFile**	m_pFiles;				// File list
@@ -94,9 +93,9 @@ protected:
 	CMatchFile**	m_pMapMD5;
 	LPTSTR			m_pszFilter;
 	LPTSTR			m_pszRegexPattern;
+	CBaseMatchWnd*	m_pParent;
 	CSchemaMember**	m_pColumns;
 	int				m_nColumns;
-	CBaseMatchWnd*	m_pParent;
 
 	enum findType
 	{
@@ -110,17 +109,17 @@ protected:
 
 public:
 	void		UpdateStats();
-	void		AddHits(const CQueryHit* pHits, CQuerySearch* pFilter = NULL);
+	void		AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter = NULL);
 	DWORD		FileToItem(CMatchFile* pFile);
-	void		Clear();
 	BOOL		Select(CMatchFile* pFile, CQueryHit* pHit, BOOL bSelected = TRUE);
 	CMatchFile*	GetSelectedFile(BOOL bFromHit = FALSE) const;
 	CQueryHit*	GetSelectedHit() const;
 	INT_PTR		GetSelectedCount() const;
 	BOOL		ClearSelection();
+	void		Clear();
 	void		Filter();
 	bool		CreateRegExpFilter(CString strPattern, CString& strFilter);
-	void		SelectSchema(CSchema* pSchema, CList< CSchemaMember* >* pColumns);
+	void		SelectSchema(CSchemaPtr pSchema, CList< CSchemaMember* >* pColumns);
 	void		SetSortColumn(int nColumn = -1, BOOL bDirection = FALSE);
 	void		UpdateRange(DWORD nMin = 0, DWORD nMax = 0xFFFFFFFF);
 	void		ClearUpdated();
@@ -195,7 +194,7 @@ public:
 
 	inline DWORD GetFilteredCount()
 	{
-		 return ( ! m_pList || ! m_pBest ||
+		return ( ! m_pList || ! m_pBest ||
 			( m_pList->m_bFilterDRM && m_bDRM ) ||
 			( m_pList->m_bFilterSuspicious && m_bSuspicious ) ||
 			( m_pList->m_nFilterSources > m_nSources ) ||
@@ -225,7 +224,7 @@ public:
 	DWORD		GetBogusHitsCount() const;	// Count bogus status setted Hits
 	DWORD		GetTotalHitsCount() const;	// Count Hits
 	DWORD		GetTotalHitsSpeed() const;	// Sum Hits speeds
-	CSchema*	GetHitsSchema() const;		// Get first available Hits Schema
+	CSchemaPtr	GetHitsSchema() const;		// Get first available Hits Schema
 	void		SetBogus( BOOL bBogus = TRUE );	// Change Hits bogus status
 	BOOL		ClearSelection();			// Clear selection of file itself and all Hits
 	BOOL		IsValid() const;			// File has hits
@@ -253,7 +252,7 @@ public:
 	// Output some data
 	void		AddHitsToDownload(CDownload* pDownload, BOOL bForce = FALSE) const;
 	void		AddHitsToXML(CXMLElement* pXML) const;
-	CSchema*	AddHitsToMetadata(CMetaList& oMetadata) const;
+	CSchemaPtr	AddHitsToMetadata(CMetaList& oMetadata) const;
 	BOOL		AddHitsToPreviewURLs(CList < CString > & oPreviewURLs) const;
 	void		AddHitsToReviews(CList < Review* >& oReviews) const;
 

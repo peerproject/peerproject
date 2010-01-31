@@ -407,8 +407,7 @@ BOOL CG1Neighbour::SendPing(DWORD dwNow, const Hashes::Guid& oGUID)
 }
 
 // Takes a pointer to the bytes of a ping packet from the remote computer, sitting in the input buffer
-// Responds to it with a pong packet
-// Always returns true
+// Responds to it with a pong packet (Always returns true)
 BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 {
 	Statistics.Current.Gnutella1.PingsReceived++;
@@ -544,8 +543,7 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 			Statistics.Current.Gnutella1.PongsSent++;
 		}
 
-		// We're done
-		return TRUE;
+		return TRUE;	// We're done
 	}
 
 	// The ping can only once more or is dead, or it has already travelled across the Internet, and
@@ -614,8 +612,7 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 		}
 	}
 
-	// This method only returns true
-	return TRUE;
+	return TRUE;	// This method only returns true
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -767,8 +764,7 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 	nHops = min( nHops, PONG_NEEDED_BUFFER - 1u );
 	if ( ! bLocal ) Neighbours.OnG1Pong( this, (IN_ADDR*)&nAddress, nPort, nHops + 1, nFiles, nVolume );
 
-	// This method always returns true
-	return TRUE;
+	return TRUE;	// This method always returns true
 }
 
 // Called by CNeighboursWithG1::OnG1Pong (do)
@@ -971,10 +967,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 
 			// The version number we read from the packet is 0 or 1, and there are 28 bytes of payload left to read
 			if ( nVersion <= 1 && pPacket->GetRemaining() >= 28 )
-			{
-				// This is a cluster advisor packet
-				OnClusterAdvisor( pPacket );
-			}
+				OnClusterAdvisor( pPacket );	// This is a cluster advisor packet
 
 			break;
 		}
@@ -988,12 +981,10 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 
 		// Super Pong (do)
 		case 0x0001:
-
 			break;
 
 		// Product Identifiers (do)
 		case 0x0003:
-
 			break;
 
 		// Hops Flow (do)
@@ -1001,22 +992,18 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 
 			if ( nVersion <= 1 && pPacket->GetRemaining() >= 1 )
 				m_nHopsFlow = pPacket->ReadByte();
-
 			break;
 
 		// Horizon Ping (do)
 		case 0x0005:
-
 			break;
 
 		// Horizon Pong (do)
 		case 0x0006:
-
 			break;
 
 		// Query Status Request (do)
 		case 0x000B:
-
 			// If the version is 0 or 1, then we can deal with this
 			if ( nVersion <= 1 )
 			{
@@ -1028,12 +1015,10 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 				pReply->WriteShortLE( SearchManager.OnQueryStatusRequest( pPacket->m_oGUID ) );
 				Send( pReply );
 			}
-
 			break;
 
 		// Query Status Response
 		case 0x000C:
-
 			break;
 		}
 	}
@@ -1326,13 +1311,16 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 	}
 
 	// Have the CQuerySearch class turn the query search packet into a CQuerySearch object (do)
-	CQuerySearch* pSearch = CQuerySearch::FromPacket( pPacket );
-	if ( pSearch == NULL || pSearch->m_bWarning )
+	CQuerySearchPtr pSearch = CQuerySearch::FromPacket( pPacket );
+	if ( ! pSearch || pSearch->m_bWarning )
 		pPacket->Debug( _T("Malformed query.") );
-	if ( pSearch == NULL )
+	if ( ! pSearch )
 	{
 		// The CQuerySearch class rejected the search, drop the packet
-		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, (LPCTSTR)m_sAddress );
+// ToDo: FIX THIS CONSTANT "MALFORMATTED PACKET" TRIGGERING!!
+//#ifdef _DEBUG
+		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, _T("G1"), (LPCTSTR)m_sAddress );
+//#endif
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
 		return TRUE; // Stay connected to the remote computer
@@ -1356,7 +1344,6 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 		pLocalSearch.Execute();
 
 	// Delete the local object, and record another Gnutella query packet processed
-	delete pSearch;
 	Statistics.Current.Gnutella1.Queries++;
 	return TRUE; // Stay connected to the remote computer
 }
@@ -1364,7 +1351,7 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 // Takes a CQuerySearch object, a Gnutella packet, and (do)
 // Makes sure the search makes sense, and then sends the packet to the remote computer
 // Returns true if we sent the packet, false if we discovered something wrong with the situation and didn't send it
-BOOL CG1Neighbour::SendQuery(CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal)
+BOOL CG1Neighbour::SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal)
 {
 	// If the caller didn't give us a packet, or one that isn't for our protocol, leave now
 	if ( pPacket == NULL || pPacket->m_nProtocol != PROTOCOL_G1 )

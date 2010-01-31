@@ -1,7 +1,7 @@
 //
 // WndChild.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -65,16 +65,21 @@ CChildWnd* CChildWnd::m_pCmdMsg = NULL;
 // CChildWnd construction
 
 CChildWnd::CChildWnd()
-:	m_nResID		( 0 )
-,	m_bTabMode		( FALSE )
-,	m_bGroupMode	( FALSE )
-,	m_pGroupParent	( NULL )
-,	m_nGroupSize	( 0.5f )
-,	m_bPanelMode	( FALSE )
-,	m_bAlert		( FALSE )
-,	m_pSkin			( NULL )
-,	m_pMainWndCache ( NULL )
+	: m_nResID			( 0 )
+	, m_bTabMode		( FALSE )
+	, m_bGroupMode		( FALSE )
+	, m_pGroupParent	( NULL )
+	, m_nGroupSize		( 0.5f )
+	, m_bPanelMode		( FALSE )
+	, m_bAlert			( FALSE )
+	, m_pSkin			( NULL )
+	, m_pMainWndCache	( NULL )
 {
+}
+
+void CChildWnd::RemoveSkin()
+{
+	m_pSkin = NULL;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -96,6 +101,7 @@ CMainWnd* CChildWnd::GetMainWnd()
 {
 	if ( ! m_pMainWndCache )
 		m_pMainWndCache = (CMainWnd*)GetMDIFrame();
+
 	return m_pMainWndCache;
 }
 
@@ -398,8 +404,8 @@ LRESULT CChildWnd::OnNcHitTest(CPoint point)
 {
 	if ( m_pSkin )
 		return m_pSkin->OnNcHitTest( this, point, ! m_bPanelMode );
-	else
-		return CMDIChildWnd::OnNcHitTest( point );
+
+	return CMDIChildWnd::OnNcHitTest( point );
 }
 
 void CChildWnd::OnNcPaint()
@@ -502,7 +508,7 @@ void CChildWnd::OnSkinChange()
 	}
 }
 
-void CChildWnd::OnQuerySearch(CQuerySearch* /*pSearch*/)
+void CChildWnd::OnQuerySearch(const CQuerySearch* /*pSearch*/)
 {
 }
 
@@ -523,6 +529,7 @@ BOOL CChildWnd::OnPush(const Hashes::Guid& /*oClientID*/, CConnection* /*pConnec
 HRESULT CChildWnd::GetGenericView(IGenericView** ppView)
 {
 	*ppView = NULL;
+
 	return S_FALSE;
 }
 
@@ -546,5 +553,14 @@ BOOL CChildWnd::PreTranslateMessage(MSG* pMsg)
 		if ( IsDialogMessage( pMsg ) )
 			return TRUE;
 	}
+
 	return CMDIChildWnd::PreTranslateMessage( pMsg );
 }
+
+// Note: Child Window NOT implemented
+//BOOL CChildWnd::DestroyWindow()
+//{
+//	RemoveSkin();
+//
+//	return CMDIChildWnd::DestroyWindow();
+//}

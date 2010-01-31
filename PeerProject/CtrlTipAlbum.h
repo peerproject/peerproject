@@ -1,7 +1,7 @@
 //
 // CtrlTipAlbum.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,15 +27,23 @@
 
 class CAlbumTipCtrl : public CCoolTipCtrl
 {
-// Construction
+	DECLARE_DYNAMIC(CAlbumTipCtrl)
+
 public:
 	CAlbumTipCtrl();
 	virtual ~CAlbumTipCtrl();
 
-	DECLARE_DYNAMIC(CAlbumTipCtrl)
+	void Show(CAlbumFolder* pContext, HWND hAltWnd = NULL)
+	{
+		bool bChanged = ( pContext != m_pAlbumFolder );
+		m_pAlbumFolder = pContext;
+		m_hAltWnd = hAltWnd;
+		ShowImpl( bChanged );
+	}
 
 // Attributes
 protected:
+	CAlbumFolder*	m_pAlbumFolder;
 	CString			m_sName;
 	CString			m_sType;
 	int				m_nIcon32;
@@ -46,12 +54,12 @@ protected:
 	COLORREF		m_crLight;
 
 // Operations
-public:
-	virtual BOOL OnPrepare();
-	virtual void OnCalcSize(CDC* pDC);
-	virtual void OnPaint(CDC* pDC);
 protected:
-	void		DrawThumb(CDC* pDC, CRect& rcThumb);
+	void			DrawThumb(CDC* pDC, CRect& rcThumb);
+
+	virtual BOOL	OnPrepare();
+	virtual void	OnCalcSize(CDC* pDC);
+	virtual void	OnPaint(CDC* pDC);
 
 // Overrides
 public:

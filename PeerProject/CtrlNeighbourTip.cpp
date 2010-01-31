@@ -1,7 +1,7 @@
 //
 // CtrlNeighbourTip.cpp : implementation file
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -42,6 +42,8 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+IMPLEMENT_DYNAMIC(CNeighbourTipCtrl, CCoolTipCtrl)
+
 BEGIN_MESSAGE_MAP(CNeighbourTipCtrl, CCoolTipCtrl)
 	//{{AFX_MSG_MAP(CNeighbourTipCtrl)
 	ON_WM_TIMER()
@@ -53,13 +55,14 @@ END_MESSAGE_MAP()
 // CNeighbourTipCtrl construction
 
 CNeighbourTipCtrl::CNeighbourTipCtrl()
+	: m_nNeighbour	( 0 )
+	, m_pGraph		( NULL )
 {
-	m_pGraph = NULL;
 }
 
 CNeighbourTipCtrl::~CNeighbourTipCtrl()
 {
-	if ( m_pGraph ) delete m_pGraph;
+	delete m_pGraph;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -70,7 +73,7 @@ BOOL CNeighbourTipCtrl::OnPrepare()
 	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 100 ) ) return FALSE;
 
-	CNeighbour* pNeighbour = Neighbours.Get( reinterpret_cast< DWORD_PTR >( m_pContext ) );
+	CNeighbour* pNeighbour = Neighbours.Get( m_nNeighbour );
 	if ( pNeighbour == NULL ) return FALSE;
 
 	CalcSizeHelper();
@@ -83,7 +86,7 @@ BOOL CNeighbourTipCtrl::OnPrepare()
 
 void CNeighbourTipCtrl::OnShow()
 {
-	if ( m_pGraph ) delete m_pGraph;
+	delete m_pGraph;
 
 	m_pGraph	= CreateLineGraph();
 	m_pItemIn	= new CGraphItem( 0, 1.0f, RGB( 0, 0, 0xFF ) );
@@ -95,7 +98,7 @@ void CNeighbourTipCtrl::OnShow()
 
 void CNeighbourTipCtrl::OnHide()
 {
-	if ( m_pGraph ) delete m_pGraph;
+	delete m_pGraph;
 	m_pGraph = NULL;
 }
 
@@ -107,7 +110,7 @@ void CNeighbourTipCtrl::OnCalcSize(CDC* pDC)
 	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 200 ) ) return;
 
-	CNeighbour* pNeighbour = Neighbours.Get( reinterpret_cast< DWORD_PTR>( m_pContext ) );
+	CNeighbour* pNeighbour = Neighbours.Get( m_nNeighbour );
 	CString str;
 
 	if ( pNeighbour->m_pProfile && pNeighbour->m_pProfile->IsValid() )
@@ -177,7 +180,7 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 100 ) ) return;
 
-	CNeighbour* pNeighbour = Neighbours.Get( reinterpret_cast< DWORD_PTR>( m_pContext ) );
+	CNeighbour* pNeighbour = Neighbours.Get( m_nNeighbour );
 	if ( pNeighbour == NULL ) return;
 
 	CPoint pt( 0, 0 );
@@ -381,7 +384,7 @@ void CNeighbourTipCtrl::OnTimer(UINT_PTR nIDEvent)
 	CSingleLock pLock( &Network.m_pSection );
 	if ( ! pLock.Lock( 100 ) ) return;
 
-	CNeighbour* pNeighbour = Neighbours.Get( reinterpret_cast< DWORD_PTR>( m_pContext ) );
+	CNeighbour* pNeighbour = Neighbours.Get( m_nNeighbour );
 	if ( pNeighbour == NULL ) return;
 
 	pNeighbour->Measure();

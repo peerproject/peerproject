@@ -1,7 +1,7 @@
 //
 // WndSearchMonitor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -156,7 +156,7 @@ void CSearchMonitorWnd::OnSearchMonitorSearch()
 
 	if ( nItem >= 0 )
 	{
-		auto_ptr< CQuerySearch > pSearch( new CQuerySearch() );
+		CQuerySearchPtr pSearch = new CQuerySearch();
 		pSearch->m_sSearch = m_wndList.GetItemText( nItem, 0 );
 
 		if ( pSearch->m_sSearch.GetLength() == 0 ||
@@ -200,7 +200,7 @@ void CSearchMonitorWnd::OnDblClkList(NMHDR* /*pNotifyStruct*/, LRESULT *pResult)
 /////////////////////////////////////////////////////////////////////////////
 // CPanelWnd event handlers
 
-void CSearchMonitorWnd::OnQuerySearch(CQuerySearch* pSearch)
+void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 {
 	if ( m_bPaused || m_hWnd == NULL ) return;
 
@@ -284,9 +284,7 @@ void CSearchMonitorWnd::OnTimer(UINT_PTR nIDEvent)
 		pLock.Unlock();
 
 		if ( (DWORD)m_wndList.GetItemCount() >= Settings.Search.MonitorQueue && Settings.Search.MonitorQueue > 0 )
-		{
 			m_wndList.DeleteItem( 0 );
-		}
 
 		/*int nItem =*/ pItem->Add( &m_wndList, -1, 4 );
 

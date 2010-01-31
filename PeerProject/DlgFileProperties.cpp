@@ -1,7 +1,7 @@
 //
 // DlgFileProperties.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -157,8 +157,10 @@ void CFilePropertiesDlg::Update()
 	CString strMIME, strText;
 	HICON hIcon;
 
-	if ( ShellIcons.Lookup( strExt, NULL, &hIcon, &m_sType, &strMIME ) ) m_wndIcon.SetIcon( hIcon );
-	if ( strMIME.GetLength() ) m_sType += _T(" (") + strMIME + _T(")");
+	if ( ShellIcons.Lookup( strExt, NULL, &hIcon, &m_sType, &strMIME ) )
+		m_wndIcon.SetIcon( hIcon );
+	if ( strMIME.GetLength() )
+		m_sType += _T(" (") + strMIME + _T(")");
 
 	UpdateData( FALSE );
 
@@ -225,13 +227,13 @@ void CFilePropertiesDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 
 void CFilePropertiesDlg::OnSelChangeSchemas()
 {
-	CSchema* pSchema = m_wndSchemas.GetSelected();
+	CSchemaPtr pSchema = m_wndSchemas.GetSelected();
 	m_wndSchema.SetSchema( pSchema );
 }
 
 void CFilePropertiesDlg::OnCloseUpSchemas()
 {
-	if ( CSchema* pSchema = m_wndSchemas.GetSelected() )
+	if ( CSchemaPtr pSchema = m_wndSchemas.GetSelected() )
 		PostMessage( WM_KEYDOWN, VK_TAB );
 }
 
@@ -258,7 +260,7 @@ void CFilePropertiesDlg::OnOK()
 
 		if ( CLibraryFile* pFile = Library.LookupFile( m_nIndex ) )
 		{
-			if ( CSchema* pSchema = m_wndSchemas.GetSelected() )
+			if ( CSchemaPtr pSchema = m_wndSchemas.GetSelected() )
 			{
 				CXMLElement* pXML		= pSchema->Instantiate( TRUE );
 				CXMLElement* pSingular	= pXML->AddElement( pSchema->m_sSingular );

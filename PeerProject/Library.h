@@ -51,32 +51,52 @@ public:
 // Attributes
 public:
 	CMutexEx		m_pSection;
-	volatile DWORD	m_nUpdateCookie;		// Last library change time (ticks)
-	volatile DWORD	m_nForcedUpdateCookie;	// Last time when library scan was forced (ticks)
-	volatile DWORD	m_nScanCount;			// Library scan counter
-	volatile DWORD	m_nScanCookie;			// Used by CLibraryFolder::ThreadScan()
-	volatile DWORD	m_nScanTime;			// Last library scan time (ticks)
-	volatile DWORD	m_nUpdateSaved;			// Last library save time (ticks)
 
 protected:
-	int				m_nFileSwitch;
+	int				m_nFileSwitch;			// Library next save slot number
+	volatile LONG	m_nUpdateCookie;		// Library cookie (ms)
+	volatile LONG	m_nScanCookie;			// Used by CLibraryFolder::ThreadScan()
+	volatile DWORD	m_nScanCount;			// Library scan counter
+	volatile DWORD	m_nScanTime;			// Last library scan time (ms)
+	volatile LONG	m_nForcedUpdate;		// Forced update request
+	volatile LONG	m_nSaveCookie;			// Library last save cookie (ms)
+	volatile DWORD	m_nSaveTime;			// Library last save time (ms)
 
 // Sync Operations
 public:
-	inline void		Update(bool bForce=false)
+	inline DWORD GetCookie() const
 	{
-		InterlockedExchange( (volatile LONG*)&m_nUpdateCookie, GetTickCount() );
+		return m_nUpdateCookie;
+	}
+
+	inline DWORD GetScanCookie()
+	{
+		return (DWORD)InterlockedIncrement( &m_nScanCookie );
+	}
+
+	inline DWORD GetScanCount() const
+	{
+		return m_nScanCount;
+	}
+
+	// Mark library as modified:
+	// bForce = false -Library has internal changes so it must be saved
+	// bForce = true -Library also has disk changes so it must be rescanned
+	inline void Update(bool bForce = false)
+	{
+		InterlockedExchange( &m_nUpdateCookie, (LONG)GetTickCount() );
+
 		if ( bForce )
-			InterlockedExchange( (volatile LONG*)&m_nForcedUpdateCookie, 0 );
+			InterlockedExchange( &m_nForcedUpdate, TRUE );
 	}
 
 // File and Folder Operations
 public:
-	void			CheckDuplicates(LPCTSTR pszMD5Hash);
-	CLibraryFile*	LookupFile(DWORD_PTR nIndex, BOOL bSharedOnly = FALSE, BOOL bAvailableOnly = FALSE) const;
 	CAlbumFolder*	GetAlbumRoot();
+	CLibraryFile*	LookupFile(DWORD_PTR nIndex, BOOL bSharedOnly = FALSE, BOOL bAvailableOnly = FALSE) const;
 	void			AddFile(CLibraryFile* pFile);
 	void			RemoveFile(CLibraryFile* pFile);
+	void			CheckDuplicates(LPCTSTR pszMD5Hash);
 
 protected:
 	void			CheckDuplicates(CLibraryFile* pFile, bool bForce = false);
@@ -85,7 +105,7 @@ protected:
 public:
 	// Update library files alternate sources
 	bool			OnQueryHits(const CQueryHit* pHits);
-	CFileList*		Search(CQuerySearch* pSearch, int nMaximum = 0, bool bLocal = false, bool bAvailableOnly = false);
+	CFileList*		Search(const CQuerySearch* pSearch, int nMaximum = 0, bool bLocal = false, bool bAvailableOnly = false);
 	void			Clear();
 	BOOL			Load();
 	BOOL			Save();

@@ -1,7 +1,7 @@
 //
 // CtrlMatch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,11 +22,11 @@
 #pragma once
 
 #include "CtrlMatchTip.h"
+#include "Schema.h"
 
 class CMatchList;
 class CMatchFile;
 class CQueryHit;
-class CSchema;
 
 
 class CMatchCtrl : public CWnd
@@ -44,7 +44,7 @@ public:
 public:
 	CMatchList*		m_pMatches;
 	LPCTSTR			m_sType;
-	CSchema*		m_pSchema;
+	CSchemaPtr		m_pSchema;
 	CList< CSchemaMember* > m_pColumns;
 protected:
 	CHeaderCtrl		m_wndHeader;
@@ -73,7 +73,7 @@ protected:
 public:
 	void	Update();
 	void	DestructiveUpdate();
-	void	SelectSchema(CSchema* pSchema, CList< CSchemaMember* >* pColumns);
+	void	SelectSchema(CSchemaPtr pSchema, CList< CSchemaMember* >* pColumns);
 	void	SetBrowseMode();
 	BOOL	HitTestHeader(const CPoint& point);
 	void	SetSortColumn(int nColumn = -1, BOOL bDirection = FALSE);

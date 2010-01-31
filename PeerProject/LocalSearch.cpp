@@ -69,37 +69,36 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CLocalSearch construction
 
-CLocalSearch::CLocalSearch(CQuerySearch* pSearch, CNeighbour* pNeighbour, BOOL bWrapped) :
-	m_pSearch		( pSearch ),
-	m_pNeighbour	( pNeighbour ),
-	m_pEndpoint		( NULL ),
-	m_pBuffer		( NULL ),
-	m_nProtocol		( bWrapped ? PROTOCOL_G1 : pNeighbour->m_nProtocol ),
-	m_bWrapped		( bWrapped ),
-	m_pPacket		( NULL )
-{
-
-}
-
-CLocalSearch::CLocalSearch(CQuerySearch* pSearch, SOCKADDR_IN* pEndpoint) :
-	m_pSearch		( pSearch ),
-	m_pNeighbour	( NULL ),
-	m_pEndpoint		( pEndpoint ),
-	m_pBuffer		( NULL ),
-	m_nProtocol		( PROTOCOL_G2 ),
-	m_bWrapped		( FALSE ),
-	m_pPacket		( NULL )
+CLocalSearch::CLocalSearch(CQuerySearch* pSearch, CNeighbour* pNeighbour, BOOL bWrapped)
+	: m_pSearch		( pSearch )
+	, m_pNeighbour	( pNeighbour )
+	, m_pEndpoint	( NULL )
+	, m_pBuffer		( NULL )
+	, m_pPacket		( NULL )
+	, m_nProtocol	( bWrapped ? PROTOCOL_G1 : pNeighbour->m_nProtocol )
+	, m_bWrapped	( bWrapped )
 {
 }
 
-CLocalSearch::CLocalSearch(CQuerySearch* pSearch, CBuffer* pBuffer, PROTOCOLID nProtocol) :
-	m_pSearch		( pSearch ),
-	m_pNeighbour	( NULL ),
-	m_pEndpoint		( NULL ),
-	m_pBuffer		( pBuffer ),
-	m_nProtocol		( nProtocol ),
-	m_bWrapped		( FALSE ),
-	m_pPacket		( NULL )
+CLocalSearch::CLocalSearch(CQuerySearch* pSearch, SOCKADDR_IN* pEndpoint)
+	: m_pSearch		( pSearch )
+	, m_pNeighbour	( NULL )
+	, m_pEndpoint	( pEndpoint )
+	, m_pPacket		( NULL )
+	, m_pBuffer		( NULL )
+	, m_nProtocol	( PROTOCOL_G2 )
+	, m_bWrapped	( FALSE )
+{
+}
+
+CLocalSearch::CLocalSearch(CQuerySearch* pSearch, CBuffer* pBuffer, PROTOCOLID nProtocol)
+	: m_pSearch		( pSearch )
+	, m_pNeighbour	( NULL )
+	, m_pEndpoint	( NULL )
+	, m_pPacket		( NULL )
+	, m_pBuffer		( pBuffer )
+	, m_nProtocol	( nProtocol )
+	, m_bWrapped	( FALSE )
 {
 }
 
@@ -193,9 +192,9 @@ INT_PTR CLocalSearch::ExecutePartialFiles(INT_PTR nMaximum)
 	if ( ! pLock.Lock( 250 ) )
 		return 0;
 
+	// Browse request, or no partials requested, or non Gnutella 2 request
 	if ( ! m_pSearch || ! m_pSearch->m_bWantPFS || m_nProtocol != PROTOCOL_G2 )
-		// Browse request, or no partials requested, or non Gnutella 2 request
-		return 0;
+		return 0;	
 
 	INT_PTR nHits = 0;
 	CList< const CDownload* > oFilesInPacket;
@@ -373,7 +372,7 @@ void CLocalSearch::AddHitG1(CLibraryFile const * const pFile, int nIndex)
 		m_pPacket->WriteByte( 0 );
 	}
 
-	if ( pFile->m_pSchema != NULL && pFile->m_pMetadata != NULL && ( m_pSearch == NULL || m_pSearch->m_bWantXML ) )
+	if ( pFile->m_pSchema != NULL && pFile->m_pMetadata != NULL && ( ! m_pSearch || m_pSearch->m_bWantXML ) )
 	{
 		AddMetadata( pFile->m_pSchema, pFile->m_pMetadata, nIndex );
 	}
@@ -391,9 +390,7 @@ void CLocalSearch::AddHitG2(CLibraryFile const * const pFile, int /*nIndex*/)
 		bCalculate = ! bCalculate;
 
 		if ( ! bCalculate )
-		{
 			pPacket->WritePacket( G2_PACKET_HIT_DESCRIPTOR, nGroup, TRUE );
-		}
 
 		if ( pFile->m_oTiger && pFile->m_oSHA1 )
 		{
@@ -798,13 +795,9 @@ void CLocalSearch::CreatePacketG1(int nCount)
 	m_pPacket->WriteLongLE( Network.m_pHost.sin_addr.S_un.S_addr );
 
 	if ( Uploads.m_bStable )
-	{
 		m_pPacket->WriteLongLE( Uploads.m_nBestSpeed * 8 / 1024 );
-	}
 	else
-	{
 		m_pPacket->WriteLongLE( Settings.Connection.OutSpeed );
-	}
 }
 
 void CLocalSearch::CreatePacketG2()
@@ -826,9 +819,7 @@ void CLocalSearch::CreatePacketG2()
 	pPacket->WriteString( VENDOR_CODE, FALSE );
 
 	if ( Network.IsFirewalled() )
-	{
 		pPacket->WritePacket( G2_PACKET_PEER_FIREWALLED, 0 );
-	}
 
 	{
 		CSingleLock pNetLock( &Network.m_pSection );
@@ -891,7 +882,7 @@ void CLocalSearch::CreatePacketG2()
 //////////////////////////////////////////////////////////////////////
 // CLocalSearch meta data
 
-void CLocalSearch::AddMetadata(CSchema* pSchema, CXMLElement* pXML, int nIndex)
+void CLocalSearch::AddMetadata(CSchemaPtr pSchema, CXMLElement* pXML, int nIndex)
 {
 	ASSERT( pSchema != NULL );
 	ASSERT( pXML != NULL );
@@ -922,7 +913,7 @@ CString CLocalSearch::GetXMLString(BOOL bNewlines)
 	for ( POSITION pos1 = m_pSchemas.GetStartPosition() ; pos1 ; )
 	{
 		CXMLElement* pGroup;
-		CSchema* pSchema;
+		CSchemaPtr pSchema;
 
 		m_pSchemas.GetNextAssoc( pos1, pSchema, pGroup );
 
@@ -1080,9 +1071,8 @@ void CLocalSearch::DispatchPacket()
 	{
 		if ( m_bWrapped )
 		{
-			// ****Debug
+			// Debug:
 			theApp.Message( MSG_INFO | MSG_FACILITY_SEARCH, _T("CLocalSearch::DispatchPacket() Wrapped query hit created") );
-			// ****
 
 			CG2Packet* pG2 = CG2Packet::New( G2_PACKET_HIT_WRAP, (CG1Packet*)m_pPacket );
 			m_pPacket->Release();
@@ -1093,14 +1083,10 @@ void CLocalSearch::DispatchPacket()
 	}
 
 	if ( m_pEndpoint != NULL )
-	{
 		Datagrams.Send( m_pEndpoint, static_cast< CG2Packet* >( m_pPacket ), FALSE );
-	}
 
 	if ( m_pBuffer != NULL )
-	{
 		m_pPacket->ToBuffer( m_pBuffer );
-	}
 
 	DestroyPacket();
 }

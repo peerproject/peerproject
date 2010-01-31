@@ -1,7 +1,7 @@
 //
 // DlgFolderProperties.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -122,7 +122,7 @@ BOOL CFolderPropertiesDlg::OnInitDialog()
 	}
 
 	CString strSchemaURI = m_wndData.GetSchemaURI();
-	if ( CSchema* pSchema = SchemaCache.Get( strSchemaURI ) )
+	if ( CSchemaPtr pSchema = SchemaCache.Get( strSchemaURI ) )
 	{
 		CString strChildURI = pSchema->GetContainedURI( CSchema::stFile );
 		CSchemaChild* pContained = pSchema->GetContained( strChildURI );
@@ -206,7 +206,7 @@ void CFolderPropertiesDlg::OnPaint()
 		CPoint pt = rc.CenterPoint();
 		pt.x -= 24; pt.y -= 24;
 
-		if ( CSchema* pSchema = m_wndSchemas.GetSelected() )
+		if ( CSchemaPtr pSchema = m_wndSchemas.GetSelected() )
 		{
 			if ( pSchema->m_nIcon48 >= 0 )
 			{
@@ -271,9 +271,7 @@ void CFolderPropertiesDlg::OnLButtonUp(UINT nFlags, CPoint point)
 	ScreenToClient( &rc );
 
 	if ( rc.PtInRect( point ) )
-	{
 		DoApply( TRUE );
-	}
 }
 
 void CFolderPropertiesDlg::OnSelChangeSchemas()
@@ -281,7 +279,7 @@ void CFolderPropertiesDlg::OnSelChangeSchemas()
 	m_wndData.SetSchema( m_wndSchemas.GetSelected() );
 
 	CString strSchemaURI = m_wndData.GetSchemaURI();
-	if ( CSchema* pSchema = SchemaCache.Get( strSchemaURI ) )
+	if ( CSchemaPtr pSchema = SchemaCache.Get( strSchemaURI ) )
 	{
 		CString strChildURI = pSchema->GetContainedURI( CSchema::stFile );
 		CSchemaChild* pContained = pSchema->GetContained( strChildURI );
@@ -297,10 +295,8 @@ void CFolderPropertiesDlg::OnSelChangeSchemas()
 
 void CFolderPropertiesDlg::OnCloseUpSchemas()
 {
-	if ( CSchema* pSchema = m_wndSchemas.GetSelected() )
-	{
+	if ( CSchemaPtr pSchema = m_wndSchemas.GetSelected() )
 		PostMessage( WM_KEYDOWN, VK_TAB );
-	}
 }
 
 void CFolderPropertiesDlg::OnChangeTitle()
@@ -308,7 +304,7 @@ void CFolderPropertiesDlg::OnChangeTitle()
 	if ( m_bUpdating ) return;
 	m_bUpdating = TRUE;
 
-	if ( CSchema* pSchema = m_wndSchemas.GetSelected() )
+	if ( CSchemaPtr pSchema = m_wndSchemas.GetSelected() )
 	{
 		CString strTitle;
 		m_wndTitle.GetWindowText( strTitle );
@@ -328,7 +324,7 @@ void CFolderPropertiesDlg::OnChangeData()
 	if ( m_bUpdating ) return;
 	m_bUpdating = TRUE;
 
-	if ( CSchema* pSchema = m_wndSchemas.GetSelected() )
+	if ( CSchemaPtr pSchema = m_wndSchemas.GetSelected() )
 	{
 		CXMLElement* pXML = new CXMLElement( NULL, pSchema->m_sSingular );
 		m_wndData.UpdateData( pXML, TRUE );
@@ -359,7 +355,7 @@ void CFolderPropertiesDlg::DoApply(BOOL bMetaToFiles)
 	{
 		m_wndTitle.GetWindowText( m_pFolder->m_sName );
 
-		if ( CSchema* pSchema = m_wndSchemas.GetSelected() )
+		if ( CSchemaPtr pSchema = m_wndSchemas.GetSelected() )
 		{
 			CXMLElement* pXML		= pSchema->Instantiate( TRUE );
 			CXMLElement* pSingular	= pXML->AddElement( pSchema->m_sSingular );

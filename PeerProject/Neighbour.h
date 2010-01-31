@@ -1,7 +1,7 @@
 //
 // Neighbour.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -132,10 +132,13 @@ protected:
 
 // Operations
 public:
-	virtual BOOL Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
-	virtual void Close(UINT nError = IDS_CONNECTION_CLOSED);
+	DWORD		GetMaxTTL() const;	// Get maximum TTL which is safe for both sides
+	void		GetCompression(float* pnInRate, float* pnOutRate);
+
 	void         DelayClose(UINT nError = 0); // Send the buffer then close the socket, record the error given
-	virtual BOOL SendQuery(CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal); // Validate query
+	virtual void Close(UINT nError = IDS_CONNECTION_CLOSED);
+	virtual BOOL Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
+	virtual BOOL SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal); // Validate query
 
 protected:
 	virtual BOOL OnRun();
@@ -144,8 +147,4 @@ protected:
 	virtual BOOL OnWrite();
 	virtual BOOL OnCommonHit(CPacket* pPacket);
 	virtual BOOL OnCommonQueryHash(CPacket* pPacket);
-
-public:
-	DWORD GetMaxTTL() const;	// Get maximum TTL which is safe for both sides
-	void GetCompression(float* pnInRate, float* pnOutRate);
 };

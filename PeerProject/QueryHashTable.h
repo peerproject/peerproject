@@ -1,7 +1,7 @@
 //
 // QueryHashTable.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -72,7 +72,7 @@ public:
 	void	AddString(const CString& strString);		// Add string with streaming
 	void	AddExactString(const CString& strString);	// Add string exactly
 	bool	CheckString(const CString& strString) const;
-	bool	Check(const CQuerySearch& oSearch) const;
+	bool	Check(const CQuerySearch* pSearch) const;
 	bool	CheckHash(const DWORD nHash) const;
 	int		GetPercent() const;
 	void	Draw(HDC hDC, const RECT* pRC);

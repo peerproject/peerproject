@@ -1,7 +1,7 @@
 //
 // ColletionFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,9 +47,9 @@ IMPLEMENT_DYNAMIC(CCollectionFile, CComObject)
 /////////////////////////////////////////////////////////////////////////////
 // CCollectionFile construction
 
-CCollectionFile::CCollectionFile() :
-	m_pMetadata ( NULL ),
-	m_nType( PeerProjectCollection )
+CCollectionFile::CCollectionFile()
+	: m_pMetadata	( NULL )
+	, m_nType		( PeerProjectCollection )
 {
 }
 
@@ -269,17 +269,11 @@ BOOL CCollectionFile::LoadEMule(LPCTSTR pszFile)
 						break;
 
 					if ( pTag.Check( ED2K_FT_FILENAME, ED2K_TAG_STRING ) )
-					{
 						m_sTitle = pTag.m_sValue;
-					}
-					else if ( pTag.Check( ED2K_FT_COLLECTIONAUTHOR, ED2K_TAG_STRING ) )
-					{
-						// TODO: ED2K_FT_COLLECTIONAUTHOR
-					}
-					else if ( pTag.Check( ED2K_FT_COLLECTIONAUTHORKEY, ED2K_TAG_BLOB ) )
-					{
-						// TODO: ED2K_FT_COLLECTIONAUTHORKEY
-					}
+					//else if ( pTag.Check( ED2K_FT_COLLECTIONAUTHOR, ED2K_TAG_STRING ) )
+					//	;	// ToDo: ED2K_FT_COLLECTIONAUTHOR
+					//else if ( pTag.Check( ED2K_FT_COLLECTIONAUTHORKEY, ED2K_TAG_BLOB ) )
+					//	;	// ToDo: ED2K_FT_COLLECTIONAUTHORKEY
 				}
 			}
 
@@ -308,7 +302,7 @@ BOOL CCollectionFile::LoadText(LPCTSTR pszFile)
 {
 	m_nType = SimpleCollection;
 
-	// TODO: Add schema detection
+	// ToDo: Add schema detection
 	m_sThisURI = CSchema::uriFolder;
 	m_sParentURI = CSchema::uriCollectionsFolder;
 
@@ -325,13 +319,11 @@ BOOL CCollectionFile::LoadText(LPCTSTR pszFile)
 		{
 			CString strText;
 			if ( ! pFile.ReadString( strText ) )
-				// End of file
-				break;
+				break;	// End of file
 
 			auto_ptr< File > pCollectionFile( new File( this ) );
 			if ( ! pCollectionFile.get() )
-				// Out of memory
-				break;
+				break;	// Out of memory
 
 			if ( pCollectionFile->Parse( strText ) )
 				m_pFiles.AddTail( pCollectionFile.release() );
@@ -351,7 +343,7 @@ CXMLElement* CCollectionFile::CloneMetadata(CXMLElement* pMetadata)
 	CXMLElement* pCore = pMetadata->GetFirstElement();
 	if ( pCore == NULL ) return NULL;
 
-	if ( CSchema* pSchema = SchemaCache.Get( strURI ) )
+	if ( CSchemaPtr pSchema = SchemaCache.Get( strURI ) )
 	{
 		pMetadata = pSchema->Instantiate();
 	}
@@ -365,23 +357,27 @@ CXMLElement* CCollectionFile::CloneMetadata(CXMLElement* pMetadata)
 	pMetadata->AddElement( pCore );
 
 	CString strName = pMetadata->GetName();
-	if ( _tcsnicmp( strName, _T("s:"), 2 ) == 0 ) pMetadata->SetName( strName.Mid( 2 ) );
+	if ( _tcsnicmp( strName, _T("s:"), 2 ) == 0 )
+		pMetadata->SetName( strName.Mid( 2 ) );
 
 	strName = pCore->GetName();
-	if ( _tcsnicmp( strName, _T("s:"), 2 ) == 0 ) pCore->SetName( strName.Mid( 2 ) );
+	if ( _tcsnicmp( strName, _T("s:"), 2 ) == 0 )
+		pCore->SetName( strName.Mid( 2 ) );
 
 	for ( POSITION pos = pCore->GetElementIterator() ; pos ; )
 	{
 		CXMLNode* pNode = pCore->GetNextElement( pos );
 		CString strName = pNode->GetName();
-		if ( _tcsnicmp( strName, _T("s:"), 2 ) == 0 ) pNode->SetName( strName.Mid( 2 ) );
+		if ( _tcsnicmp( strName, _T("s:"), 2 ) == 0 )
+			pNode->SetName( strName.Mid( 2 ) );
 	}
 
 	for ( POSITION pos = pCore->GetAttributeIterator() ; pos ; )
 	{
 		CXMLNode* pNode = pCore->GetNextAttribute( pos );
 		CString strName = pNode->GetName();
-		if ( _tcsnicmp( strName, _T("s:"), 2 ) == 0 ) pNode->SetName( strName.Mid( 2 ) );
+		if ( _tcsnicmp( strName, _T("s:"), 2 ) == 0 )
+			pNode->SetName( strName.Mid( 2 ) );
 	}
 
 	return pMetadata;
@@ -430,9 +426,9 @@ void CCollectionFile::Render(CString& strBuffer) const
 /////////////////////////////////////////////////////////////////////////////
 // CCollectionFile::File construction
 
-CCollectionFile::File::File(CCollectionFile* pParent) :
-	m_pParent	( pParent ),
-	m_pMetadata	( NULL )
+CCollectionFile::File::File(CCollectionFile* pParent)
+	: m_pParent 	( pParent )
+	, m_pMetadata	( NULL )
 {
 }
 
@@ -556,6 +552,8 @@ BOOL CCollectionFile::File::IsComplete() const
 
 BOOL CCollectionFile::File::IsDownloading() const
 {
+	//CQuickLock oLock( Transfers.m_pSection );
+
 	return Downloads.FindBySHA1( m_oSHA1 )
 		|| Downloads.FindByTiger( m_oTiger )
 		|| Downloads.FindByED2K( m_oED2K )
@@ -573,14 +571,14 @@ BOOL CCollectionFile::File::Download()
 	if ( IsComplete() || IsDownloading() ) return FALSE;
 
 	pURL.m_nAction	= CPeerProjectURL::uriDownload;
-	pURL.m_oSHA1 = m_oSHA1;
-    pURL.m_oMD5 = m_oMD5;
-	pURL.m_oTiger = m_oTiger;
-	pURL.m_oED2K = m_oED2K;
-	pURL.m_oBTH = m_oBTH;
+	pURL.m_oSHA1	= m_oSHA1;
+    pURL.m_oMD5 	= m_oMD5;
+	pURL.m_oTiger	= m_oTiger;
+	pURL.m_oED2K	= m_oED2K;
+	pURL.m_oBTH 	= m_oBTH;
 	pURL.m_sName	= m_sName;
-	pURL.m_bSize	= ( m_nSize != SIZE_UNKNOWN );
 	pURL.m_nSize	= m_nSize;
+	pURL.m_bSize	= ( m_nSize != SIZE_UNKNOWN );
 
 	return Downloads.Add( pURL ) != NULL;
 }

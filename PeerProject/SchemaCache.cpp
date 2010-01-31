@@ -1,7 +1,7 @@
 //
 // SchemaCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -131,7 +131,7 @@ void CSchemaCache::Clear()
 	m_pNames.RemoveAll();
 }
 
-CXMLElement* CSchemaCache::Decode(BYTE* szData, DWORD nLength, CSchema*& pSchema)
+CXMLElement* CSchemaCache::Decode(BYTE* szData, DWORD nLength, CSchemaPtr& pSchema)
 {
 	auto_array< BYTE > pTmp;
 	if ( nLength >= 9 && _strnicmp( (LPCSTR)szData, "{deflate}", 9 ) == 0 )
@@ -176,13 +176,10 @@ CXMLElement* CSchemaCache::Decode(BYTE* szData, DWORD nLength, CSchema*& pSchema
 			// Schemas do not match by URN, get first element to compare
 			// with names map of schemas (which are singulars)
 			if ( CXMLElement* pElement = pXML->GetFirstElement() )
-			{
 				pSchema = SchemaCache.Guess( pElement->GetName() );
-			}
 			else // has no plural envelope
-			{
 				pSchema = SchemaCache.Guess( pXML->GetName() );
-			}
+
 			if ( ! pSchema )
 			{
 				pXML->Delete();

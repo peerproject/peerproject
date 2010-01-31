@@ -1,7 +1,7 @@
 //
 // ManagedSearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,65 +25,87 @@
 
 class CPacket;
 class CNeighbour;
+class CManagedSearch;
+
+typedef CComObjectPtr< CManagedSearch > CSearchPtr;
 
 
-class CManagedSearch : private boost::noncopyable
+class CManagedSearch : public CComObject
 {
-// Construction
 public:
-	CManagedSearch(auto_ptr< CQuerySearch > pSearch = auto_ptr< CQuerySearch >( new CQuerySearch() ),
-			int nPriority = 0);
-	~CManagedSearch() { Stop(); }
+	CManagedSearch(CQuerySearch* pSearch = NULL, int nPriority = 0);
+	virtual ~CManagedSearch();
+
+	typedef CMap< DWORD, DWORD, DWORD, DWORD > CDwordDwordMap;
 
 	enum { spHighest, spMedium, spLowest, spMax };
 
-// Attributes
-public:
-	auto_ptr< CQuerySearch > m_pSearch;
-	int				m_nPriority;
+	inline CQuerySearchPtr GetSearch() const
+	{
+		return m_pSearch;
+	}
+
+	inline bool IsEqualGUID(const Hashes::Guid& oGUID) const
+	{
+		return m_pSearch && validAndEqual( m_pSearch->m_oGUID, oGUID );
+	}
+
+	inline CSchemaPtr GetSchema() const
+	{
+		return m_pSearch ? m_pSearch->m_pSchema : NULL;
+	}
+
+	inline bool IsActive() const
+	{
+		return ( m_bActive != FALSE );
+	}
+
+	inline void SetActive(BOOL bActive)
+	{
+		InterlockedExchange( (LONG*)&m_bActive, bActive );
+	}
+
+	inline void SetPriority(int nPriority)
+	{
+		InterlockedExchange( (LONG*)&m_nPriority, nPriority );
+	}
+
+	void	Start();
+	void	Stop();
+	void	Serialize(CArchive& ar);
+	void	OnHostAcknowledge(DWORD nAddress);
+	BOOL	Execute(int nPriorityClass);	// Run search of specified priority class
+	BOOL	IsLastED2KSearch();
+	void	CreateGUID();
+
 	BOOL			m_bAllowG2;
 	BOOL			m_bAllowG1;
 	BOOL			m_bAllowED2K;
-public:
-	BOOL			m_bActive;
 	BOOL			m_bReceive;
-public:
-	DWORD			m_tStarted;					// Time search was started
-	DWORD			m_nHits;					// Total hits
-	DWORD			m_nG1Hits;					// G1 hits
-	DWORD			m_nG2Hits;					// G2 hits
-	DWORD			m_nEDHits;					// ED2k hits
-	DWORD			m_nHubs;					// Number of G2 hubs searched
-	DWORD			m_nLeaves;					// Number of G2 leaves searched
-	DWORD			m_nQueryCount;				// Total Gnutella2 queries sent
-	DWORD			m_tLastG2;					// Time a G2 hub was last searched
-	DWORD			m_tLastED2K;				// Time an ed2k server was last searched
-	DWORD			m_tMoreResults;				// Time more results were requested from an ed2k server
-	DWORD			m_nEDServers;				// Number of EDonkey servers searched
-	DWORD			m_nEDClients;				// Number of ED2K clients searched (Guess)
+	DWORD			m_tStarted;				// Time search was started (s)
+	DWORD			m_nHits;				// Total hits
+	DWORD			m_nG1Hits;				// G1 hits
+	DWORD			m_nG2Hits;				// G2 hits
+	DWORD			m_nEDHits;				// ED2k hits
+	DWORD			m_nHubs;				// Number of G2 hubs searched
+	DWORD			m_nLeaves;				// Number of G2 leaves searched
+	DWORD			m_nQueryCount;			// Total Gnutella2 queries sent
+	DWORD			m_tLastED2K;			// Time an ed2k server was last searched
+	DWORD			m_tMoreResults;			// Time more results were requested from an ed2k server
+
 protected:
-	DWORD			m_tExecute;
-	CMap< DWORD, DWORD, DWORD, DWORD > m_pNodes;	// Pair of IP and query time (s)
-	CMap< DWORD, DWORD, DWORD, DWORD > m_pG1Nodes;	// Pair of IP and last sent packet TTL
+	int				m_nPriority;
+	BOOL			m_bStarted;				// Search started (and managed by SearchManager)
+	BOOL			m_bActive;
+	DWORD			m_tLastG2;				// Time a G2 hub was last searched
+	DWORD			m_nEDServers;			// Number of EDonkey servers searched
+	DWORD			m_nEDClients;			// Number of ED2K clients searched (Guess)
+	DWORD			m_tExecute;				// Search execute time (ticks)
+	CQuerySearchPtr m_pSearch;				// Search handler
+	CDwordDwordMap	m_pNodes;				// Pair of IP and query time (s)
+	CDwordDwordMap	m_pG1Nodes;				// Pair of IP and last sent packet TTL
 
-// Operations
-public:
-	void	Serialize(CArchive& ar);
-	void	Start();
-	void	Stop();
-	BOOL	Execute();
-	void	OnHostAcknowledge(DWORD nAddress);
-	BOOL	IsLastED2KSearch();
-protected:
-	BOOL	ExecuteNeighbours(DWORD tTicks, DWORD tSecs);
-	BOOL	ExecuteG2Mesh(DWORD tTicks, DWORD tSecs);
-	BOOL	ExecuteDonkeyMesh(DWORD tTicks, DWORD tSecs);
-
-// Inlines
-public:
-
-	inline CQuerySearch* GetSearch() const { return m_pSearch.get(); }
-	inline BOOL IsActive() const { return m_bActive; }
-	inline int GetPriority() const { return m_nPriority; }
-	inline void SetPriority(int nPriority) { m_nPriority = nPriority; }
+	BOOL	ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs);
+	BOOL	ExecuteG2Mesh(const DWORD tTicks, const DWORD tSecs);
+	BOOL	ExecuteDonkeyMesh(const DWORD tTicks, const DWORD tSecs);
 };

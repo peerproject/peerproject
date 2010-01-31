@@ -1,7 +1,7 @@
 //
 // ComboListCtrl.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,7 +23,7 @@
 
 #pragma once
 
-//#include "CtrlCoolTip.h"
+//#include "CtrlLibraryTip.h"
 
 
 class CComboListCtrl : public CListCtrl
@@ -42,10 +42,10 @@ public:
 	int  GetColumnData(int iItem, int iColumn) const;
 	void SetColumnData(int iItem, int iColumn, int iData);
 	void SetColumnValues(int iColumn, const CIntStringMap& oValues);
-//	void EnableTips(auto_ptr< CCoolTipCtrl > pTip);
+//	void EnableTips(auto_ptr< CLibraryTipCtrl > pTip);
 
 protected:
-//	auto_ptr< CCoolTipCtrl >	m_pTip;
+//	auto_ptr< CLibraryTipCtrl >	m_pTip;
 //	CComboBox*					m_pCombo;
 	int							m_iSelectedItem;
 	int							m_iSelectedSubItem;

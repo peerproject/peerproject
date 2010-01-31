@@ -1,7 +1,7 @@
 //
 // CtrlTipList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -45,8 +45,8 @@ END_MESSAGE_MAP()
 // CTipListCtrl construction
 
 CTipListCtrl::CTipListCtrl()
+	: m_pTip( NULL )
 {
-	m_pTip = NULL;
 }
 
 CTipListCtrl::~CTipListCtrl()
@@ -56,7 +56,7 @@ CTipListCtrl::~CTipListCtrl()
 /////////////////////////////////////////////////////////////////////////////
 // CTipListCtrl operations
 
-void CTipListCtrl::SetTip(CCoolTipCtrl* pTip)
+void CTipListCtrl::SetTip(CNeighbourTipCtrl* pTip)
 {
 	m_pTip = pTip;
 }
@@ -73,13 +73,9 @@ void CTipListCtrl::OnMouseMove(UINT nFlags, CPoint point)
 		int nHit = HitTest( point );
 
 		if ( nHit >= 0 )
-		{
-			m_pTip->Show( (LPVOID)GetItemData( nHit ) );
-		}
+			m_pTip->Show( GetItemData( nHit ) );
 		else
-		{
 			m_pTip->Hide();
-		}
 	}
 }
 

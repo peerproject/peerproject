@@ -60,9 +60,11 @@ END_MESSAGE_MAP()
 // CDownloadTipCtrl construction
 
 CDownloadTipCtrl::CDownloadTipCtrl()
+	: m_pDownload	( NULL )
+	, m_pSource 	( NULL )
+	, m_pGraph		( NULL )
+	, m_nIcon		( 0 )
 {
-	m_pGraph	= NULL;
-	m_nIcon		= 0;
 }
 
 CDownloadTipCtrl::~CDownloadTipCtrl()
@@ -85,10 +87,10 @@ BOOL CDownloadTipCtrl::OnPrepare()
 
 void CDownloadTipCtrl::OnCalcSize(CDC* pDC)
 {
-	if ( Downloads.Check( (CDownload*)m_pContext ) )
-		OnCalcSize( pDC, (CDownload*)m_pContext );
-	else if ( Downloads.Check( (CDownloadSource*)m_pContext ) )
-		OnCalcSize( pDC, (CDownloadSource*)m_pContext );
+	if ( m_pDownload && Downloads.Check( m_pDownload ) )
+		OnCalcSize( pDC, m_pDownload );
+	else if ( m_pSource && Downloads.Check( m_pSource ) )
+		OnCalcSize( pDC, m_pSource );
 
 	m_sz.cx = min( max( m_sz.cx, 400 ), GetSystemMetrics( SM_CXSCREEN ) / 2 );
 }
@@ -114,10 +116,10 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC)
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 100 ) ) return;
 
-	if ( Downloads.Check( (CDownload*)m_pContext ) )
-		OnPaint( pDC, (CDownload*)m_pContext );
-	else if ( Downloads.Check( (CDownloadSource*)m_pContext ) )
-		OnPaint( pDC, (CDownloadSource*)m_pContext );
+	if ( m_pDownload && Downloads.Check( m_pDownload ) )
+		OnPaint( pDC, m_pDownload );
+	else if ( m_pSource && Downloads.Check( m_pSource ) )
+		OnPaint( pDC, m_pSource );
 	else
 		Hide();
 }
@@ -839,10 +841,9 @@ void CDownloadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 10 ) ) return;
 
-	if ( Downloads.Check( (CDownload*)m_pContext ) )
+	if ( m_pDownload && Downloads.Check( m_pDownload ) )
 	{
-		CDownload* pDownload = (CDownload*)m_pContext;
-		DWORD nSpeed = pDownload->GetMeasuredSpeed();
+		DWORD nSpeed = m_pDownload->GetMeasuredSpeed();
 		m_pItem->Add( nSpeed );
 		m_pGraph->m_nUpdates++;
 		m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
@@ -852,13 +853,11 @@ void CDownloadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 		rcWndTip.top += 90;
 		InvalidateRect( &rcWndTip );
 	}
-	else if ( Downloads.Check( (CDownloadSource*)m_pContext ) )
+	else if ( m_pSource && Downloads.Check( m_pSource ) )
 	{
-		CDownloadSource* pSource = (CDownloadSource*)m_pContext;
-
-		if ( ! pSource->IsIdle() )
+		if ( ! m_pSource->IsIdle() )
 		{
-			DWORD nSpeed = pSource->GetMeasuredSpeed();
+			DWORD nSpeed = m_pSource->GetMeasuredSpeed();
 			m_pItem->Add( nSpeed );
 			m_pGraph->m_nUpdates++;
 			m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );

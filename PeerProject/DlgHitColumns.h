@@ -1,7 +1,7 @@
 //
 // DlgHitColumns.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,8 +23,7 @@
 
 #include "DlgSkinDialog.h"
 #include "CtrlSchemaCombo.h"
-
-class CSchema;
+#include "Schema.h"
 
 
 class CSchemaColumnsDlg : public CSkinDialog
@@ -43,15 +42,15 @@ public:
 
 // Attributes
 public:
-	CSchema*	m_pSchema;
+	CSchemaPtr	m_pSchema;
 	CList< CSchemaMember* >	m_pColumns;
 
 // Operations
 public:
-	static BOOL		LoadColumns(CSchema* pSchema, CList< CSchemaMember* >* pColumns);
-	static BOOL		SaveColumns(CSchema* pSchema, CList< CSchemaMember* >* pColumns);
-	static CMenu*	BuildColumnMenu(CSchema* pSchema, CList< CSchemaMember* >* pColumns = NULL);
-	static BOOL		ToggleColumnHelper(CSchema* pSchema, CList< CSchemaMember* >* pSource, CList< CSchemaMember* >* pTarget, UINT nToggleID, BOOL bSave = FALSE);
+	static CMenu*	BuildColumnMenu(CSchemaPtr pSchema, CList< CSchemaMember* >* pColumns = NULL);
+	static BOOL		LoadColumns(CSchemaPtr pSchema, CList< CSchemaMember* >* pColumns);
+	static BOOL		SaveColumns(CSchemaPtr pSchema, CList< CSchemaMember* >* pColumns);
+	static BOOL		ToggleColumnHelper(CSchemaPtr pSchema, CList< CSchemaMember* >* pSource, CList< CSchemaMember* >* pTarget, UINT nToggleID, BOOL bSave = FALSE);
 
 // Overrides
 public:

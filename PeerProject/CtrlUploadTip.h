@@ -1,7 +1,7 @@
 //
 // CtrlUploadTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -31,32 +31,39 @@ class CGraphItem;
 
 class CUploadTipCtrl : public CCoolTipCtrl
 {
-// Construction
+	DECLARE_DYNAMIC(CUploadTipCtrl)
+
 public:
 	CUploadTipCtrl();
 	virtual ~CUploadTipCtrl();
 
-	DECLARE_DYNAMIC(CUploadTipCtrl)
+	void Show(CUploadFile* pContext, HWND hAltWnd = NULL)
+	{
+		bool bChanged = ( pContext != m_pUploadFile );
+		m_pUploadFile = pContext;
+		m_hAltWnd = hAltWnd;
+		ShowImpl( bChanged );
+	}
 
 // Attributes
 protected:
+	CUploadFile*	m_pUploadFile;
 	CString			m_sAddress;
 	CLineGraph*		m_pGraph;
 	CGraphItem*		m_pItem;
-protected:
 	CArray< CString >	m_pHeaderName;
 	CArray< CString >	m_pHeaderValue;
 	int				m_nHeaderWidth;
 
 // Operations
 protected:
+	void DrawProgressBar(CDC* pDC, CPoint* pPoint, CUploadFile* pFile);
+
 	virtual BOOL OnPrepare();
-	virtual void OnCalcSize(CDC* pDC);
 	virtual void OnShow();
 	virtual void OnHide();
+	virtual void OnCalcSize(CDC* pDC);
 	virtual void OnPaint(CDC* pDC);
-protected:
-	void DrawProgressBar(CDC* pDC, CPoint* pPoint, CUploadFile* pFile);
 
 // Overrides
 public:

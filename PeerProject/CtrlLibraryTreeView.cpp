@@ -105,19 +105,18 @@ END_MESSAGE_MAP()
 // CLibraryTreeView construction
 
 CLibraryTreeView::CLibraryTreeView()
-: m_pRoot( new CLibraryTreeItem() )
-, m_nTotal( 0 )
-, m_nVisible( 0 )
-, m_nScroll( 0 )
-, m_nSelected( 0 )
-, m_nCleanCookie( 0 )
-, m_pTip( NULL )
-, m_pSelFirst( NULL )
-, m_pSelLast( NULL )
-, m_pFocus( NULL )
-, m_pDropItem( NULL )
-, m_bVirtual( -1 )
-, m_bDrag( FALSE )
+	: m_pRoot( new CLibraryTreeItem() )
+	, m_nTotal( 0 )
+	, m_nVisible( 0 )
+	, m_nScroll( 0 )
+	, m_nSelected( 0 )
+	, m_nCleanCookie( 0 )
+	, m_pSelFirst( NULL )
+	, m_pSelLast( NULL )
+	, m_pFocus( NULL )
+	, m_pDropItem( NULL )
+	, m_bVirtual( -1 )
+	, m_bDrag( FALSE )
 {
 	m_pRoot->m_bExpanded = TRUE;
 }
@@ -135,7 +134,11 @@ void CLibraryTreeView::SetVirtual(BOOL bVirtual)
 	if ( bVirtual == m_bVirtual ) return;
 
 	m_bVirtual = bVirtual;
-	SetToolTip( m_bVirtual ? (CCoolTipCtrl*)&m_wndAlbumTip : (CCoolTipCtrl*)&m_wndFolderTip );
+
+	m_wndAlbumTip.Hide();
+	m_wndFolderTip.Hide();
+	m_wndAlbumTip.SetOwner( this );
+	m_wndFolderTip.SetOwner( this );
 
 	Clear();
 }
@@ -165,13 +168,6 @@ BOOL CLibraryTreeView::Create(CWnd* pParentWnd)
 		WS_TABSTOP|WS_VSCROLL, rect, pParentWnd, IDC_LIBRARY_TREE, NULL );
 }
 
-void CLibraryTreeView::SetToolTip(CCoolTipCtrl* pTip)
-{
-	if ( m_pTip ) m_pTip->Hide();
-	m_pTip = pTip;
-	if ( m_pTip ) m_pTip->SetOwner( this );
-}
-
 void CLibraryTreeView::Clear()
 {
 	CQuickLock( Library.m_pSection );
@@ -187,7 +183,8 @@ void CLibraryTreeView::Clear()
 	m_pFocus		= NULL;
 	m_pDropItem		= NULL;
 
-	if ( m_pTip ) m_pTip->Hide();
+	m_wndAlbumTip.Hide();
+	m_wndFolderTip.Hide();
 
 	// NotifySelection(); NOT NOTIFIED
 	UpdateScroll();
@@ -345,7 +342,7 @@ BOOL CLibraryTreeView::SelectAll(CLibraryTreeItem* pParent, BOOL bInvalidate)
 			bChanged = TRUE;
 		}
 
-		if ( !pChild->empty() && pChild->m_bExpanded )
+		if ( ! pChild->empty() && pChild->m_bExpanded )
 			bChanged |= SelectAll( &*pChild, FALSE );
 	}
 
@@ -368,7 +365,8 @@ BOOL CLibraryTreeView::DeselectAll(CLibraryTreeItem* pExcept, CLibraryTreeItem* 
 			bChanged = TRUE;
 		}
 
-		if ( !pChild->empty() ) bChanged |= DeselectAll( pExcept, &*pChild, FALSE );
+		if ( ! pChild->empty() )
+			bChanged |= DeselectAll( pExcept, &*pChild, FALSE );
 	}
 
 	if ( bInvalidate && bChanged && pParent == m_pRoot ) Invalidate();
@@ -509,7 +507,8 @@ void CLibraryTreeView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	SetFocus();
 
-	if ( m_pTip ) m_pTip->Hide();
+	m_wndAlbumTip.Hide();
+	m_wndFolderTip.Hide();
 
 	if ( pHit && !pHit->empty() && point.x >= rc.left && point.x < rc.left + 16 )
 	{
@@ -592,12 +591,20 @@ void CLibraryTreeView::OnMouseMove(UINT nFlags, CPoint point)
 	else
 		m_bDrag = FALSE;
 
-	if ( ! m_bDrag && m_pTip != NULL )
+	if ( ! m_bDrag )
 	{
 		if ( CLibraryTreeItem* pItem = HitTest( point ) )
-			m_pTip->Show( pItem->m_pPhysical ? (LPVOID)pItem->m_pPhysical : (LPVOID)pItem->m_pVirtual );
+		{
+			if ( pItem->m_pPhysical )
+				m_wndFolderTip.Show( pItem->m_pPhysical );
+			else
+				m_wndAlbumTip.Show( pItem->m_pVirtual );
+		}
 		else
-			m_pTip->Hide();
+		{
+			m_wndAlbumTip.Hide();
+			m_wndFolderTip.Hide();
+		}
 	}
 
 	CWnd::OnMouseMove( nFlags, point );
@@ -621,15 +628,18 @@ void CLibraryTreeView::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 	BOOL bChanged = FALSE;
 	CRect rc;
 
-	if ( m_pTip ) m_pTip->Hide();
+	m_wndAlbumTip.Hide();
+	m_wndFolderTip.Hide();
 
 	if ( nChar == VK_HOME || ( nChar == VK_UP && m_pFocus == NULL ) )
 	{
-		if ( ! m_pRoot->empty() ) pTo = &*m_pRoot->begin();
+		if ( ! m_pRoot->empty() )
+			pTo = &*m_pRoot->begin();
 	}
 	else if ( nChar == VK_END || ( nChar == VK_DOWN && m_pFocus == NULL ) )
 	{
-		if ( ! m_pRoot->empty() ) pTo = &*m_pRoot->rbegin();
+		if ( ! m_pRoot->empty() )
+			pTo = &*m_pRoot->rbegin();
 	}
 	else if ( nChar == VK_UP && m_pFocus != NULL )
 	{
@@ -780,8 +790,11 @@ BOOL CLibraryTreeView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 			};
 			for ( int i = 0; szScrollable[ i ]; ++i )
 			{
-				if ( pWnd == FindWindowEx( GetParent()->GetSafeHwnd(), NULL, NULL, szScrollable[ i ] ) )
+				if ( pWnd == FindWindowEx(
+					GetParent()->GetSafeHwnd(), NULL, NULL, szScrollable[ i ] ) )
+				{
 					return pWnd->PostMessage( WM_MOUSEWHEEL, MAKEWPARAM( nFlags, zDelta ), MAKELPARAM( pt.x, pt.y ) );
+				}
 			}
 		}
 	}
@@ -848,8 +861,7 @@ void CLibraryTreeView::Paint(CDC& dc, CRect& rcClient, CPoint& pt, CLibraryTreeI
 	}
 	else if ( rc.bottom >= rcClient.top )
 	{
-		if ( pItem->m_bBold )
-			dc.SelectObject( &CoolInterface.m_fntBold );
+		if ( pItem->m_bBold ) dc.SelectObject( &CoolInterface.m_fntBold );
 
 		rc.right += 32 + dc.GetTextExtent( pItem->m_sText ).cx + 6;
 
@@ -995,15 +1007,13 @@ BOOL CLibraryTreeView::GetRect(CPoint& pt, CLibraryTreeItem* pItem, CLibraryTree
 
 void CLibraryTreeView::StartDragging(CPoint& ptMouse)
 {
-	if ( ! m_pSelFirst )
-		return;
+	if ( ! m_pSelFirst ) return;
 
 	CQuickLock oLock( Library.m_pSection );
 
 	CPoint ptMiddle( 0, 0 );
 	HBITMAP pImage = CreateDragImage( ptMouse, ptMiddle );
-	if ( ! pImage )
-		return;
+	if ( ! pImage ) return;
 
 	// Get GUID of parent folder
 	Hashes::Guid oGUID;
@@ -1094,9 +1104,9 @@ HBITMAP CLibraryTreeView::CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddl
 // CLibraryTreeItem construction
 
 CLibraryTreeItem::CLibraryTreeItem(CLibraryTreeItem* pParent, const CString& name)
-: m_pParent( pParent ),
-  m_oList(),
-  m_sText( name )
+	: m_pParent( pParent )
+	, m_oList()
+	, m_sText( name )
 {
 	m_pSelPrev		= NULL;
 	m_pSelNext		= NULL;
@@ -1119,7 +1129,7 @@ CLibraryTreeItem::CLibraryTreeItem(CLibraryTreeItem* pParent, const CString& nam
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryTreeItem add
 
-//! ToDo: _tcsicoll isn't really suitable here since it can fail
+//! \todo  _tcsicoll isn't really suitable here since it can fail
 struct CLibraryTreeItemCompare
 {
 	bool operator()(const CLibraryTreeItem& lhs, const CLibraryTreeItem& rhs) const
@@ -1153,9 +1163,7 @@ CLibraryTreeItem* CLibraryTreeItem::addItem(const CString& name)
 //void CLibraryTreeItem::Delete(CLibraryTreeItem* pItem)
 //{
 //	ASSERT( pItem->m_bSelected == FALSE );
-//
 //	CLibraryTreeItem** pChild = m_pList;
-//
 //	for ( int nChild = m_nCount ; nChild ; nChild--, pChild++ )
 //	{
 //		if ( *pChild == pItem )
@@ -1165,7 +1173,6 @@ CLibraryTreeItem* CLibraryTreeItem::addItem(const CString& name)
 //			break;
 //		}
 //	}
-//
 //	delete pItem;
 //}
 
@@ -1210,13 +1217,13 @@ void CLibraryTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) 
 	{
 		if ( m_bExpanded )
 		{
-			CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_CLOSETICK_HOVER : IDI_CLOSETICK,
-				16, rc.left, rc.top, crBack );
+			CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ?
+				IDI_CLOSETICK_HOVER : IDI_CLOSETICK, 16, rc.left, rc.top, crBack );
 		}
 		else
 		{
-			CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ? IDI_OPENTICK_HOVER : IDI_OPENTICK,
-				16, rc.left, rc.top, crBack );
+			CoolInterface.Draw( &dc, PtInRect(&rcTick,ptHover) ?
+				IDI_OPENTICK_HOVER : IDI_OPENTICK, 16, rc.left, rc.top, crBack );
 		}
 	}
 
@@ -1305,8 +1312,7 @@ void CLibraryTreeView::UpdatePhysical(DWORD nSelectCookie)
 	}
 }
 
-BOOL CLibraryTreeView::Update(CLibraryFolder* pFolder, CLibraryTreeItem* pItem, CLibraryTreeItem* pParent,
-							  BOOL bVisible, BOOL bShared, DWORD nCleanCookie, DWORD nSelectCookie, BOOL bRecurse)
+BOOL CLibraryTreeView::Update(CLibraryFolder* pFolder, CLibraryTreeItem* pItem, CLibraryTreeItem* pParent, BOOL bVisible, BOOL bShared, DWORD nCleanCookie, DWORD nSelectCookie, BOOL bRecurse)
 {
 	BOOL bChanged = FALSE;
 
@@ -1429,6 +1435,9 @@ void CLibraryTreeView::UpdateVirtual(DWORD nSelectCookie)
 BOOL CLibraryTreeView::Update(CAlbumFolder* pFolder, CLibraryTreeItem* pItem, CLibraryTreeItem* pParent, BOOL bVisible, DWORD nCleanCookie, DWORD nSelectCookie)
 {
 	BOOL bChanged = FALSE;
+
+	if ( ! pFolder )
+		return bChanged;
 
 	if ( pItem != NULL && pParent != NULL && pItem->m_sText != pFolder->m_sName )
 		pItem = NULL;	// CleanCookie is not updated so it will be dropped later
@@ -1621,7 +1630,9 @@ void CLibraryTreeView::OnLibraryParent()
 	CLibraryTreeItem* pNew = NULL;
 
 	if ( m_nSelected == 1 && m_pSelFirst->parent() != m_pRoot )
+	{
 		pNew = m_pSelFirst->parent();
+	}
 
 	DeselectAll( pNew );
 
@@ -1666,7 +1677,8 @@ void CLibraryTreeView::OnLibraryScan()
 
 	for ( CLibraryTreeItem* pItem = m_pSelFirst ; pItem ; pItem = pItem->m_pSelNext )
 	{
-		if ( LibraryFolders.CheckFolder( pItem->m_pPhysical, TRUE ) ) pItem->m_pPhysical->Scan();
+		if ( LibraryFolders.CheckFolder( pItem->m_pPhysical, TRUE ) )
+			pItem->m_pPhysical->Scan();
 	}
 }
 
@@ -1882,6 +1894,8 @@ void CLibraryTreeView::OnLibraryFolderNew()
 		CQuickLock oLock( Library.m_pSection );
 
 		pFolder = Library.GetAlbumRoot();
+		if ( ! pFolder )
+			pFolder = LibraryFolders.CreateAlbumTree();
 
 		if ( m_pSelFirst ) pFolder = m_pSelFirst->m_pVirtual;
 
@@ -1926,7 +1940,7 @@ void CLibraryTreeView::OnLibraryRebuild()
 			pFile->Rebuild();
 	}
 
-	Library.Update();
+	Library.Update( true );
 }
 
 void CLibraryTreeView::OnUpdateLibraryFolderProperties(CCmdUI* pCmdUI)
@@ -1986,7 +2000,7 @@ void CLibraryTreeView::OnUpdateLibraryExportCollection(CCmdUI *pCmdUI)
 	if ( ! m_pSelFirst ||
 		 ! m_pSelFirst->m_pVirtual ||
 		m_pSelFirst->m_pVirtual->GetFileCount() == 0 ||
-		m_pSelFirst->m_pVirtual->GetFileCount() > 1200 ||
+		m_pSelFirst->m_pVirtual->GetFileCount() > 1000 ||
 		CheckURI( m_pSelFirst->m_pVirtual->m_sSchemaURI, CSchema::uriGhostFolder ) ||
 		m_pSelFirst->m_pVirtual->m_oCollSHA1 )
 		bAllowExport = FALSE;
@@ -2035,6 +2049,8 @@ BOOL CLibraryTreeView::OnDrop(IDataObject* pDataObj, DWORD grfKeyState, POINT pt
 			RedrawWindow();
 		}
 	}
+
+	CQuickLock oLock( Library.m_pSection );
 
 	if ( pHit )
 	{

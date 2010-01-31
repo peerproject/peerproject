@@ -1,7 +1,7 @@
 //
 // CtrlUploadTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -56,13 +56,16 @@ END_MESSAGE_MAP()
 // CUploadTipCtrl construction
 
 CUploadTipCtrl::CUploadTipCtrl()
+	: m_pUploadFile	( NULL )
+	, m_pGraph		( NULL )
+	, m_pItem		( NULL )
+	, m_nHeaderWidth( 0 )
 {
-	m_pGraph = NULL;
 }
 
 CUploadTipCtrl::~CUploadTipCtrl()
 {
-	if ( m_pGraph ) delete m_pGraph;
+	delete m_pGraph;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -97,9 +100,8 @@ void CUploadTipCtrl::OnHide()
 
 void CUploadTipCtrl::OnCalcSize(CDC* pDC)
 {
-	CUploadFile* pFile = (CUploadFile*)m_pContext;
-	if ( ! UploadFiles.Check( pFile ) ) return;
-	CUploadTransfer* pUpload = pFile->GetActive();
+	if ( ! m_pUploadFile || ! UploadFiles.Check( m_pUploadFile ) ) return;
+	CUploadTransfer* pUpload = m_pUploadFile->GetActive();
 
 	if ( pUpload->m_sNick.GetLength() > 0 )
 		m_sAddress = pUpload->m_sNick + _T(" (") + inet_ntoa( pUpload->m_pHost.sin_addr ) + ')';
@@ -123,7 +125,7 @@ void CUploadTipCtrl::OnCalcSize(CDC* pDC)
 		}
 	}
 
-	AddSize( pDC, pFile->m_sName );
+	AddSize( pDC, m_pUploadFile->m_sName );
 	AddSize( pDC, m_sAddress );
 	pDC->SelectObject( &CoolInterface.m_fntNormal );
 	AddSize( pDC, pUpload->m_sCountryName );
@@ -163,19 +165,17 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 100 ) ) return;
 
-	CUploadFile* pFile = (CUploadFile*)m_pContext;
-
-	if ( ! UploadFiles.Check( pFile ) )
+	if ( ! m_pUploadFile || ! UploadFiles.Check( m_pUploadFile ) )
 	{
 		Hide();
 		return;
 	}
 
-	CUploadTransfer* pUpload = pFile->GetActive();
+	CUploadTransfer* pUpload = m_pUploadFile->GetActive();
 
 	CPoint pt( 0, 0 );
 
-	DrawText( pDC, &pt, pFile->m_sName );
+	DrawText( pDC, &pt, m_pUploadFile->m_sName );
 	pt.y += TIP_TEXTHEIGHT;
 	DrawText( pDC, &pt, m_sAddress );
 	pDC->SelectObject( &CoolInterface.m_fntNormal );
@@ -231,7 +231,7 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	}
 
 	int nQueue = UploadQueues.GetPosition( pUpload, FALSE );
-	if ( pFile != pUpload->m_pBaseFile || pUpload->m_nState == upsNull )
+	if ( m_pUploadFile != pUpload->m_pBaseFile || pUpload->m_nState == upsNull )
 	{
 		LoadString( strStatus, IDS_TIP_INACTIVE );
 	}
@@ -283,7 +283,7 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 
 	pt.y += TIP_GAP;
 
-	DrawProgressBar( pDC, &pt, pFile );
+	DrawProgressBar( pDC, &pt, m_pUploadFile );
 	pt.y += TIP_GAP;
 
 	CRect rc( pt.x, pt.y, m_sz.cx, pt.y + 40 );
@@ -332,15 +332,13 @@ void CUploadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 10 ) ) return;
 
-	CUploadFile* pFile = (CUploadFile*)m_pContext;
-
-	if ( pFile == NULL || ! UploadFiles.Check( pFile ) )
+	if ( ! m_pUploadFile || ! UploadFiles.Check( m_pUploadFile ) )
 	{
 		Hide();
 		return;
 	}
 
-	if ( CUploadTransfer* pUpload = pFile->GetActive() )
+	if ( CUploadTransfer* pUpload = m_pUploadFile->GetActive() )
 	{
 		DWORD nSpeed = pUpload->GetMeasuredSpeed();
 		m_pItem->Add( nSpeed );

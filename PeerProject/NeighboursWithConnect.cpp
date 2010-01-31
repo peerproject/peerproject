@@ -112,10 +112,10 @@ CNeighbour* CNeighboursWithConnect::ConnectTo(
 	if ( bAutomatic && Network.IsFirewalledAddress( pAddress, TRUE ) ) return NULL;
 
 	// Run network connect (do), and leave if it reports an error
-	if ( !Network.Connect() ) return NULL;
+	if ( ! Network.Connect() ) return NULL;
 
 	// If the caller wants automatic behavior, then make this connection request also connect the network it is for
-	if ( !bAutomatic )
+	if ( ! bAutomatic )
 	{
 		// Activate the appropriate network (if required)
 		switch ( nProtocol )
@@ -231,10 +231,7 @@ void CNeighboursWithConnect::PeerPrune(PROTOCOLID nProtocol)
 			{
 				// Either we don't need any more hubs, or we're done with the handshake so we know it wont' be a hub, then
 				if ( ! bNeedMore || pNeighbour->m_nState == nrsConnected )
-				{
-					// Drop this connection
-					pNeighbour->Close( IDS_CONNECTION_PEERPRUNE );
-				}
+					pNeighbour->Close( IDS_CONNECTION_PEERPRUNE );	// Drop this connection
 			}
 
 		} // This must be a Gnutella or Gnutella2 computer in the middle of the handshake
@@ -270,7 +267,7 @@ BOOL CNeighboursWithConnect::IsG2Hub()
 // Takes true if we are running the program in debug mode, and this method should write out debug information
 // Determines if the computer and Internet connection here are strong enough for this program to run as a Gnutella2 hub
 // Returns false, which is 0, if we can't be a hub, or a number 1+ that is higher the better hub we'd be
-DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bDebug)
+DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug)
 {
 	// Start the rating at 0, which means we can't be a hub
 	DWORD nRating = 0; // We'll make this number bigger if we find signs we can be a hub
@@ -279,7 +276,7 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bDebug)
 	if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Is Gnutella2 hub capable?") );
 
 	// We can't be a Gnutella2 hub if the user has not chosen to connect to Gnutella2 in the program settings
-	if ( !Network.IsConnected() || !Settings.Gnutella2.EnableToday )
+	if ( ! Network.IsConnected() || ! Settings.Gnutella2.EnableToday )
 	{
 		// Finish the lines of debugging information, and report no, we can't be a hub
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: G2 not enabled") );
@@ -348,30 +345,33 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bDebug)
 		}
 
 		// Confirm how long the node has been running.
-		if ( Settings.Gnutella2.HubVerified )
+		if ( ! bIgnoreTime )
 		{
-			// Systems that have been good hubs before can promote in 2 hours
-			if ( Network.GetStableTime() < 7200 )
+			if ( Settings.Gnutella2.HubVerified )
 			{
-				if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: not stable for 2 hours") );
-				return FALSE;
+				// Systems that have been good hubs before can promote in 2 hours
+				if ( Network.GetStableTime() < 7200 )
+				{
+					if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: not stable for 2 hours") );
+					return FALSE;
+				}
+				else
+				{
+					if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: stable for 2 hours") );
+				}
 			}
 			else
 			{
-				if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: stable for 2 hours") );
-			}
-		}
-		else
-		{
-			// Untested hubs need 3 hours uptime to be considered
-			if ( Network.GetStableTime() < 10800 )
-			{
-				if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: not stable for 3 hours") );
-				return FALSE;
-			}
-			else
-			{
-				if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: stable for 3 hours") );
+				// Untested hubs need 3 hours uptime to be considered
+				if ( Network.GetStableTime() < 10800 )
+				{
+					if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: not stable for 3 hours") );
+					return FALSE;
+				}
+				else
+				{
+					if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: stable for 3 hours") );
+				}
 			}
 		}
 
@@ -460,10 +460,8 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bDebug)
 	}
 
 	// If the scheduler isn't enabled, award another point
-	if ( !Settings.Scheduler.Enable )
-	{
+	if ( ! Settings.Scheduler.Enable )
 		nRating++;
-	}
 
 	// ToDo: Find out more about the computer to award more rating points
 	// Scheduler: If the scheduler is going to shut down the program and the computer at any time, this isn't a good choice for a hub
@@ -503,7 +501,7 @@ BOOL CNeighboursWithConnect::IsG1Ultrapeer()
 // Takes true if we are running the program in debug mode, and this method should write out debug information
 // Determines if the computer and Internet connection here are strong enough for this program to run as a Gnutella ultrapeer
 // Returns false, which is 0, if we can't be an ultrapeer, or a number 1+ that is higher the better ultrapeer we'd be
-DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bDebug)
+DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug)
 {
 	// Start out the rating as 0, meaning we can't be a Gnutella ultrapeer
 	DWORD nRating = 0; // If we can be an ultrapeer, we'll set this to 1, and then make it higher if we'd be an even better ultrapeer
@@ -531,9 +529,8 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bDebug)
 		// We can never be an ultrapeer because we are a leaf (do)
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: leaf") );
 		return FALSE;
-
-	} // We are running as a Gnutella ultrapeer already (do)
-	else
+	}
+	else // We are running as a Gnutella ultrapeer already (do)
 	{
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: not a leaf") );
 	}
@@ -543,9 +540,8 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bDebug)
 	{
 		// Note this and keep going
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("YES: ultrapeer mode forced") );
-
-	} // The user didn't check the force ultrapeer box in settings, so the program will have to pass the additional tests below
-	else
+	}
+	else // The user didn't check the force ultrapeer box in settings, so the program will have to pass the additional tests below
 	{
 		// If we are a Gnutella2 hub, then we shouldn't also be a Gnutella ultrapeer
 		if ( IsG2Hub() )
@@ -555,9 +551,8 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bDebug)
 			// Report the reason we can't be an ultrapeer, and return no
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: Acting as a G2 hub") );
 			return FALSE;
-
-		} // We aren't a Gnutella2 hub right now
-		else
+		}
+		else // We aren't a Gnutella2 hub right now
 		{
 			// Make a note we passed this test, and keep going
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: not a G2 hub") );
@@ -599,15 +594,17 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bDebug)
 		}
 
 		// We can only become an ultrapeer if we've been connected for 4 hours or more, it takes awhile for ultrapeers to get leaves, so stability is important
-		if ( Network.GetStableTime() < 14400 ) // 14400 seconds is 4 hours
+		if ( ! bIgnoreTime )
 		{
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: not stable for 4 hours") );
-			return FALSE;
-
-		}
-		else // Connected to Gnutella network for more than 4 hours
-		{
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: stable for 4 hours") );
+			if ( Network.GetStableTime() < 14400 ) // 14400 seconds is 4 hours
+			{
+				if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: not stable for 4 hours") );
+				return FALSE;
+			}
+			else // Connected to Gnutella network for more than 4 hours
+			{
+				if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: stable for 4 hours") );
+			}
 		}
 
 		// Make sure the datagram is stable (do)
@@ -615,9 +612,8 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bDebug)
 		{
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: datagram not stable") );
 			return FALSE;
-
-		} // The datagram is stable (do)
-		else
+		}
+		else // The datagram is stable (do)
 		{
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: datagram stable") );
 		}
@@ -627,9 +623,8 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bDebug)
 		{
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: scheduler active") );
 			return FALSE;
-
-		} // The scheduler is off, or it's on and it's OK with us being an ultrapeer
-		else
+		}
+		else // The scheduler is off, or it's on and it's OK with us being an ultrapeer
 		{
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: scheduler OK") );
 		}
@@ -752,7 +747,7 @@ BOOL CNeighboursWithConnect::NeedMoreHubs(PROTOCOLID nProtocol)
 
 		// If we need more Gnutella ultrapeers or Gnutella2 hubs, return true, only return false if we don't need more hubs from either network
 		return ( ( Settings.Gnutella1.EnableToday ) && ( ( nConnected[1] ) < ( IsG1Leaf() ? Settings.Gnutella1.NumHubs : Settings.Gnutella1.NumPeers ) ) ||
-		         ( Settings.Gnutella2.EnableToday ) && ( ( nConnected[2] ) < ( IsG2Leaf() ? Settings.Gnutella2.NumHubs : Settings.Gnutella2.NumPeers ) ) );
+				 ( Settings.Gnutella2.EnableToday ) && ( ( nConnected[2] ) < ( IsG2Leaf() ? Settings.Gnutella2.NumHubs : Settings.Gnutella2.NumPeers ) ) );
 
 	// Return true if we need more Gnutella ultrapeer connections
 	case PROTOCOL_G1:
@@ -1023,7 +1018,6 @@ void CNeighboursWithConnect::Maintain()
 				// Count one more leaf for this connection's protocol
 				nCount[ pNeighbour->m_nProtocol ][ ntLeaf ]++;
 			}
-
 		} // We're still going through the handshake with this remote computer
 		else if ( pNeighbour->m_nState < nrsConnected )
 		{
@@ -1056,14 +1050,12 @@ void CNeighboursWithConnect::Maintain()
 	{
 		// Set the limit as no Gnutella hub or leaf connections allowed at all
 		nLimit[ PROTOCOL_G1 ][ ntHub ] = nLimit[ PROTOCOL_G1 ][ ntLeaf ] = 0;
-
-	} // We're a leaf on the Gnutella network
-	else if ( m_bG1Leaf )
+	}
+	else if ( m_bG1Leaf ) // We're a leaf on the Gnutella network
 	{
 		nLimit[ PROTOCOL_G1 ][ ntHub ] = Settings.Gnutella1.NumHubs;
-
-	} // We're an ultrapeer on the Gnutella network
-	else
+	}
+	else // We're an ultrapeer on the Gnutella network
 	{
 		// Set the limit for Gnutella ultrapeer connections as whichever number from settings is bigger, peers or hubs
 		nLimit[ PROTOCOL_G1 ][ ntHub ] = max( Settings.Gnutella1.NumPeers, Settings.Gnutella1.NumHubs ); // Defaults are 0 and 2

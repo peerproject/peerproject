@@ -1,7 +1,7 @@
 //
 // CtrlSearchPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -39,7 +39,7 @@ public:
 
 // Attributes
 public:
-	CAutocompleteEdit	m_wndSearch;
+	CAutocompleteEdit m_wndSearch;
 	CSchemaCombo	m_wndSchemas;
 	CIconButtonCtrl	m_wndStart;
 	CIconButtonCtrl	m_wndStop;
@@ -207,12 +207,12 @@ public:
 // Operations
 public:
 	void			SetSearchFocus();
-	void			ShowSearch(CManagedSearch* pSearch);
+	void			ShowSearch(const CManagedSearch* pSearch);
 	void			ShowStatus(BOOL bStarted, BOOL bSearching, DWORD nHubs, DWORD nLeaves, DWORD nFiles, DWORD nHits, DWORD nBadHits);
 	void			OnSchemaChange();
-	void			ExecuteSearch();
-	auto_ptr< CManagedSearch > GetSearch();
 	void			OnSkinChange();
+	void			ExecuteSearch();
+	CSearchPtr		GetSearch();
 	void			Disable();
 	void			Enable();
 

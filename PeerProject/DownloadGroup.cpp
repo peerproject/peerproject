@@ -1,7 +1,7 @@
 //
 // DownloadGroup.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -30,6 +30,7 @@
 #include "SchemaCache.h"
 #include "ShellIcons.h"
 #include "QuerySearch.h"
+//#include "Transfers.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -41,12 +42,12 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CDownloadGroup construction
 
-CDownloadGroup::CDownloadGroup(const LPCTSTR szName, const BOOL bTemporary) :
-	m_sName				( szName ? szName : _T("") ),
-	m_nImage			( SHI_FOLDER_OPEN ),
-	m_bRemoteSelected	( TRUE ),
-	m_bTemporary		( bTemporary ? TRI_FALSE : TRI_UNKNOWN ),
-	m_bTorrent			( FALSE )
+CDownloadGroup::CDownloadGroup(const LPCTSTR szName, const BOOL bTemporary)
+	: m_sName			( szName ? szName : _T("") )
+	, m_nImage			( SHI_FOLDER_OPEN )
+	, m_bTemporary		( bTemporary ? TRI_FALSE : TRI_UNKNOWN )
+	, m_bTorrent		( FALSE )
+	, m_bRemoteSelected	( TRUE )
 {
 }
 
@@ -108,6 +109,8 @@ void CDownloadGroup::CopyList(CList< CDownload* >& pList)
 
 BOOL CDownloadGroup::Link(CDownload* pDownload)
 {
+	//ASSUME_LOCK( Transfers.m_pSection );
+
 	if ( ! m_pFilters.IsEmpty() )
 	{
 		for ( POSITION pos = m_pFilters.GetHeadPosition() ; pos ; )
@@ -150,6 +153,8 @@ int CDownloadGroup::LinkAll()
 {
 	int nCount = 0;
 
+	//ASSUME_LOCK( Transfers.m_pSection );
+
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		nCount += Link( Downloads.GetNext( pos ) );
@@ -189,16 +194,14 @@ void CDownloadGroup::SetSchema(LPCTSTR pszURI, BOOL bRemoveOldFilters)
 		// Remove auto filters only
 		if ( bRemoveOldFilters && ! m_pFilters.IsEmpty() )
 		{
-			if ( CSchema* pOldSchema = SchemaCache.Get( m_sSchemaURI ) )
+			if ( CSchemaPtr pOldSchema = SchemaCache.Get( m_sSchemaURI ) )
 			{
 				for ( LPCTSTR start = pOldSchema->m_sTypeFilter; *start; start++ )
 				{
 					LPCTSTR c = _tcschr( start, _T('|') );
 					int len = c ? (int) ( c - start ) : (int) _tcslen( start );
 					if ( len > 0 )
-					{
 						RemoveFilter( CString( start, len ) );
-					}
 					if ( ! c )
 						break;
 					start = c;
@@ -209,7 +212,7 @@ void CDownloadGroup::SetSchema(LPCTSTR pszURI, BOOL bRemoveOldFilters)
 		m_sSchemaURI = pszURI;
 	}
 
-	if ( CSchema* pSchema = SchemaCache.Get( m_sSchemaURI ) )
+	if ( CSchemaPtr pSchema = SchemaCache.Get( m_sSchemaURI ) )
 	{
 		m_nImage = pSchema->m_nIcon16;
 		if ( pSchema->m_sHeaderTitle.IsEmpty() )
@@ -230,16 +233,14 @@ void CDownloadGroup::SetFolder(LPCTSTR pszFolder)
 
 void CDownloadGroup::SetDefaultFilters()
 {
-	if ( CSchema* pSchema = SchemaCache.Get( m_sSchemaURI ) )
+	if ( CSchemaPtr pSchema = SchemaCache.Get( m_sSchemaURI ) )
 	{
 		for ( LPCTSTR start = pSchema->m_sTypeFilter; *start; start++ )
 		{
 			LPCTSTR c = _tcschr( start, _T('|') );
 			int len = c ? (int) ( c - start ) : (int) _tcslen( start );
 			if ( len > 0 )
-			{
 				AddFilter( CString( start, len ) );
-			}
 			if ( ! c )
 				break;
 			start = c;
@@ -278,13 +279,13 @@ void CDownloadGroup::Serialize(CArchive& ar, int nVersion)
 
 		ar << m_bTorrent;
 	}
-	else
+	else	// Loading
 	{
 		ar >> m_sName;
 		ar >> m_sSchemaURI;
 		ar >> m_sFolder;
 
-		if ( nVersion >= 3 )
+		if ( nVersion > 2 )
 		{
 			for ( DWORD_PTR nCount = ar.ReadCount() ; nCount > 0 ; nCount-- )
 			{
@@ -293,7 +294,7 @@ void CDownloadGroup::Serialize(CArchive& ar, int nVersion)
 				AddFilter( strFilter );
 			}
 		}
-		else
+		else	// ToDo: Is this ever needed?
 		{
 			CString strFilters;
 			ar >> strFilters;
@@ -315,40 +316,36 @@ void CDownloadGroup::Serialize(CArchive& ar, int nVersion)
 				Add( pDownload );
 		}
 
-		if ( nVersion >= 4 )
-		{
+		//if ( nVersion >= 4 )
+		//{
 			ar >> m_bTemporary;
 			ASSERT( m_bTemporary == TRI_UNKNOWN || m_bTemporary == TRI_FALSE );
-		}
+		//}
 
-		if ( nVersion >= 7 )
-		{
+		//if ( nVersion >= 7 )
+		//{
 			ar >> m_bTorrent;
-		}
+		//}
 
 		// Fix collection schema (nVersion < 7)
-		if ( CheckURI( m_sSchemaURI, CSchema::uriCollectionsFolder ) )
-		{
-			m_sSchemaURI = CSchema::uriCollection;
-			SetDefaultFilters();
-		}
+		//if ( CheckURI( m_sSchemaURI, CSchema::uriCollectionsFolder ) )
+		//{
+		//	m_sSchemaURI = CSchema::uriCollection;
+		//	SetDefaultFilters();
+		//}
 
 		// Restore default folder for Collections
 		if ( CheckURI( m_sSchemaURI, CSchema::uriCollection ) )
 		{
 			if ( m_sFolder.IsEmpty() || ! PathIsDirectory( m_sFolder ) )
-			{
 				m_sFolder = Settings.Downloads.CollectionPath;
-			}
 		}
 
 		// Restore default folder for Torrents
 		if ( CheckURI( m_sSchemaURI, CSchema::uriBitTorrent ) )
 		{
 			if ( m_sFolder.IsEmpty() || ! PathIsDirectory( m_sFolder ) )
-			{
 				m_sFolder = Settings.Downloads.TorrentPath;
-			}
 		}
 
 		SetSchema( m_sSchemaURI );
@@ -367,9 +364,7 @@ BOOL CDownloadGroup::IsTemporary()
 				bAllCompleted = FALSE;
 		}
 		if ( bAllCompleted )
-		{
 			m_bTemporary = TRI_TRUE;
-		}
 	}
 	return ( m_bTemporary == TRI_TRUE );
 }

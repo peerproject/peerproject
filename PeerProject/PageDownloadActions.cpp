@@ -1,7 +1,7 @@
 //
 // PageDownloadActions.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -134,25 +134,15 @@ void CDownloadActionsPage::OnLButtonUp(UINT nFlags, CPoint point)
 	ScreenToClient( &rcCtrl5 );
 
 	if ( rcCtrl1.PtInRect( point ) )
-	{
 		OnForgetVerify();
-	}
 	else if ( rcCtrl2.PtInRect( point ) )
-	{
 		OnForgetSources();
-	}
 	else if ( rcCtrl3.PtInRect( point ) )
-	{
 		OnCompleteVerify();
-	}
 	else if ( rcCtrl4.PtInRect( point ) )
-	{
 		OnMergeAndVerify();
-	}
 	else if ( rcCtrl5.PtInRect( point ) )
-	{
 		OnCancelDownload();
-	}
 }
 
 void CDownloadActionsPage::OnErase()
@@ -173,7 +163,7 @@ void CDownloadActionsPage::OnErase()
 
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
-	if ( ! Downloads.Check( pDownload ) || pDownload->IsMoving() ) return;
+	if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() ) return;
 
 	pDownload->CloseTransfers();
 	QWORD nErased = pDownload->EraseRange( nFrom, nTo + 1 - nFrom );
@@ -203,7 +193,7 @@ void CDownloadActionsPage::OnForgetVerify()
 
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
-	if ( ! Downloads.Check( pDownload ) || pDownload->IsMoving() ) return;
+	if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() ) return;
 
 	pDownload->ClearVerification();
 }
@@ -216,7 +206,7 @@ void CDownloadActionsPage::OnForgetSources()
 
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
-	if ( ! Downloads.Check( pDownload ) || pDownload->IsMoving() ) return;
+	if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() ) return;
 
 	pDownload->CloseTransfers();
 	pDownload->ClearSources();
@@ -227,7 +217,7 @@ void CDownloadActionsPage::OnCompleteVerify()
 {
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
-	if ( ! Downloads.Check( pDownload ) || pDownload->IsMoving() ) return;
+	if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() ) return;
 
 	if ( pDownload->NeedTigerTree() && pDownload->NeedHashset() &&
 		! pDownload->IsTorrent() )
@@ -247,7 +237,7 @@ void CDownloadActionsPage::OnCompleteVerify()
 	}
 
 	pLock.Lock();
-	if ( ! Downloads.Check( pDownload ) || pDownload->IsMoving() ) return;
+	if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() ) return;
 
 	pDownload->MakeComplete();
 	pDownload->ResetVerification();
@@ -262,7 +252,7 @@ void CDownloadActionsPage::OnMergeAndVerify()
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
 	if ( ! Downloads.Check( pDownload ) ||
 		pDownload->IsCompleted() ||
-		pDownload->IsMoving() ||
+		pDownload->IsTasking() ||
 		! pDownload->PrepareFile() )
 	{
 		// Download almost completed
@@ -328,7 +318,7 @@ void CDownloadActionsPage::OnCancelDownload()
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->m_pDownload;
 	if ( ! Downloads.Check( pDownload ) ||
-		pDownload->IsMoving() || pDownload->IsCompleted() ) return;
+		pDownload->IsTasking() || pDownload->IsCompleted() ) return;
 
 	pDownload->ForceComplete();
 }

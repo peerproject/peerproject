@@ -1,7 +1,7 @@
 //
 // DlgFolderScan.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -43,14 +43,15 @@ CFolderScanDlg* CFolderScanDlg::m_pDialog = NULL;
 /////////////////////////////////////////////////////////////////////////////
 // CFolderScanDlg dialog
 
-CFolderScanDlg::CFolderScanDlg(CWnd* pParent) : CSkinDialog(CFolderScanDlg::IDD, pParent)
+CFolderScanDlg::CFolderScanDlg(CWnd* pParent)
+	: CSkinDialog(CFolderScanDlg::IDD, pParent)
+	, m_nCookie		( 0 )
+	, m_nFiles		( 0 )
+	, m_nVolume		( 0 )
 {
 	//{{AFX_DATA_INIT(CFolderScanDlg)
 	//}}AFX_DATA_INIT
 
-	m_nCookie		= 0;
-	m_nFiles		= 0;
-	m_nVolume		= 0;
 	m_tLastUpdate	= 0;
 	m_bActive		= FALSE;
 
@@ -58,7 +59,7 @@ CFolderScanDlg::CFolderScanDlg(CWnd* pParent) : CSkinDialog(CFolderScanDlg::IDD,
 	if ( oLock.Lock( 500 ) )
 	{
 		m_pDialog	= this;
-		m_nCookie	= Library.m_nScanCount;
+		m_nCookie	= Library.GetScanCount();
 	}
 }
 
@@ -102,7 +103,7 @@ void CFolderScanDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 {
 	CSingleLock pLock( &Library.m_pSection );
 
-	if ( pLock.Lock( 50 ) && m_nCookie != Library.m_nScanCount )
+	if ( pLock.Lock( 50 ) && m_nCookie != Library.GetScanCount() )
 	{
 		pLock.Unlock();
 		CSkinDialog::OnCancel();
@@ -127,9 +128,7 @@ void CFolderScanDlg::Update(LPCTSTR pszName, DWORD nVolume)
 {
 	CSingleLock oLock( &Library.m_pSection );
 	if ( m_pDialog != NULL && oLock.Lock( 10 ) )
-	{
 		m_pDialog->InstanceUpdate( pszName, nVolume );
-	}
 }
 
 void CFolderScanDlg::InstanceUpdate(LPCTSTR pszName, DWORD nVolume)
@@ -155,4 +154,3 @@ void CFolderScanDlg::InstanceUpdate(LPCTSTR pszName, DWORD nVolume)
 		RedrawWindow();
 	}
 }
-

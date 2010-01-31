@@ -3500,8 +3500,8 @@ BEGIN
 	IDS_PROTOCOL_LEAF_FORWARD	"Leaf neighbor %s is forwarding queries, dropping connection."
 	IDS_PROTOCOL_UNKNOWN		"Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."
 	IDS_PROTOCOL_ZERO_PONG		"Neighbor %s forwarded a pong with invalid address data, ignoring."
-	IDS_PROTOCOL_BAD_QUERY		"Received a malformatted query packet from %s, ignoring."
-	IDS_PROTOCOL_BAD_HIT		"Received a malformatted query hit packet from %s, ignoring."
+	IDS_PROTOCOL_BAD_QUERY		"Ignored a malformatted %s search query packet from %s."
+	IDS_PROTOCOL_BAD_HIT		"Ignored a malformatted query hit packet from %s."
 	IDS_PROTOCOL_SIZE_PUSH		"Neighbor %s forwarded a push packet with invalid length, ignoring."
 END
 
@@ -4404,7 +4404,7 @@ BEGIN
     ID_LIBRARY_PANEL			"Show or hide the library detail panel."
     ID_LIBRARY_FOLDER_PROPERTIES "View and edit the properties of the selected album folder..."
     ID_LIBRARY_FOLDER_NEW		"Create a new album folder here..."
-    ID_LIBRARY_UNLINK			"Remove the select files from the current album folder."
+    ID_LIBRARY_UNLINK			"Remove selected files from current Library folder."
     ID_LIBRARY_FOLDER_METADATA	"Apply common metadata from the album folder to all of its files."
     ID_VIEW_MEDIA				"Show or hide the MEDIA PLAYER window."
     ID_TAB_MEDIA				"Play audio and video media files from your library."
@@ -4444,15 +4444,16 @@ BEGIN
     ID_MEDIA_EXPORT_COLLECTION	"Save the playlist as a collection file..."
     ID_MEDIA_PLAYLIST			"Show or hide the playlist editor."
     ID_LIBRARY_VIEW_TILE		"Show a list of album folders.\nTile View"
-    ID_LIBRARY_ALBUM_OPEN		"Open the selected album folder."
-    ID_LIBRARY_FOLDER_ENQUEUE	"Add every file in selected album folders to your playlist."
+    ID_LIBRARY_LAUNCH_FOLDER	"Open the Windows folder."
+	ID_LIBRARY_FOLDER_ENQUEUE	"Add every file in selected album folders to your playlist."
     ID_LIBRARY_ALBUM_DELETE		"Delete the selected album folder."
     ID_LIBRARY_ALBUM_PROPERTIES	"View and edit the properties of the selected album folder..."
-    ID_TAB_SEARCH				"Search the network for files to download"
+    ID_LIBRARY_ALBUM_OPEN		"Open the selected album folder."
     ID_LIBRARY_FOLDERS			"Manage the physical folders in your library..."
     ID_TOOLS_PROFILE			"Edit your user profile..."
     ID_BROWSE_PROFILE			"Browse the user's profile."
     ID_BROWSE_FILES				"View the user's shared files"
+    ID_TAB_SEARCH				"Search the network for files to download"
 END
 
 STRINGTABLE

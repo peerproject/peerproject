@@ -37,7 +37,6 @@ public:
 	TRISTATE		m_bVerify;			// Verify status (TRI_TRUE - verified, TRI_FALSE - failed, TRI_UNKNOWN - not yet)
 	DWORD			m_tReceived;
 private:
-	bool			m_bMoving;			// Is complete file moving?
 	DWORD			m_nFileError;		// Last file/disk error
 	auto_ptr< CFragmentedFile >	m_pFile;// File(s)
 
@@ -89,7 +88,6 @@ protected:
 	BOOL			WriteFile(QWORD nOffset, LPCVOID pData, QWORD nLength, QWORD* pnWritten = NULL);
 	void			SerializeFile(CArchive& ar, int nVersion);
 	BOOL			OnVerify(LPCTSTR pszPath, BOOL bVerified);
-	void			SetMoving(bool bMoving);
 
 //private:
 //	Fragments::List	GetPossibleFragments(const Fragments::List& oAvailable, Fragments::Fragment& oLargest);
@@ -99,8 +97,6 @@ protected:
 	//BOOL			AppendMetadataID3v1(HANDLE hFile, CXMLElement* pXML);
 
 // Overrides
-public:
-	virtual bool	IsMoving() const;
 protected:
 	virtual CString	GetAvailableRanges() const;
 	virtual void	Serialize(CArchive& ar, int nVersion);

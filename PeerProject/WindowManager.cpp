@@ -1,7 +1,7 @@
 //
 // WindowManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -469,7 +469,8 @@ BOOL CWindowManager::LoadSearchWindows()
 		bSuccess = FALSE;
 	}
 
-	if ( Settings.General.GUIMode != GUI_WINDOWED ) Open( RUNTIME_CLASS(CHomeWnd) );
+	if ( Settings.General.GUIMode != GUI_WINDOWED )
+		Open( RUNTIME_CLASS(CHomeWnd) );
 
 	return bSuccess;
 }
@@ -581,7 +582,7 @@ void CWindowManager::OpenNewSearchWindow()
 	{
 		CSearchWnd* pChild = (CSearchWnd*)GetNext( pos );
 
-		if ( pChild->IsKindOf( RUNTIME_CLASS(CSearchWnd) ) && pChild->GetLastSearch() == NULL )
+		if ( pChild->IsKindOf( RUNTIME_CLASS(CSearchWnd) ) && ! pChild->GetLastSearch() )
 		{
 			pChild->BringWindowToTop();
 			if ( pChild->IsIconic() )
@@ -609,7 +610,7 @@ void CWindowManager::PostSkinRemove()
 {
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		GetNext( pos )->m_pSkin = NULL;
+		GetNext( pos )->m_pSkin = NULL;	// ->RemoveSkin();
 	}
 }
 

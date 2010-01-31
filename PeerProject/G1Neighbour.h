@@ -1,7 +1,7 @@
 //
 // G1Neighbour.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -76,7 +76,7 @@ public:
 	void OnNewPong(CPongItem* pPong);
 
 	// Query packet
-	virtual BOOL SendQuery(CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal);
+	virtual BOOL SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal);
 
 	// Push packet
 	void SendG2Push(const Hashes::Guid& oGUID, CPacket* pPacket);

@@ -1,7 +1,7 @@
 //
 // WndBaseMatch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -123,17 +123,18 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CBaseMatchWnd construction
 
-CBaseMatchWnd::CBaseMatchWnd() :
-	m_pMatches( NULL ),
-	m_pCoolMenu( NULL ),
-	m_bContextMenu( FALSE ),
-	m_tContextMenu( 0 ),
-	m_bPaused( TRUE ),
-	m_bUpdate( FALSE ),
-	m_bBMWActive( TRUE ),
-	m_nCacheFiles( 0 ),
-	m_tModify( static_cast< DWORD >( time( NULL ) ) )
+CBaseMatchWnd::CBaseMatchWnd()
+	: m_pMatches( NULL )
+	, m_pCoolMenu( NULL )
+	, m_bContextMenu( FALSE )
+	, m_tContextMenu( 0 )
+	, m_bPaused( TRUE )
+	, m_bUpdate( FALSE )
+	, m_bBMWActive( TRUE )
+	, m_nCacheFiles( 0 )
+	, m_tModify( static_cast< DWORD >( time( NULL ) ) )
 {
+	//m_pMatches = new CMatchList( this );
 }
 
 CBaseMatchWnd::~CBaseMatchWnd()
@@ -339,9 +340,7 @@ void CBaseMatchWnd::OnSearchDownload()
 			CDownload *pDownload = Downloads.Add( pHit );
 			// Send any reviews to the download, so they can be viewed later
 			if ( pDownload && pHit->IsRated() )
-			{
 				pDownload->AddReview( &pHit->m_pAddress, 2, pHit->m_nRating, pHit->m_sNick, pHit->m_sComments );
-			}
 		}
 	}
 
@@ -350,9 +349,7 @@ void CBaseMatchWnd::OnSearchDownload()
 	m_wndList.Invalidate();
 
 	if ( Settings.Search.SwitchToTransfers && ! m_bContextMenu && GetTickCount() - m_tContextMenu > 5000 )
-	{
 		GetManager()->Open( RUNTIME_CLASS(CDownloadsWnd) );
-	}
 }
 
 void CBaseMatchWnd::OnUpdateSearchDownloadNow(CCmdUI* pCmdUI)
@@ -417,13 +414,15 @@ void CBaseMatchWnd::OnSearchDownloadNow()
 	for ( pos = pFiles.GetHeadPosition() ; pos ; )
 	{
 		CMatchFile* pFile = pFiles.GetNext( pos );
-		if ( m_pMatches->m_pSelectedFiles.Find( pFile ) != NULL ) Downloads.Add( pFile, TRUE );
+		if ( m_pMatches->m_pSelectedFiles.Find( pFile ) != NULL )
+			Downloads.Add( pFile, TRUE );
 	}
 
 	for ( pos = pHits.GetHeadPosition() ; pos ; )
 	{
 		CQueryHit* pHit = pHits.GetNext( pos );
-		if ( m_pMatches->m_pSelectedHits.Find( pHit ) != NULL ) Downloads.Add( pHit, TRUE );
+		if ( m_pMatches->m_pSelectedHits.Find( pHit ) != NULL )
+			Downloads.Add( pHit, TRUE );
 	}
 
 	for ( pos = pHits.GetHeadPosition() ; pos ; )
@@ -434,9 +433,7 @@ void CBaseMatchWnd::OnSearchDownloadNow()
 			CDownload *pDownload = Downloads.Add( pHit );
 			// Send any reviews to the download, so they can be viewed later
 			if ( pDownload && pHit->IsRated() )
-			{
 				pDownload->AddReview( &pHit->m_pAddress, 2, pHit->m_nRating, pHit->m_sNick, pHit->m_sComments );
-			}
 		}
 	}
 
@@ -445,9 +442,7 @@ void CBaseMatchWnd::OnSearchDownloadNow()
 	m_wndList.Invalidate();
 
 	if ( Settings.Search.SwitchToTransfers && ! m_bContextMenu && GetTickCount() - m_tContextMenu > 5000 )
-	{
 		GetManager()->Open( RUNTIME_CLASS(CDownloadsWnd) );
-	}
 }
 
 void CBaseMatchWnd::OnUpdateSearchURI(CCmdUI* pCmdUI)
@@ -471,13 +466,9 @@ void CBaseMatchWnd::OnSearchURI()
 		CURLCopyDlg dlg;
 
 		if ( CMatchFile* pFile = m_pMatches->GetSelectedFile() )
-		{
 			dlg.Add( pFile );
-		}
 		else if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
-		{
 			dlg.Add( pHit );
-		}
 
 		pLock.Unlock();
 
@@ -535,17 +526,13 @@ void CBaseMatchWnd::OnHitMonitorSearch()
 	CString strFile;
 
 	if ( CMatchFile* pFile = m_pMatches->GetSelectedFile() )
-	{
 		strFile = pFile->m_sName;
-	}
 	else if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
-	{
 		strFile = pHit->m_sName;
-	}
 
 	if ( strFile.IsEmpty() ) return;
 
-	auto_ptr< CQuerySearch > pSearch( new CQuerySearch() );
+	CQuerySearchPtr pSearch = new CQuerySearch();
 	pSearch->m_sSearch = strFile;
 
 	CNewSearchDlg dlg( NULL, pSearch );
@@ -610,17 +597,11 @@ void CBaseMatchWnd::OnBrowseLaunch()
 void CBaseMatchWnd::OnUpdateLibraryBitziWeb(CCmdUI* pCmdUI)
 {
 	if ( m_pMatches->GetSelectedCount() != 1 || Settings.WebServices.BitziWebView.IsEmpty() )
-	{
 		pCmdUI->Enable( FALSE );
-	}
 	else if ( CMatchFile* pFile = m_pMatches->GetSelectedFile() )
-	{
 		pCmdUI->Enable( TRUE );
-	}
 	else if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
-	{
 		pCmdUI->Enable( TRUE );
-	}
 }
 
 void CBaseMatchWnd::OnLibraryBitziWeb()
@@ -688,48 +669,40 @@ void CBaseMatchWnd::OnLibraryBitziWeb()
 	ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
 }
 
-/*
 // Defunct Jigle.com P2P Search Code. ToDo: Re-apply
-void CBaseMatchWnd::OnUpdateLibraryJigle(CCmdUI* pCmdUI)
-{
-	if ( m_pMatches->GetSelectedCount() != 1 )
-	{
-		pCmdUI->Enable( FALSE );
-	}
-	else if ( CMatchFile* pFile = m_pMatches->GetSelectedFile() )
-	{
-		pCmdUI->Enable( pFile->m_bED2K );
-	}
-	else if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
-	{
-		pCmdUI->Enable( pHit->m_bED2K );
-	}
-}
+//void CBaseMatchWnd::OnUpdateLibraryJigle(CCmdUI* pCmdUI)
+//{
+//	if ( m_pMatches->GetSelectedCount() != 1 )
+//		pCmdUI->Enable( FALSE );
+//	else if ( CMatchFile* pFile = m_pMatches->GetSelectedFile() )
+//		pCmdUI->Enable( pFile->m_bED2K );
+//	else if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
+//		pCmdUI->Enable( pHit->m_bED2K );
+//}
 
-void CBaseMatchWnd::OnLibraryJigle()
-{
-	if ( m_pMatches->GetSelectedCount() != 1 ) return;
-
-	CString strED2K;
-
-	if ( CMatchFile* pFile = m_pMatches->GetSelectedFile() )
-	{
-		if ( pFile->m_bED2K )
-			strED2K = CED2K::HashToString( &pFile->m_pED2K );
-	}
-	else if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
-	{
-		if ( pHit->m_bED2K )
-			strED2K = CED2K::HashToString( &pHit->m_pED2K );
-	}
-
-	if ( strED2K.IsEmpty() ) return;
-
-	CString strURL;
-	strURL.Format( _T("http://jigle.com/search?p=ed2k%%3A%s&v=1"), (LPCTSTR)strED2K );
-	ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
-}
-*/
+//void CBaseMatchWnd::OnLibraryJigle()
+//{
+//	if ( m_pMatches->GetSelectedCount() != 1 ) return;
+//
+//	CString strED2K;
+//
+//	if ( CMatchFile* pFile = m_pMatches->GetSelectedFile() )
+//	{
+//		if ( pFile->m_bED2K )
+//			strED2K = CED2K::HashToString( &pFile->m_pED2K );
+//	}
+//	else if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
+//	{
+//		if ( pHit->m_bED2K )
+//			strED2K = CED2K::HashToString( &pHit->m_pED2K );
+//	}
+//
+//	if ( strED2K.IsEmpty() ) return;
+//
+//	CString strURL;
+//	strURL.Format( _T("http://jigle.com/search?p=ed2k%%3A%s&v=1"), (LPCTSTR)strED2K );
+//	ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+//}
 
 void CBaseMatchWnd::OnUpdateSearchForThis(CCmdUI* pCmdUI)
 {
@@ -931,9 +904,7 @@ void CBaseMatchWnd::OnSearchColumns()
 	dlg.m_pColumns.AddTail( &m_wndList.m_pColumns );
 
 	if ( dlg.DoModal() == IDOK )
-	{
 		m_wndList.SelectSchema( dlg.m_pSchema, &dlg.m_pColumns );
-	}
 }
 
 BOOL CBaseMatchWnd::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
@@ -982,9 +953,7 @@ void CBaseMatchWnd::OnTimer(UINT_PTR nIDEvent)
 			m_wndFilter.GetWindowText( strFilter );
 
 			if ( strFilter != m_pMatches->m_sFilter )
-			{
 				m_wndFilter.SetWindowText( m_pMatches->m_sFilter );
-			}
 		}
 
 		BOOL bActive = ( GetMDIFrame()->MDIGetActive() == this );
@@ -1010,7 +979,8 @@ void CBaseMatchWnd::OnTimer(UINT_PTR nIDEvent)
 			}
 		}
 
-		if ( m_pMatches->m_nFilteredFiles == 0 ) UpdateMessages( FALSE );
+		if ( m_pMatches->m_nFilteredFiles == 0 )
+			UpdateMessages( FALSE );
 	}
 	else if ( ( nIDEvent == 2 && m_bUpdate ) || nIDEvent == 7 )
 	{
@@ -1091,15 +1061,11 @@ void CBaseMatchWnd::Serialize(CArchive& ar)
 	if ( ar.IsStoring() )
 	{
 		if ( m_pMatches->m_pSchema )
-		{
 			ar << m_pMatches->m_pSchema->GetURI();
-		}
 		else
-		{
 			ar << strSchema;
-		}
 	}
-	else
+	else // Loading
 	{
 		m_bBMWActive = TRUE;
 		m_bPaused = TRUE;
@@ -1107,7 +1073,7 @@ void CBaseMatchWnd::Serialize(CArchive& ar)
 		m_nCacheFiles = 0;
 
 		ar >> strSchema;
-		if ( CSchema* pSchema = SchemaCache.Get( strSchema ) )
+		if ( CSchemaPtr pSchema = SchemaCache.Get( strSchema ) )
 		{
 			CList< CSchemaMember* > pColumns;
 			CSchemaColumnsDlg::LoadColumns( pSchema, &pColumns );

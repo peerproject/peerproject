@@ -1,7 +1,7 @@
 //
 // CtrlTipFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,6 +47,7 @@ END_MESSAGE_MAP()
 // CFolderTipCtrl construction
 
 CFolderTipCtrl::CFolderTipCtrl()
+	: m_pLibraryFolder( NULL )
 {
 }
 
@@ -62,22 +63,23 @@ BOOL CFolderTipCtrl::OnPrepare()
 	CSingleLock pLock( &Library.m_pSection );
 	if ( ! pLock.Lock( 250 ) ) return FALSE;
 
-	CLibraryFolder* pFolder = (CLibraryFolder*)m_pContext;
-	if ( ! LibraryFolders.CheckFolder( pFolder, TRUE ) ) return FALSE;
+	if ( ! m_pLibraryFolder || ! LibraryFolders.CheckFolder( m_pLibraryFolder, TRUE ) ) return FALSE;
 
-	m_sName		= pFolder->m_sName;
-	m_sPath		= pFolder->m_sPath;
+	m_sName		= m_pLibraryFolder->m_sName;
+	m_sPath		= m_pLibraryFolder->m_sPath;
 
-	m_sFiles.Format( _T("%lu"), pFolder->m_nFiles );
-	m_sVolume = Settings.SmartVolume( pFolder->m_nVolume );
+	m_sFiles.Format( _T("%lu"), m_pLibraryFolder->m_nFiles );
+	m_sVolume = Settings.SmartVolume( m_pLibraryFolder->m_nVolume );
 
 	QWORD nTotal;
-	CString strText;
 	LibraryMaps.GetStatistics( NULL, &nTotal );
 
-	LoadString( strText, IDS_TIP_LIBRARY_PERCENT );
-	m_sPercentage.Format( _T("%.2f%% %s"),
-		100.0 * ( pFolder->m_nVolume >> 10 ) / nTotal, strText );
+	if ( nTotal )
+		m_sPercentage.Format( _T("%.2f%% %s"),
+			100.0 * ( m_pLibraryFolder->m_nVolume >> 10 ) / nTotal,
+			LoadString( IDS_TIP_LIBRARY_PERCENT ) );
+	else
+		m_sPercentage.Empty();
 
 	CalcSizeHelper();
 

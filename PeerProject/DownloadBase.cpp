@@ -1,7 +1,7 @@
 //
 // DownloadBase.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,18 +32,20 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
+IMPLEMENT_DYNAMIC(CDownloadBase, CPeerProjectFile)
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadBase construction
 
-CDownloadBase::CDownloadBase() :
-	m_bSHA1Trusted		( false )
-,	m_bTigerTrusted		( false )
-,	m_bED2KTrusted		( false )
-,	m_bBTHTrusted		( false )
-,	m_bMD5Trusted		( false )
-,	m_nCookie			( 1 )
-,	m_pTask				( NULL )
+CDownloadBase::CDownloadBase()
+	: m_bSHA1Trusted	( false )
+	, m_bTigerTrusted	( false )
+	, m_bED2KTrusted	( false )
+	, m_bBTHTrusted		( false )
+	, m_bMD5Trusted		( false )
+	, m_nCookie			( 1 )
+	, m_nSaveCookie		( 0 )
+	, m_pTask			( NULL )
 {
 }
 
@@ -56,7 +58,12 @@ CDownloadBase::~CDownloadBase()
 
 bool CDownloadBase::IsTasking() const
 {
-	return m_pTask != NULL;
+	return ( m_pTask != NULL );
+}
+
+bool CDownloadBase::IsMoving() const
+{
+	return ( GetTaskType() == dtaskCopy );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -70,9 +77,9 @@ void CDownloadBase::SetTask(CDownloadTask* pTask)
 //////////////////////////////////////////////////////////////////////
 // CDownloadBase return currently running task
 
-DWORD CDownloadBase::GetTaskType() const
+dtask CDownloadBase::GetTaskType() const
 {
-	return m_pTask->GetTaskType();
+	return m_pTask ? m_pTask->GetTaskType() : dtaskNone;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -80,7 +87,7 @@ DWORD CDownloadBase::GetTaskType() const
 
 bool CDownloadBase::CheckTask(CDownloadTask* pTask) const
 {
-	return m_pTask == pTask;
+	return ( m_pTask == pTask );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -88,7 +95,7 @@ bool CDownloadBase::CheckTask(CDownloadTask* pTask) const
 
 void CDownloadBase::AbortTask()
 {
-	if ( !IsTasking() )
+	if ( ! IsTasking() )
 		return;
 
 	m_pTask->Abort();
@@ -99,9 +106,31 @@ void CDownloadBase::AbortTask()
 //////////////////////////////////////////////////////////////////////
 // CDownloadBase modified
 
+bool CDownloadBase::IsModified() const
+{
+	return ( m_nCookie != m_nSaveCookie );
+}
+
 void CDownloadBase::SetModified()
 {
 	++m_nCookie;
+}
+
+//////////////////////////////////////////////////////////////////////
+// CDownload control : safe rename
+
+bool CDownloadBase::Rename(const CString& strName)
+{
+	CString sNewName = SafeFilename( strName );
+
+	//Don't bother renaming to same name.
+	if ( m_sName == sNewName ) return false;
+
+	m_sName = sNewName;	// Set new name
+
+	SetModified();
+
+	return true;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -112,7 +141,8 @@ void CDownloadBase::Serialize(CArchive& ar, int nVersion)
 	if ( ar.IsStoring() )
 	{
 		ar << m_sName;
-		ar << m_sSearchKeyword;
+		CString sSearchKeyword;
+		ar << sSearchKeyword;
 		ar << m_nSize;
 		SerializeOut( ar, m_oSHA1 );
 		ar << (uint32)m_bSHA1Trusted;
@@ -125,19 +155,20 @@ void CDownloadBase::Serialize(CArchive& ar, int nVersion)
 		SerializeOut( ar, m_oBTH );
 		ar << (uint32)m_bBTHTrusted;
 	}
-	else
+	else // Loading
 	{
 		ar >> m_sName;
 
-		if ( nVersion >= 29 )
+		if ( nVersion > 28 )
 		{
-			if ( nVersion >= 33 )
-			{
-				ar >> m_sSearchKeyword;
-			}
+			//if ( nVersion >= 33 )
+			//{
+				CString sSearchKeyword;
+				ar >> sSearchKeyword;
+			//}
 			ar >> m_nSize;
 		}
-		else
+		else	// Is this ever needed?
 		{
 			DWORD nSize;
 			ar >> nSize;
@@ -150,20 +181,16 @@ void CDownloadBase::Serialize(CArchive& ar, int nVersion)
 		SerializeIn( ar, m_oTiger, nVersion );
 		ar >> b;
 		m_bTigerTrusted = b != 0;
-		if ( nVersion >= 22 )
+		if ( nVersion > 36 )	// Is this check ever needed?
 		{
 			SerializeIn( ar, m_oMD5, nVersion );
 			ar >> b;
 			m_bMD5Trusted = b != 0;
-		}
-		if ( nVersion >= 13 )
-		{
+
 			SerializeIn( ar, m_oED2K, nVersion );
 			ar >> b;
 			m_bED2KTrusted = b != 0;
-		}
-		if ( nVersion >= 37 )
-		{
+
 			SerializeIn( ar, m_oBTH, nVersion );
 			ar >> b;
 			m_bBTHTrusted = b != 0;

@@ -282,16 +282,16 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CMainWnd construction
 
-CMainWnd::CMainWnd() :
-	m_hInstance ( AfxGetResourceHandle() ),
-	m_bTrayHide ( FALSE ),
-	m_bTrayIcon ( FALSE ),
-	m_bTimer ( FALSE ),
-	m_pSkin ( NULL ),
-	m_pURLDialog ( NULL ),
-	m_tURLTime ( 0 ),
-	m_nAlpha ( 255 ),
-	m_bNoNetWarningShowed ( FALSE )
+CMainWnd::CMainWnd()
+	: m_hInstance ( AfxGetResourceHandle() )
+	, m_bTrayHide ( FALSE )
+	, m_bTrayIcon ( FALSE )
+	, m_bTimer ( FALSE )
+	, m_pSkin ( NULL )
+	, m_pURLDialog ( NULL )
+	, m_tURLTime ( 0 )
+	, m_nAlpha ( 255 )
+	, m_bNoNetWarningShowed ( FALSE )
 {
 	ZeroMemory( &m_pTray, sizeof( NOTIFYICONDATA ) );
 	m_pTray.cbSize = sizeof( NOTIFYICONDATA );
@@ -1249,7 +1249,9 @@ LRESULT CMainWnd::OnOpenChat(WPARAM wParam, LPARAM /*lParam*/)
 // Used from Remote pages when the search is performed. Receives WM_OPENSEARCH message
 LRESULT CMainWnd::OnOpenSearch(WPARAM wParam, LPARAM /*lParam*/)
 {
-	CQuerySearch::OpenWindow( auto_ptr< CQuerySearch >( (CQuerySearch*)wParam ) );
+	CQuerySearchPtr pSearch;
+	pSearch.Attach( (CQuerySearch*)wParam );
+	CQuerySearch::OpenWindow( pSearch );
 	m_wndTabBar.OnSkinChange();
 	return 0;
 }
@@ -2871,3 +2873,38 @@ BOOL CMainWnd::OnDrop(IDataObject* pDataObj, DWORD /* grfKeyState */, POINT /* p
 
 	return FALSE;
 }
+
+//void CMainWnd::ShowTrayPopup(LPCTSTR szText, LPCTSTR szTitle, DWORD dwIcon, UINT uTimeout)
+//{
+//	if ( ! m_bTrayIcon ) return;
+//
+//	m_pTray.uFlags = NIF_INFO;
+//
+//	_tcsncpy( m_pTray.szInfo, szText, _countof( m_pTray.szInfo ) );
+//	if ( lstrlen( szText ) > _countof( m_pTray.szInfo ) - 1 )
+//	{
+//		m_pTray.szInfo[ _countof( m_pTray.szInfo ) - 1 ] = _T('\0');
+//		if ( szText[ _countof( m_pTray.szInfo ) - 1 ] != _T(' ') )
+//		{
+//			if ( LPTSTR pWordEnd = _tcsrchr( m_pTray.szInfo, _T(' ') ) )
+//			{
+//				pWordEnd[ 0 ] = _T('\x2026');
+//				pWordEnd[ 1 ] = _T('\0');
+//			}
+//		}
+//	}
+//
+//	if ( szTitle )
+//		_tcsncpy( m_pTray.szInfoTitle, szTitle, _countof( m_pTray.szInfoTitle ) );
+//	else
+//		m_pTray.szInfoTitle[ 0 ] = _T('\0');
+//
+//	m_pTray.dwInfoFlags = dwIcon;
+//
+//	m_pTray.uTimeout = uTimeout * 1000;   // convert time to ms
+//
+//	m_bTrayIcon = Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
+//
+//	m_pTray.szInfo[ 0 ] = _T('\0');
+//	m_pTray.szInfoTitle[ 0 ] = _T('\0');
+//}

@@ -1094,12 +1094,12 @@ void CPeerProjectURL::SafeString(CString& strInput)
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectURL query constructor
 
-auto_ptr< CQuerySearch > CPeerProjectURL::ToQuery()
+CQuerySearchPtr CPeerProjectURL::ToQuery() const
 {
 	if ( m_nAction != uriDownload && m_nAction != uriSearch )
-		return auto_ptr< CQuerySearch >();
+		return CQuerySearchPtr();
 
-	auto_ptr< CQuerySearch > pSearch( new CQuerySearch() );
+	CQuerySearchPtr pSearch = new CQuerySearch();
 
 	if ( m_sName.GetLength() )
 		pSearch->m_sSearch = m_sName;

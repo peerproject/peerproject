@@ -1,7 +1,7 @@
 //
 // CtrlLibraryAlbumView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -130,26 +130,19 @@ void CLibraryAlbumView::Update()
 	m_pStyle = NULL;
 	BOOL bGhostFolder	= FALSE;
 
-	if ( pFolders != NULL && pFolders->m_pVirtual != NULL &&
-		 pFolders->m_pSelNext == NULL )
+	if ( pFolders != NULL && pFolders->m_pVirtual != NULL && pFolders->m_pSelNext == NULL )
 	{
 		CAlbumFolder* pFolder = pFolders->m_pVirtual;
 
 		if ( CheckURI( pFolder->m_sSchemaURI, CSchema::uriMusicAlbum ) )
-		{
 			m_pStyle = CSchema::uriMusicAlbum;
-		}
 		else if ( CheckURI( pFolder->m_sSchemaURI, CSchema::uriMusicArtist ) )
-		{
 			m_pStyle = CSchema::uriMusicArtist;
-		}
 		else if ( CheckURI( pFolder->m_sSchemaURI, CSchema::uriGhostFolder ) )
-		{
 			bGhostFolder = TRUE;
-		}
 	}
 
-	CSchema* pSchema	= SchemaCache.Get( Settings.Library.FilterURI );
+	CSchemaPtr pSchema	= SchemaCache.Get( Settings.Library.FilterURI );
 	DWORD nCookie		= GetFolderCookie();
 	BOOL bChanged		= m_pStyle != m_pStaticStyle;
 
@@ -249,13 +242,9 @@ BOOL CLibraryAlbumView::Select(DWORD nObject)
 	GetItemRect( m_pFocus, &rcItem );
 
 	if ( rcItem.top < rcClient.top )
-	{
 		ScrollBy( rcItem.top - rcClient.top );
-	}
 	else if ( rcItem.bottom > rcClient.bottom )
-	{
 		ScrollBy( rcItem.bottom - rcClient.bottom );
-	}
 
 	return TRUE;
 }
@@ -274,43 +263,29 @@ int CLibraryAlbumView::SortList(LPCVOID pA, LPCVOID pB)
 	if ( m_pStaticStyle == CSchema::uriMusicAlbum )
 	{
 		if ( ppA->m_nTrack != ppB->m_nTrack )
-		{
 			return ( ppA->m_nTrack < ppB->m_nTrack ) ? -1 : 1;
-		}
 		else
-		{
 			return _tcsicoll( ppA->m_sTitle, ppB->m_sTitle );
-		}
 	}
 	else if ( m_pStaticStyle == CSchema::uriMusicArtist )
 	{
 		int nCompare = _tcsicoll( ppA->m_sAlbum, ppB->m_sAlbum );
 
 		if ( nCompare )
-		{
 			return nCompare;
-		}
 		else
-		{
 			return _tcsicoll( ppA->m_sTitle, ppB->m_sTitle );
-		}
 	}
 	else
 	{
 		int nCompare = _tcsicoll( ppA->m_sArtist, ppB->m_sArtist );
 
 		if ( nCompare )
-		{
 			return nCompare;
-		}
 		else if ( ( nCompare = _tcsicoll( ppA->m_sAlbum, ppB->m_sAlbum ) ) != 0 )
-		{
 			return nCompare;
-		}
 		else
-		{
 			return _tcsicoll( ppA->m_sTitle, ppB->m_sTitle );
-		}
 	}
 }
 
@@ -398,7 +373,8 @@ BOOL CLibraryAlbumView::DeselectAll(CLibraryAlbumTrack* pTrack)
 	{
 		if ( *pList != pTrack )
 		{
-			if ( (*pList)->m_bSelected ) bChanged = Select( *pList, TRI_FALSE );
+			if ( (*pList)->m_bSelected )
+				bChanged = Select( *pList, TRI_FALSE );
 		}
 	}
 
@@ -428,11 +404,13 @@ BOOL CLibraryAlbumView::SelectTo(CLibraryAlbumTrack* pTrack)
 			{
 				if ( nFirst <= nFocus )
 				{
-					for ( ; nFirst <= nFocus ; nFirst++ ) Select( m_pList[ nFirst ], TRI_TRUE );
+					for ( ; nFirst <= nFocus ; nFirst++ )
+						Select( m_pList[ nFirst ], TRI_TRUE );
 				}
 				else
 				{
-					for ( ; nFocus <= nFirst ; nFocus++ ) Select( m_pList[ nFocus ], TRI_TRUE );
+					for ( ; nFocus <= nFirst ; nFocus++ )
+						Select( m_pList[ nFocus ], TRI_TRUE );
 				}
 
 				bChanged = TRUE;
@@ -444,7 +422,8 @@ BOOL CLibraryAlbumView::SelectTo(CLibraryAlbumTrack* pTrack)
 		}
 		else
 		{
-			if ( m_pFocus->m_bSelected == FALSE ) bChanged = DeselectAll( m_pFocus );
+			if ( m_pFocus->m_bSelected == FALSE )
+				bChanged = DeselectAll( m_pFocus );
 			bChanged |= Select( m_pFocus );
 		}
 
@@ -456,13 +435,9 @@ BOOL CLibraryAlbumView::SelectTo(CLibraryAlbumTrack* pTrack)
 		GetItemRect( m_pFocus, &rcItem );
 
 		if ( rcItem.top < rcClient.top + m_szTrack.cy )
-		{
 			ScrollBy( rcItem.top - rcClient.top - m_szTrack.cy );
-		}
 		else if ( rcItem.bottom > rcClient.bottom )
-		{
 			ScrollBy( rcItem.bottom - rcClient.bottom );
-		}
 	}
 	else if (	( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 &&
 				( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0 )
@@ -759,7 +734,7 @@ void CLibraryAlbumView::OnMouseMove(UINT nFlags, CPoint point)
 
 	if ( CLibraryAlbumTrack* pTrack = HitTest( point, &rcTrack ) )
 	{
-		pTip->Show( (void*)(DWORD_PTR)pTrack->m_nIndex );
+		pTip->Show( pTrack->m_nIndex );
 
 		if ( pTrack->HitTestRating( rcTrack, point ) )
 		{
@@ -1081,19 +1056,13 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 	m_sAlbum.TrimRight();
 
 	if ( m_nTrack > 0 )
-	{
 		m_sTrack.Format( _T("%i"), m_nTrack );
-	}
 
 	if ( m_nLength > 0 )
-	{
 		m_sLength.Format( _T("%i:%.2i"), m_nLength / 60, m_nLength % 60 );
-	}
 
 	if ( m_nBitrate > 0 )
-	{
 		m_sBitrate.Format( _T("%ik"), m_nBitrate );
-	}
 
 	return TRUE;
 }

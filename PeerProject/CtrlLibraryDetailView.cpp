@@ -1,7 +1,7 @@
 //
 // CtrlLibraryDetailView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -179,7 +179,7 @@ int CLibraryDetailView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CString strSchemaURI = Settings.Library.FilterURI.GetLength() ?
 		Settings.Library.FilterURI : Settings.Library.SchemaURI;
 
-	if ( CSchema* pSchema = SchemaCache.Get( strSchemaURI ) )
+	if ( CSchemaPtr pSchema = SchemaCache.Get( strSchemaURI ) )
 	{
 		CList< CSchemaMember* > pColumns;
 		CSchemaColumnsDlg::LoadColumns( pSchema, &pColumns );
@@ -228,7 +228,7 @@ void CLibraryDetailView::OnDestroy()
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryDetailView schema setup
 
-void CLibraryDetailView::SetViewSchema(CSchema* pSchema, CList< CSchemaMember* >* pColumns, BOOL bSave, BOOL bUpdate)
+void CLibraryDetailView::SetViewSchema(CSchemaPtr pSchema, CList< CSchemaMember* >* pColumns, BOOL bSave, BOOL bUpdate)
 {
 	GET_LIST();
 
@@ -243,13 +243,9 @@ void CLibraryDetailView::SetViewSchema(CSchema* pSchema, CList< CSchemaMember* >
 	if ( bSave )
 	{
 		if ( m_pSchema )
-		{
 			Settings.SaveList( _T("CLibraryDetailView.") + m_pSchema->m_sSingular, pList );
-		}
 		else
-		{
 			Settings.SaveList( _T("CLibraryDetailView"), pList );
-		}
 	}
 
 	m_pColumns.RemoveAll();
@@ -279,7 +275,7 @@ void CLibraryDetailView::Update()
 {
 //	GET_LIST();
 
-	CSchema* pSchema	= SchemaCache.Get( Settings.Library.FilterURI );
+	CSchemaPtr pSchema	= SchemaCache.Get( Settings.Library.FilterURI );
 	DWORD nCookie		= GetFolderCookie();
 	BOOL bGhostFolder	= FALSE;
 
@@ -299,7 +295,7 @@ void CLibraryDetailView::Update()
 
 			if ( strURI.GetLength() && ( m_pSchema == NULL || ! m_pSchema->CheckURI( strURI ) ) )
 			{
-				if ( CSchema* pSchema = SchemaCache.Get( strURI ) )
+				if ( CSchemaPtr pSchema = SchemaCache.Get( strURI ) )
 				{
 					CList< CSchemaMember* > pColumns;
 					CSchemaColumnsDlg::LoadColumns( pSchema, &pColumns );
@@ -471,10 +467,9 @@ void CLibraryDetailView::CacheItem(int nItem)
 		if ( pMember->m_sName.CompareNoCase( _T("SHA1") ) == 0 )
 		{
 			if ( pFile->m_oSHA1 )
-			{
 				pText->SetAt( nColumn, pFile->m_oSHA1.toString() );
-			}
-			else pText->SetAt( nColumn, _T("") );
+			else
+				pText->SetAt( nColumn, _T("") );
 		}
 		else if ( bSource )
 		{
@@ -813,7 +808,7 @@ void CLibraryDetailView::OnEndLabelEditW(NMHDR* pNotify, LRESULT* pResult)
 			LPCTSTR pszType = _tcsrchr( pFile->m_sName, '.' );
 			if ( pszType ) strName += pszType;
 			*pResult = pFile->Rename( strName );
-			Library.Update();
+			Library.Update( true );
 			oLock.Unlock();
 
 			if ( *pResult == FALSE )
@@ -844,7 +839,7 @@ void CLibraryDetailView::OnEndLabelEditA(NMHDR* pNotify, LRESULT* pResult)
 			LPCTSTR pszType = _tcsrchr( pFile->m_sName, '.' );
 			if ( pszType ) strName += pszType;
 			*pResult = pFile->Rename( strName );
-			Library.Update();
+			Library.Update( true );
 			oLock.Unlock();
 
 			if ( *pResult == FALSE )
@@ -935,14 +930,15 @@ void CLibraryDetailView::OnCustomDraw(NMHDR* pNotify, LRESULT* pResult)
 			((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crHiText;
 			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk = Colors.m_crHighlight;
 		}
-		else if ( pItem->nState & LDVI_UNSAFE )		((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crTextAlert;
-		else if ( pItem->nState & LDVI_UNSCANNED )	((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crDisabled;
-		else if ( pItem->nState & LDVI_PRIVATE )	((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crNetworkNull;
+		else if ( pItem->nState & LDVI_UNSAFE )
+			((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crTextAlert;
+		else if ( pItem->nState & LDVI_UNSCANNED )
+			((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crDisabled;
+		else if ( pItem->nState & LDVI_PRIVATE )
+			((NMLVCUSTOMDRAW*) pNotify)->clrText = Colors.m_crNetworkNull;
 
 		if ( m_bCreateDragImage )
-		{
 			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk = DRAG_COLOR_KEY;
-		}
 
 		*pResult = CDRF_DODEFAULT;
 	}
@@ -966,9 +962,7 @@ void CLibraryDetailView::OnContextMenu(CWnd* pWnd, CPoint point)
 	CRect rcHeader;
 
 	if ( CWnd* pHeader = GetWindow( GW_CHILD ) )
-	{
 		pHeader->GetWindowRect( &rcHeader );
-	}
 
 	if ( m_pSchema == NULL || rcHeader.PtInRect( point ) == FALSE || m_nStyle != LVS_REPORT )
 	{
@@ -1008,18 +1002,22 @@ void CLibraryDetailView::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CLibraryDetailView::OnUpdateBlocker(CCmdUI* pCmdUI)
 {
-	if ( m_pCoolMenu ) pCmdUI->Enable( TRUE );
-	else pCmdUI->ContinueRouting();
+	if ( m_pCoolMenu )
+		pCmdUI->Enable( TRUE );
+	else
+		pCmdUI->ContinueRouting();
 }
 
 void CLibraryDetailView::OnMeasureItem(int /*nIDCtl*/, LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 {
-	if ( m_pCoolMenu ) m_pCoolMenu->OnMeasureItem( lpMeasureItemStruct );
+	if ( m_pCoolMenu )
+		m_pCoolMenu->OnMeasureItem( lpMeasureItemStruct );
 }
 
 void CLibraryDetailView::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
-	if ( m_pCoolMenu ) m_pCoolMenu->OnDrawItem( lpDrawItemStruct );
+	if ( m_pCoolMenu )
+		m_pCoolMenu->OnDrawItem( lpDrawItemStruct );
 }
 
 /////////////////////////////////////////////////////////////////////////////

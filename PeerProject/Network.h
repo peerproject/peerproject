@@ -88,8 +88,7 @@ protected:
 	BOOL		PreRun();
 	void		OnRun();
 	void		PostRun();
-	// Handle and destroy query hits
-	void		RunQueryHits();
+	void		RunQueryHits();	// Handle and destroy query hits
 
 // Operations
 public:
@@ -121,7 +120,7 @@ public:
 	BOOL		SendPush(const Hashes::Guid& oGUID, DWORD nIndex = 0);
 	BOOL		RouteHits(CQueryHit* pHits, CPacket* pPacket);
 	void		OnWinsock(WPARAM wParam, LPARAM lParam);
-	void		OnQuerySearch(CQuerySearch* pSearch);
+	void		OnQuerySearch(const CQuerySearch* pSearch);
 	void		OnQueryHits(CQueryHit* pHits);			// Add query hit to queue
 public:
 	void		UDPHostCache(IN_ADDR* pAddress, WORD nPort);

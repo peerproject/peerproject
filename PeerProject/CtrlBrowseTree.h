@@ -1,7 +1,7 @@
 //
 // CtrlBrowseTree.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,10 +21,11 @@
 
 #pragma once
 
+#include "Schema.h"
+
 class CBrowseTreeItem;
 class CG2Packet;
 class CXMLElement;
-class CSchema;
 
 
 class CBrowseTreeCtrl : public CWnd
@@ -43,12 +44,10 @@ protected:
 	int					m_nTotal;
 	int					m_nVisible;
 	int					m_nScroll;
-protected:
 	int					m_nSelected;
 	CBrowseTreeItem*	m_pSelFirst;
 	CBrowseTreeItem*	m_pSelLast;
 	CBrowseTreeItem*	m_pFocus;
-protected:
 	DWORD				m_nCleanCookie;
 
 // Operations
@@ -59,11 +58,11 @@ public:
 	BOOL				Select(CBrowseTreeItem* pItem, TRISTATE bSelect = TRI_TRUE, BOOL bInvalidate = TRUE);
 	BOOL				DeselectAll(CBrowseTreeItem* pExcept = NULL, CBrowseTreeItem* pParent = NULL, BOOL bInvalidate = TRUE);
 	BOOL				Highlight(CBrowseTreeItem* pItem);
+	BOOL				GetRect(CBrowseTreeItem* pItem, RECT* pRect);
 	int					GetSelectedCount() const;
 	CBrowseTreeItem*	GetFirstSelected() const;
 	CBrowseTreeItem*	GetLastSelected() const;
 	CBrowseTreeItem*	HitTest(const POINT& point, RECT* pRect = NULL) const;
-	BOOL				GetRect(CBrowseTreeItem* pItem, RECT* pRect);
 	void				OnTreePacket(CG2Packet* pPacket);
 protected:
 	void				UpdateScroll();
@@ -130,7 +129,7 @@ public:
 	BOOL				m_bBold;
 	int					m_nIcon16;
 public:
-	CSchema*			m_pSchema;
+	CSchemaPtr			m_pSchema;
 	DWORD*				m_pFiles;
 	DWORD				m_nFiles;
 

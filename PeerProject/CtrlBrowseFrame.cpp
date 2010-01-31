@@ -1,7 +1,7 @@
 //
 // CtrlBrowseFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -468,7 +468,7 @@ void CBrowseFrameCtrl::OnTreeSelection(NMHDR* /*pNotify*/, LRESULT* pResult)
 		if ( strURI.GetLength() &&
 			 ( m_wndList->m_pSchema == NULL || ! m_wndList->m_pSchema->CheckURI( strURI ) ) )
 		{
-			if ( CSchema* pSchema = SchemaCache.Get( strURI ) )
+			if ( CSchemaPtr pSchema = SchemaCache.Get( strURI ) )
 			{
 				CList< CSchemaMember* > pColumns;
 				CSchemaColumnsDlg::LoadColumns( pSchema, &pColumns );

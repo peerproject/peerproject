@@ -1,7 +1,7 @@
 //
 // QuerySearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -52,82 +52,40 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch construction
 
-CQuerySearch::CQuerySearch(BOOL bGUID) :
-	m_bAutostart( true ),
-	m_pSchema	( NULL ),
-	m_pXML		( NULL ),
-	m_nMinSize	( 0 ),
-	m_nMaxSize	( SIZE_UNKNOWN ),
-	m_bWantURL	( TRUE ),
-	m_bWantDN	( TRUE ),
-	m_bWantXML	( TRUE ),
-	m_bWantCOM	( TRUE ),
-	m_bWantPFS	( TRUE ),
-	m_bAndG1	( Settings.Gnutella1.EnableToday ),
-	m_nTTL		( 0 ),
-	m_bUDP		( FALSE ),
-	m_nKey		( 0 ),
-	m_bFirewall	( false ),
-	m_bDynamic	( false ),
-	m_bBinHash	( false ),
-	m_bOOB		( false ),
-	m_bOOBv3	( false ),
-	m_nMeta		( 0 ),
-	m_bPartial	( false ),
-	m_bNoProxy	( false ),
-	m_bExtQuery	( false ),
-	m_bWarning	( false ),
-	m_oWords	(),
-	m_oNegWords	()
+CQuerySearch::CQuerySearch(BOOL bGUID)
+	: m_bAutostart	( true )
+	, m_pSchema 	( NULL )
+	, m_pXML		( NULL )
+	, m_nMinSize	( 0 )
+	, m_nMaxSize	( SIZE_UNKNOWN )
+	, m_bWantURL	( TRUE )
+	, m_bWantDN 	( TRUE )
+	, m_bWantXML	( TRUE )
+	, m_bWantCOM	( TRUE )
+	, m_bWantPFS	( TRUE )
+	, m_bAndG1		( Settings.Gnutella1.EnableToday )
+	, m_bUDP		( FALSE )
+	, m_nTTL		( 0 )
+	, m_nKey		( 0 )
+	, m_bFirewall	( false )
+	, m_bDynamic	( false )
+	, m_bBinHash	( false )
+	, m_bOOB		( false )
+	, m_bOOBv3		( false )
+	, m_bPartial	( false )
+	, m_bNoProxy	( false )
+	, m_bExtQuery	( false )
+	, m_bWarning	( false )
+	, m_nMeta		( 0 )
+	, m_oWords		()
+	, m_oNegWords	()
 {
 	if ( bGUID ) Network.CreateID( m_oGUID );
 
 	ZeroMemory( &m_pEndpoint, sizeof( m_pEndpoint ) );
 	m_pEndpoint.sin_family = AF_INET;
-}
 
-CQuerySearch::CQuerySearch(const CQuerySearch* pOrigin) :
-	m_bAutostart( pOrigin->m_bAutostart ),
-	m_oGUID( pOrigin->m_oGUID ),
-	m_sSearch( pOrigin->m_sSearch ),
-	m_sKeywords( pOrigin->m_sKeywords ),
-	m_sPosKeywords( pOrigin->m_sPosKeywords ),
-	m_sG2Keywords( pOrigin->m_sG2Keywords ),
-	m_pSchema( pOrigin->m_pSchema ),
-	m_pXML( pOrigin->m_pXML ? pOrigin->m_pXML->Clone() : NULL ),
-	m_nMinSize( pOrigin->m_nMinSize ),
-	m_nMaxSize( pOrigin->m_nMaxSize ),
-	m_oSimilarED2K(),         //! \todo verify this
-	m_bWantURL( pOrigin->m_bWantURL ),
-	m_bWantDN( pOrigin->m_bWantDN ),
-	m_bWantXML( pOrigin->m_bWantXML ),
-	m_bWantCOM( pOrigin->m_bWantCOM ),
-	m_bWantPFS( pOrigin->m_bWantPFS ),
-	m_bAndG1( pOrigin->m_bAndG1 ),
-	m_nTTL( pOrigin->m_nTTL ),
-	m_bUDP( pOrigin->m_bUDP ),
-	m_pEndpoint( pOrigin->m_pEndpoint ),
-	m_nKey( pOrigin->m_nKey ),
-	m_bFirewall( pOrigin->m_bFirewall ),
-	m_bDynamic( pOrigin->m_bDynamic ),
-	m_bBinHash( pOrigin->m_bBinHash ),
-	m_bOOB( pOrigin->m_bOOB ),
-	m_bOOBv3( pOrigin->m_bOOBv3 ),
-	m_nMeta( pOrigin->m_nMeta ),
-	m_bPartial( pOrigin->m_bPartial ),
-	m_bNoProxy( pOrigin->m_bNoProxy ),
-	m_bExtQuery( pOrigin->m_bExtQuery ),
-	m_bWarning( pOrigin->m_bWarning ),
-	m_oURNs( pOrigin->m_oURNs ),
-	m_oKeywordHashList( pOrigin->m_oKeywordHashList )
-	//m_oWords()                //! \todo comment this - we copy the search string but not the word list
-	//m_oNegWords()
-{
-	m_oSHA1		= pOrigin->m_oSHA1;
-	m_oTiger	= pOrigin->m_oTiger;
-	m_oED2K		= pOrigin->m_oED2K;
-	m_oBTH		= pOrigin->m_oBTH;
-	m_oMD5		= pOrigin->m_oMD5;
+	m_dwRef = 0;
 }
 
 CQuerySearch::~CQuerySearch()
@@ -135,15 +93,56 @@ CQuerySearch::~CQuerySearch()
 	if ( m_pXML ) delete m_pXML;
 }
 
-auto_ptr< CQuerySearch > CQuerySearch::clone() const
-{
-	return auto_ptr< CQuerySearch >( new CQuerySearch( this ) );
-}
+// Obsolete, for reference:
+//CQuerySearch::CQuerySearch(const CQuerySearch* pOrigin)
+//	: m_bAutostart	( pOrigin->m_bAutostart )
+//	, m_oGUID		( pOrigin->m_oGUID )
+//	, m_sSearch		( pOrigin->m_sSearch )
+//	, m_sKeywords	( pOrigin->m_sKeywords )
+//	, m_sPosKeywords( pOrigin->m_sPosKeywords )
+//	, m_sG2Keywords	( pOrigin->m_sG2Keywords )
+//	, m_pSchema		( pOrigin->m_pSchema )
+//	, m_pXML		( pOrigin->m_pXML ? pOrigin->m_pXML->Clone() : NULL )
+//	, m_nMinSize	( pOrigin->m_nMinSize )
+//	, m_nMaxSize	( pOrigin->m_nMaxSize )
+//	, m_oSimilarED2K()	//! verify this
+//	, m_bWantURL	( pOrigin->m_bWantURL )
+//	, m_bWantDN 	( pOrigin->m_bWantDN )
+//	, m_bWantXML	( pOrigin->m_bWantXML )
+//	, m_bWantCOM	( pOrigin->m_bWantCOM )
+//	, m_bWantPFS	( pOrigin->m_bWantPFS )
+//	, m_bAndG1		( pOrigin->m_bAndG1 )
+//	, m_nTTL		( pOrigin->m_nTTL )
+//	, m_bUDP		( pOrigin->m_bUDP )
+//	, m_pEndpoint	( pOrigin->m_pEndpoint )
+//	, m_nKey		( pOrigin->m_nKey )
+//	, m_bFirewall	( pOrigin->m_bFirewall )
+//	, m_bDynamic	( pOrigin->m_bDynamic )
+//	, m_bBinHash	( pOrigin->m_bBinHash )
+//	, m_bOOB		( pOrigin->m_bOOB )
+//	, m_bOOBv3		( pOrigin->m_bOOBv3 )
+//	, m_nMeta		( pOrigin->m_nMeta )
+//	, m_bPartial	( pOrigin->m_bPartial )
+//	, m_bNoProxy	( pOrigin->m_bNoProxy )
+//	, m_bExtQuery	( pOrigin->m_bExtQuery )
+//	, m_bWarning	( pOrigin->m_bWarning )
+//	, m_oURNs		( pOrigin->m_oURNs )
+//	, m_oKeywordHashList( pOrigin->m_oKeywordHashList )
+//	, //m_oWords	()	//! comment this - we copy the search string but not the word list
+//	, //m_oNegWords	()
+//{
+//	m_oSHA1		= pOrigin->m_oSHA1;
+//	m_oTiger	= pOrigin->m_oTiger;
+//	m_oED2K		= pOrigin->m_oED2K;
+//	m_oBTH		= pOrigin->m_oBTH;
+//	m_oMD5		= pOrigin->m_oMD5;
+//}
+
 
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch to G1 packet
 
-CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL)
+CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL) const
 {
 	CG1Packet* pPacket = CG1Packet::New( G1_PACKET_QUERY,
 		( nTTL ? min( nTTL, Settings.Gnutella1.SearchTTL ) : Settings.Gnutella1.SearchTTL ),
@@ -193,32 +192,19 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL)
 	bool bSep = false;
 
 	// HUGE extension
-
 	// Deprecated. Replaced by GGEP_HEADER_HASH (G1_QF_BIN_HASH).
-	/* if ( m_oSHA1 )
-	{
-		strExtra = m_oSHA1.toUrn();
-	}
-	else if ( m_oTiger )
-	{
-		strExtra = m_oTiger.toUrn();
-	}
-	else if ( m_oED2K )
-	{
-		strExtra = m_oED2K.toUrn();
-	}
-	else if ( m_oMD5 )
-	{
-		strExtra = m_oMD5.toUrn();
-	}
-	else if ( m_oBTH )
-	{
-		strExtra = m_oBTH.toUrn();
-	}
-	else
-	{
-		strExtra = _T("urn:");
-	}*/
+	// if ( m_oSHA1 )
+	//	strExtra = m_oSHA1.toUrn();
+	//else if ( m_oTiger )
+	//	strExtra = m_oTiger.toUrn();
+	//else if ( m_oED2K )
+	//	strExtra = m_oED2K.toUrn();
+	//else if ( m_oMD5 )
+	//	strExtra = m_oMD5.toUrn();
+	//else if ( m_oBTH )
+	//	strExtra = m_oBTH.toUrn();
+	//else
+	//	strExtra = _T("urn:");
 
 	// XML extension
 
@@ -247,14 +233,10 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL)
 		// ToDo: GGEP_HEADER_META
 
 		if ( CG1Packet::IsOOBEnabled() )
-		{
 			pBlock.Add( GGEP_HEADER_SECURE_OOB );
-		}
 
 		if ( m_bWantPFS )
-		{
 			pBlock.Add( GGEP_HEADER_PARTIAL_RESULT_PREFIX );
-		}
 
 		if ( ! strFullQuery.IsEmpty() )
 		{
@@ -315,7 +297,7 @@ CG1Packet* CQuerySearch::ToG1Packet(DWORD nTTL)
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch to G2 packet
 
-CG2Packet* CQuerySearch::ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey)
+CG2Packet* CQuerySearch::ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey) const
 {
 	CG2Packet* pPacket = CG2Packet::New( G2_PACKET_QUERY, TRUE );
 
@@ -462,7 +444,7 @@ CG2Packet* CQuerySearch::ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey)
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch to ED2K packet
 
-CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags)
+CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags) const
 {
 	BOOL bUTF8, bGetS2;
 
@@ -551,15 +533,9 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags)
 			pPacket->WriteByte( 1 );
 			// Check if this is a "search for similar files"
 			if ( ( m_oSimilarED2K ) && ( ! bUDP ) && ( nServerFlags & ED2K_SERVER_TCP_RELATEDSEARCH ) )
-			{
-				// This is a search for similar files
 				pPacket->WriteEDString( _T( "related::" ) + m_oSimilarED2K.toString(), bUTF8 );
-			}
-			else
-			{
-				// Regular search
+			else	// Regular search
 				pPacket->WriteEDString( !m_sSearch.IsEmpty() ? m_sSearch : strWords, bUTF8 );
-			}
 		}
 		else
 		{
@@ -582,7 +558,7 @@ CEDPacket* CQuerySearch::ToEDPacket(BOOL bUDP, DWORD nServerFlags)
 	return pPacket;
 }
 
-BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP)
+BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const
 {
 	ASSERT ( pPacket != NULL );
 	ASSERT ( pPacket->m_nType == bUDP ? ED2K_C2SG_GETSOURCES2 : ED2K_C2S_GETSOURCES );
@@ -640,9 +616,9 @@ BOOL CQuerySearch::WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP)
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch from packet root
 
-CQuerySearch* CQuerySearch::FromPacket(CPacket* pPacket, SOCKADDR_IN* pEndpoint)
+CQuerySearchPtr CQuerySearch::FromPacket(CPacket* pPacket, SOCKADDR_IN* pEndpoint)
 {
-	CQuerySearch* pSearch = new CQuerySearch( FALSE );
+	CQuerySearchPtr pSearch = new CQuerySearch( FALSE );
 
 	try
 	{
@@ -671,9 +647,7 @@ CQuerySearch* CQuerySearch::FromPacket(CPacket* pPacket, SOCKADDR_IN* pEndpoint)
 		pException->Delete();
 	}
 
-	delete pSearch;
-
-	return NULL;
+	return CQuerySearchPtr();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1176,34 +1150,34 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 			// NOTE: Because of how oWord acts, each keyword in oWords gets sorted in ascending order with HEX code of char,
 			// thus Extended chars are always located at end of oWords. Which means it is not necessary to Clear the flag inside the loop.
 
-			if ( !IsCharacter( szChar ) ) // check if the char is valid
+			// After the char inspection:
+			if ( ! IsCharacter( szChar ) )	// Check if the char is valid
 			{
-				// Do nothing here
-				continue;
-			} // After the char inspection
-			else if ( nLength > 3 )	// any char string longer than 3 byte are counted.
-			{
-				nValidCharacters = nLength;
+				continue;					// Do nothing here
 			}
-			else if ( 0x00 <= szChar && 0x7f >= szChar ) // check if the char is 1 byte length in UTF8 (non-char will not reach here)
+			else if ( nLength > 3 )			// Any char string longer than 3 byte are counted.
 			{
 				nValidCharacters = nLength;
 			}
-			else if ( 0x80 <= szChar && 0x7ff >= szChar)  // check if the char is 2 byte length in UTF8 (non-char will not reach here)
+			else if ( 0x00 <= szChar && 0x7f >= szChar )	// Check if the char is 1 byte length in UTF8 (non-char will not reach here)
+			{
+				nValidCharacters = nLength;
+			}
+			else if ( 0x80 <= szChar && 0x7ff >= szChar)	// Check if the char is 2 byte length in UTF8 (non-char will not reach here)
 			{
 				nValidCharacters = nLength * 2;
 			}
-			else if ( 0x3041 <= szChar && 0x30fe >= szChar )	// these region is for Japanese Hiragana/Katakana chars(3Bytes).
-			{													// because of number of chars exist in that region, they
-																// are counted as 2byte chars to make only 2 or longer chars
-																// are accepted on Query.
+			else if ( 0x3041 <= szChar && 0x30fe >= szChar ) // These regions are for Japanese Hiragana/Katakana chars(3Bytes).
+			{												// Because of number of chars exist in that region,
+															// they are counted as 2byte chars to make only 2
+															// or longer chars are accepted on Query.
 				nValidCharacters = nLength * 2;
-				bExtendChar = true;	// set Extended char flag
+				bExtendChar = true;			// Set Extended char flag
 			}
-			else if ( 0x800 <= szChar && 0xffff >= szChar)  // check if the char is 3 byte length in UTF8 (non-char will not reach here)
+			else if ( 0x800 <= szChar && 0xffff >= szChar)  // Check if the char is 3 byte length in UTF8 (non-char will not reach here)
 			{
 				nValidCharacters = nLength * 3;
-				bExtendChar = true;	// set Extended char flag
+				bExtendChar = true;			// set Extended char flag
 			}
 			else if ( nLength > 2 )
 			{
@@ -1216,10 +1190,10 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 					nValidCharacters = nLength;
 			}
 
-			if ( nValidCharacters > 2 ) // if char is longer than 3byte in utf8 (Gnutella standard)
+			if ( nValidCharacters > 2 )		// If char is longer than 3byte in utf8 (Gnutella standard)
 			{
 				if ( std::find_if( common, common + commonWords, FindStr( *pWord ) ) != common + commonWords )
-					// if the keyword is matched to one of the common keyword set in common[] array.
+					// If the keyword is matched to one of the common keyword set in common[] array.
 				{
 					// Common term. Don't count it as valid keywords, instead count it as common keywords
 					nCommonWords++;
@@ -1244,13 +1218,9 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 		}
 
 		if ( m_pSchema != NULL ) // if schema has been selected
-		{
 			nValidWords += ( nCommonWords > 1 ) ? 1 : 0; // make it accept query, if there are 2 or more different common words.
-		}
 		else // no schema
-		{
 			nValidWords += ( nCommonWords > 2 ) ? 1 : 0; // make it accept query, if there are 3 or more different common words.
-		}
 
 		if ( nValidWords ) return TRUE;
 
@@ -1260,9 +1230,7 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 	}
 
 	if ( bHashOk )
-	{
 		return TRUE;
-	}
 
 	m_oKeywordHashList.clear();
 	m_oWords.clear();
@@ -1389,7 +1357,7 @@ BOOL CQuerySearch::MatchMetadataShallow(LPCTSTR pszSchemaURI, CXMLElement* pXML,
 	if ( ! pXML || m_sSearch.IsEmpty() )
 		return FALSE;
 
-	if ( CSchema* pSchema = SchemaCache.Get( pszSchemaURI ) )
+	if ( CSchemaPtr pSchema = SchemaCache.Get( pszSchemaURI ) )
 	{
 		for ( POSITION pos = pSchema->GetMemberIterator() ; pos ; )
 		{
@@ -1473,7 +1441,8 @@ BOOL CQuerySearch::WordMatch(LPCTSTR pszString, LPCTSTR pszFind, bool* bReject)
 				bSpace = ( *pszPtr == ' ' );
 			}
 
-			if ( bNegate && ! bQuote && *pszPtr != '-' ) bNegate = FALSE;
+			if ( bNegate && ! bQuote && *pszPtr != '-' )
+				bNegate = FALSE;
 		}
 		else
 		{
@@ -1494,7 +1463,8 @@ BOOL CQuerySearch::WordMatch(LPCTSTR pszString, LPCTSTR pszFind, bool* bReject)
 		}
 		else
 		{
-			if ( ! _tcsnistr( pszString, pszWord, pszPtr - pszWord ) ) return FALSE;
+			if ( ! _tcsnistr( pszString, pszWord, pszPtr - pszWord ) )
+				return FALSE;
 		}
 
 		nCount++;
@@ -1655,10 +1625,8 @@ void CQuerySearch::BuildWordList(bool bExpression, bool /* bLocal */ )
 					else
 					{
 						if ( CXMLAttribute* pAttribute = pXML->GetAttribute( pMember->m_sName ) )
-						{
 							ToLower( pAttribute->m_sValue );
 							//MakeKeywords( pAttribute->m_sValue, bExpression );
-						}
 					}
 				}
 			}
@@ -1745,9 +1713,7 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 		//	boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sNumeric);
 
 		if ( ( boundary[ 1 ] & (sHiragana | sKatakana) ) == (sHiragana | sKatakana) && ( boundary[ 0 ] & (sHiragana | sKatakana) ) )
-		{
 			boundary[ 1 ] = boundary[ 0 ];
-		}
 
 		bool bCharacter = ( boundary[ 1 ] & sRegular )||
 			bExpression && ( *pszPtr == '-' || *pszPtr == '"' );
@@ -1812,7 +1778,7 @@ void CQuerySearch::MakeKeywords(CString& strPhrase, bool bExpression)
 		 boundary[ 1 ] )
 	{
 		// Join two phrases if the previous was a sigle characters word.
-		// idea of joining single characters breaks GDF compatibility completely,
+		// Idea of joining single characters breaks GDF compatibility completely,
 		// but because PeerProject (Shareaza 2.2+) is not really following GDF about
 		// word length limit for ASIAN chars, merging is necessary to be done.
 	}
@@ -2030,9 +1996,9 @@ void CQuerySearch::Serialize(CArchive& ar)
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch open window
 
-CSearchWnd* CQuerySearch::OpenWindow(auto_ptr< CQuerySearch > pSearch)
+CSearchWnd* CQuerySearch::OpenWindow(CQuerySearch* pSearch)
 {
-	if ( pSearch.get() && pSearch->CheckValid( false ) )
+	if ( pSearch && pSearch->CheckValid( false ) )
 		return new CSearchWnd( pSearch );
 	else
 		return NULL;

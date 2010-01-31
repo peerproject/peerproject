@@ -1,7 +1,7 @@
 //
 // Schema.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -194,7 +194,8 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 					bResult = LoadPrimary( pRoot, GetType( pRoot, strType ) );
 				}
 
-				if ( m_sSingular.IsEmpty() ) bResult = FALSE;
+				if ( m_sSingular.IsEmpty() )
+					bResult = FALSE;
 			}
 		}
 	}
@@ -262,7 +263,7 @@ BOOL CSchema::LoadPrimary(CXMLElement* pRoot, CXMLElement* pType)
 	return TRUE;
 }
 
-CXMLElement* CSchema::GetType(CXMLElement* pRoot, LPCTSTR pszName)
+CXMLElement* CSchema::GetType(CXMLElement* pRoot, LPCTSTR pszName) const
 {
 	if ( ! pszName || ! *pszName ) return NULL;
 
@@ -276,9 +277,7 @@ CXMLElement* CSchema::GetType(CXMLElement* pRoot, LPCTSTR pszName)
 			 strElement.CompareNoCase( _T("complexType") ) == 0 )
 		{
 			if ( pElement->GetAttributeValue( _T("name"), _T("?") ).CompareNoCase( pszName ) == 0 )
-			{
 				return pElement;
-			}
 		}
 	}
 
@@ -362,11 +361,11 @@ BOOL CSchema::LoadDescriptor(LPCTSTR pszFile)
 		{
 			LoadDescriptorViewContent( pElement );
 		}
-		/* // ToDo: Add this to schemas
-		else if ( pElement->IsNamed( _T("donkeyType") ) )
-		{
-			LoadDescriptorDonkeyType( pElement );
-		}*/
+		// ToDo: Add this to schemas
+		//else if ( pElement->IsNamed( _T("donkeyType") ) )
+		//{
+		//	LoadDescriptorDonkeyType( pElement );
+		//}
 	}
 
 	delete pRoot;
@@ -448,7 +447,8 @@ void CSchema::LoadDescriptorExtends(CXMLElement* pElement)
 		if ( pExtend->IsNamed( _T("schema") ) )
 		{
 			CString strURI = pExtend->GetAttributeValue( _T("location") );
-			if ( strURI.GetLength() ) m_pExtends.AddTail( strURI );
+			if ( strURI.GetLength() )
+				m_pExtends.AddTail( strURI );
 		}
 	}
 }
@@ -464,13 +464,9 @@ void CSchema::LoadDescriptorContains(CXMLElement* pElement)
 			CSchemaChild* pChild = new CSchemaChild( this );
 
 			if ( pChild->Load( pExtend ) )
-			{
 				m_pContains.AddTail( pChild );
-			}
 			else
-			{
 				delete pChild;
-			}
 		}
 	}
 }
@@ -627,7 +623,7 @@ CXMLElement* CSchema::Instantiate(BOOL bNamespace) const
 //////////////////////////////////////////////////////////////////////
 // CSchema validate instance
 
-BOOL CSchema::Validate(CXMLElement* pXML, BOOL bFix)
+BOOL CSchema::Validate(CXMLElement* pXML, BOOL bFix) const
 {
 	if ( pXML == NULL ) return FALSE;
 
@@ -772,9 +768,7 @@ void CSchema::ResolveTokens(CString& str, CXMLElement* pXML) const
 		CString strValue;
 
 		if ( CSchemaMember* pMember = GetMember( strMember ) )
-		{
 			strValue = pMember->GetValueFrom( pXML, NULL, TRUE );
-		}
 
 		str = str.Left( nOpen ) + strValue + str.Mid( nClose + 1 );
 	}

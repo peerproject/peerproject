@@ -1,7 +1,7 @@
 //
 // SchemaChild.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,7 +21,8 @@
 
 #pragma once
 
-class CSchema;
+#include "Schema.h"
+
 class CSchemaChildMap;
 class CXMLElement;
 
@@ -30,12 +31,12 @@ class CSchemaChild
 {
 // Construction
 public:
-	CSchemaChild(CSchema* pSchema);
+	CSchemaChild(CSchemaPtr pSchema);
 	virtual ~CSchemaChild();
 
 // Attributes
 public:
-	CSchema*	m_pSchema;
+	CSchemaPtr	m_pSchema;
 	int			m_nType;
 	CString		m_sURI;
 public:
@@ -48,6 +49,7 @@ public:
 	BOOL		MemberCopy(CXMLElement* pLocal, CXMLElement* pRemote, BOOL bToRemote = FALSE, BOOL bAggressive = FALSE);
 
 };
+
 
 class CSchemaChildMap
 {

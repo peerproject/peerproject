@@ -1,7 +1,7 @@
 //
 // CtrlSchema.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,7 +24,8 @@
 #define NO_VALUE		(_T("(~ns~)"))
 #define MULTI_VALUE		(_T("(~mt~)"))
 
-class CSchema;
+#include "Schema.h"
+
 class CXMLElement;
 
 
@@ -41,7 +42,7 @@ public:
 	BOOL			m_bShowBorder;
 
 protected:
-	CSchema*		m_pSchema;
+	CSchemaPtr		m_pSchema;
 	CArray< CWnd* >	m_pControls;
 	CArray< CString >	m_pCaptions;
 	int				m_nScroll;
@@ -50,7 +51,7 @@ protected:
 
 // Operations
 public:
-	void		SetSchema(CSchema* pSchema, BOOL bPromptOnly = FALSE);
+	void		SetSchema(CSchemaPtr pSchema, BOOL bPromptOnly = FALSE);
 	BOOL		UpdateData(CXMLElement* pBase, BOOL bSaveAndValidate);
 	CString		GetSchemaURI() const;
 	void		Disable();

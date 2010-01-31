@@ -1,7 +1,7 @@
 //
 // DownloadWithExtras.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -79,9 +79,10 @@ public:
 
 // Operations
 public:
+	BOOL		CanPreview(DWORD nIndex);
 	BOOL		PreviewFile(DWORD nIndex, CSingleLock* pLock);
 	BOOL		IsPreviewVisible() const;
-	BOOL		CanPreview(DWORD nIndex);
+	BOOL		IsMonitorVisible() const;
 	void		ShowMonitor(CSingleLock* pLock = NULL);
 	void		AddPreviewName(LPCTSTR pszFile);
 	void		DeletePreviews();
@@ -91,7 +92,7 @@ public:
 	void		DeleteReview(CDownloadReview* pReview);
 	int			GetReviewCount() const { return m_nReviewCount; }
 	int			GetReviewAverage() const;
-	void		OnPreviewRequestComplete(CDownloadTask* pTask);
+	void		OnPreviewRequestComplete(const CDownloadTask* pTask);
 protected:
 	virtual void Serialize(CArchive& ar, int nVersion);
 public:
@@ -102,9 +103,6 @@ private:
 	CDownloadReview* FindReview(int nRating, LPCTSTR pszName, LPCTSTR pszComment) const;
 
 public:
-	BOOL		IsMonitorVisible() const;
-
 	friend class CDownloadMonitorDlg;
 	friend class CFilePreviewDlg;
-
 };

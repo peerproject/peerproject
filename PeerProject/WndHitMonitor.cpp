@@ -1,7 +1,7 @@
 //
 // WndHitMonitor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -77,7 +77,7 @@ int CHitMonitorWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pMatches->m_sFilter = Settings.Search.MonitorFilter;
 	m_pMatches->Filter();
 
-	if ( CSchema* pSchema = SchemaCache.Get( Settings.Search.MonitorSchemaURI ) )
+	if ( CSchemaPtr pSchema = SchemaCache.Get( Settings.Search.MonitorSchemaURI ) )
 	{
 		CList< CSchemaMember* > pColumns;
 		CSchemaColumnsDlg::LoadColumns( pSchema, &pColumns );
@@ -94,13 +94,9 @@ void CHitMonitorWnd::OnDestroy()
 	Settings.Search.MonitorFilter = m_pMatches->m_sFilter;
 
 	if ( m_wndList.m_pSchema )
-	{
 		Settings.Search.MonitorSchemaURI = m_wndList.m_pSchema->GetURI();
-	}
 	else
-	{
 		Settings.Search.MonitorSchemaURI.Empty();
-	}
 
 	SaveState( _T("CHitMonitorWnd") );
 
@@ -110,13 +106,9 @@ void CHitMonitorWnd::OnDestroy()
 void CHitMonitorWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 {
 	if ( m_bContextMenu )
-	{
 		Skin.TrackPopupMenu( _T("CHitMonitorWnd"), point, ID_SEARCH_DOWNLOAD );
-	}
 	else
-	{
 		CBaseMatchWnd::OnContextMenu( pWnd, point );
-	}
 }
 
 void CHitMonitorWnd::OnUpdateHitMonitorPause(CCmdUI* pCmdUI)

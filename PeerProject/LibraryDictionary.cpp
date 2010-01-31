@@ -47,10 +47,10 @@ CLibraryDictionary LibraryDictionary;
 //////////////////////////////////////////////////////////////////////
 // CLibraryDictionary construction
 
-CLibraryDictionary::CLibraryDictionary() :
-	m_pTable		( NULL )
-,	m_bValid		( false )
-,	m_nSearchCookie	( 1ul )
+CLibraryDictionary::CLibraryDictionary()
+	: m_pTable			( NULL )
+	, m_bValid			( false )
+	, m_nSearchCookie	( 1ul )
 {
 }
 
@@ -276,8 +276,7 @@ void CLibraryDictionary::Clear()
 // CLibraryDictionary search
 
 CFileList* CLibraryDictionary::Search(
-	const CQuerySearch& oSearch, const int nMaximum, const bool bLocal,
-	const bool bAvailableOnly)
+	const CQuerySearch* pSearch, const int nMaximum, const bool bLocal,	const bool bAvailableOnly)
 {
 	ASSUME_LOCK( Library.m_pSection );
 
@@ -289,14 +288,14 @@ CFileList* CLibraryDictionary::Search(
 	}
 
 	// Only check the hash when a search comes from other client.
-	if ( !bLocal && !m_pTable->Check( oSearch ) )
+	if ( ! bLocal && ! m_pTable->Check( pSearch ) )
 		return NULL;
 
 	++m_nSearchCookie;
 	const CLibraryFile* pHit = NULL;
 
-	CQuerySearch::const_iterator pWordEntry = oSearch.begin();
-	const CQuerySearch::const_iterator pLastWordEntry = oSearch.end();
+	CQuerySearch::const_iterator pWordEntry = pSearch->begin();
+	const CQuerySearch::const_iterator pLastWordEntry = pSearch->end();
 	for ( ; pWordEntry != pLastWordEntry ; ++pWordEntry )
 	{
 		if ( pWordEntry->first[ 0 ] == _T('-') )
@@ -331,8 +330,8 @@ CFileList* CLibraryDictionary::Search(
 		}
 	}
 
-	size_t nLowerBound = ( oSearch.tableSize() >= 3 )
-		? ( oSearch.tableSize() * 2 / 3 ) : oSearch.tableSize();
+	size_t nLowerBound = ( pSearch->tableSize() >= 3 )
+		? ( pSearch->tableSize() * 2 / 3 ) : pSearch->tableSize();
 
 	CFileList* pHits = NULL;
 	for ( ; pHit ; pHit = pHit->m_pNextHit )
@@ -342,7 +341,7 @@ CFileList* CLibraryDictionary::Search(
 		if ( pHit->m_nSearchWords < nLowerBound )
 			continue;
 
-		if ( oSearch.Match( pHit->GetSearchName(), pHit->m_nSize,
+		if ( pSearch->Match( pHit->GetSearchName(), pHit->m_nSize,
 			pHit->m_pSchema ? (LPCTSTR)pHit->m_pSchema->GetURI() : NULL,
 			pHit->m_pMetadata, pHit->m_oSHA1, pHit->m_oTiger, pHit->m_oED2K,
 			pHit->m_oBTH, pHit->m_oMD5 ) )

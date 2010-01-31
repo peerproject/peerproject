@@ -1,7 +1,7 @@
 //
 // NeighboursWithRouting.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,6 +19,9 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
+// Adds methods that send packets and Gnutella queries to all the computers we're connected to
+// http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithRouting
+
 #pragma once
 
 #include "NeighboursWithED2K.h"
@@ -29,16 +32,15 @@ class CQuerySearch;
 // Add methods to broadcast packets and Gnutella queries to all the neighbours in the list
 class CNeighboursWithRouting : public CNeighboursWithED2K // Continue the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
 {
-
 public:
+	// Send a packet to all the computers we're connected to
+	int Broadcast(CPacket* pPacket, CNeighbour* pExcept = NULL, BOOL bGGEP = FALSE);
+	// Send a query packet to all the computers we're connected to, translating it to Gnutella and Gnutella2 for computers running that software
+	int RouteQuery(const CQuerySearch* pSearch, CPacket* pPacket, CNeighbour* pFrom, BOOL bToHubs);
+
+protected:
 	// Nothing that CNeighboursWithRouting adds to CNeighbours needs to be set up or put away
 	CNeighboursWithRouting(); // The constructor and destructor don't do anything
 	virtual ~CNeighboursWithRouting();
 
-public:
-	// Send a packet to all the computers we're connected to
-	int Broadcast(CPacket* pPacket, CNeighbour* pExcept = NULL, BOOL bGGEP = FALSE);
-
-	// Send a query packet to all the computers we're connected to, translating it to Gnutella and Gnutella2 for computers running that software
-	int RouteQuery(CQuerySearch* pSearch, CPacket* pPacket, CNeighbour* pFrom, BOOL bToHubs);
 };

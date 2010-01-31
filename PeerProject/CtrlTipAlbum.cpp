@@ -1,7 +1,7 @@
 //
 // CtrlTipAlbum.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -49,8 +49,13 @@ END_MESSAGE_MAP()
 // CAlbumTipCtrl construction
 
 CAlbumTipCtrl::CAlbumTipCtrl()
+	: m_pAlbumFolder( NULL )
+	, m_nIcon32 	( 0 )
+	, m_nIcon48 	( 0 )
+	, m_nKeyWidth	( 0 )
+	, m_bCollection	( FALSE )
+	, m_crLight 	( CColors::CalculateColor( Colors.m_crTipBack, RGB( 255, 255, 255 ), 128 ) )
 {
-	m_crLight = CColors::CalculateColor( Colors.m_crTipBack, RGB( 255, 255, 255 ), 128 );
 }
 
 CAlbumTipCtrl::~CAlbumTipCtrl()
@@ -65,27 +70,26 @@ BOOL CAlbumTipCtrl::OnPrepare()
 	CSingleLock pLock( &Library.m_pSection );
 	if ( ! pLock.Lock( 250 ) ) return FALSE;
 
-	CAlbumFolder* pFolder = (CAlbumFolder*)m_pContext;
-	if ( ! LibraryFolders.CheckAlbum( pFolder ) ) return FALSE;
+	if ( ! m_pAlbumFolder || ! LibraryFolders.CheckAlbum( m_pAlbumFolder ) ) return FALSE;
 
 	// Basic data
 
-	m_sName	= pFolder->m_sName;
+	m_sName	= m_pAlbumFolder->m_sName;
 	m_sType	= _T("Virtual Folder");
 
 	m_nIcon32 = 0;
 	m_nIcon48 = 0;
-	m_bCollection = bool( pFolder->m_oCollSHA1 );
-	
+	m_bCollection = bool( m_pAlbumFolder->m_oCollSHA1 );
+
 	// Metadata
 
 	m_pMetadata.Clear();
 
-	if ( pFolder->m_pSchema != NULL )
+	if ( m_pAlbumFolder->m_pSchema != NULL )
 	{
 		CString strText;
-		LPCTSTR pszColon = _tcschr( pFolder->m_pSchema->m_sTitle, ':' );
-		m_sType = pszColon ? pszColon + 1 : pFolder->m_pSchema->m_sTitle;
+		LPCTSTR pszColon = _tcschr( m_pAlbumFolder->m_pSchema->m_sTitle, ':' );
+		m_sType = pszColon ? pszColon + 1 : m_pAlbumFolder->m_pSchema->m_sTitle;
 		LoadString( strText, IDS_TIP_FOLDER );
 
 		if ( Settings.General.LanguageRTL )
@@ -93,13 +97,13 @@ BOOL CAlbumTipCtrl::OnPrepare()
 		else
 			m_sType += " " + strText;
 
-		m_nIcon48	= pFolder->m_pSchema->m_nIcon48;
-		m_nIcon32	= pFolder->m_pSchema->m_nIcon32;
+		m_nIcon48	= m_pAlbumFolder->m_pSchema->m_nIcon48;
+		m_nIcon32	= m_pAlbumFolder->m_pSchema->m_nIcon32;
 
-		if ( pFolder->m_pXML != NULL )
+		if ( m_pAlbumFolder->m_pXML != NULL )
 		{
-			m_pMetadata.Setup( pFolder->m_pSchema, FALSE );
-			m_pMetadata.Combine( pFolder->m_pXML );
+			m_pMetadata.Setup( m_pAlbumFolder->m_pSchema, FALSE );
+			m_pMetadata.Combine( m_pAlbumFolder->m_pXML );
 			m_pMetadata.Clean();
 		}
 	}

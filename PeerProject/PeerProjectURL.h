@@ -21,9 +21,8 @@
 
 #pragma once
 
-#include "PeerProjectFile.h"
+#include "QuerySearch.h"
 
-class CQuerySearch;
 class CBTInfo;
 
 
@@ -60,12 +59,9 @@ public:
 
 // Operations
 public:
-	// Parse URL list
-	BOOL	Parse(const CString& sText, CList< CString >& pURLs, BOOL bResolve = FALSE);
-	// Parse single URL
-	BOOL	Parse(LPCTSTR pszURL, BOOL bResolve = TRUE);
-	// Construct CQuerySearch object
-	auto_ptr< CQuerySearch > ToQuery();
+	BOOL	Parse(const CString& sText, CList< CString >& pURLs, BOOL bResolve = FALSE);	// Parse URL list
+	BOOL	Parse(LPCTSTR pszURL, BOOL bResolve = TRUE);	// Parse single URL
+	CQuerySearchPtr ToQuery() const;						// Construct CQuerySearch object
 
 protected:
 	void	Clear();

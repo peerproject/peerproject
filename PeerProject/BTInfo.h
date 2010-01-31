@@ -96,17 +96,17 @@ public:
 
 // Attributes
 public:
-	CStringList	m_sURLs;			// Add sources from torrents - DWK
+	CStringList	m_sURLs;				// Add sources from torrents - DWK
 	DWORD		m_nBlockSize;
 	DWORD		m_nBlockCount;
 	Hashes::BtPureHash* m_pBlockBTH;
+	CList< CBTFile* > m_pFiles;			// List of files
 	QWORD		m_nTotalUpload;			// Total amount uploaded
 	QWORD		m_nTotalDownload;		// Total amount downloaded
-	CList< CBTFile* > m_pFiles;			// List of files
 	UINT		m_nEncoding;
 	CString		m_sComment;
-	DWORD		m_tCreationDate;
 	CString		m_sCreatedBy;
+	DWORD		m_tCreationDate;
 	BOOL		m_bPrivate;
 	int			m_nStartDownloads;		// When do we start downloads for this torrent
 
@@ -138,7 +138,7 @@ public:
 	BOOL		LoadTorrentFile(LPCTSTR pszFile);
 	BOOL		LoadTorrentBuffer(const CBuffer* pBuffer);
 	BOOL		LoadTorrentTree(const CBENode* pRoot);
-	BOOL		SaveTorrentFile(LPCTSTR pszPath);
+	BOOL		SaveTorrentFile(const CString& sFolder);
 
 	void		BeginBlockTest();
 	void		AddToTest(LPCVOID pInput, DWORD nLength);

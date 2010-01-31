@@ -1,7 +1,7 @@
 //
 // ComboListCtrl.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,6 +19,8 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
+// ComboBoxes and ToolTips currently Disabled (Using Checkboxes and Labeltips)
+
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "ComboListCtrl.h"
@@ -27,10 +29,10 @@
 
 IMPLEMENT_DYNAMIC(CComboListCtrl, CListCtrl)
 
-CComboListCtrl::CComboListCtrl() :
-//	m_pCombo( NULL ),
-	m_iSelectedItem( -1 ),
-	m_iSelectedSubItem( -1 )
+CComboListCtrl::CComboListCtrl()
+	: m_iSelectedItem	( -1 )
+	, m_iSelectedSubItem( -1 )
+//	, m_pCombo			( NULL )	// Disabled
 {
 	EnableActiveAccessibility();
 }
@@ -109,7 +111,7 @@ void CComboListCtrl::SetColumnValues(int iColumn, const CIntStringMap& oValues)
 //	{
 //		int iItem = HitTest( point );
 //		if ( iItem >= 0 )
-//			m_pTip->Show( (void*)GetItemData( iItem ) );
+//			m_pTip->Show( (CPeerProjectFile**)GetItemData( iItem ) );
 //		else
 //			m_pTip->Hide();
 //	}
@@ -172,7 +174,7 @@ void CComboListCtrl::SetColumnValues(int iColumn, const CIntStringMap& oValues)
 //	}
 //}
 
-//void CComboListCtrl::EnableTips(auto_ptr< CCoolTipCtrl > pTip)
+//void CComboListCtrl::EnableTips(auto_ptr< CLibraryTipCtrl > pTip)
 //{
 //	m_pTip = pTip;
 //}

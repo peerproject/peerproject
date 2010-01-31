@@ -1,7 +1,7 @@
 //
 // CtrlMatch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -210,7 +210,7 @@ void CMatchCtrl::DestructiveUpdate()
 	m_wndTip.Hide();
 }
 
-void CMatchCtrl::SelectSchema(CSchema* pSchema, CList< CSchemaMember* >* pColumns)
+void CMatchCtrl::SelectSchema(CSchemaPtr pSchema, CList< CSchemaMember* >* pColumns)
 {
 	SaveColumnState();
 
@@ -535,7 +535,7 @@ void CMatchCtrl::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 	RedrawWindow( NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW );
 }
 
-BOOL CMatchCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt) 
+BOOL CMatchCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
 	// Scroll window under cursor
 	if ( CWnd* pWnd = WindowFromPoint( pt ) )
@@ -900,7 +900,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				}
 				else if ( ( ppHit->m_nProtocol == PROTOCOL_ED2K ) && ( ppHit->m_bPush == TRI_TRUE ) )
 				{
-					/* strText.Format( _T("%lu@%s"), ppHit->m_oClientID.begin()[2], (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) ); */
+					//strText.Format( _T("%lu@%s"), ppHit->m_oClientID.begin()[2], (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) );
 					strTemp.Format( _T("%s"), (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) );
 
 					if ( ppHit->GetSources() > 1 )
@@ -943,9 +943,8 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), strText, pFile->m_nFiltered );
 						szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 					}
-					else
+					else	// Not used?
 					{
-						// Not used?
 						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("(Firewalled)") );
 						szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 					}
@@ -975,12 +974,14 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		case MATCH_COL_SPEED:
 			if ( pHit )
 			{
-				if ( ! bSelected && pHit->m_bMeasured == TRI_TRUE ) dc.SetTextColor( Colors.m_crTextStatus );
+				if ( ! bSelected && pHit->m_bMeasured == TRI_TRUE )
+					dc.SetTextColor( Colors.m_crTextStatus );
 				pszText = pHit->m_sSpeed;
 			}
 			else
 			{
-				if ( ! bSelected && pFile->GetBestMeasured() == TRI_TRUE ) dc.SetTextColor( Colors.m_crTextStatus );
+				if ( ! bSelected && pFile->GetBestMeasured() == TRI_TRUE )
+					dc.SetTextColor( Colors.m_crTextStatus );
 				pszText = pFile->m_sSpeed;
 			}
 			break;

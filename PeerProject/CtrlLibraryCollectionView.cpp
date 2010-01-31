@@ -1,7 +1,7 @@
 //
 // CtrlLibraryCollectionView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -91,10 +91,10 @@ BOOL CLibraryCollectionView::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, 0, 0 );
 	SelClear( FALSE );
-	// Do not add WS_VSCROLL here. The IE frame that gets loaded will have
-	// its own scrollbar and will handle its own scrolling.
-	return CWnd::CreateEx( 0, NULL, _T("CLibraryCollectionView"), WS_CHILD |
-		WS_TABSTOP | WS_GROUP, rect, pParentWnd, IDC_LIBRARY_VIEW );
+	// Do not add WS_VSCROLL here.  The IE frame that gets loaded
+	// will have its own scrollbar and will handle its own scrolling.
+	return CWnd::CreateEx( 0, NULL, _T("CLibraryCollectionView"),
+		WS_CHILD |WS_TABSTOP | WS_GROUP, rect, pParentWnd, IDC_LIBRARY_VIEW );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -152,8 +152,7 @@ BOOL CLibraryCollectionView::ShowCollection(CLibraryFile* pFile)
 	if ( pFile != NULL )
 	{
 		if ( m_pCollection->IsOpen() && validAndEqual( m_oSHA1, pFile->m_oSHA1 ) )
-			// Already opened
-			return TRUE;
+			return TRUE;	// Already opened
 
 		if ( m_pCollection->Open( pFile->GetPath() ) )
 		{
@@ -169,7 +168,8 @@ BOOL CLibraryCollectionView::ShowCollection(CLibraryFile* pFile)
 	if ( m_pCollection->IsOpen() )
 	{
 		m_pCollection->Close();
-		if ( m_pWebCtrl != NULL ) m_pWebCtrl->Navigate( _T("about:blank") );
+		if ( m_pWebCtrl != NULL )
+			m_pWebCtrl->Navigate( _T("about:blank") );
 	}
 
 	return FALSE;
@@ -187,10 +187,10 @@ int CLibraryCollectionView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	if ( m_pWebCtrl->Create( 0, this ) != -1 )
 	{
-		// Disable cool menu because in RTL mode the text is drawn mirrored
+		// ToDo: Fix this for RTL
+		// Disable cool menu here because in RTL mode the text is drawn mirrored
 		// It worked before, but somehow was broken and nothing helps.
-		// TODO: fix it
-		if ( !Settings.General.LanguageRTL )
+		if ( ! Settings.General.LanguageRTL )
 			m_pWebCtrl->EnableCoolMenu();
 		m_pWebCtrl->EnableSandbox();
 		m_pWebCtrl->SetExternal( m_xExternal.GetDispatch() );
@@ -224,9 +224,7 @@ void CLibraryCollectionView::OnSize(UINT nType, int cx, int cy)
 	CLibraryFileView::OnSize( nType, cx, cy );
 
 	if ( m_pWebCtrl != NULL && m_pWebCtrl->GetSafeHwnd() != NULL )
-	{
 		m_pWebCtrl->SetWindowPos( NULL, 0, 0, cx, cy, SWP_SHOWWINDOW );
-	}
 }
 
 void CLibraryCollectionView::OnWebContextMenu(NMHDR* pNMHDR, LPARAM* pResult)
@@ -348,16 +346,14 @@ STDMETHODIMP CLibraryCollectionView::External::XView::Hover(BSTR sURN)
 		{
 			CQuickLock oLock( Library.m_pSection );
 			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByURN( CString( sURN ), FALSE, TRUE ) )
-			{
 				pView->m_nWebIndex = pFile->m_nIndex;
-			}
 		}
 	}
 
 	if ( pView->m_nWebIndex != 0 )
 	{
 		HWND hWnd = pView->m_pWebCtrl->GetSafeHwnd();
-		pView->GetToolTip()->Show( reinterpret_cast<void*>(&pView->m_nWebIndex), hWnd );
+		pView->GetToolTip()->Show( pView->m_nWebIndex, hWnd );
 	}
 	else
 	{
@@ -436,7 +432,8 @@ STDMETHODIMP CLibraryCollectionView::External::XView::Download(BSTR sURN, VARIAN
 
 				if ( *pbResult == VARIANT_TRUE )
 				{
-					if ( ! Network.IsWellConnected() ) Network.Connect( TRUE );
+					if ( ! Network.IsWellConnected() )
+						Network.Connect( TRUE );
 				}
 			}
 			else if ( nResponse == IDCANCEL )

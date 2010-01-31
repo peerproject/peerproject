@@ -1,7 +1,7 @@
 //
 // SharedFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -46,19 +46,19 @@ END_INTERFACE_MAP()
 //////////////////////////////////////////////////////////////////////
 // CLibraryFolder construction
 
-CLibraryFolder::CLibraryFolder(CLibraryFolder* pParent, LPCTSTR pszPath) :
-	m_nScanCookie( 0 ),
-	m_nUpdateCookie( 0 ),
-	m_nSelectCookie( 0 ),
-	m_pParent( pParent ),
-	m_sPath( pszPath ),
-	m_bShared( pParent ? TRI_UNKNOWN : TRI_TRUE ),
-	m_bExpanded( pParent ? FALSE : TRUE ),
-	m_nFiles( 0 ),
-	m_nVolume( 0 ),
-	m_hMonitor( INVALID_HANDLE_VALUE ),
-	m_bForceScan( TRUE ),
-	m_bOffline( FALSE )
+CLibraryFolder::CLibraryFolder(CLibraryFolder* pParent, LPCTSTR pszPath)
+	: m_nFiles( 0 )
+	, m_nVolume( 0 )
+	, m_nScanCookie( 0 )
+	, m_nUpdateCookie( 0 )
+	, m_nSelectCookie( 0 )
+	, m_pParent( pParent )
+	, m_sPath( pszPath )
+	, m_bShared( pParent ? TRI_UNKNOWN : TRI_TRUE )
+	, m_bExpanded( pParent ? FALSE : TRUE )
+	, m_hMonitor( INVALID_HANDLE_VALUE )
+	, m_bForceScan( TRUE )
+	, m_bOffline( FALSE )
 {
 	EnableDispatch( IID_ILibraryFolder );
 	EnableDispatch( IID_ILibraryFolders );
@@ -381,7 +381,7 @@ BOOL CLibraryFolder::ThreadScan(DWORD nScanCookie)
 
 	pLock.Lock();
 	m_nScanCookie	= nScanCookie;
-	nScanCookie		= ++Library.m_nScanCookie;
+	nScanCookie		= Library.GetScanCookie();
 	pLock.Unlock();
 
 	BOOL bChanged = FALSE;
@@ -557,8 +557,8 @@ BOOL CLibraryFolder::IsChanged()
 	{
 		// Enable monitor
 		m_hMonitor = FindFirstChangeNotification( m_sPath, TRUE,
-			FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_DIR_NAME|
-			FILE_NOTIFY_CHANGE_LAST_WRITE );
+			FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_DIR_NAME |
+			FILE_NOTIFY_CHANGE_ATTRIBUTES | FILE_NOTIFY_CHANGE_LAST_WRITE );
 	}
 	else if ( m_hMonitor != INVALID_HANDLE_VALUE && ! Settings.Library.WatchFolders )
 	{
@@ -914,6 +914,8 @@ STDMETHODIMP CLibraryFolder::XLibraryFolders::get_Item(VARIANT vIndex, ILibraryF
 {
 	METHOD_PROLOGUE( CLibraryFolder, LibraryFolders )
 
+	//CQuickLock oLock( Library.m_pSection );
+
 	CLibraryFolder* pFolder = NULL;
 	*ppFolder = NULL;
 
@@ -951,7 +953,11 @@ STDMETHODIMP CLibraryFolder::XLibraryFolders::get_Item(VARIANT vIndex, ILibraryF
 STDMETHODIMP CLibraryFolder::XLibraryFolders::get_Count(LONG FAR* pnCount)
 {
 	METHOD_PROLOGUE( CLibraryFolder, LibraryFolders )
+
+	//CQuickLock oLock( Library.m_pSection );
+
 	*pnCount = static_cast< LONG >( pThis->GetFolderCount() );
+
 	return S_OK;
 }
 
@@ -982,6 +988,8 @@ STDMETHODIMP CLibraryFolder::XLibraryFiles::get__NewEnum(IUnknown FAR* FAR* /*pp
 STDMETHODIMP CLibraryFolder::XLibraryFiles::get_Item(VARIANT vIndex, ILibraryFile FAR* FAR* ppFile)
 {
 	METHOD_PROLOGUE( CLibraryFolder, LibraryFiles )
+
+	//CQuickLock oLock( Library.m_pSection );
 
 	CLibraryFile* pFile = NULL;
 	*ppFile = NULL;
@@ -1017,6 +1025,10 @@ STDMETHODIMP CLibraryFolder::XLibraryFiles::get_Item(VARIANT vIndex, ILibraryFil
 STDMETHODIMP CLibraryFolder::XLibraryFiles::get_Count(LONG FAR* pnCount)
 {
 	METHOD_PROLOGUE( CLibraryFolder, LibraryFiles )
+
+	//CQuickLock oLock( Library.m_pSection );
+
 	*pnCount = static_cast< LONG >( pThis->GetFileCount() );
+
 	return S_OK;
 }

@@ -1,7 +1,7 @@
 //
 // DownloadGroups.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,6 +27,7 @@
 #include "Downloads.h"
 #include "Download.h"
 #include "Schema.h"
+//#include "Transfers.h" // For Locks
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -181,6 +182,7 @@ void CDownloadGroups::Link(CDownload* pDownload)
 
 void CDownloadGroups::Unlink(CDownload* pDownload, BOOL bAndSuper)
 {
+	//ASSUME_LOCK( Transfers.m_pSection );
 	CQuickLock pLock( m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
@@ -293,6 +295,7 @@ BOOL CDownloadGroups::Load()
 
 BOOL CDownloadGroups::Save(BOOL bForce)
 {
+	//CQuickLock pTransfersLock( Transfers.m_pSection );
 	CQuickLock pLock( m_pSection );
 
 	if ( ! bForce && m_nBaseCookie == m_nSaveCookie ) return FALSE;

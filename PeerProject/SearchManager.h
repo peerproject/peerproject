@@ -1,7 +1,7 @@
 //
 // SearchManager.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,7 +21,8 @@
 
 #pragma once
 
-class CManagedSearch;
+#include "ManagedSearch.h"
+
 class CG2Packet;
 class CQueryHit;
 
@@ -31,34 +32,29 @@ class CSearchManager
 // Construction
 public:
 	CSearchManager();
-	virtual ~CSearchManager();
+	~CSearchManager();
 
-// Attributes
-public:
-	CMutex			m_pSection;
-	Hashes::Guid	m_oLastED2KSearch;
+	CMutexEx		m_pSection;
+
+	void			OnRun();
+	BOOL			OnQueryAck(CG2Packet* pPacket, const SOCKADDR_IN* pAddress, Hashes::Guid& oGUID);
+	BOOL			OnQueryHits(const CQueryHit* pHits);
+	WORD			OnQueryStatusRequest(const Hashes::Guid& oGUID);
+
 protected:
-	CList< CManagedSearch* > m_pList;
+	typedef CList< CManagedSearch* > CSearchList;
+
+	CSearchList		m_pList;
 	DWORD			m_tLastTick;
 	int				m_nPriorityClass;
 	int				m_nPriorityCount;
+	Hashes::Guid	m_oLastED2KSearch;
 
-// Operations
-public:
-	POSITION		GetIterator() const;
-	CManagedSearch*	GetNext(POSITION& pos) const;
-	INT_PTR			GetCount() const;
-	CManagedSearch*	Find(const Hashes::Guid& oGUID);
-	void			OnRun();
-	BOOL			OnQueryAck(CG2Packet* pPacket, SOCKADDR_IN* pHost, Hashes::Guid& oGUID);
-	BOOL			OnQueryHits(CQueryHit* pHits);
-	WORD			OnQueryStatusRequest(const Hashes::Guid& oGUID);
-protected:
 	void			Add(CManagedSearch* pSearch);
 	void			Remove(CManagedSearch* pSearch);
+	CSearchPtr		Find(const Hashes::Guid& oGUID) const;
 
-	friend class CManagedSearch;
-	friend class CSearchWnd;
+	friend class CManagedSearch;	// m_pSection, m_oLastED2KSearch, Add(), Remove()
 };
 
 extern CSearchManager SearchManager;

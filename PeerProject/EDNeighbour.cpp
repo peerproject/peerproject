@@ -228,18 +228,12 @@ BOOL CEDNeighbour::OnConnected()
 void CEDNeighbour::OnDropped()
 {
 	if ( m_nState < nrsConnected )
-	{
 		HostCache.OnFailure( &m_pHost.sin_addr, htons( m_pHost.sin_port ), PROTOCOL_ED2K, false );
-	}
 
 	if ( m_nState == nrsConnecting )
-	{
 		Close( IDS_CONNECTION_REFUSED );
-	}
 	else
-	{
 		Close( IDS_CONNECTION_DROPPED );
-	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -337,7 +331,8 @@ BOOL CEDNeighbour::OnServerMessage(CEDPacket* pPacket)
 				(LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 		}
 
-		if ( strMessage.GetLength() > 0 ) strMessage = strMessage.Mid( 1 );
+		if ( strMessage.GetLength() > 0 )
+			strMessage = strMessage.Mid( 1 );
 	}
 
 	return TRUE;
@@ -378,9 +373,7 @@ BOOL CEDNeighbour::OnIdChange(CEDPacket* pPacket)
 	if ( ! CEDPacket::IsLowID( m_nClientID ) )
 	{
 		if ( Settings.Connection.InHost.IsEmpty() )
-		{
 			Network.m_pHost.sin_addr.S_un.S_addr = m_nClientID;
-		}
 	}
 	else
 	{
@@ -439,9 +432,7 @@ BOOL CEDNeighbour::OnServerList(CEDPacket* pPacket)
 			(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)nAddress ) ), nPort );
 
 		if ( Settings.eDonkey.LearnNewServers )
-		{
 			HostCache.eDonkey.Add( (IN_ADDR*)&nAddress, nPort );
-		}
 	}
 
 	HostCache.eDonkey.Add( &m_pHost.sin_addr, htons( m_pHost.sin_port ) );
@@ -499,14 +490,12 @@ BOOL CEDNeighbour::OnServerIdent(CEDPacket* pPacket)
 		case ED2K_ST_MAXUSERS:
 			m_nUserLimit = (DWORD)pTag.m_nValue;
 			break;
-/*
-		case ED2K_ST_MAXFILES:
-			nMaxFiles = pTag.m_nValue;
-			break;
-		case ED2K_ST_UDPFLAGS:
-			nUDPFlags = pTag.m_nValue;
-			break;
-*/
+		//case ED2K_ST_MAXFILES:
+		//	nMaxFiles = pTag.m_nValue;
+		//	break;
+		//case ED2K_ST_UDPFLAGS:
+		//	nUDPFlags = pTag.m_nValue;
+		//	break;
 		default:
 			CString str;
 			str.Format( _T("Unrecognised packet opcode (in CEDNeighbour::OnServerIdent) IP: %s Opcode: 0x%x:0x%x"),
@@ -682,9 +671,7 @@ void CEDNeighbour::SendSharedFiles()
 
 		CHostCacheHost *pServer = HostCache.eDonkey.Find( &m_pHost.sin_addr );
 		if ( pServer && ( pServer->m_nFileLimit > 10 ) )
-		{
 			m_nFileLimit = min( m_nFileLimit, pServer->m_nFileLimit );
-		}
 	}
 
 	CEDPacket* pPacket = CEDPacket::New( ED2K_C2S_OFFERFILES );
@@ -780,7 +767,7 @@ BOOL CEDNeighbour::SendSharedDownload(CDownload* pDownload)
 //////////////////////////////////////////////////////////////////////
 // CEDNeighbour file adverising
 
-BOOL CEDNeighbour::SendQuery(CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal)
+BOOL CEDNeighbour::SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal)
 {
 	// If the caller didn't give us a packet, or one that isn't for our protocol, leave now
 	if ( pPacket == NULL || pPacket->m_nProtocol != PROTOCOL_ED2K )

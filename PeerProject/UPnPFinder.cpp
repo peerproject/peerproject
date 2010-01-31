@@ -1,7 +1,7 @@
 //
 // UPnPFinder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,21 +32,21 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CUPnPFinder::CUPnPFinder()
-:	m_pDevices(),
-	m_pServices(),
-	m_bCOM( false ),
-	m_nAsyncFindHandle( 0 ),
-	m_bAsyncFindRunning( false ),
-	m_bADSL( false ),
-	m_bADSLFailed( false ),
-	m_bPortIsFree( true ),
-	m_sLocalIP(),
-	m_sExternalIP(),
-	m_tLastEvent( GetTickCount() ),
-	m_bInited( false ),
-	m_bSecondTry( false ),
-	m_bDisableWANIPSetup( Settings.Connection.SkipWANIPSetup == TRUE ),
-	m_bDisableWANPPPSetup( Settings.Connection.SkipWANPPPSetup == TRUE )
+	: m_pDevices	()
+	, m_pServices	()
+	, m_bCOM		( false )
+	, m_nAsyncFindHandle( 0 )
+	, m_bAsyncFindRunning( false )
+	, m_bADSL		( false )
+	, m_bADSLFailed	( false )
+	, m_bPortIsFree	( true )
+	, m_sLocalIP	()
+	, m_sExternalIP	()
+	, m_bInited 	( false )
+	, m_bSecondTry	( false )
+	, m_tLastEvent	( GetTickCount() )
+	, m_bDisableWANIPSetup( Settings.Connection.SkipWANIPSetup == TRUE )
+	, m_bDisableWANPPPSetup( Settings.Connection.SkipWANPPPSetup == TRUE )
 {}
 
 bool CUPnPFinder::Init()
@@ -373,7 +373,7 @@ bool CUPnPFinder::OnSearchComplete()
 // Function to populate the service list for the device
 HRESULT	CUPnPFinder::GetDeviceServices(DevicePointer pDevice)
 {
-	if ( !pDevice )
+	if ( ! pDevice )
 		return E_POINTER;
 
 	HRESULT hr = S_OK;
@@ -479,7 +479,7 @@ HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 	// WANEthernetLinkConfig is not a good criterion to detect an ADSL device.
 	// Thus, we first skip WANIPConnection service and if we fail afterwards,
 	// we try to use it as a last resort.
-	if ( !m_bADSL )
+	if ( ! m_bADSL )
 	{
 		m_bADSL = !( strServiceId.Find( L"urn:upnp-org:serviceId:WANEthLinkC" ) == -1 ) ||
 				  !( strServiceId.Find( L"urn:upnp-org:serviceId:WANDSLLinkC" ) == -1 );
@@ -607,7 +607,6 @@ CString CUPnPFinder::GetLocalRoutableIP(ServicePointer pService)
 		return CString();
 
 	DWORD nCount = ipAddr->dwNumEntries;
-	DWORD nSearchIP = 0;
 	CString strLocalIP;
 
 	// Look for IP associated with the interface in the address table
@@ -616,12 +615,8 @@ CString CUPnPFinder::GetLocalRoutableIP(ServicePointer pService)
 	{
 		if ( ipAddr->table[ nIf ].dwIndex == nInterfaceIndex )
 		{
-			nSearchIP = ipAddr->table[ nIf ].dwAddr;
-			strLocalIP.Format( L"%d.%d.%d.%d", ( nSearchIP & 0x0000ff ),
-				( ( nSearchIP & 0x00ff00 ) >> 8 ), ( ( nSearchIP & 0xff0000 ) >> 16 ),
-				( nSearchIP >> 24 ) );
-
-			theApp.m_nUPnPExternalAddress = ip;
+			strLocalIP = inet_ntoa( *(IN_ADDR*)&ipAddr->table[ nIf ].dwAddr );
+			theApp.m_nUPnPExternalAddress.s_addr = ip;
 			break;
 		}
 	}
@@ -1089,9 +1084,10 @@ void CUPnPFinder::DestroyVars(const INT_PTR nCount, VARIANT*** pppVars)
 	*pppVars = NULL;
 }
 
+
 ///////////////////////////////////////////////////////////////////
 //   CDeviceFinderCallback
-///////////////////////////////////////////////////////////////////
+//
 
 // Called when a device is added
 // nFindData--AsyncFindHandle; pDevice--COM interface pointer of the device being added
@@ -1130,9 +1126,9 @@ HRESULT CDeviceFinderCallback::SearchComplete(LONG /*nFindData*/)
 	return S_OK;
 }
 
+
 ////////////////////////////////////////////////////////////////////////////////
 //   CServiceCallback
-////////////////////////////////////////////////////////////////////////////////
 
 //! Called when the state variable is changed
 //! \arg pus             COM interface pointer of the service;
@@ -1166,7 +1162,9 @@ HRESULT CServiceCallback::StateVariableChanged(IUPnPService* pService,
 		}
 		else if ( _wcsicmp( pszStateVarName, L"ExternalIPAddress" ) == 0 )
 		{
-			theApp.m_nUPnPExternalAddress = inet_addr( CT2CA( strValue.Trim() ) );
+			theApp.m_nUPnPExternalAddress.s_addr = inet_addr( CT2A( strValue.Trim() ) );
+			if ( theApp.m_nUPnPExternalAddress.s_addr == INADDR_ANY )
+				theApp.m_nUPnPExternalAddress.s_addr = INADDR_NONE;
 		}
 	}
 
@@ -1191,8 +1189,9 @@ HRESULT CServiceCallback::ServiceInstanceDied(IUPnPService* pService)
 	return UPnPMessage( hr );
 }
 
+
 ////////////////////////////////////////////////////////////////////////////////
-// Prints the appropriate UPnP error text
+// Print the appropriate UPnP error text
 
 CString translateUPnPResult(HRESULT hr)
 {

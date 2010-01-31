@@ -1,7 +1,7 @@
 //
 // CtrlNeighbourTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,19 +28,26 @@ class CGraphItem;
 
 class CNeighbourTipCtrl : public CCoolTipCtrl
 {
-// Construction
+	DECLARE_DYNAMIC(CNeighbourTipCtrl)
+
 public:
 	CNeighbourTipCtrl();
 	virtual ~CNeighbourTipCtrl();
 
-// Attributes
-public:
+	void Show(DWORD_PTR pContext, HWND hAltWnd = NULL)
+	{
+		bool bChanged = ( pContext != m_nNeighbour );
+		m_nNeighbour = pContext;
+		m_hAltWnd = hAltWnd;
+		ShowImpl( bChanged );
+	}
+
+protected:
+	DWORD_PTR	m_nNeighbour;
 	CLineGraph*	m_pGraph;
 	CGraphItem*	m_pItemIn;
 	CGraphItem*	m_pItemOut;
 
-// Operations
-protected:
 	virtual BOOL OnPrepare();
 	virtual void OnShow();
 	virtual void OnHide();
@@ -58,5 +65,4 @@ protected:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
-
 };

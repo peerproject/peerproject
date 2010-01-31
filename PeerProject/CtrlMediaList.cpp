@@ -1,7 +1,7 @@
 //
 // CtrlMediaList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -164,13 +164,9 @@ int CMediaListCtrl::RecursiveEnqueue(LPCTSTR pszPath)
 			strPath.Format( _T("%s\\%s"), pszPath, pFind.cFileName );
 
 			if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
-			{
 				nCount += RecursiveEnqueue( strPath );
-			}
 			else
-			{
 				nCount += Enqueue( strPath, FALSE );
-			}
 		}
 		while ( FindNextFile( hSearch, &pFind ) );
 
@@ -185,9 +181,7 @@ void CMediaListCtrl::Remove(LPCTSTR pszFile)
 	for ( int nItem = GetItemCount() - 1 ; nItem >= 0 ; nItem-- )
 	{
 		if ( GetItemText( nItem, 1 ).CompareNoCase( pszFile ) == 0 )
-		{
 			Remove( nItem );
-		}
 	}
 }
 
@@ -214,8 +208,7 @@ BOOL CMediaListCtrl::LoadTextList(LPCTSTR pszFile)
 
 		if ( strItem.GetLength() && strItem.GetAt( 0 ) != '#' )
 		{
-			if ( strItem.Find( '\\' ) != 0 &&
-				 strItem.Find( ':' ) != 1 )
+			if ( strItem.Find( '\\' ) != 0 && strItem.Find( ':' ) != 1 )
 				strItem = strPath + strItem;
 
 			if ( GetFileAttributes( strItem ) != 0xFFFFFFFF )
@@ -235,9 +228,7 @@ int CMediaListCtrl::Add(LPCTSTR pszPath, int nItem)
 	{
 		CQuickLock oLock( Library.m_pSection );
 		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( pszPath ) )
-		{
 			nFile = pFile->m_nIndex;
-		}
 	}
 
 	CString strTemp = (LPTSTR)pszFile;
@@ -251,8 +242,8 @@ int CMediaListCtrl::Add(LPCTSTR pszPath, int nItem)
 	pItem.lParam	= nFile;
 	pItem.pszText	= pszFileTmp;
 	pItem.iItem		= InsertItem( &pItem );
-	pItem.mask		= LVIF_TEXT;
 	pItem.iSubItem	= 1;
+	pItem.mask		= LVIF_TEXT;
 	pItem.pszText	= (LPTSTR)pszPath;
 	SetItem( &pItem );
 	strTemp.ReleaseBuffer();
@@ -296,11 +287,13 @@ void CMediaListCtrl::SetCurrent(int nCurrent)
 	{
 		if ( GetItemState( nItem, STATE_CURRENT ) )
 		{
-			if ( nItem != nCurrent ) SetItemState( nItem, 0, STATE_CURRENT );
+			if ( nItem != nCurrent )
+				SetItemState( nItem, 0, STATE_CURRENT );
 		}
 		else
 		{
-			if ( nItem == nCurrent ) SetItemState( nItem, STATE_CURRENT, STATE_CURRENT );
+			if ( nItem == nCurrent )
+				SetItemState( nItem, STATE_CURRENT, STATE_CURRENT );
 		}
 	}
 
@@ -412,7 +405,8 @@ void CMediaListCtrl::OnCustomDraw(NMHDR* pNotify, LRESULT* pResult)
 			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk	= Colors.m_crMediaPanelBack;
 		}
 
-		if ( m_bCreateDragImage ) ((NMLVCUSTOMDRAW*) pNotify)->clrTextBk = DRAG_COLOR_KEY;
+		if ( m_bCreateDragImage )
+			((NMLVCUSTOMDRAW*) pNotify)->clrTextBk = DRAG_COLOR_KEY;
 
 		*pResult = CDRF_DODEFAULT;
 	}
@@ -499,9 +493,11 @@ void CMediaListCtrl::OnMouseMove(UINT nFlags, CPoint point)
 		if ( nHit != m_nDragDrop )
 		{
 			CImageList::DragShowNolock( FALSE );
-			if ( m_nDragDrop >= 0 ) SetItemState( m_nDragDrop, 0, LVIS_DROPHILITED );
+			if ( m_nDragDrop >= 0 )
+				SetItemState( m_nDragDrop, 0, LVIS_DROPHILITED );
 			m_nDragDrop = nHit;
-			if ( m_nDragDrop >= 0 ) SetItemState( m_nDragDrop, LVIS_DROPHILITED, LVIS_DROPHILITED );
+			if ( m_nDragDrop >= 0 )
+				SetItemState( m_nDragDrop, LVIS_DROPHILITED, LVIS_DROPHILITED );
 			UpdateWindow();
 			CImageList::DragShowNolock( TRUE );
 		}
@@ -513,13 +509,9 @@ void CMediaListCtrl::OnMouseMove(UINT nFlags, CPoint point)
 		if ( nFile > 0 && ! Library.LookupFile( static_cast< DWORD >( nFile ) ) ) nFile = 0;
 
 		if ( nFile > 0 )
-		{
-			m_wndTip.Show( (void*)nFile );
-		}
+			m_wndTip.Show( nFile );
 		else
-		{
 			m_wndTip.Hide();
-		}
 	}
 
 	CListCtrl::OnMouseMove( nFlags, point );
@@ -581,9 +573,7 @@ BOOL CMediaListCtrl::AreSelectedFilesInLibrary()
 		for ( int nItem = -1 ; ( nItem = GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
 		{
 			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( GetPath( nItem ) ) )
-			{
 				return TRUE;
-			}
 		}
 	}
 	return FALSE;
@@ -705,7 +695,8 @@ void CMediaListCtrl::OnMediaRemove()
 {
 	for ( int nItem = GetItemCount() - 1 ; nItem >= 0 ; nItem-- )
 	{
-		if ( GetItemState( nItem, LVIS_SELECTED ) ) Remove( nItem );
+		if ( GetItemState( nItem, LVIS_SELECTED ) )
+			Remove( nItem );
 	}
 }
 

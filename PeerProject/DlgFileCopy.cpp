@@ -1,7 +1,7 @@
 //
 // DlgFileCopy.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,12 +47,12 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFileCopyDlg dialog
 
-CFileCopyDlg::CFileCopyDlg(CWnd* pParent, BOOL bMove) :
-	CSkinDialog(CFileCopyDlg::IDD, pParent),
-	m_bMove( bMove ),
-	m_nCookie( 0 ),
-	m_bCancel( FALSE ),
-	m_nFileProg( 0 )
+CFileCopyDlg::CFileCopyDlg(CWnd* pParent, BOOL bMove)
+	: CSkinDialog(CFileCopyDlg::IDD, pParent)
+	, m_bMove( bMove )
+	, m_nFileProg( 0 )
+	, m_nCookie( 0 )
+	, m_bCancel( FALSE )
 {
 }
 
@@ -103,13 +103,11 @@ BOOL CFileCopyDlg::OnInitDialog()
 	{
 		CQuickLock oLock( Library.m_pSection );
 
-		m_nCookie = Library.m_nUpdateCookie;
+		m_nCookie = Library.GetCookie();
 		m_wndTree.Update();
 
 		if ( CLibraryFolder* pFolder = LibraryFolders.GetFolder( m_sTarget ) )
-		{
 			m_wndTree.SelectFolder( pFolder );
-		}
 	}
 
 	if ( Settings.General.LanguageRTL )
@@ -136,13 +134,13 @@ void CFileCopyDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 
 	if ( ! m_wndTree.IsWindowEnabled() ) return;
 
-	if ( m_nCookie != Library.m_nUpdateCookie )
+	if ( m_nCookie != Library.GetCookie() )
 	{
 		CSingleLock pLock( &Library.m_pSection );
 
 		if ( pLock.Lock( 500 ) )
 		{
-			m_nCookie = Library.m_nUpdateCookie;
+			m_nCookie = Library.GetCookie();
 			m_wndTree.Update();
 		}
 	}
@@ -233,7 +231,7 @@ void CFileCopyDlg::OnRun()
 	while ( IsThreadEnabled() )
 	{
 		CString strName, strPath;
-		CSchema* pSchema = NULL;
+		CSchemaPtr pSchema = NULL;
 		CXMLElement* pMetadata = NULL;
 		BOOL bMetadataAuto = FALSE;
 		int nRating = 0;
@@ -373,12 +371,12 @@ bool CFileCopyDlg::ProcessFile(const CString& strName, const CString& strPath)
 
 	if ( m_bMove )
 	{
-		if ( !ProcessMove( sSource, sTarget ) )
+		if ( ! ProcessMove( sSource, sTarget ) )
 			return false;
 	}
 	else
 	{
-		if ( !ProcessCopy( sSource, sTarget ) )
+		if ( ! ProcessCopy( sSource, sTarget ) )
 			return false;
 	}
 
@@ -479,9 +477,7 @@ DWORD WINAPI CFileCopyDlg::CopyCallback(LARGE_INTEGER TotalFileSize, LARGE_INTEG
 		int iProgress = (int)( nProgress * 400 );
 
 		if ( iProgress != pDlg->m_nFileProg )
-		{
 			pDlg->m_wndFileProg.SetPos( pDlg->m_nFileProg = iProgress );
-		}
 	}
 
 	return 0;

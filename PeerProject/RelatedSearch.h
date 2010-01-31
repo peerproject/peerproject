@@ -1,7 +1,7 @@
 //
 // RelatedSearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,7 +23,6 @@
 
 #include "PeerProjectFile.h"
 
-class CSchema;
 class CXMLElement;
 class CMatchFile;
 class CLibraryFile;
@@ -39,7 +38,7 @@ public:
 
 // Attributes
 public:
-	CSchema*		m_pSchema;
+	CSchemaPtr		m_pSchema;
 	CXMLElement*	m_pXML;
 	BOOL			m_bXML;
 
@@ -47,16 +46,12 @@ public:
 public:
 	BOOL		CanSearchForThis();
 	BOOL		RunSearchForThis();
-public:
 	BOOL		CanSearchForSimilar();
 	BOOL		RunSearchForSimilar();
-public:
 	BOOL		CanSearchForArtist();
 	BOOL		RunSearchForArtist();
-public:
 	BOOL		CanSearchForAlbum();
 	BOOL		RunSearchForAlbum();
-public:
 	BOOL		CanSearchForSeries();
 	BOOL		RunSearchForSeries();
 protected:

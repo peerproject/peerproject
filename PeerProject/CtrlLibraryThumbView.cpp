@@ -1,7 +1,7 @@
 //
 // CtrlLibraryThumbView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -124,7 +124,7 @@ void CLibraryThumbView::Update()
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 
-	CSchema* pSchema	= SchemaCache.Get( Settings.Library.FilterURI );
+	CSchemaPtr pSchema	= SchemaCache.Get( Settings.Library.FilterURI );
 	DWORD nCookie		= GetFolderCookie();
 	BOOL bChanged		= FALSE;
 
@@ -225,13 +225,9 @@ BOOL CLibraryThumbView::Select(DWORD nObject)
 	GetItemRect( m_pFocus, &rcItem );
 
 	if ( rcItem.top < rcClient.top )
-	{
 		ScrollBy( rcItem.top - rcClient.top );
-	}
 	else if ( rcItem.bottom > rcClient.bottom )
-	{
 		ScrollBy( rcItem.bottom - rcClient.bottom );
-	}
 
 	return TRUE;
 }
@@ -331,7 +327,8 @@ BOOL CLibraryThumbView::DeselectAll(CLibraryThumbItem* pThumb)
 	{
 		if ( *pList != pThumb )
 		{
-			if ( (*pList)->m_bSelected ) bChanged = Select( *pList, TRI_FALSE );
+			if ( (*pList)->m_bSelected )
+				bChanged = Select( *pList, TRI_FALSE );
 		}
 	}
 
@@ -361,11 +358,13 @@ BOOL CLibraryThumbView::SelectTo(CLibraryThumbItem* pThumb)
 			{
 				if ( nFirst <= nFocus )
 				{
-					for ( ; nFirst <= nFocus ; nFirst++ ) Select( m_pList[ nFirst ], TRI_TRUE );
+					for ( ; nFirst <= nFocus ; nFirst++ )
+						Select( m_pList[ nFirst ], TRI_TRUE );
 				}
 				else
 				{
-					for ( ; nFocus <= nFirst ; nFocus++ ) Select( m_pList[ nFocus ], TRI_TRUE );
+					for ( ; nFocus <= nFirst ; nFocus++ )
+						Select( m_pList[ nFocus ], TRI_TRUE );
 				}
 
 				bChanged = TRUE;
@@ -389,13 +388,9 @@ BOOL CLibraryThumbView::SelectTo(CLibraryThumbItem* pThumb)
 		GetItemRect( m_pFocus, &rcItem );
 
 		if ( rcItem.top < rcClient.top )
-		{
 			ScrollBy( rcItem.top - rcClient.top );
-		}
 		else if ( rcItem.bottom > rcClient.bottom )
-		{
 			ScrollBy( rcItem.bottom - rcClient.bottom );
-		}
 	}
 	else if (	( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 &&
 				( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0 )
@@ -552,9 +547,7 @@ void CLibraryThumbView::OnPaint()
 		CRect rcBlock( pt.x, pt.y, pt.x + CX, pt.y + CY );
 
 		if ( rcBlock.bottom >= rcClient.top && dc.RectVisible( &rcBlock ) )
-		{
 			pThumb->Paint( &dc, rcBlock );
-		}
 
 		pt.x += CX;
 
@@ -829,7 +822,8 @@ void CLibraryThumbView::StartThread()
 
 	for ( int nItem = m_nCount ; nItem ; nItem--, pList++ )
 	{
-		if ( (*pList)->m_nThumb == CLibraryThumbItem::thumbWaiting ) nCount++;
+		if ( (*pList)->m_nThumb == CLibraryThumbItem::thumbWaiting )
+			nCount++;
 	}
 
 	if ( nCount == 0 ) // all thumbnails extracted
@@ -880,8 +874,7 @@ void CLibraryThumbView::OnRun()
 		}
 
 		if ( ! bWaiting )
-			// Complete
-			break;
+			break;	// Complete
 
 		if ( ! nIndex )
 		{

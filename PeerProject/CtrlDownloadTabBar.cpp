@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTabBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2009
+// This file is part of PeerProject (peerproject.org) © 2008-2010-2009
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -531,11 +531,10 @@ void CDownloadTabBar::OnDownloadGroupNew()
 
 	if ( dlg.DoModal() == IDOK )
 	{
-		if ( Transfers.m_pSection.Lock( 300 ) )
-		{
-			if ( DownloadGroups.Check( pGroup ) ) pGroup->LinkAll();
-			Transfers.m_pSection.Unlock();
-		}
+		CQuickLock oLock( Transfers.m_pSection );
+
+		if ( DownloadGroups.Check( pGroup ) )
+			pGroup->LinkAll();
 	}
 	else
 	{
@@ -595,13 +594,16 @@ void CDownloadTabBar::OnDownloadGroupProperties()
 	CDownloadGroupDlg dlg( pGroup );
 	if ( dlg.DoModal() == IDOK )
 	{
+		CQuickLock oLock( Transfers.m_pSection );
+
 		if ( pGroup != DownloadGroups.GetSuperGroup() )
 		{
 			pGroup->Clear();
 			pGroup->LinkAll();
 		}
-		NotifySelection();
 	}
+
+	NotifySelection();
 }
 
 void CDownloadTabBar::OnUpdateDownloadGroupResume(CCmdUI* pCmdUI)

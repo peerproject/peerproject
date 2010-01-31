@@ -84,7 +84,7 @@ BOOL CTorrentFilesPage::OnInitDialog()
 	if ( ! Downloads.Check( pDownload ) || ! pDownload->IsTorrent() )
 		return FALSE;
 
-	auto_ptr< CCoolTipCtrl > pTip( new CLibraryTipCtrl );
+	auto_ptr< CLibraryTipCtrl > pTip( new CLibraryTipCtrl );
 	pTip->Create( this, &Settings.Interface.TipDownloads );
 //	m_wndFiles.EnableTips( pTip );
 
@@ -245,9 +245,7 @@ void CTorrentFilesPage::OnTimer(UINT_PTR nIDEvent)
 	CPropertyPageAdv::OnTimer( nIDEvent );
 
 	if ( static_cast< CPropertySheet* >( GetParent() )->GetActivePage() == this )
-	{
 		Update();
-	}
 }
 
 void CTorrentFilesPage::Update()
