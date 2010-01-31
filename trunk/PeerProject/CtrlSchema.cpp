@@ -1,7 +1,7 @@
 //
 // CtrlSchema.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -54,11 +54,11 @@ END_MESSAGE_MAP()
 // CSchemaCtrl construction
 
 CSchemaCtrl::CSchemaCtrl()
-: m_nCaptionWidth(120)
-, m_nItemHeight(32)
-, m_bShowBorder(TRUE)
-, m_pSchema(NULL)
-, m_nScroll(0)
+	: m_nCaptionWidth	(120)
+	, m_nItemHeight 	(32)
+	, m_bShowBorder 	(TRUE)
+	, m_pSchema 		(NULL)
+	, m_nScroll 		(0)
 {
 	CString strText;
 	LoadString( strText, IDS_MULTIPLE_VALUES );
@@ -66,9 +66,7 @@ CSchemaCtrl::CSchemaCtrl()
 
 	// Try to get the number of lines to scroll when the mouse wheel is rotated
 	if( !SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0) )
-	{
 		m_nScrollWheelLines = 3;
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -98,7 +96,7 @@ void CSchemaCtrl::OnSize(UINT nType, int cx, int cy)
 /////////////////////////////////////////////////////////////////////////////
 // CSchemaCtrl schema selection
 
-void CSchemaCtrl::SetSchema(CSchema* pSchema, BOOL bPromptOnly)
+void CSchemaCtrl::SetSchema(CSchemaPtr pSchema, BOOL bPromptOnly)
 {
 	CArray< CWnd* > pRemove;
 	pRemove.Append( m_pControls );
@@ -210,21 +208,19 @@ BOOL CSchemaCtrl::UpdateData(CXMLElement* pBase, BOOL bSaveAndValidate)
 				// ... but don't set empty value if there is no original value
 				! ( strNewValue.IsEmpty() && ( strOldValue == NO_VALUE ) ) &&
 				( strNewValue != strOldValue ) )
+			{
 				// ... save it
 				pMember->SetValueTo( pBase, strNewValue );
+			}
 		}
 		else
 		{
 			CString strValue = pMember->GetValueFrom( pBase, NO_VALUE, FALSE, TRUE );
 
 			if ( strValue == MULTI_VALUE )
-			{
 				pControl->SetWindowText( strMultipleString );
-			}
 			else if ( ! strValue.IsEmpty() && ( strValue != NO_VALUE ) )
-			{
 				pControl->SetWindowText( strValue );
-			}
 		}
 	}
 
@@ -498,10 +494,9 @@ BOOL CSchemaCtrl::OnCommand(WPARAM wParam, LPARAM lParam)
 			for ( LPCTSTR pszIn = strTextIn ; *pszIn ; pszIn++ )
 			{
 				if ( ( *pszIn >= '0' && *pszIn <= '9' ) || *pszIn == '.' || *pszIn == '-' )
-				{
 					*pszOut++ = *pszIn;
-				}
-				else bChanged = TRUE;
+				else
+					bChanged = TRUE;
 			}
 
 			*pszOut = 0;
@@ -531,13 +526,9 @@ void CSchemaCtrl::OnControlSetFocus()
 			pFocus->GetWindowRect( &rcControl );
 			ScreenToClient( &rcControl );
 			if ( rcControl.top < rcClient.top )
-			{
 				ScrollBy( rcControl.top - rcClient.top - 8 );
-			}
 			else if ( rcControl.bottom > rcClient.bottom )
-			{
 				ScrollBy( rcControl.bottom - rcClient.bottom + 8 );
-			}
 			break;
 		}
 	}

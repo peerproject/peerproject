@@ -70,15 +70,15 @@ CNetwork Network;
 //////////////////////////////////////////////////////////////////////
 // CNetwork construction
 
-CNetwork::CNetwork() :
-	NodeRoute				( new CRouteCache() ),
-	QueryRoute				( new CRouteCache() ),
-	QueryKeys				( new CQueryKeys() ),
-	m_bAutoConnect			( FALSE ),
-	m_tStartedConnecting	( 0 ),
-	m_tLastConnect			( 0 ),
-	m_tLastED2KServerHop	( 0 ),
-	m_nSequence				( 0 )
+CNetwork::CNetwork()
+	: NodeRoute				( new CRouteCache() )
+	, QueryRoute			( new CRouteCache() )
+	, QueryKeys				( new CQueryKeys() )
+	, m_bAutoConnect		( FALSE )
+	, m_tStartedConnecting	( 0 )
+	, m_tLastConnect		( 0 )
+	, m_tLastED2KServerHop	( 0 )
+	, m_nSequence			( 0 )
 {
 	ZeroMemory( &m_pHost, sizeof( m_pHost ) );
 	m_pHost.sin_family		= AF_INET;
@@ -96,17 +96,18 @@ CNetwork::~CNetwork()
 
 BOOL CNetwork::IsSelfIP(const IN_ADDR& nAddress) const
 {
-	const IN_ADDR* nUPnPAddr = (const IN_ADDR*)&theApp.m_nUPnPExternalAddress;
-	if ( nUPnPAddr->S_un.S_addr == nAddress.S_un.S_addr )
-		return TRUE;
-
-	if ( nAddress.s_addr == INADDR_ANY || nAddress.s_addr == INADDR_NONE )
+	if ( nAddress.s_addr == INADDR_ANY ||
+		 nAddress.s_addr == INADDR_NONE )
 		return FALSE;
 
 	if ( nAddress.s_addr == m_pHost.sin_addr.s_addr )
 		return TRUE;
 
 	if ( nAddress.s_net == 127 )
+		return TRUE;
+
+	if ( theApp.m_nUPnPExternalAddress.s_addr != INADDR_NONE &&
+		 theApp.m_nUPnPExternalAddress.s_addr == nAddress.s_addr )
 		return TRUE;
 
 	return ( m_pHostAddresses.Find( nAddress.s_addr ) != NULL );
@@ -577,8 +578,8 @@ BOOL CNetwork::PreRun()
 	NodeRoute->SetDuration( Settings.Gnutella.RouteCache );
 	QueryRoute->SetDuration( Settings.Gnutella.RouteCache );
 
-	Neighbours.IsG2HubCapable( TRUE );
-	Neighbours.IsG1UltrapeerCapable( TRUE );
+	Neighbours.IsG2HubCapable( FALSE, TRUE );
+	Neighbours.IsG1UltrapeerCapable( FALSE, TRUE );
 
 	// Check if it is needed inside the function
 	DiscoveryServices.Execute( TRUE, PROTOCOL_NULL, FALSE );
@@ -743,9 +744,7 @@ void CNetwork::OnWinsock(WPARAM wParam, LPARAM lParam)
 				}
 
 				if ( pService != NULL )
-				{
 					pService->OnFailure();
-				}
 			}
 			else if ( pResolve->m_nProtocol == PROTOCOL_G2 )
 			{
@@ -758,9 +757,7 @@ void CNetwork::OnWinsock(WPARAM wParam, LPARAM lParam)
 				}
 
 				if ( pService != NULL )
-				{
 					pService->OnFailure();
-				}
 			}
 		}
 
@@ -874,13 +871,9 @@ BOOL CNetwork::SendPush(const Hashes::Guid& oGUID, DWORD nIndex)
 			pPacket->WriteShortBE( htons( m_pHost.sin_port ) );
 
 			if ( pOrigin != NULL )
-			{
 				pOrigin->Send( pPacket );
-			}
 			else
-			{
 				Datagrams.Send( &pEndpoint, pPacket );
-			}
 		}
 
 		oGUID2[15] ++;
@@ -974,7 +967,7 @@ BOOL CNetwork::RouteHits(CQueryHit* pHits, CPacket* pPacket)
 //////////////////////////////////////////////////////////////////////
 // CNetwork common handler functions
 
-void CNetwork::OnQuerySearch(CQuerySearch* pSearch)
+void CNetwork::OnQuerySearch(const CQuerySearch* pSearch)
 {
 	// Send searches to monitor window
 	CSingleLock pLock( &theApp.m_pSection );

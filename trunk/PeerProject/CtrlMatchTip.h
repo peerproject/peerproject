@@ -1,7 +1,7 @@
 //
 // CtrlMatchTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,7 +25,6 @@
 
 class CMatchFile;
 class CQueryHit;
-class CSchema;
 
 
 class CMatchTipCtrl : public CWnd
@@ -63,7 +62,7 @@ protected:
 	COLORREF		m_crStatus;
 	CString			m_sPartial;
 	CString			m_sQueue;
-	CSchema*		m_pSchema;
+	CSchemaPtr		m_pSchema;
 	CMetaList		m_pMetadata;
 	int				m_nKeyWidth;
 	int				m_nRating;
@@ -91,7 +90,6 @@ protected:
 // Overrides
 public:
 	//{{AFX_VIRTUAL(CMatchTipCtrl)
-	public:
 	virtual BOOL Create(CWnd* pParentWnd);
 	//}}AFX_VIRTUAL
 

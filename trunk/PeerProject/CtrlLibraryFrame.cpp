@@ -87,15 +87,15 @@ END_MESSAGE_MAP()
 // CLibraryFrame construction
 
 CLibraryFrame::CLibraryFrame()
-: m_pView( NULL )
-, m_pPanel( NULL )
-, m_nTreeSize( Settings.Library.TreeSize )
-, m_nPanelSize( Settings.Library.PanelSize )
-, m_bPanelShow( Settings.Library.ShowPanel )
-, m_nHeaderSize( 0 )
-, m_bUpdating( FALSE )
-, m_bShowDynamicBar( TRUE )
-, m_bDynamicBarHidden( TRUE )
+	: m_pView			( NULL )
+	, m_pPanel			( NULL )
+	, m_nHeaderSize		( 0 )
+	, m_nTreeSize		( Settings.Library.TreeSize )
+	, m_nPanelSize		( Settings.Library.PanelSize )
+	, m_bPanelShow		( Settings.Library.ShowPanel )
+	, m_bUpdating		( FALSE )
+	, m_bShowDynamicBar	( TRUE )
+	, m_bDynamicBarHidden ( TRUE )
 {
 	m_pViews.AddTail( new CLibraryDetailView() );
 	m_pViews.AddTail( new CLibraryListView() );
@@ -211,8 +211,8 @@ void CLibraryFrame::OnSkinChange()
 	m_wndTreeTypes.ShowWindow( Settings.Library.ShowVirtual ? SW_HIDE : SW_SHOW );
 	m_wndHeader.OnSkinChange();
 
-	CLibraryView* pView		= m_pView;
-	CPanelCtrl* pPanel		= m_pPanel;
+	CLibraryView* pView = m_pView;
+	CPanelCtrl* pPanel = m_pPanel;
 
 	SetView( NULL, TRUE, FALSE );
 	SetView( pView, TRUE, FALSE );
@@ -386,7 +386,8 @@ void CLibraryFrame::OnPaint()
 
 void CLibraryFrame::OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/)
 {
-//	if ( m_pView ) m_pView->SendMessage( WM_CONTEXTMENU, (WPARAM)pWnd->GetSafeHwnd(), MAKELONG( point.x, point.y ) );
+	//if ( m_pView )
+	//	m_pView->SendMessage( WM_CONTEXTMENU, (WPARAM)pWnd->GetSafeHwnd(), MAKELONG( point.x, point.y ) );
 }
 
 void CLibraryFrame::OnMeasureItem(int /*nIDCtl*/, LPMEASUREITEMSTRUCT lpMeasureItemStruct)
@@ -560,7 +561,8 @@ BOOL CLibraryFrame::DoSizePanel()
 
 		int nSplit = rcClient.bottom - point.y;
 
-		if ( nOffset == 0xFFFF ) nOffset = m_nPanelSize - nSplit;
+		if ( nOffset == 0xFFFF )
+			nOffset = m_nPanelSize - nSplit;
 		nSplit += nOffset;
 
 		if ( nSplit < 8 )
@@ -648,8 +650,7 @@ void CLibraryFrame::SetView(CLibraryView* pView, BOOL bUpdate, BOOL bUser)
 		m_pView->Update();
 
 	if ( pOld ) pOld->ShowWindow( SW_HIDE );
-	if ( m_pView )
-		m_pView->ShowWindow( SW_SHOW );
+	if ( m_pView ) m_pView->ShowWindow( SW_SHOW );
 	if ( pOld ) pOld->DestroyWindow();
 
 	if ( m_pView && bUpdate )
@@ -737,8 +738,8 @@ BOOL CLibraryFrame::Update(BOOL bForce, BOOL bBestView)
 	CSingleLock pLock( &Library.m_pSection );
 	if ( ! pLock.Lock( bForce ? 500 : 50 ) ) return FALSE;
 
-	if ( ! bForce && m_nLibraryCookie == Library.m_nUpdateCookie ) return FALSE;
-	m_nLibraryCookie = Library.m_nUpdateCookie;
+	if ( ! bForce && m_nLibraryCookie == Library.GetCookie() ) return FALSE;
+	m_nLibraryCookie = Library.GetCookie();
 
 	m_bUpdating = TRUE;
 
@@ -859,7 +860,8 @@ BOOL CLibraryFrame::Display(CLibraryFile* pFile)
 {
 	if ( Settings.Library.ShowVirtual )
 	{
-		if ( CAlbumFolder* pFolder = Library.GetAlbumRoot()->FindFile( pFile ) )
+		CAlbumFolder* pRoot = Library.GetAlbumRoot();
+		if ( CAlbumFolder* pFolder = pRoot ? pRoot->FindFile( pFile ) : NULL )
 			Display( pFolder );
 		else
 			Display( pFile->m_pFolder );
@@ -904,7 +906,7 @@ void CLibraryFrame::OnTimer(UINT_PTR /*nIDEvent*/)
 
 void CLibraryFrame::OnFilterTypes()
 {
-	if ( CSchema* pSchema = m_wndTreeTypes.GetSelected() )
+	if ( CSchemaPtr pSchema = m_wndTreeTypes.GetSelected() )
 		Settings.Library.FilterURI = pSchema->GetURI();
 	else
 		Settings.Library.FilterURI.Empty();
@@ -975,7 +977,7 @@ void CLibraryFrame::OnLibraryPanel()
 
 void CLibraryFrame::OnLibrarySearch()
 {
-	CNewSearchDlg dlg( NULL, auto_ptr< CQuerySearch >(), TRUE );
+	CNewSearchDlg dlg( NULL, NULL, TRUE );
 
 	if ( dlg.DoModal() == IDOK )
 		RunLocalSearch( dlg.GetSearch() );
@@ -988,7 +990,7 @@ void CLibraryFrame::OnLibrarySearchQuick()
 
 	if ( str.GetLength() > 0 )
 	{
-		auto_ptr< CQuerySearch > pSearch( new CQuerySearch() );
+		CQuerySearchPtr pSearch = new CQuerySearch();
 		pSearch->m_sSearch = str;
 		RunLocalSearch( pSearch );
 		m_wndSearch.SetWindowText( _T("") );
@@ -1057,22 +1059,26 @@ void CLibraryFrame::HideDynamicBar()
 		m_wndBottomDynamic.ShowWindow( SW_HIDE );
 }
 
-void CLibraryFrame::RunLocalSearch(auto_ptr< CQuerySearch > pSearch)
+void CLibraryFrame::RunLocalSearch(CQuerySearch* pSearch)
 {
 	CWaitCursor pCursor;
 
 	pSearch->BuildWordList( true, true );
 
-	CAlbumFolder* pRoot		= Library.GetAlbumRoot();
-	CAlbumFolder* pFolder	= pRoot->GetFolderByURI( CSchema::uriSearchFolder );
+	CSingleLock oLock( &Library.m_pSection, TRUE );
 
+	CAlbumFolder* pRoot = Library.GetAlbumRoot();
+	if ( ! pRoot ) return;
+
+	CAlbumFolder* pFolder = pRoot->GetFolderByURI( CSchema::uriSearchFolder );
 	if ( pFolder == NULL )
 	{
 		pFolder = pRoot->AddFolder( CSchema::uriSearchFolder, _T("Search Results") );
 		if ( pFolder->m_pSchema != NULL )
 		{
 			int nColon = pFolder->m_pSchema->m_sTitle.Find( ':' );
-			if ( nColon >= 0 ) pFolder->m_sName = pFolder->m_pSchema->m_sTitle.Mid( nColon + 1 );
+			if ( nColon >= 0 )
+				pFolder->m_sName = pFolder->m_pSchema->m_sTitle.Mid( nColon + 1 );
 		}
 	}
 	else
@@ -1091,7 +1097,7 @@ void CLibraryFrame::RunLocalSearch(auto_ptr< CQuerySearch > pSearch)
 			pFolder = pRoot->AddFolder( CSchema::uriSearchFolder, _T("Search Results") );
 			if ( pFolder->m_pSchema != NULL )
 			{
-				if ( !strFolderName.IsEmpty() )
+				if ( ! strFolderName.IsEmpty() )
 					pFolder->m_sName = strFolderName;
 			}
 		}
@@ -1119,7 +1125,7 @@ void CLibraryFrame::RunLocalSearch(auto_ptr< CQuerySearch > pSearch)
 		delete pOuter;
 	}
 
-	if ( CFileList* pFiles = Library.Search( pSearch.get(), 0, TRUE ) )
+	if ( CFileList* pFiles = Library.Search( pSearch, 0, TRUE ) )
 	{
 		for ( POSITION pos = pFiles->GetHeadPosition() ; pos ; )
 		{
@@ -1137,6 +1143,8 @@ void CLibraryFrame::RunLocalSearch(auto_ptr< CQuerySearch > pSearch)
 
 		delete pFiles;
 	}
+
+	oLock.Unlock();
 
 	Update();
 	Display( pFolder );

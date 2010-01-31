@@ -1,7 +1,7 @@
 //
 // CtrlCoolTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,30 +26,35 @@ class CLineGraph;
 
 class CCoolTipCtrl : public CWnd
 {
+	DECLARE_DYNAMIC(CCoolTipCtrl)
+
 public:
 	CCoolTipCtrl();
 	virtual ~CCoolTipCtrl();
 
-	DECLARE_DYNAMIC(CCoolTipCtrl)
-
-protected:
-	bool*	m_pbEnable;
-	void*	m_pContext;
-	HWND	m_hAltWnd;
-	BOOL	m_bTimer;
-	BOOL	m_bVisible;
-	CPoint	m_pOpen;
-	DWORD	m_tOpen;
-	CSize	m_sz;
-	static LPCTSTR	m_hClass;
-
-public:
 	virtual BOOL Create(CWnd* pParentWnd, bool* pbEnable = NULL);
-	virtual void Show(void* pContext, HWND hAltWnd = NULL);
+
+	//void Show(T* pContext, HWND hAltWnd = NULL)
+	//{
+	//	bool bChanged = ( pContext != m_pContext );
+	//	m_pContext = pContext;
+	//	m_hAltWnd = hAltWnd;
+	//	ShowImpl( bChanged );
+	//}
+
 	virtual void Hide();
 
 protected:
-	virtual void ShowImpl();
+	bool*	m_pbEnable;
+	HWND	m_hAltWnd;
+	BOOL	m_bTimer;
+	BOOL	m_bVisible;
+	DWORD	m_tOpen;
+	CPoint	m_pOpen;
+	CSize	m_sz;
+	static LPCTSTR	m_hClass;
+
+	void	ShowImpl(bool bChanged = false);
 	void	CalcSizeHelper();
 	void	AddSize(CDC* pDC, LPCTSTR pszText, int nBase = 0);
 	void	GetPaintRect(RECT* pRect);
@@ -58,6 +63,7 @@ protected:
 	void	DrawRule(CDC* pDC, POINT* pPoint, BOOL bPos = FALSE);
 	BOOL	WindowFromPointBelongsToOwner(const CPoint& point);
 	CLineGraph*	CreateLineGraph();
+
 	virtual BOOL OnPrepare();
 	virtual void OnCalcSize(CDC* pDC);
 	virtual void OnShow();
@@ -76,8 +82,8 @@ protected:
 };
 
 #ifndef WS_EX_LAYERED
-#define WS_EX_LAYERED		0x80000
-#define LWA_ALPHA			0x02
+  #define WS_EX_LAYERED	0x80000
+  #define LWA_ALPHA		0x02
 #endif
 
 #define TIP_TEXTHEIGHT	14

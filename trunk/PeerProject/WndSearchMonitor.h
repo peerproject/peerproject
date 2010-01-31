@@ -1,7 +1,7 @@
 //
 // WndSearchMonitor.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -40,17 +40,16 @@ protected:
 	CImageList		m_gdiImageList;
 	CLiveListSizer	m_pSizer;
 	BOOL			m_bPaused;
-protected:
-	CList< CLiveItem* >			m_pQueue;
+
+	CList< CLiveItem* >	m_pQueue;
 	CCriticalSection	m_pSection;
 
 // Operations
 public:
-	virtual void	OnQuerySearch(CQuerySearch* pSearch);
+	virtual void	OnQuerySearch(const CQuerySearch* pSearch);
 	virtual void	OnSkinChange();
 
 // Overrides
-public:
 	//{{AFX_VIRTUAL(CSearchMonitorWnd)
 	//}}AFX_VIRTUAL
 

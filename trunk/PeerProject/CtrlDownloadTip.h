@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,36 +32,54 @@ class CGraphItem;
 
 class CDownloadTipCtrl : public CCoolTipCtrl
 {
+	DECLARE_DYNAMIC(CDownloadTipCtrl)
+
 // Construction
 public:
 	CDownloadTipCtrl();
 	virtual ~CDownloadTipCtrl();
 
-	DECLARE_DYNAMIC(CDownloadTipCtrl)
+	void Show(CDownload* pContext, HWND hAltWnd = NULL)
+	{
+		bool bChanged = ( pContext != m_pDownload );
+		m_pDownload = pContext;
+		m_pSource = NULL;
+		m_hAltWnd = hAltWnd;
+		ShowImpl( bChanged );
+	}
+
+	void Show(CDownloadSource* pContext, HWND hAltWnd = NULL)
+	{
+		bool bChanged = ( pContext != m_pSource );
+		m_pDownload = NULL;
+		m_pSource = pContext;
+		m_hAltWnd = hAltWnd;
+		ShowImpl( bChanged );
+	}
 
 // Attributes
 protected:
-	CString			m_sName;
-	CString			m_sSHA1;
-	CString			m_sTiger;
-	CString			m_sED2K;
-	CString			m_sBTH;
-	CString			m_sMD5;
-	CString			m_sURL;
-	CString			m_sSize;
-	CString			m_sType;
-	CString			m_sCountryName;
-	int				m_nIcon;
-protected:
-	CLineGraph*		m_pGraph;
-	CGraphItem*		m_pItem;
-protected:
+	CDownload*			m_pDownload;
+	CDownloadSource*	m_pSource;
+	CString 			m_sName;
+	CString 			m_sSHA1;
+	CString 			m_sTiger;
+	CString 			m_sED2K;
+	CString 			m_sBTH;
+	CString  			m_sMD5;
+	CString 			m_sURL;
+	CString 			m_sSize;
+	CString 			m_sType;
+	CString 			m_sCountryName;
+	int 				m_nIcon;
+	int 				m_nHeaderWidth;
+	int 				m_nStatWidth;
 	CArray< CString >	m_pHeaderName;
 	CArray< CString >	m_pHeaderValue;
-	int				m_nHeaderWidth;
-	int				m_nStatWidth;
-	BOOL			m_bDrawGraph;		//Draw the download graph?
-	BOOL			m_bDrawError;		//Display the tracker error?
+	CLineGraph* 		m_pGraph;
+	CGraphItem* 		m_pItem;
+	BOOL				m_bDrawGraph;		//Draw the download graph?
+	BOOL				m_bDrawError;		//Display the tracker error?
 
 // Operations
 protected:
@@ -70,12 +88,12 @@ protected:
 	virtual void OnShow();
 	virtual void OnHide();
 	virtual void OnPaint(CDC* pDC);
-protected:
+
 	void OnCalcSize(CDC* pDC, CDownload* pDownload);
 	void OnCalcSize(CDC* pDC, CDownloadSource* pSource);
 	void OnPaint(CDC* pDC, CDownload* pDownload);
 	void OnPaint(CDC* pDC, CDownloadSource* pSource);
-protected:
+
 	void PrepareDownloadInfo(CDownload* pDownload);
 	void PrepareFileInfo(CPeerProjectFile* pDownload);
 	void DrawProgressBar(CDC* pDC, CPoint* pPoint, CDownload* pDownload);
@@ -91,6 +109,6 @@ protected:
 	//{{AFX_MSG(CDownloadTipCtrl)
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	//}}AFX_MSG
-	DECLARE_MESSAGE_MAP()
 
+	DECLARE_MESSAGE_MAP()
 };

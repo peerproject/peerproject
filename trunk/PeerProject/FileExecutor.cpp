@@ -1,7 +1,7 @@
 //
 // FileExecutor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -117,22 +117,13 @@ void CFileExecutor::DetectFileType(LPCTSTR pszFile, LPCTSTR szType, bool& bVideo
 	if ( GetFileAttributes( pszFile ) & FILE_ATTRIBUTE_DIRECTORY )
 		return;
 
-	CSchema* pSchema;
-	if ( ( pSchema = SchemaCache.Get( CSchema::uriAudio ) ) != NULL &&
-		pSchema->FilterType( szType ) )
-	{
+	CSchemaPtr pSchema;
+	if ( ( pSchema = SchemaCache.Get( CSchema::uriAudio ) ) != NULL && pSchema->FilterType( szType ) )
 		bAudio = true;
-	}
-	else if ( ( pSchema = SchemaCache.Get( CSchema::uriVideo ) ) != NULL &&
-		pSchema->FilterType( szType ) )
-	{
+	else if ( ( pSchema = SchemaCache.Get( CSchema::uriVideo ) ) != NULL && pSchema->FilterType( szType ) )
 		bVideo = true;
-	}
-	else if ( ( pSchema = SchemaCache.Get( CSchema::uriImage ) ) != NULL &&
-		pSchema->FilterType( szType ) )
-	{
+	else if ( ( pSchema = SchemaCache.Get( CSchema::uriImage ) ) != NULL && pSchema->FilterType( szType ) )
 		bImage = true;
-	}
 
 	// Detect type by MIME "Content Type"
 	if ( ! bAudio && ! bVideo && ! bImage )
@@ -185,7 +176,7 @@ TRISTATE CFileExecutor::IsSafeExecute(LPCTSTR szExt, LPCTSTR szFile)
 		{
 		case IDYES:
 			return TRI_TRUE;	// Run it
-		case IDNO:	
+		case IDNO:
 			return TRI_FALSE;	// Skip it
 		default:
 			return TRI_UNKNOWN;	// Cancel file operation
@@ -217,7 +208,7 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck, LPCTSTR ps
 	if ( theApp.Open( pszFile, FALSE ) )
 	{
 		theApp.Open( pszFile, TRUE );
-	
+
 		return TRUE;	// Skip file
 	}
 
@@ -285,7 +276,7 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, BOOL bSkipSecurityCheck, LPCTSTR ps
 			return TRUE;
 	}
 
-	// TODO: Doesn't work with partial files
+	// ToDo: Doesn't work with partial files
 
 	ShellExecute( AfxGetMainWnd()->GetSafeHwnd(),
 		NULL, strFile, NULL, NULL, SW_SHOWNORMAL );
@@ -765,7 +756,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 
 					strINFO += _T("&tag.video.duration=") + strReplace;
 				}
-				// ToDO: Read video's bitrate in FileExecutor.cpp, bitzi submit is already ready
+				// ToDo: Read video's bitrate in FileExecutor.cpp, bitzi submit is already ready
 				else if ( str == "bitrate" )
 				{
 					nTemp = _ttoi( strReplace );

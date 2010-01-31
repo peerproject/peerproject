@@ -1,7 +1,7 @@
 //
 // CtrlLibraryDetailView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,8 +22,8 @@
 #pragma once
 
 #include "CtrlLibraryFileView.h"
+#include "Schema.h"
 
-class CSchema;
 class CLibraryFile;
 
 
@@ -41,13 +41,13 @@ protected:
 	virtual DWORD_PTR		HitTestIndex(const CPoint& point) const;
 	virtual HBITMAP			CreateDragImage(const CPoint& ptMouse, CPoint& ptOffset);
 	virtual void			OnSkinChange();
-	void	SetViewSchema(CSchema* pSchema, CList< CSchemaMember* >* pColumns, BOOL bSave, BOOL bUpdate);
+	void	SetViewSchema(CSchemaPtr pSchema, CList< CSchemaMember* >* pColumns, BOOL bSave, BOOL bUpdate);
 	void	CacheItem(int nItem);
 	void	SortItems(int nColumn = -1);
 
 protected:
 	UINT		m_nStyle;
-	CSchema*	m_pSchema;
+	CSchemaPtr	m_pSchema;
 	CList< CSchemaMember* >	m_pColumns;
 	CCoolMenu*	m_pCoolMenu;
 	BOOL		m_bCreateDragImage;

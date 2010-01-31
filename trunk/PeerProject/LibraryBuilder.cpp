@@ -1,7 +1,7 @@
 //
 // LibraryBuilder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -29,7 +29,8 @@
 #include "HashDatabase.h"
 #include "Security.h"
 #include "ThumbCache.h"
-
+#include "Downloads.h"
+#include "Transfers.h" // Locks
 #include "XML.h"
 #include "Schema.h"
 #include "SchemaCache.h"
@@ -84,13 +85,13 @@ void CFileHash::CopyTo(CLibraryFile* pFile) const
 //////////////////////////////////////////////////////////////////////
 // CLibraryBuilder construction
 
-CLibraryBuilder::CLibraryBuilder() :
-	m_bPriority( false ),
-	m_nReaded( 0 ),
-	m_nElapsed( 0 ),
-	m_nProgress( 0 ),
-	m_bSkip( false ),
-	m_bBusy( false )
+CLibraryBuilder::CLibraryBuilder()
+	: m_bPriority	( false )
+	, m_nReaded 	( 0 )
+	, m_nElapsed	( 0 )
+	, m_nProgress	( 0 )
+	, m_bSkip		( false )
+	, m_bBusy		( false )
 {
 	QueryPerformanceFrequency( &m_nFreq );
 	QueryPerformanceCounter( &m_nLastCall );
@@ -290,9 +291,8 @@ DWORD CLibraryBuilder::GetNextFileToHash(CString& sPath)
 		{
 			CLibraryFile* pFile = LibraryMaps.LookupFile( nIndex );
 			if ( pFile )
-			{
 				sPath = pFile->GetPath();
-			}
+
 			oLibraryLock.Unlock();
 
 			if ( !pFile )
@@ -324,15 +324,10 @@ DWORD CLibraryBuilder::GetNextFileToHash(CString& sPath)
 			{
 				DWORD err = GetLastError();
 				if ( err == ERROR_FILE_NOT_FOUND || err == ERROR_PATH_NOT_FOUND )
-				{
-					// Remove if error is fatal
-					Remove( nIndex );
-				}
+					Remove( nIndex );	// Remove if error is fatal
 				else
-				{
-					// Ignore if error is not fatal (for example access violation)
-					Skip( nIndex );
-				}
+					Skip( nIndex );		// Ignore if error is not fatal (ex. access violation)
+
 				nIndex = 0;
 			}
 		}
@@ -490,8 +485,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 	auto_ptr< CFileHash > pFileHash( new CFileHash( nFileSize ) );
 	if ( ! pFileHash.get() )
-		// Out of memory
-		return false;
+		return false;	// Out of memory
 
 	// Reset statistics if passed more than 10 seconds
 	LARGE_INTEGER count1;
@@ -575,10 +569,18 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 	pFileHash->Finish();
 
+	// Get associated download (if any)
+	CSingleLock oTransfersLock( &Transfers.m_pSection, TRUE );
+	CDownload* pDownload = Downloads.FindByPath( szPath );
+	if ( ! pDownload )
+		oTransfersLock.Unlock();
+
 	CSingleLock oLibraryLock( &Library.m_pSection, FALSE );
 	while ( ! oLibraryLock.Lock( 100 ) )
+	{
 		if ( m_bSkip )
 			return false;
+	}
 
 	m_bSkip = true;
 
@@ -609,7 +611,13 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 	Library.AddFile( pFile );
 
+	if ( pDownload )
+		pFile->UpdateMetadata( pDownload );
+
 	oLibraryLock.Unlock();
+
+	if ( pDownload )
+		oTransfersLock.Unlock();
 
 	Library.Update();
 
@@ -623,7 +631,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 int CLibraryBuilder::SubmitMetadata(DWORD nIndex, LPCTSTR pszSchemaURI, CXMLElement*& pXML)
 {
-	CSchema* pSchema = SchemaCache.Get( pszSchemaURI );
+	CSchemaPtr pSchema = SchemaCache.Get( pszSchemaURI );
 
 	if ( pSchema == NULL )
 	{
@@ -884,7 +892,7 @@ bool CLibraryBuilder::DetectVirtualLyrics(HANDLE hFile, QWORD& nOffset, QWORD& n
 	}
 	else if ( memcmp( pFooter.Tag.szVersion, cEnd, 3 ) )
 	{
-		// TODO: Find "LYRICSBEGIN" reading backwards and count the length manually
+		// ToDo: Find "LYRICSBEGIN" reading backwards and count the length manually
 		return false;
 	}
 

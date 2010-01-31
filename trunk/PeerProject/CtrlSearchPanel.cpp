@@ -1,7 +1,7 @@
 //
 // CtrlSearchPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -135,14 +135,16 @@ int CSearchPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	{
 		AddBox( &m_boxAdvanced );
 		// If the resolution is low, minimise the advanced box by default
-		if ( GetSystemMetrics( SM_CYSCREEN ) < 1024 ) m_boxAdvanced.Expand( FALSE );
+		if ( GetSystemMetrics( SM_CYSCREEN ) < 1024 )
+			m_boxAdvanced.Expand( FALSE );
 	}
 
 	// Metadata
 	AddBox( &m_boxSchema );
 
 	// Results summary
-	if ( m_bAdvanced ) AddBox( &m_boxResults );
+	if ( m_bAdvanced )
+		AddBox( &m_boxResults );
 
 	// The metadata box varies in height to fill available space
 	SetStretchBox( &m_boxSchema );
@@ -188,9 +190,16 @@ void CSearchPanel::SetSearchFocus()
 	m_boxSearch.m_wndSearch.SetFocus();
 }
 
-void CSearchPanel::ShowSearch(CManagedSearch* pSearch)
+void CSearchPanel::ShowSearch(const CManagedSearch* pManaged)
 {
-	if ( pSearch == NULL )
+	if ( ! pManaged )
+	{
+		OnSchemaChange();
+		return;
+	}
+
+	CQuerySearchPtr pSearch = pManaged->GetSearch();
+	if ( ! pSearch )
 	{
 		OnSchemaChange();
 		return;
@@ -200,53 +209,48 @@ void CSearchPanel::ShowSearch(CManagedSearch* pSearch)
 
 	// The search is based on the priority from the lowest to highest
 
-	if ( pSearch->m_pSearch->m_oMD5 )
-	{
-		strURN = pSearch->m_pSearch->m_oMD5.toUrn();
-	}
-	if ( pSearch->m_pSearch->m_oBTH )
-	{
-		strURN = pSearch->m_pSearch->m_oBTH.toUrn();
-	}
-	if ( pSearch->m_pSearch->m_oTiger )
-	{
-		strURN = pSearch->m_pSearch->m_oTiger.toUrn();
-	}
-	if ( pSearch->m_pSearch->m_oED2K )
-	{
-		strURN = pSearch->m_pSearch->m_oED2K.toUrn();
-	}
-	if ( pSearch->m_pSearch->m_oSHA1 )
-	{
-		strURN = pSearch->m_pSearch->m_oSHA1.toUrn();
-	}
+	if ( pSearch->m_oMD5 )
+		strURN = pSearch->m_oMD5.toUrn();
+
+	if ( pSearch->m_oBTH )
+		strURN = pSearch->m_oBTH.toUrn();
+
+	if ( pSearch->m_oTiger )
+		strURN = pSearch->m_oTiger.toUrn();
+
+	if ( pSearch->m_oED2K )
+		strURN = pSearch->m_oED2K.toUrn();
+
+	if ( pSearch->m_oSHA1 )
+		strURN = pSearch->m_oSHA1.toUrn();
 
 	if ( ! strURN.IsEmpty() )
 	{
 		m_boxSearch.m_wndSearch.SetWindowText(
-			pSearch->m_pSearch->m_sSearch.IsEmpty() ? strURN :
-			( strURN + _T(" ") + pSearch->m_pSearch->m_sSearch ) );
-	} else
-		m_boxSearch.m_wndSearch.SetWindowText( pSearch->m_pSearch->m_sSearch );
+			pSearch->m_sSearch.IsEmpty() ? strURN :
+			( strURN + _T(" ") + pSearch->m_sSearch ) );
+	}
+	else
+		m_boxSearch.m_wndSearch.SetWindowText( pSearch->m_sSearch );
 
-	m_boxSearch.m_wndSchemas.Select( pSearch->m_pSearch->m_pSchema );
+	m_boxSearch.m_wndSchemas.Select( pSearch->m_pSchema );
 
 	if ( m_bAdvanced )
 	{
-		m_boxAdvanced.m_wndCheckBoxG2.SetCheck( pSearch->m_bAllowG2 ? BST_CHECKED : BST_UNCHECKED);
-		m_boxAdvanced.m_wndCheckBoxG1.SetCheck( pSearch->m_bAllowG1 ? BST_CHECKED : BST_UNCHECKED );
-		m_boxAdvanced.m_wndCheckBoxED2K.SetCheck( pSearch->m_bAllowED2K ? BST_CHECKED : BST_UNCHECKED );
+		m_boxAdvanced.m_wndCheckBoxG2.SetCheck( pManaged->m_bAllowG2 ? BST_CHECKED : BST_UNCHECKED);
+		m_boxAdvanced.m_wndCheckBoxG1.SetCheck( pManaged->m_bAllowG1 ? BST_CHECKED : BST_UNCHECKED );
+		m_boxAdvanced.m_wndCheckBoxED2K.SetCheck( pManaged->m_bAllowED2K ? BST_CHECKED : BST_UNCHECKED );
 
 		CString strSize;
-		if ( pSearch->m_pSearch->m_nMinSize > 0 && pSearch->m_pSearch->m_nMinSize < SIZE_UNKNOWN )
-			strSize = Settings.SmartVolume( pSearch->m_pSearch->m_nMinSize, Bytes, true );
+		if ( pSearch->m_nMinSize > 0 && pSearch->m_nMinSize < SIZE_UNKNOWN )
+			strSize = Settings.SmartVolume(pSearch->m_nMinSize, Bytes, true );
 		else
 			strSize.Empty();
 		if ( m_boxAdvanced.m_wndSizeMin.m_hWnd != NULL ) m_boxAdvanced.m_wndSizeMin.SetWindowText( strSize );
 
 
-		if ( pSearch->m_pSearch->m_nMaxSize > 0 && pSearch->m_pSearch->m_nMaxSize < SIZE_UNKNOWN )
-			strSize = Settings.SmartVolume( pSearch->m_pSearch->m_nMaxSize, Bytes, true );
+		if ( pSearch->m_nMaxSize > 0 && pSearch->m_nMaxSize < SIZE_UNKNOWN )
+			strSize = Settings.SmartVolume( pSearch->m_nMaxSize, Bytes, true );
 		else
 			strSize.Empty();
 		if ( m_boxAdvanced.m_wndSizeMax.m_hWnd != NULL ) m_boxAdvanced.m_wndSizeMax.SetWindowText( strSize );
@@ -254,10 +258,8 @@ void CSearchPanel::ShowSearch(CManagedSearch* pSearch)
 
 	OnSchemaChange();
 
-	if ( pSearch->m_pSearch->m_pXML != NULL )
-	{
-		m_boxSchema.m_wndSchema.UpdateData( pSearch->m_pSearch->m_pXML->GetFirstElement(), FALSE );
-	}
+	if ( pSearch->m_pXML != NULL )
+		m_boxSchema.m_wndSchema.UpdateData( pSearch->m_pXML->GetFirstElement(), FALSE );
 }
 
 void CSearchPanel::ShowStatus(BOOL bStarted, BOOL bSearching, DWORD nHubs, DWORD nLeaves, DWORD nFiles, DWORD nHits, DWORD nBadHits)
@@ -295,7 +297,7 @@ void CSearchPanel::ShowStatus(BOOL bStarted, BOOL bSearching, DWORD nHubs, DWORD
 
 void CSearchPanel::OnSchemaChange()
 {
-	CSchema* pSchema = m_boxSearch.m_wndSchemas.GetSelected();
+	CSchemaPtr pSchema = m_boxSearch.m_wndSchemas.GetSelected();
 
 	m_boxSchema.m_wndSchema.SetSchema( pSchema, TRUE );
 	m_boxSchema.SetSize( pSchema != NULL ? 1 : 0 );
@@ -331,45 +333,46 @@ void CSearchPanel::OnSchemaChange()
 	}
 }
 
-auto_ptr< CManagedSearch > CSearchPanel::GetSearch()
+CSearchPtr CSearchPanel::GetSearch()
 {
-	auto_ptr< CManagedSearch > pSearch( new CManagedSearch() );
+	CSearchPtr pManaged( new CManagedSearch() );
+	CQuerySearchPtr pSearch = pManaged->GetSearch();
 
 	CString sSearch;
 	m_boxSearch.m_wndSearch.GetWindowText( sSearch );
 
-	pSearch->m_pSearch->m_oSHA1.fromUrn( sSearch ) ||
-		pSearch->m_pSearch->m_oSHA1.fromString( sSearch );
-	pSearch->m_pSearch->m_oTiger.fromUrn( sSearch ) ||
-		pSearch->m_pSearch->m_oTiger.fromString( sSearch );
-	pSearch->m_pSearch->m_oED2K.fromUrn( sSearch ) ||
-		pSearch->m_pSearch->m_oED2K.fromString( sSearch );
-	pSearch->m_pSearch->m_oMD5.fromUrn( sSearch ) ||
-		pSearch->m_pSearch->m_oMD5.fromString( sSearch );
-	pSearch->m_pSearch->m_oBTH.fromUrn( sSearch ) ||
-		pSearch->m_pSearch->m_oBTH.fromString( sSearch ) ||
-		pSearch->m_pSearch->m_oBTH.fromUrn< Hashes::base16Encoding >( sSearch ) ||
-		pSearch->m_pSearch->m_oBTH.fromString< Hashes::base16Encoding >( sSearch );
-	if ( pSearch->m_pSearch->m_oSHA1 ||
-		pSearch->m_pSearch->m_oTiger ||
-		pSearch->m_pSearch->m_oED2K ||
-		pSearch->m_pSearch->m_oBTH ||
-		pSearch->m_pSearch->m_oMD5 )
+	pSearch->m_oSHA1.fromUrn( sSearch ) ||
+		pSearch->m_oSHA1.fromString( sSearch );
+	pSearch->m_oTiger.fromUrn( sSearch ) ||
+		pSearch->m_oTiger.fromString( sSearch );
+	pSearch->m_oED2K.fromUrn( sSearch ) ||
+		pSearch->m_oED2K.fromString( sSearch );
+	pSearch->m_oMD5.fromUrn( sSearch ) ||
+		pSearch->m_oMD5.fromString( sSearch );
+	pSearch->m_oBTH.fromUrn( sSearch ) ||
+		pSearch->m_oBTH.fromString( sSearch ) ||
+		pSearch->m_oBTH.fromUrn< Hashes::base16Encoding >( sSearch ) ||
+		pSearch->m_oBTH.fromString< Hashes::base16Encoding >( sSearch );
+	if ( pSearch->m_oSHA1 ||
+		pSearch->m_oTiger ||
+		pSearch->m_oED2K ||
+		pSearch->m_oBTH ||
+		pSearch->m_oMD5 )
 	{
 		// Hash search
 	}
 	else
 	{
 		// Keyword search
-		pSearch->m_pSearch->m_sSearch = sSearch;
+		pSearch->m_sSearch = sSearch;
 	}
-	if ( CSchema* pSchema = m_boxSearch.m_wndSchemas.GetSelected() )
+	if ( CSchemaPtr pSchema = m_boxSearch.m_wndSchemas.GetSelected() )
 	{
-		pSearch->m_pSearch->m_pSchema	= pSchema;
-		pSearch->m_pSearch->m_pXML		= pSchema->Instantiate();
+		pSearch->m_pSchema	= pSchema;
+		pSearch->m_pXML		= pSchema->Instantiate();
 
 		m_boxSchema.m_wndSchema.UpdateData(
-			pSearch->m_pSearch->m_pXML->AddElement( pSchema->m_sSingular ), TRUE );
+			pSearch->m_pXML->AddElement( pSchema->m_sSingular ), TRUE );
 
 		Settings.Search.LastSchemaURI = pSchema->GetURI();
 	}
@@ -379,18 +382,18 @@ auto_ptr< CManagedSearch > CSearchPanel::GetSearch()
 	}
 	if ( m_bAdvanced )
 	{
-		pSearch->m_bAllowG2			= m_boxAdvanced.m_wndCheckBoxG2.GetCheck();
-		pSearch->m_bAllowG1			= m_boxAdvanced.m_wndCheckBoxG1.GetCheck();
-		pSearch->m_bAllowED2K		= m_boxAdvanced.m_wndCheckBoxED2K.GetCheck();
+		pManaged->m_bAllowG2		= m_boxAdvanced.m_wndCheckBoxG2.GetCheck();
+		pManaged->m_bAllowG1		= m_boxAdvanced.m_wndCheckBoxG1.GetCheck();
+		pManaged->m_bAllowED2K		= m_boxAdvanced.m_wndCheckBoxED2K.GetCheck();
 
-		if ( !pSearch->m_bAllowG2 && !pSearch->m_bAllowG1 && !pSearch->m_bAllowED2K )
+		if ( ! pManaged->m_bAllowG2 && ! pManaged->m_bAllowG1 && ! pManaged->m_bAllowED2K )
 		{
 			m_boxAdvanced.m_wndCheckBoxG2.SetCheck( BST_CHECKED );
 			m_boxAdvanced.m_wndCheckBoxG1.SetCheck( BST_CHECKED );
 			m_boxAdvanced.m_wndCheckBoxED2K.SetCheck( BST_CHECKED );
-			pSearch->m_bAllowG2	=	TRUE;
-			pSearch->m_bAllowG1	=	TRUE;
-			pSearch->m_bAllowED2K	=	TRUE;
+			pManaged->m_bAllowG2	=	TRUE;
+			pManaged->m_bAllowG1	=	TRUE;
+			pManaged->m_bAllowED2K	=	TRUE;
 		}
 
 		if ( m_boxAdvanced.m_wndSizeMin.m_hWnd != NULL )
@@ -399,34 +402,34 @@ auto_ptr< CManagedSearch > CSearchPanel::GetSearch()
 
 			m_boxAdvanced.m_wndSizeMin.GetWindowText( strWindowValue );
 			if ( strWindowValue.IsEmpty() || ( _tcsicmp( strWindowValue, _T("any") ) == 0 ) )
-				pSearch->m_pSearch->m_nMinSize = 0;
+				pSearch->m_nMinSize = 0;
 			else
 			{
 				if ( !_tcsstr( strWindowValue, _T("B") ) && !_tcsstr( strWindowValue, _T("b") ) )
 					strWindowValue += _T("B");
-				pSearch->m_pSearch->m_nMinSize = Settings.ParseVolume( strWindowValue );
+				pSearch->m_nMinSize = Settings.ParseVolume( strWindowValue );
 			}
 
 
 			m_boxAdvanced.m_wndSizeMax.GetWindowText( strWindowValue );
 			if ( strWindowValue.IsEmpty() || ( _tcsicmp( strWindowValue, _T("any") ) == 0 )  || ( _tcsicmp( strWindowValue, _T("max") ) == 0 ) )
-				pSearch->m_pSearch->m_nMaxSize = SIZE_UNKNOWN;
+				pSearch->m_nMaxSize = SIZE_UNKNOWN;
 			else
 			{
 				if ( !_tcsstr( strWindowValue, _T("B") ) && !_tcsstr( strWindowValue, _T("b") ) )
 					strWindowValue += _T("B");
-				pSearch->m_pSearch->m_nMaxSize = Settings.ParseVolume( strWindowValue );
+				pSearch->m_nMaxSize = Settings.ParseVolume( strWindowValue );
 			}
 
 			// Check it wasn't invalid
-			if ( pSearch->m_pSearch->m_nMinSize > pSearch->m_pSearch->m_nMaxSize )
-				pSearch->m_pSearch->m_nMaxSize = SIZE_UNKNOWN;
+			if ( pSearch->m_nMinSize > pSearch->m_nMaxSize )
+				pSearch->m_nMaxSize = SIZE_UNKNOWN;
 		}
 	}
 
-	pSearch->m_pSearch->PrepareCheck();
+	pSearch->PrepareCheck();
 
-	return pSearch;
+	return pManaged;
 }
 
 void CSearchPanel::ExecuteSearch()
@@ -534,7 +537,7 @@ void CSearchInputBox::OnSkinChange()
 	CString strCaption;
 	CSearchWnd* pwndSearch = static_cast< CSearchWnd* >( GetParent()->GetParent() );
 	BOOL bStarted = ! pwndSearch->IsPaused();
-	BOOL bSearching = ! pwndSearch->m_bWaitMore;
+	BOOL bSearching = ! pwndSearch->IsWaitMore();
 
 	LoadString( strCaption, bStarted ?
 		( bSearching? IDS_SEARCH_PANEL_SEARCHING : IDS_SEARCH_PANEL_MORE ) :
@@ -1156,20 +1159,19 @@ void CSearchResultsBox::OnPaint()
 	if ( m_nBadHits && Settings.General.GUIMode != GUI_BASIC )
 	{
 		LoadString( strFormat, IDS_SEARCH_PANEL_FILTERED );
-		/*
-		if ( strFormat.Find( '|' ) >= 0 )
-		{
-			if ( m_nBadHits == 1 )
-				Skin.SelectCaption( strFormat, 0 );
-			else
-				Skin.SelectCaption( strFormat, 1 );
-		}
-		*/
+
+		//if ( strFormat.Find( '|' ) >= 0 )
+		//{
+		//	if ( m_nBadHits == 1 )
+		//		Skin.SelectCaption( strFormat, 0 );
+		//	else
+		//		Skin.SelectCaption( strFormat, 1 );
+		//}
+
 		strText.Format( strFormat, m_nBadHits );
 
 		DrawText( pDC, BOX_MARGIN + 8, BOX_MARGIN + 32 + 30, nFlags, strText );
 	}
-
 
 	pDC->SelectObject( pOldFont );
 

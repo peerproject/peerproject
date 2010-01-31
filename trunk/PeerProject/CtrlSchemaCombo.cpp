@@ -1,7 +1,7 @@
 //
 // CtrlSchemaCombo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -70,9 +70,7 @@ void CSchemaCombo::SetEmptyString(UINT nID)
 void CSchemaCombo::Load(LPCTSTR pszSelectURI, int nType, int nAvailability, BOOL bReset)
 {
 	if ( ( GetStyle() & CBS_OWNERDRAWVARIABLE ) == 0 )
-	{
 		ModifyStyle( 0, CBS_OWNERDRAWVARIABLE|CBS_HASSTRINGS );
-	}
 
 	SetExtendedUI();
 
@@ -89,7 +87,7 @@ void CSchemaCombo::Load(LPCTSTR pszSelectURI, int nType, int nAvailability, BOOL
 
 	for ( POSITION pos = SchemaCache.GetIterator() ; pos ; )
 	{
-		CSchema* pSchema = SchemaCache.GetNext( pos );
+		CSchemaPtr pSchema = SchemaCache.GetNext( pos );
 
 		BOOL bSelected = pSchema->CheckURI( pszSelectURI );
 
@@ -115,16 +113,14 @@ void CSchemaCombo::Load(LPCTSTR pszSelectURI, int nType, int nAvailability, BOOL
 	}
 
 	if ( bReset && nAvailability < CSchema::saMax )
-	{
 		SetItemData( AddString( _T("ZZZ") ), 0 );
-	}
 }
 
 void CSchemaCombo::Select(LPCTSTR pszURI)
 {
 	for ( int nItem = 0 ; nItem < GetCount() ; nItem++ )
 	{
-		CSchema* pSchema = (CSchema*)GetItemData( nItem );
+		CSchemaPtr pSchema = (CSchemaPtr)GetItemData( nItem );
 
 		if ( pSchema != NULL && pSchema->CheckURI( pszURI ) )
 		{
@@ -136,11 +132,11 @@ void CSchemaCombo::Select(LPCTSTR pszURI)
 	SetCurSel( 0 );
 }
 
-void CSchemaCombo::Select(CSchema* pSelect)
+void CSchemaCombo::Select(CSchemaPtr pSelect)
 {
 	for ( int nItem = 0 ; nItem < GetCount() ; nItem++ )
 	{
-		CSchema* pSchema = (CSchema*)GetItemData( nItem );
+		CSchemaPtr pSchema = (CSchemaPtr)GetItemData( nItem );
 
 		if ( pSchema == pSelect )
 		{
@@ -152,11 +148,11 @@ void CSchemaCombo::Select(CSchema* pSelect)
 	SetCurSel( 0 );
 }
 
-CSchema* CSchemaCombo::GetSelected() const
+CSchemaPtr CSchemaCombo::GetSelected() const
 {
 	int nSel = GetCurSel();
 	if ( nSel < 0 ) return NULL;
-	return (CSchema*)GetItemData( nSel );
+	return (CSchemaPtr)GetItemData( nSel );
 }
 
 CString CSchemaCombo::GetSelectedURI() const
@@ -164,16 +160,16 @@ CString CSchemaCombo::GetSelectedURI() const
 	CString str;
 	int nSel = GetCurSel();
 	if ( nSel < 0 ) return str;
-	if ( CSchema* pSchema = (CSchema*)GetItemData( nSel ) )
+	if ( CSchemaPtr pSchema = (CSchemaPtr)GetItemData( nSel ) )
 		return pSchema->GetURI();
 	return str;
 }
 
-int CSchemaCombo::FindSchema(CSchema* pSchema)
+int CSchemaCombo::FindSchema(CSchemaPtr pSchema)
 {
 	for ( int nItem = 0 ; nItem < GetCount() ; nItem++ )
 	{
-		if ( (CSchema*)GetItemData( nItem ) == pSchema ) return nItem;
+		if ( (CSchemaPtr)GetItemData( nItem ) == pSchema ) return nItem;
 	}
 
 	return -1;
@@ -224,12 +220,12 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	dc.SetTextColor( ( lpDrawItemStruct->itemState & ODS_SELECTED )
 		? Colors.m_crHiText : Colors.m_crDropdownText );
 
-	CSchema* pSchema = (CSchema*)lpDrawItemStruct->itemData;
+	CSchemaPtr pSchema = (CSchemaPtr)lpDrawItemStruct->itemData;
 
 	if ( pSchema != NULL )
 	{
-		/*dc.FillSolidRect( &rcItem,
-			GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED ) ? COLOR_HIGHLIGHT : COLOR_WINDOW ) );*/
+		//dc.FillSolidRect( &rcItem,
+		//	GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED ) ? COLOR_HIGHLIGHT : COLOR_WINDOW ) );
 		if ( IsWindowEnabled() )
 		{
 			if ( lpDrawItemStruct->itemState & ODS_SELECTED )
@@ -276,8 +272,8 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	}
 	else if ( lpDrawItemStruct->itemID == 0 )
 	{
-		/*dc.FillSolidRect( &rcItem,
-			GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED ) ? COLOR_HIGHLIGHT : COLOR_WINDOW ) );*/
+		//dc.FillSolidRect( &rcItem,
+		//	GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED ) ? COLOR_HIGHLIGHT : COLOR_WINDOW ) );
 		if ( IsWindowEnabled() )
 		{
 			if ( lpDrawItemStruct->itemState & ODS_SELECTED )
@@ -335,9 +331,8 @@ BOOL CSchemaCombo::PreTranslateMessage(MSG* pMsg)
 			if ( GetDroppedState() )
 			{
 				if ( ! OnClickItem( GetCurSel(), TRUE ) )
-				{
 					ShowDropDown( FALSE );
-				}
+
 				return TRUE;
 			}
 			else if ( pMsg->wParam == VK_SPACE )
@@ -349,9 +344,7 @@ BOOL CSchemaCombo::PreTranslateMessage(MSG* pMsg)
 		else if ( pMsg->wParam == VK_DOWN )
 		{
 			if ( OnClickItem( GetCurSel() + 1, TRUE ) )
-			{
 				return TRUE;
-			}
 		}
 	}
 	return CComboBox::PreTranslateMessage( pMsg );
@@ -430,9 +423,8 @@ BOOL CSchemaCombo::OnClickItem(int nItem, BOOL bDown)
 			if ( nCurSel != CB_ERR )
 			{
 				if ( nCurSel >= nDelta )
-				{
 					SetTopIndex( nCurSel - nDelta );
-				}
+
 				SetCurSel( nCurSel );
 			}
 		}

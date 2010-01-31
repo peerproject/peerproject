@@ -51,23 +51,22 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CDownload construction
 
-CDownload::CDownload() :
-	m_nSerID		( Downloads.GetFreeSID() )
-,	m_bExpanded		( Settings.Downloads.AutoExpand )
-,	m_bSelected		( FALSE )
-,	m_tCompleted	( 0 )
-,	m_nRunCookie	( 0 )
-,	m_nSaveCookie	( 0 )
-,	m_nGroupCookie	( 0 )
+CDownload::CDownload()
+	: m_nSerID		( Downloads.GetFreeSID() )
+	, m_bExpanded	( Settings.Downloads.AutoExpand )
+	, m_bSelected	( FALSE )
+	, m_tCompleted	( 0 )
+	, m_nRunCookie	( 0 )
+	, m_nGroupCookie( 0 )
 
-,	m_bTempPaused	( FALSE )
-,	m_bPaused		( FALSE )
-,	m_bBoosted		( FALSE )
-,	m_bShared		( Settings.Uploads.SharePartials )
-,	m_bComplete		( false )
-,	m_tSaved		( 0 )
-,	m_tBegan		( 0 )
-,	m_bDownloading	( false )
+	, m_bTempPaused	( FALSE )
+	, m_bPaused		( FALSE )
+	, m_bBoosted	( FALSE )
+	, m_bShared		( Settings.Uploads.SharePartials )
+	, m_bDownloading( false )
+	, m_bComplete	( false )
+	, m_tSaved		( 0 )
+	, m_tBegan		( 0 )
 {
 }
 
@@ -206,22 +205,6 @@ void CDownload::Share(BOOL bShared)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownload control : rename
-
-bool CDownload::Rename(const CString& strName)
-{
-	// Don't bother if renaming to same name.
-	if ( m_sName == strName )
-		return false;
-
-	// Set new name
-	m_sName = strName;
-
-	SetModified();
-	return TRUE;
-}
-
-//////////////////////////////////////////////////////////////////////
 // CDownload control : Stop trying
 
 void CDownload::StopTrying()
@@ -234,7 +217,7 @@ void CDownload::StopTrying()
 	m_tBegan = 0;
 	m_bDownloading = false;
 
-	// If m_bTorrentRequested = TRUE, raza sends Stop
+	// If m_bTorrentRequested = TRUE, sends Stop
 	// CloseTorrent() additionally closes uploads
 	if ( IsTorrent() )
 		CloseTorrent();
@@ -446,7 +429,7 @@ void CDownload::OnRun()
 	if ( tNow - m_tSaved >=
 		( GetCount() > 20 ? 5 * Settings.Downloads.SaveInterval : Settings.Downloads.SaveInterval ) )
 	{
-		if ( m_nCookie != m_nSaveCookie )
+		if ( IsModified() )
 		{
 			FlushFile();
 			if ( Save() )
@@ -470,14 +453,10 @@ void CDownload::OnDownloaded()
 
 	// AppendMetadata();
 
-	if ( IsTasking() && ( GetTaskType() == CDownloadTask::dtaskMergeFile ||
-		GetTaskType() == CDownloadTask::dtaskPreviewRequest ) )
-	{
+	if ( GetTaskType() == dtaskMergeFile || GetTaskType() == dtaskPreviewRequest )
 		AbortTask();
-	}
 
-	SetMoving( true );
-	LibraryBuilder.m_bBusy = true;
+	LibraryBuilder.m_bBusy = true;	// ToDo: Remove this?
 
 	CDownloadTask::Copy( this );
 
@@ -489,20 +468,19 @@ void CDownload::OnDownloaded()
 //////////////////////////////////////////////////////////////////////
 // CDownload task completion
 
-void CDownload::OnTaskComplete(CDownloadTask* pTask)
+void CDownload::OnTaskComplete(const CDownloadTask* pTask)
 {
-	ASSERT( CheckTask( pTask ) );
 	SetTask( NULL );
 
 	// Check if task was aborted
 	if ( pTask->WasAborted() )
 		return;
 
-	if ( pTask->GetTaskType() == CDownloadTask::dtaskPreviewRequest )
+	if ( pTask->GetTaskType() == dtaskPreviewRequest )
 	{
 		OnPreviewRequestComplete( pTask );
 	}
-	else if ( pTask->GetTaskType() == CDownloadTask::dtaskCopy )
+	else if ( pTask->GetTaskType() == dtaskCopy )
 	{
 		LibraryBuilder.m_bBusy = false;
 
@@ -556,7 +534,6 @@ void CDownload::OnMoved()
 	// Download finalized, tracker notified, set flags that we completed
 	m_bComplete		= true;
 	m_tCompleted	= GetTickCount();
-	//SetMoving( false );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -748,11 +725,14 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 
 		DownloadGroups.Link( this );
 
-	//	if ( nVersion == 32 )	//ShareazaPlus = 38
+	//	if ( nVersion == 32 )	//ShareazaPlus = 38?
 	//	{
 	//		// Compatibility for CB Branch.
 	//		if ( ! ar.IsBufferEmpty() )
-	//			ar >> m_sSearchKeyword;
+	//		{
+	//			CString sSearchKeyword;
+	//			ar >> sSearchKeyword;
+	//		}
 	//	}
 	}
 }

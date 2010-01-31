@@ -47,7 +47,7 @@ public:
 									// CLibraryFile : Local path without filename
 									// CBTFile      : Relative path inside .torrent
 									// CDownload    : Path of .pd file (.sd)
-									// CUploadFile  : Path of requested file
+									// CUploadFile  : Path of requested file	// ToDo: Fix This?!
 	
 	// Returns "urn:bitprint:SHA1.TIGER" or "urn:sha1:SHA1" or "urn:tree:tiger/:TIGER"
 	CString GetBitprint() const;

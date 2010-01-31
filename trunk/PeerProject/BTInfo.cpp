@@ -287,7 +287,7 @@ void CBTInfo::Serialize(CArchive& ar)
 			m_oTrackers[ nTracker ].Serialize( ar, nVersion );
 		}
 	}
-	else
+	else // Loading
 	{
 		// ToDo: What BTINFO_SER_VERSION nVersions are necessary for PeerProject? (Imports)
 
@@ -541,15 +541,17 @@ BOOL CBTInfo::LoadTorrentFile(LPCTSTR pszFile)
 //////////////////////////////////////////////////////////////////////
 // CBTInfo save .torrent file
 
-BOOL CBTInfo::SaveTorrentFile(LPCTSTR pszPath)
+BOOL CBTInfo::SaveTorrentFile(const CString& sFolder)
 {
-	ASSERT( pszPath != NULL );
-	if ( ! IsAvailable() ) return FALSE;
-	if ( m_pSource.m_nLength == 0 ) return FALSE;
+	if ( ! IsAvailable() )
+		return FALSE;
 
-	CString strPath;
-	strPath.Format( _T("%s\\%s.torrent"), pszPath,
-		(LPCTSTR)CDownloadTask::SafeFilename( m_sName ) );
+	if ( m_pSource.m_nLength == 0 )
+		return FALSE;
+
+	CString strPath = sFolder + _T("\\") + SafeFilename( m_sName + _T(".torrent") );
+	if ( m_sPath.CompareNoCase( strPath ) == 0 )
+		return TRUE;	// Same file
 
 	CFile pFile;
 	if ( ! pFile.Open( strPath, CFile::modeWrite | CFile::modeCreate ) )
@@ -1260,7 +1262,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			pBTFile->m_sName = PathFindFileName( strPath );
 
 			// Hack to prefix all
-			pBTFile->m_sPath = CDownloadTask::SafeFilename( m_sName );
+			pBTFile->m_sPath = SafeFilename( m_sName );
 
 			for ( int nPath = 0 ; nPath < pPath->GetCount() ; nPath++ )
 			{
@@ -1271,11 +1273,12 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 					pBTFile->m_sPath += '\\';
 
 				// Get the path
-				strPath = pPart->GetString();
-				strPath = CDownloadTask::SafeFilename( pPart->GetString() );
+
 				// Check for encoding error
-				if ( _tcsicmp( strPath.GetString() , _T("#ERROR#") ) == 0 )
-					strPath = CDownloadTask::SafeFilename( pPart->DecodeString( m_nEncoding ) );
+				if ( pPart->GetString().CompareNoCase( _T("#ERROR#") ) == 0 )
+					strPath = SafeFilename( pPart->DecodeString( m_nEncoding ), true );
+				else
+					strPath = SafeFilename( pPart->GetString(), true );
 
 				pBTFile->m_sPath += strPath;
 			}
@@ -1651,24 +1654,24 @@ int CBTInfo::AddTracker(const CBTTracker& oTracker)
 //////////////////////////////////////////////////////////////////////
 // CBTInfo::CBTTracker construction
 
-CBTInfo::CBTTracker::CBTTracker() :
-	m_tLastAccess		( 0 )
-,	m_tLastSuccess		( 0 )
-,	m_tNextTry			( 0 )
-,	m_nFailures			( 0 )
-,	m_nTier				( 0 )
-,	m_nType				( 0 )
+CBTInfo::CBTTracker::CBTTracker()
+	: m_tLastAccess		( 0 )
+	, m_tLastSuccess	( 0 )
+	, m_tNextTry		( 0 )
+	, m_nFailures		( 0 )
+	, m_nTier			( 0 )
+	, m_nType			( 0 )
 {
 }
 
-CBTInfo::CBTTracker::CBTTracker(const CBTTracker& oSource) :
-	m_sAddress			( oSource.m_sAddress )
-,	m_tLastAccess		( oSource.m_tLastAccess )
-,	m_tLastSuccess		( oSource.m_tLastSuccess )
-,	m_tNextTry			( oSource.m_tNextTry )
-,	m_nFailures			( oSource.m_nFailures )
-,	m_nTier				( oSource.m_nTier )
-,	m_nType				( oSource.m_nType )
+CBTInfo::CBTTracker::CBTTracker(const CBTTracker& oSource)
+	: m_sAddress		( oSource.m_sAddress )
+	, m_tLastAccess		( oSource.m_tLastAccess )
+	, m_tLastSuccess	( oSource.m_tLastSuccess )
+	, m_tNextTry		( oSource.m_tNextTry )
+	, m_nFailures		( oSource.m_nFailures )
+	, m_nTier			( oSource.m_nTier )
+	, m_nType			( oSource.m_nType )
 {
 }
 
@@ -1687,7 +1690,7 @@ void CBTInfo::CBTTracker::Serialize(CArchive& ar, int /*nVersion*/)
 		ar << m_nTier;
 		ar << m_nType;
 	}
-	else
+	else // Loading
 	{
 		ar >> m_sAddress;
 		ar >> m_tLastAccess;

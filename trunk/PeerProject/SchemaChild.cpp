@@ -1,7 +1,7 @@
 //
 // SchemaChild.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -36,7 +36,7 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CSchemaChild construction
 
-CSchemaChild::CSchemaChild(CSchema* pSchema)
+CSchemaChild::CSchemaChild(CSchemaPtr pSchema)
 {
 	m_pSchema	= pSchema;
 	m_nType		= CSchema::stFile;
@@ -130,7 +130,8 @@ BOOL CSchemaChild::MemberCopy(CXMLElement* pLocal, CXMLElement* pRemote, BOOL bT
 		{
 			CString strValue( pAttribute1->GetValue() );
 
-			if ( pMap->m_bIdentity ) CXMLNode::UniformString( strValue );
+			if ( pMap->m_bIdentity )
+				CXMLNode::UniformString( strValue );
 
 			if ( bToRemote )
 				pRemote->AddAttribute( pMap->m_sRemote, strValue );

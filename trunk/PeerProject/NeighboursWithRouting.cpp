@@ -1,7 +1,7 @@
 //
 // NeighboursWithRouting.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -103,7 +103,7 @@ int CNeighboursWithRouting::Broadcast(CPacket* pPacket, CNeighbour* pExcept, BOO
 // Takes a CQuerySearch object (do), the packet that goes along with it, the neighbour it's from, and true to forward it to hubs (do)
 // Forwards the query to connected computers, converting it into a Gnutella or Gnutella2 query if necessary
 // Returns the number of computers we sent the packet to
-int CNeighboursWithRouting::RouteQuery(CQuerySearch* pSearch, CPacket* pPacket, CNeighbour* pFrom, BOOL bToHubs)
+int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPacket, CNeighbour* pFrom, BOOL bToHubs)
 {
 	// Local variables
 	BOOL bHubLoop = FALSE; // We'll set this to true if this is a Gnutella Q2 packet and we found at least one Gnutella2 computer
@@ -199,9 +199,8 @@ int CNeighboursWithRouting::RouteQuery(CQuerySearch* pSearch, CPacket* pPacket, 
 
 					// Send the packet to this remote computer
 					if ( pNeighbour->SendQuery( pSearch, pG2, FALSE ) ) nCount++;
-
-				} // This is a Gnutella2 Q2 packet
-				else
+				}
+				else // This is a Gnutella2 Q2 packet
 				{
 					// Set the flag to enter the next if statement
 					bHubLoop = TRUE;
@@ -275,8 +274,10 @@ int CNeighboursWithRouting::RouteQuery(CQuerySearch* pSearch, CPacket* pPacket, 
 	if ( nCount )
 	{
 		// Record it in statistics
-		if      ( pPacket->m_nProtocol == PROTOCOL_G1 ) Statistics.Current.Gnutella1.Routed++;
-		else if ( pPacket->m_nProtocol == PROTOCOL_G2 ) Statistics.Current.Gnutella2.Routed++;
+		if ( pPacket->m_nProtocol == PROTOCOL_G1 )
+			Statistics.Current.Gnutella1.Routed++;
+		else if ( pPacket->m_nProtocol == PROTOCOL_G2 )
+			Statistics.Current.Gnutella2.Routed++;
 	}
 
 	// Return the number of packets we sent

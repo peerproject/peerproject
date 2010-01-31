@@ -1,7 +1,7 @@
 //
 // QueryHashTable.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -44,16 +44,16 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CQueryHashTable construction
 
-CQueryHashTable::CQueryHashTable() :
-	m_bLive		( false )
-,	m_nCookie	( 0ul )
-,	m_pHash		( NULL )
-,	m_nHash		( 0ul )
-,	m_nBits		( 0ul )
-,	m_nInfinity	( 1ul )
-,	m_nCount	( 0ul )
-,	m_pBuffer	( new CBuffer() )
-,	m_pGroup	( NULL )
+CQueryHashTable::CQueryHashTable()
+	: m_bLive		( false )
+	, m_nCookie 	( 0ul )
+	, m_pHash		( NULL )
+	, m_nHash		( 0ul )
+	, m_nBits		( 0ul )
+	, m_nInfinity	( 1ul )
+	, m_nCount		( 0ul )
+	, m_pGroup		( NULL )
+	, m_pBuffer 	( new CBuffer() )
 {
 }
 
@@ -629,13 +629,9 @@ bool CQueryHashTable::OnPacket(CPacket* pPacket)
 	BYTE nVariant = pPacket->ReadByte();
 
 	if ( nVariant == 0 )
-	{
 		return OnReset( pPacket );
-	}
 	else if ( nVariant == 1 )
-	{
 		return OnPatch( pPacket );
-	}
 
 	return false;
 }
@@ -1198,15 +1194,15 @@ bool CQueryHashTable::CheckHash(const DWORD nHash) const
 //////////////////////////////////////////////////////////////////////
 // CQueryHashTable check query object
 
-bool CQueryHashTable::Check(const CQuerySearch& oSearch) const
+bool CQueryHashTable::Check(const CQuerySearch* pSearch) const
 {
 	if ( !m_bLive || !m_pHash )
 		return true;
 
-	if ( !oSearch.m_oURNs.empty() )
+	if ( ! pSearch->m_oURNs.empty() )
 	{
-		CQuerySearch::const_hash_iterator iUrn = oSearch.urnBegin();
-		const CQuerySearch::const_hash_iterator iUrnEnd = oSearch.urnEnd();
+		CQuerySearch::const_hash_iterator iUrn = pSearch->urnBegin();
+		const CQuerySearch::const_hash_iterator iUrnEnd = pSearch->urnEnd();
 		for ( ; iUrn != iUrnEnd ; ++iUrn )
 		{
 			if ( CheckHash(*iUrn) )
@@ -1218,10 +1214,10 @@ bool CQueryHashTable::Check(const CQuerySearch& oSearch) const
 	DWORD nWordHits		= 0;
 	DWORD nWords		= 0;
 
-	if ( !oSearch.m_oKeywordHashList.empty() )
+	if ( ! pSearch->m_oKeywordHashList.empty() )
 	{
-		CQuerySearch::const_hash_iterator iKeyword = oSearch.keywordBegin();
-		const CQuerySearch::const_hash_iterator iKeywordEnd = oSearch.keywordEnd();
+		CQuerySearch::const_hash_iterator iKeyword = pSearch->keywordBegin();
+		const CQuerySearch::const_hash_iterator iKeywordEnd = pSearch->keywordEnd();
 		for ( ; iKeyword != iKeywordEnd ; ++iKeyword )
 		{
 			++nWords;

@@ -1,7 +1,7 @@
 //
 // DlgNewSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -46,9 +46,9 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CNewSearchDlg dialog
 
-CNewSearchDlg::CNewSearchDlg(CWnd* pParent, auto_ptr< CQuerySearch > pSearch, BOOL bLocal, BOOL bAgain)
-: CSkinDialog( CNewSearchDlg::IDD, pParent ), //ToDo: Fix Banner Resize Display
-  m_pSearch( pSearch )
+CNewSearchDlg::CNewSearchDlg(CWnd* pParent, CQuerySearch* pSearch, BOOL bLocal, BOOL bAgain)
+	: CSkinDialog( CNewSearchDlg::IDD, pParent )	//ToDo: Fix Banner Resize Display?
+	, m_pSearch( pSearch ? pSearch : new CQuerySearch() )
 {
 	m_bLocal	= bLocal;
 	m_bAgain	= bAgain;
@@ -84,10 +84,7 @@ BOOL CNewSearchDlg::OnInitDialog()
 	m_wndSchemas.m_sNoSchemaText = strText;
 	m_wndSchemas.Load( Settings.Search.LastSchemaURI );
 
-	if ( m_pSearch.get() )
-		m_wndSchemas.Select( m_pSearch->m_pSchema );
-	else
-		m_pSearch.reset( new CQuerySearch() );
+	m_wndSchemas.Select( m_pSearch->m_pSchema );
 
 	OnSelChangeSchemas();
 
@@ -153,13 +150,13 @@ void CNewSearchDlg::OnSize(UINT nType, int cx, int cy)
 
 void CNewSearchDlg::OnSelChangeSchemas()
 {
-	CSchema* pSchema = m_wndSchemas.GetSelected();
+	CSchemaPtr pSchema = m_wndSchemas.GetSelected();
 	m_wndSchema.SetSchema( pSchema, TRUE );
 }
 
 void CNewSearchDlg::OnCloseUpSchemas()
 {
-	CSchema* pSchema = m_wndSchemas.GetSelected();
+	CSchemaPtr pSchema = m_wndSchemas.GetSelected();
 
 	CRect rcWindow;
 	GetWindowRect( &rcWindow );
@@ -183,9 +180,9 @@ void CNewSearchDlg::OnChangeSearch()
 	m_wndSearch.GetWindowText( strSearch );
 
 	BOOL bHash = FALSE;
-    Hashes::TigerHash oTiger;
-    Hashes::Sha1Hash oSHA1;
-    Hashes::Ed2kHash oED2K;
+	Hashes::TigerHash oTiger;
+	Hashes::Sha1Hash oSHA1;
+	Hashes::Ed2kHash oED2K;
 	Hashes::Md5Hash oMD5;
 	Hashes::BtHash oBTH;
 
@@ -206,7 +203,7 @@ void CNewSearchDlg::OnOK()
 
 	m_wndSearch.GetWindowText( m_pSearch->m_sSearch );
 
-	CSchema* pSchema = m_wndSchemas.GetSelected();
+	CSchemaPtr pSchema = m_wndSchemas.GetSelected();
 
 	if ( m_pSearch->m_pXML != NULL ) delete m_pSearch->m_pXML;
 

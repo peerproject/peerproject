@@ -1,7 +1,7 @@
 //
 // DownloadWithSearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -29,31 +29,29 @@ class CManagedSearch;
 
 class CDownloadWithSearch : public CDownloadWithTiger
 {
-// Construction
+public:
+	BOOL			m_bUpdateSearch;	// Search must be updated
+	DWORD			m_tLastED2KGlobal;	// Time the last ed2k UDP GetSources was done on this download
+	DWORD			m_tLastED2KLocal;	// Time the last ed2k TCP GetSources was done on this download
+
+	BOOL			IsSearching() const;
+	virtual BOOL	FindMoreSources();
+
 protected:
 	CDownloadWithSearch();
 	virtual ~CDownloadWithSearch();
 
-// Attributes
+	BOOL			FindSourcesAllowed(DWORD tNow) const;
+	void			RunSearch(DWORD tNow);
+	void			StopSearch();
+
 private:
-	CManagedSearch*	m_pSearch;
+	CSearchPtr		m_pSearch;			// Managed search object
 	DWORD			m_tSearchTime;		// Timer for manual search
 	DWORD			m_tSearchCheck;		// Limit auto searches
-public:
-	DWORD			m_tLastED2KGlobal;	// Time the last ed2k UDP GetSources was done on this download
-	DWORD			m_tLastED2KLocal;	// Time the last ed2k TCP GetSources was done on this download
 
-// Operations
-public:
-	BOOL			FindSourcesAllowed(DWORD tNow) const;
-	virtual BOOL	FindMoreSources();
-	inline BOOL		IsSearching() const { return m_pSearch != NULL && m_pSearch->IsActive(); };
-protected:
-	void	RunSearch(DWORD tNow);
-	void	StopSearch();
-private:
-	void	StartManualSearch();
-	void	StartAutomaticSearch();
-	BOOL	CanSearch() const;
-	void	PrepareSearch();
+	void			StartManualSearch();
+	void			StartAutomaticSearch();
+	void			PrepareSearch();
+	BOOL			CanSearch() const;
 };

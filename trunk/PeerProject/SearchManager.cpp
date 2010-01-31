@@ -1,7 +1,7 @@
 //
 // SearchManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -43,15 +43,15 @@ CSearchManager SearchManager;
 // CSearchManager construction
 
 CSearchManager::CSearchManager()
+	: m_tLastTick		( 0 )
+	, m_nPriorityClass	( 0 )
+	, m_nPriorityCount	( 0 )
 {
-	m_tLastTick = 0;
-
-	m_nPriorityClass = 0;
-	m_nPriorityCount = 0;
 }
 
 CSearchManager::~CSearchManager()
 {
+	ASSERT( m_pList.IsEmpty() );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -59,44 +59,40 @@ CSearchManager::~CSearchManager()
 
 void CSearchManager::Add(CManagedSearch* pSearch)
 {
+	ASSUME_LOCK( m_pSection );
+
 	POSITION pos = m_pList.Find( pSearch );
-	if ( pos == NULL ) m_pList.AddHead( pSearch );
+	ASSERT( pos == NULL );
+	if ( pos == NULL )
+		m_pList.AddHead( pSearch );
 }
 
 void CSearchManager::Remove(CManagedSearch* pSearch)
 {
+	ASSUME_LOCK( m_pSection );
+
 	POSITION pos = m_pList.Find( pSearch );
-	if ( pos != NULL ) m_pList.RemoveAt( pos );
+	ASSERT( pos != NULL );
+	if ( pos != NULL )
+		m_pList.RemoveAt( pos );
 }
 
 //////////////////////////////////////////////////////////////////////
 // CSearchManager list access
 
-POSITION CSearchManager::GetIterator() const
+CSearchPtr CSearchManager::Find(const Hashes::Guid& oGUID) const
 {
-	return m_pList.GetHeadPosition();
-}
+	ASSUME_LOCK( m_pSection );
 
-CManagedSearch* CSearchManager::GetNext(POSITION& pos) const
-{
-	return m_pList.GetNext( pos );
-}
-
-INT_PTR CSearchManager::GetCount() const
-{
-	return m_pList.GetCount();
-}
-
-CManagedSearch* CSearchManager::Find(const Hashes::Guid& oGUID)
-{
 	for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 	{
-		CManagedSearch* pSearch = m_pList.GetNext( pos );
-		if ( pSearch->m_pSearch.get() && validAndEqual( pSearch->m_pSearch->m_oGUID, oGUID ) )
-			return pSearch;
+		CSearchPtr pManaged = m_pList.GetNext( pos );
+
+		if ( pManaged->IsEqualGUID( oGUID ) )
+			return pManaged;
 	}
 
-	return NULL;
+	return CSearchPtr();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -116,9 +112,9 @@ void CSearchManager::OnRun()
 		HostCache.Gnutella2.PruneByQueryAck();
 
 	CSingleLock pLock( &m_pSection );
-	if ( ! pLock.Lock( 100 ) ) return;
+	if ( ! pLock.Lock( 200 ) ) return;
 
-	static int nPriorityFactor[ 3 ] = { 8, 4, 1 };
+	const int nPriorityFactor[ 3 ] = { 8, 4, 1 };
 
 	if ( m_nPriorityCount >= nPriorityFactor[ m_nPriorityClass ] )
 	{
@@ -128,12 +124,12 @@ void CSearchManager::OnRun()
 
 	for ( int nClass = 0 ; nClass <= CManagedSearch::spMax ; nClass++ )
 	{
-		for ( POSITION pos = GetIterator() ; pos ; )
+		for ( POSITION pos = m_pList.GetHeadPosition(); pos ; )
 		{
 			POSITION posCur = pos;
-			CManagedSearch* pSearch = GetNext( pos );
+			CSearchPtr pSearch = m_pList.GetNext( pos );
 
-			if ( pSearch->m_nPriority == m_nPriorityClass && pSearch->Execute() )
+			if ( pSearch->Execute( m_nPriorityClass ) )
 			{
 				m_pList.RemoveAt( posCur );
 				m_pList.AddTail( pSearch );
@@ -150,12 +146,12 @@ void CSearchManager::OnRun()
 //////////////////////////////////////////////////////////////////////
 // CSearchManager query acknowledgement
 
-BOOL CSearchManager::OnQueryAck(CG2Packet* pPacket, SOCKADDR_IN* pHost, Hashes::Guid& oGUID)
+BOOL CSearchManager::OnQueryAck(CG2Packet* pPacket, const SOCKADDR_IN* pAddress, Hashes::Guid& oGUID)
 {
 	if ( ! pPacket->m_bCompound )
 		AfxThrowUserException();
 
-	DWORD nFromIP = pHost->sin_addr.S_un.S_addr;
+	DWORD nFromIP = pAddress->sin_addr.S_un.S_addr;
 	LONG tAdjust = 0;
 	DWORD tNow = static_cast< DWORD >( time( NULL ) );
 	DWORD nHubs = 0, nLeaves = 0, nSuggestedHubs = 0;
@@ -203,20 +199,14 @@ BOOL CSearchManager::OnQueryAck(CG2Packet* pPacket, SOCKADDR_IN* pHost, Hashes::
 		else if ( nType == G2_PACKET_RETRY_AFTER && nLength >= 2 )
 		{
 			if ( nLength >= 4 )
-			{
 				nRetryAfter = pPacket->ReadLongBE();
-			}
 			else if ( nLength >= 2 )
-			{
 				nRetryAfter = pPacket->ReadShortBE();
-			}
 
 			CQuickLock oLock( HostCache.Gnutella2.m_pSection );
 
 			if ( CHostCacheHost* pHost = HostCache.Gnutella2.Find( (IN_ADDR*)&nFromIP ) )
-			{
 				pHost->m_tRetryAfter = tNow + nRetryAfter;
-			}
 		}
 		else if ( nType == G2_PACKET_FROM_ADDRESS && nLength >= 4 )
 		{
@@ -233,64 +223,73 @@ BOOL CSearchManager::OnQueryAck(CG2Packet* pPacket, SOCKADDR_IN* pHost, Hashes::
 
 	theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
 		_T("Processing query acknowledgement from %s (time adjust %+d seconds): %d hubs, %d leaves, %d suggested hubs, retry after %d seconds."),
-		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), tAdjust,
+		(LPCTSTR)CString( inet_ntoa( pAddress->sin_addr ) ), tAdjust,
 		nHubs, nLeaves, nSuggestedHubs, nRetryAfter );
 
-	CSingleLock pLock( &m_pSection );
-
-	if ( pLock.Lock( 100 ) )
+	CSingleLock oLock( &m_pSection );
+	if ( ! oLock.Lock( 150 ) )
 	{
-		// Is it our search?
-		if ( CManagedSearch* pSearch = Find( oGUID ) )
-		{
-			pSearch->m_nHubs += nHubs;
-			pSearch->m_nLeaves += nLeaves;
-
-			// (technically not required, but..)
-			pSearch->OnHostAcknowledge( nFromIP );
-
-			for ( int nItem = 0 ; nItem < pDone.GetSize() ; nItem++ )
-			{
-				DWORD nAddress = pDone.GetAt( nItem );
-				pSearch->OnHostAcknowledge( nAddress );
-			}
-		}
-		else
-			// Route it!
-			return TRUE;
+		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH,
+			_T("Rejecting query ack operation, search manager overloaded.") );
+		return FALSE;
 	}
 
-	return FALSE;
+	// Is it our search?
+	if ( CSearchPtr pSearch = Find( oGUID ) )
+	{
+		pSearch->m_nHubs += nHubs;
+		pSearch->m_nLeaves += nLeaves;
+
+		// (technically not required, but..)
+		pSearch->OnHostAcknowledge( nFromIP );
+
+		for ( int nItem = 0 ; nItem < pDone.GetSize() ; nItem++ )
+		{
+			DWORD nAddress = pDone.GetAt( nItem );
+			pSearch->OnHostAcknowledge( nAddress );
+		}
+
+		return FALSE;
+	}
+
+	// Route it!
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////
 // CSearchManager query hits
 
-BOOL CSearchManager::OnQueryHits(CQueryHit* pHits)
+BOOL CSearchManager::OnQueryHits(const CQueryHit* pHits)
 {
-	CSingleLock pLock( &m_pSection );
-	if ( ! pLock.Lock( 100 ) )
-		return TRUE;
-
-	CManagedSearch* pSearch = Find( pHits->m_oSearchID );
-	if ( pSearch == NULL )
-		return TRUE;
-
-	pSearch->OnHostAcknowledge( *(DWORD*)&pHits->m_pAddress );
-
-	while ( pHits != NULL )
+	CSingleLock oLock( &m_pSection );
+	if ( ! oLock.Lock( 150 ) )
 	{
-		pSearch->m_nHits ++;
-		if ( pHits->m_nProtocol == PROTOCOL_G1 )
-			pSearch->m_nG1Hits++;
-		else if ( pHits->m_nProtocol == PROTOCOL_G2 )
-			pSearch->m_nG2Hits++;
-		else if ( pHits->m_nProtocol == PROTOCOL_ED2K )
-			pSearch->m_nEDHits++;
-		pHits = pHits->m_pNext;
+		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH,
+			_T("Rejecting query hit operation, search manager overloaded.") );
+		return FALSE;
 	}
 
-	return FALSE;
+	if ( CSearchPtr pSearch = Find( pHits->m_oSearchID ) )
+	{
+		pSearch->OnHostAcknowledge( *(DWORD*)&pHits->m_pAddress );
+
+		while ( pHits != NULL )
+		{
+			pSearch->m_nHits ++;
+			if ( pHits->m_nProtocol == PROTOCOL_G1 )
+				pSearch->m_nG1Hits++;
+			else if ( pHits->m_nProtocol == PROTOCOL_G2 )
+				pSearch->m_nG2Hits++;
+			else if ( pHits->m_nProtocol == PROTOCOL_ED2K )
+				pSearch->m_nEDHits++;
+			pHits = pHits->m_pNext;
+		}
+
+		return FALSE;
+	}
+
+	// Route it!
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -299,10 +298,11 @@ BOOL CSearchManager::OnQueryHits(CQueryHit* pHits)
 WORD CSearchManager::OnQueryStatusRequest(const Hashes::Guid& oGUID)
 {
 	CSingleLock pLock( &m_pSection );
-	if ( ! pLock.Lock( 100 ) ) return 0xFFFF;
+	if ( pLock.Lock( 150 ) )
+	{
+		if ( CSearchPtr pSearch = Find( oGUID ) )
+			return (WORD)min( DWORD(0xFFFE), pSearch->m_nHits );
+	}
 
-	CManagedSearch* pSearch = Find( oGUID );
-	if ( pSearch == NULL ) return 0xFFFF;
-
-	return (WORD)min( DWORD(0xFFFE), pSearch->m_nHits );
+	return 0xFFFF;
 }

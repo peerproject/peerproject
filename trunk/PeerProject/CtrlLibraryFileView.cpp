@@ -1,7 +1,7 @@
 //
 // CtrlLibraryFileView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -135,9 +135,9 @@ END_MESSAGE_MAP()
 // CLibraryFileView construction
 
 CLibraryFileView::CLibraryFileView()
-: m_bRequestingService( FALSE )
-, m_bServiceFailed( FALSE )
-, m_nCurrentPage( 0 )
+	: m_bRequestingService	( FALSE )
+	, m_bServiceFailed		( FALSE )
+	, m_nCurrentPage		( 0 )
 {
 	m_pszToolBar = L"CLibraryFileView";
 }
@@ -160,9 +160,7 @@ BOOL CLibraryFileView::CheckAvailable(CLibraryTreeItem* pSel)
 	m_bAvailable = TRUE;
 
 	if ( pSel->m_pSelNext == NULL && pSel->m_pVirtual != NULL )
-	{
 		m_bAvailable = ( pSel->m_pVirtual->GetFileCount() > 0 );
-	}
 
 	return m_bAvailable;
 }
@@ -246,13 +244,9 @@ void CLibraryFileView::OnMouseMove(UINT nFlags, CPoint point)
 	CLibraryView::OnMouseMove( nFlags, point );
 
 	if ( DWORD_PTR nFile = HitTestIndex( point ) )
-	{
-		GetToolTip()->Show( (void*)nFile );
-	}
+		GetToolTip()->Show( nFile );
 	else
-	{
 		GetToolTip()->Hide();
-	}
 }
 
 void CLibraryFileView::OnLButtonDown(UINT nFlags, CPoint point)
@@ -498,9 +492,7 @@ void CLibraryFileView::OnLibraryDelete()
 			for ( INT_PTR nProcess = pList.GetCount() ; nProcess > 0 && pList.GetCount() > 0 ; nProcess-- )
 			{
 				if ( ( pFile = Library.LookupFile( pList.RemoveHead() ) ) != NULL )
-				{
 					pFile->Delete( TRUE );
-				}
 			}
 		}
 		else
@@ -627,7 +619,7 @@ void CLibraryFileView::OnUpdateLibraryRebuildAnsi(CCmdUI* pCmdUI)
 					nMetaDataTime.LowPart = pFile->m_pMetadataTime.dwLowDateTime;
 					nMetaDataTime.QuadPart /= 10000000;
 
-					// assume that XML was not modified during the first 10 sec. of creation
+					// Assume that XML was not modified during the first 10 sec. of creation
 					if ( nMetaDataTime.HighPart == nFileDataTime.HighPart &&
 						nMetaDataTime.LowPart - nFileDataTime.LowPart > 10 )
 						bXmlPossiblyModified = TRUE;
@@ -697,7 +689,8 @@ void CLibraryFileView::OnLibraryBitziDownload()
 
 	for ( CLibraryFile* pFile = GetNextSelectedFile(); pFile; pFile = GetNextSelectedFile() )
 	{
-		if ( pFile->m_oSHA1 ) dlg.AddFile( pFile->m_nIndex );
+		if ( pFile->m_oSHA1 )
+			dlg.AddFile( pFile->m_nIndex );
 	}
 
 	pLock.Unlock();
@@ -729,7 +722,7 @@ void CLibraryFileView::OnUpdateLibraryProperties(CCmdUI* pCmdUI)
 
 void CLibraryFileView::OnLibraryProperties()
 {
-//	CStringList oFiles;
+	//CStringList oFiles;
 
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 	CFilePropertiesSheet dlg;
@@ -738,39 +731,37 @@ void CLibraryFileView::OnLibraryProperties()
 	while ( m_posSel )
 	{
 		if ( CLibraryFile* pFile = Library.LookupFile( m_pSelection.GetNext( m_posSel ) ) )
-		{
 			dlg.Add( pFile );
-//			oFiles.AddTail( pFile->GetPath() );
-		}
+			//oFiles.AddTail( pFile->GetPath() );
 	}
 	pLock.Unlock();
 
-/*	HRESULT hr;
-	CComPtr< IDataObject > pDataObject;
-	// Convert path string list to PIDL list
-	{
-		auto_array< PIDLIST_ABSOLUTE > pShellFileAbs( new PIDLIST_ABSOLUTE [ oFiles.GetCount() ] );
-		for ( int i = 0; i < oFiles.GetCount(); ++i )
-		  pShellFileAbs[ i ] = ILCreateFromPath( oFiles.GetHead() );
-
-		PIDLIST_ABSOLUTE pShellParent = ILCloneFull( pShellFileAbs[ 0 ] );
-		ILRemoveLastID( pShellParent );
-
-		auto_array< LPCITEMIDLIST > pShellFiles( new LPCITEMIDLIST [ oFiles.GetCount() ] );
-		POSITION pos = oFiles.GetHeadPosition();
-		for ( int i = 0; i < oFiles.GetCount(); ++i )
-			pShellFiles[ i ] = ILFindChild( pShellParent, pShellFileAbs[ i ] );
-
-		hr = CIDLData_CreateFromIDArray( pShellParent, oFiles.GetCount(),
-			pShellFiles.get(), &pDataObject );
-
-		ILFree( pShellParent );
-
-		for ( int i = 0; i < oFiles.GetCount(); ++i )
-			ILFree( (LPITEMIDLIST)pShellFileAbs[ i ] );
-	}
-	if ( SUCCEEDED( hr ) )
-		hr = SHMultiFileProperties( pDataObject, 0 );*/
+	//HRESULT hr;
+	//CComPtr< IDataObject > pDataObject;
+	//{
+	//	// Convert path string list to PIDL list
+	//	auto_array< PIDLIST_ABSOLUTE > pShellFileAbs( new PIDLIST_ABSOLUTE [ oFiles.GetCount() ] );
+	//	for ( int i = 0; i < oFiles.GetCount(); ++i )
+	//	  pShellFileAbs[ i ] = ILCreateFromPath( oFiles.GetHead() );
+	//
+	//	PIDLIST_ABSOLUTE pShellParent = ILCloneFull( pShellFileAbs[ 0 ] );
+	//	ILRemoveLastID( pShellParent );
+	//
+	//	auto_array< LPCITEMIDLIST > pShellFiles( new LPCITEMIDLIST [ oFiles.GetCount() ] );
+	//	POSITION pos = oFiles.GetHeadPosition();
+	//	for ( int i = 0; i < oFiles.GetCount(); ++i )
+	//		pShellFiles[ i ] = ILFindChild( pShellParent, pShellFileAbs[ i ] );
+	//
+	//	hr = CIDLData_CreateFromIDArray( pShellParent, oFiles.GetCount(),
+	//		pShellFiles.get(), &pDataObject );
+	//
+	//	ILFree( pShellParent );
+	//
+	//	for ( int i = 0; i < oFiles.GetCount(); ++i )
+	//		ILFree( (LPITEMIDLIST)pShellFileAbs[ i ] );
+	//}
+	//if ( SUCCEEDED( hr ) )
+	//	hr = SHMultiFileProperties( pDataObject, 0 );
 
 	dlg.DoModal();
 }
@@ -812,9 +803,7 @@ void CLibraryFileView::OnLibraryShared()
 	while ( m_posSel )
 	{
 		if ( CLibraryFile* pFile = Library.LookupFile( m_pSelection.GetNext( m_posSel ) ) )
-		{
 			pFile->SetShared( ! pFile->IsShared() );
-		}
 	}
 
 	Library.Update();
@@ -993,9 +982,7 @@ void CLibraryFileView::CheckDynamicBar()
 
 	CLibraryFrame* pFrame = GetFrame();
 	if ( _tcscmp( pFrame->GetDynamicBarName(), L"WebServices.MusicBrainz" ) == 0 )
-	{
 		bIsMusicBrainz = true;
-	}
 
 	if ( GetSelectedCount() != 1 )
 	{
@@ -1020,11 +1007,9 @@ void CLibraryFileView::CheckDynamicBar()
 	if ( !pFile->IsSchemaURI( CSchema::uriAudio ) || pFile->m_pMetadata == NULL )
 	{
 		if ( bIsMusicBrainz )
-		{
 			pFrame->SetDynamicBar( NULL );
-		}
 
-		m_bRequestingService = FALSE; // TODO: abort operation
+		m_bRequestingService = FALSE;	// ToDo: Abort operation
 		return;
 	}
 
@@ -1037,7 +1022,7 @@ void CLibraryFileView::CheckDynamicBar()
 	else
 		pFrame->HideDynamicBar();
 
-	m_bRequestingService = FALSE; // TODO: abort operation
+	m_bRequestingService = FALSE;	// ToDo: Abort operation
 	delete pMetaList;
 
 	pLock.Unlock();
@@ -1164,7 +1149,7 @@ void CLibraryFileView::OnShareMonkeySave()
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 
 	CLibraryFile* pFile = GetSelectedFile();
-	CSchema* pSchema = pFile->m_pSchema ? pFile->m_pSchema : pPanelData->GetSchema();
+	CSchemaPtr pSchema = pFile->m_pSchema ? pFile->m_pSchema : pPanelData->GetSchema();
 
 	if ( pSchema )
 	{
@@ -1280,7 +1265,7 @@ void CLibraryFileView::OnShareMonkeyPrices()
 	POSITION pos = m_pServiceDataPages.GetHeadPosition();
 	CMetaPanel* pPanelData = NULL;
 
-	// TODO: change m_pServiceDataPages to CMap. Now it's stupid
+	// ToDo: Change m_pServiceDataPages to CMap. Now it's stupid
 	for ( INT_PTR nPage = 0 ; nPage <= m_nCurrentPage ; nPage++ )
 	{
 		pPanelData = m_pServiceDataPages.GetNext( pos );
@@ -1321,7 +1306,7 @@ void CLibraryFileView::OnShareMonkeyCompare()
 	POSITION pos = m_pServiceDataPages.GetHeadPosition();
 	CMetaPanel* pPanelData = NULL;
 
-	// ToDo: change m_pServiceDataPages to CMap. Now it's stupid
+	// ToDo: Change m_pServiceDataPages to CMap. Now it's stupid
 	for ( INT_PTR nPage = 0 ; nPage <= m_nCurrentPage ; nPage++ )
 	{
 		pPanelData = m_pServiceDataPages.GetNext( pos );
@@ -1329,9 +1314,7 @@ void CLibraryFileView::OnShareMonkeyCompare()
 
 	CShareMonkeyData* pData = static_cast< CShareMonkeyData* >( pPanelData );
 	if ( pData->m_sComparisonURL.GetLength() )
-	{
 		ShellExecute( GetSafeHwnd(), _T("open"), pData->m_sComparisonURL, NULL, NULL, SW_SHOWNORMAL );
-	}
 }
 
 void CLibraryFileView::OnUpdateShareMonkeyBuy(CCmdUI* pCmdUI)
@@ -1344,7 +1327,7 @@ void CLibraryFileView::OnShareMonkeyBuy()
 	POSITION pos = m_pServiceDataPages.GetHeadPosition();
 	CMetaPanel* pPanelData = NULL;
 
-	// ToDo: change m_pServiceDataPages to CMap. Now it's stupid
+	// ToDo: Change m_pServiceDataPages to CMap. Now it's stupid
 	for ( INT_PTR nPage = 0 ; nPage <= m_nCurrentPage ; nPage++ )
 	{
 		pPanelData = m_pServiceDataPages.GetNext( pos );
@@ -1352,9 +1335,7 @@ void CLibraryFileView::OnShareMonkeyBuy()
 
 	CShareMonkeyData* pData = static_cast< CShareMonkeyData* >( pPanelData );
 	if ( pData->m_sBuyURL.GetLength() )
-	{
 		ShellExecute( GetSafeHwnd(), _T("open"), pData->m_sBuyURL, NULL, NULL, SW_SHOWNORMAL );
-	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

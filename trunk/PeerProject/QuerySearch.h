@@ -1,7 +1,7 @@
 //
 // QuerySearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,14 +22,18 @@
 #pragma once
 
 #include "PeerProjectFile.h"
+#include "Schema.h"
 
 class CPacket;
-class CSchema;
 class CXMLElement;
 class CSearchWnd;
 class CG1Packet;
 class CG2Packet;
 class CEDPacket;
+class CQuerySearch;
+
+
+typedef CComObjectPtr< CQuerySearch > CQuerySearchPtr;
 
 
 class CQuerySearch : public CPeerProjectFile
@@ -38,11 +42,9 @@ class CQuerySearch : public CPeerProjectFile
 public:
 	CQuerySearch(BOOL bGUID = TRUE);
 	virtual ~CQuerySearch();
-private:
-	CQuerySearch(const CQuerySearch* pOrigin);
-public:
-	auto_ptr< CQuerySearch > clone() const;
+
 	typedef std::vector<DWORD>					Hash32List;
+
 // Attributes
 public:
 	bool				m_bAutostart;	// Autostart search (default - true)
@@ -51,7 +53,7 @@ public:
 	CString				m_sKeywords;	// search keywords (stems, minus words, split asian phrase etc.)
 	CString				m_sPosKeywords;	// Positive keywords ( no minus, no quotes basically for Gnutella1 Query)
 	CString				m_sG2Keywords;	// Query string for G2, containing Positive keywords and Minus Prefixed negative keywords.
-	CSchema*			m_pSchema;		// G1,G2,ED2K: Metadata schema
+	CSchemaPtr			m_pSchema;		// G1,G2,ED2K: Metadata schema
 	CXMLElement*		m_pXML;			// G1,G2,ED2K: Metadata
 	QWORD				m_nMinSize;		// G2,ED2K: Minimal file size
 	QWORD				m_nMaxSize;		// G2,ED2K: Maximal file size
@@ -127,9 +129,9 @@ private:
 
 // Packet Operations
 public:
-	CG1Packet*				ToG1Packet(DWORD nTTL = 0);
-	CG2Packet*				ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey);
-	CEDPacket*				ToEDPacket(BOOL bUDP, DWORD nServerFlags = 0);
+	CG1Packet*				ToG1Packet(DWORD nTTL = 0) const;
+	CG2Packet*				ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey) const;
+	CEDPacket*				ToEDPacket(BOOL bUDP, DWORD nServerFlags = 0) const;
 private:
 	BOOL					ReadG1Packet(CG1Packet* pPacket);
 	void					ReadGGEP(CG1Packet* pPacket);
@@ -150,14 +152,14 @@ private:
 	void					BuildWordTable();
 	void					BuildG2PosKeywords();
 	void					SlideKeywords(CString& strPhrase);
-	BOOL					WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP);
+	BOOL					WriteHashesToEDPacket(CEDPacket* pPacket, BOOL bUDP) const;
 
 // Utilities
 public:
-	static CQuerySearch*	FromPacket(CPacket* pPacket, SOCKADDR_IN* pEndpoint = NULL);
-	static	CSearchWnd*		OpenWindow(auto_ptr< CQuerySearch > pSearch);
-	static	BOOL			WordMatch(LPCTSTR pszString, LPCTSTR pszFind, bool* bReject=NULL);
-	static	BOOL			NumberMatch(const CString& strValue, const CString& strRange);
-	static	void			MakeKeywords(CString& strPhrase, bool bExpression=true);
-	static	void			SearchHelp();	// Shows some search help dialogs
+	static CQuerySearchPtr	FromPacket(CPacket* pPacket, SOCKADDR_IN* pEndpoint = NULL);
+	static CSearchWnd*		OpenWindow(CQuerySearch* pSearch);
+	static BOOL 			WordMatch(LPCTSTR pszString, LPCTSTR pszFind, bool* bReject=NULL);
+	static BOOL 			NumberMatch(const CString& strValue, const CString& strRange);
+	static void 			MakeKeywords(CString& strPhrase, bool bExpression=true);
+	static void 			SearchHelp();	// Shows some search help dialogs
 };

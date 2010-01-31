@@ -1,7 +1,7 @@
 //
 // BitziDownloader.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,8 +47,8 @@ CBitziDownloader::CBitziDownloader()
 	m_hSession		= NULL;
 	m_hRequest		= NULL;
 	m_bFinished		= FALSE;
-	m_nDelay		= 0;
 	m_nFailures		= 0;
+	m_nDelay		= 0;
 	m_pXML			= NULL;
 }
 
@@ -346,7 +346,7 @@ BOOL CBitziDownloader::DecodeResponse()
 
 	for ( POSITION pos = SchemaCache.GetIterator() ; pos ; )
 	{
-		CSchema* pSchema = SchemaCache.GetNext( pos );
+		CSchemaPtr pSchema = SchemaCache.GetNext( pos );
 
 		if ( pSchema->m_sBitziTest.GetLength() &&
 			LookupValue( pSchema->m_sBitziTest ).GetLength() )
@@ -385,7 +385,8 @@ CString CBitziDownloader::LookupValue(LPCTSTR pszPath)
 		if ( bFirst )
 		{
 			bFirst = FALSE;
-			if ( strName.CompareNoCase( pXML->GetName() ) ) pXML = NULL;
+			if ( strName.CompareNoCase( pXML->GetName() ) )
+				pXML = NULL;
 		}
 		else
 		{
@@ -410,7 +411,7 @@ CString CBitziDownloader::LookupValue(LPCTSTR pszPath)
 //////////////////////////////////////////////////////////////////////
 // CBitziDownloader import data
 
-CXMLElement* CBitziDownloader::ImportData(CSchema* pSchema)
+CXMLElement* CBitziDownloader::ImportData(CSchemaPtr pSchema)
 {
 	CXMLElement* pRoot	= pSchema->Instantiate( TRUE );
 	CXMLElement* pXML	= pRoot->AddElement( pSchema->m_sSingular );

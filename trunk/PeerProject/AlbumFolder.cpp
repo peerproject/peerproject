@@ -59,7 +59,8 @@ CAlbumFolder::CAlbumFolder(CAlbumFolder* pParent, LPCTSTR pszSchemaURI, LPCTSTR 
 		if ( m_pSchema != NULL )
 		{
 			int nColon = m_pSchema->m_sTitle.Find( ':' );
-			if ( nColon >= 0 ) m_sName = m_pSchema->m_sTitle.Mid( nColon + 1 ).Trim();
+			if ( nColon >= 0 )
+				m_sName = m_pSchema->m_sTitle.Mid( nColon + 1 ).Trim();
 		}
 
 		if ( m_sName.IsEmpty() ) m_sName = _T("New Folder");
@@ -227,7 +228,7 @@ bool CAlbumFolder::OnFolderDelete(CAlbumFolder* pFolder)
 
 	pFolder->m_pParent = NULL;
 
-	Library.m_nUpdateCookie++;
+	Library.Update();
 	m_nUpdateCookie++;
 	Delete( TRUE );
 	return true;
@@ -256,7 +257,7 @@ void CAlbumFolder::AddFile(CLibraryFile* pFile)
 	}
 
 	m_nUpdateCookie++;
-	Library.m_nUpdateCookie++;
+	Library.Update();
 }
 
 POSITION CAlbumFolder::GetFileIterator() const
@@ -301,7 +302,7 @@ void CAlbumFolder::RemoveFile(CLibraryFile* pFile)
 	{
 		m_pFiles.RemoveAt( pos );
 		m_nUpdateCookie++;
-		Library.m_nUpdateCookie++;
+		Library.Update();
 		Delete( TRUE );
 	}
 }
@@ -316,7 +317,7 @@ void CAlbumFolder::OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost)
 	if ( ! bDeleteGhost && CheckURI( m_sSchemaURI, CSchema::uriGhostFolder ) )
 	{
 		m_nUpdateCookie++;
-		Library.m_nUpdateCookie++;
+		Library.Update();
 		return;
 	}
 
@@ -324,7 +325,7 @@ void CAlbumFolder::OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost)
 	{
 		m_pFiles.RemoveAt( pos );
 		m_nUpdateCookie++;
-		Library.m_nUpdateCookie++;
+		Library.Update();
 		Delete( TRUE );
 	}
 }
@@ -404,7 +405,7 @@ void CAlbumFolder::Delete(BOOL bIfEmpty)
 BOOL CAlbumFolder::SetMetadata(CXMLElement* pXML)
 {
 	m_nUpdateCookie++;
-	Library.m_nUpdateCookie++;
+	Library.Update();
 
 	if ( m_pXML != NULL )
 	{
@@ -448,7 +449,7 @@ BOOL CAlbumFolder::MetaFromFile(CLibraryFile* pFile)
 	pChild->MemberCopy( m_pXML, pFile->m_pMetadata );
 
 	m_nUpdateCookie++;
-	Library.m_nUpdateCookie++;
+	Library.Update();
 
 	return TRUE;
 }
@@ -460,7 +461,7 @@ BOOL CAlbumFolder::MetaToFiles(BOOL bAggressive)
 	for ( POSITION pos = GetFileIterator() ; pos ; )
 	{
 		CLibraryFile* pFile	= GetNextFile( pos );
-		CSchema* pSchema	= pFile->m_pSchema;
+		CSchemaPtr pSchema = pFile->m_pSchema;
 
 		if ( pSchema == NULL ) continue;
 
@@ -559,7 +560,7 @@ BOOL CAlbumFolder::MountCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFil
 				pFolder->SetCollection( oSHA1, pCollection );
 
 				m_nUpdateCookie++;
-				Library.m_nUpdateCookie++;
+				Library.Update();
 				bResult = TRUE;
 			}
 		}
@@ -606,7 +607,7 @@ void CAlbumFolder::SetCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFile*
 	}
 
 	m_nUpdateCookie++;
-	Library.m_nUpdateCookie++;
+	Library.Update();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -634,7 +635,7 @@ CCollectionFile* CAlbumFolder::GetCollection()
 
 	m_oCollSHA1.clear();
 	m_nUpdateCookie++;
-	Library.m_nUpdateCookie++;
+	Library.Update();
 
 	return NULL;
 }

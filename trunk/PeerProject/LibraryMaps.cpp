@@ -126,7 +126,7 @@ CLibraryFile* CLibraryMaps::LookupFileByName(LPCTSTR pszName, QWORD nSize, BOOL 
 	ASSERT( pszName && *pszName );
 
 	CLibraryFile* pFile = NULL;
-	CString strName( pszName );
+	CString strName = PathFindFileName( pszName );
 	ToLower( strName );
 
 	CQuickLock oLock( Library.m_pSection );
@@ -724,7 +724,7 @@ void CLibraryMaps::CullDeletedFiles(CLibraryFile* pMatch)
 //////////////////////////////////////////////////////////////////////
 // CLibraryMaps search
 
-CFileList* CLibraryMaps::Search(CQuerySearch* pSearch, int nMaximum, BOOL bLocal, BOOL bAvailableOnly)
+CFileList* CLibraryMaps::Search(const CQuerySearch* pSearch, int nMaximum, BOOL bLocal, BOOL bAvailableOnly)
 {
 	CFileList* pHits = NULL;
 	if ( pSearch == NULL )
@@ -859,7 +859,7 @@ void CLibraryMaps::Serialize1(CArchive& ar, int /*nVersion*/)
 		ar << (UINT)m_pNameMap.GetCount();
 		ar << (UINT)m_pPathMap.GetCount();
 	}
-	else
+	else // Loading
 	{
 		DWORD nNextIndex = 0;
 		ar >> nNextIndex;

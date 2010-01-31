@@ -1,7 +1,7 @@
 //
 // WndBrowseHost.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -63,19 +63,19 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CBrowseHostWnd construction
 
-CBrowseHostWnd::CBrowseHostWnd(PROTOCOLID nProtocol, SOCKADDR_IN* pAddress, const Hashes::Guid& oClientID) :
-	m_pBrowser( NULL ),
-	m_bOnFiles( FALSE ),
-	m_bAutoBrowse( TRUE )
+CBrowseHostWnd::CBrowseHostWnd(PROTOCOLID nProtocol, SOCKADDR_IN* pAddress, const Hashes::Guid& oClientID)
+	: m_pBrowser	( NULL )
+	, m_bOnFiles	( FALSE )
+	, m_bAutoBrowse	( TRUE )
 {
 	m_pBrowser = new CHostBrowser( this, nProtocol, &pAddress->sin_addr, htons( pAddress->sin_port ), FALSE, oClientID );
 	Create( IDR_BROWSEHOSTFRAME );
 }
 
-CBrowseHostWnd::CBrowseHostWnd(PROTOCOLID nProtocol, IN_ADDR* pAddress, WORD nPort, BOOL bMustPush, const Hashes::Guid& oClientID) :
-	m_pBrowser( NULL ),
-	m_bOnFiles( FALSE ),
-	m_bAutoBrowse( pAddress != NULL )
+CBrowseHostWnd::CBrowseHostWnd(PROTOCOLID nProtocol, IN_ADDR* pAddress, WORD nPort, BOOL bMustPush, const Hashes::Guid& oClientID)
+	: m_pBrowser( NULL )
+	, m_bOnFiles( FALSE )
+	, m_bAutoBrowse( pAddress != NULL )
 {
 	m_pBrowser = new CHostBrowser( this, nProtocol, pAddress, nPort, bMustPush, oClientID );
 	Create( IDR_BROWSEHOSTFRAME );
@@ -93,7 +93,7 @@ int CBrowseHostWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CBaseMatchWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	if ( CSchema* pSchema = SchemaCache.Get( Settings.Search.BlankSchemaURI ) )
+	if ( CSchemaPtr pSchema = SchemaCache.Get( Settings.Search.BlankSchemaURI ) )
 	{
 		CList< CSchemaMember* > pColumns;
 		CSchemaColumnsDlg::LoadColumns( pSchema, &pColumns );
@@ -405,7 +405,7 @@ void CBrowseHostWnd::Serialize(CArchive& ar)
 
 		ar << m_bOnFiles;
 	}
-	else
+	else // Loading
 	{
 		ar >> nVersion;
 		if ( nVersion != 1 ) AfxThrowUserException();

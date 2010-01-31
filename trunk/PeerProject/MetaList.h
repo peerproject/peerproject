@@ -1,7 +1,7 @@
 //
 // MetaList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,14 +21,14 @@
 
 #pragma once
 
+#include "Schema.h"
+
 class CMetaList;
 class CMetaItem;
-class CSchema;
-class CSchemaMember;
 class CXMLElement;
 class CAlbumFolder;
 
-class CMetaList  
+class CMetaList
 {
 // Construction
 public:
@@ -46,7 +46,7 @@ public:
 	CMetaItem*	Find(LPCTSTR pszKey) const;
 	void		Remove(LPCTSTR pszKey);
 	void		Shuffle();
-	void		Setup(CSchema* pSchema, BOOL bClear = TRUE);
+	void		Setup(CSchemaPtr pSchema, BOOL bClear = TRUE);
 	void		Setup(CMetaList* pMetaList);					// For copying data from the external list
 	void		Combine(CXMLElement* pXML);
 	void		Vote();
@@ -101,15 +101,14 @@ public:
 	CString			m_sValue;
 	BOOL			m_bValueDefined;
 	CMap< CString, const CString&, int, int > m_pVote;
-public:
+
 	CRect			m_rect;
 	BOOL			m_bLink;
 	CString			m_sLink;
 	CString			m_sLinkName;
-public:
 	BOOL			m_bFullWidth;
 	int				m_nHeight;
-	
+
 // Operations
 public:
 	BOOL			Combine(CXMLElement* pXML);
@@ -127,7 +126,7 @@ public:
 		m_rect.bottom	= y2;
 	}
 
-	inline CString GetDisplayValue()
+	inline CString GetDisplayValue() const
 	{
 		if ( m_bLink && m_sLinkName.GetLength() )
 			return m_sLinkName;

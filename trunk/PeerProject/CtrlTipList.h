@@ -1,7 +1,7 @@
 //
 // CtrlTipList.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,25 +21,22 @@
 
 #pragma once
 
-#include "CtrlCoolTip.h"
+#include "CtrlNeighbourTip.h"
 
 
 class CTipListCtrl : public CListCtrl
 {
-// Construction
+	DECLARE_DYNAMIC(CTipListCtrl)
+
 public:
 	CTipListCtrl();
 	virtual ~CTipListCtrl();
 
-	DECLARE_DYNAMIC(CTipListCtrl)
+	void	SetTip(CNeighbourTipCtrl* pTip);
 
 // Attributes
 protected:
-	CCoolTipCtrl*	m_pTip;
-
-// Operations
-public:
-	void	SetTip(CCoolTipCtrl* pTip);
+	CNeighbourTipCtrl*	m_pTip;
 
 // Overrides
 public:

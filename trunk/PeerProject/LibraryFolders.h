@@ -1,7 +1,7 @@
 //
 // LibraryFolders.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -55,25 +55,23 @@ public:
 	BOOL			RemoveFolder(CLibraryFolder* pFolder);
 	CLibraryFolder*	IsFolderShared(const CString& strPath) const;
 	CLibraryFolder*	IsSubFolderShared(const CString& strPath) const;
-	bool			IsShareable(const CString& strPath) const;
+	static bool		IsShareable(const CString& strPath);
 	void			Maintain();
 
 // Virtual Album Operations
-	CAlbumFolder*	GetAlbumRoot();
 	BOOL			CheckAlbum(CAlbumFolder* pFolder) const;
+	CAlbumFolder* 	CreateAlbumTree();
+	CAlbumFolder*	GetAlbumRoot() const;
 	CAlbumFolder*	GetAlbumTarget(LPCTSTR pszSchemaURI, LPCTSTR pszMember, LPCTSTR pszValue) const;
 	CAlbumFolder*	GetCollection(const Hashes::Sha1Hash& oSHA1);
 	BOOL			MountCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFile* pCollection);
-	// Remove file from all albums and folders
-	BOOL			OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost = FALSE);
-protected:
-	void			CreateAlbumTree();
+	BOOL			OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost = FALSE);	// Remove file from all albums and folders
 
 // Core
 protected:
 	void			Clear();
-	BOOL			ThreadScan(const BOOL bForce = FALSE);
 	void			Serialize(CArchive& ar, int nVersion);
+	BOOL			ThreadScan(const BOOL bForce = FALSE);
 
 // COM
 protected:

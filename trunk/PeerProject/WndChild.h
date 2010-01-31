@@ -1,7 +1,7 @@
 //
 // WndChild.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -35,14 +35,11 @@ class CSkinWindow;
 
 class CChildWnd : public CMDIChildWnd
 {
-// Construction
+	DECLARE_DYNCREATE(CChildWnd)
+
 public:
 	CChildWnd();
 
-	DECLARE_DYNCREATE(CChildWnd)
-
-// Attributes
-public:
 	UINT			m_nResID;
 	BOOL			m_bTabMode;
 	BOOL			m_bGroupMode;
@@ -67,43 +64,39 @@ public:
 	BOOL			SaveState(LPCTSTR pszName = NULL);
 	BOOL			SetAlert(BOOL bAlert = TRUE);
 	void			SizeListAndBar(CWnd* pList, CWnd* pBar);
-public:
+	void			RemoveSkin();
+
 	virtual void	OnSkinChange();
-	virtual void	OnQuerySearch(CQuerySearch* pSearch);
+	virtual void	OnQuerySearch(const CQuerySearch* pSearch);
 	virtual BOOL	OnQueryHits(const CQueryHit* pHits);
 	virtual void	SanityCheck();
 	virtual BOOL	OnPush(const Hashes::Guid& pClientID, CConnection* pConnection);
 	virtual HRESULT	GetGenericView(IGenericView** ppView);
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual BOOL	PreTranslateMessage(MSG* pMsg);
 
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CChildWnd)
-	public:
-	virtual BOOL Create(UINT nID, BOOL bVisible = TRUE);
-	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
-	//}}AFX_VIRTUAL
 
-// Implementation
 protected:
+	virtual BOOL	Create(UINT nID, BOOL bVisible = TRUE);
+	virtual BOOL	OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
+
 	//{{AFX_MSG(CChildWnd)
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnDestroy();
-	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
-	afx_msg void OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd);
-	afx_msg void OnNcRButtonUp(UINT nHitTest, CPoint point);
-	afx_msg void OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
-	afx_msg LRESULT OnNcHitTest(CPoint point);
-	afx_msg void OnNcPaint();
-	afx_msg BOOL OnNcActivate(BOOL bActive);
-	afx_msg void OnNcLButtonDown(UINT nHitTest, CPoint point);
-	afx_msg void OnNcLButtonUp(UINT nHitTest, CPoint point);
-	afx_msg void OnNcMouseMove(UINT nHitTest, CPoint point);
-	afx_msg void OnNcLButtonDblClk(UINT nHitTest, CPoint point);
-	afx_msg BOOL OnHelpInfo(HELPINFO* pHelpInfo);
-	afx_msg LRESULT OnSetText(WPARAM wParam, LPARAM lParam);
+	afx_msg int 	OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void	OnDestroy();
+	afx_msg BOOL	OnEraseBkgnd(CDC* pDC);
+	afx_msg void	OnSize(UINT nType, int cx, int cy);
+	afx_msg void	OnSysCommand(UINT nID, LPARAM lParam);
+	afx_msg void	OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd);
+	afx_msg void	OnNcRButtonUp(UINT nHitTest, CPoint point);
+	afx_msg void	OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
+	afx_msg void	OnNcPaint();
+	afx_msg LRESULT	OnNcHitTest(CPoint point);
+	afx_msg BOOL	OnNcActivate(BOOL bActive);
+	afx_msg void	OnNcLButtonDown(UINT nHitTest, CPoint point);
+	afx_msg void	OnNcLButtonUp(UINT nHitTest, CPoint point);
+	afx_msg void	OnNcMouseMove(UINT nHitTest, CPoint point);
+	afx_msg void	OnNcLButtonDblClk(UINT nHitTest, CPoint point);
+	afx_msg BOOL	OnHelpInfo(HELPINFO* pHelpInfo);
+	afx_msg LRESULT	OnSetText(WPARAM wParam, LPARAM lParam);
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

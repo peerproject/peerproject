@@ -51,8 +51,9 @@ protected:
 	BOOL					m_bOnline;
 	BOOL					m_bClosing;
 	DWORD					m_tLastKeepAlive;
-	DWORD					m_dUtMetadataID;
-	DWORD					m_dUtMetadataSize;
+	DWORD					m_nUtMetadataSize;
+	DWORD					m_nUtMetadataID;
+	QWORD					m_nUtPexID;
 
 // Operations
 public:
@@ -74,6 +75,7 @@ protected:
 	void			SendExtendedHandshake();
 	void			SendExtendedPacket(BYTE Type, CBuffer *pOutput);
 	void			SendInfoRequest(QWORD nPiece);
+	void			SendUtPex();
 	BOOL			OnHandshake1();						// First part of handshake
 	BOOL			OnHandshake2();						// Second part- Peer ID
 	//BOOL			OnNoHandshake2();					// If no peer ID is received

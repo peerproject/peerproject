@@ -1,7 +1,7 @@
 //
 // DownloadWithSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,19 +37,17 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithSearch construction
 
-CDownloadWithSearch::CDownloadWithSearch() :
-	m_pSearch			( NULL )
-,	m_tSearchTime		( 0 )
-,	m_tSearchCheck		( 0 )
-
-,	m_tLastED2KGlobal	( 0 )
-,	m_tLastED2KLocal	( 0 )
+CDownloadWithSearch::CDownloadWithSearch()
+	: m_bUpdateSearch	( TRUE )
+	, m_tSearchTime		( 0 )
+	, m_tSearchCheck	( 0 )
+	, m_tLastED2KGlobal	( 0 )
+	, m_tLastED2KLocal	( 0 )
 {
 }
 
 CDownloadWithSearch::~CDownloadWithSearch()
 {
-	if ( m_pSearch ) delete m_pSearch;
 }
 
 
@@ -108,13 +106,9 @@ void CDownloadWithSearch::RunSearch(DWORD tNow)
 		m_tSearchCheck = tNow;
 
 		if ( IsPaused() == FALSE && ( bFewSources || bDataStarve ) )
-		{
 			StartAutomaticSearch();
-		}
 		else
-		{
 			StopSearch();
-		}
 	}
 }
 
@@ -123,13 +117,15 @@ void CDownloadWithSearch::RunSearch(DWORD tNow)
 
 void CDownloadWithSearch::StartManualSearch()
 {
-	CSingleLock pLock( &SearchManager.m_pSection );
-	if ( ! pLock.Lock( 50 ) ) return;
-
 	PrepareSearch();
 
-	m_pSearch->m_nPriority = CManagedSearch::spHighest;
+	m_pSearch->SetPriority( CManagedSearch::spHighest );
 	m_pSearch->Start();
+}
+
+BOOL CDownloadWithSearch::IsSearching() const
+{
+	return m_pSearch && m_pSearch->IsActive();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -137,12 +133,9 @@ void CDownloadWithSearch::StartManualSearch()
 
 void CDownloadWithSearch::StartAutomaticSearch()
 {
-	CSingleLock pLock( &SearchManager.m_pSection );
-	if ( ! pLock.Lock( 10 ) ) return;
-
 	PrepareSearch();
 
-	m_pSearch->m_nPriority = CManagedSearch::spLowest;
+	m_pSearch->SetPriority( CManagedSearch::spLowest );
 	m_pSearch->Start();
 }
 
@@ -168,12 +161,17 @@ BOOL CDownloadWithSearch::CanSearch() const
 
 void CDownloadWithSearch::PrepareSearch()
 {
-	if ( m_pSearch == NULL ) m_pSearch = new CManagedSearch();
-	CQuerySearch* pSearch = m_pSearch->m_pSearch.get();
+	if ( ! m_pSearch )
+		m_pSearch = new CManagedSearch();
+	else if ( ! m_bUpdateSearch )
+		return;	// Search not changed
+	m_bUpdateSearch = FALSE;
+
+	CQuerySearchPtr pSearch = m_pSearch->GetSearch();
 
 	pSearch->m_bAndG1 = Settings.Gnutella1.EnableToday;
 
-	if ( pSearch->m_sSearch != m_sName )
+	if ( pSearch->m_sSearch.IsEmpty() && ! m_sName.IsEmpty() )
 	{
 		pSearch->m_sKeywords.Empty();
 		pSearch->m_sSearch = m_sName;
@@ -207,7 +205,7 @@ void CDownloadWithSearch::PrepareSearch()
 	}
 
 	pSearch->m_bWantURL	= TRUE;
-	pSearch->m_bWantDN	= ( m_sName.GetLength() == 0 );
+	pSearch->m_bWantDN	= m_sName.IsEmpty();
 	pSearch->m_bWantXML	= FALSE;
 	pSearch->m_bWantPFS	= TRUE;
 	pSearch->m_bWantCOM = FALSE;
@@ -230,5 +228,9 @@ void CDownloadWithSearch::PrepareSearch()
 
 void CDownloadWithSearch::StopSearch()
 {
-	if ( IsSearching() ) m_pSearch->Stop();
+	if ( IsSearching() )
+	{
+		m_pSearch->Stop();
+		m_bUpdateSearch = TRUE;
+	}
 }

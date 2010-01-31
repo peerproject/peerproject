@@ -247,15 +247,15 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 
 	if ( ! bForce )
 	{
+		// We should check Tiger as well as others.
+		// Some hash combinations exist with same SHA1 but different Tiger.
+		// (Shareaza 2.2.0.0 installer file) (CyberBob).
+
 		if ( m_oSHA1 && pHit->m_oSHA1 )
 		{
 			if ( m_oSHA1 != pHit->m_oSHA1 ) return FALSE;
 			bHash = TRUE;
 		}
-		// We should check Tiger as well as others.
-		// There exist some hash combinations, (Shareaza 2.2.0.0 installer file)
-		// with the same SHA1 but different Tiger (CyberBob).
-
 		if ( m_oTiger && pHit->m_oTiger )
 		{
 			if ( m_oTiger != pHit->m_oTiger ) return FALSE;
@@ -271,9 +271,9 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 			if ( m_oMD5 != pHit->m_oMD5 ) return FALSE;
 			bHash = TRUE;
 		}
-		// BTH check is last chance
 		if ( ! bHash && m_oBTH && pHit->m_oBTH )
 		{
+			// btih check is last chance
 			if ( m_oBTH != pHit->m_oBTH ) return FALSE;
 			bHash = TRUE;
 		}
@@ -289,6 +289,9 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 		if ( m_nSize != pHit->m_nSize ) return FALSE;
 		if ( m_sName.CompareNoCase( pHit->m_sName ) ) return FALSE;
 	}
+
+	if ( m_nSize != SIZE_UNKNOWN && pHit->m_bSize && m_nSize != pHit->m_nSize )
+		return FALSE;
 
 	if ( !m_oSHA1 && pHit->m_oSHA1 )
 	{
@@ -315,14 +318,16 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 		m_oMD5 = pHit->m_oMD5;
 		bUpdated = TRUE;
 	}
-
 	if ( m_nSize == SIZE_UNKNOWN && pHit->m_bSize )
+	{
 		m_nSize = pHit->m_nSize;
-	else if ( m_nSize != SIZE_UNKNOWN && pHit->m_bSize && m_nSize != pHit->m_nSize )
-		return FALSE;
-
+		bUpdated = TRUE;
+	}
 	if ( m_sName.IsEmpty() && pHit->m_sName.GetLength() )
-		m_sName = pHit->m_sName;
+	{
+		Rename( pHit->m_sName );
+		bUpdated = TRUE;
+	}
 
 	if ( Settings.Downloads.Metadata && m_pXML == NULL )
 	{
@@ -333,10 +338,13 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 			m_pXML->AddAttribute( CXMLAttribute::schemaName, pHit->m_sSchemaURI );
 			m_pXML->AddElement( pHit->m_pXML->Clone() );
 
-			if ( CSchema* pSchema = SchemaCache.Get( pHit->m_sSchemaURI ) )
+			if ( CSchemaPtr pSchema = SchemaCache.Get( pHit->m_sSchemaURI ) )
 				pSchema->Validate( m_pXML, TRUE );
 		}
 	}
+
+	if ( bUpdated )
+		((CDownload*)this)->m_bUpdateSearch = TRUE;
 
 	//if ( pHit->m_nProtocol == PROTOCOL_ED2K )
 	//{
@@ -351,7 +359,8 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 			return FALSE;
 	}
 
-	if ( bUpdated )	QueryHashMaster.Invalidate();
+	if ( bUpdated )
+		QueryHashMaster.Invalidate();
 
 	return TRUE;
 }
@@ -485,7 +494,7 @@ BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLa
 
 	// Get name
 	if ( m_sName.IsEmpty() && pURL.m_sName.GetLength() )
-		m_sName = pURL.m_sName;
+		Rename( pURL.m_sName );
 
 
 	return AddSourceInternal( new CDownloadSource( static_cast< const CDownload* >( this ),
@@ -1106,7 +1115,7 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 		ar.WriteCount( m_pXML != NULL ? 1 : 0 );
 		if ( m_pXML ) m_pXML->Serialize( ar );
 	}
-	else
+	else  // Loading
 	{
 		for ( DWORD_PTR nSources = ar.ReadCount() ; nSources ; nSources-- )
 		{

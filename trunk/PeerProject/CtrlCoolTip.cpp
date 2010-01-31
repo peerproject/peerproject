@@ -1,7 +1,7 @@
 //
 // CtrlCoolTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -60,15 +60,14 @@ LPCTSTR CCoolTipCtrl::m_hClass = NULL;
 // CCoolTipCtrl construction
 
 CCoolTipCtrl::CCoolTipCtrl()
+	: m_pbEnable	( NULL )
+	, m_hAltWnd 	( NULL )
+	, m_bTimer		( FALSE )
+	, m_bVisible	( FALSE )
+	, m_tOpen		( 0 )
 {
-	m_pbEnable	= NULL;
-	m_pContext	= NULL;
-	m_hAltWnd	= NULL;
-	m_bTimer	= FALSE;
-	m_bVisible	= FALSE;
-	m_tOpen		= 0;
-
-	if ( m_hClass == NULL ) m_hClass = AfxRegisterWndClass( CS_SAVEBITS );
+	if ( m_hClass == NULL )
+		m_hClass = AfxRegisterWndClass( CS_SAVEBITS );
 }
 
 CCoolTipCtrl::~CCoolTipCtrl()
@@ -93,50 +92,9 @@ BOOL CCoolTipCtrl::Create(CWnd* pParentWnd, bool* pbEnable)
 	return TRUE;
 }
 
-void CCoolTipCtrl::Show(void* pContext, HWND hAltWnd)
-{
-	if ( pContext == NULL )
-		return;
-	if ( m_pbEnable != NULL && *m_pbEnable == 0 )
-		return;
-
-	CPoint point;
-	GetCursorPos( &point );
-
-	if ( ! WindowFromPointBelongsToOwner( point ) )
-		return;
-
-	m_hAltWnd = hAltWnd;
-
-	if ( m_bVisible )
-	{
-		if ( pContext == m_pContext )
-			return;
-
-		Hide();
-
-		m_pContext = pContext;
-
-		ShowImpl();
-	}
-	else if ( point != m_pOpen )
-	{
-		m_pContext	= pContext;
-		m_pOpen		= point;
-		m_tOpen		= GetTickCount() + Settings.Interface.TipDelay;
-
-		if ( ! m_bTimer )
-		{
-			SetTimer( 1, TIP_TIMER, NULL );
-			m_bTimer = TRUE;
-		}
-	}
-}
-
 void CCoolTipCtrl::Hide()
 {
-	m_pContext	= NULL;
-	m_tOpen		= 0;
+	m_tOpen = 0;
 
 	if ( m_bVisible )
 	{
@@ -155,8 +113,37 @@ void CCoolTipCtrl::Hide()
 	}
 }
 
-void CCoolTipCtrl::ShowImpl()
+void CCoolTipCtrl::ShowImpl(bool bChanged)
 {
+	if ( m_pbEnable != NULL && *m_pbEnable == false )
+		return;
+
+	CPoint point;
+	GetCursorPos( &point );
+
+	if ( ! WindowFromPointBelongsToOwner( point ) )
+		return;
+
+	if ( m_bVisible )
+	{
+		if ( ! bChanged )
+			return;
+
+		Hide();
+	}
+	else if ( point != m_pOpen )
+	{
+		m_pOpen		= point;
+		m_tOpen		= GetTickCount() + Settings.Interface.TipDelay;
+
+		if ( ! m_bTimer )
+		{
+			SetTimer( 1, TIP_TIMER, NULL );
+			m_bTimer = TRUE;
+		}
+		return;
+	}
+
 	if ( m_bVisible )
 		return;
 
@@ -288,8 +275,11 @@ void CCoolTipCtrl::DrawRule(CDC* pDC, POINT* pPoint, BOOL bPos)
 
 BOOL CCoolTipCtrl::WindowFromPointBelongsToOwner(const CPoint& point)
 {
+	CWnd* pOwner = GetOwner();
+	if ( ! pOwner ) return FALSE;
+
 	CRect rc;
-	GetOwner()->GetWindowRect( &rc );
+	pOwner->GetWindowRect( &rc );
 
 	if ( ! rc.PtInRect( point ) ) return FALSE;
 
@@ -297,9 +287,9 @@ BOOL CCoolTipCtrl::WindowFromPointBelongsToOwner(const CPoint& point)
 
 	while ( pWnd )
 	{
-		if ( pWnd == GetOwner() ) return TRUE;
+		if ( pWnd == pOwner ) return TRUE;
 		if ( m_hAltWnd != NULL && pWnd->GetSafeHwnd() == m_hAltWnd ) return TRUE;
-		if ( !IsWindow( pWnd->m_hWnd ) ) return FALSE;
+		if ( ! IsWindow( pWnd->m_hWnd ) ) return FALSE;
 		pWnd = pWnd->GetParent();
 	}
 

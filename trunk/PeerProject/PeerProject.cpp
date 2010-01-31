@@ -45,7 +45,7 @@
 #include "PeerProjectURL.h"
 #include "QueryHashMaster.h"
 #include "Registry.h"
-#include "Revision.h"
+#include "Revision.h"	//.svn
 #include "Scheduler.h"
 #include "SchemaCache.h"
 #include "Security.h"
@@ -153,57 +153,56 @@ CPeerProjectApp theApp;
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectApp construction
 
-CPeerProjectApp::CPeerProjectApp() :
-	m_pMutex				( NULL )
-,	m_pSafeWnd				( NULL )
-,	m_bBusy					( 0 )
-,	m_bClosing				( false )
-,	m_bLive					( false )
-,	m_bInteractive			( false )
-,	m_bIsServer				( false )
-,	m_bIsWin2000			( false )
-,	m_bIsVistaOrNewer		( false )
-,	m_bLimitedConnections	( true )
-,	m_nWindowsVersion		( 0ul )
-,	m_nWindowsVersionMinor	( 0ul )
-,	m_nPhysicalMemory		( 0ull )
-,	m_nLogicalProcessors	( -1 )
-,	m_bUPnPPortsForwarded	( TRI_UNKNOWN )
-,	m_bUPnPDeviceConnected	( TRI_UNKNOWN )
-,	m_nUPnPExternalAddress	( 0ul )
-,	m_nLastInput			( 0ul )
-,	m_hHookKbd				( NULL )
-,	m_hHookMouse			( NULL )
-,	m_bMenuWasVisible		( FALSE )
+CPeerProjectApp::CPeerProjectApp()
+	: m_pMutex					( NULL )
+	, m_pSafeWnd				( NULL )
+	, m_bBusy					( 0 )
+	, m_bClosing				( false )
+	, m_bLive					( false )
+	, m_bInteractive			( false )
+	, m_bIsServer				( false )
+	, m_bIsWin2000				( false )
+	, m_bIsVistaOrNewer			( false )
+	, m_bLimitedConnections 	( true )
+	, m_nWindowsVersion			( 0ul )
+	, m_nWindowsVersionMinor	( 0ul )
+	, m_nPhysicalMemory			( 0ull )
+	, m_nLogicalProcessors		( -1 )
+	, m_bUPnPPortsForwarded 	( TRI_UNKNOWN )
+	, m_bUPnPDeviceConnected	( TRI_UNKNOWN )
+	, m_nLastInput				( 0ul )
+	, m_hHookKbd				( NULL )
+	, m_hHookMouse				( NULL )
+	, m_bMenuWasVisible			( FALSE )
 
-,	m_hCryptProv			( NULL )
-,	m_pRegisterApplicationRestart( NULL )
+	, m_hCryptProv				( NULL )
+	, m_pRegisterApplicationRestart( NULL )
 
-,	m_dlgSplash				( NULL )
-,	m_hTheme				( NULL )
-,	m_pfnSetWindowTheme		( NULL )
-,	m_pfnIsThemeActive		( NULL )
-,	m_pfnOpenThemeData		( NULL )
-,	m_pfnCloseThemeData		( NULL )
-,	m_pfnDrawThemeBackground( NULL )
+	, m_dlgSplash				( NULL )
+	, m_hTheme					( NULL )
+	, m_pfnSetWindowTheme		( NULL )
+	, m_pfnIsThemeActive		( NULL )
+	, m_pfnOpenThemeData		( NULL )
+	, m_pfnCloseThemeData		( NULL )
+	, m_pfnDrawThemeBackground	( NULL )
 
-,	m_hShlWapi				( NULL )
-,	m_pfnAssocIsDangerous	( NULL )
+	, m_hShlWapi				( NULL )
+	, m_pfnAssocIsDangerous 	( NULL )
 
-,	m_hShell32				( NULL )
-,	m_pfnSHGetFolderPathW	( NULL )
-,	m_pfnSHGetKnownFolderPath( NULL )
+	, m_hShell32				( NULL )
+	, m_pfnSHGetFolderPathW 	( NULL )
+	, m_pfnSHGetKnownFolderPath	( NULL )
 
-,	m_hLibGFL				( NULL )
-,	m_hGeoIP				( NULL )
-,	m_pGeoIP				( NULL )
-,	m_pfnGeoIP_delete		( NULL )
-,	m_pfnGeoIP_country_code_by_ipnum( NULL )
-,	m_pfnGeoIP_country_name_by_ipnum( NULL )
-
+	, m_hLibGFL					( NULL )
+	, m_hGeoIP					( NULL )
+	, m_pGeoIP					( NULL )
+	, m_pfnGeoIP_delete			( NULL )
+	, m_pfnGeoIP_country_code_by_ipnum( NULL )
+	, m_pfnGeoIP_country_name_by_ipnum( NULL )
 {
 	ZeroMemory( m_nVersion, sizeof( m_nVersion ) );
 	ZeroMemory( m_pBTVersion, sizeof( m_pBTVersion ) );
+	m_nUPnPExternalAddress.s_addr = INADDR_NONE;
 
 // BugTrap (www.intellesoft.net)
 #ifdef _DEBUG
@@ -315,53 +314,54 @@ BOOL CPeerProjectApp::InitInstance()
 	DDEServer.Create();
 	IEProtocol.Create();
 
-	// ***********
+
+	// *****************
 	// NO PUBLIC RELEASE
 
-	//*
-	// BETA EXPIRATION. Remember to re-compile to update the time,
+	// BETA EXPIRATION.  Remember to re-compile to update the time,
 	// and remove this section for final releases and public betas.
 	COleDateTime tCurrent = COleDateTime::GetCurrentTime();
 	COleDateTime tCompileTime;
 	tCompileTime.ParseDateTime( _T(__DATE__), LOCALE_NOUSEROVERRIDE, 1033 );
-//#ifdef _DEBUG
+#ifdef _DEBUG
 	COleDateTimeSpan tTimeOut( 21, 0, 0, 0);		// Daily debug builds
-//#else
-//	COleDateTimeSpan tTimeOut( 60, 0, 0, 0);		// Forum Betas (Non sourceforge release)
-//#endif
-	if ( ( tCompileTime + tTimeOut )  < tCurrent )
+#else
+	COleDateTimeSpan tTimeOut( 45, 0, 0, 0);		// Forum Betas (Non-sourceforge release)
+#endif
+#if defined(_DEBUG) || defined(__REVISION__)
+	if ( ( tCompileTime + tTimeOut ) < tCurrent )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_BETA_EXPIRED);
 		AfxMessageBox( strMessage, MB_ICONQUESTION|MB_OK );
 		//return FALSE;
 	}
-	//*/
+#endif
 
-	//*
-	// ALPHA WARNING. Remember to remove this section for final releases and public betas.
+	// ALPHA WARNING.  Remember to remove this section for final releases and public betas.
 //#ifdef _DEBUG
+#if defined(_DEBUG) || defined(__REVISION__)	// Show for "pre-release release builds."
 	if ( ! m_ocmdInfo.m_bNoAlphaWarning && m_ocmdInfo.m_bShowSplash )
 	{
 	if ( AfxMessageBox(
 		L"\nWARNING: This is an ALPHA TEST version of PeerProject p2p"
-#ifdef __REVISION__
+ #ifdef __REVISION__
 		L", r" _T(__REVISION__)
-#endif
+ #endif
 		L".\n\nNOT FOR GENERAL USE, it is intended for pre-release testing in controlled environments.  "
 		L"It may stop running or display Debug info for testing.\n\n"
 		L"If you wish to simply use this software, then download the current\n"
 		L"stable release from PeerProject.org.  If you continue past this point,\n"
-		L"you may experience system instability or lose files.  Be aware of\n"
-		L"recent development before using, effects might not be recoverable.\n\n"
+		L"you could possibly experience system instability or lose files.\n"
+		L"Please be aware of recent development before using.\n\n"
 		L"Do you wish to continue?", MB_ICONEXCLAMATION|MB_YESNO|MB_SETFOREGROUND ) == IDNO )
 		return FALSE;
 	}
-//#endif
-	//*/
+#endif
 
 	// END NO PUBLIC RELEASE
-	// ***********
+	// *********************
+
 
 	int nSplashSteps = 18
 		+ ( Settings.Connection.EnableFirewallException ? 1 : 0 )
@@ -2175,6 +2175,38 @@ void CPeerProjectApp::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 			}
 		}
 	}
+}
+
+CString SafeFilename(const CString& sOriginalName, bool bPath)
+{
+	CString strName = sOriginalName;
+
+	// Restore spaces
+	strName.Replace( _T("%20"), _T(" ") );
+
+	// Replace incompatible symbols
+	int nNameLen = strName.GetLength();
+	for ( int nChar = 0; nChar < nNameLen; ++nChar )
+	{
+		nChar = StrCSpn( ((LPCTSTR)strName) + nChar,
+			bPath ? _T("/:*?\"<>|") : _T("\\/:*?\"<>|") ) + nChar;
+		if ( nChar < 0 || nChar >= nNameLen )
+			break;
+		strName.SetAt( nChar, _T('_') );
+	}
+
+	LPCTSTR szExt = PathFindExtension( strName );
+	int nExtLen = lstrlen( szExt );
+
+	// Limit maximum filepath length
+	int nMaxFilenameLength = MAX_PATH - 1 - max( max(
+		Settings.Downloads.IncompletePath.GetLength(),
+		Settings.Downloads.CompletePath.GetLength() ),
+		Settings.Downloads.TorrentPath.GetLength() );
+	if ( strName.GetLength() > nMaxFilenameLength )
+		strName = strName.Left( nMaxFilenameLength - nExtLen ) + strName.Right( nExtLen );
+
+	return strName;
 }
 
 BOOL CreateDirectory(LPCTSTR szPath)

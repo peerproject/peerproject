@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTreeView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,7 +26,6 @@
 #include "PeerProjectDataSource.h"
 
 class CLibraryTreeItem;
-class CCoolTipCtrl;
 class CLibraryFolder;
 class CAlbumFolder;
 
@@ -53,14 +52,12 @@ private:
 	CPoint				m_ptDrag;
 	CLibraryTreeItem*	m_pDropItem;
 	DWORD				m_nCleanCookie;
-	CCoolTipCtrl*		m_pTip;
 	BOOL				m_bVirtual;
 	CFolderTipCtrl		m_wndFolderTip;
 	CAlbumTipCtrl		m_wndAlbumTip;
 
 // Operations
 public:
-	void				SetToolTip(CCoolTipCtrl* pTip);
 	BOOL				Expand(CLibraryTreeItem* pItem, TRISTATE bExpand = TRI_TRUE, BOOL bInvalidate = TRUE);
 	BOOL				Select(CLibraryTreeItem* pItem, TRISTATE bSelect = TRI_TRUE, BOOL bInvalidate = TRUE);
 	BOOL				SelectAll(CLibraryTreeItem* pParent = NULL, BOOL bInvalidate = TRUE);
@@ -69,9 +66,9 @@ public:
 	int					GetSelectedCount() const;
 	CLibraryTreeItem*	GetFirstSelected() const;
 	CLibraryTreeItem*	GetLastSelected() const;
+	CLibraryTreeItem*	GetFolderItem(void* pSearch, CLibraryTreeItem* pParent = NULL);
 	CLibraryTreeItem*	HitTest(const POINT& point, RECT* pRect = NULL) const;
 	BOOL				GetRect(CLibraryTreeItem* pItem, RECT* pRect);
-	CLibraryTreeItem*	GetFolderItem(void* pSearch, CLibraryTreeItem* pParent = NULL);
 	void				SetVirtual(BOOL bVirtual);
 	void				Update(DWORD nSelectCookie);
 	BOOL				SelectFolder(LPVOID pSearch);
@@ -86,9 +83,9 @@ protected:
 	BOOL				GetRect(CPoint& pt, CLibraryTreeItem* pItem, CLibraryTreeItem* pFind, RECT* pRect);
 	BOOL				CleanItems(CLibraryTreeItem* pItem, DWORD nCookie, BOOL bVisible);
 	BOOL				CollapseRecursive(CLibraryTreeItem* pItem);
-	void				NotifySelection();
 	virtual HBITMAP		CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddle);
 	void				StartDragging(CPoint& ptMouse);
+	void				NotifySelection();
 	void				PostUpdate();
 	void				UpdatePhysical(DWORD nSelectCookie);
 	void				UpdateVirtual(DWORD nSelectCookie);

@@ -1,7 +1,7 @@
 //
 // LocalSearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,12 +21,12 @@
 
 #pragma once
 
-class CQuerySearch;
+#include "QuerySearch.h"
+
 class CNeighbour;
 class CLibraryFile;
 class CAlbumFolder;
 class CLibraryFolder;
-class CSchema;
 class CXMLElement;
 class CBuffer;
 class CDownload;
@@ -45,7 +45,7 @@ public:
 
 // Attributes
 protected:
-	CQuerySearch*	m_pSearch;
+	CQuerySearchPtr	m_pSearch;
 	CNeighbour*		m_pNeighbour;
 	SOCKADDR_IN*	m_pEndpoint;
 	CBuffer*		m_pBuffer;
@@ -54,7 +54,7 @@ protected:
 	BOOL			m_bWrapped;
 protected:
 	CPacket*		m_pPacket;
-	CMap< CSchema*, CSchema*, CXMLElement*, CXMLElement* > m_pSchemas;
+	CMap< CSchemaPtr, CSchemaPtr, CXMLElement*, CXMLElement* > m_pSchemas;
 
 // Operations
 public:
@@ -75,7 +75,7 @@ protected:
 	void		CreatePacket(int nCount);
 	void		CreatePacketG1(int nCount);
 	void		CreatePacketG2();
-	void		AddMetadata(CSchema* pSchema, CXMLElement* pXML, int nIndex);
+	void		AddMetadata(CSchemaPtr pSchema, CXMLElement* pXML, int nIndex);
 	CString		GetXMLString(BOOL bNewlines = TRUE);
 	void		WriteTrailer();
 	void		WriteTrailerG1();
@@ -85,5 +85,4 @@ protected:
 	CG2Packet*	AlbumToPacket(CAlbumFolder* pFolder);
 	CG2Packet*	FoldersToPacket();
 	CG2Packet*	FolderToPacket(CLibraryFolder* pFolder);
-
 };

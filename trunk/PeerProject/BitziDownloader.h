@@ -1,7 +1,7 @@
 //
 // BitziDownloader.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,8 +22,8 @@
 #pragma once
 
 #include "ThreadImpl.h"
+#include "Schema.h"
 
-class CSchema;
 class CXMLElement;
 class CBitziDownloadDlg;
 
@@ -41,37 +41,35 @@ protected:
 	CList< DWORD, DWORD > m_pFiles;
 	CCriticalSection	m_pSection;
 	CBitziDownloadDlg*	m_pDlg;
-protected:
-	HINTERNET			m_hInternet;
-	HINTERNET			m_hSession;
-	HINTERNET			m_hRequest;
-	BOOL				m_bFinished;
-	DWORD				m_nDelay;
-	DWORD				m_nFailures;
-protected:
-	DWORD				m_nFileIndex;
-	CString				m_sFileName;
-	CString				m_sFileSHA1;
-	CString				m_sFileTiger;
-	CString				m_sURL;
-	CString				m_sResponse;
-	CXMLElement*		m_pXML;
+
+	HINTERNET		m_hInternet;
+	HINTERNET		m_hSession;
+	HINTERNET		m_hRequest;
+	BOOL			m_bFinished;
+	DWORD			m_nDelay;
+	DWORD			m_nFailures;
+	DWORD			m_nFileIndex;
+	CString			m_sFileName;
+	CString			m_sFileSHA1;
+	CString			m_sFileTiger;
+	CString			m_sURL;
+	CString			m_sResponse;
+	CXMLElement*	m_pXML;
 
 // Operations
 public:
-	void		AddFile(DWORD nIndex);
-	INT_PTR		GetFileCount();
-	BOOL		Start(CBitziDownloadDlg* pDlg = NULL);
-	void		Stop();
-	BOOL		IsWorking();
+	void			AddFile(DWORD nIndex);
+	INT_PTR			GetFileCount();
+	BOOL			IsWorking();
+	BOOL			Start(CBitziDownloadDlg* pDlg = NULL);
+	void			Stop();
 protected:
 	void			OnRun();
 	BOOL			BuildRequest();
 	BOOL			ExecuteRequest();
 	BOOL			DecodeResponse();
 	CString			LookupValue(LPCTSTR pszPath);
-	CXMLElement*	ImportData(CSchema* pSchema);
+	CXMLElement*	ImportData(CSchemaPtr pSchema);
 	BOOL			SubmitMetaData(CXMLElement* pXML);
 	BOOL			MergeMetaData(CXMLElement* pOutput, CXMLElement* pInput);
-
 };

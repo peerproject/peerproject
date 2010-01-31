@@ -1,7 +1,7 @@
 //
 // DlgDownloadGroup.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2009
+// This file is part of PeerProject (peerproject.org) © 2008-2010-2009
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -54,10 +54,10 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadGroupDlg dialog
 
-CDownloadGroupDlg::CDownloadGroupDlg(CDownloadGroup* pGroup, CWnd* pParent) :
-	CSkinDialog( CDownloadGroupDlg::IDD, pParent ),
-	m_pGroup( pGroup ),
-	m_bTorrent( FALSE )
+CDownloadGroupDlg::CDownloadGroupDlg(CDownloadGroup* pGroup, CWnd* pParent)
+	: CSkinDialog( CDownloadGroupDlg::IDD, pParent )
+	, m_pGroup( pGroup )
+	, m_bTorrent( FALSE )
 {
 }
 
@@ -273,7 +273,7 @@ void CDownloadGroupDlg::OnBrowse()
 		! strPath.CompareNoCase( Settings.Downloads.CompletePath ) )
 		m_sFolder.Empty();
 	else
-	m_sFolder = strPath;
+		m_sFolder = strPath;
 
 	UpdateData( FALSE );
 }
@@ -291,7 +291,7 @@ void CDownloadGroupDlg::OnCbnCloseupSchemas()
 	}
 
 	// Remove old schema filters (preserve custom ones)
-	if ( CSchema* pOldSchema = SchemaCache.Get( m_sOldSchemaURI ) )
+	if ( CSchemaPtr pOldSchema = SchemaCache.Get( m_sOldSchemaURI ) )
 	{
 		for ( LPCTSTR start = pOldSchema->m_sTypeFilter; *start; start++ )
 		{
@@ -310,16 +310,14 @@ void CDownloadGroupDlg::OnCbnCloseupSchemas()
 	}
 
 	// Add new schema filters
-	if ( CSchema* pNewSchema = SchemaCache.Get( m_wndSchemas.GetSelectedURI() ) )
+	if ( CSchemaPtr pNewSchema = SchemaCache.Get( m_wndSchemas.GetSelectedURI() ) )
 	{
 		for ( LPCTSTR start = pNewSchema->m_sTypeFilter; *start; start++ )
 		{
 			LPCTSTR c = _tcschr( start, _T('|') );
 			int len = c ? (int) ( c - start ) : (int) _tcslen( start );
 			if ( len > 0 )
-			{
 				oList.AddTail( CString( start, len ) );
-			}
 			if ( ! c )
 				break;
 			start = c;

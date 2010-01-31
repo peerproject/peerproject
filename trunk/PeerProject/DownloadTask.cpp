@@ -140,7 +140,7 @@ DWORD CDownloadTask::GetFileError() const
 	return m_nFileError;
 }
 
-DWORD CDownloadTask::GetTaskType() const
+dtask CDownloadTask::GetTaskType() const
 {
 	return m_nTask;
 }
@@ -177,7 +177,6 @@ int CDownloadTask::Run()
 	switch ( m_nTask )
 	{
 	case dtaskCopy:
-		ASSERT( Downloads.Check( m_pDownload ) );
 		RunCopy();
 		break;
 
@@ -188,6 +187,9 @@ int CDownloadTask::Run()
 	case dtaskMergeFile:
 		RunMerge();
 		break;
+
+	default:
+		;
 	}
 
 	if ( bCOM )
@@ -254,7 +256,7 @@ DWORD CALLBACK CDownloadTask::CopyProgressRoutine(LARGE_INTEGER /*TotalFileSize*
 {
 	CDownloadTask* pThis = (CDownloadTask*)lpData;
 
-	// TODO: Implement notification dialog
+	// ToDo: Implement notification dialog (?)
 
 	return ( pThis->m_pEvent == NULL ) ? PROGRESS_CONTINUE : PROGRESS_CANCEL;
 }
@@ -392,9 +394,9 @@ void CDownloadTask::RunMerge()
 			{
 				pLock.Lock();
 				m_pDownload->SubmitData( qwOffset, Buf.get(), (QWORD) dwReaded );
+				pLock.Unlock();
 				qwOffset += (QWORD) dwReaded;
 				qwLength -= (QWORD) dwReaded;
-				pLock.Unlock();
 			}
 			else
 			{
@@ -459,47 +461,47 @@ BOOL CDownloadTask::CopyFile(HANDLE hSource, LPCTSTR pszTarget, QWORD nLength)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CDownloadTask filename processor
+// CDownloadTask filename processor (Obsolete. For reference or delete)
 
-CString CDownloadTask::SafeFilename(LPCTSTR pszName)
-{
-	static LPCTSTR pszValid = _T(" `~!@#$%^&()-_=+[]{}';.,");
-	CString strName = pszName;
-
-	for ( int nChar = 0 ; nChar < strName.GetLength() ; nChar++ )
-	{
-		TCHAR cChar = strName.GetAt( nChar );
-
-		if ( (DWORD)cChar > 128 )
-			continue;
-		else if ( IsCharacter( cChar ) )
-			continue;
-		else if ( _tcschr( pszValid, cChar ) != NULL )
-			continue;
-
-		strName.SetAt( nChar, '_' );
-	}
-
-	LPCTSTR pszExt = _tcsrchr( strName, '.' );
-	if ( pszExt )
-	{
-		if ( _tcsicmp( pszExt, _T(".pd") ) == 0 )
-			strName += _T("x");
-		else if ( _tcsicmp( pszExt, _T(".sd") ) == 0 )
-			strName += _T("x");
-	}
-
-	// Maximum filepath length is:
-	// <Windows limit = 256 - 1> - <length of path to download directory> - <length of hash = 39(tiger)> - <space = 1> - <length of ".pd.sav" = 7>
-	int nMaxFilenameLength = 208 - Settings.Downloads.IncompletePath.GetLength();
-	if ( strName.GetLength() > nMaxFilenameLength )
-	{
-		int nExtLen = pszExt ? static_cast< int >( _tcslen( pszExt ) ) : 0;
-		strName = strName.Left( nMaxFilenameLength - nExtLen ) + strName.Right( nExtLen );
-	}
-
-	return strName;
-}
+//CString CDownloadTask::SafeFilename(LPCTSTR pszName)
+//{
+//	static LPCTSTR pszValid = _T(" `~!@#$%^&()-_=+[]{}';.,");
+//	CString strName = pszName;
+//
+//	for ( int nChar = 0 ; nChar < strName.GetLength() ; nChar++ )
+//	{
+//		TCHAR cChar = strName.GetAt( nChar );
+//
+//		if ( (DWORD)cChar > 128 )
+//			continue;
+//		else if ( IsCharacter( cChar ) )
+//			continue;
+//		else if ( _tcschr( pszValid, cChar ) != NULL )
+//			continue;
+//
+//		strName.SetAt( nChar, '_' );
+//	}
+//
+//	LPCTSTR pszExt = _tcsrchr( strName, '.' );
+//	if ( pszExt )
+//	{
+//		if ( _tcsicmp( pszExt, _T(".pd") ) == 0 )
+//			strName += _T("x");
+//		else if ( _tcsicmp( pszExt, _T(".sd") ) == 0 )
+//			strName += _T("x");
+//	}
+//
+//	// Maximum filepath length is:
+//	// <Windows limit = 256 - 1> - <length of path to download directory> - <length of hash = 39(tiger)> - <space = 1> - <length of ".pd.sav" = 7>
+//	int nMaxFilenameLength = 208 - Settings.Downloads.IncompletePath.GetLength();
+//	if ( strName.GetLength() > nMaxFilenameLength )
+//	{
+//		int nExtLen = pszExt ? static_cast< int >( _tcslen( pszExt ) ) : 0;
+//		strName = strName.Left( nMaxFilenameLength - nExtLen ) + strName.Right( nExtLen );
+//	}
+//
+//	return strName;
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CDownloadTask path creator
@@ -510,7 +512,7 @@ void CDownloadTask::CreatePathForFile(const CString& strBase, const CString& str
 	CreateDirectory( strFolder.Left( strFolder.ReverseFind( _T('\\') ) ) );
 }
 
-CBuffer* CDownloadTask::IsPreviewAnswerValid()
+CBuffer* CDownloadTask::IsPreviewAnswerValid() const
 {
 	if ( m_nTask != dtaskPreviewRequest || !m_pRequest->IsFinished() )
 		return NULL;

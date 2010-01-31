@@ -1,7 +1,7 @@
 //
 // PeerProject.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -97,7 +97,7 @@ public:
 	CAutoPtr< CUPnPFinder > m_pUPnPFinder;
 	TRISTATE			m_bUPnPPortsForwarded;		// UPnP values are assigned when the discovery is complete
 	TRISTATE			m_bUPnPDeviceConnected;		// or when the service notifies
-	DWORD				m_nUPnPExternalAddress;
+	IN_ADDR				m_nUPnPExternalAddress;		// UPnP current external address
 	DWORD				m_nLastInput;				// Time of last input event (in secs)
 	HHOOK				m_hHookKbd;
 	HHOOK				m_hHookMouse;
@@ -105,11 +105,8 @@ public:
 	// Cryptography Context handle
 	HCRYPTPROV			m_hCryptProv;
 
-	// Kernel functions
-	HRESULT		(WINAPI *m_pRegisterApplicationRestart)( __in_opt PCWSTR pwzCommandline, __in DWORD dwFlags );
-
 	// For themes functions
-	HINSTANCE	m_hTheme;
+	HINSTANCE			m_hTheme;
 	HRESULT		(WINAPI *m_pfnSetWindowTheme)(HWND, LPCWSTR, LPCWSTR);
 	BOOL		(WINAPI *m_pfnIsThemeActive)(VOID);
 	HANDLE		(WINAPI *m_pfnOpenThemeData)(HWND, LPCWSTR);
@@ -120,6 +117,9 @@ public:
 //	HRESULT		(WINAPI *m_pfnGetThemeBackgroundContentRect)(HANDLE, HDC, int, int, const RECT*, RECT*);
 //	HRESULT		(WINAPI *m_pfnDrawThemeText)(HANDLE, HDC, int, int, LPCWSTR, int, DWORD, DWORD, const RECT*);
 	HRESULT		(WINAPI *m_pfnGetThemeSysFont)(HTHEME, int, __out LOGFONTW*);
+
+	// Kernel functions
+	HRESULT		(WINAPI *m_pRegisterApplicationRestart)( __in_opt PCWSTR pwzCommandline, __in DWORD dwFlags );
 
 	// Shell functions
 	BOOL		(WINAPI *m_pfnAssocIsDangerous)(LPCWSTR);
@@ -239,6 +239,9 @@ HBITMAP	CreateMirroredBitmap(HBITMAP hbmOrig);
 
 LRESULT CALLBACK KbdHook(int nCode, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam);
+
+// Generate safe file name for file system (bPath == true - allow path i.e. "\" symbol)
+CString SafeFilename(const CString& sOriginalName, bool bPath = false);
 
 // Create directory. If one or more of the intermediate folders do not exist, they are created as well.
 BOOL CreateDirectory(LPCTSTR szPath);

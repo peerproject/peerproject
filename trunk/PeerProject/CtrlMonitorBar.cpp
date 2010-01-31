@@ -34,6 +34,9 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
+#define MONITORBARWIDTH	128	// ToDo: Make Skinnable
+
+
 BEGIN_MESSAGE_MAP(CMonitorBarCtrl, CControlBar)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
@@ -113,7 +116,7 @@ void CMonitorBarCtrl::OnDestroy()
 CSize CMonitorBarCtrl::CalcFixedLayout(BOOL /*bStretch*/, BOOL /*bHorz*/)
 {
 	int nHeight = Settings.General.GUIMode == GUI_WINDOWED ? 30 : 38;
-	CSize size( 128, nHeight );
+	CSize size( MONITORBARWIDTH, nHeight );
 
 	for ( int nSnap = 1 ; nSnap >= 0 ; nSnap-- )
 	{

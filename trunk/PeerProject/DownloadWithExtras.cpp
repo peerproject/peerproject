@@ -1,7 +1,7 @@
 //
 // DownloadWithExtras.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -40,17 +40,17 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithExtras construction
 
-CDownloadWithExtras::CDownloadWithExtras() :
-	m_pMonitorWnd			( NULL )
-,	m_pPreviewWnd			( NULL )
+CDownloadWithExtras::CDownloadWithExtras()
+	: m_pMonitorWnd			( NULL )
+	, m_pPreviewWnd			( NULL )
 
-,	m_pReviewFirst			( NULL )
-,	m_pReviewLast			( NULL )
-,	m_nReviewCount			( 0 )
+	, m_pReviewFirst		( NULL )
+	, m_pReviewLast			( NULL )
+	, m_nReviewCount		( 0 )
 
-,	m_bWaitingPreview		( FALSE )
-,	m_bGotPreview			( FALSE )
-,	m_bRemotePreviewCapable	( FALSE )
+	, m_bGotPreview			( FALSE )
+	, m_bWaitingPreview		( FALSE )
+	, m_bRemotePreviewCapable ( FALSE )
 {
 }
 
@@ -63,7 +63,7 @@ CDownloadWithExtras::~CDownloadWithExtras()
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithExtras preview function
 
-BOOL CDownloadWithExtras::PreviewFile(DWORD nIndex, CSingleLock* pLock)
+BOOL CDownloadWithExtras::PreviewFile(DWORD nIndex, CSingleLock* /*pLock*/)
 {
 	DeletePreviews();
 
@@ -72,14 +72,6 @@ BOOL CDownloadWithExtras::PreviewFile(DWORD nIndex, CSingleLock* pLock)
 
 	ASSERT( m_pPreviewWnd == NULL );
 	m_pPreviewWnd = new CFilePreviewDlg( this, nIndex );
-
-	if ( pLock ) pLock->Unlock();
-
-	m_pPreviewWnd->Create();
-	m_pPreviewWnd->ShowWindow( SW_SHOWNORMAL );
-	m_pPreviewWnd->BringWindowToTop();
-
-	if ( pLock ) pLock->Lock();
 
 	return TRUE;
 }
@@ -91,7 +83,7 @@ BOOL CDownloadWithExtras::IsPreviewVisible() const
 
 BOOL CDownloadWithExtras::CanPreview(DWORD nIndex)
 {
-	return ( m_pPreviewWnd == NULL ) && ! IsMoving() && GetCompleted( nIndex );
+	return ( m_pPreviewWnd == NULL ) && ! IsTasking() && GetCompleted( nIndex );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -410,7 +402,7 @@ void CDownloadWithExtras::Serialize(CArchive& ar, int nVersion)
 //////////////////////////////////////////////////////////////////////
 // CDownload preview saver
 
-void CDownloadWithExtras::OnPreviewRequestComplete(CDownloadTask* pTask)
+void CDownloadWithExtras::OnPreviewRequestComplete(const CDownloadTask* pTask)
 {
 	m_bWaitingPreview = FALSE;
 

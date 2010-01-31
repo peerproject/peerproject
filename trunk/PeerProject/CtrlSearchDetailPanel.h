@@ -1,7 +1,7 @@
 //
 // CtrlSearchDetailPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -88,7 +88,7 @@ protected:
 	int					m_nIcon48;
 	int					m_nIcon32;
 	int					m_nRating;
-	CSchema*			m_pSchema;
+	CSchemaPtr			m_pSchema;
 	CMetaPanel			m_pMetadata;
 	CList< Review* >	m_pReviews;
 	CCriticalSection	m_pSection;

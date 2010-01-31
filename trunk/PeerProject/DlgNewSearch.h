@@ -1,7 +1,7 @@
 //
 // DlgNewSearch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -30,47 +30,39 @@ class CQuerySearch;
 
 class CNewSearchDlg : public CSkinDialog
 {
-// Construction
 public:
-	CNewSearchDlg(CWnd* pParent = NULL,
-			auto_ptr< CQuerySearch > pSearch = auto_ptr< CQuerySearch >(),
-			BOOL bLocal = FALSE, BOOL bAgain = FALSE);
+	CNewSearchDlg(CWnd* pParent = NULL, CQuerySearch* pSearch = NULL,
+		BOOL bLocal = FALSE, BOOL bAgain = FALSE);
 
-// Dialog Data
-public:
-	//{{AFX_DATA(CNewSearchDlg)
 	enum { IDD = IDD_NEW_SEARCH };
-	CButton	m_wndCancel;
-	CButton	m_wndOK;
+
+	CQuerySearchPtr GetSearch() const
+	{
+		return m_pSearch;
+	}
+
+protected:
+	CButton			m_wndOK;
+	CButton			m_wndCancel;
 	CSchemaCombo	m_wndSchemas;
 	CComboBox		m_wndSearch;
-	//}}AFX_DATA
 
 // Attributes
 private:
 	CSchemaCtrl		m_wndSchema;
 	BOOL			m_bLocal;
 	BOOL			m_bAgain;
-	auto_ptr< CQuerySearch > m_pSearch;
-
-// Operations
-public:
-	auto_ptr< CQuerySearch > GetSearch() { return m_pSearch; }
-
-// Overrides
-public:
-	//{{AFX_VIRTUAL(CNewSearchDlg)
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	//}}AFX_VIRTUAL
+	CQuerySearchPtr m_pSearch;
 
 // Implementation
 protected:
 	//{{AFX_MSG(CNewSearchDlg)
+	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
+	virtual void OnOK();
+
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI);
-	virtual void OnOK();
 	afx_msg void OnSelChangeSchemas();
 	afx_msg void OnCloseUpSchemas();
 	afx_msg void OnChangeSearch();

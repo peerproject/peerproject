@@ -159,7 +159,7 @@ UINT AsyncFileOperationThread(LPVOID param)
 	}
 	SHChangeNotify( SHCNE_UPDATEDIR, SHCNF_PATH, (LPCVOID)(LPCTSTR)pAFOP->sTo.GetData(), 0 );
 
-	Library.Update();
+	Library.Update( true );
 
 	delete pAFOP;
 
@@ -304,10 +304,9 @@ UINT CPeerProjectDataSource::DragDropThread(LPVOID param)
 		if ( SUCCEEDED( hr ) )
 		{
 			// Create drag-n-drop source object
-			// TODO: next line returns E_NOINTERFACE for unknown reason
+			// ToDo: Next line returns E_NOINTERFACE for unknown reason:
 			// CComQIPtr< IDropSource > pIDropSource( pIDataObject );
-			// therefore we used some hack since IDropSource object is
-			// not IDataObject dependent:
+			// Therefore a hack is used since IDropSource object is not IDataObject dependent:
 			CPeerProjectDataSource foo;
 			IDropSource* pIDropSource = &(foo.m_xDropSource);
 
@@ -316,8 +315,7 @@ UINT CPeerProjectDataSource::DragDropThread(LPVOID param)
 				DROPEFFECT_MOVE | DROPEFFECT_COPY, &dwEffect );
 			ASSERT ( SUCCEEDED( hr ) );
 
-			// TODO: need to detect unoptimized move and
-			// delete dragged items
+			// ToDo: Detect unoptimized move and delete dragged items
 			ASSERT ( dwEffect != DROPEFFECT_MOVE );
 		}
 	}
@@ -355,7 +353,7 @@ HRESULT CPeerProjectDataSource::DoDragDropHelper(const T* pList, HBITMAP pImage,
 	HRESULT hr = pIDataObject.CoCreateInstance( CLSID_PeerProjectDataSource );
 	if ( SUCCEEDED( hr ) )
 	{
-		// Set raza flag to detect self drag-n-drop
+		// Set flag to detect self drag-n-drop
 		hr = Add( pIDataObject );
 		if ( SUCCEEDED( hr ) )
 		{
@@ -380,10 +378,10 @@ HRESULT CPeerProjectDataSource::DoDragDropHelper(const T* pList, HBITMAP pImage,
 			}
 		}
 	}
+
 	if ( pImage )
-	{
 		DeleteObject( pImage );
-	}
+
 	return hr;
 }
 
@@ -445,13 +443,11 @@ HRESULT CPeerProjectDataSource::ObjectToFiles(IDataObject* pIDataObject, CList <
 					if ( sFile.GetLength() > 4 && ! lstrcmpi( (LPCTSTR)sFile +
 						sFile.GetLength() - 4, _T(".lnk") ) )
 					{
-						 sFile = ResolveShortcut( sFile );
+						sFile = ResolveShortcut( sFile );
 					}
 
 					if ( sFile.GetLength() )
-					{
 						oFiles.AddTail( sFile );
-					}
 				}
 				hr = ( oFiles.GetCount() > 0 ) ? S_OK : S_FALSE;
 				GlobalUnlock( medium.hGlobal );
@@ -472,9 +468,8 @@ HRESULT CPeerProjectDataSource::SetDropEffect(IDataObject* pIDataObject, DWORD d
 
 	CHGlobal < DWORD > oHGlobal;
 	if ( ! oHGlobal.IsValid() )
-	{
 		return E_OUTOFMEMORY;
-	}
+
 	DWORD* pdwEffect = oHGlobal;
 
 	*pdwEffect = dwEffect;
@@ -530,15 +525,15 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 			len = lstrlenA( pFrom );
 			CStringW sFile( pFrom );	// ANSI -> UNICODE
 			if ( len > 4 && ! lstrcmpiA( pFrom + len - 4, ".lnk" ) )
-			{
 				sFile = ResolveShortcut( sFile );
-			}
+
 			if ( sFile.GetLength() )
 			{
 				pAFOP->sFrom.SetSize( pAFOP->sFrom.GetSize() + sFile.GetLength() + 1 );
 				CopyMemory( pAFOP->sFrom.GetData() + offset,
 					(LPCWSTR)sFile, sizeof(WCHAR) * ( sFile.GetLength() + 1 ) );
 			}
+
 			if ( ! bDrop )
 				break;	// Test only one
 		}
@@ -565,9 +560,9 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 				CopyMemory( pAFOP->sFrom.GetData() + offset,
 					pFrom, sizeof(WCHAR) * ( len + 1 ) );
 			}
+
 			if ( ! bDrop )
-				// Test only one
-				break;
+				break;	// Test only one
 		}
 	}
 	GlobalUnlock( medium.hGlobal );
@@ -596,8 +591,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 		( ( grfKeyState & MK_SHIFT   ) ? DROPEFFECT_MOVE : DROPEFFECT_COPY );
 
 	if ( ! bDrop )
-		// Test only
-		return TRUE;
+		return TRUE;	// Test only
 
 	len = (int)pAFOP->sFrom.GetSize();
 	pAFOP->sFrom.SetSize( len + 1 );	// Double NULL terminated
@@ -650,10 +644,11 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 	}
 
 	if ( ! IsPeerProjectObject( pIDataObject ) )
-	{
-		// This is not a PeerProject's drop
+		return FALSE;	// This is not PeerProject's drop
+
+	CAlbumFolder* pRoot = Library.GetAlbumRoot();
+	if ( ! pRoot )
 		return FALSE;
-	}
 
 	BOOL bRet = FALSE;
 
@@ -682,8 +677,7 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 						{
 							Hashes::Guid oGUID;
 							CopyMemory( oGUID.begin(), p + sizeof( DWORD ), 16 );
-							CAlbumFolder* pFolder =
-								LibraryFolders.GetAlbumRoot()->FindFolder( oGUID );
+							CAlbumFolder* pFolder = pRoot->FindFolder( oGUID );
 							if ( pFolder && *pAlbumFolder == *pFolder )
 							{
 								// Drop disabled to same album
@@ -752,17 +746,12 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 								if ( *pdwEffect == DROPEFFECT_MOVE )
 								{
 									// Delete old album (by GUID)
-									CAlbumFolder* pRealFodler =
-										LibraryFolders.GetAlbumRoot()->
-											FindFolder( pFolder->m_oGUID );
-									if ( pRealFodler )
+									if ( CAlbumFolder* pRealFodler = pRoot->FindFolder( pFolder->m_oGUID ) )
 									{
 										if ( pRealFodler->m_pParent )
-											pRealFodler->m_pParent->
-												OnFolderDelete( pRealFodler );
+											pRealFodler->m_pParent->OnFolderDelete( pRealFodler );
 										else
-											LibraryFolders.GetAlbumRoot()->
-												OnFolderDelete( pRealFodler );
+											pRoot->OnFolderDelete( pRealFodler );
 									}
 								}
 
@@ -793,7 +782,7 @@ BOOL CPeerProjectDataSource::DropToAlbum(IDataObject* pIDataObject, DWORD grfKey
 	{
 		if ( bDrop )
 		{
-			Library.Update();
+			Library.Update( true );
 
 			if ( *pdwEffect == DROPEFFECT_MOVE )
 			{
@@ -873,9 +862,8 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 	// Initialize CF_HDROP
 	CHGlobal < DROPFILES > oHDROP( size_HDROP + sizeof (DROPFILES) + sizeof( TCHAR ) );
 	if ( ! oHDROP.IsValid() )
-	{
 		return E_OUTOFMEMORY;
-	}
+
 	LPTSTR buf_HDROP = (LPTSTR)( (BYTE*)( (DROPFILES*)oHDROP ) + sizeof( DROPFILES ) );
 	oHDROP->pFiles = sizeof( DROPFILES );
 	GetCursorPos( &oHDROP->pt );
@@ -917,7 +905,6 @@ HRESULT CPeerProjectDataSource::AddFiles(IDataObject* pIDataObject, const T* pSe
 		HRESULT hr = pIDataObject->SetData( &formatetc_Text, &medium_Text, FALSE );
 		if ( FAILED ( hr ) )
 			return hr;
-
 	}
 
 	// Finalize CF_HDROP and optional CFSTR_PREFERREDDROPEFFECT

@@ -117,7 +117,7 @@ void CLibraryView::GetHeaderContent(int& nImage, CString& str)
 		str.Format( strFormat, nCount );
 		nImage = SHI_FOLDER_OPEN;
 	}
-	else if ( CSchema* pSchema = SchemaCache.Get( CSchema::uriLibrary ) )
+	else if ( CSchemaPtr pSchema = SchemaCache.Get( CSchema::uriLibrary ) )
 	{
 		nImage = pSchema->m_nIcon16;
 		LoadString( str, IDS_LIBHEAD_EXPLORE_FOLDER );
@@ -330,6 +330,8 @@ BOOL CLibraryView::OnDrop(IDataObject* pDataObj, DWORD grfKeyState, POINT ptScre
 
 	if ( oHit.Type == CLibraryListItem::Empty )
 		oHit = GetFolder();
+
+	CQuickLock oLock( Library.m_pSection );
 
 	switch ( oHit.Type )
 	{

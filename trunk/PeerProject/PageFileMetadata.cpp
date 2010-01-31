@@ -1,7 +1,7 @@
 //
 // PageFileMetadata.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -47,8 +47,10 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFileMetadataPage property page
 
-CFileMetadataPage::CFileMetadataPage() : CFilePropertiesPage(CFileMetadataPage::IDD),
-m_pXML(NULL), m_pSchemaContainer(NULL)
+CFileMetadataPage::CFileMetadataPage()
+	: CFilePropertiesPage(CFileMetadataPage::IDD)
+	, m_pXML			(NULL)
+	, m_pSchemaContainer(NULL)
 {
 }
 
@@ -89,7 +91,7 @@ BOOL CFileMetadataPage::OnInitDialog()
 	m_wndSchemas.m_sNoSchemaText = strText;
 
 	BOOL bCollection = FALSE;
-	CSchema* pSchema = NULL;
+	CSchemaPtr pSchema = NULL;
 
 	{
 		CQuickLock oLock( Library.m_pSection );
@@ -98,7 +100,7 @@ BOOL CFileMetadataPage::OnInitDialog()
 		{
 			if ( CLibraryFile* pFile = pFiles->GetNextFile( pos ) )
 			{
-				CSchema* pThisSchema = pFile->m_pSchema;
+				CSchemaPtr pThisSchema = pFile->m_pSchema;
 
 				if ( pThisSchema != NULL && pThisSchema->m_nType == CSchema::stFolder ) bCollection = TRUE;
 
@@ -140,13 +142,9 @@ BOOL CFileMetadataPage::OnInitDialog()
 							{
 								CString strNew = pMember->GetValueFrom( pFile->m_pMetadata, NO_VALUE );
 								if ( strOld == NO_VALUE && strNew != NO_VALUE )
-								{
 									m_pXML->AddAttribute( pMember->m_sName, strNew );
-								}
 								else if ( strOld != strNew )
-								{
 									m_pXML->AddAttribute( pMember->m_sName, MULTI_VALUE );
-								}
 							}
 						}
 					}
@@ -162,7 +160,7 @@ BOOL CFileMetadataPage::OnInitDialog()
 
 void CFileMetadataPage::OnSelChangeSchemas()
 {
-	CSchema* pSchema = m_wndSchemas.GetSelected();
+	CSchemaPtr pSchema = m_wndSchemas.GetSelected();
 	CString strSelectedURI = m_wndData.GetSchemaURI();
 
 	if ( pSchema && ! pSchema->CheckURI( strSelectedURI ) )
@@ -259,7 +257,8 @@ void CFileMetadataPage::AddCrossAttributes(CXMLElement* pXML, LPCTSTR pszTargetU
 
 void CFileMetadataPage::OnCloseUpSchemas()
 {
-	if ( CSchema* pSchema = m_wndSchemas.GetSelected() ) PostMessage( WM_KEYDOWN, VK_TAB );
+	if ( CSchemaPtr pSchema = m_wndSchemas.GetSelected() )
+		PostMessage( WM_KEYDOWN, VK_TAB );
 }
 
 void CFileMetadataPage::OnOK()
@@ -275,7 +274,7 @@ void CFileMetadataPage::OnOK()
 		if ( AfxMessageBox( strMessage, MB_YESNO|MB_ICONQUESTION ) != IDYES ) return;
 	}
 
-	if ( CSchema* pSchema = m_wndSchemas.GetSelected() )
+	if ( CSchemaPtr pSchema = m_wndSchemas.GetSelected() )
 	{
 		CQuickLock oLock( Library.m_pSection );
 
@@ -312,9 +311,7 @@ void CFileMetadataPage::OnOK()
 		for ( POSITION pos1 = pFiles->GetIterator() ; pos1 ; )
 		{
 			if ( CLibraryFile* pFile = pFiles->GetNextFile( pos1 ) )
-			{
 				pFile->ClearMetadata();
-			}
 		}
 
 		Library.Update();

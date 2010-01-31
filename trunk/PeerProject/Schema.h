@@ -1,7 +1,7 @@
 //
 // Schema.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,13 +21,15 @@
 
 #pragma once
 
-#include "SchemaMember.h"
-
 class CSchema;
 class CSchemaMember;
 class CSchemaChild;
 class CXMLElement;
 class CSchemaBitzi;
+
+typedef const CSchema* CSchemaPtr;
+
+#include "SchemaMember.h"
 
 class CSchema
 {
@@ -82,14 +84,14 @@ public:
 	CSchemaChild*	GetContained(LPCTSTR pszURI) const;
 	CString			GetContainedURI(int nType) const;
 	CXMLElement*	Instantiate(BOOL bNamespace = FALSE) const;
-	BOOL			Validate(CXMLElement* pXML, BOOL bFix);
+	BOOL			Validate(CXMLElement* pXML, BOOL bFix) const;
 	CString			GetIndexedWords(CXMLElement* pXML) const;
 	CString			GetVisibleWords(CXMLElement* pXML) const;
 	void			ResolveTokens(CString& str, CXMLElement* pXML) const;
 protected:
 	BOOL			LoadSchema(LPCTSTR pszFile);
 	BOOL			LoadPrimary(CXMLElement* pRoot, CXMLElement* pType);
-	CXMLElement*	GetType(CXMLElement* pRoot, LPCTSTR pszName);
+	CXMLElement*	GetType(CXMLElement* pRoot, LPCTSTR pszName) const;
 	BOOL			LoadDescriptor(LPCTSTR pszFile);
 	void			LoadDescriptorTitles(CXMLElement* pElement);
 	void			LoadDescriptorIcons(CXMLElement* pElement);
@@ -109,7 +111,7 @@ public:
 		return m_sURI;
 	}
 
-	inline bool Equals(CSchema* pSchema) const
+	inline bool Equals(CSchemaPtr pSchema) const
 	{
 		return ( pSchema && ( ( this == pSchema ) || CheckURI( pSchema->m_sURI ) ) );
 	}

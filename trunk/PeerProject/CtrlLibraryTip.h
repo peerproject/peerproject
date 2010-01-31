@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include "PeerProjectFile.h"
 #include "ThreadImpl.h"
 #include "CtrlCoolTip.h"
 #include "MetaList.h"
@@ -28,41 +29,60 @@
 
 class CLibraryTipCtrl : public CCoolTipCtrl, public CThreadImpl
 {
-// Construction
+	DECLARE_DYNAMIC(CLibraryTipCtrl)
+
 public:
 	CLibraryTipCtrl();
+	virtual ~CLibraryTipCtrl();
 
-	DECLARE_DYNAMIC(CLibraryTipCtrl)
+	void Show(DWORD pContext, HWND hAltWnd = NULL)
+	{
+		bool bChanged = ( pContext != m_nFileIndex );
+		m_nFileIndex = pContext;
+		m_pFile = NULL;
+		m_hAltWnd = hAltWnd;
+		ShowImpl( bChanged );
+	}
+
+	void Show(CPeerProjectFile* pContext, HWND hAltWnd = NULL)
+	{
+		bool bChanged = ( pContext != m_pFile );
+		m_nFileIndex = 0;
+		m_pFile = pContext;
+		m_hAltWnd = hAltWnd;
+		ShowImpl( bChanged );
+	}
 
 // Attributes
 protected:
-	CString			m_sName;
-	CString			m_sPath;
-	CString			m_sFolder;
-	CString			m_sSize;
-	CString			m_sType;
-	CString			m_sSHA1;
-	CString			m_sTTH;
-	CString			m_sED2K;
-	CString			m_sBTH;
-	CString			m_sMD5;
-	int				m_nIcon;
-	CMetaList		m_pMetadata;
-	int				m_nKeyWidth;
+	CPeerProjectFile*	m_pFile;
+	DWORD				m_nFileIndex;
+	CString 			m_sName;
+	CString 			m_sPath;
+	CString 			m_sFolder;
+	CString 			m_sSize;
+	CString 			m_sType;
+	CString 			m_sSHA1;
+	CString 			m_sTTH;
+	CString 			m_sED2K;
+	CString 			m_sBTH;
+	CString 			m_sMD5;
+	int 				m_nIcon;
+	int 				m_nKeyWidth;
+	CMetaList			m_pMetadata;
 	CCriticalSection	m_pSection;
 	CBitmap				m_bmThumb;
 	DWORD				m_tHidden;
 
 // Operations
-public:
+	void		OnRun();
+	void		StopThread();
+
 	virtual BOOL OnPrepare();
-	virtual void OnCalcSize(CDC* pDC);
 	virtual void OnShow();
 	virtual void OnHide();
+	virtual void OnCalcSize(CDC* pDC);
 	virtual void OnPaint(CDC* pDC);
-protected:
-	void		StopThread();
-	void		OnRun();
 
 // Overrides
 public:
@@ -77,5 +97,4 @@ protected:
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
-
 };

@@ -1,7 +1,7 @@
 //
 // ShareMonkeyData.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -31,18 +31,18 @@
 #include "SchemaCache.h"
 
 CShareMonkeyData::CShareMonkeyData(INT_PTR nOffset, int nRequestType)
-: m_nFileIndex( 0 )
-, m_hInternet( NULL )
-, m_hSession( NULL )
-, m_hRequest( NULL )
-, m_nDelay( 0 )
-, m_nFailures( 0 )
-, m_pXML( NULL )
-, m_pRazaXML( NULL )
-, m_pSchema( NULL )
-, m_pFileView( NULL )
-, m_nRequestType( nRequestType )
-, m_nOffset( nOffset )
+	: m_nFileIndex	( 0 )
+	, m_hInternet	( NULL )
+	, m_hSession	( NULL )
+	, m_hRequest	( NULL )
+	, m_nDelay		( 0 )
+	, m_nFailures	( 0 )
+	, m_pXML		( NULL )
+	, m_pRazaXML	( NULL )
+	, m_pSchema 	( NULL )
+	, m_pFileView	( NULL )
+	, m_nOffset 	( nOffset )
+	, m_nRequestType( nRequestType )
 {
 	int nLength = GetLocaleInfo( LOCALE_USER_DEFAULT, LOCALE_SISO3166CTRYNAME, NULL, 0 );
 	LPTSTR pszCountry = m_sCountry.GetBuffer( nLength );
@@ -213,13 +213,10 @@ BOOL CShareMonkeyData::BuildRequest()
 
 	if ( m_nRequestType == stProductMatch || m_nRequestType == stComparison )
 	{
-		if ( theApp.m_nUPnPExternalAddress != ADDR_ANY )
+		if ( theApp.m_nUPnPExternalAddress.s_addr != INADDR_NONE )
 		{
-			CString strIP;
-			DWORD ip = theApp.m_nUPnPExternalAddress;
-			strIP.Format( L"%d.%d.%d.%d", ( ip & 0x0000ff ), ( ( ip & 0x00ff00 ) >> 8 ),
-				          ( ( ip & 0xff0000 ) >> 16 ), ( ip >> 24 ) );
-			m_sURL += L"&user_ip_address=" + strIP;
+			m_sURL += L"&user_ip_address=";
+			m_sURL += inet_ntoa( theApp.m_nUPnPExternalAddress );
 		}
 		else
 		{

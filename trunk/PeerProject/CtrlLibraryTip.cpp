@@ -54,17 +54,17 @@ END_MESSAGE_MAP()
 // CLibraryTipCtrl construction
 
 CLibraryTipCtrl::CLibraryTipCtrl()
-//	: m_nFileIndex( 0 )
-//	, m_pFile( NULL )
-//	, m_nIcon( 0 )
-//	, m_nKeyWidth( 0 )
-//	, m_tHidden( 0 )
+	: m_nFileIndex	( 0 )
+	, m_pFile		( NULL )
+	, m_nIcon		( 0 )
+	, m_nKeyWidth	( 0 )
+	, m_tHidden 	( 0 )
 {
 }
 
-//CLibraryTipCtrl::~CLibraryTipCtrl()
-//{
-//}
+CLibraryTipCtrl::~CLibraryTipCtrl()
+{
+}
 
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryTipCtrl prepare
@@ -75,18 +75,24 @@ BOOL CLibraryTipCtrl::OnPrepare()
 	if ( ! oLock.Lock( 300 ) )
 		return FALSE;
 
-	CLibraryFile* pLibraryFile = Library.LookupFile(
-		reinterpret_cast< DWORD_PTR >( m_pContext ) );
+	CLibraryFile* pLibraryFile = NULL;
+	CPeerProjectFile* pFile = NULL;
 
-	CPeerProjectFile* pFile = pLibraryFile ?
-		static_cast< CPeerProjectFile* >( pLibraryFile ) :
-		reinterpret_cast< CPeerProjectFile* >( m_pContext );
-
-	if ( ! pLibraryFile )
+	if ( m_nFileIndex )
 	{
-		if ( CLibraryFile* pShared = LibraryMaps.LookupFileByHash( pFile, FALSE, TRUE ) )
-			pLibraryFile = pShared;
+		pLibraryFile = Library.LookupFile( m_nFileIndex );
+		pFile = static_cast< CPeerProjectFile* >( pLibraryFile );
 	}
+	else if ( m_pFile )
+	{
+		pLibraryFile = LibraryMaps.LookupFileByHash( m_pFile );
+		pFile = m_pFile;
+	}
+	else
+		return FALSE;
+
+	if ( ! pFile )
+		return FALSE;
 
 	CSingleLock pLock( &m_pSection, TRUE );
 
@@ -94,10 +100,10 @@ BOOL CLibraryTipCtrl::OnPrepare()
 	m_sName = pFile->m_sName.IsEmpty() ? pFile->m_sPath : pFile->m_sName;
 	if ( pLibraryFile )
 		m_sPath = pLibraryFile->GetPath();
-//	else
-//		m_sPath.Empty();
+	else
+		m_sPath.Empty();
+
 	m_sSize = Settings.SmartVolume( pFile->GetSize() );
-	m_nIcon = 0;
 
 	if ( pLibraryFile && pLibraryFile->m_pFolder )
 		m_sFolder = pLibraryFile->m_pFolder->m_sPath;
@@ -127,7 +133,7 @@ BOOL CLibraryTipCtrl::OnPrepare()
 	}
 
 	// Metadata
-	CSchema* pSchema = pLibraryFile ? pLibraryFile->m_pSchema : NULL;
+	CSchemaPtr pSchema = pLibraryFile ? pLibraryFile->m_pSchema : NULL;
 	CString str, sData, sFormat;
 
 	m_pMetadata.Clear();
@@ -143,7 +149,7 @@ BOOL CLibraryTipCtrl::OnPrepare()
 
 	if ( pLibraryFile )
 	{
-		LoadString( sFormat, IDS_TIP_TODAYTOTAL );
+		CString sFormat = LoadString( IDS_TIP_TODAYTOTAL );
 		sData.Format( sFormat, pLibraryFile->m_nHitsToday, pLibraryFile->m_nHitsTotal );
 		m_pMetadata.Add( LoadString( IDS_TIP_HITS ), sData );
 		sData.Format( sFormat, pLibraryFile->m_nUploadsToday, pLibraryFile->m_nUploadsTotal );
@@ -310,9 +316,7 @@ void CLibraryTipCtrl::OnTimer(UINT_PTR nIDEvent)
 	CCoolTipCtrl::OnTimer( nIDEvent );
 
 	if ( ! m_bVisible && GetTickCount() - m_tHidden > 20000 )
-	{
 		StopThread();
-	}
 }
 
 void CLibraryTipCtrl::OnDestroy()
@@ -342,7 +346,7 @@ void CLibraryTipCtrl::OnRun()
 		CString strPath = m_sPath;
 		m_pSection.Unlock();
 
-		if ( strPath.IsEmpty() ) // TODO: Make preview requests by hash
+		if ( strPath.IsEmpty() ) // ToDo: Make preview requests by hash
 			break;
 
 		CImageFile pFile;
@@ -362,4 +366,3 @@ void CLibraryTipCtrl::OnRun()
 		}
 	}
 }
-

@@ -1,7 +1,7 @@
 //
 // MatchObjects.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -195,7 +195,7 @@ void CMatchList::UpdateStats()
 //////////////////////////////////////////////////////////////////////
 // CMatchList add hits
 
-void CMatchList::AddHits(const CQueryHit* pHits, CQuerySearch* pFilter)
+void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 	CMatchFile** pMap = NULL;
@@ -224,7 +224,7 @@ void CMatchList::AddHits(const CQueryHit* pHits, CQuerySearch* pFilter)
 
 		pHit->m_bNew = m_bNew;
 
-		if ( pFilter != NULL )
+		if ( pFilter )
 		{
 			// ToDo: pHit->m_bExactMatch is broken anyway,
 			// since its m_sKeywords has no punctuation marks.
@@ -677,7 +677,7 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 
 	CSearchWnd* pParent = static_cast< CSearchWnd* >( GetParent() );
 	ASSERT( pParent );
-	CQuerySearch* pQuery = pParent->GetLastSearch();
+	CQuerySearchPtr pQuery = pParent->GetLastSearch();
 
 	if ( pQuery )
 	{
@@ -874,7 +874,7 @@ BOOL CMatchList::FilterHit(CQueryHit* pHit)
 	CBaseMatchWnd* pParent = GetParent();
 	if ( pParent && pParent->IsKindOf( RUNTIME_CLASS( CSearchWnd ) ) )
 	{
-		CQuerySearch* pQuery = static_cast< CSearchWnd* >( pParent )->GetLastSearch();
+		CQuerySearchPtr pQuery = static_cast< CSearchWnd* >( pParent )->GetLastSearch();
 		if ( pQuery && Security.IsDenied( pQuery->begin(), pQuery->end(), pHit->m_sName ) )
 			return FALSE;
 	}
@@ -939,7 +939,7 @@ BOOL CMatchList::FilterHit(CQueryHit* pHit)
 //////////////////////////////////////////////////////////////////////
 // CMatchList schema selection
 
-void CMatchList::SelectSchema(CSchema* pSchema, CList< CSchemaMember* >* pColumns)
+void CMatchList::SelectSchema(CSchemaPtr pSchema, CList< CSchemaMember* >* pColumns)
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 
@@ -2092,7 +2092,7 @@ void CMatchFile::Serialize(CArchive& ar, int nVersion)
 
 		ar << m_pTime;
 	}
-	else
+	else // Loading
 	{
 		ar >> m_nSize;
 		ar >> m_sSize;
@@ -2100,11 +2100,11 @@ void CMatchFile::Serialize(CArchive& ar, int nVersion)
 		SerializeIn( ar, m_oTiger, nVersion );
 		SerializeIn( ar, m_oED2K, nVersion );
 
-		if ( nVersion >= 13 )
-		{
+		//if ( nVersion >= 13 )
+		//{
 			SerializeIn( ar, m_oBTH, nVersion  );
 			SerializeIn( ar, m_oMD5, nVersion  );
-		}
+		//}
 
 		ar >> m_bBusy;
 		ar >> m_bPush;
@@ -2132,7 +2132,7 @@ void CMatchFile::Serialize(CArchive& ar, int nVersion)
 			m_pHits->Serialize( ar, nVersion );
 		}
 
-		if ( nVersion >= 14 )
+		//if ( nVersion >= 14 )
 			ar >> m_pTime;
 
 		RefreshStatus();
@@ -2207,9 +2207,7 @@ void CMatchFile::AddHitsToDownload(CDownload* pDownload, BOOL bForce) const
 
 		// Send any reviews to the download, so they can be viewed later
 		if ( pHit->IsRated() )
-		{
 			pDownload->AddReview( &pHit->m_pAddress, 2, pHit->m_nRating, pHit->m_sNick, pHit->m_sComments );
-		}
 	}
 }
 
@@ -2228,9 +2226,9 @@ void CMatchFile::AddHitsToXML(CXMLElement* pXML) const
 	}
 }
 
-CSchema* CMatchFile::GetHitsSchema() const
+CSchemaPtr CMatchFile::GetHitsSchema() const
 {
-	CSchema* pSchema = NULL;
+	CSchemaPtr pSchema = NULL;
 	for ( CQueryHit* pHit = m_pHits ; pHit ; pHit = pHit->m_pNext )
 	{
 		pSchema = SchemaCache.Get( pHit->m_sSchemaURI );
@@ -2239,9 +2237,9 @@ CSchema* CMatchFile::GetHitsSchema() const
 	return pSchema;
 }
 
-CSchema* CMatchFile::AddHitsToMetadata(CMetaList& oMetadata) const
+CSchemaPtr CMatchFile::AddHitsToMetadata(CMetaList& oMetadata) const
 {
-	CSchema* pSchema = GetHitsSchema();
+	CSchemaPtr pSchema = GetHitsSchema();
 	if ( pSchema )
 	{
 		oMetadata.Setup( pSchema );

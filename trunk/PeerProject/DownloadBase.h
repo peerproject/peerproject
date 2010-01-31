@@ -1,7 +1,7 @@
 //
 // DownloadBase.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,40 +22,44 @@
 #pragma once
 
 #include "PeerProjectFile.h"
-
-class CDownloadTask;
+#include "DownloadTask.h"
 
 
 class CDownloadBase : public CPeerProjectFile
 {
+	DECLARE_DYNAMIC(CDownloadBase)
+
 protected:
 	CDownloadBase();
 	virtual ~CDownloadBase();
 
 public:
 	bool			m_bSHA1Trusted;		// True if SHA1 hash is trusted
-	bool			m_bTigerTrusted;
-	bool			m_bED2KTrusted;
-	bool			m_bBTHTrusted;
-	bool			m_bMD5Trusted;
-	int				m_nCookie;
-	CString			m_sSearchKeyword;	// Search keyword to override G1 keyword search.
-private:
-	CDownloadTask*	m_pTask;
+	bool			m_bTigerTrusted;	// True if TTH hash is trusted
+	bool			m_bED2KTrusted;		// True if ED2K hash is trusted
+	bool			m_bBTHTrusted;		// True if BTH hash is trusted
+	bool			m_bMD5Trusted;		// True if MD5 hash is trusted
 
-// Operations
-public:
-	bool		IsTasking() const;						// Check if a task is already running
-	void		SetTask(CDownloadTask* pTask);
-	DWORD		GetTaskType() const;
-	bool		CheckTask(CDownloadTask* pTask) const;
-	void		AbortTask();
-	void		SetModified();
+	void			SetModified();
+	bool			IsModified() const;
+	bool			Rename(const CString& strName);	// Set download safe name
+
+	virtual bool	IsMoving() const;
+	virtual bool	IsTasking() const;	// Check if a task is already running
+	virtual bool	IsTrying() const = 0;
+	virtual bool	IsCompleted() const = 0;
+	virtual bool	IsPaused(bool bRealState = false) const = 0;
+	virtual void	OnTaskComplete(const CDownloadTask* pTask) = 0;	// Task callback
+
+	dtask			GetTaskType() const;
+	void			SetTask(CDownloadTask* pTask);
+	bool			CheckTask(CDownloadTask* pTask) const;
+	void			AbortTask();
 
 protected:
-	virtual bool	IsCompleted() const = 0;
-	virtual bool	IsMoving() const = 0;
-	virtual bool	IsPaused(bool bRealState = false) const = 0;
-	virtual bool	IsTrying() const = 0;
+	int				m_nCookie;
+	int				m_nSaveCookie;
+	CDownloadTask*	m_pTask;
+
 	virtual void	Serialize(CArchive& ar, int nVersion);
 };

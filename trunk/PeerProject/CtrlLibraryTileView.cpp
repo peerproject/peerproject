@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTileView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -39,6 +39,11 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #endif
+
+//ToDo: Make Skinnable
+#define ICONGRID_X	222		// Skin.m_nLibIconsX ?
+#define ICONGRID_Y	56		// Skin.m_nLibIconsY ?
+
 
 BEGIN_MESSAGE_MAP(CLibraryTileView, CLibraryView)
 	//{{AFX_MSG_MAP(CLibraryTileView)
@@ -108,9 +113,9 @@ int CLibraryTileView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CLibraryView::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	//Set Icon Grid
-	m_szBlock.cx	= 222;
-	m_szBlock.cy	= 56;
+	//Set Icon Spacing
+	m_szBlock.cx	= ICONGRID_X;
+	m_szBlock.cy	= ICONGRID_Y;
 	m_nColumns		= 1;
 	m_nRows			= 0;
 
@@ -138,9 +143,7 @@ BOOL CLibraryTileView::CheckAvailable(CLibraryTreeItem* pSel)
 	m_bAvailable = FALSE;
 
 	if ( pSel != NULL && pSel->m_pSelNext == NULL && pSel->m_pVirtual != NULL )
-	{
 		m_bAvailable = ( pSel->m_pVirtual->GetFileCount() == 0 );
-	}
 
 	return m_bAvailable;
 }
@@ -158,11 +161,12 @@ void CLibraryTileView::Update()
 	}
 	else
 	{
-		if (	pFolders == NULL || pFolders->m_pSelNext != NULL ||
-				pFolders->m_pVirtual == NULL ||
-				pFolders->m_pVirtual->GetFileCount() > 0 )
+		if ( pFolders == NULL ||
+			pFolders->m_pSelNext != NULL ||
+			pFolders->m_pVirtual == NULL ||
+			pFolders->m_pVirtual->GetFileCount() > 0 )
 		{
-			if ( !empty() )
+			if ( ! empty() )
 			{
 				clear();
 				Invalidate();
@@ -179,7 +183,7 @@ void CLibraryTileView::Update()
 
 	for ( iterator pTile = begin(); pTile != end(); )
 	{
-		if ( pFolder->CheckFolder( pTile->m_pFolder ) )
+		if ( pFolder && pFolder->CheckFolder( pTile->m_pFolder ) )
 		{
 			bChanged = pTile->Update() || bChanged;
 			pTile->m_pFolder->m_nListCookie = nCookie;
@@ -205,7 +209,7 @@ void CLibraryTileView::Update()
 		m_nScroll	= max( 0, min( m_nScroll, nMax - rcClient.Height() + 1 ) );
 	}
 
-	for ( POSITION pos = pFolder->GetFolderIterator() ; pos ; )
+	for ( POSITION pos = pFolder ? pFolder->GetFolderIterator() : NULL; pos ; )
 	{
 		CAlbumFolder* pChild = pFolder->GetNextFolder( pos );
 
@@ -220,10 +224,11 @@ void CLibraryTileView::Update()
 
 	if ( bChanged )
 	{
-		// crude work around broken std::list::sort (vc++7.1):
+		// ToDo: Review if still necessary for modern libs...
+		// Crude workaround broken std::list::sort (vc++7.1):
 		//     sort may invalidate at the end iterator
-		// at this time (boost 1.33.0) ptr_list does not provide iterator versions of sort,
-		// which might solve this problem just as well
+		// At this time (boost 1.33.0) ptr_list does not provide
+		// iterator versions of sort, which might solve this problem just as well.
 
 		bool focusAtEnd = m_pFocus == m_oList.end();
 		bool firstAtEnd = m_pFirst == m_oList.end();
@@ -243,20 +248,20 @@ BOOL CLibraryTileView::Select(DWORD /*nObject*/)
 
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryTileView item list management operations
-/*
-int CLibraryTileView::GetTileIndex(CLibraryTileItem* pTile) const
-{
-	CSingleLock oLock( &m_pSection, TRUE );
 
-	CLibraryTileItem** pList = m_pList;
-
-	for ( iterator pItem = begin(); pItem != end(); ++pItem )
-	{
-		if ( &*pItem == pTile ) return nItem;
-	}
-
-	return -1;
-}*/
+//int CLibraryTileView::GetTileIndex(CLibraryTileItem* pTile) const
+//{
+//	CSingleLock oLock( &m_pSection, TRUE );
+//
+//	CLibraryTileItem** pList = m_pList;
+//
+//	for ( iterator pItem = begin(); pItem != end(); ++pItem )
+//	{
+//		if ( &*pItem == pTile ) return nItem;
+//	}
+//
+//	return -1;
+//}
 
 bool CLibraryTileView::Select(iterator pTile, TRISTATE bSelect)
 {
@@ -303,7 +308,8 @@ bool CLibraryTileView::DeselectAll(iterator pTile)
 	{
 		if ( pItem != pTile )
 		{
-			if ( pItem->m_bSelected ) bChanged = Select( pItem, TRI_FALSE );
+			if ( pItem->m_bSelected )
+				bChanged = Select( pItem, TRI_FALSE );
 		}
 	}
 
@@ -362,7 +368,8 @@ bool CLibraryTileView::SelectTo(iterator pTile)
 			bChanged = Select( m_pFocus ) || bChanged;
 		}
 
-		if ( m_nSelected == 1 && m_pFocus->m_bSelected ) m_pFirst = m_pFocus;
+		if ( m_nSelected == 1 && m_pFocus->m_bSelected )
+			m_pFirst = m_pFocus;
 
 		Highlight( m_pFocus );
 	}
@@ -414,13 +421,9 @@ void CLibraryTileView::Highlight(iterator pItem)
 	GetItemRect( pItem, &rcItem );
 
 	if ( rcItem.top < rcClient.top )
-	{
 		ScrollBy( rcItem.top - rcClient.top );
-	}
 	else if ( rcItem.bottom > rcClient.bottom )
-	{
 		ScrollBy( rcItem.bottom - rcClient.bottom );
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -558,9 +561,8 @@ void CLibraryTileView::OnPaint()
 			pBuffer->FillSolidRect( &rcBuffer, Colors.m_crWindow );
 			bool bSelected = pTile->m_bSelected;
 			if ( m_oDropItem == CLibraryListItem ( pTile->m_pFolder ) )
-			{
 				pTile->m_bSelected = true;
-			}
+	
 			pTile->Paint( pBuffer, rcBuffer, &dcMem );
 			pTile->m_bSelected = bSelected;
 			dc.BitBlt( rcBlock.left, rcBlock.top, m_szBlock.cx, m_szBlock.cy,
@@ -594,7 +596,8 @@ CLibraryTileView::iterator CLibraryTileView::HitTest(const CPoint& point)
 	{
 		CRect rcBlock( pt.x, pt.y, pt.x + m_szBlock.cx, pt.y + m_szBlock.cy );
 
-		if ( rcBlock.PtInRect( point ) ) return pTile;
+		if ( rcBlock.PtInRect( point ) )
+			return pTile;
 
 		pt.x += m_szBlock.cx;
 
@@ -614,9 +617,8 @@ CLibraryListItem CLibraryTileView::DropHitTest( const CPoint& point )
 
 	iterator pTile = HitTest( point );
 	if ( pTile != end() )
-	{
 		return pTile->m_pFolder;
-	}
+
 	return CLibraryListItem();
 }
 
@@ -698,7 +700,8 @@ void CLibraryTileView::OnLButtonUp(UINT nFlags, CPoint /*point*/)
 
 	if ( ( nFlags & (MK_SHIFT|MK_CONTROL) ) == 0 && m_pFocus != end() && m_pFocus->m_bSelected )
 	{
-		if ( DeselectAll( m_pFocus ) ) Invalidate();
+		if ( DeselectAll( m_pFocus ) )
+			Invalidate();
 	}
 }
 
@@ -784,7 +787,8 @@ void CLibraryTileView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 			{
 				if ( pStart != end() )
 				{
-					if ( pStart == pChild ) pStart = end();
+					if ( pStart == pChild )
+						pStart = end();
 				}
 				else if ( toupper( pChild->m_sTitle.GetAt( 0 ) ) == toupper( (int)nChar ) )
 				{
@@ -901,7 +905,7 @@ bool CLibraryTileItem::Update()
 	m_nIcon48		= m_pFolder->m_pSchema ? m_pFolder->m_pSchema->m_nIcon48 : -1;
 	m_bCollection	= m_pFolder->m_oCollSHA1.isValid();
 
-	CSchema* pSchema = m_pFolder->m_pSchema;
+	CSchemaPtr pSchema = m_pFolder->m_pSchema;
 
 	if ( pSchema != NULL && m_pFolder->m_pXML != NULL )
 	{
@@ -1058,9 +1062,8 @@ void CLibraryTileView::OnLibraryAlbumDelete()
 			if ( LibraryFolders.CheckAlbum( pFolder ) )
 			{
 				if ( pItem && pFolder == pItem->m_pVirtual )
-				{
 					GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
-				}
+
 				pFolder->Delete();
 			}
 		}
@@ -1082,7 +1085,8 @@ void CLibraryTileView::OnLibraryAlbumProperties()
 	CAlbumFolder* pFolder = pItem->m_pFolder;
 	CFolderPropertiesDlg dlg( NULL, pFolder );
 
-	if ( dlg.DoModal() == IDOK ) GetFrame()->Display( pFolder );
+	if ( dlg.DoModal() == IDOK )
+		GetFrame()->Display( pFolder );
 }
 
 UINT CLibraryTileView::OnGetDlgCode()
