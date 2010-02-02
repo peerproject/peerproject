@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default-en.xml r42 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r48 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2597,7 +2597,7 @@
 	<string id="16198" value="Leaf nabo %s videresender spørringer, lukker kobling."/>
 	<string id="16199" value="Nabo %s videresendte en ukjent pakke (0x%.2x), ignorerer."/>
 	<string id="16200" value="Nabo %s videresendte et pong med ugyldig adresse data, ignorerer."/>
-	<string id="16201" value="Mottok et feil formatert spørrepakke fra %s, ignorerer."/>
+	<string id="16201" value="%s:  Mottok et feil formatert spørrepakke fra %s, ignorerer."/>
 	<string id="16202" value="Mottok et feil formatert spørre-treff-pakke fra %s, ignorerer."/>
 	<string id="16203" value="Nabo %s videresendte en push-pakke med ugyldig lengde, ignorerer."/>
 	<string id="16208" value="Mottar en uventet spørre-routingtabell-oppdatering fra nabo  %s."/>
@@ -2606,6 +2606,7 @@
 	<string id="16211" value="Nabo %s videresendte en push-anmodning til en adresse bak brannmur, ignorerer."/>
 	<string id="16212" value="Nabo %s videresendte en utvidet pakke som ikke er GGEP kodet."/>
 	<string id="16213" value="Sender spørre-routingtabell til nabo %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16255" value="Drag'n'drop filer til %s gruppen."/>
 	<string id="16256" value="La til &quot;%s&quot; til nedlastingskø med %i kilder."/>
 	<string id="16257" value="Ferdig med nedlastingen av &quot;%s&quot;."/>
 	<string id="16258" value="Pauser nedlastingen av &quot;%s&quot;."/>

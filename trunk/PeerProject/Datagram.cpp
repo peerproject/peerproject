@@ -1,7 +1,7 @@
 //
 // Datagram.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -87,8 +87,8 @@ BOOL CDatagramIn::Add(BYTE nPart, LPCVOID pData, DWORD nLength)
 
 	if ( m_pLocked[ nPart - 1 ] == FALSE )
 	{
-		m_pBuffer[ nPart - 1 ]->Add( pData, nLength );
 		m_pLocked[ nPart - 1 ] = TRUE;
+		m_pBuffer[ nPart - 1 ]->Add( pData, nLength );
 
 		if ( --m_nLeft == 0 ) return TRUE;
 	}
@@ -113,4 +113,3 @@ CG2Packet* CDatagramIn::ToG2Packet()
 
 	return CG2Packet::ReadBuffer( m_pBuffer[0] );
 }
-

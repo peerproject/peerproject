@@ -66,22 +66,22 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CCoolBar construction
 
-CCoolBarCtrl::CCoolBarCtrl() :
-	m_bStretch( FALSE ),
-	m_nHeight( DEFAULT_HEIGHT ),
-	m_bGripper( FALSE ),
-	m_bBold( FALSE ),
-	m_bDragForward( FALSE ),
-	m_pSyncObject( NULL ),
-	m_dwHoverTime( 0 ),
-	m_bBuffered( FALSE ),
-	m_bMenuGray( FALSE ),
-	m_pDown( NULL ),
-	m_pHot( NULL ),
-	m_bTimer( FALSE ),
-	m_crBack( 0 ),
-	m_bRecalc( FALSE ),
-	m_bDropEnabled( FALSE )
+CCoolBarCtrl::CCoolBarCtrl()
+	: m_nHeight 	( DEFAULT_HEIGHT )
+	, m_bStretch	( FALSE )
+	, m_bGripper	( FALSE )
+	, m_bBold		( FALSE )
+	, m_bDragForward( FALSE )
+	, m_pSyncObject	( NULL )
+	, m_dwHoverTime	( 0 )
+	, m_bBuffered	( FALSE )
+	, m_bMenuGray	( FALSE )
+	, m_pDown		( NULL )
+	, m_pHot		( NULL )
+	, m_bTimer		( FALSE )
+	, m_crBack		( 0 )
+	, m_bRecalc 	( FALSE )
+	, m_bDropEnabled( FALSE )
 {
 }
 
@@ -434,9 +434,7 @@ CCoolBarItem* CCoolBarCtrl::HitTest(const CPoint& point, CRect* pItemRect, BOOL 
 			}
 
 			if ( rcClient.right - rcItem.left >= nRight )
-			{
 				rcItem.left = rcClient.right - nRight;
-			}
 		}
 		else
 		{
@@ -482,9 +480,7 @@ BOOL CCoolBarCtrl::GetItemRect(CCoolBarItem* pFind, CRect* pRect) const
 			}
 
 			if ( rcClient.right - rcItem.left >= nRight )
-			{
 				rcItem.left = rcClient.right - nRight;
-			}
 		}
 		else
 		{
@@ -639,9 +635,7 @@ void CCoolBarCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
 			}
 
 			if ( rcClient.right - rcItem.left >= nRight + MARGIN_WIDTH )
-			{
 				rcItem.left = rcClient.right - nRight - MARGIN_WIDTH;
-			}
 		}
 		else if ( pItem->m_bVisible )
 		{
@@ -714,9 +708,7 @@ void CCoolBarCtrl::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler)
 	BOOL bLocked	= FALSE;
 
 	if ( m_pSyncObject != NULL )
-	{
 		bLocked = m_pSyncObject->Lock( 200 );
-	}
 
 	for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )
 	{
@@ -732,9 +724,7 @@ void CCoolBarCtrl::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler)
 		BOOL bEnabled		= pItem->m_bEnabled;
 
 		if ( ! CWnd::OnCmdMsg( pItem->m_nID, CN_UPDATE_COMMAND_UI, pItem, NULL ) )
-		{
 			pItem->DoUpdate( pTarget, bDisableIfNoHndler );
-		}
 
 		pItem->m_bDirty |= ( pItem->m_bEnabled != bEnabled );
 		bDirty |= pItem->m_bDirty;
@@ -907,13 +897,9 @@ BOOL CCoolBarCtrl::PreTranslateMessage(MSG* pMsg)
 	if ( pMsg->message == WM_KEYDOWN )
 	{
 		if ( pMsg->wParam == VK_RETURN )
-		{
 			GetOwner()->PostMessage( WM_COMMAND, MAKELONG( GetDlgCtrlID(), BN_CLICKED ), (LPARAM)GetSafeHwnd() );
-		}
 		else if ( pMsg->wParam == VK_ESCAPE )
-		{
 			GetOwner()->PostMessage( WM_COMMAND, MAKELONG( GetDlgCtrlID(), BN_DBLCLK ), (LPARAM)GetSafeHwnd() );
-		}
 	}
 
 	return CControlBar::PreTranslateMessage( pMsg );
@@ -972,15 +958,15 @@ BOOL CCoolBarCtrl::OnDrop(IDataObject* pDataObj, DWORD /* grfKeyState */, POINT 
 // CCoolBarItem construction
 
 CCoolBarItem::CCoolBarItem(CCoolBarCtrl* pBar, UINT nID, int nImage)
-: m_pBar ( pBar )
-, m_bCheckButton( FALSE )
-, m_nImage( nImage )
-, m_bVisible( TRUE )
-, m_bEnabled( TRUE )
-, m_bChecked( FALSE )
-, m_crText( (UINT)-1 )
-, m_nCtrlID( 0 )
-, m_nCtrlHeight( CONTROL_HEIGHT )
+	: m_pBar		( pBar )
+	, m_bCheckButton( FALSE )
+	, m_nImage		( nImage )
+	, m_bVisible	( TRUE )
+	, m_bEnabled	( TRUE )
+	, m_bChecked	( FALSE )
+	, m_crText		( (UINT)-1 )
+	, m_nCtrlHeight	( CONTROL_HEIGHT )
+	, m_nCtrlID 	( 0 )
 {
 	m_nID = nID;
 
@@ -1115,11 +1101,11 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 			CoolInterface.DrawWatermark( pDC, &rc, &m_bmButtonmark );
 		else
 		{
-			if ( !bTransparent )
+			if ( ! bTransparent )
 				pDC->FillSolidRect( rc.left, rc.top, 3, rc.Height(), Colors.m_crMidtone );
 			pDC->Draw3dRect( rc.left + 3, rc.top, 1, rc.Height(),
 							 Colors.m_crDisabled, Colors.m_crDisabled );
-			if ( !bTransparent )
+			if ( ! bTransparent )
 				pDC->FillSolidRect( rc.left + 4, rc.top, 3, rc.Height(), Colors.m_crMidtone );
 		}
 		return;
@@ -1129,7 +1115,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	{
 		for ( int nShrink = rc.Height() - m_nCtrlHeight ; nShrink > 0 ; nShrink -= 2 )
 		{
-			if ( !bTransparent )
+			if ( ! bTransparent )
 				pDC->Draw3dRect( &rc, Colors.m_crMidtone, Colors.m_crMidtone );
 			rc.DeflateRect( 0, 1 );
 		}
@@ -1142,7 +1128,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	}
 	else
 	{
-		if ( !bTransparent )
+		if ( ! bTransparent )
 			pDC->Draw3dRect( &rc, Colors.m_crMidtone, Colors.m_crMidtone );
 		rc.DeflateRect( 1, 1 );
 	}
@@ -1170,7 +1156,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 				SetButtonmark( Skin.GetWatermark( L"CCoolMenuItem.Up" ) );
 		}
 	}
-	else if ( !m_bEnabled )
+	else if ( ! m_bEnabled )
 		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Disabled" ) );
 	else if ( bDown )
 		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Down" ) );
@@ -1181,7 +1167,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	else // if( m_bEnabled )
 		SetButtonmark( Skin.GetWatermark( L"CCoolbar.Up" ) );
 
-	if ( m_bRegularButton && !m_nCtrlID )
+	if ( m_bRegularButton && ! m_nCtrlID )
 	{
 		CoolInterface.DrawWatermark( pDC, &rc, &m_bmButtonmark );
 		// ToDo: Fix mess in function prototype. Why pass "bTransparent" and then ignore it? (Temp Watermark)
@@ -1194,29 +1180,18 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 
 		pDC->SetBkMode( OPAQUE );
 		if ( bMenuGray && bDown )
-		{
 			pDC->Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
-		}
-		else
-		{
-			// Draw border around the control
+		else	// Draw border around the control		
 			pDC->Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
-		}
 
 		rc.DeflateRect( 1, 1 );
 
 		if ( bMenuGray && bDown )
-		{
 			crBackground = Colors.m_crBackNormal;
-		}
 		else if ( m_bChecked )
-		{
 			crBackground = bHot ? Colors.m_crBackCheckSel : Colors.m_crBackCheck;
-		}
 		else
-		{
 			crBackground = bDown && bHot ? Colors.m_crBackCheckSel : Colors.m_crBackSel;
-		}
 	}
 	else
 	{
@@ -1320,7 +1295,7 @@ void CCoolBarItem::DrawText(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMe
 		rc.left += ( m_nImage >= 0 ) ? 20 : 1;
 		int nY = ( rc.top + rc.bottom ) / 2 - pDC->GetTextExtent( m_sText ).cy / 2 - 1;
 
-		if ( bTransparent || m_bRegularButton && !m_bCheckButton )
+		if ( bTransparent || m_bRegularButton && ! m_bCheckButton )
 			pDC->ExtTextOut( rc.left + 2, nY, ETO_CLIPPED, &rc, m_sText, NULL );
 		else
 			pDC->ExtTextOut( rc.left + 2, nY, ETO_CLIPPED|ETO_OPAQUE, &rc, m_sText, NULL );

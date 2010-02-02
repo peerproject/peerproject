@@ -40,9 +40,8 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-//ToDo: Make Skinnable
-#define ICONGRID_X	222		// Skin.m_nLibIconsX ?
-#define ICONGRID_Y	56		// Skin.m_nLibIconsY ?
+//#define ICONGRID_X 222	// Skin.m_nLibIconsX
+//#define ICONGRID_Y 56		// Skin.m_nLibIconsY
 
 
 BEGIN_MESSAGE_MAP(CLibraryTileView, CLibraryView)
@@ -114,8 +113,8 @@ int CLibraryTileView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( CLibraryView::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
 	//Set Icon Spacing
-	m_szBlock.cx	= ICONGRID_X;
-	m_szBlock.cy	= ICONGRID_Y;
+	m_szBlock.cx	= Skin.m_nLibIconsX;	//222
+	m_szBlock.cy	= Skin.m_nLibIconsY;	//56
 	m_nColumns		= 1;
 	m_nRows			= 0;
 

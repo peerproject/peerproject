@@ -236,12 +236,13 @@ CBTInfo& CBTInfo::operator=(const CBTInfo& oSource)
 //////////////////////////////////////////////////////////////////////
 // CBTInfo serialize
 
-#define BTINFO_SER_VERSION	1000	//9
+#define BTINFO_SER_VERSION	1000	//10
 // nVersion History:
 // 7 - redesigned tracker list (ryo-oh-ki)
 // 8 - removed m_nFilePriority (ryo-oh-ki)
 // 9 - added m_sName (ryo-oh-ki)
-// 1000 - (PeerProject 1.0) (9)
+// 10 - added m_pSource (ivan386) (Shareaza 2.5.2)
+// 1000 - (PeerProject 1.0) (10)
 
 void CBTInfo::Serialize(CArchive& ar)
 {
@@ -252,7 +253,7 @@ void CBTInfo::Serialize(CArchive& ar)
 		ar << nVersion;
 
 		SerializeOut( ar, m_oBTH );
-		if ( !m_oBTH ) return;
+		if ( ! m_oBTH ) return;
 
 		ar << m_nSize;
 		ar << m_nBlockSize;
@@ -286,25 +287,33 @@ void CBTInfo::Serialize(CArchive& ar)
 		{
 			m_oTrackers[ nTracker ].Serialize( ar, nVersion );
 		}
+
+		ar << m_pSource.m_nLength;
+		if ( m_pSource.m_nLength && CheckInfoData( &m_pSource ) )
+			ar.Write( m_pSource.m_pBuffer, m_pSource.m_nLength );
 	}
 	else // Loading
 	{
-		// ToDo: What BTINFO_SER_VERSION nVersions are necessary for PeerProject? (Imports)
+		// ToDo: Are any BTINFO_SER_VERSION nVersions necessary for Shareaza imports?
 
 		ar >> nVersion;
 		if ( nVersion < 5 ) AfxThrowUserException();
 
 		SerializeIn( ar, m_oBTH, nVersion );
-		if ( !m_oBTH ) return;
+		if ( ! m_oBTH ) return;
 
 		ar >> m_nSize;
 		ar >> m_nBlockSize;
 		ar >> m_nBlockCount;
 
-		m_pBlockBTH = new Hashes::BtPureHash[ (DWORD)m_nBlockCount ];
-		for ( DWORD i = 0; i < m_nBlockCount; ++i )
+		if ( m_nBlockCount )
 		{
-			ReadArchive( ar, m_pBlockBTH[ i ].begin(), Hashes::BtPureHash::byteCount );
+			m_pBlockBTH = new Hashes::BtPureHash[ (DWORD)m_nBlockCount ];
+
+			for ( DWORD i = 0; i < m_nBlockCount; ++i )
+			{
+				ReadArchive( ar, m_pBlockBTH[ i ].begin(), Hashes::BtPureHash::byteCount );
+			}
 		}
 
 		ar >> m_nTotalUpload;
@@ -364,6 +373,19 @@ void CBTInfo::Serialize(CArchive& ar)
 				CBTTracker oTracker;
 				oTracker.Serialize( ar, nVersion );
 				AddTracker( oTracker );
+			}
+		}
+
+		if ( nVersion >= 10 )	// Shareaza 2.5.2.0+ (PeerProject1.0)
+		{
+			DWORD nLength;
+			ar >> nLength;
+			if ( nLength )
+			{
+				m_pSource.EnsureBuffer( nLength );
+				ar.Read( m_pSource.m_pBuffer, nLength );
+				m_pSource.m_nLength = nLength;
+				VERIFY( CheckInfoData( &m_pSource ) );
 			}
 		}
 
@@ -482,7 +504,7 @@ void CBTInfo::CBTFile::Serialize(CArchive& ar, int nVersion)
 		SerializeOut( ar, m_oTiger );
 		SerializeOut( ar, m_oMD5 );
 	}
-	else
+	else // Loading
 	{
 		ar >> m_nSize;
 		ar >> m_sPath;
@@ -655,10 +677,10 @@ DWORD CBTInfo::GetInfoSize()
 
 BOOL CBTInfo::CheckInfoData(const CBuffer* pSource)
 {
-	ASSERT( pSource->m_nLength );
+	ASSERT( pSource && pSource->m_nLength );
 
-	DWORD nBlock = pSource->m_nLength;
-	BYTE *pBuffer = pSource->m_pBuffer;
+	const DWORD nBlock = pSource->m_nLength;
+	const BYTE *pBuffer = pSource->m_pBuffer;
 
 	BOOL bValidTorrent = TRUE;
 	int nDetectInfo = 0;	// 0 - Nothing to do,  1 - DetectStart, 2 - DetectEnd, 3 - Info found
@@ -695,7 +717,7 @@ BOOL CBTInfo::CheckInfoData(const CBuffer* pSource)
 					{
 						nDetectInfo = 0;
 					}
-					nSkip-=1;
+					--nSkip;
 					continue;
 				}
 				else if ( ( nBlock - i ) > nSkip )
@@ -714,7 +736,7 @@ BOOL CBTInfo::CheckInfoData(const CBuffer* pSource)
 				 ((char*)pBuffer)[i] == 'l' ||
 				 ((char*)pBuffer)[i] == 'i' )
 			{
-				nLevel += 1;
+				nLevel++;
 			}
 			else if ( ((char*)pBuffer)[i] == 'e' )
 			{
@@ -724,7 +746,7 @@ BOOL CBTInfo::CheckInfoData(const CBuffer* pSource)
 					nDetectInfo = 3;
 				}
 				nDigitsStart = -1;
-				nLevel -= 1;
+				nLevel--;
 
 				if (nLevel == 0) break; //end of main dictionary
 			}
@@ -792,9 +814,7 @@ BOOL CBTInfo::CheckInfoData(const CBuffer* pSource)
 		bValidTorrent = FALSE;
 
 	if ( bValidTorrent && m_oBTH )
-	{
 		bValidTorrent = ( oBTH == m_oBTH );
-	}
 
 	if ( bValidTorrent && pSource == &m_pSource )
 	{

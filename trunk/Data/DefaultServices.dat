@@ -3,14 +3,13 @@ M http://brov.mine.nu/~brov/Beacon/gwc.php
 M http://aniraws.com/bootstrap/skulls.php
 M http://hub.dynoisp.com/skulls/skulls.php
 M http://gwc.frodoslair.net/skulls/skulls
-M http://gwc.cluephone.com/skulls.php
 M http://gweb.4octets.co.uk/skulls.php
 M http://gweb2.4octets.co.uk/gwc.php
-M http://www.kipkemoi.com/gweb/2/gwc.php
+M http://gwc.lame.net/gwcii.php
+M http://leite4.uni.cc/gwc.php
 
 2 http://cache.trillinux.org/g2/bazooka.php
 2 http://dkac.trillinux.org/dkac/dkac.php
-2 http://gwc.guufshop.com/skulls/skulls.php
 2 http://gwc2.wodi.org/skulls.php
 2 http://gwc.dyndns.info:28960/gwc.php
 2 http://dogma.cloud.bishopston.net:33559/
@@ -21,8 +20,6 @@ M http://www.kipkemoi.com/gweb/2/gwc.php
 2 http://gwebcache.ns1.net/
 2 http://cache.pongwar.com/
 
-1 http://beacon.technutopia.net/gwc.php
-1 http://gwc.chickenkiller.com:8080/gwc/
 1 http://gwc.ak-electron.eu:12050/
 1 http://leet.gtkg.org:8080/gwc/
 1 http://ein.gtkg.net:8080/gwc/
@@ -31,7 +28,6 @@ M http://www.kipkemoi.com/gweb/2/gwc.php
 1 http://sissy.gtkg.org:8080/gwc/
 1 http://gwc.glucolene.com:8080/
 1 http://gwc.dietpac.com:8080/
-1 http://gwc.lame.net/gwcii.php
 1 http://gnutelladev1.udp-host-cache.com:8080/gwc/
 1 http://secondary.udp-host-cache.com:8080/gwc/
 1 http://tertiary.udp-host-cache.com:8080/gwc/
@@ -75,7 +71,7 @@ X http://gwc.gofoxy.net:2108/gwc/cgi-bin/fc
 X http://gwc.pantheraproject.net/gwc.php
 
 #
-# Last updated September 2009
+# Last updated January 2010
 #
 # Keep at least four gwebcache links and one link to a .met file
 # or they'll keep getting added every time they're removed

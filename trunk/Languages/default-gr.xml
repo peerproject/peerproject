@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2910,7 +2910,7 @@
 	<string id="16198" value="Απόρριψη σύνδεσης γειτονικού φύλλου %s, λόγω προώθησης ερωτήσεων."/>
 	<string id="16199" value="Αγνόηση μη αναγνωρίσιμου πακέτου, προωθημένου από τον γείτονα %s (0x%.2x)."/>
 	<string id="16200" value="Αγνόηση πακέτου pong με μη έγκυρα δεδομένα διεύθυνσης, προωθημένο από τον γείτονα %s."/>
-	<string id="16201" value="Αγνόηση δύσμορφου ερωτηματικού πακέτου από %s."/>
+	<string id="16201" value="%s:  Αγνόηση δύσμορφου ερωτηματικού πακέτου από %s."/>
 	<string id="16202" value="Αγνόηση δύσμορφου ερωτηματικού πακέτου εύρεσης από %s."/>
 	<string id="16203" value="Αγνόηση πακέτου push με μη έγκυρο μήκος, προωθημένο από τον γείτονα %s."/>
 	<string id="16208" value="Παραλαβή απροσδόκητης ενημέρωσης πίνακα δρομολόγησης ερωτημάτων από τον γείτονα %s."/>
@@ -2919,6 +2919,7 @@
 	<string id="16211" value="Αγνόηση πακέτου αίτησης push προς διεύθυνση πίσω από firewall, προωθημένο από τον γείτονα %s."/>
 	<string id="16212" value="Μη κωδικοποιημένο κατά GGEP εκτεταμένο πακέτο, προωθημένο από τον γείτονα %s."/>
 	<string id="16213" value="Αποστολή πίνακα δρομολόγησης ερωτημάτων προς τον γείτονα %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16255" value="Drag'n'drop αρχεία στην ομάδα %s"/>
 	<string id="16256" value="Προσθήκη του &quot;%s&quot; στην ουρά λήψης με %i πηγές."/>
 	<string id="16257" value="Ολοκλήρωση λήψης &quot;%s&quot;."/>
 	<string id="16258" value="Παύση λήψης &quot;%s&quot;."/>

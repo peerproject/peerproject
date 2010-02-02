@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2871,7 +2871,7 @@
 	<string id="16198" value="Kliënt konneksie %s is besig om navrae te stuur, konneksie word gesluit."/>
 	<string id="16199" value="Gasheer %s het 'n vreemde pakkie aangestuur (0x%.2x), oorgesien."/>
 	<string id="16200" value="Gasheer %s het 'n pong pakkie met foutiewe adresdata aangestuur, oorgesien."/>
-	<string id="16201" value="Foutiewe navraagpakkie ontvang van %s, oorgesien."/>
+	<string id="16201" value="%s:  outiewe navraagpakkie ontvang van %s, oorgesien."/>
 	<string id="16202" value="Foutiewe navraag-tref pakkie ontvang van %s, oorgesien."/>
 	<string id="16203" value="Gasheer %s het 'n druk-pakkie met 'n foutiewe lengte aangestuur, oorgesien."/>
 	<string id="16208" value="Navraag-tabel opdatering word onverwags ontvang vanaf gasheer %s."/>
@@ -2880,6 +2880,7 @@
 	<string id="16211" value="Gasheer %s het 'n druk-aanvraag aangestuur na 'n gasheer agter 'n netskans, oorgesien."/>
 	<string id="16212" value="Gasheer %s het 'n uitgebreide pakkie aangestuur wat nie GGEP ge-enkodeer is nie."/>
 	<string id="16213" value="Navraag-tabel word gestuur aan gasheer %s (%i bit = %lu[%i], %i%% vol)"/>
+	<string id="16255" value="Drag'n'drop lêers na die %s groep"/>
 	<string id="16256" value="Die lêer &quot;%s&quot; word op die aflaai lys gevoeg met %i bron(ne)."/>
 	<string id="16257" value="Aflaai van &quot;%s&quot; suksesvol voltooi."/>
 	<string id="16258" value="Aflaai van &quot;%s&quot; gevries."/>

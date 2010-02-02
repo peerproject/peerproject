@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default-en.xml r42 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r48 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2699,7 +2699,7 @@
 	<string id="16198" value="Listnati sosed (leaf neighbour) %s posreduje poizvedbe, kočujem povezavo."/>
 	<string id="16199" value="Sosed %s je posredoval neprepoznaven paket (0x%.2x), ignoriram."/>
 	<string id="16200" value="Sosed %s je posredoval pong z neveljavnimi naslovnimi podatki (invalid address data), ignoriram."/>
-	<string id="16201" value="Prejel zmaličen format poizvedbenega paketa od %s, ignoriram."/>
+	<string id="16201" value="%s:  Prejel zmaličen format poizvedbenega paketa od %s, ignoriram."/>
 	<string id="16202" value="Received a malformatted query hit packet from %s, ignoring."/>
 	<string id="16203" value="Sosed %s je posredoval potisni paket (push packet) z neveljavno dolžino, ignoriram."/>
 	<string id="16208" value="Prejemam nepričakovano posodobitev tabele za usmerjevanje poizvedb (query routing table update) od soseda %s."/>
@@ -2708,6 +2708,7 @@
 	<string id="16211" value="Sosed %s je posredoval potisno (push) prošnjo v naslov, ki je za požarnim zidom, ignoriram."/>
 	<string id="16212" value="Sosed %s je posredoval razširjen paket, ki ni enkordiran po principu GGEP."/>
 	<string id="16213" value="Pošiljam tabelo za usmerjevanje poizvedb sosedu %s (%i bitov = %lu[%i], %i%% polno)"/>
+	<string id="16255" value="Vzemi in pusti datotek v skupini %s"/>
 	<string id="16256" value="Dodal &quot;%s&quot; preosnemu seznamu s številom virov %i."/>
 	<string id="16257" value="Končan prenos za &quot;%s&quot;."/>
 	<string id="16258" value="Trenutno prekinjen prenos za &quot;%s&quot;."/>

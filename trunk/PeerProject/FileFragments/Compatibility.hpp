@@ -1,7 +1,7 @@
 //
 // FileFragments/Compatibility.hpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,11 +19,8 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#ifndef FRAGMENTS_COMPATIBILITY_HPP_INCLUDED
-#define FRAGMENTS_COMPATIBILITY_HPP_INCLUDED
+#pragma once
 
-#pragma warning( push )
-#pragma warning( disable : 4996 )
 
 namespace Fragments
 {
@@ -39,9 +36,17 @@ typename list_type::range_type selectBlock(const list_type& src,
 	typedef typename list_type::range_size_type range_size_type;
 	typedef typename list_type::const_iterator const_iterator;
 
-	if ( src.empty() ) return range_type( 0, 0 );
+	if ( src.empty() )
+		return range_type( 0, 0 );
 
 	std::deque< range_size_type > blocks;
+	//range_size_type range_size = 0;
+	//range_size_type range_begin = 0;
+	//range_size_type range_block = 0;
+	//range_size_type range_total = 0;
+	//range_size_type best_range_size = 0;
+	//range_size_type best_range_begin = 0;
+	//range_size_type best_range_total = 0;
 
 	for ( const_iterator select = src.begin(); select != src.end(); ++select )
 	{
@@ -49,7 +54,6 @@ typename list_type::range_type selectBlock(const list_type& src,
 		if ( select->begin() % block_size )
 		{
 			// the start of a block is complete, but part is missing
-			
 			++block_begin;
 			if ( !available || available[ block_begin ] )
 			{
@@ -61,24 +65,20 @@ typename list_type::range_type selectBlock(const list_type& src,
 		if ( block_begin != block_end && select->end() % block_size )
 		{
 			// the end of a block is complete, but part is missing
-			
 			--block_end;
 			if ( !available || available[ block_end ] )
-			{
 				return range_type( block_end * block_size, select->end() );
-			}
 		}
 		// this fragment contains one or more aligned empty blocks
 		for ( ; block_begin != block_end; ++block_begin )
 		{
 			if ( !available || available[ block_begin ] )
-			{
 				blocks.push_back( block_begin );
-			}
 		}
 	}
 
-	if ( blocks.empty() ) return range_type( 0, 0 );
+	if ( blocks.empty() )
+		return range_type( 0, 0 );
 
 	range_size_type block = blocks[ GetRandomNum( 0ui64, (uint64)blocks.size() - 1 ) ] * block_size;
 
@@ -90,28 +90,30 @@ inline void SerializeOut(CArchive& ar, const Ranges::Range< uint64 >& out)
 	ar << out.begin() << out.size();
 }
 
-inline Ranges::Range< uint64 > SerializeIn(CArchive& ar, int version)
+inline Ranges::Range< uint64 > SerializeIn(CArchive& ar, int /*version*/)
 {
 	try
 	{
-		if ( version >= 29 )
-		{
+	//	if ( version >= 29 )
+	//	{
 			uint64 begin, length;
 			ar >> begin >> length;
-			if ( begin + length < begin ) AfxThrowArchiveException( CArchiveException::generic );
+			if ( begin + length < begin )
+				AfxThrowArchiveException( CArchiveException::genericException );
 			return Ranges::Range< uint64 >( begin, begin + length );
-		}
-		else
-		{
-			uint32 begin, length;
-			ar >> begin >> length;
-			if ( begin + length < begin ) AfxThrowArchiveException( CArchiveException::generic );
-			return Ranges::Range< uint64 >( begin, begin + length );
-		}
+	//	}
+	//	else
+	//	{
+	//		uint32 begin, length;
+	//		ar >> begin >> length;
+	//		if ( begin + length < begin )
+	//			AfxThrowArchiveException( CArchiveException::genericException );
+	//		return Ranges::Range< uint64 >( begin, begin + length );
+	//	}
 	}
 	catch ( Exception& )
 	{
-		AfxThrowArchiveException( CArchiveException::generic );
+		AfxThrowArchiveException( CArchiveException::genericException );
 	}
 }
 
@@ -148,15 +150,17 @@ inline void SerializeIn1(CArchive& ar,
 			for ( ; nFragments--; )
 			{
 				const Ranges::Range< uint64 >& fragment = SerializeIn( ar, version );
-				if ( fragment.end() > nTotal ) AfxThrowArchiveException( CArchiveException::generic );
+				if ( fragment.end() > nTotal )
+					AfxThrowArchiveException( CArchiveException::genericException );
 				in.insert( in.end(), fragment );
 			}
 			// Sanity check
-			if ( in.length_sum() != nRemaining ) AfxThrowArchiveException( CArchiveException::generic );
+			if ( in.length_sum() != nRemaining )
+				AfxThrowArchiveException( CArchiveException::genericException );
 		}
 		catch ( Exception& )
 		{
-			AfxThrowArchiveException( CArchiveException::generic );
+			AfxThrowArchiveException( CArchiveException::genericException );
 		}
 	}
 	else
@@ -173,15 +177,17 @@ inline void SerializeIn1(CArchive& ar,
 			for ( ; nFragments--; )
 			{
 				const Ranges::Range< uint64 >& fragment = SerializeIn( ar, version );
-				if ( fragment.end() > nTotal ) AfxThrowArchiveException( CArchiveException::generic );
+				if ( fragment.end() > nTotal )
+					AfxThrowArchiveException( CArchiveException::genericException );
 				in.insert( in.end(), fragment );
 			}
 			// Sanity check
-			if ( in.length_sum() != nRemaining ) AfxThrowArchiveException( CArchiveException::generic );
+			if ( in.length_sum() != nRemaining )
+				AfxThrowArchiveException( CArchiveException::genericException );
 		}
 		catch ( Exception& )
 		{
-			AfxThrowArchiveException( CArchiveException::generic );
+			AfxThrowArchiveException( CArchiveException::genericException );
 		}
 	}
 }
@@ -209,7 +215,8 @@ inline void SerializeIn2(CArchive& ar,
 			for ( DWORD_PTR count = ar.ReadCount(); count--; )
 			{
 				const Ranges::Range< uint64 >& fragment = SerializeIn( ar, version );
-				if ( fragment.end() > in.limit() ) AfxThrowArchiveException( CArchiveException::generic );
+				if ( fragment.end() > in.limit() )
+					AfxThrowArchiveException( CArchiveException::genericException );
 				in.insert( in.end(), fragment );
 			}
 		}
@@ -218,19 +225,16 @@ inline void SerializeIn2(CArchive& ar,
 			while ( ar.ReadCount() )
 			{
 				const Ranges::Range< uint64 >& fragment = SerializeIn( ar, version );
-				if ( fragment.end() > in.limit() ) AfxThrowArchiveException( CArchiveException::generic );
+				if ( fragment.end() > in.limit() )
+					AfxThrowArchiveException( CArchiveException::genericException );
 				in.insert( in.end(), fragment );
 			}
 		}
 	}
 	catch ( Exception& )
 	{
-		AfxThrowArchiveException( CArchiveException::generic );
+		AfxThrowArchiveException( CArchiveException::genericException );
 	}
 }
 
 } // namespace Fragments
-
-#pragma warning( pop )
-
-#endif // #ifndef FRAGMENTS_COMPATIBILITY_HPP_INCLUDED

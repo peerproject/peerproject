@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default-en.xml r42 (Shareaza 2.2.5.7) -->
+<!-- Translation based on default-en.xml r48 (Shareaza 2.2.5.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2782,7 +2782,7 @@
 	<string id="16198" value="Seznam se předá počítači %s s dotazem na výpadky spojení."/>
 	<string id="16199" value="Soused %s poslal neznámý paket (0x%.2x), ignoruji."/>
 	<string id="16200" value="Soused %s poslal pong s nesprávnými adresnými daty, ignoruji."/>
-	<string id="16201" value="Na dotaz přijat vadný paket ze %s, proto jej ignorujuji."/>
+	<string id="16201" value="%s:  Na dotaz přijat vadný paket ze %s, proto jej ignorujuji."/>
 	<string id="16202" value="Přijat dotaz na poškozený paket od %s, ignoruji."/>
 	<string id="16203" value="Soused %s poslal paket s nesprávnou délkou, ignoruji."/>
 	<string id="16208" value="Přijímán nečekaný dotaz na aktualizaci směrovací tabulky od souseda %s."/>
@@ -2791,6 +2791,7 @@
 	<string id="16211" value="Soused %s násilím prosadil žádost na adresu firewallu, ignoruji."/>
 	<string id="16212" value="Soused %s násilím prosadil rozšířený balíček který není zakódovaný GGEP."/>
 	<string id="16213" value="Poslán dotaz propojovací tabulky na počítač %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16255" value="Drag'n'drop soubory do skupiny %s"/>
 	<string id="16256" value="Přidávám &quot;%s&quot; pro stahování z fronty od zdroje %i."/>
 	<string id="16257" value="Dokončeno stahování od &quot;%s&quot;."/>
 	<string id="16258" value="Pozastaveno stahování od &quot;%s&quot;."/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default-en.xml r42 (Shareaza 2.1.2.7) -->
+<!-- Translation based on default-en.xml r48 (Shareaza 2.1.2.7) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2582,155 +2582,8 @@
 	<string id="16130" value="Nie można zainicjować połączenia z sąsiadem %s."/>
 	<string id="16131" value="Przekroczono czas łączenia z %s."/>
 	<string id="16132" value="Zamykanie połączenia z sąsiadem %s z powodu braku ruchu sieciowego (lack of traffic)."/>
-	<string id="16133" value="Established a connection with neighbour %s, handshaking..."/>
-	<string id="16134" value="Closed connection with neighbour %s."/>
-	<string id="16135" value="Unable to initiate a neighbour connection with %s (refused)."/>
-	<string id="16136" value="Neighbour %s dropped the connection unexpectedly."/>
-	<string id="16137" value="Refusing duplicate connection from %s."/>
-	<string id="16138" value="Already connected to %s, will not establish a second connection."/>
-	<string id="16139" value="Neighbour %s closed connection (%i : %s)."/>
-	<string id="16140" value="Neighbour %s is crawling connections."/> -->
-	<string id="16141" value="Closed connection with neighbour %s because it is not a hub."/>
-	<string id="16144" value="Timed out handshaking with %s."/>
-	<string id="16145" value="Gnutella connection with neighbour %s established successfully (G%i.%i : %s)."/>
-	<string id="16146" value="Handshake with %s failed due to invalid data on the wire."/>
-	<string id="16147" value="Closing surplus connection from %s with host hint (%s port %i)."/>
-	<string id="16148" value="Connection to %s rejected (%s)."/>
-	<!-- String 16149 not present in English version: --> <string id="16149" value="Gnutella 0.6 handshake with %s failed, retrying with 0.4."/>
-	<string id="16150" value="Closing surplus connection from %s."/>
-	<string id="16151" value="Refusing connection from %s because this is a shielded leaf node."/>
-	<string id="16152" value="Hub neighbour %s won't accept us as a hub, closing connection."/>
-	<string id="16153" value="Connecting neighbour %s falling back to shielded leaf mode."/>
-	<string id="16154" value="Hub connection established, closing peer connections."/>
-	<string id="16155" value="Acting as a hub for leaf neighbour %s."/>
-	<string id="16156" value="Neighbour %s wants to be a hub, closing connection."/>
-	<string id="16157" value="Neighbour %s is not a hub, closing connection."/>
-	<string id="16158" value="Gnutella2 connection with neighbour %s established successfully (%s)."/>
-	<string id="16159" value="Closing connection to non-Gnutella2 neighbour %s."/>
-	<string id="16192" value="Neighbour %s forwarded a packet of excessive size, dropping connection."/>
-	<string id="16193" value="Neighbour %s forwarded a packet with zero TTL, ignoring."/>
-	<string id="16194" value="Neighbour %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."/>
-	<string id="16195" value="Neighbour %s forwarded a ping packet with invalid length, ignoring."/>
-	<string id="16196" value="Neighbour %s forwarded a pong packet with invalid length, ignoring."/>
-	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
-	<string id="16198" value="Leaf neighbour %s is forwarding queries, dropping connection."/>
-	<string id="16199" value="Neighbour %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
-	<string id="16200" value="Neighbour %s forwarded a pong with invalid address data, ignoring."/>
-	<string id="16201" value="Received a malformatted query packet from %s, ignoring."/>
-	<string id="16202" value="Received a malformatted query hit packet from %s, ignoring."/>
-	<string id="16203" value="Neighbour %s forwarded a push packet with invalid length, ignoring."/>
-	<string id="16208" value="Receiving an unexpected query routing table update from neighbour %s."/>
-	<string id="16209" value="Neighbour %s sent an invalid query routing table update, dropping connection."/>
-	<string id="16210" value="Neighbour %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
-	<string id="16211" value="Neighbour %s forwarded a push request to a firewalled address, ignoring."/>
-	<string id="16212" value="Neighbour %s forwarded an extended packet that is not GGEP encoded."/>
-	<string id="16213" value="Sending query routing table to neighbour %s (%i bit = %lu[%i], %i%% full)"/>
-	<string id="16256" value="Added &quot;%s&quot; to download queue with %i source(s)."/>
-	<string id="16257" value="Completed download of &quot;%s&quot;."/>
-	<string id="16258" value="Pausing download of &quot;%s&quot;."/>
-	<string id="16259" value="Resuming download of &quot;%s&quot;."/>
-	<string id="16260" value="Cleared download &quot;%s&quot;."/>
-	<string id="16261" value="Creating file &quot;%s&quot; for download."/>
-	<string id="16262" value="Unable to create local file &quot;%s&quot; for download, aborting."/>
-	<string id="16263" value="Unable to open local file &quot;%s&quot; for download, aborting."/>
-	<string id="16264" value="Initiating a connection to %s port %i to download &quot;%s&quot;..."/>
-	<string id="16265" value="Unable to connect to download host %s."/>
-	<string id="16266" value="Download connection to %s established."/>
+<!-- MANY UNTRASLATED STRINGS -->
 	<string id="16267" value="Żądanie pobrania fragmentu (%I64i-%I64i) z &quot;%s&quot; od %s."/>
-	<string id="16268" value="No more download fragments, closing connection to %s."/>
-	<string id="16269" value="Fragment shortened, closing connection to %s."/>
-	<string id="16270" value="Download request to %s timed out, closing connection."/>
-	<string id="16271" value="Closing download connection %s due to lack of traffic."/>
-	<string id="16272" value="Download host %s does not have the file &quot;%s&quot;."/>
-	<string id="16273" value="Download host %s responded with an invalid HTTP response."/>
-	<string id="16274" value="Download host %s responded with %s (%s)."/>
-	<string id="16275" value="Download host %s's version of &quot;%s&quot; has a different URN, aborting."/>
-	<string id="16276" value="Download host %s's version of &quot;%s&quot; has a different length, aborting."/>
-	<string id="16277" value="Download host %s responded with a useless byte range of &quot;%s&quot;, pending."/>
-	<string id="16278" value="Download connection to %s was lost."/>
-	<string id="16279" value="Receiving download content from host %s (%s)."/>
-	<string id="16280" value="Download host %s is busy, retrying in %i seconds."/>
-	<string id="16281" value="Are you sure you want to clear &quot;%s&quot;?\n\nOnce a download has been cleared from the Downloads window, it cannot be resumed later."/>
-	<string id="16282" value="Aborting download of &quot;%s&quot; from %s (%s), network disabled."/>
-	<string id="16283" value="The file &quot;%s&quot; is already being downloaded, adding sources."/>
-	<string id="16284" value="Received a faulty push connection from %s, closing connection."/>
-	<string id="16285" value="Received an unnecessary push connection from %s."/>
-	<string id="16286" value="Host %s is pushing download &quot;%s&quot;, accepting."/>
-	<string id="16287" value="Can't fetch more sources for download &quot;%s&quot; because there is no network connection."/>
-	<string id="16288" value="Querying for more sources for download &quot;%s&quot; on %i connection(s)..."/>
-	<string id="16289" value="Sending push request for download &quot;%s&quot;..."/>
-	<string id="16290" value="Download host %s responded with a different, but useful range (%I64i-%I64i) of &quot;%s&quot;."/>
-	<string id="16291" value="Moved &quot;%s&quot; to &quot;%s&quot;, download complete."/>
-	<string id="16292" value="Couldn't move download &quot;%s&quot; to &quot;%s&quot;.  Check that the incomplete file is not in use, and that your downloads folder exists and is writable."/>
-	<string id="16293" value="Resolving &quot;%s&quot; to download &quot;%s&quot;..."/>
-	<string id="16294" value="Unable to resolve &quot;%s&quot;."/>
-	<string id="16295" value="Boosting download &quot;%s&quot; by removing bandwidth caps."/>
-	<string id="16296" value="Successfully verified download &quot;%s&quot;."/>
-	<string id="16297" value="WARNING: Download &quot;%s&quot; failed verification, it may not be the file you intended to download!"/>
-	<string id="16298" value="Download host %s is busy, waiting in queue at position #%i of %i (&quot;%s&quot;)."/>
-	<string id="16299" value="Are you sure you want to clear all paused downloads?  Once a download has been cleared from the Downloads window, it cannot be resumed."/>
-	<string id="16300" value="Are you sure you want to delete the download &quot;%s&quot;?"/>
-	<string id="16301" value="Requesting tiger-tree volume for &quot;%s&quot; from %s..."/>
-	<string id="16302" value="Download host %s could not satisfy the tiger-tree request."/>
-	<string id="16303" value="Receiving tiger-tree volume from %s (%s)..."/>
-	<string id="16304" value="Download host's tiger-tree data is corrupt or internally inconsistent, ignoring it."/>
-	<string id="16305" value="Download host's tiger-tree does not match expected root value."/>
-	<string id="16306" value="Received tiger-tree volume for &quot;%s&quot;, %i levels, minimum verifiable chunk %s."/>
-	<string id="16307" value="Closing download connection to %s, no longer required."/>
-	<string id="16308" value="Download host %s sent unsolicited data, closing connection."/>
-	<string id="16309" value="Requesting metadata for &quot;%s&quot; from %s..."/>
-	<string id="16310" value="Receiving tiger-tree data from %s (%s)..."/>
-	<string id="16311" value="Requesting eDonkey hashset for &quot;%s&quot; from %s..."/>
-	<string id="16312" value="Received an invalid eDonkey hashset from %s, dropping source."/>
-	<string id="16313" value="Received eDonkey hashset for &quot;%s&quot;, minimum verifiable chunk %s."/>
-	<string id="16314" value="Download host's eDonkey hashset is corrupt or internally inconsistent, dropping source."/>
-	<string id="16315" value="Unable to initialize inflate for download &quot;%s&quot;."/>
-	<string id="16316" value="Timed out waiting for queue update from eDonkey download host %s for file &quot;%s&quot;."/>
-	<string id="16317" value="Staying in queue for &quot;%s&quot;."/>
-	<string id="16318" value="Insufficient disk space to download &quot;%s&quot; (%s)."/>
-	<string id="16319" value="Dropping source %s (%s) for sending corrupted parts of &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="16320" value="Upload host %s sent an invalid HTTP request."/>
-	<string id="16321" value="Initiating a push connection to %s. %s"/>
-	<string id="16322" value="Unable to connect to host %s for push."/>
-	<string id="16323" value="Upload connection to %s was closed."/>
-	<string id="16324" value="Timed out waiting for request from upload host %s."/>
-	<string id="16325" value="Upload host %s requested unknown or unavailable object &quot;%s&quot;."/>
-	<string id="16326" value="Upload host %s requested &quot;%s&quot; with different SHA1."/>
-	<string id="16327" value="Refusing upload of &quot;%s&quot; to %s (%s), busy and client does not support queues."/>
-	<string id="16328" value="Push connection to %s established, waiting for handshake..."/>
-	<string id="16329" value="Can't open &quot;%s&quot; to upload to host %s, disk/file error."/>
-	<string id="16330" value="Sending upload content range %I64i-%I64i from &quot;%s&quot; to host %s (%s)."/>
-	<string id="16331" value="Finished uploading part of &quot;%s&quot; to %s."/>
-	<string id="16332" value="Incoming connection from %s is a HTTP upload request."/>
-	<string id="16333" value="Too busy to upload &quot;%s&quot; to %s, queued at #%i of %i (&quot;%s&quot;)."/>
-	<string id="16334" value="Legacy push request from %s requested an unknown file, connecting anyway..."/>
-	<string id="16335" value="Removed upload of &quot;%s&quot; to %s."/>
-	<string id="16336" value="Upload host %s is on the user-agent block list, denying request."/>
-	<string id="16337" value="Sending upload headers from &quot;%s&quot; to host %s (%s)."/>
-	<string id="16338" value="Upload host %s requested an unsatisfiable range of file &quot;%s&quot;."/>
-	<string id="16339" value="Sending default HTML response to upload host %s (%s)."/>
-	<string id="16340" value="Denied browse user request from %s."/>
-	<string id="16341" value="Upload host %s (%s) sent a browse user request, responding..."/>
-	<string id="16342" value="Closing upload connection %s due to lack of traffic."/>
-	<string id="16343" value="Closing older upload to %s because it has made a fresh connection."/>
-	<string id="16344" value="Refusing new upload to %s because an earlier connection is still pending."/>
-	<string id="16345" value="Stopped uploading &quot;%s&quot; to %s because the file was deleted."/>
-	<string id="16346" value="Sending upload content range %I64i-%I64i from partial file &quot;%s&quot; to host %s (%s)."/>
-	<string id="16347" value="Queued upload %s is re-requesting too fast, closing connection."/>
-	<string id="16348" value="Refusing push request to %s because it has too many upload connections."/>
-	<string id="16349" value="Uploading tiger-tree data for &quot;%s&quot; to %s."/>
-	<string id="16350" value="Uploading metadata for &quot;%s&quot; to %s."/>
-	<string id="16351" value="Refusing upload of &quot;%s&quot; to %s (%s), too many concurrent from host."/>
-	<string id="16352" value="Uploading a preview of &quot;%s&quot; to %s."/>
-	<string id="16353" value="Refusing to upload a preview of &quot;%s&quot; to %s, too many preview connections."/>
-	<string id="16354" value="Upload host %s requested a preview of &quot;%s&quot;, but no preview is available."/>
-	<string id="16355" value="Scheduling a dynamic preview of &quot;%s&quot; for upload to %s."/>
-	<string id="16356" value="Refusing browse user request from %s, too many browse connections."/>
-	<string id="16357" value="Uploading file &quot;%s&quot; to host %s..."/>
-	<string id="16358" value="Upload connection to %s was lost, preserving queue position."/>
-	<string id="16359" value="Offline queued upload host %s expired, removing."/>
-	<string id="16360" value="Refusing upload of &quot;%s&quot; to %s (%s), all matching queues are full."/>
-	<string id="16361" value="Refusing upload to %s (%s), network disabled."/>
 	<string id="16362" value="Wysyłania eDonkey nie powinny być anulowane. Czy jesteś pewien, że chcesz anulować to wysyłanie?"/>
 	<string id="16363" value="Wysyłania Torrent"/>
 	<string id="16364" value="Zakończone wysyłania"/>
@@ -2748,34 +2601,9 @@
 	<string id="16376" value="Wszystkie pliki"/>
 	<string id="16377" value="HTTP Guard"/>
 	<string id="16379" value="Pliki biblioteki"/>
-	<string id="16384" value="Are you sure you want to launch the file &quot;%s&quot; ?\n\nSome files can be harmful to your computer.  Ensure you know what the file is before launching it."/>
-	<string id="16385" value="You are about to modify the metadata of %i files, are you sure you want to continue?"/>
-	<string id="16386" value="Editing metadata of %i files."/>
-	<string id="16387" value="The file &quot;%s&quot; has not yet been hashed.  Please wait for the file to be hashed, and then try again."/>
-	<string id="16388" value="This option uses services provided by Bitzi.com for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected file(s) in order to query the Bitzi database.  If you are concerned about privacy, you may wish to consult the Bitzi.com privacy policy.\n\nWould you like to proceed?"/>
-	<string id="16389" value="Are you sure you want to permenantly delete the %i selected file(s) ?\n\nThe files will be moved to your &quot;recycle bin&quot; if it is enabled."/>
-	<string id="16390" value="You have not yet selected a media player to enqueue files with, such as Nullsoft WinAmp.  Would you like to select one now?\n\nPeerProject will pass the name of the file to your selected program with the &quot;/ADD&quot; argument."/>
-	<string id="16391" value="You're not connected to the network."/>
-	<string id="16392" value="Click the Connect button to get started."/>
-	<string id="16393" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download.  Are you sure you want to open it?"/>
-	<string id="16394" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
-	<string id="16395" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
-	<string id="16396" value="Your downloads folder has been added to your library.  Would you like to share it too?"/>
-	<string id="16397" value="Are you sure you want to delete the %i selected album folder(s) ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
-	<string id="16398" value="PeerProject could not rename:\n\n%s\nto\n%s"/>
-	<string id="16399" value="PeerProject could not delete the file:\n\n%s"/>
-	<string id="16400" value="Target file exists:\n\n%s\n\nWould you like to overwrite it?"/>
-	<string id="16401" value="Show All File Types"/>
-	<string id="16402" value="PeerProject received a collection file:\n\n&quot;%s&quot;\n\nThis file does not appear to be a valid collection file."/>
-	<string id="16403" value="PeerProject has added the collection file &quot;%s&quot; to your library."/>
-	<string id="16404" value="PeerProject was unable to install the collection file &quot;%s&quot; by copying it to the folder &quot;%s&quot;."/>
-	<string id="16405" value="Would you like to download this file?\n\n&quot;%s&quot;\n\nChoose Cancel to stop any further prompts."/>
-	<string id="16406" value="Would you like to download all files in this collection?\n\nChoose Cancel to stop any further prompts."/>
-	<string id="16407" value="Would you like to prevent this collection from prompting you to download anything else?"/>
+<!-- MANY UNTRASLATED STRINGS -->
 	<string id="16408" value="Kopiuj &amp;URI"/>
 	<string id="16409" value="Eksportuj &amp;URI..."/>
-	<string id="16410" value="A subfolder of the selected folder &quot;%s&quot; is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"/>
-	<string id="16411" value="Unable to move the file %s. The file may be in use by another application.\n\nDo you wish to try to copy this file instead?"/>
 	<string id="16412" value="Ghost File"/>
 	<string id="16413" value="Nowa grupa"/>
 	<string id="16448" value="Połączony z %s, handshaking..."/>
@@ -3097,7 +2925,7 @@
 	<string id="20216" value="Wyśmienity"/>
 	<string id="20217" value="Wybierz folder temp dla eDonkey/eMule: "/>
 	<!-- Column headers in Library Album View -->
-	<string id="20230" value="#"/><!-- Track number -->
+	<string id="20230" value="#"/> <!-- Track number -->
 	<string id="20231" value="Tytuł"/>
 	<string id="20232" value="Długość"/>
 	<string id="20233" value="Bitrate"/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2924,7 +2924,7 @@
 	<string id="16198" value="Leaf %s leitet Suchanfragen weiter, Verbindung getrennt."/>
 	<string id="16199" value="Host %s hat ein unbekanntes Paket weitergeleitet (0x%.2x), ignoriert."/>
 	<string id="16200" value="Host %s hat einen Pong mit ungültigen Adressdaten weitergeleitet, ignoriert."/>
-	<string id="16201" value="Host %s hat ein falsch formatiertes query-Paket weitergeleitet, ignoriert."/>
+	<string id="16201" value="%s:  Host %s hat ein falsch formatiertes query-Paket weitergeleitet, ignoriert."/>
 	<string id="16202" value="Host %s hat ein falsch formatiertes queryhit-Paket weitergeleitet, ignoriert."/>
 	<string id="16203" value="Host %s hat ein push-Paket mit ungültiger Länge weitergeleitet, ignoriert."/>
 	<string id="16208" value="Unerwartetes QRT-Update von Host %s empfangen."/>
@@ -2933,6 +2933,7 @@
 	<string id="16211" value="Host %s hat einen push-request an eine Adresse mit geschlossener Firewall weitergeleitet, ignoriert."/>
 	<string id="16212" value="Host %s hat ein erweitertes Paket weitergeleitet, das nicht GGEP-kodiert ist."/>
 	<string id="16213" value="QRT an Host %s senden (%i bit = %lu[%i], %i%% voll)"/>
+	<string id="16255" value="Drag & Drop Dateien auf den %s Gruppe"/>
 	<string id="16256" value="&quot;%s&quot; zur Downloadliste mit %i Quelle(n) hinzugefügt."/>
 	<string id="16257" value="Download von &quot;%s&quot; abgeschlossen."/>
 	<string id="16258" value="Download &quot;%s&quot; angehalten."/>

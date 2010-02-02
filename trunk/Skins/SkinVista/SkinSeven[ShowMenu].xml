@@ -2,9 +2,9 @@
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
 <manifest
- name="SkinSeven.Menubar"
+ name="SkinSeven.ShowMenu"
  author="SkinVista"
- description="Mix to Add Classic XP-Style Menu to SkinSeven"
+ description="Mix to Add Classic XP-Style Menu Bar to SkinSeven"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
  path="SkinVista"
@@ -14,6 +14,7 @@
 
 <options>
  <option name="DropMenu" value="false"/>
+ <option name="MonitorBar" value="110"/>
 </options>
 
 <watermarks> 

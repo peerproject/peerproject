@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default-en.xml r42 (Shareaza r6092) -->
+<!-- Translation based on default-en.xml r48 (Shareaza r6092) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2689,7 +2689,7 @@
 	<string id="16198" value="子端邻居 %s 主机发来质询，断开连接。"/>
 	<string id="16199" value="邻居 %s 主机发来未被识别的数据包 (0x%.2x)，忽略数据包。"/>
 	<string id="16200" value="邻居 %s 主机发来非法的 pong 地址，忽略数据包。"/>
-	<string id="16201" value="接收到来自 %s 主机的混乱格式的质询，忽略数据包。"/>
+	<string id="16201" value="%s: 接收到来自 %s 主机的混乱格式的质询，忽略数据包。"/>
 	<string id="16202" value="接收到来自 %s 主机混乱格式的命中数据包，忽略数据包。"/>
 	<string id="16203" value="邻居 %s 主机发来非法的获取数据包，忽略数据包。"/>
 	<string id="16208" value="从邻居 %s 主机接收到非正常的查询路由表。"/>
@@ -2698,6 +2698,7 @@
 	<string id="16211" value="邻居主机 %s 前送了请求到防火墙阻隔的地址，正被忽略。"/>
 	<string id="16212" value="邻居主机 %s 前送了非 GGEP 编码得扩展数据包。"/>
 	<string id="16213" value="发送查询路由表到邻居主机 %s (%i bit = %lu[%i]， %i%% 满额)。"/>
+	<string id="16255" value="Drag'n'drop文件复制到%s组。"/>
 	<string id="16256" value="添加 &quot;%s&quot; 的 %i 个资源到下载队列。"/>
 	<string id="16257" value="&quot;%s&quot;已经完成的下载。"/>
 	<string id="16258" value="暂停下载 &quot;%s&quot;。"/>

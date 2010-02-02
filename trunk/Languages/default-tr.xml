@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2841,7 +2841,7 @@
 	<string id="16198" value="Yeni %s komşusu sorgular gönderiyor, bağlantı kesiliyor."/>
 	<string id="16199" value="Komşu %s onaylanmayan bir paket gönderdi(0x%.2x), görmezlikten geliniyor."/>
 	<string id="16200" value="Komşu %s geçersiz adres verisiyle bir pong gönderdi, görmezlikten geliniyor."/>
-	<string id="16201" value="%s'den bozuk bir sorgu paketi alındı, görmezlikten geliniyor."/>
+	<string id="16201" value="%s:  %s'den bozuk bir sorgu paketi alındı, görmezlikten geliniyor."/>
 	<string id="16202" value="%s'den bozuk bir başarı sorgu paketi alındı, görmezlikten geliniyor."/>
 	<string id="16203" value="Komşu %s geçersiz uzunlukta bir sıkıştırma paketi gönderdi, görmezlikten geliniyor."/>
 	<string id="16208" value="Komşu %s'den beklenmedik bir sorgu yönlendirme tablo güncelleştirmesi alınıyor."/>
@@ -2850,6 +2850,7 @@
 	<string id="16211" value="Komşu %s güvenlik duvarına sıkıştırılmış bir istek gönderdi, görmezlikten geliniyor."/>
 	<string id="16212" value="Komşu %s GGEP kodunda olmayan bir erişim paketi gönderdi."/>
 	<string id="16213" value="Komşu %s'e sorgu yönlendirme tablosu gönderiliyor (%i bit = %lu[%i], %i%% tam)"/>
+	<string id="16255" value="Drag'n'drop %s grubuna dosyaları"/>
 	<string id="16256" value="&quot;%s&quot; %i kaynak(lar) ile indirme sırasına eklendi."/>
 	<string id="16257" value="&quot;%s&quot; indirme tamamlandı."/>
 	<string id="16258" value="&quot;%s&quot; indirme duraklatılıyor."/>
