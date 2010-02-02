@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2823,8 +2823,8 @@
 	<string id="16198" value="Leaf neighbour %s is forwarding queries, dropping connection." />
 	<string id="16199" value="Neighbour %s forwarded an unrecognised packet (0x%.2x), ignoring." />
 	<string id="16200" value="Neighbour %s forwarded a pong with invalid address data, ignoring." />
-	<string id="16201" value="Received a malformatted query packet from %s, ignoring." />
-	<string id="16202" value="Received a malformatted query hit packet from %s, ignoring." />
+	<string id="16201" value="Ignoring malformatted %s search query packet from %s." />
+	<string id="16202" value="Ignoring malformatted query hit packet from %s, ignoring." />
 	<string id="16203" value="Neighbour %s forwarded a push packet with invalid length, ignoring." />
 	<string id="16208" value="Receiving an unexpected query routing table update from neighbour %s." />
 	<string id="16209" value="Neighbour %s sent an invalid query routing table update, dropping connection." />
@@ -2832,6 +2832,7 @@
 	<string id="16211" value="Neighbour %s forwarded a push request to a firewalled address, ignoring." />
 	<string id="16212" value="Neighbour %s forwarded an extended packet that is not GGEP encoded." />
 	<string id="16213" value="Sending query routing table to neighbour %s (%i bit = %lu[%i], %i%% full)" />
+	<string id="16255" value="Drag'n'Drop الملفات إلى المجموعة %s"/>
 	<string id="16256" value="Added &quot;%s&quot; to download queue with %i source(s)." />
 	<string id="16257" value="Completed download of &quot;%s&quot;." />
 	<string id="16258" value="Pausing download of &quot;%s&quot;." />
@@ -2973,7 +2974,7 @@
 	<string id="16399" value="PeerProject could not delete the file:\n\n%s" />
 	<string id="16400" value="Target file exists:\n\n%s\n\nWould you like to overwrite it?" />
 -->	<string id="16401" value="عرض جميع امتداد الملفات" />
-	<string id="16402" value="PeerProject received a collection file:\n\n&quot;%s&quot;\n\nThis file does not appear to be a valid collection file." />
+<!--	<string id="16402" value="PeerProject received a collection file:\n\n&quot;%s&quot;\n\nThis file does not appear to be a valid collection file." />
 	<string id="16403" value="PeerProject has added the collection file &quot;%s&quot; to your library." />
 	<string id="16404" value="PeerProject was unable to install the collection file &quot;%s&quot; by copying it to the folder &quot;%s&quot;." />
 	<string id="16405" value="Would you like to download this file?\n\n&quot;%s&quot;\n\nChoose Cancel to stop any further prompts." />
@@ -3025,7 +3026,7 @@
 	<string id="16769" value="Unable to parse URL: PeerProject does not understand this URL." />
 	<string id="16770" value="Unable to display URL action dialog because PeerProject is busy." />
 	<string id="16771" value="You already have the file &quot;%s&quot; in your library.  Do you want to download it anyway?" />
-	<string id="16772" value="المستضيف:" />
+-->	<string id="16772" value="المستضيف:" />
 	<string id="16773" value="المنفذ:" />
 	<string id="16774" value="&amp;إتصال" />
 	<string id="16775" value="&amp;إستعراض" />
@@ -3272,7 +3273,7 @@
 	<string id="20119" value="انتظار" />
 	<string id="20120" value="بحث" />
 	<string id="20121" value="إنشاء" />
-<!--<string id="20122" value="Torrent" />
+<!--	<string id="20122" value="Torrent" />
 	<string id="20123" value="Tracker Down" />
 	<string id="20124" value="Verified"/>
 	<string id="20125" value="Unverified"/>

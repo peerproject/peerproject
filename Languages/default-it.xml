@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2860,7 +2860,7 @@
 	<string id="16198" value="L'host leaf %s sta inviado richieste, chiusura della connessione."/>
 	<string id="16199" value="L'host %s ha inviato un pacchetto sconosciuto (0x%.2x), ignorato."/>
 	<string id="16200" value="L'host %s ha inviato un pong con indirizzi errati, ignorato."/>
-	<string id="16201" value="Pacchetto di richiesta malformattato ricevuto da %s, ignorato."/>
+	<string id="16201" value="%s:  Pacchetto di richiesta malformattato ricevuto da %s, ignorato."/>
 	<string id="16202" value="Pacchetto di richiesta malformattato ricevuto da %s, ignorato."/>
 	<string id="16203" value="L'host %s ha inviato un push packet di lunghezza errata, ignorato."/>
 	<string id="16208" value="Ricezione di un aggiornamento inaspettato della richiesta routing table dall'host %s."/>
@@ -2869,6 +2869,7 @@
 	<string id="16211" value="L'host %s ha inviato una richiesta push a un indirizzo con un firewall, ignorato."/>
 	<string id="16212" value="L'host %s ha inviato un pacchetto esteso non codificato GGEP."/>
 	<string id="16213" value="Invio di una richiesta routing table all'host %s (%i bit = %lu[%i], %i%% pieno)"/>
+	<string id="16255" value="Drag'n'drop file al gruppo %s"/>
 	<string id="16256" value="Aggiunto &quot;%s&quot; per mettersi in coda di download con %i fonti."/>
 	<string id="16257" value="Il download di &quot;%s&quot; è stato completato."/>
 	<string id="16258" value="Il download di &quot;%s&quot; è stato sospeso."/>

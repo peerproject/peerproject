@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2874,7 +2874,7 @@
 	<string id="16198" value="Atsišakojęs kaimynas adresu %s persiuntinėja užklausas, ryšys nutraukiamas."/>
 	<string id="16199" value="Kaimynas adresu %s persiuntė neatpažintą paketą (0x%.2x), ignoruojama."/>
 	<string id="16200" value="Kaimynas adresu %s persiuntė pong paketą su netesingais adreso duomenimis, ignoruojama."/>
-	<string id="16201" value="Gautas neteisingo formato užklausos paketas iš %s, ignoruojama."/>
+	<string id="16201" value="%s:  Gautas neteisingo formato užklausos paketas iš %s, ignoruojama."/>
 	<string id="16202" value="Gautas neteisingo formato užklausos kreipinio paketas iš %s, ignoruojama."/>
 	<string id="16203" value="Kaimynas adresu %s persiuntė neteisingo dydžio įstūmiantįjį paketą, ignoruojama."/>
 	<string id="16208" value="Gaunamas netikėtas užklausos maršruto lentelės atnaujinimas iš kaimyno %s."/>
@@ -2883,6 +2883,7 @@
 	<string id="16211" value="Kaimynas adresu %s persiuntė įstūmiančiojo susijungimo užklausą adresatui už užkardos, ignoruojama."/>
 	<string id="16212" value="Kaimynas adresu %s persiuntė pernelyg išplėstą paketą, kuris nėra užkoduotas pagal GGEP protokolą."/>
 	<string id="16213" value="Siunčiama užklausos maršruto lentelė kaimynui %s (%i bitų = %lu[%i], %i%% užimtumas)"/>
+	<string id="16255" value="Drag'n'drop failus %s grupės"/>
 	<string id="16256" value="Adresatas „%s“ įtrauktas į parsisiuntimo eilę su %i šaltinių(-iais)."/>
 	<string id="16257" value="„%s“ parsisiuntimas užbaigtas."/>
 	<string id="16258" value="„%s“ parsisiuntimas pristabdomas."/>

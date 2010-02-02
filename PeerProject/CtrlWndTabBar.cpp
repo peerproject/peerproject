@@ -37,6 +37,9 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+//#define TABBARHEIGHT 26	// Skin.m_nTaskbarHeight
+//#define TABWIDTH 140		// Skin.m_nTaskbarTabWidth
+
 BEGIN_MESSAGE_MAP(CWndTabBar, CControlBar)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
@@ -56,16 +59,16 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CWndTabBar construction
 
-CWndTabBar::CWndTabBar() :
-	m_pSelected( NULL ),
-	m_pHot( NULL ),
-	m_dwHoverTime( 0 ),
-	m_nCookie( 0 ),
-	m_bTimer( FALSE ),
-	m_bMenuGray( FALSE ),
-	m_nCloseImage( 0 ),
-	m_nMaximumWidth( 140 ),
-	m_nMessage( 0 )
+CWndTabBar::CWndTabBar()
+	: m_pSelected	( NULL )
+	, m_pHot		( NULL )
+	, m_dwHoverTime	( 0 )
+	, m_nCookie 	( 0 )
+	, m_bTimer		( FALSE )
+	, m_bMenuGray	( FALSE )
+	, m_nCloseImage	( 0 )
+	, m_nMessage	( 0 )
+	, m_nMaximumWidth( Skin.m_nTaskbarTabWidth )
 {
 }
 
@@ -214,13 +217,14 @@ void CWndTabBar::OnDestroy()
 
 CSize CWndTabBar::CalcFixedLayout(BOOL /*bStretch*/, BOOL /*bHorz*/)
 {
-	CSize size( 32767, 26 );
+	CSize size( 32767, Skin.m_nTaskbarHeight );
 
 	if ( CWnd* pParent = AfxGetMainWnd() )
 	{
 		CRect rc;
 		pParent->GetWindowRect( &rc );
-		if ( rc.Width() > 32 ) size.cx = rc.Width() + 2;
+		if ( rc.Width() > 32 )
+			size.cx = rc.Width();	// + 2; Why?
 	}
 
 	return size;
@@ -246,7 +250,8 @@ void CWndTabBar::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL /*bDisableIfNoHndler*/)
 
 	if ( pActive && pActive->m_bGroupMode )
 	{
-		if ( pActive->m_pGroupParent ) pActive = pActive->m_pGroupParent;
+		if ( pActive->m_pGroupParent )
+			pActive = pActive->m_pGroupParent;
 	}
 
 	for ( POSITION posChild = pManager->GetIterator() ; posChild ; )
@@ -262,8 +267,10 @@ void CWndTabBar::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL /*bDisableIfNoHndler*/)
 
 		if ( pChild->m_bPanelMode )
 		{
-			if ( strCaption.Find( _T("Search : ") ) == 0 ) strCaption = strCaption.Mid( 9 );
-			if ( strCaption.Find( _T("Browse Host : ") ) == 0 ) strCaption = strCaption.Mid( 14 );
+			if ( strCaption.Find( _T("Search : ") ) == 0 )
+				strCaption = strCaption.Mid( 9 );
+			if ( strCaption.Find( _T("Browse Host : ") ) == 0 )
+				strCaption = strCaption.Mid( 14 );
 		}
 
 		for ( POSITION pos = m_pItems.GetHeadPosition() ; pos ; )

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2818,7 +2818,7 @@
 	<string id="16198" value="Lövgranne %s skickar vidare förfrågor, släpper anslutning."/>
 	<string id="16199" value="Grannen %s skickade vidare ett felaktigt paket (0x%.2x), ignorerar."/>
 	<string id="16200" value="Grannen %s skickade ett pongpaket med en felaktig adress, ignorerar."/>
-	<string id="16201" value="Tog emot en felformaterad frågepaket från %s, ignorerar."/>
+	<string id="16201" value="%s:  Tog emot en felformaterad frågepaket från %s, ignorerar."/>
 	<string id="16202" value="Tog emot ett felformaterat frågeträffpaket från %s, ignorerar."/>
 	<string id="16203" value="Grannen %s skickade ett paket för anslutningsbegämed felaktig längd, ignorerar."/>
 	<string id="16208" value="Tog emot en oväntad uppdatering för frågerotuingtabell från grannen %s."/>
@@ -2827,6 +2827,7 @@
 	<string id="16211" value="Grannen %s skickade vidare en anslutningsbegäran till en adress bakom brandvägg, ignorerar."/>
 	<string id="16212" value="Grannen %s skickade vidare ett utökat paket som inte är GGEP-kodat."/>
 	<string id="16213" value="Skickar frågeroutingtabell till grannen %s (%i bitar = %lu[%i], %i%% full)"/>
+	<string id="16255" value="Dra och släpp filer till %s gruppen"/>
 	<string id="16256" value="Lade till &quot;%s&quot; till nedladdningslistan med %i källor."/>
 	<string id="16257" value="Fullständig nedladdning av &quot;%s&quot;."/>
 	<string id="16258" value="Gör paus i nedladdning av &quot;%s&quot;."/>

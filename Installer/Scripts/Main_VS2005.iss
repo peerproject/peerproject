@@ -160,10 +160,10 @@ Source: "Services\BugTrap\dbghelp-x64.dll"; DestDir: "{sys}"; DestName: "dbghelp
 
 ;--== Include Files ==--
 ; Main Data Files
-Source: "Data\*.*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.url,GeoIP.*"
+Source: "Data\*.*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.url"
 
 ; GeoIP
-Source: "Data\GeoIP.dat"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+;Source: "Data\GeoIP.dat"; DestDir: "{app}\Data"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; Icon files
 Source: "Installer\Res\Uninstall.ico"; DestDir: "{app}\Uninstall"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension

@@ -688,7 +688,7 @@ void CNetwork::OnWinsock(WPARAM wParam, LPARAM lParam)
 		}
 		else if ( pResolve->m_nCommand == 3 )
 		{
-			// code to invoke UDPHC/UDPKHL Sender.
+			// Code to invoke UDPHC/UDPKHL Sender.
 			if ( pResolve->m_nProtocol == PROTOCOL_G1 )
 			{
 				strAddress = L"uhc:" + *(pResolve->m_sAddress);
@@ -1095,39 +1095,90 @@ void CNetwork::UDPKnownHubCache(IN_ADDR* pAddress, WORD nPort)
 }
 
 
-//SOCKET CNetwork::AcceptSocket(SOCKET hSocket, SOCKADDR_IN* addr, LPCONDITIONPROC lpfnCondition, DWORD_PTR dwCallbackData)
+SOCKET CNetwork::AcceptSocket(SOCKET hSocket, SOCKADDR_IN* addr, LPCONDITIONPROC lpfnCondition, DWORD_PTR dwCallbackData)
+{
+	__try	// Fix against stupid firewalls (Like iS3 Anti-Spyware or Norman Virus Control)
+	{
+		int len = sizeof( SOCKADDR_IN );
+		return WSAAccept( hSocket, (SOCKADDR*)addr, &len, lpfnCondition, dwCallbackData );
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		return INVALID_SOCKET;
+	}
+}
+
+void CNetwork::CloseSocket(SOCKET& hSocket, const bool bForce)
+{
+	if ( hSocket != INVALID_SOCKET )
+	{
+		__try	// Fix against stupid firewalls (Like iS3 Anti-Spyware or Norman Virus Control)
+		{
+			if ( bForce )
+			{
+				const LINGER ls = { 1, 0 };
+				setsockopt( hSocket, SOL_SOCKET, SO_LINGER, (char*)&ls, sizeof( ls ) );
+			}
+			else
+			{
+				shutdown( hSocket, SD_BOTH );
+			}
+			closesocket( hSocket );
+		}
+		__except( EXCEPTION_EXECUTE_HANDLER )
+		{
+		}
+		hSocket = INVALID_SOCKET;
+	}
+}
+
+
+//int CNetwork::Send(SOCKET s, const char* buf, int len)
 //{
-//	__try	// Fix against stupid firewalls like (iS3 Anti-Spyware or Norman Virus Control)
+//	__try	// TCP Fix against stupid firewalls (Like iS3 Anti-Spyware or Norman Virus Control)
 //	{
-//		int len = sizeof( SOCKADDR_IN );
-//		return WSAAccept( hSocket, (SOCKADDR*)addr, &len, lpfnCondition, dwCallbackData );
+//		return send( s, buf, len, 0 );
 //	}
 //	__except( EXCEPTION_EXECUTE_HANDLER )
 //	{
-//		return INVALID_SOCKET;
+//		return -1;
 //	}
 //}
 
-//void CNetwork::CloseSocket(SOCKET& hSocket, const bool bForce)
+//int CNetwork::SendTo(SOCKET s, const char* buf, int len, const SOCKADDR_IN* pTo)
 //{
-//	if ( hSocket != INVALID_SOCKET )
+//	__try	// UDP Fix against stupid firewalls (Like iS3 Anti-Spyware or Norman Virus Control)
 //	{
-//		__try	// Fix against stupid firewalls like (iS3 Anti-Spyware or Norman Virus Control)
-//		{
-//			if ( bForce )
-//			{
-//				const LINGER ls = { 1, 0 };
-//				setsockopt( hSocket, SOL_SOCKET, SO_LINGER, (char*)&ls, sizeof( ls ) );
-//			}
-//			else
-//			{
-//				shutdown( hSocket, SD_BOTH );
-//			}
-//			closesocket( hSocket );
-//		}
-//		__except( EXCEPTION_EXECUTE_HANDLER )
-//		{
-//		}
-//		hSocket = INVALID_SOCKET;
+//		return sendto( s, buf, len, 0, (const SOCKADDR*)pTo, sizeof( SOCKADDR_IN ) );
+//	}
+//	__except( EXCEPTION_EXECUTE_HANDLER )
+//	{
+//		return -1;
+//	}
+//}
+
+
+//int CNetwork::Recv(SOCKET s, char* buf, int len)
+//{
+//	__try	// TCP Fix against stupid firewalls (Like iS3 Anti-Spyware or Norman Virus Control)
+//	{
+//		return recv( s, buf, len, 0 );
+//	}
+//	__except( EXCEPTION_EXECUTE_HANDLER )
+//	{
+//		return -1;
+//	}
+//}
+
+//int CNetwork::RecvFrom(SOCKET s, char* buf, int len, SOCKADDR_IN* pFrom)
+//{
+//	__try	// UDP Fix against stupid firewalls (Like iS3 Anti-Spyware or Norman Virus Control)
+//	{
+//		int nFromLen = sizeof( SOCKADDR_IN );
+//		return recvfrom( s, buf, len, 0, (SOCKADDR*)pFrom, &nFromLen );
+//	}
+//	__except( EXCEPTION_EXECUTE_HANDLER )
+//	{
+//		return -1;
 //	}
 //}

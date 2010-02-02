@@ -24,6 +24,10 @@
 #include "DlgSkinDialog.h"
 
 class CDownloadWithExtras;
+class CFilePreviewDlg;
+
+
+typedef CList< CFilePreviewDlg* > CPreviewList;
 
 
 class CFilePreviewDlg :
@@ -41,7 +45,7 @@ public:
 	static void	OnSkinChange(BOOL bSet);
 	static void	CloseAll();
 
-	CCriticalSection		m_pSection;
+protected:
 	CDownloadWithExtras*	m_pDownload;
 	CString			m_sDisplayName;
 	CString			m_sSourceName;
@@ -54,20 +58,18 @@ public:
 	CString			m_sOldStatus;
 	CArray< QWORD >	m_pRanges;
 
-protected:
+	CString			m_sExecute;
 	CButton			m_wndCancel;
 	CProgressCtrl	m_wndProgress;
 	CStatic			m_wndStatus;
 	CStatic			m_wndName;
-	BOOL			m_bCancel;
-	CString			m_sExecute;
-	IDownloadPreviewPlugin*				m_pPlugin;
-	static CList< CFilePreviewDlg* >	m_pWindows;
+	CComPtr< IDownloadPreviewPlugin2 >	m_pPlugin;
+	static CCriticalSection	m_pSection;
+	static CPreviewList		m_pWindows;
 
 	void		OnRun();
-	BOOL		RunPlugin(HANDLE hFile);
-	BOOL		LoadPlugin(LPCTSTR pszType);
-	BOOL		RunManual(HANDLE hFile);
+	BOOL		RunPlugin();
+	BOOL		RunManual();
 	BOOL		QueueDeleteFile(LPCTSTR pszFile);
 	BOOL		ExecuteFile(LPCTSTR pszFile);
 	void		UpdateProgress(BOOL bRange, QWORD nRange, BOOL bPosition, QWORD nPosition);
@@ -75,6 +77,9 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual void PostNcDestroy();
 	virtual BOOL OnInitDialog();
+	virtual void OnOK();
+	virtual void OnCancel();
+
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnDestroy();
 	afx_msg void OnClose();

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2834,7 +2834,7 @@
 	<string id="16198" value="Leaf %s kereséseket küldözget, kapcsolat megszakítása."/>
 	<string id="16199" value="%s ismeretlen csomagot küldött tovább (0x%.2x), ignorálás."/>
 	<string id="16200" value="%s érvénytelen címmel rendelkező pong csomagot küldött tovább, ignorálás."/>
-	<string id="16201" value="Hibásan formázott lekérdezéscsomag: %s, ignorálás."/>
+	<string id="16201" value="%s:  Hibásan formázott lekérdezéscsomag: %s, ignorálás."/>
 	<string id="16202" value="Hibásan formázott találati csomag: %s, ignorálás."/>
 	<string id="16203" value="%s egy érvénytelen hosszúságú csomagot küldött tovább, ignorálás."/>
 	<string id="16208" value="Nem várt query routing: %s."/>
@@ -2843,6 +2843,7 @@
 	<string id="16211" value="%s továbbküldött egy push request-et egy tűzfallal védett címre, ignorálás."/>
 	<string id="16212" value="%s egy kiterjesztett csomagot küldött tovább, ami GGEP kódolású."/>
 	<string id="16213" value="Query routing table elküldése %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16255" value="Drag'n'drop fájlokat a %s csoporthoz"/>
 	<string id="16256" value="&quot;%s&quot; a letöltési sorhoz lett hozzáadva %i forrással."/>
 	<string id="16257" value="Letöltés kész: &quot;%s&quot;."/>
 	<string id="16258" value="Letöltés szüneteltetése: &quot;%s&quot;."/>

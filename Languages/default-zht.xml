@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default-en.xml r42 (Shareaza 2.2.2.12) -->
+<!-- Translation based on default-en.xml r48 (Shareaza 2.2.2.12) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2621,7 +2621,7 @@
 	<string id="16198" value="葉節點鄰居 %s 正在轉送詢問, 正在忽略連線."/>
 	<string id="16199" value="鄰居 %s 轉送了一個無法辨認的封包 (0x%.2x), 忽略中."/>
 	<string id="16200" value="鄰居 %s 轉送了一個無效位址資料的 pong, 忽略中."/>
-	<string id="16201" value="從 %s 接收到一個錯誤格式的詢問封包, 忽略中."/>
+	<string id="16201" value="%s: 從 %s 接收到一個錯誤格式的詢問封包, 忽略中."/>
 	<string id="16202" value="從 %s 接收到一個錯誤格式的 query hit 封包, 忽略中."/>
 	<string id="16203" value="鄰居 %s 轉送了一個無效長度的推播封包, 忽略中."/>
 	<string id="16208" value="從鄰居 %s 接收到不可預料的詢問路由表更新."/>
@@ -2630,6 +2630,7 @@
 	<string id="16211" value="鄰居 %s 轉送了一個推播要求至 a firewalled 位址, 忽略中."/>
 	<string id="16212" value="鄰居 %s 轉送了一個不是使用 GGEP 編碼的延伸封包."/>
 	<string id="16213" value="正在送出詢問路由表至鄰居 %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16255" value="Drag'n'drop文件複製到%s組。"/>
 	<string id="16256" value="已新增 &quot;%s&quot; 到下載排隊隊伍, 有 %i 個來源."/>
 	<string id="16257" value="完成&quot;%s&quot; 的下載."/>
 	<string id="16258" value="暫停下載 &quot;%s&quot;."/>
@@ -2656,7 +2657,7 @@
 	<string id="16279" value="從主機 %s (%s) 接收下載內容."/>
 	<string id="16280" value="下載主機 %s 忙碌中, 重試於 %i 秒後."/>
 	<string id="16281" value="您確定要清除 &quot;%s&quot;?\n\n一旦下載從下載視窗清除, 稍後將不能繼續它."/>
-	<string id="16282" value="正在放棄從 %s (%s) 下載 &quot;%s&quot; from %s (%s), 因為網路已停用."/>
+	<string id="16282" value="正在放棄從 下載 &quot;%s&quot; from %s (%s), 因為網路已停用."/>
 	<string id="16283" value="此檔案 &quot;%s&quot; 已經正在被下載, 新增來源."/>
 	<string id="16284" value="從 %s 收到一個錯誤的推播連線, 關閉連線."/>
 	<string id="16285" value="收到來自於 %s 的不必要的推播連線."/>

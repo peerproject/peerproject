@@ -165,10 +165,15 @@ public:
 	BOOL		m_bMenuBorders;
 	BOOL		m_bMenuGripper;
 	int			m_nToolbarHeight;
+	int			m_nTaskbarHeight;
+	int			m_nTaskbarTabWidth;
+	int			m_nGroupsbarHeight;
 	int			m_nHeaderbarHeight;
+	int			m_nMonitorbarWidth;
 	int			m_nSidebarWidth;
 	int			m_nSplitter;
-
+	int 		m_nLibIconsX;
+	int 		m_nLibIconsY;
 
 private:
 	CSkin(const CSkin&);

@@ -1,22 +1,25 @@
+//
 // GeoIP.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
-// Portions Copyright MaxMind LLC, 2006-2008. (v1.4.2)
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions Copyright MaxMind LLC, 2006-2007. (v1.4.2)
 //
 // PeerProject is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 3
+// modify it under the terms of the GNU Lesser General Public License
+// as published by the Free Software Foundation; either version 2.1
 // of the License, or later version (at your option).
 //
 // PeerProject is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU General Public License for more details.
+// See the GNU Lesser General Public License for more details.
 //
-// You should have received a copy of the GNU General Public License 3.0
+// You should have received a copy of the GNU Lesser General Public License
 // along with PeerProject; if not, write to Free Software Foundation, Inc.
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
+
+// http://www.maxmind.com/app/c
 
 #ifndef GEOIP_H
 #define GEOIP_H
@@ -127,17 +130,17 @@ GEOIP_API const char *GeoIP_country_code3_by_ipnum (GeoIP* gi, unsigned long ipn
 /* Deprecated - for backwards compatibility only */
 GEOIP_API int GeoIP_country_id_by_addr (GeoIP* gi, const char *addr);
 GEOIP_API int GeoIP_country_id_by_name (GeoIP* gi, const char *host);
-GEOIP_API char *GeoIP_org_by_addr (GeoIP* gi, const char *addr);
-GEOIP_API char *GeoIP_org_by_name (GeoIP* gi, const char *host);
+//GEOIP_API char *GeoIP_org_by_addr (GeoIP* gi, const char *addr);
+//GEOIP_API char *GeoIP_org_by_name (GeoIP* gi, const char *host);
 /* End deprecated */
 
 GEOIP_API int GeoIP_id_by_addr (GeoIP* gi, const char *addr);
 GEOIP_API int GeoIP_id_by_name (GeoIP* gi, const char *host);
 GEOIP_API int GeoIP_id_by_ipnum (GeoIP* gi, unsigned long ipnum);
 
-GEOIP_API GeoIPRegion * GeoIP_region_by_addr (GeoIP* gi, const char *addr);
-GEOIP_API GeoIPRegion * GeoIP_region_by_name (GeoIP* gi, const char *host);
-GEOIP_API GeoIPRegion * GeoIP_region_by_ipnum (GeoIP *gi, unsigned long ipnum);
+//GEOIP_API GeoIPRegion * GeoIP_region_by_addr (GeoIP* gi, const char *addr);
+//GEOIP_API GeoIPRegion * GeoIP_region_by_name (GeoIP* gi, const char *host);
+//GEOIP_API GeoIPRegion * GeoIP_region_by_ipnum (GeoIP *gi, unsigned long ipnum);
 
 /* Warning - don't call this after GeoIP_assign_region_by_inetaddr calls */
 GEOIP_API void GeoIPRegion_delete (GeoIPRegion *gir);
@@ -153,7 +156,7 @@ GEOIP_API char *GeoIP_database_info (GeoIP* gi);
 GEOIP_API unsigned char GeoIP_database_edition (GeoIP* gi);
 
 /* Convert region code to region name */
-GEOIP_API const char * GeoIP_region_name_by_code(const char *country_code, const char *region_code);
+//GEOIP_API const char * GeoIP_region_name_by_code(const char *country_code, const char *region_code);
 
 /* Get timezone from country and region code */
 GEOIP_API const char * GeoIP_time_zone_by_country_and_region(const char *country_code, const char *region_code);

@@ -1,7 +1,7 @@
 //
 // CoolInterface.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -307,9 +307,9 @@ BOOL CCoolInterface::ConfirmImageList()
 		  m_pImages32.Create( 32, 32, ILC_COLOR24|ILC_MASK, 16, 4 ) ||
 		  m_pImages32.Create( 32, 32, ILC_COLOR16|ILC_MASK, 16, 4 ) ) &&
 		( m_pImages48.m_hImageList ||
-			m_pImages48.Create( 48, 48, ILC_COLOR32|ILC_MASK, 16, 4 ) ||
-			m_pImages48.Create( 48, 48, ILC_COLOR24|ILC_MASK, 16, 4 ) ||
-			m_pImages48.Create( 48, 48, ILC_COLOR16|ILC_MASK, 16, 4 ) );
+		  m_pImages48.Create( 48, 48, ILC_COLOR32|ILC_MASK, 16, 4 ) ||
+		  m_pImages48.Create( 48, 48, ILC_COLOR24|ILC_MASK, 16, 4 ) ||
+		  m_pImages48.Create( 48, 48, ILC_COLOR16|ILC_MASK, 16, 4 ) );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -580,8 +580,8 @@ BOOL CCoolInterface::Add(CSkin* pSkin, CXMLElement* pBase, HBITMAP hbmImage, COL
 		return FALSE;
 
 	const LPCTSTR pszNames[] = {
-		_T("id"),  _T("id1"), _T("id2"), _T("id3"), _T("id4"), _T("id5"),
-		_T("id6"), _T("id7"), _T("id8"), _T("id9"), NULL };
+		_T("id"),  _T("id1"), _T("id2"), _T("id3"), _T("id4"), _T("id5"), _T("id6"),
+		_T("id7"), _T("id8"), _T("id9"), _T("id10"), _T("id11"), _T("id12"), NULL };
 	int nIndex = 0;
 	int nIndexRev = GetImageCount( nImageListType ) - 1;	// Total number of images
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )

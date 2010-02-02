@@ -128,7 +128,7 @@ Source: "Services\SQLite\{#ConfigurationName} {#PlatformName}\SQLite.dll"; DestD
 
 ; GeoIP
 Source: "Services\GeoIP\{#ConfigurationName} {#PlatformName}\GeoIP.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-Source: "Data\GeoIP.dat";  DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+;Source: "Data\GeoIP.dat";  DestDir: "{app}\Data"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; Plugins
 Source: "Plugins\DocumentReader\{#ConfigurationName} {#PlatformName}\DocumentReader.dll";   DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
@@ -173,11 +173,9 @@ Source: "Plugins\SearchExport\{#ConfigurationName} {#PlatformName}\SearchExport.
 Source: "Plugins\MediaPlayer\{#ConfigurationName} {#PlatformName}\MediaPlayer.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
 ; Don't register WebHook.dll since it will setup PeerProject as download manager  (ToDo: fix WebHook.dll regserver!)
-#if PlatformName == "x64"
-  Source: "Plugins\WebHook\{#ConfigurationName} {#PlatformName}\WebHook*.dll"; DestDir: "{app}\Plugins"; Flags: noregerror overwritereadonly replacesameversion restartreplace uninsrestartdelete uninsremovereadonly sortfilesbyextension
-#else
-  Source: "Plugins\WebHook.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-#endif
+Source: "Plugins\WebHook\{#ConfigurationName} {#PlatformName}\WebHook*.dll"; DestDir: "{app}\Plugins"; Flags: noregerror overwritereadonly replacesameversion restartreplace uninsrestartdelete uninsremovereadonly sortfilesbyextension
+;Source: "Plugins\WebHook.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+
 
 ;--== Debug Databases ==--
 #if ConfigurationName == "Debug"
@@ -201,7 +199,7 @@ Source: "Services\BugTrap\dbghelp.dll"; DestDir: "{sys}"; DestName: "dbghelp.dll
 
 ;--== Include Files ==--
 ; Main Data Files
-Source: "Data\*.*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.url,GPL*,GeoIP.*"
+Source: "Data\*.*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.url,GPL*"
 
 ; Icons
 Source: "Installer\Res\Uninstall.ico"; DestDir: "{app}\Uninstall"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
@@ -296,6 +294,7 @@ Name: "{group}\TorrentWizard"; Filename: "{app}\TorrentWizard.exe"; WorkingDir: 
 Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_basicmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-basic"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
 Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_tabbedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-tabbed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
 Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_windowedmode})"; Filename: "{app}\PeerProject.exe"; Parameters: "-windowed"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
+Name: "{group}\GUI Modes\{#internal_name} ({cm:icons_launchtray})"; Filename: "{app}\PeerProject.exe"; Parameters: "-tray"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"
 Name: "{commondesktop}\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: desktopicon
 Name: "{commondesktop}\TorrentWizard"; Filename: "{app}\TorrentWizard.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: desktopiconwizard
 Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; Tasks: quicklaunch

@@ -102,7 +102,7 @@ public:
 	DWORD		GetStableTime() const;
 	BOOL		IsConnectedTo(const IN_ADDR* pAddress) const;
 	BOOL		ReadyToTransfer(DWORD tNow) const;		// Are we ready to start downloading?
-public:
+
 	BOOL		Connect(BOOL bAutoConnect = FALSE);
 	void		Disconnect();
 	BOOL		ConnectTo(LPCTSTR pszAddress, int nPort = 0, PROTOCOLID nProtocol = PROTOCOL_NULL, BOOL bNoUltraPeer = FALSE);
@@ -114,7 +114,7 @@ public:
 	WORD		RandomPort() const;
 	void		CreateID(Hashes::Guid& oID);
 	BOOL		IsFirewalledAddress(const IN_ADDR* pAddress, BOOL bIncludeSelf = FALSE) const;
-public:
+
 	BOOL		GetNodeRoute(const Hashes::Guid& oGUID, CNeighbour** ppNeighbour, SOCKADDR_IN* pEndpoint);
 	BOOL		RoutePacket(CG2Packet* pPacket);
 	BOOL		SendPush(const Hashes::Guid& oGUID, DWORD nIndex = 0);
@@ -122,13 +122,17 @@ public:
 	void		OnWinsock(WPARAM wParam, LPARAM lParam);
 	void		OnQuerySearch(const CQuerySearch* pSearch);
 	void		OnQueryHits(CQueryHit* pHits);			// Add query hit to queue
-public:
+
 	void		UDPHostCache(IN_ADDR* pAddress, WORD nPort);
 	void		UDPKnownHubCache(IN_ADDR* pAddress, WORD nPort);
 
-	// Safe way to accept/close socket
-	//static SOCKET AcceptSocket(SOCKET hSocket, SOCKADDR_IN* addr, LPCONDITIONPROC lpfnCondition, DWORD_PTR dwCallbackData = 0);
-	//static void	CloseSocket(SOCKET& hSocket, const bool bForce);
+	// Safe ways to: accept/close socket, send/recieve data
+	static SOCKET AcceptSocket(SOCKET hSocket, SOCKADDR_IN* addr, LPCONDITIONPROC lpfnCondition, DWORD_PTR dwCallbackData = 0);
+	static void	CloseSocket(SOCKET& hSocket, const bool bForce);
+//	static int Send(SOCKET s, const char* buf, int len);  // TCP
+//	static int SendTo(SOCKET s, const char* buf, int len, const SOCKADDR_IN* pTo);  // UDP
+//	static int Recv(SOCKET s, char* buf, int len);  // TCP
+//	static int RecvFrom(SOCKET s, char* buf, int len, SOCKADDR_IN* pFrom);  // UDP
 
 	friend class CHandshakes;
 	friend class CNeighbours;

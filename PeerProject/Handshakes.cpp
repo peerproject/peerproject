@@ -46,10 +46,10 @@ CHandshakes Handshakes;
 //////////////////////////////////////////////////////////////////////
 // CHandshakes construction
 
-CHandshakes::CHandshakes() :
-	m_nStableCount( 0 ),
-	m_tStableTime( 0 ),
-	m_hSocket( INVALID_SOCKET )
+CHandshakes::CHandshakes()
+	: m_nStableCount	( 0 )
+	, m_tStableTime 	( 0 )
+	, m_hSocket 		( INVALID_SOCKET )
 {
 }
 
@@ -70,10 +70,10 @@ CHandshakes::~CHandshakes()
 BOOL CHandshakes::Listen()
 {
 	// Setup m_hSocket as a new TCP socket
-	if ( IsValid() )	// Make sure the socket hasn't been created yet
+	if ( IsValid() )		// Make sure the socket hasn't been created yet
 	{
 		theApp.Message( MSG_ERROR, _T("Re-connection too fast, waiting 2 seconds.") );
-		Sleep(2000);					// Too fast re-connection after disconnection, wait 2 sec
+		Sleep(2000);		// Too fast re-connection after disconnection, wait 2 sec
 		if ( IsValid() )
 			return FALSE;
 	}
@@ -81,11 +81,11 @@ BOOL CHandshakes::Listen()
 	// Make sure only one thread can execute the code of this method at a time
 	CSingleLock pLock( &m_pSection, TRUE ); // When the method exits, local pLock will be destructed, and the lock released
 
-	m_hSocket = socket(	// Create a socket
-		PF_INET,		// Specify the Internet address family
-		SOCK_STREAM,	// Use TCP and not UDP
+	m_hSocket = socket( 	// Create a socket
+		PF_INET,			// Specify the Internet address family
+		SOCK_STREAM,		// Use TCP and not UDP
 		IPPROTO_TCP );
-	if ( ! IsValid() )	// Now, make sure it has been created
+	if ( ! IsValid() )		// Now, make sure it has been created
 	{
 		theApp.Message( MSG_ERROR, _T("Failed to create socket. (1st Try)") );
 		// Second attempt
@@ -151,29 +151,25 @@ BOOL CHandshakes::Listen()
 	{
 		// Ask the socket what it thinks our IP address on this end is
 		int nSockLen = sizeof(SOCKADDR_IN);	// The number of bytes an MFC SOCKADDR_IN structure takes
-		getsockname(						// Retrieves the local name for a socket
-			m_hSocket,						// The socket
-			(SOCKADDR*)&Network.m_pHost,	// Have getsockname write the answer right into Network.m_pHost
-			&nSockLen );					// Tell getsockname how much space it has to write there
+		getsockname( m_hSocket,	(SOCKADDR*)&Network.m_pHost, &nSockLen );
+			// Retrieves the local name for a socket:
+			// The socket; Have getsockname write the answer right into Network.m_pHost; Tell getsockname how much space it has to write there
 	}
 
 	// If we were able to bind the socket to our local address
-	if ( bBound )
-	{
-		// Report that we are now listening on our IP address
+	if ( bBound )	// Report that we are now listening on our IP address
 		theApp.Message( MSG_INFO, IDS_NETWORK_LISTENING_TCP, (LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ), htons( Network.m_pHost.sin_port ) );
-	}
+	
 
 	// Set it up so that when a remote computer connects to us, the m_pWakeup event is fired
-	WSAEventSelect(		// Specify an event object to associate with the specified set of FD_XXX network events
-		m_hSocket,		// Our listening socket
-		GetWakeupEvent(),		// Our event, a CEvent object member variable
-		FD_ACCEPT );	// The network event to trigger this is us accepting a remote computer's connection
+	WSAEventSelect( m_hSocket, GetWakeupEvent(), FD_ACCEPT );
+		// Specify an event object to associate with the specified set of FD_XXX network events
+		// Our listening socket; Our CEvent object member variable; network event to trigger this is our accepting a remote computer's connection
 
 	// Have the socket wait, listening for remote computer on the Internet to connect to it
-	listen(			// Place a socket in a state in which it is listening for an incoming connection
-		m_hSocket,	// Our socket
-		256 );		// Maximum length of the queue of pending connections, let 256 computers try to call us at once (do)
+	listen( m_hSocket, 256 );
+		// Place a socket in a state in which it is listening for an incoming connection
+		// Our socket; Maximum length of the queue of pending connections, let 256 computers try to call us at once (do)
 
 	// Create a new thread to run the ThreadStart method, passing it a pointer to this C
 	return BeginThread( "Handshakes" );
@@ -185,15 +181,7 @@ BOOL CHandshakes::Listen()
 // Closes the socket and kills the thread
 void CHandshakes::Disconnect()
 {
-	if ( IsValid() )
-	{
-		// Don't use SO_LINGER here
-
-		// Close it and set it invalid
-		shutdown( m_hSocket, SD_RECEIVE );
-		closesocket( m_hSocket );
-		m_hSocket = INVALID_SOCKET;
-	}
+	CNetwork::CloseSocket( m_hSocket, false );
 
 	CloseThread();
 
@@ -371,24 +359,15 @@ void CHandshakes::RunHandshakes()
 //////////////////////////////////////////////////////////////////////
 // CHandshakes accept a connection
 
-// We're listening on m_hSocket, a remote computer calls us, this method accepts the connection, making a new CHandshake object in the list for it
-// Returns true or false if we accepted the connection
+// We're listening on m_hSocket, a remote computer calls us, this method accepts the connection-
+// Making a new CHandshake object in the list for it.  Returns true if we accepted the connection.
 BOOL CHandshakes::AcceptConnection()
 {
 	// Local variables to receive the IP address and port number of the remote computer
 	SOCKADDR_IN pHost = {};
-	int nHost = sizeof( pHost );
-
-	// Accept the connection in a new socket, hSocket
-	SOCKET hSocket =		// Make a new local socket here
-		WSAAccept(			// Conditionally accepts an incoming connection from a remote computer
-		m_hSocket,			// The socket listening for connections
-		(SOCKADDR*)&pHost,	// Have WSAAccept tell us what it thinks the IP address and port number of the remote computer is
-		&nHost,				// The number of bytes it has to write there
-		AcceptCheck,		// Call this function, and it will tell you if we wish to accept this connection or not
-		0 ); // Note: as of now this parameter is unused - it's not safe to pass this here in a 64bit environment
-			// if we should need this in the future, a LUT needs to be used instead
-	if ( hSocket == INVALID_SOCKET ) return FALSE; // AcceptCheck refused the connection, or it didn't work, leave now
+	SOCKET hSocket = CNetwork::AcceptSocket( m_hSocket, &pHost, AcceptCheck );
+	if ( hSocket == INVALID_SOCKET )
+		return FALSE;
 
 	// We've listened for and accepted one more stable connection
 	InterlockedIncrement( (PLONG)&m_nStableCount ); // Use an interlocked function to do this in a thread-safe way
@@ -396,14 +375,7 @@ BOOL CHandshakes::AcceptConnection()
 	// If the remote computer's IP address is blocked or banned
 	if ( Security.IsDenied( &pHost.sin_addr ) )
 	{
-		// Set linger period to zero (it will close the socket immediately)
-		// Default behavior is to send data and close or timeout and close
-		linger ls = {1, 0};
-		int ret = setsockopt( hSocket, SOL_SOCKET, SO_LINGER, (char*)&ls, sizeof(ls) );
-
-		// Close the socket we just accepted the connection with
-		shutdown( hSocket, SD_RECEIVE );
-		ret = closesocket( hSocket );
+		CNetwork::CloseSocket( hSocket, true );
 
 		// Report that this connection was denied for security reasons
 		theApp.Message( MSG_ERROR, IDS_NETWORK_SECURITY_DENIED, (LPCTSTR)CString( inet_ntoa( pHost.sin_addr ) ) );
@@ -478,7 +450,8 @@ void CHandshakes::RunStableUpdate()
 	if ( m_nStableCount > 0 )
 	{
 		// If there isn't a record of when we first connected yet, set it to the current time.
-		if ( m_tStableTime == 0 ) m_tStableTime = (DWORD)time( NULL ); // The function time( NULL ) resolves to the number of seconds since 1970
+		if ( m_tStableTime == 0 )
+			m_tStableTime = (DWORD)time( NULL ); // The function time( NULL ) resolves to the number of seconds since 1970
 
 		// Update the discovery services (do)
 		DiscoveryServices.Update();

@@ -1,8 +1,8 @@
 ; This sub-script lists extra PeerProject settings that need to be written at installation time
 
 [Registry]
-; Turn on SkinVista Theme
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Skins"; ValueType: dword; ValueName: "SkinVista\SkinSeven.xml"; ValueData: "{ini:{param:SETTINGS|},Skins,SkinVista|1}"; Flags: createvalueifdoesntexist uninsdeletekey
+; Enable SkinSeven Theme
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Skins"; ValueType: dword; ValueName: "SkinVista\SkinSeven.xml"; ValueData: "{ini:{param:SETTINGS|},Skins,SkinSeven|1}"; Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "ListSize"; ValueData: 139 ;				Flags: createvalueifdoesntexist uninsdeletekey
 
 ; Set SkinVista Menubar
@@ -24,7 +24,7 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar1"; Va
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar2"; ValueType: dword; ValueName: "BarID"; ValueData: $0000E810 ;		Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar2"; ValueType: dword; ValueName: "Docking"; ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar2"; ValueType: dword; ValueName: "MRUDockID"; ValueData: $0000E81B ;		Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar2"; ValueType: dword; ValueName: "MRUDockLeftPos"; ValueData: $0000022C ;	Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar2"; ValueType: dword; ValueName: "MRUDockLeftPos"; ValueData: $00000240 ;	Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar2"; ValueType: dword; ValueName: "MRUDockRightPos"; ValueData: $00000600 ; 	Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar2"; ValueType: dword; ValueName: "MRUDockTopPos"; ValueData: $FFFFFFFE ;	Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar2"; ValueType: dword; ValueName: "MRUDockBottomPos"; ValueData: $0000001A ;	Flags: createvalueifdoesntexist uninsdeletekey
@@ -46,7 +46,7 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar3"; Va
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar4"; ValueType: dword; ValueName: "BarID"; ValueData: $0000E811 ;		Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar4"; ValueType: dword; ValueName: "Docking"; ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar4"; ValueType: dword; ValueName: "MRUDockID"; ValueData: $0000E81B ;		Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar4"; ValueType: dword; ValueName: "MRUDockLeftPos"; ValueData: $0000007C ;	Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar4"; ValueType: dword; ValueName: "MRUDockLeftPos"; ValueData: $0000006C ;	Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar4"; ValueType: dword; ValueName: "MRUDockRightPos"; ValueData: $00000022E ; 	Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar4"; ValueType: dword; ValueName: "MRUDockTopPos"; ValueData: $FFFFFFFE ;	Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar4"; ValueType: dword; ValueName: "MRUDockBottomPos"; ValueData: $0000001A ;	Flags: createvalueifdoesntexist uninsdeletekey
@@ -119,4 +119,4 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; V
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: string; ValueName: "DefaultTracker"; ValueData: "http://tracker.openbittorrent.com:80/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "001.URL"; ValueData: "http://tracker.openbittorrent.com:80/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "002.URL"; ValueData: "http://tracker.publicbt.com:80/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: dword;  ValueName: "Count"; ValueData: 2 ;				Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: dword;  ValueName: "Count"; ValueData: 2 ;  Flags: createvalueifdoesntexist uninsdeletekey

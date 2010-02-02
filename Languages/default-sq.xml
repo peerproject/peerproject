@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2882,6 +2882,9 @@
 	<string id="16198" value="Fqinji gjethe %s po përparon hetime, lëshim i lidhjes."/>
 	<string id="16199" value="Fqinji %s përcolli një paketë të panjohur (0x%.2x), përbuzje."/>
 	<string id="16200" value="Fqinji %s përcolli një pong me të dhëna adrese invalide, përbuzje."/>
+	<string id="16201" value="%s:  Fqinji %s përcolli një invalide, përbuzje."/>
+	<string id="16202" value="Fqinji %s përcolli një invalide, përbuzje."/>
+	<string id="16255" value="Drag'n'drop dosjet grupit %s"/>
 	<!--MISSING STRINGS-->
 	<string id="16391" value="Ju nuk jeni i lidhur në rrjet."/>
 	<string id="16392" value="Shtype butonin Lidhu që të fillosh."/>

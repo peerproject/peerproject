@@ -2564,6 +2564,10 @@
 					>
 				</File>
 				<File
+					RelativePath="PageSettingsAdvanced.cpp"
+					>
+				</File>
+				<File
 					RelativePath="PageSettingsBitTorrent.cpp"
 					>
 				</File>
@@ -2629,10 +2633,6 @@
 				</File>
 				<File
 					RelativePath="PageSettingsSkins.cpp"
-					>
-				</File>
-				<File
-					RelativePath="PageSettingsAdvanced.cpp"
 					>
 				</File>
 				<File
@@ -4468,10 +4468,6 @@
 			</File>
 			<File
 				RelativePath="Res\Computer.ico"
-				>
-			</File>
-			<File
-				RelativePath="Res\ComputerGray.ico"
 				>
 			</File>
 			<File

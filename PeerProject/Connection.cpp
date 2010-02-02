@@ -43,15 +43,15 @@ static char THIS_FILE[]=__FILE__;
 
 // Make a new CConnection object
 CConnection::CConnection(PROTOCOLID nProtocol)
-	: m_bInitiated( FALSE )
-	, m_bConnected( FALSE )
-	, m_tConnected( 0 )
-	, m_hSocket( INVALID_SOCKET )
-	, m_pInput( NULL )
-	, m_pOutput( NULL )
+	: m_bInitiated	( FALSE )
+	, m_bConnected	( FALSE )
+	, m_tConnected	( 0 )
+	, m_hSocket 	( INVALID_SOCKET )
+	, m_pInput		( NULL )
+	, m_pOutput 	( NULL )
 	, m_bClientExtended( FALSE )
-	, m_nQueuedRun( 0 )				// DoRun sets it to 0, QueueRun sets it to 2 (do)
-	, m_nProtocol( nProtocol )
+	, m_nProtocol	( nProtocol )
+	, m_nQueuedRun	( 0 )			// DoRun sets it to 0, QueueRun sets it to 2 (do)
 {
 	ZeroMemory( &m_pHost, sizeof( m_pHost ) );
 	m_pHost.sin_family = AF_INET;
@@ -63,21 +63,21 @@ CConnection::CConnection(PROTOCOLID nProtocol)
 
 // make a destructive copy (similar to AttachTo)
 CConnection::CConnection(CConnection& other)
-	: m_pHost(        other.m_pHost )
-	, m_sAddress(     other.m_sAddress )
-	, m_sCountry(     other.m_sCountry )
-	, m_sCountryName( other.m_sCountryName )
-	, m_bInitiated(   other.m_bInitiated )
-	, m_bConnected(   other.m_bConnected )
-	, m_tConnected(   other.m_tConnected )
-	, m_hSocket(      other.m_hSocket )
-	, m_pInputSection( other.m_pInputSection )		// transfered
-	, m_pInput(       other.m_pInput )				// transfered
-	, m_pOutputSection( other.m_pOutputSection )	// transfered
-	, m_pOutput(      other.m_pOutput )				// transfered
-	, m_sUserAgent(   other.m_sUserAgent )
-	, m_bClientExtended( other.m_bClientExtended )
-	, m_nQueuedRun(   0 )
+	: m_pHost			( other.m_pHost )
+	, m_sAddress		( other.m_sAddress )
+	, m_sCountry		( other.m_sCountry )
+	, m_sCountryName	( other.m_sCountryName )
+	, m_bInitiated		( other.m_bInitiated )
+	, m_bConnected		( other.m_bConnected )
+	, m_tConnected		( other.m_tConnected )
+	, m_hSocket 		( other.m_hSocket )
+	, m_pInputSection	( other.m_pInputSection )	// transfered
+	, m_pInput			( other.m_pInput )			// transfered
+	, m_pOutputSection	( other.m_pOutputSection )	// transfered
+	, m_pOutput 		( other.m_pOutput )			// transfered
+	, m_sUserAgent		( other.m_sUserAgent )
+	, m_bClientExtended	( other.m_bClientExtended )
+	, m_nQueuedRun		( 0 )
 {
 	ZeroMemory( &m_mInput, sizeof( m_mInput ) );
 	ZeroMemory( &m_mOutput, sizeof( m_mOutput ) );
@@ -199,15 +199,7 @@ BOOL CConnection::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 		// An error of "would block" is normal because connections can't be made instantly and this is a non-blocking socket
 		if ( nError != WSAEWOULDBLOCK )
 		{
-			// Set linger period to zero (it will close the socket immediately)
-			// Default behavior is to send data and close or timeout and close
-			linger ls = {1, 0};
-			int ret = setsockopt( m_hSocket, SOL_SOCKET, SO_LINGER, (char*)&ls, sizeof(ls) );
-
-			// The error is something else, record it, close the socket, set the value of m_hSocket, and leave
-			shutdown( m_hSocket, SD_RECEIVE );
-			ret = closesocket( m_hSocket );
-			m_hSocket = INVALID_SOCKET;
+			CNetwork::CloseSocket( m_hSocket, true );
 
 			if ( nError != 0 )
 				Statistics.Current.Connections.Errors++;
@@ -322,16 +314,7 @@ void CConnection::Close()
 	ASSERT( this != NULL );
 	ASSERT( AfxIsValidAddress( this, sizeof(*this) ) );
 
-	// The socket is valid
-	if ( IsValid() )
-	{
-		// Don't use SO_LINGER here
-
-		// Close it and mark it invalid
-		//shutdown( m_hSocket, SD_RECEIVE );
-		closesocket( m_hSocket );
-		m_hSocket = INVALID_SOCKET;
-	}
+	CNetwork::CloseSocket( m_hSocket, false );
 
 	// Delete and mark null the input and output buffers
 	DestroyBuffers();

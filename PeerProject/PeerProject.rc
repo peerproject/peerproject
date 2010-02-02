@@ -167,6 +167,7 @@ IDR_MEDIAFRAME			ICON		"Res\\Media.ico"
 IDI_WEB_URL				ICON		"Res\\WebURL.ico"
 IDI_SKIN				ICON		"Res\\Skin.ico"
 IDI_POINTER_ARROW		ICON		"Res\\PointerArrow.ico"
+IDI_UPDOWN_ARROW		ICON		"Res\\UpDownArrow.ico"
 IDI_COMPUTER			ICON		"Res\\Computer.ico"
 IDI_WORLD				ICON		"Res\\World.ico"
 IDI_FLAG_ENGLISH		ICON		"Res\\FlagEnglish.ico"
@@ -178,7 +179,6 @@ IDI_CONTACT_YAHOO		ICON		"Res\\ContactYahoo.ico"
 IDI_CONTACT_AOL			ICON		"Res\\ContactAOL.ico"
 IDI_CONTACT_ICQ			ICON		"Res\\ContactICQ.ico"
 IDI_CONTACT_MSN			ICON		"Res\\ContactMSN.ico"
-IDI_COMPUTER_GRAY		ICON		"Res\\ComputerGray.ico"
 IDR_HELPFRAME			ICON		"Res\\Help.ico"
 IDI_SEARCH_FOLDER		ICON		"Res\\SearchFolder.ico"
 IDI_COLLECTION			ICON		"Res\\Collection.ico"
@@ -186,7 +186,6 @@ IDI_COLLECTION_MASK		ICON		"Res\\CollectionMask.ico"
 IDI_FIREWALLED			ICON		"Res\\Firewalled.ico"
 IDR_BITTORRENT_ICON		ICON		"Res\\BitTorrent.ico"
 IDI_COLORS				ICON		"Res\\Colors.ico"
-IDI_UPDOWN_ARROW		ICON		"Res\\UpDownArrow.ico"
 IDI_HASH				ICON		"Res\\Hash.ico"
 IDR_IRCFRAME			ICON		"Res\\IRC.ico"
 IDR_USERSFRAME			ICON		"Res\\Users.ico"
@@ -1078,9 +1077,9 @@ FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
 	ICON			IDR_DOWNLOADSFRAME,IDC_STATIC,10,7,20,20
 	LTEXT			"PeerProject is creating a preview of the download:",IDC_STATIC,40,10,210,10
-	LTEXT			"Some File That I Downloaded.ext",IDC_FILE_NAME,40,20,210,12,SS_CENTERIMAGE
+	LTEXT			"Downloaded File.ext",IDC_FILE_NAME,40,20,210,12,SS_ENDELLIPSIS
 	CONTROL			"Progress1",IDC_PROGRESS,"msctls_progress32",WS_BORDER,40,35,210,10
-	CTEXT			"(copying downloaded chunks to a new preview file)",IDC_PREVIEW_STATUS,40,48,210,11
+	CTEXT			"(Copying downloaded chunks to a new preview file)",IDC_PREVIEW_STATUS,40,48,210,11
 	PUSHBUTTON		"Cancel",IDCANCEL,200,61,50,14
 END
 
@@ -3500,8 +3499,8 @@ BEGIN
 	IDS_PROTOCOL_LEAF_FORWARD	"Leaf neighbor %s is forwarding queries, dropping connection."
 	IDS_PROTOCOL_UNKNOWN		"Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."
 	IDS_PROTOCOL_ZERO_PONG		"Neighbor %s forwarded a pong with invalid address data, ignoring."
-	IDS_PROTOCOL_BAD_QUERY		"Ignored a malformatted %s search query packet from %s."
-	IDS_PROTOCOL_BAD_HIT		"Ignored a malformatted query hit packet from %s."
+	IDS_PROTOCOL_BAD_QUERY		"Ignoring malformatted %s search query packet from %s."
+	IDS_PROTOCOL_BAD_HIT		"Ignoring malformatted query hit packet from %s."
 	IDS_PROTOCOL_SIZE_PUSH		"Neighbor %s forwarded a push packet with invalid length, ignoring."
 END
 
@@ -3517,7 +3516,7 @@ BEGIN
 	IDS_DOWNLOAD_FILE_CREATE_ERROR "Unable to create local file ""%s"" for download, aborting."
 	IDS_DOWNLOAD_FILE_OPEN_ERROR "Unable to open local file ""%s"" for download, aborting."
 	IDS_DOWNLOAD_CONNECTING		"Initiating a connection to %s port %i to download ""%s""..."
-	IDS_DOWNLOAD_CONNECT_ERROR "Unable to connect to download host %s."
+	IDS_DOWNLOAD_CONNECT_ERROR	"Unable to connect to download host %s."
 	IDS_DOWNLOAD_CONNECTED		"Download connection to %s established."
 	IDS_DOWNLOAD_FRAGMENT_REQUEST "Requesting download fragment (%I64u-%I64u) of ""%s"" from %s."
 	IDS_DOWNLOAD_FRAGMENT_END	"No more download fragments, closing connection to %s."
@@ -4303,12 +4302,12 @@ BEGIN
     ID_SECURITY_MOVE_UP			"Move the selected security rules up the precedence list."
     ID_SECURITY_MOVE_DOWN		"Move the selected security rules down the precedence list."
     ID_SECURITY_BAN				"Filter out the selected host for an extended period."
-    ID_TAB_NETWORK				"See how well you are connected to the Network."
-    ID_TAB_LIBRARY				"View and manage your local content library."
-    ID_TAB_TRANSFERS			"Manage all your active downloads and uploads."
+    ID_TAB_NETWORK				"Manage your Network connections."
+    ID_TAB_LIBRARY				"View your locally catalogued files."
+	ID_TAB_TRANSFERS			"Manage all active downloads and uploads."
     ID_TAB_CONNECT				"Connect or disconnect from the network."
-    ID_VIEW_TABBED				"Use PeerProject in standard Tabbed mode. (Home, Search, Transfers, Network, Library, Media)"
-    ID_VIEW_WINDOWED			"Use PeerProject in power Windowed mode."
+    ID_VIEW_TABBED				"Use PeerProject in standard Tabbed mode. (Home, Transfers, Network, Library, Media, IRC, Search)"
+    ID_VIEW_WINDOWED			"Use PeerProject in Windowed power mode."
     ID_LIBRARY_URI				"Copy the P2P Link of the selected file. (URI)"
     ID_VIEW_DISCOVERY			"Show or hide the network DISCOVERY SERVICES window."
     ID_DISCOVERY_EDIT			"View the properties for the selected discovery service."
@@ -4344,8 +4343,8 @@ END
 
 STRINGTABLE
 BEGIN
+    ID_TAB_HOME					"Return to the PeerProject start page. (home view)"
     ID_DOWNLOADS_BOOST			"Boost the performance of the selected download by removing bandwidth limits."
-    ID_TAB_HOME					"Return to the PeerProject Home page"
     ID_DOWNLOADS_LAUNCH_COPY	"SmartPreview the selected downloads."
     ID_DOWNLOADS_MONITOR		"Open a download monitor window for this download..."
     ID_LIBRARY_SELECT_ALL		"Select and view all folders in your library."
@@ -4407,7 +4406,7 @@ BEGIN
     ID_LIBRARY_UNLINK			"Remove selected files from current Library folder."
     ID_LIBRARY_FOLDER_METADATA	"Apply common metadata from the album folder to all of its files."
     ID_VIEW_MEDIA				"Show or hide the MEDIA PLAYER window."
-    ID_TAB_MEDIA				"Play audio and video media files from your library."
+    ID_TAB_MEDIA				"Play audio/video files from your Library."
     ID_MEDIA_OPEN				"Open and play a media file or playlist..."
     ID_MEDIA_CLOSE				"Close the current media file, freeing up memory."
     ID_MEDIA_PLAY				"Start playing the current media file.\nPlay"
@@ -4453,7 +4452,7 @@ BEGIN
     ID_TOOLS_PROFILE			"Edit your user profile..."
     ID_BROWSE_PROFILE			"Browse the user's profile."
     ID_BROWSE_FILES				"View the user's shared files"
-    ID_TAB_SEARCH				"Search the network for files to download"
+    ID_TAB_SEARCH				"Start new network search for files to download"
 END
 
 STRINGTABLE
@@ -4573,7 +4572,7 @@ END
 
 STRINGTABLE
 BEGIN
-    ID_TAB_IRC					"Show the IRC Chat window."
+    ID_TAB_IRC					"Show the IRC chatrooms window."
 	IDS_IRC_HEADERTITLE			"Welcome to PeerProject Chat."
 	IDS_IRC_HEADERSUBTITLE		"Please respect others while using this service"
 	IDS_IRC_HEADERCHAT			"Chat."

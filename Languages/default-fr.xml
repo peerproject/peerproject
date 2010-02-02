@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2895,7 +2895,7 @@
 	<string id="16198" value="La &#171;&#160;leaf&#160;&#187; voisine %s fait suivre les requêtes, connexion abandonnée."/>
 	<string id="16199" value="Le voisin %s a fait suivre un paquet inconnu (0x%.2x), ignore."/>
 	<string id="16200" value="Le voisin %s a fait suivre un paquet de pong avec adresse invalide, ignore."/>
-	<string id="16201" value="Réception d'une requête mal formatée de %s, ignore."/>
+	<string id="16201" value="Réception d'une requête %s mal formatée de %s, ignore."/>
 	<string id="16202" value="Réception d'une requête de paquet d'accès mal formatée de %s, ignore."/>
 	<string id="16203" value="Le voisin %s a fait suivre un paquet poussé d'une longueur invalide, on l'ignore."/>
 	<string id="16208" value="Réception inattendue d'une mise à jour de table de routage du voisin %s."/>
@@ -2904,6 +2904,7 @@
 	<string id="16211" value="Le voisin %s a fait suivre une demande poussée à une adresse derrière un pare-feu, on l'ignore."/>
 	<string id="16212" value="Le voisin %s a fait suivre un paquet étendu qui n'est pas encodé GGEP."/>
 	<string id="16213" value="Envoi d'une requête de table de routage au voisin %s (%i bit = %lu[%i], %i%% plein)"/>
+	<string id="16255" value="Glisser-déposer des fichiers au groupe %s"/>
 	<string id="16256" value="Ajout de &#171;&#160;%s&#160;&#187; avec %i source(s) à la liste des téléchargements."/>
 	<string id="16257" value="Téléchargement de &#171;&#160;%s&#160;&#187; terminé."/>
 	<string id="16258" value="Mise en pause du téléchargement de &#171;&#160;%s&#160;&#187;."/>

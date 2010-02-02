@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default-en.xml r42 --> <!--Machine Translated!-->
+<!-- Translation based on default-en.xml r48 --> <!--Machine Translated!-->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2104,7 +2104,7 @@
 	<string id="8328" value="Total Volume:"/>
 	<string id="8329" value="of your library"/>
 	<string id="8330" value="폴더"/>
-	<string id="8331" value="This source is currently busy"/>
+<!--	<string id="8331" value="This source is currently busy"/>
 	<string id="8332" value="This source is firewalled"/>
 	<string id="8333" value="This source may be unstable"/>
 	<string id="8334" value="Sources for this file are currently busy"/>
@@ -2174,8 +2174,8 @@
 	<string id="16198" value="Leaf neighbor %s is forwarding queries, dropping connection."/>
 	<string id="16199" value="Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
 	<string id="16200" value="Neighbor %s forwarded a pong with invalid address data, ignoring."/>
-	<string id="16201" value="Received a malformatted query packet from %s, ignoring."/>
-	<string id="16202" value="Received a malformatted query hit packet from %s, ignoring."/>
+	<string id="16201" value="Ignoring malformatted %s search query packet from %s."/>
+	<string id="16202" value="Ignoring malformatted query hit packet from %s."/>
 	<string id="16203" value="Neighbor %s forwarded a push packet with invalid length, ignoring."/>
 	<string id="16208" value="Receiving an unexpected query routing table update from neighbor %s."/>
 	<string id="16209" value="Neighbor %s sent an invalid query routing table update, dropping connection."/>
@@ -2183,6 +2183,7 @@
 	<string id="16211" value="Neighbor %s forwarded a push request to a firewalled address, ignoring."/>
 	<string id="16212" value="Neighbor %s forwarded an extended packet that is not GGEP encoded."/>
 	<string id="16213" value="Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16255" value="끌어 다 놓으십시오 %s 그룹에 파일을"/>
 	<string id="16256" value="Added &quot;%s&quot; to download queue with %i source(s)."/>
 	<string id="16257" value="Completed download of &quot;%s&quot;."/>
 	<string id="16258" value="Pausing download of &quot;%s&quot;."/>
@@ -2376,7 +2377,7 @@
 	<string id="16769" value="Unable to parse URL: PeerProject does not understand this URL."/>
 	<string id="16770" value="Unable to display URL action dialog because PeerProject is busy."/>
 	<string id="16771" value="You already have the file &quot;%s&quot; in your library. Do you want to download it anyway?"/>
-	<string id="16772" value="호스트 :"/>
+-->	<string id="16772" value="호스트 :"/>
 	<string id="16773" value="포트"/>
 	<string id="16774" value="&amp;Connect"/>
 	<string id="16775" value="&amp;Browse"/>

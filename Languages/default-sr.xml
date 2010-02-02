@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Serbian Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2716,8 +2716,8 @@
 	<string id="16198" value="Leaf neighbour %s is forwarding queries, dropping connection."/>
 	<string id="16199" value="Neighbour %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
 	<string id="16200" value="Neighbour %s forwarded a pong with invalid address data, ignoring."/>
-	<string id="16201" value="Received a malformatted query packet from %s, ignoring."/>
-	<string id="16202" value="Received a malformatted query hit packet from %s, ignoring."/>
+	<string id="16201" value="Ignoring malformatted %s search query packet from %s."/>
+	<string id="16202" value="Ignoring malformatted query hit packet from %s."/>
 	<string id="16203" value="Neighbour %s forwarded a push packet with invalid length, ignoring."/>
 	<string id="16208" value="Receiving an unexpected query routing table update from neighbour %s."/>
 	<string id="16209" value="Neighbour %s sent an invalid query routing table update, dropping connection."/>
@@ -2725,6 +2725,7 @@
 	<string id="16211" value="Neighbour %s forwarded a push request to a firewalled address, ignoring."/>
 	<string id="16212" value="Neighbour %s forwarded an extended packet that is not GGEP encoded."/>
 	<string id="16213" value="Sending query routing table to neighbour %s (%i bit = %lu[%i], %i%% full)"/>
+	<string id="16255" value="Узми и пусти фајлове у групи %s"/>
 	<string id="16256" value="Dodano &quot;%s&quot; u skidanje sa %i izvorom(a)."/>
 	<string id="16257" value="Skidanje &quot;%s&quot; je završeno."/>
 	<string id="16258" value="Skidanje &quot;%s&quot; je pauzirano."/>

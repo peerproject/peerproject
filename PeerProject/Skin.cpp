@@ -120,9 +120,15 @@ void CSkin::CreateDefault()
 
 	// Default Options
 	m_nToolbarHeight = 28;
+	m_nTaskbarHeight = 26;
+	m_nTaskbarTabWidth = 140;
+	m_nGroupsbarHeight = 24;
 	m_nHeaderbarHeight = 64;
+	m_nMonitorbarWidth = 120;
 	m_nSidebarWidth = 200;
 	m_nSplitter = 6;
+	m_nLibIconsX = 220;
+	m_nLibIconsY = 56;
 	m_bMenuBorders = TRUE;
 	m_bMenuGripper = TRUE;
 	m_bDropMenu = FALSE;
@@ -591,54 +597,110 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 				if ( ! LoadNavBar( pXML ) )
 					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Skin Option [Navbar] Failed"), pXML->ToString() );
 			}
-			else if ( strName.CompareNoCase( _T("dropmenu") ) == 0 )
+			else if ( strName.CompareNoCase( _T("dropmenu") ) == 0||  strName.CompareNoCase( _T("submenu") ) == 0 )
 			{
-				if ( strValue.CompareNoCase( _T("false") ) == 0 )
-					m_bDropMenu = FALSE;
-				else if ( strValue.CompareNoCase( _T("true") ) == 0 )
+				if ( strValue.CompareNoCase( _T("true") ) == 0 )
 					m_bDropMenu = TRUE;
+				else if ( strValue.CompareNoCase( _T("false") ) == 0 )
+					m_bDropMenu = FALSE;
+				else if ( strValue.CompareNoCase( _T("1") ) == 0 )
+					m_bDropMenu = TRUE;
+				else if ( strValue.CompareNoCase( _T("0") ) == 0 )
+					m_bDropMenu = FALSE;
+				else if ( strValue.CompareNoCase( _T("on") ) == 0 )
+					m_bDropMenu = TRUE;
+				else if ( strValue.CompareNoCase( _T("off") ) == 0 )
+					m_bDropMenu = FALSE;
 			}
-			else if ( strName.CompareNoCase( _T("menuborders") ) == 0 ||  strName.CompareNoCase( _T("menubevel") ) == 0 )
+			else if ( strName.CompareNoCase( _T("menuborders") ) == 0 ||  strName.CompareNoCase( _T("menubarbevel") ) == 0 )
 			{
-				if ( strValue.CompareNoCase( _T("false") ) == 0 )
-					m_bMenuBorders = FALSE;
-				else if ( strValue.CompareNoCase( _T("true") ) == 0 )
+				if ( strValue.CompareNoCase( _T("true") ) == 0 )
 					m_bMenuBorders = TRUE;
+				else if ( strValue.CompareNoCase( _T("false") ) == 0 )
+					m_bMenuBorders = FALSE;
+				else if ( strValue.CompareNoCase( _T("1") ) == 0 )
+					m_bMenuBorders = TRUE;
+				else if ( strValue.CompareNoCase( _T("0") ) == 0 )
+					m_bMenuBorders = FALSE;
+				else if ( strValue.CompareNoCase( _T("on") ) == 0 )
+					m_bMenuBorders = TRUE;
+				else if ( strValue.CompareNoCase( _T("off") ) == 0 )
+					m_bMenuBorders = FALSE;
 			}
-			else if ( strName.CompareNoCase( _T("menugripper") ) == 0 )
+			else if ( strName.CompareNoCase( _T("menugripper") ) == 0 ||  strName.CompareNoCase( _T("grippers") ) == 0 )
 			{
-				if ( strValue.CompareNoCase( _T("false") ) == 0 )
-					m_bMenuGripper = FALSE;
-				else if ( strValue.CompareNoCase( _T("true") ) == 0 )
+				if ( strValue.CompareNoCase( _T("true") ) == 0 )
 					m_bMenuGripper = TRUE;
+				else if ( strValue.CompareNoCase( _T("false") ) == 0 )
+					m_bMenuGripper = FALSE;
+				else if ( strValue.CompareNoCase( _T("1") ) == 0 )
+					m_bMenuGripper = TRUE;
+				else if ( strValue.CompareNoCase( _T("0") ) == 0 )
+					m_bMenuGripper = FALSE;
+				else if ( strValue.CompareNoCase( _T("on") ) == 0 )
+					m_bMenuGripper = TRUE;
+				else if ( strValue.CompareNoCase( _T("off") ) == 0 )
+					m_bMenuGripper = FALSE;
 			}
 			else if ( strName.CompareNoCase( _T("toolbar") ) == 0 || strName.CompareNoCase( _T("toolbars") ) == 0 )
 			{
-				if ( strValue.GetLength() )
-					m_nToolbarHeight = _wtoi(strValue);
-				else if ( strHeight.GetLength() )
+				if ( strHeight.GetLength() )
 					m_nToolbarHeight = _wtoi(strHeight);
+				else if ( strValue.GetLength() )
+					m_nToolbarHeight = _wtoi(strValue);
+			}
+			else if ( strName.CompareNoCase( _T("taskbar") ) == 0 || strName.CompareNoCase( _T("tabbar") ) == 0 )
+			{
+				if ( strWidth.GetLength() )
+					m_nTaskbarTabWidth = _wtoi(strWidth);
+				if ( strHeight.GetLength() )
+					m_nTaskbarHeight = _wtoi(strHeight);
+				else if ( strValue.GetLength() )
+					m_nTaskbarHeight = _wtoi(strValue);
 			}
 			else if ( strName.CompareNoCase( _T("sidebar") ) == 0 || strName.CompareNoCase( _T("sidepanel") ) == 0 )
 			{
-				if ( strValue.GetLength() )
-					m_nSidebarWidth = _wtoi(strValue);
-				else if ( strWidth.GetLength() )
+				if ( strWidth.GetLength() )
 					m_nSidebarWidth = _wtoi(strWidth);
+				else if ( strValue.GetLength() )
+					m_nSidebarWidth = _wtoi(strValue);
 			}
 			else if ( strName.CompareNoCase( _T("titlebar") ) == 0 || strName.CompareNoCase( _T("headerpanel") ) == 0 )
 			{
-				if ( strValue.GetLength() )
-					m_nHeaderbarHeight = _wtoi(strValue);
-				else if ( strHeight.GetLength() )
+				if ( strHeight.GetLength() )
 					m_nHeaderbarHeight = _wtoi(strHeight);
+				else if ( strValue.GetLength() )
+					m_nHeaderbarHeight = _wtoi(strValue);
+			}
+			else if ( strName.CompareNoCase( _T("groupsbar") ) == 0 || strName.CompareNoCase( _T("downloadgroups") ) == 0 )
+			{
+				if ( strHeight.GetLength() )
+					m_nGroupsbarHeight = _wtoi(strHeight);
+				else if ( strValue.GetLength() )
+					m_nGroupsbarHeight = _wtoi(strValue);
+			}
+			else if ( strName.CompareNoCase( _T("monitorbar") ) == 0 || strName.CompareNoCase( _T("bandwidthbar") ) == 0 )
+			{
+				if ( strWidth.GetLength() )
+					m_nMonitorbarWidth = _wtoi(strWidth);
+				else if ( strValue.GetLength() )
+					m_nMonitorbarWidth = _wtoi(strValue);
 			}
 			else if ( strName.CompareNoCase( _T("dragbar") ) == 0 || strName.CompareNoCase( _T("splitter") ) == 0 )
 			{
-				if ( strValue.GetLength() )
-					m_nSplitter = _wtoi(strValue);
-				else if ( strWidth.GetLength() )
+				if ( strWidth.GetLength() )
 					m_nSplitter = _wtoi(strWidth);
+				else if ( strValue.GetLength() )
+					m_nSplitter = _wtoi(strValue);
+			}
+			else if ( strName.CompareNoCase( _T("icongrid") ) == 0 || strName.CompareNoCase( _T("librarytiles") ) == 0 )
+			{
+				if ( strHeight.GetLength() )
+					m_nLibIconsY = _wtoi(strHeight);
+				if ( strWidth.GetLength() )
+					m_nLibIconsX = _wtoi(strWidth);
+				else if ( strValue.GetLength() )
+					m_nLibIconsX = _wtoi(strValue);
 			}
 		}
 		else

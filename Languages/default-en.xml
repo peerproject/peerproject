@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default-en.xml r46 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -547,7 +547,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 			<menu text="_Network">
 				<item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>
@@ -1896,7 +1896,7 @@
 		</group>
 		<icon group="20" command="ID_NETWORK_G2"/>
 		<text group="20" align="middle" format="b">&#160;Gnutella2: </text>
-		<text group="21" align="middle">Disconnected </text>
+		<text group="21" align="middle">Disconnected</text>
 		<text group="22" align="middle">Connecting...</text>
 		<text group="23" align="middle" id="G2Peers">Hub mode</text>
 		<text group="24" align="middle" id="G2Hubs">%i Hubs</text>
@@ -1904,7 +1904,7 @@
 		<newline group="20" gap="2"/>
 		<icon group="10" command="ID_NETWORK_G1"/>
 		<text group="10" align="middle" format="b">&#160;Gnutella: </text>
-		<text group="11" align="middle">Disconnected </text>
+		<text group="11" align="middle">Disconnected</text>
 		<text group="12" align="middle">Connecting...</text>
 		<text group="13" align="middle" id="G1Peers">Ultrapeer</text>
 		<text group="14" align="middle" id="G1Hubs">%i Peers</text>
@@ -1912,7 +1912,7 @@
 		<newline group="10" gap="2"/>
 		<icon group="30" command="ID_NETWORK_ED2K"/>
 		<text group="30" align="middle" format="b">&#160;eDonkey: </text>
-		<text group="31" align="middle">Disconnected </text>
+		<text group="31" align="middle">Disconnected</text>
 		<text group="32" align="middle">Connecting...</text>
 		<text group="33" align="middle" id="ED2KServers">1 Server</text>
 		<newline group="30" gap="2"/>
@@ -1972,7 +1972,7 @@
 				<newline gap="4"/>
 			</group>
 			<link id="DownloadsNone" target="peer:command:ID_VIEW_DOWNLOADS">Go to Downloads View</link>
-			<link id="DownloadsOne" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 active download</link>
+			<link id="DownloadsOne"  target="peer:command:ID_VIEW_DOWNLOADS" format="bu">1 active download</link>
 			<link id="DownloadsMany" target="peer:command:ID_VIEW_DOWNLOADS" format="bu">%i active downloads</link>
 			<newline gap="4"/>
 			<text id="DownloadedNone">No files (</text>
@@ -2008,7 +2008,7 @@
 		<text format="b">Welcome to PeerProject's Settings Manager</text>
 		<newline gap="16"/>
 		<text>These option pages allow advanced users to customize how PeerProject works.
-			&#160;Settings in the </text>
+		&#160;Settings in the </text>
 		<text format="b">General </text>
 		<text>section relate to user experience.</text>
 		<newline gap="16" indent="16"/>
@@ -2964,8 +2964,8 @@
 	<string id="16198" value="Leaf neighbor %s is forwarding queries, dropping connection."/>
 	<string id="16199" value="Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
 	<string id="16200" value="Neighbor %s forwarded a pong with invalid address data, ignoring."/>
-	<string id="16201" value="Received a malformatted query packet from %s, ignoring."/>
-	<string id="16202" value="Received a malformatted query hit packet from %s, ignoring."/>
+	<string id="16201" value="Ignoring malformatted %s search query packet from %s."/>
+	<string id="16202" value="Ignoring malformatted query hit packet from %s."/>
 	<string id="16203" value="Neighbor %s forwarded a push packet with invalid length, ignoring."/>
 	<string id="16208" value="Receiving an unexpected query routing table update from neighbor %s."/>
 	<string id="16209" value="Neighbor %s sent an invalid query routing table update, dropping connection."/>

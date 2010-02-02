@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2882,7 +2882,7 @@
 	<string id="16198" value="Leaf %s stuurt zoekopdrachten door, de verbinding wordt verbroken."/>
 	<string id="16199" value="Bron %s heeft een onherkenbaar pakket doorgestuurd (0x%.2x), het wordt genegeerd."/>
 	<string id="16200" value="Bron %s heeft een pong pakket met een ongeldig data adres doorgestuurd, het wordt genegeerd."/>
-	<string id="16201" value="Er is een slecht geformatteerd query pakket ontvangen van %s, het wordt genegeerd."/>
+	<string id="16201" value="%s:  Er is een slecht geformatteerd query pakket ontvangen van %s, het wordt genegeerd."/>
 	<string id="16202" value="Er is een slecht geformatteerd query hit pakket ontvangen van %s, het wordt genegeerd."/>
 	<string id="16203" value="Bron %s heeft een pushpakket met een ongeldige lengte doorgestuurd, het wordt genegeerd."/>
 	<string id="16208" value="Een onverwachte update van de query routing tabel is ontvangen van bron %s."/>
@@ -2891,6 +2891,7 @@
 	<string id="16211" value="Bron %s heeft een pushaanvraag doorgestuurd naar een adres met een firewall, het wordt genegeerd."/>
 	<string id="16212" value="Bron %s heeft een uitgebreid pakket doorgestuurd dat niet GGEP gecodeerd is."/>
 	<string id="16213" value="Query routing tabel wordt gestuurd naar bron %s (%i bit = %lu[%i], %i%% vol)"/>
+	<string id="16255" value="Drag'n'drop bestanden naar de %s groep"/>
 	<string id="16256" value="&quot;%s&quot; toegevoegd aan downloadwachtrij met %i bron(nen)."/>
 	<string id="16257" value="Het downloaden van &quot;%s&quot; is voltooid."/>
 	<string id="16258" value="Het downloaden van &quot;%s&quot; is gepauzeerd."/>

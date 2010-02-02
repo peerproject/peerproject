@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default-en.xml r42 -->
+<!-- Translation based on default-en.xml r48 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2685,6 +2685,7 @@ gap i newline
 	<string id="16079" value="‪?האם אתה בטוח שברצונך להתנתק"/>
 	<!-- Missing Strings -->
 	<string id="16213" value="‪&#8234;%s  ‏משכן‎ ‏ניווט‎ ‏בקשת‎ (‏ &#8234;%i bit = %lu[%i], %i%% full)"/>
+	<string id="16255" value="Drag'n'drop קבצים לקבוצה %s"/>
 	<string id="16260" value="‪&quot;%s&quot; :הורדה הוסרה"/>
 	<string id="16283" value="‪כבר בהורדה, מוסיף מקורות &quot;%s&quot; הקובץ"/>
 	<!-- Missing Strings -->

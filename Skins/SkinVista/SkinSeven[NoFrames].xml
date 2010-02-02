@@ -2,9 +2,9 @@
 <skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
 
 <manifest
- name="SkinSeven.Integrated"
+ name="SkinSeven.NoFrames"
  author="SkinVista"
- description="Windows 7 Theme, with System Default Frames  (Mix to add Chat tab)"
+ description="Windows 7 Theme, with System Default Frames"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
  path="SkinVista"

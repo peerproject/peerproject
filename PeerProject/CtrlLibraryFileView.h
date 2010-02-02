@@ -1,7 +1,7 @@
 //
 // CtrlLibraryFileView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,10 +19,8 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#if !defined(CTRLLIBRARYFILEVIEW_H)
-#define CTRLLIBRARYFILEVIEW_H
-
 #pragma once
+
 
 #include "CtrlLibraryView.h"
 
@@ -75,6 +73,8 @@ protected:
 	afx_msg void OnLibraryLaunch();
 	afx_msg void OnUpdateLibraryEnqueue(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryEnqueue();
+	afx_msg void OnUpdateLibraryLaunchFolder(CCmdUI* pCmdUI);
+	afx_msg void OnLibraryLaunchFolder();
 	afx_msg void OnUpdateLibraryURL(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryURL();
 	afx_msg void OnUpdateLibraryMove(CCmdUI* pCmdUI);
@@ -138,5 +138,3 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 };
-
-#endif // !defined(CTRLLIBRARYFILEVIEW_H)

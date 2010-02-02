@@ -513,7 +513,7 @@
 	</menu>
 	<!-- MAIN WINDOW MENU BAR -->
 	<menu name="CMainWnd.DropMenu" type="bar">
-		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160;">
+		<menu text="&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;">
 			<item id="ID_TOOLS_SETTINGS" text="_Settings..."/>
 			<menu text="_Network">
 				<item id="ID_NETWORK_CONNECT" text="_Connect" shortcut="Ctrl+G"/>
@@ -2395,16 +2395,16 @@
 		<image type="alpha" language="en" res="246"/>
 		<target window="CMainTabBarCtrl.Basic"/>
 		<anchors>
-			<anchor name="Background" 			  	rect="0,0,576,44"/>
-			<anchor name="_ID_TAB_HOME" 		  	rect="4,1,90,38"/>
-			<anchor name="_ID_TAB_SEARCH"	  		rect="95,1,90,38"/>
+			<anchor name="Background" 				rect="0,0,576,44"/>
+			<anchor name="_ID_TAB_HOME" 			rect="4,1,90,38"/>
+			<anchor name="_ID_TAB_SEARCH"			rect="95,1,90,38"/>
 			<anchor name="_ID_TAB_TRANSFERS"		rect="186,1,112,38"/>
 			<anchor name="_ID_TAB_LIBRARY"			rect="299,1,94,38"/>
-			<anchor name="_ID_TAB_MEDIA"		  	rect="394,1,90,38"/>
-			<anchor name="_ID_TAB_IRC"		  		rect="485,1,80,38"/>
+			<anchor name="_ID_TAB_MEDIA"			rect="394,1,90,38"/>
+			<anchor name="_ID_TAB_IRC"				rect="485,1,80,38"/>
 		</anchors>
 		<parts>
-			<part name="_ID_TAB_HOME.Up"		  	rect="0,0,90,38"/>
+			<part name="_ID_TAB_HOME.Up"			rect="0,0,90,38"/>
 			<part name="_ID_TAB_HOME.Checked"		rect="0,38,90,38"/>
 			<part name="_ID_TAB_HOME.Hover"			rect="0,38,90,38"/>
 			<part name="_ID_TAB_HOME.Down"			rect="0,76,90,38"/>
@@ -2424,10 +2424,10 @@
 			<part name="_ID_TAB_MEDIA.Checked"		rect="494,38,90,38"/>
 			<part name="_ID_TAB_MEDIA.Hover"		rect="494,38,90,38"/>
 			<part name="_ID_TAB_MEDIA.Down"			rect="494,76,90,38"/>
-			<part name="_ID_TAB_IRC.Up" 	  		rect="584,0,80,38"/>
+			<part name="_ID_TAB_IRC.Up" 			rect="584,0,80,38"/>
 			<part name="_ID_TAB_IRC.Checked"		rect="584,38,80,38"/>
 			<part name="_ID_TAB_IRC.Hover"			rect="584,38,80,38"/>
-			<part name="_ID_TAB_IRC.Down"		  	rect="584,76,80,38"/>
+			<part name="_ID_TAB_IRC.Down"			rect="584,76,80,38"/>
 		</parts>
 	</windowSkin>
 	<windowSkin>

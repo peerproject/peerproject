@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default-en.xml r42 (Shareaza 2.2.2.9) -->
+<!-- Translation based on default-en.xml r48 (Shareaza 2.2.2.9) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2674,8 +2674,8 @@
 	<string id="16136" value="%s katkestas ootamatult ühenduse."/>
 	<string id="16137" value="Keeldun topelt ühendusest %s."/>
 	<string id="16138" value="Juba ühendatud %s, ei loo teist ühendust."/>
-	<string id="16139" value=" %s sulges ühenduse (%i : %s)."/>
-	<string id="16140" value=" %s aeglane ühendus."/>
+	<string id="16139" value="%s sulges ühenduse (%i : %s)."/>
+	<string id="16140" value="%s aeglane ühendus."/>
 	<string id="16141" value="Suletud ühendus %s kuna see ei ole jaotur."/>
 	<string id="16144" value="Kinnitamise aeg täis %s."/>
 	<string id="16145" value="Gnutella ühendus %s edukalt üles seatud  (G%i.%i : %s)."/>
@@ -2688,28 +2688,29 @@
 	<string id="16153" value="Ühendan %s langen tagasi kaitstud leaf mode."/>
 	<string id="16154" value="Jaoturi ühendus kinnitatud, sulgen peer ühenduse."/>
 	<string id="16155" value="Käitun hubina (jaoturina) leafi serveris %s."/>
-	<string id="16156" value=" %s tahab olla hub(jaotur), sulgen ühenduse."/>
-	<string id="16157" value=" %s ei ole hub(jaotur), sulgen ühenduse."/>
+	<string id="16156" value="%s tahab olla hub(jaotur), sulgen ühenduse."/>
+	<string id="16157" value="%s ei ole hub(jaotur), sulgen ühenduse."/>
 	<string id="16158" value="Gnutella2 ühendus %s edukalt sisse seatud (%s)."/>
 	<string id="16159" value="Sulgen ühenduse mitte-Gnutella2 %s."/>
-	<string id="16192" value=" %s saatis liiga suure infopaketi, katkestan ühenduse."/>
-	<string id="16193" value=" %s saatis paketi ilma TTL-ita, eiran."/>
-	<string id="16194" value=" %s saatis liiga suure TTL, kaotan paketi (TTL=%i, Hops=%i)."/>
-	<string id="16195" value=" %s saatis vigaste andmetega pingi, ignoreerin."/>
-	<string id="16196" value=" %s saatis vigase pong paketi, ignoreerin."/>
+	<string id="16192" value="%s saatis liiga suure infopaketi, katkestan ühenduse."/>
+	<string id="16193" value="%s saatis paketi ilma TTL-ita, eiran."/>
+	<string id="16194" value="%s saatis liiga suure TTL, kaotan paketi (TTL=%i, Hops=%i)."/>
+	<string id="16195" value="%s saatis vigaste andmetega pingi, ignoreerin."/>
+	<string id="16196" value="%s saatis vigase pong paketi, ignoreerin."/>
 	<string id="16197" value="%s -> %s [%i/%i] %s %s"/>
 	<string id="16198" value="Leaf  %s saadab järjekordi, katkestan ühenduse."/>
-	<string id="16199" value=" %s saatis tundmatu paketi (0x%.2x), ignoreerin."/>
-	<string id="16200" value=" %s saatis vigase aadressiga andme pongi, ignoreerin."/>
-	<string id="16201" value="Vastu võetud vigaselt formeeritud info päring %s, ignoreerin."/>
+	<string id="16199" value="%s saatis tundmatu paketi (0x%.2x), ignoreerin."/>
+	<string id="16200" value="%s saatis vigase aadressiga andme pongi, ignoreerin."/>
+	<string id="16201" value="%s:  Vastu võetud vigaselt formeeritud info päring %s, ignoreerin."/>
 	<string id="16202" value="Vastu võetud vigaselt formeeritud pakettide päring %s, ignoreerin."/>
-	<string id="16203" value=" %s saatis vigase suurusega paketi, ignoreerin."/>
+	<string id="16203" value="%s saatis vigase suurusega paketi, ignoreerin."/>
 	<string id="16208" value="Vastu võetud ootamatu päring marsruutingu uuenduseks %s."/>
-	<string id="16209" value=" %s saatis vigase päringu marsruutingu uuenduseks, katkestan ühenduse."/>
-	<string id="16210" value=" %s uuendas oma marsruutingu tabelit (%i bit = %lu[%i], %i%% täis)."/>
-	<string id="16211" value=" %s saatis päringu tulemüüri aadressiga, ignoreerin."/>
-	<string id="16212" value=" %s saatis laiendatut paketi, mis ei ole GGEP kodeeringus."/>
+	<string id="16209" value="%s saatis vigase päringu marsruutingu uuenduseks, katkestan ühenduse."/>
+	<string id="16210" value="%s uuendas oma marsruutingu tabelit (%i bit = %lu[%i], %i%% täis)."/>
+	<string id="16211" value="%s saatis päringu tulemüüri aadressiga, ignoreerin."/>
+	<string id="16212" value="%s saatis laiendatut paketi, mis ei ole GGEP kodeeringus."/>
 	<string id="16213" value="Saadan päringu marsruutinguga %s (%i bit = %lu[%i], %i%% täis)"/>
+	<string id="16255" value="Drag'n'drop faile %s grupp"/>
 	<string id="16256" value="Lisatud &quot;%s&quot; allalaadimis järjekorda %i allikale."/>
 	<string id="16257" value="Lõpetatud allalaadimine &quot;%s&quot;."/>
 	<string id="16258" value="Peatatud allalaadimine &quot;%s&quot;."/>
@@ -2718,7 +2719,7 @@
 	<string id="16261" value="Loon faili &quot;%s&quot; allalaadimiseks."/>
 	<string id="16262" value="Ei saa luua kohalikku faili &quot;%s&quot; allalaadimiseks, katkestan."/>
 	<string id="16263" value="Ei saa avada kohalikku faili &quot;%s&quot; allalaadimiseks, katkestan."/>
-	<string id="16264" value="Alustan ühenduse loomist %s porti %i  &quot;%s&quot;  allalaadimiseks..."/>
+	<string id="16264" value="Alustan ühenduse loomist %s porti %i  &quot;%s&quot; allalaadimiseks..."/>
 	<string id="16265" value="Ei saa allalaadimiseks ühendust luua %s."/>
 	<string id="16266" value="Loodud ühendus allalaadimiseks %s."/>
 	<string id="16267" value="Küsin allalaadimiseks fragmenti (%I64i-%I64i)  &quot;%s&quot; -lt %s."/>

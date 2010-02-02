@@ -62,7 +62,7 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-#define GROUPSBAR	24	// ToDo: Make Download Groups height skinnable?
+//#define GROUPSBAR 24	// Skin.m_nGroupsbarHeight
 
 
 IMPLEMENT_SERIAL(CDownloadsWnd, CPanelWnd, 0)
@@ -294,7 +294,7 @@ void CDownloadsWnd::OnSize(UINT nType, int cx, int cy)
 	BOOL bTabs = Settings.Downloads.ShowGroups && ( Settings.General.GUIMode != GUI_BASIC );
 
 	if ( bTabs )
-		rc.top += GROUPSBAR;
+		rc.top += Skin.m_nGroupsbarHeight;
 	else
 		m_wndTabBar.ShowWindow( SW_HIDE );
 
@@ -304,7 +304,7 @@ void CDownloadsWnd::OnSize(UINT nType, int cx, int cy)
 	DeferWindowPos( hPos, m_wndToolBar, NULL,
 		0, rc.bottom, cx, Skin.m_nToolbarHeight, SWP_SHOWWINDOW|SWP_NOZORDER );
 	if ( bTabs ) DeferWindowPos( hPos, m_wndTabBar, NULL,
-		0, 0, cx, GROUPSBAR, SWP_SHOWWINDOW|SWP_NOZORDER );
+		0, 0, cx, Skin.m_nGroupsbarHeight, SWP_SHOWWINDOW|SWP_NOZORDER );
 	EndDeferWindowPos( hPos );
 
 	CPanelWnd::OnSize( nType, cx, cy );
@@ -322,7 +322,8 @@ void CDownloadsWnd::OnTimer(UINT_PTR nIDEvent)
 
 		if ( ( tNow - m_tMoreSourcesTimer ) > 8*60*1000 )
 		{
-			if ( m_nMoreSourcesLimiter < 15 ) m_nMoreSourcesLimiter ++;
+			if ( m_nMoreSourcesLimiter < 15 )
+				m_nMoreSourcesLimiter++;
 
 			m_tMoreSourcesTimer = tNow;
 		}
@@ -996,8 +997,8 @@ void CDownloadsWnd::OnUpdateDownloadsLaunchCopy(CCmdUI* pCmdUI)
 {
 	Prepare();
 	if ( CCoolBarItem* pcCmdUI = CCoolBarItem::FromCmdUI( pCmdUI ) )
-		pcCmdUI->Show( ! m_bSelCompleted && m_bSelNotMoving );
-	pCmdUI->Enable( m_bSelStartedAndNotMoving );
+		pcCmdUI->Show( m_bSelStartedAndNotMoving && ! m_bSelCompleted );
+	pCmdUI->Enable( m_bSelStartedAndNotMoving && ! m_bSelCompleted );
 }
 
 void CDownloadsWnd::OnDownloadsLaunchCopy()
