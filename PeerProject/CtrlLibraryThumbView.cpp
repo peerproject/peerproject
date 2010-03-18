@@ -207,7 +207,7 @@ BOOL CLibraryThumbView::Select(DWORD nObject)
 
 	CLibraryThumbItem** pList = m_pList + m_nCount - 1;
 
-    int nItem = m_nCount;
+	int nItem = m_nCount;
 	for ( ; nItem ; nItem--, pList-- )
 	{
 		CLibraryThumbItem* pThumb = *pList;

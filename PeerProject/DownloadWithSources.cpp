@@ -98,9 +98,9 @@ INT_PTR CDownloadWithSources::GetCount() const
 	return m_pSources.GetCount();
 }
 
-CXMLElement* CDownloadWithSources::GetMetadata() const
+bool CDownloadWithSources::HasMetadata() const
 {
-	return m_pXML;
+	return ( m_pXML != NULL );
 }
 
 DWORD CDownloadWithSources::GetSourceCount(BOOL bNoPush, BOOL bSane) const
@@ -119,9 +119,9 @@ DWORD CDownloadWithSources::GetSourceCount(BOOL bNoPush, BOOL bSane) const
 
 		if ( ! bNoPush || ! pSource->m_bPushOnly )
 		{
-			if ( ! bSane || (
-			   ( pSource->m_tAttempt < tNow ||
-				 pSource->m_tAttempt - tNow <= 900000 ) &&
+			if ( ! bSane ||
+			   ( ( pSource->m_tAttempt < tNow ||
+				   pSource->m_tAttempt - tNow <= 900000 ) &&
 				 ! pSource->m_bKeep ) )
 			{
 				nCount++;
@@ -195,7 +195,7 @@ DWORD CDownloadWithSources::GetED2KCompleteSourceCount() const
 		if ( ( ! pSource->m_bPushOnly ) &&						// Push sources shouldn't be counted since you often cannot reach them
 			 ( pSource->m_tAttempt < tNow || pSource->m_tAttempt - tNow <= 900000 ) &&	// Only count sources that are probably active
 			 ( pSource->m_nProtocol == PROTOCOL_ED2K ) &&		// Only count ed2k sources
-             ( pSource->m_oAvailable.empty() && pSource->IsOnline() ) )	// Only count complete sources
+			 ( pSource->m_oAvailable.empty() && pSource->IsOnline() ) )	// Only count complete sources
 		{
 			nCount++;
 		}
@@ -221,7 +221,9 @@ void CDownloadWithSources::ClearSources()
 
 	for ( POSITION posSource = GetIterator() ; posSource ; )
 	{
-		delete GetNext( posSource );
+		CDownloadSource* pSource = GetNext( posSource );
+
+		pSource->Remove();
 	}
 	m_pSources.RemoveAll();
 
@@ -261,7 +263,7 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 			if ( m_oTiger != pHit->m_oTiger ) return FALSE;
 			bHash = TRUE;
 		}
-        if ( m_oED2K && pHit->m_oED2K )
+		if ( m_oED2K && pHit->m_oED2K )
 		{
 			if ( m_oED2K != pHit->m_oED2K ) return FALSE;
 			bHash = TRUE;
@@ -293,27 +295,27 @@ BOOL CDownloadWithSources::AddSourceHit(const CQueryHit* pHit, BOOL bForce)
 	if ( m_nSize != SIZE_UNKNOWN && pHit->m_bSize && m_nSize != pHit->m_nSize )
 		return FALSE;
 
-	if ( !m_oSHA1 && pHit->m_oSHA1 )
+	if ( ! m_oSHA1 && pHit->m_oSHA1 )
 	{
 		m_oSHA1 = pHit->m_oSHA1;
 		bUpdated = TRUE;
 	}
-    if ( !m_oTiger && pHit->m_oTiger )
+	if ( ! m_oTiger && pHit->m_oTiger )
 	{
 		m_oTiger = pHit->m_oTiger;
 		bUpdated = TRUE;
 	}
-    if ( !m_oED2K && pHit->m_oED2K )
+	if ( ! m_oED2K && pHit->m_oED2K )
 	{
 		m_oED2K = pHit->m_oED2K;
 		bUpdated = TRUE;
 	}
-	if ( !m_oBTH && pHit->m_oBTH )
+	if ( ! m_oBTH && pHit->m_oBTH )
 	{
 		m_oBTH = pHit->m_oBTH;
 		bUpdated = TRUE;
 	}
-	if ( !m_oMD5 && pHit->m_oMD5 )
+	if ( ! m_oMD5 && pHit->m_oMD5 )
 	{
 		m_oMD5 = pHit->m_oMD5;
 		bUpdated = TRUE;
@@ -843,7 +845,7 @@ void CDownloadWithSources::AddFailedSource(const CDownloadSource* pSource, bool 
 	if ( pSource->m_nProtocol == PROTOCOL_BT && pSource->m_oGUID )
 	{
 		strURL.Format( _T("btc://%s/%s/"),
-            (LPCTSTR)pSource->m_oGUID.toString(),
+			(LPCTSTR)pSource->m_oGUID.toString(),
 			(LPCTSTR)m_oBTH.toString() );
 	}
 	else
@@ -917,12 +919,12 @@ void CDownloadWithSources::ClearFailedSources()
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithSources Internal Add/Remove Source
 
-void CDownloadWithSources::InternalAdd(CDownloadSource* pSource)
+void CDownloadWithSources::InternalAdd(const CDownloadSource* pSource)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
-	ASSERT( m_pSources.Find( pSource ) == NULL );
-	m_pSources.AddTail( pSource );
+	ASSERT( m_pSources.Find( const_cast< CDownloadSource* >( pSource ) ) == NULL );
+	m_pSources.AddTail( const_cast< CDownloadSource* >( pSource ) );
 
 	switch ( pSource->m_nProtocol )
 	{
@@ -949,11 +951,11 @@ void CDownloadWithSources::InternalAdd(CDownloadSource* pSource)
 	}
 }
 
-void CDownloadWithSources::InternalRemove(CDownloadSource* pSource)
+void CDownloadWithSources::InternalRemove(const CDownloadSource* pSource)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
-	POSITION posSource = m_pSources.Find( pSource );
+	POSITION posSource = m_pSources.Find( const_cast< CDownloadSource* >( pSource ) );
 	ASSERT( posSource != NULL );
 	m_pSources.RemoveAt( posSource );
 
@@ -973,7 +975,6 @@ void CDownloadWithSources::InternalRemove(CDownloadSource* pSource)
 		break;
 	case PROTOCOL_BT:
 		m_nBTSourceCount--;
-		ASSERT( m_nBTSourceCount >= 0 );
 		break;
 	case PROTOCOL_FTP:
 		m_nFTPSourceCount--;
@@ -987,7 +988,7 @@ void CDownloadWithSources::InternalRemove(CDownloadSource* pSource)
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithSources remove a source
 
-void CDownloadWithSources::RemoveSource(CDownloadSource* pSource, BOOL bBan)
+void CDownloadWithSources::RemoveSource(const CDownloadSource* pSource, BOOL bBan)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
@@ -995,8 +996,6 @@ void CDownloadWithSources::RemoveSource(CDownloadSource* pSource, BOOL bBan)
 
 	if ( bBan && pSource->m_sURL.GetLength() )
 		AddFailedSource( pSource );
-
-	delete pSource;
 
 	SetModified();
 }
@@ -1126,7 +1125,7 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 			pSource->Serialize( ar, nVersion );
 
 			// Extract ed2k client ID from url (m_pAddress) because it wasn't saved
-			if ( ( !pSource->m_nPort ) && ( _tcsnicmp( pSource->m_sURL, _T("ed2kftp://"), 10 ) == 0 )  )
+			if ( ! pSource->m_nPort && ( _tcsnicmp( pSource->m_sURL, _T("ed2kftp://"), 10 ) == 0 )  )
 			{
 				CString strURL = pSource->m_sURL.Mid(10);
 				if ( strURL.GetLength())

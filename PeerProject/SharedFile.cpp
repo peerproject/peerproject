@@ -351,24 +351,10 @@ BOOL CLibraryFile::Delete(BOOL bDeleteGhost)
 {
 	if ( m_pFolder != NULL )
 	{
-		// Close builder handler
-		LibraryBuilder.Remove( this );
-
-		// Close download handler
-		CQuickLock pLock( Transfers.m_pSection );
-		if ( CDownload* pDownload = Downloads.FindByPath( GetPath() ) )
-		{
-			// Also deletes file and closes upload handlers
-			if ( ! pDownload->IsMoving() )
-				pDownload->Remove( true );
-		}
-		else
-		{
-			// Delete file and close upload handlers
-			BOOL bToRecycleBin = ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 );
-			if ( ! DeleteFileEx( GetPath(), TRUE, bToRecycleBin, TRUE ) )
-				return FALSE;
-		}
+		// Delete file
+		BOOL bToRecycleBin = ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 );
+		if ( ! DeleteFileEx( GetPath(), TRUE, bToRecycleBin, TRUE ) )
+			return FALSE;
 	}
 
 	OnDelete( bDeleteGhost );
@@ -379,7 +365,7 @@ BOOL CLibraryFile::Delete(BOOL bDeleteGhost)
 //////////////////////////////////////////////////////////////////////
 // CLibraryFile metadata access
 
-void CLibraryFile::UpdateMetadata(const CDownload* pDownload)
+void CLibraryFile::UpdateMetadata(CDownload* pDownload)
 {
 	// Disable sharing of incomplete files
 	if ( pDownload->m_bVerify == TRI_FALSE )
@@ -393,23 +379,23 @@ void CLibraryFile::UpdateMetadata(const CDownload* pDownload)
 		m_oBTH = pDownload->m_oBTH;
 
 	// Get metadata of recently downloaded file
-	if ( CXMLElement* pXML = pDownload->GetMetadata() )	// pDownload->HasMetadata()
+	if ( pDownload->HasMetadata() )
 	{
 		if ( m_pMetadata )
 		{
 			// Update existing
 			BOOL bMetadataAuto = m_bMetadataAuto;
-			if ( MergeMetadata( pXML, FALSE ) )
+			if ( MergeMetadata( pDownload->m_pXML, FALSE ) )
 			{
 				if ( bMetadataAuto )
 					m_bMetadataAuto = TRUE;
 			}
 		}
-		else if ( CXMLElement* pBody = pXML->GetFirstElement() )
+		else if ( CXMLElement* pBody = pDownload->m_pXML->GetFirstElement() )
 		{
 			// Recreate metadata
 			TRACE( _T("Using download XML:%s"), pBody->ToString( FALSE, TRUE ) );
-			m_pSchema = SchemaCache.Get( pXML->GetAttributeValue(
+			m_pSchema = SchemaCache.Get( pDownload->m_pXML->GetAttributeValue(
 				CXMLAttribute::schemaName ) );
 			m_pMetadata = pBody->Clone();
 			m_bMetadataAuto = TRUE;
@@ -507,7 +493,7 @@ CString CLibraryFile::GetMetadataWords() const
 
 CTigerTree* CLibraryFile::GetTigerTree()
 {
-	if ( !m_oTiger ) return NULL;
+	if ( ! m_oTiger ) return NULL;
 	if ( m_pFolder == NULL ) return NULL;
 
 	CTigerTree* pTiger = new CTigerTree();
@@ -532,7 +518,7 @@ CTigerTree* CLibraryFile::GetTigerTree()
 
 CED2K* CLibraryFile::GetED2K()
 {
-	if ( !m_oED2K ) return NULL;
+	if ( ! m_oED2K ) return NULL;
 	if ( m_pFolder == NULL ) return NULL;
 
 	CED2K* pED2K = new CED2K();
@@ -591,7 +577,9 @@ CSharedSource* CLibraryFile::AddAlternateSource(LPCTSTR pszURL, FILETIME* tSeen)
 	BOOL bSeen;
 	FILETIME tSeenLocal = { 0, 0 };
 	if ( tSeen && tSeen->dwLowDateTime && tSeen->dwHighDateTime )
+	{
 		bSeen = TRUE;
+	}
 	else
 	{
 		tSeen = &tSeenLocal;
@@ -1102,7 +1090,7 @@ void CSharedSource::Serialize(CArchive& ar, int /*nVersion*/)
 		ar << m_sURL;
 		ar.Write( &m_pTime, sizeof(FILETIME) );
 	}
-	else
+	else // Loading
 	{
 		ar >> m_sURL;
 		ReadArchive( ar, &m_pTime, sizeof(FILETIME) );

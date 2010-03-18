@@ -249,8 +249,7 @@ BOOL CDatagrams::Send(SOCKADDR_IN* pHost, const CBuffer& pOutput)
 	if ( ! IsValid() || Security.IsDenied( &pHost->sin_addr ) )
 		return FALSE;
 
-	sendto( m_hSocket, (const char*)pOutput.m_pBuffer, pOutput.m_nLength,
-		0, (SOCKADDR*)pHost, sizeof(SOCKADDR_IN) );
+	CNetwork::SendTo( m_hSocket, (const char*)pOutput.m_pBuffer, pOutput.m_nLength, pHost );
 
 	m_nOutPackets++;
 
@@ -277,8 +276,7 @@ BOOL CDatagrams::Send(SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease, LPVOI
 
 		if ( ntohs( pHost->sin_port ) != 4669 )	// Hack
 		{
-			sendto( m_hSocket, (LPSTR)pBuffer.m_pBuffer, pBuffer.m_nLength, 0,
-				(SOCKADDR*)pHost, sizeof(SOCKADDR_IN) );
+			CNetwork::SendTo( m_hSocket, (LPSTR)pBuffer.m_pBuffer, pBuffer.m_nLength, pHost );
 
 			m_nOutPackets++;
 		}
@@ -294,8 +292,7 @@ BOOL CDatagrams::Send(SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease, LPVOI
 		pPacket->SmartDump( pHost, TRUE, TRUE );
 		if ( bRelease ) pPacket->Release();
 
-		sendto( m_hSocket, (LPSTR)pBuffer.m_pBuffer, pBuffer.m_nLength, 0,
-			(SOCKADDR*)pHost, sizeof(SOCKADDR_IN) );
+		CNetwork::SendTo( m_hSocket, (LPSTR)pBuffer.m_pBuffer, pBuffer.m_nLength, pHost );
 
 		m_nOutPackets++;
 
@@ -483,7 +480,7 @@ BOOL CDatagrams::TryWrite()
 
 	while ( nLimit > 0 )
 	{
-        CDatagramOut* pDG = m_pOutputFirst;
+		CDatagramOut* pDG = m_pOutputFirst;
 		for ( ; pDG ; pDG = pDG->m_pPrevTime )
 		{
 			BYTE* pPacket;
@@ -495,8 +492,7 @@ BOOL CDatagrams::TryWrite()
 			}
 			else if ( pDG->GetPacket( tNow, &pPacket, &nPacket, m_nInFrags > 0 ) )
 			{
-				sendto( m_hSocket, (LPCSTR)pPacket, nPacket, 0,
-					(SOCKADDR*)&pDG->m_pHost, sizeof(SOCKADDR_IN) );
+				CNetwork::SendTo( m_hSocket, (LPCSTR)pPacket, nPacket, &pDG->m_pHost );
 
 				nLastHost = pDG->m_pHost.sin_addr.S_un.S_addr;
 
@@ -605,9 +601,7 @@ BOOL CDatagrams::TryRead()
 		return FALSE;
 
 	SOCKADDR_IN pFrom = {};
-	int nFromLen = sizeof( pFrom );
-	int nLength	= recvfrom( m_hSocket, (char*)m_pReadBuffer, sizeof( m_pReadBuffer ), 0,
-		(SOCKADDR*)&pFrom, &nFromLen );
+	int nLength = CNetwork::RecvFrom( m_hSocket, (char*)m_pReadBuffer, sizeof( m_pReadBuffer ), &pFrom );
 
 	if ( nLength < 1 )
 		return FALSE;
@@ -766,7 +760,7 @@ BOOL CDatagrams::OnDatagram(SOCKADDR_IN* pHost, BYTE* pBuffer, DWORD nLength)
 			strText += _T(": ");
 		strText += ( ( pBuffer[ i ] < ' ' ) ? '.' : (char)pBuffer[ i ] );
 	}
-	theApp.Message( MSG_DEBUG, _T("%s"), strText );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s"), strText );
 
 	return FALSE;
 }
@@ -794,8 +788,7 @@ BOOL CDatagrams::OnReceiveSGP(SOCKADDR_IN* pHost, SGP_HEADER* pHeader, DWORD nLe
 		pAck.nPart		= pHeader->nPart;
 		pAck.nCount		= 0;
 
-		sendto( m_hSocket, (LPCSTR)&pAck, sizeof(pAck), 0,
-			(SOCKADDR*)pHost, sizeof(SOCKADDR_IN) );
+		CNetwork::SendTo( m_hSocket, (LPCSTR)&pAck, sizeof(pAck), pHost );
 	}
 
 	BYTE nHash	= BYTE( ( pHost->sin_addr.S_un.S_un_b.s_b1
@@ -807,7 +800,7 @@ BOOL CDatagrams::OnReceiveSGP(SOCKADDR_IN* pHost, SGP_HEADER* pHeader, DWORD nLe
 
 	CDatagramIn** pHash = m_pInputHash + ( nHash & HASH_MASK );
 
-    CDatagramIn* pDG = *pHash;
+	CDatagramIn* pDG = *pHash;
 	for ( ; pDG ; pDG = pDG->m_pNextHash )
 	{
 		if (	pDG->m_pHost.sin_addr.S_un.S_addr == pHost->sin_addr.S_un.S_addr &&
@@ -925,7 +918,8 @@ BOOL CDatagrams::OnAcknowledgeSGP(SOCKADDR_IN* pHost, SGP_HEADER* pHeader, DWORD
 				pDG->m_pHost.sin_port == pHost->sin_port &&
 				pDG->m_nSequence == pHeader->nSequence )
 		{
-			if ( pDG->Acknowledge( pHeader->nPart ) ) Remove( pDG );
+			if ( pDG->Acknowledge( pHeader->nPart ) )
+				Remove( pDG );
 		}
 	}
 
@@ -998,13 +992,18 @@ BOOL CDatagrams::OnPacket(SOCKADDR_IN* pHost, CG1Packet* pPacket)
 
 	switch ( pPacket->m_nType )
 	{
-		case G1_PACKET_PING:
-			return OnPing( pHost, pPacket );
-		case G1_PACKET_PONG:
-			return OnPong( pHost, pPacket );
-		default:
-			pPacket->Debug( CString( _T("Received unexpected UDP packet from ") ) +
-				CString( inet_ntoa( pHost->sin_addr ) ) );
+	case G1_PACKET_PING:
+		return OnPing( pHost, pPacket );
+	case G1_PACKET_PONG:
+		return OnPong( pHost, pPacket );
+	case G1_PACKET_VENDOR:
+		return OnVendor( pHost, pPacket );
+	default:
+		CString tmp;
+		tmp.Format( _T("Received unexpected UDP packet from %s:%u"),
+			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
+			htons( pHost->sin_port ) );
+		pPacket->Debug( tmp );
 	}
 
 	return TRUE;
@@ -1066,8 +1065,11 @@ BOOL CDatagrams::OnPacket(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 	case G2_PACKET_KHL:
 		return OnKHL( pHost, pPacket );
 	default:
-		pPacket->Debug( CString( _T("Received unexpected UDP packet from ") ) +
-			CString( inet_ntoa( pHost->sin_addr ) ) );
+		CString tmp;
+		tmp.Format( _T("Received unexpected UDP packet from %s:%u"),
+			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
+			htons( pHost->sin_port ) );
+		pPacket->Debug( tmp );
 	}
 
 	return TRUE;
@@ -1431,16 +1433,14 @@ BOOL CDatagrams::OnCommonHit(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 		return FALSE;
 	}
 
-	if ( !pHits->m_bBogus )
+	if ( ! pHits->m_bBogus )
 	{
 		Network.NodeRoute->Add( pHits->m_oClientID, pHost );
 
 		// Don't route exceeded hits
 		if ( nHops <= (int)Settings.Gnutella1.MaximumTTL &&
-			SearchManager.OnQueryHits( pHits ) )
-		{
+				SearchManager.OnQueryHits( pHits ) )
 			Network.RouteHits( pHits, pPacket );
-		}
 	}
 
 	Network.OnQueryHits( pHits );
@@ -2022,6 +2022,35 @@ BOOL CDatagrams::OnKHLR(SOCKADDR_IN* pHost, CG2Packet* pPacket)
 	pKHLA->WriteLongLE( pHost->sin_addr.S_un.S_addr );		// 4
 
 	Send( pHost, pKHLA );
+
+	return TRUE;
+}
+
+BOOL CDatagrams::OnVendor(SOCKADDR_IN* pHost, CG1Packet* pPacket)
+{
+	// If the packet payload is smaller than 8 bytes, or settings don't allow vendor messages
+	if ( pPacket->m_nLength < 8 || ! Settings.Gnutella1.VendorMsg )
+	{
+		Statistics.Current.Gnutella1.Dropped++;
+		return TRUE;
+	}
+
+	// Read the vendor, function, and version numbers from the packet payload
+	DWORD nVendor  = pPacket->ReadLongBE();  // 4 bytes, vendor code in ASCII characters, like "RAZA" (do)
+	WORD nFunction = pPacket->ReadShortLE(); // 2 bytes, function (do)
+	WORD nVersion  = pPacket->ReadShortLE(); // 2 bytes, version (do)
+
+	if ( nVendor == 'LIME' )
+	{
+		if ( nFunction == 23 && nVersion == 2 )
+			return TRUE;	// ToDo: HEAD ping
+	}
+
+	CString tmp;
+	tmp.Format( _T("Received vendor packet from %s:%u Function: %u Version: %u"),
+		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ),
+		nFunction, nVersion );
+	pPacket->Debug( tmp );
 
 	return TRUE;
 }

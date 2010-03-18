@@ -1,7 +1,7 @@
 //
 // WndLibrary.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -49,7 +49,6 @@ BEGIN_MESSAGE_MAP(CLibraryWnd, CPanelWnd)
 END_MESSAGE_MAP()
 
 
-
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryWnd construction
 
@@ -80,7 +79,8 @@ BOOL CLibraryWnd::Display(CAlbumFolder* pFolder)
 
 int CLibraryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if ( CPanelWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
+	if ( CPanelWnd::OnCreate( lpCreateStruct ) == -1 )
+		return -1;
 
 	m_tLast = 0;
 
@@ -227,9 +227,8 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 					AfxMessageBox( strMessage, MB_ICONINFORMATION );
 					oLock.Lock();
 					if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strTarget, FALSE, TRUE ) )
-					{
 						pFolder = LibraryFolders.GetCollection( pFile->m_oSHA1 );
-					}
+
 					oLock.Unlock();
 				}
 				else

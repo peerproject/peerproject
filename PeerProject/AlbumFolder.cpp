@@ -169,7 +169,8 @@ CAlbumFolder* CAlbumFolder::GetTarget(CSchemaMember* pMember, LPCTSTR pszValue) 
 		{
 			CString strValue = pMember->GetValueFrom( m_pXML, NULL, TRUE );
 			CXMLNode::UniformString( strValue );
-			if ( strValue.CompareNoCase( pszValue ) == 0 ) return (CAlbumFolder*)this;
+			if ( strValue.CompareNoCase( pszValue ) == 0 )
+				return (CAlbumFolder*)this;
 		}
 	}
 
@@ -547,7 +548,7 @@ BOOL CAlbumFolder::MountCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFil
 
 				// Check if the same collection exists
 				if ( validAndEqual( pSubFolder->m_oCollSHA1, oSHA1 ) )
-					pFolder = pSubFolder; 
+					pFolder = pSubFolder;
 			}
 		}
 
@@ -567,7 +568,7 @@ BOOL CAlbumFolder::MountCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFil
 	}
 
 	// If the criteria for the mounting didn't match and we haven't iterated subfolders
-	if ( !bGoingDeeper )
+	if ( ! bGoingDeeper )
 	{
 		for ( POSITION pos = GetFolderIterator() ; pos ; )
 		{
@@ -851,16 +852,23 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 
 				size_t nCount = firstPattern.split( sFileName, splitResults, 0 );
 				std::vector<std::wstring> results = splitResults.strings();
-				if ( nCount >= 6 &&
-					 _tcsicmp( _tcsistr( L"season", results[2].c_str() ), L"season" ) == 0 &&
-					 _tcsicmp( _tcsistr( L"episode", results[4].c_str() ), L"episode" ) == 0 )
+				if ( nCount >= 6 )
 				{
-					std::vector<std::wstring>::iterator it =
-						std::find( results.begin(), results.end(), results[2] );
-					results.erase( it );
-					it = std::find( results.begin(), results.end(), results[3] );
-					results.erase( it );
-					nCount -= 2;
+					LPCTSTR szSeason = _tcsistr( L"season", results[2].c_str() );
+					LPCTSTR szEpisode = _tcsistr( L"episode", results[4].c_str() );
+					if ( szSeason && szEpisode &&
+						_tcsicmp( szSeason, L"season" ) == 0 &&
+						_tcsicmp( szEpisode, L"episode" ) == 0 )
+					{
+						std::vector<std::wstring>::iterator it =
+							std::find( results.begin(), results.end(), results[2] );
+						results.erase( it );
+						it = std::find( results.begin(), results.end(), results[3] );
+						results.erase( it );
+						nCount -= 2;
+					}
+					else
+						nCount = 0;
 				}
 				else
 					nCount = 0;
@@ -895,7 +903,10 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 					return FALSE;
 				}
 			}
-			catch (...)	{ return FALSE; };
+			catch (...)
+			{
+				return FALSE;
+			};
 		}
 
 		for ( POSITION pos = GetFolderIterator() ; pos ; )
@@ -1090,7 +1101,7 @@ void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 			ar << pFile->m_nIndex;
 		}
 	}
-	else
+	else // Loading
 	{
 		CLibraryFile* pCollection = NULL;
 
@@ -1112,7 +1123,7 @@ void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 			m_pXML->Serialize( ar );
 		}
 
-		if ( nVersion >= 19 )
+		if ( nVersion > 19 )
 		{
 			SerializeIn( ar, m_oCollSHA1, nVersion );
 			pCollection = LibraryMaps.LookupFileBySHA1( m_oCollSHA1, FALSE, TRUE );
@@ -1140,7 +1151,8 @@ void CAlbumFolder::Serialize(CArchive& ar, int nVersion)
 		ar >> m_bExpanded;
 		ar >> m_bAutoDelete;
 
-		if ( nVersion >= 9 ) ar >> m_sBestView;
+		if ( nVersion > 9 )
+			ar >> m_sBestView;
 
 		DWORD_PTR nCount = ar.ReadCount();
 

@@ -41,11 +41,11 @@ CDownloadGroups DownloadGroups;
 //////////////////////////////////////////////////////////////////////
 // CDownloadGroups construction
 
-CDownloadGroups::CDownloadGroups() :
-	m_pSuper		( NULL ),
-	m_nBaseCookie	( 1 ),
-	m_nSaveCookie	( 0 ),
-	m_nGroupCookie	( 0 )
+CDownloadGroups::CDownloadGroups()
+	: m_pSuper		( NULL )
+	, m_nBaseCookie	( 1 )
+	, m_nSaveCookie	( 0 )
+	, m_nGroupCookie( 0 )
 {
 }
 
@@ -116,7 +116,7 @@ void CDownloadGroups::Remove(CDownloadGroup* pGroup)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CDownloadGroups move group
+// CDownloadGroups reorder tab
 
 void CDownloadGroups::MoveLeft(CDownloadGroup* pGroup)
 {
@@ -166,6 +166,7 @@ void CDownloadGroups::MoveRight(CDownloadGroup* pGroup)
 
 void CDownloadGroups::Link(CDownload* pDownload)
 {
+	//ASSUME_LOCK( Transfers.m_pSection );
 	CQuickLock pLock( m_pSection );
 
 	GetSuperGroup()->Add( pDownload );
@@ -243,7 +244,8 @@ CString CDownloadGroups::GetCompletedPath(CDownload* pDownload)
 
 		if ( pGroup != m_pSuper && pGroup->Contains( pDownload ) )
 		{
-			if ( pGroup->m_sFolder.GetLength() ) return pGroup->m_sFolder;
+			if ( pGroup->m_sFolder.GetLength() )
+				return pGroup->m_sFolder;
 		}
 	}
 
@@ -305,20 +307,32 @@ BOOL CDownloadGroups::Save(BOOL bForce)
 	DeleteFileEx( strPath + _T(".tmp"), FALSE, FALSE, FALSE );
 
 	CFile pFile;
-	if ( ! pFile.Open( strPath + _T(".tmp"), CFile::modeWrite | CFile::modeCreate ) ) return FALSE;
+	if ( ! pFile.Open( strPath + _T(".tmp"), CFile::modeWrite | CFile::modeCreate ) )
+		return FALSE;
 
 	try
 	{
 		CArchive ar( &pFile, CArchive::store );	// 4 KB buffer
-		Serialize( ar );
+		try
+		{
+			Serialize( ar );
+			ar.Close();
+		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pFile.Abort();
+			pException->Delete();
+			return FALSE;
+		}
+		pFile.Close();
 	}
 	catch ( CException* pException )
 	{
+		pFile.Abort();
 		pException->Delete();
 		return FALSE;
 	}
-
-	pFile.Close();
 
 	DeleteFileEx( strPath, FALSE, FALSE, FALSE );
 	MoveFile( strPath + _T(".tmp"), strPath );
@@ -367,7 +381,7 @@ void CDownloadGroups::Serialize(CArchive& ar)
 			pGroup->Serialize( ar, nVersion );
 		}
 	}
-	else
+	else // Loading
 	{
 		ar >> nVersion;
 		if ( nVersion < 2 || nVersion > GROUPS_SER_VERSION ) AfxThrowUserException();

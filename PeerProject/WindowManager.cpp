@@ -59,7 +59,7 @@ END_MESSAGE_MAP()
 
 CWindowManager::CWindowManager(CMDIFrameWnd* pParent)
 {
-	m_bIgnoreActivate	= FALSE;
+	m_bIgnoreActivate = FALSE;
 
 	if ( pParent ) SetOwner( pParent );
 }
@@ -139,7 +139,7 @@ CChildWnd* CWindowManager::Find(CRuntimeClass* pClass, CChildWnd* pAfter, CChild
 		CChildWnd* pChild = GetNext( pos );
 
 		if ( pChild == pExcept ) continue;
-		else if ( bFound && ( !pClass || pChild->IsKindOf( pClass ) ) ) return pChild;
+		else if ( bFound && ( ! pClass || pChild->IsKindOf( pClass ) ) ) return pChild;
 		else if ( pChild == pAfter ) bFound = TRUE;
 	}
 
@@ -175,7 +175,7 @@ CChildWnd* CWindowManager::Open(CRuntimeClass* pClass, BOOL bToggle, BOOL bFocus
 	if ( ! pChild )
 		pChild = static_cast< CChildWnd* >( pClass->CreateObject() );
 
-	if ( bFocus )
+	if ( pChild && bFocus  )
 		pChild->BringWindowToTop();
 
 	return pChild;
@@ -204,7 +204,10 @@ void CWindowManager::Close()
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		pClose.AddTail( GetNext( pos ) );
+		CChildWnd* pChild = GetNext( pos );
+		pClose.AddTail( pChild );
+
+		pChild->RemoveSkin();
 	}
 
 	for ( POSITION pos = pClose.GetHeadPosition() ; pos ; )
@@ -235,8 +238,10 @@ void CWindowManager::AutoResize()
 
 		if ( rcChild.right == m_rcSize.right || rcChild.bottom == m_rcSize.bottom )
 		{
-			if ( rcChild.right == m_rcSize.right ) rcChild.right = rcSize.right;
-			if ( rcChild.bottom == m_rcSize.bottom ) rcChild.bottom = rcSize.bottom;
+			if ( rcChild.right == m_rcSize.right )
+				rcChild.right = rcSize.right;
+			if ( rcChild.bottom == m_rcSize.bottom )
+				rcChild.bottom = rcSize.bottom;
 
 			pChild->MoveWindow( &rcChild );
 		}
@@ -411,7 +416,7 @@ void CWindowManager::LoadWindowStates()
 //////////////////////////////////////////////////////////////////////
 // CWindowManager save complex window states
 
-void CWindowManager::SaveWindowStates()
+void CWindowManager::SaveWindowStates() const
 {
 //	if ( Settings.General.GUIMode != GUI_WINDOWED ) return;
 
@@ -444,19 +449,17 @@ void CWindowManager::SaveWindowStates()
 //////////////////////////////////////////////////////////////////////
 // CWindowManager search load and save
 
-BOOL CWindowManager::LoadSearchWindows()
+void CWindowManager::LoadSearchWindows()
 {
 	CString strFile = Settings.General.UserPath + _T("\\Data\\Searches.dat");
-	CFile pFile;
-
-	if ( ! pFile.Open( strFile, CFile::modeRead ) ) return FALSE;
-
-	CArchive ar( &pFile, CArchive::load, 262144 );  // 256 KB buffer
-	CWaitCursor pCursor;
-	BOOL bSuccess = TRUE;
 
 	try
 	{
+		CFile pFile;
+		if ( ! pFile.Open( strFile, CFile::modeRead ) )
+			return;
+
+		CArchive ar( &pFile, CArchive::load, 262144 );	// 256 KB buffer
 		while ( ar.ReadCount() == 1 )
 		{
 			CSearchWnd* pWnd = new CSearchWnd();
@@ -466,63 +469,79 @@ BOOL CWindowManager::LoadSearchWindows()
 	catch ( CException* pException )
 	{
 		pException->Delete();
-		bSuccess = FALSE;
 	}
 
 	if ( Settings.General.GUIMode != GUI_WINDOWED )
 		Open( RUNTIME_CLASS(CHomeWnd) );
-
-	return bSuccess;
 }
 
-void CWindowManager::SaveSearchWindows()
+BOOL CWindowManager::SaveSearchWindows() const
 {
-	CString strFile = Settings.General.UserPath + _T("\\Data\\Searches.dat");
 	CFile pFile;
+	CString strFile = Settings.General.UserPath + _T("\\Data\\Searches.dat");
 
-	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) ) return;
+	if ( ! pFile.Open( strFile, CFile::modeWrite | CFile::modeCreate ) )
+		return FALSE;
 
-	CArchive ar( &pFile, CArchive::store, 262144 );  // 256 KB buffer
 	int nCount = 0;
 
-	for ( POSITION pos = GetIterator() ; pos ; )
+	try
 	{
-		CSearchWnd* pWnd = (CSearchWnd*)GetNext( pos );
-
-		if ( pWnd->IsKindOf( RUNTIME_CLASS(CSearchWnd) ) && pWnd->GetLastSearch() )
+		CArchive ar( &pFile, CArchive::store, 262144 );	// 256 KB buffer
+		try
 		{
-			ar.WriteCount( 1 );
-			pWnd->Serialize( ar );
-			nCount++;
+			for ( POSITION pos = GetIterator() ; pos ; )
+			{
+				CSearchWnd* pWnd = (CSearchWnd*)GetNext( pos );
+				if ( pWnd->IsKindOf( RUNTIME_CLASS(CSearchWnd) ) &&
+					 pWnd->GetLastSearch() )
+				{
+					ar.WriteCount( 1 );
+					pWnd->Serialize( ar );
+					nCount++;
+				}
+			}
+			ar.WriteCount( 0 );
+			ar.Close();
 		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pFile.Abort();
+			pException->Delete();
+			return FALSE;
+		}
+		pFile.Close();
+	}
+	catch ( CException* pException )
+	{
+		pFile.Abort();
+		pException->Delete();
+		return FALSE;
 	}
 
-	ar.WriteCount( 0 );
-	ar.Close();
-	pFile.Close();
-
-	theApp.Message( MSG_DEBUG, _T("Searches successfully saved to: %s"), strFile );
+	//theApp.Message( MSG_DEBUG, _T("Searches successfully saved to: %s"), strFile );
 
 	if ( ! nCount )
 		DeleteFileEx( strFile, FALSE, FALSE, FALSE );
+
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////
 // CWindowManager browse host load and save
 
-BOOL CWindowManager::LoadBrowseHostWindows()
+void CWindowManager::LoadBrowseHostWindows()
 {
 	CString strFile = Settings.General.UserPath + _T("\\Data\\BrowseHosts.dat");
-	CFile pFile;
-
-	if ( ! pFile.Open( strFile, CFile::modeRead ) ) return FALSE;
-
-	CArchive ar( &pFile, CArchive::load, 262144 );  // 256 KB buffer
-	CWaitCursor pCursor;
-	BOOL bSuccess = TRUE;
 
 	try
 	{
+		CFile pFile;
+		if ( ! pFile.Open( strFile, CFile::modeRead ) )
+			return;
+
+		CArchive ar( &pFile, CArchive::load, 262144 );	// 256 KB buffer
 		while ( ar.ReadCount() == 1 )
 		{
 			CBrowseHostWnd* pWnd = new CBrowseHostWnd();
@@ -532,49 +551,67 @@ BOOL CWindowManager::LoadBrowseHostWindows()
 	catch ( CException* pException )
 	{
 		pException->Delete();
-		bSuccess = FALSE;
 	}
 
-	if ( Settings.General.GUIMode != GUI_WINDOWED ) Open( RUNTIME_CLASS(CHomeWnd) );
-
-	return bSuccess;
+	if ( Settings.General.GUIMode != GUI_WINDOWED )
+		Open( RUNTIME_CLASS(CHomeWnd) );
 }
 
-void CWindowManager::SaveBrowseHostWindows()
+BOOL CWindowManager::SaveBrowseHostWindows() const
 {
-	CString strFile = Settings.General.UserPath + _T("\\Data\\BrowseHosts.dat");
 	CFile pFile;
+	CString strFile = Settings.General.UserPath + _T("\\Data\\BrowseHosts.dat");
 
-	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) ) return;
+	if ( ! pFile.Open( strFile, CFile::modeWrite | CFile::modeCreate ) )
+		return FALSE;
 
-	CArchive ar( &pFile, CArchive::store, 262144 );  // 256 KB buffer
 	int nCount = 0;
 
-	for ( POSITION pos = GetIterator() ; pos ; )
+	try
 	{
-		CBrowseHostWnd* pWnd = (CBrowseHostWnd*) GetNext( pos );
-
-		if ( pWnd->IsKindOf( RUNTIME_CLASS(CBrowseHostWnd) ) )
+		CArchive ar( &pFile, CArchive::store, 262144 );	// 256 KB buffer
+		try
 		{
-			ar.WriteCount( 1 );
-			pWnd->Serialize( ar );
-			nCount++;
+			for ( POSITION pos = GetIterator() ; pos ; )
+			{
+				CBrowseHostWnd* pWnd = (CBrowseHostWnd*) GetNext( pos );
+				if ( pWnd->IsKindOf( RUNTIME_CLASS(CBrowseHostWnd) ) )
+				{
+					ar.WriteCount( 1 );
+					pWnd->Serialize( ar );
+					nCount++;
+				}
+			}
+			ar.WriteCount( 0 );
+			ar.Close();
 		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pFile.Abort();
+			pException->Delete();
+			return FALSE;
+		}
+		pFile.Close();
+	}
+	catch ( CException* pException )
+	{
+		pFile.Abort();
+		pException->Delete();
+		return FALSE;
 	}
 
-	ar.WriteCount( 0 );
-	ar.Close();
-	pFile.Close();
-
-	theApp.Message( MSG_DEBUG, _T("Browses successfully saved to: %s"), strFile );
+	//theApp.Message( MSG_DEBUG, _T("Browses successfully saved to: %s"), strFile );
 
 	if ( ! nCount )
 		DeleteFileEx( strFile, FALSE, FALSE, FALSE );
+
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////
 // CWindowManager new blank search window
-// ToDo: Toggle between existing searches
+// ToDo: Also Toggle between existing searches
 
 void CWindowManager::OpenNewSearchWindow()
 {
@@ -610,7 +647,7 @@ void CWindowManager::PostSkinRemove()
 {
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		GetNext( pos )->m_pSkin = NULL;	// ->RemoveSkin();
+		GetNext( pos )->RemoveSkin();
 	}
 }
 

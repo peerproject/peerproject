@@ -1,7 +1,7 @@
 //
 // UploadTransferED2K.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -216,7 +216,7 @@ BOOL CUploadTransferED2K::OnRunEx(DWORD tNow)
 	}
 	else if ( m_nState == upsUploading )
 	{
-		if ( !ServeRequests() )
+		if ( ! ServeRequests() )
 			return FALSE;
 
 		if ( tNow > m_pClient->m_mOutput.tLast &&
@@ -457,9 +457,11 @@ BOOL CUploadTransferED2K::ServeRequests()
 			m_tRotateTime = 0;
 			m_bStopTransfer	= FALSE;
 
-			CUploadQueue* pQueue = m_pQueue;
-			if ( pQueue ) pQueue->Dequeue( this );
-			pQueue->Enqueue( this, TRUE, FALSE );
+			if ( CUploadQueue* pQueue = m_pQueue )
+			{
+				pQueue->Dequeue( this );
+				pQueue->Enqueue( this, TRUE, FALSE );
+			}
 
 			int nQpos = UploadQueues.GetPosition( this, TRUE );
 			if ( nQpos != 0 )
@@ -507,7 +509,7 @@ BOOL CUploadTransferED2K::ServeRequests()
 		{
 			CheckFinishedRequest();
 
-			if ( !Settings.eDonkey.EnableToday && Settings.Connection.RequireForTransfers )
+			if ( ! Settings.eDonkey.EnableToday && Settings.Connection.RequireForTransfers )
 			{
 				Send( CEDPacket::New( ED2K_C2C_FINISHUPLOAD ) );
 				Cleanup();
@@ -533,7 +535,7 @@ BOOL CUploadTransferED2K::StartNextRequest()
 	ASSERT( m_nState == upsUploading || m_nState == upsRequest );
 	ASSERT( IsFileOpen() );
 
-	while ( !m_oRequested.empty() && m_nLength == SIZE_UNKNOWN )
+	while ( ! m_oRequested.empty() && m_nLength == SIZE_UNKNOWN )
 	{
 		if ( std::find( m_oServed.begin(), m_oServed.end(), *m_oRequested.begin() ) == m_oServed.end()
 			// This should be redundant (Camper)
@@ -549,7 +551,7 @@ BOOL CUploadTransferED2K::StartNextRequest()
 
 	if ( m_nLength < SIZE_UNKNOWN )
 	{
-		if ( !Settings.eDonkey.EnableToday && Settings.Connection.RequireForTransfers )
+		if ( ! Settings.eDonkey.EnableToday && Settings.Connection.RequireForTransfers )
 		{
 			Send( CEDPacket::New( ED2K_C2C_FILENOTFOUND ) );
 			Cleanup();
@@ -644,7 +646,7 @@ BOOL CUploadTransferED2K::DispatchNextChunk()
 
 #else
 	// Raw write
-	if (bI64Offset)
+	if ( bI64Offset )
 	{
 		CBuffer pBuffer;
 		pBuffer.EnsureBuffer( sizeof(ED2K_PART_HEADER_I64) + (DWORD)nChunk );
@@ -711,7 +713,7 @@ BOOL CUploadTransferED2K::CheckFinishedRequest()
 
 	if ( m_nPosition < m_nLength &&
 		( Settings.eDonkey.EnableToday ||
-		!Settings.Connection.RequireForTransfers ) )
+		! Settings.Connection.RequireForTransfers ) )
 		return FALSE;
 
 	theApp.Message( MSG_INFO, IDS_UPLOAD_FINISHED,

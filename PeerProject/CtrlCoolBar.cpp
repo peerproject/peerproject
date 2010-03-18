@@ -1181,7 +1181,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		pDC->SetBkMode( OPAQUE );
 		if ( bMenuGray && bDown )
 			pDC->Draw3dRect( &rc, Colors.m_crDisabled, Colors.m_crDisabled );
-		else	// Draw border around the control		
+		else	// Draw border around the control
 			pDC->Draw3dRect( &rc, Colors.m_crBorder, Colors.m_crBorder );
 
 		rc.DeflateRect( 1, 1 );
@@ -1222,7 +1222,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	{
 		pDC->SetBkMode( TRANSPARENT );
 	}
-	else if ( !m_bRegularButton )
+	else if ( ! m_bRegularButton )
 	{
 		pDC->SetBkMode( OPAQUE );
 		pDC->SetBkColor( crBackground );
@@ -1234,7 +1234,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 	{
 		CPoint ptImage( rc.left + 3, ( rc.top + rc.bottom ) / 2 - 8 );
 
-		if ( !m_bEnabled )
+		if ( ! m_bEnabled )
 		{
 			CoolInterface.DrawEx( pDC, m_nImage,
 				ptImage, CSize( 0, 0 ), crBackground, Colors.m_crShadow, ILD_BLEND50 );
@@ -1246,7 +1246,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 				ptImage, CSize( 0, 0 ), crBackground, CLR_NONE, ILD_NORMAL );
 			pDC->ExcludeClipRect( ptImage.x, ptImage.y, ptImage.x + 16, ptImage.y + 16 );
 		}
-		else if ( ( bHot && !bDown ) || ( bDown && !bHot ) )
+		else if ( ( bHot && ! bDown ) || ( bDown && ! bHot ) )
 		{
 			ptImage.Offset( 1, 1 );
 			pDC->SetTextColor( Colors.m_crShadow );
@@ -1255,7 +1255,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 
 			ptImage.Offset( -2, -2 );
 
-			if ( crBackground != CLR_NONE || !m_bRegularButton )
+			if ( crBackground != CLR_NONE || ! m_bRegularButton )
 			{
 				pDC->FillSolidRect( ptImage.x, ptImage.y, 18, 2, crBackground );
 				pDC->FillSolidRect( ptImage.x, ptImage.y + 2, 2, 16, crBackground );
@@ -1275,7 +1275,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		}
 	}
 
-	if ( crBackground != CLR_NONE && !m_bRegularButton )
+	if ( crBackground != CLR_NONE && ! m_bRegularButton )
 		pDC->FillSolidRect( &rc, crBackground );
 }
 
@@ -1285,9 +1285,9 @@ void CCoolBarItem::DrawText(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMe
 	{
 		if ( m_crText != 0xFFFFFFFF )
 			pDC->SetTextColor( m_crText );
-		else if ( !m_bEnabled )
+		else if ( ! m_bEnabled )
 			pDC->SetTextColor( Colors.m_crDisabled );
-		else if ( ( bHot || bDown || m_bChecked ) && ( !bMenuGray || !bDown ) )
+		else if ( ( bHot || bDown || m_bChecked ) && ( ! bMenuGray || ! bDown ) )
 			pDC->SetTextColor( Colors.m_crCmdTextSel );
 		else
 			pDC->SetTextColor( Colors.m_crCmdText );

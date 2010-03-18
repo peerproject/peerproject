@@ -137,13 +137,13 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, DWORD nClientID,
 		m_sURL.Format( _T("ed2kftp://%lu@%s:%i/%s/%I64i/"),
 			nClientID,
 			(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)nServerIP ) ), nServerPort,
-            (LPCTSTR)m_pDownload->m_oED2K.toString(), m_pDownload->m_nSize );
+			(LPCTSTR)m_pDownload->m_oED2K.toString(), m_pDownload->m_nSize );
 	}
 	else
 	{
 		m_sURL.Format( _T("ed2kftp://%s:%i/%s/%I64i/"),
 			(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)nClientID ) ), nClientPort,
-            (LPCTSTR)m_pDownload->m_oED2K.toString(), m_pDownload->m_nSize );
+			(LPCTSTR)m_pDownload->m_oED2K.toString(), m_pDownload->m_nSize );
 	}
 
 	m_oGUID		= oGUID;
@@ -169,7 +169,7 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload,
 	{
 		m_sURL.Format( _T("btc://%s:%i/%s/%s/"),
 			(LPCTSTR)CString( inet_ntoa( *pAddress ) ), nPort,
-            (LPCTSTR)oGUID.toString(),
+			(LPCTSTR)oGUID.toString(),
 			(LPCTSTR)pDownload->m_oBTH.toString() );
 	}
 	else
@@ -337,12 +337,12 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 		ar << m_bReadContent;
 		ar.Write( &m_tLastSeen, sizeof(FILETIME) );
 
-        SerializeOut2( ar, m_oPastFragments );
+		SerializeOut2( ar, m_oPastFragments );
 
 		ar << m_bClientExtended;
 		ar << m_bMetaIgnore;
 	}
-	else if ( nVersion > 20 )
+	else if ( nVersion > 20 ) // Loading
 	{
 		ar >> m_sURL;
 		ar >> m_nProtocol;
@@ -386,7 +386,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 		ar >> m_bReadContent;
 		ReadArchive( ar, &m_tLastSeen, sizeof(FILETIME) );
 
-        SerializeIn2( ar, m_oPastFragments, nVersion );
+		SerializeIn2( ar, m_oPastFragments, nVersion );
 
 		//if ( nVersion >= 39 )
 		ar >> m_bClientExtended;
@@ -431,7 +431,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 		ReadArchive( ar, &m_oGUID[ 0 ], Hashes::Guid::byteCount );
 		m_oGUID.validate();
 
-        SerializeIn2( ar, m_oPastFragments, nVersion );
+		SerializeIn2( ar, m_oPastFragments, nVersion );
 
 		ResolveURL();
 	}
@@ -471,7 +471,7 @@ CDownloadTransfer* CDownloadSource::CreateTransfer(LPVOID pParam)
 
 BOOL CDownloadSource::CanInitiate(BOOL bNetwork, BOOL bEstablished)
 {
-	if( !Network.IsConnected() ) return FALSE;
+	if( ! Network.IsConnected() ) return FALSE;
 
 	if ( Settings.Connection.RequireForTransfers )
 	{
@@ -535,12 +535,14 @@ BOOL CDownloadSource::CanInitiate(BOOL bNetwork, BOOL bEstablished)
 			m_pDownload->SetModified();
 		}
 		else
+		{
 			Remove( TRUE, TRUE );
+		}
 
 		return FALSE;
 	}
 
-	if ( ( Settings.Connection.IgnoreOwnIP ) && Network.IsSelfIP( m_pAddress ) )
+	if ( Settings.Connection.IgnoreOwnIP && Network.IsSelfIP( m_pAddress ) )
 		return FALSE;
 
 	return bEstablished || Downloads.AllowMoreTransfers( (IN_ADDR*)&m_pAddress );
@@ -587,6 +589,8 @@ void CDownloadSource::Remove(BOOL bCloseTransfer, BOOL bBan)
 	}
 
 	m_pDownload->RemoveSource( this, m_pDownload->IsSeeding() ? FALSE : bBan );
+
+	delete this;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -630,8 +634,9 @@ void CDownloadSource::OnFailure(BOOL bNondestructive, DWORD nRetryAfter)
 		}
 		else
 		{
+			Remove( TRUE, TRUE );
 			// Add to the bad sources list (X-NAlt) if bBan == TRUE
-			m_pDownload->RemoveSource( this, ! m_pDownload->IsSeeding() );
+			//m_pDownload->RemoveSource( this, ! m_pDownload->IsSeeding() );
 		}
 	}
 }
@@ -739,7 +744,7 @@ BOOL CDownloadSource::CheckHash(const Hashes::Sha1Hash& oSHA1)
 
 BOOL CDownloadSource::CheckHash(const Hashes::TigerHash& oTiger)
 {
-    if ( m_pDownload->m_oTiger && ! m_bHashAuth )
+	if ( m_pDownload->m_oTiger && ! m_bHashAuth )
 	{
 		if ( validAndUnequal( m_pDownload->m_oTiger, oTiger ) ) return FALSE;
 	}
@@ -758,7 +763,7 @@ BOOL CDownloadSource::CheckHash(const Hashes::TigerHash& oTiger)
 
 BOOL CDownloadSource::CheckHash(const Hashes::Ed2kHash& oED2K)
 {
-    if ( m_pDownload->m_oED2K && ! m_bHashAuth )
+	if ( m_pDownload->m_oED2K && ! m_bHashAuth )
 	{
 		if ( validAndUnequal( m_pDownload->m_oED2K, oED2K ) ) return FALSE;
 	}
@@ -895,7 +900,7 @@ void CDownloadSource::AddFragment(QWORD nOffset, QWORD nLength, BOOL /*bMerge*/)
 
 void CDownloadSource::SetAvailableRanges(LPCTSTR pszRanges)
 {
-    m_oAvailable.clear();
+	m_oAvailable.clear();
 
 	if ( ! pszRanges || ! *pszRanges ) return;
 	if ( _tcsnicmp( pszRanges, _T("bytes"), 5 ) ) return;
@@ -916,12 +921,12 @@ void CDownloadSource::SetAvailableRanges(LPCTSTR pszRanges)
 		// 0 - 0 has special meaning
 		if ( _stscanf( strRange, _T("%I64i-%I64i"), &nFirst, &nLast ) == 2 && nLast > nFirst )
 		{
-            if( nFirst < m_oAvailable.limit() ) // Sanity check
-            {
+			if( nFirst < m_oAvailable.limit() ) // Sanity check
+			{
 				// perhaps the file size we expect is incorrect or the source is erronous
 				// in either case we make sure the range fits - so we chop off the end if necessary
 				m_oAvailable.insert( Fragments::Fragment( nFirst, min( nLast + 1, m_oAvailable.limit() ) ) );
-            }
+			}
 		}
 	}
 
@@ -934,10 +939,9 @@ void CDownloadSource::SetAvailableRanges(LPCTSTR pszRanges)
 BOOL CDownloadSource::HasUsefulRanges() const
 {
 	if ( m_oAvailable.empty() )
-    {
-        return m_pDownload->IsRangeUseful( 0, m_pDownload->m_nSize );
-    }
-    return m_pDownload->AreRangesUseful( m_oAvailable );
+		return m_pDownload->IsRangeUseful( 0, m_pDownload->m_nSize );
+
+	return m_pDownload->AreRangesUseful( m_oAvailable );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1033,7 +1037,7 @@ void CDownloadSource::Draw(CDC* pDC, CRect* prcBar, COLORREF crNatural)
 
 		pDC->FillSolidRect( prcBar, Colors.m_crWindow );
 	}
-	else if ( IsOnline() && HasUsefulRanges() || !m_oPastFragments.empty() )
+	else if ( IsOnline() && HasUsefulRanges() || ! m_oPastFragments.empty() )
 	{
 		pDC->FillSolidRect( prcBar, crNatural );
 	}

@@ -245,8 +245,8 @@ void CNeighboursBase::Close()
 void CNeighboursBase::OnRun()
 {
 	// Calculate time from now
-	DWORD tNow       = GetTickCount(); // The tick count now, the number of milliseconds since the user turned the computer on
-	DWORD tEstablish = tNow - 1500;    // The tick count 1.5 seconds ago
+	DWORD tNow       = GetTickCount();	// The tick count now, the number of milliseconds since the user turned the computer on
+	DWORD tEstablish = tNow - 1500; 	// The tick count 1.5 seconds ago
 
 	// Make local variables to mirror member variables, and start them all out as 0
 	int nStableCount    = 0;

@@ -1,7 +1,7 @@
 //
 // CtrlLibraryHistoryPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,7 +23,7 @@
 
 #include "SharedFile.h"
 #include "CtrlPanel.h"
-
+#include "CtrlLibraryTip.h"
 
 class CLibraryHistoryPanel : public CPanelCtrl
 {
@@ -53,12 +53,15 @@ protected:
 		CRect			m_rect;
 	};
 
-	CArray< Item* > m_pList;
-	Item*		m_pHover;
-	int			m_nColumns;
+	CArray< Item* >	m_pList;
+	Item*			m_pHover;
+	int				m_nColumns;
+	CLibraryTipCtrl	m_wndTip;
 
 	void	OnClickFile(DWORD nFile);
 
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);

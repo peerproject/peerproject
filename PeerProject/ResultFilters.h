@@ -1,7 +1,7 @@
 //
 // ResultFilters.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,19 +19,19 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 //
-// Author : roo_koo_too@yahoo.com
+// Original Author : roo_koo_too@yahoo.com
 //
+
 #pragma once
 
-//create a class with some of the CMatchObjects members
+// Create a class with some of the CMatchObjects members
 
 class CFilterOptions
 {
 public:
 	CFilterOptions();
-	void Serialize(CArchive& ar, int nVersion);
-public:
-	CString m_sName; // the options set name
+
+	CString m_sName; // The options set name
 	CString	m_sFilter;
 	BOOL	m_bFilterBusy;
 	BOOL	m_bFilterPush;
@@ -46,6 +46,8 @@ public:
 	DWORD	m_nFilterSources;
 	QWORD	m_nFilterMinSize;
 	QWORD	m_nFilterMaxSize;
+
+	void	Serialize(CArchive& ar, int nVersion);
 };
 
 const DWORD NONE = ~0u;
@@ -55,14 +57,15 @@ class CResultFilters
 public:
 	CResultFilters(void);
 	~CResultFilters(void);
+
+	CFilterOptions **	m_pFilters; // Array of filter options
+	DWORD				m_nFilters; // Count of filter options
+	DWORD				m_nDefault; // Index of the default filter options
+
+	int  Search(const CString& strName);
 	void Serialize(CArchive& ar);
 	void Add(CFilterOptions *pOptions);
 	void Remove(DWORD index);
 	void Load();
-	void Save();
-	int Search(const CString& strName);
-public:
-	DWORD				m_nFilters; // count of filter options
-	CFilterOptions **	m_pFilters; // the array of filter options
-	DWORD				m_nDefault; // the index of the default filter options
+	BOOL Save();
 };

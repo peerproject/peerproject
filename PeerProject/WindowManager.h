@@ -1,7 +1,7 @@
 //
 // WindowManager.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -41,20 +41,20 @@ public:
 	CChildWnd*	GetActive() const;
 	POSITION	GetIterator() const;
 	CChildWnd*	GetNext(POSITION& pos) const;
-	BOOL		Check(CChildWnd* pChild) const;
-	CChildWnd*	Find(CRuntimeClass* pClass, CChildWnd* pAfter = NULL, CChildWnd* pExcept = NULL);
 	CChildWnd*	Open(CRuntimeClass* pClass, BOOL bToggle = FALSE, BOOL bFocus = TRUE);
+	CChildWnd*	Find(CRuntimeClass* pClass, CChildWnd* pAfter = NULL, CChildWnd* pExcept = NULL);
 	CChildWnd*	FindFromPoint(const CPoint& point) const;
+	BOOL		Check(CChildWnd* pChild) const;
 	void		Close();
 	void		AutoResize();
 	void		Cascade(BOOL bActiveOnly = FALSE);
 	void		SetGUIMode(int nMode, BOOL bSaveState = TRUE);
 	void		LoadWindowStates();
-	void		SaveWindowStates();
-	BOOL		LoadSearchWindows();
-	void		SaveSearchWindows();
-	BOOL		LoadBrowseHostWindows();
-	void		SaveBrowseHostWindows();
+	void		SaveWindowStates() const;
+	void		LoadSearchWindows();
+	BOOL		SaveSearchWindows() const;
+	void		LoadBrowseHostWindows();
+	BOOL		SaveBrowseHostWindows() const;
 	void		OpenNewSearchWindow();
 	void		PostSkinChange();
 	void		PostSkinRemove();

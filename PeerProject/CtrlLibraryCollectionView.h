@@ -45,7 +45,7 @@ protected:
     Hashes::Sha1Hash    m_oSHA1;
 
 	virtual BOOL Create(CWnd* pParentWnd);
-	
+
 // Operations
 public:
 	virtual BOOL	CheckAvailable(CLibraryTreeItem* pSel);

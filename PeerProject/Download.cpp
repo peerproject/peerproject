@@ -146,7 +146,7 @@ void CDownload::Resume()
 //////////////////////////////////////////////////////////////////////
 // CDownload control : remove
 
-void CDownload::Remove(bool bDelete)
+void CDownload::Remove()
 {
 	StopTrying();
 	CloseTorrent();
@@ -156,13 +156,12 @@ void CDownload::Remove(bool bDelete)
 	if ( IsTrying() )
 		Downloads.StopTrying( IsTorrent() );
 
-	if ( bDelete || ! IsCompleted() )
-	{
-		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_REMOVE, (LPCTSTR)GetDisplayName() );
-		DeleteFile();
-	}
-	else
+	theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_REMOVE, (LPCTSTR)GetDisplayName() );
+
+	if ( IsCompleted() )
 		CloseFile();
+	else
+		DeleteFile();
 
 	DeletePreviews();
 
@@ -368,11 +367,8 @@ void CDownload::OnRun()
 				if ( IsSeeding() )
 				{
 					// Mark as collapsed to get correct heights when dragging files
-					if ( !Settings.General.DebugBTSources && m_bExpanded )
+					if ( ! Settings.General.DebugBTSources && m_bExpanded )
 						m_bExpanded = FALSE;
-
-					if ( ! Network.IsConnected() && Settings.BitTorrent.AutoSeed )
-						Network.Connect( TRUE );
 				}
 				else // if ( ! IsMoving() )
 				{
@@ -484,7 +480,7 @@ void CDownload::OnTaskComplete(const CDownloadTask* pTask)
 	{
 		LibraryBuilder.m_bBusy = false;
 
-		if ( !pTask->HasSucceeded() )
+		if ( ! pTask->HasSucceeded() )
 			SetFileError( pTask->GetFileError() );
 		else
 			OnMoved();
@@ -609,10 +605,10 @@ BOOL CDownload::Save(BOOL bFlush)
 	m_nSaveCookie = m_nCookie;
 	m_tSaved = GetTickCount();
 
-	if ( m_bComplete && !m_bSeeding )
+	if ( m_bComplete && ! m_bSeeding )
 		return TRUE;
 
-	if ( m_bSeeding && !Settings.BitTorrent.AutoSeed )
+	if ( m_bSeeding && ! Settings.BitTorrent.AutoSeed )
 		return TRUE;
 
 	DeleteFileEx( m_sPath + _T(".sav"), FALSE, FALSE, FALSE );
@@ -631,11 +627,11 @@ BOOL CDownload::Save(BOOL bFlush)
 			Serialize( ar, 0 );
 			ar.Close();
 		}
-		catch ( CFileException* pException )
+		catch ( CException* pException )
 		{
 			ar.Abort();
 			pFile.Abort();
-			theApp.Message( MSG_ERROR, _T("Serialize Error: %s"), pException->m_strFileName );
+			theApp.Message( MSG_ERROR, _T("Serialize Error: %s"), GetFilename() );
 			pException->Delete();
 			return FALSE;
 		}
@@ -676,10 +672,10 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 {
 	ASSERT( ! m_bComplete || m_bSeeding );
 
-	if ( !Settings.BitTorrent.AutoSeed && m_bSeeding )
+	if ( ! Settings.BitTorrent.AutoSeed && m_bSeeding )
 		return;
 
-	if ( nVersion < 2 )		// NULL
+	if ( nVersion < 2 ) // NULL
 	{
 		nVersion = DOWNLOAD_SER_VERSION;
 
@@ -688,7 +684,7 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 			ar.Write( "SDL", 3 );
 			ar << nVersion;
 		}
-		else
+		else // Loading
 		{
 			CHAR szID[3];
 			ReadArchive( ar, szID, 3 );
@@ -697,7 +693,7 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 			if ( nVersion <= 0 || nVersion > DOWNLOAD_SER_VERSION ) AfxThrowUserException();
 		}
 	}
-//	else if ( nVersion < 11 && ar.IsLoading() )	// Very old Shareaza!
+//	else if ( nVersion < 11 && ar.IsLoading() )	// Very old Shareaza
 //	{
 //		SerializeOld( ar, nVersion );
 //		return;
@@ -714,7 +710,7 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 
 		ar << m_nSerID;
 	}
-	else
+	else // Loading
 	{
 		ar >> m_bExpanded;
 		ar >> m_bPaused;

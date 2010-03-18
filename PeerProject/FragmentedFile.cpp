@@ -39,19 +39,19 @@ static char THIS_FILE[]=__FILE__;
 IMPLEMENT_DYNCREATE( CFragmentedFile, CObject )
 
 CFragmentedFile::CVirtualFilePart::CVirtualFilePart()
-	: m_pFile( NULL )
-	, m_nOffset( 0 )
-	, m_bWrite( FALSE )
-	, m_nPriority( CFragmentedFile::prNormal )
+	: m_pFile		( NULL )
+	, m_nOffset 	( 0 )
+	, m_bWrite		( FALSE )
+	, m_nPriority	( CFragmentedFile::prNormal )
 {
 }
 
 CFragmentedFile::CVirtualFilePart::CVirtualFilePart(const CVirtualFilePart& pFile)
 	: CPeerProjectFile( pFile )
-	, m_pFile( pFile.m_pFile )
-	, m_nOffset( pFile.m_nOffset )
-	, m_bWrite( pFile.m_bWrite )
-	, m_nPriority( pFile.m_nPriority )
+	, m_pFile		( pFile.m_pFile )
+	, m_nOffset		( pFile.m_nOffset )
+	, m_bWrite		( pFile.m_bWrite )
+	, m_nPriority	( pFile.m_nPriority )
 {
 }
 
@@ -199,7 +199,7 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength,
 			{
 				nLength = nRealLength;
 			}
-			else if ( ! bWrite && nRealLength != nLength )
+			else if ( ! pFile->IsWritable() && nRealLength != nLength )
 			{
 				// Wrong file
 				pFile->Release();
@@ -275,7 +275,7 @@ BOOL CFragmentedFile::Open(const CPeerProjectFile& oSHFile, BOOL bWrite)
 			strSource = pFile->GetPath();
 	}
 
-	ASSERT( lstrcmpi( PathFindExtension( strSource ), _T(".pd") ) != 0 );	// .sd?
+	//ASSERT( lstrcmpi( PathFindExtension( strSource ), _T(".pd") ) != 0 );
 
 	if ( ! Open( strSource, 0, oSHFile.m_nSize, bWrite, oSHFile.m_sName ) )
 	{
@@ -860,20 +860,22 @@ BOOL CFragmentedFile::VirtualRead(QWORD nOffset, char* pBuffer, QWORD nBuffer, Q
 	// Find first file
 	CVirtualFile::const_iterator i = std::find_if( m_oFile.begin(), m_oFile.end(),
 		bind2nd( Greater(), nOffset ) );
-	ASSERT( i != m_oFile.begin() );
-	--i;
+	if ( i != m_oFile.begin() )
+		--i;
 
 	if ( pnRead )
 		*pnRead = 0;
 
 	for ( ; nBuffer; ++i )
 	{
-		if( i == m_oFile.end() )
+		if ( i == m_oFile.end() )
 			return FALSE;	// EOF
 
-		ASSERT( (*i).m_nOffset <= nOffset );
+		if ( (*i).m_nOffset > nOffset )
+			return FALSE;	// EOF
+
 		QWORD nPartOffset = ( nOffset - (*i).m_nOffset );
-		if( (*i).m_nSize < nPartOffset )
+		if ( (*i).m_nSize < nPartOffset )
 			return FALSE;	// EOF
 
 		QWORD nPartLength = min( nBuffer, (*i).m_nSize - nPartOffset );

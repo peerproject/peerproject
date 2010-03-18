@@ -1,7 +1,7 @@
 //
 // WndSettingsPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -38,9 +38,9 @@ IMPLEMENT_DYNAMIC(CSettingsPage, CDialog)
 
 BEGIN_MESSAGE_MAP(CSettingsPage, CDialog)
 	//{{AFX_MSG_MAP(CSettingsPage)
-	//}}AFX_MSG_MAP
 	ON_WM_ERASEBKGND()
 	ON_WM_CTLCOLOR()
+	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -72,6 +72,7 @@ BOOL CSettingsPage::LoadDefaultCaption()
 	if ( ! pTemplate.Load( m_lpszTemplateName ) ) return FALSE;
 
 	pData = (DLGTEMPLATE*)GlobalLock( pTemplate.m_hTemplate );
+	if ( ! pData ) return FALSE;
 
 	if ( ((DLGTEMPLATEEX*)pData)->signature == 0xFFFF )
 		pWord = (WORD*)( (DLGTEMPLATEEX*)pData + 1 );
@@ -105,6 +106,7 @@ BOOL CSettingsPage::Create(CRect& rcPage, CWnd* pSheetWnd)
 
 	if ( ! pTemplate.Load( m_lpszTemplateName ) ) return FALSE;
 	pData = (LPDLGTEMPLATE)GlobalLock( pTemplate.m_hTemplate );
+	if ( ! pData ) return FALSE;
 
 	DWORD dwExStyle = Settings.General.LanguageRTL ? WS_EX_RTLREADING|WS_EX_RIGHT|WS_EX_LEFTSCROLLBAR|WS_EX_LAYOUTRTL :
 		WS_EX_LTRREADING|WS_EX_LEFT|WS_EX_RIGHTSCROLLBAR;
@@ -238,9 +240,7 @@ BOOL CSettingsPage::PreTranslateMessage(MSG* pMsg)
 		}
 
 		if ( msg.hwnd )
-		{
 			m_wndToolTip.RelayEvent( &msg );
-		}
 	}
 
 	return CDialog::PreTranslateMessage(pMsg);
@@ -265,7 +265,5 @@ void CEditPath::OnLButtonDblClk(UINT nFlags, CPoint point)
 	sPath = CString( _T("\\\\?\\") ) + sPath;	// very long path
 
 	if ( GetFileAttributes( sPath ) != INVALID_FILE_ATTRIBUTES )
-	{
 		ShellExecute( GetSafeHwnd(), NULL, sPath, NULL, NULL, SW_SHOWDEFAULT );
-	}
 }

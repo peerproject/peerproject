@@ -1,7 +1,7 @@
 //
 // Datagrams.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -67,30 +67,6 @@ public:
 	virtual ~CDatagrams();
 
 // Attributes
-protected:
-	SOCKET		m_hSocket;
-	WORD		m_nSequence;
-	BOOL		m_bStable;
-	DWORD		m_tLastWrite;
-protected:
-	CBuffer*	m_pBufferBuffer;	// Output buffers
-	DWORD		m_nBufferBuffer;	// Number of output buffers (Settings.Gnutella2.UdpBuffers)
-	CBuffer*	m_pBufferFree;		// List of free output buffers
-	DWORD		m_nBufferFree;		// Number of free output buffer items in list
-protected:
-	CDatagramIn*	m_pInputBuffer;
-	DWORD			m_nInputBuffer;
-	CDatagramIn*	m_pInputFree;
-	CDatagramIn*	m_pInputFirst;
-	CDatagramIn*	m_pInputLast;
-	CDatagramIn*	m_pInputHash[32];
-protected:
-	CDatagramOut*	m_pOutputBuffer;
-	DWORD			m_nOutputBuffer;
-	CDatagramOut*	m_pOutputFree;
-	CDatagramOut*	m_pOutputFirst;
-	CDatagramOut*	m_pOutputLast;
-	CDatagramOut*	m_pOutputHash[32];
 public:
 	UDPBandwidthMeter	m_mInput;
 	DWORD				m_nInBandwidth;
@@ -100,6 +76,32 @@ public:
 	DWORD				m_nOutBandwidth;
 	DWORD				m_nOutFrags;
 	DWORD				m_nOutPackets;
+
+protected:
+	SOCKET		m_hSocket;
+	WORD		m_nSequence;
+	BOOL		m_bStable;
+	DWORD		m_tLastWrite;
+
+	DWORD		m_nBufferBuffer;	// Number of output buffers (Settings.Gnutella2.UdpBuffers)
+	CBuffer*	m_pBufferBuffer;	// Output buffers
+	CBuffer*	m_pBufferFree;		// List of free output buffers
+	DWORD		m_nBufferFree;		// Number of free output buffer items in list
+
+	DWORD			m_nInputBuffer;
+	CDatagramIn*	m_pInputBuffer;
+	CDatagramIn*	m_pInputFree;
+	CDatagramIn*	m_pInputFirst;
+	CDatagramIn*	m_pInputLast;
+	CDatagramIn*	m_pInputHash[32];
+
+	DWORD			m_nOutputBuffer;
+	CDatagramOut*	m_pOutputBuffer;
+	CDatagramOut*	m_pOutputFree;
+	CDatagramOut*	m_pOutputFirst;
+	CDatagramOut*	m_pOutputLast;
+	CDatagramOut*	m_pOutputHash[32];
+
 private:
 	// Buffer for current incoming UDP packet. It's global since
 	// CDatagrams processes one packet at once only. Maximum UDP size 64KB.
@@ -132,20 +134,21 @@ public:
 	BOOL	Send(SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease = TRUE, LPVOID pToken = NULL, BOOL bAck = TRUE);
 	void	PurgeToken(LPVOID pToken);
 	void	OnRun();
-protected:
-	void	Measure();
-	BOOL	TryWrite();
-	void	ManageOutput();
-	void	Remove(CDatagramOut* pDG);
+
 protected:
 	BOOL	TryRead();
+	BOOL	TryWrite();
+	void	Measure();
+	void	ManageOutput();
+	void	Remove(CDatagramOut* pDG);
+	void	Remove(CDatagramIn* pDG, BOOL bReclaimOnly = FALSE);
+	void	Rerequest(CDatagramIn* pDG);
+	void	ManagePartials();
+
 	BOOL	OnDatagram(SOCKADDR_IN* pHost, BYTE* pBuffer, DWORD nLength);
 	BOOL	OnReceiveSGP(SOCKADDR_IN* pHost, SGP_HEADER* pHeader, DWORD nLength);
 	BOOL	OnAcknowledgeSGP(SOCKADDR_IN* pHost, SGP_HEADER* pHeader, DWORD nLength);
-	void	ManagePartials();
-	void	Rerequest(CDatagramIn* pDG);
-	void	Remove(CDatagramIn* pDG, BOOL bReclaimOnly = FALSE);
-protected:
+
 	BOOL	OnPacket(SOCKADDR_IN* pHost, CG1Packet* pPacket);
 	BOOL	OnPacket(SOCKADDR_IN* pHost, CG2Packet* pPacket);
 	BOOL	OnPing(SOCKADDR_IN* pHost, CG1Packet* pPacket);
@@ -164,7 +167,7 @@ protected:
 	BOOL	OnKHL(SOCKADDR_IN* pHost, CG2Packet* pPacket);
 	BOOL	OnKHLA(SOCKADDR_IN* pHost, CG2Packet* pPacket);
 	BOOL	OnKHLR(SOCKADDR_IN* pHost, CG2Packet* pPacket);
-
+	BOOL	OnVendor(SOCKADDR_IN* pHost, CG1Packet* pPacket);
 };
 
 extern CDatagrams Datagrams;

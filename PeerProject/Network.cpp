@@ -311,7 +311,7 @@ BOOL CNetwork::AcquireLocalAddress(LPCTSTR pszHeader)
 
 BOOL CNetwork::AcquireLocalAddress(const IN_ADDR& pAddress)
 {
-	if ( IsFirewalledAddress( &pAddress, TRUE ) )
+	if ( IsFirewalledAddress( &pAddress ) )
 		return FALSE;
 
 	// Add new address to address list
@@ -442,29 +442,29 @@ BOOL CNetwork::IsReserved(const IN_ADDR* pAddress, bool bCheckLocal) const
 
 	switch ( i1 )
 	{
-		case 0:         // 000/8 is IANA reserved
-		case 1:         // 001/8 is IANA reserved
-		case 2:         // 002/8 is IANA reserved
-		case 5:         // 005/8 is IANA reserved
-		case 6:         // USA Army ISC
-		case 7:         // used for BGP protocol
-		case 14:		// 014/8 is IANA reserved
-		case 23:        // 023/8 is IANA reserved
-		case 27:        // 027/8 is IANA reserved
-		case 31:        // 031/8 is IANA reserved
-		case 36:        // 036/8 is IANA reserved
-		case 37:        // 037/8 is IANA reserved
-		case 39:        // 039/8 is IANA reserved
-		case 42:        // 042/8 is IANA reserved
-		case 46:		// 046/8 is IANA reserved
-		case 49:        // 049/8 is IANA reserved
-		case 50:        // 050/8 is IANA reserved
-		case 55:        // misc. USA Armed forces
-		case 127:       // 127/8 is reserved for loopback
-		case 197:       // 197/8 is IANA reserved
-		case 223:       // 223/8 is IANA reserved
+		case 0: 	// 000/8 is IANA reserved
+		case 1: 	// 001/8 is IANA reserved
+		case 2: 	// 002/8 is IANA reserved
+		case 5: 	// 005/8 is IANA reserved
+		case 6: 	// USA Army ISC
+		case 7: 	// used for BGP protocol
+		case 14:	// 014/8 is IANA reserved
+		case 23:	// 023/8 is IANA reserved
+		case 27:	// 027/8 is IANA reserved
+		case 31:	// 031/8 is IANA reserved
+		case 36:	// 036/8 is IANA reserved
+		case 37:	// 037/8 is IANA reserved
+		case 39:	// 039/8 is IANA reserved
+		case 42:	// 042/8 is IANA reserved
+		case 46:	// 046/8 is IANA reserved
+		case 49:	// 049/8 is IANA reserved
+		case 50:	// 050/8 is IANA reserved
+		case 55:	// misc. USA Armed forces
+		case 127:	// 127/8 is reserved for loopback
+		case 197:	// 197/8 is IANA reserved
+		case 223:	// 223/8 is IANA reserved
 			return TRUE;
-		case 10:        // Private addresses
+		case 10:	// Private addresses
 			return bCheckLocal && Settings.Connection.IgnoreLocalIP;
 		default:
 			break;
@@ -598,7 +598,7 @@ void CNetwork::OnRun()
 			Sleep( 50 );
 			Doze( 100 );
 
-			if ( !theApp.m_bLive )
+			if ( ! theApp.m_bLive )
 				continue;
 
 			if ( theApp.m_pUPnPFinder && theApp.m_pUPnPFinder->IsAsyncFindRunning() )
@@ -1095,9 +1095,14 @@ void CNetwork::UDPKnownHubCache(IN_ADDR* pAddress, WORD nPort)
 }
 
 
+//////////////////////////////////////////////////////////////////////
+// CNetwork sockets/send/receive for tcp/udp
+//
+// (Fixed for some firewalls like iS3 Anti-Spyware or Norman Virus Control)
+
 SOCKET CNetwork::AcceptSocket(SOCKET hSocket, SOCKADDR_IN* addr, LPCONDITIONPROC lpfnCondition, DWORD_PTR dwCallbackData)
 {
-	__try	// Fix against stupid firewalls (Like iS3 Anti-Spyware or Norman Virus Control)
+	__try	// Fix against stupid firewalls
 	{
 		int len = sizeof( SOCKADDR_IN );
 		return WSAAccept( hSocket, (SOCKADDR*)addr, &len, lpfnCondition, dwCallbackData );
@@ -1112,7 +1117,7 @@ void CNetwork::CloseSocket(SOCKET& hSocket, const bool bForce)
 {
 	if ( hSocket != INVALID_SOCKET )
 	{
-		__try	// Fix against stupid firewalls (Like iS3 Anti-Spyware or Norman Virus Control)
+		__try	// Fix against stupid firewalls
 		{
 			if ( bForce )
 			{
@@ -1132,53 +1137,52 @@ void CNetwork::CloseSocket(SOCKET& hSocket, const bool bForce)
 	}
 }
 
+int CNetwork::Send(SOCKET s, const char* buf, int len)
+{
+	__try	// TCP Fix against stupid firewalls
+	{
+		return send( s, buf, len, 0 );
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		return -1;
+	}
+}
 
-//int CNetwork::Send(SOCKET s, const char* buf, int len)
-//{
-//	__try	// TCP Fix against stupid firewalls (Like iS3 Anti-Spyware or Norman Virus Control)
-//	{
-//		return send( s, buf, len, 0 );
-//	}
-//	__except( EXCEPTION_EXECUTE_HANDLER )
-//	{
-//		return -1;
-//	}
-//}
-
-//int CNetwork::SendTo(SOCKET s, const char* buf, int len, const SOCKADDR_IN* pTo)
-//{
-//	__try	// UDP Fix against stupid firewalls (Like iS3 Anti-Spyware or Norman Virus Control)
-//	{
-//		return sendto( s, buf, len, 0, (const SOCKADDR*)pTo, sizeof( SOCKADDR_IN ) );
-//	}
-//	__except( EXCEPTION_EXECUTE_HANDLER )
-//	{
-//		return -1;
-//	}
-//}
+int CNetwork::SendTo(SOCKET s, const char* buf, int len, const SOCKADDR_IN* pTo)
+{
+	__try	// UDP Fix against stupid firewalls
+	{
+		return sendto( s, buf, len, 0, (const SOCKADDR*)pTo, sizeof( SOCKADDR_IN ) );
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		return -1;
+	}
+}
 
 
-//int CNetwork::Recv(SOCKET s, char* buf, int len)
-//{
-//	__try	// TCP Fix against stupid firewalls (Like iS3 Anti-Spyware or Norman Virus Control)
-//	{
-//		return recv( s, buf, len, 0 );
-//	}
-//	__except( EXCEPTION_EXECUTE_HANDLER )
-//	{
-//		return -1;
-//	}
-//}
+int CNetwork::Recv(SOCKET s, char* buf, int len)
+{
+	__try	// TCP Fix against stupid firewalls
+	{
+		return recv( s, buf, len, 0 );
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		return -1;
+	}
+}
 
-//int CNetwork::RecvFrom(SOCKET s, char* buf, int len, SOCKADDR_IN* pFrom)
-//{
-//	__try	// UDP Fix against stupid firewalls (Like iS3 Anti-Spyware or Norman Virus Control)
-//	{
-//		int nFromLen = sizeof( SOCKADDR_IN );
-//		return recvfrom( s, buf, len, 0, (SOCKADDR*)pFrom, &nFromLen );
-//	}
-//	__except( EXCEPTION_EXECUTE_HANDLER )
-//	{
-//		return -1;
-//	}
-//}
+int CNetwork::RecvFrom(SOCKET s, char* buf, int len, SOCKADDR_IN* pFrom)
+{
+	__try	// UDP Fix against stupid firewalls
+	{
+		int nFromLen = sizeof( SOCKADDR_IN );
+		return recvfrom( s, buf, len, 0, (SOCKADDR*)pFrom, &nFromLen );
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		return -1;
+	}
+}

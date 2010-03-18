@@ -156,7 +156,8 @@ CLibraryFileView::~CLibraryFileView()
 BOOL CLibraryFileView::CheckAvailable(CLibraryTreeItem* pSel)
 {
 	m_bAvailable = FALSE;
-	if ( pSel == NULL ) return m_bAvailable;
+	if ( pSel == NULL )
+		return m_bAvailable;
 	m_bAvailable = TRUE;
 
 	if ( pSel->m_pSelNext == NULL && pSel->m_pVirtual != NULL )
@@ -224,6 +225,8 @@ BOOL CLibraryFileView::PreTranslateMessage(MSG* pMsg)
 
 void CLibraryFileView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
+	GetToolTip()->Hide();
+
 	CStringList oFiles;
 	{
 		CQuickLock pLock( Library.m_pSection );
@@ -265,6 +268,8 @@ void CLibraryFileView::OnRButtonDown(UINT nFlags, CPoint point)
 
 void CLibraryFileView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
 {
+	GetToolTip()->Hide();
+
 	if ( nButton == 1 )
 		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
 }
@@ -272,6 +277,7 @@ void CLibraryFileView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*poi
 void CLibraryFileView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	GetToolTip()->Hide();
+
 	CWnd::OnKeyDown( nChar, nRepCnt, nFlags );
 	CheckDynamicBar();
 }
@@ -289,6 +295,8 @@ void CLibraryFileView::OnUpdateLibraryLaunch(CCmdUI* pCmdUI)
 
 void CLibraryFileView::OnLibraryLaunch()
 {
+	GetToolTip()->Hide();
+
 	CMap< CString, const CString&, bool, bool > oFileList;
 
 	{
@@ -478,7 +486,7 @@ void CLibraryFileView::OnLibraryDelete()
 			pList.AddTail( pFile );
 	}
 
-	while ( !pList.IsEmpty() )
+	while ( ! pList.IsEmpty() )
 	{
 		CLibraryFile* pFile = Library.LookupFile( pList.GetHead(), FALSE, ! m_bGhostFolder );
 		if ( pFile == NULL )
@@ -602,7 +610,7 @@ void CLibraryFileView::OnUpdateLibraryRebuildAnsi(CCmdUI* pCmdUI)
 			ToLower( strExtension );
 
 			BOOL bXmlPossiblyModified = FALSE;
-			if ( !pFile->m_bMetadataAuto )
+			if ( ! pFile->m_bMetadataAuto )
 			{
 				WIN32_FIND_DATA fd = { 0 };
 				if ( GetFileAttributesEx( pFile->GetPath(), GetFileExInfoStandard, &fd ) )
@@ -934,7 +942,7 @@ void CLibraryFileView::ClearServicePages()
 
 void CLibraryFileView::OnUpdateShareMonkeyLookup(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( GetSelectedCount() == 1 && !m_bRequestingService );
+	pCmdUI->Enable( GetSelectedCount() == 1 && ! m_bRequestingService );
 }
 
 void CLibraryFileView::OnShareMonkeyLookup()
@@ -953,7 +961,7 @@ void CLibraryFileView::OnUpdateMusicBrainzLookup(CCmdUI* pCmdUI)
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 
 	CLibraryFile* pFile = GetSelectedFile();
-	if ( !pFile->IsSchemaURI( CSchema::uriAudio ) || pFile->m_pMetadata == NULL )
+	if ( ! pFile->IsSchemaURI( CSchema::uriAudio ) || pFile->m_pMetadata == NULL )
 	{
 		pCmdUI->Enable( FALSE );
 		return;
@@ -989,7 +997,7 @@ void CLibraryFileView::CheckDynamicBar()
 		if ( bIsMusicBrainz )
 		{
 			pFrame->SetDynamicBar( NULL );
-			m_bRequestingService = FALSE; // TODO: abort operation
+			m_bRequestingService = FALSE; // ToDo: Abort operation
 		}
 		return;
 	}
@@ -1004,7 +1012,7 @@ void CLibraryFileView::CheckDynamicBar()
 		return;
 	}
 
-	if ( !pFile->IsSchemaURI( CSchema::uriAudio ) || pFile->m_pMetadata == NULL )
+	if ( ! pFile->IsSchemaURI( CSchema::uriAudio ) || pFile->m_pMetadata == NULL )
 	{
 		if ( bIsMusicBrainz )
 			pFrame->SetDynamicBar( NULL );
@@ -1017,7 +1025,7 @@ void CLibraryFileView::CheckDynamicBar()
 	pMetaList->Setup( pFile->m_pSchema, FALSE );
 	pMetaList->Combine( pFile->m_pMetadata );
 
-	if ( !pMetaList->IsMusicBrainz() && bIsMusicBrainz )
+	if ( ! pMetaList->IsMusicBrainz() && bIsMusicBrainz )
 		pFrame->SetDynamicBar( NULL );
 	else
 		pFrame->HideDynamicBar();
@@ -1079,7 +1087,7 @@ void CLibraryFileView::OnMusicBrainzAlbums()
 
 void CLibraryFileView::OnUpdateShareMonkeyDownload(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( !m_bRequestingService && m_pServiceDataPages.GetCount() == 0 );
+	pCmdUI->Enable( ! m_bRequestingService && m_pServiceDataPages.GetCount() == 0 );
 }
 
 void CLibraryFileView::OnShareMonkeyDownload()
@@ -1127,7 +1135,7 @@ void CLibraryFileView::OnUpdateShareMonkeySave(CCmdUI* pCmdUI)
 	BOOL bShow = TRUE;
 	if ( m_bServiceFailed && m_nCurrentPage == m_pServiceDataPages.GetCount() - 1 )
 		bShow = FALSE;
-	pCmdUI->Enable( bShow && !m_bRequestingService && m_pServiceDataPages.GetCount() > 0 );
+	pCmdUI->Enable( bShow && ! m_bRequestingService && m_pServiceDataPages.GetCount() > 0 );
 }
 
 void CLibraryFileView::OnShareMonkeySave()
@@ -1200,12 +1208,12 @@ void CLibraryFileView::OnUpdateShareMonkeySaveOption(CCmdUI* pCmdUI)
 
 void CLibraryFileView::OnShareMonkeySaveOption()
 {
-	Settings.WebServices.ShareMonkeySaveThumbnail = !Settings.WebServices.ShareMonkeySaveThumbnail;
+	Settings.WebServices.ShareMonkeySaveThumbnail = ! Settings.WebServices.ShareMonkeySaveThumbnail;
 }
 
 void CLibraryFileView::OnUpdateShareMonkeyPrevious(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( !m_bRequestingService && m_nCurrentPage > 0 );
+	pCmdUI->Enable( ! m_bRequestingService && m_nCurrentPage > 0 );
 }
 
 void CLibraryFileView::OnShareMonkeyPrevious()
@@ -1228,7 +1236,7 @@ void CLibraryFileView::OnUpdateShareMonkeyNext(CCmdUI* pCmdUI)
 	BOOL bShow = TRUE;
 	if ( m_bServiceFailed && m_nCurrentPage == m_pServiceDataPages.GetCount() - 1 )
 		bShow = FALSE;
-	pCmdUI->Enable( bShow && !m_bRequestingService && m_pServiceDataPages.GetCount() > 0 );
+	pCmdUI->Enable( bShow && ! m_bRequestingService && m_pServiceDataPages.GetCount() > 0 );
 }
 
 void CLibraryFileView::OnShareMonkeyNext()
@@ -1237,7 +1245,9 @@ void CLibraryFileView::OnShareMonkeyNext()
 	nCurr++;
 
 	if ( m_nCurrentPage > m_pServiceDataPages.GetCount() - 1 )
+	{
 		OnShareMonkeyDownload();
+	}
 	else
 	{
 		CShareMonkeyData* pPanelData = NULL;
@@ -1257,7 +1267,7 @@ void CLibraryFileView::OnUpdateShareMonkeyPrices(CCmdUI* pCmdUI)
 	BOOL bShow = TRUE;
 	if ( m_bServiceFailed && m_pServiceDataPages.GetCount() == 1 || m_pServiceDataPages.GetCount() == 0 )
 		bShow = FALSE;
-	pCmdUI->Enable( !m_bRequestingService && bShow );
+	pCmdUI->Enable( ! m_bRequestingService && bShow );
 }
 
 void CLibraryFileView::OnShareMonkeyPrices()
@@ -1298,7 +1308,7 @@ void CLibraryFileView::OnUpdateShareMonkeyCompare(CCmdUI* pCmdUI)
 	BOOL bShow = TRUE;
 	if ( m_bServiceFailed && m_pServiceDataPages.GetCount() == 1 || m_pServiceDataPages.GetCount() == 0 )
 		bShow = FALSE;
-	pCmdUI->Enable( !m_bRequestingService && bShow );
+	pCmdUI->Enable( ! m_bRequestingService && bShow );
 }
 
 void CLibraryFileView::OnShareMonkeyCompare()
@@ -1319,7 +1329,7 @@ void CLibraryFileView::OnShareMonkeyCompare()
 
 void CLibraryFileView::OnUpdateShareMonkeyBuy(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( !m_bServiceFailed && !m_bRequestingService && m_pServiceDataPages.GetCount() > 0 );
+	pCmdUI->Enable( ! m_bServiceFailed && ! m_bRequestingService && m_pServiceDataPages.GetCount() > 0 );
 }
 
 void CLibraryFileView::OnShareMonkeyBuy()

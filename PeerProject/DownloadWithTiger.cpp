@@ -413,9 +413,6 @@ BOOL CDownloadWithTiger::FindNewValidationBlock(int nHash)
 {
 	CQuickLock oLock( m_pTigerSection );
 
-	if ( nHash == HASH_TIGERTREE && ! Settings.Downloads.VerifyTiger ) return FALSE;
-	if ( nHash == HASH_ED2K && ! Settings.Downloads.VerifyED2K ) return FALSE;
-
 	DWORD nBlockCount;
 	QWORD nBlockSize;
 	BYTE* pBlockPtr;
@@ -423,19 +420,18 @@ BOOL CDownloadWithTiger::FindNewValidationBlock(int nHash)
 	switch ( nHash )
 	{
 	case HASH_TIGERTREE:
-		if ( m_pTigerBlock == NULL ) return FALSE;
+		if ( ! Settings.Downloads.VerifyTiger ) return FALSE;
 		pBlockPtr	= m_pTigerBlock;
 		nBlockCount	= m_nTigerBlock;
 		nBlockSize	= m_nTigerSize;
 		break;
 	case HASH_ED2K:
-		if ( m_pHashsetBlock == NULL ) return FALSE;
+		if ( ! Settings.Downloads.VerifyED2K ) return FALSE;
 		pBlockPtr	= m_pHashsetBlock;
 		nBlockCount	= m_nHashsetBlock;
 		nBlockSize	= ED2K_PART_SIZE;
 		break;
 	case HASH_TORRENT:
-		if ( m_pTorrentBlock == NULL ) return FALSE;
 		pBlockPtr	= m_pTorrentBlock;
 		nBlockCount	= m_nTorrentBlock;
 		nBlockSize	= m_nTorrentSize;
@@ -444,8 +440,8 @@ BOOL CDownloadWithTiger::FindNewValidationBlock(int nHash)
 		return FALSE;
 	}
 
-//	if ( ! pBlockPtr || ! nBlockCount || ! nBlockSize )
-//		return FALSE;
+	if ( ! pBlockPtr || ! nBlockCount || ! nBlockSize )
+		return FALSE;
 
 	DWORD nTarget = 0xFFFFFFFF;
 
@@ -645,7 +641,7 @@ void CDownloadWithTiger::FinishValidation()
 		}
 	}
 
-	if ( !oCorrupted.empty() && IsFileOpen() )
+	if ( ! oCorrupted.empty() && IsFileOpen() )
 	{
 		if ( m_pTigerBlock != NULL )
 			SubtractHelper( oCorrupted, m_pTigerBlock, m_nTigerBlock, m_nTigerSize );
@@ -675,7 +671,7 @@ void CDownloadWithTiger::SubtractHelper(Fragments::List& ppCorrupted, BYTE* pBlo
 
 	QWORD nOffset = 0;
 
-	while ( nBlock-- && !ppCorrupted.empty() )
+	while ( nBlock-- && ! ppCorrupted.empty() )
 	{
 		if ( *pBlock++ == TRI_TRUE )
 			ppCorrupted.erase( Fragments::Fragment( nOffset, min( nOffset + nSize, m_nSize ) ) );
@@ -999,7 +995,7 @@ void CDownloadWithTiger::Serialize(CArchive& ar, int nVersion)
 			ar << m_nTigerSuccess;
 			ar.Write( m_pTigerBlock, sizeof(BYTE) * m_nTigerBlock );
 		}
-		else
+		else // Loading
 		{
 			m_pTigerTree.SetupParameters( m_nSize );
 
@@ -1024,7 +1020,7 @@ void CDownloadWithTiger::Serialize(CArchive& ar, int nVersion)
 				ar << m_nHashsetSuccess;
 				ar.Write( m_pHashsetBlock, sizeof(BYTE) * m_nHashsetBlock );
 			}
-			else
+			else // Loading
 			{
 				ar >> m_nHashsetBlock;
 				ar >> m_nHashsetSuccess;

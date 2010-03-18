@@ -85,7 +85,6 @@ public:
 	void MeasureOut();		// Measure the outgoing bandwidth, setting nMeasure in the bandwidth meter
 	BOOL ReadHeaders();		// Read text headers sitting in the input buffer
 	BOOL SendMyAddress();	// If we are listening on a port, tell the other computer our IP address and port number
-	BOOL IsAgentBlocked();	// Check the other computer's software title against our list of programs not to talk to
 	void UpdateCountry();	// Call whenever the IP address is set
 
 	// True if the socket is valid, false if its closed
@@ -97,70 +96,54 @@ public:
 	inline bool IsOutputExist() const throw()
 	{
 		CQuickLock oOutputLock( *m_pOutputSection );
-
 		return ( m_pOutput != NULL );
 	}
 
 	inline bool IsInputExist() const throw()
 	{
 		CQuickLock oOutputLock( *m_pInputSection );
-
 		return ( m_pInput != NULL );
 	}
 
 	inline DWORD GetOutputLength() const throw()
 	{
 		CQuickLock oOutputLock( *m_pOutputSection );
-
-		ASSERT( m_pOutput );
 		return m_pOutput->m_nLength;
 	}
 
 	inline DWORD GetInputLength() const throw()
 	{
 		CQuickLock oOutputLock( *m_pInputSection );
-
-		ASSERT( m_pInput );
 		return m_pInput->m_nLength;
 	}
 
 	inline void WriteReversed(const void* pData, const size_t nLength) throw()
 	{
 		CQuickLock oOutputLock( *m_pOutputSection );
-
-		ASSERT( m_pOutput );
 		m_pOutput->AddReversed( pData, nLength );
 	}
 
 	inline void Write(const void* pData, const size_t nLength) throw()
 	{
 		CQuickLock oOutputLock( *m_pOutputSection );
-
-		ASSERT( m_pOutput );
 		m_pOutput->Add( pData, nLength );
 	}
 
 	inline void Write(const CString& strData, const UINT nCodePage = CP_ACP) throw()
 	{
 		CQuickLock oOutputLock( *m_pOutputSection );
-
-		ASSERT( m_pOutput );
 		m_pOutput->Print( strData, nCodePage );
 	}
 
 	inline DWORD Write(CBuffer* pBuffer) throw()
 	{
 		CQuickLock oOutputLock( *m_pOutputSection );
-
-		ASSERT( m_pOutput );
 		return m_pOutput->AddBuffer( pBuffer );
 	}
 
 	inline void Write(const CPacket* pPacket) throw()
 	{
 		CQuickLock oOutputLock( *m_pOutputSection );
-
-		ASSERT( m_pOutput );
 		CBuffer pBuffer;
 		pPacket->ToBuffer( &pBuffer );
 		Write( &pBuffer );
@@ -177,8 +160,6 @@ public:
 		CheckingPolicy, ValidationPolicy >& oHash) throw()
 	{
 		CQuickLock oOutputLock( *m_pOutputSection );
-
-		ASSERT( m_pOutput );
 		m_pOutput->Add( oHash );
 	}
 
@@ -193,48 +174,36 @@ public:
 		CheckingPolicy, ValidationPolicy >& oHash) throw()
 	{
 		CQuickLock oInputLock( *m_pInputSection );
-
-		ASSERT( m_pInput );
 		m_pInput->Read( oHash );
 	}
 
 	inline BOOL Read(CString& strData, BOOL bPeek = FALSE, UINT nCodePage = CP_ACP) throw()
 	{
 		CQuickLock oInputLock( *m_pInputSection );
-
-		ASSERT( m_pInput );
 		return m_pInput->ReadLine( strData, bPeek, nCodePage );
 	}
 
 	inline void Bypass(const size_t nLength) throw()
 	{
 		CQuickLock oInputLock( *m_pInputSection );
-
-		ASSERT( m_pInput );
 		return m_pInput->Remove( nLength );
 	}
 
 	inline void Prefix(LPCSTR pszText, const size_t nLength) throw()
 	{
 		CQuickLock oInputLock( *m_pInputSection );
-
-		ASSERT( m_pInput );
 		m_pInput->Prefix( pszText, nLength );
 	}
 
 	inline BYTE PeekAt(const size_t nPos) const throw()
 	{
 		CQuickLock oInputLock( *m_pInputSection );
-
-		ASSERT( m_pInput );
 		return m_pInput->m_pBuffer[ nPos ];
 	}
 
 	inline BOOL StartsWith(LPCSTR pszString, const size_t nLength)
 	{
 		CQuickLock oInputLock( *m_pInputSection );
-
-		ASSERT( m_pInput );
 		return m_pInput->StartsWith( pszString, nLength, FALSE );
 	}
 
@@ -271,25 +240,25 @@ public:
 	// Make a connection, accept a connection, copy a connection, and close a connection
 	virtual BOOL ConnectTo(const SOCKADDR_IN* pHost);			// Connect to an IP address and port number
 	virtual BOOL ConnectTo(const IN_ADDR* pAddress, WORD nPort);
-	virtual void AcceptFrom(SOCKET hSocket, SOCKADDR_IN* pHost);// Accept a connection from a remote computer
+	virtual void AcceptFrom(SOCKET hSocket, SOCKADDR_IN* pHost);		// Accept a connection from a remote computer
 	virtual void AttachTo(CConnection* pConnection);			// Copy a connection (do)
-	virtual void Close();										// Disconnect from the remote computer
+	virtual void Close();								// Disconnect from the remote computer
 
 	// Read and write data through the socket, and look at headers
-	virtual BOOL OnRun();                // (do) just returns true
-	virtual BOOL OnConnected();          // (do) just returns true
-	virtual BOOL OnRead();               // Read data waiting in the socket into the input buffer
-	virtual BOOL OnWrite();              // Move the contents of the output buffer into the socket
-	virtual void OnDropped(); 			 // (do) empty
-	virtual BOOL OnHeadersComplete();    // (do) just returns true
+	virtual BOOL OnRun();			// (do) just returns true
+	virtual BOOL OnConnected();		// (do) just returns true
+	virtual BOOL OnRead();			// Read data waiting in the socket into the input buffer
+	virtual BOOL OnWrite();			// Move the contents of the output buffer into the socket
+	virtual void OnDropped();		// (do) empty
+	virtual BOOL OnHeadersComplete();	// (do) just returns true
 	virtual BOOL OnHeaderLine(CString& strHeader, CString& strValue);	// Processes a single line from the headers
 
 // Statics
 public:
 	// Hard-coded settings for the bandwidth transfer meter
-	static const DWORD	METER_SECOND	= 1000ul;						// 1000 milliseconds is 1 second
+	static const DWORD	METER_SECOND	= 1000ul;				// 1000 milliseconds is 1 second
 	static const DWORD	METER_MINIMUM	= METER_SECOND / 10ul;			// Granuality of bandwidth meter, 1/10th of a second
-	static const DWORD	METER_LENGTH	= 60ul;							// Number of slots in the bandwidth meter
+	static const DWORD	METER_LENGTH	= 60ul;					// Number of slots in the bandwidth meter
 	static const DWORD	METER_PERIOD	= METER_MINIMUM * METER_LENGTH;	// The time that the bandwidth meter keeps information for
 
 	// Keep track of how fast we are reading or writing bytes to a socket

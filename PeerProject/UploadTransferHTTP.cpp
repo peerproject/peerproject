@@ -124,7 +124,8 @@ BOOL CUploadTransferHTTP::ReadRequest()
 	CString strLine;
 
 	if ( ! Read( strLine ) ) return TRUE;
-	if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE ) strLine = _T("#LINE_TOO_LONG#");
+	if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE )
+		strLine = _T("#LINE_TOO_LONG#");
 
 	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> UPLOAD REQUEST: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 
@@ -173,9 +174,7 @@ BOOL CUploadTransferHTTP::ReadRequest()
 	CString strRequest = strLine.Mid( m_bHead ? 5 : 4, nChar - ( m_bHead ? 5 : 4 ) );
 
 	if ( strRequest.GetLength() > 5 && strRequest.Right( 1 ) == _T("/") )
-	{
 		strRequest = strRequest.Left( strRequest.GetLength() - 1 );
-	}
 
 	strRequest = URLDecode( strRequest );
 
@@ -268,9 +267,7 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 			if ( Settings.Library.SourceMesh )
 			{
 				if ( strValue.Find( _T("://") ) < 0 )
-				{
 					pDownload->AddSourceURLs( strValue, TRUE, TRUE );
-				}
 			}
 		}
 		m_nGnutella |= 1;
@@ -316,13 +313,18 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 {
 	if ( Uploads.EnforcePerHostLimit( this, TRUE ) ) return FALSE;
 
-	if ( m_bClientExtended )
+	if ( Security.IsClientBanned( m_sUserAgent ) )
+	{
+		SendResponse( IDR_HTML_BROWSER );
+		theApp.Message( MSG_ERROR, _T("Client %s has a prohibited user agent \"%s\", banning"), (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
+		Security.Ban( &m_pHost.sin_addr, ban5Mins, FALSE, CString( _T("Prohibited user agent: ") ) + m_sUserAgent );
+		Remove( FALSE );
+		return FALSE;
+	}
+	else if ( m_bClientExtended )
 	{
 		// Assume certain capabilitites for various Shareaza/PeerProject versions.
 		m_nGnutella |= 3;
-
-		// ToDo: Update?
-		// if ( m_sUserAgent == _T("Shareaza 1.4.0.0") ) m_bQueueMe = TRUE;
 
 		// Check for non-PeerProject clients spoofing a PeerProject user agent
 		if ( m_bNotPeerProject )
@@ -415,7 +417,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			return FALSE;
 		}
 	}
-	else if ( IsAgentBlocked() )
+	else if ( Security.IsAgentBlocked( m_sUserAgent ) )
 	{
 		if ( m_sName.IsEmpty() ) m_sName = _T("file");
 		SendResponse( IDR_HTML_BROWSER );
@@ -499,10 +501,10 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 
 		if ( CDownload* pDownload = Downloads.FindByURN( pszURN ) )
 		{
-			if ( pDownload->GetMetadata() )
+			if ( pDownload->HasMetadata() )
 			{
 				m_sName	= pDownload->m_sName;
-				if ( CXMLElement* pMetadata	= pDownload->GetMetadata()->Clone() )
+				if ( CXMLElement* pMetadata	= pDownload->m_pXML->Clone() )
 					return RequestMetadata( pMetadata );
 			}
 		}
@@ -686,7 +688,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 
 BOOL CUploadTransferHTTP::IsNetworkDisabled()
 {
-	if ( !Network.IsConnected() ) return TRUE;
+	if ( ! Network.IsConnected() ) return TRUE;
 	if ( Settings.Connection.RequireForTransfers == FALSE ) return FALSE;
 	if ( ( m_nGnutella & 2 ) && Settings.Gnutella2.EnableToday ) return FALSE;
 	if ( ( m_nGnutella & 1 ) && Settings.Gnutella1.EnableToday ) return FALSE;
@@ -719,7 +721,8 @@ BOOL CUploadTransferHTTP::RequestSharedFile(CLibraryFile* pFile, CSingleLock& oL
 	if ( ! UploadQueues.CanUpload( PROTOCOL_HTTP, pFile ) )
 	{
 		// File is not uploadable. (No queue, is a ghost, etc)
-		if ( m_sName.IsEmpty() ) m_sName = m_oSHA1.toUrn();
+		if ( m_sName.IsEmpty() )
+			m_sName = m_oSHA1.toUrn();
 
 		oLibraryLock.Unlock();
 		SendResponse( IDR_HTML_FILENOTFOUND );
@@ -730,9 +733,11 @@ BOOL CUploadTransferHTTP::RequestSharedFile(CLibraryFile* pFile, CSingleLock& oL
 	m_bTigerTree	= bool( m_oTiger );
 	m_bMetadata		= ( pFile->m_pMetadata != NULL && ( pFile->m_bMetadataAuto == FALSE || pFile->m_nVirtualSize > 0 ) );
 
-	if ( ! IsHashed() ) m_sLocations.Empty();
+	if ( ! IsHashed() )
+		m_sLocations.Empty();
 
-	if ( m_nLength == SIZE_UNKNOWN ) m_nLength = m_nSize - m_nOffset;
+	if ( m_nLength == SIZE_UNKNOWN )
+		m_nLength = m_nSize - m_nOffset;
 
 	if ( m_nOffset >= m_nSize || m_nOffset + m_nLength > m_nSize )
 	{
@@ -772,7 +777,7 @@ BOOL CUploadTransferHTTP::RequestPartialFile(CDownload* pDownload)
 	ASSERT( m_nFileBase == 0 );
 
 	m_bTigerTree	= ( m_oTiger && pDownload->GetTigerTree() != NULL );
-	m_bMetadata		= ( pDownload->GetMetadata() != NULL );
+	m_bMetadata		= pDownload->HasMetadata();
 
 	if ( m_sLocations.GetLength() )
 		pDownload->AddSourceURLs( m_sLocations, TRUE );
@@ -897,10 +902,8 @@ BOOL CUploadTransferHTTP::QueueRequest()
 		}
 		//else	// Unable to queue anywhere
 	}
-	else
+	else	// Too many from this host
 	{
-		// Too many from this host
-
 		UploadQueues.Dequeue( this );
 		ASSERT( m_pQueue == NULL );
 
@@ -980,18 +983,11 @@ void CUploadTransferHTTP::SendDefaultHeaders()
 	}
 
 	if ( IsNetworkDisabled() )
-	{
-		// Ask to retry after some delay in seconds
-		Write( _P("Retry-After: 3600\r\n") ); // 1 hour
-	}
+		Write( _P("Retry-After: 3600\r\n") ); // Ask to retry after 1 hour delay
 	else if ( m_bKeepAlive )
-	{
 		Write( _P("Connection: Keep-Alive\r\n") );
-	}
 	else
-	{
 		Write( _P("Connection: close\r\n") );
-	}
 
 	Write( _P("Accept-Ranges: bytes\r\n") );
 
@@ -1154,7 +1150,8 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 		Write( _P("Content-Encoding: backwards\r\n") );
 	}
 
-	if ( IsHashed() ) SendFileHeaders();
+	if ( IsHashed() )
+		SendFileHeaders();
 
 	Write( _P("\r\n") );
 
@@ -1172,6 +1169,7 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 			theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE,
 				(LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 
+			ASSERT( m_sPath.GetLength() );
 			PostMainWndMessage( WM_NOWUPLOADING, 0, (LPARAM)new CString( m_sPath ) );
 		}
 
@@ -1357,7 +1355,8 @@ BOOL CUploadTransferHTTP::RequestMetadata(CXMLElement* pMetadata)
 	Write( strHeader );
 	Write( _P("\r\n") );
 
-	if ( ! m_bHead ) Write( (LPCSTR)strXML, strXML.GetLength() );
+	if ( ! m_bHead )
+		Write( (LPCSTR)strXML, strXML.GetLength() );
 
 	StartSending( upsMetadata );
 
@@ -1423,7 +1422,8 @@ BOOL CUploadTransferHTTP::RequestTigerTreeRaw(CTigerTree* pTigerTree, BOOL bDele
 
 		Write( _P("\r\n") );
 
-		if ( ! m_bHead ) Write( pSerialTree + m_nOffset, (DWORD)m_nLength );
+		if ( ! m_bHead )
+			Write( pSerialTree + m_nOffset, (DWORD)m_nLength );
 
 		StartSending( upsTigerTree );
 
@@ -1577,11 +1577,11 @@ BOOL CUploadTransferHTTP::RequestPreview(CLibraryFile* pFile, CSingleLock& oLibr
 {
 	ASSERT( pFile != NULL );
 
-	m_sName		= pFile->m_sName;
-	m_sPath		= pFile->GetPath();
-	m_oSHA1			= pFile->m_oSHA1;
+	m_sName 		= pFile->m_sName;
+	m_sPath 		= pFile->GetPath();
+	m_oSHA1 		= pFile->m_oSHA1;
 	m_oTiger		= pFile->m_oTiger;
-	m_oED2K			= pFile->m_oED2K;
+	m_oED2K 		= pFile->m_oED2K;
 	m_oBTH			= pFile->m_oBTH;
 	m_oMD5			= pFile->m_oMD5;
 
@@ -1644,7 +1644,7 @@ BOOL CUploadTransferHTTP::RequestPreview(CLibraryFile* pFile, CSingleLock& oLibr
 	else if ( m_oED2K )
 	{
 		strHeader.Format( _T("X-Previewed-URN: %s\r\n"),
-            (LPCTSTR)m_oED2K.toUrn() );
+			(LPCTSTR)m_oED2K.toUrn() );
 	}
 
 	Write( strHeader );
@@ -1784,7 +1784,7 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 		if ( strReplace.CompareNoCase( _T("Name") ) == 0 )
 			strReplace = m_sName;
 		else if ( strReplace.CompareNoCase( _T("SHA1") ) == 0 )
-            strReplace = m_oSHA1.toString();
+			strReplace = m_oSHA1.toString();
 		else if ( strReplace.CompareNoCase( _T("URN") ) == 0 )
 			strReplace = m_oSHA1.toUrn();
 		else if ( strReplace.CompareNoCase( _T("Version") ) == 0 )
@@ -1800,7 +1800,9 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 					htons( Network.m_pHost.sin_port ) );
 			}
 			else
+			{
 				strReplace.Empty();
+			}
 		}
 
 		strBody = strBody.Left( nStart ) + strReplace + strBody.Mid( nEnd + 2 );

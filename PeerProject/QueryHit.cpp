@@ -165,7 +165,14 @@ CQueryHit* CQueryHit::FromG1Packet(CG1Packet* pPacket, int* pnHops)
 		{
 			CHAR szaVendor[ 4 ];
 			pPacket->Read( szaVendor, 4 );
+
 			TCHAR szVendor[ 5 ] = { szaVendor[0], szaVendor[1], szaVendor[2], szaVendor[3], 0 };
+			if ( Security.IsVendorBlocked( szVendor ) )
+			{
+				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Hit packet from banned client") );
+				AfxThrowUserException();
+			}
+
 			pVendor = VendorCache.Lookup( szVendor );
 			if ( ! pVendor )
 				pVendor = VendorCache.m_pNull;
@@ -493,8 +500,15 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 				if ( nLength >= 4 )
 				{
 					CString strVendor = pPacket->ReadString( 4 );
+					if ( Security.IsVendorBlocked( strVendor ) )
+					{
+						theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
+							_T("[G2] Hit packet from banned client") );
+						AfxThrowUserException();
+					}
+
 					pVendor = VendorCache.Lookup( strVendor );
-					if ( !pVendor )
+					if ( ! pVendor )
 						pVendor = VendorCache.m_pNull;
 				}
 				else
@@ -511,7 +525,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 					while ( pszXML && *pszXML )
 					{
 						CXMLElement* pPart = CXMLElement::FromString( pszXML, TRUE );
-						if ( !pPart )
+						if ( ! pPart )
 							break;
 
 						if ( ! pXML ) pXML = new CXMLElement( NULL, _T("Metadata") );
@@ -610,7 +624,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 		return NULL;
 	}
 
-	if ( !bPush )
+	if ( ! bPush )
 		bPush = ( nPort == 0 || Network.IsFirewalledAddress( (IN_ADDR*)&nAddress ) );
 
 	DWORD nIndex = 0;
@@ -671,7 +685,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 		}
 #endif // LAN_MODE
 	}
-	else if ( !CheckBogus( pFirstHit ) )
+	else if ( ! CheckBogus( pFirstHit ) )
 	{
 		// Now add all hub list to the route cache
 		for ( NodeIter iter = pTestNodeList.begin( ) ;
@@ -846,7 +860,7 @@ BOOL CQueryHit::CheckBogus(CQueryHit* pFirstHit)
 	StringList::iterator it, it2;
 	bool bDuplicate = false;
 
-	for ( it = pList.begin() ; it != pList.end() && !it->empty() ; )
+	for ( it = pList.begin() ; it != pList.end() && ! it->empty() ; )
 	{
 		for ( it2 = it + 1 ; it2 != pList.end() ; )
 		{
@@ -2092,9 +2106,9 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 		ar << m_bChat;
 		ar << m_bBrowseHost;
 
-        SerializeOut( ar, m_oSHA1 );
-        SerializeOut( ar, m_oTiger );
-        SerializeOut( ar, m_oED2K );
+		SerializeOut( ar, m_oSHA1 );
+		SerializeOut( ar, m_oTiger );
+		SerializeOut( ar, m_oED2K );
 
 		SerializeOut( ar, m_oBTH );
 		SerializeOut( ar, m_oMD5 );
@@ -2124,7 +2138,7 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 		ar << m_bBogus;
 		ar << m_bDownload;
 	}
-	else
+	else // Loading
 	{
 		ReadArchive( ar, &m_oSearchID[ 0 ], Hashes::Guid::byteCount );
 		m_oSearchID.validate();
@@ -2153,9 +2167,9 @@ void CQueryHit::Serialize(CArchive& ar, int nVersion)
 		ar >> m_bChat;
 		ar >> m_bBrowseHost;
 
-        SerializeIn( ar, m_oSHA1, nVersion );
-        SerializeIn( ar, m_oTiger, nVersion );
-        SerializeIn( ar, m_oED2K, nVersion );
+		SerializeIn( ar, m_oSHA1, nVersion );
+		SerializeIn( ar, m_oTiger, nVersion );
+		SerializeIn( ar, m_oED2K, nVersion );
 
 		//if ( nVersion >= 13 )
 		//{

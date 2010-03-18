@@ -108,13 +108,13 @@ void CLibrary::AddFile(CLibraryFile* pFile)
 
 		if ( ! pFile->IsHashed() )
 		{
-			LibraryBuilder.Add( pFile ); // hash the file and add it again
+			LibraryBuilder.Add( pFile ); // Hash the file and add it again
 		}
-		else if ( pFile->IsNewFile() ) // the new file was hashed
+		else if ( pFile->IsNewFile() )	// The new file was hashed
 		{
 			pFile->m_bNewFile = FALSE;
 
-			CheckDuplicates( pFile ); // check for duplicates
+			CheckDuplicates( pFile );	// Check for duplicates (malware)
 		}
 	}
 	else
@@ -138,7 +138,7 @@ void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce)
 {
 	long nCount = 0;
 
-	// malicious software are usually small, we won't search duplicates
+	// Malicious software are usually small, we won't search all duplicates
 	if ( pFile->m_nSize / 1024 > Settings.Library.MaxMaliciousFileSize ) return;
 
 	int nDot = pFile->m_sName.ReverseFind( '.' );
@@ -157,11 +157,11 @@ void CLibrary::CheckDuplicates(CLibraryFile* pFile, bool bForce)
 
 	if ( nCount > 4 ) // More than 4 same files is suspicious
 	{
-		if ( Settings.Live.LastDuplicateHash == pFile->m_oMD5.toString() && !bForce )
+		if ( Settings.Live.LastDuplicateHash == pFile->m_oMD5.toString() && ! bForce )
 			return;	// we already warned about the same file
 
 		Settings.Live.LastDuplicateHash = pFile->m_oMD5.toString();
-		if ( !theApp.m_bLive ) return;
+		if ( ! theApp.m_bLive ) return;
 
 		// warn the user
 		CExistingFileDlg dlg( pFile, NULL, true );
@@ -205,7 +205,7 @@ void CLibrary::CheckDuplicates(LPCTSTR pszMD5Hash)
 	if ( oMD5 )
 	{
 		CSingleLock oLock( &m_pSection );
-		if ( !oLock.Lock( 50 ) ) return;
+		if ( ! oLock.Lock( 50 ) ) return;
 		CLibraryFile* pFile = LibraryMaps.LookupFileByMD5( oMD5, FALSE, TRUE );
 		if ( pFile )
 		{
@@ -244,7 +244,7 @@ CFileList* CLibrary::Search(const CQuerySearch* pSearch, int nMaximum, bool bLoc
 {
 	CSingleLock oLock( &m_pSection );
 
-	if ( !oLock.Lock( 50 ) ) return NULL;
+	if ( ! oLock.Lock( 50 ) ) return NULL;
 
 	CFileList* pHits = LibraryMaps.Search( pSearch, nMaximum, bLocal, bAvailableOnly );
 
@@ -399,47 +399,58 @@ BOOL CLibrary::Save()
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 
-	FILETIME pFileTime = { 0, 0 };
-	SYSTEMTIME pSystemTime;
 	CString strFile;
-	CFile pFile;
-
 	strFile.Format( _T("%s\\Data\\Library%i.dat"),
 		(LPCTSTR)Settings.General.UserPath, m_nFileSwitch + 1 );
 
 	m_nFileSwitch = ( m_nFileSwitch == 0 ) ? 1 : 0;
 	m_nSaveTime = GetTickCount();
 
+	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
+	{
+		theApp.Message( MSG_ERROR, _T("Library save error to: %s"), strFile );
 		return FALSE;
+	}
 
 	try
 	{
-		pFile.Write( &pFileTime, sizeof(FILETIME) );
-
-		CArchive ar( &pFile, CArchive::store, 262144 ); // 256 KB buffer
-		Serialize( ar );
-		ar.Close();
+		FILETIME pFileTime = {};
+		pFile.Write( &pFileTime, sizeof( FILETIME ) );
 		pFile.Flush();
 
-		GetSystemTime( &pSystemTime );
-		SystemTimeToFileTime( &pSystemTime, &pFileTime );
+		CArchive ar( &pFile, CArchive::store, 262144 );	// 256 KB buffer
+		try
+		{
+			Serialize( ar );
+			ar.Close();
+		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pFile.Abort();
+			pException->Delete();
+			theApp.Message( MSG_ERROR, _T("Library save error to: %s"), strFile );
+			return FALSE;
+		}
+
+		pFile.Flush();
+		GetSystemTimeAsFileTime( &pFileTime );
 		pFile.Seek( 0, 0 );
-		pFile.Write( &pFileTime, sizeof(FILETIME) );
-
+		pFile.Write( &pFileTime, sizeof( FILETIME ) );
 		pFile.Close();
-
-		m_nSaveCookie = m_nUpdateCookie;
-		theApp.Message( MSG_DEBUG, _T("Library successfully saved to: %s"), strFile );
-
-		return TRUE;
 	}
 	catch ( CException* pException )
 	{
+		pFile.Abort();
 		pException->Delete();
+		theApp.Message( MSG_ERROR, _T("Library save error to: %s"), strFile );
+		return FALSE;
 	}
-	theApp.Message( MSG_ERROR, _T("Library save error to: %s"), strFile );
-	return FALSE;
+
+	m_nSaveCookie = m_nUpdateCookie;
+	theApp.Message( MSG_DEBUG, _T("Library successfully saved to: %s"), strFile );
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////

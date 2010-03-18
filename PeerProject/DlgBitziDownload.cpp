@@ -1,7 +1,7 @@
 //
 // DlgBitziDownload.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -72,7 +72,8 @@ BOOL CBitziDownloadDlg::OnInitDialog()
 
 	SkinMe( _T("CBitziDownloadDlg"), IDR_MAINFRAME );
 
-	if ( Settings.General.LanguageRTL ) m_wndProgress.ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
+	if ( Settings.General.LanguageRTL )
+		m_wndProgress.ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
 	m_wndProgress.SetRange( 0, short( m_pDownloader.GetFileCount() * 2 ) );
 	m_wndFiles.SetImageList( ShellIcons.GetObject( 16 ), LVSIL_SMALL );
 	m_wndFiles.InsertColumn( 0, _T("Filename"), LVCFMT_LEFT, 190, -1 );
@@ -101,8 +102,8 @@ void CBitziDownloadDlg::OnRequesting(DWORD nIndex, LPCTSTR pszName)
 	CString strMessage;
 
 	int nImage	= ShellIcons.Get( pszName, 16 );
-	int nItem	= m_wndFiles.InsertItem( LVIF_TEXT|LVIF_IMAGE, m_wndFiles.GetItemCount(),
-					pszName, 0, 0, nImage, nIndex );
+	int nItem	= m_wndFiles.InsertItem( LVIF_TEXT|LVIF_IMAGE,
+					m_wndFiles.GetItemCount(), pszName, 0, 0, nImage, nIndex );
 
 	m_wndFiles.EnsureVisible( nItem, FALSE );
 	LoadString( strMessage, IDS_BITZI_REQUESTING );
@@ -119,8 +120,7 @@ void CBitziDownloadDlg::OnSuccess(DWORD /*nIndex*/)
 
 void CBitziDownloadDlg::OnFailure(DWORD /*nIndex*/, LPCTSTR pszMessage)
 {
-	m_wndFiles.SetItemText( m_wndFiles.GetItemCount() - 1, 1,
-		pszMessage );
+	m_wndFiles.SetItemText( m_wndFiles.GetItemCount() - 1, 1, pszMessage );
 	m_nFailures++;
 }
 
@@ -138,13 +138,14 @@ void CBitziDownloadDlg::OnTimer(UINT_PTR /*nIDEvent*/)
 		KillTimer( 1 );
 
 		LoadString( strMessage, IDS_BITZI_FINISHED );
-		int nItem = m_wndFiles.InsertItem( LVIF_TEXT|LVIF_IMAGE, m_wndFiles.GetItemCount(),
-			strMessage, 0, 0, -1, 0 );
+		int nItem = m_wndFiles.InsertItem( LVIF_TEXT|LVIF_IMAGE,
+			m_wndFiles.GetItemCount(), strMessage, 0, 0, -1, 0 );
 		m_wndFiles.EnsureVisible( nItem, FALSE );
 		LoadString( strMessage, IDS_BITZI_CLOSE );
 		m_wndCancel.SetWindowText( strMessage );
 
-		if ( ! m_nFailures ) PostMessage( WM_COMMAND, IDCANCEL );
+		if ( ! m_nFailures )
+			PostMessage( WM_COMMAND, IDCANCEL );
 	}
 }
 
@@ -199,5 +200,3 @@ void CBitziDownloadDlg::OnLButtonDown(UINT /*nFlags*/, CPoint point)
 			NULL, NULL, SW_SHOWNORMAL );
 	}
 }
-
-

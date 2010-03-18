@@ -1,7 +1,7 @@
 //
 // DownloadTransferFTP.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,9 +28,10 @@
 #include "DownloadTransfer.h"
 #include "DownloadTransferFTP.h"
 #include "FragmentedFile.h"
-#include "Network.h"
 #include "PeerProjectURL.h"
+#include "Network.h"
 #include "GProfile.h"
+#include "Security.h" // Vendors
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -65,32 +66,27 @@ inline bool ParsePASVArgs(const CString& args, SOCKADDR_IN& host)
 	int d;
 	// h1
 	d = strValue.Find (_T(','));
-	if (d == -1)
-		return false;
+	if (d == -1) return false;
 	host.sin_addr.S_un.S_un_b.s_b1 = (unsigned char) (_tstoi (strValue.Mid (0, d)) & 0xff);
 	strValue = strValue.Mid (d + 1);
 	// h2
 	d = strValue.Find (_T(','));
-	if (d == -1)
-		return false;
+	if (d == -1) return false;
 	host.sin_addr.S_un.S_un_b.s_b2 = (unsigned char) (_tstoi (strValue.Mid (0, d)) & 0xff);
 	strValue = strValue.Mid (d + 1);
 	// h3
 	d = strValue.Find (_T(','));
-	if (d == -1)
-		return false;
+	if (d == -1) return false;
 	host.sin_addr.S_un.S_un_b.s_b3 = (unsigned char) (_tstoi (strValue.Mid (0, d)) & 0xff);
 	strValue = strValue.Mid (d + 1);
 	// h4
 	d = strValue.Find (_T(','));
-	if (d == -1)
-		return false;
+	if (d == -1) return false;
 	host.sin_addr.S_un.S_un_b.s_b4 = (unsigned char) (_tstoi (strValue.Mid (0, d)) & 0xff);
 	strValue = strValue.Mid (d + 1);
 	// p1
 	d = strValue.Find (_T(','));
-	if (d == -1)
-		return false;
+	if (d == -1) return false;
 	host.sin_port = (unsigned char) (_tstoi (strValue.Mid (0, d)) & 0xff);
 	strValue = strValue.Mid (d + 1);
 	// p2
@@ -106,13 +102,13 @@ inline bool FTPisOK(const CString& str)
 //////////////////////////////////////////////////////////////////////
 // CDownloadTransferFTP construction
 
-CDownloadTransferFTP::CDownloadTransferFTP(CDownloadSource* pSource) :
-	CDownloadTransfer( pSource, PROTOCOL_FTP ),
-	m_FtpState( ftpConnecting ),
-	m_tRequest( 0 ),
-	m_bPassive( TRUE /* FALSE */ ),
-	m_bSizeChecked( FALSE ),
-	m_bMultiline( FALSE )
+CDownloadTransferFTP::CDownloadTransferFTP(CDownloadSource* pSource)
+	: CDownloadTransfer	( pSource, PROTOCOL_FTP )
+	, m_FtpState		( ftpConnecting )
+	, m_tRequest		( 0 )
+	, m_bPassive		( TRUE )	//FALSE ?
+	, m_bSizeChecked	( FALSE )
+	, m_bMultiline		( FALSE )
 {
 	m_RETR.SetOwner( this );
 }
@@ -132,13 +128,13 @@ BOOL CDownloadTransferFTP::Initiate()
 	if ( ConnectTo( &m_pSource->m_pAddress, m_pSource->m_nPort ) )
 	{
 		SetState( dtsConnecting );
-		
-		if ( !m_pDownload->IsBoosted() )
+
+		if ( ! m_pDownload->IsBoosted() )
 		{
 			m_mInput.pLimit = &m_nBandwidth;
 			m_mOutput.pLimit = &Settings.Bandwidth.Request;
 		}
-		
+
 		return TRUE;
 	}
 	else
@@ -162,7 +158,7 @@ void CDownloadTransferFTP::Close (TRISTATE bKeepSource, DWORD nRetryAfter)
 
 	m_FtpState = ftpConnecting;
 	m_bSizeChecked = FALSE;
-	
+
 	CDownloadTransfer::Close( bKeepSource, nRetryAfter );
 }
 
@@ -179,7 +175,7 @@ void CDownloadTransferFTP::Boost()
 DWORD CDownloadTransferFTP::GetMeasuredSpeed()
 {
 	// Calculate Input
-	MeasureIn();		
+	MeasureIn();
 	m_LIST.MeasureIn();
 	m_RETR.MeasureIn();
 
@@ -193,7 +189,7 @@ DWORD CDownloadTransferFTP::GetMeasuredSpeed()
 BOOL CDownloadTransferFTP::OnConnected()
 {
 	theApp.Message( MSG_INFO, IDS_DOWNLOAD_CONNECTED, (LPCTSTR)m_sAddress );
-	
+
 	m_tConnected = GetTickCount();
 	SetState( dtsRequesting );
 
@@ -212,7 +208,7 @@ BOOL CDownloadTransferFTP::StartNextFragment()
 	m_nPosition			= 0;
 	m_bWantBackwards	= FALSE;
 	m_bRecvBackwards	= FALSE;
-	
+
 	if ( ! IsInputExist() || ! IsOutputExist() )
 	{
 		theApp.Message( MSG_INFO, IDS_DOWNLOAD_CLOSING_EXTRA, (LPCTSTR)m_sAddress );
@@ -225,7 +221,7 @@ BOOL CDownloadTransferFTP::StartNextFragment()
 		m_tRequest = GetTickCount();
 		return TRUE;
 	}
-	else if ( m_pDownload->m_nSize == SIZE_UNKNOWN || !m_bSizeChecked )
+	else if ( m_pDownload->m_nSize == SIZE_UNKNOWN || ! m_bSizeChecked )
 	{
 		// Getting file size
 		m_FtpState = ftpSIZE_TYPE; // ftpLIST_TYPE;
@@ -247,7 +243,7 @@ BOOL CDownloadTransferFTP::StartNextFragment()
 	else
 	{
 		if ( m_pSource != NULL )
-			m_pSource->SetAvailableRanges( NULL );		
+			m_pSource->SetAvailableRanges( NULL );
 		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_END, (LPCTSTR)m_sAddress );
 		Close();
 		return FALSE;
@@ -267,7 +263,7 @@ BOOL CDownloadTransferFTP::SubtractRequested(Fragments::List& ppFragments)
 			return TRUE;
 		}
 	}
-	
+
 	return FALSE;
 }
 
@@ -277,9 +273,9 @@ BOOL CDownloadTransferFTP::SubtractRequested(Fragments::List& ppFragments)
 BOOL CDownloadTransferFTP::OnRun()
 {
 	CDownloadTransfer::OnRun();
-	
+
 	DWORD tNow = GetTickCount();
-	
+
 	switch ( m_nState )
 	{
 	case dtsConnecting:
@@ -341,7 +337,7 @@ BOOL CDownloadTransferFTP::OnRun()
 BOOL CDownloadTransferFTP::OnRead()
 {
 	CDownloadTransfer::OnRead();
-	
+
 	CString strLine;
 	CString Number;
 	while ( Read( strLine ) )
@@ -381,7 +377,7 @@ BOOL CDownloadTransferFTP::OnRead()
 			m_sMultiReply += strLine;
 		}
 		// else Got strange extra line - ignoring
-			 
+
 	}
 	return TRUE;
 }
@@ -403,7 +399,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		{
 			m_LIST.m_sUserAgent = m_RETR.m_sUserAgent = m_sUserAgent =
 				m_pSource->m_sServer = strValue.Trim( _T(" \t\r\n-=_") );
-			if ( IsAgentBlocked() )
+			if ( Security.IsAgentBlocked( m_sUserAgent ) )
 			{
 				// Ban
 				Close( TRI_FALSE );
@@ -418,7 +414,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 
 	case ftpUSER:
 		if ( strHeader == _T("331") )			// Access allowed
-		{		
+		{
 			// Sending password
 			m_FtpState = ftpPASS;
 			SetState( dtsRequesting );
@@ -451,8 +447,10 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			return SendCommand ();
 		}
 		else if ( FTPisOK( strHeader ) )		// Extra headers, may be some 230
+		{
 			// Bypass
 			return TRUE;
+		}
 		break;
 
 	case ftpSIZE:
@@ -512,8 +510,10 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			return SendCommand ();
 		}
 		else if ( FTPisOK( strHeader ) )		// Extra headers, may be some 230
+		{
 			// Bypass
 			return TRUE;
+		}
 		break;
 
 	case ftpLIST_PASVPORT:
@@ -532,7 +532,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 					Close( TRI_FALSE );
 					return FALSE;
 				}
-				if ( !m_LIST.ConnectTo( &host ) )
+				if ( ! m_LIST.ConnectTo( &host ) )
 				{
 					// Cannot connect
 					theApp.Message( MSG_ERROR, IDS_DOWNLOAD_CONNECT_ERROR,
@@ -546,8 +546,10 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			return SendCommand ();
 		}
 		else if ( FTPisOK( strHeader ) )		// Extra headers
+		{
 			// Bypass
 			return TRUE;
+		}
 		break;
 
 	case ftpLIST:
@@ -570,7 +572,9 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 				return FALSE;
 			}
 			if ( m_pDownload->m_nSize == SIZE_UNKNOWN )
+			{
 				m_pDownload->m_nSize = size;
+			}
 			else
 			{
 				if ( m_pDownload->m_nSize != size )
@@ -610,8 +614,10 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			return SendCommand();
 		}
 		else if ( FTPisOK( strHeader ) )		// Extra headers, may be some 230
+		{
 			// Bypass
 			return TRUE;
+		}
 		break;
 
 	case ftpRETR_PASVPORT:
@@ -643,8 +649,10 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			return SendCommand ();
 		}
 		else if ( FTPisOK( strHeader ) )		// Extra headers
+		{
 			// Bypass
 			return TRUE;
+		}
 		break;
 
 	case ftpRETR_REST:
@@ -707,7 +715,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 BOOL CDownloadTransferFTP::SendCommand(LPCTSTR /*args*/)
 {
 	CPeerProjectURL pURL;
-	if ( !pURL.Parse( m_pSource->m_sURL, FALSE ) || pURL.m_nProtocol != PROTOCOL_FTP )
+	if ( ! pURL.Parse( m_pSource->m_sURL, FALSE ) || pURL.m_nProtocol != PROTOCOL_FTP )
 		return FALSE;
 
 	CString strLine;
@@ -732,7 +740,7 @@ BOOL CDownloadTransferFTP::SendCommand(LPCTSTR /*args*/)
 		//else
 		//{
 		//	SOCKADDR_IN host;
-		//	if ( !Handshakes.Add( &m_LIST, host ) )
+		//	if ( ! Handshakes.Add( &m_LIST, host ) )
 		//	{
 		//		// Unexpected errors
 		//		Close();
@@ -775,7 +783,7 @@ BOOL CDownloadTransferFTP::SendCommand(LPCTSTR /*args*/)
 		//else
 		//{
 		//	SOCKADDR_IN host;
-		//	if ( !Handshakes.Add( &m_RETR, host ) )
+		//	if ( ! Handshakes.Add( &m_RETR, host ) )
 		//	{
 		//		// Unexpected errors
 		//		Close();
@@ -807,7 +815,7 @@ BOOL CDownloadTransferFTP::SendCommand(LPCTSTR /*args*/)
 	default:
 		return TRUE;
 	}
-	
+
 	theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("%s << %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 
 	m_tRequest = GetTickCount();

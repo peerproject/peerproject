@@ -27,12 +27,13 @@
 #include "HostCache.h"
 #include "Neighbours.h"
 #include "Neighbour.h"
-#include "Packet.h"
 #include "G2Packet.h"
+#include "Packet.h"
 #include "Buffer.h"
 #include "Datagrams.h"
 #include "Kademlia.h"
 #include "VendorCache.h"
+#include "Security.h" // Vendors
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -45,19 +46,19 @@ CDiscoveryServices DiscoveryServices;
 //////////////////////////////////////////////////////////////////////
 // CDiscoveryServices construction
 
-CDiscoveryServices::CDiscoveryServices() :
-	m_hInternet		( NULL ),
-	m_hRequest		( NULL ),
-	m_pWebCache		( NULL ),
-	m_nWebCache		( wcmHosts ),
-	m_pSubmit		( NULL ),
-	m_nLastQueryProtocol ( PROTOCOL_NULL ),
-	m_tUpdated		( 0 ),
-	m_nLastUpdateProtocol ( PROTOCOL_NULL ),
-	m_bFirstTime	( TRUE ),
-	m_tExecute		( 0 ),
-	m_tQueried		( 0 ),
-	m_tMetQueried	( 0 )
+CDiscoveryServices::CDiscoveryServices()
+	: m_hInternet		( NULL )
+	, m_hRequest		( NULL )
+	, m_pWebCache		( NULL )
+	, m_nWebCache		( wcmHosts )
+	, m_pSubmit			( NULL )
+	, m_nLastQueryProtocol ( PROTOCOL_NULL )
+	, m_nLastUpdateProtocol ( PROTOCOL_NULL )
+	, m_tUpdated		( 0 )
+	, m_bFirstTime		( TRUE )
+	, m_tExecute		( 0 )
+	, m_tQueried		( 0 )
+	, m_tMetQueried		( 0 )
 {
 }
 
@@ -422,9 +423,8 @@ BOOL CDiscoveryServices::Load()
 
 	try
 	{
-		CArchive ar( &pFile, CArchive::load, 16384 );   // 16 KB buffer
+		CArchive ar( &pFile, CArchive::load, 16384 );	// 16 KB buffer
 		Serialize( ar );
-		ar.Close();
 	}
 	catch ( CException* pException )
 	{
@@ -455,14 +455,33 @@ BOOL CDiscoveryServices::Save()
 		return FALSE;
 
 	CFile pFile;
-
 	CString strFile = Settings.General.UserPath + _T("\\Data\\Discovery.dat");
-	if ( !pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
+	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
 		return FALSE;
 
-	CArchive ar( &pFile, CArchive::store, 16384 );   // 16 KB buffer
-	Serialize( ar );
-	ar.Close();
+	try
+	{
+		CArchive ar( &pFile, CArchive::store, 16384 );	// 16 KB buffer
+		try
+		{
+			Serialize( ar );
+			ar.Close();
+		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pFile.Abort();
+			pException->Delete();
+			return FALSE;
+		}
+		pFile.Close();
+	}
+	catch ( CException* pException )
+	{
+		pFile.Abort();
+		pException->Delete();
+		return FALSE;
+	}
 
 	return TRUE;
 }
@@ -490,7 +509,7 @@ void CDiscoveryServices::Serialize(CArchive& ar)
 			m_pList.GetNext( pos )->Serialize( ar, nVersion );
 		}
 	}
-	else
+	else // Loading
 	{
 		Clear();
 
@@ -601,13 +620,14 @@ void CDiscoveryServices::AddDefaults()
 		}
 		catch ( CException* pException )
 		{
-			if (pFile.m_hFile != CFile::hFileNull) pFile.Close(); // Check if file is still open, if yes close
+			if ( pFile.m_hFile != CFile::hFileNull )
+				pFile.Close(); // Check if file is still open, if yes close
 			pException->Delete();
 		}
 	}
 
 	// If file can't be used or didn't have enough services, drop back to the the in-built list
-	if ( !EnoughServices() )
+	if ( ! EnoughServices() )
 	{
 		theApp.Message( MSG_ERROR, _T("Default discovery service load failed") );
 
@@ -655,7 +675,7 @@ void CDiscoveryServices::MergeURLs()
 			OtherURLs.Add( pService );	//Ignore anything other than a GWC and pass off into the 'otherURLs array'.
 		}
 	}
-	if ( !MultiURLs.IsEmpty() )
+	if ( ! MultiURLs.IsEmpty() )
 	{
 		for ( int index = 0; index < MultiURLs.GetCount(); index++ )
 		{
@@ -668,7 +688,7 @@ void CDiscoveryServices::MergeURLs()
 					MultiURLs.RemoveAt( dup_index );
 				}
 			}
-			if ( !G1URLs.IsEmpty() )
+			if ( ! G1URLs.IsEmpty() )
 			{
 				//Remove G1 service if it matches that of a multi.
 				for ( int index2 = 0; index2 < G1URLs.GetCount(); index2++ )
@@ -680,7 +700,7 @@ void CDiscoveryServices::MergeURLs()
 					}
 				}
 			}
-			if ( !G2URLs.IsEmpty() )
+			if ( ! G2URLs.IsEmpty() )
 			{
 				//Remove G2 service if it matches that of a multi.
 				for ( int index3 = 0; index3 < G2URLs.GetCount(); index3++ )
@@ -694,7 +714,7 @@ void CDiscoveryServices::MergeURLs()
 			}
 		}
 	}
-	if ( !G1URLs.IsEmpty() )
+	if ( ! G1URLs.IsEmpty() )
 	{
 		for (int index4 = 0; index4 < G1URLs.GetCount(); index4++)
 		{
@@ -707,7 +727,7 @@ void CDiscoveryServices::MergeURLs()
 					G1URLs.RemoveAt( dup_index2 );
 				}
 			}
-			if ( !G2URLs.IsEmpty() )
+			if ( ! G2URLs.IsEmpty() )
 			{
 				//If G1 and G2 of the same URL exist, drop one and upgrade the other to multi status.
 				for ( int index5 = 0; index5 < G2URLs.GetCount(); index5++ )
@@ -724,7 +744,7 @@ void CDiscoveryServices::MergeURLs()
 			}
 		}
 	}
-	if ( !G2URLs.IsEmpty() )
+	if ( ! G2URLs.IsEmpty() )
 	{
 		for (int index6 = 0; index6 < G2URLs.GetCount(); index6++)
 		{
@@ -739,32 +759,32 @@ void CDiscoveryServices::MergeURLs()
 			}
 		}
 	}
-	if ( !G1URLs.IsEmpty() || !G2URLs.IsEmpty() || !MultiURLs.IsEmpty() || !OtherURLs.IsEmpty() )
+	if ( ! G1URLs.IsEmpty() || ! G2URLs.IsEmpty() || ! MultiURLs.IsEmpty() || ! OtherURLs.IsEmpty() )
 	{
-		//Updating the list...
+		// Updating the list...
 		m_pList.RemoveAll();
-		if ( !G1URLs.IsEmpty() )
+		if ( ! G1URLs.IsEmpty() )
 		{
 			for ( int g1_index = 0; g1_index < G1URLs.GetCount(); g1_index++ )
 			{
 				m_pList.AddTail( G1URLs.GetAt(  g1_index ) );
 			}
 		}
-		if ( !G2URLs.IsEmpty() )
+		if ( ! G2URLs.IsEmpty() )
 		{
 			for ( int g2_index = 0; g2_index < G2URLs.GetCount(); g2_index++ )
 			{
 				m_pList.AddTail( G2URLs.GetAt(  g2_index ) );
 			}
 		}
-		if ( !MultiURLs.IsEmpty() )
+		if ( ! MultiURLs.IsEmpty() )
 		{
 			for ( int multi_index = 0; multi_index < MultiURLs.GetCount(); multi_index++ )
 			{
 				m_pList.AddTail( MultiURLs.GetAt(  multi_index ) );
 			}
 		}
-		if ( !OtherURLs.IsEmpty() )
+		if ( ! OtherURLs.IsEmpty() )
 		{
 			for ( int other_index = 0; other_index < OtherURLs.GetCount(); other_index++ )
 			{
@@ -825,7 +845,7 @@ BOOL CDiscoveryServices::Update()
 
 	//*** ToDo: Ultrapeer mode hasn't been updated or tested in a long time
 
-	ASSERT ( ( nProtocol == PROTOCOL_G1 ) || ( nProtocol == PROTOCOL_G2 ) );
+	ASSERT ( nProtocol == PROTOCOL_G1 || nProtocol == PROTOCOL_G2 );
 
 	// Must have at least 4 peers
 	if ( Neighbours.GetCount( nProtocol, -1, ntNode ) < 4 ) return FALSE;
@@ -877,27 +897,27 @@ BOOL CDiscoveryServices::Execute(BOOL bDiscovery, PROTOCOLID nProtocol, USHORT n
 		m_tExecute = tNow;
 
 #ifdef LAN_MODE
-		BOOL	bG1Required = FALSE;
+		BOOL bG1Required = FALSE;
 
-		BOOL	bG2Required =
+		BOOL bG2Required =
 			( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G2) &&
 			( nForceDiscovery == 1 || HostCache.Gnutella2.CountHosts(TRUE) < 1 );
 
-		BOOL	bEdRequired = FALSE;
+		BOOL bEdRequired = FALSE;
 #else // No LAN_MOD
-		BOOL	bG1Required = Settings.Gnutella1.EnableToday &&
+		BOOL bG1Required = Settings.Gnutella1.EnableToday &&
 			( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G1) &&
 			( nForceDiscovery == 1 || HostCache.Gnutella1.CountHosts(TRUE) < 20 );
 
-		BOOL	bG2Required = Settings.Gnutella2.EnableToday &&
+		BOOL bG2Required = Settings.Gnutella2.EnableToday &&
 			( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_G2) &&
 			( nForceDiscovery == 1 || HostCache.Gnutella2.CountHosts(TRUE) < 25 );
 
-		BOOL	bEdRequired = Settings.eDonkey.EnableToday &&
+		BOOL bEdRequired = Settings.eDonkey.EnableToday &&
 			( nProtocol == PROTOCOL_NULL || nProtocol == PROTOCOL_ED2K ) &&
 			Settings.eDonkey.MetAutoQuery &&
 			( m_tMetQueried == 0 || tNow - m_tMetQueried >= 60 * 60 ) &&
-			( nForceDiscovery == 1 || !HostCache.EnoughED2KServers() );
+			( nForceDiscovery == 1 || ! HostCache.EnoughED2KServers() );
 #endif // LAN_MOD
 
 		if ( bEdRequired )
@@ -1162,10 +1182,10 @@ BOOL CDiscoveryServices::RequestWebCache(CDiscoveryService* pService, Mode nMode
 		return FALSE;
 	}
 
-	if ( pService != NULL )
+	if ( pService != NULL && nHosts )
 	{
-		if ( time( NULL ) - pService->m_tAccessed < pService->m_nAccessPeriod &&
-			 nHosts ) return FALSE;
+		if ( time( NULL ) - pService->m_tAccessed < pService->m_nAccessPeriod )
+			return FALSE;
 	}
 
 	m_pWebCache	= pService;
@@ -1433,7 +1453,10 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 					CVendor* pVendor = NULL;
 					if ( oParts.GetCount() >= 6 && ! oParts[ 5 ].IsEmpty() )
 					{
-						pVendor = VendorCache.Lookup( oParts[ 5 ].Left( 4 ) );
+						CString sVendor = oParts[ 5 ].Left( 4 );
+						if ( Security.IsVendorBlocked( sVendor ) )
+							return FALSE;	// Invalid client
+						pVendor = VendorCache.Lookup( sVendor );
 					}
 
 					// Get uptime field
@@ -1891,6 +1914,7 @@ BOOL CDiscoveryServices::SendWebCacheRequest(CString strURL, CString& strOutput)
 	while ( InternetQueryDataAvailable( m_hRequest, &nRemaining, 0, 0 ) && nRemaining > 0 )
 	{
 		pResponse = (LPBYTE)realloc( pResponse, nResponse + nRemaining );
+		if ( ! pResponse ) return FALSE;
 		InternetReadFile( m_hRequest, pResponse + nResponse, nRemaining, &nRemaining );
 		nResponse += nRemaining;
 	}
@@ -1937,20 +1961,25 @@ BOOL CDiscoveryServices::RunServerMet()
 
 	if ( m_hRequest == NULL ) return FALSE;
 
-	DWORD nRemaining = 0;
-	BYTE pBuffer[1024];
+	DWORD nLength = 0, nRemaining = 0;
+	const DWORD nBufferLength = 1024;
+	auto_array< BYTE > pBuffer( new BYTE[ nBufferLength ] );
 	CMemFile pFile;
 
 	while ( InternetQueryDataAvailable( m_hRequest, &nRemaining, 0, 0 ) && nRemaining > 0 )
 	{
+		nLength += nRemaining;
 		while ( nRemaining > 0 )
 		{
-			DWORD nBuffer = min( nRemaining, 1024ul );
-			InternetReadFile( m_hRequest, pBuffer, nBuffer, &nBuffer );
-			pFile.Write( pBuffer, nBuffer );
+			DWORD nBuffer = min( nRemaining, nBufferLength );
+			InternetReadFile( m_hRequest, pBuffer.get(), nBuffer, &nBuffer );
+			pFile.Write( pBuffer.get(), nBuffer );
 			nRemaining -= nBuffer;
 		}
 	}
+
+	if ( ! nLength )
+		return FALSE;
 
 	pFile.Seek( 0, CFile::begin );
 
@@ -1999,26 +2028,26 @@ BOOL CDiscoveryServices::Execute(CDiscoveryService* pService, Mode nMode)
 //////////////////////////////////////////////////////////////////////
 // CDiscoveryService construction
 
-CDiscoveryService::CDiscoveryService(Type nType, LPCTSTR pszAddress) :
-	m_nType			( nType ),
-	m_sAddress		( pszAddress ? pszAddress : _T("") ),
-	m_bGnutella2	( FALSE ),
-	m_bGnutella1	( FALSE ),
-	m_tCreated		( (DWORD)time( NULL ) ),
-	m_tAccessed		( 0 ),
-	m_nAccesses		( 0 ),
-	m_tUpdated		( 0 ),
-	m_nUpdates		( 0 ),
-	m_nHosts		( 0 ),
-	m_nTotalHosts	( 0 ),
-	m_nURLs			( 0 ),
-	m_nTotalURLs	( 0 ),
-	m_nFailures		( 0 ),
-	m_nAccessPeriod	( max( Settings.Discovery.UpdatePeriod, 1800ul ) ),
-	m_nUpdatePeriod	( Settings.Discovery.DefaultUpdate ),
-	m_nSubType		( dsOldBootStrap ),
-	m_pAddress		(),
-	m_nPort			( 0 )
+CDiscoveryService::CDiscoveryService(Type nType, LPCTSTR pszAddress)
+	: m_nType			( nType )
+	, m_bGnutella2		( FALSE )
+	, m_bGnutella1		( FALSE )
+	, m_sAddress		( pszAddress ? pszAddress : _T("") )
+	, m_tCreated		( (DWORD)time( NULL ) )
+	, m_tAccessed		( 0 )
+	, m_nAccesses		( 0 )
+	, m_tUpdated		( 0 )
+	, m_nUpdates		( 0 )
+	, m_nHosts			( 0 )
+	, m_nTotalHosts 	( 0 )
+	, m_nURLs			( 0 )
+	, m_nTotalURLs		( 0 )
+	, m_nFailures		( 0 )
+	, m_nPort			( 0 )
+	, m_pAddress		()
+	, m_nAccessPeriod	( max( Settings.Discovery.UpdatePeriod, 1800ul ) )
+	, m_nUpdatePeriod	( Settings.Discovery.DefaultUpdate )
+	, m_nSubType		( dsOldBootStrap )
 {
 }
 
@@ -2059,7 +2088,7 @@ void CDiscoveryService::Serialize(CArchive& ar, int /*nVersion*/)
 		ar << m_nUpdatePeriod;
 		ar << m_sPong;
 	}
-	else
+	else // Loading
 	{
 		ar >> (int&)m_nType;
 		ar >> m_sAddress;
@@ -2216,8 +2245,8 @@ BOOL CDiscoveryService::ResolveGnutella()
 	}
 	else if (m_nSubType == dsGnutella2UDPKHL)
 	{
-		strHost = strHost.Mid( nSkip );
-		int nPos		= strHost.Find( ':');
+		strHost  = strHost.Mid( nSkip );
+		int nPos = strHost.Find( ':' );
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort ) == 1 )
 			strHost = strHost.Left( nPos );
 
@@ -2244,14 +2273,14 @@ void CDiscoveryService::OnAccess()
 
 void CDiscoveryService::OnGivenHosts()
 {
-	//Resetting Per-Request Statistics
-	m_nHosts = 0;	//Shareaza should reset host count stats every time a cache is called.
-	m_nURLs = 0;	//Shareaza should reset URL count stats every time a cache is called.
+	// Resetting Per-Request Statistics
+	m_nHosts = 0;	// Should reset host count stats every time a cache is called.
+	m_nURLs = 0;	// Should reset URL count stats every time a cache is called.
 }
 
 void CDiscoveryService::OnHostAdd(int nCount)
 {
-	//Host count tracking
+	// Host count tracking
 	m_nHosts += nCount;
 	m_nTotalHosts += nCount;
 	m_nFailures = 0;
@@ -2259,13 +2288,13 @@ void CDiscoveryService::OnHostAdd(int nCount)
 
 void CDiscoveryService::OnCopyGiven()
 {
-	//Used for UDP bootstrap host count
+	// Used for UDP bootstrap host count
 	m_nTotalHosts += m_nHosts;
 }
 
 void CDiscoveryService::OnURLAdd(int nCount)
 {
-	//URL count tracking
+	// URL count tracking
 	m_nURLs += nCount;
 	m_nTotalURLs += nCount;
 }

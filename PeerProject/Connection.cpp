@@ -356,7 +356,7 @@ BOOL CConnection::DoRun()
 		m_tConnected = m_mInput.tLast = m_mOutput.tLast = GetTickCount(); // Store the time 3 places
 
 		// Call CShakeNeighbour::OnConnected to start reading the handshake
-		if ( !OnConnected() )
+		if ( ! OnConnected() )
 			return FALSE;
 	}
 
@@ -390,7 +390,7 @@ BOOL CConnection::DoRun()
 		return FALSE;
 
 	// If the queued run state is 2 and OnWrite returns false, leave here with false also
-	if ( m_nQueuedRun == 2 && !OnWrite() )
+	if ( m_nQueuedRun == 2 && ! OnWrite() )
 		return FALSE;
 
 	// Change the queued run state back to 0 and report success (do)
@@ -402,8 +402,10 @@ BOOL CConnection::DoRun()
 void CConnection::QueueRun()
 {
 	// If the queued run state is 1 or 2, make it 2, if it's 0, call OnWrite now (do)
-	if ( m_nQueuedRun )	m_nQueuedRun = 2;	// The queued run state is not 0, make it 2 and do nothing else here
-	else				OnWrite();			// The queued run state is 0, do a write (do)
+	if ( m_nQueuedRun )
+		m_nQueuedRun = 2;	// The queued run state is not 0, make it 2 and do nothing else
+	else
+		OnWrite();			// The queued run state is 0, do a write (do)
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -567,7 +569,7 @@ BOOL CConnection::ReadHeaders()
 				if ( strLine.GetLength() > 0 )
 				{
 					// Give OnHeaderLine the last header and this line
-					if ( !OnHeaderLine( m_sLastHeader, strLine ) )
+					if ( ! OnHeaderLine( m_sLastHeader, strLine ) )
 						return FALSE;
 				}
 			}
@@ -585,7 +587,7 @@ BOOL CConnection::ReadHeaders()
 			strValue.TrimRight();
 
 			// Give OnHeaderLine this last header, and its value
-			if ( !OnHeaderLine( strHeader, strValue ) )
+			if ( ! OnHeaderLine( strHeader, strValue ) )
 				return FALSE;
 		}
 	}
@@ -653,10 +655,9 @@ BOOL CConnection::OnHeaderLine(CString& strHeader, CString& strValue)
 }
 
 // Classes that inherit from CConnection override this virtual method, adding code specific to them
-// Returns true
 BOOL CConnection::OnHeadersComplete()
 {
-	// Just return true, it's CShakeNeighbour::OnHeadersComplete() that usually gets called instead of this method
+	// Just return true: CShakeNeighbour::OnHeadersComplete() usually gets called instead of this method
 	return TRUE;
 }
 
@@ -689,50 +690,6 @@ BOOL CConnection::SendMyAddress()
 	return FALSE;
 }
 
-//////////////////////////////////////////////////////////////////////
-// CConnection blocked agent filter
-
-// Call to determine if the remote computer is running software we'd rather not communicate with.
-
-// Returns true to block or false to allow the program.
-
-BOOL CConnection::IsAgentBlocked()
-{
-	// Block "Fake PeerProject"
-	if ( m_sUserAgent == _T("Fake PeerProject") || m_sUserAgent == _T("Fake Shareaza") )
-		return TRUE;
-
-	// The remote computer didn't send a "User-Agent", or it sent whitespace
-	if ( m_sUserAgent.Trim().IsEmpty() )
-		return TRUE;
-
-	// If the list of programs to block is empty, allow this program
-	if ( Settings.Uploads.BlockAgents.IsEmpty() )
-		return FALSE;
-
-	// Get the list of blocked programs, and make a copy here of it all in lowercase letters
-	CString strBlocked = Settings.Uploads.BlockAgents;
-	ToLower( strBlocked );
-
-	// Get the name of the program running on the other side of the connection, and make it lowercase also
-	CString strAgent = m_sUserAgent;
-	ToLower( strAgent );
-
-	// Loop through the list of programs to block
-	for ( strBlocked += '|' ; strBlocked.GetLength() ; )
-	{
-		// Break off a blocked program name from the start of the list
-		CString strBrowser	= strBlocked.SpanExcluding( _T("|;,") );		// Get the text before a puncutation mark
-		strBlocked			= strBlocked.Mid( strBrowser.GetLength() + 1 );	// Remove that much text from the start
-
-		// If the blocked list still exists and the blocked program and remote program match, block it
-		if ( strBrowser.GetLength() > 0 && strAgent.Find( strBrowser ) >= 0 )
-			return TRUE;
-	}
-
-	// Allow it
-	return FALSE;
-}
 
 void CConnection::UpdateCountry()
 {
@@ -828,9 +785,9 @@ DWORD CConnection::TCPBandwidthMeter::CalculateUsage( DWORD tTime, bool /*bShort
 		if ( pTimes[ slot ] > tTime )	// Is this within the time period?
 			nData += pHistory[ slot ];	// Add it to #bytes
 		else if ( slot > nPosition )	// Or did we start with the latest reading ?
-			slot = nPosition + 1;		//	Jump to our latest reading and continue
+			slot = nPosition + 1;		// Jump to our latest reading and continue
 		else
-			break;						//	We did, no need to check the rest
+			break;						// We did, no need to check the rest
 	}
 
 	// return the #bytes in time period

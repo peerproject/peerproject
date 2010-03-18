@@ -22,7 +22,6 @@
 // Add methods helpful for eDonkey2000 that look at the list of neighbours
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithED2K
 
-// Copy in the contents of these files here before compiling
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "NeighboursWithED2K.h"
@@ -41,15 +40,16 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CNeighboursWithED2K construction
 
-// CNeighboursWithED2K adds two arrays that need to be filled with 0s when the program creates its CNeighbours object
-CNeighboursWithED2K::CNeighboursWithED2K() :
-// Zero the memory of the sources array
-	m_tEDSources()
-,	m_oEDSources()
+// CNeighboursWithED2K adds two arrays that need to be
+// filled with 0s when the program creates its CNeighbours object
+CNeighboursWithED2K::CNeighboursWithED2K()
+	: m_tEDSources()
+	, m_oEDSources()
 {
 }
 
-// CNeighboursWithED2K doesn't add anything to the CNeighbours inheritance column that needs to be cleaned up
+// CNeighboursWithED2K doesn't add anything to the
+// CNeighbours inheritance column that needs to be cleaned up
 CNeighboursWithED2K::~CNeighboursWithED2K()
 {
 }
@@ -61,7 +61,9 @@ CNeighboursWithED2K::~CNeighboursWithED2K()
 // Returns a pointer to the first one found, or null if none found in the list
 CEDNeighbour* CNeighboursWithED2K::GetDonkeyServer() const // Here, const means this method doesn't change the value of any member variables
 {
-	CSingleLock pLock( &Network.m_pSection, TRUE );
+	CSingleLock pLock( &Network.m_pSection );
+	if ( ! pLock.Lock( 300 ) )
+		return NULL;	// ToDo: Fix this synchronization
 
 	// Loop through the list of neighbours
 	for ( POSITION pos = GetIterator() ; pos ; )
@@ -101,7 +103,8 @@ void CNeighboursWithED2K::CloseDonkeys()
 		CEDNeighbour* pNeighbour = (CEDNeighbour*)GetNext( pos );
 
 		// If this neighbour really is running eDonkey2000, close our connection to it
-		if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K ) pNeighbour->Close();
+		if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
+			pNeighbour->Close();
 	}
 }
 
@@ -193,13 +196,13 @@ BOOL CNeighboursWithED2K::FindDonkeySources(const Hashes::Ed2kHash& oED2K, IN_AD
 	if ( validAndEqual( m_oEDSources[ nHash ], oED2K ) )
 	{
 		// If the hash in the array is less than an hour old, don't do anything and return false
-		if ( tNow - m_tEDSources[ nHash ] < 3600000 ) return FALSE; // 3600000 milliseconds is 1 hour
+		if ( tNow - m_tEDSources[ nHash ] < 3600000 ) return FALSE; // 3600000 ms is 1 hour
 
 	} // The m_pEDSources array doesn't have pED2K at position nHash
 	else
 	{
 		// If that spot in the array was added in the last 15 seconds, don't do anything and return false
-		if ( tNow - m_tEDSources[ nHash ] < 15000 ) return FALSE; // 15000 milliseconds is 15 seconds
+		if ( tNow - m_tEDSources[ nHash ] < 15000 ) return FALSE; // 15000 ms is 15 seconds
 
 		// That spot in the array is more than 15 seconds old, put the hash there
 		m_oEDSources[ nHash ] = oED2K;

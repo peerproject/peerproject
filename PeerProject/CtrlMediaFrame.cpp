@@ -1,7 +1,7 @@
 //
 // CtrlMediaFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -249,7 +249,7 @@ void CMediaFrame::OnDestroy()
 
 	Cleanup();
 
-	if ( ! m_bScreenSaverEnabled )		EnableScreenSaver();
+	if ( ! m_bScreenSaverEnabled ) EnableScreenSaver();
 
 	CWnd::OnDestroy();
 }
@@ -274,32 +274,45 @@ BOOL CMediaFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO
 
 BOOL CMediaFrame::PreTranslateMessage(MSG* pMsg)
 {
-	if ( pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_ESCAPE )
+	if ( pMsg->message == WM_KEYDOWN )
 	{
-		if ( m_bFullScreen )
+		switch( pMsg->wParam )
 		{
-			SetFullScreen( FALSE );
+		case VK_ESCAPE:
+			if ( m_bFullScreen )
+				SetFullScreen( FALSE );
+			else if ( m_nState == smsPlaying )
+				PostMessage( WM_COMMAND, ID_MEDIA_PAUSE );
 			return TRUE;
-		}
-	}
-	else if ( pMsg->message == WM_SYSKEYDOWN && pMsg->wParam == VK_RETURN )
-	{
-		SetFullScreen( ! m_bFullScreen );
-		return TRUE;
-	}
-	else if ( pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_LEFT )
-	{
-		if ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
-		{
-			m_wndList.PostMessage( WM_COMMAND, ID_MEDIA_PREVIOUS );
+
+		case VK_RETURN:
+			SetFullScreen( ! m_bFullScreen );
 			return TRUE;
-		}
-	}
-	else if ( pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RIGHT )
-	{
-		if ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
-		{
-			m_wndList.PostMessage( WM_COMMAND, ID_MEDIA_NEXT );
+
+		case VK_SPACE:
+			PostMessage( WM_COMMAND, m_nState == smsPlaying ? ID_MEDIA_PAUSE : ID_MEDIA_PLAY );
+			return TRUE;
+
+		//case VK_UP:
+		//	OffsetVolume( VOLUME_KEY_MULTIPLIER );
+		//	return TRUE;
+
+		//case VK_DOWN:
+		//	OffsetVolume( - VOLUME_KEY_MULTIPLIER );
+		//	return TRUE;
+
+		case VK_LEFT:
+			if ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
+				m_wndList.PostMessage( WM_COMMAND, ID_MEDIA_PREVIOUS );
+		//	else if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 )
+		//		OffsetPosition( -2 );
+			return TRUE;
+
+		case VK_RIGHT:
+			if ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 )
+				m_wndList.PostMessage( WM_COMMAND, ID_MEDIA_NEXT );
+		//	else if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 )
+		//		OffsetPosition( 2 );
 			return TRUE;
 		}
 	}
@@ -478,9 +491,7 @@ void CMediaFrame::OnSize(UINT nType, int cx, int cy)
 	m_rcVideo = rc;
 
 	if ( m_pPlayer != NULL && nType != SIZE_BARSLIDE )
-	{
 		m_pPlayer->Reposition( &rc );
-	}
 
 	if ( nType != SIZE_BARSLIDE ) Invalidate();
 }
@@ -496,24 +507,14 @@ void CMediaFrame::OnPaint()
 			m_pPlayer->SetLogoBitmap( m_bmLogo );
 	}
 
-	if ( theApp.m_bIsVistaOrNewer && m_pFontDefault.m_hObject == NULL )
+	if ( m_pFontDefault.m_hObject == NULL )
 	{
 		LOGFONT pFont = { 80, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 			DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-			DEFAULT_QUALITY, DEFAULT_PITCH|FF_DONTCARE, _T( "Segoe UI" ) };
+			theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, _T("Segoe UI") };
 
-		m_pFontDefault.CreatePointFontIndirect( &pFont );
-
-		pFont.lfHeight = 80;
-		m_pFontValue.CreatePointFontIndirect( &pFont );
-		pFont.lfWeight = FW_BLACK;
-		m_pFontKey.CreatePointFontIndirect( &pFont );
-	}
-	else if ( m_pFontDefault.m_hObject == NULL )
-	{
-		LOGFONT pFont = { 80, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-			DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-			ANTIALIASED_QUALITY, DEFAULT_PITCH|FF_DONTCARE, _T("Tahoma") };
+		if ( ! theApp.m_bIsVistaOrNewer )	// XP-Safe
+			_tcsncpy( pFont.lfFaceName, _T("Tahoma"), LF_FACESIZE );
 
 		m_pFontDefault.CreatePointFontIndirect( &pFont );
 
@@ -551,7 +552,8 @@ void CMediaFrame::OnPaint()
 	if ( m_bStatusVisible )
 	{
 		CRect rcStatus( &m_rcStatus );
-		if ( dc.RectVisible( &rcStatus ) ) PaintStatus( dc, rcStatus );
+		if ( dc.RectVisible( &rcStatus ) )
+			PaintStatus( dc, rcStatus );
 	}
 
 	if ( dc.RectVisible( &m_rcVideo ) /* &&  m_pPlayer == NULL */ )
@@ -970,7 +972,7 @@ BOOL CMediaFrame::DoSizeList()
 
 LRESULT CMediaFrame::OnMediaKey(WPARAM wParam, LPARAM lParam)
 {
-	if ( wParam != 1 && !IsTopParentActive() ) return 0;
+	if ( wParam != 1 && ! IsTopParentActive() ) return 0;
 	if ( mixerGetNumDevs() < 1 ) return 0;
 
 	int nVolumeTick = 0;
@@ -1084,7 +1086,8 @@ void CMediaFrame::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		if ( nVolume != Settings.MediaPlayer.Volume )
 		{
 			Settings.MediaPlayer.Volume = nVolume;
-			if ( m_pPlayer != NULL ) m_pPlayer->SetVolume( m_bMute ? 0 : Settings.MediaPlayer.Volume );
+			if ( m_pPlayer != NULL )
+				m_pPlayer->SetVolume( m_bMute ? 0 : Settings.MediaPlayer.Volume );
 		}
 	}
 
@@ -1450,23 +1453,17 @@ BOOL CMediaFrame::IsPlaying()
 
 void CMediaFrame::OnFileDelete(LPCTSTR pszFile)
 {
+	// Only remove from the list, the player cleans up itself
 	if ( m_sFile.CompareNoCase( pszFile ) == 0 )
-	{
-		// Only remove from the list, the player cleans up itself
 		m_wndList.Remove( pszFile );
-	}
 }
 
 float CMediaFrame::GetPosition()
 {
 	if ( m_pPlayer != NULL && m_nState >= smsOpen && m_nLength > 0 )
-	{
 		return (float)m_nPosition / (float)m_nLength;
-	}
 	else
-	{
 		return 0;
-	}
 }
 
 BOOL CMediaFrame::SeekTo(float nPosition)
@@ -1492,10 +1489,44 @@ float CMediaFrame::GetVolume()
 BOOL CMediaFrame::SetVolume(float nVolume)
 {
 	Settings.MediaPlayer.Volume = (double)nVolume;
-	if ( m_pPlayer != NULL ) m_pPlayer->SetVolume( m_bMute ? 0 : Settings.MediaPlayer.Volume );
+	if ( m_pPlayer != NULL )
+		m_pPlayer->SetVolume( m_bMute ? 0 : Settings.MediaPlayer.Volume );
 	OnTimer( 1 );
 	return ( m_pPlayer != NULL );
 }
+
+// ToDo: Implement these?
+//void CMediaFrame::OffsetVolume(int nVolumeOffset)
+//{
+//	KillTimer( 1 );
+//	int nVolumeTick = max( min( m_wndVolume.GetPos() + nVolumeOffset, 100 ), 0 );
+//	m_wndVolume.SetPos( nVolumeTick );
+//	Settings.MediaPlayer.Volume = (double)nVolumeTick / 100.0f;
+//	if ( m_pPlayer != NULL )
+//		m_pPlayer->SetVolume( Settings.MediaPlayer.Volume );
+//	UpdateState();
+//	SetTimer( 1, 200, NULL );
+//}
+
+//void CMediaFrame::OffsetPosition(int nPositionOffset)
+//{
+//	KillTimer( 1 );
+//	if ( m_pPlayer != NULL )
+//	{
+//		bool bPlaying = ( m_nState == smsPlaying );
+//		if ( bPlaying )
+//			m_pPlayer->Pause();
+//		LONGLONG nPos = 0, nLen = 0;
+//		m_pPlayer->GetPosition( &nPos );
+//		m_pPlayer->GetLength( &nLen );
+//		nPos = max( min( nPos + nPositionOffset * TIME_FACTOR, nLen ), 0 );
+//		m_pPlayer->SetPosition( nPos );
+//		if ( bPlaying )
+//			m_pPlayer->Play();
+//	}
+//	UpdateState();
+//	SetTimer( 1, 200, NULL );
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CMediaFrame private media operations
@@ -1529,13 +1560,14 @@ BOOL CMediaFrame::Prepare()
 	CoLockObjectExternal( m_pPlayer, TRUE, TRUE );
 	ModifyStyleEx( WS_EX_LAYOUTRTL, 0, 0 );
 	m_pPlayer->Create( GetSafeHwnd() );
-	if ( Settings.General.LanguageRTL ) ModifyStyleEx( 0, WS_EX_LAYOUTRTL, 0 );
+	if ( Settings.General.LanguageRTL )
+		ModifyStyleEx( 0, WS_EX_LAYOUTRTL, 0 );
 	m_pPlayer->SetZoom( Settings.MediaPlayer.Zoom );
 	m_pPlayer->SetAspect( Settings.MediaPlayer.Aspect );
 	m_pPlayer->SetVolume( m_bMute ? 0 : Settings.MediaPlayer.Volume );
 
-	if ( m_bmLogo.m_hObject ) m_pPlayer->SetLogoBitmap( (HBITMAP)m_bmLogo.m_hObject );
-
+	if ( m_bmLogo.m_hObject )
+		m_pPlayer->SetLogoBitmap( (HBITMAP)m_bmLogo.m_hObject );
 	{
 		HINSTANCE hRes = AfxGetResourceHandle();
 		PrepareVis();
@@ -1548,49 +1580,50 @@ BOOL CMediaFrame::Prepare()
 	return TRUE;
 }
 
+// ToDo: Re-Implement Audio Visualizations!
 BOOL CMediaFrame::PrepareVis()
 {
 	if ( m_pPlayer == NULL ) return FALSE;
 
-	IAudioVisPlugin* pPlugin = NULL;
-	CLSID pCLSID;
-
-	if ( Hashes::fromGuid( Settings.MediaPlayer.VisCLSID, &pCLSID ) &&
-		 Plugins.LookupEnable( pCLSID ) )
-	{
-		HRESULT hr = CoCreateInstance( pCLSID, NULL, CLSCTX_ALL, IID_IAudioVisPlugin,
-			(void**)&pPlugin );
-
-		if ( SUCCEEDED(hr) && pPlugin != NULL )
-		{
-			if ( Settings.MediaPlayer.VisPath.GetLength() )
-			{
-				IWrappedPluginControl* pWrap = NULL;
-
-				hr = pPlugin->QueryInterface( IID_IWrappedPluginControl,
-					(void**)&pWrap );
-
-				if ( SUCCEEDED(hr) && pWrap != NULL )
-				{
-					BSTR bsPath = Settings.MediaPlayer.VisPath.AllocSysString();
-					hr = pWrap->Load( bsPath, 0 );
-					SysFreeString( bsPath );
-					pWrap->Release();
-				}
-
-				if ( FAILED(hr) )
-				{
-					pPlugin->Release();
-					pPlugin = NULL;
-				}
-			}
-		}
-	}
-
-	m_pPlayer->SetPluginSize( Settings.MediaPlayer.VisSize );
-	m_pPlayer->SetPlugin( pPlugin );
-
-	if ( pPlugin != NULL ) pPlugin->Release();
+//	IAudioVisPlugin* pPlugin = NULL;
+//	CLSID pCLSID;
+//
+//	if ( Hashes::fromGuid( Settings.MediaPlayer.VisCLSID, &pCLSID ) &&
+//		 Plugins.LookupEnable( pCLSID ) )
+//	{
+//		HRESULT hr = CoCreateInstance( pCLSID, NULL, CLSCTX_ALL, IID_IAudioVisPlugin,
+//			(void**)&pPlugin );
+//
+//		if ( SUCCEEDED(hr) && pPlugin != NULL )
+//		{
+//			if ( Settings.MediaPlayer.VisPath.GetLength() )
+//			{
+//				IWrappedPluginControl* pWrap = NULL;
+//
+//				hr = pPlugin->QueryInterface( IID_IWrappedPluginControl,
+//					(void**)&pWrap );
+//
+//				if ( SUCCEEDED(hr) && pWrap != NULL )
+//				{
+//					BSTR bsPath = Settings.MediaPlayer.VisPath.AllocSysString();
+//					hr = pWrap->Load( bsPath, 0 );
+//					SysFreeString( bsPath );
+//					pWrap->Release();
+//				}
+//
+//				if ( FAILED(hr) )
+//				{
+//					pPlugin->Release();
+//					pPlugin = NULL;
+//				}
+//			}
+//		}
+//	}
+//
+//	m_pPlayer->SetPluginSize( Settings.MediaPlayer.VisSize );
+//	m_pPlayer->SetPlugin( pPlugin );
+//
+//	if ( pPlugin != NULL ) pPlugin->Release();
 
 	return TRUE;
 }
@@ -1640,6 +1673,7 @@ BOOL CMediaFrame::OpenFile(LPCTSTR pszFile)
 
 	{
 		CSingleLock oLock( &Library.m_pSection, TRUE );
+
 		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( m_sFile ) )
 		{
 			m_pMetadata.Add( _T("Filename"), pFile->m_sName );
@@ -1770,9 +1804,7 @@ void CMediaFrame::UpdateState()
 		}
 
 		if ( m_nState == smsPlaying && nPosition >= nLength && nPosition != 0 )
-		{
 			m_wndList.GetNext();
-		}
 	}
 	else
 	{
@@ -1787,9 +1819,7 @@ void CMediaFrame::UpdateState()
 	m_wndVolume.SetPos( (int)( Settings.MediaPlayer.Volume * 100 ) );
 
 	if ( m_bStatusVisible )
-	{
 		InvalidateRect( &m_rcStatus );
-	}
 }
 
 void CMediaFrame::OnNewCurrent(NMHDR* /*pNotify*/, LRESULT* pResult)
@@ -1946,9 +1976,7 @@ void CMediaFrame::EnableScreenSaver()
 		// Otherwise, if the screen saver was inactive,
 		// it toggles it to active state and shutoff stops working (MS bug?)
 		if ( m_nScreenSaverTime > 0 )
-		{
 			SystemParametersInfo( SPI_SETSCREENSAVETIMEOUT, m_nScreenSaverTime, NULL, 0 );
-		}
 
 		m_bScreenSaverEnabled = TRUE;
 	}

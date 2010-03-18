@@ -54,8 +54,10 @@ void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 	if ( Settings.General.LanguageRTL )
 		nOffset = nTotal - nOffset - nLength;
 
-	rcArea.left		= prcBar->left + (int)( (float)( prcBar->Width() + 1 ) / (float)nTotal * (float)nOffset );
-	rcArea.right	= prcBar->left + (int)( (float)( prcBar->Width() + 1 ) / (float)nTotal * (float)( nOffset + nLength ) );
+	if ( nTotal == 0 ) return;
+
+	rcArea.left		= prcBar->left + ( ( prcBar->Width() + 1 ) * nOffset ) / nTotal;
+	rcArea.right	= prcBar->left + ( ( prcBar->Width() + 1 ) * ( nOffset + nLength ) ) / nTotal;
 
 	rcArea.top		= prcBar->top;
 	rcArea.bottom	= prcBar->bottom;
@@ -250,7 +252,7 @@ void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, CDownload* pDownl
 //
 //	DrawSourceImpl( pDC, prcBar, pSource );
 //
-//	if ( !pSource->m_oAvailable.empty() )
+//	if ( ! pSource->m_oAvailable.empty() )
 //	{
 //		for ( Fragments::List::const_iterator pFragment = pSource->m_oAvailable.begin();
 //			pFragment != pSource->m_oAvailable.end(); ++pFragment )
@@ -261,7 +263,7 @@ void CFragmentBar::DrawDownloadSimple(CDC* pDC, CRect* prcBar, CDownload* pDownl
 //
 //		pDC->FillSolidRect( prcBar, Colors.m_crWindow );
 //	}
-//	else if ( pSource->IsOnline() && pSource->HasUsefulRanges() || !pSource->m_oPastFragments.empty() )
+//	else if ( pSource->IsOnline() && pSource->HasUsefulRanges() || ! pSource->m_oPastFragments.empty() )
 //	{
 //		pDC->FillSolidRect( prcBar, crNatural );
 //	}
@@ -325,7 +327,7 @@ void CFragmentBar::DrawUpload(CDC* pDC, CRect* prcBar, CUploadFile* pFile, COLOR
 	if ( pUpload == NULL ) return;
 
 	for ( Fragments::List::const_iterator pFragment = pFile->m_oFragments.begin();
-		pFragment != pFile->m_oFragments.end(); ++pFragment  )
+		pFragment != pFile->m_oFragments.end(); ++pFragment )
 	{
 		DrawFragment( pDC, prcBar, pFile->m_nSize, pFragment->begin(),
 			pFragment->size(), Colors.m_crFragmentComplete, TRUE );

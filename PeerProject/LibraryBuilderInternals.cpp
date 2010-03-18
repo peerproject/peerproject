@@ -1,7 +1,7 @@
 //
 // LibraryBuilderInternals.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -64,118 +64,95 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 
 	if ( strType == _T(".mp3") )
 	{
-		if ( !Settings.Library.ScanMP3 )
+		if ( ! Settings.Library.ScanMP3 )
 			return false;
 		if ( Settings.Library.PreferAPETags )
 		{
-			if ( ReadAPE( nIndex, hFile, true ) )
-				return true;
-			if ( ReadID3v2( nIndex, hFile ) )
-				return true;
+			if ( ReadAPE( nIndex, hFile, true ) ) return true;
+			if ( ReadID3v2( nIndex, hFile ) ) return true;
 		}
 		else
 		{
-			if ( ReadID3v2( nIndex, hFile ) )
-				return true;
-			if ( ReadAPE( nIndex, hFile, true ) )
-				return true;
+			if ( ReadID3v2( nIndex, hFile ) ) return true;
+			if ( ReadAPE( nIndex, hFile, true ) ) return true;
 		}
-		if ( ReadID3v1( nIndex, hFile ) )
-			return true;
-		if ( ReadMP3Frames( nIndex, hFile ) )
-			return true;
+		if ( ReadID3v1( nIndex, hFile ) ) return true;
+		if ( ReadMP3Frames( nIndex, hFile ) ) return true;
 		return LibraryBuilder.SubmitCorrupted( nIndex );
 	}
 	else if ( strType == _T(".exe") || strType == _T(".dll") )
 	{
-		if ( !Settings.Library.ScanEXE )
-			return false;
+		if ( ! Settings.Library.ScanEXE ) return false;
 		return ReadVersion( nIndex, strPath );
 	}
 	else if ( strType == _T(".msi") )
 	{
-		if ( !Settings.Library.ScanMSI )
-			return false;
+		if ( ! Settings.Library.ScanMSI ) return false;
 		return ReadMSI( nIndex, strPath );
 	}
 	else if ( strType == _T(".asf") || strType == _T(".wma") || strType == _T(".wmv") )
 	{
-		if ( !Settings.Library.ScanASF )
-			return false;
+		if ( ! Settings.Library.ScanASF ) return false;
 		return ReadASF( nIndex, hFile );
 	}
 	else if ( strType == _T(".avi") )
 	{
-		if ( !Settings.Library.ScanAVI )
-			return false;
+		if ( ! Settings.Library.ScanAVI ) return false;
 		return ReadAVI( nIndex, hFile );
 	}
 	else if ( strType == _T(".mpg") || strType == _T(".mpeg") )
 	{
-		if ( !Settings.Library.ScanMPEG )
-			return false;
+		if ( ! Settings.Library.ScanMPEG ) return false;
 		return ReadMPEG( nIndex, hFile );
 	}
 	else if ( strType == _T(".ogg") )
 	{
-		if ( !Settings.Library.ScanOGG )
-			return false;
+		if ( ! Settings.Library.ScanOGG ) return false;
 		return ReadOGG( nIndex, hFile );
 	}
 	else if ( strType == _T(".ape") || strType == _T(".mac") || strType == _T(".apl") )
 	{
-		if ( !Settings.Library.ScanAPE )
-			return false;
+		if ( ! Settings.Library.ScanAPE ) return false;
 		return ReadAPE( nIndex, hFile );
 	}
 	else if ( strType == _T(".mpc") || strType == _T(".mpp") || strType == _T(".mp+") )
 	{
-		if ( !Settings.Library.ScanMPC )
-			return false;
+		if ( ! Settings.Library.ScanMPC ) return false;
 		if ( Settings.Library.PreferAPETags )
 		{
-			if ( ReadMPC( nIndex, hFile ) )
-				return true;
-			if ( ReadID3v2( nIndex, hFile ) )
-				return true;
+			if ( ReadMPC( nIndex, hFile ) ) return true;
+			if ( ReadID3v2( nIndex, hFile ) ) return true;
 		}
 		else
 		{
-			if ( ReadID3v2( nIndex, hFile ) )
-				return true;
-			if ( ReadMPC( nIndex, hFile ) )
-				return true;
+			if ( ReadID3v2( nIndex, hFile ) ) return true;
+			if ( ReadMPC( nIndex, hFile ) ) return true;
 		}
 		return ReadID3v1( nIndex, hFile );
 	}
 	else if ( strType == _T(".jpg") || strType == _T(".jpeg") )
 	{
-		if ( !Settings.Library.ScanImage )
-			return false;
+		if ( ! Settings.Library.ScanImage ) return false;
 		return ReadJPEG( nIndex, hFile );
 	}
 	else if ( strType == _T(".gif") )
 	{
-		if ( !Settings.Library.ScanImage )
-			return false;
+		if ( ! Settings.Library.ScanImage ) return false;
 		return ReadGIF( nIndex, hFile );
 	}
 	else if ( strType == _T(".png") )
 	{
-		if ( !Settings.Library.ScanImage )
-			return false;
+		if ( ! Settings.Library.ScanImage ) return false;
 		return ReadPNG( nIndex, hFile );
 	}
 	else if ( strType == _T(".bmp") )
 	{
-		if ( !Settings.Library.ScanImage )
-			return false;
+		if ( ! Settings.Library.ScanImage ) return false;
 		return ReadBMP( nIndex, hFile );
 	}
 	else if ( strType == _T(".pdf") )
 	{
-		if ( !Settings.Library.ScanPDF )
-			return false;
+		if ( ! Settings.Library.ScanPDF ) return false;
 		return ReadPDF( nIndex, hFile, strPath );
 	}
 	else if ( strType == _T(".co") ||
@@ -186,8 +163,7 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 	}
 	else if ( strType == _T(".chm") )
 	{
-		if ( !Settings.Library.ScanCHM )
-			return false;
+		if ( ! Settings.Library.ScanCHM ) return false;
 		return ReadCHM( nIndex, hFile, strPath );
 	}
 	else if ( strType == _T(".torrent") )
@@ -391,7 +367,7 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 
 			nFrameSize = swapEndianess( pFrame->nSize );
 
-			if ( pHeader.nMajorVersion >= 4 && !bBugInFrameSize )
+			if ( pHeader.nMajorVersion >= 4 && ! bBugInFrameSize )
 			{
 				ID3_DESYNC_SIZE( nFrameSize );
 				if ( nBuffer < nFrameSize )
@@ -419,7 +395,7 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 			nFrameSize = ( pFrame->nSize[0] << 16 ) | ( pFrame->nSize[1] << 8 ) | pFrame->nSize[2];
 		}
 
-		if ( nBuffer < nFrameSize || !szFrameTag[0] )
+		if ( nBuffer < nFrameSize || ! szFrameTag[0] )
 			break;
 
 		if ( strcmp( szFrameTag, "TIT2" ) == 0 || strcmp( szFrameTag, "TT2" ) == 0)
@@ -692,7 +668,7 @@ bool CLibraryBuilderInternals::CopyID3v2Field(CXMLElement* pXML, LPCTSTR pszAttr
 		else if ( nEncoding == 3 )
 		{
 			strValue = UTF8Decode( (LPCSTR)pBuffer + nOffset, nLength - nOffset );
-			nOffset += (DWORD)strlen( (LPCSTR)pBuffer + nOffset ) + 1;
+			nOffset += (DWORD)strnlen( (LPCSTR)pBuffer + nOffset, nLength - nOffset ) + 1;
 		}
 
 		strValue.Trim();
@@ -715,7 +691,7 @@ bool CLibraryBuilderInternals::CopyID3v2Field(CXMLElement* pXML, LPCTSTR pszAttr
 			break;
 	}
 
-	if ( !pszAttribute )
+	if ( ! pszAttribute )
 	{
 		int nSlash = strResult.Find( '/' );
 		if ( nSlash > 0 )
@@ -798,7 +774,7 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 		// V2 - MPEG Version 2 and Version 2.5
 
 		// Row data:
-		// V1,L1	V1,L2	V1,L3  	V2,L1	V2, L2 & L3
+		// V1,L1  V1,L2  V1,L3  V2,L1  V2,L2 & L3
 		// The first row with zeros is for "free" bitrate (the constant bitrate not higher than value)
 		{ 0, 0, 0, 0, 0 },				{ 32, 32, 32, 32, 8 },		{ 64, 48, 40, 48, 16 },
 		{ 96, 56, 48, 56, 24 },			{ 128, 64, 56, 64, 32 },	{ 160, 80, 64, 80, 40 },
@@ -813,9 +789,9 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 	static DWORD nFrequencyTable[4][4] =
 	{
 		// Row data:
-		// MPEG1	?	MPEG2  	MPEG2.5
+		// MPEG1  ?  MPEG2  MPEG2.5
 		{ 11025, 0, 22050, 44100 },
-		{ 12000, 0,  24000, 48000 },
+		{ 12000, 0, 24000, 48000 },
 		{ 8000, 0, 16000, 32000 },
 		{ 0, 0, 0, 0 }
 	};
@@ -842,7 +818,7 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 
 	nHeader = swapEndianess( nHeader );
 
-	for ( DWORD nSeek = 0 ; bVariable || ( nFrameCount < 16 && nSeek < 4096 * 2  ) ; nSeek++ )
+	for ( DWORD nSeek = 0 ; bVariable || ( nFrameCount < 16 && nSeek < 4096 * 2 ) ; nSeek++ )
 	{
 		// "frame sync"
 		// First 11 bits must have bit 1 for MPEG 2.5 extension
@@ -894,7 +870,7 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 			DWORD nBitrate		= nBitrateTable[ nBitIndex ][ nBitColumn ] * 1000;
 			DWORD nFrequency	= nFrequencyTable[ nFreqIndex ][ nVersion ];
 
-			if ( !nFrequency )
+			if ( ! nFrequency )
 				return false;
 
 			if ( nBaseBitrate )
@@ -914,7 +890,7 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 			nFrameSize = ( nLayer == 3 ) ? ( 12 * nBitrate / nFrequency + bPadding ) * 4
 				: ( 144 * nBitrate / nFrequency + bPadding );
 
-			if ( !nFrameSize )
+			if ( ! nFrameSize )
 				return false;
 
 			// Skip frame when it has reserved layer
@@ -943,7 +919,7 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 		}
 	}
 
-	if ( nFrameCount < 16 || !nFrameSize )
+	if ( nFrameCount < 16 || ! nFrameSize )
 		return false;
 
 	if ( bVariable )
@@ -991,7 +967,7 @@ bool CLibraryBuilderInternals::ReadVersion(DWORD nIndex, LPCTSTR pszPath)
 
 	BYTE* pBuffer = new BYTE[ dwSize ];
 
-	if ( !GetFileVersionInfo( (LPTSTR)pszPath, NULL, dwSize, pBuffer ) )
+	if ( ! GetFileVersionInfo( (LPTSTR)pszPath, NULL, dwSize, pBuffer ) )
 	{
 		delete [] pBuffer;
 		return false;
@@ -1048,9 +1024,9 @@ bool CLibraryBuilderInternals::CopyVersionField(CXMLElement* pXML, LPCTSTR pszAt
 	if ( nPos != -1 )
 	{
 		bool bStartOk = nPos == 0, bEndOk = strValue.GetLength() == nPos + 8;
-		if ( !bStartOk && strValue.GetAt( nPos - 1 ) == ' ' )
+		if ( ! bStartOk && strValue.GetAt( nPos - 1 ) == ' ' )
 			bStartOk = true;
-		if ( !bEndOk && strValue.GetLength() > nPos + 8 && strValue.GetAt( nPos + 8 ) != ' ' )
+		if ( ! bEndOk && strValue.GetLength() > nPos + 8 && strValue.GetAt( nPos + 8 ) != ' ' )
 			;	// ShareazaPlus etc.
 		else
 			bEndOk = true;
@@ -1071,7 +1047,7 @@ CString CLibraryBuilderInternals::GetVersionKey(BYTE* pBuffer, LPCTSTR pszKey, D
 	BYTE* pValue = NULL;
 	DWORD dwSize = 0;
 
-	if ( !VerQueryValue( pBuffer, (LPTSTR)(LPCTSTR)strKey, (void**)&pValue, (UINT*)&dwSize ) )
+	if ( ! VerQueryValue( pBuffer, (LPTSTR)(LPCTSTR)strKey, (void**)&pValue, (UINT*)&dwSize ) )
 		return strValue;
 
 	strValue = (LPCTSTR)pValue;
@@ -1108,13 +1084,13 @@ DWORD CLibraryBuilderInternals::GetBestLanguageId(LPVOID pBuffer)
 			return 0;
 	}
 	// ToDo: get LANGID of the PeerProject user interface
-	if ( !GetLanguageId( pTranslation, nLength, GetUserDefaultLangID(), nLangCode, false ) )
+	if ( ! GetLanguageId( pTranslation, nLength, GetUserDefaultLangID(), nLangCode, false ) )
 	{
-		if ( !GetLanguageId( pTranslation, nLength, GetSystemDefaultLangID(), nLangCode, true ) )
+		if ( ! GetLanguageId( pTranslation, nLength, GetSystemDefaultLangID(), nLangCode, true ) )
 		{
-			if ( !GetLanguageId( pTranslation, nLength, MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), nLangCode, true ) )
+			if ( ! GetLanguageId( pTranslation, nLength, MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), nLangCode, true ) )
 			{
-				if ( !GetLanguageId( pTranslation, nLength, MAKELANGID(LANG_ENGLISH, SUBLANG_NEUTRAL), nLangCode, true ) )
+				if ( ! GetLanguageId( pTranslation, nLength, MAKELANGID(LANG_ENGLISH, SUBLANG_NEUTRAL), nLangCode, true ) )
 					nLangCode = *(DWORD*)pTranslation; // Use the first one
 			}
 		}
@@ -1134,7 +1110,7 @@ bool CLibraryBuilderInternals::GetLanguageId(LPVOID pBuffer, UINT nSize, WORD nL
 		}
 	}
 
-	if ( !bOnlyPrimary )
+	if ( ! bOnlyPrimary )
 		return false;
 
 	for ( pData = (LPWORD)pBuffer ; (LPBYTE)pData < ( (LPBYTE)pBuffer ) + nSize ; pData += 2 )
@@ -1234,7 +1210,7 @@ bool CLibraryBuilderInternals::ReadMSI(DWORD nIndex, LPCTSTR pszPath)
 	pXML->AddAttribute( _T("company"), GetSummaryField( hSummaryInfo, PID_AUTHOR ) );
 
 	str = GetSummaryField( hSummaryInfo, PID_KEYWORDS );
-	if ( str.Find( _T("Installer,MSI,Database") ) == -1  )
+	if ( str.Find( _T("Installer,MSI,Database") ) == -1 )
 		pXML->AddAttribute( _T("keywords"), str );
 
 	str = GetSummaryField( hSummaryInfo, PID_COMMENTS );
@@ -1697,7 +1673,7 @@ bool CLibraryBuilderInternals::ReadASF(DWORD nIndex, HANDLE hFile)
 
 			for ( int nStr = 0 ; nStr < 5 ; nStr++ )
 			{
-				if ( !nStrLen[ nStr ] || nStrLen[ nStr ] & 1 )
+				if ( ! nStrLen[ nStr ] || nStrLen[ nStr ] & 1 )
 					continue;
 				WCHAR* pStr = new WCHAR[ nStrLen[ nStr ] / 2 ];
 				ReadFile( hFile, pStr, nStrLen[ nStr ], &nRead, NULL );
@@ -1879,7 +1855,7 @@ bool CLibraryBuilderInternals::ReadMPEG(DWORD nIndex, HANDLE hFile)
 			break;
 	}
 
-	if ( !nSeek )
+	if ( ! nSeek )
 		return false;
 
 	BYTE nBuffer[7];
@@ -1935,8 +1911,7 @@ bool CLibraryBuilderInternals::ReadOGG(DWORD nIndex, HANDLE hFile)
 	DWORD nOGG = 0;
 	BYTE* pOGG = ReadOGGPage( hFile, nOGG, 0x02, 0, 0x1E );
 
-	if ( !pOGG )
-		return false;
+	if ( ! pOGG ) return false;
 
 	BYTE  nChannels		= pOGG[ 11 ];
 	DWORD nFrequency	= *(DWORD*)&pOGG[12];
@@ -1945,15 +1920,14 @@ bool CLibraryBuilderInternals::ReadOGG(DWORD nIndex, HANDLE hFile)
 	delete [] pOGG;
 	BYTE* prOGG = pOGG = ReadOGGPage( hFile, nOGG, 0x00, 1, 1+6+4+4 );
 
-	if ( !pOGG )
-		return false;
+	if ( ! pOGG ) return false;
 
 	pOGG += 1 + 6;
 	nOGG -= 1 + 6;
 
 	CString strComment;
 
-	if ( !ReadOGGString( pOGG, nOGG, strComment ) || nOGG < 4 )
+	if ( ! ReadOGGString( pOGG, nOGG, strComment ) || nOGG < 4 )
 	{
 		delete[] pOGG;
 		return false;
@@ -1966,7 +1940,7 @@ bool CLibraryBuilderInternals::ReadOGG(DWORD nIndex, HANDLE hFile)
 
 	for ( ; nComments && nOGG > 4 ; nComments-- )
 	{
-		if ( !ReadOGGString( pOGG, nOGG, strComment ) )
+		if ( ! ReadOGGString( pOGG, nOGG, strComment ) )
 			break;
 
 		int nEquals = strComment.Find( '=' );
@@ -2042,7 +2016,7 @@ bool CLibraryBuilderInternals::ReadOGG(DWORD nIndex, HANDLE hFile)
 
 	for ( nComments = 2 ; ; nComments++ )
 	{
-		if ( !ReadOGGPage( hFile, nOGG, 0xFF, nComments, 0xFFFFFFFF ) )
+		if ( ! ReadOGGPage( hFile, nOGG, 0xFF, nComments, 0xFFFFFFFF ) )
 			break;
 		nLength = max( nLength, nOGG );
 	}
@@ -2519,12 +2493,12 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 
 	bool bValidSignature = bMAC || bMPC;
 
-	if ( (int)nRead != nValidSize || !bValidSignature || pNewAPE.nSampleRate == 0 || bPreferFooter )
+	if ( (int)nRead != nValidSize || ! bValidSignature || pNewAPE.nSampleRate == 0 || bPreferFooter )
 	{
 		// APE tags in MP3 or MPC footer
 		if ( pFooter.nFields > 0 && bPreferFooter )
 		{
-			if ( !bValidSignature )
+			if ( ! bValidSignature )
 				ScanMP3Frame( pXML, hFile, 0 );
 			return LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriAudio, pXML ) != 0;
 		}
@@ -2572,7 +2546,7 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 	{
 		Hashes::Md5Hash	oApeMD5;
 		std::memcpy( &oApeMD5, pNewAPE.cFileMD5, sizeof(pNewAPE.cFileMD5) );
-		if ( !oApeMD5.validate() )
+		if ( ! oApeMD5.validate() )
 		{
 			delete pXML;
 			return LibraryBuilder.SubmitCorrupted( nIndex );
@@ -2627,9 +2601,9 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 //////////////////////////////////////////////////////////////////////
 // CLibraryBuilderInternals AVI (threaded)
 
-#define FCC(ch4) ((((DWORD)(ch4) & 0xFF) << 24) |     \
-	(((DWORD)(ch4) & 0xFF00) << 8) |    \
-	(((DWORD)(ch4) & 0xFF0000) >> 8) |  \
+#define FCC(ch4) ((((DWORD)(ch4) & 0xFF) << 24) |	\
+	(((DWORD)(ch4) & 0xFF00) << 8) |		\
+	(((DWORD)(ch4) & 0xFF0000) >> 8) |		\
 	(((DWORD)(ch4) & 0xFF000000) >> 24))
 
 #define ReadDwordOrBreak(hFile, nID, nRead) ReadFile( hFile, &nID, 4, &nRead, NULL ); \
@@ -2815,7 +2789,7 @@ bool CLibraryBuilderInternals::ReadAVI(DWORD nIndex, HANDLE hFile)
 	}
 	while ( nNextOffset );
 
-	if ( !bMoviFound )
+	if ( ! bMoviFound )
 	{
 		delete pXML;
 		return LibraryBuilder.SubmitCorrupted( nIndex );
@@ -2875,11 +2849,11 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	strLine = ReadLine( hFile, (LPCTSTR)_T("<") );
 
 	// We are after the 1st object
-	if ( !ReadLine( hFile, (LPCTSTR)_T("/") ).IsEmpty() )
+	if ( ! ReadLine( hFile, (LPCTSTR)_T("/") ).IsEmpty() )
 		return false;
 	strLine = ReadLine( hFile, (LPCTSTR)_T("/>") );
 	nCount = 0;
-	while ( !strLine.IsEmpty() && nCount < 9 && nVersion > 1 ) //read dictionary entries only from 8 lines max
+	while ( ! strLine.IsEmpty() && nCount < 9 && nVersion > 1 ) // Read dictionary entries only from 8 lines max
 	{
 		CString strEntry;
 		int nData = 0;
@@ -2949,10 +2923,10 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 
 		strLine = ReadLine( hFile, (LPCTSTR)_T("<") );
 		strLine = ReadLine( hFile, (LPCTSTR)_T("<") );
-		if ( !ReadLine( hFile, (LPCTSTR)_T("/") ).IsEmpty() )
+		if ( ! ReadLine( hFile, (LPCTSTR)_T("/") ).IsEmpty() )
 			return false;
 		strLine = ReadLine( hFile, (LPCTSTR)_T("/>") );
-		while ( !strLine.IsEmpty() )
+		while ( ! strLine.IsEmpty() )
 		{
 			CString strEntry;
 			DWORD nData = 0;
@@ -2978,7 +2952,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 			}
 			strLine = ReadLine( hFile, (LPCTSTR)_T("/>") );
 		}
-		if ( !ReadLine( hFile ).IsEmpty() )
+		if ( ! ReadLine( hFile ).IsEmpty() )
 			return false;
 		if ( ReadLine( hFile ) != _T("startxref") )
 			return false;
@@ -2991,7 +2965,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	}
 
 	// Non-linearized document validation
-	if ( !bLinearized ) {
+	if ( ! bLinearized ) {
 		SetFilePointer( hFile, -1, NULL, FILE_END );
 		strLine = ReadLineReverse( hFile );
 		if ( strLine.IsEmpty() )
@@ -3008,8 +2982,8 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		// get last reference object number
 		if ( _stscanf( strLine, _T("%lu"), &nOffset ) != 1 )
 			return false;
-		if ( !ReadLineReverse( hFile, (LPCTSTR)_T(">") ).IsEmpty() ||
-			 !ReadLineReverse( hFile, (LPCTSTR)_T(">") ).IsEmpty() )
+		if ( ! ReadLineReverse( hFile, (LPCTSTR)_T(">") ).IsEmpty() ||
+			 ! ReadLineReverse( hFile, (LPCTSTR)_T(">") ).IsEmpty() )
 		{
 			return false;
 		}
@@ -3042,10 +3016,8 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		}
 	}
 
-	//if ( !bLinearized )
-	//{
+	//if ( ! bLinearized )
 	//	;	// ToDo: find total number of non-deleted objects
-	//}
 
 	DWORD* pOffset = NULL;
 	try
@@ -3112,13 +3084,13 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 
 		strLine = ReadLine( hFile, (LPCTSTR)_T("<") );
 		strLine = ReadLine( hFile, (LPCTSTR)_T("<") );
-		if ( !ReadLine( hFile, (LPCTSTR)_T("/") ).IsEmpty() )
+		if ( ! ReadLine( hFile, (LPCTSTR)_T("/") ).IsEmpty() )
 		{
 			delete [] pOffset;
 			return false;
 		}
 		strLine = ReadLine( hFile, (LPCTSTR)_T("/>") );
-		while ( !strLine.IsEmpty() )
+		while ( ! strLine.IsEmpty() )
 		{
 			CString strEntry;
 			int nData = 0;
@@ -3169,7 +3141,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	}
 
 	// document information is not available--exit
-	if ( nOffsetInfo == 0 && nOffsetRoot == 0 && !bBook )
+	if ( nOffsetInfo == 0 && nOffsetRoot == 0 && ! bBook )
 	{
 		delete [] pOffset;
 		return false;
@@ -3192,7 +3164,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 //				 ReadLine( hFile, (LPCTSTR)_T("/") ).MakeLower() == _T("catalog") )
 //			{
 //				strLine = ReadLine( hFile, (LPCTSTR)_T("/>") );
-//				while ( !strLine.IsEmpty() )
+//				while ( ! strLine.IsEmpty() )
 //				{
 //					CString strEntry;
 //					int nData = 0;
@@ -3257,14 +3229,14 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		strLine = ReadLine( hFile, (LPCTSTR)_T("<") );
 		if ( strLine == strSeek )
 		{
-			if ( !ReadLine( hFile, (LPCTSTR)_T("<") ).IsEmpty() ||
-				 !ReadLine( hFile, (LPCTSTR)_T("/") ).IsEmpty() )
+			if ( ! ReadLine( hFile, (LPCTSTR)_T("<") ).IsEmpty() ||
+				 ! ReadLine( hFile, (LPCTSTR)_T("/") ).IsEmpty() )
 			{
 				delete [] pOffset;
 				return false;
 			}
 			strLine = ReadLine( hFile, (LPCTSTR)_T("/>") );
-			while ( !strLine.IsEmpty() )
+			while ( ! strLine.IsEmpty() )
 			{
 				CString strEntry;
 				int nData = strLine.Find( _T("(") );
@@ -3556,7 +3528,7 @@ CString CLibraryBuilderInternals::ReadLine(HANDLE hFile, LPCTSTR pszSeparators)
 
 	for ( nLength = 0 ; ReadFile( hFile, &cChar, 1, &nRead, NULL ) && nRead == 1 && nLength++ < 4096 ; )
 	{
-		if ( !pszSeparators )
+		if ( ! pszSeparators )
 		{
 			// lines can end with \r, \n or \r\n
 			if ( cChar == '\n' )
@@ -3603,7 +3575,7 @@ CString CLibraryBuilderInternals::ReadLineReverse(HANDLE hFile, LPCTSTR pszSepar
 	{
 		if ( SetFilePointer( hFile, -2, NULL, FILE_CURRENT ) == 0 )
 			break;
-		if ( !pszSeparators )
+		if ( ! pszSeparators )
 		{
 			// lines can end with \r, \n or \r\n
 			if ( cChar == '\r' )
@@ -3654,7 +3626,7 @@ bool CLibraryBuilderInternals::ReadCollection(DWORD nIndex, LPCTSTR pszPath)
 	{
 		CQuickLock oLibraryLock( Library.m_pSection );
 		CLibraryFile* pFile = LibraryMaps.LookupFile( nIndex );
-		if ( !pFile || !pFile->m_oSHA1 )
+		if ( ! pFile || ! pFile->m_oSHA1 )
 			return false;
 		oSHA1 = pFile->m_oSHA1;
 	}
@@ -3705,7 +3677,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	ReadFile( hFile, &nLCID, sizeof(nLCID), &nRead, NULL );
 	if ( nRead != sizeof(nLCID) )
 		return LibraryBuilder.SubmitCorrupted( nIndex );
-	if ( !IsValidLocale( nLCID, LCID_SUPPORTED ) )
+	if ( ! IsValidLocale( nLCID, LCID_SUPPORTED ) )
 		nLCID = 1033;
 
 	// Read the last qword from the end of header; it contains content section data offset
@@ -3769,7 +3741,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		}
 		if ( nFragmentPos == 9 )
 		{
-			if ( !strncmp( szFragment, "HA Version", 10 ) )
+			if ( ! strncmp( szFragment, "HA Version", 10 ) )
 			{
 				// Remember position two words before;
 				// the second word is data entry length
@@ -3848,7 +3820,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	}
 	SetFilePointer( hFile, nPos, NULL, FILE_BEGIN );
 
-	for ( int nCount = 1 ; nCount < 5 && !bCorrupted ; nCount++ ) // nCount may be up to 6
+	for ( int nCount = 1 ; nCount < 5 && ! bCorrupted ; nCount++ ) // nCount may be up to 6
 	{
 		// Unknown data
 		ReadFile( hFile, &nData, sizeof(nData), &nRead, NULL );
@@ -3890,7 +3862,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		case 1: // version number
 			nPos = strLine.ReverseFind( ' ' );
 			strLine = strLine.Mid( nPos + 1 );
-			if ( !bBook )
+			if ( ! bBook )
 				pXML->AddAttribute( _T("formatVersion"), strLine );
 			break;
 		case 2: // unknown data
@@ -3935,7 +3907,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		}
 	}
 
-	if ( !bHasTitle )
+	if ( ! bHasTitle )
 	{
 		delete pXML;
 		return false;

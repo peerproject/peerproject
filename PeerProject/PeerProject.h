@@ -76,7 +76,7 @@ public:
 	CString				m_sSmartAgent;				// PeerProject x.x.x.x
 	CString				m_sBuildDate;
 	CString				m_strBinaryPath;			// PeerProject.exe path
-	BYTE				m_nFontQuality;				// DEFAULT_QUALITY
+	BYTE				m_nFontQuality;				// ClearType DEFAULT_QUALITY
 	CFont				m_gdiFont;
 	CFont				m_gdiFontBold;
 	CFont				m_gdiFontLine;
@@ -199,6 +199,9 @@ protected:
 	void				GetVersionNumber();
 	void				InitResources();
 
+	void				LoadCountry();		// Load the GeoIP library for mapping IPs to countries
+	void				FreeCountry();		// Free GeoIP resources
+
 	DECLARE_MESSAGE_MAP()
 };
 
@@ -228,6 +231,8 @@ CString	TimeToString(FILETIME* pTime);
 void	RecalcDropWidth(CComboBox* pWnd);
 // Load 16x16, 32x32, 48x48 icons from .ico, .exe, .dll files
 BOOL LoadIcon(LPCTSTR szFilename, HICON* phSmallIcon, HICON* phLargeIcon, HICON* phHugeIcon);
+// Load 16x16 icon from module pointed by its CLSID
+//HICON LoadCLSIDIcon(LPCTSTR szCLSID);
 // Load and add icon to CImageList, mirrored if needed
 int		AddIcon(UINT nIcon, CImageList& gdiImageList);
 // Add icon to CImageList, mirrored if needed
@@ -248,7 +253,8 @@ BOOL CreateDirectory(LPCTSTR szPath);
 
 // Delete file to Recycle Bin, etc.
 BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEnableDelayed);
-void PurgeDeletes();
+void DeleteFiles(CStringList& pList);	// User confirmation
+void PurgeDeletes();					// Delete postponed file
 
 // Loads RT_HTML or RT_GZIP resource as string
 CString LoadHTML(HINSTANCE hInstance, UINT nResourceID);
@@ -406,7 +412,7 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 // Network ID's:
 
 // Client's name
-#define CLIENT_NAME				"PeerProject"
+#define CLIENT_NAME				_T( "PeerProject" )
 
 // 4 Character vendor code (G1,G2)
 // PEER, RAZA, RAZB, BEAR, LIME
@@ -422,10 +428,11 @@ inline __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max)
 #define BT_ID1					'P'
 #define BT_ID2					'E'
 
+// Locations
 #define WEB_SITE				_T( "http://PeerProject.org/" )
 #define UPDATE_URL				_T( "http://peerproject.sourceforge.net/update" )
+#define REGISTRY_KEY			_T( "Software\\PeerProject\\PeerProject" )
 
-#define REGISTRY_KEY			"Software\\PeerProject\\PeerProject"
 
 extern const LPCTSTR RT_BMP;
 extern const LPCTSTR RT_PNG;

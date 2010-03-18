@@ -41,8 +41,8 @@ CTransfers Transfers;
 //////////////////////////////////////////////////////////////////////
 // CTransfers construction
 
-CTransfers::CTransfers() :
-	m_nRunCookie( 0 )
+CTransfers::CTransfers()
+	: m_nRunCookie	( 0 )
 {
 }
 

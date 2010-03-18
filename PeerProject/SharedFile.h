@@ -99,12 +99,12 @@ public:
 	BOOL			Rebuild();
 	BOOL			Rename(LPCTSTR pszName);
 	BOOL			Delete(BOOL bDeleteGhost = FALSE);
-	void			UpdateMetadata(const CDownload* pDownload);
+	void			UpdateMetadata(CDownload* pDownload);
 	BOOL			SetMetadata(CXMLElement*& pXML, BOOL bMerge = FALSE, BOOL bOverwrite = FALSE);
 	BOOL			MergeMetadata(CXMLElement*& pXML, BOOL bOverwrite);
+	void			ModifyMetadata();		// Mark metadata as modified
 	void			ClearMetadata();
 	CString			GetMetadataWords() const;
-	void			ModifyMetadata();		// Mark metadata as modified
 	CTigerTree*		GetTigerTree();
 	CED2K*			GetED2K();
 	CSharedSource*	AddAlternateSource(LPCTSTR pszURL, FILETIME* tSeen = NULL);
@@ -129,19 +129,19 @@ public:
 	}
 
 protected:
-	TRISTATE		m_bShared;
+	TRISTATE	m_bShared;
 
-	void			Serialize(CArchive& ar, int nVersion);
-	BOOL			ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize, FILETIME* pTime/*, LPCTSTR pszMetaData*/);
-	void			OnDelete(BOOL bDeleteGhost = FALSE, TRISTATE bCreateGhost = TRI_UNKNOWN);
-	void			Ghost();
-	BOOL			OnVerifyDownload(
-						const Hashes::Sha1ManagedHash& oSHA1,
-						const Hashes::TigerManagedHash& oTiger,
-						const Hashes::Ed2kManagedHash& oED2K,
-						const Hashes::BtManagedHash& oBTH,
-						const Hashes::Md5ManagedHash& oMD5,
-						LPCTSTR pszSources);
+	void		Serialize(CArchive& ar, int nVersion);
+	BOOL		ThreadScan(CSingleLock& pLock, DWORD nScanCookie, QWORD nSize, FILETIME* pTime/*, LPCTSTR pszMetaData*/);
+	void		OnDelete(BOOL bDeleteGhost = FALSE, TRISTATE bCreateGhost = TRI_UNKNOWN);
+	void		Ghost();
+	BOOL		OnVerifyDownload(
+					const Hashes::Sha1ManagedHash& oSHA1,
+					const Hashes::TigerManagedHash& oTiger,
+					const Hashes::Ed2kManagedHash& oED2K,
+					const Hashes::BtManagedHash& oBTH,
+					const Hashes::Md5ManagedHash& oMD5,
+					LPCTSTR pszSources);
 
 	BEGIN_INTERFACE_PART(LibraryFile, ILibraryFile)
 		DECLARE_DISPATCH()
@@ -182,6 +182,7 @@ protected:
 typedef CList< const CLibraryFile* > CFileList;
 typedef CMap< DWORD_PTR, DWORD_PTR, CLibraryFile*, CLibraryFile* > CIndexMap;
 typedef CMap< CString, const CString&, CLibraryFile*, CLibraryFile* > CFileMap;
+
 
 class CSharedSource
 {

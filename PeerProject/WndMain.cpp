@@ -1,7 +1,7 @@
 //
 // WndMain.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010-2009
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -283,15 +283,13 @@ END_MESSAGE_MAP()
 // CMainWnd construction
 
 CMainWnd::CMainWnd()
-	: m_hInstance ( AfxGetResourceHandle() )
-	, m_bTrayHide ( FALSE )
-	, m_bTrayIcon ( FALSE )
-	, m_bTimer ( FALSE )
-	, m_pSkin ( NULL )
-	, m_pURLDialog ( NULL )
-	, m_tURLTime ( 0 )
-	, m_nAlpha ( 255 )
-	, m_bNoNetWarningShowed ( FALSE )
+	: m_bTrayIcon	( FALSE )
+	, m_bTrayHide	( FALSE )
+	, m_bTimer		( FALSE )
+	, m_pSkin		( NULL )
+	, m_pURLDialog	( NULL )
+	, m_tURLTime	( 0 )
+	, m_nAlpha		( 255 )
 {
 	ZeroMemory( &m_pTray, sizeof( NOTIFYICONDATA ) );
 	m_pTray.cbSize = sizeof( NOTIFYICONDATA );
@@ -305,7 +303,7 @@ CMainWnd::CMainWnd()
 }
 
 BOOL CMainWnd::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle,
-	const RECT& rect, CWnd* pParentWnd, LPCTSTR /* lpszMenuName */,
+	const RECT& rect, CWnd* pParentWnd, LPCTSTR /*lpszMenuName*/,
 	DWORD dwExStyle, CCreateContext* pContext)
 {
 	// Bypass menu creation
@@ -315,7 +313,7 @@ BOOL CMainWnd::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwSty
 		WS_EX_APPWINDOW, pContext );
 }
 
-BOOL CMainWnd::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* /* pContext */)
+BOOL CMainWnd::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* /*pContext*/)
 {
 	// Bypass menu creation
 	return CreateClient( lpcs, NULL );
@@ -488,7 +486,7 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		PostMessage( WM_COMMAND, ID_HELP_PROMOTE );
 
 	// If it is the first run we will connect only in the QuickStart Wizard
-	if ( Settings.Connection.AutoConnect && !Settings.Live.FirstRun )
+	if ( Settings.Connection.AutoConnect && ! Settings.Live.FirstRun )
 		PostMessage( WM_COMMAND, ID_NETWORK_CONNECT );
 
 	Settings.Live.LoadWindowState = TRUE;
@@ -544,11 +542,11 @@ void CMainWnd::OnClose()
 	}
 
 	SaveState();
+	theApp.HideApplication();
+	RemoveSkin();
+
 	m_pWindows.SaveSearchWindows();
 	m_pWindows.SaveBrowseHostWindows();
-
-	theApp.HideApplication();
-
 	m_pWindows.Close();
 
 	CDownloadMonitorDlg::CloseAll();
@@ -559,12 +557,24 @@ void CMainWnd::OnClose()
 	Library.StopThread();
 	ChatCore.StopThread();
 
-	if ( m_wndRemoteWnd.IsVisible() ) m_wndRemoteWnd.DestroyWindow();
+	if ( m_wndRemoteWnd.IsVisible() )
+		m_wndRemoteWnd.DestroyWindow();
 
-	m_brshDockbar.DeleteObject();
+	m_brDockArea.DeleteObject();
 
 	// Destroy main window
 	CMDIFrameWnd::OnClose();
+}
+
+void CMainWnd::RemoveSkin()
+{
+	m_pSkin = NULL;
+	m_pWindows.PostSkinRemove();
+	CDownloadMonitorDlg::OnSkinChange( FALSE );
+	CSettingsManagerDlg::OnSkinChange( FALSE );
+	CFilePreviewDlg::OnSkinChange( FALSE );
+	m_wndRemoteWnd.RemoveSkin();
+	m_wndNavBar.RemoveSkin();
 }
 
 // ToDo: Replace this with OnQueryEndSession()
@@ -710,7 +720,7 @@ void CMainWnd::OnSysColorChange()
 	Colors.OnSysColorChange();
 }
 
-void CMainWnd::OnUpdateFrameTitle(BOOL /*bAddToTitle*/)
+void CMainWnd::OnUpdateCmdUI()
 {
 	m_wndTabBar.OnUpdateCmdUI( this, FALSE );
 	m_wndNavBar.OnUpdateCmdUI( this, FALSE );
@@ -765,11 +775,6 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 		return;
 	}
 
-	// Fix resource handle
-	ASSERT( AfxGetResourceHandle() == m_hInstance );
-	//if ( AfxGetResourceHandle() != m_hInstance )
-	//	AfxSetResourceHandle( m_hInstance );
-
 	// Propagate to children
 	if ( m_bTimer )	return;
 	m_bTimer = TRUE;
@@ -799,9 +804,11 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 
 		m_pTray.uID					= 0;
 		m_pTray.uFlags				= NIF_ICON | NIF_MESSAGE | NIF_TIP;
+		m_pTray.uVersion			= NOTIFYICON_VERSION_4;
 		m_pTray.uCallbackMessage	= WM_TRAY;
 
 		_tcsncpy( m_pTray.szTip, Settings.SmartAgent(), _countof( m_pTray.szTip ) );
+
 		m_bTrayIcon = Shell_NotifyIcon( NIM_ADD, &m_pTray );
 	}
 	else if ( m_bTrayIcon && ! bNeedTrayIcon )
@@ -858,7 +865,8 @@ void CMainWnd::OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI)
 	lpMMI->ptMinTrackSize.x = 320;
 	lpMMI->ptMinTrackSize.y = 240;
 
-	if ( m_pSkin ) m_pSkin->OnGetMinMaxInfo( lpMMI );
+	if ( m_pSkin )
+		m_pSkin->OnGetMinMaxInfo( lpMMI );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1045,15 +1053,11 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 {
 	CWaitCursor pCursor;
 
-	m_pSkin = NULL;
+	//LockWindowUpdate();
+	RemoveSkin();
 
-	m_pWindows.PostSkinRemove();
 	m_wndMenuBar.SetMenu( NULL );
 	m_wndToolBar.Clear();
-
-	CDownloadMonitorDlg::OnSkinChange( FALSE );
-	CSettingsManagerDlg::OnSkinChange( FALSE );
-	CFilePreviewDlg::OnSkinChange( FALSE );
 
 	Skin.Apply();
 
@@ -1077,12 +1081,19 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	m_wndMenuBar.SetWatermark( Skin.GetWatermark( _T("CCoolMenuBar") ) );
 	m_wndTabBar.OnSkinChange();
 
+	// Make Menu Dock Area Skinnable
 	if ( CWnd* pDockBar = GetDlgItem( AFX_IDW_DOCKBAR_TOP ) )
 	{
-		m_brshDockbar.DeleteObject();
-		m_brshDockbar.CreateSolidBrush( Colors.m_crMidtone );
+		m_brDockArea.DeleteObject();
+
+		CBitmap bmDockArea;
+		if ( Skin.GetWatermark( &bmDockArea, _T("CMainWnd") ) )
+			m_brDockArea.CreatePatternBrush( &bmDockArea );
+		else
+			m_brDockArea.CreateSolidBrush( Colors.m_crMidtone );
+
 		SetClassLongPtr( pDockBar->GetSafeHwnd(), GCLP_HBRBACKGROUND,
-			(LONG)(LONG_PTR)(HBRUSH)m_brshDockbar );
+			(LONG)(LONG_PTR)(HBRUSH)m_brDockArea );
 	}
 
 	m_pSkin = Skin.GetWindowSkin( this );
@@ -1091,15 +1102,15 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 	SetWindowRgn( NULL, TRUE );
 
-	if ( m_pSkin != NULL )
+	if ( m_pSkin )
 		m_pSkin->OnSize( this );
 
 	m_wndRemoteWnd.OnSkinChange();
 	m_wndMonitorBar.OnSkinChange();
 	if ( Settings.Toolbars.ShowMonitor )
 	{
-		// A quick workaround to show a monitor bar when skin or GUI mode is changed
-		if ( !m_wndMonitorBar.IsVisible() && Settings.General.GUIMode != GUI_WINDOWED )
+		// Quick workaround to show a monitor bar when skin or GUI mode is changed
+		if ( ! m_wndMonitorBar.IsVisible() && Settings.General.GUIMode != GUI_WINDOWED )
 			PostMessage( WM_COMMAND, ID_WINDOW_MONITOR );
 	}
 
@@ -1209,11 +1220,14 @@ LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 			CUpgradeDlg dlg;
 			dlg.DoModal();
 		}
-		else if ( VersionChecker.IsVerbose() )
+		else
 		{
 			CString strMessage;
 			LoadString( strMessage, IDS_UPGRADE_NO_NEW );
-			AfxMessageBox( strMessage, MB_ICONINFORMATION | MB_OK );
+			if ( VersionChecker.IsVerbose() )
+				AfxMessageBox( strMessage, MB_ICONINFORMATION | MB_OK );
+			else
+				ShowTrayPopup( strMessage );
 		}
 	}
 
@@ -1327,17 +1341,17 @@ void CMainWnd::UpdateMessages()
 	CString strFormat, strMessage, strOld;
 
 	if ( Network.IsWellConnected() )
-	{	//If you have neighbours, you are connected
+	{	// If you have neighbours, you are connected
 		QWORD nLocalVolume;
 		LibraryMaps.GetStatistics( NULL, &nLocalVolume );
 
 		if ( Settings.General.GUIMode == GUI_BASIC )
-		{	//In the basic GUI, don't bother with mode details or neighbour count.
+		{	// In the basic GUI, don't bother with mode details or neighbour count.
 			strMessage.Format( IDS_STATUS_BAR_CONNECTED_SIMPLE, Settings.SmartVolume( nLocalVolume, KiloBytes ) );
 		}
 		else
-		{	//Display node type and number of neighbours
-			if (  Neighbours.IsG2Hub() )
+		{	// Display node type and number of neighbours
+			if ( Neighbours.IsG2Hub() )
 			{
 				LoadString( strFormat, Neighbours.IsG1Ultrapeer() ?
 					IDS_STATUS_BAR_CONNECTED_HUB_UP : IDS_STATUS_BAR_CONNECTED_HUB );
@@ -1352,22 +1366,14 @@ void CMainWnd::UpdateMessages()
 	}
 	else if ( Network.IsConnected() )
 	{	// If G1, G2, eDonkey are disabled and only BitTorrent is enabled say connected
-		if( !Settings.Gnutella1.EnableToday && !Settings.Gnutella2.EnableToday && !Settings.eDonkey.EnableToday )
-		{
+		if( ! Settings.Gnutella1.EnableToday && ! Settings.Gnutella2.EnableToday && ! Settings.eDonkey.EnableToday )
 			LoadString( strFormat, IDS_STATUS_BAR_CONNECTED_SIMPLE );
-			if( ! m_bNoNetWarningShowed )
-				m_bNoNetWarningShowed = TRUE;
-		}
-		else
-		{
-			//Trying to connect
+		else	// Trying to connect
 			LoadString( strMessage, IDS_STATUS_BAR_CONNECTING );
-		}
 	}
-	else	//Idle
+	else	// Idle
 	{
 		LoadString( strMessage, IDS_STATUS_BAR_DISCONNECTED );
-		m_bNoNetWarningShowed = FALSE;
 	}
 
 	if ( Settings.VersionCheck.Quote.GetLength() )
@@ -1407,8 +1413,8 @@ void CMainWnd::UpdateMessages()
 		if ( strMessage != m_pTray.szTip )
 		{
 			m_pTray.uFlags = NIF_TIP;
-			_tcsncpy( m_pTray.szTip, strMessage, 63 );
-			if ( ! Shell_NotifyIcon( NIM_MODIFY, &m_pTray ) ) m_bTrayIcon = FALSE;
+			_tcsncpy( m_pTray.szTip, strMessage, _countof( m_pTray.szTip ) );
+			m_bTrayIcon = Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
 		}
 	}
 
@@ -1420,8 +1426,8 @@ void CMainWnd::UpdateMessages()
 		strMessage += strOld;
 	}
 
-	if ( _tcsistr( strMessage, _T(CLIENT_NAME) ) == NULL )
-		strMessage = _T(CLIENT_NAME) _T(" ") + strMessage;
+	if ( _tcsistr( strMessage, CLIENT_NAME ) == NULL )
+		strMessage = CLIENT_NAME _T(" ") + strMessage;
 
 	GetWindowText( strOld );
 	if ( strOld != strMessage )
@@ -1546,8 +1552,8 @@ void CMainWnd::LocalSystemChecks()
 		// Check for duplicates if LibraryBuilder finished hashing during startup
 		// Happens when Library*.dat files are not saved and PeerProject crashed
 		// In this case all files are re-added and we can find malicious duplicates
-		if ( !Settings.Live.LastDuplicateHash.IsEmpty() &&
-			 !Settings.Live.MaliciousWarning )
+		if ( ! Settings.Live.LastDuplicateHash.IsEmpty() &&
+			 ! Settings.Live.MaliciousWarning )
 			Library.CheckDuplicates( Settings.Live.LastDuplicateHash );
 	}
 
@@ -1663,7 +1669,7 @@ void CMainWnd::OnNetworkG2()
 			return;
 	}
 
-	Settings.Gnutella2.EnableToday = !Settings.Gnutella2.EnableToday;
+	Settings.Gnutella2.EnableToday = ! Settings.Gnutella2.EnableToday;
 
 	if ( Settings.Gnutella2.EnableToday )
 	{
@@ -1687,7 +1693,7 @@ void CMainWnd::OnUpdateNetworkG1(CCmdUI* pCmdUI)
 void CMainWnd::OnNetworkG1()
 {
 #ifndef LAN_MODE
-	Settings.Gnutella1.EnableToday = !Settings.Gnutella1.EnableToday;
+	Settings.Gnutella1.EnableToday = ! Settings.Gnutella1.EnableToday;
 
 	if ( Settings.Gnutella1.EnableToday )
 	{
@@ -1724,12 +1730,12 @@ void CMainWnd::OnUpdateNetworkED2K(CCmdUI* pCmdUI)
 void CMainWnd::OnNetworkED2K()
 {
 #ifndef LAN_MODE
-	Settings.eDonkey.EnableToday = !Settings.eDonkey.EnableToday;
+	Settings.eDonkey.EnableToday = ! Settings.eDonkey.EnableToday;
 
 	if ( Settings.eDonkey.EnableToday )
 	{
 		if ( Settings.Scheduler.Enable &&
-			( !Settings.eDonkey.EnableAlways || Settings.Scheduler.LimitedNetworks ) )
+			( ! Settings.eDonkey.EnableAlways || Settings.Scheduler.LimitedNetworks ) )
 		{
 			CString strMessage;
 			LoadString( strMessage, IDS_NETWORK_UNLIMIT );
@@ -1740,7 +1746,7 @@ void CMainWnd::OnNetworkED2K()
 			}
 		}
 
-		if ( !Network.IsConnected() )
+		if ( ! Network.IsConnected() )
 			Network.Connect( TRUE );
 	}
 #endif // LAN_MOD
@@ -1996,7 +2002,7 @@ void CMainWnd::OnUpdateTabConnect(CCmdUI* /*pCmdUI*/)
 	bool bNetworksEnabled = ( Settings.Gnutella1.EnableToday || Settings.Gnutella2.EnableToday || Settings.eDonkey.EnableToday );
 
 	if ( Network.IsConnected() &&
-		( Network.IsWellConnected() || !bNetworksEnabled ) )	// If Network.IsWellConnected() or G1, G2, eDonkey are disabled and only BitTorrent is enabled say connected
+		( Network.IsWellConnected() || ! bNetworksEnabled ) )	// If Network.IsWellConnected() or G1, G2, eDonkey are disabled and only BitTorrent is enabled say connected
 	{
 		if ( pItem ) pItem->SetCheck( FALSE );
 		if ( pItem ) pItem->SetTextColor( RGB( 255, 0, 0 ) );
@@ -2703,8 +2709,10 @@ void CMainWnd::OnHelpFakeShareaza()
 
 void CMainWnd::OnSize(UINT nType, int cx, int cy)
 {
+	if ( m_pSkin )
+		m_pSkin->OnSize( this );
+
 	CMDIFrameWnd::OnSize( nType, cx, cy );
-	if ( m_pSkin ) m_pSkin->OnSize( this );
 }
 
 void CMainWnd::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp)
@@ -2744,7 +2752,9 @@ BOOL CMainWnd::OnNcActivate(BOOL bActive)
 
 void CMainWnd::OnNcMouseMove(UINT nHitTest, CPoint point)
 {
-	if ( m_pSkin ) m_pSkin->OnNcMouseMove( this, nHitTest, point );
+	if ( m_pSkin )
+		m_pSkin->OnNcMouseMove( this, nHitTest, point );
+
 	CMDIFrameWnd::OnNcMouseMove( nHitTest, point );
 }
 
@@ -2754,7 +2764,8 @@ void CMainWnd::OnNcLButtonDown(UINT nHitTest, CPoint point)
 	CMDIFrameWnd::OnNcLButtonDown( nHitTest, point );
 
 	// Windows Vista skinning workaround (system caption buttons over skin drawing)
-	if ( m_pSkin && ! theApp.m_bClosing ) m_pSkin->OnNcPaint( this );
+	if ( m_pSkin && ! theApp.m_bClosing )	// Window could be destroyed at this point
+		m_pSkin->OnNcPaint( this );
 }
 
 void CMainWnd::OnNcLButtonUp(UINT nHitTest, CPoint point)
@@ -2874,37 +2885,41 @@ BOOL CMainWnd::OnDrop(IDataObject* pDataObj, DWORD /* grfKeyState */, POINT /* p
 	return FALSE;
 }
 
-//void CMainWnd::ShowTrayPopup(LPCTSTR szText, LPCTSTR szTitle, DWORD dwIcon, UINT uTimeout)
-//{
-//	if ( ! m_bTrayIcon ) return;
-//
-//	m_pTray.uFlags = NIF_INFO;
-//
-//	_tcsncpy( m_pTray.szInfo, szText, _countof( m_pTray.szInfo ) );
-//	if ( lstrlen( szText ) > _countof( m_pTray.szInfo ) - 1 )
-//	{
-//		m_pTray.szInfo[ _countof( m_pTray.szInfo ) - 1 ] = _T('\0');
-//		if ( szText[ _countof( m_pTray.szInfo ) - 1 ] != _T(' ') )
-//		{
-//			if ( LPTSTR pWordEnd = _tcsrchr( m_pTray.szInfo, _T(' ') ) )
-//			{
-//				pWordEnd[ 0 ] = _T('\x2026');
-//				pWordEnd[ 1 ] = _T('\0');
-//			}
-//		}
-//	}
-//
-//	if ( szTitle )
-//		_tcsncpy( m_pTray.szInfoTitle, szTitle, _countof( m_pTray.szInfoTitle ) );
-//	else
-//		m_pTray.szInfoTitle[ 0 ] = _T('\0');
-//
-//	m_pTray.dwInfoFlags = dwIcon;
-//
-//	m_pTray.uTimeout = uTimeout * 1000;   // convert time to ms
-//
-//	m_bTrayIcon = Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
-//
-//	m_pTray.szInfo[ 0 ] = _T('\0');
-//	m_pTray.szInfoTitle[ 0 ] = _T('\0');
-//}
+
+/////////////////////////////////////////////////////////////////////////////
+// Tray Icon Info Messages
+
+void CMainWnd::ShowTrayPopup(LPCTSTR szText, LPCTSTR szTitle, DWORD dwIcon, UINT uTimeout)
+{
+	if ( ! m_bTrayIcon ) return;
+
+	m_pTray.uFlags = NIF_INFO;
+
+	_tcsncpy( m_pTray.szInfo, szText, _countof( m_pTray.szInfo ) );
+	if ( lstrlen( szText ) > _countof( m_pTray.szInfo ) - 1 )
+	{
+		m_pTray.szInfo[ _countof( m_pTray.szInfo ) - 1 ] = _T('\0');
+		if ( szText[ _countof( m_pTray.szInfo ) - 1 ] != _T(' ') )
+		{
+			if ( LPTSTR pWordEnd = _tcsrchr( m_pTray.szInfo, _T(' ') ) )
+			{
+				pWordEnd[ 0 ] = _T('\x2026');
+				pWordEnd[ 1 ] = _T('\0');
+			}
+		}
+	}
+
+	if ( szTitle )
+		_tcsncpy( m_pTray.szInfoTitle, szTitle, _countof( m_pTray.szInfoTitle ) );
+	else
+		m_pTray.szInfoTitle[ 0 ] = _T('\0');
+
+	m_pTray.dwInfoFlags = dwIcon;
+
+	m_pTray.uTimeout = uTimeout * 1000;   // convert time to ms
+
+	m_bTrayIcon = Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
+
+	m_pTray.szInfo[ 0 ] = _T('\0');
+	m_pTray.szInfoTitle[ 0 ] = _T('\0');
+}

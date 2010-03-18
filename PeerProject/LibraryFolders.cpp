@@ -72,14 +72,14 @@ CLibraryFolders::~CLibraryFolders()
 
 POSITION CLibraryFolders::GetFolderIterator() const
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	return m_pFolders.GetHeadPosition();
 }
 
 CLibraryFolder* CLibraryFolders::GetNextFolder(POSITION& pos) const
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	return m_pFolders.GetNext( pos );
 }
@@ -89,7 +89,7 @@ CLibraryFolder* CLibraryFolders::GetNextFolder(POSITION& pos) const
 
 CLibraryFolder* CLibraryFolders::GetFolder(LPCTSTR pszPath) const
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
@@ -102,7 +102,7 @@ CLibraryFolder* CLibraryFolders::GetFolder(LPCTSTR pszPath) const
 
 BOOL CLibraryFolders::CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive) const
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	if ( m_pFolders.Find( pFolder ) != NULL ) return TRUE;
 	if ( ! bRecursive ) return FALSE;
@@ -117,7 +117,7 @@ BOOL CLibraryFolders::CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive) cons
 
 CLibraryFolder* CLibraryFolders::GetFolderByName(LPCTSTR pszName) const
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	CString strName( pszName );
 	ToLower( strName );
@@ -218,7 +218,7 @@ bool CLibraryFolders::AddSharedFolder(CListCtrl& oList)
 	ToLower( strPathLC );
 
 	// Check if path is valid
-	if ( !IsShareable( strPathLC ) )
+	if ( ! IsShareable( strPathLC ) )
 	{
 		CHelpDlg::Show( _T("ShareHelp.BadShare") );
 		return false;

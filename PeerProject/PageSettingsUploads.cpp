@@ -1,7 +1,7 @@
 //
 // PageSettingsUploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -27,10 +27,10 @@
 #include "UploadQueues.h"
 #include "PageSettingsUploads.h"
 #include "DlgQueueProperties.h"
-#include "CoolInterface.h"
-#include "LiveList.h"
-#include "Skin.h"
 #include "DlgHelp.h"
+#include "LiveList.h"
+#include "CoolInterface.h"
+#include "Skin.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -58,13 +58,14 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CUploadsSettingsPage property page
 
-CUploadsSettingsPage::CUploadsSettingsPage() : CSettingsPage( CUploadsSettingsPage::IDD )
-,	m_bHubUnshare		( FALSE )
-,	m_bSharePartials	( FALSE )
-,	m_bSharePreviews	( FALSE )
-,	m_bThrottleMode		( FALSE )
-,	m_bFairUseMode		( FALSE )
-,	m_nMaxPerHost		( 0ul )
+CUploadsSettingsPage::CUploadsSettingsPage()
+	: CSettingsPage 	( CUploadsSettingsPage::IDD )
+	, m_bHubUnshare		( FALSE )
+	, m_bSharePartials	( FALSE )
+	, m_bSharePreviews	( FALSE )
+	, m_bThrottleMode	( FALSE )
+	, m_bFairUseMode	( FALSE )
+	, m_nMaxPerHost		( 0ul )
 {
 }
 
@@ -127,13 +128,10 @@ BOOL CUploadsSettingsPage::OnInitDialog()
 
 	Settings.SetRange( &Settings.Uploads.MaxPerHost, m_wndMaxPerHost );
 
-	for ( CString strList = Settings.Uploads.BlockAgents + '|' ; strList.GetLength() ; )
+	for ( string_set::const_iterator i = Settings.Uploads.BlockAgents.begin() ;
+		i != Settings.Uploads.BlockAgents.end(); i++ )
 	{
-		CString strType = strList.SpanExcluding( _T("|") );
-		strList = strList.Mid( strType.GetLength() + 1 );
-		strType.TrimLeft();
-		strType.TrimRight();
-		if ( strType.GetLength() ) m_wndAgentList.AddString( strType );
+		m_wndAgentList.AddString( *i );
 	}
 
 	UpdateData( FALSE );
@@ -185,7 +183,7 @@ void CUploadsSettingsPage::UpdateQueues()
 		// If queue is ed2k only and we need to be connected to upload, Then queue is inactive ed2k isn't enabled
 		if ( ( ( pQueue->m_nProtocols & ( 1 << PROTOCOL_ED2K ) ) != 0 ) && ( Settings.Connection.RequireForTransfers ) )
 			bDonkeyOnlyDisabled = !( Settings.eDonkey.EnableAlways | Settings.eDonkey.EnableToday );
-			
+
 
 		// If the queue is inactive and we're in basic GUI mode
 		if ( ( bDonkeyOnlyDisabled ) && (Settings.General.GUIMode == GUI_BASIC) )
@@ -340,7 +338,7 @@ BOOL CUploadsSettingsPage::OnKillActive()
 {
 	UpdateData();
 
-	if ( IsLimited( m_sBandwidthLimit ) && !Settings.ParseVolume( m_sBandwidthLimit ) )
+	if ( IsLimited( m_sBandwidthLimit ) && ! Settings.ParseVolume( m_sBandwidthLimit ) )
 	{
 		CString strMessage;
 		LoadString( strMessage, IDS_SETTINGS_NEED_BANDWIDTH );
@@ -368,7 +366,7 @@ void CUploadsSettingsPage::OnOK()
 
 
 	// Warn the user about the effects of upload limiting
-	if ( !Settings.Live.UploadLimitWarning && Settings.Bandwidth.Uploads > 0 && Settings.Bandwidth.Uploads != nOldLimit )
+	if ( ! Settings.Live.UploadLimitWarning && Settings.Bandwidth.Uploads > 0 && Settings.Bandwidth.Uploads != nOldLimit )
 	{
 		QWORD nDownload = max( Settings.Bandwidth.Downloads, Settings.Connection.InSpeed  * Kilobits / Bytes );
 		QWORD nUpload	= min( Settings.Bandwidth.Uploads,   Settings.Connection.OutSpeed * Kilobits / Bytes );
@@ -381,25 +379,15 @@ void CUploadsSettingsPage::OnOK()
 	}
 
 	// Set blocked user agents/strings
-	Settings.Uploads.BlockAgents.Empty();
+	Settings.Uploads.BlockAgents.clear();
 
 	for ( int nItem = 0 ; nItem < m_wndAgentList.GetCount() ; nItem++ )
 	{
 		CString str;
 		m_wndAgentList.GetLBText( nItem, str );
-
 		if ( str.GetLength() )
-		{
-			if ( Settings.Uploads.BlockAgents.IsEmpty() )
-				Settings.Uploads.BlockAgents += '|';
-			Settings.Uploads.BlockAgents += str;
-			Settings.Uploads.BlockAgents += '|';
-		}
+			Settings.Uploads.BlockAgents.insert( str );
 	}
-
-	// Initialize it to an empty list ("||") to prevent the default being reloaded.
-	if ( m_wndAgentList.GetCount() == 0 )
-		Settings.Uploads.BlockAgents += "||";
 
 	// Create/Validate queues
 	if ( UploadQueues.GetCount() == 0 )

@@ -1,7 +1,7 @@
 //
 // CtrlMainTabBar.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,15 +28,13 @@ class CSkinWindow;
 
 class CMainTabBarCtrl : public CControlBar
 {
-// Construction
+	DECLARE_DYNAMIC(CMainTabBarCtrl)
+
 public:
 	CMainTabBarCtrl();
 	virtual ~CMainTabBarCtrl();
 
-	DECLARE_DYNAMIC(CMainTabBarCtrl)
-
 // Item Class
-public:
 	class TabItem : public CCmdUI
 	{
 	public:
@@ -48,14 +46,14 @@ public:
 		BOOL	m_bEnabled;
 		BOOL	m_bSelected;
 
-	public:
 		TabItem(CMainTabBarCtrl* pCtrl, LPCTSTR pszName);
 		virtual ~TabItem() {}
-		void	OnSkinChange(CSkinWindow* pSkin, CDC* pdcCache, CBitmap* pbmCache);
+
 		BOOL	Update(CFrameWnd* pTarget);
 		BOOL	HitTest(const CPoint& point) const;
 		void	Paint(CDC* pDstDC, CDC* pSrcDC, const CPoint& ptOffset, BOOL bHover, BOOL bDown);
-	public:
+		void	OnSkinChange(CSkinWindow* pSkin, CDC* pdcCache, CBitmap* pbmCache);
+
 		virtual void	Enable(BOOL bEnable);
 		virtual void	SetCheck(BOOL bCheck);
 	};
@@ -76,11 +74,16 @@ public:
 	BOOL			Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID);
 	BOOL			HasLocalVersion();
 	void			OnSkinChange();
+	virtual void	DoPaint(CDC* pDC);
 	virtual void	OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler);
 	virtual CSize	CalcFixedLayout(BOOL bStretch, BOOL bHorz);
-	TabItem*		HitTest(const CPoint& point) const;
 	virtual INT_PTR	OnToolHitTest(CPoint point, TOOLINFO* pTI) const;
-	virtual void	DoPaint(CDC* pDC);
+	TabItem*		HitTest(const CPoint& point) const;
+
+	inline void		RemoveSkin()
+	{
+		m_pSkin = NULL;
+	}
 
 // Implementation
 protected:

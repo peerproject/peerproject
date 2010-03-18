@@ -199,8 +199,10 @@ void CLibraryAlbumView::Update()
 			{
 				m_nBuffer += 64;
 				CLibraryAlbumTrack** pList = new CLibraryAlbumTrack*[ m_nBuffer ];
-				if ( m_nCount ) CopyMemory( pList, m_pList, m_nCount * sizeof( CLibraryAlbumTrack* ) );
-				if ( m_pList ) delete [] m_pList;
+				if ( m_nCount )
+					CopyMemory( pList, m_pList, m_nCount * sizeof( CLibraryAlbumTrack* ) );
+				if ( m_pList )
+					delete [] m_pList;
 				m_pList = pList;
 			}
 
@@ -224,7 +226,7 @@ BOOL CLibraryAlbumView::Select(DWORD nObject)
 
 	CLibraryAlbumTrack** pList = m_pList + m_nCount - 1;
 
-    int nItem = m_nCount;
+	int nItem = m_nCount;
 	for ( ; nItem ; nItem--, pList-- )
 	{
 		CLibraryAlbumTrack* pTrack = *pList;
@@ -467,7 +469,8 @@ void CLibraryAlbumView::SelectTo(int nDelta)
 		if ( nFocus >= m_nCount ) nFocus = m_nCount - 1;
 	}
 
-	if ( SelectTo( m_pList[ nFocus ] ) ) Invalidate();
+	if ( SelectTo( m_pList[ nFocus ] ) )
+		Invalidate();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -673,7 +676,8 @@ CLibraryAlbumTrack* CLibraryAlbumView::HitTest(const CPoint& point, CRect* pRect
 
 		if ( rcTrack.PtInRect( point ) )
 		{
-			if ( pRect ) *pRect = rcTrack;
+			if ( pRect )
+				*pRect = rcTrack;
 			return pTrack;
 		}
 
@@ -796,7 +800,8 @@ void CLibraryAlbumView::OnLButtonUp(UINT nFlags, CPoint point)
 
 	if ( ( nFlags & (MK_SHIFT|MK_CONTROL) ) == 0 && m_pFocus && m_pFocus->m_bSelected )
 	{
-		if ( DeselectAll( m_pFocus ) ) Invalidate();
+		if ( DeselectAll( m_pFocus ) )
+			Invalidate();
 	}
 
 	CLibraryFileView::OnLButtonUp( nFlags, point );
@@ -856,7 +861,8 @@ void CLibraryAlbumView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				{
 					if ( pStart != NULL )
 					{
-						if ( pStart == *pChild ) pStart = NULL;
+						if ( pStart == *pChild )
+							pStart = NULL;
 					}
 					else
 					{
@@ -871,7 +877,8 @@ void CLibraryAlbumView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 						if ( psz && *psz && toupper( *psz ) == (int)nChar )
 						{
-							if ( SelectTo( *pChild ) ) Invalidate();
+							if ( SelectTo( *pChild ) )
+								Invalidate();
 							return;
 						}
 					}

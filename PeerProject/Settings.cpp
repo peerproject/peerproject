@@ -1,7 +1,7 @@
 //
 // Settings.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,7 +32,7 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-#define SMART_VERSION	1000	// 1.0.0.0
+#define SMART_VERSION	1000	// 1.0.0.0 (60)
 
 #define KiloByte		( 1024 )
 #define MegaByte		( KiloByte * 1024 )
@@ -95,7 +95,6 @@ void CSettings::Load()
 	Add( _T(""), _T("LogLevel"), &General.LogLevel, MSG_INFO, 1, MSG_ERROR, MSG_DEBUG, _T(" level") );
 	Add( _T(""), _T("SearchLog"), &General.SearchLog, true );
 	Add( _T(""), _T("UserPath"), &General.UserPath );
-	Add( _T(""), _T("CoolMenuEnable"), &General.CoolMenuEnable, true );
 	Add( _T(""), _T("DialogScan"), &General.DialogScan, false );
 
 	Add( _T("Settings"), _T("AlwaysOpenURLs"), &General.AlwaysOpenURLs, false );
@@ -119,6 +118,7 @@ void CSettings::Load()
 	Add( _T("VersionCheck"), _T("NextCheck"), &VersionCheck.NextCheck, 0 );
 	Add( _T("VersionCheck"), _T("Quote"), &VersionCheck.Quote );
 	Add( _T("VersionCheck"), _T("UpdateCheck"), &VersionCheck.UpdateCheck, true );
+//	Add( _T("VersionCheck"), _T("UpdateCheckURL"), &VersionCheck.UpdateCheckURL, UPDATE_URL );
 	Add( _T("VersionCheck"), _T("UpgradeFile"), &VersionCheck.UpgradeFile );
 	Add( _T("VersionCheck"), _T("UpgradePrompt"), &VersionCheck.UpgradePrompt );
 	Add( _T("VersionCheck"), _T("UpgradeSHA1"), &VersionCheck.UpgradeSHA1 );
@@ -127,6 +127,8 @@ void CSettings::Load()
 	Add( _T("VersionCheck"), _T("UpgradeTiger"), &VersionCheck.UpgradeTiger );
 	Add( _T("VersionCheck"), _T("UpgradeVersion"), &VersionCheck.UpgradeVersion );
 
+	Add( _T("Interface"), _T("AutoComplete"), &Interface.AutoComplete, true );
+	Add( _T("Interface"), _T("CoolMenuEnable"), &Interface.CoolMenuEnable, true );
 	Add( _T("Interface"), _T("LowResMode"), &Interface.LowResMode, false );
 	Add( _T("Interface"), _T("TipAlpha"), &Interface.TipAlpha, 220, 1, 50, 255 );
 	Add( _T("Interface"), _T("TipDelay"), &Interface.TipDelay, 500, 1, 100, 5000, _T(" ms") );
@@ -145,8 +147,8 @@ void CSettings::Load()
 	Add( _T("Toolbars"), _T("ShowRemote"), &Toolbars.ShowRemote, true );
 	Add( _T("Toolbars"), _T("ShowMonitor"), &Toolbars.ShowMonitor, true );
 
-	Add( _T("Fonts"), _T("DefaultFont"), &Fonts.DefaultFont, theApp.m_bIsVistaOrNewer ? _T( "Segoe UI" ) : _T( "Tahoma" ) );
-	Add( _T("Fonts"), _T("SystemLogFont"), &Fonts.SystemLogFont, theApp.m_bIsVistaOrNewer ? _T( "Segoe UI" ) : _T( "Tahoma" ) );
+	Add( _T("Fonts"), _T("DefaultFont"), &Fonts.DefaultFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma") );
+	Add( _T("Fonts"), _T("SystemLogFont"), &Fonts.SystemLogFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma") );
 	Add( _T("Fonts"), _T("PacketDumpFont"), &Fonts.PacketDumpFont, _T("Lucida Console") );
 	Add( _T("Fonts"), _T("FontSize"), &Fonts.FontSize, 11 );
 
@@ -522,7 +524,7 @@ void CSettings::Load()
 
 	Add( _T("Uploads"), _T("AllowBackwards"), &Uploads.AllowBackwards, true );
 	Add( _T("Uploads"), _T("AutoClear"), &Uploads.AutoClear, false );
-	Add( _T("Uploads"), _T("BlockAgents"), &Uploads.BlockAgents, _T("|Mozilla|Foxy") );
+	Add( _T("Uploads"), _T("BlockAgents"), &Uploads.BlockAgents, _T("|Mozilla|Foxy|") );
 	Add( _T("Uploads"), _T("ClampdownFactor"), &Uploads.ClampdownFactor, 20, 1, 0, 100, _T("%") );
 	Add( _T("Uploads"), _T("ClampdownFloor"), &Uploads.ClampdownFloor, 8*128, 128, 0, 4096, _T(" Kb/s") );
 	Add( _T("Uploads"), _T("ClearDelay"), &Uploads.ClearDelay, 60*1000, 1000, 1, 1800, _T(" s") );
@@ -757,9 +759,7 @@ bool CSettings::IsDefault(LPVOID pSetting) const
 	{
 		Item* pItem = m_pItems.GetNext( pos );
 		if ( *pItem == pSetting )
-		{
 			return pItem->IsDefault();
-		}
 	}
 	return false;
 }
@@ -808,11 +808,11 @@ void CSettings::SmartUpgrade()
 	}
 
 	if ( General.SmartVersion > SMART_VERSION )
-		General.SmartVersion = 60;
+		General.SmartVersion = SMART_VERSION;
 
 	if ( General.SmartVersion < SMART_VERSION )
 	{
-		// 'SmartUpgrade' setting updates: 
+		// 'SmartUpgrade' setting updates:
 		// Change any settings that were mis-set in previous versions
 		// Starts at 1000, Prior to Version 60 is obsolete Shareaza code
 
@@ -888,7 +888,7 @@ void CSettings::SmartUpgrade()
 	//		theApp.WriteProfileString( _T("Interface"), _T("SchemaColumns.audio"), _T("(EMPTY)") );
 
 	//	if ( General.SmartVersion < 33 )
-	//		RegDeleteKey( HKEY_CURRENT_USER, _T("Software\\PeerProject\\PeerProject\\Plugins\\LibraryBuilder") );
+	//		RegDeleteKey( HKEY_CURRENT_USER, REGISTRY_KEY _T("\\Plugins\\LibraryBuilder") );
 
 	//	if ( General.SmartVersion < 34 )
 	//		BitTorrent.LinkPing			= 120 * 1000;
@@ -1083,8 +1083,7 @@ void CSettings::SmartUpgrade()
 	//		theApp.WriteProfileString( L"Library", L"BitziXML", NULL );
 	//		theApp.WriteProfileString( L"", L"ShareMonkeyCid", NULL );
 	//		theApp.WriteProfileString( L"Library", L"BitziWebView", NULL );
-	//		SHDeleteValue( HKEY_CURRENT_USER,
-	//			_T("SOFTWARE\\PeerProject\\PeerProject\\Library"), _T("BitziOkay") );
+	//		SHDeleteValue( HKEY_CURRENT_USER, REGISTRY_KEY _T("\\Library"), _T("BitziOkay") );
 	//	}
 
 	//	if ( General.SmartVersion < 56 )
@@ -1093,8 +1092,7 @@ void CSettings::SmartUpgrade()
 	//	if ( General.SmartVersion < 57 )
 	//	{
 	//		// Delete old values
-	//		SHDeleteValue( HKEY_CURRENT_USER,
-	//			_T("SOFTWARE\\PeerProject\\PeerProject\\Toolbars"), _T("CRemoteWnd") );
+	//		SHDeleteValue( HKEY_CURRENT_USER, REGISTRY_KEY _T("\\Toolbars"), _T("CRemoteWnd") );
 	//	}
 
 	//	if ( General.SmartVersion < 58 )
@@ -1451,7 +1449,7 @@ const CString CSettings::SmartVolume(QWORD nVolume, int nVolumeUnits, bool bTrun
 	CString strVolume;
 	CString strTruncate( _T("%.0f") );
 
-	if ( !General.RatesInBytes && nVolumeUnits == bits )
+	if ( ! General.RatesInBytes && nVolumeUnits == bits )
 		strUnit = _T("b");
 
 	switch ( nVolumeUnits )
@@ -1466,7 +1464,7 @@ const CString CSettings::SmartVolume(QWORD nVolume, int nVolumeUnits, bool bTrun
 		}
 		else if ( nVolume < 10*KiloByte )				// 10 Kilobits - KiloBytes
 		{
-			if ( !bTruncate )
+			if ( ! bTruncate )
 				strTruncate = _T("%.2f");
 			strVolume.Format( strTruncate + _T(" K%s"), nVolume / KiloFloat, strUnit );
 			break;
@@ -1482,13 +1480,13 @@ const CString CSettings::SmartVolume(QWORD nVolume, int nVolumeUnits, bool bTrun
 			strVolume.Format( _T("%I64i K%s"), nVolume, strUnit );
 		else if ( nVolume < MegaFloat )				// Mega
 		{
-			if ( !bTruncate )
+			if ( ! bTruncate )
 				strTruncate = _T("%.2f");
 			strVolume.Format( strTruncate + _T(" M%s"), nVolume / KiloFloat, strUnit );
 		}
 		else
 		{
-			if ( !bTruncate )
+			if ( ! bTruncate )
 				strTruncate = _T("%.2f");
 			if ( nVolume < GigaFloat )				// Giga
 				strVolume.Format( strTruncate + _T(" G%s"), nVolume / MegaFloat, strUnit );

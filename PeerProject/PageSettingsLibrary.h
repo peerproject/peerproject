@@ -1,7 +1,7 @@
 //
 // PageSettingsLibrary.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -48,7 +48,7 @@ protected:
 	CComboBox		m_wndPrivateList;
 	BOOL			m_bWatchFolders;
 	DWORD			m_nRecentDays;
-	int				m_nRecentTotal;
+	int 			m_nRecentTotal;
 	BOOL			m_bStoreViews;
 	BOOL			m_bHighPriorityHash;
 	BOOL			m_bBrowseFiles;
@@ -59,7 +59,7 @@ protected:
 	CEditPath		m_wndCollectionFolder;
 
 	virtual BOOL OnInitDialog();
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 
 	afx_msg void OnSelChangeSafeTypes();
 	afx_msg void OnEditChangeSafeTypes();

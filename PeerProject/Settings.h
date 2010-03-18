@@ -1,7 +1,7 @@
 //
 // Settings.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -43,46 +43,45 @@ public:
 
 	struct sGeneral
 	{
-		CString		Path;						// Installation path for PeerProject
-		CString		UserPath;					// Path for user data. (May be the same as above for single user installs)
-		bool		MultiUser;					// Multiuser installation
-		bool		DialogScan;					// Create "C:\Dialogs.xml" translation template, with Skin engine in "dialog scan" mode.
-		bool		DebugLog;					// Create a log file
-		bool		SearchLog;					// Display search facility log information
-		DWORD		LogLevel;					// Log severity (0 - MSG_ERROR .. 4 - MSG_DEBUG)
-		DWORD		MaxDebugLogSize;			// Max size of the log file
-		DWORD		DiskSpaceWarning;			// Value at which to warn the user about low disk space
-		DWORD		DiskSpaceStop;				// Value at which to pause all downloads due to low disk space
-		DWORD		MinTransfersRest;			// For how long at least to suspend Transfers each round
-		DWORD		SmartVersion;				// Settings version
+		CString		Path;					// Installation path for PeerProject
+		CString		UserPath;				// Path for user data. (May be the same as above for single user installs)
+		bool		MultiUser;				// Multiuser installation
+		bool		DialogScan;				// Create "C:\Dialogs.xml" translation template, with Skin engine in "dialog scan" mode.
+		bool		DebugLog;				// Create a log file
+		bool		SearchLog;				// Display search facility log information
+		DWORD		LogLevel;				// Log severity (0 - MSG_ERROR .. 4 - MSG_DEBUG)
+		DWORD		MaxDebugLogSize;		// Max size of the log file
+		DWORD		DiskSpaceWarning;		// Value at which to warn the user about low disk space
+		DWORD		DiskSpaceStop;			// Value at which to pause all downloads due to low disk space
+		DWORD		MinTransfersRest;		// For how long at least to suspend Transfers each round
+		DWORD		SmartVersion;			// Settings version
 		DWORD		GUIMode;
 		DWORD		CloseMode;
 		bool		TrayMinimise;
 		bool		ShowTimestamp;
 		bool		SizeLists;
 		bool		HashIntegrity;
-		bool		RatesInBytes;				// Show speeds in bits or Bytes per second
-		DWORD		RatesUnit;					// Units that rates are to be displayed in (B/KB/MB)
-		DWORD		RefreshRate;				// Data display update in milliseconds
-		DWORD		LastSettingsIndex;			// Top item index of Advanced Settings list
-		CString		LastSettingsPage;			// Last selected Settings dialog page
+		bool		RatesInBytes;			// Show speeds in bits or Bytes per second
+		DWORD		RatesUnit;				// Units that rates are to be displayed in (B/KB/MB)
+		DWORD		RefreshRate;			// Data display update in milliseconds
+		DWORD		LastSettingsIndex;		// Top item index of Advanced Settings list
+		CString		LastSettingsPage;		// Last selected Settings dialog page
 		CString		Language;
-		bool		LanguageRTL;				// Right-to-Left GUI
-		bool		IgnoreXPsp2;				// Ignore the presence of Windows XPsp2 limits
-		bool		ItWasLimited;				// If user patches half-open connection limit change settings back to full speed
-		bool		DebugBTSources;				// Display received sources for BT download when seeding
+		bool		LanguageRTL;			// Right-to-Left GUI
+		bool		IgnoreXPsp2;			// Ignore the presence of Windows XPsp2 limits
+		bool		ItWasLimited;			// If user patches half-open connection limit change settings back to full speed
+		bool		DebugBTSources;			// Display received sources for BT download when seeding
 		bool		AlwaysOpenURLs;
-		bool		CoolMenuEnable;				// Use skinned menus
-		bool		FirstRun;					// Original installation
-		bool		Running;					// ToDo: detect abnormal shutdown on startup
+		bool		FirstRun;				// Original installation
+		bool		Running;				// ToDo: detect abnormal shutdown on startup
 	} General;
 
 	struct sVersionCheck
 	{
 		DWORD		NextCheck;
 		CString		Quote;
-		//CString	UpdateCheckURL;				// UPDATE_URL (PeerProject.h)
-		bool		UpdateCheck;				// Does PeerProject check for new versions?
+		bool		UpdateCheck;			// Does PeerProject check for new versions?
+		//CString	UpdateCheckURL;			// UPDATE_URL (PeerProject.h)
 		CString		UpgradePrompt;
 		CString		UpgradeFile;
 		CString		UpgradeSHA1;
@@ -94,6 +93,9 @@ public:
 
 	struct sInterface
 	{
+		bool		AutoComplete;			// Use text field histories
+		bool		CoolMenuEnable;			// Use skinned menus
+		bool		LowResMode;
 		DWORD		TipDelay;
 		DWORD		TipAlpha;
 		bool		TipShadow;
@@ -103,7 +105,6 @@ public:
 		bool		TipUploads;
 		bool		TipNeighbours;
 		bool		TipMedia;
-		bool		LowResMode;
 	} Interface;
 
 	struct sWindows
@@ -121,10 +122,10 @@ public:
 
 	struct sFonts
 	{
-		CString		DefaultFont;				// Main font
-		CString		PacketDumpFont;				// Packet Window font
-		CString		SystemLogFont;				// System Window font
-		DWORD		FontSize;					// Basic font size
+		CString		DefaultFont;			// Main font
+		CString		PacketDumpFont;			// Packet Window font
+		CString		SystemLogFont;			// System Window font
+		DWORD		FontSize;				// Basic font size
 	} Fonts;
 
 	struct sLibrary
@@ -149,31 +150,31 @@ public:
 		string_set	SafeExecute;
 		string_set	PrivateTypes;
 		DWORD		ThumbSize;
-		bool		HighPriorityHash;			// Use high priority hashing
-		bool		HashWindow;					// Display annoying hashing window
-		bool		CreateGhosts;				// Default action in the delete file dialog
-		DWORD		HighPriorityHashing;		// desired speed in MB/s when hashing with hi priority
-		DWORD		LowPriorityHashing;			// desired speed in MB/s when hashing with low priority
-		DWORD		MaxMaliciousFileSize;		// Size for which to trigger malicious software search
-		bool		PreferAPETags;				// Read APE tags first and only then ID3 tags from audio files
-		bool		UseFolderGUID;				// Save/Load folder GUID using NTFS stream
-		bool		MarkFileAsDownload;			// Mark downloaded file using NTFS stream as Internet Explorer
-		bool		UseCustomFolders;			// Use desktop.ini
-		bool		ScanAPE;					// Enable .ape,.mac,.apl metadata extraction by internals
-		bool		ScanASF;					// Enable .asf,.wma,.wmv metadata extraction by internals
-		bool		ScanAVI;					// Enable .avi metadata extraction by internals
-		bool		ScanCHM;					// Enable .chm metadata extraction by internals
-		bool		ScanEXE;					// Enable .exe,.dll metadata extraction by internals
-		bool		ScanImage;					// Enable .jpg,.jpeg,.gif,.png,.bmp metadata extraction by internals
-		bool		ScanMP3;					// Enable .mp3 metadata extraction by internals
-		bool		ScanMPC;					// Enable .mpc,.mpp,.mp+ metadata extraction by internals
-		bool		ScanMPEG;					// Enable .mpeg,.mpg metadata extraction by internals
-		bool		ScanMSI;					// Enable .msi metadata extraction by internals
-		bool		ScanOGG;					// Enable .ogg metadata extraction by internals
-		bool		ScanPDF;					// Enable .pdf metadata extraction by internals
-		bool		SmartSeriesDetection;		// Organize video files in Library by using predefined patterns
-		CString		URLExportFormat;			// Template for URL export
-		CString		LastUsedView;				// Name of last folder view used
+		bool		HighPriorityHash;		// Use high priority hashing
+		bool		HashWindow;				// Display annoying hashing window
+		bool		CreateGhosts;			// Default action in the delete file dialog
+		DWORD		HighPriorityHashing;	// desired speed in MB/s when hashing with hi priority
+		DWORD		LowPriorityHashing;		// desired speed in MB/s when hashing with low priority
+		DWORD		MaxMaliciousFileSize;	// Size for which to trigger malicious software search
+		bool		PreferAPETags;			// Read APE tags first and only then ID3 tags from audio files
+		bool		UseFolderGUID;			// Save/Load folder GUID using NTFS stream
+		bool		MarkFileAsDownload;		// Mark downloaded file using NTFS stream as Internet Explorer
+		bool		UseCustomFolders;		// Use desktop.ini
+		bool		ScanAPE;				// Enable .ape,.mac,.apl metadata extraction by internals
+		bool		ScanASF;				// Enable .asf,.wma,.wmv metadata extraction by internals
+		bool		ScanAVI;				// Enable .avi metadata extraction by internals
+		bool		ScanCHM;				// Enable .chm metadata extraction by internals
+		bool		ScanEXE;				// Enable .exe,.dll metadata extraction by internals
+		bool		ScanImage;				// Enable .jpg,.jpeg,.gif,.png,.bmp metadata extraction by internals
+		bool		ScanMP3;				// Enable .mp3 metadata extraction by internals
+		bool		ScanMPC;				// Enable .mpc,.mpp,.mp+ metadata extraction by internals
+		bool		ScanMPEG;				// Enable .mpeg,.mpg metadata extraction by internals
+		bool		ScanMSI;				// Enable .msi metadata extraction by internals
+		bool		ScanOGG;				// Enable .ogg metadata extraction by internals
+		bool		ScanPDF;				// Enable .pdf metadata extraction by internals
+		bool		SmartSeriesDetection;	// Organize video files in Library by using predefined patterns
+		CString		URLExportFormat;		// Template for URL export
+		CString		LastUsedView;			// Name of last folder view used
 	} Library;
 
 	struct sWebServices
@@ -185,14 +186,14 @@ public:
 		bool		BitziOkay;
 		bool		ShareMonkeyOkay;
 		bool		ShareMonkeySaveThumbnail;
-		CString		ShareMonkeyCid;				// Affiliate ID
+		CString		ShareMonkeyCid;			// Affiliate ID
 	} WebServices;
 
 	struct sSearch
 	{
 		CString		LastSchemaURI;
 		CString		BlankSchemaURI;
-		bool		AutoPreview;				// Auto thumb-previewing selected hit
+		bool		AutoPreview;			// Default thumbnail selected hit
 		bool		AdultFilter;
 		bool		AdvancedPanel;
 		bool		HideSearchPanel;
@@ -210,11 +211,11 @@ public:
 		bool		DetailPanelVisible;
 		DWORD		DetailPanelSize;
 		DWORD		MaxPreviewLength;
-		DWORD		SpamFilterThreshold;		// Percentage of spam hits which triggers file sources to be treated as a spam
-		DWORD		GeneralThrottle;			// A general throttle for how often each individual search may run. Low values may cause source finding to get overlooked.
+		DWORD		SpamFilterThreshold;	// Percentage of spam hits which triggers file sources to be treated as a spam
+		DWORD		GeneralThrottle;		// A general throttle for how often each individual search may run. Low values may cause source finding to get overlooked.
 		CString		ShareMonkeyBaseURL;
-		DWORD		ClearPrevious;				// Clear previous search results? 0 - ask user; 1 - no; 2 - yes.
-		bool		SanityCheck;				// Drop hits of banned hosts
+		DWORD		ClearPrevious;			// Clear previous search results? 0 - ask user; 1 - no; 2 - yes.
+		bool		SanityCheck;			// Drop hits of banned hosts
 	} Search;
 
 	struct sMediaPlayer
@@ -235,18 +236,18 @@ public:
 		CString		Mp3PreviewCLSID;
 		CString		AviPreviewCLSID;
 		CString		VisWrapperCLSID;
-	//	CString		VisSoniqueCLSID;			// No Sonique Vis plugin support available
+	//	CString		VisSoniqueCLSID;		// No Sonique Vis plugin support available
 		CString		VisCLSID;
 		CString		VisPath;
 		DWORD		VisSize;
 		CString		ServicePath;
-		bool		ShortPaths;					// Some players differently handle unicode paths but they can launch files using 8.3 paths
+		bool		ShortPaths;				// Some players differently handle unicode paths but they can launch files using 8.3 paths
 	} MediaPlayer;
 
 	struct sWeb
 	{
 		bool		Magnet;
-		bool		Foxy;						// Handle Foxy links (slightly altered magnet)
+		bool		Foxy;					// Handle Foxy links (slightly altered magnet)
 		bool		Gnutella;
 		bool		ED2K;
 		bool		Piolet;
@@ -262,28 +263,28 @@ public:
 		DWORD		InPort;
 		bool		InBind;
 		bool		RandomPort;
-		DWORD		InSpeed;					// Inbound internet connection speed in Kilobits/seconds
-		DWORD		OutSpeed;					// Outbound internet connection speed in Kilobits/seconds
-		bool		IgnoreLocalIP;				// Ingnore all 'local' (LAN) IPs
-		bool		IgnoreOwnIP;				// Do not accept any ports on your external IP as a source
+		DWORD		InSpeed;				// Inbound internet connection speed in Kilobits/seconds
+		DWORD		OutSpeed;				// Outbound internet connection speed in Kilobits/seconds
+		bool		IgnoreLocalIP;			// Ingnore all 'local' (LAN) IPs
+		bool		IgnoreOwnIP;			// Do not accept any ports on your external IP as a source
 		DWORD		TimeoutConnect;
 		DWORD		TimeoutHandshake;
 		DWORD		TimeoutTraffic;
 		DWORD		SendBuffer;
-		bool		RequireForTransfers;		// Only upload/download to connected networks
-		DWORD		ConnectThrottle;			// Delay between connection attempts. (Neighbour connections)
-		DWORD		FailurePenalty;				// Delay after connection failure (seconds, default = 300) (Neighbour connections)
-		DWORD		FailureLimit;				// Max allowed connection failures (default = 3) (Neighbour connections)
-		bool		DetectConnectionLoss;		// Detect loss of internet connection
-		bool		DetectConnectionReset;		// Detect regaining of internet connection
-		bool		ForceConnectedState;		// Force WinINet into a connected state on startup. (Put IE into online mode)
-		bool		SlowConnect;				// Connect to one network at a time. Don't download while connecting. (XPsp2)
-		bool		EnableFirewallException;	// Create Firewall exception at startup
-		bool		DeleteFirewallException;	// Delete Firewall exception on shutdown
+		bool		RequireForTransfers;	// Only upload/download to connected networks
+		DWORD		ConnectThrottle;		// Delay between connection attempts. (Neighbour connections)
+		DWORD		FailurePenalty;			// Delay after connection failure (seconds, default = 300) (Neighbour connections)
+		DWORD		FailureLimit;			// Max allowed connection failures (default = 3) (Neighbour connections)
+		bool		DetectConnectionLoss;	// Detect loss of internet connection
+		bool		DetectConnectionReset;	// Detect regaining of internet connection
+		bool		ForceConnectedState;	// Force WinINet into a connected state on startup. (Put IE into online mode)
+		bool		SlowConnect;			// Connect to one network at a time. Don't download while connecting. (XPsp2)
+		bool		EnableFirewallException;// Create Firewall exception at startup
+		bool		DeleteFirewallException;// Delete Firewall exception on shutdown
 		bool		EnableUPnP;
-		bool		DeleteUPnPPorts;			// Delete forwarded ports on shutdown (UPnP)
-		bool		SkipWANPPPSetup;			// Skip WANPPPConn1 device setup (UPnP)
-		bool		SkipWANIPSetup;				// Skip WANIPConn1 device setup (UPnP)
+		bool		DeleteUPnPPorts;		// Delete forwarded ports on shutdown (UPnP)
+		bool		SkipWANPPPSetup;		// Skip WANPPPConn1 device setup (UPnP)
+		bool		SkipWANIPSetup;			// Skip WANIPConn1 device setup (UPnP)
 	} Connection;
 
 	struct sBandwidth
@@ -296,22 +297,22 @@ public:
 		DWORD		PeerIn;
 		DWORD		PeerOut;
 		DWORD		UdpOut;
-		DWORD		Downloads;					// Inbound speed limit in Bytes/seconds
-		DWORD		Uploads;					// Outbound speed limit in Bytes/seconds
+		DWORD		Downloads;				// Inbound speed limit in Bytes/seconds
+		DWORD		Uploads;				// Outbound speed limit in Bytes/seconds
 		DWORD		HubUploads;
 	} Bandwidth;
 
 	struct sCommunity
 	{
-		bool		ChatEnable;					// Is chat enabled with compatible clients?
-		bool		ChatAllNetworks;			// Is chat allowed over other protocols? (ed2k, etc)
-		bool		ChatFilter;					// Filter out chat spam
-		bool		ChatFilterED2K;				// Filter known ed2k spam. (pretty bad- always on)
-		bool		ChatCensor;					// Censor 'bad' words from chat. (Uses adult filter)
+		bool		ChatEnable;				// Is chat enabled with compatible clients?
+		bool		ChatAllNetworks;		// Is chat allowed over other protocols? (ed2k, etc)
+		bool		ChatFilter;				// Filter out chat spam
+		bool		ChatFilterED2K;			// Filter known ed2k spam. (pretty bad- always on)
+		bool		ChatCensor;				// Censor 'bad' words from chat. (Uses adult filter)
 		bool		Timestamp;
 		bool		ServeProfile;
 		bool		ServeFiles;
-		DWORD		AwayMessageIdleTime;		// Time in secs of idle system time before showing away message
+		DWORD		AwayMessageIdleTime;	// Time in secs of idle system time before showing away message
 	} Community;
 
 	struct sDiscovery
@@ -322,37 +323,37 @@ public:
 		DWORD		UpdatePeriod;
 		DWORD		DefaultUpdate;
 		DWORD		BootstrapCount;
-		DWORD		CacheCount;					// Limit ability to learn new caches
+		DWORD		CacheCount;				// Limit ability to learn new caches
 		bool		EnableG1GWC;
 	} Discovery;
 
 	struct sGnutella
 	{
-		DWORD		ConnectFactor;				// Number of hosts we simultaneously tries when connecting to single hub
+		DWORD		ConnectFactor;			// Number of hosts we simultaneously tries when connecting to single hub
 		bool		DeflateHub2Hub;
 		bool		DeflateLeaf2Hub;
 		bool		DeflateHub2Leaf;
-		DWORD		MaxResults;					// Maximum new results we want on single Search button press
-		DWORD		MaximumPacket;				// Drop packets large than specified (32...256 KB)
-		DWORD		MaxHits;					// Maximum file hits in search result (divided to packets by HitsPerPacket)
-		DWORD		HitsPerPacket;				// Maximum file hits in single search result packet
-		DWORD		RouteCache;					// Life time of node route (seconds)
-		DWORD		HostCacheSize;				// Number of hosts of each type in Host cache
+		DWORD		MaxResults;				// Maximum new results we want on single Search button press
+		DWORD		MaximumPacket;			// Drop packets large than specified (32...256 KB)
+		DWORD		MaxHits;				// Maximum file hits in search result (divided to packets by HitsPerPacket)
+		DWORD		HitsPerPacket;			// Maximum file hits in single search result packet
+		DWORD		RouteCache;				// Life time of node route (seconds)
+		DWORD		HostCacheSize;			// Number of hosts of each type in Host cache
 		DWORD		HostCacheView;
-		DWORD		ConnectThrottle;			// Delay between connection attempts for same host (milliseconds)
-		bool		SpecifyProtocol;			// Specify G1 or G2 when initiating a connection
+		DWORD		ConnectThrottle;		// Delay between connection attempts for same host (milliseconds)
+		bool		SpecifyProtocol;		// Specify G1 or G2 when initiating a connection
 	} Gnutella;
 
 	struct sGnutella1
 	{
-		DWORD		ClientMode;					// Desired mode of operation: MODE_AUTO, MODE_LEAF, MODE_ULTRAPEER
+		DWORD		ClientMode;				// Desired mode of operation: MODE_AUTO, MODE_LEAF, MODE_ULTRAPEER
 		bool		EnableToday;
 		bool		EnableAlways;
-		DWORD		NumHubs;					// Number of ultrapeers a leaf has
-		DWORD		NumLeafs;					// Number of leafs an ultrapeer has
-		DWORD		NumPeers;					// Number of peers an ultrapeer has
-		DWORD		PacketBufferSize;			// Number of packets in packet buffer
-		DWORD		PacketBufferTime;			// Life time of packet in packet buffer before drop (milliseconds)
+		DWORD		NumHubs;				// Number of ultrapeers a leaf has
+		DWORD		NumLeafs;				// Number of leafs an ultrapeer has
+		DWORD		NumPeers;				// Number of peers an ultrapeer has
+		DWORD		PacketBufferSize;		// Number of packets in packet buffer
+		DWORD		PacketBufferTime;		// Life time of packet in packet buffer before drop (milliseconds)
 		DWORD		DefaultTTL;
 		DWORD		SearchTTL;
 		DWORD		TranslateTTL;
@@ -364,28 +365,28 @@ public:
 		bool		VendorMsg;
 		DWORD		QueryThrottle;
 		DWORD		RequeryDelay;
-		DWORD		HostCount;					// Number of hosts in X-Try-Ultrapeers
+		DWORD		HostCount;				// Number of hosts in X-Try-Ultrapeers
 		DWORD		HostExpire;
 		DWORD		PingFlood;
 		DWORD		PingRate;
 		DWORD		PongCache;
 		DWORD		PongCount;
-	//	DWORD		HitQueueLimit;				// Protect G1 clients from badly configured queues
-		bool		QueryHitUTF8;				// Use UTF-8 encoding to read Gnutella1 QueryHit packets
-		bool		QuerySearchUTF8;			// Use UTF-8 encoding to create Gnutella1 Query packets
-		DWORD		MaxHostsInPongs;			// The number of hosts included in the response of pings having SCP GGEP block
+	//	DWORD		HitQueueLimit;			// Protect G1 clients from badly configured queues
+		bool		QueryHitUTF8;			// Use UTF-8 encoding to read Gnutella1 QueryHit packets
+		bool		QuerySearchUTF8;		// Use UTF-8 encoding to create Gnutella1 Query packets
+		DWORD		MaxHostsInPongs;		// The number of hosts included in the response of pings having SCP GGEP block
 	} Gnutella1;
 
 	struct sGnutella2
 	{
-		DWORD		ClientMode;					// Desired mode of operation: MODE_AUTO, MODE_LEAF, MODE_HUB
+		DWORD		ClientMode;				// Desired mode of operation: MODE_AUTO, MODE_LEAF, MODE_HUB
 		bool		HubVerified;
 		bool		EnableToday;
 		bool		EnableAlways;
-		DWORD		NumHubs;					// Number of hubs a leaf has
-		DWORD		NumLeafs;					// Number of leafs a hub has
-		DWORD		NumPeers;					// Number of peers a hub has
-		DWORD		PingRelayLimit;				// Number of other leafs to forward a /PI/UDP to: 10 - 30
+		DWORD		NumHubs;				// Number of hubs a leaf has
+		DWORD		NumLeafs;				// Number of leafs a hub has
+		DWORD		NumPeers;				// Number of peers a hub has
+		DWORD		PingRelayLimit;			// Number of other leafs to forward a /PI/UDP to: 10 - 30
 		DWORD		UdpMTU;
 		DWORD		UdpBuffers;
 		DWORD		UdpInFrames;
@@ -399,10 +400,10 @@ public:
 		DWORD		KHLHubCount;
 		DWORD		HAWPeriod;
 		DWORD		HostCurrent;
-		DWORD		HostCount;					// Number of hosts in X-Try-Hubs
+		DWORD		HostCount;				// Number of hosts in X-Try-Hubs
 		DWORD		HostExpire;
 		DWORD		PingRate;
-		DWORD		QueryGlobalThrottle;		// Max G2 query rate (Cannot exceed 8/sec)
+		DWORD		QueryGlobalThrottle;	// Max G2 query rate (Cannot exceed 8/sec)
 		DWORD		QueryHostThrottle;
 		DWORD		QueryHostDeadline;
 		DWORD		RequeryDelay;
@@ -414,25 +415,25 @@ public:
 	{
 		bool		EnableToday;
 		bool		EnableAlways;
-		bool		FastConnect;				// Try connecting to 2 servers to get online faster
-		bool		ForceHighID;				// Reconnect if low-id. (once only)
-		DWORD		NumServers;					// 1
-		DWORD		MaxLinks;					// Max ed2k client links
+		bool		FastConnect;			// Try connecting to 2 servers to get online faster
+		bool		ForceHighID;			// Reconnect if low-id. (once only)
+		DWORD		NumServers;				// 1 Connection
+		DWORD		MaxLinks;				// Max ed2k client links
 		DWORD		MaxResults;
-		DWORD		MaxShareCount;				// Hard limit on file list sent to server
-		bool		ServerWalk;					// Enable global UDP walk of servers
-		DWORD		StatsGlobalThrottle;		// Global throttle for server UDP stats requests
-		DWORD		QueryGlobalThrottle;		// Global throttle for all ed2k searches (TCP, UDP, manual and auto)
-		DWORD		StatsServerThrottle;		// Max rate at which an individual server can be asked for stats
-		DWORD		QueryServerThrottle;		// Max rate at which an individual server can be queried
-		DWORD		QueryFileThrottle;			// Max rate a file can have GetSources done
-		DWORD		GetSourcesThrottle;			// Max rate a general GetSources can done
-		DWORD		QueueRankThrottle;			// How frequently queue ranks are sent
-		DWORD		PacketThrottle;				// ED2K packet rate limiter
-		DWORD		SourceThrottle;				// ED2K source rate limiter
-		DWORD		MetAutoQuery;				// Auto query for a new server list
-		bool		LearnNewServers;			// Get new servers from servers
-		bool		LearnNewServersClient;		// Get new servers from clients
+		DWORD		MaxShareCount;			// Hard limit on file list sent to server
+		bool		ServerWalk;				// Enable global UDP walk of servers
+		DWORD		StatsGlobalThrottle;	// Global throttle for server UDP stats requests
+		DWORD		QueryGlobalThrottle;	// Global throttle for all ed2k searches (TCP, UDP, manual and auto)
+		DWORD		StatsServerThrottle;	// Max rate at which an individual server can be asked for stats
+		DWORD		QueryServerThrottle;	// Max rate at which an individual server can be queried
+		DWORD		QueryFileThrottle;		// Max rate a file can have GetSources done
+		DWORD		GetSourcesThrottle;		// Max rate a general GetSources can done
+		DWORD		QueueRankThrottle;		// How frequently queue ranks are sent
+		DWORD		PacketThrottle;			// ED2K packet rate limiter
+		DWORD		SourceThrottle;			// ED2K source rate limiter
+		DWORD		MetAutoQuery;			// Auto query for a new server list
+		bool		LearnNewServers;		// Get new servers from servers
+		bool		LearnNewServersClient;	// Get new servers from clients
 		CString		ServerListURL;
 		DWORD		RequestPipe;
 		DWORD		RequestSize;
@@ -440,24 +441,24 @@ public:
 		DWORD		ReAskTime;
 		DWORD		DequeueTime;
 		DWORD		ExtendedRequest;
-		bool		SendPortServer;				// Send port in tag to ed2k servers. (not needed for newer servers)
-		bool		MagnetSearch;				// Search for magnets over ed2k (lower server load)
-		DWORD		MinServerFileSize;			// Minimum size a file in the library must be in order to be included in the server file list. (In KB)
-		DWORD		DefaultServerFlags;			// Default server flags (for UDP searches)
-		bool		Endgame;					// Allow endgame mode when completing downloads. (Download same chunk from multiple sources)
-		bool		LargeFileSupport;			// Allow 64 bit file sizes
+		bool		SendPortServer;			// Send port in tag to ed2k servers. (not needed for newer servers)
+		bool		MagnetSearch;			// Search for magnets over ed2k (lower server load)
+		DWORD		MinServerFileSize;		// Minimum size a file in the library must be in order to be included in the server file list. (In KB)
+		DWORD		DefaultServerFlags;		// Default server flags (for UDP searches)
+		bool		Endgame;				// Allow endgame mode when completing downloads. (Download same chunk from multiple sources)
+		bool		LargeFileSupport;		// Allow 64 bit file sizes
 	} eDonkey;
 
 	struct sBitTorrent
 	{
 		bool		EnableToday;
 		bool		EnableAlways;
-		bool		AdvancedInterface;			// Display BT 'extras' (Obsolete Torrent box)
-		CString		TorrentCreatorPath;			// Location of the program used to create .torrent files
+		bool		AdvancedInterface;		// Display BT 'extras' (Obsolete Torrent box)
+		CString		TorrentCreatorPath;		// Location of the program used to create .torrent files
 		CString		DefaultTracker;
-		DWORD		DefaultTrackerPeriod;		// Delay between tracker contact attempts if one is not specified by tracker
-		DWORD		TorrentCodePage;			// The code page to assume for a .torrent file if it isn't UTF-8
-		bool		TorrentExtraKeys;			// Check for '.utf8' keys if there is an encoding error
+		DWORD		DefaultTrackerPeriod;	// Delay between tracker contact attempts if one is not specified by tracker
+		DWORD		TorrentCodePage;		// The code page to assume for a .torrent file if it isn't UTF-8
+		bool		TorrentExtraKeys;		// Check for '.utf8' keys if there is an encoding error
 		DWORD		LinkTimeout;
 		DWORD		LinkPing;
 		DWORD		RequestPipe;
@@ -465,84 +466,83 @@ public:
 		DWORD		RequestLimit;
 		DWORD		RandomPeriod;
 		DWORD		SourceExchangePeriod;
-		DWORD		UploadCount;				// Number of active torrent uploads allowed
-		DWORD		DownloadConnections;		// Number of active torrent connections allowed
-		DWORD		DownloadTorrents;			// Number of torrents to download at once
-		bool		Endgame;					// Allow endgame mode when completing torrents. (Download same chunk from multiple sources)
-		bool		AutoClear;					// Clear completed torrents when they meet the required share ratio
-		DWORD		ClearRatio;					// Share ratio a torrent must reach to be cleared. (Minimum 100%)
-		bool		AutoSeed;					// Automatically re-seed most recently completed torrent on start-up
-		DWORD		BandwidthPercentage;		// Percentage of bandwidth to use when BT active.
-		bool		TrackerKey;					// Send a key (random value) to trackers
-		bool		PreferenceBTSources;		// Preference downloading from BT sources where appropriate
+		DWORD		UploadCount;			// Number of active torrent uploads allowed
+		DWORD		DownloadConnections;	// Number of active torrent connections allowed
+		DWORD		DownloadTorrents;		// Number of torrents to download at once
+		bool		Endgame;				// Allow endgame mode when completing torrents. (Download same chunk from multiple sources)
+		bool		AutoClear;				// Clear completed torrents when they meet the required share ratio
+		DWORD		ClearRatio;				// Share ratio a torrent must reach to be cleared. (Minimum 100%)
+		bool		AutoSeed;				// Automatically re-seed most recently completed torrent on start-up
+		DWORD		BandwidthPercentage;	// Percentage of bandwidth to use when BT active.
+		bool		TrackerKey;				// Send a key (random value) to trackers
+		bool		PreferenceBTSources;	// Preference downloading from BT sources where appropriate
 		DWORD		DhtPruneTime;
 	} BitTorrent;
 
 	struct sDownloads
 	{
-		CString		IncompletePath;				// Where incomplete downloads are stored
-		CString		CompletePath;				// Where downloads are moved when they complete
-		CString		TorrentPath;				// Where .torrent files are stored
-		CString		CollectionPath;				// Where .collection and .co files are stored
+		CString		IncompletePath;			// Where incomplete downloads are stored
+		CString		CompletePath;			// Where downloads are moved when they complete
+		CString		TorrentPath;			// Where .torrent files are stored
+		CString		CollectionPath;			// Where .collection and .co files are stored
 		DWORD		BufferSize;
-		DWORD		SparseThreshold;			// NTFS 'sparse files' are not used on files below this size. (0 = Disable)
+		DWORD		SparseThreshold;		// NTFS 'sparse files' are not used on files below this size. (0 = Disable)
 		DWORD		MaxAllowedFailures;
-		DWORD		MaxFiles;					// How many files download at once
-		DWORD		MaxTransfers;				// How many total tranfers take place
-		DWORD		MaxFileTransfers;			// How mnay transfers are allowed per file
-		DWORD		MaxFileSearches;			// Number number of files over the download limit that prepare to start. (Search, etc)
-		DWORD		MaxConnectingSources;		// The maximum number of sources that can be in the 'connecting' state. (Important for XPsp2)
-		DWORD		MinSources;					// The minimum number of sources a download has before PeerProject regards it as having a problem
-		DWORD		ConnectThrottle;			// Delay between download attempts. (Very important for routers)
-		DWORD		QueueLimit;					// Longest queue to wait in. (0 to disable. This should be >800 or 0 to get good performance from ed2k)
+		DWORD		MaxFiles;				// How many files download at once
+		DWORD		MaxTransfers;			// How many total tranfers take place
+		DWORD		MaxFileTransfers;		// How mnay transfers are allowed per file
+		DWORD		MaxFileSearches;		// Number number of files over the download limit that prepare to start. (Search, etc)
+		DWORD		MaxConnectingSources;	// The maximum number of sources that can be in the 'connecting' state. (Important for XPsp2)
+		DWORD		MinSources;				// The minimum number of sources a download has before PeerProject regards it as having a problem
+		DWORD		ConnectThrottle;		// Delay between download attempts. (Very important for routers)
+		DWORD		QueueLimit;				// Longest queue to wait in. (0 to disable. This should be >800 or 0 to get good performance from ed2k)
 		DWORD		SearchPeriod;
 		DWORD		StarveTimeout;
-		DWORD		StarveGiveUp;				// How long (in hours) before PeerProject will give up and try another download if it gets no data. (+ 0-9 h, depending on sources)
+		DWORD		StarveGiveUp;			// How long (in hours) before PeerProject will give up and try another download if it gets no data. (+ 0-9 h, depending on sources)
 		DWORD		RetryDelay;
 		DWORD		PushTimeout;
 		bool		StaggardStart;
-		bool		AllowBackwards;				// Permit download to run in reverse when appropriate
+		bool		AllowBackwards;			// Permit download to run in reverse when appropriate
 		DWORD		ChunkSize;
 		DWORD		ChunkStrap;
 		bool		Metadata;
 		bool		VerifyFiles;
 		bool		VerifyTiger;
 		bool		VerifyED2K;
-		bool		NeverDrop;					// Do not drop bad sources (may pollute source list with many dead sources)
+		bool		NeverDrop;				// Do not drop bad sources (may pollute source list with many dead sources)
 		bool		RequestHash;
 		bool		RequestHTTP11;
 		bool		RequestURLENC;
 		DWORD		SaveInterval;
 		bool		FlushSD;
 		bool		ShowSources;
-		bool		SimpleBar;					// Displays a simplified progress bar (lower CPU use)
-		bool		ShowPercent;				// Display small green % complete bar on progress graphic
+		bool		SimpleBar;				// Displays a simplified progress bar (lower CPU use)
+		bool		ShowPercent;			// Display small green % complete bar on progress graphic
 		bool		ShowGroups;
 		bool		AutoExpand;
 		bool		AutoClear;
 		DWORD		ClearDelay;
 		DWORD		FilterMask;
 		bool		ShowMonitorURLs;
-		bool		SortColumns;				// Allow user to sort downloads by clicking column headers
-		bool		SortSources;				// Automatically sort sources (Status, protocol, queue)
-		DWORD		SourcesWanted;				// Number of sources PeerProject 'wants'. (Will not request more than this number of sources from ed2k)
-		DWORD		MaxReviews;					// Maximum number of reviews to store per download
-		DWORD		StartDroppingFailedSourcesNumber;	// Number of sources where PeerProject starts dropping failed sources after only one attempt
-		bool		NoRandomFragments;			//ToDo: Streaming Download and Rarest Piece Selection
+		bool		SortColumns;			// Allow user to sort downloads by clicking column headers
+		bool		SortSources;			// Automatically sort sources (Status, protocol, queue)
+		DWORD		SourcesWanted;			// Number of sources PeerProject 'wants'. (Will not request more than this number of sources from ed2k)
+		DWORD		MaxReviews;				// Maximum number of reviews to store per download
+		DWORD		StartDroppingFailedSourcesNumber;	// Number of sources when failed sources are dropped after only one attempt
+		bool		NoRandomFragments;		//ToDo: Streaming Download and Rarest Piece Selection
 		bool		WebHookEnable;
 		string_set	WebHookExtensions;
 	} Downloads;
 
 	struct sUploads
 	{
-		//string_set BlockAgents;
-		CString 	BlockAgents;
-		DWORD		MaxPerHost;					// Simultaneous uploads per remote client
+		string_set	BlockAgents;
+		DWORD		MaxPerHost;				// Simultaneous uploads per remote client
 		DWORD		FreeBandwidthValue;
 		DWORD		FreeBandwidthFactor;
 		DWORD		ClampdownFactor;
 		DWORD		ClampdownFloor;
-		bool		FairUseMode;				// Limit unknown audio/video to 10% share per remote client
+		bool		FairUseMode;			// Limit unknown audio/video to 10% share per remote client
 		bool		ThrottleMode;
 		DWORD		QueuePollMin;
 		DWORD		QueuePollMax;
@@ -555,12 +555,12 @@ public:
 		bool		DynamicPreviews;
 		DWORD		PreviewQuality;
 		DWORD		PreviewTransfers;
-		bool		AllowBackwards;				// Data sent from end of range to begining where supported
+		bool		AllowBackwards;			// Data sent from end of range to begining where supported
 		bool		HubUnshare;
-		bool		AutoClear;					// Remove completed uploads
-		DWORD		ClearDelay;					// Delay between auto-clears
+		bool		AutoClear;				// Remove completed uploads
+		DWORD		ClearDelay;				// Delay between auto-clears
 		DWORD		FilterMask;
-		DWORD		RewardQueuePercentage;		// The percentage of each reward queue reserved for uploaders
+		DWORD		RewardQueuePercentage;	// The percentage of each reward queue reserved for uploaders
 	} Uploads;
 
 	struct sIRC
@@ -584,20 +584,20 @@ public:
 
 	struct sLive
 	{
-		bool		DiskSpaceWarning;			// Has the user been warned of low disk space?
-		bool		DiskWriteWarning;			// Has the user been warned of write problems?
-		bool		AdultWarning;				// Has the user been warned about the adult filter?
-		bool		QueueLimitWarning;			// Has the user been warned about limiting the max Q position accepted?
-		bool		DefaultED2KServersLoaded;	// Has PeerProject already loaded default ED2K servers?
-		bool		DonkeyServerWarning;		// Has the user been warned about having an empty server list?
-		bool		UploadLimitWarning;			// Has the user been warned about the ed2k/BT ratio?
-		bool		DiskSpaceStop;				// Has PeerProject paused all downloads due to critical disk space?
-		DWORD		BandwidthScale;				// Monitor slider settings
+		bool		DiskSpaceWarning;		// Has the user been warned of low disk space?
+		bool		DiskWriteWarning;		// Has the user been warned of write problems?
+		bool		AdultWarning;			// Has the user been warned about the adult filter?
+		bool		QueueLimitWarning;		// Has the user been warned about limiting the max Q position accepted?
+		bool		DefaultED2KServersLoaded; // Has PeerProject already loaded default ED2K servers?
+		bool		DonkeyServerWarning;	// Has the user been warned about having an empty server list?
+		bool		UploadLimitWarning;		// Has the user been warned about the ed2k/BT ratio?
+		bool		DiskSpaceStop;			// Has PeerProject paused all downloads due to critical disk space?
+		DWORD		BandwidthScale;			// Monitor slider settings
 		bool		LoadWindowState;
 		bool		AutoClose;
-		bool		FirstRun;					// Is this the first time PeerProject is being run?
-		CString		LastDuplicateHash;			// Stores the hash of the file about which the warning was shown
-		bool		MaliciousWarning;			// Is the warning dialog opened?
+		bool		FirstRun;				// Is this the first time PeerProject is being run?
+		CString		LastDuplicateHash;		// Stores the hash of the file about which the warning was shown
+		bool		MaliciousWarning;		// Is the warning dialog opened?
 	} Live;
 
 	struct sRemote
@@ -609,20 +609,20 @@ public:
 
 	struct sScheduler
 	{
-		bool		Enable;						// Enable the scheduler
-		DWORD		LimitedBandwidth;			// % of bandwidth to use in limited mode
-		bool		LimitedNetworks;			// Only connect to G2/BT when limited
-		bool		AllowHub;					// Allow hub mode while scheduler is active
+		bool		Enable;					// Enable the scheduler
+		DWORD		LimitedBandwidth;		// % of bandwidth to use in limited mode
+		bool		LimitedNetworks;		// Only connect to G2/BT when limited
+		bool		AllowHub;				// Allow hub mode while scheduler is active
 	} Scheduler;
 
 	struct sSecurity
 	{
-		DWORD		DefaultBan;					// Custom Ban expiration in seconds
+		DWORD		DefaultBan;				// Custom Ban expiration in seconds
 	} Security;
 
 	struct sExperimental
 	{
-		bool		EnableDIPPSupport;			// Handle GDNA host cache exchange
+		bool		EnableDIPPSupport;		// Handle GDNA host cache exchange
 		bool		TestBTPartials;
 	} Experimental;
 

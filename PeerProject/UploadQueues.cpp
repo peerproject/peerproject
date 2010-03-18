@@ -1,7 +1,7 @@
 //
 // UploadQueues.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -127,7 +127,6 @@ int CUploadQueues::GetPosition(CUploadTransfer* pUpload, BOOL bStart)
 		theApp.Message( MSG_ERROR, _T("Rejecting Upload connection to %s, network core overloaded."),
 			(LPCTSTR)pUpload->m_sAddress );
 	}
-
 
 	// Upload has no valid queue, or network core overloaded, or shutdown
 	return -1;
@@ -491,15 +490,36 @@ BOOL CUploadQueues::Load()
 BOOL CUploadQueues::Save()
 {
 	CQuickLock oLock( m_pSection );
-	CFile pFile;
 
+	CFile pFile;
 	CString strFile = Settings.General.UserPath + _T("\\Data\\UploadQueues.dat");
-	if ( !pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
+
+	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
 		return FALSE;
 
-	CArchive ar( &pFile, CArchive::store );	// 4 KB buffer
-	Serialize( ar );
-	ar.Close();
+	try
+	{
+		CArchive ar( &pFile, CArchive::store );	// 4 KB buffer
+		try
+		{
+			Serialize( ar );
+			ar.Close();
+		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pFile.Abort();
+			pException->Delete();
+			return FALSE;
+		}
+		pFile.Close();
+	}
+	catch ( CException* pException )
+	{
+		pFile.Abort();
+		pException->Delete();
+		return FALSE;
+	}
 
 	return TRUE;
 }
@@ -529,12 +549,13 @@ void CUploadQueues::Serialize(CArchive& ar)
 			GetNext( pos )->Serialize( ar, nVersion );
 		}
 	}
-	else
+	else // Loading
 	{
 		Clear();
 
 		ar >> nVersion;
-		if ( nVersion < 2 ) AfxThrowUserException();
+		if ( nVersion < 2 )
+			AfxThrowUserException();
 
 		for ( DWORD_PTR nCount = ar.ReadCount() ; nCount > 0 ; nCount-- )
 		{

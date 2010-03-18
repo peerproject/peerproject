@@ -1,7 +1,7 @@
 //
 // SkinWindow.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,14 +28,16 @@ class CSkinWindow
 {
 public:
 	CSkinWindow();
-	virtual ~CSkinWindow();
+	~CSkinWindow();
+
+	typedef CMap< CString, const CString&, CRect*, CRect* > CRectMap;
 
 	CString			m_sTargets;
 	CString			m_sLanguage;
 	CDC				m_dcSkin;
 	CBitmap			m_bmSkin;
 	CBitmap			m_bmWatermark;
-	CMap< CString, const CString&, CRect*, CRect* > m_pAnchorList;
+	CRectMap		m_pAnchorList;	// Typedef above
 	CFont			m_fnCaption;
 	COLORREF		m_crCaptionText;
 	COLORREF		m_crCaptionInactive;
@@ -53,8 +55,8 @@ public:
 	void		OnNcCalcSize(CWnd* pWnd, BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
 	void		OnGetMinMaxInfo(MINMAXINFO* lpMMI);
 	UINT		OnNcHitTest(CWnd* pWnd, CPoint point, BOOL bResizable = FALSE);
-	void		OnNcPaint(CWnd* pWnd);
 	BOOL		OnNcActivate(CWnd* pWnd, BOOL bActive);
+	void		OnNcPaint(CWnd* pWnd);
 	void		OnSetText(CWnd* pWnd);
 	void		OnSize(CWnd* pWnd);
 	BOOL		OnEraseBkgnd(CWnd* pWnd, CDC* pDC);
@@ -64,14 +66,14 @@ public:
 	BOOL		OnNcLButtonDblClk(CWnd* pWnd, UINT nHitTest, CPoint point);
 
 protected:
-	CMap< CString, const CString&, CRect*, CRect* > m_pPartList;
-	CBitmap		m_bmAlpha;
 	HBITMAP		m_hoSkin;
+	CBitmap		m_bmAlpha;
+	CRectMap	m_pPartList;	// Typedef above
 	BOOL*		m_bPart;
 	int*		m_nPart;
 	CRect*		m_rcPart;
-	BOOL*		m_bAnchor;
 	CRect*		m_rcAnchor;
+	BOOL*		m_bAnchor;
 	CSize		m_szMinSize;
 	CRect		m_rcMaximise;
 	CRect		m_rcResize;
