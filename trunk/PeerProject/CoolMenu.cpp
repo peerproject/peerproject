@@ -1,7 +1,7 @@
 //
 // CoolMenu.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -44,8 +44,8 @@ CCoolMenu CoolMenu;
 //////////////////////////////////////////////////////////////////////
 // CCoolMenu construction
 
-CCoolMenu::CCoolMenu() :
-	m_bUnhook( FALSE )
+CCoolMenu::CCoolMenu()
+	: m_bUnhook	( FALSE )
 {
 }
 
@@ -113,6 +113,8 @@ void CCoolMenu::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 
 BOOL CCoolMenu::AddMenu(CMenu* pMenu, BOOL bChild)
 {
+	//if ( ! Settings.Interface.CoolMenuEnable ) return FALSE;
+
 	for ( int i = 0 ; i < (int)pMenu->GetMenuItemCount() ; i++ )
 	{
 		TCHAR szBuffer[128] = {};
@@ -132,7 +134,7 @@ BOOL CCoolMenu::AddMenu(CMenu* pMenu, BOOL bChild)
 		// Non-XML parsed menu items
 		int nItemID = pMenu->GetMenuItemID( i );
 		if ( nItemID == ID_SEARCH_FILTER ||
-			nItemID == -1 && !m_sFilterString.IsEmpty() && m_sFilterString == szBuffer )
+			nItemID == -1 && ! m_sFilterString.IsEmpty() && m_sFilterString == szBuffer )
 		{
 			CResultFilters* pResultFilters = new CResultFilters;
 			pResultFilters->Load();
@@ -192,15 +194,16 @@ BOOL CCoolMenu::AddMenu(CMenu* pMenu, BOOL bChild)
 			continue;
 		}
 
-		mii.fType		|= MF_OWNERDRAW;
-		mii.dwItemData	= ( (DWORD_PTR)pMenu->GetSafeHmenu() << 16 ) | ( mii.wID & 0xFFFF );
+		mii.fType |= MF_OWNERDRAW;
+		mii.dwItemData = ( (DWORD_PTR)pMenu->GetSafeHmenu() << 16 ) | ( mii.wID & 0xFFFF );
 
 		if ( strText.IsEmpty() )
 			strText = szBuffer;
 
 		m_pStrings.SetAt( mii.dwItemData, strText );
 
-		if ( bChild ) SetMenuItemInfo( pMenu->GetSafeHmenu(), i, TRUE, &mii );
+		if ( bChild )
+			SetMenuItemInfo( pMenu->GetSafeHmenu(), i, TRUE, &mii );
 
 		if ( mii.hSubMenu != NULL )
 			AddMenu( pMenu->GetSubMenu( i ), TRUE );
@@ -211,7 +214,7 @@ BOOL CCoolMenu::AddMenu(CMenu* pMenu, BOOL bChild)
 
 BOOL CCoolMenu::ReplaceMenuText(CMenu* pMenu, int nPosition, MENUITEMINFO FAR* mii, LPCTSTR pszText)
 {
-	if ( !pMenu || mii == NULL )
+	if ( ! pMenu || mii == NULL )
 		return FALSE;
 	ASSERT( mii->dwTypeData );
 
@@ -226,7 +229,7 @@ BOOL CCoolMenu::ReplaceMenuText(CMenu* pMenu, int nPosition, MENUITEMINFO FAR* m
 	mii->fMask = MIIM_DATA|MIIM_ID|MIIM_FTYPE|MIIM_STRING;
 
 	// We modified menu, retrieve a new MII (validates and changes data)
-	if ( !GetMenuItemInfo( pMenu->GetSafeHmenu(), nPosition, TRUE, mii ) )
+	if ( ! GetMenuItemInfo( pMenu->GetSafeHmenu(), nPosition, TRUE, mii ) )
 		return FALSE;
 
 	// Replace the corresponding value in the collection
@@ -328,7 +331,8 @@ void CCoolMenu::OnMeasureItemInternal(LPMEASUREITEMSTRUCT lpMeasureItemStruct)
 		lpMeasureItemStruct->itemHeight	= 23;
 	}
 
-	if ( m_hMsgHook == NULL ) lpMeasureItemStruct->itemHeight ++;
+	if ( m_hMsgHook == NULL )
+		lpMeasureItemStruct->itemHeight ++;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -416,7 +420,7 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	if ( bSelected )
 	{
 		SetSelectmark( Skin.GetWatermark( L"CCoolMenu.Hover" ) );
-		if ( m_bSelectTest && ( !bDisabled || bKeyboard ) )
+		if ( m_bSelectTest && ( ! bDisabled || bKeyboard ) )
 		{
 			CoolInterface.DrawWatermark( pDC, &rcItem, &m_bmSelectmark );
 		}
@@ -453,7 +457,7 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		pDC->Draw3dRect( rcItem.left + 2, rcItem.top + 2, 20, rcItem.Height() - 3 - bEdge,
 			Colors.m_crBorder, Colors.m_crBorder );
 		pDC->FillSolidRect( rcItem.left + 3, rcItem.top + 3, 18, rcItem.Height() - 5 - bEdge,
-			( bSelected && !bDisabled ) ? Colors.m_crBackCheckSel : Colors.m_crBackCheck );
+			( bSelected && ! bDisabled ) ? Colors.m_crBackCheckSel : Colors.m_crBackCheck );
 	}
 
 	nIcon = CoolInterface.ImageForID( (DWORD)lpDrawItemStruct->itemID );
@@ -559,7 +563,7 @@ void CCoolMenu::DrawWatermark(CDC* pDC, CRect* pRect, int nOffX, int nOffY)
 // CCoolMenu border effects
 
 HHOOK	CCoolMenu::m_hMsgHook	= NULL;
-LPCTSTR CCoolMenu::wpnOldProc	= _T("RAZA_MenuOldWndProc");
+LPCTSTR CCoolMenu::wpnOldProc	= _T("PEER_MenuOldWndProc");
 BOOL	CCoolMenu::m_bPrinted	= TRUE;
 int		CCoolMenu::m_nEdgeLeft	= 0;
 int		CCoolMenu::m_nEdgeTop	= 0;
@@ -569,6 +573,8 @@ void CCoolMenu::EnableHook()
 {
 	ASSERT( m_hMsgHook == NULL );
 	ASSERT( m_bUnhook == FALSE );
+
+	if ( ! Settings.Interface.CoolMenuEnable ) return;
 
 	m_bUnhook = TRUE;
 	EnableHook( TRUE );
@@ -630,7 +636,7 @@ UINT_PTR CCoolMenu::DoExplorerMenu(HWND hwnd, const CStringList& oFiles, POINT p
 				ici.lpVerb = reinterpret_cast< LPCSTR >( nCmd - ID_SHELL_MENU_MIN );
 				ici.lpVerbW = reinterpret_cast< LPCWSTR >( nCmd - ID_SHELL_MENU_MIN );
 				ici.nShow = SW_SHOWNORMAL;
-				HRESULT hr = pContextMenu1->InvokeCommand( (CMINVOKECOMMANDINFO*)&ici );
+				hr = pContextMenu1->InvokeCommand( (CMINVOKECOMMANDINFO*)&ici );
 				VERIFY( SUCCEEDED( hr ) );
 			}
 			else if ( ( TPM_RETURNCMD & nFlags ) == 0 )
@@ -646,7 +652,7 @@ UINT_PTR CCoolMenu::DoExplorerMenu(HWND hwnd, const CStringList& oFiles, POINT p
 		pContextMenuCache = m_pContextMenuCache;
 		m_pContextMenuCache = pContextMenu1;
 
-		// TODO: Findout why crashes sometimes inside Windows Shell SetSite() function
+		// ToDo: Determine if it still crashes inside Windows Shell SetSite() function
 		SafeRelease( pContextMenuCache );
 	}
 

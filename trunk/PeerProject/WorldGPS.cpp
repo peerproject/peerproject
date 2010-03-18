@@ -56,25 +56,19 @@ BOOL CWorldGPS::Load()
 
 	Clear();
 
-	CString strFile = Settings.General.Path + L"\\Data\\WorldGPS";
+	CString strFile = Settings.General.Path + L"\\Data\\WorldGPS.dat";
 
-	bool bImport = theApp.GetProfileInt( L"", L"ImportWorldGPS", FALSE ) != 0;
-	strFile.Append( bImport ? L".xml" : L".dat" );
+	// Registry use is obsolete (auto-fallback)
+	//bool bImport = theApp.GetProfileInt( L"", L"ImportWorldGPS", FALSE ) != 0;
+	//strFile.Append( bImport ? L".xml" : L".dat" );
 
 	if ( ! pFile.Open( (LPCTSTR)strFile.GetBuffer(), CFile::modeRead ) )
 	{
-		if ( bImport )
-		{
-			strFile = Settings.General.Path + L"\\Data\\WorldGPS.dat";
-			if ( ! pFile.Open( (LPCTSTR)strFile.GetBuffer(), CFile::modeRead ) )
-				return FALSE;
-			bImport = false;
-		}
-		else
+		strFile = Settings.General.Path + L"\\Data\\WorldGPS.xml";
+		if ( ! pFile.Open( (LPCTSTR)strFile.GetBuffer(), CFile::modeRead ) )
 			return FALSE;
 	}
-
-	if ( ! bImport )
+	else
 	{
 		try
 		{
@@ -139,7 +133,7 @@ void CWorldGPS::Serialize(CArchive& ar)
 	{
 		ar.WriteCount( m_nCountry );
 	}
-	else
+	else // Loading
 	{
 		m_nCountry = static_cast< DWORD >( ar.ReadCount() );
 		m_pCountry = new CWorldCountry[ m_nCountry ];
@@ -313,4 +307,3 @@ BOOL CWorldCity::LoadFrom(CXMLElement* pRoot)
 
 	return TRUE;
 }
-

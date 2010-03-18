@@ -1,7 +1,7 @@
 //
 // CtrlHomePanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -164,9 +164,9 @@ void CHomePanel::Update()
 /////////////////////////////////////////////////////////////////////////////
 // CHomeConnectionBox construction
 
-CHomeConnectionBox::CHomeConnectionBox() :
-	m_pdConnectedHours( NULL ),
-	m_pdConnectedMinutes( NULL )
+CHomeConnectionBox::CHomeConnectionBox()
+	: m_pdConnectedHours ( NULL )
+	, m_pdConnectedMinutes ( NULL )
 {
 	ZeroMemory( m_pdCount, sizeof( m_pdCount ) );
 	SetPrimary();
@@ -368,12 +368,12 @@ void CHomeConnectionBox::Update()
 /////////////////////////////////////////////////////////////////////////////
 // CHomeLibraryBox construction
 
-CHomeLibraryBox::CHomeLibraryBox() :
-	m_pdLibraryFiles( NULL ),
-	m_pdLibraryVolume( NULL ),
-	m_pdLibraryHashRemaining( NULL ),
-	m_hHand( NULL ),
-	m_pHover( NULL )
+CHomeLibraryBox::CHomeLibraryBox()
+	: m_pdLibraryFiles	( NULL )
+	, m_pdLibraryVolume	( NULL )
+	, m_pdLibraryHashRemaining	( NULL )
+	, m_hHand			( NULL )
+	, m_pHover			( NULL )
 {
 	SetPrimary();
 }
@@ -393,11 +393,13 @@ int CHomeLibraryBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CRichTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	m_pFont.CreateFontW( -(int)(Settings.Fonts.FontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+	m_pFont.CreateFont( -(int)(Settings.Fonts.FontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
 	m_hHand = theApp.LoadCursor( IDC_HAND );
+
+	m_wndTip.Create( this, &Settings.Interface.TipLibrary );
 
 	return 0;
 }
@@ -460,7 +462,7 @@ void CHomeLibraryBox::Update()
 		CLibraryRecent* pRecent = LibraryHistory.GetNext( pos );
 		if ( pRecent->m_pFile == NULL ) continue;
 
-        INT_PTR nItem = m_pList.GetSize() - 1;
+		INT_PTR nItem = m_pList.GetSize() - 1;
 		for ( ; nItem >= 0 ; nItem-- )
 		{
 			Item* pItem = m_pList.GetAt( nItem );
@@ -673,6 +675,11 @@ BOOL CHomeLibraryBox::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 	Item* pItem = HitTest( point );
 
+	if ( pItem != NULL )
+		m_wndTip.Show( pItem->m_nIndex );
+	else
+		m_wndTip.Hide();
+
 	if ( pItem != m_pHover )
 	{
 		if ( pItem != NULL && m_pHover == NULL )
@@ -695,6 +702,8 @@ BOOL CHomeLibraryBox::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 void CHomeLibraryBox::OnLButtonUp(UINT nFlags, CPoint point)
 {
+	m_wndTip.Hide();
+
 	if ( Item* pItem = HitTest( point ) )
 	{
 		CSingleLock oLock( &Library.m_pSection, TRUE );
@@ -744,16 +753,16 @@ void CHomeLibraryBox::OnTimer(UINT_PTR nIDEvent)
 /////////////////////////////////////////////////////////////////////////////
 // CHomeDownloadsBox construction
 
-CHomeDownloadsBox::CHomeDownloadsBox() :
-	m_pdDownloadsNone( NULL ),
-	m_pdDownloadsOne( NULL ),
-	m_pdDownloadsMany( NULL ),
-	m_pdDownloadedNone( NULL ),
-	m_pdDownloadedOne( NULL ),
-	m_pdDownloadedMany( NULL ),
-	m_pdDownloadedVolume( NULL ),
-	m_hHand( NULL ),
-	m_pHover( NULL )
+CHomeDownloadsBox::CHomeDownloadsBox()
+	: m_pdDownloadsNone	( NULL )
+	, m_pdDownloadsOne	( NULL )
+	, m_pdDownloadsMany	( NULL )
+	, m_pdDownloadedNone ( NULL )
+	, m_pdDownloadedOne	( NULL )
+	, m_pdDownloadedMany ( NULL )
+	, m_pdDownloadedVolume ( NULL )
+	, m_hHand			( NULL )
+	, m_pHover			( NULL )
 {
 	SetPrimary();
 }
@@ -773,8 +782,8 @@ int CHomeDownloadsBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CRichTaskBox::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	m_pFont.CreateFontW( -(int)(Settings.Fonts.FontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+	m_pFont.CreateFont( -(int)(Settings.Fonts.FontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
 	m_hHand = theApp.LoadCursor( IDC_HAND );
@@ -1132,6 +1141,8 @@ BOOL CHomeDownloadsBox::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 void CHomeDownloadsBox::OnLButtonUp(UINT nFlags, CPoint point)
 {
+	m_wndTip.Hide();
+
 	if ( Item* pItem = HitTest( point ) )
 	{
 		m_pHover = NULL;
@@ -1181,15 +1192,15 @@ BOOL CHomeDownloadsBox::ExecuteDownload(CDownload* pDownload)
 /////////////////////////////////////////////////////////////////////////////
 // CHomeUploadsBox construction
 
-CHomeUploadsBox::CHomeUploadsBox() :
-	m_pdUploadsNone( NULL ),
-	m_pdUploadsOne( NULL ),
-	m_pdUploadsMany( NULL ),
-	m_pdUploadedNone( NULL ),
-	m_pdUploadedOne( NULL ),
-	m_pdUploadedMany( NULL ),
-	m_pdTorrentsOne( NULL ),
-	m_pdTorrentsMany( NULL )
+CHomeUploadsBox::CHomeUploadsBox()
+	: m_pdUploadsNone	( NULL )
+	, m_pdUploadsOne	( NULL )
+	, m_pdUploadsMany	( NULL )
+	, m_pdUploadedNone	( NULL )
+	, m_pdUploadedOne	( NULL )
+	, m_pdUploadedMany	( NULL )
+	, m_pdTorrentsOne	( NULL )
+	, m_pdTorrentsMany	( NULL )
 {
 	SetPrimary();
 }

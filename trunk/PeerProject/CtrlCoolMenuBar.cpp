@@ -1,7 +1,7 @@
 //
 // CtrlCoolMenuBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -48,9 +48,9 @@ BEGIN_MESSAGE_MAP(CCoolMenuBarCtrl, CCoolBarCtrl)
 	ON_WM_INITMENUPOPUP()
 	ON_WM_MENUSELECT()
 	ON_WM_ENTERIDLE()
-	//}}AFX_MSG_MAP
 	ON_WM_ENTERMENULOOP()
 	ON_WM_EXITMENULOOP()
+	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -106,7 +106,8 @@ void CCoolMenuBarCtrl::OpenMenuBar()
 {
 	if ( m_pDown == NULL )
 	{
-		if ( ( m_pSelect = GetIndex( 0 ) ) != NULL ) PostMessage( WM_TIMER, 5 );
+		if ( ( m_pSelect = GetIndex( 0 ) ) != NULL )
+			PostMessage( WM_TIMER, 5 );
 	}
 }
 
@@ -457,4 +458,3 @@ BOOL CCoolMenuBarCtrl::OnMenuMessage(MSG* pMsg)
 
 	return FALSE;
 }
-

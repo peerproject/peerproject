@@ -51,7 +51,7 @@ BOOL CDHT::OnPacket(SOCKADDR_IN* pHost, const CBENode* pRoot)
 	CQuickLock oLock( m_pSection );
 
 	BOOL bHandled = FALSE;
-	
+
 	CQuickLock oLock2( HostCache.BitTorrent.m_pSection );
 	CHostCacheHost* pCache = HostCache.BitTorrent.Add(
 		&pHost->sin_addr, htons( pHost->sin_port ) );

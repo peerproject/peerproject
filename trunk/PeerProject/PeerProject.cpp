@@ -1,7 +1,7 @@
 //
 // PeerProject.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2009
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,6 +26,7 @@
 #include "CoolInterface.h"
 #include "DDEServer.h"
 #include "DiscoveryServices.h"
+#include "DlgDeleteFile.h"
 #include "DownloadGroups.h"
 #include "Downloads.h"
 #include "EDClients.h"
@@ -83,12 +84,12 @@ const LPCTSTR RT_GZIP = _T("GZIP");
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectCommandLineInfo
 
-CPeerProjectCommandLineInfo::CPeerProjectCommandLineInfo() :
-	m_bTray( FALSE ),
-	m_bNoSplash( FALSE ),
-	m_bNoAlphaWarning( FALSE ),
-	m_nGUIMode( -1 ),
-	m_bHelp( FALSE )
+CPeerProjectCommandLineInfo::CPeerProjectCommandLineInfo()
+	: m_bTray		( FALSE )
+	, m_bNoSplash	( FALSE )
+	, m_bNoAlphaWarning ( FALSE )
+	, m_nGUIMode	( -1 )
+	, m_bHelp		( FALSE )
 {
 }
 
@@ -174,6 +175,7 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_hHookKbd				( NULL )
 	, m_hHookMouse				( NULL )
 	, m_bMenuWasVisible			( FALSE )
+	, m_nFontQuality			( DEFAULT_QUALITY )
 
 	, m_hCryptProv				( NULL )
 	, m_pRegisterApplicationRestart( NULL )
@@ -205,16 +207,16 @@ CPeerProjectApp::CPeerProjectApp()
 	m_nUPnPExternalAddress.s_addr = INADDR_NONE;
 
 // BugTrap (www.intellesoft.net)
-#ifdef _DEBUG
+#ifdef _DEBUG // ToDo: Enable release builds?
 	BT_InstallSehFilter();
 	BT_SetTerminate();
-//	BT_SetAppName( _T( CLIENT_NAME ) );
+//	BT_SetAppName( CLIENT_NAME );
 	BT_SetFlags( BTF_INTERCEPTSUEF | BTF_SHOWADVANCEDUI | BTF_DESCRIBEERROR |
 		BTF_DETAILEDMODE | BTF_ATTACHREPORT | BTF_EDITMAIL );
 	BT_SetSupportEMail( _T("peerprojectbugs@lists.sourceforge.net") );
-	//BT_SetSupportServer( _T("http://peerproject.org/BugTrapServer/RequestHandler.aspx"), 80 );
+//	BT_SetSupportServer( _T("http://bugtrap.peerproject.org/RequestHandler.aspx"), 80 );
 	BT_SetSupportURL( _T("http://peerproject.org/") );
-	BT_AddRegFile( _T("Settings.reg"), _T("HKEY_CURRENT_USER\\Software\\PeerProject\\PeerProject") );
+	BT_AddRegFile( _T("Settings.reg"), _T("HKEY_CURRENT_USER\\") REGISTRY_KEY );
 #endif
 }
 
@@ -225,7 +227,7 @@ BOOL CPeerProjectApp::InitInstance()
 {
 	CWinApp::InitInstance();
 
-	SetRegistryKey( _T(CLIENT_NAME) );
+	SetRegistryKey( CLIENT_NAME );
 
 	GetVersionNumber();
 	Settings.Load();			// Loads settings. Depends on GetVersionNumber()
@@ -565,12 +567,7 @@ int CPeerProjectApp::ExitInstance()
 	if ( m_hShlWapi != NULL )
 		FreeLibrary( m_hShlWapi );
 
-	if ( m_hGeoIP != NULL )
-	{
-		if ( m_pGeoIP && m_pfnGeoIP_delete )
-			m_pfnGeoIP_delete( m_pGeoIP );
-		FreeLibrary( m_hGeoIP );
-	}
+	FreeCountry();	// Release GeoIP
 
 	if ( m_hLibGFL != NULL )
 		FreeLibrary( m_hLibGFL );
@@ -786,7 +783,7 @@ void CPeerProjectApp::GetVersionNumber()
 		m_nVersion[0], m_nVersion[1],
 		m_nVersion[2], m_nVersion[3] );
 
-	m_sSmartAgent = _T( CLIENT_NAME ) _T(" ");
+	m_sSmartAgent = CLIENT_NAME _T(" ");
 	m_sSmartAgent += m_sVersion;
 
 	m_pBTVersion[ 0 ] = BT_ID1;
@@ -802,7 +799,7 @@ void CPeerProjectApp::GetVersionNumber()
 #else
 	_T("  32-bit  ") +
 #endif
-	_T("(") + m_sBuildDate + 
+	_T("(") + m_sBuildDate +
 #ifdef __REVISION__
 	_T(" r") _T(__REVISION__) _T(")") +
 #else
@@ -819,7 +816,7 @@ void CPeerProjectApp::GetVersionNumber()
 #endif
 
 #ifdef _DEBUG	// BugTrack
-	BT_SetAppName( _T(CLIENT_NAME) );
+	BT_SetAppName( CLIENT_NAME );
 	BT_SetAppVersion( m_sVersionLong );
 #endif
 
@@ -862,14 +859,14 @@ void CPeerProjectApp::GetVersionNumber()
 		else if ( m_nWindowsVersionMinor == 1 )
 		{
 			// No network limiting for original XP or SP1
-			if ( !sp || sp[ 13 ] == '1' )
+			if ( ! sp || sp[ 13 ] == '1' )
 				m_bLimitedConnections = false;
 		}
 		// Windows XP64 or 2003
 		else if ( m_nWindowsVersionMinor == 2 )
 		{
 			// No network limiting for Vanilla Win2003/XP64
-			if ( !sp )
+			if ( ! sp )
 				m_bLimitedConnections = false;
 		}
 	}
@@ -952,18 +949,9 @@ void CPeerProjectApp::InitResources()
 		(FARPROC&)m_pfnSHGetKnownFolderPath = GetProcAddress( m_hShell32, "SHGetKnownFolderPath" );
 	}
 
-	// Load the GeoIP library for mapping IPs to countries
-	if ( ( m_hGeoIP = CustomLoadLibrary( _T("GeoIP.dll") ) ) != NULL )
-	{
-		GeoIP_newFunc pfnGeoIP_new = (GeoIP_newFunc)GetProcAddress( m_hGeoIP, "GeoIP_new" );
-		m_pfnGeoIP_delete = (GeoIP_deleteFunc)GetProcAddress( m_hGeoIP, "GeoIP_delete" );
-		m_pfnGeoIP_country_code_by_ipnum = (GeoIP_country_code_by_ipnumFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_code_by_ipnum" );
-		m_pfnGeoIP_country_name_by_ipnum = (GeoIP_country_name_by_ipnumFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_name_by_ipnum" );
-		if ( pfnGeoIP_new )
-			m_pGeoIP = pfnGeoIP_new( GEOIP_MEMORY_CACHE );
-	}
+	LoadCountry();	// GeoIP
 
-	// We load it in a custom way, so PeerProject plugins can use this library also when it isn't in its search path but loaded by CustomLoadLibrary (very useful when running PeerProject inside Visual Studio)
+	// Load LibGFL in a custom way, so PeerProject plugins can use this library also when not in its search path (very useful when running inside Visual Studio)
 	m_hLibGFL = CustomLoadLibrary( _T("LibGFL290.dll") );
 
 	// Use GlobalMemoryStatusEx if possible (WinXP)
@@ -984,7 +972,20 @@ void CPeerProjectApp::InitResources()
 		RegCloseKey( hKey );
 	}
 
-	// Set up the default fonts
+	// Setup default fonts:
+
+	// theApp.m_nFontQuality default ClearType
+	UINT nSmoothingType = 0;
+	BOOL bFontSmoothing = FALSE;
+	if ( SystemParametersInfo( SPI_GETFONTSMOOTHING, 0, &bFontSmoothing, 0 ) &&
+		 bFontSmoothing &&
+		 SystemParametersInfo( SPI_GETFONTSMOOTHINGTYPE, 0, &nSmoothingType, 0 ) )
+	{
+		m_nFontQuality = ( nSmoothingType == FE_FONTSMOOTHINGSTANDARD ) ?
+			ANTIALIASED_QUALITY : ( ( nSmoothingType == FE_FONTSMOOTHINGCLEARTYPE ) ?
+			CLEARTYPE_QUALITY : DEFAULT_QUALITY );
+	}
+
 	if ( Settings.Fonts.DefaultFont.IsEmpty() )
 	{
 		// Get font from current theme
@@ -1000,8 +1001,7 @@ void CPeerProjectApp::InitResources()
 	{
 		// Get font by legacy method
 		NONCLIENTMETRICS pMetrics = { sizeof( NONCLIENTMETRICS ) };
-		SystemParametersInfo( SPI_GETNONCLIENTMETRICS, sizeof( NONCLIENTMETRICS ),
-			&pMetrics, 0 );
+		SystemParametersInfo( SPI_GETNONCLIENTMETRICS, sizeof( NONCLIENTMETRICS ), &pMetrics, 0 );
 		Settings.Fonts.DefaultFont = pMetrics.lfMenuFont.lfFaceName;
 	}
 
@@ -1012,15 +1012,15 @@ void CPeerProjectApp::InitResources()
 		Settings.Fonts.PacketDumpFont = _T("Lucida Console");
 
 	m_gdiFont.CreateFont( -(int)Settings.Fonts.FontSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
 	m_gdiFontBold.CreateFont( -(int)Settings.Fonts.FontSize, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
 	m_gdiFontLine.CreateFont( -(int)Settings.Fonts.FontSize, 0, 0, 0, FW_NORMAL, FALSE, TRUE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
 	CryptAcquireContext( &m_hCryptProv, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT );
@@ -1039,7 +1039,8 @@ HINSTANCE CPeerProjectApp::CustomLoadLibrary(LPCTSTR pszFileName)
 {
 	HINSTANCE hLibrary = NULL;
 
-	if ( ( hLibrary = LoadLibrary( pszFileName ) ) != NULL || ( hLibrary = LoadLibrary( Settings.General.Path + _T("\\") + pszFileName ) ) != NULL );
+	if ( ( hLibrary = LoadLibrary( pszFileName ) ) != NULL || ( hLibrary = LoadLibrary( Settings.General.Path + _T("\\") + pszFileName ) ) != NULL )
+		; // Success
 	else
 		TRACE( _T("DLL not found: %s\r\n"), pszFileName );
 
@@ -1261,6 +1262,9 @@ CString GetErrorString(DWORD dwError)
 	return CString();
 }
 
+/////////////////////////////////////////////////////////////////////////////
+// CPeerProjectApp GeoIP Countries
+
 CString CPeerProjectApp::GetCountryCode(IN_ADDR pAddress) const
 {
 	if ( m_pfnGeoIP_country_code_by_ipnum && m_pGeoIP )
@@ -1274,6 +1278,40 @@ CString CPeerProjectApp::GetCountryName(IN_ADDR pAddress) const
 		return CString( m_pfnGeoIP_country_name_by_ipnum( m_pGeoIP, htonl( pAddress.s_addr ) ) );
 	return _T("");
 }
+
+void CPeerProjectApp::LoadCountry()
+{
+	if ( ( m_hGeoIP = CustomLoadLibrary( _T("GeoIP.dll") ) ) != NULL )
+	{
+		GeoIP_newFunc pfnGeoIP_new = (GeoIP_newFunc)GetProcAddress( m_hGeoIP, "GeoIP_new" );
+		m_pfnGeoIP_delete = (GeoIP_deleteFunc)GetProcAddress( m_hGeoIP, "GeoIP_delete" );
+		m_pfnGeoIP_country_code_by_ipnum = (GeoIP_country_code_by_ipnumFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_code_by_ipnum" );
+		m_pfnGeoIP_country_name_by_ipnum = (GeoIP_country_name_by_ipnumFunc)GetProcAddress( m_hGeoIP, "GeoIP_country_name_by_ipnum" );
+		if ( pfnGeoIP_new )
+			m_pGeoIP = pfnGeoIP_new( GEOIP_MEMORY_CACHE );
+	}
+}
+
+void CPeerProjectApp::FreeCountry()
+{
+	if ( m_hGeoIP != NULL )
+	{
+		if ( m_pGeoIP && m_pfnGeoIP_delete )
+		{
+			__try
+			{
+				m_pfnGeoIP_delete( m_pGeoIP );
+			}
+			__except( EXCEPTION_EXECUTE_HANDLER )
+			{
+			}
+			m_pGeoIP = NULL;
+		}
+		FreeLibrary( m_hGeoIP );
+		m_hGeoIP = NULL;
+	}
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectApp process an internal URI
@@ -1750,9 +1788,7 @@ BOOL LoadIcon(LPCTSTR szFilename, HICON* phSmallIcon, HICON* phLargeIcon, HICON*
 		strIcon = strIcon.Mid( 1, strIcon.GetLength() - 2 );
 
 	if ( phLargeIcon || phSmallIcon )
-	{
 		ExtractIconEx( strIcon, nIcon, phLargeIcon, phSmallIcon, 1 );
-	}
 
 	if ( phHugeIcon )
 	{
@@ -1764,6 +1800,36 @@ BOOL LoadIcon(LPCTSTR szFilename, HICON* phSmallIcon, HICON* phLargeIcon, HICON*
 	return ( phLargeIcon && *phLargeIcon ) || ( phSmallIcon && *phSmallIcon ) ||
 		( phHugeIcon && *phHugeIcon );
 }
+
+//HICON LoadCLSIDIcon(LPCTSTR szCLSID)
+//{
+//	HKEY hKey;
+//	CString strPath;
+//	strPath.Format( _T("CLSID\\%s\\InProcServer32"), szCLSID );
+//	if ( RegOpenKeyEx( HKEY_CLASSES_ROOT, strPath, 0, KEY_READ, &hKey ) != ERROR_SUCCESS )
+//	{
+//		strPath.Format( _T("CLSID\\%s\\LocalServer32"), szCLSID );
+//		if ( RegOpenKeyEx( HKEY_CLASSES_ROOT, strPath, 0, KEY_READ, &hKey ) != ERROR_SUCCESS )
+//			return NULL;
+//	}
+//
+//	DWORD dwType = REG_SZ, dwSize = MAX_PATH * sizeof( TCHAR );
+//	LONG lResult = RegQueryValueEx( hKey, _T(""), NULL, &dwType,
+//		(LPBYTE)strPath.GetBuffer( MAX_PATH ), &dwSize );
+//	strPath.ReleaseBuffer( dwSize / sizeof(TCHAR) );
+//	RegCloseKey( hKey );
+//
+//	if ( lResult != ERROR_SUCCESS )
+//		return NULL;
+//
+//	strPath.Trim( _T(" \"") );
+//
+//	HICON hSmallIcon;
+//	if ( ! LoadIcon( strPath, &hSmallIcon, NULL, NULL ) )
+//		return NULL;
+//
+//	return hSmallIcon;
+//}
 
 int AddIcon(UINT nIcon, CImageList& gdiImageList)
 {
@@ -1857,27 +1923,27 @@ HBITMAP CreateMirroredBitmap(HBITMAP hbmOrig)
 	HDC hdc, hdcMem1, hdcMem2;
 	HBITMAP hbm = NULL, hOld_bm1, hOld_bm2;
 	BITMAP bm;
-	if ( !hbmOrig ) return NULL;
-	if ( !GetObject( hbmOrig, sizeof(BITMAP), &bm ) ) return NULL;
+	if ( ! hbmOrig ) return NULL;
+	if ( ! GetObject( hbmOrig, sizeof(BITMAP), &bm ) ) return NULL;
 
 	hdc = GetDC( NULL );
 	if ( hdc )
 	{
 		hdcMem1 = CreateCompatibleDC( hdc );
-		if ( !hdcMem1 )
+		if ( ! hdcMem1 )
 		{
 			ReleaseDC( NULL, hdc );
 			return NULL;
 		}
 		hdcMem2 = CreateCompatibleDC( hdc );
-		if ( !hdcMem2 )
+		if ( ! hdcMem2 )
 		{
 			DeleteDC( hdcMem1 );
 			ReleaseDC( NULL, hdc );
 			return NULL;
 		}
 		hbm = CreateCompatibleBitmap( hdc, bm.bmWidth, bm.bmHeight );
-		if (!hbm)
+		if (! hbm)
 		{
 			DeleteDC( hdcMem1 );
 			DeleteDC( hdcMem2 );
@@ -2236,6 +2302,58 @@ BOOL CreateDirectory(LPCTSTR szPath)
 	return CreateDirectory( CString( _T("\\\\?\\") ) + szPath, NULL );
 }
 
+void DeleteFiles(CStringList& pList)
+{
+	while ( ! pList.IsEmpty() )
+	{
+		CString strFirstPath = pList.GetHead();
+
+		CDeleteFileDlg dlg;
+		dlg.m_bAll = ( pList.GetCount() > 1 );
+
+		{
+			CQuickLock pLibraryLock( Library.m_pSection );
+
+			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strFirstPath ) )
+			{
+				dlg.m_sName	= pFile->m_sName;
+				dlg.m_sComments = pFile->m_sComments;
+				dlg.m_nRateValue = pFile->m_nRating;
+			}
+			else
+			{
+				dlg.m_sName = PathFindFileName( strFirstPath );
+			}
+		}
+
+		if ( dlg.DoModal() != IDOK )
+			break;
+
+		for ( INT_PTR nProcess = dlg.m_bAll ? pList.GetCount() : 1 ;
+			nProcess > 0 && pList.GetCount() > 0 ; nProcess-- )
+		{
+			CString strPath = pList.RemoveHead();
+
+			{
+				CQuickLock pTransfersLock( Transfers.m_pSection ); // Can clear uploads and downloads
+				CQuickLock pLibraryLock( Library.m_pSection );
+
+				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strPath ) )
+				{
+					// It's a library file
+					dlg.Apply( pFile );
+					pFile->Delete();
+					continue;
+				}
+			}
+
+			// It's a wild file
+			BOOL bToRecycleBin = ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 );
+			DeleteFileEx( strPath, TRUE, bToRecycleBin, TRUE );
+		}
+	}
+}
+
 BOOL DeleteFileEx(LPCTSTR szFileName, BOOL bShared, BOOL bToRecycleBin, BOOL bEnableDelayed)
 {
 	// Should be double zeroed long path
@@ -2297,7 +2415,7 @@ void PurgeDeletes()
 {
 	HKEY hKey = NULL;
 	LSTATUS nResult = RegOpenKeyEx( HKEY_CURRENT_USER,
-		_T("Software\\PeerProject\\PeerProject\\Delete"), 0, KEY_ALL_ACCESS, &hKey );
+		REGISTRY_KEY _T("\\Delete"), 0, KEY_ALL_ACCESS, &hKey );
 	if ( ERROR_SUCCESS == nResult )
 	{
 		CList< CString > pRemove;

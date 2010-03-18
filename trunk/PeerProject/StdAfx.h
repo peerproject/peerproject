@@ -19,8 +19,8 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-//! \file       StdAfx.h
-//! \brief      Standard header for prcompiled header feature.
+//! \file	StdAfx.h
+//! \brief	Standard header for prcompiled header feature.
 //!
 //! Includes MFC header files. Contains several global definitions.
 
@@ -271,11 +271,11 @@ template<> AFX_INLINE UINT AFXAPI HashKey(DWORD_PTR key)
 
 #ifdef _DEBUG
 	#undef GetRValue
-	#define GetRValue(rgb)      ((BYTE)( (rgb)        & 0xff))
+	#define GetRValue(rgb)	((BYTE)( (rgb)        & 0xff))
 	#undef GetGValue
-	#define GetGValue(rgb)      ((BYTE)(((rgb) >>  8) & 0xff))
+	#define GetGValue(rgb)	((BYTE)(((rgb) >>  8) & 0xff))
 	#undef GetBValue
-	#define GetBValue(rgb)      ((BYTE)(((rgb) >> 16) & 0xff))
+	#define GetBValue(rgb)	((BYTE)(((rgb) >> 16) & 0xff))
 #endif
 
 //
@@ -316,34 +316,34 @@ inline CArchive& AFXAPI operator>>(CArchive& ar, TRISTATE& n)
 
 typedef struct _ICONDIRENTRY
 {
-	BYTE        bWidth;          // Width, in pixels, of the image
-	BYTE        bHeight;         // Height, in pixels, of the image
-	BYTE        bColorCount;     // Number of colors in image (0 if >=8bpp)
-	BYTE        bReserved;       // Reserved ( must be 0)
-	WORD        wPlanes;         // Color Planes
-	WORD        wBitCount;       // Bits per pixel
-	DWORD       dwBytesInRes;    // How many bytes in this resource?
-	DWORD       dwImageOffset;   // Where in the file is this image?
+	BYTE	bWidth; 		// Width, in pixels, of the image
+	BYTE	bHeight;		// Height, in pixels, of the image
+	BYTE	bColorCount;		// Number of colors in image (0 if >=8bpp)
+	BYTE	bReserved;		// Reserved ( must be 0)
+	WORD	wPlanes;		// Color Planes
+	WORD	wBitCount;		// Bits per pixel
+	DWORD	dwBytesInRes;		// How many bytes in this resource?
+	DWORD	dwImageOffset;		// Where in the file is this image?
 } ICONDIRENTRY, *LPICONDIRENTRY;
 
 typedef struct _GRPICONDIRENTRY
 {
-	BYTE   bWidth;               // Width, in pixels, of the image
-	BYTE   bHeight;              // Height, in pixels, of the image
-	BYTE   bColorCount;          // Number of colors in image (0 if >=8bpp)
-	BYTE   bReserved;            // Reserved
-	WORD   wPlanes;              // Color Planes
-	WORD   wBitCount;            // Bits per pixel
-	DWORD  dwBytesInRes;         // how many bytes in this resource?
-	WORD   nID;                  // the ID
+	BYTE   bWidth;			// Width, in pixels, of the image
+	BYTE   bHeight;			// Height, in pixels, of the image
+	BYTE   bColorCount;		// Number of colors in image (0 if >=8bpp)
+	BYTE   bReserved;		// Reserved
+	WORD   wPlanes;			// Color Planes
+	WORD   wBitCount;		// Bits per pixel
+	DWORD  dwBytesInRes;		// how many bytes in this resource?
+	WORD   nID;			// the ID
 } GRPICONDIRENTRY, *LPGRPICONDIRENTRY;
 
 typedef struct _ICONDIR
 {
-	WORD           idReserved;   // Reserved (must be 0)
-	WORD           idType;       // Resource Type (1 for icons)
-	WORD           idCount;      // How many images?
-//	ICONDIRENTRY   idEntries[];  // An entry for each image (idCount of 'em)
+	WORD	idReserved;		// Reserved (must be 0)
+	WORD	idType;			// Resource Type (1 for icons)
+	WORD	idCount;		// How many images?
+//	ICONDIRENTRY   idEntries[];	// An entry for each image (idCount of 'em)
 } ICONDIR, *LPICONDIR;
 
 #pragma pack( pop )
@@ -660,10 +660,10 @@ inline CStringW UTF8Decode(__in const CStringA& strInput)
 }
 
 // Encode and decode URL text, and see if a string starts with a tag
-CString URLEncode(LPCTSTR pszInput);                   // Encode "hello world" into "hello%20world"
-CString URLDecode(LPCTSTR pszInput);                   // Decode "hello%20world" back to "hello world"
-CString URLDecodeANSI(LPCTSTR pszInput);               // Decodes properly encoded URLs
-CString URLDecodeUnicode(LPCTSTR pszInput);            // Decodes URLs with extended characters
+CString URLEncode(LPCTSTR pszInput);			// Encode "hello world" into "hello%20world"
+CString URLDecode(LPCTSTR pszInput);			// Decode "hello%20world" back to "hello world"
+CString URLDecodeANSI(LPCTSTR pszInput);		// Decodes properly encoded URLs
+CString URLDecodeUnicode(LPCTSTR pszInput);		// Decodes URLs with extended characters
 
 // StartsWith("hello world", "hello") is true
 inline BOOL StartsWith(const CString& sInput, LPCTSTR pszText, const int len)

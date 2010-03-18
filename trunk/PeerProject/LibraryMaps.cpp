@@ -314,7 +314,7 @@ CLibraryFile* CLibraryMaps::LookupFileByHash(const CPeerProjectFile* pFilter, BO
 
 CLibraryFile* CLibraryMaps::LookupFileBySHA1(const Hashes::Sha1Hash& oSHA1, BOOL bSharedOnly, BOOL bAvailableOnly) const
 {
-	if ( !oSHA1 ) return NULL;
+	if ( ! oSHA1 ) return NULL;
 
 	CQuickLock oLock( Library.m_pSection );
 
@@ -336,7 +336,7 @@ CLibraryFile* CLibraryMaps::LookupFileBySHA1(const Hashes::Sha1Hash& oSHA1, BOOL
 
 CLibraryFile* CLibraryMaps::LookupFileByTiger(const Hashes::TigerHash& oTiger, BOOL bSharedOnly, BOOL bAvailableOnly) const
 {
-	if ( !oTiger ) return NULL;
+	if ( ! oTiger ) return NULL;
 
 	CQuickLock oLock( Library.m_pSection );
 
@@ -358,7 +358,7 @@ CLibraryFile* CLibraryMaps::LookupFileByTiger(const Hashes::TigerHash& oTiger, B
 
 CLibraryFile* CLibraryMaps::LookupFileByED2K(const Hashes::Ed2kHash& oED2K, BOOL bSharedOnly, BOOL bAvailableOnly) const
 {
-	if ( !oED2K ) return NULL;
+	if ( ! oED2K ) return NULL;
 
 	CQuickLock oLock( Library.m_pSection );
 
@@ -380,7 +380,7 @@ CLibraryFile* CLibraryMaps::LookupFileByED2K(const Hashes::Ed2kHash& oED2K, BOOL
 
 CLibraryFile* CLibraryMaps::LookupFileByBTH(const Hashes::BtHash& oBTH, BOOL bSharedOnly, BOOL bAvailableOnly) const
 {
-	if ( !oBTH ) return NULL;
+	if ( ! oBTH ) return NULL;
 
 	CQuickLock oLock( Library.m_pSection );
 
@@ -402,7 +402,7 @@ CLibraryFile* CLibraryMaps::LookupFileByBTH(const Hashes::BtHash& oBTH, BOOL bSh
 
 CLibraryFile* CLibraryMaps::LookupFileByMD5(const Hashes::Md5Hash& oMD5, BOOL bSharedOnly, BOOL bAvailableOnly) const
 {
-	if ( !oMD5 ) return NULL;
+	if ( ! oMD5 ) return NULL;
 
 	CQuickLock oLock( Library.m_pSection );
 
@@ -430,7 +430,6 @@ void CLibraryMaps::Clear()
 	for ( POSITION pos = GetFileIterator() ; pos ; ) delete GetNextFile( pos );
 
 	ASSERT( m_pIndexMap.IsEmpty() );
-	ASSERT( m_pNameMap.IsEmpty() );
 	ASSERT( m_pPathMap.IsEmpty() );
 #ifdef _DEBUG
 	for ( POSITION p = m_pPathMap.GetStartPosition() ; p ; )
@@ -676,7 +675,7 @@ void CLibraryMaps::OnFileRemove(CLibraryFile* pFile)
 void CLibraryMaps::CullDeletedFiles(CLibraryFile* pMatch)
 {
 	CSingleLock oLock( &Library.m_pSection );
-	if ( !oLock.Lock( 100 ) ) return;
+	if ( ! oLock.Lock( 100 ) ) return;
 	CLibraryFile* pFile;
 
 	if ( pMatch->m_oSHA1 )
@@ -737,7 +736,7 @@ CFileList* CLibraryMaps::Search(const CQuerySearch* pSearch, int nMaximum, BOOL 
 			{
 				if ( bLocal || ( pFile->IsShared() && pFile->m_oSHA1 ) )
 				{
-					if ( !pHits )
+					if ( ! pHits )
 						pHits = new CFileList( 64 );
 
 					pHits->AddTail( pFile );
@@ -751,7 +750,7 @@ CFileList* CLibraryMaps::Search(const CQuerySearch* pSearch, int nMaximum, BOOL 
 	{
 		if ( CLibraryFile* pFile = LookupFileBySHA1( pSearch->m_oSHA1, ! bLocal, bAvailableOnly ) )
 		{
-			if ( !pHits )
+			if ( ! pHits )
 				pHits = new CFileList( 64 );
 
 			pHits->AddTail( pFile );
@@ -766,7 +765,7 @@ CFileList* CLibraryMaps::Search(const CQuerySearch* pSearch, int nMaximum, BOOL 
 	{
 		if ( CLibraryFile* pFile = LookupFileByTiger( pSearch->m_oTiger, ! bLocal, bAvailableOnly ) )
 		{
-			if ( !pHits )
+			if ( ! pHits )
 				pHits = new CFileList( 64 );
 
 			pHits->AddTail( pFile );
@@ -781,7 +780,7 @@ CFileList* CLibraryMaps::Search(const CQuerySearch* pSearch, int nMaximum, BOOL 
 	{
 		if ( CLibraryFile* pFile = LookupFileByED2K( pSearch->m_oED2K, ! bLocal, bAvailableOnly ) )
 		{
-			if ( !pHits )
+			if ( ! pHits )
 				pHits = new CFileList( 64 );
 
 			pHits->AddTail( pFile );
@@ -796,7 +795,7 @@ CFileList* CLibraryMaps::Search(const CQuerySearch* pSearch, int nMaximum, BOOL 
 	{
 		if ( CLibraryFile* pFile = LookupFileByBTH( pSearch->m_oBTH, ! bLocal, bAvailableOnly ) )
 		{
-			if ( !pHits )
+			if ( ! pHits )
 				pHits = new CFileList( 64 );
 
 			pHits->AddTail( pFile );
@@ -820,7 +819,7 @@ CFileList* CLibraryMaps::Search(const CQuerySearch* pSearch, int nMaximum, BOOL 
 
 				if ( validAndEqual( pFile->m_oMD5, pSearch->m_oMD5 ) )
 				{
-					if ( !pHits )
+					if ( ! pHits )
 						pHits = new CFileList( 64 );
 
 					pHits->AddTail( pFile );
@@ -831,7 +830,7 @@ CFileList* CLibraryMaps::Search(const CQuerySearch* pSearch, int nMaximum, BOOL 
 		{
 			if ( CLibraryFile* pFile = LookupFileByMD5( pSearch->m_oMD5, ! bLocal, bAvailableOnly ) )
 			{
-				if ( !pHits )
+				if ( ! pHits )
 					pHits = new CFileList( 64 );
 
 				pHits->AddTail( pFile );

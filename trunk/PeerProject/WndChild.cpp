@@ -133,10 +133,10 @@ BOOL CChildWnd::IsPartiallyVisible()
 	GetClientRect( &rc );
 	ClientToScreen( &rc );
 
-	return	TestPoint( rc.CenterPoint() )						||
-			TestPoint( CPoint( rc.left + 1, rc.top + 1 ) )		||
-			TestPoint( CPoint( rc.right - 1, rc.top + 1 ) )		||
-			TestPoint( CPoint( rc.left + 1, rc.bottom - 2 ) )	||
+	return	TestPoint( rc.CenterPoint() ) ||
+			TestPoint( CPoint( rc.left + 1, rc.top + 1 ) ) ||
+			TestPoint( CPoint( rc.right - 1, rc.top + 1 ) ) ||
+			TestPoint( CPoint( rc.left + 1, rc.bottom - 2 ) ) ||
 			TestPoint( CPoint( rc.right - 2, rc.bottom - 2 ) );
 }
 
@@ -150,7 +150,7 @@ BOOL CChildWnd::TestPoint(const CPoint& ptScreen)
 	if ( pHit == this )
 		return TRUE;
 
-	if ( !IsWindow( pHit->m_hWnd ) || !IsWindow( GetSafeHwnd() ) )
+	if ( ! IsWindow( pHit->m_hWnd ) || ! IsWindow( GetSafeHwnd() ) )
 		return FALSE;
 
 	if ( ::GetAncestor( pHit->m_hWnd, GA_ROOT ) != ::GetAncestor( GetSafeHwnd(), GA_ROOT ) )
@@ -199,9 +199,9 @@ BOOL CChildWnd::LoadState(LPCTSTR pszName, BOOL bDefaultMaximise)
 	{
 		if ( m_bTabMode )
 		{
-			CString strName = ( pszName != NULL ) ? CString( pszName ) : CString( GetRuntimeClass()->m_lpszClassName );
-			strName += _T(".Splitter");
-			m_nGroupSize = (float)theApp.GetProfileInt( _T("Windows"), strName, 500 ) / 1000;
+			CA2T sClassName( GetRuntimeClass()->m_lpszClassName );
+			CString strName( pszName ? pszName : (LPCTSTR)sClassName );
+			m_nGroupSize = (float)theApp.GetProfileInt( _T("Windows"), strName + _T(".Splitter"), 500 ) / 1000;
 		}
 
 		if ( rcParent.Width() > 64 && rcParent.Height() > 32 )
@@ -243,7 +243,7 @@ BOOL CChildWnd::SetAlert(BOOL bAlert)
 
 	m_bAlert = bAlert;
 
-	pMainWnd->OnUpdateFrameTitle( FALSE );
+	pMainWnd->OnUpdateCmdUI();
 
 	return TRUE;
 }
@@ -420,19 +420,18 @@ BOOL CChildWnd::OnNcActivate(BOOL bActive)
 {
 	// if ( bActive ) OnMDIActivate( TRUE, this, NULL );
 
-	if ( m_pSkin != NULL )
+	if ( m_pSkin )
 	{
 		BOOL bVisible = IsWindowVisible();
 		if ( bVisible ) ModifyStyle( WS_VISIBLE, 0 );
 		BOOL bResult = CMDIChildWnd::OnNcActivate( bActive );
 		if ( bVisible ) ModifyStyle( 0, WS_VISIBLE );
 		m_pSkin->OnNcActivate( this, bActive || ( m_nFlags & WF_STAYACTIVE ) );
+
 		return bResult;
 	}
-	else
-	{
-		return CMDIChildWnd::OnNcActivate( bActive );
-	}
+
+	return CMDIChildWnd::OnNcActivate( bActive );
 }
 
 void CChildWnd::OnNcMouseMove(UINT nHitTest, CPoint point)
@@ -461,7 +460,7 @@ void CChildWnd::OnNcLButtonDblClk(UINT nHitTest, CPoint point)
 
 LRESULT CChildWnd::OnSetText(WPARAM /*wParam*/, LPARAM /*lParam*/)
 {
-	if ( m_pSkin != NULL )
+	if ( m_pSkin )
 	{
 		BOOL bVisible = IsWindowVisible();
 		if ( bVisible ) ModifyStyle( WS_VISIBLE, 0 );

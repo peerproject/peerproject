@@ -74,35 +74,35 @@ CDownloads::~CDownloads()
 
 POSITION CDownloads::GetIterator() const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pList.GetHeadPosition();
 }
 
 POSITION CDownloads::GetReverseIterator() const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pList.GetTailPosition();
 }
 
 CDownload* CDownloads::GetNext(POSITION& pos) const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pList.GetNext( pos );
 }
 
 CDownload* CDownloads::GetPrevious(POSITION& pos) const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pList.GetPrev( pos );
 }
 
 BOOL CDownloads::Check(CDownload* pDownload) const
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pList.Find( pDownload ) != NULL;
 }
@@ -128,7 +128,7 @@ void CDownloads::StopTrying(bool bIsTorrent)
 
 CDownload* CDownloads::Add()
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	CDownload* pDownload = new CDownload();
 	m_pList.AddTail( pDownload );
@@ -270,7 +270,7 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 	if ( pDownload == NULL && oURL.m_oMD5 )
 		pDownload = FindByMD5( oURL.m_oMD5 );
 
-	if ( pDownload != NULL && !pDownload->IsSeeding() )
+	if ( pDownload != NULL && ! pDownload->IsSeeding() )
 	{
 		theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_ALREADY,
 			(LPCTSTR)pDownload->GetDisplayName() );
@@ -282,29 +282,29 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 
 	if ( ! pDownload->m_oSHA1 && oURL.m_oSHA1 )
 	{
-		pDownload->m_oSHA1			= oURL.m_oSHA1;
+		pDownload->m_oSHA1 = oURL.m_oSHA1;
 		pDownload->m_bSHA1Trusted = true;
 	}
 	if ( ! pDownload->m_oTiger && oURL.m_oTiger )
 	{
-		pDownload->m_oTiger			= oURL.m_oTiger;
+		pDownload->m_oTiger = oURL.m_oTiger;
 		pDownload->m_bTigerTrusted = true;
 	}
 	if ( ! pDownload->m_oED2K && oURL.m_oED2K )
 	{
-		pDownload->m_oED2K			= oURL.m_oED2K;
+		pDownload->m_oED2K = oURL.m_oED2K;
 		pDownload->m_bED2KTrusted = true;
 		pDownload->Share( TRUE );
 	}
 	if ( ! pDownload->m_oBTH && oURL.m_oBTH )
 	{
-		pDownload->m_oBTH			= oURL.m_oBTH;
+		pDownload->m_oBTH = oURL.m_oBTH;
 		pDownload->m_bBTHTrusted = true;
 		pDownload->Share( TRUE );
 	}
 	if ( ! pDownload->m_oMD5 && oURL.m_oMD5 )
 	{
-		pDownload->m_oMD5			= oURL.m_oMD5;
+		pDownload->m_oMD5 = oURL.m_oMD5;
 		pDownload->m_bMD5Trusted = true;
 		pDownload->Share( TRUE );
 	}
@@ -352,7 +352,7 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL)
 
 	// Obsolete: Remove this
 	//	if ( ( pDownload->IsTorrent() && GetTryingCount( true ) < Settings.BitTorrent.DownloadTorrents )
-	//		|| ( !pDownload->IsTorrent() && GetTryingCount() < Settings.Downloads.MaxFiles ) )
+	//		|| ( ! pDownload->IsTorrent() && GetTryingCount() < Settings.Downloads.MaxFiles ) )
 	//	{
 	//		pDownload->SetStartTimer();
 	//		if ( pDownload->GetEffectiveSourceCount() <= 1 )
@@ -562,7 +562,7 @@ bool CDownloads::CheckActive(CDownload* pDownload, int nScope) const
 	for ( POSITION pos = GetReverseIterator() ; pos && nScope > 0 ; )
 	{
 		CDownload* pTest = GetPrevious( pos );
-		bool bActive = !pTest->IsPaused() && !pTest->IsCompleted();
+		bool bActive = ! pTest->IsPaused() && ! pTest->IsCompleted();
 
 		if ( pDownload == pTest )
 			return bActive;
@@ -905,7 +905,7 @@ BOOL CDownloads::IsSpaceAvailable(QWORD nVolume, int nPath)
 
 	ULARGE_INTEGER nFree, nNull;
 
-	if ( ( !nPath || nPath == dlPathIncomplete )
+	if ( ( ! nPath || nPath == dlPathIncomplete )
 		&& GetDiskFreeSpaceEx( Settings.Downloads.IncompletePath, &nFree,
 			&nNull, &nNull ) )
 	{
@@ -913,7 +913,7 @@ BOOL CDownloads::IsSpaceAvailable(QWORD nVolume, int nPath)
 			return FALSE;
 	}
 
-	if ( ( !nPath || nPath == dlPathComplete )
+	if ( ( ! nPath || nPath == dlPathComplete )
 		&& GetDiskFreeSpaceEx( Settings.Downloads.CompletePath, &nFree,
 			&nNull, &nNull ) )
 	{
@@ -986,7 +986,7 @@ void CDownloads::OnRun()
 					if ( pTransfer->m_nProtocol == PROTOCOL_ED2K )
 					{
 						CDownloadTransferED2K* pED2K = (CDownloadTransferED2K*)pTransfer;
-						if ( !pED2K->m_pClient || !pED2K->m_pClient->m_bConnected )
+						if ( ! pED2K->m_pClient || ! pED2K->m_pClient->m_bConnected )
 							continue;
 
 						if ( pTransfer->m_nState == dtsQueued )
@@ -1125,7 +1125,7 @@ bool CDownloads::OnQueryHits(const CQueryHit* pHits)
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
-		if ( !pDownload->IsMoving() )
+		if ( ! pDownload->IsCompleted() && ! pDownload->IsMoving() )
 			pDownload->OnQueryHits( pHits );
 	}
 
@@ -1189,7 +1189,7 @@ void CDownloads::OnRename(LPCTSTR pszSource, LPCTSTR /*pszTarget*/)
 	if ( CDownload* pDownload = Downloads.FindByPath( pszSource ) )
 	{
 		if ( ! pDownload->IsTasking() )
-			pDownload->Remove( false );
+			pDownload->Remove();
 	}
 }
 
@@ -1299,10 +1299,9 @@ BOOL CDownloads::LoadFromCompoundFile(LPCTSTR pszFile)
 	if ( ! pFile.Open( pszFile, CFile::modeRead ) )
 		return FALSE;
 
-	CArchive ar( &pFile, CArchive::load );	// 4 KB buffer?
-
 	try
 	{
+		CArchive ar( &pFile, CArchive::load );
 		SerializeCompound( ar );
 	}
 	catch ( CException* pException )

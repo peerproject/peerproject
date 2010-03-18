@@ -1,7 +1,7 @@
 //
 // CtrlIRCFrame.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -242,7 +242,6 @@ protected:
 	void			PaintListHeader(CDC& dc, CRect& rcBar, CString strText);
 	void			PaintHeader(CRect rcHeader, CDC &dc);
 	void			DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText);
-//	BOOL			ShowTrayPopup(LPCTSTR szText, LPCTSTR szTitle, DWORD dwIcon, UINT uTimeout);
 
 	inline CString GetSelectedUser() const
 	{

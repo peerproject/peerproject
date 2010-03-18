@@ -225,7 +225,7 @@ void CLibraryTileView::Update()
 	{
 		// ToDo: Review if still necessary for modern libs...
 		// Crude workaround broken std::list::sort (vc++7.1):
-		//     sort may invalidate at the end iterator
+		// sort may invalidate at the end iterator
 		// At this time (boost 1.33.0) ptr_list does not provide
 		// iterator versions of sort, which might solve this problem just as well.
 
@@ -561,7 +561,7 @@ void CLibraryTileView::OnPaint()
 			bool bSelected = pTile->m_bSelected;
 			if ( m_oDropItem == CLibraryListItem ( pTile->m_pFolder ) )
 				pTile->m_bSelected = true;
-	
+
 			pTile->Paint( pBuffer, rcBuffer, &dcMem );
 			pTile->m_bSelected = bSelected;
 			dc.BitBlt( rcBlock.left, rcBlock.top, m_szBlock.cx, m_szBlock.cy,

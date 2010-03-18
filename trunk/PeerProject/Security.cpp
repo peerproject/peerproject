@@ -1,7 +1,7 @@
 //
 // Security.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -181,7 +181,7 @@ void CSecurity::Clear()
 //////////////////////////////////////////////////////////////////////
 // CSecurity ban
 
-void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile, int nBanLength, BOOL bMessage)
+void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile, int nBanLength, BOOL bMessage, LPCTSTR szComment)
 {
 	CQuickLock oLock( m_pSection );
 
@@ -196,11 +196,11 @@ void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile
 		{
 			if ( pRule->m_nAction == CSecureRule::srDeny )
 			{
-				if ( ( nBanLength == banWeek ) && ( pRule->m_nExpire < tNow + 604000 ) )
+				if ( nBanLength == banWeek && ( pRule->m_nExpire < tNow + 604000 ) )
 					pRule->m_nExpire = static_cast< DWORD >( time( NULL ) + 604800 );
-				else if ( ( nBanLength == banCustom ) && ( pRule->m_nExpire < tNow + Settings.Security.DefaultBan + 3600 ) )
+				else if ( nBanLength == banCustom && ( pRule->m_nExpire < tNow + Settings.Security.DefaultBan + 3600 ) )
 					pRule->m_nExpire = static_cast< DWORD >( time( NULL ) + Settings.Security.DefaultBan + 3600 );
-				else if ( ( nBanLength == banForever ) && ( pRule->m_nExpire != CSecureRule::srIndefinite ) )
+				else if ( nBanLength == banForever && ( pRule->m_nExpire != CSecureRule::srIndefinite ) )
 					pRule->m_nExpire = CSecureRule::srIndefinite;
 				else if ( bMessage && pAddress )
 					theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_ALREADY_BLOCKED,
@@ -247,6 +247,9 @@ void CSecurity::BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile
 		pRule->m_nExpire	= CSecureRule::srSession;
 		pRule->m_sComment	= _T("Quick Ban");
 	}
+
+	if ( szComment )
+		pRule->m_sComment = szComment;
 
 	if ( pAddress )
 		CopyMemory( pRule->m_nIP, pAddress, sizeof pRule->m_nIP );
@@ -495,7 +498,7 @@ BOOL CSecurity::Load()
 
 	try
 	{
-		CArchive ar( &pFile, CArchive::load, 131072 );  // 128 KB buffer
+		CArchive ar( &pFile, CArchive::load, 131072 );	// 128 KB buffer
 		Serialize( ar );
 		ar.Close();
 	}
@@ -511,17 +514,36 @@ BOOL CSecurity::Load()
 
 BOOL CSecurity::Save()
 {
-	CQuickLock oLock( m_pSection );
-
 	CFile pFile;
-
 	CString strFile = Settings.General.UserPath + _T("\\Data\\Security.dat");
 
-	if ( pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
+	CQuickLock oLock( m_pSection );
+
+	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
+		return FALSE;
+
+	try
 	{
-		CArchive ar( &pFile, CArchive::store, 131072 );  // 128 KB buffer
-		Serialize( ar );
-		ar.Close();
+		CArchive ar( &pFile, CArchive::store, 131072 );	// 128 KB buffer
+		try
+		{
+			Serialize( ar );
+			ar.Close();
+		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pFile.Abort();
+			pException->Delete();
+			return FALSE;
+		}
+		pFile.Close();
+	}
+	catch ( CException* pException )
+	{
+		pFile.Abort();
+		pException->Delete();
+		return FALSE;
 	}
 
 	return TRUE;
@@ -547,7 +569,7 @@ void CSecurity::Serialize(CArchive& ar)
 			pRule->Serialize( ar, nVersion );
 		}
 	}
-	else
+	else // Loading
 	{
 		Clear();
 
@@ -564,9 +586,7 @@ void CSecurity::Serialize(CArchive& ar)
 			if ( pRule->IsExpired( nNow, TRUE ) )
 				delete pRule;
 			else
-			{
 				m_pRules.AddTail( pRule );
-			}
 		}
 	}
 }
@@ -612,7 +632,8 @@ BOOL CSecurity::FromXML(CXMLElement* pXML)
 
 			if ( Hashes::fromGuid( strGUID, &pGUID ) )
 			{
-				if ( ( pRule = GetGUID( pGUID ) ) != NULL ) bExisting = TRUE;
+				if ( ( pRule = GetGUID( pGUID ) ) != NULL )
+					bExisting = TRUE;
 
 				if ( pRule == NULL )
 				{
@@ -628,9 +649,8 @@ BOOL CSecurity::FromXML(CXMLElement* pXML)
 			if ( pRule->FromXML( pElement ) )
 			{
 				if ( ! bExisting )
-				{
 					m_pRules.AddTail( pRule );
-				}
+
 				nCount++;
 			}
 			else
@@ -791,15 +811,43 @@ BOOL CSecurity::IsClientBanned(const CString& sUserAgent)
 	if ( sUserAgent.IsEmpty() )
 		return FALSE;
 
-	//Foxy (Private G2)
+	// Foxy (Private G2)
 	if ( _tcsistr( sUserAgent, _T("Foxy") ) )					return TRUE;
 
 	// i2hub leecher client. (Tested, does not upload)
 	if ( _tcsistr( sUserAgent, _T("i2hub") ) )					return TRUE;
 
 	// Check by content filter
+	// ToDo: Implement user agent filter type
 	return IsDenied( sUserAgent );
 }
+
+BOOL CSecurity::IsAgentBlocked(const CString& sUserAgent)
+{
+	// The remote computer didn't send a "User-Agent", or it sent whitespace
+	if ( sUserAgent.IsEmpty() ||
+		CString( sUserAgent ).Trim().IsEmpty() )					return TRUE; // ?
+
+	// Loop through the user-defined list of programs to block
+	for ( string_set::const_iterator i = Settings.Uploads.BlockAgents.begin() ;
+		i != Settings.Uploads.BlockAgents.end(); i++ )
+	{
+		if ( _tcsistr( sUserAgent, *i ) )							return TRUE;
+	}
+
+	// Allow it
+	return FALSE;
+}
+
+BOOL CSecurity::IsVendorBlocked(const CString& sVendor)
+{
+	// Foxy (Private G2)
+	if ( sVendor.CompareNoCase( _T("foxy") ) == 0 )					return TRUE;
+
+	// Allow it
+	return FALSE;
+}
+
 
 //////////////////////////////////////////////////////////////////////
 // CSecureRule construction
@@ -893,9 +941,7 @@ BOOL CSecureRule::Match(const IN_ADDR* pAddress) const
 
 		// This only works if IP's are &ed before entered in the list
 		if ( ( ( *pTest ) & ( *pMask ) ) == ( *pBase ) )
-		{
 			return ! IsExpired( (DWORD)time( NULL ) );
-		}
 	}
 	return FALSE;
 }
@@ -912,13 +958,9 @@ BOOL CSecureRule::Match(LPCTSTR pszContent) const
 			BOOL bFound = _tcsistr( pszContent, pszFilter ) != NULL;
 
 			if ( bFound && m_nType == srContentAny )
-			{
 				return TRUE;
-			}
 			else if ( ! bFound && m_nType == srContentAll )
-			{
 				return FALSE;
-			}
 
 			pszFilter += _tcslen( pszFilter ) + 1;
 		}
@@ -1171,15 +1213,16 @@ void CSecureRule::Serialize(CArchive& ar, int nVersion)
 			break;
 		}
 	}
-	else
+	else // Loading
 	{
 		int nType;
 		ar >> nType;
 		ar >> m_nAction;
 
-		if ( nVersion >= 2 ) ar >> m_sComment;
+		if ( nVersion > 2 )
+			ar >> m_sComment;
 
-		if ( nVersion >= 4 )
+		if ( nVersion > 3 )
 			ReadArchive( ar, &m_pGUID, sizeof(GUID) );
 		else
 			CoCreateGuid( &m_pGUID );
@@ -1257,9 +1300,7 @@ CXMLElement* CSecureRule::ToXML()
 	CString strValue;
 
 	if ( m_sComment.GetLength() )
-	{
 		pXML->AddAttribute( _T("comment"), m_sComment );
-	}
 
 	switch ( m_nType )
 	{
@@ -1376,33 +1417,21 @@ BOOL CSecureRule::FromXML(CXMLElement* pXML)
 	strValue = pXML->GetAttributeValue( _T("action") );
 
 	if ( strValue.CompareNoCase( _T("null") ) == 0 )
-	{
 		m_nAction = srNull;
-	}
 	else if ( strValue.CompareNoCase( _T("accept") ) == 0 )
-	{
 		m_nAction = srAccept;
-	}
 	else if ( strValue.CompareNoCase( _T("deny") ) == 0 || strValue.IsEmpty() )
-	{
 		m_nAction = srDeny;
-	}
 	else
-	{
 		return FALSE;
-	}
 
 	strValue = pXML->GetAttributeValue( _T("expire") );
 	m_nExpire = srIndefinite;
 
 	if ( strValue.CompareNoCase( _T("session") ) == 0 )
-	{
 		m_nExpire = srSession;
-	}
 	else if ( strValue.CompareNoCase( _T("indefinite") ) != 0 )
-	{
 		_stscanf( strValue, _T("%lu"), &m_nExpire );
-	}
 
 	MaskFix();
 
@@ -1507,16 +1536,14 @@ void  CSecureRule::MaskFix()
 		{
 			nNetwork <<= 1;
 			if ( nNetByte & 0x80 )
-			{
 				nNetwork |= 1;
-			}
+
 			nNetByte <<= 1;
 
 			nOldMask <<= 1;
 			if ( nMaskByte & 0x80 )
-			{
 				nOldMask |= 1;
-			}
+
 			nMaskByte <<= 1;
 		}
 	}
@@ -1552,9 +1579,8 @@ void  CSecureRule::MaskFix()
 		{
 			nNetByte <<= 1;
 			if ( nNetwork & 0x80000000 )
-			{
 				nNetByte |= 1;
-			}
+
 			nNetwork <<= 1;
 		}
 		m_nIP[ nByte ] = nNetByte;
@@ -1565,9 +1591,9 @@ void  CSecureRule::MaskFix()
 // CAdultFilter construction
 
 CAdultFilter::CAdultFilter()
-:	m_pszBlockedWords(NULL),
-	m_pszDubiousWords(NULL),
-	m_pszChildWords(NULL)
+	: m_pszBlockedWords	(NULL)
+	, m_pszDubiousWords	(NULL)
+	, m_pszChildWords	(NULL)
 {
 }
 
@@ -1606,7 +1632,7 @@ void CAdultFilter::Load()
 		{
 			CBuffer pBuffer;
 			DWORD nLen = (DWORD)pFile.GetLength();
-			if ( !pBuffer.EnsureBuffer( nLen ) )
+			if ( ! pBuffer.EnsureBuffer( nLen ) )
 				AfxThrowUserException();
 
 			pBuffer.m_nLength = (DWORD)pFile.GetLength();
@@ -1662,7 +1688,6 @@ void CAdultFilter::Load()
 				nStart = nPos + 1;
 			}
 		}
-
 
 		if ( nStart < nPos )
 		{
@@ -1776,27 +1801,24 @@ void CAdultFilter::Load()
 BOOL CAdultFilter::IsHitAdult(LPCTSTR pszText)
 {
 	if ( pszText )
-	{
 		return IsFiltered( pszText );
-	}
+
 	return FALSE;
 }
 
 BOOL CAdultFilter::IsSearchFiltered(LPCTSTR pszText)
 {
 	if ( Settings.Search.AdultFilter && pszText )
-	{
 		return IsFiltered( pszText );
-	}
+
 	return FALSE;
 }
 
 BOOL CAdultFilter::IsChatFiltered(LPCTSTR pszText)
 {
 	if ( Settings.Community.ChatCensor && pszText )
-	{
 		return IsFiltered( pszText );
-	}
+
 	return FALSE;
 }
 
@@ -1927,7 +1949,7 @@ void CMessageFilter::Load()
 		{
 			CBuffer pBuffer;
 			DWORD nLen = (DWORD)pFile.GetLength();
-			if ( !pBuffer.EnsureBuffer( nLen ) )
+			if ( ! pBuffer.EnsureBuffer( nLen ) )
 				AfxThrowUserException();
 
 			pBuffer.m_nLength = nLen;

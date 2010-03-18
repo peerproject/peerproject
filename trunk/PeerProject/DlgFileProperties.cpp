@@ -175,7 +175,7 @@ void CFilePropertiesDlg::Update()
 		CXMLElement* pXML = pFile->m_pMetadata->Clone();
 
 		if ( pFile->m_oSHA1 )
-            pXML->AddAttribute( _T("SHA1"), pFile->m_oSHA1.toString() );
+			pXML->AddAttribute( _T("SHA1"), pFile->m_oSHA1.toString() );
 		else if ( CXMLAttribute* pSHA1 = pXML->GetAttribute( _T("SHA1") ) )
 			pSHA1->Delete();
 

@@ -1,7 +1,7 @@
 //
 // StdAfx.h
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2007-2008.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -21,12 +21,13 @@
 
 #pragma once
 
-#define WINVER			0x0500
+#define WINVER				0x0500
 #define _WIN32_WINNT		0x0500
 #define _WIN32_WINDOWS		0x0500
-#define _WIN32_IE		0x0500
-#define BOOST_USE_WINDOWS_H
+//#define NTDDI_VERSION		NTDDI_LONGHORN  // Minimum build target
+//#include <sdkddkver.h>	// Setup versioning for windows SDK/DDK
 #define VC_EXTRALEAN		// Exclude rarely-used stuff from Windows headers
+#define BOOST_USE_WINDOWS_H
 
 #include <afxwin.h>		// MFC core and standard components
 #include <afxext.h>		// MFC extensions

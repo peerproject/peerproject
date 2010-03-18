@@ -149,7 +149,7 @@ void CCoolTipCtrl::ShowImpl(bool bChanged)
 
 	m_sz.cx = m_sz.cy = 0;
 
-	if ( !OnPrepare() )
+	if ( ! OnPrepare() )
 		return;
 
 	CRect rc( m_pOpen.x + TIP_OFFSET_X, m_pOpen.y + TIP_OFFSET_Y, 0, 0 );
@@ -168,7 +168,6 @@ void CCoolTipCtrl::ShowImpl(bool bChanged)
 	if ( rc.bottom >= oMonitor.rcWork.bottom )
 		rc.OffsetRect( 0, - ( m_sz.cy + TIP_MARGIN * 2 + TIP_OFFSET_Y + 4 ) );
 
-
 	m_bVisible = TRUE;
 
 	OnShow();
@@ -180,12 +179,11 @@ void CCoolTipCtrl::ShowImpl(bool bChanged)
 	else
 	{
 		ModifyStyleEx( 0, WS_EX_LAYERED );
-		SetLayeredWindowAttributes( 0, (BYTE)Settings.Interface.TipAlpha,
-			LWA_ALPHA );
+		SetLayeredWindowAttributes( 0, (BYTE)Settings.Interface.TipAlpha, LWA_ALPHA );
 	}
 
 	SetWindowPos( &wndTop, rc.left, rc.top, rc.Width(), rc.Height(),
-		SWP_SHOWWINDOW|SWP_NOACTIVATE );
+		SWP_ASYNCWINDOWPOS|SWP_SHOWWINDOW|SWP_NOACTIVATE );
 	UpdateWindow();
 
 	if ( ! m_bTimer )
@@ -276,7 +274,8 @@ void CCoolTipCtrl::DrawRule(CDC* pDC, POINT* pPoint, BOOL bPos)
 BOOL CCoolTipCtrl::WindowFromPointBelongsToOwner(const CPoint& point)
 {
 	CWnd* pOwner = GetOwner();
-	if ( ! pOwner ) return FALSE;
+	if ( ! pOwner || ! IsWindow( pOwner->GetSafeHwnd() ) )
+		return FALSE;
 
 	CRect rc;
 	pOwner->GetWindowRect( &rc );

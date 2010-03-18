@@ -1,7 +1,7 @@
 //
 // CtrlLibraryHistoryPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -20,6 +20,7 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "Library.h"
 #include "LibraryHistory.h"
 #include "CtrlLibraryFrame.h"
@@ -36,6 +37,8 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CLibraryHistoryPanel, CPanelCtrl)
 
 BEGIN_MESSAGE_MAP(CLibraryHistoryPanel, CPanelCtrl)
+	ON_WM_CREATE()
+	ON_WM_DESTROY()
 	ON_WM_PAINT()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
@@ -63,6 +66,8 @@ CLibraryHistoryPanel::~CLibraryHistoryPanel()
 
 void CLibraryHistoryPanel::Update()
 {
+	m_wndTip.Hide();
+
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 	BOOL bChanged = FALSE;
 
@@ -86,7 +91,7 @@ void CLibraryHistoryPanel::Update()
 		CLibraryRecent* pRecent = LibraryHistory.GetNext( pos );
 		if ( ! pRecent->m_pFile ) continue;
 
-        INT_PTR nItem = m_pList.GetSize() - 1;
+		INT_PTR nItem = m_pList.GetSize() - 1;
 		for ( ; nItem >= 0 ; nItem-- )
 		{
 			Item* pItem = m_pList.GetAt( nItem );
@@ -140,6 +145,22 @@ void CLibraryHistoryPanel::Update()
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryHistoryPanel message handlers
 
+int CLibraryHistoryPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if ( CPanelCtrl::OnCreate( lpCreateStruct ) == -1 ) return -1;
+
+	m_wndTip.Create( this, &Settings.Interface.TipLibrary );
+
+	return 0;
+}
+
+void CLibraryHistoryPanel::OnDestroy()
+{
+	if ( m_wndTip.m_hWnd ) m_wndTip.DestroyWindow();
+
+	CPanelCtrl::OnDestroy();
+}
+
 void CLibraryHistoryPanel::OnPaint()
 {
 	CRect rcClient, rcItem;
@@ -180,7 +201,7 @@ void CLibraryHistoryPanel::OnPaint()
 
 			rcItem.SetRect( rcWork.left, rcWork.top, rcWork.left, rcWork.top + 22 );
 
-			rcItem.left += nColumn * rcWork.Width() / m_nColumns + 1;
+			rcItem.left  += nColumn * rcWork.Width() / m_nColumns + 1;
 			rcItem.right += ( nColumn + 1 ) * rcWork.Width() / m_nColumns - 1;
 
 			if ( pItem != NULL )
@@ -206,7 +227,7 @@ void CLibraryHistoryPanel::OnPaint()
 				dc.SelectObject( &CoolInterface.m_fntUnder );
 
 				rcText.right	= rcText.left;
-				rcText.left		= rcItem.left + 3 + 16 + 3;
+				rcText.left 	= rcItem.left + 3 + 16 + 3;
 
 				str = pItem->m_sText;
 				szText = dc.GetTextExtent( str );
@@ -260,36 +281,40 @@ BOOL CLibraryHistoryPanel::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 		if ( pItem->m_rect.PtInRect( point ) )
 		{
+			m_wndTip.Show( pItem->m_nIndex );
 			SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
 			return TRUE;
 		}
 	}
+
+	m_wndTip.Hide();
 
 	return CPanelCtrl::OnSetCursor( pWnd, nHitTest, message );
 }
 
 void CLibraryHistoryPanel::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	point.y += GetScrollPos( SB_VERT );
+	m_wndTip.Hide();
 
+	CPoint pt( point.x, point.y + GetScrollPos( SB_VERT ) );
 	for ( int nItem = 0 ; nItem < m_pList.GetSize() ; nItem++ )
 	{
 		Item* pItem = m_pList.GetAt( nItem );
 
-		if ( pItem->m_rect.PtInRect( point ) )
+		if ( pItem->m_rect.PtInRect( pt ) )
 		{
 			OnClickFile( pItem->m_nIndex );
 			break;
 		}
 	}
 
-	point.y -= GetScrollPos( SB_VERT );
-
 	CPanelCtrl::OnLButtonUp( nFlags, point );
 }
 
 void CLibraryHistoryPanel::OnLButtonDown(UINT /*nFlags*/, CPoint /*point*/)
 {
+	m_wndTip.Hide();
+
 	SetFocus();
 }
 
@@ -299,9 +324,11 @@ void CLibraryHistoryPanel::OnClickFile(DWORD nFile)
 
 	if ( CLibraryFile* pFile = Library.LookupFile( nFile ) )
 	{
-		CLibraryFrame* pFrame = (CLibraryFrame*)GetParent();
-		ASSERT_KINDOF(CLibraryFrame, pFrame);
+		if ( CLibraryFrame* pFrame = (CLibraryFrame*)GetParent() )
+		{
+			ASSERT_KINDOF(CLibraryFrame, pFrame);
 
-		pFrame->Display( pFile );
+			pFrame->Display( pFile );
+		}
 	}
 }

@@ -1,7 +1,7 @@
 //
 // Packet.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -63,7 +63,6 @@ public:
 	enum { seekStart, seekEnd };
 
 public:
-
 	// Reset this packet object to make it like it was when it came from the constructor
 	virtual void Reset();
 
@@ -71,10 +70,9 @@ public:
 	virtual void ToBuffer(CBuffer* pBuffer) const = 0;
 
 public:
-
 	// Packet position and length
-	void Seek(DWORD nPosition, int nRelative = seekStart); // Set the position the given distance from the given end
-	void Shorten(DWORD nLength);                           // Shorten the packet to the given number of bytes
+	void Seek(DWORD nPosition, int nRelative = seekStart);	// Set the position the given distance from the given end
+	void Shorten(DWORD nLength);				// Shorten the packet to the given number of bytes
 
 	virtual CString ReadString(UINT cp, DWORD nMaximum = 0xFFFFFFFF);
 
@@ -83,7 +81,7 @@ public:
 	virtual void    WriteString(LPCTSTR pszString, BOOL bNull = TRUE); // Write ASCII text and a null terminator into the end of the packet
 
 	// String utility, not at all related to the packet
-	virtual int GetStringLen(LPCTSTR pszString) const; // Takes a string, and determines how long it would be as ASCII text
+	virtual int GetStringLen(LPCTSTR pszString) const;	// Takes a string, and determines how long it would be as ASCII text
 
 	// Read and write ASCII text in the packet, using the UTF8 code page
 	virtual CString ReadStringUTF8(DWORD nMaximum = 0xFFFFFFFF);           // Read null terminated ASCII text at our position in the packet
@@ -93,8 +91,8 @@ public:
 	virtual int GetStringLenUTF8(LPCTSTR pszString) const; // Takes a string, and determines how long it would be as ASCII text converted UTF8
 
 	// Data compression
-	auto_array< BYTE > ReadZLib(DWORD nLength, DWORD* pnOutput);         // Read compressed data from the packet, decompress it, and return it
-	void   WriteZLib(LPCVOID pData, DWORD nLength);                      // Compress the given data and write it into the packet
+	auto_array< BYTE > ReadZLib(DWORD nLength, DWORD* pnOutput);	// Read compressed data from the packet, decompress it, and return it
+	void   WriteZLib(LPCVOID pData, DWORD nLength);			// Compress the given data and write it into the packet
 
 	// Insert data into the packet
 	BYTE* WriteGetPointer(DWORD nLength, DWORD nOffset = 0xFFFFFFFF); // Makes room at the given spot, and returns a pointer to it
@@ -200,8 +198,8 @@ public:
 		if ( m_nPosition + 2 > m_nLength ) AfxThrowUserException();
 
 		// Read the 2 bytes at the position, and move the position past them
-		WORD nValue = *(WORD*)( m_pBuffer + m_nPosition ); // Look at the pointer as a 2 byte word
-		m_nPosition += 2;                                  // Move the position beyond it
+		WORD nValue = *(WORD*)( m_pBuffer + m_nPosition );	// Look at the pointer as a 2 byte word
+		m_nPosition += 2;					// Move the position beyond it
 
 		// Return the 2 bytes in a word
 		return nValue;
@@ -215,8 +213,8 @@ public:
 		if ( m_nPosition + 2 > m_nLength ) AfxThrowUserException();
 
 		// Read the 2 bytes at the position, move the position past them, and return them
-		WORD nValue = *(WORD*)( m_pBuffer + m_nPosition ); // Look at the pointer as a 2 byte word
-		m_nPosition += 2;                                  // Move the position beyond it
+		WORD nValue = *(WORD*)( m_pBuffer + m_nPosition );	// Look at the pointer as a 2 byte word
+		m_nPosition += 2;					// Move the position beyond it
 
 		// If the packet is in big endian, reverse the order of the 2 bytes before returning them in a word
 		return m_bBigEndian ? swapEndianess( nValue ) : nValue;
@@ -230,8 +228,8 @@ public:
 		if ( m_nPosition + 4 > m_nLength ) AfxThrowUserException();
 
 		// Read the 4 bytes at the position, and move the position past them
-		DWORD nValue = *(DWORD*)( m_pBuffer + m_nPosition ); // Look at the pointer as a 4 byte DWORD
-		m_nPosition += 4;                                    // Move the position beyond it
+		DWORD nValue = *(DWORD*)( m_pBuffer + m_nPosition );	// Look at the pointer as a 4 byte DWORD
+		m_nPosition += 4;					// Move the position beyond it
 
 		// Return the 4 bytes in a DWORD
 		return nValue;
@@ -245,8 +243,8 @@ public:
 		if ( m_nPosition + 4 > m_nLength ) AfxThrowUserException();
 
 		// Read the 4 bytes at the position, and move the position past them
-		DWORD nValue = *(DWORD*)( m_pBuffer + m_nPosition ); // Look at the pointer as a 4 byte DWORD
-		m_nPosition += 4;                                    // Move the position beyond it
+		DWORD nValue = *(DWORD*)( m_pBuffer + m_nPosition );	// Look at the pointer as a 4 byte DWORD
+		m_nPosition += 4;					// Move the position beyond it
 
 		// If the packet is in big endian, reverse the order of the 4 bytes before returning them in a DWORD
 		return m_bBigEndian ? swapEndianess( nValue ) : nValue;
@@ -260,8 +258,8 @@ public:
 		if ( m_nPosition + 8 > m_nLength ) AfxThrowUserException();
 
 		// Read the 8 bytes at the position, and move the position past them
-		QWORD nValue = *(QWORD*)( m_pBuffer + m_nPosition ); // Look at the pointer as a 8 byte QWORD
-		m_nPosition += 8;                                    // Move the position beyond it
+		QWORD nValue = *(QWORD*)( m_pBuffer + m_nPosition );	// Look at the pointer as a 8 byte QWORD
+		m_nPosition += 8;					// Move the position beyond it
 
 		// If the packet is in big endian, reverse the order of the 8 bytes before returning them in a QWORD
 		return m_bBigEndian ? swapEndianess( nValue ) : nValue;
@@ -306,8 +304,8 @@ public:
 		// Add the given data to the end of the packet
 		if ( nLength )
 		{
-			CopyMemory( m_pBuffer + m_nLength, pData, nLength ); // Copy the data into the end
-			m_nLength += nLength;                                // Record that the new bytes are stored here
+			CopyMemory( m_pBuffer + m_nLength, pData, nLength );	// Copy the data into the end
+			m_nLength += nLength;					// Record that the new bytes are stored here
 		}
 		return TRUE;
 	}
@@ -323,7 +321,7 @@ public:
 	void Write(const Hashes::Hash< Descriptor, StoragePolicy,
 			CheckingPolicy, ValidationPolicy >& oHash)
 	{
-		if ( !oHash.isValid() ) AfxThrowUserException();
+		if ( ! oHash.isValid() ) AfxThrowUserException();
 		Write( &oHash[ 0 ], oHash.byteCount );
 	}
 
@@ -442,9 +440,9 @@ public:
 		for ( CPacket* pPacket = this ; pPacket ; )
 		{
 			// Decrement the reference count of this packet, and move to the next one
-			CPacket* pNext = pPacket->m_pNext; // Save a pointer to the next packet
-			pPacket->Release();                // Record that one fewer object needs this one, which might delete it
-			pPacket = pNext;                   // Move pPacket to the next one
+			CPacket* pNext = pPacket->m_pNext;	// Save a pointer to the next packet
+			pPacket->Release();			// Record that one fewer object needs this one, which might delete it
+			pPacket = pNext;			// Move pPacket to the next one
 		}
 	}
 
@@ -487,8 +485,8 @@ protected:
 protected:
 
 	// Methods inheriting classes implement to allocate and free arrays of 256 packets
-	virtual void NewPoolImpl(int nSize, CPacket*& pPool, int& nPitch) = 0; // Allocate a new array of 256 packets
-	virtual void FreePoolImpl(CPacket* pPool) = 0;                         // Free an array of 256 packets
+	virtual void NewPoolImpl(int nSize, CPacket*& pPool, int& nPitch) = 0;	// Allocate a new array of 256 packets
+	virtual void FreePoolImpl(CPacket* pPool) = 0;				// Free an array of 256 packets
 
 public:
 
@@ -500,13 +498,13 @@ public:
 		m_pSection.Lock();
 
 		// If there aren't any packet pools yet, make one
-		if ( m_nFree == 0 ) NewPool(); // Now, m_pFree will point to the last packet in that pool, and the first packet will point to null
-		ASSERT( m_nFree > 0 );         // Make sure this caused the count of packets to go up, it should go to 256
+		if ( m_nFree == 0 ) NewPool();	// Now, m_pFree will point to the last packet in that pool, and the first packet will point to null
+		ASSERT( m_nFree > 0 );		// Make sure this caused the count of packets to go up, it should go to 256
 
 		// Remove the last linked packet in the most recently added packet pool from the linked list of free packets
-		CPacket* pPacket = m_pFree; // Point pPacket at the last packet in the newest pool
-		m_pFree = m_pFree->m_pNext; // Move m_pFree to the second to last packet in the newest pool
-		m_nFree--;                  // Record that there is one fewer packet linked together in all the packet pools here
+		CPacket* pPacket = m_pFree;	// Point pPacket at the last packet in the newest pool
+		m_pFree = m_pFree->m_pNext;	// Move m_pFree to the second to last packet in the newest pool
+		m_nFree--;			// Record that there is one fewer packet linked together in all the packet pools here
 
 		// We're done, let other threads stuck on a Lock line like that one above inside
 		m_pSection.Unlock();
@@ -524,16 +522,15 @@ public:
 	inline void Delete(CPacket* pPacket)
 	{
 		// Make sure the pointer points to a packet, and that packet doesn't still have a reference count
-		ASSERT( pPacket != NULL );
 		ASSERT( pPacket->m_nReference == 0 );
 
 		// Make sure this is the only thread accessing this CPacketPool object at this time
 		m_pSection.Lock();
 
 		// Link the given packet back into the list of free ones we can use later
-		pPacket->m_pNext = m_pFree; // Link the given packet into the front of the free list
+		pPacket->m_pNext = m_pFree;	// Link the given packet into the front of the free list
 		m_pFree = pPacket;
-		m_nFree++;                  // Record one more packet is in the free list
+		m_nFree++;					// Record one more packet is in the free list
 
 		// We're done, let other threads stuck on a Lock line like that one above inside
 		m_pSection.Unlock();

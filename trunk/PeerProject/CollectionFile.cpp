@@ -102,16 +102,16 @@ void CCollectionFile::Close()
 
 CCollectionFile::File* CCollectionFile::FindByURN(LPCTSTR pszURN)
 {
-    Hashes::Sha1Hash oSHA1;
-    Hashes::TigerHash oTiger;
-    Hashes::Md5Hash oMD5;
-    Hashes::Ed2kHash oED2K;
+	Hashes::Sha1Hash oSHA1;
+	Hashes::TigerHash oTiger;
+	Hashes::Md5Hash oMD5;
+	Hashes::Ed2kHash oED2K;
 	Hashes::BtHash oBTH;
 
 	oSHA1.fromUrn( pszURN );
-    oMD5.fromUrn( pszURN );
-    oTiger.fromUrn( pszURN );
-    oED2K.fromUrn( pszURN );
+	oMD5.fromUrn( pszURN );
+	oTiger.fromUrn( pszURN );
+	oED2K.fromUrn( pszURN );
 	oBTH.fromUrn( pszURN ) || oBTH.fromUrn< Hashes::base16Encoding >( pszURN );
 
 	for ( POSITION pos = GetFileIterator() ; pos ; )
@@ -450,12 +450,12 @@ BOOL CCollectionFile::File::Parse(CXMLElement* pRoot)
 
 		if ( pXML->IsNamed( _T("id") ) )
 		{
-			if ( !m_oSHA1 )	m_oSHA1.fromUrn( pXML->GetValue() );
-            if ( !m_oMD5 )	m_oMD5.fromUrn( pXML->GetValue() );
-			if ( !m_oTiger ) m_oTiger.fromUrn( pXML->GetValue() );
-			if ( !m_oED2K )	m_oED2K.fromUrn( pXML->GetValue() );
-			if ( !m_oBTH )	m_oBTH.fromUrn( pXML->GetValue() );
-			if ( !m_oBTH )	m_oBTH.fromUrn< Hashes::base16Encoding >( pXML->GetValue() );
+			if ( ! m_oSHA1 )  m_oSHA1.fromUrn( pXML->GetValue() );
+			if ( ! m_oTiger ) m_oTiger.fromUrn( pXML->GetValue() );
+			if ( ! m_oED2K )  m_oED2K.fromUrn( pXML->GetValue() );
+			if ( ! m_oMD5 )   m_oMD5.fromUrn( pXML->GetValue() );
+			if ( ! m_oBTH )   m_oBTH.fromUrn( pXML->GetValue() );
+			if ( ! m_oBTH )   m_oBTH.fromUrn< Hashes::base16Encoding >( pXML->GetValue() );
 		}
 		else if ( pXML->IsNamed( _T("description") ) )
 		{
@@ -476,7 +476,7 @@ BOOL CCollectionFile::File::Parse(CXMLElement* pRoot)
 		else if ( pXML->IsNamed( _T("packaged") ) )
 		{
 			if ( CXMLElement* pSource = pXML->GetElementByName( _T("source") ) )
-				/* m_sSource =*/ pSource->GetValue();
+				/*m_sSource =*/ pSource->GetValue();
 		}
 	}
 
@@ -572,7 +572,7 @@ BOOL CCollectionFile::File::Download()
 
 	pURL.m_nAction	= CPeerProjectURL::uriDownload;
 	pURL.m_oSHA1	= m_oSHA1;
-    pURL.m_oMD5 	= m_oMD5;
+	pURL.m_oMD5 	= m_oMD5;
 	pURL.m_oTiger	= m_oTiger;
 	pURL.m_oED2K	= m_oED2K;
 	pURL.m_oBTH 	= m_oBTH;

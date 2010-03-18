@@ -1,7 +1,7 @@
 //
 // CtrlLibraryMetaPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -62,9 +62,9 @@ END_MESSAGE_MAP()
 // CLibraryMetaPanel construction
 
 CLibraryMetaPanel::CLibraryMetaPanel()
-:	m_pMetadata( new CMetaPanel() )
-,	m_pServiceData( NULL )
-,	m_bForceUpdate( FALSE )
+	: m_pMetadata	( new CMetaPanel() )
+	, m_pServiceData( NULL )
+	, m_bForceUpdate( FALSE )
 {
 	m_rcFolder.SetRectEmpty();
 }
@@ -94,8 +94,15 @@ void CLibraryMetaPanel::Update()
 	CLibraryList* pSel = GetViewSelection();
 	m_nSelected = pSel ? static_cast< int >( pSel->GetCount() ) : 0;
 
-	CLibraryFile* pFirst = m_nSelected ? Library.LookupFile( pSel->GetHead() ) : NULL;
-	if ( pFirst == NULL ) m_nSelected = 0;
+	// Show info for library files only
+	CLibraryFile* pFirst = NULL;
+	if ( m_nSelected )
+	{
+		const CLibraryListItem& pItem = pSel->GetHead();
+		if ( pItem.Type == CLibraryListItem::LibraryFile )
+			pFirst = Library.LookupFile( pItem );
+		if ( pFirst == NULL ) m_nSelected = 0;
+	}
 
 	m_nIcon32 = m_nIcon48 = -1;
 
@@ -153,7 +160,9 @@ void CLibraryMetaPanel::Update()
 	{
 		for ( POSITION pos = pSel->GetHeadPosition() ; pos ; )
 		{
-			CLibraryFile* pFile = Library.LookupFile( pSel->GetNext( pos ) );
+			const CLibraryListItem& pItem = pSel->GetNext( pos );
+			if ( pItem.Type != CLibraryListItem::LibraryFile ) continue;
+			CLibraryFile* pFile = Library.LookupFile( pItem );
 			if ( pFile == NULL ) continue;
 			m_pSchema = pFile->m_pSchema;
 			if ( m_pSchema ) break;
@@ -172,7 +181,9 @@ void CLibraryMetaPanel::Update()
 		{
 			for ( POSITION pos = pSel->GetHeadPosition() ; pos ; )
 			{
-				if ( CLibraryFile* pFile = Library.LookupFile( pSel->GetNext( pos ) ) )
+				const CLibraryListItem& pItem = pSel->GetNext( pos );
+				if ( pItem.Type != CLibraryListItem::LibraryFile ) continue;
+				if ( CLibraryFile* pFile = Library.LookupFile( pItem ) )
 				{
 					if ( pFile->m_pMetadata != NULL &&
 						m_pSchema->Equals( pFile->m_pSchema ) )
@@ -448,6 +459,8 @@ void CLibraryMetaPanel::OnLButtonUp(UINT nFlags, CPoint point)
 
 	if ( m_nSelected > 0 && m_rcFolder.PtInRect( point ) )
 	{
+		//CQuickLock oLock( Library.m_pSection );
+
 		if ( CLibraryFolder* pFolder = LibraryFolders.GetFolder( m_sFolder ) )
 		{
 			if ( Settings.Library.ShowVirtual )

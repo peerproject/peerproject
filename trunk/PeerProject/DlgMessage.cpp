@@ -32,10 +32,10 @@
 IMPLEMENT_DYNAMIC(CMessageDlg, CSkinDialog)
 
 CMessageDlg::CMessageDlg(CWnd* pParent /*=NULL*/)
-	: CSkinDialog( CMessageDlg::IDD, pParent )
-	, m_nType( MB_OK )
-	, m_bRemember( FALSE )
-	, m_pnDefault( NULL )
+	: CSkinDialog	( CMessageDlg::IDD, pParent )
+	, m_nType		( MB_OK )
+	, m_bRemember	( FALSE )
+	, m_pnDefault	( NULL )
 {
 }
 

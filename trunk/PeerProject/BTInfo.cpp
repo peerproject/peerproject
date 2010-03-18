@@ -288,9 +288,15 @@ void CBTInfo::Serialize(CArchive& ar)
 			m_oTrackers[ nTracker ].Serialize( ar, nVersion );
 		}
 
-		ar << m_pSource.m_nLength;
 		if ( m_pSource.m_nLength && CheckInfoData( &m_pSource ) )
+		{
+			ar << m_pSource.m_nLength;
 			ar.Write( m_pSource.m_pBuffer, m_pSource.m_nLength );
+		}
+		else
+		{
+			ar << (DWORD)0;
+		}
 	}
 	else // Loading
 	{
@@ -404,7 +410,7 @@ void CBTInfo::ConvertOldTorrents()
 	if ( m_pFiles.GetCount() < 2 )
 		return;
 
-	if ( !Downloads.IsSpaceAvailable( m_nSize, Downloads.dlPathComplete ) )
+	if ( ! Downloads.IsSpaceAvailable( m_nSize, Downloads.dlPathComplete ) )
 		AfxThrowFileException( CFileException::diskFull );
 
 	CString strSource;
@@ -419,7 +425,7 @@ void CBTInfo::ConvertOldTorrents()
 
 	const DWORD BUFFER_SIZE = 8ul * 1024ul * 1024ul;
 	BYTE* pBuffer = new BYTE[ BUFFER_SIZE ];
-	if ( !pBuffer )
+	if ( ! pBuffer )
 		AfxThrowMemoryException();
 
 	CString strTargetTemplate;
@@ -846,7 +852,7 @@ BOOL CBTInfo::LoadTorrentBuffer(const CBuffer* pBuffer)
 BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 {
 	//ASSERT( m_sName.IsEmpty() && m_nSize == SIZE_UNKNOWN );	// Assume empty object
-	ASSERT( !m_pBlockBTH );
+	ASSERT( ! m_pBlockBTH );
 
 	theApp.Message( MSG_DEBUG, _T("[BT] Loading torrent tree: %s"), (LPCTSTR)pRoot->Encode() );
 

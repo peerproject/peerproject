@@ -1,7 +1,7 @@
 //
 // WndMonitor.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -42,22 +42,24 @@ protected:
 	class CmdButton : public CCmdUI
 	{
 	public:
-		CmdButton(LPCTSTR pszName);
-		virtual ~CmdButton() {}
-		BOOL HitTest(const CPoint& point, BOOL bAll = FALSE) const;
-		void Paint(CDC* pdcWindow, CRect& rcWindow, CSkinWindow* pSkin, CmdButton* pHover, CmdButton* pDown);
-	public:
-		virtual void Show(BOOL bShow = TRUE);
-		virtual void Enable(BOOL bOn = TRUE);
-		virtual void SetCheck(int nCheck = 1);
-		virtual void Execute(CFrameWnd* pTarget);
-	public:
 		CString		m_sName;
 		CRect		m_rc;
 		BOOL		m_bVisible;
 		BOOL		m_bEnabled;
 		BOOL		m_bChecked;
 		BOOL		m_bChanged;
+
+	public:
+		CmdButton(LPCTSTR pszName);
+		virtual ~CmdButton() {}
+
+		BOOL HitTest(const CPoint& point, BOOL bAll = FALSE) const;
+		void Paint(CDC* pdcWindow, CRect& rcWindow, CSkinWindow* pSkin, CmdButton* pHover, CmdButton* pDown);
+
+		virtual void Show(BOOL bShow = TRUE);
+		virtual void Enable(BOOL bOn = TRUE);
+		virtual void SetCheck(int nCheck = 1);
+		virtual void Execute(CFrameWnd* pTarget);
 	};
 
 // Operations
@@ -65,6 +67,12 @@ public:
 	BOOL		Create(CMonitorBarCtrl* pMonitor);
 	BOOL		IsVisible();
 	void		OnSkinChange();
+
+	inline void	RemoveSkin()
+	{
+		m_pSkin = NULL;
+	}
+
 protected:
 	CmdButton*	HitTestButtons(const CPoint& ptIn, BOOL bAll = FALSE) const;
 	void		UpdateCmdButtons();
@@ -81,7 +89,7 @@ protected:
 protected:
 	static LPCTSTR		m_hClass;
 	CMonitorBarCtrl*	m_pMonitor;
-protected:
+
 	CSkinWindow*		m_pSkin;
 	CList<CmdButton*>	m_pButtons;
 	CmdButton*			m_pCmdHover;
@@ -89,11 +97,11 @@ protected:
 	CString				m_sStatus;
 	BOOL				m_bStatus;
 	int					m_nTimer;
-protected:
+
 	CRect				m_rcBackground;
 	BOOL				m_bsStatusText;
 	CRect				m_rcsStatusText;
-protected:
+
 	BOOL				m_bsHistoryDest;
 	CRect				m_rcsHistoryDest;
 	BOOL				m_bsHistoryTx[2];
@@ -116,7 +124,7 @@ protected:
 	CRect				m_rcsScalerBar;
 	BOOL				m_bScaler;
 	CRect				m_rcScalerTab;
-protected:
+
 	BOOL				m_bsMediaSeekTrack;
 	CRect				m_rcsMediaSeekTrack;
 	BOOL				m_bsMediaSeekTab;

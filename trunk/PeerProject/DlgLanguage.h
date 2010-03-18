@@ -26,15 +26,10 @@
 
 class CLanguageDlg : public CSkinDialog
 {
-// Construction
 public:
 	CLanguageDlg(CWnd* pParent = NULL);
 
-// Dialog Data
-public:
-	//{{AFX_DATA(CLanguageDlg)
 	enum { IDD = IDD_LANGUAGE };
-	//}}AFX_DATA
 
 	CString			m_sLanguage;
 	bool			m_bLanguageRTL;
@@ -54,7 +49,6 @@ protected:
 	CFont			m_fntSmall;
 	HCURSOR			m_hArrow;
 	HCURSOR			m_hHand;
-	//CBitmap		m_bmHeader;
 
 protected:
 	void	PaintItem(int nItem, CDC* pDC, CRect* pRect);
@@ -63,8 +57,6 @@ protected:
 	BOOL	AddSkin(LPCTSTR pszPath, LPCTSTR pszName);
 	void	Execute(int nItem);
 
-
-// Implementation
 protected:
 	//{{AFX_MSG(CLanguageDlg)
 	virtual void DoDataExchange(CDataExchange* pDX);
@@ -82,7 +74,6 @@ protected:
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnDestroy();
 	afx_msg void OnClose();
-	//afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

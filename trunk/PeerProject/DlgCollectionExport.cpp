@@ -1,7 +1,7 @@
 //
 // DlgCollectionExport.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -91,7 +91,7 @@ BOOL CCollectionExportDlg::OnInitDialog()
 
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	//Show template name, author and version number columns, hide the rest info
+	// Show template name, author and version number columns, hide the rest info
 	m_wndList.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, 134, 0 );
 	m_wndList.InsertColumn( 1, _T("Author"), LVCFMT_LEFT, 114, 1 );
 	m_wndList.InsertColumn( 2, _T("Version"), LVCFMT_LEFT, 32, 2 );
@@ -103,7 +103,7 @@ BOOL CCollectionExportDlg::OnInitDialog()
 	m_wndList.SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
 		LVS_EX_FULLROWSELECT, LVS_EX_FULLROWSELECT );
 
-	//Translate window
+	// Translate window
 	SkinMe( _T("CCollectionExportDlg"), IDI_COLLECTION );
 
 	if ( Settings.General.LanguageRTL )
@@ -114,7 +114,7 @@ BOOL CCollectionExportDlg::OnInitDialog()
 	m_wndName.SetWindowText( _T("") );
 	m_wndAuthor.SetWindowText( _T("") );
 
-	//Get label and button caption for the first screen, save the rest to variables for later use.
+	// Get label and button caption for the first screen, save the rest to variables for later use.
 	CString str;
 	m_wndOK.GetWindowText( str );
 	int nPos = str.Find( '|' );
@@ -149,7 +149,7 @@ BOOL CCollectionExportDlg::OnInitDialog()
 
 	CWaitCursor pCursor;
 
-	//Get templates info from Templates folder and fill in the list
+	// Get templates info from Templates folder and fill in the list
 	EnumerateTemplates();
 
 	return TRUE;
@@ -179,7 +179,7 @@ void CCollectionExportDlg::EnumerateTemplates(LPCTSTR pszPath)
 
 				EnumerateTemplates( strPath );
 			}
-			else if (	_tcsistr( pFind.cFileName, _T(".xml") ) != NULL )
+			else if ( _tcsistr( pFind.cFileName, _T(".xml") ) != NULL )
 			{
 				AddTemplate( pszPath, pFind.cFileName );
 			}
@@ -299,14 +299,14 @@ void CCollectionExportDlg::OnOK()
 {
 	switch ( m_nStep )
 	{
-		case 1: // the first wizard screen
+		case 1: // The first wizard screen
 		{
-			//Change explanation and button captions
+			// Change explanation and button captions
 			m_wndExplain.SetWindowText( m_sLblExplain2 );
 			m_wndOK.SetWindowText( m_sBtnExport );
 			m_wndDelete.SetWindowText( m_sBtnBack );
 
-			//Hide the first screen controls
+			// Hide the first screen controls
 			m_wndList.ShowWindow( FALSE );
 			m_wndAuthor.ShowWindow( FALSE );
 			m_wndName.ShowWindow( FALSE );
@@ -315,10 +315,11 @@ void CCollectionExportDlg::OnOK()
 			m_wndLblName.ShowWindow( FALSE );
 			m_wndLblDesc.ShowWindow( FALSE );
 			m_wndGroupBox.ShowWindow( FALSE );
-			if ( m_wndWizard.m_pControls.GetSize() ) // we already viewed the second screen
+			if ( m_wndWizard.m_pControls.GetSize() ) // We already viewed the second screen
 			{
 				m_wndWizard.ShowWindow( SW_SHOW );
-				if ( ! m_wndWizard.m_bValid ) m_wndOK.EnableWindow( FALSE );
+				if ( ! m_wndWizard.m_bValid )
+					m_wndOK.EnableWindow( FALSE );
 				break;
 			}
 
@@ -351,11 +352,11 @@ void CCollectionExportDlg::OnOK()
 				m_wndOK.EnableWindow( FALSE );
 		}
 		break;
-		case 2: // the second wizard screen
+		case 2: // The second wizard screen
 			CString strPath = BrowseForFolder( _T("Select folder for output:") );
 			if ( strPath.IsEmpty() )
 			{
-				m_nStep--; // do not increment at the end of case
+				m_nStep--; // Do not increment at the end of case
 				break;
 			}
 
@@ -409,8 +410,8 @@ void CCollectionExportDlg::OnOK()
 				else continue;
 
 				// Substitute item IDs with the values from wizard edit boxes.
-				// The phrase "Individual file replacement" -- when each file has a unique
-				// id substitution.
+				// The phrase "Individual file replacement" --
+				// when each file has a unique id substitution.
 				POSITION pos = m_wndWizard.m_pItems.GetStartPosition();
 				while( pos != NULL )
 				{
@@ -420,10 +421,10 @@ void CCollectionExportDlg::OnOK()
 					m_wndWizard.m_pItems.GetNextAssoc( pos, strControlID, strMap );
 					int nPosVert = strMap.Find('|');
 					str = strMap.Left( nPosVert );
-					nFileID = _ttoi( (LPCTSTR)str ); // File # starting 0
-					strMap = strMap.Mid( nPosVert + 1 ); // remove first entry
+					nFileID = _ttoi( (LPCTSTR)str );		// File # starting 0
+					strMap = strMap.Mid( nPosVert + 1 );	// Remove first entry
 					nPosVert = strMap.Find('|');
-					strReplaceID = strMap.Left( nPosVert ); // replacement ID from XML
+					strReplaceID = strMap.Left( nPosVert );	// Replacement ID from XML
 					str.Format( _T("$%s$"), strReplaceID );
 					strMap = strMap.Mid( nPosVert + 1 );
 					nControlID = _ttoi( (LPCTSTR)strControlID );
@@ -431,8 +432,10 @@ void CCollectionExportDlg::OnOK()
 					CEdit* pEdit = (CEdit*)m_wndWizard.GetDlgItem( nControlID );
 					CString strReplace;
 					if ( pEdit->IsKindOf( RUNTIME_CLASS( CEdit ) ) )
+					{
 						pEdit->GetWindowText( strReplace );
-					else // something wrong
+					}
+					else // Something wrong
 					{
 						AfxMessageBox( _T("BUG: Controls placed badly.") );
 						break;
@@ -446,8 +449,7 @@ void CCollectionExportDlg::OnOK()
 						{
 							CString strNew, strNewReplace;
 
-							//// ensure that the first char is not backslash
-							//// it may be entered in XML
+							// Ensure that first char is not backslash (may be entered in XML)
 							//if ( ! strMap.IsEmpty() && strReplace.Left( 1 ) == '\\' )
 							//	strReplace = strReplace.Mid( 1 );
 
@@ -456,7 +458,7 @@ void CCollectionExportDlg::OnOK()
 								strNewReplace = strReplace.Mid( strReplace.ReverseFind('\\') + 1 );
 							else strNewReplace = strReplace;
 
-							// single filepicker is replaced everywhere
+							// Single filepicker is replaced everywhere
 							// e.g. various bullets may be identical
 							if ( strMap.IsEmpty() || strMap == "s" )
 							{
@@ -502,14 +504,13 @@ void CCollectionExportDlg::OnOK()
 						} // while each even/odd file
 					}
 
-					// ordinary template ignores individual file replacements
+					// Ordinary template ignores individual file replacements
 					if ( ! strSource.IsEmpty() && strMap.IsEmpty() || strMap == "s" )
-					{
 						m_wndWizard.ReplaceNoCase( strSource, str, strReplace );
-					}
-				} // while each wizard row
 
-				// combine file docs and embed in "main" template
+				} // While each wizard row
+
+				// Combine file docs and embed in "main" template
 				if ( strTemplateName == "index.htm" )
 				{
 					CString strResult;
@@ -521,7 +522,7 @@ void CCollectionExportDlg::OnOK()
 					strResult.ReleaseBuffer();
 				}
 
-				// output to file
+				// Output to file
 				CFile pFile;
 				if ( pFile.Open( strNewFilePath , CFile::modeWrite|CFile::modeCreate ) )
 				{
@@ -530,13 +531,13 @@ void CCollectionExportDlg::OnOK()
 					pFile.Write( (LPCSTR)strSourceUTF8, strSourceUTF8.GetLength() );
 					pFile.Close();
 
-					// clean-up;
+					// Clean-up;
 					strSource.Empty();
 					strSource.ReleaseBuffer();
 				}
-			} // while each template file
+			} // While each template file
 
-			// copy all non-parsed files such as images, stylesheets etc.
+			// Copy all non-parsed files such as images, stylesheets etc.
 			int nPosImg = 0;
 			while ( nPosImg < m_wndWizard.m_pImagePaths.GetSize() )
 			{
@@ -544,16 +545,16 @@ void CCollectionExportDlg::OnOK()
 				strFileName = m_wndWizard.m_pImagePaths.GetAt( nPosImg++ );
 				strTarget = strPath + _T('\\') + strFileName;
 
-				// destination file does not exists
+				// Destination file does not exists
 				if ( GetFileAttributes( strTarget ) == 0xFFFFFFFF )
 				{
 					CString strSource;
 					strSource = DirFromPath( m_wndWizard.m_sXMLPath ) +
 							_T('\\') + strFileName;
-					// source file exists
+					// Source file exists
 					if ( GetFileAttributes( strSource ) != 0xFFFFFFFF )
 					{
-						// create dirs recursively
+						// Create dirs recursively
 						CreateDirectory( strTarget.Left( strTarget.ReverseFind( _T('\\') ) ) );
 						if ( ! CopyFile( strSource, strTarget, TRUE ) )
 							AfxMessageBox( _T("ToDo: Can't write to ") + strFile );
@@ -582,7 +583,7 @@ void CCollectionExportDlg::OnOK()
 
 CXMLElement* CCollectionExportDlg::CreateXML(BOOL bMetadataAll)
 {
-	//Collect wizard entries
+	// Collect wizard entries
 	CXMLElement* pRoot = new CXMLElement( NULL, _T("collection") );
 	pRoot->AddAttribute( _T("xmlns"), _T("http://www.shareaza.com/schemas/Collection.xsd") );
 
@@ -591,9 +592,7 @@ CXMLElement* CCollectionExportDlg::CreateXML(BOOL bMetadataAll)
 	if ( ! m_pFolder->m_sName.IsEmpty() )
 		pProperties->AddElement( _T("title") )->SetValue( m_pFolder->m_sName );
 	else
-	{
 		pProperties->AddElement( _T("title") )->SetValue( _T("PeerProject Collection") );
-	}
 
 	if ( m_pFolder->m_pXML != NULL && m_pFolder->m_sSchemaURI.GetLength() > 0 )
 	{
@@ -635,15 +634,15 @@ CXMLElement* CCollectionExportDlg::CreateXML(BOOL bMetadataAll)
 			pFileRoot->AddElement( _T("id") )->SetValue(
 				pFile->m_oTiger.toUrn() );
 		}
-        if ( pFile->m_oMD5 )
+		if ( pFile->m_oMD5 )
 		{
-            pFileRoot->AddElement( _T("id") )->SetValue(
-                pFile->m_oMD5.toUrn() );
+			pFileRoot->AddElement( _T("id") )->SetValue(
+				pFile->m_oMD5.toUrn() );
 		}
 		if ( pFile->m_oED2K )
 		{
 			pFileRoot->AddElement( _T("id") )->SetValue(
-                pFile->m_oED2K.toUrn() );
+				pFile->m_oED2K.toUrn() );
 		}
 		if ( pFile->m_oBTH )
 		{
@@ -690,10 +689,10 @@ CXMLElement* CCollectionExportDlg::CopyMetadata(CXMLElement* pMetadata)
 
 void CCollectionExportDlg::OnTemplatesDeleteOrBack()
 {
-	m_wndOK.EnableWindow( TRUE ); // enable if template was invalid
+	m_wndOK.EnableWindow( TRUE ); // Enable if template was invalid
 	switch ( m_nStep )
 	{
-		case 1: // the first screen -- button "Delete"
+		case 1:	// The first screen -- button "Delete"
 		{
 		if ( m_nSelected < 0 ) return;
 
@@ -755,14 +754,14 @@ void CCollectionExportDlg::OnTemplatesDeleteOrBack()
 			m_nSelected = -1;
 			break;
 		}
-		case 2: // the second screen -- button "Back"
+		case 2: // The second screen -- button "Back"
 		{
-			//Change explanation and button captions
+			// Change explanation and button captions
 			m_wndDelete.SetWindowText( m_sBtnDelete );
 			m_wndExplain.SetWindowText( m_sLblExplain1 );
 			m_wndOK.SetWindowText( m_sBtnNext );
 
-			//Show the first screen controls
+			// Show the first screen controls
 			m_wndList.ShowWindow( TRUE );
 			m_wndAuthor.ShowWindow( TRUE );
 			m_wndName.ShowWindow( TRUE );
@@ -910,11 +909,11 @@ void CCollectionExportDlg::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 
 BOOL CCollectionExportDlg::PreTranslateMessage(MSG* pMsg)
 {
-	if ( pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_TAB )
+	if ( m_wndWizard && pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_TAB )
 	{
-		if ( m_wndWizard )
-			if ( m_wndWizard.IsWindowVisible() )
-				if ( m_wndWizard.OnTab() ) return TRUE; // TODO: when template is invalid tab key does not work.
+		if ( m_wndWizard.IsWindowVisible() )
+			if ( m_wndWizard.OnTab() )
+				return TRUE; // ToDo: when template is invalid tab key does not work.
 	}
 
 	return CSkinDialog::PreTranslateMessage( pMsg );
@@ -925,6 +924,8 @@ CString CCollectionExportDlg::DirFromPath(LPCTSTR szPath)
 	CString strDir(szPath);
 	int nIndex( strDir.ReverseFind( '\\' ) );
 
-	if ( nIndex != -1 ) strDir = strDir.Left( nIndex );
+	if ( nIndex != -1 )
+		strDir = strDir.Left( nIndex );
+
 	return strDir;
 }

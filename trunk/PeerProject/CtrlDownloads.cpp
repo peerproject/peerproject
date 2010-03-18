@@ -87,20 +87,20 @@ END_MESSAGE_MAP()
 //////////////////////////////////////////////////////////////////////////////
 // CDownloadsCtrl construction
 
-CDownloadsCtrl::CDownloadsCtrl() :
-	m_nGroupCookie( 0 ),
-	m_nFocus( 0 ),
-	m_bCreateDragImage( FALSE ),
-	m_pDragDrop( NULL ),
-	m_bDrag( FALSE ),
-	m_pDeselect1( NULL ),
-	m_pDeselect2( NULL ),
-	m_pbSortAscending( NULL ),
-	m_bShowSearching( TRUE ),
-	m_tSwitchTimer( 0 )
+CDownloadsCtrl::CDownloadsCtrl()
+	: m_nGroupCookie	( 0 )
+	, m_nFocus			( 0 )
+	, m_pDragDrop		( NULL )
+	, m_bDrag			( FALSE )
+	, m_bCreateDragImage( FALSE )
+	, m_pDeselect1		( NULL )
+	, m_pDeselect2		( NULL )
+	, m_pbSortAscending	( NULL )
+	, m_bShowSearching	( TRUE )
+	, m_tSwitchTimer	( 0 )
 {
 	// Try to get the number of lines to scroll when the mouse wheel is rotated
-	if( !SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0) )
+	if( ! SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0) )
 		m_nScrollWheelLines = 3;
 }
 
@@ -139,7 +139,7 @@ int CDownloadsCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( Settings.Downloads.SortColumns )
 		m_wndHeader.Create( WS_CHILD|HDS_BUTTONS|HDS_DRAGDROP|HDS_HOTTRACK|HDS_FULLDRAG, rect, this, AFX_IDW_PANE_FIRST );
 	else
-        m_wndHeader.Create( WS_CHILD|HDS_DRAGDROP|HDS_HOTTRACK|HDS_FULLDRAG, rect, this, AFX_IDW_PANE_FIRST );
+		m_wndHeader.Create( WS_CHILD|HDS_DRAGDROP|HDS_HOTTRACK|HDS_FULLDRAG, rect, this, AFX_IDW_PANE_FIRST );
 
 	m_wndTip.Create( this, &Settings.Interface.TipDownloads );
 
@@ -277,7 +277,7 @@ BOOL CDownloadsCtrl::IsFiltered(CDownload* pDownload)
 
 BOOL CDownloadsCtrl::IsExpandable(CDownload* pDownload)
 {
-	if ( pDownload->IsSeeding() && !Settings.General.DebugBTSources )
+	if ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources )
 		return FALSE;
 
 	if ( Settings.Downloads.ShowSources )
@@ -400,7 +400,8 @@ void CDownloadsCtrl::SelectAll(CDownload* /*pDownload*/, CDownloadSource* /*pSou
 			{
 				CDownload* pDownload = Downloads.GetNext( pos2 );
 
-				if ( pDownload != NULL ) pDownload->m_bSelected = TRUE;
+				if ( pDownload != NULL )
+					pDownload->m_bSelected = TRUE;
 			}
 
 			bSelected = TRUE;
@@ -433,7 +434,8 @@ void CDownloadsCtrl::SelectAll(CDownload* /*pDownload*/, CDownloadSource* /*pSou
 		{
 			CDownload* pDownload = Downloads.GetNext( pos );
 
-			if ( pDownload != NULL ) pDownload->m_bSelected = TRUE;
+			if ( pDownload != NULL )
+				pDownload->m_bSelected = TRUE;
 		}
 	}
 
@@ -527,7 +529,7 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 		}
 
 		nIndex ++;
-		if ( !pDownload->m_bExpanded || ( pDownload->IsSeeding() && !Settings.General.DebugBTSources ) ) continue;
+		if ( ! pDownload->m_bExpanded || ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources ) ) continue;
 
 		if ( Settings.Downloads.ShowSources )
 		{
@@ -597,7 +599,7 @@ BOOL CDownloadsCtrl::GetAt(int nSelect, CDownload** ppDownload, CDownloadSource*
 			return TRUE;
 		}
 
-		if ( !pDownload->m_bExpanded || ( pDownload->IsSeeding() && !Settings.General.DebugBTSources ) )
+		if ( ! pDownload->m_bExpanded || ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources ) )
 			continue;
 
 		for ( POSITION posSource = pDownload->GetIterator(); posSource ; )
@@ -840,7 +842,7 @@ void CDownloadsCtrl::OnSize(UINT nType, int cx, int cy)
 
 		nHeight ++;
 
-		if ( !pDownload->m_bExpanded || ( pDownload->IsSeeding() && !Settings.General.DebugBTSources ) ) continue;
+		if ( ! pDownload->m_bExpanded || ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources ) ) continue;
 
 		if ( Settings.Downloads.ShowSources )
 		{
@@ -889,7 +891,7 @@ void CDownloadsCtrl::OnPaint()
 	if ( tNow - m_tSwitchTimer > 10000 )
 	{
 		m_tSwitchTimer = tNow;
-		m_bShowSearching = !m_bShowSearching;
+		m_bShowSearching = ! m_bShowSearching;
 	}
 
 	if ( Settings.General.LanguageRTL ) dc.SetTextAlign( TA_RTLREADING );
@@ -926,7 +928,7 @@ void CDownloadsCtrl::OnPaint()
 
 		nIndex ++;
 
-		if ( !pDownload->m_bExpanded || ( pDownload->IsSeeding() && !Settings.General.DebugBTSources ) ) continue;
+		if ( ! pDownload->m_bExpanded || ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources ) ) continue;
 
 		if ( Settings.Downloads.ShowSources )
 		{
@@ -1336,7 +1338,7 @@ void CDownloadsCtrl::PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownlo
 			}
 
 			// Add the Nickname if there is one and they are being shown
-			if ( Settings.Search.ShowNames && !pSource->m_sNick.IsEmpty() )
+			if ( Settings.Search.ShowNames && ! pSource->m_sNick.IsEmpty() )
 				strText = pSource->m_sNick + _T(" (") + strText + _T(")");
 
 			// Indicate if this is a firewalled client
@@ -1492,7 +1494,7 @@ void CDownloadsCtrl::OnSkinChange()
 {
 	m_wndHeader.SetFont( &CoolInterface.m_fntNormal );
 
-	/* int nRevStart = m_pProtocols.GetImageCount() - 1; */
+	// int nRevStart = m_pProtocols.GetImageCount() - 1;
 	for ( int nImage = 1 ; nImage < 7 ; nImage++ )
 	{
 		HICON hIcon = CoolInterface.ExtractIcon( (UINT)protocolCmdMap[ nImage ].commandID, FALSE );
@@ -1681,7 +1683,7 @@ int CDownloadsCtrl::GetClientStatus(CDownload *pDownload)
 
 void CDownloadsCtrl::BubbleSortDownloads(int nColumn)  // BinaryInsertionSortDownloads(int nColumn)
 {
-	m_pbSortAscending[nColumn]= !m_pbSortAscending[nColumn];
+	m_pbSortAscending[nColumn]= ! m_pbSortAscending[nColumn];
 
 	if (Downloads.GetCount() < 2) return;
 
@@ -1750,9 +1752,9 @@ void CDownloadsCtrl::BubbleSortDownloads(int nColumn)  // BinaryInsertionSortDow
 						else
 							bRlBk = FALSE;
 						break;
-				}//end switch
+				} //end switch
 			}
-			else
+			else // Sort Ascending
 			{
 				switch ( nColumn )
 				{
@@ -1804,20 +1806,23 @@ void CDownloadsCtrl::BubbleSortDownloads(int nColumn)  // BinaryInsertionSortDow
 						else
 							bRlBk = FALSE;
 						break;
-				}//end switch
-			}//end if else
-		}//end while bRlBk
-		if (bOK)
+				} //end switch
+			} //end if else
+		} //end while bRlBk
+		if ( bOK )
 		{
 			Downloads.Reorder(x, y);
-			if (!bRlBk) Downloads.Move(x,1);
-			if (pos == NULL) break;
+			if ( ! bRlBk )
+				Downloads.Move(x,1);
+			if ( pos == NULL ) break;
 			pos_y = pos;
-            Downloads.GetPrevious(pos_y);
+			Downloads.GetPrevious(pos_y);
 		}
 		else
+		{
 			pos_y = pos_x;
-	}//end while pos
+		}
+	} //end while pos
 }
 
 void CDownloadsCtrl::OnSortPanelItems(NMHDR* pNotifyStruct, LRESULT* /*pResult*/)
@@ -1880,7 +1885,8 @@ void CDownloadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	case VK_SUBTRACT:
 		if ( GetAt( m_nFocus, &pDownload, &pSource ) )
 		{
-			if ( pSource != NULL ) pDownload = pSource->m_pDownload;
+			if ( pSource != NULL )
+				pDownload = pSource->m_pDownload;
 			if ( pDownload->m_bExpanded == TRUE )
 			{
 				pDownload->m_bExpanded = FALSE;
@@ -2292,8 +2298,8 @@ CImageList* CDownloadsCtrl::CreateDragImage(CList< CDownload* >* pSel, const CPo
 	}
 
 	dcDrag.SelectObject( pOldFont );
-    dcDrag.SelectObject( pOldDrag );
-    dcDrag.DeleteDC();
+	dcDrag.SelectObject( pOldDrag );
+	dcDrag.DeleteDC();
 
 	CImageList* pAll = new CImageList();
 	pAll->Create( rcAll.Width(), rcAll.Height(), ILC_COLOR32|ILC_MASK, 1, 1 ) ||
@@ -2317,9 +2323,12 @@ int CDownloadsCtrl::GetExpandableColumnX() const
 
 	for ( int nColumn = 0 ; m_wndHeader.GetItem( m_wndHeader.OrderToIndex( nColumn ), &pColumn ) ; nColumn++ )
 	{
-		if ( pColumn.lParam == DOWNLOAD_COLUMN_TITLE ) break;
-		else nTitleStarts += pColumn.cxy;
+		if ( pColumn.lParam == DOWNLOAD_COLUMN_TITLE )
+			break;
+		else
+			nTitleStarts += pColumn.cxy;
 	}
+
 	return nTitleStarts;
 }
 

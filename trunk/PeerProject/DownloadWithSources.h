@@ -31,18 +31,18 @@ class CFailedSource
 {
 public:
 	CFailedSource(LPCTSTR pszURL, bool bLocal=true, bool bOffline=false)
-		: m_nTimeAdded( GetTickCount() )
-		, m_nPositiveVotes( 0 )
-		, m_nNegativeVotes( 0 )
-		, m_sURL( pszURL )
-		, m_bLocal( bLocal )
-		, m_bOffline( bOffline )
+		: m_nTimeAdded		( GetTickCount() )
+		, m_nPositiveVotes	( 0 )
+		, m_nNegativeVotes	( 0 )
+		, m_sURL		( pszURL )
+		, m_bLocal		( bLocal )
+		, m_bOffline		( bOffline )
 	{
 	}
 
 	DWORD	m_nTimeAdded;
-	int		m_nPositiveVotes;
-	int		m_nNegativeVotes;
+	int 	m_nPositiveVotes;
+	int 	m_nNegativeVotes;
 	CString	m_sURL;
 	bool	m_bLocal;
 	bool	m_bOffline;
@@ -65,10 +65,11 @@ private:
 	int				m_nHTTPSourceCount;
 	int				m_nBTSourceCount;
 	int				m_nFTPSourceCount;
-	CXMLElement*	m_pXML;
 
 // Operations
 public:
+	CXMLElement*	m_pXML;
+
 	CString			GetSourceURLs(CList< CString >* pState, int nMaximum, PROTOCOLID nProtocol, CDownloadSource* pExcept);
 	CString			GetTopFailedSources(int nMaximum, PROTOCOLID nProtocol);
 	DWORD			GetEffectiveSourceCount() const;
@@ -76,32 +77,31 @@ public:
 	DWORD			GetBTSourceCount(BOOL bNoPush = FALSE) const;
 	DWORD			GetED2KCompleteSourceCount() const;
 	BOOL			CheckSource(CDownloadSource* pSource) const;
+	CFailedSource*	LookupFailedSource(LPCTSTR pszUrl, bool bReliable = false);
 	void			AddFailedSource(const CDownloadSource* pSource, bool bLocal = true, bool bOffline = false);
 	void			AddFailedSource(LPCTSTR pszUrl, bool bLocal = true, bool bOffline = false);
-	CFailedSource*	LookupFailedSource(LPCTSTR pszUrl, bool bReliable = false);
 	void			ExpireFailedSources();
 	void			ClearSources();
 	void			ClearFailedSources();
 	void			MergeMetadata(const CXMLElement* pXML);
 	BOOL			AddSourceHit(const CQueryHit* pHit, BOOL bForce = FALSE);
 	BOOL			AddSourceED2K(DWORD nClientID, WORD nClientPort, DWORD nServerIP, WORD nServerPort, const Hashes::Guid& oGUID);
-    BOOL			AddSourceBT(const Hashes::BtGuid& oGUID, const IN_ADDR* pAddress, WORD nPort);
+	BOOL			AddSourceBT(const Hashes::BtGuid& oGUID, const IN_ADDR* pAddress, WORD nPort);
 	BOOL			AddSourceURL(LPCTSTR pszURL, BOOL bURN = FALSE, FILETIME* pLastSeen = NULL, int nRedirectionCount = 0, BOOL bFailed = FALSE);
 	int				AddSourceURLs(LPCTSTR pszURLs, BOOL bURN = FALSE, BOOL bFailed = FALSE);
-	void			RemoveSource(CDownloadSource* pSource, BOOL bBan);
-	// Remove source from list, add it to failed sources if bBan == TRUE, and destroy source itself
+	void			RemoveSource(const CDownloadSource* pSource, BOOL bBan);
+					// Remove source from list, add it to failed sources if bBan == TRUE, and destroy source itself
 
 	virtual BOOL	OnQueryHits(const CQueryHit* pHits);
 	virtual void	Serialize(CArchive& ar, int nVersion);	// DOWNLOAD_SER_VERSION
 	int				GetSourceColor();
 
 public:
-	POSITION GetIterator() const;							// Get source iterator (first source position)
-	INT_PTR GetCount() const;								// Get source count
 	CDownloadSource* GetNext(POSITION& rPosition) const;	// Get next source
+	POSITION		GetIterator() const;					// Get source iterator (first source position)
+	INT_PTR 		GetCount() const;						// Get source count
 
-	CXMLElement*	GetMetadata() const;
-	//bool			HasMetadata() const;
+	bool			HasMetadata() const;
 
 // Implementation
 protected:
@@ -109,8 +109,8 @@ protected:
 	BOOL			AddSourceInternal(CDownloadSource* pSource);
 	void			SortSource(CDownloadSource* pSource, BOOL bTop);
 	void			SortSource(CDownloadSource* pSource);
-	void			InternalAdd(CDownloadSource* pSource);		// Add new source to list, update counters
-	void			InternalRemove(CDownloadSource* pSource);	// Remove existing source from list, update counters
+	void			InternalAdd(const CDownloadSource* pSource);		// Add new source to list, update counters
+	void			InternalRemove(const CDownloadSource* pSource);	// Remove existing source from list, update counters
 	void			VoteSource(LPCTSTR pszUrl, bool bPositively);
 
 };

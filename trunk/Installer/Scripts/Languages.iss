@@ -368,6 +368,7 @@ icons_downloads=Downloads
 icons_basicmode=Basic Mode
 icons_tabbedmode=Tabbed Mode
 icons_windowedmode=Windowed Mode
+icons_launchtray=-Launch to Tray
 CreateQuickLaunchIcon=Add a PeerProject &quick launch icon
 CreateDesktopIcon=Add a PeerProject &desktop shortcut icon
 CreateDesktopIconWizard=Add a TorrentWizard &desktop shortcut icon

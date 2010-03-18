@@ -65,9 +65,9 @@ END_MESSAGE_MAP()
 // CSkinDialog dialog
 
 CSkinDialog::CSkinDialog(UINT nResID, CWnd* pParent, BOOL bAutoBanner)
-	: CDialog( nResID, pParent )
-	, m_pSkin( NULL )
-	, m_bAutoBanner( bAutoBanner )
+	: CDialog		( nResID, pParent )
+	, m_pSkin		( NULL )
+	, m_bAutoBanner	( bAutoBanner )
 {
 }
 

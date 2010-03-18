@@ -53,10 +53,10 @@ CNeighboursWithConnect::CNeighboursWithConnect()
 	ZeroMemory( m_tPresent, sizeof(m_tPresent) );
 
 	// We're not acting as a hub or leaf on Gnutella or Gnutella2 yet
-	m_bG2Leaf      = FALSE;
-	m_bG2Hub       = FALSE;
-	m_bG1Leaf      = FALSE;
-	m_bG1Ultrapeer = FALSE;
+	m_bG2Leaf	= FALSE;
+	m_bG2Hub	= FALSE;
+	m_bG1Leaf	= FALSE;
+	m_bG1Ultrapeer	= FALSE;
 
 	m_tHubG2Promotion	= 0;
 }
@@ -73,11 +73,11 @@ CNeighboursWithConnect::~CNeighboursWithConnect()
 // Takes an IP address and port number from the host cache, and connects to it
 // Returns a pointer to the new neighbour in the connected list, or null if no connection was made
 CNeighbour* CNeighboursWithConnect::ConnectTo(
-	const IN_ADDR* pAddress, // IP address from the host cache to connect to, like 67.163.208.23
-	WORD       nPort,        // Port number that goes with that IP address, like 6346
-	PROTOCOLID nProtocol,    // Protocol name, like PROTOCOL_G1 for Gnutella
-	BOOL       bAutomatic,   // True to (do)
-	BOOL       bNoUltraPeer) // By default, false to not (do)
+	const IN_ADDR* pAddress,	// IP address from the host cache to connect to, like 67.163.208.23
+	WORD       nPort,		// Port number that goes with that IP address, like 6346
+	PROTOCOLID nProtocol,		// Protocol name, like PROTOCOL_G1 for Gnutella
+	BOOL       bAutomatic,		// True to (do)
+	BOOL       bNoUltraPeer)	// By default, false to not (do)
 {
 	// Get this thread exclusive access to the network (do) while this method runs
 	CSingleLock pLock( &Network.m_pSection, TRUE ); // When control leaves the method, pLock will go out of scope and release access
@@ -196,6 +196,9 @@ CNeighbour* CNeighboursWithConnect::OnAccept(CConnection* pConnection)
 	// Get this thread exclusive access to the network (do) while this method runs
 	CSingleLock pLock( &Network.m_pSection ); // When control leaves the method, pLock will go out of scope and release access
 	if ( ! pLock.Lock( 250 ) ) return NULL;   // If more than a quarter second passes here waiting for access, give up and leave now
+
+	if ( Neighbours.Get( &pConnection->m_pHost.sin_addr ) != NULL )
+		return NULL;	// Duplicate connection
 
 	// Make a new CShakeNeighbour object, have it pickup this incoming connection, and return a pointer to it
 	CShakeNeighbour* pNeighbour = new CShakeNeighbour();
@@ -510,7 +513,7 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 	if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Is Gnutella ultrapeer capable?") );
 
 	// We can't be a Gnutella ultrapeer if we're not connected to the Gnutella network
-	if ( !Network.IsConnected() || !Settings.Gnutella1.EnableToday )
+	if ( ! Network.IsConnected() || ! Settings.Gnutella1.EnableToday )
 	{
 		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: Gnutella1 not enabled") );
 		return FALSE;
@@ -619,7 +622,7 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 		}
 
 		// The scheduler is enabled in settings, and it says we can't be an ultrapeer
-		if ( Settings.Scheduler.Enable && !Settings.Scheduler.AllowHub )
+		if ( Settings.Scheduler.Enable && ! Settings.Scheduler.AllowHub )
 		{
 			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: scheduler active") );
 			return FALSE;
@@ -808,8 +811,8 @@ BOOL CNeighboursWithConnect::NeedMoreLeafs(PROTOCOLID nProtocol)
 	case PROTOCOL_NULL:
 
 		// If we need more Gnutella or Gnutella2 leaves, return true, only return false if we don't need more leaves from either network
-		return ( ( ( Settings.Gnutella1.EnableToday ) && ( ( nConnected[1] ) < Settings.Gnutella1.NumLeafs ) ) ||
-		         ( ( Settings.Gnutella2.EnableToday ) && ( ( nConnected[2] ) < Settings.Gnutella2.NumLeafs ) ) );
+		return ( ( Settings.Gnutella1.EnableToday && ( ( nConnected[1] ) < Settings.Gnutella1.NumLeafs ) ) ||
+				 ( Settings.Gnutella2.EnableToday && ( ( nConnected[2] ) < Settings.Gnutella2.NumLeafs ) ) );
 
 	// Return true if we need more Gnutella ultrapeer connections
 	case PROTOCOL_G1:
@@ -970,15 +973,19 @@ void CNeighboursWithConnect::Maintain()
 			if ( pNeighbour->m_nProtocol == PROTOCOL_G2 )
 			{
 				// If our connection to this remote computer is up to a hub, we are a leaf, if it's down to a leaf, we are a hub
-				if ( pNeighbour->m_nNodeType == ntHub )  m_bG2Leaf = TRUE; // Save these results in the member variables
-				else m_bG2Hub  = TRUE;
+				if ( pNeighbour->m_nNodeType == ntHub )
+					m_bG2Leaf = TRUE; // Save these results in the member variables
+				else
+					m_bG2Hub  = TRUE;
 
 			} // We're connected to this neighbours and exchanging Gnutella packets
 			else if ( pNeighbour->m_nProtocol == PROTOCOL_G1 )
 			{
 				// If our connection to this remote computer is up to a hub, we are a leaf, if it's down to a leaf, we are an ultrapeer
-				if ( pNeighbour->m_nNodeType == ntHub )  m_bG1Leaf      = TRUE; // Save these results in the member variables
-				else m_bG1Ultrapeer = TRUE;
+				if ( pNeighbour->m_nNodeType == ntHub )
+					m_bG1Leaf      = TRUE; // Save these results in the member variables
+				else
+					m_bG1Ultrapeer = TRUE;
 			}
 		}
 	}
@@ -1215,8 +1222,8 @@ void CNeighboursWithConnect::Maintain()
 			if ( Network.m_bAutoConnect )
 			{
 				// If we don't have any handshaking connections for this network, and we've been connected to a hub for more than 30 seconds
-				if ( nCount[ nProtocol ][ 0 ] == 0          || // We don't have any handshaking connections for this network, or
-					 tNow - m_tPresent[ nProtocol ] >= 30 )    // We've been connected to a hub for more than 30 seconds
+				if ( nCount[ nProtocol ][ 0 ] == 0 ||		// We don't have any handshaking connections for this network, or
+					 tNow - m_tPresent[ nProtocol ] >= 30 )	// We've been connected to a hub for more than 30 seconds
 				{
 					DWORD tDiscoveryLastExecute = DiscoveryServices.LastExecute();
 
@@ -1253,9 +1260,9 @@ void CNeighboursWithConnect::Maintain()
 					// This connection is for the protocol we're looping on right now, and
 					( pNeighbour->m_nProtocol == nProtocol ) &&
 					// If the neighbour connected to us
-					( pNeighbour->m_bAutomatic              || // The neighbour is automatic, or
-					  !pNeighbour->m_bInitiated             || // The neighbour connected to us, or
-					  nLimit[ nProtocol ][ ntHub ] == 0 ) )    // We're not supposed to be connected to this network at all
+					( pNeighbour->m_bAutomatic ||		// The neighbour is automatic, or
+					  ! pNeighbour->m_bInitiated ||		// The neighbour connected to us, or
+					  nLimit[ nProtocol ][ ntHub ] == 0 ) )	// We're not supposed to be connected to this network at all
 				{
 					// If this is the newest hub, remember it.
 					if ( pNewest == NULL || pNeighbour->m_tConnected > pNewest->m_tConnected )

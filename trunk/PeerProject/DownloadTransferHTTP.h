@@ -51,8 +51,8 @@ protected:
 	BOOL			m_bQueueFlag;
 	QWORD			m_nContentLength;
 	CString			m_sContentType;
-	DWORD			m_nRetryDelay;      // Delay for queuing
-	DWORD			m_nRetryAfter;      // Got "Retry-After: x" seconds
+	DWORD			m_nRetryDelay;		// Delay for queuing
+	DWORD			m_nRetryAfter;		// Got "Retry-After: x" seconds
 	BOOL			m_bRedirect;
 	CString			m_sRedirectionURL;
 	BOOL			m_bGzip;			// Got "Content-Encoding: gzip" or x-gzip
@@ -73,7 +73,7 @@ protected:
 public:
 	virtual BOOL	Initiate();
 	BOOL			AcceptPush(CConnection* pConnection);
-	virtual void	Close( TRISTATE bKeepSource, DWORD nRetryAfter = 0 );
+	virtual void	Close(TRISTATE bKeepSource, DWORD nRetryAfter = 0);
 	virtual void	Boost();
 	virtual DWORD	GetAverageSpeed();
 	virtual BOOL	SubtractRequested(Fragments::List& ppFragments);
@@ -84,7 +84,7 @@ protected:
 	BOOL			SendRequest();
 	BOOL			ReadResponseLine();
 	BOOL			ReadContent();
-	BOOL			ReadTiger();
+	BOOL			ReadTiger(bool bDropped = false);
 	BOOL			ReadMetadata();
 	BOOL			ReadFlush();
 

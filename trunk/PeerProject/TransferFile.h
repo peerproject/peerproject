@@ -1,7 +1,7 @@
 //
 // TransferFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,6 +22,7 @@
 #pragma once
 
 class CTransferFile;
+
 
 class CTransferFiles
 {
@@ -62,14 +63,19 @@ public:
 	BOOL		Write(QWORD nOffset, LPCVOID pBuffer, QWORD nBuffer, QWORD* pnWritten);
 	BOOL		EnsureWrite();
 
-	inline BOOL	IsOpen() const
+	inline BOOL	IsOpen() const throw()
 	{
 		return ( m_hFile != INVALID_HANDLE_VALUE );
 	}
 
-	inline BOOL	IsExists() const
+	inline BOOL	IsExists() const throw()
 	{
 		return m_bExists;
+	}
+
+	inline BOOL	IsWritable() const throw()
+	{
+		return m_bWrite;
 	}
 
 protected:

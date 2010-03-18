@@ -767,7 +767,7 @@ void CSearchWnd::UpdateMessages()
 		}
 	}
 
-	m_wndPanel.ShowStatus( ! m_bPaused, !m_bWaitMore,
+	m_wndPanel.ShowStatus( ! m_bPaused, ! m_bWaitMore,
 		m_nCacheHubs, m_nCacheLeaves,
 		m_pMatches->m_nFilteredFiles,
 		m_pMatches->m_nFilteredHits,
@@ -777,7 +777,7 @@ void CSearchWnd::UpdateMessages()
 	CRect rcList;
 	m_wndList.GetWindowRect( &rcList );
 	ScreenToClient( &rcList );
-	if ( ( rcList.top == 0 ) != (m_bPaused||m_bWaitMore) )
+	if ( ( rcList.top == 0 ) != ( m_bPaused || m_bWaitMore ) )
 		OnSize( SIZE_INTERNAL, 0, 0 );
 
 	if ( m_pMatches->m_nFilteredFiles == 0 )
@@ -810,7 +810,7 @@ BOOL CSearchWnd::OnQueryHits(const CQueryHit* pHits)
 		if ( (*pManaged)->m_bReceive )
 		{
 			if ( (*pManaged)->IsEqualGUID( pHits->m_oSearchID ) ||	// The hits GUID matches the search
-				 ( !pHits->m_oSearchID && ( (*pManaged)->IsLastED2KSearch() ) ) )	// The hits have no GUID and the search is the most recent ED2K text search
+				 ( ! pHits->m_oSearchID && ( (*pManaged)->IsLastED2KSearch() ) ) )	// The hits have no GUID and the search is the most recent ED2K text search
 			{
 				m_pMatches->AddHits( pHits, (*pManaged)->GetSearch() );
 				m_bUpdate = TRUE;
@@ -829,7 +829,7 @@ BOOL CSearchWnd::OnQueryHits(const CQueryHit* pHits)
 					theApp.Message( MSG_DEBUG, _T("ED2K Search Reached Maximum Number of Files") );
 				}
 #ifndef LAN_MODE
-				if ( !m_bWaitMore && ( m_pMatches->m_nGnutellaHits >= m_nMaxResults ) )
+				if ( ! m_bWaitMore && ( m_pMatches->m_nGnutellaHits >= m_nMaxResults ) )
 				{
 					m_bWaitMore = TRUE;
 					(*pManaged)->SetActive( FALSE );
@@ -877,19 +877,21 @@ void CSearchWnd::OnTimer(UINT_PTR nIDEvent)
 	{
 		if ( m_bSetFocus )
 		{
-			if ( m_bPanel && m_bPaused ) m_wndPanel.SetSearchFocus();
-			else m_wndList.SetFocus();
+			if ( m_bPanel && m_bPaused )
+				m_wndPanel.SetSearchFocus();
+			else
+				m_wndList.SetFocus();
 			m_bSetFocus = FALSE;
 		}
 
-		if ( pManaged )
-		{
-			if ( m_nCacheHubs   != pManaged->m_nHubs ||
-				 m_nCacheLeaves != pManaged->m_nLeaves )
-			{
+		//if ( pManaged )
+		//{
+		//	if ( m_nCacheHubs   != pManaged->m_nHubs ||
+		//		 m_nCacheLeaves != pManaged->m_nLeaves )
+		//	{
 				UpdateMessages();
-			}
-		}
+		//	}
+		//}
 	}
 
 	// Unlock if we were locked

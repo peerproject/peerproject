@@ -212,7 +212,7 @@ void CLibraryFrame::OnSkinChange()
 	m_wndHeader.OnSkinChange();
 
 	CLibraryView* pView = m_pView;
-	CPanelCtrl* pPanel = m_pPanel;
+	CPanelCtrl* pPanel  = m_pPanel;
 
 	SetView( NULL, TRUE, FALSE );
 	SetView( pView, TRUE, FALSE );
@@ -678,16 +678,23 @@ void CLibraryFrame::SetPanel(CPanelCtrl* pPanel)
 	{
 		if ( m_pPanel )
 		{
-			m_pPanel->Update();
-			m_pPanel->ShowWindow( SW_SHOW );
+			if ( m_pPanel->m_hWnd )
+			{
+				m_pPanel->Update();
+				m_pPanel->ShowWindow( SW_SHOW );
+				return;
+			}
 		}
-		return;
+		else
+		{
+			return;
+		}
 	}
 
 	CPanelCtrl* pOld = m_pPanel;
 	m_pPanel = pPanel;
 
-	if ( m_pPanel )
+	if ( m_pPanel && ! m_pPanel->m_hWnd )
 		m_pPanel->Create( this );
 	OnSize( 1982, 0, 0 );
 
@@ -696,8 +703,10 @@ void CLibraryFrame::SetPanel(CPanelCtrl* pPanel)
 
 	if ( pOld && pOld != m_pPanel )
 		pOld->ShowWindow( SW_HIDE );
+
 	if ( m_pPanel )
 		m_pPanel->ShowWindow( SW_SHOW );
+
 	if ( pOld && pOld != m_pPanel )
 		pOld->DestroyWindow();
 }
@@ -1030,7 +1039,7 @@ BOOL CLibraryFrame::SetDynamicBar(LPCTSTR pszName)
 		CRect rc;
 		GetClientRect( &rc );
 		m_sDynamicBarName = pszName;
-		if ( m_bDynamicBarHidden && !m_wndBottomDynamic.IsWindowVisible() )
+		if ( m_bDynamicBarHidden && ! m_wndBottomDynamic.IsWindowVisible() )
 		{
 			m_wndBottomDynamic.ShowWindow( SW_SHOW );
 			DoSizePanel();
@@ -1043,7 +1052,7 @@ BOOL CLibraryFrame::SetDynamicBar(LPCTSTR pszName)
 	}
 	else
 	{
-		if ( !m_bDynamicBarHidden )
+		if ( ! m_bDynamicBarHidden )
 			m_wndBottomDynamic.ShowWindow( SW_HIDE );
 		m_bShowDynamicBar = FALSE;
 		m_bDynamicBarHidden = TRUE;
@@ -1089,7 +1098,7 @@ void CLibraryFrame::RunLocalSearch(CQuerySearch* pSearch)
 		int nColon = pFolder->m_pSchema->m_sTitle.Find( ':' );
 		if ( nColon >= 0 )
 			strFolderName = pFolder->m_pSchema->m_sTitle.Mid( nColon + 1 );
-		if ( !strFolderName.IsEmpty() )
+		if ( ! strFolderName.IsEmpty() )
 			pFolder	= pRoot->GetFolder( strFolderName );
 
 		if ( pFolder == NULL )
@@ -1166,7 +1175,7 @@ void CLibraryFrame::OnUpdateShowWebServices(CCmdUI* pCmdUI)
 	{
 		SetDynamicBar( NULL );
 	}
-	else if ( !m_bDynamicBarHidden && !m_wndBottomDynamic.IsWindowVisible() )
+	else if ( ! m_bDynamicBarHidden && ! m_wndBottomDynamic.IsWindowVisible() )
 	{
 		CRect rc;
 		GetClientRect( &rc );

@@ -49,7 +49,7 @@ CSkin Skin;
 
 CSkin::CSkin()
 {
-	// experimental values
+	// Experimental values (?)
 	m_pStrings.InitHashTable( 1531 );
 	m_pMenus.InitHashTable( 83 );
 	m_pToolbars.InitHashTable( 61 );
@@ -80,17 +80,15 @@ void CSkin::Apply()
 	ApplyRecursive( L"Languages\\" );
 	ApplyRecursive( NULL );
 
-	if ( Colors.m_brDialog.m_hObject != NULL ) Colors.m_brDialog.DeleteObject();
-	Colors.m_brDialog.CreateSolidBrush( Colors.m_crDialog );
+	if ( Colors.m_brDialog.m_hObject != NULL )
+		Colors.m_brDialog.DeleteObject();
 
-	// ToDo: Dialog backgrounds should be skinnable?
-	//CBitmap* bmDialog = NULL;
-	//GetWatermark( bmDialog, _T("CDialog") );
-	//if ( bmDialog != NULL )
-	//{
-	//	Colors.m_brDialog.DeleteObject();
-	//	Colors.m_brDialog.CreatePatternBrush( bmDialog );
-	//}
+	// ToDo: Skinnable Dialogs ?  (This code applies to text.)
+	//CBitmap bmDialog;
+	//if ( GetWatermark( &bmDialog, _T("CDialog") ) )
+	//	Colors.m_brDialog.CreatePatternBrush( &bmDialog );
+	//else
+		Colors.m_brDialog.CreateSolidBrush( Colors.m_crDialog );
 
 	if ( HBITMAP hPanelMark = GetWatermark( _T("CPanelWnd.Caption") ) )
 	{
@@ -597,7 +595,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 				if ( ! LoadNavBar( pXML ) )
 					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Skin Option [Navbar] Failed"), pXML->ToString() );
 			}
-			else if ( strName.CompareNoCase( _T("dropmenu") ) == 0||  strName.CompareNoCase( _T("submenu") ) == 0 )
+			else if ( strName.CompareNoCase( _T("dropmenu") ) == 0|| strName.CompareNoCase( _T("submenu") ) == 0 )
 			{
 				if ( strValue.CompareNoCase( _T("true") ) == 0 )
 					m_bDropMenu = TRUE;
@@ -612,7 +610,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 				else if ( strValue.CompareNoCase( _T("off") ) == 0 )
 					m_bDropMenu = FALSE;
 			}
-			else if ( strName.CompareNoCase( _T("menuborders") ) == 0 ||  strName.CompareNoCase( _T("menubarbevel") ) == 0 )
+			else if ( strName.CompareNoCase( _T("menuborders") ) == 0 || strName.CompareNoCase( _T("menubarbevel") ) == 0 )
 			{
 				if ( strValue.CompareNoCase( _T("true") ) == 0 )
 					m_bMenuBorders = TRUE;
@@ -627,7 +625,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 				else if ( strValue.CompareNoCase( _T("off") ) == 0 )
 					m_bMenuBorders = FALSE;
 			}
-			else if ( strName.CompareNoCase( _T("menugripper") ) == 0 ||  strName.CompareNoCase( _T("grippers") ) == 0 )
+			else if ( strName.CompareNoCase( _T("menugripper") ) == 0 || strName.CompareNoCase( _T("grippers") ) == 0 )
 			{
 				if ( strValue.CompareNoCase( _T("true") ) == 0 )
 					m_bMenuGripper = TRUE;
@@ -1634,9 +1632,11 @@ CSkinWindow* CSkin::GetWindowSkin(CWnd* pWnd)
 	for ( CRuntimeClass* pClass = pWnd->GetRuntimeClass() ; pClass ; pClass = pClass->m_pBaseClass )
 	#endif
 	{
+		CA2T sClassName( pClass->m_lpszClassName );
+
 		if ( bPanel )
 		{
-			CSkinWindow* pSkin = GetWindowSkin( CString( pClass->m_lpszClassName ), _T(".Panel") );
+			CSkinWindow* pSkin = GetWindowSkin( (LPCTSTR)sClassName, _T(".Panel") );
 			if ( pSkin != NULL ) return pSkin;
 		}
 
@@ -1644,8 +1644,7 @@ CSkinWindow* CSkin::GetWindowSkin(CWnd* pWnd)
 		{
 			if ( pszModeSuffix[ nSuffix ][0] != 0 || ! bPanel )
 			{
-				CSkinWindow* pSkin = GetWindowSkin(
-					CString( pClass->m_lpszClassName ), pszModeSuffix[ nSuffix ] );
+				CSkinWindow* pSkin = GetWindowSkin( (LPCTSTR)sClassName, pszModeSuffix[ nSuffix ] );
 				if ( pSkin != NULL ) return pSkin;
 			}
 		}
@@ -2002,38 +2001,34 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				_stscanf( strSize, _T("%i"), &nFontSize );
 				_stscanf( strWeight, _T("%i"), &nFontWeight );
 
-				pFont->CreateFontW( -nFontSize, 0, 0, 0, nFontWeight, FALSE, FALSE, FALSE,
+				pFont->CreateFont( -nFontSize, 0, 0, 0, nFontWeight, FALSE, FALSE, FALSE,
 					DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-					theApp.m_bIsVistaOrNewer ? DEFAULT_QUALITY : ANTIALIASED_QUALITY,
-					DEFAULT_PITCH|FF_DONTCARE, strFace );
+					theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, strFace );
 
 				if ( strName.CompareNoCase( _T("system.plain") ) == 0 )
 				{
 					pFont = &CoolInterface.m_fntUnder;
 					if ( pFont->m_hObject ) pFont->DeleteObject();
 
-					pFont->CreateFontW( -nFontSize, 0, 0, 0, nFontWeight, FALSE, TRUE, FALSE,
+					pFont->CreateFont( -nFontSize, 0, 0, 0, nFontWeight, FALSE, TRUE, FALSE,
 							DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-							theApp.m_bIsVistaOrNewer ? DEFAULT_QUALITY : ANTIALIASED_QUALITY,
-							DEFAULT_PITCH|FF_DONTCARE, strFace );
+							theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, strFace );
 
 					pFont = &CoolInterface.m_fntItalic;
 					if ( pFont->m_hObject ) pFont->DeleteObject();
 
-					pFont->CreateFontW( -nFontSize, 0, 0, 0, nFontWeight, TRUE, FALSE, FALSE,
+					pFont->CreateFont( -nFontSize, 0, 0, 0, nFontWeight, TRUE, FALSE, FALSE,
 							DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-							theApp.m_bIsVistaOrNewer ? DEFAULT_QUALITY : ANTIALIASED_QUALITY,
-							DEFAULT_PITCH|FF_DONTCARE, strFace );
+							theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, strFace );
 				}
 				else if ( strName.CompareNoCase( _T("system.bold") ) == 0 )
 				{
 					pFont = &CoolInterface.m_fntBoldItalic;
 					if ( pFont->m_hObject ) pFont->DeleteObject();
 
-					pFont->CreateFontW( -nFontSize, 0, 0, 0, nFontWeight, TRUE, FALSE, FALSE,
+					pFont->CreateFont( -nFontSize, 0, 0, 0, nFontWeight, TRUE, FALSE, FALSE,
 							DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-							theApp.m_bIsVistaOrNewer ? DEFAULT_QUALITY : ANTIALIASED_QUALITY,
-							DEFAULT_PITCH|FF_DONTCARE, strFace );
+							theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, strFace );
 				}
 			}
 		}
@@ -2268,11 +2263,11 @@ UINT_PTR CSkin::TrackPopupMenu(LPCTSTR pszMenu, const CPoint& point,
 		VERIFY( DestroyMenu( hSubMenu ) );
 	}
 
-	__try   // Fix for very strange TrackPopupMenu crash inside GUI
+	__try	// Fix for strange TrackPopupMenu crash inside GUI
 	{
-	return pPopup->TrackPopupMenu(
-		TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RIGHTBUTTON | nFlags,
-		point.x, point.y, pWnd );
+		return pPopup->TrackPopupMenu(
+			TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RIGHTBUTTON | nFlags,
+			point.x, point.y, pWnd );
 	}
 	__except( EXCEPTION_EXECUTE_HANDLER )
 	{
@@ -2290,8 +2285,8 @@ UINT_PTR CSkin::TrackPopupMenu(LPCTSTR pszMenu, const CPoint& point,
 
 int CSkin::GetTextFlowChange(LPCTSTR pszText, BOOL* bIsRTL)
 {
-	TRISTATE bTextIsRTL = TRI_UNKNOWN;
-	BOOL bChangeFound   = FALSE;
+	TRISTATE bTextIsRTL	= TRI_UNKNOWN;
+	BOOL bChangeFound	= FALSE;
 	LPCTSTR pszWord = pszText;
 	LPCTSTR pszScan = pszText;
 
@@ -2370,10 +2365,10 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 	int nTestStart	= GetTextFlowChange( pszText, &bIsRTLStart );
 
 	// Guess text direction ( not always works )
-	BOOL bNormalFlow = Settings.General.LanguageRTL ? bIsRTLStart : !bIsRTLStart;
+	BOOL bNormalFlow = Settings.General.LanguageRTL ? bIsRTLStart : ! bIsRTLStart;
 
 	TCHAR* pszSource = NULL;
-	LPCTSTR pszWord	 = NULL;
+	LPCTSTR pszWord  = NULL;
 	LPCTSTR pszScan  = NULL;
 
 	if ( nTestStart )
@@ -2382,9 +2377,9 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 		pszSource = new TCHAR[ nTestStart + 1 ];
 		_tcsncpy( pszSource, pszText, nTestStart );
 		pszSource[ nTestStart ] = 0;
-		if ( !bNormalFlow )
+		if ( ! bNormalFlow )
 		{
-			// swap whitespaces
+			// Swap whitespaces
 			CString str = pszSource;
 			if ( pszSource[ 0 ] == ' ' || (unsigned short)pszSource[ 0 ] == 160 )
 			{
@@ -2392,7 +2387,7 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 				str = str.Right( nTestStart );
 			}
 			else if ( pszSource[ nTestStart - 1 ] == ' ' ||
-					  (unsigned short)pszSource[ nTestStart - 1 ] == 160 )
+					(unsigned short)pszSource[ nTestStart - 1 ] == 160 )
 			{
 				str = _T(" ") + str;
 				str = str.Left( nTestStart );
@@ -2408,7 +2403,7 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 	pszWord = pszSource;
 	pszScan = pszSource;
 
-	if ( !bNormalFlow )
+	if ( ! bNormalFlow )
 	{
 		if ( ( bIsRTLStart != FALSE ) != Settings.General.LanguageRTL )
 			pDC->SetTextAlign( nAlignOptionsOld ^ TA_RTLREADING );

@@ -1,7 +1,7 @@
 //
 // WndTraffic.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -232,53 +232,74 @@ void CTrafficWnd::OnTrafficWindow()
 BOOL CTrafficWnd::Serialize(BOOL bSave)
 {
 	WINDOWPLACEMENT pPos = { sizeof(WINDOWPLACEMENT) };
+
 	CString strFile;
+	strFile.Format( _T("%s\\Data\\Graph%.4i.dat"),
+		(LPCTSTR)Settings.General.UserPath, m_nUnique );
+
 	CFile pFile;
-
-	strFile.Format( _T("%s\\Data\\Graph%.4i.dat"), (LPCTSTR)Settings.General.Path, m_nUnique );
-
 	if ( ! pFile.Open( strFile, bSave ? ( CFile::modeWrite | CFile::modeCreate ) : CFile::modeRead ) )
 		return FALSE;
 
-	CArchive ar( &pFile, bSave ? CArchive::store : CArchive::load );	// 4 KB buffer
-	int nVersion = 0;
-
-	if ( ar.IsStoring() )
+	try
 	{
-		nVersion = 0xFFFFFFFF;
-		ar << nVersion;
-		nVersion = 1;
-		ar << nVersion;
-
-		ar << m_nUnique;
-		ar << m_sName;
-
-		GetWindowPlacement( &pPos );
-		ar.Write( &pPos, sizeof(pPos) );
-	}
-	else
-	{
-		ar >> m_nUnique;
-
-		if ( m_nUnique == 0xFFFFFFFF )
+		CArchive ar( &pFile, bSave ? CArchive::store : CArchive::load );	// 4 KB buffer
+		try
 		{
-			ar >> nVersion;
-			ar >> m_nUnique;
+			int nVersion = 0;
+
+			if ( ar.IsStoring() )
+			{
+				nVersion = 0xFFFFFFFF;
+				ar << nVersion;
+				nVersion = 1;
+				ar << nVersion;
+
+				ar << m_nUnique;
+				ar << m_sName;
+
+				GetWindowPlacement( &pPos );
+				ar.Write( &pPos, sizeof(pPos) );
+			}
+			else // Loading
+			{
+				ar >> m_nUnique;
+
+				if ( m_nUnique == 0xFFFFFFFF )
+				{
+					ar >> nVersion;
+					ar >> m_nUnique;
+				}
+
+				if ( nVersion >= 1 ) ar >> m_sName;
+
+				ReadArchive( ar, &pPos, sizeof(pPos) );
+				if ( pPos.showCmd == SW_SHOWNORMAL )
+					SetWindowPlacement( &pPos );
+			}
+
+			m_pGraph->Serialize( ar );
+
+			ar.Close();
 		}
-
-		if ( nVersion >= 1 ) ar >> m_sName;
-
-		ReadArchive( ar, &pPos, sizeof(pPos) );
-		if ( pPos.showCmd == SW_SHOWNORMAL )
-			SetWindowPlacement( &pPos );
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pFile.Abort();
+			pException->Delete();
+			return FALSE;
+		}
+		pFile.Close();
+	}
+	catch ( CException* pException )
+	{
+		pFile.Abort();
+		pException->Delete();
+		return FALSE;
 	}
 
-	m_pGraph->Serialize( ar );
-
-	ar.Close();
-	pFile.Close();
-
-	if ( ! bSave ) SetUpdateRate();
+	if ( ! bSave )
+		SetUpdateRate();
 
 	return TRUE;
 }

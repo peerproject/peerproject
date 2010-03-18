@@ -1,7 +1,7 @@
 //
 // DlgDeleteFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -52,11 +52,12 @@ BEGIN_MESSAGE_MAP(CDeleteFileDlg, CSkinDialog)
 END_MESSAGE_MAP()
 
 
-CDeleteFileDlg::CDeleteFileDlg(CWnd* pParent) : CSkinDialog( CDeleteFileDlg::IDD, pParent )
-, m_nOption(0)
-, m_bCreateGhost(Settings.Library.CreateGhosts)
-, m_nRateValue(0)
-, m_bAll(FALSE)
+CDeleteFileDlg::CDeleteFileDlg(CWnd* pParent)
+	: CSkinDialog	( CDeleteFileDlg::IDD, pParent )
+	, m_bCreateGhost(Settings.Library.CreateGhosts)
+	, m_nOption 	(0)
+	, m_nRateValue	(0)
+	, m_bAll		(FALSE)
 {
 }
 
@@ -131,7 +132,7 @@ HBRUSH CDeleteFileDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		CDC* pPromptDC = m_wndPrompt.GetDC();
 		if ( m_bCreateGhost || pPromptDC->GetTextColor() != RGB(255, 0, 0 ) )
 			pDC->SetTextColor( Colors.m_crTextAlert );
-		}
+	}
 
 	return hbr;
 }
@@ -183,13 +184,13 @@ void CDeleteFileDlg::Create(CDownload* pDownload, BOOL bShare)
 		 ! pDownload->m_oBTH && ! pDownload->m_oMD5 ) return;
 
 	CSingleLock oLock( &Library.m_pSection );
-	if ( !oLock.Lock( 500 ) ) return;
+	if ( ! oLock.Lock( 500 ) ) return;
 
 	CLibraryFile* pFile = NULL;
 
 	if ( pFile == NULL && pDownload->m_oSHA1 )
 		pFile = LibraryMaps.LookupFileBySHA1( pDownload->m_oSHA1 );
-    if ( pFile == NULL && pDownload->m_oTiger )
+	if ( pFile == NULL && pDownload->m_oTiger )
 		pFile = LibraryMaps.LookupFileByTiger( pDownload->m_oTiger );
 	if ( pFile == NULL && pDownload->m_oED2K )
 		pFile = LibraryMaps.LookupFileByED2K( pDownload->m_oED2K );
@@ -370,7 +371,7 @@ void CDeleteFileDlg::OnChangeComments()
 
 void CDeleteFileDlg::OnClickedCreateGhost()
 {
-	m_bCreateGhost = !m_bCreateGhost;
+	m_bCreateGhost = ! m_bCreateGhost;
 	m_wndOptions.EnableWindow( m_bCreateGhost );
 	m_wndRating.EnableWindow( m_bCreateGhost );
 	m_wndComments.EnableWindow( m_bCreateGhost && m_nOption > 0 );

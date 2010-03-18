@@ -231,7 +231,7 @@ public:
 	void AddFormat(const FORMATETC* lpFormatEtc);
 
 protected:
-	UINT m_nMaxSize;    // number of items allocated (>= m_nSize)
+	UINT m_nMaxSize;	// number of items allocated (>= m_nSize)
 
 	virtual BOOL OnNext(void* pv);
 
@@ -1031,7 +1031,7 @@ HRESULT CPeerProjectDataSource::AddRefStgMedium(STGMEDIUM *pstgmIn, STGMEDIUM *p
 					hr = E_OUTOFMEMORY;
 			}
 			else
-				hr = DV_E_TYMED;      // Don't know how to clone GDI objects
+				hr = DV_E_TYMED;	// Don't know how to clone GDI objects
 		}
 		else
 			stgmOut.pUnkForRelease = &m_xDataObject;
@@ -1081,9 +1081,9 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::GetData(FORMATETC *pformatetc,
 		return E_POINTER;
 
 	LPDATAENTRY pde = NULL;
-    HRESULT hr = pThis->FindFORMATETC( pformatetc, &pde, FALSE );
-    if ( SUCCEEDED ( hr ) )
-        hr = pThis->AddRefStgMedium( &pde->stgm, pmedium, FALSE );
+	HRESULT hr = pThis->FindFORMATETC( pformatetc, &pde, FALSE );
+	if ( SUCCEEDED ( hr ) )
+		hr = pThis->AddRefStgMedium( &pde->stgm, pmedium, FALSE );
 
 #ifdef _DEBUG
 	if ( FAILED ( hr ) )
@@ -1110,7 +1110,7 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::QueryGetData (FORMATETC* pform
 	if ( pformatetc == NULL )
 		return E_POINTER;
 
-    LPDATAENTRY pde = NULL;
+	LPDATAENTRY pde = NULL;
 	HRESULT hr = pThis->FindFORMATETC( pformatetc, &pde, FALSE );
 	if ( SUCCEEDED( hr ) ) hr = S_OK;
 
@@ -1164,7 +1164,7 @@ STDMETHODIMP CPeerProjectDataSource::XDataObject::SetData(FORMATETC* pformatetc,
 		{
 			hr = pThis->AddRefStgMedium( pmedium, &pde->stgm, TRUE );
 		}
-		pde->fe.tymed = pde->stgm.tymed;    // Keep in sync
+		pde->fe.tymed = pde->stgm.tymed;	// Keep in sync
 
 		// Subtlety!  Break circular reference loop
 		if (GetCanonicalIUnknown( pde->stgm.pUnkForRelease ) == GetCanonicalIUnknown( this ) )

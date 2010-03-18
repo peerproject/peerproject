@@ -1,7 +1,7 @@
 //
 // WndMain.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,16 +37,30 @@ class CURLActionDlg;
 
 class CMainWnd : public CMDIFrameWnd
 {
-// Construction
+	DECLARE_DYNCREATE(CMainWnd)
+
 public:
 	CMainWnd();
 	virtual ~CMainWnd();
 
-	DECLARE_DYNCREATE(CMainWnd)
-
-// Attributes
-public:
 	CWindowManager		m_pWindows;
+
+	void	SetGUIMode(int nMode, BOOL bSaveState = TRUE);	// Set mode GUI_WINDOWED, GUI_TABBED or GUI_BASIC
+	void	CloseToTray();							// Hide application to tray
+	void	OpenFromTray(int nShowCmd = SW_SHOW);	// Open main window from tray
+	void	ShowTrayPopup(LPCTSTR szText, LPCTSTR szTitle = CLIENT_NAME, DWORD dwIcon = NIIF_INFO, UINT uTimeout = 12 /*seconds*/);
+
+	inline BOOL	IsForegroundWindow() const			// Test if window foreground or not
+	{
+		return ! m_bTrayHide && ! IsIconic() && IsWindowVisible();
+	}
+
+	void		OnUpdateCmdUI();					// Update tab and navigation bars
+
+	// Dispatch command messages also to monitor bar and media frame (if opened)
+	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
+
+protected:
 	CCoolMenuBarCtrl	m_wndMenuBar;
 	CMainTabBarCtrl		m_wndNavBar;
 	CCoolBarCtrl		m_wndToolBar;
@@ -56,41 +70,28 @@ public:
 	CRemoteWnd			m_wndRemoteWnd;
 	CHashProgressBar	m_wndHashProgressBar;
 
-	HINSTANCE			m_hInstance;
-	BOOL				m_bTrayHide;
-	BOOL				m_bTrayIcon;
-	NOTIFYICONDATA		m_pTray;
+	NOTIFYICONDATA		m_pTray;			// Tray icon data
+	BOOL				m_bTrayHide;		// Is main window hidden to tray?
+	BOOL				m_bTrayIcon;		// Is tray icon available?
 	BOOL				m_bTimer;
 	CString				m_sMsgStatus;
+	CBrush				m_brDockArea;
 	CSkinWindow*		m_pSkin;
 	CURLActionDlg*		m_pURLDialog;
 	DWORD				m_tURLTime;
-	DWORD				m_nAlpha;
+	DWORD				m_nAlpha;			// Main window transparency (0...255)
 
-private:
-	BOOL				m_bNoNetWarningShowed;
-	CBrush				m_brshDockbar;
+	void		UpdateMessages();			// Update main window tile, status bar and tray messages
+	void		LocalSystemChecks();		// Run various networks, host caches and disk checks
+	void		SaveState();				// Save all window states
+	void		RemoveSkin();				// Remove skins from window (primarily for shutdown)
 
-// Operations
-public:
-	void		SetGUIMode(int nMode, BOOL bSaveState = TRUE);
-	void		CloseToTray();
-	void		OpenFromTray(int nShowCmd = SW_SHOW);
-	void		UpdateMessages();
-	void		LocalSystemChecks();
-	void		SaveState();	// Save all windows states
-
-// Overrides
-public:
+	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 	virtual BOOL Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, LPCTSTR lpszMenuName, DWORD dwExStyle, CCreateContext* pContext);
 	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
-	virtual void OnUpdateFrameTitle(BOOL bAddToTitle);
-	virtual void GetMessageString(UINT nID, CString& rMessage) const;
-	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
+	virtual void GetMessageString(UINT nID, CString& rMessage) const;
 
-// Implementation
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnClose();
@@ -102,13 +103,13 @@ protected:
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnWindowPosChanging(WINDOWPOS* lpwndpos);
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
-	afx_msg void OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
-	afx_msg LRESULT OnNcHitTest(CPoint point);
 	afx_msg void OnNcPaint();
 	afx_msg BOOL OnNcActivate(BOOL bActive);
 	afx_msg void OnNcMouseMove(UINT nHitTest, CPoint point);
 	afx_msg void OnNcLButtonDown(UINT nHitTest, CPoint point);
 	afx_msg void OnNcLButtonUp(UINT nHitTest, CPoint point);
+	afx_msg LRESULT OnNcHitTest(CPoint point);
+	afx_msg void OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnEndSession(BOOL bEnding);
 	afx_msg LRESULT OnWinsock(WPARAM wParam, LPARAM lParam);

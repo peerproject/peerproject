@@ -1,7 +1,7 @@
 //
 // WndPacket.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -48,11 +48,11 @@ BEGIN_MESSAGE_MAP(CPacketWnd, CPanelWnd)
 	ON_WM_CONTEXTMENU()
 	ON_WM_MEASUREITEM()
 	ON_WM_DRAWITEM()
-	ON_UPDATE_COMMAND_UI(ID_SYSTEM_CLEAR, OnUpdateSystemClear)
 	ON_WM_DESTROY()
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
+	ON_UPDATE_COMMAND_UI(ID_SYSTEM_CLEAR, OnUpdateSystemClear)
 	ON_UPDATE_COMMAND_UI_RANGE(1, 3200, OnUpdateBlocker)
+	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 G2_PACKET CPacketWnd::m_nG2[nTypeG2Size] = {
@@ -109,8 +109,8 @@ int CPacketWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.SetExtendedStyle(
 		LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );
 
-	m_pFont.CreateFontW( -(int)(Settings.Fonts.FontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+	m_pFont.CreateFont( -(int)(Settings.Fonts.FontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.PacketDumpFont );
 
 	m_wndList.SetFont( &m_pFont );
@@ -125,7 +125,7 @@ int CPacketWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( 0, _T("Time"), LVCFMT_CENTER, 60, -1 );
 	m_wndList.InsertColumn( 1, _T("Address"), LVCFMT_LEFT, 115, -1 );
 	m_wndList.InsertColumn( 2, _T("Protocol"), LVCFMT_CENTER, 55, 0 );
-    m_wndList.InsertColumn( 3, _T("Type"), LVCFMT_CENTER, 50, 1 );
+	m_wndList.InsertColumn( 3, _T("Type"), LVCFMT_CENTER, 50, 1 );
 	m_wndList.InsertColumn( 4, _T("TTL/Hops"), LVCFMT_CENTER, 60, 2 );
 	m_wndList.InsertColumn( 5, _T("Hex"), LVCFMT_LEFT, 50, 3 );
 	m_wndList.InsertColumn( 6, _T("ASCII"), LVCFMT_LEFT,
@@ -227,8 +227,8 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 	}
 	else if ( pPacketED )
 	{
-		// TODO: Filter ED2K packets
-		if ( !m_bTypeED ) return;
+		// ToDo: Filter ED2K packets
+		if ( ! m_bTypeED ) return;
 	}
 
 	CSingleLock pLock( &m_pSection, TRUE );
@@ -475,13 +475,9 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		nCmd -= 3200;
 
 		if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 )
-		{
 			m_bTypeED = ( nCmd == nCmd ) ? TRUE : FALSE;
-		}
 		else
-		{
 			m_bTypeED = ! m_bTypeED;
-		}
 
 		return;
 	}
@@ -556,5 +552,3 @@ void CPacketWnd::OnUpdateSystemClear(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable( TRUE );
 }
-
-

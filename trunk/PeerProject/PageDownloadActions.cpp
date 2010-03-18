@@ -27,8 +27,8 @@
 #include "Download.h"
 #include "Downloads.h"
 #include "DownloadTask.h"
-#include "Transfers.h"
 #include "FragmentedFile.h"
+#include "Transfers.h"
 #include "Colors.h"
 
 #ifdef _DEBUG
@@ -97,7 +97,7 @@ BOOL CDownloadActionsPage::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	CPoint point;
 
 	GetCursorPos( &point );
-    m_wndForgetVerify.GetWindowRect( &rcCtrl1 );
+	m_wndForgetVerify.GetWindowRect( &rcCtrl1 );
 	m_wndForgetSources.GetWindowRect( &rcCtrl2 );
 	m_wndCompleteVerify.GetWindowRect( &rcCtrl3 );
 	m_wndMergeVerify.GetWindowRect( &rcCtrl4 );
@@ -232,7 +232,7 @@ void CDownloadActionsPage::OnCompleteVerify()
 	{
 		pLock.Unlock();
 		CString strMessage;
-        LoadString( strMessage, IDS_DOWNLOAD_EDIT_COMPLETE_VERIFY );
+		LoadString( strMessage, IDS_DOWNLOAD_EDIT_COMPLETE_VERIFY );
 		if ( AfxMessageBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 	}
 
@@ -260,7 +260,7 @@ void CDownloadActionsPage::OnMergeAndVerify()
 		return;
 	}
 	if ( pDownload->NeedTigerTree() &&
-		 pDownload->NeedHashset() &&
+		pDownload->NeedHashset() &&
 		! pDownload->IsTorrent() )
 	{
 		// No hashsets

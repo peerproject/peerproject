@@ -1,7 +1,7 @@
 //
-// AutocompleteEdit.cpp : implementation file
+// AutocompleteEdit.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -18,11 +18,11 @@
 // along with PeerProject; if not, write to Free Software Foundation, Inc.
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
-//
 
 #include "stdafx.h"
 #include "PeerProject.h"
 #include "AutocompleteEdit.h"
+#include "Settings.h"
 
 IMPLEMENT_DYNCREATE(CRegEnum, CComObject)
 
@@ -59,8 +59,7 @@ STDMETHODIMP CRegEnum::XEnumString::Next(
 		CString strEntry;
 		strEntry.Format( pThis->m_root, pThis->m_iter + 1 );
 		CString strValue( AfxGetApp()->GetProfileString( pThis->m_sect, strEntry ) );
-		if ( strValue.IsEmpty() )
-			break;
+		if ( strValue.IsEmpty() ) break;
 		int lf = strValue.Find( _T('\n') );
 		if ( lf != -1 )
 			strValue = strValue.Left( lf );
@@ -75,7 +74,7 @@ STDMETHODIMP CRegEnum::XEnumString::Next(
 	}
 	if ( pceltFetched )
 		*pceltFetched = nActual;
-	if ( SUCCEEDED( hr ) && ( nActual < celt ) )
+	if ( SUCCEEDED( hr ) && nActual < celt )
 		hr = S_FALSE;
 	return hr;
 }
@@ -173,8 +172,7 @@ void CRegEnum::AddString(const CString& rString) const
 {
 	int lf = rString.Find( _T('\n') );
 	CString sKeyString( ( lf != -1 )? rString.Left( lf ) : rString );
-	if ( sKeyString.IsEmpty() )
-		return;
+	if ( sKeyString.IsEmpty() ) return;
 
 	// Load list
 	CStringList oList;
@@ -183,8 +181,7 @@ void CRegEnum::AddString(const CString& rString) const
 		CString strEntry;
 		strEntry.Format( m_root, i + 1 );
 		CString strValue( AfxGetApp()->GetProfileString( m_sect, strEntry ) );
-		if ( strValue.IsEmpty() )
-			break;
+		if ( strValue.IsEmpty() ) break;
 		int lf = strValue.Find( _T('\n') );
 		if ( sKeyString .CompareNoCase( ( lf != -1 ) ? strValue.Left( lf ) : strValue ) )
 			oList.AddTail( strValue );
@@ -229,9 +226,12 @@ BOOL CAutocompleteEdit::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd
 	if ( ! CEdit::Create( dwStyle, rect, pParentWnd, nID ) )
 		return FALSE;
 
-	m_pData = static_cast< CRegEnum* >( CRegEnum::CreateObject() );
-	if ( m_pData )
-		m_pData->AttachTo( GetSafeHwnd(), szSection, szRoot );
+	if ( Settings.Interface.AutoComplete )
+	{
+		m_pData = static_cast< CRegEnum* >( CRegEnum::CreateObject() );
+		if ( m_pData )
+			m_pData->AttachTo( GetSafeHwnd(), szSection, szRoot );
+	}
 
 	return TRUE;
 }

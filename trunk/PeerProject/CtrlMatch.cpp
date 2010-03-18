@@ -95,7 +95,7 @@ CMatchCtrl::CMatchCtrl()
 	m_pLastSelectedHit = NULL;
 
 	// Try to get the number of lines to scroll when the mouse wheel is rotated
-	if( !SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0) )
+	if( ! SystemParametersInfo ( SPI_GETWHEELSCROLLLINES, 0, &m_nScrollWheelLines, 0) )
 		m_nScrollWheelLines = 3;
 }
 
@@ -227,7 +227,7 @@ void CMatchCtrl::SelectSchema(CSchemaPtr pSchema, CList< CSchemaMember* >* pColu
 		for ( POSITION pos = m_pColumns.GetHeadPosition() ; pos ; nColumn++ )
 		{
 			CSchemaMember* pMember = m_pColumns.GetNext( pos );
-			if ( !pMember->m_bHidden )
+			if ( ! pMember->m_bHidden )
 				InsertColumn( nColumn, pMember->m_sTitle, pMember->m_nColumnAlign, pMember->m_nColumnWidth );
 			else
 				nColumn--;
@@ -643,7 +643,7 @@ void CMatchCtrl::OnPaint()
 	CMatchFile** ppFile = m_pMatches->m_pFiles + m_nTopIndex;
 	BOOL bFocus = ( GetFocus() == this );
 
-    DWORD nIndex = m_nTopIndex;
+	DWORD nIndex = m_nTopIndex;
 	for (	;
 			nIndex < m_pMatches->m_nFiles && rcItem.top < rcClient.bottom ;
 			nIndex++, ppFile++ )
@@ -888,7 +888,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				CQueryHit* ppHit = ( nHits == 1 || pHit == NULL ) ? pFile->GetBest() : pHit;
 				CString strTemp;
 
-				if ( Settings.Search.ShowNames && !ppHit->m_sNick.IsEmpty() )
+				if ( Settings.Search.ShowNames && ! ppHit->m_sNick.IsEmpty() )
 				{
 					strTemp = ppHit->m_sNick;
 
@@ -1005,17 +1005,11 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 
 		case MATCH_COL_STATUS:
 			if ( pHit )
-			{
 				DrawStatus( dc, rcCol, pFile, pHit, bSelected, crBack );
-			}
 			else if ( nHits == 1 )
-			{
 				DrawStatus( dc, rcCol, pFile, pFile->GetBest(), bSelected, crBack );
-			}
 			else
-			{
 				DrawStatus( dc, rcCol, pFile, NULL, bSelected, crBack );
-			}
 			break;
 
 		case MATCH_COL_CLIENT:
@@ -1049,14 +1043,29 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				SYSTEMTIME st;
 				if ( pFile->m_pTime.GetAsSystemTime( st ) )
 				{
-					int nChars = GetTimeFormat( LOCALE_USER_DEFAULT, 0,
-						&st, NULL, szBuffer, _countof( szBuffer ) );
-					szBuffer[ nChars - 1 ] = _T(' ');
-					szBuffer[ nChars ] = _T(' ');
-					nChars += GetDateFormat( LOCALE_USER_DEFAULT, DATE_SHORTDATE,
-						&st, NULL, szBuffer + nChars + 1, _countof( szBuffer ) );
-					szBuffer[ nChars - 5 ] = 0;			// Strip Year
-					pszText = szBuffer;
+					// Caching for slow GetDateFormat/GetTimeFormat functions
+					// using fact that neighbour hits got at same time
+					static TCHAR szBufferCache[ 64 ] = {};
+					static SYSTEMTIME stCache = {};
+					st.wMilliseconds = 0;	// round to seconds
+					if ( memcmp( &stCache, &st, sizeof( SYSTEMTIME ) ) == 0 )
+						pszText = szBufferCache;	// Use cache
+					else
+					{
+						// Get new date
+						int nChars = GetTimeFormat( LOCALE_USER_DEFAULT, 0,
+							&st, NULL, szBuffer, _countof( szBuffer ) );
+						szBuffer[ nChars - 1 ] = _T(' ');
+						szBuffer[ nChars ] = _T(' ');
+						nChars += GetDateFormat( LOCALE_USER_DEFAULT, DATE_SHORTDATE,
+							&st, NULL, szBuffer + nChars + 1, _countof( szBuffer ) );
+						szBuffer[ nChars - 5 ] = 0;			// Strip Year
+						pszText = szBuffer;
+
+						// Save to cache
+						lstrcpy( szBufferCache, szBuffer );
+						memcpy( &stCache, &st, sizeof( SYSTEMTIME ) );
+					}
 				}
 			}
 			break;
@@ -1073,13 +1082,22 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		if ( nText < 0 ) nText = static_cast< int >( _tcslen( pszText ) );
 		int nWidth = 0;
 		int nTrail = 0;
-
-		while ( nText )
+		const int nColWidth = rcCol.Width() - 4;
+		if ( nColWidth > 4 )
 		{
-			nWidth = dc.GetTextExtent( pszText, nText ).cx + nTrail;
-			if ( nWidth <= rcCol.Width() - 4 ) break;
+			while ( nText )
+			{
+				nWidth = dc.GetTextExtent( pszText, nText ).cx + nTrail;
+				if ( nWidth <= nColWidth )
+					break;
+				nTrail = m_nTrailWidth;
+				nText--;
+			}
+		}
+		else
+		{
 			nTrail = m_nTrailWidth;
-			nText--;
+			nWidth = nText = 0;
 		}
 
 		switch ( pColumn.fmt & HDF_JUSTIFYMASK )
@@ -1675,11 +1693,8 @@ void CMatchCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 	//	CMatchFile* pFile	= NULL;
 	//	CQueryHit* pHit		= NULL;
 	//	CRect rcItem;
-
 	//	if ( HitTest( point, &pFile, &pHit, NULL, &rcItem ) )
-	//	{
 	//		// ToDo: Check if its on an action icon and take the appropriate action
-	//	}
 		GetOwner()->PostMessage( WM_COMMAND, ID_SEARCH_DOWNLOAD );
 	}
 }

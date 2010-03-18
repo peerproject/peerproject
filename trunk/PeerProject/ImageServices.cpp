@@ -423,7 +423,7 @@ BOOL CImageServices::IsFileViewable(LPCTSTR pszPath)
 bool CImageServices::LookupUniversalPlugins(service_list& oList)
 {
 	HUSKEY hKey;
-	if ( SHRegOpenUSKey( _T(REGISTRY_KEY) _T("\\Plugins\\ImageService"),
+	if ( SHRegOpenUSKey( REGISTRY_KEY _T("\\Plugins\\ImageService"),
 		KEY_READ, NULL, &hKey, FALSE ) == ERROR_SUCCESS )
 	{
 		for ( DWORD nKey = 0 ; ; nKey++ )

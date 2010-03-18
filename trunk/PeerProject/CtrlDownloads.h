@@ -1,7 +1,7 @@
 //
 // CtrlDownloads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -42,7 +42,7 @@ public:
 	BOOL		Update(int nGroupCookie);
 	BOOL		DropShowTarget(CList< CDownload* >* pSel, const CPoint& ptScreen);
 	BOOL		DropObjects(CList< CDownload* >* pSel, const CPoint& ptScreen);
-	int			GetExpandableColumnX() const;
+	int 		GetExpandableColumnX() const;
 	void		OnSkinChange();
 protected:
 	void		InsertColumn(int nColumn, LPCTSTR pszCaption, int nFormat, int nWidth);
@@ -50,9 +50,9 @@ protected:
 	BOOL		LoadColumnState();
 	void		SelectTo(int nIndex);
 	void		BubbleSortDownloads(int nColumn);
-    void		DeselectAll(CDownload* pExcept1 = NULL, CDownloadSource* pExcept2 = NULL);
+	void		DeselectAll(CDownload* pExcept1 = NULL, CDownloadSource* pExcept2 = NULL);
 	void		SelectAll(CDownload* pExcept1 = NULL, CDownloadSource* pExcept2 = NULL);
-	int			GetSelectedCount();
+	int 		GetSelectedCount();
 	void		MoveSelected(int nDelta);
 	void		MoveToTop();
 	void		MoveToEnd();
@@ -60,7 +60,7 @@ protected:
 	BOOL		GetAt(int nSelect, CDownload** ppDownload, CDownloadSource** ppSource);
 	BOOL		GetRect(CDownload* pSelect, RECT* prcItem);
 	CString		GetDownloadStatus(CDownload *pDownload);
-	int			GetClientStatus(CDownload *pDownload);
+	int 		GetClientStatus(CDownload *pDownload);
 	void		PaintDownload(CDC& dc, const CRect& rcRow, CDownload* pDownload, BOOL bFocus, BOOL bDrop);
 	void		PaintSource(CDC& dc, const CRect& rcRow, CDownload* pDownload, CDownloadSource* pSource, BOOL bFocus);
 	void		OnBeginDrag(CPoint ptAction);
@@ -76,8 +76,8 @@ protected:
 	CHeaderCtrl			m_wndHeader;
 	CDownloadTipCtrl	m_wndTip;
 	CImageList			m_pProtocols;
-	int					m_nGroupCookie;
-	int					m_nFocus;
+	int 				m_nGroupCookie;
+	int 				m_nFocus;
 	BOOL				m_bCreateDragImage;
 	CDownload*			m_pDragDrop;
 	BOOL				m_bDrag;
@@ -85,7 +85,7 @@ protected:
 	CDownload*			m_pDeselect1;
 	CDownloadSource*	m_pDeselect2;
 	BOOL*				m_pbSortAscending;
-	int					m_nScrollWheelLines;
+	int 				m_nScrollWheelLines;
 	BOOL				m_bShowSearching;
 	DWORD				m_tSwitchTimer;
 

@@ -1,7 +1,7 @@
 //
 // CtrlTaskPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -90,13 +90,9 @@ CTaskBox* CTaskPanel::AddBox(CTaskBox* pBox, POSITION posBefore)
 {
 	ASSERT ( pBox != NULL );
 	if ( posBefore )
-	{
 		m_pBoxes.InsertBefore( posBefore, pBox );
-	}
 	else
-	{
 		m_pBoxes.AddTail( pBox );
-	}
 
 	OnChanged();
 
@@ -134,7 +130,8 @@ void CTaskPanel::ClearBoxes(BOOL bDelete)
 {
 	if ( bDelete )
 	{
-		for ( POSITION pos = GetBoxIterator() ; pos ; ) delete GetNextBox( pos );
+		for ( POSITION pos = GetBoxIterator() ; pos ; )
+			delete GetNextBox( pos );
 	}
 
 	m_pBoxes.RemoveAll();
@@ -253,9 +250,7 @@ void CTaskPanel::Layout(CRect& rcClient)
 			CTaskBox* pBox = GetNextBox( pos );
 
 			if ( pBox->m_bVisible && pBox->m_nHeight && pBox != m_pStretch )
-			{
 				nStretch -= pBox->GetOuterHeight() + m_nMargin;
-			}
 		}
 	}
 
@@ -270,7 +265,8 @@ void CTaskPanel::Layout(CRect& rcClient)
 
 		if ( nHeight )
 		{
-			if ( pBox == m_pStretch && pBox->m_bOpen ) nHeight = nStretch;
+			if ( pBox == m_pStretch && pBox->m_bOpen )
+				nHeight = nStretch;
 
 			rcBox.bottom = rcBox.top + nHeight;
 
@@ -336,9 +332,7 @@ BOOL CTaskBox::Create(CTaskPanel* pPanel, int nHeight, LPCTSTR pszCaption, UINT 
 		WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS, rect, pPanel, nID ) ) return FALSE;
 
 	if ( nIDIcon )
-	{
 		CoolInterface.SetIcon( nIDIcon, Settings.General.LanguageRTL, FALSE, this );
-	}
 
 	CString strKey;
 	strKey.Format( _T("%s.Open"), (LPCTSTR)CString( GetRuntimeClass()->m_lpszClassName ) );
@@ -368,9 +362,7 @@ void CTaskBox::SetCaption(LPCTSTR pszCaption)
 
 void CTaskBox::SetIcon(HICON hIcon)
 {
-	ASSERT( m_hIcon != hIcon );
-
-	if ( m_hIcon )
+	if ( m_hIcon && m_hIcon != hIcon )
 		DestroyIcon( m_hIcon );
 
 	m_hIcon = hIcon;
@@ -614,12 +606,9 @@ void CTaskBox::OnPaint()
 	GetClientRect( &rc );
 
 	if ( ! CoolInterface.DrawWatermark( &dc, &rc, &m_bmWatermark ) )
-	{
 		dc.FillSolidRect( &rc, Colors.m_crTaskBoxClient );
-	}
 }
 
 void CTaskBox::OnSysCommand(UINT /*nID*/, LPARAM /*lParam*/)
 {
 }
-

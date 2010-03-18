@@ -44,14 +44,14 @@ CHostCache HostCache;
 //////////////////////////////////////////////////////////////////////
 // CHostCache construction
 
-CHostCache::CHostCache() :
-	Gnutella1( PROTOCOL_G1 ),
-	Gnutella2( PROTOCOL_G2 ),
-	eDonkey( PROTOCOL_ED2K ),
-	G1DNA( PROTOCOL_G1 ),
-	BitTorrent( PROTOCOL_BT ),
-	Kademlia( PROTOCOL_KAD ),
-	m_tLastPruneTime( 0 )
+CHostCache::CHostCache()
+	: Gnutella2	( PROTOCOL_G2 )
+	, Gnutella1	( PROTOCOL_G1 )
+	, G1DNA 	( PROTOCOL_G1 )
+	, eDonkey	( PROTOCOL_ED2K )
+	, BitTorrent( PROTOCOL_BT )
+	, Kademlia	( PROTOCOL_KAD )
+	, m_tLastPruneTime ( 0 )
 {
 	m_pList.AddTail( &Gnutella1 );
 	m_pList.AddTail( &Gnutella2 );
@@ -77,26 +77,26 @@ BOOL CHostCache::Load()
 {
 	CQuickLock oLock( m_pSection );
 
-	CString strFile;
-	CFile pFile;
-
 	Clear();
 
-	strFile.Format( _T("%s\\Data\\HostCache.dat"), (LPCTSTR)Settings.General.UserPath );
-	if ( ! pFile.Open( strFile, CFile::modeRead ) ) return FALSE;
+	CFile pFile;
+	CString strFile = Settings.General.UserPath + _T("\\Data\\HostCache.dat");
+
+	if ( ! pFile.Open( strFile, CFile::modeRead ) )
+		return FALSE;
 
 	try
 	{
-		CArchive ar( &pFile, CArchive::load, 262144 );  // 256 KB buffer
+		CArchive ar( &pFile, CArchive::load, 262144 );	// 256 KB buffer
 		Serialize( ar );
-		ar.Close();
 	}
 	catch ( CException* pException )
 	{
 		pException->Delete();
 	}
 
-	if ( eDonkey.GetNewest() == NULL ) CheckMinimumED2KServers();
+	if ( eDonkey.GetNewest() == NULL )
+		CheckMinimumED2KServers();
 
 	return TRUE;
 }
@@ -105,16 +105,35 @@ BOOL CHostCache::Save()
 {
 	CQuickLock oLock( m_pSection );
 
-	CString strFile;
 	CFile pFile;
+	CString strFile = Settings.General.UserPath + _T("\\Data\\HostCache.dat");
 
-	strFile.Format( _T("%s\\Data\\HostCache.dat"), (LPCTSTR)Settings.General.UserPath );
+	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
+		return FALSE;
 
-	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) ) return FALSE;
-
-	CArchive ar( &pFile, CArchive::store, 262144 );  // 256 KB buffer
-	Serialize( ar );
-	ar.Close();
+	try
+	{
+		CArchive ar( &pFile, CArchive::store, 262144 );	// 256 KB buffer
+		try
+		{
+			Serialize( ar );
+			ar.Close();
+		}
+		catch ( CException* pException )
+		{
+			ar.Abort();
+			pFile.Abort();
+			pException->Delete();
+			return FALSE;
+		}
+		pFile.Close();
+	}
+	catch ( CException* pException )
+	{
+		pFile.Abort();
+		pException->Delete();
+		return FALSE;
+	}
 
 	return TRUE;
 }
@@ -143,7 +162,7 @@ void CHostCache::Serialize(CArchive& ar)
 			pCache->Serialize( ar, nVersion );
 		}
 	}
-	else
+	else // Loading
 	{
 		ar >> nVersion;
 		if ( nVersion < 14 ) return;
@@ -277,9 +296,9 @@ void CHostCache::OnSuccess(const IN_ADDR* pAddress, WORD nPort, PROTOCOLID nProt
 //////////////////////////////////////////////////////////////////////
 // CHostCacheList construction
 
-CHostCacheList::CHostCacheList(PROTOCOLID nProtocol) :
-	m_nProtocol( nProtocol ),
-	m_nCookie( 0 )
+CHostCacheList::CHostCacheList(PROTOCOLID nProtocol)
+	: m_nProtocol	( nProtocol )
+	, m_nCookie		( 0 )
 {
 }
 
@@ -478,7 +497,8 @@ void CHostCacheList::SanityCheck()
 	for( CHostCacheMap::iterator i = m_Hosts.begin(); i != m_Hosts.end(); )
 	{
 		CHostCacheHostPtr pHost = (*i).second;
-		if ( Security.IsDenied( &pHost->m_pAddress ) )
+		if ( Security.IsDenied( &pHost->m_pAddress ) ||
+			( pHost->m_pVendor && Security.IsVendorBlocked( pHost->m_pVendor->m_sCode ) ) )
 		{
 			m_HostsTime.erase(
 				std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
@@ -921,35 +941,33 @@ int CHostCache::LoadDefaultED2KServers()
 //////////////////////////////////////////////////////////////////////
 // CHostCacheHost construction
 
-CHostCacheHost::CHostCacheHost(PROTOCOLID nProtocol) :
-	m_nProtocol( nProtocol ),
-	m_nPort(0),
-	m_nUDPPort(0),
-	m_pVendor(NULL),
-	m_bPriority(FALSE),
-	m_nUserCount(0),
-	m_nUserLimit(0),
-	m_nFileLimit(0),
-	m_nTCPFlags(0),
-	m_nUDPFlags(0),
-	m_tAdded( GetTickCount() ),
-	m_tSeen(0),
-	m_tRetryAfter(0),
-	m_tConnect(0),
-	m_tQuery(0),
-	m_tAck(0),
-	m_tStats(0),
-	m_tFailure(0),
-	m_nFailures(0),
-	m_nDailyUptime(0),
-	m_tKeyTime(0),
-	m_nKeyValue(0),
-	m_nKeyHost(0),
-	m_bCheckedLocally(FALSE),
-	// Attributes: DHT
-	m_bDHT(FALSE),
-	// Attributes: Kademlia
-	m_nKADVersion(0)
+CHostCacheHost::CHostCacheHost(PROTOCOLID nProtocol)
+	: m_nProtocol	( nProtocol )
+	, m_nPort		(0)
+	, m_nUDPPort	(0)
+	, m_pVendor 	( NULL )
+	, m_bPriority	( FALSE )
+	, m_nUserCount	(0)
+	, m_nUserLimit	(0)
+	, m_nFileLimit	(0)
+	, m_nTCPFlags	(0)
+	, m_nUDPFlags	(0)
+	, m_tAdded		( GetTickCount() )
+	, m_tSeen		(0)
+	, m_tRetryAfter	(0)
+	, m_tConnect	(0)
+	, m_tQuery		(0)
+	, m_tAck		(0)
+	, m_tStats		(0)
+	, m_tFailure	(0)
+	, m_nFailures	(0)
+	, m_nDailyUptime(0)
+	, m_tKeyTime	(0)
+	, m_nKeyValue	(0)
+	, m_nKeyHost	(0)
+	, m_bCheckedLocally( FALSE )
+	, m_bDHT		( FALSE )	// Attributes: DHT
+	, m_nKADVersion	(0)			// Attributes: Kademlia
 {
 	m_pAddress.s_addr = 0;
 
@@ -1030,7 +1048,7 @@ void CHostCacheHost::Serialize(CArchive& ar, int /*nVersion*/)
 
 		ar << m_tConnect;
 	}
-	else
+	else // Loading
 	{
 		ReadArchive( ar, &m_pAddress, sizeof(m_pAddress) );
 		ar >> m_nPort;
@@ -1267,7 +1285,8 @@ BOOL CHostCacheHost::CanConnect(DWORD tNow) const
 	// Don't connect to self
 	if ( Settings.Connection.IgnoreOwnIP && Network.IsSelfIP( m_pAddress ) ) return FALSE;
 
-	if ( ! tNow ) tNow = static_cast< DWORD >( time( NULL ) );
+	if ( ! tNow )
+		tNow = static_cast< DWORD >( time( NULL ) );
 
 	return
 		// Let failed host rest some time...
@@ -1286,14 +1305,12 @@ BOOL CHostCacheHost::CanConnect(DWORD tNow) const
 
 BOOL CHostCacheHost::CanQuote(DWORD tNow) const
 {
-	if ( ! tNow ) tNow = static_cast< DWORD >( time( NULL ) );
+	if ( ! tNow )
+		tNow = static_cast< DWORD >( time( NULL ) );
 
-	return
-		// A host isn't dead...
-		( m_nFailures == 0 ) &&
-		// ...and host isn't expired...
-		( ! IsExpired( tNow ) );
-		// ...then we can tell about it to others!
+	// If a host isn't dead and host isn't expired,
+	// we can tell others about it
+	return ( m_nFailures == 0 ) && ( ! IsExpired( tNow ) );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1305,7 +1322,7 @@ BOOL CHostCacheHost::CanQuery(DWORD tNow) const
 	if ( m_nProtocol == PROTOCOL_G2 )
 	{
 		// Must support G2
-		if ( !Network.IsConnected() || !Settings.Gnutella2.EnableToday ) return FALSE;
+		if ( ! Network.IsConnected() || ! Settings.Gnutella2.EnableToday ) return FALSE;
 
 		// Must not be waiting for an ack
 		if ( 0 != m_tAck ) return FALSE;
@@ -1329,8 +1346,8 @@ BOOL CHostCacheHost::CanQuery(DWORD tNow) const
 	else if ( m_nProtocol == PROTOCOL_ED2K )
 	{
 		// Must support ED2K
-		if ( !Network.IsConnected() || !Settings.eDonkey.EnableToday ) return FALSE;
-		if ( !Settings.eDonkey.ServerWalk ) return FALSE;
+		if ( ! Network.IsConnected() || ! Settings.eDonkey.EnableToday ) return FALSE;
+		if ( ! Settings.eDonkey.ServerWalk ) return FALSE;
 
 		// Get the time if not supplied
 		if ( 0 == tNow ) tNow = static_cast< DWORD >( time( NULL ) );

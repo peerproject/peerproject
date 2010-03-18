@@ -1,7 +1,7 @@
 //
 // CtrlHomePanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,6 +23,7 @@
 
 #include "CtrlRichTaskBox.h"
 #include "CtrlDownloadTip.h"
+#include "CtrlLibraryTip.h"
 
 class CDownload;
 class CLibraryRecent;
@@ -81,6 +82,7 @@ protected:
 	CFont			m_pFont;
 	HCURSOR			m_hHand;
 	Item*			m_pHover;
+	CLibraryTipCtrl	m_wndTip;
 
 public:
 	void	OnSkinChange();
@@ -138,8 +140,8 @@ protected:
 	CArray< Item* >		m_pList;
 	CFont				m_pFont;
 	HCURSOR				m_hHand;
-	CDownloadTipCtrl	m_wndTip;
 	Item*				m_pHover;
+	CDownloadTipCtrl	m_wndTip;
 
 public:
 	void	OnSkinChange();
@@ -204,11 +206,9 @@ public:
 	CHomeDownloadsBox	m_boxDownloads;
 	CHomeUploadsBox		m_boxUploads;
 
-public:
 	void	OnSkinChange();
 	void	Update();
 
-public:
 	virtual BOOL Create(CWnd* pParentWnd);
 
 protected:

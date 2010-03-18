@@ -1,7 +1,7 @@
 //
 // Security.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -72,14 +72,14 @@ public:
 	void			MoveUp(CSecureRule* pRule);
 	void			MoveDown(CSecureRule* pRule);
 
-	inline void		Ban(const IN_ADDR* pAddress, int nBanLength, BOOL bMessage = TRUE)
+	inline void		Ban(const IN_ADDR* pAddress, int nBanLength, BOOL bMessage = TRUE, LPCTSTR szComment = NULL)
 	{
-		BanHelper( pAddress, NULL, nBanLength, bMessage );
+		BanHelper( pAddress, NULL, nBanLength, bMessage, szComment );
 	}
 
-	inline void		Ban(const CPeerProjectFile* pFile, int nBanLength, BOOL bMessage = TRUE)
+	inline void		Ban(const CPeerProjectFile* pFile, int nBanLength, BOOL bMessage = TRUE, LPCTSTR szComment = NULL)
 	{
-		BanHelper( NULL, pFile, nBanLength, bMessage );
+		BanHelper( NULL, pFile, nBanLength, bMessage, szComment );
 	}
 
 	bool			Complain(const IN_ADDR* pAddress, int nBanLength = ban5Mins, int nExpire = 30, int nCount = 3);
@@ -97,9 +97,11 @@ public:
 	// Don't ban GPL breakers, but don't offer leaf slots to them. Ban others.
 	BOOL			IsClientBad(const CString& sUserAgent);
 	BOOL			IsClientBanned(const CString& sUserAgent);
+	BOOL			IsAgentBlocked(const CString& sUserAgent);	// User-defined names
+	BOOL			IsVendorBlocked(const CString& sVendor);	// G1/G2 code
 
 protected:
-	void			BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile, int nBanLength, BOOL bMessage);
+	void			BanHelper(const IN_ADDR* pAddress, const CPeerProjectFile* pFile, int nBanLength, BOOL bMessage, LPCTSTR szComment);
 	CSecureRule*	GetGUID(const GUID& oGUID) const;
 	CXMLElement*	ToXML(BOOL bRules = TRUE);
 	BOOL			FromXML(CXMLElement* pXML);
@@ -139,11 +141,11 @@ public:
 	BOOL	Match(const CPeerProjectFile* pFile) const;
 	BOOL	Match(CQuerySearch::const_iterator itStart,
 				  CQuerySearch::const_iterator itEnd, LPCTSTR pszContent) const;
-	void	SetContentWords(const CString& strContent);
 	CString	GetContentWords();
+	void	SetContentWords(const CString& strContent);
 	void			Serialize(CArchive& ar, int nVersion);
-	CXMLElement*	ToXML();
 	BOOL			FromXML(CXMLElement* pXML);
+	CXMLElement*	ToXML();
 	CString			ToGnucleusString();
 	BOOL			FromGnucleusString(CString& str);
 };
@@ -165,11 +167,11 @@ private:
 // Operations
 public:
 	void		Load();
+	BOOL		IsChildPornography(LPCTSTR); // Word combination indicates underage
 	BOOL		IsHitAdult(LPCTSTR);		// Does this search result have adult content?
 	BOOL		IsSearchFiltered(LPCTSTR);	// Check if search is filtered
 	BOOL		IsChatFiltered(LPCTSTR);	// Check filter for chat
 	BOOL		Censor(TCHAR*);				// Censor (remove) bad words from a string
-	BOOL		IsChildPornography(LPCTSTR);
 private:
 	BOOL		IsFiltered(LPCTSTR);
 };

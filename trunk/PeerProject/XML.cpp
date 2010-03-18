@@ -1,7 +1,7 @@
 //
 // XML.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -29,13 +29,14 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
+#define IsSpace(ch)	((ch) == _T(' ') || (ch) == _T('\t') || (ch) == _T('\r') || (ch) == _T('\n'))
 
 //////////////////////////////////////////////////////////////////////
 // CXMLNode construction
 
-CXMLNode::CXMLNode(CXMLElement* pParent, LPCTSTR pszName) :
-	m_nNode		( xmlNode )
-,	m_pParent	( pParent )
+CXMLNode::CXMLNode(CXMLElement* pParent, LPCTSTR pszName)
+	: m_nNode		( xmlNode )
+	, m_pParent		( pParent )
 {
 	if ( pszName )
 	{
@@ -92,7 +93,7 @@ BOOL CXMLNode::ParseIdentifier(LPCTSTR& pszBase, CString& strIdentifier)
 		pszXML++;
 		nParse++;
 	}
-	if ( !*pszXML )
+	if ( ! *pszXML )
 		return FALSE;
 
 	int nIdentifier = 0;
@@ -101,7 +102,7 @@ BOOL CXMLNode::ParseIdentifier(LPCTSTR& pszBase, CString& strIdentifier)
 		pszXML++;
 		nIdentifier++;
 	}
-	if ( !nIdentifier )
+	if ( ! nIdentifier )
 		return FALSE;
 
 	pszBase += nParse;
@@ -130,11 +131,11 @@ CString CXMLNode::StringToValue(LPCTSTR& pszXML, int nLength)
 
 	while ( *pszXML && pszXML < pszNull )
 	{
-		if ( _istspace( *pszXML ) && *pszXML != 0xa0 )  // Keep non-breaking space
+		if ( IsSpace( *pszXML ) && *pszXML != 0xa0 )	// Keep non-breaking space
 		{
 			if ( pszValue != pszOut ) *pszOut++ = ' ';
 			pszXML++;
-			while ( *pszXML && _istspace( *pszXML ) && *pszXML != 0xa0 ) pszXML++;
+			while ( *pszXML && IsSpace( *pszXML ) && *pszXML != 0xa0 ) pszXML++;
 			if ( ! *pszXML || pszXML >= pszNull ) break;
 		}
 
@@ -285,7 +286,7 @@ void CXMLNode::Serialize(CArchive& ar)
 		ar << m_sName;
 		ar << m_sValue;
 	}
-	else
+	else // Loading
 	{
 		ar >> m_sName;
 		ar >> m_sValue;
@@ -483,7 +484,7 @@ CXMLElement* CXMLElement::FromString(LPCTSTR pszXML, BOOL bHeader)
 		if ( ParseMatch( pszXML, _T("<?xml version=\"") ) )
 		{
 			pszElement = _tcsstr( pszXML, _T("?>") );
-			if ( !pszElement )
+			if ( ! pszElement )
 				return FALSE;
 			pszXML = pszElement + 2;
 		}
@@ -493,7 +494,7 @@ CXMLElement* CXMLElement::FromString(LPCTSTR pszXML, BOOL bHeader)
 		while ( ParseMatch( pszXML, _T("<!--") ) )
 		{
 			pszElement = _tcsstr( pszXML, _T("-->") );
-			if ( !pszElement || *pszElement != '-' )
+			if ( ! pszElement || *pszElement != '-' )
 				return FALSE;
 			pszXML = pszElement + 3;
 		}
@@ -501,7 +502,7 @@ CXMLElement* CXMLElement::FromString(LPCTSTR pszXML, BOOL bHeader)
 		while ( ParseMatch( pszXML, _T("<?xml") ) )
 		{
 			pszElement = _tcsstr( pszXML, _T("?>") );
-			if ( !pszElement )
+			if ( ! pszElement )
 				return FALSE;
 			pszXML = pszElement + 2;
 		}
@@ -509,7 +510,7 @@ CXMLElement* CXMLElement::FromString(LPCTSTR pszXML, BOOL bHeader)
 		if ( ParseMatch( pszXML, _T("<!DOCTYPE") ) )
 		{
 			pszElement = _tcsstr( pszXML, _T(">") );
-			if ( !pszElement )
+			if ( ! pszElement )
 				return FALSE;
 			pszXML = pszElement + 1;
 		}
@@ -517,14 +518,14 @@ CXMLElement* CXMLElement::FromString(LPCTSTR pszXML, BOOL bHeader)
 		while ( ParseMatch( pszXML, _T("<!--") ) )
 		{
 			pszElement = _tcsstr( pszXML, _T("-->") );
-			if ( !pszElement || *pszElement != '-' )
+			if ( ! pszElement || *pszElement != '-' )
 				return FALSE;
 			pszXML = pszElement + 3;
 		}
 
 		pElement = new CXMLElement();
 
-		if ( !pElement->ParseString( pszXML ) )
+		if ( ! pElement->ParseString( pszXML ) )
 		{
 			delete pElement;
 			pElement = NULL;
@@ -542,20 +543,18 @@ CXMLElement* CXMLElement::FromString(LPCTSTR pszXML, BOOL bHeader)
 
 BOOL CXMLElement::ParseString(LPCTSTR& strXML)
 {
-	if ( !ParseMatch( strXML, _T("<") ) )
+	if ( ! ParseMatch( strXML, _T("<") ) )
 		return FALSE;
 
-	if ( !ParseIdentifier( strXML, m_sName ) )
+	if ( ! ParseIdentifier( strXML, m_sName ) )
 		return FALSE;
 
 	while ( ! ParseMatch( strXML, _T(">") ) )
 	{
 		if ( ParseMatch( strXML, _T("/") ) )
-		{
 			return ParseMatch( strXML, _T(">") );
-		}
 
-		if ( !*strXML )
+		if ( ! *strXML )
 			return FALSE;
 
 		CXMLAttribute* pAttribute = new CXMLAttribute( this );
@@ -586,17 +585,17 @@ BOOL CXMLElement::ParseString(LPCTSTR& strXML)
 
 	for (;;)
 	{
-		if ( !*strXML )
+		if ( ! *strXML )
 			return FALSE;
 
 		LPCTSTR pszElement = _tcschr( strXML, '<' );
-		if ( !pszElement || *pszElement != '<' )
+		if ( ! pszElement || *pszElement != '<' )
 			return FALSE;
 
 		if ( ParseMatch( strXML, _T("<![CDATA[") ) )
 		{
 			pszElement = _tcsstr( strXML, _T("]]>") );
-			if ( !pszElement || *pszElement != ']' )
+			if ( ! pszElement || *pszElement != ']' )
 				return FALSE;
 			if ( m_sValue.GetLength() && m_sValue.Right( 1 ) != ' ' )
 				m_sValue += ' ';
@@ -622,7 +621,7 @@ BOOL CXMLElement::ParseString(LPCTSTR& strXML)
 		else if ( ParseMatch( strXML, _T("<!--") ) )
 		{
 			pszElement = _tcsstr( strXML, _T("-->") );
-			if ( !pszElement || *pszElement != '-' )
+			if ( ! pszElement || *pszElement != '-' )
 				return FALSE;
 			strXML = pszElement + 3;
 		}
@@ -994,15 +993,15 @@ void CXMLAttribute::ToString(CString& strXML) const
 
 BOOL CXMLAttribute::ParseString(LPCTSTR& strXML)
 {
-	if ( !ParseIdentifier( strXML, m_sName ) )
+	if ( ! ParseIdentifier( strXML, m_sName ) )
 		return FALSE;
-	if ( !ParseMatch( strXML, _T("=") ) )
+	if ( ! ParseMatch( strXML, _T("=") ) )
 		return FALSE;
 
 	if ( ParseMatch( strXML, _T("\"") ) )
 	{
 		LPCTSTR pszQuote = _tcschr( strXML,  '\"' );
-		if ( !pszQuote || *pszQuote != '\"' )
+		if ( ! pszQuote || *pszQuote != '\"' )
 			return FALSE;
 
 		m_sValue = StringToValue( strXML, (int)( pszQuote - strXML ) );
@@ -1012,7 +1011,7 @@ BOOL CXMLAttribute::ParseString(LPCTSTR& strXML)
 	else if ( ParseMatch( strXML, _T("'") ) )
 	{
 		LPCTSTR pszQuote = _tcschr( strXML,  '\'' );
-		if ( !pszQuote || *pszQuote != '\'' )
+		if ( ! pszQuote || *pszQuote != '\'' )
 			return FALSE;
 
 		m_sValue = StringToValue( strXML, (int)( pszQuote - strXML ) );

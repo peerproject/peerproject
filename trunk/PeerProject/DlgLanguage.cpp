@@ -47,7 +47,6 @@ BEGIN_MESSAGE_MAP(CLanguageDlg, CSkinDialog)
 	ON_WM_SETCURSOR()
 	ON_WM_DESTROY()
 	ON_WM_CLOSE()
-	ON_WM_CREATE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -62,8 +61,8 @@ END_MESSAGE_MAP()
 // CLanguageDlg dialog
 
 CLanguageDlg::CLanguageDlg(CWnd* pParent)
-	: CSkinDialog(CLanguageDlg::IDD, pParent)
-	, m_sLanguage( _T("en") )
+	: CSkinDialog	(CLanguageDlg::IDD, pParent)
+	, m_sLanguage	( _T("en") )
 	, m_bLanguageRTL( false )
 {
 }
@@ -87,18 +86,16 @@ BOOL CLanguageDlg::OnInitDialog()
 	m_hArrow	= theApp.LoadStandardCursor( IDC_ARROW );
 	m_hHand		= theApp.LoadCursor( IDC_HAND );
 
-	//m_bmHeader.LoadBitmap( IDB_WIZARD );
-
-	m_fntNormal.CreateFontW( -(int)(Settings.Fonts.FontSize + 1), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+	m_fntNormal.CreateFont( -(int)(Settings.Fonts.FontSize + 1), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
-	m_fntBold.CreateFontW( -(int)(Settings.Fonts.FontSize + 3), 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+	m_fntBold.CreateFont( -(int)(Settings.Fonts.FontSize + 3), 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
-	m_fntSmall.CreateFontW( -(int)(Settings.Fonts.FontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+	m_fntSmall.CreateFont( -(int)(Settings.Fonts.FontSize - 1), 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, Settings.Fonts.DefaultFont );
 
 	m_pImages.Create( 32, 32, ILC_COLOR32|ILC_MASK, 1, 1 ) ||
@@ -162,6 +159,7 @@ void CLanguageDlg::OnPaint()
 	// Obsolete:
 	//CDC mdc;
 	//mdc.CreateCompatibleDC( &dc );
+	//m_bmHeader.LoadBitmap( IDB_WIZARD );
 	//CBitmap* pOldBmp = (CBitmap*)mdc.SelectObject( &m_bmHeader );
 	//dc.BitBlt( 0, 0, rc.Width(), BANNER_CY, &mdc, 0, 0, SRCCOPY );
 	//mdc.SelectObject( pOldBmp );
@@ -204,6 +202,12 @@ void CLanguageDlg::OnPaint()
 
 void CLanguageDlg::PaintItem(int nItem, CDC* pDC, CRect* pRect)
 {
+	if ( Settings.General.LanguageRTL )
+	{
+		UINT nFlags = pDC->GetTextAlign();
+		pDC->SetTextAlign( nFlags | TA_RTLREADING );
+	}
+
 	pRect->bottom = pRect->top + ITEM_HEIGHT;
 
 	BOOL bHover	= m_nHover == ( nItem + 1 );
@@ -705,11 +709,3 @@ void CLanguageDlg::OnClose()
 {
 	EndDialog( IDCANCEL );
 }
-
-//int CLanguageDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
-//{
-//	if (CDialog::OnCreate(lpCreateStruct) == -1)
-//		return -1;
-//
-//	return 0;
-//}

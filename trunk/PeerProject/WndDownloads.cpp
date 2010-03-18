@@ -247,7 +247,7 @@ void CDownloadsWnd::OnSkinChange()
 
 void CDownloadsWnd::Update()
 {
-	if ( !IsWindow( m_hWnd ) ) return;
+	if ( ! IsWindow( m_hWnd ) ) return;
 
 	if ( m_bMouseCaptured )
 	{
@@ -874,7 +874,7 @@ void CDownloadsWnd::OnUpdateDownloadsRemotePreview(CCmdUI* pCmdUI)
 			nSelected++;
 	}
 
-	if ( nSelected == 1 && !pDownload->IsTasking() )
+	if ( nSelected == 1 && ! pDownload->IsTasking() )
 		Prepare();
 	else
 		m_bSelRemotePreviewCapable = FALSE;
@@ -890,7 +890,7 @@ void CDownloadsWnd::OnDownloadsRemotePreview()
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 
-		if ( !pDownload->m_bSelected )
+		if ( ! pDownload->m_bSelected )
 			continue;
 
 		// Check if the saved preview file is available first
@@ -910,7 +910,7 @@ void CDownloadsWnd::OnDownloadsRemotePreview()
 		{
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
-			if ( !pSource->m_bPreviewRequestSent && pSource->IsOnline() )
+			if ( ! pSource->m_bPreviewRequestSent && pSource->IsOnline() )
 			{
 				if ( pSource->m_nProtocol == PROTOCOL_ED2K )
 				{
@@ -1581,58 +1581,25 @@ void CDownloadsWnd::OnUpdateDownloadsFileDelete(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsFileDelete()
 {
-	// Create common library file list of all selected and completed downloads
-	CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
-	CSingleLock pLibraryLock( &Library.m_pSection, TRUE );
-	CLibraryList pList;
-
-	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
+	// Create file list of all selected and completed downloads
+	CStringList pList;
 	{
-		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected && pDownload->IsCompleted() )
+		CSingleLock pTransfersLock( &Transfers.m_pSection, TRUE );
+
+		for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 		{
-			for ( DWORD i = 0; i < pDownload->GetFileCount(); ++i )
+			CDownload* pDownload = Downloads.GetNext( pos );
+			if ( pDownload->m_bSelected && pDownload->IsCompleted() )
 			{
-				CString strPath	= pDownload->GetPath( i );
-				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strPath ) )
-					pList.AddTail( pFile );
+				for ( DWORD i = 0; i < pDownload->GetFileCount(); ++i )
+				{
+					pList.AddTail( pDownload->GetPath( i ) );
+				}
 			}
 		}
 	}
 
-	while ( ! pList.IsEmpty() )
-	{
-		CLibraryFile* pFile = Library.LookupFile( pList.GetHead() );
-		if ( pFile == NULL )
-		{
-			pList.RemoveHead();
-			continue;
-		}
-
-		CDeleteFileDlg dlg( this );
-		dlg.m_sName	= pFile->m_sName;
-		dlg.m_sComments = pFile->m_sComments;
-		dlg.m_nRateValue = pFile->m_nRating;
-		dlg.m_bAll = pList.GetCount() > 1;
-
-		pLibraryLock.Unlock();
-		pTransfersLock.Unlock();
-
-		if ( dlg.DoModal() != IDOK ) break;
-
-		pTransfersLock.Lock();
-		pLibraryLock.Lock();
-
-		for ( INT_PTR nProcess = dlg.m_bAll ? pList.GetCount() : 1 ; nProcess > 0 && pList.GetCount() > 0 ; nProcess-- )
-		{
-			if ( ( pFile = Library.LookupFile( pList.RemoveHead(), FALSE, TRUE ) ) != NULL )
-			{
-				dlg.Apply( pFile );
-
-				pFile->Delete();	// Also deletes owner download
-			}
-		}
-	}
+	DeleteFiles( pList );
 
 	Update();
 }

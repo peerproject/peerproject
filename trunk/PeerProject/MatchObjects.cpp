@@ -258,10 +258,10 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 			// For now, just move such files to bogus.
 			if ( Settings.Search.SchemaTypes && pFilter->m_pSchema )
 			{
-				if ( !pHit->m_bMatched && pFilter->m_pSchema->CheckURI( pHit->m_sSchemaURI ) )
+				if ( ! pHit->m_bMatched && pFilter->m_pSchema->CheckURI( pHit->m_sSchemaURI ) )
 					pHit->m_bBogus = TRUE;
 				else
-					pHit->m_bBogus = !pFilter->m_pSchema->FilterType( pHit->m_sName, TRUE );
+					pHit->m_bBogus = ! pFilter->m_pSchema->FilterType( pHit->m_sName, TRUE );
 			}
 		}
 		else
@@ -287,7 +287,7 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 
 		if ( pFile == NULL
 			&& ( ( ! pHit->m_oSHA1 && ! pHit->m_oTiger && ! pHit->m_oED2K && ! pHit->m_oBTH && ! pHit->m_oMD5 )
-				|| !Settings.General.HashIntegrity ) )
+				|| ! Settings.General.HashIntegrity ) )
 		{
 			pFile = FindFileAndAddHit( pHit, fSize, &Stats );
 		}
@@ -560,7 +560,7 @@ void CMatchList::Clear()
 		}
 	}
 
-	m_nFiles			= 0;
+	m_nFiles = 0;
 
 	UpdateStats();
 	UpdateRange();
@@ -1529,7 +1529,7 @@ BOOL CMatchFile::Add(CQueryHit* pHit, BOOL bForce)
 				return FALSE;
 			bForce = TRUE;
 		}
-		else if ( !m_oSHA1 && pHit->m_oSHA1 && Settings.General.HashIntegrity && m_pHits )
+		else if ( ! m_oSHA1 && pHit->m_oSHA1 && Settings.General.HashIntegrity && m_pHits )
 		{
 			return FALSE;
 		}
@@ -2508,12 +2508,22 @@ TRISTATE CMatchFile::GetLibraryStatus()
 	CSingleLock pLock( &Library.m_pSection );
 	if (  pLock.Lock( 100 ) )
 	{
-		CLibraryFile* pExisting = NULL;
-		if ( ( m_oSHA1 && ( pExisting = LibraryMaps.LookupFileBySHA1( m_oSHA1 ) ) != NULL ) ||
-			 ( m_oTiger && ( pExisting = LibraryMaps.LookupFileByTiger( m_oTiger ) ) != NULL ) ||
-			 ( m_oED2K && ( pExisting = LibraryMaps.LookupFileByED2K( m_oED2K ) ) != NULL ) ||
-			 ( m_oBTH && ( pExisting = LibraryMaps.LookupFileByBTH( m_oBTH ) ) != NULL ) ||
-			 ( m_oMD5 && ( pExisting = LibraryMaps.LookupFileByMD5( m_oMD5 ) ) != NULL ) )
+		CLibraryFile* pExisting;
+
+		if ( m_oSHA1 )
+			pExisting = LibraryMaps.LookupFileBySHA1( m_oSHA1 );
+		else if ( m_oTiger )
+			pExisting = LibraryMaps.LookupFileByTiger( m_oTiger );
+		else if ( m_oED2K )
+			pExisting = LibraryMaps.LookupFileByED2K( m_oED2K );
+		else if ( m_oMD5 )
+			pExisting = LibraryMaps.LookupFileByMD5( m_oMD5 );
+		else if ( m_oBTH )
+			pExisting = LibraryMaps.LookupFileByBTH( m_oBTH );
+		else
+			pExisting = NULL;
+
+		if ( pExisting )
 		{
 			m_bExisting = pExisting->IsAvailable() ? TRI_FALSE : TRI_TRUE;
 		}

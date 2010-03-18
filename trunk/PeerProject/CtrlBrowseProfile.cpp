@@ -1,7 +1,7 @@
 //
 // CtrlBrowseProfile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -139,9 +139,7 @@ void CBrowseProfileCtrl::Update(CHostBrowser* pBrowser)
 	if ( pProfile == NULL || pProfile->IsValid() == FALSE ) return;
 
 	if ( ! pBrowser->IsBrowsing() && pBrowser->m_nHits > 0 && ! m_imgHead.m_bLoaded )
-	{
 		LoadDefaultHead();
-	}
 
 	UpdateDocument1( pProfile );
 	UpdateDocument2( pBrowser );
@@ -274,7 +272,8 @@ void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 
 			if ( pInterest->IsNamed( _T("interest") ) )
 			{
-				if ( str.GetLength() ) str += _T(", ");
+				if ( str.GetLength() )
+					str += _T(", ");
 				str += pInterest->GetValue();
 			}
 		}
@@ -480,9 +479,7 @@ void CBrowseProfileCtrl::OnPaint()
 	}
 
 	if ( m_wndDoc1.IsWindowVisible() )
-	{
 		rcPanel.right = rcPanel.left + 148;
-	}
 
 	dc.FillSolidRect( &rcPanel, Colors.m_crWindow );
 }
@@ -490,17 +487,13 @@ void CBrowseProfileCtrl::OnPaint()
 void CBrowseProfileCtrl::OnTimer(UINT_PTR nIDEvent)
 {
 	if ( nIDEvent == 1 )
-	{
 		Invalidate();
-	}
 }
 
 void CBrowseProfileCtrl::OnClickView(NMHDR* pNotify, LRESULT* /*pResult*/)
 {
 	if ( CRichElement* pElement = ((RVN_ELEMENTEVENT*) pNotify)->pElement )
-	{
 		theApp.InternalURI( pElement->m_sLink );
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -511,7 +504,5 @@ void CBrowseProfileCtrl::Serialize(CArchive& ar)
 	m_imgHead.Serialize( ar );
 
 	if ( ar.IsLoading() )
-	{
 		PostMessage( WM_TIMER, 1 );
-	}
 }
