@@ -1,17 +1,19 @@
-//
-// sqlite3.c
-//
-// This file is part of PeerProject (peerproject.org) © 2008
-// The original author disclaimed copyright to this source code.
+/*
+** sqlite3.c  (3.5.8)
+**
+** This file is part of PeerProject (peerproject.org) © 2008-2010
+** The original author disclaimed copyright to this source code.
+*/
 
-/* In place of a legal notice, here is a blessing:
+/*
+** The author disclaims copyright to this source code.
+** In place of a legal notice, here is a blessing:
 **
 **	May you do good and not evil.
 **	May you find forgiveness for yourself and forgive others.
 **	May you share freely, never taking more than you give.
-*/
-
-/******************************************************************************
+**
+******************************************************************************
 ** This file is an amalgamation of many separate C source files from
 ** SQLite version 3.5.8.  By combining all the individual C code files into this 
 ** single large file, the entire code can be compiled as a one translation unit.
@@ -787,39 +789,39 @@ SQLITE_API int sqlite3_set_authorizer(
 /*
 ** CAPI3REF: Authorizer Action Codes {F12550}
 */
-/******************************************* 3rd ************ 4th ***********/
-#define SQLITE_CREATE_INDEX          1   /* Index Name      Table Name      */
-#define SQLITE_CREATE_TABLE          2   /* Table Name      NULL            */
-#define SQLITE_CREATE_TEMP_INDEX     3   /* Index Name      Table Name      */
-#define SQLITE_CREATE_TEMP_TABLE     4   /* Table Name      NULL            */
-#define SQLITE_CREATE_TEMP_TRIGGER   5   /* Trigger Name    Table Name      */
-#define SQLITE_CREATE_TEMP_VIEW      6   /* View Name       NULL            */
-#define SQLITE_CREATE_TRIGGER        7   /* Trigger Name    Table Name      */
-#define SQLITE_CREATE_VIEW           8   /* View Name       NULL            */
-#define SQLITE_DELETE                9   /* Table Name      NULL            */
-#define SQLITE_DROP_INDEX           10   /* Index Name      Table Name      */
-#define SQLITE_DROP_TABLE           11   /* Table Name      NULL            */
-#define SQLITE_DROP_TEMP_INDEX      12   /* Index Name      Table Name      */
-#define SQLITE_DROP_TEMP_TABLE      13   /* Table Name      NULL            */
-#define SQLITE_DROP_TEMP_TRIGGER    14   /* Trigger Name    Table Name      */
-#define SQLITE_DROP_TEMP_VIEW       15   /* View Name       NULL            */
-#define SQLITE_DROP_TRIGGER         16   /* Trigger Name    Table Name      */
-#define SQLITE_DROP_VIEW            17   /* View Name       NULL            */
-#define SQLITE_INSERT               18   /* Table Name      NULL            */
-#define SQLITE_PRAGMA               19   /* Pragma Name     1st arg or NULL */
-#define SQLITE_READ                 20   /* Table Name      Column Name     */
-#define SQLITE_SELECT               21   /* NULL            NULL            */
-#define SQLITE_TRANSACTION          22   /* NULL            NULL            */
-#define SQLITE_UPDATE               23   /* Table Name      Column Name     */
-#define SQLITE_ATTACH               24   /* Filename        NULL            */
-#define SQLITE_DETACH               25   /* Database Name   NULL            */
-#define SQLITE_ALTER_TABLE          26   /* Database Name   Table Name      */
-#define SQLITE_REINDEX              27   /* Index Name      NULL            */
-#define SQLITE_ANALYZE              28   /* Table Name      NULL            */
-#define SQLITE_CREATE_VTABLE        29   /* Table Name      Module Name     */
-#define SQLITE_DROP_VTABLE          30   /* Table Name      Module Name     */
-#define SQLITE_FUNCTION             31   /* Function Name   NULL            */
-#define SQLITE_COPY                  0   /* No longer used */
+/*************************************/
+#define SQLITE_CREATE_INDEX          1
+#define SQLITE_CREATE_TABLE          2
+#define SQLITE_CREATE_TEMP_INDEX     3
+#define SQLITE_CREATE_TEMP_TABLE     4
+#define SQLITE_CREATE_TEMP_TRIGGER   5
+#define SQLITE_CREATE_TEMP_VIEW      6
+#define SQLITE_CREATE_TRIGGER        7
+#define SQLITE_CREATE_VIEW           8
+#define SQLITE_DELETE                9
+#define SQLITE_DROP_INDEX           10
+#define SQLITE_DROP_TABLE           11
+#define SQLITE_DROP_TEMP_INDEX      12
+#define SQLITE_DROP_TEMP_TABLE      13
+#define SQLITE_DROP_TEMP_TRIGGER    14
+#define SQLITE_DROP_TEMP_VIEW       15
+#define SQLITE_DROP_TRIGGER         16
+#define SQLITE_DROP_VIEW            17
+#define SQLITE_INSERT               18
+#define SQLITE_PRAGMA               19
+#define SQLITE_READ                 20
+#define SQLITE_SELECT               21
+#define SQLITE_TRANSACTION          22
+#define SQLITE_UPDATE               23
+#define SQLITE_ATTACH               24
+#define SQLITE_DETACH               25
+#define SQLITE_ALTER_TABLE          26
+#define SQLITE_REINDEX              27
+#define SQLITE_ANALYZE              28
+#define SQLITE_CREATE_VTABLE        29
+#define SQLITE_DROP_VTABLE          30
+#define SQLITE_FUNCTION             31
+#define SQLITE_COPY                  0   /* Not used */
 
 /*
 ** CAPI3REF: Tracing And Profiling Functions {F12280}
@@ -17673,21 +17675,7 @@ static void makeClean(PgHdr *pPg){
 
 
 /*
-** Mark a data page as writeable.  The page is written into the journal 
-** if it is not there already.  This routine must be called before making
-** changes to a page.
-**
-** The first time this routine is called, the pager creates a new
-** journal and acquires a RESERVED lock on the database.  If the RESERVED
-** lock could not be acquired, this routine returns SQLITE_BUSY.  The
-** calling routine must check for that return value and be careful not to
-** change any page data until this routine returns SQLITE_OK.
-**
-** If the journal file could not be written because the disk is full,
-** then this routine returns SQLITE_FULL and does an immediate rollback.
-** All subsequent write attempts also return SQLITE_FULL until there
-** is a call to sqlite3PagerCommit() or sqlite3PagerRollback() to
-** reset.
+** Mark a data page as writeable.
 */
 static int pager_write(PgHdr *pPg){
   void *pData = PGHDR_TO_DATA(pPg);
@@ -17707,13 +17695,8 @@ static int pager_write(PgHdr *pPg){
 
   CHECK_PAGE(pPg);
 
-  /* If this page was previously acquired with noContent==1, that means
-  ** we didn't really read in the content of the page.  This can happen
-  ** (for example) when the page is being moved to the freelist.  But
-  ** now we are (perhaps) moving the page off of the freelist for
-  ** reuse and we need to know its original content so that content
-  ** can be stored in the rollback journal.  So do the read at this
-  ** time.
+  /* If this page was previously acquired with noContent==1,
+  ** that means we didn't really read in the content of the page. 
   */
   rc = pager_get_content(pPg);
   if( rc ){
@@ -18445,8 +18428,7 @@ SQLITE_PRIVATE int sqlite3PagerRollback(Pager *pPager){
   pPager->dbSize = -1;
 
   /* If an error occurs during a ROLLBACK, we can no longer trust the pager
-  ** cache. So call pager_error() on the way out to make any error 
-  ** persistent.
+  ** cache. So call pager_error() on the way out to make any error persistent.
   */
   rc = pager_error(pPager, rc);
   pagerLeave(pPager);
@@ -18454,8 +18436,8 @@ SQLITE_PRIVATE int sqlite3PagerRollback(Pager *pPager){
 }
 
 /*
-** Return TRUE if the database file is opened read-only.  Return FALSE
-** if the database is (in theory) writable.
+** Return TRUE if the database file is opened read-only.
+** Return FALSE if the database is (in theory) writable.
 */
 SQLITE_PRIVATE int sqlite3PagerIsreadonly(Pager *pPager){
   return pPager->readOnly;
@@ -18492,8 +18474,8 @@ SQLITE_PRIVATE int *sqlite3PagerStats(Pager *pPager){
 /*
 ** Set the statement rollback point.
 **
-** This routine should be called with the transaction journal already
-** open.  A new statement journal is created that can be used to rollback
+** This routine should be called with the transaction journal already open.
+** A new statement journal is created that can be used to rollback
 ** changes of a single SQL command within a larger transaction.
 */
 static int pagerStmtBegin(Pager *pPager){
@@ -21263,18 +21245,6 @@ SQLITE_PRIVATE int sqlite3BtreeClose(Btree *p){
 
 /*
 ** Change the limit on the number of pages allowed in the cache.
-**
-** The maximum number of cache pages is set to the absolute
-** value of mxPage.  If mxPage is negative, the pager will
-** operate asynchronously - it will not stop to do fsync()s
-** to insure data is written to the disk surface before
-** continuing.  Transactions still work if synchronous is off,
-** and the database cannot be corrupted if this program
-** crashes.  But if the operating system crashes or there is
-** an abrupt power failure when synchronous is off, the database
-** could be left in an inconsistent and unrecoverable state.
-** Synchronous is on by default so database corruption is not
-** normally a worry.
 */
 SQLITE_PRIVATE int sqlite3BtreeSetCacheSize(Btree *p, int mxPage){
   BtShared *pBt = p->pBt;
@@ -21286,12 +21256,7 @@ SQLITE_PRIVATE int sqlite3BtreeSetCacheSize(Btree *p, int mxPage){
 }
 
 /*
-** Change the way data is synced to disk in order to increase or decrease
-** how well the database resists damage due to OS crashes and power
-** failures.  Level 1 is the same as asynchronous (no syncs() occur and
-** there is a high probability of damage)  Level 2 is the default.  There
-** is a very low but non-zero probability of damage.  Level 3 reduces the
-** probability of damage to near zero but with a write performance reduction.
+** Change the way data is synced to disk in order to resist damage
 */
 #ifndef SQLITE_OMIT_PAGER_PRAGMAS
 SQLITE_PRIVATE int sqlite3BtreeSetSafetyLevel(Btree *p, int level, int fullSync){
@@ -21305,8 +21270,7 @@ SQLITE_PRIVATE int sqlite3BtreeSetSafetyLevel(Btree *p, int level, int fullSync)
 #endif
 
 /*
-** Return TRUE if the given btree is set to safety level 1.  In other
-** words, return TRUE if no sync() occurs on the disk files.
+** Return TRUE if the given btree is set to safety level 1.
 */
 SQLITE_PRIVATE int sqlite3BtreeSyncDisabled(Btree *p){
   BtShared *pBt = p->pBt;
@@ -21322,18 +21286,6 @@ SQLITE_PRIVATE int sqlite3BtreeSyncDisabled(Btree *p){
 #if !defined(SQLITE_OMIT_PAGER_PRAGMAS) || !defined(SQLITE_OMIT_VACUUM)
 /*
 ** Change the default pages size and the number of reserved bytes per page.
-**
-** The page size must be a power of 2 between 512 and 65536.  If the page
-** size supplied does not meet this constraint then the page size is not
-** changed.
-**
-** Page sizes are constrained to be a power of two so that the region
-** of the database file used for locking (beginning at PENDING_BYTE,
-** the first byte past the 1GB boundary, 0x40000000) needs to occur
-** at the beginning of a page.
-**
-** If parameter nReserve is less than zero, then the number of reserved
-** bytes per page is left unchanged.
 */
 SQLITE_PRIVATE int sqlite3BtreeSetPageSize(Btree *p, int pageSize, int nReserve){
   int rc = SQLITE_OK;
@@ -21376,8 +21328,6 @@ SQLITE_PRIVATE int sqlite3BtreeGetReserve(Btree *p){
 
 /*
 ** Set the maximum page count for a database if mxPage is positive.
-** No changes are made if mxPage is 0 or negative.
-** Regardless of the value of mxPage, return the maximum page count.
 */
 SQLITE_PRIVATE int sqlite3BtreeMaxPageCount(Btree *p, int mxPage){
   int n;
@@ -21389,10 +21339,7 @@ SQLITE_PRIVATE int sqlite3BtreeMaxPageCount(Btree *p, int mxPage){
 #endif /* !defined(SQLITE_OMIT_PAGER_PRAGMAS) || !defined(SQLITE_OMIT_VACUUM) */
 
 /*
-** Change the 'auto-vacuum' property of the database. If the 'autoVacuum'
-** parameter is non-zero, then auto-vacuum mode is enabled. If zero, it
-** is disabled. The default value for the auto-vacuum property is 
-** determined by the SQLITE_DEFAULT_AUTOVACUUM macro.
+** Change the 'auto-vacuum' property of the database.
 */
 SQLITE_PRIVATE int sqlite3BtreeSetAutoVacuum(Btree *p, int autoVacuum){
 #ifdef SQLITE_OMIT_AUTOVACUUM
@@ -21414,8 +21361,7 @@ SQLITE_PRIVATE int sqlite3BtreeSetAutoVacuum(Btree *p, int autoVacuum){
 }
 
 /*
-** Return the value of the 'auto-vacuum' property. If auto-vacuum is 
-** enabled 1 is returned. Otherwise 0.
+** Return the value of the 'auto-vacuum' property.
 */
 SQLITE_PRIVATE int sqlite3BtreeGetAutoVacuum(Btree *p){
 #ifdef SQLITE_OMIT_AUTOVACUUM
@@ -21437,11 +21383,6 @@ SQLITE_PRIVATE int sqlite3BtreeGetAutoVacuum(Btree *p){
 /*
 ** Get a reference to pPage1 of the database file.
 ** This will also acquire a readlock on that file.
-**
-** SQLITE_OK is returned on success.  If the file is not a
-** well-formed database file, then SQLITE_CORRUPT is returned.
-** SQLITE_BUSY is returned if the database is locked.
-** SQLITE_NOMEM is returned if we run out of memory. 
 */
 static int lockBtree(BtShared *pBt){
   int rc;
@@ -21452,9 +21393,7 @@ static int lockBtree(BtShared *pBt){
   rc = sqlite3BtreeGetPage(pBt, 1, &pPage1, 0);
   if( rc!=SQLITE_OK ) return rc;
 
-  /* Do some checking to help insure the file we opened
-  ** really is a valid database file. 
-  */
+  /* Do some checking to help insure a valid database file. */
   rc = SQLITE_NOTADB;
   if( sqlite3PagerPagecount(pBt->pPager)>0 ){
     int pageSize;
@@ -21478,12 +21417,6 @@ static int lockBtree(BtShared *pBt){
     assert( (pageSize & 7)==0 );
     usableSize = pageSize - page1[20];
     if( pageSize!=pBt->pageSize ){
-      /* After reading the first page of the database assuming a page size
-      ** of BtShared.pageSize, we have discovered that the page-size is
-      ** actually pageSize. Unlock the database, leave pBt->pPage1 at
-      ** zero and return SQLITE_OK. The caller will call this function
-      ** again with the correct page-size.
-      */
       releasePage(pPage1);
       pBt->usableSize = usableSize;
       pBt->pageSize = pageSize;
@@ -21506,19 +21439,7 @@ static int lockBtree(BtShared *pBt){
 #endif
   }
 
-  /* maxLocal is the maximum amount of payload to store locally for
-  ** a cell.  Make sure it is small enough so that at least minFanout
-  ** cells can will fit on one page.  We assume a 10-byte page header.
-  ** Besides the payload, the cell must store:
-  **     2-byte pointer to the cell
-  **     4-byte child pointer
-  **     9-byte nKey value
-  **     4-byte nData value
-  **     4-byte overflow page pointer
-  ** So a cell consists of a 2-byte poiner, a header which is as much as
-  ** 17 bytes long, 0 to N bytes of payload, and an optional 4 byte overflow
-  ** page pointer.
-  */
+  /* maxLocal is the maximum amount of payload to store locally for a cell. */
   pBt->maxLocal = (pBt->usableSize-12)*pBt->maxEmbedFrac/255 - 23;
   pBt->minLocal = (pBt->usableSize-12)*pBt->minEmbedFrac/255 - 23;
   pBt->maxLeaf = pBt->usableSize - 35;
@@ -21537,8 +21458,7 @@ page1_init_failed:
 }
 
 /*
-** This routine works like lockBtree() except that it also invokes the
-** busy callback if there is lock contention.
+** This routine works like lockBtree()
 */
 static int lockBtreeWithRetry(Btree *pRef){
   int rc = SQLITE_OK;
@@ -21560,13 +21480,9 @@ static int lockBtreeWithRetry(Btree *pRef){
        
 
 /*
-** If there are no outstanding cursors and we are not in the middle
-** of a transaction but there is a read lock on the database, then
-** this routine unrefs the first page of the database file which 
-** has the effect of releasing the read lock.
+** Has the effect of releasing a read lock.
 **
 ** If there are any outstanding cursors, this routine is a no-op.
-**
 ** If there is a transaction in progress, this routine is a no-op.
 */
 static void unlockBtreeIfUnused(BtShared *pBt){
@@ -21590,8 +21506,7 @@ static void unlockBtreeIfUnused(BtShared *pBt){
 }
 
 /*
-** Create a new database by initializing the first page of the
-** file.
+** Create a new database by initializing the first page of the file.
 */
 static int newDatabase(BtShared *pBt){
   MemPage *pP1;
@@ -21627,39 +21542,7 @@ static int newDatabase(BtShared *pBt){
 }
 
 /*
-** Attempt to start a new transaction. A write-transaction
-** is started if the second argument is nonzero, otherwise a read-
-** transaction.  If the second argument is 2 or more and exclusive
-** transaction is started, meaning that no other process is allowed
-** to access the database.  A preexisting transaction may not be
-** upgraded to exclusive by calling this routine a second time - the
-** exclusivity flag only works for a new transaction.
-**
-** A write-transaction must be started before attempting any 
-** changes to the database.  None of the following routines 
-** will work unless a transaction is started first:
-**
-**      sqlite3BtreeCreateTable()
-**      sqlite3BtreeCreateIndex()
-**      sqlite3BtreeClearTable()
-**      sqlite3BtreeDropTable()
-**      sqlite3BtreeInsert()
-**      sqlite3BtreeDelete()
-**      sqlite3BtreeUpdateMeta()
-**
-** If an initial attempt to acquire the lock fails because of lock contention
-** and the database was previously unlocked, then invoke the busy handler
-** if there is one.  But if there was previously a read-lock, do not
-** invoke the busy handler - just return SQLITE_BUSY.  SQLITE_BUSY is 
-** returned when there is already a read-lock in order to avoid a deadlock.
-**
-** Suppose there are two processes A and B.  A has a read lock and B has
-** a reserved lock.  B tries to promote to exclusive but is blocked because
-** of A's read lock.  A tries to promote to reserved but is blocked by B.
-** One or the other of the two processes must give way or there can be
-** no progress.  By returning SQLITE_BUSY and not invoking the busy callback
-** when A already has a read lock, we encourage A to give up and let B
-** proceed.
+** Attempt to start a new transaction.
 */
 SQLITE_PRIVATE int sqlite3BtreeBeginTrans(Btree *p, int wrflag){
   BtShared *pBt = p->pBt;
@@ -21669,10 +21552,6 @@ SQLITE_PRIVATE int sqlite3BtreeBeginTrans(Btree *p, int wrflag){
   pBt->db = p->db;
   btreeIntegrity(p);
 
-  /* If the btree is already in a write-transaction, or it
-  ** is already in a read-transaction and a read-transaction
-  ** is requested, this is a no-op.
-  */
   if( p->inTrans==TRANS_WRITE || (p->inTrans==TRANS_READ && !wrflag) ){
     goto trans_begun;
   }
@@ -21683,10 +21562,6 @@ SQLITE_PRIVATE int sqlite3BtreeBeginTrans(Btree *p, int wrflag){
     goto trans_begun;
   }
 
-  /* If another database handle has already opened a write transaction 
-  ** on this shared-btree structure and a second write transaction is
-  ** requested, return SQLITE_BUSY.
-  */
   if( pBt->inTransaction==TRANS_WRITE && wrflag ){
     rc = SQLITE_BUSY;
     goto trans_begun;
@@ -21754,14 +21629,12 @@ trans_begun:
 #ifndef SQLITE_OMIT_AUTOVACUUM
 
 /*
-** Set the pointer-map entries for all children of page pPage. Also, if
-** pPage contains cells that point to overflow pages, set the pointer
-** map entries for the overflow pages as well.
+** Set the pointer-map entries for all children of page pPage.
 */
 static int setChildPtrmaps(MemPage *pPage){
-  int i;                             /* Counter variable */
-  int nCell;                         /* Number of cells in page pPage */
-  int rc;                            /* Return code */
+  int i;						/* Counter variable */
+  int nCell;					/* Number of cells in page pPage */
+  int rc;						/* Return code */
   BtShared *pBt = pPage->pBt;
   int isInitOrig = pPage->isInit;
   Pgno pgno = pPage->pgno;
@@ -21799,19 +21672,7 @@ set_child_ptrmaps_out:
 }
 
 /*
-** Somewhere on pPage, which is guarenteed to be a btree page, not an overflow
-** page, is a pointer to page iFrom. Modify this pointer so that it points to
-** iTo. Parameter eType describes the type of pointer to be modified, as 
-** follows:
-**
-** PTRMAP_BTREE:     pPage is a btree-page. The pointer points at a child 
-**                   page of pPage.
-**
-** PTRMAP_OVERFLOW1: pPage is a btree-page. The pointer points at an overflow
-**                   page pointed to by one of the cells on pPage.
-**
-** PTRMAP_OVERFLOW2: pPage is an overflow-page. The pointer points at the next
-**                   overflow page in the list.
+** Somewhere on pPage, is a pointer to page iFrom. Modify pointer to iTo.
 */
 static int modifyPagePointer(MemPage *pPage, Pgno iFrom, Pgno iTo, u8 eType){
   assert( sqlite3_mutex_held(pPage->pBt->mutex) );
@@ -21863,8 +21724,7 @@ static int modifyPagePointer(MemPage *pPage, Pgno iFrom, Pgno iTo, u8 eType){
 
 
 /*
-** Move the open database page pDbPage to location iFreePage in the 
-** database. The pDbPage reference remains valid.
+** Move the open database page pDbPage to location iFreePage in the database.
 */
 static int relocatePage(
   BtShared *pBt,           /* Btree */
@@ -21892,14 +21752,6 @@ static int relocatePage(
   }
   pDbPage->pgno = iFreePage;
 
-  /* If pDbPage was a btree-page, then it may have child pages and/or cells
-  ** that point to overflow pages. The pointer map entries for all these
-  ** pages need to be changed.
-  **
-  ** If pDbPage is an overflow page, then the first 4 bytes may store a
-  ** pointer to a subsequent overflow page. If this is the case, then
-  ** the pointer map needs to be updated for the subsequent overflow page.
-  */
   if( eType==PTRMAP_BTREE || eType==PTRMAP_ROOTPAGE ){
     rc = setChildPtrmaps(pDbPage);
     if( rc!=SQLITE_OK ){
@@ -21915,9 +21767,7 @@ static int relocatePage(
     }
   }
 
-  /* Fix the database pointer on page iPtrPage that pointed at iDbPage so
-  ** that it points at iFreePage. Also fix the pointer map entry for
-  ** iPtrPage.
+  /* Fix database pointer on page iPtrPage that pointed at iDbPage to iFreePage.
   */
   if( eType!=PTRMAP_ROOTPAGE ){
     rc = sqlite3BtreeGetPage(pBt, iPtrPage, &pPtrPage, 0);
@@ -21942,23 +21792,14 @@ static int relocatePage(
 static int allocateBtreePage(BtShared *, MemPage **, Pgno *, Pgno, u8);
 
 /*
-** Perform a single step of an incremental-vacuum. If successful,
-** return SQLITE_OK. If there is no work to do (and therefore no
-** point in calling this function again), return SQLITE_DONE.
-**
-** More specificly, this function attempts to re-organize the 
-** database so that the last page of the file currently in use
+** Perform a single step of an incremental-vacuum.
+** This function attempts to re-organize the database
+** so that the last page of the file currently in use
 ** is no longer in use.
-**
-** If the nFin parameter is non-zero, the implementation assumes
-** that the caller will keep calling incrVacuumStep() until
-** it returns SQLITE_DONE or an error, and that nFin is the
-** number of pages the database file will contain after this 
-** process is complete.
 */
 static int incrVacuumStep(BtShared *pBt, Pgno nFin){
-  Pgno iLastPg;             /* Last page in the database */
-  Pgno nFreeList;           /* Number of pages still on the free-list */
+  Pgno iLastPg;				/* Last page in the database */
+  Pgno nFreeList;			/* Number of pages still on the free-list */
 
   assert( sqlite3_mutex_held(pBt->mutex) );
   iLastPg = pBt->nTrunc;
@@ -21986,11 +21827,7 @@ static int incrVacuumStep(BtShared *pBt, Pgno nFin){
 
     if( eType==PTRMAP_FREEPAGE ){
       if( nFin==0 ){
-        /* Remove the page from the files free-list. This is not required
-        ** if nFin is non-zero. In that case, the free-list will be
-        ** truncated to zero after this function returns, so it doesn't 
-        ** matter if it still contains some garbage entries.
-        */
+        /* Remove the page from the files free-list. */
         Pgno iFreePg;
         MemPage *pFreePg;
         rc = allocateBtreePage(pBt, &pFreePg, &iFreePg, iLastPg, 1);
@@ -22009,12 +21846,9 @@ static int incrVacuumStep(BtShared *pBt, Pgno nFin){
         return rc;
       }
 
-      /* If nFin is zero, this loop runs exactly once and page pLastPg
-      ** is swapped with the first free page pulled off the free list.
-      **
-      ** On the other hand, if nFin is greater than zero, then keep
-      ** looping until a free-page located within the first nFin pages
-      ** of the file is found.
+      /* If nFin is zero, this loop runs exactly once.
+      ** If nFin is greater than zero, then keep looping
+      ** until a free-page is found.
       */
       do {
         MemPage *pFreePg;
@@ -22048,10 +21882,6 @@ static int incrVacuumStep(BtShared *pBt, Pgno nFin){
 /*
 ** A write-transaction must be opened before calling this function.
 ** It performs a single unit of work towards an incremental vacuum.
-**
-** If the incremental vacuum is finished after this function has run,
-** SQLITE_DONE is returned. If it is not finished, but no error occured,
-** SQLITE_OK is returned. Otherwise an SQLite error code. 
 */
 SQLITE_PRIVATE int sqlite3BtreeIncrVacuum(Btree *p){
   int rc;
@@ -22073,11 +21903,6 @@ SQLITE_PRIVATE int sqlite3BtreeIncrVacuum(Btree *p){
 /*
 ** This routine is called prior to sqlite3PagerCommit when a transaction
 ** is commited for an auto-vacuum database.
-**
-** If SQLITE_OK is returned, then *pnTrunc is set to the number of pages
-** the database file should be truncated to during the commit process. 
-** i.e. the database has been reorganized so that only the first *pnTrunc
-** pages are in use.
 */
 static int autoVacuumCommit(BtShared *pBt, Pgno *pnTrunc){
   int rc = SQLITE_OK;
@@ -22144,25 +21969,7 @@ static int autoVacuumCommit(BtShared *pBt, Pgno *pnTrunc){
 #endif
 
 /*
-** This routine does the first phase of a two-phase commit.  This routine
-** causes a rollback journal to be created (if it does not already exist)
-** and populated with enough information so that if a power loss occurs
-** the database can be restored to its original state by playing back
-** the journal.  Then the contents of the journal are flushed out to
-** the disk.  After the journal is safely on oxide, the changes to the
-** database are written into the database file and flushed to oxide.
-** At the end of this call, the rollback journal still exists on the
-** disk and we are still holding all locks, so the transaction has not
-** committed.  See sqlite3BtreeCommit() for the second phase of the
-** commit process.
-**
-** This call is a no-op if no write-transaction is currently active on pBt.
-**
-** Otherwise, sync the database file for the btree pBt. zMaster points to
-** the name of a master journal file that should be written into the
-** individual journal file, or is NULL, indicating no master journal file 
-** (single database transaction).
-**
+** This routine does the first phase of a two-phase commit.
 ** When this is called, the master journal should already have been
 ** created, populated with this journal pointer and synced to disk.
 **
@@ -22194,16 +22001,7 @@ SQLITE_PRIVATE int sqlite3BtreeCommitPhaseOne(Btree *p, const char *zMaster){
 /*
 ** Commit the transaction currently in progress.
 **
-** This routine implements the second phase of a 2-phase commit.  The
-** sqlite3BtreeSync() routine does the first phase and should be invoked
-** prior to calling this routine.  The sqlite3BtreeSync() routine did
-** all the work of writing information out to disk and flushing the
-** contents so that they are written onto the disk platter.  All this
-** routine has to do is delete or truncate the rollback journal
-** (which causes the transaction to commit) and drop locks.
-**
-** This will release the write lock on the database file.
-** If there are no active cursors, it also releases the read lock.
+** This routine implements the second phase of a 2-phase commit.
 */
 SQLITE_PRIVATE int sqlite3BtreeCommitPhaseTwo(Btree *p){
   BtShared *pBt = p->pBt;
@@ -22229,11 +22027,6 @@ SQLITE_PRIVATE int sqlite3BtreeCommitPhaseTwo(Btree *p){
   }
   unlockAllTables(p);
 
-  /* If the handle has any kind of transaction open, decrement the transaction
-  ** count of the shared btree. If the transaction count reaches 0, set
-  ** the shared state to TRANS_NONE. The unlockBtreeIfUnused() call below
-  ** will unlock the pager.
-  */
   if( p->inTrans!=TRANS_NONE ){
     pBt->nTransaction--;
     if( 0==pBt->nTransaction ){
@@ -22288,21 +22081,7 @@ static int countWriteCursors(BtShared *pBt){
 #endif
 
 /*
-** This routine sets the state to CURSOR_FAULT and the error
-** code to errCode for every cursor on BtShared that pBtree
-** references.
-**
-** Every cursor is tripped, including cursors that belong
-** to other database connections that happen to be sharing
-** the cache with pBtree.
-**
-** This routine gets called when a rollback occurs.
-** All cursors using the same cache must be tripped
-** to prevent them from trying to use the btree after
-** the rollback.  The rollback may have deleted tables
-** or moved root pages, so it is not sufficient to
-** save the state of the cursor.  The cursor must be
-** invalidated.
+** This routine sets the state to CURSOR_FAULT and code to errCode
 */
 SQLITE_PRIVATE void sqlite3BtreeTripAllCursors(Btree *pBtree, int errCode){
   BtCursor *p;
@@ -22316,13 +22095,7 @@ SQLITE_PRIVATE void sqlite3BtreeTripAllCursors(Btree *pBtree, int errCode){
 }
 
 /*
-** Rollback the transaction in progress.  All cursors will be
-** invalided by this operation.  Any attempt to use a cursor
-** that was open at the beginning of this operation will result
-** in an error.
-**
-** This will release the write lock on the database file.  If there
-** are no active cursors, it also releases the read lock.
+** Rollback the transaction in progress.
 */
 SQLITE_PRIVATE int sqlite3BtreeRollback(Btree *p){
   int rc;
@@ -22334,13 +22107,7 @@ SQLITE_PRIVATE int sqlite3BtreeRollback(Btree *p){
   rc = saveAllCursors(pBt, 0, 0);
 #ifndef SQLITE_OMIT_SHARED_CACHE
   if( rc!=SQLITE_OK ){
-    /* This is a horrible situation. An IO or malloc() error occured whilst
-    ** trying to save cursor positions. If this is an automatic rollback (as
-    ** the result of a constraint, malloc() failure or IO error) then 
-    ** the cache may be internally inconsistent (not contain valid trees) so
-    ** we cannot simply return the error to the caller. Instead, abort 
-    ** all queries that may be using any of the cursors that failed to save.
-    */
+    /* This is a horrible situation. */
     sqlite3BtreeTripAllCursors(p, rc);
   }
 #endif
@@ -22360,9 +22127,7 @@ SQLITE_PRIVATE int sqlite3BtreeRollback(Btree *p){
       rc = rc2;
     }
 
-    /* The rollback may have destroyed the pPage1->aData value.  So
-    ** call sqlite3BtreeGetPage() on page 1 again to make
-    ** sure pPage1->aData is set correctly. */
+    /* The rollback may have destroyed the pPage1->aData value. */
     if( sqlite3BtreeGetPage(pBt, 1, &pPage1, 0)==SQLITE_OK ){
       releasePage(pPage1);
     }
@@ -22388,19 +22153,7 @@ SQLITE_PRIVATE int sqlite3BtreeRollback(Btree *p){
 }
 
 /*
-** Start a statement subtransaction.  The subtransaction can
-** can be rolled back independently of the main transaction.
-** You must start a transaction before starting a subtransaction.
-** The subtransaction is ended automatically if the main transaction
-** commits or rolls back.
-**
-** Only one subtransaction may be active at a time.  It is an error to try
-** to start a new subtransaction if another subtransaction is already active.
-**
-** Statement subtransactions are used around individual SQL statements
-** that are contained within a BEGIN...COMMIT block.  If a constraint
-** error occurs within the statement, the effect of that one statement
-** can be rolled back without having to rollback the entire transaction.
+** Start a statement subtransaction.
 */
 SQLITE_PRIVATE int sqlite3BtreeBeginStmt(Btree *p){
   int rc;
@@ -22420,8 +22173,8 @@ SQLITE_PRIVATE int sqlite3BtreeBeginStmt(Btree *p){
 
 
 /*
-** Commit the statment subtransaction currently in progress.  If no
-** subtransaction is active, this is a no-op.
+** Commit the statment subtransaction currently in progress.
+** If no subtransaction is active, this is a no-op.
 */
 SQLITE_PRIVATE int sqlite3BtreeCommitStmt(Btree *p){
   int rc;
@@ -22439,12 +22192,8 @@ SQLITE_PRIVATE int sqlite3BtreeCommitStmt(Btree *p){
 }
 
 /*
-** Rollback the active statement subtransaction.  If no subtransaction
-** is active this routine is a no-op.
-**
-** All cursors will be invalidated by this operation.  Any attempt
-** to use a cursor that was open at the beginning of this operation
-** will result in an error.
+** Rollback the active statement subtransaction.
+** If no subtransaction is active this routine is a no-op.
 */
 SQLITE_PRIVATE int sqlite3BtreeRollbackStmt(Btree *p){
   int rc = SQLITE_OK;
@@ -22461,38 +22210,14 @@ SQLITE_PRIVATE int sqlite3BtreeRollbackStmt(Btree *p){
 }
 
 /*
-** Create a new cursor for the BTree whose root is on the page
-** iTable.  The act of acquiring a cursor gets a read lock on 
-** the database file.
-**
-** If wrFlag==0, then the cursor can only be used for reading.
-** If wrFlag==1, then the cursor can be used for reading or for
-** writing if other conditions for writing are also met.  These
-** are the conditions that must be met in order for writing to
-** be allowed:
-**
-** 1:  The cursor must have been opened with wrFlag==1
-**
-** 2:  Other database connections that share the same pager cache
-**     but which are not in the READ_UNCOMMITTED state may not have
-**     cursors open with wrFlag==0 on the same table.  Otherwise
-**     the changes made by this write cursor would be visible to
-**     the read cursors in the other database connection.
-**
-** 3:  The database must be writable (not on read-only media)
-**
-** 4:  There must be an active transaction.
-**
-** No checking is done to make sure that page iTable really is the
-** root page of a b-tree.  If it is not, then the cursor acquired
-** will not work correctly.
+** Create a new cursor for the BTree whose root is on the page iTable.
 */
 static int btreeCursor(
-  Btree *p,                              /* The btree */
-  int iTable,                            /* Root page of table to open */
-  int wrFlag,                            /* 1 to write. 0 read-only */
-  struct KeyInfo *pKeyInfo,              /* First arg to comparison function */
-  BtCursor *pCur                         /* Space for new cursor */
+  Btree *p,								/* The btree */
+  int iTable,							/* Root page of table to open */
+  int wrFlag,							/* 1 to write. 0 read-only */
+  struct KeyInfo *pKeyInfo,				/* First arg to comparison function */
+  BtCursor *pCur						/* Space for new cursor */
 ){
   int rc;
   BtShared *pBt = p->pBt;
@@ -22526,9 +22251,8 @@ static int btreeCursor(
     goto create_cursor_exception;
   }
 
-  /* Now that no other errors can occur, finish filling in the BtCursor
-  ** variables, link the cursor into the BtShared list and set *ppCur
-  ** (the output argument to this function).
+  /* Now that no other errors can occur, finish filling in the BtCursor variables,
+  ** link the cursor into the BtShared list, and set *ppCur
   */
   pCur->pKeyInfo = pKeyInfo;
   pCur->pBtree = p;
@@ -22551,11 +22275,11 @@ create_cursor_exception:
   return rc;
 }
 SQLITE_PRIVATE int sqlite3BtreeCursor(
-  Btree *p,                                   /* The btree */
-  int iTable,                                 /* Root page of table to open */
-  int wrFlag,                                 /* 1 to write. 0 read-only */
-  struct KeyInfo *pKeyInfo,                   /* First arg to xCompare() */
-  BtCursor *pCur                              /* Write new cursor here */
+  Btree *p,								/* The btree */
+  int iTable,							/* Root page of table to open */
+  int wrFlag,							/* 1 to write. 0 read-only */
+  struct KeyInfo *pKeyInfo,				/* First arg to xCompare() */
+  BtCursor *pCur						/* Write new cursor here */
 ){
   int rc;
   sqlite3BtreeEnter(p);
@@ -22613,8 +22337,7 @@ SQLITE_PRIVATE void sqlite3BtreeGetTempCursor(BtCursor *pCur, BtCursor *pTempCur
 }
 
 /*
-** Delete a temporary cursor such as was made by the CreateTemporaryCursor()
-** function above.
+** Delete a temporary cursor such as was made by the CreateTemporaryCursor() function above.
 */
 SQLITE_PRIVATE void sqlite3BtreeReleaseTempCursor(BtCursor *pCur){
   assert( cursorHoldsMutex(pCur) );
@@ -22636,7 +22359,7 @@ SQLITE_PRIVATE void sqlite3BtreeReleaseTempCursor(BtCursor *pCur){
 ** But there is a measureable speed advantage to using the macro on gcc
 ** (when less compiler optimizations like -Os or -O0 are used and the
 ** compiler is not doing agressive inlining.)  So we use a real function
-** for MSVC and a macro for everything else.  Ticket #2457.
+** for MSVC and a macro for everything else.
 */
 #ifndef NDEBUG
   static void assertCellInfo(BtCursor *pCur){
@@ -22697,9 +22420,6 @@ SQLITE_PRIVATE int sqlite3BtreeKeySize(BtCursor *pCur, i64 *pSize){
 /*
 ** Set *pSize to the number of bytes of data in the entry the
 ** cursor currently points to.  Always return SQLITE_OK.
-** Failure is not possible.  If the cursor is not currently
-** pointing to an entry (which can happen, for example, if
-** the database is empty) then *pSize is set to 0.
 */
 SQLITE_PRIVATE int sqlite3BtreeDataSize(BtCursor *pCur, u32 *pSize){
   int rc;
@@ -22720,21 +22440,8 @@ SQLITE_PRIVATE int sqlite3BtreeDataSize(BtCursor *pCur, u32 *pSize){
 }
 
 /*
-** Given the page number of an overflow page in the database (parameter
-** ovfl), this function finds the page number of the next page in the 
-** linked list of overflow pages. If possible, it uses the auto-vacuum
-** pointer-map data instead of reading the content of page ovfl to do so. 
-**
-** If an error occurs an SQLite error code is returned. Otherwise:
-**
-** Unless pPgnoNext is NULL, the page number of the next overflow 
-** page in the linked list is written to *pPgnoNext. If page ovfl
-** is the last page in its linked list, *pPgnoNext is set to zero. 
-**
-** If ppPage is not NULL, *ppPage is set to the MemPage* handle
-** for page ovfl. The underlying pager page may have been requested
-** with the noContent flag set, so the page data accessable via
-** this handle may not be trusted.
+** Given the page number of an overflow page in the database,
+** this function finds the next page number in the linked list of overflow pages.
 */
 static int getOverflowPage(
   BtShared *pBt, 
@@ -22758,10 +22465,7 @@ static int getOverflowPage(
 
 #ifndef SQLITE_OMIT_AUTOVACUUM
   /* Try to find the next page in the overflow list using the
-  ** autovacuum pointer-map pages. Guess that the next page in 
-  ** the overflow list is page number (ovfl+1). If that guess turns 
-  ** out to be wrong, fall back to loading the data of page 
-  ** number ovfl to determine the next page number.
+  ** autovacuum pointer-map pages.
   */
   if( pBt->autoVacuum ){
     Pgno pgno;
@@ -22806,14 +22510,6 @@ static int getOverflowPage(
 
 /*
 ** Copy data from a buffer to a page, or from a page to a buffer.
-**
-** pPayload is a pointer to data stored on database page pDbPage.
-** If argument eOp is false, then nByte bytes of data are copied
-** from pPayload to the buffer pointed at by pBuf. If eOp is true,
-** then sqlite3PagerWrite() is called on pDbPage and nByte bytes
-** of data are copied from the buffer pBuf to pPayload.
-**
-** SQLITE_OK is returned on success, otherwise an error code.
 */
 static int copyPayload(
   void *pPayload,           /* Pointer to page data */
@@ -22838,33 +22534,7 @@ static int copyPayload(
 
 /*
 ** This function is used to read or overwrite payload information
-** for the entry that the pCur cursor is pointing to. If the eOp
-** parameter is 0, this is a read operation (data copied into
-** buffer pBuf). If it is non-zero, a write (data copied from
-** buffer pBuf).
-**
-** A total of "amt" bytes are read or written beginning at "offset".
-** Data is read to or from the buffer pBuf.
-**
-** This routine does not make a distinction between key and data.
-** It just reads or writes bytes from the payload area.  Data might 
-** appear on the main page or be scattered out on multiple overflow 
-** pages.
-**
-** If the BtCursor.isIncrblobHandle flag is set, and the current
-** cursor entry uses one or more overflow pages, this function
-** allocates space for and lazily popluates the overflow page-list 
-** cache array (BtCursor.aOverflow). Subsequent calls use this
-** cache to make seeking to the supplied offset more efficient.
-**
-** Once an overflow page-list cache has been allocated, it may be
-** invalidated if some other cursor writes to the same table, or if
-** the cursor is moved to a different row. Additionally, in auto-vacuum
-** mode, the following events may invalidate an overflow page-list cache.
-**
-**   * An incremental vacuum,
-**   * A commit in auto_vacuum="full" mode,
-**   * Creating a table (may require moving an overflow page).
+** for the entry that the pCur cursor is pointing to.
 */
 static int accessPayload(
   BtCursor *pCur,      /* Cursor pointing to entry to read from */
@@ -22921,13 +22591,6 @@ static int accessPayload(
     nextPage = get4byte(&aPayload[pCur->info.nLocal]);
 
 #ifndef SQLITE_OMIT_INCRBLOB
-    /* If the isIncrblobHandle flag is set and the BtCursor.aOverflow[]
-    ** has not been allocated, allocate it now. The array is sized at
-    ** one entry for each overflow page in the overflow chain. The
-    ** page number of the first overflow page is stored in aOverflow[0],
-    ** etc. A value of 0 in the aOverflow[] array means "not yet known"
-    ** (the cache is lazily populated).
-    */
     if( pCur->isIncrblobHandle && !pCur->aOverflow ){
       int nOvfl = (pCur->info.nPayload-pCur->info.nLocal+ovflSize-1)/ovflSize;
       pCur->aOverflow = (Pgno *)sqlite3MallocZero(sizeof(Pgno)*nOvfl);
@@ -22936,10 +22599,6 @@ static int accessPayload(
       }
     }
 
-    /* If the overflow page-list cache has been allocated and the
-    ** entry for the first required overflow page is valid, skip
-    ** directly to it.
-    */
     if( pCur->aOverflow && pCur->aOverflow[offset/ovflSize] ){
       iIdx = (offset/ovflSize);
       nextPage = pCur->aOverflow[iIdx];
@@ -22958,12 +22617,7 @@ static int accessPayload(
 #endif
 
       if( offset>=ovflSize ){
-        /* The only reason to read this page is to obtain the page
-        ** number for the next page in the overflow chain. The page
-        ** data is not required. So first try to lookup the overflow
-        ** page-list cache, if any, then fall back to the getOverflowPage()
-        ** function.
-        */
+
 #ifndef SQLITE_OMIT_INCRBLOB
         if( pCur->aOverflow && pCur->aOverflow[iIdx+1] ){
           nextPage = pCur->aOverflow[iIdx+1];
@@ -22972,9 +22626,7 @@ static int accessPayload(
           rc = getOverflowPage(pBt, nextPage, 0, &nextPage);
         offset -= ovflSize;
       }else{
-        /* Need to read this page properly. It contains some of the
-        ** range of data that is being read (eOp==0) or written (eOp!=0).
-        */
+        /* Need to read this page properly. */
         DbPage *pDbPage;
         int a = amt;
         rc = sqlite3PagerGet(pBt->pPager, nextPage, &pDbPage);
@@ -23001,13 +22653,7 @@ static int accessPayload(
 }
 
 /*
-** Read part of the key associated with cursor pCur.  Exactly
-** "amt" bytes will be transfered into pBuf[].  The transfer
-** begins at "offset".
-**
-** Return SQLITE_OK on success or an error code if anything goes
-** wrong.  An error is returned if "offset+amt" is larger than
-** the available payload.
+** Read part of the key associated with cursor pCur.
 */
 SQLITE_PRIVATE int sqlite3BtreeKey(BtCursor *pCur, u32 offset, u32 amt, void *pBuf){
   int rc;
@@ -23028,13 +22674,7 @@ SQLITE_PRIVATE int sqlite3BtreeKey(BtCursor *pCur, u32 offset, u32 amt, void *pB
 }
 
 /*
-** Read part of the data associated with cursor pCur.  Exactly
-** "amt" bytes will be transfered into pBuf[].  The transfer
-** begins at "offset".
-**
-** Return SQLITE_OK on success or an error code if anything goes
-** wrong.  An error is returned if "offset+amt" is larger than
-** the available payload.
+** Read part of the data associated with cursor pCur.
 */
 SQLITE_PRIVATE int sqlite3BtreeData(BtCursor *pCur, u32 offset, u32 amt, void *pBuf){
   int rc;
@@ -23051,23 +22691,8 @@ SQLITE_PRIVATE int sqlite3BtreeData(BtCursor *pCur, u32 offset, u32 amt, void *p
 }
 
 /*
-** Return a pointer to payload information from the entry that the 
-** pCur cursor is pointing to.  The pointer is to the beginning of
-** the key if skipKey==0 and it points to the beginning of data if
-** skipKey==1.  The number of bytes of available key/data is written
-** into *pAmt.  If *pAmt==0, then the value returned will not be
-** a valid pointer.
-**
-** This routine is an optimization.  It is common for the entire key
-** and data to fit on the local page and for there to be no overflow
-** pages.  When that is so, this routine can be used to access the
-** key and data without making a copy.  If the key and/or data spills
-** onto overflow pages, then accessPayload() must be used to reassembly
-** the key/data and copy it into a preallocated buffer.
-**
-** The pointer returned by this routine looks directly into the cached
-** page of the database.  The data might change or move the next time
-** any btree routine is called.
+** Return a pointer to payload information from the entry that
+** the pCur cursor is pointing to.
 */
 static const unsigned char *fetchPayload(
   BtCursor *pCur,      /* Cursor pointing to entry to read from */
@@ -23111,12 +22736,6 @@ static const unsigned char *fetchPayload(
 ** many bytes of the key or data as are available on the local
 ** b-tree page.  Write the number of available bytes into *pAmt.
 **
-** The pointer returned is ephemeral.  The key/data may move
-** or be destroyed on the next call to any Btree routine,
-** including calls from other threads against the same cache.
-** Hence, a mutex on the BtShared should be held prior to calling
-** this routine.
-**
 ** These routines is used to get quick access to key and data
 ** in the common case where no overflow pages are used.
 */
@@ -23137,8 +22756,8 @@ SQLITE_PRIVATE const void *sqlite3BtreeDataFetch(BtCursor *pCur, int *pAmt){
 
 
 /*
-** Move the cursor down to a new child page.  The newPgno argument is the
-** page number of the child page to move to.
+** Move the cursor down to a new child page.
+** The newPgno argument is the page number of the child page to move to.
 */
 static int moveToChild(BtCursor *pCur, u32 newPgno){
   int rc;
@@ -23166,12 +22785,6 @@ static int moveToChild(BtCursor *pCur, u32 newPgno){
 
 /*
 ** Return true if the page is the virtual root of its table.
-**
-** The virtual root page is the root page for most tables.  But
-** for the table rooted on page 1, sometime the real root page
-** is empty except for the right-pointer.  In such cases the
-** virtual root page is the page that the right-pointer of page
-** 1 is pointing to.
 */
 SQLITE_PRIVATE int sqlite3BtreeIsRootPage(MemPage *pPage){
   MemPage *pParent;
@@ -23186,11 +22799,6 @@ SQLITE_PRIVATE int sqlite3BtreeIsRootPage(MemPage *pPage){
 
 /*
 ** Move the cursor up to the parent page.
-**
-** pCur->idx is set to the cell index that contains the pointer
-** to the page we are coming from.  If we are coming from the
-** right-most child page then pCur->idx is set to one more than
-** the largest cell index.
 */
 SQLITE_PRIVATE void sqlite3BtreeMoveToParent(BtCursor *pCur){
   MemPage *pParent;
@@ -24983,18 +24591,7 @@ static int balance_nonroot(MemPage *pPage){
   }
 
   /*
-  ** Put the new pages in accending order.  This helps to
-  ** keep entries in the disk file in order so that a scan
-  ** of the table is a linear scan through the file.  That
-  ** in turn helps the operating system to deliver pages
-  ** from the disk more rapidly.
-  **
-  ** An O(n^2) insertion sort algorithm is used, but since
-  ** n is never more than NB (a small constant), that should
-  ** not be a problem.
-  **
-  ** When NB==3, this one optimization makes the database
-  ** about 25% faster for large insertions and deletions.
+  ** Put the new pages in accending order.
   */
   for(i=0; i<k-1; i++){
     int minV = pgnoNew[i];
@@ -25208,14 +24805,6 @@ static int balance_shallower(MemPage *pPage){
     /* The root page is empty but has one child.  Transfer the
     ** information from that one child into the root page if it 
     ** will fit.  This reduces the depth of the tree by one.
-    **
-    ** If the root page is page 1, it has less space available than
-    ** its child (due to the 100 byte header that occurs at the beginning
-    ** of the database fle), so it might not be able to hold all of the 
-    ** information currently contained in the child.  If this is the 
-    ** case, then do not do the transfer.  Leave page 1 empty except
-    ** for the right-pointer to the child page.  The child page becomes
-    ** the virtual root of the tree.
     */
     pgnoChild = get4byte(&pPage->aData[pPage->hdrOffset+8]);
     assert( pgnoChild>0 );
@@ -25227,8 +24816,7 @@ static int balance_shallower(MemPage *pPage){
       if( rc ) goto end_shallow_balance;
       assert( pChild->nOverflow==0 );
       if( pChild->nFree>=100 ){
-        /* The child information will fit on the root page, so do the
-        ** copy */
+        /* The child information will fit on the root page, so do the copy */
         int i;
         zeroPage(pPage, pChild->aData[0]);
         for(i=0; i<pChild->nCell; i++){
@@ -25279,18 +24867,12 @@ end_shallow_balance:
 
 /*
 ** The root page is overfull
-**
-** When this happens, Create a new child page and copy the
-** contents of the root into the child.  Then make the root
-** page an empty page with rightChild pointing to the new
-** child.   Finally, call balance_internal() on the new child
-** to cause it to split.
 */
 static int balance_deeper(MemPage *pPage){
   int rc;             /* Return value from subprocedures */
   MemPage *pChild;    /* Pointer to a new child page */
   Pgno pgnoChild;     /* Page number of the new child page */
-  BtShared *pBt;         /* The BTree */
+  BtShared *pBt;      /* The BTree */
   int usableSize;     /* Total usable size of a page */
   u8 *data;           /* Content of the parent page */
   u8 *cdata;          /* Content of the child page */
@@ -25344,8 +24926,7 @@ balancedeeper_out:
 }
 
 /*
-** Decide if the page pPage needs to be balanced.  If balancing is
-** required, call the appropriate balancing routine.
+** Decide if the page pPage needs to be balanced.
 */
 static int balance(MemPage *pPage, int insert){
   int rc = SQLITE_OK;
@@ -25369,19 +24950,6 @@ static int balance(MemPage *pPage, int insert){
 
 /*
 ** This routine checks all cursors that point to table pgnoRoot.
-** If any of those cursors were opened with wrFlag==0 in a different
-** database connection (a database connection that shares the pager
-** cache with the current connection) and that other connection 
-** is not in the ReadUncommmitted state, then this routine returns 
-** SQLITE_LOCKED.
-**
-** In addition to checking for read-locks (where a read-lock 
-** means a cursor opened with wrFlag==0) this routine also moves
-** all write cursors so that they are pointing to the 
-** first Cell on the root page.  This is necessary because an insert 
-** or delete might change the number of cells on a page or delete
-** a page entirely and we do not want to leave any cursors 
-** pointing to non-existant pages or cells.
 */
 static int checkReadLocks(Btree *pBtree, Pgno pgnoRoot, BtCursor *pExclude){
   BtCursor *p;
@@ -25416,13 +24984,7 @@ static void allocateTempSpace(BtShared *pBt){
 }
 
 /*
-** Insert a new record into the BTree.  The key is given by (pKey,nKey)
-** and the data is given by (pData,nData).  The cursor is used only to
-** define what table the record should be inserted into.  The cursor
-** is left pointing at a random location.
-**
-** For an INTKEY table, only the nKey value of the key is used.  pKey is
-** ignored.  For a ZERODATA table, the pData and nData are both ignored.
+** Insert a new record into the BTree.
 */
 SQLITE_PRIVATE int sqlite3BtreeInsert(
   BtCursor *pCur,                /* Insert data into the table of this cursor */
@@ -25631,15 +25193,7 @@ SQLITE_PRIVATE int sqlite3BtreeDelete(BtCursor *pCur){
 }
 
 /*
-** Create a new BTree table.  Write into *piTable the page
-** number for the root page of the new table.
-**
-** The type of type is determined by the flags parameter.  Only the
-** following values of flags are currently in use.  Other values for
-** flags might not work:
-**
-**     BTREE_INTKEY|BTREE_LEAFDATA     Used for SQL tables with rowid keys
-**     BTREE_ZERODATA                  Used for SQL indices
+** Create a new BTree table.
 */
 static int btreeCreateTable(Btree *p, int *piTable, int flags){
   BtShared *pBt = p->pBt;
@@ -25855,24 +25409,7 @@ SQLITE_PRIVATE int sqlite3BtreeClearTable(Btree *p, int iTable){
 }
 
 /*
-** Erase all information in a table and add the root of the table to
-** the freelist.  Except, the root of the principle table (the one on
-** page 1) is never added to the freelist.
-**
-** This routine will fail with SQLITE_LOCKED if there are any open
-** cursors on the table.
-**
-** If AUTOVACUUM is enabled and the page at iTable is not the last
-** root page in the database file, then the last root page 
-** in the database file is moved into the slot formerly occupied by
-** iTable and that last slot formerly occupied by the last root page
-** is added to the freelist instead of iTable.  In this say, all
-** root pages are kept at the beginning of the database file, which
-** is necessary for AUTOVACUUM to work right.  *piMoved is set to the 
-** page number that used to be the last root page in the file before
-** the move.  If no page gets moved, *piMoved is set to 0.
-** The last root page is recorded in meta[3] and the value of
-** meta[3] is updated by this procedure.
+** Erase all information in a table and add the root of the table to the freelist.
 */
 static int btreeDropTable(Btree *p, int iTable, int *piMoved){
   int rc;
@@ -25884,12 +25421,6 @@ static int btreeDropTable(Btree *p, int iTable, int *piMoved){
     return pBt->readOnly ? SQLITE_READONLY : SQLITE_ERROR;
   }
 
-  /* It is illegal to drop a table if any cursors are open on the
-  ** database. This is because in auto-vacuum mode the backend may
-  ** need to move another root-page to fill a gap left by the deleted
-  ** root page. If an open cursor was using this page a problem would 
-  ** occur.
-  */
   if( pBt->pCursor ){
     return SQLITE_LOCKED;
   }
@@ -25918,19 +25449,12 @@ static int btreeDropTable(Btree *p, int iTable, int *piMoved){
       }
 
       if( iTable==maxRootPgno ){
-        /* If the table being dropped is the table with the largest root-page
-        ** number in the database, put the root page on the free list. 
-        */
         rc = freePage(pPage);
         releasePage(pPage);
         if( rc!=SQLITE_OK ){
           return rc;
         }
       }else{
-        /* The table being dropped does not have the largest root-page
-        ** number in the database. So move the page that does into the 
-        ** gap left by the deleted root-page.
-        */
         MemPage *pMove;
         releasePage(pPage);
         rc = sqlite3BtreeGetPage(pBt, maxRootPgno, &pMove, 0);
@@ -25954,10 +25478,7 @@ static int btreeDropTable(Btree *p, int iTable, int *piMoved){
         *piMoved = maxRootPgno;
       }
 
-      /* Set the new 'max-root-page' value in the database header. This
-      ** is the old value less one, less one more if that happens to
-      ** be a root-page number, less one again if that is the
-      ** PENDING_BYTE_PAGE.
+      /* Set the new 'max-root-page' value in the database header.
       */
       maxRootPgno--;
       if( maxRootPgno==PENDING_BYTE_PAGE(pBt) ){
@@ -25992,14 +25513,7 @@ SQLITE_PRIVATE int sqlite3BtreeDropTable(Btree *p, int iTable, int *piMoved){
 
 
 /*
-** Read the meta-information out of a database file.  Meta[0]
-** is the number of free pages currently in the database.  Meta[1]
-** through meta[15] are available for use by higher layers.  Meta[0]
-** is read-only, the others are read/write.
-** 
-** The schema layer numbers meta values differently.  At the schema
-** layer (and the SetCookie and ReadCookie opcodes) the number of
-** free pages is not visible.  So Cookie[0] is the same as Meta[1].
+** Read the meta-information out of a database file.
 */
 SQLITE_PRIVATE int sqlite3BtreeGetMeta(Btree *p, int idx, u32 *pMeta){
   DbPage *pDbPage;
@@ -26010,10 +25524,7 @@ SQLITE_PRIVATE int sqlite3BtreeGetMeta(Btree *p, int idx, u32 *pMeta){
   sqlite3BtreeEnter(p);
   pBt->db = p->db;
 
-  /* Reading a meta-data value requires a read-lock on page 1 (and hence
-  ** the sqlite_master table. We grab this lock regardless of whether or
-  ** not the SQLITE_ReadUncommitted flag is set (the table rooted at page
-  ** 1 is treated as a special case by queryTableLock() and lockTable()).
+  /* Reading a meta-data value requires a read-lock on page 1
   */
   rc = queryTableLock(p, 1, READ_LOCK);
   if( rc!=SQLITE_OK ){
@@ -27319,9 +26830,7 @@ SQLITE_PRIVATE int sqlite3VdbeMemFinalize(Mem *pMem, FuncDef *pFunc){
 }
 
 /*
-** If the memory cell contains a string value that must be freed by
-** invoking an external callback, free it now. Calling this function
-** does not free any Mem.zMalloc buffer.
+** If the memory cell contains a string value that must be freed, free it.
 */
 SQLITE_PRIVATE void sqlite3VdbeMemReleaseExternal(Mem *p){
   assert( p->db==0 || sqlite3_mutex_held(p->db->mutex) );
@@ -27336,9 +26845,7 @@ SQLITE_PRIVATE void sqlite3VdbeMemReleaseExternal(Mem *p){
 }
 
 /*
-** Release any memory held by the Mem. This may leave the Mem in an
-** inconsistent state, for example with (Mem.z==0) and
-** (Mem.type==SQLITE_TEXT).
+** Release any memory held by the Mem.
 */
 SQLITE_PRIVATE void sqlite3VdbeMemRelease(Mem *p){
   sqlite3VdbeMemReleaseExternal(p);
@@ -27350,24 +26857,8 @@ SQLITE_PRIVATE void sqlite3VdbeMemRelease(Mem *p){
 
 /*
 ** Convert a 64-bit IEEE double into a 64-bit signed integer.
-** If the double is too large, return 0x8000000000000000.
-**
-** Most systems appear to do this simply by assigning
-** variables and without the extra range tests.  But
-** there are reports that windows throws an expection
-** if the floating point value is out of range. (See ticket #2880.)
-** Because we do not completely understand the problem, we will
-** take the conservative approach and always do range tests
-** before attempting the conversion.
 */
 static i64 doubleToInt64(double r){
-  /*
-  ** Many compilers we encounter do not define constants for the
-  ** minimum and maximum 64-bit integers, or they define them
-  ** inconsistently.  And many do not understand the "LL" notation.
-  ** So we define our own static constants here using nothing
-  ** larger than a 32-bit integer constant.
-  */
   static const i64 maxInt = (((i64)0x7fffffff)<<32)|0xffffffff;
   static const i64 minInt = ((i64)0x80000000)<<32;
 
@@ -27381,14 +26872,7 @@ static i64 doubleToInt64(double r){
 }
 
 /*
-** Return some kind of integer value which is the best we can do
-** at representing the value that *pMem describes as an integer.
-** If pMem is an integer, then the value is exact.  If pMem is
-** a floating-point then the value returned is the integer part.
-** If pMem is a string or blob, then we make an attempt to convert
-** it into a integer and return that.  If pMem is NULL, return 0.
-**
-** If pMem is a string, its encoding might be changed.
+** Return some kind of integer value which is the best we can do.
 */
 SQLITE_PRIVATE i64 sqlite3VdbeIntValue(Mem *pMem){
   int flags;
@@ -27414,10 +26898,7 @@ SQLITE_PRIVATE i64 sqlite3VdbeIntValue(Mem *pMem){
 }
 
 /*
-** Return the best representation of pMem that we can get into a
-** double.  If pMem is already a double or an integer, return its
-** value.  If it is a string or blob, try to convert it to a double.
-** If it is a NULL, return 0.0.
+** Return the best representation of pMem that we can get into a double.
 */
 SQLITE_PRIVATE double sqlite3VdbeRealValue(Mem *pMem){
   assert( pMem->db==0 || sqlite3_mutex_held(pMem->db->mutex) );
@@ -28460,9 +27941,6 @@ SQLITE_PRIVATE int sqlite3VdbeAddOpList(Vdbe *p, int nOp, VdbeOpList const *aOp)
 
 /*
 ** Change the value of the P1 operand for a specific instruction.
-** This routine is useful when a large program is loaded from a
-** static array using sqlite3VdbeAddOpList but we want to make a
-** few minor changes to the program.
 */
 SQLITE_PRIVATE void sqlite3VdbeChangeP1(Vdbe *p, int addr, int val){
   assert( p==0 || p->magic==VDBE_MAGIC_INIT );
@@ -28576,27 +28054,7 @@ SQLITE_PRIVATE void sqlite3VdbeChangeToNoop(Vdbe *p, int addr, int N){
 /*
 ** Change the value of the P4 operand for a specific instruction.
 ** This routine is useful when a large program is loaded from a
-** static array using sqlite3VdbeAddOpList but we want to make a
-** few minor changes to the program.
-**
-** If n>=0 then the P4 operand is dynamic, meaning that a copy of
-** the string is made into memory obtained from sqlite3_malloc().
-** A value of n==0 means copy bytes of zP4 up to and including the
-** first null byte.  If n>0 then copy n+1 bytes of zP4.
-**
-** If n==P4_KEYINFO it means that zP4 is a pointer to a KeyInfo structure.
-** A copy is made of the KeyInfo structure into memory obtained from
-** sqlite3_malloc, to be freed when the Vdbe is finalized.
-** n==P4_KEYINFO_HANDOFF indicates that zP4 points to a KeyInfo structure
-** stored in memory that the caller has obtained from sqlite3_malloc. The 
-** caller should not free the allocation, it will be freed when the Vdbe is
-** finalized.
-** 
-** Other values of n (P4_STATIC, P4_COLLSEQ etc.) indicate that zP4 points
-** to a string or structure that is guaranteed to exist for the lifetime of
-** the Vdbe. In these cases we can just copy the pointer.
-**
-** If addr<0 then change P4 on the most recently inserted instruction.
+** static array using sqlite3VdbeAddOpList.
 */
 SQLITE_PRIVATE void sqlite3VdbeChangeP4(Vdbe *p, int addr, const char *zP4, int n){
   Op *pOp;
@@ -28634,10 +28092,7 @@ SQLITE_PRIVATE void sqlite3VdbeChangeP4(Vdbe *p, int addr, const char *zP4, int 
     pOp->p4.pKeyInfo = pKeyInfo;
     if( pKeyInfo ){
       memcpy(pKeyInfo, zP4, nByte);
-      /* In the current implementation, P4_KEYINFO is only ever used on
-      ** KeyInfo structures that have no aSortOrder component.  Elements
-      ** with an aSortOrder always use P4_KEYINFO_HANDOFF.  So we do not
-      ** need to bother with duplicating the aSortOrder. */
+      /* Do not need to bother with duplicating the aSortOrder. */
       assert( pKeyInfo->aSortOrder==0 );
 #if 0
       aSortOrder = pKeyInfo->aSortOrder;
@@ -29434,15 +28889,7 @@ static int vdbeCommit(sqlite3 *db){
       return rc;
     }
 
-    /* Sync all the db files involved in the transaction. The same call
-    ** sets the master journal pointer in each individual journal. If
-    ** an error occurs here, do not delete the master journal file.
-    **
-    ** If the error occurs during the first call to
-    ** sqlite3BtreeCommitPhaseOne(), then there is a chance that the
-    ** master journal file will be orphaned. But we cannot delete it,
-    ** in case the master journal file name was written into the journal
-    ** file before the failure occured.
+    /* Sync all the db files involved in the transaction.
     */
     for(i=0; rc==SQLITE_OK && i<db->nDb; i++){ 
       Btree *pBt = db->aDb[i].pBt;
@@ -29467,12 +28914,7 @@ static int vdbeCommit(sqlite3 *db){
       return rc;
     }
 
-    /* All files and directories have already been synced, so the following
-    ** calls to sqlite3BtreeCommitPhaseTwo() are only closing files and
-    ** deleting or truncating journals. If something goes wrong while
-    ** this is happening we don't really care. The integrity of the
-    ** transaction is already guaranteed, but some stray 'cold' journals
-    ** may be lying around. Returning an error code won't help matters.
+    /* All files and directories have already been synced
     */
     disable_simulated_io_errors();
     for(i=0; i<db->nDb; i++){ 
@@ -29494,7 +28936,7 @@ static int vdbeCommit(sqlite3 *db){
 ** This routine checks that the sqlite3.activeVdbeCnt count variable
 ** matches the number of vdbe's in the list sqlite3.pVdbe that are
 ** currently active. An assertion fails if the two counts do not match.
-** This is an internal self-check only - it is not an essential processing step.
+** This is an internal self-check only.
 **
 ** This is a no-op if NDEBUG is defined.
 */
@@ -29516,20 +28958,7 @@ static void checkActiveVdbeCnt(sqlite3 *db){
 #endif
 
 /*
-** For every Btree that in database connection db which 
-** has been modified, "trip" or invalidate each cursor in
-** that Btree might have been modified so that the cursor
-** can never be used again.  This happens when a rollback
-*** occurs.  We have to trip all the other cursors, even
-** cursor from other VMs in different database connections,
-** so that none of them try to use the data at which they
-** were pointing and which now may have been changed due
-** to the rollback.
-**
-** Remember that a rollback can delete tables complete and
-** reorder rootpages.  So it is not sufficient just to save
-** the state of the cursor.  We have to invalidate the cursor
-** so that it is never used again.
+** We have to trip all the other cursors, due to the rollback.
 */
 static void invalidateCursorsOnModifiedBtrees(sqlite3 *db){
   int i;
@@ -29542,17 +28971,7 @@ static void invalidateCursorsOnModifiedBtrees(sqlite3 *db){
 }
 
 /*
-** This routine is called the when a VDBE tries to halt.  If the VDBE
-** has made changes and is in autocommit mode, then commit those
-** changes.  If a rollback is needed, then do the rollback.
-**
-** This routine is the only way to move the state of a VM from
-** SQLITE_MAGIC_RUN to SQLITE_MAGIC_HALT.  It is harmless to
-** call this on a VM that is in the SQLITE_MAGIC_HALT state.
-**
-** Return an error code.  If the commit could not complete because of
-** lock contention, return SQLITE_BUSY.  If SQLITE_BUSY is returned, it
-** means the close did not happen and needs to be repeated.
+** This routine is called the when a VDBE tries to halt.
 */
 SQLITE_PRIVATE int sqlite3VdbeHalt(Vdbe *p){
   sqlite3 *db = p->db;
@@ -29563,17 +28982,6 @@ SQLITE_PRIVATE int sqlite3VdbeHalt(Vdbe *p){
   /* This function contains the logic that determines if a statement or
   ** transaction will be committed or rolled back as a result of the
   ** execution of this virtual machine. 
-  **
-  ** If any of the following errors occur:
-  **
-  **     SQLITE_NOMEM
-  **     SQLITE_IOERR
-  **     SQLITE_FULL
-  **     SQLITE_INTERRUPT
-  **
-  ** Then the internal cache might have been left in an inconsistent
-  ** state.  We need to rollback the statement transaction, if there is
-  ** one, or the complete transaction if there is no statement transaction.
   */
 
   if( p->db->mallocFailed ){
@@ -29597,18 +29005,7 @@ SQLITE_PRIVATE int sqlite3VdbeHalt(Vdbe *p){
     isSpecialError = mrc==SQLITE_NOMEM || mrc==SQLITE_IOERR
                      || mrc==SQLITE_INTERRUPT || mrc==SQLITE_FULL;
     if( isSpecialError ){
-      /* This loop does static analysis of the query to see which of the
-      ** following three categories it falls into:
-      **
-      **     Read-only
-      **     Query with statement journal
-      **     Query without statement journal
-      **
-      ** We could do something more elegant than this static analysis (i.e.
-      ** store the type of query as part of the compliation phase), but 
-      ** handling malloc() or IO failure is a fairly obscure edge case so 
-      ** this is probably easier. Todo: Might be an opportunity to reduce 
-      ** code size a very small amount though...
+      /* This loop does static analysis of the query
       */
       int notReadOnly = 0;
       int isStatement = 0;
@@ -29625,8 +29022,7 @@ SQLITE_PRIVATE int sqlite3VdbeHalt(Vdbe *p){
       }
 
    
-      /* If the query was read-only, we need do no rollback at all. Otherwise,
-      ** proceed with the special handling.
+      /* If the query was read-only, we need do no rollback at all.
       */
       if( notReadOnly || mrc!=SQLITE_INTERRUPT ){
         if( p->rc==SQLITE_IOERR_BLOCKED && isStatement ){
@@ -29645,11 +29041,8 @@ SQLITE_PRIVATE int sqlite3VdbeHalt(Vdbe *p){
       }
     }
   
-    /* If the auto-commit flag is set and this is the only active vdbe, then
-    ** we do either a commit or rollback of the current transaction. 
-    **
-    ** Note: This block also runs if one of the special errors handled 
-    ** above has occured. 
+    /* If the auto-commit flag is set and this is the only active vdbe,
+    ** then we do either a commit or rollback of the current transaction. 
     */
     if( db->autoCommit && db->activeVdbeCnt==1 ){
       if( p->rc==SQLITE_OK || (p->errorAction==OE_Fail && !isSpecialError) ){
@@ -29683,12 +29076,7 @@ SQLITE_PRIVATE int sqlite3VdbeHalt(Vdbe *p){
         db->autoCommit = 1;
       }
     }
-  
-    /* If xFunc is not NULL, then it is one of sqlite3BtreeRollbackStmt or
-    ** sqlite3BtreeCommitStmt. Call it once on each backend. If an error occurs
-    ** and the return code is still SQLITE_OK, set the return code to the new
-    ** error value.
-    */
+
     assert(!xFunc ||
       xFunc==sqlite3BtreeCommitStmt ||
       xFunc==sqlite3BtreeRollbackStmt
@@ -30550,21 +29938,10 @@ SQLITE_PRIVATE sqlite3 *sqlite3VdbeDb(Vdbe *v){
 #ifdef SQLITE_ENABLE_MEMORY_MANAGEMENT
 /*
 ** The following structure contains pointers to the end points of a
-** doubly-linked list of all compiled SQL statements that may be holding
-** buffers eligible for release when the sqlite3_release_memory() interface is
-** invoked. Access to this list is protected by the SQLITE_MUTEX_STATIC_LRU2
-** mutex.
-**
-** Statements are added to the end of this list when sqlite3_reset() is
-** called. They are removed either when sqlite3_step() or sqlite3_finalize()
-** is called. When statements are added to this list, the associated 
-** register array (p->aMem[1..p->nMem]) may contain dynamic buffers that
-** can be freed using sqlite3VdbeReleaseMemory().
-**
-** When statements are added or removed from this list, the mutex
-** associated with the Vdbe being added or removed (Vdbe.db->mutex) is
-** already held. The LRU2 mutex is then obtained, blocking if necessary,
-** the linked-list pointers manipulated and the LRU2 mutex relinquished.
+** doubly-linked list of all compiled SQL statements that may be holding buffers
+** eligible for release when the sqlite3_release_memory() interface is invoked.
+** Access to this list is protected by the SQLITE_MUTEX_STATIC_LRU2 mutex.
+
 */
 struct StatementLruList {
   Vdbe *pFirst;
@@ -30702,12 +30079,7 @@ int vdbeReprepare(Vdbe *p){
 
 
 /*
-** Return TRUE (non-zero) of the statement supplied as an argument needs
-** to be recompiled.  A statement needs to be recompiled whenever the
-** execution environment changes in a way that would alter the program
-** that sqlite3_prepare() generates.  For example, if new functions or
-** collating sequences are registered or if an authorizer function is
-** added or changed.
+** Return TRUE (non-zero) of the statement supplied as an argument needs to be recompiled. 
 */
 SQLITE_API int sqlite3_expired(sqlite3_stmt *pStmt){
   Vdbe *p = (Vdbe*)pStmt;
@@ -30717,8 +30089,7 @@ SQLITE_API int sqlite3_expired(sqlite3_stmt *pStmt){
 /*
 ** The following routine destroys a virtual machine that is created by
 ** the sqlite3_compile() routine. The integer returned is an SQLITE_
-** success/failure code that describes the result of executing the virtual
-** machine.
+** success/failure code that describes the result of executing the virtual machine.
 **
 ** This routine sets the error code and string returned by
 ** sqlite3_errcode(), sqlite3_errmsg() and sqlite3_errmsg16().
@@ -30742,9 +30113,7 @@ SQLITE_API int sqlite3_finalize(sqlite3_stmt *pStmt){
 
 /*
 ** Terminate the current execution of an SQL statement and reset it
-** back to its starting state so that it can be reused. A success code from
-** the prior execution is returned.
-**
+** back to its starting state so that it can be reused.
 ** This routine sets the error code and string returned by
 ** sqlite3_errcode(), sqlite3_errmsg() and sqlite3_errmsg16().
 */
@@ -31373,27 +30742,9 @@ SQLITE_API int sqlite3_column_type(sqlite3_stmt *pStmt, int i){
   return iType;
 }
 
-/* The following function is experimental and subject to change or removal */
-/* int sqlite3_column_numeric_type(sqlite3_stmt *pStmt, int i){
-**  return sqlite3_value_numeric_type( columnMem(pStmt,i) );
-**}
-*/
-
 /*
 ** Convert the N-th element of pStmt->pColName[] into a string using
 ** xFunc() then return that string.  If N is out of range, return 0.
-**
-** There are up to 5 names for each column.  useType determines which
-** name is returned.  Here are the names:
-**
-**    0      The column name as it should be displayed for output
-**    1      The datatype name for the column
-**    2      The name of the database that the column derives from
-**    3      The name of the table that the column derives from
-**    4      The name of the table column that the result column derives from
-**
-** If the result is not a simple column reference (if it is an expression
-** or a constant) then useTypes 2, 3, and 4 return NULL.
 */
 static const void *columnName(
   sqlite3_stmt *pStmt,
@@ -31427,8 +30778,7 @@ static const void *columnName(
 }
 
 /*
-** Return the name of the Nth column of the result set returned by SQL
-** statement pStmt.
+** Return the name of the Nth column of the result set returned by SQL statement pStmt.
 */
 SQLITE_API const char *sqlite3_column_name(sqlite3_stmt *pStmt, int N){
   return columnName(
@@ -31958,16 +31308,12 @@ static void _storeTypeInfo(Mem *pMem){
 }
 
 /*
-** Properties of opcodes.  The OPFLG_INITIALIZER macro is
-** created by mkopcodeh.awk during compilation.  Data is obtained
-** from the comments following the "case OP_xxxx:" statements in
-** this file.  
+** Properties of opcodes.
 */
 static unsigned char opcodeProperty[] = OPFLG_INITIALIZER;
 
 /*
-** Return true if an opcode has any of the OPFLG_xxx properties
-** specified by mask.
+** Return true if an opcode has any of the OPFLG_xxx properties specified by mask.
 */
 SQLITE_PRIVATE int sqlite3VdbeOpcodeHasProperty(int opcode, int mask){
   assert( opcode>0 && opcode<sizeof(opcodeProperty) );
@@ -31986,32 +31332,13 @@ static Cursor *allocateCursor(
   int isBtreeCursor
 ){
   /* Find the memory cell that will be used to store the blob of memory
-  ** required for this Cursor structure. It is convenient to use a 
-  ** vdbe memory cell to manage the memory allocation required for a
-  ** Cursor structure for the following reasons:
-  **
-  **   * Sometimes cursor numbers are used for a couple of different
-  **     purposes in a vdbe program. The different uses might require
-  **     different sized allocations. Memory cells provide growable
-  **     allocations.
-  **
-  **   * When using ENABLE_MEMORY_MANAGEMENT, memory cell buffers can
-  **     be freed lazily via the sqlite3_release_memory() API. This
-  **     minimizes the number of malloc calls made by the system.
-  **
-  ** Memory cells for cursors are allocated at the top of the address
-  ** space. Memory cell (p->nMem) corresponds to cursor 0. Space for
-  ** cursor 1 is managed by memory cell (p->nMem-1), etc.
+  ** required for this Cursor structure.
   */
   Mem *pMem = &p->aMem[p->nMem-iCur];
 
   int nByte;
   Cursor *pCx = 0;
-  /* If the opcode of pOp is OP_SetNumColumns, then pOp->p2 contains
-  ** the number of fields in the records contained in the table or
-  ** index being opened. Use this to reserve space for the 
-  ** Cursor.aType[] array.
-  */
+
   int nField = 0;
   if( pOp->opcode==OP_SetNumColumns || pOp->opcode==OP_OpenEphemeral ){
     nField = pOp->p2;
@@ -32043,9 +31370,7 @@ static Cursor *allocateCursor(
 
 /*
 ** Try to convert a value into a numeric representation if we can
-** do so without loss of information.  In other words, if the string
-** looks like a number, convert it into a number.  If it does not
-** look like a number, leave it alone.
+** do so without loss of information.
 */
 static void applyNumericAffinity(Mem *pRec){
   if( (pRec->flags & (MEM_Real|MEM_Int))==0 ){
@@ -32066,22 +31391,7 @@ static void applyNumericAffinity(Mem *pRec){
 }
 
 /*
-** Processing is determine by the affinity parameter:
-**
-** SQLITE_AFF_INTEGER:
-** SQLITE_AFF_REAL:
-** SQLITE_AFF_NUMERIC:
-**    Try to convert pRec to an integer representation or a 
-**    floating-point representation if an integer representation
-**    is not possible.  Note that the integer representation is
-**    always preferred, even if the affinity is REAL, because
-**    an integer representation is more space efficient on disk.
-**
-** SQLITE_AFF_TEXT:
-**    Convert pRec to a text representation.
-**
-** SQLITE_AFF_NONE:
-**    No-op.  pRec is unchanged.
+** Processing is determine by the affinity parameter
 */
 static void applyAffinity(
   Mem *pRec,          /* The value to apply affinity to */
@@ -32109,10 +31419,7 @@ static void applyAffinity(
 
 /*
 ** Try to convert the type of a function argument or a result column
-** into a numeric representation.  Use either INTEGER or REAL whichever
-** is appropriate.  But only do the conversion if it is possible without
-** loss of information and return the revised type of the argument.
-**
+** into a numeric representation. 
 ** This is an EXPERIMENTAL api and is subject to change or removal.
 */
 SQLITE_API int sqlite3_value_numeric_type(sqlite3_value *pVal){
@@ -32123,8 +31430,7 @@ SQLITE_API int sqlite3_value_numeric_type(sqlite3_value *pVal){
 }
 
 /*
-** Exported version of applyAffinity(). This one works on sqlite3_value*, 
-** not the internal Mem* type.
+** Exported version of applyAffinity(). This one works on sqlite3_value*
 */
 SQLITE_PRIVATE void sqlite3ValueApplyAffinity(
   sqlite3_value *pVal, 
@@ -32487,45 +31793,15 @@ SQLITE_PRIVATE int sqlite3VdbeExec(
 
 /*****************************************************************************
 ** What follows is a massive switch statement where each case implements a
-** separate instruction in the virtual machine.  If we follow the usual
-** indentation conventions, each case should be indented by 6 spaces.  But
-** that is a lot of wasted space on the left margin.  So the code within
-** the switch statement will break with convention and be flush-left. Another
-** big comment (similar to this one) will mark the point in the code where
-** we transition back to normal indentation.
-**
-** The formatting of each case is important.  The makefile for SQLite
-** generates two C files "opcodes.h" and "opcodes.c" by scanning this
-** file looking for lines that begin with "case OP_".  The opcodes.h files
-** will be filled with #defines that give unique integer values to each
-** opcode and the opcodes.c file is filled with an array of strings where
-** each string is the symbolic name for the corresponding opcode.  If the
-** case statement is followed by a comment of the form "/# same as ... #/"
-** that comment is used to determine the particular value of the opcode.
-**
-** Other keywords in the comment that follows each case are used to
-** construct the OPFLG_INITIALIZER value that initializes opcodeProperty[].
-** Keywords include: in1, in2, in3, out2_prerelease, out2, out3.  See
-** the mkopcodeh.awk script for additional information.
-**
-** Documentation about VDBE opcodes is generated by scanning this file
-** for lines of that contain "Opcode:".  That line and all subsequent
-** comment lines are used in the generation of the opcode.html documentation
-** file.
-**
+** separate instruction in the virtual machine.
 ** SUMMARY:
-**
 **     Formatting is important to scripts that scan this file.
 **     Do not deviate from the formatting style currently in use.
 **
 *****************************************************************************/
 
 /* Opcode:  Goto * P2 * * *
-**
 ** An unconditional jump to address P2.
-** The next instruction executed will be 
-** the one at index P2 from the beginning of
-** the program.
 */
 case OP_Goto: {             /* jump */
   CHECK_FOR_INTERRUPT;
@@ -32534,14 +31810,8 @@ case OP_Goto: {             /* jump */
 }
 
 /* Opcode:  Gosub * P2 * * *
-**
 ** Push the current address plus 1 onto the return address stack
 ** and then jump to address P2.
-**
-** The return address stack is of limited depth.  If too many
-** OP_Gosub operations occur without intervening OP_Returns, then
-** the return address stack will fill up and processing will abort
-** with a fatal error.
 */
 case OP_Gosub: {            /* jump */
   assert( p->returnDepth<sizeof(p->returnStack)/sizeof(p->returnStack[0]) );
@@ -32551,10 +31821,7 @@ case OP_Gosub: {            /* jump */
 }
 
 /* Opcode:  Return * * * * *
-**
-** Jump immediately to the next instruction after the last unreturned
-** OP_Gosub.  If an OP_Return has occurred for all OP_Gosubs, then
-** processing aborts with a fatal error.
+** Jump immediately to the next instruction after the last unreturned OP_Gosub.
 */
 case OP_Return: {
   assert( p->returnDepth>0 );
@@ -32564,23 +31831,7 @@ case OP_Return: {
 }
 
 /* Opcode:  Halt P1 P2 * P4 *
-**
-** Exit immediately.  All open cursors, Fifos, etc are closed
-** automatically.
-**
-** P1 is the result code returned by sqlite3_exec(), sqlite3_reset(),
-** or sqlite3_finalize().  For a normal halt, this should be SQLITE_OK (0).
-** For errors, it can be some other value.  If P1!=0 then P2 will determine
-** whether or not to rollback the current transaction.  Do not rollback
-** if P2==OE_Fail. Do the rollback if P2==OE_Rollback.  If P2==OE_Abort,
-** then back out all changes that have occurred during this execution of the
-** VDBE, but do not rollback the transaction. 
-**
-** If P4 is not null then it is an error message string.
-**
-** There is an implied "Halt 0 0 0" instruction inserted at the very end of
-** every program.  So a jump past the last instruction of the program
-** is the same as executing Halt.
+** Exit immediately.  All open cursors, Fifos, etc are closed automatically.
 */
 case OP_Halt: {
   p->rc = pOp->p1;
@@ -32610,7 +31861,6 @@ case OP_Integer: {         /* out2-prerelease */
 }
 
 /* Opcode: Int64 * P2 * P4 *
-**
 ** P4 is a pointer to a 64-bit integer value.
 ** Write that value into register P2.
 */
@@ -32622,7 +31872,6 @@ case OP_Int64: {           /* out2-prerelease */
 }
 
 /* Opcode: Real * P2 * P4 *
-**
 ** P4 is a pointer to a 64-bit floating point value.
 ** Write that value into register P2.
 */
@@ -32633,7 +31882,6 @@ case OP_Real: {            /* same as TK_FLOAT, out2-prerelease */
 }
 
 /* Opcode: String8 * P2 * P4 *
-**
 ** P4 points to a nul terminated UTF-8 string. This opcode is transformed 
 ** into an OP_String before it is executed for the first time.
 */
@@ -32670,7 +31918,6 @@ case OP_String8: {         /* same as TK_STRING, out2-prerelease */
 }
   
 /* Opcode: String P1 P2 * P4 *
-**
 ** The string value P4 of length P1 (bytes) is stored in register P2.
 */
 case OP_String: {          /* out2-prerelease */
@@ -32684,7 +31931,6 @@ case OP_String: {          /* out2-prerelease */
 }
 
 /* Opcode: Null * P2 * * *
-**
 ** Write a NULL into register P2.
 */
 case OP_Null: {           /* out2-prerelease */
@@ -32694,13 +31940,9 @@ case OP_Null: {           /* out2-prerelease */
 
 #ifndef SQLITE_OMIT_BLOB_LITERAL
 /* Opcode: Blob P1 P2 * P4
-**
-** P4 points to a blob of data P1 bytes long.  Store this
-** blob in register P2. This instruction is not coded directly
-** by the compiler. Instead, the compiler layer specifies
-** an OP_HexBlob opcode, with the hex string representation of
-** the blob as P4. This opcode is transformed to an OP_Blob
-** the first time it is executed.
+** P4 points to a blob of data P1 bytes long.
+** Store this blob in register P2.  This instruction
+** is not coded directly by the compiler.
 */
 case OP_Blob: {                /* out2-prerelease */
   assert( pOp->p1 <= SQLITE_MAX_LENGTH );
@@ -32712,13 +31954,7 @@ case OP_Blob: {                /* out2-prerelease */
 #endif /* SQLITE_OMIT_BLOB_LITERAL */
 
 /* Opcode: Variable P1 P2 * * *
-**
-** The value of variable P1 is written into register P2. A variable is
-** an unknown in the original SQL string as handed to sqlite3_compile().
-** Any occurance of the '?' character in the original SQL is considered
-** a variable.  Variables in the SQL string are number from left to
-** right beginning with 1.  The values of variables are set using the
-** sqlite3_bind() API.
+** The value of variable P1 is written into register P2.
 */
 case OP_Variable: {           /* out2-prerelease */
   int j = pOp->p1 - 1;
@@ -32735,10 +31971,7 @@ case OP_Variable: {           /* out2-prerelease */
 }
 
 /* Opcode: Move P1 P2 * * *
-**
-** Move the value in register P1 over into register P2.  Register P1
-** is left holding a NULL.  It is an error for P1 and P2 to be the
-** same register.
+** Move the value in register P1 over into register P2.
 */
 case OP_Move: {
   char *zMalloc;
@@ -32759,11 +31992,7 @@ case OP_Move: {
 }
 
 /* Opcode: Copy P1 P2 * * *
-**
 ** Make a copy of register P1 into register P2.
-**
-** This instruction makes a deep copy of the value.  A duplicate
-** is made of any string or blob constant.  See also OP_SCopy.
 */
 case OP_Copy: {
   assert( pOp->p1>0 );
@@ -32781,16 +32010,7 @@ case OP_Copy: {
 }
 
 /* Opcode: SCopy P1 P2 * * *
-**
 ** Make a shallow copy of register P1 into register P2.
-**
-** This instruction makes a shallow copy of the value.  If the value
-** is a string or blob, then the copy is only a pointer to the
-** original and hence if the original changes so will the copy.
-** Worse, if the original is deallocated, the copy becomes invalid.
-** Thus the program must guarantee that the original will not change
-** during the lifetime of the copy.  Use OP_Copy to make a complete
-** copy.
 */
 case OP_SCopy: {
   assert( pOp->p1>0 );
@@ -32807,12 +32027,7 @@ case OP_SCopy: {
 }
 
 /* Opcode: ResultRow P1 P2 * * *
-**
-** The registers P1 throught P1+P2-1 contain a single row of
-** results. This opcode causes the sqlite3_step() call to terminate
-** with an SQLITE_ROW return code and it sets up the sqlite3_stmt
-** structure to provide access to the top P1 values as the result
-** row.
+** The registers P1 throught P1+P2-1 contain a single row of results.
 */
 case OP_ResultRow: {
   Mem *pMem;
@@ -32824,10 +32039,6 @@ case OP_ResultRow: {
   /* Invalidate all ephemeral cursor row caches */
   p->cacheCtr = (p->cacheCtr + 2)|1;
 
-  /* Make sure the results of the current row are \000 terminated
-  ** and have an assigned type.  The results are deephemeralized as
-  ** as side effect.
-  */
   pMem = p->pResultSet = &p->aMem[pOp->p1];
   for(i=0; i<pOp->p2; i++){
     sqlite3VdbeMemNulTerminate(&pMem[i]);
@@ -32844,16 +32055,8 @@ case OP_ResultRow: {
 }
 
 /* Opcode: Concat P1 P2 P3 * *
-**
 ** Add the text in register P1 onto the end of the text in
 ** register P2 and store the result in register P3.
-** If either the P1 or P2 text are NULL then store NULL in P3.
-**
-**   P3 = P2 || P1
-**
-** It is illegal for P1 and P3 to be the same register. Sometimes,
-** if P3 is the same register as P2, the implementation is able
-** to avoid a memcpy().
 */
 case OP_Concat: {           /* same as TK_CONCAT, in1, in2, out3 */
   i64 nByte;
@@ -32889,37 +32092,10 @@ case OP_Concat: {           /* same as TK_CONCAT, in1, in2, out3 */
 }
 
 /* Opcode: Add P1 P2 P3 * *
-**
-** Add the value in register P1 to the value in register P2
-** and store the result in regiser P3.
-** If either input is NULL, the result is NULL.
-*/
-/* Opcode: Multiply P1 P2 P3 * *
-**
-**
-** Multiply the value in regiser P1 by the value in regiser P2
-** and store the result in register P3.
-** If either input is NULL, the result is NULL.
-*/
-/* Opcode: Subtract P1 P2 P3 * *
-**
-** Subtract the value in register P1 from the value in register P2
-** and store the result in register P3.
-** If either input is NULL, the result is NULL.
-*/
-/* Opcode: Divide P1 P2 P3 * *
-**
-** Divide the value in register P1 by the value in register P2
-** and store the result in register P3.  If the value in register P2
-** is zero, then the result is NULL.
-** If either input is NULL, the result is NULL.
-*/
-/* Opcode: Remainder P1 P2 P3 * *
-**
-** Compute the remainder after integer division of the value in
-** register P1 by the value in register P2 and store the result in P3. 
-** If the value in register P2 is zero the result is NULL.
-** If either operand is NULL, the result is NULL.
+** Opcode: Multiply P1 P2 P3 * *
+** Opcode: Subtract P1 P2 P3 * *
+** Opcode: Divide P1 P2 P3 * *
+** Opcode: Remainder P1 P2 P3 * *
 */
 case OP_Add:                   /* same as TK_PLUS, in1, in2, out3 */
 case OP_Subtract:              /* same as TK_MINUS, in1, in2, out3 */
@@ -32939,13 +32115,6 @@ case OP_Remainder: {           /* same as TK_REM, in1, in2, out3 */
       case OP_Multiply:    b *= a;       break;
       case OP_Divide: {
         if( a==0 ) goto arithmetic_result_is_null;
-        /* Dividing the largest possible negative 64-bit integer (1<<63) by 
-        ** -1 returns an integer to large to store in a 64-bit data-type. On
-        ** some architectures, the value overflows to (1<<63). On others,
-        ** a SIGFPE is issued. The following statement normalizes this
-        ** behaviour so that all architectures behave as if integer 
-        ** overflow occured.
-        */
         if( a==-1 && b==(((i64)1)<<63) ) a = 1;
         b /= a;
         break;
@@ -33218,11 +32387,7 @@ case OP_ForceInt: {            /* jump, in1 */
 }
 
 /* Opcode: MustBeInt P1 P2 * * *
-** 
-** Force the value in register P1 to be an integer.  If the value
-** in P1 is not an integer and cannot be converted into an integer
-** without data loss, then jump immediately to P2, or if P2==0
-** raise an SQLITE_MISMATCH exception.
+** Force the value in register P1 to be an integer.
 */
 case OP_MustBeInt: {            /* jump, in1 */
   applyAffinity(pIn1, SQLITE_AFF_NUMERIC, encoding);
@@ -33240,13 +32405,7 @@ case OP_MustBeInt: {            /* jump, in1 */
 }
 
 /* Opcode: RealAffinity P1 * * * *
-**
 ** If register P1 holds an integer convert it to a real value.
-**
-** This opcode is used when extracting information from a column that
-** has REAL affinity.  Such column values may still be stored as
-** integers, for space efficiency, but after extraction we want them
-** to have only a real value.
 */
 case OP_RealAffinity: {                  /* in1 */
   if( pIn1->flags & MEM_Int ){
@@ -33257,13 +32416,7 @@ case OP_RealAffinity: {                  /* in1 */
 
 #ifndef SQLITE_OMIT_CAST
 /* Opcode: ToText P1 * * * *
-**
 ** Force the value in register P1 to be text.
-** If the value is numeric, convert it to a string using the
-** equivalent of printf().  Blob values are unchanged and
-** are afterwards simply interpreted as text.
-**
-** A NULL value is not changed by this routine.  It remains NULL.
 */
 case OP_ToText: {                  /* same as TK_TO_TEXT, in1 */
   if( pIn1->flags & MEM_Null ) break;
@@ -33278,13 +32431,7 @@ case OP_ToText: {                  /* same as TK_TO_TEXT, in1 */
 }
 
 /* Opcode: ToBlob P1 * * * *
-**
 ** Force the value in register P1 to be a BLOB.
-** If the value is numeric, convert it to a string first.
-** Strings are simply reinterpreted as blobs with no change
-** to the underlying data.
-**
-** A NULL value is not changed by this routine.  It remains NULL.
 */
 case OP_ToBlob: {                  /* same as TK_TO_BLOB, in1 */
   if( pIn1->flags & MEM_Null ) break;
@@ -33298,14 +32445,6 @@ case OP_ToBlob: {                  /* same as TK_TO_BLOB, in1 */
 }
 
 /* Opcode: ToNumeric P1 * * * *
-**
-** Force the value in register P1 to be numeric (either an
-** integer or a floating-point number.)
-** If the value is text or blob, try to convert it to an using the
-** equivalent of atoi() or atof() and store 0 if no such conversion 
-** is possible.
-**
-** A NULL value is not changed by this routine.  It remains NULL.
 */
 case OP_ToNumeric: {                  /* same as TK_TO_NUMERIC, in1 */
   if( (pIn1->flags & (MEM_Null|MEM_Int|MEM_Real))==0 ){
@@ -33316,13 +32455,6 @@ case OP_ToNumeric: {                  /* same as TK_TO_NUMERIC, in1 */
 #endif /* SQLITE_OMIT_CAST */
 
 /* Opcode: ToInt P1 * * * *
-**
-** Force the value in register P1 be an integer.  If
-** The value is currently a real number, drop its fractional part.
-** If the value is text or blob, try to convert it to an integer using the
-** equivalent of atoi() and store 0 if no such conversion is possible.
-**
-** A NULL value is not changed by this routine.  It remains NULL.
 */
 case OP_ToInt: {                  /* same as TK_TO_INT, in1 */
   if( (pIn1->flags & MEM_Null)==0 ){
@@ -33333,13 +32465,6 @@ case OP_ToInt: {                  /* same as TK_TO_INT, in1 */
 
 #ifndef SQLITE_OMIT_CAST
 /* Opcode: ToReal P1 * * * *
-**
-** Force the value in register P1 to be a floating point number.
-** If The value is currently an integer, convert it.
-** If the value is text or blob, try to convert it to an integer using the
-** equivalent of atoi() and store 0.0 if no such conversion is possible.
-**
-** A NULL value is not changed by this routine.  It remains NULL.
 */
 case OP_ToReal: {                  /* same as TK_TO_REAL, in1 */
   if( (pIn1->flags & MEM_Null)==0 ){
@@ -33350,68 +32475,14 @@ case OP_ToReal: {                  /* same as TK_TO_REAL, in1 */
 #endif /* SQLITE_OMIT_CAST */
 
 /* Opcode: Lt P1 P2 P3 P4 P5
+** Compare the values in register P1 and P3.
+** If reg(P3)<reg(P1) then jump to address P2.
 **
-** Compare the values in register P1 and P3.  If reg(P3)<reg(P1)
-** then jump to address P2.  
-**
-** If the SQLITE_JUMPIFNULL bit of P5 is set and either reg(P1) or
-** reg(P3) is NULL then take the jump.  If the SQLITE_JUMPIFNULL 
-** bit is clear then fall thru if either operand is NULL.
-**
-** If the SQLITE_NULLEQUAL bit of P5 is set then treat NULL operands
-** as being equal to one another.  Normally NULLs are not equal to 
-** anything including other NULLs.
-**
-** The SQLITE_AFF_MASK portion of P5 must be an affinity character -
-** SQLITE_AFF_TEXT, SQLITE_AFF_INTEGER, and so forth. An attempt is made 
-** to coerce both inputs according to this affinity before the
-** comparison is made. If the SQLITE_AFF_MASK is 0x00, then numeric
-** affinity is used. Note that the affinity conversions are stored
-** back into the input registers P1 and P3.  So this opcode can cause
-** persistent changes to registers P1 and P3.
-**
-** Once any conversions have taken place, and neither value is NULL, 
-** the values are compared. If both values are blobs then memcmp() is
-** used to determine the results of the comparison.  If both values
-** are text, then the appropriate collating function specified in
-** P4 is  used to do the comparison.  If P4 is not specified then
-** memcmp() is used to compare text string.  If both values are
-** numeric, then a numeric comparison is used. If the two values
-** are of different types, then numbers are considered less than
-** strings and strings are considered less than blobs.
-**
-** If the SQLITE_STOREP2 bit of P5 is set, then do not jump.  Instead,
-** store a boolean result (either 0, or 1, or NULL) in register P2.
-*/
-/* Opcode: Ne P1 P2 P3 P4 P5
-**
-** This works just like the Lt opcode except that the jump is taken if
-** the operands in registers P1 and P3 are not equal.  See the Lt opcode for
-** additional information.
-*/
-/* Opcode: Eq P1 P2 P3 P4 P5
-**
-** This works just like the Lt opcode except that the jump is taken if
-** the operands in registers P1 and P3 are equal.
-** See the Lt opcode for additional information.
-*/
-/* Opcode: Le P1 P2 P3 P4 P5
-**
-** This works just like the Lt opcode except that the jump is taken if
-** the content of register P3 is less than or equal to the content of
-** register P1.  See the Lt opcode for additional information.
-*/
-/* Opcode: Gt P1 P2 P3 P4 P5
-**
-** This works just like the Lt opcode except that the jump is taken if
-** the content of register P3 is greater than the content of
-** register P1.  See the Lt opcode for additional information.
-*/
-/* Opcode: Ge P1 P2 P3 P4 P5
-**
-** This works just like the Lt opcode except that the jump is taken if
-** the content of register P3 is greater than or equal to the content of
-** register P1.  See the Lt opcode for additional information.
+** Opcode: Ne P1 P2 P3 P4 P5
+** Opcode: Eq P1 P2 P3 P4 P5
+** Opcode: Le P1 P2 P3 P4 P5
+** Opcode: Gt P1 P2 P3 P4 P5
+** Opcode: Ge P1 P2 P3 P4 P5
 */
 case OP_Eq:               /* same as TK_EQ, jump, in1, in3 */
 case OP_Ne:               /* same as TK_NE, jump, in1, in3 */
@@ -33428,15 +32499,6 @@ case OP_Ge: {             /* same as TK_GE, jump, in1, in3 */
 
   if( flags&MEM_Null ){
     if( (pOp->p5 & SQLITE_NULLEQUAL)!=0 ){
-      /*
-      ** When SQLITE_NULLEQUAL set and either operand is NULL
-      ** then both operands are converted to integers prior to being 
-      ** passed down into the normal comparison logic below.  
-      ** NULL operands are converted to zero and non-NULL operands
-      ** are converted to 1.  Thus, for example, with SQLITE_NULLEQUAL
-      ** set,  NULL==NULL is true whereas it would normally NULL.
-      ** Similarly,  NULL!=123 is true.
-      */
       x1.flags = MEM_Int;
       x1.u.i = (pIn1->flags & MEM_Null)==0;
       pIn1 = &x1;
@@ -33444,10 +32506,6 @@ case OP_Ge: {             /* same as TK_GE, jump, in1, in3 */
       x3.u.i = (pIn3->flags & MEM_Null)==0;
       pIn3 = &x3;
     }else{
-      /* If the SQLITE_NULLEQUAL bit is clear and either operand is NULL then
-      ** the result is always NULL.  The jump is taken if the 
-      ** SQLITE_JUMPIFNULL bit is set.
-      */
       if( pOp->p5 & SQLITE_STOREP2 ){
         pOut = &p->aMem[pOp->p2];
         MemSetTypeFlag(pOut, MEM_Null);
@@ -33490,22 +32548,7 @@ case OP_Ge: {             /* same as TK_GE, jump, in1, in3 */
 }
 
 /* Opcode: And P1 P2 P3 * *
-**
-** Take the logical AND of the values in registers P1 and P2 and
-** write the result into register P3.
-**
-** If either P1 or P2 is 0 (false) then the result is 0 even if
-** the other input is NULL.  A NULL and true or two NULLs give
-** a NULL output.
-*/
-/* Opcode: Or P1 P2 P3 * *
-**
-** Take the logical OR of the values in register P1 and P2 and
-** store the answer in register P3.
-**
-** If either P1 or P2 is nonzero (true) then the result is 1 (true)
-** even if the other input is NULL.  A NULL and false or two NULLs
-** give a NULL output.
+** Opcode: Or P1 P2 P3 * *
 */
 case OP_And:              /* same as TK_AND, in1, in2, out3 */
 case OP_Or: {             /* same as TK_OR, in1, in2, out3 */
@@ -33538,10 +32581,6 @@ case OP_Or: {             /* same as TK_OR, in1, in2, out3 */
 }
 
 /* Opcode: Not P1 * * * *
-**
-** Interpret the value in register P1 as a boolean value.  Replace it
-** with its complement.  If the value in register P1 is NULL its value
-** is unchanged.
 */
 case OP_Not: {                /* same as TK_NOT, in1 */
   if( pIn1->flags & MEM_Null ) break;  /* Do nothing to NULLs */
@@ -33552,10 +32591,6 @@ case OP_Not: {                /* same as TK_NOT, in1 */
 }
 
 /* Opcode: BitNot P1 * * * *
-**
-** Interpret the content of register P1 as an integer.  Replace it
-** with its ones-complement.  If the value is originally NULL, leave
-** it unchanged.
 */
 case OP_BitNot: {             /* same as TK_BITNOT, in1 */
   if( pIn1->flags & MEM_Null ) break;  /* Do nothing to NULLs */
@@ -33566,16 +32601,6 @@ case OP_BitNot: {             /* same as TK_BITNOT, in1 */
 }
 
 /* Opcode: If P1 P2 P3 * *
-**
-** Jump to P2 if the value in register P1 is true.  The value is
-** is considered true if it is numeric and non-zero.  If the value
-** in P1 is NULL then take the jump if P3 is true.
-*/
-/* Opcode: IfNot P1 P2 P3 * *
-**
-** Jump to P2 if the value in register P1 is False.  The value is
-** is considered true if it has a numeric value of zero.  If the value
-** in P1 is NULL then take the jump if P3 is true.
 */
 case OP_If:                 /* jump, in1 */
 case OP_IfNot: {            /* jump, in1 */
@@ -33597,10 +32622,6 @@ case OP_IfNot: {            /* jump, in1 */
 }
 
 /* Opcode: IsNull P1 P2 P3 * *
-**
-** Jump to P2 if the value in register P1 is NULL.  If P3 is greater
-** than zero, then check all values reg(P1), reg(P1+1), 
-** reg(P1+2), ..., reg(P1+P3-1).
 */
 case OP_IsNull: {            /* same as TK_ISNULL, jump, in1 */
   int n = pOp->p3;
@@ -33627,41 +32648,12 @@ case OP_NotNull: {            /* same as TK_NOTNULL, jump, in1 */
 }
 
 /* Opcode: SetNumColumns * P2 * * *
-**
-** This opcode sets the number of columns for the cursor opened by the
-** following instruction to P2.
-**
-** An OP_SetNumColumns is only useful if it occurs immediately before 
-** one of the following opcodes:
-**
-**     OpenRead
-**     OpenWrite
-**     OpenPseudo
-**
-** If the OP_Column opcode is to be executed on a cursor, then
-** this opcode must be present immediately before the opcode that
-** opens the cursor.
 */
 case OP_SetNumColumns: {
   break;
 }
 
 /* Opcode: Column P1 P2 P3 P4 *
-**
-** Interpret the data that cursor P1 points to as a structure built using
-** the MakeRecord instruction.  (See the MakeRecord opcode for additional
-** information about the format of the data.)  Extract the P2-th column
-** from this record.  If there are less that (P2+1) 
-** values in the record, extract a NULL.
-**
-** The value extracted is stored in register P3.
-**
-** If the KeyAsData opcode has previously executed on this cursor, then the
-** field might be extracted from the key rather than the data.
-**
-** If the column contains fewer than P2 fields, then extract a NULL.  Or,
-** if the P4 argument is a P4_MEM use the value of the P4 argument as
-** the result.
 */
 case OP_Column: {
   u32 payloadSize;   /* Number of bytes in the record */
@@ -33687,8 +32679,8 @@ case OP_Column: {
   pDest = &p->aMem[pOp->p3];
   MemSetTypeFlag(pDest, MEM_Null);
 
-  /* This block sets the variable payloadSize to be the total number of
-  ** bytes in the record.
+  /* This block sets the variable payloadSize to be
+  ** the total number of bytes in the record.
   **
   ** zRec is set to be the complete text of the record if it is available.
   ** The complete record text is always available for pseudo-tables
@@ -34031,16 +33023,10 @@ case OP_MakeRecord: {
 }
 
 /* Opcode: Statement P1 * * * *
-**
 ** Begin an individual statement transaction which is part of a larger
 ** BEGIN..COMMIT transaction.  This is needed so that the statement
 ** can be rolled back after an error without having to roll back the
-** entire transaction.  The statement transaction will automatically
-** commit when the VDBE halts.
-**
-** The statement is begun on the database file with index P1.  The main
-** database file has an index of 0 and the file used for temporary tables
-** has an index of 1.
+** entire transaction.
 */
 case OP_Statement: {
   if( db->autoCommit==0 || db->activeVdbeCnt>1 ){
@@ -34060,12 +33046,7 @@ case OP_Statement: {
 }
 
 /* Opcode: AutoCommit P1 P2 * * *
-**
-** Set the database auto-commit flag to P1 (1 or 0). If P2 is true, roll
-** back any currently active btree transactions. If there are any active
-** VMs (apart from this one), then the COMMIT or ROLLBACK statement fails.
-**
-** This instruction causes the VM to halt.
+** Set the database auto-commit flag to P1 (1 or 0).
 */
 case OP_AutoCommit: {
   u8 i = pOp->p1;
@@ -34116,24 +33097,8 @@ case OP_AutoCommit: {
 }
 
 /* Opcode: Transaction P1 P2 * * *
-**
-** Begin a transaction.  The transaction ends when a Commit or Rollback
-** opcode is encountered.  Depending on the ON CONFLICT setting, the
-** transaction might also be rolled back if an error is encountered.
-**
-** P1 is the index of the database file on which the transaction is
-** started.  Index 0 is the main database file and index 1 is the
-** file used for temporary tables.  Indices of 2 or more are used for
-** attached databases.
-**
-** If P2 is non-zero, then a write-transaction is started.  A RESERVED lock is
-** obtained on the database file when a write-transaction is started.  No
-** other process can start another write transaction while this transaction is
-** underway.  Starting a write transaction also creates a rollback journal. A
-** write transaction must be started before any changes can be made to the
-** database.  If P2 is 2 or greater then an EXCLUSIVE lock is also obtained
-** on the file.
-**
+** Begin a transaction.  The transaction ends when
+** a Commit or Rollback opcode is encountered.
 ** If P2 is zero, then a read-lock is obtained on the database file.
 */
 case OP_Transaction: {
@@ -34159,21 +33124,7 @@ case OP_Transaction: {
 }
 
 /* Opcode: ReadCookie P1 P2 P3 * *
-**
 ** Read cookie number P3 from database P1 and write it into register P2.
-** P3==0 is the schema version.  P3==1 is the database format.
-** P3==2 is the recommended pager cache size, and so forth.  P1==0 is
-** the main database file and P1==1 is the database file used to store
-** temporary tables.
-**
-** If P1 is negative, then this is a request to read the size of a
-** databases free-list. P3 must be set to 1 in this case. The actual
-** database accessed is ((P1+1)*-1). For example, a P1 parameter of -1
-** corresponds to database 0 ("main"), a P1 of -2 is database 1 ("temp").
-**
-** There must be a read-lock on the database (either a transaction
-** must be started or there must be an open cursor) before
-** executing this instruction.
 */
 case OP_ReadCookie: {               /* out2-prerelease */
   int iMeta;
@@ -34202,14 +33153,8 @@ case OP_ReadCookie: {               /* out2-prerelease */
 }
 
 /* Opcode: SetCookie P1 P2 P3 * *
-**
 ** Write the content of register P3 (interpreted as an integer)
 ** into cookie number P2 of database P1.
-** P2==0 is the schema version.  P2==1 is the database format.
-** P2==2 is the recommended pager cache size, and so forth.  P1==0 is
-** the main database file and P1==1 is the database file used to store
-** temporary tables.
-**
 ** A transaction must be started before executing this opcode.
 */
 case OP_SetCookie: {       /* in3 */
@@ -34239,20 +33184,11 @@ case OP_SetCookie: {       /* in3 */
 }
 
 /* Opcode: VerifyCookie P1 P2 *
-**
 ** Check the value of global database parameter number 0 (the
-** schema version) and make sure it is equal to P2.  
-** P1 is the database number which is 0 for the main database file
-** and 1 for the file holding temporary tables and some higher number
-** for auxiliary databases.
-**
-** The cookie changes its value whenever the database schema changes.
-** This operation is used to detect when that the cookie has changed
-** and that the current process needs to reread the schema.
+** schema version) and make sure it is equal to P2. 
 **
 ** Either a transaction needs to have been started or an OP_Open needs
-** to be executed (to establish a read lock) before this opcode is
-** invoked.
+** to be executed (to establish a read lock) before this opcode is invoked.
 */
 case OP_VerifyCookie: {
   int iMeta;
@@ -34272,15 +33208,6 @@ case OP_VerifyCookie: {
     /* If the schema-cookie from the database file matches the cookie 
     ** stored with the in-memory representation of the schema, do
     ** not reload the schema from the database file.
-    **
-    ** If virtual-tables are in use, this is not just an optimisation.
-    ** Often, v-tables store their data in other SQLite tables, which
-    ** are queried from within xNext() and other v-table methods using
-    ** prepared queries. If such a query is out-of-date, we do not want to
-    ** discard the database schema, as the user code implementing the
-    ** v-table would have to be ready for the sqlite3_vtab structure itself
-    ** to be invalidated whenever sqlite3_step() is called from within 
-    ** a v-table method.
     */
     if( db->aDb[pOp->p1].pSchema->schema_cookie!=iMeta ){
       sqlite3ResetInternalSchema(db, pOp->p1);
@@ -34293,46 +33220,12 @@ case OP_VerifyCookie: {
 }
 
 /* Opcode: OpenRead P1 P2 P3 P4 P5
-**
 ** Open a read-only cursor for the database table whose root page is
 ** P2 in a database file.  The database file is determined by P3. 
-** P3==0 means the main database, P3==1 means the database used for 
-** temporary tables, and P3>1 means used the corresponding attached
-** database.  Give the new cursor an identifier of P1.  The P1
-** values need not be contiguous but all P1 values should be small integers.
-** It is an error for P1 to be negative.
-**
-** If P5!=0 then use the content of register P2 as the root page, not
-** the value of P2 itself.
-**
-** There will be a read lock on the database whenever there is an
-** open cursor.  If the database was unlocked prior to this instruction
-** then a read lock is acquired as part of this instruction.  A read
-** lock allows other processes to read the database but prohibits
-** any other process from modifying the database.  The read lock is
-** released when all cursors are closed.  If this instruction attempts
-** to get a read lock but fails, the script terminates with an
-** SQLITE_BUSY error code.
-**
-** The P4 value is a pointer to a KeyInfo structure that defines the
-** content and collating sequence of indices.  P4 is NULL for cursors
-** that are not pointing to indices.
-**
 ** See also OpenWrite.
 */
 /* Opcode: OpenWrite P1 P2 P3 P4 P5
-**
-** Open a read/write cursor named P1 on the table or index whose root page
-** is P2.  Or if P5!=0 use the content of register P2 to find the root page.
-**
-** The P4 value is a pointer to a KeyInfo structure that defines the
-** content and collating sequence of indices.  P4 is NULL for cursors
-** that are not pointing to indices.
-**
-** This instruction works just like OpenRead except that it opens the cursor
-** in read/write mode.  For a given table, there can be one or more read-only
-** cursors or a single read/write cursor but not both.
-**
+** Open a read/write cursor named P1 on the table or index whose root page is P2.
 ** See also OpenRead.
 */
 case OP_OpenRead:
@@ -34387,11 +33280,7 @@ case OP_OpenWrite: {
     }
     case SQLITE_OK: {
       int flags = sqlite3BtreeFlags(pCur->pCursor);
-      /* Sanity checking.  Only the lower four bits of the flags byte should
-      ** be used.  Bit 3 (mask 0x08) is unpreditable.  The lower 3 bits
-      ** (mask 0x07) should be either 5 (intkey+leafdata for tables) or
-      ** 2 (zerodata for indices).  If these conditions are not met it can
-      ** only mean that we are dealing with a corrupt database file
+      /* Sanity checking.
       */
       if( (flags & 0xf0)!=0 || ((flags & 0x07)!=5 && (flags & 0x07)!=2) ){
         rc = SQLITE_CORRUPT_BKPT;
@@ -34399,9 +33288,7 @@ case OP_OpenWrite: {
       }
       pCur->isTable = (flags & BTREE_INTKEY)!=0;
       pCur->isIndex = (flags & BTREE_ZERODATA)!=0;
-      /* If P4==0 it means we are expected to open a table.  If P4!=0 then
-      ** we expect to be opening an index.  If this is not what happened,
-      ** then the database is corrupt
+      /* If this is not what happened, then the database is corrupt
       */
       if( (pCur->isTable && pOp->p4type==P4_KEYINFO)
        || (pCur->isIndex && pOp->p4type!=P4_KEYINFO) ){
@@ -34425,22 +33312,10 @@ case OP_OpenWrite: {
 }
 
 /* Opcode: OpenEphemeral P1 P2 * P4 *
-**
 ** Open a new cursor P1 to a transient table.
 ** The cursor is always opened read/write even if 
 ** the main database is read-only.  The transient or virtual
 ** table is deleted automatically when the cursor is closed.
-**
-** P2 is the number of columns in the virtual table.
-** The cursor points to a BTree table if P4==0 and to a BTree index
-** if P4 is not 0.  If P4 is not NULL, it points to a KeyInfo structure
-** that defines the format of keys in the index.
-**
-** This opcode was once called OpenTemp.  But that created
-** confusion because the term "temp table", might refer either
-** to a TEMP table at the SQL level, or to a table opened by
-** this opcode.  Then this opcode was call OpenVirtual.  But
-** that created confusion with the whole virtual-table idea.
 */
 case OP_OpenEphemeral: {
   int i = pOp->p1;
@@ -34491,24 +33366,9 @@ case OP_OpenEphemeral: {
 }
 
 /* Opcode: OpenPseudo P1 P2 * * *
-**
 ** Open a new cursor that points to a fake table that contains a single
 ** row of data.  Any attempt to write a second row of data causes the
-** first row to be deleted.  All data is deleted when the cursor is
-** closed.
-**
-** A pseudo-table created by this opcode is useful for holding the
-** NEW or OLD tables in a trigger.  Also used to hold the a single
-** row output from the sorter so that the row can be decomposed into
-** individual columns using the OP_Column opcode.
-**
-** When OP_Insert is executed to insert a row in to the pseudo table,
-** the pseudo-table cursor may or may not make it's own copy of the
-** original row data. If P2 is 0, then the pseudo-table will copy the
-** original row data. Otherwise, a pointer to the original memory cell
-** is stored. In this case, the vdbe program must ensure that the 
-** memory cell containing the row data is not overwritten until the
-** pseudo table is closed (or a new row is inserted into it).
+** first row to be deleted.  All data is deleted when the cursor is closed.
 */
 case OP_OpenPseudo: {
   int i = pOp->p1;
@@ -34526,9 +33386,8 @@ case OP_OpenPseudo: {
 }
 
 /* Opcode: Close P1 * * * *
-**
-** Close a cursor previously opened as P1.  If P1 is not
-** currently open, this instruction is a no-op.
+** Close a cursor previously opened as P1.
+** If P1 is not currently open, this instruction is a no-op.
 */
 case OP_Close: {
   int i = pOp->p1;
@@ -34539,50 +33398,10 @@ case OP_Close: {
 }
 
 /* Opcode: MoveGe P1 P2 P3 * *
-**
-** Use the value in register P3 as a key.  Reposition
-** cursor P1 so that it points to the smallest entry that is greater
-** than or equal to the key in register P3.
-** If there are no records greater than or equal to the key and P2 
-** is not zero, then jump to P2.
-**
-** A special feature of this opcode (and different from the
-** related OP_MoveGt, OP_MoveLt, and OP_MoveLe) is that if P2 is
-** zero and P1 is an SQL table (a b-tree with integer keys) then
-** the seek is deferred until it is actually needed.  It might be
-** the case that the cursor is never accessed.  By deferring the
-** seek, we avoid unnecessary seeks.
-**
-** See also: Found, NotFound, Distinct, MoveLt, MoveGt, MoveLe
-*/
 /* Opcode: MoveGt P1 P2 P3 * *
-**
-** Use the value in register P3 as a key.  Reposition
-** cursor P1 so that it points to the smallest entry that is greater
-** than the key in register P3.
-** If there are no records greater than the key 
-** then jump to P2.
-**
-** See also: Found, NotFound, Distinct, MoveLt, MoveGe, MoveLe
-*/
 /* Opcode: MoveLt P1 P2 P3 * * 
-**
-** Use the value in register P3 as a key.  Reposition
-** cursor P1 so that it points to the largest entry that is less
-** than the key in register P3.
-** If there are no records less than the key
-** then jump to P2.
-**
-** See also: Found, NotFound, Distinct, MoveGt, MoveGe, MoveLe
-*/
 /* Opcode: MoveLe P1 P2 P3 * *
-**
-** Use the value in register P3 as a key.  Reposition
-** cursor P1 so that it points to the largest entry that is less than
-** or equal to the key.
-** If there are no records less than or eqal to the key
-** then jump to P2.
-**
+** Use the value in register P3 as a key.
 ** See also: Found, NotFound, Distinct, MoveGt, MoveGe, MoveLt
 */
 case OP_MoveLt:         /* jump, in3 */
@@ -34720,23 +33539,7 @@ case OP_Found: {        /* jump, in3 */
 }
 
 /* Opcode: IsUnique P1 P2 P3 P4 *
-**
-** The P3 register contains an integer record number.  Call this
-** record number R.  The P4 register contains an index key created
-** using MakeIdxRec.  Call it K.
-**
-** P1 is an index.  So it has no data and its key consists of a
-** record generated by OP_MakeRecord where the last field is the 
-** rowid of the entry that the index refers to.
-** 
-** This instruction asks if there is an entry in P1 where the
-** fields matches K but the rowid is different from R.
-** If there is no such entry, then there is an immediate
-** jump to P2.  If any entry does exist where the index string
-** matches K but the record number is not R, then the record
-** number for that entry is written into P3 and control
-** falls through to the next instruction.
-**
+** The P3 register contains an integer record number.
 ** See also: NotFound, NotExists, Found
 */
 case OP_IsUnique: {        /* jump, in3 */
@@ -34797,10 +33600,8 @@ case OP_IsUnique: {        /* jump, in3 */
       break;
     }
 
-    /* At this point, pCrsr is pointing to an entry in P1 where all but
-    ** the final entry (the rowid) matches K.  Check to see if the
-    ** final rowid column is different from R.  If it equals R then jump
-    ** immediately to P2.
+    /* At this point, pCrsr is pointing to an entry in P1
+    ** If it equals R then jump immediately to P2.
     */
     rc = sqlite3VdbeIdxRowid(pCrsr, &v);
     if( rc!=SQLITE_OK ){
@@ -34811,9 +33612,8 @@ case OP_IsUnique: {        /* jump, in3 */
       break;
     }
 
-    /* The final varint of the key is different from R.  Store it back
-    ** into register R3.  (The record number of an entry that violates
-    ** a UNIQUE constraint.)
+    /* The final varint of the key is different from R.
+    ** Store it back into register R3.
     */
     pIn3->u.i = v;
     assert( pIn3->flags&MEM_Int );
@@ -34822,17 +33622,7 @@ case OP_IsUnique: {        /* jump, in3 */
 }
 
 /* Opcode: NotExists P1 P2 P3 * *
-**
-** Use the content of register P3 as a integer key.  If a record 
-** with that key does not exist in table of P1, then jump to P2. 
-** If the record does exist, then fall thru.  The cursor is left 
-** pointing to the record if it exists.
-**
-** The difference between this operation and NotFound is that this
-** operation assumes the key is an integer and that P1 is a table whereas
-** NotFound assumes key is a blob constructed from MakeRecord and
-** P1 is an index.
-**
+** Use the content of register P3 as a integer key
 ** See also: Found, MoveTo, NotFound, IsUnique
 */
 case OP_NotExists: {        /* jump, in3 */
@@ -34866,11 +33656,8 @@ case OP_NotExists: {        /* jump, in3 */
 }
 
 /* Opcode: Sequence P1 P2 * * *
-**
 ** Find the next available sequence number for cursor P1.
 ** Write the sequence number into register P2.
-** The sequence number on the cursor is incremented after this
-** instruction.  
 */
 case OP_Sequence: {           /* out2-prerelease */
   int i = pOp->p1;
@@ -34883,18 +33670,7 @@ case OP_Sequence: {           /* out2-prerelease */
 
 
 /* Opcode: NewRowid P1 P2 P3 * *
-**
 ** Get a new integer record number (a.k.a "rowid") used as the key to a table.
-** The record number is not previously used as a key in the database
-** table that cursor P1 points to.  The new record number is written
-** written to register P2.
-**
-** If P3>0 then P3 is a register that holds the largest previously
-** generated record number.  No new record numbers are allowed to be less
-** than this value.  When this value reaches its maximum, a SQLITE_FULL
-** error is generated.  The P3 register is updated with the generated
-** record number.  This P3 mechanism is used to help implement the
-** AUTOINCREMENT feature.
 */
 case OP_NewRowid: {           /* out2-prerelease */
   int i = pOp->p1;
@@ -34905,36 +33681,7 @@ case OP_NewRowid: {           /* out2-prerelease */
   if( (pC = p->apCsr[i])->pCursor==0 ){
     /* The zero initialization above is all that is needed */
   }else{
-    /* The next rowid or record number (different terms for the same
-    ** thing) is obtained in a two-step algorithm.
-    **
-    ** First we attempt to find the largest existing rowid and add one
-    ** to that.  But if the largest existing rowid is already the maximum
-    ** positive integer, we have to fall through to the second
-    ** probabilistic algorithm
-    **
-    ** The second algorithm is to select a rowid at random and see if
-    ** it already exists in the table.  If it does not exist, we have
-    ** succeeded.  If the random rowid does exist, we select a new one
-    ** and try again, up to 1000 times.
-    **
-    ** For a table with less than 2 billion entries, the probability
-    ** of not finding a unused rowid is about 1.0e-300.  This is a 
-    ** non-zero probability, but it is still vanishingly small and should
-    ** never cause a problem.  You are much, much more likely to have a
-    ** hardware failure than for this algorithm to fail.
-    **
-    ** The analysis in the previous paragraph assumes that you have a good
-    ** source of random numbers.  Is a library function like lrand48()
-    ** good enough?  Maybe. Maybe not. It's hard to know whether there
-    ** might be subtle bugs is some implementations of lrand48() that
-    ** could cause problems. To avoid uncertainty, SQLite uses its own 
-    ** random number generator based on the RC4 algorithm.
-    **
-    ** To promote locality of reference for repetitive inserts, the
-    ** first few attempts at chosing a random rowid pick values just a little
-    ** larger than the previous rowid.  This has been shown experimentally
-    ** to double the speed of the COPY operation.
+    /* The next rowid or record number  obtained in a two-step algorithm.
     */
     int res, rx=SQLITE_OK, cnt;
     i64 x;
@@ -34951,8 +33698,6 @@ case OP_NewRowid: {           /* out2-prerelease */
 #   define MAX_ROWID 0x7fffffff
 #else
     /* Some compilers complain about constants of the form 0x7fffffffffffffff.
-    ** Others complain about 0x7ffffffffffffffffLL.  The following macro seems
-    ** to provide the constant while making all compilers happy.
     */
 #   define MAX_ROWID  ( (((u64)0x7fffffff)<<32) | (u64)0xffffffff )
 #endif
@@ -35797,11 +34542,6 @@ case OP_LoadAnalysis: {
 #endif /* !defined(SQLITE_OMIT_ANALYZE) && !defined(SQLITE_OMIT_PARSER)  */
 
 /* Opcode: DropTable P1 * * P4 *
-**
-** Remove the internal (in-memory) data structures that describe
-** the table named P4 in database P1.  This is called after a table
-** is dropped in order to keep the internal representation of the
-** schema consistent with what is on disk.
 */
 case OP_DropTable: {
   sqlite3UnlinkAndDeleteTable(db, pOp->p1, pOp->p4.z);
@@ -35809,11 +34549,6 @@ case OP_DropTable: {
 }
 
 /* Opcode: DropIndex P1 * * P4 *
-**
-** Remove the internal (in-memory) data structures that describe
-** the index named P4 in database P1.  This is called after an index
-** is dropped in order to keep the internal representation of the
-** schema consistent with what is on disk.
 */
 case OP_DropIndex: {
   sqlite3UnlinkAndDeleteIndex(db, pOp->p1, pOp->p4.z);
@@ -35821,11 +34556,6 @@ case OP_DropIndex: {
 }
 
 /* Opcode: DropTrigger P1 * * P4 *
-**
-** Remove the internal (in-memory) data structures that describe
-** the trigger named P4 in database P1.  This is called after a trigger
-** is dropped in order to keep the internal representation of the
-** schema consistent with what is on disk.
 */
 case OP_DropTrigger: {
   sqlite3UnlinkAndDeleteTrigger(db, pOp->p1, pOp->p4.z);
@@ -35835,23 +34565,7 @@ case OP_DropTrigger: {
 
 #ifndef SQLITE_OMIT_INTEGRITY_CHECK
 /* Opcode: IntegrityCk P1 P2 P3 * P5
-**
-** Do an analysis of the currently open database.  Store in
-** register P1 the text of an error message describing any problems.
-** If no problems are found, store a NULL in register P1.
-**
-** The register P3 contains the maximum number of allowed errors.
-** At most reg(P3) errors will be reported.
-** In other words, the analysis stops as soon as reg(P1) errors are 
-** seen.  Reg(P1) is updated with the number of errors remaining.
-**
-** The root page numbers of all tables in the database are integer
-** stored in reg(P1), reg(P1+1), reg(P1+2), ....  There are P2 tables
-** total.
-**
-** If P5 is not zero, the check is done on the auxiliary database
-** file, not the main database file.
-**
+** Do an analysis of the currently open database.
 ** This opcode is used to implement the integrity_check pragma.
 */
 case OP_IntegrityCk: {
@@ -35905,11 +34619,7 @@ case OP_FifoWrite: {        /* in1 */
 }
 
 /* Opcode: FifoRead P1 P2 * * *
-**
-** Attempt to read a single integer from the Fifo.  Store that
-** integer in register P1.
-** 
-** If the Fifo is empty jump to P2.
+** Attempt to read a single integer from the Fifo. 
 */
 case OP_FifoRead: {         /* jump */
   CHECK_FOR_INTERRUPT;
@@ -35923,11 +34633,8 @@ case OP_FifoRead: {         /* jump */
 }
 
 #ifndef SQLITE_OMIT_TRIGGER
-/* Opcode: ContextPush * * * 
-**
-** Save the current Vdbe context such that it can be restored by a ContextPop
-** opcode. The context stores the last insert row id, the last statement change
-** count, and the current statement change count.
+/* Opcode: ContextPush * * *
+** Save the current Vdbe context such that it can be restored by a ContextPop opcode.
 */
 case OP_ContextPush: {
   int i = p->contextStackTop++;
@@ -35950,10 +34657,7 @@ case OP_ContextPush: {
 }
 
 /* Opcode: ContextPop * * * 
-**
-** Restore the Vdbe context to the state it was in when contextPush was last
-** executed. The context stores the last insert row id, the last statement
-** change count, and the current statement change count.
+** Restore the Vdbe context to the state it was in when contextPush was last executed.
 */
 case OP_ContextPop: {
   Context *pContext = &p->contextStack[--p->contextStackTop];
@@ -35968,11 +34672,6 @@ case OP_ContextPop: {
 
 #ifndef SQLITE_OMIT_AUTOINCREMENT
 /* Opcode: MemMax P1 P2 * * *
-**
-** Set the value of register P1 to the maximum of its current value
-** and the value in register P2.
-**
-** This instruction throws an error if the memory cell is not initially an integer.
 */
 case OP_MemMax: {        /* in1, in2 */
   sqlite3VdbeMemIntegerify(pIn1);
@@ -35985,7 +34684,6 @@ case OP_MemMax: {        /* in1, in2 */
 #endif /* SQLITE_OMIT_AUTOINCREMENT */
 
 /* Opcode: IfPos P1 P2 * * *
-**
 ** If the value of register P1 is 1 or greater, jump to P2.
 **
 ** It is illegal to use this instruction on a register that does
@@ -36015,7 +34713,6 @@ case OP_IfNeg: {        /* jump, in1 */
 }
 
 /* Opcode: IfZero P1 P2 * * *
-**
 ** If the value of register P1 is exactly 0, jump to P2. 
 **
 ** It is illegal to use this instruction on a register that does
@@ -36030,14 +34727,7 @@ case OP_IfZero: {        /* jump, in1 */
 }
 
 /* Opcode: AggStep * P2 P3 P4 P5
-**
-** Execute the step function for an aggregate.  The
-** function has P5 arguments.   P4 is a pointer to the FuncDef
-** structure that specifies the function.  Use register
-** P3 as the accumulator.
-**
-** The P5 arguments are taken from register P2 and its
-** successors.
+** Execute the step function for an aggregate.
 */
 case OP_AggStep: {
   int n = pOp->p5;
@@ -36081,16 +34771,7 @@ case OP_AggStep: {
 }
 
 /* Opcode: AggFinal P1 P2 * P4 *
-**
-** Execute the finalizer function for an aggregate.  P1 is
-** the memory location that is the accumulator for the aggregate.
-**
-** P2 is the number of arguments that the step function takes and
-** P4 is a pointer to the FuncDef for this function.  The P2
-** argument is not used by this opcode.  It is only there to disambiguate
-** functions that can take varying numbers of arguments.  The
-** P4 argument is only needed for the degenerate case where
-** the step function was not previously called.
+** Execute the finalizer function for an aggregate.
 */
 case OP_AggFinal: {
   Mem *pMem;
@@ -36112,10 +34793,7 @@ case OP_AggFinal: {
 
 #if !defined(SQLITE_OMIT_VACUUM) && !defined(SQLITE_OMIT_ATTACH)
 /* Opcode: Vacuum * * * * *
-**
-** Vacuum the entire database.  This opcode will cause other virtual
-** machines to be created and run.  It may not be called from within
-** a transaction.
+** Vacuum the entire database.
 */
 case OP_Vacuum: {
   if( sqlite3SafetyOff(db) ) goto abort_due_to_misuse; 
@@ -36127,7 +34805,6 @@ case OP_Vacuum: {
 
 #if !defined(SQLITE_OMIT_AUTOVACUUM)
 /* Opcode: IncrVacuum P1 P2 * * *
-**
 ** Perform a single step of the incremental vacuum procedure on
 ** the P1 database. If the vacuum has finished, jump to instruction
 ** P2. Otherwise, fall through to the next instruction.
@@ -36148,13 +34825,9 @@ case OP_IncrVacuum: {        /* jump */
 #endif
 
 /* Opcode: Expire P1 * * * *
-**
 ** Cause precompiled statements to become expired. An expired statement
 ** fails with an error code of SQLITE_SCHEMA if it is ever executed 
 ** (via sqlite3_step()).
-** 
-** If P1 is 0, then all SQL statements become expired. If P1 is non-zero,
-** then only the currently executing statement is affected. 
 */
 case OP_Expire: {
   if( !pOp->p1 ){
@@ -36167,18 +34840,8 @@ case OP_Expire: {
 
 #ifndef SQLITE_OMIT_SHARED_CACHE
 /* Opcode: TableLock P1 P2 P3 P4 *
-**
-** Obtain a lock on a particular table. This instruction is only used when
-** the shared-cache feature is enabled. 
-**
-** If P1 is  the index of the database in sqlite3.aDb[] of the database
-** on which the lock is acquired.  A readlock is obtained if P3==0 or
-** a write lock if P3==1.
-**
-** P2 contains the root-page of the table to lock.
-**
-** P4 contains a pointer to the name of the table being locked. This is only
-** used to generate an error message if the lock cannot be obtained.
+** Obtain a lock on a particular table.
+** This instruction is only used when the shared-cache feature is enabled. 
 */
 case OP_TableLock: {
   int p1 = pOp->p1; 
@@ -36209,7 +34872,6 @@ case OP_VBegin: {
 
 #ifndef SQLITE_OMIT_VIRTUALTABLE
 /* Opcode: VCreate P1 * * P4 *
-**
 ** P4 is the name of a virtual table in database P1.
 ** Call the xCreate method for that table.
 */
@@ -36221,7 +34883,6 @@ case OP_VCreate: {
 
 #ifndef SQLITE_OMIT_VIRTUALTABLE
 /* Opcode: VDestroy P1 * * P4 *
-**
 ** P4 is the name of a virtual table in database P1.
 ** Call the xDestroy method of that table.
 */
@@ -36235,7 +34896,6 @@ case OP_VDestroy: {
 
 #ifndef SQLITE_OMIT_VIRTUALTABLE
 /* Opcode: VOpen P1 * * P4 *
-**
 ** P4 is a pointer to a virtual table object, an sqlite3_vtab structure.
 ** P1 is a cursor number.  This opcode opens a cursor to the virtual
 ** table and stores that cursor in P1.
@@ -36271,22 +34931,7 @@ case OP_VOpen: {
 
 #ifndef SQLITE_OMIT_VIRTUALTABLE
 /* Opcode: VFilter P1 P2 P3 P4 *
-**
-** P1 is a cursor opened using VOpen.  P2 is an address to jump to if
-** the filtered result set is empty.
-**
-** P4 is either NULL or a string that was generated by the xBestIndex
-** method of the module.  The interpretation of the P4 string is left
-** to the module implementation.
-**
-** This opcode invokes the xFilter method on the virtual table specified
-** by P1.  The integer query plan parameter to xFilter is stored in register
-** P3. Register P3+1 stores the argc parameter to be passed to the
-** xFilter method. Registers P3+2..P3+1+argc are the argc additional
-** parametersneath additional parameters which are passed to
-** xFilter as argv. Register P3+2 becomes argv[0] when passed to xFilter.
-**
-** A jump is made to P2 if the result set after filtering would be empty.
+** P1 is a cursor opened using VOpen. 
 */
 case OP_VFilter: {   /* jump */
   int nArg;
@@ -36337,7 +34982,6 @@ case OP_VFilter: {   /* jump */
 
 #ifndef SQLITE_OMIT_VIRTUALTABLE
 /* Opcode: VRowid P1 P2 * * *
-**
 ** Store into register P2  the rowid of
 ** the virtual-table that the P1 cursor is pointing to.
 */
@@ -36363,7 +35007,6 @@ case OP_VRowid: {             /* out2-prerelease */
 
 #ifndef SQLITE_OMIT_VIRTUALTABLE
 /* Opcode: VColumn P1 P2 P3 * *
-**
 ** Store the value of the P2-th column of
 ** the row of the virtual-table that the 
 ** P1 cursor is pointing to into register P3.
@@ -36385,10 +35028,9 @@ case OP_VColumn: {
   assert( pModule->xColumn );
   memset(&sContext, 0, sizeof(sContext));
 
-  /* The output cell may already have a buffer allocated. Move
-  ** the current contents to sContext.s so in case the user-function 
-  ** can use the already allocated buffer instead of allocating a 
-  ** new one.
+  /* The output cell may already have a buffer allocated.
+  ** Move the current contents to sContext.s so in case the user-function 
+  ** can use the already allocated buffer instead of allocating a new one.
   */
   sqlite3VdbeMemMove(&sContext.s, pDest);
   MemSetTypeFlag(&sContext.s, MEM_Null);
@@ -36396,9 +35038,9 @@ case OP_VColumn: {
   if( sqlite3SafetyOff(db) ) goto abort_due_to_misuse;
   rc = pModule->xColumn(pCur->pVtabCursor, &sContext, pOp->p2);
 
-  /* Copy the result of the function to the P3 register. We
-  ** do this regardless of whether or not an error occured to ensure any
-  ** dynamic allocation in sContext.s (a Mem struct) is  released.
+  /* Copy the result of the function to the P3 register.
+  ** We do this regardless of whether or not an error occured to ensure any
+  ** dynamic allocation in sContext.s (a Mem struct) is released.
   */
   sqlite3VdbeChangeEncoding(&sContext.s, encoding);
   REGISTER_TRACE(pOp->p3, pDest);
@@ -36417,7 +35059,6 @@ case OP_VColumn: {
 
 #ifndef SQLITE_OMIT_VIRTUALTABLE
 /* Opcode: VNext P1 P2 * * *
-**
 ** Advance virtual table P1 to the next row in its result set and
 ** jump to instruction P2.  Or, if the virtual table has reached
 ** the end of its result set, then fall through to the next instruction.
@@ -36459,7 +35100,6 @@ case OP_VNext: {   /* jump */
 
 #ifndef SQLITE_OMIT_VIRTUALTABLE
 /* Opcode: VRename P1 * * P4 *
-**
 ** P4 is a pointer to a virtual table object, an sqlite3_vtab structure.
 ** This opcode invokes the corresponding xRename method. The value
 ** in register P1 is passed as the zName argument to the xRename method.
@@ -36484,27 +35124,7 @@ case OP_VRename: {
 
 #ifndef SQLITE_OMIT_VIRTUALTABLE
 /* Opcode: VUpdate P1 P2 P3 P4 *
-**
-** P4 is a pointer to a virtual table object, an sqlite3_vtab structure.
-** This opcode invokes the corresponding xUpdate method. P2 values
-** are contiguous memory cells starting at P3 to pass to the xUpdate 
-** invocation. The value in register (P3+P2-1) corresponds to the 
-** p2th element of the argv array passed to xUpdate.
-**
-** The xUpdate method will do a DELETE or an INSERT or both.
-** The argv[0] element (which corresponds to memory cell P3)
-** is the rowid of a row to delete.  If argv[0] is NULL then no 
-** deletion occurs.  The argv[1] element is the rowid of the new 
-** row.  This can be NULL to have the virtual table select the new 
-** rowid for itself.  The subsequent elements in the array are 
-** the values of columns in the new row.
-**
-** If P2==1 then no insert is performed.  argv[0] is the rowid of
-** a row to delete.
-**
-** P1 is a boolean flag. If it is set to true and the xUpdate call
-** is successful, then the value returned by sqlite3_last_insert_rowid() 
-** is set to the value of the rowid for the row just inserted.
+** This opcode invokes the corresponding xUpdate method.
 */
 case OP_VUpdate: {
   sqlite3_vtab *pVtab = pOp->p4.pVtab;
@@ -36541,7 +35161,6 @@ case OP_VUpdate: {
 
 #ifndef SQLITE_OMIT_TRACE
 /* Opcode: Trace * * * P4 *
-**
 ** If tracing is enabled (by the sqlite3_trace()) interface, then
 ** the UTF-8 string contained in P4 is emitted on the trace callback.
 */
@@ -36562,7 +35181,6 @@ case OP_Trace: {
 
 
 /* Opcode: Noop * * * * *
-**
 ** Do nothing.  This instruction is often useful as a jump destination.
 */
 /*
@@ -36578,8 +35196,7 @@ default: {          /* This is really OP_Noop and OP_Explain */
 /*****************************************************************************
 ** The cases of the switch statement above this line should all be indented
 ** by 6 spaces.  But the left-most 6 spaces have been removed to improve the
-** readability.  From this point on down, the normal indentation rules are
-** restored.
+** readability.  From this point on down, the normal indentation rules are restored.
 *****************************************************************************/
     }
 
@@ -36627,8 +35244,7 @@ vdbe_error_halt:
   sqlite3VdbeHalt(p);
 
   /* This is the only way out of this procedure.  We have to
-  ** release the mutexes on btrees that were acquired at the
-  ** top. */
+  ** release the mutexes on btrees that were acquired at the top. */
 vdbe_return:
   sqlite3BtreeMutexArrayLeave(&p->aMutex);
   return rc;
@@ -36655,8 +35271,7 @@ abort_due_to_misuse:
   rc = SQLITE_MISUSE;
   /* Fall thru into abort_due_to_error */
 
-  /* Jump to here for any other kind of fatal error.  The "rc" variable
-  ** should hold the error number.
+  /* Jump to here for any other kind of fatal error.
   */
 abort_due_to_error:
   assert( p->zErrMsg==0 );
@@ -36664,8 +35279,7 @@ abort_due_to_error:
   sqlite3SetString(&p->zErrMsg, sqlite3ErrStr(rc), (char*)0);
   goto vdbe_error_halt;
 
-  /* Jump to here if the sqlite3_interrupt() API sets the interrupt
-  ** flag.
+  /* Jump to here if the sqlite3_interrupt() API sets the interrupt flag.
   */
 abort_due_to_interrupt:
   assert( db->u1.isInterrupted );
@@ -36720,20 +35334,7 @@ SQLITE_API int sqlite3_blob_open(
   int nAttempt = 0;
   int iCol;               /* Index of zColumn in row-record */
 
-  /* This VDBE program seeks a btree cursor to the identified 
-  ** db/table/row entry. The reason for using a vdbe program instead
-  ** of writing code to use the b-tree layer directly is that the
-  ** vdbe program will take advantage of the various transaction,
-  ** locking and error handling infrastructure built into the vdbe.
-  **
-  ** After seeking the cursor, the vdbe executes an OP_ResultRow.
-  ** Code external to the Vdbe then "borrows" the b-tree cursor and
-  ** uses it to implement the blob_read(), blob_write() and 
-  ** blob_bytes() functions.
-  **
-  ** The sqlite3_blob_close() function finalizes the vdbe program,
-  ** which closes the b-tree cursor and (possibly) commits the 
-  ** transaction.
+  /* This VDBE program seeks a btree cursor to the identified db/table/row entry.
   */
   static const VdbeOpList openBlob[] = {
     {OP_Transaction, 0, 0, 0},     /* 0: Start a transaction */
@@ -36845,12 +35446,7 @@ SQLITE_API int sqlite3_blob_open(
       sqlite3VdbeChangeP2(v, (flags ? 5 : 3), pTab->tnum);
       sqlite3VdbeChangeP3(v, (flags ? 5 : 3), iDb);
 
-      /* Configure the OP_SetNumColumns. Configure the cursor to
-      ** think that the table has one more column than it really
-      ** does. An OP_Column to retrieve this imaginary column will
-      ** always return an SQL NULL. This is useful because it means
-      ** we can invoke OP_Column to fill in the vdbe cursors type 
-      ** and offset cache without causing any IO.
+      /* Configure the OP_SetNumColumns.
       */
       sqlite3VdbeChangeP2(v, flags ? 4 : 2, pTab->nCol+1);
       if( !db->mallocFailed ){
@@ -36875,9 +35471,7 @@ SQLITE_API int sqlite3_blob_open(
   } while( nAttempt<5 && rc==SQLITE_SCHEMA );
 
   if( rc==SQLITE_ROW ){
-    /* The row-record has been opened successfully. Check that the
-    ** column in question contains text or a blob. If it contains
-    ** text, it is up to the caller to get the encoding right.
+    /* The row-record has been opened successfully.
     */
     Incrblob *pBlob;
     u32 type = v->apCsr[0]->aType[iCol];
@@ -36922,8 +35516,7 @@ blob_open_out:
 }
 
 /*
-** Close a blob handle that was previously created using
-** sqlite3_blob_open().
+** Close a blob handle that was previously created using sqlite3_blob_open().
 */
 SQLITE_API int sqlite3_blob_close(sqlite3_blob *pBlob){
   Incrblob *p = (Incrblob *)pBlob;
@@ -36962,8 +35555,7 @@ static int blobReadWrite(
   if( v==0 ){
     rc = SQLITE_ABORT;
   }else{
-    /* Call either BtreeData() or BtreePutData(). If SQLITE_ABORT is
-    ** returned, clean-up the statement handle.
+    /* Call either BtreeData() or BtreePutData().
     */
     assert( db == v->db );
     sqlite3BtreeEnterCursor(p->pCsr);
@@ -37407,14 +35999,6 @@ static u8 binaryCompareP5(Expr *pExpr1, Expr *pExpr2, int jumpIfNull){
 /*
 ** Return a pointer to the collation sequence that should be used by
 ** a binary comparison operator comparing pLeft and pRight.
-**
-** If the left hand expression has a collating sequence type, then it is
-** used. Otherwise the collation sequence for the right hand expression
-** is used, or the default (BINARY) if neither expression has a collating
-** type.
-**
-** Argument pRight (but not pLeft) may be a null pointer. In this case,
-** it is not considered.
 */
 SQLITE_PRIVATE CollSeq *sqlite3BinaryCompareCollSeq(
   Parse *pParse, 
@@ -37439,11 +36023,7 @@ SQLITE_PRIVATE CollSeq *sqlite3BinaryCompareCollSeq(
 }
 
 /*
-** Generate the operands for a comparison operation.  Before
-** generating the code for each operand, set the EP_AnyAff
-** flag on the expression so that it will be able to used a
-** cached column value that has previously undergone an
-** affinity change.
+** Generate the operands for a comparison operation.
 */
 static void codeCompareOperands(
   Parse *pParse,    /* Parsing and code generating context */
@@ -37491,9 +36071,7 @@ static int codeCompare(
 }
 
 /*
-** Construct a new expression node and return a pointer to it.  Memory
-** for this node is obtained from sqlite3_malloc().  The calling function
-** is responsible for making sure the node eventually gets freed.
+** Construct a new expression node and return a pointer to it. 
 */
 SQLITE_PRIVATE Expr *sqlite3Expr(
   sqlite3 *db,            /* Handle for sqlite3DbMallocZero() (may be null) */
@@ -37556,13 +36134,6 @@ SQLITE_PRIVATE Expr *sqlite3PExpr(
 
 /*
 ** When doing a nested parse, you can include terms in an expression
-** that look like this:   #1 #2 ...  These terms refer to registers
-** in the virtual machine.  #N is the N-th register.
-**
-** This routine is called by the parser to deal with on of those terms.
-** It immediately generates code to store the value in a memory location.
-** The returns an expression that will code to extract the value from
-** that memory location as needed.
 */
 SQLITE_PRIVATE Expr *sqlite3RegisterExpr(Parse *pParse, Token *pToken){
   Vdbe *v = pParse->pVdbe;
@@ -39630,17 +38201,7 @@ SQLITE_PRIVATE int sqlite3ExprCodeTarget(Parse *pParse, Expr *pExpr, int target)
         nExpr = r1 = 0;
       }
 #ifndef SQLITE_OMIT_VIRTUALTABLE
-      /* Possibly overload the function if the first argument is
-      ** a virtual table column.
-      **
-      ** For infix functions (LIKE, GLOB, REGEXP, and MATCH) use the
-      ** second argument, not the first, as the argument to test to
-      ** see if it is a column in a virtual table.  This is done because
-      ** the left operand of infix functions (the operand we want to
-      ** control overloading) ends up as the second argument to the
-      ** function.  The expression "A glob B" is equivalent to 
-      ** "glob(B,A).  We want to use the A in "A glob B" to test
-      ** for function overloading.  But we use the B term in "glob(B,A)".
+      /* Possibly overload the function if the first argument is a virtual table column.
       */
       if( nExpr>=2 && (pExpr->flags & EP_InfixFunc) ){
         pDef = sqlite3VtabOverloadFunction(db, pDef, nExpr, pList->a[1].pExpr);
@@ -42424,9 +40985,7 @@ SQLITE_PRIVATE int sqlite3AuthCheck(
 }
 
 /*
-** Push an authorization context.  After this routine is called, the
-** zArg3 argument to authorization callbacks will be zContext until
-** popped.  Or if pParse==0, this routine is a no-op.
+** Push an authorization context.
 */
 SQLITE_PRIVATE void sqlite3AuthContextPush(
   Parse *pParse,
@@ -42441,8 +41000,7 @@ SQLITE_PRIVATE void sqlite3AuthContextPush(
 }
 
 /*
-** Pop an authorization context that was previously pushed
-** by sqlite3AuthContextPush
+** Pop an authorization context that was pushed by sqlite3AuthContextPush
 */
 SQLITE_PRIVATE void sqlite3AuthContextPop(AuthContext *pContext){
   if( pContext->pParse ){
@@ -42478,8 +41036,8 @@ SQLITE_PRIVATE void sqlite3AuthContextPop(AuthContext *pContext){
 */
 
 /*
-** This routine is called when a new SQL statement is beginning to
-** be parsed.  Initialize the pParse structure as needed.
+** This routine is called when a new SQL statement is beginning to be parsed.
+** Initialize the pParse structure as needed.
 */
 SQLITE_PRIVATE void sqlite3BeginParse(Parse *pParse, int explainFlag){
   pParse->explain = explainFlag;
@@ -42488,8 +41046,8 @@ SQLITE_PRIVATE void sqlite3BeginParse(Parse *pParse, int explainFlag){
 
 #ifndef SQLITE_OMIT_SHARED_CACHE
 /*
-** The TableLock structure is only used by the sqlite3TableLock() and
-** codeTableLocks() functions.
+** The TableLock structure is only used by the sqlite3TableLock()
+** and codeTableLocks() functions.
 */
 struct TableLock {
   int iDb;             /* The database containing the table to be locked */
@@ -43550,21 +42108,7 @@ SQLITE_PRIVATE void sqlite3AddDefaultValue(Parse *pParse, Expr *pExpr){
 }
 
 /*
-** Designate the PRIMARY KEY for the table.  pList is a list of names 
-** of columns that form the primary key.  If pList is NULL, then the
-** most recently added column of the table is the primary key.
-**
-** A table can have at most one primary key.  If the table already has
-** a primary key (and this is the second primary key) then create an error.
-**
-** If the PRIMARY KEY is on a single column whose datatype is INTEGER,
-** then we will try to use that column as the rowid.  Set the Table.iPKey
-** field of the table under construction to be the index of the
-** INTEGER PRIMARY KEY column.  Table.iPKey is set to -1 if there is
-** no INTEGER PRIMARY KEY.
-**
-** If the key is not an INTEGER PRIMARY KEY, then create a unique
-** index for the key.  No index is created for INTEGER PRIMARY KEYs.
+** Designate the PRIMARY KEY for the table.
 */
 SQLITE_PRIVATE void sqlite3AddPrimaryKey(
   Parse *pParse,    /* Parsing context */
@@ -43633,9 +42177,6 @@ SQLITE_PRIVATE void sqlite3AddCheckConstraint(
   Table *pTab = pParse->pNewTable;
   sqlite3 *db = pParse->db;
   if( pTab && !IN_DECLARE_VTAB ){
-    /* The CHECK expression must be duplicated so that tokens refer
-    ** to malloced space and not the (ephemeral) text of the CREATE TABLE
-    ** statement */
     pTab->pCheck = sqlite3ExprAnd(db, pTab->pCheck, 
                                   sqlite3ExprDup(db, pCheckExpr));
   }
@@ -43661,11 +42202,7 @@ SQLITE_PRIVATE void sqlite3AddCollateType(Parse *pParse, Token *pToken){
   if( sqlite3LocateCollSeq(pParse, zColl, -1) ){
     Index *pIdx;
     p->aCol[i].zColl = zColl;
-  
-    /* If the column is declared as "<name> PRIMARY KEY COLLATE <type>",
-    ** then an index may have been created on this column before the
-    ** collation type was added. Correct this if it is the case.
-    */
+
     for(pIdx=p->pIndex; pIdx; pIdx=pIdx->pNext){
       assert( pIdx->nColumn==1 );
       if( pIdx->aiColumn[0]==i ){
@@ -43680,20 +42217,7 @@ SQLITE_PRIVATE void sqlite3AddCollateType(Parse *pParse, Token *pToken){
 /*
 ** This function returns the collation sequence for database native text
 ** encoding identified by the string zName, length nName.
-**
-** If the requested collation sequence is not available, or not available
-** in the database native encoding, the collation factory is invoked to
-** request it. If the collation factory does not supply such a sequence,
-** and the sequence is available in another text encoding, then that is
-** returned instead.
-**
-** If no versions of the requested collations sequence are available, or
-** another error occurs, NULL is returned and an error message written into
-** pParse.
-**
-** This routine is a wrapper around sqlite3FindCollSeq().  This routine
-** invokes the collation factory if the named collation cannot be found
-** and generates an error message.
+** This routine is a wrapper around sqlite3FindCollSeq().
 */
 SQLITE_PRIVATE CollSeq *sqlite3LocateCollSeq(Parse *pParse, const char *zName, int nName){
   sqlite3 *db = pParse->db;
@@ -43719,19 +42243,6 @@ SQLITE_PRIVATE CollSeq *sqlite3LocateCollSeq(Parse *pParse, const char *zName, i
 
 /*
 ** Generate code that will increment the schema cookie.
-**
-** The schema cookie is used to determine when the schema for the
-** database changes.  After each schema change, the cookie value
-** changes.  When a process first reads the schema it records the
-** cookie.  Thereafter, whenever it goes to access the database,
-** it checks the cookie to make sure the schema has not changed
-** since it was last read.
-**
-** This plan is not completely bullet-proof.  It is possible for
-** the schema to change multiple times and for the cookie to be
-** set back to prior value.  But schema changes are infrequent
-** and the probability of hitting the same cookie value is only
-** 1 chance in 2^32.  So we're safe enough.
 */
 SQLITE_PRIVATE void sqlite3ChangeCookie(Parse *pParse, int iDb){
   int r1 = sqlite3GetTempReg(pParse);
@@ -43743,12 +42254,7 @@ SQLITE_PRIVATE void sqlite3ChangeCookie(Parse *pParse, int iDb){
 }
 
 /*
-** Measure the number of characters needed to output the given
-** identifier.  The number returned includes any quotes used
-** but does not include the null terminator.
-**
-** The estimate is conservative.  It might be larger that what is
-** really needed.
+** Measure the number of characters needed to output the given identifier. 
 */
 static int identLength(const char *z){
   int n;
@@ -43759,8 +42265,7 @@ static int identLength(const char *z){
 }
 
 /*
-** Write an identifier onto the end of the given string.  Add
-** quote characters as needed.
+** Write an identifier onto the end of the given string.
 */
 static void identPut(char *z, int *pIdx, char *zSignedIdent){
   unsigned char *zIdent = (unsigned char*)zSignedIdent;
@@ -43782,9 +42287,7 @@ static void identPut(char *z, int *pIdx, char *zSignedIdent){
 }
 
 /*
-** Generate a CREATE TABLE statement appropriate for the given
-** table.  Memory to hold the text of the statement is obtained
-** from sqliteMalloc() and must be freed by the calling function.
+** Generate a CREATE TABLE statement appropriate for the given table.
 */
 static char *createTableStmt(sqlite3 *db, Table *p, int isTemp){
   int i, k, n;
@@ -43839,22 +42342,6 @@ static char *createTableStmt(sqlite3 *db, Table *p, int isTemp){
 /*
 ** This routine is called to report the final ")" that terminates
 ** a CREATE TABLE statement.
-**
-** The table structure that other action routines have been building
-** is added to the internal hash tables, assuming no errors have
-** occurred.
-**
-** An entry for the table is made in the master table on disk, unless
-** this is a temporary table or db->init.busy==1.  When db->init.busy==1
-** it means we are reading the sqlite_master table because we just
-** connected to the database or because the sqlite_master table has
-** recently changed, so the entry for this table already exists in
-** the sqlite_master table.  We do not want to create it again.
-**
-** If the pSelect argument is not NULL, it means that this routine
-** was called to create a table generated from a 
-** "CREATE TABLE ... AS SELECT ..." statement.  The column names of
-** the new table will match the result set of the SELECT.
 */
 SQLITE_PRIVATE void sqlite3EndTable(
   Parse *pParse,          /* Parse context */
@@ -43898,23 +42385,10 @@ SQLITE_PRIVATE void sqlite3EndTable(
   }
 #endif /* !defined(SQLITE_OMIT_CHECK) */
 
-  /* If the db->init.busy is 1 it means we are reading the SQL off the
-  ** "sqlite_master" or "sqlite_temp_master" table on the disk.
-  ** So do not write to the disk again.  Extract the root page number
-  ** for the table from the db->init.newTnum field.  (The page number
-  ** should have been put there by the sqliteOpenCb routine.)
-  */
   if( db->init.busy ){
     p->tnum = db->init.newTnum;
   }
 
-  /* If not initializing, then create a record for the new table
-  ** in the SQLITE_MASTER table of the database.  The record number
-  ** for the new table entry should already be on the stack.
-  **
-  ** If this is a TEMPORARY table, write the entry into the auxiliary
-  ** file instead of into the main database file.
-  */
   if( !db->init.busy ){
     int n;
     Vdbe *v;
@@ -43928,8 +42402,6 @@ SQLITE_PRIVATE void sqlite3EndTable(
     sqlite3VdbeAddOp1(v, OP_Close, 0);
 
     /* Create the rootpage for the new table and push it onto the stack.
-    ** A view has no rootpage, so just push a zero onto the stack for
-    ** views.  Initialize zType at the same time.
     */
     if( p->pSelect==0 ){
       /* A regular table */
@@ -43943,18 +42415,7 @@ SQLITE_PRIVATE void sqlite3EndTable(
 #endif
     }
 
-    /* If this is a CREATE TABLE xx AS SELECT ..., execute the SELECT
-    ** statement to populate the new table. The root-page number for the
-    ** new table is on the top of the vdbe stack.
-    **
-    ** Once the SELECT has been coded by sqlite3Select(), it is in a
-    ** suitable state to query for the column names and types to be used
-    ** by the new table.
-    **
-    ** A shared-cache write-lock is not required to write to the new table,
-    ** as a schema-lock must have already been obtained to create it. Since
-    ** a schema-lock excludes all other database users, the write-lock would
-    ** be redundant.
+    /* If this is a CREATE TABLE xx AS SELECT ..., execute the SELECT statement
     */
     if( pSelect ){
       SelectDest dest;
@@ -43988,11 +42449,7 @@ SQLITE_PRIVATE void sqlite3EndTable(
       );
     }
 
-    /* A slot for the record has already been allocated in the 
-    ** SQLITE_MASTER table.  We just need to update that slot with all
-    ** the information we've collected.  The rowid for the preallocated
-    ** slot is the 2nd item on the stack.  The top of the stack is the
-    ** root page for the new table (or a 0 if this is a view).
+    /* A slot for the record has already been allocated in the SQLITE_MASTER table.
     */
     sqlite3NestedParse(pParse,
       "UPDATE %Q.%s "
@@ -44497,9 +42954,7 @@ SQLITE_PRIVATE void sqlite3DropTable(Parse *pParse, SrcList *pName, int isView, 
 
 #ifndef SQLITE_OMIT_AUTOINCREMENT
     /* Remove any entries of the sqlite_sequence table associated with
-    ** the table being dropped. This is done before the table is dropped
-    ** at the btree level, in case the sqlite_sequence table needs to
-    ** move as a result of the drop (can happen in auto-vacuum mode).
+    ** the table being dropped.
     */
     if( pTab->autoInc ){
       sqlite3NestedParse(pParse,
@@ -44509,12 +42964,7 @@ SQLITE_PRIVATE void sqlite3DropTable(Parse *pParse, SrcList *pName, int isView, 
     }
 #endif
 
-    /* Drop all SQLITE_MASTER table and index entries that refer to the
-    ** table. The program name loops through the master table and deletes
-    ** every row that refers to a table of the same name as the one being
-    ** dropped. Triggers are handled seperately because a trigger can be
-    ** created in the temp database that refers to a table in another
-    ** database.
+    /* Drop all SQLITE_MASTER table and index entries that refer to the table.
     */
     sqlite3NestedParse(pParse, 
         "DELETE FROM %Q.%s WHERE tbl_name=%Q and type!='trigger'",
@@ -44531,8 +42981,7 @@ SQLITE_PRIVATE void sqlite3DropTable(Parse *pParse, SrcList *pName, int isView, 
       destroyTable(pParse, pTab);
     }
 
-    /* Remove the table entry from SQLite's internal schema and modify
-    ** the schema cookie.
+    /* Remove the table entry from SQLite's internal schema and modify the schema cookie.
     */
     if( IsVirtual(pTab) ){
       sqlite3VdbeAddOp4(v, OP_VDestroy, iDb, 0, 0, pTab->zName, 0);
@@ -44547,22 +42996,8 @@ exit_drop_table:
 }
 
 /*
-** This routine is called to create a new foreign key on the table
-** currently under construction.  pFromCol determines which columns
-** in the current table point to the foreign key.  If pFromCol==0 then
-** connect the key to the last column inserted.  pTo is the name of
-** the table referred to.  pToCol is a list of tables in the other
-** pTo table that the foreign key points to.  flags contains all
-** information about the conflict resolution algorithms specified
-** in the ON DELETE, ON UPDATE and ON INSERT clauses.
-**
-** An FKey structure is created and added to the table currently
-** under construction in the pParse->pNewTable field.  The new FKey
-** is not linked into db->aFKey at this point - that does not happen
-** until sqlite3EndTable().
-**
-** The foreign key is set for IMMEDIATE processing.  A subsequent call
-** to sqlite3DeferForeignKey() might change this to DEFERRED.
+** This routine is called to create a new foreign key on
+** the table currently under construction.
 */
 SQLITE_PRIVATE void sqlite3CreateForeignKey(
   Parse *pParse,       /* Parsing context */
@@ -44862,17 +43297,7 @@ SQLITE_PRIVATE void sqlite3CreateIndex(
 #endif
 
   /*
-  ** Find the name of the index.  Make sure there is not already another
-  ** index or table with the same name.  
-  **
-  ** Exception:  If we are reading the names of permanent indices from the
-  ** sqlite_master table (because some other process changed the schema) and
-  ** one of the index names collides with the name of a temporary table or
-  ** index, then we will continue to process this index.
-  **
-  ** If pName==0 it means that we are
-  ** dealing with a primary key or UNIQUE constraint.  We have to invent our
-  ** own name.
+  ** Find the name of the index.
   */
   if( pName ){
     zName = sqlite3NameFromToken(db, pName);
@@ -44985,8 +43410,7 @@ SQLITE_PRIVATE void sqlite3CreateIndex(
   }
 
   /* Scan the names of the columns of the table to be indexed and
-  ** load the column indices into the Index structure.  Report an error
-  ** if any column is not found.
+  ** load the column indices into the Index structure.
   */
   for(i=0, pListItem=pList->a; i<pList->nExpr; i++, pListItem++){
     const char *zColName = pListItem->zName;
@@ -45002,12 +43426,7 @@ SQLITE_PRIVATE void sqlite3CreateIndex(
         pTab->zName, zColName);
       goto exit_create_index;
     }
-    /* TODO:  Add a test to make sure that the same column is not named
-    ** more than once within the same index.  Only the first instance of
-    ** the column will ever be used by the optimizer.  Note that using the
-    ** same column more than once cannot be an error because that would 
-    ** break backwards compatibility - it needs to be a warning.
-    */
+
     pIndex->aiColumn[i] = j;
     if( pListItem->pExpr ){
       assert( pListItem->pExpr->pColl );
@@ -45030,18 +43449,7 @@ SQLITE_PRIVATE void sqlite3CreateIndex(
   sqlite3DefaultRowEst(pIndex);
 
   if( pTab==pParse->pNewTable ){
-    /* This routine has been called to create an automatic index as a
-    ** result of a PRIMARY KEY or UNIQUE clause on a column definition, or
-    ** a PRIMARY KEY or UNIQUE clause following the column definitions.
-    ** i.e. one of:
-    **
-    ** CREATE TABLE t(x PRIMARY KEY, y);
-    ** CREATE TABLE t(x, y, UNIQUE(x, y));
-    **
-    ** Either way, check to see if the table already has such an index. If
-    ** so, don't bother creating this one. This only applies to
-    ** automatically created indices. Users can do as they wish with
-    ** explicit indices.
+    /* This routine has been called to create an automatic index
     */
     Index *pIdx;
     for(pIdx=pTab->pIndex; pIdx; pIdx=pIdx->pNext){
@@ -45060,12 +43468,7 @@ SQLITE_PRIVATE void sqlite3CreateIndex(
       }
       if( k==pIdx->nColumn ){
         if( pIdx->onError!=pIndex->onError ){
-          /* This constraint creates the same index as a previous
-          ** constraint specified somewhere in the CREATE TABLE statement.
-          ** However the ON CONFLICT clauses are different. If both this 
-          ** constraint and the previous equivalent constraint have explicit
-          ** ON CONFLICT clauses this is an error. Otherwise, use the
-          ** explicitly specified behaviour for the index.
+          /* This constraint creates the same index as a previous constraint
           */
           if( !(pIdx->onError==OE_Default || pIndex->onError==OE_Default) ){
             sqlite3ErrorMsg(pParse, 
@@ -45098,20 +43501,7 @@ SQLITE_PRIVATE void sqlite3CreateIndex(
     }
   }
 
-  /* If the db->init.busy is 0 then create the index on disk.  This
-  ** involves writing the index into the master table and filling in the
-  ** index with the current table contents.
-  **
-  ** The db->init.busy is 0 when the user first enters a CREATE INDEX 
-  ** command.  db->init.busy is 1 when a database is opened and 
-  ** CREATE INDEX statements are read out of the master table.  In
-  ** the latter case the index already exists on disk, which is why
-  ** we don't want to recreate it.
-  **
-  ** If pTblName==0 it means this index is generated as a primary key
-  ** or UNIQUE constraint of a CREATE TABLE statement.  Since the table
-  ** has just been created, it contains no data and the index initialization
-  ** step can be skipped.
+  /* If the db->init.busy is 0 then create the index on disk.
   */
   else if( db->init.busy==0 ){
     Vdbe *v;
@@ -45166,10 +43556,7 @@ SQLITE_PRIVATE void sqlite3CreateIndex(
     }
   }
 
-  /* When adding an index to the list of indices for a table, make
-  ** sure all indices labeled OE_Replace come after all those labeled
-  ** OE_Ignore.  This is necessary for the correct operation of UPDATE
-  ** and INSERT.
+  /* This is necessary for the correct operation of UPDATE and INSERT.
   */
   if( db->init.busy || pTblName==0 ){
     if( onError!=OE_Replace || pTab->pIndex==0
@@ -45221,22 +43608,9 @@ SQLITE_PRIVATE void sqlite3MinimumFileFormat(Parse *pParse, int iDb, int minForm
 }
 
 /*
-** Fill the Index.aiRowEst[] array with default information - information
-** to be used when we have not run the ANALYZE command.
-**
-** aiRowEst[0] is suppose to contain the number of elements in the index.
-** Since we do not know, guess 1 million.  aiRowEst[1] is an estimate of the
-** number of rows in the table that match any particular value of the
-** first column of the index.  aiRowEst[2] is an estimate of the number
-** of rows that match any particular combiniation of the first 2 columns
-** of the index.  And so forth.  It must always be the case that
-*
-**           aiRowEst[N]<=aiRowEst[N-1]
-**           aiRowEst[N]>=1
-**
-** Apart from that, we have little to go on besides intuition as to
-** how aiRowEst[] should be initialized.  The numbers generated here
-** are based on typical values found in actual indices.
+** Fill the Index.aiRowEst[] array with default information -
+** information to be used when we have not run the ANALYZE command.
+
 */
 SQLITE_PRIVATE void sqlite3DefaultRowEst(Index *pIdx){
   unsigned *a = pIdx->aiRowEst;
@@ -46035,14 +44409,7 @@ SQLITE_PRIVATE CollSeq *sqlite3GetCollSeq(
 
 /*
 ** This routine is called on a collation sequence before it is used to
-** check that it is defined. An undefined collation sequence exists when
-** a database is loaded that contains references to collation sequences
-** that have not been defined by sqlite3_create_collation() etc.
-**
-** If required, this routine calls the 'collation needed' callback to
-** request a definition of the collating sequence. If this doesn't work, 
-** an equivalent collating sequence that uses a text encoding different
-** from the main database is substituted, if one is available.
+** check that it is defined.
 */
 SQLITE_PRIVATE int sqlite3CheckCollSeq(Parse *pParse, CollSeq *pColl){
   if( pColl ){
@@ -46063,17 +44430,7 @@ SQLITE_PRIVATE int sqlite3CheckCollSeq(Parse *pParse, CollSeq *pColl){
 
 
 /*
-** Locate and return an entry from the db.aCollSeq hash table. If the entry
-** specified by zName and nName is not found and parameter 'create' is
-** true, then create a new entry. Otherwise return NULL.
-**
-** Each pointer stored in the sqlite3.aCollSeq hash table contains an
-** array of three CollSeq structures. The first is the collation sequence
-** prefferred for UTF-8, the second UTF-16le, and the third UTF-16be.
-**
-** Stored immediately after the three collation sequences is a copy of
-** the collation sequence name. A pointer to this string is stored in
-** each collation sequence structure.
+** Locate and return an entry from the db.aCollSeq hash table.
 */
 static CollSeq *findCollSeqEntry(
   sqlite3 *db,
@@ -46099,10 +44456,6 @@ static CollSeq *findCollSeqEntry(
       pColl[0].zName[nName] = 0;
       pDel = sqlite3HashInsert(&db->aCollSeq, pColl[0].zName, nName, pColl);
 
-      /* If a malloc() failure occured in sqlite3HashInsert(), it will 
-      ** return the pColl pointer to be deleted (because it wasn't added
-      ** to the hash table).
-      */
       assert( pDel==0 || pDel==pColl );
       if( pDel!=0 ){
         db->mallocFailed = 1;
@@ -46116,16 +44469,6 @@ static CollSeq *findCollSeqEntry(
 
 /*
 ** Parameter zName points to a UTF-8 encoded string nName bytes long.
-** Return the CollSeq* pointer for the collation sequence named zName
-** for the encoding 'enc' from the database 'db'.
-**
-** If the entry specified is not found and 'create' is true, then create a
-** new entry.  Otherwise return NULL.
-**
-** A separate function sqlite3LocateCollSeq() is a wrapper around
-** this routine.  sqlite3LocateCollSeq() invokes the collation factory
-** if necessary and generates an error message if the collating sequence
-** cannot be found.
 */
 SQLITE_PRIVATE CollSeq *sqlite3FindCollSeq(
   sqlite3 *db,
@@ -46148,23 +44491,7 @@ SQLITE_PRIVATE CollSeq *sqlite3FindCollSeq(
 
 /*
 ** Locate a user function given a name, a number of arguments and a flag
-** indicating whether the function prefers UTF-16 over UTF-8.  Return a
-** pointer to the FuncDef structure that defines that function, or return
-** NULL if the function does not exist.
-**
-** If the createFlag argument is true, then a new (blank) FuncDef
-** structure is created and liked into the "db" structure if a
-** no matching function previously existed.  When createFlag is true
-** and the nArg parameter is -1, then only a function that accepts
-** any number of arguments will be returned.
-**
-** If createFlag is false and nArg is -1, then the first valid
-** function found is returned.  A function is valid if either xFunc
-** or xStep is non-zero.
-**
-** If createFlag is false, then a function with the required name and
-** number of arguments may be returned even if the eTextRep flag does not
-** match that requested.
+** indicating whether the function prefers UTF-16 over UTF-8.
 */
 SQLITE_PRIVATE FuncDef *sqlite3FindFunction(
   sqlite3 *db,       /* An open database */
@@ -46186,22 +44513,7 @@ SQLITE_PRIVATE FuncDef *sqlite3FindFunction(
   pFirst = (FuncDef*)sqlite3HashFind(&db->aFunc, zName, nName);
   for(p=pFirst; p; p=p->pNext){
     /* During the search for the best function definition, bestmatch is set
-    ** as follows to indicate the quality of the match with the definition
-    ** pointed to by pBest:
-    **
-    ** 0: pBest is NULL. No match has been found.
-    ** 1: A variable arguments function that prefers UTF-8 when a UTF-16
-    **    encoding is requested, or vice versa.
-    ** 2: A variable arguments function that uses UTF-16BE when UTF-16LE is
-    **    requested, or vice versa.
-    ** 3: A variable arguments function using the same text encoding.
-    ** 4: A function with the exact number of arguments requested that
-    **    prefers UTF-8 when a UTF-16 encoding is requested, or vice versa.
-    ** 5: A function with the exact number of arguments requested that
-    **    prefers UTF-16LE when UTF-16BE is requested, or vice versa.
-    ** 6: An exact match.
-    **
-    ** A larger value of 'matchqual' indicates a more desirable match.
+    ** as follows to indicate the quality of the match
     */
     if( p->nArg==-1 || p->nArg==nArg || nArg==-1 ){
       int match = 1;          /* Quality of this match */
@@ -48198,9 +46510,8 @@ SQLITE_PRIVATE void sqlite3RegisterLikeFunctions(sqlite3 *db, int caseSensitive)
 /*
 ** pExpr points to an expression which implements a function.  If
 ** it is appropriate to apply the LIKE optimization to that function
-** then set aWc[0] through aWc[2] to the wildcard characters and
-** return TRUE.  If the function is not a LIKE-style function then
-** return FALSE.
+** then set aWc[0] through aWc[2] to the wildcard characters and return TRUE.
+** If the function is not a LIKE-style function then return FALSE.
 */
 SQLITE_PRIVATE int sqlite3IsLikeFunction(sqlite3 *db, Expr *pExpr, int *pIsNocase, char *aWc){
   FuncDef *pDef;
@@ -48217,8 +46528,8 @@ SQLITE_PRIVATE int sqlite3IsLikeFunction(sqlite3 *db, Expr *pExpr, int *pIsNocas
   }
 
   /* The memcpy() statement assumes that the wildcard characters are
-  ** the first three statements in the compareInfo structure.  The
-  ** asserts() that follow verify that assumption
+  ** the first three statements in the compareInfo structure.
+  ** The asserts() that follow verify that assumption
   */
   memcpy(aWc, pDef->pUserData, 3);
   assert( (char*)&likeInfoAlt == (char*)&likeInfoAlt.matchAll );
@@ -48482,88 +46793,6 @@ static int xferOptimization(
 **
 **    insert into TABLE (IDLIST) values(EXPRLIST)
 **    insert into TABLE (IDLIST) select
-**
-** The IDLIST following the table name is always optional.  If omitted,
-** then a list of all columns for the table is substituted.  The IDLIST
-** appears in the pColumn parameter.  pColumn is NULL if IDLIST is omitted.
-**
-** The pList parameter holds EXPRLIST in the first form of the INSERT
-** statement above, and pSelect is NULL.  For the second form, pList is
-** NULL and pSelect is a pointer to the select statement used to generate
-** data for the insert.
-**
-** The code generated follows one of four templates.  For a simple
-** select with data coming from a VALUES clause, the code executes
-** once straight down through.  The template looks like this:
-**
-**         open write cursor to <table> and its indices
-**         puts VALUES clause expressions onto the stack
-**         write the resulting record into <table>
-**         cleanup
-**
-** The three remaining templates assume the statement is of the form
-**
-**   INSERT INTO <table> SELECT ...
-**
-** If the SELECT clause is of the restricted form "SELECT * FROM <table2>" -
-** in other words if the SELECT pulls all columns from a single table
-** and there is no WHERE or LIMIT or GROUP BY or ORDER BY clauses, and
-** if <table2> and <table1> are distinct tables but have identical
-** schemas, including all the same indices, then a special optimization
-** is invoked that copies raw records from <table2> over to <table1>.
-** See the xferOptimization() function for the implementation of this
-** template.  This is the second template.
-**
-**         open a write cursor to <table>
-**         open read cursor on <table2>
-**         transfer all records in <table2> over to <table>
-**         close cursors
-**         foreach index on <table>
-**           open a write cursor on the <table> index
-**           open a read cursor on the corresponding <table2> index
-**           transfer all records from the read to the write cursors
-**           close cursors
-**         end foreach
-**
-** The third template is for when the second template does not apply
-** and the SELECT clause does not read from <table> at any time.
-** The generated code follows this template:
-**
-**         goto B
-**      A: setup for the SELECT
-**         loop over the rows in the SELECT
-**           gosub C
-**         end loop
-**         cleanup after the SELECT
-**         goto D
-**      B: open write cursor to <table> and its indices
-**         goto A
-**      C: insert the select result into <table>
-**         return
-**      D: cleanup
-**
-** The fourth template is used if the insert statement takes its
-** values from a SELECT but the data is being inserted into a table
-** that is also read as part of the SELECT.  In the third form,
-** we have to use a intermediate table to store the results of
-** the select.  The template is like this:
-**
-**         goto B
-**      A: setup for the SELECT
-**         loop over the tables in the SELECT
-**           gosub C
-**         end loop
-**         cleanup after the SELECT
-**         goto D
-**      C: insert the select result into the intermediate table
-**         return
-**      B: open a cursor to an intermediate table
-**         goto A
-**      D: open write cursor to <table> and its indices
-**         loop over the intermediate table
-**           transfer values form intermediate table into <table>
-**         end the loop
-**         cleanup
 */
 SQLITE_PRIVATE void sqlite3Insert(
   Parse *pParse,        /* Parser context */
@@ -48770,8 +46999,7 @@ SQLITE_PRIVATE void sqlite3Insert(
       sqlite3VdbeJumpHere(v, iInitCode);
     }
   }else{
-    /* This is the case if the data for the INSERT is coming from a VALUES
-    ** clause
+    /* This is the case if the data for the INSERT is coming from a VALUES clause
     */
     NameContext sNC;
     memset(&sNC, 0, sizeof(sNC));
@@ -48843,8 +47071,8 @@ SQLITE_PRIVATE void sqlite3Insert(
     }
   }
 
-  /* If there is no IDLIST term but the table has an integer primary
-  ** key, the set the keyColumn variable to the primary key column index
+  /* If there is no IDLIST term but the table has an integer primary key,
+  ** the set the keyColumn variable to the primary key column index
   ** in the original table definition.
   */
   if( pColumn==0 && nColumn>0 ){
@@ -51998,16 +50226,7 @@ SQLITE_PRIVATE void sqlite3Pragma(
   ** the schema-version and the user-version are 32-bit signed integers
   ** stored in the database header.
   **
-  ** The schema-cookie is usually only manipulated internally by SQLite. It
-  ** is incremented by SQLite whenever the database schema is modified (by
-  ** creating or dropping a table or index). The schema version is used by
-  ** SQLite each time a query is executed to ensure that the internal cache
-  ** of the schema used when compiling the SQL query matches the schema of
-  ** the database against which the compiled query is actually executed.
-  ** Subverting this mechanism by using "PRAGMA schema_version" to modify
-  ** the schema-version is potentially dangerous and may lead to program
-  ** crashes or database corruption. Use with caution!
-  **
+  ** The schema-cookie is usually only manipulated internally by SQLite.
   ** The user-version is not used internally by SQLite. It may be used by
   ** applications for any purpose.
   */
@@ -52840,12 +51059,7 @@ SQLITE_PRIVATE int sqlite3Reprepare(Vdbe *p){
 
 
 /*
-** Two versions of the official API.  Legacy and new use.  In the legacy
-** version, the original SQL text is not saved in the prepared statement
-** and so if a schema change occurs, SQLITE_SCHEMA is returned by
-** sqlite3_step().  In the new version, the original SQL text is retained
-** and the statement is automatically recompiled if an schema change
-** occurs.
+** Two versions of the official API.  Legacy and new use.
 */
 SQLITE_API int sqlite3_prepare(
   sqlite3 *db,              /* Database handle. */
@@ -52918,12 +51132,7 @@ static int sqlite3Prepare16(
 }
 
 /*
-** Two versions of the official API.  Legacy and new use.  In the legacy
-** version, the original SQL text is not saved in the prepared statement
-** and so if a schema change occurs, SQLITE_SCHEMA is returned by
-** sqlite3_step().  In the new version, the original SQL text is retained
-** and the statement is automatically recompiled if an schema change
-** occurs.
+** Two versions of the official API.  Legacy and new use.
 */
 SQLITE_API int sqlite3_prepare16(
   sqlite3 *db,              /* Database handle. */ 
@@ -52966,7 +51175,6 @@ SQLITE_API int sqlite3_prepare16_v2(
 ** $Id: select.c, v 1.427 2008/04/15 $
 */
 
-
 /*
 ** Delete all the content of a Select structure but do not deallocate
 ** the select structure itself.
@@ -52993,7 +51201,6 @@ SQLITE_PRIVATE void sqlite3SelectDestInit(SelectDest *pDest, int eDest, int iPar
   pDest->iMem = 0;
   pDest->nMem = 0;
 }
-
 
 /*
 ** Allocate a new Select structure and return a pointer to that
@@ -53233,27 +51440,6 @@ static void addWhereTerm(
 /*
 ** Set the EP_FromJoin property on all terms of the given expression.
 ** And set the Expr.iRightJoinTable to iTable for every term in the expression.
-**
-** The EP_FromJoin property is used on terms of an expression to tell
-** the LEFT OUTER JOIN processing logic that this term is part of the
-** join restriction specified in the ON or USING clause and not a part
-** of the more general WHERE clause.  These terms are moved over to the
-** WHERE clause during join processing but we need to remember that they
-** originated in the ON or USING clause.
-**
-** The Expr.iRightJoinTable tells the WHERE clause processing that the
-** expression depends on table iRightJoinTable even if that table is not
-** explicitly mentioned in the expression.  That information is needed
-** for cases like this:
-**
-**    SELECT * FROM t1 LEFT JOIN t2 ON t1.a=t2.b AND t1.x=5
-**
-** The where clause needs to defer the handling of the t1.x=5
-** term until after the t2 loop of the join.  In that way, a
-** NULL t2 row will be inserted whenever t1.x!=5.  If we do not
-** defer the handling of t1.x=5, it will be processed immediately
-** after the t1 loop and rows with t1.x!=5 will never appear in
-** the output, which is incorrect.
 */
 static void setJoinExpr(Expr *p, int iTable){
   while( p ){
@@ -53268,15 +51454,6 @@ static void setJoinExpr(Expr *p, int iTable){
 ** This routine processes the join information for a SELECT statement.
 ** ON and USING clauses are converted into extra terms of the WHERE clause.
 ** NATURAL joins also create extra WHERE clause terms.
-**
-** The terms of a FROM clause are contained in the Select.pSrc structure.
-** The left most table is the first entry in Select.pSrc.  The right-most
-** table is the last entry.  The join operator is held in the entry to
-** the left.  Thus entry 0 contains the join operator for the join between
-** entries 0 and 1.  Any ON or USING clauses associated with the join are
-** also attached to the left entry.
-**
-** This routine returns the number of errors encountered.
 */
 static int sqliteProcessJoin(Parse *pParse, Select *p){
   SrcList *pSrc;                  /* All tables in the FROM clause */
@@ -53840,20 +52017,6 @@ static void generateSortTail(
 /*
 ** Return a pointer to a string containing the 'declaration type' of the
 ** expression pExpr. The string may be treated as static by the caller.
-**
-** The declaration type is the exact datatype definition extracted from the
-** original CREATE TABLE statement if the expression is a column. The
-** declaration type for a ROWID field is INTEGER. Exactly when an expression
-** is considered a column can be complex in the presence of subqueries. The
-** result-set expression in all of the following SELECT statements is 
-** considered a column by this function.
-**
-**   SELECT col FROM tbl;
-**   SELECT (SELECT col FROM tbl;
-**   SELECT (SELECT col FROM tbl);
-**   SELECT abc FROM (SELECT col AS abc FROM tbl);
-** 
-** The declaration type for any expression other than a column is NULL.
 */
 static const char *columnType(
   NameContext *pNC, 
@@ -53892,14 +52055,7 @@ static const char *columnType(
 
       if( pTab==0 ){
         /* FIX ME:
-        ** This can occurs if you have something like "SELECT new.x;" inside
-        ** a trigger.  In other words, if you reference the special "new"
-        ** table in the result set of a select.  We do not have a good way
-        ** to find the actual table type, so call it "TEXT".  This is really
-        ** something of a bug, but I do not know how to fix it.
-        **
-        ** This code does not produce the correct answer - it just prevents
-        ** a segfault.  See ticket #1229.
+        ** This code does not produce the correct answer - it just prevents a segfault.
         */
         zType = "TEXT";
         break;
@@ -54245,15 +52401,15 @@ static int prepSelectStmt(Parse *pParse, Select *p){
   */
   sqlite3SrcListAssignCursors(pParse, p->pSrc);
 
-  /* Look up every table named in the FROM clause of the select.  If
-  ** an entry of the FROM clause is a subquery instead of a table or view,
+  /* Look up every table named in the FROM clause of the select.
+  ** If an entry of the FROM clause is a subquery instead of a table or view,
   ** then create a transient table structure to describe the subquery.
   */
   for(i=0, pFrom=pTabList->a; i<pTabList->nSrc; i++, pFrom++){
     Table *pTab;
     if( pFrom->pTab!=0 ){
-      /* This statement has already been prepared.  There is no need
-      ** to go further. */
+      /* This statement has already been prepared.
+      ** There is no need to go further. */
       assert( i==0 );
       return 0;
     }
@@ -54310,14 +52466,7 @@ static int prepSelectStmt(Parse *pParse, Select *p){
   if( sqliteProcessJoin(pParse, p) ) return 1;
 
   /* For every "*" that occurs in the column list, insert the names of
-  ** all columns in all tables.  And for every TABLE.* insert the names
-  ** of all columns in TABLE.  The parser inserted a special expression
-  ** with the TK_ALL operator for each "*" that it found in the column list.
-  ** The following code just has to locate the TK_ALL expressions and expand
-  ** each one to the list of all columns in all tables.
-  **
-  ** The first loop just checks to see if there are any "*" operators
-  ** that need expanding.
+  ** all columns in all tables.
   */
   for(k=0; k<pEList->nExpr; k++){
     Expr *pE = pEList->a[k].pExpr;
@@ -54353,9 +52502,8 @@ static int prepSelectStmt(Parse *pParse, Select *p){
         a[k].pExpr = 0;
         a[k].zName = 0;
       }else{
-        /* This expression is a "*" or a "TABLE.*" and needs to be
-        ** expanded. */
-        int tableSeen = 0;      /* Set to 1 when TABLE matches */
+        /* This expression is a "*" or a "TABLE.*" and needs to be expanded. */
+        int tableSeen = 0;       /* Set to 1 when TABLE matches */
         char *zTName;            /* text of name of TABLE */
         if( pE->op==TK_DOT && pE->pLeft ){
           zTName = sqlite3NameFromToken(db, &pE->pLeft->token);
@@ -54455,21 +52603,6 @@ static int prepSelectStmt(Parse *pParse, Select *p){
 /*
 ** pE is a pointer to an expression which is a single term in
 ** ORDER BY or GROUP BY clause.
-**
-** If pE evaluates to an integer constant i, then return i.
-** This is an indication to the caller that it should sort
-** by the i-th column of the result set.
-**
-** If pE is a well-formed expression and the SELECT statement
-** is not compound, then return 0.  This indicates to the
-** caller that it should sort by the value of the ORDER BY
-** expression.
-**
-** If the SELECT is compound, then attempt to match pE against
-** result set columns in the left-most SELECT statement.  Return
-** the index i of the matching column, as an indication to the 
-** caller that it should sort by the i-th column.  If there is
-** no match, return -1 and leave an error message in pParse.
 */
 static int matchOrderByTermToExprList(
   Parse *pParse,     /* Parsing context for error messages */
@@ -54554,11 +52687,6 @@ static int matchOrderByTermToExprList(
 /*
 ** Analyze and ORDER BY or GROUP BY clause in a simple SELECT statement.
 ** Return the number of errors seen.
-**
-** Every term of the ORDER BY or GROUP BY clause needs to be an
-** expression.  If any expression is an integer constant, then
-** that expression is replaced by the corresponding 
-** expression from the result set.
 */
 static int processOrderGroupBy(
   Parse *pParse,        /* Parsing context.  Leave error messages here */
@@ -54613,20 +52741,8 @@ static int processOrderGroupBy(
 }
 
 /*
-** Analyze and ORDER BY or GROUP BY clause in a SELECT statement.  Return
-** the number of errors seen.
-**
-** The processing depends on whether the SELECT is simple or compound.
-** For a simple SELECT statement, evry term of the ORDER BY or GROUP BY
-** clause needs to be an expression.  If any expression is an integer
-** constant, then that expression is replaced by the corresponding 
-** expression from the result set.
-**
-** For compound SELECT statements, every expression needs to be of
-** type TK_COLUMN with a iTable value as given in the 4th parameter.
-** If any expression is an integer, that becomes the column number.
-** Otherwise, match the expression against result set columns from
-** the left-most SELECT.
+** Analyze and ORDER BY or GROUP BY clause in a SELECT statement.
+** Return the number of errors seen.
 */
 static int processCompoundOrderBy(
   Parse *pParse,        /* Parsing context.  Leave error messages here */
@@ -54723,21 +52839,7 @@ SQLITE_PRIVATE Vdbe *sqlite3GetVdbe(Parse *pParse){
 
 /*
 ** Compute the iLimit and iOffset fields of the SELECT based on the
-** pLimit and pOffset expressions.  pLimit and pOffset hold the expressions
-** that appear in the original SQL statement after the LIMIT and OFFSET
-** keywords.  Or NULL if those keywords are omitted. iLimit and iOffset 
-** are the integer memory register numbers for counters used to compute 
-** the limit and offset.  If there is no limit and/or offset, then 
-** iLimit and iOffset are negative.
-**
-** This routine changes the values of iLimit and iOffset only if
-** a limit or offset is defined by pLimit and pOffset.  iLimit and
-** iOffset should have been preset to appropriate default values
-** (usually but not always -1) prior to calling this routine.
-** Only if pLimit!=0 or pOffset!=0 do the limit registers get
-** redefined.  The UNION ALL operator uses this property to force
-** the reuse of the same limit and offset registers across multiple
-** SELECT statements.
+** pLimit and pOffset expressions.
 */
 static void computeLimitRegisters(Parse *pParse, Select *p, int iBreak){
   Vdbe *v = 0;
@@ -55341,72 +53443,7 @@ static void substSelect(
 ** It returns 1 if it makes changes and 0 if no flattening occurs.
 **
 ** To understand the concept of flattening, consider the following query:
-**
 **     SELECT a FROM (SELECT x+y AS a FROM t1 WHERE z<100) WHERE a>5
-**
-** The default way of implementing this query is to execute the
-** subquery first and store the results in a temporary table, then
-** run the outer query on that temporary table.  This requires two
-** passes over the data.  Furthermore, because the temporary table
-** has no indices, the WHERE clause on the outer query cannot be optimized.
-**
-** This routine attempts to rewrite queries such as the above into
-** a single flat select, like this:
-**
-**     SELECT x+y AS a FROM t1 WHERE z<100 AND a>5
-**
-** The code generated for this simpification gives the same result
-** but only has to scan the data once.  And because indices might 
-** exist on the table t1, a complete scan of the data might be avoided.
-**
-** Flattening is only attempted if all of the following are true:
-**
-**   (1)  The subquery and the outer query do not both use aggregates.
-**
-**   (2)  The subquery is not an aggregate or the outer query is not a join.
-**
-**   (3)  The subquery is not the right operand of a left outer join, or
-**        the subquery is not itself a join.  (Ticket #306)
-**
-**   (4)  The subquery is not DISTINCT or the outer query is not a join.
-**
-**   (5)  The subquery is not DISTINCT or the outer query does not use
-**        aggregates.
-**
-**   (6)  The subquery does not use aggregates or the outer query is not
-**        DISTINCT.
-**
-**   (7)  The subquery has a FROM clause.
-**
-**   (8)  The subquery does not use LIMIT or the outer query is not a join.
-**
-**   (9)  The subquery does not use LIMIT or the outer query does not use
-**        aggregates.
-**
-**  (10)  The subquery does not use aggregates or the outer query does not
-**        use LIMIT.
-**
-**  (11)  The subquery and the outer query do not both have ORDER BY clauses.
-**
-**  (12)  The subquery is not the right term of a LEFT OUTER JOIN or the
-**        subquery has no WHERE clause.  (added by ticket #350)
-**
-**  (13)  The subquery and outer query do not both use LIMIT
-**
-**  (14)  The subquery does not use OFFSET
-**
-**  (15)  The outer query is not part of a compound select or the
-**        subquery does not have both an ORDER BY and a LIMIT clause.
-**        (See ticket #2339)
-**
-**  (16)  The outer query is not an aggregate or the subquery does
-**        not contain ORDER BY.  (Ticket #2942)  This used to not matter
-**        until we introduced the group_concat() function.  
-**
-** In this routine, the "p" parameter is a pointer to the outer query.
-** The subquery is p->pSrc->a[iFrom].  isAgg is true if the outer query
-** uses aggregates and subqueryIsAgg is true if the subquery uses aggregates.
-**
 ** If flattening is not attempted, this routine is a no-op and returns 0.
 ** If flattening is attempted this routine returns 1.
 **
@@ -55441,11 +53478,7 @@ static int flattenSubquery(
   if( subqueryIsAgg && pSrc->nSrc>1 ) return 0;          /* Restriction (2)  */
   pSubSrc = pSub->pSrc;
   assert( pSubSrc );
-  /* Prior to version 3.1.2, when LIMIT and OFFSET had to be simple constants,
-  ** not arbitrary expresssions, we allowed some combining of LIMIT and OFFSET
-  ** because they could be computed at compile-time.  But when LIMIT and OFFSET
-  ** became arbitrary expressions, we were forced to add restrictions (13)
-  ** and (14). */
+
   if( pSub->pLimit && p->pLimit ) return 0;              /* Restriction (13) */
   if( pSub->pOffset ) return 0;                          /* Restriction (14) */
   if( p->pRightmost && pSub->pLimit && pSub->pOrderBy ){
@@ -55465,13 +53498,9 @@ static int flattenSubquery(
   /* Restriction 3:  If the subquery is a join, make sure the subquery is 
   ** not used as the right operand of an outer join.  Examples of why this
   ** is not allowed:
-  **
   **         t1 LEFT OUTER JOIN (t2 JOIN t3)
-  **
   ** If we flatten the above, we would get
-  **
   **         (t1 LEFT OUTER JOIN t2) JOIN t3
-  **
   ** which is not at all the same thing.
   */
   if( pSubSrc->nSrc>1 && (pSubitem->jointype & JT_OUTER)!=0 ){
@@ -56472,29 +54501,8 @@ SQLITE_PRIVATE int sqlite3Select(
       u8 flag;
 
       /* Check if the query is of one of the following forms:
-      **
       **   SELECT min(x) FROM ...
       **   SELECT max(x) FROM ...
-      **
-      ** If it is, then ask the code in where.c to attempt to sort results
-      ** as if there was an "ORDER ON x" or "ORDER ON x DESC" clause. 
-      ** If where.c is able to produce results sorted in this order, then
-      ** add vdbe code to break out of the processing loop after the 
-      ** first iteration (since the first iteration of the loop is 
-      ** guaranteed to operate on the row with the minimum or maximum 
-      ** value of x, the only row required).
-      **
-      ** A special flag must be passed to sqlite3WhereBegin() to slightly
-      ** modify behaviour as follows:
-      **
-      **   + If the query is a "SELECT min(x)", then the loop coded by
-      **     where.c should not iterate over any values with a NULL value
-      **     for x.
-      **
-      **   + The optimizer code in where.c (the thing that decides which
-      **     index or indices to use) should place a different priority on 
-      **     satisfying the 'ORDER BY' clause than it does in other cases.
-      **     Refer to code and comments in where.c for details.
       */
       flag = minMaxQuery(pParse, p);
       if( flag ){
@@ -56873,11 +54881,9 @@ SQLITE_API void sqlite3_free_table(
 /************** End of table.c ***********************************************/
 /************** Begin file trigger.c *****************************************/
 /*
-**
 ** The author disclaims copyright to this source code.
 **
 *************************************************************************
-*
 */
 
 #ifndef SQLITE_OMIT_TRIGGER
@@ -57348,8 +55354,7 @@ drop_trigger_cleanup:
 }
 
 /*
-** Return a pointer to the Table structure for the table that a trigger
-** is set on.
+** Return a pointer to the Table structure for the table that a trigger is set on.
 */
 static Table *tableOfTrigger(Trigger *pTrigger){
   int n = strlen(pTrigger->table) + 1;
@@ -57592,30 +55597,6 @@ static int codeTriggerProgram(
 
 /*
 ** This is called to code FOR EACH ROW triggers.
-**
-** When the code that this function generates is executed, the following 
-** must be true:
-**
-** 1. No cursors may be open in the main database.  (But newIdx and oldIdx
-**    can be indices of cursors in temporary tables.  See below.)
-**
-** 2. If the triggers being coded are ON INSERT or ON UPDATE triggers, then
-**    a temporary vdbe cursor (index newIdx) must be open and pointing at
-**    a row containing values to be substituted for new.* expressions in the
-**    trigger program(s).
-**
-** 3. If the triggers being coded are ON DELETE or ON UPDATE triggers, then
-**    a temporary vdbe cursor (index oldIdx) must be open and pointing at
-**    a row containing values to be substituted for old.* expressions in the
-**    trigger program(s).
-**
-** If they are not NULL, the piOldColMask and piNewColMask output variables
-** are set to values that describe the columns used by the trigger program
-** in the OLD.* and NEW.* tables respectively. If column N of the 
-** pseudo-table is read at least once, the corresponding bit of the output
-** mask is set. If a column with an index greater than 32 is read, the
-** output mask is set to the special value 0xffffffff.
-**
 */
 SQLITE_PRIVATE int sqlite3CodeRowTrigger(
   Parse *pParse,       /* Parse context */
@@ -57749,24 +55730,7 @@ static void updateVirtualTable(
 ** OP_Column to the default value, if any.
 **
 ** The default value of a column is specified by a DEFAULT clause in the 
-** column definition. This was either supplied by the user when the table
-** was created, or added later to the table definition by an ALTER TABLE
-** command. If the latter, then the row-records in the table btree on disk
-** may not contain a value for the column and the default value, taken
-** from the P4 parameter of the OP_Column instruction, is returned instead.
-** If the former, then all row-records are guaranteed to include a value
-** for the column and the P4 value is not required.
-**
-** Column definitions created by an ALTER TABLE command may only have 
-** literal default values specified: a number, null or a string. (If a more
-** complicated default expression value was provided, it is evaluated 
-** when the ALTER TABLE is executed and one of the literal values written
-** into the sqlite_master table.)
-**
-** Therefore, the P4 parameter is only required if the default value for
-** the column is a literal number, string or null. The sqlite3ValueFromExpr()
-** function is capable of transforming these types of expressions into
-** sqlite3_value objects.
+** column definition.
 */
 SQLITE_PRIVATE void sqlite3ColumnDefault(Vdbe *v, Table *pTab, int i){
   if( pTab && !pTab->pSelect ){
@@ -57974,8 +55938,7 @@ SQLITE_PRIVATE void sqlite3Update(
   ** sent to sqlite3GenerateConstraintChecks().  There are either
   ** one or two registers for holding the rowid.  One rowid register
   ** is used if chngRowid is false and two are used if chngRowid is
-  ** true.  Following these are pTab->nCol register holding column
-  ** data.
+  ** true.  Following these are pTab->nCol register holding column data.
   */
   regOldRowid = regNewRowid = pParse->nMem + 1;
   pParse->nMem += pTab->nCol + 1;
@@ -59381,17 +57344,10 @@ SQLITE_PRIVATE int sqlite3VtabBegin(sqlite3 *db, sqlite3_vtab *pVtab){
 }
 
 /*
-** The first parameter (pDef) is a function implementation.  The
-** second parameter (pExpr) is the first argument to this function.
-** If pExpr is a column in a virtual table, then let the virtual
-** table implementation have an opportunity to overload the function.
-**
+** The first parameter (pDef) is a function implementation.
+** The second parameter (pExpr) is the first argument to this function.
 ** This routine is used to allow virtual table implementations to
 ** overload MATCH, LIKE, GLOB, and REGEXP operators.
-**
-** Return either the pDef argument (indicating no change) or a 
-** new FuncDef structure that is marked as ephemeral using the
-** SQLITE_FUNC_EPHEM flag.
 */
 SQLITE_PRIVATE FuncDef *sqlite3VtabOverloadFunction(
   sqlite3 *db,    /* Database connection for reporting malloc problems */
@@ -59494,34 +57450,6 @@ typedef struct ExprMaskSet ExprMaskSet;
 ** The query generator uses an array of instances of this structure to
 ** help it analyze the subexpressions of the WHERE clause.  Each WHERE
 ** clause subexpression is separated from the others by an AND operator.
-**
-** All WhereTerms are collected into a single WhereClause structure.  
-** The following identity holds:
-**
-**        WhereTerm.pWC->a[WhereTerm.idx] == WhereTerm
-**
-** When a term is of the form:
-**
-**              X <op> <expr>
-**
-** where X is a column name and <op> is one of certain operators,
-** then WhereTerm.leftCursor and WhereTerm.leftColumn record the
-** cursor number and column number for X.  WhereTerm.operator records
-** the <op> using a bitmask encoding defined by WO_xxx below.  The
-** use of a bitmask encoding for the operator allows us to search
-** quickly for terms that match any of several different operators.
-**
-** prereqRight and prereqAll record sets of cursor numbers,
-** but they do so indirectly.  A single ExprMaskSet structure translates
-** cursor number into bits and the translated bit is stored in the prereq
-** fields.  The translation is used in order to maximize the number of
-** bits that will fit in a Bitmask.  The VDBE cursor numbers might be
-** spread out over the non-negative integers.  For example, the cursor
-** numbers might be 3, 8, 9, 10, 20, 23, 41, and 45.  The ExprMaskSet
-** translates these sparse cursor numbers into consecutive integers
-** beginning with 0 in order to make the best possible use of the available
-** bits in the Bitmask.  So, in the example above, the cursor numbers
-** would be mapped into integers 0 through 7.
 */
 typedef struct WhereTerm WhereTerm;
 struct WhereTerm {
@@ -59562,27 +57490,6 @@ struct WhereClause {
 /*
 ** An instance of the following structure keeps track of a mapping
 ** between VDBE cursor numbers and bits of the bitmasks in WhereTerm.
-**
-** The VDBE cursor numbers are small integers contained in 
-** SrcList_item.iCursor and Expr.iTable fields.  For any given WHERE 
-** clause, the cursor numbers might not begin with 0 and they might
-** contain gaps in the numbering sequence.  But we want to make maximum
-** use of the bits in our bitmasks.  This structure provides a mapping
-** from the sparse cursor numbers into consecutive integers beginning
-** with 0.
-**
-** If ExprMaskSet.ix[A]==B it means that The A-th bit of a Bitmask
-** corresponds VDBE cursor number B.  The A-th bit of a bitmask is 1<<A.
-**
-** For example, if the WHERE clause expression used these VDBE
-** cursors:  4, 5, 8, 29, 57, 73.  Then the  ExprMaskSet structure
-** would map those cursor numbers into bits 0 through 5.
-**
-** Note that the mapping is not necessarily ordered.  In the example
-** above, the mapping might go like this:  4->3, 5->1, 8->2, 29->0,
-** 57->5, 73->4.  Or one of 719 other combinations might be used. It
-** does not really matter.  What is important is that sparse cursor numbers
-** all get mapped into bit numbers that begin with 0 and contain no gaps.
 */
 struct ExprMaskSet {
   int n;                        /* Number of assigned cursor values */
@@ -59613,7 +57520,6 @@ struct ExprMaskSet {
 ** is set to WO_IN|WO_EQ.  The WhereLevel.flags field can then be used as
 ** the "op" parameter to findTerm when we are resolving equality constraints.
 ** ISNULL constraints will then not be used on the right table of a left join.
-** Tickets #2177 and #2189.
 */
 #define WHERE_ROWID_EQ     0x000100   /* rowid=EXPR or rowid IN (...) */
 #define WHERE_ROWID_RANGE  0x000200   /* rowid<EXPR and/or rowid>EXPR */
@@ -59762,8 +57668,7 @@ static void createMask(ExprMaskSet *pMaskSet, int iCursor){
 
 /*
 ** This routine walks (recursively) an expression tree and generates
-** a bitmask indicating which tables are used in that expression
-** tree.
+** a bitmask indicating which tables are used in that expression tree.
 **
 ** In order for this routine to work, the calling function must have
 ** previously invoked sqlite3ExprResolveNames() on the expression.  See
@@ -60448,23 +58353,7 @@ static int referencesOtherTables(
 
 
 /*
-** This routine decides if pIdx can be used to satisfy the ORDER BY
-** clause.  If it can, it returns 1.  If pIdx cannot satisfy the
-** ORDER BY clause, this routine returns 0.
-**
-** pOrderBy is an ORDER BY clause from a SELECT statement.  pTab is the
-** left-most table in the FROM clause of that same SELECT statement and
-** the table has a cursor number of "base".  pIdx is an index on pTab.
-**
-** nEqCol is the number of columns of pIdx that are used as equality
-** constraints.  Any of these columns may be missing from the ORDER BY
-** clause and the match can still be a success.
-**
-** All terms of the ORDER BY that match against the index must be either
-** ASC or DESC.  (Terms of the ORDER BY clause past the end of a UNIQUE
-** index do not need to satisfy this constraint.)  The *pbRev value is
-** set to 1 if the ORDER BY clause is all DESC and it is set to 0 if
-** the ORDER BY clause is all ASC.
+** This routine decides if pIdx can be used to satisfy the ORDER BY clause.
 */
 static int isSortingIndex(
   Parse *pParse,          /* Parsing context */
@@ -60485,13 +58374,11 @@ static int isSortingIndex(
   nTerm = pOrderBy->nExpr;
   assert( nTerm>0 );
 
-  /* Match terms of the ORDER BY clause against columns of
-  ** the index.
+  /* Match terms of the ORDER BY clause against columns of the index.
   **
   ** Note that indices have pIdx->nColumn regular columns plus
   ** one additional column containing the rowid.  The rowid column
-  ** of the index is also allowed to match against the ORDER BY
-  ** clause.
+  ** of the index is also allowed to match against the ORDER BY clause.
   */
   for(i=j=0, pTerm=pOrderBy->a; j<nTerm && i<=pIdx->nColumn; i++){
     Expr *pExpr;       /* The expression of the ORDER BY pTerm */
@@ -60808,25 +58695,8 @@ static double bestVirtualIndex(
   }
 #endif
 
-  /* Set the aConstraint[].usable fields and initialize all 
-  ** output variables to zero.
-  **
-  ** aConstraint[].usable is true for constraints where the right-hand
-  ** side contains only references to tables to the left of the current
-  ** table.  In other words, if the constraint is of the form:
-  **
-  **           column = expr
-  **
-  ** and we are evaluating a join, then the constraint on column is 
-  ** only valid if all tables referenced in expr occur to the left
-  ** of the table containing column.
-  **
-  ** The aConstraints[] array contains entries for all constraints
-  ** on the current table.  That way we only have to compute it once
-  ** even though we might try to pick the best index multiple times.
-  ** For each attempt at picking an index, the order of tables in the
-  ** join might be different so we have to recompute the usable flag
-  ** each time.
+  /* Set the aConstraint[].usable fields and
+  ** initialize all output variables to zero.
   */
   pIdxCons = *(struct sqlite3_index_constraint**)&pIdxInfo->aConstraint;
   pUsage = pIdxInfo->aConstraintUsage;
@@ -60878,22 +58748,7 @@ static double bestVirtualIndex(
 #endif /* SQLITE_OMIT_VIRTUALTABLE */
 
 /*
-** Find the best index for accessing a particular table.  Return a pointer
-** to the index, flags that describe how the index should be used, the
-** number of equality constraints, and the "cost" for this index.
-**
-** The lowest cost index wins.  The cost is an estimate of the amount of
-** CPU and disk I/O need to process the request using the selected index.
-** Factors that influence cost include:
-**
-**    *  The estimated number of rows that will be retrieved.  (The
-**       fewer the better.)
-**
-**    *  Whether or not sorting must occur.
-**
-**    *  Whether or not there must be separate lookups in the
-**       index and in the main table.
-**
+** Find the best index for accessing a particular table.
 */
 static double bestIndex(
   Parse *pParse,              /* The parsing context */
@@ -60925,8 +58780,7 @@ static double bestIndex(
   /* If the table has no indices and there are no terms in the where
   ** clause that refer to the ROWID, then we will never be able to do
   ** anything other than a full table scan on this table.  We might as
-  ** well put it first in the join order.  That way, perhaps it can be
-  ** referenced by other tables in the join.
+  ** well put it first in the join order.
   */
   if( pProbe==0 &&
      findTerm(pWC, iCur, -1, 0, WO_EQ|WO_IN|WO_LT|WO_LE|WO_GT|WO_GE,0)==0 &&
@@ -60952,8 +58806,7 @@ static double bestIndex(
       WHERETRACE(("... best is rowid\n"));
       return 0.0;
     }else if( (pExpr = pTerm->pExpr)->pList!=0 ){
-      /* Rowid IN (LIST): cost is NlogN where N is the number of list
-      ** elements.  */
+      /* Rowid IN (LIST): cost is NlogN where N is the number of list elements. */
       lowestCost = pExpr->pList->nExpr;
       lowestCost *= estLog(lowestCost);
     }else{
@@ -61010,7 +58863,7 @@ static double bestIndex(
   /* If the pSrc table is the right table of a LEFT JOIN then we may not
   ** use an index to satisfy IS NULL constraints on that table.  This is
   ** because columns might end up being NULL if the table does not match -
-  ** a circumstance which the index cannot help us discover.  Ticket #2177.
+  ** a circumstance which the index cannot help us discover.
   */
   if( (pSrc->jointype & JT_LEFT)!=0 ){
     eqTermMask = WO_EQ|WO_IN;
@@ -61090,9 +58943,8 @@ static double bestIndex(
       }
     }
 
-    /* Check to see if we can get away with using just the index without
-    ** ever reading the table.  If that is the case, then halve the
-    ** cost of this index.
+    /* Check to see if we can get away with using just the index without ever
+    ** reading the table.  If so, then halve the cost of this index.
     */
     if( flags && pSrc->colUsed < (((Bitmask)1)<<(BMS-1)) ){
       Bitmask m = pSrc->colUsed;
@@ -61132,27 +58984,7 @@ static double bestIndex(
 
 
 /*
-** Disable a term in the WHERE clause.  Except, do not disable the term
-** if it controls a LEFT OUTER JOIN and it did not originate in the ON
-** or USING clause of that join.
-**
-** Consider the term t2.z='ok' in the following queries:
-**
-**   (1)  SELECT * FROM t1 LEFT JOIN t2 ON t1.a=t2.x WHERE t2.z='ok'
-**   (2)  SELECT * FROM t1 LEFT JOIN t2 ON t1.a=t2.x AND t2.z='ok'
-**   (3)  SELECT * FROM t1, t2 WHERE t1.a=t2.x AND t2.z='ok'
-**
-** The t2.z='ok' is disabled in the in (2) because it originates
-** in the ON clause.  The term is disabled in (3) because it is not part
-** of a LEFT OUTER JOIN.  In (1), the term is not disabled.
-**
-** Disabling a term causes that term to not be tested in the inner loop
-** of the join.  Disabling is an optimization.  When terms are satisfied
-** by indices, we disable them to prevent redundant tests in the inner
-** loop.  We would get the correct results if nothing were ever disabled,
-** but joins might run a little slower.  The trick is to disable as much
-** as we can without disabling too much.  If we disabled in (1), we'd get
-** the wrong answer.  See ticket #813.
+** Disable a term in the WHERE clause.
 */
 static void disableTerm(WhereLevel *pLevel, WhereTerm *pTerm){
   if( pTerm
@@ -61171,11 +59003,6 @@ static void disableTerm(WhereLevel *pLevel, WhereTerm *pTerm){
 
 /*
 ** Generate code that builds a probe for an index.
-**
-** There should be nColumn values on the stack.  The index
-** to be probed is pIdx.  Pop the values from the stack and
-** replace them all with a single record that is the index
-** problem.
 */
 static void buildIndexProbe(
   Parse *pParse,  /* Parsing and code generation context */
@@ -61195,15 +59022,7 @@ static void buildIndexProbe(
 
 
 /*
-** Generate code for a single equality term of the WHERE clause.  An equality
-** term can be either X=expr or X IN (...).   pTerm is the term to be 
-** coded.
-**
-** The current value for the constraint is left in register iReg.
-**
-** For a constraint of the form X=expr, the expression is evaluated and its
-** result is left on the stack.  For constraints of the form X IN (...)
-** this routine sets up a loop that will iterate over all values of X.
+** Generate code for a single equality term of the WHERE clause.
 */
 static int codeEqualityTerm(
   Parse *pParse,      /* The parsing context */
@@ -61261,27 +59080,7 @@ static int codeEqualityTerm(
 }
 
 /*
-** Generate code that will evaluate all == and IN constraints for an
-** index.  The values for all constraints are left on the stack.
-**
-** For example, consider table t1(a,b,c,d,e,f) with index i1(a,b,c).
-** Suppose the WHERE clause is this:  a==5 AND b IN (1,2,3) AND c>5 AND c<10
-** The index has as many as three equality constraints, but in this
-** example, the third "c" value is an inequality.  So only two 
-** constraints are coded.  This routine will generate code to evaluate
-** a==5 and b IN (1,2,3).  The current values for a and b will be left
-** on the stack - a is the deepest and b the shallowest.
-**
-** In the example above nEq==2.  But this subroutine works for any value
-** of nEq including 0.  If nEq==0, this routine is nearly a no-op.
-** The only thing it does is allocate the pLevel->iMem memory cell.
-**
-** This routine always allocates at least one memory cell and puts
-** the address of that memory cell in pLevel->iMem.  The code that
-** calls this routine will use pLevel->iMem to store the termination
-** key value of the loop.  If one or more IN operators appear, then
-** this routine allocates an additional nEq memory cells for internal
-** use.
+** Generate code that will evaluate all == and IN constraints for an index.
 */
 static int codeAllEqualityTerms(
   Parse *pParse,        /* Parsing context */
@@ -61360,19 +59159,6 @@ static void whereInfoFree(WhereInfo *pWInfo){
 
 /*
 ** Generate the beginning of the loop used for WHERE clause processing.
-** The return value is a pointer to an opaque structure that contains
-** information needed to terminate the loop.  Later, the calling routine
-** should invoke sqlite3WhereEnd() with the return value of this function
-** in order to complete the WHERE clause processing.
-**
-** If an error occurs, this routine returns NULL.
-**
-** The basic idea is to do a nested loop, one loop for each table in
-** the FROM clause of a select.  (INSERT and UPDATE statements are the
-** same as a SELECT with only a single table in the FROM clause.)  For
-** example, if the SQL is this:
-**
-**       SELECT * FROM t1, t2, t3 WHERE ...;
 **
 ** Then the code generated is conceptually like the following:
 **
@@ -61383,36 +59169,6 @@ static void whereInfoFree(WhereInfo *pWInfo){
 **          end                     \    Code generated
 **        end                        |-- by sqlite3WhereEnd()
 **      end                         /
-**
-** Note that the loops might not be nested in the order in which they
-** appear in the FROM clause if a different order is better able to make
-** use of indices.  Note also that when the IN operator appears in
-** the WHERE clause, it might result in additional nested loops for
-** scanning through all values on the right-hand side of the IN.
-**
-** There are Btree cursors associated with each table.  t1 uses cursor
-** number pTabList->a[0].iCursor.  t2 uses the cursor pTabList->a[1].iCursor.
-** And so forth.  This routine generates code to open those VDBE cursors
-** and sqlite3WhereEnd() generates the code to close them.
-**
-** The code that sqlite3WhereBegin() generates leaves the cursors named
-** in pTabList pointing at their appropriate entries.  The [...] code
-** can use OP_Column and OP_Rowid opcodes on these cursors to extract
-** data from the various tables of the loop.
-**
-** If the WHERE clause is empty, the foreach loops must each scan their
-** entire tables.  Thus a three-way join is an O(N^3) operation.  But if
-** the tables have indices and there are terms in the WHERE clause that
-** refer to those indices, a complete table scan can be avoided and the
-** code will run much faster.  Most of the work of this routine is checking
-** to see if there are indices that can be used to speed up the loop.
-**
-** Terms of the WHERE clause are also used to limit which rows actually
-** make it to the "..." in the middle of the loop.  After each "foreach",
-** terms of the WHERE clause that use only terms in that loop and outer
-** loops are evaluated and if false a jump is made around all subsequent
-** inner loops (or around the "..." if the test occurs within the inner-
-** most loop)
 **
 ** OUTER JOINS
 **
@@ -61432,17 +59188,6 @@ static void whereInfoFree(WhereInfo *pWInfo){
 **    end
 **
 ** ORDER BY CLAUSE PROCESSING
-**
-** *ppOrderBy is a pointer to the ORDER BY clause of a SELECT statement,
-** if there is one.  If there is no ORDER BY clause or if this routine
-** is called from an UPDATE or DELETE statement, then ppOrderBy is NULL.
-**
-** If an index can be used so that the natural output order of the table
-** scan is correct for the ORDER BY clause, then that index is used and
-** *ppOrderBy is set to NULL.  This is an optimization that prevents an
-** unnecessary sort of the result set if an index appropriate for the
-** ORDER BY clause already exists.
-**
 ** If the where clause loops cannot be arranged to provide the correct
 ** output order, then the *ppOrderBy is unchanged.
 */
@@ -61488,8 +59233,7 @@ SQLITE_PRIVATE WhereInfo *sqlite3WhereBegin(
   sqlite3ExprCodeConstants(pParse, pWhere);
   whereSplit(&wc, pWhere, TK_AND);
     
-  /* Allocate and initialize the WhereInfo structure that will become the
-  ** return value.
+  /* Allocate and initialize the WhereInfo structure that will become the return value.
   */
   db = pParse->db;
   pWInfo = sqlite3DbMallocZero(db,  
@@ -61511,15 +59255,6 @@ SQLITE_PRIVATE WhereInfo *sqlite3WhereBegin(
   }
 
   /* Assign a bit from the bitmask to every term in the FROM clause.
-  **
-  ** When assigning bitmask values to FROM clause cursors, it must be
-  ** the case that if X is the bitmask for the N-th FROM clause term then
-  ** the bitmask for all FROM clause terms to the left of the N-th term
-  ** is (X-1).   An expression from the ON clause of a LEFT JOIN can use
-  ** its Expr.iRightJoinTable value to find the bitmask of the right table
-  ** of the join.  Subtracting one from the right table bitmask gives a
-  ** bitmask for all tables to the left of the join.  Knowing the bitmask
-  ** for all tables to the left of a left join is important.  Ticket #3015.
   */
   for(i=0; i<pTabList->nSrc; i++){
     createMask(&maskSet, pTabList->a[i].iCursor);
@@ -61535,10 +59270,7 @@ SQLITE_PRIVATE WhereInfo *sqlite3WhereBegin(
   }
 #endif
 
-  /* Analyze all of the subexpressions.  Note that exprAnalyze() might
-  ** add new virtual terms onto the end of the WHERE clause.  We do not
-  ** want to analyze these virtual terms, so start analyzing at the end
-  ** and work forward so that the added virtual terms are never processed.
+  /* Analyze all of the subexpressions.
   */
   exprAnalyzeAll(pTabList, &wc);
   if( db->mallocFailed ){
@@ -61548,7 +59280,6 @@ SQLITE_PRIVATE WhereInfo *sqlite3WhereBegin(
   /* Chose the best index to use for each table in the FROM clause.
   **
   ** This loop fills in the following fields:
-  **
   **   pWInfo->a[].pIdx      The index to use for this level of the loop.
   **   pWInfo->a[].flags     WHERE_xxx flags associated with pIdx
   **   pWInfo->a[].nEq       The number of == and IN constraints
@@ -61765,8 +59496,7 @@ SQLITE_PRIVATE WhereInfo *sqlite3WhereBegin(
 
     /* Create labels for the "break" and "continue" instructions
     ** for the current loop.  Jump to brk to break out of a loop.
-    ** Jump to cont to go immediately to the next iteration of the
-    ** loop.
+    ** Jump to cont to go immediately to the next iteration of the loop.
     **
     ** When there is an IN operator, we also have a "nxt" label that
     ** means to continue with the next IN value combination.  When
@@ -62374,9 +60104,7 @@ SQLITE_PRIVATE void sqlite3WhereEnd(WhereInfo *pWInfo){
 /* Driver template for the LEMON parser generator.
 ** The author disclaims copyright to this source code.
 */
-/* First off, code is include which follows the "include" declaration
-** in the input file. */
-
+/* First off, code is include which follows the "include" declaration in the input file. */
 
 /*
 ** An instance of this structure holds information about the
@@ -64223,18 +61951,7 @@ static void yy_reduce(
 #endif /* NDEBUG */
 
   /* Silence complaints from purify about yygotominor being uninitialized
-  ** in some cases when it is copied into the stack after the following
-  ** switch.  yygotominor is uninitialized when a rule reduces that does
-  ** not set the value of its left-hand side nonterminal.  Leaving the
-  ** value of the nonterminal uninitialized is utterly harmless as long
-  ** as the value is never used.  So really the only thing this code
-  ** accomplishes is to quieten purify.  
-  **
-  ** 2007-01-16:  The wireshark project (www.wireshark.org) reports that
-  ** without this code, their parser segfaults.  I'm not sure what there
-  ** parser is doing to make this happen.  This is the second bug report
-  ** from wireshark this week.  Clearly they are stressing Lemon in ways
-  ** that it has not been previously stressed...  (SQLite ticket #2172)
+  ** in some cases when it is copied into the stack after the following switch.
   */
   /*memset(&yygotominor, 0, sizeof(yygotominor));*/
   yygotominor = yyzerominor;
@@ -66123,53 +63840,6 @@ SQLITE_PRIVATE const char sqlite3IsEbcdicIdChar[];
 
 /*
 ** Return TRUE if the given SQL string ends in a semicolon.
-**
-** Special handling is require for CREATE TRIGGER statements.
-** Whenever the CREATE TRIGGER keywords are seen, the statement
-** must end with ";END;".
-**
-** This implementation uses a state machine with 7 states:
-**
-**   (0) START     At the beginning or end of an SQL statement.  This routine
-**                 returns 1 if it ends in the START state and 0 if it ends
-**                 in any other state.
-**
-**   (1) NORMAL    We are in the middle of statement which ends with a single
-**                 semicolon.
-**
-**   (2) EXPLAIN   The keyword EXPLAIN has been seen at the beginning of 
-**                 a statement.
-**
-**   (3) CREATE    The keyword CREATE has been seen at the beginning of a
-**                 statement, possibly preceeded by EXPLAIN and/or followed by
-**                 TEMP or TEMPORARY
-**
-**   (4) TRIGGER   We are in the middle of a trigger definition that must be
-**                 ended by a semicolon, the keyword END, and another semicolon.
-**
-**   (5) SEMI      We've seen the first semicolon in the ";END;" that occurs at
-**                 the end of a trigger definition.
-**
-**   (6) END       We've seen the ";END" of the ";END;" that occurs at the end
-**                 of a trigger difinition.
-**
-** Transitions between states above are determined by tokens extracted
-** from the input.  The following tokens are significant:
-**
-**   (0) tkSEMI      A semicolon.
-**   (1) tkWS        Whitespace
-**   (2) tkOTHER     Any other SQL token.
-**   (3) tkEXPLAIN   The "explain" keyword.
-**   (4) tkCREATE    The "create" keyword.
-**   (5) tkTEMP      The "temp" or "temporary" keyword.
-**   (6) tkTRIGGER   The "trigger" keyword.
-**   (7) tkEND       The "end" keyword.
-**
-** Whitespace never causes a state transition and is always ignored.
-**
-** If we compile with SQLITE_OMIT_TRIGGER, all of the computation needed
-** to recognize the end of a trigger can be omitted.  All we have to do
-** is look for a semicolon that is not part of an string or comment.
 */
 SQLITE_API int sqlite3_complete(const char *zSql){
   u8 state = 0;   /* Current state, using numbers defined in header comment */

@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1072,31 +1072,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Előnézet"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Képes előnézet"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Vélemények"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Folytat"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="S_zünet"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Töröl"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Több _forrás keresése"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="C_lear Completed"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="A_uto Clear"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Képes előnézet"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Vélemények"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Súgó..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Előnézet"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="_Másolat előnézete"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Előnézet"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Listához ad"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Képes előnézet"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Vélemények"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Folytat"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="S_zünet"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Töröl"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Vélemények"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Képes előnézet"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Több _forrás keresése"/>
 		<separator/>
 		<menu text="_Fejlett">
@@ -1104,14 +1101,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="_URI másolása"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="Forrás _hozzáadása"/>
+			<item id="ID_DOWNLOADS_MERGE" text="Merge helyi fájl..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="_Monitorablak"/>
+		</menu>
+		<menu text="Első_bbséget">
 			<item id="ID_DOWNLOADS_BOOST" text="_Sávszél-korlátozás figyelmen kivül hagyása"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="_Fel"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="_Le"/>
 			<item id="ID_DOWNLOADS_MOVE_TOP" text="_Fel!"/>
 			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="_Le!"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="_Fel"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="_Le"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Súgó..."/>
 		<separator/>
@@ -2720,7 +2720,7 @@
 	<string id="8230" value="Források keresése ennek:"/>
 	<string id="8231" value="Nincs forrás"/>
 	<string id="8232" value="Megnyitás"/>
-	<string id="8233" value="Előnézet"/>
+	<string id="8233" value="Mégse"/>
 	<string id="8235" value="Sebesség:"/>
 	<string id="8236" value="Hátralévő idő:"/>
 	<string id="8237" value="Letöltve:"/>
@@ -2988,7 +2988,6 @@
 	<string id="16402" value="A PeerProject egy gyűjteményfájlt kapott:\n\n&quot;%s&quot;\n\nEz nem tűnik valós gyűjteményfájlnak."/>
 	<string id="16403" value="&quot;%s&quot; gyűjteményfájl hozzáadva."/>
 	<string id="16404" value="Nem lehetett telepíteni a(z) &quot;%s&quot; gyűjteményfájlt a &quot;%s&quot; mappába való másolássa."/>
-	<string id="16405" value="Le akarja tölteni ezt a fájlt?\n\n&quot;%s&quot;\n\nKattintson a Mégse gombra a további kérdések elkerülésére."/>
 	<string id="16406" value="Minden fájlt le akarsz tölteni a gyűjteményből?\n\nKattintson a Mégse gombra a további kérdések elkerülésére."/>
 	<string id="16407" value="Meg akarja-e akadályozni, hogy minden fájl előtt kérdezzen?"/>
 	<string id="16408" value="URI másolása"/>
@@ -3359,14 +3358,14 @@
 		<control caption="Kis méret gomb:"/>
 		<control caption="Normál|Leküldi az óra mellé"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Könyvtár">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Könyvtár">
 		<control caption="_Beállítások"/>
 		<control caption="Mások is lássák a megosztásom"/>
+		<control caption="Utolsó mappa megjegyzése"/>
 		<control caption="Mappák figyelése"/>
 		<control caption="Gyors hash (nagy CPU használat)"/>
 		<control caption="Okos epizódérzékelés"/>
 		<control caption="Szellemfájl készítése törléskor"/>
-		<control caption="Utolsó mappa megjegyzése"/>
 		<control caption="_Legutóbbi fájlok:"/>
 		<control caption="Megjegyez"/>
 		<control/>
@@ -3377,6 +3376,7 @@
 		<control/>
 		<control caption="napig."/>
 		<control caption="Előzmények törlése"/>
+		<control caption="Előzmények készítése"/>
 		<control caption="_Megosztható"/>
 		<control/>
 		<control caption="_Hozzáad"/>
@@ -4021,8 +4021,7 @@
 		<control caption="Mégse"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Letöltés folyamatban">
-		<control caption="Letöltés folyamatban:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Letöltés folyamatban">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -4036,7 +4035,6 @@
 		<control caption="Letöltve:"/>
 		<control caption="..."/>
 		<control caption="Könyvtár"/>
-		<control caption="Fájl megnyitása"/>
 		<control caption="Letöltés törlése"/>
 		<control caption="Elrejt"/>
 		<control caption="A letöltés végeztével zárja be ezt az ablakot"/>
@@ -4411,23 +4409,22 @@
 		<control caption="→"/>
 		<control caption="Töröl"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Letöltési csoportok tulajdonságai">
-		<control caption="OK"/>
-		<control caption="Mégse"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Letöltési csoportok tulajdonságai">
+		<control caption="Név:"/>
+		<control/>
+		<control caption="E_lkészült letöltések:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Szűrők:"/>
 		<control/>
 		<control caption="_Hozzáad"/>
 		<control caption="_Eltávolít"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="Név:"/>
-		<control caption="_Szűrők:"/>
-		<control caption="E_lkészült letöltések:"/>
 		<control caption="_Fájltípus:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="OK"/>
+		<control caption="Mégse"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Képi megjelenítések">
 		<control/>
@@ -4621,4 +4618,4 @@
 		<column from="Order" to="Sorszám"/>
 	</list>
 </listColumns>
-</skin>
+</skin>￝骠릜

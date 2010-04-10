@@ -1,7 +1,7 @@
 //
 // Globals.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2005.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -21,8 +21,6 @@
 //
 
 #pragma once
-#include <windows.h>
-#include <ole2.h>
 
 #pragma warning(disable: 4100) // unreferenced formal parameter (in OLE this is common)
 #pragma warning(disable: 4103) // pragma pack
@@ -93,20 +91,20 @@ STDAPI SavePropertySetList(IPropertyStorage *pPropStg, WORD wCodePage, class CDo
 typedef enum dsoFilePropertyType
 {
 	dsoPropertyTypeUnknown = 0,
-    dsoPropertyTypeString = 1,
-    dsoPropertyTypeLong,
-    dsoPropertyTypeDouble,
-    dsoPropertyTypeBool,
-    dsoPropertyTypeDate
+	dsoPropertyTypeString = 1,
+	dsoPropertyTypeLong,
+	dsoPropertyTypeDouble,
+	dsoPropertyTypeBool,
+	dsoPropertyTypeDate
 } dsoFilePropertyType;
 
 typedef enum dsoFileOpenOptions
 {
 	dsoOptionDefault = 0,
-    dsoOptionOnlyOpenOLEFiles = 1,
-    dsoOptionOpenReadOnlyIfNoWriteAccess = 2,
-    dsoOptionDontAutoCreate = 4,
-    dsoOptionUseMBCStringsForNewSets = 8
+	dsoOptionOnlyOpenOLEFiles = 1,
+	dsoOptionOpenReadOnlyIfNoWriteAccess = 2,
+	dsoOptionDontAutoCreate = 4,
+	dsoOptionUseMBCStringsForNewSets = 8
 } dsoFileOpenOptions;
 
 // Document thumbnail data
@@ -122,29 +120,29 @@ typedef struct _ClipMetaHeader
 class CDocProperty
 {
 public:
-    CDocProperty();
-    ~CDocProperty(void);
+	CDocProperty();
+	~CDocProperty(void);
 
- // CustomProperty Implementation
+	// CustomProperty Implementation
 	HRESULT get_Name(BSTR *pbstrName);
 	HRESULT get_Type(dsoFilePropertyType *dsoType);
 	HRESULT get_Value(VARIANT *pvValue);
 	HRESULT put_Value(VARIANT *pvValue);
 	HRESULT Remove();
 
- // Internal Functions
+	// Internal Functions
 	HRESULT InitProperty(BSTR bstrName, PROPID propid, VARIANT* pvData, BOOL fNewItem, CDocProperty* pPreviousItem);
-    CDocProperty* GetNextProperty(){return m_pNextItem;}
-    CDocProperty* AppendLink(CDocProperty* pLinkItem);
-    PROPID GetID(){return m_ulPropID;}
+	CDocProperty* GetNextProperty(){return m_pNextItem;}
+	CDocProperty* AppendLink(CDocProperty* pLinkItem);
+	PROPID GetID(){return m_ulPropID;}
 	VARIANT* GetDataPtr(){return &m_vValue;}
-    BOOL IsRemoved(){return m_fRemovedItem;}
-    BOOL IsDirty(){return (m_fModified && !(m_fDeadObj));}
-    BOOL IsNewItem(){return m_fNewItem;}
-    void Renew(){m_fRemovedItem = FALSE;}
-    void Disconnect(){m_fDeadObj = TRUE; /*Release();*/}
-    void OnSaveComplete(){m_fModified = FALSE; m_fNewItem = FALSE; m_fRemovedItem = FALSE;}
-    void OnRemoveComplete(){m_fModified = FALSE; m_fNewItem = TRUE; m_fRemovedItem = TRUE;}
+	BOOL IsRemoved(){return m_fRemovedItem;}
+	BOOL IsDirty(){return (m_fModified && !(m_fDeadObj));}
+	BOOL IsNewItem(){return m_fNewItem;}
+	void Renew(){m_fRemovedItem = FALSE;}
+	void Disconnect(){m_fDeadObj = TRUE; /*Release();*/}
+	void OnSaveComplete(){m_fModified = FALSE; m_fNewItem = FALSE; m_fRemovedItem = FALSE;}
+	void OnRemoveComplete(){m_fModified = FALSE; m_fNewItem = TRUE; m_fRemovedItem = TRUE;}
 
 	static CDocProperty* CreateObject(BSTR bstrName, PROPID propid, VARIANT* pvData, BOOL fNewItem, CDocProperty* pPreviousItem);
 
@@ -158,28 +156,6 @@ private:
     BOOL         m_fNewItem;            // Is item added to list after load?
     BOOL         m_fRemovedItem;        // Is item marked for delete?
     CDocProperty* m_pNextItem;			// Items are linked in single link list (stores previous item)
-};
-
-////////////////////////////////////////////////////////////////////
-// CDocumentClassFactory - OleReader Class Factory
-//
-class CDocumentClassFactory : public IClassFactory
-{
-public:
-    CDocumentClassFactory(): m_cRef(0){}
-    ~CDocumentClassFactory(void){}
-
- // IUnknown Implementation
-    STDMETHODIMP         QueryInterface(REFIID riid, void ** ppv);
-    STDMETHODIMP_(ULONG) AddRef(void);
-    STDMETHODIMP_(ULONG) Release(void);
-
- // IClassFactory Implementation
-    STDMETHODIMP  CreateInstance(LPUNKNOWN punk, REFIID riid, void** ppv);
-    STDMETHODIMP  LockServer(BOOL fLock);
-
-private:
-    ULONG          m_cRef;          // Reference count
 };
 
 ////////////////////////////////////////////////////////////////////////

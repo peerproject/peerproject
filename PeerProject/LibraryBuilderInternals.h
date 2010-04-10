@@ -1,7 +1,7 @@
 //
 // LibraryBuilderInternals.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,6 +22,7 @@
 #pragma once
 
 class CXMLElement;
+
 
 class CLibraryBuilderInternals : private boost::noncopyable
 {
@@ -73,16 +74,20 @@ private:
 	bool		ReadASF(DWORD nIndex, HANDLE hFile);
 	bool		ReadAVI(DWORD nIndex, HANDLE hFile);
 	bool		ReadMPEG(DWORD nIndex, HANDLE hFile);
+	bool		ReadMPC(DWORD nIndex, HANDLE hFile);
 	bool		ReadOGG(DWORD nIndex, HANDLE hFile);
 	BYTE*		ReadOGGPage(HANDLE hFile, DWORD& nBuffer, BYTE nFlags, DWORD nSequence, DWORD nMinSize = 0);
 	bool		ReadOGGString(BYTE*& pOGG, DWORD& nOGG, CString& str);
 	bool		ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferFooter = false);
-	bool		ReadMPC(DWORD nIndex, HANDLE hFile);
-	bool		ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPath);
-	CString		ReadLine(HANDLE hFile, LPCTSTR pszSeparators = NULL);
-	CString		ReadLineReverse(HANDLE hFile, LPCTSTR pszSeparators = NULL);
-	bool		ReadCollection(DWORD nIndex, LPCTSTR pszPath);
+
 	bool		ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPath);
-	CString		DecodePDFText(CString& strInput);
+	bool		ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPath);
+	CString		ReadPDFLine(HANDLE hFile, bool bReverse, bool bComplex = false, bool bSplitter = true);
+	CString		DecodePDFText(CString strInput);
+
+	bool		ReadCollection(DWORD nIndex, LPCTSTR pszPath);
 	bool		ReadTorrent(DWORD nIndex, HANDLE hFile, LPCTSTR pszPath);
+	bool		ReadSkin(DWORD nIndex);
+	bool		ReadBook(DWORD nIndex, CString strPath);
+	bool		ReadOther(DWORD nIndex, CString strPath);
 };

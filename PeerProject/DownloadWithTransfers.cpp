@@ -54,7 +54,7 @@ CDownloadWithTransfers::CDownloadWithTransfers() :
 
 CDownloadWithTransfers::~CDownloadWithTransfers()
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	CloseTransfers();
 }
@@ -503,7 +503,7 @@ void CDownloadWithTransfers::AddTransfer(CDownloadTransfer* pTransfer)
 
 void CDownloadWithTransfers::RemoveTransfer(CDownloadTransfer* pTransfer)
 {
-	ASSUME_LOCK( Transfers.m_pSection );
+	//ASSUME_LOCK( Transfers.m_pSection );
 
 	ASSERT( m_nTransferCount > 0 );
 	m_nTransferCount --;

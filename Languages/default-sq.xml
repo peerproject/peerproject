@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1071,8 +1071,6 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Parashiko"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Parashikim i L_argët"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Shiko Pasqyrat"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Rimerre"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_usho"/>
@@ -1080,20 +1078,22 @@
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="P_astro të Përfunduarit"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Gjej Burime të Tjera"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Parashikim i L_argët"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Shiko Pasqyrat"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ndihmë..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Parashiko"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Para_shiko Kopjen"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Parashiko"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Shtoje në _Listë"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Parashikim i L_argët"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Shiko Pasqyrat"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Rimerre"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_usho"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Anulo"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Shiko Pasqyrat"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Parashikim i L_argët"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Gjej Burime të Tjera"/>
 		<separator/>
 		<menu text="_Avancuar">
@@ -1101,14 +1101,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="_Kopjo URIn"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Shto një Burim..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Shkrihet File Lokal..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="_Monitoroni"/>
+		</menu>
+		<menu text="Pri_oritet">
 			<item id="ID_DOWNLOADS_BOOST" text="_Përbuze Kufirin e Shtrirjes së Bandës"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Lëvize _Sipër"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Lëvize _Poshtë"/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="Lëvize _Sipër!"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Lëvize _Poshtë!"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Lëvize _Sipër!" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Lëvize _Poshtë!" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Lëvize _Sipër" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Lëvize _Poshtë" shortcut="Ctrl+Down"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Ndihmë..."/>
 		<separator/>
@@ -2768,7 +2771,7 @@
 	<string id="8230" value="PeerProject po gjen burime për:"/>
 	<string id="8231" value="Asnjë burim"/>
 	<string id="8232" value="Hape"/>
-	<string id="8233" value="Parashiko"/>
+	<string id="8233" value="Anulo"/>
 	<string id="8235" value="Shpejtësi:"/>
 	<string id="8236" value="Kohë e mbetur:"/>
 	<string id="8237" value="Në shkarkim:"/>
@@ -2902,7 +2905,6 @@
 	<string id="16402" value="PeerProject received a collection file:\n\n&quot;%s&quot;\n\nThis file does not appear to be a valid collection file."/>
 	<string id="16403" value="PeerProject has added the collection file &quot;%s&quot; to your library."/>
 	<string id="16404" value="PeerProject was unable to install the collection file &quot;%s&quot; by copying it to the folder &quot;%s&quot;."/>
-	<string id="16405" value="Would you like to download this file?\n\n&quot;%s&quot;\n\nChoose Cancel to stop any further prompts."/>
 	<string id="16406" value="Would you like to download all files in this collection?\n\nChoose Cancel to stop any further prompts."/>
 	<string id="16407" value="Would you like to prevent this collection from prompting you to download anything else?"/>
 	<string id="16408" value="Kopjo &amp;URI-n"/>
@@ -3143,14 +3145,14 @@
 		<control caption="Kur klikoj minimizo:"/>
 		<control caption="Normale|Minimizohu në Brez"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Librari">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Librari">
 		<control caption="Mundësi:"/>
 		<control caption="Të tjerët i shfletojnë shpërndarjet"/>
+		<control caption="Mbaje mend pamjen e dosjes"/>
 		<control caption="Shiko dosjet në librari"/>
 		<control caption="Grirje e shpejtë (mjaft CPU)"/>
-		<control caption="Diktim inteligjent i serive filmike"/>
+		<control caption="Diktim i serive filmike"/>
 		<control caption="Krijo skeda fantazmë kur fshin"/>
-		<control caption="Mbaje mend pamjen e dosjes"/>
 		<control caption="Skedat e Fundit:"/>
 		<control caption="Mbaj mend:"/>
 		<control/>
@@ -3160,7 +3162,8 @@
 		<control/>
 		<control/>
 		<control caption="ditë"/>
-		<control caption="Pastro Historinë Tani"/>
+		<control caption="Pastro Historinë"/>
+		<control caption="Pastro Fantazmë"/>
 		<control caption="_Hap pa Rrezik:"/>
 		<control/>
 		<control caption="_Shto"/>
@@ -3803,8 +3806,7 @@
 		<control caption="Anulo"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Shkarko">
-		<control caption="PeerProject po shkarkon:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Shkarko">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -3818,7 +3820,6 @@
 		<control caption="Në shkarkim:"/>
 		<control caption="..."/>
 		<control caption="Shiko"/>
-		<control caption="Hape Skedën"/>
 		<control caption="Anuloje"/>
 		<control caption="Fshehe"/>
 		<control caption="Mbylle dritaren kur shkarkimi përfundon"/>
@@ -4192,23 +4193,22 @@
 		<control caption="tek"/>
 		<control caption="Fshije"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Vetitë e Grupit në Shkarkim">
-		<control caption="OK"/>
-		<control caption="Anulo"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Vetitë e Grupit në Shkarkim">
+		<control caption="Grupit _Emri:"/>
+		<control/>
+		<control caption="_Dosja e Skedave të Përfunduara:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Filtrat:"/>
 		<control/>
 		<control caption="_Shto"/>
 		<control caption="_Fshije"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="Grupit _Emri:"/>
-		<control caption="_Filtrat:"/>
-		<control caption="_Dosja e Skedave të Përfunduara:"/>
 		<control caption="_Tip Skede:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="OK"/>
+		<control caption="Anulo"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Zgjidhni Vegimin">
 		<control/>
@@ -4402,4 +4402,4 @@
 		<column from="Order" to="Rendi"/>
 	</list>
 </listColumns>
-</skin>
+</skin>苖

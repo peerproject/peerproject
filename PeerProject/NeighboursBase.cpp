@@ -22,7 +22,6 @@
 // Keeps a list of CNeighbour objects, with methods to go through them, add and remove them, and count them
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursBase
 
-// Copy in the contents of these files here before compiling
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
@@ -31,7 +30,7 @@
 #include "Neighbour.h"
 #include "RouteCache.h"
 
-// If we are compiling in debug mode, replace the text "THIS_FILE" in the code with the name of this file
+// Constant "THIS_FILE" is the filename, in Debug mode only
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -43,20 +42,21 @@ static char THIS_FILE[]=__FILE__;
 
 // When the program makes the CNeighbours object, this constructor initializes the member variables defined in CNeighboursBase
 CNeighboursBase::CNeighboursBase()
+	: m_nRunCookie    ( 5 )	// Start the run cookie as 5, OnRun will make it 6, 7, 8 and so on
+	, m_nStableCount  ( 0 )	// We don't have any stable connections to remote computers yet
+	, m_nLeafCount    ( 0 )	// We aren't connected to any leaves yet
+	, m_nLeafContent  ( 0 )	// When we do have leaf connetions, the total size of their shared files
+	, m_nBandwidthIn  ( 0 )	// Start the bandwidth totals at 0
+	, m_nBandwidthOut ( 0 )
 {
-	m_nRunCookie    = 5; // Start the run cookie as 5, OnRun will make it 6, 7, 8 and so on
-	m_nStableCount  = 0; // We don't have any stable connections to remote computers yet
-	m_nLeafCount    = 0; // We aren't connected to any leaves yet
-	m_nLeafContent  = 0; // When we do have some leaf connetions, the total size of the files they are sharing will go here
-	m_nBandwidthIn  = 0; // Start the bandwidth totals at 0
-	m_nBandwidthOut = 0;
+	m_pNeighbours.InitHashTable( GetBestHashTableSize( 300 ) );
+	m_pIndex.InitHashTable( GetBestHashTableSize( 300 ) );
 }
 
-// When the program deletes the CNeighbours object, each destructor runs in succession
 CNeighboursBase::~CNeighboursBase()
 {
-	// Call the Close method on each neighbour object in the list, and reset member variables back to 0
-	CNeighboursBase::Close();
+	ASSERT( m_pNeighbours.IsEmpty() );
+	ASSERT( m_pIndex.IsEmpty() );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -69,14 +69,17 @@ POSITION CNeighboursBase::GetIterator() const
 {
 	ASSUME_LOCK( Network.m_pSection );
 
-	return m_pNeighbours.GetHeadPosition();
+	return m_pNeighbours.GetStartPosition();
 }
 
 CNeighbour* CNeighboursBase::GetNext(POSITION& pos) const
 {
 	ASSUME_LOCK( Network.m_pSection );
 
-	return m_pNeighbours.GetNext( pos );
+	IN_ADDR nAddress;
+	CNeighbour* pNeighbour;
+	m_pNeighbours.GetNextAssoc( pos, nAddress, pNeighbour );
+	return pNeighbour;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -89,33 +92,27 @@ CNeighbour* CNeighboursBase::Get(DWORD_PTR nUnique) const
 {
 	ASSUME_LOCK( Network.m_pSection );
 
-	if ( POSITION pos = m_pNeighbours.Find( (CNeighbour*)nUnique ) )
-		return m_pNeighbours.GetAt( pos );
+	CNeighbour* pNeighbour;
+	if ( m_pIndex.Lookup( nUnique, pNeighbour ) )
+		return pNeighbour;
 
 	return NULL;
 }
 
-// Takes an IP address
-// Finds the neighbour object in the m_pUniques map that represents the remote computer with that address
-// Returns it, or null if not found
-CNeighbour* CNeighboursBase::Get(const IN_ADDR* pAddress) const	// Saying const here means this method won't change any member variables
+// Takes an IP address, and finds the neighbour object in the m_pUniques map that represents the remote computer with that address
+//(Saying const here means this method won't change any member variables)
+CNeighbour* CNeighboursBase::Get(const IN_ADDR* pAddress) const
 {
 	ASSUME_LOCK( Network.m_pSection );
 
-	for ( POSITION pos = m_pNeighbours.GetHeadPosition() ; pos ; )
-	{
-		CNeighbour* pNeighbour = m_pNeighbours.GetNext( pos );
+	CNeighbour* pNeighbour;
+	if ( m_pNeighbours.Lookup( *pAddress, pNeighbour ) )
+		return pNeighbour;
 
-		// If this neighbour object has the IP address we are looking for, return it
-		if ( pNeighbour->m_pHost.sin_addr.S_un.S_addr == pAddress->S_un.S_addr )
-			return pNeighbour;
-	}
-
-	// None of the neighbour objects in the map had the IP address we are looking for
-	return NULL; // Not found
+	return NULL;
 }
 
-// Finds the newest neighbour object.
+// Find the newest neighbor object
 CNeighbour* CNeighboursBase::GetNewest(PROTOCOLID nProtocol, int nState, int nNodeType) const
 {
 	ASSUME_LOCK( Network.m_pSection );
@@ -123,9 +120,9 @@ CNeighbour* CNeighboursBase::GetNewest(PROTOCOLID nProtocol, int nState, int nNo
 	DWORD tCurrent = GetTickCount();
 	DWORD tMinTime = 0xffffffff;
 	CNeighbour* pMinNeighbour = NULL;
-	for ( POSITION pos = m_pNeighbours.GetHeadPosition() ; pos ; )
+	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		CNeighbour* pNeighbour = m_pNeighbours.GetNext( pos );
+		CNeighbour* pNeighbour = GetNext( pos );
 		if ( ( nProtocol == PROTOCOL_ANY || nProtocol == pNeighbour->m_nProtocol ) &&
 			 ( nState < 0 || nState == pNeighbour->m_nState ) &&
 			 ( nNodeType < 0 || nNodeType == pNeighbour->m_nNodeType ) )
@@ -154,9 +151,9 @@ DWORD CNeighboursBase::GetCount(PROTOCOLID nProtocol, int nState, int nNodeType)
 	CSingleLock pLock( &Network.m_pSection, FALSE );
 	if ( pLock.Lock( 200 ) )
 	{
-		for ( POSITION pos = m_pNeighbours.GetHeadPosition() ; pos ; )
+		for ( POSITION pos = GetIterator() ; pos ; )
 		{
-			CNeighbour* pNeighbour = m_pNeighbours.GetNext( pos );
+			CNeighbour* pNeighbour = GetNext( pos );
 
 			// If this neighbour has the protocol we are looking for, or nProtocl is negative to count them all
 			if ( nProtocol == PROTOCOL_ANY || nProtocol == pNeighbour->m_nProtocol )
@@ -182,32 +179,30 @@ DWORD CNeighboursBase::GetCount(PROTOCOLID nProtocol, int nState, int nNodeType)
 // NeighbourExists is faster than GetCount, use it if you don't care how many there are, you just want to know if there are any
 // Takes a protocol, like Gnutella, a state, like connecting, and a node connection type, like we are both ultrapeers
 // Determines if there is at least 1 neighbour in the list that matches these criteria
-// Returns true if it finds one
-BOOL CNeighboursBase::NeighbourExists(PROTOCOLID nProtocol, int nState, int nNodeType) const
-{
-	CSingleLock pLock( &Network.m_pSection, FALSE );
-	if ( pLock.Lock( 200 ) )
-	{
-		for ( POSITION pos = m_pNeighbours.GetHeadPosition() ; pos ; )
-		{
-			CNeighbour* pNeighbour = m_pNeighbours.GetNext( pos );
-
-			// If this neighbour has the protocol we are looking for, or nProtocl is negative to count them all
-			if ( nProtocol == PROTOCOL_ANY || nProtocol == pNeighbour->m_nProtocol )
-			{
-				// If this neighbour is currently in the state we are looking for, or nState is negative to count them all
-				if ( nState < 0 || nState == pNeighbour->m_nState )
-				{
-					// If this neighbour is in the ultra or leaf role we are looking for, or nNodeType is null to count them all
-					if ( nNodeType < 0 || nNodeType == pNeighbour->m_nNodeType )
-						return TRUE;	// Found one, return immediately
-				}
-			}
-		}
-	}
-
-	return FALSE;	// Not found
-}
+//BOOL CNeighboursBase::NeighbourExists(PROTOCOLID nProtocol, int nState, int nNodeType) const
+//{
+//	CSingleLock pLock( &Network.m_pSection, FALSE );
+//	if ( pLock.Lock( 200 ) )
+//	{
+//		for ( POSITION pos = GetIterator() ; pos ; )
+//		{
+//			CNeighbour* pNeighbour = GetNext( pos );
+//
+//			// If this neighbour has the protocol we are looking for, or nProtocl is negative to count them all
+//			if ( nProtocol == PROTOCOL_ANY || nProtocol == pNeighbour->m_nProtocol )
+//			{
+//				// If this neighbour is currently in the state we are looking for, or nState is negative to count them all
+//				if ( nState < 0 || nState == pNeighbour->m_nState )
+//				{
+//					// If this neighbour is in the ultra or leaf role we are looking for, or nNodeType is null to count them all
+//					if ( nNodeType < 0 || nNodeType == pNeighbour->m_nNodeType )
+//						return TRUE;	// Stop, Found one
+//				}
+//			}
+//		}
+//	}
+//	return FALSE;	// Not found
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CNeighboursBase connect
@@ -215,7 +210,7 @@ BOOL CNeighboursBase::NeighbourExists(PROTOCOLID nProtocol, int nState, int nNod
 // Both CNeighboursWithG1 and CNeighboursWithG2 have Connect methods that do something
 void CNeighboursBase::Connect()
 {
-	// Do nothing
+	//ASSUME_LOCK( Network.m_pSection );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -224,17 +219,17 @@ void CNeighboursBase::Connect()
 // Calls Close on all the neighbours in the list, and resets member variables back to 0
 void CNeighboursBase::Close()
 {
-	for ( POSITION pos = m_pNeighbours.GetHeadPosition() ; pos ; )
+	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		m_pNeighbours.GetNext( pos )->Close();
+		GetNext( pos )->Close();
 	}
 
 	// Reset member variables back to 0
-	m_nStableCount  = 0;
-	m_nLeafCount    = 0;
-	m_nLeafContent  = 0;
-	m_nBandwidthIn  = 0;
-	m_nBandwidthOut = 0;
+	m_nStableCount	= 0;
+	m_nLeafCount	= 0;
+	m_nLeafContent	= 0;
+	m_nBandwidthIn	= 0;
+	m_nBandwidthOut	= 0;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -245,7 +240,7 @@ void CNeighboursBase::Close()
 void CNeighboursBase::OnRun()
 {
 	// Calculate time from now
-	DWORD tNow       = GetTickCount();	// The tick count now, the number of milliseconds since the user turned the computer on
+	DWORD tNow = GetTickCount();		// The tick count now, the number of milliseconds since the user turned the computer on
 	DWORD tEstablish = tNow - 1500; 	// The tick count 1.5 seconds ago
 
 	// Make local variables to mirror member variables, and start them all out as 0
@@ -271,10 +266,10 @@ void CNeighboursBase::OnRun()
 		bUpdated = false;
 
 		// Loop through the neighbours in the list
-		for ( POSITION pos = m_pNeighbours.GetHeadPosition() ; pos ; )
+		for ( POSITION pos = GetIterator() ; pos ; )
 		{
 			// Get the neighbour at this position, and move pos to the next position in the m_pUniques map
-			CNeighbour* pNeighbour = m_pNeighbours.GetNext( pos );
+			CNeighbour* pNeighbour = GetNext( pos );
 
 			// If this neighbour doesn't have the new run cookie count yet, we need to run it
 			if ( pNeighbour->m_nRunCookie != m_nRunCookie )
@@ -297,8 +292,8 @@ void CNeighboursBase::OnRun()
 
 				// Have this neighbour measure its bandwidth, compute the totals, and then we'll save them in the member variables
 				pNeighbour->Measure(); // Calls CConnection::Measure, which edits the values in the TCP bandwidth meter structure
-				nBandwidthIn   += pNeighbour->m_mInput.nMeasure; // We started these out as 0, and will save the totals in the CNeighbours object
-				nBandwidthOut  += pNeighbour->m_mOutput.nMeasure;
+				nBandwidthIn	+= pNeighbour->m_mInput.nMeasure;	// We started these out as 0, and will save the totals in the CNeighbours object
+				nBandwidthOut	+= pNeighbour->m_mOutput.nMeasure;
 
 				// Send and receive data with this remote computer through the socket
 				pNeighbour->DoRun(); // Calls CConnection::DoRun
@@ -309,17 +304,14 @@ void CNeighboursBase::OnRun()
 				break;				// Break out of the for loop
 			}
 		}
-
-		// We're done with the network object for right now, let another thread access it
-		pLock.Unlock();
 	}
 
 	// Save the values we calculated in local variables into the corresponding member variables
-	m_nStableCount  = nStableCount;
-	m_nLeafCount    = nLeafCount;
-	m_nLeafContent  = nLeafContent;
-	m_nBandwidthIn  = nBandwidthIn;
-	m_nBandwidthOut = nBandwidthOut;
+	m_nStableCount	= nStableCount;
+	m_nLeafCount	= nLeafCount;
+	m_nLeafContent	= nLeafContent;
+	m_nBandwidthIn	= nBandwidthIn;
+	m_nBandwidthOut	= nBandwidthOut;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -330,11 +322,13 @@ void CNeighboursBase::OnRun()
 void CNeighboursBase::Add(CNeighbour* pNeighbour)
 {
 	ASSUME_LOCK( Network.m_pSection );
+	ASSERT( pNeighbour->m_pHost.sin_addr.s_addr != INADDR_ANY );
+	ASSERT( pNeighbour->m_pHost.sin_addr.s_addr != INADDR_NONE );
+	ASSERT( Get( &pNeighbour->m_pHost.sin_addr ) == NULL );
+	ASSERT( Get( (DWORD_PTR)pNeighbour ) == NULL );
 
-	if ( POSITION pos = m_pNeighbours.Find( pNeighbour ) )
-		; // Dup?
-	else
-		m_pNeighbours.AddTail( pNeighbour );
+	m_pNeighbours.SetAt( pNeighbour->m_pHost.sin_addr, pNeighbour );
+	m_pIndex.SetAt( (DWORD_PTR)pNeighbour, pNeighbour );
 }
 
 // Takes a pointer to a neighbour object
@@ -348,6 +342,6 @@ void CNeighboursBase::Remove(CNeighbour* pNeighbour)
 	Network.NodeRoute->Remove( pNeighbour );
 
 	// Remove the neighbour object from the map
-	if ( POSITION pos = m_pNeighbours.Find( pNeighbour ) )
-		m_pNeighbours.RemoveAt( pos );
+	VERIFY( m_pNeighbours.RemoveKey( pNeighbour->m_pHost.sin_addr ) );
+	VERIFY( m_pIndex.RemoveKey( (DWORD_PTR)pNeighbour ) );
 }

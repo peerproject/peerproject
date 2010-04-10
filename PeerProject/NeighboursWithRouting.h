@@ -30,17 +30,16 @@ class CPacket;
 class CQuerySearch;
 
 // Add methods to broadcast packets and Gnutella queries to all the neighbours in the list
-class CNeighboursWithRouting : public CNeighboursWithED2K // Continue the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
+// Continue the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
+class CNeighboursWithRouting : public CNeighboursWithED2K
 {
+protected:
+	CNeighboursWithRouting();			// The constructor and destructor don't do anything
+	virtual ~CNeighboursWithRouting();
+
 public:
 	// Send a packet to all the computers we're connected to
 	int Broadcast(CPacket* pPacket, CNeighbour* pExcept = NULL, BOOL bGGEP = FALSE);
 	// Send a query packet to all the computers we're connected to, translating it to Gnutella and Gnutella2 for computers running that software
 	int RouteQuery(const CQuerySearch* pSearch, CPacket* pPacket, CNeighbour* pFrom, BOOL bToHubs);
-
-protected:
-	// Nothing that CNeighboursWithRouting adds to CNeighbours needs to be set up or put away
-	CNeighboursWithRouting(); // The constructor and destructor don't do anything
-	virtual ~CNeighboursWithRouting();
-
 };

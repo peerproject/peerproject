@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1071,31 +1071,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="Ö_n İzleme"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Uzaktan Ön Izl_eme"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Görüntü Ön İzleme"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Sürdür"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="_Duraklat"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Çı_k"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Daha _Fazla Kaynak Bul"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Bi_teni Temizle"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Oto_matik Temizle"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Uzaktan Ön Izl_eme"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Görüntü Ön İzleme"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Yardım..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="Ö_n İzleme"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Kop_ya Önizle"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="Ö_n İzleme"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Oynatma Listesine Ekle"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Görüntü Önizleme"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Sürdür"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="_Duraklat"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Çı_k"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Görüntü Önizleme"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Daha _Fazla Kaynak Bul"/>
 		<separator/>
 		<menu text="İ_leri">
@@ -1103,14 +1100,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="_Kopyala URI"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="Ka_ynak Ekle..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Yerel dosya Birleştirme..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Ekran _Penceresi"/>
+		</menu>
+		<menu text="Ön_celik">
 			<item id="ID_DOWNLOADS_BOOST" text="Ya_sakları Yok Say"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Yuka_rı Taşı"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="_Aşağı Taşı"/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="Yuka_rı Taşı!"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="_Aşağı Taşı!"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Yuka_rı Taşı!" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="_Aşağı Taşı!" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Yuka_rı Taşı" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="_Aşağı Taşı" shortcut="Ctrl+Down"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Yardım..."/>
 		<separator/>
@@ -2726,7 +2726,7 @@
 	<string id="8230" value="PeerProject kaynak arıyor:"/>
 	<string id="8231" value="Kaynak yok"/>
 	<string id="8232" value="Aç"/>
-	<string id="8233" value="Önizleme"/>
+	<string id="8233" value="İptal"/>
 	<string id="8235" value="Toplam transfer hızı:"/>
 	<string id="8236" value="Kalan zaman değerlendirildi:"/>
 	<string id="8237" value="İndirme miktarı:"/>
@@ -2995,7 +2995,6 @@
 	<string id="16402" value="PeerProject bir kolleksiyon dosyası aldı:\n\n&quot;%s&quot;\n\nBu dosya geçerli bir kolleksiyon dosyası gibi görünmüyor"/>
 	<string id="16403" value="PeerProject kütüphanenizdeki &quot;%s&quot; dosyasını kolleksiyona ekledi."/>
 	<string id="16404" value="PeerProject &quot;%s&quot; kolleksiyon dosyasını, &quot;%s&quot; klasörüne kopyalayarak yükleyemedi."/>
-	<string id="16405" value="Bu dosyayı indirmek ister misiniz?\n\n&quot;%s&quot;\n\nHer yeni istemi durdurmak istiyorsanız İptal'i seçmelisiniz.."/>
 	<string id="16406" value="Bu kolleksiyondaki tüm dosyaları indirmek istiyor musunuz?\n\nHer yeni istemi durdurmak istiyorsanız İptal'i seçmelisiniz."/>
 	<string id="16407" value="Birşeyler indirmeye yönlendiren bu kolleksiyonları önlemek istiyor musunuz?"/>
 	<string id="16408" value="&amp;URI Kopyala "/>
@@ -3374,14 +3373,14 @@
 		<control caption="Tıklandığında Küçült:"/>
 		<control caption="Normal|Boyut Küçült"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Kütüphane">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Kütüphane">
 		<control caption="_Seçenekler:"/>
-		<control caption="Diğerlerinin paylaşımlara gözatmasına izin ver"/>
+		<control caption="Başkaları görüntüleyebilmek için izin"/>
+		<control caption="Klasör görünümlerini hatırla"/>
 		<control caption="Kütüphane klasörlerini izle"/>
 		<control caption="Hızlı tarama (Daha fazla CPU kullanır)"/>
 		<control caption="Zeki video serileri tespiti"/>
 		<control caption="Silerken hayalet dosya yarat"/>
-		<control caption="Klasör görünümlerini hatırla"/>
 		<control caption="_Güncel Dosyalar:"/>
 		<control caption="Hatırla:"/>
 		<control/>
@@ -3392,6 +3391,7 @@
 		<control/>
 		<control caption="gün"/>
 		<control caption="Geçmişi Temizle"/>
+		<control caption="Geçmişi Hayalet"/>
 		<control caption="_Güvenli Aç:"/>
 		<control/>
 		<control caption="_Ekle"/>
@@ -4036,8 +4036,7 @@
 		<control caption="İptal"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="İndirim">
-		<control caption="PeerProject indiriyor:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="İndirim">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -4051,7 +4050,6 @@
 		<control caption="İndirilen Bölüm:"/>
 		<control caption="..."/>
 		<control caption="Kütüphane Görüntüle"/>
-		<control caption="Dosya Aç"/>
 		<control caption="İndirme İptal"/>
 		<control caption="Kapat"/>
 		<control caption="İndirme tamamlandığında pencereyi kapat"/>
@@ -4424,23 +4422,22 @@
 		<control caption="→"/>
 		<control caption="Silme"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="İndirme Grup Özellikleri">
-		<control caption="Tamam"/>
-		<control caption="İptal"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="İndirme Grup Özellikleri">
+		<control caption="_İsim:"/>
+		<control/>
+		<control caption="_Dosya klasörleri tamamlandı:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Filtreler:"/>
 		<control/>
 		<control caption="_Ekle"/>
 		<control caption="_Kaldır"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="_İsim:"/>
-		<control caption="_Filtreler:"/>
-		<control caption="_Dosya klasörleri tamamlandı:"/>
 		<control caption="Dosya _türlerini:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="Tamam"/>
+		<control caption="İptal"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Biçim Seçimi">
 		<control/>
@@ -4634,4 +4631,4 @@
 		<column from="Order" to="Düzen"/>
 	</list>
 </listColumns>
-</skin>
+</skin>隘

@@ -1,13 +1,14 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <manifest
  name="SkinVista.NoFrames"
  author="SkinVista"
- description="Windows Vista Theme, with System Default Frames  (Mix to add Chat tab)"
+ description="Windows Vista Theme, with System Default Frames  (Mix to hide Chat)"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
- platform="PeerProject 1.0.0.0"
+ license="Persistent Public Domain (PPD)"
+ platform="PeerProject 1.0"
  path="SkinVista"
  version="2.0"
  type="Skin"
@@ -391,9 +392,7 @@
 
 <commandImages>
 
- <icon id="IDI_UPDOWN_ARROW" path="UpDownArrow.ico" types="16" rtf="0"/>
  <icon id="WINDOW_NEIGHBOURS" path="IconConnection.ico" types="16" rtf="0"/>
- <icon id="WINDOW_CHAT" path="IconChat.ico" types="16" rtf="0"/>
 
 <bitmap path="IconsMedia.png" mask="00FF00">
  <image id="ID_MEDIA_PLAY"/>
@@ -410,7 +409,6 @@
 
 </commandImages>
 
-
 <!-- END INTERFACE -->
 
 
@@ -424,8 +422,6 @@
 <image type="image" path="Vista\RibbonTabs.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,70,24"/>
@@ -451,20 +447,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="358,24,70,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="358,48,70,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="358,72,70,24"/>
- <part name="_ID_TAB_IRC.Up" rect="428,0,64,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="428,24,64,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="428,48,64,24"/>
- <part name="_ID_TAB_IRC.Down" rect="428,72,64,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,500,28"/>
+ <anchor name="Background" rect="0,0,438,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,70,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="76,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="146,2,74,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="220,2,74,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="294,2,70,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="364,2,70,24"/>
- <anchor name="_ID_TAB_IRC" rect="434,2,64,24"/>
 </anchors>
 </windowSkin>
 
@@ -474,8 +465,6 @@
 <image type="image" language="af" path="Vista\RibbonTabs_af.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,74,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,74,24"/>
@@ -501,20 +490,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="366,24,64,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="366,48,64,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="366,72,64,24"/>
- <part name="_ID_TAB_IRC.Up" rect="430,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="430,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="430,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="430,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,496,28"/>
+ <anchor name="Background" rect="0,0,438,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,74,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="80,2,64,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="144,2,78,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="222,2,70,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="292,2,80,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="372,2,64,24"/>
- <anchor name="_ID_TAB_IRC" rect="436,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -524,8 +508,6 @@
 <image type="image" language="ca" path="Vista\RibbonTabs_ca.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,68,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,68,24"/>
@@ -551,20 +533,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="380,24,4,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="380,48,94,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="380,72,94,24"/>
- <part name="_ID_TAB_IRC.Up" rect="474,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="474,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="474,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="474,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,542,28"/>
+ <anchor name="Background" rect="0,0,484,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,68,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="74,2,68,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="142,2,100,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="242,2,64,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="308,2,80,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="388,2,94,24"/>
- <anchor name="_ID_TAB_IRC" rect="480,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -574,8 +551,6 @@
 <image type="image" language="cz" path="Vista\RibbonTabs_cz.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,70,24"/>
@@ -601,20 +576,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="350,24,80,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="350,48,80,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="350,72,80,24"/>
- <part name="_ID_TAB_IRC.Up" rect="430,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="430,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="430,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="430,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,502,28"/>
+ <anchor name="Background" rect="0,0,444,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,70,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="76,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="146,2,70,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="216,2,60,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="276,2,80,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="356,2,80,24"/>
- <anchor name="_ID_TAB_IRC" rect="436,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -624,8 +594,6 @@
 <image type="image" language="de" path="Vista\RibbonTabs_de.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,70,24"/>
@@ -651,20 +619,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="364,24,70,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="364,48,70,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="364,72,70,24"/>
- <part name="_ID_TAB_IRC.Up" rect="434,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="434,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="434,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="434,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,502,28"/>
+ <anchor name="Background" rect="0,0,444,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,70,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="76,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="146,2,70,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="216,2,74,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="290,2,80,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="370,2,70,24"/>
- <anchor name="_ID_TAB_IRC" rect="440,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -674,8 +637,6 @@
 <image type="image" language="ee" path="Vista\RibbonTabs_ee.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,70,24"/>
@@ -701,20 +662,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="380,24,70,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="380,48,70,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="380,72,70,24"/>
- <part name="_ID_TAB_IRC.Up" rect="450,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="450,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="450,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="450,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,518,28"/>
+ <anchor name="Background" rect="0,0,460,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,70,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="76,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="146,2,82,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="228,2,60,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="288,2,98,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="386,2,70,24"/>
- <anchor name="_ID_TAB_IRC" rect="456,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -724,8 +680,6 @@
 <image type="image" language="es" path="Vista\RibbonTabs_es.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,68,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,68,24"/>
@@ -751,20 +705,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="380,24,4,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="380,48,94,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="380,72,94,24"/>
- <part name="_ID_TAB_IRC.Up" rect="474,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="474,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="474,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="474,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,544,28"/>
+ <anchor name="Background" rect="0,0,486,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,68,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="74,2,68,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="142,2,100,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="242,2,64,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="306,2,80,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="386,2,94,24"/>
- <anchor name="_ID_TAB_IRC" rect="480,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -774,8 +723,6 @@
 <image type="image" language="es-mx" path="Vista\RibbonTabs_es.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,68,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,68,24"/>
@@ -801,20 +748,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="380,24,4,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="380,48,94,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="380,72,94,24"/>
- <part name="_ID_TAB_IRC.Up" rect="474,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="474,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="474,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="474,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,544,28"/>
+ <anchor name="Background" rect="0,0,486,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,68,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="74,2,68,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="142,2,100,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="242,2,64,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="306,2,80,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="386,2,94,24"/>
- <anchor name="_ID_TAB_IRC" rect="480,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -824,8 +766,6 @@
 <image type="image" language="fi" path="Vista\RibbonTabs_fi.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,64,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,64,24"/>
@@ -851,20 +791,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="340,24,70,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="340,48,70,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="340,72,70,24"/>
- <part name="_ID_TAB_IRC.Up" rect="410,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="410,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="410,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="410,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,480,28"/>
+ <anchor name="Background" rect="0,0,420,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,64,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="70,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="136,2,70,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="206,2,70,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="276,2,70,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="346,2,70,24"/>
- <anchor name="_ID_TAB_IRC" rect="416,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -874,8 +809,6 @@
 <image type="image" language="fr" path="Vista\RibbonTabs_fr.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,74,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,74,24"/>
@@ -901,20 +834,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="394,24,90,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="394,48,90,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="394,72,90,24"/>
- <part name="_ID_TAB_IRC.Up" rect="484,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="484,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="484,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="484,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,542,28"/>
+ <anchor name="Background" rect="0,0,494,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,74,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="80,2,80,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="160,2,80,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="240,2,70,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="310,2,90,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="400,2,90,24"/>
- <anchor name="_ID_TAB_IRC" rect="490,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -924,8 +852,6 @@
 <image type="image" language="hr" path="Vista\RibbonTabs_hr.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,70,24"/>
@@ -951,20 +877,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="354,24,70,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="354,48,70,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="354,72,70,24"/>
- <part name="_ID_TAB_IRC.Up" rect="424,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="424,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="424,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="424,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,482,28"/>
+ <anchor name="Background" rect="0,0,424,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,70,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="76,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="146,2,74,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="220,2,70,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="290,2,70,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="350,2,70,24"/>
- <anchor name="_ID_TAB_IRC" rect="430,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -974,8 +895,6 @@
 <image type="image" language="hu" path="Vista\RibbonTabs_hu.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,76,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,76,24"/>
@@ -1001,20 +920,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="366,24,70,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="366,48,70,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="366,72,70,24"/>
- <part name="_ID_TAB_IRC.Up" rect="436,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="436,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="436,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="436,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,504,28"/>
+ <anchor name="Background" rect="0,0,444,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,76,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="82,2,68,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="150,2,78,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="228,2,70,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="298,2,74,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="372,2,70,24"/>
- <anchor name="_ID_TAB_IRC" rect="442,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1024,8 +938,6 @@
 <image type="image" language="it" path="Vista\RibbonTabs_it.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,70,24"/>
@@ -1051,20 +963,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="362,24,70,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="362,48,70,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="362,72,70,24"/>
- <part name="_ID_TAB_IRC.Up" rect="432,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="432,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="432,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="432,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,500,28"/>
+ <anchor name="Background" rect="0,0,440,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,70,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="76,2,66,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="142,2,92,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="234,2,64,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="298,2,70,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="368,2,70,24"/>
- <anchor name="_ID_TAB_IRC" rect="438,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1074,8 +981,6 @@
 <image type="image" language="lt" path="Vista\RibbonTabs_lt.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,70,24"/>
@@ -1101,20 +1006,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="356,24,74,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="356,48,74,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="356,72,74,24"/>
- <part name="_ID_TAB_IRC.Up" rect="430,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="430,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="430,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="430,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,498,28"/>
+ <anchor name="Background" rect="0,0,442,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,70,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="76,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="146,2,74,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="220,2,68,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="288,2,74,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="362,2,74,24"/>
- <anchor name="_ID_TAB_IRC" rect="436,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1124,8 +1024,6 @@
 <image type="image" language="nl" path="Vista\RibbonTabs_nl.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,88,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,88,24"/>
@@ -1151,20 +1049,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="398,24,74,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="398,48,74,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="398,72,74,24"/>
- <part name="_ID_TAB_IRC.Up" rect="472,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="472,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="472,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="472,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,540,28"/>
+ <anchor name="Background" rect="0,0,480,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,88,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="94,2,74,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="168,2,74,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="242,2,74,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="316,2,88,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="404,2,74,24"/>
- <anchor name="_ID_TAB_IRC" rect="478,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1174,8 +1067,6 @@
 <image type="image" language="no" path="Vista\RibbonTabs_no.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,68,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,68,24"/>
@@ -1201,20 +1092,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="356,24,68,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="356,48,68,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="356,72,68,24"/>
- <part name="_ID_TAB_IRC.Up" rect="424,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="424,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="424,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="424,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,492,28"/>
+ <anchor name="Background" rect="0,0,432,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,68,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="74,2,64,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="138,2,90,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="228,2,70,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="298,2,64,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="362,2,68,24"/>
- <anchor name="_ID_TAB_IRC" rect="430,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1224,8 +1110,6 @@
 <image type="image" language="pl" path="Vista\RibbonTabs_pl.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,70,24"/>
@@ -1251,20 +1135,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="350,24,70,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="350,48,70,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="350,72,70,24"/>
- <part name="_ID_TAB_IRC.Up" rect="420,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="420,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="420,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="420,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,488,28"/>
+ <anchor name="Background" rect="0,0,428,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,70,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="76,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="146,2,74,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="220,2,66,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="286,2,70,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="356,2,70,24"/>
- <anchor name="_ID_TAB_IRC" rect="426,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1274,8 +1153,6 @@
 <image type="image" language="pt-br" path="Vista\RibbonTabs_pt.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,62,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,62,24"/>
@@ -1301,20 +1178,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="374,24,64,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="374,48,64,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="374,72,64,24"/>
- <part name="_ID_TAB_IRC.Up" rect="438,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="438,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="438,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="438,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,506,28"/>
+ <anchor name="Background" rect="0,0,448,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,62,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="68,2,72,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="140,2,100,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="240,2,62,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="302,2,78,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="380,2,64,24"/>
- <anchor name="_ID_TAB_IRC" rect="444,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1324,8 +1196,6 @@
 <image type="image" language="ru" path="Vista\RibbonTabs_ru.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,74,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,74,24"/>
@@ -1351,20 +1221,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="394,24,116,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="394,48,116,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="394,72,116,24"/>
- <part name="_ID_TAB_IRC.Up" rect="510,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="510,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="510,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="510,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,578,28"/>
+ <anchor name="Background" rect="0,0,522,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,74,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="80,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="150,2,90,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="240,2,66,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="306,2,94,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="400,2,116,24"/>
- <anchor name="_ID_TAB_IRC" rect="516,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1374,8 +1239,6 @@
 <image type="image" language="sl" path="Vista\RibbonTabs_sl.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,70,24"/>
@@ -1401,20 +1264,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="354,24,70,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="354,48,70,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="354,72,70,24"/>
- <part name="_ID_TAB_IRC.Up" rect="424,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="424,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="424,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="424,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,492,28"/>
+ <anchor name="Background" rect="0,0,432,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,70,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="76,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="146,2,70,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="216,2,70,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="286,2,74,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="360,2,70,24"/>
- <anchor name="_ID_TAB_IRC" rect="430,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1424,8 +1282,6 @@
 <image type="image" language="sr" path="Vista\RibbonTabs_sr.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,74,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,74,24"/>
@@ -1451,20 +1307,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="354,24,72,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="354,48,72,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="354,72,72,24"/>
- <part name="_ID_TAB_IRC.Up" rect="426,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="426,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="426,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="426,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,494,28"/>
+ <anchor name="Background" rect="0,0,434,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,74,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="80,2,64,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="144,2,76,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="220,2,70,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="290,2,70,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="360,2,72,24"/>
- <anchor name="_ID_TAB_IRC" rect="432,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1474,8 +1325,6 @@
 <image type="image" language="sq" path="Vista\RibbonTabs_sr.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,74,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,74,24"/>
@@ -1501,10 +1350,6 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="354,24,72,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="354,48,72,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="354,72,72,24"/>
- <part name="_ID_TAB_IRC.Up" rect="426,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="4260,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="426,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="426,72,60,24"/>
 </parts>
 <anchors>
  <anchor name="Background" rect="0,0,494,28"/>
@@ -1514,7 +1359,6 @@
  <anchor name="_ID_TAB_NETWORK" rect="220,2,70,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="290,2,70,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="360,2,72,24"/>
- <anchor name="_ID_TAB_IRC" rect="432,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1524,8 +1368,6 @@
 <image type="image" language="tr" path="Vista\RibbonTabs_tr.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,80,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,80,24"/>
@@ -1551,20 +1393,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="366,24,64,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="366,48,64,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="366,72,64,24"/>
- <part name="_ID_TAB_IRC.Up" rect="430,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="430,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="430,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="430,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,498,28"/>
+ <anchor name="Background" rect="0,0,442,28"/>
  <anchor name="_ID_TAB_HOME" rect="8,2,80,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="88,2,64,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="152,2,80,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="232,2,56,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="288,2,86,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="374,2,64,24"/>
- <anchor name="_ID_TAB_IRC" rect="436,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1574,8 +1411,6 @@
 <image type="image" language="gr" path="Vista\RibbonTabs_gr.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,64,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,64,24"/>
@@ -1601,20 +1436,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="370,24,64,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="370,48,64,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="370,72,64,24"/>
- <part name="_ID_TAB_IRC.Up" rect="434,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="434,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="434,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="434,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,502,28"/>
+ <anchor name="Background" rect="0,0,442,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,64,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="70,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="140,2,86,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="226,2,64,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="290,2,86,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="376,2,64,24"/>
- <anchor name="_ID_TAB_IRC" rect="440,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1624,8 +1454,6 @@
 <image type="image" language="ja" path="Vista\RibbonTabs_ja.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,70,24"/>
@@ -1651,20 +1479,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="390,24,74,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="390,48,74,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="390,72,74,24"/>
- <part name="_ID_TAB_IRC.Up" rect="464,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="464,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="464,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="464,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,532,28"/>
+ <anchor name="Background" rect="0,0,472,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,70,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="76,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="146,2,70,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="216,2,94,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="310,2,86,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="396,2,74,24"/>
- <anchor name="_ID_TAB_IRC" rect="470,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1674,8 +1497,6 @@
 <image type="image" language="ko" path="Vista\RibbonTabs_ko.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,68,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,68,24"/>
@@ -1701,20 +1522,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="356,24,68,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="356,48,68,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="356,72,68,24"/>
- <part name="_ID_TAB_IRC.Up" rect="424,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="424,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="424,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="424,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,492,28"/>
+ <anchor name="Background" rect="0,0,432,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,68,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="74,2,68,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="142,2,68,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="210,2,82,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="292,2,70,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="362,2,68,24"/>
- <anchor name="_ID_TAB_IRC" rect="430,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1724,8 +1540,6 @@
 <image type="image" language="zhs" path="Vista\RibbonTabs_zhs.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,70,24"/>
@@ -1751,20 +1565,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="350,24,70,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="350,48,70,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="350,72,70,24"/>
- <part name="_ID_TAB_IRC.Up" rect="420,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="420,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="420,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="420,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,488,28"/>
+ <anchor name="Background" rect="0,0,430,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,70,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="76,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="146,2,70,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="216,2,70,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="286,2,70,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="356,2,70,24"/>
- <anchor name="_ID_TAB_IRC" rect="426,2,60,24"/>
 </anchors>
 </windowSkin>
 
@@ -1774,8 +1583,6 @@
 <image type="image" language="zht" path="Vista\RibbonTabs_zht.png"/>
 <image type="watermark" path="Vista\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<target window="CMainTabBarCtrl.Basic"/>
 <parts>
  <part name="_ID_TAB_HOME.Up" rect="0,0,70,24"/>
  <part name="_ID_TAB_HOME.Checked" rect="0,24,70,24"/>
@@ -1801,20 +1608,15 @@
  <part name="_ID_TAB_MEDIA.Checked" rect="350,24,74,24"/>
  <part name="_ID_TAB_MEDIA.Hover" rect="350,48,74,24"/>
  <part name="_ID_TAB_MEDIA.Down" rect="350,72,74,24"/>
- <part name="_ID_TAB_IRC.Up" rect="424,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="424,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="424,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="424,72,60,24"/>
 </parts>
 <anchors>
- <anchor name="Background" rect="0,0,492,28"/>
+ <anchor name="Background" rect="0,0,424,28"/>
  <anchor name="_ID_TAB_HOME" rect="6,2,70,24"/>
  <anchor name="_ID_TAB_SEARCH" rect="76,2,70,24"/>
  <anchor name="_ID_TAB_TRANSFERS" rect="146,2,70,24"/>
  <anchor name="_ID_TAB_NETWORK" rect="216,2,70,24"/>
  <anchor name="_ID_TAB_LIBRARY" rect="286,2,70,24"/>
  <anchor name="_ID_TAB_MEDIA" rect="346,2,74,24"/>
- <anchor name="_ID_TAB_IRC" rect="430,2,60,24"/>
 </anchors>
 </windowSkin>
 

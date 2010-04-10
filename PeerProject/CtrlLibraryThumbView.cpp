@@ -57,7 +57,6 @@ BEGIN_MESSAGE_MAP(CLibraryThumbView, CLibraryFileView)
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_LBUTTONUP()
 	ON_WM_RBUTTONDOWN()
-	ON_WM_XBUTTONDOWN()
 	ON_WM_KEYDOWN()
 	ON_WM_TIMER()
 	ON_WM_SETFOCUS()
@@ -181,10 +180,10 @@ void CLibraryThumbView::Update()
 			if ( m_nCount == m_nBuffer )
 			{
 				m_nBuffer += 64;
-				CLibraryThumbItem** pList = new CLibraryThumbItem*[ m_nBuffer ];
-				if ( m_nCount ) CopyMemory( pList, m_pList, m_nCount * sizeof( CLibraryThumbItem* ) );
+				CLibraryThumbItem** pNewList = new CLibraryThumbItem*[ m_nBuffer ];
+				if ( m_nCount ) CopyMemory( pNewList, m_pList, m_nCount * sizeof( CLibraryThumbItem* ) );
 				if ( m_pList ) delete [] m_pList;
-				m_pList = pList;
+				m_pList = pNewList;
 			}
 
 			m_pList[ m_nCount++ ] = pThumb;
@@ -230,6 +229,17 @@ BOOL CLibraryThumbView::Select(DWORD nObject)
 		ScrollBy( rcItem.bottom - rcClient.bottom );
 
 	return TRUE;
+}
+
+void CLibraryThumbView::SelectAll()
+{
+	CLibraryThumbItem** pList = m_pList;
+	for ( int nItem = 0 ; nItem < m_nCount; nItem++, pList++ )
+	{
+		Select( *pList, TRI_TRUE );
+	}
+
+	Invalidate();
 }
 
 DWORD_PTR CLibraryThumbView::HitTestIndex(const CPoint& point) const
@@ -497,7 +507,7 @@ void CLibraryThumbView::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScroll
 
 BOOL CLibraryThumbView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
-	if ( CLibraryView::OnMouseWheel( nFlags, zDelta, pt ) )
+	if ( CLibraryFileView::OnMouseWheel( nFlags, zDelta, pt ) )
 		return TRUE;
 
 	ScrollBy( zDelta * -CY / WHEEL_DELTA / 2 );
@@ -679,12 +689,6 @@ void CLibraryThumbView::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	OnLButtonDown( nFlags, point );
 	CLibraryFileView::OnRButtonDown( nFlags, point );
-}
-
-void CLibraryThumbView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
-{
-	if ( nButton == 1 )
-		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
 }
 
 void CLibraryThumbView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)

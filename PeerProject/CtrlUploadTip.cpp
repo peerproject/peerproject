@@ -94,6 +94,7 @@ void CUploadTipCtrl::OnShow()
 void CUploadTipCtrl::OnHide()
 {
 	if ( m_pGraph ) delete m_pGraph;
+
 	m_pGraph = NULL;
 	m_pItem = NULL;
 }
@@ -134,9 +135,9 @@ void CUploadTipCtrl::OnCalcSize(CDC* pDC)
 	m_sz.cy += TIP_RULE;
 	m_sz.cy += TIP_TEXTHEIGHT * 4;
 	m_sz.cy += TIP_GAP;
-	m_sz.cy += TIP_TEXTHEIGHT;
+	m_sz.cy += TIP_BARHEIGHT;
 	m_sz.cy += TIP_GAP;
-	m_sz.cy += 40;
+	m_sz.cy += TIP_GRAPHHEIGHT;
 	m_sz.cy += TIP_GAP;
 
 	int nValueWidth = 0;
@@ -204,25 +205,25 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	if ( pUpload->GetMaxSpeed() > 10 )
 	{
 		strSpeed.Format( _T("%s %s %s  (%s)"),
-			Settings.SmartSpeed( pUpload->GetMeasuredSpeed() ),
-			strOf,
-			Settings.SmartSpeed( pUpload->m_nBandwidth ),
-			Settings.SmartSpeed( pUpload->GetMaxSpeed() ) );
+			(LPCTSTR)Settings.SmartSpeed( pUpload->GetMeasuredSpeed() ),
+			(LPCTSTR)strOf,
+			(LPCTSTR)Settings.SmartSpeed( pUpload->m_nBandwidth ),
+			(LPCTSTR)Settings.SmartSpeed( pUpload->GetMaxSpeed() ) );
 	}
 	else
 	{
 		strSpeed.Format( _T("%s %s %s"),
-			Settings.SmartSpeed( pUpload->GetMeasuredSpeed() ),
-			strOf,
-			Settings.SmartSpeed( pUpload->m_nBandwidth ) );
+			(LPCTSTR)Settings.SmartSpeed( pUpload->GetMeasuredSpeed() ),
+			(LPCTSTR)strOf,
+			(LPCTSTR)Settings.SmartSpeed( pUpload->m_nBandwidth ) );
 	}
 
 	if ( pUpload->m_nSize > 1 )
 	{
 		strTransfer.Format( _T("%s %s %s  (%.2f%%)"),
-			Settings.SmartVolume( pUpload->m_nUploaded ),
-			strOf,
-			Settings.SmartVolume( pUpload->m_nSize ),
+			(LPCTSTR)Settings.SmartVolume( pUpload->m_nUploaded ),
+			(LPCTSTR)strOf,
+			(LPCTSTR)Settings.SmartVolume( pUpload->m_nSize ),
 			float( pUpload->m_nUploaded * 10240 / pUpload->m_nSize ) / 100.00f );
 	}
 	else
@@ -241,25 +242,30 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 		{
 			LoadString( strText, IDS_TIP_NEXT );
 			strStatus.Format( _T("%s: %s"),
-				(LPCTSTR)pUpload->m_pQueue->m_sName, strText );
+				(LPCTSTR)pUpload->m_pQueue->m_sName, (LPCTSTR)strText );
 		}
 		else
 		{
 			LoadString( strText, IDS_TIP_ACTIVE );
 			strStatus.Format( _T("%s: %s"),
-				(LPCTSTR)pUpload->m_pQueue->m_sName, strText );
+				(LPCTSTR)pUpload->m_pQueue->m_sName, (LPCTSTR)strText );
 		}
 	}
 	else if ( nQueue > 0 )
 	{
 		strStatus.Format( _T("%s: %i %s %i"),
 			(LPCTSTR)pUpload->m_pQueue->m_sName,
-			nQueue, strOf, pUpload->m_pQueue->GetQueuedCount() );
+			nQueue, (LPCTSTR)strOf, pUpload->m_pQueue->GetQueuedCount() );
 	}
 	else
 	{
 		LoadString( strStatus, IDS_TIP_ACTIVE );
 	}
+
+	// Starting dynamic text
+	m_rcUpdateText.top = pt.y;
+	m_rcUpdateText.right = m_sz.cx - 2;
+	m_rcUpdateText.left = 80;
 
 	LoadString( strText, IDS_TIP_STATUS );
 	DrawText( pDC, &pt, strText );
@@ -281,18 +287,21 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	DrawText( pDC, &pt, strTransfer, 80 );
 	pt.y += TIP_TEXTHEIGHT;
 
-	pt.y += TIP_GAP;
+	// End dynamic text
+	m_rcUpdateText.bottom = pt.y + TIP_TEXTHEIGHT;
 
+	pt.y += TIP_GAP;
 	DrawProgressBar( pDC, &pt, m_pUploadFile );
 	pt.y += TIP_GAP;
 
-	CRect rc( pt.x, pt.y, m_sz.cx, pt.y + 40 );
+	CRect rc( pt.x, pt.y, m_sz.cx, pt.y + TIP_GRAPHHEIGHT );
 	pDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rc.DeflateRect( 1, 1 );
-	m_pGraph->BufferedPaint( pDC, &rc );
+	if ( m_pGraph )	// Rare crash fix
+		m_pGraph->BufferedPaint( pDC, &rc );
 	rc.InflateRect( 1, 1 );
 	pDC->ExcludeClipRect( &rc );
-	pt.y += 40;
+	pt.y += TIP_GRAPHHEIGHT;
 	pt.y += TIP_GAP;
 
 	for ( int nHeader = 0 ; nHeader < m_pHeaderName.GetSize() ; nHeader++ )
@@ -327,6 +336,12 @@ void CUploadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 {
 	CCoolTipCtrl::OnTimer( nIDEvent );
 
+	if ( nIDEvent == 2 )
+	{
+		InvalidateRect( &m_rcUpdateText, FALSE );
+		return;
+	}
+
 	if ( m_pGraph == NULL ) return;
 
 	CSingleLock pLock( &Transfers.m_pSection );
@@ -341,17 +356,18 @@ void CUploadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 	if ( CUploadTransfer* pUpload = m_pUploadFile->GetActive() )
 	{
 		DWORD nSpeed = pUpload->GetMeasuredSpeed();
+		pLock.Unlock();
+
 		m_pItem->Add( nSpeed );
 		m_pGraph->m_nUpdates++;
 		m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
 
-		if ( pUpload->m_nState != upsNull || m_pGraph->m_nMaximum > 10 )
-		{
-			CRect rcWndTip;
-			SystemParametersInfo( SPI_GETWORKAREA, 0, rcWndTip, 0 );
-			if ( rcWndTip.bottom > 190 ) rcWndTip.bottom = 190;
-			rcWndTip.top += 62;
-			InvalidateRect( &rcWndTip );
-		}
+		if ( pUpload->m_nState == upsNull || m_pGraph->m_nMaximum < 8 )
+			return;
+
+		CRect rcUpdateGraph;
+		SystemParametersInfo( SPI_GETWORKAREA, 0, rcUpdateGraph, 0 );
+		rcUpdateGraph.top += TIP_TEXTHEIGHT * 8 + TIP_GAP + TIP_GAP ;
+		InvalidateRect( &rcUpdateGraph, FALSE );
 	}
 }

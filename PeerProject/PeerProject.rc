@@ -251,6 +251,11 @@ IDR_HTML_DISABLED		HTML		"Res\\Disabled.htm"
 IDR_HTML_FILENOTFOUND	HTML		"Res\\FileNotFound.htm"
 IDR_HTML_HASHMISMATCH	HTML		"Res\\HashMismatch.htm"
 
+IDR_XML_DEFAULT			HTML		"Res\\Default.xml"
+IDR_XML_DEFINITIONS		HTML		"Res\\Definitions.xml"
+IDR_XML_SCHEMA_MAPS		HTML		"..\\Schemas\\SchemaMappings.xml"
+
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // GZIP
@@ -258,9 +263,10 @@ IDR_HTML_HASHMISMATCH	HTML		"Res\\HashMismatch.htm"
 
 IDR_HTML_ABOUT			GZIP		"Res\\About.htm.gz"
 IDR_HTML_BROWSER		GZIP		"Res\\Browser.htm.gz"
-IDR_XML_DEFAULT			GZIP		"Res\\Default.xml.gz"
-IDR_XML_DEFINITIONS		GZIP		"Res\\Definitions.xml.gz"
-IDR_XML_SCHEMA_MAPS		GZIP		"Res\\SchemaMappings.xml.gz"
+
+//IDR_XML_DEFAULT		GZIP		"Res\\Default.xml.gz"
+//IDR_XML_DEFINITIONS	GZIP		"Res\\Definitions.xml.gz"
+//IDR_XML_SCHEMA_MAPS	GZIP		"..\\Schemas\\SchemaMappings.xml.gz"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -617,7 +623,7 @@ BEGIN
 	LTEXT			"© PeerProject Development Team, 2008-",IDC_COPYRIGHT,20,60,262,12
 	LTEXT			"PeerProject™ is free software;  you can redistribute and/or modify it \nunder the terms of the GNU General Public License as published by \nthe Free Software Foundation, version 3 or later.  (GPL v3)",IDC_STATIC,20,80,262,24
 	LTEXT			"Creative Commons BY-NC-SA covers original artwork.",IDC_STATIC,20,110,220,12
-	LTEXT			"Portions originally copyright Shareaza, 2002-2008.",IDC_STATIC,20,124,220,18
+	LTEXT			"Portions previously copyright Shareaza, 2002-2008.",IDC_STATIC,20,124,220,18
 	LTEXT			"http://PeerProject.org",IDC_WEB,20,144,90,10
 	DEFPUSHBUTTON	"OK",IDOK,234,142,50,14
 END
@@ -1045,29 +1051,28 @@ BEGIN
 	CONTROL			"Censor profanity in chat",IDC_CHAT_CENSOR,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,14,132,250,15
 END
 
-IDD_DOWNLOAD_MONITOR DIALOGEX 0, 0, 250, 147
+IDD_DOWNLOAD_MONITOR DIALOGEX 0, 0, 250, 134
 STYLE DS_SETFONT | DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Download"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	LTEXT			"PeerProject is downloading:",IDC_DOWNLOAD_STATUS,5,4,220,10
-	CONTROL			"...",IDC_DOWNLOAD_FILE,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | SS_WORDELLIPSIS | WS_GROUP,5,14,240,10
-	CONTROL			"",IDC_PROGRESS,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,5,26,238,10
-	CONTROL			"",IDC_DOWNLOAD_GRAPH,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,5,40,238,25
-	ICON			IDR_MAINFRAME,IDC_DOWNLOAD_ICON,10,80,20,20
-	LTEXT			"Number of sources:",IDC_STATIC,40,70,90,10
-	CONTROL			"...",IDC_DOWNLOAD_SOURCES,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,130,70,110,10
-	LTEXT			"Transfer speed:",IDC_STATIC,40,80,90,10
-	CONTROL			"...",IDC_DOWNLOAD_SPEED,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,130,80,110,10
-	LTEXT			"Time remaining:",IDC_STATIC,40,90,90,10
-	CONTROL			"...",IDC_DOWNLOAD_TIME,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,130,90,110,10
-	LTEXT			"Total downloaded:",IDC_STATIC,40,100,90,10
-	CONTROL			"...",IDC_DOWNLOAD_VOLUME,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,130,100,120,10
-	PUSHBUTTON		"Show",IDC_DOWNLOAD_VIEW,6,128,54,14,WS_GROUP
-	PUSHBUTTON		"Open",IDC_DOWNLOAD_LAUNCH,62,128,54,14
-	PUSHBUTTON		"Cancel",IDC_DOWNLOAD_STOP,118,128,54,14
-	PUSHBUTTON		"Close",IDC_DOWNLOAD_CANCEL,194,128,50,14
-	CONTROL			"Close window when completed",IDC_DOWNLOAD_CLOSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,112,200,15
+//	LTEXT			"PeerProject is downloading:",IDC_DOWNLOAD_STATUS,5,4,220,10
+	CONTROL			"...",IDC_DOWNLOAD_FILE,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | SS_WORDELLIPSIS | WS_GROUP,5,3,242,10
+	CONTROL			"",IDC_PROGRESS,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,5,16,238,10
+	CONTROL			"",IDC_DOWNLOAD_GRAPH,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,5,30,238,25
+	ICON			IDR_MAINFRAME,IDC_DOWNLOAD_ICON,10,70,20,20
+	LTEXT			"Number of sources:",IDC_STATIC,40,60,90,10
+	CONTROL			"...",IDC_DOWNLOAD_SOURCES,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,128,60,110,10
+	LTEXT			"Transfer speed:",IDC_STATIC,40,70,90,10
+	CONTROL			"...",IDC_DOWNLOAD_SPEED,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,128,70,110,10
+	LTEXT			"Time remaining:",IDC_STATIC,40,80,90,10
+	CONTROL			"...",IDC_DOWNLOAD_TIME,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,128,80,110,10
+	LTEXT			"Total downloaded:",IDC_STATIC,40,90,90,10
+	CONTROL			"...",IDC_DOWNLOAD_VOLUME,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,128,90,120,10
+	PUSHBUTTON		"Show",IDC_DOWNLOAD_SHOW,5,116,59,14,WS_GROUP
+	PUSHBUTTON		"Cancel",IDC_DOWNLOAD_ACTION,66,116,59,14
+	PUSHBUTTON		"Close",IDC_DOWNLOAD_CLOSE,195,116,50,14
+	CONTROL			"Close window when completed",IDC_DOWNLOAD_AUTOCLOSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,101,220,15
 END
 
 IDD_FILE_PREVIEW DIALOGEX 0, 0, 257, 81
@@ -1172,12 +1177,12 @@ FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
 	GROUPBOX		"&Options:",IDC_STATIC,6,5,140,99,WS_GROUP
 	CONTROL			"Allow others to browse",IDC_BROWSE_FILES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,126,10
-	CONTROL			"Watch library folders",IDC_WATCH_FOLDERS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,32,126,10
-	CONTROL			"Quick hashing  (more CPU)",IDC_HIGH_HASH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,46,126,10
-	CONTROL			"Smart media series detection",IDC_SMART_SERIES_DETECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,60,130,10
-	CONTROL			"Create ghost files when deleting",IDC_MAKE_GHOSTS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,74,130,10
-	CONTROL			"Remember folder views",IDC_STORE_VIEWS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,88,126,10
-	GROUPBOX		"&Recent Files:",IDC_STATIC,6,107,139,70,WS_GROUP
+	CONTROL			"Remember folder views",IDC_STORE_VIEWS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,32,126,10
+	CONTROL			"Watch library folders",IDC_WATCH_FOLDERS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,46,126,10
+	CONTROL			"Quick hashing  (more CPU)",IDC_HIGH_HASH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,60,126,10
+	CONTROL			"Smart media series detection",IDC_SMART_SERIES_DETECTION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,74,130,10
+	CONTROL			"Create ghost files by default",IDC_MAKE_GHOSTS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,88,130,10
+	GROUPBOX		"&Recent Files:",IDC_STATIC,6,107,140,70,WS_GROUP
 	LTEXT			"Remember:",IDC_STATIC,14,118,46,12,SS_CENTERIMAGE
 	EDITTEXT		IDC_RECENT_TOTAL,65,118,35,12,ES_AUTOHSCROLL | ES_NUMBER
 	CONTROL			"Spin1",IDC_RECENT_TOTAL_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,101,118,8,12
@@ -1186,7 +1191,8 @@ BEGIN
 	EDITTEXT		IDC_RECENT_DAYS,65,136,35,12,ES_AUTOHSCROLL | ES_NUMBER
 	CONTROL			"Spin1",IDC_RECENT_DAYS_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,101,136,8,12
 	LTEXT			"days",IDC_STATIC,105,136,30,12,SS_CENTERIMAGE
-	PUSHBUTTON		"Clear History Now",IDC_RECENT_CLEAR,36,155,75,15
+	PUSHBUTTON		"Clear &History",IDC_RECENT_CLEAR,14,155,61,15
+	PUSHBUTTON		"Clear &Ghosts",IDC_RECENT_CLEAR_GHOSTS,77,155,61,15
 	GROUPBOX		"&Safe to Open Types:",IDC_STATIC,153,5,122,85,WS_GROUP
 	COMBOBOX		IDC_SAFE_TYPES,161,18,60,66,CBS_SIMPLE | CBS_AUTOHSCROLL | CBS_SORT | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
 	PUSHBUTTON		"&Add",IDC_SAFE_ADD,226,17,42,15
@@ -1589,22 +1595,21 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Download Group Properties"
 FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
-	DEFPUSHBUTTON	"OK",IDOK,168,202,50,14
-	PUSHBUTTON		"Cancel",IDCANCEL,223,202,50,14
+	GROUPBOX		"&Group Name:",IDC_STATIC,7,7,266,36,WS_GROUP | WS_TABSTOP
 	EDITTEXT		IDC_NAME,16,20,248,12,ES_AUTOHSCROLL
-	COMBOBOX		IDC_SCHEMAS,149,106,115,139,CBS_DROPDOWNLIST | CBS_OWNERDRAWVARIABLE | CBS_SORT | CBS_HASSTRINGS | WS_VSCROLL | WS_TABSTOP
-	CONTROL			"&BitTorrent downloads+seeds",IDC_DOWNLOADS_TORRENT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,128,112,13
-	COMBOBOX		IDC_FILTER_LIST,16,106,110,65,CBS_SIMPLE | CBS_AUTOHSCROLL | CBS_SORT | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-	PUSHBUTTON		"&Add",IDC_FILTER_ADD,16,174,53,15
-	PUSHBUTTON		"&Remove",IDC_FILTER_REMOVE,73,174,53,15
+	GROUPBOX		"&Completed Files Folder:",IDC_STATIC,7,49,266,36,WS_GROUP
 	EDITTEXT		IDC_FOLDER,16,63,192,12,ES_AUTOHSCROLL
 	PUSHBUTTON		"",IDC_DOWNLOADS_BROWSE,215,59,23,20
 	PUSHBUTTON		"",IDC_DOWNLOADS_DEFAULT,241,59,23,20
-	GROUPBOX		"&Group Name:",IDC_STATIC,7,7,266,36,WS_GROUP
 	GROUPBOX		"&Auto-Filters:",IDC_STATIC,7,91,127,105,WS_GROUP
-	GROUPBOX		"&Completed Files Folder:",IDC_STATIC,7,49,266,36,WS_GROUP
+	COMBOBOX		IDC_FILTER_LIST,16,106,110,65,CBS_SIMPLE | CBS_AUTOHSCROLL | CBS_SORT | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+	PUSHBUTTON		"&Add",IDC_FILTER_ADD,16,174,53,15
+	PUSHBUTTON		"&Remove",IDC_FILTER_REMOVE,73,174,53,15
 	GROUPBOX		"&Types of Files:",IDC_STATIC,141,91,132,105,WS_GROUP
-	LTEXT			"&*Add any download type later.",IDC_STATIC,150,177,116,16
+	COMBOBOX		IDC_SCHEMAS,149,106,115,139,CBS_DROPDOWNLIST | CBS_OWNERDRAWVARIABLE | CBS_SORT | CBS_HASSTRINGS | WS_VSCROLL | WS_TABSTOP
+	LTEXT			"*Add any download type later.",IDC_STATIC,150,177,116,16
+	DEFPUSHBUTTON	"OK",IDOK,168,202,50,14
+	PUSHBUTTON		"Cancel",IDCANCEL,223,202,50,14
 END
 
 IDD_TORRENT_SEED DIALOGEX 0, 0, 292, 129
@@ -3235,7 +3240,7 @@ BEGIN
 	IDS_SKIN_DELETE				"Are you sure you want to delete the ""%s"" skin?  This cannot be undone."
 	IDS_BETA_EXPIRED			"This is a pre-release version of PeerProject, and the beta testing period has ended.  Please download the full, official release from http://peerproject.org/."
 	IDS_VIEW_MODE_CONFIRM		"Changing views may close some windows. \nWould you like to proceed now?"
-	IDS_UPGRADE_NO_NEW			"No new PeerProject version detected."
+	IDS_UPGRADE_NO_NEW			"Update: No new version detected."
 	IDS_DOWNLOAD_PROPERTIES 	"Download Properties"
 END
 
@@ -3337,18 +3342,18 @@ END
 
 STRINGTABLE
 BEGIN
-	IDS_DLM_DOWNLOADING			"PeerProject is downloading:"
-	IDS_DLM_PAUSED				"This download is paused:"
-	IDS_DLM_MOVING				"PeerProject is moving the download:"
-	IDS_DLM_VERIFY				"PeerProject is checking the download for errors:"
 	IDS_DLM_COMPLETED			"PeerProject has completed downloading:"
-	IDS_DLM_SOURCING			"PeerProject is looking for sources for:"
+//	IDS_DLM_DOWNLOADING			"PeerProject is downloading:"
+//	IDS_DLM_PAUSED				"This download is paused:"
+//	IDS_DLM_MOVING				"PeerProject is moving the download:"
+//	IDS_DLM_VERIFY				"Checking file for errors:"
+//	IDS_DLM_SOURCING			"PeerProject is looking for sources for:"
 	IDS_DLM_NO_SOURCES			"No sources"
-	IDS_DLM_OPEN_OPEN			"Open"
-	IDS_DLM_OPEN_PREVIEW		"Preview"
+	IDS_DLM_ACTION_OPEN			"Open"
+	IDS_DLM_ACTION_CANCEL		"Cancel"
 	IDS_DLM_TOTAL_SPEED			"Total transfer speed:"
-	IDS_DLM_ESTIMATED_TIME		"Estimated time remaining:"
-	IDS_DLM_VOLUME_DOWNLOADED	"Volume downloaded:"
+	IDS_DLM_ESTIMATED_TIME		"Estimated time:"
+	IDS_DLM_VOLUME_DOWNLOADED	"Total downloaded:"
 	IDS_DLM_VOLUME_UPLOADED		"Upload ratio:"
 	IDS_DLM_NUMBER_OF_SOURCES	"Number of sources:"
 	IDS_DLM_NUMBER_OF_REVIEWS	"Number of reviews:"
@@ -3484,7 +3489,7 @@ BEGIN
 	IDS_HANDSHAKE_GOTLEAF		"Acting as a hub for leaf neighbor %s."
 	IDS_HANDSHAKE_NOULTRAPEER	"Neighbor %s wants to be a hub, closing connection."
 	IDS_HANDSHAKE_NEEDAPEER		"Neighbor %s is not a hub, closing connection."
-	IDS_HANDSHAKE_ONLINE_G2		"Gnutella][ connection with neighbor %s established successfully (%s)."
+	IDS_HANDSHAKE_ONLINE_G2		"Gnutella2 connection with neighbor %s established successfully (%s)."
 	IDS_HANDSHAKE_NOTG2			"Closing connection to non-Gnutella2 neighbor %s."
 END
 
@@ -3698,7 +3703,6 @@ BEGIN
 	IDS_LIBRARY_COLLECTION_INVALID "PeerProject received a collection file:\r\n\r\n""%s""\r\n\r\nThis file does not appear to be a valid collection file."
 	IDS_LIBRARY_COLLECTION_INSTALLED "PeerProject has added the collection file ""%s"" to your library."
 	IDS_LIBRARY_COLLECTION_CANT_INSTALL "PeerProject was unable to install the collection file ""%s"" by copying it to the folder ""%s""."
-	IDS_LIBRARY_COLLECTION_DOWNLOAD_FILE "Would you like to download this file?\r\n\r\n""%s""\r\n\r\nChoose Cancel to stop any further prompts."
 	IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL "Would you like to download all files in this collection?\r\n\r\nChoose Cancel to stop any further prompts."
 	IDS_LIBRARY_COLLECTION_LOCKDOWN "Would you like to prevent this collection from prompting you to download anything else?"
 	IDS_LIBRARY_SUBFOLDER_IN_LIBRARY "A subfolder of the selected folder ""%s"" is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"
@@ -4044,7 +4048,8 @@ BEGIN
 	IDS_DOWNLOAD_EDIT_CHANGE_SIZE "You have made changes to the file size.  Are you sure you want to change the file size for this download?"
 	IDS_DOWNLOAD_EDIT_CANCEL_DOWNLOAD "Do you wish to cancel this download but save the incomplete files?"
 	IDS_DOWNLOAD_EDIT_BAD_HASH "You have typed an %s hash value, however it is invalid.  Please check it and try again."
-	IDS_DOWNLOAD_EDIT_CHANGE_HASH "You have provided an %s hash value which is different to the one currently associated with this download.  Are you sure you want to change the %s hash now?"
+	IDS_DOWNLOAD_EDIT_CHANGE_HASH "You have provided an %s hash value that is different from the one currently associated with this download.  Are you sure you want to change the %s hash now?"
+	IDS_DOWNLOAD_EDIT_ACTIVE_TASK "\nThe selected download already has an active Task, please wait."
 	IDS_DOWNLOAD_QUEUE_HUGE		"Dropping download source %s for ""%s"" because queue position %i is too high."
 END
 
@@ -4275,6 +4280,7 @@ BEGIN
     ID_NEIGHBOURS_CHAT			"Open a chat session with the selected user."
     ID_SEARCH_STOP				"Stop receiving results in this window."
     ID_TOOLS_DOWNLOAD			"Start downloading a new file or BitTorrent torrent..."
+    ID_DOWNLOADS_MERGE			"Add a file-part you may already have, and verify."
     ID_DOWNLOADS_ADD_SOURCE		"Add a source URL to the selected download..."
     ID_LIBRARY_BITZI_WEB		"View the Bitzi™ ticket for the selected file on the web."
     ID_LIBRARY_BITZI_DOWNLOAD	"Download metadata for the selected files from Bitzi..."
@@ -4290,8 +4296,8 @@ BEGIN
     ID_SECURITY_POLICY_ACCEPT	"Set the default security policy to allow all hosts."
     ID_SECURITY_POLICY_DENY		"Set the default security policy to deny all hosts."
     ID_LIBRARY_REFRESH			"Refresh the library view."
-    ID_LIBRARY_MOVE				"Move the selected files to another library folder..."
-    ID_LIBRARY_COPY				"Copy the selected files to another library folder..."
+    ID_LIBRARY_MOVE				"Move selected files to another library folder..."
+    ID_LIBRARY_COPY				"Copy selected files to another library folder..."
     ID_LIBRARY_DELETE			"Delete the selected files permanently."
     ID_LIBRARY_ENQUEUE			"Add selected files to your media playlist."
     ID_DOWNLOADS_ENQUEUE		"Add selected downloads to your media playlist."
@@ -4366,27 +4372,30 @@ BEGIN
     ID_WINDOW_MONITOR			"Show or hide the bandwidth monitor."
     ID_NETWORK_BROWSE_TO		"Browse a user, showing their profile and shared files..."
     ID_TOOLS_SKIN				"Choose a different skin for PeerProject to use..."
+    ID_TOOLS_LANGUAGE			"Select the language you wish to use PeerProject in..."
     ID_LIBRARY_HASH_PRIORITY	"Boost the speed of file scanning and hashing."
     ID_DOWNLOADS_FILE_DELETE	"Delete selected completed files."
     ID_LIBRARY_RENAME			"Rename the selected file in-place."
     ID_UPLOADS_START			"Start selected queued uploads."
-    ID_DOWNLOADS_MOVE_UP		"Move selected downloads up the priority list."
-    ID_DOWNLOADS_MOVE_DOWN		"Move selected downloads down the priority list."
-    ID_TOOLS_LANGUAGE			"Select the language you wish to use PeerProject in..."
-    ID_DOWNLOADS_SETTINGS		"Configure download settings..."
+    ID_DOWNLOADS_MOVE_UP		"Move selected downloads one step up the priority list."
+    ID_DOWNLOADS_MOVE_DOWN		"Move selected downloads one step down the priority list."
+    ID_DOWNLOADS_MOVE_TOP		"Move selected downloads to the top of the priority list."
+    ID_DOWNLOADS_MOVE_BOTTOM	"Move selected downloads to the end of the priority list."
 END
 
 STRINGTABLE
 BEGIN
+    ID_DOWNLOADS_SETTINGS		"Configure download settings..."
     ID_UPLOADS_SETTINGS			"Configure upload settings..."
     ID_DOWNLOADS_FILTER_ALL		"Show all downloads."
-    ID_DOWNLOADS_FILTER_ACTIVE	"Show downloads which are active."
-    ID_DOWNLOADS_FILTER_QUEUED	"Show downloads which are waiting in queues."
-    ID_DOWNLOADS_FILTER_SOURCES	"Show downloads which are waiting for sources."
-    ID_DOWNLOADS_FILTER_PAUSED	"Show downloads which are paused."
+    ID_DOWNLOADS_FILTER_ACTIVE	"Show downloads that are active."
+    ID_DOWNLOADS_FILTER_PAUSED	"Show downloads that are paused."
+    ID_DOWNLOADS_FILTER_QUEUED	"Show downloads that are waiting in queues."
+    ID_DOWNLOADS_FILTER_SOURCES	"Show downloads that are waiting for sources."
+    ID_DOWNLOADS_FILTER_SEEDS	"Show completed torrents that are seeding for others."
     ID_NEIGHBOURS_SETTINGS		"Configure network settings..."
     ID_LIBRARY_TREE_PHYSICAL	"View the physical folders in your library."
-    ID_LIBRARY_TREE_VIRTUAL		"Organise your library."
+    ID_LIBRARY_TREE_VIRTUAL		"Organize your library."
     ID_LIBRARY_SHARED_FOLDER	"Share or unshare selected folders."
     ID_LIBRARY_VIEW				"Select a library view..."
     ID_LIBRARY_VIEW_DETAIL		"Show file name, details and metadata \nDetail View"
@@ -4443,7 +4452,7 @@ BEGIN
     ID_MEDIA_EXPORT_COLLECTION	"Save the playlist as a collection file..."
     ID_MEDIA_PLAYLIST			"Show or hide the playlist editor."
     ID_LIBRARY_VIEW_TILE		"Show a list of album folders.\nTile View"
-    ID_LIBRARY_LAUNCH_FOLDER	"Open the Windows folder."
+    ID_LIBRARY_LAUNCH_FOLDER	"Show in Windows folder."
 	ID_LIBRARY_FOLDER_ENQUEUE	"Add every file in selected album folders to your playlist."
     ID_LIBRARY_ALBUM_DELETE		"Delete the selected album folder."
     ID_LIBRARY_ALBUM_PROPERTIES	"View and edit the properties of the selected album folder..."

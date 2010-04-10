@@ -1,31 +1,30 @@
-////////////////////////////////////////////////////////////////////////////////
-//                                                                            //
-// Hashes/HashDescriptors.hpp                                                 //
-//                                                                            //
-// This file is part of PeerProject (peerproject.org) © 2008                  //
-// Portions Copyright Shareaza Development Team, 2005.                        //
-//                                                                            //
-// PeerProject is free software; you can redistribute it and/or               //
-// modify it under the terms of the GNU General Public License                //
-// as published by the Free Software Foundation; either version 3             //
-// of the License, or later version (at your option).                         //
-//                                                                            //
-// PeerProject is distributed in the hope that it will be useful,             //
-// but WITHOUT ANY WARRANTY; without even the implied warranty of             //
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                       //
-// See the See the GNU General Public License for more details.               //
-//                                                                            //
-// You should have received a copy of the GNU General Public License 3.0          //
-// along with PeerProject; if not, write to Free Software Foundation, Inc.    //
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)     //
-//                                                                            //
-////////////////////////////////////////////////////////////////////////////////
+//
+// Hashes/HashDescriptors.hpp
+//
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions Copyright Shareaza Development Team, 2005.
+//
+// PeerProject is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 3
+// of the License, or later version (at your option).
+//
+// PeerProject is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License 3.0
+// along with PeerProject; if not, write to Free Software Foundation, Inc.
+// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+//
 
 //! \file       Hashes/HashDescriptors.hpp
 //! \brief      Defines hash descriptors.
 
-#ifndef HASHES_HASHDESCRIPTORS_HPP_INCLUDED
-#define HASHES_HASHDESCRIPTORS_HPP_INCLUDED
+#pragma once
+
+#include <Boost/array.hpp>	// ToDo: Use std::tr1::array
 
 namespace Hashes
 {
@@ -34,52 +33,46 @@ namespace Hashes
 		//! \brief  Array of the size of the hash.
 		//!
 		//! Sometimes it is necessary to access the hash as a bytestream and
-		//! bypass alignment and padding restrictions usually imposed by the
-		//! Word type. This POD structure contains an array of appropriate size
+		//! bypass alignment and padding restrictions mposed by the Word type.
+		//! This POD structure contains an array of appropriate size
 		//! and subscripting operators for convenience.
 		//! \brief Defines urn signatures.
 		//!
 		//! This structure contains definitions for a particular urn and hash.
 		//! Used to define models of \ref hashdescriptorpage "Hash Descriptor".
 		//! The scheme used for a urn here is simple:
-		//! - A urn consists of a prefix which identifies the urn. This prefix
-		//!    forms the first part of the urn string.
-		//! - The second part of the string consists of arbitrary data, at a
-		//!    fixed position of that part a hash string can be found.
-		//!
-		//! The Members of a UrnString structure define these properties for a given
-		//! urn prefix.
+		//! - A urn consists of a prefix which identifies the urn.
+		//! 	This prefix orms the first part of the urn string.
+		//! - The second part of the string consists of arbitrary data,
+		//! 	at a fixed position of that part a hash string can be found.
+		//! Members of a UrnString structure define these properties for a given urn prefix.
 		struct UrnString
 		{
 			//! \brief The minimum urn string length.
-			//!
 			//! This specifies the minimum length a given string must have in order
 			//! to be valid for that string type. There must be enough space for the
 			//! prefix itself and the hash string at least; possibly more if the urn
 			//! specifies additional data we don't care about here.
 			size_t minimumLength;
+
 			//! \brief The offset of the hash string.
-			//!
 			//! This specifies the offset relative to the beginning of the string at
 			//! which the hash substring can be found.
 			size_t hashOffset;
+
 			//! \brief The length of the urn prefix.
-			//!
 			//! This specifies the length of the urn prefix without the terminator:
 			//! \a signaturleLength = \c _tcslen( *\a signature ) 
 			size_t signatureLength;
+
 			//! \brief The urn prefix.
-			//!
 			//! A pointer to the urn prefix (should be a string literal).
-			//!
 			const wchar* signature;
 		};
-		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for
-		//!         SHA1 hashes.
+		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for SHA1 hashes.
 		//!
 		//! SHA1 is used a basic hash. It is computed directly over a 32bit stream,
-		//! with each 32bit word consisting of 4 bytes in big endian order.
-		//! (RFC 3174).
+		//! with each 32bit word consisting of 4 bytes in big endian order. (RFC 3174)
 		struct Sha1Descriptor
 		{
 			typedef uint32 WordType;
@@ -93,14 +86,13 @@ namespace Hashes
 			static std::vector< AlignedStorage > blackList;
 		};
 
-		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for
-		//!         Tiger tree hashes.
+		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for Tiger tree hashes.
 		//!
-		//! A Tiger tree hash is a compound hash. It is computed using the Tiger
-		//! hash algorithm, organized in a Merkle Hash Tree.
+		//! A Tiger tree hash is a compound hash.  It is computed using the
+		//! Tiger hash algorithm, organized in a Merkle Hash Tree.
 		//! It's input is organized in 64bit words in little endian order.
-		//! \sa http://www.open-content.net/specs/draft-jchapweske-thex-02.html
-		//! \sa http://www.cs.technion.ac.il/~biham/Reports/Tiger/
+		//! \sa http://open-content.net/specs/draft-jchapweske-thex-02.html (expired)
+		//! \sa http://cs.technion.ac.il/~biham/Reports/Tiger/
 		struct TigerDescriptor
 		{
 			typedef uint64 WordType;
@@ -114,12 +106,11 @@ namespace Hashes
 			static std::vector< AlignedStorage > blackList;
 		};
 
-		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for
-		//!         Ed2k hashes.
+		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for Ed2k hashes.
 		//!
 		//! A Edonkey2000 hash is a compound hash based on the MD4 Message-Digest
 		//! algorithm (RFC 1320). It divides the input stream into blocks of 9.25MB,
-		//! the MD4 digest ist generated of each block. The Ed2k hash is than
+		//! the MD4 digest is generated of each block. The Ed2k hash is than
 		//! computed as the MD4 digest of the digests of all individual blocks
 		//! unless there is only one block. In the latter case Ed2k and MD4 are
 		//! identical. Since the Edonkey network does not support files larger than
@@ -138,7 +129,6 @@ namespace Hashes
 		};
 
 		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" MD5 hashes.
-		//!
 		//! MD5 is a basic hash discribed in RFC 1321.
 		struct Md5Descriptor
 		{
@@ -153,8 +143,7 @@ namespace Hashes
 			static std::vector< AlignedStorage > blackList;
 		};
 
-		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for
-		//!         Bittorrent info hashes.
+		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for Bittorrent info hashes.
 		//!
 		//! The Bittorrent info hash is a compound hash based on SHA1.
 		//! Similar to Ed2k the input stream is divided into blocks of equal size
@@ -216,5 +205,3 @@ namespace Hashes
 	} // namespace Polcies
 
 } // namespace Hashes
-
-#endif // #ifndef HASHES_HASHDESCRIPTORS_HPP_INCLUDED

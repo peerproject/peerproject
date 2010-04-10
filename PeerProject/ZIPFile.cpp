@@ -1,7 +1,7 @@
 //
 // ZIPFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -193,8 +193,10 @@ BOOL CZIPFile::LocateCentralDirectory()
 	DWORD nBuffer = 0;
 
 	SetFilePointer( m_hFile, -4096, NULL, FILE_END );
-	if ( ! ReadFile( m_hFile, pBuffer, 4096, &nBuffer, NULL ) ) return FALSE;
-	if ( nBuffer < sizeof(ZIP_DIRECTORY_LOC) ) return FALSE;
+	if ( ! ReadFile( m_hFile, pBuffer, 4096, &nBuffer, NULL ) )
+		return FALSE;
+	if ( nBuffer < sizeof(ZIP_DIRECTORY_LOC) )
+		return FALSE;
 
 	ZIP_DIRECTORY_LOC* pLoc = NULL;
 
@@ -209,13 +211,16 @@ BOOL CZIPFile::LocateCentralDirectory()
 		}
 	}
 
-	if ( pLoc == NULL ) return FALSE;
+	if ( pLoc == NULL )
+		return FALSE;
 	ASSERT( pLoc->nSignature == 0x06054b50 );
 
-	if ( GetFileSize( m_hFile, NULL ) < pLoc->nDirectorySize ) return FALSE;
+	if ( GetFileSize( m_hFile, NULL ) < pLoc->nDirectorySize )
+		return FALSE;
 
 	if ( SetFilePointer( m_hFile, pLoc->nDirectoryOffset, NULL, FILE_BEGIN )
-		 != pLoc->nDirectoryOffset ) return FALSE;
+		 != pLoc->nDirectoryOffset )
+		 return FALSE;
 
 	BYTE* pDirectory = new BYTE[ pLoc->nDirectorySize ];
 	ReadFile( m_hFile, pDirectory, pLoc->nDirectorySize, &nBuffer, NULL );
@@ -331,16 +336,21 @@ BOOL CZIPFile::SeekToFile(File* pFile)
 	if ( m_hFile == INVALID_HANDLE_VALUE ) return FALSE;
 
 	if ( SetFilePointer( m_hFile, (DWORD)pFile->m_nLocalOffset, NULL, FILE_BEGIN )
-		 != pFile->m_nLocalOffset ) return FALSE;
+		 != pFile->m_nLocalOffset )
+		 return FALSE;
 
 	ZIP_LOCAL_FILE pLocal;
 	DWORD nRead = 0;
 
-	ReadFile( m_hFile, &pLocal, sizeof(pLocal), &nRead, NULL );
-	if ( nRead != sizeof(pLocal) ) return FALSE;
+	if ( ! ReadFile( m_hFile, &pLocal, sizeof(pLocal), &nRead, NULL ) )
+		return FALSE;
+	if ( nRead != sizeof(pLocal) )
+		return FALSE;
 
-	if ( pLocal.nSignature != 0x04034b50 ) return FALSE;
-	if ( pLocal.nCompression != Z_DEFLATED && pLocal.nCompression != 0 ) return FALSE;
+	if ( pLocal.nSignature != 0x04034b50 )
+		return FALSE;
+	if ( pLocal.nCompression != Z_DEFLATED && pLocal.nCompression != 0 )
+		return FALSE;
 
 	SetFilePointer( m_hFile, pLocal.nNameLen + pLocal.nExtraLen, NULL, FILE_CURRENT );
 
@@ -500,10 +510,10 @@ BOOL CZIPFile::File::Extract(LPCTSTR pszFile)
 
 	CloseHandle( hFile );
 
-	if ( nUncompressed >= m_nSize ) return TRUE;
+	if ( nUncompressed >= m_nSize )
+		return TRUE;
 
 	DeleteFileEx( pszFile, FALSE, FALSE, TRUE );
 
 	return FALSE;
 }
-

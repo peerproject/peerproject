@@ -1,7 +1,7 @@
 //
 // SQLite.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -43,7 +43,7 @@ class CStatement;
 class CDatabase;
 
 
-class CDatabase : boost::noncopyable
+class CDatabase : boost::noncopyable	// tr1 fix: private boost
 {
 public:
 	CDatabase(LPCWSTR szDatabasePath = NULL);
@@ -51,7 +51,7 @@ public:
 
 	operator bool() const throw();
 
-	class CSQLitePtr : boost::noncopyable
+	class CSQLitePtr : boost::noncopyable	// tr1 fix: private boost
 	{
 	public:
 		CSQLitePtr(LPCWSTR szDatabasePath);
@@ -59,7 +59,7 @@ public:
 
 		sqlite3*	m_db;
 	};
-	typedef boost::shared_ptr< CSQLitePtr > CSQLiteSharedPtr;
+	typedef std::tr1::shared_ptr< CSQLitePtr > CSQLiteSharedPtr;	// tr1 fix:  was boost::
 
 	CSQLiteSharedPtr	GetHandle() const throw();
 	LPCWSTR				GetLastErrorMessage() const;
@@ -71,7 +71,7 @@ protected:
 };
 
 
-class CStatement : boost::noncopyable
+class CStatement : boost::noncopyable	// tr1 fix: private boost
 {
 public:
 	CStatement(const CDatabase& db, LPCWSTR szQuery);
@@ -85,15 +85,10 @@ public:
 	void			Reset();
 
 	bool			IsPending() const throw();
+	bool			IsBusy() const throw(); 		// Return true if latest SQL call failed because of a locked table state
+	int				GetCount() const throw();		// Return the number of values in the current row of the result set
+	int				GetType(LPCWSTR pszName) const;	// Return column type in the current row of the result set
 
-	// Return true if latest SQL call failed because of a locked table state
-	bool			IsBusy() const throw();
-
-	// Return the number of values in the current row of the result set
-	int				GetCount() const throw();
-
-	// Return column type in the current row of the result set
-	int				GetType(LPCWSTR pszName) const;
 
 	int				GetInt(LPCWSTR pszName) const;
 	__int64			GetInt64(LPCWSTR pszName) const;
@@ -110,17 +105,15 @@ public:
 protected:
 	typedef std::map< std::wstring, int > CRaw;
 
-	CDatabase::CSQLiteSharedPtr		m_db;			// Handle to database
-	std::wstring				m_query;		// SQL query (UTF16)
-	sqlite3_stmt*				m_st;			// SQL statement handle
-	bool						m_prepared;		// Prepare was called successfully
-	bool						m_busy;			// Last SQL call returned with busy error
-	CRaw						m_raw;			// Column name to column number map
+	CDatabase::CSQLiteSharedPtr  m_db;	// Handle to database
+	std::wstring	m_query;			// SQL query (UTF16)
+	sqlite3_stmt*	m_st;				// SQL statement handle
+	bool			m_prepared;			// Prepare was called successfully
+	bool			m_busy;				// Last SQL call returned with busy error
+	CRaw			m_raw;				// Column name to column number map
 
-	// Return column index by column name
-	int				GetColumn(LPCWSTR pszName) const;
-	// Check column index for validity
-	bool			IsValidIndex(int nIndex) const;
+	int				GetColumn(LPCWSTR pszName) const;	// Return column index by column name
+	bool			IsValidIndex(int nIndex) const; 	// Check column index for validity
 };
 
 }	// namespace SQLite

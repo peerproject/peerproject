@@ -1,7 +1,7 @@
 //
 // CtrlFontCombo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -101,7 +101,7 @@ BOOL CALLBACK CFontCombo::EnumFontProc(LPENUMLOGFONTEX lplf, NEWTEXTMETRICEX* lp
 		 dwFontType != DEVICE_FONTTYPE && _tcsicmp( lplf->elfLogFont.lfFaceName, _T("Small Fonts") ) != 0 )
 	{
 		int nFamily = lplf->elfLogFont.lfPitchAndFamily ? lplf->elfLogFont.lfPitchAndFamily >> 4 : 6;
-		if ( nFamily < 4 ) // don't use unknown, decorative and script fonts
+		if ( nFamily < 4 ) // Don't use unknown, decorative and script fonts
 		{
 			// Filter out vertical fonts starting with @
 			if ( lplf->elfLogFont.lfFaceName[ 0 ] != '@' && pThis->AddFont( lplf->elfLogFont.lfFaceName ) )
@@ -187,9 +187,7 @@ void CFontCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	if ( IsWindowEnabled() )
 	{
 		if ( lpDrawItemStruct->itemState & ODS_SELECTED )
-		{
 			pDC->FillSolidRect( &rcItem, GetSysColor( COLOR_HIGHLIGHT ) );
-		}
 		else
 			pDC->FillSolidRect( &rcItem, GetSysColor( COLOR_WINDOW ) );
 	}
@@ -232,8 +230,8 @@ BOOL CFontCombo::AddFont(const CString& strFontName)
 		pFont = new CFont;
 
 		if ( pFont->CreateFont( m_nFontHeight, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-			DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH,
-			strFontName ) )
+			DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+			theApp.m_nFontQuality, DEFAULT_PITCH, strFontName ) )
 		{
 			m_pFonts.SetAt( strFontName, pFont );
 		}
@@ -277,8 +275,8 @@ void PASCAL DDX_FontCombo(CDataExchange* pDX, int nIDC, CString& strFontName)
 	_ASSERTE( hWndCtrl != NULL );
 
 	CFontCombo* pCombo = static_cast<CFontCombo*>(CWnd::FromHandle( hWndCtrl ));
-	// data from control
 
+	// Data from control
 	if ( pDX->m_bSaveAndValidate )
 	{
 		int nIndex = pCombo->GetCurSel();
@@ -290,16 +288,14 @@ void PASCAL DDX_FontCombo(CDataExchange* pDX, int nIDC, CString& strFontName)
 		else
 			strFontName = Settings.Fonts.DefaultFont;
 	}
-	else //data to control
+	else // Data to control
 	{
 		int nIndex = pCombo->FindString( -1, strFontName );
 		if ( nIndex != CB_ERR )
 		{
 			pCombo->SetCurSel( nIndex );
 			if ( pCombo->m_sSelectedFont.IsEmpty() )
-			{
 				pCombo->m_sSelectedFont = strFontName;
-			}
 		}
 		else
 		{
@@ -308,9 +304,7 @@ void PASCAL DDX_FontCombo(CDataExchange* pDX, int nIDC, CString& strFontName)
 			{
 				pCombo->SetCurSel( nIndex );
 				if ( pCombo->m_sSelectedFont.IsEmpty() )
-				{
 					pCombo->m_sSelectedFont = Settings.Fonts.DefaultFont;
-				}
 			}
 			else
 				pCombo->SetCurSel( 0 );

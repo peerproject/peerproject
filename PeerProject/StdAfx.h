@@ -95,7 +95,7 @@
 #define _ATL_NO_COM_SUPPORT
 #define BOOST_USE_WINDOWS_H
 
-#pragma warning( push, 0 )			// Suppress Microsoft warnings
+#pragma warning( push, 0 )	// Suppress Microsoft warnings
 
 //
 // MFC
@@ -130,8 +130,8 @@
 #include <atlenc.h>			// Base64Encode, UUEncode etc.
 #include <atlfile.h>		// Thin file classes
 
-// If header is not found, you'll need to install the Windows XP SP2 Platform SDK or later.
-// from http://www.microsoft.com/msdownload/platformsdk/sdkupdate/
+// If header is not found, install Windows SDK from microsoft.com
+// ( Vista SDK (6.0) or later -previously XP Platform SDK )
 
 #include <netfw.h>
 #include <upnp.h>
@@ -141,8 +141,8 @@
 #include <MsiDefs.h>
 #include <Powrprof.h>		// Power policy applicator
 
-// Intrinsics (Workaround for Microsoft double declaration with Visual Studio 2005)
-#if _MSC_VER < 1500
+// Intrinsics  (Workaround for Microsoft double declaration with Visual Studio 2005)
+#if defined(_MSC_VER) && (_MSC_VER < 1500)
 	#define _interlockedbittestandset _ms_set
 	#define _interlockedbittestandreset _ms_reset
 	#define _interlockedbittestandset64 _ms_set64
@@ -156,25 +156,46 @@
 	#include <intrin.h>
 #endif
 
+
 //
 // STL
 //
 
-#include <vector>
-#include <list>
-#include <deque>
-#include <queue>
-#include <stack>
-#include <map>
-#include <set>
-#include <string>
-#include <utility>
-#include <functional>
 #include <algorithm>
-#include <memory>
+#include <functional>
 #include <iterator>
 #include <limits>
+#include <list>
+#include <map>
 #include <new>
+#include <queue>
+#include <deque>
+#include <set>
+#include <stack>
+#include <string>
+#include <utility>
+#include <vector>
+
+//#include <memory>		// ?
+
+
+//
+// TR1 (std::tr1::)
+//
+// ToDo: See Shareaza r8451 for tr1 implementation
+
+//#if defined(_MSC_VER) && (_MSC_FULL_VER > 150030000)	// VS2008 SP1 for tr1
+//  #include <type_traits>	// In MinMax.hpp
+  //#include <array>
+  //#include <memory>
+  //#include <regex>
+//#else	// Boost fallback
+// #include <Boost/tr1/type_traits.hpp>
+  //#include <Boost/tr1/array.hpp>
+  //#include <Boost/tr1/memory.hpp>
+  //#include <Boost/tr1/utility.hpp>
+//#endif
+
 
 //
 // Boost
@@ -185,15 +206,20 @@
 	#define BOOST_MEM_FN_ENABLE_STDCALL 1
 #endif
 
-#include <Boost/cstdint.hpp>
+// BOOST_STATIC_ASSERT(false) for compile-time checks below VS2010
+#include <Boost/static_assert.hpp>
+
 #include <Boost/bind.hpp>
-#include <Boost/bind/placeholders.hpp>
-#include <Boost/type_traits.hpp>
 #include <Boost/shared_ptr.hpp>
-#include <Boost/utility.hpp>
-#include <Boost/array.hpp>
-#include <Boost/ptr_container/ptr_list.hpp>
-#include <Boost/checked_delete.hpp>
+#include <Boost/ptr_container/ptr_list.hpp>	// For noncopyable
+
+//#include <Boost/array.hpp>			// In Hashes/HashDescriptors.hpp
+//#include <Boost/type_traits.hpp>		// In MinMax.hpp
+//#include <Boost/checked_delete.hpp>	// In Augment/auto_ptr.hpp
+//#include <Boost/cstdint.hpp>			// ?
+//#include <Boost/utility.hpp>			// ?
+//#include <Boost/bind/placeholders.hpp>
+
 
 //
 // Standard headers
@@ -201,17 +227,17 @@
 
 #include <zlib/zlib.h>
 
-#include "RegExp/regexpr2.h"
+#include <RegExp/RegExpr2.h>
 
 #include "MinMax.hpp"
 
-#if _MSC_VER >= 1500 && _MSC_VER < 1600		// Work-around for VC9 where
+#if _MSC_VER >= 1500 && _MSC_VER < 1600		// Work-around for VC9 (VS2005) where
 	#pragma warning( pop )					// a (pop) is ifdef'd out in stdio.h
 #endif
 
-#pragma warning( pop )				// Restore warnings
+#pragma warning( pop )						// Restore warnings
 
-#include "Augment/augment.hpp"
+#include <Augment/Augment.hpp>
 using augment::implicit_cast;
 using augment::auto_ptr;
 using augment::auto_array;
@@ -220,46 +246,63 @@ using augment::IUnknownImplementation;
 #include "../HashLib/HashLib.h"
 
 // GeoIP (geolite.maxmind.com)
-// #include "../Services/GeoIP/GeoIP.h"
+#include "../Services/GeoIP/GeoIP.h"
 
 // BugTrap (www.intellesoft.net)
 #ifdef _DEBUG
 	#include "../Services/BugTrap/BugTrap.h"
 #endif
 
-typedef CString StringType;
 
+//typedef CString StringType;		// Previousy for <Hashes>
+
+// Obsolete for custom StringType:
+//! \brief Hash function needed for CMap with const CString& as ARG_KEY.
+//template<> AFX_INLINE UINT AFXAPI HashKey(const CString& key)
+//{
+//	UINT nHash = 0;
+//	LPCTSTR pKey = key.GetString();
+//	while ( *pKey )
+//		nHash = ( nHash << 5 ) + nHash + *pKey++;
+//	return nHash;
+//}
+//! \brief Hash function needed for CMap with CString& as ARG_KEY.
+//template<> AFX_INLINE UINT AFXAPI HashKey(CString& key)
+//{
+//	return HashKey< const CString& >( key );
+//}
+//! \brief Hash function needed for CMap with CString as ARG_KEY.
+//template<> AFX_INLINE UINT AFXAPI HashKey(CString key)
+//{
+//	return HashKey< const CString& >( key );
+//}
+//! \brief Hash function needed for CMap with DWORD_PTR as ARG_KEY.
+
+//! While the default hash function could be used, this one does not generate (false) 64 bit warnings.
 //! \brief Hash function needed for CMap with const CString& as ARG_KEY.
 template<> AFX_INLINE UINT AFXAPI HashKey(const CString& key)
 {
-	UINT nHash = 0;
-	LPCTSTR pKey = key.GetString();
-	while ( *pKey )
-		nHash = ( nHash << 5 ) + nHash + *pKey++;
-	return nHash;
+	return HashKey<LPCTSTR>( key );
 }
-//! \brief Hash function needed for CMap with CString& as ARG_KEY.
-template<> AFX_INLINE UINT AFXAPI HashKey(CString& key)
-{
-	return HashKey< const CString& >( key );
-}
-//! \brief Hash function needed for CMap with CString as ARG_KEY.
-template<> AFX_INLINE UINT AFXAPI HashKey(CString key)
-{
-	return HashKey< const CString& >( key );
-}
-//! \brief Hash function needed for CMap with DWORD_PTR as ARG_KEY.
-//!
-//! While the default hash function could be used, this one does not generate
-//! (false) 64 bit warnings.
+
 template<> AFX_INLINE UINT AFXAPI HashKey(DWORD_PTR key)
 {
 	return static_cast< UINT >( key >> 4 );
 }
 
+template<> AFX_INLINE BOOL AFXAPI CompareElements(const IN_ADDR* pElement1, const IN_ADDR* pElement2)
+{
+	return pElement1->s_addr == pElement2->s_addr;
+}
+
+template<> AFX_INLINE UINT AFXAPI HashKey(const IN_ADDR& key)
+{
+	return key.s_addr;
+}
+
 #include "Hashes.hpp"
 
-#undef IDC_HAND		// Defined in Windows.h->WinUser.h and in Resource.h
+#undef IDC_HAND		// Defined in Windows.h->WinUser.h (then in Resource.h)
 
 #include "Resource.h"
 
@@ -318,12 +361,12 @@ typedef struct _ICONDIRENTRY
 {
 	BYTE	bWidth; 		// Width, in pixels, of the image
 	BYTE	bHeight;		// Height, in pixels, of the image
-	BYTE	bColorCount;		// Number of colors in image (0 if >=8bpp)
+	BYTE	bColorCount;	// Number of colors in image (0 if >=8bpp)
 	BYTE	bReserved;		// Reserved ( must be 0)
 	WORD	wPlanes;		// Color Planes
 	WORD	wBitCount;		// Bits per pixel
-	DWORD	dwBytesInRes;		// How many bytes in this resource?
-	DWORD	dwImageOffset;		// Where in the file is this image?
+	DWORD	dwBytesInRes;	// How many bytes in this resource?
+	DWORD	dwImageOffset;	// Where in the file is this image?
 } ICONDIRENTRY, *LPICONDIRENTRY;
 
 typedef struct _GRPICONDIRENTRY
@@ -334,8 +377,8 @@ typedef struct _GRPICONDIRENTRY
 	BYTE   bReserved;		// Reserved
 	WORD   wPlanes;			// Color Planes
 	WORD   wBitCount;		// Bits per pixel
-	DWORD  dwBytesInRes;		// how many bytes in this resource?
-	WORD   nID;			// the ID
+	DWORD  dwBytesInRes;	// how many bytes in this resource?
+	WORD   nID; 			// the ID
 } GRPICONDIRENTRY, *LPGRPICONDIRENTRY;
 
 typedef struct _ICONDIR
@@ -349,31 +392,30 @@ typedef struct _ICONDIR
 #pragma pack( pop )
 
 
-// NOT OBSOLETE ?
-// Copied from GeoIP.h
-typedef struct GeoIPTag {
-  FILE *GeoIPDatabase;
-  char *file_path;
-	unsigned char *cache;
-	unsigned char *index_cache;
-	unsigned int *databaseSegments;
-	char databaseType;
-	time_t mtime;
-	int flags;
-	char record_length;
-	int record_iter; /* used in GeoIP_next_record */
-} GeoIP;
+// GEOIP Obsolete, from #included GeoIP.h
+//typedef struct GeoIPTag {
+//	FILE *GeoIPDatabase;
+//	char *file_path;
+//	unsigned char *cache;
+//	unsigned char *index_cache;
+//	unsigned int *databaseSegments;
+//	char databaseType;
+//	time_t mtime;
+//	int flags;
+//	char record_length;
+//	int record_iter; /* for GeoIP_next_record */
+//} GeoIP;
 
-typedef enum {
-	GEOIP_STANDARD = 0,
-	GEOIP_MEMORY_CACHE = 1,
-	GEOIP_CHECK_CACHE = 2,
-	GEOIP_INDEX_CACHE = 4,
-} GeoIPOptions;
+//typedef enum {
+//	GEOIP_STANDARD = 0,
+//	GEOIP_MEMORY_CACHE = 1,
+//	GEOIP_CHECK_CACHE = 2,
+//	GEOIP_INDEX_CACHE = 4,
+//} GeoIPOptions;
 
-typedef GeoIP* (*GeoIP_newFunc)(int);
-typedef const char * (*GeoIP_country_code_by_addrFunc) (GeoIP*, const char *);
-typedef const char * (*GeoIP_country_name_by_addrFunc) (GeoIP*, const char *);
+//typedef GeoIP* (*GeoIP_newFunc)(int);
+//typedef const char * (*GeoIP_country_code_by_addrFunc) (GeoIP*, const char *);
+//typedef const char * (*GeoIP_country_name_by_addrFunc) (GeoIP*, const char *);
 
 
 const uint64 SIZE_UNKNOWN = ~0ull;
@@ -392,7 +434,7 @@ enum PROTOCOLID
 	PROTOCOL_HTTP = 4,
 	PROTOCOL_FTP  = 5,
 	PROTOCOL_BT   = 6,
-	PROTOCOL_KAD   = 7
+	PROTOCOL_KAD  = 7
 };
 
 struct ProtocolCmdIDMapEntry
@@ -480,7 +522,7 @@ public:
 private:
 	mutable CCriticalSection m_oSection;
 	T m_oValue;
-	CGuarded* operator&() const; // too unsafe
+	CGuarded* operator&() const; // Too unsafe
 };
 
 
@@ -646,18 +688,12 @@ __int64 GetMicroCount();
 UINT GetBestHashTableSize(UINT nCount);
 
 // Encode Unicode text to UTF-8 text
-CStringA UTF8Encode(__in_bcount(nInput) LPCWSTR szInput, __in int nInput);
-inline CStringA UTF8Encode(__in const CStringW& strInput)
-{
-	return UTF8Encode( strInput, strInput.GetLength() );
-}
+CStringA UTF8Encode(__in const CStringW& strInput);
+CStringA UTF8Encode(__in_bcount(nInput) LPCWSTR psInput, __in int nInput);
 
 // Decode UTF-8 text to Unicode text
-CStringW UTF8Decode(__in_bcount(nInput) LPCSTR szInput, __in int nInput);
-inline CStringW UTF8Decode(__in const CStringA& strInput)
-{
-	return UTF8Decode( strInput, strInput.GetLength() );
-}
+CStringW UTF8Decode(__in const CStringA& strInput);
+CStringW UTF8Decode(__in_bcount(nInput) LPCSTR psInput, __in int nInput);
 
 // Encode and decode URL text, and see if a string starts with a tag
 CString URLEncode(LPCTSTR pszInput);			// Encode "hello world" into "hello%20world"

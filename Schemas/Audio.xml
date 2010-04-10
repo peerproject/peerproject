@@ -30,13 +30,12 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 -->
 
 <schemaDescriptor location="http://www.limewire.com/schemas/audio.xsd" xmlns="http://www.shareaza.com/schemas/SchemaDescriptor.xsd">
+
 	<object type="file" availability="default"/>
 	<titles>
 		<title language="en">Audio</title>
 		<title language="af">Musiek</title>
 		<title language="ca">Àudio</title>
-		<title language="zhs">音频</title>
-		<title language="zht">聲音</title>
 		<title language="cz">Zvuk</title>
 		<title language="de">Audio</title>
 		<title language="ee">Audio</title>
@@ -59,6 +58,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<title language="sr">Zvuk</title>
 		<title language="sv">Ljud</title>
 		<title language="tr">Ses</title>
+		<title language="zhs">音频</title>
+		<title language="zht">聲音</title>
 	</titles>
 	<members>
 		<member name="title" search="generic">
@@ -66,8 +67,6 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Title</title>
 			<title language="af">Titel</title>
 			<title language="ca">Títol</title>
-			<title language="zhs">标题</title>
-			<title language="zht">標題</title>
 			<title language="cz">Název</title>
 			<title language="de">Titel</title>
 			<title language="ee">Pealkiri</title>
@@ -80,6 +79,7 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="hu">Cím</title>
 			<title language="it">Titolo</title>
 			<title language="ja">タイトル</title>
+			<title language="ko">제목</title>
 			<title language="lt">Pavadinimas</title>
 			<title language="nl">Titel</title>
 			<title language="no">Tittel</title>
@@ -90,6 +90,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
 			<title language="tr">Başlık</title>
+			<title language="zhs">标题</title>
+			<title language="zht">標題</title>
 		</member>
 		<member name="artist" search="generic">
 			<display prompt="true"/>
@@ -97,8 +99,6 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Artist</title>
 			<title language="af">Kunstenaar</title>
 			<title language="ca">Artista</title>
-			<title language="zhs">艺术家</title>
-			<title language="zht">藝人</title>
 			<title language="cz">Autor</title>
 			<title language="de">Künstler</title>
 			<title language="ee">Artist</title>
@@ -121,13 +121,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Izvođač</title>
 			<title language="sv">Artist</title>
 			<title language="tr">Sanatçı</title>
+			<title language="zhs">艺术家</title>
+			<title language="zht">藝人</title>
 		</member>
 		<member name="origArtist" search="generic">
 			<title language="en">Original Artist</title>
 			<title language="af">Original Artist</title>
 			<title language="ca">Artista original</title>
-			<title language="zhs">原艺术家</title>
-			<title language="zht">Original Artist</title>
 			<title language="cz">Původní autor</title>
 			<title language="de">Originalinterpret</title>
 			<title language="ee">Algne Artist</title>
@@ -150,13 +150,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Originalni izvođač</title>
 			<title language="sv">Originalartist</title>
 			<title language="tr">Orijinal Sanatçı</title>
+			<title language="zhs">原艺术家</title>
+			<title language="zht">原艺术家</title>
 		</member>
 		<member name="albumArtist" search="generic">
 			<title language="en">Album Artist</title>
 			<title language="af">Album Artist</title>
 			<title language="ca">Artista de l'àlbum</title>
-			<title language="zhs">唱片集艺术家</title>
-			<title language="zht">Album Artist</title>
 			<title language="cz">Autor alba</title>
 			<title language="de">Album Artist</title>
 			<title language="ee">Album Artist</title>
@@ -179,6 +179,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Album Artist</title>
 			<title language="sv">Albumartist</title>
 			<title language="tr">Album Artist</title>
+			<title language="zhs">唱片集艺术家</title>
+			<title language="zht">唱片集艺术家</title>
 		</member>
 		<member name="album" search="generic">
 			<display prompt="true"/>
@@ -186,8 +188,6 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Album</title>
 			<title language="af">Album</title>
 			<title language="ca">Àlbum</title>
-			<title language="zhs">专辑</title>
-			<title language="zht">專輯</title>
 			<title language="cz">Album</title>
 			<title language="de">Album</title>
 			<title language="ee">Album</title>
@@ -210,13 +210,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Album</title>
 			<title language="sv">Album</title>
 			<title language="tr">Albüm</title>
+			<title language="zhs">专辑</title>
+			<title language="zht">專輯</title>
 		</member>
 		<member name="origAlbum" search="generic">
 			<title language="en">Original Album</title>
 			<title language="af">Original Album</title>
 			<title language="ca">Album original</title>
-			<title language="zhs">原专辑</title>
-			<title language="zht">原始專輯</title>
 			<title language="cz">Půbodní album</title>
 			<title language="de">Ursprungsalbum</title>
 			<title language="ee">Algne Album</title>
@@ -239,14 +239,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Originalni Album</title>
 			<title language="sv">Originalalbum</title>
 			<title language="tr">Orijinal Albüm</title>
+			<title language="zhs">原专辑</title>
+			<title language="zht">原始專輯</title>
 		</member>
 		<member name="composer" search="generic">
 			<display prompt="true"/>
 			<title language="en">Composer</title>
 			<title language="af">Composer</title>
 			<title language="ca">Compositor</title>
-			<title language="zhs">作曲者</title>
-			<title language="zht">作曲家</title>
 			<title language="cz">Skladatel</title>
 			<title language="de">Komponist</title>
 			<title language="ee">Helilooja</title>
@@ -269,13 +269,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Kompozitor</title>
 			<title language="sv">Kompositör</title>
 			<title language="tr">Besteci</title>
+			<title language="zhs">作曲者</title>
+			<title language="zht">作曲家</title>
 		</member>
 		<member name="type" search="indexed">
 			<title language="en">Type</title>
 			<title language="af">Tipe</title>
 			<title language="ca">Tipus</title>
-			<title language="zhs">类型</title>
-			<title language="zht">類型</title>
 			<title language="cz">Typ</title>
 			<title language="de">Art</title>
 			<title language="ee">Tüüp</title>
@@ -298,13 +298,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Vrsta</title>
 			<title language="sv">Typ</title>
 			<title language="tr">Tip</title>
+			<title language="zhs">类型</title>
+			<title language="zht">類型</title>
 		</member>
 		<member name="albumStatus" search="indexed">
 			<title language="en">Album Status</title>
 			<title language="af">Album Status</title>
 			<title language="ca">Estat de l'àlbum</title>
-			<title language="zhs">唱片集</title>
-			<title language="zht">Album Status</title>
 			<title language="cz">Stav alba</title>
 			<title language="de">Album Status</title>
 			<title language="ee">Album Status</title>
@@ -327,6 +327,8 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Album Status</title>
 			<title language="sv">Albumstatus</title>
 			<title language="tr">Album Status</title>
+			<title language="zhs">唱片集</title>
+			<title language="zht">唱片集</title>
 		</member>
 		<member name="genre" search="generic">
 			<display prompt="true"/>
@@ -334,8 +336,6 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="en">Genre</title>
 			<title language="af">Genre</title>
 			<title language="ca">Gènere</title>
-			<title language="zhs">流派</title>
-			<title language="zht">類型</title>
 			<title language="cz">Žánr</title>
 			<title language="de">Genre</title>
 			<title language="ee">Zanr</title>
@@ -358,13 +358,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Žanr</title>
 			<title language="sv">Genre</title>
 			<title language="tr">Tarz</title>
+			<title language="zhs">流派</title>
+			<title language="zht">類型</title>
 		</member>
 		<member name="track" search="none">
 			<title language="en">Track</title>
 			<title language="af">Snit</title>
 			<title language="ca">Pista</title>
-			<title language="zhs">轨道</title>
-			<title language="zht">軌段</title>
 			<title language="cz">Stopa</title>
 			<title language="de">Track</title>
 			<title language="ee">Rada</title>
@@ -387,13 +387,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Pesma</title>
 			<title language="sv">Spår</title>
 			<title language="tr">İz</title>
+			<title language="zhs">轨道</title>
+			<title language="zht">軌段</title>
 		</member>
 		<member name="disc" search="none">
 			<title language="en">Disc</title>
 			<title language="af">Skyf</title>
 			<title language="ca">Disc</title>
-			<title language="zhs">唱片</title>
-			<title language="zht">唱片</title>
 			<title language="cz">Disk</title>
 			<title language="de">Disk</title>
 			<title language="ee">Plaat</title>
@@ -416,13 +416,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Disk</title>
 			<title language="sv">Disk</title>
 			<title language="tr">Disk</title>
+			<title language="zhs">唱片</title>
+			<title language="zht">唱片</title>
 		</member>
 		<member name="year" search="indexed">
 			<title language="en">Year</title>
 			<title language="af">Jaar</title>
 			<title language="ca">Any</title>
-			<title language="zhs">年份</title>
-			<title language="zht">年份</title>
 			<title language="cz">Rok</title>
 			<title language="de">Jahr</title>
 			<title language="ee">Aasta</title>
@@ -445,13 +445,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Godina</title>
 			<title language="sv">År</title>
 			<title language="tr">Yıl</title>
+			<title language="zhs">年份</title>
+			<title language="zht">年份</title>
 		</member>
 		<member name="origYear" search="indexed">
 			<title language="en">Original Year</title>
 			<title language="af">Original Year</title>
 			<title language="ca">Any original</title>
-			<title language="zhs">原始年份</title>
-			<title language="zht">Original Year</title>
 			<title language="cz">Původní rok</title>
 			<title language="de">Original Year</title>
 			<title language="ee">Original Year</title>
@@ -474,14 +474,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Original Year</title>
 			<title language="sv">Originalår</title>
 			<title language="tr">Original Year</title>
+			<title language="zhs">原始年份</title>
+			<title language="zht">原始年份</title>
 		</member>
 		<member name="seconds">
 			<display format="timeMMSS" defaultColumn="true" columnAlign="center"/>
 			<title language="en">Duration</title>
 			<title language="af">Tydsduur</title>
 			<title language="ca">Durada</title>
-			<title language="zhs">长度</title>
-			<title language="zht">持續時間</title>
 			<title language="cz">Délka</title>
 			<title language="de">Dauer</title>
 			<title language="ee">Kestus</title>
@@ -504,14 +504,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Trajanje</title>
 			<title language="sv">Varaktighet</title>
 			<title language="tr">Süre</title>
+			<title language="zhs">长度</title>
+			<title language="zht">持續時間</title>
 		</member>
 		<member name="bitrate" search="indexed">
 			<display format="bitrate" prompt="true" defaultColumn="true" columnAlign="center"/>
 			<title language="en">Bitrate</title>
 			<title language="af">Bistempo</title>
 			<title language="ca">Bits per segon</title>
-			<title language="zhs">位速</title>
-			<title language="zht">位元率</title>
 			<title language="cz">Bitrate</title>
 			<title language="de">Bitrate</title>
 			<title language="ee">Bitrate</title>
@@ -534,14 +534,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Gustina Zapisa</title>
 			<title language="sv">Bithastighet</title>
 			<title language="tr">Bitrate</title>
+			<title language="zhs">位速</title>
+			<title language="zht">位元率</title>
 		</member>
 		<member name="sampleRate">
 			<display format="frequency" prompt="true" columnAlign="center"/>
 			<title language="en">Sample Rate</title>
 			<title language="af">Klanktempo</title>
 			<title language="ca">Tasa de mostra (rate)</title>
-			<title language="zhs">采样率</title>
-			<title language="zht">取樣率</title>
 			<title language="cz">Vzorkovací frekvence</title>
 			<title language="de">Abtastrate</title>
 			<title language="ee">Sagedus</title>
@@ -564,14 +564,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Sample Rate</title>
 			<title language="sv">Samplingsfrekvens</title>
 			<title language="tr">Örnekler</title>
+			<title language="zhs">采样率</title>
+			<title language="zht">取樣率</title>
 		</member>
 		<member name="channels" search="indexed">
-			   <display prompt="true" defaultColumn="true" columnAlign="center"/>
+			<display prompt="true" defaultColumn="true" columnAlign="center"/>
 			<title language="en">Channels</title>
 			<title language="af">Channels</title>
 			<title language="ca">Canals</title>
-			<title language="zhs">频道</title>
-			<title language="zht">頻道</title>
 			<title language="cz">Kanály</title>
 			<title language="de">Kanäle</title>
 			<title language="ee">Kanalid</title>
@@ -594,13 +594,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Kanali</title>
 			<title language="sv">Kanaler</title>
 			<title language="tr">Kanallar</title>
+			<title language="zhs">频道</title>
+			<title language="zht">頻道</title>
 		</member>
 		<member name="soundType" search="generic">
 			<title language="en">Sound Type</title>
 			<title language="af">Sound Type</title>
 			<title language="ca">Tipus de so</title>
-			<title language="zhs">声音类型</title>
-			<title language="zht">音效類型</title>
 			<title language="cz">Typ zvuku</title>
 			<title language="de">Soundtyp</title>
 			<title language="ee">Heli Tüüp</title>
@@ -623,14 +623,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Vrsta Zvuka</title>
 			<title language="sv">Ljudtyp</title>
 			<title language="tr">Ses Tipi</title>
+			<title language="zhs">声音类型</title>
+			<title language="zht">音效類型</title>
 		</member>
 		<member name="language" search="indexed">
 			<display defaultColumn="true"/>
 			<title language="en">Language</title>
 			<title language="af">Taal</title>
 			<title language="ca">Idioma</title>
-			<title language="zhs">语言</title>
-			<title language="zht">語言</title>
 			<title language="cz">Jazyk</title>
 			<title language="de">Sprache</title>
 			<title language="ee">Keel</title>
@@ -653,13 +653,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Jezik</title>
 			<title language="sv">Språk</title>
 			<title language="tr">Dil</title>
+			<title language="zhs">语言</title>
+			<title language="zht">語言</title>
 		</member>
 		<member name="source">
 			<title language="en">Source</title>
 			<title language="af">Bron</title>
 			<title language="ca">Font</title>
-			<title language="zhs">来源</title>
-			<title language="zht">來源</title>
 			<title language="cz">Zdroj</title>
 			<title language="de">Quelle</title>
 			<title language="ee">Allikas</title>
@@ -682,13 +682,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Izvor</title>
 			<title language="sv">Källor</title>
 			<title language="tr">Kaynak</title>
+			<title language="zhs">来源</title>
+			<title language="zht">來源</title>
 		</member>
 		<member name="publisher" search="generic">
 			<title language="en">Publisher</title>
 			<title language="af">Uitgewer</title>
 			<title language="ca">Editor</title>
-			<title language="zhs">出版商</title>
-			<title language="zht">發行人</title>
 			<title language="cz">Vydavatel</title>
 			<title language="de">Verlag</title>
 			<title language="ee">Levitaja</title>
@@ -711,13 +711,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Izdavač</title>
 			<title language="sv">Utgivare</title>
 			<title language="tr">Yayınevi</title>
+			<title language="zhs">出版商</title>
+			<title language="zht">發行人</title>
 		</member>
 		<member name="producer" search="generic">
 			<title language="en">Producer</title>
 			<title language="af">Vervaardiger</title>
 			<title language="ca">Productor</title>
-			<title language="zhs">制片人</title>
-			<title language="zht">製作者</title>
 			<title language="cz">Producent</title>
 			<title language="de">Produzent</title>
 			<title language="ee">Tootja</title>
@@ -740,13 +740,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Producent</title>
 			<title language="sv">Producent</title>
 			<title language="tr">Yapımcı</title>
+			<title language="zhs">制片人</title>
+			<title language="zht">製作者</title>
 		</member>
 		<member name="lyricist" search="generic">
 			<title language="en">Lyricist</title>
 			<title language="af">Lyricist</title>
 			<title language="ca">Lletra</title>
-			<title language="zhs">词作者</title>
-			<title language="zht">Lyricist</title>
 			<title language="cz">Textař</title>
 			<title language="de">Lyricist</title>
 			<title language="ee">Lyricist</title>
@@ -769,13 +769,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Lyricist</title>
 			<title language="sv">Textförfattare</title>
 			<title language="tr">Lyricist</title>
+			<title language="zhs">词作者</title>
+			<title language="zht">词作者</title>
 		</member>
 		<member name="origLyricist" search="generic">
 			<title language="en">Original Lyricist</title>
 			<title language="af">Original Lyricist</title>
 			<title language="ca">Lletra original</title>
-			<title language="zhs">原词作者</title>
-			<title language="zht">Original Lyricist</title>
 			<title language="cz">Původní textař</title>
 			<title language="de">Original Lyricist</title>
 			<title language="ee">Original Lyricist</title>
@@ -798,13 +798,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Original Lyricist</title>
 			<title language="sv">Originaltextförfattare</title>
 			<title language="tr">Original Lyricist</title>
+			<title language="zhs">原词作者</title>
+			<title language="zht">原词作者</title>
 		</member>
 		<member name="arranger">
 			<title language="en">Arranger</title>
 			<title language="af">Arranger</title>
 			<title language="ca">Arranger</title>
-			<title language="zhs">排列</title>
-			<title language="zht">Arranger</title>
 			<title language="cz">Aranžér</title>
 			<title language="de">Arranger</title>
 			<title language="ee">Arranger</title>
@@ -827,13 +827,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Arranger</title>
 			<title language="sv">Arrangemang</title>
 			<title language="tr">Arranger</title>
+			<title language="zhs">排列</title>
+			<title language="zht">排列</title>
 		</member>
 		<member name="performer">
 			<title language="en">Performer</title>
 			<title language="af">Performer</title>
 			<title language="ca">Intèrpret</title>
-			<title language="zhs">表演者</title>
-			<title language="zht">Performer</title>
 			<title language="cz">Umělec</title>
 			<title language="de">Performer</title>
 			<title language="ee">Performer</title>
@@ -856,13 +856,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Performer</title>
 			<title language="sv">Artist</title>
 			<title language="tr">Performer</title>
+			<title language="zhs">表演者</title>
+			<title language="zht">表演者</title>
 		</member>
 		<member name="conductor">
 			<title language="en">Conductor</title>
 			<title language="af">Conductor</title>
 			<title language="ca">Conductor</title>
-			<title language="zhs">合唱队</title>
-			<title language="zht">Conductor</title>
 			<title language="cz">Dirigent</title>
 			<title language="de">Conductor</title>
 			<title language="ee">Conductor</title>
@@ -885,13 +885,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Conductor</title>
 			<title language="sv">Dirigent</title>
 			<title language="tr">Conductor</title>
+			<title language="zhs">合唱队</title>
+			<title language="zht">合唱队</title>
 		</member>
 		<member name="copyright" search="none">
 			<title language="en">Copyright</title>
 			<title language="af">Kopiereg</title>
 			<title language="ca">Copyright</title>
-			<title language="zhs">版权</title>
-			<title language="zht">版權</title>
 			<title language="cz">Autorská práva</title>
 			<title language="de">Copyright</title>
 			<title language="ee">Autorikaitse</title>
@@ -914,13 +914,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Prava</title>
 			<title language="sv">Upphovsrätt</title>
 			<title language="tr">Telif Hakkı</title>
+			<title language="zhs">版权</title>
+			<title language="zht">版權</title>
 		</member>
 		<member name="description">
 			<title language="en">Description</title>
 			<title language="af">Beskrywing</title>
 			<title language="ca">Descripció</title>
-			<title language="zhs">描述</title>
-			<title language="zht">描述</title>
 			<title language="cz">Popis</title>
 			<title language="de">Beschreibung</title>
 			<title language="ee">Kirjeldus</title>
@@ -943,13 +943,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Opis</title>
 			<title language="sv">Beskrivning</title>
 			<title language="tr">Tanımlama</title>
+			<title language="zhs">描述</title>
+			<title language="zht">描述</title>
 		</member>
 		<member name="qualitynotes" search="none">
 			<title language="en">Quality Notes</title>
 			<title language="af">Kwaliteit Notas</title>
 			<title language="ca">Notes de qualitat</title>
-			<title language="zhs">质量备注</title>
-			<title language="zht">品質注解</title>
 			<title language="cz">Poznámky ke kvalitě</title>
 			<title language="de">Qualitätshinweise</title>
 			<title language="ee">Kvaliteeid Märkmed</title>
@@ -972,13 +972,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">O Kvalitetu</title>
 			<title language="sv">Kvalitetsanteckningar</title>
 			<title language="tr">Kalite Notları</title>
+			<title language="zhs">质量备注</title>
+			<title language="zht">品質注解</title>
 		</member>
 		<member name="keywords" search="generic">
 			<title language="en">Keywords</title>
 			<title language="af">Sleutelwoorde</title>
 			<title language="ca">Paraules clau</title>
-			<title language="zhs">关键词</title>
-			<title language="zht">關鍵字</title>
 			<title language="cz">Klíčová slova</title>
 			<title language="de">Schlüsselwörter</title>
 			<title language="ee">Võtmesõnad</title>
@@ -1001,13 +1001,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Ključne Reči</title>
 			<title language="sv">Nyckelord</title>
 			<title language="tr">Anahtar Kelimeler</title>
+			<title language="zhs">关键词</title>
+			<title language="zht">關鍵字</title>
 		</member>
 		<member name="releasedate" search="none">
 			<title language="en">P2P Release Date</title>
 			<title language="af">P2P Vrystelling</title>
 			<title language="ca">Data d'aparició P2P</title>
-			<title language="zhs">P2P 发布时间</title>
-			<title language="zht">P2P 釋放日期</title>
 			<title language="cz">Datum zveřejnění v P2P</title>
 			<title language="de">P2P-Releasedatum</title>
 			<title language="ee">P2P Väljalaske Aeg</title>
@@ -1030,13 +1030,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Datum Objave na P2P</title>
 			<title language="sv">Fildelningslanseringsdatum</title>
 			<title language="tr">P2P Yayın Tarihi</title>
+			<title language="zhs">P2P 发布时间</title>
+			<title language="zht">P2P 釋放日期</title>
 		</member>
 		<member name="distributer" search="indexed">
 			<title language="en">Distributer</title>
 			<title language="af">Verspreider</title>
 			<title language="ca">Distribuïdor</title>
-			<title language="zhs">内容提供商</title>
-			<title language="zht">經銷商</title>
 			<title language="cz">Distributor</title>
 			<title language="de">Herausgeber</title>
 			<title language="ee">Levitaja</title>
@@ -1059,13 +1059,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Distributer</title>
 			<title language="sv">Distributör</title>
 			<title language="tr">Dağıtıcı</title>
+			<title language="zhs">内容提供商</title>
+			<title language="zht">經銷商</title>
 		</member>
 		<member name="distributerLink">
 			<title language="en">Distributer Link</title>
 			<title language="af">Verspreider Skakel</title>
 			<title language="ca">Enllaç del distribuïdor</title>
-			<title language="zhs">促销链接</title>
-			<title language="zht">經銷商連結</title>
 			<title language="cz">Odkaz na distributora</title>
 			<title language="de">Link zum Herausgeber</title>
 			<title language="ee">Levitaja Link</title>
@@ -1088,13 +1088,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Link na Distributera</title>
 			<title language="sv">Distributionslänk</title>
 			<title language="tr">Dağıtıcı Bağlantısı</title>
+			<title language="zhs">促销链接</title>
+			<title language="zht">經銷商連結</title>
 		</member>
 		<member name="releasegroup" search="indexed">
 			<title language="en">Release Group</title>
 			<title language="af">Uitgewers Groep</title>
 			<title language="ca">Grup de publicació</title>
-			<title language="zhs">发行组织</title>
-			<title language="zht">釋放團體</title>
 			<title language="cz">Vydala skupina:</title>
 			<title language="de">Release Group</title>
 			<title language="ee">Väljalaske Grupp</title>
@@ -1117,13 +1117,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Grupa Objavljivača</title>
 			<title language="sv">Lanseringsgrupp</title>
 			<title language="tr">Yayın Grubu</title>
+			<title language="zhs">发行组织</title>
+			<title language="zht">釋放團體</title>
 		</member>
 		<member name="releasegroupLink" search="none">
 			<title language="en">Release Group Link</title>
 			<title language="af">Uitgewers Skakel</title>
 			<title language="ca">Drecera del publicador</title>
-			<title language="zhs">发行组织链接</title>
-			<title language="zht">釋放團體連結</title>
 			<title language="cz">Odkaz na vydavatele:</title>
 			<title language="de">Release Group Link</title>
 			<title language="ee">Väljalaske Grupi Link</title>
@@ -1146,13 +1146,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Link na Grupu Objavljivača</title>
 			<title language="sv">Lanseringsgrupplänk</title>
 			<title language="tr">Yayın Grubu Bağlantısı</title>
+			<title language="zhs">发行组织链接</title>
+			<title language="zht">釋放團體連結</title>
 		</member>
 		<member name="link" search="none">
 			<title language="en">Link</title>
 			<title language="af">Skakel</title>
 			<title language="ca">Enllaç</title>
-			<title language="zhs">链接</title>
-			<title language="zht">連結</title>
 			<title language="cz">Odkaz</title>
 			<title language="de">Link</title>
 			<title language="ee">Link</title>
@@ -1175,13 +1175,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Link</title>
 			<title language="sv">Länk</title>
 			<title language="tr">Bağlantı</title>
+			<title language="zhs">链接</title>
+			<title language="zht">連結</title>
 		</member>
 		<member name="encoder">
 			<title language="en">Encoder Used</title>
 			<title language="af">Enkodeerder Gebruik</title>
 			<title language="ca">Codificador emprat</title>
-			<title language="zhs">使用编码</title>
-			<title language="zht">使用的編碼器</title>
 			<title language="cz">Zakódováno:</title>
 			<title language="de">Benutzter Encoder</title>
 			<title language="ee">Kasutatud Kodeerija</title>
@@ -1204,13 +1204,13 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Korišteni Encoder</title>
 			<title language="sv">Omkodare använd</title>
 			<title language="tr">Kullanılan Kodlayıcı</title>
+			<title language="zhs">使用编码</title>
+			<title language="zht">使用的編碼器</title>
 		</member>
 		<member name="encodedBy">
 			<title language="en">Encoded By</title>
 			<title language="af">Encoded By</title>
 			<title language="ca">Codificat per</title>
-			<title language="zhs">编码人员</title>
-			<title language="zht">Encoded By</title>
 			<title language="cz">Zakódoval</title>
 			<title language="de">Encoded By</title>
 			<title language="ee">Encoded By</title>
@@ -1233,14 +1233,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">Encoded By</title>
 			<title language="sv">Omkodat av</title>
 			<title language="tr">Encoded By</title>
+			<title language="zhs">编码人员</title>
+			<title language="zht">编码人员</title>
 		</member>
 		<member name="mbalbumid" search="indexed">
 			<display hidden="true"/>
 			<title language="en">MB AlbumID</title>
 			<title language="af">MB AlbumID</title>
 			<title language="ca">MB AlbumID</title>
-			<title language="zhs">MB AlbumID</title>
-			<title language="zht">MB AlbumID</title>
 			<title language="cz">MB AlbumID</title>
 			<title language="de">MB AlbumID</title>
 			<title language="ee">MB AlbumID</title>
@@ -1263,14 +1263,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">MB AlbumID</title>
 			<title language="sv">MB AlbumID</title>
 			<title language="tr">MB AlbumID</title>
+			<title language="zhs">MB AlbumID</title>
+			<title language="zht">MB AlbumID</title>
 		</member>
 		<member name="mbalbumartistid" search="indexed">
 			<display hidden="true"/>
 			<title language="en">MB AlbumArtistID</title>
 			<title language="af">MB AlbumArtistID</title>
 			<title language="ca">MB AlbumArtistID</title>
-			<title language="zhs">MB AlbumArtistID</title>
-			<title language="zht">MB AlbumArtistID</title>
 			<title language="cz">MB AlbumArtistID</title>
 			<title language="de">MB AlbumArtistID</title>
 			<title language="ee">MB AlbumArtistID</title>
@@ -1293,14 +1293,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">MB AlbumArtistID</title>
 			<title language="sv">MB AlbumArtistID</title>
 			<title language="tr">MB AlbumArtistID</title>
+			<title language="zhs">MB AlbumArtistID</title>
+			<title language="zht">MB AlbumArtistID</title>
 		</member>
 		<member name="mbartistid" search="indexed">
 			<display hidden="true"/>
 			<title language="en">MB ArtistID</title>
 			<title language="af">MB ArtistID</title>
 			<title language="ca">MB ArtistID</title>
-			<title language="zhs">MB ArtistID</title>
-			<title language="zht">MB ArtistID</title>
 			<title language="cz">MB ArtistID</title>
 			<title language="de">MB ArtistID</title>
 			<title language="ee">MB ArtistID</title>
@@ -1323,14 +1323,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">MB ArtistID</title>
 			<title language="sv">MB ArtistID</title>
 			<title language="tr">MB ArtistID</title>
+			<title language="zhs">MB ArtistID</title>
+			<title language="zht">MB ArtistID</title>
 		</member>
 		<member name="mbpuid" search="indexed">
 			<display hidden="true"/>
 			<title language="en">MB PUID</title>
 			<title language="af">MB PUID</title>
 			<title language="ca">MB PUID</title>
-			<title language="zhs">MB PUID</title>
-			<title language="zht">MB PUID</title>
 			<title language="cz">MB PUID</title>
 			<title language="de">MB PUID</title>
 			<title language="ee">MB PUID</title>
@@ -1353,14 +1353,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">MB PUID</title>
 			<title language="sv">MB PUID</title>
 			<title language="tr">MB PUID</title>
+			<title language="zhs">MB PUID</title>
+			<title language="zht">MB PUID</title>
 		</member>
 		<member name="mbtrmid" search="indexed">
 			<display hidden="true"/>
 			<title language="en">MB TRM ID</title>
 			<title language="af">MB TRM ID</title>
 			<title language="ca">MB TRM ID</title>
-			<title language="zhs">MB TRM ID</title>
-			<title language="zht">MB TRM ID</title>
 			<title language="cz">MB TRM ID</title>
 			<title language="de">MB TRM ID</title>
 			<title language="ee">MB TRM ID</title>
@@ -1383,14 +1383,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">MB TRM ID</title>
 			<title language="sv">MB TRM ID</title>
 			<title language="tr">MB TRM ID</title>
+			<title language="zhs">MB TRM ID</title>
+			<title language="zht">MB TRM ID</title>
 		</member>
 		<member name="mbuniquefileid" search="indexed">
 			<display hidden="true"/>
 			<title language="en">MB FileID</title>
 			<title language="af">MB FileID</title>
 			<title language="ca">MB FileID</title>
-			<title language="zhs">MB FileID</title>
-			<title language="zht">MB FileID</title>
 			<title language="cz">MB FileID</title>
 			<title language="de">MB FileID</title>
 			<title language="ee">MB FileID</title>
@@ -1413,14 +1413,14 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">MB FileID</title>
 			<title language="sv">MB FileID</title>
 			<title language="tr">MB FileID</title>
+			<title language="zhs">MB FileID</title>
+			<title language="zht">MB FileID</title>
 		</member>
 		<member name="cddb" search="indexed">
 			<display hidden="true"/>
 			<title language="en">CDDB Disc ID</title>
 			<title language="af">CDDB Disc ID</title>
 			<title language="ca">CDDB Disc ID</title>
-			<title language="zhs">CDDB 光盘 ID</title>
-			<title language="zht">CDDB Disc ID</title>
 			<title language="cz">ID disku z CDDB</title>
 			<title language="de">CDDB Disc ID</title>
 			<title language="ee">CDDB Disc ID</title>
@@ -1443,8 +1443,21 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 			<title language="sr">CDDB Disc ID</title>
 			<title language="sv">CDDB Disk ID</title>
 			<title language="tr">CDDB Disc ID</title>
+			<title language="zhs">CDDB 光盘 ID</title>
+			<title language="zht">CDDB Disc ID</title>
 		</member>
 	</members>
+	<bitziImport testExists="rdf:rdf/rdf:Description/bz:audioBitrate">
+		<mapping from="rdf:rdf/rdf:Description/mm:duration" to="seconds" factor="0.001"/>
+		<mapping from="rdf:rdf/rdf:Description/bz:audioBitrate" to="bitrate"/>
+		<mapping from="rdf:rdf/rdf:Description/bz:audioSamplerate" to="sampleRate"/>
+		<mapping from="rdf:rdf/rdf:Description/bz:audioChannels" to="channels"/>
+		<mapping from="rdf:rdf/rdf:Description/dc:description/dc:title" to="title"/>
+		<mapping from="rdf:rdf/rdf:Description/dc:description/dc:creator" to="artist"/>
+		<mapping from="rdf:rdf/rdf:Description/dc:description/bz:albumName" to="album"/>
+		<mapping from="rdf:rdf/rdf:Description/dc:description/mm:trackNum" to="track"/>
+		<mapping from="rdf:rdf/rdf:Description/dc:description/dc:date" to="year"/>
+	</bitziImport>
 	<typeFilter>
 		<type extension="aac"/>
 		<type extension="aif"/>
@@ -1482,15 +1495,5 @@ PeerProject Turkish Schemas File translated by F. Doğru, F.A. Saraçoğulları
 		<type extension="wav"/>
 		<type extension="wma"/>
 	</typeFilter>
-	<bitziImport testExists="rdf:rdf/rdf:Description/bz:audioBitrate">
-		<mapping from="rdf:rdf/rdf:Description/mm:duration" to="seconds" factor="0.001"/>
-		<mapping from="rdf:rdf/rdf:Description/bz:audioBitrate" to="bitrate"/>
-		<mapping from="rdf:rdf/rdf:Description/bz:audioSamplerate" to="sampleRate"/>
-		<mapping from="rdf:rdf/rdf:Description/bz:audioChannels" to="channels"/>
-		<mapping from="rdf:rdf/rdf:Description/dc:description/dc:title" to="title"/>
-		<mapping from="rdf:rdf/rdf:Description/dc:description/dc:creator" to="artist"/>
-		<mapping from="rdf:rdf/rdf:Description/dc:description/bz:albumName" to="album"/>
-		<mapping from="rdf:rdf/rdf:Description/dc:description/mm:trackNum" to="track"/>
-		<mapping from="rdf:rdf/rdf:Description/dc:description/dc:date" to="year"/>
-	</bitziImport>
+
 </schemaDescriptor>

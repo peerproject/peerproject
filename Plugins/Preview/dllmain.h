@@ -1,10 +1,11 @@
+//
 // dllmain.h : Declaration of module class.
+//
 
 #pragma once
 
-#include "resource.h"
-#include "Preview_i.h"
-
+#include "Resource.h"
+#include "Preview.h"
 
 #define REGISTRY_PATH	_T("Software\\PeerProject\\PeerProject Preview Plugin")
 #define PLUGIN_PATH		_T("Software\\PeerProject\\PeerProject\\Plugins\\DownloadPreview")

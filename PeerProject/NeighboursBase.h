@@ -28,16 +28,19 @@
 class CNeighbour;
 
 // Keeps a list of CNeighbour objects, with methods to go through them, add and remove them, and count them
-class CNeighboursBase // Begin the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
+// Begin the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
+
+class CNeighboursBase
 {
-public:
+protected:
 	CNeighboursBase();
 	virtual ~CNeighboursBase();
 
-	DWORD m_nBandwidthIn;  // Total number of bytes transferred through all the sockets, in each direction
-	DWORD m_nBandwidthOut;
 
 public:
+	DWORD m_nBandwidthIn;	// Total number of bytes transferred through all the sockets, in each direction
+	DWORD m_nBandwidthOut;
+
 	POSITION    GetIterator()          const;	// Call GetIterator to get the POSITION value
 	CNeighbour* GetNext(POSITION& pos) const;	// Give the POSITION to GetNext to get the neighbour beneath it and move to the next one
 	CNeighbour* Get(DWORD_PTR nUnique) const;	// Lookup a neighbour by its unique number, like 2, 3, 4, and so on
@@ -47,12 +50,7 @@ public:
 	// Count how many computers we are connected to, specifying various filtering characteristics
 	// pass -1 to not filter by protocol, state, or node type
 	DWORD GetCount(PROTOCOLID nProtocol, int nState, int nNodeType) const;
-	BOOL NeighbourExists(PROTOCOLID nProtocol, int nState, int nNodeType) const; // Use this if you just want to know if there are any or not
-
-	// Methods implemented by several classes in the CNeighbours inheritance column
-	virtual void Connect(); // Does nothing, but inheriting classes have Connect methods with code in them
-	virtual void Close();   // Calls Close on all the neighbours in the list, and resets member variables back to 0
-	virtual void OnRun();   // Calls DoRun on each neighbour in the list, making them send and receive data
+	//BOOL NeighbourExists(PROTOCOLID nProtocol, int nState, int nNodeType) const; // Use this if you just want to know if there are any or not
 
 	// Add and remove neighbour objects from the list
 	virtual void Add(CNeighbour* pNeighbour);
@@ -63,8 +61,18 @@ public:
 		return m_nStableCount;
 	}
 
+protected:
+	// Methods implemented by several classes in the CNeighbours inheritance column
+	virtual void Connect();	// Does nothing, but inheriting classes have Connect methods with code in them
+	virtual void Close();	// Calls Close on all the neighbours in the list, and resets member variables back to 0
+	virtual void OnRun();	// Calls DoRun on each neighbour in the list, making them send and receive data
+
 private:
-	CList< CNeighbour* > m_pNeighbours;	// The list of remote computers we are connected to
+	typedef CMap< IN_ADDR, const IN_ADDR&, CNeighbour*, CNeighbour*& > CAMap;
+	typedef CMap< DWORD_PTR, const DWORD_PTR&, CNeighbour*, CNeighbour*& > CNMap;
+
+	CAMap	m_pNeighbours;	// The list of remote computers we are connected to
+	CNMap	m_pIndex;		// Additional index
 	DWORD	m_nRunCookie;	// OnRun uses this to run each neighbour once even if GetNext returns the same one more than once in the loop
 	DWORD	m_nStableCount;	// The number of connections we have older than 1.5 seconds and finished with the handshake
 	DWORD	m_nLeafCount;	// The number of connections we have that are down to leaf nodes below us

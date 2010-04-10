@@ -60,13 +60,15 @@ CDownloadWithTiger::CDownloadWithTiger()
 	, m_nVerifyLength	( 0ul )
 	, m_tVerifyLast		( 0ul )
 	, m_nVerifyHash		( HASH_NULL )
+	, m_nWFLCookie		( SIZE_UNKNOWN )
+	, m_oWFLCache		( 0 )
 {
 }
 
 CDownloadWithTiger::~CDownloadWithTiger()
 {
-	if ( m_pHashsetBlock != NULL ) delete [] m_pHashsetBlock;
-	if ( m_pTigerBlock != NULL ) delete [] m_pTigerBlock;
+	delete [] m_pHashsetBlock;
+	delete [] m_pTigerBlock;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -730,12 +732,15 @@ Fragments::List CDownloadWithTiger::GetWantedFragmentList() const
 {
 	CQuickLock oLock( m_pTigerSection );
 
-	const Fragments::List oList = inverse( GetHashableFragmentList() );
-	Fragments::List oEmptyList = GetEmptyFragmentList();
+	QWORD nNow = GetVolumeComplete();
+	if ( nNow != m_nWFLCookie || nNow == 0 )
+	{
+		const Fragments::List oList = inverse( GetHashableFragmentList() );
+		m_oWFLCache = GetEmptyFragmentList();
+		m_oWFLCache.erase( oList.begin(), oList.end() );
+	}
 
-	oEmptyList.erase( oList.begin(), oList.end() );
-
-	return oEmptyList;
+	return m_oWFLCache;
 }
 
 BOOL CDownloadWithTiger::AreRangesUseful(const Fragments::List& oAvailable) const

@@ -424,7 +424,7 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, BOOL /*bSkipSecurityCheck*/, LPCTST
 		}
 		if ( ! strParam.IsEmpty() )
 		{
-			HINSTANCE hResult = ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), NULL,
+			hResult = ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), NULL,
 				strCommand, strParam, NULL, SW_SHOWNORMAL );
 			if ( hResult > (HINSTANCE)32 )
 				return TRUE;
@@ -460,7 +460,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 	CLibraryFile* pFile = Library.LookupFile( nIndex );
 	if ( pFile == NULL ) return FALSE;
 
-	if ( !pFile->m_oSHA1 || !pFile->m_oTiger || !pFile->m_oED2K )
+	if ( ! pFile->m_oSHA1 || ! pFile->m_oTiger || ! pFile->m_oED2K )
 	{
 		CString strFormat;
 		Skin.LoadString( strFormat, IDS_LIBRARY_BITZI_HASHED );
@@ -560,7 +560,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 
 					strINFO += _T("&tag.audiotrack.year=") + strReplace;
 				}
-				// ToDO: Read WAV information in FileExecutor.cpp, bitzi submit is already ready
+				// ToDo: Read WAV information in FileExecutor.cpp, bitzi submit is already ready
 				else if ( strExt == "MP3" || strExt == "OGG" || strExt == "WAV" )
 				{
 					if ( str == "bitrate" )
@@ -591,7 +591,7 @@ BOOL CFileExecutor::ShowBitziTicket(DWORD nIndex)
 							nMP3orOGGorWAVTag++;
 						}
 					}
-					// ToDO: Read sampleSize of WAV in FileExecutor.cpp, bitzi submit is already ready
+					// ToDo: Read sampleSize of WAV in FileExecutor.cpp, bitzi submit is already ready
 					else if ( str == "sampleSize" )
 					{
 						nTemp = _ttoi( strReplace );

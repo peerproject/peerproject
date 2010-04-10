@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1078,31 +1078,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Voorskou"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Vertoon Resensies"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Hervat"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="_Vries"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Kanselleer"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Soek Meer Bronne"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Verwyder _Voltooide Aflaaie"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Maak _Outomaties Skoon"/>-->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Vertoon Resensies"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Hulp..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Voorskou"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Kopieerings Voorskou"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Voorskou"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Voeg by _Medialys"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Vertoon Resensies"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Hervat"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="_Vries"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Kanselleer"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Vertoon Resensies"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Soek Meer Bronne"/>
 		<separator/>
 		<menu text="_Gevorderd">
@@ -1110,14 +1107,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="_Kopieer URI"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Voeg Bron By..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Saamsmelt Plaaslike Lêer"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Monitor _Venster"/>
+		</menu>
+		<menu text="Pri_oriteit">
 			<item id="ID_DOWNLOADS_BOOST" text="_Ignoreer Bandwydte Beperkings"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Skuif _Op"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Skuif _Af"/>
 			<item id="ID_DOWNLOADS_MOVE_TOP" text="Skuif _Op!"/>
 			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Skuif _Af!"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Skuif _Op"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Skuif _Af"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Hulp..."/>
 		<separator/>
@@ -2758,7 +2758,7 @@
 	<string id="8230" value="PeerProject soek bronne vir:"/>
 	<string id="8231" value="Geen bronne"/>
 	<string id="8232" value="Open"/>
-	<string id="8233" value="Kyk voorskou"/>
+	<string id="8233" value="Kanselleer"/>
 	<string id="8235" value="Spoed:"/>
 	<string id="8236" value="Tyd oor:"/>
 	<string id="8237" value="Voltooi:"/>
@@ -3025,7 +3025,6 @@
 	<string id="16402" value="PeerProject het 'n versamelingslêer ontvang:\n\n&quot;%s&quot;\n\nHierdie lêer blyk nie 'n bruikbare versamelingslêer te wees nie."/>
 	<string id="16403" value="PeerProject het die versamelingslêer &quot;%s&quot; by jou biblioteek gevoeg."/>
 	<string id="16404" value="PeerProject kon nie die versameligslêer &quot;%s&quot; installeer deur dit na die gids &quot;%s&quot; te kopieer nie."/>
-	<string id="16405" value="Wil jy hierdie lêer aflaai?\n\n&quot;%s&quot;\n\nKies Kanselleer om enige verdere vrae te stop."/>
 	<string id="16406" value="Wil jy alle lêers in hierdie versameling aflaai?\n\nKies Kanselleer om enige verdere vrae te stop."/>
 	<string id="16407" value="Wil jy hierdie versameling verhoed om jou te vra om enigeiets anders af te laai?"/>
 	<string id="16408" value="Kopieer &amp;URI"/>
@@ -3392,14 +3391,14 @@
 		<control caption="As ek minimeer kliek:"/>
 		<control caption="Normaal|Minimeer na Taakbalk"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Biblioteek">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Biblioteek">
 		<control caption="_Verstellings:"/>
 		<control caption="Lys jou gedeelde lêers vir ander"/>
+		<control caption="Onthou gidsaansigte"/>
 		<control caption="Hou biblioteekgidse dop"/>
 		<control caption="Vinnige hashing (Meer CPU)"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Create ghost files when deleting"/>
-		<control caption="Onthou gidsaansigte"/>
 		<control caption="_Onlangse Lêers:"/>
 		<control caption="Onthou:"/>
 		<control/>
@@ -3410,6 +3409,7 @@
 		<control/>
 		<control caption="dae"/>
 		<control caption="Maak nou skoon"/>
+		<control caption="Skoon Ghosts"/>
 		<control caption="_Veilig om oop te maak:"/>
 		<control/>
 		<control caption="_Voeg by"/>
@@ -4011,8 +4011,7 @@
 		<control caption="Kanselleer"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Aflaai">
-		<control caption="PeerProject is besig om af te laai:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Aflaai">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -4025,7 +4024,6 @@
 		<control caption="..."/>
 		<control caption="Hoeveelheid afgelaai:"/>
 		<control caption="..."/>
-		<control caption="Open"/>
 		<control caption="Vertoon"/>
 		<control caption="Staak Aflaai"/>
 		<control caption="Steek Weg"/>
@@ -4401,23 +4399,22 @@
 		<control caption="tot"/>
 		<control caption="Skrap"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Aflaaigroep Eienskappe">
-		<control caption="OK"/>
-		<control caption="Kanselleer"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Aflaaigroep Eienskappe">
+		<control caption="Groep_Naam:"/>
+		<control/>
+		<control caption="Gids vir _Voltooide Lêers:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Filters:"/>
 		<control/>
 		<control caption="Voeg _By"/>
 		<control caption="_Verwyder"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="Groep_Naam:"/>
-		<control caption="_Filters:"/>
-		<control caption="Gids vir _Voltooide Lêers:"/>
 		<control caption="Lêer_Tipe:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="OK"/>
+		<control caption="Kanselleer"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Selekteer Visualisering">
 		<control/>
@@ -4611,4 +4608,4 @@
 		<column from="Order" to="Volgorde"/>
 	</list>
 </listColumns>
-</skin>
+</skin>೸阯

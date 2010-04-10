@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "SearchExport_h.h"
+#include "SearchExport.h"
 
 // CPlugin
 
@@ -43,7 +43,7 @@ DECLARE_PROTECT_FINAL_CONSTRUCT()
 protected:
 	CComPtr< IApplication >		m_pApplication;		// PeerProject application
 	CComPtr< IUserInterface >	m_pUserInterface;	// PeerProject GUI
-	UINT				m_nCmdCheck;		// Command ID
+	UINT						m_nCmdCheck;		// Command ID
 
 	HRESULT Export(IGenericView* pGenericView, LONG nCount);
 
@@ -60,11 +60,11 @@ public:
 public:
 	STDMETHOD(RegisterCommands)();
 	STDMETHOD(InsertCommands)();
-    STDMETHOD(OnUpdate)( 
-        /* [in] */ UINT nCommandID,
-        /* [out][in] */ TRISTATE __RPC_FAR *pbVisible,
-        /* [out][in] */ TRISTATE __RPC_FAR *pbEnabled,
-        /* [out][in] */ TRISTATE __RPC_FAR *pbChecked);
+	STDMETHOD(OnUpdate)( 
+		/* [in] */ UINT nCommandID,
+		/* [out][in] */ TRISTATE __RPC_FAR *pbVisible,
+		/* [out][in] */ TRISTATE __RPC_FAR *pbEnabled,
+		/* [out][in] */ TRISTATE __RPC_FAR *pbChecked);
 	STDMETHOD(OnCommand)( 
 		/* [in] */ UINT nCommandID);
 };

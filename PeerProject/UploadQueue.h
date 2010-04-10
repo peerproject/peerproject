@@ -1,7 +1,7 @@
 //
 // UploadQueue.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -33,8 +33,8 @@ public:
 
 // Attributes
 protected:
-	CList< CUploadTransfer* > m_pActive;
-	CArray< CUploadTransfer* > m_pQueued;
+	CList< CUploadTransfer* >	m_pActive;
+	CArray< CUploadTransfer* >	m_pQueued;
 public:
 	int			m_nIndex;
 	CString		m_sName;
@@ -45,76 +45,89 @@ public:
 	DWORD		m_nFileStateFlag;
 	CString		m_sShareTag;
 	CString		m_sNameMatch;
-public:
-	int			m_nCapacity;
-	int			m_nMinTransfers;
-	int			m_nMaxTransfers;
-	int			m_nBandwidthPoints;
+
+	DWORD		m_nCapacity;
+	DWORD		m_nMinTransfers;
+	DWORD		m_nMaxTransfers;
+	DWORD		m_nBandwidthPoints;
 	BOOL		m_bRotate;
 	DWORD		m_nRotateTime;
 	DWORD		m_nRotateChunk;
 	BOOL		m_bRewardUploaders;
-public:
+
 	BOOL		m_bExpanded;
 	BOOL		m_bSelected;
 	DWORD		m_nMeasured;
 
 	enum		{ ulqNull = 0, ulqPartial = 1, ulqLibrary = 2, ulqBoth = 3 };
+
 // Operations
 public:
 	CString		GetCriteriaString() const;
 	void		Serialize(CArchive& ar, int nVersion);
-public:
+
 	BOOL		CanAccept(PROTOCOLID nProtocol, LPCTSTR pszName, QWORD nSize, DWORD nFileState, LPCTSTR pszShareTags = NULL) const;
 	BOOL		Enqueue(CUploadTransfer* pUpload, BOOL bForce = FALSE, BOOL bStart = FALSE);
 	BOOL		Dequeue(CUploadTransfer* pUpload);
 	int			GetPosition(CUploadTransfer* pUpload, BOOL bStart);
 	BOOL		StealPosition(CUploadTransfer* pTarget, CUploadTransfer* pSource);
 	BOOL		Start(CUploadTransfer* pUpload, BOOL bPeek = FALSE);
-public:
-	INT_PTR		GetBandwidthPoints(INT_PTR nTransfers = -1) const;
-	DWORD		GetBandwidthLimit(INT_PTR nTransfers = -1) const;
+
+	DWORD		GetBandwidthPoints(DWORD nTransfers = (DWORD)-1) const;
+	DWORD		GetBandwidthLimit(DWORD nTransfers = (DWORD)-1) const;
 	DWORD		GetAvailableBandwidth() const;
 	DWORD		GetPredictedBandwidth() const;
 	void		SpreadBandwidth();
 	void		RescaleBandwidth();
+
 protected:
 	void		StartImpl(CUploadTransfer* pUpload);
 
 // Utilities
 public:
-	inline INT_PTR GetTransferCount(BOOL bMax = FALSE) const
+	inline DWORD GetTransferCount(BOOL bMax = FALSE) const
 	{
-		INT_PTR nActive = m_pActive.GetCount();
-		return bMax ?  max( nActive, m_nMinTransfers ) : nActive;
+		const DWORD nActive = (DWORD)m_pActive.GetCount();
+		return bMax ? max( nActive, m_nMinTransfers ) : nActive;
 	}
 
-	inline DWORD GetQueueCapacity() const
+	inline DWORD GetActiveCount() const
 	{
-		return m_nCapacity;
+		return (DWORD)m_pActive.GetCount();
+	}
+
+	inline POSITION GetActiveIterator() const
+	{
+		return m_pActive.GetHeadPosition();
+	}
+
+	inline CUploadTransfer* GetNextActive(POSITION& nPos) const
+	{
+		return m_pActive.GetNext( nPos );
+	}
+
+	inline CUploadTransfer* GetQueuedAt(INT_PTR nPos) const
+	{
+		return m_pQueued.GetAt( nPos );
 	}
 
 	inline DWORD GetQueuedCount() const
 	{
-		return (DWORD)m_pQueued.GetSize();
+		return (DWORD)m_pQueued.GetCount();
 	}
 
-	inline INT_PTR GetQueueRemaining() const
+	inline bool IsFull() const
 	{
-		return GetQueueCapacity() - GetQueuedCount();
+		return m_nCapacity <= GetQueuedCount();
 	}
 
-	inline BOOL IsActive(CUploadTransfer* pUpload) const
+	inline bool IsActive(CUploadTransfer* const pUpload) const
 	{
-		ASSERT( pUpload != NULL );
-		return ( m_pActive.Find( pUpload ) != NULL );
+		return m_pActive.Find( pUpload ) != NULL;
 	}
 
 	inline DWORD GetMeasuredSpeed() const
 	{
 		return m_nMeasured;
 	}
-
-	friend class CUploadsCtrl;
-	friend class CUploadsWnd;
 };

@@ -298,6 +298,7 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 		// ToDo: Get hashes for all files of download
 		if ( nCount == 1 )
 		{
+			// Update with download hashes single-file download only
 			Hashes::Sha1ManagedHash oSHA1( m_oSHA1 );
 			if ( m_bSHA1Trusted )		oSHA1.signalTrusted();
 			Hashes::TigerManagedHash oTiger( m_oTiger );

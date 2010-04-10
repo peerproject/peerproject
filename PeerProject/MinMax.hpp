@@ -1,7 +1,7 @@
 //
 // MinMax.hpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2005-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,17 +19,28 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-//! \file       MinMax.hpp
-//! \brief      Defines min und max template funtions.
+//! \file	MinMax.hpp
+//! \brief	Defines min und max template funtions.
 
 #pragma once
 
 #undef min
 #undef max
 
+//#if defined(_MSC_VER) && (_MSC_FULL_VER > 150030000)	// VS2008 SP1 for tr1
+//  #include <type_traits>
+//#else	// Boost fallback
+//  #include <Boost/tr1/type_traits.hpp>
+//#endif
+
+#include <Boost/type_traits.hpp>	// ToDo: Use tr1 above
+#include <Boost/mpl/apply_wrap.hpp>
+#include <Boost/mpl/arg.hpp>
+#include <Boost/mpl/if.hpp>
+
 const bool PEERPROJECT_RESTRICT_WP64 = true;
-// allow min to return the smaller type if called with unsigned arguments ?
 const bool PEERPROJECT_ADVANCED_MIN_TEMPLATE = true;
+// Allow min to return the smaller type if called with unsigned arguments ?
 
 namespace min_max_detail
 {
@@ -68,8 +79,8 @@ namespace min_max_detail
 		typedef const volatile long type;
 	};
 
-	//! \brief	Helper template which applies all cv qualifiers of two given
-	//!         types to the first type.
+	//! \brief	Helper template applies all cv qualifiers of two given types to the first type.
+	//! 	// tr1 fix:  Use std::tr1 for all boost below except mpl (fall back to Boost/tr1)
 	template<typename T, typename U>
 	struct UniteCvQualifiers
 	{
@@ -167,7 +178,7 @@ namespace min_max_detail
 			ReturnTypeForMinMaxCannotBeDeduced
 		>::type primary;
 		typedef typename boost::mpl::if_c<
-			( !PEERPROJECT_RESTRICT_WP64 && sizeof( primary ) < 8 ),
+			( ! PEERPROJECT_RESTRICT_WP64 && sizeof( primary ) < 8 ),
 			primary, typename RemoveWarning64< primary >::type >::type type;
 	};
 

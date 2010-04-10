@@ -250,8 +250,10 @@ void CBaseMatchWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 
 void CBaseMatchWnd::OnUpdateBlocker(CCmdUI* pCmdUI)
 {
-	if ( m_pCoolMenu ) pCmdUI->Enable( TRUE );
-	else pCmdUI->ContinueRouting();
+	if ( m_pCoolMenu )
+		pCmdUI->Enable( TRUE );
+	else
+		pCmdUI->ContinueRouting();
 }
 
 void CBaseMatchWnd::OnMeasureItem(int /*nIDCtl*/, LPMEASUREITEMSTRUCT lpMeasureItemStruct)
@@ -326,8 +328,8 @@ void CBaseMatchWnd::OnSearchDownload()
 	for ( pos = pFiles.GetHeadPosition() ; pos ; )
 	{
 		CMatchFile* pFile = pFiles.GetNext( pos );
-		if ( m_pMatches->m_pSelectedFiles.Find( pFile ) != NULL ) Downloads.Add( pFile );
-
+		if ( m_pMatches->m_pSelectedFiles.Find( pFile ) != NULL )
+			Downloads.Add( pFile );
 	}
 
 	for ( pos = pHits.GetHeadPosition() ; pos ; )
@@ -509,8 +511,9 @@ void CBaseMatchWnd::OnSearchChat()
 	if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
 	{
 		ChatWindows.OpenPrivate( pHit->m_oClientID,
-			&pHit->m_pAddress, pHit->m_nPort, pHit->m_bPush == TRI_TRUE,
-			pHit->m_nProtocol, (IN_ADDR*)pHit->m_oClientID.begin(), (WORD)pHit->m_oClientID.begin()[1] );
+			&pHit->m_pAddress, pHit->m_nPort, pHit->m_bPush == TRI_TRUE, pHit->m_nProtocol,
+			(IN_ADDR*)pHit->m_oClientID.begin(),	// tr1 fix: reinterpret_cast< IN_ADDR* >( pHit->m_oClientID.data() ),
+			(WORD)pHit->m_oClientID.begin()[1] );
 	}
 }
 
@@ -548,30 +551,21 @@ void CBaseMatchWnd::OnSecurityBan()
 {
 	CSingleLock pLock( &Network.m_pSection, TRUE );
 
-	if ( m_pMatches->GetSelectedCount() == 1 )
+	if ( POSITION posFiles = m_pMatches->m_pSelectedFiles.GetHeadPosition() )
 	{
-		if ( CMatchFile* pFile = m_pMatches->GetSelectedFile() )
-			pFile->Ban( banCustom );
-		else if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
-			pHit->Ban( banCustom );
-		return;
+		while ( posFiles )
+		{
+			CMatchFile* pFile = m_pMatches->m_pSelectedFiles.GetNext( posFiles );
+			pFile->Ban( banForever );
+		}
 	}
-	//else multiple selections
-
-	POSITION pos;
-
-	for ( pos = m_pMatches->m_pSelectedFiles.GetHeadPosition() ; pos ; )
+	else if ( POSITION posHits = m_pMatches->m_pSelectedHits.GetHeadPosition() )
 	{
-		CMatchFile* pFile = m_pMatches->m_pSelectedFiles.GetNext( pos );
-
-		pFile->Ban( banCustom );
-	}
-
-	for ( pos = m_pMatches->m_pSelectedHits.GetHeadPosition() ; pos ; )
-	{
-		CQueryHit* pHit = m_pMatches->m_pSelectedHits.GetNext( pos );
-
-		pHit->Ban( banCustom );
+		while ( posHits )
+		{
+			CQueryHit* pHit = m_pMatches->m_pSelectedHits.GetNext( posHits );
+			pHit->Ban( banForever );
+		}
 	}
 }
 
@@ -882,7 +876,8 @@ void CBaseMatchWnd::OnKillFocusFilter()
 
 void CBaseMatchWnd::OnToolbarReturn()
 {
-	if ( GetFocus() == &m_wndFilter ) OnKillFocusFilter();
+	if ( GetFocus() == &m_wndFilter )
+		OnKillFocusFilter();
 }
 
 void CBaseMatchWnd::OnToolbarEscape()

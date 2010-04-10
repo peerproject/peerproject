@@ -2192,7 +2192,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 		nPort = GNUTELLA_DEFAULT_PORT;
 	}
 
-	if (m_nSubType == dsOldBootStrap)
+	if ( m_nSubType == dsOldBootStrap )
 	{
 		int nPos = strHost.Find( ':' );
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort ) == 1 )
@@ -2204,7 +2204,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 			return TRUE;
 		}
 	}
-	else if (m_nSubType == dsGnutellaTCP)
+	else if ( m_nSubType == dsGnutellaTCP )
 	{
 		strHost = strHost.Mid( nSkip );
 		int nPos		= strHost.Find( ':');
@@ -2217,7 +2217,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 			return TRUE;
 		}
 	}
-	else if (m_nSubType == dsGnutella2TCP)
+	else if ( m_nSubType == dsGnutella2TCP )
 	{
 		strHost = strHost.Mid( nSkip );
 		int nPos		= strHost.Find( ':');
@@ -2230,7 +2230,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 			return TRUE;
 		}
 	}
-	else if (m_nSubType == dsGnutellaUDPHC)
+	else if ( m_nSubType == dsGnutellaUDPHC )
 	{
 		strHost = strHost.Mid( nSkip );
 		int nPos		= strHost.Find( ':');
@@ -2243,7 +2243,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 			return TRUE;
 		}
 	}
-	else if (m_nSubType == dsGnutella2UDPKHL)
+	else if ( m_nSubType == dsGnutella2UDPKHL )
 	{
 		strHost  = strHost.Mid( nSkip );
 		int nPos = strHost.Find( ':' );

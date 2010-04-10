@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default-en.xml r48 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r50 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1004,31 +1004,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Pregledaj"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Pogledaj Kritiku"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="Nastavi"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_auziraj"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Makni"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Nađi više izvora"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Makni Završene"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Automatski Očisti Gotove"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Pogledaj Kritiku"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="Pomoć..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Pregledaj"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Pregledaj Kopiju"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Pregledaj"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Dodaj u Pla_ylistu"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Pogledaj Kritiku"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="Nastavi"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="P_auziraj"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Makni"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Pogledaj Kritiku"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Nađi više izvora"/>
 		<separator/>
 		<menu text="N_apredno">
@@ -1036,14 +1033,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="Zapamti URI"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="Dod_aj Izvor..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Merge lokalne datoteke"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Prozor za Praćenje"/>
+		</menu>
+		<menu text="Pri_oritet">
 			<item id="ID_DOWNLOADS_BOOST" text="Zanemari Limit Brzine Skidanja"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Digni"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Spusti"/>
 			<item id="ID_DOWNLOADS_MOVE_TOP" text="Digni!"/>
 			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Spusti!"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Digni"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Spusti"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="Pomoć..."/>
 		<separator/>
@@ -2575,7 +2575,7 @@
 	<string id="8230" value="PeerProject traži izvore za:"/>
 	<string id="8231" value="Nažalost nema izvora"/>
 	<string id="8232" value="Otvori"/>
-	<string id="8233" value="Pregledaj"/>
+	<string id="8233" value="Odustani"/>
 	<string id="8235" value="Brzina prijenosa:"/>
 	<string id="8236" value="Preostalo vremena:"/>
 	<string id="8237" value="Skinuto:    "/>
@@ -2839,7 +2839,6 @@
 	<string id="16402" value="PeerProject received a collection file:\n\n&quot;%s&quot;\n\nThis file does not appear to be a valid collection file."/>
 	<string id="16403" value="PeerProject has added the collection file &quot;%s&quot; to your library."/>
 	<string id="16404" value="PeerProject was unable to install the collection file &quot;%s&quot; by copying it to the folder &quot;%s&quot;."/>
-	<string id="16405" value="Želite li skinuti ovu datoteku?\n\n&quot;%s&quot;\n\nChoose Cancel to stop any further prompts."/>
 	<string id="16406" value="Želite li skinuti sve datoteke u ovoj kolekciji?\n\nOdaberite prekini da vam više ne dolazi ova obavjest."/>
 	<string id="16407" value="Would you like to prevent this collection from prompting you to download anything else?"/>
 	<string id="16408" value="Copy &amp;URI"/>
@@ -3179,14 +3178,14 @@
 		<control caption="Kada pritisnem spusti:"/>
 		<control caption="Normalno|Spusti u Tray"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Kolekcija">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Kolekcija">
 		<control caption="_Opcije:"/>
 		<control caption="Dopusti drugima da vide što djelite"/>
+		<control caption="Zapamti mape"/>
 		<control caption="Prati mape moje kolekcije"/>
 		<control caption="Brzi hashing (Koristi više CPU-a)"/>
 		<control caption="Smart media series detection"/>
-		<control caption="Create ghost files when deleting"/>
-		<control caption="Zapamti mape"/>
+		<control caption="Create ghost files by default"/>
 		<control caption="Ko_rištene Datoteke:"/>
 		<control caption="Pamti:"/>
 		<control/>
@@ -3196,7 +3195,8 @@
 		<control/>
 		<control/>
 		<control caption="dana"/>
-		<control caption="Sad Obriši Zapamčene"/>
+		<control caption="Obriši Zapamčene"/>
+		<control caption="Obriši Ghosts"/>
 		<control caption="_Sigurno za Otvoriti:"/>
 		<control/>
 		<control caption="Dod_aj"/>
@@ -3793,8 +3793,7 @@
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Skidanje">
-		<control caption="PeerProject trenutno skida:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Skidanje">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -3808,7 +3807,6 @@
 		<control caption="Skinuto:"/>
 		<control caption="..."/>
 		<control caption="Pogledaj Kolekciju"/>
-		<control caption="Otvori Datoteku"/>
 		<control caption="Poništi Skidanje"/>
 		<control caption="Sakrij"/>
 		<control caption="Zatvori ovaj prozor kad završi skidanje"/>
@@ -4179,23 +4177,22 @@
 		<control caption="do"/>
 		<control caption="Obriši"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Download Group Postavke">
-		<control caption="OK"/>
-		<control caption="Odustani"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Download Group Postavke">
+		<control caption="Ime:"/>
+		<control/>
+		<control caption="Mapa sa Skinutim Datotekama:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Filteri:"/>
 		<control/>
 		<control caption="Dod_aj"/>
 		<control caption="Makni"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="Ime:"/>
-		<control caption="_Filteri:"/>
-		<control caption="Mapa sa Skinutim Datotekama:"/>
 		<control caption="_Datoteka:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="OK"/>
+		<control caption="Odustani"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Odaberite Vizualizaciju">
 		<control/>
@@ -4390,3 +4387,4 @@
 	</list>
 </listColumns>
 </skin>
+茶었

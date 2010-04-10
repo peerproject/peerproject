@@ -1,7 +1,7 @@
 //
 // LibraryBuilder.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,6 +28,7 @@
 class CLibraryFile;
 class CXMLElement;
 
+
 class CFileHash
 {
 public:
@@ -53,24 +54,24 @@ public:
 	CLibraryBuilder();
 	virtual ~CLibraryBuilder();
 
-	bool		m_bBusy;							// Something "IsMoving"
+	bool		m_bBusy;						// Something "IsMoving"
 
-	bool		Add(CLibraryFile* pFile);			// Add file to list
-	void		Remove(DWORD nIndex);				// Remove file from list
-	void		Remove(LPCTSTR szPath);				// Remove file from list
-	void		Remove(CLibraryFile* pFile);		// Remove file from list
-	void		RequestPriority(LPCTSTR pszPath);	// Place file to the begin of list
-	void		Skip(DWORD nIndex);					// Move file to the end of list
+	bool		Add(CLibraryFile* pFile);		// Add file to list
+	void		Remove(DWORD nIndex);			// Remove file from list
+	void		Remove(LPCTSTR szPath);			// Remove file from list
+	void		Remove(CLibraryFile* pFile);	// Remove file from list
+	void		RequestPriority(LPCTSTR pszPath); // Place file to the begin of list
+	void		Skip(DWORD nIndex);				// Move file to the end of list
 	void		StartThread();
 	void		StopThread();
 	void		BoostPriority(bool bPriority);
 	bool		GetBoostPriority() const;
 
-	CString		GetCurrent() const;					// Hashing filename
-	size_t		GetRemaining() const;				// Hashing queue size
-	float		GetProgress() const;				// Hashing file progress (0..100%)
+	CString		GetCurrent() const;				// Hashing filename
+	size_t		GetRemaining() const;			// Hashing queue size
+	float		GetProgress() const;			// Hashing file progress (0..100%)
 
-	int			SubmitMetadata(DWORD nIndex, LPCTSTR pszSchemaURI, CXMLElement*& pXML);
+	int			SubmitMetadata(DWORD nIndex, LPCTSTR pszSchemaURI, CXMLElement* pXML);
 	bool		SubmitCorrupted(DWORD nIndex);
 
 	bool		RefreshMetadata(const CString& sPath);
@@ -93,21 +94,21 @@ private:
 		{
 			return ( nIndex == oFileInfo.nIndex );
 		}
-		DWORD		nIndex;							// Library file index
-		QWORD		nNextAccessTime;				// Next access time
+		DWORD		nIndex;						// Library file index
+		QWORD		nNextAccessTime;			// Next access time
 	};
 	typedef std::list< CFileInfo > CFileInfoList;
 
-	mutable CMutex				m_pSection;			// Guarding
-	CFileInfoList				m_pFiles;			// File list
-	CString						m_sPath;			// Hashing filename
-	bool						m_bPriority;		// Fast/Slow Hash Speed
-	float						m_nProgress;		// Hashing file progress (0.-100.0%)
-	LARGE_INTEGER				m_nLastCall;		// (ticks)
-	LARGE_INTEGER				m_nFreq;			// (Hz)
-	QWORD						m_nReaded;			// (bytes)
-	__int64						m_nElapsed;			// (mks)
-	volatile bool				m_bSkip;			// Request to skip hashing file
+	mutable CMutex	m_pSection;					// Guarding
+	CFileInfoList	m_pFiles;					// File list
+	CString			m_sPath;					// Hashing filename
+	bool			m_bPriority;				// Fast/Slow Hash Speed
+	float			m_nProgress;				// Hashing file progress (0.-100.0%)
+	LARGE_INTEGER	m_nLastCall;				// (ticks)
+	LARGE_INTEGER	m_nFreq;					// (Hz)
+	QWORD			m_nReaded;					// (bytes)
+	__int64			m_nElapsed;					// (mks)
+	volatile bool	m_bSkip;					// Request to skip hashing file
 
 	// Get next file from list doing all possible tests
 	// Returns 0 if no file available, sets m_bThread = false if no files left.

@@ -153,16 +153,17 @@ public:
 	static LPCTSTR	uriImage;
 	static LPCTSTR	uriVideo;
 	static LPCTSTR	uriROM;
+	static LPCTSTR	uriSkin;
 	static LPCTSTR	uriDocument;
 	static LPCTSTR	uriSpreadsheet;
 	static LPCTSTR	uriPresentation;
 	static LPCTSTR	uriCollection;
 	static LPCTSTR	uriLibrary;
 	static LPCTSTR	uriFolder;
+	static LPCTSTR	uriAllFiles;
 	static LPCTSTR	uriCollectionsFolder;
 	static LPCTSTR	uriFavouritesFolder;
 	static LPCTSTR	uriSearchFolder;
-	static LPCTSTR	uriAllFiles;
 	static LPCTSTR	uriApplicationRoot;
 	static LPCTSTR	uriApplicationAll;
 	static LPCTSTR	uriArchiveRoot;

@@ -49,21 +49,21 @@ END_MESSAGE_MAP()
 CGeneralSettingsPage::CGeneralSettingsPage() : CSettingsPage(CGeneralSettingsPage::IDD)
 {
 	//{{AFX_DATA_INIT(CGeneralSettingsPage)
-	m_nRatesInBytes = -1;
-	m_bAutoConnect = FALSE;
-	m_bStartup = FALSE;
-	m_bPromptURLs = FALSE;
-	m_bUpdateCheck = TRUE;
-	m_bExpandDownloads = FALSE;
-	m_bSimpleBar = FALSE;
+	m_nRatesInBytes	= -1;
+	m_bAutoConnect	= FALSE;
+	m_bStartup		= FALSE;
+	m_bPromptURLs	= FALSE;
+	m_bUpdateCheck	= TRUE;
+	m_bSimpleBar	= FALSE;
 	m_bExpandMatches = FALSE;
+	m_bExpandDownloads = FALSE;
 	m_bSwitchToTransfers = FALSE;
-	m_bHideSearch = FALSE;
-	m_bAdultFilter = FALSE;
-	m_bTipShadow = TRUE;
-	m_bTrayMinimise = -1;
-	m_nCloseMode = -1;
-	m_nTipDelay = 0;
+	m_bHideSearch	= FALSE;
+	m_bAdultFilter	= FALSE;
+	m_bTipShadow	= TRUE;
+	m_bTrayMinimise	= -1;
+	m_nCloseMode	= -1;
+	m_nTipDelay 	= 0;
 	//}}AFX_DATA_INIT
 }
 
@@ -214,11 +214,11 @@ void CGeneralSettingsPage::OnOK()
 	Settings.Interface.TipNeighbours	= m_wndTips.GetItemState( 4, LVIS_STATEIMAGEMASK ) == ( 2 << 12 );
 	Settings.Interface.TipMedia			= m_wndTips.GetItemState( 5, LVIS_STATEIMAGEMASK ) == ( 2 << 12 );
 
-	Settings.Interface.TipDelay	= m_nTipDelay;
-	Settings.Interface.TipAlpha	= m_wndTipAlpha.GetPos();
-	Settings.Interface.TipShadow		= m_bTipShadow != FALSE;
+	Settings.Interface.TipDelay 		= m_nTipDelay;
+	Settings.Interface.TipAlpha 		= m_wndTipAlpha.GetPos();
+	Settings.Interface.TipShadow		= m_bTipShadow == TRUE;
 
-	//ToDo: Fix Realtime DropShadow Changes
+	// ToDo: Fix Realtime DropShadow Changes
 	//if ( m_bTipShadow != (BOOL)Settings.Interface.TipShadow && ! theApp.m_bIsWin2000 )
 	//{
 	//	Settings.Interface.TipShadow	= m_bTipShadow != FALSE;

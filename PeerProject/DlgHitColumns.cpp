@@ -71,9 +71,9 @@ BOOL CSchemaColumnsDlg::OnInitDialog()
 
 	for ( int nMember = 0 ; nMember < m_wndColumns.GetItemCount() ; nMember++ )
 	{
-		BOOL bChecked = m_pColumns.Find(
+		bool bChecked = m_pColumns.Find(
 			reinterpret_cast< CSchemaMember* >( m_wndColumns.GetItemData( nMember ) ) ) != NULL;
-		m_wndColumns.SetItemState( nMember, INDEXTOSTATEIMAGEMASK( bChecked + 1 ), LVIS_STATEIMAGEMASK );
+		m_wndColumns.SetItemState( nMember, INDEXTOSTATEIMAGEMASK( bChecked ? 1 : 0 ), LVIS_STATEIMAGEMASK );
 	}
 
 	return TRUE;
@@ -89,13 +89,14 @@ void CSchemaColumnsDlg::OnSelChangeSchemas()
 	CString strMembers = theApp.GetProfileString( _T("Interface"),
 		_T("SchemaColumns.") + pSchema->m_sSingular, _T("(EMPTY)") );
 
-	if ( strMembers == _T("(EMPTY)") ) strMembers = pSchema->m_sDefaultColumns;
+	if ( strMembers == _T("(EMPTY)") )
+		strMembers = pSchema->m_sDefaultColumns;
 
 	for ( POSITION pos = pSchema->GetMemberIterator() ; pos ; )
 	{
 		CSchemaMember* pMember = pSchema->GetNextMember( pos );
 
-		if ( !pMember->m_bHidden )
+		if ( ! pMember->m_bHidden )
 		{
 			LV_ITEM pItem = {};
 			pItem.mask		= LVIF_TEXT|LVIF_PARAM;
@@ -249,7 +250,8 @@ BOOL CSchemaColumnsDlg::ToggleColumnHelper(CSchemaPtr pSchema, CList< CSchemaMem
 			else
 				pTarget->AddTail( pMember );
 
-			if ( bSave ) SaveColumns( pSchema, pTarget );
+			if ( bSave )
+				SaveColumns( pSchema, pTarget );
 
 			return TRUE;
 		}
@@ -257,4 +259,3 @@ BOOL CSchemaColumnsDlg::ToggleColumnHelper(CSchemaPtr pSchema, CList< CSchemaMem
 
 	return FALSE;
 }
-

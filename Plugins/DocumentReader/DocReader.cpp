@@ -1,7 +1,7 @@
 //
 // DocReader.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -41,6 +41,7 @@ LPCWSTR	CDocReader::ooImpressExt	= L".odp.otp.sxi.sti";
 
 // CDocReader
 CDocReader::CDocReader()
+	: m_pDocProps( NULL )
 {
 	ODS(_T("CDocReader::CDocReader\n"));
 }
@@ -52,25 +53,18 @@ CDocReader::~CDocReader()
 	delete m_pDocProps;
 }
 
-void CDocReader::Initialize(BOOL bOnlyThumb)
-{
-	HRESULT hr;
-
- // Create a new instance of the control
-	m_pDocProps = new CDocumentProperties( bOnlyThumb );
-
- // Initialize the object
-	if ( FAILED(hr = m_pDocProps->InitializeNewInstance()) )
-		delete m_pDocProps; // cleanup the object
-}
-
 // ILibraryBuilderPlugin Methods
 
 STDMETHODIMP CDocReader::Process(HANDLE hFile, BSTR sFile, ISXMLElement* pXML)
 {
 	ODS(_T("CDocReader::Process\n"));
+
 	EnterCritical();
 	DllAddRef();
+
+	// Create a new instance of the control
+	delete m_pDocProps;
+	m_pDocProps = new CDocumentProperties( FALSE );
 
 	HRESULT hr = E_FAIL;
 	LPCWSTR pszExt = _wcslwr( wcsrchr( sFile, '.') );
@@ -259,7 +253,7 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 	WCHAR pszName[MAX_PATH];
 	ULONG ulIdx;
 	if ( ! FFindQualifiedFileName( bsFile, pszName, &ulIdx ) )
-        return STG_E_INVALIDNAME;
+		return STG_E_INVALIDNAME;
 
 	// Open it with the UNZIP library
 	unzFile pFile = NULL;
@@ -533,7 +527,7 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	WCHAR pszName[MAX_PATH];
 	ULONG ulIdx;
 	if ( ! FFindQualifiedFileName( bsFile, pszName, &ulIdx ) )
-        return STG_E_INVALIDNAME;
+		return STG_E_INVALIDNAME;
 
 	// OpenOffice and OpenDocument files are zips
 	// Open it with the UNZIP library
@@ -830,6 +824,10 @@ STDMETHODIMP CDocReader::LoadFromFile(BSTR sFile, IMAGESERVICEDATA* pParams, SAF
 	EnterCritical();
 	DllAddRef();
 
+	// Create a new instance of the control
+	delete m_pDocProps;
+	m_pDocProps = new CDocumentProperties( TRUE );
+
 	HRESULT hr = E_FAIL;
 
 	LPCWSTR pszExt = _wcslwr( wcsrchr( sFile, '.') );
@@ -874,11 +872,11 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 
 	// Retrieve thumbnail data in safearray if any
 	VariantInit( &va );
-	m_pDocProps->m_pSummProps->get_Thumbnail( &va );
-	m_pDocProps->Close( VARIANT_FALSE );
+	hr = m_pDocProps->m_pSummProps->get_Thumbnail( &va );
+	hr = m_pDocProps->Close( VARIANT_FALSE );
 
 	// Check if we have it
-	if ( va.vt == VT_EMPTY ) return S_FALSE;
+	if ( va.vt == VT_EMPTY ) return E_FAIL;
 	if ( ! ( va.vt & VT_ARRAY ) ) return E_UNEXPECTED;
 
 	BYTE* pclp = NULL;
@@ -1102,7 +1100,7 @@ STDMETHODIMP CDocReader::GetOOThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 	WCHAR pszName[MAX_PATH];
 	ULONG ulIdx;
 	if ( ! FFindQualifiedFileName( bsFile, pszName, &ulIdx ) )
-        return STG_E_INVALIDNAME;
+		return STG_E_INVALIDNAME;
 
 	// OpenOffice and OpenDocument files are zips
 	// Open it with the UNZIP library
@@ -1215,7 +1213,7 @@ STDMETHODIMP CDocReader::GetOOThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 			hr = E_FAIL;
 	}
 	else
-		hr = S_FALSE;
+		hr = E_FAIL;
 
 	unzClose( pFile );
 
@@ -1321,10 +1319,10 @@ HBITMAP CDocReader::GetBitmapFromMetaFile(PICTDESC pds, int nResolution, WORD wB
 	SetViewportExtEx( tempDC, nDotsWidth, nDotsHeight, NULL );
 
 	// Erase the background.
-    HBRUSH hBrBkGnd = CreateSolidBrush( PALETTERGB(0xff, 0xff, 0xff) );
+	HBRUSH hBrBkGnd = CreateSolidBrush( PALETTERGB(0xff, 0xff, 0xff) );
 	RECT rc = {0, 0, nWidth, nHeight};
-    FillRect( tempDC, &rc, hBrBkGnd );
-    DeleteObject( hBrBkGnd );
+	FillRect( tempDC, &rc, hBrBkGnd );
+	DeleteObject( hBrBkGnd );
 
 	SetBkMode( tempDC, TRANSPARENT );
 
@@ -1420,10 +1418,10 @@ HBITMAP CDocReader::GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution, WORD
 	SetViewportExtEx( tempDC, nDotsWidth, nDotsHeight, NULL );
 
 	// Erase the background.
-    HBRUSH hBrBkGnd = CreateSolidBrush( PALETTERGB(0xff, 0xff, 0xff) );
+	HBRUSH hBrBkGnd = CreateSolidBrush( PALETTERGB(0xff, 0xff, 0xff) );
 	RECT rc = {0, 0, nWidth, nHeight};
-    FillRect( tempDC, &rc, hBrBkGnd );
-    DeleteObject( hBrBkGnd );
+	FillRect( tempDC, &rc, hBrBkGnd );
+	DeleteObject( hBrBkGnd );
 
 	SetBkMode( tempDC, TRANSPARENT );
 
@@ -1463,7 +1461,7 @@ LPWSTR CDocReader::GetDocumentFormat(LPCWSTR pszExt)
 		}
 	}
 	else if ( _wcsnicmp( msPPointExt, pszExt, 4 ) == 0 ||
-			  wcsstr( ooImpressExt, pszExt ) != NULL )
+			wcsstr( ooImpressExt, pszExt ) != NULL )
 	{
 		switch ( pszExt[1] )
 		{
@@ -1481,7 +1479,7 @@ LPWSTR CDocReader::GetDocumentFormat(LPCWSTR pszExt)
 		}
 	}
 	else if ( _wcsnicmp( msExcelExt, pszExt, 4 ) == 0 ||
-			  wcsstr( ooCalcExt, pszExt ) != NULL )
+			wcsstr( ooCalcExt, pszExt ) != NULL )
 	{
 		switch ( pszExt[1] )
 		{
@@ -1514,19 +1512,19 @@ LPWSTR CDocReader::GetSchema(BSTR sFile, LPCWSTR pszExt)
 			return (LPWSTR)CDocReader::uriBook;
 		}
 		else if ( _wcsnicmp( msWordExt, pszExt, 4 ) == 0 ||
-				  wcsstr( msProjectExt, pszExt ) != NULL ||
-				  wcsstr( msVisioExt, pszExt ) != NULL ||
-				  wcsstr( ooWriterExt, pszExt ) != NULL )
+				wcsstr( msProjectExt, pszExt ) != NULL ||
+				wcsstr( msVisioExt, pszExt ) != NULL ||
+				wcsstr( ooWriterExt, pszExt ) != NULL )
 		{
 			return (LPWSTR)CDocReader::uriDocument;
 		}
 		else if ( _wcsnicmp( msPPointExt, pszExt, 4 ) == 0 ||
-				  wcsstr( ooImpressExt, pszExt ) != NULL )
+				wcsstr( ooImpressExt, pszExt ) != NULL )
 		{
 			return (LPWSTR)CDocReader::uriPresentation;
 		}
 		else if ( _wcsnicmp( msExcelExt, pszExt, 4 ) == 0 ||
-				  wcsstr( ooCalcExt, pszExt ) != NULL )
+				wcsstr( ooCalcExt, pszExt ) != NULL )
 		{
 			return (LPWSTR)CDocReader::uriSpreadsheet;
 		}
@@ -1536,24 +1534,24 @@ LPWSTR CDocReader::GetSchema(BSTR sFile, LPCWSTR pszExt)
 }
 
 CDocReader::CDocumentProperties::CDocumentProperties(BOOL bOnlyThumb)
+	: m_bstrFileName	( NULL )
+	, m_cFilePartIdx	( 0 )
+    , m_pStorage		( NULL )
+    , m_pPropSetStg		( NULL )
+    , m_dwFlags			( dsoOptionDefault )
+	, m_fReadOnly		( FALSE )
+    , m_wCodePage		( 0 )
+    , m_pSummProps		( NULL )
+	, m_bOnlyThumb		( bOnlyThumb )
 {
 	ODS(_T("CDocReader::CDocumentProperties::CDocumentProperties()\n"));
-	m_bstrFileName   = NULL;
-	m_cFilePartIdx   = 0;
-    m_pStorage       = NULL;
-    m_pPropSetStg    = NULL;
-    m_dwFlags        = dsoOptionDefault;
-	m_fReadOnly		 = FALSE;
-    m_wCodePage      = 0;
-    m_pSummProps     = NULL;
-	m_bOnlyThumb	 = bOnlyThumb;
 }
 
 CDocReader::CDocumentProperties::~CDocumentProperties(void)
 {
-    ODS(_T("CDocReader::CDocumentProperties::~CDocumentProperties()\n"));
-    ASSERT(m_pStorage == NULL); // We should be closed before delete!
-    if ( m_pStorage ) Close( VARIANT_FALSE );
+	ODS(_T("CDocReader::CDocumentProperties::~CDocumentProperties()\n"));
+	ASSERT(m_pStorage == NULL); // We should be closed before delete!
+	if ( m_pStorage ) Close( VARIANT_FALSE );
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1566,86 +1564,84 @@ CDocReader::CDocumentProperties::~CDocumentProperties(void)
 HRESULT CDocReader::
 	CDocumentProperties::Open(BSTR sFileName, VARIANT_BOOL ReadOnly, dsoFileOpenOptions Options)
 {
-    HRESULT hr;
-    DWORD dwOpenMode;
-    WCHAR wszFullName[MAX_PATH];
-    ULONG ulIdx;
+	HRESULT hr;
+	DWORD dwOpenMode;
+	WCHAR wszFullName[MAX_PATH];
+	ULONG ulIdx;
 
- // Open method called. Ensure we don't have file already open...
+	// Open method called. Ensure we don't have file already open...
 	ODS(_T("CDocReader::CDocumentProperties::Open\n"));
-    ASSERT(m_pStorage == NULL); // We should only load one at a time per object!
-    CHECK_NULL_RETURN((m_pStorage == NULL), E_DOCUMENTOPENED);
+	ASSERT(m_pStorage == NULL); // We should only load one at a time per object!
+	CHECK_NULL_RETURN((m_pStorage == NULL), E_DOCUMENTOPENED);
 
- // Validate the name passed and resolve to full path (if relative)...
-    CHECK_NULL_RETURN(sFileName, E_INVALIDARG);
-    if (!FFindQualifiedFileName(sFileName, wszFullName, &ulIdx))
-        return STG_E_INVALIDNAME;
+	// Validate the name passed and resolve to full path (if relative)...
+	CHECK_NULL_RETURN(sFileName, E_INVALIDARG);
+	if (!FFindQualifiedFileName(sFileName, wszFullName, &ulIdx))
+		return STG_E_INVALIDNAME;
 
- // Save file name and path index from SearchFile API...
-    m_bstrFileName = SysAllocString(wszFullName);
-    m_cFilePartIdx = ulIdx;
-    if ((m_cFilePartIdx < 1) || (m_cFilePartIdx > SysStringLen(m_bstrFileName)))
+	// Save file name and path index from SearchFile API...
+	m_bstrFileName = SysAllocString(wszFullName);
+	m_cFilePartIdx = ulIdx;
+	if ((m_cFilePartIdx < 1) || (m_cFilePartIdx > SysStringLen(m_bstrFileName)))
 		m_cFilePartIdx = 0;
 
- // Set open mode flags based on ReadOnly flag (the exclusive access is required for
- // the IPropertySetStorage interface -- which sucks, but we can work around for OLE files)...
-    m_fReadOnly = (ReadOnly != VARIANT_FALSE);
-    m_dwFlags = Options;
-    dwOpenMode = ((m_fReadOnly) ? (STGM_READ | STGM_SHARE_EXCLUSIVE) : (STGM_READWRITE | STGM_SHARE_EXCLUSIVE));
+	// Set open mode flags based on ReadOnly flag (the exclusive access is required for
+	// the IPropertySetStorage interface -- which sucks, but we can work around for OLE files)...
+	m_fReadOnly = (ReadOnly != VARIANT_FALSE);
+	m_dwFlags = Options;
+	dwOpenMode = ((m_fReadOnly) ? (STGM_READ | STGM_SHARE_EXCLUSIVE) : (STGM_READWRITE | STGM_SHARE_EXCLUSIVE));
 
- // If the file is an OLE Storage DocFile...
-    if (StgIsStorageFile(m_bstrFileName) == S_OK)
-    {
-     // Get the data from IStorage...
-	    hr = StgOpenStorage(m_bstrFileName, NULL, dwOpenMode, NULL, 0, &m_pStorage);
+	// If the file is an OLE Storage DocFile...
+	if (StgIsStorageFile(m_bstrFileName) == S_OK)
+	{
+		// Get the data from IStorage...
+		hr = StgOpenStorage(m_bstrFileName, NULL, dwOpenMode, NULL, 0, &m_pStorage);
 
-     // If we failed to gain write access, try to just read access if caller allows
-	 // it. This function will open the OLE file in transacted read mode, which
-	 // covers cases where the file is in use or is on a read-only share. We can't
-	 // save after the open so we force the read-only flag on...
-        if (((hr == STG_E_ACCESSDENIED) || (hr == STG_E_SHAREVIOLATION)) &&
-            (m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess))
-        {
-            m_fReadOnly = TRUE;
-	        hr = StgOpenStorage(m_bstrFileName, NULL,
-				(STGM_READ | STGM_TRANSACTED | STGM_SHARE_DENY_NONE), NULL, 0, &m_pStorage);
-        }
+		// If we failed to gain write access, try to just read access if caller allows it.
+		// This function will open the OLE file in transacted read mode,
+		// which covers cases where the file is in use or is on a read-only share.
+		// We can't save after the open so we force the read-only flag on...
+		if (((hr == STG_E_ACCESSDENIED) || (hr == STG_E_SHAREVIOLATION)) &&
+			(m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess))
+		{
+			m_fReadOnly = TRUE;
+			hr = StgOpenStorage(m_bstrFileName, NULL,
+			(STGM_READ | STGM_TRANSACTED | STGM_SHARE_DENY_NONE), NULL, 0, &m_pStorage);
+		}
 
-	 // If we are lucky, we have a storage to read from, so ask OLE to open the
-	 // associated property set for the file and return the IPSS iface...
-	    if (SUCCEEDED(hr))
-        {
+		// If we are lucky, we have a storage to read from, so ask OLE to open the
+		// associated property set for the file and return the IPSS iface...
+		if (SUCCEEDED(hr))
             hr = m_pStorage->QueryInterface(IID_IPropertySetStorage, (void**)&m_pPropSetStg);
-        }
-    }
-    else if ((v_pfnStgOpenStorageEx) &&
-             ((m_dwFlags & dsoOptionOnlyOpenOLEFiles) != dsoOptionOnlyOpenOLEFiles))
-    {
-     // On Win2K+ we can try and open plain files on NTFS 5.0 drive and get
-     // the NTFS version of OLE properties (saved in alt stream)...
-        hr = (v_pfnStgOpenStorageEx)(m_bstrFileName, dwOpenMode, STGFMT_FILE, 0, NULL, 0,
-                IID_IPropertySetStorage, (void**)&m_pPropSetStg);
+	}
+	else if ((v_pfnStgOpenStorageEx) &&
+			((m_dwFlags & dsoOptionOnlyOpenOLEFiles) != dsoOptionOnlyOpenOLEFiles))
+	{
+		// On Win2K+ we can try and open plain files on NTFS 5.0 drive and get
+		// the NTFS version of OLE properties (saved in alt stream)...
+		hr = (v_pfnStgOpenStorageEx)(m_bstrFileName, dwOpenMode, STGFMT_FILE, 0, NULL, 0,
+			IID_IPropertySetStorage, (void**)&m_pPropSetStg);
 
-     // If we failed to gain write access, try to just read access if caller
-     // wants us to. This only works for access block, not share violations...
-       if ((hr == STG_E_ACCESSDENIED) && (!m_fReadOnly) &&
-            (m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess))
-        {
-            m_fReadOnly = TRUE;
-            hr = (v_pfnStgOpenStorageEx)(m_bstrFileName, (STGM_READ | STGM_SHARE_EXCLUSIVE), STGFMT_FILE,
-                0, NULL, 0, IID_IPropertySetStorage, (void**)&m_pPropSetStg);
-        }
-    }
-    else
-    {  // If we land here, the file is non-OLE file, and not on NTFS5 drive,
-	   // so we return an error that file has no valid OLE/NTFS extended properties...
-        hr = E_NODOCUMENTPROPS;
-    }
+		// If we failed to gain write access, try to just read access if caller
+		// wants us to. This only works for access block, not share violations...
+		if ((hr == STG_E_ACCESSDENIED) && (!m_fReadOnly) &&
+			(m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess))
+		{
+			m_fReadOnly = TRUE;
+			hr = (v_pfnStgOpenStorageEx)(m_bstrFileName, (STGM_READ | STGM_SHARE_EXCLUSIVE), STGFMT_FILE,
+				0, NULL, 0, IID_IPropertySetStorage, (void**)&m_pPropSetStg);
+		}
+	}
+	else
+	{	// If we land here, the file is non-OLE file, and not on NTFS5 drive,
+		// so we return an error that file has no valid OLE/NTFS extended properties...
+		hr = E_NODOCUMENTPROPS;
+	}
 
-    if ( FAILED(hr) )
-    {
-        Close( VARIANT_FALSE ); // Force a cleanup on error...
-    }
+	if ( FAILED(hr) )
+	{
+		Close( VARIANT_FALSE ); // Force a cleanup on error...
+	}
 	else
 	{
 		hr = get_SummaryProperties( &m_pSummProps );
@@ -1653,7 +1649,7 @@ HRESULT CDocReader::
 			delete m_pSummProps;
 	}
 
-    return hr;
+	return hr;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1664,20 +1660,20 @@ HRESULT CDocReader::
 {
 	ODS(_T("CDocReader::CDocumentProperties::Close\n"));
 
- // If caller requests full save on close, try it. Note that this is the
- // only place where Close will return an error (and NOT close)...
-    if (SaveBeforeClose != VARIANT_FALSE)
-    {
-        HRESULT hr = Save();
-        RETURN_ON_FAILURE(hr);
-    }
+	// If caller requests full save on close, try it. Note that this is the
+	// only place where Close will return an error (and NOT close)...
+	if (SaveBeforeClose != VARIANT_FALSE)
+	{
+		HRESULT hr = Save();
+		RETURN_ON_FAILURE(hr);
+	}
 
- // The rest is just cleanup to restore us back to state where
- // we can be called again. The Zombie call disconnects sub objects
- // and should free them if caller has also released them...
-    ZOMBIE_OBJECT(m_pSummProps);
+	// The rest is just cleanup to restore us back to state where
+	// we can be called again. The Zombie call disconnects sub objects
+ 	// and should free them if caller has also released them...
+	ZOMBIE_OBJECT(m_pSummProps);
 
-    if ( m_pPropSetStg )
+	if ( m_pPropSetStg )
 	{
 		m_pPropSetStg->Release();
 		m_pPropSetStg = NULL;
@@ -1687,12 +1683,12 @@ HRESULT CDocReader::
 		m_pStorage->Release();
 		m_pStorage = NULL;
 	}
-    FREE_BSTR(m_bstrFileName);
-    m_cFilePartIdx = 0;
-    m_dwFlags = dsoOptionDefault;
-    m_fReadOnly = FALSE;
+	FREE_BSTR(m_bstrFileName);
+	m_cFilePartIdx = 0;
+	m_dwFlags = dsoOptionDefault;
+	m_fReadOnly = FALSE;
 
-    return S_OK;
+	return S_OK;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1702,9 +1698,9 @@ HRESULT CDocReader::
 	CDocumentProperties::get_IsReadOnly(VARIANT_BOOL* pbReadOnly)
 {
 	ODS(_T("CDocReader::CDocumentProperties::get_IsReadOnly\n"));
-	CHECK_NULL_RETURN(pbReadOnly,  E_POINTER);
-    *pbReadOnly = ((m_fReadOnly) ? VARIANT_TRUE : VARIANT_FALSE);
-    return S_OK;
+	CHECK_NULL_RETURN(pbReadOnly, E_POINTER);
+	*pbReadOnly = ((m_fReadOnly) ? VARIANT_TRUE : VARIANT_FALSE);
+	return S_OK;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1713,17 +1709,17 @@ HRESULT CDocReader::
 HRESULT CDocReader::
 	CDocumentProperties::get_IsDirty(VARIANT_BOOL* pbDirty)
 {
-    BOOL fDirty = FALSE;
+	BOOL fDirty = FALSE;
  	ODS(_T("CDocReader::CDocumentProperties::get_IsDirty\n"));
 
- // Check the status of summary properties...
-    if ((m_pSummProps) && (m_pSummProps->FIsDirty()))
-        fDirty = TRUE;
+	// Check the status of summary properties...
+	if ((m_pSummProps) && (m_pSummProps->FIsDirty()))
+		fDirty = TRUE;
 
-    if (pbDirty) // Return status to caller...
-        *pbDirty = (VARIANT_BOOL)((fDirty) ? VARIANT_TRUE : VARIANT_FALSE);
+	if (pbDirty) // Return status to caller...
+		*pbDirty = (VARIANT_BOOL)((fDirty) ? VARIANT_TRUE : VARIANT_FALSE);
 
-    return S_OK;
+	return S_OK;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1732,27 +1728,25 @@ HRESULT CDocReader::
 HRESULT CDocReader::
 	CDocumentProperties::Save()
 {
-    HRESULT hr = S_FALSE;
-    BOOL fSaveMade = FALSE;
+	HRESULT hr = S_FALSE;
+	BOOL fSaveMade = FALSE;
 
- 	ODS(_T("CDocReader::CDocumentProperties::Save\n"));
-    CHECK_FLAG_RETURN(m_fReadOnly, E_DOCUMENTREADONLY);
+	ODS(_T("CDocReader::CDocumentProperties::Save\n"));
+	CHECK_FLAG_RETURN(m_fReadOnly, E_DOCUMENTREADONLY);
 
- // Ask SummaryProperties to save its changes...
-    if (m_pSummProps)
-    {
-        hr = m_pSummProps->SaveProperties(TRUE);
-        if (FAILED(hr)) return hr;
-        fSaveMade = (hr == S_OK);
-    }
+	// Ask SummaryProperties to save its changes...
+	if (m_pSummProps)
+	{
+		hr = m_pSummProps->SaveProperties(TRUE);
+		if (FAILED(hr)) return hr;
+		fSaveMade = (hr == S_OK);
+	}
 
- // If save was made, commit the root storage before return...
-    if ((fSaveMade) && (m_pStorage))
-    {
+	// If save was made, commit the root storage before return...
+	if ((fSaveMade) && (m_pStorage))
         hr = m_pStorage->Commit(STGC_DEFAULT);
-    }
 
-    return hr;
+	return hr;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1761,27 +1755,28 @@ HRESULT CDocReader::
 HRESULT CDocReader::
 	CDocumentProperties::get_SummaryProperties(CSummaryProperties** ppSummaryProperties)
 {
-    HRESULT hr = E_FAIL;
+	HRESULT hr = E_FAIL;
 
  	ODS(_T("CDocReader::CDocumentProperties::get_SummaryProperties\n"));
-    CHECK_NULL_RETURN(ppSummaryProperties,  E_POINTER);
-    *ppSummaryProperties = NULL;
+	CHECK_NULL_RETURN(ppSummaryProperties,  E_POINTER);
+	*ppSummaryProperties = NULL;
 
-    if (m_pSummProps == NULL)
-    {
-        m_pSummProps = new CSummaryProperties(m_bOnlyThumb);
-        if (m_pSummProps)
-            { hr = m_pSummProps->LoadProperties(m_pPropSetStg, m_fReadOnly, m_dwFlags); }
-        else hr = E_OUTOFMEMORY;
+	if (m_pSummProps == NULL)
+	{
+		m_pSummProps = new CSummaryProperties(m_bOnlyThumb);
+ 		if (m_pSummProps)
+			{ hr = m_pSummProps->LoadProperties(m_pPropSetStg, m_fReadOnly, m_dwFlags); }
+		else
+			hr = E_OUTOFMEMORY;
 
-        if (FAILED(hr))
-        {
-            ZOMBIE_OBJECT(m_pSummProps);
-            return hr;
-        }
-    }
+		if (FAILED(hr))
+		{
+			ZOMBIE_OBJECT(m_pSummProps);
+			return hr;
+		}
+	}
 	*ppSummaryProperties = m_pSummProps;
-    return hr;
+	return hr;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1793,18 +1788,18 @@ HRESULT CDocReader::
 	HICON hIco;
 
 	ODS(_T("CDocReader::CDocumentProperties::get_Icon\n"));
-	CHECK_NULL_RETURN(ppicIcon,  E_POINTER); *ppicIcon = NULL;
-    CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
+	CHECK_NULL_RETURN(ppicIcon, E_POINTER); *ppicIcon = NULL;
+	CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
 
-    if ( (m_bstrFileName) && FGetIconForFile( m_bstrFileName, &hIco ))
-    {
+	if ( (m_bstrFileName) && FGetIconForFile( m_bstrFileName, &hIco ))
+	{
 		PICTDESC  icoDesc;
 		icoDesc.cbSizeofstruct = sizeof(PICTDESC);
 		icoDesc.picType = PICTYPE_ICON;
 		icoDesc.icon.hicon = hIco;
 		return OleCreatePictureIndirect(&icoDesc, IID_IDispatch, TRUE, (void**)ppicIcon);
-    }
-    return S_FALSE;
+	}
+	return S_FALSE;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1814,8 +1809,8 @@ HRESULT CDocReader::
 	CDocumentProperties::get_Name(BSTR* pbstrName)
 {
 	ODS(_T("CDocReader::CDocumentProperties::get_Name\n"));
-	CHECK_NULL_RETURN(pbstrName,  E_POINTER); *pbstrName = NULL;
-    CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
+	CHECK_NULL_RETURN(pbstrName, E_POINTER); *pbstrName = NULL;
+	CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
 
 	if (m_bstrFileName != NULL && m_cFilePartIdx > 0)
 		*pbstrName = SysAllocString((LPOLESTR)&(m_bstrFileName[m_cFilePartIdx]));
@@ -1830,11 +1825,11 @@ HRESULT CDocReader::
 	CDocumentProperties::get_Path(BSTR* pbstrPath)
 {
 	ODS(_T("CDocReader::CDocumentProperties::get_Path\n"));
-	CHECK_NULL_RETURN(pbstrPath,  E_POINTER); *pbstrPath = NULL;
-    CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
+	CHECK_NULL_RETURN(pbstrPath, E_POINTER); *pbstrPath = NULL;
+	CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
 
 	if (m_bstrFileName != NULL && m_cFilePartIdx > 0)
-	    *pbstrPath = SysAllocStringLen(m_bstrFileName, m_cFilePartIdx);
+		*pbstrPath = SysAllocStringLen(m_bstrFileName, m_cFilePartIdx);
 
 	return S_OK;
 }
@@ -1846,9 +1841,9 @@ HRESULT CDocReader::
 	CDocumentProperties::get_IsOleFile(VARIANT_BOOL* pIsOleFile)
 {
 	ODS(_T("CDocReader::CDocumentProperties::get_IsOleFile\n"));
-	CHECK_NULL_RETURN(pIsOleFile,  E_POINTER);
-    *pIsOleFile = ((m_pStorage) ? VARIANT_TRUE : VARIANT_FALSE);
-    return S_OK;
+	CHECK_NULL_RETURN(pIsOleFile, E_POINTER);
+	*pIsOleFile = ((m_pStorage) ? VARIANT_TRUE : VARIANT_FALSE);
+	return S_OK;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1857,23 +1852,23 @@ HRESULT CDocReader::
 HRESULT CDocReader::
 	CDocumentProperties::get_CLSID(BSTR* pbstrCLSID)
 {
-    HRESULT hr;
+	HRESULT hr;
 	STATSTG stat;
 	LPOLESTR pwszCLSID = NULL;
 
 	ODS(_T("CDocReader::CDocumentProperties::get_CLSID\n"));
-	CHECK_NULL_RETURN(pbstrCLSID,  E_POINTER); *pbstrCLSID = NULL;
-    CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
-    CHECK_NULL_RETURN(m_pStorage, E_MUSTHAVESTORAGE);
+	CHECK_NULL_RETURN(pbstrCLSID, E_POINTER); *pbstrCLSID = NULL;
+	CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
+	CHECK_NULL_RETURN(m_pStorage, E_MUSTHAVESTORAGE);
 
-    memset(&stat, 0, sizeof(stat));
-    hr = m_pStorage->Stat(&stat, STATFLAG_NONAME);
-    RETURN_ON_FAILURE(hr);
+	memset(&stat, 0, sizeof(stat));
+	hr = m_pStorage->Stat(&stat, STATFLAG_NONAME);
+	RETURN_ON_FAILURE(hr);
 
 	hr = StringFromCLSID(stat.clsid, &pwszCLSID);
-    if (SUCCEEDED(hr)) *pbstrCLSID = SysAllocString(pwszCLSID);
+	if (SUCCEEDED(hr)) *pbstrCLSID = SysAllocString(pwszCLSID);
 
-    FREE_COTASKMEM(pwszCLSID);
+	FREE_COTASKMEM(pwszCLSID);
 	return hr;
 }
 
@@ -1883,23 +1878,23 @@ HRESULT CDocReader::
 HRESULT CDocReader::
 	CDocumentProperties::get_ProgID(BSTR* pbstrProgID)
 {
-    HRESULT hr;
+	HRESULT hr;
 	STATSTG stat;
 	LPOLESTR pwszProgID = NULL;
 
 	ODS(_T("CDocReader::CDocumentProperties::get_ProgID\n"));
-	CHECK_NULL_RETURN(pbstrProgID,  E_POINTER); *pbstrProgID = NULL;
-    CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
-    CHECK_NULL_RETURN(m_pStorage, E_MUSTHAVESTORAGE);
+	CHECK_NULL_RETURN(pbstrProgID, E_POINTER); *pbstrProgID = NULL;
+	CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
+	CHECK_NULL_RETURN(m_pStorage, E_MUSTHAVESTORAGE);
 
-    memset(&stat, 0, sizeof(stat));
-    hr = m_pStorage->Stat(&stat, STATFLAG_NONAME);
-    RETURN_ON_FAILURE(hr);
+	memset(&stat, 0, sizeof(stat));
+	hr = m_pStorage->Stat(&stat, STATFLAG_NONAME);
+	RETURN_ON_FAILURE(hr);
 
 	hr = ProgIDFromCLSID(stat.clsid, &pwszProgID);
 	if (SUCCEEDED(hr)) *pbstrProgID = SysAllocString(pwszProgID);
 
-    FREE_COTASKMEM(pwszProgID);
+	FREE_COTASKMEM(pwszProgID);
 	return hr;
 }
 
@@ -1909,31 +1904,28 @@ HRESULT CDocReader::
 HRESULT CDocReader::
 	CDocumentProperties::get_OleDocumentFormat(BSTR* pbstrFormat)
 {
-    HRESULT hr = S_FALSE;
-    CLIPFORMAT cf;
+	HRESULT hr = S_FALSE;
+	CLIPFORMAT cf;
 
 	ODS(_T("CDocReader::CDocumentProperties::get_OleDocumentFormat\n"));
-	CHECK_NULL_RETURN(pbstrFormat,  E_POINTER); *pbstrFormat = NULL;
-    CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
-    CHECK_NULL_RETURN(m_pStorage, E_MUSTHAVESTORAGE);
+	CHECK_NULL_RETURN(pbstrFormat, E_POINTER); *pbstrFormat = NULL;
+	CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
+	CHECK_NULL_RETURN(m_pStorage, E_MUSTHAVESTORAGE);
 
-    if (SUCCEEDED(ReadFmtUserTypeStg(m_pStorage, &cf, NULL)) == TRUE)
-    {
-        TCHAR szName[ MAX_PATH ] = {};
+	if (SUCCEEDED(ReadFmtUserTypeStg(m_pStorage, &cf, NULL)) == TRUE)
+	{
+		TCHAR szName[ MAX_PATH ] = {};
 		int i = GetClipboardFormatName( cf, szName, MAX_PATH );
-        if ( i > 0)
-        {
-            szName[i] = '\0';
-        }
-        else
-        {
-            wsprintf(szName, _T("ClipFormat 0x%X (%d)"), cf, cf);
-        }
-        *pbstrFormat = ConvertToBSTR(szName, CP_ACP);
-        hr = ((*pbstrFormat) ? S_OK : E_OUTOFMEMORY);
-    }
+		if ( i > 0)
+ 			szName[i] = '\0';
+		else
+			wsprintf(szName, _T("ClipFormat 0x%X (%d)"), cf, cf);
 
-    return hr;
+		*pbstrFormat = ConvertToBSTR(szName, CP_ACP);
+		hr = ((*pbstrFormat) ? S_OK : E_OUTOFMEMORY);
+	}
+
+	return hr;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1942,22 +1934,22 @@ HRESULT CDocReader::
 HRESULT CDocReader::
 	CDocumentProperties::get_OleDocumentType(BSTR* pbstrType)
 {
-    HRESULT hr = S_FALSE;;
-    LPWSTR lpolestr = NULL;
+ 	HRESULT hr = S_FALSE;;
+	LPWSTR lpolestr = NULL;
 
 	ODS(_T("CDocReader::CDocumentProperties::get_OleDocumentType\n"));
-	CHECK_NULL_RETURN(pbstrType,  E_POINTER); *pbstrType = NULL;
-    CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
-    CHECK_NULL_RETURN(m_pStorage, E_MUSTHAVESTORAGE);
+	CHECK_NULL_RETURN(pbstrType, E_POINTER); *pbstrType = NULL;
+	CHECK_NULL_RETURN(m_pPropSetStg, E_DOCUMENTNOTOPEN);
+	CHECK_NULL_RETURN(m_pStorage, E_MUSTHAVESTORAGE);
 
-    if (SUCCEEDED(ReadFmtUserTypeStg(m_pStorage, NULL, &lpolestr)) == TRUE)
-    {
-        *pbstrType = SysAllocString(lpolestr);
-        hr = ((*pbstrType) ? S_OK : E_OUTOFMEMORY);
-        FREE_COTASKMEM(lpolestr);
-    }
+	if (SUCCEEDED(ReadFmtUserTypeStg(m_pStorage, NULL, &lpolestr)) == TRUE)
+	{
+		*pbstrType = SysAllocString(lpolestr);
+		hr = ((*pbstrType) ? S_OK : E_OUTOFMEMORY);
+		FREE_COTASKMEM(lpolestr);
+	}
 
-    return hr;
+	return hr;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1970,22 +1962,22 @@ CDocReader::CDocumentProperties::
 	CSummaryProperties::CSummaryProperties(BOOL	bOnlyThumb)
 {
 	ODS(_T("CSummaryProperties::CSummaryProperties()\n"));
-    m_pPropSetStg    = NULL;
-    m_dwFlags        = dsoOptionDefault;
-    m_fReadOnly      = FALSE;
-    m_fExternal      = FALSE;
-    m_fDeadObj       = FALSE;
-    m_pSummPropList  = NULL;
-    m_pDocPropList   = NULL;
-    m_wCodePageSI    = CP_ACP;
-    m_wCodePageDSI   = CP_ACP;
+	m_pPropSetStg    = NULL;
+	m_dwFlags        = dsoOptionDefault;
+	m_fReadOnly      = FALSE;
+	m_fExternal      = FALSE;
+	m_fDeadObj       = FALSE;
+	m_pSummPropList  = NULL;
+	m_pDocPropList   = NULL;
+	m_wCodePageSI    = CP_ACP;
+	m_wCodePageDSI   = CP_ACP;
 	m_bOnlyThumb	 = bOnlyThumb;
 }
 
 CDocReader::CDocumentProperties::
 	CSummaryProperties::~CSummaryProperties(void)
 {
-    ODS(_T("CSummaryProperties::~CSummaryProperties()\n"));
+	ODS(_T("CSummaryProperties::~CSummaryProperties()\n"));
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -1997,7 +1989,7 @@ CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Title(BSTR* pbstrTitle)
 {
-    ODS(_T("CSummaryProperties::get_Title\n"));
+	ODS(_T("CSummaryProperties::get_Title\n"));
 	CHECK_NULL_RETURN(pbstrTitle, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_TITLE, VT_BSTR, ((void**)pbstrTitle));
 }
@@ -2005,14 +1997,14 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Title(BSTR bstrTitle)
 {
-    TRACE1("CSummaryProperties::put_Title(%S)\n", bstrTitle);
+	TRACE1("CSummaryProperties::put_Title(%S)\n", bstrTitle);
 	return WriteProperty(&m_pSummPropList, PIDSI_TITLE, VT_BSTR, ((void*)bstrTitle));
 }
 
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Subject(BSTR* pbstrSubject)
 {
-    ODS(_T("CSummaryProperties::get_Subject\n"));
+	ODS(_T("CSummaryProperties::get_Subject\n"));
 	CHECK_NULL_RETURN(pbstrSubject, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_SUBJECT, VT_BSTR, ((void**)pbstrSubject));
 }
@@ -2020,14 +2012,14 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Subject(BSTR bstrSubject)
 {
-    TRACE1("CSummaryProperties::put_Subject(%S)\n", bstrSubject);
+	TRACE1("CSummaryProperties::put_Subject(%S)\n", bstrSubject);
 	return WriteProperty(&m_pSummPropList, PIDSI_SUBJECT, VT_BSTR, ((void*)bstrSubject));
 }
 
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Author(BSTR* pbstrAuthor)
 {
-    ODS(_T("CSummaryProperties::get_Author\n"));
+	ODS(_T("CSummaryProperties::get_Author\n"));
 	CHECK_NULL_RETURN(pbstrAuthor, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_AUTHOR, VT_BSTR, ((void**)pbstrAuthor));
 }
@@ -2035,14 +2027,14 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Author(BSTR bstrAuthor)
 {
-    TRACE1("CSummaryProperties::put_Author(%S)\n", bstrAuthor);
+	TRACE1("CSummaryProperties::put_Author(%S)\n", bstrAuthor);
 	return WriteProperty(&m_pSummPropList, PIDSI_AUTHOR, VT_BSTR, ((void*)bstrAuthor));
 }
 
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Keywords(BSTR* pbstrKeywords)
 {
-    ODS(_T("CSummaryProperties::get_Keywords\n"));
+	ODS(_T("CSummaryProperties::get_Keywords\n"));
 	CHECK_NULL_RETURN(pbstrKeywords, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_KEYWORDS, VT_BSTR, ((void**)pbstrKeywords));
 }
@@ -2050,14 +2042,14 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Keywords(BSTR bstrKeywords)
 {
-    TRACE1("CSummaryProperties::put_Keywords(%S)\n", bstrKeywords);
+	TRACE1("CSummaryProperties::put_Keywords(%S)\n", bstrKeywords);
 	return WriteProperty(&m_pSummPropList, PIDSI_KEYWORDS, VT_BSTR, ((void*)bstrKeywords));
 }
 
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Comments(BSTR* pbstrComments)
 {
-    ODS(_T("CSummaryProperties::get_Comments\n"));
+	ODS(_T("CSummaryProperties::get_Comments\n"));
 	CHECK_NULL_RETURN(pbstrComments, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_COMMENTS, VT_BSTR, ((void**)pbstrComments));
 }
@@ -2065,14 +2057,14 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Comments(BSTR bstrComments)
 {
-    TRACE1("CSummaryProperties::put_Comments(%S)\n", bstrComments);
+	TRACE1("CSummaryProperties::put_Comments(%S)\n", bstrComments);
 	return WriteProperty(&m_pSummPropList, PIDSI_COMMENTS, VT_BSTR, ((void*)bstrComments));
 }
 
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Template(BSTR* pbstrTemplate)
 {
-    ODS(_T("CSummaryProperties::get_Template\n"));
+	ODS(_T("CSummaryProperties::get_Template\n"));
 	CHECK_NULL_RETURN(pbstrTemplate, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_TEMPLATE, VT_BSTR, ((void**)pbstrTemplate));
 }
@@ -2080,7 +2072,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_LastSavedBy(BSTR* pbstrLastSavedBy)
 {
-    ODS(_T("CSummaryProperties::get_LastSavedBy\n"));
+	ODS(_T("CSummaryProperties::get_LastSavedBy\n"));
 	CHECK_NULL_RETURN(pbstrLastSavedBy, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_LASTAUTHOR, VT_BSTR, ((void**)pbstrLastSavedBy));
 }
@@ -2088,14 +2080,14 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_LastSavedBy(BSTR bstrLastSavedBy)
 {
-    TRACE1("CSummaryProperties::put_LastSavedBy(%S)\n", bstrLastSavedBy);
+	TRACE1("CSummaryProperties::put_LastSavedBy(%S)\n", bstrLastSavedBy);
 	return WriteProperty(&m_pSummPropList, PIDSI_LASTAUTHOR, VT_BSTR, ((void*)bstrLastSavedBy));
 }
 
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_RevisionNumber(BSTR* pbstrRevisionNumber)
 {
-    ODS(_T("CSummaryProperties::get_RevisionNumber\n"));
+	ODS(_T("CSummaryProperties::get_RevisionNumber\n"));
 	CHECK_NULL_RETURN(pbstrRevisionNumber, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_REVNUMBER, VT_BSTR, ((void**)pbstrRevisionNumber));
 }
@@ -2103,7 +2095,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_TotalEditTime(long* plTotalEditTime)
 {
-    ODS(_T("CSummaryProperties::get_TotalEditTime\n"));
+	ODS(_T("CSummaryProperties::get_TotalEditTime\n"));
 	CHECK_NULL_RETURN(plTotalEditTime, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_EDITTIME, VT_I4, ((void**)plTotalEditTime));
 }
@@ -2111,7 +2103,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_DateLastPrinted(VARIANT* pdtDateLastPrinted)
 {
-    ODS(_T("CSummaryProperties::get_DateLastPrinted\n"));
+	ODS(_T("CSummaryProperties::get_DateLastPrinted\n"));
 	CHECK_NULL_RETURN(pdtDateLastPrinted, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_LASTPRINTED, VT_DATE, ((void**)pdtDateLastPrinted));
 }
@@ -2119,7 +2111,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_DateCreated(VARIANT* pdtDateCreated)
 {
-    ODS(_T("CSummaryProperties::get_DateCreated\n"));
+	ODS(_T("CSummaryProperties::get_DateCreated\n"));
 	CHECK_NULL_RETURN(pdtDateCreated, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_CREATE_DTM, VT_DATE, ((void**)pdtDateCreated));
 }
@@ -2127,7 +2119,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_DateLastSaved(VARIANT* pdtDateLastSaved)
 {
-    ODS(_T("CSummaryProperties::get_DateLastSaved\n"));
+	ODS(_T("CSummaryProperties::get_DateLastSaved\n"));
 	CHECK_NULL_RETURN(pdtDateLastSaved, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_LASTSAVE_DTM, VT_DATE, ((void**)pdtDateLastSaved));
 }
@@ -2135,7 +2127,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_PageCount(long* plPageCount)
 {
-    ODS(_T("CSummaryProperties::get_PageCount\n"));
+	ODS(_T("CSummaryProperties::get_PageCount\n"));
 	CHECK_NULL_RETURN(plPageCount, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_PAGECOUNT, VT_I4, ((void**)plPageCount));
 }
@@ -2143,7 +2135,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_WordCount(long* plWordCount)
 {
-    ODS(_T("CSummaryProperties::get_WordCount\n"));
+	ODS(_T("CSummaryProperties::get_WordCount\n"));
 	CHECK_NULL_RETURN(plWordCount, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_WORDCOUNT, VT_I4, ((void**)plWordCount));
 }
@@ -2151,7 +2143,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_CharacterCount(long* plCharacterCount)
 {
-    ODS(_T("CSummaryProperties::get_CharacterCount\n"));
+	ODS(_T("CSummaryProperties::get_CharacterCount\n"));
 	CHECK_NULL_RETURN(plCharacterCount, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_CHARCOUNT, VT_I4, ((void**)plCharacterCount));
 }
@@ -2159,23 +2151,23 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Thumbnail(VARIANT* pvtThumbnail)
 {
-    HRESULT hr = S_FALSE;
-    CDocProperty* pitem;
+	HRESULT hr = S_FALSE;
+	CDocProperty* pitem;
 
-    ODS(_T("CSummaryProperties::get_Thumbnail\n"));
+	ODS(_T("CSummaryProperties::get_Thumbnail\n"));
 	CHECK_NULL_RETURN(pvtThumbnail, E_POINTER);
-    CHECK_FLAG_RETURN(m_fDeadObj, E_INVALIDOBJECT);
+	CHECK_FLAG_RETURN(m_fDeadObj, E_INVALIDOBJECT);
 
- // Get thumbnail item from the collection (if it was added).
-    pitem = GetPropertyFromList(m_pSummPropList, PIDSI_THUMBNAIL, FALSE);
-    if (pitem) hr = pitem->get_Value(pvtThumbnail);
-    return hr;
+	// Get thumbnail item from the collection (if it was added).
+	pitem = GetPropertyFromList(m_pSummPropList, PIDSI_THUMBNAIL, FALSE);
+	if (pitem) hr = pitem->get_Value(pvtThumbnail);
+	return hr;
 }
 
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_ApplicationName(BSTR* pbstrAppName)
 {
-    ODS(_T("CSummaryProperties::get_ApplicationName\n"));
+	ODS(_T("CSummaryProperties::get_ApplicationName\n"));
 	CHECK_NULL_RETURN(pbstrAppName, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_APPNAME, VT_BSTR, ((void**)pbstrAppName));
 }
@@ -2183,7 +2175,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_DocumentSecurity(long* plDocSecurity)
 {
-    ODS(_T("CSummaryProperties::get_DocumentSecurity\n"));
+	ODS(_T("CSummaryProperties::get_DocumentSecurity\n"));
 	CHECK_NULL_RETURN(plDocSecurity, E_POINTER);
 	return ReadProperty(m_pSummPropList, PIDSI_DOC_SECURITY, VT_I4, ((void**)plDocSecurity));
 }
@@ -2194,7 +2186,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Category(BSTR* pbstrCategory)
 {
-    ODS(_T("CSummaryProperties::get_Category\n"));
+	ODS(_T("CSummaryProperties::get_Category\n"));
 	CHECK_NULL_RETURN(pbstrCategory, E_POINTER);
 	return ReadProperty(m_pDocPropList, PID_CATEGORY, VT_BSTR, ((void**)pbstrCategory));
 }
@@ -2202,14 +2194,14 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Category(BSTR bstrCategory)
 {
-    TRACE1("CSummaryProperties::put_Category(%S)\n", bstrCategory);
+	TRACE1("CSummaryProperties::put_Category(%S)\n", bstrCategory);
 	return WriteProperty(&m_pDocPropList, PID_CATEGORY, VT_BSTR, ((void*)bstrCategory));
 }
 
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_PresentationFormat(BSTR* pbstrPresFormat)
 {
-    ODS(_T("CSummaryProperties::get_PresentationFormat\n"));
+	ODS(_T("CSummaryProperties::get_PresentationFormat\n"));
 	CHECK_NULL_RETURN(pbstrPresFormat, E_POINTER);
 	return ReadProperty(m_pDocPropList, PID_PRESFORMAT, VT_BSTR, ((void**)pbstrPresFormat));
 }
@@ -2217,7 +2209,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_ByteCount(long* plByteCount)
 {
-    ODS(_T("CSummaryProperties::get_ByteCount\n"));
+	ODS(_T("CSummaryProperties::get_ByteCount\n"));
 	CHECK_NULL_RETURN(plByteCount, E_POINTER);
 	return ReadProperty(m_pDocPropList, PID_BYTECOUNT, VT_I4, ((void**)plByteCount));
 }
@@ -2225,7 +2217,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_LineCount(long* plLineCount)
 {
-    ODS(_T("CSummaryProperties::get_LineCount\n"));
+	ODS(_T("CSummaryProperties::get_LineCount\n"));
 	CHECK_NULL_RETURN(plLineCount, E_POINTER);
 	return ReadProperty(m_pDocPropList, PID_LINECOUNT, VT_I4, ((void**)plLineCount));
 }
@@ -2233,7 +2225,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_ParagraphCount(long* plParagraphCount)
 {
-    ODS(_T("CSummaryProperties::get_ParagraphCount\n"));
+	ODS(_T("CSummaryProperties::get_ParagraphCount\n"));
 	CHECK_NULL_RETURN(plParagraphCount, E_POINTER);
 	return ReadProperty(m_pDocPropList, PID_PARACOUNT, VT_I4, ((void**)plParagraphCount));
 }
@@ -2241,7 +2233,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_SlideCount(long* plSlideCount)
 {
-    ODS(_T("CSummaryProperties::get_SlideCount\n"));
+	ODS(_T("CSummaryProperties::get_SlideCount\n"));
 	CHECK_NULL_RETURN(plSlideCount, E_POINTER);
 	return ReadProperty(m_pDocPropList, PID_SLIDECOUNT, VT_I4, ((void**)plSlideCount));
 }
@@ -2249,7 +2241,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_NoteCount(long* plNoteCount)
 {
-    ODS(_T("CSummaryProperties::get_NoteCount\n"));
+	ODS(_T("CSummaryProperties::get_NoteCount\n"));
 	CHECK_NULL_RETURN(plNoteCount, E_POINTER);
 	return ReadProperty(m_pDocPropList, PID_NOTECOUNT, VT_I4, ((void**)plNoteCount));
 }
@@ -2257,7 +2249,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_HiddenSlideCount(long* plHiddenSlideCount)
 {
-    ODS(_T("CSummaryProperties::get_HiddenSlideCount\n"));
+	ODS(_T("CSummaryProperties::get_HiddenSlideCount\n"));
 	CHECK_NULL_RETURN(plHiddenSlideCount, E_POINTER);
 	return ReadProperty(m_pDocPropList, PID_HIDDENCOUNT, VT_I4, ((void**)plHiddenSlideCount));
 }
@@ -2265,7 +2257,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_MultimediaClipCount(long* plMultimediaClipCount)
 {
-    ODS(_T("CSummaryProperties::get_MultimediaClipCount\n"));
+	ODS(_T("CSummaryProperties::get_MultimediaClipCount\n"));
 	CHECK_NULL_RETURN(plMultimediaClipCount, E_POINTER);
 	return ReadProperty(m_pDocPropList, PID_MMCLIPCOUNT, VT_I4, ((void**)plMultimediaClipCount));
 }
@@ -2273,7 +2265,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Manager(BSTR* pbstrManager)
 {
-    ODS(_T("CSummaryProperties::get_Manager\n"));
+	ODS(_T("CSummaryProperties::get_Manager\n"));
 	CHECK_NULL_RETURN(pbstrManager, E_POINTER);
 	return ReadProperty(m_pDocPropList, PID_MANAGER, VT_BSTR, ((void**)pbstrManager));
 }
@@ -2281,14 +2273,14 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Manager(BSTR bstrManager)
 {
-    TRACE1("CSummaryProperties::put_Manager(%S)\n", bstrManager);
+	TRACE1("CSummaryProperties::put_Manager(%S)\n", bstrManager);
 	return WriteProperty(&m_pDocPropList, PID_MANAGER, VT_BSTR, ((void*)bstrManager));
 }
 
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Company(BSTR* pbstrCompany)
 {
-    ODS(_T("CSummaryProperties::get_Company\n"));
+	ODS(_T("CSummaryProperties::get_Company\n"));
 	CHECK_NULL_RETURN(pbstrCompany, E_POINTER);
 	return ReadProperty(m_pDocPropList, PID_COMPANY, VT_BSTR, ((void**)pbstrCompany));
 }
@@ -2296,14 +2288,14 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Company(BSTR bstrCompany)
 {
-    TRACE1("CSummaryProperties::put_Company(%S)\n", bstrCompany);
+	TRACE1("CSummaryProperties::put_Company(%S)\n", bstrCompany);
 	return WriteProperty(&m_pDocPropList, PID_COMPANY, VT_BSTR, ((void*)bstrCompany));
 }
 
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_CharacterCountWithSpaces(long* plCharCountWithSpaces)
 {
-    ODS(_T("CSummaryProperties::get_CharacterCountWithSpaces\n"));
+	ODS(_T("CSummaryProperties::get_CharacterCountWithSpaces\n"));
 	CHECK_NULL_RETURN(plCharCountWithSpaces, E_POINTER);
 	return ReadProperty(m_pDocPropList, PID_CCHWITHSPACES, VT_I4, ((void**)plCharCountWithSpaces));
 }
@@ -2311,7 +2303,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_SharedDocument(VARIANT_BOOL* pbSharedDocument)
 {
-    ODS(_T("CSummaryProperties::get_SharedDocument\n"));
+	ODS(_T("CSummaryProperties::get_SharedDocument\n"));
 	CHECK_NULL_RETURN(pbSharedDocument, E_POINTER);
 	return ReadProperty(m_pDocPropList, PID_SHAREDDOC, VT_BOOL, ((void**)pbSharedDocument));
 }
@@ -2319,32 +2311,32 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_Version(BSTR* pbstrVersion)
 {
-    ULONG ul = 0;
-    ODS(_T("CSummaryProperties::get_Version\n"));
+	ULONG ul = 0;
+	ODS(_T("CSummaryProperties::get_Version\n"));
 	CHECK_NULL_RETURN(pbstrVersion, E_POINTER); *pbstrVersion = NULL;
-    if (SUCCEEDED(ReadProperty(m_pDocPropList, PID_VERSION, VT_I4, (void**)&ul)))
-    {
-        TCHAR szVersion[128];
-        wsprintf(szVersion, _T("%d.%d"), (LONG)(HIWORD(ul)), (LONG)(LOWORD(ul)));
-        *pbstrVersion = ConvertToBSTR(szVersion, CP_ACP);
-    }
-    return S_OK;
+	if (SUCCEEDED(ReadProperty(m_pDocPropList, PID_VERSION, VT_I4, (void**)&ul)))
+	{
+		TCHAR szVersion[128];
+		wsprintf(szVersion, _T("%d.%d"), (LONG)(HIWORD(ul)), (LONG)(LOWORD(ul)));
+		*pbstrVersion = ConvertToBSTR(szVersion, CP_ACP);
+	}
+	return S_OK;
 }
 
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::get_DigitalSignature(VARIANT* pvtDigSig)
 {
-    HRESULT hr = S_FALSE;
-    CDocProperty* pitem;
+	HRESULT hr = S_FALSE;
+	CDocProperty* pitem;
 
-    ODS(_T("CSummaryProperties::get_DigitalSignature\n"));
+	ODS(_T("CSummaryProperties::get_DigitalSignature\n"));
 	CHECK_NULL_RETURN(pvtDigSig, E_POINTER);
-    CHECK_FLAG_RETURN(m_fDeadObj, E_INVALIDOBJECT);
+	CHECK_FLAG_RETURN(m_fDeadObj, E_INVALIDOBJECT);
 
- // Get DigSig data as CF_BLOB...
-    pitem = GetPropertyFromList(m_pDocPropList, PID_DIGSIG, FALSE);
-    if (pitem) hr = pitem->get_Value(pvtDigSig);
-    return hr;
+	// Get DigSig data as CF_BLOB...
+	pitem = GetPropertyFromList(m_pDocPropList, PID_DIGSIG, FALSE);
+	if (pitem) hr = pitem->get_Value(pvtDigSig);
+	return hr;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -2352,82 +2344,84 @@ HRESULT CDocReader::CDocumentProperties::
 //
 ////////////////////////////////////////////////////////////////////////
 // LoadProperties -- Reads in both property sets and provides link list
-//   of the properties for each (we keep separatelists because each may
-//   have overlapping PROPIDs and different CodePages).
+//	of the properties for each (we keep separatelists because each may
+//	have overlapping PROPIDs and different CodePages).
 //
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::LoadProperties(IPropertySetStorage* pPropSS, BOOL fIsReadOnly, dsoFileOpenOptions dwFlags)
 {
-    HRESULT hr = S_OK;;
-    IPropertyStorage *pProps;
+	HRESULT hr = S_OK;;
+	IPropertyStorage *pProps;
 
- // We only do this once (when loading from file)...
+	// We only do this once (when loading from file)...
 	TRACE2("CSummaryProperties::LoadProperties(ReadOnly=%d, Flags=%d)\n", fIsReadOnly, dwFlags);
-    ASSERT(m_pSummPropList == NULL); ASSERT(m_pDocPropList == NULL);
+	ASSERT(m_pSummPropList == NULL); ASSERT(m_pDocPropList == NULL);
 
- // First, load the FMTID_SummaryInformation properties...
-    hr = OpenPropertyStorage(pPropSS, FMTID_SummaryInformation, fIsReadOnly, dwFlags, &pProps);
+	// First, load the FMTID_SummaryInformation properties...
+	hr = OpenPropertyStorage(pPropSS, FMTID_SummaryInformation, fIsReadOnly, dwFlags, &pProps);
 
-    if ( SUCCEEDED(hr) )
-    {
-     // Load all the properties into a list set (and save the code page). The list
-     // may return NULL if no properties are found, but that is OK. We just return
-     // blank values for items as if they were set to zero...
-        hr = LoadPropertySetList( pProps, &m_wCodePageSI, &m_pSummPropList, m_bOnlyThumb );
-        pProps->Release();
-    }
-    else
-    {
-     // In cases where the propset is not in the file and it is read-only open
-     // or a case where DontAutoCreate flag is used, we just treat as read-only
-     // with no properties. Otherwise we return error that propset is invalid...
-        if (hr == STG_E_FILENOTFOUND)
-        { // We allow partial open if NoAutoCreate is set.
-            if ((fIsReadOnly) || (dwFlags & dsoOptionDontAutoCreate))
-            {
-                fIsReadOnly = TRUE;
-                hr = S_FALSE;
-            }
-            else hr = E_INVALIDPROPSET;
-        }
-    }
-    RETURN_ON_FAILURE(hr);
+	if ( SUCCEEDED(hr) )
+	{
+		// Load all the properties into a list set (and save the code page). The list
+		// may return NULL if no properties are found, but that is OK. We just return
+		// blank values for items as if they were set to zero...
+ 		hr = LoadPropertySetList( pProps, &m_wCodePageSI, &m_pSummPropList, m_bOnlyThumb );
+		pProps->Release();
+	}
+	else
+	{
+		// In cases where the propset is not in the file and it is read-only open
+		// or a case where DontAutoCreate flag is used, we just treat as read-only
+		// with no properties. Otherwise we return error that propset is invalid...
+		if (hr == STG_E_FILENOTFOUND)
+ 		{ // We allow partial open if NoAutoCreate is set.
+			if ((fIsReadOnly) || (dwFlags & dsoOptionDontAutoCreate))
+			{
+  				fIsReadOnly = TRUE;
+				hr = S_FALSE;
+			}
+ 			else
+				hr = E_INVALIDPROPSET;
+		}
+	}
+	RETURN_ON_FAILURE(hr);
 
- // Second, load the FMTID_DocSummaryInformation properties...
-    hr = OpenPropertyStorage(pPropSS, FMTID_DocSummaryInformation, fIsReadOnly, dwFlags, &pProps);
-    if ( SUCCEEDED(hr) )
-    {
-     // Load all the properties into a list set (and save the code page). The list
-     // may return NULL if no properties are found, but that is OK. We just return
-     // blank values for items as if they were set to zero...
-        hr = LoadPropertySetList(pProps, &m_wCodePageDSI, &m_pDocPropList, m_bOnlyThumb);
-        pProps->Release();
-    }
-    else
-    {
-     // In cases where the propset is not in the file and it is read-only open
-     // or a case where DontAutoCreate flag is used, we just treat as read-only
-     // with no properties. Otherwise we return error that propset is invalid...
-        if (hr == STG_E_FILENOTFOUND)
-        { // We allow partial open if NoAutoCreate is set.
-            if ((fIsReadOnly) || (dwFlags & dsoOptionDontAutoCreate))
-            {
-                fIsReadOnly = TRUE;
-                hr = S_FALSE;
-            }
-            else hr = E_INVALIDPROPSET;
-        }
-    }
+	// Second, load the FMTID_DocSummaryInformation properties...
+	hr = OpenPropertyStorage(pPropSS, FMTID_DocSummaryInformation, fIsReadOnly, dwFlags, &pProps);
+	if ( SUCCEEDED(hr) )
+	{
+		// Load all the properties into a list set (and save the code page). The list
+		// may return NULL if no properties are found, but that is OK. We just return
+		// blank values for items as if they were set to zero...
+		hr = LoadPropertySetList(pProps, &m_wCodePageDSI, &m_pDocPropList, m_bOnlyThumb);
+		pProps->Release();
+	}
+	else
+	{
+		// In cases where the propset is not in the file and it is read-only open
+		// or a case where DontAutoCreate flag is used, we just treat as read-only
+		// with no properties. Otherwise we return error that propset is invalid...
+		if (hr == STG_E_FILENOTFOUND)
+		{	// We allow partial open if NoAutoCreate is set.
+			if ((fIsReadOnly) || (dwFlags & dsoOptionDontAutoCreate))
+			{
+				fIsReadOnly = TRUE;
+				hr = S_FALSE;
+			}
+			else
+				hr = E_INVALIDPROPSET;
+	}
+	}
 
- // If all wen well, store the parameters passed for later use...
-    if (SUCCEEDED(hr))
-    {
-        m_pPropSetStg = pPropSS;
-        m_fReadOnly = fIsReadOnly;
-        m_dwFlags = dwFlags;
-    }
+	// If all wen well, store the parameters passed for later use...
+	if (SUCCEEDED(hr))
+	{
+		m_pPropSetStg = pPropSS;
+		m_fReadOnly = fIsReadOnly;
+		m_dwFlags = dwFlags;
+	}
 
-    return hr;
+	return hr;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -2437,37 +2431,37 @@ HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::ReadProperty(CDocProperty* pPropList, PROPID pid, VARTYPE vt, void** ppv)
 {
 	HRESULT hr = S_FALSE;
-    CDocProperty* pitem;
+	CDocProperty* pitem;
 	VARIANT vtTmp;
 
 	TRACE1("CSummaryProperties::ReadProperty(id=%d)\n", pid);
 	ASSERT(ppv); *ppv = NULL;
 
-    CHECK_FLAG_RETURN(m_fDeadObj, E_INVALIDOBJECT);
+	CHECK_FLAG_RETURN(m_fDeadObj, E_INVALIDOBJECT);
 
-    pitem = GetPropertyFromList(pPropList, pid, FALSE);
-    if ( pitem )
-    {
-	    VariantInit(&vtTmp);
-        hr = pitem->get_Value(&vtTmp);
-        if ( SUCCEEDED(hr) )
-        {
-         // If data returned is not in the expected type, try to convert it...
-            if ( ( vtTmp.vt != vt ) &&
-                ( FAILED(VariantChangeType( &vtTmp, &vtTmp, 0, vt )) ) )
-                return S_FALSE; // E_UNEXPECTED; FIX - 2/18/2000 (return S_FALSE same as missing).
+	pitem = GetPropertyFromList(pPropList, pid, FALSE);
+	if ( pitem )
+	{
+		VariantInit(&vtTmp);
+		hr = pitem->get_Value(&vtTmp);
+		if ( SUCCEEDED(hr) )
+		{
+			// If data returned is not in the expected type, try to convert it...
+			if ( ( vtTmp.vt != vt ) &&
+				( FAILED(VariantChangeType( &vtTmp, &vtTmp, 0, vt )) ) )
+				return S_FALSE; // E_UNEXPECTED; FIX - 2/18/2000 (return S_FALSE same as missing).
 
-         // Return the native data based on the VT type...
-            switch (vt)
-		    {
-		    case VT_BSTR: *((BSTR*)ppv) = SysAllocString( vtTmp.bstrVal ); break;
-            case VT_I4:   *((LONG*)ppv) = vtTmp.lVal; break;
-            case VT_BOOL: *((VARIANT_BOOL*)ppv) = vtTmp.boolVal; break;
-		    case VT_DATE: VariantCopy( ( (VARIANT*)ppv ), &vtTmp ); break;
-		    }
-            VariantClear( &vtTmp );
-        }
-    }
+			// Return the native data based on the VT type...
+			switch (vt)
+			{
+			case VT_BSTR: *((BSTR*)ppv) = SysAllocString( vtTmp.bstrVal ); break;
+			case VT_I4:   *((LONG*)ppv) = vtTmp.lVal; break;
+			case VT_BOOL: *((VARIANT_BOOL*)ppv) = vtTmp.boolVal; break;
+			case VT_DATE: VariantCopy( ( (VARIANT*)ppv ), &vtTmp ); break;
+			}
+ 			VariantClear( &vtTmp );
+		}
+	}
 
 	return hr;
 }
@@ -2479,45 +2473,54 @@ HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::WriteProperty(CDocProperty** ppPropList, PROPID pid, VARTYPE vt, void* pv)
 {
 	HRESULT hr = S_FALSE;
-    CDocProperty* pitem;
+	CDocProperty* pitem;
 	VARIANT vtItem;
 
- // Going to add property to list. Make sure we allow writes, and make sure prop list exists...
+	// Going to add property to list. Make sure we allow writes, and make sure prop list exists...
 	TRACE1("CSummaryProperties::WriteProperty(id=%d)\n", pid);
-    CHECK_NULL_RETURN(ppPropList,  E_POINTER);
-    CHECK_FLAG_RETURN(m_fDeadObj,  E_INVALIDOBJECT);
-    CHECK_FLAG_RETURN(m_fReadOnly, E_DOCUMENTREADONLY);
+	CHECK_NULL_RETURN(ppPropList,  E_POINTER);
+	CHECK_FLAG_RETURN(m_fDeadObj,  E_INVALIDOBJECT);
+	CHECK_FLAG_RETURN(m_fReadOnly, E_DOCUMENTREADONLY);
 
- // We load Variant based on selected VT (only handle values of 32-bit or lower)
- // This would be a problem for generic read/write, but for summary and doc summary
- // properties, these are the only common types this component handles (so we are OK with this).
+	// We load Variant based on selected VT (only handle values of 32-bit or lower)
+	// This would be a problem for generic read/write, but for summary and doc summary properties,
+	// these are the only common types this component handles (so we are OK with this).
 	vtItem.vt = vt;
-    switch ( vt )
-    {
-      case VT_BSTR: vtItem.bstrVal = ((BSTR)pv); break;
-      case VT_I4:   vtItem.lVal    = ((LONG)(LONG_PTR)pv); break;
-      //case VT_BOOL: vtItem.boolVal = ((VARIANT_BOOL)((LONG)pv)); break;
-	  //case VT_DATE: VariantCopy(&vtItem, ((VARIANT*)pv)); break;
-      default: return E_INVALIDARG;
-    }
+	switch ( vt )
+	{
+	case VT_BSTR:
+		vtItem.bstrVal = ((BSTR)pv);
+		break;
+	case VT_I4:
+		vtItem.lVal = ((LONG)(LONG_PTR)pv);
+		break;
+	//case VT_BOOL:
+		//vtItem.boolVal = ((VARIANT_BOOL)((LONG)pv));
+		//break;
+	//case VT_DATE:
+		//VariantCopy(&vtItem, ((VARIANT*)pv));
+		//break;
+	default:
+		return E_INVALIDARG;
+	}
 
- // Find the cached item in the list and update it...
-    pitem = GetPropertyFromList(*ppPropList, pid, TRUE);
-    if (pitem)
-    {
-        hr = pitem->put_Value(&vtItem);
+	// Find the cached item in the list and update it...
+	pitem = GetPropertyFromList(*ppPropList, pid, TRUE);
+	if (pitem)
+	{
+		hr = pitem->put_Value(&vtItem);
 
-     // Special case where we are adding new property to list that had
-     // no properties to start with (NTFS5 files mostly, since normal
-     // Office/OLE files will have at least one summ/docsumm prop...
-        if ( ( *ppPropList == NULL ) && SUCCEEDED(hr) )
-            *ppPropList = pitem;
-    }
-    else
-    {
-     // If it is not in the list, nor can be added...
-        hr = E_ACCESSDENIED;
-    }
+		// Special case where we are adding new property to list that had
+		// no properties to start with (NTFS5 files mostly, since normal
+		// Office/OLE files will have at least one summ/docsumm prop...
+		if ( ( *ppPropList == NULL ) && SUCCEEDED(hr) )
+		*ppPropList = pitem;
+	}
+	else
+	{
+		// If it is not in the list, nor can be added...
+		hr = E_ACCESSDENIED;
+	}
 
 	return hr;
 }
@@ -2528,91 +2531,91 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::SaveProperties(BOOL fCommitChanges)
 {
-    HRESULT hr = S_FALSE;
-    IPropertyStorage *pProps;
-    ULONG cSaved, cTotalItems = 0;
+	HRESULT hr = S_FALSE;
+	IPropertyStorage *pProps;
+	ULONG cSaved, cTotalItems = 0;
 
- // We don't need to do save if in read-only mode...
+	// We don't need to do save if in read-only mode...
 	TRACE1("CSummaryProperties::SaveProperties(Commit=%d)\n", (ULONG)fCommitChanges);
-    CHECK_FLAG_RETURN(m_fReadOnly, E_DOCUMENTREADONLY);
+	CHECK_FLAG_RETURN(m_fReadOnly, E_DOCUMENTREADONLY);
 
- // Save the Summary properties..
-    if (m_pSummPropList)
-    {
-        hr = OpenPropertyStorage(m_pPropSetStg, FMTID_SummaryInformation, FALSE, 0, &pProps);
-        if ( SUCCEEDED(hr) )
-        {
-         // Save all the changed items in the list...
-            hr = SavePropertySetList(pProps, m_wCodePageSI, m_pSummPropList, &cSaved);
+	// Save the Summary properties..
+	if (m_pSummPropList)
+	{
+		hr = OpenPropertyStorage(m_pPropSetStg, FMTID_SummaryInformation, FALSE, 0, &pProps);
+		if ( SUCCEEDED(hr) )
+		{
+			// Save all the changed items in the list...
+			hr = SavePropertySetList(pProps, m_wCodePageSI, m_pSummPropList, &cSaved);
 
-         // Commit the changes to the file...
-            if ( SUCCEEDED(hr) && (cSaved) && (fCommitChanges) )
-                hr = pProps->Commit( STGC_DEFAULT );
+			// Commit the changes to the file...
+			if ( SUCCEEDED(hr) && (cSaved) && (fCommitChanges) )
+				hr = pProps->Commit( STGC_DEFAULT );
 
-            cTotalItems = cSaved;
-            pProps->Release();
-        }
-    }
+			cTotalItems = cSaved;
+			pProps->Release();
+		}
+	}
 
- // Then save doc summary properties...
-    if ( SUCCEEDED(hr) && ( m_pDocPropList ) )
-    {
-        hr = OpenPropertyStorage( m_pPropSetStg, FMTID_DocSummaryInformation, FALSE, 0, &pProps );
-        if (SUCCEEDED(hr))
-        {
-         // Save all the changed items in the list...
-            hr = SavePropertySetList(pProps, m_wCodePageDSI, m_pDocPropList, &cSaved);
+	// Then save doc summary properties...
+	if ( SUCCEEDED(hr) && ( m_pDocPropList ) )
+	{
+		hr = OpenPropertyStorage( m_pPropSetStg, FMTID_DocSummaryInformation, FALSE, 0, &pProps );
+		if (SUCCEEDED(hr))
+		{
+			// Save all the changed items in the list...
+			hr = SavePropertySetList(pProps, m_wCodePageDSI, m_pDocPropList, &cSaved);
 
-         // Commit the changes to the file...
-            if ( SUCCEEDED(hr) && (cSaved) && (fCommitChanges) )
-                hr = pProps->Commit(STGC_DEFAULT);
+			// Commit the changes to the file...
+			if ( SUCCEEDED(hr) && (cSaved) && (fCommitChanges) )
+				hr = pProps->Commit(STGC_DEFAULT);
 
-            cTotalItems += cSaved;
-            pProps->Release();
-        }
-    }
+			cTotalItems += cSaved;
+			pProps->Release();
+		}
+	}
 
-    return ( FAILED(hr) ? hr : ( (cTotalItems) ? S_OK : S_FALSE ) );
+	return ( FAILED(hr) ? hr : ( (cTotalItems) ? S_OK : S_FALSE ) );
 }
 
 ////////////////////////////////////////////////////////////////////////
-// GetPropertyFromList -- Enumerates a list and finds item with the
-//    matching id. It can also add a new item (if flag set).
+// GetPropertyFromList -- Enumerates a list and finds item with
+//	the matching id.  It can also add a new item (if flag set).
 //
 CDocProperty* CDocReader::CDocumentProperties::
 	CSummaryProperties::GetPropertyFromList(CDocProperty* plist, PROPID id, BOOL fAppendNew)
 {
-    CDocProperty* pitem = plist;
-    CDocProperty* plast = pitem;
+	CDocProperty* pitem = plist;
+	CDocProperty* plast = pitem;
 
 	ODS(_T("CSummaryProperties::FindPropertyInList\n"));
 
- // Loop the list until you find the item...
-    while (pitem)
-    {
-        if ( pitem->GetID() == id ) break;
+	// Loop the list until you find the item...
+	while (pitem)
+	{
+		if ( pitem->GetID() == id ) break;
 
-        plast = pitem;
-        pitem = pitem->GetNextProperty();
-    }
+		plast = pitem;
+		pitem = pitem->GetNextProperty();
+	}
 
-// If no match is found, we can add a new item to end of the list...
-    if ( ( pitem == NULL ) && (plast) && (fAppendNew) )
-    {
-     // Create the item...
-        pitem = new CDocProperty();
-        if ( pitem )
-        {
-            VARIANT var; var.vt = VT_EMPTY;
-            if ( FAILED(pitem->InitProperty( NULL, id, &var, TRUE, (plast->AppendLink( pitem )) )) )
-            { // If we fail, try to reverse the append and kill the new object...
-                plast->AppendLink( ( pitem->GetNextProperty() ) );
-                pitem = NULL;
-            }
-        }
-    }
+	// If no match is found, we can add a new item to end of the list...
+	if ( ( pitem == NULL ) && (plast) && (fAppendNew) )
+	{
+		// Create the item...
+		pitem = new CDocProperty();
+		if ( pitem )
+		{
+			VARIANT var; var.vt = VT_EMPTY;
+			if ( FAILED(pitem->InitProperty( NULL, id, &var, TRUE, (plast->AppendLink( pitem )) )) )
+			{	// If we fail, try to reverse the append and kill the new object...
+				plast->AppendLink( ( pitem->GetNextProperty() ) );
+				pitem = NULL;
+			}
+		}
+	}
 
-    return pitem;
+		return pitem;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -2621,31 +2624,31 @@ CDocProperty* CDocReader::CDocumentProperties::
 BOOL CDocReader::CDocumentProperties::
 	CSummaryProperties::FIsDirty()
 {
-    BOOL fDirty = FALSE;
-    CDocProperty* pitem;
+	BOOL fDirty = FALSE;
+	CDocProperty* pitem;
 
 	ODS(_T("CSummaryProperties::FIsDirty\n"));
 
- // Loop through summary items and see if any have changed...
-    pitem = m_pSummPropList;
-    while (pitem)
+	// Loop through summary items and see if any have changed...
+	pitem = m_pSummPropList;
+	while (pitem)
     {
-        if (pitem->IsDirty()){ fDirty = TRUE; break; }
-        pitem = pitem->GetNextProperty();
-    }
+		if (pitem->IsDirty()){ fDirty = TRUE; break; }
+		pitem = pitem->GetNextProperty();
+	}
 
- // Look through doc summary items to see if those changed...
-    if (!fDirty)
-    {
-        pitem = m_pDocPropList;
-        while (pitem)
-        {
-            if (pitem->IsDirty()){ fDirty = TRUE; break; }
-            pitem = pitem->GetNextProperty();
-        }
-    }
+	// Look through doc summary items to see if those changed...
+	if (!fDirty)
+	{
+		pitem = m_pDocPropList;
+		while (pitem)
+		{
+			if (pitem->IsDirty()){ fDirty = TRUE; break; }
+			pitem = pitem->GetNextProperty();
+		}
+	}
 
-    return fDirty;
+	return fDirty;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -2654,26 +2657,26 @@ BOOL CDocReader::CDocumentProperties::
 void CDocReader::CDocumentProperties::
 	CSummaryProperties::Disconnect()
 {
-    CDocProperty *pnext;
+	CDocProperty *pnext;
 	ODS(_T("CSummaryProperties::Disconnect\n"));
 
- // Loop through both lists and disconnect item (this should free them)...
-    m_pSummPropList = NULL;
-    while ( m_pSummPropList )
-    {
-        pnext = m_pSummPropList->GetNextProperty();
-        m_pSummPropList->Disconnect(); m_pSummPropList = pnext;
-    }
+	// Loop through both lists and disconnect item (this should free them)...
+	m_pSummPropList = NULL;
+	while ( m_pSummPropList )
+	{
+		pnext = m_pSummPropList->GetNextProperty();
+		m_pSummPropList->Disconnect(); m_pSummPropList = pnext;
+	}
 
-    m_pDocPropList = NULL;
-    while (m_pDocPropList)
-    {
-        pnext = m_pDocPropList->GetNextProperty();
-        m_pDocPropList->Disconnect(); m_pDocPropList = pnext;
-    }
+	m_pDocPropList = NULL;
+	while (m_pDocPropList)
+	{
+		pnext = m_pDocPropList->GetNextProperty();
+		m_pDocPropList->Disconnect(); m_pDocPropList = pnext;
+	}
 
- // We are now dead ourselves (release prop storage ref)...
-    m_pPropSetStg = NULL;
-    m_fDeadObj = TRUE;
-    return;
+	// We are now dead ourselves (release prop storage ref)...
+	m_pPropSetStg = NULL;
+	m_fDeadObj = TRUE;
+	return;
 }

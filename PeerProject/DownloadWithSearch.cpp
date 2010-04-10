@@ -48,6 +48,7 @@ CDownloadWithSearch::CDownloadWithSearch()
 
 CDownloadWithSearch::~CDownloadWithSearch()
 {
+	StopSearch();
 }
 
 
@@ -75,7 +76,8 @@ BOOL CDownloadWithSearch::FindMoreSources()
 		if ( tNow - m_tSearchTime > ( Settings.Downloads.SearchPeriod / 4 ) )
 		{
 			m_tSearchTime = tNow;
-			if ( IsSearching() ) m_pSearch->Stop();
+			if ( IsSearching() )
+				m_pSearch->Stop();
 			bSuccess = TRUE;
 		}
 	}

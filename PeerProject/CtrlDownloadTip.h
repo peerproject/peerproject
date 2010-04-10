@@ -70,7 +70,9 @@ protected:
 	CString 			m_sURL;
 	CString 			m_sSize;
 	CString 			m_sType;
+	CString 			m_sSeedsPeers;
 	CString 			m_sCountryName;
+	CRect				m_rcUpdateText;
 	int 				m_nIcon;
 	int 				m_nHeaderWidth;
 	int 				m_nStatWidth;

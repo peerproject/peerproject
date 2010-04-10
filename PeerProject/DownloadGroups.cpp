@@ -202,33 +202,50 @@ void CDownloadGroups::CreateDefault()
 
 	CDownloadGroup* pGroup	= GetSuperGroup();
 
-	pGroup = Add( _T("Music") );
+	BOOL bEng = Settings.General.Language.Left(2) == _T("en");	// Folder naming fixes
+
+	pGroup = Add( _T("DEFAULT") );			// DEFAULT Names are translated by Schema
 	pGroup->SetSchema( CSchema::uriAudio );
+	pGroup->SetFolder( pGroup->m_sName );	// Settings.Downloads.CompletePath + "\\Audio"
 	pGroup->SetDefaultFilters();
-	pGroup->SetFolder( Settings.Downloads.CompletePath + "\\Music" );
 
-	pGroup = Add( _T("Video") );
+	pGroup = Add( _T("DEFAULT") );
 	pGroup->SetSchema( CSchema::uriVideo );
+	pGroup->SetFolder( pGroup->m_sName );
 	pGroup->SetDefaultFilters();
-	pGroup->SetFolder( Settings.Downloads.CompletePath + "\\Video" );
 
-//	pGroup = Add( _T("Images") );
-//	pGroup->SetSchema( CSchema::uriImage );
-//	pGroup->SetDefaultFilters();
-//	pGroup->SetFolder( Settings.Downloads.CompletePath + "\\Images" );
+	pGroup = Add( bEng ? _T("Images") : _T("DEFAULT") );
+	pGroup->SetSchema( CSchema::uriImage );
+	pGroup->SetFolder( bEng ? _T("Images") : pGroup->m_sName );
+	pGroup->SetDefaultFilters();
+
+	pGroup = Add( bEng ? _T("Documents") : _T("DEFAULT") );
+	pGroup->SetSchema( CSchema::uriBook );
+	pGroup->SetFolder( bEng ? _T("Documents") : pGroup->m_sName );
+	pGroup->SetDefaultFilters();
+
+	pGroup = Add( bEng ? _T("Archives") :_T("DEFAULT") );
+	pGroup->SetSchema( CSchema::uriArchive );
+	pGroup->SetFolder( bEng ? _T("Archives") : pGroup->m_sName );
+	pGroup->SetDefaultFilters();
 
 	pGroup = Add( _T("BitTorrent") );
-	pGroup->m_bTorrent = TRUE;
 	pGroup->SetSchema( CSchema::uriBitTorrent );
-	pGroup->SetFolder( Settings.Downloads.CompletePath + "\\BitTorrent" );
+	pGroup->SetFolder( _T("BitTorrent") );
+	pGroup->SetDefaultFilters();
+	//pGroup->m_bTorrent = TRUE;	// Obsolete, Schema is detected
 
+// ToDo: Popularize Collections and re-add this group
 //	pGroup = Add( _T("Collection") );
 //	pGroup->SetSchema( CSchema::uriCollection );
-//	pGroup->SetDefaultFilters();
 //	pGroup->SetFolder( Settings.Downloads.CollectionPath );
+//	pGroup->SetDefaultFilters();
 
-	pGroup = Add( _T("Custom") );
-	pGroup->SetFolder( Settings.Downloads.CompletePath + "\\Custom" );
+	CString str; // "Custom"
+	LoadString( str, IDS_GENERAL_CUSTOM );
+	pGroup = Add( str );
+	pGroup->SetFolder( str );
+	//pGroup->AddFilter( _T("PeerProject") );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -236,6 +253,9 @@ void CDownloadGroups::CreateDefault()
 
 CString CDownloadGroups::GetCompletedPath(CDownload* pDownload)
 {
+	if ( Settings.Downloads.CompletePath.GetLength() < 3 )
+		Settings.Downloads.CompletePath = Settings.General.Path + _T("\\Downloads");
+
 	CQuickLock pLock( m_pSection );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
@@ -245,7 +265,12 @@ CString CDownloadGroups::GetCompletedPath(CDownload* pDownload)
 		if ( pGroup != m_pSuper && pGroup->Contains( pDownload ) )
 		{
 			if ( pGroup->m_sFolder.GetLength() )
-				return pGroup->m_sFolder;
+			{
+				if ( pGroup->m_sFolder.Find( _T(":\\") ) == 1 )
+					return pGroup->m_sFolder;
+
+				return Settings.Downloads.CompletePath + _T("\\") + pGroup->m_sFolder;
+			}
 		}
 	}
 

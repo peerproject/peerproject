@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0500 */
-/* at Sun Sep 20 11:07:49 2009
+/* at Sat Mar 20 00:58:42 2010
  */
 /* Compiler settings for .\ImageViewer.idl:
     Oicf, W1, Zp8, env=Win64 (32b run)
@@ -285,3 +285,5 @@ void __RPC_STUB IImageServicePlugin_SaveToMemory_Stub(
 #endif
 
 #endif
+
+

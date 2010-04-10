@@ -83,12 +83,12 @@ int CSchemaCache::Load()
 		if ( pSchema && pSchema->Load( strPath ) )
 		{
 			CString strURI( pSchema->GetURI() );
-			ToLower( strURI );
+			strURI.MakeLower();
 
 			m_pURIs.SetAt( strURI, pSchema );
 
 			CString strName( pSchema->m_sSingular );
-			ToLower( strName );
+			strName.MakeLower();
 
 			m_pNames.SetAt( strName, pSchema );
 		}
@@ -140,8 +140,7 @@ CXMLElement* CSchemaCache::Decode(BYTE* szData, DWORD nLength, CSchemaPtr& pSche
 		DWORD nRealSize;
 		pTmp = CZLib::Decompress( (LPCSTR)szData + 9, nLength - 9, &nRealSize );
 		if ( ! pTmp.get() )
-			// Invalid data
-			return NULL;
+			return NULL;	// Invalid data
 		szData = pTmp.get();
 		nLength = nRealSize;
 	}
@@ -165,9 +164,9 @@ CXMLElement* CSchemaCache::Decode(BYTE* szData, DWORD nLength, CSchemaPtr& pSche
 
 	// Decode XML
 	CXMLElement* pXML = CXMLElement::FromBytes( szData, nLength, FALSE );
-	if ( ! pXML )
-		// Reconstruct XML from non-XML legacy data
+	if ( ! pXML )	// Reconstruct XML from non-XML legacy data
 		pXML = AutoDetectSchema( CString( (LPCSTR)szData, nLength ) );
+
 	if ( pXML )
 	{
 		pSchema = Get( pXML->GetAttributeValue( CXMLAttribute::schemaName, NULL ) );

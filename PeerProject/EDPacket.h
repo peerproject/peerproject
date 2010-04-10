@@ -1,7 +1,7 @@
 //
 // EDPacket.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -245,11 +245,11 @@ inline void CEDPacket::CEDPacketPool::FreePoolImpl(CPacket* pPacket)
 #define ED2K_C2C_ASKSHAREDFILESANSWER	0x4B
 #define ED2K_C2C_MESSAGE				0x4E
 #define ED2K_C2C_CHANGECLIENTID			0x4D	// <New client ID 4><New server IP 4>
-#define ED2K_C2C_ASKSHAREDDIRS			0x5D    // (null)
-#define ED2K_C2C_ASKSHAREDDIRSANSWER	0x5F    // <count 4>(<len 2><Directory len>)[count]
-#define ED2K_C2C_VIEWSHAREDDIR			0x5E    // <len 2><Directory len>
+#define ED2K_C2C_ASKSHAREDDIRS			0x5D	// (null)
+#define ED2K_C2C_ASKSHAREDDIRSANSWER	0x5F	// <count 4>(<len 2><Directory len>)[count]
+#define ED2K_C2C_VIEWSHAREDDIR			0x5E	// <len 2><Directory len>
 #define ED2K_C2C_VIEWSHAREDDIRANSWER	0x60	// <len 2><Directory len><count 4>(<HASH 16><ID 4><PORT 2><1 Tag_set>)[count]
-#define ED2K_C2C_ASKSHAREDDIRSDENIED	0x61    // (null)
+#define ED2K_C2C_ASKSHAREDDIRSDENIED	0x61	// (null)
 
 // eMule Client - Client TCP
 #define	ED2K_C2C_EMULEINFO				0x01
@@ -384,13 +384,14 @@ public:
 											//  4 Source Exchange -deprecated
 											//  4 Ext. Requests
 											//  4 Comments
-											//	1 PeerCache supported
-											//	1 Browse disabled
-											//	1 MultiPacket
+											//  1 PeerCache supported
+											//  1 Browse disabled
+											//  1 MultiPacket
 											//  1 Preview
 #define	ED2K_CT_SOFTWAREVERSION		0xFB	// Version of the program.
 #define	ED2K_CT_UNKNOWN1			0xFC
 #define	ED2K_CT_UNKNOWN2			0xFD
+#define	ED2K_CT_UNKNOWN3			0xFF
 #define	ED2K_CT_MOREFEATUREVERSIONS	0xFE	// <uint32> Features 2:
 											// 19 Reserved
 											//  1 Direct UDP Callback. Direct callback is only possible if connected to kad, tcp firewalled and verified UDP open (for example on a full cone NAT)
@@ -403,7 +404,6 @@ public:
 											//  1 Ext Multipacket (Hash+Size instead of Hash)
 											//  1 Large Files (includes support for 64bit tags)
 											//  4 Kad Version
-#define	ED2K_CT_UNKNOWN3			0xFF
 
 
 // File tags

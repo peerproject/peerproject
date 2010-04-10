@@ -26,11 +26,14 @@
 #include <atlbase.h>
 #include <atlcom.h>
 #include <atlstr.h>
-#include <olectl.h>    //needed for OleCreatePictureIndirect
+#include <olectl.h>    // For OleCreatePictureIndirect
 
 using namespace ATL;
+using namespace std;
 
 #include <unzip.h>
 #include <iowin32.h>
 
 #pragma warning( pop )
+
+#include "Globals.h"

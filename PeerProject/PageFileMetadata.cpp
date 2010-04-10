@@ -48,9 +48,9 @@ END_MESSAGE_MAP()
 // CFileMetadataPage property page
 
 CFileMetadataPage::CFileMetadataPage()
-	: CFilePropertiesPage(CFileMetadataPage::IDD)
-	, m_pXML			(NULL)
-	, m_pSchemaContainer(NULL)
+	: CFilePropertiesPage	(CFileMetadataPage::IDD)
+	, m_pSchemaContainer	(NULL)
+	, m_pXML				(NULL)
 {
 }
 
@@ -102,7 +102,8 @@ BOOL CFileMetadataPage::OnInitDialog()
 			{
 				CSchemaPtr pThisSchema = pFile->m_pSchema;
 
-				if ( pThisSchema != NULL && pThisSchema->m_nType == CSchema::stFolder ) bCollection = TRUE;
+				if ( pThisSchema != NULL && pThisSchema->m_nType == CSchema::stFolder )
+					bCollection = TRUE;
 
 				if ( pSchema == NULL )
 				{
@@ -171,7 +172,7 @@ void CFileMetadataPage::OnSelChangeSchemas()
 			return;
 		}
 
-		CString strBody( ::LoadHTML( GetModuleHandle( NULL ), IDR_XML_SCHEMA_MAPS ) );
+		CString strBody( ::LoadHTML( GetModuleHandle( NULL ), IDR_XML_SCHEMA_MAPS ) );	// SchemaMappings.xml.gz
 
 		if ( CXMLElement* pXML = CXMLElement::FromString( strBody, TRUE ) )
 		{
@@ -186,8 +187,8 @@ void CFileMetadataPage::OnSelChangeSchemas()
 						if ( pSourceURI && pSourceURI->GetValue() == m_wndData.GetSchemaURI() )
 						{
 							// Add attributes which correspond to other schema
-							// We don't need to delete the old ones because, after
-							// submitting new data, they will be ignored.
+							// We don't need to delete the old ones because,
+							// after submitting new data, they will be ignored.
 							// It will also allow to save the old ones if we switch schema back.
 							AddCrossAttributes( pMapping, pSchema->GetURI() );
 							break;

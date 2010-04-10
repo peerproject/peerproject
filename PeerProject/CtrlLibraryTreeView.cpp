@@ -936,9 +936,10 @@ CLibraryTreeItem* CLibraryTreeView::HitTest(CRect& rcClient, CPoint& pt, CLibrar
 
 		for ( CLibraryTreeItem::iterator pChild = pItem->begin(); pChild != pItem->end(); ++pChild )
 		{
-			CLibraryTreeItem* pItem = HitTest( rcClient, pt, &*pChild, point, pRect );
-			if ( pItem ) return pItem;
-			if ( pt.y >= rcClient.bottom + ITEM_HEIGHT ) break;
+			if ( CLibraryTreeItem* pHitItem = HitTest( rcClient, pt, &*pChild, point, pRect ) )
+				return pHitItem;
+			if ( pt.y >= rcClient.bottom + ITEM_HEIGHT )
+				break;
 		}
 
 		pt.x -= 16;
@@ -1607,7 +1608,7 @@ void CLibraryTreeView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 			}
 		}
 
-		Skin.TrackPopupMenu( _T("CLibraryTree.Physical"), point, ID_LIBRARY_EXPLORE, 0, oFiles );
+		Skin.TrackPopupMenu( _T("CLibraryTree.Physical"), point, ID_LIBRARY_EXPLORE, oFiles );
 	}
 }
 
@@ -1790,11 +1791,13 @@ void CLibraryTreeView::OnLibraryAdd()
 void CLibraryTreeView::OnUpdateLibraryFolderEnqueue(CCmdUI* pCmdUI)
 {
 	CSingleLock oLock( &Library.m_pSection );
-	if ( !oLock.Lock( 50 ) ) return;
+	if ( ! oLock.Lock( 100 ) ) return;
 
 	for ( CLibraryTreeItem* pItem = m_pSelFirst ; pItem ; pItem = pItem->m_pSelNext )
 	{
-		if ( LibraryFolders.CheckAlbum( pItem->m_pVirtual ) && pItem->m_pVirtual->GetFileCount() > 0 )
+		if ( LibraryFolders.CheckAlbum( pItem->m_pVirtual ) &&
+			 pItem->m_pVirtual->GetFileCount() > 0 &&
+			 ! CheckURI( pItem->m_pVirtual->m_sSchemaURI, CSchema::uriGhostFolder ) )
 		{
 			pCmdUI->Enable( TRUE );
 			return;
@@ -1810,7 +1813,7 @@ void CLibraryTreeView::OnLibraryFolderEnqueue()
 
 	{
 		CSingleLock oLock( &Library.m_pSection );
-		if ( !oLock.Lock( 50 ) ) return;
+		if ( ! oLock.Lock( 100 ) ) return;
 
 		for ( CLibraryTreeItem* pItem = m_pSelFirst ; pItem ; pItem = pItem->m_pSelNext )
 		{
@@ -1871,7 +1874,8 @@ void CLibraryTreeView::OnLibraryFolderDelete()
 		for ( CLibraryTreeItem* pItem = m_pSelFirst ; pItem ; pItem = pItem->m_pSelNext )
 		{
 			CAlbumFolder* pFolder = pItem->m_pVirtual;
-			if ( LibraryFolders.CheckAlbum( pFolder ) ) pFolder->Delete();
+			if ( LibraryFolders.CheckAlbum( pFolder ) )
+				pFolder->Delete();
 		}
 
 		DeselectAll();
@@ -1897,11 +1901,13 @@ void CLibraryTreeView::OnLibraryFolderNew()
 		if ( ! pFolder )
 			pFolder = LibraryFolders.CreateAlbumTree();
 
-		if ( m_pSelFirst ) pFolder = m_pSelFirst->m_pVirtual;
+		if ( m_pSelFirst )
+			pFolder = m_pSelFirst->m_pVirtual;
 
 		pFolder = pFolder->AddFolder( NULL, _T("New Folder") );
 
-		if ( m_pSelFirst ) Expand( m_pSelFirst, TRI_TRUE, FALSE );
+		if ( m_pSelFirst )
+			Expand( m_pSelFirst, TRI_TRUE, FALSE );
 
 		NotifySelection();
 
@@ -1914,7 +1920,8 @@ void CLibraryTreeView::OnLibraryFolderNew()
 
 	Invalidate();
 
-	if ( pFolder ) PostMessage( WM_COMMAND, ID_LIBRARY_FOLDER_PROPERTIES );
+	if ( pFolder )
+		PostMessage( WM_COMMAND, ID_LIBRARY_FOLDER_PROPERTIES );
 }
 
 void CLibraryTreeView::OnUpdateLibraryRebuild(CCmdUI* pCmdUI)
@@ -1925,7 +1932,7 @@ void CLibraryTreeView::OnUpdateLibraryRebuild(CCmdUI* pCmdUI)
 void CLibraryTreeView::OnLibraryRebuild()
 {
 	CSingleLock oLock( &Library.m_pSection );
-	if ( !oLock.Lock( 50 ) ) return;
+	if ( ! oLock.Lock( 80 ) ) return;
 
 	CLibraryList pList;
 

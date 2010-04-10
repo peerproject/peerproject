@@ -417,7 +417,8 @@ void CHomeLibraryBox::OnSkinChange()
 
 	SetCaption( pXML->GetAttributeValue( _T("title"), _T("Library") ) );
 	HICON hIcon = CoolInterface.ExtractIcon( IDR_LIBRARYFRAME, Settings.General.LanguageRTL );
-	if ( hIcon ) SetIcon( hIcon );
+	if ( hIcon )
+		SetIcon( hIcon );
 
 	m_pDocument = new CRichDocument();
 
@@ -709,7 +710,7 @@ void CHomeLibraryBox::OnLButtonUp(UINT nFlags, CPoint point)
 		CSingleLock oLock( &Library.m_pSection, TRUE );
 		if ( CLibraryFile* pFile = Library.LookupFile( pItem->m_nIndex ) )
 		{
-			if ( pFile->m_pFolder )
+			if ( pFile->IsAvailable() )
 			{
 				CString strPath = pFile->GetPath();
 				oLock.Unlock();

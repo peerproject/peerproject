@@ -242,7 +242,7 @@ BOOL CCollectionFile::LoadEMule(LPCTSTR pszFile)
 {
 	m_nType = SimpleCollection;
 
-	// TODO: Add schema detection
+	// ToDo: Add schema detection
 	m_sThisURI = CSchema::uriFolder;
 	m_sParentURI = CSchema::uriCollectionsFolder;
 
@@ -567,9 +567,6 @@ BOOL CCollectionFile::File::IsDownloading() const
 BOOL CCollectionFile::File::Download()
 {
 	CPeerProjectURL pURL;
-
-	if ( IsComplete() || IsDownloading() ) return FALSE;
-
 	pURL.m_nAction	= CPeerProjectURL::uriDownload;
 	pURL.m_oSHA1	= m_oSHA1;
 	pURL.m_oMD5 	= m_oMD5;
@@ -580,7 +577,7 @@ BOOL CCollectionFile::File::Download()
 	pURL.m_nSize	= m_nSize;
 	pURL.m_bSize	= ( m_nSize != SIZE_UNKNOWN );
 
-	return Downloads.Add( pURL ) != NULL;
+	return PostMainWndMessage( WM_URL, (WPARAM)new CPeerProjectURL( pURL ) );
 }
 
 /////////////////////////////////////////////////////////////////////////////

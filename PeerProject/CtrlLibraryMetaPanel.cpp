@@ -77,7 +77,7 @@ CLibraryMetaPanel::~CLibraryMetaPanel()
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryMetaPanel operations
 
-CLibraryList* CLibraryMetaPanel::GetViewSelection()
+const CLibraryList* CLibraryMetaPanel::GetViewSelection() const
 {
 	if ( ! m_hWnd ) return NULL;
 	CLibraryFrame* pFrame = (CLibraryFrame*)GetOwner();
@@ -91,7 +91,7 @@ void CLibraryMetaPanel::Update()
 	CSingleLock pLock1( &Library.m_pSection, TRUE );
 	CSingleLock pLock2( &m_pSection, TRUE );
 
-	CLibraryList* pSel = GetViewSelection();
+	const CLibraryList* pSel = GetViewSelection();
 	m_nSelected = pSel ? static_cast< int >( pSel->GetCount() ) : 0;
 
 	// Show info for library files only
@@ -111,10 +111,7 @@ void CLibraryMetaPanel::Update()
 		m_nIndex	= pFirst->m_nIndex;
 		m_sName		= pFirst->m_sName;
 		m_sPath		= pFirst->GetPath();
-		if ( pFirst->m_pFolder != NULL )
-			m_sFolder = pFirst->m_pFolder->m_sPath;
-		else
-			m_sFolder.Empty();
+		m_sFolder	= pFirst->GetFolder();
 		m_sSize		= Settings.SmartVolume( pFirst->GetSize() );
 		m_sType		= ShellIcons.GetTypeString( m_sName );
 		m_nIcon32	= ShellIcons.Get( m_sName, 32 );
@@ -128,7 +125,7 @@ void CLibraryMetaPanel::Update()
 		m_sName.Format( strFormat, m_nSelected );
 		QWORD nSize = 0;
 
-		m_sFolder	= ( pFirst->m_pFolder != NULL ) ? pFirst->m_pFolder->m_sPath : _T("");
+		m_sFolder	= pFirst->GetFolder();
 		m_nIcon32	= ShellIcons.Get( pFirst->m_sName, 32 );
 		m_nIcon48	= ShellIcons.Get( pFirst->m_sName, 48 );
 		m_nRating	= 0;
@@ -140,7 +137,7 @@ void CLibraryMetaPanel::Update()
 
 			nSize += pFile->GetSize() / 1024;
 
-			if ( pFile->m_pFolder != NULL && pFile->m_pFolder->m_sPath != m_sFolder )
+			if ( pFile->IsAvailable() && pFile->GetFolder().CompareNoCase( m_sFolder ) )
 				LoadString( m_sFolder, IDS_LIBPANEL_MULTIPLE_FOLDERS );
 
 			int nIcon = ShellIcons.Get( pFile->m_sName, 48 );
@@ -398,7 +395,8 @@ void CLibraryMetaPanel::DrawText(CDC* pDC, int nX, int nY, LPCTSTR pszText, RECT
 	pDC->ExtTextOut( nX, nY, ETO_CLIPPED|ETO_OPAQUE|dwFlags, &rc, pszText, static_cast< UINT >( _tcslen( pszText ) ), NULL );
 	pDC->ExcludeClipRect( &rc );
 
-	if ( pRect != NULL ) CopyMemory( pRect, &rc, sizeof(RECT) );
+	if ( pRect != NULL )
+		CopyMemory( pRect, &rc, sizeof(RECT) );
 }
 
 BOOL CLibraryMetaPanel::SetServicePanel(CMetaPanel* pPanel)
@@ -477,7 +475,7 @@ void CLibraryMetaPanel::OnLButtonUp(UINT nFlags, CPoint point)
 	}
 	else if ( m_nSelected > 0 && m_rcRating.PtInRect( point ) )
 	{
-		CLibraryList* pList = GetViewSelection();
+		const CLibraryList* pList = GetViewSelection();
 
 		if ( pList != NULL && pList->GetCount() > 0 )
 		{

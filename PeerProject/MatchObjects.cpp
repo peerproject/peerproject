@@ -57,7 +57,8 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // CMatchList construction
 
-CMatchList::CMatchList(CBaseMatchWnd* pParent) : m_pParent( pParent )
+CMatchList::CMatchList(CBaseMatchWnd* pParent)
+	: m_pParent	( pParent )
 {
 	m_pResultFilters = new CResultFilters;
 	m_pResultFilters->Load();
@@ -387,7 +388,7 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 
 CMatchFile* CMatchList::FindFileAndAddHit(CQueryHit* pHit, const findType nFindFlag, FILESTATS* Stats)
 {
-	CMatchFile** pMap = NULL;
+	CMatchFile** pMap;
 
 	switch( nFindFlag )
 	{
@@ -409,6 +410,8 @@ CMatchFile* CMatchList::FindFileAndAddHit(CQueryHit* pHit, const findType nFindF
 	case fSize:
 		pMap = m_pSizeMap + (DWORD)( pHit->m_nSize & 0xFF );
 		break;
+	default:
+		return NULL;
 	}
 
 	for ( CMatchFile* pSeek = *pMap ; pSeek ; )
@@ -712,7 +715,7 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 						for ( ; itWord != itWordEnd ; itWord++ )
 						{
 							strNewPattern.AppendFormat( L"%s\\s*",
-								CString( itWord->first, int(itWord->second) ) );
+								(LPCTSTR)CString( itWord->first, int(itWord->second) ) );
 						}
 						bReplaced = true;
 					}
@@ -730,7 +733,7 @@ bool CMatchList::CreateRegExpFilter(CString strPattern, CString& strFilter)
 							if ( nWord == nNumber )
 							{
 								strNewPattern.AppendFormat( L"%s\\s*",
-									CString( itWord->first, int(itWord->second) ) );
+									(LPCTSTR)CString( itWord->first, int(itWord->second) ) );
 								bReplaced = true;
 								break;
 							}
@@ -1187,10 +1190,11 @@ void CMatchList::Serialize(CArchive& ar)
 			pFile->Serialize( ar, nVersion );
 		}
 	}
-	else
+	else // Loading
 	{
 		ar >> nVersion;
-		if ( nVersion < 12 ) AfxThrowUserException();
+		if ( nVersion < 12 )
+			AfxThrowUserException();
 
 		ar >> m_sFilter;
 		ar >> m_bFilterBusy;
@@ -1303,42 +1307,42 @@ void CMatchList::SanityCheck()
 //////////////////////////////////////////////////////////////////////
 // CMatchFile construction
 
-CMatchFile::CMatchFile(CMatchList* pList, CQueryHit* pHit) :
-	m_pList			( pList ),
-	m_pHits			( NULL ),
-	m_pBest			( NULL ),
-	m_nTotal		( 0 ),
-	m_nFiltered		( 0 ),
-	m_nSources		( 0 ),
-	m_pNextSize		( NULL ),
-	m_pNextSHA1		( NULL ),
-	m_pNextTiger	( NULL ),
-	m_pNextED2K		( NULL ),
-	m_pNextBTH		( NULL ),
-	m_pNextMD5		( NULL ),
-	m_bBusy			( TRI_UNKNOWN ),
-	m_bPush			( TRI_UNKNOWN ),
-	m_bStable		( TRI_UNKNOWN ),
-	m_bPreview		( FALSE ),
-	m_nSpeed		( 0 ),
-	m_nRating		( 0 ),
-	m_nRated		( 0 ),
-	m_bDRM			( FALSE ),
-	m_bSuspicious	( FALSE ),
-	m_bCollection	( FALSE ),
-	m_bTorrent		( FALSE ),
-	m_bExpanded		( Settings.Search.ExpandMatches ),
-	m_bSelected		( FALSE ),
-	m_bExisting		( TRI_UNKNOWN ),
-	m_bDownload		( FALSE ),
-	m_bNew			( FALSE ),
-	m_bOneValid		( FALSE ),
-	m_nShellIndex	( -1 ),
-	m_pColumns		( NULL ),
-	m_nColumns		( 0 ),
-	m_pPreview		( NULL ),
-	m_nPreview		( 0 ),
-	m_pTime			( CTime::GetCurrentTime() )
+CMatchFile::CMatchFile(CMatchList* pList, CQueryHit* pHit)
+	: m_pList			( pList )
+	, m_pHits			( NULL )
+	, m_pBest			( NULL )
+	, m_nTotal			( 0 )
+	, m_nFiltered		( 0 )
+	, m_nSources		( 0 )
+	, m_pNextSize		( NULL )
+	, m_pNextSHA1		( NULL )
+	, m_pNextTiger		( NULL )
+	, m_pNextED2K		( NULL )
+	, m_pNextBTH		( NULL )
+	, m_pNextMD5		( NULL )
+	, m_bBusy			( TRI_UNKNOWN )
+	, m_bPush			( TRI_UNKNOWN )
+	, m_bStable 		( TRI_UNKNOWN )
+	, m_bPreview		( FALSE )
+	, m_nSpeed			( 0 )
+	, m_nRating 		( 0 )
+	, m_nRated			( 0 )
+	, m_bDRM			( FALSE )
+	, m_bSuspicious 	( FALSE )
+	, m_bCollection 	( FALSE )
+	, m_bTorrent		( FALSE )
+	, m_bSelected		( FALSE )
+	, m_bExpanded		( Settings.Search.ExpandMatches )
+	, m_bExisting		( TRI_UNKNOWN )
+	, m_bDownload		( FALSE )
+	, m_bNew			( FALSE )
+	, m_bOneValid		( FALSE )
+	, m_nShellIndex		( -1 )
+	, m_pColumns		( NULL )
+	, m_nColumns		( 0 )
+	, m_pPreview 		( NULL )
+	, m_nPreview		( 0 )
+	, m_pTime			( CTime::GetCurrentTime() )
 {
 	// ToDo: Change to SIZE_UNKNOWN without the size
 	m_nSize			= ( pHit && pHit->m_bSize ) ? pHit->m_nSize : 0;

@@ -1,10 +1,11 @@
 //
 // ImageViewerPlugin.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Original author Michael Stokes released portions into the public domain.
 // You are free to redistribute and modify this page without any restrictions.
 //
+
 // This file contains the CImageViewerPlugin class, which is the "plugin object".
 // It is created by PeerProject when the plugin is loaded or enabled by the user,
 // and destroyed when the application is closed or the plugin is disabled.
@@ -22,7 +23,6 @@
 //
 
 #include "StdAfx.h"
-#include "ImageViewer.h"
 #include "ImageViewerPlugin.h"
 #include "ImageWindow.h"
 
@@ -36,7 +36,7 @@ CImageViewerPlugin::CImageViewerPlugin()
 	m_pWindow	= NULL;
 
 	// Load the "move / grab" cursor from the DLL's resources
-	m_hcMove	= LoadCursor( _Module.GetResourceInstance(), MAKEINTRESOURCE(IDC_GRABMOVE) );
+	m_hcMove	= LoadCursor( _AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(IDC_GRABMOVE) );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::Configure()
 
 	// Simply load a string from the string table and display it in a MessageBox
 	TCHAR szMessage[1024];
-	LoadString( _Module.GetResourceInstance(), IDS_ABOUT, szMessage, 1024 );
+	LoadString( _AtlBaseModule.GetResourceInstance(), IDS_ABOUT, szMessage, 1024 );
 	MessageBox( GetActiveWindow(), szMessage, _T("Image Viewer Plugin"), MB_ICONINFORMATION );
 
 	return S_OK;
@@ -137,11 +137,10 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::OnExecute(BSTR sFilePath)
 
 	if ( lstrcmpi( pszFileType, _T(".avi") ) == 0 ) return S_FALSE;
 	if ( lstrcmpi( pszFileType, _T(".asf") ) == 0 ) return S_FALSE;
-	if ( lstrcmpi( pszFileType, _T(".div") ) == 0 ) return S_FALSE;
 	if ( lstrcmpi( pszFileType, _T(".divx") ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, _T(".mkv") ) == 0 ) return S_FALSE;
 	if ( lstrcmpi( pszFileType, _T(".mpg") ) == 0 ) return S_FALSE;
 	if ( lstrcmpi( pszFileType, _T(".mpeg") ) == 0 ) return S_FALSE;
-	if ( lstrcmpi( pszFileType, _T(".nsv") ) == 0 ) return S_FALSE;
 	if ( lstrcmpi( pszFileType, _T(".mov") ) == 0 ) return S_FALSE;
 	if ( lstrcmpi( pszFileType, _T(".ogm") ) == 0 ) return S_FALSE;
 	if ( lstrcmpi( pszFileType, _T(".wmv") ) == 0 ) return S_FALSE;
@@ -166,9 +165,8 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::OnExecute(BSTR sFilePath)
 		pReg.Close();
 	}
 
-	// If we made it to this point, there is indeed an ImageService plugin for the file type,
-	// so attempt opening it.  Delegate to our OpenNewWindow() function
-	// to select or create the image window.
+	// If we made it to this point, there is indeed an ImageService plugin for the file type, so attempt opening.
+	// Delegate to our OpenNewWindow() function to select or create the image window.
 
 	OpenNewWindow( pszFilePath );
 
@@ -207,9 +205,9 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::RegisterCommands()
 	// By convention, name commands with the name of the plugin, followed by an underscore,
 	// followed by your command name.  There should be no spaces (normal C++ identifier rules apply).
 
-	// Note that this method may be called more than once in the lifetime of the plugin, in which
-	// case you must re-register your commands and receive new command IDs.  This will happen when
-	// other skins and plugins are loaded or unloaded.
+	// Note that this method may be called more than once in the lifetime of the plugin,
+	// in which case you must re-register your commands and receive new command IDs.
+	// This will happen when other skins and plugins are loaded or unloaded.
 
 	// (The second argument, although NULL here, can optionally provide a 16x16 icon handle,
 	// but that is not the neatest way of doing it)
@@ -237,13 +235,13 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::InsertCommands()
 
 	// If you are not modifying existing user interface objects, but rather creating your own
 	// (as in the case of this image viewer), it is a lot easier to actually use the XML skin file system.
-	// This is a lot better than having to do it all here programatically.  The
-	// IUserInterface interface provides three methods for loading and incorporating a chunk of skin XML.
+	// This is a lot better than having to do it all here programatically.
+	// The IUserInterface interface provides three methods for loading and incorporating a chunk of skin XML.
 
 	// The best choice is often to include the XML as a resource in your DLL, which is done here.
 	// IUserInterface::AddFromResource allows you to load a skin XML resource directly!
 
-	m_pInterface->AddFromResource( _Module.GetResourceInstance(), IDR_SKIN );
+	m_pInterface->AddFromResource( _AtlBaseModule.GetResourceInstance(), IDR_SKIN );
 
 	// Note that the resource type should be 23 decimal.  See the Skin.xml file for further detail.
 
@@ -254,8 +252,7 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::OnUpdate(UINT /*nCommandID*/, TRIS
 {
 	// The OnUpdate() method is invoked when PeerProject needs to update the state of a command in its user interface.
 	// This provides an opportunity to show or hide, enable or disable, and check or uncheck user interface commands.
-	// Because of the unified command architecture, it does not matter
-	// if the command is in a menu or a toolbar or something else entirely.
+	// Because of unified command architecture, it doesn't matter if a command is a menu or toolbar or something else entirely.
 
 	// The nCommandID argument is the ID of the command being updated.  You should check this against
 	// a list of command IDs your plugin has registered.  If you don't get a match, return S_FALSE.
@@ -303,20 +300,15 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::OnCommand(UINT /*nCommandID*/)
 
 BOOL CImageViewerPlugin::OpenNewWindow(LPCTSTR pszFilePath)
 {
-	// This is a helper function which opens a new window, or activates an existing window,
-	// for the file name it is passed.
+	// This helper function opens a new window, or activates an existing window, for the file name it is passed.
 
-	// First, check through the linked list of CImageWindow windows,
-	// to see if the file is already open.
+	// First, check through the linked list of CImageWindow windows, to see if the file is already open.
 
 	CImageWindow* pWindow;
 	for ( pWindow = m_pWindow ; pWindow ; pWindow = pWindow->m_pNext )
 	{
 		if ( lstrcmpi( pWindow->m_pszFile, pszFilePath ) == 0 )
-		{
-			// Got a match, break out of the loop.
-			break;
-		}
+			break;	// Got a match, break out of the loop.
 	}
 
 	// If we did not find the window...
@@ -336,7 +328,6 @@ BOOL CImageViewerPlugin::OpenNewWindow(LPCTSTR pszFilePath)
 	pWindow->Refresh();
 
 	// Show and activate the window
-
 	pWindow->ShowWindow( SW_SHOWNORMAL );
 	pWindow->BringWindowToTop();
 	pWindow->Invalidate();
@@ -351,8 +342,7 @@ void CImageViewerPlugin::RemoveWindow(CImageWindow* pWindow)
 {
 	CImageWindow** ppPrev = &m_pWindow;
 
-	// Search through the linked list of CImageWindow objects,
-	// and remove the one which is being closed.
+	// Search through the linked list of CImageWindow objects, and remove the one being closed.
 
 	for ( CImageWindow* pSeek = *ppPrev ; pSeek ; pSeek = pSeek->m_pNext )
 	{
@@ -365,4 +355,3 @@ void CImageViewerPlugin::RemoveWindow(CImageWindow* pWindow)
 		ppPrev = &pSeek->m_pNext;
 	}
 }
-

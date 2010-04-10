@@ -1,7 +1,7 @@
 //
 // CtrlLibraryAlbumView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -25,6 +25,7 @@
 
 class CLibraryFile;
 class CLibraryAlbumTrack;
+
 
 class CLibraryAlbumView : public CLibraryFileView
 {
@@ -60,6 +61,7 @@ public:
 // Operations
 public:
 	virtual void		Update();
+	virtual void		SelectAll();
 	virtual BOOL		Select(DWORD nObject);
 	virtual DWORD_PTR 	HitTestIndex(const CPoint& point) const;
 	virtual HBITMAP		CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddle);
@@ -100,7 +102,6 @@ protected:
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg UINT OnGetDlgCode();
 	//}}AFX_MSG

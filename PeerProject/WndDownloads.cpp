@@ -56,6 +56,8 @@
 #include "DlgHelp.h"
 #include "Network.h"
 
+#include "FragmentedFile.h" // Merge File Command
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -104,8 +106,12 @@ BEGIN_MESSAGE_MAP(CDownloadsWnd, CPanelWnd)
 	ON_COMMAND(ID_TRANSFERS_FORGET, OnTransfersForget)
 	ON_UPDATE_COMMAND_UI(ID_TRANSFERS_CHAT, OnUpdateTransfersChat)
 	ON_COMMAND(ID_TRANSFERS_CHAT, OnTransfersChat)
+	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_MERGE, OnUpdateDownloadsMergeLocal)
+	ON_COMMAND(ID_DOWNLOADS_MERGE, OnDownloadsMergeLocal)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_ADD_SOURCE, OnUpdateDownloadsAddSource)
 	ON_COMMAND(ID_DOWNLOADS_ADD_SOURCE, OnDownloadsAddSource)
+	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_BOOST, OnUpdateDownloadsBoost)
+	ON_COMMAND(ID_DOWNLOADS_BOOST, OnDownloadsBoost)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_ENQUEUE, OnUpdateDownloadsEnqueue)
 	ON_COMMAND(ID_DOWNLOADS_ENQUEUE, OnDownloadsEnqueue)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_AUTO_CLEAR, OnUpdateDownloadsAutoClear)
@@ -114,12 +120,10 @@ BEGIN_MESSAGE_MAP(CDownloadsWnd, CPanelWnd)
 	ON_COMMAND(ID_TRANSFERS_CONNECT, OnTransfersConnect)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_SHOW_SOURCES, OnUpdateDownloadsShowSources)
 	ON_COMMAND(ID_DOWNLOADS_SHOW_SOURCES, OnDownloadsShowSources)
-	ON_UPDATE_COMMAND_UI(ID_BROWSE_LAUNCH, OnUpdateBrowseLaunch)
-	ON_COMMAND(ID_BROWSE_LAUNCH, OnBrowseLaunch)
-	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_BOOST, OnUpdateDownloadsBoost)
-	ON_COMMAND(ID_DOWNLOADS_BOOST, OnDownloadsBoost)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_MONITOR, OnUpdateDownloadsMonitor)
 	ON_COMMAND(ID_DOWNLOADS_MONITOR, OnDownloadsMonitor)
+	ON_UPDATE_COMMAND_UI(ID_BROWSE_LAUNCH, OnUpdateBrowseLaunch)
+	ON_COMMAND(ID_BROWSE_LAUNCH, OnBrowseLaunch)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_FOLDER, OnUpdateDownloadsFolder)
 	ON_COMMAND(ID_DOWNLOADS_FOLDER, OnDownloadsFolder)
 	ON_UPDATE_COMMAND_UI(ID_DOWNLOADS_LAUNCH_COPY, OnUpdateDownloadsLaunchCopy)
@@ -203,7 +207,7 @@ int CDownloadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	LoadState( NULL, TRUE );
 
-	SetTimer( 2, Settings.General.RefreshRate, NULL );
+	SetTimer( 2, Settings.Interface.RefreshRateText, NULL );
 	PostMessage( WM_TIMER, 2 );
 
 	SetTimer( 4, 10000, NULL );
@@ -609,7 +613,8 @@ void CDownloadsWnd::Prepare()
 					m_bSelBrowse = TRUE;
 					m_bSelChat = TRUE;
 				}
-				if ( ! pSource->m_bPushOnly ) m_bSelSourceAcceptConnections = TRUE;
+				if ( ! pSource->m_bPushOnly )
+					m_bSelSourceAcceptConnections = TRUE;
 			}
 
 			// Check if we could get remote previews (only from the connected sources for the efficiency)
@@ -875,7 +880,7 @@ void CDownloadsWnd::OnUpdateDownloadsRemotePreview(CCmdUI* pCmdUI)
 	}
 
 	if ( nSelected == 1 && ! pDownload->IsTasking() )
-		Prepare();
+		Prepare();	// ToDo: Why not just run this?
 	else
 		m_bSelRemotePreviewCapable = FALSE;
 
@@ -942,8 +947,7 @@ void CDownloadsWnd::OnDownloadsRemotePreview()
 				}
 			}
 		}
-		// Only one download can get selected at a time for preview
-		// so there's no need to check the rest
+		// Only one download can get selected for preview, no need to check the rest
 		break;
 	}
 }
@@ -984,7 +988,7 @@ void CDownloadsWnd::OnUpdateDownloadsLaunchComplete(CCmdUI* pCmdUI)
 {
 	Prepare();
 	if ( CCoolBarItem* pItem = CCoolBarItem::FromCmdUI( pCmdUI ) )
-		pItem->Show( m_bSelCompleted || ! m_bSelDownload || ( m_bSelDownload && ! m_bSelNotMoving ) );
+		pItem->Show( m_bSelCompleted || ! m_bSelStartedAndNotMoving );
 	pCmdUI->Enable( m_bSelCompleted );
 }
 
@@ -1112,7 +1116,8 @@ void CDownloadsWnd::OnDownloadsAddSource()
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
-		if ( pDownload->m_bSelected ) pList.AddTail( pDownload );
+		if ( pDownload->m_bSelected )
+			pList.AddTail( pDownload );
 	}
 
 	while ( ! pList.IsEmpty() )
@@ -1137,6 +1142,70 @@ void CDownloadsWnd::OnDownloadsAddSource()
 				}
 			}
 		}
+	}
+
+	Update();
+}
+
+void CDownloadsWnd::OnUpdateDownloadsMergeLocal(CCmdUI* pCmdUI)
+{
+	Prepare();
+	pCmdUI->Enable( m_nSelectedDownloads == 1 && m_bSelNotMoving && ! m_bSelCompleted );
+}
+
+void CDownloadsWnd::OnDownloadsMergeLocal()
+{
+	CDownload* pDownload;
+
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! pLock.Lock( 300 ) ) return;
+
+	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
+	{
+		pDownload = Downloads.GetNext( pos );
+		if ( pDownload->m_bSelected )
+			break;	// Found it
+	}
+
+	if ( ! Downloads.Check( pDownload ) || pDownload->IsCompleted() || pDownload->IsMoving() || ! pDownload->PrepareFile() )
+		return;		// Unavailable
+
+	if ( pDownload->NeedTigerTree() && pDownload->NeedHashset() && ! pDownload->IsTorrent() )
+	{
+		pLock.Unlock();
+		CString strMessage;
+		LoadString( strMessage, IDS_DOWNLOAD_EDIT_COMPLETE_NOHASH );
+		AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+		return; 	// No hashsets
+	}
+
+	const Fragments::List oList( pDownload->GetEmptyFragmentList() );
+	if ( ! oList.size() )
+		return;		// No available fragments
+
+	pLock.Unlock();
+
+	// Select file
+	CString strExt( PathFindExtension( pDownload->m_sName ) );
+	if ( ! strExt.IsEmpty() ) strExt = strExt.Mid( 1 );
+	CFileDialog dlgSelectFile( TRUE, strExt, pDownload->m_sName,
+		OFN_HIDEREADONLY | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR, NULL, this );
+	if ( dlgSelectFile.DoModal() == IDOK )
+	{
+		if ( ! pLock.Lock( 500 ) )
+			return;
+		if ( ! Downloads.Check( pDownload ) || pDownload->IsTasking() )
+		{
+			pLock.Unlock();
+			CString strMessage;
+			LoadString( strMessage, IDS_DOWNLOAD_EDIT_ACTIVE_TASK );
+			AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
+			return;
+		}
+
+		CDownloadTask::MergeFile( pDownload, dlgSelectFile.GetPathName() );
+
+		pLock.Unlock();
 	}
 
 	Update();

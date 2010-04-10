@@ -1,7 +1,7 @@
 //
 // PageFileComments.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -48,9 +48,10 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CFileCommentsPage property page
 
-CFileCommentsPage::CFileCommentsPage() :
-	CFilePropertiesPage( CFileCommentsPage::IDD ),
-	m_sComments(), m_nRating( -1 )
+CFileCommentsPage::CFileCommentsPage()
+	: CFilePropertiesPage( CFileCommentsPage::IDD )
+	, m_sComments ()
+	, m_nRating ( -1 )
 {
 }
 
@@ -155,7 +156,8 @@ void CFileCommentsPage::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemSt
 			( lpDrawItemStruct->itemState & ODS_SELECTED ) );
 	}
 
-	if ( ( lpDrawItemStruct->itemState & ODS_SELECTED ) == 0 )
+	if ( ( lpDrawItemStruct->itemState & ODS_SELECTED ) == 0 &&
+		nRating >= 0 && nRating < 7 )
 	{
 		static COLORREF crRating[7] =
 		{

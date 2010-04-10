@@ -22,7 +22,7 @@
 // A CG1Neighbour object represents a remote computer running Gnutella software with which we are exchanging Gnutella packets
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CG1Neighbour
 
-// Copy in the contents of these files here before compiling
+
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
@@ -54,7 +54,7 @@
 #include "WndSearchMonitor.h"
 #include "GGEP.h"
 
-// If we are compiling in debug mode, replace the text "THIS_FILE" in the code with the name of this file
+// Constant "THIS_FILE" is the filename, in Debug mode only
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -233,8 +233,8 @@ BOOL CG1Neighbour::Send(CPacket* pPacket, BOOL bRelease, BOOL bBuffered)
 	if ( m_nState >= nrsConnected && pPacket->m_nProtocol == PROTOCOL_G1 )
 	{
 		// Count that we sent one more packet
-		m_nOutputCount++;                        // To this remote computer
-		Statistics.Current.Gnutella1.Outgoing++; // Total
+		m_nOutputCount++;							// To this remote computer
+		Statistics.Current.Gnutella1.Outgoing++;	// Total
 
 		// Add the packet to the outbound packet buffer, and send all the data to the remote computer soon
 		m_pOutbound->Add( pPacketG1, bBuffered );
@@ -271,13 +271,13 @@ BOOL CG1Neighbour::ProcessPackets()
 	for ( ; bSuccess ; ) // This is the same thing as while ( bSuccess )
 	{
 		// Look at the input buffer as a Gnutella packet
-		GNUTELLAPACKET* pPacket = (GNUTELLAPACKET*)pInput->m_pBuffer; // Hopefully a packet starts right there
-		if ( pInput->m_nLength < sizeof(*pPacket) ) break;            // If there aren't enough bytes in the buffer for a packet, leave the loop
+		GNUTELLAPACKET* pPacket = (GNUTELLAPACKET*)pInput->m_pBuffer;	// Hopefully a packet starts right there
+		if ( pInput->m_nLength < sizeof(*pPacket) ) break;				// If there aren't enough bytes in the buffer for a packet, leave the loop
 
 		// Calculate how big this packet is
 		DWORD nLength =
-			sizeof(*pPacket) +  // The size of a Gnutella packet header, which is the same for all Gnutella packets, plus
-			pPacket->m_nLength; // The length written in the packet
+			sizeof(*pPacket) +									// The size of a Gnutella packet header, which is the same for all Gnutella packets,
+			pPacket->m_nLength; 								// plus the length written in the packet
 
 		// If the length written in the packet is negative or too big
 		if ( pPacket->m_nLength < 0 || nLength >= Settings.Gnutella.MaximumPacket )
@@ -291,9 +291,9 @@ BOOL CG1Neighbour::ProcessPackets()
 		if ( pInput->m_nLength < nLength ) break;
 
 		// Process the packet
-		CG1Packet* pPacketObject = CG1Packet::New( pPacket ); // Look at the start of the buffer as a CG1Packet object
-		bSuccess = OnPacket( pPacketObject );                 // Send it to OnPacket, and get the result
-		pPacketObject->Release();                             // Call release on the packet
+		CG1Packet* pPacketObject = CG1Packet::New( pPacket );	// Look at the start of the buffer as a CG1Packet object
+		bSuccess = OnPacket( pPacketObject );					// Send it to OnPacket, and get the result
+		pPacketObject->Release();								// Call release on the packet
 
 		// Remove the bytes of the packet from the start of the buffer
 		pInput->Remove( nLength );
@@ -303,8 +303,8 @@ BOOL CG1Neighbour::ProcessPackets()
 	if ( bSuccess ) return TRUE;
 
 	// Something in the loop set bSuccess to false
-	Close( 0 );   // Close the connection to this remote computer
-	return FALSE; // Report error
+	Close( 0 );													// Close the connection to this remote computer
+	return FALSE;												// Report error
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -316,9 +316,9 @@ BOOL CG1Neighbour::ProcessPackets()
 BOOL CG1Neighbour::OnPacket(CG1Packet* pPacket)
 {
 	// Count the packet
-	m_nInputCount++;                         // Count this as one more packet from the remote computer
-	m_tLastPacket = GetTickCount();          // Record that we most recently got a packet from this remote computer right now
-	Statistics.Current.Gnutella1.Incoming++; // Count this as one more Gnutella packet the program has received
+	m_nInputCount++;											// Count this as one more packet from the remote computer
+	m_tLastPacket = GetTickCount();								// Record that we most recently got a packet from this remote computer right now
+	Statistics.Current.Gnutella1.Incoming++;					// Count this as one more Gnutella packet the program has received
 
 	// Make sure the packet's time to live count isn't too high
 	if (
@@ -343,15 +343,15 @@ BOOL CG1Neighbour::OnPacket(CG1Packet* pPacket)
 	// Sort the packet by type, hand it to the correct packet handler, and return the result from that
 	switch ( pPacket->m_nType )
 	{
-	case G1_PACKET_PING:        return OnPing( pPacket );            // Ping
-	case G1_PACKET_PONG:        return OnPong( pPacket );            // Pong, response to a ping
-	case G1_PACKET_BYE:         return OnBye( pPacket );             // Bye message
+	case G1_PACKET_PING:        return OnPing( pPacket );		// Ping
+	case G1_PACKET_PONG:        return OnPong( pPacket );		// Pong, response to a ping
+	case G1_PACKET_BYE:         return OnBye( pPacket );		// Bye message
 	case G1_PACKET_QUERY_ROUTE: return OnCommonQueryHash( pPacket ); // Common query hash
-	case G1_PACKET_VENDOR:                                           // Vendor-specific message
+	case G1_PACKET_VENDOR:										// Vendor-specific message
 	case G1_PACKET_VENDOR_APP:  return OnVendor( pPacket );
-	case G1_PACKET_PUSH:        return OnPush( pPacket );            // Push open a connection
-	case G1_PACKET_QUERY:       return OnQuery( pPacket );           // Search query
-	case G1_PACKET_HIT:         return OnHit( pPacket );             // Hit, a search result
+	case G1_PACKET_PUSH:        return OnPush( pPacket );		// Push open a connection
+	case G1_PACKET_QUERY:       return OnQuery( pPacket );		// Search query
+	case G1_PACKET_HIT:         return OnHit( pPacket );		// Hit, a search result
 	}
 
 	// If control makes it down here, the Gnutella packet had a type we don't know about, document it
@@ -410,10 +410,12 @@ BOOL CG1Neighbour::SendPing(DWORD dwNow, const Hashes::Guid& oGUID)
 // Responds to it with a pong packet (Always returns true)
 BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 {
+	CSingleLock pLock( &Network.m_pSection, TRUE );
+
 	Statistics.Current.Gnutella1.PingsReceived++;
 
 	// Add the ping's GUID to the neighbours route cache, and if it returns false
-	if ( ! Neighbours.m_pPingRoute->Add( pPacket->m_oGUID, this ) )
+	if ( ! Neighbours.AddPingRoute( pPacket->m_oGUID, this ) )
 	{
 		// Record this as a dropped packet, but don't report error
 		Statistics.Current.Gnutella1.Dropped++;
@@ -469,13 +471,13 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 			if ( CGGEPItem* pItem = pGGEP.Find( GGEP_HEADER_SUPPORT_GDNA ) )
 				bDNA = true;
 
-			if ( pPacket->Hop() ) // Calling Hop makes sure TTL is 2+ and then moves a count from TTL to hops
+			if ( pPacket->Hop() )	// Calling Hop makes sure TTL is 2+ and then moves a count from TTL to hops
 			{
 				// Broadcast the packet to the computers we are connected to
 				int nCount = Neighbours.Broadcast( pPacket, this, TRUE );
 				if ( nCount )
 				{
-					Statistics.Current.Gnutella1.Routed++; // Record we routed one more packet
+					Statistics.Current.Gnutella1.Routed++;	// Record we routed one more packet
 					Statistics.Current.Gnutella1.PingsSent += nCount;
 				}
 
@@ -507,9 +509,9 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 	LibraryMaps.GetStatistics( &nMyFiles, &nMyVolume );
 
 	// Save information from this ping packet in the CG1Neighbour object
-	m_tLastInPing   = dwNow;                // Record that we last got a ping packet from this remote computer right now
-	m_nLastPingHops = pPacket->m_nHops + 1; // Save the hop count from the packet, making it one more (do)
-	m_pLastPingID   = pPacket->m_oGUID;     // Save the packet's GUID
+	m_tLastInPing   = dwNow;						// Record that we last got a ping packet from this remote computer right now
+	m_nLastPingHops = pPacket->m_nHops + 1; 		// Save the hop count from the packet, making it one more (do)
+	m_pLastPingID   = pPacket->m_oGUID; 			// Save the packet's GUID
 
 	// If the ping can travel 2 more times, and hasn't travelled at all yet
 	if ( pPacket->m_nTTL == 2 && pPacket->m_nHops == 0 )
@@ -522,9 +524,9 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 			if ( pConnection->m_nState != nrsConnected ) continue; // If that didn't work out, try the loop with the next computer
 
 			// Make a new pong packet, the response to a ping
-			CG1Packet* pPong = CG1Packet::New( // Gets it quickly from the Gnutella packet pool
-				G1_PACKET_PONG,                // We're making a pong packet
-				m_nLastPingHops,               // Give it the same hops count and GUID as the ping
+			CG1Packet* pPong = CG1Packet::New(		// Gets it quickly from the Gnutella packet pool
+				G1_PACKET_PONG, 					// We're making a pong packet
+				m_nLastPingHops,					// Give it the same hops count and GUID as the ping
 				m_pLastPingID );
 
 			// Tell the remote computer it's IP address and port number in the payload bytes of the pong packet
@@ -536,7 +538,7 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 			pPong->WriteLongLE( (DWORD)nMyVolume );
 
 			if ( ! pGGEP.IsEmpty() )
-				pGGEP.Write( pPong ); // write GGEP stuff
+				pGGEP.Write( pPong );				// Write GGEP stuff
 
 			// Send the pong packet to the remote computer we are currently looping on
 			Send( pPong );
@@ -547,13 +549,13 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 	}
 
 	// The ping can only once more or is dead, or it has already travelled across the Internet, and
-	if ( bIsKeepAlive ||                                       // Either this is a keep alive packet, or
-		( Network.IsListening() && ! Neighbours.IsG1Leaf() ) ) // We're listening for connections and this remote computer is a Gnutella hub
+	if ( bIsKeepAlive ||							// Either this is a keep alive packet, or
+		( Network.IsListening() && ! Neighbours.IsG1Leaf() ) )	// We're listening for connections and this remote computer is a Gnutella hub
 	{
 		// Make a new pong packet, the response to a ping
-		CG1Packet* pPong = CG1Packet::New( // Gets it quickly from the Gnutella packet pool
-			G1_PACKET_PONG,                // We're making a pong packet
-			m_nLastPingHops,               // Give it the same hops count and GUID as the ping
+		CG1Packet* pPong = CG1Packet::New(			// Gets it quickly from the Gnutella packet pool
+			G1_PACKET_PONG, 						// We're making a pong packet
+			m_nLastPingHops,						// Give it the same hops count and GUID as the ping
 			m_pLastPingID );
 
 		// Start the pong's payload with the IP address and port number from the Network object (do)
@@ -565,7 +567,7 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 		pPong->WriteLongLE( (DWORD)nMyVolume );
 
 		if ( ! pGGEP.IsEmpty() )
-			pGGEP.Write( pPong ); // write GGEP stuff
+			pGGEP.Write( pPong );					// Write GGEP stuff
 
 		// Send the pong packet to the remote computer we are currently looping on
 		Send( pPong );
@@ -573,9 +575,9 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 	}
 
 	// Hop the packet, or determine that we are done and leave returning true
-	if ( bIsKeepAlive        || // If this is a keep alive packet
-		m_nNodeType == ntHub || // Or, we are a leaf, and the remote computer is to a ultrapeer above us
-		! pPacket->Hop() )      // Or, the packet is dead or can only travel 1 more time
+	if ( bIsKeepAlive ||							// If this is a keep alive packet
+		m_nNodeType == ntHub ||						// Or, we are a leaf, and the remote computer is to a ultrapeer above us
+		! pPacket->Hop() )							// Or, the packet is dead or can only travel 1 more time
 
 		// We're done
 		return TRUE;
@@ -593,22 +595,22 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 	for ( BYTE nHops = 1 ; nHops <= pPacket->m_nTTL ; nHops++ )
 	{
 		// Store ratios in the pong needed array based on the ping's TTL (do)
-		m_nPongNeeded[ nHops ] = BYTE(     // Set the byte at the nHops position in the array to
-			Settings.Gnutella1.PongCount / // 10 by default
-			pPacket->m_nTTL );             // The number of more hops this packet can travel
+		m_nPongNeeded[ nHops ] = BYTE(				// Set the byte at the nHops position in the array to
+			Settings.Gnutella1.PongCount /			// 10 by default
+			pPacket->m_nTTL );						// The number of more hops this packet can travel
 
 		// Respond to the packet with a pong item object (do)
 		CPongItem* pCache = NULL;
-		while (	( m_nPongNeeded[ nHops ] > 0 ) && // While that ratio is positive, and
-				( pCache = Neighbours.m_pPongCache->Lookup( this, nHops, &pIgnore ) ) != NULL ) // Lookup can find this ping
+		while (	( m_nPongNeeded[ nHops ] > 0 ) &&	// While that ratio is positive, and
+				( pCache = Neighbours.LookupPong( this, nHops, &pIgnore ) ) != NULL ) // Lookup can find this ping
 		{
 			// Have the pong item prepare a packet, and send it to the remote computer
 			Send( pCache->ToPacket( m_nLastPingHops, m_pLastPingID ) );
 			Statistics.Current.Gnutella1.PongsSent++;
 
 			// Add this pong item to the ignore list, and adjust the value in the pong needed array (do)
-			pIgnore.AddTail( pCache ); // Add a pointer to this CPongItem to the local pointer list of them
-			m_nPongNeeded[ nHops ]--;  // Record there is one less pong needed for packets of this hops count (do)
+			pIgnore.AddTail( pCache );				// Add a pointer to this CPongItem to the local pointer list of them
+			m_nPongNeeded[ nHops ]--;				// Record there is one less pong needed for packets of this hops count (do)
 		}
 	}
 
@@ -623,6 +625,8 @@ BOOL CG1Neighbour::OnPing(CG1Packet* pPacket)
 // Always returns true
 BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 {
+	CSingleLock pLock( &Network.m_pSection, TRUE );
+
 	Statistics.Current.Gnutella1.PongsReceived++;
 
 	// If the pong is too short, or the pong is too long and settings say we should watch that
@@ -684,17 +688,16 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 			if ( CGGEPItem* pGDNA = pGGEP.Find( GGEP_HEADER_SUPPORT_GDNA ) )
 				bGDNA = true;
 
-			if ( pPacket->Hop() ) // Calling Hop makes sure TTL is 2+ and then moves a count from TTL to hops
+			if ( pPacket->Hop() )	// Calling Hop makes sure TTL is 2+ and then moves a count from TTL to hops
 			{
 				// Find the CG1Neighbour object that created this pong packet (do)
-				CG1Neighbour* pOrigin = NULL;
-				Neighbours.m_pPingRoute->Lookup( pPacket->m_oGUID, (CNeighbour**)&pOrigin );
+				CG1Neighbour* pOrigin = Neighbours.GetPingRoute( pPacket->m_oGUID );
 
 				// If we're connected to that computer, and it supports GGEP extension blocks
 				if ( pOrigin && pOrigin->m_bGGEP )
 				{
 					// Send this pong to it
-					Statistics.Current.Gnutella1.Routed++; // Record one more packet was routed
+					Statistics.Current.Gnutella1.Routed++;	// Record one more packet was routed
 					pOrigin->Send( pPacket, FALSE, TRUE );
 					Statistics.Current.Gnutella1.PongsSent++;
 				}
@@ -714,7 +717,7 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 	}
 
 	// If the pong said it's port number is 0, or we know it's IP address is firewalled, set bLocal to true
-	BOOL bLocal = ! nPort ||                                // The pong specified no port number, or
+	BOOL bLocal = ! nPort ||								// The pong specified no port number, or
 		Network.IsFirewalledAddress( (IN_ADDR*)&nAddress ); // The network object knows that the pong's IP address is firewalled
 
 	// If the packet has travelled across the Internet, but the computer that made it is firewalled
@@ -1050,8 +1053,8 @@ void CG1Neighbour::SendClusterAdvisor()
 
 	// Setup local variables
 	DWORD tNow = static_cast< DWORD >( time( NULL ) ); // The time now, when this method was called, which won't change as the loop runs
-	CG1Packet* pPacket = NULL; // A pointer to a Gnutella packet (do)
-	WORD nCount = 0;           // Loop up to 20 times
+	CG1Packet* pPacket = NULL;	// A pointer to a Gnutella packet (do)
+	WORD nCount = 0;			// Loop up to 20 times
 
 	{
 		CQuickLock oLock( HostCache.Gnutella1.m_pSection );
@@ -1096,10 +1099,10 @@ void CG1Neighbour::SendClusterAdvisor()
 	if ( pPacket && nCount )
 	{
 		// Finish the cluster advisor packet and send it
-		m_tClusterSent = m_tClusterHost;         // Record that we sent this remote computer a cluster packet now
-		((WORD*)pPacket->m_pBuffer)[4] = nCount; // Write the number of IP addresses into the packet
-		pPacket->RazaSign();                     // Does nothing (do)
-		Send( pPacket, TRUE, TRUE );             // Send the packet to the remote computer
+		m_tClusterSent = m_tClusterHost;				// Record that we sent this remote computer a cluster packet now
+		((WORD*)pPacket->m_pBuffer)[4] = nCount;		// Write the number of IP addresses into the packet
+		pPacket->RazaSign();							// Does nothing (do)
+		Send( pPacket, TRUE, TRUE );					// Send the packet to the remote computer
 	}
 }
 
@@ -1151,7 +1154,7 @@ bool CG1Neighbour::OnPush(CG1Packet* pPacket)
 		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PUSH, m_sAddress );
 		++Statistics.Current.Gnutella1.Dropped;
 		++m_nDropCount;
-		return true;	// stay connected
+		return true;	// Stay connected
 	}
 
 	// The first 16 bytes of the packet payload are the Gnutella client ID GUID, read them into pClientID
@@ -1266,10 +1269,10 @@ void CG1Neighbour::SendG2Push(const Hashes::Guid& oGUID, CPacket* pPacket)
 
 	// Make a new Gnutella push packet, fill it with the same information, and send it to the remote computer
 	pPacket = CG1Packet::New( G1_PACKET_PUSH, Settings.Gnutella1.MaximumTTL - 1 );
-	pPacket->Write( oGUID );      // 16 bytes, the client ID GUID
-	pPacket->WriteLongLE( 0 );        // 4 bytes, all 0 (do)
-	pPacket->WriteLongLE( nAddress ); // 4 bytes, the IP address
-	pPacket->WriteShortLE( nPort );   // 2 bytes, the port number
+	pPacket->Write( oGUID );			// 16 bytes, the client ID GUID
+	pPacket->WriteLongLE( 0 );			// 4 bytes, all 0 (do)
+	pPacket->WriteLongLE( nAddress );	// 4 bytes, the IP address
+	pPacket->WriteShortLE( nPort ); 	// 2 bytes, the port number
 	Send( pPacket, TRUE, TRUE );
 }
 
@@ -1298,7 +1301,7 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_LEAF_FORWARD, (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
-		return FALSE; // Disconnect from the remote computer
+		return FALSE;	// Disconnect from the remote computer
 	}
 
 	// Give the query packet to the network's CRouteCache object, if it reports error (do)
@@ -1307,7 +1310,7 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 		// Drop it
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
-		return TRUE; // Stay connected to the remote computer
+		return TRUE;	// Stay connected to the remote computer
 	}
 
 	// Have the CQuerySearch class turn the query search packet into a CQuerySearch object (do)
@@ -1317,13 +1320,13 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 	if ( ! pSearch )
 	{
 		// The CQuerySearch class rejected the search, drop the packet
-// ToDo: FIX THIS CONSTANT "MALFORMATTED PACKET" TRIGGERING!!
+// ToDo: FIX THIS REPEATED "MALFORMATTED PACKET" TRIGGERING!!
 //#ifdef _DEBUG
 		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, _T("G1"), (LPCTSTR)m_sAddress );
 //#endif
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
-		return TRUE; // Stay connected to the remote computer
+		return TRUE;	// Stay connected to the remote computer
 	}
 
 	// Create a new CLocalSearch object, giving the constructor the CQuerySearch object, and the packet it was made from
@@ -1345,7 +1348,7 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 
 	// Delete the local object, and record another Gnutella query packet processed
 	Statistics.Current.Gnutella1.Queries++;
-	return TRUE; // Stay connected to the remote computer
+	return TRUE;	// Stay connected to the remote computer
 }
 
 // Takes a CQuerySearch object, a Gnutella packet, and (do)

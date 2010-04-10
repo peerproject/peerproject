@@ -36,7 +36,7 @@
 #include "EDNeighbour.h"
 #include "Neighbours.h"
 
-// If we are compiling in debug mode, replace the text "THIS_FILE" in the code with the name of this file
+// Constant "THIS_FILE" is the filename, in Debug mode only
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -74,7 +74,7 @@ CNeighboursWithConnect::~CNeighboursWithConnect()
 // Returns a pointer to the new neighbour in the connected list, or null if no connection was made
 CNeighbour* CNeighboursWithConnect::ConnectTo(
 	const IN_ADDR* pAddress,	// IP address from the host cache to connect to, like 67.163.208.23
-	WORD       nPort,		// Port number that goes with that IP address, like 6346
+	WORD       nPort,			// Port number that goes with that IP address, like 6346
 	PROTOCOLID nProtocol,		// Protocol name, like PROTOCOL_G1 for Gnutella
 	BOOL       bAutomatic,		// True to (do)
 	BOOL       bNoUltraPeer)	// By default, false to not (do)

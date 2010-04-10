@@ -1,7 +1,7 @@
 //
 // NeighboursWithG2.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -29,15 +29,14 @@ class CG2Packet;
 // Add methods helpful for Gnutella that need to look at the list of computers we're connected to
 class CNeighboursWithG2 : public CNeighboursWithG1 // Continue the inheritance column CNeighbours : CNeighboursWithConnect : Routing : ED2K : G2 : G1 : CNeighboursBase
 {
-
-public:
+protected:
 	// Nothing that CNeighboursWithG2 adds to CNeighbours needs to be set up or put away
-	CNeighboursWithG2(); // The constructor and destructor don't do anything
+	CNeighboursWithG2();		// The constructor and destructor don't do anything
 	virtual ~CNeighboursWithG2();
 
 public:
 	// Methods implimented by several classes in the CNeighbours inheritance column
-	virtual void Connect(); // Set the ping route duration and setup the hub horizon pool
+	virtual void Connect(); 	// Set the ping route duration and setup the hub horizon pool
 
 public:
 	// Make and return a query web packet with IP addresses from the neighbours list and the Gnutella2 host cache

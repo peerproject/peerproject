@@ -65,21 +65,22 @@ public:
 	CAlbumFolder*	GetNextFolder(POSITION& pos) const;
 	CAlbumFolder*	GetFolder(LPCTSTR pszName) const;
 	CAlbumFolder*	GetFolderByURI(LPCTSTR pszURI) const;
-	INT_PTR			GetFolderCount() const { return m_pFolders.GetCount(); }
+	DWORD			GetFolderCount() const { return (DWORD)m_pFolders.GetCount(); }
 	BOOL			CheckFolder(CAlbumFolder* pFolder, BOOL bRecursive = FALSE) const;
 	CAlbumFolder*	GetTarget(CSchemaMember* pMember, LPCTSTR pszValue) const;
 	CAlbumFolder*	FindCollection(const Hashes::Sha1Hash& oSHA1);
 	CAlbumFolder*	FindFolder(const Hashes::Guid& oGUID);
-public:
+
 	void			AddFile(CLibraryFile* pFile);
-	POSITION		GetFileIterator() const;
-	CLibraryFile*	GetNextFile(POSITION& pos) const;
-	INT_PTR			GetFileCount() const { return m_pFiles.GetCount(); }
-	int				GetSharedCount() const;
 	void			RemoveFile(CLibraryFile* pFile);
 	CAlbumFolder*	FindFile(CLibraryFile* pFile);
+	POSITION		GetFileIterator() const;
+	CLibraryFile*	GetNextFile(POSITION& pos) const;
+	DWORD			GetFileCount() const { return (DWORD)m_pFiles.GetCount(); }
+	int				GetSharedCount() const;
 	int				GetFileList(CLibraryList* pList, BOOL bRecursive) const;
-public:
+
+	void			Clear();
 	void			Delete(BOOL bIfEmpty = FALSE);
 	BOOL			SetMetadata(CXMLElement* pXML);
 	BOOL			MetaFromFile(CLibraryFile* pFile);
@@ -94,5 +95,4 @@ public:
 	void			SetCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFile* pCollection);
 	bool			OnFolderDelete(CAlbumFolder* pFolder);
 	void			OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost = FALSE);
-	void			Clear();
 };

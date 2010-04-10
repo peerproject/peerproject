@@ -193,9 +193,9 @@ void CUploadsSettingsPage::UpdateQueues()
 
 		if ( ( pQueue->m_bEnable ) && ( ! bDonkeyOnlyDisabled ) )
 		{
-			QWORD nBandwidth = nLimit * pQueue->m_nBandwidthPoints / max( 1, UploadQueues.GetTotalBandwidthPoints( TRUE ) );
+			QWORD nBandwidth = nLimit * pQueue->m_nBandwidthPoints / max( 1ul, UploadQueues.GetTotalBandwidthPoints( TRUE ) );
 			pItem->Set( 2, Settings.SmartSpeed( nBandwidth ) + '+' );
-			pItem->Format( 3, _T("%i-%i /%i"), pQueue->m_nMinTransfers, pQueue->m_nMaxTransfers, pQueue->m_nCapacity );
+			pItem->Format( 3, _T("%u-%u"), pQueue->m_nMinTransfers, pQueue->m_nMaxTransfers );
 
 			pItem->m_nImage = CoolInterface.ImageForID( ID_VIEW_UPLOADS );
 		}

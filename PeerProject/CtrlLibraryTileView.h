@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTileView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -84,13 +84,13 @@ private:
 	bool empty() const { return m_oList.empty(); }
 	iterator erase(iterator item) { return m_oList.erase( item ); }
 
-	CMutex					m_pSection;
+	mutable CMutex			m_pSection;
 	CSize					m_szBlock;
-	int						m_nColumns;
-	int						m_nRows;
+	int 					m_nColumns;
+	int 					m_nRows;
 	Container				m_oList;
-	int						m_nScroll;
-	int						m_nSelected;
+	int 					m_nScroll;
+	int 					m_nSelected;
 	iterator				m_pFocus;
 	iterator				m_pFirst;
 	std::list< iterator >	m_oSelTile;
@@ -101,12 +101,13 @@ private:
 public:
 	virtual BOOL				CheckAvailable(CLibraryTreeItem* pSel);
 	virtual void				Update();
+	virtual void				SelectAll();
 	virtual BOOL				Select(DWORD nObject);
 	virtual CLibraryListItem	DropHitTest(const CPoint& point);
 	virtual HBITMAP				CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddle);
 private:
 	void				clear();
-//	int					GetTileIndex(CLibraryTileItem* pTile) const;
+//	int 				GetTileIndex(CLibraryTileItem* pTile) const;
 	bool				Select(iterator pTile, TRISTATE bSelect = TRI_TRUE);
 	bool				DeselectAll(iterator pTile);
 	bool				DeselectAll();
@@ -125,6 +126,7 @@ private:
 	void				ScrollBy(int nDelta);
 	void				ScrollTo(int nDelta);
 	iterator			HitTest(const CPoint& point);
+	virtual DWORD_PTR	HitTestIndex(const CPoint& point) const;
 	bool				GetItemRect(iterator pTile, CRect* pRect);
 
 // Overrides
@@ -143,10 +145,9 @@ protected:
 	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
@@ -161,5 +162,4 @@ protected:
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
-
 };

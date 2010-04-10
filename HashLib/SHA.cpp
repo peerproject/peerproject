@@ -1,7 +1,7 @@
 //
 // SHA.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Dr Brian Gladman <brg@gladman.me.uk>, 2002.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -168,7 +168,7 @@ namespace
 {
 	// ch transformation
 	template< uint32 round >
-	void F(const CSHA::TransformArray& data, uint32& a, uint32& b, uint32 c, uint32 d, uint32 e, uint32& t)
+	__forceinline void F(const CSHA::TransformArray& data, uint32& a, uint32& b, uint32 c, uint32 d, uint32 e, uint32& t)
 	{
 		t = a;
 		a = rotateLeft( a, 5 ) + e + data[ round ] + 0x5a827999 + ( d ^ ( b & ( c ^ d ) ) );
@@ -176,7 +176,7 @@ namespace
 	}
 	// parity transformation
 	template< uint32 round >
-	void G(const CSHA::TransformArray& data, uint32& a, uint32& b, uint32 c, uint32 d, uint32 e, uint32& t)
+	__forceinline void G(const CSHA::TransformArray& data, uint32& a, uint32& b, uint32 c, uint32 d, uint32 e, uint32& t)
 	{
 		t = a;
 		a = rotateLeft( a, 5 ) + e + data[ round + 20 ] + 0x6ed9eba1 + ( b ^ c ^ d );
@@ -184,7 +184,7 @@ namespace
 	}
 	// maj transformation
 	template< uint32 round >
-	void H(const CSHA::TransformArray& data, uint32& a, uint32& b, uint32 c, uint32 d, uint32 e, uint32& t )
+	__forceinline void H(const CSHA::TransformArray& data, uint32& a, uint32& b, uint32 c, uint32 d, uint32 e, uint32& t )
 	{
 		t = a;
 		a = rotateLeft( a, 5 ) + e + data[ round + 40 ] + 0x8f1bbcdc + ( ( c & d ) ^ ( b & ( c ^ d ) ) );
@@ -192,7 +192,7 @@ namespace
 	}
 	// parity transformation
 	template< uint32 round >
-	void I(const CSHA::TransformArray& data, uint32& a, uint32& b, uint32 c, uint32 d, uint32 e, uint32& t )
+	__forceinline void I(const CSHA::TransformArray& data, uint32& a, uint32& b, uint32 c, uint32 d, uint32 e, uint32& t )
 	{
 		t = a;
 		a = rotateLeft( a, 5 ) + e + data[ round + 60 ] + 0xca62c1d6 + ( b ^ c ^ d );
@@ -345,13 +345,13 @@ void CSHA::Add(const void* pData, std::size_t nLength)
 // The free distribution and use of this software in both source and
 // binary form is allowed (with or without changes) provided that:
 //
-//   1. distributions of this source code include the above copyright notice,
-//      this list of conditions and the following disclaimer;
-//   2. distributions in binary form include the above copyright notice,
-//      this list of conditions and the following disclaimer
-//      in the documentation and/or other associated materials;
-//   3. the copyright holder's name is not used to endorse products
-//      built using this software without specific written permission.
+//	1. distributions of this source code include the above copyright notice,
+//		this list of conditions and the following disclaimer;
+//	2. distributions in binary form include the above copyright notice,
+//		this list of conditions and the following disclaimer
+//		in the documentation and/or other associated materials;
+//	3. the copyright holder's name is not used to endorse products
+//		built using this software without specific written permission.
 //
 // ALTERNATIVELY, provided that this notice is retained in full, this product
 // may be distributed under the terms of the GNU General Public License (GPL),

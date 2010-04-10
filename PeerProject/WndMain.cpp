@@ -1081,6 +1081,8 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	m_wndMenuBar.SetWatermark( Skin.GetWatermark( _T("CCoolMenuBar") ) );
 	m_wndTabBar.OnSkinChange();
 
+	// ToDo: Skin m_wndStatusBar
+
 	// Make Menu Dock Area Skinnable
 	if ( CWnd* pDockBar = GetDlgItem( AFX_IDW_DOCKBAR_TOP ) )
 	{
@@ -1194,11 +1196,8 @@ LRESULT CMainWnd::OnHandleTorrent(WPARAM wParam, LPARAM /*lParam*/)
 
 	CTorrentSeedDlg dlg( strPath );
 	// Shift Key or Active Hashing (crashbug) bypass Torrent Loading Attempt straight to Dialog
-	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 || LibraryBuilder.GetRemaining() ||
-		! dlg.LoadTorrent( strPath ) )
-	{
+	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 || LibraryBuilder.GetRemaining() || ! dlg.LoadTorrent( strPath ) )
 		dlg.DoModal();	// Try again manually
-	}
 
 	return 0;
 }
@@ -2537,7 +2536,7 @@ void CMainWnd::OnHelpWeb1()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/external/?link1"),
+	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("external/?link1"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2545,7 +2544,7 @@ void CMainWnd::OnHelpWeb2()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/external/?link2"),
+	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("external/?link2"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2553,7 +2552,7 @@ void CMainWnd::OnHelpWeb3()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/external/?link3"),
+	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("external/?link3"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2561,7 +2560,7 @@ void CMainWnd::OnHelpWeb4()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/external/?link4"),
+	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("external/?link4"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2569,7 +2568,7 @@ void CMainWnd::OnHelpWeb5()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/external/?link5"),
+	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("external/?link5"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2577,7 +2576,7 @@ void CMainWnd::OnHelpWeb6()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/external/?link6"),
+	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("external/?link6"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2586,18 +2585,18 @@ void CMainWnd::OnHelpFaq()
 	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("help/?faq"),
+		strWebSite + _T("wiki/userfaq"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CMainWnd::OnHelpConnectiontest()
 {
-	const CString strWebSite( WEB_SITE );
 	CString strTestUrl;
+	strTestUrl.Format( _T("%s/connectiontest/?port=%d&lang=%s&Version=%s"),
+		WEB_SITE, Settings.Connection.InPort,
+		(LPCTSTR)Settings.General.Language, (LPCTSTR)theApp.m_sVersion );
 
-	strTestUrl.Format( strWebSite + _T("help/test/?port=%d&lang=%s&Version=") + theApp.m_sVersion, Settings.Connection.InPort, Settings.General.Language );
-	ShellExecute( GetSafeHwnd(), _T("open"),
-		strTestUrl,
+	ShellExecute( GetSafeHwnd(), _T("open"), strTestUrl,
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2606,7 +2605,7 @@ void CMainWnd::OnHelpGuide()
 	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("help/?guide"),
+		strWebSite + _T("wiki/userguide"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2615,7 +2614,7 @@ void CMainWnd::OnHelpForums()
 	const CString strWebSite( WEB_SITE );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("help/?forum"),
+		strWebSite + _T("forums"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2630,18 +2629,19 @@ void CMainWnd::OnHelpForumsLocal()
 
 void CMainWnd::OnHelpUpdate()
 {
-	const CString strUpdateSite(UPDATE_URL);
+	const CString strUpdateSite( UPDATE_URL );
 
 	ShellExecute( GetSafeHwnd(), _T("open"),
 		strUpdateSite + _T("?Version=") + theApp.m_sVersion + _T("&Language=") + Settings.General.Language.Left(2),
 		NULL, NULL, SW_SHOWNORMAL );
+	// ToDo: Add 32/64-bit option here ?
 }
 
 void CMainWnd::OnHelpRouter()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/?router"),
+	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("wiki/userguide/router"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2649,7 +2649,7 @@ void CMainWnd::OnHelpSecurity()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/?security"),
+	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("wiki/userguide/security"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2657,7 +2657,7 @@ void CMainWnd::OnHelpCodec()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("help/?codec"),
+	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("wiki/userguide/codecs"),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 

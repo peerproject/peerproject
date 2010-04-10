@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1085,31 +1085,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Voorvertonen"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Bekijk commentaar"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Hervatten"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="_Pauzeren"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Afbreken"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Meer bronnen _zoeken"/>
-		<!--<separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Wis voltooide bestanden"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="A_utomatisch wissen"/>-->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Bekijk commentaar"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Voorvertonen"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="_Kopie voorvertonen"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Voorvertonen"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Toevoegen aan _afspeellijst"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Bekijk commentaar"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Hervatten"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="_Pauzeren"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Af_breken"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="_Bekijk commentaar"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="R_emote Preview"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Meer bronnen _zoeken"/>
 		<separator/>
 		<menu text="Uit_gebreid">
@@ -1117,14 +1114,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="URI _kopiëren"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="Bron toe_voegen..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Merge lokaal bestand..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="_Monitor venster"/>
+		</menu>
+		<menu text="Pri_oriteit">
 			<item id="ID_DOWNLOADS_BOOST" text="_Negeer snelheidslimiet"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Naar b_oven"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Naar b_eneden"/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="Naar b_oven!"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Naar b_eneden!"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Naar b_oven" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Naar b_eneden" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Naar boven!" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Naar beneden!" shortcut="Ctrl+Down"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
@@ -2769,7 +2769,7 @@
 	<string id="8230" value="PeerProject is bronnen aan het zoeken voor:"/>
 	<string id="8231" value="Geen bronnen"/>
 	<string id="8232" value="Openen"/>
-	<string id="8233" value="Voorvertonen"/>
+	<string id="8233" value="Annuleren"/>
 	<string id="8235" value="Totale downloadsnelheid:"/>
 	<string id="8236" value="Geschatte resterende tijd:"/>
 	<string id="8237" value="Hoeveelheid gedownload:"/>
@@ -3036,7 +3036,6 @@
 	<string id="16402" value="PeerProject heeft een collectiebestand ontvangen:\r\n\r\n&quot;%s&quot;\r\n\r\nDit bestand is waarschijnlijk geen geldig collectiebestand."/>
 	<string id="16403" value="PeerProject heeft het collectiebestand &quot;%s&quot; toegevoegd aan je bibliotheek."/>
 	<string id="16404" value="PeerProject heeft het collectiebestand &quot;%s&quot; niet kunnen installeren door het te kopi#235;ren naar de map &quot;%s&quot;."/>
-	<string id="16405" value="Wil je dit bestand downloaden?\r\n\r\n&quot;%s&quot;\r\n\r\nKies Annuleren om andere meldingen te voorkomen."/>
 	<string id="16406" value="Wil je alle bestanden in deze collectie downloaden?\r\n\r\nKies Annuleren om andere meldingen te voorkomen."/>
 	<string id="16407" value="Wil je voorkomen dat je nog een keer wordt gevraagd om iets van deze collectie te downloaden?"/>
 	<string id="16408" value="Kopieër &amp;URI"/>
@@ -3407,14 +3406,14 @@
 		<control caption="Als ik minimaliseer:"/>
 		<control caption="Normaal|Minimaliseer"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliotheek">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Bibliotheek">
 		<control caption="_Opties:"/>
 		<control caption="Toon anderen mijn bestanden"/>
+		<control caption="Herinner de mappenweergave"/>
 		<control caption="Bewaak bibliotheekmappen"/>
 		<control caption="Snel hashen (gebruikt meer CPU)"/>
 		<control caption="Smart media series detection"/>
 		<control caption="Maak een spookbestand"/>
-		<control caption="Herinner de mappenweergave"/>
 		<control caption="_Recente bestanden:"/>
 		<control caption="Onthoud:"/>
 		<control/>
@@ -3425,6 +3424,7 @@
 		<control/>
 		<control caption="dagen"/>
 		<control caption="Wis geschiedenis"/>
+		<control caption="Wis spookbestand"/>
 		<control caption="Veilig te o_penen:"/>
 		<control/>
 		<control caption="_Toevoegen"/>
@@ -4069,8 +4069,7 @@
 		<control caption="Annuleren"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Download">
-		<control caption="PeerProject is bezig met downloaden:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Download">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -4084,7 +4083,6 @@
 		<control caption="Al gedownload:"/>
 		<control caption="..."/>
 		<control caption="Ga naar"/>
-		<control caption="Open"/>
 		<control caption="Stop"/>
 		<control caption="Sluiten"/>
 		<control caption="Dit venster sluiten als de download voltooid is"/>
@@ -4459,23 +4457,22 @@
 		<control caption="tot"/>
 		<control caption="Wissen"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Downloadgroep eigenschappen">
-		<control caption="OK"/>
-		<control caption="Annuleren"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Downloadgroep eigenschappen">
+		<control caption="Groep _Naam:"/>
+		<control/>
+		<control caption="_Map voor de voltooide bestanden:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Filter:"/>
 		<control/>
 		<control caption="_Toevoegen"/>
 		<control caption="_Verwijder"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="Groep _Naam:"/>
-		<control caption="_Filter:"/>
-		<control caption="_Map voor de voltooide bestanden:"/>
 		<control caption="_Bestandstype (schema):"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="OK"/>
+		<control caption="Annuleren"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Visualisatie selecteren">
 		<control/>
@@ -4669,4 +4666,4 @@
 		<column from="Order" to="Volgorde"/>
 	</list>
 </listColumns>
-</skin>
+</skin>⹪

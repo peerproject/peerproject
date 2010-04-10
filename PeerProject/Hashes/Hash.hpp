@@ -21,6 +21,7 @@
 
 //! \file		Hashes/Hash.hpp
 //! \brief		Defines Hash template.
+// Note: "CString" were custom "StringType"
 
 #pragma once
 
@@ -33,10 +34,10 @@ namespace Hashes
 	//!
 	//! This class provides a policy based design to capture and define
 	//! behavioural and structural properties of hashes. Unlike the reference
-	//! example these policies are organized in a single inheritance tree. This
-	//! avoids codebloat commonly found with multiple inheritance and it avoids
-	//! some cumbersome workarounds, because these policies are not strictly
-	//! orthogonal. While they can combined freely, policies may (and often do)
+	//! example these policies are organized in a single inheritance tree.
+	//! This avoids codebloat commonly found with multiple inheritance and it
+	//! avoids some cumbersome workarounds, because these policies are not
+	//! strictly orthogonal. While they can combined freely, policies may often
 	//! depend on other policies they inherit from.
 	//! \param DescriptorT       A model of \ref hashdescriptorpage
 	//!                          "Hash Descriptor". Different instances that
@@ -78,8 +79,8 @@ namespace Hashes
 		//! Tries to validate the input afterwards.
 		Hash(const RawStorage& rhs) : ValidationPolicy( rhs ) {}
 
-		//! Converts a related hash object. We do so by forwarding the parameter
-		//! to each policy in turn.
+		//! Converts a related hash object.
+		//! We do so by forwarding the parameter to each policy in turn.
 		//! \note the implicit copy constructor is still generated and used
 		//!		if the argument type matches exactly.
 		template<
@@ -111,14 +112,14 @@ namespace Hashes
 		//! The encoding cannot be deduced and must be specified explicitly.
 		//! Returns an empty string if the hash is not valid.
 		template<Encoding encoding>
-		StringType toString() const
+		CString toString() const
 		{
 			return isValid()
 					? HashToString< encoding, byteCount >()( &( *this )[ 0 ] )
-					: StringType();
+					: CString();
 		}
 		//! \brief Generates a hash string using the default encoding for this hash type.
-		StringType toString() const
+		CString toString() const
 		{
 			return toString< encoding >();
 		}
@@ -131,25 +132,24 @@ namespace Hashes
 		//!		Currently the compilation fails if the type has no urns
 		//!		but the error message does not show the point of instantiation.
 		template<size_t urn>
-		StringType toUrn() const
+		CString toUrn() const
 		{
 			return isValid()
 					? urns[ urn ].signature
 							+ HashToString< encoding, byteCount >()( &( *this )[ 0 ] )
-					: StringType();
+					: CString();
 		}
 		//! \brief Generates a urn string using the default urn prefix.
-		StringType toUrn() const { return toUrn< 0 >(); }
+		CString toUrn() const { return toUrn< 0 >(); }
 		//! \brief Generates a urn string using the default short urn prefix.
-		StringType toShortUrn() const { return toUrn< 1 >(); }
+		CString toShortUrn() const { return toUrn< 1 >(); }
 
 		//! \brief Generates hash from a hash string with the specified encoding.
 		//!
 		//! Generates hash from string with the specified encoding.
 		//! The encoding cannot be deduced and must be specified explicitly.
 		//! The string is validated afterwards. If the generation fails because
-		//! either the string is not wellformed or the hash ist blacklisted,
-		//! the hash will be cleared.
+		//! the string is malformed or hash is blacklisted, the hash will be cleared.
 		template<Encoding encoding>
 		bool fromString(const wchar* input)
 		{
@@ -170,7 +170,7 @@ namespace Hashes
 		//! \todo Add suitable compile time assertion to catch cases when we
 		//!		try to use this function with a type that has no urns.
 		//!		Currently the compilation fails but the error message does not
-		//!		show the point of instantiation.
+		//!		show the point of instantiation.  ( ToDo: Remove these notes? )
 		template<Encoding encoding>
 		bool fromUrn(const wchar* input)
 		{
@@ -197,7 +197,6 @@ namespace Hashes
 
 	//! \relates Hashes::Hash
 	//! \brief Compares two related hashes for equality.
-	//!
 	//! The arguments are not tested for validity.
 	template
 	<
@@ -214,7 +213,6 @@ namespace Hashes
 
 	//! \relates Hashes::Hash
 	//! \brief Compares two related hashes for inequality.
-	//!
 	//! Equivalent to: !( lhs == rhs )
 	template
 	<
@@ -232,10 +230,10 @@ namespace Hashes
 	//! \relates Hashes::Hash
 	//! \brief Provides strict weak ordering for related hashes.
 	//!
-	//! The arguments are not tested for validity. If either argument
-	//! is invalid, the result is undefined. The comparison is equavilant
-	//! to a lexicographical ordering of its word array. Thus it does not
-	//! provide the same ordering as comparing hash string would give.
+	//! Arguments are not tested for validity.  If either argument is invalid,
+	//! the result is undefined.  The comparison is equavilant to a
+	//! lexicographical ordering of its word array.  Thus it does not provide
+	//! the same ordering as comparing hash string would give.
 	template
 	<
 		typename Descriptor,
@@ -251,7 +249,6 @@ namespace Hashes
 
 	//! \relates Hashes::Hash
 	//! \brief Provides strict weak ordering for related hashes.
-	//!
 	//! Equivalent to: rhs < rhs
 	template
 	<
@@ -268,7 +265,6 @@ namespace Hashes
 
 	//! \relates Hashes::Hash
 	//! \brief Provides strict weak ordering for related hashes.
-	//!
 	//! Equivalent to: !( lhs < rhs )
 	template
 	<
@@ -285,7 +281,6 @@ namespace Hashes
 
 	//! \relates Hashes::Hash
 	//! \brief Provides strict weak ordering for related hashes.
-	//!
 	//! Equivalent to: !( rhs < rhs )
 	template
 	<
@@ -302,7 +297,6 @@ namespace Hashes
 
 	//! \relates Hashes::Hash
 	//! \brief Compares two related hashes for validaty and equality.
-	//!
 	//! This predicate returns true if and only if both arguments are valid and equal.
 	template
 	<
@@ -319,7 +313,6 @@ namespace Hashes
 
 	//! \relates Hashes::Hash
 	//! \brief Compares two related hashes for validaty and unequality.
-	//!
 	//! This predicate returns true if and only if both arguments are valid and unequal.
 	template
 	<
@@ -335,6 +328,5 @@ namespace Hashes
 	}
 
 	//! \namespace Hashes::Policies
-	//! \brief This namespace is used to locate all possible Policies for
-	//!        the Hash class template.
+	//! \brief Namespace is used to locate all Policies for the Hash class template.
 } // namespace Hashes

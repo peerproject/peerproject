@@ -2,7 +2,7 @@
 // StdAfx.h
 //
 // This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2010
-// Portions Copyright Shareaza Development Team, 2007-2008.
+// Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
 // modify it under the terms of the GNU General Public License
@@ -21,33 +21,33 @@
 
 #pragma once
 
-#define WINVER				0x0500
-#define _WIN32_WINNT		0x0500
-#define _WIN32_WINDOWS		0x0500
-//#define NTDDI_VERSION		NTDDI_LONGHORN  // Minimum build target
-//#include <sdkddkver.h>	// Setup versioning for windows SDK/DDK
-#define VC_EXTRALEAN		// Exclude rarely-used stuff from Windows headers
+#define WINVER				0x0600
+#define _WIN32_WINNT		0x0600
+#define _WIN32_WINDOWS		0x0600
+#define NTDDI_VERSION		NTDDI_LONGHORN  // Minimum build target = Vista
+#define VC_EXTRALEAN		// Exclude rarely-used things from Windows headers
 #define BOOST_USE_WINDOWS_H
 
-#include <afxwin.h>		// MFC core and standard components
-#include <afxext.h>		// MFC extensions
-#include <afxcmn.h>		// MFC support for Windows Common Controls
-#include <afxmt.h>		// MFC multithreading
-#include <shlobj.h>		// Shell objects
-#include <shlwapi.h>
+#include <sdkddkver.h>		// Setup versioning for Windows SDK/DDK
+#include <afxwin.h> 		// MFC core and standard components
+#include <afxext.h> 		// MFC extensions
+#include <afxcmn.h> 		// MFC support for Windows Common Controls
+#include <afxmt.h>			// MFC multithreading
+#include <shlobj.h> 		// Shell objects
+#include <shlwapi.h>		// Shell win api
 
-#include <Boost\type_traits\is_same.hpp>
-#include <Boost\checked_delete.hpp>
-#include "..\PeerProject\Augment\auto_ptr.hpp"
-#include "..\PeerProject\Augment\auto_array.hpp"
+#include <Augment\auto_ptr.hpp>		// (Dependencies moved to file)
+#include <Augment\auto_array.hpp>
 
 #include "..\HashLib\HashLib.h"
 
 typedef unsigned __int64 QWORD;
 
-#define OFN_ENABLESIZING		0x00800000
+#ifndef OFN_ENABLESIZING
+  #define OFN_ENABLESIZING		0x00800000
+#endif
 #ifndef BIF_NEWDIALOGSTYLE
-	#define BIF_NEWDIALOGSTYLE	0x00000040
+  #define BIF_NEWDIALOGSTYLE	0x00000040
 #endif
 
 using namespace augment;

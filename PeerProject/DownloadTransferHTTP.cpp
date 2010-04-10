@@ -1662,7 +1662,7 @@ void CDownloadTransferHTTP::OnDropped()
 		m_nLength = m_nContentLength = GetInputLength();
 		ReadTiger( true );
 		// CDownloadTransfer::Close will resume the closed connection
-        if ( m_pSource )
+		if ( m_pSource )
 			m_pSource->m_bCloseConn = TRUE;
 		Close( TRI_TRUE );
 	}

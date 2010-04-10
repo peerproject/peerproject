@@ -1,13 +1,15 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <manifest
  name="SkinSeven"
  author="SkinVista"
+ icon="PeerProject.ico"
  description="PeerProject's Windows 7 Theme"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
- icon="PeerProject.ico"
+ license="Persistent Public Domain (PPD)"
+ platform="PeerProject 1.0"
  path="SkinVista"
  version="1.0"
  type="Skin"
@@ -27,7 +29,7 @@
   <option name="DropMenu" value="true"/>
   <option name="MenuBorders" value="false"/>
   <option name="MenuGripper" value="false"/>
-  <option name="MonitorBar"  value="110"/>
+  <option name="MonitorBar"  value="114"/>
   <!--<option name="Taskbar" value="26" width="140"/>-->
   <!--<option name="Toolbar" value="28"/>-->
   <!--<option name="Titlebar" value="64"/>-->
@@ -158,6 +160,8 @@
   <watermark target="CWndTabBar"			path="Seven\RibbonBaseline.png"/>
   <watermark target="CMonitorBar"			path="Seven\RibbonMonitorBkg.png"/>
   <watermark target="CHashProgressBar"			path="Seven\HashWnd.png"/>
+  <watermark target="CDialog"				path="Seven\ToolbarLt.png"/>
+  <watermark target="CMainWnd"				path="Seven\RibbonTabsBkg.png"/>
   <watermark target="CMainWnd.Toolbar"			path="Seven\RibbonTabsBkg.png"/>
   <watermark target="CMediaFrame.Toolbar"		path="Mediabar.png"/>
   <!--watermark target="CMediaList.Toolbar"		path="ToolbarLt.png"-->
@@ -354,7 +358,7 @@
 <caption align="left" rect="26,1,280,24" fontFace="Segoe UI" fontSize="12" fontWeight="Normal" color="000000" outlinecolor="ECECEC" inactivecolor="707070"/>
 </windowSkin>
 
-<!-- floating windows -->
+<!-- Floating windows -->
 
 <windowSkin>
 <image path="FrameVista.png"/>
@@ -596,8 +600,8 @@
  <image id="ID_MEDIA_PLAY"/>
  <image id="ID_MEDIA_PAUSE"/>
  <image id="ID_MEDIA_STOP"/>
- <image id="ID_MEDIA_PREVIOUS" id1="ID_DOWNLOAD_GROUP_MOVELEFT" id2="ID_DOWNLOADS_MOVE_UP" id3="ID_DOWNLOADS_MOVE_TOP"/>
- <image id="ID_MEDIA_NEXT" id1="ID_DOWNLOAD_GROUP_MOVERIGHT" id2="ID_DOWNLOADS_MOVE_DOWN" id3="ID_DOWNLOADS_MOVE_BOTTOM"/>
+ <image id="ID_MEDIA_PREVIOUS"/>
+ <image id="ID_MEDIA_NEXT"/>
  <image id="ID_CHILD_CLOSE" id1="ID_NETWORK_EXIT"/>
  <image id="ID_SEARCH_SEARCH" id1="ID_TAB_SEARCH" id2="ID_NETWORK_SEARCH" id3="ID_LIBRARY_SEARCH_QUICK" id4="IDR_SEARCHFRAME"
 	id5="ID_VIEW_SEARCH_MONITOR" id6="ID_HITMONITOR_SEARCH" id7="ID_VIEW_RESULTS_MONITOR" id8="ID_DOWNLOADS_SOURCES"/>

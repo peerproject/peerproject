@@ -81,8 +81,8 @@ void CLibraryDictionary::RemoveFile(const CLibraryFile& oFile)
 
 	ProcessFile( oFile, false, oFile.IsShared() );
 
-	// Always invalidates the table when removing a hashed file...
-	// ToDo: is this wise???  It will happen all the time.
+	// Always invalidate the table when removing a hashed file...
+	// ToDo: Is this wise?  It will happen all the time.
 	if ( oFile.IsHashed() )
 		Invalidate();
 }
@@ -121,44 +121,45 @@ void CLibraryDictionary::ProcessPhrase(
 void CLibraryDictionary::ProcessWord(
 	const CLibraryFile& oFile, const CString& strWord, bool bAdd, bool bCanUpload)
 {
-	if ( CWordMap::CPair* pPair = m_oWordMap.PLookup( strWord ) )
+	ASSUME_LOCK( Library.m_pSection );
+
+	CFileList* pList = NULL;
+	if ( m_oWordMap.Lookup( strWord, pList ) )
 	{
-		CFileList* pList = pPair->value.m_pList;
-		if ( bAdd )
+		if ( POSITION pos = pList->Find( &oFile ) )
 		{
-			pPair->value.m_nCount ++;
-			if ( pList->GetTail() != &oFile )
+			if ( ! bAdd )
 			{
-				pList->AddTail( &oFile );
-				if ( bCanUpload && m_bValid )
-					m_pTable->AddExactString( strWord );
+				pList->RemoveAt( pos );
+				if ( pList->IsEmpty() )
+				{
+					delete pList;
+
+					VERIFY( m_oWordMap.RemoveKey( strWord ) );
+
+					if ( bCanUpload && m_bValid )
+						Invalidate();
+				}
 			}
 		}
 		else
 		{
-			POSITION pos = pList->Find( &oFile );
-			if ( pos )
+			if ( bAdd )
 			{
-				pList->RemoveAt( pos );
+				pList->AddTail( &oFile );
 
-				if ( pList->IsEmpty() )
-				{
-					m_oWordMap.RemoveKey( strWord );
-					delete pList;
-
-					if ( bCanUpload )
-						Invalidate();
-				}
+				if ( bCanUpload && m_bValid )
+					m_pTable->AddExactString( strWord );
 			}
 		}
 	}
 	else if ( bAdd )
 	{
-		CWord oWord( new CFileList );
-		if ( oWord.m_pList )
+		pList = new CFileList;
+		if ( pList )
 		{
-			oWord.m_pList->AddTail( &oFile );
-			m_oWordMap.SetAt( strWord, oWord );
+			pList->AddTail( &oFile );
+			m_oWordMap.SetAt( strWord, pList );
 
 			if ( bCanUpload && m_bValid )
 				m_pTable->AddExactString( strWord );
@@ -176,7 +177,7 @@ void CLibraryDictionary::BuildHashTable()
 	if ( m_bValid )
 		return;
 
-	if ( !m_pTable )
+	if ( ! m_pTable )
 	{
 		m_pTable = new CQueryHashTable();
 		if ( m_pTable )
@@ -193,16 +194,16 @@ void CLibraryDictionary::BuildHashTable()
 	for ( POSITION pos = m_oWordMap.GetStartPosition() ; pos ; )
 	{
 		CString strWord;
-		CWord oWord;
-		m_oWordMap.GetNextAssoc( pos, strWord, oWord );
+		CFileList* pList = NULL;
+		m_oWordMap.GetNextAssoc( pos, strWord, pList );
 
 		//TRACE( _T("[LD] Word \"%hs\" found %d time(s) in %d file(s)\n"), (LPCSTR)CT2A( strWord ), oWord.m_nCount, oWord.m_pList->GetCount() );
-		for ( POSITION pos = oWord.m_pList->GetHeadPosition() ; pos ; )
+		for ( POSITION pos = pList->GetHeadPosition() ; pos ; )
 		{
-			const CLibraryFile& oFile = *oWord.m_pList->GetNext( pos );
+			const CLibraryFile* pFile = pList->GetNext( pos );
 
 			// Check if the file can be uploaded
-			if ( oFile.IsShared() )
+			if ( pFile->IsShared() )
 			{
 				// Add the keyword to the table
 				m_pTable->AddExactString( strWord );
@@ -214,11 +215,11 @@ void CLibraryDictionary::BuildHashTable()
 	// Add sha1/ed2k hashes to hash table
 	for ( POSITION pos = LibraryMaps.GetFileIterator() ; pos ; )
 	{
-		const CLibraryFile& oFile = *LibraryMaps.GetNextFile( pos );
+		const CLibraryFile* pFile = LibraryMaps.GetNextFile( pos );
 
 		// Check if the file can be uploaded
-		if ( oFile.IsShared() )
-			m_pTable->AddHashes( oFile );
+		if ( pFile->IsShared() )
+			m_pTable->AddHashes( *pFile );
 	}
 
 	m_bValid = true;
@@ -258,9 +259,9 @@ void CLibraryDictionary::Clear()
 	for ( POSITION pos = m_oWordMap.GetStartPosition() ; pos ; )
 	{
 		CString strWord;
-		CWord oWord;
-		m_oWordMap.GetNextAssoc( pos, strWord, oWord );
-		delete oWord.m_pList;
+		CFileList* pList = NULL;
+		m_oWordMap.GetNextAssoc( pos, strWord, pList );
+		delete pList;
 	}
 
 	m_oWordMap.RemoveAll();
@@ -280,7 +281,7 @@ CFileList* CLibraryDictionary::Search(
 {
 	ASSUME_LOCK( Library.m_pSection );
 
-	if ( !m_bValid )
+	if ( ! m_bValid )
 	{
 		BuildHashTable();
 		if ( !m_bValid )
@@ -302,17 +303,17 @@ CFileList* CLibraryDictionary::Search(
 			continue;
 
 		CString strWord( pWordEntry->first, static_cast< int >( pWordEntry->second ) );
-		CWord oWord;
-		if ( m_oWordMap.Lookup( strWord, oWord ) )
+		CFileList* pList = NULL;
+		if ( m_oWordMap.Lookup( strWord, pList ) )
 		{
-			for ( POSITION pos = oWord.m_pList->GetHeadPosition() ; pos ; )
+			for ( POSITION pos = pList->GetHeadPosition() ; pos ; )
 			{
-				const CLibraryFile* pFile = oWord.m_pList->GetNext( pos );
+				const CLibraryFile* pFile = pList->GetNext( pos );
 
-				if ( bAvailableOnly && pFile->IsGhost() )
+				if ( bAvailableOnly && ! pFile->IsAvailable() )
 					continue;
 
-				if ( !bLocal && !pFile->IsShared() )
+				if ( ! bLocal && ! pFile->IsShared() )
 					continue;
 
 				if ( pFile->m_nSearchCookie == m_nSearchCookie )
@@ -393,9 +394,9 @@ void CLibraryDictionary::Serialize(CArchive& ar, const int nVersion)
 	{
 		ar << (UINT)m_oWordMap.GetCount();
 	}
-	else
+	else // Loading
 	{
-		if ( nVersion >= 29 )
+		if ( nVersion > 28 )
 		{
 			UINT nWordsCount = 0u;
 			ar >> nWordsCount;

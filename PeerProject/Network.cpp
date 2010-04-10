@@ -24,11 +24,8 @@
 #include "Settings.h"
 #include "Network.h"
 #include "Library.h"
-#include "SharedFile.h"
-#include "Security.h"
 #include "Handshakes.h"
 #include "Neighbours.h"
-#include "Neighbour.h"
 #include "Datagrams.h"
 #include "HostCache.h"
 #include "RouteCache.h"
@@ -38,22 +35,17 @@
 #include "Downloads.h"
 #include "Statistics.h"
 #include "DiscoveryServices.h"
-#include "HttpRequest.h"
 #include "UPnPFinder.h"
 
 #include "CrawlSession.h"
 #include "SearchManager.h"
 #include "QueryHashMaster.h"
-#include "QuerySearch.h"
 #include "QueryHit.h"
-#include "Buffer.h"
 #include "G1Packet.h"
 #include "G2Packet.h"
-#include "GGEP.h"
 #include "G1Neighbour.h"
 
 #include "WndMain.h"
-#include "WndChild.h"
 #include "WndSearch.h"
 #include "WndSearchMonitor.h"
 #include "WndHitMonitor.h"
@@ -113,6 +105,18 @@ BOOL CNetwork::IsSelfIP(const IN_ADDR& nAddress) const
 	return ( m_pHostAddresses.Find( nAddress.s_addr ) != NULL );
 }
 
+void CNetwork::InternetConnect()
+{
+	__try
+	{
+		InternetAttemptConnect( 0 );
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		// Something blocked WinAPI (for example application level firewall)
+	}
+}
+
 bool CNetwork::IsAvailable() const
 {
 	DWORD dwState = 0ul;
@@ -133,7 +137,7 @@ bool CNetwork::IsAvailable() const
 	return false;
 }
 
-bool CNetwork::IsConnected() const
+bool CNetwork::IsConnected() const throw()
 {
 	return IsThreadAlive();
 }
@@ -203,7 +207,7 @@ BOOL CNetwork::IsConnectedTo(const IN_ADDR* pAddress) const
 
 BOOL CNetwork::ReadyToTransfer(DWORD tNow) const
 {
-	if ( ! Network.IsConnected() )
+	if ( ! IsConnected() )
 		return FALSE;
 
 	// If a connection isn't needed for transfers, we can start any time
@@ -379,29 +383,48 @@ BOOL CNetwork::Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNam
 
 BOOL CNetwork::AsyncResolve(LPCTSTR pszAddress, WORD nPort, PROTOCOLID nProtocol, BYTE nCommand)
 {
-	CSingleLock pLock( &m_pSection );
-	if ( ! pLock.Lock( 250 ) ) return FALSE;
-
-	ResolveStruct* pResolve = new ResolveStruct;
+	auto_ptr< ResolveStruct > pResolve( new ResolveStruct );
 
 	HANDLE hAsync = WSAAsyncGetHostByName( AfxGetMainWnd()->GetSafeHwnd(), WM_WINSOCK,
 		CT2CA(pszAddress), pResolve->m_pBuffer, MAXGETHOSTSTRUCT );
 
 	if ( hAsync != NULL )
-	{
-		pResolve->m_sAddress = new CString( pszAddress );
-		pResolve->m_nProtocol = nProtocol;
-		pResolve->m_nPort = nPort;
-		pResolve->m_nCommand = nCommand;
-
-		m_pLookups.SetAt( hAsync, pResolve );
-		return TRUE;
-	}
-	else
-	{
-		delete pResolve;
 		return FALSE;
+
+	pResolve->m_sAddress = pszAddress;
+	pResolve->m_nProtocol = nProtocol;
+	pResolve->m_nPort = nPort;
+	pResolve->m_nCommand = nCommand;
+
+	CQuickLock pLock( m_pLookupsSection );
+	m_pLookups.SetAt( hAsync, pResolve.release() );
+	return TRUE;
+}
+
+CNetwork::ResolveStruct* CNetwork::GetResolve(HANDLE hAsync)
+{
+	CQuickLock pLock( m_pLookupsSection );
+
+	ResolveStruct* pResolve = NULL;
+	if ( m_pLookups.Lookup( hAsync, pResolve ) )
+		m_pLookups.RemoveKey( hAsync );
+
+	return pResolve;
+}
+
+void CNetwork::ClearResolve()
+{
+	CQuickLock pLock( m_pLookupsSection );
+
+	for ( POSITION pos = m_pLookups.GetStartPosition() ; pos ; )
+	{
+		HANDLE pAsync;
+		ResolveStruct* pResolve;
+		m_pLookups.GetNextAssoc( pos, pAsync, pResolve );
+		WSACancelAsyncRequest( pAsync );
+		delete pResolve;
 	}
+	m_pLookups.RemoveAll();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -528,7 +551,7 @@ BOOL CNetwork::PreRun()
 	// Make sure WinINet is connected (IE is not in offline mode)
 	if ( Settings.Connection.ForceConnectedState )
 	{
-		INTERNET_CONNECTED_INFO ici = { 0 };
+		INTERNET_CONNECTED_INFO ici = {};
 		HINTERNET hInternet = InternetOpen( Settings.SmartAgent(), INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0 );
 
 		ici.dwConnectedState = INTERNET_STATE_CONNECTED;
@@ -536,7 +559,7 @@ BOOL CNetwork::PreRun()
 		InternetCloseHandle( hInternet );
 	}
 
-	InternetAttemptConnect( 0 );
+	InternetConnect();
 
 	gethostname( m_sHostName.GetBuffer( 255 ), 255 );
 	m_sHostName.ReleaseBuffer();
@@ -593,7 +616,7 @@ void CNetwork::OnRun()
 	{
 		while ( IsThreadEnabled() )
 		{
-			HostCache.PruneOldHosts();
+			HostCache.PruneOldHosts();	// Every minute
 
 			Sleep( 50 );
 			Doze( 100 );
@@ -638,16 +661,7 @@ void CNetwork::PostRun()
 	NodeRoute->Clear();
 	QueryRoute->Clear();
 
-	for ( POSITION pos = m_pLookups.GetStartPosition() ; pos ; )
-	{
-		HANDLE pAsync;
-		ResolveStruct* pBuffer;
-		m_pLookups.GetNextAssoc( pos, pAsync, pBuffer );
-		WSACancelAsyncRequest( pAsync );
-		delete pBuffer->m_sAddress;
-		delete pBuffer;
-	}
-	m_pLookups.RemoveAll();
+	ClearResolve();
 
 	while ( ! m_pDelayedHits.IsEmpty() )
 	{
@@ -667,12 +681,11 @@ void CNetwork::PostRun()
 
 void CNetwork::OnWinsock(WPARAM wParam, LPARAM lParam)
 {
-	CSingleLock pLock( &m_pSection, TRUE );
+	auto_ptr< ResolveStruct > pResolve( GetResolve( (HANDLE)wParam ) );
+	if ( ! pResolve.get() )
+		return;
 
-	ResolveStruct* pResolve = NULL;
-	if ( ! m_pLookups.Lookup( (HANDLE)wParam, pResolve ) ) return;
-	m_pLookups.RemoveKey( (HANDLE)wParam );
-
+	CQuickLock oLock( m_pSection );
 	CString strAddress;
 	CDiscoveryService* pService;
 
@@ -691,7 +704,7 @@ void CNetwork::OnWinsock(WPARAM wParam, LPARAM lParam)
 			// Code to invoke UDPHC/UDPKHL Sender.
 			if ( pResolve->m_nProtocol == PROTOCOL_G1 )
 			{
-				strAddress = L"uhc:" + *(pResolve->m_sAddress);
+				strAddress = L"uhc:" + pResolve->m_sAddress;
 				pService = DiscoveryServices.GetByAddress( strAddress );
 				if ( pService == NULL )
 				{
@@ -708,7 +721,7 @@ void CNetwork::OnWinsock(WPARAM wParam, LPARAM lParam)
 			}
 			else if ( pResolve->m_nProtocol == PROTOCOL_G2 )
 			{
-				strAddress = L"ukhl:" + *(pResolve->m_sAddress);
+				strAddress = L"ukhl:" + pResolve->m_sAddress;
 				pService = DiscoveryServices.GetByAddress( strAddress );
 				if ( pService == NULL )
 				{
@@ -725,46 +738,39 @@ void CNetwork::OnWinsock(WPARAM wParam, LPARAM lParam)
 			}
 		}
 	}
+	else if ( pResolve->m_nCommand == 3 )
+	{
+		if ( pResolve->m_nProtocol == PROTOCOL_G1 )
+		{
+			strAddress = L"uhc:" + pResolve->m_sAddress;
+			pService = DiscoveryServices.GetByAddress( strAddress );
+			if ( pService == NULL )
+			{
+				strAddress.AppendFormat(_T(":%u"), pResolve->m_nPort );
+				pService = DiscoveryServices.GetByAddress( strAddress );
+			}
+
+			if ( pService != NULL )
+				pService->OnFailure();
+		}
+		else if ( pResolve->m_nProtocol == PROTOCOL_G2 )
+		{
+			strAddress = L"ukhl:" + pResolve->m_sAddress;
+			pService = DiscoveryServices.GetByAddress( strAddress );
+			if ( pService == NULL )
+			{
+				strAddress.AppendFormat(_T(":%u"), pResolve->m_nPort );
+				pService = DiscoveryServices.GetByAddress( strAddress );
+			}
+
+			if ( pService != NULL )
+				pService->OnFailure();
+		}
+	}
 	else if ( pResolve->m_nCommand == 0 )
 	{
-		theApp.Message( MSG_ERROR, IDS_NETWORK_RESOLVE_FAIL, LPCTSTR( *pResolve->m_sAddress ) );
+		theApp.Message( MSG_ERROR, IDS_NETWORK_RESOLVE_FAIL, pResolve->m_sAddress );
 	}
-	else
-	{
-		if ( pResolve->m_nCommand == 3 )
-		{
-			if ( pResolve->m_nProtocol == PROTOCOL_G1 )
-			{
-				strAddress = L"uhc:" + *(pResolve->m_sAddress);
-				pService = DiscoveryServices.GetByAddress( strAddress );
-				if ( pService == NULL )
-				{
-					strAddress.AppendFormat(_T(":%u"), pResolve->m_nPort );
-					pService = DiscoveryServices.GetByAddress( strAddress );
-				}
-
-				if ( pService != NULL )
-					pService->OnFailure();
-			}
-			else if ( pResolve->m_nProtocol == PROTOCOL_G2 )
-			{
-				strAddress = L"ukhl:" + *(pResolve->m_sAddress);
-				pService = DiscoveryServices.GetByAddress( strAddress );
-				if ( pService == NULL )
-				{
-					strAddress.AppendFormat(_T(":%u"), pResolve->m_nPort );
-					pService = DiscoveryServices.GetByAddress( strAddress );
-				}
-
-				if ( pService != NULL )
-					pService->OnFailure();
-			}
-		}
-
-	}
-
-	delete pResolve->m_sAddress;
-	delete pResolve;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -774,7 +780,7 @@ BOOL CNetwork::GetNodeRoute(const Hashes::Guid& oGUID, CNeighbour** ppNeighbour,
 {
 	if ( validAndEqual( oGUID, Hashes::Guid( MyProfile.oGUID ) ) ) return FALSE;
 
-	if ( Network.NodeRoute->Lookup( oGUID, ppNeighbour, pEndpoint ) ) return TRUE;
+	if ( NodeRoute->Lookup( oGUID, ppNeighbour, pEndpoint ) ) return TRUE;
 	if ( ppNeighbour == NULL ) return FALSE;
 
 	for ( POSITION pos = Neighbours.GetIterator() ; pos ; )
@@ -835,7 +841,7 @@ BOOL CNetwork::RoutePacket(CG2Packet* pPacket)
 
 BOOL CNetwork::SendPush(const Hashes::Guid& oGUID, DWORD nIndex)
 {
-	CSingleLock pLock( &Network.m_pSection );
+	CSingleLock pLock( &m_pSection );
 	if ( ! pLock.Lock( 250 ) ) return TRUE;
 
 	if ( ! IsListening() ) return FALSE;
@@ -946,12 +952,12 @@ BOOL CNetwork::RouteHits(CQueryHit* pHits, CPacket* pPacket)
 	}
 	else if ( pPacket->m_nProtocol == PROTOCOL_G2 )
 	{
-		if ( Network.IsSelfIP( pEndpoint.sin_addr ) ) return FALSE;
+		if ( IsSelfIP( pEndpoint.sin_addr ) ) return FALSE;
 		Datagrams.Send( &pEndpoint, (CG2Packet*)pPacket, FALSE );
 	}
 	else
 	{
-		if ( Network.IsSelfIP( pEndpoint.sin_addr ) ) return FALSE;
+		if ( IsSelfIP( pEndpoint.sin_addr ) ) return FALSE;
 		pPacket = CG2Packet::New( G2_PACKET_HIT_WRAP, (CG1Packet*)pPacket );
 		Datagrams.Send( &pEndpoint, (CG2Packet*)pPacket, TRUE );
 	}
@@ -1004,9 +1010,13 @@ void CNetwork::RunQueryHits()
 	if ( m_pDelayedHits.IsEmpty() )
 		return;
 
-	// Spend here no more than 250 ms at once
+	// Spend no more than 250 ms here at once
 	DWORD nBegin = GetTickCount();
-	CSingleLock oLock( &m_pSection, TRUE );
+
+	CSingleLock oLock( &m_pSection, FALSE );
+	if ( ! oLock.Lock( 250 ) )
+		return;
+
 	while ( ! m_pDelayedHits.IsEmpty() && GetTickCount() - nBegin < 250 )
 	{
 		CDelayedHit oQHT = m_pDelayedHits.RemoveHead();
@@ -1160,7 +1170,6 @@ int CNetwork::SendTo(SOCKET s, const char* buf, int len, const SOCKADDR_IN* pTo)
 		return -1;
 	}
 }
-
 
 int CNetwork::Recv(SOCKET s, char* buf, int len)
 {

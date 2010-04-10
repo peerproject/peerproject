@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1077,31 +1077,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Открыть"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Удаленный просмотр"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="П_росмотр оценок"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Продолжить"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="П_риостановить"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Отменить"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Найти больше источников"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Очистить от завершенных"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="Ав_то очистка"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Удаленный просмотр"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="П_росмотр оценок"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Справка..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="_Открыть"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Открыть _копию"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="_Открыть"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="_Добавить в список"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Удаленный просмотр"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="П_росмотр оценок"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Продолжить"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="П_риостановить"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Отменить"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="П_росмотр оценок"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Удаленный просмотр"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="_Найти больше источников"/>
 		<separator/>
 		<menu text="Оп_ытным">
@@ -1109,14 +1106,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="Копировать _ссылку"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Добавить источник..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Merge Слияние локальный файл..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Окно _монитора"/>
+		</menu>
+		<menu text="Приоритет">
 			<item id="ID_DOWNLOADS_BOOST" text="Снять _лимит трафика"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Вв_ерх"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="В_низ"/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="Вв_ерх!"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="В_низ!"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Вв_ерх!" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="В_низ!" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Вв_ерх" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="В_низ" shortcut="Ctrl+Down"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Справка..."/>
 		<separator/>
@@ -2755,7 +2755,7 @@
 	<string id="8230" value="PeerProject ищет источники для:"/>
 	<string id="8231" value="Нет источников"/>
 	<string id="8232" value="Открыть"/>
-	<string id="8233" value="Просмотр"/>
+	<string id="8233" value="Отмена"/>
 	<string id="8235" value="Скорость передачи:"/>
 	<string id="8236" value="Примерно осталось:"/>
 	<string id="8237" value="Загрузили|Всего|%:"/>
@@ -3023,7 +3023,6 @@
 	<string id="16402" value="PeerProject получила файл коллекции:\n\n\n\n«%s»\n\n\n\nЭтот файл не является правильным файлом коллекции."/>
 	<string id="16403" value="PeerProject добавила файл коллекции «%s» в Ваше хранилище."/>
 	<string id="16404" value="PeerProject не смогла инсталлировать файл коллекции «%s», копируя его в папку «%s»."/>
-	<string id="16405" value="Хотите ли Вы загрузить этот файл?\n\n\n\n«%s»\n\n\n\nВыберите «Cancel», чтобы не тревожить об этом позже."/>
 	<string id="16406" value="Хотите ли Вы загрузить все файлы из этой коллекции?\n\n\n\nВыберите «Cancel», чтобы не тревожить об этом позже."/>
 	<string id="16407" value="Хотите ли Вы, чтобы Вас не спрашивали подверждений о дальнейших загрузках из этой коллекции?"/>
 	<string id="16408" value="&amp;Копировать ссылку"/>
@@ -3407,14 +3406,14 @@
 		<control caption="Когда щелкаю свернуть:"/>
 		<control caption="Обычное действие|Отправить в трей"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Хранилище">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Хранилище">
 		<control caption="_Опции:"/>
 		<control caption="Открыть общий доступ"/>
+		<control caption="Запоминать вид папок"/>
 		<control caption="Следить за хранилищем"/>
 		<control caption="Быстрое хеширование"/>
 		<control caption="Определение номеров серий у видео"/>
 		<control caption="Теневые файлы при стирании"/>
-		<control caption="Запоминать вид папок"/>
 		<control caption="_Последние файлы:"/>
 		<control caption="Помнить:"/>
 		<control/>
@@ -3425,6 +3424,7 @@
 		<control/>
 		<control caption="дней"/>
 		<control caption="Очистить список"/>
+		<control caption="Очистить Теневые"/>
 		<control caption="_Не опасно открывать:"/>
 		<control/>
 		<control caption="_Внести"/>
@@ -4069,8 +4069,7 @@
 		<control caption="Отмена"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Загрузка">
-		<control caption="PeerProject загружает:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Загрузка">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -4084,7 +4083,6 @@
 		<control caption="Загрузили|Всего|%:"/>
 		<control caption="..."/>
 		<control caption="Просмотр хранилища"/>
-		<control caption="Открыть файл"/>
 		<control caption="Удалить загрузку"/>
 		<control caption="Закрыть"/>
 		<control caption="Закрыть окно по завершению загрузки"/>
@@ -4459,23 +4457,22 @@
 		<control caption="по"/>
 		<control caption="Стереть"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Свойства группы загрузки">
-		<control caption="OK"/>
-		<control caption="Отмена"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Свойства группы загрузки">
+		<control caption="_Название:"/>
+		<control/>
+		<control caption="_Папка завершенных файлов:"/>
 		<control/>
 		<control/>
-		<control caption="_BitTorrent"/>
+		<control/>
+		<control caption="_Фильтры:"/>
 		<control/>
 		<control caption="_Добавить"/>
 		<control caption="_Удалить"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="_Название:"/>
-		<control caption="_Фильтры:"/>
-		<control caption="_Папка завершенных файлов:"/>
 		<control caption="_тип файла:"/>
+		<control/>
 		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control caption="OK"/>
+		<control caption="Отмена"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Выбор визуализации">
 		<control/>
@@ -4669,4 +4666,4 @@
 		<column from="Order" to="Порядок"/>
 	</list>
 </listColumns>
-</skin>
+</skin>

@@ -1,7 +1,7 @@
 //
 // EDPacket.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -124,8 +124,8 @@ void CEDPacket::WriteFile(const CPeerProjectFile* pPeerProjectFile, QWORD nSize,
 	Write( pPeerProjectFile->m_oED2K );
 
 	// Send client ID + port
-	DWORD nClientID = 0;
-	WORD nClientPort = 0;
+	DWORD nClientID;
+	WORD nClientPort;
 	if ( pServer )
 	{
 		// If we have a 'new' ed2k server
@@ -152,7 +152,7 @@ void CEDPacket::WriteFile(const CPeerProjectFile* pPeerProjectFile, QWORD nSize,
 	}
 	else
 	{
-		nClientID = pClient->GetID();
+		nClientID = pClient ? pClient->GetID() : 0;
 		nClientPort = ntohs( Network.m_pHost.sin_port );
 	}
 	WriteLongLE( nClientID );
@@ -424,46 +424,46 @@ void CEDPacket::Debug(LPCTSTR pszReason) const
 //////////////////////////////////////////////////////////////////////
 // CEDTag construction
 
-CEDTag::CEDTag() :
-	m_nType ( ED2K_TAG_NULL ),
-	m_nKey	( 0 )
+CEDTag::CEDTag()
+	: m_nType	( ED2K_TAG_NULL )
+	, m_nKey	( 0 )
 {
 }
 
-CEDTag::CEDTag(BYTE nKey, const Hashes::Ed2kHash& oHash) :
-	m_nType ( ED2K_TAG_HASH ),
-	m_nKey	( nKey ),
-	m_oValue( oHash )
+CEDTag::CEDTag(BYTE nKey, const Hashes::Ed2kHash& oHash)
+	: m_nType	( ED2K_TAG_HASH )
+	, m_nKey	( nKey )
+	, m_oValue	( oHash )
 {
 }
 
-CEDTag::CEDTag(BYTE nKey, QWORD nValue) :
-	m_nType	( ED2K_TAG_INT ),
-	m_nKey	( nKey ),
-	m_nValue( nValue )
+CEDTag::CEDTag(BYTE nKey, QWORD nValue)
+	: m_nType	( ED2K_TAG_INT )
+	, m_nKey 	( nKey )
+	, m_nValue	( nValue )
 {
 }
 
-CEDTag::CEDTag(BYTE nKey, LPCTSTR pszValue) :
-	m_nType	( ED2K_TAG_STRING ),
-	m_nKey	( nKey ),
-	m_sValue( pszValue )
+CEDTag::CEDTag(BYTE nKey, LPCTSTR pszValue)
+	: m_nType	( ED2K_TAG_STRING )
+	, m_nKey	( nKey )
+	, m_sValue	( pszValue )
 {
 }
 
-CEDTag::CEDTag(LPCTSTR pszKey, QWORD nValue) :
-	m_nType	( ED2K_TAG_INT ),
-	m_sKey	( pszKey ),
-	m_nKey	( 0 ),
-	m_nValue( nValue )
+CEDTag::CEDTag(LPCTSTR pszKey, QWORD nValue)
+	: m_nType	( ED2K_TAG_INT )
+	, m_sKey	( pszKey )
+	, m_nKey	( 0 )
+	, m_nValue	( nValue )
 {
 }
 
-CEDTag::CEDTag(LPCTSTR pszKey, LPCTSTR pszValue) :
-	m_nType	( ED2K_TAG_STRING ),
-	m_sKey	( pszKey ),
-	m_nKey	( 0 ),
-	m_sValue( pszValue )
+CEDTag::CEDTag(LPCTSTR pszKey, LPCTSTR pszValue)
+	: m_nType	( ED2K_TAG_STRING )
+	, m_sKey	( pszKey )
+	, m_nKey	( 0 )
+	, m_sValue	( pszValue )
 {
 }
 
@@ -495,7 +495,8 @@ void CEDTag::Write(CEDPacket* pPacket, BOOL bUnicode, BOOL bSmallTags)
 	}
 	else
 	{
-		if ( ! bSmallTags ) pPacket->WriteShortLE( 1 );
+		if ( ! bSmallTags )
+			pPacket->WriteShortLE( 1 );
 		pPacket->WriteByte( m_nKey );
 	}
 

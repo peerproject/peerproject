@@ -1,7 +1,7 @@
 //
 // CoolMenu.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -48,7 +48,7 @@ public:
 	void		OnMeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct);
 	void		OnDrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
 	LRESULT		OnMenuChar(UINT nChar, UINT nFlags, CMenu* pMenu);
-	UINT_PTR	DoExplorerMenu(HWND hwnd, const CStringList& oFiles, POINT point, HMENU hMenu, HMENU hSubMenu, UINT nFlags);
+	void		DoExplorerMenu(HWND hwnd, const CStringList& oFiles, POINT point, HMENU hMenu, HMENU hSubMenu, UINT nFlags);
 
 protected:
 	CComPtr< IContextMenu >		m_pContextMenuCache;
@@ -75,7 +75,7 @@ protected:
 	CDC			m_dcWatermark;
 	CSize		m_czWatermark;
 	HBITMAP		m_hOldMark;
-protected:
+
 	BOOL		m_bUnhook;
 	CString		m_sFilterString;
 	CString		m_sOldFilterString;
@@ -85,10 +85,11 @@ public:
 	void			EnableHook();
 	static void		EnableHook(BOOL bEnable);
 	static void		RegisterEdge(int nLeft, int nTop, int nLength);
+
 protected:
 	static LRESULT	CALLBACK MsgHook(int nCode, WPARAM wParam, LPARAM lParam);
 	static LRESULT	CALLBACK MenuProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-protected:
+
 	static HHOOK	m_hMsgHook;
 	static LPCTSTR	wpnOldProc;
 	static BOOL		m_bPrinted;

@@ -35,6 +35,8 @@
 #include "Library.h"
 #include "DlgProgressBar.h"
 
+#include "DownloadWithTorrent.h"	// For scrape m_pPeerId
+
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -56,10 +58,13 @@ CBTInfo::CBTInfo()
 	, m_pBlockBTH		( NULL )
 	, m_nTotalUpload	( 0ull )
 	, m_nTotalDownload	( 0ull )
+	, m_nTrackerSeeds	( 0 )
+	, m_nTrackerPeers	( 0 )
 	, m_nTrackerIndex	( -1 )
 	, m_nTrackerMode	( tNull )
-	, m_nTestByte		( 0ul )
+	, m_tTrackerScrape	( 0ul )
 	, m_tCreationDate	( 0ul )
+	, m_nTestByte		( 0ul )
 	, m_bPrivate		( FALSE )
 	, m_nStartDownloads	( dtAlways )
 	, m_bEncodingError	( false )
@@ -93,9 +98,9 @@ CBTInfo::~CBTInfo()
 //////////////////////////////////////////////////////////////////////
 // CBTFile construction
 
-CBTInfo::CBTFile::CBTFile(const CBTInfo* pInfo, const CBTFile* pBTFile) :
-	m_pInfo				( pInfo )
-,	m_nOffset			( pBTFile ? pBTFile->m_nOffset : 0 )
+CBTInfo::CBTFile::CBTFile(const CBTInfo* pInfo, const CBTFile* pBTFile)
+	: m_pInfo		( pInfo )
+	, m_nOffset		( pBTFile ? pBTFile->m_nOffset : 0 )
 {
 	if ( pBTFile )
 		CPeerProjectFile::operator=( *pBTFile );
@@ -260,7 +265,7 @@ void CBTInfo::Serialize(CArchive& ar)
 		ar << m_nBlockCount;
 		for ( DWORD i = 0; i < m_nBlockCount; ++i )
 		{
-			ar.Write( m_pBlockBTH[ i ].begin(), Hashes::BtPureHash::byteCount );
+			ar.Write( m_pBlockBTH[ i ].begin(), Hashes::BtPureHash::byteCount );	// tr1 fix: .data()
 		}
 
 		ar << m_nTotalUpload;
@@ -300,10 +305,11 @@ void CBTInfo::Serialize(CArchive& ar)
 	}
 	else // Loading
 	{
-		// ToDo: Are any BTINFO_SER_VERSION nVersions necessary for Shareaza imports?
+		// ToDo: Are any BTINFO_SER_VERSION nVersions still necessary for Shareaza imports?
 
 		ar >> nVersion;
-		if ( nVersion < 5 ) AfxThrowUserException();
+		if ( nVersion < 7 )	// Shareaza 2.3
+			AfxThrowUserException();
 
 		SerializeIn( ar, m_oBTH, nVersion );
 		if ( ! m_oBTH ) return;
@@ -318,7 +324,7 @@ void CBTInfo::Serialize(CArchive& ar)
 
 			for ( DWORD i = 0; i < m_nBlockCount; ++i )
 			{
-				ReadArchive( ar, m_pBlockBTH[ i ].begin(), Hashes::BtPureHash::byteCount );
+				ReadArchive( ar, m_pBlockBTH[ i ].begin(), Hashes::BtPureHash::byteCount );	// tr1 fix: .data()
 			}
 		}
 
@@ -350,26 +356,26 @@ void CBTInfo::Serialize(CArchive& ar)
 			m_pFiles.AddTail( pBTFile.Detach() );
 		}
 
-		if ( nVersion < 7 )	// Shareaza 2.3 Import?
-		{
-			CString sTracker;
-			ar >> sTracker;
-			SetTracker( sTracker );
-		}
+		//if ( nVersion < 7 )	// Shareaza 2.3 Import
+		//{
+		//	CString sTracker;
+		//	ar >> sTracker;
+		//	SetTracker( sTracker );
+		//}
 
 		ar >> m_nTrackerIndex;
 		ar >> m_nTrackerMode;
 
-		if ( nVersion < 7 )	// Shareaza 2.3 Import?
-		{
-			int nTrackers = (int)ar.ReadCount();
-			if ( nTrackers )
-			{
-				CBTTracker oTracker;
-				oTracker.Serialize( ar, nVersion );
-				AddTracker( oTracker );
-			}
-		}
+		//if ( nVersion < 7 )	// Shareaza 2.3 Import
+		//{
+		//	int nTrackers = (int)ar.ReadCount();
+		//	if ( nTrackers )
+		//	{
+		//		CBTTracker oTracker;
+		//		oTracker.Serialize( ar, nVersion );
+		//		AddTracker( oTracker );
+		//	}
+		//}
 
 		int nTrackers = (int)ar.ReadCount();
 		if ( nTrackers )
@@ -382,7 +388,7 @@ void CBTInfo::Serialize(CArchive& ar)
 			}
 		}
 
-		if ( nVersion >= 10 )	// Shareaza 2.5.2.0+ (PeerProject1.0)
+		if ( nVersion >= 10 )	// Shareaza 2.5.2.0+ (PeerProject 1.0)
 		{
 			DWORD nLength;
 			ar >> nLength;
@@ -397,7 +403,7 @@ void CBTInfo::Serialize(CArchive& ar)
 
 		SetTrackerNext();
 
-		//Imported Partial from Shareaza 2.4
+		// Imported Partial from Shareaza 2.4
 		if ( nVersion < 8 )
 			ConvertOldTorrents();
 	}
@@ -405,7 +411,8 @@ void CBTInfo::Serialize(CArchive& ar)
 
 void CBTInfo::ConvertOldTorrents()
 {
-	//For Importing Shareaza 2.4 Multifile Partial Only
+	// For Importing Shareaza 2.4 Multifile Partial Only
+	// ToDo: Comment this out after PeerProject 1.0 release
 
 	if ( m_pFiles.GetCount() < 2 )
 		return;
@@ -515,7 +522,7 @@ void CBTInfo::CBTFile::Serialize(CArchive& ar, int nVersion)
 		ar >> m_nSize;
 		ar >> m_sPath;
 
-		if ( nVersion >= 9 )
+		if ( nVersion > 8 )
 			ar >> m_sName;
 		else // Upgrade Shareaza Import
 			m_sName = PathFindFileName( m_sPath );
@@ -1115,8 +1122,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 	m_pBlockBTH = new Hashes::BtPureHash[ m_nBlockCount ];
 
 	std::copy( static_cast< const Hashes::BtHash::RawStorage* >( pHash->m_pValue ),
-		static_cast< const Hashes::BtHash::RawStorage* >( pHash->m_pValue ) + m_nBlockCount,
-		m_pBlockBTH );
+		static_cast< const Hashes::BtHash::RawStorage* >( pHash->m_pValue ) + m_nBlockCount, m_pBlockBTH );
 
 	// Hash info
 	if ( CBENode* pSHA1 = pInfo->GetNode( "sha1" ) )
@@ -1557,17 +1563,6 @@ void CBTInfo::SetTrackerNext(DWORD tTime)
 	}
 }
 
-DWORD CBTInfo::GetTrackerFailures() const
-{
-	if ( ! HasTracker() )
-		return 0;
-
-	ASSERT( m_nTrackerIndex >= 0 && m_nTrackerIndex < m_oTrackers.GetCount() );
-
-	// Return the # of failures
-	return m_oTrackers[ m_nTrackerIndex ].m_nFailures;
-}
-
 CString CBTInfo::GetTrackerAddress(int nTrackerIndex) const
 {
 	if ( m_oTrackers.IsEmpty() )
@@ -1633,6 +1628,17 @@ DWORD CBTInfo::GetTrackerNextTry() const
 	return m_oTrackers[ m_nTrackerIndex ].m_tNextTry;
 }
 
+DWORD CBTInfo::GetTrackerFailures() const
+{
+	if ( ! HasTracker() )
+		return 0;
+
+	ASSERT( m_nTrackerIndex >= 0 && m_nTrackerIndex < m_oTrackers.GetCount() );
+
+	// Return the # of failures
+	return m_oTrackers[ m_nTrackerIndex ].m_nFailures;
+}
+
 void CBTInfo::OnTrackerFailure()
 {
 	if ( ! HasTracker() )
@@ -1671,11 +1677,92 @@ void CBTInfo::SetTrackerMode(int nTrackerMode)
 int CBTInfo::AddTracker(const CBTTracker& oTracker)
 {
 	for ( int i = 0; i < (int)m_oTrackers.GetCount(); ++i )
+	{
 		if ( m_oTrackers[ i ].m_sAddress == oTracker.m_sAddress )
 			return i;	// Already have
+	}
 
 	return (int)m_oTrackers.Add( oTracker );
 }
+
+BOOL CBTInfo::ScrapeTracker()
+{
+	if ( m_tTrackerScrape )
+	{
+		// Minute limit is enough in practice
+		if ( ( GetTickCount() - m_tTrackerScrape ) < ( 55 * 1000 ) )
+			return ( m_nTrackerSeeds > 0 || m_nTrackerPeers > 0 );
+	}
+
+	m_tTrackerScrape = GetTickCount();
+
+	CString strURL = GetTrackerAddress();
+	if ( strURL.Find( _T("http") ) != 0 )
+		return FALSE;	// ToDo: Support UDP Trackers & handle rare HTTPS
+
+	if ( strURL.Replace( _T("/announce"), _T("/scrape") ) != 1 )
+		return FALSE;
+
+	CSingleLock oLock( &Transfers.m_pSection );
+	if ( ! oLock.Lock( 500 ) )
+		return FALSE;
+
+	//CDownload pDownload;	// ToDo: Remove this quick workaround to access PeerID
+
+	// Fetch scrape only for the given info hash
+	strURL = strURL.TrimRight( _T('&') ) +
+		( ( strURL.Find( _T('?') ) != -1 ) ? _T('&') : _T('?') ) +
+		_T("info_hash=") + CBTTrackerRequest::Escape( m_oBTH );
+		//+	_T("&peer_id=") + CBTTrackerRequest::Escape( pDownload.m_pPeerID ); 	// ToDo: Pass this value as parameter?
+
+	oLock.Unlock();
+
+	CHttpRequest pRequest;
+	pRequest.SetURL( strURL );
+	pRequest.AddHeader( _T("Accept-Encoding"), _T("deflate, gzip") );
+	pRequest.EnableCookie( false );
+	pRequest.SetUserAgent( Settings.SmartAgent() );
+
+	if ( ! pRequest.Execute( FALSE ) || ! pRequest.InflateResponse() )
+		return FALSE;
+
+	CBuffer* pResponse = pRequest.GetResponseBuffer();
+	if ( pResponse == NULL || pResponse->m_pBuffer == NULL )
+		return FALSE;
+
+	if ( CBENode* pNode = CBENode::Decode( pResponse ) )
+	{
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
+				_T("[BT] Recieved BitTorrent tracker response: %s"), pNode->Encode() );
+
+		if ( ! oLock.Lock( 300 ) ) return FALSE;
+
+		LPBYTE nKey = &m_oBTH[ 0 ];
+
+		oLock.Unlock();
+
+		CBENode* pFiles = pNode->GetNode( "files" );
+		CBENode* pFile = pFiles->GetNode( nKey, Hashes::BtHash::byteCount );
+		if ( ! pFile->IsType( CBENode::beDict ) ) return FALSE;
+
+		if ( CBENode* pSeeds = pFile->GetNode( "complete" ) )
+		{
+			if ( pSeeds->IsType( CBENode::beInt ) )
+				m_nTrackerSeeds = (int)( pSeeds->GetInt() & ~0xFFFF0000 ); 	// QWORD Caution: Don't get negative values from buggy trackers
+		}
+
+		if ( CBENode* pPeers = pFile->GetNode( "incomplete" ) )
+		{
+			if ( pPeers->IsType( CBENode::beInt ) )
+				m_nTrackerPeers = (int)( pPeers->GetInt() & ~0xFFFF0000 );
+		}
+
+		delete pNode;
+	}
+
+	return ( m_nTrackerSeeds > 0 || m_nTrackerPeers > 0 );
+}
+
 
 //////////////////////////////////////////////////////////////////////
 // CBTInfo::CBTTracker construction

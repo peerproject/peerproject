@@ -1,7 +1,7 @@
 //
 // CtrlSharedFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -116,9 +116,7 @@ void CLibraryFolderCtrl::Update(DWORD nUpdateCookie)
 		CLibraryFolder* pFolder = LibraryFolders.GetNextFolder( pos );
 
 		if ( pAlready.Find( pFolder ) == NULL )
-		{
 			Update( pFolder, NULL, m_hRoot, nUpdateCookie, FALSE );
-		}
 	}
 }
 
@@ -198,9 +196,7 @@ void CLibraryFolderCtrl::Update(CLibraryFolder* pFolder, HTREEITEM hFolder, HTRE
 		CLibraryFolder* pChild = pFolder->GetNextFolder( pos );
 
 		if ( pAlready.Find( pChild ) == NULL )
-		{
 			Update( pChild, NULL, hFolder, nUpdateCookie, bRecurse );
-		}
 	}
 
 	int nOldImage1, nOldImage2;
@@ -323,13 +319,16 @@ void CLibraryFolderCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 	else if ( ( nFlags & MK_SHIFT ) && m_bMultiSelect )
 	{
-		HTREEITEM hItem = HitTest( point );
+		hItem = HitTest( point );
 
-		if ( ! m_hFirstSelected ) m_hFirstSelected = GetFirstSelectedItem();
+		if ( ! m_hFirstSelected )
+			m_hFirstSelected = GetFirstSelectedItem();
 
-		if ( hItem ) SetItemState( hItem, TVIS_SELECTED, TVIS_SELECTED );
+		if ( hItem )
+			SetItemState( hItem, TVIS_SELECTED, TVIS_SELECTED );
 
-		if ( m_hFirstSelected ) SelectItems( m_hFirstSelected, hItem );
+		if ( m_hFirstSelected )
+			SelectItems( m_hFirstSelected, hItem );
 
 		NotifySelectionChanged();
 	}
@@ -342,9 +341,7 @@ void CLibraryFolderCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 		if ( ! bSelected || ( nFlags & MK_RBUTTON ) == 0 )
 		{
 			if ( m_bFirstClick && hItem != GetRootItem() )
-			{
 				Select( hItem, TVGN_CARET );
-			}
 
 			bChanged = ClearSelection( hItem );
 			m_hFirstSelected = NULL;
@@ -567,9 +564,7 @@ void CLibraryFolderCtrl::OnItemExpanded(NMHDR* pNMHDR, LRESULT* /*pResult*/)
 		CLibraryFolder* pFolder = (CLibraryFolder*)GetItemData( hItem );
 
 		if ( LibraryFolders.CheckFolder( pFolder, TRUE ) )
-		{
 			pFolder->m_bExpanded = ( nImage == 1 );
-		}
 
 	}
 }

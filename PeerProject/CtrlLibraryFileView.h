@@ -21,7 +21,6 @@
 
 #pragma once
 
-
 #include "CtrlLibraryView.h"
 
 class CLibraryFile;
@@ -29,45 +28,37 @@ class CMetaPanel;
 
 class CLibraryFileView : public CLibraryView
 {
+	DECLARE_DYNAMIC(CLibraryFileView)
+
 // Construction
 public:
 	CLibraryFileView();
 	virtual ~CLibraryFileView();
 
-	DECLARE_DYNAMIC(CLibraryFileView)
-
 // Attributes
 protected:
-	POSITION			m_posSel;
 	BOOL				m_bEditing;
 	BOOL				m_bRequestingService;
 	INT_PTR				m_nCurrentPage;
 	CList<CMetaPanel*>	m_pServiceDataPages;
 	BOOL				m_bServiceFailed;
 
-protected:
-	virtual BOOL		CheckAvailable(CLibraryTreeItem* pSel);
-	virtual DWORD_PTR	HitTestIndex(const CPoint& point) const = 0;
-
-protected:
-	void			StartSelectedFileLoop();
-	CLibraryFile*	GetNextSelectedFile();
-	CLibraryFile*	GetSelectedFile();
-	void			CheckDynamicBar();
-	void			ClearServicePages();
-
 // Overrides
+protected:
+	void				CheckDynamicBar();
+	void				ClearServicePages();
+
+	virtual void		SelectAll() = 0;
+	virtual BOOL		CheckAvailable(CLibraryTreeItem* pSel);
+
 public:
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual BOOL		PreTranslateMessage(MSG* pMsg);
 
 // Implementation
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
-	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnUpdateLibraryLaunch(CCmdUI* pCmdUI);
 	afx_msg void OnLibraryLaunch();
@@ -136,5 +127,4 @@ protected:
 	afx_msg LRESULT OnServiceDone(WPARAM wParam, LPARAM lParam);
 
 	DECLARE_MESSAGE_MAP()
-
 };

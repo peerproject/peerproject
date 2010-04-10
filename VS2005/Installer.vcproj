@@ -110,7 +110,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\Installer\Scripts\Main_VS2005.iss"
+			RelativePath="..\Installer\Scripts\Main.VS2005.iss"
 			>
 		</File>
 		<File

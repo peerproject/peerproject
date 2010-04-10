@@ -22,7 +22,7 @@
 // CNeighbour is in the middle of the CConnection inheritance tree, adding compression and a bunch of member variables
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighbour
 
-// Copy in the contents of these files here before compiling
+
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
@@ -44,15 +44,14 @@
 #include "GProfile.h"
 #include "Statistics.h"
 
-// If we are compiling in debug mode, replace the text "THIS_FILE" in the code with the name of this file
+// Constant "THIS_FILE" is the filename, in Debug mode only
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-// Set Z_TIMER to 1/5th of a second
-#define Z_TIMER 200
+#define Z_TIMER 200	//  1/5th of a second
 
 //////////////////////////////////////////////////////////////////////
 // CNeighbour construction

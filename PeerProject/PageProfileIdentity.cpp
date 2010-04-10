@@ -1,7 +1,7 @@
 //
 // PageProfileIdentity.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -202,20 +202,22 @@ void CIdentityProfilePage::OnOK()
 
 void CIdentityProfilePage::GetGenderTranslations(CString& pMale, CString& pFemale)
 {
-	// Using data from CBrowseHostProfile.1 translation since the control in the dialog
-	// may change its order and it does not have its identifier.
+	// Using data from CBrowseHostProfile.1 translation since the
+	// control in the dialog may change its order and it does not have its identifier.
 
 	BOOL bCollected = FALSE;
 
 	CXMLElement* pXML = Skin.GetDocument( _T("CBrowseHostProfile.1") );
 
-	for ( POSITION pos = pXML->GetElementIterator() ; pos && ! bCollected ; )
+	for ( POSITION posGroup = pXML->GetElementIterator() ; posGroup && ! bCollected ; )
 	{
-		CXMLElement* pGroups = pXML->GetNextElement( pos );
+		CXMLElement* pGroups = pXML->GetNextElement( posGroup );
+
 		if ( pGroups->IsNamed( _T("group") ) && pGroups->GetAttributeValue( _T("id") ) == "3" ) {
-			for ( POSITION pos = pGroups->GetElementIterator() ; pos && ! bCollected ; )
+			for ( POSITION posText = pGroups->GetElementIterator() ; posText && ! bCollected ; )
 			{
-				CXMLElement* pText = pGroups->GetNextElement( pos );
+				CXMLElement* pText = pGroups->GetNextElement( posText );
+
 				if ( pText->IsNamed( _T("text") ) )
 				{
 					CString strTemp;

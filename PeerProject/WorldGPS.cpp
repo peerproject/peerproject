@@ -52,23 +52,16 @@ CWorldGPS::~CWorldGPS()
 
 BOOL CWorldGPS::Load()
 {
-	CFile pFile;
-
 	Clear();
 
+	CFile pFile;
 	CString strFile = Settings.General.Path + L"\\Data\\WorldGPS.dat";
 
 	// Registry use is obsolete (auto-fallback)
 	//bool bImport = theApp.GetProfileInt( L"", L"ImportWorldGPS", FALSE ) != 0;
 	//strFile.Append( bImport ? L".xml" : L".dat" );
 
-	if ( ! pFile.Open( (LPCTSTR)strFile.GetBuffer(), CFile::modeRead ) )
-	{
-		strFile = Settings.General.Path + L"\\Data\\WorldGPS.xml";
-		if ( ! pFile.Open( (LPCTSTR)strFile.GetBuffer(), CFile::modeRead ) )
-			return FALSE;
-	}
-	else
+	if ( pFile.Open( (LPCTSTR)strFile.GetBuffer(), CFile::modeRead ) )
 	{
 		try
 		{
@@ -79,8 +72,15 @@ BOOL CWorldGPS::Load()
 		{
 			pException->Delete();
 		}
+
 		return TRUE;
 	}
+
+	strFile = Settings.General.Path + L"\\Data\\WorldGPS.xml";
+	if ( ! pFile.Open( (LPCTSTR)strFile.GetBuffer(), CFile::modeRead ) )
+		return FALSE;
+
+	// Need to generate .dat file from .xml
 
 	CBuffer pBuffer;
 	pBuffer.EnsureBuffer( (DWORD)pFile.GetLength() );
@@ -206,7 +206,7 @@ void CWorldCountry::Serialize(CArchive& ar)
 
 		ar.WriteCount( m_nCity );
 	}
-	else
+	else // Loading
 	{
 		ar >> m_szID[0];
 		ar >> m_szID[1];
@@ -279,7 +279,7 @@ void CWorldCity::Serialize(CArchive& ar)
 		nValue = (WORD)(signed short)( m_nLongitude / 180.0f * 32700.0f );
 		ar << nValue;
 	}
-	else
+	else // Loading
 	{
 		ar >> m_sName;
 		ar >> m_sState;
@@ -296,8 +296,8 @@ BOOL CWorldCity::LoadFrom(CXMLElement* pRoot)
 {
 	if ( ! pRoot->IsNamed( _T("city") ) ) return FALSE;
 
-	m_sName		= pRoot->GetAttributeValue( _T("name") );
-	m_sState	= pRoot->GetAttributeValue( _T("state") );
+	m_sName  = pRoot->GetAttributeValue( _T("name") );
+	m_sState = pRoot->GetAttributeValue( _T("state") );
 
 	CString strValue = pRoot->GetAttributeValue( _T("latitude") );
 	if ( _stscanf( strValue, _T("%f"), &m_nLatitude ) != 1 ) return FALSE;

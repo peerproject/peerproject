@@ -1,7 +1,7 @@
 //
 // Utility.hpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -23,22 +23,22 @@
 
 #include <Boost/cstdint.hpp>
 
-//! \brief plattfrom independent signed 8 bit integer type.
+//! \brief platform independent signed 8 bit integer type.
 typedef boost::int8_t int8;
-//! \brief plattfrom independent signed 16 bit integer type.
+//! \brief platform independent signed 16 bit integer type.
 typedef boost::int16_t int16;
-//! \brief plattfrom independent signed 32 bit integer type.
+//! \brief platform independent signed 32 bit integer type.
 typedef boost::int32_t int32;
-//! \brief plattfrom independent signed 64 bit integer type.
+//! \brief platform independent signed 64 bit integer type.
 typedef boost::int64_t int64;
 
-//! \brief plattfrom independent unsigned 8 bit integer type.
+//! \brief platform independent unsigned 8 bit integer type.
 typedef boost::uint8_t uint8;
-//! \brief plattfrom independent unsigned 16 bit integer type.
+//! \brief platform independent unsigned 16 bit integer type.
 typedef boost::uint16_t uint16;
-//! \brief plattfrom independent unsigned 32 bit integer type.
+//! \brief platform independent unsigned 32 bit integer type.
 typedef boost::uint32_t uint32;
-//! \brief plattfrom independent unsigned 64 bit integer type.
+//! \brief platform independent unsigned 64 bit integer type.
 typedef boost::uint64_t uint64;
 
 //! \brief alias for unsigned char.
@@ -54,15 +54,14 @@ typedef uint16 uwchar;
 enum Endianess
 {
 	//! \brief specifies little endian order,
-	//!        the least significant byte comes first.
+	//! 	the least significant byte comes first.
 	littleEndian,
 	//! \brief specifies big endian order,
-	//!        the most significant byte comes first.
+	//! 	the most significant byte comes first.
 	bigEndian
 };
 
-//! \brief This namespace is used to hold machine dependent definitons for
-//!        the target machine.
+//! \brief This namespace holds machine dependent definitions for the target machine.
 namespace Machine
 {
 	//! \brief Specifies the natural byte ordering of the target machine.
@@ -93,7 +92,7 @@ namespace Machine
 
 //! \brief generic function to swap the byte ordering of a given type
 //!
-//! The byte ordering can be swapped meaningfuly only for unsigned integer types
+//! The byte ordering can be swapped meaningfully only for unsigned integer types
 //! therefore specializations are provided only for those types. We use
 //! template specialization in order to avoid automatic argument conversion.
 template<typename T>
@@ -133,8 +132,8 @@ inline T swapEndianess(T value)
 	return SwapEndianess< T >()( value );
 }
 
-//! \brief Generic function object to give its char serialization a given
-//!        specified byte ordering.
+//! \brief Generic function object to give its char serialization a
+//! 	given specified byte ordering.
 //!
 //! The byte ordering of the argument is swapped unless it matches the byte
 //! ordering of the target machine.
@@ -149,11 +148,10 @@ template<typename T > struct TransformTo< T, Machine::endianess >
 };
 
 //! \brief Generic function object to reconstruct a value out of its serialized
-//!        form with a specified byte ordering.
+//! 	form with a specified byte ordering.
 //!
 //! This function objects behaves the same as TransformTo does but its purpose
-//! is different. Having both functios allows to make that purpose explicit in
-//! code.
+//! is different. Having both functions allows to make that purpose explicit in code.
 template<typename T, Endianess endianPolicy> struct TransformFrom
 {
 	T operator()(T value) const {	return TransformTo< T, endianPolicy >()( value ); }
@@ -171,15 +169,13 @@ template<typename T> inline T transformToBE(T value)
 	return TransformTo< T, bigEndian >()( value );
 }
 
-//! \brief Generic function to reconstruct a given value from little endian
-//!        order.
+//! \brief Generic function to reconstruct a given value from little endian order.
 template<typename T> inline T transformFromLE(T value)
 {
 	return TransformFrom< T, littleEndian >()( value );
 }
 
-//! \brief Generic function to reconstruct a given value from big endian
-//!        order.
+//! \brief Generic function to reconstruct a given value from big endian order.
 template<typename T> inline T transformFromBE(T value)
 {
 	return TransformFrom< T, bigEndian >()( value );
@@ -218,7 +214,7 @@ template<typename T, T v> struct StaticTransformTo< T, v, Machine::endianess >
 //! \brief for_each with predicate.
 //!
 //! A generalization of the for_each algorithm that takes a predicate that
-//! must be fullfilled in order to apply the given function. This function
+//! must be fulfilled in order to apply the given function.  This function
 //! may mutate the input sequence, provided no iterators become invalid.
 template<class InputIterator, class Predicate, class Function >
 inline void for_each_if(InputIterator first, InputIterator last,
@@ -262,7 +258,7 @@ inline uint32 highestBitSet(uint32 value)
 
 inline uint32 highestBitSet(uint64 value)
 {
-#if defined _WIN64 && _MFC_VER >= 0x0800
+#if defined _WIN64
 	uint32 index;
 	return _BitScanReverse64( &index, value ) ? index : 0;
 #else

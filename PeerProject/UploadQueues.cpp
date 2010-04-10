@@ -75,9 +75,7 @@ BOOL CUploadQueues::Enqueue(CUploadTransfer* pUpload, BOOL bForce)
 	{
 		CUploadQueue* pQueue = GetNext( pos );
 
-		if ( pQueue->CanAccept(	pUpload->m_nProtocol,
-								pUpload->m_sName,
-								pUpload->m_nSize,
+		if ( pQueue->CanAccept(	pUpload->m_nProtocol, pUpload->m_sName, pUpload->m_nSize,
 								( pUpload->m_bFilePartial ? CUploadQueue::ulqPartial : CUploadQueue::ulqLibrary ),
 								pUpload->m_sFileTags ) )
 		{
@@ -235,10 +233,10 @@ CUploadQueue* CUploadQueues::SelectQueue(PROTOCOLID nProtocol, LPCTSTR pszName, 
 //////////////////////////////////////////////////////////////////////
 // CUploadQueues counting
 
-int CUploadQueues::GetTotalBandwidthPoints( BOOL ActiveOnly )
+DWORD CUploadQueues::GetTotalBandwidthPoints( BOOL ActiveOnly )
 {
 	CQuickLock oLock( m_pSection );
-	int nCount = 0;
+	DWORD nCount = 0;
 	CUploadQueue *pQptr;
 
 	for ( POSITION pos = GetIterator() ; pos ; )
@@ -263,57 +261,57 @@ int CUploadQueues::GetTotalBandwidthPoints( BOOL ActiveOnly )
 	return nCount;
 }
 
-int CUploadQueues::GetQueueCapacity()
-{
-	CQuickLock oLock( m_pSection );
-	int nCount = 0;
+//DWORD CUploadQueues::GetQueueCapacity()
+//{
+//	CQuickLock oLock( m_pSection );
+//	DWORD nCount = 0;
+//
+//	for ( POSITION pos = GetIterator() ; pos ; )
+//	{
+//		nCount += GetNext( pos )->GetQueueCapacity();
+//	}
+//
+//	return nCount;
+//}
 
-	for ( POSITION pos = GetIterator() ; pos ; )
-	{
-		nCount += GetNext( pos )->GetQueueCapacity();
-	}
+//DWORD CUploadQueues::GetQueuedCount()
+//{
+//	CQuickLock oLock( m_pSection );
+//	DWORD nCount = 0;
+//
+//	for ( POSITION pos = GetIterator() ; pos ; )
+//	{
+//		nCount += GetNext( pos )->GetQueuedCount();
+//	}
+//
+//	return nCount;
+//}
 
-	return nCount;
-}
+//DWORD CUploadQueues::GetQueueRemaining()
+//{
+//	CQuickLock oLock( m_pSection );
+//	DWORD nCount = 0;
+//
+//	for ( POSITION pos = GetIterator() ; pos ; )
+//	{
+//		nCount += GetNext( pos )->GetQueueRemaining();
+//	}
+//
+//	return nCount;
+//}
 
-INT_PTR CUploadQueues::GetQueuedCount()
-{
-	CQuickLock oLock( m_pSection );
-	INT_PTR nCount = 0;
-
-	for ( POSITION pos = GetIterator() ; pos ; )
-	{
-		nCount += GetNext( pos )->GetQueuedCount();
-	}
-
-	return nCount;
-}
-
-INT_PTR CUploadQueues::GetQueueRemaining()
-{
-	CQuickLock oLock( m_pSection );
-	INT_PTR nCount = 0;
-
-	for ( POSITION pos = GetIterator() ; pos ; )
-	{
-		nCount += GetNext( pos )->GetQueueRemaining();
-	}
-
-	return nCount;
-}
-
-INT_PTR CUploadQueues::GetTransferCount()
-{
-	CQuickLock oLock( m_pSection );
-	INT_PTR nCount = 0;
-
-	for ( POSITION pos = GetIterator() ; pos ; )
-	{
-		nCount += GetNext( pos )->GetTransferCount();
-	}
-
-	return nCount;
-}
+//DWORD CUploadQueues::GetTransferCount()
+//{
+//	CQuickLock oLock( m_pSection );
+//	DWORD nCount = 0;
+//
+//	for ( POSITION pos = GetIterator() ; pos ; )
+//	{
+//		nCount += GetNext( pos )->GetTransferCount();
+//	}
+//
+//	return nCount;
+//}
 
 BOOL CUploadQueues::IsTransferAvailable()
 {
@@ -381,10 +379,10 @@ BOOL CUploadQueues::CanUpload(PROTOCOLID nProtocol, CLibraryFile const * const p
 	if ( pFile->m_nSize == 0 ) return FALSE;
 
 	// Detect Ghosts
-	if ( pFile->IsGhost() ) return FALSE;
+	if ( ! pFile->IsAvailable() ) return FALSE;
 
 	// G1 and G2 both use HTTP transfers, PeerProject doesn't consider them different.
-	if ( ( nProtocol == PROTOCOL_G1 ) || ( nProtocol == PROTOCOL_G2 ) )
+	if ( nProtocol == PROTOCOL_G1 || nProtocol == PROTOCOL_G2 )
 		nProtocol = PROTOCOL_HTTP;
 
 	CQuickLock oLock( m_pSection );
@@ -397,7 +395,7 @@ BOOL CUploadQueues::CanUpload(PROTOCOLID nProtocol, CLibraryFile const * const p
 		if ( pQueue->CanAccept(	nProtocol, pFile->m_sName, pFile->m_nSize, CUploadQueue::ulqLibrary, pFile->m_sShareTags ) )
 		{
 			// If this queue will accept this file, and we don't care if there is space now, or the queue isn't full
-			if ( ( ! bCanQueue ) || ( pQueue->GetQueueRemaining() > 0 ) )
+			if ( ! bCanQueue || pQueue->IsFull() )
 				return TRUE; // Then this file can be uploaded
 		}
 	}

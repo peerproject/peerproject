@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
-<!-- The corresponding real resource codes should be looked in resources by their numbers-->
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
+
+<!-- The corresponding real resource codes should be locked in Resource.h by their numbers-->
 <!-- This list of synonymous IDs can be used in skinning -->
 
 <resourceMap>
@@ -35,8 +36,8 @@
 	<resource code="145" id="WINDOW_MEDIA"/>
 	<resource code="146" id="WINDOW_SEARCHPAD"/>
 	<resource code="147" id="WINDOW_HELP"/>
-	<resource code="159" id="IDB_CHILDFRAME"/>
 	<resource code="159" id="WINDOW_CHILD"/>
+	<resource code="159" id="IDB_CHILDFRAME"/>
 	<resource code="160" id="IDI_BROWSE"/>
 	<resource code="181" id="IDI_EXECUTABLE"/>
 	<resource code="183" id="IDI_POINTER_ARROW"/>
@@ -100,32 +101,33 @@
 	<resource code="32798" id="ID_HOSTCACHE_CONNECT"/>
 	<resource code="32799" id="ID_HOSTCACHE_DISCONNECT"/>
 	<resource code="32800" id="ID_HOSTCACHE_REMOVE"/>
-	<resource code="32801" id="ID_NETWORK_CONNECT_TO"/>
-	<resource code="32807" id="ID_NETWORK_SEARCH"/>
-	<resource code="32808" id="ID_SEARCH_DOWNLOAD"/>
-	<resource code="32809" id="ID_SEARCH_SEARCH"/>
-	<resource code="32810" id="ID_SEARCH_FILTER"/>
-	<resource code="32811" id="ID_SEARCH_FILTER_REMOVE"/>
-	<resource code="32813" id="ID_HITMONITOR_CLEAR"/>
+	<resource code="32801" id="ID_HOSTCACHE_G2_HORIZON"/>
+	<resource code="32802" id="ID_HOSTCACHE_G2_CACHE"/>
+	<resource code="32803" id="ID_HOSTCACHE_G1_CACHE"/>
+	<resource code="32804" id="ID_NETWORK_CONNECT_TO"/>
+	<resource code="32805" id="ID_NETWORK_SEARCH"/>
+	<resource code="32806" id="ID_SEARCH_URI"/>
+	<resource code="32807" id="ID_SEARCH_COLUMNS"/>
+	<resource code="32808" id="ID_SEARCH_DOWNLOADNOW"/>
+	<resource code="32809" id="ID_SEARCH_DOWNLOAD"/>
+	<resource code="32810" id="ID_SEARCH_SEARCH"/>
+	<resource code="32811" id="ID_SEARCH_FILTER"/>
+	<resource code="32812" id="ID_SEARCH_FILTER_REMOVE"/>
 	<resource code="32814" id="ID_SEARCHMONITOR_PAUSE"/>
-	<resource code="32815" id="ID_HITMONITOR_PAUSE"/>
-	<resource code="32816" id="ID_SEARCHMONITOR_CLEAR"/>
-	<resource code="32817" id="ID_SEARCH_URI"/>
-	<resource code="32819" id="ID_HITMONITOR_SEARCH"/>
-	<resource code="32820" id="ID_HOSTCACHE_G2_HORIZON"/>
-	<resource code="32821" id="ID_HOSTCACHE_G2_CACHE"/>
-	<resource code="32822" id="ID_HOSTCACHE_G1_CACHE"/>
-	<resource code="32823" id="ID_SEARCH_COLUMNS"/>
-	<resource code="32824" id="ID_SEARCH_DOWNLOADNOW"/>
-	<resource code="32825" id="ID_OPEN_DOWNLOADS_FOLDER"/>
-	<resource code="32826" id="ID_DOWNLOADS_RESUME"/>
-	<resource code="32827" id="ID_UPLOADS_FOLDER"/>
-	<resource code="32828" id="ID_DOWNLOADS_CLEAR_COMPLETED"/>
-	<resource code="32829" id="ID_DOWNLOADS_SOURCES"/>
-	<resource code="32830" id="ID_DOWNLOADS_LAUNCH"/>
-	<resource code="32831" id="ID_DOWNLOADS_CLEAR"/>
-	<resource code="32832" id="ID_DOWNLOADS_PAUSE"/>
-	<resource code="32833" id="ID_DOWNLOADS_VIEW_REVIEWS"/>
+	<resource code="32815" id="ID_SEARCHMONITOR_CLEAR"/>
+	<resource code="32816" id="ID_HITMONITOR_CLEAR"/>
+	<resource code="32817" id="ID_HITMONITOR_PAUSE"/>
+	<resource code="32818" id="ID_HITMONITOR_SEARCH"/>
+	<resource code="32820" id="ID_UPLOADS_FOLDER"/>
+	<resource code="32821" id="ID_OPEN_DOWNLOADS_FOLDER"/>
+	<resource code="32822" id="ID_DOWNLOADS_CLEAR_COMPLETED"/>
+	<resource code="32823" id="ID_DOWNLOADS_LAUNCH_COMPLETE"/>
+	<resource code="32824" id="ID_DOWNLOADS_LAUNCH"/>
+	<resource code="32825" id="ID_DOWNLOADS_CLEAR"/>
+	<resource code="32826" id="ID_DOWNLOADS_PAUSE"/>
+	<resource code="32827" id="ID_DOWNLOADS_RESUME"/>
+	<resource code="32828" id="ID_DOWNLOADS_SOURCES"/>
+	<resource code="32829" id="ID_DOWNLOADS_VIEW_REVIEWS"/>
 	<resource code="32834" id="ID_LIBRARY_EXPLORE"/>
 	<resource code="32835" id="ID_LIBRARY_SCAN"/>
 	<resource code="32836" id="ID_LIBRARY_SHARED_FILE"/>
@@ -170,72 +172,78 @@
 	<resource code="32876" id="ID_MOVETAB_LAST"/>
 	<resource code="32877" id="ID_UPLOADS_CHAT"/>
 	<resource code="32878" id="ID_TRANSFERS_CHAT"/>
-	<resource code="32879" id="ID_SEARCH_CLEAR"/>
 	<resource code="32880" id="ID_TRAY_OPEN"/>
 	<resource code="32881" id="ID_NETWORK_AUTO_CLOSE"/>
 	<resource code="32882" id="ID_UPLOADS_AUTO_CLEAR"/>
 	<resource code="32883" id="ID_LIBRARY_SEARCH"/>
 	<resource code="32884" id="ID_TRAFFIC_WINDOW"/>
 	<resource code="32885" id="ID_NEIGHBOURS_CHAT"/>
-	<resource code="32889" id="ID_SEARCH_STOP"/>
-	<resource code="32890" id="ID_TOOLS_DOWNLOAD"/>
-	<resource code="32891" id="ID_DOWNLOADS_ADD_SOURCE"/>
-	<resource code="32892" id="ID_LIBRARY_BITZI_WEB"/>
-	<resource code="32893" id="ID_LIBRARY_BITZI_DOWNLOAD"/>
-	<resource code="32894" id="ID_LIBRARY_REFRESH_METADATA"/>
-	<resource code="32895" id="ID_VIEW_SECURITY"/>
-	<resource code="32896" id="ID_SECURITY_EDIT"/>
-	<resource code="32897" id="ID_SECURITY_REMOVE"/>
-	<resource code="32898" id="ID_SECURITY_RESET"/>
-	<resource code="32899" id="ID_SECURITY_ADD"/>
-	<resource code="32900" id="ID_SECURITY_POLICY_ACCEPT"/>
-	<resource code="32901" id="ID_SECURITY_POLICY_DENY"/>
+	<resource code="32888" id="ID_VIEW_SECURITY"/>
+	<resource code="32890" id="ID_SECURITY_EDIT"/>
+	<resource code="32891" id="ID_SECURITY_REMOVE"/>
+	<resource code="32892" id="ID_SECURITY_RESET"/>
+	<resource code="32893" id="ID_SECURITY_ADD"/>
+	<resource code="32894" id="ID_SECURITY_POLICY_ACCEPT"/>
+	<resource code="32895" id="ID_SECURITY_POLICY_DENY"/>
+	<resource code="32896" id="ID_SECURITY_IMPORT"/>
+	<resource code="32897" id="ID_SECURITY_EXPORT"/>
+	<resource code="32898" id="ID_SECURITY_MOVE_UP"/>
+	<resource code="32899" id="ID_SECURITY_MOVE_DOWN"/>
+	<resource code="32900" id="ID_SECURITY_BAN"/>
 	<resource code="32902" id="ID_LIBRARY_REFRESH"/>
-	<resource code="32904" id="ID_LIBRARY_MOVE"/>
-	<resource code="32905" id="ID_LIBRARY_COPY"/>
-	<resource code="32906" id="ID_LIBRARY_DELETE"/>
-	<resource code="32909" id="ID_LIBRARY_ENQUEUE"/>
-	<resource code="32910" id="ID_DOWNLOADS_ENQUEUE"/>
-	<resource code="32912" id="ID_SECURITY_MOVE_UP"/>
-	<resource code="32913" id="ID_SECURITY_MOVE_DOWN"/>
-	<resource code="32914" id="ID_SECURITY_BAN"/>
-	<resource code="32918" id="ID_TAB_NETWORK"/>
-	<resource code="32919" id="ID_TAB_LIBRARY"/>
-	<resource code="32920" id="ID_TAB_TRANSFERS"/>
-	<resource code="32921" id="ID_TAB_CONNECT"/>
-	<resource code="32922" id="ID_VIEW_TABBED"/>
-	<resource code="32923" id="ID_VIEW_WINDOWED"/>
-	<resource code="32924" id="ID_LIBRARY_URI"/>
-	<resource code="32925" id="ID_VIEW_DISCOVERY"/>
-	<resource code="32926" id="ID_DISCOVERY_SERVERMET"/>
-	<resource code="32927" id="ID_DISCOVERY_EDIT"/>
-	<resource code="32928" id="ID_DISCOVERY_QUERY"/>
-	<resource code="32929" id="ID_DISCOVERY_REMOVE"/>
-	<resource code="32930" id="ID_DISCOVERY_ADD"/>
-	<resource code="32931" id="ID_DISCOVERY_BLOCKED"/>
-	<resource code="32932" id="ID_DISCOVERY_GNUTELLA"/>
-	<resource code="32933" id="ID_DISCOVERY_WEBCACHE"/>
-	<resource code="32934" id="ID_DOWNLOADS_AUTO_CLEAR"/>
-	<resource code="32935" id="ID_TRANSFERS_CONNECT"/>
-	<resource code="32936" id="ID_DOWNLOADS_SHOW_SOURCES"/>
-	<resource code="32937" id="ID_SYSTEM_VERBOSE"/>
-	<resource code="32938" id="ID_DISCOVERY_ADVERTISE"/>
-	<resource code="32939" id="ID_DISCOVERY_BROWSE"/>
-	<resource code="32940" id="ID_BROWSE_STOP"/>
-	<resource code="32941" id="ID_BROWSE_REFRESH"/>
-	<resource code="32943" id="ID_BROWSE_LAUNCH"/>
-	<resource code="32944" id="ID_DOWNLOADS_BOOST"/>
-	<resource code="32947" id="ID_DOWNLOADS_LAUNCH_COPY"/>
-	<resource code="32948" id="ID_DOWNLOADS_FOLDER"/>
-	<resource code="32949" id="ID_DOWNLOADS_MONITOR"/>
-	<resource code="32950" id="ID_LIBRARY_SELECT_ALL"/>
-	<resource code="32951" id="ID_SECURITY_EXPORT"/>
-	<resource code="32952" id="ID_SECURITY_IMPORT"/>
-	<resource code="32953" id="ID_SEARCH_FILTER_RAW"/>
-	<resource code="32954" id="ID_SEARCH_PANEL"/>
-	<resource code="32955" id="ID_TOOLS_SKIN"/>
-	<resource code="32956" id="ID_SYSTEM_TIMESTAMP"/>
-	<resource code="32957" id="ID_LIBRARY_LAUNCH"/>
+	<resource code="32903" id="ID_LIBRARY_MOVE"/>
+	<resource code="32904" id="ID_LIBRARY_COPY"/>
+	<resource code="32905" id="ID_LIBRARY_DELETE"/>
+	<resource code="32906" id="ID_LIBRARY_ENQUEUE"/>
+	<resource code="32907" id="ID_LIBRARY_BITZI_WEB"/>
+	<resource code="32908" id="ID_LIBRARY_BITZI_DOWNLOAD"/>
+	<resource code="32909" id="ID_LIBRARY_REFRESH_METADATA"/>
+	<resource code="32910" id="ID_LIBRARY_URI"/>
+	<resource code="32911" id="ID_SEARCH_CLEAR"/>
+	<resource code="32912" id="ID_SEARCH_STOP"/>
+	<resource code="32914" id="ID_TOOLS_DOWNLOAD"/>
+	<resource code="32915" id="ID_TAB_NETWORK"/>
+	<resource code="32916" id="ID_TAB_LIBRARY"/>
+	<resource code="32917" id="ID_TAB_TRANSFERS"/>
+	<resource code="32918" id="ID_TAB_CONNECT"/>
+	<resource code="32920" id="ID_VIEW_TABBED"/>
+	<resource code="32921" id="ID_VIEW_WINDOWED"/>
+	<resource code="32922" id="ID_VIEW_DISCOVERY"/>
+	<resource code="32923" id="ID_DISCOVERY_SERVERMET"/>
+	<resource code="32924" id="ID_DISCOVERY_EDIT"/>
+	<resource code="32925" id="ID_DISCOVERY_QUERY"/>
+	<resource code="32926" id="ID_DISCOVERY_REMOVE"/>
+	<resource code="32927" id="ID_DISCOVERY_ADD"/>
+	<resource code="32928" id="ID_DISCOVERY_BLOCKED"/>
+	<resource code="32929" id="ID_DISCOVERY_GNUTELLA"/>
+	<resource code="32930" id="ID_DISCOVERY_WEBCACHE"/>
+	<resource code="32931" id="ID_DISCOVERY_ADVERTISE"/>
+	<resource code="32932" id="ID_DISCOVERY_BROWSE"/>
+	<resource code="32933" id="ID_TOOLS_SKIN"/>
+	<resource code="32934" id="ID_SYSTEM_VERBOSE"/>
+	<resource code="32935" id="ID_SYSTEM_TIMESTAMP"/>
+	<resource code="32936" id="ID_TRANSFERS_CONNECT"/>
+	<resource code="32937" id="ID_BROWSE_STOP"/>
+	<resource code="32938" id="ID_BROWSE_REFRESH"/>
+	<resource code="32939" id="ID_BROWSE_LAUNCH"/>
+	<resource code="32940" id="ID_DOWNLOADS_LAUNCH_COPY"/>
+	<resource code="32941" id="ID_DOWNLOADS_FOLDER"/>
+	<resource code="32942" id="ID_DOWNLOADS_ENQUEUE"/>
+	<resource code="32943" id="ID_DOWNLOADS_BOOST"/>
+	<resource code="32944" id="ID_DOWNLOADS_MERGE"/>
+	<resource code="32945" id="ID_DOWNLOADS_ADD_SOURCE"/>
+	<resource code="32946" id="ID_DOWNLOADS_MOVE_TOP"/>
+	<resource code="32947" id="ID_DOWNLOADS_MOVE_BOTTOM"/>
+	<resource code="32948" id="ID_DOWNLOADS_MOVE_UP"/>
+	<resource code="32949" id="ID_DOWNLOADS_MOVE_DOWN"/>
+	<resource code="32950" id="ID_DOWNLOADS_MONITOR"/>
+	<resource code="32951" id="ID_DOWNLOADS_FILE_DELETE"/>
+	<resource code="32952" id="ID_DOWNLOADS_AUTO_CLEAR"/>
+	<resource code="32953" id="ID_DOWNLOADS_SHOW_SOURCES"/>
+	<resource code="32954" id="ID_SEARCH_FILTER_RAW"/>
+	<resource code="32955" id="ID_SEARCH_PANEL"/>
+	<resource code="32956" id="ID_LIBRARY_SELECT_ALL"/>
+ 	<resource code="32957" id="ID_LIBRARY_LAUNCH"/>
 	<resource code="32958" id="ID_NEIGHBOURS_URI"/>
 	<resource code="32959" id="ID_TOOLS_RESKIN"/>
 	<resource code="32960" id="ID_MONITOR_CLOSE"/>
@@ -243,18 +251,13 @@
 	<resource code="32962" id="ID_WINDOW_TABBAR"/>
 	<resource code="32963" id="ID_WINDOW_MONITOR"/>
 	<resource code="32964" id="ID_NETWORK_BROWSE_TO"/>
-	<resource code="32965" id="ID_DOWNLOADS_MOVE_TOP"/>
-	<resource code="32966" id="ID_DOWNLOADS_MOVE_BOTTOM"/>
-	<resource code="32967" id="ID_LIBRARY_HASH_PRIORITY"/>
-	<resource code="32968" id="ID_DOWNLOADS_FILE_DELETE"/>
-	<resource code="32969" id="ID_NEIGHBOURS_SETTINGS"/>
-	<resource code="32970" id="ID_LIBRARY_RENAME"/>
-	<resource code="32971" id="ID_UPLOADS_START"/>
-	<resource code="32972" id="ID_DOWNLOADS_MOVE_UP"/>
-	<resource code="32973" id="ID_DOWNLOADS_MOVE_DOWN"/>
-	<resource code="32974" id="ID_TOOLS_LANGUAGE"/>
-	<resource code="32975" id="ID_DOWNLOADS_SETTINGS"/>
-	<resource code="32976" id="ID_UPLOADS_SETTINGS"/>
+	<resource code="32965" id="ID_NEIGHBOURS_SETTINGS"/>
+	<resource code="32966" id="ID_LIBRARY_HASH_PRIORITY"/>
+	<resource code="32968" id="ID_LIBRARY_RENAME"/>
+	<resource code="32972" id="ID_TOOLS_LANGUAGE"/>
+	<resource code="32974" id="ID_UPLOADS_START"/>
+	<resource code="32975" id="ID_UPLOADS_SETTINGS"/>
+	<resource code="32976" id="ID_DOWNLOADS_SETTINGS"/>
 	<resource code="32977" id="ID_DOWNLOADS_FILTER_ALL"/>
 	<resource code="32978" id="ID_DOWNLOADS_FILTER_ACTIVE"/>
 	<resource code="32979" id="ID_DOWNLOADS_FILTER_QUEUED"/>
@@ -319,7 +322,6 @@
 	<resource code="33038" id="ID_TAB_SEARCH"/>
 	<resource code="33040" id="ID_MEDIA_VIS"/>
 	<resource code="33041" id="ID_SYSTEM_TEST"/>
-	<resource code="33042" id="ID_DOWNLOADS_LAUNCH_COMPLETE"/>
 	<resource code="33043" id="ID_CHAT_CONNECT"/>
 	<resource code="33044" id="ID_CHAT_DISCONNECT"/>
 	<resource code="33045" id="ID_CHAT_BROWSE"/>
@@ -450,19 +452,19 @@
 	<resource code="33306" id="ID_SHAREMONKEY_PRICES"/>
 	<resource code="33307" id="ID_SHAREMONKEY_COMPARE"/>
 	<resource code="33308" id="ID_SHAREMONKEY_BUY"/>
-	<resource code="33309" id="ID_WEBSERVICES_MUSICBRAINZ"/>
-	<resource code="33310" id="ID_MUSICBRAINZ_MATCHES"/>
-	<resource code="33311" id="ID_MUSICBRAINZ_ALBUMS"/>
-	<resource code="33312" id="ID_SYSTEM_VERBOSE_ERROR"/>
-	<resource code="33313" id="ID_SYSTEM_VERBOSE_WARNING"/>
-	<resource code="33314" id="ID_SYSTEM_VERBOSE_NOTICE"/>
-	<resource code="33315" id="ID_SYSTEM_VERBOSE_INFO"/>
-	<resource code="33316" id="ID_SYSTEM_VERBOSE_DEBUG"/>
-	<resource code="33317" id="ID_SHAREMONKEY_SAVE_OPTION"/>
-	<resource code="33318" id="ImageViewer_BestFit"/>
-	<resource code="33319" id="ImageViewer_ActualSize"/>
-	<resource code="33320" id="ImageViewer_Refresh"/>
-	<resource code="33321" id="ImageViewer_Close"/>
+	<resource code="33309" id="ID_SHAREMONKEY_SAVE_OPTION"/>
+	<resource code="33310" id="ID_WEBSERVICES_MUSICBRAINZ"/>
+	<resource code="33311" id="ID_MUSICBRAINZ_MATCHES"/>
+	<resource code="33312" id="ID_MUSICBRAINZ_ALBUMS"/>
+	<resource code="33314" id="ID_SYSTEM_VERBOSE_ERROR"/>
+	<resource code="33315" id="ID_SYSTEM_VERBOSE_WARNING"/>
+	<resource code="33316" id="ID_SYSTEM_VERBOSE_NOTICE"/>
+	<resource code="33317" id="ID_SYSTEM_VERBOSE_INFO"/>
+	<resource code="33318" id="ID_SYSTEM_VERBOSE_DEBUG"/>
+	<resource code="33321" id="ImageViewer_ActualSize"/>
+	<resource code="33322" id="ImageViewer_BestFit"/>
+	<resource code="33323" id="ImageViewer_Refresh"/>
+	<resource code="33324" id="ImageViewer_Close"/>
 	<resource code="57650" id="ID_WINDOW_CASCADE"/>
 	<resource code="57651" id="ID_WINDOW_TILE_HORZ"/>
 	<resource code="57652" id="ID_WINDOW_TILE_VERT"/>

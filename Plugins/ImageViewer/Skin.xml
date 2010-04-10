@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.PeerProject.com/schemas/Skin.xsd" version="1.0">
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <menus replace="false">
 	<menu name="ImageViewer_Context">
@@ -40,4 +40,3 @@
 </commandTips>
 
 </skin>
-

@@ -41,6 +41,8 @@
 #include "GraphItem.h"
 #include "CtrlDownloadTip.h"
 
+#include "BENode.h" // Torrent Seeds/Peers
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -132,7 +134,7 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 	PrepareDownloadInfo( pDownload );
 
 	AddSize( pDC, m_sName );
-	m_sz.cy += TIP_TEXTHEIGHT;
+	m_sz.cy = TIP_TEXTHEIGHT;
 	pDC->SelectObject( &CoolInterface.m_fntNormal );
 
 	if ( m_sSHA1.GetLength() )
@@ -164,7 +166,7 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 	m_sz.cy += TIP_RULE;
 	AddSize( pDC, m_sSize, 80 );
 	AddSize( pDC, m_sType, 80 );
-	m_sz.cy += 36;
+	m_sz.cy += 34;	// Icon
 	m_sz.cy += TIP_RULE;
 
 	// Torrent Tracker error
@@ -179,16 +181,15 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 		m_bDrawError = FALSE;
 
 
-	if ( pDownload->IsTorrent() )	//Torrent ratio
-		m_sz.cy += TIP_TEXTHEIGHT;
+	if ( pDownload->IsTorrent() )
+		m_sz.cy += TIP_TEXTHEIGHT;		// Torrent ratio
 
-	if ( ! pDownload->IsSeeding() )	// Seeding torrent display none of this
-	{
-		if ( pDownload->IsCompleted() )	// ETA and downloaded
-			m_sz.cy += TIP_TEXTHEIGHT * 2;
-		else	// Speed, ETA, Downloaded, No. Sources
-			m_sz.cy += TIP_TEXTHEIGHT * 4;
-	}
+	if ( pDownload->IsSeeding() )
+		m_sz.cy += TIP_TEXTHEIGHT;		// Seed: Just Sources (for Seeds/Peers)
+	else if ( pDownload->IsCompleted() )
+		m_sz.cy += TIP_TEXTHEIGHT * 2;	// Done: ETA and downloaded
+	else
+		m_sz.cy += TIP_TEXTHEIGHT * 4;	// Speed, ETA, Downloaded, No. Sources
 
 	// Number of reviews
 	if ( pDownload->GetReviewCount() > 0 )
@@ -205,8 +206,8 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 	// Progress bar (not applicable for seeding torrents)
 	if ( ! pDownload->IsSeeding() )
 	{
-		m_sz.cy += 2;
-		m_sz.cy += TIP_TEXTHEIGHT;
+		m_sz.cy += TIP_GAP;
+		m_sz.cy += TIP_BARHEIGHT;
 	}
 
 	// Graph (Only for files in progress)
@@ -215,13 +216,17 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 	else
 	{
 		m_sz.cy += TIP_GAP;
-		m_sz.cy += 40;
+		m_sz.cy += TIP_GRAPHHEIGHT;
 		m_bDrawGraph = TRUE;
 	}
 
+	// Position dynamic numbers based on static text width
 	CString str;
+	LoadString( str, IDS_DLM_TOTAL_SPEED );
+	m_nStatWidth = pDC->GetTextExtent( str ).cx + 12;
 	LoadString( str, IDS_DLM_ESTIMATED_TIME );
-	m_nStatWidth = pDC->GetTextExtent( str ).cx + 8;
+	if ( m_nStatWidth < ( pDC->GetTextExtent( str ).cx + 10 ) )
+		m_nStatWidth = pDC->GetTextExtent( str ).cx + 12;
 }
 
 void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
@@ -236,27 +241,27 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	pt.y += TIP_TEXTHEIGHT;
 	pDC->SelectObject( &CoolInterface.m_fntNormal );
 
-	if ( !m_sSHA1.IsEmpty() )
+	if ( ! m_sSHA1.IsEmpty() )
 	{
 		DrawText( pDC, &pt, m_sSHA1 );
 		pt.y += TIP_TEXTHEIGHT;
 	}
-	if ( !m_sTiger.IsEmpty() )
+	if ( ! m_sTiger.IsEmpty() )
 	{
 		DrawText( pDC, &pt, m_sTiger );
 		pt.y += TIP_TEXTHEIGHT;
 	}
-	if ( !m_sED2K.IsEmpty() )
+	if ( ! m_sED2K.IsEmpty() )
 	{
 		DrawText( pDC, &pt, m_sED2K );
 		pt.y += TIP_TEXTHEIGHT;
 	}
-	if ( !m_sBTH.IsEmpty() )
+	if ( ! m_sBTH.IsEmpty() )
 	{
 		DrawText( pDC, &pt, m_sBTH );
 		pt.y += TIP_TEXTHEIGHT;
 	}
-	if ( !m_sMD5.IsEmpty() )
+	if ( ! m_sMD5.IsEmpty() )
 	{
 		DrawText( pDC, &pt, m_sMD5 );
 		pt.y += TIP_TEXTHEIGHT;
@@ -289,16 +294,15 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	DrawText( pDC, &pt, m_sType );
 	pt.x -= 40 + sz1.cx + 2;
 	pt.y -= TIP_TEXTHEIGHT + 2;
-	pt.y += 34;
+	pt.y += 34;	// Icon
 
 	DrawRule( pDC, &pt );
-
-	CString strFormat, strETA, strSpeed, strVolume, strSources, strReviews, strTorrentUpload;
 
 	int nSourceCount	= pDownload->GetSourceCount();
 	int nTransferCount	= pDownload->GetTransferCount();
 	int nReviewCount	= pDownload->GetReviewCount();
 
+	CString strFormat, strETA, strSpeed, strVolume, strSources, strReviews, strTorrentUpload;
 	LoadString( strFormat, IDS_TIP_NA );
 
 	if ( pDownload->IsMoving() )
@@ -359,16 +363,27 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		LoadString( strSources, IDS_DLM_NO_SOURCES );
 	}
 
-	if ( nReviewCount > 0 )
+	// Update Torrent Seeds/Peers from Tracker
+	if ( pDownload->IsTorrent() )
 	{
-		strReviews.Format( _T("%i"), nReviewCount );
+		m_pDownload->m_pTorrent.ScrapeTracker();
+		m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),	// ToDo: Translation ?
+			m_pDownload->m_pTorrent.m_nTrackerSeeds, m_pDownload->m_pTorrent.m_nTrackerPeers );
+
+		if ( pDownload->IsSeeding() )
+			strSources = m_sSeedsPeers.Mid(2);	// "  ( "
+		else
+			strSources += m_sSeedsPeers;
 	}
+
+	if ( nReviewCount > 0 )
+		strReviews.Format( _T("%i"), nReviewCount );
 
 	if ( pDownload->IsStarted() && pDownload->m_nSize < SIZE_UNKNOWN )
 	{
 		if ( Settings.General.LanguageRTL )
 		{
-			strVolume.Format( _T("(%.2f%%) %s %s %s"),
+			strVolume.Format( _T("( %.2f%% )  %s %s %s"),
 				pDownload->GetProgress(),
 				Settings.SmartVolume( pDownload->m_nSize ),
 				strOf,
@@ -376,7 +391,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		}
 		else
 		{
-			strVolume.Format( _T("%s %s %s (%.2f%%)"),
+			strVolume.Format( _T("%s %s %s   ( %.2f%% )"),
 				Settings.SmartVolume( pDownload->GetVolumeComplete() ),
 				strOf,
 				Settings.SmartVolume( pDownload->m_nSize ),
@@ -392,7 +407,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	{
 		if ( Settings.General.LanguageRTL )
 		{
-			strTorrentUpload.Format( _T("(%.2f%%) %s %s %s"),
+			strTorrentUpload.Format( _T("( %.2f%% )  %s %s %s"),
 				pDownload->GetRatio(),
 				Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalDownload ),
 				strOf,
@@ -400,7 +415,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		}
 		else
 		{
-			strTorrentUpload.Format( _T("%s %s %s (%.2f%%)"),
+			strTorrentUpload.Format( _T("%s %s %s   ( %.2f%% )"),
 				Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalUpload ),
 				strOf,
 				Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalDownload ),
@@ -415,6 +430,11 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		pt.y += TIP_TEXTHEIGHT;
 		DrawRule( pDC, &pt );
 	}
+
+	// Starting dynamic text
+	m_rcUpdateText.top = pt.y;
+	m_rcUpdateText.right = m_sz.cx;
+	m_rcUpdateText.left = m_nStatWidth;
 
 	if ( ! pDownload->IsCompleted() )
 	{	// Speed. Not for completed files
@@ -444,8 +464,8 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		DrawText( pDC, &pt, strTorrentUpload, m_nStatWidth );
 		pt.y += TIP_TEXTHEIGHT;
 	}
-	if ( ! pDownload->IsCompleted() )
-	{	// No. Sources- Not applicable for completed files.
+	if ( ! pDownload->IsCompleted() || pDownload->IsSeeding() )
+	{	// No. Sources- Not applicable for completed files, except seeds.
 		LoadString( strFormat, IDS_DLM_NUMBER_OF_SOURCES );
 		DrawText( pDC, &pt, strFormat, 3 );
 		DrawText( pDC, &pt, strSources, m_nStatWidth );
@@ -458,6 +478,10 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		DrawText( pDC, &pt, strReviews, m_nStatWidth );
 		pt.y += TIP_TEXTHEIGHT;
 	}
+
+	// End dynamic text
+	m_rcUpdateText.bottom = pt.y + TIP_TEXTHEIGHT;
+
 	if ( m_sURL.GetLength() )
 	{	// Draw URL if present
 		DrawRule( pDC, &pt );
@@ -467,22 +491,30 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 
 	if ( ! pDownload->IsSeeding() )
 	{	// Not applicable for seeding torrents.
-		pt.y += 2;
+		pt.y += TIP_GAP;
 		DrawProgressBar( pDC, &pt, pDownload );
 		pt.y += TIP_GAP;
 	}
 
 	if ( m_bDrawGraph && m_pGraph )
 	{	// Don't draw empty graph.
-		CRect rc( pt.x, pt.y, m_sz.cx, pt.y + 40 );
+		CRect rc( pt.x, pt.y, m_sz.cx, pt.y + TIP_GRAPHHEIGHT );
 		pDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 		rc.DeflateRect( 1, 1 );
 		m_pGraph->BufferedPaint( pDC, &rc );
 		rc.InflateRect( 1, 1 );
 		pDC->ExcludeClipRect( &rc );
-		pt.y += 40;
+		pt.y += TIP_GRAPHHEIGHT;
 	}
-	pt.y += TIP_GAP;
+
+//#ifdef _DEBUG
+	//if ( pt.y != m_sz.cy )	// Detect changed content (Resize artifacts)
+	//{
+		//CString strMessage;
+		//strMessage.Format( _T("pt.y = %i  |  m_sz.cy = %i"), pt.y, m_sz.cy );
+		//AfxMessageBox( strMessage );
+	//}
+//#endif
 }
 
 void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
@@ -492,7 +524,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	if ( Settings.General.GUIMode == GUI_BASIC )
 		return;
 
-	// We also report on if we have a hashset, and if hash is trusted (Debug mode only)
+	// We also report if we have a hashset, and if hash is trusted (Debug mode only)
 	CString strNoHashset, strUntrusted;
 	LoadString( strNoHashset, IDS_TIP_NOHASHSET );
 	LoadString( strUntrusted, IDS_TIP_UNTRUSTED );
@@ -549,15 +581,92 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 		}
 	}
 
-	if ( pDownload->IsTorrent() )
-		m_sURL = pDownload->m_pTorrent.GetTrackerAddress();
-
 	m_sMD5 = pDownload->m_oMD5.toShortUrn();
 	if ( m_sMD5.GetLength() )
 	{
 		if ( ! pDownload->m_bMD5Trusted )
 			m_sMD5+= _T(" (") + strUntrusted + _T(")");
 	}
+
+	if ( pDownload->IsTorrent() )
+	{
+		m_sURL = pDownload->m_pTorrent.GetTrackerAddress();
+
+		if ( m_pDownload->m_pTorrent.ScrapeTracker() )
+		{
+			m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),	// ToDo: Translation ?
+				m_pDownload->m_pTorrent.m_nTrackerSeeds, m_pDownload->m_pTorrent.m_nTrackerPeers );
+		}
+	}
+
+	// Moved Scrape to CBTInfo:
+	//if ( m_pDownload && pDownload->IsTorrent() )
+	//{
+	//	CString strURL = m_sURL;
+	//	if ( strURL.Find( _T("http") ) == 0 &&
+	//		strURL.Replace( _T("/announce"), _T("/scrape") ) == 1 )
+	//	{
+	//		CSingleLock oLock( &Transfers.m_pSection );
+	//		if ( ! oLock.Lock( 500 ) ) return;
+	//
+	//		// Fetch scrape only for the given info hash
+	//		strURL = strURL.TrimRight( _T('&') ) +
+	//			( ( strURL.Find( _T('?') ) != -1 ) ? _T('&') : _T('?') ) +
+	//			_T("info_hash=") + CBTTrackerRequest::Escape( m_pDownload->m_pTorrent.m_oBTH ) +
+	//			_T("&peer_id=")  + CBTTrackerRequest::Escape( m_pDownload->m_pPeerID );
+	//
+	//		oLock.Unlock();
+	//
+	//		CHttpRequest pRequest;
+	//		pRequest.SetURL( strURL );
+	//		pRequest.AddHeader( _T("Accept-Encoding"), _T("deflate, gzip") );
+	//		pRequest.EnableCookie( false );
+	//		pRequest.SetUserAgent( Settings.SmartAgent() );
+	//
+	//		if ( pRequest.Execute( FALSE ) && pRequest.InflateResponse() )
+	//		{
+	//			CBuffer* pResponse = pRequest.GetResponseBuffer();
+	//
+	//			if ( pResponse != NULL && pResponse->m_pBuffer != NULL )
+	//			{
+	//				if ( CBENode* pNode = CBENode::Decode( pResponse ) )
+	//				{
+	//					theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
+	//						_T("[BT] Recieved BitTorrent tracker response: %s"), pNode->Encode() );
+	//
+	//					if ( ! oLock.Lock( 300 ) ) return;
+	//					if ( ! Downloads.Check( m_pDownload ) || ! m_pDownload->IsTorrent() ) return;
+	//					LPBYTE nKey = &m_pDownload->m_pTorrent.m_oBTH[ 0 ];
+	//					oLock.Unlock();
+	//
+	//					CBENode* pFiles = pNode->GetNode( "files" );
+	//					CBENode* pFile = pFiles->GetNode( nKey, Hashes::BtHash::byteCount );
+	//					if ( ! pFile->IsType( CBENode::beDict ) ) return;
+	//
+	//					int nTrackerSeeds = 0;
+	//					int nTrackerPeers = 0;
+	//
+	//					if ( CBENode* pSeeds = pFile->GetNode( "complete" ) )
+	//					{
+	//						if ( ! pSeeds->IsType( CBENode::beInt ) ) return;
+	//						nTrackerSeeds = (int)( pSeeds->GetInt() & ~0xFFFF0000 ); 	// QWORD Caution: Don't get negative values from buggy trackers
+	//					}
+	//
+	//					if ( CBENode* pPeers = pFile->GetNode( "incomplete" ) )
+	//					{
+	//						if ( ! pPeers->IsType( CBENode::beInt ) ) return;
+	//						nTrackerPeers = (int)( pPeers->GetInt() & ~0xFFFF0000 );
+	//					}
+	//
+	//					if ( nTrackerSeeds > 0 || nTrackerPeers > 0 )
+	//						m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"), nTrackerSeeds, nTrackerPeers );
+	//
+	//					delete pNode;
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
 }
 
 void CDownloadTipCtrl::PrepareFileInfo(CPeerProjectFile* pDownload)
@@ -590,7 +699,8 @@ void CDownloadTipCtrl::PrepareFileInfo(CPeerProjectFile* pDownload)
 		if ( strName.GetLength() )
 		{
 			m_sType = strName;
-			if ( strMime.GetLength() ) m_sType += _T(" (") + strMime + _T(")");
+			if ( strMime.GetLength() )
+				m_sType += _T(" (") + strMime + _T(")");
 		}
 		else
 		{
@@ -629,7 +739,7 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownloadSource* pSource)
 	}
 
 	// Add the Nickname if there is one and they are being shown
-	if ( Settings.Search.ShowNames && !pSource->m_sNick.IsEmpty() )
+	if ( Settings.Search.ShowNames && ! pSource->m_sNick.IsEmpty() )
 		m_sName = pSource->m_sNick + _T(" (") + m_sName + _T(")");
 
 	// Indicate if this is a firewalled client
@@ -669,9 +779,9 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownloadSource* pSource)
 	m_sz.cy += TIP_TEXTHEIGHT * 4;
 
 	m_sz.cy += TIP_GAP;
-	m_sz.cy += TIP_TEXTHEIGHT;
+	m_sz.cy += TIP_BARHEIGHT;
 	m_sz.cy += TIP_GAP;
-	m_sz.cy += 40;
+	m_sz.cy += TIP_GRAPHHEIGHT;
 	m_sz.cy += TIP_GAP;
 
 	int nValueWidth = 0;
@@ -747,14 +857,28 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 		LoadString( strSpeed, IDS_TIP_NA );
 	}
 
+
+	// Starting dynamic text
+	m_rcUpdateText.top = pt.y;
+	m_rcUpdateText.left = 80;
+	m_rcUpdateText.right = 220;
+
+	LoadString( strText, IDS_TIP_SPEED );
+	DrawText( pDC, &pt, strText );
+	DrawText( pDC, &pt, strSpeed, 80 );
+	pt.y += TIP_TEXTHEIGHT;
+
 	LoadString( strText, IDS_TIP_STATUS );
 	DrawText( pDC, &pt, strText );
 	DrawText( pDC, &pt, strStatus, 80 );
 	pt.y += TIP_TEXTHEIGHT;
 
-	LoadString( strText, IDS_TIP_SPEED );
+	// End dynamic text
+	m_rcUpdateText.bottom = pt.y + TIP_TEXTHEIGHT;
+
+	LoadString( strText, IDS_TIP_USERAGENT );
 	DrawText( pDC, &pt, strText );
-	DrawText( pDC, &pt, strSpeed, 80 );
+	DrawText( pDC, &pt, pSource->m_sServer, 80 );
 	pt.y += TIP_TEXTHEIGHT;
 
 	LoadString( strText, IDS_TIP_URL );
@@ -765,17 +889,12 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 	pt.x -= 80;
 	sz.cx += 80;
 	pt.y += TIP_TEXTHEIGHT;
-
-	LoadString( strText, IDS_TIP_USERAGENT );
-	DrawText( pDC, &pt, strText );
-	DrawText( pDC, &pt, pSource->m_sServer, 80 );
-	pt.y += TIP_TEXTHEIGHT;
 	pt.y += TIP_GAP;
 
 	DrawProgressBar( pDC, &pt, pSource );
 	pt.y += TIP_GAP;
 
-	CRect rc( pt.x, pt.y, m_sz.cx, pt.y + 40 );
+	CRect rc( pt.x, pt.y, m_sz.cx, pt.y + TIP_GRAPHHEIGHT );
 	pDC->Draw3dRect( &rc, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	if ( m_pGraph )
 	{
@@ -784,7 +903,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 		rc.InflateRect( 1, 1 );
 		pDC->ExcludeClipRect( &rc );
 	}
-	pt.y += 40;
+	pt.y += TIP_GRAPHHEIGHT;
 	pt.y += TIP_GAP;
 
 	for ( int nHeader = 0 ; nHeader < m_pHeaderName.GetSize() ; nHeader++ )
@@ -803,8 +922,8 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 
 void CDownloadTipCtrl::DrawProgressBar(CDC* pDC, CPoint* pPoint, CDownload* pDownload)
 {
-	CRect rcCell( pPoint->x, pPoint->y, m_sz.cx, pPoint->y + TIP_TEXTHEIGHT );
-	pPoint->y += TIP_TEXTHEIGHT;
+	CRect rcCell( pPoint->x, pPoint->y, m_sz.cx, pPoint->y + TIP_BARHEIGHT );
+	pPoint->y += TIP_BARHEIGHT;
 
 	pDC->Draw3dRect( &rcCell, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rcCell.DeflateRect( 1, 1 );
@@ -817,8 +936,8 @@ void CDownloadTipCtrl::DrawProgressBar(CDC* pDC, CPoint* pPoint, CDownload* pDow
 
 void CDownloadTipCtrl::DrawProgressBar(CDC* pDC, CPoint* pPoint, CDownloadSource* pSource)
 {
-	CRect rcCell( pPoint->x, pPoint->y, m_sz.cx, pPoint->y + TIP_TEXTHEIGHT );
-	pPoint->y += TIP_TEXTHEIGHT;
+	CRect rcCell( pPoint->x, pPoint->y, m_sz.cx, pPoint->y + TIP_BARHEIGHT );
+	pPoint->y += TIP_BARHEIGHT;
 
 	pDC->Draw3dRect( &rcCell, Colors.m_crTipBorder, Colors.m_crTipBorder );
 	rcCell.DeflateRect( 1, 1 );
@@ -836,36 +955,38 @@ void CDownloadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 {
 	CCoolTipCtrl::OnTimer( nIDEvent );
 
-	if ( m_pGraph == NULL ) return;
+	if ( nIDEvent == 2 )
+	{
+		InvalidateRect( &m_rcUpdateText );
+		return;
+	}
+
+	if ( m_pGraph == NULL )
+		return;
 
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 10 ) ) return;
+	if ( ! pLock.Lock( 15 ) )
+		return;
 
+	if ( ( m_pDownload && m_pDownload->IsCompleted() ) || ( m_pSource && m_pSource->IsIdle() ) )
+		return;	// No change
+
+	DWORD nSpeed = 0;
 	if ( m_pDownload && Downloads.Check( m_pDownload ) )
-	{
-		DWORD nSpeed = m_pDownload->GetMeasuredSpeed();
-		m_pItem->Add( nSpeed );
-		m_pGraph->m_nUpdates++;
-		m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
-
-		CRect rcWndTip;
-		SystemParametersInfo( SPI_GETWORKAREA, 0, rcWndTip, 0 );
-		rcWndTip.top += 90;
-		InvalidateRect( &rcWndTip );
-	}
+		nSpeed = m_pDownload->GetMeasuredSpeed();
 	else if ( m_pSource && Downloads.Check( m_pSource ) )
-	{
-		if ( ! m_pSource->IsIdle() )
-		{
-			DWORD nSpeed = m_pSource->GetMeasuredSpeed();
-			m_pItem->Add( nSpeed );
-			m_pGraph->m_nUpdates++;
-			m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
+		nSpeed = m_pSource->GetMeasuredSpeed();
 
-			CRect rcWndTip;
-			SystemParametersInfo( SPI_GETWORKAREA, 0, rcWndTip, 0 );
-			rcWndTip.top += 90;
-			InvalidateRect( &rcWndTip );
-		}
-	}
+	pLock.Unlock();
+
+	m_pItem->Add( nSpeed );
+	m_pGraph->m_nUpdates++;
+	m_pGraph->m_nMaximum = max( m_pGraph->m_nMaximum, nSpeed );
+
+	CRect rcUpdateGraph;
+	rcUpdateGraph.top    = m_sz.cy - TIP_BARHEIGHT - TIP_GAP - TIP_GRAPHHEIGHT;
+	rcUpdateGraph.bottom = m_sz.cy + TIP_GAP;
+	rcUpdateGraph.right  = m_sz.cx + TIP_GAP;
+	rcUpdateGraph.left   = TIP_GAP;
+	InvalidateRect( &rcUpdateGraph, FALSE );
 }

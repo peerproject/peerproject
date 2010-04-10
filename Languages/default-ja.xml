@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default-en.xml r48 (Shareaza 2.2.0.2) -->
+<!-- Translation based on default-en.xml r50 (Shareaza 2.2.0.2) -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1018,31 +1018,28 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="プレビュー(_P)"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="リモートプレビュー(_R)"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="レビューを表示(_V)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="再開(_R)"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="一時停止(_A)"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="キャンセル(_C)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="追加ソースを検索(_F)"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="完了済みをクリア(_L)"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="A_uto Clear"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="リモートプレビュー(_E)"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="レビューを表示(_V)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="ヘルプ(_H)..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
+		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="プレビュー Copy(_C)"/>
 		<item id="ID_DOWNLOADS_LAUNCH" text="プレビュー(_P)"/>
-		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Pre_view Copy(_C)"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="再生リストに追加(_Y)"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="リモートプレビュー(_R)"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="レビューを表示(_V)"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="再開(_R)"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="一時停止(_A)"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="キャンセル(_C)"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="レビューを表示(_V)"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="リモートプレビュー(_R)"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="追加ソースを検索(_F)"/>
 		<separator/>
 		<menu text="高度(_A)">
@@ -1050,14 +1047,17 @@
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="URIをコピー(_U)"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="ソースを追加(_A)..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="ローカルのファイルをマージします。(_M)..."/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="モニタウィンドウ(_W)"/>
+		</menu>
+		<menu text="優先順位(_O)">
 			<item id="ID_DOWNLOADS_BOOST" text="帯域制限を無視(_I)"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="上に移動(_U)"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="下に移動(_D)"/>
 			<item id="ID_DOWNLOADS_MOVE_TOP" text="上に移動!(_T)"/>
 			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="下に移動!(_B)"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="上に移動(_U)"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="下に移動(_D)"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="ヘルプ(_H)..."/>
 		<separator/>
@@ -2624,7 +2624,7 @@
 	<string id="8230" value="PeerProjectはソースを探しています:"/>
 	<string id="8231" value="ソース無し"/>
 	<string id="8232" value="開く"/>
-	<string id="8233" value="プレビュー"/>
+	<string id="8233" value="キャンセル"/>
 	<string id="8235" value="総転送速度:"/>
 	<string id="8236" value="予想残り時間:"/>
 	<string id="8237" value="ダウンロード量:"/>
@@ -2888,7 +2888,6 @@
 	<string id="16402" value="PeerProjectは以下のコレクションファイルを受信しました:\n\n&quot;%s&quot;\n\nこのファイルは有効なコレクションファイルではありません"/>
 	<string id="16403" value="PeerProjectはコレクションファイル &quot;%s&quot; をライブラリに追加しました"/>
 	<string id="16404" value="PeerProjectはコレクションファイル &quot;%s&quot; をフォルダ &quot;%s&quot; にコピーしてインストールすることができませんでした"/>
-	<string id="16405" value="このファイルをダウンロードしますか?\n\n&quot;%s&quot;\n\nキャンセルを選択すると追加プロンプトを停止できます"/>
 	<string id="16406" value="このコレクション内の全てのファイルをダウンロードしますか?\n\nキャンセルを選択すると追加プロンプトを停止できます"/>
 	<string id="16407" value="このコレクションのダウンロード対して、いかなるプロンプトの表示も抑制しますか?"/>
 	<string id="16408" value="URIをコピー(&amp;U)"/>
@@ -3245,14 +3244,14 @@
 		<control caption="最小化をクリックした時:"/>
 		<control caption="通常|タスクトレイに最小化"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="ライブラリ">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="ライブラリ">
 		<control caption="オプション:"/>
 		<control caption="共有ファイルの参照を許可する"/>
+		<control caption="フォルダ表示を記録する"/>
 		<control caption="ライブラリフォルダを監視する"/>
 		<control caption="高速ハッシュ (CPU負荷が掛ります)"/>
 		<control caption="Smart media series detection"/>
 		<control caption="ファイル削除時にゴーストを作成する"/>
-		<control caption="フォルダ表示を記録する"/>
 		<control caption="ファイル履歴:"/>
 		<control caption="記録:"/>
 		<control/>
@@ -3262,6 +3261,7 @@
 		<control/>
 		<control/>
 		<control caption="日"/>
+		<control caption="履歴をクリア"/>
 		<control caption="履歴をクリア"/>
 		<control caption="安全な拡張子:"/>
 		<control/>
@@ -3863,8 +3863,7 @@
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="ダウンロード">
-		<control caption="PeerProjectはダウンロード中です:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="ダウンロード">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -3878,7 +3877,6 @@
 		<control caption="ダウンロード量:"/>
 		<control caption="..."/>
 		<control caption="ライブラリを表示"/>
-		<control caption="ファイルを開く"/>
 		<control caption="キャンセル"/>
 		<control caption="非表示"/>
 		<control caption="ダウンロード完了時にこのウィンドウを閉じる"/>
@@ -4253,23 +4251,22 @@
 		<control caption="→"/>
 		<control caption="消去"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="ダウンロードグループプロパティ">
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="ダウンロードグループプロパティ">
+		<control caption="名前:"/>
+		<control/>
+		<control caption="完了フォルダ:"/>
+		<control/>
+		<control/>
+		<control/>
+		<control caption="フィルタ:"/>
+		<control/>
+		<control caption="追加"/>
+		<control caption="削除"/>
+		<control caption="全てのファイルタイプ:"/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
-		<control/>
-		<control/>
-		<control caption="_BitTorrent"/>
-		<control/>
-		<control caption="追加(_A)"/>
-		<control caption="削除(_R)"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="名前:"/>
-		<control caption="フィルタ:"/>
-		<control caption="完了フォルダ:"/>
-		<control caption="全てのファイルタイプ:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="視覚効果を選択">
 		<control/>
@@ -4464,4 +4461,4 @@
 		<column from="Order" to="順番"/>
 	</list>
 </listColumns>
-</skin>
+</skin>ꙃ

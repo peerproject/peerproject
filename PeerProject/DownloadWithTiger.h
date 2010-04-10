@@ -55,6 +55,9 @@ private:
 
 	mutable CCriticalSection	m_pTigerSection;
 
+	mutable Fragments::List		m_oWFLCache;			// Wanted fragment list cache
+	mutable QWORD				m_nWFLCookie;			// Wanted fragment list cookie
+
 // Operations
 public:
 	CTigerTree*	GetTigerTree();

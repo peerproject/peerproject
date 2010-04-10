@@ -1,7 +1,7 @@
 //
 // PageTorrentTrackers.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -363,13 +363,13 @@ BOOL CTorrentTrackersPage::OnTree(CBENode* pNode)
 		if ( ! pComplete->IsType( CBENode::beInt ) ) return FALSE;
 		// Since we read QWORDs, make sure we won't get negative values;
 		// Some buggy trackers send very huge numbers, so leave them as the max int.
-		m_nComplete = (int)(pComplete->GetInt() & ~0xFFFF0000);
+		m_nComplete = (int)( pComplete->GetInt() & ~0xFFFF0000 );
 	}
 
 	if ( CBENode* pIncomplete = pFile->GetNode( "incomplete" ) )
 	{
 		if ( ! pIncomplete->IsType( CBENode::beInt ) ) return FALSE;
-		m_nIncomplete = (int)(pIncomplete->GetInt() & ~0xFFFF0000);
+		m_nIncomplete = (int)( pIncomplete->GetInt() & ~0xFFFF0000 );
 	}
 
 	return TRUE;

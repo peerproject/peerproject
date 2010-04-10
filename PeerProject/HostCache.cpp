@@ -220,7 +220,7 @@ int CHostCache::Import(LPCTSTR pszFile, BOOL bFreshOnly)
 void CHostCache::PruneOldHosts()
 {
 	DWORD tNow = static_cast< DWORD >( time( NULL ) );
-	if ( tNow - m_tLastPruneTime > 5 * 60 )
+	if ( tNow - m_tLastPruneTime > 90 )
 	{
 		for ( POSITION pos = m_pList.GetHeadPosition() ; pos ; )
 		{
@@ -557,37 +557,37 @@ void CHostCacheList::OnSuccess(const IN_ADDR* pAddress, WORD nPort, bool bUpdate
 //////////////////////////////////////////////////////////////////////
 // CHostCacheList query acknowledgment prune (G2)
 
-void CHostCacheList::PruneByQueryAck()
-{
-	CQuickLock oLock( m_pSection );
-
-	DWORD tNow = static_cast< DWORD >( time( NULL ) );
-
-	for( CHostCacheMap::iterator i = m_Hosts.begin(); i != m_Hosts.end(); )
-	{
-		bool bRemoved = false;
-		CHostCacheHostPtr pHost = (*i).second;
-		if ( pHost->m_tAck )
-		{
-			if ( tNow - pHost->m_tAck > Settings.Gnutella2.QueryHostDeadline )
-			{
-				pHost->m_tAck = 0;
-				if ( pHost->m_nFailures++ > Settings.Connection.FailureLimit )
-				{
-					m_HostsTime.erase(
-						std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
-					i = m_Hosts.erase( i );
-					delete pHost;
-					bRemoved = true;
-					m_nCookie++;
-				}
-			}
-		}
-		// Don't increment if host was removed
-		if ( ! bRemoved )
-			++i;
-	}
-}
+//void CHostCacheList::PruneByQueryAck()
+//{
+//	CQuickLock oLock( m_pSection );
+//
+//	DWORD tNow = static_cast< DWORD >( time( NULL ) );
+//
+//	for( CHostCacheMap::iterator i = m_Hosts.begin(); i != m_Hosts.end(); )
+//	{
+//		bool bRemoved = false;
+//		CHostCacheHostPtr pHost = (*i).second;
+//		if ( pHost->m_tAck )
+//		{
+//			if ( tNow - pHost->m_tAck > Settings.Gnutella2.QueryHostDeadline )
+//			{
+//				pHost->m_tAck = 0;
+//				if ( pHost->m_nFailures++ > Settings.Connection.FailureLimit )
+//				{
+//					m_HostsTime.erase(
+//						std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
+//					i = m_Hosts.erase( i );
+//					delete pHost;
+//					bRemoved = true;
+//					m_nCookie++;
+//				}
+//			}
+//		}
+//		// Don't increment if host was removed
+//		if ( ! bRemoved )
+//			++i;
+//	}
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CHostCacheList prune old hosts
@@ -602,20 +602,30 @@ void CHostCacheList::PruneOldHosts()
 	{
 		CHostCacheHostPtr pHost = (*i).second;
 
-		float nProbability = .0;
+		bool bRemove = false;
 
-		if ( pHost->m_nProtocol == PROTOCOL_G1 )
+		// Since we discard hosts after 3 failures, it means that we will remove:
+		// Hosts with DU less than 8 hours with no failures when they expire
+		// Hosts with DU less than 16 hours with 1 failure
+		// Hosts with DU less than 24 hours with 2 failures
+		if ( ! pHost->m_bPriority && pHost->IsExpired( tNow ) &&
+			( pHost->m_nProtocol != PROTOCOL_G1 ||
+			(float)pHost->m_nDailyUptime /
+			( 24 * 60 * 60 * ( pHost->m_nFailures + 1 ) ) < .333 ) )
 		{
-			// Calculate some kind of probability if we need to prune it
-			float nProbability = (float)pHost->m_nDailyUptime / ( 24 * 60 * 60 );
-			nProbability /= pHost->m_nFailures + 1;
+			bRemove = true;
+		}
+		else if ( pHost->m_nProtocol == PROTOCOL_G2 && pHost->m_tAck &&
+			tNow - pHost->m_tAck > Settings.Gnutella2.QueryHostDeadline )
+		{
+			// Query acknowledgment prune (G2)
+
+			pHost->m_tAck = 0;
+			if ( pHost->m_nFailures++ > Settings.Connection.FailureLimit )
+				bRemove = true;
 		}
 
-		// Since we discard hosts after 3 failures, it means that we will remove
-		// hosts with the DU less than 8 hours without no failures when they expire;
-		// hosts with the DU less than 16 hours with 1 failure;
-		// hosts with the DU less than 24 hours with 2 failures;
-		if ( ! pHost->m_bPriority && pHost->IsExpired( tNow ) && nProbability < .333 )
+		if ( bRemove )
 		{
 			m_HostsTime.erase(
 				std::find( m_HostsTime.begin(), m_HostsTime.end(), pHost ) );
@@ -1244,7 +1254,7 @@ CString CHostCacheHost::ToString(bool bLong) const
 	return str;
 }
 
-bool CHostCacheHost::IsExpired(DWORD tNow) const
+bool CHostCacheHost::IsExpired(const DWORD tNow) const throw()
 {
 	switch ( m_nProtocol )
 	{
@@ -1263,7 +1273,7 @@ bool CHostCacheHost::IsExpired(DWORD tNow) const
 	}
 }
 
-bool CHostCacheHost::IsThrottled(DWORD tNow) const
+bool CHostCacheHost::IsThrottled(const DWORD tNow) const throw()
 {
 	switch ( m_nProtocol )
 	{
@@ -1280,109 +1290,91 @@ bool CHostCacheHost::IsThrottled(DWORD tNow) const
 //////////////////////////////////////////////////////////////////////
 // CHostCacheHost connection test
 
-BOOL CHostCacheHost::CanConnect(DWORD tNow) const
+bool CHostCacheHost::CanConnect(const DWORD tNow) const throw()
 {
 	// Don't connect to self
-	if ( Settings.Connection.IgnoreOwnIP && Network.IsSelfIP( m_pAddress ) ) return FALSE;
+	if ( Settings.Connection.IgnoreOwnIP && Network.IsSelfIP( m_pAddress ) ) return false;
 
-	if ( ! tNow )
-		tNow = static_cast< DWORD >( time( NULL ) );
-
-	return
-		// Let failed host rest some time...
+	return														// Let failed host rest some time
 		( ! m_tFailure || ( tNow - m_tFailure >= Settings.Connection.FailurePenalty ) ) &&
-		// ...and we haven't lost hope on this host...
-		( m_nFailures <= Settings.Connection.FailureLimit ) &&
-		// ...and host isn't expired...
-		( ! IsExpired( tNow ) ) &&
-		// ...and don't reconnect too fast...
-		( ! IsThrottled( tNow ) );
-		// ...now we can connect.
+		( m_nFailures <= Settings.Connection.FailureLimit ) &&	// and we haven't lost hope on this host
+		( ! IsExpired( tNow ) ) &&								// and host isn't expired
+		( ! IsThrottled( tNow ) );								// and don't reconnect too fast
+																// now we can connect.
 }
 
 //////////////////////////////////////////////////////////////////////
 // CHostCacheHost quote test
 
-BOOL CHostCacheHost::CanQuote(DWORD tNow) const
+bool CHostCacheHost::CanQuote(const DWORD tNow) const throw()
 {
-	if ( ! tNow )
-		tNow = static_cast< DWORD >( time( NULL ) );
-
-	// If a host isn't dead and host isn't expired,
-	// we can tell others about it
+	// If a host isn't dead and isn't expired, we can tell others about it
 	return ( m_nFailures == 0 ) && ( ! IsExpired( tNow ) );
 }
 
 //////////////////////////////////////////////////////////////////////
 // CHostCacheHost query test
 
-// Can we UDP query this host? (G2/ED2k/BT)
-BOOL CHostCacheHost::CanQuery(DWORD tNow) const
+// Can we UDP query this host? (G2/ED2K/KAD/BT)
+bool CHostCacheHost::CanQuery(const DWORD tNow) const throw()
 {
-	if ( m_nProtocol == PROTOCOL_G2 )
+	// Retry After check, for all
+	if ( m_tRetryAfter != 0 && tNow < m_tRetryAfter ) return false;
+
+	switch ( m_nProtocol )
 	{
+	case PROTOCOL_G2:
 		// Must support G2
-		if ( ! Network.IsConnected() || ! Settings.Gnutella2.EnableToday ) return FALSE;
+		if ( ! Network.IsConnected() || ! Settings.Gnutella2.EnableToday ) return false;
 
 		// Must not be waiting for an ack
-		if ( 0 != m_tAck ) return FALSE;
-
-		// Get the time if not supplied
-		if ( 0 == tNow ) tNow = static_cast< DWORD >( time( NULL ) );
+		if ( m_tAck == 0 ) return false;
 
 		// Must be a recently seen (current) host
-		if ( ( tNow - m_tSeen ) > Settings.Gnutella2.HostCurrent ) return FALSE;
-
-		// Retry After
-		if ( 0 != m_tRetryAfter && tNow < m_tRetryAfter ) return FALSE;
+		if ( ( tNow - m_tSeen ) > Settings.Gnutella2.HostCurrent ) return false;
 
 		// If haven't queried yet, its ok
-		if ( 0 == m_tQuery ) return TRUE;
+		if ( m_tQuery == 0 ) return true;
+
 
 		// Don't query too fast
 		return ( tNow - m_tQuery ) >= Settings.Gnutella2.QueryHostThrottle;
-	}
-	// eDonkey2000 server
-	else if ( m_nProtocol == PROTOCOL_ED2K )
-	{
+
+	case PROTOCOL_ED2K:
 		// Must support ED2K
-		if ( ! Network.IsConnected() || ! Settings.eDonkey.EnableToday ) return FALSE;
-		if ( ! Settings.eDonkey.ServerWalk ) return FALSE;
-
-		// Get the time if not supplied
-		if ( 0 == tNow ) tNow = static_cast< DWORD >( time( NULL ) );
-
-		// Retry After
-		if ( 0 != m_tRetryAfter && tNow < m_tRetryAfter ) return FALSE;
+		if ( ! Network.IsConnected() || ! Settings.eDonkey.EnableToday ) return false;
+		if ( ! Settings.eDonkey.ServerWalk ) return false;
 
 		// If haven't queried yet, its ok
-		if ( 0 == m_tQuery ) return TRUE;
+		if ( m_tQuery == 0 ) return true;
+
 
 		// Don't query too fast
 		return ( tNow - m_tQuery ) >= Settings.eDonkey.QueryServerThrottle;
-	}
-	else if ( m_nProtocol == PROTOCOL_BT )
-	{
-		// Must not be waiting for an ack
-		if ( 0 != m_tAck ) return FALSE;
 
-		// Get the time if not supplied
-		if ( 0 == tNow ) tNow = static_cast< DWORD >( time( NULL ) );
-
-		// Retry After
-		if ( 0 != m_tRetryAfter && tNow < m_tRetryAfter ) return FALSE;
+	case PROTOCOL_BT:
+		// Must support BT
+		if ( ! Settings.BitTorrent.EnableToday ) return false;
 
 		// If haven't queried yet, its ok
-		if ( 0 == m_tQuery ) return TRUE;
+		if ( m_tQuery == 0 ) return true;
+
 
 		// Don't query too fast
 		return ( tNow - m_tQuery ) >= 90u;
+
+	case PROTOCOL_KAD:
+		// ToDo: Must support KAD
+		if ( ! Network.IsConnected() ) return false;
+
+		// If haven't queried yet, its ok
+		//if ( m_tQuery == 0 ) return true;
+
+		return true; // ToDo: Fix KAD
+
+	default:
+		return false;
 	}
-	else if ( m_nProtocol == PROTOCOL_KAD )
-	{
-		return TRUE; // ToDo: Fix KAD
-	}
-	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////

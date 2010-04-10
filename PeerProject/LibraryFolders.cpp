@@ -415,14 +415,14 @@ bool CLibraryFolders::IsShareable(const CString& strPath)
 
 CAlbumFolder* CLibraryFolders::GetAlbumRoot() const
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	return m_pAlbumRoot;
 }
 
 BOOL CLibraryFolders::CheckAlbum(CAlbumFolder* pFolder) const
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	return m_pAlbumRoot && m_pAlbumRoot->CheckFolder( pFolder, TRUE );
 }
@@ -463,7 +463,7 @@ CAlbumFolder* CLibraryFolders::GetAlbumTarget(LPCTSTR pszSchemaURI, LPCTSTR pszM
 
 CAlbumFolder* CLibraryFolders::GetCollection(const Hashes::Sha1Hash& oSHA1)
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	return m_pAlbumRoot ? m_pAlbumRoot->FindCollection( oSHA1 ) : NULL;
 }
@@ -495,12 +495,12 @@ BOOL CLibraryFolders::MountCollection(const Hashes::Sha1Hash& oSHA1, CCollection
 
 CAlbumFolder* CLibraryFolders::CreateAlbumTree()
 {
-	ASSUME_LOCK( Library.m_pSection );
+	//ASSUME_LOCK( Library.m_pSection );
 
 	if ( m_pAlbumRoot == NULL )
 		m_pAlbumRoot = new CAlbumFolder( NULL, CSchema::uriLibrary );
 
-	INT_PTR nCount = m_pAlbumRoot->GetFolderCount();
+	DWORD nCount = m_pAlbumRoot->GetFolderCount();
 
 	if ( m_pAlbumRoot->GetFolderByURI( CSchema::uriAllFiles ) == NULL )
 	{
@@ -611,6 +611,37 @@ void CLibraryFolders::Clear()
 
 	delete m_pAlbumRoot;
 	m_pAlbumRoot = new CAlbumFolder( NULL, CSchema::uriLibrary );
+}
+
+void CLibraryFolders::ClearGhosts()
+{
+	//ASSUME_LOCK( Library.m_pSection );
+
+	if ( m_pAlbumRoot )
+	{
+		if ( CAlbumFolder* pGhosts = m_pAlbumRoot->GetFolderByURI( CSchema::uriGhostFolder ) )
+		{
+			for ( POSITION pos = pGhosts->GetFileIterator(); pos; )
+			{
+				CLibraryFile* pFile = pGhosts->GetNextFile( pos );
+				ASSERT( ! pFile->IsAvailable() );
+				pFile->Delete( TRUE );
+			}
+		}
+	}
+}
+
+DWORD CLibraryFolders::GetGhostCount() const
+{
+	CQuickLock oLock( Library.m_pSection );
+
+	if ( m_pAlbumRoot )
+	{
+		if ( CAlbumFolder* pGhosts = m_pAlbumRoot->GetFolderByURI( CSchema::uriGhostFolder ) )
+			return pGhosts->GetFileCount();
+	}
+
+	return 0;
 }
 
 //////////////////////////////////////////////////////////////////////

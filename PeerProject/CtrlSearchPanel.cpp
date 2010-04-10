@@ -718,7 +718,7 @@ void CSearchInputBox::OnSearchPrefixSHA1Tiger()
 	Hashes::TigerHash oTiger;
 	oSHA1.fromUrn( sSearch ) || oSHA1.fromString( sSearch );
 	oTiger.fromUrn( sSearch ) || oTiger.fromString( sSearch );
-    sSearch = _T("urn:bitprint:");
+	sSearch = _T("urn:bitprint:");
 	sSearch += oSHA1 ? oSHA1.toString() : _T("[SHA1]");
 	sSearch += _T(".");
 	sSearch += oTiger ? oTiger.toString() : _T("[Tiger]");

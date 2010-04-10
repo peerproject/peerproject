@@ -22,7 +22,7 @@
 // Adds methods that send packets and Gnutella queries to all the computers we're connected to
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithRouting
 
-// Copy in the contents of these files here before compiling
+
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
@@ -35,7 +35,7 @@
 #include "G1Packet.h"
 #include "G2Packet.h"
 
-// If we are compiling in debug mode, replace the text "THIS_FILE" in the code with the name of this file
+// Constant "THIS_FILE" is the filename, in Debug mode only
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;

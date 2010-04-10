@@ -1,7 +1,7 @@
 //
 // NeighboursWithG1.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,7 +22,6 @@
 // Adds the ping route and pong caches to the CNeighbours object, and methods to route Gnutella ping and pong packets
 // http://sourceforge.net/apps/mediawiki/shareaza/index.php?title=Developers.Code.CNeighboursWithG1
 
-// Copy in the contents of these files here before compiling
 #include "StdAfx.h"
 #include "PeerProject.h"
 #include "Settings.h"
@@ -33,7 +32,7 @@
 #include "RouteCache.h"
 #include "PongCache.h"
 
-// If we are compiling in debug mode, replace the text "THIS_FILE" in the code with the name of this file
+// Constant "THIS_FILE" is the filename, in Debug mode only
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -45,18 +44,48 @@ static char THIS_FILE[]=__FILE__;
 
 // When the program makes the single global CNeighbours object, this constructor runs to setup the Gnutella part of it
 CNeighboursWithG1::CNeighboursWithG1()
+	: m_pPingRoute ( new CRouteCache() )
+	, m_pPongCache ( new CPongCache() )
 {
-	// Create the ping route and pong caches, and have the CNeighbours object point to them
-	m_pPingRoute = new CRouteCache();
-	m_pPongCache = new CPongCache();
 }
 
 // When the program closes, the single global CNeighbours object is destroyed, and this code cleans up the Gnutella parts
 CNeighboursWithG1::~CNeighboursWithG1()
 {
-	// Delete the ping route and pong cache objects
 	delete m_pPongCache;
 	delete m_pPingRoute;
+}
+
+BOOL CNeighboursWithG1::AddPingRoute(const Hashes::Guid& oGUID, const CG1Neighbour* pNeighbour)
+{
+	ASSUME_LOCK( Network.m_pSection );
+
+	return m_pPingRoute->Add( oGUID, pNeighbour );
+}
+
+CG1Neighbour* CNeighboursWithG1::GetPingRoute(const Hashes::Guid& oGUID) const
+{
+	ASSUME_LOCK( Network.m_pSection );
+
+	CNeighbour* pNeighbour;
+	if ( m_pPingRoute->Lookup( oGUID, &pNeighbour, NULL ) )
+		return static_cast< CG1Neighbour* >( pNeighbour );
+	else
+		return NULL;
+}
+
+CPongItem* CNeighboursWithG1::AddPong(CNeighbour* pNeighbour, IN_ADDR* pAddress, WORD nPort, BYTE nHops, DWORD nFiles, DWORD nVolume)
+{
+	ASSUME_LOCK( Network.m_pSection );
+
+	return m_pPongCache->Add( pNeighbour, pAddress, nPort, nHops, nFiles, nVolume );
+}
+
+CPongItem* CNeighboursWithG1::LookupPong(CNeighbour* pNotFrom, BYTE nHops, CList< CPongItem* >* pIgnore)
+{
+	ASSUME_LOCK( Network.m_pSection );
+
+	return m_pPongCache->Lookup( pNotFrom, nHops, pIgnore );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -65,8 +94,7 @@ CNeighboursWithG1::~CNeighboursWithG1()
 // Set the ping route cache duration from settings
 void CNeighboursWithG1::Connect()
 {
-	// Does nothing
-	CNeighboursBase::Connect();
+	CNeighboursBase::Connect(); 	// Does nothing
 
 	// Tell the route cache object to set its duration from the program settings
 	m_pPingRoute->SetDuration( Settings.Gnutella.RouteCache );
@@ -78,6 +106,8 @@ void CNeighboursWithG1::Connect()
 // Call Close on each neighbour in the list, reset the member variables here, and clear the ping route and pong caches
 void CNeighboursWithG1::Close()
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	// Call Close on each neighbour in the list, and reset the member variables of this CNeighbours object back to 0
 	CNeighboursBase::Close();
 
@@ -90,11 +120,10 @@ void CNeighboursWithG1::Close()
 // Removes it from the ping route cache, network object, and the list
 void CNeighboursWithG1::Remove(CNeighbour* pNeighbour)
 {
-	// Remove this neighbour from the ping route cache
-	m_pPingRoute->Remove( pNeighbour );
+	m_pPingRoute->Remove( pNeighbour ); 	// Remove this neighbour from the ping route cache
 
-	// Remove the neighbour from the list
-	CNeighboursBase::Remove( pNeighbour ); // Also tells the network object to remove the neighbour
+	CNeighboursBase::Remove( pNeighbour );	// Remove the neighbour from the list
+											// Also tells the network object to remove the neighbour
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -104,6 +133,8 @@ void CNeighboursWithG1::Remove(CNeighbour* pNeighbour)
 // Loops through the list of neighbours, pinging those that are running Gnutella software that supports pong caching
 void CNeighboursWithG1::OnG1Ping()
 {
+	ASSUME_LOCK( Network.m_pSection );
+
 	// Clear the old (do) from the pong cache, and make sure that works (do)
 	if ( m_pPongCache->ClearIfOld() )
 	{
@@ -111,8 +142,6 @@ void CNeighboursWithG1::OnG1Ping()
 		DWORD dwNow = GetTickCount(); // The time now
 		Hashes::Guid oGUID;           // A new GUID for the packet (do)
 		Network.CreateID( oGUID );
-
-		CSingleLock pLock( &Network.m_pSection, TRUE );
 
 		// Loop for each neighbour we're connected to
 		for ( POSITION pos = GetIterator() ; pos ; )
@@ -139,11 +168,12 @@ void CNeighboursWithG1::OnG1Ping()
 // Sends the pong to other remote computers we're connected to that need it according to their pong needed arrays
 void CNeighboursWithG1::OnG1Pong(CG1Neighbour* pFrom, IN_ADDR* pAddress, WORD nPort, BYTE nHops, DWORD nFiles, DWORD nVolume)
 {
-	// Add the information from the pong packet to the pong cache (do)
-	CPongItem* pPongCache = m_pPongCache->Add( pFrom, pAddress, nPort, nHops, nFiles, nVolume );
-	if ( pPongCache == NULL ) return; // If Add didn't return a CPongItem, (do)
+	ASSUME_LOCK( Network.m_pSection );
 
-	CSingleLock pLock( &Network.m_pSection, TRUE );
+	// Add the information from the pong packet to the pong cache (do)
+	CPongItem* pPongCache = AddPong( pFrom, pAddress, nPort, nHops, nFiles, nVolume );
+	if ( pPongCache == NULL )
+		return; // If Add didn't return a CPongItem, (do)
 
 	// Loop through each neighbour we're connected to
 	for ( POSITION pos = GetIterator() ; pos ; )
@@ -153,9 +183,6 @@ void CNeighboursWithG1::OnG1Pong(CG1Neighbour* pFrom, IN_ADDR* pAddress, WORD nP
 
 		// If this neighbour is running Gnutella, and it's not the computer we got the pong packet from
 		if ( pNeighbour->m_nProtocol == PROTOCOL_G1 && pNeighbour != pFrom )
-		{
-			// Send the pong to this remote computer, if it needs it according to its pong needed array
-			pNeighbour->OnNewPong( pPongCache );
-		}
+			pNeighbour->OnNewPong( pPongCache );	// Send the pong to this remote computer, if it needs it according to its pong needed array
 	}
 }

@@ -66,16 +66,16 @@ END_MESSAGE_MAP()
 CBrowseHostWnd::CBrowseHostWnd(PROTOCOLID nProtocol, SOCKADDR_IN* pAddress, const Hashes::Guid& oClientID)
 	: m_pBrowser	( NULL )
 	, m_bOnFiles	( FALSE )
-	, m_bAutoBrowse	( TRUE )
+	, m_bAutoBrowse ( TRUE )
 {
 	m_pBrowser = new CHostBrowser( this, nProtocol, &pAddress->sin_addr, htons( pAddress->sin_port ), FALSE, oClientID );
 	Create( IDR_BROWSEHOSTFRAME );
 }
 
 CBrowseHostWnd::CBrowseHostWnd(PROTOCOLID nProtocol, IN_ADDR* pAddress, WORD nPort, BOOL bMustPush, const Hashes::Guid& oClientID)
-	: m_pBrowser( NULL )
-	, m_bOnFiles( FALSE )
-	, m_bAutoBrowse( pAddress != NULL )
+	: m_pBrowser	( NULL )
+	, m_bOnFiles	( FALSE )
+	, m_bAutoBrowse ( pAddress != NULL )
 {
 	m_pBrowser = new CHostBrowser( this, nProtocol, pAddress, nPort, bMustPush, oClientID );
 	Create( IDR_BROWSEHOSTFRAME );
@@ -270,16 +270,18 @@ void CBrowseHostWnd::UpdateMessages(BOOL /*bActive*/)
 	m_wndHeader.Update( m_pBrowser );
 
 	LoadString( strCaption, IDR_BROWSEHOSTFRAME );
-	if ( Settings.General.LanguageRTL ) strCaption = _T("\x200F") + strCaption + _T("\x202E");
-	strCaption += _T(" : ");
-	if ( Settings.General.LanguageRTL ) strCaption += _T("\x202A\x200E");
+	if ( Settings.General.LanguageRTL )
+		strCaption = _T("\x200F") + strCaption + _T("\x202E : \x202B");
+	else
+		strCaption += _T(" : ");
 
 	if ( m_pBrowser->m_pProfile != NULL && m_pBrowser->m_pProfile->IsValid() )
 	{
-		strOld.Format( _T("%s (%s:%lu)"),
-			(LPCTSTR)m_pBrowser->m_pProfile->GetNick(),
+		strCaption += m_pBrowser->m_pProfile->GetNick();
+		strOld.Format( _T(" (%s:%lu)"),
 			(LPCTSTR)CString( inet_ntoa( m_pBrowser->m_pAddress ) ),
 			m_pBrowser->m_nPort );
+		if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
 		strCaption += strOld;
 	}
 	else
@@ -294,8 +296,14 @@ void CBrowseHostWnd::UpdateMessages(BOOL /*bActive*/)
 	{
 		strOld.Format( _T(" [%lu/%lu]"),
 			m_pMatches->m_nFilteredFiles, m_pMatches->m_nFilteredHits );
-		if ( Settings.General.LanguageRTL ) strOld = _T("\x202D") + strOld + _T(" ");
+		if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
 		strCaption += strOld;
+	}
+
+	if ( ! m_pBrowser->m_sServer.IsEmpty() )
+	{
+		if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
+		strCaption = strCaption + _T(" - ") + m_pBrowser->m_sServer;
 	}
 
 	GetWindowText( strOld );

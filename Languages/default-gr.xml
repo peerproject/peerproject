@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<skin xmlns="http://www.shareaza.com/schemas/Skin.xsd" version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default-en.xml r48 -->
+<!-- Translation based on default-en.xml r50 -->
 <!-- http://svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1100,46 +1100,46 @@
 	<!-- DOWNLOADS WINDOW -->
 	<menu name="CDownloadsWnd.Download.Basic">
 		<item id="ID_DOWNLOADS_LAUNCH" text="_Προεπισκόπηση"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Απομακρυσμένη Προεπισκόπηση"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Προβολή _Κριτικών"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="_Συνέχιση"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="_Διακοπή"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="_Διαγραφή!"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Εύρεση _Επιπλέον Πηγών"/>
-		<!-- <separator/>
-		<item id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Απόσυρση _Ολοκληρωμένων"/>
-		<item id="ID_DOWNLOADS_AUTO_CLEAR" text="_Αυτόματη Απόσυρση"/> -->
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="_Απομακρυσμένη Προεπισκόπηση"/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Προβολή _Κριτικών"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_HELP" text="_Βοήθεια..."/>
 	</menu>
 	<menu name="CDownloadsWnd.Download">
-		<item id="ID_DOWNLOADS_LAUNCH" text="Προεπισκόπηση"/>
 		<item id="ID_DOWNLOADS_LAUNCH_COPY" text="Προεπισκόπηση Αντίγραφου"/>
+		<item id="ID_DOWNLOADS_LAUNCH" text="Προεπισκόπηση"/>
 		<item id="ID_DOWNLOADS_ENQUEUE" text="Προσθήκη στη Λίστα Αναπαραγωγής"/>
-		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Απομακρυσμένη Προεπισκόπηση"/>
-		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Προβολή Κριτικών"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_RESUME" text="Συνέχιση"/>
 		<item id="ID_DOWNLOADS_PAUSE" text="Διακοπή"/>
 		<item id="ID_DOWNLOADS_CLEAR_INCOMPLETE" text="Διαγραφή!"/>
 		<separator/>
+		<item id="ID_DOWNLOADS_VIEW_REVIEWS" text="Προβολή Κριτικών"/>
+		<item id="ID_DOWNLOADS_REMOTE_PREVIEW" text="Απομακρυσμένη Προεπισκόπηση"/>
 		<item id="ID_DOWNLOADS_SOURCES" text="Εύρεση Επιπλέον Πηγών"/>
 		<separator/>
-		<menu text="_Advanced">
+		<menu text="_Σύνθετη">
 			<item id="ID_DOWNLOADS_SHARE" text="_Κοινοποιημένο Αρχείο"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_URI" text="_Αντιγραφή URI"/>
 			<item id="ID_DOWNLOADS_ADD_SOURCE" text="_Προσθήκη Πηγής..."/>
+			<item id="ID_DOWNLOADS_MERGE" text="Συγχώνευση τοπικό αρχείο"/>
 			<separator/>
 			<item id="ID_DOWNLOADS_MONITOR" text="Παράθυρο _Εποπτείας"/>
+		</menu>
+		<menu text="Πρ_οτεραιότητα">
 			<item id="ID_DOWNLOADS_BOOST" text="_Αγνόηση Ορίου Ταχύτητας"/>
 			<separator/>
-			<item id="ID_DOWNLOADS_MOVE_UP" text="Μετακίνηση _Πάνω"/>
-			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Μετακίνηση _Κάτω"/>
-			<item id="ID_DOWNLOADS_MOVE_TOP" text="Μετακίνηση _Πάνω!"/>
-			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Μετακίνηση _Κάτω!"/>
+			<item id="ID_DOWNLOADS_MOVE_TOP" text="Μετακίνηση _Πάνω!" shortcut="Ctrl+Home"/>
+			<item id="ID_DOWNLOADS_MOVE_BOTTOM" text="Μετακίνηση _Κάτω!" shortcut="Ctrl+End"/>
+			<item id="ID_DOWNLOADS_MOVE_UP" text="Μετακίνηση _Πάνω" shortcut="Ctrl+Up"/>
+			<item id="ID_DOWNLOADS_MOVE_DOWN" text="Μετακίνηση _Κάτω" shortcut="Ctrl+Down"/>
 		</menu>
 		<item id="ID_DOWNLOADS_HELP" text="_Βοήθεια..."/>
 		<separator/>
@@ -2796,7 +2796,7 @@
 	<string id="8230" value="Το PeerProject αναζητά πηγές για:"/>
 	<string id="8231" value="Καμία πηγή"/>
 	<string id="8232" value="Άνοιγμα"/>
-	<string id="8233" value="Προεπισκόπηση"/>
+	<string id="8233" value="Άκυρο"/>
 	<string id="8235" value="Συνολική ταχύτητα μεταφοράς:"/>
 	<string id="8236" value="Εκτιμώμενος απομένοντας χρόνος:"/>
 	<string id="8237" value="Παραληφθήσα ποσότητα:"/>
@@ -3064,7 +3064,6 @@
 	<string id="16402" value="Το ληφθέν ως αρχείο συλλογής:\n\n&quot;%s&quot;\n\nδεν φαίνεται να είναι ένα έγκυρο αρχείο συλλογής."/>
 	<string id="16403" value="Προσθήκη αρχείου συλλογής &quot;%s&quot; στη Βιβλιοθήκη."/>
 	<string id="16404" value="Αδυναμία εγκατάστασης αρχείου συλλογής &quot;%s&quot;, μέσω αντιγρφής του στον φακελο &quot;%s&quot;."/>
-	<string id="16405" value="Θέλετε να λάβετε αυτό το αρχείο;\n\n&quot;%s&quot;\n\nΠατήστε Άκυρο για να σταματήσετε περαιτέρω προτροπές."/>
 	<string id="16406" value="Θέλετε να λάβετε όλα τα αρχεία αυτής της συλλογής;\n\nΠατήστε Άκυρο για να σταματήσετε περαιτέρω προτροπές."/>
 	<string id="16407" value="Θέλετε να εμποδίσετε αυτήν τη συλλογή από το να σας προτρέπει να λάβετε οτιδήποτε άλλο;"/>
 	<string id="16408" value="Αντιγραφή &amp;URI"/>
@@ -3435,14 +3434,14 @@
 		<control caption="Με εντολή ελαχιστοποίησης:"/>
 		<control caption="Ελαχιστ. στην Μπάρα Έναρξης|Ελαχιστ. στη Γραμμή Συστήματος"/>
 	</dialog>
-	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuCoBuBuBuCoBuBuBuEdBu" caption="Βιβλιοθήκη">
+	<dialog name="CLibrarySettingsPage" cookie="BuBuBuBuBuBuBuBuStEdmsStStEdmsStBuBuBuCoBuBuBuCoBuBuBuEdBu" caption="Βιβλιοθήκη">
 		<control caption="_Επιλογές:"/>
 		<control caption="Επίτρεψη περιήγησης κοινοποιημέν."/>
+		<control caption="Απομνημόν. προβολών φακέλων"/>
 		<control caption="Παρακολούθ. φακέλων Βιβλιοθήκης"/>
 		<control caption="Γρήγορη σάρωση (Αυξημένη CPU)"/>
 		<control caption="Εντόπιση σειρών έξυπνων media"/>
 		<control caption="Δημιουργία αρχείων φαντασμάτων"/>
-		<control caption="Απομνημόν. προβολών φακέλων"/>
 		<control caption="Εμφάνιση _Πρόσφατων:"/>
 		<control caption="Τελευταίων"/>
 		<control/>
@@ -3453,6 +3452,7 @@
 		<control/>
 		<control caption="ημερών"/>
 		<control caption="Καθαρισμός Ιστορικού"/>
+		<control caption="Καθαρισμός φαντασμάτων"/>
 		<control caption="Ά_φοβο Άνοιγμα:"/>
 		<control/>
 		<control caption="_Προσθήκη"/>
@@ -4097,8 +4097,7 @@
 		<control caption="Άκυρο"/>
 		<control/>
 	</dialog>
-	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStStBuBuBuBuBu" caption="Λήψη">
-		<control caption="Το PeerProject λαμβάνει:"/>
+	<dialog name="CDownloadMonitorDlg" cookie="StStStStStStStStStStStStBuBuBuBu" caption="Λήψη">
 		<control caption="..."/>
 		<control/>
 		<control/>
@@ -4112,7 +4111,6 @@
 		<control caption="Παραληφθήσα ποσότητα:"/>
 		<control caption="..."/>
 		<control caption="Εμφάνιση Βιβλιοθήκης"/>
-		<control caption="Άνοιγμα Αρχείου"/>
 		<control caption="Διαγραφή Λήψης"/>
 		<control caption="Απόκρυψη"/>
 		<control caption="Μετά την ολοκλήρωση της λήψης, κλείσιμο παραθύρου."/>
@@ -4486,23 +4484,22 @@
 		<control caption="ως"/>
 		<control caption="Απαλειφή"/>
 	</dialog>
-	<dialog name="CDownloadGroupDlg" cookie="BuBuEdCoBuCoBuBuEdBuBuBuBuBuBuSt" caption="Ιδιότητες Ομάδας Λήψεων">
-		<control caption="OK"/>
-		<control caption="Άκυρο"/>
+	<dialog name="CDownloadGroupDlg" cookie="BuEdBuEdBuBuBuCoBuBuBuCoStBuBu" caption="Ιδιότητες Ομάδας Λήψεων">
+		<control caption="_Όνομα:"/>
+		<control/>
+		<control caption="Ολοκλήρωση _Φακέλου Αρχείων:"/>
 		<control/>
 		<control/>
-		<control caption="λήψεις _BitTorrent"/>
+		<control/>
+		<control caption="_Φίλτρα:"/>
 		<control/>
 		<control caption="_Προσθήκη"/>
 		<control caption="_Αφαίρεση"/>
-		<control/>
-		<control/>
-		<control/>
-		<control caption="_Όνομα:"/>
-		<control caption="_Φίλτρα:"/>
-		<control caption="Ολοκλήρωση _Φακέλου Αρχείων:"/>
 		<control caption="_Τύπος αρχείου:"/>
-		<control caption="_*Drag&apos;n&apos;drop any download later."/>
+		<control/>
+		<control caption="*Drag&apos;n&apos;drop any download later."/>
+		<control caption="OK"/>
+		<control caption="Άκυρο"/>
 	</dialog>
 	<dialog name="CMediaVisDlg" cookie="StBuSyCoBuBuBu" caption="Επιλογή Απεικόνισης">
 		<control/>
@@ -4696,4 +4693,4 @@
 		<column from="Order" to="Σειρά"/>
 	</list>
 </listColumns>
-</skin>
+</skin>̊酶

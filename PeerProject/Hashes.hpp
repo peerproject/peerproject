@@ -1,25 +1,23 @@
-////////////////////////////////////////////////////////////////////////////////
-//                                                                            //
-// Hashes.hpp                                                                 //
-//                                                                            //
-// This file is part of PeerProject (peerproject.org) © 2008                  //
-// Portions Copyright Shareaza Development Team, 2005.                        //
-//                                                                            //
-// PeerProject is free software; you can redistribute it and/or               //
-// modify it under the terms of the GNU General Public License                //
-// as published by the Free Software Foundation; either version 3             //
-// of the License, or later version (at your option).                         //
-//                                                                            //
-// PeerProject is distributed in the hope that it will be useful,             //
-// but WITHOUT ANY WARRANTY; without even the implied warranty of             //
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                       //
-// See the See the GNU General Public License for more details.               //
-//                                                                            //
-// You should have received a copy of the GNU General Public License 3.0          //
-// along with PeerProject; if not, write to Free Software Foundation, Inc.    //
-// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)     //
-//                                                                            //
-////////////////////////////////////////////////////////////////////////////////
+//
+// Hashes.hpp
+//
+// This file is part of PeerProject (peerproject.org) © 2008-2010
+// Portions Copyright Shareaza Development Team, 2005.
+//
+// PeerProject is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 3
+// of the License, or later version (at your option).
+//
+// PeerProject is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License 3.0
+// along with PeerProject; if not, write to Free Software Foundation, Inc.
+// 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
+//
 
 //! \file       Hashes.hpp
 //! \brief      General header files for Hashes.
@@ -27,8 +25,7 @@
 //! Includes headers for Hash class template. Defines all hash types as typedefs
 //! to a Hash template class. Contains some utility functions and hash ids.
 
-#ifndef HASHES_HPP_INCLUDED
-#define HASHES_HPP_INCLUDED
+#pragma once
 
 #include "Hashes/Hash.hpp"
 #include "Hashes/HashDescriptors.hpp"
@@ -39,52 +36,46 @@
 
 //! \brief Contains all definitions related to the Hash class template.
 //!
-//! Definition of the Hash class template and related functions, types and
-//! constants. Use ADL to find functions here.
+//! Definition of the Hash class template and related functions, types and constants.
+//! Use ADL to find functions here.
 namespace Hashes
 {
 	//! \brief The default SHA1 hash type.
 	typedef Hash< Policies::Sha1Descriptor, Policies::ZeroInit,
 			Policies::NoCheck, Policies::BasicValidation > Sha1Hash;
-	//! \brief The SHA1 hash type suitable to represent conditions in
-	//!        (partial) file objects.
+	//! \brief The SHA1 hash type suitable to represent conditions in (partial) file objects.
 	typedef Hash< Policies::Sha1Descriptor, Policies::ZeroInit,
 			Policies::ZeroCheck, Policies::ExtendedValidation > Sha1ManagedHash;
 
 	//! \brief The default Tiger hash type.
 	typedef Hash< Policies::TigerDescriptor, Policies::ZeroInit,
 			Policies::NoCheck, Policies::BasicValidation > TigerHash;
-	//! \brief The Tiger hash type suitable to represent conditions in
-	//!        (partial) file objects.
+	//! \brief The Tiger hash type suitable to represent conditions in (partial) file objects.
 	typedef Hash< Policies::TigerDescriptor, Policies::ZeroInit,
-			Policies::ZeroCheck, Policies::ExtendedValidation >
-			TigerManagedHash;
+			Policies::ZeroCheck, Policies::ExtendedValidation > TigerManagedHash;
 
 	//! \brief The default ED2K hash type.
 	typedef Hash< Policies::Ed2kDescriptor, Policies::ZeroInit,
 			Policies::NoCheck, Policies::BasicValidation > Ed2kHash;
-	//! \brief The ED2K hash type suitable to represent conditions in
-	//!        (partial) file objects.
+	//! \brief The ED2K hash type suitable to represent conditions in (partial) file objects.
 	typedef Hash< Policies::Ed2kDescriptor, Policies::ZeroInit,
 			Policies::ZeroCheck, Policies::ExtendedValidation > Ed2kManagedHash;
 
 	//! \brief The default MD5 hash type.
 	typedef Hash< Policies::Md5Descriptor, Policies::ZeroInit,
 			Policies::NoCheck, Policies::BasicValidation > Md5Hash;
-	//! \brief The MD5 hash type suitable to represent conditions in
-	//!        (partial) file objects.
+	//! \brief The MD5 hash type suitable to represent conditions in (partial) file objects.
 	typedef Hash< Policies::Md5Descriptor, Policies::ZeroInit,
 			Policies::ZeroCheck, Policies::ExtendedValidation > Md5ManagedHash;
 
 	//! \brief The default Bittorrent info hash type.
 	typedef Hash< Policies::BthDescriptor, Policies::ZeroInit,
 			Policies::NoCheck, Policies::BasicValidation > BtHash;
-	//! \brief The Bittorent info hash type suitable to represent conditions in
-	//!        (partial) file objects.
+	//! \brief The Bittorent info hash type suitable to represent conditions in (partial) file objects.
 	typedef Hash< Policies::BthDescriptor, Policies::ZeroInit,
 			Policies::ZeroCheck, Policies::ExtendedValidation > BtManagedHash;
-	//! \brief This Bittorrent hash type is useful to represent the hash of a
-	//!        verification block (technically it's SHA1), no overhead
+	//! \brief This Bittorrent hash type is useful to represent the hash of
+	//!		a verification block (technically it's SHA1), no overhead
 	typedef Hash< Policies::BthDescriptor, Policies::ZeroInit,
 			Policies::NoCheck, Policies::NoValidation > BtPureHash;
 
@@ -105,8 +96,7 @@ namespace Hashes
 		return result;
 	}
 
-	//! \brief Generates Bittorrent Guid from Guid, using PeerProject's special
-	//! signature.
+	//! \brief Generates Bittorrent Guid from Guid, using PeerProject's special signature.
 	inline BtGuid transformGuid(const Guid& other)
 	{
 		BtGuid result;
@@ -117,8 +107,8 @@ namespace Hashes
 		return result;
 	}
 
-	//! \brief Predicate checking if a given Bittorrent Guid uses special
-	//!        signature to signal it belong to PeerProject client.
+	//! \brief Predicate checking if a given Bittorrent Guid uses
+	//!		special signature to signal it belong to PeerProject client.
 	inline bool isExtendedBtGuid(const BtGuid& hash)
 	{
 		return hash.isValid() && *( hash.end() - 1 )
@@ -137,5 +127,3 @@ enum
 	HASH_ED2K = 4,      //!< use ED2K
 	HASH_TORRENT = 5    //!< use Bittorrent info hash
 };
-
-#endif // #ifndef HASHES_HPP_INCLUDED

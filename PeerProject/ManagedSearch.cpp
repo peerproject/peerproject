@@ -53,7 +53,6 @@ CManagedSearch::CManagedSearch(CQuerySearch* pSearch, int nPriority)
 	, m_bAllowG1	( TRUE )
 	, m_bAllowED2K	( TRUE )
 	, m_bActive		( FALSE )
-	, m_bStarted	( FALSE )
 	, m_bReceive	( TRUE )
 	, m_tStarted	( 0 )
 	, m_nHits		( 0 )
@@ -75,7 +74,8 @@ CManagedSearch::CManagedSearch(CQuerySearch* pSearch, int nPriority)
 
 CManagedSearch::~CManagedSearch()
 {
-	Stop();
+	DEBUG_ONLY( CQuickLock( SearchManager.m_pSection ) );
+	ASSERT( SearchManager.m_pList.Find( this ) == NULL );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -99,7 +99,7 @@ void CManagedSearch::Serialize(CArchive& ar)
 		ar << m_bAllowG1;
 		ar << m_bAllowED2K;
 	}
-	else
+	else // Loading
 	{
 		ar >> nVersion;
 		if ( nVersion < 2 ) AfxThrowUserException();
@@ -130,33 +130,27 @@ void CManagedSearch::Start()
 	if ( InterlockedCompareExchange( (LONG*)&m_bActive, TRUE, FALSE ) )
 		return;
 
-	if ( ! InterlockedCompareExchange( (LONG*)&m_bStarted, TRUE, FALSE ) )
-	{
-		CQuickLock oLock( SearchManager.m_pSection );
+	CQuickLock oLock( SearchManager.m_pSection );
 
+	if ( SearchManager.Add( this ) )
+	{
 		m_tStarted		= static_cast< DWORD >( time( NULL ) );
 		m_tExecute		= 0;
 		m_tLastED2K		= 0;
 		m_tMoreResults	= 0;
 		m_nQueryCount	= 0;
-
 		m_pNodes.RemoveAll();
-
-		SearchManager.Add( this );
 	}
 }
 
 void CManagedSearch::Stop()
 {
-	if ( InterlockedCompareExchange( (LONG*)&m_bStarted, FALSE, TRUE ) )
-	{
-		CQuickLock oLock( SearchManager.m_pSection );
-
-		SearchManager.Remove( this );
-	}
-
 	if ( InterlockedCompareExchange( (LONG*)&m_bActive, FALSE, TRUE ) )
 		Datagrams.PurgeToken( this );
+
+	CQuickLock oLock( SearchManager.m_pSection );
+
+	SearchManager.Remove( this );
 }
 
 void CManagedSearch::CreateGUID()
@@ -628,8 +622,6 @@ BOOL CManagedSearch::ExecuteDonkeyMesh(const DWORD /*tTicks*/, const DWORD tSecs
 
 		// Record the query time on the host, for all searches
 		pHost->m_tQuery = tSecs;
-		if ( pHost->m_tAck == 0 )
-			pHost->m_tAck = tSecs;
 
 		// Create a packet in the appropriate format
 		if ( CPacket* pPacket = m_pSearch->ToEDPacket( TRUE, pHost->m_nUDPFlags ) )
@@ -644,6 +636,7 @@ BOOL CManagedSearch::ExecuteDonkeyMesh(const DWORD /*tTicks*/, const DWORD tSecs
 				theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
 					_T("Sending UDP query to %s"),
 					(LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ) );
+
 				return TRUE;
 			}
 		}

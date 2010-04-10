@@ -66,6 +66,9 @@ public:
 	CAlbumFolder*	GetCollection(const Hashes::Sha1Hash& oSHA1);
 	BOOL			MountCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFile* pCollection);
 	BOOL			OnFileDelete(CLibraryFile* pFile, BOOL bDeleteGhost = FALSE);	// Remove file from all albums and folders
+	void			ClearGhosts();				// Remove all ghost files
+	DWORD			GetGhostCount() const;		// Get total amount of ghost files
+
 
 // Core
 protected:

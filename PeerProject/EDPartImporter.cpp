@@ -1,7 +1,7 @@
 //
 // EDPartImporter.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -221,7 +221,7 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 		pED2K.GetRoot( &pCheck[ 0 ] );
 		pCheck.validate();
 		if ( validAndUnequal( pCheck, oED2K ) )
-		return FALSE;
+			return FALSE;
 	}
 
 	if ( ! pED2K.IsAvailable() )

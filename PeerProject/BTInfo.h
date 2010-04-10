@@ -97,10 +97,10 @@ public:
 // Attributes
 public:
 	CStringList	m_sURLs;				// Add sources from torrents - DWK
-	DWORD		m_nBlockSize;
-	DWORD		m_nBlockCount;
 	Hashes::BtPureHash* m_pBlockBTH;
 	CList< CBTFile* > m_pFiles;			// List of files
+	DWORD		m_nBlockSize;
+	DWORD		m_nBlockCount;
 	QWORD		m_nTotalUpload;			// Total amount uploaded
 	QWORD		m_nTotalDownload;		// Total amount downloaded
 	UINT		m_nEncoding;
@@ -108,12 +108,15 @@ public:
 	CString		m_sCreatedBy;
 	DWORD		m_tCreationDate;
 	BOOL		m_bPrivate;
-	int			m_nStartDownloads;		// When do we start downloads for this torrent
+	int 		m_nStartDownloads;		// When do we start downloads for this torrent
+	int 		m_nTrackerSeeds;		// Count from most recent scrape
+	int 		m_nTrackerPeers;		//
 
 private:
 	CArray< CBTTracker > m_oTrackers;	// Tracker list
 	int			m_nTrackerIndex;		// The tracker we are currently using
 	int			m_nTrackerMode;			// The current tracker situation
+	DWORD		m_tTrackerScrape;		// For freshness
 	bool		m_bEncodingError;		// Torrent has encoding errors
 	CSHA		m_pTestSHA1;
 	DWORD		m_nTestByte;
@@ -148,12 +151,14 @@ public:
 	void		SetTrackerSucceeded(DWORD tNow);
 	void		SetTrackerRetry(DWORD tTime);
 	void		SetTrackerNext(DWORD tTime = 0);
-	DWORD		GetTrackerFailures() const;
 	CString		GetTrackerAddress(int nTrackerIndex = -1) const;
 	TRISTATE	GetTrackerStatus(int nTrackerIndex = -1) const;
 	int			GetTrackerTier(int nTrackerIndex = -1) const;
 	DWORD		GetTrackerNextTry() const;
+	DWORD		GetTrackerFailures() const;
 	void		OnTrackerFailure();
+
+	BOOL		ScrapeTracker();
 
 	// Count of files
 	inline INT_PTR GetCount() const

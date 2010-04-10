@@ -36,6 +36,7 @@ public:
 
 protected:
 	virtual void			Update();
+	virtual void			SelectAll();
 	virtual BOOL			Select(DWORD nObject);
 	virtual void			CacheSelection();
 	virtual DWORD_PTR		HitTestIndex(const CPoint& point) const;

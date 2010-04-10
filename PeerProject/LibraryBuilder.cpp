@@ -438,8 +438,9 @@ void CLibraryBuilder::OnRun()
 			{
 				DWORD err = GetLastError();
 				if ( err == ERROR_FILE_NOT_FOUND || err == ERROR_PATH_NOT_FOUND )
-					// Fatal error
-					Remove( nIndex );
+				{
+					Remove( nIndex );	// Fatal error
+				}
 				else
 				{
 					if ( ++nAttempts > 4 || m_bSkip )
@@ -629,7 +630,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 //////////////////////////////////////////////////////////////////////
 // CLibraryBuilder metadata submission (threaded)
 
-int CLibraryBuilder::SubmitMetadata(DWORD nIndex, LPCTSTR pszSchemaURI, CXMLElement*& pXML)
+int CLibraryBuilder::SubmitMetadata(DWORD nIndex, LPCTSTR pszSchemaURI, CXMLElement* pXML)
 {
 	CSchemaPtr pSchema = SchemaCache.Get( pszSchemaURI );
 
@@ -639,17 +640,12 @@ int CLibraryBuilder::SubmitMetadata(DWORD nIndex, LPCTSTR pszSchemaURI, CXMLElem
 		return 0;
 	}
 
-	CXMLElement* pBase = pSchema->Instantiate( true );
+	// Validate schema
+	auto_ptr< CXMLElement > pBase( pSchema->Instantiate( true ) );
 	pBase->AddElement( pXML );
-
-	if ( ! pSchema->Validate( pBase, true ) )
-	{
-		delete pBase;
+	if ( ! pSchema->Validate( pBase.get(), true ) )
 		return 0;
-	}
-
 	pXML->Detach();
-	delete pBase;
 
 	int nAttributeCount = pXML->GetAttributeCount();
 
@@ -780,7 +776,7 @@ bool CLibraryBuilder::DetectVirtualID3v2(HANDLE hFile, QWORD& nOffset, QWORD& nL
 
 bool CLibraryBuilder::DetectVirtualAPEHeader(HANDLE hFile, QWORD& nOffset, QWORD& nLength)
 {
-	APE_HEADER pHeader = { 0 };
+	APE_HEADER pHeader = {};
 	DWORD nRead;
 
 	LONG nPosLow	= (LONG)( ( nOffset ) & 0xFFFFFFFF );
@@ -799,13 +795,13 @@ bool CLibraryBuilder::DetectVirtualAPEHeader(HANDLE hFile, QWORD& nOffset, QWORD
 	DWORD nTagSize = 0;
 	if ( pHeader.nVersion >= APE2_VERSION )
 	{
-		APE_HEADER_NEW pHeader;
+		APE_HEADER_NEW pNewHeader = {};
 		SetFilePointer( hFile, nPosLow, &nPosHigh, FILE_BEGIN );
-		if ( ! ReadFile( hFile, &pHeader, sizeof(pHeader), &nRead, NULL ) )
+		if ( ! ReadFile( hFile, &pNewHeader, sizeof(pNewHeader), &nRead, NULL ) )
 			return false;
-		if ( nRead != sizeof(pHeader) )
+		if ( nRead != sizeof(pNewHeader) )
 			return false;
-		nTagSize = pHeader.nHeaderBytes + sizeof(pHeader);
+		nTagSize = pNewHeader.nHeaderBytes + sizeof(pNewHeader);
 	}
 	else
 		nTagSize = pHeader.nHeaderBytes + sizeof(pHeader);
@@ -996,7 +992,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 	char szTrail = '\0';
 
 	// Strip off silence and incomplete frames from the end (hackish way)
-	for ( ; nFrameSize > sizeof(DWORD) ; )
+	for ( ; nFrameSize > 0 ; )
 	{
 		nNewOffset.LowPart = (LONG)( ( nOffset + nLength - nFrameSize ) & 0xFFFFFFFF );
 		nNewOffset.HighPart = (LONG)( ( nOffset + nLength - nFrameSize ) >> 32 );
@@ -1005,8 +1001,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 			break;
 
 		WORD nTestBytes = 0;
-		if ( ! ReadFile( hFile, &nTestBytes, sizeof(nTestBytes), &nRead, NULL ) ||
-			 nRead != sizeof(WORD) )
+		if ( ! ReadFile( hFile, &nTestBytes, sizeof(nTestBytes), &nRead, NULL ) || nRead != sizeof(WORD) )
 			break;
 		if ( memcmp( &nTestBytes, nFrameHeader, 2 ) ) // Doesn't match the start of the first frame
 		{
@@ -1016,8 +1011,7 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 
 		nFrameHeader[ 0 ] = LOBYTE( nTestBytes );
 		nFrameHeader[ 1 ] = HIBYTE( nTestBytes );
-		if ( ! ReadFile( hFile, &nTestBytes, sizeof(nTestBytes), &nRead, NULL ) ||
-			 nRead != sizeof(WORD) )
+		if ( ! ReadFile( hFile, &nTestBytes, sizeof(nTestBytes), &nRead, NULL ) || nRead != sizeof(WORD) )
 			break;
 		nFrameHeader[ 2 ] = LOBYTE( nTestBytes );
 		nFrameHeader[ 3 ] = HIBYTE( nTestBytes );
@@ -1036,7 +1030,8 @@ bool CLibraryBuilder::DetectVirtualLAME(HANDLE hFile, QWORD& nOffset, QWORD& nLe
 
 		int nLen = sizeof( pFrame );
 		ZeroMemory( &pFrame, nLen );
-		ReadFile( hFile, &pFrame, min( nLen, nFrameSize - nVbrHeaderOffset ), &nRead, NULL );
+		if ( ! ReadFile( hFile, &pFrame, min( nLen, nFrameSize - nVbrHeaderOffset ), &nRead, NULL ) )
+			break;
 
 		nLen--;
 		char* pszChars = (char*)&pFrame;

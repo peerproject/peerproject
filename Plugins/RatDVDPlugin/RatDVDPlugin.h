@@ -1,7 +1,7 @@
 //
 // RatDVDPlugin.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2006.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include "RatDVDReader_h.h"
+#include "RatDVDReader.h"
 
 // CRatDVDPlugin
 
@@ -61,11 +61,9 @@ public:
 	static LPCWSTR	uriVideo;
 
 	// ILibraryBuilderPlugin Methods
-public:
 	STDMETHOD(Process)(HANDLE hFile, BSTR sFile, ISXMLElement* pXML);
 
 	// IImageServicePlugin Methods
-public:
 	STDMETHOD(LoadFromFile)(BSTR sFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
 	STDMETHOD(LoadFromMemory)(BSTR sType, SAFEARRAY* pMemory,
 		IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);

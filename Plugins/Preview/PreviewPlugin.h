@@ -1,7 +1,7 @@
 //
 // PreviewPlugin.h : Declaration of the CPreviewPlugin
 //
-// This file is part of PeerProject (peerproject.org) © 2009
+// This file is part of PeerProject (peerproject.org) © 2009-2010
 // Portions previously copyright Nikolay Raspopov, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,12 +21,8 @@
 
 #pragma once
 
-#include "Resource.h"       // Main symbols
-#include "Preview_i.h"
-
-#if defined(_WIN32_WCE) && !defined(_CE_DCOM) && !defined(_CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA)
-#error "Single-threaded COM objects are not properly supported on Windows CE platform, such as the Windows Mobile platforms that do not include full DCOM support. Define _CE_ALLOW_SINGLE_THREADED_OBJECTS_IN_MTA to force ATL to support creating single-thread COM object's and allow use of it's single-threaded COM object implementations. The threading model in your rgs file was set to 'Free' as that is the only threading model supported in non DCOM Windows CE platforms."
-#endif
+#include "Resource.h"
+#include "Preview.h"
 
 
 // CPreviewPlugin
@@ -65,9 +61,9 @@ protected:
 
 public:
 // IGeneralPlugin
-	STDMETHOD(SetApplication)(/* [in] */ IApplication* pApplication);        
-	STDMETHOD(QueryCapabilities)(/* [out] */ DWORD* pnCaps);        
-	STDMETHOD(Configure)(void);        
+	STDMETHOD(SetApplication)(/* [in] */ IApplication* pApplication);
+	STDMETHOD(QueryCapabilities)(/* [out] */ DWORD* pnCaps);
+	STDMETHOD(Configure)(void);
 	STDMETHOD(OnSkinChanged)(void);
 
 // IDownloadPreviewPlugin

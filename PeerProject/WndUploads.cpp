@@ -131,7 +131,7 @@ int CUploadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	LoadState( NULL, TRUE );
 
-	SetTimer( 2, Settings.General.RefreshRate, NULL );
+	SetTimer( 2, Settings.Interface.RefreshRateText, NULL );
 	PostMessage( WM_TIMER, 2 );
 
 	SetTimer( 4, 5000, NULL );
@@ -256,7 +256,7 @@ BOOL CUploadsWnd::IsSelected(CUploadFile* pFile)
 		{
 			if ( pTransfer->m_pQueue->m_bExpanded == FALSE ) return FALSE;
 
-			if ( pTransfer->m_pQueue->m_pActive.Find( pTransfer ) != NULL )
+			if ( pTransfer->m_pQueue->IsActive( pTransfer ) )
 			{
 				if ( 0 == ( Settings.Uploads.FilterMask & ULF_ACTIVE ) ) return FALSE;
 			}
@@ -321,7 +321,7 @@ void CUploadsWnd::Prepare()
 
 				if ( pTransfer->m_pQueue != NULL )
 				{
-					if ( pTransfer->m_pQueue->m_pActive.Find( pTransfer ) != NULL )
+					if ( pTransfer->m_pQueue->IsActive( pTransfer ) )
 						m_bSelActive = TRUE;
 					else
 						m_bSelQueued = TRUE;
@@ -489,7 +489,7 @@ void CUploadsWnd::OnUploadsLaunch()
 				}
 				else if ( PathIsDirectory( Settings.Downloads.TorrentPath + "\\" + pFile->m_sName ) )	// Try default multifile torrent folder
 				{
-					ShellExecute( GetSafeHwnd(), _T("open"), 
+					ShellExecute( GetSafeHwnd(), _T("open"),
 						Settings.Downloads.TorrentPath + "\\" + pFile->m_sName, NULL, NULL, SW_SHOWNORMAL );
 				}
 			}
@@ -681,14 +681,17 @@ void CUploadsWnd::OnUploadsAutoClear()
 	if ( Settings.Uploads.AutoClear ) OnTimer( 4 );
 }
 
-void CUploadsWnd::OnUploadsHelp()
-{
-	CHelpDlg::Show( _T("UploadHelp") );
-}
+// Removed redundant function:
+//void CUploadsWnd::OnEditQueue()
 
 void CUploadsWnd::OnUploadsSettings()
 {
 	CSettingsManagerDlg::Run( _T("CUploadsSettingsPage") );
+}
+
+void CUploadsWnd::OnUploadsHelp()
+{
+	CHelpDlg::Show( _T("UploadHelp") );
 }
 
 BOOL CUploadsWnd::PreTranslateMessage(MSG* pMsg)

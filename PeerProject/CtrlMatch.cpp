@@ -397,10 +397,12 @@ BOOL CMatchCtrl::LoadColumnState()
 
 	for ( int nColumns = 0 ; m_wndHeader.GetItem( nColumns, &pItem ) ; nColumns++ )
 	{
-		if ( strWidths.GetLength() < 4 || strOrdering.GetLength() < 2 ) return FALSE;
+		if ( strWidths.GetLength() < 4 || strOrdering.GetLength() < 2 )
+			return FALSE;
 
-		_stscanf( strWidths.Left( 4 ), _T("%x"), &pItem.cxy );
-		_stscanf( strOrdering.Left( 2 ), _T("%x"), &pItem.iOrder );
+		if ( _stscanf( strWidths.Left( 4 ), _T("%x"), &pItem.cxy ) != 1 ||
+				_stscanf( strOrdering.Left( 2 ), _T("%x"), &pItem.iOrder ) != 1 )
+			return FALSE;
 
 		strWidths = strWidths.Mid( 4 );
 		strOrdering = strOrdering.Mid( 2 );
@@ -553,6 +555,8 @@ BOOL CMatchCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 
 void CMatchCtrl::ScrollBy(int nDelta)
 {
+//	CSingleLock pLock( &m_pMatches->m_pSection, TRUE );
+
 	int nIndex = GetScrollPos( SB_VERT ) + nDelta;
 	nIndex = max( 0, nIndex );
 	ScrollTo( nIndex );
@@ -560,9 +564,13 @@ void CMatchCtrl::ScrollBy(int nDelta)
 
 void CMatchCtrl::ScrollTo(DWORD nIndex)
 {
+	CSingleLock pLock( &m_pMatches->m_pSection, TRUE );
+
 	DWORD nLimit = m_pMatches->m_nItems;
-	if ( nLimit > (DWORD)m_nPageCount ) nLimit -= m_nPageCount;
-	else nLimit = 0;
+	if ( nLimit > (DWORD)m_nPageCount )
+		nLimit -= m_nPageCount;
+	else
+		nLimit = 0;
 	nIndex = min( nIndex, nLimit );
 
 	DWORD nScroll = 0;
@@ -592,6 +600,8 @@ void CMatchCtrl::ScrollTo(DWORD nIndex)
 	}
 
 	UpdateScroll( nScroll );
+
+	pLock.Unlock();
 
 	CRect rc;
 	GetClientRect( &rc );
@@ -893,9 +903,9 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 					strTemp = ppHit->m_sNick;
 
 					if ( ppHit->GetSources() > 1 )
-						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"), strTemp, ppHit->GetSources() - 1 );
+						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"), (LPCTSTR)strTemp, ppHit->GetSources() - 1 );
 					else
-						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s"), strTemp );
+						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s"), (LPCTSTR)strTemp );
 					szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 				}
 				else if ( ( ppHit->m_nProtocol == PROTOCOL_ED2K ) && ( ppHit->m_bPush == TRI_TRUE ) )
@@ -904,9 +914,9 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 					strTemp.Format( _T("%s"), (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) );
 
 					if ( ppHit->GetSources() > 1 )
-						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"), strTemp, ppHit->GetSources() - 1 );
+						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"), (LPCTSTR)strTemp, ppHit->GetSources() - 1 );
 					else
-						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s"), strTemp );
+						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s"), (LPCTSTR)strTemp );
 					szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 				}
 				else if ( ppHit->m_pAddress.S_un.S_addr )
@@ -927,18 +937,19 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				{
 					if ( ppHit->GetSources() )
 					{
+						// Source Count with Basic Spam Flood Detection
 						CString strSource, strText;
 						LoadSourcesString( strSource,  pFile->m_nFiltered );
 						if ( pFile->m_nFiltered < 5 && pFile->m_nSources > 2300 )
 							strText.Format( _T("%u fakes"), pFile->m_nFiltered );		//ToDo: Translate "fakes"
 						else if ( pFile->m_nFiltered > 99 && pFile->m_nSources > pFile->m_nFiltered )
-							strText.Format( _T("%u %s +%u"), pFile->m_nFiltered, strSource, pFile->m_nSources - pFile->m_nFiltered );
+							strText.Format( _T("%u %s +%u"), pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
 						else if ( pFile->m_nSources > pFile->m_nFiltered )
-							strText.Format( _T("     %u %s +%u"), pFile->m_nFiltered, strSource, pFile->m_nSources - pFile->m_nFiltered );
+							strText.Format( _T("     %u %s +%u"), pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
 						else if ( pFile->m_nFiltered > 9 )
-							strText.Format( _T("%u %s "), pFile->m_nFiltered, strSource );
+							strText.Format( _T("%u %s "), pFile->m_nFiltered, (LPCTSTR)strSource );
 						else
-							strText.Format( _T("%u %s"), pFile->m_nFiltered, strSource );
+							strText.Format( _T("%u %s"), pFile->m_nFiltered, (LPCTSTR)strSource );
 
 						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), strText, pFile->m_nFiltered );
 						szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
@@ -952,18 +963,19 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			}
 			else
 			{
+				// Source Count with Basic Spam Flood Detection
 				CString strSource, strText;
 				LoadSourcesString( strSource, pFile->m_nFiltered );
 				if ( pFile->m_nFiltered < 5 && pFile->m_nSources > 2300 )
 					strText.Format( _T("%u fakes"), pFile->m_nFiltered );		//ToDo: Translate "fakes"
 				else if ( pFile->m_nFiltered > 99 && pFile->m_nSources > pFile->m_nFiltered )
-					strText.Format( _T("%u %s +%u"), pFile->m_nFiltered, strSource, pFile->m_nSources - pFile->m_nFiltered );
+					strText.Format( _T("%u %s +%u"), pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
 				else if ( pFile->m_nSources > pFile->m_nFiltered )
-					strText.Format( _T("     %u %s +%u"), pFile->m_nFiltered, strSource, pFile->m_nSources - pFile->m_nFiltered );
+					strText.Format( _T("     %u %s +%u"), pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
 				else if ( pFile->m_nFiltered > 9 )
-					strText.Format( _T("%u %s "), pFile->m_nFiltered, strSource );
+					strText.Format( _T("%u %s "), pFile->m_nFiltered, (LPCTSTR)strSource );
 				else
-					strText.Format( _T("%u %s"), pFile->m_nFiltered, strSource );
+					strText.Format( _T("%u %s"), pFile->m_nFiltered, (LPCTSTR)strSource );
 
 				_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), strText, pFile->m_nFiltered );
 				szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
@@ -1278,7 +1290,8 @@ void CMatchCtrl::DrawEmptyMessage(CDC& dc, CRect& rcClient)
 	rcText.bottom = ( rcClient.top + rcClient.bottom ) / 2;
 	rcText.top = rcText.bottom - rcText.top;
 
-	if ( ! m_bSearchLink ) rcText.OffsetRect( 0, rcText.Height() / 2 );
+	if ( ! m_bSearchLink )
+		rcText.OffsetRect( 0, rcText.Height() / 2 );
 
 	dc.SetBkMode( TRANSPARENT );
 	dc.SetBkColor( Colors.m_crWindow );
@@ -1320,7 +1333,7 @@ BOOL CMatchCtrl::HitTest(const CPoint& point, CMatchFile** poFile, CQueryHit** p
 	CRect rcClient, rcItem;
 
 	if ( poFile ) *poFile = NULL;
-	if ( poHit ) *poHit = NULL;
+	if ( poHit )  *poHit = NULL;
 	if ( pnIndex ) *pnIndex = 0xFFFFFFFF;
 
 	if ( ! pLock.Lock( 10 ) ) return FALSE;

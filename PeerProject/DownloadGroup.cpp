@@ -46,8 +46,8 @@ CDownloadGroup::CDownloadGroup(const LPCTSTR szName, const BOOL bTemporary)
 	: m_sName			( szName ? szName : _T("") )
 	, m_nImage			( SHI_FOLDER_OPEN )
 	, m_bTemporary		( bTemporary ? TRI_FALSE : TRI_UNKNOWN )
-	, m_bTorrent		( FALSE )
 	, m_bRemoteSelected	( TRUE )
+//	, m_bTorrent		( FALSE )	// Obsolete, detect Schema instead
 {
 }
 
@@ -136,7 +136,8 @@ BOOL CDownloadGroup::Link(CDownload* pDownload)
 		}
 	}
 
-	if ( m_bTorrent && pDownload->IsTorrent() )
+	if ( pDownload->IsTorrent() && ! pDownload->IsSingleFileTorrent() && 
+		CheckURI( m_sSchemaURI, CSchema::uriBitTorrent ) )	// Multifile Torrent Package addition to Schema (Was m_bTorrent)
 	{
 		// Filter by BitTorrent flag last
 		Add( pDownload );
@@ -215,12 +216,16 @@ void CDownloadGroup::SetSchema(LPCTSTR pszURI, BOOL bRemoveOldFilters)
 	if ( CSchemaPtr pSchema = SchemaCache.Get( m_sSchemaURI ) )
 	{
 		m_nImage = pSchema->m_nIcon16;
-		if ( pSchema->m_sHeaderTitle.IsEmpty() )
-			m_sName = pSchema->m_sTitle;
-		else
-			m_sName = pSchema->m_sHeaderTitle;
+
+		if ( ! m_sName.GetLength() || m_sName == _T("DEFAULT") )	// Initial translation, avoid forced rename later
+		{
+			if ( ! pSchema->m_sHeaderTitle.IsEmpty() )
+				m_sName = pSchema->m_sHeaderTitle;
+			else
+				m_sName = pSchema->m_sTitle;
+		}
 	}
-	else
+	else // Non-schema group
 	{
 		m_nImage = SHI_FOLDER_OPEN;
 	}
@@ -277,7 +282,7 @@ void CDownloadGroup::Serialize(CArchive& ar, int nVersion)
 		ASSERT( m_bTemporary == TRI_UNKNOWN || m_bTemporary == TRI_FALSE );
 		ar << m_bTemporary;
 
-		ar << m_bTorrent;
+		//ar << m_bTorrent;	// Obsolete: Detect Schema instead
 	}
 	else	// Loading
 	{
@@ -323,9 +328,7 @@ void CDownloadGroup::Serialize(CArchive& ar, int nVersion)
 		//}
 
 		//if ( nVersion >= 7 )
-		//{
-			ar >> m_bTorrent;
-		//}
+			//ar >> m_bTorrent;	// Obsolete: Detect Schema instead
 
 		// Fix collection schema (nVersion < 7)
 		//if ( CheckURI( m_sSchemaURI, CSchema::uriCollectionsFolder ) )

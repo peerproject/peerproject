@@ -30,13 +30,13 @@
 #include "ShellIcons.h"
 #include "Colors.h"
 #include "CoolInterface.h"
+#include "PeerProjectDataSource.h"
 #include "CtrlLibraryAlbumView.h"
 #include "CtrlLibraryFrame.h"
 #include "CtrlLibraryTip.h"
 #include "DlgFilePropertiesSheet.h"
 #include "Skin.h"
 #include "XML.h"
-#include "PeerProjectDataSource.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -59,7 +59,6 @@ BEGIN_MESSAGE_MAP(CLibraryAlbumView, CLibraryFileView)
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_RBUTTONDOWN()
-	ON_WM_XBUTTONDOWN()
 	ON_WM_KEYDOWN()
 	ON_WM_GETDLGCODE()
 	//}}AFX_MSG_MAP
@@ -128,7 +127,7 @@ void CLibraryAlbumView::Update()
 
 	m_pStaticStyle = m_pStyle;
 	m_pStyle = NULL;
-	BOOL bGhostFolder	= FALSE;
+	BOOL bGhostFolder = FALSE;
 
 	if ( pFolders != NULL && pFolders->m_pVirtual != NULL && pFolders->m_pSelNext == NULL )
 	{
@@ -198,12 +197,10 @@ void CLibraryAlbumView::Update()
 			if ( m_nCount == m_nBuffer )
 			{
 				m_nBuffer += 64;
-				CLibraryAlbumTrack** pList = new CLibraryAlbumTrack*[ m_nBuffer ];
-				if ( m_nCount )
-					CopyMemory( pList, m_pList, m_nCount * sizeof( CLibraryAlbumTrack* ) );
-				if ( m_pList )
-					delete [] m_pList;
-				m_pList = pList;
+				CLibraryAlbumTrack** pNewList = new CLibraryAlbumTrack*[ m_nBuffer ];
+				if ( m_nCount ) CopyMemory( pNewList, m_pList, m_nCount * sizeof( CLibraryAlbumTrack* ) );
+				delete [] m_pList;
+				m_pList = pNewList;
 			}
 
 			m_pList[ m_nCount++ ] = pTrack;
@@ -249,6 +246,17 @@ BOOL CLibraryAlbumView::Select(DWORD nObject)
 		ScrollBy( rcItem.bottom - rcClient.bottom );
 
 	return TRUE;
+}
+
+void CLibraryAlbumView::SelectAll()
+{
+	CLibraryAlbumTrack** pList = m_pList;
+	for ( int nItem = 0 ; nItem < m_nCount ; nItem++, pList++ )
+	{
+		Select( *pList, TRI_TRUE );
+	}
+
+	Invalidate();
 }
 
 DWORD_PTR CLibraryAlbumView::HitTestIndex(const CPoint& point) const
@@ -469,8 +477,7 @@ void CLibraryAlbumView::SelectTo(int nDelta)
 		if ( nFocus >= m_nCount ) nFocus = m_nCount - 1;
 	}
 
-	if ( SelectTo( m_pList[ nFocus ] ) )
-		Invalidate();
+	if ( SelectTo( m_pList[ nFocus ] ) ) Invalidate();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -676,8 +683,7 @@ CLibraryAlbumTrack* CLibraryAlbumView::HitTest(const CPoint& point, CRect* pRect
 
 		if ( rcTrack.PtInRect( point ) )
 		{
-			if ( pRect )
-				*pRect = rcTrack;
+			if ( pRect ) *pRect = rcTrack;
 			return pTrack;
 		}
 
@@ -818,14 +824,11 @@ void CLibraryAlbumView::OnRButtonDown(UINT nFlags, CPoint point)
 	CLibraryFileView::OnRButtonDown( nFlags, point );
 }
 
-void CLibraryAlbumView::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
-{
-	if ( nButton == 1 )
-		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
-}
-
 void CLibraryAlbumView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
+	BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0x8000;
+	BOOL bControl = ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) == 0x8000;
+
 	switch ( nChar )
 	{
 	case VK_LEFT:
@@ -849,7 +852,7 @@ void CLibraryAlbumView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		SelectTo( m_nCount );
 		break;
 	default:
-		if ( _istalnum( TCHAR( nChar ) ) )
+		if ( ! bShift && ! bControl && _istalnum( TCHAR( nChar ) ) )
 		{
 			CLibraryAlbumTrack* pStart	= m_pFocus;
 

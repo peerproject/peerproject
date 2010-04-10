@@ -34,8 +34,6 @@ public:
 	CSearchManager();
 	~CSearchManager();
 
-	CMutexEx		m_pSection;
-
 	void			OnRun();
 	BOOL			OnQueryAck(CG2Packet* pPacket, const SOCKADDR_IN* pAddress, Hashes::Guid& oGUID);
 	BOOL			OnQueryHits(const CQueryHit* pHits);
@@ -44,14 +42,15 @@ public:
 protected:
 	typedef CList< CManagedSearch* > CSearchList;
 
+	CMutexEx		m_pSection;
 	CSearchList		m_pList;
 	DWORD			m_tLastTick;
 	int				m_nPriorityClass;
 	int				m_nPriorityCount;
 	Hashes::Guid	m_oLastED2KSearch;
 
-	void			Add(CManagedSearch* pSearch);
-	void			Remove(CManagedSearch* pSearch);
+	bool			Add(CManagedSearch* pSearch);
+	bool			Remove(CManagedSearch* pSearch);
 	CSearchPtr		Find(const Hashes::Guid& oGUID) const;
 
 	friend class CManagedSearch;	// m_pSection, m_oLastED2KSearch, Add(), Remove()

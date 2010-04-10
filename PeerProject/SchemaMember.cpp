@@ -1,7 +1,7 @@
 //
 // SchemaMember.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -37,21 +37,21 @@ static char THIS_FILE[]=__FILE__;
 // CSchemaMember construction
 
 CSchemaMember::CSchemaMember(CSchema* pSchema)
-: m_pSchema(pSchema)
-, m_bNumeric(FALSE)
-, m_bYear(FALSE)
-, m_bGUID(FALSE)
-, m_bIndexed(FALSE)
-, m_bSearched(FALSE)
-, m_nMinOccurs(0)
-, m_nMaxOccurs(0)
-, m_nMaxLength(128)
-, m_bPrompt(FALSE)
-, m_nFormat(smfNone)
-, m_nColumnWidth(60)
-, m_nColumnAlign(LVCFMT_LEFT)
-, m_bHidden(FALSE)
-, m_bBoolean(FALSE)
+	: m_pSchema 	(pSchema)
+	, m_bNumeric	(FALSE)
+	, m_bYear		(FALSE)
+	, m_bGUID		(FALSE)
+	, m_bIndexed	(FALSE)
+	, m_bSearched	(FALSE)
+	, m_nMinOccurs	(0)
+	, m_nMaxOccurs	(0)
+	, m_nMaxLength	(128)
+	, m_bPrompt 	(FALSE)
+	, m_nFormat 	(smfNone)
+	, m_nColumnWidth(60)
+	, m_nColumnAlign(LVCFMT_LEFT)
+	, m_bHidden 	(FALSE)
+	, m_bBoolean	(FALSE)
 {
 }
 
@@ -79,17 +79,13 @@ CString CSchemaMember::GetValueFrom(CXMLElement* pBase, LPCTSTR pszDefault, BOOL
 {
 	// ToDo: OPTIMIZE: This could all be done with LPCTSTR pointers instead of CString
 	CString strValue;
-	
+
 	if ( pBase != NULL )
 	{
 		if ( CXMLElement* pElement = pBase->GetElementByName( m_sName ) )
-		{
 			strValue = pElement->GetValue();
-		}
 		else
-		{
 			strValue = pBase->GetAttributeValue( m_sName, pszDefault );
-		}
 	}
 	else if ( pszDefault != NULL )
 	{
@@ -109,7 +105,7 @@ CString CSchemaMember::GetValueFrom(CXMLElement* pBase, LPCTSTR pszDefault, BOOL
 		else if ( m_bYear )
 		{
 			int nYear = 0;
-			if ( _stscanf( strValue, L"%i", &nYear ) != 1 || nYear < 1000 || nYear > 9999 ) 
+			if ( _stscanf( strValue, L"%i", &nYear ) != 1 || nYear < 1000 || nYear > 9999 )
 				strValue = ( pszDefault ? pszDefault : _T("") );
 		}
 		else if ( m_bGUID && strValue.GetLength() )
@@ -121,12 +117,12 @@ CString CSchemaMember::GetValueFrom(CXMLElement* pBase, LPCTSTR pszDefault, BOOL
 		else if ( m_bBoolean )
 		{
 			if ( strValue == L"1" ||
-				strValue.CompareNoCase( L"true" ) == 0 ||
-				strValue.CompareNoCase( L"yes" ) == 0 )
+					strValue.CompareNoCase( L"true" ) == 0 ||
+					strValue.CompareNoCase( L"yes" ) == 0 )
 				strValue = L"true";
 			else if ( strValue == L"0" ||
-				strValue.CompareNoCase( L"false" ) == 0 ||
-				strValue.CompareNoCase( L"no" ) == 0 )
+					strValue.CompareNoCase( L"false" ) == 0 ||
+					strValue.CompareNoCase( L"no" ) == 0 )
 				strValue = L"false";
 			else
 				strValue = ( pszDefault ? pszDefault : _T("") );
@@ -135,7 +131,7 @@ CString CSchemaMember::GetValueFrom(CXMLElement* pBase, LPCTSTR pszDefault, BOOL
 
 	if ( strValue.IsEmpty() ) return CString();
 
-	if ( bFormat && m_bNumeric ) 
+	if ( bFormat && m_bNumeric )
 	{
 		if ( m_nFormat == smfTimeMMSS )
 		{
@@ -172,7 +168,7 @@ CString CSchemaMember::GetValueFrom(CXMLElement* pBase, LPCTSTR pszDefault, BOOL
 				strValue = ( pszDefault ? pszDefault : _T("") );
 		}
 	}
-	
+
 	return strValue;
 }
 
@@ -190,10 +186,9 @@ void CSchemaMember::SetValueTo(CXMLElement* pBase, LPCTSTR pszValue)
 	}
 	else if ( m_bElement && pszValue != NULL && _tcslen( pszValue ) > 0 )
 	{
-		CXMLElement* pElement = pBase->AddElement( m_sName );
-		pElement->SetValue( pszValue );
+		pBase->AddElement( m_sName )->SetValue( pszValue );
 	}
-	
+
 	if ( CXMLAttribute* pAttribute = pBase->GetAttribute( m_sName ) )
 	{
 		if ( ! m_bElement && pszValue != NULL && _tcslen( pszValue ) > 0 )
@@ -223,7 +218,7 @@ BOOL CSchemaMember::LoadSchema(CXMLElement* pRoot, CXMLElement* pElement)
 	m_sType = pElement->GetAttributeValue( L"type", L"" );
 	ToLower( m_sType );
 
-	m_bNumeric = ( m_sType == L"short" || m_sType == L"int" || m_sType == L"decimal" );
+	m_bNumeric = ( m_sType == L"decimal" || m_sType == L"int" || m_sType == L"short" );
 	m_bBoolean = m_sType == L"boolean";
 	m_bYear = m_sType == L"year";
 	m_bGUID = m_sType == L"guidtype";
@@ -232,7 +227,7 @@ BOOL CSchemaMember::LoadSchema(CXMLElement* pRoot, CXMLElement* pElement)
 	_stscanf( strValue, L"%i", &m_nMinOccurs );
 	strValue = pElement->GetAttributeValue( L"maxOccurs", L"65536" );
 	_stscanf( strValue, L"%i", &m_nMaxOccurs );
-	
+
 	if ( pElement->GetElementCount() )
 	{
 		return LoadType( pElement->GetFirstElement() );
@@ -258,11 +253,11 @@ BOOL CSchemaMember::LoadType(CXMLElement* pType)
 	m_sType = pType->GetAttributeValue( L"base", L"" );
 	ToLower( m_sType );
 
-	m_bNumeric = ( m_sType == L"short" || m_sType == L"int" || m_sType == L"decimal" );
+	m_bNumeric = ( m_sType == L"decimal" || m_sType == L"int" || m_sType == L"short" );
 	m_bBoolean = m_sType == L"boolean";
 	m_bYear = m_sType == L"year";
 	m_bGUID = m_sType == L"guidtype";
-	
+
 	for ( POSITION pos = pType->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pElement	= pType->GetNextElement( pos );
@@ -289,7 +284,7 @@ BOOL CSchemaMember::LoadType(CXMLElement* pType)
 BOOL CSchemaMember::LoadDescriptor(CXMLElement* pXML)
 {
 	CString strSearch = pXML->GetAttributeValue( L"search" );
-	
+
 	if ( strSearch.CompareNoCase( L"generic" ) == 0 )
 	{
 		m_bIndexed	= TRUE;
@@ -299,14 +294,14 @@ BOOL CSchemaMember::LoadDescriptor(CXMLElement* pXML)
 	{
 		m_bIndexed = TRUE;
 	}
-	
+
 	CString strTitle = m_sTitle;
 	m_sTitle.Empty();
-	
+
 	for ( POSITION pos = pXML->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pElement = pXML->GetNextElement( pos );
-		
+
 		if ( pElement->IsNamed( L"display" ) )
 		{
 			LoadDisplay( pElement );
@@ -324,9 +319,9 @@ BOOL CSchemaMember::LoadDescriptor(CXMLElement* pXML)
 			m_sLinkName	= pElement->GetAttributeValue( L"remote" );
 		}
 	}
-	
+
 	if ( m_sTitle.IsEmpty() ) m_sTitle = strTitle;
-	
+
 	return TRUE;
 }
 
@@ -337,7 +332,7 @@ BOOL CSchemaMember::LoadDisplay(CXMLElement* pDisplay)
 	CString strAlign	= pDisplay->GetAttributeValue( L"columnAlign" );
 	CString strColumn	= pDisplay->GetAttributeValue( L"defaultColumn" );
 	CString strSearch	= pDisplay->GetAttributeValue( L"prompt" );
-	CString strHidden	= pDisplay->GetAttributeValue( L"hidden" );	
+	CString strHidden	= pDisplay->GetAttributeValue( L"hidden" );
 
 	if ( strHidden.CompareNoCase( L"true" ) == 0 )
 	{
@@ -353,27 +348,25 @@ BOOL CSchemaMember::LoadDisplay(CXMLElement* pDisplay)
 		m_nFormat = smfBitrate;
 	else if ( strFormat.CompareNoCase( L"frequency" ) == 0 )
 		m_nFormat = smfFrequency;
-	
+
 	_stscanf( strWidth, L"%lu", &m_nColumnWidth );
-	
+
 	if ( strAlign.CompareNoCase( L"left" ) == 0 )
 		m_nColumnAlign = LVCFMT_LEFT;
 	else if ( strAlign.CompareNoCase( L"center" ) == 0 )
 		m_nColumnAlign = LVCFMT_CENTER;
 	else if ( strAlign.CompareNoCase( L"right" ) == 0 )
 		m_nColumnAlign = LVCFMT_RIGHT;
-	
+
 	if ( strColumn.CompareNoCase( L"true" ) == 0 )
 	{
 		m_pSchema->m_sDefaultColumns += '|';
 		m_pSchema->m_sDefaultColumns += m_sName;
 		m_pSchema->m_sDefaultColumns += '|';
 	}
-	
+
 	if ( strSearch.CompareNoCase( _T("true") ) == 0 )
-	{
 		m_bPrompt = TRUE;
-	}
-	
+
 	return TRUE;
 }

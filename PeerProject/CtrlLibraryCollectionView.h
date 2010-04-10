@@ -1,7 +1,7 @@
 //
 // CtrlLibraryCollectionView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -42,13 +42,14 @@ protected:
 	CWebCtrl*			m_pWebCtrl;
 	DWORD				m_nWebIndex;
 	CCollectionFile*	m_pCollection;
-    Hashes::Sha1Hash    m_oSHA1;
+	Hashes::Sha1Hash	m_oSHA1;
 
 	virtual BOOL Create(CWnd* pParentWnd);
 
 // Operations
 public:
 	virtual BOOL	CheckAvailable(CLibraryTreeItem* pSel);
+	virtual void	SelectAll() {}
 	virtual void	Update();
 protected:
 	virtual DWORD_PTR HitTestIndex(const CPoint& /*point*/) const { return 0; };
@@ -67,7 +68,7 @@ protected:
 
 // Object Model
 protected:
-    class External : public CComObject
+	class External : public CComObject
 	{
 	// Construction
 	public:

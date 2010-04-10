@@ -47,18 +47,18 @@ END_INTERFACE_MAP()
 // CLibraryFolder construction
 
 CLibraryFolder::CLibraryFolder(CLibraryFolder* pParent, LPCTSTR pszPath)
-	: m_nFiles( 0 )
-	, m_nVolume( 0 )
-	, m_nScanCookie( 0 )
-	, m_nUpdateCookie( 0 )
-	, m_nSelectCookie( 0 )
-	, m_pParent( pParent )
-	, m_sPath( pszPath )
-	, m_bShared( pParent ? TRI_UNKNOWN : TRI_TRUE )
-	, m_bExpanded( pParent ? FALSE : TRUE )
-	, m_hMonitor( INVALID_HANDLE_VALUE )
-	, m_bForceScan( TRUE )
-	, m_bOffline( FALSE )
+	: m_nFiles		( 0 )
+	, m_nVolume 	( 0 )
+	, m_nScanCookie	( 0 )
+	, m_nUpdateCookie ( 0 )
+	, m_nSelectCookie ( 0 )
+	, m_pParent 	( pParent )
+	, m_sPath		( pszPath )
+	, m_bShared 	( pParent ? TRI_UNKNOWN : TRI_TRUE )
+	, m_bExpanded	( pParent ? FALSE : TRUE )
+	, m_hMonitor	( INVALID_HANDLE_VALUE )
+	, m_bForceScan	( TRUE )
+	, m_bOffline	( FALSE )
 {
 	EnableDispatch( IID_ILibraryFolder );
 	EnableDispatch( IID_ILibraryFolders );
@@ -91,7 +91,7 @@ bool CLibraryFolder::operator==(const CLibraryFolder& val) const
 
 void CLibraryFolder::RenewGUID()
 {
-	CoCreateGuid( reinterpret_cast< GUID* > ( m_oGUID.begin() ) );
+	CoCreateGuid( reinterpret_cast< GUID* > ( m_oGUID.begin() ) );	// tr1 fix: .data()
 	m_oGUID.validate();
 }
 

@@ -249,12 +249,12 @@ void CFileCopyDlg::OnRun()
 
 			if ( pFile != NULL && pFile->IsAvailable() )
 			{
-				strName		= pFile->m_sName;
-				strPath		= pFile->m_pFolder->m_sPath;
-				pSchema		= pFile->m_pSchema;
+				strName 	= pFile->m_sName;
+				strPath 	= pFile->GetFolder();
+				pSchema 	= pFile->m_pSchema;
 				pMetadata	= pFile->m_pMetadata ? pFile->m_pMetadata->Clone() : NULL;
 				bMetadataAuto = pFile->m_bMetadataAuto;
-				nRating		= pFile->m_nRating;
+				nRating 	= pFile->m_nRating;
 				sComments	= pFile->m_sComments;
 				sShareTags	= pFile->m_sShareTags;
 			}
@@ -420,7 +420,7 @@ bool CFileCopyDlg::CheckTarget(const CString& strTarget)
 
 bool CFileCopyDlg::ProcessMove(const CString& strSource, const CString& strTarget)
 {
-	if ( !CheckTarget( strTarget ) )
+	if ( ! CheckTarget( strTarget ) )
 		return false;
 
 	// Close the file handle
@@ -450,7 +450,7 @@ bool CFileCopyDlg::ProcessMove(const CString& strSource, const CString& strTarge
 
 bool CFileCopyDlg::ProcessCopy(const CString& strSource, const CString& strTarget)
 {
-	if ( !CheckTarget( strTarget ) )
+	if ( ! CheckTarget( strTarget ) )
 		return false;
 
 	m_wndFileProg.SetPos( 0 );
